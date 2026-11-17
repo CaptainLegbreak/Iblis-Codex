@@ -47,7 +47,7 @@ extern int gbCoreUp_00970E48; // 0x00970E48
 extern int gn_007C9140; // 0x007C9140
 extern D2ComObject006B5550Strc* gpObject_00970E60; // 0x00970E60
 void __cdecl sub_006B9B00_FreeGlobal(); // 0x006B9B00
-void __cdecl sub_006B3320_Free(); // 0x006B3320
+void __cdecl sub_006B3320_ReleaseResources(); // 0x006B3320
 extern D2CriticalSectionStrc* gpCriticalSection_007C9134; // 0x007C9134
 extern int gnPaused_007C9144; // 0x007C9144
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -55,7 +55,6 @@ extern "C" void __cdecl sub_00408A60(const char*, const char*, int); // 0x00408A
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc*);
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc*);
-void __cdecl sub_006B3320_ReleaseResources(); // 0x006B3320
 void __fastcall sub_006B55E0_InitializeWindow(int, int); // 0x006B55E0
 
 struct D2Direct3DDeviceVtblStrc {
@@ -95,7 +94,7 @@ int __cdecl sub_006B5550_ShutdownCore()
     if (gbCoreUp_00970E48)
     {
         sub_006B9B00_FreeGlobal();
-        sub_006B3320_Free();
+        sub_006B3320_ReleaseResources();
         gn_007C9140 = 0;
         RELEASE(gpObject_00970E64);
         RELEASE(gpObject_00970E60);

@@ -100,8 +100,6 @@ struct D2TextureInfo006B7090Strc
     float fV0;
     float fV1;
 };
-
-void __fastcall sub_006B1F40_SetRenderMode(int nMode); // 0x006B1F40
 int __stdcall sub_006001F0_Prepare(D2CelContext006B7090Strc* pContext, int a2, int a3); // 0x006001F0
 int __stdcall sub_006018C0_CelGetWidth(D2CellFileStrc* pCelFile); // 0x006018C0
 int __stdcall sub_006018F0_CelGetHeight(D2CellFileStrc* pCelFile); // 0x006018F0
@@ -267,7 +265,7 @@ int __fastcall sub_006B7090_DrawCel(D2CelContext006B7090Strc* pContext, int nX, 
 {
     D2TextureInfo006B7090Strc tInfo;
 
-    sub_006B1F40_SetRenderMode(4);
+    sub_006B1F40_SetBlendMode(4);
     int nResult = sub_006B5C80_LoadCelInfo(pContext, &tInfo);
     if (nResult)
     {

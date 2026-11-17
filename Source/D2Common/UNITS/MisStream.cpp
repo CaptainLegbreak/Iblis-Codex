@@ -42,7 +42,7 @@ void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, 
 void* __fastcall FOG_ReallocPool(void* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0); // 0x0040B4B0
 void __stdcall PATH_SetType(D2DynamicPathStrc* pPath, int nType); // 0x00648CF0
 void __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int a3); // 0x00649970
-int __stdcall PATH_GetPathPoints(D2DynamicPathStrc* pPath, D2PathPointStrc** ppPathPoints); // 0x006487D0
+int __stdcall sub_006487D0(D2DynamicPathStrc* pPath, D2PathPointStrc** ppPathPoints); // 0x006487D0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 unsigned short __stdcall COLLISION_CheckMaskWithSize(D2ActiveRoomStrc* pRoom, int nX, int nY, int nPattern, int nMask); // 0x0064D9B0
 D2UnitStrc* __stdcall D2Common_10407(D2ActiveRoomStrc* pRoom, int nX, int nY, MISSTREAM_TEST pfTest, void* pArg, int nPattern); // 0x00641CB0
@@ -57,8 +57,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 typedef int (__fastcall* D2StreamCreate)(D2UnitStrc*, int, int, int, int, int, char);
 
 typedef void (__fastcall* D2StreamFree)(int);
-int __stdcall sub_006487D0(D2DynamicPathStrc*, D2PathPointStrc**); // 0x006487D0
-D2MissileStreamStrc* __fastcall sub_0064A6F0_GetMissileStream(D2UnitStrc*); // 0x0064A6F0
 extern const char gszAssertExpression_006CC837[]; // 0x006CC837
 extern const char gszMisStream_006EE540[]; // 0x006EE540
 
@@ -101,7 +99,7 @@ void __stdcall MISSTREAM_ExecuteHit(D2UnitStrc* pUnit, int nCollisionMask, int n
     D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
     PATH_SetType(pPath, 16);
     D2Common_10142(pPath, pUnit, 0);
-    int nPathPoints = PATH_GetPathPoints(pPath, &pPathPoints);
+    int nPathPoints = sub_006487D0(pPath, &pPathPoints);
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
 
     for (int i = 0; i < nPathPoints; ++i)
@@ -129,7 +127,7 @@ void __stdcall MISSTREAM_Update(D2UnitStrc* pUnit, D2UnitStrc* pMissile, int nAm
     D2Common_10142(pPath, pMissile, 0);
     int nPathPoints = sub_006487D0(pPath, &pPathPoints);
     if (nPathPoints != 0 && nPathPoints != 1) {
-        D2MissileStreamStrc* pStream = sub_0064A6F0_GetMissileStream(pMissile);
+        D2MissileStreamStrc* pStream = MISSILE_GetStream(pMissile);
         if (!pStream) { sub_00408A60(gszAssertExpression_006CC837, sub_00408090(), 138); exit(-1); }
         int nRatio = nAmount / nStep;
         int bCreate = 0;

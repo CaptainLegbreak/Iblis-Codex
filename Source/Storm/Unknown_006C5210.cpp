@@ -541,7 +541,6 @@ typedef unsigned short uint16_t;
 typedef unsigned int uint32_t;
 typedef unsigned int size_t;
 typedef int intptr_t;
-void __stdcall SErrSetLastError(unsigned long); // 0x0041C340
 #define D2_GUARD_BEGIN do { int d2Guard_ = -1
 #define D2_CHECK(c) d2Guard_ &= (c) ? -1 : 0
 #define D2_GUARD_END_VOID(fail) if (!d2Guard_) { fail; return; } } while (0)

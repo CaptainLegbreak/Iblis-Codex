@@ -110,8 +110,6 @@ struct D2AutomapRandStrc
     int nEnd;
 };
 
-void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
-
 struct D2SeedStrc
 {
     unsigned int nLowSeed;
@@ -808,7 +806,7 @@ void __fastcall DATATBLS_LoadAutomapTxt(void* hArchive)
     };
 
     pAutomapTxt = (D2AutomapTxt*)DATATBLS_CompileTxt(hArchive, "automap", pTbl, &nRecordCount, sizeof(D2AutomapTxt));
-    pAutomap = (D2AutomapShortStrc*)sub_0040B430(0, sizeof(D2AutomapShortStrc) * nRecordCount, ".\\DATATBLS\\LvlTbls.cpp", 0x4F7, 0);
+    pAutomap = (D2AutomapShortStrc*)FOG_AllocPool(0, sizeof(D2AutomapShortStrc) * nRecordCount, ".\\DATATBLS\\LvlTbls.cpp", 0x4F7, 0);
     memset(pAutomap, 0, sizeof(D2AutomapShortStrc) * nRecordCount);
 
     for (int i = 0; i < nRecordCount; ++i)

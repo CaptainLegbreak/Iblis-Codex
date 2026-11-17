@@ -363,7 +363,7 @@ struct T0040D1C0
 };
 
 void __fastcall sub_0040F000_GetLogDirectory(char* szDirectory, int nSize); // 0x0040F000
-void __stdcall sub_0041D2A0_MemCopy(void* pDst, const void* pSrc, unsigned int nSize); // 0x0041D2A0
+void __stdcall SMemCopy(void* pDst, const void* pSrc, unsigned int nSize); // 0x0041D2A0
 
 #pragma pack(push, 1)
 struct D2CrashDumpEntryStrc
@@ -380,12 +380,10 @@ struct D2CrashDumpEntryStrc
 
 extern "C" unsigned int __cdecl fread(void* pBuffer, unsigned int nSize, unsigned int nCount, _iobuf* pFile); // 0x00684782
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
-void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
 int __stdcall SMemCmp(const void* pLocation1, const void* pLocation2, unsigned int nSize); // 0x0041D200
 extern "C" const char gszReadBinary_006CDC90[]; // 0x006CDC90
 extern D2CriticalSectionStrc gtImageHlpLock_0075CFBC; // 0x0075CFBC
 extern int gnSymInitCount_0075CFD4; // 0x0075CFD4
-extern int (__stdcall *gpCleanup_0075CFDC)(void*); // 0x0075CFDC
 
 static void __stdcall sub_0040C520_GetLogicalAddress(char* szModule, unsigned long* pnSection, unsigned long* pnOffset, void* pAddress, unsigned int nSize);
 
@@ -758,7 +756,7 @@ int __fastcall sub_0040C720_ReleaseReferences(int all)
             result = 1;
             break;
         }
-        gpCleanup_0075CFDC(GetCurrentProcess());
+        gpfnSymCleanup_0075CFDC(GetCurrentProcess());
         if (!all)
         {
             break;
@@ -893,7 +891,7 @@ void __fastcall sub_0040D1C0_AppendCrashDump(unsigned long dwHeader0, unsigned l
         tRecord.f_4 = dwHeader1;
         tRecord.dwType = dwType;
         tRecord.nCount = nCount;
-        sub_0041D2A0_MemCopy(tRecord.adwData, pData, nCount * 4);
+        SMemCopy(tRecord.adwData, pData, nCount * 4);
         fwrite(&tRecord, nCount * 4 + 0x10, 1, pFile);
         fclose(pFile);
     }

@@ -1,9 +1,5 @@
 #include "D2DDraw.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
-#define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
-
 struct D2CriticalSectionStrc;
 struct D2TileLibraryEntryStrc;
 struct D2GfxLightExStrc;
@@ -17,14 +13,6 @@ struct D2DDSurfaceDescStrc;
 struct D2DDrawSurfaceVtblStrc;
 struct D2DDrawObjectVtblStrc;
 struct tagRECT;
-
-struct T004F51E0
-{
-    unsigned char peRed;
-    unsigned char peGreen;
-    unsigned char peBlue;
-    unsigned char peFlags;
-};
 
 struct T00508FE0
 {
@@ -98,14 +86,6 @@ struct D2TileDrawFunctionsStrc
 {
     void* unk0x00[3];
     int (__fastcall* pfDrawFloorTile)(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, D2GfxLightExStrc* pLight);
-};
-
-struct tagRECT
-{
-    long left;
-    long top;
-    long right;
-    long bottom;
 };
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60

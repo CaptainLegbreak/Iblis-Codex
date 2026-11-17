@@ -63,7 +63,7 @@ struct D2DrlgActStrc
 };
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
+void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 D2DrlgStrc* __fastcall DRLG_AllocDrlg(D2DrlgActStrc* pAct, unsigned char nActNo, void* hArchive, unsigned int nInitSeed, int nTownLevelId, unsigned int nFlags, D2GameStrc* pGame, unsigned char nDifficulty, AUTOMAPFN pfAutoMap, TOWNAUTOMAPFN pfTownAutoMap); // 0x00642DA0
 D2DrlgEnvironmentStrc* __fastcall ENVIRONMENT_AllocDrlgEnvironment(void* pMemPool); // 0x0061BE40
 void __fastcall DRLGANIM_InitCache(D2DrlgStrc* pDrlg, void** ppTileData); // 0x00642A30
@@ -168,8 +168,6 @@ void __fastcall DRLGANIM_UpdateFrameInAdjacentRooms(D2DrlgRoomStrc* pDrlgRoom1, 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
 
 struct Obj00619720 { unsigned int dwUnknown00[6]; unsigned int dwMember18; };
-
-void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 int __fastcall sub_0066BCF0(D2DrlgRoomStrc* pDrlgRoom); // 0x0066BCF0
 int __fastcall DRLGROOM_ReorderNearRoomList(D2DrlgRoomStrc* pDrlgRoom, D2ActiveRoomStrc** ppRoomList); // 0x0066BD00
 
@@ -274,7 +272,7 @@ struct Obj0061AFA0 { unsigned char bUnknown00[0x14]; unsigned char bIndex14; uns
 // 0x006194A0
 D2DrlgActStrc* __stdcall DUNGEON_AllocAct(unsigned char nAct, unsigned int nInitSeed, int bClient, D2GameStrc* pGame, unsigned char nDifficulty, void* pMemPool, int nTownLevelId, AUTOMAPFN pfAutoMap, TOWNAUTOMAPFN pfTownAutoMap)
 {
-    D2DrlgActStrc* pAct = (D2DrlgActStrc*)sub_0040B430(pMemPool, sizeof(D2DrlgActStrc), ".\\DUNGEON\\Dungeon.cpp", 0x19, 0);
+    D2DrlgActStrc* pAct = (D2DrlgActStrc*)FOG_AllocPool(pMemPool, sizeof(D2DrlgActStrc), ".\\DUNGEON\\Dungeon.cpp", 0x19, 0);
     memset(pAct, 0, sizeof(D2DrlgActStrc));
 
     pAct->dwInitSeed = nInitSeed;

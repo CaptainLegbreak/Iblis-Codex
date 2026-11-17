@@ -226,7 +226,6 @@ void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListSt
 void __stdcall STATLIST_SetStatIfListIsValid(D2StatListStrc* pStatList, int nStatId, int nValue, int nLayer); // 0x00627150
 void __stdcall D2Common_10474(D2UnitStrc* pUnit, D2StatListStrc* pStatList);
 void __stdcall STATLIST_FreeStatList(D2StatListStrc* pStatList);
-void __stdcall STATLIST_SetStat(D2StatListStrc* pStatList, int nStatId, int nValue, int nLayer); // 0x00627150
 int __fastcall sub_004638A0_CheckMonStats2Flag(int nMonsterId, int nFlag);
 
 struct D2MonStats2Txt

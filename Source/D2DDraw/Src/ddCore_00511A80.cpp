@@ -32,12 +32,6 @@ struct D2DDrawCapsStrc
     int nValue108;
     int nValue10C;
 };
-
-struct D2SmackRecordStrc
-{
-    void* f_0;
-    unsigned char nType;
-};
 int __fastcall sub_00511870_EndScene();                                                                     // 0x00511870
 void __fastcall sub_00512ED0_ClearScreen(int bPartial);                                                     // 0x00512ED0
 extern int gaDDrawCapsTypes_0072F7D0[7];                                                                    // 0x0072F7D0

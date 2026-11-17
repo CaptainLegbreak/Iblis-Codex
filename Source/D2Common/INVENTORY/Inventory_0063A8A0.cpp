@@ -101,7 +101,7 @@ struct D2InventoryStrc
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern D2InventoryGridInfoStrc gBodyLocInventoryGridInfo; // 0x0074479C
 extern D2InventoryGridInfoStrc gBeltInventoryGridInfo; // 0x007447B4
-void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
+void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 void* __fastcall sub_0040B4B0(void* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0); // 0x0040B4B0
 int __fastcall sub_00463720_TestUnitFlagEx(D2UnitStrc* pUnit, unsigned int dwMask); // 0x00463720
 void __stdcall DUNGEON_AllocDrlgDelete(D2ActiveRoomStrc* pRoom, int nUnitType, int nUnitGUID); // 0x0061A270
@@ -130,8 +130,6 @@ struct D2CorpseStrc
     unsigned int unk0x08;
     D2CorpseStrc* pNextCorpse;
 };
-
-void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 int __stdcall ITEMS_CanBeEquipped(D2UnitStrc* pItem); // 0x0062A4E0
@@ -297,7 +295,7 @@ static __declspec(noinline) D2InventoryGridStrc* __stdcall INVENTORY_GetGrid(D2I
         {
             pInventoryGrid->nGridWidth = pInventoryGridInfo->nGridX;
             pInventoryGrid->nGridHeight = pInventoryGridInfo->nGridY;
-            pInventoryGrid->ppItems = (D2UnitStrc**)sub_0040B430(pInventory->pMemPool, sizeof(D2UnitStrc*) * pInventoryGrid->nGridWidth * pInventoryGrid->nGridHeight, gszInventorySourceFile_006EA918, 721, 0);
+            pInventoryGrid->ppItems = (D2UnitStrc**)FOG_AllocPool(pInventory->pMemPool, sizeof(D2UnitStrc*) * pInventoryGrid->nGridWidth * pInventoryGrid->nGridHeight, gszInventorySourceFile_006EA918, 721, 0);
             memset(pInventoryGrid->ppItems, 0, sizeof(D2UnitStrc*) * pInventoryGrid->nGridWidth * pInventoryGrid->nGridHeight);
         }
 
@@ -321,7 +319,7 @@ static __declspec(noinline) D2InventoryGridStrc* __stdcall INVENTORY_GetGrid(D2I
     pInventoryGrid = &pInventory->pGrids[nInventoryGrid];
     pInventoryGrid->nGridWidth = pInventoryGridInfo->nGridX;
     pInventoryGrid->nGridHeight = pInventoryGridInfo->nGridY;
-    pInventoryGrid->ppItems = (D2UnitStrc**)sub_0040B430(pInventory->pMemPool, sizeof(D2UnitStrc*) * pInventoryGrid->nGridWidth * pInventoryGrid->nGridHeight, gszInventorySourceFile_006EA918, 747, 0);
+    pInventoryGrid->ppItems = (D2UnitStrc**)FOG_AllocPool(pInventory->pMemPool, sizeof(D2UnitStrc*) * pInventoryGrid->nGridWidth * pInventoryGrid->nGridHeight, gszInventorySourceFile_006EA918, 747, 0);
     memset(pInventoryGrid->ppItems, 0, sizeof(D2UnitStrc*) * pInventoryGrid->nGridWidth * pInventoryGrid->nGridHeight);
     return pInventoryGrid;
 }

@@ -1,19 +1,5 @@
 #include "D2DDraw.h"
 
-struct T004F51E0
-{
-    unsigned char peRed;
-    unsigned char peGreen;
-    unsigned char peBlue;
-    unsigned char peFlags;
-};
-
-struct D2SmackRecordStrc
-{
-    void* f_0;
-    unsigned char nType;
-};
-
 struct D2SmackStrc
 {
     unsigned int Version;

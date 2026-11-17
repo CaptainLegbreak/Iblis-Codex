@@ -71,9 +71,6 @@ struct D2CmpPaletteStrc
 
 void __stdcall sub_M92_EmitSinkA(D2CmpSubTileRecordStrc* pRecord);
 void __stdcall sub_M92_EmitSinkB(unsigned char* pData, D2CmpSubTileRecordStrc* pRecord);
-int __fastcall sub_0060D310_CountTransparent(unsigned char, const unsigned char*, const unsigned char*, int, int*, int*); // 0x0060D310
-int __fastcall sub_0060D3A0_CountOpaque(const unsigned char*, const unsigned char*, unsigned char, int, int*, int*); // 0x0060D3A0
-void __stdcall sub_0060D9C0_PackSolid(D2CmpSubTileRecordStrc*, const unsigned char*); // 0x0060D9C0
 
 // 0x0060D430
 unsigned char* __fastcall sub_0060D430_CompressSubtile(const unsigned char* pData, unsigned int* pSize)
@@ -445,7 +442,7 @@ void __fastcall sub_0060DB20_RecodeSubTile(D2CmpSubTileRecordStrc* pRecord)
     if (sub_0060D7E0_HasTransparent(pData))
         sub_0060D840_PackTransparent(pRecord, pData);
     else
-        sub_0060D9C0_PackSolid(pRecord, pData);
+        sub_0060D9C0_BuildDiamondBlock(pRecord, pData);
     FOG_Free(pData, szTileCodecFile, 0x1DE, 0);
 }
 

@@ -87,8 +87,8 @@ void __fastcall sub_006B9860_Project(int nX,int nY,int nZ,int* pOutX,int* pOutY)
 void __fastcall sub_006B9730_SetColor(D2TLVertexStrc* pVertex,unsigned char nIndex,unsigned char nAlpha); // 0x006B9730
 void __fastcall sub_006BBA00_SelectTile(D2PerspectiveTileStrc* pTile); // 0x006BBA00
 int __stdcall sub_005FDEA0_CheckSurface(void*, int, int); // 0x005FDEA0
-void __fastcall sub_006B1F40_SetBlend(int); // 0x006B1F40
-void __fastcall sub_006B2030_SetEnabled(int); // 0x006B2030
+void __fastcall sub_006B1F40_SetBlendMode(int); // 0x006B1F40
+void __fastcall sub_006B2030_SetFilterMode(int); // 0x006B2030
 int __cdecl sub_006B9830_UseAlternate(); // 0x006B9830
 int __stdcall sub_006B8950_DrawAlternate(void*, void*, int, int, int, unsigned char); // 0x006B8950
 int __stdcall sub_006B87A0_DrawNormal(void*, void*, int, int, int, unsigned char); // 0x006B87A0
@@ -152,8 +152,6 @@ extern unsigned short gaGridIndices_009716B0[65]; // 0x009716B0
 extern unsigned char gaPaletteRows_00971740[256][256]; // 0x00971740
 int __fastcall sub_006BB870_BindTileTexture(D2TileLibraryEntryStrc* pTile); // 0x006BB870
 void __fastcall sub_006B1EA0_SetState(int nState); // 0x006B1EA0
-void __fastcall sub_006B1F40_SetBlendMode(int nState); // 0x006B1F40
-void __fastcall sub_006B2030_SetFilterMode(int nMode); // 0x006B2030
 void __fastcall sub_006B20E0_DDrawLogError(const char* szWhere,int hResult); // 0x006B20E0
 extern int gnOriginX_00981740; // 0x00981740
 extern int gnOriginY_00981744; // 0x00981744
@@ -390,8 +388,8 @@ static int __stdcall sub_006B8DF0_DrawConfigured(void* pSurface, int nA, int nB,
 {
     if (!sub_005FDEA0_CheckSurface(pSurface, 1, 0)) return 0;
     sub_006B1EA0_SetMode(1);
-    sub_006B1F40_SetBlend(nAlpha == 255 ? 1 : 4);
-    sub_006B2030_SetEnabled(1);
+    sub_006B1F40_SetBlendMode(nAlpha == 255 ? 1 : 4);
+    sub_006B2030_SetFilterMode(1);
     if (sub_006B9830_UseAlternate())
         return sub_006B8950_DrawAlternate(pImage, pSurface, nA, nB, nC, nAlpha);
     return sub_006B87A0_DrawNormal(pImage, pSurface, nA, nB, nC, nAlpha);

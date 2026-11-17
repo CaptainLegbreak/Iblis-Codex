@@ -214,8 +214,6 @@ void __fastcall ARCHIVE_ReadFileToBuffer(void* hArchive, void* hFile, void* pBuf
 extern unsigned char gabItemPalettes_00842710[9][0x6900]; // 0x00842710
 extern const char gszGuildPrefix[]; // 0x006DCE68
 extern const char gszGuildSuffix[]; // 0x006DCE64
-extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
-extern "C" void* __cdecl memset(void*,int,unsigned int); // 0x00681EF0
 Unicode* __fastcall sub_005267E0(Unicode*,const Unicode*); // 0x005267E0
 Unicode* __fastcall sub_00526700(Unicode*,const Unicode*); // 0x00526700
 int __fastcall sub_00526800(const Unicode*); // 0x00526800

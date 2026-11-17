@@ -374,7 +374,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E90
 int __fastcall DRLGWARP_GetWarpDestinationFromArray(D2DrlgLevelStrc* pLevel, char nIndex); // 0x0066AF30
 D2DrlgRoomStrc* __fastcall DRLGROOM_AllocRoomEx(D2DrlgLevelStrc* pLevel, int nType); // 0x0066B3E0
@@ -1166,10 +1165,10 @@ static void __stdcall DRLGPRESET_BuildPresetArea(D2DrlgLevelStrc* pLevel, D2Drlg
 
     if (nPops)
     {
-        pDrlgMap->pPopsIndex = (int*)sub_0040B430(pMemPool, sizeof(int) * nPops, &gszDrlgPresetSourceFile, 0x8BF, 0);
-        pDrlgMap->pPopsSubIndex = (int*)sub_0040B430(pMemPool, sizeof(int) * nPops, &gszDrlgPresetSourceFile, 0x8C0, 0);
-        pDrlgMap->pPopsOrientation = (int*)sub_0040B430(pMemPool, sizeof(int) * nPops, &gszDrlgPresetSourceFile, 0x8C1, 0);
-        pDrlgMap->pPopsLocation = (D2DrlgCoordStrc*)sub_0040B430(pMemPool, sizeof(D2DrlgCoordStrc) * nPops, &gszDrlgPresetSourceFile, 0x8C2, 0);
+        pDrlgMap->pPopsIndex = (int*)FOG_AllocPool(pMemPool, sizeof(int) * nPops, &gszDrlgPresetSourceFile, 0x8BF, 0);
+        pDrlgMap->pPopsSubIndex = (int*)FOG_AllocPool(pMemPool, sizeof(int) * nPops, &gszDrlgPresetSourceFile, 0x8C0, 0);
+        pDrlgMap->pPopsOrientation = (int*)FOG_AllocPool(pMemPool, sizeof(int) * nPops, &gszDrlgPresetSourceFile, 0x8C1, 0);
+        pDrlgMap->pPopsLocation = (D2DrlgCoordStrc*)FOG_AllocPool(pMemPool, sizeof(D2DrlgCoordStrc) * nPops, &gszDrlgPresetSourceFile, 0x8C2, 0);
     }
 
     memset(pDrlgMap->pPopsIndex, 0, sizeof(int) * nPops);

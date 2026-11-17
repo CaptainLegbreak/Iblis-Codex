@@ -217,7 +217,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 extern "C" void* __cdecl memset(void*,int,unsigned int); // 0x00681EF0
 extern "C" __declspec(dllimport) int __stdcall MoveWindow(void*,int,int,int,int,int); // 0x006CC444
 void __fastcall sub_006B20E0_LogDrawError(const char*,long); // 0x006B20E0
-void __fastcall sub_006B39B0_LogD3DError(const char*,long); // 0x006B39B0
+void __fastcall sub_006B39B0_ShowD3DError(const char*,long); // 0x006B39B0
 void __cdecl sub_006B3320_ReleaseSurfaces(); // 0x006B3320
 void __cdecl sub_006B3800(); // 0x006B3800
 void __cdecl sub_006B3080(); // 0x006B3080
@@ -259,7 +259,6 @@ struct D2ComObject006B58A0Strc
 {
     D2ComObjectVtbl006B58A0Strc* lpVtbl;
 };
-void __fastcall sub_006B39B0_ShowD3DError(const char* szText, long nResult); // 0x006B39B0
 extern D2ComObject006B58A0Strc* gpDirectDraw_00970E60; // 0x00970E60
 extern D2DDPixelFormat006B58A0Strc gtWantedFormat_0074C024; // 0x0074C024
 extern const unsigned char gIidTexture_006FF478[16]; // 0x006FF478
@@ -403,7 +402,7 @@ static int sub_006B4FD0_InitializeFullscreen(void* window,int mode)
     sub_006B3080(); sub_006BB5E0_CreateSurfaces(); sub_006B8F10();
     return 1;
 D3DFail:
-    sub_006B39B0_LogD3DError(msg,error);
+    sub_006B39B0_ShowD3DError(msg,error);
 Fail:
     sub_006B3320_ReleaseSurfaces(); ghWindow=0; return 0;
 }

@@ -126,7 +126,7 @@ struct D2ReferenceStrc
 
 extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(volatile long* value); // 0x006CC208
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
-void __cdecl sub_00410660_Log(const char* szChannel, const char* szFormat, ...); // 0x00410660
+void __cdecl sub_00410660_LogWritePrefixed(const char* szChannel, const char* szFormat, ...); // 0x00410660
 extern const char gszHackChannel_006FC4A8[]; // 0x006FC4A8
 extern const char gszHackListSizeFormat_006FC4B0[]; // 0x006FC4B0
 extern unsigned long gdwLastLogTick_00989C34; // 0x00989C34
@@ -292,8 +292,6 @@ struct D2QueueServerStrc
     char unk0x894[0xBD0 - 0x894];
     int unk0xBD0;
 };
-
-void __cdecl sub_00410660_LogWritePrefixed(const char* szPrefix, const char* szFormat, ...); // 0x00410660
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -612,7 +610,7 @@ void __stdcall sub_006BE6C0_LogHackListSize(int nSize)
     const unsigned long dwNow = GetTickCount();
     if (dwNow - gdwLastLogTick_00989C34 > 2000)
     {
-        sub_00410660_Log(gszHackChannel_006FC4A8, gszHackListSizeFormat_006FC4B0, nSize);
+        sub_00410660_LogWritePrefixed(gszHackChannel_006FC4A8, gszHackListSizeFormat_006FC4B0, nSize);
         gdwLastLogTick_00989C34 = dwNow;
     }
 }
@@ -821,7 +819,7 @@ void __stdcall sub_006BEFB0_HackUnlistIP(D2Server006BEFB0Strc* pServer, unsigned
 {
     if (pServer->bHackListBD0)
     {
-        sub_00410660_Log(gszHackChannel_006FC4A8, "[HACKLIST]  IP:%s  QSHackUnlistIP() from FILE:%s  LINE:%d", sub_006B013E_InetNtoa(dwAddress), szFile, nLine);
+        sub_00410660_LogWritePrefixed(gszHackChannel_006FC4A8, "[HACKLIST]  IP:%s  QSHackUnlistIP() from FILE:%s  LINE:%d", sub_006B013E_InetNtoa(dwAddress), szFile, nLine);
         sub_006BE890_UnlistIP(pServer, szFile, dwAddress, nLine);
     }
 }
@@ -1102,6 +1100,6 @@ void __stdcall sub_006C06D0_DisconnectIP(D2ConnectionTableStrc* pTable, unsigned
     if (pNode)
         sub_006C0420_DisconnectClient(pTable, pNode->nClient, pFile, nLine);
     else
-        sub_00410660_Log(gszHackChannel_006FC4A8, "[HACKLIST]  Client %s is already closed", sub_006B013E_FormatIP(nIP));
-    sub_00410660_Log(gszHackChannel_006FC4A8, "[HACKLIST]  IP:%s  QSDisconnectIP() from FILE:%s  LINE:%d", sub_006B013E_FormatIP(nIP), pFile, nLine);
+        sub_00410660_LogWritePrefixed(gszHackChannel_006FC4A8, "[HACKLIST]  Client %s is already closed", sub_006B013E_FormatIP(nIP));
+    sub_00410660_LogWritePrefixed(gszHackChannel_006FC4A8, "[HACKLIST]  IP:%s  QSDisconnectIP() from FILE:%s  LINE:%d", sub_006B013E_FormatIP(nIP), pFile, nLine);
 }

@@ -61,11 +61,8 @@ struct D2BitOutputStrc
     int nBlockLength;
     unsigned char pBlock[256];
 };
-
-void __stdcall sub_0041D2A0_CopyBytes(void*, const void*, unsigned int); // 0x0041D2A0
 static __declspec(noinline) void sub_006C5A60_FlushBlock(D2BitOutputStrc*, unsigned char**);
 static __declspec(noinline) void __fastcall sub_006C5A90_EmitCode(D2BitOutputStrc*, unsigned char**, int);
-void __stdcall sub_0041D300_ZeroBytes(void*, unsigned int); // 0x0041D300
 static __declspec(noinline) void __stdcall sub_006C6330_ResetDictionary(unsigned char**, D2BitOutputStrc*);
 const char* __stdcall SStrChr(const char* szString, char c); // 0x00413490
 static __declspec(noinline) const char* sub_006C5EE0_FindExtension(const char* szPath);
@@ -516,7 +513,7 @@ static void sub_006C5A60_FlushBlock(D2BitOutputStrc* pState, unsigned char** ppO
     {
         pState->pBlock[0] = (unsigned char)pState->nBlockLength;
         ++pState->nBlockLength;
-        sub_0041D2A0_CopyBytes(*ppOutput, pState->pBlock, pState->nBlockLength);
+        SMemCopy(*ppOutput, pState->pBlock, pState->nBlockLength);
         *ppOutput += pState->nBlockLength;
         pState->nBlockLength = 0;
     }
@@ -569,7 +566,7 @@ static void __fastcall sub_006C5A90_EmitCode(D2BitOutputStrc* pState, unsigned c
 // 0x006C6330
 static void __stdcall sub_006C6330_ResetDictionary(unsigned char** ppOutput, D2BitOutputStrc* pState)
 {
-    sub_0041D300_ZeroBytes(pState->f_28, 0x4E2C);
+    SMemZero(pState->f_28, 0x4E2C);
     int nCode = pState->nClearCode;
     pState->nNextCode = nCode + 2;
     sub_006C5A90_EmitCode(pState, ppOutput, nCode);

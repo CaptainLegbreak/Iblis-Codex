@@ -275,8 +275,6 @@ struct D2InventoryGridInfoStrc
     unsigned short unk0x02;
     int nGridRect[5];
 };
-
-void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 void* __fastcall sub_0040B4B0(void* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0); // 0x0040B4B0
 int __stdcall UNITS_GetInventoryRecordId(D2UnitStrc* pUnit, int nInvPage, int bLoD); // 0x00621050
 void __stdcall ITEMS_GetDimensions(D2UnitStrc* pItem, unsigned char* pWidth, unsigned char* pHeight, const char* szFile, int nLine); // 0x006286C0
@@ -727,7 +725,7 @@ static __declspec(noinline) D2InventoryGridStrc* __stdcall INVENTORY_GetGrid(D2I
         {
             pInventoryGrid->nGridWidth = pInventoryGridInfo->nGridX;
             pInventoryGrid->nGridHeight = pInventoryGridInfo->nGridY;
-            pInventoryGrid->ppItems = (D2UnitStrc**)sub_0040B430(pInventory->pMemPool, sizeof(D2UnitStrc*) * pInventoryGrid->nGridWidth * pInventoryGrid->nGridHeight, gszInventorySourceFile_006EA918, 721, 0);
+            pInventoryGrid->ppItems = (D2UnitStrc**)FOG_AllocPool(pInventory->pMemPool, sizeof(D2UnitStrc*) * pInventoryGrid->nGridWidth * pInventoryGrid->nGridHeight, gszInventorySourceFile_006EA918, 721, 0);
             memset(pInventoryGrid->ppItems, 0, sizeof(D2UnitStrc*) * pInventoryGrid->nGridWidth * pInventoryGrid->nGridHeight);
         }
 
@@ -751,7 +749,7 @@ static __declspec(noinline) D2InventoryGridStrc* __stdcall INVENTORY_GetGrid(D2I
     pInventoryGrid = &pInventory->pGrids[nInventoryGrid];
     pInventoryGrid->nGridWidth = pInventoryGridInfo->nGridX;
     pInventoryGrid->nGridHeight = pInventoryGridInfo->nGridY;
-    pInventoryGrid->ppItems = (D2UnitStrc**)sub_0040B430(pInventory->pMemPool, sizeof(D2UnitStrc*) * pInventoryGrid->nGridWidth * pInventoryGrid->nGridHeight, gszInventorySourceFile_006EA918, 747, 0);
+    pInventoryGrid->ppItems = (D2UnitStrc**)FOG_AllocPool(pInventory->pMemPool, sizeof(D2UnitStrc*) * pInventoryGrid->nGridWidth * pInventoryGrid->nGridHeight, gszInventorySourceFile_006EA918, 747, 0);
     memset(pInventoryGrid->ppItems, 0, sizeof(D2UnitStrc*) * pInventoryGrid->nGridWidth * pInventoryGrid->nGridHeight);
     return pInventoryGrid;
 }

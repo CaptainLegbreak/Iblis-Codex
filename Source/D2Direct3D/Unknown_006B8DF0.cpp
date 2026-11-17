@@ -28,10 +28,10 @@ void __cdecl sub_00681E09_Exit(int); // 0x00681E09
 void __fastcall sub_006B9860_Project(int,int,int,int*,int*); // 0x006B9860
 void __fastcall sub_006B9780_SetColor(D2TLVertexStrc*,U32,U8); // 0x006B9780
 void __fastcall sub_006BBA00_BindTile(D2TileBlockStrc*); // 0x006BBA00
-int __stdcall sub_005FDEA0_CheckTile(D2TileStrc*,int,int); // 0x005FDEA0
+int __stdcall sub_005FDEA0(D2TileStrc*,int,int); // 0x005FDEA0
 void __fastcall sub_006B1EA0_SetState(int); // 0x006B1EA0
-void __fastcall sub_006B1F40_SetBlend(int); // 0x006B1F40
-void __fastcall sub_006B2030_SetMode(int); // 0x006B2030
+void __fastcall sub_006B1F40_SetBlendMode(int); // 0x006B1F40
+void __fastcall sub_006B2030_SetFilterMode(int); // 0x006B2030
 int __cdecl sub_006B9830_GetPerspective(); // 0x006B9830
 #define D3D_VERTEX_IN_RECT(v, r) ((v).x >= (r).left && (v).x < (r).right && (v).y >= (r).top && (v).y < (r).bottom)
 #define D2ASSERT(c,l) if(!(c)) { sub_00408A60(gszAssert_006CC837,sub_00408090(),l); sub_00681E09_Exit(-1); }
@@ -172,10 +172,6 @@ static int __stdcall sub_006B8950_Lit(int nScreenPanels, D2TileStrc* pTile, int 
 
     return nResult;
 }
-
-int __stdcall sub_005FDEA0(D2TileStrc* pTile, int a2, int a3);                      // 0x005FDEA0
-void __fastcall sub_006B1F40_SetBlendMode(int nMode);                                           // 0x006B1F40
-void __fastcall sub_006B2030_SetFilterMode(int nMode);                                          // 0x006B2030
 struct D2ScreenPanelsStrc
 {
     int __thiscall sub_006B87A0_DrawNoPerspective(D2TileStrc* pTile, int nPosX, int nPosY, U32* pLight, unsigned char nAlpha); // 0x006B87A0

@@ -96,7 +96,6 @@ int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned in
 int __stdcall SFileLoadFileEx(void* hMpq, const char* szFileName, void** ppBuffer, int* pnSize, int nExtraBytes, int nFlags, void* pOverlapped); // 0x0041B680
 int __stdcall sub_006C6A80_DecodeImage(int nMode, void* pData, int nSize, T004F51E0* pPalette, unsigned char* pDest, int nDestSize, int* pWidth, int* pHeight, int* pDepth); // 0x006C6A80
 void __cdecl sub_006B9F00_D3DFlushSmack(); // 0x006B9F00
-void __cdecl sub_006B9BD0_D3DRefresh(); // 0x006B9BD0
 extern "C" const char szD3DSmackFile_006FC358[]; // 0x006FC358
 extern unsigned short* gpD3DSmackBuffer_009897D0; // 0x009897D0
 
@@ -297,7 +296,7 @@ void __fastcall sub_006BA010_D3DDecodeSmacker(const char* szFile, D2SmackRecordS
         D2_ASSERT(gpD3DSmackBuffer_009897D0, 0x94);
         memset(gpD3DSmackBuffer_009897D0, 0, 0x10000);
         sub_006B9F00_D3DFlushSmack();
-        sub_006B9BD0_D3DRefresh();
+        sub_006B9BD0_Apply();
     }
 
     pSmack->nType = nType;
@@ -350,7 +349,7 @@ void __fastcall sub_006BA010_D3DDecodeSmacker(const char* szFile, D2SmackRecordS
         if (!gbRenderPaused_007C9144)
         {
             sub_006B9F00_D3DFlushSmack();
-            sub_006B9BD0_D3DRefresh();
+            sub_006B9BD0_Apply();
         }
         return;
     }

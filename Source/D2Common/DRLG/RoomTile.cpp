@@ -210,7 +210,6 @@ struct D2DrlgAnimTileGridStrc
 };
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 void __stdcall DUNGEON_RemoveRoomFromAct(D2DrlgActStrc* pAct, D2ActiveRoomStrc* pRoom); // 0x0061A910
 void __fastcall DRLGPRESET_FreeDrlgGridsFromPresetRoom(D2DrlgRoomStrc* pDrlgRoom); // 0x00666610
 void __fastcall DRLGPRESET_AddPresetRoomMapTiles(D2DrlgRoomStrc* pDrlgRoom); // 0x00666AC0
@@ -600,7 +599,7 @@ void __fastcall DRLGROOMTILE_AllocTileGrid(D2DrlgRoomStrc* pDrlgRoom)
 {
     if (!pDrlgRoom->pTileGrid)
     {
-        pDrlgRoom->pTileGrid = (D2DrlgTileGridStrc*)sub_0040B430(pDrlgRoom->pLevel->pDrlg->pMempool, sizeof(D2DrlgTileGridStrc), ".\\DRLG\\RoomTile.cpp", 1331, 0);
+        pDrlgRoom->pTileGrid = (D2DrlgTileGridStrc*)FOG_AllocPool(pDrlgRoom->pLevel->pDrlg->pMempool, sizeof(D2DrlgTileGridStrc), ".\\DRLG\\RoomTile.cpp", 1331, 0);
         memset(pDrlgRoom->pTileGrid, 0, sizeof(D2DrlgTileGridStrc));
     }
 }
@@ -613,19 +612,19 @@ void __fastcall DRLGROOMTILE_AllocTileData(D2DrlgRoomStrc* pDrlgRoom)
 
     if (pRoomTiles->nFloors)
     {
-        pRoomTiles->pFloorTiles = (D2DrlgTileDataStrc*)sub_0040B430(pMemPool, sizeof(D2DrlgTileDataStrc) * pRoomTiles->nFloors, ".\\DRLG\\RoomTile.cpp", 1349, 0);
+        pRoomTiles->pFloorTiles = (D2DrlgTileDataStrc*)FOG_AllocPool(pMemPool, sizeof(D2DrlgTileDataStrc) * pRoomTiles->nFloors, ".\\DRLG\\RoomTile.cpp", 1349, 0);
         memset(pRoomTiles->pFloorTiles, 0, sizeof(D2DrlgTileDataStrc) * pRoomTiles->nFloors);
     }
 
     if (pRoomTiles->nWalls)
     {
-        pRoomTiles->pWallTiles = (D2DrlgTileDataStrc*)sub_0040B430(pMemPool, sizeof(D2DrlgTileDataStrc) * pRoomTiles->nWalls, ".\\DRLG\\RoomTile.cpp", 1355, 0);
+        pRoomTiles->pWallTiles = (D2DrlgTileDataStrc*)FOG_AllocPool(pMemPool, sizeof(D2DrlgTileDataStrc) * pRoomTiles->nWalls, ".\\DRLG\\RoomTile.cpp", 1355, 0);
         memset(pRoomTiles->pWallTiles, 0, sizeof(D2DrlgTileDataStrc) * pRoomTiles->nWalls);
     }
 
     if (pRoomTiles->nRoofs && !pRoomTiles->pRoofTiles)
     {
-        pRoomTiles->pRoofTiles = (D2DrlgTileDataStrc*)sub_0040B430(pMemPool, sizeof(D2DrlgTileDataStrc) * pRoomTiles->nRoofs, ".\\DRLG\\RoomTile.cpp", 1361, 0);
+        pRoomTiles->pRoofTiles = (D2DrlgTileDataStrc*)FOG_AllocPool(pMemPool, sizeof(D2DrlgTileDataStrc) * pRoomTiles->nRoofs, ".\\DRLG\\RoomTile.cpp", 1361, 0);
         memset(pRoomTiles->pRoofTiles, 0, sizeof(D2DrlgTileDataStrc) * pRoomTiles->nRoofs);
     }
 }

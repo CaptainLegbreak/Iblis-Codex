@@ -54,13 +54,12 @@ struct D2CompositeUnitStrc
     D2CompositeUnitStrc* pPrev;
 };
 
-
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
-void __fastcall sub_004FAAE0_FreeCellFile(D2CelFileStrc* pCellFile); // 0x004FAAE0
+void __fastcall ARCHIVE_FreeCellFile(D2CelFileStrc* pCellFile); // 0x004FAAE0
 void __fastcall sub_00504100_UnlinkCompositeUnit(D2CompositeUnitStrc* pCompositeUnit); // 0x00504100
 
 struct D2PaletteRecordStrc
@@ -68,14 +67,12 @@ struct D2PaletteRecordStrc
     unsigned char ab[0x100];
 };
 
-
 extern D2CompositeUnitStrc* gpCompositeUnitList_0087E838; // 0x0087E838
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 void __stdcall FOG_FreeLinker(D2TxtLinkStrc* pLinker); // 0x006BD0B0
 extern D2TxtLinkStrc* gpHitClassLinker_0087D820; // 0x0087D820
 extern D2TxtLinkStrc* gpCompItemsLinker_0087D824; // 0x0087D824
 extern D2TxtLinkStrc* gpItemTypesLinker_0087D828; // 0x0087D828
-void __fastcall ARCHIVE_FreeCellFile(D2CelFileStrc* pCellFile); // 0x004FAAE0
 extern D2CofNodeStrc* gpCofNodeList_0087E83C; // 0x0087E83C
 
 struct D2BinFieldStrc
@@ -86,7 +83,6 @@ struct D2BinFieldStrc
     int nFieldOffset;
     void* pLinkField;
 };
-
 
 extern "C" const char szItemTypesFieldCode_006DCCE0[]; // 0x006DCCE0
 extern "C" const char szItemTypesFieldEquiv1_006DCD14[]; // 0x006DCD14
@@ -265,7 +261,6 @@ struct D2WinScrollBarStrc
     int bIsStepIndicatorDragged;
     D2WinMsgHandler field_5C;
 };
-
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 0x006CC260
 extern "C" __declspec(dllimport) int __stdcall DeleteFileA(const char* lpFileName); // 0x006CC1A0

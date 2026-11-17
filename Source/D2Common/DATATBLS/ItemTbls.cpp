@@ -171,7 +171,6 @@ void __fastcall sub_006336A0(); // 0x006336A0
 void __stdcall FOG_10216_AddRecordToLinkingTable(D2TxtLinkStrc* pLinker, const char* szName); // 0x006BD500
 unsigned short __stdcall D2LANG_GetTblIndex(const char* szReference, void** ppUnicode); // 0x00524D30
 extern D2ItemsTxt* gpItemsTxt_0096CA5C; // 0x0096CA5C
-void __fastcall sub_006117B0(); // 0x006117B0
 
 struct D2ItemRatioTxt
 {
@@ -1068,7 +1067,7 @@ void __fastcall DATATBLS_LoadBooksTxt(void* hArchive)
 {
     D2BinFieldStrc pTbl[] =
     {
-        { "name", 22, 0, 0, (void*)sub_006117B0 },
+        { "name", 22, 0, 0, (void*)DATATBLS_GetStringIdFromReferenceString },
         { "scrollspellcode", 9, 0, 24, 0 },
         { "bookspellcode", 9, 0, 28, 0 },
         { "pSpell", 2, 0, 4, 0 },

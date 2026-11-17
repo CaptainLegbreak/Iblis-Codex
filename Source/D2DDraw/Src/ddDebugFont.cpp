@@ -51,7 +51,6 @@ typedef void (__cdecl* D2WheelCallbackFn)();
 typedef int (__stdcall* D2FarProcFn)();
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(D2FarProcFn lpfn);                              // 0x006CC34C
 void __fastcall sub_004743D0_ReleaseOverlayResource(void* pResource);                                       // 0x004743D0

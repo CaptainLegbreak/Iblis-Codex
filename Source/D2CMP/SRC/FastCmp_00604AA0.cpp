@@ -111,7 +111,6 @@ extern int gnRemapOffsets_008E9FC8[80 * 80]; // 0x008E9FC8
 struct D2CelStrc { unsigned int unknown000,width; char unknown008[24]; };
 
 extern const char gszEmptyAssert[]; // 0x006CC837
-extern "C" void* __cdecl sub_006829C0_memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 int __fastcall sub_0060D280_ScanSameRun(const unsigned char* pData, const unsigned char* pEnd, int nMax, int* pbRunReachedEnd, int* pbRestReachedEnd); // 0x0060D280
 int __fastcall sub_0060D3A0_ScanOtherRun(const unsigned char* pData, const unsigned char* pEnd, unsigned char nValue, int nMax, int* pbRunReachedEnd, int* pbRestReachedEnd); // 0x0060D3A0
@@ -1072,7 +1071,7 @@ void __fastcall sub_00608EE0_CompressCellList(D2CmpCellListStrc* pSrcList, D2Cel
         pNew->unk0x14 = 0;
         pNew->dwParent = 0;
         pNew->dwLength = nRleSize;
-        sub_006829C0_memcpy(pNew->pPixels, pRle, nRleSize);
+        memcpy(pNew->pPixels, pRle, nRleSize);
         FOG_Free(pRle, ".\\SRC\\FastCmp.cpp", 0x8D, 0);
 
         const unsigned int nDirections = pSrcList->nDirections;

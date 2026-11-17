@@ -62,7 +62,6 @@ D2ModeTypeTxt* __stdcall DATATBLS_GetPlrModeTypeTxtRecord(int,int); // 0x0065B48
 D2ModeTypeTxt* __stdcall DATATBLS_GetMonModeTxtRecord(int,int); // 0x0065B500
 D2ModeTypeTxt* __stdcall DATATBLS_GetObjModeTypeTxtRecord(int,int); // 0x0065B570
 int __fastcall sub_004638A0_CheckMonStats2Flag(int,int); // 0x004638A0
-int __stdcall sub_0064F060(D2UnitStrc*,int,int,int,D2InventoryStrc*,int*); // 0x0064F060
 
 // 0x0064F020
 int __stdcall COMPOSIT_GetWeaponClassIdFromCode(int nWeaponClassCode)
@@ -206,7 +205,7 @@ void __stdcall D2Common_10884_COMPOSIT_unk(D2UnitStrc* unit,int cls,int mode,int
   char w[4],c[4],m[4];
   clsCode=DATATBLS_GetPlrModeTypeTxtRecord(cls,0)->token;
   modeCode=DATATBLS_GetPlrModeTypeTxtRecord(mode,1)->token;
-  if(determine){if(mode && mode!=17){int weaponId;*weapon=sub_0064F060(unit,0,cls,mode,inv,&weaponId);}else *weapon=0x20687468;}
+  if(determine){if(mode && mode!=17){int weaponId;*weapon=COMPOSIT_GetWeaponClassCode(unit,0,cls,mode,inv,&weaponId);}else *weapon=0x20687468;}
   for(unsigned int i=0;i<gPlayerModeCount_00745910;++i)if(mode==gPlayerModes_00745900[i].nWeaponClassId)modeCode=gPlayerModes_00745900[i].code;
   if(mode==11 && *weapon!=0x20736831 && *weapon!=0x20746831 && *weapon!=0x20736A31 && *weapon!=0x20746A31 && *weapon!=0x20737331 && *weapon!=0x20747331)*weapon=0x20687468;
   COMPOSIT_FormatPathInto(path,clsCode,modeCode,weapon,gChars_006DCC34,full,w,c,m);return;
@@ -216,15 +215,15 @@ void __stdcall D2Common_10884_COMPOSIT_unk(D2UnitStrc* unit,int cls,int mode,int
   D2MonStatsTxt* record=DATATBLS_GetMonStatsTxtRecord(cls);if(!record)return;
   clsCode=record->code;
   modeCode=DATATBLS_GetMonModeTxtRecord(mode,1)->token;
-  if(mode && mode!=12){int weaponId;*weapon=sub_0064F060(unit,1,cls,mode,inv,&weaponId);}
-  else{if(sub_004638A0_CheckMonStats2Flag(cls,16)){int weaponId;*weapon=sub_0064F060(unit,1,cls,mode,inv,&weaponId);}else *weapon=0x20687468;}
+  if(mode && mode!=12){int weaponId;*weapon=COMPOSIT_GetWeaponClassCode(unit,1,cls,mode,inv,&weaponId);}
+  else{if(sub_004638A0_CheckMonStats2Flag(cls,16)){int weaponId;*weapon=COMPOSIT_GetWeaponClassCode(unit,1,cls,mode,inv,&weaponId);}else *weapon=0x20687468;}
   for(unsigned int i=0;i<gMonsterModeCount_0074591C;++i)if(mode==gMonsterModes_00745914[i].nWeaponClassId)modeCode=gMonsterModes_00745914[i].code;
   COMPOSIT_FormatPathInto(path,clsCode,modeCode,weapon,gMonsters_006D6CAC,full,w,c,m);return;
  }
  case 2:
   clsCode=DATATBLS_GetObjModeTypeTxtRecord(cls,0)->token;
   modeCode=DATATBLS_GetObjModeTypeTxtRecord(mode,1)->token;
-  {int weaponId;*weapon=sub_0064F060(unit,2,cls,mode,inv,&weaponId);}
+  {int weaponId;*weapon=COMPOSIT_GetWeaponClassCode(unit,2,cls,mode,inv,&weaponId);}
   break;
  default:
   return;

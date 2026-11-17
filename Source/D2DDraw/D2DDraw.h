@@ -24,3 +24,39 @@ void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
 void __fastcall sub_005103B0(const char* szText, long nResult); // 0x005103B0
 void __stdcall sub_006014C0(D2CmpCelContextStrc* pContext, int nX, int nY, int nArg4, int nArg5, unsigned char* pBuffer, int nHeight, int nPitch, int nArg9, int nArg10, int nArg11); // 0x006014C0
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
+
+#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
+#define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
+
+struct D2CriticalSectionStrc
+{
+    void* pDebugInfo;
+    long nLockCount;
+    long nRecursionCount;
+    void* hOwningThread;
+    void* hLockSemaphore;
+    unsigned long nSpinCount;
+};
+
+struct D2SmackRecordStrc
+{
+    void* f_0;
+    unsigned char nType;
+};
+
+struct T004F51E0
+{
+    unsigned char peRed;
+    unsigned char peGreen;
+    unsigned char peBlue;
+    unsigned char peFlags;
+};
+
+struct tagRECT
+{
+    long left;
+    long top;
+    long right;
+    long bottom;
+};

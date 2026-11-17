@@ -33,11 +33,8 @@ struct D2BitOutputStrc
     int nBlockLength;
     unsigned char pBlock[256];
 };
-
-void __stdcall sub_0041D2A0_CopyBytes(void*, const void*, unsigned int); // 0x0041D2A0
 static __declspec(noinline) void sub_006C5A60_FlushBlock(D2BitOutputStrc*, unsigned char**);
 static __declspec(noinline) void __fastcall sub_006C5A90_EmitCode(D2BitOutputStrc*, unsigned char**, int);
-void __stdcall sub_0041D300_ZeroBytes(void*, unsigned int); // 0x0041D300
 static __declspec(noinline) void __stdcall sub_006C6330_ResetDictionary(unsigned char**, D2BitOutputStrc*);
 __declspec(noinline) static void __stdcall sub_006C6370_AddChar(unsigned char** ppOutput, int nChar, D2BitOutputStrc* pState);
 
@@ -430,7 +427,7 @@ static void sub_006C5A60_FlushBlock(D2BitOutputStrc* pState, unsigned char** ppO
     {
         pState->pBlock[0] = (unsigned char)pState->nBlockLength;
         ++pState->nBlockLength;
-        sub_0041D2A0_CopyBytes(*ppOutput, pState->pBlock, pState->nBlockLength);
+        SMemCopy(*ppOutput, pState->pBlock, pState->nBlockLength);
         *ppOutput += pState->nBlockLength;
         pState->nBlockLength = 0;
     }
@@ -458,7 +455,7 @@ static void __fastcall sub_006C5A90_EmitCode(D2BitOutputStrc* pState, unsigned c
 
 static void __stdcall sub_006C6330_ResetDictionary(unsigned char** ppOutput, D2BitOutputStrc* pState)
 {
-    sub_0041D300_ZeroBytes(pState->f_28, 0x4E2C);
+    SMemZero(pState->f_28, 0x4E2C);
     int nCode = pState->nClearCode;
     pState->nNextCode = nCode + 2;
     sub_006C5A90_EmitCode(pState, ppOutput, nCode);
@@ -536,7 +533,7 @@ int __fastcall sub_006C6470_CompressLzw(int nSize, const unsigned char* pData, u
     const unsigned char* pIn = pData;
     unsigned char* pStart = pOutput;
     D2BitOutputStrc tState;
-    sub_0041D300_ZeroBytes(&tState, sizeof(tState));
+    SMemZero(&tState, sizeof(tState));
     tState.f_0 = 9;
     tState.nInitialCodeWidth = 9;
     tState.nCodeMask = 0x1FF;

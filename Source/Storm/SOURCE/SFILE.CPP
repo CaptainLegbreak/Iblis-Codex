@@ -178,7 +178,7 @@ extern char gszBasePath_00778F28[]; // 0x00778F28
 extern unsigned short gwValue_0077905C; // 0x0077905C
 void __cdecl sub_004158E0_InitBasePath(); // 0x004158E0
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
-void __stdcall sub_0041D2A0_MemCopy(void* pDst, const void* pSrc, unsigned int nSize); // 0x0041D2A0
+void __stdcall SMemCopy(void* pDst, const void* pSrc, unsigned int nSize); // 0x0041D2A0
 
 struct D2StormLinkStrc
 {
@@ -599,7 +599,6 @@ extern "C" char* __cdecl strstr(const char* szString, const char* szSubString); 
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
 int __stdcall SErrDisplayError(unsigned int nErrorCode, const char* szFile, int nLine, const char* szDescription, int bRecoverable, unsigned int nExitCode); // 0x0041CAF0
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
-void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
 void __stdcall SMemFill(void* pLocation, unsigned int nLength, unsigned char nFillWith); // 0x0041D2C0
 const char* __stdcall SStrChrR(const char* szString, char nChar); // 0x004134D0
 void __fastcall sub_0041D810_Crc32(const unsigned char* pData, unsigned int nSize, unsigned int* pCrc, unsigned char nFlags); // 0x0041D810
@@ -1250,7 +1249,7 @@ unsigned int __cdecl sub_004151D0_ReadBuffer(char* pBuffer, unsigned int* pnSize
 {
     unsigned int nAvail = pInfo->nInSize - pInfo->nInPos;
     unsigned int nToRead = *pnSize < nAvail ? *pnSize : nAvail;
-    sub_0041D2A0_MemCopy(pBuffer, pInfo->pbInBuffer + pInfo->nInPos, nToRead);
+    SMemCopy(pBuffer, pInfo->pbInBuffer + pInfo->nInPos, nToRead);
     pInfo->nInPos += nToRead;
     return nToRead;
 }
@@ -1258,7 +1257,7 @@ unsigned int __cdecl sub_004151D0_ReadBuffer(char* pBuffer, unsigned int* pnSize
 // 0x00415210
 void __cdecl sub_00415210_WriteBuffer(char* pBuffer, unsigned int* pnSize, D2StormBufferInfoStrc* pInfo)
 {
-    sub_0041D2A0_MemCopy(pInfo->pbOutBuffer + pInfo->f_C, pBuffer, *pnSize);
+    SMemCopy(pInfo->pbOutBuffer + pInfo->f_C, pBuffer, *pnSize);
     pInfo->f_C += *pnSize;
 }
 
