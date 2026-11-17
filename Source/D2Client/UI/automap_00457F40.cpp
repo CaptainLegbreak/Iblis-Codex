@@ -102,11 +102,7 @@ struct D2UnitStrc
     char unk0x14[0x60 - 0x14];
     D2InventoryStrc* pInventory;
     char unk0x64[0xC4 - 0x64];
-    union
-    {
-        unsigned int dwFlagEx;
-        unsigned int dwFlags;
-    };
+    unsigned int dwFlagEx;
     char unk0xC8[0x20];
     D2UnitStrc* pRoomNext;
 };
@@ -743,7 +739,7 @@ static inline int AUTOMAP_UnitHasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
 {
     if (pUnit)
     {
-        return (pUnit->dwFlags & nFlag) != 0;
+        return (pUnit->dwFlagEx & nFlag) != 0;
     }
     return 0;
 }

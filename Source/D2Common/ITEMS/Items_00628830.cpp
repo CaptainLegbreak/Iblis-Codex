@@ -43,11 +43,7 @@ struct D2ItemDataStrc
         unsigned int quality;
     };
     char unk0x04[0x14];
-    union
-    {
-        unsigned int dwItemFlags;
-        unsigned int flags;
-    };
+    unsigned int dwItemFlags;
     unsigned char unk_1C[0x1A];
     unsigned short autoAffix;
     unsigned short prefix[3];
@@ -56,22 +52,10 @@ struct D2ItemDataStrc
 
 struct D2UnitStrc
 {
-    union
-    {
-        int dwUnitType;
-        int type;
-    };
-    union
-    {
-        int classId;
-        int dwClassId;
-    };
+    int dwUnitType;
+    int classId;
     unsigned char pad08[12];
-    union
-    {
-        D2ItemDataStrc* pItemData;
-        D2ItemDataStrc* item;
-    };
+    D2ItemDataStrc* pItemData;
     unsigned char pad18[0x48];
     D2InventoryStrc* pInventory;
 };
@@ -242,7 +226,7 @@ int __stdcall ITEMS_CheckIfAutoBeltable(D2InventoryStrc* pInventory, D2UnitStrc*
 {
     D2_ASSERT(pItem, 0x9A6);
     D2_ASSERT(pItem->dwUnitType == 4, 0x9A7);
-    int nClassId = pItem->dwClassId;
+    int nClassId = pItem->classId;
     D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(nClassId);
     D2_ASSERT(pItemsTxtRecord, 0x9A9);
     if (pItemsTxtRecord->nAutoBelt || INVENTORY_HasSimilarPotionInBelt(pInventory, pItem) != -1) { return 1; }
@@ -318,7 +302,7 @@ static void __stdcall sub_006292F0_AddSocketablesCost(D2UnitStrc* pItem, int* pS
             pSocketable = INVENTORY_GetNextItem(pSocketable);
             if (pSocketItem)
             {
-                const int nClassId = pSocketItem->dwClassId;
+                const int nClassId = pSocketItem->classId;
                 D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(nClassId);
                 const int nSocketableCost = pItemsTxtRecord->dwCost / 2;
                 nSellCost += nSocketableCost;
@@ -435,7 +419,7 @@ static __forceinline int ITEMS_CheckIfSocketable(D2UnitStrc* pItem)
 {
     if (pItem && pItem->dwUnitType == UNIT_ITEM)
     {
-        return ITEMS_CheckIfSocketableByItemId(pItem->dwClassId);
+        return ITEMS_CheckIfSocketableByItemId(pItem->classId);
     }
 
     return 0;
@@ -480,25 +464,25 @@ int __fastcall sub_0062A900_Shim(D2UnitStrc* pItem)
 static __forceinline void GetDimensions(D2UnitStrc* item, unsigned char* width, unsigned char* height, const char* file, int line) {
     *width = 0;
     *height = 0;
-    if (item && item->type == 4) {
+    if (item && item->dwUnitType == 4) {
         D2ItemsTxt* txt = DATATBLS_GetItemsTxtRecord(!item ? -1 : item->classId);
         if (txt) { *width = txt->invWidth; *height = txt->invHeight; }
     }
 }
 
 static __forceinline D2ItemDataStrc* GetData(D2UnitStrc* item) {
-    return (item && item->type == 4 && item->item) ? item->item : 0;
+    return (item && item->dwUnitType == 4 && item->pItemData) ? item->pItemData : 0;
 }
 
 static __forceinline unsigned int GetQuality(D2UnitStrc* item) {
-    const int type = item ? item->type : 6;
-    D2ItemDataStrc* data = (type == 4 && item->item) ? item->item : 0;
+    const int type = item ? item->dwUnitType : 6;
+    D2ItemDataStrc* data = (type == 4 && item->pItemData) ? item->pItemData : 0;
     return data ? data->quality : 2;
 }
 
 // 0x0062BCB0
 void __stdcall ITEMS_AddSockets(D2UnitStrc* item, int sockets) {
-    const int type = item ? item->type : 6;
+    const int type = item ? item->dwUnitType : 6;
     if (type != 4) return;
     int maximum = 6;
     unsigned char width = 0, height = 0;
@@ -520,7 +504,7 @@ void __stdcall ITEMS_AddSockets(D2UnitStrc* item, int sockets) {
     maximum = Min(maximum, ITEMS_GetMaxSockets(item));
     sockets = Min(Max(sockets, 1), maximum);
     if (sockets > 0) {
-        if (D2ItemDataStrc* data = GetData(item)) data->flags |= 0x800;
+        if (D2ItemDataStrc* data = GetData(item)) data->dwItemFlags |= 0x800;
         STATLIST_SetUnitStat(item, 194, sockets, 0);
     }
 }
@@ -556,7 +540,7 @@ inline int ITEMS_CheckItemFlagInl(D2UnitStrc* pItem, unsigned int nFlag)
 
 inline D2ItemsTxt* ITEMS_GetItemsTxtRecordInl(D2UnitStrc* pItem)
 {
-    return DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
+    return DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->classId);
 }
 
 // 0x0062B450
@@ -565,7 +549,7 @@ static void __stdcall sub_0062B450_GetSocketedStatBonus(int nStatId, int* pValue
     *pValue = 0;
     if (pItem && pItem->dwUnitType == UNIT_ITEM)
     {
-        if (ITEMS_CheckIfSocketableByItemIdInl(pItem->dwClassId))
+        if (ITEMS_CheckIfSocketableByItemIdInl(pItem->classId))
         {
                 D2InventoryStrc* pInventory = pItem->pInventory;
             for (D2UnitStrc* i = INVENTORY_GetFirstItem(pInventory); i; i = INVENTORY_GetNextItem(i))
@@ -739,14 +723,14 @@ int __stdcall ITEMS_CheckRequirements(D2UnitStrc* pItem, D2UnitStrc* pUnit, int 
         const int nUnitType = pUnit->dwUnitType;
         if (pUnit->dwUnitType == UNIT_MONSTER && nClass == PCLASS_BARBARIAN)
         {
-            const int nMonsterId = MONSTERS_GetBaseIdFromMonsterId(pUnit->dwClassId);
+            const int nMonsterId = MONSTERS_GetBaseIdFromMonsterId(pUnit->classId);
             if (nMonsterId >= MONSTER_ACT5HIRE1 && nMonsterId <= MONSTER_ACT5HIRE2)
             {
                 return 1;
             }
         }
 
-        if (nUnitType == UNIT_PLAYER && nClass == pUnit->dwClassId)
+        if (nUnitType == UNIT_PLAYER && nClass == pUnit->classId)
         {
             return 1;
         }

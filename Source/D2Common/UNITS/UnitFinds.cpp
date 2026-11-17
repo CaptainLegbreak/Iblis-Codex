@@ -11,16 +11,8 @@ struct D2MissilesTxt;
 
 struct D2UnitStrc
 {
-    union
-    {
-        int dwUnitType;
-        int type;
-    };
-    union
-    {
-        int dwClassId;
-        int classId;
-    };
+    int dwUnitType;
+    int dwClassId;
     char pMemoryPool[8];
     int mode;
     char unk_14[24];
@@ -193,11 +185,11 @@ void __stdcall UNITFINDS_FreeUnitFindData(D2UnitFindDataStrc* pUnitFindData)
 }
 
 static __forceinline int GetX(D2UnitStrc* unit) {
- switch(unit->type) {case 2:case 4:case 5:return unit->staticPath->x;default:return unit->dynamicPath ? PATH_GetXPosition(unit->dynamicPath):0;}
+ switch(unit->dwUnitType) {case 2:case 4:case 5:return unit->staticPath->x;default:return unit->dynamicPath ? PATH_GetXPosition(unit->dynamicPath):0;}
 }
 
 static __forceinline int GetY(D2UnitStrc* unit) {
- switch(unit->type) {case 2:case 4:case 5:return unit->staticPath->y;default:return unit->dynamicPath ? PATH_GetYPosition(unit->dynamicPath):0;}
+ switch(unit->dwUnitType) {case 2:case 4:case 5:return unit->staticPath->y;default:return unit->dynamicPath ? PATH_GetYPosition(unit->dynamicPath):0;}
 }
 
 // 0x0065AA40
@@ -208,7 +200,7 @@ int __stdcall UNITFINDS_TestUnit(D2UnitStrc* unit,D2UnitFindArgStrc* args)
  int x=GetX(unit);int y=GetY(unit);
  int dx=x-args->x;int dy=y-args->y;
  if(dx*dx+dy*dy>args->radius*args->radius) return 0;
- switch(unit->type) {
+ switch(unit->dwUnitType) {
   case 0: {
    if(!(args->flags&1))return 0;
    int mode=unit->mode;
@@ -224,7 +216,7 @@ int __stdcall UNITFINDS_TestUnit(D2UnitStrc* unit,D2UnitFindArgStrc* args)
   case 2:if(!(args->flags&16))return 0;break;
   case 3: {
    if(!(args->flags&8))return 0;
-   D2MissilesTxt* record=DATATBLS_GetMissilesTxtRecord(unit->classId);
+   D2MissilesTxt* record=DATATBLS_GetMissilesTxtRecord(unit->dwClassId);
    if(!record || (record->flags&gMissileMask_006CE26C))return 0;
    break;
   }

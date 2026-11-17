@@ -87,16 +87,8 @@ struct D2GameStrc
 
 struct D2CoordStrc
 {
-    union
-    {
-        int nX;
-        int x;
-    };
-    union
-    {
-        int nY;
-        int y;
-    };
+    int nX;
+    int nY;
 };
 
 struct D2ObjectsTxt
@@ -490,13 +482,13 @@ int __fastcall sub_00581D40_OperateDoor(D2ObjOperateStrc* context,int unused)
   return 1;
  case 2:
  case 5:
-  if(!COLLISION_CheckMaskWithSizeXY(room,coords.x,coords.y,sizeX,sizeY,0x8180)) {
-   UNITS_BlockCollisionPath(context->object,room,coords.x,coords.y);
+  if(!COLLISION_CheckMaskWithSizeXY(room,coords.nX,coords.nY,sizeX,sizeY,0x8180)) {
+   UNITS_BlockCollisionPath(context->object,room,coords.nX,coords.nY);
    UNITS_ChangeAnimMode(context->object,0);
    context->object->lastOperateTick=tick;
    return 1;
   }
-  if(!COLLISION_CheckMaskWithSizeXY(room,coords.x,coords.y,sizeX,sizeY,0x8000)) {
+  if(!COLLISION_CheckMaskWithSizeXY(room,coords.nX,coords.nY,sizeX,sizeY,0x8000)) {
    if(mode!=5) {
     UNITS_ChangeAnimMode(context->object,5);
     context->object->lastOperateTick=tick;

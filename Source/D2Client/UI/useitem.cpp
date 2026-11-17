@@ -25,16 +25,8 @@ struct SMSGHANDLER_PARAMS
             short nWParamHi;
         };
     };
-    union
-    {
-        unsigned short nXpos;
-        unsigned short nXPos;
-    };
-    union
-    {
-        unsigned short nYpos;
-        unsigned short nYPos;
-    };
+    unsigned short nXpos;
+    unsigned short nYpos;
     unsigned int dwCommandSource;
     unsigned int dwArg;
     int bReturn;
@@ -518,8 +510,8 @@ static D2UnitStrc* GetCursorItem_Inline()
 // 0x004BFC50
 void __stdcall sub_004BFC50_OnClick(SMSGHANDLER_PARAMS* pMsg)
 {
-    const int nY = pMsg->nYPos;
-    const int nX = pMsg->nXPos;
+    const int nY = pMsg->nYpos;
+    const int nX = pMsg->nXpos;
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);

@@ -47,11 +47,7 @@ struct D2SkillsTxt
     unsigned char nHitShift;
     unsigned char nSrcDam;
     char unk0x1A6[0x02];
-    union
-    {
-        int nMinDam;
-        int dwEMin;
-    };
+    int nMinDam;
     int dwEMax;
     char unk0x1B0[0x2C];
     unsigned char nEType;
@@ -832,7 +828,7 @@ void __fastcall sub_004EB390_DrawElementalDamageLine(D2UnitStrc* pUnit, D2SkillS
         return;
 
     const int nShift = pSkillsTxt->nHitShift;
-    int nMinElem = pSkillsTxt->dwEMin << nShift;
+    int nMinElem = pSkillsTxt->nMinDam << nShift;
     int nMaxElem = pSkillsTxt->dwEMax << nShift;
     nMinElem += SKILLS_GetMinElemDamage(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 1);
     nMaxElem += SKILLS_GetMaxElemDamage(pUnit, pSkillsTxt->nSkillId, nSkillLevel, 1);

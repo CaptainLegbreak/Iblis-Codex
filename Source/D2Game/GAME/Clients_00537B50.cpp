@@ -93,11 +93,7 @@ struct D2ClientStrc
 {
     int dwClientId;
     int dwClientState;
-    union
-    {
-        unsigned char nAct;
-        unsigned char nClassId;
-    };
+    unsigned char nAct;
     unsigned char unk0x009[3];
     unsigned char nCharTemplate;
     char szName[16];
@@ -559,11 +555,11 @@ D2ClientStrc* __fastcall CLIENTS_AddToGame(D2GameStrc* pGame, int nClientId, uns
     if (ARENA_ShouldTreatClassIdAsTemplateId(pGame))
     {
         pClient->nCharTemplate = nClassIdOrCharTemplate;
-        pClient->nClassId = DATATBLS_GetClassFromCharTemplateTxtRecord(nClassIdOrCharTemplate, ARENA_GetTemplateType(pGame));
+        pClient->nAct = DATATBLS_GetClassFromCharTemplateTxtRecord(nClassIdOrCharTemplate, ARENA_GetTemplateType(pGame));
     }
     else
     {
-        pClient->nClassId = nClassIdOrCharTemplate;
+        pClient->nAct = nClassIdOrCharTemplate;
     }
 
     SStrCopy(pClient->szName, szClientName, 0x7FFFFFFF);

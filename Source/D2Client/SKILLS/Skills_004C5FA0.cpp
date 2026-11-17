@@ -28,17 +28,9 @@ struct D2DataTablesStrc
     D2SkillDescTxt* pSkillDescTxt;
     int unk0xB90;
     int nSkillDescTxtRecordCount;
-    union
-    {
-        D2SkillsTxt* pSkills;
-        D2SkillsTxt* pSkillsTxt;
-    };
+    D2SkillsTxt* pSkills;
     int unk_B9C;
-    union
-    {
-        int nSkillCount;
-        int nSkillsTxtRecordCount;
-    };
+    int nSkillCount;
     unsigned char unk_BA4[0x44];
     D2PetTypeTxt* pPetTypeTxt;
     void* pPetTypeLink;
@@ -172,9 +164,9 @@ void __fastcall sub_004C7890(D2UnitStrc* pUnit, int nState, D2StatListStrc* pSta
 static D2SkillsTxt* SKILLCLT_GetSkillsTxtRecord(int nSkillId)
 {
     D2SkillsTxt* pSkillsTxtRecord = 0;
-    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillCount)
     {
-        pSkillsTxtRecord = &sgptDataTables->pSkillsTxt[nSkillId];
+        pSkillsTxtRecord = &sgptDataTables->pSkills[nSkillId];
     }
 
     return pSkillsTxtRecord;

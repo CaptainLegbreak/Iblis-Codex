@@ -27,11 +27,7 @@ struct D2DrlgRoomStrc
 struct D2DrlgStrc
 {
     char unk0x000[0x08];
-    union
-    {
-        int nRoomCount08;
-        int nAllocatedRooms;
-    };
+    int nRoomCount08;
     char unk0x00C[0x8C];
     unsigned char nRoomsInitSinceLastUpdate;
     char unk0x099[0x07];
@@ -41,11 +37,7 @@ struct D2DrlgStrc
     char unk0x45D[0x03];
     D2DrlgRoomStrc* pDrlgRoom;
     char unk0x464[0x04];
-    union
-    {
-        int nRoomCount468;
-        int nFreedRooms;
-    };
+    int nRoomCount468;
     char unk0x46C[0x0C];
     void* pMempool;
 };
@@ -219,7 +211,7 @@ static int DRLGACTIVATE_RoomEx_EnsureHasRoom(void* pMemPool, D2DrlgRoomStrc* pDr
     DRLGROOMTILE_AddRoomMapTiles(pDrlgRoom);
     DRLG_CreateRoomForRoomEx(pDrlg, pDrlgRoom);
     ++pDrlg->nRoomsInitSinceLastUpdate;
-    ++pDrlg->nAllocatedRooms;
+    ++pDrlg->nRoomCount08;
     return 1;
 }
 
@@ -258,13 +250,13 @@ void __stdcall DRLGACTIVATE_Update(D2DrlgStrc* pDrlg)
 {
     if (DRLG_IsOnClient(pDrlg))
     {
-        gnStatsClientAllocatedRooms_0096C8B8 = pDrlg->nAllocatedRooms;
-        gnStatsClientFreedRooms_0096C8BC = pDrlg->nFreedRooms;
+        gnStatsClientAllocatedRooms_0096C8B8 = pDrlg->nRoomCount08;
+        gnStatsClientFreedRooms_0096C8BC = pDrlg->nRoomCount468;
     }
     else
     {
-        gnStatsAllocatedRooms_0096C8C4 = pDrlg->nAllocatedRooms;
-        gnStatsFreedRooms_0096C8C0 = pDrlg->nFreedRooms;
+        gnStatsAllocatedRooms_0096C8C4 = pDrlg->nRoomCount08;
+        gnStatsFreedRooms_0096C8C0 = pDrlg->nRoomCount468;
     }
 
     if (pDrlg->nRoomsInitSinceLastUpdate > 1)

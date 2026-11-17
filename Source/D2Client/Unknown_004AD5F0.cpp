@@ -23,11 +23,7 @@ struct D2SeedStrc
 struct D2MonsterDataStrc
 {
     char pad0x00[0x16];
-    union
-    {
-        unsigned short nTypeFlag;
-        unsigned short wFlags;
-    };
+    unsigned short nTypeFlag;
     int nSpawnCount;
 };
 
@@ -424,7 +420,7 @@ void __fastcall sub_004AD970_StateMissileSplit(D2UnitStrc* pUnit, int nState, in
         D2MonsterDataStrc* pMonsterData = pOwner->pMonsterData;
         if (pMonsterData)
         {
-            pMonsterData->wFlags |= 0x80;
+            pMonsterData->nTypeFlag |= 0x80;
         }
     }
 
@@ -436,7 +432,7 @@ void __fastcall sub_004AD970_StateMissileSplit(D2UnitStrc* pUnit, int nState, in
         D2MonsterDataStrc* pMonsterData = pOwner->pMonsterData;
         if (pMonsterData)
         {
-            pMonsterData->wFlags &= ~0x80;
+            pMonsterData->nTypeFlag &= ~0x80;
         }
     }
 }

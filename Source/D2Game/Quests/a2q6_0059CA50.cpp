@@ -11,11 +11,7 @@ struct D2Act2Quest6Strc
     char unk0x0C[0x02];
     unsigned char nUnk0x0E;
     char unk0x0F;
-    union
-    {
-        unsigned char bStatusOverride;
-        unsigned char bUnk0x10;
-    };
+    unsigned char bStatusOverride;
     char unk11[3];
     union
     {
@@ -149,18 +145,18 @@ void __fastcall sub_0059E060_ACT2Q6_SetPortalState(D2QuestDataStrc* pQuest, unsi
     {
         if (pQuestData->pGame->nGameByte0x6A == 3)
         {
-            pQuestDataEx->bUnk0x10 = 1;
+            pQuestDataEx->bStatusOverride = 1;
             pQuestDataEx->nUnk0x14 = 8;
         }
         else
         {
-            pQuestDataEx->bUnk0x10 = 1;
+            pQuestDataEx->bStatusOverride = 1;
             pQuestDataEx->nUnk0x14 = 9;
         }
     }
     else
     {
-        pQuestDataEx->bUnk0x10 = 0;
+        pQuestDataEx->bStatusOverride = 0;
     }
 }
 

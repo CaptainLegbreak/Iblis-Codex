@@ -238,17 +238,9 @@ struct D2MonsterDataStrc
     char unk0x26[0x2];
     unsigned short wClientFlags;
     char unk0x2A[0x2];
-    union
-    {
-        void* wszMonName;
-        void* pBuffer0x2C;
-    };
+    void* wszMonName;
     unsigned char unk_30[0xC];
-    union
-    {
-        int dwOwnerGUID;
-        int nUnk0x3C;
-    };
+    int dwOwnerGUID;
     int dwField40;
 };
 
@@ -784,10 +776,10 @@ void __fastcall sub_004AE0E0_FreeMonsterBuffer(D2UnitStrc* pUnit)
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER)
     {
         D2MonsterDataStrc* pMonsterData = pUnit->pMonsterData;
-        if (pMonsterData && pMonsterData->pBuffer0x2C)
+        if (pMonsterData && pMonsterData->wszMonName)
         {
-            FOG_Free(pMonsterData->pBuffer0x2C, gszMonsterSourceFile_006DA5C8, 0x66, 0);
-            pMonsterData->pBuffer0x2C = 0;
+            FOG_Free(pMonsterData->wszMonName, gszMonsterSourceFile_006DA5C8, 0x66, 0);
+            pMonsterData->wszMonName = 0;
         }
     }
 }
@@ -2018,9 +2010,9 @@ void __stdcall sub_004E4040(int nUnused1)
 // 0x004B1030
 D2UnitStrc* __fastcall sub_004B1030_GetMonsterLinkedPlayer(D2UnitStrc* pUnit)
 {
-    if (pUnit->dwUnitType == 1 && pUnit->pMonsterData && pUnit->pMonsterData->nUnk0x3C != -1)
+    if (pUnit->dwUnitType == 1 && pUnit->pMonsterData && pUnit->pMonsterData->dwOwnerGUID != -1)
     {
-        return sub_00463990(pUnit->pMonsterData->nUnk0x3C, 0);
+        return sub_00463990(pUnit->pMonsterData->dwOwnerGUID, 0);
     }
     return 0;
 }

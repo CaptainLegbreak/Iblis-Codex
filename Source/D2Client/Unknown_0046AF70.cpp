@@ -25,26 +25,10 @@ struct D2UnitStrc
 
 struct D2DrlgCoordsStrc
 {
-    union
-    {
-        int nX;
-        int nSubtileX;
-    };
-    union
-    {
-        int nY;
-        int nSubtileY;
-    };
-    union
-    {
-        int nWidth;
-        int nSubtileWidth;
-    };
-    union
-    {
-        int nHeight;
-        int nSubtileHeight;
-    };
+    int nX;
+    int nY;
+    int nWidth;
+    int nHeight;
     int nTileX;
     int nTileY;
     int nTileW;
@@ -285,10 +269,10 @@ static void __stdcall sub_0046C1A0_SpawnMonsterInRoom(D2ActiveRoomStrc* pRoom, i
 {
     D2DrlgCoordsStrc tCoords;
     DUNGEON_GetRoomCoordinates(pRoom, &tCoords);
-    const int nX = tCoords.nSubtileX;
-    const int nY = tCoords.nSubtileY;
-    const int nWidth = tCoords.nSubtileWidth - 1;
-    const int nHeight = tCoords.nSubtileHeight - 1;
+    const int nX = tCoords.nX;
+    const int nY = tCoords.nY;
+    const int nWidth = tCoords.nWidth - 1;
+    const int nHeight = tCoords.nHeight - 1;
 
     if (nMonsterId < 0 || nMonsterId >= sgptDataTables->nMonStatsTxtRecordCount)
         return;

@@ -56,11 +56,7 @@ struct D2DrlgLevelStrc
 {
     int nDrlgType;
     char unk0x004[0x10];
-    union
-    {
-        D2DrlgOutdoorInfoStrc* pOutdoor;
-        D2DrlgOutdoorInfoStrc* pOutdoors;
-    };
+    D2DrlgOutdoorInfoStrc* pOutdoor;
     char unk0x018[0x04];
     union
     {
@@ -874,7 +870,7 @@ void __fastcall sub_00677180_SetAct1OutdoorFlags(D2DrlgLevelStrc* pLevel, int nI
 {
     if (pLevel->nDrlgType == DRLGTYPE_OUTDOOR)
     {
-        D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
+        D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoor;
         for (int i = 0; i < 15; ++i)
         {
             if (pLevel->nLevelId == stru_6FDD06C0[i].nLevelId || !stru_6FDD06C0[i].nLevelId)
@@ -896,7 +892,7 @@ void __fastcall sub_00677180_SetAct1OutdoorFlags(D2DrlgLevelStrc* pLevel, int nI
 // 0x00677640
 static __forceinline void sub_00677640_AddOrthToLevel(D2DrlgLevelStrc* pLevel, int nLevelId)
 {
-    D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
+    D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoor;
     D2DrlgLevelStrc* pWarpLevel = DRLG_GetLevel(pLevel->pDrlg, nLevelId);
     const int nDirection = DRLG_GetDirectionFromCoordinates(&pLevel->pLevelCoords, &pWarpLevel->pLevelCoords);
     DRLGROOM_AddOrth(&pOutdoors->pRoomData, pWarpLevel, nDirection, pWarpLevel->nDrlgType == DRLGTYPE_PRESET);

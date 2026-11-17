@@ -15,11 +15,7 @@ struct D2SkillsTxt
     short nAuraState;
     unsigned char unk_82[0x68];
     short wCltMissileA;
-    union
-    {
-        short wCltMissileB;
-        short nClientMissile;
-    };
+    short wCltMissileB;
     short wCltMissileC;
     short wCltMissileD;
     char unk0x0F2[0x22];
@@ -53,11 +49,7 @@ struct D2UnitStrc
     int dwUnitId;
     int dwAnimMode;
     char unk0x14[0x0C];
-    union
-    {
-        D2SeedStrc pSeed;
-        D2SeedStrc tSeed;
-    };
+    D2SeedStrc pSeed;
     char unk0x28[0x04];
     union
     {
@@ -254,7 +246,7 @@ int __fastcall sub_004F0430_CreateTargetMissile(D2UnitStrc* pUnit, int nSkill, i
     D2SkillsTxt* pSkill = GetSkill(nSkill);
     if (!pSkill)
         return 0;
-    int nMissile = pSkill->nClientMissile;
+    int nMissile = pSkill->wCltMissileB;
     if (nMissile < 0 || nMissile >= sgptDataTables->nMissilesTxtRecordCount)
         return 1;
     {
@@ -650,7 +642,7 @@ void __fastcall sub_004F2AC0_MissileInit(D2UnitStrc* pMissile, int nSeed)
     }
 
     D2DynamicPathStrc* pDynamicPath = pMissile->pDynamicPath;
-    SEED_InitLowSeed(&pMissile->tSeed, nSeed);
+    SEED_InitLowSeed(&pMissile->pSeed, nSeed);
     PATH_SetType(pDynamicPath, 10);
     PATH_SetNewDistance(pDynamicPath, nFrames);
     D2Common_10142(pDynamicPath, pMissile, 0);

@@ -35,11 +35,7 @@ struct D2UnitStrc
     int dwAnimMode;
     D2MonsterDataStrc* pMonsterData;
     char pad18[8];
-    union
-    {
-        D2SeedStrc pSeed;
-        D2SeedStrc tSeed;
-    };
+    D2SeedStrc pSeed;
     int unk28;
     union
     {
@@ -379,7 +375,7 @@ bool __fastcall sub_005E6020_SelectGenericSpawnClass(D2GameStrc* pGame, D2UnitSt
 
     int const nLevelId = sub_00573520_GetLevelIdFromUnit(pUnit);
     D2MonsterRegionStrc* pMonRegion = MONSTERREGION_GetMonsterRegionFromLevelId(pGame->pMonReg, nLevelId);
-    const int nMonsterId = pMonRegion->pMonData[SEED_RollLimitedRandomNumberInline(&pUnit->tSeed, pMonRegion->nMonCount)].nMonHcIdx;
+    const int nMonsterId = pMonRegion->pMonData[SEED_RollLimitedRandomNumberInline(&pUnit->pSeed, pMonRegion->nMonCount)].nMonHcIdx;
     if (TestMonStatsFlag(nMonsterId, 21))
     {
         *pClassId = nMonsterId;

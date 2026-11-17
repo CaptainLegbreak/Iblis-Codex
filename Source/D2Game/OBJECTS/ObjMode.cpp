@@ -74,11 +74,7 @@ struct D2ObjectsTxt
 struct D2ObjectDataStrc
 {
     void* pObjectTxt;
-    union
-    {
-        unsigned char InteractType;
-        unsigned char nInteractType;
-    };
+    unsigned char InteractType;
     unsigned char nPortalFlags;
     unsigned short unk0x06;
     void* pShrineTxt;
@@ -1650,7 +1646,7 @@ void __fastcall sub_00585580_RetargetTownPortal(D2GameStrc* pGame, D2UnitStrc* p
     D2_ASSERT(pPair->dwClassId == 0x3B, 0x11EA);
     D2_ASSERT((unsigned char)nDestLevel <= 0xFF, 0x11EC);
 
-    pPortal->pObjectData->nInteractType = (unsigned char)nDestLevel;
+    pPortal->pObjectData->InteractType = (unsigned char)nDestLevel;
     D2PortalFlags00585580Strc tFlags;
     tFlags.nFlags = UNITS_GetObjectPortalFlags(pPortal) | 1;
     UNITS_SetObjectPortalFlags(pPortal, tFlags);
@@ -1853,8 +1849,8 @@ void __fastcall OBJMODE_UpdateTrappedSoul(D2GameStrc* pGame, D2UnitStrc* pObject
     case 2:
     {
         D2ObjectDataStrc* pObjectData = pObject->pObjectData;
-        const unsigned char nInteract = pObjectData->nInteractType + 1;
-        pObjectData->nInteractType = nInteract;
+        const unsigned char nInteract = pObjectData->InteractType + 1;
+        pObjectData->InteractType = nInteract;
         if (nInteract > 1)
         {
             D2ObjOperateFnStrc tOp;

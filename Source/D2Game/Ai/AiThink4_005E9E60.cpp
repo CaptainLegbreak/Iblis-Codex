@@ -40,11 +40,7 @@ struct D2AiControlStrc
     int nAiFlags;
     int nOwnerGUID;
     int nOwnerType;
-    union
-    {
-        int dwAiParam[3];
-        int param[3];
-    };
+    int dwAiParam[3];
     int unk20[7];
     int nSpawnClass;
 };
@@ -60,23 +56,11 @@ struct D2MonStatsTxt
 
 struct D2AiTickParamStrc
 {
-    union
-    {
-        D2AiControlStrc* pAiControl;
-        D2AiControlStrc* control;
-    };
+    D2AiControlStrc* pAiControl;
     unsigned int unk0x04;
-    union
-    {
-        D2UnitStrc* pTarget;
-        D2UnitStrc* target;
-    };
+    D2UnitStrc* pTarget;
     unsigned int unk0x0C[2];
-    union
-    {
-        int nTargetDistance;
-        int distance;
-    };
+    int nTargetDistance;
     int bCombat;
     D2MonStatsTxt* pMonstatsTxt;
 };
@@ -236,23 +220,23 @@ void __fastcall sub_005E9E60(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParam
 // 0x005EA130
 void __fastcall sub_005EA130_UpdateWanderer(D2GameStrc* game,D2UnitStrc* unit,D2AiTickParamStrc* tick)
 {
- D2AiControlStrc* control=tick->control;
- D2UnitStrc* target=tick->target;
- int distance=tick->distance;
+ D2AiControlStrc* control=tick->pAiControl;
+ D2UnitStrc* target=tick->pTarget;
+ int distance=tick->nTargetDistance;
  D2CoordStrc coords;
  if(!ACT3Q7_GetWandererCoordinates(game,unit,&coords)) {
   AITACTICS_IdleInNeutralMode(game,unit,10);return;
  }
- if(!control->param[0]) {
-  control->param[0]=1;control->param[1]=0;control->param[2]=0;
+ if(!control->dwAiParam[0]) {
+  control->dwAiParam[0]=1;control->dwAiParam[1]=0;control->dwAiParam[2]=0;
  }
  if(!target) {AITACTICS_IdleInNeutralMode(game,unit,10);return;}
  if(distance<20) {
-  int nState=control->param[0];
+  int nState=control->dwAiParam[0];
   {
   if(nState==1) {
    AITACTICS_WalkToTargetCoordinates(game,unit,coords.x,coords.y);
-   control->param[0]=2;return;
+   control->dwAiParam[0]=2;return;
   }
   else if(nState==2) {
    if(AIUTIL_GetDistanceToCoordinates(unit,coords.x,coords.y)<2) {
@@ -260,8 +244,8 @@ void __fastcall sub_005EA130_UpdateWanderer(D2GameStrc* game,D2UnitStrc* unit,D2
     AITACTICS_ChangeModeAndTargetCoordinates(game,unit,0,0,0);
     ACT3Q7_CreateVileDogSpawnTimer(game,unit);return;
    }
-   if(control->param[1]<3) {
-    ++control->param[1];
+   if(control->dwAiParam[1]<3) {
+    ++control->dwAiParam[1];
     AITACTICS_SetVelocity(unit,1,0,0);
     AITACTICS_WalkToTargetCoordinates(game,unit,coords.x,coords.y);return;
    }

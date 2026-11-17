@@ -44,18 +44,10 @@ struct D2StaticPathStrc
 
 struct D2UnitStrc
 {
-    union
-    {
-        int nUnitType;
-        int dwUnitType;
-    };
+    int nUnitType;
     int dwClassId;
     int unk0x08[2];
-    union
-    {
-        int nAnimMode;
-        int dwAnimMode;
-    };
+    int nAnimMode;
     unsigned char unk_14[0x18];
     union
     {
@@ -83,11 +75,7 @@ void __stdcall sub_00643260(int* pX, int* pY); // 0x00643260
 struct D2AnimDataRecordStrc
 {
     char unk_00[0x10];
-    union
-    {
-        unsigned char nFrameFlags[144];
-        unsigned char pFrameFlags[144];
-    };
+    unsigned char nFrameFlags[144];
 };
 
 extern "C" __declspec(noreturn) void __cdecl exit(int);
@@ -207,7 +195,7 @@ static __forceinline D2CharStatsTxt* UNITS_GetCharStatsTxtRecord(int nClassId)
 // build: context UNITS_GetToHitFactor
 static __forceinline int UNITS_GetToHitFactor(D2UnitStrc* pUnit)
 {
-    if (pUnit->dwUnitType != UNIT_PLAYER)
+    if (pUnit->nUnitType != UNIT_PLAYER)
     {
         return 0;
     }
@@ -224,7 +212,7 @@ static __forceinline int UNITS_GetToHitFactor(D2UnitStrc* pUnit)
 // 0x00622560
 int __stdcall UNITS_GetAttackRate(D2UnitStrc* pAttacker)
 {
-    const int bValid = pAttacker && pAttacker->dwUnitType == UNIT_PLAYER;
+    const int bValid = pAttacker && pAttacker->nUnitType == UNIT_PLAYER;
     D2_ASSERT(bValid, 0x107F);
 
     int nAttackRate = STATLIST_UnitGetStatValue(pAttacker, STAT_TOHIT, 0);
@@ -237,7 +225,7 @@ int __stdcall UNITS_GetAttackRate(D2UnitStrc* pAttacker)
 
 static __forceinline int UNITS_GetXPositionForceInl(D2UnitStrc* pUnit)
 {
-    switch (pUnit->dwUnitType)
+    switch (pUnit->nUnitType)
     {
     case UNIT_OBJECT:
     case UNIT_ITEM:
@@ -249,7 +237,7 @@ static __forceinline int UNITS_GetXPositionForceInl(D2UnitStrc* pUnit)
 
 static __forceinline int UNITS_GetYPositionForceInl(D2UnitStrc* pUnit)
 {
-    switch (pUnit->dwUnitType)
+    switch (pUnit->nUnitType)
     {
     case UNIT_OBJECT:
     case UNIT_ITEM:
@@ -430,7 +418,7 @@ int __stdcall UNITS_TestCollisionWithUnit(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2
 
 __forceinline int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
 {
-    switch (pUnit->dwUnitType)
+    switch (pUnit->nUnitType)
     {
     case 2:
     case 4:
@@ -443,7 +431,7 @@ __forceinline int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
 
 __forceinline int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
 {
-    switch (pUnit->dwUnitType)
+    switch (pUnit->nUnitType)
     {
     case 2:
     case 4:
@@ -466,7 +454,7 @@ int __stdcall sub_00623660_IsInObjectInteractRange(D2UnitStrc* pUnit, D2UnitStrc
     int nSizeX2 = 0;
     int nSizeY2 = 0;
 
-    const int nObjectType = pObject ? pObject->dwUnitType : 6;
+    const int nObjectType = pObject ? pObject->nUnitType : 6;
     if (nObjectType != 2)
     {
         return 0;
@@ -516,7 +504,7 @@ static inline int UNITS_GetUnitTypeInline(D2UnitStrc* pUnit)
 {
     if (!pUnit)
         return 6;
-    return pUnit->dwUnitType;
+    return pUnit->nUnitType;
 }
 
 static inline int UNITS_GetClassIdInline(D2UnitStrc* pUnit)
@@ -530,7 +518,7 @@ static inline int UNITS_GetAnimModeInline(D2UnitStrc* pUnit)
 {
     if (!pUnit)
         return 0;
-    return pUnit->dwAnimMode;
+    return pUnit->nAnimMode;
 }
 
 // 0x00623B10
@@ -610,19 +598,19 @@ void __stdcall UNITS_SetAnimActionFrame(D2UnitStrc* pUnit, int nFrame)
 {
     if (pUnit && pUnit->pAnimData && nFrame < 144)
     {
-        if (pUnit->pAnimData->pFrameFlags[nFrame] == 1)
+        if (pUnit->pAnimData->nFrameFlags[nFrame] == 1)
         {
             pUnit->nActionFrame = 1;
         }
-        if (pUnit->pAnimData->pFrameFlags[nFrame] == 2)
+        if (pUnit->pAnimData->nFrameFlags[nFrame] == 2)
         {
             pUnit->nActionFrame = 2;
         }
-        if (pUnit->pAnimData->pFrameFlags[nFrame] == 3)
+        if (pUnit->pAnimData->nFrameFlags[nFrame] == 3)
         {
             pUnit->nActionFrame = 3;
         }
-        if (pUnit->pAnimData->pFrameFlags[nFrame] == 4)
+        if (pUnit->pAnimData->nFrameFlags[nFrame] == 4)
         {
             pUnit->nActionFrame = 4;
         }
@@ -635,19 +623,19 @@ static __forceinline void StopSequence_SetActionFrame(D2UnitStrc* pUnit, int nFr
     D2AnimDataRecordStrc* pAnimData = pUnit->pAnimData;
     if (pAnimData && nFrame < 144)
     {
-        if (pAnimData->pFrameFlags[nFrame] == 1)
+        if (pAnimData->nFrameFlags[nFrame] == 1)
         {
             pUnit->nActionFrame = 1;
         }
-        if (pAnimData->pFrameFlags[nFrame] == 2)
+        if (pAnimData->nFrameFlags[nFrame] == 2)
         {
             pUnit->nActionFrame = 2;
         }
-        if (pAnimData->pFrameFlags[nFrame] == 3)
+        if (pAnimData->nFrameFlags[nFrame] == 3)
         {
             pUnit->nActionFrame = 3;
         }
-        if (pAnimData->pFrameFlags[nFrame] == 4)
+        if (pAnimData->nFrameFlags[nFrame] == 4)
         {
             pUnit->nActionFrame = 4;
         }

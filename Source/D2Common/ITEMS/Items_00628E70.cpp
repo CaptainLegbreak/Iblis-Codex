@@ -57,11 +57,7 @@ struct D2ItemStatCostTxt
     char unk0x00[0x10];
     int dwMultiply;
     int dwAdd;
-    union
-    {
-        unsigned char nValShift;
-        unsigned char nSaveBits;
-    };
+    unsigned char nValShift;
     unsigned char nSaveBits2;
     char unk0x1A[2];
     int dwSaveAdd;
@@ -162,11 +158,7 @@ struct D2ItemsTxt
     char unk0x00[0xF0];
     int dwGemOffset;
     unsigned char unk_F4[0x36];
-    union
-    {
-        unsigned char nQuantity;
-        unsigned char nQuest;
-    };
+    unsigned char nQuantity;
     unsigned char nStackable;
     unsigned char unk_12C[0xB];
     unsigned char nHasInv;
@@ -489,7 +481,7 @@ static __forceinline unsigned int BITMANIP_ReadInl(D2BitBufferStrc* pBuffer, int
 
 static __forceinline int ITEMS_ReadQuestItemDifficultyForceInl(D2BitBufferStrc* pBuffer, D2ItemStatCostTxt* pRecord)
 {
-    return (BITMANIP_ReadInl(pBuffer, pRecord->nSaveBits2) - pRecord->dwSaveAdd) << pRecord->nSaveBits;
+    return (BITMANIP_ReadInl(pBuffer, pRecord->nSaveBits2) - pRecord->dwSaveAdd) << pRecord->nValShift;
 }
 
 // 0x0062A970
@@ -639,7 +631,7 @@ const D2RunesTxt* __stdcall ITEMS_GetRunesTxtRecordFromItem(D2UnitStrc* pItem)
         return 0;
     }
 
-    if (DATATBLS_GetItemsTxtRecord(sub_00623C60(pItem))->nQuest)
+    if (DATATBLS_GetItemsTxtRecord(sub_00623C60(pItem))->nQuantity)
     {
         return 0;
     }

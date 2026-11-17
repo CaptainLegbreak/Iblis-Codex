@@ -351,11 +351,7 @@ struct D2TxtLinkEntryStrc { char code[4]; int index; };
 
 struct D2TxtLinkStrc
 {
-    union
-    {
-        int count;
-        int nRecords;
-    };
+    int count;
     int unk_04;
     D2TxtLinkEntryStrc* entries;
     D2TxtLinkNodeStrc* pFirstNode;
@@ -656,7 +652,7 @@ int __stdcall FOG_GetLinkIndex(D2TxtLinkStrc* pLink, const char* szText, int bLo
     sub_004113C0(szKey, sizeof(szKey));
 
     D2TxtLinkNodeStrc* pNode = pLink->pFirstNode;
-    if (pLink->nRecords && !pNode)
+    if (pLink->count && !pNode)
     {
         sub_00408A60(&gszEmptyAssertText_006CC837, sub_00408090(), 0x475);
         exit(-1);

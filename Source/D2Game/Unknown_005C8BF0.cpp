@@ -22,11 +22,7 @@ struct D2UnitStrc
     int dwInitSeed;
     D2DynamicPathStrc* pDynamicPath;
     char unk0x30[0x14];
-    union
-    {
-        int nSeqCurrentFramePrecise;
-        int dwGFXcurrentFrame;
-    };
+    int nSeqCurrentFramePrecise;
     int dwFrameCountPrecise;
     unsigned char unk_4C[0x78];
     unsigned int dwFlags;
@@ -258,7 +254,7 @@ int __fastcall sub_004E2630_SkillDoFrameSteps(D2UnitStrc* pUnit, int nSkillId, i
     D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nSkillId);
     const int nRepeats = SKILLS_GetParam1(pSkill);
 
-    switch (pUnit->dwGFXcurrentFrame >> 8)
+    switch (pUnit->nSeqCurrentFramePrecise >> 8)
     {
     case SKILLDO_FRAME_A:
         UNITS_SetAnimationFrame(pUnit, SKILLDO_FRAME_A_SET);

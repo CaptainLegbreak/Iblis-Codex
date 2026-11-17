@@ -187,11 +187,7 @@ struct D2Act1Quest4Strc
     unsigned char bInifussTreeInitialized;
     unsigned char bCageModeChanged;
     unsigned char bInvisbleObjectInitialized;
-    union
-    {
-        unsigned char bStoneOrderInitialized;
-        unsigned char bMonolithStonesOrdered;
-    };
+    unsigned char bStoneOrderInitialized;
     unsigned char unk0x4B;
     unsigned char unk0x4C;
     unsigned char bActivateCairnStones;
@@ -199,11 +195,7 @@ struct D2Act1Quest4Strc
     unsigned char bOperatedWithLastCairnStone;
     unsigned char unk0x50;
     unsigned char bCainInTownSpawned;
-    union
-    {
-        unsigned char bCainInTownSpawnPending;
-        unsigned char unk0x52;
-    };
+    unsigned char bCainInTownSpawnPending;
     unsigned char bAkaraIntroActivated;
     int nCainGibbetObjectMode;
     int unk0x58;
@@ -1377,7 +1369,7 @@ void __fastcall ACT1Q4_InitQuestData(D2QuestDataStrc* pQuestData)
     memset(pQuestDataEx, 0x00, sizeof(D2Act1Quest4Strc));
 
     pQuestDataEx->nCurrentMonolithNo = 0;
-    pQuestDataEx->bMonolithStonesOrdered = 0;
+    pQuestDataEx->bStoneOrderInitialized = 0;
     pQuestDataEx->bDecipheredScrollAcquired = 0;
     pQuestDataEx->unk0x4B = 0;
     pQuestDataEx->nCairnStoneInteractions = 0;
@@ -1396,7 +1388,7 @@ void __fastcall ACT1Q4_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestDataEx->bCairnStonesActive[3] = 0;
     pQuestDataEx->bCairnStonesActive[4] = 0;
     pQuestDataEx->bCainInTownSpawned = 0;
-    pQuestDataEx->unk0x52 = 0;
+    pQuestDataEx->bCainInTownSpawnPending = 0;
     pQuestDataEx->bCainRemovedFromTristram = 0;
     pQuestDataEx->bCainNotCreated = 0;
     pQuestDataEx->bAkaraIntroActivated = 0;

@@ -93,27 +93,15 @@ struct Unicode
 
 struct D2CompositeUnitStrc
 {
-    union
-    {
-        unsigned int dwFlags;
-        unsigned int flags;
-    };
+    unsigned int dwFlags;
     unsigned char nDirection;
     unsigned char nDirections;
     unsigned char unk0x06[2];
     int nFrame;
     int nFrameCount;
     int nAnimSpeed;
-    union
-    {
-        int nX;
-        int x;
-    };
-    union
-    {
-        int nY;
-        int y;
-    };
+    int nX;
+    int nY;
     union
     {
         unsigned int nUnitIndex;
@@ -126,16 +114,8 @@ struct D2CompositeUnitStrc
     int nItemTypes[16];
     D2GfxInfoStrc* pGfxInfo;
     D2CelFileStrc* pEmblemCellFile;
-    union
-    {
-        unsigned char nEmblemColor1;
-        unsigned char f_C0;
-    };
-    union
-    {
-        unsigned char nEmblemColor2;
-        unsigned char unk0xC1;
-    };
+    unsigned char nEmblemColor1;
+    unsigned char nEmblemColor2;
     unsigned char unk0xC2[2];
     D2CompositeUnitStrc* pNext;
     D2CompositeUnitStrc* pPrev;
@@ -1125,20 +1105,20 @@ void __stdcall D2Win_10158(D2CompositeUnitStrc* pCompositeUnit, unsigned char a2
 
     if (a3 >= 1u && a3 <= 10u)
     {
-        pCompositeUnit->f_C0 = gabEmblemColor1_0087D810[a3 - 1];
+        pCompositeUnit->nEmblemColor1 = gabEmblemColor1_0087D810[a3 - 1];
     }
     else
     {
-        pCompositeUnit->f_C0 = 0;
+        pCompositeUnit->nEmblemColor1 = 0;
     }
 
     if (a4 >= 1u && a4 <= 10u)
     {
-        pCompositeUnit->unk0xC1 = gabEmblemColor2_0087E82C[a4 - 1];
+        pCompositeUnit->nEmblemColor2 = gabEmblemColor2_0087E82C[a4 - 1];
     }
     else
     {
-        pCompositeUnit->unk0xC1 = 0;
+        pCompositeUnit->nEmblemColor2 = 0;
     }
 }
 
@@ -1391,15 +1371,15 @@ const char* __stdcall D2Win_10160_GetPlayerTitle(int nClass, int nTitle, int bEx
 int __fastcall sub_00505810_DrawCompositeLabel(D2CompositeUnitStrc* unit)
 {
  if(!unit){sub_00408A60(&gszEmptyAssertText,sub_00408090(),1723);exit(-1);}
- if(!(unit->flags & gdwBitMasks[1]))return 0;
- int y=unit->y+6;
+ if(!(unit->dwFlags & gdwBitMasks[1]))return 0;
+ int y=unit->nY+6;
  Unicode text[256];
  int color=0,shadow=0;
  if(unit->unitClass==20){shadow=1;color=3;}
  else if(unit->unitClass==18){color=3;shadow=1;}
- else if(unit->flags & gdwBitMasks[5])color=1;
- unsigned int flags=unit->flags;
- if(unit->flags & gdwBitMasks[8])y+=15;
+ else if(unit->dwFlags & gdwBitMasks[5])color=1;
+ unsigned int flags=unit->dwFlags;
+ if(unit->dwFlags & gdwBitMasks[8])y+=15;
  if((flags & gdwBitMasks[6]) || (flags & gdwBitMasks[7])){
   const char* title=D2Win_10160_GetPlayerTitle(unit->unitClass,3*((flags>>5)&1)+2*((flags>>7)&1)+((flags>>6)&1),(flags>>12)&1);
   Unicode titleText[256];
@@ -1424,7 +1404,7 @@ int __fastcall sub_00505810_DrawCompositeLabel(D2CompositeUnitStrc* unit)
  sub_00503EC0_TruncateText(text,120);
  int width,height;
  sub_00502520(text,&width,&height);
- if(shadow)sub_00502320(text,unit->x-(width>>1)-1,y-1,6,0);
- sub_00502320(text,unit->x-(width>>1),y,color,0);
+ if(shadow)sub_00502320(text,unit->nX-(width>>1)-1,y-1,6,0);
+ sub_00502320(text,unit->nX-(width>>1),y,color,0);
  return 1;
 }

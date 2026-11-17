@@ -43,11 +43,7 @@ struct D2BasicAuraParamStrc
     int nAuraStatCalcValue[6];
     int field_40;
     D2StatListStrc* pStatList;
-    union
-    {
-        int nPassiveState;
-        int nPassive2;
-    };
+    int nPassiveState;
     D2DamageStrc* pDamage;
 };
 
@@ -392,7 +388,7 @@ int __fastcall SKILLS_AuraCallback_HolyFreeze(D2AuraCallbackStrc* pAuraCallback,
         }
     }
 
-    if (pArgs->nPassive2)
+    if (pArgs->nPassiveState)
     {
         D2BasicAuraParamStrc args;
         memset(&args, 0, sizeof(args));

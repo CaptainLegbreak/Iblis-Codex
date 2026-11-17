@@ -176,11 +176,7 @@ extern int gnThumbY_007C02CC; // 0x007C02CC
 #pragma pack(push, 2)
 struct D2ClientListEntryStrc
 {
-    union
-    {
-        int nId;
-        int nKey;
-    };
+    int nId;
     unsigned char unk0x04[6];
 };
 
@@ -774,12 +770,12 @@ static int sub_004A4FA0_GetEntryState(int nIndex, int nFlag)
         return 3;
     }
 
-    if (!sub_00469D90(gpListEntries_00724264[nIndex].nKey, 1) && !sub_00469D90(gpListEntries_00724264[nIndex].nKey, 0))
+    if (!sub_00469D90(gpListEntries_00724264[nIndex].nId, 1) && !sub_00469D90(gpListEntries_00724264[nIndex].nId, 0))
     {
         return 1;
     }
 
-    return sub_00469D90(gpListEntries_00724264[nIndex].nKey, nFlag) ? 4 : 5;
+    return sub_00469D90(gpListEntries_00724264[nIndex].nId, nFlag) ? 4 : 5;
 }
 
 int sub_B05_Emit_004A4FA0(int* pIndex)

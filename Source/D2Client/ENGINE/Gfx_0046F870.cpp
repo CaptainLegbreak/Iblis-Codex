@@ -19,28 +19,12 @@ typedef unsigned int size_t;
 
 struct D2UnitStrc
 {
-    union
-    {
-        int dwUnitType;
-        int type;
-    };
-    union
-    {
-        int dwClassId;
-        int classId;
-    };
+    int dwUnitType;
+    int dwClassId;
     char unk0x08[0x60 - 0x08];
-    union
-    {
-        D2InventoryStrc* pInventory;
-        D2InventoryStrc* inventory;
-    };
+    D2InventoryStrc* pInventory;
     char unk0x64[0xC8 - 0x64];
-    union
-    {
-        unsigned int dwFlagEx;
-        unsigned int flagsEx;
-    };
+    unsigned int dwFlagEx;
 };
 
 struct D2HashedFileEntryStrc
@@ -799,14 +783,14 @@ void __fastcall sub_00470610_Refresh(D2UnitStrc* pUnit, int nArg)
     }
 }
 
-static __forceinline int IsShapeShifted(D2UnitStrc* unit) { if(!unit) return 0; return (unit->flagsEx>>3)&1; }
+static __forceinline int IsShapeShifted(D2UnitStrc* unit) { if(!unit) return 0; return (unit->dwFlagEx>>3)&1; }
 
 static __forceinline D2InventoryStrc* GetInventory(D2UnitStrc* unit) {
  if(IsShapeShifted(unit) && STATES_CheckStateMaskOnUnit(unit,37)) {
   D2UnitStrc* owner=sub_004639D0_GetOwnerUnit(unit);
-  if(owner) return owner->inventory;
+  if(owner) return owner->pInventory;
  }
- return unit->inventory;
+ return unit->pInventory;
 }
 
 static __forceinline void* GetModeGfx(D2UnitStrc* unit,int mode) {
@@ -827,8 +811,8 @@ int __fastcall sub_004709A0_IsOnScreen(D2UnitStrc* unit,int x,int y,int unused,i
  int weapon;
  int weaponClass=COMPOSIT_GetWeaponClassId(unit,GetInventory(unit),&weapon,-1,1);
  if(!sub_0046E5A0_FindGfxNode(unit,weaponClass,-1)) sub_0046FA80_LoadGfxNode(unit,weaponClass,-1);
- int type=unit->type;
- int classId=unit->classId;
+ int type=unit->dwUnitType;
+ int classId=unit->dwClassId;
  int mode=UNITS_GetAnimOrSeqMode(unit);
  D2COMMON_11013_ConvertMode(unit,&type,&classId,&mode,".\\ENGINE\\Gfx.cpp",3522);
  void* gfx=GetModeGfx(unit,mode);

@@ -24,16 +24,8 @@ struct D2UnitStrc
 struct D2SkillsTxt
 {
     char unk_00[0x48];
-    union
-    {
-        short nSrvMissile;
-        short nMissileA;
-    };
-    union
-    {
-        short nCltMissile;
-        short nMissileB;
-    };
+    short nSrvMissile;
+    short nCltMissile;
     char unk_04C[0x18];
     unsigned int dwRangeCalc;
     unsigned char unk_68[0xD0];
@@ -79,11 +71,7 @@ struct D2MissileStrc
     int nTargetY;
     int nGfxArg;
     int nVelocity;
-    union
-    {
-        int nSkill;
-        int nSkillId;
-    };
+    int nSkill;
     int nSkillLevel;
     int nLoops;
     unsigned int unk_38;
@@ -316,9 +304,9 @@ int __fastcall sub_005DBA40_CreateSkillMissile(D2GameStrc* pGame, D2UnitStrc* pU
     int nX = 0;
     int nY = 0;
     D2GAME_GetXAndYFromTargetUnit_6FD14020(pGame, pUnit, &nX, &nY);
-    int nMissile = pSkillsTxt->nMissileA;
-    if (UNITS_GetWeaponClass(pUnit) != 1 && pSkillsTxt->nMissileB >= 0)
-        nMissile = pSkillsTxt->nMissileB;
+    int nMissile = pSkillsTxt->nSrvMissile;
+    if (UNITS_GetWeaponClass(pUnit) != 1 && pSkillsTxt->nCltMissile >= 0)
+        nMissile = pSkillsTxt->nCltMissile;
     if (nMissile < 0 || nMissile >= sgptDataTables->nMissilesTxtRecordCount) return 0;
     const int nDamage = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxt->dwDamageCalc, nSkillId, nSkillLevel);
     D2MissileStrc missile;
@@ -327,7 +315,7 @@ int __fastcall sub_005DBA40_CreateSkillMissile(D2GameStrc* pGame, D2UnitStrc* pU
     missile.pOwner = pUnit;
     missile.nX = CLIENTS_GetUnitX(pUnit);
     missile.nY = CLIENTS_GetUnitY(pUnit);
-    missile.nSkillId = nSkillId;
+    missile.nSkill = nSkillId;
     missile.nSkillLevel = nSkillLevel;
     missile.nMissile = nMissile;
     missile.nTargetX = nX;

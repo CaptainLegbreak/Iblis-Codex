@@ -13,11 +13,7 @@ struct D2SeedStrc
 
 struct D2UnitStrc
 {
-    union
-    {
-        int type;
-        int dwUnitType;
-    };
+    int type;
     int dwClassId;
     unsigned char unk_08[0x4];
     int id;
@@ -255,7 +251,7 @@ int __fastcall sub_005BE3F0_ApplyPotion(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
             nResult = 1;
         }
     }
-    if (bUpdateLife && pUnit && pUnit->dwUnitType == 0)
+    if (bUpdateLife && pUnit && pUnit->type == 0)
     {
         const unsigned char nOldLife = STATLIST_UnitGetStatValue(pUnit, 352, 0);
         const unsigned char nNewLife = sub_005805D0_GetLifePercent(pUnit);

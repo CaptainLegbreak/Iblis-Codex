@@ -29,34 +29,18 @@ struct D2DrlgOutdoorInfoStrc
 
 struct D2SeedStrc
 {
-    union
-    {
-        unsigned int dwLow;
-        unsigned int nLowSeed;
-    };
-    union
-    {
-        unsigned int dwHigh;
-        unsigned int nHighSeed;
-    };
+    unsigned int dwLow;
+    unsigned int dwHigh;
 };
 
 struct D2DrlgLevelStrc
 {
     char pad_00[20];
-    union
-    {
-        D2DrlgOutdoorInfoStrc* pOutdoor;
-        D2DrlgOutdoorInfoStrc* pOutdoors;
-    };
+    D2DrlgOutdoorInfoStrc* pOutdoor;
     char unk0x018[0x19C];
     D2DrlgStrc* pDrlg;
     char unk0x1B8[0x0C];
-    union
-    {
-        D2SeedStrc tSeed;
-        D2SeedStrc pSeed;
-    };
+    D2SeedStrc tSeed;
     char unk0x1CC[0x04];
     int nLevelId;
 };
@@ -140,9 +124,9 @@ int __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPreset(D2DrlgLevelStrc* pLevel, int
 
 static __forceinline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed)
 {
-    unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
-    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
-    pSeed->nLowSeed = (unsigned int)lSeed;
+    unsigned __int64 lSeed = pSeed->dwHigh + 0x6AC690C5i64 * pSeed->dwLow;
+    pSeed->dwHigh = (unsigned int)(lSeed >> 32);
+    pSeed->dwLow = (unsigned int)lSeed;
     return (unsigned int)lSeed;
 }
 
@@ -160,7 +144,7 @@ void __fastcall DRLGOUTDOORS_SpawnAct12Waypoint(D2DrlgLevelStrc* pLevel)
 {
     D2CoordStrc pCoord[256];
     const int nLevelId = pLevel->nLevelId;
-    D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
+    D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoor;
     if (nLevelId == LEVEL_COLDPLAINS)
     {
         int* pVisArray = DRLGROOM_GetVisArrayFromLevelId(pLevel->pDrlg, nLevelId);
@@ -203,8 +187,8 @@ void __fastcall DRLGOUTDOORS_SpawnAct12Waypoint(D2DrlgLevelStrc* pLevel)
         }
         for (int i = 0; i < nArea; ++i)
         {
-            int nRand1 = SEED_RollLimitedRandomNumber_Inline(&pLevel->pSeed, nArea);
-            int nRand2 = SEED_RollLimitedRandomNumber_Inline(&pLevel->pSeed, nArea);
+            int nRand1 = SEED_RollLimitedRandomNumber_Inline(&pLevel->tSeed, nArea);
+            int nRand2 = SEED_RollLimitedRandomNumber_Inline(&pLevel->tSeed, nArea);
             D2CoordStrc tCoord = pCoord[nRand1];
             pCoord[nRand1] = pCoord[nRand2];
             pCoord[nRand2] = tCoord;
@@ -213,7 +197,7 @@ void __fastcall DRLGOUTDOORS_SpawnAct12Waypoint(D2DrlgLevelStrc* pLevel)
         {
             int nX = pCoord[i].nX + 1;
             int nY = pCoord[i].nY + 1;
-            if (!(DRLGGRID_GetGridEntry(&pLevel->pOutdoors->pGrid[2], nX, nY) & 0x1B81))
+            if (!(DRLGGRID_GetGridEntry(&pLevel->pOutdoor->pGrid[2], nX, nY) & 0x1B81))
             {
                 DRLGGRID_AlterGridFlag(&pOutdoors->pGrid[1], nX, nY, 0x10000, FLAG_OPERATION_OR);
                 DRLGGRID_AlterGridFlag(&pOutdoors->pGrid[2], nX, nY, 0x800, FLAG_OPERATION_OR);

@@ -21,20 +21,12 @@ struct D2SeedStrc
 
 struct D2UnitStrc
 {
-    union
-    {
-        int dwUnitType;
-        int nType;
-    };
+    int dwUnitType;
     int dwClassId;
     char unk0x08[0x04];
     int dwUnitId;
     char unk0x10[0x10];
-    union
-    {
-        D2SeedStrc pSeed;
-        D2SeedStrc tSeed;
-    };
+    D2SeedStrc pSeed;
     char unk0x28[0x04];
     union
     {
@@ -243,16 +235,8 @@ struct D2MissileScanArgStrc
     D2UnitStrc* pMissile;
     int nSkillId;
     int nSkillLevel;
-    union
-    {
-        int nMaxHits;
-        int f_10;
-    };
-    union
-    {
-        int nSubMissile;
-        int f_14;
-    };
+    int nMaxHits;
+    int nSubMissile;
 };
 
 struct D2MissileScanStateStrc
@@ -722,7 +706,7 @@ void __fastcall sub_004CE140_SpawnRingAround(D2UnitStrc* pMissile, int nChance, 
         return;
     }
 
-    if (sub_0064A380_GetRemainingFrames(pMissile) && ITEMS_RollLimitedRandomNumber(&pMissile->tSeed, nChance) > 0)
+    if (sub_0064A380_GetRemainingFrames(pMissile) && ITEMS_RollLimitedRandomNumber(&pMissile->pSeed, nChance) > 0)
     {
         return;
     }
@@ -743,8 +727,8 @@ void __fastcall sub_004CE140_SpawnRingAround(D2UnitStrc* pMissile, int nChance, 
 
     for (int i = 0; i < nCount; ++i)
     {
-        nOffsetX = SEED_RollLimitedRandomNumberInline(&pMissile->tSeed, 2 * nRange) - nRange;
-        nOffsetY = SEED_RollLimitedRandomNumberInline(&pMissile->tSeed, 2 * nRange) - nRange;
+        nOffsetX = SEED_RollLimitedRandomNumberInline(&pMissile->pSeed, 2 * nRange) - nRange;
+        nOffsetY = SEED_RollLimitedRandomNumberInline(&pMissile->pSeed, 2 * nRange) - nRange;
         nOffsetX += nOffsetX < 0 ? -nRange : nRange;
         nOffsetY += nOffsetY < 0 ? -nRange : nRange;
         tParams.nTargetX = nOffsetX + nX;
@@ -1084,8 +1068,8 @@ int __fastcall sub_004CFE30_CltHitScanArea(D2UnitStrc* pMissile)
     tArg.pMissile = pMissile;
     tArg.nSkillId = nSkillId;
     tArg.nSkillLevel = nSkillLevel;
-    tArg.f_10 = nParam;
-    tArg.f_14 = pMissilesTxtRecord->wCltHitSubMissile[0];
+    tArg.nMaxHits = nParam;
+    tArg.nSubMissile = pMissilesTxtRecord->wCltHitSubMissile[0];
     sub_004C5C40_ScanArea(pOwner, nX, nY, nRange, nFlags, sub_004CFD70_HitScanCallback, &tArg, 1);
 
     return 1;
@@ -1162,7 +1146,7 @@ static void __stdcall sub_004D19D0_SpawnRing(int nTargetUnitId, D2UnitStrc* pMis
         if (pNew)
         {
             MISSILE_SetTargetX(pNew, nTargetUnitId);
-            MISSILE_SetTargetY(pNew, SEED_RollRandomNumber(&pMissile->tSeed) % 35 + 10);
+            MISSILE_SetTargetY(pNew, SEED_RollRandomNumber(&pMissile->pSeed) % 35 + 10);
         }
     }
 }
@@ -1186,7 +1170,7 @@ void __fastcall sub_004D6680_CltDoObjectRing(D2UnitStrc* pMissile)
 
 static __forceinline int GetX(D2UnitStrc* pUnit)
 {
-    switch (pUnit->nType)
+    switch (pUnit->dwUnitType)
     {
     case 2:
     case 4:
@@ -1201,7 +1185,7 @@ static __forceinline int GetX(D2UnitStrc* pUnit)
 
 static __forceinline int GetY(D2UnitStrc* pUnit)
 {
-    switch (pUnit->nType)
+    switch (pUnit->dwUnitType)
     {
     case 2:
     case 4:

@@ -14,16 +14,8 @@ struct D2SeedStrc
 struct D2StaticPathStrc
 {
     char unk0x00[0x0C];
-    union
-    {
-        int nX;
-        int nXPos;
-    };
-    union
-    {
-        int nY;
-        int nYPos;
-    };
+    int nX;
+    int nY;
 };
 
 struct D2UnitStrc
@@ -253,7 +245,7 @@ static int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nXPos;
+        return pUnit->pStaticPath->nX;
     }
 
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -266,7 +258,7 @@ static int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nYPos;
+        return pUnit->pStaticPath->nY;
     }
 
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;

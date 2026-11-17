@@ -11,11 +11,7 @@ typedef bool (__fastcall* D2QuestStatusFilter)(D2QuestDataStrc*,D2UnitStrc*,D2Bi
 
 struct D2QuestDataStrc
 {
-    union
-    {
-        int nQuestNo;
-        int number;
-    };
+    int nQuestNo;
     int unknown04;
     unsigned char act;
     unsigned char unk_09[0x2];
@@ -25,11 +21,7 @@ struct D2QuestDataStrc
     unsigned char unk_0E[0x6];
     unsigned int flags;
     char unknown18[0xC8];
-    union
-    {
-        int nQuestFilter;
-        int filter;
-    };
+    int nQuestFilter;
     int unknownE4;
     D2QuestStatusFilter statusFilter;
     char unknownEC[8];
@@ -149,7 +141,7 @@ static __forceinline D2QuestDataStrc* GetQuest(D2GameStrc* game,int id) {
  D2_ASSERT(id>=0,119);
  if(!control) return 0;
  for(D2QuestDataStrc* quest=control->first;quest;quest=quest->next)
-  if(quest->number==id) return quest;
+  if(quest->nQuestNo==id) return quest;
  return 0;
 }
 
@@ -174,8 +166,8 @@ void __fastcall QUESTS_StatusCyclerEx(D2GameStrc* game,D2UnitStrc* player,unsign
    if(quest->statusFilter(quest,player,game->questControl->flags,flags,&state)==1)
     packet.state=state;
   }
-  if(quest->filter==1) packet.remaining=ACT1Q1_GetMonstersToBeKilled(quest);
-  else if(quest->filter==36) packet.remaining=ACT5Q2_GetBarbsToBeRescued(quest);
+  if(quest->nQuestFilter==1) packet.remaining=ACT1Q1_GetMonstersToBeKilled(quest);
+  else if(quest->nQuestFilter==36) packet.remaining=ACT5Q2_GetBarbsToBeRescued(quest);
   sub_0053D710_SendQuestStatus(client,&packet);
  }
 }

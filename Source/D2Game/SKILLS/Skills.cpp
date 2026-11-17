@@ -94,11 +94,7 @@ struct D2UnitStrc
             void* pMemoryPool;
         };
     };
-    union
-    {
-        int dwUnitId;
-        int id;
-    };
+    int dwUnitId;
     union
     {
         struct
@@ -240,11 +236,7 @@ struct D2SkillsTxt
     char unk0x50[0x60 - 0x50];
     unsigned int dwAuraLenCalc;
     char unk0x64[0x80 - 0x64];
-    union
-    {
-        short nAuraState;
-        short auraState;
-    };
+    short nAuraState;
     short wAuraTargetState;
     unsigned char unk_84[0xA4];
     unsigned int dwPerDelay;
@@ -268,11 +260,7 @@ struct D2DataTablesStrc
     char unk0x00[0xBC];
     D2StatesTxt* pStatesTxt;
     char f_C0[0x04];
-    union
-    {
-        int nStatesTxtRecordCount;
-        int stateCount;
-    };
+    int nStatesTxtRecordCount;
     unsigned char unk_C8[0x9B0];
     D2MonStatsTxt* pMonStatsTxt;
     void* pMonStatsLinker;
@@ -282,17 +270,9 @@ struct D2DataTablesStrc
     int unk0xB68;
     int nMissilesTxtRecordCount;
     unsigned char unk_B70[0x28];
-    union
-    {
-        D2SkillsTxt* pSkillsTxt;
-        D2SkillsTxt* skills;
-    };
+    D2SkillsTxt* pSkillsTxt;
     char unk0xB9C[0x04];
-    union
-    {
-        int nSkillsTxtRecordCount;
-        int skillCount;
-    };
+    int nSkillsTxtRecordCount;
     char unk0xBA4[0xBC0 - 0xBA4];
     int nOverlayTxtRecordCount;
     D2CharStatsTxt* pCharStatsTxt;
@@ -1638,7 +1618,7 @@ static inline int sub_0056CBA0_GetUnitId(D2UnitStrc* pUnit)
     {
         return -1;
     }
-    return pUnit->id;
+    return pUnit->dwUnitId;
 }
 
 // 0x0056CBA0
@@ -1655,7 +1635,7 @@ int __fastcall SKILLS_SrvSt03_Unsummon(D2GameStrc* game, D2UnitStrc* unit, int s
         return 0;
     if (AIGENERAL_GetMinionOwner(target) != unit)
         return 0;
-    D2PetTypeTxt* petType = sub_00478A20_GetPetTypeTxtRecord(PLAYERPETS_GetPetTypeFromPetGUID(unit, target->id));
+    D2PetTypeTxt* petType = sub_00478A20_GetPetTypeTxtRecord(PLAYERPETS_GetPetTypeFromPetGUID(unit, target->dwUnitId));
     if (!petType)
         return 0;
     if (!(petType->flags & gnPetFlag_006CE274))
@@ -2093,15 +2073,15 @@ void __fastcall sub_0056D790_DispatchAuraCallback(D2GameStrc* game, D2UnitStrc* 
 {
     if (skill <= 0)
         return;
-    if (skill >= gpDataTables_00744304->skillCount)
+    if (skill >= gpDataTables_00744304->nSkillsTxtRecordCount)
         return;
-    D2SkillsTxt* record = &gpDataTables_00744304->skills[skill];
+    D2SkillsTxt* record = &gpDataTables_00744304->pSkillsTxt[skill];
     if (!record)
         return;
-    const short state = record->auraState;
+    const short state = record->nAuraState;
     if (state < 0)
         return;
-    if (state >= gpDataTables_00744304->stateCount)
+    if (state >= gpDataTables_00744304->nStatesTxtRecordCount)
         return;
     D2StatesTxt* states = sub_00452040_GetStatesTxtRecord(state);
     if (!states)

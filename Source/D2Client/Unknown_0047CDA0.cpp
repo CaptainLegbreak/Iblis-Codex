@@ -12,16 +12,8 @@ struct SMSGHANDLER_PARAMS
     void* hWnd;
     unsigned int uMessage;
     unsigned int wParam;
-    union
-    {
-        unsigned short nXpos;
-        unsigned short nXPos;
-    };
-    union
-    {
-        unsigned short nYpos;
-        unsigned short nYPos;
-    };
+    unsigned short nXpos;
+    unsigned short nYpos;
     unsigned int dwCommandSource;
     unsigned int dwArg;
     int bReturn;
@@ -625,8 +617,8 @@ void __stdcall sub_0047EF30_SlotsClick(SMSGHANDLER_PARAMS* pMsg)
     {
         return;
     }
-    int nY = pMsg->nYPos;
-    int nX = pMsg->nXPos;
+    int nY = pMsg->nYpos;
+    int nX = pMsg->nXpos;
     int nOffset = 0;
     if (sub_004979E0() && sub_004979F0() > 1)
     {

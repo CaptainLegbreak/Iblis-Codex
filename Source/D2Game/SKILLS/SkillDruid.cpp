@@ -30,11 +30,7 @@ struct D2UnitStrc
     char unk0x04[0x08];
     int dwUnitId;
     char unk0x10[0x10];
-    union
-    {
-        D2SeedStrc pSeed;
-        D2SeedStrc tSeed;
-    };
+    D2SeedStrc pSeed;
     char unk28[0xC4 - 0x28];
     unsigned int dwFlags;
     char unk0xC8[0x08];
@@ -681,7 +677,7 @@ int __fastcall sub_005C8190(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, 
         pUnit->dwFlags |= 0x40;
     }
 
-    const int nParam = SEED_RollLimitedRandomNumber(&pUnit->tSeed, 0x10000);
+    const int nParam = SEED_RollLimitedRandomNumber(&pUnit->pSeed, 0x10000);
     int nDuration = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraLenCalc, nSkillId, nSkillLevel);
     if (nDuration < 1)
     {

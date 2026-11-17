@@ -8,11 +8,7 @@ struct D2UnitStrc
     int type;
     int classId;
     void* pool;
-    union
-    {
-        int id;
-        int dwUnitId;
-    };
+    int id;
     char unknown10[0x50];
     D2InventoryStrc* inventory;
 };
@@ -95,7 +91,7 @@ void __cdecl sub_004C0380_OpenPanel()
         if (!gnGlobal_007C5470)
         {
             D2UnitStrc* pPlayer = sub_00463DD0();
-            sub_00478700_SendCommand(0x44, !pPlayer ? -1 : pPlayer->dwUnitId, gnGlobal_007C547C, 0, 2);
+            sub_00478700_SendCommand(0x44, !pPlayer ? -1 : pPlayer->id, gnGlobal_007C547C, 0, 2);
             sub_004C0090();
         }
         else

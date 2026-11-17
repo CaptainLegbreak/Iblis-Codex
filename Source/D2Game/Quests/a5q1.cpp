@@ -62,11 +62,7 @@ struct D2GameStrc
 struct D2PlayerDataStrc
 {
     char szName[0x10];
-    union
-    {
-        D2BitBufferStrc* pQuestData[3];
-        D2BitBufferStrc* pQuestFlags[3];
-    };
+    D2BitBufferStrc* pQuestData[3];
 };
 
 struct D2UnitStrc
@@ -903,7 +899,7 @@ void __fastcall ACT5Q4_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2Que
 
 static __forceinline D2BitBufferStrc* GetQuestFlags(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
-    return UNITS_GetPlayerData(pUnit)->pQuestFlags[pGame->nDifficulty];
+    return UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
 }
 
 // 0x005872F0

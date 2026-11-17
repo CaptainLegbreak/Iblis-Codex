@@ -28,11 +28,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 struct D2GameStrc
 {
     char unk0x00[0x1C];
-    union
-    {
-        void* pMemoryPool;
-        void* pool;
-    };
+    void* pMemoryPool;
     char unk0x20[0x4D];
     unsigned char nDifficulty;
     char unk0x6E[0x1A];
@@ -78,23 +74,11 @@ struct M08EmitRecStrc
 struct D2UnitStrc
 {
     int dwUnitType;
-    union
-    {
-        int dwClassId;
-        int classId;
-    };
+    int dwClassId;
     void* pMemoryPool;
-    union
-    {
-        int dwUnitId;
-        int id;
-    };
+    int dwUnitId;
     char unk0x10[0x50];
-    union
-    {
-        D2InventoryStrc* pInventory;
-        D2InventoryStrc* inv;
-    };
+    D2InventoryStrc* pInventory;
     unsigned char unk_64[0x60];
     unsigned int dwFlags;
     char unk0xC8[0x14];
@@ -117,31 +101,11 @@ struct D2NpcVendorChainStrc
 
 struct D2NpcEventStrc
 {
-    union
-    {
-        D2UnitStrc* pUnit;
-        D2UnitStrc* item;
-    };
-    union
-    {
-        int field_4;
-        int quality;
-    };
-    union
-    {
-        int field_8;
-        int active;
-    };
-    union
-    {
-        int field_C;
-        int mode;
-    };
-    union
-    {
-        D2NpcEventStrc* pNext;
-        D2NpcEventStrc* next;
-    };
+    D2UnitStrc* pUnit;
+    int field_4;
+    int field_8;
+    int field_C;
+    D2NpcEventStrc* pNext;
 };
 
 struct D2NpcTradeStrc
@@ -161,11 +125,7 @@ struct D2NpcRecordStrc
     D2NpcGambleStrc* pGamble;
     int bGambleInit;
     void* pMercData;
-    union
-    {
-        D2NpcEventStrc* pEvent;
-        D2NpcEventStrc* events;
-    };
+    D2NpcEventStrc* pEvent;
     D2NpcVendorChainStrc* pVendorChain;
     int bTrading;
     union
@@ -712,41 +672,41 @@ void __fastcall sub_005368F0_ProcessNpcEvents(D2GameStrc* game,D2UnitStrc* npc)
 {
  int count=0;
  D2NpcRecordStrc* record;
- record=SUNITPROXY_GetNpcRecordFromClassId(game,!npc?-1:npc->classId,(int*)&record);
+ record=SUNITPROXY_GetNpcRecordFromClassId(game,!npc?-1:npc->dwClassId,(int*)&record);
  if(!record)return;
  D2NpcEventStrc* prev=0;
- for(D2NpcEventStrc* event=record->events;event;event=event->next) {
-  if(event->active) { event->active=0;if(!event->mode && event->quality==4)++count; }
+ for(D2NpcEventStrc* event=record->pEvent;event;event=event->pNext) {
+  if(event->field_8) { event->field_8=0;if(!event->field_C && event->field_4==4)++count; }
  }
- if(count && npc->inv) {
-  D2UnitStrc* iter=INVENTORY_GetFirstItem(npc->inv);
+ if(count && npc->pInventory) {
+  D2UnitStrc* iter=INVENTORY_GetFirstItem(npc->pInventory);
   while(iter && count) {
    D2UnitStrc* item=INVENTORY_UnitIsItem(iter);
    iter=INVENTORY_GetNextItem(iter);
    if(ITEMS_GetItemQuality(item)==4){sub_005766D0(npc,item,game,0);--count;}
   }
  }
- D2NpcEventStrc* event=record->events;
+ D2NpcEventStrc* event=record->pEvent;
  while(event) {
-  if(event->mode==1) {
-   int placed=D2GAME_PlaceItem_6FC44410(".\\UNIT\\sunitproxy.cpp",0x3cb,game,npc,!event->item?-1:event->item->id,0,0,1,1,0);
+  if(event->field_C==1) {
+   int placed=D2GAME_PlaceItem_6FC44410(".\\UNIT\\sunitproxy.cpp",0x3cb,game,npc,!event->pUnit?-1:event->pUnit->dwUnitId,0,0,1,1,0);
    if(!placed) {
-    if(ITEMS_GetInvPage(event->item)==1){
-     ITEMS_SetInvPage(event->item,2);
-     placed=D2GAME_PlaceItem_6FC44410(".\\UNIT\\sunitproxy.cpp",0x3d1,game,npc,!event->item?-1:event->item->id,0,0,1,1,0);
-    }else if(ITEMS_GetInvPage(event->item)==2){
-     ITEMS_SetInvPage(event->item,1);
-     placed=D2GAME_PlaceItem_6FC44410(".\\UNIT\\sunitproxy.cpp",0x3d9,game,npc,!event->item?-1:event->item->id,0,0,1,1,0);
+    if(ITEMS_GetInvPage(event->pUnit)==1){
+     ITEMS_SetInvPage(event->pUnit,2);
+     placed=D2GAME_PlaceItem_6FC44410(".\\UNIT\\sunitproxy.cpp",0x3d1,game,npc,!event->pUnit?-1:event->pUnit->dwUnitId,0,0,1,1,0);
+    }else if(ITEMS_GetInvPage(event->pUnit)==2){
+     ITEMS_SetInvPage(event->pUnit,1);
+     placed=D2GAME_PlaceItem_6FC44410(".\\UNIT\\sunitproxy.cpp",0x3d9,game,npc,!event->pUnit?-1:event->pUnit->dwUnitId,0,0,1,1,0);
     }
    }
-   if(!placed){prev=event;event=event->next;continue;}
-   sub_005762C0_SetItemTradeFlags(npc,event->item,game,0,0);
-   if(event==record->events){record->events=event->next;FOG_FreePool(game->pool,event,".\\UNIT\\sunitproxy.cpp",0x3ea,0);event=record->events;prev=0;}
-   else{prev->next=event->next;FOG_FreePool(game->pool,event,".\\UNIT\\sunitproxy.cpp",0x3f1,0);event=prev->next;}
+   if(!placed){prev=event;event=event->pNext;continue;}
+   sub_005762C0_SetItemTradeFlags(npc,event->pUnit,game,0,0);
+   if(event==record->pEvent){record->pEvent=event->pNext;FOG_FreePool(game->pMemoryPool,event,".\\UNIT\\sunitproxy.cpp",0x3ea,0);event=record->pEvent;prev=0;}
+   else{prev->pNext=event->pNext;FOG_FreePool(game->pMemoryPool,event,".\\UNIT\\sunitproxy.cpp",0x3f1,0);event=prev->pNext;}
   }else {
-   if(!sub_00579030(game,npc,event->item,event->quality)){prev=event;event=event->next;continue;}
-   if(event==record->events){record->events=event->next;FOG_FreePool(game->pool,event,".\\UNIT\\sunitproxy.cpp",0x403,0);event=record->events;prev=0;}
-   else{prev->next=event->next;FOG_FreePool(game->pool,event,".\\UNIT\\sunitproxy.cpp",0x40a,0);event=prev->next;}
+   if(!sub_00579030(game,npc,event->pUnit,event->field_4)){prev=event;event=event->pNext;continue;}
+   if(event==record->pEvent){record->pEvent=event->pNext;FOG_FreePool(game->pMemoryPool,event,".\\UNIT\\sunitproxy.cpp",0x403,0);event=record->pEvent;prev=0;}
+   else{prev->pNext=event->pNext;FOG_FreePool(game->pMemoryPool,event,".\\UNIT\\sunitproxy.cpp",0x40a,0);event=prev->pNext;}
   }
  }
 }

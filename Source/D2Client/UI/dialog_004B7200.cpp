@@ -51,62 +51,22 @@ struct D2ClientDialogStrc
     int unk0x04;
     int unk0x08;
     int unk0x0C;
-    union
-    {
-        int bActive;
-        int unk0x10;
-    };
+    int bActive;
     int unk0x14;
     int unk0x18;
-    union
-    {
-        int bModal;
-        int unk0x1C;
-    };
-    union
-    {
-        int bKeepKeys;
-        int unk0x20;
-    };
+    int bModal;
+    int bKeepKeys;
     int unk0x24;
     int unk0x28;
-    union
-    {
-        int nX;
-        int unk0x2C;
-    };
-    union
-    {
-        int nY;
-        int unk0x30;
-    };
-    union
-    {
-        int nWidth;
-        int unk0x34;
-    };
-    union
-    {
-        int nHeight;
-        int unk0x38;
-    };
+    int nX;
+    int nY;
+    int nWidth;
+    int nHeight;
     char unk0x3C[8];
-    union
-    {
-        int nHover;
-        int unk0x44;
-    };
-    union
-    {
-        int f_44;
-        int unk0x48;
-    };
+    int nHover;
+    int f_44;
     int unk0x4C;
-    union
-    {
-        int nCount;
-        int unk0x50;
-    };
+    int nCount;
     union
     {
         unsigned int nState;
@@ -371,30 +331,30 @@ D2ClientDialogStrc* __fastcall sub_004B7EB0_CreateDialog(int nArg1, int nArg2, i
     gpGlobal_007C0E54 = pDialog;
     memset(pDialog, 0, sizeof(D2ClientDialogStrc));
     pDialog->unk0x24 = nArg1;
-    pDialog->unk0x2C = nArg1;
+    pDialog->nX = nArg1;
     pDialog->unk0x60 = nArg8;
     pDialog->unk0x64 = nArgC;
     pDialog->unk0x58 = nArg18;
-    pDialog->unk0x38 = 0;
-    pDialog->unk0x50 = 0;
+    pDialog->nHeight = 0;
+    pDialog->nCount = 0;
     pDialog->unk0x4C = 0;
-    pDialog->unk0x44 = -1;
+    pDialog->nHover = -1;
     pDialog->unk0x5C = 2;
     pDialog->unk0xB08 = 0;
     pDialog->unk0x28 = nArg2;
-    pDialog->unk0x30 = nArg2;
+    pDialog->nY = nArg2;
     pDialog->unk0x14 = nArg14;
-    pDialog->unk0x1C = nArg24;
-    pDialog->unk0x34 = nArg1C;
+    pDialog->bModal = nArg24;
+    pDialog->nWidth = nArg1C;
     pDialog->dwTick = GetTickCount();
-    pDialog->unk0x10 = 0;
+    pDialog->bActive = 0;
     pDialog->unk0x54 = 0;
     pDialog->unk0x0C = 0;
     pDialog->unk0x08 = 0;
-    pDialog->unk0x38 = nArg20;
-    pDialog->unk0x48 = -1;
+    pDialog->nHeight = nArg20;
+    pDialog->f_44 = -1;
     pDialog->unk0x18 = nArg10;
-    pDialog->unk0x20 = nArg28;
+    pDialog->bKeepKeys = nArg28;
     gnGlobal_007C0E58 = 1;
     sub_004B7C60();
     sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gaMsgHandlers_007273F0, 0xE);

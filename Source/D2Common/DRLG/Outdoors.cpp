@@ -54,11 +54,7 @@ struct D2DrlgDrlgStrc
 struct D2DrlgLevelStrc
 {
     char pad_00[20];
-    union
-    {
-        D2DrlgOutdoorInfoStrc* pOutdoor;
-        D2DrlgOutdoorInfoStrc* pOutdoors;
-    };
+    D2DrlgOutdoorInfoStrc* pOutdoor;
     int field_18;
     int nPosX;
     int nPosY;
@@ -269,7 +265,7 @@ void __fastcall sub_M16_EmitScaleAndMergeVertices(void* pMemPool, D2DrlgVertexSt
 // 0x00675290
 int __fastcall sub_00675290_GetOutdoorValue(D2DrlgLevelStrc* pLevel, int nIndex)
 {
-    return pLevel->pOutdoors->anValues68[nIndex];
+    return pLevel->pOutdoor->anValues68[nIndex];
 }
 
 // 0x006757E0

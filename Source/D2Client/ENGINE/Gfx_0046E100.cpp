@@ -148,11 +148,7 @@ typedef unsigned int size_t;
 
 struct D2CelContextStrc
 {
-    union
-    {
-        int nFrame;
-        int nArg0;
-    };
+    int nFrame;
     unsigned char nFlags;
     unsigned char nComponent;
     short unk0x06;

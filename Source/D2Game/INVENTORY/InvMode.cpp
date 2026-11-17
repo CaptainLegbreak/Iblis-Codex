@@ -28,17 +28,9 @@ struct D2UnitStrc
     int dwUnitId;
     int dwAnimMode;
     char unk0x14[0x4C];
-    union
-    {
-        D2InventoryStrc* pInventory;
-        D2InventoryStrc* inventory;
-    };
+    D2InventoryStrc* pInventory;
     char unk0x64[0x64];
-    union
-    {
-        unsigned int dwFlagEx;
-        unsigned int flags;
-    };
+    unsigned int dwFlagEx;
 };
 
 D2UnitStrc* __stdcall CLIENTS_GetPlayerFromClient(D2ClientStrc* pClient, int bIgnoreDeath); // 0x00537860
@@ -346,7 +338,7 @@ static __forceinline int CheckFlag(D2UnitStrc* unit, int bit)
     {
         return 0;
     }
-    return (unit->flags >> bit) & 1;
+    return (unit->dwFlagEx >> bit) & 1;
 }
 
 // 0x00597A20
@@ -354,7 +346,7 @@ int __fastcall sub_00597A20_IsBusy(D2GameStrc* game, D2UnitStrc* unit)
 {
     if (!CheckFlag(unit, 22) && !CheckFlag(unit, 23))
     {
-        D2InventoryNodeStrc* node = INVENTORY_GetTradeInventory(unit->inventory);
+        D2InventoryNodeStrc* node = INVENTORY_GetTradeInventory(unit->pInventory);
         while (node)
         {
             D2UnitStrc* item = SUNIT_GetServerUnit(game, 4, sub_0063CD40(node));

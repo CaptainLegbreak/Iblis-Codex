@@ -98,11 +98,7 @@ struct D2DrlgLevelStrc
     unsigned char unk_18[0x19C];
     D2DrlgDrlgStrc* pDrlg;
     char pad_after_drlg[12];
-    union
-    {
-        D2SeedStrc pSeed;
-        D2SeedStrc tSeed;
-    };
+    D2SeedStrc pSeed;
     char pad_1CC[4];
     int nLevelId;
 };
@@ -305,7 +301,7 @@ static __declspec(noinline) void __stdcall sub_0066F990_ApplySecondaryGroups(D2U
         if (pOutdoor->field_14 == -1)
             pOutdoor->field_14 = 62;
         if (!pRecord->dwBordType)
-            nStart = sub_0045C3E0_RollLimited(&pLevel->tSeed, nGroups);
+            nStart = sub_0045C3E0_RollLimited(&pLevel->pSeed, nGroups);
         for (int i = 0; i < nGroups; ++i)
         {
             if (sub_0066F690_ApplySubstGroup(pOutdoor, pRecord, &pFile->pSubstGroups[(nStart + i) % nGroups])

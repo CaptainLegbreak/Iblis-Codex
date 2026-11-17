@@ -15,11 +15,7 @@ struct D2SeedStrc
 
 struct D2UnitStrc
 {
-    union
-    {
-        int type;
-        int dwUnitType;
-    };
+    int type;
     int classId;
     void* pMemoryPool;
     int dwUnitId;
@@ -151,7 +147,7 @@ int __fastcall SKILLITEM_EventFunc09_Stupidity(D2GameStrc* pGame, int nEvent, D2
         goto ReturnZero;
     }
 
-    if ((!pUnit ? 6 : pUnit->dwUnitType) != UNIT_MONSTER)
+    if ((!pUnit ? 6 : pUnit->type) != UNIT_MONSTER)
     {
 ReturnZero:
         return 0;

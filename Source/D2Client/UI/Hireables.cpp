@@ -7,11 +7,7 @@ struct D2UnitStrc
 {
     int dwUnitType;
     unsigned char unk_04[0x5C];
-    union
-    {
-        D2InventoryStrc* pInventory;
-        D2InventoryStrc* inventory;
-    };
+    D2InventoryStrc* pInventory;
 };
 
 struct D2DataTablesStrc
@@ -507,7 +503,7 @@ int __stdcall sub_004934D0_CheckBoxAction(int playSound)
  D2UnitStrc* player=sub_00463DD0();
  if(!player) return 0;
  D2UnitStrc* current=sub_00463DD0();
- D2UnitStrc* item=current ? INVENTORY_GetCursorItem(current->inventory):0;
+ D2UnitStrc* item=current ? INVENTORY_GetCursorItem(current->pInventory):0;
  if(!item) return 0;
  int petId=sub_00478F20_FindPetIdByOwner(player,7,0);
  if(petId==-1) return 0;

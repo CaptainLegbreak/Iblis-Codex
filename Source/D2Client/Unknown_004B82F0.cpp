@@ -70,11 +70,7 @@ struct D2ClientDialogStrc
     int nWidth;
     int nHeight;
     char unk0x3C[0x8];
-    union
-    {
-        int f_44;
-        int nSelected;
-    };
+    int f_44;
     int unk0x48;
     int nEnabled;
     int nLines;

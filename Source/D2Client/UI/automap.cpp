@@ -152,11 +152,7 @@ struct D2AutomapCellStrc
 struct D2AutomapCellBlockStrc
 {
     D2AutomapCellStrc cells[512];
-    union
-    {
-        D2AutomapCellBlockStrc* pNext;
-        D2AutomapCellBlockStrc* next;
-    };
+    D2AutomapCellBlockStrc* pNext;
 };
 
 struct D2AutomapContextStrc
@@ -729,7 +725,7 @@ D2AutomapCellStrc* __cdecl sub_00457C30()
         for (; current && i < blockIndex; ++i)
         {
             previous = current;
-            current = current->next;
+            current = current->pNext;
         }
     }
     else
@@ -741,7 +737,7 @@ D2AutomapCellStrc* __cdecl sub_00457C30()
         current = (D2AutomapCellBlockStrc*)FOG_Alloc(sizeof(D2AutomapCellBlockStrc), ".\\UI\\automap.cpp", 0x35D, 0);
         memset(current, 0, sizeof(D2AutomapCellBlockStrc));
         if (previous)
-            previous->next = current;
+            previous->pNext = current;
         else
             gpCellBlocks_007A5158 = current;
     }

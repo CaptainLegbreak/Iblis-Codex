@@ -23,16 +23,8 @@ struct D2DrlgCoordStrc
 
 struct D2SeedStrc
 {
-    union
-    {
-        unsigned int nLowSeed;
-        unsigned int dwLow;
-    };
-    union
-    {
-        unsigned int nHighSeed;
-        unsigned int dwHigh;
-    };
+    unsigned int nLowSeed;
+    unsigned int nHighSeed;
 };
 
 struct D2DrlgOrthStrc
@@ -808,9 +800,9 @@ void __stdcall DRLGMAZE_PlaceAct2TombPrev_Act5BaalPrev(D2DrlgLevelStrc* pLevel)
 
 static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
-    unsigned __int64 lSeed = (unsigned __int64)pSeed->dwHigh + (unsigned __int64)pSeed->dwLow * 0x6AC690C5;
-    pSeed->dwHigh = (unsigned int)(lSeed >> 32);
-    pSeed->dwLow = (unsigned int)lSeed;
+    unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
     return (unsigned int)lSeed;
 }
 

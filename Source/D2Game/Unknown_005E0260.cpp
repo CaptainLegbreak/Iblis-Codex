@@ -195,16 +195,8 @@ struct D2CoordStrc { int nX; int nY; };
 struct D2StaticPathStrc
 {
     char unk0x00[0x0C];
-    union
-    {
-        int nX;
-        int nXPos;
-    };
-    union
-    {
-        int nY;
-        int nYPos;
-    };
+    int nX;
+    int nY;
 };
 
 extern "C" const int gnDesertTurretIndices_006E33E0[64]; // 0x006E33E0
@@ -785,7 +777,7 @@ static __forceinline int GetUnitX(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2: case 4: case 5: return pUnit->pStaticPath->nXPos;
+    case 2: case 4: case 5: return pUnit->pStaticPath->nX;
     }
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
@@ -794,7 +786,7 @@ static __forceinline int GetUnitY(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
     {
-    case 2: case 4: case 5: return pUnit->pStaticPath->nYPos;
+    case 2: case 4: case 5: return pUnit->pStaticPath->nY;
     }
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }

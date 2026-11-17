@@ -35,11 +35,7 @@ struct D2SeedStrc
 struct D2MonStatsTxt
 {
     char unk0x00[0x0C];
-    union
-    {
-        unsigned char nFlags[4];
-        unsigned char nMonStatsFlags[4];
-    };
+    unsigned char nFlags[4];
     unsigned char unk_10[0xC];
     short wMonType;
     unsigned char unk_1E[0x14];
@@ -124,11 +120,7 @@ struct D2DamageStrc
     int dwPoisDamage;
     int dwPoisLen;
     int dwColdLen;
-    union
-    {
-        int dwFrzLen;
-        int dwFreezeLen;
-    };
+    int dwFrzLen;
     int dwLifeLeech;
     int dwManaLeech;
     int dwStamLeech;
@@ -1330,7 +1322,7 @@ elemental:
         case 4:pDamage->dwColdDamage+=nConverted;pDamage->dwColdLen=pDamage->dwColdLen<50 ? 50:pDamage->dwColdLen;break;
         case 5:pDamage->dwPoisDamage+=nConverted/8;pDamage->dwPoisLen=pDamage->dwPoisLen<50 ? 50:pDamage->dwPoisLen;break;
         case 11:pDamage->dwFireDamage+=nConverted;pDamage->dwBurnLen=pDamage->dwBurnLen<50 ? 50:pDamage->dwBurnLen;break;
-        case 12:pDamage->dwColdDamage+=nConverted;pDamage->dwFreezeLen=pDamage->dwFreezeLen<50 ? 50:pDamage->dwFreezeLen;break;
+        case 12:pDamage->dwColdDamage+=nConverted;pDamage->dwFrzLen=pDamage->dwFrzLen<50 ? 50:pDamage->dwFrzLen;break;
         }
     }
     sub_005A5560_AdjustDamage(pAttacker,pDefender,pDamage);
@@ -1649,7 +1641,7 @@ void __fastcall SUNITDMG_ExecuteMissileDamage(D2GameStrc* pGame, D2UnitStrc* pAt
         }
 
         D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(pAttacker->dwClassId);
-        if (!pMonStatsTxtRecord || !(pMonStatsTxtRecord->nMonStatsFlags[0x0A >> 3] & gdwBitMasks[0x0A & 7]))
+        if (!pMonStatsTxtRecord || !(pMonStatsTxtRecord->nFlags[0x0A >> 3] & gdwBitMasks[0x0A & 7]))
         {
             return;
         }

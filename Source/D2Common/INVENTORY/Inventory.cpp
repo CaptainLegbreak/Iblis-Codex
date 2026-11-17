@@ -86,11 +86,7 @@ struct D2InventoryPairStrc
 
 struct D2InventoryGridStrc
 {
-    union
-    {
-        D2UnitStrc* pFirstItem;
-        D2UnitStrc* pItem;
-    };
+    D2UnitStrc* pFirstItem;
     D2UnitStrc* pLastItem;
     unsigned char nGridWidth;
     unsigned char nGridHeight;

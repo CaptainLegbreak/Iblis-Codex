@@ -15,11 +15,7 @@ struct D2PlayerDataStrc;
 struct D2GameStrc
 {
     char unk0x00[0x6D];
-    union
-    {
-        unsigned char nDifficulty;
-        unsigned char difficulty;
-    };
+    unsigned char nDifficulty;
     unsigned char unk_6E[0x3A];
     int dwGameFrame;
 };
@@ -82,11 +78,7 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath); // 0x00648900
 struct D2PlayerDataStrc
 {
     char szName[0x10];
-    union
-    {
-        D2BitBufferStrc* pQuestData[3];
-        D2BitBufferStrc* questFlags[3];
-    };
+    D2BitBufferStrc* pQuestData[3];
 };
 
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
@@ -224,7 +216,7 @@ void __fastcall sub_0058B5B0(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs)
 // 0x0058B730
 int __fastcall sub_0058B730_AttachCompletionSound(D2GameStrc* game, D2UnitStrc* player, void* unused)
 {
-    D2BitBufferStrc* flags = UNITS_GetPlayerData(player)->questFlags[game->difficulty];
+    D2BitBufferStrc* flags = UNITS_GetPlayerData(player)->pQuestData[game->nDifficulty];
     if (QUESTRECORD_GetQuestState(flags, 38, 13))
         SUNIT_AttachSound(player, 82, player);
     return 0;

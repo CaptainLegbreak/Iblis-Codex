@@ -123,11 +123,7 @@ void __stdcall D2Common_10954(D2UnitStrc*, int, int, int, int, int); // 0x006475
 struct D2ItemsTxt
 {
     char unk0x000[0x80];
-    union
-    {
-        unsigned int dwCode;
-        unsigned int code;
-    };
+    unsigned int dwCode;
     unsigned char unk_84[0x44];
     unsigned int dwTransmogrifyType;
     unsigned char unk_CC[0x24];
@@ -1581,7 +1577,7 @@ int __fastcall ITEMMODE_UseStoredItemAtCoordinates(D2GameStrc* game, D2UnitStrc*
     }
     D2ItemsTxt* record = DATATBLS_GetItemsTxtRecord(sub_00623C60(item));
     D2BitBufferStrc* flags = sub_00543520(game, player);
-    if (record->code == 0x20737361) {
+    if (record->dwCode == 0x20737361) {
         sub_0055BF50_ClearTargetingFlags(player, ".\\ITEMS\\ItemMode.cpp", 0x10D5);
         if (QUESTRECORD_GetQuestState(flags, 9, 5)) {
             QUESTRECORD_ClearQuestState(flags, 9, 5);
@@ -1593,7 +1589,7 @@ int __fastcall ITEMMODE_UseStoredItemAtCoordinates(D2GameStrc* game, D2UnitStrc*
         SUNIT_AttachSound(player, 19, player);
         return 1;
     }
-    if (record->code == 0x207A7978) {
+    if (record->dwCode == 0x207A7978) {
         sub_0055BF50_ClearTargetingFlags(player, ".\\ITEMS\\ItemMode.cpp", 0x10E5);
         if (QUESTRECORD_GetQuestState(flags, 20, 5)) {
             QUESTRECORD_ClearQuestState(flags, 20, 5);
@@ -1605,7 +1601,7 @@ int __fastcall ITEMMODE_UseStoredItemAtCoordinates(D2GameStrc* game, D2UnitStrc*
         SUNIT_AttachSound(player, 19, player);
         return 1;
     }
-    if (record->code == 0x20327274) {
+    if (record->dwCode == 0x20327274) {
         sub_0055BF50_ClearTargetingFlags(player, ".\\ITEMS\\ItemMode.cpp", 0x10F8);
         if (QUESTRECORD_GetQuestState(flags, 37, 8) && !QUESTRECORD_GetQuestState(flags, 37, 7)) {
             QUESTRECORD_SetQuestState(flags, 37, 7);
@@ -1617,7 +1613,7 @@ int __fastcall ITEMMODE_UseStoredItemAtCoordinates(D2GameStrc* game, D2UnitStrc*
         SUNIT_AttachSound(player, 19, player);
         return 1;
     }
-    if (record->code == 0x20616F74) {
+    if (record->dwCode == 0x20616F74) {
         sub_0055BF50_ClearTargetingFlags(player, ".\\ITEMS\\ItemMode.cpp", 0x110D);
         sub_00570360_ResetSkills(game, player);
         sub_00570C80_ResetStats(game, player);

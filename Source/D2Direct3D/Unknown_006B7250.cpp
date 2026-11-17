@@ -49,26 +49,10 @@ extern D2Unknown006B7250Strc* gpTextures_00971150[0x60]; // 0x00971150
 
 struct D2RectStrc
 {
-    union
-    {
-        int nLeft;
-        int left;
-    };
-    union
-    {
-        int nTop;
-        int top;
-    };
-    union
-    {
-        int nRight;
-        int right;
-    };
-    union
-    {
-        int nBottom;
-        int bottom;
-    };
+    int nLeft;
+    int nTop;
+    int nRight;
+    int nBottom;
 };
 
 struct D2SurfaceDescStrc
@@ -526,13 +510,13 @@ void __fastcall sub_006B7C90_DrawDiamond(D2Rect006B7C90Strc* pRect, int nColor)
 
 // 0x006B7D80
 void __fastcall sub_006B7D80_DrawRectangle(D2RectStrc* rect,int color) {
-    ASSERT(rect->left<=rect->right,235);
-    ASSERT(rect->top<=rect->bottom,236);
-    int left=MIN(MAX(rect->left,0),gnWidth_007C9138-1);
-    int right=MIN(MAX(rect->right,0),gnWidth_007C9138-1);
+    ASSERT(rect->nLeft<=rect->nRight,235);
+    ASSERT(rect->nTop<=rect->nBottom,236);
+    int left=MIN(MAX(rect->nLeft,0),gnWidth_007C9138-1);
+    int right=MIN(MAX(rect->nRight,0),gnWidth_007C9138-1);
     if (left==right) return;
-    int top=MIN(MAX(rect->top,0),gnHeight_007C913C-1);
-    int bottom=MIN(MAX(rect->bottom,0),gnHeight_007C913C-1);
+    int top=MIN(MAX(rect->nTop,0),gnHeight_007C913C-1);
+    int bottom=MIN(MAX(rect->nBottom,0),gnHeight_007C913C-1);
     if (top==bottom) return;
     ASSERT(bottom>top,252);
     sub_006B7B30_DrawLine(left,top,right,top,color,255);

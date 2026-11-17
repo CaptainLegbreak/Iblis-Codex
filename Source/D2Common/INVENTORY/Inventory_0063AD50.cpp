@@ -37,18 +37,10 @@ struct D2ItemDataStrc
 
 struct D2UnitStrc
 {
-    union
-    {
-        int dwUnitType;
-        int nType;
-    };
+    int dwUnitType;
     int dwClassId;
     void* pMemoryPool;
-    union
-    {
-        int dwUnitId;
-        int nUnitId;
-    };
+    int dwUnitId;
     int dwAnimMode;
     D2ItemDataStrc* pItemData;
 };
@@ -402,10 +394,10 @@ D2UnitStrc* __stdcall sub_0063BEF0_GetLeftWeapon(D2InventoryStrc* pInventory)
     if (pInventory->dwLeftItemGUID == -1)
         return 0;
     D2UnitStrc* pItem = GetBodyItem(pInventory, BODYLOC_LARM);
-    if (pItem && sub_00629BB0_CheckItemType(pItem, 45) && (!pItem ? -1 : pItem->nUnitId) == pInventory->dwLeftItemGUID)
+    if (pItem && sub_00629BB0_CheckItemType(pItem, 45) && (!pItem ? -1 : pItem->dwUnitId) == pInventory->dwLeftItemGUID)
         return pItem;
     pItem = GetBodyItem(pInventory, BODYLOC_RARM);
-    if (pItem && sub_00629BB0_CheckItemType(pItem, 45) && (!pItem ? -1 : pItem->nUnitId) == pInventory->dwLeftItemGUID)
+    if (pItem && sub_00629BB0_CheckItemType(pItem, 45) && (!pItem ? -1 : pItem->dwUnitId) == pInventory->dwLeftItemGUID)
         return pItem;
     return 0;
 }

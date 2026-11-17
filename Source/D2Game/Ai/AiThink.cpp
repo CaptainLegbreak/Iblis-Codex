@@ -20,11 +20,7 @@ struct D2SeedStrc
 
 struct D2UnitStrc
 {
-    union
-    {
-        int type;
-        int dwUnitType;
-    };
+    int type;
     int classId;
     unsigned char unk_08[0x18];
     D2SeedStrc pSeed;
@@ -213,12 +209,12 @@ void __fastcall AITHINK_ExecuteAiFn(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiCo
 }
 
 static __forceinline int GetX(D2UnitStrc* pUnit) {
-    switch (pUnit->dwUnitType) { case 2: case 4: case 5: return pUnit->pStaticPath->nXPos; }
+    switch (pUnit->type) { case 2: case 4: case 5: return pUnit->pStaticPath->nXPos; }
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
 static __forceinline int GetY(D2UnitStrc* pUnit) {
-    switch (pUnit->dwUnitType) { case 2: case 4: case 5: return pUnit->pStaticPath->nYPos; }
+    switch (pUnit->type) { case 2: case 4: case 5: return pUnit->pStaticPath->nYPos; }
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
 
@@ -327,7 +323,7 @@ void __fastcall sub_005E9170_Think(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTic
         break;
     case 15:
         {
-            if ((pTarget ? pTarget->dwUnitType : 6) != 0) { AITACTICS_IdleInNeutralMode(pGame, pUnit, 3); break; }
+            if ((pTarget ? pTarget->type : 6) != 0) { AITACTICS_IdleInNeutralMode(pGame, pUnit, 3); break; }
             int nObjectId = PLAYER_GetUniqueIdFromPlayerData(pTarget);
             if (!SUNIT_GetServerUnit(pGame, 2, nObjectId)) { AITACTICS_IdleInNeutralMode(pGame, pUnit, 2); break; }
             if (pStats->nSkill[6] >= 0) {

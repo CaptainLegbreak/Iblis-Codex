@@ -42,16 +42,8 @@ struct D2InventoryGridStrc
 {
     D2UnitStrc* pItem;
     D2UnitStrc* pLastItem;
-    union
-    {
-        unsigned char nCellsX;
-        unsigned char nGridWidth;
-    };
-    union
-    {
-        unsigned char nCellsY;
-        unsigned char nGridHeight;
-    };
+    unsigned char nCellsX;
+    unsigned char nCellsY;
     unsigned short unk0x0A;
     D2UnitStrc** ppItems;
 };
@@ -414,7 +406,7 @@ static BOOL __stdcall sub_0063A8A0_CheckGridCellsFree(D2InventoryGridStrc* pInve
 {
     for (int y = nY; y < nY + nItemHeight; ++y)
     {
-        D2UnitStrc** ppRow = &pInventoryGrid->ppItems[y * pInventoryGrid->nGridWidth];
+        D2UnitStrc** ppRow = &pInventoryGrid->ppItems[y * pInventoryGrid->nCellsX];
         for (int x = nX; x < nX + nItemWidth; ++x)
         {
             if (ppRow[x])
@@ -432,7 +424,7 @@ static __declspec(noinline) void __stdcall sub_0063A910_FillGridCells(D2Inventor
 {
     for (int y = nY; y < nY + nItemHeight; ++y)
     {
-        D2UnitStrc** ppRow = &pInventoryGrid->ppItems[y * pInventoryGrid->nGridWidth];
+        D2UnitStrc** ppRow = &pInventoryGrid->ppItems[y * pInventoryGrid->nCellsX];
         for (int x = nX; x < nX + nItemWidth; ++x)
         {
             ppRow[x] = pItem;
@@ -591,7 +583,7 @@ static BOOL __stdcall INVENTORY_PlaceItemInGrid(D2InventoryStrc* pInventory, D2U
 // 0x0063B300
 static BOOL __stdcall INVENTORY_CanItemBePlacedAtPos(D2InventoryGridStrc* pInventoryGrid, int nX, int nY, unsigned char nItemWidth, unsigned char nItemHeight)
 {
-    if (nItemWidth + nX > pInventoryGrid->nGridWidth || nItemHeight + nY > pInventoryGrid->nGridHeight)
+    if (nItemWidth + nX > pInventoryGrid->nCellsX || nItemHeight + nY > pInventoryGrid->nCellsY)
     {
         return FALSE;
     }
@@ -608,7 +600,7 @@ static __declspec(noinline) unsigned char __stdcall INVENTORY_GetPlacementWeight
         const int nLeftX = nXPos - 1;
         for (int y = nYPos; y < nYPos + nItemHeight; ++y)
         {
-            if (pInventoryGrid->ppItems[nLeftX + y * pInventoryGrid->nGridWidth])
+            if (pInventoryGrid->ppItems[nLeftX + y * pInventoryGrid->nCellsX])
             {
                 ++nResult;
             }
@@ -620,11 +612,11 @@ static __declspec(noinline) unsigned char __stdcall INVENTORY_GetPlacementWeight
     }
 
     const int nRightX = nXPos + nItemWidth;
-    if (nRightX < pInventoryGrid->nGridWidth)
+    if (nRightX < pInventoryGrid->nCellsX)
     {
         for (int y = nYPos; y < nYPos + nItemHeight; ++y)
         {
-            if (pInventoryGrid->ppItems[nRightX + y * pInventoryGrid->nGridWidth])
+            if (pInventoryGrid->ppItems[nRightX + y * pInventoryGrid->nCellsX])
             {
                 ++nResult;
             }
@@ -639,7 +631,7 @@ static __declspec(noinline) unsigned char __stdcall INVENTORY_GetPlacementWeight
     {
         for (int x = nXPos; x < nRightX; ++x)
         {
-            if (pInventoryGrid->ppItems[x + (nYPos - 1) * pInventoryGrid->nGridWidth])
+            if (pInventoryGrid->ppItems[x + (nYPos - 1) * pInventoryGrid->nCellsX])
             {
                 ++nResult;
             }
@@ -650,11 +642,11 @@ static __declspec(noinline) unsigned char __stdcall INVENTORY_GetPlacementWeight
         nResult += nItemWidth;
     }
 
-    if (nYPos + nItemHeight < pInventoryGrid->nGridHeight)
+    if (nYPos + nItemHeight < pInventoryGrid->nCellsY)
     {
         for (int x = nXPos; x < nRightX; ++x)
         {
-            if (pInventoryGrid->ppItems[x + (nYPos + nItemHeight) * pInventoryGrid->nGridWidth])
+            if (pInventoryGrid->ppItems[x + (nYPos + nItemHeight) * pInventoryGrid->nCellsX])
             {
                 ++nResult;
             }
@@ -677,11 +669,11 @@ static __declspec(noinline) unsigned char __stdcall INVENTORY_GetPlacementWeight
 static __declspec(noinline) BOOL __stdcall INVENTORY_FindFreePositionBottomRightToTopLeftWithWeight(D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight)
 {
     unsigned char nMax = 0;
-    for (int nX = pInventoryGrid->nGridWidth - 1; nX >= 0; --nX)
+    for (int nX = pInventoryGrid->nCellsX - 1; nX >= 0; --nX)
     {
-        for (int nY = pInventoryGrid->nGridHeight - 1; nY >= 0; --nY)
+        for (int nY = pInventoryGrid->nCellsY - 1; nY >= 0; --nY)
         {
-            if (!pInventoryGrid->ppItems[nX + nY * pInventoryGrid->nGridWidth] && INVENTORY_CanItemBePlacedAtPos(pInventoryGrid, nX, nY, nItemWidth, nItemHeight))
+            if (!pInventoryGrid->ppItems[nX + nY * pInventoryGrid->nCellsX] && INVENTORY_CanItemBePlacedAtPos(pInventoryGrid, nX, nY, nItemWidth, nItemHeight))
             {
                 const unsigned char nWeight = INVENTORY_GetPlacementWeight(pInventoryGrid, nX, nY, nItemWidth, nItemHeight);
                 if (nWeight > nMax)
@@ -705,11 +697,11 @@ static __declspec(noinline) BOOL __stdcall INVENTORY_FindFreePositionBottomRight
 // 0x0063B540
 static __declspec(noinline) BOOL __stdcall sub_0063B540_FindFreePositionRightToLeft(D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight)
 {
-    for (int nX = pInventoryGrid->nGridWidth - 1; nX >= 0; --nX)
+    for (int nX = pInventoryGrid->nCellsX - 1; nX >= 0; --nX)
     {
-        for (int nY = 0; nY < pInventoryGrid->nGridHeight; ++nY)
+        for (int nY = 0; nY < pInventoryGrid->nCellsY; ++nY)
         {
-            if (!pInventoryGrid->ppItems[nX + nY * pInventoryGrid->nGridWidth] && INVENTORY_CanItemBePlacedAtPos(pInventoryGrid, nX, nY, nItemWidth, nItemHeight))
+            if (!pInventoryGrid->ppItems[nX + nY * pInventoryGrid->nCellsX] && INVENTORY_CanItemBePlacedAtPos(pInventoryGrid, nX, nY, nItemWidth, nItemHeight))
             {
                 *pFreeX = nX;
                 *pFreeY = nY;
@@ -743,11 +735,11 @@ static __declspec(noinline) BOOL __stdcall INVENTORY_FindFreePositionTopLeftToBo
     int nX;
     int nY;
     unsigned char nMax = 0;
-    for (nY = 0; nY < pInventoryGrid->nGridHeight; ++nY)
+    for (nY = 0; nY < pInventoryGrid->nCellsY; ++nY)
     {
-        for (nX = 0; nX < pInventoryGrid->nGridWidth; ++nX)
+        for (nX = 0; nX < pInventoryGrid->nCellsX; ++nX)
         {
-            if (!pInventoryGrid->ppItems[nX + nY * pInventoryGrid->nGridWidth] && INVENTORY_CanItemBePlacedAtPos(pInventoryGrid, nX, nY, nItemWidth, nItemHeight))
+            if (!pInventoryGrid->ppItems[nX + nY * pInventoryGrid->nCellsX] && INVENTORY_CanItemBePlacedAtPos(pInventoryGrid, nX, nY, nItemWidth, nItemHeight))
             {
                 const unsigned char nWeight = INVENTORY_GetPlacementWeight(pInventoryGrid, nX, nY, nItemWidth, nItemHeight);
                 if (nWeight > nMax)
@@ -771,11 +763,11 @@ static __declspec(noinline) BOOL __stdcall INVENTORY_FindFreePositionTopLeftToBo
 // 0x0063B6E0
 static __declspec(noinline) BOOL __stdcall INVENTORY_FindFreePositionTopLeftToBottomRight(D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight)
 {
-    for (int nX = 0; nX < pInventoryGrid->nGridWidth; ++nX)
+    for (int nX = 0; nX < pInventoryGrid->nCellsX; ++nX)
     {
-        for (int nY = 0; nY < pInventoryGrid->nGridHeight; ++nY)
+        for (int nY = 0; nY < pInventoryGrid->nCellsY; ++nY)
         {
-            if (!pInventoryGrid->ppItems[nX + nY * pInventoryGrid->nGridWidth] && INVENTORY_CanItemBePlacedAtPos(pInventoryGrid, nX, nY, nItemWidth, nItemHeight))
+            if (!pInventoryGrid->ppItems[nX + nY * pInventoryGrid->nCellsX] && INVENTORY_CanItemBePlacedAtPos(pInventoryGrid, nX, nY, nItemWidth, nItemHeight))
             {
                 *pFreeX = nX;
                 *pFreeY = nY;

@@ -23,16 +23,8 @@ struct D2InventoryGridStrc
 {
     D2UnitStrc* pItem;
     D2UnitStrc* pLastItem;
-    union
-    {
-        unsigned char nCellsX;
-        unsigned char nGridWidth;
-    };
-    union
-    {
-        unsigned char nCellsY;
-        unsigned char nGridHeight;
-    };
+    unsigned char nCellsX;
+    unsigned char nCellsY;
     unsigned short unk0x0A;
     D2UnitStrc** ppItems;
 };

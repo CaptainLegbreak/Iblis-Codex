@@ -45,11 +45,7 @@ struct D2SeedStrc
 struct D2DrlgLevelStrc
 {
     char unk0x00[0x14];
-    union
-    {
-        D2DrlgOutdoorInfoStrc* pOutdoors;
-        D2DrlgOutdoorInfoStrc* pOutdoor;
-    };
+    D2DrlgOutdoorInfoStrc* pOutdoors;
     char pad_after_outdoor[428];
     D2SeedStrc tSeed;
 };
@@ -180,7 +176,7 @@ static __forceinline unsigned int RollLimitedInline(D2SeedStrc* pSeed, int nLimi
 // @ref 0x0067FD20
 static __declspec(noinline) void __stdcall sub_0067FD20_PlacePair(int nColumn, D2DrlgLevelStrc* pLevel)
 {
-    D2DrlgOutdoorInfoStrc* pOutdoor = pLevel->pOutdoor;
+    D2DrlgOutdoorInfoStrc* pOutdoor = pLevel->pOutdoors;
     const int nFlag = pOutdoor->nFlags & 4;
     const int nLimit = pOutdoor->nHeight - 2;
     const int nStart = RollLimitedInline(&pLevel->tSeed, nLimit);
@@ -209,7 +205,7 @@ static __declspec(noinline) void __stdcall sub_0067FD20_PlacePair(int nColumn, D
 // 0x0067FE90
 void __stdcall sub_0067FE90_PlaceColumns(D2DrlgLevelStrc* pLevel, int nColumn)
 {
-    D2DrlgOutdoorInfoStrc* pOutdoor = pLevel->pOutdoor;
+    D2DrlgOutdoorInfoStrc* pOutdoor = pLevel->pOutdoors;
     for (int nRow = 0; nRow < pOutdoor->nHeight; ++nRow)
     {
         int nFlags = sub_0067C570_GetGrid(&pOutdoor->tGridFlags, nColumn, nRow);

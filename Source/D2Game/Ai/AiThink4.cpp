@@ -128,11 +128,7 @@ struct D2UnitStrc
     int dwAnimMode;
     D2MonsterDataStrc* pMonsterData;
     unsigned char unk_18[0x8];
-    union
-    {
-        D2SeedStrc tSeed;
-        D2SeedStrc pSeed;
-    };
+    D2SeedStrc tSeed;
     unsigned char unk_28[0x4];
     union
     {
@@ -754,7 +750,7 @@ inline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
 
 static int AI_RollPercentage(D2UnitStrc* pUnit)
 {
-    return (unsigned int)SEED_RollRandomNumber(&pUnit->pSeed) % 100;
+    return (unsigned int)SEED_RollRandomNumber(&pUnit->tSeed) % 100;
 }
 
 // 0x005E9E00

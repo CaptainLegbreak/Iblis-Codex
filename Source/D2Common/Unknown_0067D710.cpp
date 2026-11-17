@@ -33,16 +33,8 @@ struct D2CoordStrc
 
 struct D2DrlgCoordsStrc
 {
-    union
-    {
-        int nX;
-        int nPosX;
-    };
-    union
-    {
-        int nY;
-        int nPosY;
-    };
+    int nX;
+    int nY;
     int nWidth;
     int nHeight;
 };
@@ -283,8 +275,8 @@ static __forceinline void __fastcall sub_0067D7E0_SetOffsetCoords(D2DrlgCoordsSt
     }
 
     const int nIndex = nRand + 2 * nLinkRand;
-    pCoords->nPosX = gOutdoorOrthOffsets_006F1F7C[nIndex].nX + pLinkCoords->nPosX;
-    pCoords->nPosY = gOutdoorOrthOffsets_006F1F7C[nIndex].nY + pLinkCoords->nPosY;
+    pCoords->nX = gOutdoorOrthOffsets_006F1F7C[nIndex].nX + pLinkCoords->nX;
+    pCoords->nY = gOutdoorOrthOffsets_006F1F7C[nIndex].nY + pLinkCoords->nY;
 }
 
 static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)

@@ -18,11 +18,7 @@ struct D2GameStrc
     char unk20[0x4D];
     unsigned char nDifficulty;
     char unk6E[2];
-    union
-    {
-        int nGameType;
-        int bExpansion;
-    };
+    int nGameType;
 };
 
 struct D2MercDataStrc { unsigned short nName; unsigned short unk02; unsigned int unk04; int bHired; int unk0C; };
@@ -144,7 +140,7 @@ static __forceinline int UnitY(D2UnitStrc* pUnit)
 // 0x005786A0
 static int __stdcall sub_005786A0_RollGambleUpgrade(int nItemId, int nUberChance, int nUltraChance, D2GameStrc* pGame, int nItemLevel)
 {
-    if (!pGame->bExpansion)
+    if (!pGame->nGameType)
     {
         return nItemId;
     }
@@ -214,7 +210,7 @@ void __fastcall D2GAME_STORES_FillGamble_6FCCA9F0(D2GameStrc* pGame,D2UnitStrc* 
   int nItemLevel = (int)(RollSeed(pSeed)%10)+nPlayerLevel-5;
   nItemLevel=D2_MIN(D2_MAX(nItemLevel,5),99);
   int nItemId = pGamble->pItemIds[RollLimited(pSeed,pGamble->nCount[nItemLevel])];
-  if(!pGame->bExpansion)
+  if(!pGame->nGameType)
   {
    D2ItemsTxt* pItemsTxt = DATATBLS_GetItemsTxtRecord(nItemId);
    if(!pItemsTxt) return;

@@ -43,11 +43,7 @@ struct D2DrlgOutdoorInfoStrc
     char unk0x064[0x4];
     D2DrlgVertexStrc* pRoads[6];
     D2DrlgVertexStrc pVertices[24];
-    union
-    {
-        int nRoads;
-        int nVertices;
-    };
+    int nRoads;
     D2DrlgOrthStrc* pRoomData;
 };
 
@@ -64,11 +60,7 @@ struct D2DrlgLevelStrc
     int unk0x08;
     int unk0x0C;
     int unk0x10;
-    union
-    {
-        D2DrlgOutdoorInfoStrc* pOutdoorInfo;
-        D2DrlgOutdoorInfoStrc* pOutdoors;
-    };
+    D2DrlgOutdoorInfoStrc* pOutdoorInfo;
     char unk0x18[0x4];
     int nPosX;
     int nPosY;
@@ -272,8 +264,8 @@ static void DRLGOUTDOORS_CalculatePathCoordinates(D2DrlgLevelStrc* pLevel, D2Drl
 // 0x00680D70
 void __stdcall sub_00680D70(D2DrlgLevelStrc* pLevel)
 {
-    D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
-    pOutdoors->nVertices = 0;
+    D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoorInfo;
+    pOutdoors->nRoads = 0;
 
     for (D2DrlgOrthStrc* pRoomData = pOutdoors->pRoomData; pRoomData; pRoomData = pRoomData->pNext)
     {
@@ -282,7 +274,7 @@ void __stdcall sub_00680D70(D2DrlgLevelStrc* pLevel)
         switch (pRoomLevel->nLevelId)
         {
         case 1:
-            pVertex = &pOutdoors->pVertices[pOutdoors->nVertices];
+            pVertex = &pOutdoors->pVertices[pOutdoors->nRoads];
             pVertex->nDirection = pRoomData->nDirection;
 
             switch (pRoomData->nDirection)
@@ -311,15 +303,15 @@ void __stdcall sub_00680D70(D2DrlgLevelStrc* pLevel)
                 break;
             }
 
-            ++pOutdoors->nVertices;
+            ++pOutdoors->nRoads;
             break;
 
         case 26:
-            pVertex = &pOutdoors->pVertices[pOutdoors->nVertices];
+            pVertex = &pOutdoors->pVertices[pOutdoors->nRoads];
             pVertex->nPosX = pRoomLevel->nPosX + 27;
             pVertex->nPosY = pRoomLevel->nPosY + 13;
             pVertex->nDirection = 1;
-            ++pOutdoors->nVertices;
+            ++pOutdoors->nRoads;
             break;
         }
     }
@@ -331,7 +323,7 @@ void __stdcall sub_00680D70(D2DrlgLevelStrc* pLevel)
             const int nGrid0Entry = sub_0067C570(&pOutdoors->pGrid[0], i, j);
             const unsigned int nPacked = sub_0067C570(&pOutdoors->pGrid[2], i, j);
 
-            D2DrlgVertexStrc* pVertex = &pOutdoors->pVertices[pOutdoors->nVertices];
+            D2DrlgVertexStrc* pVertex = &pOutdoors->pVertices[pOutdoors->nRoads];
             pVertex->nPosX = pLevel->nPosX + 8 * i + 3;
             pVertex->nPosY = pLevel->nPosY + 8 * j + 3;
             pVertex->nDirection = 4;
@@ -373,12 +365,12 @@ void __stdcall sub_00680D70(D2DrlgLevelStrc* pLevel)
 
             if (pVertex->nDirection != 4)
             {
-                ++pOutdoors->nVertices;
+                ++pOutdoors->nRoads;
             }
         }
     }
 
-    for (int i = 0; i < pOutdoors->nVertices; ++i)
+    for (int i = 0; i < pOutdoors->nRoads; ++i)
     {
         DRLGOUTDOORS_CalculatePathCoordinates(pLevel, &pOutdoors->pVertices[i], &pOutdoors->pVertices[6 + i]);
     }

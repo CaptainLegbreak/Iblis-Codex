@@ -170,16 +170,8 @@ struct D2MonsterDataStrc
     D2MonStatsTxt* pMonstatsTxt;
     char unk0x04[0x2C];
     D2MonsterInteractStrc* pMonInteract;
-    union
-    {
-        int nAiValue;
-        int unk0x34;
-    };
-    union
-    {
-        int nAiState;
-        int unk0x38;
-    };
+    int nAiValue;
+    int nAiState;
 };
 
 int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
@@ -713,7 +705,7 @@ int __fastcall MONSTERAI_GetTargetOverrideType(D2UnitStrc* pUnit)
         D2MonsterDataStrc* pMonsterData = MONSTERS_GetMonsterDataInline(pUnit);
         if (pMonsterData)
         {
-            return pMonsterData->unk0x38;
+            return pMonsterData->nAiState;
         }
     }
 
@@ -729,7 +721,7 @@ int __fastcall MONSTERAI_GetTargetOverrideGUID(D2UnitStrc* pUnit)
         D2MonsterDataStrc* pMonsterData = MONSTERS_GetMonsterDataInline(pUnit);
         if (pMonsterData)
         {
-            return pMonsterData->unk0x34;
+            return pMonsterData->nAiValue;
         }
     }
 
@@ -745,8 +737,8 @@ void __fastcall sub_00573120_ClearMonsterPair(D2UnitStrc* pUnit)
         D2MonsterDataStrc* pMonsterData = MONSTERS_GetMonsterDataInline(pUnit);
         if (pMonsterData)
         {
-            pMonsterData->unk0x38 = 0;
-            pMonsterData->unk0x34 = 0;
+            pMonsterData->nAiState = 0;
+            pMonsterData->nAiValue = 0;
         }
     }
 }

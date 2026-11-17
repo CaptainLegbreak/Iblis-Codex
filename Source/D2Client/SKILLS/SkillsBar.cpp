@@ -15,16 +15,8 @@ struct D2CharStatsTxt;
 struct D2StaticPathStrc
 {
     char unk0x00[0x0C];
-    union
-    {
-        int nX;
-        int nXPos;
-    };
-    union
-    {
-        int nY;
-        int nYPos;
-    };
+    int nX;
+    int nY;
 };
 
 struct D2UnitStrc
@@ -326,7 +318,7 @@ inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
     case UNIT_OBJECT:
     case UNIT_ITEM:
     case UNIT_TILE:
-        return pUnit->pStaticPath->nXPos;
+        return pUnit->pStaticPath->nX;
     }
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
@@ -338,7 +330,7 @@ inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
     case UNIT_OBJECT:
     case UNIT_ITEM:
     case UNIT_TILE:
-        return pUnit->pStaticPath->nYPos;
+        return pUnit->pStaticPath->nY;
     }
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }

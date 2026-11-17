@@ -28,11 +28,7 @@ struct D2GameStrc
 struct D2MonStatsTxt
 {
     char unk0x00[0x56];
-    union
-    {
-        short wAiParam[8][3];
-        short nAiParam[8][3];
-    };
+    short wAiParam[8][3];
 };
 
 struct D2AiTickParamStrc
@@ -181,7 +177,7 @@ static __forceinline int RollPercentage(D2SeedStrc* pSeed)
 
 static short AI_GetParam(D2GameStrc* pGame, D2MonStatsTxt* pRecord, int nIndex)
 {
-    return pRecord->nAiParam[nIndex][pGame->nDifficulty];
+    return pRecord->wAiParam[nIndex][pGame->nDifficulty];
 }
 
 // 0x005F53E0
@@ -260,10 +256,10 @@ void __fastcall sub_005F53E0_ThinkMonster(D2GameStrc* pGame, D2UnitStrc* pUnit, 
         }
         if (bCombat)
         {
-            if ((int)SEED_RollLimitedRandomNumber(pUnitSeed, 100) < pRecord->nAiParam[0][pGame->nDifficulty])
+            if ((int)SEED_RollLimitedRandomNumber(pUnitSeed, 100) < pRecord->wAiParam[0][pGame->nDifficulty])
                 AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, 4, pTarget);
             else
-                AITACTICS_IdleInNeutralMode(pGame, pUnit, pRecord->nAiParam[1][pGame->nDifficulty]);
+                AITACTICS_IdleInNeutralMode(pGame, pUnit, pRecord->wAiParam[1][pGame->nDifficulty]);
             return;
         }
         AITACTICS_SetVelocity(pUnit, 13, 50, 0);

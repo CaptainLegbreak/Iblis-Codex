@@ -25,11 +25,7 @@ struct D2GameStrc
     unsigned char unk_20[0x4D];
     unsigned char nDifficulty;
     char unk_6E[2];
-    union
-    {
-        int nGameType;
-        int bExpansion;
-    };
+    int nGameType;
 };
 
 struct D2HirelingTxt
@@ -73,11 +69,7 @@ struct D2UnitStrc
     int type;
     int dwClassId;
     void* pMemoryPool;
-    union
-    {
-        int dwUnitId;
-        int id;
-    };
+    int dwUnitId;
     char unknown10[28];
     union
     {
@@ -312,7 +304,7 @@ D2UnitStrc* __fastcall D2GAME_NPC_GenerateStoreItem_6FCC6A60(D2UnitStrc* pNpc, u
         else
         {
             unsigned int nChance = ITEMS_RollLimitedRandomNumber(SUNITPROXY_GetSeedFromNpcControl(pGame), 100000);
-            if (pGame->bExpansion && nChance < (unsigned int)(16 * nItemLevel + 1000) && pRecord->dwUltraCode && pRecord->dwUltraCode != 0x20202020)
+            if (pGame->nGameType && nChance < (unsigned int)(16 * nItemLevel + 1000) && pRecord->dwUltraCode && pRecord->dwUltraCode != 0x20202020)
             {
                 DATATBLS_GetItemRecordFromItemCode(pRecord->dwUltraCode, &nItemId);
                 dwNewCode = pRecord->dwUltraCode;
@@ -607,7 +599,7 @@ int __fastcall sub_00579030_RollTraderItems(D2GameStrc* pGame, D2UnitStrc* pNpc,
     return 0;
 }
 
-static __forceinline int GetId(D2UnitStrc* u){ if(u) return u->id; return -1; }
+static __forceinline int GetId(D2UnitStrc* u){ if(u) return u->dwUnitId; return -1; }
 
 static __forceinline int GetX(D2UnitStrc* unit) {
  switch(unit->type) { case 2:case 4:case 5:return unit->staticPath->x; }

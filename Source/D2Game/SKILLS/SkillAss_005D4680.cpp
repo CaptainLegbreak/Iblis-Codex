@@ -40,27 +40,15 @@ struct D2SeedStrc
 struct D2StaticPathStrc
 {
     char unk0x00[0x0C];
-    union
-    {
-        int nX;
-        int nXPos;
-    };
-    union
-    {
-        int nY;
-        int nYPos;
-    };
+    int nX;
+    int nY;
 };
 
 struct D2UnitStrc
 {
     int dwUnitType;
     int unk0x04[7];
-    union
-    {
-        D2SeedStrc tSeed;
-        D2SeedStrc pSeed;
-    };
+    D2SeedStrc tSeed;
     int unk0x28;
     union
     {
@@ -448,7 +436,7 @@ static void __stdcall sub_005D54B0_KickDamage(D2GameStrc* pGame, D2DamageStrc* p
     nMaxKickDamage += nMaxDamage;
     const int nRange = nMaxKickDamage - nMinKickDamage;
     unsigned int nRoll;
-    SEED_ROLL_LIMITED_INLINE(&pUnit->pSeed, nRange, nRoll);
+    SEED_ROLL_LIMITED_INLINE(&pUnit->tSeed, nRange, nRoll);
     pDamage->dwPhysDamage += nRoll + nMinKickDamage;
 
     D2GAME_RollElementalDamage_6FD14DD0(pUnit, pDamage, nSkillId, nSkillLevel);
@@ -608,7 +596,7 @@ int __fastcall SKILLS_SrvDo042_DragonTalon(D2GameStrc* pGame, D2UnitStrc* pUnit,
             nChance = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[1], nSkillId, nLevel);
         }
 
-        if (nChance > 0 && (int)SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100) < nChance)
+        if (nChance > 0 && (int)SEED_RollLimitedRandomNumber(&pUnit->tSeed, 100) < nChance)
         {
             bKnockback = 1;
         }
@@ -729,7 +717,7 @@ static int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nXPos;
+        return pUnit->pStaticPath->nX;
     }
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
@@ -741,7 +729,7 @@ static int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nYPos;
+        return pUnit->pStaticPath->nY;
     }
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
@@ -795,7 +783,7 @@ static int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nXPos;
+        return pUnit->pStaticPath->nX;
     }
 
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -808,7 +796,7 @@ static int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nYPos;
+        return pUnit->pStaticPath->nY;
     }
 
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;

@@ -142,11 +142,7 @@ struct D2DataTablesStrc
     D2TxtLinkStrc* pMissileCalcLinker;
     char unk0x060[0x00C];
     void* pSkillCode;
-    union
-    {
-        D2TxtLinkStrc* iSkillCode;
-        D2TxtLinkStrc* pSkillsLinker;
-    };
+    D2TxtLinkStrc* iSkillCode;
     void* pEventsTxt;
     D2TxtLinkStrc* pEventsLinker;
     void* pCompCodeTxt;
@@ -1707,7 +1703,7 @@ void __fastcall DATATBLS_LoadStatesTxt(void* hArchive)
         { "setfunc", TXTFIELD_WORD, 0, 26, 0 },
         { "remfunc", TXTFIELD_WORD, 0, 28, 0 },
         { "missile", TXTFIELD_NAMETOWORD, 0, 58, &gD2DataTables.pMissilesLinker },
-        { "skill", TXTFIELD_NAMETOWORD, 0, 56, &gD2DataTables.pSkillsLinker },
+        { "skill", TXTFIELD_NAMETOWORD, 0, 56, &gD2DataTables.iSkillCode },
         { "colorpri", TXTFIELD_BYTE, 0, 32, 0 },
         { "colorshift", TXTFIELD_BYTE, 0, 33, 0 },
         { "light-r", TXTFIELD_BYTE, 0, 34, 0 },

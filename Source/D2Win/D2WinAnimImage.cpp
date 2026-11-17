@@ -45,11 +45,7 @@ struct D2WinAnimImageStrc
         int field_4C;
         unsigned int nFrame;
     };
-    union
-    {
-        int field_50;
-        int nAnimType;
-    };
+    int field_50;
 };
 
 struct D2WinScrollBarStrc
@@ -141,13 +137,13 @@ int __fastcall D2Win_10104(D2WinAnimImageStrc* pAnimImage)
 {
     D2_ASSERT(pAnimImage->controlHeader.nType == 2, 92);
 
-    if (pAnimImage->nAnimType == 3)
+    if (pAnimImage->field_50 == 3)
     {
-        pAnimImage->nAnimType = 4;
+        pAnimImage->field_50 = 4;
         pAnimImage->nFrame = 0;
         pAnimImage->dwStartTickCount = GetTickCount();
     }
-    else if (pAnimImage->nAnimType == 2 || pAnimImage->nAnimType == 4)
+    else if (pAnimImage->field_50 == 2 || pAnimImage->field_50 == 4)
     {
         return 0;
     }

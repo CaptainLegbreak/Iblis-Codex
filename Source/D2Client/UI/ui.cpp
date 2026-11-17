@@ -82,11 +82,7 @@ struct D2UnitStrc
     int dwUnitType;
     int dwClassId;
     int unk0x08;
-    union
-    {
-        int dwUnitId;
-        int nUnitId;
-    };
+    int dwUnitId;
 };
 
 void __fastcall sub_00464950(void (__fastcall* pfnCallback)(D2UnitStrc*)); // 0x00464950
@@ -896,7 +892,7 @@ static __forceinline int GetUnitId(D2UnitStrc* pUnit)
 {
     if (!pUnit)
         return -1;
-    return pUnit->nUnitId;
+    return pUnit->dwUnitId;
 }
 
 // 0x00454080

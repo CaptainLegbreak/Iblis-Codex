@@ -60,11 +60,7 @@ struct D2UnitStrc
     int nCounter0x58;
     unsigned char unk_5C[0x8];
     void* pLight;
-    union
-    {
-        int dwStartLight;
-        int nUnk0x68;
-    };
+    int dwStartLight;
     char unk0x6C[0xC4 - 0x6C];
     unsigned int dwFlags;
     char unk0xC8[0xD8 - 0xC8];
@@ -794,7 +790,7 @@ int __fastcall sub_004643B0_IsPlayerOrMonster(D2UnitStrc* pUnit)
 int __fastcall sub_00464CC0_GetField68(D2UnitStrc* pUnit)
 {
     D2_ASSERT(pUnit, 0xA3F);
-    return pUnit->nUnk0x68;
+    return pUnit->dwStartLight;
 }
 
 // 0x00464E20

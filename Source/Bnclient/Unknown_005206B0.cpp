@@ -8,11 +8,7 @@ struct D2BnReplyStrc;
 
 struct D2BnetHashContextStrc
 {
-    union
-    {
-        unsigned int state[5];
-        unsigned int aState[5];
-    };
+    unsigned int state[5];
     union
     {
         unsigned int block[16];
@@ -100,11 +96,11 @@ void __fastcall sub_005206B0_HashTransform(D2BnetHashContextStrc* context)
 void __fastcall sub_005209D0_HashBuffer(unsigned int* pOut, const void* pData, unsigned int nSize)
 {
     D2BnetHashContextStrc tContext;
-    tContext.aState[0] = 0x67452301;
-    tContext.aState[1] = 0xEFCDAB89;
-    tContext.aState[2] = 0x98BADCFE;
-    tContext.aState[3] = 0x10325476;
-    tContext.aState[4] = 0xC3D2E1F0;
+    tContext.state[0] = 0x67452301;
+    tContext.state[1] = 0xEFCDAB89;
+    tContext.state[2] = 0x98BADCFE;
+    tContext.state[3] = 0x10325476;
+    tContext.state[4] = 0xC3D2E1F0;
     for (unsigned int i = 0; i < nSize; i += 64)
     {
         unsigned int nLength = nSize - i;
@@ -115,11 +111,11 @@ void __fastcall sub_005209D0_HashBuffer(unsigned int* pOut, const void* pData, u
             memset(&tContext.f_14[nLength], 0, 64 - nLength);
         sub_005206B0_HashTransform(&tContext);
     }
-    pOut[0] = tContext.aState[0];
-    pOut[1] = tContext.aState[1];
-    pOut[2] = tContext.aState[2];
-    pOut[3] = tContext.aState[3];
-    pOut[4] = tContext.aState[4];
+    pOut[0] = tContext.state[0];
+    pOut[1] = tContext.state[1];
+    pOut[2] = tContext.state[2];
+    pOut[3] = tContext.state[3];
+    pOut[4] = tContext.state[4];
 }
 
 // 0x00520E50

@@ -11,11 +11,7 @@ extern "C" int __cdecl isspace(int c); // 0x00687006
 
 struct Unicode
 {
-    union
-    {
-        unsigned short wChar;
-        unsigned short ch;
-    };
+    unsigned short wChar;
     static Unicode* __fastcall strncat(Unicode* dest, const Unicode* src, int count);
     static int __fastcall strcmp(const Unicode* str1, const Unicode* str2);
     static Unicode* __fastcall strcat(Unicode* dest, const Unicode* src);
@@ -199,28 +195,28 @@ int __fastcall sub_00526430_UnicodeUtf8Length(const Unicode* pSource, int nCount
 // 0x005264F0
 int __fastcall Unicode::strcmp(const Unicode* str1, const Unicode* str2)
 {
-    while (str1->ch && str2->ch && str1->ch == str2->ch)
+    while (str1->wChar && str2->wChar && str1->wChar == str2->wChar)
     {
         ++str1;
         ++str2;
     }
-    if (str1->ch < str2->ch)
+    if (str1->wChar < str2->wChar)
         return -1;
-    return str1->ch > str2->ch;
+    return str1->wChar > str2->wChar;
 }
 
 // 0x00526700
 Unicode* __fastcall Unicode::strcat(Unicode* dest, const Unicode* src)
 {
     Unicode* pEnd = dest;
-    while (pEnd->ch)
+    while (pEnd->wChar)
         ++pEnd;
     do
     {
-        pEnd->ch = src->ch;
+        pEnd->wChar = src->wChar;
         ++pEnd;
     }
-    while ((src++)->ch);
+    while ((src++)->wChar);
     return dest;
 }
 
@@ -240,18 +236,18 @@ int __fastcall Unicode::strncmp(const Unicode* str1, const Unicode* str2, unsign
 // 0x00526590
 int __fastcall Unicode::stricmp(const Unicode* str1, const Unicode* str2)
 {
-    while (str1->ch && str2->ch)
+    while (str1->wChar && str2->wChar)
     {
-        const unsigned short ch1 = str1->ch < 0x100 ? gwToUpperTable_00730578[str1->ch] : str1->ch;
-        const unsigned short ch2 = str2->ch < 0x100 ? gwToUpperTable_00730578[str2->ch] : str2->ch;
+        const unsigned short ch1 = str1->wChar < 0x100 ? gwToUpperTable_00730578[str1->wChar] : str1->wChar;
+        const unsigned short ch2 = str2->wChar < 0x100 ? gwToUpperTable_00730578[str2->wChar] : str2->wChar;
         if (ch1 != ch2)
             return ch1 < ch2 ? -1 : 1;
         ++str1;
         ++str2;
     }
-    if (str1->ch)
+    if (str1->wChar)
         return 1;
-    return str2->ch ? -1 : 0;
+    return str2->wChar ? -1 : 0;
 }
 
 // 0x005266C0
@@ -329,15 +325,15 @@ Unicode* __fastcall sub_00526820_StrStrI(const Unicode* str, const Unicode* subs
         const Unicode first = *substr;
         for (;;)
         {
-            const unsigned short ch1 = c.ch < 0x100 ? gwToUpperTable_00730578[c.ch] : c.ch;
-            const unsigned short ch2 = first.ch < 0x100 ? gwToUpperTable_00730578[first.ch] : first.ch;
+            const unsigned short ch1 = c.wChar < 0x100 ? gwToUpperTable_00730578[c.wChar] : c.wChar;
+            const unsigned short ch2 = first.wChar < 0x100 ? gwToUpperTable_00730578[first.wChar] : first.wChar;
             if (ch1 == ch2)
             {
                 break;
             }
 
             c = *++str;
-            if (!c.ch)
+            if (!c.wChar)
             {
                 return 0;
             }
@@ -346,8 +342,8 @@ Unicode* __fastcall sub_00526820_StrStrI(const Unicode* str, const Unicode* subs
         int n = 0;
         for (;;)
         {
-            const unsigned short s1 = str->ch;
-            const unsigned short s2 = substr->ch;
+            const unsigned short s1 = str->wChar;
+            const unsigned short s2 = substr->wChar;
             const unsigned short ch1 = s1 < 0x100 ? gwToUpperTable_00730578[s1] : s1;
             const unsigned short ch2 = s2 < 0x100 ? gwToUpperTable_00730578[s2] : s2;
             if (ch1 != ch2 || !s1)
@@ -365,13 +361,13 @@ Unicode* __fastcall sub_00526820_StrStrI(const Unicode* str, const Unicode* subs
             ++n;
         }
 
-        if (!substr->ch)
+        if (!substr->wChar)
         {
 found:
             return (Unicode*)(str - n);
         }
 
-        if (!str->ch)
+        if (!str->wChar)
         {
             return 0;
         }
@@ -387,23 +383,23 @@ Unicode* __fastcall sub_00526940_FindSubstring(const Unicode* str, const Unicode
     if (!str || !substr) return 0;
     for (;;) {
         const Unicode first = *substr;
-        const unsigned short wFirst = first.ch;
-        while (str->ch != wFirst) {
-            if (!str->ch) return 0;
+        const unsigned short wFirst = first.wChar;
+        while (str->wChar != wFirst) {
+            if (!str->wChar) return 0;
             ++str;
         }
-        if (!str->ch) return 0;
+        if (!str->wChar) return 0;
         int n = 0;
         for (;;) {
-            if (str->ch != substr->ch || !str->ch) break;
-            if (!substr->ch) goto found;
+            if (str->wChar != substr->wChar || !str->wChar) break;
+            if (!substr->wChar) goto found;
             ++str; ++substr; ++n;
         }
-        if (!substr->ch) {
+        if (!substr->wChar) {
 found:
             return (Unicode*)(str - n);
         }
-        if (!str->ch) return 0;
+        if (!str->wChar) return 0;
         str = str - n + 1;
         substr -= n;
     }

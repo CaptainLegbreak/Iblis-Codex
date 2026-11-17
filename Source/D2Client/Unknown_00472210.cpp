@@ -52,11 +52,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 struct D2UnitStrc
 {
     char unk0x00[0x20];
-    union
-    {
-        D2SeedStrc tSeed;
-        D2SeedStrc pSeed;
-    };
+    D2SeedStrc tSeed;
 };
 
 D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
@@ -555,7 +551,7 @@ void __fastcall sub_00473D00_SetPhase(int nPhase)
 
     case 1:
         sub_004726F0(0);
-        gnPhaseMax_007A89C0 = sub_00472280(&pPlayer->pSeed, 0x20, 0xE0);
+        gnPhaseMax_007A89C0 = sub_00472280(&pPlayer->tSeed, 0x20, 0xE0);
         break;
 
     case 2:

@@ -83,38 +83,18 @@ struct D2DamageStrc
     int dwEnDmgPct;
     int dwFireDamage;
     int dwBurnDamage;
-    union
-    {
-        int dwBurnLen;
-        int n18;
-    };
+    int dwBurnLen;
     int dwLtngDamage;
     int dwMagDamage;
     int dwColdDamage;
     int dwPoisDamage;
-    union
-    {
-        int dwPoisLen;
-        int n2C;
-    };
-    union
-    {
-        int dwColdLen;
-        int n30;
-    };
-    union
-    {
-        int dwFrzLen;
-        int n34;
-    };
+    int dwPoisLen;
+    int dwColdLen;
+    int dwFrzLen;
     int dwLifeLeech;
     int dwManaLeech;
     int dwStamLeech;
-    union
-    {
-        int dwStunLen;
-        int n44;
-    };
+    int dwStunLen;
     int unk0x48[10];
 };
 
@@ -547,19 +527,19 @@ void __fastcall sub_005A8F20_SetElementalDamage(D2GameStrc* pGame, D2UnitStrc* p
         switch (MISSILE_GetElemTypeFromMissileId(!pMissile ? -1 : pMissile->dwClassId))
         {
         case 4:
-            pDamage->n30 = nValue;
+            pDamage->dwColdLen = nValue;
             break;
         case 5:
-            pDamage->n2C = nValue;
+            pDamage->dwPoisLen = nValue;
             break;
         case 9:
-            pDamage->n44 = nValue;
+            pDamage->dwStunLen = nValue;
             break;
         case 11:
-            pDamage->n18 = nValue;
+            pDamage->dwBurnLen = nValue;
             break;
         case 12:
-            pDamage->n34 = nValue;
+            pDamage->dwFrzLen = nValue;
             break;
         }
     }

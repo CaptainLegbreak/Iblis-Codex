@@ -14,11 +14,7 @@ struct D2StaticPathStrc { char pad[12]; int x,y; };
 struct D2UnitStrc
 {
     int type;
-    union
-    {
-        int id;
-        int dwClassId;
-    };
+    int id;
     unsigned char unk_08[0x4];
     int dwUnitId;
     unsigned char unk_10[0x10];
@@ -170,8 +166,8 @@ int __fastcall sub_005AEDA0_SummonPet(D2GameStrc* game,D2UnitStrc* unit)
 
 static D2MissilesTxt* SKILLS_GetMissilesTxtRecordFromUnit(D2UnitStrc* pMissile)
 {
-    if (pMissile && pMissile->dwClassId >= 0 && pMissile->dwClassId < sgptDataTables->nMissilesTxtRecordCount)
-        return &sgptDataTables->pMissilesTxt[pMissile->dwClassId];
+    if (pMissile && pMissile->id >= 0 && pMissile->id < sgptDataTables->nMissilesTxtRecordCount)
+        return &sgptDataTables->pMissilesTxt[pMissile->id];
     return 0;
 }
 

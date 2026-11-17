@@ -27,11 +27,7 @@ struct D2MissilesTxt
 struct D2MonStatsTxt
 {
     char unk0x00[0x18];
-    union
-    {
-        short wMonStatsEx;
-        short nMonStatsEx;
-    };
+    short wMonStatsEx;
     char unk0x1A[0x15];
     unsigned char nMinGrp;
     unsigned char nMaxGrp;
@@ -721,7 +717,7 @@ static void __stdcall sub_0046C1A0_SpawnMonsterInRoom(D2ActiveRoomStrc* pRoom, i
     if (nMonsterId < 0 || nMonsterId >= sgptDataTables->nMonStatsTxtRecordCount)
         return;
 
-    const int nMonStatsEx = sgptDataTables->pMonStatsTxt[nMonsterId].nMonStatsEx;
+    const int nMonStatsEx = sgptDataTables->pMonStatsTxt[nMonsterId].wMonStatsEx;
     if (nMonStatsEx < 0 || nMonStatsEx >= sgptDataTables->nMonStats2TxtRecordCount)
         return;
 

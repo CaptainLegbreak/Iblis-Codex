@@ -29,11 +29,7 @@ struct D2GameStrc
 struct D2UnitStrc
 {
     int dwUnitType;
-    union
-    {
-        int classId;
-        int dwClassId;
-    };
+    int classId;
     char unk0x08[0x04];
     int dwUnitId;
     char unk0x10[0xB4];
@@ -87,16 +83,8 @@ struct D2DataTablesStrc
     void* pSkillsLinker;
     int nSkillsTxtRecordCount;
     unsigned char unk_BA4[0x20];
-    union
-    {
-        D2CharStatsTxt* charStats;
-        D2CharStatsTxt* pCharStatsTxt;
-    };
-    union
-    {
-        int charStatsCount;
-        int nCharStatsTxtRecordCount;
-    };
+    D2CharStatsTxt* charStats;
+    int charStatsCount;
     D2ItemStatCostTxt* pItemStatCostTxt;
     int unk_BD0;
     int nItemStatCostTxtRecordCount;
@@ -355,9 +343,9 @@ void __fastcall sub_C899_Emit_00570A50(D2UnitStrc* pUnit, int nValue)
 
 static __forceinline D2CharStatsTxt* PLRSAVE2_GetCharStatsTxtRecord(int nClass)
 {
-    if (nClass >= 0 && nClass < sgptDataTables->nCharStatsTxtRecordCount)
+    if (nClass >= 0 && nClass < sgptDataTables->charStatsCount)
     {
-        return &sgptDataTables->pCharStatsTxt[nClass];
+        return &sgptDataTables->charStats[nClass];
     }
 
     return 0;
@@ -368,7 +356,7 @@ static void sub_00570A80_AddEnergyPoints(D2UnitStrc* pUnit, int nPoints)
 {
     if (nPoints && pUnit)
     {
-        D2CharStatsTxt* pCharStatsTxtRecord = PLRSAVE2_GetCharStatsTxtRecord(pUnit->dwClassId);
+        D2CharStatsTxt* pCharStatsTxtRecord = PLRSAVE2_GetCharStatsTxtRecord(pUnit->classId);
         if (pCharStatsTxtRecord)
         {
             STATLIST_AddUnitStat(pUnit, 4, -nPoints, 0);
@@ -392,7 +380,7 @@ static void sub_00570B60_AddVitalityPoints(D2UnitStrc* pUnit, int nPoints)
 {
     if (nPoints && pUnit)
     {
-        D2CharStatsTxt* pCharStatsTxtRecord = PLRSAVE2_GetCharStatsTxtRecord(pUnit->dwClassId);
+        D2CharStatsTxt* pCharStatsTxtRecord = PLRSAVE2_GetCharStatsTxtRecord(pUnit->classId);
         if (pCharStatsTxtRecord)
         {
             STATLIST_AddUnitStat(pUnit, 4, -nPoints, 0);
@@ -428,7 +416,7 @@ void __fastcall sub_00570C80_PLAYERSTATS_ResetToBaseStats(D2GameStrc* pGame, D2U
     {
         return;
     }
-    D2CharStatsTxt* pCharStatsTxtRecord = PLRSAVE2_GetCharStatsTxtRecord(pUnit->dwClassId);
+    D2CharStatsTxt* pCharStatsTxtRecord = PLRSAVE2_GetCharStatsTxtRecord(pUnit->classId);
     if (!pCharStatsTxtRecord)
     {
         return;

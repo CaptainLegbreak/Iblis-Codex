@@ -20,16 +20,8 @@ struct D2CltMissileModeStrc;
 struct D2StaticPathStrc
 {
     char unk0x00[0x0C];
-    union
-    {
-        int nX;
-        int nXPos;
-    };
-    union
-    {
-        int nY;
-        int nYPos;
-    };
+    int nX;
+    int nY;
 };
 
 struct D2SeedStrc
@@ -45,11 +37,7 @@ struct D2UnitStrc
     void* pMemoryPool;
     int dwUnitId;
     unsigned char unk_10[0x10];
-    union
-    {
-        D2SeedStrc pSeed;
-        D2SeedStrc tSeed;
-    };
+    D2SeedStrc pSeed;
     int unk0x28;
     union
     {
@@ -841,7 +829,7 @@ static int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nXPos;
+        return pUnit->pStaticPath->nX;
     }
 
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -854,7 +842,7 @@ static int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nYPos;
+        return pUnit->pStaticPath->nY;
     }
 
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
@@ -1532,8 +1520,8 @@ static void __stdcall sub_004D1FA0_SpawnBehindOwner(int nMissileId, D2UnitStrc* 
     tParams.nMissile = nMissileId;
     tParams.nSkill = MISSILE_GetSkill(pMissile);
     tParams.nSkillLevel = MISSILE_GetLevel(pMissile);
-    tParams.nX = UNITS_GetUnitXPosition(pMissile) + SEED_RollRandomNumber(&pMissile->tSeed) % 20 - 10;
-    tParams.nY = UNITS_GetUnitYPosition(pMissile) + SEED_RollRandomNumber(&pMissile->tSeed) % 20 - 10;
+    tParams.nX = UNITS_GetUnitXPosition(pMissile) + SEED_RollRandomNumber(&pMissile->pSeed) % 20 - 10;
+    tParams.nY = UNITS_GetUnitYPosition(pMissile) + SEED_RollRandomNumber(&pMissile->pSeed) % 20 - 10;
     D2UnitStrc* pNew = sub_004CD540_CreateMissile(&tParams);
     if (!pNew)
         return;
@@ -1561,7 +1549,7 @@ void __fastcall sub_004D7690_CltDoOwnerSpawner(D2UnitStrc* pMissile)
     }
     if (!nValue)
     {
-        if (SEED_RollRandomNumber(&pMissile->tSeed) & 1)
+        if (SEED_RollRandomNumber(&pMissile->pSeed) & 1)
             sub_004D1FA0_SpawnBehindOwner(0x1A0, pOwner, pMissile);
         else
             sub_004D1FA0_SpawnBehindOwner(0x1A6, pOwner, pMissile);
@@ -2736,7 +2724,7 @@ int __fastcall sub_004D1890(D2UnitStrc* pMissile)
         D2UnitStrc* pNew=sub_004CD540_CreateMissile(&tParams);
         if(pNew) {
             MISSILE_SetTargetX(pNew,MISSILE_GetTargetX(pMissile));
-            MISSILE_SetTargetY(pNew,SEED_RollRandomNumber(&pMissile->tSeed)%35+10);
+            MISSILE_SetTargetY(pNew,SEED_RollRandomNumber(&pMissile->pSeed)%35+10);
         }
     }
     return 1;
@@ -2859,12 +2847,12 @@ int __fastcall sub_004D2AF0_CltDoScatterHit(D2UnitStrc* pMissile)
     }
 
     const int nSeed = UNITS_GetXPosition(pMissile);
-    SEED_InitLowSeed(&pMissile->tSeed, nSeed);
+    SEED_InitLowSeed(&pMissile->pSeed, nSeed);
     const int nRange = pMissilesTxtRecord->dwCltHitPar[0] < 1 ? 1 : pMissilesTxtRecord->dwCltHitPar[0];
     const int nX = UNITS_GetXPosition(pMissile);
     const int nY = CLIENTS_GetUnitY(pMissile);
-    const int nTargetX = nX - nRange + SEED_RollLimitedRandomNumber(&pMissile->tSeed, 2 * nRange + 1);
-    const int nTargetY = nY - nRange + SEED_RollLimitedRandomNumber(&pMissile->tSeed, 2 * nRange + 1);
+    const int nTargetX = nX - nRange + SEED_RollLimitedRandomNumber(&pMissile->pSeed, 2 * nRange + 1);
+    const int nTargetY = nY - nRange + SEED_RollLimitedRandomNumber(&pMissile->pSeed, 2 * nRange + 1);
 
     D2MissileStrc tParams;
     memset(&tParams, 0, sizeof(tParams));
@@ -3053,7 +3041,7 @@ void __fastcall sub_004D3C40_CltDoRangeSpawn(D2UnitStrc* pMissile)
     int nMissile = pMissilesTxtRecord->wCltSubMissile[0];
     if (nMissile < pMissilesTxtRecord->wCltSubMissile[1])
     {
-        nMissile += ITEMS_RollLimitedRandomNumber(&pMissile->tSeed, pMissilesTxtRecord->wCltSubMissile[1] - nMissile + 1);
+        nMissile += ITEMS_RollLimitedRandomNumber(&pMissile->pSeed, pMissilesTxtRecord->wCltSubMissile[1] - nMissile + 1);
     }
 
     int nLevel = MISSILE_GetLevel(pMissile);
@@ -3126,7 +3114,7 @@ void __fastcall sub_004D43A0_CltDoRandomSubMissile(D2UnitStrc* pMissile)
         D2MissileStrc tParams;
         memset(&tParams, 0, sizeof(tParams));
         tParams.dwFlags = 0x21;
-        if (SEED_RollLimitedRandomNumber(&pMissile->tSeed, 4))
+        if (SEED_RollLimitedRandomNumber(&pMissile->pSeed, 4))
             tParams.dwFlags = 0x4021;
         tParams.pOwner = sub_004639D0_GetOwnerUnit(pMissile);
         tParams.nX = UNITS_GetXPosition(pMissile);
@@ -3174,7 +3162,7 @@ void __fastcall sub_004D5470_CltDoScatterSub(D2UnitStrc* pMissile)
         const int nRate = pMissilesTxtRecord->dwCltParam[1] < 1 ? 1 : pMissilesTxtRecord->dwCltParam[1];
         if (!(nFrames % nRate))
         {
-            D2SeedStrc* pSeed = &pMissile->tSeed;
+            D2SeedStrc* pSeed = &pMissile->pSeed;
             const int nRange = pMissilesTxtRecord->dwCltParam[2];
             const int nOffsetX = ITEMS_RollLimitedRandomNumber(pSeed, 2 * nRange + 1) - nRange;
             const int nOffsetY = ITEMS_RollLimitedRandomNumber(pSeed, 2 * nRange + 1) - nRange;
@@ -3225,8 +3213,8 @@ void __fastcall sub_004D5DD0_CltDoTimedBurst(D2UnitStrc* pMissile)
         const int nRange = pMissilesTxtRecord->dwCltParam[3];
         for (int i = 0; i < pMissilesTxtRecord->dwCltParam[2]; ++i)
         {
-            tParams.nX = nX - nRange + SEED_RollLimitedRandomNumber(&pMissile->tSeed, 2 * nRange + 1);
-            tParams.nY = nY - nRange + SEED_RollLimitedRandomNumber(&pMissile->tSeed, 2 * nRange + 1);
+            tParams.nX = nX - nRange + SEED_RollLimitedRandomNumber(&pMissile->pSeed, 2 * nRange + 1);
+            tParams.nY = nY - nRange + SEED_RollLimitedRandomNumber(&pMissile->pSeed, 2 * nRange + 1);
             sub_004CD540_CreateMissile(&tParams);
         }
     }

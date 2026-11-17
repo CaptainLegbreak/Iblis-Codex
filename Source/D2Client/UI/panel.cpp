@@ -60,11 +60,7 @@ struct SMSGHANDLER_PARAMS
     unsigned short nX;
     unsigned short nY;
     char pad_10[8];
-    union
-    {
-        int bReturn;
-        int bUseResult;
-    };
+    int bReturn;
     int lResult;
 };
 
@@ -1195,7 +1191,7 @@ void __stdcall sub_00499BB0_BeltMouseMove(SMSGHANDLER_PARAMS* pMsg)
 {
     if (!gdwGlobal_007A061C || sub_0044DA30() || sub_00463DF0())
     {
-        pMsg->bUseResult = 0;
+        pMsg->bReturn = 0;
         return;
     }
 
@@ -1213,7 +1209,7 @@ void __stdcall sub_00499BB0_BeltMouseMove(SMSGHANDLER_PARAMS* pMsg)
         {
             if (sub_004538D0(0x1F))
             {
-                pMsg->bUseResult = 1;
+                pMsg->bReturn = 1;
                 pMsg->lResult = 0;
             }
             sub_00498930_HoverBeltBox(nX, pPlayer->pInventory, nY);
@@ -1222,14 +1218,14 @@ void __stdcall sub_00499BB0_BeltMouseMove(SMSGHANDLER_PARAMS* pMsg)
 
         if (!sub_004538D0(0x1F))
         {
-            pMsg->bUseResult = 0;
+            pMsg->bReturn = 0;
             gbUiRecordMode_007BEF98 = 0;
             gnBeltRecordMode2_007BEF9C = 0;
             gnBeltHover_007BEF94 = 0;
             return;
         }
 
-        pMsg->bUseResult = 0;
+        pMsg->bReturn = 0;
         gnBeltRecordMode2_007BEF9C = 0;
         gnBeltHover_007BEF94 = 0;
         return;
@@ -1237,7 +1233,7 @@ void __stdcall sub_00499BB0_BeltMouseMove(SMSGHANDLER_PARAMS* pMsg)
 
     if (nX < gnGlobal_0071146C / 2 + 0x17 || nX > gnGlobal_0071146C / 2 + 0x91 || nY < gnGlobal_00711470 - 0x27 || nY > gnGlobal_00711470 - 0xA)
     {
-        pMsg->bUseResult = 0;
+        pMsg->bReturn = 0;
         gnBeltHover_007BEF94 = 0;
         return;
     }
@@ -1248,7 +1244,7 @@ void __stdcall sub_00499BB0_BeltMouseMove(SMSGHANDLER_PARAMS* pMsg)
         gnBeltRecordMode2_007BEF9C = 1;
         sub_00498930_HoverBeltBox(nX, pPlayer->pInventory, nY);
     }
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
 }
 
@@ -1257,7 +1253,7 @@ void __stdcall sub_00499D10_BeltClick(SMSGHANDLER_PARAMS* pMsg)
 {
     if (sub_0044DA30() || sub_00463DF0())
     {
-        pMsg->bUseResult = 0;
+        pMsg->bReturn = 0;
         return;
     }
 
@@ -1266,7 +1262,7 @@ void __stdcall sub_00499D10_BeltClick(SMSGHANDLER_PARAMS* pMsg)
     D2UnitStrc* pPlayer = sub_00463DD0();
     if (sub_00498DC0_MouseMoveMsg(pMsg))
     {
-        pMsg->bUseResult = 1;
+        pMsg->bReturn = 1;
         pMsg->lResult = 0;
         if (sub_00468830() == 6)
         {
@@ -1280,7 +1276,7 @@ void __stdcall sub_00499D10_BeltClick(SMSGHANDLER_PARAMS* pMsg)
         const int nBox = sub_004987E0_GetBeltBoxAt(nY, nX);
         if (nBox < 0)
         {
-            pMsg->bUseResult = 0;
+            pMsg->bReturn = 0;
             return;
         }
 
@@ -1289,7 +1285,7 @@ void __stdcall sub_00499D10_BeltClick(SMSGHANDLER_PARAMS* pMsg)
         return;
     }
 
-    pMsg->bUseResult = 0;
+    pMsg->bReturn = 0;
     gnBeltHover_007BEF94 = 0;
 }
 

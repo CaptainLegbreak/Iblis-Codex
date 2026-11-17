@@ -76,11 +76,7 @@ struct D2DamageStrc
     int dwBurnDamage;
     int dwBurnLen;
     char unk0x1C[0x0C];
-    union
-    {
-        int dwPoisDamage;
-        int unk0x28;
-    };
+    int dwPoisDamage;
     int dwPoisLen;
     int dwColdLen;
     int dwFrzLen;
@@ -106,11 +102,7 @@ int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x0062
 struct D2MonStatsTxt
 {
     char unk0x00[0x0C];
-    union
-    {
-        unsigned char nFlags[4];
-        unsigned char nMonStatsFlags[4];
-    };
+    unsigned char nFlags[4];
     unsigned char unk_10[0xC];
     short wMonType;
     unsigned char unk_1E[0x14];
@@ -1075,7 +1067,7 @@ static int __stdcall sub_0057CB00(D2UnitStrc* pUnit, D2DamageStrc* pDamage, int 
         return 1;
     }
 
-    if (pDamage->unk0x28 && pDamage->unk0x28 == pDamage->dwDmgTotal)
+    if (pDamage->dwPoisDamage && pDamage->dwPoisDamage == pDamage->dwDmgTotal)
     {
         return 1;
     }
@@ -1226,7 +1218,7 @@ void __fastcall SUNITDMG_ExecuteMissileDamage(D2GameStrc* pGame, D2UnitStrc* pAt
         }
 
         D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(pAttacker->dwClassId);
-        if (!pMonStatsTxtRecord || !(pMonStatsTxtRecord->nMonStatsFlags[0x0A >> 3] & gdwBitMasks[0x0A & 7]))
+        if (!pMonStatsTxtRecord || !(pMonStatsTxtRecord->nFlags[0x0A >> 3] & gdwBitMasks[0x0A & 7]))
         {
             return;
         }

@@ -362,11 +362,7 @@ struct D2MonStatsTxt
     char unk0x000[0xA0];
     unsigned char nDrain[3];
     char unk0x0A3[0xCD];
-    union
-    {
-        short nSkill;
-        short wSkill0x170;
-    };
+    short nSkill;
 };
 
 int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
@@ -1307,9 +1303,9 @@ int __fastcall sub_005C6690_ShareDamageWithOwner(D2GameStrc* pGame, int nEvent, 
         return 0;
     }
 
-    if (pMonStatsTxtRecord->wSkill0x170 >= 0)
+    if (pMonStatsTxtRecord->nSkill >= 0)
     {
-        const int nDamage = DATATBLS_ApplyRatio(pDamage->dwDmgTotal, sub_004E6C70(pMonStatsTxtRecord->wSkill0x170), 100);
+        const int nDamage = DATATBLS_ApplyRatio(pDamage->dwDmgTotal, sub_004E6C70(pMonStatsTxtRecord->nSkill), 100);
         nLife -= nDamage;
         if (nLife < 0x100)
         {

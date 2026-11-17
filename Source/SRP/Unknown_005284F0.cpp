@@ -63,11 +63,7 @@ struct D2BigServerRecordStrc
     unsigned char abPrivate[0x20];
     unsigned char abServerPublic[0x20];
     unsigned char abKey[0x28];
-    union
-    {
-        unsigned char abClientProof[0x14];
-        unsigned char abProof[0x14];
-    };
+    unsigned char abClientProof[0x14];
     unsigned char abServerProof[0x14];
 };
 int __fastcall sub_0052A350_BigOp_423790(void* hResult, void* hLeft, void* hRight); // 0x0052A350
@@ -217,8 +213,8 @@ int D2BigPairStrc::sub_00528AC0_VerifyClientProof(D2BigServerRecordStrc* pRecord
     const unsigned int nSize = sub_0052A2A0_BigToBinary(hKey, abKey, 0x20);
     sub_0052A600(hKey);
     sub_0052A120_HashInterleave(pRecord->abKey, abKey, nSize);
-    pState->sub_005282A0_ComputeProof(pRecord->szName, pRecord->abSalt, pRecord->abClientPublic, pRecord->abServerPublic, pRecord->abKey, pRecord->abProof);
-    return memcmp(pRecord->abProof, pClientProof, sizeof(pRecord->abProof)) == 0;
+    pState->sub_005282A0_ComputeProof(pRecord->szName, pRecord->abSalt, pRecord->abClientPublic, pRecord->abServerPublic, pRecord->abKey, pRecord->abClientProof);
+    return memcmp(pRecord->abClientProof, pClientProof, sizeof(pRecord->abClientProof)) == 0;
 }
 
 // 0x00528C90

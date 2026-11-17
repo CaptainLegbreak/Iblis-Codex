@@ -58,11 +58,7 @@ struct D2MissilesTxt
 struct D2SkillsTxt
 {
     char unk0x000[0x48];
-    union
-    {
-        short wSrvMissileA;
-        short wSrvMissile;
-    };
+    short wSrvMissileA;
     char unk0x04A[0xEE];
     unsigned int dwCalc[4];
     char unk0x148[0xF4];
@@ -352,7 +348,7 @@ int __fastcall sub_005D1CD0_SrvDoMissileVolley(D2GameStrc* pGame, D2UnitStrc* pU
         return 0;
     }
 
-    const int nMissile = pSkillsTxtRecord->wSrvMissile;
+    const int nMissile = pSkillsTxtRecord->wSrvMissileA;
     if (nMissile <= 0 || nMissile >= sgptDataTables->nMissilesTxtRecordCount)
     {
         return 0;

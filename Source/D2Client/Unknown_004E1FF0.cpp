@@ -37,11 +37,7 @@ struct D2UnitStrc
     D2DynamicPathStrc* pDynamicPath;
     D2AnimSeqTxt* pAnimSeq;
     char unk0x34[0x10];
-    union
-    {
-        int dwGFXcurrentFrame;
-        int nSeqCurrentFramePrecise;
-    };
+    int dwGFXcurrentFrame;
     int dwFrameCountPrecise;
     char unk0x4C[0x14];
     D2InventoryStrc* pInventory;
@@ -832,7 +828,7 @@ D2UnitStrc* __fastcall sub_004E31C0_CltDo(D2UnitStrc* pUnit, int nSkillId, int n
         }
         else
         {
-            pUnit->nSeqCurrentFramePrecise = (pUnit->nSeqCurrentFramePrecise & 0xFFFFFF00) - 0x200;
+            pUnit->dwGFXcurrentFrame = (pUnit->dwGFXcurrentFrame & 0xFFFFFF00) - 0x200;
         }
     }
 

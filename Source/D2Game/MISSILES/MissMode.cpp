@@ -41,11 +41,7 @@ struct D2UnitStrc
     int dwAnimMode;
     D2MonsterDataStrc* pMonsterData;
     char unk0x18[0x08];
-    union
-    {
-        D2SeedStrc tSeed;
-        D2SeedStrc pSeed;
-    };
+    D2SeedStrc tSeed;
     int unk0x28;
     union
     {
@@ -1408,7 +1404,7 @@ int __fastcall sub_005AC350(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc*
 
     const int nMin = SKILLS_GetMinPhysDamage(SUNIT_GetOwner(pGame, pMissile), nSkillId, nSkillLevel, 1);
     const int nMax = SKILLS_GetMaxPhysDamage(SUNIT_GetOwner(pGame, pMissile), nSkillId, nSkillLevel, 1);
-    const int nHeal = ITEMS_RollLimitedRandomNumber(&pMissile->pSeed, nMax - nMin) + nMin;
+    const int nHeal = ITEMS_RollLimitedRandomNumber(&pMissile->tSeed, nMax - nMin) + nMin;
 
     int nHitpoints = STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0);
     const int nMaxHitpoints = STATLIST_GetMaxLifeFromUnit(pUnit);
@@ -1443,13 +1439,13 @@ int __fastcall MISSMODE_SrvHit58_BaalTauntLightningControl(D2GameStrc* pGame, D2
     }
 
     const int nSeedX = CLIENTS_GetUnitX(pMissile);
-    SEED_InitLowSeed(&pMissile->pSeed, nSeedX);
+    SEED_InitLowSeed(&pMissile->tSeed, nSeedX);
     const int nParam = D2_MAX(1, pMissilesTxtRecord->dwHitPar[0]);
 
     const int nX = CLIENTS_GetUnitX(pMissile);
     const int nY = CLIENTS_GetUnitY(pMissile);
-    const int nTargetX = nX + SEED_RollLimitedRandomNumber(&pMissile->pSeed, 2 * nParam + 1) - nParam;
-    const int nTargetY = nY + SEED_RollLimitedRandomNumber(&pMissile->pSeed, 2 * nParam + 1) - nParam;
+    const int nTargetX = nX + SEED_RollLimitedRandomNumber(&pMissile->tSeed, 2 * nParam + 1) - nParam;
+    const int nTargetY = nY + SEED_RollLimitedRandomNumber(&pMissile->tSeed, 2 * nParam + 1) - nParam;
 
     D2MissileStrc missileParams = {};
     missileParams.dwFlags = 32;
@@ -1606,7 +1602,7 @@ void __fastcall MISSMODE_SrvDmg03_Blaze_FireWall_ImmolationFire_MeteorFire(D2Gam
     D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecordFromUnit(pMissile);
     if (pMissilesTxtRecord)
     {
-        const int nRand = SEED_RollRandomNumber(&pMissile->pSeed) & 127;
+        const int nRand = SEED_RollRandomNumber(&pMissile->tSeed) & 127;
         if (nRand < pMissilesTxtRecord->dwDmgParam[0])
         {
             pDamage->wResultFlags |= 0x4000;
@@ -1736,7 +1732,7 @@ void __fastcall MISSMODE_SrvDmg14_MoltenBoulder(D2GameStrc* pGame, D2UnitStrc* p
         return;
     }
 
-    if (nChance > 0 && (int)SEED_RollLimitedRandomNumber(&pMissile->pSeed, 100) < nChance)
+    if (nChance > 0 && (int)SEED_RollLimitedRandomNumber(&pMissile->tSeed, 100) < nChance)
     {
         pDamage->wResultFlags |= 8;
     }
