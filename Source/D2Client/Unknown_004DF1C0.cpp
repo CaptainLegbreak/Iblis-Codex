@@ -37,22 +37,6 @@ struct D2TileLibraryEntryStrc
     unsigned int nLightDirection;
 };
 
-struct D2GfxLightStrc
-{
-    unsigned int aColor[8];
-};
-
-struct D2LightOffsetStrc
-{
-    int nX;
-    int nY;
-};
-
-struct D2LightOffsetsStrc
-{
-    D2LightOffsetStrc aOffset[6];
-};
-
 struct D2DrlgTileDataStrc
 {
     int nWidth;
@@ -178,7 +162,7 @@ struct D2SlotStrc
 extern D2SlotStrc gaSlots_007C8A78[16]; // 0x007C8A78
 int __fastcall sub_004B9DA0_CompareItems(D2SlotObjectStrc* pA, D2SlotObjectStrc* pB, int bCompareFloat, int bCompareValue); // 0x004B9DA0
 D2SoundRecordStrc* __fastcall sub_00481860(int nId); // 0x00481860
-int __fastcall sub_00482680(int nId); // 0x00482680
+int __fastcall sub_00482680_PickVariant(int nId); // 0x00482680
 void __fastcall sub_00482970(int nId, int bFlag, int nArg); // 0x00482970
 D2SlotStrc* __fastcall sub_004DF9D0_CheckCacheEntry(int nId); // 0x004DF9D0
 void __fastcall sub_004DFC20(D2SlotStrc* pSlot); // 0x004DFC20
@@ -202,23 +186,10 @@ struct D2UnitStrc
     unsigned int dwFlags;
 };
 
-struct D2NpcSoundStrc
-{
-    int f_0;
-    int nDaySound;
-    int nNightSound;
-    int nGreetSound;
-    int nLastSound;
-    int nLastTick;
-};
-
 extern D2NpcSoundStrc gaNpcSounds_0072AE28[]; // 0x0072AE28
 extern D2DrlgActStrc* gpAct_007A0634; // 0x007A0634
 int __fastcall sub_004E40A0(int nRange); // 0x004E40A0
-int __fastcall sub_00482680_PickVariant(int nIndex); // 0x00482680
 int __cdecl sub_0044DB00(); // 0x0044DB00
-
-typedef unsigned int size_t;
 
 extern "C" __declspec(dllimport) void* __stdcall VirtualAlloc(void* pAddress, unsigned long nSize, unsigned long nType, unsigned long nProtect); // 0x006CC21C
 extern "C" __declspec(dllimport) int __stdcall VirtualFree(void* pAddress, unsigned long nSize, unsigned long nFreeType); // 0x006CC220
@@ -517,7 +488,7 @@ D2SlotStrc* __fastcall sub_004E01B0_PlaySlotSound(D2SlotObjectStrc* pObject)
 {
     D2SoundRecordStrc* pFirst = sub_00481860(pObject->f_4);
     if (!(pObject->nFlags & 1))
-        pObject->f_4 = sub_00482680(pObject->f_4);
+        pObject->f_4 = sub_00482680_PickVariant(pObject->f_4);
     D2SlotStrc* pOld = sub_004DF9D0_CheckCacheEntry(pObject->f_4);
     if (pOld && !pOld->pObject->nField0x3D && pObject->nKey - pOld->pObject->nKey < 2 && pOld->pObject->nPriority >= pObject->nPriority)
         return 0;

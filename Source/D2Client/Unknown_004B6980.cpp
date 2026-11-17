@@ -25,15 +25,6 @@ struct D2UnitStrc
     int dwFlags;
 };
 
-struct D2NpcQuestHandlerStrc
-{
-    int nNpcId;
-    int nQuestId;
-    int nState;
-    int bSet;
-    int (__cdecl* pfHandler)();
-};
-
 struct D2ClientStringListStrc
 {
     unsigned short awStrings[10];
@@ -62,8 +53,6 @@ struct D2NpcEntryStrc
 
 typedef char check_size_npcindex[(sizeof(D2NpcIndexStrc) == 0x27) ? 1 : -1];
 typedef char check_size_npcentry[(sizeof(D2NpcEntryStrc) == 0x16) ? 1 : -1];
-
-typedef int (__fastcall* D2TextCallback)(void* pContext, int nArg, int nValue);
 typedef void (__fastcall* UNITFN)(D2UnitStrc* pUnit);
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837

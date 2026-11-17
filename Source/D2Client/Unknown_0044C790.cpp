@@ -24,10 +24,6 @@ extern unsigned long gdwTickCount_007A048C; // 0x007A048C
 extern unsigned int gnTickCounter_007A0498; // 0x007A0498
 extern D2DrlgActStrc* gpAct_007A0634; // 0x007A0634
 
-typedef unsigned int U32;
-
-typedef unsigned char U8;
-
 struct UnitPrefix { U32 prefix0; U32 prefix4; U32 prefix8; U32 identifier; };
 
 typedef char check_UnitPrefix_identifier[OFFSET(UnitPrefix,identifier)==12?1:-1];

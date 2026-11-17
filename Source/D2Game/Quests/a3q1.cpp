@@ -1,11 +1,18 @@
 #include "D2Game.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
 struct D2PlayerDataStrc;
 struct D2QuestGUIDStrc;
 struct D2ObjInitFnStrc;
 struct D2Act3Quest0Strc;
 struct D2Act3Quest1Strc;
+struct D2GameStrc;
+struct D2UnitStrc;
+struct D2MapAIStrc;
+struct D2QuestArgStrc;
+struct D2QuestDataStrc;
+struct Quest;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -212,249 +219,16 @@ void __fastcall ACT3Q1_Callback09_PlayerDroppedWithQuestItem(D2QuestDataStrc* pQ
 void __fastcall ACT3Q1_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
 void __fastcall ACT3Q1_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
 void __fastcall ACT3Q1_Callback14_PlayerJoinedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
-void __fastcall ACT3Q1_UnitIterate_CheckForTomeItem(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs); // 0x005B7D40
 
-inline D2BitBufferStrc* sub_00543520(D2GameStrc* pGame, D2UnitStrc* pPlayer)
-{
-    return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
-}
+typedef bool (__fastcall *Sequence)(Quest*);
 
-// 0x005B7340
-int __fastcall ACT3Q1_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
-{
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-    if (!QUESTRECORD_GetQuestState(pQuestFlags, 17, 0) && !QUESTRECORD_GetQuestState(pQuestFlags, 17, 15)
-        || QUESTRECORD_GetQuestState(pQuestFlags, 17, 13)
-        || QUESTRECORD_GetQuestState(pQuestFlags, 17, 14))
-    {
-        QUESTS_StatusCyclerEx(pGame, pUnit, 15);
-    }
+typedef int (__stdcall *CodePointer)();
 
-    return 0;
-}
+struct Quest { int number; Game* game; unsigned char act,notIntro,active,lastState,state; char padD[3]; int sequenceId; char pad14[0xDC]; Sequence sequence; };
 
-// 0x005B7580
-int __fastcall ACT3Q1_UnitIterate_AddStatPointReward(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
-{
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-    if (QUESTRECORD_GetQuestState(pQuestFlags, 17, 1) == 1)
-    {
-        STATLIST_AddUnitStat(pUnit, 4, 5, 0);
-        QUESTS_SendLogUpdate(pUnit, 15);
-        QUESTRECORD_ClearQuestState(pQuestFlags, 17, 1);
-    }
+Quest* __fastcall sub_00543640(Game*,int); // 0x00543640
 
-    return 0;
-}
-
-// 0x005B75D0
-int __fastcall ACT3Q1_UnitIterate_SetCompletionFlag(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
-{
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-    if (QUESTRECORD_GetQuestState(pQuestFlags, 17, 0) != 1
-        && QUESTRECORD_GetQuestState(pQuestFlags, 17, 1) != 1)
-    {
-        QUESTRECORD_SetQuestState(pQuestFlags, 17, 14);
-    }
-
-    return 0;
-}
-
-// 0x005B76E0
-void __fastcall ACT3Q1_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    if (!pQuestArg->pTarget || (unsigned short)pQuestArg->pTarget->dwClassId != 254)
-    {
-        return;
-    }
-
-    D2Act3Quest1Strc* pQuestDataEx = (D2Act3Quest1Strc*)pQuestData->pQuestDataEx;
-    if (pQuestDataEx->bTomeBroughtToAlkor != 1)
-    {
-        return;
-    }
-
-    const int nUnitGUID = !pQuestArg->pPlayer ? -1 : pQuestArg->pPlayer->dwUnitId;
-    if (nUnitGUID != pQuestDataEx->nPlayerWithTomeGUID)
-    {
-        return;
-    }
-
-    if (!pQuestArg->pPlayer || pQuestArg->pPlayer->dwClassId != 6 && pQuestArg->pPlayer->dwClassId != 5)
-    {
-        SUNIT_AttachSound(pQuestArg->pPlayer, 67, pQuestArg->pPlayer);
-    }
-
-    pQuestDataEx->bTomeBroughtToAlkor = 0;
-}
-
-// 0x005B7970
-void __fastcall ACT3Q1_Callback04_ItemPickedUp(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    D2Act3Quest1Strc* pQuestDataEx = (D2Act3Quest1Strc*)pQuestData->pQuestDataEx;
-
-    if (!pQuestData->bNotIntro)
-    {
-        return;
-    }
-
-    QUESTS_DebugOutput(pQuestData->pGame, "tome acquired", "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q1.cpp", 609);
-    pQuestData->dwFlags &= 0xFFFFFF00;
-    QUESTS_UnitIterate(pQuestData, 2, 0, ACT3Q1_UnitIterate_StatusCyclerEx, 1);
-    QUESTS_StateDebug(pQuestData, 4, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q1.cpp", 620);
-
-    QUESTS_AddPlayerGUID(&pQuestDataEx->tPlayerGUIDs, !pQuestArg->pPlayer ? -1 : pQuestArg->pPlayer->dwUnitId);
-}
-
-// 0x005B7A00
-void __fastcall ACT3Q1_Callback05_ItemDropped(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    D2Act3Quest1Strc* pQuestDataEx = (D2Act3Quest1Strc*)pQuestData->pQuestDataEx;
-
-    QUESTS_FastRemovePlayerGUID(&pQuestDataEx->tPlayerGUIDs, !pQuestArg->pPlayer ? -1 : pQuestArg->pPlayer->dwUnitId);
-
-    if (pQuestData->bNotIntro)
-    {
-        QUESTS_StateDebug(pQuestData, 3, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q1.cpp", 641);
-        pQuestData->dwFlags &= 0xFFFFFF00;
-        QUESTS_UnitIterate(pQuestData, 1, 0, ACT3Q1_UnitIterate_StatusCyclerEx, 1);
-    }
-}
-
-// 0x005B7B80
-void __fastcall ACT3Q1_Callback09_PlayerDroppedWithQuestItem(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    D2Act3Quest1Strc* pQuestDataEx = (D2Act3Quest1Strc*)pQuestData->pQuestDataEx;
-
-    --pQuestDataEx->nTomesInGame;
-
-    if (!pQuestDataEx->nTomesInGame && pQuestData->bNotIntro && pQuestDataEx->bTomeActive && pQuestData->fState <= 3)
-    {
-        pQuestDataEx->bPlayerWithTomeDropped = 1;
-        pQuestData->dwFlags &= 0xFFFFFF00;
-        QUESTS_UnitIterate(pQuestData, 8, 0, ACT3Q1_UnitIterate_StatusCyclerEx, 1);
-    }
-}
-
-// 0x005B7BC0
-void __fastcall ACT3Q1_Callback14_PlayerJoinedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    D2Act3Quest1Strc* pQuestDataEx = (D2Act3Quest1Strc*)pQuestData->pQuestDataEx;
-
-    if (!ITEMS_FindQuestItem(pQuestArg->pGame, pQuestArg->pPlayer, 0x20626262))
-    {
-        return;
-    }
-
-    ++pQuestDataEx->nTomesInGame;
-    if (pQuestDataEx->nTomesInGame == 1 && pQuestData->bNotIntro && pQuestDataEx->bPlayerWithTomeDropped)
-    {
-        pQuestDataEx->bPlayerWithTomeDropped = 0;
-        pQuestData->dwFlags &= 0xFFFFFF00;
-        QUESTS_UnitIterate(pQuestData, 2, 0, ACT3Q1_UnitIterate_StatusCyclerEx, 1);
-    }
-}
-
-// 0x005B7D40
-void __fastcall ACT3Q1_UnitIterate_CheckForTomeItem(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
-{
-    if (ITEMS_FindQuestItem(pGame, pUnit, 0x20626262))
-    {
-        ((D2Act3Quest1Strc*)QUESTS_GetQuestData(pGame, 15)->pQuestDataEx)->bTomeAcquired = 1;
-    }
-}
-
-// 0x005B7F90
-int __fastcall ACT3Q2_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
-{
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-
-    if (!QUESTRECORD_GetQuestState(pQuestFlags, 18, 0) && !QUESTRECORD_GetQuestState(pQuestFlags, 18, 15))
-    {
-        QUESTS_StatusCyclerEx(pGame, pUnit, 16);
-    }
-
-    return 0;
-}
-
-// 0x005B7FF0
-void __fastcall ACT3Q2_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    if (pQuestArg->nNewLevel == 77 && pQuestData->bNotIntro && pQuestData->fState < 3)
-    {
-        QUESTS_StateDebug(pQuestData, 1, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q2.cpp", 335);
-    }
-}
-
-// 0x005B7620
-void __fastcall ACT3Q1_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    const int nOldLevel = pQuestArg->nOldLevel;
-    if (pQuestArg->nNewLevel == 79 && pQuestData->bNotIntro && pQuestData->fState < 1)
-    {
-        pQuestData->fState = 1;
-    }
-
-    if (nOldLevel != 75)
-    {
-        return;
-    }
-
-    QUESTS_QuickRemovePlayerGUID(pQuestData, pQuestArg);
-    if (pQuestData->fState != 2)
-    {
-        return;
-    }
-
-    D2BitBufferStrc* pQuestFlags = sub_00543520(pQuestData->pGame, pQuestArg->pPlayer);
-    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, 0) == 1
-        || QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, 0) == 1)
-    {
-        return;
-    }
-
-    if (pQuestData->fLastState != 1)
-    {
-        pQuestData->dwFlags &= 0xFFFFFF00;
-        QUESTS_UnitIterate(pQuestData, 1, 0, ACT3Q1_UnitIterate_StatusCyclerEx, 1);
-    }
-    QUESTS_StateDebug(pQuestData, 3, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q1.cpp", 358);
-    SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT3Q1_UnitIterate_UpdateQuestStateFlags);
-}
-
-// 0x005B7C10
-void __fastcall ACT3Q1_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
-{
-    D2BitBufferStrc* pQuestFlags = sub_00543520(pQuestArg->pGame, pQuestArg->pPlayer);
-    if (QUESTRECORD_GetQuestState(pQuestFlags, 17, 0) == 1)
-    {
-        QUESTS_SetGlobalState(pQuestData->pGame, 17, 13);
-        return;
-    }
-
-    if (ITEMS_FindQuestItem(pQuestArg->pGame, pQuestArg->pPlayer, 0x20626262))
-    {
-        pQuestData->fLastState = 2;
-        pQuestData->fState = 4;
-
-        D2Act3Quest1Strc* pQuestDataEx = (D2Act3Quest1Strc*)pQuestData->pQuestDataEx;
-        ++pQuestDataEx->nTomesInGame;
-        pQuestDataEx->nTomeObjectMode = 2;
-        pQuestDataEx->bTomeActive = 1;
-
-        QUESTS_AddPlayerGUID(&pQuestDataEx->tPlayerGUIDs, !pQuestArg->pPlayer ? -1 : pQuestArg->pPlayer->dwUnitId);
-    }
-    else if (QUESTRECORD_GetQuestState(pQuestFlags, 17, 3) == 1)
-    {
-        pQuestData->fState = 3;
-        pQuestData->fLastState = 1;
-    }
-    else if (QUESTRECORD_GetQuestState(pQuestFlags, 17, 2) == 1)
-    {
-        pQuestData->fState = 2;
-        pQuestData->fLastState = 1;
-    }
-}
+enum { FINAL_STATE = 5 };
 
 // 0x005B7010
 void __fastcall ACT3Q0_InitQuestData(D2QuestDataStrc* pQuestData)
@@ -542,37 +316,114 @@ void __fastcall OBJECTS_InitFunction50_HratliEnd(D2ObjInitFnStrc* pOp)
     }
 }
 
-// 0x005B7E90
-void __fastcall ACT3Q1_InitQuestData(D2QuestDataStrc* pQuestData)
+inline D2BitBufferStrc* sub_00543520(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
-    memset(pQuestData->pfCallback, 0x00, sizeof(pQuestData->pfCallback));
-    pQuestData->pNPCMessages = gpAct3Q1NpcMessages;
-    pQuestData->bActive = 1;
-    pQuestData->fState = 0;
-    pQuestData->nQuestFilter = 17;
-    pQuestData->nInitNo = 4;
-    pQuestData->pfStatusFilter = ACT3Q1_StatusFilterCallback;
-    pQuestData->pfActiveFilter = ACT3Q1_ActiveFilterCallback;
-    pQuestData->pfSeqFilter = ACT3Q1_SeqCallback;
-    pQuestData->nSeqId = 19;
+    return UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
+}
 
-    D2Act3Quest1Strc* pQuestDataEx = (D2Act3Quest1Strc*)FOG_AllocPool(pQuestData->pGame->pMemoryPool, sizeof(D2Act3Quest1Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q1.cpp", 941, 0);
-    pQuestData->pQuestDataEx = pQuestDataEx;
-    pQuestData->pfCallback[4] = ACT3Q1_Callback04_ItemPickedUp;
-    pQuestData->pfCallback[5] = ACT3Q1_Callback05_ItemDropped;
-    pQuestData->pfCallback[0] = ACT3Q1_Callback00_NpcActivate;
-    pQuestData->pfCallback[11] = ACT3Q1_Callback11_ScrollMessage;
-    pQuestData->pfCallback[3] = ACT3Q1_Callback03_ChangedLevel;
-    pQuestData->pfCallback[13] = ACT3Q1_Callback13_PlayerStartedGame;
-    pQuestData->pfCallback[14] = ACT3Q1_Callback14_PlayerJoinedGame;
-    pQuestData->pfCallback[10] = ACT3Q1_Callback10_PlayerLeavesGame;
-    pQuestData->pfCallback[9] = ACT3Q1_Callback09_PlayerDroppedWithQuestItem;
-    memset(pQuestDataEx, 0x00, sizeof(D2Act3Quest1Strc));
+// 0x005B7340
+int __fastcall ACT3Q1_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
+{
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
+    if (!QUESTRECORD_GetQuestState(pQuestFlags, 17, 0) && !QUESTRECORD_GetQuestState(pQuestFlags, 17, 15)
+        || QUESTRECORD_GetQuestState(pQuestFlags, 17, 13)
+        || QUESTRECORD_GetQuestState(pQuestFlags, 17, 14))
+    {
+        QUESTS_StatusCyclerEx(pGame, pUnit, 15);
+    }
 
-    pQuestDataEx->bTomeDropped = 0;
-    pQuestDataEx->bTomeActive = 0;
-    pQuestDataEx->bCanGetReward = 1;
-    QUESTS_ResetPlayerGUIDCount(&pQuestDataEx->tPlayerGUIDs);
+    return 0;
+}
+
+// 0x005B7580
+int __fastcall ACT3Q1_UnitIterate_AddStatPointReward(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
+{
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
+    if (QUESTRECORD_GetQuestState(pQuestFlags, 17, 1) == 1)
+    {
+        STATLIST_AddUnitStat(pUnit, 4, 5, 0);
+        QUESTS_SendLogUpdate(pUnit, 15);
+        QUESTRECORD_ClearQuestState(pQuestFlags, 17, 1);
+    }
+
+    return 0;
+}
+
+// 0x005B75D0
+int __fastcall ACT3Q1_UnitIterate_SetCompletionFlag(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
+{
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
+    if (QUESTRECORD_GetQuestState(pQuestFlags, 17, 0) != 1
+        && QUESTRECORD_GetQuestState(pQuestFlags, 17, 1) != 1)
+    {
+        QUESTRECORD_SetQuestState(pQuestFlags, 17, 14);
+    }
+
+    return 0;
+}
+
+// 0x005B7620
+void __fastcall ACT3Q1_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    const int nOldLevel = pQuestArg->nOldLevel;
+    if (pQuestArg->nNewLevel == 79 && pQuestData->bNotIntro && pQuestData->fState < 1)
+    {
+        pQuestData->fState = 1;
+    }
+
+    if (nOldLevel != 75)
+    {
+        return;
+    }
+
+    QUESTS_QuickRemovePlayerGUID(pQuestData, pQuestArg);
+    if (pQuestData->fState != 2)
+    {
+        return;
+    }
+
+    D2BitBufferStrc* pQuestFlags = sub_00543520(pQuestData->pGame, pQuestArg->pPlayer);
+    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, 0) == 1
+        || QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, 0) == 1)
+    {
+        return;
+    }
+
+    if (pQuestData->fLastState != 1)
+    {
+        pQuestData->dwFlags &= 0xFFFFFF00;
+        QUESTS_UnitIterate(pQuestData, 1, 0, ACT3Q1_UnitIterate_StatusCyclerEx, 1);
+    }
+    QUESTS_StateDebug(pQuestData, 3, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q1.cpp", 358);
+    SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT3Q1_UnitIterate_UpdateQuestStateFlags);
+}
+
+// 0x005B76E0
+void __fastcall ACT3Q1_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    if (!pQuestArg->pTarget || (unsigned short)pQuestArg->pTarget->dwClassId != 254)
+    {
+        return;
+    }
+
+    D2Act3Quest1Strc* pQuestDataEx = (D2Act3Quest1Strc*)pQuestData->pQuestDataEx;
+    if (pQuestDataEx->bTomeBroughtToAlkor != 1)
+    {
+        return;
+    }
+
+    const int nUnitGUID = !pQuestArg->pPlayer ? -1 : pQuestArg->pPlayer->dwUnitId;
+    if (nUnitGUID != pQuestDataEx->nPlayerWithTomeGUID)
+    {
+        return;
+    }
+
+    if (!pQuestArg->pPlayer || pQuestArg->pPlayer->dwClassId != 6 && pQuestArg->pPlayer->dwClassId != 5)
+    {
+        SUNIT_AttachSound(pQuestArg->pPlayer, 67, pQuestArg->pPlayer);
+    }
+
+    pQuestDataEx->bTomeBroughtToAlkor = 0;
 }
 
 // 0x005B7740
@@ -642,6 +493,131 @@ void __fastcall ACT3Q1_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
     }
 }
 
+// 0x005B7970
+void __fastcall ACT3Q1_Callback04_ItemPickedUp(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    D2Act3Quest1Strc* pQuestDataEx = (D2Act3Quest1Strc*)pQuestData->pQuestDataEx;
+
+    if (!pQuestData->bNotIntro)
+    {
+        return;
+    }
+
+    QUESTS_DebugOutput(pQuestData->pGame, "tome acquired", "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q1.cpp", 609);
+    pQuestData->dwFlags &= 0xFFFFFF00;
+    QUESTS_UnitIterate(pQuestData, 2, 0, ACT3Q1_UnitIterate_StatusCyclerEx, 1);
+    QUESTS_StateDebug(pQuestData, 4, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q1.cpp", 620);
+
+    QUESTS_AddPlayerGUID(&pQuestDataEx->tPlayerGUIDs, !pQuestArg->pPlayer ? -1 : pQuestArg->pPlayer->dwUnitId);
+}
+
+// 0x005B7A00
+void __fastcall ACT3Q1_Callback05_ItemDropped(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    D2Act3Quest1Strc* pQuestDataEx = (D2Act3Quest1Strc*)pQuestData->pQuestDataEx;
+
+    QUESTS_FastRemovePlayerGUID(&pQuestDataEx->tPlayerGUIDs, !pQuestArg->pPlayer ? -1 : pQuestArg->pPlayer->dwUnitId);
+
+    if (pQuestData->bNotIntro)
+    {
+        QUESTS_StateDebug(pQuestData, 3, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q1.cpp", 641);
+        pQuestData->dwFlags &= 0xFFFFFF00;
+        QUESTS_UnitIterate(pQuestData, 1, 0, ACT3Q1_UnitIterate_StatusCyclerEx, 1);
+    }
+}
+
+// 0x005B7B80
+void __fastcall ACT3Q1_Callback09_PlayerDroppedWithQuestItem(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    D2Act3Quest1Strc* pQuestDataEx = (D2Act3Quest1Strc*)pQuestData->pQuestDataEx;
+
+    --pQuestDataEx->nTomesInGame;
+
+    if (!pQuestDataEx->nTomesInGame && pQuestData->bNotIntro && pQuestDataEx->bTomeActive && pQuestData->fState <= 3)
+    {
+        pQuestDataEx->bPlayerWithTomeDropped = 1;
+        pQuestData->dwFlags &= 0xFFFFFF00;
+        QUESTS_UnitIterate(pQuestData, 8, 0, ACT3Q1_UnitIterate_StatusCyclerEx, 1);
+    }
+}
+
+// 0x005B7BC0
+void __fastcall ACT3Q1_Callback14_PlayerJoinedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    D2Act3Quest1Strc* pQuestDataEx = (D2Act3Quest1Strc*)pQuestData->pQuestDataEx;
+
+    if (!ITEMS_FindQuestItem(pQuestArg->pGame, pQuestArg->pPlayer, 0x20626262))
+    {
+        return;
+    }
+
+    ++pQuestDataEx->nTomesInGame;
+    if (pQuestDataEx->nTomesInGame == 1 && pQuestData->bNotIntro && pQuestDataEx->bPlayerWithTomeDropped)
+    {
+        pQuestDataEx->bPlayerWithTomeDropped = 0;
+        pQuestData->dwFlags &= 0xFFFFFF00;
+        QUESTS_UnitIterate(pQuestData, 2, 0, ACT3Q1_UnitIterate_StatusCyclerEx, 1);
+    }
+}
+
+// 0x005B7C10
+void __fastcall ACT3Q1_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    D2BitBufferStrc* pQuestFlags = sub_00543520(pQuestArg->pGame, pQuestArg->pPlayer);
+    if (QUESTRECORD_GetQuestState(pQuestFlags, 17, 0) == 1)
+    {
+        QUESTS_SetGlobalState(pQuestData->pGame, 17, 13);
+        return;
+    }
+
+    if (ITEMS_FindQuestItem(pQuestArg->pGame, pQuestArg->pPlayer, 0x20626262))
+    {
+        pQuestData->fLastState = 2;
+        pQuestData->fState = 4;
+
+        D2Act3Quest1Strc* pQuestDataEx = (D2Act3Quest1Strc*)pQuestData->pQuestDataEx;
+        ++pQuestDataEx->nTomesInGame;
+        pQuestDataEx->nTomeObjectMode = 2;
+        pQuestDataEx->bTomeActive = 1;
+
+        QUESTS_AddPlayerGUID(&pQuestDataEx->tPlayerGUIDs, !pQuestArg->pPlayer ? -1 : pQuestArg->pPlayer->dwUnitId);
+    }
+    else if (QUESTRECORD_GetQuestState(pQuestFlags, 17, 3) == 1)
+    {
+        pQuestData->fState = 3;
+        pQuestData->fLastState = 1;
+    }
+    else if (QUESTRECORD_GetQuestState(pQuestFlags, 17, 2) == 1)
+    {
+        pQuestData->fState = 2;
+        pQuestData->fLastState = 1;
+    }
+}
+
+// 0x005B7CD0
+bool __fastcall sub_005B7CD0(Quest* quest)
+{
+    if (quest->state != FINAL_STATE && quest->notIntro) return true;
+    Quest* next = sub_00543640(quest->game,quest->sequenceId);
+    if (next) {
+        if (IsBadCodePtr((CodePointer)quest->sequence)) {
+            sub_00408A60(&empty_assert,sub_00408090(),808);
+            exit(-1);
+        }
+        return next->sequence(next);
+    }
+    return false;
+}
+
+// 0x005B7D40
+void __fastcall ACT3Q1_UnitIterate_CheckForTomeItem(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
+{
+    if (ITEMS_FindQuestItem(pGame, pUnit, 0x20626262))
+    {
+        ((D2Act3Quest1Strc*)QUESTS_GetQuestData(pGame, 15)->pQuestDataEx)->bTomeAcquired = 1;
+    }
+}
+
 #include "gen/data/Source/D2Game/Quests/a3q1.inc"
 
 // 0x005B7D70
@@ -702,4 +678,59 @@ bool __fastcall ACT3Q1_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc*
     }
 
     return true;
+}
+
+// 0x005B7E90
+void __fastcall ACT3Q1_InitQuestData(D2QuestDataStrc* pQuestData)
+{
+    memset(pQuestData->pfCallback, 0x00, sizeof(pQuestData->pfCallback));
+    pQuestData->pNPCMessages = gpAct3Q1NpcMessages;
+    pQuestData->bActive = 1;
+    pQuestData->fState = 0;
+    pQuestData->nQuestFilter = 17;
+    pQuestData->nInitNo = 4;
+    pQuestData->pfStatusFilter = ACT3Q1_StatusFilterCallback;
+    pQuestData->pfActiveFilter = ACT3Q1_ActiveFilterCallback;
+    pQuestData->pfSeqFilter = ACT3Q1_SeqCallback;
+    pQuestData->nSeqId = 19;
+
+    D2Act3Quest1Strc* pQuestDataEx = (D2Act3Quest1Strc*)FOG_AllocPool(pQuestData->pGame->pMemoryPool, sizeof(D2Act3Quest1Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q1.cpp", 941, 0);
+    pQuestData->pQuestDataEx = pQuestDataEx;
+    pQuestData->pfCallback[4] = ACT3Q1_Callback04_ItemPickedUp;
+    pQuestData->pfCallback[5] = ACT3Q1_Callback05_ItemDropped;
+    pQuestData->pfCallback[0] = ACT3Q1_Callback00_NpcActivate;
+    pQuestData->pfCallback[11] = ACT3Q1_Callback11_ScrollMessage;
+    pQuestData->pfCallback[3] = ACT3Q1_Callback03_ChangedLevel;
+    pQuestData->pfCallback[13] = ACT3Q1_Callback13_PlayerStartedGame;
+    pQuestData->pfCallback[14] = ACT3Q1_Callback14_PlayerJoinedGame;
+    pQuestData->pfCallback[10] = ACT3Q1_Callback10_PlayerLeavesGame;
+    pQuestData->pfCallback[9] = ACT3Q1_Callback09_PlayerDroppedWithQuestItem;
+    memset(pQuestDataEx, 0x00, sizeof(D2Act3Quest1Strc));
+
+    pQuestDataEx->bTomeDropped = 0;
+    pQuestDataEx->bTomeActive = 0;
+    pQuestDataEx->bCanGetReward = 1;
+    QUESTS_ResetPlayerGUIDCount(&pQuestDataEx->tPlayerGUIDs);
+}
+
+// 0x005B7F90
+int __fastcall ACT3Q2_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
+{
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
+
+    if (!QUESTRECORD_GetQuestState(pQuestFlags, 18, 0) && !QUESTRECORD_GetQuestState(pQuestFlags, 18, 15))
+    {
+        QUESTS_StatusCyclerEx(pGame, pUnit, 16);
+    }
+
+    return 0;
+}
+
+// 0x005B7FF0
+void __fastcall ACT3Q2_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    if (pQuestArg->nNewLevel == 77 && pQuestData->bNotIntro && pQuestData->fState < 3)
+    {
+        QUESTS_StateDebug(pQuestData, 1, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q2.cpp", 335);
+    }
 }

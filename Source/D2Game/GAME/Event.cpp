@@ -1,8 +1,4 @@
 #include "D2Game.h"
-
-#define EVENTFLAG_0x1 1
-#define EVENTFLAG_0x2 2
-#define EVENTFLAG_0x8 8
 #define EVENTROW_PLAYER 0
 #define EVENTROW_MONSTER 1
 #define EVENTROW_MISSILE 2

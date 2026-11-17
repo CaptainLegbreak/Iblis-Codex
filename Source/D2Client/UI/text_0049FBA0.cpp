@@ -59,8 +59,6 @@ struct T0044CB60
     Unicode* pText;
     T0044CB60* pNext;
 };
-
-extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
 extern "C" int __cdecl atoi(const char* szString); // 0x00681EBB
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szDest, const char* szFormat, ...);
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380

@@ -34,7 +34,6 @@ extern "C" void __cdecl sub_00408A60(const char*, const char*, int); // 0x00408A
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc*, int, int); // 0x0065C310
 extern "C" void* __cdecl memset(void*,int,unsigned int);
-extern "C" void __cdecl sub_00408A60(const char*,const char*,int); // 0x00408A60
 
 struct D2QuestControlBlockStrc { D2QuestDataStrc* first; char unknown04[8]; D2BitBufferStrc* flags; };
 

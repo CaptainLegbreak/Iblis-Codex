@@ -10,20 +10,6 @@ struct D2UnitStrc
     D2InventoryStrc* pInventory;
 };
 
-struct D2ItemModeArgStrc
-{
-    int bIsBow;
-    int bIsCrossBow;
-    int bIsBowQuiver;
-    int bIsCrossBowQuiver;
-    int bIsShield;
-    int bIsWeapon;
-    int bIsTwoHanded;
-    int bCanUse2Weapons;
-    int bIsThrowable;
-    int bIsRing;
-};
-
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090

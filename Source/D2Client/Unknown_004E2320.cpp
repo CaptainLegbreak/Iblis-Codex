@@ -205,42 +205,6 @@ struct D2ItemsTxt
     unsigned char nNoDurability;
 };
 
-struct D2CombinedStatStrc
-{
-    int nMin;
-    int nMax;
-    int nLength;
-    int nCount;
-    int bCombined;
-    int bShown;
-};
-
-struct D2CombinedStatsStrc
-{
-    D2CombinedStatStrc tDamage;
-    D2CombinedStatStrc tDamagePercent;
-    D2CombinedStatStrc tCold;
-    D2CombinedStatStrc tLightning;
-    D2CombinedStatStrc tFire;
-    D2CombinedStatStrc tPoison;
-    D2CombinedStatStrc tMagic;
-};
-
-struct D2CombinedStatIdStrc
-{
-    int nStatId;
-    char unk0x04[0x0C];
-};
-
-struct D2FileIndexTextStrc
-{
-    int nFileIndex;
-    int nMode;
-    unsigned short wStrPos;
-    unsigned short wStrNeg;
-    int nPos;
-};
-
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -274,7 +238,6 @@ extern D2FileIndexTextStrc gaFileIndexText_0072D6C0[]; // 0x0072D6C0
 extern D2DrlgActStrc* gpGlobal_007A0634; // 0x007A0634
 void __fastcall sub_004E60A0_BuildItemPropertyText(D2UnitStrc* pItem, Unicode* wszBuffer, int nSize, int a4, int a5, int a6, int a7, int a8); // 0x004E60A0
 int __fastcall sub_00526800(const Unicode* wszText); // 0x00526800
-Unicode* __fastcall sub_00526700(Unicode* wszDest, const Unicode* wszSrc); // 0x00526700
 const Unicode* __fastcall sub_00524A30(int nId); // 0x00524A30
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 void __fastcall sub_004E6720_BuildItemPropTextB(D2UnitStrc* pItem, int nArg, int nArg2, Unicode* wszText, int nArg3, int nArg4); // 0x004E6720
@@ -282,7 +245,6 @@ void __fastcall sub_004E67D0_BuildItemPropText(D2UnitStrc* pItem, int nArg, int 
 void __stdcall D2GFX_SetPalette(T004F51E0* pPalette); // 0x004F63D0
 int __stdcall sub_004FB1E0_LoadPaletteFiles(const char* szDatFileName, const char* szPL2FileName); // 0x004FB1E0
 void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* pText, int nA, int nB, int nC); // 0x004FC9B0
-Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
 void __fastcall sub_00526E40_Utf8ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526E40
 D2GemsTxt* __stdcall DATATBLS_GetGemsTxtRecord(int nGemId); // 0x006372C0
 extern T004F51E0 gRGBAPalette_0081E668[]; // 0x0081E668
@@ -330,7 +292,6 @@ int __stdcall sub_0062A4E0_TestItem(D2UnitStrc* pItem); // 0x0062A4E0
 D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic); // 0x00625820
 void __stdcall STATLIST_MergeStatLists(D2UnitStrc* pTarget, D2UnitStrc* pUnit, int bType); // 0x00627910
 int __fastcall sub_004E8FE0_AttackRatingCallback(D2UnitStrc* pUnit, int* pValue1, int* pValue2, int nArg3, int nArg4, int nLevel, D2SkillStrc* pSkill, int nArg7, D2UnitStrc* pItem); // 0x004E8FE0
-extern "C" const char gszFormatD_006D57BC[]; // 0x006D57BC
 
 static __forceinline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {
@@ -2119,7 +2080,7 @@ static void __stdcall sub_004E9940_DrawNumberCentered(int nColor, int nLeft, int
 {
     Unicode wszText[32];
     char szText[32];
-    wsprintfA(szText, gszFormatD_006D57BC, nValue);
+    wsprintfA(szText, szFmtD_006D57BC, nValue);
     sub_00526320_ToUnicode(wszText, szText, 32);
     if (nValue < 1000)
     {

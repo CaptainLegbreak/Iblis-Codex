@@ -111,7 +111,6 @@ struct D2DamageStrc
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-D2UnitStrc* __fastcall SUNIT_GetOwner(D2GameStrc*, D2UnitStrc*); // 0x00552FD0
 int __stdcall MISSILE_GetSkill(D2UnitStrc*); // 0x0064A280
 int __stdcall MISSILE_GetLevel(D2UnitStrc*); // 0x0064A210
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc*, int, int, int); // 0x00627260
@@ -131,7 +130,6 @@ enum D2C_M11GuidedConstants
 };
 
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
-int __stdcall MISSILE_GetLevel(D2UnitStrc* pMissile); // 0x0064A210
 void __stdcall MISSILE_SetTotalFrames(D2UnitStrc* pMissile, int nTotalFrames); // 0x0064A2B0
 void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nCurrentFrame); // 0x0064A330
 void __stdcall MISSILE_SetTargetX(D2UnitStrc* pMissile, int nTargetX); // 0x0064A710
@@ -149,8 +147,6 @@ int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 unsigned short __stdcall D2Common_10201(D2DynamicPathStrc* pDynamicPath); // 0x00648EB0
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553540
 int __stdcall sub_0064A380_GetRemainingFrames(D2UnitStrc* pMissile); // 0x0064A380
-int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
-int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 
 typedef void(__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nUnused);
 
@@ -186,9 +182,6 @@ struct D2MissileStrc
 D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecord(int nSkillId); // 0x0045C4B0
 D2UnitStrc* __fastcall SKILLS_FindNextAuraTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nRange, unsigned int nAuraFilter, int nUnitId, int a8); // 0x0056BD10
 D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc* pGame, D2MissileStrc* pMissileParams); // 0x0059FA30
-int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
-int __stdcall MISSILE_GetSkill(D2UnitStrc* pMissile); // 0x0064A280
-int __stdcall STATES_CheckState(D2UnitStrc*, int); // 0x00639DF0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc*, int, unsigned short); // 0x00625480
 int __fastcall sub_004EFC20_GetSkillParam2(int); // 0x004EFC20
 int __fastcall sub_004EFCB0_GetSummonLevel(int, int); // 0x004EFCB0

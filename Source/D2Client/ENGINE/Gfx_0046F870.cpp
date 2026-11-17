@@ -15,8 +15,6 @@ struct D2GfxHeaderStrc;
 struct D2GfxRecordStrc;
 struct D2GfxNodeStrc;
 
-typedef unsigned int size_t;
-
 struct D2UnitStrc
 {
     int dwUnitType;
@@ -94,12 +92,6 @@ struct D2MonStats2Txt
     char unk0xF4[0x134 - 0xF4];
 };
 
-struct D2MonModeTxt
-{
-    char unk0x00[0x20];
-    unsigned int dwToken;
-};
-
 struct D2DataTablesStrc
 {
     char unk0x000[0xA78];
@@ -117,25 +109,11 @@ struct D2GfxLayerHeaderStrc
     unsigned char nLayers;
 };
 
-struct D2MonCofInfoStrc
-{
-    short nMonsterId;
-    char unk0x02[0x03 - 0x02];
-    unsigned char nCount;
-    char unk0x04[0x34 - 0x04];
-};
-
 struct D2CelContextStrc
 {
     char unk0x00[0x34];
     int nUnk0x34;
     char unk0x38[0x48 - 0x38];
-};
-
-struct D2CofModeEntryStrc
-{
-    unsigned int dwCode;
-    int nMode;
 };
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -185,19 +163,11 @@ struct D2GfxHeaderStrc { int unknown00[2],left,right,top,bottom; };
 struct D2GfxRecordStrc { char unknown00[0x14]; void* gfx; };
 
 struct D2GfxNodeStrc { int mode,unknown04; D2GfxRecordStrc* record; int unknown0C; D2GfxNodeStrc* next; };
-
-extern "C" void __cdecl sub_00408A60(const char*,const char*,int); // 0x00408A60
-extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 extern int gnScreenWidth; // 0x0071146C
 extern int gnScreenHeight; // 0x00711470
-int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc*,int); // 0x0063A7B0
-D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc*); // 0x004639D0
-D2GfxDataStrc* __fastcall sub_00463E10_GetGfxData(D2UnitStrc*); // 0x00463E10
 void* __fastcall sub_0046E5A0_FindGfxNode(D2UnitStrc*,int,int); // 0x0046E5A0
 void* __fastcall sub_0046FA80_LoadGfxNode(D2UnitStrc*,int,int); // 0x0046FA80
 D2GfxHeaderStrc* __fastcall sub_004DB040_GetLayerHeader(void*); // 0x004DB040
-int __stdcall UNITS_GetAnimOrSeqMode(D2UnitStrc*); // 0x00621190
-void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc*,int*,int*,int*,const char*,int); // 0x00645270
 int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc*,D2InventoryStrc*,int*,int,int); // 0x0064F380
 
 // build: context STATES_IsUnitShapeShiftedInl

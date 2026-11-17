@@ -161,11 +161,6 @@ enum D2C_H16ElemConstants
     STAT_LEVEL = 12,
 };
 
-struct D2MonLvlTxt
-{
-    int nValues[10][3];
-};
-
 struct D2MonUModTxt
 {
     char pad0x00[0x1C];

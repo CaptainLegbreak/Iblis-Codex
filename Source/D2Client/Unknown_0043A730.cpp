@@ -27,8 +27,6 @@ void __cdecl sub_0043A730_UpdateButtons(); // 0x0043A730
 extern int gnLaunchMode_007795EC; // 0x007795EC
 extern int gbFlag_00779C6C; // 0x00779C6C
 
-typedef void (__cdecl* D2LaunchDoneFn)();
-
 struct D2CharSelCacheStrc
 {
     unsigned int dwHash;
@@ -94,7 +92,6 @@ struct D2LaunchRecordStrc
 
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
 int __stdcall SStrCmpI(const char* szString1, const char* szString2, int nMaxChars);
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
 int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
 int __fastcall sub_0042F2E0_ReadPaletteFiles(const char* szFile1, const char* szFile2); // 0x0042F2E0
 int __cdecl sub_00430B40(); // 0x00430B40

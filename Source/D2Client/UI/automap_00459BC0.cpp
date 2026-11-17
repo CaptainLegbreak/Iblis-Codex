@@ -1,7 +1,6 @@
 #include "D2Client.h"
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
-typedef unsigned int size_t;
 extern "C" size_t __cdecl strlen(const char* szString);
 
 struct Unicode
@@ -28,12 +27,6 @@ struct D2ActiveRoomStrc
 {
     char unk0x00[0x74];
     D2UnitStrc* pUnitFirst;
-};
-
-struct D2AutomapPointStrc
-{
-    int nX;
-    int nY;
 };
 
 extern const D2AutomapPointStrc gaAutomapCross_006D6638[13];                                                 // 0x006D6638

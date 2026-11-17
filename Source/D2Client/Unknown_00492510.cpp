@@ -1,8 +1,4 @@
 #include "D2Client.h"
-
-#define gnGlobal_007BCB30 (gInvRect_007BCB30.nLeft)
-#define gnGlobal_007BCB34 (gInvRect_007BCB30.nRight)
-#define gnGlobal_007BCB3C (gInvRect_007BCB30.nBottom)
 struct D2InvRectStrc;
 
 struct D2UnitStrc

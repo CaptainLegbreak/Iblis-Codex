@@ -9,14 +9,6 @@ struct D2UiControlBStrc;
 struct D2UiControlCStrc;
 struct D2RectStrc;
 
-struct D2RectStrc
-{
-    int nLeft;
-    int nTop;
-    int nRight;
-    int nBottom;
-};
-
 int __fastcall sub_00454880_GetHoverRect(D2RectStrc* pRect); // 0x00454880
 unsigned short* __fastcall sub_005267E0(unsigned short* pDest, const unsigned short* pSource); // 0x005267E0
 int __fastcall sub_00501820(const unsigned short* wszText); // 0x00501820

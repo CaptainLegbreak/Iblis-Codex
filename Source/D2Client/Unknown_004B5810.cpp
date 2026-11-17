@@ -73,12 +73,6 @@ struct HandlerNode
     HandlerNode* next;
 };
 
-struct SelectionEntry
-{
-    int enabled;
-    char pad04[272-4];
-};
-
 struct SelectionState
 {
     char pad00[68];

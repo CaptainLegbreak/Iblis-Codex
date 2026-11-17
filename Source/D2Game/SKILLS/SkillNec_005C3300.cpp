@@ -172,19 +172,6 @@ struct D2MonsterDataStrc
     D2AiControlStrc* pAiControl;
 };
 
-struct D2NecroSkeletonComponentStrc
-{
-    unsigned char nHead;
-    unsigned char nShield;
-    unsigned char nTorso;
-    unsigned char nSpecial1;
-    unsigned char nSpecial2;
-    unsigned char nLegs;
-    unsigned char nRightArm;
-    unsigned char nLeftArm;
-    unsigned char nRightHand;
-};
-
 extern const D2NecroSkeletonComponentStrc gaNecroSkeletonComponents_00741940[]; // 0x00741940
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState); // 0x006256B0

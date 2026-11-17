@@ -79,8 +79,6 @@ struct D2CoordStrc { int x; int y; };
 int __fastcall ACT3Q7_GetWandererCoordinates(D2GameStrc* game,D2UnitStrc* unit,D2CoordStrc* coords); // 0x005BD0D0
 void __fastcall ACT3Q7_CreateVileDogSpawnTimer(D2GameStrc* game,D2UnitStrc* unit); // 0x005BD4A0
 unsigned int __fastcall AIUTIL_GetDistanceToCoordinates(D2UnitStrc* unit,int x,int y); // 0x005DC5C0
-int __fastcall AITACTICS_ChangeModeAndTargetCoordinates(D2GameStrc* game,D2UnitStrc* unit,int mode,int x,int y); // 0x005DDFC0
-void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* game,D2UnitStrc* unit,int frames); // 0x005DE080
 void __fastcall AITACTICS_SetVelocity(D2UnitStrc* unit,int mode,int velocity,unsigned char flags); // 0x005DE190
 int __fastcall AITACTICS_WalkToTargetCoordinates(D2GameStrc* game,D2UnitStrc* unit,int x,int y); // 0x005DED90
 

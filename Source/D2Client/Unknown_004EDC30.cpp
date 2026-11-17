@@ -100,19 +100,8 @@ D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc*,int,int); // 0x006439B0
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc*,D2SkillStrc*,int); // 0x006442A0
 int __fastcall sub_004AA8B0_GetMaxSkillLevel(int); // 0x004AA8B0
 void __fastcall sub_004521C0_SetTextColor(Unicode*,int); // 0x004521C0
-int __stdcall sub_004ED480_CanLearnSkill(D2UnitStrc*); // 0x004ED480
-extern "C" __declspec(dllimport) int __cdecl wsprintfA(char*, const char*, ...); // 0x006CC468
-Unicode* __fastcall sub_004521C0_PrefixLevelText(Unicode*, int); // 0x004521C0
 int __stdcall sub_004ED480_HasClassSkill(D2UnitStrc*); // 0x004ED480
-int __fastcall sub_004EDEA0_AddSkillLine(D2UnitStrc*, Unicode*, D2SkillsTxt*, int, int, int, int, int); // 0x004EDEA0
-void __fastcall sub_00502280_SetPopUpText(const Unicode*, int, int, int, int); // 0x00502280
-void __fastcall D2Win_10131_GetTextDimensions(const Unicode*, int*, int*); // 0x00502520
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short); // 0x00524A30
-void __fastcall sub_00526320_ToUnicode(Unicode*, const char*, int); // 0x00526320
-Unicode* __fastcall sub_00526700(Unicode*, const Unicode*); // 0x00526700
-Unicode* __fastcall sub_005267E0(Unicode*, const Unicode*); // 0x005267E0
-D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc*, int, int); // 0x006439B0
-int __stdcall SKILLS_GetSkillLevel(D2UnitStrc*, D2SkillStrc*, int); // 0x006442A0
+Unicode* __fastcall sub_004521C0_PrefixLevelText(Unicode*, int); // 0x004521C0
 
 struct D2MissilesTxt
 {
@@ -440,7 +429,7 @@ void __fastcall sub_004EEF00_ShowSkillPopup(D2UnitStrc* pUnit, int nSkillId, int
         sub_00526700(wszText,D2LANG_GetStringFromTblIndex(0xF9E));
         sub_00526700(wszText,D2LANG_GetStringFromTblIndex(0x1113));
     }
-    if(!sub_004ED480_CanLearnSkill(pUnit))
+    if(!sub_004ED480_HasClassSkill(pUnit))
     {
         sub_00526700(wszText,D2LANG_GetStringFromTblIndex(0xF9E));
         sub_00526700(wszText,D2LANG_GetStringFromTblIndex(0xF9E));

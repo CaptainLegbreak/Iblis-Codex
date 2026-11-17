@@ -40,13 +40,6 @@ struct D2CelContextStrc
     int unk0x44;
 };
 
-struct D2MotionVectorStrc
-{
-    int nX;
-    int nY;
-    int nZ;
-};
-
 struct D2GfxMotionStrc
 {
     unsigned int dwFlags;
@@ -58,14 +51,6 @@ struct D2GfxMotionStrc
     int nParam0;
     int nParam1;
     int unk0x48;
-};
-
-struct D2HotkeySlotTableStrc
-{
-    int nX[60];
-    int nY[60];
-    int nSkill[60];
-    int f_2D0[60];
 };
 
 struct D2TextPanelLineStrc
@@ -115,8 +100,6 @@ extern int gnHotkeySkill_007C06C8[16]; // 0x007C06C8
 extern int gnHotkeyOwner_007C0768[16]; // 0x007C0768
 extern int gbHotkeyLeft_007C07B8[16]; // 0x007C07B8
 extern int gbGlobal_007C07FC; // 0x007C07FC
-
-typedef unsigned int size_t;
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x00681EF0
 D2StoredUnitRecordStrc* __fastcall sub_004795A0_GetNextEntry(D2StoredUnitRecordStrc* pEntry); // 0x004795A0

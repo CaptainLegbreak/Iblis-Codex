@@ -1,6 +1,4 @@
 #include "D2Game.h"
-
-#define MAXIMUM(a,b) ((a) > (b) ? (a) : (b))
 struct D2SkillsTxt;
 struct D2SummonArgStrc;
 

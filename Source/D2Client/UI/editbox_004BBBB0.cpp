@@ -1,7 +1,5 @@
 #include "D2Client.h"
 
-typedef unsigned int size_t;
-
 struct Unicode
 {
     unsigned short wChar;
@@ -15,12 +13,6 @@ struct D2CelContextStrc
     int unk0x38[2];
     int unk0x40;
     int unk0x44;
-};
-
-struct D2ButtonStringStrc
-{
-    unsigned short nCelFrame;
-    unsigned short nStringIndex;
 };
 
 void* __stdcall SMemAlloc(size_t nSize, const char* szFile, int nLine, int nFlags);                         // 0x00413020

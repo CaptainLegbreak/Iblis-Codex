@@ -6,14 +6,6 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-struct D2HotkeySkillStrc
-{
-    short nSkill;
-    unsigned char nHand;
-    unsigned char unk0x03;
-    int nItemGUID;
-};
-
 struct D2UnitStrc
 {
     int dwUnitType;

@@ -4,7 +4,6 @@
 #define MONSTER_HRATLI 253
 #define MONSTER_ASHEARA 252
 #define MONSTER_ORMUS 255
-#define QUESTSTATEFLAG_A3Q3 19
 struct D2PlayerDataStrc;
 struct D2Act3Quest3Strc;
 struct D2ObjInitFnStrc;

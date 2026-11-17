@@ -61,12 +61,6 @@ struct D2AiCmdStrc
     int nCmdParam[5];
 };
 
-struct D2MinionListStrc
-{
-    int dwMinionGUID;
-    D2MinionListStrc* pNext;
-};
-
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 
 struct Sub0058EE80 {

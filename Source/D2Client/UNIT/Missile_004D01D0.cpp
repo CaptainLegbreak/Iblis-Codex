@@ -180,7 +180,6 @@ extern int gnMissileTargetX_006DB100[]; // 0x006DB100
 extern int gnMissileTargetY_006DB120[]; // 0x006DB120
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath); // 0x00648900
-extern "C" void* __cdecl memset(void*,int,unsigned int);
 
 struct D2SkillsTxt
 {
@@ -189,13 +188,11 @@ struct D2SkillsTxt
     char unk0x13C[0x100];
 };
 
-D2UnitStrc* __fastcall sub_004639D0_GetMissileOwner(D2UnitStrc*); // 0x004639D0
+D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc*); // 0x004639D0
 int __stdcall MISSILE_GetSkill(D2UnitStrc*); // 0x0064A280
 int __stdcall MISSILE_GetLevel(D2UnitStrc*); // 0x0064A210
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc*,int,int,int); // 0x00646CA0
 int __stdcall PATH_GetDirection(D2DynamicPathStrc*); // 0x006487F0
-int __stdcall MISSILE_GetSkill(D2UnitStrc* pMissile); // 0x0064A280
-int __stdcall MISSILE_GetLevel(D2UnitStrc* pMissile); // 0x0064A210
 void __stdcall MISSILE_SetTargetX(D2UnitStrc* pMissile, int nTargetX); // 0x0064A710
 void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY); // 0x0064A760
 
@@ -206,7 +203,6 @@ struct D2SpawnArgsStrc
 };
 
 static __declspec(noinline) D2UnitStrc* __stdcall sub_004CE530_SpawnSubMissile(D2UnitStrc* pOwner, int nMissile, int nSpread, D2UnitStrc* pMissile);
-D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 void __fastcall sub_004CD390_CltDoDefault(D2UnitStrc* pMissile); // 0x004CD390
 void __fastcall sub_004D30C0_CltDoCommon(D2UnitStrc* pMissile); // 0x004D30C0
 int __stdcall MISSILE_GetTargetY(D2UnitStrc* pMissile); // 0x0064A780
@@ -677,7 +673,7 @@ int __fastcall sub_004D0380_CreateChildMissile(D2UnitStrc* unit)
 {
  D2MissilesTxt* missile=GetMissileRecord(unit ? unit->dwClassId : -1);
  if(!missile || missile->wCltHitSubMissile<0)return 1;
- D2UnitStrc* owner=sub_004639D0_GetMissileOwner(unit);
+ D2UnitStrc* owner=sub_004639D0_GetOwnerUnit(unit);
  if(!owner)return 1;
  int skillId=MISSILE_GetSkill(unit);
  int level=MISSILE_GetLevel(unit);

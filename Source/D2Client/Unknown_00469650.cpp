@@ -25,15 +25,10 @@ struct D2KeyConfigHeaderStrc
 #define NUM_HOTKEYS 114
 #define HOTKEY_FILE_VERSION 0x25
 #define HOTKEY_NUM_COMMANDS 0x39
-#define HOTKEY_UNBOUND 0xFFFF
 #define INVALID_HANDLE_VALUE ((void*)-1)
 #define GENERIC_READ 0x80000000
-#define GENERIC_WRITE 0x40000000
-#define CREATE_ALWAYS 2
 #define OPEN_EXISTING 3
 #define FILE_ATTRIBUTE_NORMAL 0x80
-
-typedef unsigned int size_t;
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize);
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize);
 extern "C" char* __cdecl strcat(char* szDst, const char* szSrc);

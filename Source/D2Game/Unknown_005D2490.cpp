@@ -1,10 +1,4 @@
 #include "D2Game.h"
-
-#define SKILLS_ROLL_SEED(pSeed, lSeed) \
-    (lSeed = (pSeed)->nHighSeed + 0x6AC690C5i64 * (pSeed)->nLowSeed, \
-     (pSeed)->nHighSeed = (unsigned int)(lSeed >> 32), \
-     (pSeed)->nLowSeed = (unsigned int)lSeed, \
-     (unsigned int)lSeed)
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 struct Skills;

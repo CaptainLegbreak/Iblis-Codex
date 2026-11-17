@@ -4,7 +4,6 @@
 #define UNIT_OBJECT 2
 #define UNIT_INVALID 6
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define va_start(ap, v) (ap = (va_list)&v + sizeof(v))
 struct D2AutomapRecordStrc;
 struct D2AutomapFileHeaderStrc;
 struct D2AutomapCellStrc;
@@ -14,12 +13,6 @@ struct D2MonStatsTxt;
 struct D2MonStats2Txt;
 struct Unicode;
 struct D2AutomapPointStrc;
-
-struct D2AutomapRecordStrc
-{
-    unsigned int nUnk0x00;
-    unsigned int nValue;
-};
 
 struct D2AutomapFileHeaderStrc
 {
@@ -62,21 +55,6 @@ struct D2AutomapLayerStrc
     D2AutomapCellStrc* pWalls;
     D2AutomapCellStrc* pObjects;
     D2AutomapCellStrc* pExtras;
-};
-
-struct D2AutomapSaveStrc
-{
-    unsigned int nLayerNo;
-    unsigned int fSaved;
-    unsigned int nUnk0x08;
-    unsigned int nFloors;
-    unsigned int nWalls;
-    unsigned int nObjects;
-    unsigned int nExtras;
-    void* pFloors;
-    void* pWalls;
-    void* pObjects;
-    void* pExtras;
 };
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
@@ -173,22 +151,12 @@ const char* __cdecl sub_0044B7F0_GetRecordText245(); // 0x0044B7F0
 unsigned char __cdecl sub_0044DCD0_GetDifficulty(); // 0x0044DCD0
 extern int gnAutomapWidth_007A5220; // 0x007A5220
 
-typedef unsigned int size_t;
-
-typedef char* va_list;
-
 extern "C" __declspec(dllimport) int __stdcall wvsprintfA(char* szDest, const char* szFormat, va_list args); // 0x006CC4AC
 D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType); // 0x004788B0
 int __stdcall sub_006019F0(D2CelFileStrc* pCelFile); // 0x006019F0
 void __fastcall sub_00478A00(void* pCel); // 0x00478A00
 extern int gdwGlobal_007A5150; // 0x007A5150
 extern "C" size_t __cdecl strlen(const char* szString);
-
-struct D2AutomapPointStrc
-{
-    int nX;
-    int nY;
-};
 
 extern const D2AutomapPointStrc gaAutomapCross_006D6638[13]; // 0x006D6638
 extern int gdwGlobal_007113E8; // 0x007113E8

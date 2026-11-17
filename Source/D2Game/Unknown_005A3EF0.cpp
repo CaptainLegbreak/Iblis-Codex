@@ -4,9 +4,6 @@
 #define UNIT_ITEM 4
 #define UNIT_TILE 5
 #define STAT_LEVEL 12
-#define MISSILE_SUICIDECORPSEEXPLODE 426
-#define MISSILE_SUICIDEFIREEXPLODE 427
-#define MISSILE_SUICIDEICEEXPLODE 428
 struct D2SeedStrc;
 struct D2StaticPathStrc;
 struct D2MonStatsTxt;

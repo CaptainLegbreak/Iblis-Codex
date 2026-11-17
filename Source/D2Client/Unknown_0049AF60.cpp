@@ -15,16 +15,6 @@ struct Unicode
     Unicode(unsigned short wValue = 0) : wChar(wValue) {}
 };
 
-struct D2RosterButtonStrc
-{
-    int nX;
-    int nY;
-    int unk0x08[2];
-    int nType;
-    int nState;
-    int unk0x18[2];
-};
-
 struct D2RosterSlotStrc
 {
     int bFlag;

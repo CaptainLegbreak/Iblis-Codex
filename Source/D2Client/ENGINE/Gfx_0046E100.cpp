@@ -1,7 +1,4 @@
 #include "D2Client.h"
-
-#define GFX_ENTRY_COUNT 20
-#define GFX_INDEX_COUNT 16
 #define GFX_MODE_KEEP 0x11
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2HashedFileEntryStrc;
@@ -61,12 +58,6 @@ struct D2UnitOverlayStrc
     int nUnk0x3C;
     char unk0x40[0x64];
     D2UnitOverlayStrc* pNext;
-};
-
-struct D2GfxEntryStrc
-{
-    unsigned char nValue;
-    unsigned char unk0x01;
 };
 
 struct D2GfxDataStrc
@@ -143,8 +134,6 @@ extern D2HashedFileStrc gtHashedFile_007A78F0; // 0x007A78F0
 extern char gData_007A7490[0x460]; // 0x007A7490
 extern int gdwGlobal_007A8910; // 0x007A8910
 extern int gdwGlobal_007A891C; // 0x007A891C
-
-typedef unsigned int size_t;
 
 struct D2CelContextStrc
 {
@@ -293,12 +282,8 @@ struct D2HashedFileEntryStrc
     char unk0x00[0x14];
     void* pData;
 };
-
-int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClass, int a4, int a5); // 0x0064F380
 D2GfxListNodeStrc* __fastcall sub_0046E5A0_FindGfxListNode(D2UnitStrc* pUnit, int nWeaponClass, int nIndex); // 0x0046E5A0
-void* __fastcall sub_0046FA80_LoadGfxNode(D2UnitStrc* pUnit, int nWeaponClass, int nIndex); // 0x0046FA80
 unsigned char __stdcall PATH_GetDirection(D2DynamicPathStrc* pPath); // 0x006487F0
-int __fastcall sub_004DBB50_GetItemCelContext(D2CelContextStrc* pToken, D2UnitStrc* pUnit, int nArg34, int nArg40, int nArg0, int* pItemId, unsigned char nComponent, int nMode); // 0x004DBB50
 
 struct D2GfxBoundsStrc
 {

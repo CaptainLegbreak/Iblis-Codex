@@ -110,7 +110,6 @@ int __stdcall sub_0063A380(D2UnitStrc* pUnit); // 0x0063A380
 int __stdcall sub_0063A3A0(D2UnitStrc* pUnit); // 0x0063A3A0
 int __stdcall sub_004E89A0_GetElementalDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pColor, D2SkillStrc* pSkill); // 0x004E89A0
 __declspec(noinline) static int sub_004E6FB0_GetETypeColor(int nEType);
-extern "C" const char gszFormatD_006D57BC[]; // 0x006D57BC
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
 D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
@@ -131,24 +130,6 @@ struct D2DataTablesStrc
     D2MonStatsTxt* pMonStatsTxt;
     char unk0xA7C[0x4];
     int nMonStatsTxtRecordCount;
-};
-
-struct D2MonStatsInitStrc
-{
-    int nMinHP;
-    int nMaxHP;
-    int nAC;
-    int nTH;
-    int nExp;
-    int nA1MinD;
-    int nA1MaxD;
-    int nA2MinD;
-    int nA2MaxD;
-    int nS1MinD;
-    int nS1MaxD;
-    int nElMinD;
-    int nElMaxD;
-    int nElDur;
 };
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -883,7 +864,7 @@ static int __stdcall sub_004EC540_AddElemRatePerSecond(unsigned short nString, i
 
     if (nMin == nMax)
     {
-        wsprintfA(szNumber, gszFormatD_006D57BC, nMin);
+        wsprintfA(szNumber, szFmtD_006D57BC, nMin);
     }
     else
     {
@@ -1067,7 +1048,7 @@ static int __stdcall sub_004EC140_AddElemRange(Unicode* wszText, int nMin, unsig
     }
     else
     {
-        wsprintfA(szNumber, gszFormatD_006D57BC, nMin);
+        wsprintfA(szNumber, szFmtD_006D57BC, nMin);
     }
     sub_00526320_ToUnicode(wszNumber, szNumber, 32);
     sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nString));

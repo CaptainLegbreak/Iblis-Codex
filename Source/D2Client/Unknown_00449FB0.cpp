@@ -24,19 +24,6 @@ struct FSafeSock
     char szName[64];
 };
 
-struct D2LaunchAddressStrc
-{
-    int nData0;
-    int nData1;
-    int nData2;
-    int nData3;
-};
-
-struct D2LaunchThreadRecordStrc
-{
-    int nData[0x52];
-};
-
 typedef int (__fastcall* D2LaunchPacketHandler)(const unsigned char* pData, unsigned int nSize, int nArg);
 
 extern "C" __declspec(dllimport) void* __stdcall CreateEventA(void* pAttributes, int bManualReset, int bInitialState, const char* szName); // 0x006CC228

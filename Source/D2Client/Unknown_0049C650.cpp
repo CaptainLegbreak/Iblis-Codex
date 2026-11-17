@@ -2,12 +2,6 @@
 
 struct Archive;
 
-typedef unsigned int U32;
-
-typedef unsigned short U16;
-
-typedef unsigned char U8;
-
 extern "C" const U16* __fastcall sub_00524A30_GetLocaleString(U16 id);
 extern "C" int __stdcall sub_0043A460_CreateNotice(const U16* title,const U16* text,U32 state,U8 selector);
 extern "C" void __fastcall sub_00478A00_CloseArchive(Archive* archive);

@@ -12,23 +12,6 @@ struct D2UnitStrc
     D2SeedStrc tSeed;
 };
 
-struct T00473470
-{
-    short bActive;
-    short unk0x02;
-    int nX;
-    int nY;
-    int nYEnd;
-    int nParam;
-    int nParam2;
-    int nFrame;
-    int bDrop;
-    int nType;
-    unsigned char nColor;
-    unsigned char nAlpha;
-    short unk0x26;
-};
-
 struct D2WeatherStrc
 {
     char unk0x000[0x110];
@@ -36,12 +19,6 @@ struct D2WeatherStrc
     int nCount;
     char unk0x118[0x04];
     T00473470* pParticles;
-};
-
-struct D2PeriodLightStrc
-{
-    unsigned char nUnused;
-    unsigned char nLight;
 };
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837

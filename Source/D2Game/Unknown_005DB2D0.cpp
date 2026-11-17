@@ -126,9 +126,6 @@ struct D2MissileStrc
     MissileInitFunc pInitFunc;
     int pInitArgs;
 };
-
-D2UnitStrc* __stdcall sub_00553540(D2GameStrc*,D2UnitStrc*); // 0x00553540
-void __fastcall sub_0057D4F0(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,int); // 0x0057D4F0
 int __stdcall sub_00646CA0(D2UnitStrc*,unsigned,int,int); // 0x00646CA0
 D2UnitStrc* __fastcall sub_0056BD10(D2GameStrc*,D2UnitStrc*,int,int,int,unsigned,int,int*); // 0x0056BD10
 int __fastcall sub_005D3CF0(D2UnitStrc*,int); // 0x005D3CF0
@@ -256,9 +253,9 @@ int __fastcall sub_005DBE50(D2GameStrc* game,D2UnitStrc* unit,int skillId,int le
 {
     Skills* record=GetSkills(skillId);
     if(!record) return 0;
-    D2UnitStrc* target=sub_00553540(game,unit);
+    D2UnitStrc* target=SUNIT_GetTargetUnit(game,unit);
     if(!target) return 0;
-    sub_0057D4F0(game,unit,target,0);
+    SUNITDMG_DrainItemDurability(game,unit,target,0);
     int range=sub_00646CA0(unit,record->rangeCalc,skillId,level);
     const int targetId=target->dwUnitId;
     D2UnitStrc* other=sub_0056BD10(game,unit,UNITS_GetUnitXPosition(target),UNITS_GetUnitYPosition(target),range,3,targetId,0);

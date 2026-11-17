@@ -342,8 +342,6 @@ static int __stdcall sub_00533C70_ReadLegacyMerc(D2GameStrc* pGame, D2UnitStrc* 
 Done:
     return 0;
 }
-
-void __fastcall sub_00571F90_2(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00571F90
 #pragma pack(push,1)
 struct D2LegacySaveHeaderStrc
 {
@@ -450,7 +448,7 @@ int __fastcall PLRSAVE_ReadLegacyHeader(D2GameStrc* pGame,D2ClientStrc* pClient,
  CLIENTS_SetActNo(pClient,nAct);
  *ppPlayer=SUNIT_AllocUnitData(0,nClass,0,0,pGame,0,0,0,0);
  sub_00532520_AttachPlayerToClient(pGame,*ppPlayer,pClient);
- sub_00571F90_2(CLIENTS_GetGame(pClient),*ppPlayer,pClient);
+ sub_00571F90(CLIENTS_GetGame(pClient),*ppPlayer,pClient);
  *pStats=16;
  *pSkills=sgptDataTables->nSkillsTxtRecordCount;
  if(header.nStats>16 || header.nSkills>sgptDataTables->nSkillsTxtRecordCount) {

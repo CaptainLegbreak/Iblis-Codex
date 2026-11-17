@@ -82,8 +82,6 @@ int __fastcall ACT1Q3_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* 
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
 
 struct D2Act1Quest3ExStrc { unsigned char padding[0xA0]; unsigned char malusFound; };
-
-int __fastcall ITEMS_FindQuestItem(D2GameStrc* game, D2UnitStrc* unit, int code); // 0x00558110
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* game, int questId); // 0x00543640
 
 // 0x005916A0

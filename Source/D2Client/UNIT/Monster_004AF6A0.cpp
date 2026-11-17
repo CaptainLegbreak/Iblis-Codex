@@ -38,13 +38,6 @@ struct D2UnitStrc
     unsigned int dwFlagEx;
 };
 
-struct D2MonAnimRecStrc
-{
-    int nType;
-    int unk0x04;
-    int nAction;
-};
-
 struct D2MonStatsTxt
 {
     char unk0x000[0x0C];
@@ -96,8 +89,6 @@ struct D2MissileStrc
     int nSkillLevel;
     int unk0x34[10];
 };
-
-#define I20_OFFSET(s, m) ((unsigned int)&((s*)0)->m)
 typedef char I20_check_unit_a[(I20_OFFSET(D2UnitStrc, dwAnimMode) == 0x10 && I20_OFFSET(D2UnitStrc, pSeed) == 0x20) ? 1 : -1];
 typedef char I20_check_unit_b[(I20_OFFSET(D2UnitStrc, pDynamicPath) == 0x2C && I20_OFFSET(D2UnitStrc, nActionFrame) == 0x4E) ? 1 : -1];
 typedef char I20_check_unit_c[(I20_OFFSET(D2UnitStrc, dwFlags) == 0xC4 && I20_OFFSET(D2UnitStrc, nSeqCurrentFramePrecise) == 0x44) ? 1 : -1];

@@ -17,7 +17,6 @@ struct D2MonStatsExTxt { char unk00[5]; unsigned char nFlags; char unk06[0x12E];
 struct D2DataTablesStrc { char unk00[0xA78]; D2MonStatsTxt* pMonStats; int unkA7C; int nMonStats; char unkA84[12]; D2MonStatsExTxt* pMonStatsEx; int unkA94; int nMonStatsEx; };
 struct D2PlayerCountBonusStrc { int nHp,nExperience,nSkillBonus,nDifficulty,nPlayerCount; };
 struct D2MonsterStatsStrc { int nMinHp,nMaxHp,nArmor,nToHit,nExperience; int unk14[9]; };
-struct D2PropertyStrc { int nProperty,nLayer,nMin,nMax; };
 struct D2MonsterPropertyStrc { int unk00; D2PropertyStrc pProperties[3][6]; unsigned char nChance[3][6]; };
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const unsigned int gdwBitMasks[]; // 0x006CE268

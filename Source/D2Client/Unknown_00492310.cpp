@@ -43,8 +43,8 @@ static int sub_00489430_IsOverButtonA(int nX, int nY); // 0x00489430
 static int sub_00489480_IsOverButtonB(int nX, int nY); // 0x00489480
 extern int gnGlobal_0071146C; // 0x0071146C
 extern int gnGlobal_00711470; // 0x00711470
-extern int gnGlobal_007A2858; // 0x007A2858
-extern int gnGlobal_007A285C; // 0x007A285C
+extern int gnPanelX_007A2858; // 0x007A2858
+extern int gnPanelY_007A285C; // 0x007A285C
 extern int gnGlobal_007BCA34; // 0x007BCA34
 extern int gnGlobal_007BCA38; // 0x007BCA38
 extern int gnGlobal_007BCA3C; // 0x007BCA3C
@@ -72,22 +72,6 @@ struct Unicode
 struct D2DifficultyLevelsTxt
 {
     int dwResistPenalty;
-};
-
-struct D2MercStatLineStrc
-{
-    int nLeft;
-    int nRight;
-    int nY;
-    int nMaxWidth;
-    int nStatId;
-};
-
-struct D2ElemDamageStrc
-{
-    int nMinStat;
-    int f_4;
-    int nColor;
 };
 int __cdecl sub_0044DCC0(); // 0x0044DCC0
 unsigned char __cdecl sub_0044DCD0_GetDifficulty(); // 0x0044DCD0
@@ -170,8 +154,6 @@ int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, i
 void __cdecl sub_004835B0_LoadUiRecords(); // 0x004835B0
 void __stdcall sub_0048DD90(D2UnitStrc* pUnit, int nArg); // 0x0048DD90
 void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int nDrawMode, int nPalette); // 0x004F6480
-extern int gnPanelX_007A2858; // 0x007A2858
-extern int gnPanelY_007A285C; // 0x007A285C
 extern D2CelFileStrc* gpMercPanelCells_007BCE88; // 0x007BCE88
 extern int gbBuySellPressed_007BCEA0; // 0x007BCEA0
 
@@ -192,8 +174,8 @@ static int sub_00486DA0_IsOverGoldButton(int nX, int nY)
     {
         return 0;
     }
-    if (nY >= gnGlobal_00711470 + gnGlobal_007A285C - 0x57 && nY <= gnGlobal_00711470 + gnGlobal_007A285C - 0x45
-        && nX >= gnGlobal_0071146C - gnGlobal_007A2858 - 0xED && nX <= gnGlobal_0071146C - gnGlobal_007A2858 - 0xD9)
+    if (nY >= gnGlobal_00711470 + gnPanelY_007A285C - 0x57 && nY <= gnGlobal_00711470 + gnPanelY_007A285C - 0x45
+        && nX >= gnGlobal_0071146C - gnPanelX_007A2858 - 0xED && nX <= gnGlobal_0071146C - gnPanelX_007A2858 - 0xD9)
     {
         return 1;
     }
@@ -203,8 +185,8 @@ static int sub_00486DA0_IsOverGoldButton(int nX, int nY)
 // 0x00489430
 static int sub_00489430_IsOverButtonA(int nX, int nY)
 {
-    if (nX > gnGlobal_007A2858 + 0xDF && nX < gnGlobal_007A2858 + 0xFF
-        && nY > gnGlobal_00711470 + gnGlobal_007A285C - 0x60 && nY < gnGlobal_00711470 + gnGlobal_007A285C - 0x40)
+    if (nX > gnPanelX_007A2858 + 0xDF && nX < gnPanelX_007A2858 + 0xFF
+        && nY > gnGlobal_00711470 + gnPanelY_007A285C - 0x60 && nY < gnGlobal_00711470 + gnPanelY_007A285C - 0x40)
     {
         return 1;
     }
@@ -214,8 +196,8 @@ static int sub_00489430_IsOverButtonA(int nX, int nY)
 // 0x00489480
 static int sub_00489480_IsOverButtonB(int nX, int nY)
 {
-    if (nX > gnGlobal_007A2858 + 0x113 && nX < gnGlobal_007A2858 + 0x133
-        && nY > gnGlobal_00711470 + gnGlobal_007A285C - 0x60 && nY < gnGlobal_00711470 + gnGlobal_007A285C - 0x40)
+    if (nX > gnPanelX_007A2858 + 0x113 && nX < gnPanelX_007A2858 + 0x133
+        && nY > gnGlobal_00711470 + gnPanelY_007A285C - 0x60 && nY < gnGlobal_00711470 + gnPanelY_007A285C - 0x40)
     {
         return 1;
     }
@@ -342,9 +324,9 @@ static void sub_0048A990_DrawMercStats(D2UnitStrc* pUnit)
             nColor = 1;
         }
 
-        const int nLeft = gaMercStatLines_007221A8[i].nLeft + gnGlobal_007A2858;
-        const int nRight = gaMercStatLines_007221A8[i].nRight + gnGlobal_007A2858;
-        int nY = gaMercStatLines_007221A8[i].nY - gnGlobal_007A285C - 2;
+        const int nLeft = gaMercStatLines_007221A8[i].nLeft + gnPanelX_007A2858;
+        const int nRight = gaMercStatLines_007221A8[i].nRight + gnPanelX_007A2858;
+        int nY = gaMercStatLines_007221A8[i].nY - gnPanelY_007A285C - 2;
 
         switch (gaMercStatLines_007221A8[i].nStatId)
         {

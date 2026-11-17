@@ -46,9 +46,7 @@ D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem);                  
 D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinatesWithField(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, D2CoordStrc* pFieldCoord, int nUnitSize, unsigned int nMask, unsigned int nFieldMask, int bAllowNeighborRooms); // 0x0064E810
 
 #define UNIT_PLAYER 0
-#define INVPAGE_EQUIP 1
 #define STAT_GOLD 14
-#define STAT_GOLDBANK 15
 #define STAT_QUESTITEMDIFFICULTY 356
 #define GOLD_PILE_MAX 2000000000
 

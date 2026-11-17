@@ -1,7 +1,6 @@
 #include "D2Game.h"
 
 #define MONSTER_QUALKEHK 515
-#define QUESTEVENT_NPCDEACTIVATE 2
 struct Unit0058F000;
 struct D2ObjInitFnStrc;
 struct D2Act5Quest1Strc;

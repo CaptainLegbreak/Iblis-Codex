@@ -52,25 +52,11 @@ struct D2CelContextStrc
     int unk0x44;
 };
 
-struct D2RectStrc
-{
-    int nLeft;
-    int nTop;
-    int nRight;
-    int nBottom;
-};
-
 struct T00479230
 {
     char unk0x00[0x16];
     char nScroll[4];
     char unk0x1A[0x12];
-};
-
-struct D2WaypointMenuEntryStrc
-{
-    char nLevelId[4];
-    char bEnabled;
 };
 
 struct D2WaypointActRangeStrc
@@ -200,13 +186,6 @@ struct D2OptionEntryStrc
     unsigned int nValues;
     unsigned int nValue;
     char unk0x128[0x428];
-};
-
-struct D2EscMenuUIStateStrc
-{
-    int bCheck;
-    int bSave;
-    int nSaved;
 };
 
 enum D2C_UnitTypes

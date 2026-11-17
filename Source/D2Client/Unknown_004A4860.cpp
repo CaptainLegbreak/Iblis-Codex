@@ -52,8 +52,6 @@ struct Message { char pad[0x0C]; unsigned int lParam; char pad10[8]; int handled
 
 extern int global_00724728; // 0x00724728
 int __cdecl sub_0044DA30(); // 0x0044DA30
-void __fastcall sub_00455F20(int, int, int); // 0x00455F20
-void __fastcall sub_0047E090(int, int); // 0x0047E090
 int __fastcall sub_004B9A00(int, void*, int, int, int); // 0x004B9A00
 int __stdcall sub_00420290(Message*); // 0x00420290
 

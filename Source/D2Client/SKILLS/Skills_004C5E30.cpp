@@ -1,6 +1,4 @@
 #include "D2Client.h"
-
-#define NULL 0
 #define BITARRAY_CHECK(pBytes, nBit) ((pBytes)[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
 struct D2SeedStrc;
 struct D2MonStats2Txt;
@@ -93,20 +91,6 @@ struct D2DataTablesStrc
     int nSkillsTxtRecordCount;
     char unk0xBA4[0x1C];
     int nOverlayTxtRecordCount;
-};
-
-struct D2ClientSkillArgsStrc
-{
-    int nSkillId;
-    int nOwnerGUID;
-    int nArg1;
-    int nArg2;
-    int nSkillLevel;
-};
-
-struct D2PathDirectionStrc
-{
-    unsigned char nDirection;
 };
 
 typedef int (__fastcall* CLIENTSKILLSTARTFN)(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);

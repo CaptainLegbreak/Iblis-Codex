@@ -9,7 +9,6 @@
 #define QFLAG_PRIMARYGOALDONE 13
 #define QFLAG_COMPLETEDNOW 14
 #define QFLAG_COMPLETEDBEFORE 15
-#define ACT_I 0
 #define ACT_III 2
 #define QUESTSTATEFLAG_A1Q2 2
 #define MONSTER_KASHYA 150
@@ -110,8 +109,6 @@ struct D2Act1Quest2Strc
     unsigned char bKashyaActivated;
 };
 void __fastcall ACT1Q2_UnitIterate_SetPrimaryGoalDone(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
-int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestRecord, int nQuestId, int nState); // 0x0065C310
-void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestRecord, int nQuestId, int nState); // 0x0065C360
 
 // 0x00590810
 extern "C" __declspec(dllexport) bool __fastcall sub_00590810(Obj00590810* pObj) {

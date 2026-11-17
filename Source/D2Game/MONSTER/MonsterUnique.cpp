@@ -1,6 +1,5 @@
 #include "D2Game.h"
 
-#define UNIT_MONSTER 1
 #define UNIT_OBJECT 2
 #define UNIT_MISSILE 3
 #define UNIT_ITEM 4
@@ -9,10 +8,7 @@
 #define UNITFLAG_ISVALIDTARGET 0x00000008
 #define MONMODE_DEATH 0
 #define MONMODE_GETHIT 3
-#define STAT_LEVEL 12
 #define STAT_ITEM_ARMOR_PERCENT 16
-#define STAT_MINDAMAGE 21
-#define STAT_MAXDAMAGE 22
 #define STAT_SECONDARY_MINDAMAGE 23
 #define STAT_SECONDARY_MAXDAMAGE 24
 #define MONSTER_ROGUEHIRE 271
@@ -24,27 +20,31 @@
 #define MISSILE_COLDUNIQUE 194
 #define UNIT_PLAYER 0
 #define MONMODE_SKILL1 8
-#define IMODE_INBELT 2
 #define UNIT_ALIGNMENT_EVIL 0
 #define UNIT_ALIGNMENT_GOOD 2
 #define EVENTTYPE_AITHINK 2
 #define EVENTTYPE_MONUMOD 7
-#define STATE_SHATTER 107
 #define SKILL_SELF_RESURRECT 293
-#define IFLAG_INSTORE 0x2000
-#define COLLIDE_MASK_MONSTER_PATH 0x3C01
 #define MONTYPEFLAG_RESURRECTED 8
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define UNIT_INVALID 6
 #define STATE_UNINTERRUPTABLE 54
 #define UNITFLAG_NOXP 0x04000000
 #define PARTYSCREENTYPE_HOSTILE 3
-#define PLAYERLIST_FLAG_HOSTILE 8
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
+#define MIN(a, b) ((a) < (b) ? (a) : (b))
+
 struct D2StaticPathStrc;
 struct D2ModeChangeStrc;
 struct D2SeedStrc;
 struct D2MonsterDataStrc;
 struct D2MonStatsTxt;
+struct D2UnitStrc;
+struct D2DamageStrc;
+struct D2MissileStrc;
+struct D2GameStrc;
+struct D2CoordStrc;
+struct D2DataTablesStrc;
+struct D2ClientStrc;
 
 struct D2StaticPathStrc
 {
@@ -165,7 +165,9 @@ struct D2GameStrc
 {
     char unk0x00[0x6D];
     unsigned char nDifficulty;
-    char unk0x6E[0x3A];
+    char unk0x6E[0x02];
+    int bExpansion;
+    unsigned char unk_74[0x34];
     int dwGameFrame;
 };
 
@@ -267,6 +269,33 @@ void __fastcall FRIENDLY_OpenHostility(D2GameStrc* pGame, D2UnitStrc* pPlayer1, 
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 
+enum D2C_M187TrapConstants
+{
+    UNIT_MONSTER = 1,
+    UNIT_INVALID = 6,
+    STAT_LEVEL = 12,
+    STAT_TOHIT = 19,
+    STAT_MINDAMAGE = 21,
+    STAT_MAXDAMAGE = 22,
+    STAT_FIREMINDAM = 48,
+    STAT_FIREMAXDAM = 49,
+    STAT_LIGHTMINDAM = 50,
+    STAT_LIGHTMAXDAM = 51,
+    STAT_POISONMINDAM = 57,
+    STAT_POISONMAXDAM = 58,
+    STAT_POISONLENGTH = 59,
+    MONSTER_TRAP_FIREBOLT = 326,
+    MONSTER_TRAP_HORZMISSILE = 327,
+    MONSTER_TRAP_VERTMISSILE = 328,
+    MONSTER_TRAP_POISONCLOUD = 329,
+    MONSTER_TRAP_LIGHTNING = 330,
+    MONSTER_TRAP_NOVA = 369,
+};
+
+int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
+D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndFlag(D2UnitStrc* pUnit, int nFlag); // 0x00625760
+void __stdcall STATLIST_SetStatIfListIsValid(D2StatListStrc* pStatList, int nStatId, int nValue, int nLayer); // 0x00627150
+
 inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType)
@@ -316,6 +345,24 @@ void __fastcall MONSTERUNIQUE_UMod37_Fanatic(D2UnitStrc* pUnit, int nUMod, int b
         STATLIST_SetUnitStat(pUnit, STAT_ITEM_ARMOR_PERCENT, -70, 0);
         MONSTERUNIQUE_UMod16_Champion(pUnit, nUMod, bUnique);
     }
+}
+
+// 0x005A2840
+void __fastcall MONSTERUNIQUE_CastCorpseExplode2(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)
+{
+    const int nX = CLIENTS_GetUnitXInline(pUnit);
+    const int nY = CLIENTS_GetUnitYInline(pUnit);
+
+    D2UnitStrc* pMissile = sub_6FD11420(pGame, MISSILE_MONSTERCORPSEEXPLODE, pUnit, 0, 1, 0, 0, nX, nY, 1);
+    if (!pMissile)
+    {
+        return;
+    }
+
+    D2DamageStrc damage = {};
+    damage.dwPhysDamage = 0x6400;
+    damage.dwFireDamage = 0x6400;
+    SUNITDMG_SetMissileDamageFlagsForNearbyUnits(pGame, pMissile, nX, nY, 6, &damage, 0, 0, 0, 0x583);
 }
 
 // 0x005A2BA0
@@ -369,33 +416,6 @@ void __fastcall MONSTERUNIQUE_MinionCallback_KillMinion(D2UnitStrc* pUnit, void*
         MONSTERMODE_GetModeChangeInfo(pUnit, MONMODE_DEATH, &modeChange);
         D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
     }
-}
-
-// 0x005A30B0
-void __fastcall sub_6FC6D440(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)
-{
-    if (bUnique && pUnit && pUnit->dwUnitType == UNIT_MISSILE)
-    {
-        MONSTERUNIQUE_ApplyElementalDamage(pGame, pUnit, nUMod, bUnique);
-    }
-}
-
-// 0x005A2840
-void __fastcall MONSTERUNIQUE_CastCorpseExplode2(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)
-{
-    const int nX = CLIENTS_GetUnitXInline(pUnit);
-    const int nY = CLIENTS_GetUnitYInline(pUnit);
-
-    D2UnitStrc* pMissile = sub_6FD11420(pGame, MISSILE_MONSTERCORPSEEXPLODE, pUnit, 0, 1, 0, 0, nX, nY, 1);
-    if (!pMissile)
-    {
-        return;
-    }
-
-    D2DamageStrc damage = {};
-    damage.dwPhysDamage = 0x6400;
-    damage.dwFireDamage = 0x6400;
-    SUNITDMG_SetMissileDamageFlagsForNearbyUnits(pGame, pMissile, nX, nY, 6, &damage, 0, 0, 0, 0x583);
 }
 
 // 0x005A2E00
@@ -466,35 +486,12 @@ void __fastcall MONSTERUNIQUE_CastBugLightningMissile(D2GameStrc* pGame, D2UnitS
     }
 }
 
-// 0x005A3490
-void __fastcall MONSTERUNIQUE_CastQueenPoisonCloudMissile(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)
+// 0x005A30B0
+void __fastcall sub_6FC6D440(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)
 {
-    D2MissileStrc missileParams = {};
-    missileParams.dwFlags = 0x21;
-    missileParams.pOwner = pUnit;
-    missileParams.nX = CLIENTS_GetUnitXInline(pUnit);
-    missileParams.nY = CLIENTS_GetUnitYInline(pUnit);
-    missileParams.nSkillLevel = STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0);
-    missileParams.nMissile = MISSILE_QUEENPOISONCLOUD;
-    missileParams.pInitFunc = SKILLS_MissileInit_ChargedBolt;
-
-    const int nXOffsets[] = { 0, 1, 0, -1 };
-    const int nYOffsets[] = { -1, 0, 1, 0 };
-
-    for (int j = 0; j < 4; ++j)
+    if (bUnique && pUnit && pUnit->dwUnitType == UNIT_MISSILE)
     {
-        const int nUnitX = CLIENTS_GetUnitXInline(pUnit);
-        const int nUnitY = CLIENTS_GetUnitYInline(pUnit);
-        const int nTargetX = nXOffsets[j] + nUnitX;
-        const int nTargetY = nYOffsets[j] + nUnitY;
-
-        for (int i = 0; i < 2; ++i)
-        {
-            missileParams.pInitArgs = i;
-            missileParams.nTargetX = nTargetX;
-            missileParams.nTargetY = nTargetY;
-            MISSILES_CreateMissileFromParams(pGame, &missileParams);
-        }
+        MONSTERUNIQUE_ApplyElementalDamage(pGame, pUnit, nUMod, bUnique);
     }
 }
 
@@ -563,6 +560,60 @@ void __fastcall MONSTERUNIQUE_StealBeltItem(D2GameStrc* pGame, D2UnitStrc* pUnit
     }
 }
 
+// 0x005A3490
+void __fastcall MONSTERUNIQUE_CastQueenPoisonCloudMissile(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)
+{
+    D2MissileStrc missileParams = {};
+    missileParams.dwFlags = 0x21;
+    missileParams.pOwner = pUnit;
+    missileParams.nX = CLIENTS_GetUnitXInline(pUnit);
+    missileParams.nY = CLIENTS_GetUnitYInline(pUnit);
+    missileParams.nSkillLevel = STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0);
+    missileParams.nMissile = MISSILE_QUEENPOISONCLOUD;
+    missileParams.pInitFunc = SKILLS_MissileInit_ChargedBolt;
+
+    const int nXOffsets[] = { 0, 1, 0, -1 };
+    const int nYOffsets[] = { -1, 0, 1, 0 };
+
+    for (int j = 0; j < 4; ++j)
+    {
+        const int nUnitX = CLIENTS_GetUnitXInline(pUnit);
+        const int nUnitY = CLIENTS_GetUnitYInline(pUnit);
+        const int nTargetX = nXOffsets[j] + nUnitX;
+        const int nTargetY = nYOffsets[j] + nUnitY;
+
+        for (int i = 0; i < 2; ++i)
+        {
+            missileParams.pInitArgs = i;
+            missileParams.nTargetX = nTargetX;
+            missileParams.nTargetY = nTargetY;
+            MISSILES_CreateMissileFromParams(pGame, &missileParams);
+        }
+    }
+}
+
+// 0x005A3840
+void __fastcall sub_6FC6DD20(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)
+{
+    if (pUnit && pUnit->dwAnimMode != MONMODE_DEATH)
+    {
+        return;
+    }
+
+    if (STATLIST_GetUnitAlignment(pUnit) != UNIT_ALIGNMENT_EVIL)
+    {
+        return;
+    }
+
+    D2MonStatsTxt* pMonStatsTxtRecord = MONSTERMODE_GetMonStatsTxtRecordFromUnit(pUnit);
+    D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_MONUMOD, 0);
+
+    if ((int)((unsigned int)SEED_RollRandomNumber(&pUnit->pSeed) % 100) < pMonStatsTxtRecord->wAiParam[7][pGame->nDifficulty])
+    {
+        EVENT_SetEvent(pGame, pUnit, EVENTTYPE_MONUMOD, pGame->dwGameFrame + 10 * pMonStatsTxtRecord->wAiParam[0][pGame->nDifficulty] + 1, 0, 0);
+    }
+}
+
 // 0x005A3910
 void __fastcall sub_6FC6DDE0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)
 {
@@ -602,28 +653,6 @@ void __fastcall sub_6FC6DDE0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, in
             D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_AITHINK, 0);
             EVENT_SetEvent(pGame, pUnit, EVENTTYPE_AITHINK, pGame->dwGameFrame + 51, 0, 0);
         }
-    }
-}
-
-// 0x005A3840
-void __fastcall sub_6FC6DD20(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)
-{
-    if (pUnit && pUnit->dwAnimMode != MONMODE_DEATH)
-    {
-        return;
-    }
-
-    if (STATLIST_GetUnitAlignment(pUnit) != UNIT_ALIGNMENT_EVIL)
-    {
-        return;
-    }
-
-    D2MonStatsTxt* pMonStatsTxtRecord = MONSTERMODE_GetMonStatsTxtRecordFromUnit(pUnit);
-    D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_MONUMOD, 0);
-
-    if ((int)((unsigned int)SEED_RollRandomNumber(&pUnit->pSeed) % 100) < pMonStatsTxtRecord->wAiParam[7][pGame->nDifficulty])
-    {
-        EVENT_SetEvent(pGame, pUnit, EVENTTYPE_MONUMOD, pGame->dwGameFrame + 10 * pMonStatsTxtRecord->wAiParam[0][pGame->nDifficulty] + 1, 0, 0);
     }
 }
 
@@ -670,6 +699,73 @@ void __fastcall sub_6FC6DFC0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, in
     D2ModeChangeStrc modeChange;
     MONSTERMODE_GetModeChangeInfo(pUnit, MONMODE_DEATH, &modeChange);
     D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
+}
+
+static __forceinline int MONSTERUNIQUE_GetClassIdInline(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return -1;
+    }
+    return pUnit->dwClassId;
+}
+
+// 0x005A3B50
+void __fastcall MONSTERUNIQUE_SetTrapDamage(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique)
+{
+    int nLevel = 2;
+    const int nLevelId = DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pUnit));
+    if (nLevelId)
+    {
+        nLevel = DATATBLS_GetMonsterLevelInArea(nLevelId, pGame->nDifficulty, pGame->bExpansion);
+        nLevel = MAX(nLevel, 1);
+    }
+
+    const int nToHit = MIN(nLevel + 50, 90);
+    STATLIST_SetUnitStat(pUnit, STAT_LEVEL, nLevel, 0);
+    STATLIST_SetUnitStat(pUnit, STAT_TOHIT, nToHit, 0);
+
+    const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+    D2_ASSERT(nUnitType == UNIT_MONSTER, 3138);
+
+    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndFlag(pUnit, 1);
+    switch (MONSTERUNIQUE_GetClassIdInline(pUnit))
+    {
+    case MONSTER_TRAP_FIREBOLT:
+    {
+        STATLIST_SetStatIfListIsValid(pStatList, STAT_MINDAMAGE, 0, 0);
+        STATLIST_SetStatIfListIsValid(pStatList, STAT_MAXDAMAGE, 0, 0);
+        STATLIST_SetStatIfListIsValid(pStatList, STAT_FIREMINDAM, nLevel >> 1, 0);
+        STATLIST_SetStatIfListIsValid(pStatList, STAT_FIREMAXDAM, 3 * nLevel >> 1, 0);
+        break;
+    }
+    case MONSTER_TRAP_HORZMISSILE:
+    case MONSTER_TRAP_VERTMISSILE:
+    {
+        const int nMinDamage = MIN(nLevel, (nLevel >> 1) + 1);
+        STATLIST_SetStatIfListIsValid(pStatList, STAT_MINDAMAGE, nMinDamage, 0);
+        STATLIST_SetStatIfListIsValid(pStatList, STAT_MAXDAMAGE, nLevel, 0);
+        break;
+    }
+    case MONSTER_TRAP_POISONCLOUD:
+    {
+        STATLIST_SetStatIfListIsValid(pStatList, STAT_MINDAMAGE, 0, 0);
+        STATLIST_SetStatIfListIsValid(pStatList, STAT_MAXDAMAGE, 0, 0);
+        STATLIST_SetStatIfListIsValid(pStatList, STAT_POISONMINDAM, nLevel, 0);
+        STATLIST_SetStatIfListIsValid(pStatList, STAT_POISONMAXDAM, 2 * nLevel, 0);
+        STATLIST_SetStatIfListIsValid(pStatList, STAT_POISONLENGTH, 2 * nLevel, 0);
+        break;
+    }
+    case MONSTER_TRAP_LIGHTNING:
+    case MONSTER_TRAP_NOVA:
+    {
+        STATLIST_SetStatIfListIsValid(pStatList, STAT_MINDAMAGE, 0, 0);
+        STATLIST_SetStatIfListIsValid(pStatList, STAT_MAXDAMAGE, 0, 0);
+        STATLIST_SetStatIfListIsValid(pStatList, STAT_LIGHTMINDAM, nLevel >> 1, 0);
+        STATLIST_SetStatIfListIsValid(pStatList, STAT_LIGHTMAXDAM, 3 * nLevel >> 1, 0);
+        break;
+    }
+    }
 }
 
 // 0x005A4EF0

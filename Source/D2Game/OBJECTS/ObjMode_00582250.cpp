@@ -7,15 +7,10 @@
 #define OBJMODE_OPERATING 1
 #define EVENTTYPE_ENDANIM 1
 #define EVENTTYPE_TRAP 4
-#define EVENTTYPE_AIRESET 10
 #define UNITFLAG_TARGETABLE 2
-#define OBJECT_INTERACT_TRAPPED 0x80
 #define MONSTER_FLYINGSCIMITAR 234
 #define MONMODE_WALK 2
-#define ACT_I 0
-#define ITEMSPAWN_GROUND 3
 #define STAT_LEVEL 12
-#define STAT_QUANTITY 70
 struct D2ObjectControlStrc;
 struct D2SeedStrc;
 struct D2ObjectDataStrc;
@@ -109,12 +104,6 @@ struct D2ObjOperateFnStrc
     D2UnitStrc* pPlayer;
     D2ObjectControlStrc* pObjectregion;
     int nObjectIdx;
-};
-
-struct D2MonStatsCountStrc
-{
-    char unk0x000[0xA80];
-    int nMonStatsTxtRecordCount;
 };
 
 typedef void (__fastcall* ObjTrapHandlerFunction)(D2GameStrc* pGame, D2UnitStrc* pUnit);

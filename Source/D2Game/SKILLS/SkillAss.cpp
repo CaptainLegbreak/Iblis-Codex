@@ -224,16 +224,6 @@ struct D2AuraCallbackStrc
     void* pArgs;
 };
 
-struct D2SrvDo47Strc
-{
-    int nSkillId;
-    int nSkillLevel;
-    int nDuration;
-    int nAuraTargetState;
-    int nAuraStat[6];
-    int nAuraStatCalcValue[6];
-};
-
 struct D2SrvDo51Strc
 {
     D2DamageStrc* pDamage;
@@ -429,7 +419,6 @@ int __fastcall UNITS_GetWeaponClass(D2UnitStrc* pUnit); // 0x00623C60
 void __fastcall SKILLS_AddDamagePercentBonus(D2UnitStrc* pUnit, int nBonus); // 0x005DB6A0
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
-D2ActiveRoomStrc* __fastcall D2GAME_GetRoom_6FC52070(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
 int __fastcall SKILLS_GetProgressiveSkillMissileId(D2UnitStrc* pUnit, int nSkillId); // 0x005D3CF0
 void __stdcall MISSILE_SetTotalFrames(D2UnitStrc* pMissile, int nTotalFrames); // 0x0064A2B0
 void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nCurrentFrame); // 0x0064A330

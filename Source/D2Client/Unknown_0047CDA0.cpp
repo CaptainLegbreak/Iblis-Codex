@@ -20,8 +20,6 @@ struct SMSGHANDLER_PARAMS
     int lResult;
 };
 
-typedef int(__fastcall* MENUENABLED)();
-
 typedef void(__fastcall* MENUSELECT)(D2MenuItemStrc*, SMSGHANDLER_PARAMS*);
 
 typedef void(__fastcall* MENUOPTION)(D2MenuItemStrc*, int);

@@ -78,8 +78,8 @@ D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int); // 0x0045C4B0
 int __fastcall sub_0056E620_GetValidMonsterId(D2UnitStrc*,int,int,int,int*,int,int); // 0x0056E620
 int __stdcall sub_0064A730_GetUnitId(D2UnitStrc*); // 0x0064A730
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc*,int,int); // 0x00552F60
-int __fastcall sub_0045ADF0_GetX(D2UnitStrc*); // 0x0045ADF0
-int __fastcall sub_0045AE20_GetY(D2UnitStrc*); // 0x0045AE20
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc*); // 0x0045ADF0
+int __fastcall CLIENTS_GetUnitY(D2UnitStrc*); // 0x0045AE20
 D2UnitStrc* __fastcall sub_0056D940_Summon(D2GameStrc*,D2SummonArgs*); // 0x0056D940
 void __fastcall AIGENERAL_SetOwnerData(D2GameStrc*,D2UnitStrc*,int,int,int,int); // 0x0058F030
 void __fastcall AIGENERAL_AllocMinionList(D2GameStrc*,D2UnitStrc*,D2UnitStrc*); // 0x0058F100
@@ -88,17 +88,10 @@ void __fastcall D2GAME_SetSummonPassiveStats_6FD0C530(D2GameStrc*,D2UnitStrc*,D2
 void __stdcall UNITS_StoreOwner(D2UnitStrc*,D2UnitStrc*); // 0x00621CE0
 void __fastcall sub_6FC40280(D2GameStrc*,D2UnitStrc*,int,int); // 0x005B1990
 void __stdcall MISSILE_SetTargetY(D2UnitStrc*,int); // 0x0064A760
-int __fastcall sub_005AE1F0_Finish(D2GameStrc*,D2UnitStrc*); // 0x005AE1F0
 int __stdcall sub_0064A3B0_GetElapsedFrames(D2UnitStrc*); // 0x0064A3B0
-int __stdcall MISSILE_GetTargetX(D2UnitStrc*); // 0x0064A730
-int __stdcall MISSILE_GetTargetY(D2UnitStrc*); // 0x0064A780
 void __stdcall MISSILE_SetTargetX(D2UnitStrc*, int); // 0x0064A710
-void __stdcall MISSILE_SetTargetY(D2UnitStrc*, int); // 0x0064A760
-int __fastcall CLIENTS_GetUnitX(D2UnitStrc*); // 0x0045ADF0
-int __fastcall CLIENTS_GetUnitY(D2UnitStrc*); // 0x0045AE20
 void __stdcall D2COMMON_10170_PathSetTargetPos(D2DynamicPathStrc*, int, int); // 0x00648AD0
 int __stdcall D2Common_10142(D2DynamicPathStrc*, D2UnitStrc*, int); // 0x00649970
-int __fastcall MISSMODE_HandleMissileCollision(D2GameStrc*, D2UnitStrc*); // 0x005AE1F0
 
 static __forceinline int GetX(D2UnitStrc* p) { switch(p->type) {case 2:case 4:case 5:return p->staticPath->x;} return p->dynamicPath?PATH_GetXPosition(p->dynamicPath):0; }
 
@@ -148,7 +141,7 @@ int __fastcall sub_005AEDA0_SummonPet(D2GameStrc* game,D2UnitStrc* unit)
    D2SummonArgs args;
    memset(&args,0,sizeof(args));
    args.mode=13;args.owner=owner;args.monsterId=monsterId;args.unknown=0;args.variant=variant;
-   args.x=sub_0045ADF0_GetX(unit);args.y=sub_0045AE20_GetY(unit);args.petType=petType;
+   args.x=CLIENTS_GetUnitX(unit);args.y=CLIENTS_GetUnitY(unit);args.petType=petType;
    D2UnitStrc* summoned=sub_0056D940_Summon(game,&args);
    if(summoned) {
     AIGENERAL_SetOwnerData(game,summoned,!target ? -1 : target->dwUnitId,1,0,0);
@@ -161,7 +154,7 @@ int __fastcall sub_005AEDA0_SummonPet(D2GameStrc* game,D2UnitStrc* unit)
    }
   }
  }
- return sub_005AE1F0_Finish(game,unit);
+ return MISSMODE_HandleMissileCollision(game,unit);
 }
 
 static D2MissilesTxt* SKILLS_GetMissilesTxtRecordFromUnit(D2UnitStrc* pMissile)
@@ -180,8 +173,8 @@ int __fastcall sub_005AF170_RotateMissileTarget(D2GameStrc* pGame, D2UnitStrc* p
     const int nFrames = sub_0064A3B0_GetElapsedFrames(pMissile);
     if (nFrames < pRecord->dwParam[0] && !(nFrames % nPeriod))
     {
-        int nNewX = MISSILE_GetTargetX(pMissile);
-        int nNewY = MISSILE_GetTargetY(pMissile);
+        int nNewX = sub_0064A730_GetUnitId(pMissile);
+        int nNewY = sub_0064A780_GetCount(pMissile);
         const int nOldX = nNewX;
         const int nNegY = -nNewY;
         __assume(nNegY != (-2147483647 - 1));

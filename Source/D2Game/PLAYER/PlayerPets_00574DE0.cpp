@@ -2,7 +2,6 @@
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_MONSTER 1
-#define PETTYPE_HIREABLE 7
 struct D2PetDataStrc;
 struct D2PetListStrc;
 struct D2PlayerPetStrc;

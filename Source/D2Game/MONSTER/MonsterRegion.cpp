@@ -1,5 +1,14 @@
+struct D2MonsterRegionStrc;
+struct D2SeedStrc;
+struct D2MonRegDataStrc;
+struct D2LevelsTxt;
+struct D2MonStatsTxt;
+struct D2DataTablesStrc;
+
 struct D2SeedStrc { unsigned int low, high; };
+
 struct D2MonRegDataStrc { short id; unsigned char rarity; char pad03[0x31]; };
+
 struct D2MonsterRegionStrc {
  unsigned char act; char pad01[0xB]; int unknown0C;
  unsigned char monCount,totalRarity,spawnCount; char pad13;
@@ -8,14 +17,26 @@ struct D2MonsterRegionStrc {
  int level; char pad2C4[0x10]; int flags; unsigned char quest; char pad2D9[3];
  int dungeonLevel,dungeonLevelEx;
 };
+
 struct D2LevelsTxt {
  char pad00[3]; unsigned char act; char pad04[0xC];
  short monLevel[3],monLevelEx[3]; int density[3]; unsigned char bossMin[3],bossMax[3];
  unsigned char wander; char pad2F; unsigned char quest,ranged,numMon,normalCount,nightCount;
  char pad35; short normal[25],night[25];
 };
+
 struct D2MonStatsTxt { char pad00[0xC]; unsigned char flags[4]; char pad10[0x1E]; unsigned char rarity; char pad2F[0x179]; };
-struct D2DataTablesStrc { char pad00[0xA78]; D2MonStatsTxt* monStats; int padA7C; int monCount; char padA84[0x1D8]; int levelCount; };
+
+struct D2DataTablesStrc
+{
+    char pad00[0xA78];
+    D2MonStatsTxt* monStats;
+    int padA7C;
+    int monCount;
+    char padA84[0x1D8];
+    int levelCount;
+};
+
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const char gszMonsterRegion[]; // 0x006E0CF8
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -28,8 +49,8 @@ void __fastcall SEED_InitLowSeed(D2SeedStrc*,unsigned int); // 0x00650E40
 void* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int); // 0x00611D30
 D2LevelsTxt* __stdcall DATATBLS_GetLevelsTxtRecord(int); // 0x0061DB70
 void __stdcall sub_005BDB20_GenerateComponentVariants(D2SeedStrc*,D2MonRegDataStrc*,int); // 0x005BDB20
-
 __declspec(noinline) static void __stdcall sub_005475E0_SelectMonsters(D2SeedStrc* pSeed, int bHigher, D2MonsterRegionStrc* pRegion, D2LevelsTxt* pLevels);
+void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 
 // build: context sub_005475E0_SelectMonsters
 // calling-convention shim (not game code)
@@ -67,4 +88,17 @@ void __fastcall MONSTERREGION_InitializeAll(void* pool,D2MonsterRegionStrc** reg
   for(int i=0;i<region->monCount;++i){sub_005BDB20_GenerateComponentVariants(seed,entry,3);++entry;}
   *regions=region;++regions;
  }
+}
+
+// 0x00547B50
+void __fastcall MONSTERREGION_FreeAll(void* pMemPool, D2MonsterRegionStrc** ppMonsterRegion)
+{
+    ++ppMonsterRegion;
+    for (int i = 1; i < sgptDataTables->levelCount; ++i, ++ppMonsterRegion)
+    {
+        if (*ppMonsterRegion)
+        {
+            FOG_FreeServerMemory(pMemPool, *ppMonsterRegion, ".\\MONSTER\\MonsterRegion.cpp", 197, 0);
+        }
+    }
 }

@@ -2,7 +2,6 @@
 
 #define UNIT_MONSTER 1
 #define MONMODE_NEUTRAL 1
-#define STAT_VELOCITYPERCENT 67
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define MONSTER_BONEWALL 344
 #define UNITFLAG_NOTC 0x00020000
@@ -139,13 +138,6 @@ struct D2MonStats2Txt
     unsigned char nModeEventFlags[4];
 };
 
-struct D2MonModeInfoTableStrc
-{
-    int unk0x00;
-    int unk0x04;
-    int unk0x08;
-};
-
 struct D2MonVelocityParamStrc
 {
     int unk0x00[4];
@@ -170,7 +162,6 @@ void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListSt
 struct D2MonsterModeDataStrc { int unk_00; int unk_04; int unk_08; int unk_0C; int unk_10; int unk_14; int unk_18; int unk_1C; int unk_20; };
 
 void* __fastcall FOG_AllocPool(void* pPool, int nSize, const char* szFile, int nLine, int nZero); // 0x0040B430
-extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 unsigned short __stdcall COLLISION_CheckMask(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask); // 0x0064CB30

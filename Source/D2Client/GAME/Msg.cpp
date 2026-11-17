@@ -1,6 +1,9 @@
 #include "D2Client.h"
 
-typedef unsigned int size_t;
+#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
+struct D2SaveFilePacketStrc;
+struct D2RosterPetNodeStrc;
 
 #pragma pack(push, 1)
 struct D2SaveFilePacketStrc
@@ -10,28 +13,30 @@ struct D2SaveFilePacketStrc
     int nTotalSize;
     unsigned char pData[0x100];
 };
+
 #pragma pack(pop)
 
-extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
-extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
-extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+extern "C" const char gszEmptyAssertText; // 0x006CC837
+extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
+extern "C" int __cdecl fseek(_iobuf* pFile, long nOffset, int nOrigin); // 0x00684A2A
+extern "C" long __cdecl ftell(_iobuf* pFile); // 0x00684935
+extern "C" size_t __cdecl fread(void* pBuffer, size_t nSize, size_t nCount, _iobuf* pFile); // 0x00684782
+void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
+int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
+void __fastcall sub_00407050_GetSavePath(char* szPath, int nSize); // 0x00407050
+void __fastcall sub_00478160_ShowProgressSteps(int nDone, int nTotal); // 0x00478160
+extern char gszCharName_007A05C4[]; // 0x007A05C4
+extern "C" const char gszSavePathFormat_006D4230[]; // 0x006D4230
+extern "C" const char gszModeRb_006CDC90[]; // 0x006CDC90
+extern int gnSentBytes_007A6AF8; // 0x007A6AF8
+extern int gnSentPackets_007A6B00; // 0x007A6B00
+extern int gnProgress_007BB3B4; // 0x007BB3B4
 
-extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
-extern "C" int __cdecl fseek(_iobuf* pFile, long nOffset, int nOrigin);                                     // 0x00684A2A
-extern "C" long __cdecl ftell(_iobuf* pFile);                                                               // 0x00684935
-extern "C" size_t __cdecl fread(void* pBuffer, size_t nSize, size_t nCount, _iobuf* pFile);                 // 0x00684782
-void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);                               // 0x0040B380
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0
-void __fastcall sub_00407050_GetSavePath(char* szPath, int nSize);                                          // 0x00407050
-void __fastcall sub_00478160_ShowProgressSteps(int nDone, int nTotal);                                      // 0x00478160
-extern char gszCharName_007A05C4[];                                                                         // 0x007A05C4
-extern "C" const char gszSavePathFormat_006D4230[];                                                         // 0x006D4230
-extern "C" const char gszModeRb_006CDC90[];                                                                 // 0x006CDC90
-extern int gnSentBytes_007A6AF8;                                                                            // 0x007A6AF8
-extern int gnSentPackets_007A6B00;                                                                          // 0x007A6B00
-extern int gnProgress_007BB3B4;                                                                             // 0x007BB3B4
+int __stdcall D2CMP_CelFileFreeHardware(D2CelFileStrc* pCelFile); // 0x00601A50
+extern D2RosterPetNodeStrc* gpRosterPets_007BB5BC; // 0x007BB5BC
 
 // 0x00478040
 static unsigned char* sub_00478040(int* pnFileSize)
@@ -55,6 +60,19 @@ static unsigned char* sub_00478040(int* pnFileSize)
     fread(pBuffer, *pnFileSize, 1, pFile);
     fclose(pFile);
     return pBuffer;
+}
+
+int gnProgress_007BB3B4; // 0x007BB3B4
+
+// 0x00478130
+void __fastcall sub_00478130_SetScale(int nValue, int nDivisor)
+{
+    if (!nDivisor)
+    {
+        gnProgress_007BB3B4 = 0;
+        return;
+    }
+    gnProgress_007BB3B4 = (nValue << 8) / nDivisor;
 }
 
 // 0x004781D0
@@ -96,4 +114,31 @@ void __fastcall sub_004781D0(int bAnimate)
         gnProgress_007BB3B4 = nChunks;
     else
         gnProgress_007BB3B4 = (nChunks << 8) / nChunks;
+}
+
+// 0x00478A00
+void __fastcall sub_00478A00(void* pCel)
+{
+    D2CMP_CelFileFreeHardware((D2CelFileStrc*)pCel);
+    if (pCel)
+        FOG_Free(pCel, ".\\CORE\\ARCHIVE.CPP", 0x7A, 0);
+}
+
+// 0x00478AB0
+void __fastcall sub_00478AB0_RemoveType7(int nUnused, int nKey)
+{
+    D2RosterPetNodeStrc* pPrev = 0;
+    for (D2RosterPetNodeStrc* pNode = gpRosterPets_007BB5BC; pNode; pNode = pNode->pNext)
+    {
+        if (pNode->nType == 7 && pNode->nKey == nKey)
+        {
+            if (pPrev)
+                pPrev->pNext = pNode->pNext;
+            else
+                gpRosterPets_007BB5BC = pNode->pNext;
+            FOG_Free(pNode, ".\\GAME\\RosterPets.cpp", 0x59, 0);
+            return;
+        }
+        pPrev = pNode;
+    }
 }

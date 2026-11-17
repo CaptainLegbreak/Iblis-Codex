@@ -1,12 +1,20 @@
 #include "D2Client.h"
 
+#pragma function(memset)
+
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
 class D2DialogWidget;
 struct D2DialogWidgetNodeStrc;
 struct D2DialogItemStrc;
 struct Handler;
 struct HandlerNode;
 struct SelectionEntry;
+struct SMSGHANDLER_PARAMS;
+struct D2ClientDialogStrc;
+struct Message;
+struct SelectionState;
+struct D2MsgHandlerEntryStrc;
 
 struct SMSGHANDLER_PARAMS
 {
@@ -38,23 +46,19 @@ struct D2DialogWidgetNodeStrc
     D2DialogWidgetNodeStrc* pNext;
 };
 
-struct D2DialogItemStrc
-{
-    int nHeight;
-    char unk0x04[0x14];
-    int (__cdecl* pfnCallback)();
-    int nType;
-    char unk0x20[0xF0];
-};
-
 struct D2ClientDialogStrc
 {
     unsigned long dwTick;
     int unk0x04;
-    void* pCelFile;
+    int unk0x08;
     int unk0x0C;
     int bActive;
-    char unk0x14[0x18];
+    int unk0x14;
+    int unk0x18;
+    int bModal;
+    int bKeepKeys;
+    int unk0x24;
+    int unk0x28;
     int nX;
     int nY;
     int nWidth;
@@ -64,13 +68,31 @@ struct D2ClientDialogStrc
     int f_44;
     int unk0x4C;
     int nCount;
-    char unk0x54[0xC];
-    void (__cdecl* pfnDefault)();
-    int (__cdecl* pfnOutside)();
+    union
+    {
+        unsigned int nState;
+        int unk0x54;
+    };
+    int unk0x58;
+    int unk0x5C;
+    union
+    {
+        void (__cdecl* pfnDefault)();
+        int unk0x60;
+    };
+    union
+    {
+        int (__cdecl* pfnOutside)();
+        int unk0x64;
+    };
     char unk0x68[0xF0];
     D2DialogItemStrc f_158[9];
     char unk0xAE8[0x20];
-    D2DialogWidgetNodeStrc* pWidgets;
+    union
+    {
+        D2DialogWidgetNodeStrc* pWidgets;
+        int unk0xB08;
+    };
     D2ClientDialogStrc* pNext;
 };
 
@@ -118,12 +140,6 @@ struct HandlerNode
     HandlerNode* next;
 };
 
-struct SelectionEntry
-{
-    int enabled;
-    char pad04[272-4];
-};
-
 struct SelectionState
 {
     char pad00[68];
@@ -136,9 +152,39 @@ struct SelectionState
     char padEntries[4];
     HandlerNode* handlers;
 };
-extern "C" void __cdecl sub_00408A60(const char*, const char*, int); // 0x00408A60
-extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 static void __cdecl sub_004B7100_Select(int step, SelectionState* state); // 0x004B7100
+extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize); // 0x00681EF0
+void __cdecl sub_00453AE0(); // 0x00453AE0
+
+struct D2MsgHandlerEntryStrc
+{
+    int nType;
+    int nId;
+    void* pfnHandler;
+};
+void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
+void __cdecl sub_0044DA40(); // 0x0044DA40
+void __fastcall sub_00451DB0_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
+void __fastcall sub_004898D0(int nState); // 0x004898D0
+void __cdecl sub_004B7C60(); // 0x004B7C60
+int __cdecl sub_004F59A0(); // 0x004F59A0
+extern D2MsgHandlerEntryStrc gaMsgHandlers_007273E4[]; // 0x007273E4
+extern D2MsgHandlerEntryStrc gaMsgHandlers_007273F0[]; // 0x007273F0
+
+static __forceinline void sub_004B7BC0_InitDialog(D2ClientDialogStrc* pDialog);
+
+// 0x004B7150
+static __forceinline void sub_004B7150_HoverFirstTypedItem(D2ClientDialogStrc* pDialog)
+{
+    for (int i = 0; i < pDialog->nCount; ++i)
+    {
+        if (pDialog->f_158[i].nType)
+        {
+            pDialog->nHover = i;
+            return;
+        }
+    }
+}
 
 static D2ClientDialogStrc* gpGlobal_007C0E54; // 0x007C0E54
 
@@ -307,6 +353,58 @@ handled:
     sub_00420290_HandleMsg(pMsg);
 }
 
+void __fastcall sub_M304_Emit_004B7150(D2ClientDialogStrc* pDialog)
+{
+    sub_004B7150_HoverFirstTypedItem(pDialog);
+}
+
+void __fastcall sub_M304_Emit_004B7BC0(D2ClientDialogStrc* pDialog)
+{
+    sub_004B7BC0_InitDialog(pDialog);
+}
+
+// 0x004B7570
+static void __stdcall sub_004B7570_HandleDialogKey(int bClose, SMSGHANDLER_PARAMS* pMsg)
+{
+    pMsg->bReturn = 1;
+    pMsg->lResult = 0;
+    sub_00420290_HandleMsg(pMsg);
+    if (!bClose)
+        return;
+
+    D2ClientDialogStrc* pDialog = gpGlobal_007C0E54;
+    D2_ASSERT(pDialog, 0x1C2);
+    if (pDialog->nState >= 5 && pDialog->pfnDefault)
+    {
+        pDialog->pfnDefault();
+        sub_00453AE0();
+    }
+}
+
+// 0x004B75D0
+void __stdcall sub_004B75D0_OnDialogKey(SMSGHANDLER_PARAMS* pMsg)
+{
+    D2ClientDialogStrc* pDialog = gpGlobal_007C0E54;
+    if (pDialog->bKeepKeys || !sub_004538D0(5))
+        sub_004B7570_HandleDialogKey(pDialog->bModal == 0, pMsg);
+}
+
+extern "C" { SelectionState* gVar_007C0E54; } // 0x007C0E54
+
+// 0x004B7770
+extern "C" void __stdcall sub_004B7770_Previous1(Message* message)
+{
+    message->handled = 1;
+    message->result = 0;
+    sub_00420290_QueueMessage(message);
+    SelectionState* state = gVar_007C0E54;
+    D2_ASSERT(gVar_007C0E54, 565);
+    for (HandlerNode* node = gVar_007C0E54->handlers; node; node = node->next)
+        if (node->object && node->object->previous1(message) == 1)
+            return;
+    sub_004B7100_Select(-1, state);
+}
+
 MSGHANDLERFN gpfnEmit_004B73E0 = sub_004B73E0_OnLButtonDown;
 
 static __declspec(noinline) void __cdecl sub_004B7100_Select(int step, SelectionState* state)
@@ -390,4 +488,77 @@ extern "C" void __stdcall sub_004B78F0_Next2(Message* message)
         if (node->object && node->object->next2(message) == 1)
             return;
     sub_004B7100_Select(1, state);
+}
+
+// 0x004B7BC0
+static __forceinline void sub_004B7BC0_InitDialog(D2ClientDialogStrc* pDialog)
+{
+    memset(pDialog, 0, sizeof(D2ClientDialogStrc));
+    pDialog->nWidth = 0;
+    pDialog->nHeight = 0;
+    pDialog->nCount = 0;
+    pDialog->unk0x4C = 0;
+    pDialog->nX = 0;
+    pDialog->nY = 0;
+    pDialog->pWidgets = 0;
+    pDialog->nHover = -1;
+    pDialog->unk0x5C = 2;
+}
+
+static int gnGlobal_007C0E4C; // 0x007C0E4C
+
+static int gnGlobal_007C0E58; // 0x007C0E58
+
+static int gnGlobal_007C0E5C; // 0x007C0E5C
+
+// 0x004B7EB0
+D2ClientDialogStrc* __fastcall sub_004B7EB0_CreateDialog(int nArg1, int nArg2, int nArg8, int nArgC, int nArg10, int nArg14,
+    int nArg18, int nArg1C, int nArg20, int nArg24, int nArg28)
+{
+    sub_004545C0(0);
+    sub_004898D0(0);
+    sub_0044DA40();
+    if (!nArg8)
+    {
+        return 0;
+    }
+
+    gnGlobal_007C0E5C += 1;
+    D2ClientDialogStrc* pDialog = (D2ClientDialogStrc*)FOG_Alloc(sizeof(D2ClientDialogStrc), ".\\UI\\dialog.cpp", 0x3E7, 0);
+    memset(pDialog, 0, sizeof(D2ClientDialogStrc));
+    pDialog->pNext = gpGlobal_007C0E54;
+    gpGlobal_007C0E54 = pDialog;
+    memset(pDialog, 0, sizeof(D2ClientDialogStrc));
+    pDialog->unk0x24 = nArg1;
+    pDialog->nX = nArg1;
+    pDialog->unk0x60 = nArg8;
+    pDialog->unk0x64 = nArgC;
+    pDialog->unk0x58 = nArg18;
+    pDialog->nHeight = 0;
+    pDialog->nCount = 0;
+    pDialog->unk0x4C = 0;
+    pDialog->nHover = -1;
+    pDialog->unk0x5C = 2;
+    pDialog->unk0xB08 = 0;
+    pDialog->unk0x28 = nArg2;
+    pDialog->nY = nArg2;
+    pDialog->unk0x14 = nArg14;
+    pDialog->bModal = nArg24;
+    pDialog->nWidth = nArg1C;
+    pDialog->dwTick = GetTickCount();
+    pDialog->bActive = 0;
+    pDialog->unk0x54 = 0;
+    pDialog->unk0x0C = 0;
+    pDialog->unk0x08 = 0;
+    pDialog->nHeight = nArg20;
+    pDialog->f_44 = -1;
+    pDialog->unk0x18 = nArg10;
+    pDialog->bKeepKeys = nArg28;
+    gnGlobal_007C0E58 = 1;
+    sub_004B7C60();
+    sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gaMsgHandlers_007273F0, 0xE);
+    sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gaMsgHandlers_007273E4, 1);
+    gnGlobal_007C0E4C += 1;
+    D2_ASSERT(gnGlobal_007C0E5C == 1, 0x408);
+    return pDialog;
 }

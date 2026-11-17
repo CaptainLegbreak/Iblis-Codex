@@ -1,14 +1,12 @@
 #include "D2Client.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define GFX_INDEX_COUNT 16
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
 #define UNIT_OBJECT 2
 #define UNIT_INVALID 6
 #define STAT_HITPOINTS 6
 #define MONSTATSFLAGINDEX_INTERACT 9
-#define GFX_ENTRY_COUNT 20
 
 struct D2GfxLightStrc;
 struct D2SeedStrc;
@@ -260,12 +258,6 @@ struct D2UnitOverlayStrc
     int nOverlay;
     char unk0x08[0x9C];
     D2UnitOverlayStrc* pNext;
-};
-
-struct D2GfxEntryStrc
-{
-    unsigned char nValue;
-    unsigned char unk0x01;
 };
 
 struct D2HashedFileEntryStrc

@@ -79,8 +79,6 @@ struct D2UnitStrc
     D2UnitPacketListStrc* pMsgFirst;
 };
 
-#define UNITFLAG_UPGRLIFENHITCLASS 0x00008000
-
 int __fastcall sub_0044BE50_GetUnitTypeOrInvalid(D2UnitStrc* pUnit);                                        // 0x0044BE50
 int __fastcall sub_00451F30_TestUnitFlag(D2UnitStrc* pUnit, int nFlag);                                     // 0x00451F30
 int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc* pUnit);                                                 // 0x00451F50

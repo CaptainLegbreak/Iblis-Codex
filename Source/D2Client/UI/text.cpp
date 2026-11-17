@@ -1,5 +1,7 @@
 #include "D2Client.h"
 
+#define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
+
 struct D2MsgHandlerEntryStrc;
 struct Unicode;
 struct D2ClientTabStrc;
@@ -16,6 +18,22 @@ struct D2CommonChatIgnoreListStrc;
 struct T00479230;
 class D2ListBoxViewStrc;
 struct D2ClientTextDataStrc;
+struct D2UnitStrc;
+struct D2CommonIgnoreListStrc;
+struct T0044CB60;
+struct SMSGHANDLER_PARAMS;
+struct ByteRecord;
+struct PacketWords;
+struct PacketShorts;
+struct Digest;
+struct HashState;
+struct Member;
+struct ClassRecord;
+struct ClassTableView;
+struct UnitView;
+class ListBoxImplementation;
+class UIWidget;
+class ListBoxWrapper;
 
 struct Unicode
 {
@@ -33,13 +51,6 @@ struct D2UnitStrc
     int dwUnitId;
     unsigned char unk_10[0x94];
     D2HoverTextStrc* pHoverText;
-};
-
-struct D2ClientTabStrc
-{
-    unsigned char bSelected[4];
-    unsigned char bEnabled[4];
-    unsigned char unk0x08[0x0A];
 };
 
 struct D2TextListNodeStrc
@@ -145,25 +156,6 @@ struct D2GSPacketSrv26
     char szMessage[256];
 };
 
-struct D2CommonChatIgnoreListStrc
-{
-    virtual int sub_00610EB0_Add(const char* szName) = 0;
-    virtual int sub_0060FB20_Remove(const char* szName) = 0;
-    virtual int sub_00610380_IsListed(const char* szName) = 0;
-    virtual void sub_00610F90_VirtSlot3() = 0;
-    virtual int sub_0060FBE0_RemoveAlias(const char* szName) = 0;
-    virtual int sub_0060FC40_IsTextFiltered(const char* szText) = 0;
-    virtual void sub_00611320_VirtSlot6() = 0;
-    virtual void sub_0060F870_Translate(const char* szName, char* szOut, int nSize) = 0;
-    virtual int sub_0060DDF0_IsEnabled() = 0;
-    virtual void sub_0060DE00_SetEnabled(int bEnabled) = 0;
-    virtual void sub_0060F500_VirtSlot10() = 0;
-};
-
-struct D2CommonIgnoreListStrc : D2CommonChatIgnoreListStrc
-{
-};
-
 extern "C" __declspec(dllimport) int __stdcall MultiByteToWideChar(unsigned int nCodePage, unsigned long dwFlags, const char* szSource, int nSource, Unicode* wszDest, int nDest); // 0x006CC29C
 extern "C" unsigned int __cdecl strlen(const char* szString);
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
@@ -229,7 +221,59 @@ void __stdcall CHAT_SetUsedInHoverMsg(D2HoverTextStrc* pHoverMsg, int bUsed); //
 void __stdcall sub_006612A0(int nHandle); // 0x006612A0
 extern unsigned int gdwTextEndTick_007BF1AC; // 0x007BF1AC
 extern D2ClientDialogStrc* gpListDialog_007BF1B0; // 0x007BF1B0
-extern D2ListBoxViewStrc* gpListBox_007BF1B4; // 0x007BF1B4
+
+void* __stdcall SMemAlloc(size_t nSize, const char* szFile, int nLine, int nFlags); // 0x00413020
+
+class UIWidget
+{
+public:
+    static void* operator new(size_t nSize)
+    {
+        return SMemAlloc(nSize, gszNew_006CC82C, -1, 0);
+    }
+
+    virtual ~UIWidget();
+    virtual void Slot01() = 0;
+    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot03(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot04(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot09(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int Slot11() = 0;
+
+    int unk0x04;
+};
+
+class ListBoxWrapper : public UIWidget
+{
+public:
+    ListBoxWrapper(int nX, int nY, int nWidth, int nHeight, int nArg10, int nArg14, int nArg18, int nArg1C,
+        int nArg20);                                                                                        // 0x004BF8F0
+    virtual ~ListBoxWrapper();
+    virtual void Slot01();
+    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot03(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot04(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot09(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg);
+    virtual int Slot11();
+    virtual void sub_004BBFB0();
+    virtual void Slot13();
+    virtual void Slot14();
+    virtual void Slot15();
+
+    ListBoxImplementation* pImpl;
+};
+
+extern ListBoxWrapper* gpListBox_007BF1B4; // 0x007BF1B4
 extern int gnGlobal_007BF1C8; // 0x007BF1C8
 extern char gtTextList_007BF1E4[]; // 0x007BF1E4
 extern char gtTextList_007BF1EA[]; // 0x007BF1EA
@@ -262,16 +306,175 @@ extern int gnGlobal_0071146C; // 0x0071146C
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 void __cdecl sub_0044DA40(); // 0x0044DA40
 
-struct D2ClientTextDataStrc
-{
-    char unk0x00[0x80];
-    int dwTag;
-};
-
 void __cdecl sub_0049FA10_DrawPanelFrame(); // 0x0049FA10
 void __stdcall sub_0049FBA0_OpenTextPanel(int bFlag); // 0x0049FBA0
 extern D2ClientTextDataStrc* gpTextData_007BF228; // 0x007BF228
 extern int gnGlobal_007BF254; // 0x007BF254
+
+struct ByteRecord
+{
+    char gap00[0x3E];
+    unsigned char value;
+    char tail[0x4F];
+};
+
+#pragma pack(push, 1)
+struct PacketWords
+{
+    char prefix[1];
+    unsigned short kind;
+    unsigned int a;
+    unsigned int b;
+    unsigned int c;
+};
+
+struct PacketShorts
+{
+    char prefix[1];
+    unsigned short kind;
+    unsigned short a;
+    unsigned short b;
+    unsigned short c;
+};
+
+#pragma pack(pop)
+struct Digest
+{
+    unsigned int a;
+    unsigned int b;
+    unsigned int c;
+    unsigned int d;
+    unsigned int e;
+};
+
+struct HashState
+{
+    unsigned int a;
+    unsigned int b;
+    unsigned int c;
+    unsigned int d;
+    unsigned int e;
+    unsigned int lowCount;
+    unsigned int highCount;
+    char block[0x40];
+};
+
+struct Member
+{
+    short value;
+};
+
+struct ClassRecord
+{
+    char gap00[2];
+    short relation;
+    short next;
+    char gapToMembers[0x16A];
+    Member members[8];
+    char tail[0x28];
+};
+
+struct ClassTableView
+{
+    char gap00[0xA78];
+    ClassRecord* records;
+    char gapAfterRecords[4];
+    int count;
+};
+
+struct UnitView
+{
+    unsigned int type;
+    int classId;
+};
+
+typedef char ByteRecord_value[OFFSET(ByteRecord,value)==0x3E?1:-1];
+
+typedef char PacketWords_kind[OFFSET(PacketWords,kind)==0x1?1:-1];
+
+typedef char PacketWords_a[OFFSET(PacketWords,a)==0x3?1:-1];
+
+typedef char PacketWords_b[OFFSET(PacketWords,b)==0x7?1:-1];
+
+typedef char PacketWords_c[OFFSET(PacketWords,c)==0xB?1:-1];
+
+typedef char PacketShorts_kind[OFFSET(PacketShorts,kind)==0x1?1:-1];
+
+typedef char PacketShorts_a[OFFSET(PacketShorts,a)==0x3?1:-1];
+
+typedef char PacketShorts_b[OFFSET(PacketShorts,b)==0x5?1:-1];
+
+typedef char PacketShorts_c[OFFSET(PacketShorts,c)==0x7?1:-1];
+
+typedef char ClassRecord_relation[OFFSET(ClassRecord,relation)==0x2?1:-1];
+
+typedef char ClassRecord_next[OFFSET(ClassRecord,next)==0x4?1:-1];
+
+typedef char ClassRecord_members[OFFSET(ClassRecord,members)==0x170?1:-1];
+
+typedef char ClassTableView_records[OFFSET(ClassTableView,records)==0xA78?1:-1];
+
+typedef char ClassTableView_count[OFFSET(ClassTableView,count)==0xA80?1:-1];
+
+typedef char UnitView_type[OFFSET(UnitView,type)==0x0?1:-1];
+
+typedef char UnitView_classId[OFFSET(UnitView,classId)==0x4?1:-1];
+
+typedef char Digest_a[OFFSET(Digest,a)==0x0?1:-1];
+
+typedef char Digest_b[OFFSET(Digest,b)==0x4?1:-1];
+
+typedef char Digest_c[OFFSET(Digest,c)==0x8?1:-1];
+
+typedef char Digest_d[OFFSET(Digest,d)==0xC?1:-1];
+
+typedef char Digest_e[OFFSET(Digest,e)==0x10?1:-1];
+
+typedef char HashState_a[OFFSET(HashState,a)==0x0?1:-1];
+
+typedef char HashState_b[OFFSET(HashState,b)==0x4?1:-1];
+
+typedef char HashState_c[OFFSET(HashState,c)==0x8?1:-1];
+
+typedef char HashState_d[OFFSET(HashState,d)==0xC?1:-1];
+
+typedef char HashState_e[OFFSET(HashState,e)==0x10?1:-1];
+
+typedef char HashState_lowCount[OFFSET(HashState,lowCount)==0x14?1:-1];
+
+typedef char HashState_highCount[OFFSET(HashState,highCount)==0x18?1:-1];
+
+typedef char ByteRecord_size[sizeof(ByteRecord)==0x8E?1:-1];
+
+typedef char PacketWords_size[sizeof(PacketWords)==0xF?1:-1];
+
+typedef char PacketShorts_size[sizeof(PacketShorts)==0x9?1:-1];
+
+typedef char Digest_size[sizeof(Digest)==0x14?1:-1];
+
+typedef char HashState_size[sizeof(HashState)==0x5C?1:-1];
+
+typedef char Member_size[sizeof(Member)==0x2?1:-1];
+
+typedef char ClassRecord_size[sizeof(ClassRecord)==0x1A8?1:-1];
+
+extern "C" ByteRecord* gRecords_007BC9A0;
+extern "C" int gRecordCount_007BC9A4;
+extern "C" unsigned int gValue_007BF254; // 0x007BF254
+extern "C" unsigned int gValue_007BF2A4; // 0x007BF2A4
+extern "C" unsigned int gValue_007BF2AC; // 0x007BF2AC
+extern "C" HashState gStates_00882760[];
+extern "C" ClassTableView* gClassTable_00744304;
+static bool sub_0049E280_ConvertHoverText(int nLangId, Unicode* wszText, const char* szText);
+static void __stdcall sub_0049F410_SetHoverText(int nLangId, const char* szText, D2UnitStrc* pUnit);
+int __cdecl sub_004A0030_DialogCallback(); // 0x004A0030
+void __fastcall sub_004B7C00_AddWidget(D2ClientDialogStrc* pDialog, void* pWidget, int nArg8, int nArgC); // 0x004B7C00
+D2ClientDialogStrc* __fastcall sub_004B7EB0_CreateDialog(int nArg1, int nArg2, int nArg8, int nArgC, int nArg10, int nArg14,
+    int nArg18, int nArg1C, int nArg20, int nArg24, int nArg28); // 0x004B7EB0
+void __fastcall sub_004B82F0_Select(D2ClientDialogStrc* pDialog, int nIndex); // 0x004B82F0
+void __fastcall sub_004B8370_SetField5C(D2ClientDialogStrc* pDialog, int nValue); // 0x004B8370
+void __fastcall sub_004B85F0_DialogControl(D2ClientDialogStrc* pDialog, const Unicode* wszText, int nArg8, int nArgC,
+    int nArg10, int nArg14, int (__cdecl* pfnCallback)(), int nArg1C); // 0x004B85F0
 
 unsigned char gnSelectedTab_007BCC04; // 0x007BCC04
 
@@ -348,34 +551,6 @@ void __cdecl sub_004939B0_LoadPopupHireling()
     }
 }
 
-// 0x0049D8E0
-void __fastcall sub_0049D8E0_DrawTextList(D2TextListStrc* pList, int nX, int nY)
-{
-    int nLines = pList->nCount > 10 ? 10 : pList->nCount;
-
-    D2TextListNodeStrc* pNode = pList->pFirst;
-    if (!nLines || !pNode || nY < 0)
-    {
-        return;
-    }
-
-    const int nHeight = pList->nHeight;
-    if (nHeight + nY >= gnGlobal_00711470)
-    {
-        return;
-    }
-
-    sub_0046EFD0_DrawFramedBox(nX, nY + 4, pList->nWidth, nHeight - 5, 0, 1);
-    int i = 0;
-    const int nOldFont = sub_00502EF0(13);
-    for (; i < nLines && pNode; ++i)
-    {
-        sub_00502320(pNode->wszText, nX + 10, nY + 18 + 15 * (i - nLines + pList->nCount), 0, 0);
-        pNode = pNode->pNext;
-    }
-    sub_00502EF0(nOldFont);
-}
-
 unsigned long gnGlobal_007BF22C; // 0x007BF22C
 
 // 0x0049D2E0
@@ -424,6 +599,52 @@ unsigned int __fastcall sub_0049D590_CalcTextOffset(unsigned int nValue)
     return 0x70 - (nValue >> 10);
 }
 
+// 0x0049D8E0
+void __fastcall sub_0049D8E0_DrawTextList(D2TextListStrc* pList, int nX, int nY)
+{
+    int nLines = pList->nCount > 10 ? 10 : pList->nCount;
+
+    D2TextListNodeStrc* pNode = pList->pFirst;
+    if (!nLines || !pNode || nY < 0)
+    {
+        return;
+    }
+
+    const int nHeight = pList->nHeight;
+    if (nHeight + nY >= gnGlobal_00711470)
+    {
+        return;
+    }
+
+    sub_0046EFD0_DrawFramedBox(nX, nY + 4, pList->nWidth, nHeight - 5, 0, 1);
+    int i = 0;
+    const int nOldFont = sub_00502EF0(13);
+    for (; i < nLines && pNode; ++i)
+    {
+        sub_00502320(pNode->wszText, nX + 10, nY + 18 + 15 * (i - nLines + pList->nCount), 0, 0);
+        pNode = pNode->pNext;
+    }
+    sub_00502EF0(nOldFont);
+}
+
+#include "gen/data/Source/D2Client/UI/text.inc"
+
+unsigned char gnGlobal_007BF23A; // 0x007BF23A
+
+// 0x0049DA30
+void __fastcall sub_0049DA30(D2UnitStrc* pUnit)
+{
+    if (pUnit)
+    {
+        gdwGlobal_007BF23B = pUnit->dwUnitId;
+        gnGlobal_007BF23A = 1;
+    }
+    else
+    {
+        gnGlobal_007BF23A = 0;
+    }
+}
+
 // 0x0049DA60
 void __fastcall sub_0049DA60_ToggleTextHandlers(int nMode)
 {
@@ -462,24 +683,6 @@ void __fastcall sub_0049DAE0_AdjustTextPos(D2TextBoxPosStrc* pBox, D2TextPointSt
     pPoint->nY -= pBox->nRows * 15 + 3;
 }
 
-#include "gen/data/Source/D2Client/UI/text.inc"
-
-unsigned char gnGlobal_007BF23A; // 0x007BF23A
-
-// 0x0049DA30
-void __fastcall sub_0049DA30(D2UnitStrc* pUnit)
-{
-    if (pUnit)
-    {
-        gdwGlobal_007BF23B = pUnit->dwUnitId;
-        gnGlobal_007BF23A = 1;
-    }
-    else
-    {
-        gnGlobal_007BF23A = 0;
-    }
-}
-
 // 0x0049E250
 static bool sub_0049E250_IsLanguageCompatible(int nLangId)
 {
@@ -499,48 +702,6 @@ static bool sub_0049E250_IsLanguageCompatible(int nLangId)
         return false;
     }
     return true;
-}
-
-// build: context sub_0049E280_ConvertHoverText
-static bool sub_0049E280_ConvertHoverText(int nLangId, Unicode* wszText, const char* szText)
-{
-    if (nLangId != 7 && nLangId != 0xC && nLangId != 6 && nLangId != 9)
-    {
-        Unicode::win2Unicode(wszText, szText, 0x100);
-        return true;
-    }
-
-    MultiByteToWideChar(0, 1, szText, 0x100, wszText, 0x100);
-    if (sub_0049E250_IsLanguageCompatible(nLangId))
-        return true;
-
-    for (; wszText->wChar; ++wszText)
-    {
-        if (wszText->wChar >= 0x80)
-            return false;
-    }
-    return true;
-}
-
-// 0x0049F410
-static void __stdcall sub_0049F410_SetHoverText(int nLangId, const char* szText, D2UnitStrc* pUnit)
-{
-    if (!pUnit)
-        return;
-
-    if (!strlen(szText))
-    {
-        if (pUnit->pHoverText)
-            CHAT_FreeHoverMsg(0, pUnit->pHoverText);
-        pUnit->pHoverText = 0;
-        return;
-    }
-
-    D2HoverTextStrc* pHoverText = CHAT_AllocHoverMsg(0, szText, gnGameFrame_007BF20E);
-    CHAT_SetLangIdInHoverMsg(pHoverText, nLangId);
-    if (pUnit->pHoverText)
-        CHAT_FreeHoverMsg(0, pUnit->pHoverText);
-    pUnit->pHoverText = pHoverText;
 }
 
 // build: context sub_0049F490_HandleHoverTextPacket
@@ -704,6 +865,35 @@ void __cdecl sub_0049E300_FreeMainTextBox()
     }
 }
 
+// 0x0049E390
+unsigned long __cdecl sub_0049E390_GetTimeoutTick()
+{
+    return GetTickCount() + 10000;
+}
+
+// 0x0049E7F0
+void __stdcall sub_0049E7F0_Nop()
+{
+}
+
+// 0x0049E800
+void __stdcall sub_0049E800_Nop()
+{
+}
+
+// 0x0049E860
+void __cdecl sub_0049E860_ClearHint()
+{
+    if (gnHintId_007BF260)
+    {
+        const int nHint = sub_004B9610_FindHint(gnHintId_007BF260);
+        if (nHint)
+            sub_004B9EF0_ArmHint(nHint, 0, 0, 4);
+        gnHintId_007BF260 = 0;
+    }
+    gnHintSound_007BF24B = 0;
+}
+
 // 0x0049F3D0
 void __fastcall sub_0049F3D0_FreeHoverText(D2HoverTextStrc* pHoverText)
 {
@@ -714,6 +904,48 @@ void __fastcall sub_0049F3D0_FreeHoverText(D2HoverTextStrc* pHoverText)
         CHAT_SetUsedInHoverMsg(pHoverText, 0);
     }
     CHAT_FreeHoverMsg(0, pHoverText);
+}
+
+// build: context sub_0049E280_ConvertHoverText
+static bool sub_0049E280_ConvertHoverText(int nLangId, Unicode* wszText, const char* szText)
+{
+    if (nLangId != 7 && nLangId != 0xC && nLangId != 6 && nLangId != 9)
+    {
+        Unicode::win2Unicode(wszText, szText, 0x100);
+        return true;
+    }
+
+    MultiByteToWideChar(0, 1, szText, 0x100, wszText, 0x100);
+    if (sub_0049E250_IsLanguageCompatible(nLangId))
+        return true;
+
+    for (; wszText->wChar; ++wszText)
+    {
+        if (wszText->wChar >= 0x80)
+            return false;
+    }
+    return true;
+}
+
+// 0x0049F410
+static void __stdcall sub_0049F410_SetHoverText(int nLangId, const char* szText, D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+        return;
+
+    if (!strlen(szText))
+    {
+        if (pUnit->pHoverText)
+            CHAT_FreeHoverMsg(0, pUnit->pHoverText);
+        pUnit->pHoverText = 0;
+        return;
+    }
+
+    D2HoverTextStrc* pHoverText = CHAT_AllocHoverMsg(0, szText, gnGameFrame_007BF20E);
+    CHAT_SetLangIdInHoverMsg(pHoverText, nLangId);
+    if (pUnit->pHoverText)
+        CHAT_FreeHoverMsg(0, pUnit->pHoverText);
+    pUnit->pHoverText = pHoverText;
 }
 
 // 0x0049F960
@@ -742,6 +974,140 @@ void __cdecl sub_0049F960_ResetTextBox()
     {
         sub_004786A0_SendIntInt(0x31, -1, gwTextStringId_007BF212);
         gbTextSound_007BF230 = 0;
+    }
+}
+
+void* gpCelFile_007BF26C; // 0x007BF26C
+
+void* gpCelFile_007BF270; // 0x007BF270
+
+void* gpCelFile_007BF274; // 0x007BF274
+
+// 0x0049FE10
+void __cdecl sub_0049FE10()
+{
+    if (gpCelFile_007BF270)
+    {
+        sub_00478A00(gpCelFile_007BF270);
+        gpCelFile_007BF270 = 0;
+    }
+    if (gpCelFile_007BF26C)
+    {
+        sub_00478A00(gpCelFile_007BF26C);
+        gpCelFile_007BF26C = 0;
+    }
+    if (gpCelFile_007BF274)
+    {
+        sub_00478A00(gpCelFile_007BF274);
+        gpCelFile_007BF274 = 0;
+    }
+}
+
+// 0x0049FEA0
+void __stdcall sub_0049FEA0_PanelClickMsg(SMSGHANDLER_PARAMS* pMsg)
+{
+    int nX = (unsigned short)pMsg->lParam;
+    int nY = (unsigned short)((unsigned int)pMsg->lParam >> 16);
+    if (nY < gnGlobal_00711470 - 0x30 && nX < gnGlobal_0071146C / 2)
+    {
+        sub_00455F20(0x10, 2, 0);
+        sub_0049FE10();
+        pMsg->bReturn = 1;
+        pMsg->lResult = 0;
+        sub_00420290_BreakHandlerChain(pMsg);
+        sub_0044DA40();
+    }
+}
+
+// 0x0049FF10
+void __cdecl sub_0049FF10_DispatchTextData()
+{
+    if (!gpTextData_007BF228)
+        return;
+
+    const int nTag = gpTextData_007BF228->dwTag;
+    if (nTag == 0x20736B62)
+    {
+        sub_0049FBA0_OpenTextPanel(0);
+        return;
+    }
+    if (nTag == 0x20646B62)
+    {
+        if (!gnGlobal_007BF254)
+        {
+            sub_0049FBA0_OpenTextPanel(1);
+            return;
+        }
+    }
+    else if (nTag != 0x20317274)
+    {
+        return;
+    }
+    sub_0049FA10_DrawPanelFrame();
+}
+
+extern "C" { unsigned int gValue_007BF098; } // 0x007BF098
+
+extern "C" { unsigned int gValue_007BF09C; } // 0x007BF09C
+
+extern "C" { unsigned int gValue_007BF0A0; } // 0x007BF0A0
+
+extern "C" { unsigned int gValue_007BF2A8; } // 0x007BF2A8
+
+// 0x0049FF60
+extern "C" void __fastcall sub_0049FF60_AcceptWordPacket(const PacketWords* packet)
+{
+    if (packet->kind == 4)
+    {
+        gValue_007BF098 = packet->a;
+        gValue_007BF09C = packet->b;
+        gValue_007BF0A0 = packet->c;
+        gValue_007BF254 = 0;
+    }
+}
+
+// 0x004A0030
+int __cdecl sub_004A0030_DialogCallback()
+{
+    sub_00455F20(0x18, 1, 0);
+    return 1;
+}
+
+extern "C" void __fastcall sub_00524280_InitializeDigest(unsigned int index)
+{
+    HashState* state = &gStates_00882760[index];
+    state->a = 0x67452301u;
+    state->b = 0xEFCDAB89u;
+    state->c = 0x98BADCFEu;
+    state->d = 0x10325476u;
+    state->e = 0xC3D2E1F0u;
+    state->lowCount = 0;
+    state->highCount = 0;
+}
+
+D2ClientDialogStrc* gpListDialog_007BF1B0; // 0x007BF1B0
+
+// build: symbol ??0ListBoxWrapper@@QAE@HHHHHHHHH@Z 0x004BF8F0
+// 0x004A0050
+void sub_004A0050_OpenListBoxDialog()
+{
+    if (gpListDialog_007BF1B0)
+    {
+        return;
+    }
+    gpListDialog_007BF1B0 = sub_004B7EB0_CreateDialog(5, 0x1E, (int)sub_004A0030_DialogCallback, 0, 0, 0, 0,
+        gnGlobal_0071146C - 0x14, gnGlobal_00711470 - 0x82, 0, 0);
+    sub_004B8370_SetField5C(gpListDialog_007BF1B0, 1);
+    sub_004B85F0_DialogControl(gpListDialog_007BF1B0, D2LANG_GetStringFromTblIndex(0xFC3), 0x15, 0, 4, 1, 0, 0);
+    sub_004B85F0_DialogControl(gpListDialog_007BF1B0, D2LANG_GetStringFromTblIndex(0x1030), gnGlobal_00711470 - 0xA5, 0,
+        0, 1, sub_004A0030_DialogCallback, 1);
+    gpListBox_007BF1B4 = new ListBoxWrapper(5, 0x41, gnGlobal_0071146C - 0x14, gnGlobal_00711470 - 0xC8, 2, 0, 0xD, 0,
+        1);
+    if (gpListBox_007BF1B4)
+    {
+        sub_004B7C00_AddWidget(gpListDialog_007BF1B0, gpListBox_007BF1B4, 0x19, 0x1E);
+        sub_0049E340();
+        sub_004B82F0_Select(gpListDialog_007BF1B0, -1);
     }
 }
 
@@ -831,107 +1197,15 @@ void __fastcall sub_004A1510_ShowTextBox(unsigned short nStringId)
     }
 }
 
-// 0x0049E390
-unsigned long __cdecl sub_0049E390_GetTimeoutTick()
+// 0x004A28A0
+extern "C" void __fastcall sub_004A28A0_AcceptShortPacket(const PacketShorts* packet)
 {
-    return GetTickCount() + 10000;
-}
-
-// 0x0049E7F0
-void __stdcall sub_0049E7F0_Nop()
-{
-}
-
-// 0x0049E800
-void __stdcall sub_0049E800_Nop()
-{
-}
-
-// 0x0049E860
-void __cdecl sub_0049E860_ClearHint()
-{
-    if (gnHintId_007BF260)
+    switch (packet->kind)
     {
-        const int nHint = sub_004B9610_FindHint(gnHintId_007BF260);
-        if (nHint)
-            sub_004B9EF0_ArmHint(nHint, 0, 0, 4);
-        gnHintId_007BF260 = 0;
+    case 1:
+        gValue_007BF2A4 = packet->a;
+        gValue_007BF2A8 = packet->b;
+        gValue_007BF2AC = packet->c;
+        break;
     }
-    gnHintSound_007BF24B = 0;
-}
-
-void* gpCelFile_007BF26C; // 0x007BF26C
-
-void* gpCelFile_007BF270; // 0x007BF270
-
-void* gpCelFile_007BF274; // 0x007BF274
-
-// 0x0049FE10
-void __cdecl sub_0049FE10()
-{
-    if (gpCelFile_007BF270)
-    {
-        sub_00478A00(gpCelFile_007BF270);
-        gpCelFile_007BF270 = 0;
-    }
-    if (gpCelFile_007BF26C)
-    {
-        sub_00478A00(gpCelFile_007BF26C);
-        gpCelFile_007BF26C = 0;
-    }
-    if (gpCelFile_007BF274)
-    {
-        sub_00478A00(gpCelFile_007BF274);
-        gpCelFile_007BF274 = 0;
-    }
-}
-
-// 0x0049FEA0
-void __stdcall sub_0049FEA0_PanelClickMsg(SMSGHANDLER_PARAMS* pMsg)
-{
-    int nX = (unsigned short)pMsg->lParam;
-    int nY = (unsigned short)((unsigned int)pMsg->lParam >> 16);
-    if (nY < gnGlobal_00711470 - 0x30 && nX < gnGlobal_0071146C / 2)
-    {
-        sub_00455F20(0x10, 2, 0);
-        sub_0049FE10();
-        pMsg->bReturn = 1;
-        pMsg->lResult = 0;
-        sub_00420290_BreakHandlerChain(pMsg);
-        sub_0044DA40();
-    }
-}
-
-// 0x0049FF10
-void __cdecl sub_0049FF10_DispatchTextData()
-{
-    if (!gpTextData_007BF228)
-        return;
-
-    const int nTag = gpTextData_007BF228->dwTag;
-    if (nTag == 0x20736B62)
-    {
-        sub_0049FBA0_OpenTextPanel(0);
-        return;
-    }
-    if (nTag == 0x20646B62)
-    {
-        if (!gnGlobal_007BF254)
-        {
-            sub_0049FBA0_OpenTextPanel(1);
-            return;
-        }
-    }
-    else if (nTag != 0x20317274)
-    {
-        return;
-    }
-    sub_0049FA10_DrawPanelFrame();
-}
-
-// 0x004A0030
-int __cdecl sub_004A0030_DialogCallback()
-{
-    sub_00455F20(0x18, 1, 0);
-    return 1;
 }

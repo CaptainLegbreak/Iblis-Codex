@@ -164,8 +164,6 @@ struct D2KeyConfigFileStrc
     unsigned char aBody[0x474];
 };
 
-typedef unsigned int size_t;
-
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize);
 extern "C" char* __cdecl strcat(char* szDst, const char* szSrc);
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
@@ -232,14 +230,6 @@ struct D2CelContextStrc
     int unk0x44;
 };
 
-struct D2RectStrc
-{
-    int nLeft;
-    int nTop;
-    int nRight;
-    int nBottom;
-};
-
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 int __fastcall sub_004DAE60_UnitSupportsMode(D2UnitStrc* pUnit, int nMode); // 0x004DAE60
 int __fastcall sub_004DBB50_GetItemCelContext(D2CelContextStrc* pContext, D2UnitStrc* pItem, int nArg3, int nArg4, int nArg5, int* pOut, int nArg7, int nArg8); // 0x004DBB50
@@ -256,10 +246,6 @@ static __declspec(noinline) int __stdcall sub_004640A0_GetUnitSelectRect(D2UnitS
 typedef int (__fastcall* SKILLSELECTPROC)(D2UnitStrc* pPlayer, D2UnitStrc* pTarget);
 
 extern SKILLSELECTPROC gpfSkillSelectProcs_00711F34[]; // 0x00711F34
-
-struct D2CoordPairStrc { int nX; int nY; };
-
-struct D2MonStats2SelectStrc { char pad0[4]; unsigned char nFlags[4]; char pad8[0xE4]; unsigned char nComponents; char padED[0x21]; short nTop,nLeft,nWidth,nHeight; };
 
 extern "C" __declspec(dllimport) int __stdcall PtInRect(const D2RectStrc*, D2CoordPairStrc);
 int __cdecl sub_00468730(); // 0x00468730

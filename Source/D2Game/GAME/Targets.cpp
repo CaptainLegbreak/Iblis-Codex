@@ -1,6 +1,8 @@
 #include "D2Game.h"
 
 struct D2TargetNodeStrc;
+struct D2UnitStrc;
+struct D2GameStrc;
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
@@ -28,6 +30,7 @@ struct D2GameStrc
     char pad0x90[0x1068];
     D2TargetNodeStrc* pTargetNodes[10];
 };
+
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 
@@ -127,4 +130,54 @@ void __fastcall D2GAME_FreeUnitNode_6FC40310(D2GameStrc* pGame, D2UnitStrc* pUni
         pTargetNode = pNext;
     }
     pGame->pTargetNodes[nNodeIndex] = 0;
+}
+
+// 0x005B1A90
+void __fastcall TARGETS_RemoveUnitNode(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    if (!pGame || !pUnit || (pUnit->dwUnitType != 0 && pUnit->dwUnitType != 1))
+        return;
+    const int nNodeIndex = pUnit->dwNodeIndex;
+    if (nNodeIndex == 11)
+        return;
+    D2TargetNodeStrc* pTargetNode = pGame->pTargetNodes[nNodeIndex];
+    if (!pTargetNode)
+        return;
+    if (nNodeIndex < 8)
+    {
+        for (pTargetNode = pTargetNode->pNext; pTargetNode; pTargetNode = pTargetNode->pNext)
+        {
+            if (pTargetNode->pUnit == pUnit)
+            {
+                pTargetNode->unk0x0C->pNext = pTargetNode->pNext;
+                if (pTargetNode->pNext) pTargetNode->pNext->unk0x0C = pTargetNode->unk0x0C;
+                FOG_FreePool(pGame->pMemoryPool, pTargetNode, gszTargetsSourceFile, 322, 0);
+                pUnit->dwNodeIndex = 11;
+                return;
+            }
+        }
+    }
+    else
+    {
+        D2TargetNodeStrc* const pHead = pTargetNode;
+        for (; pTargetNode; pTargetNode = pTargetNode->pNext)
+        {
+            if (pTargetNode->pUnit == pUnit)
+            {
+                if (pTargetNode == pHead)
+                {
+                    pGame->pTargetNodes[nNodeIndex] = pTargetNode->pNext;
+                    if (pTargetNode->pNext) pTargetNode->pNext->unk0x0C = 0;
+                }
+                else
+                {
+                    pTargetNode->unk0x0C->pNext = pTargetNode->pNext;
+                    if (pTargetNode->pNext) pTargetNode->pNext->unk0x0C = pTargetNode->unk0x0C;
+                }
+                FOG_FreePool(pGame->pMemoryPool, pTargetNode, gszTargetsSourceFile, 322, 0);
+                break;
+            }
+        }
+    }
+    pUnit->dwNodeIndex = 11;
 }

@@ -2,11 +2,6 @@
 
 struct D2GfxLightStrc;
 
-struct D2ShrinesTxt
-{
-    unsigned char nCode;
-};
-
 struct D2ObjectDataStrc
 {
     D2ObjectsTxt* pObjectTxt;

@@ -150,7 +150,6 @@ int __fastcall sub_0047A0C0_GetRecordUnitId(D2StoredUnitRecordStrc* pRecord); //
 D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
 D2ActiveRoomStrc* __fastcall sub_004646A0_GetPlayerRoom(); // 0x004646A0
 unsigned int __fastcall sub_004DC440(int nUnitId1, int nUnitId2, unsigned int nFlags); // 0x004DC440
-Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
 int __cdecl sub_005269D0_Sprintf(int nCount, Unicode* pDest, const Unicode* pFormat, ...); // 0x005269D0
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 void __fastcall sub_0049E3A0_PrintEventText(Unicode* pText, char nColor); // 0x0049E3A0
@@ -179,27 +178,7 @@ struct D2GSPacketSrv26
     char szMessage[256];
 };
 
-struct D2CommonChatIgnoreListStrc
-{
-    virtual int sub_00610EB0_Add(const char* szName) = 0;
-    virtual int sub_0060FB20_Remove(const char* szName) = 0;
-    virtual int sub_00610380_IsListed(const char* szName) = 0;
-    virtual void sub_00610F90_VirtSlot3() = 0;
-    virtual int sub_0060FBE0_RemoveAlias(const char* szName) = 0;
-    virtual int sub_0060FC40_IsTextFiltered(const char* szText) = 0;
-    virtual void sub_00611320_VirtSlot6() = 0;
-    virtual void sub_0060F870_Translate(const char* szName, char* szOut, int nSize) = 0;
-    virtual int sub_0060DDF0_IsEnabled() = 0;
-    virtual void sub_0060DE00_SetEnabled(int bEnabled) = 0;
-    virtual void sub_0060F500_VirtSlot10() = 0;
-};
-
-struct D2CommonIgnoreListStrc : D2CommonChatIgnoreListStrc
-{
-};
-
 extern "C" __declspec(dllimport) int __stdcall MultiByteToWideChar(unsigned int nCodePage, unsigned long dwFlags, const char* szSource, int nSource, Unicode* wszDest, int nDest); // 0x006CC29C
-extern "C" unsigned int __cdecl strlen(const char* szString);
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
 Unicode* __fastcall sub_004521C0_PrefixLevelText(Unicode* pText, int nDigit); // 0x004521C0
 Unicode* __fastcall sub_00452300_StripStringAndNextChar(Unicode* pText); // 0x00452300
@@ -209,14 +188,6 @@ void __fastcall sub_0049E3A0_ShowChatText(const Unicode* wszText, char nColor);
 char* __stdcall UNITS_GetPlayerName(D2UnitStrc* pUnit); // 0x00622150
 void __stdcall CHAT_FreeHoverMsg(void* pMemoryPool, D2HoverTextStrc* pHoverText); // 0x006611A0
 extern int gnGameFrame_007BF20E; // 0x007BF20E
-
-struct D2RectStrc
-{
-    int nLeft;
-    int nTop;
-    int nRight;
-    int nBottom;
-};
 
 #pragma pack(push, 2)
 struct T00479230
@@ -244,8 +215,6 @@ struct D2CoordStrc
 };
 
 typedef void (__fastcall* UNITFN)(D2UnitStrc* pUnit);
-
-typedef int (__fastcall* D2TextCallback)(void* pContext, int nArg, int nValue);
 
 extern "C" __declspec(dllimport) int __stdcall SetRect(D2RectStrc* pRect, int nLeft, int nTop, int nRight, int nBottom);
 void __fastcall sub_00451E10_UnregisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10

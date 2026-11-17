@@ -5,8 +5,6 @@ extern "C" const char* __cdecl sub_00408090();
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-
-#define NULL 0
 struct D2GemsTxt;
 struct D2UnitTargetStrc;
 
@@ -26,17 +24,6 @@ struct D2ItemsTxt
 {
     char unk0x00[0xF0];
     int dwGemOffset;
-};
-
-struct D2SkillStateStrc
-{
-    int nLife;
-    int nMana;
-    int nStamina;
-    int nRightSkillId;
-    int nLeftSkillId;
-    int nRightOwnerGUID;
-    int nLeftOwnerGUID;
 };
 
 #pragma pack(push, 1)

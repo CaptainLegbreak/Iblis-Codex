@@ -30,8 +30,6 @@ struct D2DrlgCoordsStrc
     int nTileHeight;
 };
 
-typedef int (__stdcall* D2FarProcFn)();
-
 typedef char (__fastcall* D2ObjectSpawnCallback)(D2GameStrc* pGame, int nArg, int nX, int nY);
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837

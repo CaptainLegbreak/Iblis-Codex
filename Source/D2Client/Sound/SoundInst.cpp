@@ -1,18 +1,9 @@
 #include "D2Client.h"
 
-#define NULL 0
-
 struct D2CoordStrc
 {
     int nX;
     int nY;
-};
-
-struct D2SoundVecStrc
-{
-    float fX;
-    float fY;
-    float fZ;
 };
 
 struct D2SoundUnitNodeStrc

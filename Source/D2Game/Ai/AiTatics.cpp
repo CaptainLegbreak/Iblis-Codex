@@ -1,5 +1,7 @@
 #include "D2Game.h"
 
+#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
 struct D2StaticPathStrc;
 struct D2MonStatsTxt;
 struct D2ModeChangeStrc;
@@ -7,6 +9,13 @@ struct D2PackedGuidStrc;
 struct D2MessageStrc;
 struct D2GSPacketSrv27;
 struct UnkAiStrc1;
+struct D2AiParamStrc;
+struct D2DataTablesStrc;
+struct D2QuestDataStrc;
+struct D2GameStrc;
+struct D2UnitStrc;
+struct D2CoordStrc;
+struct D2MonsterDataStrc;
 
 struct D2DataTablesStrc
 {
@@ -48,7 +57,7 @@ struct D2UnitStrc
     void* pMemoryPool;
     int dwUnitId;
     int dwAnimMode;
-    void* pMonsterData;
+    D2MonsterDataStrc* pMonsterData;
     char unk0x18[0x14];
     union
     {
@@ -119,19 +128,6 @@ struct D2ModeChangeStrc
     int unk0x1C;
 };
 
-struct D2PackedGuidStrc
-{
-    unsigned short f_0;
-    unsigned short f_2;
-};
-
-struct D2MessageStrc
-{
-    unsigned char nMenu;
-    unsigned char pad0x01;
-    unsigned short nStringId;
-};
-
 struct D2GSPacketSrv27
 {
     unsigned char nHeader;
@@ -175,11 +171,17 @@ int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, in
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 void __fastcall D2GAME_MONSTERMODE_ResetVelocityParams_6FC62F90(D2UnitStrc* pUnit); // 0x005A61F0
 
-// 0x005B0BC0
-int __fastcall MISSMODE_SrvDo01_BasicMissile(D2GameStrc* pGame, D2UnitStrc* pMissile)
+struct D2MonsterDataStrc
 {
-    return MISSMODE_HandleMissileCollision(pGame, pMissile);
-}
+	char unk_00[0x2C];
+	D2AiParamStrc* pAiParams;
+};
+
+extern "C" const char gszEmptyAssertText; // 0x006CC837
+extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+void __fastcall sub_005A6260_SetAiParamFields(D2AiParamStrc* pAiParams, int nParam, int nValue, int nArg); // 0x005A6260
 
 // 0x00530F30
 void __fastcall sub_00530F30_SetGlobal(int nValue)
@@ -191,12 +193,6 @@ void __fastcall sub_00530F30_SetGlobal(int nValue)
 int __cdecl sub_00568D70_GetHighestClassSkillCount()
 {
     return sgptDataTables->nHighestClassSkillCount;
-}
-
-// 0x005DE320
-void __fastcall sub_005DE320_AttachSoundNoOrigin(D2UnitStrc* pUnit, int nUpdateType)
-{
-    SUNIT_AttachSound(pUnit, nUpdateType, 0);
 }
 
 // 0x00576320
@@ -217,6 +213,12 @@ void __fastcall sub_005875D0_SetQuestStateIfIntroDone(D2QuestDataStrc* pQuest)
     {
         pQuest->fState = 1;
     }
+}
+
+// 0x005B0BC0
+int __fastcall MISSMODE_SrvDo01_BasicMissile(D2GameStrc* pGame, D2UnitStrc* pMissile)
+{
+    return MISSMODE_HandleMissileCollision(pGame, pMissile);
 }
 
 #include "gen/data/Source/D2Game/Ai/AiTatics.inc"
@@ -340,6 +342,26 @@ void __fastcall sub_6FCD0150(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames)
         D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_AITHINK, 0);
         EVENT_SetEvent(pGame, pUnit, EVENTTYPE_AITHINK, nFrames + pGame->dwGameFrame, 0, 0);
     }
+}
+
+// 0x005DE190
+void __fastcall sub_005DE190_SetAiParam(D2UnitStrc* pUnit, int nParam, int nValue, int nArg)
+{
+	D2_ASSERT(nValue >= -126 && nValue <= 126, 272);
+
+	if (nParam == 1)
+	{
+		nParam = 7;
+	}
+
+	D2AiParamStrc* pAiParams = (pUnit && pUnit->dwUnitType == 1 && pUnit->pMonsterData) ? pUnit->pMonsterData->pAiParams : 0;
+	sub_005A6260_SetAiParamFields(pAiParams, nParam, nValue, nArg);
+}
+
+// 0x005DE320
+void __fastcall sub_005DE320_AttachSoundNoOrigin(D2UnitStrc* pUnit, int nUpdateType)
+{
+    SUNIT_AttachSound(pUnit, nUpdateType, 0);
 }
 
 // 0x005DE330

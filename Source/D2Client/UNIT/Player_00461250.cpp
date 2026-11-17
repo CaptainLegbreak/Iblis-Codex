@@ -1,67 +1,6 @@
 #include "D2Client.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define E06_ABS(x) ((x) < 0 ? -(x) : (x))
-#define UNIT_GETX(pUnit, outX) \
-    switch ((pUnit)->dwUnitType) \
-    { \
-    case 2: \
-    case 4: \
-    case 5: \
-        outX = (pUnit)->pStaticPath->nX; \
-        break; \
-    default: \
-        if ((pUnit)->pDynamicPath) \
-            outX = PATH_GetXPosition((pUnit)->pDynamicPath); \
-        else \
-            outX = 0; \
-        break; \
-    }
-#define UNIT_GETY(pUnit, outY) \
-    switch ((pUnit)->dwUnitType) \
-    { \
-    case 2: \
-    case 4: \
-    case 5: \
-        outY = (pUnit)->pStaticPath->nY; \
-        break; \
-    default: \
-        if ((pUnit)->pDynamicPath) \
-            outY = PATH_GetYPosition((pUnit)->pDynamicPath); \
-        else \
-            outY = 0; \
-        break; \
-    }
-#define UNIT_GETX_K5(pUnit, outX) \
-    switch ((pUnit)->dwUnitType) \
-    { \
-    case 2: \
-    case 4: \
-    case 5: \
-        outX = (pUnit)->pStaticPath->nX; \
-        break; \
-    default: \
-        if ((pUnit)->pDynamicPath) \
-            outX = PATH_GetXPosition((pUnit)->pDynamicPath); \
-        else \
-            outX = 0; \
-        break; \
-    }
-#define UNIT_GETY_K5(pUnit, outY) \
-    switch ((pUnit)->dwUnitType) \
-    { \
-    case 2: \
-    case 4: \
-    case 5: \
-        outY = (pUnit)->pStaticPath->nY; \
-        break; \
-    default: \
-        if ((pUnit)->pDynamicPath) \
-            outY = PATH_GetYPosition((pUnit)->pDynamicPath); \
-        else \
-            outY = 0; \
-        break; \
-    }
 struct D2GfxLightStrc;
 struct D2StaticPathStrc;
 struct D2PlayerDataStrc;
@@ -139,12 +78,6 @@ struct D2PlayerCmdStrc
     D2SkillStrc* pSkill;
 };
 
-struct D2SkillRefStrc
-{
-    int nSkillId;
-    int nOwnerGUID;
-};
-
 struct D2SkillsTxt
 {
     char unk0x00[0x4];
@@ -179,12 +112,6 @@ struct D2DataTablesStrc
     D2SkillsTxt* pSkillsTxt;
     void* pSkillsLinker;
     int nSkillsTxtRecordCount;
-};
-
-struct D2StringRefStrc
-{
-    unsigned short nStringId;
-    unsigned short unk0x02;
 };
 
 struct D2CoordStrc
@@ -337,9 +264,6 @@ int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc*, D2InventoryStrc*, int*, int
 void __stdcall PATH_RecacheRoomIfNeeded(D2DynamicPathStrc*); // 0x00650590
 extern unsigned int gdwLastTick_007A5268; // 0x007A5268
 extern "C" const char gszPlayerCpp_006D6A34[]; // 0x006D6A34
-void __fastcall sub_00467A70(D2UnitStrc* pUnit); // 0x00467A70
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
-void __fastcall sub_00480E70_SetState(D2UnitStrc* pUnit, int nArg); // 0x00480E70
 static __declspec(noinline) int __stdcall sub_004623C0_ClampTarget(D2UnitStrc* pUnit, D2PlayerCmdStrc* pCmd);
 
 unsigned int gdwLastTick_007A5268; // 0x007A5268
@@ -801,7 +725,7 @@ static inline D2MonStatsTxt* E06_GetMonStatsTxtRecord(int nClassId)
 // 0x00461DC0
 static void __stdcall sub_00461DC0_InteractWithUnit(int nUnitType, int nUnitId, D2PlayerCmdStrc* pCmd)
 {
-    D2UnitStrc* pPlayerUnit = sub_00463DD0();
+    D2UnitStrc* pPlayerUnit = sub_00463DD0_GetPlayerUnit();
     int nRange;
     D2UnitStrc* pTarget = pCmd->pTarget;
     D2UnitStrc* pUnit = pCmd->pTarget;
@@ -914,7 +838,7 @@ check_range:
             pUnit = pCmd->pTarget;
             if (pUnit && pUnit->dwUnitType == 1 && pUnit->pMonsterData)
                 pUnit->pMonsterData->nClientFlags |= 1;
-            sub_00480E70_SetState(pCmd->pTarget, 1);
+            sub_00480E70_SetUnitMode(pCmd->pTarget, 1);
         }
     }
 

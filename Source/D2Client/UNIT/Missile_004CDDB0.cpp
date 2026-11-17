@@ -108,11 +108,8 @@ D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId); // 0x0045
 void __fastcall sub_00470390(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
 D2UnitStrc* __fastcall sub_004C5EB0_ScanFind(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nArg5, int nUnitId, int nArg7); // 0x004C5EB0
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
-int __stdcall MISSILE_GetLevel(D2UnitStrc* pMissile); // 0x0064A210
-int __stdcall MISSILE_GetSkill(D2UnitStrc* pMissile); // 0x0064A280
 void __stdcall MISSILE_SetOwner(D2UnitStrc* pMissile, D2UnitStrc* pUnit); // 0x0064A400
 void __stdcall MISSILE_SetTargetX(D2UnitStrc* pMissile, int nTargetX); // 0x0064A710
-int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit); // 0x0045ADF0
 void __fastcall sub_004CD390_CltDoDefault(D2UnitStrc* pMissile); // 0x004CD390
 void __fastcall sub_004D30C0_CltDoCommon(D2UnitStrc* pMissile); // 0x004D30C0
 void __stdcall D2COMMON_10170_PathSetTargetPos(D2DynamicPathStrc* pPath, int nX, int nY); // 0x00648AD0
@@ -298,8 +295,8 @@ int __fastcall sub_004CF800_HitChain(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
     int nRange = pMissilesTxtRecord->dwCltHitPar[0];
     if (nRange <= 0)
     {
-        const int nSkillId = MISSILE_GetSkill(pMissile);
-        const int nLevel = MISSILE_GetLevel(pMissile);
+        const int nSkillId = sub_0064A280(pMissile);
+        const int nLevel = sub_0064A210(pMissile);
         D2SkillsTxt* pSkillsTxtRecord = sub_0045C4B0_GetSkillsTxtRecord(nSkillId);
         if (!pSkillsTxtRecord)
         {
@@ -334,8 +331,8 @@ int __fastcall sub_004CF800_HitChain(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
     tMissileParams.nY = nY;
     tMissileParams.nTargetX = CLIENTS_GetUnitX(pUnit);
     tMissileParams.nTargetY = CLIENTS_GetUnitY(pUnit);
-    tMissileParams.nSkill = MISSILE_GetSkill(pMissile);
-    tMissileParams.nSkillLevel = MISSILE_GetLevel(pMissile);
+    tMissileParams.nSkill = sub_0064A280(pMissile);
+    tMissileParams.nSkillLevel = sub_0064A210(pMissile);
 
     D2UnitStrc* pChain = sub_004CD540_CreateMissile(&tMissileParams);
     if (pChain)
@@ -386,7 +383,7 @@ void __fastcall sub_004D47F0_CltDoPeriodicRetarget(D2UnitStrc* pMissile)
         nOffsetX = MISSILE_GetTargetX(pMissile);
         nOffsetY = MISSILE_GetTargetY(pMissile);
         RotateOffsets(&nOffsetX,&nOffsetY);
-        D2COMMON_10170_PathSetTargetPos(pMissile->pDynamicPath, UNITS_GetXPosition(pMissile) + nOffsetX, CLIENTS_GetUnitY(pMissile) + nOffsetY);
+        D2COMMON_10170_PathSetTargetPos(pMissile->pDynamicPath, CLIENTS_GetUnitX(pMissile) + nOffsetX, CLIENTS_GetUnitY(pMissile) + nOffsetY);
         D2Common_10142(pMissile->pDynamicPath, pMissile, 0);
         MISSILE_SetTargetX(pMissile, nOffsetX);
         MISSILE_SetTargetY(pMissile, nOffsetY);

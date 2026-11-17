@@ -48,8 +48,8 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 extern "C" int __cdecl abs(int nValue);
 #pragma intrinsic(abs)
 
-extern int gnGlobal_007B0A54;                                                                               // 0x007B0A54
-extern int gnGlobal_007B0A58;                                                                               // 0x007B0A58
+extern int gnCellOriginX_007B0A54;                                                                               // 0x007B0A54
+extern int gnCellOriginY_007B0A58;                                                                               // 0x007B0A58
 int gnGlobal_007B0A5C;                                                                                      // 0x007B0A5C
 int gnGlobal_007B0A60;                                                                                      // 0x007B0A60
 extern unsigned int gdwReciprocals_007B0A68[0x100];                                                         // 0x007B0A68
@@ -61,8 +61,6 @@ extern int gnPathStepSignY_007A8A48;                                            
 extern int gnPathStepRatio_007A8A4C;                                                                        // 0x007A8A4C
 extern unsigned int gdwLightMapRows_007A8A50[][64];                                                         // 0x007A8A50
 extern unsigned int gdwLightOverrideRows_007ACA50[][64];                                                    // 0x007ACA50
-extern int gnCellOriginX_007B0A54;                                                                          // 0x007B0A54
-extern int gnCellOriginY_007B0A58;                                                                          // 0x007B0A58
 extern D2LightCellStrc gaCells_007B0E68[0x30][0x30];                                                        // 0x007B0E68
 
 static __declspec(noinline) void __stdcall sub_004747C0_AddGridLight(int nIntensity, unsigned char nRed, unsigned char nGreen, unsigned char nBlue, int nY, int nX);
@@ -76,13 +74,13 @@ static void sub_00474C00_BlendLightCell(int nCol, int nRow); // 0x00474C00
 
 static void __stdcall sub_004747C0_AddGridLight(int nIntensity, unsigned char nRed, unsigned char nGreen, unsigned char nBlue, int nY, int nX)
 {
-    const int nGridX = (nX >> 3) - gnGlobal_007B0A54;
+    const int nGridX = (nX >> 3) - gnCellOriginX_007B0A54;
     if ((unsigned int)nGridX > 0x2F)
     {
         return;
     }
 
-    const int nGridY = (nY >> 3) - gnGlobal_007B0A58;
+    const int nGridY = (nY >> 3) - gnCellOriginY_007B0A58;
     if ((unsigned int)nGridY > 0x2F)
     {
         return;
@@ -281,13 +279,13 @@ static void sub_00474D70_AddBlendedAreaLight(D2R01LightStrc* pLight)
     const int nStartY = pLight->nY - (pLight->nY & 7) - pLight->nRadius;
     const int nSpan = (pLight->nRadius * 2) >> 3;
     const int nCellStartX = nStartX >> 3;
-    if (nCellStartX > gnGlobal_007B0A5C || nCellStartX + nSpan + 1 < gnGlobal_007B0A54)
+    if (nCellStartX > gnGlobal_007B0A5C || nCellStartX + nSpan + 1 < gnCellOriginX_007B0A54)
     {
         return;
     }
 
     const int nCellStartY = nStartY >> 3;
-    if (nCellStartY > gnGlobal_007B0A60 || nCellStartY + nSpan + 1 < gnGlobal_007B0A58)
+    if (nCellStartY > gnGlobal_007B0A60 || nCellStartY + nSpan + 1 < gnCellOriginY_007B0A58)
     {
         return;
     }

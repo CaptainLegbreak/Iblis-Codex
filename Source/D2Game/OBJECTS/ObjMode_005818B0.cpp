@@ -10,7 +10,6 @@
 #define MONMODE_DEAD 12
 #define OBJMODE_NEUTRAL 0
 #define OBJMODE_OPERATING 1
-#define OBJECT_EXPLODINGBARREL 11
 #define UNITFLAG_TARGETABLE 0x00000002
 #define EVENTTYPE_ENDANIM 1
 struct D2ObjectControlStrc;
@@ -113,7 +112,7 @@ struct D2ObjectsTxt
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 void __stdcall UNITS_GetCoords(D2UnitStrc* pUnit, D2CoordStrc* pCoord); // 0x00620870
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
-int __stdcall UNITS_GetDistanceToOtherUnit(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
+int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
 void __fastcall OBJEVAL_ApplyTrapObjectDamage(D2GameStrc* pGame, D2UnitStrc* pSrcUnit, D2UnitStrc* pTargetUnit, int nDamageType); // 0x005DFA00
 void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc* pUpdateUnit); // 0x00553380
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E90
@@ -166,18 +165,13 @@ void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2A
 static __declspec(noinline) void sub_00581B50_TeleportToUnit(D2UnitStrc* pUnit, D2UnitStrc* pPlayer, D2ActiveRoomStrc* pRoom);
 
 struct D2ObjOperateStrc { D2GameStrc* game; D2UnitStrc* object; D2UnitStrc* player; };
-
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc*); // 0x00620BB0
-void __stdcall UNITS_GetCoords(D2UnitStrc*,D2CoordStrc*); // 0x00620870
 unsigned int __stdcall sub_00620510(D2UnitStrc*); // 0x00620510
 unsigned int __stdcall sub_006205A0(D2UnitStrc*); // 0x006205A0
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 int __fastcall sub_0055F140(D2GameStrc*,D2UnitStrc*); // 0x0055F140
-void __fastcall SUNIT_AttachSound(D2UnitStrc*,int,D2UnitStrc*); // 0x00553380
-void __stdcall UNITS_RefreshInventory(D2UnitStrc*); // 0x00623830
+void __stdcall UNITS_FreeCollisionPath(D2UnitStrc*); // 0x00623830
 void __stdcall UNITS_BlockCollisionPath(D2UnitStrc*,D2ActiveRoomStrc*,int,int); // 0x00620A70
 unsigned short __stdcall COLLISION_CheckMaskWithSizeXY(D2ActiveRoomStrc*,int,int,unsigned int,unsigned int,unsigned short); // 0x0064D800
-int __stdcall UNITS_ChangeAnimMode(D2UnitStrc*,int); // 0x00624690
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -246,8 +240,6 @@ void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, 
 D2StatListStrc* __fastcall sub_00582800_ApplyShrineCurse(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nDuration, int nStatValue, int nStat, int nState, StatListRemoveCallback pStateRemoveCallback); // 0x00582800
 void __fastcall sub_6FC77AB0(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x00583A40
 static __declspec(noinline) void __stdcall OBJMODE_GetToHitPercentage(int* pToHit, int nSkillLevel, D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2UnitStrc* pWeapon);
-void __stdcall UNITS_FreeCollisionPath(D2UnitStrc* pUnit); // 0x00623830
-int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
 int __fastcall OBJECTS_OperateFunction07_ExplodingBarrel(D2ObjOperateFnStrc* pOp); // 0x00584330
 
 typedef int(__stdcall* FARPROC)();
@@ -274,7 +266,6 @@ struct D2ObeliskPowerUpStrc
 };
 
 extern D2ObeliskPowerUpStrc gaObeliskPowerUps_00732EB0[21]; // 0x00732EB0
-extern "C" const char gszObjModeSourceFile[]; // 0x006E1970
 void __fastcall sub_0053D8D0_SendPacket0x58(D2ClientStrc* pClient, D2GSPacketSrv58* pPacket); // 0x0053D8D0
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 void __stdcall SUNIT_ResetInteractInfo(D2UnitStrc* pUnit); // 0x00554190
@@ -307,7 +298,7 @@ void __fastcall D2GAME_SpikeTraps_6FC74F60(D2GameStrc* pGame, D2UnitStrc* pObjec
             {
                 const int nUnitType = pUnit ? pUnit->dwUnitType : 6;
                 const int nUnitMode = pUnit ? pUnit->dwAnimMode : 0;
-                if (nUnitType == 0 && nUnitMode != 17 && UNITS_GetDistanceToOtherUnit(pObject, pUnit) <= 0)
+                if (nUnitType == 0 && nUnitMode != 17 && sub_006416D0_UnitEdgeDistance(pObject, pUnit) <= 0)
                 {
                     if (bArmed)
                     {
@@ -476,7 +467,7 @@ int __fastcall sub_00581D40_OperateDoor(D2ObjOperateStrc* context,int unused)
    return 1;
   }
  case 0:
-  UNITS_RefreshInventory(context->object);
+  UNITS_FreeCollisionPath(context->object);
   UNITS_ChangeAnimMode(context->object,2);
   context->object->lastOperateTick=tick;
   return 1;
@@ -797,7 +788,7 @@ int __fastcall OBJMODE_MainObeliskHandler(D2GameStrc* pGame, int nPlayerGUID, in
             return 1;
         }
 
-        D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pPlayer, gszObjModeSourceFile, 0x1135);
+        D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pPlayer, gszObjModeSourceFile_006E1970, 0x1135);
         packet58.nHeader = 0x58;
         packet58.nUnitId = nObjectGUID;
         const int nAnimMode = pObject->dwAnimMode;

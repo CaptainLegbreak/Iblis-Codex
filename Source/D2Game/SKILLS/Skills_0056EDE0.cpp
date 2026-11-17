@@ -1,12 +1,9 @@
 #include "D2Game.h"
 
 #define UNITFLAG_SKSRVDOFUNC 0x00000040
-#define ITEMTYPE_BOW 27
 #define ITEMTYPE_MISSILE_POTION 38
 #define STAT_PROGRESSIVE_TOHIT 325
 struct D2StaticPathStrc;
-
-typedef unsigned int size_t;
 
 struct D2CoordStrc { int nX; int nY; };
 

@@ -1,9 +1,9 @@
 #include "D2Client.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define NULL 0
 #define ITEMQUAL_SET 5
 #define ITEMQUAL_UNIQUE 7
+
 struct D2ActInfoStrc;
 struct D2TileStrc;
 struct D2GemsTxt;
@@ -33,6 +33,16 @@ struct D2SetItemsTxt;
 struct D2PacketRecord8Strc;
 struct D2PacketRecord13Strc;
 struct D2GSPacketSrv42Strc;
+struct D2PacketRecord11Strc;
+struct D2CoordStrc;
+struct D2UnitStrc;
+struct D2DataTablesStrc;
+struct D2GfxMotionStrc;
+struct D2CellPosStrc;
+struct D2GridCellStrc;
+struct D2ItemsTxt;
+struct D2ItemSaveStrc;
+struct D2GSPacketSrv9D;
 
 struct D2CoordStrc
 {
@@ -45,7 +55,18 @@ struct D2StaticPathStrc
     D2ActiveRoomStrc* pRoom;
     int dwClientCoordX;
     int dwClientCoordY;
-    D2CoordStrc tGameCoords;
+    union
+    {
+        struct
+        {
+            D2CoordStrc tGameCoords;
+        };
+        struct
+        {
+            int nX;
+            int nY;
+        };
+    };
 };
 
 struct D2ObjectDataStrc
@@ -112,13 +133,6 @@ struct D2DataTablesStrc
     char unk0xC20[0x04];
     D2UniqueItemsTxt* pUniqueItemsTxt;
     int nUniqueItemsTxtRecordCount;
-};
-
-struct D2MotionVectorStrc
-{
-    int nX;
-    int nY;
-    int nZ;
 };
 
 struct D2GfxMotionStrc
@@ -233,23 +247,6 @@ struct D2FloorTileViewStrc
     void __thiscall sub_004DE6C0_DrawTileTriple(int nX, int nY, int nStepX, int nStepY);
 };
 
-struct D2CellPosStrc
-{
-    int nX;
-    int nY;
-    char unk0x08[0x10];
-    int f_18;
-};
-
-struct D2CellNodeStrc
-{
-    unsigned int dwFlags;
-    int nA;
-    int nB;
-    D2CellPosStrc* pPos;
-    D2CellNodeStrc* pNext;
-};
-
 struct D2GridCellStrc
 {
     int unk0x00[4];
@@ -351,35 +348,25 @@ int __stdcall sub_006001F0(D2PanelGfxStrc* pGfx, int nArg2, int nArg3); // 0x006
 D2TileStrc* __stdcall sub_00619720(void* pAct); // 0x00619720
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
 void __stdcall sub_006275B0(D2UnitStrc* pUnit); // 0x006275B0
-void __stdcall sub_006277F0(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x006277F0
+void __stdcall STATLIST_ExpireUnitStatlist(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x006277F0
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
-D2UnitStrc* __stdcall sub_0063BEF0(D2InventoryStrc* pInventory); // 0x0063BEF0
-D2UnitStrc* __stdcall sub_0063BDE0(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
+D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
+D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
 void __stdcall sub_00643260(int* pX, int* pY); // 0x00643260
 extern "C" int __fastcall sub_004D9FC0(D2UnitStrc* unit, D2SkillStrc* skill); // 0x004D9FC0
 int __stdcall ITEMS_CheckRequirements(D2UnitStrc* pItem, D2UnitStrc* pUnit, int bEquipping, int* bStrength, int* bDexterity, int* bLevel); // 0x0062EAF0
 int __stdcall ITEMS_GetQuiverType(D2UnitStrc* pItem); // 0x0062E740
 int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
-D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
 
 struct D2ItemsTxt
 {
-    char unk0x00[0xF0];
+    char unk0x00[0x80];
+    unsigned int dwCode;
+    char unk0x84[0x6C];
     int dwGemOffset;
     unsigned char unk_F4[0x30];
     short wDropSound;
     short wUseSound;
-};
-
-struct D2SkillStateStrc
-{
-    int nLife;
-    int nMana;
-    int nStamina;
-    int nRightSkillId;
-    int nLeftSkillId;
-    int nRightOwnerGUID;
-    int nLeftOwnerGUID;
 };
 
 #pragma pack(push, 1)
@@ -407,7 +394,6 @@ int __stdcall UNITS_CanDualWield(D2UnitStrc* pUnit); // 0x006235A0
 unsigned char __stdcall sub_00623D60_GetItemComponent(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x00623D60
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic); // 0x00625820
-void __stdcall STATLIST_ExpireUnitStatlist(D2UnitStrc* pUnused, D2UnitStrc* pUnit); // 0x006277F0
 void __stdcall STATLIST_MergeStatLists(D2UnitStrc* pTarget, D2UnitStrc* pUnit, int bType); // 0x00627910
 unsigned char __stdcall ITEMS_GetBodyLocation(D2UnitStrc* pItem); // 0x00627D40
 int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem); // 0x00627E70
@@ -417,9 +403,8 @@ int __stdcall ITEMS_IsCharmUsable(D2UnitStrc* pItem, D2UnitStrc* pPlayer); // 0x
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 D2GemsTxt* __stdcall DATATBLS_GetGemsTxtRecord(int nGemId); // 0x006372C0
 D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x0063B2C0
-D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
 void __stdcall sub_0063D1D0_InventoryItemCall(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063D1D0
-void __stdcall sub_0063D2B0_DetachItem(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063D2B0
+void __stdcall INVENTORY_UpdateWeaponGUIDOnRemoval(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063D2B0
 D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
 D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
 int __stdcall INVENTORY_GetItemNodePage(D2UnitStrc* pItem); // 0x0063E020
@@ -492,8 +477,75 @@ extern "C" unsigned int gnTableCount_00727A3C; // 0x00727A3C
 extern "C" unsigned int __stdcall sub_006280A0(D2UnitStrc* pUnit, unsigned int dwMask, unsigned int dwUnused3, unsigned int dwUnused4); // 0x006280A0
 void __stdcall sub_0063BE30_Return(int nUnused1, int nUnused2);
 int __stdcall INVENTORY_GetBodyLocFromEquippedItem(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063C110
-void __stdcall INVENTORY_UpdateWeaponGUIDOnRemoval(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063D2B0
 int __stdcall INVENTORY_RemoveAllItems(D2InventoryStrc* pInventory); // 0x0063E0B0
+extern "C" const char szItemCppFile[];
+
+#pragma pack(push, 1)
+struct D2PacketRecord11Strc
+{
+    unsigned char nHeader;
+    unsigned char nUnitType;
+    unsigned char unk0x02[1];
+    unsigned int dwUnitId;
+    unsigned char unk0x07[4];
+};
+
+#pragma pack(pop)
+
+static void sub_004C1350_RefreshEquippedItems(D2UnitStrc* pUnit);
+
+struct D2ItemSaveStrc
+{
+    int nClassId;
+    unsigned short nX;
+    unsigned short nY;
+    unsigned char nAnimMode;
+    unsigned char nPad09;
+    unsigned short nPad0A;
+    unsigned int dwFlags;
+    unsigned char nStorePage;
+    unsigned char nBodyloc;
+    unsigned short nPad12;
+    int nItemFileIndex;
+};
+
+#pragma pack(push, 1)
+struct D2GSPacketSrv9D
+{
+    unsigned char nHeader;
+    unsigned char nAction;
+    unsigned char nPacketSize;
+    unsigned char nComponent;
+    int nItemId;
+    unsigned char nUnitType;
+    int nUnitId;
+    unsigned char pBitstream[244];
+};
+
+#pragma pack(pop)
+
+int __cdecl sub_0044DCC0(); // 0x0044DCC0
+void __cdecl sub_00453B00_SendMouseMove(); // 0x00453B00
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
+int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
+void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg); // 0x00478680
+void __cdecl sub_00487990_ResetHover(); // 0x00487990
+void __fastcall sub_004B2A00(int nUnitId); // 0x004B2A00
+void __fastcall sub_004B2A40(int nUnitId); // 0x004B2A40
+void __fastcall sub_004C1910_SetItemMode(D2UnitStrc* pItem, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMode, int bArg); // 0x004C1910
+int __fastcall sub_004C1D60(D2UnitStrc* pItem); // 0x004C1D60
+int __stdcall UNITS_GetInventoryRecordId(D2UnitStrc* pUnit, unsigned char nInvPage, int bLoD); // 0x00621050
+void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStat, int nValue, int nLayer); // 0x00627260
+unsigned char __stdcall ITEMS_GetInvPage(D2UnitStrc* pItem); // 0x00628250
+int __stdcall sub_0062E410(unsigned char* pBitstream, unsigned int nSize, int bCheckForHeader, void* pItemSave); // 0x0062E410
+void __stdcall sub_004C35F0_ItemToBody9D(D2GSPacketSrv9D* pPacket, D2ItemSaveStrc* pItemSave); // 0x004C35F0
+void __fastcall sub_004B2640(D2UnitStrc* pUnit); // 0x004B2640
+void __fastcall sub_004B2A80_ResetHoverForItem(int nUnitId); // 0x004B2A80
+int __cdecl sub_004B2E20_IsQuestActive(); // 0x004B2E20
+int __fastcall sub_004B3230_GetTickPair(int* pLow); // 0x004B3230
+void __fastcall sub_00498D50(int nX, int nArg); // 0x00498D50
+void __cdecl sub_00498D60(); // 0x00498D60
+void __fastcall sub_004B2A60(int nUnitId); // 0x004B2A60
 
 inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int nSkillId)
 {
@@ -529,277 +581,6 @@ void __fastcall sub_004BDF30_SetPortalStateFromPacket60(D2GSPacketSrv60* pPacket
         }
         UNITS_SetObjectPortalFlags(pUnit, nPortalFlags);
     }
-}
-
-// 0x004C3B30
-void __fastcall sub_004C3B30_UpdateItemFromPacket9C(D2GSPacketSrv9C* pPacket)
-{
-    int bFail;
-    const int nSize = pPacket->nPacketSize - 8;
-    D2UnitStrc* pItem = sub_00463990(pPacket->nItemId, UNIT_ITEM);
-    ITEMS_DecodeItemFromBitstream(pItem, pPacket->pBitstream, nSize, 0, 0, 0x60, &bFail);
-    if (bFail)
-    {
-        sub_00465EE0_RemoveClientSideUnit(pPacket->nItemId, UNIT_ITEM);
-        return;
-    }
-
-    D2UnitStrc* pPlayer = sub_00463DD0();
-    D2_ASSERT(pPlayer, 0x7B3);
-
-    D2InventoryStrc* pInventory = pPlayer->pInventory;
-    D2_ASSERT(pInventory, 0x7B6);
-
-    if (!sub_006287A0_TestFlags(ITEMS_GetItemFlags(pItem), 8))
-    {
-        INVENTORY_SetCursorItem(pInventory, 0);
-        sub_00468070_SetCursorItemState(INVENTORY_GetCursorItem(pInventory));
-    }
-
-    D2UnitStrc* pCursorItem = INVENTORY_GetCursorItem(pInventory);
-    if (pCursorItem)
-    {
-        sub_004C2180_UpdateCursorItem(pCursorItem);
-    }
-}
-
-// 0x004C51E0
-void __fastcall sub_004C51E0_GetAdjacentPosition(D2UnitStrc* pUnit, int* pX, int* pY)
-{
-    const int nDirection = UNITS_GetDirection(pUnit) >> 3;
-    int aOffsetX[8] = { 0, -1, -2, -1, 0, 1, 2, 1 };
-    int aOffsetY[8] = { 2, 1, 0, -1, -2, -1, 0, 1 };
-
-    int nX;
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        nX = pUnit->pStaticPath->tGameCoords.nX;
-        break;
-
-    default:
-        if (pUnit->pDynamicPath)
-        {
-            nX = PATH_GetXPosition(pUnit->pDynamicPath);
-        }
-        else
-        {
-            nX = 0;
-        }
-        break;
-    }
-    *pX = aOffsetX[nDirection] + nX;
-
-    int nY;
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        nY = pUnit->pStaticPath->tGameCoords.nY;
-        break;
-
-    default:
-        if (pUnit->pDynamicPath)
-        {
-            nY = PATH_GetYPosition(pUnit->pDynamicPath);
-        }
-        else
-        {
-            nY = 0;
-        }
-        break;
-    }
-    *pY = aOffsetY[nDirection] + nY;
-}
-
-// 0x004C52E0
-int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY)
-{
-    int nY;
-    D2UnitStrc* pTarget = sub_004648F0_GetTargetUnit(pUnit);
-    if (pTarget)
-    {
-        int nX;
-        switch (pTarget->dwUnitType)
-        {
-        case UNIT_OBJECT:
-        case UNIT_ITEM:
-        case UNIT_TILE:
-            nX = pTarget->pStaticPath->tGameCoords.nX;
-            break;
-
-        default:
-            if (pTarget->pDynamicPath)
-            {
-                nX = PATH_GetXPosition(pTarget->pDynamicPath);
-            }
-            else
-            {
-                nX = 0;
-            }
-            break;
-        }
-        *pX = nX;
-
-        switch (pTarget->dwUnitType)
-        {
-        case UNIT_OBJECT:
-        case UNIT_ITEM:
-        case UNIT_TILE:
-            nY = pTarget->pStaticPath->tGameCoords.nY;
-            break;
-
-        default:
-            if (pTarget->pDynamicPath)
-            {
-                nY = PATH_GetYPosition(pTarget->pDynamicPath);
-            }
-            else
-            {
-                nY = 0;
-            }
-            break;
-        }
-    }
-    else
-    {
-        D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
-        *pX = D2COMMON_10175_PathGetFirstPointX(pPath);
-        nY = D2COMMON_10176_PathGetFirstPointY(pPath);
-    }
-    *pY = nY;
-
-    if (!*pX || !nY)
-    {
-        sub_004C51E0_GetAdjacentPosition(pUnit, pX, pY);
-    }
-    return 1;
-}
-
-// 0x004C6030
-int __fastcall sub_004C6030_UseBowOrCallTarget(D2UnitStrc* pUnit, int nArg2, int nArg3)
-{
-    if (pUnit)
-    {
-        pUnit->dwFlags |= 0x40;
-    }
-
-    if (COMPOSIT_IsWeaponBowOrXBow(pUnit))
-    {
-        const int nValue = sub_00645F00_GetBowValue(pUnit, &nArg3);
-        if (nValue != -1)
-        {
-            sub_004C5420_UseBow(pUnit, nValue, nArg2, nArg3);
-        }
-    }
-    else
-    {
-        sub_004E4050_Nothing(pUnit, sub_004648F0_GetTargetUnit(pUnit));
-    }
-
-    return 1;
-}
-
-// 0x004C7CF0
-int __fastcall sub_004C7CF0_EvaluateClientSkillCalc(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
-{
-    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    sub_004C7BE0_ApplyClientSkillCalc(pUnit, SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCltCalc[0], nSkillId, nSkillLevel));
-    return 1;
-}
-
-// 0x004D93B0
-void __fastcall sub_004D93B0_SendPositionEvent(D2UnitStrc* pUnit)
-{
-    D2UnitEventArgsStrc tArgs = {};
-
-    int nX;
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        nX = pUnit->pStaticPath->tGameCoords.nX;
-        break;
-
-    default:
-        if (pUnit->pDynamicPath)
-        {
-            nX = PATH_GetXPosition(pUnit->pDynamicPath);
-        }
-        else
-        {
-            nX = 0;
-        }
-        break;
-    }
-    tArgs.nX = nX;
-
-    int nY;
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        nY = pUnit->pStaticPath->tGameCoords.nY;
-        break;
-
-    default:
-        if (pUnit->pDynamicPath)
-        {
-            nY = PATH_GetYPosition(pUnit->pDynamicPath);
-        }
-        else
-        {
-            nY = 0;
-        }
-        break;
-    }
-    tArgs.nY = nY;
-
-    sub_00480C10_DispatchUnitEvent(0x19, pUnit, &tArgs, 0);
-    D2COMMON_10160_PathUpdateDirection(pUnit->pDynamicPath, 0);
-}
-
-// 0x004DA080
-void __stdcall sub_004DA080_FreeGfxMotion(D2UnitStrc* pUnit)
-{
-    D2GfxMotionStrc* pMotion = sub_0046F060_GetGfxMotion(pUnit);
-    if (pMotion)
-    {
-        FOG_Free(pMotion, ".\\ENGINE\\Particle.cpp", 100, 0);
-        sub_0046F070_SetGfxMotion(pUnit, 0);
-    }
-}
-
-// 0x004DA0D0
-int __stdcall sub_004DA0D0_GetGfxMotionField38(D2UnitStrc* pUnit)
-{
-    D2GfxMotionStrc* pMotion = sub_0046F060_GetGfxMotion(pUnit);
-    if (pMotion)
-    {
-        return pMotion->nUnk0x38;
-    }
-    return 0;
-}
-
-// 0x004DA0F0
-int __stdcall sub_004DA0F0_GetGfxMotionField3C(D2UnitStrc* pUnit)
-{
-    D2GfxMotionStrc* pMotion = sub_0046F060_GetGfxMotion(pUnit);
-    if (pMotion)
-    {
-        return pMotion->nUnk0x3C;
-    }
-    return 0;
 }
 
 // 0x004BFBC0
@@ -876,196 +657,18 @@ void __fastcall sub_004C0EC0_UpdateItemLink(D2UnitStrc* pItem, D2UnitStrc* pUnit
 
     if (pUnit->dwUnitType == 0)
     {
-        sub_0063BEF0(pUnit->pInventory);
+        INVENTORY_GetLeftHandWeapon(pUnit->pInventory);
     }
 
     if (!ITEMS_CheckItemFlag(pItem, 0x100, 0x96, ".\\UNIT\\Item.cpp") || bForce)
     {
-        sub_006277F0(pUnit, pItem);
+        STATLIST_ExpireUnitStatlist(pUnit, pItem);
     }
 
     if (bClamp)
     {
         sub_006275B0(pUnit);
     }
-}
-
-// 0x004C1C50
-int __fastcall sub_004C1C50_PlaceBodyItem(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nBodyLoc)
-{
-    if (!pItem)
-    {
-        return 0;
-    }
-
-    if (sub_0063BDE0(pInventory, nBodyLoc))
-    {
-        sub_0063BE30(pInventory, nBodyLoc);
-    }
-
-    return sub_0063BDB0(pInventory, pItem, nBodyLoc) != 0;
-}
-
-// 0x004C7C40
-int __fastcall sub_004C7C40_RegisterTableEvent(void* pArg1, int nArg2, int nArg3, int nArg4, unsigned int nIndex, int nArg6, int nArg7)
-{
-    if (nIndex <= 1)
-    {
-        void* pfnCallback = gpfnEventTable_00727DB4[nIndex];
-        if (pfnCallback)
-        {
-            return sub_004DC110(pArg1, nArg2, nArg3, nArg4, pfnCallback, nArg6, nArg7);
-        }
-    }
-
-    return 0;
-}
-
-// 0x004DCD40
-void __fastcall sub_004DCD40_ShowTimedHint(void* pOwner, int nDelayA, int nDelayC, unsigned int nIndex, int nArgE, int nDelayF, int nArgG)
-{
-    if (gnGlobal_007C89D8)
-    {
-        D2HintCursorStrc* pCursor = sub_00481860(gnGlobal_007C89D8);
-        void* pEntry = sub_004B9610(gnGlobal_007C89D8);
-        if (pEntry && sub_004B9590(pEntry))
-        {
-            const int nValue = nIndex > 0 ? pCursor->aValues[nIndex] : 0;
-            const int nOffset = 4 * (gnGlobal_007C89D8 - sub_004817F0());
-            *(int*)(sub_00481810() + nOffset) = nValue;
-            gnGlobal_007C89E0 = sub_00481820();
-        }
-    }
-
-    sub_004BA8F0();
-    gTimedHint_007C89E4.bActive = 1;
-    gTimedHint_007C89E4.pOwner = pOwner;
-    gTimedHint_007C89E4.nEndTickA = sub_0044DB00() + nDelayA;
-    gTimedHint_007C89E4.bActive2 = 1;
-    gTimedHint_007C89E4.nArgE = nArgE;
-    gTimedHint_007C89E4.nEndTickF = sub_0044DB00() + nDelayF;
-    gTimedHint_007C89E4.nArgG = nArgG;
-    gTimedHint_007C89E4.nEndTickC = sub_0044DB00() + nDelayC;
-}
-
-// 0x004DE630
-void __thiscall D2FloorTileViewStrc::sub_004DE630_DrawTileAt(int nX, int nY)
-{
-    int nScreenX = nX;
-    int nScreenY = nY + 5;
-    sub_00643260(&nScreenX, &nScreenY);
-    nScreenY += 0x28;
-    D2_ASSERT(gpGlobal_007A0634, 0xDF);
-    nScreenX += nOffsetX;
-    nScreenY += nOffsetY;
-    D2TileStrc* pTile = sub_00619720(gpGlobal_007A0634);
-    if (pTile)
-    {
-        sub_004DE410_DrawFloorTile(pTile, 1, nScreenX, nScreenY, nX, nY);
-    }
-}
-
-// 0x004DE6C0
-void __thiscall D2FloorTileViewStrc::sub_004DE6C0_DrawTileTriple(int nX, int nY, int nStepX, int nStepY)
-{
-    const int nBaseX = nX / 5 * 5;
-    const int nBaseY = nY / 5 * 5;
-    sub_004DE630_DrawTileAt(nBaseX, nBaseY);
-    sub_004DE630_DrawTileAt(nBaseX + nStepX, nBaseY + nStepY);
-    sub_004DE630_DrawTileAt(nBaseX + 2 * nStepX, nBaseY + 2 * nStepY);
-}
-
-// 0x004DF510
-void __thiscall D2CellGridViewStrc::sub_004DF510_DrawCellNodes()
-{
-    const int nCells = nSize;
-    int nCount = nCells * nCells;
-    D2GridCellStrc* pCell = pCells;
-    const int nArg = sub_0045AE90();
-    while (nCount--)
-    {
-        for (D2CellNodeStrc* pNode = pCell->pNodes; pNode; pNode = pNode->pNext)
-        {
-            if (!(pNode->dwFlags & 3))
-            {
-                unsigned char nByte0;
-                unsigned char nByte1;
-                unsigned char nByte2;
-                unsigned char nByte3;
-                sub_00475AA0(pNode->nA, pNode->nB, &nByte0, &nByte1, &nByte2, &nByte3);
-                sub_004DC7B0(pNode->pPos, (((nByte3 << 8 | nByte2) << 8 | nByte1) << 8) | nByte0, 0);
-            }
-            else
-            {
-                const int bMode = sub_004F51D0();
-                if (pNode->dwFlags & 1)
-                {
-                    if (bMode)
-                    {
-                        sub_004F6980(pNode->pPos->f_18, pNode->nA, pNode->nB, 4, nArg);
-                    }
-                    else
-                    {
-                        sub_004F6980(pNode->pPos->f_18, nOffsetX - nScrollX + pNode->pPos->nX, pNode->pPos->nY - nScrollY + nOffsetY, 4, nArg);
-                    }
-                }
-                else if (pNode->dwFlags & 2)
-                {
-                    sub_00471620(pNode->pPos);
-                }
-            }
-        }
-
-        if (pCell->f_14)
-        {
-            sub_004DEF80(pCell, 1, this);
-        }
-        ++pCell;
-    }
-}
-
-// 0x004DF630
-int __fastcall sub_004DF630_QueryAddress(D2AddressQueryStrc* pQuery)
-{
-    D2_ASSERT(*(int*)pQuery->nState == 2, 0x5D);
-
-    D2AddressInfoStrc tInfo;
-    int nParam = pQuery->nParam;
-    int nResult = sub_00516760(pQuery->nSocket, &nParam, &tInfo);
-    if (nResult && tInfo.nVersion == 0x10 && tInfo.nMagic == 0x5622)
-    {
-        pQuery->nResult = nResult;
-        pQuery->nParamOut = nParam;
-        pQuery->bFamilyMatch = tInfo.f_2 == 2;
-        return 1;
-    }
-
-    pQuery->f_81 = 1;
-    return 0;
-}
-
-// 0x004DF9D0
-D2SlotStrc* __fastcall sub_004DF9D0_FindBestSlot(int nOwner)
-{
-    if (!gdwGlobal_007C8C78)
-    {
-        return 0;
-    }
-
-    D2SlotStrc* pBest = 0;
-    for (int i = 0; i < 16; i++)
-    {
-        D2SlotStrc* pSlot = &gaSlots_007C8A78[i];
-        if (sub_00515710(pSlot->f_0) && pSlot->pObject && pSlot->pObject->f_4 == nOwner)
-        {
-            if (!pBest || pSlot->pObject->nKey < pBest->pObject->nKey)
-            {
-                pBest = pSlot;
-            }
-        }
-    }
-
-    return pBest;
 }
 
 #include "gen/data/Source/D2Client/UNIT/Item.inc"
@@ -1240,7 +843,7 @@ static __declspec(noinline) void __stdcall sub_004C1290_AttachItem(int nComponen
     if (!pUnit || !pItem || !pUnit->pInventory)
         return;
 
-    sub_0063D2B0_DetachItem(pUnit->pInventory, pItem);
+    INVENTORY_UpdateWeaponGUIDOnRemoval(pUnit->pInventory, pItem);
     if (pUnit->dwUnitType == 0)
         INVENTORY_GetLeftHandWeapon(pUnit->pInventory);
 
@@ -1263,12 +866,18 @@ static __declspec(noinline) void __stdcall sub_004C12F0_ReattachItem(int nMode, 
     if (nBodyLoc == 0x0B || nBodyLoc == 0x0C)
         return;
 
-    sub_0063D2B0_DetachItem(pInventory, pItem);
+    INVENTORY_UpdateWeaponGUIDOnRemoval(pInventory, pItem);
     sub_0046F280(pUnit, nComponent);
     if (nMode == 1 && !STATLIST_GetOwner(pItem, NULL))
         sub_004C0D20_ApplyItemStats(pUnit, pItem, 1);
 
     sub_0063D1D0_InventoryItemCall(pInventory, pItem);
+}
+
+// 0x004C16C0
+static void sub_004C16C0_RefreshUnitItems(D2UnitStrc* pUnit)
+{
+    sub_004C1350_RefreshEquippedItems(pUnit);
 }
 
 static __forceinline int sub_H18_UnitFlag9(D2UnitStrc* pUnit)
@@ -1357,7 +966,7 @@ static void sub_004C1350_RefreshEquippedItems(D2UnitStrc* pUnit)
                 const unsigned char nBodyLoc = ITEMS_GetBodyLocation(pItem);
                 if (nBodyLoc != 0x0B && nBodyLoc != 0x0C)
                 {
-                    sub_0063D2B0_DetachItem(pBodyInventory, pItem);
+                    INVENTORY_UpdateWeaponGUIDOnRemoval(pBodyInventory, pItem);
                     sub_0046F280(pUnit, nComponent);
                     if (nMode == 1 && !STATLIST_GetOwner(pItem, NULL))
                         sub_004C0D20_ApplyItemStats(pUnit, pItem, 1);
@@ -1401,36 +1010,6 @@ static void sub_004C1350_RefreshEquippedItems(D2UnitStrc* pUnit)
     }
 }
 
-void __fastcall sub_004C2270(D2GSPacketSrv7DStrc* pPacket)
-{
-    D2UnitStrc* pItem = sub_00463990(pPacket->dwItemId, 4);
-    if (!pItem)
-        return;
-
-    D2UnitStrc* pUnit = sub_00463990(pPacket->dwUnitId, pPacket->nUnitType);
-    if (!pUnit)
-        return;
-
-    const int nComponent = sub_00623D60_GetItemComponent(pUnit, pItem);
-    const int nMode = pItem->dwAnimMode;
-    if (pPacket->dwAction == 0x100)
-    {
-        ITEMS_SetItemFlag(pItem, 0x100, pPacket->bSet);
-        sub_0046F950(pUnit);
-        sub_004C1290_AttachItem(nComponent, pUnit, pItem);
-        sub_00470610_Refresh(pUnit, 0);
-        ITEMS_UpdateSets(pUnit, pItem, 1, 1);
-        sub_004C1350_RefreshEquippedItems(pUnit);
-    }
-    else if (pPacket->dwAction == 0x200)
-    {
-        ITEMS_SetItemFlag(pItem, 0x100, 0);
-        sub_004C12F0_ReattachItem(nMode, nComponent, pUnit, pItem);
-        ITEMS_UpdateSets(pUnit, pItem, 0, 0);
-        sub_004C1350_RefreshEquippedItems(pUnit);
-    }
-}
-
 // 0x004C17F0
 static int sub_004C17F0_GetItemUseSound(D2UnitStrc* pItem)
 {
@@ -1457,12 +1036,6 @@ static int sub_004C17F0_GetItemUseSound(D2UnitStrc* pItem)
     return nSound;
 }
 
-// 0x004C1E20
-int __fastcall sub_004C1E20_GetItemUseSound(D2UnitStrc* pItem)
-{
-    return sub_004C17F0_GetItemUseSound(pItem);
-}
-
 // 0x004C1B80
 void __fastcall sub_004C1B80_ItemCommand(int nEvent, D2UnitStrc* pUnit, int bSet, int nMode)
 {
@@ -1483,6 +1056,30 @@ void __fastcall sub_004C1B80_ItemCommand(int nEvent, D2UnitStrc* pUnit, int bSet
         }
         break;
     }
+}
+
+// 0x004C1BC0
+void __fastcall sub_004C1BC0(D2PacketRecord11Strc* pPacket, int nArg)
+{
+    D2UnitStrc* pUnit = sub_00463990(pPacket->dwUnitId, pPacket->nUnitType);
+    if (pUnit)
+        sub_004C16C0_RefreshUnitItems(pUnit);
+}
+
+// 0x004C1C50
+int __fastcall sub_004C1C50_PlaceBodyItem(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nBodyLoc)
+{
+    if (!pItem)
+    {
+        return 0;
+    }
+
+    if (INVENTORY_GetItemFromBodyLoc(pInventory, nBodyLoc))
+    {
+        sub_0063BE30(pInventory, nBodyLoc);
+    }
+
+    return sub_0063BDB0(pInventory, pItem, nBodyLoc) != 0;
 }
 
 static __forceinline D2UniqueItemsTxt* ITEMS_GetUniqueItemsTxtRecordInline(int nId)
@@ -1525,6 +1122,12 @@ int __fastcall sub_004C1D60(D2UnitStrc* pItem)
     return nSound;
 }
 
+// 0x004C1E20
+int __fastcall sub_004C1E20_GetItemUseSound(D2UnitStrc* pItem)
+{
+    return sub_004C17F0_GetItemUseSound(pItem);
+}
+
 // 0x004C1E30
 void __cdecl sub_004C1E30()
 {
@@ -1559,6 +1162,17 @@ void __fastcall sub_004C2050(D2GSPacketSrv42Strc* pPacket)
     sub_004B29E0(nItemId);
 }
 
+// 0x004C2150
+int __fastcall sub_004C2150_FindInTable(int nValue)
+{
+    for (unsigned int i = 0; i < gnTableCount_00727A3C; ++i)
+    {
+        if (nValue == gnTable_00727A28[i])
+            return 4;
+    }
+    return 3;
+}
+
 // 0x004C2180
 void __fastcall sub_004C2180_UpdateCursorItem(D2UnitStrc* pItem)
 {
@@ -1573,6 +1187,12 @@ void __fastcall sub_004C2180_UpdateCursorItem(D2UnitStrc* pItem)
     }
 }
 
+// 0x004C21E0
+void __fastcall sub_004C21E0_StatRemoveCallback_ToggleStateOff(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList)
+{
+    STATES_ToggleState(pUnit, nState, 0);
+}
+
 // 0x004C2240
 int __fastcall sub_004C2240(D2UnitStrc* pUnit)
 {
@@ -1582,6 +1202,1035 @@ int __fastcall sub_004C2240(D2UnitStrc* pUnit)
     if (pPlayer && STATES_CheckState(pPlayer, 0x36))
         return 1;
     return 0;
+}
+
+// 0x004C2270
+void __fastcall sub_004C2270(D2GSPacketSrv7DStrc* pPacket)
+{
+    D2UnitStrc* pItem = sub_00463990(pPacket->dwItemId, 4);
+    if (!pItem)
+        return;
+
+    D2UnitStrc* pUnit = sub_00463990(pPacket->dwUnitId, pPacket->nUnitType);
+    if (!pUnit)
+        return;
+
+    const int nComponent = sub_00623D60_GetItemComponent(pUnit, pItem);
+    const int nMode = pItem->dwAnimMode;
+    if (pPacket->dwAction == 0x100)
+    {
+        ITEMS_SetItemFlag(pItem, 0x100, pPacket->bSet);
+        sub_0046F950(pUnit);
+        sub_004C1290_AttachItem(nComponent, pUnit, pItem);
+        sub_00470610_Refresh(pUnit, 0);
+        ITEMS_UpdateSets(pUnit, pItem, 1, 1);
+        sub_004C1350_RefreshEquippedItems(pUnit);
+    }
+    else if (pPacket->dwAction == 0x200)
+    {
+        ITEMS_SetItemFlag(pItem, 0x100, 0);
+        sub_004C12F0_ReattachItem(nMode, nComponent, pUnit, pItem);
+        ITEMS_UpdateSets(pUnit, pItem, 0, 0);
+        sub_004C1350_RefreshEquippedItems(pUnit);
+    }
+}
+
+// 0x004C23E0
+void __fastcall sub_004C23E0_RemoveEquippedItems(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+        return;
+
+    D2InventoryStrc* pInventory = pUnit->pInventory;
+    if (!pInventory)
+        return;
+
+    D2UnitStrc* pNext;
+    for (D2UnitStrc* pNode = INVENTORY_GetFirstItem(pInventory); pNode; pNode = pNext)
+    {
+        pNext = INVENTORY_GetNextItem(pNode);
+        D2UnitStrc* pItem = INVENTORY_UnitIsItem(pNode);
+        D2_ASSERT(pItem, 0xD4F);
+
+        if (INVENTORY_GetItemNodePage(pNode) == 3 || (INVENTORY_GetItemNodePage(pNode) == 1 && ITEMS_IsCharmUsable(pItem, pUnit)))
+        {
+            sub_0046F950(pUnit);
+            INVENTORY_UpdateWeaponGUIDOnRemoval(pInventory, pItem);
+            D2UnitStrc* pRemoved = INVENTORY_RemoveItemFromInventory(pInventory, pItem);
+            D2_ASSERT(pRemoved, 0xD5A);
+            D2_ASSERT(pRemoved == pItem, 0xD5B);
+
+            if (INVENTORY_GetItemNodePage(pNode) == 3)
+                sub_0063BE30_Return((int)pInventory, INVENTORY_GetBodyLocFromEquippedItem(pInventory, pItem));
+
+            ITEMS_UpdateSets(pUnit, pRemoved, 1, 1);
+            if (pUnit->dwUnitType == 0)
+                INVENTORY_GetLeftHandWeapon(pUnit->pInventory);
+
+            if (!sub_006280A0(pRemoved, 0x100, 0x96, (unsigned int)".\\UNIT\\Item.cpp"))
+                STATLIST_ExpireUnitStatlist(pUnit, pRemoved);
+
+            sub_004C1350_RefreshEquippedItems(pUnit);
+        }
+    }
+
+    INVENTORY_RemoveAllItems(pInventory);
+}
+
+static __forceinline int ITEMPKT_GetUnitX(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case 2:
+    case 4:
+    case 5:
+        return pUnit->pStaticPath->nX;
+    default:
+        return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+    }
+}
+
+static __forceinline int ITEMPKT_GetUnitY(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case 2:
+    case 4:
+    case 5:
+        return pUnit->pStaticPath->nY;
+    default:
+        return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+    }
+}
+
+static __forceinline unsigned int ITEMPKT_GetItemCode(D2UnitStrc* pItem)
+{
+    return DATATBLS_GetItemsTxtRecord(pItem->dwClassId)->dwCode;
+}
+
+static D2UnitStrc* __stdcall sub_004C0F20_CreateItem9C(unsigned short nX, unsigned short nY, int bNotify, D2GSPacketSrv9C* pPacket, D2ItemSaveStrc* pItemSave)
+{
+    D2ItemSaveStrc tItemSave;
+    int bFail;
+
+    const int nSize = pPacket->nPacketSize - 0x08;
+    if (!pItemSave)
+    {
+        sub_0062E410(pPacket->pBitstream, nSize, 0, &tItemSave);
+        pItemSave = &tItemSave;
+    }
+
+    D2UnitStrc* pItem = sub_004661C0_CreateClientUnit(pPacket->nItemId, pItemSave->nClassId, nX, nY, 4, pItemSave->nAnimMode);
+    ITEMS_DecodeItemFromBitstream(pItem, pPacket->pBitstream, nSize, 0, 0, 0x60, &bFail);
+    if (bFail)
+    {
+        sub_00465EE0_RemoveClientSideUnit(pPacket->nItemId, 4);
+        return NULL;
+    }
+
+    if (sub_006287A0_TestFlags(pItemSave->dwFlags, 2))
+    {
+        ITEMS_SetItemFlag(pItem, 2, 0);
+        if (bNotify && !ITEMS_CheckItemFlag(pItem, 0x10, 0xD8, ".\\UNIT\\Item.cpp"))
+        {
+            sub_00478680_SendPacket5(0x37, pPacket->nItemId);
+        }
+    }
+
+    return pItem;
+}
+
+static D2UnitStrc* __stdcall sub_004C0FF0_CreateItem9D(unsigned short nX, unsigned short nY, int bNotify, D2GSPacketSrv9D* pPacket, D2ItemSaveStrc* pItemSave)
+{
+    D2ItemSaveStrc tItemSave;
+    int bFail;
+
+    const int nSize = pPacket->nPacketSize - 0x0D;
+    if (!pItemSave)
+    {
+        sub_0062E410(pPacket->pBitstream, nSize, 0, &tItemSave);
+        pItemSave = &tItemSave;
+    }
+
+    D2UnitStrc* pItem = sub_004661C0_CreateClientUnit(pPacket->nItemId, pItemSave->nClassId, nX, nY, 4, pItemSave->nAnimMode);
+    ITEMS_DecodeItemFromBitstream(pItem, pPacket->pBitstream, nSize, 0, 0, 0x60, &bFail);
+    if (bFail)
+    {
+        sub_00465EE0_RemoveClientSideUnit(pPacket->nItemId, 4);
+        return NULL;
+    }
+
+    if (sub_006287A0_TestFlags(pItemSave->dwFlags, 2))
+    {
+        ITEMS_SetItemFlag(pItem, 2, 0);
+        if (bNotify && !ITEMS_CheckItemFlag(pItem, 0x10, 0xFE, ".\\UNIT\\Item.cpp"))
+        {
+            sub_00478680_SendPacket5(0x37, pPacket->nItemId);
+        }
+    }
+
+    return pItem;
+}
+
+void __fastcall sub_004C20B0_ItemToCursor9C(D2GSPacketSrv9C* pPacket)
+{
+    D2ItemSaveStrc tItemSave;
+    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
+
+    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2_ASSERT(pPlayer, 0xB0C);
+
+    if (sub_00463990(pPacket->nItemId, 4))
+    {
+        sub_00465EE0_RemoveClientSideUnit(pPacket->nItemId, 4);
+    }
+
+    D2UnitStrc* pItem = sub_004C0F20_CreateItem9C(0, 0, 0, pPacket, &tItemSave);
+    D2InventoryStrc* pInventory = pPlayer->pInventory;
+    D2_ASSERT(pInventory, 0xB13);
+
+    INVENTORY_SetCursorItem(pInventory, pItem);
+    sub_00468070_SetCursorItemState(INVENTORY_GetCursorItem(pInventory));
+}
+
+void __fastcall sub_004C2340_ItemToCursor9D(D2GSPacketSrv9D* pPacket)
+{
+    D2ItemSaveStrc tItemSave;
+    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x0D, 0, &tItemSave);
+
+    D2UnitStrc* pUnit = sub_00463990(pPacket->nUnitId, pPacket->nUnitType);
+    if (!pUnit)
+    {
+        return;
+    }
+
+    sub_00465EE0_RemoveClientSideUnit(pPacket->nItemId, 4);
+    D2UnitStrc* pItem = sub_004C0FF0_CreateItem9D(0, 0, 0, pPacket, &tItemSave);
+    D2_ASSERT(pItem, 0xD35);
+
+    STATLIST_SetUnitStat(pItem, 0x46, 1, 0);
+    D2InventoryStrc* pInventory = pUnit->pInventory;
+    INVENTORY_SetCursorItem(pInventory, pItem);
+    sub_00468070_SetCursorItemState(INVENTORY_GetCursorItem(pInventory));
+}
+
+// 0x004C2540
+static void __stdcall sub_004C2540_PlaceItem(D2UnitStrc* pItem, unsigned short nX, unsigned short nY, int nMode, int bFindRoom, unsigned char nPage)
+{
+    D2_ASSERT(pItem, 0xAC);
+
+    D2ActiveRoomStrc* pRoom = NULL;
+    if (bFindRoom && (nX || nY))
+    {
+        pRoom = sub_00465420_FindRoomAt(nX, nY);
+    }
+
+    sub_004C1910_SetItemMode(pItem, pRoom, nX, nY, nMode, 0);
+    ITEMS_SetInvPage(pItem, nPage);
+}
+
+void __fastcall sub_004C2650_ItemOnCursor9C(D2GSPacketSrv9C* pPacket)
+{
+    D2ItemSaveStrc tItemSave;
+    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
+
+    D2InventoryStrc* pInventory = sub_00463DD0()->pInventory;
+    if (tItemSave.nAnimMode == 4)
+    {
+        D2_ASSERT(!sub_00463990(pPacket->nItemId, 4), 0x3A0);
+
+        D2UnitStrc* pItem = sub_004C0F20_CreateItem9C(0, 0, 0, pPacket, &tItemSave);
+        D2_ASSERT(pItem, 0x3A2);
+
+        INVENTORY_SetCursorItem(pInventory, pItem);
+        sub_00468070_SetCursorItemState(INVENTORY_GetCursorItem(pInventory));
+        sub_004C2180_UpdateCursorItem(pItem);
+    }
+}
+
+void __fastcall sub_004C26F0_ItemDropped9C(D2GSPacketSrv9C* pPacket)
+{
+    D2ItemSaveStrc tItemSave;
+    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
+
+    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pItem = sub_00463990(pPacket->nItemId, 4);
+    if (pItem)
+    {
+        D2InventoryStrc* pInventory = pPlayer->pInventory;
+        D2UnitStrc* pCursorItem = INVENTORY_GetCursorItem(pInventory);
+        if (pCursorItem && pCursorItem == pItem)
+        {
+            INVENTORY_SetCursorItem(pInventory, NULL);
+            sub_00468070_SetCursorItemState(INVENTORY_GetCursorItem(pInventory));
+        }
+
+        if (sub_006287A0_TestFlags(tItemSave.dwFlags, 1))
+        {
+            sub_00465EE0_RemoveClientSideUnit(pPacket->nItemId, 4);
+            pItem = sub_004C0F20_CreateItem9C(tItemSave.nX, tItemSave.nY, 0, pPacket, &tItemSave);
+        }
+    }
+    else
+    {
+        pItem = sub_004C0F20_CreateItem9C(tItemSave.nX, tItemSave.nY, 0, pPacket, &tItemSave);
+    }
+
+    D2_ASSERT(pItem, 0x3CF);
+    sub_004C2180_UpdateCursorItem(pItem);
+    sub_004C2540_PlaceItem(pItem, tItemSave.nX, tItemSave.nY, 5, 1, tItemSave.nStorePage);
+}
+
+static void __stdcall sub_004C2970_PlaceItemAt(unsigned short nY, unsigned char nPage, D2UnitStrc* pUnit, D2UnitStrc* pItem, unsigned short nX)
+{
+    UNITS_SetXForStaticUnit(pItem, nX);
+    UNITS_SetYForStaticUnit(pItem, nY);
+
+    D2InventoryStrc* pInventory = pUnit->pInventory;
+    D2_ASSERT(pInventory, 0x413);
+
+    if (!INVENTORY_PlaceItemInSocket(pInventory, pItem, 1))
+    {
+        return;
+    }
+
+    if (!sub_0063BCC0_PlaceItem(pInventory, pItem, ITEMPKT_GetUnitX(pItem), ITEMPKT_GetUnitY(pItem), UNITS_GetInventoryRecordId(pUnit, nPage, sub_0044DCC0()), 1, nPage))
+    {
+        return;
+    }
+
+    if (pUnit == sub_00463DD0())
+    {
+        if (nPage == 1)
+        {
+            sub_004B9A00(sub_004C1D60(pItem), NULL, 0, 0, 0);
+        }
+        else
+        {
+            INVENTORY_SetCursorItem(pInventory, NULL);
+            sub_00468070_SetCursorItemState(INVENTORY_GetCursorItem(pInventory));
+        }
+    }
+
+    if (pUnit == sub_00463DD0() && nPage == 3)
+    {
+        const int nClassId = pItem->dwClassId;
+        const unsigned int dwCode = DATATBLS_GetItemsTxtRecord(nClassId)->dwCode;
+        if (dwCode == 0x20747368 || dwCode == 0x20326671)
+        {
+            sub_0048A540();
+        }
+    }
+}
+
+// 0x004C2AD0
+void __fastcall sub_004C2AD0_ItemToStorage9C(D2GSPacketSrv9C* pPacket)
+{
+    D2ItemSaveStrc tItemSave;
+    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
+
+    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pItem = sub_00463990(pPacket->nItemId, 4);
+    if (pItem)
+    {
+        if (sub_006287A0_TestFlags(tItemSave.dwFlags, 1))
+        {
+            if (INVENTORY_RemoveItemFromInventory(pPlayer->pInventory, pItem))
+            {
+                const unsigned char nPage = ITEMS_GetInvPage(pItem);
+                const int nRecordId = UNITS_GetInventoryRecordId(pPlayer, nPage, sub_0044DCC0());
+                INVENTORY_Return(".\\UNIT\\Item.cpp", 0x456, pPlayer->pInventory, CLIENTS_GetUnitX(pItem), CLIENTS_GetUnitY(pItem), nRecordId, 1, nPage);
+                sub_00487990_ResetHover();
+                if (pPlayer->dwUnitType == 0)
+                {
+                    INVENTORY_GetLeftHandWeapon(pPlayer->pInventory);
+                }
+
+                if (!ITEMS_CheckItemFlag(pItem, 0x100, 0x96, ".\\UNIT\\Item.cpp"))
+                {
+                    STATLIST_ExpireUnitStatlist(pPlayer, pItem);
+                }
+            }
+
+            sub_00465EE0_RemoveClientSideUnit(pPacket->nItemId, 4);
+            pItem = sub_004C0F20_CreateItem9C(0, 0, 0, pPacket, &tItemSave);
+            if (!pItem)
+            {
+                return;
+            }
+        }
+        else
+        {
+            sub_004C2540_PlaceItem(pItem, tItemSave.nX, tItemSave.nY, tItemSave.nAnimMode, 0, tItemSave.nStorePage);
+            ITEMS_SetItemFlag(pItem, -1, 0);
+            ITEMS_SetItemFlag(pItem, tItemSave.dwFlags, 1);
+        }
+    }
+    else
+    {
+        pItem = sub_004C0F20_CreateItem9C(0, 0, 1, pPacket, &tItemSave);
+    }
+
+    if (tItemSave.nStorePage == 0xFF)
+    {
+        return;
+    }
+
+    sub_004C2970_PlaceItemAt(tItemSave.nY, tItemSave.nStorePage, pPlayer, pItem, tItemSave.nX);
+    if (ITEMS_IsCharmUsable(pItem, pPlayer))
+    {
+        sub_004C0D20_ApplyItemStats(pPlayer, pItem, 0);
+    }
+
+    sub_00453B00_SendMouseMove();
+    sub_004C2180_UpdateCursorItem(pItem);
+    sub_004B2A40(!pItem ? -1 : pItem->dwUnitId);
+}
+
+// build: context sub_004C2C80_ItemFromStorage9D
+void __fastcall sub_004C2C80_ItemFromStorage9D(D2GSPacketSrv9D* pPacket)
+{
+    D2ItemSaveStrc tItemSave;
+    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x0D, 0, &tItemSave);
+
+    D2UnitStrc* pUnit = sub_00463990(pPacket->nUnitId, pPacket->nUnitType);
+    if (!pUnit)
+    {
+        return;
+    }
+
+    D2UnitStrc* pItem = sub_00463990(pPacket->nItemId, 4);
+    if (!pItem)
+    {
+        if (tItemSave.nStorePage == 1)
+        {
+            sub_00463DD0();
+        }
+        return;
+    }
+
+    D2InventoryStrc* pInventory = pUnit->pInventory;
+    D2_ASSERT(pInventory, 0x4B7);
+
+    D2UnitStrc* pRemoved = INVENTORY_RemoveItemFromInventory(pInventory, pItem);
+    if (!pRemoved)
+    {
+        if (tItemSave.nStorePage == 2)
+        {
+            sub_00463DD0();
+        }
+        return;
+    }
+
+    D2_ASSERT(pRemoved == pItem, 0x4CB);
+
+    const unsigned char nPage = ITEMS_GetInvPage(pItem);
+    const int nRecordId = UNITS_GetInventoryRecordId(pUnit, nPage, sub_0044DCC0());
+    INVENTORY_Return(".\\UNIT\\Item.cpp", 0x4CF, pInventory, tItemSave.nX, tItemSave.nY, nRecordId, 1, nPage);
+    sub_00487990_ResetHover();
+    if (pUnit->dwUnitType == 0)
+    {
+        INVENTORY_GetLeftHandWeapon(pUnit->pInventory);
+    }
+
+    if (!ITEMS_CheckItemFlag(pItem, 0x100, 0x96, ".\\UNIT\\Item.cpp"))
+    {
+        STATLIST_ExpireUnitStatlist(pUnit, pItem);
+    }
+
+    if (!sub_006287A0_TestFlags(tItemSave.dwFlags, 0x20))
+    {
+        if (sub_006287A0_TestFlags(tItemSave.dwFlags, 1))
+        {
+            sub_00465EE0_RemoveClientSideUnit(pPacket->nItemId, 4);
+            pItem = sub_004C0FF0_CreateItem9D(0, 0, 0, pPacket, &tItemSave);
+            D2_ASSERT(pItem, 0x4DD);
+        }
+        else
+        {
+            sub_004C2540_PlaceItem(pItem, tItemSave.nX, tItemSave.nX, tItemSave.nAnimMode, 0, tItemSave.nStorePage);
+        }
+
+        ITEMS_SetInvPage(pItem, 0xFF);
+        INVENTORY_SetCursorItem(pInventory, pItem);
+        sub_00468070_SetCursorItemState(INVENTORY_GetCursorItem(pInventory));
+        sub_004C2180_UpdateCursorItem(pItem);
+    }
+    else
+    {
+        sub_00465EE0_RemoveClientSideUnit(pItem->dwUnitId, 4);
+        if (pUnit == sub_00463DD0())
+        {
+            if (tItemSave.nStorePage == 1)
+            {
+                sub_004B9A00(1, NULL, 0, 0, 0);
+            }
+            else
+            {
+                sub_00468070_SetCursorItemState(NULL);
+            }
+        }
+    }
+
+    if (pUnit == sub_00463DD0())
+    {
+        sub_004B2A00(pItem->dwUnitId);
+    }
+}
+
+// 0x004C3760
+static void __stdcall sub_004C3760_ItemFromBody9D(D2GSPacketSrv9D* pPacket, D2ItemSaveStrc* pItemSave)
+{
+    D2UnitStrc* pUnit = sub_00463990(pPacket->nUnitId, pPacket->nUnitType);
+    if (!pUnit)
+    {
+        return;
+    }
+
+    D2_ASSERT(pUnit->dwUnitType == 0, 0x6ED);
+
+    D2InventoryStrc* pInventory = pUnit->pInventory;
+    D2_ASSERT(pInventory, 0x6EF);
+
+    D2UnitStrc* pItem = INVENTORY_GetItemFromBodyLoc(pInventory, pItemSave->nBodyloc);
+    sub_0046F950(pUnit);
+    INVENTORY_UpdateWeaponGUIDOnRemoval(pInventory, pItem);
+    sub_0046F280(pUnit, pPacket->nComponent);
+    INVENTORY_GetSecondWieldingWeapon(pUnit, pInventory, &pItem, pItemSave->nBodyloc);
+
+    D2UnitStrc* pRemoved = INVENTORY_RemoveItemFromInventory(pInventory, pItem);
+    D2_ASSERT(pRemoved, 0x6F7);
+    D2_ASSERT(pRemoved == pItem, 0x6F8);
+
+    if (pUnit->dwUnitType == 0)
+    {
+        INVENTORY_GetLeftHandWeapon(pUnit->pInventory);
+    }
+
+    if (!ITEMS_CheckItemFlag(pRemoved, 0x100, 0x96, ".\\UNIT\\Item.cpp"))
+    {
+        STATLIST_ExpireUnitStatlist(pUnit, pRemoved);
+    }
+
+    ITEMS_UpdateSets(pUnit, pRemoved, 1, 1);
+    sub_0063BE30(pInventory, pItemSave->nBodyloc);
+
+    if (sub_006287A0_TestFlags(pItemSave->dwFlags, 1))
+    {
+        sub_00465EE0_RemoveClientSideUnit(pPacket->nItemId, 4);
+        if (pUnit == sub_00463DD0())
+        {
+            pItem = sub_004C0FF0_CreateItem9D(0, 0, 0, pPacket, pItemSave);
+            D2_ASSERT(pItem, 0x703);
+        }
+    }
+    else
+    {
+        sub_004C2540_PlaceItem(pItem, 0, 0, pItemSave->nAnimMode, 0, pItemSave->nStorePage);
+    }
+
+    if (pUnit == sub_00463DD0())
+    {
+        sub_00487990_ResetHover();
+        ITEMS_SetBodyLocation(pItem, 0);
+        INVENTORY_SetCursorItem(pInventory, pItem);
+        sub_00468070_SetCursorItemState(INVENTORY_GetCursorItem(pInventory));
+        sub_004C2180_UpdateCursorItem(pItem);
+    }
+}
+
+// 0x004C3920
+void __fastcall sub_004C3920_BodyPacket9D(D2GSPacketSrv9D* pPacket)
+{
+    D2ItemSaveStrc tItemSave;
+    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x0D, 0, &tItemSave);
+    if (sub_006287A0_TestFlags(tItemSave.dwFlags, 0x40))
+    {
+        sub_004C35F0_ItemToBody9D(pPacket, &tItemSave);
+        return;
+    }
+
+    if (sub_006287A0_TestFlags(tItemSave.dwFlags, 0x80))
+    {
+        sub_004C3760_ItemFromBody9D(pPacket, &tItemSave);
+    }
+}
+
+// 0x004C3B30
+void __fastcall sub_004C3B30_UpdateItemFromPacket9C(D2GSPacketSrv9C* pPacket)
+{
+    int bFail;
+    const int nSize = pPacket->nPacketSize - 8;
+    D2UnitStrc* pItem = sub_00463990(pPacket->nItemId, UNIT_ITEM);
+    ITEMS_DecodeItemFromBitstream(pItem, pPacket->pBitstream, nSize, 0, 0, 0x60, &bFail);
+    if (bFail)
+    {
+        sub_00465EE0_RemoveClientSideUnit(pPacket->nItemId, UNIT_ITEM);
+        return;
+    }
+
+    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2_ASSERT(pPlayer, 0x7B3);
+
+    D2InventoryStrc* pInventory = pPlayer->pInventory;
+    D2_ASSERT(pInventory, 0x7B6);
+
+    if (!sub_006287A0_TestFlags(ITEMS_GetItemFlags(pItem), 8))
+    {
+        INVENTORY_SetCursorItem(pInventory, 0);
+        sub_00468070_SetCursorItemState(INVENTORY_GetCursorItem(pInventory));
+    }
+
+    D2UnitStrc* pCursorItem = INVENTORY_GetCursorItem(pInventory);
+    if (pCursorItem)
+    {
+        sub_004C2180_UpdateCursorItem(pCursorItem);
+    }
+}
+
+// 0x004C3C00
+void __fastcall sub_004C3C00_ItemToMerc9C(D2GSPacketSrv9C* pPacket)
+{
+    D2ItemSaveStrc tItemSave;
+    int nUnitId;
+    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
+
+    if (tItemSave.nStorePage == 0xFF)
+    {
+        return;
+    }
+
+    if (!sub_004B3230_GetTickPair(&nUnitId))
+    {
+        return;
+    }
+
+    D2UnitStrc* pUnit = sub_00463990(nUnitId, 1);
+    if (!pUnit)
+    {
+        return;
+    }
+
+    D2InventoryStrc* pInventory = pUnit->pInventory;
+    if (!pInventory)
+    {
+        return;
+    }
+
+    D2UnitStrc* pItem = sub_00463990(pPacket->nItemId, 4);
+    if (pPacket->nAction == 0x0C)
+    {
+        if (!pItem)
+        {
+            return;
+        }
+
+        if (sub_004B2E20_IsQuestActive())
+        {
+            sub_00487990_ResetHover();
+        }
+
+        if (!INVENTORY_RemoveItemFromInventory(pInventory, pItem))
+        {
+            return;
+        }
+
+        const unsigned char nPage = ITEMS_GetInvPage(pItem);
+        if (nPage == 0xFF)
+        {
+            return;
+        }
+
+        const int nRecordId = UNITS_GetInventoryRecordId(pUnit, nPage, sub_0044DCC0());
+        INVENTORY_Return(".\\UNIT\\Item.cpp", 0x81B, pInventory, tItemSave.nX, tItemSave.nY, nRecordId, 1, nPage);
+        sub_00453B00_SendMouseMove();
+        sub_00465EE0_RemoveClientSideUnit(pPacket->nItemId, 4);
+        sub_004B2A80_ResetHoverForItem(pPacket->nItemId);
+        return;
+    }
+
+    if (tItemSave.nStorePage == 0xFF)
+    {
+        return;
+    }
+
+    if (!pItem)
+    {
+        pItem = sub_004C0F20_CreateItem9C(0, 0, 0, pPacket, &tItemSave);
+        ITEMS_SetInvPage(pItem, tItemSave.nStorePage);
+    }
+    else
+    {
+        INVENTORY_CompareWithItemsParentInventory(pInventory, pItem);
+        if (sub_006287A0_TestFlags(tItemSave.dwFlags, 1))
+        {
+            sub_00465EE0_RemoveClientSideUnit(pPacket->nItemId, 4);
+            pItem = sub_004C0F20_CreateItem9C(0, 0, 0, pPacket, &tItemSave);
+            if (!pItem)
+            {
+                return;
+            }
+
+            if (tItemSave.nStorePage != ITEMS_GetInvPage(pItem))
+            {
+                return;
+            }
+        }
+        else
+        {
+            sub_004C2540_PlaceItem(pItem, 0, 0, 0, 0, tItemSave.nStorePage);
+        }
+    }
+
+    ITEMS_SetInvPage(pItem, tItemSave.nStorePage);
+
+    int nX;
+    int nY;
+    if (!sub_0063B9D0_PlaceItemAt(pInventory, pItem, tItemSave.nX, tItemSave.nY, UNITS_GetInventoryRecordId(pUnit, tItemSave.nStorePage, sub_0044DCC0()), &nX, &nY, tItemSave.nStorePage))
+    {
+        return;
+    }
+
+    sub_004C2970_PlaceItemAt(tItemSave.nY, tItemSave.nStorePage, pUnit, pItem, tItemSave.nX);
+    sub_004B2640(pUnit);
+    sub_004C2180_UpdateCursorItem(pItem);
+}
+
+void __fastcall sub_004C4130_ItemToBelt9C(D2GSPacketSrv9C* pPacket)
+{
+    D2ItemSaveStrc tItemSave;
+    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
+
+    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2_ASSERT(pPlayer, 0x8EF);
+
+    D2UnitStrc* pItem = sub_00463990(pPacket->nItemId, 4);
+    if (pItem)
+    {
+        sub_004C2540_PlaceItem(pItem, 0, 0, tItemSave.nAnimMode, 0, tItemSave.nStorePage);
+    }
+    else
+    {
+        pItem = sub_004C0F20_CreateItem9C(0, 0, 1, pPacket, &tItemSave);
+    }
+
+    UNITS_SetXForStaticUnit(pItem, tItemSave.nX);
+    UNITS_SetYForStaticUnit(pItem, tItemSave.nY);
+
+    D2InventoryStrc* pInventory = pPlayer->pInventory;
+    D2_ASSERT(pInventory, 0x8FF);
+
+    if (INVENTORY_PlaceItemInSocket(pInventory, pItem, 2))
+    {
+        INVENTORY_PlaceItemInBeltSlot(pInventory, pItem, CLIENTS_GetUnitX(pItem));
+    }
+
+    if (ITEMS_IsCharmUsable(pItem, pPlayer))
+    {
+        sub_004C0D20_ApplyItemStats(pPlayer, pItem, 0);
+    }
+
+    if (tItemSave.dwFlags & 0x400)
+    {
+        ITEMS_SetItemFlag(pItem, 0x400, 1);
+    }
+
+    INVENTORY_SetCursorItem(pInventory, NULL);
+    sub_00468070_SetCursorItemState(INVENTORY_GetCursorItem(pInventory));
+    sub_00498D50(ITEMPKT_GetUnitX(pItem), 1);
+    sub_00453B00_SendMouseMove();
+    sub_004C2180_UpdateCursorItem(pItem);
+    sub_004B2A60(pItem->dwUnitId);
+}
+
+void __fastcall sub_004C42A0_ItemFromBelt9C(D2GSPacketSrv9C* pPacket)
+{
+    D2ItemSaveStrc tItemSave;
+    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
+
+    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2_ASSERT(pPlayer, 0x92C);
+
+    D2UnitStrc* pItem = sub_00463990(pPacket->nItemId, 4);
+    D2InventoryStrc* pInventory = pPlayer->pInventory;
+    D2_ASSERT(pInventory, 0x931);
+
+    D2UnitStrc* pRemoved = INVENTORY_RemoveItemFromInventory(pInventory, pItem);
+    if (!pRemoved)
+    {
+        return;
+    }
+
+    D2_ASSERT(pRemoved == pItem, 0x93A);
+
+    sub_0063C550_Return(pInventory, tItemSave.nX);
+    sub_00498D60();
+    sub_00498D50(tItemSave.nX, 0);
+    if (pPlayer->dwUnitType == 0)
+    {
+        INVENTORY_GetLeftHandWeapon(pPlayer->pInventory);
+    }
+
+    if (!ITEMS_CheckItemFlag(pItem, 0x100, 0x96, ".\\UNIT\\Item.cpp"))
+    {
+        STATLIST_ExpireUnitStatlist(pPlayer, pItem);
+    }
+
+    if (!sub_006287A0_TestFlags(tItemSave.dwFlags, 0x20))
+    {
+        sub_004C2540_PlaceItem(pItem, 0, 0, tItemSave.nAnimMode, 0, tItemSave.nStorePage);
+        INVENTORY_SetCursorItem(pInventory, pItem);
+        sub_00468070_SetCursorItemState(INVENTORY_GetCursorItem(pInventory));
+        sub_004C2180_UpdateCursorItem(pItem);
+    }
+    else
+    {
+        sub_00465EE0_RemoveClientSideUnit(pPacket->nItemId, 4);
+        sub_00468070_SetCursorItemState(NULL);
+    }
+}
+
+void __fastcall sub_004C4990_ItemToSocket9D(D2GSPacketSrv9D* pPacket)
+{
+    D2ItemSaveStrc tItemSave;
+    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x0D, 0, &tItemSave);
+
+    D2UnitStrc* pUnit = sub_00463990(pPacket->nUnitId, pPacket->nUnitType);
+    if (!pUnit)
+    {
+        return;
+    }
+
+    D2UnitStrc* pItem = sub_00463990(pPacket->nItemId, 4);
+    if (pItem)
+    {
+        sub_004C2540_PlaceItem(pItem, tItemSave.nX, tItemSave.nY, tItemSave.nAnimMode, 0, tItemSave.nStorePage);
+    }
+    else
+    {
+        pItem = sub_004C0FF0_CreateItem9D(0, 0, 0, pPacket, &tItemSave);
+    }
+
+    D2InventoryStrc* pInventory = pUnit->pInventory;
+    D2_ASSERT(pInventory, 0xB34);
+
+    if (INVENTORY_PlaceItemInSocket(pInventory, pItem, 1))
+    {
+        if (!sub_006287A0_TestFlags(tItemSave.dwFlags, 8))
+        {
+            D2InventoryStrc* pPlayerInventory = sub_00463DD0()->pInventory;
+            D2_ASSERT(pPlayerInventory, 0xB3A);
+            INVENTORY_SetCursorItem(pPlayerInventory, NULL);
+            sub_00468070_SetCursorItemState(INVENTORY_GetCursorItem(pPlayerInventory));
+        }
+
+        sub_004C0D20_ApplyItemStats(pUnit, pItem, 0);
+    }
+
+    sub_004C2180_UpdateCursorItem(pItem);
+}
+
+static void sub_004C3E00_CursorItemToBelt(D2GSPacketSrv9C* pPacket, D2ItemSaveStrc* pItemSave)
+{
+    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2_ASSERT(pPlayer, 0x86C);
+
+    D2UnitStrc* pItem = sub_00463990(pPacket->nItemId, 4);
+    if (sub_006287A0_TestFlags(pItemSave->dwFlags, 1))
+    {
+        sub_00465EE0_RemoveClientSideUnit(pPacket->nItemId, 4);
+        pItem = sub_004C0F20_CreateItem9C(0, 0, 0, pPacket, pItemSave);
+        D2_ASSERT(pItem, 0x874);
+    }
+    else
+    {
+        sub_004C2540_PlaceItem(pItem, 0, 0, pItemSave->nAnimMode, 0, pItemSave->nStorePage);
+    }
+
+    D2InventoryStrc* pInventory = pPlayer->pInventory;
+    D2_ASSERT(pInventory, 0x87C);
+
+    UNITS_SetXForStaticUnit(pItem, pItemSave->nX);
+    UNITS_SetYForStaticUnit(pItem, pItemSave->nY);
+    if (!INVENTORY_PlaceItemInSocket(pInventory, pItem, 1))
+    {
+        return;
+    }
+
+    const unsigned char nPage = ITEMS_GetInvPage(pItem);
+    if (pItemSave->nStorePage == 0xFF)
+    {
+        return;
+    }
+
+    D2_ASSERT(sub_0063BCC0_PlaceItem(pInventory, pItem, CLIENTS_GetUnitX(pItem), CLIENTS_GetUnitY(pItem), UNITS_GetInventoryRecordId(pPlayer, nPage, sub_0044DCC0()), 1, nPage), 0x892);
+
+    if (ITEMS_IsCharmUsable(pItem, pPlayer))
+    {
+        sub_004C0D20_ApplyItemStats(pPlayer, pItem, 0);
+    }
+
+    sub_00453B00_SendMouseMove();
+    sub_004C2180_UpdateCursorItem(pItem);
+}
+
+static void __stdcall sub_004C3F60_BeltItemToCursor(D2GSPacketSrv9C* pPacket, D2ItemSaveStrc* pItemSave)
+{
+    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2_ASSERT(pPlayer, 0x8A6);
+
+    D2UnitStrc* pItem = sub_00463990(pPacket->nItemId, 4);
+    const unsigned char nPage = ITEMS_GetInvPage(pItem);
+    D2InventoryStrc* pInventory = pPlayer->pInventory;
+    D2_ASSERT(pInventory, 0x8AB);
+
+    if (pPlayer->dwUnitType == 0)
+    {
+        INVENTORY_GetLeftHandWeapon(pPlayer->pInventory);
+    }
+
+    if (!ITEMS_CheckItemFlag(pItem, 0x100, 0x96, ".\\UNIT\\Item.cpp"))
+    {
+        STATLIST_ExpireUnitStatlist(pPlayer, pItem);
+    }
+
+    D2UnitStrc* pRemoved = INVENTORY_RemoveItemFromInventory(pInventory, pItem);
+    D2_ASSERT(pRemoved, 0x8B0);
+    D2_ASSERT(pRemoved == pItem, 0x8B1);
+
+    const int nRecordId = UNITS_GetInventoryRecordId(pPlayer, nPage, sub_0044DCC0());
+    INVENTORY_Return(".\\UNIT\\Item.cpp", 0x8B4, pInventory, pItemSave->nX, pItemSave->nY, nRecordId, 1, nPage);
+    sub_00487990_ResetHover();
+    if (sub_006287A0_TestFlags(pItemSave->dwFlags, 1))
+    {
+        sub_00465EE0_RemoveClientSideUnit(pPacket->nItemId, 4);
+        pItem = sub_004C0F20_CreateItem9C(0, 0, 0, pPacket, pItemSave);
+        D2_ASSERT(pItem, 0x8BB);
+    }
+    else
+    {
+        sub_004C2540_PlaceItem(pItem, 0, 0, pItemSave->nAnimMode, 0, pItemSave->nStorePage);
+    }
+
+    INVENTORY_SetCursorItem(pInventory, pItem);
+    sub_00468070_SetCursorItemState(INVENTORY_GetCursorItem(pInventory));
+    sub_004C2180_UpdateCursorItem(pItem);
+}
+
+// 0x004C40D0
+void __fastcall sub_004C40D0_BeltPacket2_9C(D2GSPacketSrv9C* pPacket)
+{
+    D2ItemSaveStrc tItemSave;
+    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
+
+    D2UnitStrc* pItem = sub_00463990(pPacket->nItemId, 4);
+    if (!pItem)
+    {
+        return;
+    }
+
+    const int nMode = pItem->dwAnimMode;
+    if (nMode == 0)
+    {
+        sub_004C3F60_BeltItemToCursor(pPacket, &tItemSave);
+    }
+    else if (nMode == 4)
+    {
+        sub_004C3E00_CursorItemToBelt(pPacket, &tItemSave);
+    }
+}
+
+static void __stdcall sub_004C43E0_ItemToBelt(D2GSPacketSrv9C* pPacket, D2ItemSaveStrc* pItemSave)
+{
+    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2_ASSERT(pPlayer, 0x957);
+
+    D2UnitStrc* pItem = sub_00463990(pPacket->nItemId, 4);
+    if (!pItem)
+    {
+        return;
+    }
+
+    sub_004C2540_PlaceItem(pItem, 0, 0, pItemSave->nAnimMode, 0, pItemSave->nStorePage);
+
+    D2InventoryStrc* pInventory = pPlayer->pInventory;
+    D2_ASSERT(pInventory, 0x963);
+
+    UNITS_SetXForStaticUnit(pItem, pItemSave->nX);
+    UNITS_SetYForStaticUnit(pItem, pItemSave->nY);
+    if (ITEMS_CheckItemTypeId(pItem, 0x0D))
+    {
+        sub_004C0D20_ApplyItemStats(pPlayer, pItem, 0);
+    }
+
+    if (INVENTORY_PlaceItemInSocket(pInventory, pItem, 2))
+    {
+        D2_ASSERT(INVENTORY_PlaceItemInBeltSlot(pInventory, pItem, CLIENTS_GetUnitX(pItem)), 0x970);
+    }
+
+    sub_00453B00_SendMouseMove();
+    sub_004C2180_UpdateCursorItem(pItem);
+}
+
+void __stdcall sub_004C44D0_ItemFromBelt(D2GSPacketSrv9C* pPacket, D2ItemSaveStrc* pItemSave)
+{
+    D2UnitStrc* pPlayer = sub_00463DD0();
+    if (!pPlayer)
+    {
+        return;
+    }
+
+    D2UnitStrc* pItem = sub_00463990(pPacket->nItemId, 4);
+    if (!pItem)
+    {
+        return;
+    }
+
+    D2InventoryStrc* pInventory = pPlayer->pInventory;
+    D2_ASSERT(pInventory, 0x98D);
+
+    D2UnitStrc* pRemoved = INVENTORY_RemoveItemFromInventory(pInventory, pItem);
+    D2_ASSERT(pRemoved, 0x98F);
+    D2_ASSERT(pRemoved == pItem, 0x990);
+
+    if (pPlayer->dwUnitType == 0)
+    {
+        INVENTORY_GetLeftHandWeapon(pPlayer->pInventory);
+    }
+
+    if (!ITEMS_CheckItemFlag(pItem, 0x100, 0x96, ".\\UNIT\\Item.cpp"))
+    {
+        STATLIST_ExpireUnitStatlist(pPlayer, pItem);
+    }
+
+    sub_0063C550_Return(pInventory, pItemSave->nX);
+    sub_004C2540_PlaceItem(pItem, 0, 0, pItemSave->nAnimMode, 0, pItemSave->nStorePage);
+    INVENTORY_SetCursorItem(pInventory, pItem);
+    sub_00468070_SetCursorItemState(INVENTORY_GetCursorItem(pInventory));
+    sub_004C2180_UpdateCursorItem(pItem);
+}
+
+// 0x004C45C0
+void __fastcall sub_004C45C0_BeltPacket9C(D2GSPacketSrv9C* pPacket)
+{
+    D2ItemSaveStrc tItemSave;
+    sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
+
+    D2UnitStrc* pItem = sub_00463990(pPacket->nItemId, 4);
+    if (!pItem)
+    {
+        return;
+    }
+
+    const int nMode = pItem->dwAnimMode;
+    if (nMode == 2)
+    {
+        sub_004C44D0_ItemFromBelt(pPacket, &tItemSave);
+    }
+    else if (nMode == 4)
+    {
+        sub_004C43E0_ItemToBelt(pPacket, &tItemSave);
+    }
 }
 
 // 0x004C4620
@@ -1628,61 +2277,403 @@ void __fastcall sub_004C4620(D2PacketRecord8Strc* pPacket)
     }
 }
 
-// 0x004C2150
-int __fastcall sub_004C2150_FindInTable(int nValue)
+// 0x004C51E0
+void __fastcall sub_004C51E0_GetAdjacentPosition(D2UnitStrc* pUnit, int* pX, int* pY)
 {
-    for (unsigned int i = 0; i < gnTableCount_00727A3C; ++i)
+    const int nDirection = UNITS_GetDirection(pUnit) >> 3;
+    int aOffsetX[8] = { 0, -1, -2, -1, 0, 1, 2, 1 };
+    int aOffsetY[8] = { 2, 1, 0, -1, -2, -1, 0, 1 };
+
+    int nX;
+    switch (pUnit->dwUnitType)
     {
-        if (nValue == gnTable_00727A28[i])
-            return 4;
-    }
-    return 3;
-}
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        nX = pUnit->pStaticPath->tGameCoords.nX;
+        break;
 
-// 0x004C21E0
-void __fastcall sub_004C21E0_StatRemoveCallback_ToggleStateOff(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList)
-{
-    STATES_ToggleState(pUnit, nState, 0);
-}
-
-// 0x004C23E0
-void __fastcall sub_004C23E0_RemoveEquippedItems(D2UnitStrc* pUnit)
-{
-    if (!pUnit)
-        return;
-
-    D2InventoryStrc* pInventory = pUnit->pInventory;
-    if (!pInventory)
-        return;
-
-    D2UnitStrc* pNext;
-    for (D2UnitStrc* pNode = INVENTORY_GetFirstItem(pInventory); pNode; pNode = pNext)
-    {
-        pNext = INVENTORY_GetNextItem(pNode);
-        D2UnitStrc* pItem = INVENTORY_UnitIsItem(pNode);
-        D2_ASSERT(pItem, 0xD4F);
-
-        if (INVENTORY_GetItemNodePage(pNode) == 3 || (INVENTORY_GetItemNodePage(pNode) == 1 && ITEMS_IsCharmUsable(pItem, pUnit)))
+    default:
+        if (pUnit->pDynamicPath)
         {
-            sub_0046F950(pUnit);
-            INVENTORY_UpdateWeaponGUIDOnRemoval(pInventory, pItem);
-            D2UnitStrc* pRemoved = INVENTORY_RemoveItemFromInventory(pInventory, pItem);
-            D2_ASSERT(pRemoved, 0xD5A);
-            D2_ASSERT(pRemoved == pItem, 0xD5B);
+            nX = PATH_GetXPosition(pUnit->pDynamicPath);
+        }
+        else
+        {
+            nX = 0;
+        }
+        break;
+    }
+    *pX = aOffsetX[nDirection] + nX;
 
-            if (INVENTORY_GetItemNodePage(pNode) == 3)
-                sub_0063BE30_Return((int)pInventory, INVENTORY_GetBodyLocFromEquippedItem(pInventory, pItem));
+    int nY;
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        nY = pUnit->pStaticPath->tGameCoords.nY;
+        break;
 
-            ITEMS_UpdateSets(pUnit, pRemoved, 1, 1);
-            if (pUnit->dwUnitType == 0)
-                INVENTORY_GetLeftHandWeapon(pUnit->pInventory);
+    default:
+        if (pUnit->pDynamicPath)
+        {
+            nY = PATH_GetYPosition(pUnit->pDynamicPath);
+        }
+        else
+        {
+            nY = 0;
+        }
+        break;
+    }
+    *pY = aOffsetY[nDirection] + nY;
+}
 
-            if (!sub_006280A0(pRemoved, 0x100, 0x96, (unsigned int)".\\UNIT\\Item.cpp"))
-                STATLIST_ExpireUnitStatlist(pUnit, pRemoved);
+// 0x004C52E0
+int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY)
+{
+    int nY;
+    D2UnitStrc* pTarget = sub_004648F0_GetTargetUnit(pUnit);
+    if (pTarget)
+    {
+        int nX;
+        switch (pTarget->dwUnitType)
+        {
+        case UNIT_OBJECT:
+        case UNIT_ITEM:
+        case UNIT_TILE:
+            nX = pTarget->pStaticPath->tGameCoords.nX;
+            break;
 
-            sub_004C1350_RefreshEquippedItems(pUnit);
+        default:
+            if (pTarget->pDynamicPath)
+            {
+                nX = PATH_GetXPosition(pTarget->pDynamicPath);
+            }
+            else
+            {
+                nX = 0;
+            }
+            break;
+        }
+        *pX = nX;
+
+        switch (pTarget->dwUnitType)
+        {
+        case UNIT_OBJECT:
+        case UNIT_ITEM:
+        case UNIT_TILE:
+            nY = pTarget->pStaticPath->tGameCoords.nY;
+            break;
+
+        default:
+            if (pTarget->pDynamicPath)
+            {
+                nY = PATH_GetYPosition(pTarget->pDynamicPath);
+            }
+            else
+            {
+                nY = 0;
+            }
+            break;
+        }
+    }
+    else
+    {
+        D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
+        *pX = D2COMMON_10175_PathGetFirstPointX(pPath);
+        nY = D2COMMON_10176_PathGetFirstPointY(pPath);
+    }
+    *pY = nY;
+
+    if (!*pX || !nY)
+    {
+        sub_004C51E0_GetAdjacentPosition(pUnit, pX, pY);
+    }
+    return 1;
+}
+
+// 0x004C6030
+int __fastcall sub_004C6030_UseBowOrCallTarget(D2UnitStrc* pUnit, int nArg2, int nArg3)
+{
+    if (pUnit)
+    {
+        pUnit->dwFlags |= 0x40;
+    }
+
+    if (COMPOSIT_IsWeaponBowOrXBow(pUnit))
+    {
+        const int nValue = sub_00645F00_GetBowValue(pUnit, &nArg3);
+        if (nValue != -1)
+        {
+            sub_004C5420_UseBow(pUnit, nValue, nArg2, nArg3);
+        }
+    }
+    else
+    {
+        sub_004E4050_Nothing(pUnit, sub_004648F0_GetTargetUnit(pUnit));
+    }
+
+    return 1;
+}
+
+// 0x004C7C40
+int __fastcall sub_004C7C40_RegisterTableEvent(void* pArg1, int nArg2, int nArg3, int nArg4, unsigned int nIndex, int nArg6, int nArg7)
+{
+    if (nIndex <= 1)
+    {
+        void* pfnCallback = gpfnEventTable_00727DB4[nIndex];
+        if (pfnCallback)
+        {
+            return sub_004DC110(pArg1, nArg2, nArg3, nArg4, pfnCallback, nArg6, nArg7);
         }
     }
 
-    INVENTORY_RemoveAllItems(pInventory);
+    return 0;
+}
+
+// 0x004C7CF0
+int __fastcall sub_004C7CF0_EvaluateClientSkillCalc(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    sub_004C7BE0_ApplyClientSkillCalc(pUnit, SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCltCalc[0], nSkillId, nSkillLevel));
+    return 1;
+}
+
+// 0x004D93B0
+void __fastcall sub_004D93B0_SendPositionEvent(D2UnitStrc* pUnit)
+{
+    D2UnitEventArgsStrc tArgs = {};
+
+    int nX;
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        nX = pUnit->pStaticPath->tGameCoords.nX;
+        break;
+
+    default:
+        if (pUnit->pDynamicPath)
+        {
+            nX = PATH_GetXPosition(pUnit->pDynamicPath);
+        }
+        else
+        {
+            nX = 0;
+        }
+        break;
+    }
+    tArgs.nX = nX;
+
+    int nY;
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        nY = pUnit->pStaticPath->tGameCoords.nY;
+        break;
+
+    default:
+        if (pUnit->pDynamicPath)
+        {
+            nY = PATH_GetYPosition(pUnit->pDynamicPath);
+        }
+        else
+        {
+            nY = 0;
+        }
+        break;
+    }
+    tArgs.nY = nY;
+
+    sub_00480C10_DispatchUnitEvent(0x19, pUnit, &tArgs, 0);
+    D2COMMON_10160_PathUpdateDirection(pUnit->pDynamicPath, 0);
+}
+
+// 0x004DA080
+void __stdcall sub_004DA080_FreeGfxMotion(D2UnitStrc* pUnit)
+{
+    D2GfxMotionStrc* pMotion = sub_0046F060_GetGfxMotion(pUnit);
+    if (pMotion)
+    {
+        FOG_Free(pMotion, ".\\ENGINE\\Particle.cpp", 100, 0);
+        sub_0046F070_SetGfxMotion(pUnit, 0);
+    }
+}
+
+// 0x004DA0D0
+int __stdcall sub_004DA0D0_GetGfxMotionField38(D2UnitStrc* pUnit)
+{
+    D2GfxMotionStrc* pMotion = sub_0046F060_GetGfxMotion(pUnit);
+    if (pMotion)
+    {
+        return pMotion->nUnk0x38;
+    }
+    return 0;
+}
+
+// 0x004DA0F0
+int __stdcall sub_004DA0F0_GetGfxMotionField3C(D2UnitStrc* pUnit)
+{
+    D2GfxMotionStrc* pMotion = sub_0046F060_GetGfxMotion(pUnit);
+    if (pMotion)
+    {
+        return pMotion->nUnk0x3C;
+    }
+    return 0;
+}
+
+// 0x004DCD40
+void __fastcall sub_004DCD40_ShowTimedHint(void* pOwner, int nDelayA, int nDelayC, unsigned int nIndex, int nArgE, int nDelayF, int nArgG)
+{
+    if (gnGlobal_007C89D8)
+    {
+        D2HintCursorStrc* pCursor = sub_00481860(gnGlobal_007C89D8);
+        void* pEntry = sub_004B9610(gnGlobal_007C89D8);
+        if (pEntry && sub_004B9590(pEntry))
+        {
+            const int nValue = nIndex > 0 ? pCursor->aValues[nIndex] : 0;
+            const int nOffset = 4 * (gnGlobal_007C89D8 - sub_004817F0());
+            *(int*)(sub_00481810() + nOffset) = nValue;
+            gnGlobal_007C89E0 = sub_00481820();
+        }
+    }
+
+    sub_004BA8F0();
+    gTimedHint_007C89E4.bActive = 1;
+    gTimedHint_007C89E4.pOwner = pOwner;
+    gTimedHint_007C89E4.nEndTickA = sub_0044DB00() + nDelayA;
+    gTimedHint_007C89E4.bActive2 = 1;
+    gTimedHint_007C89E4.nArgE = nArgE;
+    gTimedHint_007C89E4.nEndTickF = sub_0044DB00() + nDelayF;
+    gTimedHint_007C89E4.nArgG = nArgG;
+    gTimedHint_007C89E4.nEndTickC = sub_0044DB00() + nDelayC;
+}
+
+// 0x004DE630
+void __thiscall D2FloorTileViewStrc::sub_004DE630_DrawTileAt(int nX, int nY)
+{
+    int nScreenX = nX;
+    int nScreenY = nY + 5;
+    sub_00643260(&nScreenX, &nScreenY);
+    nScreenY += 0x28;
+    D2_ASSERT(gpGlobal_007A0634, 0xDF);
+    nScreenX += nOffsetX;
+    nScreenY += nOffsetY;
+    D2TileStrc* pTile = sub_00619720(gpGlobal_007A0634);
+    if (pTile)
+    {
+        sub_004DE410_DrawFloorTile(pTile, 1, nScreenX, nScreenY, nX, nY);
+    }
+}
+
+// 0x004DE6C0
+void __thiscall D2FloorTileViewStrc::sub_004DE6C0_DrawTileTriple(int nX, int nY, int nStepX, int nStepY)
+{
+    const int nBaseX = nX / 5 * 5;
+    const int nBaseY = nY / 5 * 5;
+    sub_004DE630_DrawTileAt(nBaseX, nBaseY);
+    sub_004DE630_DrawTileAt(nBaseX + nStepX, nBaseY + nStepY);
+    sub_004DE630_DrawTileAt(nBaseX + 2 * nStepX, nBaseY + 2 * nStepY);
+}
+
+// 0x004DF510
+void __thiscall D2CellGridViewStrc::sub_004DF510_DrawCellNodes()
+{
+    const int nCells = nSize;
+    int nCount = nCells * nCells;
+    D2GridCellStrc* pCell = pCells;
+    const int nArg = sub_0045AE90();
+    while (nCount--)
+    {
+        for (D2CellNodeStrc* pNode = pCell->pNodes; pNode; pNode = pNode->pNext)
+        {
+            if (!(pNode->dwFlags & 3))
+            {
+                unsigned char nByte0;
+                unsigned char nByte1;
+                unsigned char nByte2;
+                unsigned char nByte3;
+                sub_00475AA0(pNode->nA, pNode->nB, &nByte0, &nByte1, &nByte2, &nByte3);
+                sub_004DC7B0(pNode->pPos, (((nByte3 << 8 | nByte2) << 8 | nByte1) << 8) | nByte0, 0);
+            }
+            else
+            {
+                const int bMode = sub_004F51D0();
+                if (pNode->dwFlags & 1)
+                {
+                    if (bMode)
+                    {
+                        sub_004F6980(pNode->pPos->f_18, pNode->nA, pNode->nB, 4, nArg);
+                    }
+                    else
+                    {
+                        sub_004F6980(pNode->pPos->f_18, nOffsetX - nScrollX + pNode->pPos->nX, pNode->pPos->nY - nScrollY + nOffsetY, 4, nArg);
+                    }
+                }
+                else if (pNode->dwFlags & 2)
+                {
+                    sub_00471620(pNode->pPos);
+                }
+            }
+        }
+
+        if (pCell->f_14)
+        {
+            sub_004DEF80(pCell, 1, this);
+        }
+        ++pCell;
+    }
+}
+
+// 0x004DF630
+int __fastcall sub_004DF630_QueryAddress(D2AddressQueryStrc* pQuery)
+{
+    D2_ASSERT(*(int*)pQuery->nState == 2, 0x5D);
+
+    D2AddressInfoStrc tInfo;
+    int nParam = pQuery->nParam;
+    int nResult = sub_00516760(pQuery->nSocket, &nParam, &tInfo);
+    if (nResult && tInfo.nVersion == 0x10 && tInfo.nMagic == 0x5622)
+    {
+        pQuery->nResult = nResult;
+        pQuery->nParamOut = nParam;
+        pQuery->bFamilyMatch = tInfo.f_2 == 2;
+        return 1;
+    }
+
+    pQuery->f_81 = 1;
+    return 0;
+}
+
+// 0x004DF9D0
+D2SlotStrc* __fastcall sub_004DF9D0_FindBestSlot(int nOwner)
+{
+    if (!gdwGlobal_007C8C78)
+    {
+        return 0;
+    }
+
+    D2SlotStrc* pBest = 0;
+    for (int i = 0; i < 16; i++)
+    {
+        D2SlotStrc* pSlot = &gaSlots_007C8A78[i];
+        if (sub_00515710(pSlot->f_0) && pSlot->pObject && pSlot->pObject->f_4 == nOwner)
+        {
+            if (!pBest || pSlot->pObject->nKey < pBest->pObject->nKey)
+            {
+                pBest = pSlot;
+            }
+        }
+    }
+
+    return pBest;
 }

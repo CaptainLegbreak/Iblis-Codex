@@ -1,7 +1,6 @@
 #include "D2Game.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define BITARRAY_CHECK(pBytes, nBit) ((pBytes)[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
 struct D2InactiveUnitNodeStrc;
 struct D2MinionListStrc;
 struct D2SeedStrc;

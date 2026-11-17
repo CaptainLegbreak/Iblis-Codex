@@ -56,12 +56,6 @@ struct D2TextIdEntryStrc
     unsigned short wStringId;
 };
 
-struct D2ClientTextDataStrc
-{
-    char unk0x00[0x80];
-    int dwTag;
-};
-
 class ListBoxWrapper
 {
 public:
@@ -71,8 +65,6 @@ public:
     virtual void AddTextLine(Unicode* pLine0, Unicode* pLine1, Unicode* pLine2, Unicode* pLine3, Unicode* pLine4,
                              Unicode* pLine5, int nArg6, int nColor, int nArg8, int nArg9);
 };
-
-typedef int (__fastcall* D2TextCallback)(void* pContext, int nArg, int nValue);
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090

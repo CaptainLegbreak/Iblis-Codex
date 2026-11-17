@@ -28,35 +28,6 @@ struct D2GridCellStrc
     int nY;
 };
 
-struct D2GridRectStrc
-{
-    int nLeft;
-    int nTop;
-    int nRight;
-    int nBottom;
-};
-
-struct D2GridOwnerStrc
-{
-    char pad0x00[0x14];
-    D2GridRectStrc tRect;
-};
-
-struct D2GridInfoStrc
-{
-    char pad0x00[0x6];
-    unsigned short wFlags;
-    char pad0x08[0xC];
-    int nBusy;
-};
-
-struct D2GridUnitStrc
-{
-    char pad0x00[0x14];
-    unsigned int dwFlags;
-    D2GridInfoStrc* pInfo;
-};
-
 struct D2GridLightStrc
 {
     int bCorners;
@@ -83,11 +54,6 @@ void __stdcall sub_004DE070(D2GridCellStrc* pCells, int nX, int nY, int nSubX, i
 void __stdcall sub_004DE260(D2GridCellStrc* pCells, int nSubX, int nSubY, int nZ, int nMode, int bCorners); // 0x004DE260
 int __fastcall sub_00472280(int nSeed, int nZero, int nMax); // 0x00472280
 static __declspec(noinline) void __stdcall sub_004DDEF0_BuildLargeGrid(int nX, int nY, int bFlat, D2GridCellStrc* pCells);
-
-struct D2GridCoordStrc
-{
-    int n;
-};
 
 static __declspec(noinline) void __stdcall sub_004DDFD0_BuildSmallFlatGrid(D2GridCoordStrc tX, int nY, int bCorners, D2GridCellStrc* pCells, int nMode);
 static __declspec(noinline) void __stdcall sub_004DE190_BuildSmallGrid(int nSubX, int nSubY, int nZ, int bCorners, D2GridCellStrc* pCells, int nMode);

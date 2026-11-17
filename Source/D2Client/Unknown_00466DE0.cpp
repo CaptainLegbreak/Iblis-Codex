@@ -62,11 +62,6 @@ unsigned int __cdecl sub_0044DAA0(); // 0x0044DAA0
 unsigned int __cdecl sub_0044DAC0(); // 0x0044DAC0
 void __fastcall sub_0044DAD0(unsigned int nValue); // 0x0044DAD0
 
-struct D2HoverCoordStrc
-{
-    int nValue;
-};
-
 static __declspec(noinline) int __stdcall sub_00467000_CheckWarpTileHover(D2UnitStrc* pPlayer, D2HoverCoordStrc tY1, int nX2, int nY2, D2UnitStrc* pUnit, int nX1, int* pnFlag);
 
 int gdwGlobal_007A6A94; // 0x007A6A94

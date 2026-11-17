@@ -3,8 +3,6 @@
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
 #define UNIT_INVALID 6
-#define PLRMODE_SEQUENCE 18
-#define MONMODE_SEQUENCE 14
 struct D2SeedStrc;
 struct D2StaticPathStrc;
 struct D2MissileStrc;
@@ -75,8 +73,6 @@ int __stdcall MISSILE_GetLevel(D2UnitStrc* pMissile); // 0x0064A210
 int __stdcall MISSILE_GetSkill(D2UnitStrc* pMissile); // 0x0064A280
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
-int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
-int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath); // 0x00648900
 int __stdcall D2Common_10142(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit, int a3); // 0x00649970
 extern "C" int __stdcall sub_0064A3B0(D2UnitStrc* pUnit); // 0x0064A3B0
 extern "C" int __stdcall sub_0064A730_GetMissileTargetStatus(D2UnitStrc* pUnit); // 0x0064A730

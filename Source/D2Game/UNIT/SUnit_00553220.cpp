@@ -5,11 +5,8 @@
 #define UNITFLAG_HASTXTMSG          0x00000100
 #define UNITFLAG_HASEVENTSOUND      0x00000400
 #define UNITFLAG_SUMMONER           0x00000800
-#define UNITFLAG_SENDREFRESHMSG     0x00001000
-#define UNITFLAG_UPGRLIFENHITCLASS  0x00008000
 #define UNITFLAGEX_TELEPORTED       0x00010000
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define UNITFLAGEX_STOREOWNERINFO 0x400
 struct D2ObjectDataStrc;
 struct D2AnimFrameTableStrc;
 
@@ -84,7 +81,6 @@ enum
 };
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
 D2UnitStrc* __fastcall AIGENERAL_GetMinionOwner(D2UnitStrc* pUnit); // 0x0058F0D0
-D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitId); // 0x00552F60
 int __fastcall PLAYERLIST_CheckFlag(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, int nFlag); // 0x0055B300
 unsigned short __fastcall PARTY_GetPartyIdForUnitOwner(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540710
 

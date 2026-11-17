@@ -48,12 +48,6 @@ struct D2CelContextStrc
     int unk0x44;
 };
 
-struct D2ClientCacheNodeStrc
-{
-    int nId;
-    D2ClientCacheNodeStrc* pNext;
-};
-
 struct D2ClientCacheEntryStrc
 {
     unsigned char unk0x00[0x4C];
@@ -62,13 +56,6 @@ struct D2ClientCacheEntryStrc
     unsigned char dwLastUse[4];
     unsigned char unk0x80[0x0A];
     unsigned char nRefCount[4];
-};
-
-struct D2ClientTabStrc
-{
-    unsigned char bSelected[4];
-    unsigned char bEnabled[4];
-    unsigned char unk0x08[0x0A];
 };
 
 struct D2ClientStateStrc
@@ -165,10 +152,6 @@ extern D2InventoryGridInfoStrc gGrid_007BCA30;                                  
 #define gnGlobal_007BCA3C (gGrid_007BCA30.nGridTop)
 #define gnGlobal_007BCA40 (gGrid_007BCA30.nGridBottom)
 D2InventoryGridInfoStrc gGrid_007BCB18;                                                                     // 0x007BCB18
-#define gnGlobal_007BCB1C (gGrid_007BCB18.nGridLeft)
-#define gnGlobal_007BCB20 (gGrid_007BCB18.nGridRight)
-#define gnGlobal_007BCB24 (gGrid_007BCB18.nGridTop)
-#define gnGlobal_007BCB28 (gGrid_007BCB18.nGridBottom)
 extern D2InventoryGridInfoStrc gGrid_007BCB70;                                                              // 0x007BCB70
 #define gnGlobal_007BCB74 (gGrid_007BCB70.nGridLeft)
 #define gnGlobal_007BCB78 (gGrid_007BCB70.nGridRight)

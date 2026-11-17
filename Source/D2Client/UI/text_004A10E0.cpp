@@ -5,7 +5,6 @@ struct D2TextRowStrc { void* pText; D2TextRowStrc* pNext; };
 #pragma pack(push, 2)
 struct D2TextBlockStrc { D2TextRowStrc* pLines; unsigned char unknown04[0x12]; int unknown16; };
 #pragma pack(pop)
-struct D2RectStrc { int nLeft; int nTop; int nRight; int nBottom; };
 struct Unicode { unsigned short wChar; };
 
 void __fastcall FOG_Free(void* pMemory, const char* pFile, int nLine, int nZero); // 0x0040B3C0

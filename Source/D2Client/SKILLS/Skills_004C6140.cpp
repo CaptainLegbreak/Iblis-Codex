@@ -1,6 +1,4 @@
 #include "D2Client.h"
-
-#define NULL 0
 #define BITARRAY_CHECK(pBytes, nBit) ((pBytes)[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
 #define SKILLSFLAGINDEX_LOB 1
 #define SKILLSFLAGINDEX_PRGSTACK 7
@@ -142,20 +140,6 @@ struct D2DataTablesStrc
     int nItemStatCostTxtRecordCount;
 };
 
-struct D2ClientSkillArgsStrc
-{
-    int nSkillId;
-    int nOwnerGUID;
-    int nArg1;
-    int nArg2;
-    int nSkillLevel;
-};
-
-struct D2PathDirectionStrc
-{
-    unsigned char nDirection;
-};
-
 typedef int (__fastcall* CLIENTSKILLSTARTFN)(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -215,9 +199,6 @@ D2UnitStrc* __fastcall sub_004CDC30(D2UnitStrc*,int,int,int,int,int,int,int,int)
 D2UnitStrc* __fastcall sub_004C57B0_FireMissileAtTarget(int,D2UnitStrc*,int,int,int,int,int,int); // 0x004C57B0
 void* __stdcall D2Common_10958(D2UnitStrc*,void*); // 0x00643A00
 void __fastcall sub_004743D0_ReleaseOverlayResource(void*); // 0x004743D0
-int __fastcall sub_004B9A00(int,D2UnitStrc*,int,int,int); // 0x004B9A00
-D2UnitStrc* __fastcall sub_004648F0_GetTargetUnit(D2UnitStrc*); // 0x004648F0
-void __fastcall sub_00470390_AddOverlay(D2UnitStrc*,int,int,int,int,int,int,int); // 0x00470390
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc*,unsigned int,int,int); // 0x00646CA0
 unsigned int __cdecl sub_0044DA90_GetTick(); // 0x0044DA90
 void __fastcall sub_0044CE40_SetSkillDelay(int); // 0x0044CE40
@@ -225,7 +206,6 @@ void __fastcall sub_0044CE40_SetSkillDelay(int); // 0x0044CE40
 typedef int (__fastcall* CLIENTSKILLDOFN)(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);
 extern CLIENTSKILLDOFN gpfnClientSkillDoFuncs_00727BA8[]; // 0x00727BA8
 void __fastcall sub_004C5420_RequestAtTarget(D2UnitStrc* pUnit, int nMissile, int nSkillId, int nSkillLevel); // 0x004C5420
-D2UnitStrc* __fastcall sub_004CDC30(D2UnitStrc* pUnit, int nMissile, int nOffsetX, int nOffsetY, int nTargetX, int nTargetY, int nSkillId, int nSkillLevel, int nRange); // 0x004CDC30
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState); // 0x006256B0
 D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
 void __stdcall sub_006252D0(D2StatListStrc* pStatList, int nState); // 0x006252D0
@@ -851,7 +831,7 @@ int __fastcall sub_004C6680_SkillDo(D2UnitStrc* unit,int skillId,int skillLevel,
  }
  if(skill->targetOverlay>0){
   D2UnitStrc* target=sub_004648F0_GetTargetUnit(unit);
-  if(target)sub_00470390_AddOverlay(target,skill->targetOverlay,2,0,0,0,0,0);
+  if(target)sub_00470390(target,skill->targetOverlay,2,0,0,0,0,0);
  }
  int delay=SKILLS_EvaluateSkillFormula(unit,skill->delay,skillId,skillLevel);
  if(delay>0 && sub_00463DD0()==unit){

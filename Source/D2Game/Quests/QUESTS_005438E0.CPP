@@ -2,12 +2,6 @@
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_MONSTER 1
-#define QUESTEVENT_NPCACTIVATE 0
-#define QUESTEVENT_NPCDEACTIVATE 2
-#define QUESTEVENT_CHANGEDLEVEL 3
-#define QUESTEVENT_PLAYERDROPPEDWITHQUESTITEM 9
-#define QUESTEVENT_PLAYERLEAVESGAME 10
-#define QUESTEVENT_SCROLLMESSAGE 11
 #define UNIT_INVALID 6
 struct T005438E0;
 struct D2ItemsTxt;
@@ -103,20 +97,6 @@ D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 D2GameStrc* __fastcall CLIENTS_GetGame(D2ClientStrc* pClient); // 0x005387C0
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
-
-struct D2MessageStrc
-{
-    unsigned char nMenu;
-    unsigned char pad0x01;
-    unsigned short nStringId;
-};
-
-struct D2MessageListStrc
-{
-    unsigned char nCount;
-    unsigned char pad0x01;
-    D2MessageStrc pMessages[8];
-};
 
 #pragma pack(push, 1)
 struct D2GSPacketSrv27

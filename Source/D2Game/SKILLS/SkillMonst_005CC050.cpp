@@ -69,15 +69,13 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553540
-D2UnitStrc* __fastcall sub_0059FA30_CreateMissile(D2GameStrc* pGame, D2MissileStrc* pParams); // 0x0059FA30
+D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc* pGame, D2MissileStrc* pParams); // 0x0059FA30
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
 struct D2MissilesTxt
 {
     char unk0x000[0x1A4];
 };
-
-D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc* pGame, D2MissileStrc* pMissileParams); // 0x0059FA30
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc* pDynamicPath); // 0x00648A00
 int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pDynamicPath); // 0x00648A10
@@ -174,7 +172,7 @@ int __fastcall sub_005CC050_PlaceSkillMissile(D2GameStrc* pGame, D2UnitStrc* pUn
     missileParams.nTargetY = nDY;
     missileParams.nSkillLevel = nSkillLevel;
     missileParams.nMissile = nMissileId;
-    sub_0059FA30_CreateMissile(pGame, &missileParams);
+    MISSILES_CreateMissileFromParams(pGame, &missileParams);
     return 1;
 }
 

@@ -13,17 +13,6 @@ struct SMSGHANDLER_PARAMS
     int lResult;
 };
 
-struct D2CursorAnimStrc
-{
-    int unk0x00;
-    int f_4;
-    int nFrames;
-    int nStep;
-    void* pData;
-    void* pfnHandler;
-    const char* szName;
-};
-
 struct D2SeedStrc
 {
     unsigned int nLowSeed;
@@ -35,8 +24,6 @@ struct D2UnitStrc
     int unk0x00[8];
     D2SeedStrc pSeed;
 };
-
-#define CURSOR_ANIM_COUNT 7
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090

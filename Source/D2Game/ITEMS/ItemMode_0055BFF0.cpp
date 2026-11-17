@@ -4,13 +4,9 @@
 #define UNIT_PLAYER 0
 #define UNIT_ITEM 4
 #define ITEMQUAL_UNIQUE 7
-#define UNIQUEITEMSFLAGINDEX_CARRY1 2
 #define QUESTSTATEFLAG_A1Q4 4
 #define QUESTSTATEFLAG_A2Q1 9
 #define QUESTSTATEFLAG_A2Q2 10
-#define QUESTSTATEFLAG_A3Q3 19
-#define QUESTSTATEFLAG_A3Q4 20
-#define QUESTSTATEFLAG_A5Q3 37
 #define QFLAG_REWARDGRANTED 0
 #define QFLAG_CUSTOM1 5
 #define QFLAG_CUSTOM3 7
@@ -18,10 +14,8 @@
 #define ITEMACTION_FLAG_BELT 0x20
 #define IFLAG_NEWITEM 0x1
 #define IFLAG_IDENTIFIED 0x10
-#define IFLAG_NOEQUIP 0x4000
 #define UNIT_OBJECT 2
 #define UNIT_TILE 5
-#define IMODE_ONCURSOR 4
 struct D2CorpseStrc;
 struct D2StaticPathStrc;
 struct D2BooksTxt;
@@ -84,17 +78,6 @@ struct D2SkillsTxt
     unsigned char nRange;
     char unk0x15[0x18 - 0x14 - 1];
     short nITypeA[3];
-};
-
-struct D2EquipmentRefreshStateStrc
-{
-    int nHitpoints;
-    int nMana;
-    int nStamina;
-    int nRightSkillId;
-    int nLeftSkillId;
-    int nRightSkillOwnerGUID;
-    int nLeftSkillOwnerGUID;
 };
 
 struct D2ItemDropStrc
@@ -219,13 +202,6 @@ struct D2PlayerDataStrc
 {
     char unk0x00[0x10];
     D2BitBufferStrc* pQuestData[3];
-};
-
-struct D2QuestItemPairStrc
-{
-    int nQuestFlag;
-    unsigned char nItemQuest;
-    char unk0x05[3];
 };
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

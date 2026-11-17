@@ -1,9 +1,17 @@
 #include "D2Game.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define QFLAG_PRIMARYGOALDONE 13
+
 struct D2PlayerDataStrc;
 struct D2ItemsTxt;
 struct D2Act3Quest5Strc;
+struct D2ActiveRoomStrc;
+struct D2GameStrc;
+struct D2UnitStrc;
+struct D2QuestDataStrc;
+struct D2QuestArgStrc;
+struct D2Act3Quest2Strc;
 
 typedef int (__stdcall* FARPROC)();
 
@@ -34,7 +42,11 @@ struct D2UnitStrc
     int unk0x08;
     int dwUnitId;
     int dwAnimMode;
-    char unk0x14[0xD4];
+    unsigned char unk_14[0xA4];
+    unsigned int dwDropItemCode;
+    char pad0xBC[0x08];
+    unsigned int dwFlags;
+    unsigned char unk_C8[0x20];
     D2UnitStrc* pRoomNext;
 };
 
@@ -99,12 +111,22 @@ struct D2ItemsTxt
 
 struct D2Act3Quest5Strc
 {
-    char unk0x00[0x05];
+    int nLastKilledMonsterGUID;
+    unsigned char bOrmusActivated;
     unsigned char bMonstersSpawned;
     unsigned char unk_06[0x2];
     int bQuest1RewardGranted;
     unsigned char bOrbSmashed;
-    char bFlailDropped[0x2F];
+    unsigned char bFlailDropped;
+    unsigned char bCubeDropped;
+    unsigned char pad0x0F;
+    int nMonsterGUIDs[6];
+    unsigned char bCompellingOrbSpawned;
+    unsigned char pad0x29[3];
+    int nCompellingOrbGUID;
+    int nSpawnCount;
+    int nMonstersLeftToKill;
+    unsigned char unk_38[0x4];
     int nFlailsMissing;
     int nHoradricCubesMissing;
     unsigned char unk_44[0xC];
@@ -147,6 +169,26 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x006CC34C
 
+typedef int (__fastcall* QUESTITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
+void __fastcall QUESTS_RemovePlayerGUID(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x00545530
+
+struct D2Act3Quest2Strc
+{
+    char pad0x00[0x1C];
+    int nFlailsDropped;
+    int nCubedFlails;
+    char pad0x24[0x03];
+    unsigned char bFlailDropped;
+};
+
+int __fastcall QUESTS_DebugOutput(D2GameStrc* pGame, const char* szMessage, const char* szFile, int nLine); // 0x00544070
+D2UnitStrc* __fastcall D2GAME_DropItemAtUnit_6FC4FEC0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuality, int* pItemLevel, D2ItemDropStrc* pItemDrop, int a6, int a7); // 0x00559A30
+int __fastcall ACT3Q5_UnitIterate_UpdateQuestStateAfterMonsterKill(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x005BAE20
+int __fastcall ACT3Q5_UnitIterate_SetPrimaryGoalDoneForPartyMembers(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x005BB6C0
+int __fastcall ACT3Q5_UnitIterate_SetCompletionFlag(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x005BB710
+int __fastcall ACT3Q5_UnitIterate_AttachCompletionSound(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x005BB770
+int __fastcall ACT3Q5_UnitIterate_DetermineFlailAndCubeDropCounts(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x005BB7B0
+
 // 0x005BAF70
 int __fastcall ACT3Q5_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {
@@ -160,32 +202,6 @@ int __fastcall ACT3Q5_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* 
     }
 
     return 0;
-}
-
-// 0x005BBEB0
-void __fastcall ACT3Q5_InitQuestData(D2QuestDataStrc* pQuestData)
-{
-    memset(pQuestData->pfCallback, 0x00, sizeof(pQuestData->pfCallback));
-    pQuestData->pNPCMessages = gpAct3Q5NpcMessages;
-    pQuestData->bActive = 1;
-    pQuestData->pfCallback[8] = ACT3Q5_Callback08_MonsterKilled;
-    pQuestData->pfCallback[0] = ACT3Q5_Callback00_NpcActivate;
-    pQuestData->pfCallback[11] = ACT3Q5_Callback11_ScrollMessage;
-    pQuestData->pfCallback[3] = ACT3Q5_Callback03_ChangedLevel;
-    pQuestData->pfCallback[13] = ACT3Q5_Callback13_PlayerStartedGame;
-    pQuestData->pfCallback[10] = ACT3Q5_Callback10_PlayerLeavesGame;
-    pQuestData->pfSeqFilter = ACT3Q5_SeqCallback;
-    pQuestData->nSeqId = 20;
-    pQuestData->fState = 0;
-    pQuestData->nQuestFilter = 21;
-    pQuestData->pfActiveFilter = ACT3Q5_ActiveFilterCallback;
-    pQuestData->nInitNo = 6;
-    pQuestData->pfStatusFilter = 0;
-
-    D2Act3Quest5Strc* pQuestDataEx = (D2Act3Quest5Strc*)FOG_AllocPool(pQuestData->pGame->pMemoryPool, sizeof(D2Act3Quest5Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q5.cpp", 1061, 0);
-    pQuestData->pQuestDataEx = pQuestDataEx;
-    memset(pQuestDataEx, 0x00, sizeof(D2Act3Quest5Strc));
-    memset(pQuestData->pQuestDataEx, 0x00, sizeof(D2Act3Quest5Strc));
 }
 
 #include "gen/data/Source/D2Game/Quests/a3q5.inc"
@@ -238,6 +254,79 @@ void __fastcall ACT3Q5_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
     {
         QUESTS_StateDebug(pQuestData, 5, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q5.cpp", 399);
     }
+    SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT3Q5_UnitIterate_UpdateQuestStateFlags);
+}
+
+// 0x005BB400
+void __fastcall ACT3Q5_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    QUESTS_RemovePlayerGUID(pQuestData, pQuestArg);
+}
+
+// 0x005BB410
+bool __fastcall ACT3Q5_SeqCallback(D2QuestDataStrc* pQuestData)
+{
+    if (pQuestData->fState != 7 && pQuestData->bNotIntro)
+    {
+        return true;
+    }
+
+    D2QuestDataStrc* pQuest = QUESTS_GetQuestData(pQuestData->pGame, pQuestData->nSeqId);
+    if (pQuest)
+    {
+        D2_ASSERT(!IsBadCodePtr((FARPROC)pQuestData->pfSeqFilter), 501);
+        return pQuest->pfSeqFilter(pQuest);
+    }
+
+    return false;
+}
+
+// 0x005BB550
+void __fastcall ACT3Q5_SpawnCouncil(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A3Q5_TRAVINCAL);
+    if (!pQuestData || !pQuestData->bNotIntro)
+        return;
+
+    D2Act3Quest5Strc* pQuestDataEx = (D2Act3Quest5Strc*)pQuestData->pQuestDataEx;
+    pQuestDataEx->bMonstersSpawned = 1;
+    if (pQuestDataEx->nSpawnCount >= 6)
+        return;
+
+    const int nUnitId = !pUnit ? -1 : pUnit->dwUnitId;
+
+    for (int i = 0; i < pQuestDataEx->nSpawnCount; ++i)
+    {
+        if (pQuestDataEx->nMonsterGUIDs[i] == nUnitId)
+            return;
+    }
+
+    pQuestDataEx->nMonsterGUIDs[pQuestDataEx->nSpawnCount] = nUnitId;
+    ++pQuestDataEx->nSpawnCount;
+    pQuestDataEx->nMonstersLeftToKill = pQuestDataEx->nSpawnCount;
+
+    if (pQuestData->fState <= 1)
+    {
+        if (pQuestData->fLastState != 1)
+        {
+            pQuestData->dwFlags &= 0xFFFFFF00;
+            QUESTS_UnitIterate(pQuestData, 1, 0, ACT3Q5_UnitIterate_StatusCyclerEx, 1);
+        }
+    }
+    else
+    {
+        if (pQuestData->fLastState != 3)
+        {
+            pQuestData->dwFlags &= 0xFFFFFF00;
+            QUESTS_UnitIterate(pQuestData, 3, 0, ACT3Q5_UnitIterate_StatusCyclerEx, 1);
+        }
+    }
+
+    if (QUESTS_GetGlobalState(pQuestData->pGame, QUESTSTATEFLAG_A3Q1, QFLAG_PRIMARYGOALDONE) == 1)
+        QUESTS_StateDebug(pQuestData, 4, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q5.cpp", 630);
+    else
+        QUESTS_StateDebug(pQuestData, 5, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q5.cpp", 634);
+
     SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT3Q5_UnitIterate_UpdateQuestStateFlags);
 }
 
@@ -323,20 +412,129 @@ void __fastcall ACT3Q5_UnitIterate_DeleteKhalimItems(D2GameStrc* pGame, D2UnitSt
     }
 }
 
-// 0x005BB410
-bool __fastcall ACT3Q5_SeqCallback(D2QuestDataStrc* pQuestData)
+inline int UNITS_GetClassIdInline(D2UnitStrc* pUnit)
 {
-    if (pQuestData->fState != 7 && pQuestData->bNotIntro)
+    return !pUnit ? -1 : pUnit->dwClassId;
+}
+
+inline void SetUnitFlagMask(D2UnitStrc* pUnit, unsigned int nFlag)
+{
+    if (pUnit)
     {
-        return true;
+        pUnit->dwFlags |= nFlag;
+    }
+}
+
+// 0x005BBC00
+void __fastcall ACT3Q5_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
+{
+    QUESTS_DebugOutput(pQuestData->pGame, "killed boss for quest", "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q5.cpp", 913);
+
+    D2Act3Quest5Strc* pQuestDataEx = (D2Act3Quest5Strc*)pQuestData->pQuestDataEx;
+    int i;
+    if (UNITS_GetClassIdInline(pQuestArg->pTarget) == 366)
+    {
+        SetUnitFlagMask(pQuestArg->pTarget, 0x20000);
+        return;
     }
 
-    D2QuestDataStrc* pQuest = QUESTS_GetQuestData(pQuestData->pGame, pQuestData->nSeqId);
-    if (pQuest)
+    if (!pQuestDataEx->bFlailDropped || !pQuestDataEx->bCubeDropped)
     {
-        D2_ASSERT(!IsBadCodePtr((FARPROC)pQuestData->pfSeqFilter), 501);
-        return pQuest->pfSeqFilter(pQuest);
+        pQuestDataEx->nFlailsMissing = 0;
+        pQuestDataEx->nHoradricCubesMissing = 0;
+        SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT3Q5_UnitIterate_DetermineFlailAndCubeDropCounts);
     }
 
-    return false;
+    if (!pQuestDataEx->bFlailDropped)
+    {
+        pQuestArg->pTarget->dwDropItemCode = ' 1fq';
+        int nFlailsDropped = 0;
+        for (i = 0; i < pQuestDataEx->nFlailsMissing; ++i)
+        {
+            int nItemLevel;
+            if (D2GAME_DropItemAtUnit_6FC4FEC0(pQuestData->pGame, pQuestArg->pTarget, 7, &nItemLevel, 0, -1, 0))
+            {
+                ++nFlailsDropped;
+            }
+        }
+
+        if (nFlailsDropped)
+        {
+            pQuestDataEx->bFlailDropped = 1;
+
+            D2QuestDataStrc* pQuestData16 = QUESTS_GetQuestData(pQuestData->pGame, 16);
+            if (pQuestData16)
+            {
+                D2Act3Quest2Strc* pQuestDataEx16 = (D2Act3Quest2Strc*)pQuestData16->pQuestDataEx;
+                pQuestDataEx16->nFlailsDropped += nFlailsDropped;
+                pQuestDataEx16->bFlailDropped = 1;
+            }
+        }
+    }
+    else if (!pQuestDataEx->bCubeDropped)
+    {
+        pQuestDataEx->bCubeDropped = 1;
+        pQuestArg->pTarget->dwDropItemCode = ' xob';
+        for (i = 0; i < pQuestDataEx->nHoradricCubesMissing; ++i)
+        {
+            int nItemLevel;
+            D2GAME_DropItemAtUnit_6FC4FEC0(pQuestData->pGame, pQuestArg->pTarget, 2, &nItemLevel, 0, -1, 0);
+        }
+    }
+
+    if (!pQuestData->bNotIntro || pQuestDataEx->nMonstersLeftToKill <= 0)
+    {
+        return;
+    }
+
+    --pQuestDataEx->nMonstersLeftToKill;
+    if (pQuestDataEx->nMonstersLeftToKill)
+    {
+        return;
+    }
+
+    pQuestDataEx->nLastKilledMonsterGUID = !pQuestArg->pTarget ? -1 : pQuestArg->pTarget->dwUnitId;
+    pQuestData->dwFlags &= 0xFFFFFF00;
+    if (pQuestDataEx->bOrbSmashed)
+    {
+        QUESTS_StateDebug(pQuestData, 7, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q5.cpp", 972);
+        QUESTS_UnitIterate(pQuestData, 13, 0, ACT3Q5_UnitIterate_StatusCyclerEx, true);
+    }
+    else
+    {
+        QUESTS_StateDebug(pQuestData, 6, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q5.cpp", 977);
+        QUESTS_UnitIterate(pQuestData, 4, 0, ACT3Q5_UnitIterate_StatusCyclerEx, true);
+    }
+
+    SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT3Q5_UnitIterate_UpdateQuestStateAfterMonsterKill);
+    SUNIT_IterateUnitsOfType(pQuestArg->pGame, 0, pQuestArg->pTarget, ACT3Q5_UnitIterate_SetPrimaryGoalDoneForPartyMembers);
+    SUNIT_IterateUnitsOfType(pQuestArg->pGame, 0, pQuestArg->pTarget, ACT3Q5_UnitIterate_SetCompletionFlag);
+    SUNIT_IterateUnitsOfType(pQuestArg->pGame, 0, pQuestArg->pTarget, ACT3Q5_UnitIterate_AttachCompletionSound);
+    QUESTS_SetGlobalState(pQuestData->pGame, 21, 13);
+}
+
+// 0x005BBEB0
+void __fastcall ACT3Q5_InitQuestData(D2QuestDataStrc* pQuestData)
+{
+    memset(pQuestData->pfCallback, 0x00, sizeof(pQuestData->pfCallback));
+    pQuestData->pNPCMessages = gpAct3Q5NpcMessages;
+    pQuestData->bActive = 1;
+    pQuestData->pfCallback[8] = ACT3Q5_Callback08_MonsterKilled;
+    pQuestData->pfCallback[0] = ACT3Q5_Callback00_NpcActivate;
+    pQuestData->pfCallback[11] = ACT3Q5_Callback11_ScrollMessage;
+    pQuestData->pfCallback[3] = ACT3Q5_Callback03_ChangedLevel;
+    pQuestData->pfCallback[13] = ACT3Q5_Callback13_PlayerStartedGame;
+    pQuestData->pfCallback[10] = ACT3Q5_Callback10_PlayerLeavesGame;
+    pQuestData->pfSeqFilter = ACT3Q5_SeqCallback;
+    pQuestData->nSeqId = 20;
+    pQuestData->fState = 0;
+    pQuestData->nQuestFilter = 21;
+    pQuestData->pfActiveFilter = ACT3Q5_ActiveFilterCallback;
+    pQuestData->nInitNo = 6;
+    pQuestData->pfStatusFilter = 0;
+
+    D2Act3Quest5Strc* pQuestDataEx = (D2Act3Quest5Strc*)FOG_AllocPool(pQuestData->pGame->pMemoryPool, sizeof(D2Act3Quest5Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q5.cpp", 1061, 0);
+    pQuestData->pQuestDataEx = pQuestDataEx;
+    memset(pQuestDataEx, 0x00, sizeof(D2Act3Quest5Strc));
+    memset(pQuestData->pQuestDataEx, 0x00, sizeof(D2Act3Quest5Strc));
 }

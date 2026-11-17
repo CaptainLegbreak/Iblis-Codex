@@ -5,7 +5,6 @@ struct StaticPath { char unknown00[12]; int x,y; };
 struct Unit { int type; char unknown04[28]; Seed seed; int unknown28; union { Path* path; StaticPath* staticPath; }; };
 struct Game { char unknown00[0x6D]; unsigned char difficulty; };
 struct MonStats { char unknown00[0x56]; short param[8][3]; };
-struct AiControl { char unknown00[0x14]; int param[3]; };
 struct Tick { AiControl* control; int unknown04; Unit* target; int unknown0C[2]; int distance,combat; MonStats* stats; };
 struct Coord { int x,y; };
 

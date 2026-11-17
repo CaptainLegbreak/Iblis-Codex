@@ -4,7 +4,6 @@
 #define UNIT_ITEM 4
 #define UNIT_TILE 5
 #define STAT_ATTACKRATE 68
-#define STAT_OTHER_ANIMRATE 69
 #define DAMAGERESULTFLAG_SUCCESSFULHIT 1
 struct D2StaticPathStrc;
 struct D2SkillsTxt;
@@ -21,8 +20,6 @@ struct D2UnitStrc
 };
 
 void __fastcall sub_6FD11C90(D2UnitStrc* pUnit, int nState, int a3); // 0x0056C740
-
-typedef unsigned int size_t;
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x00681EF0
 

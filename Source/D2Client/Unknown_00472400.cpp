@@ -42,17 +42,6 @@ struct D2GfxDataStrc
     char unk0x44[0x04];
 };
 
-struct D2WeatherSplashStrc
-{
-    short bActive;
-    short unk0x02;
-    int nX;
-    int nY;
-    int nType;
-    int nFrame;
-    int f_14;
-};
-
 struct D2WeatherStrc
 {
     char unk0x000[0x110];

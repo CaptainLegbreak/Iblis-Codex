@@ -17,23 +17,6 @@ struct D2MissileStrc;
 struct D2MonStatsTxt;
 struct D2MonStats2Txt;
 
-struct D2CellPosStrc
-{
-    int nX;
-    int nY;
-    char unk0x08[0x10];
-    int f_18;
-};
-
-struct D2CellNodeStrc
-{
-    unsigned int dwFlags;
-    int nA;
-    int nB;
-    D2CellPosStrc* pPos;
-    D2CellNodeStrc* pNext;
-};
-
 struct D2CellGridViewStrc
 {
     int unk0x00;
@@ -170,7 +153,7 @@ void __stdcall PATH_SetType(D2DynamicPathStrc* pDynamicPath, int nPathType); // 
 int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown); // 0x00649970
 int __stdcall PATH_GetNumberOfPathPoints(D2DynamicPathStrc* pDynamicPath); // 0x00648780
 void __stdcall SKILLS_SetFlags(D2SkillStrc* pSkill, int nValue); // 0x00644660
-void __stdcall sub_00644560(D2SkillStrc*, int); // 0x00644560
+void __stdcall SKILLS_SetParam1(D2SkillStrc*, int); // 0x00644560
 void __stdcall sub_006445A0(D2SkillStrc*, int); // 0x006445A0
 
 enum { SUCCESS_VALUE = 1 };
@@ -233,7 +216,6 @@ void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nCurrentFrame);
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY); // 0x004C52E0
 void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int a4); // 0x00649EF0
-void __stdcall SKILLS_SetParam1(D2SkillStrc* pSkill, int nValue); // 0x00644560
 void __fastcall sub_004E1970(D2SkillsTxt* pSkillsTxt, D2UnitStrc* pUnit); // 0x004E1970
 extern const int gaMissileVelocityPair_006DBAA0[]; // 0x006DBAA0
 extern const int gaMissileVelocityCharged_006DBB38[]; // 0x006DBB38
@@ -631,7 +613,7 @@ int __fastcall sub_004E0C90(D2UnitStrc* unit, int skillId, int skillLevel)
     if (!target) return 0;
     D2SkillStrc* skill = UNITS_GetUsedSkill(unit);
     if (!skill) return 0;
-    sub_00644560(skill, UNITS_GetUnitXPosition(target));
+    SKILLS_SetParam1(skill, UNITS_GetUnitXPosition(target));
     sub_006445A0(skill, UNITS_GetUnitYPosition(target));
     return SUCCESS_VALUE;
 }

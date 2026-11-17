@@ -14,15 +14,6 @@ struct D2GameStrc
     void* pMemoryPool;
 };
 
-struct D2PlayerListStrc
-{
-    int nUnitGUID;
-    unsigned int dwFlags;
-    int field_8;
-    int field_C;
-    D2PlayerListStrc* pNext;
-};
-
 struct D2PlayerDataStrc
 {
     char unk0x00[0x38];

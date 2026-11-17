@@ -12,7 +12,6 @@
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 #define UNIT_MONSTER 1
-#define STAT_VELOCITYPERCENT 67
 #define UNIT_TYPES_COUNT 6
 #define UNIT_PLAYER 0
 #define ITEMACTION_ADDTOGROUND 0
@@ -624,18 +623,6 @@ struct D2GSPacketSrv81
 };
 
 #pragma pack(pop)
-struct D2PackedGuidStrc
-{
-    unsigned short f_0;
-    unsigned short f_2;
-};
-
-struct D2MessageStrc
-{
-    unsigned char nMenu;
-    unsigned char pad0x01;
-    unsigned short nStringId;
-};
 
 struct D2GSPacketSrv27
 {
@@ -752,14 +739,6 @@ struct D2GSPacketSrv90
 };
 
 #pragma pack(pop)
-struct D2LifeSyncStrc
-{
-    int nUnitGUID;
-    int nLifePercentage;
-    int nLevelId;
-    unsigned char nUpdateCount;
-    D2LifeSyncStrc* pNext;
-};
 
 struct D2MonsterDataStrc
 {
@@ -1058,12 +1037,6 @@ struct D2GSPacketSrv8F
 };
 
 #pragma pack(pop)
-struct D2GSPacketSrv91
-{
-    unsigned char nHeader;
-    unsigned char nAct;
-    unsigned short pNPCFlags[12];
-};
 
 #pragma pack(push, 1)
 struct D2GSPacketSrv98 { unsigned char nHeader; unsigned int unk0x01; unsigned short unk0x05; };

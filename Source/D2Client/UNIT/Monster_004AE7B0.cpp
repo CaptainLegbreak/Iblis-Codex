@@ -1,6 +1,4 @@
 #include "D2Client.h"
-
-#define I07_OFFSET(s, m) ((unsigned int)&((s*)0)->m)
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2LightStrc;
 struct D2RoomStrc;
@@ -103,7 +101,7 @@ struct D2DataTablesStrc
 };
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit); // 0x0045ADF0
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 unsigned char __stdcall sub_0063E7A0_GetByteTableEntry(unsigned char nIndex); // 0x0063E7A0
 int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
@@ -129,11 +127,6 @@ struct D2StaticPathStrc
     int nYPos;
 };
 
-struct D2DirectionArgStrc
-{
-    unsigned char nDirection;
-};
-
 typedef char I07_check_unit_a[(I07_OFFSET(D2UnitStrc, pSeed) == 0x20 && I07_OFFSET(D2UnitStrc, pDynamicPath) == 0x2C) ? 1 : -1];
 
 typedef char I07_check_unit_b[(I07_OFFSET(D2UnitStrc, dwFlagEx) == 0xC8 && I07_OFFSET(D2StaticPathStrc, nYPos) == 0x10) ? 1 : -1];
@@ -143,7 +136,6 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
-int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 D2UnitStrc* __fastcall sub_004CDB40_SubmitRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
 void __stdcall sub_004DA000_ResetGfxMotion(D2UnitStrc* pUnit); // 0x004DA000
 void __stdcall sub_006488A0_SetDirection(D2DynamicPathStrc* pPath, D2DirectionArgStrc tDirection); // 0x006488A0
@@ -238,9 +230,9 @@ int __fastcall sub_004AE7B0_CheckMonsterFacing(D2UnitStrc* pUnit, D2UnitStrc* pT
     int nOffsetX;
     int nOffsetY;
     sub_0063E7E0_GetDirectionDelta(nNewDirection, &nOffsetX, &nOffsetY);
-    const int nX = UNITS_GetXPosition(pTarget) + 3 * nOffsetX;
+    const int nX = CLIENTS_GetUnitX(pTarget) + 3 * nOffsetX;
     const int nY = CLIENTS_GetUnitY(pTarget) + 3 * nOffsetY;
-    if (nX == UNITS_GetXPosition(pUnit) && nY == CLIENTS_GetUnitY(pUnit))
+    if (nX == CLIENTS_GetUnitX(pUnit) && nY == CLIENTS_GetUnitY(pUnit))
     {
         return nDirection;
     }

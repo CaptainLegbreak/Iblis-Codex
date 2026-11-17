@@ -136,42 +136,6 @@ struct D2DataTablesStrc
     int nShiftedStuff;
 };
 
-struct D2CombinedStatStrc
-{
-    int nMin;
-    int nMax;
-    int nLength;
-    int nCount;
-    int bCombined;
-    int bShown;
-};
-
-struct D2CombinedStatsStrc
-{
-    D2CombinedStatStrc tDamage;
-    D2CombinedStatStrc tDamagePercent;
-    D2CombinedStatStrc tCold;
-    D2CombinedStatStrc tLightning;
-    D2CombinedStatStrc tFire;
-    D2CombinedStatStrc tPoison;
-    D2CombinedStatStrc tMagic;
-};
-
-struct D2CombinedStatIdStrc
-{
-    int nStatId;
-    char unk0x04[0x0C];
-};
-
-struct D2FileIndexTextStrc
-{
-    int nFileIndex;
-    int nMode;
-    unsigned short wStrPos;
-    unsigned short wStrNeg;
-    int nPos;
-};
-
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -204,7 +168,6 @@ D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
 extern D2CombinedStatIdStrc gaCombinedStatIds_0072CDD0[]; // 0x0072CDD0
 extern D2FileIndexTextStrc gaFileIndexText_0072D6C0[]; // 0x0072D6C0
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-extern D2DrlgActStrc* gpGlobal_007A0634; // 0x007A0634
 static int __stdcall sub_004E4C50_GetStatDisplayValue(int nValue, D2ItemStatCostTxt* pRecord, D2UnitStrc* pUnit, int nStatId); // 0x004E4C50
 int __stdcall sub_004E4CE0_IsStatGroupUniform(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int nStatId, int nValue, D2ItemStatCostTxt* pRecord, int* pIsSame); // 0x004E4CE0
 static __declspec(noinline) void __stdcall sub_004E5E90_BuildFileIndexStatText(D2UnitStrc* pUnit, Unicode* pOut, D2FileIndexTextStrc* pTable);
@@ -826,13 +789,13 @@ static int __stdcall sub_004E4D80_BuildStatText(D2UnitStrc* pUnit, D2StatListStr
         wszValue[0] = 0;
         int nPeriodOfDay = 0;
         int nBaseTime = 0;
-        if (gpGlobal_007A0634)
-            nPeriodOfDay = ENVIRONMENT_GetPeriodOfDayFromAct(gpGlobal_007A0634, &nBaseTime);
+        if (gpAct_007A0634)
+            nPeriodOfDay = ENVIRONMENT_GetPeriodOfDayFromAct(gpAct_007A0634, &nBaseTime);
 
         int nMin;
         int nMax;
         int nAmount = ITEMMODS_GetByTimeAdjustment(nDisplay, nPeriodOfDay, nBaseTime, &nPeriodOfDay, &nMin, &nMax);
-        if (!gpGlobal_007A0634)
+        if (!gpAct_007A0634)
             nAmount = nMin;
 
         const int nPeriod = nPeriodOfDay > 0 ? nPeriodOfDay : 0;

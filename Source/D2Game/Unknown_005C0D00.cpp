@@ -59,27 +59,7 @@ D2StatListStrc* __stdcall STATLIST_AllocStatList(void*, unsigned int, unsigned i
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc*, D2StatListStrc*, int); // 0x00626E10
 void __stdcall STATLIST_SetStatIfListIsValid(D2StatListStrc*, int, int, int); // 0x00627150
 
-struct D2RareAffixTxt
-{
-    char unk0x00[0x48];
-};
-
-struct D2RareAffixDataTbl
-{
-    int nRareAffixTxtRecordCount;
-    D2RareAffixTxt* pRareAffixTxt;
-    D2RareAffixTxt* pRareSuffix;
-    D2RareAffixTxt* pRarePrefix;
-};
-
-struct D2RareAffixIndexAndPtrStrc
-{
-    int nIndex;
-    D2RareAffixTxt* pRareAffixRecord;
-};
-
 int __fastcall sub_00472280(D2SeedStrc* pSeed, int nOffset, int nRange); // 0x00472280
-D2SeedStrc* __stdcall ITEMS_GetItemSeed(D2UnitStrc* pItem); // 0x00627D90
 unsigned short __stdcall ITEMS_GetItemFormat(D2UnitStrc* pItem); // 0x0062A670
 
 struct D2ItemDropStrc
@@ -106,20 +86,6 @@ struct D2ItemsTxt
 {
     char unk0x000[0x80];
     unsigned int dwCode;
-};
-
-struct D2SetItemsTxt
-{
-    char unk0x000[0x22];
-    unsigned short wVersion;
-    char unk0x024[0x04];
-    unsigned int szItemCode;
-    short nSetId;
-    short nSetItems;
-    short wLvl;
-    short wLvlReq;
-    unsigned int dwRarity;
-    char unk0x038[0x180];
 };
 
 struct D2DataTablesStrc

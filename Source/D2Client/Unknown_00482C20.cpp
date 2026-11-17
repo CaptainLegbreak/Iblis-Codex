@@ -14,10 +14,6 @@
 #define gnGlobal_007BCAF4 (gInvRect_007BCAF4.nLeft)
 #define gnGlobal_007BCAF8 (gInvRect_007BCAF4.nRight)
 #define gnGlobal_007BCB00 (gInvRect_007BCAF4.nBottom)
-#define gnGlobal_007BCB1C (gGrid_007BCB18.nGridLeft)
-#define gnGlobal_007BCB20 (gGrid_007BCB18.nGridRight)
-#define gnGlobal_007BCB24 (gGrid_007BCB18.nGridTop)
-#define gnGlobal_007BCB28 (gGrid_007BCB18.nGridBottom)
 #define gnGlobal_007BCB44 (gGrid_007BCB40.nGridLeft)
 #define gnGlobal_007BCB48 (gGrid_007BCB40.nGridRight)
 #define gnGlobal_007BCB4C (gGrid_007BCB40.nGridTop)
@@ -26,9 +22,6 @@
 #define gnGlobal_007BCB78 (gGrid_007BCB70.nGridRight)
 #define gnGlobal_007BCB7C (gGrid_007BCB70.nGridTop)
 #define gnGlobal_007BCB80 (gGrid_007BCB70.nGridBottom)
-#define gnGlobal_007BCB30 (gInvRect_007BCB30.nLeft)
-#define gnGlobal_007BCB34 (gInvRect_007BCB30.nRight)
-#define gnGlobal_007BCB3C (gInvRect_007BCB30.nBottom)
 
 struct Unicode;
 struct D2InvRectStrc;

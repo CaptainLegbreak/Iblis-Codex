@@ -23,13 +23,6 @@ struct D2UnitStrc
     int dwClassId;
 };
 
-struct D2AiBaalTargetArgsStrc
-{
-    char unk0x00[0x0C];
-    int nX;
-    int nY;
-};
-
 struct D2SkillsTxt
 {
     char unk0x000[0x18E];

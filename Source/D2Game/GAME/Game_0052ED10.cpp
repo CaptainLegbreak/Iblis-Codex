@@ -79,13 +79,10 @@ struct D2GameInfoStrc
     unsigned int nArenaFlags;
     void* pMemoryPool;
 };
-
-#define D2GameReservedSlotHandle (-1)
 #define PATHTYPE_ASTAR 1
 #define PATHTYPE_TOWARD 2
 #define PATHTYPE_MON_CIRCLE_CW 5
 #define PATHTYPE_MON_CIRCLE_CCW 6
-#define PATHTYPE_WALL_FOLLOW 15
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock);         // 0x006CC218
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock);         // 0x006CC214

@@ -86,8 +86,6 @@ D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
 void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C360
-D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* unit); // 0x006221A0
-int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* flags, int quest, int state); // 0x0065C310
 void __fastcall SUNIT_AttachSound(D2UnitStrc* unit, int updateType, D2UnitStrc* updateUnit); // 0x00553380
 
 struct Quest {char pad00[0xC];unsigned char state;char pad0D[0xD3];int id;};

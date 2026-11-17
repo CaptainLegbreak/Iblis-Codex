@@ -229,7 +229,6 @@ void __stdcall WAYPOINTS_ActivateWaypoint(D2WaypointDataStrc* pData, unsigned sh
 #define OBJMODE_NEUTRAL 0
 #define OBJMODE_OPERATING 1
 #define OBJMODE_OPENED 2
-#define OBJMODE_SPECIAL3 5
 #define EVENTTYPE_ENDANIM 1
 #define EVENTTYPE_ACTIVESTATE 5
 #define EVENTTYPE_FREEHOVER 6
@@ -239,13 +238,11 @@ void __stdcall WAYPOINTS_ActivateWaypoint(D2WaypointDataStrc* pData, unsigned sh
 #define STAT_HITPOINTS 6
 #define STAT_MAXHP 7
 #define STAT_MANA 8
-#define STAT_MAXMANA 9
 #define STATE_FREEZE 1
 #define STATE_POISON 2
 #define ITEMQUAL_MAGIC 4
 #define QFLAG_REWARDGRANTED 0
 #define QFLAG_PRIMARYGOALDONE 13
-#define QUESTSTATEFLAG_A3Q6 22
 #define OBJECT_STONETHETA 22
 #define OBJECT_OBELISK 80
 #define OBJECT_DESERT_OBELISK 90
@@ -254,11 +251,8 @@ void __stdcall WAYPOINTS_ActivateWaypoint(D2WaypointDataStrc* pData, unsigned sh
 #define OBJECT_JERHYN_PLACEHOLDER2 122
 #define OBJECT_ORIFICE 152
 #define OBJECT_STASH 267
-#define OBJECT_STEEG_STONE 337
 #define OBJECT_GUILD_PORTAL 377
 #define LEVEL_DURIELSLAIR 73
-#define LEVEL_DURANCEOFHATELEV3 102
-#define LEVEL_THEPANDEMONIUMFORTRESS 103
 
 inline D2HoverTextStrc* UNIT_GetHoverText(D2UnitStrc* pUnit)
 {

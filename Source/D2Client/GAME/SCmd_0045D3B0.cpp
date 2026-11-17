@@ -106,9 +106,9 @@ struct D2UnitStrc
 
 void __fastcall sub_004C1BC0(D2PacketRecord11Strc* pPacket, int nArg); // 0x004C1BC0
 D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType); // 0x00463990
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
-D2UnitStrc* __cdecl sub_00463DE0_GetStoredUnit(); // 0x00463DE0
-void __fastcall sub_00480E70_SetState(D2UnitStrc* pUnit, int nArg); // 0x00480E70
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
+void __fastcall sub_00480E70_SetUnitMode(D2UnitStrc* pUnit, int nArg); // 0x00480E70
 void __fastcall sub_004C1C10(D2UnitStrc* pUnit); // 0x004C1C10
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
@@ -151,7 +151,6 @@ struct D2DataTablesStrc
 };
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-D2UnitStrc* __fastcall sub_00463990_GetUnit(int nUnitId, int nUnitType); // 0x00463990
 void __fastcall sub_004CA000_EndSkill(D2UnitStrc* pUnit, int nSkillId); // 0x004CA000
 void __fastcall sub_004C8B80_EndSkill(D2UnitStrc* pUnit); // 0x004C8B80
 void __fastcall sub_004C9420_EndSkill(D2UnitStrc* pUnit, int nSkillId); // 0x004C9420
@@ -199,7 +198,6 @@ struct D2EnvironmentPacketStrc
 extern D2DrlgActStrc* gpDrlgAct_007A0634; // 0x007A0634
 D2ActiveRoomStrc* __fastcall sub_004646A0_GetPlayerRoom(); // 0x004646A0
 void __cdecl sub_004646C0_UpdateObjectsForPeriod(); // 0x004646C0
-void __fastcall sub_004C1BC0_RefreshUnitItems(D2PacketRecord11Strc* pPacket, int nArg); // 0x004C1BC0
 
 struct D2GSPacketSrv9C
 {
@@ -255,14 +253,6 @@ struct D2PacketSpawnStrc
 };
 
 #pragma pack(pop)
-struct D2BitBufferStrc
-{
-    unsigned char* pBuffer;
-    int nBits;
-    int nPos;
-    int nPosBits;
-    int bFull;
-};
 
 struct D2MonStatsTxt { char unknown00[0x18]; short wMonStatsEx; char unknown1A[0x1A8-0x1A]; };
 
@@ -281,7 +271,6 @@ unsigned int __stdcall sub_00411020_ReadBits(D2BitBufferStrc*, int); // 0x004110
 int __stdcall BITMANIP_ReadSigned(D2BitBufferStrc*, int); // 0x00411030
 int __fastcall sub_0044BE50_GetUnitTypeOrInvalid(D2UnitStrc*); // 0x0044BE50
 int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc*); // 0x00451F50
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2UnitStrc* __fastcall sub_00466360_AddClientMonster(D2UnitSpawnStrc*, unsigned char*, unsigned char*, unsigned short, int, int); // 0x00466360
 void __fastcall sub_00470B70_ResetMonsterMode(D2UnitStrc*); // 0x00470B70
 void __fastcall sub_00477170_LoadPalShift(int); // 0x00477170
@@ -292,7 +281,6 @@ void __stdcall STATLIST_SetState(D2StatListStrc*, int); // 0x006252D0
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitStateAndFlag(D2UnitStrc*, int, int); // 0x006257D0
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc*, D2StatListStrc*, int); // 0x00626E10
 void __stdcall STATLIST_SetStatIfListIsValid(D2StatListStrc*, int, int, int); // 0x00627150
-void __stdcall STATLIST_SetUnitStat(D2UnitStrc*, int, int, int); // 0x00627260
 int __stdcall MONSTERS_GetHirelingTypeId(D2UnitStrc*); // 0x0063EE90
 
 #pragma pack(push, 1)
@@ -345,13 +333,6 @@ struct D2GSPacketSrv0DStrc
 };
 
 #pragma pack(pop)
-struct D2PacketBufferStrc
-{
-    int nMax;
-    int nCount;
-    int unk0x08;
-    unsigned char* pData;
-};
 
 typedef void (__fastcall* D2PacketHandlerFn)(unsigned char* pPacket);
 
@@ -361,18 +342,12 @@ struct D2PacketTableEntryStrc
     int nSize;
     void* pfnAltHandler;
 };
-
-void __stdcall BITMANIP_Initialize(D2BitBufferStrc* pBuffer, unsigned char* pBitStream, int nSize); // 0x00410E40
-unsigned int __stdcall sub_00411020_ReadBits(D2BitBufferStrc* pBuffer, int nBits); // 0x00411020
-D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 void __fastcall sub_004804E0_SetPosition(D2UnitStrc* pUnit, unsigned short nX, unsigned short nY, int nA, int nB, int nC); // 0x004804E0
-void __fastcall sub_00480E70_SetUnitMode(D2UnitStrc* pUnit, int nMode); // 0x00480E70
 void __fastcall sub_004647D0_UpdateAttackableFlag(D2UnitStrc* pUnit); // 0x004647D0
 D2PacketBufferStrc* __fastcall sub_00464770_GetPacketBuffer(D2UnitStrc* pUnit); // 0x00464770
 void __fastcall sub_004647A0_SetPacketBuffer(D2UnitStrc* pUnit, D2PacketBufferStrc* pBuffer); // 0x004647A0
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
-extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 extern int gnGlobal_007A5230; // 0x007A5230
@@ -404,14 +379,14 @@ static void __stdcall sub_0045D4B0_OnStatChanged(int nValue, int nStat, D2UnitSt
     case 6:
         if (nValue && pUnit->dwAnimMode == 0x11)
         {
-            sub_00480E70_SetState(pUnit, 5);
+            sub_00480E70_SetUnitMode(pUnit, 5);
             sub_004647D0(pUnit);
         }
         break;
 
     case 0xC:
-        sub_0045D3B0_SendUnitStatus(sub_00463DD0());
-        if (pUnit != sub_00463DD0())
+        sub_0045D3B0_SendUnitStatus(sub_00463DD0_GetPlayerUnit());
+        if (pUnit != sub_00463DD0_GetPlayerUnit())
             break;
         sub_0045D3E0(pUnit);
 
@@ -468,7 +443,7 @@ void __fastcall sub_0045D780_HandlePlayerStatPacket(D2PlayerStatPacketStrc* pPac
     const unsigned char nHeader = pPacket->nHeader;
     int nValue = 0;
     int nStat = -1;
-    D2UnitStrc* pPlayer = sub_00463DE0_GetStoredUnit();
+    D2UnitStrc* pPlayer = sub_00463DE0_GetPlayerUnit();
     D2_ASSERT(pPlayer, 0x9AA);
 
     switch (nHeader)
@@ -534,7 +509,7 @@ void __fastcall sub_0045D6A0_EndPacketSkill(D2SkillPacketStrc* pPacket)
     const int nUnitType = pPacket->nUnitType;
     const int nUnitId = pPacket->nUnitId;
     const unsigned short nSkillId = pPacket->nSkillId;
-    pUnit = sub_00463990_GetUnit(nUnitId, nUnitType);
+    pUnit = sub_00463990(nUnitId, nUnitType);
     if (!pUnit)
         return;
     D2SkillsTxt* pSkill = GetSkillRecord(nSkillId);
@@ -579,12 +554,12 @@ void __fastcall sub_0045E300_InitializeEnvironment(D2EnvironmentPacketStrc* pPac
 {
     const int nIndex = pPacket->nIndex;
     const int nTicks = pPacket->nTicks;
-    if (gpDrlgAct_007A0634 == sub_00463DD0()->pDrlgAct)
+    if (gpDrlgAct_007A0634 == sub_00463DD0_GetPlayerUnit()->pDrlgAct)
     {
         ENVIRONMENT_InitializeEnvironment(gpDrlgAct_007A0634, sub_004646A0_GetPlayerRoom(), nIndex, nTicks, pPacket->bEclipse);
         sub_004646C0_UpdateObjectsForPeriod();
 
-        D2UnitStrc* pPlayer = sub_00463DD0();
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         if (pPlayer)
         {
             D2PacketRecord11Strc tPacket;
@@ -592,7 +567,7 @@ void __fastcall sub_0045E300_InitializeEnvironment(D2EnvironmentPacketStrc* pPac
             tPacket.nUnitType = (unsigned char)nUnitType;
             tPacket.dwUnitId = !pPlayer ? -1 : pPlayer->dwUnitId;
             tPacket.nHeader = 0x47;
-            sub_004C1BC0_RefreshUnitItems(&tPacket, 0);
+            sub_004C1BC0(&tPacket, 0);
         }
     }
 }

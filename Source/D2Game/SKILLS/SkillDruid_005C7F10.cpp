@@ -235,15 +235,6 @@ struct D2AuraCallbackStrc
     void* pArgs;
 };
 
-struct D2StaticFieldCallbackArgStrc
-{
-    int nMinDamage;
-    int nDamagePct;
-    int nStaticFieldMin;
-    int nElementalLength;
-    int nElementalType;
-};
-
 struct D2BasicAuraParamStrc
 {
     int nAuraState;
@@ -270,13 +261,6 @@ struct D2DamageAuraParamStrc
     D2StatListStrc* pStatList;
     int nPassiveState;
     D2DamageStrc* pDamage;
-};
-
-struct D2UnkPalSkillStrc2
-{
-    int nSkillId;
-    int nSkillLevel;
-    int nCounter;
 };
 
 struct D2AiCmdStrc

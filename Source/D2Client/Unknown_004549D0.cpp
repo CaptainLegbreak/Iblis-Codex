@@ -122,8 +122,6 @@ D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
 int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
-extern D2MsgHandlerEntryStrc gtMiniPanelHandlers_006D6204[]; // 0x006D6204
-extern D2MsgHandlerEntryStrc gtUIVar33Handlers_006D62C4[]; // 0x006D62C4
 extern int gnGlobal_007A2858; // 0x007A2858
 extern int gnGlobal_007A285C; // 0x007A285C
 extern unsigned short gwszText_007A2D30[]; // 0x007A2D30
@@ -482,12 +480,12 @@ void __cdecl sub_004567F0_ToggleMiniPanel()
     if (!bWasOn)
     {
         if (gbMiniPanel_007A2814)
-            sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtMiniPanelHandlers_006D6204, 2);
+            sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtPanelHandlers_006D6204, 2);
     }
     else
     {
         if (!gbMiniPanel_007A2814)
-            sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtMiniPanelHandlers_006D6204, 2);
+            sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_006D6204, 2);
     }
     sub_00468730();
     sub_00468740();
@@ -635,14 +633,14 @@ void __fastcall sub_00456EE0_DrawUIPanels(D2ViewStrc* pView)
             if (!bWasOn)
             {
                 if (gaUIVarStates_007A27C0[33])
-                    sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtUIVar33Handlers_006D62C4, 5);
+                    sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtPanelHandlers_006D62C4, 5);
             }
             else
             {
                 if (!gaUIVarStates_007A27C0[33])
                 {
                     sub_00494FC0();
-                    sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtUIVar33Handlers_006D62C4, 5);
+                    sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_006D62C4, 5);
                 }
             }
             sub_00468730();

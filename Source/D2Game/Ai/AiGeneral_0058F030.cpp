@@ -18,12 +18,6 @@ struct D2GameStrc
     void* pMemoryPool;
 };
 
-struct D2MinionListStrc
-{
-    int dwMinionGUID;
-    D2MinionListStrc* pNext;
-};
-
 struct D2AiControlStrc
 {
     int nAiSpecialState;

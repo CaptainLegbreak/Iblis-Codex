@@ -83,7 +83,6 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath);               
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath);                                          // 0x00648900
 
 #define AI_GetParam(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
-#define AI_RollChance(pGame, pSeed, pMonStatsTxt, nParamId) ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_GetParam(pGame, pMonStatsTxt, nParamId))
 
 static __forceinline unsigned int ITEMS_RollRandomNumber(D2SeedStrc* pSeed)
 {

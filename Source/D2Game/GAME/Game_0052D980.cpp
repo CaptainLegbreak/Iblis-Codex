@@ -7,19 +7,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 #define UNIT_PLAYER 0x00
-#define CLIENTSTATE_INGAME 4
 #define CLIENTS_MAX_UPDATES 55u
-#define D2GameReservedSlotHandle (-1)
-
-union D2LargeIntegerUnion
-{
-    struct
-    {
-        unsigned long LowPart;
-        long HighPart;
-    };
-    __int64 QuadPart;
-};
 
 struct D2UnitStrc
 {

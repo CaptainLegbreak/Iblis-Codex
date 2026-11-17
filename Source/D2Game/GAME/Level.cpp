@@ -1,7 +1,14 @@
 #include "D2Game.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define UNIT_MONSTER 1
+
 struct D2DrlgCoordsStrc;
+struct D2UnitStrc;
+struct D2ActiveRoomStrc;
+struct D2ClientStrc;
+struct D2GameStrc;
+struct D2CoordStrc;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -56,15 +63,21 @@ void __fastcall MONSTER_UpdateAiCallbackEvent(D2GameStrc* pGame, D2UnitStrc* pUn
 void __fastcall sub_00534AB0_ClearTargetIfMatch(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00534AB0
 void __fastcall sub_00573750_ClearTargetIfMatches(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00573750
 
-struct D2DrlgCoordsStrc { int nSubtileX; int nSubtileY; int nSubtileWidth; int nSubtileHeight; int nTileX; int nTileY; int nTileWidth; int nTileHeight; };
-
-extern "C" void __cdecl sub_00408A60(const char*, const char*, int); // 0x00408A60
-extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
+struct D2DrlgCoordsStrc
+{
+    int nSubtileX;
+    int nSubtileY;
+    int nSubtileWidth;
+    int nSubtileHeight;
+    int nTileX;
+    int nTileY;
+    int nTileWidth;
+    int nTileHeight;
+};
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc*, D2DrlgCoordsStrc*); // 0x00619730
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc*); // 0x0061A1B0
 void __fastcall D2GAME_PACKETS_SendPacket0x07_6FC3D120(D2ClientStrc*, int, int, int); // 0x0053BC50
 void __stdcall DUNGEON_AddClientToRoom(D2ActiveRoomStrc*, D2ClientStrc*); // 0x0061A660
-void __fastcall MONSTER_UpdateAiCallbackEvent(D2GameStrc*, D2UnitStrc*); // 0x00573780
 D2UnitStrc* __stdcall CLIENTS_GetPlayerFromClient(D2ClientStrc*, int); // 0x00537860
 void __fastcall sub_00571F90(D2GameStrc*, D2UnitStrc*, D2ClientStrc*); // 0x00571F90
 
@@ -86,7 +99,6 @@ struct D2CoordStrc
 
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 void __fastcall CLIENTS_SetClientState(D2ClientStrc* pClient, int nClientState); // 0x005386D0
-D2UnitStrc* __stdcall CLIENTS_GetPlayerFromClient(D2ClientStrc* pClient, int a2); // 0x00537860
 void __fastcall sub_00575BC0(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00575BC0
 int __stdcall UNITS_GetUnitSizeX(D2UnitStrc* pUnit); // 0x00620510
 D2ActiveRoomStrc* __stdcall DUNGEON_FindActSpawnLocationEx(D2DrlgActStrc* pAct, int nLevelId, int a3, int* pX, int* pY, int nUnitSize); // 0x0061B060
@@ -102,6 +114,11 @@ void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 void __fastcall PLAYERPETS_UpdatePetsForOwnerMove(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY); // 0x005754B0
+void __fastcall sub_00571600(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00571600
+void __fastcall sub_005738D0(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005738D0
+void __fastcall D2GAME_PACKETS_SendPacket0x08_6FC3D160(D2ClientStrc* pClient, int nLevelId, int nX, int nY); // 0x0053BC90
+
+static void sub_0053AA70_UpdateUnitTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget);
 
 static inline int UNITS_GetUnitTypeOrInvalid_Inline(D2UnitStrc* pUnit)
 {
@@ -145,21 +162,6 @@ static void sub_0053A8B0_DeleteMonsterEvents(D2GameStrc* pGame, D2ActiveRoomStrc
             MONSTER_DeleteEvents(pGame, pUnit);
             break;
         }
-    }
-}
-
-// 0x0053AA70
-static void sub_0053AA70_UpdateUnitTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget)
-{
-    switch (UNITS_GetUnitTypeOrInvalid_Inline(pUnit))
-    {
-    case 0:
-        sub_00534AB0_ClearTargetIfMatch(pGame, pUnit, pTarget);
-        break;
-
-    case 1:
-        sub_00573750_ClearTargetIfMatches(pGame, pUnit, pTarget);
-        break;
     }
 }
 
@@ -218,6 +220,52 @@ void __fastcall LEVEL_AddClient(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2Cl
     }
 }
 
+// 0x0053A9B0
+void __fastcall LEVEL_RemoveClient(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2ClientStrc* pClient)
+{
+    D2_ASSERT(pRoom, 0x104);
+
+    for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pUnit->pRoomNext)
+    {
+        sub_00571600(pUnit, pClient);
+    }
+
+    DUNGEON_RemoveClientFromRoom(pRoom, pClient);
+
+    if (!pRoom->nNumClients)
+    {
+        for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pUnit->pRoomNext)
+        {
+            const int nUnitType = !pUnit ? 6 : pUnit->dwUnitType;
+            switch (nUnitType)
+            {
+            case UNIT_MONSTER:
+                sub_005738D0(pGame, pUnit);
+                break;
+            }
+        }
+    }
+
+    D2DrlgCoordsStrc drlgCoords;
+    DUNGEON_GetRoomCoordinates(pRoom, &drlgCoords);
+    D2GAME_PACKETS_SendPacket0x08_6FC3D160(pClient, DUNGEON_GetLevelIdFromRoom(pRoom), drlgCoords.nTileX, drlgCoords.nTileY);
+}
+
+// 0x0053AA70
+static void sub_0053AA70_UpdateUnitTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget)
+{
+    switch (UNITS_GetUnitTypeOrInvalid_Inline(pUnit))
+    {
+    case 0:
+        sub_00534AB0_ClearTargetIfMatch(pGame, pUnit, pTarget);
+        break;
+
+    case 1:
+        sub_00573750_ClearTargetIfMatches(pGame, pUnit, pTarget);
+        break;
+    }
+}
+
 // 0x0053AAA0
 void __fastcall sub_0053AAA0_UpdateRoomUnits(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2UnitStrc* pTarget)
 {
@@ -253,15 +301,6 @@ static void sub_0053AC70_AllocAct(D2GameStrc* pGame, unsigned char nAct)
 
     pGame->pAct[nAct] = DUNGEON_AllocAct(nAct, pGame->dwInitSeed, 0, pGame, pGame->nDifficulty, pGame->pMemoryPool, nTownLevelId, 0, 0);
     sub_0059AC40(pGame, nAct);
-}
-
-// 0x0053AFB0
-void __fastcall sub_0053AFB0_EnsureAct(D2GameStrc* pGame, unsigned char nAct)
-{
-    if (!pGame->pAct[nAct])
-    {
-        sub_0053AC70_AllocAct(pGame, nAct);
-    }
 }
 
 // 0x0053ACC0
@@ -335,5 +374,14 @@ void __fastcall LEVEL_ChangeAct(D2GameStrc* pGame, D2ClientStrc* pClient, int nD
     if (pUnit->dwUnitType == 0)
     {
         PLAYERPETS_UpdatePetsForOwnerMove(pGame, pUnit, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit));
+    }
+}
+
+// 0x0053AFB0
+void __fastcall sub_0053AFB0_EnsureAct(D2GameStrc* pGame, unsigned char nAct)
+{
+    if (!pGame->pAct[nAct])
+    {
+        sub_0053AC70_AllocAct(pGame, nAct);
     }
 }

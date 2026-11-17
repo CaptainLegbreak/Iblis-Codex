@@ -6,7 +6,6 @@
 #define UNIT_MONSTER 1
 #define UNIT_TYPES 6
 #define MONMODE_SEQUENCE 14
-#define COLLIDE_MASK_MONSTER_PATH 0x3C01
 #define COLLIDE_MASK_PLAYER_PATH 0x1C09
 struct D2SeedStrc;
 struct D2SkillsTxt;

@@ -1,7 +1,5 @@
 #include "D2Client.h"
 
-typedef unsigned int size_t;
-
 struct Unicode
 {
     unsigned short wChar;
@@ -12,26 +10,6 @@ struct Unicode
 struct UnicodeChar : Unicode
 {
     UnicodeChar();                                                                                          // 0x0042F530
-};
-
-struct D2HirelingInitStrc
-{
-    int nId;
-    int nLevel;
-    int nHitpoints;
-    int nStrength;
-    int nDexterity;
-    int nGold;
-    int nExperience;
-    int nDefense;
-    int nMinDamage;
-    int nMaxDamage;
-    int nShare;
-    int nResist;
-    int nHireDesc;
-    int field_34;
-    short nFlags;
-    short unk0x3A;
 };
 
 struct D2ClientItemSlotStrc

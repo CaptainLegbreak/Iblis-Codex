@@ -5,10 +5,8 @@
 #define QUESTSTATEFLAG_A1Q5 5
 #define QFLAG_REWARDPENDING 1
 #define QFLAG_COMPLETEDNOW 14
-#define QSTATE_2 2
 #define OBJMODE_NEUTRAL 0
 #define OBJMODE_SPECIAL1 3
-#define OBJMODE_SPECIAL2 4
 #define OBJECT_CAINPORTAL 189
 #define PORTAL_RETRY_STEP 3
 #define LEVEL_TOWERCELLARLEV5 25
@@ -276,7 +274,6 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 void __stdcall DUNGEON_ToggleHasPortalFlag(D2ActiveRoomStrc* pRoom, int bSet); // 0x0061AED0
 void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nSoundId, D2UnitStrc* pOrigin); // 0x00553380
 void __stdcall QUESTRECORD_ClearQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C3A0
-void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc* pUpdateUnit); // 0x00553380
 D2UnitStrc* __fastcall D2GAME_CreateMissile_6FD115E0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nMissileId, int nX, int nY); // 0x0056EDE0
 D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int a7, int a8); // 0x005B2F20
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0

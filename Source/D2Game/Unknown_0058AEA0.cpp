@@ -31,8 +31,6 @@ void __fastcall QUESTS_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pPlayer, in
 
 struct D2QuestDataStrc { char unknown0[9]; unsigned char notIntro, active, lastState, state; };
 
-int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc*, int, int); // 0x0065C310
-
 // 0x0058AEA0
 int __fastcall ACT5Q4_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
 {

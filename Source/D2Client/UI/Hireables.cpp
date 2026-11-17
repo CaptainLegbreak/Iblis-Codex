@@ -66,7 +66,6 @@ struct D2PetTypeTxt
 };
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
-int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny); // 0x00478F20
 int __fastcall sub_00479120_GetHirelingClassId(int nUnitId); // 0x00479120
 extern const unsigned int gdwBitMasks[]; // 0x006CE268
 extern void** gppHirelingCels_007BEEAC; // 0x007BEEAC
@@ -102,12 +101,8 @@ struct SMSGHANDLER_PARAMS
 void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 void __fastcall sub_00467410_SetEntryValue(D2UnitStrc* pOwner, D2UnitStrc* pRecord, int nValue); // 0x00467410
 int __cdecl sub_0044DCC0(); // 0x0044DCC0
-D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc*); // 0x0063C1E0
-int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc*,int,int); // 0x00478F20
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc*,unsigned int,int,const char*); // 0x006280A0
 int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc*,int); // 0x00629BB0
-D2UnitStrc* __fastcall sub_00463990(int,int); // 0x00463990
-int __fastcall sub_00479120_GetHirelingClassId(int); // 0x00479120
 unsigned int __stdcall ITEMS_CheckWeaponIfTwoHanded(D2UnitStrc*); // 0x006289C0
 int __stdcall ITEMS_CheckRequirements(D2UnitStrc*,D2UnitStrc*,int,int*,int*,int*); // 0x0062EAF0
 void __fastcall sub_004CBDE0_PlayEventSound(int,unsigned char,unsigned short); // 0x004CBDE0

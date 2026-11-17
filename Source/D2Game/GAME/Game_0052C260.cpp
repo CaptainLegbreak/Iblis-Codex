@@ -68,8 +68,6 @@ extern D2GameDataTableStrc* gpGameDataTbl_6FD45818;                             
 extern int gnAct_6FD45824;                                                                                  // 0x00883D44
 D2ServerCallbackFunctions* gpD2EventCallbackTable_6FD45830;                                                 // 0x00883D50
 
-#define D2GameReservedSlotHandle (-1)
-
 // 0x0052C260
 static __declspec(noinline) void sub_0052C260_SendGameInit(D2GameStrc* pGame, D2ClientStrc* pClient)
 {

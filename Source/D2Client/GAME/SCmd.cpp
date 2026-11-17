@@ -398,15 +398,6 @@ struct D2DataTablesStrc
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-struct D2BitBufferStrc
-{
-    unsigned char* pBuffer;
-    int nBits;
-    int nPos;
-    int nPosBits;
-    int bFull;
-};
-
 unsigned int __stdcall sub_00411020_ReadBits(D2BitBufferStrc* pBuffer, int nBits); // 0x00411020
 D2ActiveRoomStrc* __fastcall sub_004646A0_GetPlayerRoom(); // 0x004646A0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
@@ -732,7 +723,7 @@ unsigned char __stdcall sub_00462EE0_GetItemComponent(D2UnitStrc* pUnit, D2UnitS
 int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
 void __fastcall sub_0046F280(D2UnitStrc* pUnit, int nComponent); // 0x0046F280
 void __fastcall sub_00470610_Refresh(D2UnitStrc* pUnit, int nArg); // 0x00470610
-void __fastcall sub_00480E70_SetState(D2UnitStrc* pUnit, int nArg); // 0x00480E70
+void __fastcall sub_00480E70_SetUnitMode(D2UnitStrc* pUnit, int nArg); // 0x00480E70
 void __fastcall sub_004C0EC0_UpdateItemLink(D2UnitStrc* pItem, D2UnitStrc* pUnit, int bForce, int bClamp); // 0x004C0EC0
 D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x0063B2C0
 D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
@@ -913,7 +904,7 @@ struct D2UnitStatPacket2Strc
 #pragma pack(pop)
 
 void __fastcall sub_004C1BC0(D2PacketRecord11Strc* pPacket, int nArg); // 0x004C1BC0
-D2UnitStrc* __cdecl sub_00463DE0_GetStoredUnit(); // 0x00463DE0
+D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 void __fastcall sub_004C1C10(D2UnitStrc* pUnit); // 0x004C1C10
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 
@@ -981,13 +972,6 @@ struct D2Packet96RecordStrc
 };
 
 #pragma pack(pop)
-struct D2PacketBufferStrc
-{
-    int nMax;
-    int nCount;
-    int unk0x08;
-    unsigned char* pData;
-};
 
 typedef void (__fastcall* D2PacketHandlerFn)(unsigned char* pPacket);
 
@@ -997,9 +981,6 @@ struct D2PacketTableEntryStrc
     int nSize;
     void* f_8;
 };
-
-D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
-void __fastcall sub_00480E70_SetUnitMode(D2UnitStrc* pUnit, int nMode); // 0x00480E70
 void __fastcall sub_004647D0_UpdateAttackableFlag(D2UnitStrc* pUnit); // 0x004647D0
 D2PacketBufferStrc* __fastcall sub_00464770_GetPacketBuffer(D2UnitStrc* pUnit); // 0x00464770
 void __fastcall sub_004647A0_SetPacketBuffer(D2UnitStrc* pUnit, D2PacketBufferStrc* pBuffer); // 0x004647A0
@@ -2286,7 +2267,7 @@ void __fastcall sub_00462F60_UnitDropItems(D2UnitDropItemsPacketStrc* pPacket)
     if (!pUnit)
         return;
     if (!sub_00464820_IsDeadOrDying(pUnit))
-        sub_00480E70_SetState(pUnit, 0);
+        sub_00480E70_SetUnitMode(pUnit, 0);
     if (pUnit == sub_00463DD0())
     {
         D2UnitStrc* pOther = sub_00463990(*(int*)pPacket->nOtherUnitId, 0);
@@ -2549,7 +2530,7 @@ static void __stdcall sub_0045D4B0_OnStatChanged(int nValue, int nStat, D2UnitSt
     case 6:
         if (nValue && pUnit->dwAnimMode == 0x11)
         {
-            sub_00480E70_SetState(pUnit, 5);
+            sub_00480E70_SetUnitMode(pUnit, 5);
             sub_004647D0(pUnit);
         }
         break;
@@ -2613,7 +2594,7 @@ void __fastcall sub_0045D780_HandlePlayerStatPacket(D2PlayerStatPacketStrc* pPac
     const unsigned char nHeader = pPacket->nHeader;
     int nValue = 0;
     int nStat = -1;
-    D2UnitStrc* pPlayer = sub_00463DE0_GetStoredUnit();
+    D2UnitStrc* pPlayer = sub_00463DE0_GetPlayerUnit();
     D2_ASSERT(pPlayer, 0x9AA);
 
     switch (nHeader)
@@ -3031,7 +3012,7 @@ void __fastcall sub_0045E5B0_Packet92(const D2GSPacketSrv92* pPacket)
 void __fastcall sub_0045E5D0_Packet5F(const D2GSPacketSrv5F* pPacket)
 {
     const int nPortalFlags = pPacket->nPortalFlags;
-    D2UnitStrc* pPlayer = sub_00463DE0_GetStoredUnit();
+    D2UnitStrc* pPlayer = sub_00463DE0_GetPlayerUnit();
     D2_ASSERT(pPlayer, 3349);
     UNITS_SetPlayerPortalFlags(pPlayer, nPortalFlags);
 }
@@ -3234,7 +3215,7 @@ void __fastcall sub_0045E6D0_Packet73(const D2GSPacketSrv73* pPacket)
     const unsigned short nMissileId = *(const unsigned short*)pPacket->nMissileId;
     const int nUnitGUID = *(const int*)pPacket->nUnitGUID;
 
-    D2UnitStrc* pOwner = sub_00463DE0_GetStoredUnit();
+    D2UnitStrc* pOwner = sub_00463DE0_GetPlayerUnit();
     D2MissileStrc tMissileParams;
     memset(&tMissileParams, 0, sizeof(tMissileParams));
     tMissileParams.pOwner = pOwner;
@@ -3286,7 +3267,7 @@ void __fastcall sub_0045F120_HandleLifePacket(unsigned char* pPacket)
     D2UnitStrc* pUnit = sub_00463990(*(int*)(pPacket + 2), pPacket[1]);
     if (!pUnit)
         return;
-    if (pUnit == sub_00463DE0_GetStoredUnit())
+    if (pUnit == sub_00463DE0_GetPlayerUnit())
         return;
     const int bFlag = (pUnit->dwFlags >> 9) & 1;
     if (bFlag)

@@ -3,8 +3,6 @@
 #define STAT_HITPOINTS 6
 #define STAT_MANA 8
 #define STAT_STAMINA 10
-#define STATE_DEATH_DELAY 92
-#define DRAIN_MIN 256
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2SeedStrc;
 struct D2MonStatsTxt;

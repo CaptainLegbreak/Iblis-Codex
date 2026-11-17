@@ -1,6 +1,4 @@
 #include "D2Client.h"
-
-#define CURSOR_ANIM_COUNT 7
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define NUM_CURSOR_CELLS 7
 #define NUM_CURSOR_MSG_HANDLERS 3
@@ -18,17 +16,6 @@ struct SMSGHANDLER_PARAMS
     void* pExtra;
     int bUseResult;
     int lResult;
-};
-
-struct D2CursorAnimStrc
-{
-    int unk0x00;
-    int f_4;
-    int nFrames;
-    int nStep;
-    void* pData;
-    void* pfnHandler;
-    const char* szName;
 };
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837

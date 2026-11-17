@@ -161,27 +161,6 @@ unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern int gbRevealAutomap_007A51A0; // 0x007A51A0
 
-struct D2AutomapSaveStrc
-{
-    unsigned int nLayerNo;
-    unsigned int fSaved;
-    unsigned int nUnk0x08;
-    unsigned int nFloors;
-    unsigned int nWalls;
-    unsigned int nObjects;
-    unsigned int nExtras;
-    void* pFloors;
-    void* pWalls;
-    void* pObjects;
-    void* pExtras;
-};
-
-struct D2AutomapRecordStrc
-{
-    unsigned int nUnk0x00;
-    unsigned int nValue;
-};
-
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 void* __cdecl sub_00457F40_OpenAutomapFile(); // 0x00457F40
 int __fastcall sub_004069B0_ReadFile(void* hFile, void* pBuffer, unsigned long nToRead, unsigned long* pnRead, void* pOverlapped); // 0x004069B0
@@ -194,15 +173,6 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 extern D2AutomapRecordStrc* gpAutomapRecord_007A0638; // 0x007A0638
 extern void* gpAutomapSaveBuffer_007A5154; // 0x007A5154
 extern int gnAutomapCelFrames_007A5178[4]; // 0x007A5178
-
-struct D2LevelDefBin
-{
-    unsigned int dwQuestFlag;
-    unsigned int dwQuestFlagEx;
-    int dwLayer;
-};
-
-extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
 D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
 D2ActiveRoomStrc* __fastcall sub_004646A0_GetPlayerRoom(); // 0x004646A0
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790

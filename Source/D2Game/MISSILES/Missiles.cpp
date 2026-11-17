@@ -81,47 +81,6 @@ struct D2DataTablesStrc
     int nMissilesTxtRecordCount;
 };
 
-struct D2MissileUnitFindTableStrc
-{
-    void* pfUnitFindCallback;
-    int nCollisionMask;
-};
-
-struct D2MissileDamageDataStrc
-{
-    int nFlags;
-    int nMinDamage;
-    int nMaxDamage;
-    int nFireMinDamage;
-    int nFireMaxDamage;
-    int nFireLength;
-    int nLightMinDamage;
-    int nLightMaxDamage;
-    int nMagicMinDamage;
-    int nMagicMaxDamage;
-    int nColdMinDamage;
-    int nColdMaxDamage;
-    int nColdLength;
-    int nPoisonMinDamage;
-    int nPoisonMaxDamage;
-    int nPoisonLength;
-    int nPoisonCount;
-    int nLifeDrainMinDamage;
-    int nLifeDrainMaxDamage;
-    int nManaDrainMinDamage;
-    int nManaDrainMaxDamage;
-    int nStaminaDrainMinDamage;
-    int nStaminaDrainMaxDamage;
-    int nStunLength;
-    int nBurningMin;
-    int nBurningMax;
-    int nBurnLength;
-    int nDemonDamagePercent;
-    int nUndeadDamagePercent;
-    int nDamageTargetAC;
-    int nDamagePercent;
-};
-
 extern "C" D2DataTablesStrc* sgptDataTables;                                                                // 0x00744304
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268
 extern D2MissileUnitFindTableStrc gtMissileCollisionModes[];                                                // 0x0073C720
@@ -153,8 +112,6 @@ int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bA
 void __stdcall MISSILE_SetTotalFrames(D2UnitStrc* pMissile, int nTotalFrames);                              // 0x0064A2B0
 void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nCurrentFrame);                            // 0x0064A330
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed);                                 // 0x00650E40
-
-#define MISSILE_FLAGBIT(pRecord, nBit) ((pRecord)->nMissileFlags[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
 
 static __forceinline unsigned int MISSILES_RollPierceSeed_Inline(D2SeedStrc* pSeed)
 {

@@ -14,37 +14,6 @@ struct tagRECT
     int bottom;
 };
 
-struct D2WallCellStrc
-{
-    char unk0x00[0x8];
-    int nX;
-    int nY;
-    char unk0x10[0x14];
-};
-
-struct D2WallCtxStrc
-{
-    char unk0x00[0x4];
-    int nLeft;
-    int nTop;
-    int nRight;
-    int nBottom;
-    char unk0x14[0x10];
-    int nX;
-    int nY;
-    char unk0x2C[0xC];
-    int nUnk0x38;
-    char unk0x3C[0xEA60];
-    int nUnk0xEA9C;
-    int f_EAA0;
-    int f_EAA4;
-    D2WallCellStrc* pCells;
-    int nCellCount;
-    unsigned int nSize;
-    int nWidth;
-    int nHeight;
-};
-
 struct D2StaticPathStrc
 {
     char unk0x00[0xC];

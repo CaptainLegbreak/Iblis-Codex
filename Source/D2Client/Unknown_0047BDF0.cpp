@@ -23,13 +23,6 @@ struct Unicode
     Unicode();                                                                                              // 0x0042F530
 };
 
-struct D2BnetChatPacketStrc
-{
-    int nType;
-    char unk0x04[0x14];
-    char szName[0x1D0];
-};
-
 struct D2ClientNotifyStrc
 {
     char unk0x00[0x24];

@@ -90,14 +90,6 @@ struct D2CoordStrc
     int nY;
 };
 
-struct D2RectStrc
-{
-    int nLeft;
-    int nTop;
-    int nRight;
-    int nBottom;
-};
-
 #pragma pack(push, 2)
 struct T00479230
 {

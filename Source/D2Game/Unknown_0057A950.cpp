@@ -1,10 +1,8 @@
 #include "D2Game.h"
 
 #define STAT_HITPOINTS 6
-#define DRAIN_MIN 256
 #define STAT_MANA 8
 #define STAT_STAMINA 10
-#define STATE_DEATH_DELAY 92
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260

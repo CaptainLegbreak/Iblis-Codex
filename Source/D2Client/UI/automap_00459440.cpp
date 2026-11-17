@@ -1,7 +1,5 @@
 #include "D2Client.h"
 
-typedef unsigned int size_t;
-
 struct D2UnitStrc
 {
     int dwUnitType;

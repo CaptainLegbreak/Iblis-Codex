@@ -61,17 +61,6 @@ struct D2SkillsTxt
     short nITypeA[3];
 };
 
-struct D2EquipmentRefreshStateStrc
-{
-    int nHitpoints;
-    int nMana;
-    int nStamina;
-    int nRightSkillId;
-    int nLeftSkillId;
-    int nRightSkillOwnerGUID;
-    int nLeftSkillOwnerGUID;
-};
-
 struct D2ItemDropStrc
 {
     D2UnitStrc* pUnit;

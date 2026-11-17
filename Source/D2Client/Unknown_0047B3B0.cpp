@@ -55,8 +55,6 @@ struct SMSGHANDLER_PARAMS
     int lResult;
 };
 
-typedef int(__fastcall* MENUENABLED)();
-
 typedef void(__fastcall* MENUSELECT)(D2MenuItemStrc*, SMSGHANDLER_PARAMS*);
 
 typedef void(__fastcall* MENUOPTION)(D2MenuItemStrc*, int);
@@ -162,18 +160,9 @@ extern "C" const char szBlendedShadows_006D73B8[];
 extern "C" const char szPerspective_006D73C8[];
 extern "C" const char gszAutoMapMode_006D73E8[];
 
-struct D2EscMenuUIStateStrc
-{
-    int bCheck;
-    int bSave;
-    int nSaved;
-};
-
 int __fastcall sub_004538D0(int nUIVar); // 0x004538D0
 void __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
 extern D2EscMenuUIStateStrc gaEscMenuUIState_00713058[38]; // 0x00713058
-
-typedef unsigned int size_t;
 
 struct D2CelContextStrc
 {

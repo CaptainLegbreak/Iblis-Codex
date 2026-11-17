@@ -54,8 +54,6 @@ struct D2McpIncoming0EStrc
 };
 #pragma pack(pop)
 
-typedef void (__fastcall* D2McpCallbackFn)(unsigned short wRequestId, unsigned char* pData);
-
 extern "C" unsigned int __cdecl strlen(const char* pString);
 extern "C" __declspec(dllimport) int __stdcall SetEvent(void* hEvent);                                      // 0x006CC130
 void __stdcall sub_00449C40_SetValue(int nValue);                                                           // 0x00449C40

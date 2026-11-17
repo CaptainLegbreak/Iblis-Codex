@@ -116,18 +116,6 @@ struct D2DataTablesStrc
     int nItemStatCostTxtRecordCount;
 };
 
-struct D2SystemTimeStrc
-{
-    unsigned short wYear;
-    unsigned short wMonth;
-    unsigned short wDayOfWeek;
-    unsigned short wDay;
-    unsigned short wHour;
-    unsigned short wMinute;
-    unsigned short wSecond;
-    unsigned short wMilliseconds;
-};
-
 struct D2CubeItemStrc
 {
     int nItemId;
@@ -212,9 +200,6 @@ struct ItemRecordTable { int count; Item* records; };
 ItemRecordTable* __stdcall sub_00633590(); // 0x00633590
 unsigned __fastcall sub_0045C3E0(Seed*,int); // 0x0045C3E0
 int __stdcall sub_00629A90(int,int); // 0x00629A90
-extern "C" const char emptyAssert; // 0x006CC837
-extern "C" void __cdecl sub_00408A60(const char*,const char*,int); // 0x00408A60
-extern "C" __declspec(noreturn) void __cdecl sub_00681E09(int); // 0x00681E09
 
 enum { EXPANSION_FORMAT = 100 };
 
@@ -250,14 +235,6 @@ void __fastcall sub_6FC90BE0(D2GameStrc* pGame, D2UnitStrc* pPlayer, void* pArg)
 void __fastcall sub_6FC90C20(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00566CC0
 void __stdcall ITEMS_SetItemCMDFlag(D2UnitStrc* pItem, int nFlag, int bSet); // 0x00628170
 void __stdcall INVENTORY_AddItemToTradeInventory(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063CC70
-D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc*); // 0x006221A0
-void __fastcall EVENT_SetEvent(D2GameStrc*,D2UnitStrc*,int,int,int,int); // 0x005417D0
-int __stdcall SUNIT_GetInteractInfo(D2UnitStrc*,int*,int*); // 0x00554100
-D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc*,int,int); // 0x00552F60
-int __fastcall sub_00597A20_IsBusy(D2GameStrc*,D2UnitStrc*);
-void __fastcall sub_6FC91050(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,D2PlayerDataStrc*,D2PlayerDataStrc*,int); // 0x005679E0
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc*,const char*,int); // 0x005531C0
-void __fastcall D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(D2ClientStrc*,unsigned char); // 0x0053CAB0
 
 // 0x00564CB0
 void __fastcall sub_00564CB0_Nop(D2UnitStrc* pUnit)
@@ -1271,7 +1248,7 @@ short __fastcall sub_00565930(Game* game,int level,int type)
     short choices[256];
     ItemRecordTable* table=sub_00633590();
     int count=0;
-    if(!table) { sub_00408A60(&emptyAssert,sub_00408090(),0x384); sub_00681E09(-1); }
+    if(!table) { sub_00408A60(&gszEmptyAssertText,sub_00408090(),0x384); exit(-1); }
     int start=sub_0045C3E0(&game->seed,table->count);
     int stop=start-1;
     if(stop<0) stop=table->count-1;

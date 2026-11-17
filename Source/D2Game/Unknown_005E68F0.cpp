@@ -75,13 +75,6 @@ int __fastcall AITACTICS_WalkToTargetCoordinates(D2GameStrc* pGame, D2UnitStrc* 
 bool __fastcall sub_005E6860_HomeCommandStep(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam, unsigned int nMaxDistance); // 0x005E6860
 void __stdcall sub_00648730(D2DynamicPathStrc* pDynamicPath); // 0x00648730
 
-struct D2MapAIPathPositionStrc
-{
-    int nMapAIAction;
-    int nX;
-    int nY;
-};
-
 struct D2MapAIStrc
 {
     int nPathNodes;
@@ -140,7 +133,6 @@ void __fastcall sub_0059C750_Fn(D2GameStrc* pGame); // 0x0059C750
 int __fastcall sub_0059DF50_Check(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0059DF50
 int __fastcall sub_005B43F0_Check(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005B43F0
 void __fastcall sub_005B4440_Fn(D2GameStrc* pGame); // 0x005B4440
-int __fastcall AIUTIL_GetDistanceToCoordinates_FullUnitSize(D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x005DC380
 int __fastcall sub_005E7350_Check(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005E7350
 
 // 0x005E68F0

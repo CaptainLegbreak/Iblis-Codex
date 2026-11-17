@@ -4,13 +4,6 @@ struct D2ChatTextStrc;
 struct D2ClientNotifyStrc;
 struct Unicode;
 
-typedef unsigned int size_t;
-
-struct D2ChatTextStrc
-{
-    char sz[0x100];
-};
-
 struct D2ChatMessageStrc
 {
     unsigned char unk0x00;

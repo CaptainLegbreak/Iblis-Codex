@@ -13,11 +13,6 @@ struct D2PlayerDataStrc;
 struct D2StaticPathStrc;
 struct D2MissileStrc;
 
-struct D2ShrinesTxt
-{
-    unsigned char nCode;
-};
-
 struct D2ObjectDataStrc
 {
     D2ObjectsTxt* pObjectTxt;
@@ -219,8 +214,6 @@ D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams)
 char __cdecl sub_004A3110_GetFlag025F(); // 0x004A3110
 char __cdecl sub_004A3120(); // 0x004A3120
 void __fastcall sub_004A3150(int nX, int nY); // 0x004A3150
-int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
-int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 
 static __declspec(noinline) void sub_004BCB20_StepDoorFrame(D2UnitStrc* pUnit);
 

@@ -1,11 +1,6 @@
 #include "D2Game.h"
 
 #define D2_ASSERT(expr,line) if(!(expr)) { sub_00408A60(&gszEmptyAssertText,sub_00408090(),line);exit(-1); }
-#define SKILLS_ROLL_SEED(pSeed, lSeed) \
-    (lSeed = (pSeed)->nHighSeed + 0x6AC690C5i64 * (pSeed)->nLowSeed, \
-     (pSeed)->nHighSeed = (unsigned int)(lSeed >> 32), \
-     (pSeed)->nLowSeed = (unsigned int)lSeed, \
-     (unsigned int)lSeed)
 struct D2MonsterDataStrc;
 struct D2StaticPathStrc;
 struct D2NearestRecord005DC870Strc;
@@ -158,8 +153,6 @@ struct D2UbersAiCallbackArgStrc
     int nBaalMinions;
     int nDiabloMinions;
 };
-
-int __fastcall AIUTIL_GetDistanceToCoordinates_FullUnitSize(D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x005DC380
 
 struct Obj005DD220 { unsigned int dwUnknown00; unsigned int dwUnknown04; unsigned short wFlags08; };
 

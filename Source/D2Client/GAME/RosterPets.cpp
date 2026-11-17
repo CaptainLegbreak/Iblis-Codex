@@ -5,19 +5,6 @@ struct D2RosterPetNodeStrc;
 struct D2Packet81ArgsStrc;
 struct D2HirelingInfoStrc;
 
-struct D2RosterPetNodeStrc
-{
-    int nValue;
-    int nType;
-    int nKey;
-    int nArg;
-    int unk0x10[3];
-    int nInit;
-    int nClear;
-    int unk0x24[3];
-    D2RosterPetNodeStrc* pNext;
-};
-
 struct D2UnitStrc
 {
     int dwUnitType;
@@ -29,13 +16,6 @@ struct D2UnitStrc
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
 extern D2RosterPetNodeStrc* gpRosterPets_007BB5BC; // 0x007BB5BC
-
-struct D2Packet81ArgsStrc
-{
-    int nArg0C;
-    int nArg10;
-    int nZero;
-};
 
 struct D2HirelingInfoStrc
 {

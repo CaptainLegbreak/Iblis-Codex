@@ -156,13 +156,6 @@ struct D2BaalToStairsAiCallbackArgStrc
     int unk0x08[8];
 };
 
-struct D2PutridDefilerAiCallbackArgStrc
-{
-    int unk0x00;
-    int nMaxDistance;
-    int unk0x08[8];
-};
-
 struct D2GreaterMummyAiCallbackArgStrc
 {
     D2UnitStrc* pReviveTarget;

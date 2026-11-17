@@ -88,7 +88,6 @@ void __stdcall sub_005D3970_ProgressiveElementalConversion(D2UnitStrc* pUnit, D2
 static __declspec(noinline) void __stdcall sub_005D3790_ProgressiveLeech(D2UnitStrc* pUnit, D2StatListStrc* pStatList, D2DamageStrc* pDamage);
 void __fastcall SKILLS_ApplyProgressiveLeechAndElementalDamage(D2UnitStrc* pUnit, D2DamageStrc* pDamage); // 0x005D3BA0
 extern unsigned int gdwBitMasks[]; // 0x006CE268
-int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625D00
 
 static D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {

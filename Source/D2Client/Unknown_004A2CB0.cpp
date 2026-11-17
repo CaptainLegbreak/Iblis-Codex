@@ -28,14 +28,6 @@ struct D2QuestTableStrc
     int nCondition;
     int nQuestId;
 };
-
-struct D2UiEntry10Strc
-{
-    int nKey;
-    int nId;
-    int unk0x08;
-    int unk0x0C;
-};
 extern int gnGlobal_007BF2A4; // 0x007BF2A4
 extern int gnGlobal_007BF2AC; // 0x007BF2AC
 extern D2QuestTableStrc gaQuestTable_00723F30[]; // 0x00723F30

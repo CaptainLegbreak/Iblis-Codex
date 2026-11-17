@@ -20,14 +20,6 @@ struct D2CoordStrc
     int nY;
 };
 
-struct D2RectStrc
-{
-    int nLeft;
-    int nTop;
-    int nRight;
-    int nBottom;
-};
-
 struct T0044CB60
 {
     Unicode* pText;
@@ -72,7 +64,7 @@ T0044CB60* __fastcall sub_00502970_SplitText(const Unicode* pText, int* pLineCou
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 int __cdecl sub_00525150(); // 0x00525150
-Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526790
+Unicode* __fastcall strncpy(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526790
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 void __stdcall UNITS_GetClientCoords(D2UnitStrc* pUnit, D2CoordStrc* pClientCoords); // 0x00620900
@@ -121,7 +113,6 @@ public:
 };
 
 void __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
-Unicode* __fastcall strncpy(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526790
 int __fastcall sub_00526D30(const Unicode* pText, int nCount); // 0x00526D30
 int __fastcall D2Win_10123(const Unicode* wszText, int nLength); // 0x00501730
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
@@ -362,7 +353,7 @@ void __fastcall sub_004A0B30_DrawUnitHoverText(D2UnitStrc* pUnit)
                 int nLength = sub_00526800(wszString);
                 if (nLength >= 0xC8)
                     nLength = 0xC7;
-                sub_00526790(wszBuffer, wszString, nLength);
+                strncpy(wszBuffer, wszString, nLength);
                 sub_004A0A00_ShowHoverText(wszBuffer, pUnit, pHoverText, &tPos);
                 return;
             }

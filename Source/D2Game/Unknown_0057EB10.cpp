@@ -41,12 +41,6 @@ struct D2PartyExpStrc
 #define UNIT_MONSTER 1
 #define UNIT_INVALID 6
 #define STAT_LEVEL 12
-#define STAT_EXPERIENCE 13
-#define STAT_LASTEXP 29
-#define STAT_ITEM_ADDEXPERIENCE 85
-#define UNITEVENT_LEVELUP 12
-#define PETTYPE_HIREABLE 7
-#define STATLIST_FLAG_EXP 0x800
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor);                              // 0x00483360

@@ -16,12 +16,6 @@ enum D2C_F33Ai2Constants
     UNIT_INVALID = 6,
 };
 
-struct D2MinionListStrc
-{
-    int dwMinionGUID;
-    D2MinionListStrc* pNext;
-};
-
 struct D2AiControlStrc
 {
     int nAiSpecialState;

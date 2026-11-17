@@ -64,10 +64,6 @@ struct D2DataTablesStrc
     int nOverlayTxtRecordCount;
 };
 
-struct D2PathPointStrc { unsigned short X; unsigned short Y; };
-
-struct D2MissileUnitFindTableStrc { void* pfUnitFindCallback; int nCollisionMask; };
-
 struct D2MissileFindArgStrc { D2GameStrc* pGame; D2UnitStrc* pMissile; D2UnitStrc* pOwner; D2MissilesTxt* pMissilesTxtRecord; };
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -155,10 +151,8 @@ struct D2DamageStrc
 };
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-D2UnitStrc* __fastcall SUNIT_GetOwner(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00552FD0
 int __stdcall MISSILE_GetLevel(D2UnitStrc* pMissile); // 0x0064A210
 int __stdcall MISSILE_GetSkill(D2UnitStrc* pMissile); // 0x0064A280
-int __stdcall sub_0064A380_GetRemainingFrames(D2UnitStrc* pMissile); // 0x0064A380
 int __stdcall sub_0064A3B0_GetElapsedFrames(D2UnitStrc* pMissile); // 0x0064A3B0
 int __stdcall MISSILE_GetTargetX(D2UnitStrc* pMissile); // 0x0064A730
 int __stdcall MISSILE_GetTargetY(D2UnitStrc* pMissile); // 0x0064A780
@@ -172,7 +166,6 @@ int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc* pGame, D2MissileStrc* pMissileParams); // 0x0059FA30
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 void __fastcall sub_6FCBC7E0(D2GameStrc* pGame, D2UnitStrc* pMissile); // 0x00553490
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553540
@@ -217,21 +210,13 @@ struct D2StaticPathStrc
         };
     };
 };
-
-int __stdcall sub_006486C0(D2DynamicPathStrc* pDynamicPath); // 0x006486C0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath); // 0x00648900
 void __stdcall COLLISION_SetMask(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask); // 0x0064CB90
-
-typedef unsigned int size_t;
-
-int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
-int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 D2UnitStrc* __fastcall D2GAME_CreateMissile_6FD115E0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nMissileId, int nX, int nY); // 0x0056EDE0
 int __fastcall MISSMODE_SrvDo20_BladeCreeper(D2GameStrc* pGame, D2UnitStrc* pMissile); // 0x005AF540
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
-int __fastcall MISSMODE_SrvDmgHitHandler(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit, int a4); // 0x005ADF10
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState); // 0x006256B0
 int __stdcall D2COMMON_10473(D2StatListStrc* pStatList); // 0x00626090
 int __stdcall sub_00650BE0_PlaceUnit(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00650BE0
@@ -410,7 +395,7 @@ int __fastcall MISSMODE_SrvDo07_GuidedArrow_BoneSpirit(D2GameStrc* pGame, D2Unit
             nParam = 5;
         }
 
-        if (pTarget && !(sub_0064A380_GetRemainingFrames(pMissile) % nParam))
+        if (pTarget && !(MISSILE_GetCurrentFrame(pMissile) % nParam))
         {
             const int nDistance = sub_006416D0_UnitEdgeDistance(pMissile, pTarget);
             if (nDistance > 3 && nDistance < 25)
@@ -447,7 +432,7 @@ int __fastcall MISSMODE_SrvDo11_FingerMageSpider(D2GameStrc* pGame, D2UnitStrc* 
             nFrames = 5;
         }
 
-        if (!(sub_0064A380_GetRemainingFrames(pMissile) % nFrames) && sub_006416D0_UnitEdgeDistance(pMissile, pTarget) <= pMissilesTxtRecord->dwParam[1])
+        if (!(MISSILE_GetCurrentFrame(pMissile) % nFrames) && sub_006416D0_UnitEdgeDistance(pMissile, pTarget) <= pMissilesTxtRecord->dwParam[1])
         {
             const int nMissileX = CLIENTS_GetUnitX(pMissile);
             const int nMissileY = CLIENTS_GetUnitY(pMissile);
@@ -832,7 +817,7 @@ static __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 // 0x005AE480
 int __fastcall MISSMODE_SrvDo03_PoisonCloud_Blizzard_ThunderStorm_HandOfGod(D2GameStrc* pGame, D2UnitStrc* pMissile)
 {
-    if (pMissile->pDynamicPath && sub_006486C0(pMissile->pDynamicPath))
+    if (pMissile->pDynamicPath && PATH_GetVelocity(pMissile->pDynamicPath))
     {
         return MISSMODE_HandleMissileCollision(pGame, pMissile);
     }
@@ -987,7 +972,7 @@ int __fastcall sub_005B0010_MISSMODE_SrvDo(D2GameStrc* pGame, D2UnitStrc* pMissi
 
     D2UnitStrc* pTarget = SUNIT_GetServerUnit(pGame, MISSILE_GetTargetX(pMissile), MISSILE_GetTargetY(pMissile));
     D2UnitStrc* pOwner = SUNIT_GetOwner(pGame, pMissile);
-    if (!pTarget || !pOwner || SUNIT_IsDead(pOwner) || sub_0064A380_GetRemainingFrames(pMissile) < 0)
+    if (!pTarget || !pOwner || SUNIT_IsDead(pOwner) || MISSILE_GetCurrentFrame(pMissile) < 0)
     {
         MISSMODE_SrvDmgHitHandler(pGame, pMissile, 0, 1);
         return 2;
@@ -1053,7 +1038,7 @@ int __fastcall MISSMODE_SrvDo32_TigerFury(D2GameStrc* pGame, D2UnitStrc* pMissil
 // 0x005B0A40
 int __fastcall MISSMODE_SrvDo36_BaalFxControl(D2GameStrc* pGame, D2UnitStrc* pMissile)
 {
-    const int nFrame = sub_0064A380_GetRemainingFrames(pMissile);
+    const int nFrame = MISSILE_GetCurrentFrame(pMissile);
     if (!MISSILE_GetTargetX(pMissile) && nFrame <= 100)
     {
         MISSILE_SetTargetX(pMissile, 1);

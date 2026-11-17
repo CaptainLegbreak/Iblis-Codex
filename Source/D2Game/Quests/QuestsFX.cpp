@@ -2,10 +2,17 @@
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define MAX(a, b) ((a) < (b) ? (b) : (a))
+
 struct D2SeedStrc;
 struct D2StaticPathStrc;
 struct D2UnitFindArgStrc;
 struct D2MissilesTxt;
+struct D2GameStrc;
+struct D2UnitStrc;
+struct D2UnitFindDataStrc;
+struct D2DataTablesStrc;
+struct D2MissileStrc;
+struct D2ObjectsTxt;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -175,11 +182,6 @@ inline D2MissilesTxt* SKILLS_GetMissilesTxtRecord(int nMissileId)
     return &sgptDataTables->pMissilesTxt[nMissileId];
 }
 
-void __fastcall QUESTSFX_Bloodraven(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    return QUESTSFX_MainHandler(pGame, pUnit, 35, 25, 125, 1);
-}
-
 // 0x005DFBF0
 static void __stdcall QUESTSFX_MainHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSize, int nDelayMin, int nDelayMax, int bCheckIfUndead)
 {
@@ -230,6 +232,27 @@ static void __stdcall QUESTSFX_MainHandler(D2GameStrc* pGame, D2UnitStrc* pUnit,
     UNITFINDS_FreeUnitFindData(&unitFindData);
 }
 
+// 0x005DFD90
+void __fastcall QUESTSFX_Bloodraven(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    return QUESTSFX_MainHandler(pGame, pUnit, 35, 25, 125, 1);
+}
+
+// 0x005DFDB0
+void __fastcall QUESTSFX_SpawnMephistoDeathControlMissile(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    D2MissileStrc missileParams;
+    memset(&missileParams, 0, sizeof(missileParams));
+    missileParams.dwFlags = 0x8000;
+    missileParams.nMissile = MISSILE_MEPHISTODEATHCONTROL;
+    missileParams.pOwner = pUnit;
+    missileParams.pOrigin = pUnit;
+    missileParams.nSkillLevel = 1;
+    missileParams.nRange = 100;
+    MISSILES_CreateMissileFromParams(pGame, &missileParams);
+}
+
+// 0x005DFE00
 void __fastcall QUESTSFX_Andariel(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     return QUESTSFX_MainHandler(pGame, pUnit, 35, 1, 51, 0);
@@ -245,30 +268,6 @@ void __fastcall QUESTSFX_SpawnRadamentDeathMissile(D2GameStrc* pGame, D2UnitStrc
     QUESTSFX_MainHandler(pGame, pUnit, 35, 40, nDelayMax, 0);
 
     D2GAME_CreateMissile_6FD115E0(pGame, pUnit, 0, 1, MISSILE_RADAMENTDEATH, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit));
-}
-
-void __fastcall QUESTSFX_Izual(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    return QUESTSFX_MainHandler(pGame, pUnit, 105, 1, 2, 0);
-}
-
-void __fastcall QUESTSFX_ShenkTheOverseer(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    return QUESTSFX_MainHandler(pGame, pUnit, 35, 25, 125, 0);
-}
-
-// 0x005DFDB0
-void __fastcall QUESTSFX_SpawnMephistoDeathControlMissile(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    D2MissileStrc missileParams;
-    memset(&missileParams, 0, sizeof(missileParams));
-    missileParams.dwFlags = 0x8000;
-    missileParams.nMissile = MISSILE_MEPHISTODEATHCONTROL;
-    missileParams.pOwner = pUnit;
-    missileParams.pOrigin = pUnit;
-    missileParams.nSkillLevel = 1;
-    missileParams.nRange = 100;
-    MISSILES_CreateMissileFromParams(pGame, &missileParams);
 }
 
 // 0x005DFEE0
@@ -300,4 +299,16 @@ void __fastcall QUESTSFX_SpawnCompellingOrbMissile(D2GameStrc* pGame, D2UnitStrc
         const unsigned int nFrame = pGame->dwGameFrame + (DATATBLS_GetObjectsTxtRecord(OBJECT_COMPELLINGORB_STAIRS)->dwFrameCnt[1] >> 8);
         EVENT_SetEvent(pGame, pStairs, EVENTTYPE_ENDANIM, nFrame, 0, 0);
     }
+}
+
+// 0x005E0020
+void __fastcall QUESTSFX_Izual(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    return QUESTSFX_MainHandler(pGame, pUnit, 105, 1, 2, 0);
+}
+
+// 0x005E0040
+void __fastcall QUESTSFX_ShenkTheOverseer(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    return QUESTSFX_MainHandler(pGame, pUnit, 35, 25, 125, 0);
 }

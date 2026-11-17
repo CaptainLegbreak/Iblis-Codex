@@ -4,19 +4,11 @@
 #define UNIT_OBJECT 2
 #define UNIT_ITEM 4
 #define UNIT_TILE 5
-#define INVPAGE_INVENTORY 0
 #define ITEMQUAL_NORMAL 2
-#define IFLAG_STARTITEM 0x20000
-#define ITEMTYPE_BOW_QUIVER 5
-#define STAT_QUANTITY 70
-#define STAT_DURABILITY 72
-#define STAT_ITEM_SINGLESKILL 107
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
 #define STAT_LEVEL 12
-#define STAT_EXPERIENCE 13
 #define STAT_GOLD 14
-#define STAT_GOLDBANK 15
 #define STAT_GOLDLOST 175
 struct D2ItemsTxt;
 struct D2StaticPathStrc;

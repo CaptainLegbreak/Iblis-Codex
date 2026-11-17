@@ -1,12 +1,8 @@
 #include "D2Game.h"
-
-#define ITEMTYPE_BLUNT 57
 #define STAT_ITEM_UNDEADDAMAGE_PERCENT 122
 #define STAT_HITPOINTS 6
 #define STAT_MANA 8
 #define STAT_STAMINA 10
-#define STATE_DEATH_DELAY 92
-#define DRAIN_MIN 256
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_MONSTER 1
 #define UNIT_INVALID 6
@@ -231,12 +227,6 @@ struct D2ModeChangeStrc
     unsigned char unk0x17;
     int unk0x18;
     int unk0x1C;
-};
-
-struct D2DamageHitClassMappingStrc
-{
-    int nDamageStrcOffset;
-    unsigned int nHitClass;
 };
 
 extern "C" const D2DamageHitClassMappingStrc gsDamageHitClassMapping_006E16D8[8]; // 0x006E16D8

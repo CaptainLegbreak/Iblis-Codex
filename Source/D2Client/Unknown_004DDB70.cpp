@@ -19,37 +19,6 @@ struct tagRECT
     int bottom;
 };
 
-struct D2WallCellStrc
-{
-    char unk0x00[0x8];
-    int nX;
-    int nY;
-    char unk0x10[0x14];
-};
-
-struct D2WallCtxStrc
-{
-    char unk0x00[0x4];
-    int nLeft;
-    int nTop;
-    int nRight;
-    int nBottom;
-    char unk0x14[0x10];
-    int nX;
-    int nY;
-    char unk0x2C[0xC];
-    int nUnk0x38;
-    char unk0x3C[0xEA60];
-    int nUnk0xEA9C;
-    int f_EAA0;
-    int f_EAA4;
-    D2WallCellStrc* pCells;
-    int nCellCount;
-    unsigned int nSize;
-    int nWidth;
-    int nHeight;
-};
-
 struct D2WallPointStrc
 {
     int nX;
@@ -105,14 +74,6 @@ struct D2ClearPairStrc
     D2ClearPairStrc();
 };
 
-struct D2GridRectStrc
-{
-    int nLeft;
-    int nTop;
-    int nRight;
-    int nBottom;
-};
-
 struct D2GridCellStrc
 {
     unsigned char nB0;
@@ -121,27 +82,6 @@ struct D2GridCellStrc
     unsigned char nB3;
     int nX;
     int nY;
-};
-
-struct D2GridOwnerStrc
-{
-    char pad0x00[0x14];
-    D2GridRectStrc tRect;
-};
-
-struct D2GridInfoStrc
-{
-    char pad0x00[0x6];
-    unsigned short wFlags;
-    char pad0x08[0xC];
-    int nBusy;
-};
-
-struct D2GridUnitStrc
-{
-    char pad0x00[0x14];
-    unsigned int dwFlags;
-    D2GridInfoStrc* pInfo;
 };
 
 struct D2GridLightStrc

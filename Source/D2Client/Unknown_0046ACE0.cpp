@@ -62,21 +62,6 @@ struct D2DataTablesStrc
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268
 
-struct D2ClientTimedBoxStrc
-{
-    int bActive;
-    int nValue;
-    unsigned char nColor[4];
-    int nFadeIn;
-    int nFadeOut;
-    int nHold;
-    int nTotal;
-    int nTick;
-    int nAngle;
-    int nLevelId;
-    int bLocked;
-};
-
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
 struct D2SeedStrc
@@ -145,7 +130,6 @@ struct D2MissileStrc
     int unk0x38[9];
 };
 D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
-D2UnitStrc* __cdecl sub_00463DE0_GetStoredUnit(); // 0x00463DE0
 void __fastcall sub_00470390(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
@@ -348,7 +332,7 @@ void __cdecl sub_0046B0C0_ResetPulseTick()
 // 0x0046B100
 void __cdecl sub_0046B100_EventObject98Request()
 {
-    D2UnitStrc* pPlayer = sub_00463DE0_GetStoredUnit();
+    D2UnitStrc* pPlayer = sub_00463DE0_GetPlayerUnit();
     if (!pPlayer)
         return;
 
@@ -399,7 +383,7 @@ void __cdecl sub_0046B290_EventLevel108Request()
 // 0x0046B300
 void __cdecl sub_0046B300_EventObject178Request()
 {
-    D2UnitStrc* pPlayer = sub_00463DE0_GetStoredUnit();
+    D2UnitStrc* pPlayer = sub_00463DE0_GetPlayerUnit();
     if (!pPlayer)
         return;
 
@@ -446,7 +430,7 @@ void __fastcall sub_0046B3C0_UnitRequest25A(D2UnitStrc* pUnit)
 // 0x0046B440
 void __cdecl sub_0046B440_EventObject1CCRequest()
 {
-    D2UnitStrc* pPlayer = sub_00463DE0_GetStoredUnit();
+    D2UnitStrc* pPlayer = sub_00463DE0_GetPlayerUnit();
     if (!pPlayer)
         return;
 
@@ -516,28 +500,28 @@ void __fastcall sub_0046B530_SpawnMissileAtObject(D2UnitStrc* pUnit)
 // 0x0046BA90
 void __fastcall sub_0046BA90_PlayerRequestAtUnit15B(D2UnitStrc* pUnit)
 {
-    D2UnitStrc* pPlayer = sub_00463DE0_GetStoredUnit();
+    D2UnitStrc* pPlayer = sub_00463DE0_GetPlayerUnit();
     sub_004CDB40_SubmitRequest(pPlayer, 0x15B, CLIENTS_GetUnitXInline(pUnit), CLIENTS_GetUnitYInline(pUnit), 0, 1);
 }
 
 // 0x0046BB10
 void __fastcall sub_0046BB10_PlayerRequestAtUnit161(D2UnitStrc* pUnit)
 {
-    D2UnitStrc* pPlayer = sub_00463DE0_GetStoredUnit();
+    D2UnitStrc* pPlayer = sub_00463DE0_GetPlayerUnit();
     sub_004CDB40_SubmitRequest(pPlayer, 0x161, CLIENTS_GetUnitXInline(pUnit), CLIENTS_GetUnitYInline(pUnit), 0, 1);
 }
 
 // 0x0046BB90
 void __fastcall sub_0046BB90_PlayerRequestAtUnit16B(D2UnitStrc* pUnit)
 {
-    D2UnitStrc* pPlayer = sub_00463DE0_GetStoredUnit();
+    D2UnitStrc* pPlayer = sub_00463DE0_GetPlayerUnit();
     sub_004CDB40_SubmitRequest(pPlayer, 0x16B, CLIENTS_GetUnitXInline(pUnit), CLIENTS_GetUnitYInline(pUnit), 0, 1);
 }
 
 // 0x0046BC90
 void __fastcall sub_0046BC90_RequestAtMonster220(D2UnitStrc* pUnit)
 {
-    D2UnitStrc* pPlayer = sub_00463DE0_GetStoredUnit();
+    D2UnitStrc* pPlayer = sub_00463DE0_GetPlayerUnit();
     D2UnitStrc* pMonster = UNITFINDS_FindUnitInNeighboredRooms(UNITS_GetRoom(pPlayer), 1, 0x220);
     if (pMonster)
     {
@@ -615,7 +599,7 @@ void __fastcall sub_0046BF30_CheckThroneLevel(D2ActiveRoomStrc* pRoom)
     case LEVEL_THEWORLDSTONECHAMBER:
         if (!gnGlobal_007A746C && gnGlobal_007A7468)
         {
-            D2UnitStrc* pUnit = sub_00463DE0_GetStoredUnit();
+            D2UnitStrc* pUnit = sub_00463DE0_GetPlayerUnit();
             if (pUnit)
             {
                 sub_004C5420_CreateFirstMissile(pUnit, THRONE_MISSILE, 0, 1);

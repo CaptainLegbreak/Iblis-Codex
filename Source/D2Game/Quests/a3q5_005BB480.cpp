@@ -42,9 +42,6 @@ struct D2QuestDataStrc
     char unk0x0D[0x0B];
     D2Act3Quest5Strc* pQuestDataEx;
 };
-
-#define QUESTSTATEFLAG_A3Q1 17
-#define QUESTSTATEFLAG_A3Q2 18
 #define QUESTSTATEFLAG_A3Q5 21
 #define QFLAG_REWARDGRANTED 0
 #define QFLAG_LEAVETOWN 2

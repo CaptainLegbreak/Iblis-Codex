@@ -29,11 +29,6 @@ struct D2QuestTextMsgStrc
 };
 #pragma pack(pop)
 
-struct D2QuestTextsStrc
-{
-    unsigned short awIds[64];
-};
-
 struct D2QuestTableStrc
 {
     unsigned char bEnabled;
@@ -43,12 +38,6 @@ struct D2QuestTableStrc
     D2QuestTextsStrc* pTexts;
     int nCondition;
     int nQuestId;
-};
-
-struct D2QuestPageRangeStrc
-{
-    int nFirst;
-    int nLast;
 };
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
@@ -552,13 +541,6 @@ struct D2CelContextStrc
     int unk0x38[2];
     int nDirection;
     int unk0x44;
-};
-
-struct D2QuestPosStrc
-{
-    int nX;
-    int nY;
-    int unk0x08[2];
 };
 
 struct T0044CB60

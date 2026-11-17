@@ -4,10 +4,8 @@
 #define ROOM_MIN_SUBTILES 2
 #define CREATE_TRIES 5
 #define CREATE_SIZE_GROW 6
-#define COLLIDE_MASK_PLACEMENT 0x3F11
 #define LINE_CREATE_ROOM 1358
 #define IFLAG_IDENTIFIED 0x00000010
-#define INVPAGE_TRADE 2
 #define PACKETSIZE06_HEADER 0x92
 #define UPDATEUI_TRADEACCEPTED 6
 #define TRADESTATE_ACCEPTED 3
@@ -98,8 +96,6 @@ struct D2ObjInitFnStrc
 
 typedef void (__fastcall* D2ObjInitFn)(D2ObjInitFnStrc* pOp);
 
-typedef int (__stdcall* D2FarProcFn)();
-
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(D2FarProcFn lpfn); // 0x006CC34C
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -158,22 +154,6 @@ struct D2StaticPathStrc
 {
     char unk0x00[0x0C];
     D2CoordStrc tGameCoords;
-};
-
-struct D2PlayerListStrc
-{
-    int nUnitGUID;
-    unsigned int dwFlags;
-    int field_8;
-    int field_C;
-    D2PlayerListStrc* pNext;
-};
-
-struct D2ItemTradeStrc
-{
-    int nItemGUID1;
-    int nItemGUID2;
-    D2ItemTradeStrc* pNext;
 };
 
 struct D2PlayerTradeStrc
@@ -262,21 +242,6 @@ struct D2LocalDateStrc
     int f_4;
     int nDay;
     int f_C;
-};
-
-struct D2PackedWordStrc
-{
-    union
-    {
-        unsigned short wRaw;
-        struct
-        {
-            unsigned short nId : 12;
-            unsigned short nUnused : 3;
-            unsigned short bFlag : 1;
-        };
-    };
-    unsigned short nCount;
 };
 
 struct D2UnkCallRecordStrc

@@ -68,7 +68,6 @@ D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                   
 void __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax);                             // 0x004135D0
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define NUM_ACTS 5
 #define CLIENTFLAGEX_DEAD 0x02
 #define CLIENTFLAGEX_SAVE_LOADED 0x10
 #define CLIENTFLAGEX_0x20 0x20

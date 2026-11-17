@@ -7,13 +7,11 @@
 #define MONMODE_DEAD 12
 #define MONMODE_SEQUENCE 14
 #define STATE_UNINTERRUPTABLE 54
-#define STAT_VELOCITYPERCENT 67
 #define PATHTYPE_ASTAR 1
 #define PATHTYPE_TOWARD 2
 #define PATHTYPE_STRAIGHT 7
 #define PATHTYPE_LEAP 9
 #define PATHTYPE_TOWARD_FINISH 13
-#define PATHTYPE_WALL_FOLLOW 15
 #define UNITFLAG_DOUPDATE 0x1
 #define UNITFLAG_MONMODEISCHANGING 0x80000
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -81,13 +79,6 @@ struct D2MonStats2Txt
 {
     char unk0x000[0x104];
     unsigned char nModeEventFlags[4];
-};
-
-struct D2MonModeInfoTableStrc
-{
-    int unk0x00;
-    int unk0x04;
-    int unk0x08;
 };
 
 struct D2ModeChangeStrc
@@ -161,16 +152,16 @@ void __stdcall PATH_AddCollisionFootprintForUnit(D2UnitStrc* pUnit); // 0x006494
 int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown); // 0x00649970
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
 void __fastcall SUNIT_InitializeAnimation(D2UnitStrc* pUnit); // 0x005533D0
-void __fastcall SUNIT_ValidateTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553490
+void __fastcall sub_6FCBC7E0(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553490
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553540
 void __fastcall SUNIT_SetCombatMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode); // 0x00553570
 void __fastcall D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553990
 void __fastcall SUNIT_ScheduleAnimationEvents(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005539B0
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
 void __fastcall SUNIT_SetUninterruptable(D2UnitStrc* pUnit, int bUninterruptable); // 0x005544B0
-int __fastcall SUNIT_UpdateUnitPath(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00554CA0
+int __fastcall sub_6FCBC930(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00554CA0
 void __fastcall sub_0056FAF0(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0056FAF0
-void __fastcall SKILLS_ExecuteUsedSkill(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0056FC50
+void __fastcall sub_6FD13410(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0056FC50
 void __fastcall SUNITDMG_DrainItemDurability(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int a4); // 0x0057D4F0
 void __fastcall MONSTERUNIQUE_ExecuteUModModeStartCallbacks(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005A4350
 void __fastcall MONSTERUNIQUE_ExecuteUModModeChangeCallbacks(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005A4360
@@ -199,12 +190,9 @@ struct D2DifficultyLevelsTxt
 
 D2BitBufferStrc* __fastcall sub_00543520(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00543520
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
-void __fastcall sub_6FCBC7E0(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553490
-int __fastcall sub_6FCBC930(D2GameStrc* pGame, D2UnitStrc* pMissile); // 0x00554CA0
 void __fastcall sub_6FC52110(D2GameStrc* pGame, D2UnitStrc* pMonster, D2UnitStrc* pPlayer, int nTCId, int nQuality, int nItemLevel, int a7, D2UnitStrc** ppItems, int* pnItemsDropped, int nMaxItems); // 0x0055AFA0
 int __fastcall ITEMS_GetItemLevelForNewItem(D2UnitStrc* pUnit, int a2); // 0x00558200
 D2UnitStrc* __fastcall sub_6FD11420(D2GameStrc* pGame, int nMissileId, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nX, int nY, int nTargetX, int nTargetY, int bCheckItemQuantity); // 0x0056ECB0
-void __fastcall sub_6FD13410(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0056FC50
 D2UnitStrc* __fastcall AIGENERAL_GetMinionOwner(D2UnitStrc* pUnit); // 0x0058F0D0
 int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, int nFlag); // 0x005A0180
 int __fastcall MONSTERUNIQUE_GetSuperUniqueBossHcIdx(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005A03A0
@@ -814,14 +802,14 @@ int __fastcall sub_005A7670_UpdateModeSkill(D2GameStrc* pGame, D2UnitStrc* pUnit
         const int nFlags = SKILLS_GetFlags(pSkill);
         if (nFlags & 1)
         {
-            SUNIT_ValidateTargetUnit(pGame, pUnit);
-            if (SUNIT_UpdateUnitPath(pGame, pUnit) == 2)
+            sub_6FCBC7E0(pGame, pUnit);
+            if (sub_6FCBC930(pGame, pUnit) == 2)
             {
                 SKILLS_SetFlags(pSkill, nFlags | 2);
-                SKILLS_ExecuteUsedSkill(pGame, pUnit);
+                sub_6FD13410(pGame, pUnit);
                 if (sub_C04_IsAtSkillFrame(pUnit))
                 {
-                    SKILLS_ExecuteUsedSkill(pGame, pUnit);
+                    sub_6FD13410(pGame, pUnit);
                 }
 
                 UNITS_StopSequence(pUnit);
@@ -829,7 +817,7 @@ int __fastcall sub_005A7670_UpdateModeSkill(D2GameStrc* pGame, D2UnitStrc* pUnit
             }
         }
 
-        SKILLS_ExecuteUsedSkill(pGame, pUnit);
+        sub_6FD13410(pGame, pUnit);
         UNITS_StopSequence(pUnit);
         return 1;
     }
@@ -837,7 +825,7 @@ int __fastcall sub_005A7670_UpdateModeSkill(D2GameStrc* pGame, D2UnitStrc* pUnit
     const int bModeEvent = sub_005A6B10_IsModeEventEnabled(pUnit, !pUnit ? 0 : pUnit->dwAnimMode);
     if (bModeEvent)
     {
-        SUNIT_UpdateUnitPath(pGame, pUnit);
+        sub_6FCBC930(pGame, pUnit);
         UNITS_StopSequence(pUnit);
         if (sub_006217C0(pUnit))
         {

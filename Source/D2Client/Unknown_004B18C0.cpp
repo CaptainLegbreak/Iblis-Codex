@@ -17,7 +17,6 @@ struct D2NpcEntryStrc
 };
 
 #pragma pack(pop)
-typedef int (__fastcall* D2TextCallback)(void* pContext, int nArg, int nValue);
 
 struct D2UnitStrc
 {
@@ -57,12 +56,6 @@ struct tagRECT
     int top;
     int right;
     int bottom;
-};
-
-struct D2NpcMenuSlotStrc
-{
-    unsigned short wId;
-    char unk0x02[0x0E];
 };
 
 typedef char check_size_npcentry[(sizeof(D2NpcEntryStrc) == 0x16) ? 1 : -1];

@@ -118,7 +118,6 @@ struct Skills { char pad0[4]; unsigned char flags[4]; char pad8[0x40]; short mis
 
 struct Tables { char pad0[0xB6C]; int missileCount; char padB70[0x28]; Skills* skills; void* linker; int skillCount; };
 extern unsigned bitMasks[]; // 0x006CE268
-Unit* __stdcall sub_00553540(Game*,Unit*); // 0x00553540
 MissileRecord* __fastcall sub_0046ACE0(int); // 0x0046ACE0
 Unit* __fastcall sub_0056EE90(Game*,int,Unit*,int,int,int,int,int,int,int); // 0x0056EE90
 Unit* __fastcall sub_0056ECB0(Game*,int,Unit*,int,int,int,int,int,int,int); // 0x0056ECB0
@@ -176,8 +175,6 @@ struct D2MissileStrc
     MissileInitFunc pInitFunc;
     int pInitArgs;
 };
-
-extern "C" void* __cdecl memset(void*, int, unsigned int); // 0x00681EF0
 D2ActiveRoomStrc* __fastcall COLLISION_GetRoomBySubTileCoordinates(D2ActiveRoomStrc*, int, int); // 0x00463740
 D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc*, D2MissileStrc*); // 0x0059FA30
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc*); // 0x00620BB0
@@ -186,8 +183,6 @@ void __stdcall sub_0063E7E0_GetDirectionDelta(unsigned char, int*, int*); // 0x0
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc*, int); // 0x006439F0
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc*, D2SkillStrc*, int); // 0x006442A0
 unsigned char __stdcall sub_00648810(D2DynamicPathStrc*); // 0x00648810
-int __stdcall PATH_GetXPosition(D2DynamicPathStrc*); // 0x006488C0
-int __stdcall PATH_GetYPosition(D2DynamicPathStrc*); // 0x00648900
 int __stdcall sub_006505C0_TestPathFlag8(D2DynamicPathStrc*); // 0x006505C0
 
 inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)

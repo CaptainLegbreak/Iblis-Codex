@@ -6,8 +6,6 @@ struct D2HashedFileStrc;
 struct D2StateNodeStrc;
 struct D2StateOwnerStrc;
 
-typedef unsigned int size_t;
-
 struct D2HashedFileEntryStrc
 {
     D2HashedFileEntryStrc* pNext;

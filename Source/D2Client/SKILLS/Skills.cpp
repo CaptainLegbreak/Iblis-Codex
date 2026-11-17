@@ -3,7 +3,6 @@
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
 #define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
-#define NULL 0
 #define BITARRAY_CHECK(pBytes, nBit) ((pBytes)[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
 struct D2MissilesTxt;
 struct D2GfxLightStrc;
@@ -225,7 +224,7 @@ int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* p
 D2UnitStrc* __fastcall sub_004CDC30(D2UnitStrc* pUnit, int nArg0, int nOffsetX, int nOffsetY, int nTargetX, int nTargetY, int nArg3, int nArg4, int nRange); // 0x004CDC30
 int __fastcall sub_004CA060(void* pArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7); // 0x004CA060
 D2UnitStrc* __fastcall sub_004648F0_GetTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
-int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit); // 0x0045ADF0
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 extern "C" int __cdecl sub_0045AFC0(); // 0x0045AFC0
 extern "C" int __cdecl sub_0045AFD0_GetMouseYOffset(); // 0x0045AFD0
@@ -239,7 +238,7 @@ int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit); // 0x006206B0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall sub_00621F60(D2UnitStrc* pUnit); // 0x00621F60
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625500
-int __stdcall sub_006288A0_GetItemMissile(D2UnitStrc* pItem); // 0x006288A0
+int __stdcall ITEMS_GetMissileType(D2UnitStrc* pItem); // 0x006288A0
 int __stdcall sub_0062BA80(D2UnitStrc* pItem); // 0x0062BA80
 unsigned char __stdcall PATH_GetDirection(D2DynamicPathStrc* pPath); // 0x006487F0
 void __stdcall sub_006488A0_SetDirection(D2DynamicPathStrc* pPath, int nDirection); // 0x006488A0
@@ -314,20 +313,6 @@ struct D2MonStatsTxt
     unsigned char nFlags[4];
     unsigned int dwCode;
     char unk0x014[0x1A8 - 0x14];
-};
-
-struct D2ClientSkillArgsStrc
-{
-    int nSkillId;
-    int nOwnerGUID;
-    int nArg1;
-    int nArg2;
-    int nSkillLevel;
-};
-
-struct D2PathDirectionStrc
-{
-    unsigned char nDirection;
 };
 
 typedef int (__fastcall* CLIENTSKILLSTARTFN)(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);
@@ -433,7 +418,6 @@ void __stdcall MISSILE_SetTargetX(D2UnitStrc* pMissile, int nTargetX); // 0x0064
 void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY); // 0x0064A760
 unsigned short __stdcall sub_0064D800(D2ActiveRoomStrc* pRoom, int nX, int nY, int nWidth, int nHeight, int nMask); // 0x0064D800
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
-int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall sub_00465C60_CheckUnitPair(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x00465C60
 D2MissilesTxt* __fastcall sub_0046ACE0(int nMissileId); // 0x0046ACE0
 int __fastcall sub_004C5910(D2UnitStrc* pUnitA, D2UnitStrc* pUnitB); // 0x004C5910
@@ -481,7 +465,6 @@ void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2A
 int __fastcall sub_00457490_CheckMonStatsFlag(int nMonsterId, int nFlag); // 0x00457490
 int __fastcall sub_004C5960_CanScanUnit(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nFlags); // 0x004C5960
 static int sub_004C5BD0_IsPointNearRoom(D2ActiveRoomStrc* pRoom, int nX, int nY, int nRadius); // 0x004C5BD0
-int __stdcall ITEMS_GetMissileType(D2UnitStrc* pItem); // 0x006288A0
 
 struct D2StatesTxt
 {
@@ -497,8 +480,6 @@ D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit
 int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625D00
 void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int a4); // 0x00649EF0
 void __fastcall sub_004C7470_SetMissileDirection(D2UnitStrc* pMissile, int nDirection); // 0x004C7470
-int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
-int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 extern "C" int __stdcall sub_006492A0(int nX1, int nY1, int nX2, int nY2); // 0x006492A0
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
 
@@ -761,7 +742,7 @@ int __fastcall sub_004C7E10_FireWeaponMissile(D2UnitStrc* pUnit, int nSkillId, i
         return 0;
     }
 
-    const int nMissile = sub_006288A0_GetItemMissile(pItem);
+    const int nMissile = ITEMS_GetMissileType(pItem);
     if (nMissile <= 0)
     {
         return 0;
@@ -812,7 +793,7 @@ int __fastcall sub_004C7F50_SpawnPairAtTarget(D2UnitStrc* pUnit, int nSkillId, i
     }
 
     D2CoordStrc tCoord;
-    tCoord.nX = UNITS_GetXPosition(pTarget);
+    tCoord.nX = CLIENTS_GetUnitX(pTarget);
     tCoord.nY = CLIENTS_GetUnitY(pTarget);
 
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pTarget);
@@ -2091,7 +2072,7 @@ void __fastcall sub_004C5C40_ScanArea(D2UnitStrc* pUnit, int nX, int nY, int nRa
 
     if (!nX || !nY)
     {
-        nX = UNITS_GetXPosition(pUnit);
+        nX = CLIENTS_GetUnitX(pUnit);
         nY = CLIENTS_GetUnitY(pUnit);
     }
 
@@ -2256,7 +2237,7 @@ int __fastcall sub_004C7D50_LeapToTarget(D2UnitStrc* pUnit, int nSkillId, int nS
         D2UnitStrc* pTarget = sub_004648F0_GetTargetUnit(pUnit);
         if (pTarget && pUnit->pDynamicPath)
         {
-            D2Common_10216(pUnit->pDynamicPath, UNITS_GetXPosition(pTarget), CLIENTS_GetUnitY(pTarget), 0);
+            D2Common_10216(pUnit->pDynamicPath, CLIENTS_GetUnitX(pTarget), CLIENTS_GetUnitY(pTarget), 0);
         }
         return 1;
     }
@@ -2270,7 +2251,7 @@ int __fastcall sub_004C7D50_LeapToTarget(D2UnitStrc* pUnit, int nSkillId, int nS
     D2UnitStrc* pDest = sub_004C5EB0_FindDestination(pUnit, 0, 0, 3, 0, nUnitId, 0);
     if (pDest && pUnit->pDynamicPath)
     {
-        D2Common_10216(pUnit->pDynamicPath, UNITS_GetXPosition(pDest), CLIENTS_GetUnitY(pDest), 0);
+        D2Common_10216(pUnit->pDynamicPath, CLIENTS_GetUnitX(pDest), CLIENTS_GetUnitY(pDest), 0);
     }
     return 1;
 }

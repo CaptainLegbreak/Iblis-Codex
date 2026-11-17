@@ -29,14 +29,6 @@ struct D2LevelsTxt
     Unicode wszLevelName[40];
 };
 
-struct D2RectStrc
-{
-    int nLeft;
-    int nTop;
-    int nRight;
-    int nBottom;
-};
-
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 void __fastcall sub_0044DB40(int nDelay); // 0x0044DB40
 int __cdecl sub_0044DCC0(); // 0x0044DCC0

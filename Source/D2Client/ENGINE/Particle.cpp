@@ -14,13 +14,6 @@ struct D2GfxMotionStrc
     unsigned char bFlag5 : 1;
 };
 
-struct D2TokRecord
-{
-    char unk0x00[0x20];
-    unsigned int dwCode;
-    char unk0x24[0x10];
-};
-
 struct D2GfxNodeStrc
 {
     int unk0x00[3];

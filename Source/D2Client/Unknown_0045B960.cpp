@@ -1,8 +1,5 @@
 #include "D2Client.h"
 
-typedef char* va_list;
-#define va_start(ap, v) (ap = (va_list)&v + sizeof(v))
-
 extern "C" __declspec(dllimport) int __stdcall wvsprintfA(char* szDest, const char* szFormat, va_list args); // 0x006CC4AC
 
 // 0x0045B960

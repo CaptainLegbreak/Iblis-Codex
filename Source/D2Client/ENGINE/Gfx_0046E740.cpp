@@ -15,8 +15,6 @@ struct D2CofModeEntryStrc;
 struct D2GfxNodeTargetStrc;
 struct D2MonGfxCacheStrc;
 
-typedef unsigned int size_t;
-
 struct D2UnitStrc
 {
     int dwUnitType;
@@ -103,12 +101,6 @@ struct D2MonStats2Txt
     };
 };
 
-struct D2MonModeTxt
-{
-    char unk0x00[0x20];
-    unsigned int dwToken;
-};
-
 struct D2DataTablesStrc
 {
     char unk0x000[0xA78];
@@ -132,14 +124,6 @@ struct D2GfxLayerHeaderStrc
     unsigned char nArg;
 };
 
-struct D2MonCofInfoStrc
-{
-    short nMonsterId;
-    char unk0x02[0x03 - 0x02];
-    unsigned char nCount;
-    char unk0x04[0x34 - 0x04];
-};
-
 struct D2CelContextStrc
 {
     char unk0x00[0x34];
@@ -150,12 +134,6 @@ struct D2CelContextStrc
     };
     int unk0x38[3];
     int nFlags44;
-};
-
-struct D2CofModeEntryStrc
-{
-    unsigned int dwCode;
-    int nMode;
 };
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837

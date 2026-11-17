@@ -91,7 +91,7 @@ int __fastcall D2GAME_GetXAndYFromTargetUnit_6FD14020(D2GameStrc*, D2UnitStrc*, 
 void __fastcall sub_6FD140D0(int*, int*); // 0x0056D370
 void __fastcall sub_6FD14120(int*, int*); // 0x0056D3B0
 D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc*, D2MissileStrc*); // 0x0059FA30
-int __fastcall sub_00623C60(D2UnitStrc*); // 0x00623C60
+int __fastcall UNITS_GetWeaponClass(D2UnitStrc*); // 0x00623C60
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc*, unsigned int, int, int); // 0x00646CA0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc*); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc*); // 0x00648900
@@ -103,14 +103,13 @@ void __stdcall SKILLS_SetParam1(D2SkillStrc*, int); // 0x00644560
 void __stdcall SKILLS_SetParam2(D2SkillStrc*, int); // 0x006445A0
 void __stdcall SKILLS_SetParam3(D2SkillStrc*, int); // 0x006445E0
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc*, int, int); // 0x00552F60
-D2UnitStrc* __fastcall sub_0056BD10_FindTarget(D2GameStrc*, D2UnitStrc*, int, int, int, unsigned int, int, int*); // 0x0056BD10
+D2UnitStrc* __fastcall sub_6FD107F0(D2GameStrc*, D2UnitStrc*, int, int, int, unsigned int, int, int*); // 0x0056BD10
 void __stdcall UNITS_SetTargetUnitForDynamicUnit(D2UnitStrc*, D2UnitStrc*); // 0x00620C10
-int __fastcall UNITS_GetWeaponClass(D2UnitStrc*); // 0x00623C60
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc*); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc*); // 0x0045AE20
 void __fastcall SKILLS_AddDamagePercentBonus(D2UnitStrc*, int); // 0x005DB6A0
 int __fastcall sub_004F4110_GetSkillParam5(int); // 0x004F4110
-void __fastcall sub_0056E210_SetSkillDelay(D2UnitStrc*, int); // 0x0056E210
+void __fastcall sub_0056E210(D2UnitStrc*, int); // 0x0056E210
 
 struct D2DamageStrc
 {
@@ -129,27 +128,14 @@ struct D2DamageStrc
 };
 
 typedef char DamageSizeCheck[sizeof(D2DamageStrc) == 0x70 ? 1 : -1];
-
-extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 int __fastcall sub_004EFC20_GetSkillParam2(int nSkillId); // 0x004EFC20
-D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
-D2UnitStrc* __fastcall sub_6FD107F0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nAuraRange, unsigned int nAuraFilter, int a7, int* a8); // 0x0056BD10
 void __fastcall D2GAME_RollElementalDamage_6FD14DD0(D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel); // 0x0056E0C0
-void __fastcall sub_0056E210(D2UnitStrc* pUnit, int nArg); // 0x0056E210
 int __fastcall SKILLS_GetMeleeSearchRange(D2UnitStrc* pUnit); // 0x0056E510
 void __fastcall SUNITDMG_DrainItemDurability(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int a4); // 0x0057D4F0
 void __fastcall SUNITDMG_AllocCombat(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, D2DamageStrc* pDamage, unsigned char nSrcDam); // 0x0057DBF0
 unsigned short __fastcall SUNITDMG_GetResultFlags(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int nStatValue, int nRangeOffset); // 0x0057EC10
-D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nRangeBonus); // 0x00622C40
-int __stdcall SKILLS_GetParam1(D2SkillStrc* pSkill); // 0x006444A0
-int __stdcall SKILLS_GetParam2(D2SkillStrc* pSkill); // 0x006444D0
-int __stdcall SKILLS_GetParam3(D2SkillStrc* pSkill); // 0x00644500
-void __stdcall SKILLS_SetParam1(D2SkillStrc* pSkill, int nValue); // 0x00644560
-void __stdcall SKILLS_SetParam2(D2SkillStrc* pSkill, int nValue); // 0x006445A0
-void __stdcall SKILLS_SetParam3(D2SkillStrc* pSkill, int nValue); // 0x006445E0
 int __stdcall SKILLS_GetToHitFactor(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x006449F0
-int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 
 // 0x005DB410
 int __fastcall sub_005DB410_CreateMissileWall(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
@@ -198,7 +184,7 @@ int __fastcall sub_005DB410_CreateMissileWall(D2GameStrc* pGame, D2UnitStrc* pUn
         nX += -(nDx * nTotal / 2);
         nY += -(nDy * nTotal / 2);
         int nMissile = pSkillsTxtRecord->nSrvMissile;
-        if (sub_00623C60(pUnit) != 1 && pSkillsTxtRecord->nCltMissile >= 0) nMissile = pSkillsTxtRecord->nCltMissile;
+        if (UNITS_GetWeaponClass(pUnit) != 1 && pSkillsTxtRecord->nCltMissile >= 0) nMissile = pSkillsTxtRecord->nCltMissile;
         if (nMissile < 0 || nMissile >= sgptDataTables->nMissilesTxtRecordCount) goto ReturnZero;
         int nActive = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[2], nSkillId, nSkillLevel);
         if (!nActive) nActive = nTotal;
@@ -297,7 +283,7 @@ int __fastcall sub_005DBA40_CreateSkillMissile(D2GameStrc* pGame, D2UnitStrc* pU
     D2UnitStrc* pTarget = SUNIT_GetServerUnit(pGame, SKILLS_GetParam2(pSkill), nTargetId);
     if (!pTarget)
     {
-        pTarget = sub_0056BD10_FindTarget(pGame, pUnit, 0, 0, nRange, 3, nTargetId, 0);
+        pTarget = sub_6FD107F0(pGame, pUnit, 0, 0, nRange, 3, nTargetId, 0);
         if (!pTarget) return 1;
     }
     UNITS_SetTargetUnitForDynamicUnit(pUnit, pTarget);
@@ -326,12 +312,12 @@ int __fastcall sub_005DBA40_CreateSkillMissile(D2GameStrc* pGame, D2UnitStrc* pU
     --nCount;
     SKILLS_SetParam1(pSkill, nCount);
     if (nCount <= 0) return 0;
-    D2UnitStrc* pNextTarget = sub_0056BD10_FindTarget(pGame, pUnit, 0, 0, nRange, 3, !pTarget ? -1 : pTarget->dwUnitId, 0);
+    D2UnitStrc* pNextTarget = sub_6FD107F0(pGame, pUnit, 0, 0, nRange, 3, !pTarget ? -1 : pTarget->dwUnitId, 0);
     if (pNextTarget)
     {
         SKILLS_SetParam2(pSkill, GetTargetType(pNextTarget));
         SKILLS_SetParam3(pSkill, GetTargetId(pNextTarget));
-        sub_0056E210_SetSkillDelay(pUnit, sub_004F4110_GetSkillParam5(nSkillId));
+        sub_0056E210(pUnit, sub_004F4110_GetSkillParam5(nSkillId));
     }
     return 1;
 }

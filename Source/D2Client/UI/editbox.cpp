@@ -54,12 +54,6 @@ struct D2CelContextStrc
     int unk0x44;
 };
 
-struct D2ButtonStringStrc
-{
-    unsigned short nCelFrame;
-    unsigned short nStringIndex;
-};
-
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x00412650
 
 class UIWidget

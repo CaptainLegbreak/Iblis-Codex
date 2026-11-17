@@ -588,3 +588,820 @@ void __stdcall sub_00628170_SetItemCommandFlag(D2UnitStrc* pItem, int nFlag, int
 void __stdcall sub_0063D1D0_InventoryItemCall(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063D1D0
 void __stdcall sub_00649190_SetPathMode(D2UnitStrc* pUnit, int nMode); // 0x00649190
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
+
+#define A1Q3_INITNO 5
+#define A1Q3_SEQID 6
+#define ACT_I 0
+#define ACT_IV 3
+#define AI_RollChance(pGame, pSeed, pMonStatsTxt, nParamId) ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_GetParam(pGame, pMonStatsTxt, nParamId))
+#define BITARRAY_CHECK(pBytes, nBit) ((pBytes)[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
+#define BODYLOC_LARM 5
+#define BODYLOC_RARM 4
+#define BYTEFIELD(p,offset) (*(unsigned char*)((char*)(p)+(offset)))
+#define CLIENTSTATE_INGAME 4
+#define COLLIDE_MASK_MONSTER_PATH 0x3C01
+#define COLLIDE_MASK_PLACEMENT 0x3F11
+#define COLLIDE_MASK_SPAWN 0x3E01
+#define D2GameReservedSlotHandle (-1)
+#define D2PartyIdNone 0xFFFF
+#define D2_MAYBE_UNUSED(x) (void)(x)
+#define DIFFMODE_NORMAL 0
+#define DRAIN_MIN 256
+#define EVENTFLAG_0x1 1
+#define EVENTFLAG_0x2 2
+#define EVENTFLAG_0x8 8
+#define EVENTTYPE_AIRESET 10
+#define EVENTTYPE_PERIODICSKILLS 8
+#define FIELD(p,offset) (*(int*)((char*)(p)+(offset)))
+#define GAMEFLAG_ARENA_UPDATE 0x400
+#define GAMETYPE_1 1
+#define GAMETYPE_2 2
+#define IFLAG_INSTORE 0x2000
+#define IFLAG_NOEQUIP 0x4000
+#define IFLAG_PERSONALIZED 0x1000000
+#define IFLAG_STARTITEM 0x20000
+#define IMODE_EQUIP 1
+#define IMODE_INBELT 2
+#define IMODE_ONCURSOR 4
+#define IMODE_ONGROUND 3
+#define IMODE_STORED 0
+#define INVPAGE_EQUIP 1
+#define INVPAGE_INVENTORY 0
+#define INVPAGE_NULL 0xFF
+#define INVPAGE_TRADE 2
+#define ITEMCODE_MALUS ' mdh'
+#define ITEMSPAWN_GROUND 3
+#define ITEMSTATCOSTFLAGINDEX_CSVSIGNED 13
+#define ITEMTYPE_BLUNT 57
+#define ITEMTYPE_BOOK 18
+#define ITEMTYPE_BOW 27
+#define ITEMTYPE_BOW_QUIVER 5
+#define ITEMTYPE_SCROLL 22
+#define ITEM_BOOK_BKS 0x20736B62
+#define ITEM_SCROLL_BKD 0x20646B62
+#define ITERSTATE_13 13
+#define ITERSTATE_2 2
+#define ITERSTATE_3 3
+#define LEVEL_BURIALGROUNDS 17
+#define LEVEL_CATACOMBSLEV4 37
+#define LEVEL_DURANCEOFHATELEV3 102
+#define LEVEL_TALRASHASTOMB1 66
+#define LEVEL_THEPANDEMONIUMFORTRESS 103
+#define LEVEL_THEWORLDSTONECHAMBER 132
+#define LINE_SCROLL_ASSERT1 0xFA
+#define LINE_SCROLL_ASSERT2 0x102
+#define LINE_SCROLL_DEBUG2 0x10C
+#define LINE_SCROLL_DEBUG5 0xF7
+#define MALUS_MIN_LEVEL 8
+#define MAXIMUM(a,b) ((a) > (b) ? (a) : (b))
+#define MAX_NPC_RECORDS 64
+#define MISSILE_FLAGBIT(pRecord, nBit) ((pRecord)->nMissileFlags[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
+#define MISSILE_SUICIDECORPSEEXPLODE 426
+#define MISSILE_SUICIDEFIREEXPLODE 427
+#define MISSILE_SUICIDEICEEXPLODE 428
+#define MONSTER_ANCIENTBARB1 540
+#define MONSTER_ANCIENTBARB2 541
+#define MONSTER_ANCIENTBARB3 542
+#define MONSTER_PAINWORM1 551
+#define MONSTER_QUAL_KEHK 515
+#define MONTYPEFLAG_SUPERUNIQUE 2
+#define MSG_CHARSI_END 163
+#define MSG_CHARSI_INTRO 146
+#define N0 0
+#define N1 1
+#define N10 10
+#define N100 100
+#define N108 108
+#define N12 12
+#define N148 148
+#define N16 16
+#define N18 18
+#define N180 180
+#define N196 196
+#define N2 2
+#define N20 20
+#define N3 3
+#define N30 30
+#define N32 32
+#define N4 4
+#define N5 5
+#define N573 573
+#define N59 59
+#define N716 716
+#define N8 8
+#define N84 84
+#define NNEG1 -1
+#define NOINLINE __declspec(noinline)
+#define NRNG 0x6ac690c5u
+#define NUMBER_OF_PLAYERCLASSES 7
+#define NUM_ACTS 5
+#define OBJECT_EXPLODINGBARREL 11
+#define OBJECT_INTERACT_TRAPPED 0x80
+#define OBJECT_STEEG_STONE 337
+#define OBJECT_TOWN_PORTAL 59
+#define OBJMODE_SPECIAL2 4
+#define OBJMODE_SPECIAL3 5
+#define PATHTYPE_WALL_FOLLOW 15
+#define PCLASS_PALADIN 3
+#define PETTYPE_HIREABLE 7
+#define PLAYERLIST_FLAG_HOSTILE 8
+#define PLRSAVE2ERROR_BAD_STATS 0x12
+#define PLRSAVE2ERROR_COUNT 27
+#define PLRSAVE2ERROR_NEWBIE_SAVE 2
+#define PLRSAVE2ERROR_NO_CLIENT 3
+#define PLRSAVE2ERROR_UNKNOWN 1
+#define QFLAG_CUSTOM5 9
+#define QSTATE_2 2
+#define QSTATE_3 3
+#define QSTATE_4 4
+#define QSTATE_5 5
+#define QUESTEVENT_CHANGEDLEVEL 3
+#define QUESTEVENT_ITEMPICKEDUP 4
+#define QUESTEVENT_MALUSREMOVED 6
+#define QUESTEVENT_MONSTERKILLED 8
+#define QUESTEVENT_NPCACTIVATE 0
+#define QUESTEVENT_NPCDEACTIVATE 2
+#define QUESTEVENT_PLAYERDROPPEDWITHQUESTITEM 9
+#define QUESTEVENT_PLAYERJOINEDGAME 14
+#define QUESTEVENT_PLAYERLEAVESGAME 10
+#define QUESTEVENT_PLAYERSTARTEDGAME 13
+#define QUESTEVENT_SCROLLMESSAGE 11
+#define QUESTSTATEFLAG_A1Q0 0
+#define QUESTSTATEFLAG_A3Q1 17
+#define QUESTSTATEFLAG_A3Q2 18
+#define QUESTSTATEFLAG_A3Q3 19
+#define QUESTSTATEFLAG_A3Q4 20
+#define QUESTSTATEFLAG_A3Q6 22
+#define QUESTSTATEFLAG_A4Q3 27
+#define QUESTSTATEFLAG_A5Q1 35
+#define QUESTSTATEFLAG_A5Q2 36
+#define QUESTSTATEFLAG_A5Q3 37
+#define QUESTSTATEFLAG_A5Q5 39
+#define QUEST_A3Q2_KHALIMFLAIL 16
+#define QUEST_A3Q4_GOLDENBIRD 0x12
+#define QUEST_A3Q5_TRAVINCAL 19
+#define QUEST_A3Q6_MEPHISTO 20
+#define QUEST_A5Q1_SHENK 31
+#define QUEST_A5Q2_RESCUESOLDIERS 32
+#define QUEST_FLAGS_KIND 6
+#define QUEST_FLAGS_PACKET 0x28
+#define QUEST_LOG_PACKET 0x5D
+#define SEED_ROLL_LIMITED_INLINE(pSeed, nMax, nResult) \
+    if ((nMax) <= 0) \
+    { \
+        nResult = 0; \
+    } \
+    else if (((nMax) - 1) & (nMax)) \
+    { \
+        unsigned __int64 lSeed = (pSeed)->nHighSeed + 0x6AC690C5i64 * (pSeed)->nLowSeed; \
+        (pSeed)->nHighSeed = (unsigned int)(lSeed >> 32); \
+        (pSeed)->nLowSeed = (unsigned int)lSeed; \
+        nResult = (unsigned int)lSeed % (nMax); \
+    } \
+    else \
+    { \
+        unsigned __int64 lSeed = (pSeed)->nHighSeed + 0x6AC690C5i64 * (pSeed)->nLowSeed; \
+        (pSeed)->nHighSeed = (unsigned int)(lSeed >> 32); \
+        (pSeed)->nLowSeed = (unsigned int)lSeed; \
+        nResult = (unsigned int)lSeed & ((nMax) - 1); \
+    }
+#define SKILLS_ROLL_SEED(pSeed, lSeed) \
+    (lSeed = (pSeed)->nHighSeed + 0x6AC690C5i64 * (pSeed)->nLowSeed, \
+     (pSeed)->nHighSeed = (unsigned int)(lSeed >> 32), \
+     (pSeed)->nLowSeed = (unsigned int)lSeed, \
+     (unsigned int)lSeed)
+#define SKILL_LEFTHANDSWING 5
+#define SOUND_MALUS_PICKUP 36
+#define STATE_CORPSE_NODRAW 104
+#define STATE_CORPSE_NOSELECT 118
+#define STATE_DEATH_DELAY 92
+#define STATE_SHATTER 107
+#define STATE_SKILL_MOVE 18
+#define STATLIST_FLAG_EXP 0x800
+#define STAT_DURABILITY 72
+#define STAT_EXPERIENCE 13
+#define STAT_GOLDBANK 15
+#define STAT_HPREGEN 74
+#define STAT_ITEM_ADDEXPERIENCE 85
+#define STAT_ITEM_CHARGED_SKILL 204
+#define STAT_ITEM_REPLENISH_DURABILITY 252
+#define STAT_ITEM_REPLENISH_QUANTITY 253
+#define STAT_ITEM_SINGLESKILL 107
+#define STAT_ITEM_THROWABLE 125
+#define STAT_LASTEXP 29
+#define STAT_MAXMANA 9
+#define STAT_NEXTEXP 30
+#define STAT_OTHER_ANIMRATE 69
+#define STAT_QUANTITY 70
+#define STAT_SKILLPTS 5
+#define STAT_STRENGTH 0
+#define STAT_VELOCITYPERCENT 67
+#define SYSERROR_UNK_14 14
+#define UNIQUEITEMSFLAGINDEX_CARRY1 2
+#define UNIQUEITEMSFLAGINDEX_NOLIMIT 1
+#define UNITEVENT_LEVELUP 12
+#define UNITFLAGEX_HASINV 0x00000001
+#define UNITFLAGEX_ITEMINIT 0x00000010
+#define UNITFLAGEX_STOREOWNERINFO 0x400
+#define UNITFLAG_SENDREFRESHMSG 0x00001000
+#define UNITFLAG_UPGRLIFENHITCLASS 0x00008000
+#define UNIT_ALIGNMENT_UNASSIGNED 4
+#define UNIT_CLASSID_OR_INVALID(pUnit) ((pUnit) ? (pUnit)->dwClassId : -1)
+#define UNIT_LIST_MASK 0x7F
+#define nullptr 0
+
+struct AiControl { char unknown00[0x14]; int param[3]; };
+
+struct D2AiBaalTargetArgsStrc
+{
+    char unk0x00[0x0C];
+    int nX;
+    int nY;
+};
+
+struct D2ArenaUnitStrc
+{
+    int nScore;
+    int bUpdateScore;
+};
+
+struct D2CharStatsTxtRun
+{
+    char unk0x00[0x41];
+    unsigned char nRunSpeed;
+};
+
+struct D2DamageHitClassMappingStrc
+{
+    int nDamageStrcOffset;
+    unsigned int nHitClass;
+};
+
+struct D2EquipmentRefreshStateStrc
+{
+    int nHitpoints;
+    int nMana;
+    int nStamina;
+    int nRightSkillId;
+    int nLeftSkillId;
+    int nRightSkillOwnerGUID;
+    int nLeftSkillOwnerGUID;
+};
+
+typedef int (__stdcall* D2FarProcFn)();
+
+struct D2GSPacketSrv91
+{
+    unsigned char nHeader;
+    unsigned char nAct;
+    unsigned short pNPCFlags[12];
+};
+
+struct D2HashKeyNoneStrc
+{
+    char unk0x00;
+};
+
+struct D2HotkeySkillStrc
+{
+    short nSkill;
+    unsigned char nHand;
+    unsigned char unk0x03;
+    int nItemGUID;
+};
+
+struct D2ItemCacheStrc
+{
+    unsigned char nMin;
+    unsigned char nMax;
+    unsigned char nMagicMin;
+    unsigned char nMagicMax;
+    unsigned int dwCode;
+    unsigned char nMagicLevel;
+    char unk0x09[3];
+};
+
+struct D2ItemModeArgStrc
+{
+    int bIsBow;
+    int bIsCrossBow;
+    int bIsBowQuiver;
+    int bIsCrossBowQuiver;
+    int bIsShield;
+    int bIsWeapon;
+    int bIsTwoHanded;
+    int bCanUse2Weapons;
+    int bIsThrowable;
+    int bIsRing;
+};
+
+struct D2ItemRatioTxt
+{
+    int dwUnique;
+    int dwUniqueDivisor;
+    int dwUniqueMin;
+    int dwRare;
+    int dwRareDivisor;
+    int dwRareMin;
+    int dwSet;
+    int dwSetDivisor;
+    int dwSetMin;
+    int dwMagic;
+    int dwMagicDivisor;
+    int dwMagicMin;
+    int dwHiQuality;
+    int dwHiQualityDivisor;
+    int dwNormal;
+    int dwNormalDivisor;
+};
+
+struct D2ItemTradeStrc
+{
+    int nItemGUID1;
+    int nItemGUID2;
+    D2ItemTradeStrc* pNext;
+};
+
+struct D2ItemTypesTxt
+{
+    char unk0x00[0x14];
+    unsigned char nMagic;
+    unsigned char nRare;
+    unsigned char nNormal;
+    char unk0x17[0xCD];
+};
+
+struct D2ItemsTxtSpeed
+{
+    char unk0x00[0xD8];
+    int dwSpeed;
+};
+
+struct D2LargeIntegerPartsStrc
+{
+    unsigned int LowPart;
+    int HighPart;
+};
+
+struct D2LargeIntegerStrc
+{
+    __int64 QuadPart;
+};
+
+union D2LargeIntegerUnion
+{
+    struct
+    {
+        unsigned long LowPart;
+        long HighPart;
+    };
+    __int64 QuadPart;
+};
+
+struct D2LifeSyncStrc
+{
+    int nUnitGUID;
+    int nLifePercentage;
+    int nLevelId;
+    unsigned char nUpdateCount;
+    D2LifeSyncStrc* pNext;
+};
+
+struct D2LinkStrc
+{
+    D2LinkStrc* pPrev;
+    D2LinkStrc* pNext;
+};
+
+struct D2MapAIPathPositionStrc
+{
+    int nMapAIAction;
+    int nX;
+    int nY;
+};
+
+struct D2MessageStrc
+{
+    unsigned char nMenu;
+    unsigned char pad0x01;
+    unsigned short nStringId;
+};
+
+struct D2MessageListStrc
+{
+    unsigned char nCount;
+    unsigned char pad0x01;
+    D2MessageStrc pMessages[8];
+};
+
+struct D2MinionListStrc
+{
+    int dwMinionGUID;
+    D2MinionListStrc* pNext;
+};
+
+struct D2MissileDamageDataStrc
+{
+    int nFlags;
+    int nMinDamage;
+    int nMaxDamage;
+    int nFireMinDamage;
+    int nFireMaxDamage;
+    int nFireLength;
+    int nLightMinDamage;
+    int nLightMaxDamage;
+    int nMagicMinDamage;
+    int nMagicMaxDamage;
+    int nColdMinDamage;
+    int nColdMaxDamage;
+    int nColdLength;
+    int nPoisonMinDamage;
+    int nPoisonMaxDamage;
+    int nPoisonLength;
+    int nPoisonCount;
+    int nLifeDrainMinDamage;
+    int nLifeDrainMaxDamage;
+    int nManaDrainMinDamage;
+    int nManaDrainMaxDamage;
+    int nStaminaDrainMinDamage;
+    int nStaminaDrainMaxDamage;
+    int nStunLength;
+    int nBurningMin;
+    int nBurningMax;
+    int nBurnLength;
+    int nDemonDamagePercent;
+    int nUndeadDamagePercent;
+    int nDamageTargetAC;
+    int nDamagePercent;
+};
+
+struct D2MissileUnitFindTableStrc
+{
+    void* pfUnitFindCallback;
+    int nCollisionMask;
+};
+
+struct D2MonLvlTxt
+{
+    int nValues[10][3];
+};
+
+struct D2MonModeInfoTableStrc
+{
+    int unk0x00;
+    int unk0x04;
+    int unk0x08;
+};
+
+struct D2MonStatsCountStrc
+{
+    char unk0x000[0xA80];
+    int nMonStatsTxtRecordCount;
+};
+
+struct D2MonStatsTxtRun
+{
+    char unk0x00[0x34];
+    short nRun;
+};
+
+struct D2NecroSkeletonComponentStrc
+{
+    unsigned char nHead;
+    unsigned char nShield;
+    unsigned char nTorso;
+    unsigned char nSpecial1;
+    unsigned char nSpecial2;
+    unsigned char nLegs;
+    unsigned char nRightArm;
+    unsigned char nLeftArm;
+    unsigned char nRightHand;
+};
+
+struct D2NpcIndexMapStrc
+{
+    int nNpcClassId;
+    int nIndex;
+};
+
+struct D2PackedGuidStrc
+{
+    unsigned short f_0;
+    unsigned short f_2;
+};
+
+struct D2PackedWordStrc
+{
+    union
+    {
+        unsigned short wRaw;
+        struct
+        {
+            unsigned short nId : 12;
+            unsigned short nUnused : 3;
+            unsigned short bFlag : 1;
+        };
+    };
+    unsigned short nCount;
+};
+
+struct D2PartyNodeStrc
+{
+    int nUnitGUID;
+    D2PartyNodeStrc* pNext;
+};
+
+struct D2PathPointStrc
+{
+    unsigned short X;
+    unsigned short Y;
+};
+
+struct D2PlayerListStrc
+{
+    int nUnitGUID;
+    unsigned int dwFlags;
+    int field_8;
+    int field_C;
+    D2PlayerListStrc* pNext;
+};
+
+struct D2PresetUnitStrc
+{
+    int nMode;
+    int nIndex;
+    int nXpos;
+    D2PresetUnitStrc* pNext;
+    D2MapAIStrc* pMapAI;
+    int nUnitType;
+    int nYpos;
+    unsigned int bSpawned;
+};
+
+struct D2PropertyStrc { int nProperty,nLayer,nMin,nMax; };
+
+struct D2PutridDefilerAiCallbackArgStrc
+{
+    int unk0x00;
+    int nMaxDistance;
+    int unk0x08[8];
+};
+
+struct D2QualityItemDataTbl
+{
+    int nQualityItemsTxtRecordCount;
+};
+
+struct D2QuestInitTableStrc
+{
+    void* pfInit;
+    unsigned char nAct;
+    unsigned char pad0x05[3];
+    unsigned int nVersion;
+    unsigned char bNoSetState;
+    unsigned char pad0x0D[3];
+    int nChainNo;
+    int nQuestNo;
+};
+
+struct D2QuestItemPairStrc
+{
+    int nQuestFlag;
+    unsigned char nItemQuest;
+    char unk0x05[3];
+};
+
+struct D2RareAffixTxt
+{
+    char unk0x00[0x48];
+};
+
+struct D2RareAffixDataTbl
+{
+    int nRareAffixTxtRecordCount;
+    D2RareAffixTxt* pRareAffixTxt;
+    D2RareAffixTxt* pRareSuffix;
+    D2RareAffixTxt* pRarePrefix;
+};
+
+struct D2RareAffixIndexAndPtrStrc
+{
+    int nIndex;
+    D2RareAffixTxt* pRareAffixRecord;
+};
+
+struct D2SetItemsTxt
+{
+    char unk0x000[0x22];
+    unsigned short wVersion;
+    char unk0x024[0x04];
+    unsigned int szItemCode;
+    short nSetId;
+    short nSetItems;
+    short wLvl;
+    short wLvlReq;
+    unsigned int dwRarity;
+    char unk0x038[0x180];
+};
+
+struct D2SrvDo47Strc
+{
+    int nSkillId;
+    int nSkillLevel;
+    int nDuration;
+    int nAuraTargetState;
+    int nAuraStat[6];
+    int nAuraStatCalcValue[6];
+};
+
+struct D2StaticFieldCallbackArgStrc
+{
+    int nMinDamage;
+    int nDamagePct;
+    int nStaticFieldMin;
+    int nElementalLength;
+    int nElementalType;
+};
+
+struct D2SystemTimeStrc
+{
+    unsigned short wYear;
+    unsigned short wMonth;
+    unsigned short wDayOfWeek;
+    unsigned short wDay;
+    unsigned short wHour;
+    unsigned short wMinute;
+    unsigned short wSecond;
+    unsigned short wMilliseconds;
+};
+
+struct D2TaskStrc
+{
+    int nTaskQ;
+    int nType;
+    D2LinkStrc pTaskBalanceLink;
+    D2LinkStrc pTaskQueueLink;
+};
+
+struct D2UnitDescriptionListStrc
+{
+    int nClassId;
+    int nCount;
+    int nDefaultCount;
+    char szDescription[0x80];
+    D2UnitDescriptionListStrc* pNext;
+};
+
+struct D2UnitProxyArgStrc
+{
+    int nLevelId;
+    int nCounter;
+};
+
+struct D2UnitProxyStrc
+{
+    D2ItemCacheStrc* pItemCache;
+    int nItems;
+    unsigned int* pPermCache;
+    int nPerms;
+};
+
+struct D2UnkMonCreateStrc3
+{
+    int nXOffset;
+    int nYOffset;
+    int nSpawnType;
+};
+
+struct D2UnkPalSkillStrc2
+{
+    int nSkillId;
+    int nSkillLevel;
+    int nCounter;
+};
+
+typedef unsigned int U32;
+
+struct SkillRecord
+{
+    unsigned char pad0[96];
+    U32 calc;
+    unsigned char pad1[130 - 100];
+    short state;
+    unsigned char pad2[228 - 132];
+    short effect;
+    unsigned char pad3[312 - 230];
+    U32 chance;
+    unsigned char pad4[572 - 316];
+};
+
+struct DataTables
+{
+    unsigned char pad0[196];
+    int stateCount;
+    unsigned char pad1[2968 - 200];
+    SkillRecord* skills;
+    unsigned char pad2[2976 - 2972];
+    int skillCount;
+};
+
+struct HASHKEY_NONE
+{
+    int nUnused;
+};
+
+typedef unsigned char U8;
+
+struct ItemRecord
+{
+    U8 pad00[128];
+    U32 code;
+};
+
+struct Monster
+{
+    unsigned char pad[40];
+    AiState* ai;
+};
+
+struct ObjectData
+{
+    U32 unused;
+    unsigned char interact;
+};
+
+struct ObjectRecord
+{
+    char reserved0[N196];
+    unsigned char collisions[N12];
+    int sizeX;
+    int sizeY;
+    char reserved216[N100];
+    unsigned char placement;
+    char reserved317[N59];
+    int selection;
+    int subclass;
+};
+
+struct Path
+{
+    U32 unused0;
+    U32 unused4;
+    U32 unused8;
+    int x;
+    int y;
+};
+
+typedef unsigned char (__fastcall *Permit)(Game*,int,int,int);
+
+struct Point
+{
+    int x;
+    int y;
+};
+
+struct Record
+{
+    int damageOffset;
+    int resistanceStat;
+    int maximumStat;
+    int pierceStat;
+    int absorbPercentStat;
+    int absorbFlatStat;
+    int reductionIndex;
+    int requiresAttackerFlag;
+    int scales;
+    const char* name;
+    unsigned char flags;
+    unsigned char tail[3];
+};
+
+struct RoomBounds
+{
+    int a;
+    int b;
+    int c;
+    int d;
+    int e;
+    int f;
+    int g;
+    int h;
+};
+
+struct ShrineLists
+{
+    int counts[N8];
+    int* lists[N8];
+};
+
+struct ShrineRecord
+{
+    char reserved0[N180];
+    U32 minimumLevel;
+};
+
+typedef unsigned int size_t;
+
+struct tagRECT { long left; long top; long right; long bottom; };
+
+typedef unsigned __int64 uint64_t;

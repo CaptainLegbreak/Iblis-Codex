@@ -1,7 +1,4 @@
 #include "D2Game.h"
-
-#define QUEST_A5Q2_RESCUESOLDIERS 32
-#define nullptr 0
 struct D2Act5Quest2Strc;
 struct D2PlayerDataStrc;
 struct D2ObjInitFnStrc;

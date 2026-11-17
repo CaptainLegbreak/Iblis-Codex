@@ -85,12 +85,6 @@ struct D2ClientServiceStrc
 extern WardenModule* gpPendingWarden_007BC994; // 0x007BC994
 extern D2ClientServiceStrc* gpService_007BC998; // 0x007BC998
 
-struct _FILETIME
-{
-    unsigned long dwLowDateTime;
-    unsigned long dwHighDateTime;
-};
-
 static void __stdcall sub_0047F990_HashModule(const char* szName, unsigned char* pDigest, const unsigned char* pData, unsigned int nSkip, unsigned int nSize);
 static int __stdcall sub_0047FEE0_LoadModuleByKey(const unsigned char* pRc4Key, const unsigned char* pModuleKey);
 

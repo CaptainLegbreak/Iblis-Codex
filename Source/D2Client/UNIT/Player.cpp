@@ -80,14 +80,6 @@ struct D2DataTablesStrc
     int nItemStatCostTxtRecordCount;
 };
 
-struct D2PacketBufferStrc
-{
-    int nMax;
-    int nCount;
-    int unk0x08;
-    unsigned char* pData;
-};
-
 struct D2StormLinkStrc
 {
     D2StormLinkStrc* m_prevlink;
@@ -233,12 +225,6 @@ struct D2SkillsTxt
     char unk0x15[0x19];
     unsigned short wSrvDoFunc;
     char unk0x30[0x20C];
-};
-
-struct D2StringRefStrc
-{
-    unsigned short nStringId;
-    unsigned short unk0x02;
 };
 
 extern int gnStringCount_00711EF0; // 0x00711EF0

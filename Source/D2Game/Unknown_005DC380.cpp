@@ -44,9 +44,6 @@ struct SynCoord { int nX; int nY; };
 struct SynStatic { char unk0[0x0C]; SynCoord tGameCoords; };
 
 struct SynUnit { int dwUnitType; char unk4[0x28]; union { SynStatic* pStaticPath; D2DynamicPathStrc* pDynamicPath; }; };
-
-int __stdcall sub_006488C0_PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
-int __stdcall sub_00648900_PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 int __stdcall sub_00620510_UNITS_GetUnitSizeX(SynUnit* pUnit); // 0x00620510
 
 __forceinline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)
@@ -118,7 +115,7 @@ static __forceinline int synh_GetUnitX(SynUnit* pUnit)
     case 5:
         return pUnit->pStaticPath->tGameCoords.nX;
     default:
-        return pUnit->pDynamicPath ? sub_006488C0_PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+        return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
     }
 }
 
@@ -131,7 +128,7 @@ static __forceinline int synh_GetUnitY(SynUnit* pUnit)
     case 5:
         return pUnit->pStaticPath->tGameCoords.nY;
     default:
-        return pUnit->pDynamicPath ? sub_00648900_PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+        return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
     }
 }
 

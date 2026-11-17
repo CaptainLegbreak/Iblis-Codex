@@ -35,9 +35,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char*,const char*,int); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
-D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc*,D2UnitStrc*); // 0x00553540
-int __fastcall sub_005387F0_IsVisible(D2UnitStrc*,D2ClientStrc*); // 0x005387F0
-D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc*); // 0x00620250
 int __stdcall PATH_GetType(D2DynamicPathStrc*); // 0x00648E30
 int __stdcall sub_00648A40(D2DynamicPathStrc*); // 0x00648A40
 int __stdcall sub_00648A60(D2DynamicPathStrc*); // 0x00648A60
@@ -60,12 +57,6 @@ void __fastcall sub_0053B9F0_SendModeTarget(D2ClientStrc*,char,int,char,char,int
 void __fastcall sub_0053BA40_SendModeCoords(D2ClientStrc*,char,int,char,short,short,char,char); // 0x0053BA40
 void __fastcall sub_0053BAA0_SendFullTarget(D2ClientStrc*,char,int,char,char,int,char,short,short); // 0x0053BAA0
 void __fastcall sub_0053BB00_SendFullCoords(D2ClientStrc*,char,int,char,short,short,char,char,short,short); // 0x0053BB00
-int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc*,const char*,int); // 0x00643CE0
-int __stdcall SKILLS_GetSkillLevel(D2UnitStrc*,D2SkillStrc*,int); // 0x006442A0
-void __fastcall sub_0053D530(D2ClientStrc*,unsigned char,int,int,int,unsigned short,unsigned short,unsigned char,int); // 0x0053D530
-void __fastcall sub_6FC3F060(D2ClientStrc*,unsigned char,int,unsigned short,unsigned short,int,unsigned short,unsigned char,int); // 0x0053D4D0
-int __stdcall sub_00648A00(D2DynamicPathStrc*); // 0x00648A00
-int __stdcall sub_00648A10(D2DynamicPathStrc*); // 0x00648A10
 
 // 0x00597D70
 static void __stdcall sub_00597D70_SendUsedSkill(D2UnitStrc* pMonster, D2UnitStrc* pTarget, D2ClientStrc* pClient)
@@ -118,7 +109,7 @@ void __fastcall MONSTERMSG_SendMonsterModeUpdate(D2GameStrc* pGame,D2UnitStrc* p
  int nMode=pUnit->dwAnimMode;
  D2MonsterModeInfo* pInfo=&gMonsterModeInfo[nMode];
  D2UnitStrc* pTarget=SUNIT_GetTargetUnit(pGame,pUnit);
- if((pTarget && !sub_005387F0_IsVisible(pTarget,pClient)) || !pInfo->bTarget) pTarget=0;
+ if((pTarget && !CLIENTS_IsInUnitsRoom(pTarget,pClient)) || !pInfo->bTarget) pTarget=0;
  if(nMode==14 || UNITS_GetUsedSkill(pUnit)) { sub_00597D70_SendUsedSkill(pUnit,pTarget,pClient); return; }
  D2DynamicPathStrc* pPath=pUnit->pDynamicPath;
  D2_ASSERT(pPath,0xE6);

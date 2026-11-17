@@ -75,11 +75,6 @@ struct D2MissilesTxt
     char pad0x008[0x19C];
 };
 
-struct D2MonLvlTxt
-{
-    int nValues[10][3];
-};
-
 struct D2MonUModTxt
 {
     char pad0x00[0x1C];

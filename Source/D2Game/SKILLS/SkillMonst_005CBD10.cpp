@@ -197,15 +197,6 @@ struct D2AuraCallbackStrc
     void* pArgs;
 };
 
-struct D2StaticFieldCallbackArgStrc
-{
-    int nMinDamage;
-    int nDamagePct;
-    int nStaticFieldMin;
-    int nElementalLength;
-    int nElementalType;
-};
-
 struct D2BasicAuraParamStrc
 {
     int nAuraState;
@@ -232,13 +223,6 @@ struct D2DamageAuraParamStrc
     D2StatListStrc* pStatList;
     int nPassiveState;
     D2DamageStrc* pDamage;
-};
-
-struct D2UnkPalSkillStrc2
-{
-    int nSkillId;
-    int nSkillLevel;
-    int nCounter;
 };
 
 struct D2AiCmdStrc
@@ -441,8 +425,6 @@ void __fastcall D2GAME_RefreshPassiveSkills_6FD14CC0(D2UnitStrc* pUnit); // 0x00
 void __fastcall SKILLS_ClampVitalsAndUpdateAnimRate(D2UnitStrc* pUnit); // 0x0056B6C0
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 void __stdcall SKILLS_SetFlags(D2SkillStrc* pSkill, int nValue); // 0x00644660
-int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
-int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 void __stdcall D2COMMON_10170_PathSetTargetPos(D2DynamicPathStrc* pPath, int nX, int nY); // 0x00648AD0
 void __stdcall PATH_SetType(D2DynamicPathStrc* pPath, int nType); // 0x00648CF0
 void __stdcall PATH_SetNewDistance(D2DynamicPathStrc* pDynamicPath, unsigned char nNewDistance); // 0x00648E70

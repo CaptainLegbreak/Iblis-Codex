@@ -317,12 +317,6 @@ static __declspec(noinline) void __stdcall sub_004E96E0_DrawDamageRange(int nCol
     }
     sub_004A7080(gnGlobal_007A2858 + nLeft, gnGlobal_00711470 + gnGlobal_007A285C + nY - 480, gnGlobal_007A2858 + nRight, wszText, nColor);
 }
-struct D2ElemDamageStatsStrc
-{
-    int nMinStat;
-    int nMaxStat;
-    int nMasteryStat;
-};
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState);                                             // 0x00639DF0
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState);             // 0x006256B0
 int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer);         // 0x00625D00

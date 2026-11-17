@@ -196,7 +196,6 @@ void __fastcall D2GAME_PACKETS_SendPacket0x26_ServerMessage_6FC3DDF0(D2ClientStr
 void __fastcall D2GAME_PACKETS_SendPacket0x5A_6FC3DEC0(D2ClientStrc*, D2GSPacketSrv5A*); // 0x0053C850
 void __fastcall D2GAME_PACKETS_HandlePlayerMessage_6FC847B0(D2ClientStrc*, void*); // 0x0054A470
 void __fastcall D2GAME_PACKETS_HandleWhisper_6FC848A0(D2ClientStrc*, void*); // 0x0054A510
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc*, const char*, int); // 0x005531C0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc*, int, int); // 0x00625480
 
 inline int PLRMSG_IsBodyLocValid(int nBodyLoc)

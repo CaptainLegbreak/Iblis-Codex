@@ -4,10 +4,6 @@
 #define UNIT_ITEM 4
 #define UNIT_TILE 5
 #define ITEMQUAL_UNIQUE 7
-#define UNIQUEITEMSFLAGINDEX_CARRY1 2
-#define PETTYPE_HIREABLE 7
-#define STAT_DURABILITY 72
-#define STAT_QUANTITY 70
 #define IFLAG_NEWITEM 0x00000001
 #define IFLAG_BROKEN 0x00000100
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -22,7 +18,7 @@
 #define NPC_CLASS_150 150
 #define NPC_CLASS_515 515
 #define NPC_CLASS_198 198
-#define CHECK(p,line) if (!(p)) { sub_00408A60(text_006CC837,sub_00408090(),line); sub_00681E09(-1); }
+#define CHECK(p,line) if (!(p)) { sub_00408A60(text_006CC837,sub_00408090(),line); exit(-1); }
 struct Inventory;
 struct D2PlayerDataStrc;
 struct D2MonsterItemCodeStrc;
@@ -229,7 +225,6 @@ int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
 unsigned int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
 unsigned int __stdcall STATLIST_GetMaxManaFromUnit(D2UnitStrc* pUnit); // 0x00625D60
 unsigned int __stdcall STATLIST_GetMaxStaminaFromUnit(D2UnitStrc* pUnit); // 0x00625DB0
-void __stdcall D2Common_10474(D2UnitStrc* pUnit, D2StatListStrc* pStatList); // 0x006277E0
 unsigned char __stdcall ITEMS_GetInvPage(D2UnitStrc* pItem); // 0x00628250
 int __stdcall ITEMS_GetNoOfUnidItems(D2UnitStrc* pPlayer); // 0x0062A530
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
@@ -244,9 +239,6 @@ void __fastcall D2GAME_NPC_FillStoreInventory_6FCC7100(D2GameStrc* pGame, D2Unit
 void __fastcall sub_00576C30_AddItemsToTrade(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory); // 0x00576C30
 
 struct Unit { unsigned type; unsigned classId; void* pool; unsigned id; char pad10[0x50]; Inventory* inventory; char pad64[0x64]; unsigned flags; };
-
-extern "C" void __cdecl sub_00408A60(const char*,const char*,int); // 0x00408A60
-extern "C" __declspec(noreturn) void __cdecl sub_00681E09(int); // 0x00681E09
 extern "C" const char text_006CC837[]; // 0x006CC837
 void __fastcall sub_00560420(Game*,Unit*,unsigned,int*,int,int,int,int); // 0x00560420
 void __stdcall sub_00621000(Unit*,int); // 0x00621000
@@ -272,7 +264,6 @@ int __stdcall SKILLS_GetQuantity(D2SkillStrc*); // 0x006450F0
 void __stdcall SKILLS_SetQuantity(D2SkillStrc*, int); // 0x00645120
 D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc*); // 0x006201D0
 void __fastcall sub_005701B0_AssignSkill(D2UnitStrc*, int, int, int); // 0x005701B0
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc*, const char*, int); // 0x005531C0
 void __fastcall D2GAME_PACKETS_SendPacket0x22_6FC3DBE0(D2ClientStrc*, unsigned char, int, int, int); // 0x0053C520
 extern const char gszUnitNpcSource_006E15F0[]; // 0x006E15F0
 void __fastcall ITEMS_HandleGoldTransaction(D2GameStrc*,D2UnitStrc*,unsigned int); // 0x0055B060

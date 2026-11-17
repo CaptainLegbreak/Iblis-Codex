@@ -57,22 +57,6 @@ struct D2TileLibraryEntryStrc
     unsigned int nLightDirection;
 };
 
-struct D2GfxLightStrc
-{
-    unsigned int aColor[8];
-};
-
-struct D2LightOffsetStrc
-{
-    int nX;
-    int nY;
-};
-
-struct D2LightOffsetsStrc
-{
-    D2LightOffsetStrc aOffset[6];
-};
-
 struct D2DrlgTileDataStrc
 {
     int nWidth;

@@ -71,8 +71,6 @@ enum D2C_CA2Constants
     GRID_SIZE = 48,
 };
 
-typedef int (__stdcall* FARPROC)();
-
 struct SMSGHANDLER_PARAMS
 {
     void* hWnd;
@@ -349,13 +347,6 @@ struct D2GSPacket91Strc
     unsigned short nData18;
 };
 
-struct D2Packet81ArgsStrc
-{
-    int nArg0C;
-    int nArg10;
-    int nZero;
-};
-
 struct D2SendPacket6BStrc
 {
     unsigned char nHeader;
@@ -407,21 +398,6 @@ extern D2HotkeyStrc gtHotkeys_007A6F90[NUM_HOTKEYS]; // 0x007A6F90
 extern D2HotkeyCommandStrc gtHotkeyCommands_00712698[]; // 0x00712698
 extern int gnGlobal_007A7418; // 0x007A7418
 extern int gnGlobal_007A7460; // 0x007A7460
-
-struct D2ClientTimedBoxStrc
-{
-    int bActive;
-    int nValue;
-    unsigned char nColor[4];
-    int nFadeIn;
-    int nFadeOut;
-    int nHold;
-    int nTotal;
-    int nTick;
-    int nAngle;
-    int nLevelId;
-    int bLocked;
-};
 
 extern D2ClientTimedBoxStrc gtTimedBox_007A742C; // 0x007A742C
 extern void* gpGlobal_007A0634; // 0x007A0634

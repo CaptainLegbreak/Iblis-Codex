@@ -46,14 +46,6 @@ struct D2CelContextStrc
     int unk0x44;
 };
 
-struct D2RectStrc
-{
-    int nLeft;
-    int nTop;
-    int nRight;
-    int nBottom;
-};
-
 #pragma pack(push, 2)
 struct D2ListScrollStrc
 {

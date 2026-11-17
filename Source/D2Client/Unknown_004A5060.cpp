@@ -37,14 +37,6 @@ struct Unicode
     unsigned short wChar;
 };
 
-struct D2RectStrc
-{
-    int nLeft;
-    int nTop;
-    int nRight;
-    int nBottom;
-};
-
 struct D2CelContextStrc
 {
     int nFrame;
@@ -88,15 +80,11 @@ int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
 void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 extern D2KeyConfigButtonStrc gaButtons_007246D8[3]; // 0x007246D8
-extern int gnEntryCount_007C0274; // 0x007C0274
-extern int gnScrollCount_007C0278; // 0x007C0278
 extern int gaPressed_007C0288[7]; // 0x007C0288
-extern int gnFirstEntry_007C02AC; // 0x007C02AC
 extern int gnGlobal_007C02B0; // 0x007C02B0
 extern int gnGlobal_007C02B8; // 0x007C02B8
 extern void* gpCelFile_007C02BC; // 0x007C02BC
 extern unsigned int gdwMessageTick_007C02C8; // 0x007C02C8
-extern int gnScrollY_007C02CC; // 0x007C02CC
 
 static __forceinline int sub_F08_ListTop()
 {
@@ -271,10 +259,10 @@ void __cdecl sub_004A5270()
     sub_00502320(D2LANG_GetStringFromTblIndex(0xF53), KEYCFG_X + 0x12 + 2 * ((gnScreenWidth_0071146C - 2 * KEYCFG_X - 0x31) / 3), KEYCFG_Y + 0x1E, 4, 0);
 
     int i = 0;
-    while (i < sub_KEYCFG_VisibleLines() && i < gnEntryCount_007C0274)
+    while (i < sub_KEYCFG_VisibleLines() && i < gnSliderRows_007C0274)
     {
         int nY = i * 0x12 + KEYCFG_Y + 0x22;
-        int nIndex = gnFirstEntry_007C02AC + i;
+        int nIndex = gnSliderScale_007C02AC + i;
         int bVisible;
         if (gnGlobal_007C02B8 && nIndex == gnGlobal_007C02B0 && (gnBlink_007C02D0 & 0xF) <= 4)
             bVisible = 0;
@@ -315,8 +303,8 @@ void __cdecl sub_004A5270()
         sub_004F6480(&tCel, sub_KEYCFG_PanelRight() - 0x1F, KEYCFG_Y + 0x3B + j * 0x0C, -1, 5, 0);
 
     tCel.nFrame = 14;
-    for (int k = 0; k < gnScrollCount_007C0278; ++k)
-        sub_004F6480(&tCel, sub_KEYCFG_PanelRight() - 0x20, gnScrollY_007C02CC + 0x0C + k * 0x0C, -1, 5, 0);
+    for (int k = 0; k < gnSliderOffset_007C0278; ++k)
+        sub_004F6480(&tCel, sub_KEYCFG_PanelRight() - 0x20, gnSliderPos_007C02CC + 0x0C + k * 0x0C, -1, 5, 0);
 
     if (gbUpPressed_007C028C && sub_KEYCFG_IsOnUpArrow(nMouseX, nMouseY))
         tCel.nFrame = 9;

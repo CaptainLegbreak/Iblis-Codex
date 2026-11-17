@@ -82,7 +82,6 @@ void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQues
 #define QFLAG_PRIMARYGOALDONE 13
 #define QFLAG_COMPLETEDNOW 14
 #define QFLAG_COMPLETEDBEFORE 15
-#define ACT_I 0
 #define ACT_III 2
 
 struct D2Act1Quest1Strc

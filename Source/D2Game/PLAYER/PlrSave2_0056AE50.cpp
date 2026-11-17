@@ -23,7 +23,6 @@ D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUn
 
 #define PLRSAVE2ERROR_BAD_IRONGOLEM 23
 #define SKILL_IRONGOLEM 90
-#define IMODE_ONGROUND 3
 
 // 0x0056AE50
 int __fastcall PLRSAVE2_ReadIronGolemSection(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char** ppSection, unsigned char* pEnd, unsigned int dwVersion)

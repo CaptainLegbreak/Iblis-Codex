@@ -75,7 +75,7 @@ D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 void __fastcall sub_004E2ED0_VolleyCallback(D2UnitStrc* pMissile, int nArg); // 0x004E2ED0
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
-int __stdcall MISSILE_GetTargetY(D2UnitStrc* pMissile); // 0x0064A780
+int __stdcall sub_0064A780_targetValue(D2UnitStrc* pMissile); // 0x0064A780
 int __stdcall MISSILE_GetLevel(D2UnitStrc* pMissile); // 0x0064A210
 int __stdcall MISSILE_GetSkill(D2UnitStrc* pMissile); // 0x0064A280
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
@@ -130,7 +130,6 @@ void __stdcall D2COMMON_10170_PathSetTargetPos(D2DynamicPathStrc* pPath, int nX,
 int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown); // 0x00649970
 int __stdcall sub_0064A730_GetMissileTargetStatus(D2UnitStrc* pMissile); // 0x0064A730
 void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY); // 0x0064A760
-int __stdcall sub_0064A780_targetValue(D2UnitStrc* pMissile); // 0x0064A780
 
 static __forceinline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
@@ -180,7 +179,7 @@ int __fastcall sub_004D1BD0_CltHitScatter(D2UnitStrc* pMissile, D2UnitStrc* pUni
     }
 
     D2SeedStrc* pSeed = &pMissile->tSeed;
-    SEED_InitLowSeed(pSeed, MISSILE_GetTargetY(pMissile));
+    SEED_InitLowSeed(pSeed, sub_0064A780_targetValue(pMissile));
     const int nCount = MISSILE_GetTargetX(pMissile);
     const int nX = UNITS_GetUnitXPosition(pMissile);
     const int nY = UNITS_GetUnitYPosition(pMissile);

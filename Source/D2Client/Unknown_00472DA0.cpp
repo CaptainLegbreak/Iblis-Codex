@@ -32,17 +32,6 @@ struct D2UnitStrc
     D2SeedStrc pSeed;
 };
 
-struct D2WeatherSplashStrc
-{
-    short bActive;
-    short unk0x02;
-    int nX;
-    int nY;
-    int nType;
-    int nFrame;
-    int f_14;
-};
-
 struct D2WeatherStrc
 {
     char unk0x000[0x110];
@@ -61,23 +50,6 @@ int __stdcall D2GFX_CheckPerspective(); // 0x004F51D0
 int __fastcall sub_00472280(D2SeedStrc* pSeed, int nOffset, int nRange); // 0x00472280
 int __fastcall sub_006BCB40(D2WeatherStrc* pArray);
 
-struct T00473470
-{
-    short bActive;
-    short unk0x02;
-    int nX;
-    int nY;
-    int nYEnd;
-    int nParam;
-    int nParam2;
-    int nFrame;
-    int bDrop;
-    int nType;
-    unsigned char nColor;
-    unsigned char nAlpha;
-    short unk0x26;
-};
-
 struct D2WeatherLineStrc
 {
     int nX1;
@@ -93,7 +65,7 @@ extern int gnGlobal_0071146C; // 0x0071146C
 extern int gnGlobal_00711470; // 0x00711470
 extern D2WeatherStrc* gpWeather_007A8A04; // 0x007A8A04
 extern int gbWeatherSplash_007A8A14; // 0x007A8A14
-D2UnitStrc* __cdecl sub_00463DE0_GetStoredUnit(); // 0x00463DE0
+D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 void __fastcall sub_00473A70(D2WeatherStrc* pWeather, D2WeatherLayerStateStrc* pState); // 0x00473A70
@@ -101,19 +73,12 @@ extern D2WeatherStrc* gpWeather_007A89FC; // 0x007A89FC
 extern D2WeatherStrc* gpWeather_007A8A00; // 0x007A8A00
 extern D2WeatherLayerStateStrc gtWeatherLayer_007A89B0; // 0x007A89B0
 extern D2WeatherLayerStateStrc gtWeatherLayer_007A893C; // 0x007A893C
-D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4);
 void __fastcall sub_004B99A0_MoveSound(int a1, int a2, int a3, int a4); // 0x004B99A0
 extern "C" void __cdecl sub_004736C0_DrawPanelShade(); // 0x004736C0
 void __cdecl sub_00473470(); // 0x00473470
 extern int gnGlobal_007A8A08; // 0x007A8A08
 extern unsigned int gdwGlobal_007BB390; // 0x007BB390
-
-struct D2PeriodLightStrc
-{
-    unsigned char nUnused;
-    unsigned char nLight;
-};
 
 extern "C" double __cdecl fabs(double x);
 int __cdecl sub_004F5140(); // 0x004F5140
@@ -279,7 +244,7 @@ int gnGlobal_007A8A10; // 0x007A8A10
 // 0x00473770
 int __cdecl sub_00473770_IsMudLevel()
 {
-    D2UnitStrc* pUnit = sub_00463DE0_GetStoredUnit();
+    D2UnitStrc* pUnit = sub_00463DE0_GetPlayerUnit();
     int bMud = 0;
     if (pUnit)
     {
@@ -310,7 +275,7 @@ int __cdecl sub_00473C40_IsRainLevel()
     {
         return 0;
     }
-    D2UnitStrc* pUnit = sub_00463DE0_GetStoredUnit();
+    D2UnitStrc* pUnit = sub_00463DE0_GetPlayerUnit();
     int bRain = 0;
     if (pUnit)
     {
@@ -662,7 +627,7 @@ void __cdecl sub_00473F50_UpdateWeather()
     int nLevelId;
     int bRain;
     int bMud;
-    D2UnitStrc* pStoredUnit = sub_00463DE0_GetStoredUnit();
+    D2UnitStrc* pStoredUnit = sub_00463DE0_GetPlayerUnit();
     bRain = 0;
     bMud = 0;
     if (pStoredUnit)

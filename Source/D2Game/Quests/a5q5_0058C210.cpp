@@ -1,15 +1,7 @@
 #include "D2Game.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define QUESTSTATEFLAG_A5Q5 39
 #define QUEST_A5Q5_ANCIENTS 35
-#define QUESTEVENT_NPCACTIVATE 0
-#define QUESTEVENT_NPCDEACTIVATE 2
-#define QUESTEVENT_CHANGEDLEVEL 3
-#define QUESTEVENT_MONSTERKILLED 8
-#define QUESTEVENT_PLAYERLEAVESGAME 10
-#define QUESTEVENT_SCROLLMESSAGE 11
-#define QUESTEVENT_PLAYERSTARTEDGAME 13
 #define QFLAG_REWARDGRANTED 0
 #define QFLAG_STARTED 2
 #define QFLAG_LEAVETOWN 3
@@ -191,8 +183,6 @@ int __fastcall ACT5Q5_UnitIterate_StatusCyclerEx(D2GameStrc*,D2UnitStrc*,void*);
 void __fastcall SUNIT_IterateUnitsOfType(D2GameStrc*,int,void*,Iter); // 0x005537D0
 int __fastcall ACT5Q5_UnitIterate_UpdateQuestStateFlags(D2GameStrc*,D2UnitStrc*,void*); // 0x0058C210
 int __stdcall sub_0058BF40_ActivateAncientStatues(D2QuestDataStrc*,D2Act5Quest5Strc*); // 0x0058BF40
-D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc*); // 0x006221A0
-void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc*,int,int); // 0x0065C360
 D2BitBufferStrc* __fastcall sub_00543520(D2GameStrc*,D2UnitStrc*); // 0x00543520
 extern const char gszA5Q5SourceFile[]; // 0x006E1ABC
 

@@ -48,37 +48,10 @@ struct D2CelContextStrc
     int unk0x44;
 };
 
-struct D2CompRecordStrc
-{
-    unsigned char nComponent;
-    char unk0x01[4];
-    char szCode[4];
-};
-
-struct D2CompEntryStrc
-{
-    unsigned char nCount;
-    char unk0x01[0x1B];
-    D2CompRecordStrc aComps[16];
-};
-
 struct D2CompEntryListStrc
 {
     int unk0x00[5];
     D2CompEntryStrc* f_14;
-};
-
-struct D2CompArgStrc
-{
-    int unk0x00[4];
-    int nArg18;
-};
-
-struct D2MonCompInfoStrc
-{
-    short nClass;
-    char unk0x02[2];
-    unsigned char aComp[4][16];
 };
 
 struct D2ArmorCompsStrc
@@ -91,14 +64,6 @@ struct D2ArmorCompsStrc
     unsigned char n5;
     unsigned char n6;
     unsigned char n7;
-};
-
-struct D2OverlaySourceStrc
-{
-    int unk0x00;
-    int nOverlay;
-    int unk0x08[4];
-    int nArg0;
 };
 
 struct D2ItemsTxt
@@ -147,18 +112,6 @@ struct D2DataTablesStrc
     char unk0xB70[0x4C];
     D2OverlayTxt* pOverlayTxt;
     int nOverlayTxtRecordCount;
-};
-
-union D2CompCodeStrc
-{
-    unsigned int dwCode;
-    struct
-    {
-        char c0;
-        char c1;
-        char c2;
-        char c3;
-    };
 };
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837

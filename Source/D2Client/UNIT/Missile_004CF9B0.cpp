@@ -111,8 +111,6 @@ int __stdcall sub_0064A280(D2UnitStrc* pMissile); // 0x0064A280
 D2UnitStrc* __fastcall sub_004CDB40_SubmitRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
 void __fastcall sub_004D30C0_CltDoCommon(D2UnitStrc* pMissile); // 0x004D30C0
 void __stdcall sub_004DA1D0_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ); // 0x004DA1D0
-int __stdcall MISSILE_GetLevel(D2UnitStrc* pMissile); // 0x0064A210
-int __stdcall MISSILE_GetSkill(D2UnitStrc* pMissile); // 0x0064A280
 void __stdcall MISSILE_SetTargetX(D2UnitStrc* pMissile, int nTargetX); // 0x0064A710
 void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY); // 0x0064A760
 void __fastcall sub_004CD390_CltDoDefault(D2UnitStrc* pMissile); // 0x004CD390
@@ -349,8 +347,8 @@ static void __stdcall sub_004D2520_SpawnBaalBolt(D2UnitStrc* pMissile, int nX, i
     tParams.dwFlags = 0x2001;
     tParams.pOwner = sub_004639D0_GetOwnerUnit(pMissile);
     tParams.nMissile = SEED_RollRandomNumber(&pMissile->tSeed) % 3 + 0x27B;
-    tParams.nSkill = MISSILE_GetSkill(pMissile);
-    tParams.nSkillLevel = MISSILE_GetLevel(pMissile);
+    tParams.nSkill = sub_0064A280(pMissile);
+    tParams.nSkillLevel = sub_0064A210(pMissile);
     tParams.nX = nX;
     tParams.nY = nY;
 

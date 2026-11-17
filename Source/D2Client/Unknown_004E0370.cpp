@@ -6,16 +6,6 @@ struct D2UnitStrc
     unsigned int dwClassId;
 };
 
-struct D2NpcSoundStrc
-{
-    int f_0;
-    int nDaySound;
-    int nNightSound;
-    int nGreetSound;
-    int nLastSound;
-    int nLastTick;
-};
-
 extern D2NpcSoundStrc gaNpcSounds_0072AE28[];                                                               // 0x0072AE28
 extern D2DrlgActStrc* gpAct_007A0634;                                                                       // 0x007A0634
 

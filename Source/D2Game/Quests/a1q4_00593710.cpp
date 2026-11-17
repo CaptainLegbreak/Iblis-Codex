@@ -1,6 +1,4 @@
 #include "D2Game.h"
-
-#define NOINLINE __declspec(noinline)
 struct D2SeedStrc;
 
 struct D2GameStrc

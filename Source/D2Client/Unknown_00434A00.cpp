@@ -44,10 +44,6 @@ struct D2FuncTable_0077ABF0Strc
     int (__fastcall* pfnSlot68)();
 };
 
-typedef void (__cdecl* D2LaunchDoneFn)();
-
-typedef int (__stdcall* D2LaunchCallback)(int nArg);
-
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 void __cdecl sub_0042F3F0_DestroyControls(); // 0x0042F3F0
@@ -114,10 +110,8 @@ extern D2WinControlStrc* gpControl_007795C8; // 0x007795C8
 extern D2LaunchCharSelectStrc* gpCharSelect_007795D4; // 0x007795D4
 extern D2WinControlStrc* gpControl_007795D8; // 0x007795D8
 extern D2WinControlStrc* gpControl_007795DC; // 0x007795DC
-extern int gnScreenMode_007795EC; // 0x007795EC
 const Unicode* __fastcall D2Win_10077_EDITBOX_GetText(D2WinControlStrc*); // 0x004FDD90
 int __fastcall sub_00526800(const Unicode*); // 0x00526800
-void __fastcall sub_004F96F0_ControlClearState(D2WinControlStrc*,int); // 0x004F96F0
 extern D2WinControlStrc* gpControl_007799D4; // 0x007799D4
 
 static __declspec(noinline) void sub_00431E70_SetModeFlags(char nMode)
@@ -426,7 +420,7 @@ void __cdecl sub_00435580_CreateCharCreateScreen()
     D2WinControlStrc* pTitle = sub_0042F430_CreateControl(0xAE);
     sub_004FC9B0_SetText(pTitle, D2LANG_GetStringFromTblIndex(0x1407), 0, 0, 0);
 
-    if (gnScreenMode_007795EC == 1)
+    if (gnLaunchMode_007795EC == 1)
     {
         gpControl_0077933C = sub_0042F430_CreateControl(0xC7);
         sub_004FB740(gpControl_0077933C, -6, 0);
@@ -455,7 +449,7 @@ void __cdecl sub_00435580_CreateCharCreateScreen()
         gpControl_007795B0 = sub_0042F430_CreateControl(0xBD);
         sub_004FC9B0_SetText(gpControl_007795B0, D2LANG_GetStringFromTblIndex(0x1406), 4, 0, 0);
         gpControl_007795C4 = sub_0042F430_CreateControl(0xBE);
-        if (gnScreenMode_007795EC == 1)
+        if (gnLaunchMode_007795EC == 1)
         {
             if (gnGlobal_00779DA4)
             {
@@ -474,7 +468,7 @@ void __cdecl sub_00435580_CreateCharCreateScreen()
         gpControl_007795B0 = sub_0042F430_CreateControl(0xCA);
         sub_004FC9B0_SetText(gpControl_007795B0, D2LANG_GetStringFromTblIndex(0x1406), 4, 0, 0);
         gpControl_007795C4 = sub_0042F430_CreateControl(0xCB);
-        if (gnScreenMode_007795EC == 1)
+        if (gnLaunchMode_007795EC == 1)
         {
             if (gnGlobal_00779DA4)
             {
@@ -489,7 +483,7 @@ void __cdecl sub_00435580_CreateCharCreateScreen()
         }
     }
 
-    if (gnScreenMode_007795EC == 1)
+    if (gnLaunchMode_007795EC == 1)
     {
         sub_004FC9B0_SetText(gpControl_007795B8, D2LANG_GetStringFromTblIndex(0x2AAF), 4, 0, 0);
     }
@@ -507,7 +501,7 @@ void __cdecl sub_00435580_CreateCharCreateScreen()
     sub_004F9740_SetControlState(gpControl_007795C4, 0);
     sub_004F9740_SetControlState(gpControl_0077934C, 0);
     sub_004F9740_SetControlState(gpControl_00779330, 0);
-    if (gnScreenMode_007795EC == 1)
+    if (gnLaunchMode_007795EC == 1)
     {
         sub_004F9740_SetControlState(gpControl_007795B8, 0);
         sub_004F9740_SetControlState(gpControl_00779348, 0);

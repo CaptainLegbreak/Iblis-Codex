@@ -1,67 +1,6 @@
 #include "D2Client.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define E06_ABS(x) ((x) < 0 ? -(x) : (x))
-#define UNIT_GETX(pUnit, outX) \
-    switch ((pUnit)->dwUnitType) \
-    { \
-    case 2: \
-    case 4: \
-    case 5: \
-        outX = (pUnit)->pStaticPath->nX; \
-        break; \
-    default: \
-        if ((pUnit)->pDynamicPath) \
-            outX = PATH_GetXPosition((pUnit)->pDynamicPath); \
-        else \
-            outX = 0; \
-        break; \
-    }
-#define UNIT_GETY(pUnit, outY) \
-    switch ((pUnit)->dwUnitType) \
-    { \
-    case 2: \
-    case 4: \
-    case 5: \
-        outY = (pUnit)->pStaticPath->nY; \
-        break; \
-    default: \
-        if ((pUnit)->pDynamicPath) \
-            outY = PATH_GetYPosition((pUnit)->pDynamicPath); \
-        else \
-            outY = 0; \
-        break; \
-    }
-#define UNIT_GETX_K5(pUnit, outX) \
-    switch ((pUnit)->dwUnitType) \
-    { \
-    case 2: \
-    case 4: \
-    case 5: \
-        outX = (pUnit)->pStaticPath->nX; \
-        break; \
-    default: \
-        if ((pUnit)->pDynamicPath) \
-            outX = PATH_GetXPosition((pUnit)->pDynamicPath); \
-        else \
-            outX = 0; \
-        break; \
-    }
-#define UNIT_GETY_K5(pUnit, outY) \
-    switch ((pUnit)->dwUnitType) \
-    { \
-    case 2: \
-    case 4: \
-    case 5: \
-        outY = (pUnit)->pStaticPath->nY; \
-        break; \
-    default: \
-        if ((pUnit)->pDynamicPath) \
-            outY = PATH_GetYPosition((pUnit)->pDynamicPath); \
-        else \
-            outY = 0; \
-        break; \
-    }
 struct D2GfxLightStrc;
 struct Unicode;
 struct D2StaticPathStrc;
@@ -142,12 +81,6 @@ struct D2PlayerCmdStrc
     D2SkillStrc* pSkill;
 };
 
-struct D2SkillRefStrc
-{
-    int nSkillId;
-    int nOwnerGUID;
-};
-
 struct D2SkillsTxt
 {
     char unk0x00[0x4];
@@ -182,12 +115,6 @@ struct D2DataTablesStrc
     D2SkillsTxt* pSkillsTxt;
     void* pSkillsLinker;
     int nSkillsTxtRecordCount;
-};
-
-struct D2StringRefStrc
-{
-    unsigned short nStringId;
-    unsigned short unk0x02;
 };
 
 struct D2CoordStrc

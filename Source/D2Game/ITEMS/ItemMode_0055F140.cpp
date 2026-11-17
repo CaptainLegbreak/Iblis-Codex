@@ -32,16 +32,6 @@ unsigned char __stdcall ITEMS_GetInvPage(D2UnitStrc* pItem); // 0x00628250
 int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem); // 0x0062B400
 int __stdcall ITEMS_GetTotalMaxStack(D2UnitStrc* pItem); // 0x006295B0
 
-typedef unsigned char U8;
-
-typedef unsigned int U32;
-
-struct Point
-{
-    int x;
-    int y;
-};
-
 struct StaticPath
 {
     U8 pad00[12];
@@ -69,15 +59,6 @@ struct Game
     U8 pad00[112];
     int expansion;
 };
-
-struct ItemRecord
-{
-    U8 pad00[128];
-    U32 code;
-};
-
-extern "C" void __cdecl sub_00408A60(const char*, const char*, int); // 0x00408A60
-extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 void __fastcall sub_0053D010_Notify(void*, Unit*, Unit*, U32); // 0x0053D010
 Unit* __fastcall sub_00552F60_Find(Game*, int, int); // 0x00552F60
 void* __fastcall sub_005531C0_Client(Unit*, const char*, int); // 0x005531C0

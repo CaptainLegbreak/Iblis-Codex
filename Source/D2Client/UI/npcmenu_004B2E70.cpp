@@ -61,8 +61,6 @@ struct D2ClientStringListStrc
     unsigned short wCount;
 };
 
-typedef int (__fastcall* D2TextCallback)(void* pContext, int nArg, int nValue);
-
 void __fastcall sub_004B3C20(int nValue); // 0x004B3C20
 void __fastcall sub_004786D0_SendPacket(char nHeader, int nArg1, int nArg2, int nArg3); // 0x004786D0
 void __fastcall sub_004786A0_SendIntInt(char nHeader, int nArg1, int nArg2); // 0x004786A0

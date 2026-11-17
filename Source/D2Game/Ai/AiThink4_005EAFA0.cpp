@@ -4,7 +4,6 @@ struct Seed { unsigned int low, high; };
 struct Unit { char unknown00[32]; Seed seed; };
 struct Game { char unknown00[0x6D]; unsigned char difficulty; char unknown6E[0x3A]; int frame; };
 struct MonStats { char unknown00[0x56]; short param[8][3]; };
-struct AiControl { char unknown00[0x14]; int param[3]; };
 struct Tick { AiControl* control; int unknown04; Unit* target; int unknown0C[2]; int distance; int combat; MonStats* stats; };
 struct T005EAFA0 { char unknown00[0x190]; unsigned int delay; };
 unsigned int __fastcall SEED_RollLimitedRandomNumber(Seed*, int); // 0x0045C390
@@ -27,7 +26,6 @@ int __stdcall SKILLS_GetSkillMode(Skill*); // 0x00644360
 int __stdcall D2Common_11016(Unit*, Skill*); // 0x00645460
 int __stdcall SKILLS_EvaluateSkillFormula(Unit*, unsigned int, int, int); // 0x00646CA0
 void __stdcall SKILLS_AssignSkill(Unit*, int, int, int, const char*, int); // 0x00647280
-#define MAXIMUM(a,b) ((a) > (b) ? (a) : (b))
 #define MINIMUM(a,b) ((a) < (b) ? (a) : (b))
 #define PARAM(n) stats->param[n][game->difficulty]
 // 0x005EAFA0

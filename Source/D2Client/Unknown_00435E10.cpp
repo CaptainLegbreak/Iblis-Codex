@@ -28,8 +28,6 @@ struct D2LaunchRecordStrc
     unsigned short wFlags3CB;
 };
 #pragma pack(pop)
-
-typedef int (__stdcall* D2LaunchCallback)(int nArg);
 extern int gnLaunchState_007795E8; // 0x007795E8
 extern "C" const unsigned char gabDefault_006D4D88[]; // 0x006D4D88
 

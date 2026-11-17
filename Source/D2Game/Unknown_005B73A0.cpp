@@ -1,7 +1,4 @@
 #include "D2Game.h"
-
-#define QUEST_A3Q5_TRAVINCAL 19
-#define QUESTSTATEFLAG_A3Q1 17
 #define QFLAG_PRIMARYGOALDONE 13
 struct D2PlayerDataStrc;
 struct D2Act3Quest5Strc;

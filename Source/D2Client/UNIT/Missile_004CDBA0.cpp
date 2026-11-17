@@ -59,7 +59,7 @@ struct D2RequestStrc
 };
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit); // 0x0045ADF0
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY); // 0x004C52E0
@@ -115,7 +115,6 @@ struct D2MissileScanArgStrc
 typedef int (__fastcall* AREASCANFN)(void* pArg, D2UnitStrc* pUnit);
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 int __fastcall sub_004C5C40_ScanArea(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nFlags, AREASCANFN pfCallback, void* pArg, int bCheckType);
 int __fastcall sub_004CFFA0_HitScanCallback(void* pArg, D2UnitStrc* pUnit);
@@ -231,7 +230,7 @@ D2UnitStrc* __fastcall sub_004CDC30(D2UnitStrc* pUnit, int nArg0, int nOffsetX, 
     memset(&tRequest, 0, sizeof(tRequest));
     tRequest.nType = 0x521;
     tRequest.pUnit = pOwner;
-    tRequest.nArg1 = UNITS_GetXPosition(pUnit) + nOffsetX;
+    tRequest.nArg1 = CLIENTS_GetUnitX(pUnit) + nOffsetX;
     tRequest.nArg2 = CLIENTS_GetUnitY(pUnit) + nOffsetY;
     tRequest.nArg5 = nTargetX;
     tRequest.nArg6 = nTargetY;

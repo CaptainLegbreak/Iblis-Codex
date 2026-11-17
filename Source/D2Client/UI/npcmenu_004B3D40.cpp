@@ -1,7 +1,6 @@
 #include "D2Client.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define NPC_GET_INTERACT_UNIT() (gnGlobal_007C0D29 ? sub_00463990(gnGlobal_007C0D25, 1) : 0)
 struct D2SeedStrc;
 
 struct D2SeedStrc

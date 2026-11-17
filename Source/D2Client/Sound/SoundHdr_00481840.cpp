@@ -29,11 +29,6 @@ struct D2ClientCacheEntryStrc
 };
 
 #pragma pack(pop)
-struct D2ClientCacheNodeStrc
-{
-    int nId;
-    D2ClientCacheNodeStrc* pNext;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -57,24 +52,6 @@ extern unsigned int gnCacheLastLoadTick_007BC9C4; // 0x007BC9C4
 extern unsigned int gnCacheLoading_007BC9C8; // 0x007BC9C8
 extern unsigned int gdwCacheUsed_007BC9D0; // 0x007BC9D0
 
-typedef unsigned int U32;
-
-typedef unsigned short U16;
-
-struct PlayerNode
-{
-    int playerId;
-    U32 flags;
-    PlayerNode* next;
-};
-
-struct PlayerListHead
-{
-    PlayerNode* first;
-};
-
-typedef char NodeSize[(sizeof(PlayerNode) == 12) ? 1 : -1];
-
 typedef char NodeFlags[(OFFSET(PlayerNode, flags) == 4) ? 1 : -1];
 
 typedef char NodeNext[(OFFSET(PlayerNode, next) == 8) ? 1 : -1];
@@ -83,7 +60,7 @@ extern const char gPlayerListFile[];
 extern void* gAuxSoundRows; // 0x007BC9A8
 extern int gAuxSoundCount; // 0x007BC9AC
 extern void* gCacheRows; // 0x007BC9A0
-extern int gCacheCount; // 0x007BC9A4
+extern int gnCacheEntries_007BC9A4; // 0x007BC9A4
 extern int gTextY;
 extern int gTextRight;
 PlayerListHead* __fastcall sub_0047A310(int playerId);
@@ -296,11 +273,11 @@ void __cdecl sub_004828B0_ReleaseSoundTables()
     }
     if (gCacheRows)
     {
-        for (int index = 1; index < gCacheCount; index += 1)
+        for (int index = 1; index < gnCacheEntries_007BC9A4; index += 1)
             sub_004823E0(index);
         Release(gCacheRows, ".\\Sound\\SoundHdr.cpp", 398, 0);
         gCacheRows = 0;
-        gCacheCount = 0;
+        gnCacheEntries_007BC9A4 = 0;
     }
     gSoundMinId = 0;
     gSoundMaxId = 0;

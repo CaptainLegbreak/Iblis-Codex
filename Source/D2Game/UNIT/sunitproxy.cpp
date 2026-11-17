@@ -1,7 +1,6 @@
 #include "D2Game.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define MAX_NPC_RECORDS 64
 struct D2NpcRecordStrc;
 struct D2ItemCacheStrc;
 struct D2UnitProxyStrc;
@@ -39,27 +38,8 @@ struct D2GameStrc
     struct D2NpcControlStrc* pNpcControl;
 };
 
-struct D2ItemCacheStrc
-{
-    unsigned char nMin;
-    unsigned char nMax;
-    unsigned char nMagicMin;
-    unsigned char nMagicMax;
-    unsigned int dwCode;
-    unsigned char nMagicLevel;
-    char unk0x09[3];
-};
-
-struct D2UnitProxyStrc
-{
-    D2ItemCacheStrc* pItemCache;
-    int nItems;
-    unsigned int* pPermCache;
-    int nPerms;
-};
-
 extern D2UnitProxyStrc gUnitProxyItemCache_00883D78[17]; // 0x00883D78
-void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
+void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 
 struct M08EmitRecStrc
@@ -168,9 +148,6 @@ D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int
 void __fastcall ITEMS_RemoveFromAllPlayers(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00557FD0
 D2NpcRecordStrc* __fastcall SUNITPROXY_GetNpcRecordFromClassId(D2GameStrc* pGame, int nNpcClassId, int* pIndex); // 0x00535EA0
 D2MonsterInteractStrc* __fastcall sub_00535E80_GetMonInteract(D2UnitStrc* pUnit); // 0x00535E80
-D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc*); // 0x0063B2C0
-D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc*); // 0x0063DFA0
-D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc*); // 0x0063DFD0
 int __stdcall ITEMS_GetItemQuality(D2UnitStrc*); // 0x00627E70
 void __fastcall sub_005766D0(D2UnitStrc*,D2UnitStrc*,D2GameStrc*,int); // 0x005766D0
 int __fastcall D2GAME_PlaceItem_6FC44410(const char*,int,D2GameStrc*,D2UnitStrc*,int,int,int,int,int,D2InventoryStrc*); // 0x00560200
@@ -242,8 +219,6 @@ struct Obj00536B40 {
     unsigned int dwValue1D24;
 };
 
-void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
-
 struct D2ItemsTxt
 {
     char unk0x000[0x80];
@@ -311,8 +286,6 @@ enum
     UNITFLAG_ISMERC = 0x00000200,
     MONSTATS2FLAGINDEX_SOFT = 12,
 };
-
-void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 int __stdcall MONSTERS_IsDead(D2UnitStrc* pUnit); // 0x0063EA40
 int __stdcall STATLIST_GetUnitAlignment(D2UnitStrc* pUnit); // 0x006259B0
 int __fastcall AITHINK_GetSquaredDistance(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2); // 0x005B0BD0
@@ -323,10 +296,10 @@ static void SUNITPROXY_InitializeItemCache(D2GameStrc* pGame, D2UnitProxyStrc* p
 {
     D2_ASSERT(nNpcInventoryId < MAX_NPC_INVENTORY, 164);
     pUnitProxy->nItems = gUnitProxyItemCache_00883D78[nNpcInventoryId].nItems;
-    pUnitProxy->pItemCache = (D2ItemCacheStrc*)sub_0040B430(pGame->pMemoryPool, gUnitProxyItemCache_00883D78[nNpcInventoryId].nItems * sizeof(D2ItemCacheStrc), ".\\UNIT\\sunitproxy.cpp", 168, 0);
+    pUnitProxy->pItemCache = (D2ItemCacheStrc*)FOG_AllocPool(pGame->pMemoryPool, gUnitProxyItemCache_00883D78[nNpcInventoryId].nItems * sizeof(D2ItemCacheStrc), ".\\UNIT\\sunitproxy.cpp", 168, 0);
     memcpy(pUnitProxy->pItemCache, gUnitProxyItemCache_00883D78[nNpcInventoryId].pItemCache, gUnitProxyItemCache_00883D78[nNpcInventoryId].nItems * sizeof(D2ItemCacheStrc));
     pUnitProxy->nPerms = gUnitProxyItemCache_00883D78[nNpcInventoryId].nPerms;
-    pUnitProxy->pPermCache = (unsigned int*)sub_0040B430(pGame->pMemoryPool, gUnitProxyItemCache_00883D78[nNpcInventoryId].nPerms * sizeof(unsigned int), ".\\UNIT\\sunitproxy.cpp", 171, 0);
+    pUnitProxy->pPermCache = (unsigned int*)FOG_AllocPool(pGame->pMemoryPool, gUnitProxyItemCache_00883D78[nNpcInventoryId].nPerms * sizeof(unsigned int), ".\\UNIT\\sunitproxy.cpp", 171, 0);
     memcpy(pUnitProxy->pPermCache, gUnitProxyItemCache_00883D78[nNpcInventoryId].pPermCache, gUnitProxyItemCache_00883D78[nNpcInventoryId].nPerms * sizeof(unsigned int));
 }
 
@@ -625,7 +598,7 @@ void __stdcall SUNITPROXY_UpdateVendorInventory(D2GameStrc* pGame, unsigned char
 // 0x00536760
 static void __stdcall sub_00536760_AddNpcEvent(D2UnitStrc* pUnit, int nParam, int nAction, D2GameStrc* pGame, D2NpcRecordStrc* pNpcRecord)
 {
-    D2NpcEventStrc* pNpcEvent = (D2NpcEventStrc*)sub_0040B430(pGame->pMemoryPool, sizeof(D2NpcEventStrc), ".\\UNIT\\sunitproxy.cpp", 0x263, 0);
+    D2NpcEventStrc* pNpcEvent = (D2NpcEventStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2NpcEventStrc), ".\\UNIT\\sunitproxy.cpp", 0x263, 0);
     pNpcEvent->pNext = pNpcRecord->pEvent;
     pNpcEvent->pUnit = pUnit;
     pNpcEvent->field_C = 0;
@@ -821,13 +794,13 @@ void __fastcall SUNITPROXY_ClearGlobalItemCache()
 
             if (gUnitProxyItemCache_00883D78[i].pItemCache)
             {
-                FOG_FreeServerMemory(0, gUnitProxyItemCache_00883D78[i].pItemCache, ".\\UNIT\\sunitproxy.cpp", 0x59D, 0);
+                FOG_FreePool(0, gUnitProxyItemCache_00883D78[i].pItemCache, ".\\UNIT\\sunitproxy.cpp", 0x59D, 0);
                 gUnitProxyItemCache_00883D78[i].pItemCache = 0;
             }
 
             if (gUnitProxyItemCache_00883D78[i].pPermCache)
             {
-                FOG_FreeServerMemory(0, gUnitProxyItemCache_00883D78[i].pPermCache, ".\\UNIT\\sunitproxy.cpp", 0x5A2, 0);
+                FOG_FreePool(0, gUnitProxyItemCache_00883D78[i].pPermCache, ".\\UNIT\\sunitproxy.cpp", 0x5A2, 0);
                 gUnitProxyItemCache_00883D78[i].pPermCache = 0;
             }
         }
@@ -842,7 +815,7 @@ void __fastcall CLIENTS_FreeClientsFromGame(D2GameStrc* pGame)
     {
         D2ClientStrc* pCurrent = pClient;
         pClient = pClient->pNext;
-        FOG_FreeServerMemory(pGame->pMemoryPool, pCurrent, ".\\GAME\\Clients.cpp", 0x617, 0);
+        FOG_FreePool(pGame->pMemoryPool, pCurrent, ".\\GAME\\Clients.cpp", 0x617, 0);
     }
 }
 
@@ -859,11 +832,11 @@ void __fastcall EVENT_FreeEventQueue(D2GameStrc* pGame)
     while (pTimerArray)
     {
         D2EventTimerSlabListStrc* pNext = pTimerArray->pNextSlab;
-        FOG_FreeServerMemory(pGame->pMemoryPool, pTimerArray, ".\\GAME\\Event.cpp", 0x314, 0);
+        FOG_FreePool(pGame->pMemoryPool, pTimerArray, ".\\GAME\\Event.cpp", 0x314, 0);
         pTimerArray = pNext;
     }
 
-    FOG_FreeServerMemory(pGame->pMemoryPool, pTimerQueue, ".\\GAME\\Event.cpp", 0x317, 0);
+    FOG_FreePool(pGame->pMemoryPool, pTimerQueue, ".\\GAME\\Event.cpp", 0x317, 0);
     pGame->pTimerQueue = 0;
 }
 

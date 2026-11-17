@@ -61,7 +61,6 @@ struct D2MsgRecordChunkStrc
 
 typedef void (__fastcall* D2InitHandlerFn)(void* pArg);
 typedef void (__stdcall* D2RecordHandlerFn)(int nArg1, int nArg2, int nArg3);
-typedef void (__fastcall* D2ClientCallbackFn)(void* pArg);
 typedef int (__stdcall* D2LoadStringFn)(int nId, char* szBuffer, unsigned int nSize);
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837

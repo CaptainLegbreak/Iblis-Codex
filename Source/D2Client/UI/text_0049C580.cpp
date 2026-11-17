@@ -115,14 +115,6 @@ struct D2CoordStrc
     int nY;
 };
 
-struct D2RectStrc
-{
-    int nLeft;
-    int nTop;
-    int nRight;
-    int nBottom;
-};
-
 struct T0044CB60
 {
     Unicode* pText;

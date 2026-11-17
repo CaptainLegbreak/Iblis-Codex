@@ -23,27 +23,6 @@ struct D2UnitStrc
     };
 };
 
-struct D2R01LightStrc
-{
-    int nUnitType;
-    unsigned int nUnitId;
-    unsigned char f_8;
-    char unk0x09[3];
-    int nMode;
-    int nX;
-    int nY;
-    int nRadius;
-    int nTargetRadius;
-    int bFixed;
-    unsigned char nIntensity;
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-    D2R01LightStrc* pNext;
-    int bMaskReady;
-    unsigned int* pMask;
-};
-
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60

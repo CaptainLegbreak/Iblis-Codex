@@ -986,3 +986,1215 @@ void* __fastcall sub_004DC0B0_GetUnitMemoryPool(D2UnitStrc* pUnit); // 0x004DC0B
 void* __fastcall sub_00517993_VirtualAlloc(unsigned int nSize); // 0x00517993
 void* __stdcall D2Win_GetArchive(); // 0x004FAC80
 void* __stdcall SMemReAlloc(void* pLocation, unsigned int nAmount, const char* szLogFileName, int nLogLine, unsigned int nFlags); // 0x004133D0
+
+#define CREATE_ALWAYS 2
+#define CURSOR_ANIM_COUNT 7
+#define D2_HIWORD(l) ((unsigned short)(((unsigned int)(l) >> 16) & 0xFFFF))
+#define D2_LOWORD(l) ((unsigned short)((unsigned int)(l) & 0xFFFF))
+#define D2_RESET_QUEST_SELECTION() \
+    gbGlobal_007BF2B1 = 0; \
+    gbGlobal_007BF2B2 = 0; \
+    gbGlobal_007BF2B0 = 0; \
+    gnIndex_007BF2B5 = -1; \
+    gbGlobal_007BF2B4 = 0; \
+    gbGlobal_007C025D = 0; \
+    gbGlobal_007C025E = 0; \
+    gbGlobal_007C025F = 0; \
+    gbGlobal_007C0260 = 0
+#define E06_ABS(x) ((x) < 0 ? -(x) : (x))
+#define GENERIC_WRITE 0x40000000
+#define GFX_ENTRY_COUNT 20
+#define GFX_INDEX_COUNT 16
+#define HOTKEY_UNBOUND 0xFFFF
+#define I07_OFFSET(s, m) ((unsigned int)&((s*)0)->m)
+#define I20_OFFSET(s, m) ((unsigned int)&((s*)0)->m)
+#define KEY_WHEEL_DOWN 0x104
+#define KEY_WHEEL_UP 0x103
+#define MONMODE_DEAD 12
+#define MONMODE_DEATH 0
+#define MONMODE_SEQUENCE 14
+#define MONSTER_ANCIENTBARB1 0x21C
+#define MONSTER_SANDLEAPER1 0x4E
+#define NPC_GET_INTERACT_UNIT() (gnGlobal_007C0D29 ? sub_00463990(gnGlobal_007C0D25, 1) : 0)
+#define NULL 0
+#define PLRMODE_DEAD 17
+#define PLRMODE_DEATH 0
+#define PLRMODE_SEQUENCE 18
+#define SUMMIT_ROLL(pSeed, lSeed) ((lSeed) = (pSeed)->nHighSeed + 0x6AC690C5i64 * (pSeed)->nLowSeed, \
+    (pSeed)->nHighSeed = (unsigned int)((lSeed) >> 32), (pSeed)->nLowSeed = (unsigned int)(lSeed), (unsigned int)(lSeed))
+#define UNIT_GETX(pUnit, outX) \
+    switch ((pUnit)->dwUnitType) \
+    { \
+    case 2: \
+    case 4: \
+    case 5: \
+        outX = (pUnit)->pStaticPath->nX; \
+        break; \
+    default: \
+        if ((pUnit)->pDynamicPath) \
+            outX = PATH_GetXPosition((pUnit)->pDynamicPath); \
+        else \
+            outX = 0; \
+        break; \
+    }
+#define UNIT_GETX_K5(pUnit, outX) \
+    switch ((pUnit)->dwUnitType) \
+    { \
+    case 2: \
+    case 4: \
+    case 5: \
+        outX = (pUnit)->pStaticPath->nX; \
+        break; \
+    default: \
+        if ((pUnit)->pDynamicPath) \
+            outX = PATH_GetXPosition((pUnit)->pDynamicPath); \
+        else \
+            outX = 0; \
+        break; \
+    }
+#define UNIT_GETY(pUnit, outY) \
+    switch ((pUnit)->dwUnitType) \
+    { \
+    case 2: \
+    case 4: \
+    case 5: \
+        outY = (pUnit)->pStaticPath->nY; \
+        break; \
+    default: \
+        if ((pUnit)->pDynamicPath) \
+            outY = PATH_GetYPosition((pUnit)->pDynamicPath); \
+        else \
+            outY = 0; \
+        break; \
+    }
+#define UNIT_GETY_K5(pUnit, outY) \
+    switch ((pUnit)->dwUnitType) \
+    { \
+    case 2: \
+    case 4: \
+    case 5: \
+        outY = (pUnit)->pStaticPath->nY; \
+        break; \
+    default: \
+        if ((pUnit)->pDynamicPath) \
+            outY = PATH_GetYPosition((pUnit)->pDynamicPath); \
+        else \
+            outY = 0; \
+        break; \
+    }
+#define gnGlobal_007BCB1C (gGrid_007BCB18.nGridLeft)
+#define gnGlobal_007BCB20 (gGrid_007BCB18.nGridRight)
+#define gnGlobal_007BCB24 (gGrid_007BCB18.nGridTop)
+#define gnGlobal_007BCB28 (gGrid_007BCB18.nGridBottom)
+#define gnGlobal_007BCB30 (gInvRect_007BCB30.nLeft)
+#define gnGlobal_007BCB34 (gInvRect_007BCB30.nRight)
+#define gnGlobal_007BCB3C (gInvRect_007BCB30.nBottom)
+#define va_start(ap, v) (ap = (va_list)&v + sizeof(v))
+
+typedef char* va_list;
+
+struct D2AutomapPointStrc
+{
+    int nX;
+    int nY;
+};
+
+struct D2AutomapRecordStrc
+{
+    unsigned int nUnk0x00;
+    unsigned int nValue;
+};
+
+struct D2AutomapSaveStrc
+{
+    unsigned int nLayerNo;
+    unsigned int fSaved;
+    unsigned int nUnk0x08;
+    unsigned int nFloors;
+    unsigned int nWalls;
+    unsigned int nObjects;
+    unsigned int nExtras;
+    void* pFloors;
+    void* pWalls;
+    void* pObjects;
+    void* pExtras;
+};
+
+struct D2BitBufferStrc
+{
+    unsigned char* pBuffer;
+    int nBits;
+    int nPos;
+    int nPosBits;
+    int bFull;
+};
+
+struct D2Block1 { int n[6]; };
+
+struct D2BnetChatPacketStrc
+{
+    int nType;
+    char unk0x04[0x14];
+    char szName[0x1D0];
+};
+
+struct D2ButtonStringStrc
+{
+    unsigned short nCelFrame;
+    unsigned short nStringIndex;
+};
+
+struct D2CellPosStrc
+{
+    int nX;
+    int nY;
+    char unk0x08[0x10];
+    int f_18;
+};
+
+struct D2CellNodeStrc
+{
+    unsigned int dwFlags;
+    int nA;
+    int nB;
+    D2CellPosStrc* pPos;
+    D2CellNodeStrc* pNext;
+};
+
+struct D2ChatSendStrc
+{
+    char nType;
+    char nCode;
+    char nLang;
+    char szText[0x100];
+    char szArgument[0x11];
+};
+
+struct D2ChatStormBaseArrayAStrc
+{
+    unsigned int f_0;
+    unsigned int f_4;
+    void* f_8;
+
+    D2ChatStormBaseArrayAStrc();
+    unsigned int sub_0060E230_Count();
+};
+
+struct D2ChatStormBaseArrayBStrc
+{
+    unsigned int f_0;
+    unsigned int f_4;
+    void* f_8;
+
+    D2ChatStormBaseArrayBStrc();
+    unsigned int sub_0060E250_Count();
+};
+
+struct D2ChatStormCtorLinkStrc
+{
+    D2ChatStormCtorLinkStrc* m_prevlink;
+    char* m_next;
+
+    D2ChatStormCtorLinkStrc()
+    {
+        m_prevlink = 0;
+        m_next = 0;
+    }
+};
+
+struct D2ChatStormLinkStrc
+{
+    D2ChatStormLinkStrc* m_prevlink;
+    char* m_next;
+
+    D2ChatStormLinkStrc* NextLink(int nLinkOffset)
+    {
+        if ((int)m_next < 0)
+            return (D2ChatStormLinkStrc*)~(unsigned int)m_next;
+        if (nLinkOffset < 0)
+            nLinkOffset = (char*)this - m_prevlink->m_next;
+        return (D2ChatStormLinkStrc*)(m_next + nLinkOffset);
+    }
+    char* MaskNext()
+    {
+        return (char*)((((int)m_next <= 0) - 1) & (int)m_next);
+    }
+    void Unlink()
+    {
+        if (m_prevlink)
+        {
+            NextLink(-1)->m_prevlink = m_prevlink;
+            m_prevlink->m_next = m_next;
+            m_prevlink = 0;
+            m_next = 0;
+        }
+    }
+    bool sub_0060E0C0_IsLinked();
+    char* sub_0060E1A0_Next();
+    char* sub_0060E240_Next();
+    void sub_0060E3B0_Unlink();
+    void sub_0060E400_Unlink();
+    void sub_0060E690_Unlink();
+    void sub_0060E760_Unlink();
+};
+
+struct D2ChatStormListAStrc
+{
+    int m_linkoffset;
+    D2ChatStormLinkStrc m_terminator;
+
+    void InitializeTerminator()
+    {
+        m_terminator.m_prevlink = &m_terminator;
+        m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
+    }
+    void sub_0060E260_InitializeTerminator();
+    char* sub_0060E440_Head();
+    void sub_0060E5F0_Reset();
+};
+
+struct D2ChatStormHashTableStrc
+{
+    void* m_pVTable;
+    D2ChatStormListAStrc m_fulllist;
+
+    char* sub_0060E6D0_Head();
+};
+
+struct D2ChatStormLinkAStrc
+{
+    D2ChatStormLinkAStrc* m_prevlink;
+    char* m_next;
+
+    D2ChatStormLinkAStrc();
+};
+
+struct D2ChatStormLinkBStrc
+{
+    D2ChatStormLinkBStrc* m_prevlink;
+    char* m_next;
+
+    D2ChatStormLinkBStrc();
+};
+
+struct D2ChatStormListBStrc
+{
+    int m_linkoffset;
+    D2ChatStormLinkStrc m_terminator;
+
+    void InitializeTerminator()
+    {
+        m_terminator.m_prevlink = &m_terminator;
+        m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
+    }
+    void sub_0060E270_InitializeTerminator();
+    char* sub_0060E5D0_Head();
+    void sub_0060E610_Reset();
+};
+
+struct D2ChatStormListCStrc
+{
+    int m_linkoffset;
+    D2ChatStormCtorLinkStrc m_terminator;
+
+    D2ChatStormListCStrc();
+};
+
+struct D2ChatStormListDStrc
+{
+    int m_linkoffset;
+    D2ChatStormCtorLinkStrc m_terminator;
+
+    D2ChatStormListDStrc();
+};
+
+struct D2ChatStormListEStrc
+{
+    int m_linkoffset;
+    D2ChatStormCtorLinkStrc m_terminator;
+
+    D2ChatStormListEStrc();
+};
+
+struct D2ChatStormNodeStrc
+{
+    unsigned int f_0;
+    D2ChatStormLinkStrc m_linktoslot;
+    D2ChatStormLinkStrc f_C;
+    char* f_14;
+
+    char* sub_0060E0B0_GetKey();
+};
+
+struct D2ChatTextStrc
+{
+    char sz[0x100];
+};
+
+struct D2ClientCacheNodeStrc
+{
+    int nId;
+    D2ClientCacheNodeStrc* pNext;
+};
+
+typedef void (__fastcall* D2ClientCallbackFn)(void* pArg);
+
+struct D2ClientSkillArgsStrc
+{
+    int nSkillId;
+    int nOwnerGUID;
+    int nArg1;
+    int nArg2;
+    int nSkillLevel;
+};
+
+struct D2ClientTabStrc
+{
+    unsigned char bSelected[4];
+    unsigned char bEnabled[4];
+    unsigned char unk0x08[0x0A];
+};
+
+struct D2ClientTextDataStrc
+{
+    char unk0x00[0x80];
+    int dwTag;
+};
+
+struct D2ClientTimedBoxStrc
+{
+    int bActive;
+    int nValue;
+    unsigned char nColor[4];
+    int nFadeIn;
+    int nFadeOut;
+    int nHold;
+    int nTotal;
+    int nTick;
+    int nAngle;
+    int nLevelId;
+    int bLocked;
+};
+
+struct D2CltUnitEventStrc
+{
+    int nType;
+    int f_4;
+    int f_8;
+    int nParam1;
+    int nParam2;
+    int nParam3;
+    D2CltUnitEventStrc* pPrevious;
+    D2CltUnitEventStrc* pNext;
+};
+
+struct D2CofModeEntryStrc
+{
+    unsigned int dwCode;
+    int nMode;
+};
+
+struct D2CombinedStatIdStrc
+{
+    int nStatId;
+    char unk0x04[0x0C];
+};
+
+struct D2CombinedStatStrc
+{
+    int nMin;
+    int nMax;
+    int nLength;
+    int nCount;
+    int bCombined;
+    int bShown;
+};
+
+struct D2CombinedStatsStrc
+{
+    D2CombinedStatStrc tDamage;
+    D2CombinedStatStrc tDamagePercent;
+    D2CombinedStatStrc tCold;
+    D2CombinedStatStrc tLightning;
+    D2CombinedStatStrc tFire;
+    D2CombinedStatStrc tPoison;
+    D2CombinedStatStrc tMagic;
+};
+
+struct D2CommonChatIgnoreListStrc
+{
+    virtual int sub_00610EB0_Add(const char* szName) = 0;
+    virtual int sub_0060FB20_Remove(const char* szName) = 0;
+    virtual int sub_00610380_IsListed(const char* szName) = 0;
+    virtual void sub_00610F90_VirtSlot3() = 0;
+    virtual int sub_0060FBE0_RemoveAlias(const char* szName) = 0;
+    virtual int sub_0060FC40_IsTextFiltered(const char* szText) = 0;
+    virtual void sub_00611320_VirtSlot6() = 0;
+    virtual void sub_0060F870_Translate(const char* szName, char* szOut, int nSize) = 0;
+    virtual int sub_0060DDF0_IsEnabled() = 0;
+    virtual void sub_0060DE00_SetEnabled(int bEnabled) = 0;
+    virtual void sub_0060F500_VirtSlot10() = 0;
+};
+
+struct D2CommonIgnoreListStrc : D2CommonChatIgnoreListStrc
+{
+};
+
+struct D2CommonMappingEntryNodeBaseStrc
+{
+    unsigned int f_0;
+    D2ChatStormLinkStrc m_linktoslot;
+    D2ChatStormLinkStrc f_C;
+    char* f_14;
+
+    ~D2CommonMappingEntryNodeBaseStrc();
+};
+
+struct D2CommonMappingEntryNodeStrc : D2CommonMappingEntryNodeBaseStrc
+{
+    void* pMapped;
+
+    ~D2CommonMappingEntryNodeStrc();
+};
+
+struct D2CommonStormHashTableAStrc
+{
+    void sub_0060EB70_InternalClear(int bWarn);
+    void sub_0060ED60_Clear();
+};
+
+struct D2CommonStormSlotLinkStrc
+{
+    D2CommonStormSlotLinkStrc* m_prevlink;
+    char* m_next;
+
+    ~D2CommonStormSlotLinkStrc()
+    {
+        Unlink();
+    }
+    D2CommonStormSlotLinkStrc* NextLink(int nLinkOffset)
+    {
+        if ((int)m_next < 0)
+            return (D2CommonStormSlotLinkStrc*)~(unsigned int)m_next;
+        if (nLinkOffset < 0)
+            nLinkOffset = (char*)this - m_prevlink->m_next;
+        return (D2CommonStormSlotLinkStrc*)(m_next + nLinkOffset);
+    }
+    void Unlink()
+    {
+        if (m_prevlink)
+        {
+            NextLink(-1)->m_prevlink = m_prevlink;
+            m_prevlink->m_next = m_next;
+            m_prevlink = 0;
+            m_next = 0;
+        }
+    }
+};
+
+struct D2CommonStormSlotListAStrc
+{
+    int m_linkoffset;
+    D2CommonStormSlotLinkStrc m_terminator;
+
+    ~D2CommonStormSlotListAStrc();
+    void UnlinkAll();
+};
+
+struct D2CommonStormSlotListBStrc
+{
+    int m_linkoffset;
+    D2CommonStormSlotLinkStrc m_terminator;
+
+    ~D2CommonStormSlotListBStrc();
+    void UnlinkAll();
+};
+
+struct D2CommonStringEntryNodeStrc
+{
+    unsigned int f_0;
+    D2ChatStormLinkStrc m_linktoslot;
+    D2ChatStormLinkStrc f_C;
+    char* f_14;
+
+    ~D2CommonStringEntryNodeStrc();
+    void sub_0060EE30_Destroy();
+};
+
+struct D2CompArgStrc
+{
+    int unk0x00[4];
+    int nArg18;
+};
+
+union D2CompCodeStrc
+{
+    unsigned int dwCode;
+    struct
+    {
+        char c0;
+        char c1;
+        char c2;
+        char c3;
+    };
+};
+
+struct D2CompRecordStrc
+{
+    unsigned char nComponent;
+    char unk0x01[4];
+    char szCode[4];
+};
+
+struct D2CompEntryStrc
+{
+    unsigned char nCount;
+    char unk0x01[0x1B];
+    D2CompRecordStrc aComps[16];
+};
+
+struct D2CoordPairStrc { int nX; int nY; };
+
+struct D2CursorAnimStrc
+{
+    int unk0x00;
+    int f_4;
+    int nFrames;
+    int nStep;
+    void* pData;
+    void* pfnHandler;
+    const char* szName;
+};
+
+struct D2DialogItemStrc
+{
+    int nHeight;
+    char unk0x04[0x14];
+    int (__cdecl* pfnCallback)();
+    int nType;
+    char unk0x20[0xF0];
+};
+
+struct D2DirRateStrc
+{
+    int nValue;
+    unsigned int nRate;
+};
+
+struct D2DirectionArgStrc
+{
+    unsigned char nDirection;
+};
+
+struct D2ElemDamageStatsStrc
+{
+    int nMinStat;
+    int nMaxStat;
+    int nMasteryStat;
+};
+
+struct D2ElemDamageStrc
+{
+    int nMinStat;
+    int f_4;
+    int nColor;
+};
+
+struct D2EscMenuUIStateStrc
+{
+    int bCheck;
+    int bSave;
+    int nSaved;
+};
+
+struct D2FileIndexTextStrc
+{
+    int nFileIndex;
+    int nMode;
+    unsigned short wStrPos;
+    unsigned short wStrNeg;
+    int nPos;
+};
+
+struct D2GemsTxt
+{
+    char unk0x00[0x20];
+    char szLetter[6];
+};
+
+struct D2GfxEntryStrc
+{
+    unsigned char nValue;
+    unsigned char unk0x01;
+};
+
+struct D2GfxLightStrc
+{
+    unsigned int aColor[8];
+};
+
+struct D2GridCoordStrc
+{
+    int n;
+};
+
+struct D2GridInfoStrc
+{
+    char pad0x00[0x6];
+    unsigned short wFlags;
+    char pad0x08[0xC];
+    int nBusy;
+};
+
+struct D2GridRectStrc
+{
+    int nLeft;
+    int nTop;
+    int nRight;
+    int nBottom;
+};
+
+struct D2GridOwnerStrc
+{
+    char pad0x00[0x14];
+    D2GridRectStrc tRect;
+};
+
+struct D2GridUnitStrc
+{
+    char pad0x00[0x14];
+    unsigned int dwFlags;
+    D2GridInfoStrc* pInfo;
+};
+
+struct D2HirelingInitStrc
+{
+    int nId;
+    int nLevel;
+    int nHitpoints;
+    int nStrength;
+    int nDexterity;
+    int nGold;
+    int nExperience;
+    int nDefense;
+    int nMinDamage;
+    int nMaxDamage;
+    int nShare;
+    int nResist;
+    int nHireDesc;
+    int field_34;
+    short nFlags;
+    short unk0x3A;
+};
+
+struct D2HotkeySlotTableStrc
+{
+    int nX[60];
+    int nY[60];
+    int nSkill[60];
+    int f_2D0[60];
+};
+
+struct D2HoverBoxStrc
+{
+    int nBoxX;
+    int nBoxY;
+    int nTitleX;
+    int nTitleY;
+    int nTextX;
+    int nTextY;
+};
+
+struct D2HoverCoordStrc
+{
+    int nValue;
+};
+
+struct D2ItemPacket9CStrc
+{
+    unsigned char f_0;
+    unsigned char nAction;
+    unsigned char nSize;
+    unsigned char nCategory;
+    int dwUnitId;
+    unsigned char pData[1];
+};
+
+struct D2ItemPacket9DStrc
+{
+    unsigned char f_0;
+    unsigned char nAction;
+    unsigned char nSize;
+    unsigned char nCategory;
+    int dwUnitId;
+    unsigned char unk0x08[5];
+    unsigned char pData[1];
+};
+
+struct D2LaunchAddressStrc
+{
+    int nData0;
+    int nData1;
+    int nData2;
+    int nData3;
+};
+
+typedef int (__stdcall* D2LaunchCallback)(int nArg);
+
+typedef void (__cdecl* D2LaunchDoneFn)();
+
+struct D2LaunchThreadRecordStrc
+{
+    int nData[0x52];
+};
+
+struct D2LevelDefBin
+{
+    unsigned int dwQuestFlag;
+    unsigned int dwQuestFlagEx;
+    int dwLayer;
+};
+
+struct D2LightOffsetStrc
+{
+    int nX;
+    int nY;
+};
+
+struct D2LightOffsetsStrc
+{
+    D2LightOffsetStrc aOffset[6];
+};
+
+struct D2ListBoxEntryStrc
+{
+    char unk0x0000[0x3006];
+    char nData[4];
+    char unk0x300A[4];
+};
+
+typedef void (__fastcall* D2McpCallbackFn)(unsigned short wRequestId, unsigned char* pData);
+
+typedef int (__fastcall* D2McpPacketHandler)(const unsigned char* pPacket, unsigned int nSize);
+
+struct D2MercStatLineStrc
+{
+    int nLeft;
+    int nRight;
+    int nY;
+    int nMaxWidth;
+    int nStatId;
+};
+
+struct D2MonAnimRecStrc
+{
+    int nType;
+    int unk0x04;
+    int nAction;
+};
+
+struct D2MonCmdRecordStrc
+{
+    int nIndex;
+    int bSet;
+};
+
+struct D2MonCofInfoStrc
+{
+    short nMonsterId;
+    char unk0x02[0x03 - 0x02];
+    unsigned char nCount;
+    char unk0x04[0x34 - 0x04];
+};
+
+struct D2MonCompInfoStrc
+{
+    short nClass;
+    char unk0x02[2];
+    unsigned char aComp[4][16];
+};
+
+struct D2MonModeTxt
+{
+    char unk0x00[0x20];
+    unsigned int dwToken;
+};
+
+struct D2MonStats2SelectStrc { char pad0[4]; unsigned char nFlags[4]; char pad8[0xE4]; unsigned char nComponents; char padED[0x21]; short nTop,nLeft,nWidth,nHeight; };
+
+struct D2MonStatsInitStrc
+{
+    int nMinHP;
+    int nMaxHP;
+    int nAC;
+    int nTH;
+    int nExp;
+    int nA1MinD;
+    int nA1MaxD;
+    int nA2MinD;
+    int nA2MaxD;
+    int nS1MinD;
+    int nS1MaxD;
+    int nElMinD;
+    int nElMaxD;
+    int nElDur;
+};
+
+struct D2MotionVectorStrc
+{
+    int nX;
+    int nY;
+    int nZ;
+};
+
+struct D2NpcMenuSlotStrc
+{
+    unsigned short wId;
+    char unk0x02[0x0E];
+};
+
+struct D2NpcQuestHandlerStrc
+{
+    int nNpcId;
+    int nQuestId;
+    int nState;
+    int bSet;
+    int (__cdecl* pfHandler)();
+};
+
+struct D2NpcSoundStrc
+{
+    int f_0;
+    int nDaySound;
+    int nNightSound;
+    int nGreetSound;
+    int nLastSound;
+    int nLastTick;
+};
+
+struct D2OverlaySourceStrc
+{
+    int unk0x00;
+    int nOverlay;
+    int unk0x08[4];
+    int nArg0;
+};
+
+struct D2Packet81ArgsStrc
+{
+    int nArg0C;
+    int nArg10;
+    int nZero;
+};
+
+struct D2PacketBufferStrc
+{
+    int nMax;
+    int nCount;
+    int unk0x08;
+    unsigned char* pData;
+};
+
+struct D2PathDirectionStrc
+{
+    unsigned char nDirection;
+};
+
+struct D2PeriodLightStrc
+{
+    unsigned char nUnused;
+    unsigned char nLight;
+};
+
+struct D2QuestPageRangeStrc
+{
+    int nFirst;
+    int nLast;
+};
+
+struct D2QuestPosStrc
+{
+    int nX;
+    int nY;
+    int unk0x08[2];
+};
+
+struct D2QuestSlotRectStrc
+{
+    int nX;
+    int nY;
+    int unk0x08;
+    int unk0x0C;
+};
+
+struct D2QuestTextsStrc
+{
+    unsigned short awIds[64];
+};
+
+struct D2R01LightStrc
+{
+    int nUnitType;
+    unsigned int nUnitId;
+    unsigned char f_8;
+    char unk0x09[3];
+    int nMode;
+    int nX;
+    int nY;
+    int nRadius;
+    int nTargetRadius;
+    int bFixed;
+    unsigned char nIntensity;
+    unsigned char nRed;
+    unsigned char nGreen;
+    unsigned char nBlue;
+    D2R01LightStrc* pNext;
+    int bMaskReady;
+    unsigned int* pMask;
+};
+
+struct D2RectStrc
+{
+    int nLeft;
+    int nTop;
+    int nRight;
+    int nBottom;
+};
+
+struct D2RosterButtonStrc
+{
+    int nX;
+    int nY;
+    int unk0x08[2];
+    int nType;
+    int nState;
+    int unk0x18[2];
+};
+
+struct D2RosterPetNodeStrc
+{
+    int nValue;
+    int nType;
+    int nKey;
+    int nArg;
+    int unk0x10[3];
+    int nInit;
+    int nClear;
+    int unk0x24[3];
+    D2RosterPetNodeStrc* pNext;
+};
+
+struct D2ShrinesTxt
+{
+    unsigned char nCode;
+};
+
+struct D2SkillIconStateStrc
+{
+    char unk0x000[0x2D0];
+    int anValues[60];
+    unsigned char bFlag;
+    char unk0x3C1[0x4];
+};
+
+struct D2SkillRefStrc
+{
+    int nSkillId;
+    int nOwnerGUID;
+};
+
+struct D2SkillStateStrc
+{
+    int nLife;
+    int nMana;
+    int nStamina;
+    int nRightSkillId;
+    int nLeftSkillId;
+    int nRightOwnerGUID;
+    int nLeftOwnerGUID;
+};
+
+struct D2SoundVecStrc
+{
+    float fX;
+    float fY;
+    float fZ;
+};
+
+struct D2StatusStrc
+{
+    int nCode;
+    int nArg;
+};
+
+struct D2StringRefStrc
+{
+    unsigned short nStringId;
+    unsigned short unk0x02;
+};
+
+typedef int (__fastcall* D2TextCallback)(void* pContext, int nArg, int nValue);
+
+struct D2TokRecord
+{
+    char unk0x00[0x20];
+    unsigned int dwCode;
+    char unk0x24[0x10];
+};
+
+struct D2UiEntry10Strc
+{
+    int nKey;
+    int nId;
+    int unk0x08;
+    int unk0x0C;
+};
+
+struct D2UnitSndObjectStrc
+{
+    int nModeSound[8];
+    int nSoundA;
+    int nSoundAMode;
+    int nSoundB;
+    int nSoundBMode;
+};
+
+struct D2UnitSndPlayerStrc
+{
+    int f_0;
+    int nDeathSound;
+    int unk0x08[8];
+    int nFootstep;
+};
+
+struct D2WallCellStrc
+{
+    char unk0x00[0x8];
+    int nX;
+    int nY;
+    char unk0x10[0x14];
+};
+
+struct D2WallCtxStrc
+{
+    char unk0x00[0x4];
+    int nLeft;
+    int nTop;
+    int nRight;
+    int nBottom;
+    char unk0x14[0x10];
+    int nX;
+    int nY;
+    char unk0x2C[0xC];
+    int nUnk0x38;
+    char unk0x3C[0xEA60];
+    int nUnk0xEA9C;
+    int f_EAA0;
+    int f_EAA4;
+    D2WallCellStrc* pCells;
+    int nCellCount;
+    unsigned int nSize;
+    int nWidth;
+    int nHeight;
+};
+
+struct D2WaypointMenuEntryStrc
+{
+    char nLevelId[4];
+    char bEnabled;
+};
+
+struct D2WaypointRowRectStrc
+{
+    int nX;
+    int nY;
+    int nUnk0x08[4];
+};
+
+struct D2WeatherSplashStrc
+{
+    short bActive;
+    short unk0x02;
+    int nX;
+    int nY;
+    int nType;
+    int nFrame;
+    int f_14;
+};
+
+typedef void (__cdecl* D2WheelCallbackFn)();
+
+typedef int (__stdcall* FARPROC)();
+
+typedef int(__fastcall* MENUENABLED)();
+
+typedef unsigned int U32;
+
+struct PlayerNode
+{
+    int playerId;
+    U32 flags;
+    PlayerNode* next;
+};
+
+typedef char NodeSize[(sizeof(PlayerNode) == 12) ? 1 : -1];
+
+struct PlayerListHead
+{
+    PlayerNode* first;
+};
+
+typedef int s32;
+
+struct Rectangle
+{
+    s32 left;
+    s32 top;
+    s32 right;
+    s32 bottom;
+};
+
+struct SelectionEntry
+{
+    int enabled;
+    char pad04[272-4];
+};
+
+struct T00473470
+{
+    short bActive;
+    short unk0x02;
+    int nX;
+    int nY;
+    int nYEnd;
+    int nParam;
+    int nParam2;
+    int nFrame;
+    int bDrop;
+    int nType;
+    unsigned char nColor;
+    unsigned char nAlpha;
+    short unk0x26;
+};
+
+typedef unsigned short U16;
+
+typedef unsigned char U8;
+
+struct _FILETIME
+{
+    unsigned long dwLowDateTime;
+    unsigned long dwHighDateTime;
+};
+
+typedef char pointer_width[sizeof(void*)==4?1:-1];
+
+typedef unsigned int size_t;
+
+typedef unsigned short u16;
+
+typedef unsigned int u32;
+
+typedef unsigned char u8;
+
+typedef char word_width[sizeof(unsigned int)==4?1:-1];

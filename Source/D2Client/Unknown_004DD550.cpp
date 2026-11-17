@@ -50,35 +50,6 @@ struct D2GridCellStrc
     int nY;
 };
 
-struct D2GridRectStrc
-{
-    int nLeft;
-    int nTop;
-    int nRight;
-    int nBottom;
-};
-
-struct D2GridOwnerStrc
-{
-    char pad0x00[0x14];
-    D2GridRectStrc tRect;
-};
-
-struct D2GridInfoStrc
-{
-    char pad0x00[0x6];
-    unsigned short wFlags;
-    char pad0x08[0xC];
-    int nBusy;
-};
-
-struct D2GridUnitStrc
-{
-    char pad0x00[0x14];
-    unsigned int dwFlags;
-    D2GridInfoStrc* pInfo;
-};
-
 struct D2GridLightStrc
 {
     int bCorners;

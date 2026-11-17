@@ -3,7 +3,6 @@
 #define UNIT_MONSTER 1
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define NPCREC_FIELD(type, cursor, offset) (*(type*)((cursor) + (offset) - 0x2C))
-#define MAX_NPC_RECORDS 64
 struct D2NpcGambleStrc;
 struct D2NpcVendorChainStrc;
 struct D2NpcEventStrc;

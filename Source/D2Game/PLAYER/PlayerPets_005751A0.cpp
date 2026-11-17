@@ -77,8 +77,6 @@ int __fastcall PLAYERPETS_GetPetTypeFromPetGUID(D2UnitStrc* pPlayer, int nPetGUI
 void __fastcall PLAYERPETS_RemovePet(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetGUID, int bKillPet);   // 0x005750E0
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit);                                         // 0x006221A0
 unsigned int __stdcall MONSTERS_GetHirelingResurrectionCost(D2UnitStrc* pHireling);                         // 0x006637B0
-
-#define PETTYPE_HIREABLE 7
 #define PETFLAG_DEAD 1
 
 static D2PetListStrc* __stdcall sub_00574540_GetPetListFromPetType(D2PlayerPetStrc* pPlayerPets, int nPetType)

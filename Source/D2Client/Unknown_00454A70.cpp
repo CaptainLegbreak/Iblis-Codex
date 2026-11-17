@@ -21,14 +21,6 @@ struct D2UnitStrc
     int dwAnimMode;
 };
 
-struct D2RectStrc
-{
-    int nLeft;
-    int nTop;
-    int nRight;
-    int nBottom;
-};
-
 extern Unicode gwszText_007A2A78[]; // 0x007A2A78
 extern int gnHoverTextState_007A2C78; // 0x007A2C78
 int __fastcall sub_00454880_GetHoverRect(D2RectStrc* pRect); // 0x00454880

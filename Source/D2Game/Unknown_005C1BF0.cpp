@@ -25,29 +25,10 @@ struct D2ItemDropStrc
     int nSuffix[3];
 };
 
-struct D2RareAffixTxt
-{
-    char unk0x00[0x48];
-};
-
-struct D2RareAffixDataTbl
-{
-    int nRareAffixTxtRecordCount;
-    D2RareAffixTxt* pRareAffixTxt;
-    D2RareAffixTxt* pRareSuffix;
-    D2RareAffixTxt* pRarePrefix;
-};
-
 struct D2MagicAffixTxt
 {
     char unk0x00[0x5C];
     unsigned int dwGroup;
-};
-
-struct D2RareAffixIndexAndPtrStrc
-{
-    int nIndex;
-    D2RareAffixTxt* pRareAffixRecord;
 };
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837

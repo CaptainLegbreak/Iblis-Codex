@@ -120,32 +120,19 @@ int __stdcall D2Common_11248(D2UnitStrc* pUnused, D2UnitStrc* pUnit, int nStatId
 int __stdcall INVENTORY_GetWieldType(D2UnitStrc* pUnit, D2InventoryStrc* pInventory); // 0x0063D340
 int __stdcall SKILLS_GetWeaponMasteryBonus(D2UnitStrc* pUnit, D2UnitStrc* pItem, D2SkillStrc* pSkill, int nType); // 0x00645830
 int __cdecl sub_004E6FF0_SumProgressiveBonus(); // 0x004E6FF0
-short __stdcall sub_00629860_GetStrengthFactor(D2UnitStrc* pItem); // 0x00629860
-short __stdcall sub_006298A0_GetDexterityFactor(D2UnitStrc* pItem); // 0x006298A0
+short __stdcall ITEMS_GetStrengthBonus(D2UnitStrc* pItem); // 0x00629860
+short __stdcall ITEMS_GetDexBonus(D2UnitStrc* pItem); // 0x006298A0
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625500
 int __stdcall sub_0063A380(D2UnitStrc* pUnit); // 0x0063A380
 int __stdcall sub_0063A3A0(D2UnitStrc* pUnit); // 0x0063A3A0
-
-struct D2ElemDamageStatsStrc
-{
-    int nMinStat;
-    int nMaxStat;
-    int nMasteryStat;
-};
 
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState); // 0x006256B0
 int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625D00
 extern const D2ElemDamageStatsStrc gaElemDamageStats_006DBEF4[4]; // 0x006DBEF4
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc*,int,int); // 0x00625480
 int __stdcall ITEMS_GetMissileType(D2UnitStrc*); // 0x006288A0
-short __stdcall ITEMS_GetStrengthBonus(D2UnitStrc*); // 0x00629860
-short __stdcall ITEMS_GetDexBonus(D2UnitStrc*); // 0x006298A0
 int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc*,int); // 0x00629BB0
 int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc*); // 0x0062BA80
-int __stdcall STATES_CheckState(D2UnitStrc*,int); // 0x00639DF0
-D2UnitStrc* __stdcall sub_0063BEF0(D2InventoryStrc*); // 0x0063BEF0
-int __stdcall SKILLS_GetWeaponMasteryBonus(D2UnitStrc*,D2UnitStrc*,D2SkillStrc*,int); // 0x00645830
 int __stdcall MISSILE_GetMinDamage(D2UnitStrc*,D2UnitStrc*,int,int); // 0x0064AF20
 int __stdcall MISSILE_GetMaxDamage(D2UnitStrc*,D2UnitStrc*,int,int); // 0x0064AFF0
 unsigned char __stdcall MISSILE_GetElemTypeFromMissileId(int); // 0x0064B0C0
@@ -159,26 +146,7 @@ struct D2MonStatsTxt
     char unk0xB0[0xF8];
 };
 
-struct D2MonStatsInitStrc
-{
-    int nMinHP;
-    int nMaxHP;
-    int nAC;
-    int nTH;
-    int nExp;
-    int nA1MinD;
-    int nA1MaxD;
-    int nA2MinD;
-    int nA2MaxD;
-    int nS1MinD;
-    int nS1MaxD;
-    int nElMinD;
-    int nElMaxD;
-    int nElDur;
-};
-
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-extern "C" const char gszFormatD_006D57BC[]; // 0x006D57BC
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
@@ -187,9 +155,6 @@ int __cdecl sub_0044DCA0_GetGameType(); // 0x0044DCA0
 int __cdecl sub_0044DCC0(); // 0x0044DCC0
 D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
 int __stdcall SKILLS_EvaluateSkillDescFormula(D2UnitStrc* pUnit, int nCalc, int nSkillId, int nSkillLevel); // 0x00646D00
-unsigned char __stdcall MISSILE_GetElemTypeFromMissileId(int nMissileId); // 0x0064B0C0
-int __stdcall MISSILE_GetMinElemDamage(D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nLevel); // 0x0064B100
-int __stdcall MISSILE_GetMaxElemDamage(D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nLevel); // 0x0064B1D0
 
 static D2SkillsTxt* sub_I05_GetSkillsTxtRecord(int nSkillId)
 {
@@ -297,10 +262,10 @@ static int __stdcall sub_004E86F0_GetWeaponDamage(int* pMinDamage, int* pMaxDama
     int nDamage = 0;
     if (pItem)
     {
-        int nFactor = sub_00629860_GetStrengthFactor(pItem);
+        int nFactor = ITEMS_GetStrengthBonus(pItem);
         if (nFactor)
             nBonus += STATLIST_UnitGetStatValue(pUnit, 0, 0) * nFactor / 100;
-        nFactor = sub_006298A0_GetDexterityFactor(pItem);
+        nFactor = ITEMS_GetDexBonus(pItem);
         if (nFactor)
             nBonus += STATLIST_UnitGetStatValue(pUnit, 2, 0) * nFactor / 100;
         nDamage = STATLIST_UnitGetItemStatOrSkillStatValue(pItem, 0x6F, 0);
@@ -643,7 +608,7 @@ void __fastcall sub_004EA4A0_WeaponDamageCallback2(D2UnitStrc* pUnit, int* pMin,
     if (!pSkill) return;
     if (!pItem) {
         if (!pUnit->pInventory) return;
-        pItem=sub_0063BEF0(pUnit->pInventory);
+        pItem=INVENTORY_GetLeftHandWeapon(pUnit->pInventory);
         if (!pItem) return;
     }
     if (!ITEMS_CheckIfThrowable(pItem)) return;
@@ -895,7 +860,7 @@ static int __stdcall sub_004E73E0_FormatValue(Unicode* pDest, int bPlus, int nVa
     }
     else
     {
-        wsprintfA(szText, gszFormatD_006D57BC, nValue);
+        wsprintfA(szText, szFmtD_006D57BC, nValue);
     }
     sub_00526320_ToUnicode(pDest, szText, 32);
     return 1;
@@ -932,7 +897,7 @@ static int __stdcall sub_004E79E0_AddValueText(unsigned short nString, int bPlus
     }
     else
     {
-        wsprintfA(szNumber, gszFormatD_006D57BC, nValue);
+        wsprintfA(szNumber, szFmtD_006D57BC, nValue);
     }
     sub_00526320_ToUnicode(wszNumber, szNumber, 32);
     sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nString));
@@ -957,7 +922,7 @@ static int __stdcall sub_004E7C30_AddValueTextAfter(unsigned short nString, int 
     }
     else
     {
-        wsprintfA(szNumber, gszFormatD_006D57BC, nValue);
+        wsprintfA(szNumber, szFmtD_006D57BC, nValue);
     }
     sub_00526320_ToUnicode(wszNumber, szNumber, 32);
     sub_00526700(wszText, wszNumber);
@@ -981,7 +946,7 @@ static int __stdcall sub_004E7E70_AddValueTwoTexts(unsigned short nString1, unsi
     }
     else
     {
-        wsprintfA(szNumber, gszFormatD_006D57BC, nValue);
+        wsprintfA(szNumber, szFmtD_006D57BC, nValue);
     }
     sub_00526320_ToUnicode(wszNumber, szNumber, 32);
     sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nString1));
@@ -1068,7 +1033,7 @@ static int __stdcall sub_004EC140_AddElemRange(int nElemType, unsigned short nSt
 
     if (IsSingleValue(nMin, nMax))
     {
-        wsprintfA(szNumber, gszFormatD_006D57BC, nMin);
+        wsprintfA(szNumber, szFmtD_006D57BC, nMin);
     }
     else
     {
@@ -1129,7 +1094,7 @@ static int __stdcall sub_004EC2E0_AddPhysDamage(D2UnitStrc* pUnit, Unicode* wszT
     }
     else
     {
-        wsprintfA(szNumber, gszFormatD_006D57BC, nMin);
+        wsprintfA(szNumber, szFmtD_006D57BC, nMin);
     }
     sub_00526320_ToUnicode(wszNumber, szNumber, 32);
     sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0x10A0));
@@ -1162,7 +1127,7 @@ static int __stdcall sub_004EC540_AddElemRatePerSecond(unsigned short nString, i
 
     if (nMin == nMax)
     {
-        wsprintfA(szNumber, gszFormatD_006D57BC, nMin);
+        wsprintfA(szNumber, szFmtD_006D57BC, nMin);
     }
     else
     {
@@ -1267,7 +1232,7 @@ static int __stdcall sub_004EC7E0_AddValueLine(unsigned short nStringAfter, int 
     }
     else
     {
-        wsprintfA(szNumber, gszFormatD_006D57BC, nValue);
+        wsprintfA(szNumber, szFmtD_006D57BC, nValue);
     }
     sub_00526320_ToUnicode(wszNumber, szNumber, 32);
     if (nStringBefore != 0x1506)
@@ -1329,7 +1294,7 @@ static int __stdcall sub_004ECA00_AddValueOverTime(unsigned short nStringAfter, 
     sub_004E73E0_FormatValue(wszNumber, bPlus, nValue);
     sub_00526700(wszText, wszNumber);
     sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xFA0));
-    wsprintfA(szNumber, gszFormatD_006D57BC, nCount);
+    wsprintfA(szNumber, szFmtD_006D57BC, nCount);
     sub_00526320_ToUnicode(wszNumber, szNumber, 32);
     sub_00526700(wszText, wszNumber);
     sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9B));
@@ -1468,7 +1433,7 @@ int __stdcall sub_004ECF50_AddMonsterDamage(Unicode* wszText, D2SkillsTxt* pSkil
     {
         if (IsSingleValue(nMin, nMax))
         {
-            wsprintfA(szNumber, gszFormatD_006D57BC, nMin);
+            wsprintfA(szNumber, szFmtD_006D57BC, nMin);
         }
         else
         {
@@ -1629,7 +1594,7 @@ static int __stdcall sub_004EDCA0_AddElemDamageOverTime(D2UnitStrc* pUnit, Unico
     {
         if (IsSingleValue(nMin, nMax))
         {
-            wsprintfA(szNumber, gszFormatD_006D57BC, nMin);
+            wsprintfA(szNumber, szFmtD_006D57BC, nMin);
         }
         else
         {

@@ -6,8 +6,6 @@ struct D2SeedStrc;
 struct D2MonStatsTxt;
 struct D2MonsterRegionStrc;
 
-struct tagRECT { long left; long top; long right; long bottom; };
-
 struct D2DrlgCoordsStrc { int nSubtileX; int nSubtileY; int nSubtileWidth; int nSubtileHeight; int nTileXPos; int nTileYPos; int nTileWidth; int nTileHeight; };
 
 struct D2SpawnAreaStrc { char unk0x00[0x10]; tagRECT tRect; };

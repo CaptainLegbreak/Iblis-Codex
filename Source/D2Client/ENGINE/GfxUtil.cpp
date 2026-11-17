@@ -7,6 +7,7 @@
 #define UNIT_ITEM 4
 #define UNIT_INVALID 6
 #define offsetof(s, m) ((unsigned int)&(((s*)0)->m))
+
 struct D2MonsterDataStrc;
 struct D2GfxEntryStrc;
 struct D2GfxListNodeStrc;
@@ -35,6 +36,15 @@ struct PartialLookupRecord;
 struct PartialLookupHeader;
 struct D2CofLayerStrc;
 struct D2CofDataStrc;
+struct D2UnitStrc;
+struct D2ActiveRoomStrc;
+struct D2GfxDataStrc;
+struct D2GfxMotionStrc;
+struct D2LevelsTxt;
+struct D2DataTablesStrc;
+struct D2TokRecord;
+struct D2ObjectsTxt;
+struct D2ItemsTxt;
 
 struct D2MonsterDataStrc
 {
@@ -75,12 +85,6 @@ struct D2ActiveRoomStrc
     D2UnitStrc* pUnitFirst;
 };
 
-struct D2GfxEntryStrc
-{
-    unsigned char nValue;
-    unsigned char unk0x01;
-};
-
 struct D2GfxListNodeStrc
 {
     int nMode;
@@ -93,13 +97,6 @@ struct D2GfxDataStrc
 {
     D2GfxEntryStrc tEntries[20];
     D2GfxListNodeStrc* pNodeList;
-};
-
-struct D2MotionVectorStrc
-{
-    int nX;
-    int nY;
-    int nZ;
 };
 
 struct D2GfxMotionStrc
@@ -172,18 +169,6 @@ struct T004DA110
     int nKeyA;
     int nKeyB;
     T004DA110* pNext;
-};
-
-struct D2CltUnitEventStrc
-{
-    int nType;
-    int f_4;
-    int f_8;
-    int nParam1;
-    int nParam2;
-    int nParam3;
-    D2CltUnitEventStrc* pPrevious;
-    D2CltUnitEventStrc* pNext;
 };
 
 struct D2RosterInfoStrc
@@ -289,8 +274,6 @@ struct D2DataTablesStrc
     D2OverlayTxt* pOverlayTxt;
     int nOverlayTxtRecordCount;
 };
-
-extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern "C" double __cdecl sqrt(double x); // 0x006879C0
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern int gnGlobal_0071146C; // 0x0071146C
@@ -313,13 +296,6 @@ void __stdcall SKILLS_SetParam1(D2SkillStrc* pSkill, int nValue); // 0x00644560
 void __stdcall SKILLS_SetFlags(D2SkillStrc* pSkill, int nValue); // 0x00644660
 int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
-
-struct D2TokRecord
-{
-    char unk0x00[0x20];
-    unsigned int dwCode;
-    char unk0x24[0x10];
-};
 
 struct D2MonStatsTxt
 {
@@ -479,169 +455,10 @@ D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
 D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
 D2UnitStrc* __stdcall sub_0063C050_GetBodyLocItem(D2InventoryStrc* pInventory, int nBodyLoc);
 
-// 0x00483360
-int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor)
-{
-    if (!nDivisor)
-    {
-        return 0;
-    }
+static void sub_004DB290_ConvertDirection(unsigned int* pDirection, int nDirCount, int nSrcDirCount);
 
-    if (nValue > 0x100000)
-    {
-        if (nDivisor <= (nValue >> 4))
-        {
-            return nMultiplier * (nValue / nDivisor);
-        }
-        return (int)(nValue * (__int64)nMultiplier / nDivisor);
-    }
-
-    if (nMultiplier > 0x10000)
-    {
-        if (nDivisor > (nMultiplier >> 4))
-        {
-            return (int)(nValue * (__int64)nMultiplier / nDivisor);
-        }
-        return nValue * (nMultiplier / nDivisor);
-    }
-
-    return nMultiplier * nValue / nDivisor;
-}
-
-// 0x004AC810
-void __fastcall sub_004AC810_ToggleMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag, int bSet)
-{
-    if (pUnit && pUnit->dwUnitType == 1)
-    {
-        D2MonsterDataStrc* pMonsterData = pUnit->pMonsterData;
-        if (pMonsterData)
-        {
-            if (bSet)
-            {
-                pMonsterData->nTypeFlag |= nFlag;
-            }
-            else
-            {
-                pMonsterData->nTypeFlag &= ~nFlag;
-            }
-        }
-    }
-}
-
-// 0x004DB110
-unsigned char* __fastcall sub_004DB110_GetCellPtr(D2CellBlockStrc* pBlock, int nX, int nY)
-{
-    if (!pBlock)
-    {
-        return 0;
-    }
-
-    return &pBlock->pData[(pBlock->nWidth * nX + nY + 9) * pBlock->nCount + pBlock->nWidth];
-}
-
-// 0x004DB1C0
-void __fastcall sub_004DB1C0_SetGfxEntryByte(D2UnitStrc* pUnit, int nIndex, unsigned char nValue)
-{
-    D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
-    if (pGfxData)
-    {
-        pGfxData->tEntries[nIndex].nValue = nValue;
-    }
-}
-
-// 0x004E0700
-void* D2OffsetTableRefStrc::sub_004E0700_GetEntry(int nId)
-{
-    D2OffsetTableStrc* pTable = this->f_0;
-    if (!pTable)
-    {
-        return 0;
-    }
-
-    unsigned int nIndex = nId - pTable->nFirstId;
-    if (nIndex >= pTable->nCount)
-    {
-        return 0;
-    }
-
-    return (char*)pTable + *(int*)((char*)pTable + pTable->nOffsetsOffset + nIndex * 4);
-}
-
-// 0x004DA1D0
-void __stdcall sub_004DA1D0_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ)
-{
-    D2GfxMotionStrc* pMotion = sub_0046F060_GetGfxMotion(pUnit);
-    if (pMotion)
-    {
-        pMotion->tA.nX = nX << 11;
-        pMotion->tA.nY = nY << 11;
-        pMotion->tA.nZ = nZ << 11;
-    }
-}
-
-// 0x004DA200
-void __stdcall sub_004DA200_SetMotionVectorB(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift)
-{
-    D2GfxMotionStrc* pMotion = sub_0046F060_GetGfxMotion(pUnit);
-    if (pMotion)
-    {
-        if (bShift)
-        {
-            pMotion->tB.nX = nX << 11;
-            pMotion->tB.nY = nY << 11;
-            pMotion->tB.nZ = nZ << 11;
-        }
-        else
-        {
-            pMotion->tB.nX = nX;
-            pMotion->tB.nY = nY;
-            pMotion->tB.nZ = nZ;
-        }
-    }
-}
-
-// 0x004DA2A0
-void __stdcall sub_004DA2A0_SetMotionVectorC(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift)
-{
-    D2GfxMotionStrc* pMotion = sub_0046F060_GetGfxMotion(pUnit);
-    if (pMotion)
-    {
-        if (bShift)
-        {
-            pMotion->tC.nX = nX << 11;
-            pMotion->tC.nY = nY << 11;
-            pMotion->tC.nZ = nZ << 11;
-        }
-        else
-        {
-            pMotion->tC.nX = nX;
-            pMotion->tC.nY = nY;
-            pMotion->tC.nZ = nZ;
-        }
-    }
-}
-
-// 0x0046E5A0
-D2GfxListNodeStrc* __fastcall sub_0046E5A0_FindGfxListNode(D2UnitStrc* pUnit, int nId, int nMode)
-{
-    D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
-    D2_ASSERT(pGfxData, 940);
-
-    if (nMode == -1)
-    {
-        nMode = sub_0046DA60_GetUnitMode(pUnit);
-    }
-
-    for (D2GfxListNodeStrc* pNode = pGfxData->pNodeList; pNode; pNode = pNode->pNext)
-    {
-        if (pNode->nMode == nMode && pNode->nId == nId)
-        {
-            return pNode;
-        }
-    }
-
-    return 0;
-}
+static int __stdcall sub_004DAF70_GetUnitModeDirections(D2UnitStrc* pUnit, int nMode, int nClassId, int nUnitType);
+static void __stdcall sub_004DB1E0_SetDeathDirection(unsigned int nDirection, int bSet, D2UnitStrc* pUnit, int nDirCount, int nSrcDirCount);
 
 // 0x0046C570
 int __fastcall sub_0046C570_ForEachUnitInAdjacentRooms(D2UnitStrc* pUnit, void* pArg1, void* pArg2, UNITCALLBACKFN pfnCallback)
@@ -691,6 +508,77 @@ int __fastcall sub_0046C600_NearestUnitCallback(D2UnitStrc* pUnit, D2UnitStrc* p
     }
 
     return 0;
+}
+
+// 0x0046E5A0
+D2GfxListNodeStrc* __fastcall sub_0046E5A0_FindGfxListNode(D2UnitStrc* pUnit, int nId, int nMode)
+{
+    D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
+    D2_ASSERT(pGfxData, 940);
+
+    if (nMode == -1)
+    {
+        nMode = sub_0046DA60_GetUnitMode(pUnit);
+    }
+
+    for (D2GfxListNodeStrc* pNode = pGfxData->pNodeList; pNode; pNode = pNode->pNext)
+    {
+        if (pNode->nMode == nMode && pNode->nId == nId)
+        {
+            return pNode;
+        }
+    }
+
+    return 0;
+}
+
+// 0x00483360
+int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor)
+{
+    if (!nDivisor)
+    {
+        return 0;
+    }
+
+    if (nValue > 0x100000)
+    {
+        if (nDivisor <= (nValue >> 4))
+        {
+            return nMultiplier * (nValue / nDivisor);
+        }
+        return (int)(nValue * (__int64)nMultiplier / nDivisor);
+    }
+
+    if (nMultiplier > 0x10000)
+    {
+        if (nDivisor > (nMultiplier >> 4))
+        {
+            return (int)(nValue * (__int64)nMultiplier / nDivisor);
+        }
+        return nValue * (nMultiplier / nDivisor);
+    }
+
+    return nMultiplier * nValue / nDivisor;
+}
+
+// 0x004AC810
+void __fastcall sub_004AC810_ToggleMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag, int bSet)
+{
+    if (pUnit && pUnit->dwUnitType == 1)
+    {
+        D2MonsterDataStrc* pMonsterData = pUnit->pMonsterData;
+        if (pMonsterData)
+        {
+            if (bSet)
+            {
+                pMonsterData->nTypeFlag |= nFlag;
+            }
+            else
+            {
+                pMonsterData->nTypeFlag &= ~nFlag;
+            }
+        }
+    }
 }
 
 // 0x004CDB40
@@ -795,6 +683,39 @@ int __stdcall sub_004DA1B0_GetMotionRawAZ(D2UnitStrc* pUnit)
     return 0;
 }
 
+// 0x004DA1D0
+void __stdcall sub_004DA1D0_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ)
+{
+    D2GfxMotionStrc* pMotion = sub_0046F060_GetGfxMotion(pUnit);
+    if (pMotion)
+    {
+        pMotion->tA.nX = nX << 11;
+        pMotion->tA.nY = nY << 11;
+        pMotion->tA.nZ = nZ << 11;
+    }
+}
+
+// 0x004DA200
+void __stdcall sub_004DA200_SetMotionVectorB(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift)
+{
+    D2GfxMotionStrc* pMotion = sub_0046F060_GetGfxMotion(pUnit);
+    if (pMotion)
+    {
+        if (bShift)
+        {
+            pMotion->tB.nX = nX << 11;
+            pMotion->tB.nY = nY << 11;
+            pMotion->tB.nZ = nZ << 11;
+        }
+        else
+        {
+            pMotion->tB.nX = nX;
+            pMotion->tB.nY = nY;
+            pMotion->tB.nZ = nZ;
+        }
+    }
+}
+
 // 0x004DA250
 void __stdcall sub_004DA250_SetMotionVectorD(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift)
 {
@@ -812,6 +733,27 @@ void __stdcall sub_004DA250_SetMotionVectorD(D2UnitStrc* pUnit, int nX, int nY, 
             pMotion->tD.nX = nX;
             pMotion->tD.nY = nY;
             pMotion->tD.nZ = nZ;
+        }
+    }
+}
+
+// 0x004DA2A0
+void __stdcall sub_004DA2A0_SetMotionVectorC(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift)
+{
+    D2GfxMotionStrc* pMotion = sub_0046F060_GetGfxMotion(pUnit);
+    if (pMotion)
+    {
+        if (bShift)
+        {
+            pMotion->tC.nX = nX << 11;
+            pMotion->tC.nY = nY << 11;
+            pMotion->tC.nZ = nZ << 11;
+        }
+        else
+        {
+            pMotion->tC.nX = nX;
+            pMotion->tC.nY = nY;
+            pMotion->tC.nZ = nZ;
         }
     }
 }
@@ -914,6 +856,74 @@ T004DA110* __fastcall sub_004DA990_FindGfxUtilNode(T004DA110* pList, int nKeyA, 
     return 0;
 }
 
+#include "gen/data/Source/D2Client/ENGINE/GfxUtil.inc"
+
+static __forceinline D2MonStatsTxt* GFXUTIL_GetMonStatsTxtRecord(int nMonsterId)
+{
+    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
+    {
+        return &sgptDataTables->pMonStatsTxt[nMonsterId];
+    }
+    return 0;
+}
+
+// 0x004DAA00
+int __fastcall sub_004DAA00_GetModeArg(D2UnitStrc* pUnit, int nType, int nClass)
+{
+    switch (nType)
+    {
+    case 2:
+    {
+        D2TokRecord* pRecord = DATATBLS_GetObjModeTypeTxtRecord(nClass, 0);
+        if (!pRecord)
+        {
+            return 0;
+        }
+        return pRecord->dwCode;
+    }
+    case 1:
+    {
+        D2MonStatsTxt* pMonStatsTxtRecord = GFXUTIL_GetMonStatsTxtRecord(nClass);
+        if (!pMonStatsTxtRecord)
+        {
+            return 0;
+        }
+        return pMonStatsTxtRecord->dwCode;
+    }
+    case 0:
+    {
+        D2TokRecord* pRecord = DATATBLS_GetPlrModeTypeTxtRecord(nClass, 0);
+        if (!pRecord)
+        {
+            return 0;
+        }
+        return pRecord->dwCode;
+    }
+    default:
+        return 0;
+    }
+}
+
+// 0x004DAA70
+void __fastcall sub_004DAA70_GetItemMode(D2UnitStrc* pUnit, int* pMode)
+{
+    switch (*pMode)
+    {
+    case 0:
+    case 1:
+    case 2:
+    case 4:
+    case 6:
+        *pMode = 4;
+        break;
+
+    case 3:
+    case 5:
+        *pMode = 3;
+        break;
+    }
+}
+
 // 0x004DAB40
 int __fastcall sub_004DAB40_IsCelOnScreen(D2CelStrc* pCel, int nX, int nY, int bFlag)
 {
@@ -943,6 +953,474 @@ int __fastcall sub_004DAB40_IsCelOnScreen(D2CelStrc* pCel, int nX, int nY, int b
     }
 
     return nBottom + nHeight >= 0;
+}
+
+static D2OverlayTxt* DATATBLS_GetOverlayTxtRecordInline(int nOverlay)
+{
+    if (nOverlay >= 0 && nOverlay < sgptDataTables->nOverlayTxtRecordCount)
+    {
+        return &sgptDataTables->pOverlayTxt[nOverlay];
+    }
+
+    return 0;
+}
+
+// 0x004DAD50
+static int sub_004DAD50_GetOverlayDirections(int nOverlay)
+{
+    D2OverlayTxt* pOverlayTxt = DATATBLS_GetOverlayTxtRecordInline(nOverlay);
+    if (!pOverlayTxt)
+    {
+        return 1;
+    }
+
+    return pOverlayTxt->nNumDirections;
+}
+
+void __fastcall sub_004DB2E0_GetUnitDirection(D2UnitStrc* pUnit, int nUnitType, int nClassId, int nMode, unsigned int* pDirection, int* pIndex, int* pDirCount, int nSrcDirCount, int bSet)
+{
+    if (*pDirection >= 64)
+    {
+        *pDirCount = 1;
+        *pIndex = 0;
+        return;
+    }
+
+    *pDirCount = sub_004DAF70_GetUnitModeDirections(pUnit, nMode, nClassId, nUnitType);
+    if (bSet)
+    {
+        sub_004DB290_ConvertDirection(pDirection, *pDirCount, nSrcDirCount);
+        sub_004DB1E0_SetDeathDirection(*pDirection, bSet, pUnit, *pDirCount, nSrcDirCount);
+    }
+
+    *pIndex = sub_00600E20_GetDirectionIndex64B(*pDirection, nSrcDirCount);
+}
+
+// 0x004DAE60
+int __fastcall sub_004DAE60_UnitSupportsMode(D2UnitStrc* pUnit, int nMode)
+{
+    if (nMode >= 16)
+    {
+        return 0;
+    }
+
+    int nCurrentMode;
+    int nUnitType;
+    int nClassId;
+
+    int nTypeValue = UNIT_INVALID;
+    if (pUnit)
+    {
+        nTypeValue = pUnit->dwUnitType;
+    }
+
+    nUnitType = nTypeValue;
+    const int nClassValue = !pUnit ? -1 : pUnit->dwClassId;
+    nClassId = nClassValue;
+    nCurrentMode = UNITS_GetAnimOrSeqMode(pUnit);
+    D2COMMON_11013_ConvertMode(pUnit, &nUnitType, &nClassId, &nCurrentMode, ".\\ENGINE\\GfxUtil.cpp", 603);
+
+    switch (nUnitType)
+    {
+    case UNIT_PLAYER:
+        switch (nMode)
+        {
+        case 0:
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+        case 8:
+        case 9:
+            return 1;
+        }
+        break;
+
+    case UNIT_MONSTER:
+    {
+        D2MonStats2Txt* pMonStats2TxtRecord = UNITS_GetMonStats2TxtRecordFromMonsterId(nClassId);
+        if (pMonStats2TxtRecord && (pMonStats2TxtRecord->nModeFlags[nMode >> 3] & gdwBitMasks[nMode & 7]))
+        {
+            return 1;
+        }
+        break;
+    }
+
+    case UNIT_OBJECT:
+    {
+        D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(nClassId);
+        if (pObjectsTxtRecord && pObjectsTxtRecord->nModeEnabled[nMode] == 1)
+        {
+            return 1;
+        }
+        break;
+    }
+
+    case UNIT_ITEM:
+        if (nMode == 1)
+        {
+            return 1;
+        }
+        break;
+    }
+
+    return 0;
+}
+
+// 0x004DAF70
+static int __stdcall sub_004DAF70_GetUnitModeDirections(D2UnitStrc* pUnit, int nMode, int nClassId, int nUnitType)
+{
+    if (nMode < 0)
+    {
+        return 1;
+    }
+
+    int nDirections = 1;
+    switch (nUnitType)
+    {
+    case 0:
+        if (!gdwGlobal_007A8928 && pUnit == sub_00463DD0())
+        {
+            nDirections = 16;
+        }
+        else
+        {
+            nDirections = 8;
+        }
+        break;
+
+    case 1:
+    {
+        D2MonStats2Txt* pMonStats2TxtRecord = UNITS_GetMonStats2TxtRecordFromMonsterId(nClassId);
+        if (pMonStats2TxtRecord)
+        {
+            nDirections = pMonStats2TxtRecord->nModeDirections[nMode];
+            if (nDirections == 8)
+            {
+                D2MonGfxCacheStrc* pCache = sub_0046F9D0_GetMonGfxCache(nClassId);
+                if (pCache && !pCache->nModeFlags[nMode])
+                {
+                    nDirections = 4;
+                }
+            }
+        }
+        break;
+    }
+
+    case 3:
+    {
+        D2MissilesTxt* pMissilesTxtRecord = DATATBLS_GetMissilesTxtRecord(nClassId);
+        if (pMissilesTxtRecord)
+        {
+            nDirections = pMissilesTxtRecord->nNumDirections;
+        }
+        break;
+    }
+
+    case 6:
+        nDirections = sub_004DAD50_GetOverlayDirections(nClassId);
+        break;
+    }
+
+    return nDirections;
+}
+
+// 0x004DB040
+extern "C" void* __fastcall sub_004DB040_identity(void* pointer)
+{
+    return pointer;
+}
+
+extern "C" int __fastcall sub_004DB180_range(const int* record)
+{
+    if (record && *record >= 0 && *record <= 2)
+        return 1;
+    return 0;
+}
+
+extern "C" PartialTableRecord* __fastcall sub_004E4640_boundedTable(int index)
+{
+    if (index >= 0 && index < gTableView_00744304->count)
+        return &gTableView_00744304->records[index];
+    return gTableView_00744304->records;
+}
+
+// 0x004DB050
+int __fastcall sub_004DB050_GetCofLayerOverrideTransLvl(unsigned char* pData, int nComponent)
+{
+    int nResult = 0;
+    if (pData && nComponent < 0x10)
+    {
+        const D2CofDataStrc* pHeader = (const D2CofDataStrc*)pData;
+        pData += 0x1C;
+        for (int i = 0; i < pHeader->nLayers; ++i, pData += sizeof(D2CofLayerStrc))
+        {
+            if (((D2CofLayerStrc*)pData)->nComponent == nComponent)
+            {
+                nResult = ((D2CofLayerStrc*)pData)->nOverrideTransLvl;
+                break;
+            }
+        }
+    }
+    return nResult;
+}
+
+// 0x004DB090
+int __fastcall sub_004DB090_GetCofLayerShadow(void* pCof, int nComponent)
+{
+    int nResult = 0;
+    if (pCof && nComponent < 0x10)
+    {
+        const D2CofDataStrc* pHeader = (const D2CofDataStrc*)pCof;
+        pCof = ((D2CofDataStrc*)pCof)->pLayers;
+        for (int i = 0; i < pHeader->nLayers; ++i)
+        {
+            D2CofLayerStrc* pLayer = (D2CofLayerStrc*)pCof;
+            if (pLayer->nComponent == nComponent)
+            {
+                nResult = pLayer->bShadow;
+                break;
+            }
+            pCof = pLayer + 1;
+        }
+    }
+    return nResult;
+}
+
+// 0x004DB110
+unsigned char* __fastcall sub_004DB110_GetCellPtr(D2CellBlockStrc* pBlock, int nX, int nY)
+{
+    if (!pBlock)
+    {
+        return 0;
+    }
+
+    return &pBlock->pData[(pBlock->nWidth * nX + nY + 9) * pBlock->nCount + pBlock->nWidth];
+}
+
+// 0x004DB140
+int __fastcall sub_004DB140_GetCofLayerNewTransLvl(unsigned char* pData, int nComponent)
+{
+    if (!pData)
+    {
+        return 5;
+    }
+    if (nComponent >= 0x10)
+    {
+        return 5;
+    }
+    const D2CofDataStrc* pHeader = (const D2CofDataStrc*)pData;
+    pData += 0x1C;
+    for (int i = 0; i < pHeader->nLayers; ++i, pData += sizeof(D2CofLayerStrc))
+    {
+        if (((D2CofLayerStrc*)pData)->nComponent == nComponent)
+        {
+            return ((D2CofLayerStrc*)pData)->nNewTransLvl;
+        }
+    }
+    return 5;
+}
+
+// 0x004DB180
+int __fastcall sub_004DB180_IsGfxUnitType(D2UnitStrc* pUnit)
+{
+    if (pUnit && pUnit->dwUnitType >= 0 && pUnit->dwUnitType <= 2)
+    {
+        return 1;
+    }
+
+    return 0;
+}
+
+// 0x004DB1C0
+void __fastcall sub_004DB1C0_SetGfxEntryByte(D2UnitStrc* pUnit, int nIndex, unsigned char nValue)
+{
+    D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
+    if (pGfxData)
+    {
+        pGfxData->tEntries[nIndex].nValue = nValue;
+    }
+}
+
+static int UNITS_GetUnitTypeInline(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return 6;
+    }
+
+    return pUnit->dwUnitType;
+}
+
+static int UNITS_GetClassIdInline(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return -1;
+    }
+
+    return pUnit->dwClassId;
+}
+
+// 0x004DB1E0
+static void __stdcall sub_004DB1E0_SetDeathDirection(unsigned int nDirection, int bSet, D2UnitStrc* pUnit, int nDirCount, int nSrcDirCount)
+{
+    if (!bSet)
+    {
+        return;
+    }
+
+    int nUnitType = UNITS_GetUnitTypeInline(pUnit);
+    int nClassId = UNITS_GetClassIdInline(pUnit);
+    int nMode = UNITS_GetAnimOrSeqMode(pUnit);
+    D2COMMON_11013_ConvertMode(pUnit, &nUnitType, &nClassId, &nMode, ".\\ENGINE\\GfxUtil.cpp", 0x53C);
+    switch (nUnitType)
+    {
+    case 0:
+        if ((nMode == 0 || nMode == 17) && nDirCount != nSrcDirCount)
+        {
+            sub_006488A0_SetDirection(pUnit->pDynamicPath, nDirection);
+        }
+        break;
+
+    case 1:
+        if ((nMode == 0 || nMode == 12) && nDirCount != nSrcDirCount)
+        {
+            sub_006488A0_SetDirection(pUnit->pDynamicPath, nDirection);
+        }
+        break;
+    }
+}
+
+// 0x004DB290
+static void sub_004DB290_ConvertDirection(unsigned int* pDirection, int nDirCount, int nSrcDirCount)
+{
+    if (nSrcDirCount == 8)
+    {
+        if (nDirCount == 4)
+        {
+            const unsigned int nIndex = *(unsigned int*)pDirection * 8 >> 6;
+            *pDirection = (unsigned int)sub_00600CB0_ConvertDirection(nIndex, 8, nDirCount, 0) * 64 / 8;
+        }
+    }
+    else if (nSrcDirCount == 16 && nDirCount == 8)
+    {
+        const unsigned int nIndex = *(unsigned int*)pDirection * 16 >> 6;
+        *pDirection = (unsigned int)sub_00600CB0_ConvertDirection(nIndex, 16, nDirCount, 0) * 64 / 16;
+    }
+}
+
+inline int STATES_IsUnitShapeShiftedInline(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return 0;
+    }
+
+    return (pUnit->dwFlagEx >> 3) & 1;
+}
+
+// 0x004DB360
+int __fastcall sub_004DB360_GetCompTransparency(D2UnitStrc* pUnit, int nComponent, int* pOut, int nItemId)
+{
+    const int nType = sub_0046D9F0_GetConvertedUnitType(pUnit);
+    switch (nType)
+    {
+    case 1:
+    {
+        const int nStat = STATLIST_UnitGetStatValue(pUnit, 0xB5, 0);
+        if (nStat <= 0)
+            break;
+        if (nStat > 0xF)
+        {
+            D2InventoryStrc* pInventory = pUnit->pInventory;
+            if (!pInventory)
+                return 0;
+            for (D2UnitStrc* pItem = INVENTORY_GetFirstItem(pInventory); pItem; pItem = INVENTORY_GetNextItem(pItem))
+            {
+                D2UnitStrc* pChecked = INVENTORY_UnitIsItem(pItem);
+                if (pChecked && sub_006280A0(pChecked, 0x400000, 0x5E6, (unsigned int)".\\ENGINE\\GfxUtil.cpp"))
+                {
+                    *pOut = 1;
+                    return 1;
+                }
+            }
+            return 0;
+        }
+        *pOut = 1;
+        return 1;
+    }
+    case 0:
+        if (STATLIST_UnitGetStatValue(pUnit, 0xB5, 0))
+        {
+            *pOut = 1;
+            return 1;
+        }
+        break;
+    }
+
+    if (nItemId != -1)
+    {
+        D2ItemsTxt* pTxt = DATATBLS_GetItemsTxtRecord(nItemId);
+        if (pTxt && pTxt->nTransparent)
+        {
+            *pOut = pTxt->nTransTbl;
+            return 1;
+        }
+    }
+
+    if (nType)
+        return 0;
+
+    D2InventoryStrc* pInventory;
+    D2UnitStrc* pOwner;
+    if (STATES_IsUnitShapeShiftedInline(pUnit) && STATES_CheckStateMaskOnUnit(pUnit, 0x25) && (pOwner = sub_004639D0_GetOwnerUnit(pUnit)) != 0)
+    {
+        pInventory = pOwner->pInventory;
+    }
+    else
+    {
+        pInventory = pUnit->pInventory;
+    }
+
+    if (!pInventory)
+        return 0;
+
+    switch (nComponent)
+    {
+    case 7:
+    {
+        D2UnitStrc* pItem = sub_0063C050_GetBodyLocItem(pInventory, 7);
+        if (pItem && sub_006280A0(pItem, 0x400000, 0x627, (unsigned int)".\\ENGINE\\GfxUtil.cpp"))
+        {
+            *pOut = 2;
+            return 1;
+        }
+        break;
+    }
+    case 6:
+    {
+        D2UnitStrc* pItem = sub_0063C050_GetBodyLocItem(pInventory, 6);
+        if (pItem && sub_006280A0(pItem, 0x400000, 0x61C, (unsigned int)".\\ENGINE\\GfxUtil.cpp"))
+        {
+            *pOut = 1;
+            return 1;
+        }
+        break;
+    }
+    case 5:
+    {
+        D2UnitStrc* pItem = sub_0063C050_GetBodyLocItem(pInventory, 5);
+        if (pItem && sub_006280A0(pItem, 0x400000, 0x611, (unsigned int)".\\ENGINE\\GfxUtil.cpp"))
+        {
+            *pOut = 1;
+            return 1;
+        }
+        break;
+    }
+    }
+
+    return 0;
 }
 
 // 0x004DC110
@@ -1108,6 +1586,24 @@ void __fastcall sub_004DF6C0_ApplySoundEnviron(int nEnvironId)
     gnSoundEnvironId_0072ADE4 = nEnvironId;
 }
 
+// 0x004E0700
+void* D2OffsetTableRefStrc::sub_004E0700_GetEntry(int nId)
+{
+    D2OffsetTableStrc* pTable = this->f_0;
+    if (!pTable)
+    {
+        return 0;
+    }
+
+    unsigned int nIndex = nId - pTable->nFirstId;
+    if (nIndex >= pTable->nCount)
+    {
+        return 0;
+    }
+
+    return (char*)pTable + *(int*)((char*)pTable + pTable->nOffsetsOffset + nIndex * 4);
+}
+
 // 0x004E0C60
 int __fastcall sub_004E0C60_CltDoResetActionFrame(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
@@ -1270,516 +1766,4 @@ int __fastcall sub_004F34D0_CltDoMissileC(D2UnitStrc* pUnit, int nSkillId, int n
     }
 
     return 1;
-}
-
-#include "gen/data/Source/D2Client/ENGINE/GfxUtil.inc"
-
-static __forceinline D2MonStatsTxt* GFXUTIL_GetMonStatsTxtRecord(int nMonsterId)
-{
-    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
-    {
-        return &sgptDataTables->pMonStatsTxt[nMonsterId];
-    }
-    return 0;
-}
-
-// 0x004DAA00
-int __fastcall sub_004DAA00_GetModeArg(D2UnitStrc* pUnit, int nType, int nClass)
-{
-    switch (nType)
-    {
-    case 2:
-    {
-        D2TokRecord* pRecord = DATATBLS_GetObjModeTypeTxtRecord(nClass, 0);
-        if (!pRecord)
-        {
-            return 0;
-        }
-        return pRecord->dwCode;
-    }
-    case 1:
-    {
-        D2MonStatsTxt* pMonStatsTxtRecord = GFXUTIL_GetMonStatsTxtRecord(nClass);
-        if (!pMonStatsTxtRecord)
-        {
-            return 0;
-        }
-        return pMonStatsTxtRecord->dwCode;
-    }
-    case 0:
-    {
-        D2TokRecord* pRecord = DATATBLS_GetPlrModeTypeTxtRecord(nClass, 0);
-        if (!pRecord)
-        {
-            return 0;
-        }
-        return pRecord->dwCode;
-    }
-    default:
-        return 0;
-    }
-}
-
-// 0x004DAA70
-void __fastcall sub_004DAA70_GetItemMode(D2UnitStrc* pUnit, int* pMode)
-{
-    switch (*pMode)
-    {
-    case 0:
-    case 1:
-    case 2:
-    case 4:
-    case 6:
-        *pMode = 4;
-        break;
-
-    case 3:
-    case 5:
-        *pMode = 3;
-        break;
-    }
-}
-
-static D2OverlayTxt* DATATBLS_GetOverlayTxtRecordInline(int nOverlay)
-{
-    if (nOverlay >= 0 && nOverlay < sgptDataTables->nOverlayTxtRecordCount)
-    {
-        return &sgptDataTables->pOverlayTxt[nOverlay];
-    }
-
-    return 0;
-}
-
-// 0x004DAD50
-static int sub_004DAD50_GetOverlayDirections(int nOverlay)
-{
-    D2OverlayTxt* pOverlayTxt = DATATBLS_GetOverlayTxtRecordInline(nOverlay);
-    if (!pOverlayTxt)
-    {
-        return 1;
-    }
-
-    return pOverlayTxt->nNumDirections;
-}
-
-// 0x004DAF70
-static int __stdcall sub_004DAF70_GetUnitModeDirections(D2UnitStrc* pUnit, int nMode, int nClassId, int nUnitType)
-{
-    if (nMode < 0)
-    {
-        return 1;
-    }
-
-    int nDirections = 1;
-    switch (nUnitType)
-    {
-    case 0:
-        if (!gdwGlobal_007A8928 && pUnit == sub_00463DD0())
-        {
-            nDirections = 16;
-        }
-        else
-        {
-            nDirections = 8;
-        }
-        break;
-
-    case 1:
-    {
-        D2MonStats2Txt* pMonStats2TxtRecord = UNITS_GetMonStats2TxtRecordFromMonsterId(nClassId);
-        if (pMonStats2TxtRecord)
-        {
-            nDirections = pMonStats2TxtRecord->nModeDirections[nMode];
-            if (nDirections == 8)
-            {
-                D2MonGfxCacheStrc* pCache = sub_0046F9D0_GetMonGfxCache(nClassId);
-                if (pCache && !pCache->nModeFlags[nMode])
-                {
-                    nDirections = 4;
-                }
-            }
-        }
-        break;
-    }
-
-    case 3:
-    {
-        D2MissilesTxt* pMissilesTxtRecord = DATATBLS_GetMissilesTxtRecord(nClassId);
-        if (pMissilesTxtRecord)
-        {
-            nDirections = pMissilesTxtRecord->nNumDirections;
-        }
-        break;
-    }
-
-    case 6:
-        nDirections = sub_004DAD50_GetOverlayDirections(nClassId);
-        break;
-    }
-
-    return nDirections;
-}
-
-static int UNITS_GetUnitTypeInline(D2UnitStrc* pUnit)
-{
-    if (!pUnit)
-    {
-        return 6;
-    }
-
-    return pUnit->dwUnitType;
-}
-
-static int UNITS_GetClassIdInline(D2UnitStrc* pUnit)
-{
-    if (!pUnit)
-    {
-        return -1;
-    }
-
-    return pUnit->dwClassId;
-}
-
-// 0x004DB1E0
-static void __stdcall sub_004DB1E0_SetDeathDirection(unsigned int nDirection, int bSet, D2UnitStrc* pUnit, int nDirCount, int nSrcDirCount)
-{
-    if (!bSet)
-    {
-        return;
-    }
-
-    int nUnitType = UNITS_GetUnitTypeInline(pUnit);
-    int nClassId = UNITS_GetClassIdInline(pUnit);
-    int nMode = UNITS_GetAnimOrSeqMode(pUnit);
-    D2COMMON_11013_ConvertMode(pUnit, &nUnitType, &nClassId, &nMode, ".\\ENGINE\\GfxUtil.cpp", 0x53C);
-    switch (nUnitType)
-    {
-    case 0:
-        if ((nMode == 0 || nMode == 17) && nDirCount != nSrcDirCount)
-        {
-            sub_006488A0_SetDirection(pUnit->pDynamicPath, nDirection);
-        }
-        break;
-
-    case 1:
-        if ((nMode == 0 || nMode == 12) && nDirCount != nSrcDirCount)
-        {
-            sub_006488A0_SetDirection(pUnit->pDynamicPath, nDirection);
-        }
-        break;
-    }
-}
-
-static void sub_004DB290_ConvertDirection(unsigned int* pDirection, int nDirCount, int nSrcDirCount)
-{
-    if (nSrcDirCount == 8)
-    {
-        if (nDirCount == 4)
-        {
-            *pDirection = (unsigned int)sub_00600CB0_ConvertDirection(*pDirection * 8 >> 6, 8, nDirCount, 0) * 64 / 8;
-        }
-    }
-    else if (nSrcDirCount == 16 && nDirCount == 8)
-    {
-        *pDirection = (unsigned int)sub_00600CB0_ConvertDirection(*pDirection * 16 >> 6, 16, nDirCount, 0) * 64 / 16;
-    }
-}
-
-void __fastcall sub_004DB2E0_GetUnitDirection(D2UnitStrc* pUnit, int nUnitType, int nClassId, int nMode, unsigned int* pDirection, int* pIndex, int* pDirCount, int nSrcDirCount, int bSet)
-{
-    if (*pDirection >= 64)
-    {
-        *pDirCount = 1;
-        *pIndex = 0;
-        return;
-    }
-
-    *pDirCount = sub_004DAF70_GetUnitModeDirections(pUnit, nMode, nClassId, nUnitType);
-    if (bSet)
-    {
-        sub_004DB290_ConvertDirection(pDirection, *pDirCount, nSrcDirCount);
-        sub_004DB1E0_SetDeathDirection(*pDirection, bSet, pUnit, *pDirCount, nSrcDirCount);
-    }
-
-    *pIndex = sub_00600E20_GetDirectionIndex64B(*pDirection, nSrcDirCount);
-}
-
-// 0x004DAE60
-int __fastcall sub_004DAE60_UnitSupportsMode(D2UnitStrc* pUnit, int nMode)
-{
-    if (nMode >= 16)
-    {
-        return 0;
-    }
-
-    int nCurrentMode;
-    int nUnitType;
-    int nClassId;
-
-    int nTypeValue = UNIT_INVALID;
-    if (pUnit)
-    {
-        nTypeValue = pUnit->dwUnitType;
-    }
-
-    nUnitType = nTypeValue;
-    const int nClassValue = !pUnit ? -1 : pUnit->dwClassId;
-    nClassId = nClassValue;
-    nCurrentMode = UNITS_GetAnimOrSeqMode(pUnit);
-    D2COMMON_11013_ConvertMode(pUnit, &nUnitType, &nClassId, &nCurrentMode, ".\\ENGINE\\GfxUtil.cpp", 603);
-
-    switch (nUnitType)
-    {
-    case UNIT_PLAYER:
-        switch (nMode)
-        {
-        case 0:
-        case 1:
-        case 2:
-        case 3:
-        case 4:
-        case 8:
-        case 9:
-            return 1;
-        }
-        break;
-
-    case UNIT_MONSTER:
-    {
-        D2MonStats2Txt* pMonStats2TxtRecord = UNITS_GetMonStats2TxtRecordFromMonsterId(nClassId);
-        if (pMonStats2TxtRecord && (pMonStats2TxtRecord->nModeFlags[nMode >> 3] & gdwBitMasks[nMode & 7]))
-        {
-            return 1;
-        }
-        break;
-    }
-
-    case UNIT_OBJECT:
-    {
-        D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(nClassId);
-        if (pObjectsTxtRecord && pObjectsTxtRecord->nModeEnabled[nMode] == 1)
-        {
-            return 1;
-        }
-        break;
-    }
-
-    case UNIT_ITEM:
-        if (nMode == 1)
-        {
-            return 1;
-        }
-        break;
-    }
-
-    return 0;
-}
-
-// 0x004DB040
-extern "C" void* __fastcall sub_004DB040_identity(void* pointer)
-{
-    return pointer;
-}
-
-extern "C" int __fastcall sub_004DB180_range(const int* record)
-{
-    if (record && *record >= 0 && *record <= 2)
-        return 1;
-    return 0;
-}
-
-extern "C" PartialTableRecord* __fastcall sub_004E4640_boundedTable(int index)
-{
-    if (index >= 0 && index < gTableView_00744304->count)
-        return &gTableView_00744304->records[index];
-    return gTableView_00744304->records;
-}
-
-// 0x004DB050
-int __fastcall sub_004DB050_GetCofLayerOverrideTransLvl(unsigned char* pData, int nComponent)
-{
-    int nResult = 0;
-    if (pData && nComponent < 0x10)
-    {
-        const D2CofDataStrc* pHeader = (const D2CofDataStrc*)pData;
-        pData += 0x1C;
-        for (int i = 0; i < pHeader->nLayers; ++i, pData += sizeof(D2CofLayerStrc))
-        {
-            if (((D2CofLayerStrc*)pData)->nComponent == nComponent)
-            {
-                nResult = ((D2CofLayerStrc*)pData)->nOverrideTransLvl;
-                break;
-            }
-        }
-    }
-    return nResult;
-}
-
-// 0x004DB090
-int __fastcall sub_004DB090_GetCofLayerShadow(void* pCof, int nComponent)
-{
-    int nResult = 0;
-    if (pCof && nComponent < 0x10)
-    {
-        const D2CofDataStrc* pHeader = (const D2CofDataStrc*)pCof;
-        pCof = ((D2CofDataStrc*)pCof)->pLayers;
-        for (int i = 0; i < pHeader->nLayers; ++i)
-        {
-            D2CofLayerStrc* pLayer = (D2CofLayerStrc*)pCof;
-            if (pLayer->nComponent == nComponent)
-            {
-                nResult = pLayer->bShadow;
-                break;
-            }
-            pCof = pLayer + 1;
-        }
-    }
-    return nResult;
-}
-
-// 0x004DB140
-int __fastcall sub_004DB140_GetCofLayerNewTransLvl(unsigned char* pData, int nComponent)
-{
-    if (!pData)
-    {
-        return 5;
-    }
-    if (nComponent >= 0x10)
-    {
-        return 5;
-    }
-    const D2CofDataStrc* pHeader = (const D2CofDataStrc*)pData;
-    pData += 0x1C;
-    for (int i = 0; i < pHeader->nLayers; ++i, pData += sizeof(D2CofLayerStrc))
-    {
-        if (((D2CofLayerStrc*)pData)->nComponent == nComponent)
-        {
-            return ((D2CofLayerStrc*)pData)->nNewTransLvl;
-        }
-    }
-    return 5;
-}
-
-// 0x004DB180
-int __fastcall sub_004DB180_IsGfxUnitType(D2UnitStrc* pUnit)
-{
-    if (pUnit && pUnit->dwUnitType >= 0 && pUnit->dwUnitType <= 2)
-    {
-        return 1;
-    }
-
-    return 0;
-}
-
-inline int STATES_IsUnitShapeShiftedInline(D2UnitStrc* pUnit)
-{
-    if (!pUnit)
-    {
-        return 0;
-    }
-
-    return (pUnit->dwFlagEx >> 3) & 1;
-}
-
-// 0x004DB360
-int __fastcall sub_004DB360_GetCompTransparency(D2UnitStrc* pUnit, int nComponent, int* pOut, int nItemId)
-{
-    const int nType = sub_0046D9F0_GetConvertedUnitType(pUnit);
-    switch (nType)
-    {
-    case 1:
-    {
-        const int nStat = STATLIST_UnitGetStatValue(pUnit, 0xB5, 0);
-        if (nStat <= 0)
-            break;
-        if (nStat > 0xF)
-        {
-            D2InventoryStrc* pInventory = pUnit->pInventory;
-            if (!pInventory)
-                return 0;
-            for (D2UnitStrc* pItem = INVENTORY_GetFirstItem(pInventory); pItem; pItem = INVENTORY_GetNextItem(pItem))
-            {
-                D2UnitStrc* pChecked = INVENTORY_UnitIsItem(pItem);
-                if (pChecked && sub_006280A0(pChecked, 0x400000, 0x5E6, (unsigned int)".\\ENGINE\\GfxUtil.cpp"))
-                {
-                    *pOut = 1;
-                    return 1;
-                }
-            }
-            return 0;
-        }
-        *pOut = 1;
-        return 1;
-    }
-    case 0:
-        if (STATLIST_UnitGetStatValue(pUnit, 0xB5, 0))
-        {
-            *pOut = 1;
-            return 1;
-        }
-        break;
-    }
-
-    if (nItemId != -1)
-    {
-        D2ItemsTxt* pTxt = DATATBLS_GetItemsTxtRecord(nItemId);
-        if (pTxt && pTxt->nTransparent)
-        {
-            *pOut = pTxt->nTransTbl;
-            return 1;
-        }
-    }
-
-    if (nType)
-        return 0;
-
-    D2InventoryStrc* pInventory;
-    D2UnitStrc* pOwner;
-    if (STATES_IsUnitShapeShiftedInline(pUnit) && STATES_CheckStateMaskOnUnit(pUnit, 0x25) && (pOwner = sub_004639D0_GetOwnerUnit(pUnit)) != 0)
-    {
-        pInventory = pOwner->pInventory;
-    }
-    else
-    {
-        pInventory = pUnit->pInventory;
-    }
-
-    if (!pInventory)
-        return 0;
-
-    switch (nComponent)
-    {
-    case 7:
-    {
-        D2UnitStrc* pItem = sub_0063C050_GetBodyLocItem(pInventory, 7);
-        if (pItem && sub_006280A0(pItem, 0x400000, 0x627, (unsigned int)".\\ENGINE\\GfxUtil.cpp"))
-        {
-            *pOut = 2;
-            return 1;
-        }
-        break;
-    }
-    case 6:
-    {
-        D2UnitStrc* pItem = sub_0063C050_GetBodyLocItem(pInventory, 6);
-        if (pItem && sub_006280A0(pItem, 0x400000, 0x61C, (unsigned int)".\\ENGINE\\GfxUtil.cpp"))
-        {
-            *pOut = 1;
-            return 1;
-        }
-        break;
-    }
-    case 5:
-    {
-        D2UnitStrc* pItem = sub_0063C050_GetBodyLocItem(pInventory, 5);
-        if (pItem && sub_006280A0(pItem, 0x400000, 0x611, (unsigned int)".\\ENGINE\\GfxUtil.cpp"))
-        {
-            *pOut = 1;
-            return 1;
-        }
-        break;
-    }
-    }
-
-    return 0;
 }

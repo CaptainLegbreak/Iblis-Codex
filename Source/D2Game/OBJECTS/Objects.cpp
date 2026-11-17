@@ -5,36 +5,9 @@
 #define OBJMODE_NEUTRAL 0
 #define OBJMODE_OPENED 2
 #define OBJECT_FLIES 103
-#define COLLIDE_MASK_PLACEMENT 0x3F11
-#define N0 0
-#define N1 1
-#define N2 2
-#define N3 3
-#define N4 4
-#define N5 5
-#define N8 8
-#define N10 10
-#define N12 12
-#define N16 16
-#define N18 18
-#define N20 20
-#define N30 30
-#define N32 32
-#define N59 59
-#define N84 84
-#define N100 100
-#define N108 108
-#define N148 148
-#define N180 180
-#define N196 196
-#define N573 573
-#define N716 716
-#define NNEG1 -1
-#define NRNG 0x6ac690c5u
 #define LEVEL_ROGUEENCAMPMENT 1
 #define EVENTTYPE_MODECHANGE 0
 #define EVENTTYPE_STATREGEN 3
-#define EVENTTYPE_PERIODICSKILLS 8
 #define OBJMODE_OPERATING 1
 #define OBJECTS_CONSTANT_00552AB0 2
 #define UNIT_LIST_SIZE 128
@@ -190,38 +163,15 @@ int __fastcall OBJECTS_RollRandomNumber(D2SeedStrc* pSeed, int nMin, int nMax); 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 D2ObjectControlStrc* __fastcall OBJRGN_GetObjectControlFromGame(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom); // 0x00546FA0
 void __stdcall UNITS_GetCoords(D2UnitStrc* pUnit, D2CoordStrc* pCoord); // 0x00620870
-int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc*); // 0x0061A1B0
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int); // 0x006427F0
-D2ObjectControlStrc* __fastcall OBJRGN_GetObjectControlFromGame(D2GameStrc*, D2ActiveRoomStrc*); // 0x00546FA0
-D2UnitStrc* __fastcall SUNIT_AllocUnitData(int, int, int, int, D2GameStrc*, D2ActiveRoomStrc*, char, int, unsigned int); // 0x00555230
 void __fastcall D2GAME_SetSparkChest_6FCBD7C0(D2UnitStrc*, unsigned char); // 0x005540A0
-int __stdcall UNITS_ChangeAnimMode(D2UnitStrc*, int); // 0x00624690
-extern "C" void __cdecl sub_00408A60(const char*, const char*, int); // 0x00408A60
-extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 int __fastcall ACT2Q6_GetObjectIdForArcaneThing(D2GameStrc* pGame); // 0x0059D830
 void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
-
-typedef unsigned int U32;
 
 struct Seed
 {
     U32 lo;
     U32 hi;
-};
-
-struct ObjectData
-{
-    U32 unused;
-    unsigned char interact;
-};
-
-struct Path
-{
-    U32 unused0;
-    U32 unused4;
-    U32 unused8;
-    int x;
-    int y;
 };
 
 struct Unit
@@ -244,43 +194,6 @@ struct Room
     Seed seed;
 };
 
-struct RoomBounds
-{
-    int a;
-    int b;
-    int c;
-    int d;
-    int e;
-    int f;
-    int g;
-    int h;
-};
-
-struct ObjectRecord
-{
-    char reserved0[N196];
-    unsigned char collisions[N12];
-    int sizeX;
-    int sizeY;
-    char reserved216[N100];
-    unsigned char placement;
-    char reserved317[N59];
-    int selection;
-    int subclass;
-};
-
-struct ShrineRecord
-{
-    char reserved0[N180];
-    U32 minimumLevel;
-};
-
-struct ShrineLists
-{
-    int counts[N8];
-    int* lists[N8];
-};
-
 struct InitContext
 {
     Game* game;
@@ -291,10 +204,6 @@ struct InitContext
     int x;
     int y;
 };
-
-extern "C" void __cdecl sub_00408A60(const char*,const char*,int); // 0x00408A60
-
-typedef unsigned char (__fastcall *Permit)(Game*,int,int,int);
 
 Unit* __stdcall sub_00550A30_Spawn(Game*,int,int,int,Room*,int,int,Permit); // 0x00550A30
 U32 __stdcall sub_0061A1B0_Level(Room*); // 0x0061A1B0
@@ -313,7 +222,6 @@ struct D2ObjectsTxt
 
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
-void __fastcall D2GAME_SetSparkChest_6FCBD7C0(D2UnitStrc* pUnit, unsigned char nSparkChest); // 0x005540A0
 void __fastcall OBJECTS_InitFunction02_Urn(D2ObjInitFnStrc* pOp); // 0x0054FBB0
 
 struct D2LvlWarpTxt
@@ -359,7 +267,6 @@ int __stdcall DUNGEON_GetTownLevelIdFromActNo(unsigned char nAct); // 0x0061AB70
 int __stdcall UNITS_GetUnitSizeX(D2UnitStrc* pUnit); // 0x00620510
 void __stdcall UNITS_BlockCollisionPath(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00620A70
 int __stdcall UNITS_GetCurrentLifePercentage(D2UnitStrc* pUnit); // 0x00621F20
-unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, int nUnitSize, unsigned int nMask, int bAllowNeighboringRooms); // 0x0064E7B0
 
 struct R0052E0F0

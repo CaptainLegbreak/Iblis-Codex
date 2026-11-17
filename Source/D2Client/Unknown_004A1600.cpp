@@ -1,8 +1,6 @@
 #include "D2Client.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define D2_LOWORD(l) ((unsigned short)((unsigned int)(l) & 0xFFFF))
-#define D2_HIWORD(l) ((unsigned short)(((unsigned int)(l) >> 16) & 0xFFFF))
 struct D2MessageListStrc;
 struct D2HoverTextPacketStrc;
 struct Unicode;
@@ -75,10 +73,6 @@ struct D2QuestTextMsgStrc
 };
 
 #pragma pack(pop)
-struct D2QuestTextsStrc
-{
-    unsigned short awIds[64];
-};
 
 struct D2QuestTableStrc
 {
@@ -89,12 +83,6 @@ struct D2QuestTableStrc
     D2QuestTextsStrc* pTexts;
     int nCondition;
     int nQuestId;
-};
-
-struct D2QuestPageRangeStrc
-{
-    int nFirst;
-    int nLast;
 };
 int __cdecl sub_0044DCC0(); // 0x0044DCC0
 void* __fastcall sub_004788B0_LoadCellFile(const char* szPath, int nFlags); // 0x004788B0
@@ -127,13 +115,6 @@ struct D2CelContextStrc
     int unk0x38[2];
     int nDirection;
     int unk0x44;
-};
-
-struct D2QuestPosStrc
-{
-    int nX;
-    int nY;
-    int unk0x08[2];
 };
 
 struct T0044CB60
@@ -230,15 +211,6 @@ struct D2QuestPanelEntryStrc
 };
 
 #pragma pack(pop)
-struct D2QuestSlotRectStrc
-{
-    int nX;
-    int nY;
-    int unk0x08;
-    int unk0x0C;
-};
-
-typedef int (__fastcall* D2TextCallback)(void* pContext, int nArg, int nValue);
 
 D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0

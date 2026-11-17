@@ -26,10 +26,6 @@ struct Unicode
     Unicode();
 };
 
-typedef int (__stdcall* D2LaunchCallback)(int nArg);
-
-typedef void (__cdecl* D2LaunchDoneFn)();
-
 void __fastcall sub_0042F540_ShowMessageBox(const Unicode* pTitle, const Unicode* pMessage, int nButton1StringId, int nButton2StringId, D2LaunchCallback pfnButton1, D2LaunchCallback pfnButton2, int bFlag1, int bFlag2); // 0x0042F540
 void __fastcall sub_00433450_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone); // 0x00433450
 void __cdecl sub_00435330_ShowLoginScreen(); // 0x00435330

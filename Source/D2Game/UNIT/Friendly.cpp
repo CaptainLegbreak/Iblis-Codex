@@ -17,7 +17,6 @@ void __fastcall PLAYERLIST_ToggleFlag(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D
 
 #define UNIT_PLAYER 0
 #define UNIT_INVALID 6
-#define PLAYERLIST_FLAG_HOSTILE 8
 
 // 0x005A6080
 int __fastcall FRIENDLY_RemoveHostility(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2)

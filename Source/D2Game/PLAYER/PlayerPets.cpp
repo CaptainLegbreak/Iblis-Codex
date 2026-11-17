@@ -1,7 +1,6 @@
 #include "D2Game.h"
 
 #define PETTYPE_SINGLE 1
-#define PETTYPE_HIREABLE 7
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_MONSTER 1
 struct D2PetDataStrc;
@@ -46,7 +45,7 @@ struct D2UnitStrc
     unsigned int dwFlagEx;
 };
 
-D2ClientStrc* __fastcall sub_005531C0_GetClient(D2UnitStrc* pUnit, const char* szFile, int nLine); // 0x005531C0
+D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pUnit, const char* szFile, int nLine); // 0x005531C0
 void __fastcall sub_0053CB30_SendPetUpdate(D2ClientStrc* pClient, unsigned char nFlag, int nParam, int nUnitId, int nClassId, unsigned short nPetType); // 0x0053CB30
 extern const char gszPlayerPets_006E15D8[]; // 0x006E15D8
 
@@ -124,7 +123,6 @@ struct D2PetArgStrc
     int nName;
     int unk0x18;
 };
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 void __fastcall D2GAME_PACKETS_SendPacket0x7A_6FC3E100(D2ClientStrc* pClient, char a2, int nPetType, int nPetGUID, int nUnitGUID, unsigned short nPetClass); // 0x0053CB30
 void __fastcall D2GAME_PACKETS_SendPacket0x81_6FC3E160(D2ClientStrc* pClient, char a2, int nPetType, int nPetGUID, int nUnitGUID, unsigned short nPetClass, int nSeed, int nName); // 0x0053CB80
 
@@ -206,7 +204,7 @@ D2UnitStrc* __fastcall sub_6FC7E8B0(D2GameStrc* pGame, D2UnitStrc* pPlayer, int 
 // 0x00574410
 void __fastcall sub_00574410_SendPetUpdate(D2GameStrc* pGame, D2UnitStrc* pUnit, D2PetUpdateStrc* pData)
 {
-    sub_0053CB30_SendPetUpdate(sub_005531C0_GetClient(pUnit, gszPlayerPets_006E15D8, 0x43), 0, pData->nParam, pData->nUnitId, pData->nClassId, pData->nPetType);
+    sub_0053CB30_SendPetUpdate(SUNIT_GetClientFromPlayer(pUnit, gszPlayerPets_006E15D8, 0x43), 0, pData->nParam, pData->nUnitId, pData->nClassId, pData->nPetType);
 }
 
 inline D2PetListStrc* PLAYERPETS_GetPetListFromPetType(D2PlayerPetStrc* pPlayerPets, int nPetType)

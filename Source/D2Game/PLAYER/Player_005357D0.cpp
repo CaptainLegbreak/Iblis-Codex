@@ -140,7 +140,6 @@ static void __stdcall sub_005357D0_ApplyDeathGoldLoss(D2GameStrc* pGame, D2UnitS
 struct D2DifficultyLevelsTxt { unsigned int dwResistPenalty; unsigned int dwDeathExpPenalty; };
 #define UNIT_PLAYER 0
 #define STAT_LEVEL 12
-#define STAT_EXPERIENCE 13
 D2DifficultyLevelsTxt* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int nDifficulty); // 0x00611D30
 int __stdcall DATATBLS_GetLevelThreshold(int nClass, int nLevel); // 0x00611800
 D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0

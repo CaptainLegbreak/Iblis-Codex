@@ -59,8 +59,6 @@ struct D2MissileUnitFindArgStrc
     D2UnitStrc* pOwner;
     D2MissilesTxt* pMissilesTxtRecord;
 };
-
-int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 int __fastcall sub_00554200(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00554200
 int __stdcall STATLIST_GetUnitAlignment(D2UnitStrc* pUnit); // 0x006259B0
 

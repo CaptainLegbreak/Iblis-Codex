@@ -1,7 +1,6 @@
 #include "D2Game.h"
 
 #define UNIT_MONSTER 1
-#define MONTYPEFLAG_SUPERUNIQUE 2
 struct D2MissilesTxt;
 struct D2GSPacketSrv73;
 struct D2MonUModTxt;
@@ -205,8 +204,6 @@ struct Unit005A0200 {
     unsigned int f_10;
     Data005A0200* pData;
 };
-
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
 
 __forceinline D2MissilesTxt* GetMissilesTxtRecord(int nId)

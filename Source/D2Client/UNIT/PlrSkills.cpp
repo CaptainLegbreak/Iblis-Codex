@@ -3,11 +3,12 @@
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
 #define UNIT_INVALID 6
-#define PLRMODE_SEQUENCE 18
-#define MONMODE_SEQUENCE 14
 #define STAT_MODIFIERLIST_SKILL 350
 #define COLLISION_PATTERN_SMALL_UNIT_PRESENCE 1
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
+#define STAT_UNIT_MODE 172
+#define ITEMSTATCOSTFLAGINDEX_UPDATEANIMRATE 9
+
 struct D2StaticPathStrc;
 struct D2SkillsTxt;
 struct D2SeedStrc;
@@ -15,6 +16,9 @@ struct D2StatesTxt;
 struct D2MissilesTxt;
 struct D2MonStats2Txt;
 struct D2MissileStrc;
+struct D2UnitStrc;
+struct D2DataTablesStrc;
+struct D2ItemStatCostTxt;
 
 struct D2SeedStrc
 {
@@ -83,7 +87,9 @@ struct D2DataTablesStrc
     int nSkillsTxtRecordCount;
     unsigned char unk_BA4[0x1C];
     int nOverlayTxtRecordCount;
-    char unk0xBC4[0xBD4 - 0xBC4];
+    unsigned char unk_BC4[0x8];
+    D2ItemStatCostTxt* pItemStatCostTxt;
+    int unk0xBD0;
     int nItemStatCostTxtRecordCount;
 };
 
@@ -140,7 +146,6 @@ int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 unsigned int __stdcall DATATBLS_Get1OfNFromOverlayTxt(int nOverlayId); // 0x00664740
 void __stdcall UNITS_StoreOwnerTypeAndGUID(D2UnitStrc* pUnit, int nOwnerType, int nOwnerId); // 0x00621CC0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
-extern unsigned int gdwBitMasks[]; // 0x006CE268
 D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
 void __fastcall sub_0046AE50_StartTimedBox(int nFadeIn, int nHold, int nFadeOut, int nLevelId, int bForce); // 0x0046AE50
 int __fastcall sub_004AA8B0_GetSkillMaxLevel(int nSkillId); // 0x004AA8B0
@@ -154,7 +159,6 @@ int __stdcall sub_K06_EmitGettier1(int nValue);
 void __stdcall sub_K06_EmitPuttier1(int nValue, int nOther);
 int __stdcall sub_K06_EmitGettier2(int nValue);
 void __stdcall sub_K06_EmitPuttier2(int nValue, int nOther);
-void __fastcall sub_00480E70_SetState(D2UnitStrc* pUnit, int nArg); // 0x00480E70
 void __fastcall sub_004BA790_ReleaseUnitSfx(void* pUnitSfx, D2UnitStrc* pUnit, int bForce); // 0x004BA790
 void* __fastcall sub_004CA900_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId); // 0x004CA900
 void __stdcall sub_004DA000_ResetGfxMotion(D2UnitStrc* pUnit); // 0x004DA000
@@ -209,7 +213,7 @@ struct D2MissileStrc
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern const unsigned char gnFrameDirections_006DBA08[8][9]; // 0x006DBA08
 extern const unsigned char gnBaseDirections_006DBA50[8]; // 0x006DBA50
-int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit); // 0x0045ADF0
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
 int __fastcall sub_004638A0_CheckMonStats2Flag(int nMonsterId, int nFlag); // 0x004638A0
@@ -230,6 +234,19 @@ int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc* pDynamicPath)
 int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pDynamicPath); // 0x00648A10
 void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int a4); // 0x00649EF0
 void __stdcall MISSILE_SetTargetX(D2UnitStrc* pMissile, int nTargetX); // 0x0064A710
+
+struct D2ItemStatCostTxt
+{
+    unsigned short wStatId;
+    unsigned short pad0x02;
+    unsigned char nItemStatFlags[4];
+    char unk0x08[0x13C];
+};
+
+void __fastcall sub_00463C00_OnModeChange(D2UnitStrc* pUnit, unsigned char nOldMode, int nNewMode); // 0x00463C00
+D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
+void __stdcall STATLIST_SetState(D2StatListStrc* pStatList, int nState); // 0x006252D0
+void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
 
 static __declspec(noinline) int sub_004D84C0_IsInSequenceMode(D2UnitStrc* pUnit)
 {
@@ -345,6 +362,212 @@ static __declspec(noinline) void __stdcall sub_004D8660_OverlayVariants(D2UnitSt
     }
 }
 
+// 0x004D86A0
+void __fastcall sub_004D86A0_StatePrgOverlayLevel(D2UnitStrc* pUnit, int nState)
+{
+    if (nState < 0 || nState >= sgptDataTables->nStatesTxtRecordCount)
+    {
+        return;
+    }
+
+    D2StatesTxt* pStatesTxt = &sgptDataTables->pStatesTxt[nState];
+    if (!pStatesTxt || !(pStatesTxt->nStateFlags[0] & gdwBitMasks_006CE268[4]))
+    {
+        return;
+    }
+
+    if (pStatesTxt->wPrgOverlay <= 0 || pStatesTxt->wPrgOverlay >= sgptDataTables->nOverlayTxtRecordCount
+        || pStatesTxt->wStat < 0 || pStatesTxt->wStat > sgptDataTables->nItemStatCostTxtRecordCount)
+    {
+        return;
+    }
+
+    for (int i = 0; i < 3; ++i)
+    {
+        sub_0046F0C0(pUnit, 0, pStatesTxt->wPrgOverlay + i);
+    }
+
+    const int nLevel = STATLIST_UnitGetStatValue(pUnit, pStatesTxt->wStat, 0);
+    if (nLevel >= 1 && nLevel <= 3)
+    {
+        sub_00470390(pUnit, pStatesTxt->wPrgOverlay + nLevel - 1, 3, 0, 0, 0, 0, 0);
+    }
+}
+
+// 0x004D8760
+void __fastcall sub_004D8760_StatePrgOverlays(D2UnitStrc* pUnit, int nState)
+{
+    if (nState < 0 || nState >= sgptDataTables->nStatesTxtRecordCount)
+    {
+        return;
+    }
+
+    D2StatesTxt* pStatesTxt = &sgptDataTables->pStatesTxt[nState];
+    if (!pStatesTxt || !(pStatesTxt->nStateFlags[0] & gdwBitMasks_006CE268[4]))
+    {
+        return;
+    }
+
+    if (pStatesTxt->wPrgOverlay <= 0 || pStatesTxt->wPrgOverlay >= sgptDataTables->nOverlayTxtRecordCount
+        || pStatesTxt->wStat < 0 || pStatesTxt->wStat > sgptDataTables->nItemStatCostTxtRecordCount)
+    {
+        return;
+    }
+
+    for (int i = 0; i < 3; ++i)
+    {
+        sub_0046F0C0(pUnit, 0, pStatesTxt->wPrgOverlay + i);
+    }
+}
+
+inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int nSkillId)
+{
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+    {
+        return &sgptDataTables->pSkillsTxt[nSkillId];
+    }
+
+    return 0;
+}
+
+// 0x004D87E0
+void __fastcall sub_004D87E0_StateAuraEffect(D2UnitStrc* pUnit, int nState)
+{
+    int nLevel;
+    D2StatListStrc* pStatList;
+    int nSkillId;
+
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    if (!pRoom)
+    {
+        return;
+    }
+
+    pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, nState);
+    if (!pStatList)
+    {
+        return;
+    }
+
+    nSkillId = STATLIST_GetStatValue(pStatList, 0x15E, 0);
+    nLevel = STATLIST_GetStatValue(pStatList, 0x15F, 0);
+    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return;
+    }
+
+    int nValue = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraLenCalc, nSkillId, nLevel);
+    const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
+    sub_0046AE50_StartTimedBox(5, nValue * 3 / 5, nValue * 2 / 5, nLevelId, 0);
+}
+
+// 0x004D88A0
+void __fastcall sub_004D88A0_StateSkillLevel(D2UnitStrc* pUnit, int nState)
+{
+    int nLevel;
+    D2StatListStrc* pStatList;
+    int nSkillId;
+
+    if (pUnit == sub_00463DD0())
+    {
+        return;
+    }
+
+    pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, nState);
+    if (!pStatList)
+    {
+        return;
+    }
+
+    nSkillId = STATLIST_GetStatValue(pStatList, 0x15E, 0);
+    nLevel = STATLIST_GetStatValue(pStatList, 0x15F, 0);
+    D2SkillStrc* pSkill = SKILLS_GetSkillById(pUnit, nSkillId, -1);
+    int nCurrent = pSkill ? SKILLS_GetSkillLevel(pUnit, pSkill, 1) : 0;
+    if (nCurrent == nLevel)
+    {
+        return;
+    }
+
+    int nMax = sub_004AA8B0_GetSkillMaxLevel(nSkillId);
+    if (nLevel > nMax)
+    {
+        SKILLS_AssignSkill(pUnit, nSkillId, nMax, 0, ".\\UNIT\\PlrSkills.cpp", 0x11B);
+        sub_00647AA0_SetSkillBonusLevel(pUnit, nSkillId, nLevel - nMax);
+    }
+    else
+    {
+        SKILLS_AssignSkill(pUnit, nSkillId, nLevel, 0, ".\\UNIT\\PlrSkills.cpp", 0x120);
+    }
+}
+
+// 0x004D8960
+void __fastcall sub_004D8960_StateStoreOwner(D2UnitStrc* pUnit, int nState)
+{
+    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, nState);
+    if (pStatList)
+    {
+        unsigned int nOwnerType = STATLIST_GetStatValue(pStatList, 0x161, 0);
+        if (nOwnerType < 6)
+        {
+            UNITS_StoreOwnerTypeAndGUID(pUnit, nOwnerType, STATLIST_GetStatValue(pStatList, 0x162, 0));
+        }
+    }
+}
+
+// 0x004D89A0
+void __fastcall sub_004D89A0_StateClearOwner(D2UnitStrc* pUnit, int nState)
+{
+    UNITS_StoreOwner(pUnit, 0);
+}
+
+// 0x004D89B0
+void __fastcall sub_004D89B0_ApplyStateMonster(D2UnitStrc* pUnit, int nState)
+{
+    const int nUnitType = pUnit ? pUnit->dwUnitType : 6;
+    if (nUnitType != 1)
+    {
+        return;
+    }
+
+    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, nState);
+    if (!pStatList)
+    {
+        return;
+    }
+
+    const int nValue = STATLIST_GetStatValue(pStatList, 0x163, 0);
+    const int nMode = pUnit->dwAnimMode;
+    sub_004AEDD0(pUnit, nValue);
+    if (nMode == 8)
+    {
+        sub_00480E70_SetUnitMode(pUnit, 8);
+    }
+    else
+    {
+        sub_00480E70_SetUnitMode(pUnit, 1);
+    }
+
+    if (nValue == 0x21F)
+    {
+        D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
+        D2Common_10216(pPath, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit) + 10, 1);
+    }
+}
+
+// 0x004D8A30
+static int __stdcall sub_004D8A30_GetThirdsTier(int nValue, int nTotal)
+{
+    const int nThird = nTotal / 3;
+    const int nTwoThirds = 2 * nThird;
+    int nTier = 3;
+    if (nValue < nThird)
+        nTier = 2;
+    if (nValue < nTwoThirds)
+        nTier -= 1;
+    return nTier;
+}
+
 // 0x004D8A60
 void __fastcall sub_004D8A60_StateOverlays(D2UnitStrc* pUnit, int nState)
 {
@@ -432,6 +655,26 @@ void __fastcall sub_004D8B90_StateTier4(D2UnitStrc* pUnit, int nState)
     }
 }
 
+void __stdcall sub_K06_Emittier1(int a, int b)
+{
+    const int v = sub_K06_EmitGettier1(a);
+    const int t = sub_K06_EmitGettier1(b);
+    sub_K06_EmitPuttier1(sub_004D8A30_GetThirdsTier(v, t), v);
+}
+
+// 0x004D8D60
+static int __stdcall sub_004D8D60_GetThirdsTier(int nValue, int nTotal)
+{
+    const int nThird = nTotal / 3;
+    const int nTwoThirds = 2 * nThird;
+    int nTier = 3;
+    if (nValue < nThird)
+        nTier = 2;
+    if (nValue < nTwoThirds)
+        nTier -= 1;
+    return nTier;
+}
+
 // 0x004D8D90
 void __fastcall sub_004D8D90_StateOverlayPairs(D2UnitStrc* pUnit, int nState)
 {
@@ -513,6 +756,361 @@ void __fastcall sub_004D8E60_StateTier3(D2UnitStrc* pUnit, int nState)
         {
             sub_004D8660_OverlayVariants(pUnit, nOverlay1);
             sub_004D8660_OverlayVariants(pUnit, nOverlay1 + 1);
+        }
+    }
+}
+
+void __stdcall sub_K06_Emittier2(int a, int b)
+{
+    const int v = sub_K06_EmitGettier2(a);
+    const int t = sub_K06_EmitGettier2(b);
+    sub_K06_EmitPuttier2(sub_004D8D60_GetThirdsTier(v, t), v);
+}
+
+inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecordStd(int nSkillId)
+{
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+    {
+        return &sgptDataTables->pSkillsTxt[nSkillId];
+    }
+
+    return 0;
+}
+
+inline D2StatesTxt* DATATBLS_GetStatesTxtRecordInline(int nStateId)
+{
+    if (nStateId >= 0 && nStateId < sgptDataTables->nStatesTxtRecordCount)
+    {
+        return &sgptDataTables->pStatesTxt[nStateId];
+    }
+
+    return 0;
+}
+
+// 0x004D9090
+void __fastcall sub_004D9090_StatePlaySkillSound(D2UnitStrc* pUnit, int nState)
+{
+    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, nState);
+    if (!pStatList)
+    {
+        return;
+    }
+
+    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecordStd(STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0));
+    if (pSkillsTxtRecord && pSkillsTxtRecord->wPrgSound > 0)
+    {
+        sub_004B9A00(pSkillsTxtRecord->wPrgSound, pUnit, 0, 0, 0);
+    }
+}
+
+// 0x004D90F0
+void __fastcall sub_004D90F0_StateStopSkillSound(D2UnitStrc* pUnit, int nState)
+{
+    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, nState);
+    if (!pStatList)
+    {
+        return;
+    }
+
+    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecordStd(STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0));
+    if (pSkillsTxtRecord && pSkillsTxtRecord->wPrgSound > 0)
+    {
+        void* pUnitSfx = sub_004CA900_FindUnitSfxInRange(pUnit, pSkillsTxtRecord->wPrgSound);
+        if (pUnitSfx)
+        {
+            sub_004BA790_ReleaseUnitSfx(pUnitSfx, pUnit, 1);
+        }
+    }
+}
+
+// 0x004D9260
+void __fastcall sub_004D9260_StateClearCollision(D2UnitStrc* pUnit, int nState)
+{
+    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
+    if (nType != UNIT_MONSTER)
+    {
+        return;
+    }
+
+    D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
+    if (!pSkill || SKILLS_GetSkillIdFromSkill(pSkill, ".\\UNIT\\PlrSkills.cpp", 759) != 167)
+    {
+        return;
+    }
+
+    int nX = SKILLS_GetParam2(pSkill);
+    int nY = SKILLS_GetParam3(pSkill);
+    if (!nX && !nY)
+    {
+        return;
+    }
+
+    SKILLS_SetParam2(pSkill, 0);
+    SKILLS_SetParam3(pSkill, 0);
+    if (D2GAME_GetRoom_6FC52070(UNITS_GetRoom(pUnit), nX, nY))
+    {
+        D2ActiveRoomStrc* pRoom = D2GAME_GetRoom_6FC52070(UNITS_GetRoom(pUnit), nX, nY);
+        COLLISION_ResetMaskWithPattern(pRoom, nX, nY, COLLISION_PATTERN_SMALL_UNIT_PRESENCE, 0x100);
+    }
+}
+
+// 0x004D9310
+void __fastcall sub_004D9310_SetStateFlagEx(D2UnitStrc* pUnit, int nState)
+{
+    if (pUnit)
+    {
+        pUnit->dwFlagEx |= 0x40000;
+    }
+}
+
+// 0x004D9320
+void __fastcall sub_004D9320_SetStateFlags(D2UnitStrc* pUnit, int nState)
+{
+    if (pUnit)
+    {
+        pUnit->dwFlagEx |= 0x40000;
+        pUnit->dwFlags |= 0x20;
+    }
+}
+
+// 0x004D9340
+void __fastcall sub_004D9340_ClearStateFlags(D2UnitStrc* pUnit, int nState)
+{
+    if (pUnit)
+    {
+        pUnit->dwFlagEx &= ~0x40000;
+        pUnit->dwFlags &= ~0x20;
+    }
+}
+
+// 0x004D9360
+void __fastcall sub_004D9360_ResetGfxMotion(D2UnitStrc* pUnit, int nState)
+{
+    sub_004DA000_ResetGfxMotion(pUnit);
+    sub_004DA620(pUnit, 1);
+}
+
+// 0x004D9380
+void __fastcall sub_004D9380_ClearMotion(D2UnitStrc* pUnit, int nState)
+{
+    sub_004DA620(pUnit, 0);
+    sub_004DA1D0_SetMotionVectorA(pUnit, 0, 0, 0);
+}
+
+// 0x004D93A0
+void __fastcall sub_004D93A0_StateEndRequests(D2UnitStrc* pUnit, int nState)
+{
+    sub_004ADCE0_StateRequests(pUnit);
+}
+
+// 0x004D9450
+void __fastcall sub_004D9450_StateSetMode(D2UnitStrc* pUnit, int nState)
+{
+    sub_00480E70_SetUnitMode(pUnit, 1);
+    if (pUnit)
+    {
+        pUnit->dwFlags |= 0x80000000;
+    }
+    D2Common_10214(pUnit);
+}
+
+inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
+{
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+    {
+        return &sgptDataTables->pSkillsTxt[nSkillId];
+    }
+
+    return 0;
+}
+
+// 0x004D9480
+void __fastcall sub_004D9480_StateOverlaySpread(D2UnitStrc* pUnit, int nState)
+{
+    D2StatesTxt* pStatesTxtRecord = DATATBLS_GetStatesTxtRecordInline(nState);
+    if (!pStatesTxtRecord)
+    {
+        return;
+    }
+
+    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, nState);
+    if (!pStatList)
+    {
+        return;
+    }
+
+    int nSelect = STATLIST_GetStatValue(pStatList, 0xA9, 0);
+    int nSkillId = STATLIST_GetStatValue(pStatList, 0x15E, 0);
+    int nSkillLevel = STATLIST_GetStatValue(pStatList, 0x15F, 0);
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return;
+    }
+
+    int nCount = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[1], nSkillId, nSkillLevel);
+    if (nCount <= 0)
+    {
+        return;
+    }
+
+    int nEnd = pStatesTxtRecord->wOverlay[1];
+    int nStart = pStatesTxtRecord->wOverlay[0];
+    nCount = D2_MIN(nCount, nEnd - nStart + 1);
+    nSelect = D2_MIN(nSelect, nEnd - nStart + 1);
+    if (nStart >= 0 && nEnd >= nStart)
+    {
+        int nIndex = (nSelect - 1) * (nEnd - nStart + 1) / nCount;
+        for (int i = 0; i < nEnd - nStart + 1; ++i)
+        {
+            if (i != nIndex)
+            {
+                sub_0046F0C0(pUnit, 0, nStart + i);
+            }
+            else if (!sub_0046E100(pUnit, nStart + i))
+            {
+                sub_00470390(pUnit, nStart + i, 3, 0, 0, 0, 0, 0);
+            }
+        }
+    }
+
+    nStart = pStatesTxtRecord->wOverlay[2];
+    nEnd = pStatesTxtRecord->wOverlay[3];
+    if (nStart >= 0 && nEnd >= nStart)
+    {
+        int nRange = nEnd - nStart + 1;
+        int nIndex = (nSelect - 1) * nRange / nCount;
+        for (int i = 0; i < nRange; ++i, ++nStart)
+        {
+            if (i != nIndex)
+            {
+                sub_0046F0C0(pUnit, 0, nStart);
+            }
+            else if (!sub_0046E100(pUnit, nStart))
+            {
+                sub_00470390(pUnit, nStart, 3, 0, 0, 0, 0, 0);
+            }
+        }
+    }
+}
+
+#include "gen/data/Source/D2Client/UNIT/PlrSkills.inc"
+
+static D2StatesTxt* STATES_GetStatesTxtRecord_J03(int nState)
+{
+    if (nState >= 0 && nState < sgptDataTables->nStatesTxtRecordCount)
+    {
+        return &sgptDataTables->pStatesTxt[nState];
+    }
+
+    return 0;
+}
+
+// 0x004D9740
+void __fastcall sub_004D9740_StateCreateMissile(D2UnitStrc* pUnit, int nState)
+{
+    sub_004AF890(pUnit, 5, 0);
+
+    D2StatesTxt* pStatesTxt = STATES_GetStatesTxtRecord_J03(nState);
+    if (!pStatesTxt)
+    {
+        return;
+    }
+
+    if (pStatesTxt->wMissile < 0 || pStatesTxt->wMissile >= sgptDataTables->nMissilesTxtRecordCount)
+    {
+        return;
+    }
+
+    D2MissileStrc tMissile;
+    memset(&tMissile, 0, sizeof(tMissile));
+    tMissile.pOwner = pUnit;
+    tMissile.pOrigin = pUnit;
+    tMissile.nMissile = pStatesTxt->wMissile;
+    tMissile.nSkill = pStatesTxt->wSkill >= 0 ? pStatesTxt->wSkill : 0;
+    tMissile.nSkillLevel = 1;
+    sub_004CD540_CreateMissile(&tMissile);
+}
+
+// 0x004D97E0
+void __fastcall sub_004D97E0_StateResetValue(D2UnitStrc* pUnit, int nState)
+{
+    sub_0044CE40(0);
+}
+
+// 0x004D9920
+void __fastcall sub_004D9920_StartStateOverlays(D2UnitStrc* pUnit, int nState)
+{
+    D2StatesTxt* pStatesTxtRecord = DATATBLS_GetStatesTxtRecordInline(nState);
+    if (!pStatesTxtRecord || (pStatesTxtRecord->nStateFlags[4] & gdwBitMasks_006CE268[3]))
+    {
+        return;
+    }
+
+    int nCastOverlay = pStatesTxtRecord->wCastOverlay >= 0 ? pStatesTxtRecord->wCastOverlay : -1;
+    int nOverlay1 = pStatesTxtRecord->wOverlay[0] >= 0 ? pStatesTxtRecord->wOverlay[0] : -1;
+    int nOverlay2 = pStatesTxtRecord->wOverlay[1] >= 0 ? pStatesTxtRecord->wOverlay[1] : -1;
+    const int bMask = sub_0063A210_StateMaskTest(nState);
+
+    if (nCastOverlay != -1)
+    {
+        nCastOverlay += ITEMS_RollLimitedRandomNumber(&pUnit->tSeed, DATATBLS_Get1OfNFromOverlayTxt(nCastOverlay));
+    }
+
+    if (nOverlay1 != -1)
+    {
+        nOverlay1 += ITEMS_RollLimitedRandomNumber(&pUnit->tSeed, DATATBLS_Get1OfNFromOverlayTxt(nOverlay1));
+    }
+
+    if (nOverlay2 != -1)
+    {
+        nOverlay2 += ITEMS_RollLimitedRandomNumber(&pUnit->tSeed, DATATBLS_Get1OfNFromOverlayTxt(nOverlay2));
+    }
+
+    if (bMask)
+    {
+        STATES_ToggleState(pUnit, nState, 0);
+        if (sub_0063A250(pUnit))
+        {
+            nCastOverlay = -1;
+        }
+        STATES_ToggleState(pUnit, nState, 1);
+    }
+
+    if (nCastOverlay != -1)
+    {
+        if (bMask)
+        {
+            sub_00470390(pUnit, nCastOverlay, 9, 0, nOverlay1, nOverlay2, nState, 0);
+        }
+        else
+        {
+            sub_00470390(pUnit, nCastOverlay, 4, 0, nOverlay1, nOverlay2, 0, 0);
+        }
+        return;
+    }
+
+    if (nOverlay1 != -1)
+    {
+        if (bMask)
+        {
+            sub_00470390(pUnit, nOverlay1, 8, 0, nState, 0, 0, 0);
+        }
+        else
+        {
+            sub_00470390(pUnit, nOverlay1, 3, 0, 0, 0, 0, 0);
+        }
+    }
+
+    if (nOverlay2 != -1)
+    {
+        if (bMask)
+        {
+            sub_00470390(pUnit, nOverlay2, 8, 0, nState, 0, 0, 0);
+        }
+        else
+        {
+            sub_00470390(pUnit, nOverlay2, 3, 0, 0, 0, 0, 0);
         }
     }
 }
@@ -643,513 +1241,59 @@ void __fastcall sub_004D9C30_EndState(D2UnitStrc* pUnit, int nState)
     UNITS_UpdateAnimRateAndVelocity(pUnit, ".\\UNIT\\PlrSkills.cpp", 0x59C);
 }
 
-// 0x004D86A0
-void __fastcall sub_004D86A0_StatePrgOverlayLevel(D2UnitStrc* pUnit, int nState)
+inline D2ItemStatCostTxt* DATATBLS_GetItemStatCostTxtRecordInline(int nStatId)
 {
-    if (nState < 0 || nState >= sgptDataTables->nStatesTxtRecordCount)
+    if (nStatId >= 0 && nStatId < sgptDataTables->nItemStatCostTxtRecordCount)
     {
-        return;
-    }
-
-    D2StatesTxt* pStatesTxt = &sgptDataTables->pStatesTxt[nState];
-    if (!pStatesTxt || !(pStatesTxt->nStateFlags[0] & gdwBitMasks[4]))
-    {
-        return;
-    }
-
-    if (pStatesTxt->wPrgOverlay <= 0 || pStatesTxt->wPrgOverlay >= sgptDataTables->nOverlayTxtRecordCount
-        || pStatesTxt->wStat < 0 || pStatesTxt->wStat > sgptDataTables->nItemStatCostTxtRecordCount)
-    {
-        return;
-    }
-
-    for (int i = 0; i < 3; ++i)
-    {
-        sub_0046F0C0(pUnit, 0, pStatesTxt->wPrgOverlay + i);
-    }
-
-    const int nLevel = STATLIST_UnitGetStatValue(pUnit, pStatesTxt->wStat, 0);
-    if (nLevel >= 1 && nLevel <= 3)
-    {
-        sub_00470390(pUnit, pStatesTxt->wPrgOverlay + nLevel - 1, 3, 0, 0, 0, 0, 0);
-    }
-}
-
-// 0x004D8760
-void __fastcall sub_004D8760_StatePrgOverlays(D2UnitStrc* pUnit, int nState)
-{
-    if (nState < 0 || nState >= sgptDataTables->nStatesTxtRecordCount)
-    {
-        return;
-    }
-
-    D2StatesTxt* pStatesTxt = &sgptDataTables->pStatesTxt[nState];
-    if (!pStatesTxt || !(pStatesTxt->nStateFlags[0] & gdwBitMasks[4]))
-    {
-        return;
-    }
-
-    if (pStatesTxt->wPrgOverlay <= 0 || pStatesTxt->wPrgOverlay >= sgptDataTables->nOverlayTxtRecordCount
-        || pStatesTxt->wStat < 0 || pStatesTxt->wStat > sgptDataTables->nItemStatCostTxtRecordCount)
-    {
-        return;
-    }
-
-    for (int i = 0; i < 3; ++i)
-    {
-        sub_0046F0C0(pUnit, 0, pStatesTxt->wPrgOverlay + i);
-    }
-}
-
-// 0x004D8960
-void __fastcall sub_004D8960_StateStoreOwner(D2UnitStrc* pUnit, int nState)
-{
-    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, nState);
-    if (pStatList)
-    {
-        unsigned int nOwnerType = STATLIST_GetStatValue(pStatList, 0x161, 0);
-        if (nOwnerType < 6)
-        {
-            UNITS_StoreOwnerTypeAndGUID(pUnit, nOwnerType, STATLIST_GetStatValue(pStatList, 0x162, 0));
-        }
-    }
-}
-
-// 0x004D89A0
-void __fastcall sub_004D89A0_StateClearOwner(D2UnitStrc* pUnit, int nState)
-{
-    UNITS_StoreOwner(pUnit, 0);
-}
-
-inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int nSkillId)
-{
-    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
-    {
-        return &sgptDataTables->pSkillsTxt[nSkillId];
+        return &sgptDataTables->pItemStatCostTxt[nStatId];
     }
 
     return 0;
 }
 
-// 0x004D87E0
-void __fastcall sub_004D87E0_StateAuraEffect(D2UnitStrc* pUnit, int nState)
+// 0x004D9D70
+D2StatListStrc* __fastcall sub_004D9D70_SetStateStat(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int nState, int nStatId, int nValue, int nLayer)
 {
-    int nLevel;
-    D2StatListStrc* pStatList;
-    int nSkillId;
-
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    if (!pRoom)
+    if (!pUnit)
     {
-        return;
+        return 0;
     }
 
-    pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, nState);
+    int nOldValue = 0;
+    if (nStatId == STAT_UNIT_MODE)
+    {
+        nOldValue = 4;
+    }
+
     if (!pStatList)
     {
-        return;
-    }
-
-    nSkillId = STATLIST_GetStatValue(pStatList, 0x15E, 0);
-    nLevel = STATLIST_GetStatValue(pStatList, 0x15F, 0);
-    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return;
-    }
-
-    int nValue = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraLenCalc, nSkillId, nLevel);
-    const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
-    sub_0046AE50_StartTimedBox(5, nValue * 3 / 5, nValue * 2 / 5, nLevelId, 0);
-}
-
-// 0x004D88A0
-void __fastcall sub_004D88A0_StateSkillLevel(D2UnitStrc* pUnit, int nState)
-{
-    int nLevel;
-    D2StatListStrc* pStatList;
-    int nSkillId;
-
-    if (pUnit == sub_00463DD0())
-    {
-        return;
-    }
-
-    pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, nState);
-    if (!pStatList)
-    {
-        return;
-    }
-
-    nSkillId = STATLIST_GetStatValue(pStatList, 0x15E, 0);
-    nLevel = STATLIST_GetStatValue(pStatList, 0x15F, 0);
-    D2SkillStrc* pSkill = SKILLS_GetSkillById(pUnit, nSkillId, -1);
-    int nCurrent = pSkill ? SKILLS_GetSkillLevel(pUnit, pSkill, 1) : 0;
-    if (nCurrent == nLevel)
-    {
-        return;
-    }
-
-    int nMax = sub_004AA8B0_GetSkillMaxLevel(nSkillId);
-    if (nLevel > nMax)
-    {
-        SKILLS_AssignSkill(pUnit, nSkillId, nMax, 0, ".\\UNIT\\PlrSkills.cpp", 0x11B);
-        sub_00647AA0_SetSkillBonusLevel(pUnit, nSkillId, nLevel - nMax);
-    }
-    else
-    {
-        SKILLS_AssignSkill(pUnit, nSkillId, nLevel, 0, ".\\UNIT\\PlrSkills.cpp", 0x120);
-    }
-}
-
-// 0x004D8A30
-static int __stdcall sub_004D8A30_GetThirdsTier(int nValue, int nTotal)
-{
-    const int nThird = nTotal / 3;
-    const int nTwoThirds = 2 * nThird;
-    int nTier = 3;
-    if (nValue < nThird)
-        nTier = 2;
-    if (nValue < nTwoThirds)
-        nTier -= 1;
-    return nTier;
-}
-
-void __stdcall sub_K06_Emittier1(int a, int b)
-{
-    const int v = sub_K06_EmitGettier1(a);
-    const int t = sub_K06_EmitGettier1(b);
-    sub_K06_EmitPuttier1(sub_004D8A30_GetThirdsTier(v, t), v);
-}
-
-// 0x004D8D60
-static int __stdcall sub_004D8D60_GetThirdsTier(int nValue, int nTotal)
-{
-    const int nThird = nTotal / 3;
-    const int nTwoThirds = 2 * nThird;
-    int nTier = 3;
-    if (nValue < nThird)
-        nTier = 2;
-    if (nValue < nTwoThirds)
-        nTier -= 1;
-    return nTier;
-}
-
-void __stdcall sub_K06_Emittier2(int a, int b)
-{
-    const int v = sub_K06_EmitGettier2(a);
-    const int t = sub_K06_EmitGettier2(b);
-    sub_K06_EmitPuttier2(sub_004D8D60_GetThirdsTier(v, t), v);
-}
-
-inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecordStd(int nSkillId)
-{
-    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
-    {
-        return &sgptDataTables->pSkillsTxt[nSkillId];
-    }
-
-    return 0;
-}
-
-inline D2StatesTxt* DATATBLS_GetStatesTxtRecordInline(int nStateId)
-{
-    if (nStateId >= 0 && nStateId < sgptDataTables->nStatesTxtRecordCount)
-    {
-        return &sgptDataTables->pStatesTxt[nStateId];
-    }
-
-    return 0;
-}
-
-// 0x004D9090
-void __fastcall sub_004D9090_StatePlaySkillSound(D2UnitStrc* pUnit, int nState)
-{
-    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, nState);
-    if (!pStatList)
-    {
-        return;
-    }
-
-    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecordStd(STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0));
-    if (pSkillsTxtRecord && pSkillsTxtRecord->wPrgSound > 0)
-    {
-        sub_004B9A00(pSkillsTxtRecord->wPrgSound, pUnit, 0, 0, 0);
-    }
-}
-
-// 0x004D90F0
-void __fastcall sub_004D90F0_StateStopSkillSound(D2UnitStrc* pUnit, int nState)
-{
-    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, nState);
-    if (!pStatList)
-    {
-        return;
-    }
-
-    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecordStd(STATLIST_GetStatValue(pStatList, STAT_MODIFIERLIST_SKILL, 0));
-    if (pSkillsTxtRecord && pSkillsTxtRecord->wPrgSound > 0)
-    {
-        void* pUnitSfx = sub_004CA900_FindUnitSfxInRange(pUnit, pSkillsTxtRecord->wPrgSound);
-        if (pUnitSfx)
+        pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, nState);
+        if (!pStatList)
         {
-            sub_004BA790_ReleaseUnitSfx(pUnitSfx, pUnit, 1);
-        }
-    }
-}
-
-// 0x004D9310
-void __fastcall sub_004D9310_SetStateFlagEx(D2UnitStrc* pUnit, int nState)
-{
-    if (pUnit)
-    {
-        pUnit->dwFlagEx |= 0x40000;
-    }
-}
-
-// 0x004D9320
-void __fastcall sub_004D9320_SetStateFlags(D2UnitStrc* pUnit, int nState)
-{
-    if (pUnit)
-    {
-        pUnit->dwFlagEx |= 0x40000;
-        pUnit->dwFlags |= 0x20;
-    }
-}
-
-// 0x004D9340
-void __fastcall sub_004D9340_ClearStateFlags(D2UnitStrc* pUnit, int nState)
-{
-    if (pUnit)
-    {
-        pUnit->dwFlagEx &= ~0x40000;
-        pUnit->dwFlags &= ~0x20;
-    }
-}
-
-// 0x004D9360
-void __fastcall sub_004D9360_ResetGfxMotion(D2UnitStrc* pUnit, int nState)
-{
-    sub_004DA000_ResetGfxMotion(pUnit);
-    sub_004DA620(pUnit, 1);
-}
-
-// 0x004D9380
-void __fastcall sub_004D9380_ClearMotion(D2UnitStrc* pUnit, int nState)
-{
-    sub_004DA620(pUnit, 0);
-    sub_004DA1D0_SetMotionVectorA(pUnit, 0, 0, 0);
-}
-
-// 0x004D9450
-void __fastcall sub_004D9450_StateSetMode(D2UnitStrc* pUnit, int nState)
-{
-    sub_00480E70_SetState(pUnit, 1);
-    if (pUnit)
-    {
-        pUnit->dwFlags |= 0x80000000;
-    }
-    D2Common_10214(pUnit);
-}
-
-// 0x004D9920
-void __fastcall sub_004D9920_StartStateOverlays(D2UnitStrc* pUnit, int nState)
-{
-    D2StatesTxt* pStatesTxtRecord = DATATBLS_GetStatesTxtRecordInline(nState);
-    if (!pStatesTxtRecord || (pStatesTxtRecord->nStateFlags[4] & gdwBitMasks[3]))
-    {
-        return;
-    }
-
-    int nCastOverlay = pStatesTxtRecord->wCastOverlay >= 0 ? pStatesTxtRecord->wCastOverlay : -1;
-    int nOverlay1 = pStatesTxtRecord->wOverlay[0] >= 0 ? pStatesTxtRecord->wOverlay[0] : -1;
-    int nOverlay2 = pStatesTxtRecord->wOverlay[1] >= 0 ? pStatesTxtRecord->wOverlay[1] : -1;
-    const int bMask = sub_0063A210_StateMaskTest(nState);
-
-    if (nCastOverlay != -1)
-    {
-        nCastOverlay += ITEMS_RollLimitedRandomNumber(&pUnit->tSeed, DATATBLS_Get1OfNFromOverlayTxt(nCastOverlay));
-    }
-
-    if (nOverlay1 != -1)
-    {
-        nOverlay1 += ITEMS_RollLimitedRandomNumber(&pUnit->tSeed, DATATBLS_Get1OfNFromOverlayTxt(nOverlay1));
-    }
-
-    if (nOverlay2 != -1)
-    {
-        nOverlay2 += ITEMS_RollLimitedRandomNumber(&pUnit->tSeed, DATATBLS_Get1OfNFromOverlayTxt(nOverlay2));
-    }
-
-    if (bMask)
-    {
-        STATES_ToggleState(pUnit, nState, 0);
-        if (sub_0063A250(pUnit))
-        {
-            nCastOverlay = -1;
-        }
-        STATES_ToggleState(pUnit, nState, 1);
-    }
-
-    if (nCastOverlay != -1)
-    {
-        if (bMask)
-        {
-            sub_00470390(pUnit, nCastOverlay, 9, 0, nOverlay1, nOverlay2, nState, 0);
+            pStatList = STATLIST_AllocStatList(pStatList, (unsigned int)pStatList, (unsigned int)pStatList, (!pUnit ? 6 : pUnit->dwUnitType), (!pUnit ? -1 : pUnit->dwUnitId));
+            STATLIST_SetState(pStatList, nState);
+            D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
         }
         else
         {
-            sub_00470390(pUnit, nCastOverlay, 4, 0, nOverlay1, nOverlay2, 0, 0);
-        }
-        return;
-    }
-
-    if (nOverlay1 != -1)
-    {
-        if (bMask)
-        {
-            sub_00470390(pUnit, nOverlay1, 8, 0, nState, 0, 0, 0);
-        }
-        else
-        {
-            sub_00470390(pUnit, nOverlay1, 3, 0, 0, 0, 0, 0);
+            nOldValue = STATLIST_GetStatValue(pStatList, nStatId, nLayer);
         }
     }
 
-    if (nOverlay2 != -1)
-    {
-        if (bMask)
-        {
-            sub_00470390(pUnit, nOverlay2, 8, 0, nState, 0, 0, 0);
-        }
-        else
-        {
-            sub_00470390(pUnit, nOverlay2, 3, 0, 0, 0, 0, 0);
-        }
-    }
-}
+    STATLIST_SetStat(pStatList, nStatId, nValue, nLayer);
 
-// 0x004D9260
-void __fastcall sub_004D9260_StateClearCollision(D2UnitStrc* pUnit, int nState)
-{
-    const int nType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-    if (nType != UNIT_MONSTER)
+    if (nStatId == STAT_UNIT_MODE)
     {
-        return;
+        sub_00463C00_OnModeChange(pUnit, nOldValue, nValue);
     }
 
-    D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
-    if (!pSkill || SKILLS_GetSkillIdFromSkill(pSkill, ".\\UNIT\\PlrSkills.cpp", 759) != 167)
+    D2ItemStatCostTxt* pItemStatCostTxtRecord = DATATBLS_GetItemStatCostTxtRecordInline(nStatId);
+    if (pItemStatCostTxtRecord && pItemStatCostTxtRecord->nItemStatFlags[ITEMSTATCOSTFLAGINDEX_UPDATEANIMRATE >> 3] & gdwBitMasks_006CE268[ITEMSTATCOSTFLAGINDEX_UPDATEANIMRATE & 7])
     {
-        return;
+        UNITS_UpdateAnimRateAndVelocity(pUnit, ".\\UNIT\\PlrSkills.cpp", 1490);
     }
 
-    int nX = SKILLS_GetParam2(pSkill);
-    int nY = SKILLS_GetParam3(pSkill);
-    if (!nX && !nY)
-    {
-        return;
-    }
-
-    SKILLS_SetParam2(pSkill, 0);
-    SKILLS_SetParam3(pSkill, 0);
-    if (D2GAME_GetRoom_6FC52070(UNITS_GetRoom(pUnit), nX, nY))
-    {
-        D2ActiveRoomStrc* pRoom = D2GAME_GetRoom_6FC52070(UNITS_GetRoom(pUnit), nX, nY);
-        COLLISION_ResetMaskWithPattern(pRoom, nX, nY, COLLISION_PATTERN_SMALL_UNIT_PRESENCE, 0x100);
-    }
-}
-
-// 0x004D93A0
-void __fastcall sub_004D93A0_StateEndRequests(D2UnitStrc* pUnit, int nState)
-{
-    sub_004ADCE0_StateRequests(pUnit);
-}
-
-// 0x004D97E0
-void __fastcall sub_004D97E0_StateResetValue(D2UnitStrc* pUnit, int nState)
-{
-    sub_0044CE40(0);
-}
-
-inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
-{
-    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
-    {
-        return &sgptDataTables->pSkillsTxt[nSkillId];
-    }
-
-    return 0;
-}
-
-// 0x004D9480
-void __fastcall sub_004D9480_StateOverlaySpread(D2UnitStrc* pUnit, int nState)
-{
-    D2StatesTxt* pStatesTxtRecord = DATATBLS_GetStatesTxtRecordInline(nState);
-    if (!pStatesTxtRecord)
-    {
-        return;
-    }
-
-    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, nState);
-    if (!pStatList)
-    {
-        return;
-    }
-
-    int nSelect = STATLIST_GetStatValue(pStatList, 0xA9, 0);
-    int nSkillId = STATLIST_GetStatValue(pStatList, 0x15E, 0);
-    int nSkillLevel = STATLIST_GetStatValue(pStatList, 0x15F, 0);
-    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return;
-    }
-
-    int nCount = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[1], nSkillId, nSkillLevel);
-    if (nCount <= 0)
-    {
-        return;
-    }
-
-    int nEnd = pStatesTxtRecord->wOverlay[1];
-    int nStart = pStatesTxtRecord->wOverlay[0];
-    nCount = D2_MIN(nCount, nEnd - nStart + 1);
-    nSelect = D2_MIN(nSelect, nEnd - nStart + 1);
-    if (nStart >= 0 && nEnd >= nStart)
-    {
-        int nIndex = (nSelect - 1) * (nEnd - nStart + 1) / nCount;
-        for (int i = 0; i < nEnd - nStart + 1; ++i)
-        {
-            if (i != nIndex)
-            {
-                sub_0046F0C0(pUnit, 0, nStart + i);
-            }
-            else if (!sub_0046E100(pUnit, nStart + i))
-            {
-                sub_00470390(pUnit, nStart + i, 3, 0, 0, 0, 0, 0);
-            }
-        }
-    }
-
-    nStart = pStatesTxtRecord->wOverlay[2];
-    nEnd = pStatesTxtRecord->wOverlay[3];
-    if (nStart >= 0 && nEnd >= nStart)
-    {
-        int nRange = nEnd - nStart + 1;
-        int nIndex = (nSelect - 1) * nRange / nCount;
-        for (int i = 0; i < nRange; ++i, ++nStart)
-        {
-            if (i != nIndex)
-            {
-                sub_0046F0C0(pUnit, 0, nStart);
-            }
-            else if (!sub_0046E100(pUnit, nStart))
-            {
-                sub_00470390(pUnit, nStart, 3, 0, 0, 0, 0, 0);
-            }
-        }
-    }
+    return pStatList;
 }
 
 // 0x004E0D40
@@ -1182,7 +1326,7 @@ int __fastcall sub_004E0D40_SkillDoFrameOffset(D2UnitStrc* pUnit, int nSkillId, 
 
     unsigned char nDirection = (unsigned char)UNITS_GetDirectionToCoords(pUnit, nX, nY);
     unsigned char nIndex = sub_0063E7A0_GetByteTableEntry(nDirection) & 7;
-    nX = UNITS_GetXPosition(pUnit);
+    nX = CLIENTS_GetUnitX(pUnit);
     nY = CLIENTS_GetUnitY(pUnit);
 
     int nOffsetX;
@@ -1271,7 +1415,7 @@ int __fastcall sub_004E1B10_FireAtTarget(D2UnitStrc* pUnit, int nSkillId, int nS
     tMissileParams.dwFlags = 3;
     tMissileParams.pOwner = pUnit;
     tMissileParams.pOrigin = pUnit;
-    tMissileParams.nX = UNITS_GetXPosition(pUnit);
+    tMissileParams.nX = CLIENTS_GetUnitX(pUnit);
     tMissileParams.nY = CLIENTS_GetUnitY(pUnit);
     tMissileParams.nSkill = nSkillId;
     tMissileParams.nSkillLevel = nSkillLevel;
@@ -1280,13 +1424,13 @@ int __fastcall sub_004E1B10_FireAtTarget(D2UnitStrc* pUnit, int nSkillId, int nS
     D2UnitStrc* pTarget = sub_004648F0_GetTargetUnit(pUnit);
     if (pTarget)
     {
-        D2Common_10216(pUnit->pDynamicPath, UNITS_GetXPosition(pTarget), CLIENTS_GetUnitY(pTarget), 0);
-        tMissileParams.nTargetX = UNITS_GetXPosition(pTarget) - UNITS_GetXPosition(pUnit);
+        D2Common_10216(pUnit->pDynamicPath, CLIENTS_GetUnitX(pTarget), CLIENTS_GetUnitY(pTarget), 0);
+        tMissileParams.nTargetX = CLIENTS_GetUnitX(pTarget) - CLIENTS_GetUnitX(pUnit);
         tMissileParams.nTargetY = CLIENTS_GetUnitY(pTarget) - CLIENTS_GetUnitY(pUnit);
     }
     else
     {
-        tMissileParams.nTargetX = D2COMMON_10175_PathGetFirstPointX(pUnit->pDynamicPath) - UNITS_GetXPosition(pUnit);
+        tMissileParams.nTargetX = D2COMMON_10175_PathGetFirstPointX(pUnit->pDynamicPath) - CLIENTS_GetUnitX(pUnit);
         tMissileParams.nTargetY = D2COMMON_10176_PathGetFirstPointY(pUnit->pDynamicPath) - CLIENTS_GetUnitY(pUnit);
     }
 
@@ -1321,7 +1465,7 @@ int __fastcall sub_004E3C50_MissileAtTargetUnit(D2UnitStrc* pUnit, int nSkillId,
         memset(&tMissileParams, 0, sizeof(tMissileParams));
         tMissileParams.pOwner = pUnit;
         tMissileParams.dwFlags = 1;
-        tMissileParams.nX = UNITS_GetXPosition(pTarget);
+        tMissileParams.nX = CLIENTS_GetUnitX(pTarget);
         tMissileParams.nY = CLIENTS_GetUnitY(pTarget);
         tMissileParams.nSkill = nSkillId;
         tMissileParams.nSkillLevel = nSkillLevel;
@@ -1551,42 +1695,4 @@ int __fastcall sub_004F4000_MissileByOverlay(D2UnitStrc* pUnit, int nSkillId, in
     tMissileParams.nSkillLevel = nSkillLevel;
     tMissileParams.nMissile = nMissile;
     return sub_004CD540_CreateMissile(&tMissileParams) != 0;
-}
-
-#include "gen/data/Source/D2Client/UNIT/PlrSkills.inc"
-
-static D2StatesTxt* STATES_GetStatesTxtRecord_J03(int nState)
-{
-    if (nState >= 0 && nState < sgptDataTables->nStatesTxtRecordCount)
-    {
-        return &sgptDataTables->pStatesTxt[nState];
-    }
-
-    return 0;
-}
-
-// 0x004D9740
-void __fastcall sub_004D9740_StateCreateMissile(D2UnitStrc* pUnit, int nState)
-{
-    sub_004AF890(pUnit, 5, 0);
-
-    D2StatesTxt* pStatesTxt = STATES_GetStatesTxtRecord_J03(nState);
-    if (!pStatesTxt)
-    {
-        return;
-    }
-
-    if (pStatesTxt->wMissile < 0 || pStatesTxt->wMissile >= sgptDataTables->nMissilesTxtRecordCount)
-    {
-        return;
-    }
-
-    D2MissileStrc tMissile;
-    memset(&tMissile, 0, sizeof(tMissile));
-    tMissile.pOwner = pUnit;
-    tMissile.pOrigin = pUnit;
-    tMissile.nMissile = pStatesTxt->wMissile;
-    tMissile.nSkill = pStatesTxt->wSkill >= 0 ? pStatesTxt->wSkill : 0;
-    tMissile.nSkillLevel = 1;
-    sub_004CD540_CreateMissile(&tMissile);
 }

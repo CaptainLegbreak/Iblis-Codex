@@ -2,25 +2,6 @@
 
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
-#define SEED_ROLL_LIMITED_INLINE(pSeed, nMax, nResult) \
-    if ((nMax) <= 0) \
-    { \
-        nResult = 0; \
-    } \
-    else if (((nMax) - 1) & (nMax)) \
-    { \
-        unsigned __int64 lSeed = (pSeed)->nHighSeed + 0x6AC690C5i64 * (pSeed)->nLowSeed; \
-        (pSeed)->nHighSeed = (unsigned int)(lSeed >> 32); \
-        (pSeed)->nLowSeed = (unsigned int)lSeed; \
-        nResult = (unsigned int)lSeed % (nMax); \
-    } \
-    else \
-    { \
-        unsigned __int64 lSeed = (pSeed)->nHighSeed + 0x6AC690C5i64 * (pSeed)->nLowSeed; \
-        (pSeed)->nHighSeed = (unsigned int)(lSeed >> 32); \
-        (pSeed)->nLowSeed = (unsigned int)lSeed; \
-        nResult = (unsigned int)lSeed & ((nMax) - 1); \
-    }
 struct D2AuraCallbackStrc;
 struct D2SeedStrc;
 struct D2SkillsTxt;
@@ -161,16 +142,6 @@ struct D2CurseStrc
     int nStatValue;
     int nState;
     StatListRemoveCallback pStateRemoveCallback;
-};
-
-struct D2SrvDo47Strc
-{
-    int nSkillId;
-    int nSkillLevel;
-    int nDuration;
-    int nAuraTargetState;
-    int nAuraStat[6];
-    int nAuraStatCalcValue[6];
 };
 
 typedef int (__fastcall* AURACALLBACK)(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit);

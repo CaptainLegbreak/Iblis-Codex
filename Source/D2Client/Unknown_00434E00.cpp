@@ -10,8 +10,6 @@ struct Unicode
     unsigned short wChar;
 };
 
-typedef void (__cdecl* D2LaunchDoneFn)();
-
 struct D2LaunchControlTemplateStrc
 {
     char unk0x00[0x30];
@@ -63,8 +61,6 @@ extern D2LaunchDoneFn gpfnGatewayDone_007795BC; // 0x007795BC
 extern int gnLaunchMode_007795EC; // 0x007795EC
 extern int gbFeCharPalette_007795F0; // 0x007795F0
 extern int gdwGlobal_007795F4; // 0x007795F4
-
-typedef int (__stdcall* D2LaunchCallback)(int nArg);
 
 struct D2FuncTable_0077ABF0Strc
 {

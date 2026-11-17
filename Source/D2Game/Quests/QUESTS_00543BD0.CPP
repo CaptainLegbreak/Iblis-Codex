@@ -18,20 +18,6 @@ struct D2UnitStrc
     D2InventoryStrc* pInventory;
 };
 
-struct D2MessageStrc
-{
-    unsigned char nMenu;
-    unsigned char pad0x01;
-    unsigned short nStringId;
-};
-
-struct D2MessageListStrc
-{
-    unsigned char nCount;
-    unsigned char pad0x01;
-    D2MessageStrc pMessages[8];
-};
-
 #pragma pack(push, 1)
 struct D2GSPacketSrv27
 {
@@ -104,12 +90,6 @@ struct D2ItemsTxt
 
 #define UNIT_MONSTER 1
 #define UNIT_INVALID 6
-#define QUESTEVENT_NPCACTIVATE 0
-#define QUESTEVENT_NPCDEACTIVATE 2
-#define QUESTEVENT_CHANGEDLEVEL 3
-#define QUESTEVENT_PLAYERDROPPEDWITHQUESTITEM 9
-#define QUESTEVENT_PLAYERLEAVESGAME 10
-#define QUESTEVENT_SCROLLMESSAGE 11
 
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn);                                  // 0x006CC34C
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0

@@ -1,7 +1,5 @@
 #include "D2Client.h"
 
-typedef unsigned int size_t;
-
 struct Unicode
 {
     unsigned short wChar;

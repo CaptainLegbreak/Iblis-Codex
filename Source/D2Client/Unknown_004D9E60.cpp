@@ -48,8 +48,6 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 void __fastcall sub_004DC190_RemoveCltUnitEvents(D2UnitStrc* pUnit, int nParam4, int nParam5); // 0x004DC190
 extern CLIENTSTATEFN gpfClientStateRemFuncs_0072A710[]; // 0x0072A710
 
-typedef unsigned int U32;
-
 typedef char check_pointer_width[sizeof(void*)==4?1:-1];
 
 typedef char check_scalar_width[sizeof(U32)==4?1:-1];

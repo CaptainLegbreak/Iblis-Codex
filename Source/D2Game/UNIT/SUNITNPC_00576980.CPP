@@ -1,7 +1,6 @@
 #include "D2Game.h"
 
 #define STAT_LEVEL 12
-#define STAT_QUANTITY 70
 #define ITEMQUAL_NORMAL 2
 #define ITEMQUAL_MAGIC 4
 #define STORE_LEVEL_BONUS 5
@@ -15,7 +14,6 @@
 #define UNIT_MONSTER 1
 #define UNIT_ITEM 4
 #define IFLAG_SOCKETED 0x800
-#define IFLAG_PERSONALIZED 0x1000000
 struct D2SeedStrc;
 struct Obj00536B40;
 struct D2ItemsTxt;
@@ -37,25 +35,6 @@ struct D2GameStrc
     char f_74[0x04];
     unsigned short wItemFormat;
     unsigned char unk_7A[0x2];
-};
-
-struct D2ItemCacheStrc
-{
-    unsigned char nMin;
-    unsigned char nMax;
-    unsigned char nMagicMin;
-    unsigned char nMagicMax;
-    unsigned int dwCode;
-    unsigned char nMagicLevel;
-    char unk0x09[3];
-};
-
-struct D2UnitProxyStrc
-{
-    D2ItemCacheStrc* pItemCache;
-    int nItems;
-    unsigned int* pPermCache;
-    int nPerms;
 };
 
 struct D2NpcTradeStrc

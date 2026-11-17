@@ -68,11 +68,6 @@ struct D2GameListStrc
     D2GameStrc* Next(D2GameStrc* pGame);
 };
 
-struct D2HashKeyNoneStrc
-{
-    char unk0x00;
-};
-
 struct D2GameDataTableStrc
 {
     virtual void InternalDelete(D2GameStrc* pGame);
@@ -144,10 +139,6 @@ int gnPeakMemoryUsageInLast10s_6FD45828;                                        
 extern int gnTargetFrameRate_6FD2CA60;                                                                      // 0x00731014
 extern int gnTargetMsPerFrame_6FD457F8;                                                                     // 0x00883D60
 extern int gnAct_6FD45824;                                                                                  // 0x00883D44
-
-#define NUM_ACTS 5
-#define CLIENTSTATE_INGAME 4
-#define D2GameReservedSlotHandle (-1)
 
 typedef void (__fastcall* GAME_ForEachIngameClientCallbackPtr)(D2ClientStrc*, void*);
 

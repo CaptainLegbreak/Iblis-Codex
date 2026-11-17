@@ -1,13 +1,13 @@
 #include "D2Game.h"
-
-#define STATE_CORPSE_NOSELECT 118
 #define UNITFLAG_SKSRVDOFUNC 0x40
 #define AURAFILTER_DOUBLESWING 0x20003
 #define TIMERQUEUE_CURSESTATE 1
 #define LINE_WHIRLWIND_ANIMRATE 903
-#define STATE_SKILL_MOVE 18
 #define STAT_MODIFIERLIST_SKILL 350
 #define STAT_MODIFIERLIST_LEVEL 351
+#define D2_MIN(a,b) ((a) < (b) ? (a) : (b))
+#define D2_MAX(a,b) ((a) > (b) ? (a) : (b))
+
 struct Obj00648690;
 struct Obj006487D0;
 struct D2SeedStrc;
@@ -15,6 +15,11 @@ struct D2PathPointStrc;
 struct D2SkillsTxt;
 struct D2CurseStrc;
 struct D2StaticPathStrc;
+struct D2UnitStrc;
+struct D2GameStrc;
+struct D2DataTablesStrc;
+struct D2DamageStrc;
+struct D2CoordStrc;
 
 struct D2SeedStrc
 {
@@ -66,12 +71,6 @@ int __fastcall SKILLS_SrvSt32_Conversion_Bash_Stun_Concentrate_BearSmite(D2GameS
 void __stdcall UNITS_SetTargetUnitForDynamicUnit(D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit); // 0x00620C10
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
-
-struct D2PathPointStrc
-{
-    unsigned short X;
-    unsigned short Y;
-};
 
 struct D2SkillsTxt
 {
@@ -174,7 +173,6 @@ struct D2DamageStrc
 };
 
 void __fastcall D2GAME_SKILLS_RewindSkillEx_6FCBD260(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode); // 0x00553DC0
-D2UnitStrc* __fastcall sub_6FD107F0(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int a4, int a5, unsigned int a6, int a7, int* a8); // 0x0056BD10
 int __fastcall D2GAME_RollElementalDamage_6FD14DD0(D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel); // 0x0056E0C0
 void __fastcall SUNITDMG_AllocCombat(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2DamageStrc* pDamage, unsigned char nSrcDam); // 0x0057DBF0
 unsigned short __fastcall SUNITDMG_GetResultFlags(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int nStatValue, int nRangeOffset); // 0x0057EC10
@@ -209,6 +207,7 @@ struct D2CoordStrc
     int nX;
     int nY;
 };
+
 D2ActiveRoomStrc* __fastcall D2GAME_GetRoom_6FC52070(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
 int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
@@ -218,12 +217,17 @@ void __stdcall UNITS_SetUsedSkill(D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill); /
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 int __stdcall UNITS_GetUnitSizeX(D2UnitStrc* pUnit); // 0x00620510
 int __stdcall UNITS_GetDistanceToCoordinates(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
-void __stdcall SKILLS_SetFlags(D2SkillStrc* pSkill, int nValue); // 0x00644660
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, unsigned short nMask); // 0x0064D910
 D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, int nUnitSize, unsigned int nMask, int bAllowNeighboringRooms); // 0x0064E7B0
-void __stdcall COLLISION_SetMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, int nMask); // 0x0064EA90
+
+static int __stdcall sub_005D9320_GetWhirlwindHitCount(D2GameStrc* pGame, D2SkillStrc* pSkill, D2UnitStrc* pUnit);
+static int __stdcall sub_005D9A10_FindLeapTargetPosition(D2UnitStrc* pUnit, int nSkillLevel, int* pX, int* pY, int nSkillId);
+static int __stdcall sub_005D9CE0_CheckLeapRoom(D2UnitStrc* pUnit, int nX, int nY, int nSkillId);
+
+static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit);
+static __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit);
 
 // 0x005D80C0
 int __fastcall SKILLS_SrvSt33_FindPotion_GrimWard(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
@@ -468,6 +472,7 @@ static int sub_005D92D0_IsDualWieldingMelee(D2UnitStrc* pUnit)
     return 0;
 }
 
+// 0x005D9320
 static int __stdcall sub_005D9320_GetWhirlwindHitCount(D2GameStrc* pGame, D2SkillStrc* pSkill, D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == 1)
@@ -475,8 +480,9 @@ static int __stdcall sub_005D9320_GetWhirlwindHitCount(D2GameStrc* pGame, D2Skil
         const unsigned __int64 lSeed = pUnit->pSeed.nHighSeed + 0x6AC690C5i64 * pUnit->pSeed.nLowSeed;
         pUnit->pSeed.nLowSeed = (unsigned int)lSeed;
         pUnit->pSeed.nHighSeed = (unsigned int)(lSeed >> 32);
-        const bool bEven = ((unsigned int)lSeed & 1) == 0;
-        return bEven;
+        if ((unsigned int)lSeed & 1)
+            return 0;
+        return 1;
     }
 
     if (!pGame->bExpansion)
@@ -787,32 +793,7 @@ int __fastcall SKILLS_SrvSt39_Berserk(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
     return 1;
 }
 
-static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case 2:
-    case 4:
-    case 5:
-        return pUnit->pStaticPath->nX;
-    default:
-        return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
-    }
-}
-
-static __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case 2:
-    case 4:
-    case 5:
-        return pUnit->pStaticPath->nY;
-    default:
-        return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
-    }
-}
-
+// 0x005D9A10
 static int __stdcall sub_005D9A10_FindLeapTargetPosition(D2UnitStrc* pUnit, int nSkillLevel, int* pX, int* pY, int nSkillId)
 {
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
@@ -841,37 +822,17 @@ static int __stdcall sub_005D9A10_FindLeapTargetPosition(D2UnitStrc* pUnit, int 
 
     int nY = *pY;
     int nDiffY = nY - nUnitY;
-    if (nDiffY > -2)
-    {
-        if (nDiffY >= 2)
-        {
-            nDiffY = 2;
-        }
-    }
-    else
-    {
-        nDiffY = -2;
-    }
-
-    int nX = *pX;
-    int nDiffX = nUnitX - nX;
-    if (nDiffX > -2)
-    {
-        if (nDiffX >= 2)
-        {
-            nDiffX = 2;
-        }
-    }
-    else
-    {
-        nDiffX = -2;
-    }
-
+    int nX;
+    int nDiffX;
     D2CoordStrc coords;
+    int nCounter;
+    nDiffY = D2_MIN(D2_MAX(nDiffY, -2), 2);
+    nX = *pX;
+    nDiffX = nUnitX - nX;
+    nDiffX = D2_MIN(D2_MAX(nDiffX, -2), 2);
     coords.nX = nX;
     coords.nY = nY;
-
-    int nCounter = 3;
+    nCounter = 3;
     while (nCounter)
     {
         D2ActiveRoomStrc* pRoom = D2GAME_GetRoom_6FC52070(UNITS_GetRoom(pUnit), coords.nX, coords.nY);
@@ -902,6 +863,32 @@ static int __stdcall sub_005D9A10_FindLeapTargetPosition(D2UnitStrc* pUnit, int 
     return 0;
 }
 
+static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case 2:
+    case 4:
+    case 5:
+        return pUnit->pStaticPath->nX;
+    default:
+        return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+    }
+}
+
+static __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case 2:
+    case 4:
+    case 5:
+        return pUnit->pStaticPath->nY;
+    default:
+        return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+    }
+}
+
 // 0x005D9C80
 static int __stdcall sub_005D9C80_StartMonsterLeapAttack(D2GameStrc* pGame, D2UnitStrc* pTarget, D2SkillStrc* pSkill, D2UnitStrc* pUnit)
 {
@@ -918,6 +905,7 @@ static int __stdcall sub_005D9C80_StartMonsterLeapAttack(D2GameStrc* pGame, D2Un
     return 1;
 }
 
+// 0x005D9CE0
 static int __stdcall sub_005D9CE0_CheckLeapRoom(D2UnitStrc* pUnit, int nX, int nY, int nSkillId)
 {
     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);

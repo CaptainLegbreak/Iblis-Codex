@@ -167,14 +167,12 @@ void __fastcall sub_004F2AC0_RingMissileInit(D2UnitStrc* pMissile, int nArg); //
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
 int __fastcall sub_004EFC20_GetSkillParam2(int nSkillId); // 0x004EFC20
 int __fastcall sub_004F21B0_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId); // 0x004F21B0
-D2UnitStrc* __fastcall sub_004648F0_GetTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 extern int gnRing2X_006DC228[]; // 0x006DC228
 extern int gnRing2Y_006DC328[]; // 0x006DC328
 void __fastcall sub_004F2BE0_RingMissileInit(D2UnitStrc* pMissile, int nArg); // 0x004F2BE0
 unsigned int __fastcall SEED_GetLowSeed(D2SeedStrc* pSeed); // 0x00650E50
-int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit); // 0x0045ADF0
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 void __stdcall SKILLS_SetParam1(D2SkillStrc* pSkill, int nValue); // 0x00644560
 void __stdcall SKILLS_SetParam2(D2SkillStrc* pSkill, int nValue); // 0x006445A0
@@ -634,7 +632,7 @@ int __fastcall sub_004F2F20_CltSkillMissileRing(D2UnitStrc* pUnit, int nSkillId,
         return 0;
     }
 
-    D2UnitStrc* pTarget = sub_004648F0_GetTargetUnit(pUnit);
+    D2UnitStrc* pTarget = sub_004648F0_GetPathTargetUnit(pUnit);
     if (!pTarget)
     {
         return 0;
@@ -696,7 +694,7 @@ int __fastcall sub_004F2FE0_CltSkillMissileRing2(D2UnitStrc* pUnit, int nSkillId
         return 0;
     }
 
-    D2UnitStrc* pTarget = sub_004648F0_GetTargetUnit(pUnit);
+    D2UnitStrc* pTarget = sub_004648F0_GetPathTargetUnit(pUnit);
     if (!pTarget)
     {
         return 0;
@@ -788,7 +786,7 @@ int __fastcall sub_004F3870_SetTargetPosParams(D2UnitStrc* pUnit, int nSkillId, 
         return 0;
     }
 
-    D2UnitStrc* pTarget = sub_004648F0_GetTargetUnit(pUnit);
+    D2UnitStrc* pTarget = sub_004648F0_GetPathTargetUnit(pUnit);
     if (!pTarget)
     {
         return 0;
@@ -799,7 +797,7 @@ int __fastcall sub_004F3870_SetTargetPosParams(D2UnitStrc* pUnit, int nSkillId, 
         return 0;
     }
 
-    SKILLS_SetParam1(pSkill, UNITS_GetXPosition(pTarget));
+    SKILLS_SetParam1(pSkill, CLIENTS_GetUnitX(pTarget));
     SKILLS_SetParam2(pSkill, CLIENTS_GetUnitY(pTarget));
     return 1;
 }

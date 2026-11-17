@@ -59,17 +59,6 @@ struct D2SkillsTxt
     short nITypeA[3];
 };
 
-struct D2EquipmentRefreshStateStrc
-{
-    int nHitpoints;
-    int nMana;
-    int nStamina;
-    int nRightSkillId;
-    int nLeftSkillId;
-    int nRightSkillOwnerGUID;
-    int nLeftSkillOwnerGUID;
-};
-
 struct D2ItemDropStrc
 {
     D2UnitStrc* pUnit;
@@ -186,16 +175,6 @@ int __fastcall ITEMMODE_EquipItemAtResolvedBodyLocation(D2GameStrc* pGame, D2Uni
 int __stdcall INVENTORY_PlaceItemInFreeBeltSlot(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063C790
 int __stdcall D2Common_10299(D2UnitStrc* pUnit, int nBodyLoc, D2UnitStrc* pItem, int bSkipRequirementCheck); // 0x0063DE60
 
-typedef unsigned char U8;
-
-typedef unsigned int U32;
-
-struct Point
-{
-    int x;
-    int y;
-};
-
 struct StaticPath
 {
     U8 pad00[12];
@@ -223,15 +202,6 @@ struct Game
     U8 pad00[112];
     int expansion;
 };
-
-struct ItemRecord
-{
-    U8 pad00[128];
-    U32 code;
-};
-
-extern "C" void __cdecl sub_00408A60(const char*, const char*, int); // 0x00408A60
-extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 extern "C" void __fastcall sub_0053D010_Notify(void*, Unit*, Unit*, U32); // 0x0053D010
 extern "C" Unit* __fastcall sub_00552F60_Find(Game*, int, int); // 0x00552F60
 extern "C" void* __fastcall sub_005531C0_Client(Unit*, const char*, int); // 0x005531C0

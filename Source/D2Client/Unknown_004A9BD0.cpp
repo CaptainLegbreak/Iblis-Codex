@@ -22,14 +22,6 @@ struct SMSGHANDLER_PARAMS
     int lResult;
 };
 
-struct D2HotkeySlotTableStrc
-{
-    int nX[60];
-    int nY[60];
-    int nSkill[60];
-    int f_2D0[60];
-};
-
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -50,7 +42,7 @@ D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
 void __fastcall sub_004786A0_SendIntInt(char nHeader, int nArg1, int nArg2); // 0x004786A0
-D2SkillStrc* __fastcall sub_006439B0_SkillFindByOwner(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x006439B0
+D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x006439B0
 int __stdcall SKILLS_GetOwnerGUIDFromSkill(D2SkillStrc* pSkill); // 0x00643AD0
 int __stdcall sub_00643B00(D2SkillStrc* pSkill, int a2, int a3, int a4, int* pCharges); // 0x00643B00
 extern int gnGlobal_00711470; // 0x00711470
@@ -60,7 +52,6 @@ extern int gnHotkeySkill_007C06C8[16]; // 0x007C06C8
 extern int gnHotkeyOwner_007C0768[16]; // 0x007C0768
 extern int gbHotkeyLeft_007C07B8[16]; // 0x007C07B8
 int __cdecl sub_00463DF0(); // 0x00463DF0
-D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x006439B0
 void __stdcall SKILLS_SetLeftActiveSkill(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x00643BC0
 void __stdcall SKILLS_SetRightActiveSkill(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x00643C50
 
@@ -72,14 +63,6 @@ struct D2SkillsTxt
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId); // 0x006439F0
 D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill); // 0x00644140
 extern unsigned int gdwBitMasks[]; // 0x006CE268
-
-struct D2SkillIconStateStrc
-{
-    char unk0x000[0x2D0];
-    int anValues[60];
-    unsigned char bFlag;
-    char unk0x3C1[0x4];
-};
 
 extern D2SkillIconStateStrc gtSkillIconState_007C0300; // 0x007C0300
 void __fastcall sub_004AA3A0_BuildSkillRows(D2UnitStrc* pUnit, int nStartX, int bLeft, int bNoSlots, int bNoDraw); // 0x004AA3A0
@@ -140,7 +123,7 @@ void __stdcall sub_004A9BD0_SkillSelectClickHandler(SMSGHANDLER_PARAMS* pMsg)
         const int nMouseY = sub_00468740();
         if (nMouseX >= nX && nMouseX <= nX + 48 && nMouseY >= nY - 48 && nMouseY <= nY)
         {
-            D2SkillStrc* pSkill = sub_006439B0_SkillFindByOwner(sub_00463DD0(), gtHotkeySlots_007C0300.nSkill[i], gtHotkeySlots_007C0300.f_2D0[i]);
+            D2SkillStrc* pSkill = SKILLS_GetSkillById(sub_00463DD0(), gtHotkeySlots_007C0300.nSkill[i], gtHotkeySlots_007C0300.f_2D0[i]);
             if (pSkill)
             {
                 int nCharges;

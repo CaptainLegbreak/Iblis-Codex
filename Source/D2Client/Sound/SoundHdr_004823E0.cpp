@@ -21,12 +21,6 @@ struct D2ClientCacheEntryStrc
     unsigned int nRefCount;
 };
 #pragma pack(pop)
-
-struct D2ClientCacheNodeStrc
-{
-    int nId;
-    D2ClientCacheNodeStrc* pNext;
-};
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09

@@ -12,13 +12,6 @@ struct D2SoundUnitNodeStrc
     D2SoundUnitNodeStrc* pNext;
 };
 
-struct D2SoundVecStrc
-{
-    float fX;
-    float fY;
-    float fZ;
-};
-
 struct D2ClientSoundStrc
 {
     int bActive;

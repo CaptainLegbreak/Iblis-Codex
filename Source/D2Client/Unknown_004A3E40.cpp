@@ -1,18 +1,6 @@
 #include "D2Client.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define D2_LOWORD(l) ((unsigned short)((unsigned int)(l) & 0xFFFF))
-#define D2_HIWORD(l) ((unsigned short)(((unsigned int)(l) >> 16) & 0xFFFF))
-#define D2_RESET_QUEST_SELECTION() \
-    gbGlobal_007BF2B1 = 0; \
-    gbGlobal_007BF2B2 = 0; \
-    gbGlobal_007BF2B0 = 0; \
-    gnIndex_007BF2B5 = -1; \
-    gbGlobal_007BF2B4 = 0; \
-    gbGlobal_007C025D = 0; \
-    gbGlobal_007C025E = 0; \
-    gbGlobal_007C025F = 0; \
-    gbGlobal_007C0260 = 0
 #define UNIT_PLAYER 0
 #define STAT_LEVEL 12
 struct D2QuestPanelEntryStrc;
@@ -57,15 +45,6 @@ struct D2QuestPanelEntryStrc
 };
 
 #pragma pack(pop)
-struct D2QuestSlotRectStrc
-{
-    int nX;
-    int nY;
-    int unk0x08;
-    int unk0x0C;
-};
-
-typedef int (__fastcall* D2TextCallback)(void* pContext, int nArg, int nValue);
 
 D2BitBufferStrc* __cdecl sub_004B32D0(); // 0x004B32D0
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
@@ -131,10 +110,6 @@ struct D2QuestTextMsgStrc
 };
 
 #pragma pack(pop)
-struct D2QuestTextsStrc
-{
-    unsigned short awIds[64];
-};
 
 struct D2QuestTableStrc
 {
@@ -145,12 +120,6 @@ struct D2QuestTableStrc
     D2QuestTextsStrc* pTexts;
     int nCondition;
     int nQuestId;
-};
-
-struct D2QuestPageRangeStrc
-{
-    int nFirst;
-    int nLast;
 };
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
@@ -224,24 +193,6 @@ struct D2DataTablesStrc
     char unk0xA84[0x140];
     D2CharStatsTxt* pCharStatsTxt;
     int nCharStatsTxtRecordCount;
-};
-
-struct D2MonStatsInitStrc
-{
-    int nMinHP;
-    int nMaxHP;
-    int nAC;
-    int nTH;
-    int nExp;
-    int nA1MinD;
-    int nA1MaxD;
-    int nA2MinD;
-    int nA2MaxD;
-    int nS1MinD;
-    int nS1MaxD;
-    int nElMinD;
-    int nElMaxD;
-    int nElDur;
 };
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0

@@ -28,12 +28,6 @@ struct Unicode
     unsigned short wChar;
 };
 
-struct D2StatusStrc
-{
-    int nCode;
-    int nArg;
-};
-
 #pragma pack(push, 1)
 struct D2LaunchRecordStrc
 {
@@ -65,10 +59,6 @@ struct D2FuncTable_0077ABF0Strc
     char unk0xA4[0x10];
     int (__fastcall* pfnSlotB4)();
 };
-
-typedef void (__cdecl* D2LaunchDoneFn)();
-
-typedef int (__stdcall* D2LaunchCallback)(int nArg);
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
@@ -103,7 +93,7 @@ extern int gnLaunchMode_007795EC; // 0x007795EC
 extern int gdwGlobal_007795F4; // 0x007795F4
 extern D2FuncTable_0077ABF0Strc* gpFuncTable_0077ABF0; // 0x0077ABF0
 extern int gdwGlobal_0077AC04; // 0x0077AC04
-extern int gdwGlobal_0077AC08; // 0x0077AC08
+extern int s_bConnected_0077AC08; // 0x0077AC08
 
 unsigned long gdwLastClick_00779DEC; // 0x00779DEC
 
@@ -313,7 +303,7 @@ int __cdecl sub_0043BF60()
         return sub_0043B9F0_HandleStatus(&tStatus);
     }
 
-    gdwGlobal_0077AC08 = 0;
+    s_bConnected_0077AC08 = 0;
     sub_00437550();
     sub_004FA590_RunLoop(sub_004374F0_ConnectCallback);
 

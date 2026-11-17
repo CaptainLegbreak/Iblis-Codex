@@ -1,8 +1,6 @@
 #include "D2Client.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define D2_LOWORD(l) ((unsigned short)((unsigned int)(l) & 0xFFFF))
-#define D2_HIWORD(l) ((unsigned short)(((unsigned int)(l) >> 16) & 0xFFFF))
 struct D2QuestTextsStrc;
 struct D2UiEntry10Strc;
 struct D2QuestPanelEntryStrc;
@@ -11,14 +9,6 @@ struct Unicode;
 struct D2ButtonLayoutStrc;
 struct D2QuestTableStrc;
 struct D2SeedStrc;
-
-struct D2UiEntry10Strc
-{
-    int nKey;
-    int nId;
-    int unk0x08;
-    int unk0x0C;
-};
 extern D2UiEntry10Strc gaUiEntries_00723F38[41]; // 0x00723F38
 extern int ganPageSelection_007BF280[5]; // 0x007BF280
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -53,15 +43,6 @@ struct D2QuestPanelEntryStrc
 };
 
 #pragma pack(pop)
-struct D2QuestSlotRectStrc
-{
-    int nX;
-    int nY;
-    int unk0x08;
-    int unk0x0C;
-};
-
-typedef int (__fastcall* D2TextCallback)(void* pContext, int nArg, int nValue);
 
 D2BitBufferStrc* __cdecl sub_004B32D0(); // 0x004B32D0
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310

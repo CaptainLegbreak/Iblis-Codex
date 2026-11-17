@@ -92,14 +92,6 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-struct D2RectStrc
-{
-    int nLeft;
-    int nTop;
-    int nRight;
-    int nBottom;
-};
-
 extern int gnGlobal_0071146C; // 0x0071146C
 extern int gnGlobal_00711470; // 0x00711470
 void __fastcall sub_00467430(D2RectStrc* pRect); // 0x00467430
@@ -160,7 +152,6 @@ int __fastcall sub_004538D0(int nUIVar); // 0x004538D0
 int __fastcall sub_00453A90_GetUIVarUnchecked(int nUIVar); // 0x00453A90
 int __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
 D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType); // 0x00463990
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
 void __fastcall sub_00489360_SetTradePanelOpen(int bOpen); // 0x00489360
 void __fastcall sub_004897E0_UpdateSound(int nArg1, int nArg2); // 0x004897E0
 void __cdecl sub_00489E00_OpenUi(); // 0x00489E00
@@ -178,12 +169,6 @@ extern int gnGlobal_007C0E60; // 0x007C0E60
 extern unsigned long gdwGlobal_007C0E68; // 0x007C0E68
 extern unsigned long gdwTick_007C0E70; // 0x007C0E70
 extern unsigned long gdwGlobal_007C0E78; // 0x007C0E78
-
-typedef unsigned int U32;
-
-typedef unsigned short U16;
-
-typedef unsigned char U8;
 
 extern "C" void __fastcall sub_00478600_SendPacket(U8 command, U16 value, U16 first, U16 second);
 extern "C" int __fastcall sub_004FC9B0_AppendText(UiControl* control, const U16* text, int style, U8 metadata, int mode);
@@ -209,13 +194,6 @@ struct D2SoundUnitNodeStrc
 {
     D2UnitStrc* pUnit;
     D2SoundUnitNodeStrc* pNext;
-};
-
-struct D2SoundVecStrc
-{
-    float fX;
-    float fY;
-    float fZ;
 };
 
 struct D2ClientSoundStrc
@@ -254,7 +232,6 @@ extern D2SoundNodeStrc* gpSoundList_007C5458; // 0x007C5458
 void __fastcall sub_0046B630_SetBit(int nIndex); // 0x0046B630
 void __fastcall sub_004CA8D0_NotifyUnitHint(D2UnitStrc* pUnit, int nHandle); // 0x004CA8D0
 void __fastcall sub_00516A10_FreeList(D2SoundUnitNodeStrc** ppList); // 0x00516A10
-void __fastcall sub_004B8940(int nArg); // 0x004B8940
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 void __fastcall sub_0044B880_SetValue(int nValue); // 0x0044B880
 void __fastcall sub_0044C860_SetValue(int nValue); // 0x0044C860
@@ -756,7 +733,7 @@ void __fastcall sub_004B8CF0_HandleTradePacket(const unsigned char* pPacket)
         return;
 
     case 9:
-        sub_004CB9C0_Request(sub_00463DD0(), 0x17);
+        sub_004CB9C0_Request(sub_00463DD0_GetPlayerUnit(), 0x17);
         return;
 
     case 10:
@@ -772,7 +749,7 @@ void __fastcall sub_004B8CF0_HandleTradePacket(const unsigned char* pPacket)
     case 1:
         if (!gnGlobal_007C0E7C)
         {
-            D2InventoryStrc* const pInventory = sub_00463DD0()->pInventory;
+            D2InventoryStrc* const pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
             if (INVENTORY_GetCursorItem(pInventory))
             {
                 sub_00478600_SendShorts(0x4F, 2, 0, 0);
@@ -1045,7 +1022,7 @@ void __fastcall sub_004B9110_SendGoldRequest(unsigned long nGold)
         return;
     }
 
-    const unsigned long nMaxGold = STATLIST_UnitGetStatValue(sub_00463DD0(), 0x0E, 0);
+    const unsigned long nMaxGold = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), 0x0E, 0);
     if (nGold >= nMaxGold)
     {
         gdwGlobal_007C0E68 = nMaxGold;
@@ -1061,7 +1038,7 @@ void __fastcall sub_004B9110_SendGoldRequest(unsigned long nGold)
 // 0x004B91F0
 void __cdecl sub_004B91F0()
 {
-    sub_004B8940(0);
+    sub_004B8940_CloseWait(0);
 }
 
 // 0x004B9180

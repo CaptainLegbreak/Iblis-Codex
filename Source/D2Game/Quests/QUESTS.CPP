@@ -18,7 +18,6 @@
 #define LEVEL_GLACIALCAVESLEV1 118
 #define LEVEL_ROCKYSUMMIT 120
 #define LEVEL_THEWORLDSTONEKEEPLEV1 128
-#define LEVEL_THEWORLDSTONECHAMBER 132
 #define OBJECT_DREHYA_START_IN_TOWN 459
 #define OBJECT_NIHLATHAK_START_IN_TOWN 461
 #define OBJECT_LARZUK_STANDARD 543
@@ -27,23 +26,14 @@
 #define UNIT_ALIGNMENT_EVIL 0
 #define UNIT_ALIGNMENT_NEUTRAL 1
 #define UNIT_ALIGNMENT_GOOD 2
-#define UNIT_ALIGNMENT_UNASSIGNED 4
 #define MONTYPEFLAG_OTHER 1
-#define IMODE_STORED 0
-#define IMODE_EQUIP 1
-#define IMODE_INBELT 2
-#define IMODE_ONCURSOR 4
 #define ACT_III 2
-#define QUEST_A3Q4_GOLDENBIRD 0x12
 #define MONSTER_JERHYN 0xC9
 #define MONSTER_ACT2GUARD2 0x14B
 #define MONSTER_FETISH11 0x197
 #define MONSTATSFLAGINDEX_FLYING 14
 #define NUM_QUEST_PLAYER_GUIDS 32
 #define LEVEL_FIRST_COUNCIL_LIMIT 108
-#define QUEST_LOG_PACKET 0x5D
-#define QUEST_FLAGS_PACKET 0x28
-#define QUEST_FLAGS_KIND 6
 #define QUEST_LOG_FLAGS 2
 #define QFLAG_REWARDGRANTED 0
 #define QFLAG_REWARDPENDING 1
@@ -352,19 +342,6 @@ struct D2GSPacketSrv29
     unsigned char pData[96];
 };
 
-struct D2PackedGuidStrc
-{
-    unsigned short f_0;
-    unsigned short f_2;
-};
-
-struct D2MessageStrc
-{
-    unsigned char nMenu;
-    unsigned char pad0x01;
-    unsigned short nStringId;
-};
-
 struct D2GSPacketSrv27
 {
     unsigned char nHeader;
@@ -458,18 +435,6 @@ D2UnitStrc* __fastcall ITEMS_FindQuestItem(D2GameStrc* pGame, D2UnitStrc* pUnit,
 extern "C" const char gszObjRgnSourceFile[]; // 0x006E0C40
 extern "C" const char gszPlrMsgSourceFile[]; // 0x006E1050
 
-struct D2QuestInitTableStrc
-{
-    void* pfInit;
-    unsigned char nAct;
-    unsigned char pad0x05[3];
-    unsigned int nVersion;
-    unsigned char bNoSetState;
-    unsigned char pad0x0D[3];
-    int nChainNo;
-    int nQuestNo;
-};
-
 struct D2GSPacketSrv5E
 {
     unsigned char nHeader;
@@ -512,13 +477,6 @@ void __fastcall sub_005B85E0_OpenSewerStairs(D2QuestDataStrc* pQuestData, D2Unit
 void __fastcall sub_005BCAC0(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit); // 0x005BCAC0
 void __fastcall PLRINTRO_SetNpcIntroFlag(D2PlrIntroStrc* pPlayerIntro, int nNpcId); // 0x00572420
 
-struct D2GSPacketSrv91
-{
-    unsigned char nHeader;
-    unsigned char nAct;
-    unsigned short pNPCFlags[12];
-};
-
 int __fastcall PLRINTRO_GetNpcIntroFlag(D2PlrIntroStrc* pPlayerIntro, int nNpcId); // 0x00572470
 void __fastcall sub_0053E060_SendPacket0x91(D2ClientStrc* pClient, D2GSPacketSrv91* pPacket); // 0x0053E060
 
@@ -546,7 +504,6 @@ struct D2DrlgCoordsStrc
 };
 
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
-D2ActiveRoomStrc* __fastcall COLLISION_GetRoomBySubTileCoordinates(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
 unsigned short __stdcall COLLISION_CheckMaskWithSizeXY(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned int nSizeX, unsigned int nSizeY, unsigned short nMask); // 0x0064D800
 void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc* pUpdateUnit); // 0x00553380
 
@@ -588,7 +545,6 @@ struct D2ObjectsTxt
 void __stdcall UNITS_GetCoords(D2UnitStrc* pUnit, D2CoordStrc* pCoord); // 0x00620870
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E90
 void __fastcall sub_005417D0_DirectDated(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam);
-extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize); // 0x00681EF0
 
 struct D2Unk00545D40Rec
 {
@@ -2174,7 +2130,7 @@ void __fastcall QUESTS_GetFreePosition(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCo
             D2ActiveRoomStrc* pRoom1 = pRoom;
             if (tPos.nY < drlgCoords.nSubtileY || tPos.nY >= drlgCoords.nSubtileY + drlgCoords.nSubtileHeight)
             {
-                pRoom1 = COLLISION_GetRoomBySubTileCoordinates(pRoom, tPos.nX, tPos.nY);
+                pRoom1 = D2GAME_GetRoom_6FC52070(pRoom, tPos.nX, tPos.nY);
             }
 
             if (pRoom1)
@@ -2188,7 +2144,7 @@ void __fastcall QUESTS_GetFreePosition(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCo
 
                     if (tPos.nX < drlgCoords.nSubtileX || tPos.nY >= drlgCoords.nSubtileX + drlgCoords.nSubtileWidth)
                     {
-                        pRoom2 = COLLISION_GetRoomBySubTileCoordinates(pRoom1, tPos.nX, tPos.nY);
+                        pRoom2 = D2GAME_GetRoom_6FC52070(pRoom1, tPos.nX, tPos.nY);
                     }
 
                     if (pRoom2 && !COLLISION_CheckMaskWithSizeXY(pRoom2, tPos.nX, tPos.nY, 2 * nSize + 1, 2 * nSize + 1, fCollision)
@@ -2197,7 +2153,7 @@ void __fastcall QUESTS_GetFreePosition(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCo
                     {
                         pCoord->nX = (nSize >> 1) + tPos.nX;
                         pCoord->nY = (nSize >> 1) + tPos.nY;
-                        *ppRoom = COLLISION_GetRoomBySubTileCoordinates(pRoom, pCoord->nX, pCoord->nY);
+                        *ppRoom = D2GAME_GetRoom_6FC52070(pRoom, pCoord->nX, pCoord->nY);
                         return;
                     }
                 }

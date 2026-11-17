@@ -5,13 +5,9 @@
 #define UNIT_PLAYER 0
 #define UNIT_ITEM 4
 #define ITEMQUAL_UNIQUE 7
-#define UNIQUEITEMSFLAGINDEX_CARRY1 2
 #define QUESTSTATEFLAG_A1Q4 4
 #define QUESTSTATEFLAG_A2Q1 9
 #define QUESTSTATEFLAG_A2Q2 10
-#define QUESTSTATEFLAG_A3Q3 19
-#define QUESTSTATEFLAG_A3Q4 20
-#define QUESTSTATEFLAG_A5Q3 37
 #define QFLAG_REWARDGRANTED 0
 #define QFLAG_CUSTOM1 5
 #define QFLAG_CUSTOM3 7
@@ -146,19 +142,11 @@ int __stdcall ITEMS_GetGemApplyType(D2UnitStrc* pItem); // 0x00629A40
 int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 D2GemsTxt* __stdcall DATATBLS_GetGemsTxtRecord(int nGemId); // 0x006372C0
-int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
 void __stdcall sub_0065FEC0_ItemApplyProps(int nPass, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2GemsTxt* pGemsTxt, int nArg2, int nArg5); // 0x0065FEC0
 int __stdcall ITEMS_UpdateSets(D2UnitStrc* pUnit, D2UnitStrc* pItem, int a3, int a4); // 0x00663CC0
 void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc*, D2UnitStrc*, int, int); // 0x00540E60
-int __stdcall ITEMS_GetItemQuality(D2UnitStrc*); // 0x00627E70
-int __stdcall ITEMS_UpdateSets(D2UnitStrc*, D2UnitStrc*, int, int); // 0x00663CC0
-D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc*); // 0x0063BEF0
-int __stdcall ITEMS_CheckItemFlag(D2UnitStrc*, unsigned int, int, const char*); // 0x006280A0
 void __stdcall STATLIST_ExpireUnitStatlist(D2UnitStrc*, D2UnitStrc*); // 0x006277F0
-int __stdcall UNITS_CanDualWield(D2UnitStrc*); // 0x006235A0
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc*, int); // 0x00629BB0
-void __stdcall STATLIST_MergeStatLists(D2UnitStrc*, D2UnitStrc*, int); // 0x00627910
 void __fastcall sub_0055C6E0_OnItemToCursor(D2UnitStrc*, D2UnitStrc*); // 0x0055C6E0
 void __stdcall sub_006275B0_UpdateVitals(D2UnitStrc*); // 0x006275B0
 
@@ -174,13 +162,6 @@ struct D2PlayerDataStrc
 {
     char unk0x00[0x10];
     D2BitBufferStrc* pQuestData[3];
-};
-
-struct D2QuestItemPairStrc
-{
-    int nQuestFlag;
-    unsigned char nItemQuest;
-    char unk0x05[3];
 };
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
@@ -212,14 +193,11 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 void __fastcall D2GAME_PACKETS_SendPacket0x3E_6FC3EC20(D2ClientStrc* pClient, D2UnitStrc* pItem, int a3, int nStatId, int nValue, int a6); // 0x0053D130
 void __fastcall D2GAME_PACKETS_SendPacket0x22_6FC3DBE0(D2ClientStrc* pClient, unsigned char nUnitType, int nUnitGUID, int nSkillId, int nQuantity); // 0x0053C520
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 void __fastcall ITEMS_RemoveFromAllPlayers(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00557FD0
 int __fastcall ITEMMODE_AddScrollToBook(D2GameStrc* pGame, D2UnitStrc* pUnit, int nScrollGUID, int nBookGUID, int* pItemStatus); // 0x0055EF20
 void __stdcall DUNGEON_AllocDrlgDelete(D2ActiveRoomStrc* pRoom, int nUnitType, int nUnitGUID); // 0x0061A270
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 void __stdcall UNITS_FreeCollisionPath(D2UnitStrc* pUnit); // 0x00623830
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
-void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
 unsigned short __stdcall ITEMS_GetSuffixId(D2UnitStrc* pItem, int nSuffixNo); // 0x00627F80
 int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
 int __stdcall ITEMS_GetTotalMaxStack(D2UnitStrc* pItem); // 0x006295B0
@@ -233,7 +211,6 @@ void __stdcall INVENTORY_SetCursorItem(D2InventoryStrc* pInventory, D2UnitStrc* 
 D2UnitStrc* __stdcall INVENTORY_FindBackPackItemForStack(D2InventoryStrc* pInventory, D2UnitStrc* pStackable, D2UnitStrc* pCheckItem); // 0x0063C200
 D2UnitStrc* __stdcall INVENTORY_FindEquippedItemForStack(D2InventoryStrc* pInventory, D2UnitStrc* pStackable, D2UnitStrc* pCheckItem); // 0x0063C2F0
 D2UnitStrc* __stdcall INVENTORY_FindFillableBook(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nUnused); // 0x0063C3B0
-D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x006439B0
 int __stdcall SKILLS_GetQuantity(D2SkillStrc* pSkill); // 0x006450F0
 void __stdcall SKILLS_SetQuantity(D2SkillStrc* pSkill, int nQuantity); // 0x00645120
 void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit); // 0x0064C370
@@ -245,17 +222,6 @@ struct D2StaticPathStrc
     char unk0x00[0x0C];
     int nX;
     int nY;
-};
-
-struct D2EquipmentRefreshStateStrc
-{
-    int nHitpoints;
-    int nMana;
-    int nStamina;
-    int nRightSkillId;
-    int nLeftSkillId;
-    int nRightSkillOwnerGUID;
-    int nLeftSkillOwnerGUID;
 };
 
 struct D2ItemDropStrc
@@ -296,9 +262,6 @@ void __fastcall D2GAME_ITEMS_UpdateItemStatlist_6FC42310(D2GameStrc* pGame, D2Un
 void __fastcall sub_0055DBC0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nArg); // 0x0055DBC0
 void __fastcall D2GAME_RemoveItem_6FC471F0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, int bSendPacket); // 0x0055DF10
 int __fastcall sub_6FD136E0(D2UnitStrc* pUnit, int nSkillId); // 0x00570080
-void __fastcall D2GAME_AssignSkill_6FD13800(D2UnitStrc* pUnit, int a2, int nSkillId, int nFlags); // 0x005701B0
-D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit); // 0x00620190
-D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
 void __stdcall UNITS_RefreshInventory(D2UnitStrc* pUnit, int bSetFlag); // 0x00621000
 int __stdcall UNITS_GetInventoryGoldLimit(D2UnitStrc* pUnit); // 0x00622E70
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
@@ -316,8 +279,6 @@ void __stdcall INVENTORY_AddItemToTradeInventory(D2InventoryStrc* pInventory, D2
 int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine); // 0x00643CE0
 D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill); // 0x00644140
 int __stdcall SKILLS_GetUseState(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x00647960
-D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic); // 0x00625820
-void __stdcall STATLIST_ExpireUnitStatlist(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x006277F0
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 int __stdcall ITEMS_GetItemLevel(D2UnitStrc* pItem); // 0x006281E0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
@@ -328,16 +289,15 @@ void __stdcall UNITS_SetWeaponGUID(D2UnitStrc* pUnit, D2UnitStrc* pWeapon); // 0
 D2UnitStrc* __stdcall INVENTORY_RemoveItemFromInventory(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063AD90
 int __stdcall INVENTORY_PlaceItemInSocket(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nPage); // 0x0063B210
 void __stdcall sub_0063BE30(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BE30
-void __stdcall sub_0063D2B0_DetachItem(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063D2B0
+void __stdcall INVENTORY_UpdateWeaponGUIDOnRemoval(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063D2B0
 int __stdcall D2Common_10299(D2UnitStrc* pUnit, int nBodyLoc, D2UnitStrc* pItem, int bSkipRequirementCheck); // 0x0063DE60
 void __stdcall INVENTORY_GetSecondWieldingWeapon(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, D2UnitStrc** ppItem, int nBodyLoc); // 0x0063E490
 void __stdcall ITEMS_SetBodyLocation(D2UnitStrc* pItem, unsigned char nBodyLoc); // 0x00627D70
 void __fastcall D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pTarget, int bUpdateStatList, int bUpdateVitals); // 0x0055C730
 int __fastcall sub_6FC42F20(D2UnitStrc* pPlayer, D2UnitStrc* pItem, int* pBodyLoc, int a4); // 0x0055D710
 int __fastcall sub_0055F590_CheckItem(D2UnitStrc* pItem, const char* szFile, int nLine); // 0x0055F590
-void __fastcall sub_6FC45930(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x005608C0
+void __fastcall ITEMMODE_MoveExcessBeltItems(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x005608C0
 static __declspec(noinline) void __stdcall sub_0055D970_UpdateEquippedItemStats(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pUnit);
-D2BitBufferStrc* __fastcall sub_00543520(D2GameStrc*, D2UnitStrc*); // 0x00543520
 void __fastcall QUESTS_SendLogUpdate(D2UnitStrc*, int); // 0x005458E0
 void __fastcall D2GAME_PACKETS_SendPacketSize06_6FC3C850(D2ClientStrc*, unsigned char, int, int); // 0x0053B3D0
 int __fastcall D2GAME_PLRTRADE_IsInteractingWithPlayer(D2GameStrc*, D2UnitStrc*, int); // 0x005678A0
@@ -346,48 +306,18 @@ void __fastcall ACT5Q3_ApplyResistanceReward(D2GameStrc*, D2UnitStrc*); // 0x005
 void __fastcall sub_00570360_ResetSkills(D2GameStrc*, D2UnitStrc*); // 0x00570360
 void __fastcall sub_00570C80_ResetStats(D2GameStrc*, D2UnitStrc*); // 0x00570C80
 int __stdcall sub_00628C20_IsUsable(D2UnitStrc*); // 0x00628C20
-D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int); // 0x006335F0
-int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc*, int, int); // 0x0065C310
 void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc*, int, int); // 0x0065C360
 void __stdcall QUESTRECORD_ClearQuestState(D2BitBufferStrc*, int, int); // 0x0065C3A0
 int __fastcall sub_0055F240_GetOppositeBodyLoc(int); // 0x0055F240
 int __stdcall ITEMS_GetAmmoType(D2UnitStrc*); // 0x0062E6F0
-int __stdcall ITEMS_GetQuiverType(D2UnitStrc*); // 0x0062E740
 int __stdcall ITEMS_CheckWeaponIfTwoHanded(D2UnitStrc*); // 0x006289C0
-D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc*, int, int); // 0x00552F60
-void __fastcall sub_0055BF50_ClearTargetingFlags(D2UnitStrc*, const char*, int); // 0x0055BF50
-void __fastcall sub_0055C270_OnItemToBelt(D2UnitStrc*, D2UnitStrc*); // 0x0055C270
-void __fastcall D2GAME_ITEMS_UpdateItemStatlist_6FC42310(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, int); // 0x0055C2C0
-void __fastcall sub_0055DBC0(D2GameStrc*, D2UnitStrc*, int); // 0x0055DBC0
-int __fastcall sub_0055F590_CheckItem(D2UnitStrc*, const char*, int); // 0x0055F590
 void __fastcall PLRTRADE_AddItemToTrade(D2GameStrc*, D2UnitStrc*, D2UnitStrc*); // 0x00568770
-void __stdcall UNITS_RefreshInventory(D2UnitStrc*, int); // 0x00621000
 int __stdcall UNITS_GetInventoryRecordId(D2UnitStrc*, unsigned char, int); // 0x00621050
-int __stdcall UNITS_ChangeAnimMode(D2UnitStrc*, int); // 0x00624690
-void __stdcall ITEMS_SetItemFlag(D2UnitStrc*, unsigned int, int); // 0x006280D0
-void __stdcall ITEMS_SetItemCMDFlag(D2UnitStrc*, int, int); // 0x00628170
-unsigned char __stdcall ITEMS_GetInvPage(D2UnitStrc*); // 0x00628250
-int __stdcall ITEMS_IsCharmUsable(D2UnitStrc*, D2UnitStrc*); // 0x0062FF70
-int __stdcall INVENTORY_PlaceItemInSocket(D2InventoryStrc*, D2UnitStrc*, int); // 0x0063B210
 int __stdcall INVENTORY_PlaceItemAtFreePosition(D2InventoryStrc*, D2UnitStrc*, int, int, unsigned char, const char*, int); // 0x0063B950
 int __stdcall INVENTORY_PlaceItemAtInventoryPage(D2InventoryStrc*, D2UnitStrc*, int, int, int, int, unsigned char); // 0x0063BCC0
-void __stdcall INVENTORY_SetCursorItem(D2InventoryStrc*, D2UnitStrc*); // 0x0063C180
-void __stdcall INVENTORY_AddItemToTradeInventory(D2InventoryStrc*, D2UnitStrc*); // 0x0063CC70
-void __stdcall sub_006233A0_UpdateWeapon(D2UnitStrc*, D2UnitStrc*); // 0x006233A0
-int __stdcall D2Common_10299(D2UnitStrc*, int, D2UnitStrc*, int); // 0x0063DE60
-void __stdcall INVENTORY_GetSecondWieldingWeapon(D2UnitStrc*, D2InventoryStrc*, D2UnitStrc**, int); // 0x0063E490
-void __fastcall D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, int, int); // 0x0055C730
-int __stdcall ITEMS_CheckRequirements(D2UnitStrc*, D2UnitStrc*, int, int*, int*, int*); // 0x0062EAF0
-void __fastcall sub_6FC45930(D2GameStrc*, D2UnitStrc*, D2UnitStrc*); // 0x005608C0
-int __stdcall sub_0062A360(D2UnitStrc*, D2UnitStrc*); // 0x0062A360
-void __stdcall sub_0063D2B0_DetachItem(D2InventoryStrc*, D2UnitStrc*); // 0x0063D2B0
-D2UnitStrc* __stdcall INVENTORY_RemoveItemFromInventory(D2InventoryStrc*, D2UnitStrc*); // 0x0063AD90
-void __stdcall sub_0063BE30(D2InventoryStrc*, int); // 0x0063BE30
 int __stdcall INVENTORY_PlaceItemInBodyLoc(D2InventoryStrc*, D2UnitStrc*, int); // 0x0063BDB0
-void __stdcall ITEMS_SetBodyLocation(D2UnitStrc*, unsigned char); // 0x00627D70
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
-int __stdcall UNITS_GetInventoryRecordId(D2UnitStrc* pUnit, unsigned char nInvPage, int bLoD); // 0x00621050
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 int __fastcall D2GAME_PlaceItem_6FC44410(const char* szFile, int nLine, D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnitId, int nX, int nY, int a8, int a9, D2InventoryStrc* pInventory); // 0x00560200
 D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId); // 0x00633640
@@ -406,42 +336,19 @@ void __stdcall UNITS_InitSwitchRightSkill(D2UnitStrc*); // 0x00622F80
 void __stdcall UNITS_InitSwitchLeftSkill(D2UnitStrc*); // 0x00622FF0
 void __stdcall UNITS_GetSwitchRightSkillDataResetRightSkill(D2UnitStrc*, int*, int*); // 0x00623120
 void __stdcall UNITS_GetSwitchLeftSkillDataResetLeftSkill(D2UnitStrc*, int*, int*); // 0x006231A0
-D2UnitStrc* __stdcall INVENTORY_RemoveItem(D2InventoryStrc*, D2UnitStrc*); // 0x0063AD90
-int __stdcall sub_0063BDB0_PlaceBody(D2InventoryStrc*, D2UnitStrc*, int); // 0x0063BDB0
 void __stdcall sub_0063BE30_Return(D2InventoryStrc*, int); // 0x0063BE30
 
 struct SwapEntry { int from; D2UnitStrc* item; int to; int mode; };
-
-extern "C" void __cdecl sub_00408A60(const char*, const char*, int); // 0x00408A60
-extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
-void __fastcall D2GAME_PACKETS_SendPacket0x22_6FC3DBE0(D2ClientStrc*, unsigned char, int, int, int); // 0x0053C520
-void __fastcall D2GAME_PACKETS_SendPacket0x3E_6FC3EC20(D2ClientStrc*, D2UnitStrc*, int, int, int, int); // 0x0053D130
-void __fastcall D2GAME_UpdateClientItem_6FC3E9D0(D2ClientStrc*, D2UnitStrc*, D2UnitStrc*, unsigned int); // 0x0053D010
-void __fastcall D2GAME_RemoveItem_6FC471F0(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, int); // 0x0055DF10
 void __fastcall sub_00561E70_RemoveFromBelt(D2GameStrc*, D2UnitStrc*, D2UnitStrc*); // 0x00561E70
-D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc*); // 0x0063C1E0
-int __stdcall ITEMS_GetItemType(D2UnitStrc*); // 0x0062B400
-unsigned short __stdcall ITEMS_GetSuffixId(D2UnitStrc*, int); // 0x00627F80
-D2BooksTxt* __stdcall DATATBLS_GetBooksTxtRecord(int); // 0x006374B0
-void __stdcall ITEMS_SetOrRemoveFlag(int*, int, int); // 0x006287B0
-void __stdcall STATLIST_AddUnitStat(D2UnitStrc*, int, int, int); // 0x006272B0
-int __stdcall SKILLS_GetQuantity(D2SkillStrc*); // 0x006450F0
-void __stdcall SKILLS_SetQuantity(D2SkillStrc*, int); // 0x00645120
 static __declspec(noinline) void __stdcall sub_0055E000_RemoveItemAndNotify(D2GameStrc*, D2UnitStrc*, D2UnitStrc*);
 static __declspec(noinline) int sub_0055E050_GetBookSkillIdChecked(D2UnitStrc*);
 static __declspec(noinline) void __stdcall sub_0055E0D0_DecrementBookScrollSkillQuantity(D2UnitStrc*, int);
 int __stdcall ITEMS_GetBaseCode(D2UnitStrc* pItem); // 0x00628590
-int __fastcall D2GAME_PLRTRADE_IsInteractingWithPlayer(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3); // 0x005678A0
-int __fastcall D2GAME_PlaceItem_6FC44410(const char* szFile, int nLine, D2GameStrc* pGame, D2UnitStrc* pPlayer, int nItemGUID, int a6, int a7, int a8, int a9, D2InventoryStrc* pInventory); // 0x00560200
 void __stdcall ITEMS_SetItemCell(D2UnitStrc*, unsigned char); // 0x00628320
 int __stdcall INVENTORY_GetItemsXPosition(D2InventoryStrc*, D2UnitStrc*); // 0x0063C150
 int __fastcall sub_6FC45B30(D2GameStrc*, D2UnitStrc*, unsigned short, int, int*); // 0x00560CD0
 int __fastcall D2GAME_RemoveItemIfOnCursor_6FC49760(D2GameStrc*, D2UnitStrc*, D2UnitStrc*); // 0x0055EEA0
-void __fastcall ITEMMODE_MoveExcessBeltItems(D2GameStrc*, D2UnitStrc*, D2UnitStrc*); // 0x005608C0
-void __stdcall UNITS_SetWeaponGUID(D2UnitStrc*, D2UnitStrc*); // 0x006233A0
-int __stdcall D2COMMON_10835_Return0(D2UnitStrc*, D2UnitStrc*); // 0x0062A360
 int __stdcall D2COMMON_10254_Return0(D2InventoryStrc*, int); // 0x0063BE30
-void __stdcall INVENTORY_UpdateWeaponGUIDOnRemoval(D2InventoryStrc*, D2UnitStrc*); // 0x0063D2B0
 
 inline D2ItemStatCostTxt* GetStatCost(int nStat) {
     if (nStat >= 0 && nStat < sgptDataTables->nItemStatCostTxtRecordCount) return &sgptDataTables->pItemStatCostTxt[nStat];
@@ -1790,7 +1697,7 @@ int __fastcall ITEMMODE_SwapCursorAndBodyItem(D2GameStrc* pGame, D2UnitStrc* pUn
  if (D2Common_10299(pUnit, nLoc, pItem, bSkipRequirementCheck) != 5) { *pFailed = 0; return 0; }
  D2InventoryStrc* pInventory = pUnit->pInventory;
  D2UnitStrc* pWeapon = INVENTORY_GetLeftHandWeapon(pInventory);
- if (pWeapon) sub_006233A0_UpdateWeapon(pUnit, pWeapon);
+ if (pWeapon) UNITS_SetWeaponGUID(pUnit, pWeapon);
  D2UnitStrc* pOldItem = INVENTORY_GetItemFromBodyLoc(pInventory, nLoc);
  INVENTORY_GetSecondWieldingWeapon(pUnit, pInventory, &pOldItem, nLoc);
  if (!pOldItem) goto fail;
@@ -1807,9 +1714,9 @@ fail:
   SUNIT_AttachSound(pUnit, 20, 0);
   return 0;
  }
- if (ITEMS_GetItemType(pItem) == 19) sub_6FC45930(pGame, pUnit, pItem);
+ if (ITEMS_GetItemType(pItem) == 19) ITEMMODE_MoveExcessBeltItems(pGame, pUnit, pItem);
  sub_0062A360(pUnit, pOldItem);
- sub_0063D2B0_DetachItem(pInventory, pOldItem);
+ INVENTORY_UpdateWeaponGUIDOnRemoval(pInventory, pOldItem);
  D2UnitStrc* pRemoved = INVENTORY_RemoveItemFromInventory(pInventory, pOldItem);
  D2_ASSERT(pRemoved, 0xcee);
  D2_ASSERT(pOldItem == pRemoved, 0xcef);
@@ -1891,7 +1798,7 @@ int __fastcall sub_00561220_SwapDualWieldedItem(D2GameStrc* pGame, D2UnitStrc* p
         return 0;
     }
     sub_0062A360(pUnit, pOther);
-    sub_0063D2B0_DetachItem(pInventory, pOther);
+    INVENTORY_UpdateWeaponGUIDOnRemoval(pInventory, pOther);
     D2UnitStrc* pRemoved = INVENTORY_RemoveItemFromInventory(pInventory, pOther);
     D2_ASSERT(pRemoved, 0xD7D);
     D2_ASSERT(pOther == pRemoved, 0xD7E);
@@ -1937,7 +1844,7 @@ int __fastcall sub_00561220_SwapDualWieldedItem(D2GameStrc* pGame, D2UnitStrc* p
         return 0;
     }
     sub_0062A360(pUnit, pEquipped);
-    sub_0063D2B0_DetachItem(pInventory, pEquipped);
+    INVENTORY_UpdateWeaponGUIDOnRemoval(pInventory, pEquipped);
     D2UnitStrc* pRemovedEquipped = INVENTORY_RemoveItemFromInventory(pInventory, pEquipped);
     D2_ASSERT(pRemovedEquipped, 0xDB6);
     D2_ASSERT(pEquipped == pRemovedEquipped, 0xDB7);
@@ -2020,8 +1927,8 @@ int __fastcall sub_005616A0_SwapWeapons(D2GameStrc* game, D2UnitStrc* player, in
     for (i=0; i<4; ++i, ++entry) {
         D2UnitStrc* item = entry->item;
         if (!item) continue;
-        if (i<2) sub_0063D2B0_DetachItem(inventory, item);
-        D2UnitStrc* removed = INVENTORY_RemoveItem(inventory, entry->item);
+        if (i<2) INVENTORY_UpdateWeaponGUIDOnRemoval(inventory, item);
+        D2UnitStrc* removed = INVENTORY_RemoveItemFromInventory(inventory, entry->item);
         if (!removed || removed != entry->item) { *status=1; return 0; }
         sub_0063BE30_Return(inventory, entry->from);
         ITEMS_SetInvPage(removed, 255);
@@ -2033,7 +1940,7 @@ int __fastcall sub_005616A0_SwapWeapons(D2GameStrc* game, D2UnitStrc* player, in
     for (i=0; i<4; ++i) {
         D2UnitStrc* item = entries[i].item;
         if (item) {
-            if (!sub_0063BDB0_PlaceBody(inventory, item, entries[i].to)) { *status=1; return 0; }
+            if (!INVENTORY_PlaceItemInBodyLoc(inventory, item, entries[i].to)) { *status=1; return 0; }
             if (!INVENTORY_PlaceItemInSocket(inventory, item, entries[i].mode)) { *status=1; return 0; }
             ITEMS_SetBodyLocation(item, entries[i].to);
             if (entries[i].to == 4 || entries[i].to == 5) {
@@ -2414,7 +2321,7 @@ int __fastcall ITEMMODE_ReplaceOppositeHandItem(D2GameStrc* pGame, D2UnitStrc* p
         UNITS_SetWeaponGUID(pUnit, pMainWeapon);
     }
 
-    D2COMMON_10835_Return0(pUnit, pOppositeWeapon);
+    sub_0062A360(pUnit, pOppositeWeapon);
     INVENTORY_UpdateWeaponGUIDOnRemoval(pInventory, pOppositeWeapon);
 
     D2UnitStrc* pRemove = INVENTORY_RemoveItemFromInventory(pInventory, pOppositeWeapon);

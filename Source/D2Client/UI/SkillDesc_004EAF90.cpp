@@ -100,12 +100,6 @@ short __stdcall sub_006298A0_GetDexterityFactor(D2UnitStrc* pItem);             
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);         // 0x00625500
 int __stdcall sub_0063A380(D2UnitStrc* pUnit);                                        // 0x0063A380
 int __stdcall sub_0063A3A0(D2UnitStrc* pUnit);                                         // 0x0063A3A0
-struct D2ElemDamageStatsStrc
-{
-    int nMinStat;
-    int nMaxStat;
-    int nMasteryStat;
-};
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState);                                             // 0x00639DF0
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState);             // 0x006256B0
 int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer);         // 0x00625D00

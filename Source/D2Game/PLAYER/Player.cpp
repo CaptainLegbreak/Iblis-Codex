@@ -5,15 +5,10 @@
 #define UNIT_OBJECT 2
 #define UNIT_ITEM 4
 #define UNIT_TILE 5
-#define INVPAGE_INVENTORY 0
 #define ITEMQUAL_NORMAL 2
-#define IFLAG_STARTITEM 0x20000
-#define ITEMTYPE_BOW_QUIVER 5
-#define STAT_QUANTITY 70
-#define STAT_DURABILITY 72
-#define STAT_ITEM_SINGLESKILL 107
 #define UNIT_MONSTER 1
 #define UNIT_INVALID 6
+
 struct D2CorpseStrc;
 struct D2ItemsTxt;
 struct D2UnkPlayerDataStrc;
@@ -21,6 +16,10 @@ struct D2PlayerDataStrc;
 struct D2StaticPathStrc;
 struct D2CharStatsTxt;
 struct D2CharItemStrc;
+struct D2GameStrc;
+struct D2UnitStrc;
+struct D2CoordStrc;
+struct D2DataTablesStrc;
 
 struct D2GameStrc
 {
@@ -167,6 +166,9 @@ void __stdcall UNITS_GetCoords(D2UnitStrc* pUnit, D2CoordStrc* pCoord); // 0x006
 void __stdcall UNITS_StoreOwner(D2UnitStrc* pUnit, D2UnitStrc* pOwner); // 0x00621CE0
 int __stdcall UNITS_GetInventoryGoldLimit(D2UnitStrc* pUnit); // 0x00622E70
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
+D2UnitStrc* __fastcall sub_00553720(D2GameStrc* pGame, D2UnitStrc* pPortal); // 0x00553720
+void __fastcall ACT5Q5_OnPortalClosed(D2GameStrc* pGame, D2UnitStrc* pPortal); // 0x0058CF50
+void __stdcall DUNGEON_ToggleHasPortalFlag(D2ActiveRoomStrc* pRoom, int bReset); // 0x0061AED0
 
 // 0x00534840
 static void sub_00534840_FreePlayerUnk98List(D2GameStrc* pGame, D2PlayerDataStrc* pPlayerData)
@@ -273,6 +275,17 @@ static __forceinline int __stdcall sub_M08_PlaceStartItemInBelt(D2GameStrc* pGam
     return sub_6FC48940(pGame, pPlayer, pItem->dwUnitId, M08_UNITS_GetXPositionInline(pItem), bFindFreeSlot, &nUnused) != 0;
 }
 
+// 0x00534C10
+static int __stdcall sub_00534C10_PlaceStartItemInBelt(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem, int bFindFreeSlot)
+{
+    D2_ASSERT(pItem, 216);
+    D2_ASSERT(pPlayer, 217);
+    const int nItemGUID = pItem->dwUnitId;
+    int nUnused;
+    return sub_6FC48940(pGame, pPlayer, nItemGUID, UNITS_GetXPosition(pItem), bFindFreeSlot, &nUnused) != 0;
+}
+
+// 0x00534C70
 static D2UnitStrc* __stdcall sub_00534C70(D2GameStrc* pGame, int nCount, int nItemId, D2UnitStrc* pPlayer, D2CharStatsTxt* pCharStatsTxt)
 {
     if (!pPlayer)
@@ -294,19 +307,22 @@ static D2UnitStrc* __stdcall sub_00534C70(D2GameStrc* pGame, int nCount, int nIt
             D2StatListStrc* pStartItemStatList = STATLIST_GetStatListFromUnitStateAndFlag(pItem, 0, 0x40);
             if (!pStartItemStatList)
             {
-                pStartItemStatList = STATLIST_AllocStatList(pItem->pMemoryPool, 0x40, 0, UNIT_ITEM, pItem->dwUnitId);
+                pStartItemStatList = STATLIST_AllocStatList(!pItem ? 0 : pItem->pMemoryPool, 0x40, 0, UNIT_ITEM, !pItem ? -1 : pItem->dwUnitId);
                 D2COMMON_10475_PostStatToStatList(pItem, pStartItemStatList, 1);
             }
-            STATLIST_SetStatIfListIsValid(pStartItemStatList, STAT_ITEM_SINGLESKILL, 1, pCharStatsTxt->wStartSkill);
+            const int nLayer = (unsigned short)pCharStatsTxt->wStartSkill;
+            STATLIST_SetStatIfListIsValid(pStartItemStatList, STAT_ITEM_SINGLESKILL, 1, nLayer);
         }
         if (ITEMS_CheckIfStackable(pItem))
         {
-            STATLIST_SetUnitStat(pItem, STAT_QUANTITY, ITEMS_GetTotalMaxStack(pItem), 0);
+            const int nMaxStack = ITEMS_GetTotalMaxStack(pItem);
+            STATLIST_SetUnitStat(pItem, STAT_QUANTITY, nMaxStack, 0);
         }
     }
     return pItem;
 }
 
+// 0x00534D60
 void __fastcall PLAYER_CreateStartItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2CharStatsTxt* pCharStatsTxt, int nCount, D2CharItemStrc* pCharItem)
 {
     int nItemId;
@@ -358,16 +374,6 @@ void __fastcall PLAYER_CreateStartItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, D
             }
         }
     }
-}
-
-// 0x00534C10
-static int __stdcall sub_00534C10_PlaceStartItemInBelt(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem, int bFindFreeSlot)
-{
-    D2_ASSERT(pItem, 216);
-    D2_ASSERT(pPlayer, 217);
-    const int nItemGUID = pItem->dwUnitId;
-    int nUnused;
-    return sub_6FC48940(pGame, pPlayer, nItemGUID, UNITS_GetXPosition(pItem), bFindFreeSlot, &nUnused) != 0;
 }
 
 int __fastcall sub_K10_EmitPlaceStartItemInBelt(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem)
@@ -427,6 +433,49 @@ void __fastcall PLAYER_SetUniqueIdInPlayerData(D2UnitStrc* pPlayer, int nUnitGUI
     D2_ASSERT(pPlayerData, 0x243);
 
     pPlayerData->dwUniqueId = nUnitGUID;
+}
+
+// 0x00535430
+void __fastcall PLAYER_RemoveTownPortal(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+{
+	D2_ASSERT(pPlayer, 602);
+
+	D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
+	D2_ASSERT(pPlayerData, 605);
+
+	D2UnitStrc* pPortal = SUNIT_GetServerUnit(pGame, 2, pPlayerData->dwUniqueId);
+	if (!pPortal || pPortal->dwClassId != 59)
+	{
+		return;
+	}
+
+	ACT5Q5_OnPortalClosed(pGame, pPortal);
+
+	D2UnitStrc* pOwner = sub_00553720(pGame, pPortal);
+	D2ActiveRoomStrc* pPortalRoom = UNITS_GetRoom(pPortal);
+	if (pPortalRoom)
+	{
+		DUNGEON_AllocDrlgDelete(pPortalRoom, 2, !pPortal ? -1 : pPortal->dwUnitId);
+	}
+
+	SUNIT_RemoveUnit(pGame, pPortal);
+	DUNGEON_ToggleHasPortalFlag(pPortalRoom, 1);
+
+	if (!pOwner)
+	{
+		return;
+	}
+
+	ACT5Q5_OnPortalClosed(pGame, pOwner);
+
+	D2ActiveRoomStrc* pOwnerRoom = UNITS_GetRoom(pOwner);
+	if (pOwnerRoom)
+	{
+		DUNGEON_AllocDrlgDelete(pOwnerRoom, 2, !pOwner ? -1 : pOwner->dwUnitId);
+	}
+
+	SUNIT_RemoveUnit(pGame, pOwner);
+	DUNGEON_ToggleHasPortalFlag(pOwnerRoom, 1);
 }
 
 // 0x00535510

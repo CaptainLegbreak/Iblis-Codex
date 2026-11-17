@@ -223,7 +223,6 @@ void __fastcall sub_004E3050_PrgStateRemoveCallback(D2UnitStrc* pUnit, int nStat
 void __fastcall sub_004E3170_SetMissileFrames(D2UnitStrc* pMissile, int nDivisor); // 0x004E3170
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId); // 0x0045C4B0
-int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit); // 0x0045ADF0
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 D2UnitStrc* __fastcall sub_004648F0_GetTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 int __fastcall sub_00465C60_CheckUnitPair(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x00465C60
@@ -247,8 +246,6 @@ void __stdcall SKILLS_SetParam2(D2SkillStrc* pSkill, int nValue); // 0x006445A0
 void __stdcall MISSILE_SetTargetX(D2UnitStrc* pMissile, int nTargetX); // 0x0064A710
 void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY); // 0x0064A760
 extern D2DrlgActStrc* gpAct_007A0634; // 0x007A0634
-
-typedef unsigned int U32;
 
 typedef char check_scalar_width[(sizeof(U32) == 4 && sizeof(int) == 4) ? 1 : -1];
 
@@ -861,7 +858,7 @@ int __fastcall sub_004E37C0_MissileAtTargetOffset(D2UnitStrc* pUnit, int nSkillI
     D2UnitStrc* pTarget = sub_004648F0_GetTargetUnit(pUnit);
     if (pTarget)
     {
-        nOffsetX = UNITS_GetXPosition(pTarget) - UNITS_GetXPosition(pUnit);
+        nOffsetX = CLIENTS_GetUnitX(pTarget) - CLIENTS_GetUnitX(pUnit);
         nOffsetY = CLIENTS_GetUnitY(pTarget) - CLIENTS_GetUnitY(pUnit);
     }
 
@@ -869,7 +866,7 @@ int __fastcall sub_004E37C0_MissileAtTargetOffset(D2UnitStrc* pUnit, int nSkillI
     memset(&tMissileParams, 0, sizeof(tMissileParams));
     tMissileParams.dwFlags = 0x21;
     tMissileParams.pOwner = pUnit;
-    tMissileParams.nX = UNITS_GetXPosition(pUnit) + nOffsetX;
+    tMissileParams.nX = CLIENTS_GetUnitX(pUnit) + nOffsetX;
     tMissileParams.nY = CLIENTS_GetUnitY(pUnit) + nOffsetY;
     tMissileParams.nSkill = nSkillId;
     tMissileParams.nSkillLevel = nSkillLevel;
@@ -992,7 +989,7 @@ int __fastcall sub_004E3D70_OwnerMissileEvent(int nEvent, D2UnitStrc* pUnit, D2U
     tMissileParams.pOrigin = pUnit;
     tMissileParams.nSkillLevel = nSkillLevel;
     tMissileParams.nMissile = nMissile;
-    tMissileParams.nTargetX = UNITS_GetXPosition(pOwner);
+    tMissileParams.nTargetX = CLIENTS_GetUnitX(pOwner);
     tMissileParams.nTargetY = CLIENTS_GetUnitY(pOwner);
     sub_004CD540_CreateMissile(&tMissileParams);
 
@@ -1039,7 +1036,7 @@ int __fastcall sub_004EFCF0_TurnedMissile(D2UnitStrc* pUnit, int nSkillId, int n
     tMissileParams.pOrigin = pUnit;
     tMissileParams.nSkill = nSkillId;
     tMissileParams.nSkillLevel = nSkillLevel;
-    tMissileParams.nTargetX = nX - UNITS_GetXPosition(pUnit);
+    tMissileParams.nTargetX = nX - CLIENTS_GetUnitX(pUnit);
     tMissileParams.nTargetY = nY - CLIENTS_GetUnitY(pUnit);
     D2UnitStrc* pMissile = sub_004CD540_CreateMissile(&tMissileParams);
     if (!pMissile)
@@ -1154,7 +1151,7 @@ int __fastcall sub_004F11D0_MissileLine(D2UnitStrc* pUnit, int nSkillId, int nSk
     }
 
     const int nCount = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
-    int nStepX = nX - UNITS_GetXPosition(pUnit);
+    int nStepX = nX - CLIENTS_GetUnitX(pUnit);
     int nStepY = nY - CLIENTS_GetUnitY(pUnit);
     sub_004C5390_ScaleUpDirection(&nStepX, &nStepY);
     sub_004C53D0_ScaleDownDirection(&nStepX, &nStepY);
@@ -1221,7 +1218,7 @@ int __fastcall sub_004F1370_FirstMissileTurned(D2UnitStrc* pUnit, int nSkillId, 
         return 0;
     }
 
-    const int nOffsetX = nX - UNITS_GetXPosition(pUnit);
+    const int nOffsetX = nX - CLIENTS_GetUnitX(pUnit);
     const int nOffsetY = nY - CLIENTS_GetUnitY(pUnit);
     MISSILE_SetTargetX(pMissile, -nOffsetY);
     MISSILE_SetTargetY(pMissile, nOffsetX);
@@ -1513,7 +1510,7 @@ int __fastcall sub_004F47B0_TargetedMissile(D2UnitStrc* pUnit, int nSkillId, int
             MISSILE_SetTargetX(pMissile, 2);
         }
 
-        const short nOffsetX = nX - UNITS_GetXPosition(pUnit);
+        const short nOffsetX = nX - CLIENTS_GetUnitX(pUnit);
         const short nOffsetY = nY - CLIENTS_GetUnitY(pUnit);
         MISSILE_SetTargetY(pMissile, (nOffsetY << 16) + nOffsetX);
     }
@@ -1542,9 +1539,9 @@ int __fastcall sub_004F48F0_MirrorMissiles(D2UnitStrc* pUnit, int nSkillId, int 
         return 0;
     }
 
-    const int nTargetX = UNITS_GetXPosition(pTarget);
+    const int nTargetX = CLIENTS_GetUnitX(pTarget);
     const int nTargetY = CLIENTS_GetUnitY(pTarget);
-    const int nMirrorX = 2 * nTargetX - UNITS_GetXPosition(pUnit);
+    const int nMirrorX = 2 * nTargetX - CLIENTS_GetUnitX(pUnit);
     const int nMirrorY = 2 * nTargetY - CLIENTS_GetUnitY(pUnit);
     const int nCount = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
 

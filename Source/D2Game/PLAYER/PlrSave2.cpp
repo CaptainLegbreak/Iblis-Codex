@@ -4,36 +4,27 @@
 #define PLRSAVE2_WAYPOINT_HEADER 0x5357
 #define PLRSAVE2ERROR_BAD_WAYPOINT 0x10
 #define PLRSAVE2_SKILLS_MARKER 0x6669
-#define NUMBER_OF_PLAYERCLASSES 7
 #define PLRSAVE2ERROR_BAD_PLAYERINTRO 17
 #define PLRSAVE2ERROR_BAD_PET 22
 #define STAT_HITPOINTS 6
-#define PLRSAVE2ERROR_BAD_STATS 0x12
 #define PLRSAVE2ERROR_BAD_SKILLS 0x13
-#define ITEMSTATCOSTFLAGINDEX_CSVSIGNED 13
 #define UNITFLAG_SKSRVDOFUNC 0x00000040
 #define UNITFLAG_HASEVENTSOUND 0x00000400
 #define UNITFLAG_HASTXTMSG 0x00000100
 #define UNITFLAG_DOUPDATE 0x00000001
-#define UNITFLAGEX_HASINV 0x00000001
-#define UNITFLAGEX_ITEMINIT 0x00000010
 #define PLRMODE_NEUTRAL 1
 #define PLRMODE_TOWNNEUTRAL 5
 #define OBJMODE_OPERATING 1
 #define OBJMODE_OPENED 2
 #define OBJMODE_SPECIAL1 3
-#define OBJMODE_SPECIAL2 4
 #define LEVEL_HARROGATH 109
 #define UNIT_PLAYER 0
 #define STAT_MANA 8
 #define STAT_STAMINA 10
 #define STAT_LEVEL 12
 #define STAT_GOLD 14
-#define STAT_GOLDBANK 15
-#define STAT_NEXTEXP 30
-#define STAT_VELOCITYPERCENT 67
 #define STAT_ATTACKRATE 68
-#define STAT_OTHER_ANIMRATE 69
+
 struct D2RunesTxt;
 struct D2SaveSkillKeyStrc;
 struct D2SaveHeaderStrc;
@@ -43,6 +34,14 @@ struct D2WaypointSaveDataStrc;
 struct D2PlrIntroSaveStrc;
 struct T0056A6F0;
 struct D2Act5Quest3Strc;
+struct D2GameStrc;
+struct D2DataTablesStrc;
+struct D2UnitStrc;
+struct D2WaypointDataStrc;
+struct D2BitBufferStrc;
+struct D2ItemStatCostTxt;
+struct D2QuestDataStrc;
+struct D2ItemSaveStrc;
 
 struct D2GameStrc
 {
@@ -55,6 +54,8 @@ struct D2GameStrc
     unsigned int dwInitSeed;
     unsigned char unk_80[0x28];
     int dwGameFrame;
+    unsigned char unk_AC[0x24];
+    int pGameSeed;
 };
 
 struct D2DataTablesStrc
@@ -223,6 +224,7 @@ struct D2PlrIntroSaveStrc
     unsigned char unk0x04[3][8];
     unsigned char unk0x1C[3][8];
 };
+
 int __fastcall sub_0056A7E0(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char** ppSection, unsigned char* pEnd, int nVersion, int nUnused, int* pError); // 0x0056A7E0
 void __fastcall sub_0055F4F0(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3); // 0x0055F4F0
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
@@ -318,6 +320,7 @@ struct D2ItemSaveStrc
     unsigned short nPad12;
     int nItemFileIndex;
 };
+
 D2UnitStrc* __fastcall ITEMS_CreateItemFromBitstream(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, unsigned char* pBitstream, unsigned int nBufferSize, int bCheckForHeader, D2ItemSaveStrc* pItemSave, unsigned int* pSize, unsigned int dwVersion); // 0x00558CB0
 void __fastcall sub_00564CB0_Nop(D2UnitStrc* pUnit); // 0x00564CB0
 int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
@@ -334,6 +337,13 @@ void __fastcall D2GAME_AssignSkill_6FD13800(D2UnitStrc* pUnit, int a2, int nSkil
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
 int __stdcall DATATBLS_GetLevelThreshold(int nClass, int nLevel); // 0x00611800
 void __fastcall D2GAME_PACKETS_SendPacket0x97_6FC3FB60(D2ClientStrc* pClient); // 0x0053E110
+D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char a7, int nMode, unsigned int a9); // 0x00555230
+void __fastcall SUNIT_InitClientInPlayerData(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00553180
+void __stdcall UNITS_SetNameInPlayerData(D2UnitStrc* pUnit, char* szName); // 0x006220F0
+void __fastcall SUNIT_InitSeed(D2UnitStrc* pUnit, int* pSeed); // 0x00552DF0
+void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
+void __stdcall INVENTORY_SetOwnerId(D2InventoryStrc* pInventory, int nOwner); // 0x0063D430
+void __fastcall D2GAME_SendPacket0x8E_CorpseAssign_ToAllPlayers_6FC3F9B0(D2GameStrc* pGame, int nUnitId, int nCorpseId, unsigned char bAssign); // 0x0053DF80
 
 int __fastcall sub_00568D80_FindTerminator(const char* szText, int nSize)
 {
@@ -488,67 +498,6 @@ int __fastcall PLRSAVE2_WriteWaypointData(D2GameStrc* pGame, D2UnitStrc* pPlayer
     return 0;
 }
 
-// 0x005699A0
-int __fastcall sub_005699A0_WriteMercSection(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char** ppSection, const unsigned char* pEnd, int a7, int bSizing)
-{
-    unsigned char* pData = *ppSection;
-    if (pGame->bExpansion)
-    {
-        *(unsigned short*)pData = 0x666A;
-        pData += 2;
-
-        D2UnitStrc* pPet = sub_6FC7E8B0(pGame, pPlayer, 7, 1);
-        if (pPet)
-        {
-            const int nLength = sub_00531BB0_WriteItemList(pGame, pPet, pData, pEnd - pData, 0, a7, bSizing);
-            if (nLength >= 0)
-            {
-                pData += nLength;
-            }
-            else
-            {
-                return 5;
-            }
-        }
-
-        *ppSection = pData;
-    }
-
-    return 0;
-}
-
-// 0x0056A3E0
-int __fastcall PLRSAVE2_ReadWaypointData(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char** ppSection, unsigned char* pEnd, unsigned int nVersion)
-{
-    unsigned char* pSection = *ppSection;
-    unsigned char* pNext = pSection + sizeof(D2WaypointSaveDataStrc);
-    if (pNext > pEnd)
-    {
-        return PLRSAVE2ERROR_BAD_WAYPOINT;
-    }
-
-    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pUnit);
-    D2WaypointSaveDataStrc* pWaypointSaveData = (D2WaypointSaveDataStrc*)pSection;
-    if (pWaypointSaveData->nHeader != PLRSAVE2_WAYPOINT_HEADER)
-    {
-        return PLRSAVE2ERROR_BAD_WAYPOINT;
-    }
-
-    for (int i = 0; i < 3; ++i)
-    {
-        D2WaypointDataStrc* pSavedData = &pWaypointSaveData->waypoints[i].flags;
-        if (pSavedData->nFlag0 != 0x102 && pSavedData->nFlag0 != 0x101 && pSavedData->nFlag0)
-        {
-            return PLRSAVE2ERROR_BAD_WAYPOINT;
-        }
-
-        WAYPOINTS_CopyAndValidateWaypointData(pPlayerData->pWaypointData[i], pSavedData);
-    }
-
-    *ppSection = pNext;
-    return 0;
-}
-
 // 0x005696F0
 int __fastcall sub_005696F0(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char** ppSection, unsigned char* pEnd)
 {
@@ -575,6 +524,35 @@ int __fastcall sub_005696F0(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char*
     }
 
     *ppSection = pData;
+    return 0;
+}
+
+// 0x005699A0
+int __fastcall sub_005699A0_WriteMercSection(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char** ppSection, const unsigned char* pEnd, int a7, int bSizing)
+{
+    unsigned char* pData = *ppSection;
+    if (pGame->bExpansion)
+    {
+        *(unsigned short*)pData = 0x666A;
+        pData += 2;
+
+        D2UnitStrc* pPet = sub_6FC7E8B0(pGame, pPlayer, 7, 1);
+        if (pPet)
+        {
+            const int nLength = sub_00531BB0_WriteItemList(pGame, pPet, pData, pEnd - pData, 0, a7, bSizing);
+            if (nLength >= 0)
+            {
+                pData += nLength;
+            }
+            else
+            {
+                return 5;
+            }
+        }
+
+        *ppSection = pData;
+    }
+
     return 0;
 }
 
@@ -650,6 +628,38 @@ LABEL_FAIL:
     return nResult;
 }
 
+// 0x0056A3E0
+int __fastcall PLRSAVE2_ReadWaypointData(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char** ppSection, unsigned char* pEnd, unsigned int nVersion)
+{
+    unsigned char* pSection = *ppSection;
+    unsigned char* pNext = pSection + sizeof(D2WaypointSaveDataStrc);
+    if (pNext > pEnd)
+    {
+        return PLRSAVE2ERROR_BAD_WAYPOINT;
+    }
+
+    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pUnit);
+    D2WaypointSaveDataStrc* pWaypointSaveData = (D2WaypointSaveDataStrc*)pSection;
+    if (pWaypointSaveData->nHeader != PLRSAVE2_WAYPOINT_HEADER)
+    {
+        return PLRSAVE2ERROR_BAD_WAYPOINT;
+    }
+
+    for (int i = 0; i < 3; ++i)
+    {
+        D2WaypointDataStrc* pSavedData = &pWaypointSaveData->waypoints[i].flags;
+        if (pSavedData->nFlag0 != 0x102 && pSavedData->nFlag0 != 0x101 && pSavedData->nFlag0)
+        {
+            return PLRSAVE2ERROR_BAD_WAYPOINT;
+        }
+
+        WAYPOINTS_CopyAndValidateWaypointData(pPlayerData->pWaypointData[i], pSavedData);
+    }
+
+    *ppSection = pNext;
+    return 0;
+}
+
 // 0x0056A470
 int __fastcall sub_0056A470(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char** ppSection, unsigned char* pEnd, unsigned int nVersion)
 {
@@ -674,86 +684,6 @@ int __fastcall sub_0056A470(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned cha
 
     *ppSection = pSectionEnd;
     return 0;
-}
-
-// 0x0056AC10
-int __fastcall PLRSAVE2_ReadPetSection(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pMerc, unsigned char** ppSection, unsigned char* pEnd, unsigned int dwVersion, int* a6)
-{
-    unsigned char* pSection = *ppSection;
-    if (!pGame->bExpansion)
-    {
-        return 0;
-    }
-
-    if (pSection + 2 > pEnd)
-    {
-        return 0;
-    }
-
-    if (*(unsigned short*)pSection != 0x666A)
-    {
-        if (a6)
-        {
-            *a6 = 101;
-        }
-
-        return PLRSAVE2ERROR_BAD_PET;
-    }
-
-    unsigned char* pData = pSection + 2;
-    if (pMerc)
-    {
-        int nError = 0;
-        if (sub_0056A7E0(pGame, pMerc, &pData, pEnd, dwVersion, 0, &nError))
-        {
-            if (a6)
-            {
-                *a6 = nError;
-            }
-
-            return PLRSAVE2ERROR_BAD_PET;
-        }
-
-        D2GAME_ITEMS_UpdateInventoryItems_6FC45050(pGame, pMerc, 0, 0);
-        sub_0055F4F0(pGame, pMerc, 0);
-        if (!SUNIT_IsDead(pMerc))
-        {
-            STATLIST_SetUnitStat(pMerc, STAT_HITPOINTS, STATLIST_GetMaxLifeFromUnit(pMerc), 0);
-        }
-    }
-
-    *ppSection = pData;
-    return 0;
-}
-
-// 0x0056AF20
-int __fastcall sub_0056AF20_GetItemGUIDFromIndex(D2GameStrc* pGame, D2UnitStrc* pUnit, int nIndex)
-{
-    if (!pUnit->pInventory)
-    {
-        return -1;
-    }
-
-    int nCounter = 1;
-    D2UnitStrc* pItem = INVENTORY_GetFirstItem(pUnit->pInventory);
-    while (pItem)
-    {
-        D2UnitStrc* pCheckedItem = INVENTORY_UnitIsItem(pItem);
-        pItem = INVENTORY_GetNextItem(pItem);
-        if (nCounter == nIndex)
-        {
-            if (pCheckedItem)
-            {
-                return pCheckedItem->dwUnitId;
-            }
-
-            break;
-        }
-
-        ++nCounter;
-    }
-
-    return -1;
 }
 
 inline D2ItemStatCostTxt* SKILLS_GetItemStatCostTxtRecord(int nStatId)
@@ -815,6 +745,12 @@ int __fastcall PLRSAVE2_ReadStatsEx(D2GameStrc* pGame, D2UnitStrc* pUnit, unsign
     return 0;
 }
 
+// 0x0056A6F0
+void __fastcall sub_0056A6F0(Game* unused,Unit* unit,int skill,T0056A6F0 level)
+{
+    if(level.value) sub_0056DEB0(unit,skill,level.value,REMOVE_SKILL);
+}
+
 // 0x0056A710
 int __fastcall PLRSAVE2_ReadSkills(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char** ppSection, unsigned char* pEnd, unsigned int nVersion, int nSkills)
 {
@@ -859,12 +795,6 @@ int __fastcall PLRSAVE2_ReadSkills(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsig
     return 0;
 }
 
-// 0x0056A6F0
-void __fastcall sub_0056A6F0(Game* unused,Unit* unit,int skill,T0056A6F0 level)
-{
-    if(level.value) sub_0056DEB0(unit,skill,level.value,REMOVE_SKILL);
-}
-
 inline int UNIT_HasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
 {
     if (pUnit)
@@ -902,6 +832,374 @@ int __fastcall sub_0056A7E0(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char*
 
     *ppSection = pSection + nSize;
     return 0;
+}
+
+// 0x0056A830
+int __fastcall PLRSAVE2_ReadCorpses(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char** ppSection, unsigned char* pEnd, unsigned int nVersion, int* pDetailError)
+{
+    struct
+    {
+        int nCount;
+        int nErrorCode;
+        int i;
+        D2ClientStrc* pClient;
+        unsigned char* pData;
+    } t;
+    unsigned char* pDataStart = *ppSection;
+    t.pClient = SUNIT_GetClientFromPlayer(pPlayer, ".\\PLAYER\\PlrSave2.cpp", 0x733);
+
+    if (!t.pClient)
+    {
+        if (pDetailError)
+        {
+            *pDetailError = 101;
+        }
+
+        return 21;
+    }
+
+    if (pDataStart + 4 > pEnd)
+    {
+        if (pDetailError)
+        {
+            *pDetailError = 102;
+        }
+
+        return 21;
+    }
+
+    if (*(unsigned short*)pDataStart != 'MJ')
+    {
+        if (pDetailError)
+        {
+            *pDetailError = 103;
+        }
+
+        return 21;
+    }
+
+    pDataStart += 2;
+    const unsigned short nCount = *(unsigned short*)pDataStart;
+    pDataStart += 2;
+    if (nCount > 1)
+    {
+        if (pDetailError)
+        {
+            *pDetailError = 104;
+        }
+
+        return 21;
+    }
+
+    for (t.i = 0, t.nCount = nCount; t.i < t.nCount; ++t.i)
+    {
+        if (pDataStart + 12 > pEnd)
+        {
+            if (pDetailError)
+            {
+                *pDetailError = 105;
+            }
+
+            return 21;
+        }
+
+        t.pData = pDataStart + 12;
+        D2UnitStrc* pPlayerBody = SUNIT_AllocUnitData(0, sub_00451F60_UnitClassId(pPlayer), 0, 0, pGame, 0, 1, 17, 0);
+        if (!pPlayerBody)
+        {
+            if (pDetailError)
+            {
+                *pDetailError = 106;
+            }
+
+            return 21;
+        }
+
+        D2ClientStrc* const pBodyClient = t.pClient;
+        pPlayerBody->dwFlags &= 0xFFFFFFFBu;
+
+        SUNIT_InitClientInPlayerData(pPlayerBody, pBodyClient);
+        UNITS_SetNameInPlayerData(pPlayerBody, CLIENTS_GetName(t.pClient));
+        SUNIT_InitSeed(pPlayerBody, &pGame->pGameSeed);
+        STATES_ToggleState(pPlayerBody, 7, 1);
+
+        pPlayerBody->dwFlags &= 0xFFFFFFEFu;
+
+        INVENTORY_SetOwnerId(pPlayerBody->pInventory, sub_00451F50_GetUnitGUID(pPlayer));
+
+        t.nErrorCode = 0;
+        if (sub_0056A7E0(pGame, pPlayerBody, &t.pData, pEnd, nVersion, 1, &t.nErrorCode))
+        {
+            if (pDetailError)
+            {
+                *pDetailError = t.nErrorCode;
+            }
+
+            return 21;
+        }
+
+        INVENTORY_CreateCorpseForPlayer(pPlayer->pInventory, !pPlayerBody ? -1 : pPlayerBody->dwUnitId, 0, 1);
+        const int nPlayerBodyId = pPlayerBody->dwUnitId;
+        D2GAME_SendPacket0x8E_CorpseAssign_ToAllPlayers_6FC3F9B0(pGame, sub_00451F50_GetUnitGUID(pPlayer), nPlayerBodyId, 1);
+        pDataStart = t.pData;
+    }
+
+    *ppSection = pDataStart;
+    return 0;
+}
+
+// 0x0056AC10
+int __fastcall PLRSAVE2_ReadPetSection(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pMerc, unsigned char** ppSection, unsigned char* pEnd, unsigned int dwVersion, int* a6)
+{
+    unsigned char* pSection = *ppSection;
+    if (!pGame->bExpansion)
+    {
+        return 0;
+    }
+
+    if (pSection + 2 > pEnd)
+    {
+        return 0;
+    }
+
+    if (*(unsigned short*)pSection != 0x666A)
+    {
+        if (a6)
+        {
+            *a6 = 101;
+        }
+
+        return PLRSAVE2ERROR_BAD_PET;
+    }
+
+    unsigned char* pData = pSection + 2;
+    if (pMerc)
+    {
+        int nError = 0;
+        if (sub_0056A7E0(pGame, pMerc, &pData, pEnd, dwVersion, 0, &nError))
+        {
+            if (a6)
+            {
+                *a6 = nError;
+            }
+
+            return PLRSAVE2ERROR_BAD_PET;
+        }
+
+        D2GAME_ITEMS_UpdateInventoryItems_6FC45050(pGame, pMerc, 0, 0);
+        sub_0055F4F0(pGame, pMerc, 0);
+        if (!SUNIT_IsDead(pMerc))
+        {
+            STATLIST_SetUnitStat(pMerc, STAT_HITPOINTS, STATLIST_GetMaxLifeFromUnit(pMerc), 0);
+        }
+    }
+
+    *ppSection = pData;
+    return 0;
+}
+
+// 0x0056ACE0
+int __fastcall PLRSAVE2_CreateItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc** ppItem, unsigned char** ppSection, unsigned char* pEnd, unsigned int dwVersion)
+{
+    unsigned char* pSection = *ppSection;
+    *ppItem = 0;
+
+    unsigned int nSize = pEnd - pSection;
+
+    D2ItemSaveStrc tItemSave;
+    ITEMS_GetCompactItemDataFromBitstream(pSection, nSize, 1, &tItemSave, dwVersion);
+    if (tItemSave.nClassId == -1)
+    {
+        return 0;
+    }
+
+    D2UnitStrc* pItem = ITEMS_CreateItemFromBitstream(pGame, 0, pSection, nSize, 1, &tItemSave, &nSize, dwVersion);
+    if (!pItem)
+    {
+        return 0;
+    }
+
+    pSection += nSize;
+    sub_00564CB0_Nop(pItem);
+
+    const int nSockets = tItemSave.nItemFileIndex;
+    D2UnitStrc* pParentItem = pItem;
+    for (int i = 0; i < nSockets; ++i)
+    {
+        nSize = pEnd - pSection;
+        ITEMS_GetCompactItemDataFromBitstream(pSection, nSize, 1, &tItemSave, dwVersion);
+
+        pItem = ITEMS_CreateItemFromBitstream(pGame, 0, pSection, nSize, 1, &tItemSave, &nSize, dwVersion);
+        if (!pItem)
+        {
+            SUNIT_RemoveUnit(pGame, pParentItem);
+            return 0;
+        }
+
+        pSection += nSize;
+        sub_00564CB0_Nop(pItem);
+        UNITS_ChangeAnimMode(pItem, 4);
+
+        const int nSocketableGUID = pItem->dwUnitId;
+        int bPlaced;
+        if (!D2GAME_ITEMSOCKET_PlaceItem_6FC497E0(pGame, pPlayer, nSocketableGUID, sub_00451F50_GetUnitGUID(pParentItem), &bPlaced, 0, 1, 0, 0))
+        {
+            SUNIT_RemoveUnit(pGame, pParentItem);
+            return 0;
+        }
+    }
+
+    if (ITEMS_GetItemFlags(pParentItem) & 0x4000000 && !ITEMS_GetRunesTxtRecordFromItem(pParentItem))
+    {
+        ITEMMODE_DetachItemFromOwner(pGame, pPlayer, pParentItem);
+        pParentItem = 0;
+    }
+
+    *ppSection = pSection;
+    *ppItem = pParentItem;
+    return 1;
+}
+
+// 0x0056AF20
+int __fastcall sub_0056AF20_GetItemGUIDFromIndex(D2GameStrc* pGame, D2UnitStrc* pUnit, int nIndex)
+{
+    if (!pUnit->pInventory)
+    {
+        return -1;
+    }
+
+    int nCounter = 1;
+    D2UnitStrc* pItem = INVENTORY_GetFirstItem(pUnit->pInventory);
+    while (pItem)
+    {
+        D2UnitStrc* pCheckedItem = INVENTORY_UnitIsItem(pItem);
+        pItem = INVENTORY_GetNextItem(pItem);
+        if (nCounter == nIndex)
+        {
+            if (pCheckedItem)
+            {
+                return pCheckedItem->dwUnitId;
+            }
+
+            break;
+        }
+
+        ++nCounter;
+    }
+
+    return -1;
+}
+
+inline void UNITS_SetInventoryGold(D2UnitStrc* pUnit, unsigned int nGold)
+{
+    if (pUnit)
+    {
+        if (pUnit->dwUnitType == UNIT_PLAYER)
+        {
+            const unsigned int nLimit = UNITS_GetInventoryGoldLimit(pUnit);
+            if (nGold > nLimit)
+            {
+                nGold = nLimit;
+            }
+        }
+
+        STATLIST_SetUnitStat(pUnit, STAT_GOLD, nGold, 0);
+    }
+}
+
+inline void UNITS_SetStashGold(D2UnitStrc* pUnit, unsigned int nGold)
+{
+    if (pUnit)
+    {
+        if (pUnit->dwUnitType == UNIT_PLAYER)
+        {
+            const unsigned int nLimit = UNITS_GetStashGoldLimit(pUnit);
+            if (nGold > nLimit)
+            {
+                nGold = nLimit;
+            }
+        }
+
+        STATLIST_SetUnitStat(pUnit, STAT_GOLDBANK, nGold, 0);
+    }
+}
+
+// 0x0056AF80
+void __fastcall PLRSAVE2_InitializeStats(D2GameStrc* pGame, D2UnitStrc* pUnit, int nHitpoints, int nMana)
+{
+    D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pUnit, ".\\PLAYER\\PlrSave2.cpp", 2222);
+    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pUnit);
+
+    const int nGold = STATLIST_UnitGetStatValue(pUnit, STAT_GOLD, 0);
+    if (nGold < 0 || nGold > UNITS_GetInventoryGoldLimit(pUnit))
+    {
+        UNITS_SetInventoryGold(pUnit, 0);
+    }
+
+    const int nGoldBank = STATLIST_UnitGetStatValue(pUnit, STAT_GOLDBANK, 0);
+    if (nGoldBank < 0 || nGoldBank > UNITS_GetStashGoldLimit(pUnit))
+    {
+        UNITS_SetStashGold(pUnit, 0);
+    }
+
+    const int nMaxStamina = STATLIST_GetMaxStaminaFromUnit(pUnit);
+    STATLIST_SetUnitStat(pUnit, STAT_STAMINA, nMaxStamina, 0);
+
+    for (int i = 0; i < 16; ++i)
+    {
+        int nSkillId;
+        int nHand;
+        int nItemIndex;
+        CLIENTS_GetSkillHotKey(pClient, i, &nSkillId, &nHand, &nItemIndex);
+        if (nItemIndex)
+        {
+            nItemIndex = sub_0056AF20_GetItemGUIDFromIndex(pGame, pUnit, nItemIndex);
+            CLIENTS_SetSkillHotKey(pClient, i, nSkillId, nHand, nItemIndex);
+        }
+    }
+
+    if (pPlayerData->nLeftSkillFlags)
+    {
+        pPlayerData->nLeftSkillFlags = sub_0056AF20_GetItemGUIDFromIndex(pGame, pUnit, pPlayerData->nLeftSkillFlags);
+    }
+
+    if (pPlayerData->nRightSkillFlags)
+    {
+        pPlayerData->nRightSkillFlags = sub_0056AF20_GetItemGUIDFromIndex(pGame, pUnit, pPlayerData->nRightSkillFlags);
+    }
+
+    if (pPlayerData->nSwitchLeftSkillFlags)
+    {
+        pPlayerData->nSwitchLeftSkillFlags = sub_0056AF20_GetItemGUIDFromIndex(pGame, pUnit, pPlayerData->nSwitchLeftSkillFlags);
+    }
+
+    if (pPlayerData->nSwitchRightSkillFlags)
+    {
+        pPlayerData->nSwitchRightSkillFlags = sub_0056AF20_GetItemGUIDFromIndex(pGame, pUnit, pPlayerData->nSwitchRightSkillFlags);
+    }
+
+    if (pPlayerData->nLeftSkillId)
+    {
+        D2GAME_AssignSkill_6FD13800(pUnit, 1, pPlayerData->nLeftSkillId, pPlayerData->nLeftSkillFlags);
+    }
+
+    if (pPlayerData->nRightSkillId)
+    {
+        D2GAME_AssignSkill_6FD13800(pUnit, 0, pPlayerData->nRightSkillId, pPlayerData->nRightSkillFlags);
+    }
+
+    STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, nHitpoints, 0);
+    STATLIST_SetUnitStat(pUnit, STAT_MANA, nMana, 0);
+    STATLIST_SetUnitStat(pUnit, STAT_ATTACKRATE, 100, 0);
+    STATLIST_SetUnitStat(pUnit, STAT_VELOCITYPERCENT, 100, 0);
+    STATLIST_SetUnitStat(pUnit, STAT_OTHER_ANIMRATE, 100, 0);
+    const int nNextExp = DATATBLS_GetLevelThreshold(!pUnit ? -1 : pUnit->dwClassId, STATLIST_GetUnitBaseStat(pUnit, STAT_LEVEL, 0));
+    STATLIST_SetUnitStat(pUnit, STAT_NEXTEXP, nNextExp, 0);
+
+    if (CLIENTS_GetWeaponSwitch(pClient))
+    {
+        D2GAME_PACKETS_SendPacket0x97_6FC3FB60(pClient);
+    }
 }
 
 // 0x00577670
@@ -1037,178 +1335,4 @@ void __fastcall ACT5Q3_UpdateDrehyaPortalMode(D2QuestDataStrc* pQuestData, D2Uni
     }
 
     EVENT_SetEvent(pQuestData->pGame, pUnit, 7, pQuestData->pGame->dwGameFrame + 25, 0, 0);
-}
-
-// 0x0056ACE0
-int __fastcall PLRSAVE2_CreateItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc** ppItem, unsigned char** ppSection, unsigned char* pEnd, unsigned int dwVersion)
-{
-    unsigned char* pSection = *ppSection;
-    *ppItem = 0;
-
-    unsigned int nSize = pEnd - pSection;
-
-    D2ItemSaveStrc tItemSave;
-    ITEMS_GetCompactItemDataFromBitstream(pSection, nSize, 1, &tItemSave, dwVersion);
-    if (tItemSave.nClassId == -1)
-    {
-        return 0;
-    }
-
-    D2UnitStrc* pItem = ITEMS_CreateItemFromBitstream(pGame, 0, pSection, nSize, 1, &tItemSave, &nSize, dwVersion);
-    if (!pItem)
-    {
-        return 0;
-    }
-
-    pSection += nSize;
-    sub_00564CB0_Nop(pItem);
-
-    const int nSockets = tItemSave.nItemFileIndex;
-    D2UnitStrc* pParentItem = pItem;
-    for (int i = 0; i < nSockets; ++i)
-    {
-        nSize = pEnd - pSection;
-        ITEMS_GetCompactItemDataFromBitstream(pSection, nSize, 1, &tItemSave, dwVersion);
-
-        pItem = ITEMS_CreateItemFromBitstream(pGame, 0, pSection, nSize, 1, &tItemSave, &nSize, dwVersion);
-        if (!pItem)
-        {
-            SUNIT_RemoveUnit(pGame, pParentItem);
-            return 0;
-        }
-
-        pSection += nSize;
-        sub_00564CB0_Nop(pItem);
-        UNITS_ChangeAnimMode(pItem, 4);
-
-        const int nSocketableGUID = pItem->dwUnitId;
-        int bPlaced;
-        if (!D2GAME_ITEMSOCKET_PlaceItem_6FC497E0(pGame, pPlayer, nSocketableGUID, sub_00451F50_GetUnitGUID(pParentItem), &bPlaced, 0, 1, 0, 0))
-        {
-            SUNIT_RemoveUnit(pGame, pParentItem);
-            return 0;
-        }
-    }
-
-    if (ITEMS_GetItemFlags(pParentItem) & 0x4000000 && !ITEMS_GetRunesTxtRecordFromItem(pParentItem))
-    {
-        ITEMMODE_DetachItemFromOwner(pGame, pPlayer, pParentItem);
-        pParentItem = 0;
-    }
-
-    *ppSection = pSection;
-    *ppItem = pParentItem;
-    return 1;
-}
-
-inline void UNITS_SetInventoryGold(D2UnitStrc* pUnit, unsigned int nGold)
-{
-    if (pUnit)
-    {
-        if (pUnit->dwUnitType == UNIT_PLAYER)
-        {
-            const unsigned int nLimit = UNITS_GetInventoryGoldLimit(pUnit);
-            if (nGold > nLimit)
-            {
-                nGold = nLimit;
-            }
-        }
-
-        STATLIST_SetUnitStat(pUnit, STAT_GOLD, nGold, 0);
-    }
-}
-
-inline void UNITS_SetStashGold(D2UnitStrc* pUnit, unsigned int nGold)
-{
-    if (pUnit)
-    {
-        if (pUnit->dwUnitType == UNIT_PLAYER)
-        {
-            const unsigned int nLimit = UNITS_GetStashGoldLimit(pUnit);
-            if (nGold > nLimit)
-            {
-                nGold = nLimit;
-            }
-        }
-
-        STATLIST_SetUnitStat(pUnit, STAT_GOLDBANK, nGold, 0);
-    }
-}
-
-// 0x0056AF80
-void __fastcall PLRSAVE2_InitializeStats(D2GameStrc* pGame, D2UnitStrc* pUnit, int nHitpoints, int nMana)
-{
-    D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pUnit, ".\\PLAYER\\PlrSave2.cpp", 2222);
-    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pUnit);
-
-    const int nGold = STATLIST_UnitGetStatValue(pUnit, STAT_GOLD, 0);
-    if (nGold < 0 || nGold > UNITS_GetInventoryGoldLimit(pUnit))
-    {
-        UNITS_SetInventoryGold(pUnit, 0);
-    }
-
-    const int nGoldBank = STATLIST_UnitGetStatValue(pUnit, STAT_GOLDBANK, 0);
-    if (nGoldBank < 0 || nGoldBank > UNITS_GetStashGoldLimit(pUnit))
-    {
-        UNITS_SetStashGold(pUnit, 0);
-    }
-
-    const int nMaxStamina = STATLIST_GetMaxStaminaFromUnit(pUnit);
-    STATLIST_SetUnitStat(pUnit, STAT_STAMINA, nMaxStamina, 0);
-
-    for (int i = 0; i < 16; ++i)
-    {
-        int nSkillId;
-        int nHand;
-        int nItemIndex;
-        CLIENTS_GetSkillHotKey(pClient, i, &nSkillId, &nHand, &nItemIndex);
-        if (nItemIndex)
-        {
-            nItemIndex = sub_0056AF20_GetItemGUIDFromIndex(pGame, pUnit, nItemIndex);
-            CLIENTS_SetSkillHotKey(pClient, i, nSkillId, nHand, nItemIndex);
-        }
-    }
-
-    if (pPlayerData->nLeftSkillFlags)
-    {
-        pPlayerData->nLeftSkillFlags = sub_0056AF20_GetItemGUIDFromIndex(pGame, pUnit, pPlayerData->nLeftSkillFlags);
-    }
-
-    if (pPlayerData->nRightSkillFlags)
-    {
-        pPlayerData->nRightSkillFlags = sub_0056AF20_GetItemGUIDFromIndex(pGame, pUnit, pPlayerData->nRightSkillFlags);
-    }
-
-    if (pPlayerData->nSwitchLeftSkillFlags)
-    {
-        pPlayerData->nSwitchLeftSkillFlags = sub_0056AF20_GetItemGUIDFromIndex(pGame, pUnit, pPlayerData->nSwitchLeftSkillFlags);
-    }
-
-    if (pPlayerData->nSwitchRightSkillFlags)
-    {
-        pPlayerData->nSwitchRightSkillFlags = sub_0056AF20_GetItemGUIDFromIndex(pGame, pUnit, pPlayerData->nSwitchRightSkillFlags);
-    }
-
-    if (pPlayerData->nLeftSkillId)
-    {
-        D2GAME_AssignSkill_6FD13800(pUnit, 1, pPlayerData->nLeftSkillId, pPlayerData->nLeftSkillFlags);
-    }
-
-    if (pPlayerData->nRightSkillId)
-    {
-        D2GAME_AssignSkill_6FD13800(pUnit, 0, pPlayerData->nRightSkillId, pPlayerData->nRightSkillFlags);
-    }
-
-    STATLIST_SetUnitStat(pUnit, STAT_HITPOINTS, nHitpoints, 0);
-    STATLIST_SetUnitStat(pUnit, STAT_MANA, nMana, 0);
-    STATLIST_SetUnitStat(pUnit, STAT_ATTACKRATE, 100, 0);
-    STATLIST_SetUnitStat(pUnit, STAT_VELOCITYPERCENT, 100, 0);
-    STATLIST_SetUnitStat(pUnit, STAT_OTHER_ANIMRATE, 100, 0);
-    const int nNextExp = DATATBLS_GetLevelThreshold(!pUnit ? -1 : pUnit->dwClassId, STATLIST_GetUnitBaseStat(pUnit, STAT_LEVEL, 0));
-    STATLIST_SetUnitStat(pUnit, STAT_NEXTEXP, nNextExp, 0);
-
-    if (CLIENTS_GetWeaponSwitch(pClient))
-    {
-        D2GAME_PACKETS_SendPacket0x97_6FC3FB60(pClient);
-    }
 }

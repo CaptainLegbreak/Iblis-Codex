@@ -87,13 +87,6 @@ struct ListBoxWrapper
     int sub_004BEE20_ForwardSlot08(int nArg);
 };
 
-struct D2ListBoxEntryStrc
-{
-    char unk0x0000[0x3006];
-    char nData[4];
-    char unk0x300A[4];
-};
-
 typedef void (__cdecl* ListBoxCallback)();
 
 struct ListBoxImplementation

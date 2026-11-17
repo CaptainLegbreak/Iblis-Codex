@@ -144,18 +144,6 @@ struct D2GSPacketSrv81
     unsigned int unk0x10;
 };
 #pragma pack(pop)
-
-struct D2PackedGuidStrc
-{
-    unsigned short f_0;
-    unsigned short f_2;
-};
-struct D2MessageStrc
-{
-    unsigned char nMenu;
-    unsigned char pad0x01;
-    unsigned short nStringId;
-};
 struct D2GSPacketSrv27
 {
     unsigned char nHeader;

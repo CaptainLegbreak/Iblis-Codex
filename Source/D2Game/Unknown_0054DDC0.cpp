@@ -1,6 +1,4 @@
 #include "D2Game.h"
-
-struct tagRECT { long left; long top; long right; long bottom; };
 struct D2DrlgCoordsStrc { int nSubtileX; int nSubtileY; int nSubtileWidth; int nSubtileHeight; int nTileXPos; int nTileYPos; int nTileWidth; int nTileHeight; };
 struct D2SpawnAreaStrc { char unk0x00[0x10]; tagRECT tRect; char unk0x20[0x08]; int nIndex; };
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords);              // 0x00619730

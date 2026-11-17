@@ -27,27 +27,6 @@ struct D2ItemSaveStrc
     int unk0x14;
 };
 
-struct D2ItemPacket9CStrc
-{
-    unsigned char f_0;
-    unsigned char nAction;
-    unsigned char nSize;
-    unsigned char nCategory;
-    int dwUnitId;
-    unsigned char pData[1];
-};
-
-struct D2ItemPacket9DStrc
-{
-    unsigned char f_0;
-    unsigned char nAction;
-    unsigned char nSize;
-    unsigned char nCategory;
-    int dwUnitId;
-    unsigned char unk0x08[5];
-    unsigned char pData[1];
-};
-
 struct D2ItemsTxt
 {
     char unk0x000[0x124];
@@ -82,17 +61,6 @@ struct D2DataTablesStrc
     char unk0xC20[4];
     D2UniqueItemsTxt* pUniqueItemsTxt;
     int nUniqueItemsTxtRecordCount;
-};
-
-struct D2SkillStateStrc
-{
-    int nLife;
-    int nMana;
-    int nStamina;
-    int nRightSkillId;
-    int nLeftSkillId;
-    int nRightOwnerGUID;
-    int nLeftOwnerGUID;
 };
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304

@@ -1,31 +1,6 @@
 #include "D2Game.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define N0 0
-#define N1 1
-#define N2 2
-#define N3 3
-#define N4 4
-#define N5 5
-#define N8 8
-#define N10 10
-#define N12 12
-#define N16 16
-#define N18 18
-#define N20 20
-#define N30 30
-#define N32 32
-#define N59 59
-#define N84 84
-#define N100 100
-#define N108 108
-#define N148 148
-#define N180 180
-#define N196 196
-#define N573 573
-#define N716 716
-#define NNEG1 -1
-#define NRNG 0x6ac690c5u
 #define GAMEV (game)
 struct D2SeedStrc;
 struct D2ObjectControlStrc;
@@ -186,27 +161,10 @@ int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 D2LevelsTxt* __stdcall DATATBLS_GetLevelsTxtRecord(int nLevelId); // 0x0061DB70
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E90
 
-typedef unsigned int U32;
-
 struct Seed
 {
     U32 lo;
     U32 hi;
-};
-
-struct ObjectData
-{
-    U32 unused;
-    unsigned char interact;
-};
-
-struct Path
-{
-    U32 unused0;
-    U32 unused4;
-    U32 unused8;
-    int x;
-    int y;
 };
 
 struct Unit
@@ -229,43 +187,6 @@ struct Room
     Seed seed;
 };
 
-struct RoomBounds
-{
-    int a;
-    int b;
-    int c;
-    int d;
-    int e;
-    int f;
-    int g;
-    int h;
-};
-
-struct ObjectRecord
-{
-    char reserved0[N196];
-    unsigned char collisions[N12];
-    int sizeX;
-    int sizeY;
-    char reserved216[N100];
-    unsigned char placement;
-    char reserved317[N59];
-    int selection;
-    int subclass;
-};
-
-struct ShrineRecord
-{
-    char reserved0[N180];
-    U32 minimumLevel;
-};
-
-struct ShrineLists
-{
-    int counts[N8];
-    int* lists[N8];
-};
-
 struct InitContext
 {
     Game* game;
@@ -276,11 +197,6 @@ struct InitContext
     int x;
     int y;
 };
-
-extern "C" void __cdecl sub_00408A60(const char*,const char*,int); // 0x00408A60
-extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
-
-typedef unsigned char (__fastcall *Permit)(Game*,int,int,int);
 
 Unit* __stdcall sub_00550A30_Spawn(Game*,int,int,int,Room*,int,int,Permit); // 0x00550A30
 U32 __stdcall sub_0061A1B0_Level(Room*); // 0x0061A1B0

@@ -1,7 +1,6 @@
 #include "D2Client.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define CURSOR_ANIM_COUNT 7
 struct D2CursorAnimStrc;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -9,19 +8,8 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-struct D2CursorAnimStrc
-{
-    int unk0x00;
-    int f_4;
-    int nFrames;
-    int nStep;
-    void* pData;
-    void* pfnHandler;
-    const char* szName;
-};
-
 extern D2CursorAnimStrc gaCursorAnim_00712010[CURSOR_ANIM_COUNT]; // 0x00712010
-extern int gnGlobal_007A6ADC; // 0x007A6ADC
+extern int gdwGlobal_007A6ADC; // 0x007A6ADC
 extern int gnGlobal_007A6AE0; // 0x007A6AE0
 
 struct SMSGHANDLER_PARAMS
@@ -62,7 +50,7 @@ int __stdcall sub_M121_Emit_00467DF0(int nIndex) { return sub_00467DF0_GetCursor
 // 0x00467EE0
 static __forceinline void sub_00467EE0_SetCursorAnim(int nIndex)
 {
-    gnGlobal_007A6ADC = nIndex;
+    gdwGlobal_007A6ADC = nIndex;
     gnGlobal_007A6AE0 = 0;
 }
 
@@ -94,7 +82,7 @@ void __fastcall sub_00468000_SetGlobal7A6B08(int nValue)
 void __fastcall sub_00468010_SetState(int nValue, int nArg)
 {
     gdwGlobal_007A6ABC = nValue;
-    gnGlobal_007A6ADC = 6;
+    gdwGlobal_007A6ADC = 6;
     gdwGlobal_007A6AE0 = nArg;
     gdwGlobal_007A6AF0 = 6;
 }
@@ -164,7 +152,7 @@ int gdwGlobal_007A6AF0; // 0x007A6AF0
 void __fastcall sub_00468070_SetCursorItemState(D2UnitStrc* pItem)
 {
     gdwGlobal_007A6ABC = (int)pItem;
-    gnGlobal_007A6ADC = 5;
+    gdwGlobal_007A6ADC = 5;
     if (!pItem)
     {
         gdwGlobal_007A6AE0 = 0;

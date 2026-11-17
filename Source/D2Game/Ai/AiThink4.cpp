@@ -137,13 +137,6 @@ struct D2UnitStrc
     };
 };
 
-struct D2MapAIPathPositionStrc
-{
-    int nMapAIAction;
-    int nX;
-    int nY;
-};
-
 struct D2MapAIStrc
 {
     int nPathNodes;

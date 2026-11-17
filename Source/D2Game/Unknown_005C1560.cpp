@@ -74,7 +74,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 short __stdcall ITEMS_RollMagicAffixesOld(D2UnitStrc* pItem, int bRequireSpawnableAffix, int bForceAffixRoll, int bAssignProperties, int bPrefix, int nPreferredAffixIndex); // 0x005C12F0
-void __fastcall ITEMS_AssignStaffModsForFormat(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop);               // 0x005C1260
+void __fastcall sub_005C1260(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop);               // 0x005C1260
 void __stdcall ITEMS_AssignPrefix(D2UnitStrc* pItem, unsigned short nPrefix, int nPrefixNo);               // 0x00627EF0
 void __stdcall ITEMS_AssignSuffix(D2UnitStrc* pItem, unsigned short nSuffix, int nSuffixNo);               // 0x00627FB0
 void __stdcall ITEMS_AssignRarePrefix(D2UnitStrc* pItem, unsigned short nPrefix);                           // 0x00628010
@@ -85,8 +85,6 @@ int __stdcall ITEMS_CanBeRare(D2UnitStrc* pItem);                               
 D2RareAffixDataTbl* __fastcall DATATBLS_GetRareAffixDataTables();                                           // 0x00634250
 int __stdcall ITEMMODS_CanItemHaveRareAffix(D2UnitStrc* pItem, const D2RareAffixTxt* pRareAffixTxtRecord); // 0x0065E710
 extern const int gnRareAffixCounts_006E3014[];                                                              // 0x006E3014
-
-void __fastcall sub_005C1260(D2UnitStrc* pItem, D2ItemDropStrc* pItemDrop);                         // 0x005C1260
 extern "C" void __stdcall sub_00627EF0(D2UnitStrc* pItem, unsigned short nPrefix, int nPrefixNo);        // 0x00627EF0
 extern "C" void __stdcall sub_00627FB0(D2UnitStrc* pItem, unsigned short nSuffix, int nSuffixNo);        // 0x00627FB0
 extern "C" void __stdcall sub_00628070(D2UnitStrc* pItem, unsigned short nSuffix);                       // 0x00628070
@@ -622,7 +620,7 @@ static int __stdcall sub_005C1BF0_RollRareItemNew(D2ItemDropStrc* pItemDrop, D2U
     }
 
     ITEMS_ApplyRareAffixesInline(pItem);
-    ITEMS_AssignStaffModsForFormat(pItem, pItemDrop);
+    sub_005C1260(pItem, pItemDrop);
     return 1;
 }
 
@@ -727,7 +725,7 @@ static int __stdcall ITEMS_RollLegacyRareItem(D2ItemDropStrc* pItemDrop, D2UnitS
     }
 
     ITEMS_ApplyRareAffixesInline(pItem);
-    ITEMS_AssignStaffModsForFormat(pItem, pItemDrop);
+    sub_005C1260(pItem, pItemDrop);
     return 1;
 }
 

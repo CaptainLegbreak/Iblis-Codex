@@ -26,13 +26,6 @@ struct D2GameStrc
     void* pMemoryPool;
 };
 
-struct D2ItemTradeStrc
-{
-    int nItemGUID1;
-    int nItemGUID2;
-    D2ItemTradeStrc* pNext;
-};
-
 struct D2PlayerTradeStrc
 {
     int nSaveLength;

@@ -6,8 +6,6 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-typedef int (__stdcall* FARPROC)();
-
 enum D2C_UnitTypes
 {
     UNIT_PLAYER = 0,
@@ -113,8 +111,6 @@ D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonster
 int __fastcall sub_004638A0_CheckMonStats2Flag(int nMonsterId, int nFlag);                                  // 0x004638A0
 int __fastcall sub_00463EB0_GetGfxField38(D2UnitStrc* pUnit);                                               // 0x00463EB0
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId);                                        // 0x00640E90
-
-typedef void (__cdecl* D2WheelCallbackFn)();
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 int gnReplayEndTick_007A2774;                                                                               // 0x007A2774
 int gdwGlobal_007A2788;                                                                                     // 0x007A2788

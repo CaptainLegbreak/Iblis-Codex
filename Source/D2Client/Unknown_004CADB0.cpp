@@ -150,23 +150,6 @@ struct D2MonSoundsTxt
     int dwCvtSk3;
 };
 
-struct D2UnitSndPlayerStrc
-{
-    int f_0;
-    int nDeathSound;
-    int unk0x08[8];
-    int nFootstep;
-};
-
-struct D2UnitSndObjectStrc
-{
-    int nModeSound[8];
-    int nSoundA;
-    int nSoundAMode;
-    int nSoundB;
-    int nSoundBMode;
-};
-
 struct D2SuperUniquesTxt
 {
     char unk0x00[0x18];
@@ -183,12 +166,6 @@ struct D2DataTablesStrc
 {
     char unk0x00[0xA80];
     int nMonStatsTxtRecordCount;
-};
-
-struct D2DirRateStrc
-{
-    int nValue;
-    unsigned int nRate;
 };
 
 struct D2SkillsTxt

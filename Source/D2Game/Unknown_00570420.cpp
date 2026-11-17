@@ -134,17 +134,11 @@ int __stdcall sub_00625D60(D2UnitStrc*); // 0x00625D60
 int __stdcall sub_00625DB0(D2UnitStrc*); // 0x00625DB0
 void __fastcall sub_00536850_UpdateLevel(D2GameStrc*,D2UnitStrc*,int); // 0x00536850
 void __fastcall SUNIT_AttachSound(D2UnitStrc*,int,D2UnitStrc*); // 0x00553380
-void __fastcall sub_00570850_Forward(void*,D2UnitStrc*,int); // 0x00570850
-void __fastcall SUNIT_IterateLivingPlayers(D2GameStrc*,SUNIT_IterateFn,void*); // 0x005538D0
 void __fastcall sub_0055F500_Update(D2GameStrc*,D2UnitStrc*); // 0x0055F500
 void __fastcall sub_0055FDE0(D2GameStrc*,D2UnitStrc*,int); // 0x0055FDE0
 int __stdcall sub_00622150_GetLevelInfo(D2UnitStrc*,int,int); // 0x00622150
-void __stdcall STATLIST_AddUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x006272B0
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
 static __declspec(noinline) void sub_00570A50_SpendStatPointsOnStrength(D2UnitStrc* pUnit, int nValue);
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
-void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
-int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
 static __declspec(noinline) void sub_00570B30_SpendStatPointsOnDexterity(D2UnitStrc* pUnit, int nValue);
 
 struct D2BitBufferStrc { unsigned char* pBuffer; int nBits; int nPos; int nPosBits; int bFull; };
@@ -168,7 +162,6 @@ int __stdcall BITMANIP_GetSize(D2BitBufferStrc*); // 0x00410E90
 void __stdcall BITMANIP_Write(D2BitBufferStrc*, unsigned int, int); // 0x00410EB0
 int __stdcall FOG_LeadingZeroesCount(unsigned int); // 0x004111A0
 unsigned int* __stdcall D2COMMON_10494_STATES_GetStatFlags(D2UnitStrc*); // 0x0063A100
-D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc*, int); // 0x006256B0
 int __stdcall STATLIST_GetBaseStatsData(D2StatListStrc*, D2StatStrc*, int); // 0x00625C90
 void __fastcall sub_0053E8D0_SendPacket(D2ClientStrc*, const void*, int); // 0x0053E8D0
 

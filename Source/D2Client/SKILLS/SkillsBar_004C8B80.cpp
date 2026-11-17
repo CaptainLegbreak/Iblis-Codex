@@ -75,8 +75,6 @@ void __fastcall sub_004C8670_SetLobVelocity(D2UnitStrc* pUnit, D2SkillStrc* pSki
 #define UNIT_TILE 5
 #define UNIT_MONSTER 1
 #define UNIT_INVALID 6
-#define MONSTER_SANDLEAPER1 0x4E
-#define MONSTER_ANCIENTBARB1 0x21C
 
 static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {

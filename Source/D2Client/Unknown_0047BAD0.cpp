@@ -32,22 +32,13 @@ int __cdecl sub_0044DB30(); // 0x0044DB30
 extern T0047BAD0 gtChatCommands_00712F7C[3]; // 0x00712F7C
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
-extern "C" unsigned int __cdecl strlen(const char* sz);
 extern "C" int __cdecl strcmp(const char* a, const char* b);
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 
 struct Unicode
 {
     unsigned short wChar;
 
     Unicode();                                                                                              // 0x0042F530
-};
-
-struct D2BnetChatPacketStrc
-{
-    int nType;
-    char unk0x04[0x14];
-    char szName[0x1D0];
 };
 
 struct D2ClientNotifyStrc
@@ -74,8 +65,6 @@ Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x0
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 void __fastcall sub_00526E40_Utf8ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526E40
 void __fastcall sub_0049E3A0_PrintChatLine(const Unicode* pText, char nColor); // 0x0049E3A0
-
-typedef int(__fastcall* MENUENABLED)();
 
 typedef void(__fastcall* MENUSELECT)(D2MenuItemStrc*, SMSGHANDLER_PARAMS*);
 
@@ -156,7 +145,6 @@ extern D2CelFileStrc* gpSliderKnob_007BC958; // 0x007BC958
 void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nStyle); // 0x0046EFD0
 void __fastcall sub_00502680_DrawCellFile(D2CellFileStrc* pCellFile, int nX, int nY, int nFrame, int nColor, int nArg6); // 0x00502680
 int __stdcall TEXTURE_CelDraw(D2CelContextStrc* pContext, int nX, int nY, int nArg4, int nColor, int nArg6); // 0x004F6480
-int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 extern int gnSlotFrame_007BC918[]; // 0x007BC918
 extern int gnSlotX_007BC898[]; // 0x007BC898
 extern int gnSlotY_007BC8B8[]; // 0x007BC8B8
@@ -437,7 +425,7 @@ void __stdcall sub_0047E9A0_DrawSlots(int bDraw)
                 D2CelContextStrc tContext = {};
                 tContext.pCellFile = gpSlotCells_007BC964;
                 tContext.nFrame = gnSlotFrame_007BC918[i] + 1;
-                sub_004F6480(&tContext, gnSlotX_007BC898[i], gnSlotY_007BC8B8[i], -1, 5, 0);
+                TEXTURE_CelDraw(&tContext, gnSlotX_007BC898[i], gnSlotY_007BC8B8[i], -1, 5, 0);
                 if (++i >= nSlots)
                     break;
             }
@@ -446,7 +434,7 @@ void __stdcall sub_0047E9A0_DrawSlots(int bDraw)
                 D2CelContextStrc tContext = {};
                 tContext.pCellFile = gpSlotCells_007BC964;
                 tContext.nFrame = gnSlotFrame_007BC918[i];
-                sub_004F6480(&tContext, gnSlotX_007BC898[i], gnSlotY_007BC8B8[i], -1, 5, 0);
+                TEXTURE_CelDraw(&tContext, gnSlotX_007BC898[i], gnSlotY_007BC8B8[i], -1, 5, 0);
                 if (++i >= nSlots)
                     break;
             }

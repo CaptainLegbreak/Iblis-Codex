@@ -53,7 +53,7 @@ extern int gnGlobal_0071146C; // 0x0071146C
 extern int gnGlobal_007A2858; // 0x007A2858
 extern int gnGlobal_007A285C; // 0x007A285C
 extern D2RosterUnitStrc* gpRosterUnits_007BF014; // 0x007BF014
-extern int gnGlobal_007BF06D; // 0x007BF06D
+extern int gnWaypointSelected_007BF06D; // 0x007BF06D
 
 struct D2PacketRecord21Strc
 {
@@ -61,23 +61,9 @@ struct D2PacketRecord21Strc
     unsigned char nUnitGUID[4];
     unsigned char pWaypointData[16];
 };
-
-struct D2WaypointMenuEntryStrc
-{
-    char nLevelId[4];
-    char bEnabled;
-};
-
-struct D2WaypointRowRectStrc
-{
-    int nX;
-    int nY;
-    int nUnk0x08[4];
-};
 int __cdecl sub_0044DCC0(); // 0x0044DCC0
 D2BitBufferStrc* __cdecl sub_004B32D0(); // 0x004B32D0
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 void __cdecl sub_0049C7F0_BuildWaypointList(); // 0x0049C7F0
@@ -91,7 +77,6 @@ void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 extern D2WaypointRowRectStrc gaWaypointRowRects_007224F8[9]; // 0x007224F8
 extern D2WaypointMenuEntryStrc gaWaypointEntries_007BF03C[9]; // 0x007BF03C
 extern bool gbWaypointButton_007BF06C; // 0x007BF06C
-extern int gnWaypointSelected_007BF06D; // 0x007BF06D
 extern char gbGlobal_007BF085; // 0x007BF085
 extern int gnGlobal_00711470; // 0x00711470
 
@@ -221,7 +206,7 @@ int __stdcall sub_M113_Emit_0049C470(int nX, int nY)
 void __cdecl sub_0049C560_ResetSelection()
 {
     gbGlobal_007BF06C = 0;
-    gnGlobal_007BF06D = -1;
+    gnWaypointSelected_007BF06D = -1;
 }
 
 // 0x0049C490
@@ -293,7 +278,7 @@ static void sub_0049C760_SetWaypointAct(int nAct)
 // 0x0049C980
 void __cdecl sub_0049C980_UpdateWaypointAct()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (pPlayer)
     {
         D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
@@ -387,7 +372,7 @@ void __stdcall sub_0049D160_WaypointMouseDown(SMSGHANDLER_PARAMS* pMsg)
 
     if (nX > gnGlobal_0071146C / 2 || nY > gnGlobal_00711470 - 0x31)
     {
-        if (!gbGlobal_007BF085 && sub_00463DD0() && UNITS_GetRoom(sub_00463DD0()))
+        if (!gbGlobal_007BF085 && sub_00463DD0_GetPlayerUnit() && UNITS_GetRoom(sub_00463DD0_GetPlayerUnit()))
         {
             sub_004786A0_SendIntInt(0x49, gnGlobal_007BF07D, 0);
             gbGlobal_007BF085 = 1;

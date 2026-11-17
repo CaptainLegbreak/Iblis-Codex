@@ -33,14 +33,6 @@ struct D2MsgHandlerEntryStrc
     SMSGHANDLER pfnHandler;
 };
 
-struct D2RectStrc
-{
-    int nLeft;
-    int nTop;
-    int nRight;
-    int nBottom;
-};
-
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 extern unsigned long gdwTick_007C5488; // 0x007C5488
 extern D2MsgHandlerEntryStrc gaMsgHandlers_00727950[]; // 0x00727950
@@ -49,8 +41,6 @@ int __cdecl sub_004F59A0(); // 0x004F59A0
 void __fastcall sub_00451DB0_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 void __cdecl sub_00487B80(); // 0x00487B80
 int __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
-void __fastcall sub_00478700_SendCommand(char nCommand, int nUnitId, int nArg1, int nArg2, int nArg3); // 0x00478700
 void __cdecl sub_0044DA40(); // 0x0044DA40
 void __fastcall sub_00467430(D2RectStrc* pRect); // 0x00467430
 
@@ -90,7 +80,7 @@ void __cdecl sub_004C0380_OpenPanel()
     {
         if (!gnGlobal_007C5470)
         {
-            D2UnitStrc* pPlayer = sub_00463DD0();
+            D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
             sub_00478700_SendCommand(0x44, !pPlayer ? -1 : pPlayer->id, gnGlobal_007C547C, 0, 2);
             sub_004C0090();
         }

@@ -3,16 +3,11 @@
 #define STAT_HITPOINTS 6
 #define STAT_MANA 8
 #define STAT_STAMINA 10
-#define STATE_DEATH_DELAY 92
-#define DRAIN_MIN 256
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define ITEMTYPE_BLUNT 57
 #define STAT_ITEM_UNDEADDAMAGE_PERCENT 122
 #define UNIT_MONSTER 1
 #define UNIT_INVALID 6
 #define STAT_DAMAGE_VS_MONTYPE 180
-#define FIELD(p,offset) (*(int*)((char*)(p)+(offset)))
-#define BYTEFIELD(p,offset) (*(unsigned char*)((char*)(p)+(offset)))
 struct D2SeedStrc;
 struct D2MonStatsTxt;
 struct D2MonsterDataStrc;
@@ -185,18 +180,13 @@ int __stdcall MONSTERS_GetHirelingTypeId(D2UnitStrc* pUnit); // 0x0063EE90
 void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pClass, int* pMode, const char* szFile, int nLine); // 0x00645270
 static __declspec(noinline) void __stdcall SUNITDMG_ApplyPoisonDamage(D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int nPoisonDamage, int nPoisonLength);
 static __declspec(noinline) void __stdcall SUNITDMG_ApplyBurnDamage(D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int nBurnDamage, int nBurnLength);
-D2UnitStrc* __fastcall sub_00535BC0_GetWeapon(D2UnitStrc*); // 0x00535BC0
+D2UnitStrc* __fastcall sub_6FC7C7B0(D2UnitStrc*); // 0x00535BC0
 int __stdcall INVENTORY_GetWieldType(D2UnitStrc*, D2InventoryStrc*); // 0x0063D340
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc*, int, int); // 0x00625480
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc*, int, int); // 0x00625500
 short __stdcall sub_00629860_GetStrengthFactor(D2UnitStrc*); // 0x00629860
 short __stdcall sub_006298A0_GetDexterityFactor(D2UnitStrc*); // 0x006298A0
 int __stdcall SKILLS_GetWeaponMasteryBonus(D2UnitStrc*, D2UnitStrc*, D2SkillStrc*, int); // 0x00645830
-int __fastcall DATATBLS_ApplyRatio(int, int, int); // 0x00483360
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc*, int); // 0x0045C3E0
-unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
-int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625500
-D2UnitStrc* __fastcall sub_6FC7C7B0(D2UnitStrc* pUnit); // 0x00535BC0
 int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 
 struct D2StatStrc
@@ -208,13 +198,11 @@ struct D2StatStrc
 void __fastcall sub_00535D10_PrepareWeapon(D2UnitStrc*,int); // 0x00535D10
 void __fastcall sub_00535E20_RestoreWeapon(D2UnitStrc*,int); // 0x00535E20
 int __stdcall STATLIST_GetUnitAlignment(D2UnitStrc*); // 0x006259B0
-void __stdcall STATLIST_SetUnitStat(D2UnitStrc*,int,int,int); // 0x00627260
 int __stdcall MONSTERS_IsDemon(D2UnitStrc*); // 0x0063E940
 int __fastcall sub_0057B420_RollPhysicalDamage(D2UnitStrc*,int,int,int,int,int,int,unsigned char); // 0x0057B420
 int __stdcall sub_00645830_GetCriticalStrikeChance(D2UnitStrc*,D2UnitStrc*,int,int); // 0x00645830
 int __fastcall sub_00472280_RollRange(D2SeedStrc*,int,int); // 0x00472280
 int __fastcall SUNITEVENT_Trigger(D2GameStrc*,int,D2UnitStrc*,D2UnitStrc*,void*); // 0x005C0C30
-unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc*,int); // 0x0045C390
 void __fastcall sub_005A5560_AdjustDamage(D2UnitStrc*,D2UnitStrc*,D2DamageStrc*); // 0x005A5560
 
 struct Unit
@@ -234,22 +222,6 @@ struct Context
     int zeroReduction;
     int flatReduction1;
     int flatReduction2;
-};
-
-struct Record
-{
-    int damageOffset;
-    int resistanceStat;
-    int maximumStat;
-    int pierceStat;
-    int absorbPercentStat;
-    int absorbFlatStat;
-    int reductionIndex;
-    int requiresAttackerFlag;
-    int scales;
-    const char* name;
-    unsigned char flags;
-    unsigned char tail[3];
 };
 
 extern Record gVar_00732980_Records[12]; // 0x00732980
@@ -296,12 +268,6 @@ struct D2ModeChangeStrc
     int unk0x1C;
 };
 
-struct D2DamageHitClassMappingStrc
-{
-    int nDamageStrcOffset;
-    unsigned int nHitClass;
-};
-
 extern "C" const D2DamageHitClassMappingStrc gsDamageHitClassMapping_006E16D8[8]; // 0x006E16D8
 int __fastcall sub_0046C140_CheckMonStats2ModeFlag(int nMonsterId, int nMode); // 0x0046C140
 void __fastcall sub_6FC62DF0(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pUnit, D2DamageStrc* pDamage); // 0x005A54F0
@@ -325,8 +291,6 @@ static unsigned int SUNITDMG_GetHitClass(D2DamageStrc* pDamage, unsigned int nBa
 static void sub_0057CEC0_SetHitClassIfUnset(D2DamageStrc* pDamage); // 0x0057CEC0
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
 static __declspec(noinline) int sub_0057DCA0_GetWieldedTypeStatMax(D2UnitStrc* pUnit);
-unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc*, int); // 0x0045C390
-D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc*); // 0x00554010
 void __fastcall sub_005347C0_Stub6(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, int, int, const char*); // 0x005347C0
 int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc*, D2InventoryStrc*, int*, int, int); // 0x0064F380
 int __stdcall UNITS_GetBlockRate(D2UnitStrc*, int); // 0x00622720
@@ -1040,7 +1004,7 @@ int __fastcall SUNITDMG_ApplyDamageBonuses(D2UnitStrc* pUnit, int bGetStats, D2U
 {
     if (bGetStats)
     {
-        if (!pItem) pItem = sub_00535BC0_GetWeapon(pUnit);
+        if (!pItem) pItem = sub_6FC7C7B0(pUnit);
         if (pItem)
         {
             if (INVENTORY_GetWieldType(pUnit, pUnit->pInventory) == 2)

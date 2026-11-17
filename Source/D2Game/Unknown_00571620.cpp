@@ -56,8 +56,6 @@ struct D2GSPacketSrv2C
 };
 
 #pragma pack(pop)
-
-D2UnitStrc* __stdcall CLIENTS_GetPlayerFromClient(D2ClientStrc* pClient, int bIgnoreDeath); // 0x00537860
 void __fastcall SCMD_SendPacket0x2C(D2ClientStrc* pClient, D2GSPacketSrv2C* pPacket); // 0x0053D780
 
 struct D2UnitPacketListStrc

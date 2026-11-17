@@ -18,19 +18,6 @@ struct D2PacketRecord21Strc
     unsigned char nUnitGUID[4];
     unsigned char pWaypointData[16];
 };
-
-struct D2WaypointMenuEntryStrc
-{
-    char nLevelId[4];
-    char bEnabled;
-};
-
-struct D2WaypointRowRectStrc
-{
-    int nX;
-    int nY;
-    int nUnk0x08[4];
-};
 int __cdecl sub_0044DCC0();                                                                                 // 0x0044DCC0
 D2BitBufferStrc* __cdecl sub_004B32D0();                                                           // 0x004B32D0
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState);            // 0x0065C310

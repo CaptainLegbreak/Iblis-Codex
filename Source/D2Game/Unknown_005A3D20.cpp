@@ -1,9 +1,6 @@
 #include "D2Game.h"
-
-#define MONSTER_PAINWORM1 551
 #define MONMODE_DEATH 0
 #define MONMODE_NEUTRAL 1
-#define STATE_CORPSE_NODRAW 104
 #define EVENTTYPE_MONUMOD 7
 struct D2SeedStrc;
 struct D2StaticPathStrc;

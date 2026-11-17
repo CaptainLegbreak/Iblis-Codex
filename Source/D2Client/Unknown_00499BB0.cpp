@@ -80,7 +80,6 @@ D2UnitStrc* __cdecl sub_00463DD0();                                             
 int __fastcall sub_004538D0(unsigned int nUIVar);                                                    // 0x004538D0
 int __fastcall sub_00453A90_GetUIVarUnchecked(int nUIVar);                                                  // 0x00453A90
 int __stdcall UNITS_GetInventoryRecordId(D2UnitStrc* pUnit, int nArg, int nMode);                           // 0x00621050
-struct D2Block1 { int n[6]; };
 void __stdcall sub_0065C1F0(int nId, int nGroup, D2Block1* pBlock);              // 0x0065C1F0
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId);                                              // 0x006335F0
 void __fastcall sub_0049FF90_Close(D2UnitStrc* pItem, D2ItemsTxt* pState);                                  // 0x0049FF90

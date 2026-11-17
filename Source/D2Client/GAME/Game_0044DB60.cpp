@@ -161,7 +161,6 @@ extern int gnThreadReady_007A064C; // 0x007A064C
 extern D2LoadingTimerStrc gtLoadingTimer_007A0684; // 0x007A0684
 void __cdecl FOG_SetMemoryPoolSystemMode(D2PoolSystemStrc*,int); // 0x00409FF0
 void __fastcall sub_0044B440_PushValue(int); // 0x0044B440
-void __fastcall sub_0044B880_SetValue(int); // 0x0044B880
 void __fastcall sub_0044BA20_SetResolution(int); // 0x0044BA20
 void __cdecl sub_0044C890_ReleaseGameState(); // 0x0044C890
 unsigned long __stdcall sub_0044CF20(void*); // 0x0044CF20

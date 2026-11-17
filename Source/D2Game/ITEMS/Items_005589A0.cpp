@@ -110,35 +110,6 @@ struct D2ItemsTxt
     unsigned char nQuest;
 };
 
-struct D2ItemTypesTxt
-{
-    char unk0x00[0x14];
-    unsigned char nMagic;
-    unsigned char nRare;
-    unsigned char nNormal;
-    char unk0x17[0xCD];
-};
-
-struct D2ItemRatioTxt
-{
-    int dwUnique;
-    int dwUniqueDivisor;
-    int dwUniqueMin;
-    int dwRare;
-    int dwRareDivisor;
-    int dwRareMin;
-    int dwSet;
-    int dwSetDivisor;
-    int dwSetMin;
-    int dwMagic;
-    int dwMagicDivisor;
-    int dwMagicMin;
-    int dwHiQuality;
-    int dwHiQualityDivisor;
-    int dwNormal;
-    int dwNormalDivisor;
-};
-
 struct D2DataTablesStrc
 {
     char unk0x000[0xBF8];
@@ -237,18 +208,13 @@ struct D2ItemSaveStrc
     unsigned short nPad12;
     int nItemFileIndex;
 };
-
-extern "C" void __cdecl sub_00408A60(const char*, const char*, int); // 0x00408A60
-extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc*); // 0x00451F50
 int __fastcall EVENT_GetEventFrame(D2GameStrc*, D2UnitStrc*, int); // 0x005415A0
 void __fastcall EVENT_SetEvent(D2GameStrc*, D2UnitStrc*, int, int, int, int); // 0x005417D0
 D2UnitStrc* __fastcall ITEMS_CreateItemFromBitstream(D2GameStrc*, D2ActiveRoomStrc*, unsigned char*, unsigned int, int, D2ItemSaveStrc*, unsigned int*, unsigned int); // 0x00558CB0
 int __fastcall D2GAME_ITEMSOCKET_PlaceItem_6FC497E0(D2GameStrc*, D2UnitStrc*, int, int, int*, int, int, int, int); // 0x00562660
 void __fastcall D2GAME_ResetSomeItemFlags_6FC415F0(D2GameStrc*, D2UnitStrc*); // 0x005979B0
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc*); // 0x00620BB0
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc*, int); // 0x00624690
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc*, int, unsigned short); // 0x00625480
 void __stdcall ITEMS_SetItemFlag(D2UnitStrc*, unsigned int, int); // 0x006280D0
 void __stdcall ITEMS_SetItemCMDFlag(D2UnitStrc*, int, int); // 0x00628170
 int __stdcall sub_0062E410(unsigned char*, unsigned int, int, D2ItemSaveStrc*); // 0x0062E410

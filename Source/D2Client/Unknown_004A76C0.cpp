@@ -67,7 +67,7 @@ struct D2UnitStrc
     D2InventoryStrc* pInventory;
 };
 
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 void __stdcall sub_00467FA0_MsgHandler(SMSGHANDLER_PARAMS* pMsg); // 0x00467FA0
@@ -171,16 +171,6 @@ struct D2CharFieldStrc
     int nStatId;
 };
 
-struct D2HoverBoxStrc
-{
-    int nBoxX;
-    int nBoxY;
-    int nTitleX;
-    int nTitleY;
-    int nTextX;
-    int nTextY;
-};
-
 struct D2ZeroDwordStrc
 {
     int nValue;
@@ -240,7 +230,6 @@ unsigned char __cdecl sub_0044DCD0_GetDifficulty(); // 0x0044DCD0
 int __fastcall sub_00451F60_UnitClassId(D2UnitStrc* pUnit); // 0x00451F60
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
 void* __cdecl sub_00454600_GetBuySellButtonCells(); // 0x00454600
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 int __cdecl sub_00466DC0(); // 0x00466DC0
 int __cdecl sub_00466DD0(); // 0x00466DD0
@@ -299,13 +288,6 @@ struct D2UiCelFileStrc
 };
 
 #pragma pack(pop)
-struct D2SkillIconStateStrc
-{
-    char unk0x000[0x2D0];
-    int anValues[60];
-    unsigned char bFlag;
-    char unk0x3C1[0x4];
-};
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 extern D2UiCelFileStrc gaSkillIconCels_00724AC0[7]; // 0x00724AC0
@@ -360,7 +342,7 @@ void __stdcall sub_004A7720_OnLButtonDown(SMSGHANDLER_PARAMS* pMsg)
     }
     if (nX >= gnGlobal_007A2858 && nX <= gnGlobal_0071146C / 2 - 1 && nY >= gnGlobal_007A285C && nY <= gnGlobal_00711470 + gnGlobal_007A285C - 0x31)
     {
-        if (STATLIST_GetUnitBaseStat(sub_00463DD0(), 4, 0))
+        if (STATLIST_GetUnitBaseStat(sub_00463DD0_GetPlayerUnit(), 4, 0))
         {
             for (int i = 0; i < 4; ++i)
             {
@@ -399,7 +381,7 @@ void __stdcall sub_004A78C0_OnLButtonUp(SMSGHANDLER_PARAMS* pMsg)
     }
     if (nX >= gnGlobal_007A2858 && nX <= gnGlobal_0071146C / 2 - 1 && nY >= gnGlobal_007A285C && nY <= gnGlobal_00711470 + gnGlobal_007A285C - 0x31)
     {
-        D2UnitStrc* pPlayer = sub_00463DD0();
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         if (STATLIST_GetUnitBaseStat(pPlayer, 4, 0))
         {
             for (int i = 0; i < 4; ++i)
@@ -1272,7 +1254,7 @@ int __fastcall sub_004A9B80_FindSkill(D2UnitStrc* pUnit, int nSkillId)
 // 0x004A9DF0
 void __cdecl sub_004A9DF0_UpdateSkillIcons()
 {
-    D2SkillStrc* pSkill = UNITS_GetStartSkill(sub_00463DD0());
+    D2SkillStrc* pSkill = UNITS_GetStartSkill(sub_00463DD0_GetPlayerUnit());
     D2_ASSERT(pSkill, 1149);
 
     do
@@ -1299,27 +1281,27 @@ void __cdecl sub_004AA7E0_ResetSkillIcons()
     if (gbGlobal_007C07FC)
     {
         gtSkillIconState_007C0300.bFlag = 0;
-        sub_004AA3A0(sub_00463DD0(), 0x50, 1, 0, 0);
+        sub_004AA3A0(sub_00463DD0_GetPlayerUnit(), 0x50, 1, 0, 0);
     }
     if (!gbGlobal_007C07FC)
     {
         gtSkillIconState_007C0300.bFlag = 0;
-        sub_004AA3A0(sub_00463DD0(), gnGlobal_0071146C - 0x80, 0, 0, 0);
+        sub_004AA3A0(sub_00463DD0_GetPlayerUnit(), gnGlobal_0071146C - 0x80, 0, 0, 0);
     }
     if (gbGlobal_007C07FC)
     {
-        sub_004AA3A0(sub_00463DD0(), 0x50, 1, 1, 0);
+        sub_004AA3A0(sub_00463DD0_GetPlayerUnit(), 0x50, 1, 1, 0);
     }
     if (!gbGlobal_007C07FC)
     {
-        sub_004AA3A0(sub_00463DD0(), gnGlobal_0071146C - 0x80, 0, 1, 0);
+        sub_004AA3A0(sub_00463DD0_GetPlayerUnit(), gnGlobal_0071146C - 0x80, 0, 1, 0);
     }
 }
 
 // 0x004AA900
 int __cdecl sub_004AA900_IsStateOrValue()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (pPlayer && STATES_CheckState(pPlayer, 0x36))
     {
         return 1;
@@ -1344,7 +1326,7 @@ void __cdecl sub_004AB2F0_SetBlackColor()
 // 0x004AC690
 void __cdecl sub_004AC690_DrawSkillPanel()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     sub_00502EF0(1);
     gnGlobal_007C0C4C = 1;
     sub_004AAAE0_DrawPagedPanel(gaPanelCels_00724BF0[gbGlobal_007A0522].pCelFile, gnGlobal_00724BEC);

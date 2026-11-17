@@ -11,14 +11,6 @@ struct TileRecord;
 struct Frame;
 struct Node;
 
-typedef unsigned char u8;
-
-typedef unsigned short u16;
-
-typedef unsigned int u32;
-
-typedef int s32;
-
 struct RoomCoordinates
 {
     s32 x;
@@ -29,14 +21,6 @@ struct RoomCoordinates
     s32 tileY;
     s32 tileWidth;
     s32 tileHeight;
-};
-
-struct Rectangle
-{
-    s32 left;
-    s32 top;
-    s32 right;
-    s32 bottom;
 };
 
 struct Node

@@ -92,25 +92,19 @@ int __fastcall AITACTICS_ChangeModeAndTargetUnit(D2GameStrc* pGame, D2UnitStrc* 
 int __fastcall AITACTICS_WalkToTargetUnitWithFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit, unsigned char nFlag); // 0x005DEC80
 
 struct D2MonsterDataStrc { char unk_00[0x28]; D2AiControlStrc* pAiControl; };
-
-extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc*); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc*); // 0x0045AE20
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc*, int); // 0x0045C390
 D2UnitStrc* __fastcall SUNIT_GetOwner(D2GameStrc*, D2UnitStrc*); // 0x00552FD0
 int __fastcall SUNIT_IsDead(D2UnitStrc*); // 0x005541B0
 void __fastcall AITHINK_ExecuteAiFn(D2GameStrc*, D2UnitStrc*, D2AiControlStrc*, int); // 0x005B0E00
-int __fastcall AITACTICS_ChangeModeAndTargetUnit(D2GameStrc*, D2UnitStrc*, int, D2UnitStrc*); // 0x005DDF90
-void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc*, D2UnitStrc*, int); // 0x005DE080
 int __fastcall AITACTICS_UseSkill(D2GameStrc*, D2UnitStrc*, unsigned char, int, D2UnitStrc*, int, int); // 0x005DEAD0
 void __fastcall AITACTICS_UseSkillInRange(D2UnitStrc* pUnit, int nRange, int nSkillId, int nMode); // 0x005DF850
 int __stdcall STATLIST_GetUnitAlignment(D2UnitStrc*); // 0x006259B0
 int __stdcall STATES_CheckState(D2UnitStrc*, int); // 0x00639DF0
-int __fastcall AITACTICS_UseSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nMode, int nSkillId, D2UnitStrc* pTarget, int nX, int nY); // 0x005DEAD0
 int __fastcall AITACTICS_WalkToTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x005DECA0
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId); // 0x006439F0
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus); // 0x006442A0
-int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
 
 struct D2PlayerDataStrc { char unk00[0xA0]; unsigned char nTrailIndex; char unkA1[7]; D2CoordStrc pTrail[20]; };
@@ -128,7 +122,6 @@ D2AiControlStrc* __fastcall sub_005A6190_GetAiControl(D2UnitStrc*); // 0x005A619
 void __fastcall sub_005A6260_SetAiControl(D2AiControlStrc*, int, int, int); // 0x005A6260
 unsigned int __fastcall AIUTIL_GetDistanceToCoordinates_FullUnitSize(D2UnitStrc*,D2UnitStrc*); // 0x005DC380
 unsigned int __fastcall AIUTIL_GetDistanceToCoordinates(D2UnitStrc*,int,int); // 0x005DC5C0
-void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc*,D2UnitStrc*,int); // 0x005DE080
 void __fastcall AITACTICS_SetVelocity(D2UnitStrc*,int,int,unsigned char); // 0x005DE190
 int __fastcall AITACTICS_WalkToTargetCoordinates(D2GameStrc*,D2UnitStrc*,int,int); // 0x005DED90
 int __fastcall AITACTICS_RunToTargetCoordinates(D2GameStrc*,D2UnitStrc*,int,int); // 0x005DEDE0
@@ -138,7 +131,6 @@ int __fastcall sub_005DF400_WalkAroundUnit(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,u
 int __fastcall D2GAME_AICORE_WalkToOwner_6FCD0B60(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,int); // 0x005DF530
 D2CoordListStrc* __stdcall sub_0061AD30_GetCoordList(D2ActiveRoomStrc*,int,int); // 0x0061AD30
 D2CoordListStrc* __stdcall sub_0061B130_GetCoordList(D2ActiveRoomStrc*,int,int); // 0x0061B130
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc*); // 0x00620BB0
 unsigned char __stdcall sub_00621DC0(D2UnitStrc*,int,int); // 0x00621DC0
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc*); // 0x006221A0
 unsigned char __stdcall sub_0063E7A0_GetByteTableEntry(unsigned char); // 0x0063E7A0
@@ -234,7 +226,7 @@ void __fastcall AITHINK_Fn117_SuicideMinion(D2GameStrc* pGame, D2UnitStrc* pUnit
 // build: context MONSTERMODE_GetMonStatsTxtRecord
 static __forceinline D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecord(int nId)
 {
-    if (nId >= 0 && nId < sgptDataTables->nMonStatsTxtRecordCount) return &sgptDataTables->pMonStatsTxt[nId];
+    if (nId >= 0 && nId < gpDataTables->nMonStatsTxtRecordCount) return &gpDataTables->pMonStatsTxt[nId];
     return 0;
 }
 
@@ -473,7 +465,7 @@ int __fastcall sub_005E3930_MovePet(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2Un
         D2CoordListStrc* pCoords=sub_0061AD30_GetCoordList(pRoom,CLIENTS_GetUnitX(pPlayer),CLIENTS_GetUnitY(pPlayer));
         int nX;
         int nY;
-        int nClass=363>=sgptDataTables->nMonStatsTxtRecordCount ? -1 : 363;
+        int nClass=363>=gpDataTables->nMonStatsTxtRecordCount ? -1 : 363;
         if (!sub_0054DC40_FindSpawnCoordinates(pGame,pRoom,pCoords,nClass,&nX,&nY,0)) return 0;
         D2ActiveRoomStrc* pNewRoom=sub_00463740_FindRoom(pRoom,nX,nY);
         if (!pNewRoom || !sub_00554EA0_Teleport(pGame,pPet,pNewRoom,nX,nY,0,0)) return 0;

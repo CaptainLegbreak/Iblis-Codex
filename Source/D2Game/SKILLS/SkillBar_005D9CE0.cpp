@@ -69,7 +69,7 @@ struct D2CoordStrc
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2ActiveRoomStrc* __fastcall D2GAME_GetRoom_6FC52070(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
-int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit); // 0x0045ADF0
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 
 struct D2GameStrc
@@ -103,18 +103,6 @@ int __stdcall PATH_GetUnitCollisionPattern(D2UnitStrc* pUnit); // 0x00649180
 int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, unsigned short nMask); // 0x0064D910
 D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, int nUnitSize, unsigned int nMask, int bAllowNeighboringRooms); // 0x0064E7B0
 void __stdcall COLLISION_SetMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, int nMask); // 0x0064EA90
-
-struct D2MonStatsTxtRun
-{
-    char unk0x00[0x34];
-    short nRun;
-};
-
-struct D2CharStatsTxtRun
-{
-    char unk0x00[0x41];
-    unsigned char nRunSpeed;
-};
 
 struct D2DamageStrc
 {
@@ -153,8 +141,6 @@ struct D2DamageStrc
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 D2MonStatsTxtRun* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
-int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
-D2ActiveRoomStrc* __fastcall COLLISION_GetRoomBySubTileCoordinates(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
 int __fastcall sub_00463860(D2UnitStrc* pUnit); // 0x00463860
 D2CharStatsTxtRun* __fastcall sub_004833E0_GetCharStatsTxtRecord(int nClassId); // 0x004833E0
 void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nSkillId); // 0x00540E60
@@ -385,9 +371,9 @@ int __fastcall SKILLS_SrvSt40_Leap(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSk
                 return 0;
             }
 
-            const int nTargetX = UNITS_GetXPosition(pTarget);
+            const int nTargetX = CLIENTS_GetUnitX(pTarget);
             const int nTargetY = CLIENTS_GetUnitY(pTarget);
-            nX = 2 * nTargetX - UNITS_GetXPosition(pUnit);
+            nX = 2 * nTargetX - CLIENTS_GetUnitX(pUnit);
             nY = 2 * nTargetY - CLIENTS_GetUnitY(pUnit);
         }
         else
@@ -548,7 +534,7 @@ static int __stdcall sub_005DA020_SandLeaperKnockback(D2GameStrc* pGame, int nX,
 
     nX = 3 * nX - 2 * CLIENTS_GetUnitX(pTarget);
     nY = 3 * nY - 2 * CLIENTS_GetUnitY(pTarget);
-    D2ActiveRoomStrc* pTargetRoom = COLLISION_GetRoomBySubTileCoordinates(UNITS_GetRoom(pUnit), nX, nY);
+    D2ActiveRoomStrc* pTargetRoom = D2GAME_GetRoom_6FC52070(UNITS_GetRoom(pUnit), nX, nY);
     if (pTargetRoom && DUNGEON_IsRoomInTown(pTargetRoom))
     {
         return 0;

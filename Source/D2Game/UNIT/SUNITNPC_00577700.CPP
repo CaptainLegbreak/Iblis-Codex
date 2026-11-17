@@ -1,10 +1,7 @@
 #include "D2Game.h"
-
-#define STAT_QUANTITY 70
 #define MONSTER_KASHYA 150
 #define MONSTER_GREIZ 198
 #define MONSTER_ASHEARA 252
-#define MONSTER_QUAL_KEHK 515
 struct D2NpcGambleStrc;
 struct D2NpcTradeStrc;
 struct D2NpcRecordStrc;

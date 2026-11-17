@@ -2,22 +2,13 @@
 
 #define QUEST_A4Q2_DIABLO 23
 #define QUESTSTATEFLAG_A4Q2 26
-#define QUESTEVENT_NPCACTIVATE 0
-#define QUESTEVENT_NPCDEACTIVATE 2
-#define QUESTEVENT_CHANGEDLEVEL 3
-#define QUESTEVENT_MONSTERKILLED 8
-#define QUESTEVENT_SCROLLMESSAGE 11
-#define QUESTEVENT_PLAYERSTARTEDGAME 13
-#define QUESTEVENT_PLAYERJOINEDGAME 14
 #define QFLAG_REWARDGRANTED 0
 #define QFLAG_STARTED 2
 #define QFLAG_LEAVETOWN 3
 #define QFLAG_ENTERAREA 4
-#define QFLAG_CUSTOM5 9
 #define QFLAG_COMPLETEDBEFORE 15
 #define OBJMODE_OPERATING 1
 #define OBJMODE_OPENED 2
-#define UNIT_CLASSID_OR_INVALID(pUnit) ((pUnit) ? (pUnit)->dwClassId : -1)
 struct D2PlayerDataStrc;
 struct D2Act4Quest1Strc;
 struct D2Act4Quest2Strc;
@@ -241,11 +232,7 @@ struct D2QuestArgStrc
     int nOldLevel;
     int nNewLevel;
 };
-
-int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc*, int, int); // 0x0065C310
 void __fastcall QUESTS_StateDebug(D2QuestDataStrc*, int, const char*, int); // 0x00544350
-void __fastcall QUESTS_UnitIterate(D2QuestDataStrc*, int, D2UnitStrc*, QUESTUNITITERATE, bool); // 0x00544300
-void __fastcall SUNIT_IterateUnitsOfType(D2GameStrc*, int, void*, QUESTUNITITERATE); // 0x005537D0
 int __fastcall ACT4Q2_UnitIterate_UpdateQuestStateFlags(D2GameStrc*, D2UnitStrc*, void*); // 0x005B4560
 int __fastcall ACT4Q2_UnitIterate_StatusCyclerEx(D2GameStrc*, D2UnitStrc*, void*); // 0x005B4E40
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0

@@ -42,14 +42,6 @@ struct D2ClientListEntryStrc
     unsigned char unk0x04[6];
 };
 
-struct D2RectStrc
-{
-    int nLeft;
-    int nTop;
-    int nRight;
-    int nBottom;
-};
-
 struct D2CelContextStrc
 {
     int nFrame;

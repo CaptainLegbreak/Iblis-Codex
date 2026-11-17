@@ -1,7 +1,5 @@
 #include "D2Client.h"
 
-typedef unsigned int size_t;
-
 struct Unicode
 {
     unsigned short wChar;
@@ -31,11 +29,6 @@ struct T0044CB60
     T0044CB60* pNext;
 };
 
-struct D2ChatTextStrc
-{
-    char sz[0x100];
-};
-
 struct D2ChatMessageStrc
 {
     unsigned char unk0x00;
@@ -44,15 +37,6 @@ struct D2ChatMessageStrc
     unsigned char nColor;
     unsigned char unk0x09[0x11];
     D2ChatTextStrc tText;
-};
-
-struct D2ChatSendStrc
-{
-    char nType;
-    char nCode;
-    char nLang;
-    char szText[0x100];
-    char szArgument[0x11];
 };
 
 struct D2ClientNotifyStrc

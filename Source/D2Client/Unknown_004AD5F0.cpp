@@ -1,8 +1,6 @@
 #include "D2Client.h"
 
 #define UNIT_MONSTER 1
-#define MONMODE_DEATH 0
-#define MONMODE_DEAD 12
 #define FIELD_OFFSET(T,F) ((unsigned long)&(((T*)0)->F))
 struct D2SeedStrc;
 struct D2MonsterDataStrc;
@@ -49,7 +47,7 @@ struct D2UnitStrc
 };
 void __fastcall sub_0046F170_RemoveOverlays(D2UnitStrc* pUnit); // 0x0046F170
 void __fastcall sub_00470390(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
-int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit); // 0x0045ADF0
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 void __fastcall sub_0046C320_SpawnAroundUnit(D2UnitStrc* pUnit, int nMonsterId, int nCount); // 0x0046C320
 
@@ -113,7 +111,6 @@ struct D2DataTablesStrc
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268
-int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 D2UnitStrc* __fastcall sub_004648F0_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 extern "C" int __fastcall sub_004AC7E0(D2UnitStrc* pUnit, unsigned short wMask); // 0x004AC7E0
@@ -216,7 +213,7 @@ void __fastcall sub_004AD5F0_StateOverlayOrSpawn(D2UnitStrc* pUnit, int nState, 
     {
         if ((unsigned int)SEED_RollRandomNumberForceInline(&pUnit->pSeed) % 100 == 0 && pMonsterData->nSpawnCount < 100)
         {
-            UNITS_GetXPosition(pUnit);
+            CLIENTS_GetUnitX(pUnit);
             CLIENTS_GetUnitY(pUnit);
             sub_0046C320_SpawnAroundUnit(pUnit, 0xE3, 4);
             pMonsterData->nSpawnCount += 4;

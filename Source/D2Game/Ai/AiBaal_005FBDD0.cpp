@@ -90,13 +90,6 @@ struct D2GameStrc
     D2TargetNodeStrc* pTargetNodes[10];
 };
 
-struct D2AiBaalTargetArgsStrc
-{
-    char unk0x00[0x0C];
-    int nX;
-    int nY;
-};
-
 struct D2SkillsTxt
 {
     char unk0x000[0x18E];
@@ -184,7 +177,6 @@ int __fastcall PLAYER_GetUniqueIdFromPlayerData(D2UnitStrc* pUnit); // 0x005353F
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nType, int nId); // 0x00552F60
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 unsigned int __stdcall UNITS_GetDistanceToCoordinates(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
-int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nRange); // 0x00622C40
 __declspec(noinline) static int __stdcall AIBAAL_RollRandomAiParam(D2GameStrc*, D2UnitStrc*, D2AiControlStrc*, D2UnitStrc*, int, int, D2AiCmdStrc*);
 
 inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)

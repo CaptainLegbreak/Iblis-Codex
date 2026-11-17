@@ -2,8 +2,6 @@
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
-#define NULL 0
-
 struct D2SeedStrc
 {
     unsigned int nLowSeed;
@@ -72,20 +70,6 @@ struct D2DataTablesStrc
     int nSkillsTxtRecordCount;
     char unk0xBA4[0x1C];
     int nOverlayTxtRecordCount;
-};
-
-struct D2ClientSkillArgsStrc
-{
-    int nSkillId;
-    int nOwnerGUID;
-    int nArg1;
-    int nArg2;
-    int nSkillLevel;
-};
-
-struct D2PathDirectionStrc
-{
-    unsigned char nDirection;
 };
 
 typedef int (__fastcall* CLIENTSKILLSTARTFN)(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);

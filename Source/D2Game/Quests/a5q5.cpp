@@ -1,6 +1,8 @@
 #include "D2Game.h"
 
 #define QUEST_A5Q5_ANCIENTS 35
+#define STAT_LEVEL 12
+
 struct D2ModeChangeStrc;
 struct D2Act5Quest5Strc;
 struct D2ObjOperateFnStrc;
@@ -8,6 +10,13 @@ struct D2PlayerDataStrc;
 struct D2QuestGUIDStrc;
 struct D2ObjInitFnStrc;
 struct D2Act5Quest6Strc;
+struct D2GameStrc;
+struct D2CoordStrc;
+struct D2UnitStrc;
+struct D2QuestDataStrc;
+struct D2DataTablesStrc;
+struct D2ObjectsTxt;
+struct D2QuestArgStrc;
 
 struct D2GameStrc
 {
@@ -200,6 +209,13 @@ int __fastcall QUESTS_FastRemovePlayerGUID(D2QuestGUIDStrc* pGUIDs, int dwGUID);
 unsigned short __fastcall SUNIT_GetPartyId(D2UnitStrc* pPlayer);
 void __fastcall PARTY_IteratePartyMembers(D2GameStrc* pGame, unsigned short nPartyId, PartyCallbackFunction pCallback, void* pArgs);
 void __fastcall QUESTS_SendLogUpdateEx(D2UnitStrc* pPlayer, int nQuestId, unsigned char nAct);
+void __fastcall QUESTS_UpdatePlayerFlags(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005455B0
+void __fastcall PLAYERSTATS_LevelUp(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00570880
+int __stdcall DATATBLS_GetLevelThreshold(int nClass, int nLevel); // 0x00611800
+int __stdcall DATATBLS_GetMaxLevel(int nClass); // 0x00611830
+int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
+int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
+void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
 
 // 0x0058BEC0
 static bool sub_0058BEC0_RemoveAncientMonster(D2GameStrc* pGame, int nAncientMonsterGUID)
@@ -356,42 +372,15 @@ void __fastcall ACT5Q5_OnPortalOpened(D2GameStrc* pGame, D2UnitStrc* pUnit)
     ACT5Q5_DeactivateAncientMonsters(pGame, pQuestData, (D2Act5Quest5Strc*)pQuestData->pQuestDataEx);
 }
 
-// 0x0058D560
-void __fastcall ACT5Q5_OnPlayerDied(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    if (!pRoom || DUNGEON_GetLevelIdFromRoom(pRoom) != 0x78)
-    {
-        return;
-    }
-
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 0x23);
-    if (!pQuestData || !pQuestData->bNotIntro)
-    {
-        return;
-    }
-
-    D2Act5Quest5Strc* pQuestDataEx = (D2Act5Quest5Strc*)pQuestData->pQuestDataEx;
-    if (pQuestDataEx->nActivePortalCount || pQuestDataEx->bAncientsDefeated || !pQuestDataEx->bActivatable)
-    {
-        return;
-    }
-
-    pQuestDataEx->nLivingPlayersOnSummit = 0;
-    SUNIT_IterateUnitsOfType(pGame, 0, 0, ACT5Q5_UnitIterate_CountLivingPlayers);
-
-    if (!pQuestDataEx->nLivingPlayersOnSummit)
-    {
-        ((D2Act5Quest5Strc*)pQuestData->pQuestDataEx)->bActivatable = 0;
-        ((D2Act5Quest5Strc*)pQuestData->pQuestDataEx)->unk0x10 = 0;
-        ACT5Q5_DeactivateAncientMonsters(pGame, pQuestData, (D2Act5Quest5Strc*)pQuestData->pQuestDataEx);
-    }
-}
-
 // 0x0058CFB0
 int __fastcall ACT5Q5_GetPortalCount(D2GameStrc* pGame)
 {
     return ((D2Act5Quest5Strc*)QUESTS_GetQuestData(pGame, QUEST_A5Q5_ANCIENTS)->pQuestDataEx)->nActivePortalCount;
+}
+
+// 0x0058CFD0
+void __cdecl sub_0058CFD0_Nop()
+{
 }
 
 // 0x0058CFE0
@@ -400,11 +389,6 @@ int __fastcall ACT5Q5_IsActivatable(D2GameStrc* pGame)
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A5Q5_ANCIENTS);
 
     return pQuestData && ((D2Act5Quest5Strc*)pQuestData->pQuestDataEx)->bActivatable;
-}
-
-// 0x0058CFD0
-void __cdecl sub_0058CFD0_Nop()
-{
 }
 
 // 0x0058D000
@@ -420,23 +404,6 @@ int __fastcall sub_0058D000_AreAncientsDefeated(D2GameStrc* pGame)
         }
     }
     return 0;
-}
-
-// 0x0058D1D0
-static __forceinline void sub_0058D1D0_PlayStatueSound(D2ObjOperateFnStrc* pOp)
-{
-    SUNIT_AttachSound(pOp->pPlayer, 19, pOp->pPlayer);
-}
-
-void __stdcall sub_M114_Emit_0058D1D0(D2ObjOperateFnStrc* pOp)
-{
-    sub_0058D1D0_PlayStatueSound(pOp);
-}
-
-// 0x0058D300
-void __fastcall sub_0058D300_ClosePortals(D2GameStrc* pGame)
-{
-    SUNIT_IterateUnitsOfType(pGame, 0, 0, ACT5Q5_UnitIterate_ClosePortals);
 }
 
 static __forceinline int sub_00623C60(D2UnitStrc* pUnit)
@@ -499,6 +466,12 @@ void __fastcall OBJECTS_InitFunction64_AncientStatue1(D2ObjInitFnStrc* pOp)
     D2Act5Quest5Strc* pQuestDataEx = (D2Act5Quest5Strc*)QUESTS_GetQuestData(pOp->pGame, 0x23)->pQuestDataEx;
     pQuestDataEx->nAncientStatueGUID[2] = UNITS_GetUnitId(pOp->pObject);
     sub_0058D0C0_SetAncientStatueMode(pQuestDataEx, pOp);
+}
+
+// 0x0058D1D0
+static __forceinline void sub_0058D1D0_PlayStatueSound(D2ObjOperateFnStrc* pOp)
+{
+    SUNIT_AttachSound(pOp->pPlayer, 19, pOp->pPlayer);
 }
 
 // 0x0058D1E0
@@ -569,6 +542,17 @@ int __fastcall ACT5Q5_UnitIterate_ClosePortals(D2GameStrc* pGame, D2UnitStrc* pU
     }
 
     return 0;
+}
+
+void __stdcall sub_M114_Emit_0058D1D0(D2ObjOperateFnStrc* pOp)
+{
+    sub_0058D1D0_PlayStatueSound(pOp);
+}
+
+// 0x0058D300
+void __fastcall sub_0058D300_ClosePortals(D2GameStrc* pGame)
+{
+    SUNIT_IterateUnitsOfType(pGame, 0, 0, ACT5Q5_UnitIterate_ClosePortals);
 }
 
 // 0x0058D310
@@ -677,6 +661,38 @@ int __fastcall ACT5Q5_UnitIterate_CountLivingPlayers(D2GameStrc* pGame, D2UnitSt
 
     ++((D2Act5Quest5Strc*)QUESTS_GetQuestData(pGame, 0x23)->pQuestDataEx)->nLivingPlayersOnSummit;
     return 0;
+}
+
+// 0x0058D560
+void __fastcall ACT5Q5_OnPlayerDied(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    if (!pRoom || DUNGEON_GetLevelIdFromRoom(pRoom) != 0x78)
+    {
+        return;
+    }
+
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 0x23);
+    if (!pQuestData || !pQuestData->bNotIntro)
+    {
+        return;
+    }
+
+    D2Act5Quest5Strc* pQuestDataEx = (D2Act5Quest5Strc*)pQuestData->pQuestDataEx;
+    if (pQuestDataEx->nActivePortalCount || pQuestDataEx->bAncientsDefeated || !pQuestDataEx->bActivatable)
+    {
+        return;
+    }
+
+    pQuestDataEx->nLivingPlayersOnSummit = 0;
+    SUNIT_IterateUnitsOfType(pGame, 0, 0, ACT5Q5_UnitIterate_CountLivingPlayers);
+
+    if (!pQuestDataEx->nLivingPlayersOnSummit)
+    {
+        ((D2Act5Quest5Strc*)pQuestData->pQuestDataEx)->bActivatable = 0;
+        ((D2Act5Quest5Strc*)pQuestData->pQuestDataEx)->unk0x10 = 0;
+        ACT5Q5_DeactivateAncientMonsters(pGame, pQuestData, (D2Act5Quest5Strc*)pQuestData->pQuestDataEx);
+    }
 }
 
 // 0x0058D5E0
@@ -846,4 +862,71 @@ int __fastcall ACT5Q6_UnitIterate_SetCompletionFlag(D2GameStrc* pGame, D2UnitStr
     QUESTRECORD_SetQuestState(pQuestFlags, 40, 14);
     QUESTS_SendLogUpdateEx(pUnit, 36, 0);
     return 0;
+}
+
+static __declspec(noinline)
+// 0x0058C5C0
+void __stdcall ACT5Q5_RewardPlayer(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    QUESTS_UpdatePlayerFlags(pGame, pUnit);
+
+    int nRewardExp = 1400000;
+    switch (pGame->nDifficulty)
+    {
+    case 1:
+        nRewardExp = 20000000;
+        break;
+    case 2:
+        nRewardExp = 40000000;
+        break;
+    }
+
+    const int nClassId = !pUnit ? -1 : pUnit->dwClassId;
+    const int nMaxLevel = DATATBLS_GetMaxLevel(nClassId);
+    int nCurrentLevel = STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0);
+    if (nCurrentLevel >= nMaxLevel)
+    {
+        return;
+    }
+
+    const unsigned int nNextThreshold = DATATBLS_GetLevelThreshold(nClassId, nCurrentLevel + 1);
+    const int nDeltaExpThreshold = nNextThreshold - DATATBLS_GetLevelThreshold(nClassId, nCurrentLevel);
+    if (nRewardExp > nDeltaExpThreshold)
+    {
+        nRewardExp = nDeltaExpThreshold;
+    }
+
+    do
+    {
+        if (!nRewardExp)
+        {
+            break;
+        }
+
+        const int nNextExp = STATLIST_GetUnitBaseStat(pUnit, STAT_NEXTEXP, 0);
+        const unsigned int nDeltaExp = nNextExp - STATLIST_GetUnitBaseStat(pUnit, STAT_EXPERIENCE, 0);
+        if ((unsigned int)nRewardExp >= nDeltaExp)
+        {
+            STATLIST_SetUnitStat(pUnit, STAT_EXPERIENCE, nNextExp, 0);
+            STATLIST_SetUnitStat(pUnit, STAT_LASTEXP, nDeltaExp, 0);
+            PLAYERSTATS_LevelUp(pGame, pUnit);
+            nRewardExp -= nDeltaExp;
+            nCurrentLevel = STATLIST_UnitGetStatValue(pUnit, STAT_LEVEL, 0);
+        }
+        else
+        {
+            nRewardExp += STATLIST_GetUnitBaseStat(pUnit, STAT_EXPERIENCE, 0);
+            STATLIST_SetUnitStat(pUnit, STAT_EXPERIENCE, nRewardExp, 0);
+            nRewardExp ^= nRewardExp;
+        }
+    }
+    while (nCurrentLevel < nMaxLevel);
+}
+
+void __fastcall sub_Emit_0058C5C0(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    if (pUnit)
+    {
+        ACT5Q5_RewardPlayer(pGame, pUnit);
+    }
 }

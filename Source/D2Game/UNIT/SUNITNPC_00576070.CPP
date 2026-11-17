@@ -2,7 +2,6 @@
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define SEND_GOLD(code,line,guid,kind) D2GAME_SendPacket0x2A_6FC3F3B0(SUNIT_GetClientFromPlayer(pPlayer,gszNpcSourceFile,line),0x2A,code,STATLIST_UnitGetStatValue(pPlayer,14,0),guid,kind)
-#define STAT_QUANTITY 70
 
 struct D2SeedStrc;
 struct D2RoomStrc;
@@ -86,9 +85,6 @@ struct D2UnitStrc
 };
 
 struct D2ItemsTxt { char unk_00[0x88]; unsigned int dwUberCode; unsigned int dwUltraCode; char unk_90[0x10C]; unsigned int dwNightmareUpgrade; unsigned int dwHellUpgrade; };
-
-extern "C" void __cdecl sub_00408A60(const char*, const char*, int); // 0x00408A60
-extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 extern "C" int __cdecl _stricmp(const char*, const char*); // 0x006841E9
 extern const char gszNpcSourceFile[]; // 0x006E15F0
 D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId); // 0x00633640
@@ -113,7 +109,6 @@ struct D2PlayerDataStrc {char unk00[0x10];D2BitBufferStrc* pQuestData[3];char un
 
 extern int gnSpecialItem1; // 0x00883E9C
 extern int gnSpecialItem2; // 0x00883EA0
-extern "C" void __cdecl sub_00408A60(const char*,const char*,int); // 0x00408A60
 D2InventoryStrc* __fastcall sub_00536C50_GetTradeInventory(D2GameStrc*,D2UnitStrc*,D2UnitStrc*); // 0x00536C50
 void __fastcall sub_0053D130_SendItemStat(D2ClientStrc*,D2UnitStrc*,int,int,int,int); // 0x0053D130
 void __fastcall D2GAME_SendPacket0x2A_6FC3F3B0(D2ClientStrc*,unsigned char,int,int,int,int); // 0x0053D740
@@ -121,13 +116,11 @@ void __fastcall sub_0053FF00_AddGold(D2UnitStrc*,int,int); // 0x0053FF00
 D2BitBufferStrc* __fastcall sub_00543520_GetQuestFlags(D2GameStrc*,D2UnitStrc*); // 0x00543520
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc*,int,int); // 0x00552F60
 D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc*,const char*,int); // 0x005531C0
-void __fastcall sub_00557FD0_RemoveItem(D2GameStrc*,D2UnitStrc*); // 0x00557FD0
 int __fastcall sub_00557FF0_CheckVendorItem(D2UnitStrc*,D2UnitStrc*,D2InventoryStrc*); // 0x00557FF0
 D2UnitStrc* __fastcall sub_0055A2A0_DuplicateItem(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,int); // 0x0055A2A0
 int __fastcall sub_0055E9B0_PlaceBelt(D2GameStrc*,D2UnitStrc*,int,int,int,int*); // 0x0055E9B0
 D2UnitStrc* __fastcall ITEMMODE_FindMatchingBookWithSpace(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,int*); // 0x0055F640
 void __fastcall sub_0055F6E0_AddScrolls(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,int); // 0x0055F6E0
-int __fastcall D2GAME_PlaceItem_6FC44410(const char*,int,D2GameStrc*,D2UnitStrc*,int,int,int,int,int,D2InventoryStrc*); // 0x00560200
 int __fastcall sub_00562E00_AutoEquip(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,int); // 0x00562E00
 int __fastcall sub_00576D90_SpendGold(D2GameStrc*,D2UnitStrc*,int); // 0x00576D90
 unsigned char __fastcall sub_00576ED0_CanMultibuy(D2GameStrc*,D2UnitStrc*,D2UnitStrc*); // 0x00576ED0
@@ -139,17 +132,14 @@ int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc*,int,int); // 0x00625480
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc*,int,int,int); // 0x00627260
 void __stdcall STATLIST_AddUnitStat(D2UnitStrc*,int,int,int); // 0x006272B0
 void __stdcall ITEMS_SetItemFlag(D2UnitStrc*,int,int); // 0x006280D0
-void __stdcall ITEMS_SetInvPage(D2UnitStrc*,unsigned char); // 0x00628280
-int __stdcall sub_006289F0(D2UnitStrc*); // 0x006289F0
+int __stdcall ITEMS_CheckIfStackable(D2UnitStrc*); // 0x006289F0
 int __stdcall sub_00628BA0_CanPlaceInBelt(D2InventoryStrc*,D2UnitStrc*); // 0x00628BA0
 int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc*,int); // 0x00629BB0
-int __stdcall sub_0062E790_CheckStackable(D2UnitStrc*); // 0x0062E790
+int __stdcall ITEMS_GetAutoStack(D2UnitStrc*); // 0x0062E790
 D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc*); // 0x0063BEF0
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc*); // 0x0063C1E0
-int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
 int __stdcall ITEMS_GetTotalMaxStack(D2UnitStrc* pItem); // 0x006295B0
 int __stdcall ITEMS_AreStackablesEqual(D2UnitStrc* pItem1, D2UnitStrc* pItem2); // 0x0062C850
-int __stdcall ITEMS_GetAutoStack(D2UnitStrc* pItem); // 0x0062E790
 D2UnitStrc* __stdcall INVENTORY_FindBackPackItemForStack(D2InventoryStrc* pInventory, D2UnitStrc* pStackable, D2UnitStrc* pCheckItem); // 0x0063C200
 D2UnitStrc* __stdcall INVENTORY_FindEquippedItemForStack(D2InventoryStrc* pInventory, D2UnitStrc* pStackable, D2UnitStrc* pCheckItem); // 0x0063C2F0
 int __fastcall sub_00536B40(D2GameStrc* pGame); // 0x00536B40
@@ -164,9 +154,7 @@ void __fastcall sub_005750E0_RemovePet(D2GameStrc* game,D2UnitStrc* player,int i
 D2RoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* unit); // 0x00620BB0
 void __stdcall sub_0061A270_RemoveRoomUnit(D2RoomStrc* room,int type,int id); // 0x0061A270
 void __fastcall sub_00555600_RemoveUnit(D2GameStrc* game,D2UnitStrc* unit); // 0x00555600
-void __stdcall UNITS_ChangeAnimMode(D2UnitStrc* unit,int mode); // 0x00624690
 int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* unit); // 0x00625D10
-void __stdcall STATLIST_SetUnitStat(D2UnitStrc* unit,int stat,int value,int layer); // 0x00627260
 void __fastcall sub_00574AB0_AttachPet(D2GameStrc* game,D2UnitStrc* player,D2UnitStrc* pet); // 0x00574AB0
 void __fastcall sub_005B1900_InitAi(D2GameStrc* game,D2UnitStrc* pet,int flag,int owner); // 0x005B1900
 void __stdcall STATES_ToggleState(D2UnitStrc* unit,int state,int set); // 0x00639DB0
@@ -499,7 +487,7 @@ int __fastcall sub_00577830_BuyItem(D2GameStrc* pGame,D2UnitStrc* pPlayer,D2Unit
         }
     }
     int nQuantity=STATLIST_UnitGetStatValue(pItem,70,0);
-    if(bMultibuy && sub_0062E790_CheckStackable(pItem))
+    if(bMultibuy && ITEMS_GetAutoStack(pItem))
     {
         int nFree;
         int nOldQuantity=STATLIST_UnitGetStatValue(pItem,70,0);
@@ -534,7 +522,7 @@ int __fastcall sub_00577830_BuyItem(D2GameStrc* pGame,D2UnitStrc* pPlayer,D2Unit
         int nBank=STATLIST_UnitGetStatValue(pPlayer,15,0);
         pItem=sub_0055A2A0_DuplicateItem(pGame,pItem,pNpc,1);
         if(!pItem){SEND_GOLD(9,2249,-1,0);return 1;}
-        if(bMultibuy && sub_006289F0(pItem) && nQuantity)STATLIST_SetUnitStat(pItem,70,nQuantity,0);
+        if(bMultibuy && ITEMS_CheckIfStackable(pItem) && nQuantity)STATLIST_SetUnitStat(pItem,70,nQuantity,0);
         if(!sub_00576D90_SpendGold(pGame,pPlayer,nCost)){SEND_GOLD(12,2260,-1,0);return 0;}
         D2PlayerDataStrc* pPlayerData=UNITS_GetPlayerData(pPlayer);
         pPlayerData->nBoughtItem=!pItem ? -1 : pItem->dwUnitId;
@@ -578,7 +566,7 @@ placed:
 failed:
         if(nGold-STATLIST_UnitGetStatValue(pPlayer,14,0))sub_0053FF00_AddGold(pPlayer,14,nGold-STATLIST_UnitGetStatValue(pPlayer,14,0));
         if(nBank-STATLIST_UnitGetStatValue(pPlayer,15,0))sub_0053FF00_AddGold(pPlayer,15,nBank-STATLIST_UnitGetStatValue(pPlayer,15,0));
-        sub_00557FD0_RemoveItem(pGame,pItem);
+        ITEMS_RemoveFromAllPlayers(pGame,pItem);
         if(!bBought){SEND_GOLD(10,2332,-1,0);return 0;}
         return 0;
     }

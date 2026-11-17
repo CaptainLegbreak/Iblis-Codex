@@ -1,15 +1,14 @@
 #include "D2Client.h"
 
+#pragma intrinsic(memcpy)
+
 #define NUM_HOTKEYS 114
 #define NUM_HOTKEY_COMMANDS 0x39
-#define KEY_WHEEL_UP 0x103
-#define KEY_WHEEL_DOWN 0x104
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
 struct D2HotkeyCommandStrc;
 struct D2HotkeyStrc;
 struct D2MsgHandlerEntryStrc;
-
-typedef int (__stdcall* FARPROC)();
 
 typedef void (__cdecl* HOTKEYCOMMANDFN)();
 
@@ -61,6 +60,30 @@ extern D2MsgHandlerEntryStrc gtHotkeyHandlers_00712944[4]; // 0x00712944
 extern D2MsgHandlerEntryStrc gtHotkeyHandlers_00712974[2]; // 0x00712974
 void __cdecl sub_00469780_SaveKeyConfig(); // 0x00469780
 void __cdecl sub_004694A0_BindMouseHotkeys(); // 0x004694A0
+extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
+void __cdecl sub_0044C6B0(); // 0x0044C6B0
+void __cdecl sub_004A01E0_ClearListFlags(); // 0x004A01E0
+void __fastcall sub_0044BEA0_SetValue(int nValue); // 0x0044BEA0
+void __stdcall sub_004698D0_LoadKeyConfig(int bInstallDir); // 0x004698D0
+extern D2HotkeyStrc gtHotkeysSaved_007A6B18[NUM_HOTKEYS]; // 0x007A6B18
+
+// 0x004690A0
+void __cdecl sub_004690A0_HotkeyCmd4()
+{
+    sub_0044C6B0();
+}
+
+// 0x004691B0
+void __cdecl sub_004691B0_HotkeyClearListFlags()
+{
+    sub_004A01E0_ClearListFlags();
+}
+
+// 0x00469200
+void __cdecl sub_00469200_HotkeyClearValue()
+{
+    sub_0044BEA0_SetValue(0);
+}
 
 HOTKEYCOMMANDFN gpfnBoundCommand_007A6F8C; // 0x007A6F8C
 
@@ -160,6 +183,24 @@ void __cdecl sub_004694A0_BindMouseHotkeys()
     }
 }
 
+// 0x00469A50
+static __forceinline void sub_00469A50_LoadKeyConfig(int bInstallDir)
+{
+    sub_004698D0_LoadKeyConfig(bInstallDir);
+}
+
+// 0x00469A60
+void __fastcall sub_00469A60_ResetKeyConfig(int bInstallDir)
+{
+    sub_004698D0_LoadKeyConfig(bInstallDir);
+    for (int i = 0; i < NUM_HOTKEYS; ++i)
+    {
+        gtHotkeys_007A6F90[i].nKey = HOTKEY_UNBOUND;
+    }
+    memcpy(gtHotkeys_007A6F90, gaKeyTable_00712220, sizeof(gtHotkeys_007A6F90));
+    sub_004694A0_BindMouseHotkeys();
+}
+
 // 0x00469AE0
 int __fastcall sub_00469AE0_IsValidKey(unsigned short nKey)
 {
@@ -190,6 +231,34 @@ int __fastcall sub_00469AE0_IsValidKey(unsigned short nKey)
         return 1;
     }
     return 0;
+}
+
+void __fastcall sub_M110_Emit_00469A50(int bInstallDir)
+{
+    sub_00469A50_LoadKeyConfig(bInstallDir + 1);
+}
+
+// 0x00469D20
+void __cdecl sub_00469D20_SaveHotkeys()
+{
+    memcpy(gtHotkeysSaved_007A6B18, gtHotkeys_007A6F90, sizeof(gtHotkeys_007A6F90));
+    sub_004694A0_BindMouseHotkeys();
+}
+
+#include "gen/data/Source/D2Client/UI/CmdTbl.inc"
+
+// 0x00469D40
+void __cdecl sub_00469D40_SaveAndBindHotkeys()
+{
+    sub_00469780_SaveKeyConfig();
+    sub_004694A0_BindMouseHotkeys();
+}
+
+// 0x00469D50
+void __cdecl sub_00469D50_RestoreHotkeys()
+{
+    memcpy(gtHotkeys_007A6F90, gtHotkeysSaved_007A6B18, sizeof(gtHotkeys_007A6F90));
+    sub_004694A0_BindMouseHotkeys();
 }
 
 // 0x0046AA20
@@ -245,13 +314,4 @@ void __cdecl sub_0046ACB0_DisableHotkeyHandlers()
         gnGlobal_007A7428 = 0;
         sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtHotkeyHandlers_00712944, 4);
     }
-}
-
-#include "gen/data/Source/D2Client/UI/CmdTbl.inc"
-
-// 0x00469D40
-void __cdecl sub_00469D40_SaveAndBindHotkeys()
-{
-    sub_00469780_SaveKeyConfig();
-    sub_004694A0_BindMouseHotkeys();
 }

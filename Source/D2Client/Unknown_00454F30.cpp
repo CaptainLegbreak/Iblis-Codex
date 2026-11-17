@@ -53,14 +53,6 @@ struct D2TileRectStrc
     unsigned int nHeight;
 };
 
-struct D2RectStrc
-{
-    int nLeft;
-    int nTop;
-    int nRight;
-    int nBottom;
-};
-
 struct D2ClientEntryStrc
 {
     char unk0x00[0x08];

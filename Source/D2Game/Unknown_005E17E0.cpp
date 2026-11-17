@@ -84,13 +84,6 @@ struct D2MinionSpawnerAiCallbackArgStrc
     int unk0x04[9];
 };
 
-struct D2PutridDefilerAiCallbackArgStrc
-{
-    int unk0x00;
-    int nMaxDistance;
-    int unk0x08[8];
-};
-
 struct D2CoordStrc
 {
     int nX;

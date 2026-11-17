@@ -183,8 +183,6 @@ struct D2MissileStrc
     MissileInitFunc pInitFunc;
     int pInitArgs;
 };
-
-extern "C" void* __cdecl memset(void*, int, unsigned int); // 0x00681EF0
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc*); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc*); // 0x0045AE20
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc*, D2UnitStrc*); // 0x00553540

@@ -84,8 +84,6 @@ enum
     QUESTSTATEFLAG_A2Q1 = 9,
     LEVEL_LUTGHOLEIN = 40,
 };
-
-extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 extern char gpAct2Q1NpcMessages[];                                                                          // 0x00739218
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);   // 0x0040B430
 void __fastcall QUESTS_StateDebug(D2QuestDataStrc* pQuestData, int nState, const char* szFile, int nLine);  // 0x00544350

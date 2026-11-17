@@ -27,12 +27,9 @@ struct D2QuestDataStrc
 };
 
 typedef void(__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs);
-
-#define QUESTSTATEFLAG_A5Q3 37
 #define QFLAG_REWARDGRANTED 0
 #define QFLAG_REWARDPENDING 1
 #define QFLAG_CUSTOM4 8
-#define QFLAG_CUSTOM5 9
 #define QFLAG_PRIMARYGOALDONE 13
 #define QFLAG_COMPLETEDNOW 14
 

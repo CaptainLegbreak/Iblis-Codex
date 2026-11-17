@@ -14,12 +14,6 @@ struct D2UnitStrc
     int dwUnitId;
 };
 
-struct D2PartyNodeStrc
-{
-    int nUnitGUID;
-    D2PartyNodeStrc* pNext;
-};
-
 struct D2PartyStrc
 {
     short nPartyId;
@@ -47,9 +41,7 @@ typedef void(__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* p
 
 #define UNIT_PLAYER 0
 #define UNIT_INVALID 6
-#define D2PartyIdNone 0xFFFF
 #define STAT_GOLD 14
-#define STAT_GOLDBANK 15
 
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 void __fastcall PARTY_CountLivingUnits(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pLivingUnits);           // 0x005404F0

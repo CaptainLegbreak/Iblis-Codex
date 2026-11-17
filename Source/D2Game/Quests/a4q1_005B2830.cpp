@@ -71,13 +71,6 @@ int __fastcall sub_005B2570_SpawnMinionsAround(D2GameStrc* pGame, D2UnitStrc* pU
 void __stdcall DATATBLS_GetMonsterChainInfo(int nMonsterId, int* pChainId, int* pMissileOffset); // 0x006510C0
 static __declspec(noinline) void MONSTERSPAWN_SpawnMinionParty(D2UnkMonCreateStrc* pMonCreate, D2UnitStrc* pUnit);
 
-struct D2UnkMonCreateStrc3
-{
-    int nXOffset;
-    int nYOffset;
-    int nSpawnType;
-};
-
 struct D2UnkMonCreateStrc2
 {
     int nRecordCount;

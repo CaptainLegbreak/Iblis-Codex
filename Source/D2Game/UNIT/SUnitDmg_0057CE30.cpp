@@ -74,12 +74,6 @@ struct D2ModeChangeStrc
     int unk0x1C;
 };
 
-struct D2DamageHitClassMappingStrc
-{
-    int nDamageStrcOffset;
-    unsigned int nHitClass;
-};
-
 extern "C" const D2DamageHitClassMappingStrc gsDamageHitClassMapping_006E16D8[8]; // 0x006E16D8
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0

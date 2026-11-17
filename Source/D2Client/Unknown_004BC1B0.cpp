@@ -35,13 +35,6 @@ struct SMSGHANDLER_PARAMS
     int lResult;
 };
 
-struct D2ListBoxEntryStrc
-{
-    char unk0x0000[0x3006];
-    char nData[4];
-    char unk0x300A[4];
-};
-
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x00412650
 
 class UIWidget

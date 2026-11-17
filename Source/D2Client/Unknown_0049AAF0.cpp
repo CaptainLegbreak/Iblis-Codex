@@ -14,16 +14,6 @@ struct Unicode
     static Unicode* __fastcall strncpy(Unicode* dest, const Unicode* src, int count);                       // 0x00526790
 };
 
-struct D2RosterButtonStrc
-{
-    int nX;
-    int nY;
-    int unk0x08[2];
-    int nType;
-    int nState;
-    int unk0x18[2];
-};
-
 struct D2RosterSlotStrc
 {
     int bFlag;

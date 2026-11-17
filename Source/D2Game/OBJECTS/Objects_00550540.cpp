@@ -62,7 +62,6 @@ D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E
 D2ObjectControlStrc* __fastcall OBJRGN_GetObjectControlFromGame(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom); // 0x00546FA0
 static int __stdcall sub_005502F0_CanPlaceSmallObject(D2ActiveRoomStrc*, int, int, D2DrlgCoordsStrc*, D2CoordStrc*); // 0x005502F0
 static int __stdcall sub_00550220_CanPlaceObject(D2ActiveRoomStrc*, int, D2DrlgCoordsStrc*, D2CoordStrc*, int); // 0x00550220
-void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc*, D2DrlgCoordsStrc*); // 0x00619730
 extern int gnValues_00731D50[]; // 0x00731D50
 extern int gnValues_00731D5C[]; // 0x00731D5C
 extern int gnValues_00731D64[]; // 0x00731D64

@@ -4,8 +4,6 @@ struct D2ClientCharRecordStrc;
 struct D2CmdParamsStrc;
 struct D2GameDataTableStrc;
 struct D2ClientInterfaceStrc;
-
-typedef int (__fastcall* D2McpPacketHandler)(const unsigned char* pPacket, unsigned int nSize);
 typedef void (__fastcall* D2McpCallback)(int nId, unsigned int nSize, const unsigned char* pData);
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260

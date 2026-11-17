@@ -133,17 +133,10 @@ struct D2MissileStrc
 #define UNIT_TILE 5
 #define ACT_V 4
 #define STAT_LEVEL 12
-#define STAT_EXPERIENCE 13
-#define STAT_LASTEXP 29
-#define STAT_NEXTEXP 30
-#define QUESTSTATEFLAG_A5Q5 39
 #define QUEST_A5Q5_ANCIENTS 35
 #define QFLAG_REWARDGRANTED 0
 #define QFLAG_PRIMARYGOALDONE 13
 #define LEVEL_ROCKYSUMMIT 120
-#define MONSTER_ANCIENTBARB1 540
-#define MONSTER_ANCIENTBARB2 541
-#define MONSTER_ANCIENTBARB3 542
 
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                                                         // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20

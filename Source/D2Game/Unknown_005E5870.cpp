@@ -1,6 +1,4 @@
 #include "D2Game.h"
-
-#define BITARRAY_CHECK(pBytes, nBit) ((pBytes)[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
 struct D2AiParamStrc;
 struct D2SeedStrc;
 struct D2AiCmdStrc;

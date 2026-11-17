@@ -1,6 +1,4 @@
 #include "D2Client.h"
-
-#define I20_OFFSET(s, m) ((unsigned int)&((s*)0)->m)
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2MonStatsTxt;
 struct D2SeqModeStrc;
@@ -97,13 +95,6 @@ struct D2StaticPathStrc
     char unk0x00[0x0C];
     int nXPos;
     int nYPos;
-};
-
-struct D2MonAnimRecStrc
-{
-    int nType;
-    int unk0x04;
-    int nAction;
 };
 
 struct D2MonStats2Txt

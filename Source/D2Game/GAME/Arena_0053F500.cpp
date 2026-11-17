@@ -3,7 +3,6 @@
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
 #define GAMEFLAG_ARENA_CLASS_OR_TEMPLATE_ID 0x100
-#define GAMEFLAG_ARENA_UPDATE 0x400
 
 struct D2ArenaStrc;
 struct D2ArenaUnitStrc;
@@ -39,12 +38,6 @@ struct D2ArenaStrc
     };
     unsigned char nTemplate;
     unsigned char pad0x0D[3];
-};
-
-struct D2ArenaUnitStrc
-{
-    int nScore;
-    int bUpdateScore;
 };
 
 struct D2PlayerDataStrc

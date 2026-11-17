@@ -159,11 +159,7 @@ struct Damage {
         poisonLength,coldLength,freezeLength,lifeLeech,manaLeech,staminaLeech,stunLength;
 };
 
-unsigned char __stdcall MISSILE_GetElemTypeFromMissileId(int); // 0x0064B0C0
-
 enum { ZERO_DAMAGE=0 };
-
-unsigned char __stdcall MISSILE_GetElemTypeFromMissileId(int id); // 0x0064B0C0
 
 struct D2CoordStrc
 {

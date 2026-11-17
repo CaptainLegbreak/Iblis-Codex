@@ -6,7 +6,6 @@
 #define PLRMODE_DEAD 17
 #define EVENTTYPE_STATREGEN 3
 #define EVENTTYPE_DELAYEDPORTAL 11
-#define MAX_NPC_RECORDS 64
 struct D2SaveHeaderStrc;
 struct D2StaticPathStrc;
 struct D2PartyNodeStrc;
@@ -118,12 +117,6 @@ struct D2ClientStrc
     D2ActiveRoomStrc* pRoom;
     unsigned char unk_1B8[0x2F0];
     D2ClientStrc* pNext;
-};
-
-struct D2PartyNodeStrc
-{
-    int nUnitGUID;
-    D2PartyNodeStrc* pNext;
 };
 
 struct D2PartyStrc
@@ -357,11 +350,6 @@ struct _RTL_CRITICAL_SECTION
     unsigned long SpinCount;
 };
 
-struct HASHKEY_NONE
-{
-    int nUnused;
-};
-
 struct D2GameDataTableStrc
 {
     unsigned int sub_0052E6D0_GenerateHandle();                                                             // 0x0052E6D0
@@ -434,12 +422,6 @@ struct D2RosterIterateStrc
 {
     int bFlag;
     D2UnitStrc* pUnit;
-};
-
-struct D2UnitProxyArgStrc
-{
-    int nLevelId;
-    int nCounter;
 };
 
 struct D2GSPacketSrv8C

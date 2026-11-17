@@ -1,11 +1,5 @@
 #include "D2Game.h"
 
-struct D2NpcIndexMapStrc
-{
-    int nNpcClassId;
-    int nIndex;
-};
-
 extern D2NpcIndexMapStrc gaPlrIntroNpcIndexMap[];                                                           // 0x00732738
 
 // 0x00572330

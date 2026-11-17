@@ -1,6 +1,4 @@
 #include "D2Game.h"
-
-#define UNIT_CLASSID_OR_INVALID(pUnit) ((pUnit) ? (pUnit)->dwClassId : -1)
 struct D2PlayerDataStrc;
 struct D2Act4Quest2Strc;
 struct D2ModeChangeStrc;
@@ -163,8 +161,6 @@ int __fastcall ACT4Q2_UnitIterate_AttachCompletionSound(D2GameStrc* pGame, D2Uni
 int __fastcall ACT4Q2_UnitIterate_SetPrimaryGoalDoneForPartyMembers(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg); // 0x005B4DF0
 int __fastcall ACT4Q2_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg); // 0x005B4E40
 int __fastcall sub_005B5140(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg); // 0x005B5140
-D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pPlayer); // 0x006221A0
-int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestRecord, int nQuest, int nState); // 0x0065C310
 
 struct D2QuestSpawnStrc { char unk0x00[0x24]; D2CoordStrc tSpawnCoords[3]; };
 

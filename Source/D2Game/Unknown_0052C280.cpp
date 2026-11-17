@@ -6,12 +6,6 @@ struct D2SeedStrc
     unsigned int nHighSeed;
 };
 
-struct D2LargeIntegerPartsStrc
-{
-    unsigned int LowPart;
-    int HighPart;
-};
-
 struct D2GameStrc
 {
     char unk0x00[0x7C];

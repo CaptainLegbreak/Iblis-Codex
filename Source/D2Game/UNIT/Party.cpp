@@ -1,15 +1,18 @@
 #include "D2Game.h"
 
+#pragma intrinsic(_ReadWriteBarrier)
+
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
-#define D2PartyIdNone 0xFFFF
 #define PARTY_FIRST_ID 3
 #define UNIT_INVALID 6
 #define STAT_GOLD 14
-#define STAT_GOLDBANK 15
+
 struct D2PartyNodeStrc;
 struct D2PartyStrc;
 struct D2PartyControlStrc;
+struct D2UnitStrc;
+struct D2GameStrc;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -24,12 +27,6 @@ struct D2UnitStrc
     int dwUnitId;
     char unk0x10[0x50];
     D2InventoryStrc* pInventory;
-};
-
-struct D2PartyNodeStrc
-{
-    int nUnitGUID;
-    D2PartyNodeStrc* pNext;
 };
 
 struct D2PartyStrc
@@ -58,7 +55,6 @@ struct D2GameStrc
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 int __stdcall INVENTORY_GetOwnerId(D2InventoryStrc* pInventory); // 0x0063D450
-void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 void __fastcall D2GAME_PACKETS_SendPacket0x8D_6FC3F960(D2UnitStrc* pUnit, D2UnitStrc* pPlayer); // 0x0053DF00
@@ -84,6 +80,10 @@ void __fastcall PLRTRADE_AddGold(D2UnitStrc*, int, int); // 0x0053FF00
 static D2PartyStrc* sub_00540290_FindParty(D2GameStrc*, short); // 0x00540290
 static void __stdcall PARTY_CalculatePickAndDrop(int*, int*, D2UnitStrc*, int); // 0x00540650
 void __fastcall PARTY_IteratePartyMembersInSameLevel(D2GameStrc*, D2UnitStrc*, PartyCallbackFunction, void*); // 0x005405A0
+extern "C" void _ReadWriteBarrier();
+extern "C" const char gszPartySourceFile_006E0B88[]; // 0x006E0B88
+
+static D2PartyStrc* sub_M08_FindPartyById(D2PartyControlStrc* pPartyControl, short nPartyId);
 
 static D2PartyStrc* PARTY_FindParty_Inlined(D2GameStrc* pGame, short nPartyId)
 {
@@ -113,55 +113,6 @@ void __fastcall PARTY_AllocPartyControl(D2GameStrc* pGame)
     pPartyControl->nNextPartyId = 3;
 
     pGame->pPartyControl = pPartyControl;
-}
-
-// 0x00540460
-int __fastcall sub_00540460_GetPartyMemberCount(D2GameStrc* pGame, short nPartyId)
-{
-    D2PartyStrc* pParty = PARTY_FindParty_Inlined(pGame, nPartyId);
-    int nCount = 0;
-    if (!pParty)
-    {
-        return -1;
-    }
-
-    for (D2PartyNodeStrc* pPartyNode = pParty->pPartyNodes; pPartyNode; pPartyNode = pPartyNode->pNext)
-    {
-        ++nCount;
-    }
-
-    return nCount;
-}
-
-// 0x00540710
-unsigned short __fastcall PARTY_GetPartyIdForUnitOwner(D2GameStrc* pGame, D2UnitStrc* pUnit)
-{
-    int nUnitGUID = !pUnit ? -1 : pUnit->dwUnitId;
-    if (pUnit->pInventory)
-    {
-        nUnitGUID = INVENTORY_GetOwnerId(pUnit->pInventory);
-    }
-
-    D2_ASSERT(pUnit->dwUnitType == UNIT_PLAYER, 0x27B);
-    D2_ASSERT(pGame, 0x27C);
-
-    if (!pGame->pPartyControl)
-    {
-        return D2PartyIdNone;
-    }
-
-    for (D2PartyStrc* pParty = pGame->pPartyControl->pParties; pParty; pParty = pParty->pNext)
-    {
-        for (D2PartyNodeStrc* pPartyNode = pParty->pPartyNodes; pPartyNode; pPartyNode = pPartyNode->pNext)
-        {
-            if (pPartyNode->nUnitGUID == nUnitGUID)
-            {
-                return pParty->nPartyId;
-            }
-        }
-    }
-
-    return D2PartyIdNone;
 }
 
 // 0x005400B0
@@ -203,7 +154,7 @@ short __fastcall PARTY_CreateParty(D2GameStrc* pGame)
 {
     D2PartyControlStrc* pPartyControl = pGame->pPartyControl;
     D2_ASSERT(pPartyControl, 0x7F);
-    D2PartyStrc* pParty = (D2PartyStrc*)sub_0040B430(pGame->pMemoryPool, sizeof(D2PartyStrc), ".\\UNIT\\Party.cpp", 0x80, 0);
+    D2PartyStrc* pParty = (D2PartyStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2PartyStrc), ".\\UNIT\\Party.cpp", 0x80, 0);
     D2_ASSERT(pParty, 0x81);
     *pParty = D2PartyStrc();
     pParty->nPartyId = sub_005400B0_GetFreePartyId(pGame);
@@ -269,6 +220,85 @@ static D2PartyStrc* sub_00540290_FindParty(D2GameStrc* pGame, short nPartyId)
     return 0;
 }
 
+// 0x005402D0
+static int sub_005402D0_PartyHasMember(D2PartyStrc* pParty, int nUnitGUID)
+{
+    D2_ASSERT(pParty, 229);
+    for (D2PartyNodeStrc* pNode = pParty->pPartyNodes; pNode; pNode = pNode->pNext)
+    {
+        if (pNode->nUnitGUID == nUnitGUID)
+        {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+// 0x00540320
+int __fastcall PARTY_AddPlayerToParty(D2GameStrc* pGame, short nPartyId, D2UnitStrc* pPlayer)
+{
+    D2_ASSERT(pGame->pPartyControl, 210);
+    D2PartyStrc* pParty = sub_M08_FindPartyById(pGame->pPartyControl, nPartyId);
+    const int nUnitGUID = !pPlayer ? -1 : pPlayer->dwUnitId;
+    int nUnitType;
+    if (pParty && pPlayer && (nUnitType = pPlayer->dwUnitType, _ReadWriteBarrier(), nUnitType == UNIT_PLAYER))
+    {
+        if (sub_005402D0_PartyHasMember(pParty, nUnitGUID))
+        {
+            return 1;
+        }
+        D2PartyNodeStrc* pPartyNode = (D2PartyNodeStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2PartyNodeStrc), gszPartySourceFile_006E0B88, 264, 0);
+        D2_ASSERT(pPartyNode, 265);
+        const D2PartyNodeStrc tZeroNode = {};
+        *pPartyNode = tZeroNode;
+        pPartyNode->nUnitGUID = nUnitGUID;
+        pPartyNode->pNext = pParty->pPartyNodes;
+        pParty->pPartyNodes = pPartyNode;
+        sub_6FC3F8F0(pGame, pPlayer);
+        for (D2PartyNodeStrc* i = pPartyNode->pNext; i; i = i->pNext)
+        {
+            D2UnitStrc* pPartyMember = SUNIT_GetServerUnit(pGame, UNIT_PLAYER, i->nUnitGUID);
+            if (pPartyMember)
+            {
+                FRIENDLY_RemoveHostility(pGame, pPlayer, pPartyMember);
+                FRIENDLY_RemoveHostility(pGame, pPartyMember, pPlayer);
+            }
+        }
+        return 1;
+    }
+    else
+    {
+        if (!pParty)
+        {
+            sub_00408A60(&gszEmptyAssertText, sub_00408090(), 254);
+            exit(-1);
+        }
+        else
+        {
+            sub_00408A60(&gszEmptyAssertText, sub_00408090(), 255);
+            exit(-1);
+        }
+    }
+}
+
+// 0x00540460
+int __fastcall sub_00540460_GetPartyMemberCount(D2GameStrc* pGame, short nPartyId)
+{
+    D2PartyStrc* pParty = PARTY_FindParty_Inlined(pGame, nPartyId);
+    int nCount = 0;
+    if (!pParty)
+    {
+        return -1;
+    }
+
+    for (D2PartyNodeStrc* pPartyNode = pParty->pPartyNodes; pPartyNode; pPartyNode = pPartyNode->pNext)
+    {
+        ++nCount;
+    }
+
+    return nCount;
+}
+
 // 0x005405A0
 void __fastcall PARTY_IteratePartyMembersInSameLevel(D2GameStrc* pGame, D2UnitStrc* pUnit, PartyCallbackFunction pCallback, void* pArgs)
 {
@@ -328,18 +358,35 @@ void __fastcall PARTY_SynchronizeWithClient(D2GameStrc* pGame, D2UnitStrc* pUnit
     }
 }
 
-// 0x005402D0
-static int sub_005402D0_PartyHasMember(D2PartyStrc* pParty, int nUnitGUID)
+// 0x00540710
+unsigned short __fastcall PARTY_GetPartyIdForUnitOwner(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
-    D2_ASSERT(pParty, 229);
-    for (D2PartyNodeStrc* pNode = pParty->pPartyNodes; pNode; pNode = pNode->pNext)
+    int nUnitGUID = !pUnit ? -1 : pUnit->dwUnitId;
+    if (pUnit->pInventory)
     {
-        if (pNode->nUnitGUID == nUnitGUID)
+        nUnitGUID = INVENTORY_GetOwnerId(pUnit->pInventory);
+    }
+
+    D2_ASSERT(pUnit->dwUnitType == UNIT_PLAYER, 0x27B);
+    D2_ASSERT(pGame, 0x27C);
+
+    if (!pGame->pPartyControl)
+    {
+        return D2PartyIdNone;
+    }
+
+    for (D2PartyStrc* pParty = pGame->pPartyControl->pParties; pParty; pParty = pParty->pNext)
+    {
+        for (D2PartyNodeStrc* pPartyNode = pParty->pPartyNodes; pPartyNode; pPartyNode = pPartyNode->pNext)
         {
-            return 1;
+            if (pPartyNode->nUnitGUID == nUnitGUID)
+            {
+                return pParty->nPartyId;
+            }
         }
     }
-    return 0;
+
+    return D2PartyIdNone;
 }
 
 static D2PartyStrc* sub_M08_FindPartyById(D2PartyControlStrc* pPartyControl, short nPartyId)
@@ -366,7 +413,7 @@ int __fastcall sub_00540320(D2GameStrc* pGame, short nPartyId, D2UnitStrc* pPlay
     {
         return 1;
     }
-    D2PartyNodeStrc* pPartyNode = (D2PartyNodeStrc*)sub_0040B430(pGame->pMemoryPool, sizeof(D2PartyNodeStrc), ".\\UNIT\\Party.cpp", 264, 0);
+    D2PartyNodeStrc* pPartyNode = (D2PartyNodeStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2PartyNodeStrc), ".\\UNIT\\Party.cpp", 264, 0);
     D2_ASSERT(pPartyNode, 265);
     pPartyNode->nUnitGUID = 0;
     pPartyNode->pNext = 0;

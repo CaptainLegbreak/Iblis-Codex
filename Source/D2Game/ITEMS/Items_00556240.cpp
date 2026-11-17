@@ -1,11 +1,7 @@
 #include "D2Game.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define ITEMSPAWN_GROUND 3
-#define COLLIDE_MASK_SPAWN 0x3E01
-#define NOINLINE __declspec(noinline)
 #define D2_MIN(a,b) ((a)<(b)?(a):(b))
-#define UNIQUEITEMSFLAGINDEX_NOLIMIT 1
 #define SEND(stat,value,line) D2GAME_PACKETS_SendPacket0x3E_6FC3EC20(SUNIT_GetClientFromPlayer(pPlayer,".\\ITEMS\\Items.cpp",line),pItem,1,stat,value,0)
 struct D2SeedStrc;
 struct D2StatListExStrc;
@@ -168,7 +164,6 @@ void __stdcall sub_0065FEC0_ApplyProperties(int,void*,D2UnitStrc*,int,int,int); 
 int __stdcall ITEMS_GetItemLevel(D2UnitStrc*); // 0x006281E0
 int __stdcall sub_00628C70_IsSpecial(D2UnitStrc*); // 0x00628C70
 D2SeedStrc* __stdcall ITEMS_GetItemSeed(D2UnitStrc*); // 0x00627D90
-int __fastcall sub_00472280(D2SeedStrc*,int,int); // 0x00472280
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 int __fastcall ITEMMODE_AssignItemQualityAndProperties(D2GameStrc* pGame, D2UnitStrc** ppItem, D2ItemDropStrc* pItemDrop); // 0x00557450
@@ -176,7 +171,6 @@ int __stdcall UNITS_GetInventoryGoldLimit(D2UnitStrc* pUnit); // 0x00622E70
 D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
 void __stdcall STATLIST_SetStatIfListIsValid(D2StatListStrc* pStatList, int nStatId, int nValue, int nLayer); // 0x00627150
-void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
 unsigned int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
 int __stdcall ITEMS_GetTotalMaxStack(D2UnitStrc* pItem); // 0x006295B0
 int __stdcall ITEMS_GetSpawnStack(D2UnitStrc* pItem); // 0x00629660
@@ -186,7 +180,6 @@ int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem); // 0x0062B400
 int __stdcall ITEMS_GetQuiverType(D2UnitStrc* pItem); // 0x0062E740
 unsigned char __stdcall ITEMS_GetVarInvGfxCount(D2UnitStrc* pItem); // 0x0062E8D0
 void __stdcall ITEMMODS_SetRandomElixirFileIndex(D2UnitStrc* pItem); // 0x0065E8E0
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc*,int); // 0x00629BB0
 int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc*); // 0x0062BA80
 int __stdcall STATLIST_GetMaxDurabilityFromUnit(D2UnitStrc*); // 0x00625E00
 void __fastcall ITEMS_ScheduleDurabilityReplenishment(D2GameStrc*,D2UnitStrc*); // 0x00558530
@@ -195,7 +188,6 @@ void __fastcall D2GAME_PACKETS_SendPacket0x3E_6FC3EC20(D2ClientStrc*,D2UnitStrc*
 int __stdcall sub_006280A0(D2UnitStrc*,int,int,const char*); // 0x006280A0
 void __fastcall sub_6FC4B580(D2GameStrc*,D2UnitStrc*,D2UnitStrc*); // 0x0055F850
 void __fastcall sub_6FC80A30(D2GameStrc*,D2UnitStrc*); // 0x00580310
-int __stdcall ITEMS_GetTotalMaxStack(D2UnitStrc*); // 0x006295B0
 
 // build: symbol ?$S1@?1??ITEMS_SelectRandomDropItemId@@YGHPAUD2GameStrc@@PAUD2SeedStrc@@HHHH@Z@4IA 0x008846F0
 // build: symbol ?s_nGoldItemId@?1??ITEMS_SelectRandomDropItemId@@YGHPAUD2GameStrc@@PAUD2SeedStrc@@HHHH@Z@4HA 0x008846EC

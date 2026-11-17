@@ -54,11 +54,7 @@ struct D2DataTablesStrc
 };
 
 #define UNIT_PLAYER 0
-#define ACT_I 0
 #define PLRMODE_NEUTRAL 1
-#define GAMETYPE_1 1
-#define GAMETYPE_2 2
-#define SYSERROR_UNK_14 14
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 extern D2ServerCallbackFunctions* gpD2EventCallbackTable_6FD45830;                                          // 0x00883D50

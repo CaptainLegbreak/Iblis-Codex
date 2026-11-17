@@ -46,12 +46,6 @@ struct D2MonCommandStrc
     int nParam18;
 };
 
-struct D2MonCmdRecordStrc
-{
-    int nIndex;
-    int bSet;
-};
-
 struct D2MonStatsTxt
 {
     short unk0x000;

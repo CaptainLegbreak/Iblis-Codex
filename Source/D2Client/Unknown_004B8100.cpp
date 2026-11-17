@@ -1,7 +1,6 @@
 #include "D2Client.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define NULL 0
 struct D2SoundUnitNodeStrc;
 struct Unicode;
 struct D2RectStrc;
@@ -16,14 +15,6 @@ struct D2SoundNodeStrc;
 struct Unicode
 {
     unsigned short ch;
-};
-
-struct D2RectStrc
-{
-    int nLeft;
-    int nTop;
-    int nRight;
-    int nBottom;
 };
 
 struct D2CelContextStrc
@@ -100,13 +91,6 @@ struct D2CoordStrc
 {
     int nX;
     int nY;
-};
-
-struct D2SoundVecStrc
-{
-    float fX;
-    float fY;
-    float fZ;
 };
 
 #pragma pack(push, 1)

@@ -1,7 +1,5 @@
 #include "D2Game.h"
 
-typedef unsigned __int64 uint64_t;
-
 struct D2SeedStrc
 {
     union

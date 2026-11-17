@@ -56,12 +56,6 @@ struct D2CharStatsTxt
     char unk0x43[0x81];
 };
 
-struct D2ItemsTxtSpeed
-{
-    char unk0x00[0xD8];
-    int dwSpeed;
-};
-
 struct D2DataTablesStrc
 {
     char unk0x00[0xBC4];

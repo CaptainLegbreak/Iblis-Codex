@@ -9,8 +9,6 @@ struct Unicode
 {
     unsigned short wChar;
 };
-
-typedef int (__stdcall* D2LaunchCallback)(int nArg);
 int __fastcall sub_004FB950_GetFirstVisible(D2WinControlStrc* pControl); // 0x004FB950
 void __cdecl sub_00433640_PlayIntroVideo(); // 0x00433640
 void __cdecl sub_0042FB20(); // 0x0042FB20
@@ -79,7 +77,6 @@ struct D2LaunchRecordStrc
 void __cdecl sub_004317D0_FlushInput(); // 0x004317D0
 int __cdecl sub_0042FA40_InitAuxBattleNet(); // 0x0042FA40
 int __stdcall SFileOpenArchive(const char* szMpqName, int nPriority, unsigned int dwFlags, void** phMpq); // 0x0041BA60
-void __cdecl sub_00433640_ShowVersionText(); // 0x00433640
 int __stdcall SFileCloseArchive(void* hMpq); // 0x00419A80
 int __cdecl sub_0042FAB0_GetAuxFlag(); // 0x0042FAB0
 void __cdecl sub_004334E0_PlayIntro(); // 0x004334E0
@@ -266,7 +263,7 @@ void __cdecl sub_00435230_PlayIntroVideos()
             SFileOpenArchive("d2video.mpq", 0x64, 0, &hMpq);
             if (hMpq)
             {
-                sub_00433640_ShowVersionText();
+                sub_00433640_PlayIntroVideo();
                 SFileCloseArchive(hMpq);
             }
         }

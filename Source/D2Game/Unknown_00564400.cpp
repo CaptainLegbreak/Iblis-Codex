@@ -19,20 +19,6 @@ struct D2GameStrc
     unsigned int nSyncTimer;
 };
 
-struct D2LinkStrc
-{
-    D2LinkStrc* pPrev;
-    D2LinkStrc* pNext;
-};
-
-struct D2TaskStrc
-{
-    int nTaskQ;
-    int nType;
-    D2LinkStrc pTaskBalanceLink;
-    D2LinkStrc pTaskQueueLink;
-};
-
 struct D2CriticalSectionStrc
 {
     char unk0x00[0x18];

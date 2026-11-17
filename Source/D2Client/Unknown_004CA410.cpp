@@ -121,23 +121,6 @@ struct D2MonSoundsTxt
     int dwCvtSk3;
 };
 
-struct D2UnitSndPlayerStrc
-{
-    int f_0;
-    int nDeathSound;
-    int unk0x08[8];
-    int nFootstep;
-};
-
-struct D2UnitSndObjectStrc
-{
-    int nModeSound[8];
-    int nSoundA;
-    int nSoundAMode;
-    int nSoundB;
-    int nSoundBMode;
-};
-
 struct D2SuperUniquesTxt
 {
     char unk0x00[0x18];
@@ -162,12 +145,6 @@ struct D2DataTablesStrc
     D2SkillsTxt* pSkillsTxt;
     char unk0xB9C[0x04];
     int nSkillsTxtRecordCount;
-};
-
-struct D2DirRateStrc
-{
-    int nValue;
-    unsigned int nRate;
 };
 
 struct D2SkillsTxt
@@ -247,8 +224,6 @@ struct D2TimedHintNodeStrc
 void __fastcall sub_00516950_LinkEntry(D2TimedHintNodeStrc** ppList, D2TimedHintEntryStrc* pEntry); // 0x00516950
 void __fastcall sub_00516980_RemoveNode(D2TimedHintNodeStrc** ppList, D2TimedHintEntryStrc* pEntry); // 0x00516980
 int __fastcall sub_004818F0_GetCacheKind(int nIndex); // 0x004818F0
-extern "C" void __cdecl sub_00408A60(const char*, const char*, int); // 0x00408A60
-extern "C" __declspec(noreturn) void __cdecl exit(int);
 
 struct D2StaticPathStrc
 {

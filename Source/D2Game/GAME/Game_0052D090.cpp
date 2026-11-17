@@ -1,7 +1,6 @@
 #include "D2Game.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define D2GameReservedSlotHandle (-1)
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
 struct D2ServerCallbackFunctions;
@@ -181,15 +180,6 @@ void __fastcall SUNIT_FillUnitInfo(D2UnitStrc* pUnit, D2UnitInfoStrc* pUnitInfo)
 extern UnitDescriptionFunction gpfGetDescription_6FD2CA64[5]; // 0x0073107C
 extern int gnGamesGUIDs_6FD447F8[1024]; // 0x00882D38
 
-struct D2UnitDescriptionListStrc
-{
-    int nClassId;
-    int nCount;
-    int nDefaultCount;
-    char szDescription[0x80];
-    D2UnitDescriptionListStrc* pNext;
-};
-
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize); // 0x00681EF0
 extern "C" const char gszGameSourceFile; // 0x006D5D1C
 extern D2CriticalSectionStrc gCriticalSection_6FD45800; // 0x00882D18
@@ -328,11 +318,6 @@ struct D2StormHashTableStrc
     unsigned int m_slotmask;
 
     void sub_0052FF20_GrowListArray();
-};
-
-struct HASHKEY_NONE
-{
-    int nUnused;
 };
 
 struct D2GameHashLinkStrc

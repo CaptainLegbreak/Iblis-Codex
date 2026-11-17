@@ -1,13 +1,8 @@
 #include "D2Game.h"
 
 #define UNIT_PLAYER 0
-#define ACT_I 0
 #define STAT_HITPOINTS 6
 #define STAT_MANA 8
-#define PLRSAVE2ERROR_UNKNOWN 1
-#define PLRSAVE2ERROR_NEWBIE_SAVE 2
-#define PLRSAVE2ERROR_NO_CLIENT 3
-#define PLRSAVE2ERROR_COUNT 27
 struct D2PlayerDataStrc;
 struct D2CharStatsTxt;
 struct D2SaveHeaderStrc;

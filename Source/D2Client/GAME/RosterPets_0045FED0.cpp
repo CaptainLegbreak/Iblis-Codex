@@ -46,19 +46,6 @@ struct D2PanelAnimEntryStrc
     char unk0x04[0x18];
 };
 
-struct D2RosterPetNodeStrc
-{
-    int nValue;
-    int nType;
-    int nKey;
-    int nArg;
-    int unk0x10[3];
-    int nInit;
-    int nClear;
-    int unk0x24[3];
-    D2RosterPetNodeStrc* pNext;
-};
-
 struct T0045FED0
 {
     unsigned int dwTick;

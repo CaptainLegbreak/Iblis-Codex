@@ -47,18 +47,6 @@ struct D2SkillsTxt
     char unk0x1DD[0x5F];
 };
 
-struct D2MonStatsTxtRun
-{
-    char unk0x00[0x34];
-    short nRun;
-};
-
-struct D2CharStatsTxtRun
-{
-    char unk0x00[0x41];
-    unsigned char nRunSpeed;
-};
-
 struct D2DataTablesStrc
 {
     char unk0x00[0xA80];

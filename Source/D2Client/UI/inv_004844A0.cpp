@@ -42,7 +42,7 @@ extern unsigned char gabColors_007BCAD8[5]; // 0x007BCAD8
 extern D2InventoryGridInfoStrc gGrid_007BCB88; // 0x007BCB88
 extern int gdwGlobal_007BCBE8; // 0x007BCBE8
 extern int gdwGlobal_007BCBF0; // 0x007BCBF0
-extern D2UnitStrc* gdwGlobal_007BCBF4; // 0x007BCBF4
+extern D2UnitStrc* gpHoverItem_007BCBF4; // 0x007BCBF4
 extern int gnGlobal_007BCC20; // 0x007BCC20
 extern int gnGlobal_007BCC4C; // 0x007BCC4C
 extern D2InvCompGridStrc gaCompGrids_007BCC58[11]; // 0x007BCC58
@@ -98,12 +98,6 @@ struct D2ItemsTxt
     unsigned char nBlock;
 };
 
-struct D2GemsTxt
-{
-    char unk0x00[0x20];
-    char szLetter[6];
-};
-
 struct D2CharStatsTxt
 {
     char unk0x00[0x49];
@@ -151,8 +145,6 @@ Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x00526
 Unicode* __fastcall sub_00526F20(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 int __stdcall sub_00625560(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625560
-int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
-unsigned char __stdcall ITEMS_GetSockets(D2UnitStrc* pItem); // 0x006299B0
 int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc* pItem); // 0x0062BA80
 void* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId); // 0x006439F0
@@ -177,22 +169,6 @@ struct D2DifficultyLevelsTxt
     int dwResistPenalty;
 };
 
-struct D2MercStatLineStrc
-{
-    int nLeft;
-    int nRight;
-    int nY;
-    int nMaxWidth;
-    int nStatId;
-};
-
-struct D2ElemDamageStrc
-{
-    int nMinStat;
-    int f_4;
-    int nColor;
-};
-
 unsigned char __cdecl sub_0044DCD0_GetDifficulty(); // 0x0044DCD0
 int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
 int __fastcall sub_00451F60_UnitClassId(D2UnitStrc* pUnit); // 0x00451F60
@@ -213,7 +189,6 @@ int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
 unsigned int __stdcall ITEMS_CheckWeaponIfTwoHanded(D2UnitStrc* pItem); // 0x006289C0
 short __stdcall ITEMS_GetStrengthBonus(D2UnitStrc* pItem); // 0x00629860
 short __stdcall ITEMS_GetDexBonus(D2UnitStrc* pItem); // 0x006298A0
-D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
 int __stdcall SKILLS_GetWeaponMasteryBonus(D2UnitStrc* pUnit, D2UnitStrc* pItem, D2SkillStrc* pSkill, int nType); // 0x00645830
 extern D2MercStatLineStrc gaMercStatLines_007221A8[12]; // 0x007221A8
 extern int gnGlobal_007A2858; // 0x007A2858
@@ -265,8 +240,6 @@ int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem); // 0x00629DA0
 int __stdcall ITEMS_GetLevelRequirement(D2UnitStrc* pItem, D2UnitStrc* pUnit); // 0x0062BA60
 int __stdcall ITEMS_IsClassValid(D2UnitStrc* pItem); // 0x0062C060
 int __stdcall ITEMS_GetClassOfClassSpecificItem(D2UnitStrc* pItem); // 0x0062C0B0
-int __stdcall ITEMS_CheckRequirements(D2UnitStrc* pItem, D2UnitStrc* pUnit, int bEquipping, int* bStrength, int* bDexterity, int* bLevel); // 0x0062EAF0
-D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0
 int __stdcall INVENTORY_GetItemNodePage(D2UnitStrc* pItem); // 0x0063E020
 int __stdcall MONSTERS_GetHirelingTypeId(D2UnitStrc* pUnit); // 0x0063EE90
 extern int gnGlobal_00721E38; // 0x00721E38
@@ -275,7 +248,6 @@ extern int gnGlobal_00721E40; // 0x00721E40
 extern int gnGlobal_00721E44; // 0x00721E44
 extern int gnGlobal_00721E48; // 0x00721E48
 extern int gdwGlobal_007BCBE4; // 0x007BCBE4
-extern D2UnitStrc* gpHoverItem_007BCBF4; // 0x007BCBF4
 
 // 0x00483A70
 static void sub_00483A70_DrawSlotFrame(D2InvCompGridStrc* pCompGrid, int nColor)
@@ -442,7 +414,7 @@ void __cdecl sub_004845A0_DrawEquippedItems()
         case 9:nX+=2;nY-=4;break;
         case 4:case 5:nX+=nOffsetX;nY+=nOffsetY;break;
         }
-        if(pItem==gdwGlobal_007BCBF4 && gdwGlobal_007BCBE8)
+        if(pItem==gpHoverItem_007BCBF4 && gdwGlobal_007BCBE8)
         {
             if(sub_00468830()==8)sub_00483A70_DrawSlotFrame(&gaCompGrids_007BCC58[nBodyLoc],0);
             else sub_00483A70_DrawSlotFrame(&gaCompGrids_007BCC58[nBodyLoc],1);

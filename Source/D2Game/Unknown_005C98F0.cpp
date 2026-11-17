@@ -80,7 +80,6 @@ int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nType); // 0x00629BB0
 void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc* pUpdateUnit); // 0x00553380
 int __fastcall D2GAME_PickupItem_6FC43340(D2GameStrc* pGame, D2UnitStrc* pUnit, int nItemGUID, int* pItemStatus); // 0x00563560
 int __fastcall OBJECTS_OperateHandler(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nObjectType, int nObjectGUID, int* pResult); // 0x00584420
-extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
 
 struct D2SummonArgStrc
 {

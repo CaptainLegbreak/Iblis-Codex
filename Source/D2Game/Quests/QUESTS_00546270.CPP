@@ -52,18 +52,6 @@ struct D2PlayerDataStrc
     D2BitBufferStrc* pQuestData[3];
 };
 
-struct D2QuestInitTableStrc
-{
-    void* pfInit;
-    unsigned char nAct;
-    unsigned char pad0x05[3];
-    unsigned int nVersion;
-    unsigned char bNoSetState;
-    unsigned char pad0x0D[3];
-    int nChainNo;
-    int nQuestNo;
-};
-
 struct D2GSPacketSrv5E
 {
     unsigned char nHeader;

@@ -7,16 +7,6 @@ struct Unicode
     Unicode(unsigned short wValue = 0) : wChar(wValue) {}
 };
 
-struct D2RosterButtonStrc
-{
-    int nX;
-    int nY;
-    int unk0x08[2];
-    int nType;
-    int nState;
-    int unk0x18[2];
-};
-
 #pragma pack(push, 1)
 struct D2RosterUnitStrc
 {

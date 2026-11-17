@@ -2,8 +2,6 @@
 
 #define NUM_HOTKEYS 114
 #define HOTKEY_COMMAND_LIMIT 0x38
-#define KEY_WHEEL_UP 0x103
-#define KEY_WHEEL_DOWN 0x104
 #define D2_ASSERT(x,line) do { if (!(x)) { sub_00408A60(gszAssert_006CC837, sub_00408090(), line); exit(-1); } } while (0)
 
 struct D2HotkeyCommandStrc;

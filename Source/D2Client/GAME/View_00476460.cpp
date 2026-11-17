@@ -32,9 +32,6 @@ static int gaCloudY_007B5790[10];                                               
 static int gaCloudSpeed_007B57B8[10];                                                                        // 0x007B57B8
 static int gaCloudX_007B5BE8[10];                                                                            // 0x007B5BE8
 
-#define SUMMIT_ROLL(pSeed, lSeed) ((lSeed) = (pSeed)->nHighSeed + 0x6AC690C5i64 * (pSeed)->nLowSeed, \
-    (pSeed)->nHighSeed = (unsigned int)((lSeed) >> 32), (pSeed)->nLowSeed = (unsigned int)(lSeed), (unsigned int)(lSeed))
-
 static int snBaseX; // 0x007B9570
 static bool sbBaseSet; // 0x007B956C
 static int gnBaseGuard; // 0x007B9574

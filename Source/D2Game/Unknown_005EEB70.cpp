@@ -10,9 +10,6 @@
 #define MONMODE_ATTACK2 5
 #define AI_GetParamValue(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
-#define MONSTER_ANCIENTBARB1 540
-#define MONSTER_ANCIENTBARB2 541
-#define MONSTER_ANCIENTBARB3 542
 struct D2AiBaalTargetArgsStrc;
 struct D2SeedStrc;
 struct D2StaticPathStrc;

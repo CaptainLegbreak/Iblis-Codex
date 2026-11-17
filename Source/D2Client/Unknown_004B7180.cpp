@@ -30,15 +30,6 @@ struct D2DialogWidgetNodeStrc
     D2DialogWidgetNodeStrc* pNext;
 };
 
-struct D2DialogItemStrc
-{
-    int nHeight;
-    char unk0x04[0x14];
-    int (__cdecl* pfnCallback)();
-    int nType;
-    char unk0x20[0xF0];
-};
-
 struct D2ClientDialogStrc
 {
     unsigned long dwTick;

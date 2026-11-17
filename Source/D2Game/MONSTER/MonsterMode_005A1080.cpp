@@ -85,11 +85,6 @@ struct D2GameStrc
     int dwGameFrame;
 };
 
-struct D2MonLvlTxt
-{
-    int nValues[10][3];
-};
-
 struct D2MonStatsTxt
 {
     char pad0x000[0x170];

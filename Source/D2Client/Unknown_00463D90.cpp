@@ -71,14 +71,6 @@ struct D2CelContextStrc
     int unk0x44;
 };
 
-struct D2RectStrc
-{
-    int nLeft;
-    int nTop;
-    int nRight;
-    int nBottom;
-};
-
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -117,10 +109,6 @@ extern SKILLSELECTPROC gpfSkillSelectProcs_00711F34[]; // 0x00711F34
 D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit); // 0x00620190
 D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
 int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine); // 0x00643CE0
-
-struct D2CoordPairStrc { int nX; int nY; };
-
-struct D2MonStats2SelectStrc { char pad0[4]; unsigned char nFlags[4]; char pad8[0xE4]; unsigned char nComponents; char padED[0x21]; short nTop,nLeft,nWidth,nHeight; };
 
 extern "C" __declspec(dllimport) int __stdcall PtInRect(const D2RectStrc*, D2CoordPairStrc);
 extern D2UnitStrc* gpPlayerUnit_007A6A70; // 0x007A6A70

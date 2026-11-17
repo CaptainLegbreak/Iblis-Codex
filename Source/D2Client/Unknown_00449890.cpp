@@ -2,14 +2,6 @@
 
 struct D2LaunchAddressStrc;
 
-struct D2LaunchAddressStrc
-{
-    int nData0;
-    int nData1;
-    int nData2;
-    int nData3;
-};
-
 void* __stdcall sub_006BC810_LookupHandle(int nKey); // 0x006BC810
 int __fastcall sub_0040DEE0_QueryAddress(void* pHandle, D2LaunchAddressStrc* pAddress, int* pSize); // 0x0040DEE0
 extern int gnLaunchKey_00798FB4; // 0x00798FB4

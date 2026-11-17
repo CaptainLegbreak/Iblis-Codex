@@ -5,8 +5,6 @@
 #define UNIT_TILE 5
 #define UNIT_MONSTER 1
 #define UNIT_INVALID 6
-#define MONSTER_SANDLEAPER1 0x4E
-#define MONSTER_ANCIENTBARB1 0x21C
 struct D2StaticPathStrc;
 struct D2MonStatsTxt;
 struct D2CharStatsTxt;

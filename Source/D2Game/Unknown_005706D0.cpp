@@ -24,24 +24,18 @@ struct D2DataTablesStrc
     D2CharStatsTxt* pCharStatsTxt;
     int nCharStatsTxtRecordCount;
 };
-
-#define STAT_STRENGTH 0
 #define STAT_ENERGY 1
 #define STAT_DEXTERITY 2
 #define STAT_VITALITY 3
 #define STAT_HITPOINTS 6
 #define STAT_MAXHP 7
 #define STAT_MANA 8
-#define STAT_MAXMANA 9
 #define STAT_STAMINA 10
 #define STAT_MAXSTAMINA 11
 #define STAT_LEVEL 12
 #define STAT_TOHIT 19
 #define STAT_TOBLOCK 20
-#define STAT_NEXTEXP 30
-#define STAT_VELOCITYPERCENT 67
 #define STAT_ATTACKRATE 68
-#define STAT_OTHER_ANIMRATE 69
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 int __stdcall DATATBLS_GetLevelThreshold(int nClass, int nLevel);                                           // 0x00611800

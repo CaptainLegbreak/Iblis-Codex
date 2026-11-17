@@ -37,12 +37,6 @@ struct UnicodeChar : Unicode
     UnicodeChar();
 };
 
-struct D2StatusStrc
-{
-    int nCode;
-    int nArg;
-};
-
 #pragma pack(push, 1)
 struct D2LaunchRecordStrc
 {
@@ -70,8 +64,6 @@ struct D2FuncTable_0077ABF0Strc
     char unk0xA4[0x10];
     int (__fastcall* pfnSlotB4)();
 };
-
-typedef void (__cdecl* D2LaunchDoneFn)();
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090

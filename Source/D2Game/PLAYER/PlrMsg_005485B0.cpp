@@ -1,8 +1,6 @@
 #include "D2Game.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define BODYLOC_RARM 4
-#define BODYLOC_LARM 5
 struct D2PlayerDataStrc;
 struct D2StaticPathStrc;
 struct D2MonsterDataStrc;

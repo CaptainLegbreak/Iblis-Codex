@@ -65,12 +65,6 @@ struct D2PlayerCmdStrc
     D2SkillStrc* pSkill;
 };
 
-struct D2SkillRefStrc
-{
-    int nSkillId;
-    int nOwnerGUID;
-};
-
 struct D2SkillsTxt
 {
     char unk0x00[0x4];
@@ -105,12 +99,6 @@ struct D2DataTablesStrc
     D2SkillsTxt* pSkillsTxt;
     void* pSkillsLinker;
     int nSkillsTxtRecordCount;
-};
-
-struct D2StringRefStrc
-{
-    unsigned short nStringId;
-    unsigned short unk0x02;
 };
 
 struct D2CoordStrc
@@ -239,72 +227,6 @@ void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit);                  
 unsigned short __stdcall COLLISION_CheckMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, unsigned short nMask); // 0x0064D870
 D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, int nUnitSize, unsigned int nMask, int bAllowNeighboringRooms); // 0x0064E7B0
 void __cdecl sub_004608C0();                                                                                // 0x004608C0
-
-#define E06_ABS(x) ((x) < 0 ? -(x) : (x))
-
-#define UNIT_GETX(pUnit, outX) \
-    switch ((pUnit)->dwUnitType) \
-    { \
-    case 2: \
-    case 4: \
-    case 5: \
-        outX = (pUnit)->pStaticPath->nX; \
-        break; \
-    default: \
-        if ((pUnit)->pDynamicPath) \
-            outX = PATH_GetXPosition((pUnit)->pDynamicPath); \
-        else \
-            outX = 0; \
-        break; \
-    }
-
-#define UNIT_GETY(pUnit, outY) \
-    switch ((pUnit)->dwUnitType) \
-    { \
-    case 2: \
-    case 4: \
-    case 5: \
-        outY = (pUnit)->pStaticPath->nY; \
-        break; \
-    default: \
-        if ((pUnit)->pDynamicPath) \
-            outY = PATH_GetYPosition((pUnit)->pDynamicPath); \
-        else \
-            outY = 0; \
-        break; \
-    }
-
-#define UNIT_GETX_K5(pUnit, outX) \
-    switch ((pUnit)->dwUnitType) \
-    { \
-    case 2: \
-    case 4: \
-    case 5: \
-        outX = (pUnit)->pStaticPath->nX; \
-        break; \
-    default: \
-        if ((pUnit)->pDynamicPath) \
-            outX = PATH_GetXPosition((pUnit)->pDynamicPath); \
-        else \
-            outX = 0; \
-        break; \
-    }
-
-#define UNIT_GETY_K5(pUnit, outY) \
-    switch ((pUnit)->dwUnitType) \
-    { \
-    case 2: \
-    case 4: \
-    case 5: \
-        outY = (pUnit)->pStaticPath->nY; \
-        break; \
-    default: \
-        if ((pUnit)->pDynamicPath) \
-            outY = PATH_GetYPosition((pUnit)->pDynamicPath); \
-        else \
-            outY = 0; \
-        break; \
-    }
 
 static void __stdcall sub_00460830_SetStateAndSync(int bSync, int nState, D2UnitStrc* pUnit)
 {

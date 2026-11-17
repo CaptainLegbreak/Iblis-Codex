@@ -6,8 +6,6 @@ struct D2ClientNotifyStrc;
 struct D2ClientCharRecordStrc;
 struct D2RangeStrc;
 
-typedef unsigned int size_t;
-
 #pragma pack(push, 1)
 struct D2ClientCharRecordStrc
 {
@@ -34,8 +32,6 @@ struct D2ActiveRoomStrc
     char unk0x38[0x44];
     D2ActiveRoomStrc* pRoomNext;
 };
-
-typedef int (__fastcall* D2McpPacketHandler)(const unsigned char* pPacket, unsigned int nSize);
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -72,8 +68,6 @@ extern int gdwGlobal_007A0674; // 0x007A0674
 extern int gnUiRecordRow_007A5218; // 0x007A5218
 extern int gnAutomapHeight_007A521C; // 0x007A521C
 extern int gnAutomapWidth_007A5220; // 0x007A5220
-
-typedef void (__fastcall* D2McpCallbackFn)(unsigned short wRequestId, unsigned char* pData);
 
 struct D2RangeStrc
 {

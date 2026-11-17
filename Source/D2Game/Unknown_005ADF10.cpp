@@ -120,7 +120,6 @@ static int sub_005ADA40_CheckMissileMode(int nMissileMode, D2UnitStrc* pUnit)
 static __declspec(noinline) int sub_005ADA80_GetPierceFlags(D2UnitStrc* pUnit);
 static int sub_005ADA80_GetPierceFlags(D2UnitStrc* pUnit); // 0x005ADA80
 // 0x005ADA80
-static int sub_005ADA80_GetPierceFlags(D2UnitStrc* pUnit);
 
 // 0x005ADA80
 static int sub_005ADA80_GetPierceFlags(D2UnitStrc* pUnit)

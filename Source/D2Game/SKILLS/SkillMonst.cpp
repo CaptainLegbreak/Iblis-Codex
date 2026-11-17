@@ -1,13 +1,20 @@
 #include "D2Game.h"
 
 #define STAT_HITPOINTS 6
-#define STAT_VELOCITYPERCENT 67
 #define DAMAGERESULTFLAG_SUCCESSFULHIT 1
+#define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
+#define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
+
 struct D2StaticPathStrc;
 struct D2SkillsTxt;
 struct D2MissilesTxt;
 struct D2MonStatsTxt;
 struct D2MonStats2Txt;
+struct D2UnitStrc;
+struct D2GameStrc;
+struct D2DataTablesStrc;
+struct D2MissileStrc;
+struct D2DamageStrc;
 
 struct D2StaticPathStrc
 {
@@ -76,7 +83,10 @@ struct D2SkillsTxt
 {
     char unk0x000[0x48];
     short wSrvMissileA;
-    unsigned char unk_4A[0xE6];
+    unsigned char unk_4A[0x4];
+    short wSrvOverlay;
+    char unk50[0xDE];
+    unsigned short wResultFlags;
     unsigned int dwHitFlags;
     unsigned int dwHitClass;
     unsigned int dwCalc[4];
@@ -128,6 +138,8 @@ struct D2DataTablesStrc
     D2SkillsTxt* pSkillsTxt;
     void* pSkillsLinker;
     int nSkillsTxtRecordCount;
+    char unkBA4[0x1C];
+    int nOverlayTxtRecordCount;
 };
 
 struct D2MissileStrc
@@ -172,8 +184,6 @@ D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc* pGame, D2Mis
 void __fastcall SKILLS_SetInfernoFrame(D2SkillsTxt* pSkillsTxtRecord, D2UnitStrc* pUnit); // 0x005CC440
 int __stdcall SKILLS_GetParam1(D2SkillStrc* pSkill); // 0x006444A0
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
-int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
-int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 void __stdcall D2COMMON_10170_PathSetTargetPos(D2DynamicPathStrc* pPath, int nX, int nY); // 0x00648AD0
 
 struct D2DamageStrc
@@ -211,6 +221,13 @@ int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned
 int __stdcall SKILLS_GetParam2(D2SkillStrc* pSkill); // 0x006444D0
 int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
 void __stdcall PATH_SetVelocity(D2DynamicPathStrc* pDynamicPath, int nVelocity, const char* szFile, int nLine); // 0x00648690
+int __stdcall SKILLS_GetElementalLength(D2UnitStrc*, int, int, int); // 0x00644F20
+void __stdcall UNITS_SetOverlay(D2UnitStrc*, int, int); // 0x00621E40
+
+static int __stdcall sub_005CC2E0_UpdateInfernoAnimationParameters(D2UnitStrc* pUnit, D2UnitStrc* pMissile, int nSkillId, int nSkillLevel);
+
+inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId);
+inline D2MissilesTxt* SKILLS_GetMissilesTxtRecord(int nMissileId);
 
 __forceinline int UNITS_GetUnitXPositionInline(D2UnitStrc* pUnit)
 {
@@ -329,6 +346,35 @@ int __fastcall sub_005CC220_SetUnitFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, i
     return 1;
 }
 
+// 0x005CC2E0
+static int __stdcall sub_005CC2E0_UpdateInfernoAnimationParameters(D2UnitStrc* pUnit, D2UnitStrc* pMissile, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecord(!pMissile ? -1 : pMissile->dwClassId);
+    if (!pMissilesTxtRecord)
+    {
+        return 0;
+    }
+
+    int nFrame = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
+    if (nFrame <= 0)
+    {
+        nFrame = pMissilesTxtRecord->dwParam[1] + nSkillLevel - 1;
+    }
+
+    nFrame = D2_MIN(D2_MAX(nFrame, 1), 0xFF);
+    PATH_SetNewDistance(pMissile->pDynamicPath, nFrame);
+    sub_00621780_SetMissileArg(pMissile, (pMissilesTxtRecord->nAnimLen << 8) / nFrame);
+    MISSILE_SetTotalFrames(pMissile, nFrame);
+    MISSILE_SetCurrentFrame(pMissile, nFrame);
+    return 1;
+}
+
 inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {
     if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
@@ -361,47 +407,6 @@ __forceinline D2MonStats2Txt* MONSTERREGION_GetMonStats2TxtRecord(int nMonsterId
     }
 
     return 0;
-}
-
-static int __stdcall sub_005CC2E0_UpdateInfernoAnimationParameters(D2UnitStrc* pUnit, D2UnitStrc* pMissile, int nSkillId, int nSkillLevel)
-{
-    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
-    if (!pSkillsTxtRecord)
-    {
-        return 0;
-    }
-
-    if (!pMissile)
-    {
-        return 0;
-    }
-
-    D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecord(pMissile->dwClassId);
-    if (!pMissilesTxtRecord)
-    {
-        return 0;
-    }
-
-    int nFrame = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
-    if (nFrame <= 0)
-    {
-        nFrame = pMissilesTxtRecord->dwParam[1] + nSkillLevel - 1;
-    }
-
-    if (nFrame <= 1)
-    {
-        nFrame = 1;
-    }
-    else if (nFrame >= 0xFF)
-    {
-        nFrame = 0xFF;
-    }
-
-    PATH_SetNewDistance(pMissile->pDynamicPath, nFrame);
-    sub_00621780_SetMissileArg(pMissile, (pMissilesTxtRecord->nAnimLen << 8) / nFrame);
-    MISSILE_SetTotalFrames(pMissile, nFrame);
-    MISSILE_SetCurrentFrame(pMissile, nFrame);
-    return 1;
 }
 
 // 0x005CC3B0
@@ -555,6 +560,43 @@ int __fastcall SKILLS_SrvDo152_DiabLight(D2GameStrc* pGame, D2UnitStrc* pUnit, i
         sub_005CC3B0_EndInfernoAnim(pGame, pUnit);
     }
 
+    return 1;
+}
+
+static __forceinline D2SkillsTxt* GetSkillsTxtRecord(int nId)
+{
+    if (nId >= 0 && nId < sgptDataTables->nSkillsTxtRecordCount)
+        return &sgptDataTables->pSkillsTxt[nId];
+    return 0;
+}
+
+// 0x005CCE80
+int __fastcall sub_005CCE80_ApplyFreezingSkillDamage(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2DamageStrc damage;
+    D2SkillsTxt* pSkillsTxt = GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxt)
+        return 0;
+    if (pUnit)
+        pUnit->dwFlags |= 0x40;
+    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
+    if (pTarget)
+    {
+        memset(&damage, 0, sizeof(damage));
+        damage.wResultFlags |= 1;
+        damage.wResultFlags |= *(unsigned short*)&pSkillsTxt->wResultFlags;
+        damage.dwHitFlags |= pSkillsTxt->dwHitFlags;
+        if (pSkillsTxt->dwHitClass)
+            damage.dwHitClass = pSkillsTxt->dwHitClass;
+        damage.dwFrzLen = SKILLS_GetElementalLength(pUnit, nSkillId, nSkillLevel, 1);
+        D2GAME_RollElementalDamage_6FD14DD0(pUnit, &damage, nSkillId, nSkillLevel);
+        SUNITDMG_ExecuteEvents(pGame, pUnit, pTarget, 1, &damage);
+        if (!STATLIST_UnitGetStatValue(pTarget, 6, 0))
+            damage.wResultFlags |= 2;
+        SUNITDMG_ExecuteMissileDamage(pGame, pUnit, pTarget, &damage);
+        if (pSkillsTxt->wSrvOverlay > 0 && pSkillsTxt->wSrvOverlay <= sgptDataTables->nOverlayTxtRecordCount)
+            UNITS_SetOverlay(pTarget, pSkillsTxt->wSrvOverlay, 0);
+    }
     return 1;
 }
 

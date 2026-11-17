@@ -53,8 +53,6 @@ extern short gwGlobal_00726E9B;                                                 
 extern int (__cdecl* gpfnGlobal_00726EA7)();                                                                // 0x00726EA7
 extern short gwGlobal_007272DF;                                                                             // 0x007272DF
 
-#define NPC_GET_INTERACT_UNIT() (gnGlobal_007C0D29 ? sub_00463990(gnGlobal_007C0D25, 1) : 0)
-
 // 0x004B6390
 void __fastcall sub_004B6390_HandleNpcTransaction(D2GSPacketSrv2A* pPacket)
 {

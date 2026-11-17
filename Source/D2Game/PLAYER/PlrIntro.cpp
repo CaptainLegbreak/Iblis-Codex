@@ -1,5 +1,12 @@
 #include "D2Game.h"
 
+#pragma intrinsic(memcpy)
+
+struct D2BitBufferStrc;
+struct D2PlrIntroStrc;
+struct D2NpcIndexMapStrc;
+struct D2GameStrc;
+
 struct D2BitBufferStrc
 {
     unsigned char* pBuffer;
@@ -12,12 +19,6 @@ struct D2PlrIntroStrc
     D2BitBufferStrc* pNpcIntroFlags;
 };
 
-struct D2NpcIndexMapStrc
-{
-    int nNpcClassId;
-    int nIndex;
-};
-
 struct D2GameStrc
 {
     char unk0x00[0x1C];
@@ -25,11 +26,13 @@ struct D2GameStrc
 };
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
-extern D2NpcIndexMapStrc gaPlrIntroNpcIndexMap[];                                                           // 0x00732738
-void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);   // 0x0040B430
-void __stdcall BITMANIP_SetBitState(unsigned char* pBitBuffer, int nBit);                                   // 0x00410B10
-int __stdcall BITMANIP_GetBitState(unsigned char* pBitBuffer, int nBit);                                    // 0x00410B30
-void __stdcall BITMANIP_Initialize(D2BitBufferStrc* pBuffer, unsigned char* pBitStream, int nSize);         // 0x00410E40
+extern D2NpcIndexMapStrc gaPlrIntroNpcIndexMap[]; // 0x00732738
+void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
+void __stdcall BITMANIP_SetBitState(unsigned char* pBitBuffer, int nBit); // 0x00410B10
+int __stdcall BITMANIP_GetBitState(unsigned char* pBitBuffer, int nBit); // 0x00410B30
+void __stdcall BITMANIP_Initialize(D2BitBufferStrc* pBuffer, unsigned char* pBitStream, int nSize); // 0x00410E40
+extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
+void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 
 static int PLRINTRO_GetNpcIndex(int nNpcId)
 {
@@ -56,6 +59,24 @@ int __fastcall PLRINTRO_GetNpcIntroFlag(D2PlrIntroStrc* pPlayerIntro, int nNpcId
     return BITMANIP_GetBitState(pPlayerIntro->pNpcIntroFlags->pBuffer, PLRINTRO_GetNpcIndex(nNpcId));
 }
 
+// 0x00572530
+void __fastcall PLRINTRO_CopyNpcIntroFlagsToBuffer(D2PlrIntroStrc* pPlayerIntro, unsigned char* pBuffer)
+{
+    memcpy(pBuffer, pPlayerIntro->pNpcIntroFlags->pBuffer, 8);
+}
+
+// 0x00572540
+void __fastcall PLRINTRO_CopyBufferToQuestIntroFlags(D2PlrIntroStrc* pPlayerIntro, unsigned char* pBuffer)
+{
+    memcpy(pPlayerIntro->pQuestIntroFlags->pBuffer, pBuffer, 8);
+}
+
+// 0x00572550
+void __fastcall PLRINTRO_CopyBufferToNpcIntroFlags(D2PlrIntroStrc* pPlayerIntro, unsigned char* pBuffer)
+{
+    memcpy(pPlayerIntro->pNpcIntroFlags->pBuffer, pBuffer, 8);
+}
+
 // 0x00572560
 D2PlrIntroStrc* __fastcall PLRINTRO_Create(D2GameStrc* pGame)
 {
@@ -75,4 +96,24 @@ D2PlrIntroStrc* __fastcall PLRINTRO_Create(D2GameStrc* pGame)
     pPlayerIntro->pNpcIntroFlags = pBitBuffer2;
 
     return pPlayerIntro;
+}
+
+// 0x00572620
+void __fastcall PLRINTRO_Destroy(D2GameStrc* pGame, D2PlrIntroStrc* pPlayerIntro)
+{
+    if (pPlayerIntro->pQuestIntroFlags)
+    {
+        FOG_FreeServerMemory(pGame->pMemoryPool, pPlayerIntro->pQuestIntroFlags->pBuffer, ".\\PLAYER\\PlrIntro.cpp", 219, 0);
+        FOG_FreeServerMemory(pGame->pMemoryPool, pPlayerIntro->pQuestIntroFlags, ".\\PLAYER\\PlrIntro.cpp", 220, 0);
+        pPlayerIntro->pQuestIntroFlags = 0;
+    }
+
+    if (pPlayerIntro->pNpcIntroFlags)
+    {
+        FOG_FreeServerMemory(pGame->pMemoryPool, pPlayerIntro->pNpcIntroFlags->pBuffer, ".\\PLAYER\\PlrIntro.cpp", 225, 0);
+        FOG_FreeServerMemory(pGame->pMemoryPool, pPlayerIntro->pNpcIntroFlags, ".\\PLAYER\\PlrIntro.cpp", 226, 0);
+        pPlayerIntro->pNpcIntroFlags = 0;
+    }
+
+    FOG_FreeServerMemory(pGame->pMemoryPool, pPlayerIntro, ".\\PLAYER\\PlrIntro.cpp", 229, 0);
 }

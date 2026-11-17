@@ -18,25 +18,6 @@ struct D2GameStrc
     D2NpcControlStrc* pNpcControl;
 };
 
-struct D2ItemCacheStrc
-{
-    unsigned char nMin;
-    unsigned char nMax;
-    unsigned char nMagicMin;
-    unsigned char nMagicMax;
-    unsigned int dwCode;
-    unsigned char nMagicLevel;
-    char unk0x09[3];
-};
-
-struct D2UnitProxyStrc
-{
-    D2ItemCacheStrc* pItemCache;
-    int nItems;
-    unsigned int* pPermCache;
-    int nPerms;
-};
-
 #define MAX_NPC_INVENTORY 17
 
 extern D2UnitProxyStrc gUnitProxyItemCache_00883D78[17];                                                    // 0x00883D78

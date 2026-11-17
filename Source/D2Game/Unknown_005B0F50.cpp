@@ -1,6 +1,4 @@
 #include "D2Game.h"
-
-#define BITARRAY_CHECK(pBytes, nBit) ((pBytes)[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
 #define MONSTATSFLAGINDEX_OPENDOORS 3
 #define STATE_STUNNED 21
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }

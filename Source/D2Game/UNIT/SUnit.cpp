@@ -4,16 +4,11 @@
 #define NUM_UNIT_TYPES 6
 #define UNITFLAGEX_STORELASTATTACKER 0x20000
 #define UNITFLAG_HASEVENTSOUND 0x400
-#define UNIT_LIST_MASK 0x7F
-#define IMODE_EQUIP 1
-#define IMODE_INBELT 2
 #define STATE_PLAYERBODY 7
 #define EVENTTYPE_MODECHANGE 0
 #define EVENTTYPE_ENDANIM 1
-#define UNITFLAGEX_STOREOWNERINFO 0x400
 #define PLRMODE_DEATH 0
 #define PLRMODE_DEAD 17
-#define IMODE_ONGROUND 3
 #define COLLISION_PATTERN_SMALL_NO_PRESENCE 5
 #define COLLIDE_CORPSE 0x8000
 #define UNITFLAGEX_HASBEENDELETED 0x100
@@ -24,7 +19,6 @@
 #define UNIT_ALIGNMENT_EVIL 0
 #define UNIT_ALIGNMENT_GOOD 2
 #define UNIT_NUM_ALIGNMENT 3
-#define UNIT_ALIGNMENT_UNASSIGNED 4
 #define MONSTER_HYDRA1 351
 #define MONSTER_HYDRA2 352
 #define MONSTER_HYDRA3 353
@@ -309,7 +303,6 @@ struct Obj00553970 {
 };
 
 short __fastcall PARTY_GetPartyIdForUnitOwner(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540710
-void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nSkillId); // 0x00540E60
 
 struct Obj00554100 {
     unsigned int dwUnknown00;
@@ -434,8 +427,6 @@ struct D2AiTableStrc
     void* pAiParamFn;
     void* unk0x0C;
 };
-
-void __fastcall sub_6FCBC7E0(D2GameStrc* pGame, D2UnitStrc* pMissile); // 0x00553490
 void __fastcall sub_6FCBB190(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3); // 0x00554670
 int __stdcall D2Common_10226(D2UnitStrc* pUnit, int nFlag); // 0x00650840
 void __fastcall sub_00555580_DetachUnit(D2UnitStrc* pUnit, D2GameStrc* pGame, int bKeepInRoom); // 0x00555580
@@ -458,18 +449,6 @@ void __stdcall UNITS_FreeUnit(D2UnitStrc* pUnit); // 0x00620300
 struct D2ItemDataTbl { int nItemsTxtRecordCount; D2ItemsTxt* pItemsTxt; };
 
 void __fastcall SUNIT_RemoveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00555600
-
-struct D2PresetUnitStrc
-{
-    int nMode;
-    int nIndex;
-    int nXpos;
-    D2PresetUnitStrc* pNext;
-    D2MapAIStrc* pMapAI;
-    int nUnitType;
-    int nYpos;
-    unsigned int bSpawned;
-};
 
 void __fastcall QUESTS_MapPresetSpawn(D2GameStrc* pGame, D2UnitStrc* pUnit, D2MapAIStrc* pMapAI); // 0x00545C90
 D2UnitStrc* __fastcall SUNIT_CreatePresetUnit(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nUnitType, int nClassId, int nX, int nY, int nMode, int nUnitFlags); // 0x005557D0

@@ -1,6 +1,4 @@
 #include "D2Game.h"
-
-#define QUEST_A3Q6_MEPHISTO 20
 struct D2Act3Quest6Strc;
 
 struct D2GameStrc

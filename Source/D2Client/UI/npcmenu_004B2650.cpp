@@ -43,12 +43,6 @@ struct tagRECT
     int bottom;
 };
 
-struct D2NpcMenuSlotStrc
-{
-    unsigned short wId;
-    char unk0x02[0x0E];
-};
-
 #pragma pack(push, 2)
 struct D2NpcEntryStrc
 {
@@ -124,7 +118,6 @@ extern unsigned long gdwGlobal_007C0DE9; // 0x007C0DE9
 extern unsigned long gdwGlobal_007C0DF1; // 0x007C0DF1
 extern unsigned long gdwGlobal_007C0E48; // 0x007C0E48
 static int sub_004B1C80_GetNpcDialogPos(D2CoordStrc* pCoords); // 0x004B1C80
-extern int gdwGlobal_007C0DB0; // 0x007C0DB0
 extern "C" const char gszFormatD_006D57BC[]; // 0x006D57BC
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
 int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
@@ -433,7 +426,7 @@ int __fastcall sub_004B2AD0_GetTradeCostText(D2UnitStrc* pItem, int bService, in
     else
     {
         int nType = 0;
-        if (gdwGlobal_007C0DB0)
+        if (gnGlobal_007C0DB0)
             nType = 2;
         D2UnitStrc* pVendor = GetInteractNpc_Inline();
         const int nVendorId = !pVendor ? -1 : pVendor->dwClassId;
@@ -550,7 +543,7 @@ int __fastcall sub_004B3870_HandleTradeClick(D2UnitStrc* pPlayer, D2UnitStrc* pI
             return 0;
         gnGlobal_007C0D31 = 1;
         int nType = 0;
-        if (gdwGlobal_007C0DB0)
+        if (gnGlobal_007C0DB0)
             nType = 2;
         gnGlobal_007C0D7F = ITEMS_GetTransactionCost(sub_00463DE0_GetStoredUnit(), pItem, sub_0044DCD0_GetDifficulty(), gpQuestFlags_007C0D43, nNpcClass, nType);
     }

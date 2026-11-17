@@ -1,17 +1,5 @@
 #include "D2Client.h"
 
-struct D2CltUnitEventStrc
-{
-    int nType;
-    int f_4;
-    int f_8;
-    int nParam1;
-    int nParam2;
-    int nParam3;
-    D2CltUnitEventStrc* pPrevious;
-    D2CltUnitEventStrc* pNext;
-};
-
 struct D2UnitStrc
 {
     char unk0x00[0x90];

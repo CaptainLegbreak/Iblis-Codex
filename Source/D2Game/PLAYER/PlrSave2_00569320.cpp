@@ -1,6 +1,4 @@
 #include "D2Game.h"
-
-#define ITEMSTATCOSTFLAGINDEX_CSVSIGNED 13
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
 #define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
 struct D2StatListExStrc;
@@ -137,24 +135,8 @@ void __fastcall sub_00569F20(D2GameStrc*, D2UnitStrc*, D2ClientStrc*); // 0x0056
 D2GameStrc* __fastcall CLIENTS_GetGame(D2ClientStrc*); // 0x005387C0
 void __fastcall sub_00571F90(D2GameStrc*, D2UnitStrc*, D2ClientStrc*); // 0x00571F90
 
-struct D2PackedWordStrc
-{
-    union
-    {
-        unsigned short wRaw;
-        struct
-        {
-            unsigned short nId : 12;
-            unsigned short nUnused : 3;
-            unsigned short bFlag : 1;
-        };
-    };
-    unsigned short nCount;
-};
-
 __declspec(noinline) void __fastcall sub_00569EC0_UnpackWord(unsigned int* pRaw, int* pId, int* pFlag, int* pCount);
 void __fastcall CLIENTS_SetSkillHotKey(D2ClientStrc*, int, int, int, int); // 0x005390A0
-D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc*); // 0x006221A0
 void __fastcall sub_005391C0_SetClientBytes(D2ClientStrc*, unsigned char, unsigned char, unsigned char); // 0x005391C0
 
 // 0x00569320

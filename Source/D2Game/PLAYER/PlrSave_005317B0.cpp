@@ -23,7 +23,6 @@
 #define LEVEL_ROGUEENCAMPMENT 1
 #define LEVEL_LUTGHOLEIN 40
 #define LEVEL_KURASTDOCKTOWN 75
-#define LEVEL_THEPANDEMONIUMFORTRESS 103
 #define LEVEL_HARROGATH 109
 struct D2SaveHeaderStrc;
 struct D2ServerCallbackFunctions;
@@ -177,12 +176,6 @@ struct D2CoordStrc
 {
     int nX;
     int nY;
-};
-
-struct D2UnitProxyArgStrc
-{
-    int nLevelId;
-    int nCounter;
 };
 
 struct D2DrlgDeleteStrc

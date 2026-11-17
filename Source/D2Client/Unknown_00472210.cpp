@@ -15,17 +15,6 @@ struct D2SeedStrc
 
 extern "C" double __cdecl fabs(double x);
 
-struct D2WeatherSplashStrc
-{
-    short bActive;
-    short unk0x02;
-    int nX;
-    int nY;
-    int nType;
-    int nFrame;
-    int f_14;
-};
-
 struct D2WeatherStrc
 {
     char unk0x000[0x110];
@@ -55,20 +44,13 @@ struct D2UnitStrc
     D2SeedStrc tSeed;
 };
 
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2ActiveRoomStrc* __fastcall sub_004646A0_GetPlayerRoom(); // 0x004646A0
 void __fastcall sub_00473D00_SetPhase(int nPhase); // 0x00473D00
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 extern int gnGlobal_007A8A08; // 0x007A8A08
-D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 extern int gnGlobal_007A8968; // 0x007A8968
-
-struct D2PeriodLightStrc
-{
-    unsigned char nUnused;
-    unsigned char nLight;
-};
 
 int __cdecl sub_004F5140(); // 0x004F5140
 int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseTime); // 0x0061C100
@@ -106,7 +88,6 @@ extern unsigned int gnPhaseMax_007A89C0; // 0x007A89C0
 extern int gbPhaseActive_007A8A1C; // 0x007A8A1C
 extern int gbPhaseBusy_007A8A20; // 0x007A8A20
 extern int gnPhase_007A8A24; // 0x007A8A24
-int __stdcall sub_004726F0(int bForce); // 0x004726F0
 
 inline unsigned __int64 SEED_RollRandomNumberInline_00472210(D2SeedStrc* pSeed)
 {
@@ -315,7 +296,7 @@ static void __stdcall sub_00472590_SetSplash(int bForce, int bValue)
 
 int __stdcall sub_004726F0(int bForce)
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (!pPlayer)
         return 0;
     D2ActiveRoomStrc* pRoom = sub_004646A0_GetPlayerRoom();
@@ -540,7 +521,7 @@ void __fastcall sub_00473D00_SetPhase(int nPhase)
     }
 
     gnPhase_007A8A24 = nPhase;
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2_ASSERT(pPlayer, 0x137);
 
     switch (nPhase)
@@ -574,7 +555,7 @@ void __cdecl sub_00473DC0_ToggleWeather()
     {
         gbPhaseActive_007A8A1C = 0;
         gnPhase_007A8A24 = 0;
-        D2_ASSERT(sub_00463DD0(), 0x137);
+        D2_ASSERT(sub_00463DD0_GetPlayerUnit(), 0x137);
         gnGlobal_007A89E0 = 0;
         sub_006BCAC0_ResetDataArray(gpWeather_007A8A04);
         D2_ASSERT(!gpWeather_007A8A04->unk0x114, 0x15B);

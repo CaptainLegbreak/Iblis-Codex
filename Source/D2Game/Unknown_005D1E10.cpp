@@ -1,6 +1,4 @@
 #include "D2Game.h"
-
-typedef unsigned int U32;
 struct Game
 {
     unsigned char pad[28];
@@ -10,11 +8,6 @@ struct Seed
 {
     U32 low;
     U32 high;
-};
-struct Monster
-{
-    unsigned char pad[40];
-    AiState* ai;
 };
 struct Unit
 {
@@ -27,27 +20,6 @@ struct Unit
     U32 unknown18;
     void* pool;
     Seed seed;
-};
-struct SkillRecord
-{
-    unsigned char pad0[96];
-    U32 calc;
-    unsigned char pad1[130 - 100];
-    short state;
-    unsigned char pad2[228 - 132];
-    short effect;
-    unsigned char pad3[312 - 230];
-    U32 chance;
-    unsigned char pad4[572 - 316];
-};
-struct DataTables
-{
-    unsigned char pad0[196];
-    int stateCount;
-    unsigned char pad1[2968 - 200];
-    SkillRecord* skills;
-    unsigned char pad2[2976 - 2972];
-    int skillCount;
 };
 
 struct AuraRequest
