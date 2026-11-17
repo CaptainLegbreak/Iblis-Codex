@@ -1,17 +1,9 @@
 #include "D2Lang.h"
 
-typedef unsigned int size_t;
-
 struct D2LangByteRangeStrc
 {
     unsigned char f_0;
     unsigned char f_1;
-};
-
-struct D2LangCharMapEntryStrc
-{
-    unsigned short wValue;
-    unsigned short f_2;
 };
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);                  // 0x00412650

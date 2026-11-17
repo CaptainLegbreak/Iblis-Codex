@@ -1,7 +1,5 @@
 #include "D2Lang.h"
 
-typedef unsigned int size_t;
-
 struct Unicode
 {
     unsigned short wChar;

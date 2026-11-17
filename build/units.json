@@ -50253,6 +50253,10 @@
      "name": "sub_00524AC0_GetUntranslatedString"
     },
     {
+     "va": "0x00524C60",
+     "length": 205
+    },
+    {
      "va": "0x00524D30",
      "length": 230,
      "name": "?sub_00524D30_FindString@@YGGPBDPAPB_W@Z"
@@ -50298,9 +50302,39 @@
      "name": "sub_005251C0_GetLanguage"
     },
     {
+     "va": "0x00525260",
+     "length": 226,
+     "name": "sub_00525260"
+    },
+    {
+     "va": "0x00525350",
+     "length": 319,
+     "name": "sub_00525350_FormatUInt"
+    },
+    {
+     "va": "0x00525490",
+     "length": 298,
+     "name": "sub_00525490_FormatInt64"
+    },
+    {
+     "va": "0x005255C0",
+     "length": 424,
+     "name": "?sub_005255C0_FormatUInt64Suffixed@@YGXPAUUnicode@@_KH@Z"
+    },
+    {
+     "va": "0x00525770",
+     "length": 423,
+     "name": "sub_00525770_InitUnitSuffixes"
+    },
+    {
      "va": "0x00525920",
      "length": 153,
      "name": "?sub_00525920_LoadTblFile@@YAPAUD2TblHeaderStrc@@PBD@Z"
+    },
+    {
+     "va": "0x00527090",
+     "length": 258,
+     "name": "sub_00527090_ContainsChar"
     }
    ]
   },
@@ -50312,30 +50346,6 @@
      "va": "0x00524930",
      "length": 132
     }
-   ]
-  },
-  {
-   "file": "Source/D2Lang/StrTable/strtable_00524C60.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00524C60",
-     "length": 205
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -50356,48 +50366,6 @@
      "va": "0x00526490",
      "length": 81,
      "name": "compare"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Lang/StrTable/strtable_00525260.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00525260",
-     "length": 226,
-     "name": "sub_00525260"
-    },
-    {
-     "va": "0x00525350",
-     "length": 319,
-     "name": "sub_00525350_FormatUInt"
-    },
-    {
-     "va": "0x00525490",
-     "length": 298,
-     "name": "sub_00525490_FormatInt64"
-    },
-    {
-     "va": "0x00525770",
-     "length": 423,
-     "name": "sub_00525770_InitUnitSuffixes"
-    },
-    {
-     "va": "0x00527090",
-     "length": 258,
-     "name": "sub_00527090_ContainsChar"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Lang/StrTable/strtable_005255C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005255C0",
-     "length": 424,
-     "name": "?sub_005255C0_FormatUInt64Suffixed@@YGXPAUUnicode@@_KH@Z"
     }
    ]
   },

@@ -2,7 +2,6 @@
 
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 extern "C" int __cdecl _stricmp(const char* szLeft, const char* szRight);                                   // 0x006841E9
 extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned int nCount);                  // 0x00687330
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
@@ -34,6 +33,15 @@ struct D2TblNodeStrc
 struct Unicode
 {
     unsigned short wChar;
+
+    Unicode toUpper() const
+    {
+        Unicode tResult;
+        tResult.wChar = wChar < 0x100 ? gwToUpperTable_00730578[wChar] : wChar;
+        return tResult;
+    }
+    static int __fastcall compare(Unicode lhs, Unicode rhs);
+    static Unicode* __fastcall strncat(Unicode* dest, const Unicode* src, int count);
 };
 void __stdcall CRC16_CalculateChecksum(unsigned short* crc16_checksum_out, const unsigned char* data, unsigned int start_index, unsigned int end_index); // 0x00525020
 void __stdcall sub_00525260(void* pOut, int nField);                                                 // 0x00525260

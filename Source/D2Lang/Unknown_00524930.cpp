@@ -13,7 +13,6 @@ struct D2StringTableStrc {
 struct Unicode { unsigned short character; };
 extern "C" void __cdecl sub_00408A60(const char*, const char*, int); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 // 0x00524930
 const Unicode* __fastcall sub_00524930_EntryToString(D2StringTableStrc* table, const Unicode** strings, unsigned short index)

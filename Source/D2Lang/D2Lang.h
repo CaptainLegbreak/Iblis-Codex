@@ -16,3 +16,23 @@ int __cdecl sub_00525150(); // 0x00525150
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 void* __fastcall sub_00517079(void* hArchive, const char* szPath, int* pSize, const char* szFile, int nLine); // 0x00517079
+
+#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
+struct D2LangCharMapEntryStrc
+{
+    unsigned short wValue;
+    unsigned short f_2;
+};
+
+struct D2UtfConvertSpecStrc
+{
+    unsigned short nMask;
+    short nLeading;
+    short nTrailingBits;
+    short unk0x06;
+    int nLast;
+    int nFirst;
+};
+
+typedef unsigned int size_t;

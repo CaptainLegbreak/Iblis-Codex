@@ -14,16 +14,6 @@ struct Unicode
     }
 };
 
-struct D2UtfConvertSpecStrc
-{
-    unsigned short nMask;
-    short nLeading;
-    short nTrailingBits;
-    short unk0x06;
-    int nLast;
-    int nFirst;
-};
-
 extern D2UtfConvertSpecStrc gaUtf8ConvertTable_007309B8[7]; // 0x007309B8
 
 struct D2LangByteRangeStrc
@@ -32,17 +22,10 @@ struct D2LangByteRangeStrc
     unsigned char f_1;
 };
 
-struct D2LangCharMapEntryStrc
-{
-    unsigned short wValue;
-    unsigned short f_2;
-};
-
 extern unsigned short gnCharMapCount_00882B20; // 0x00882B20
 extern D2LangByteRangeStrc* gpLeadByteRanges_00882B28; // 0x00882B28
 extern unsigned short* gpCharMapIndex_00882B2C; // 0x00882B2C
 extern "C" void* __cdecl bsearch(const void* pKey, const void* pBase, unsigned int nCount, unsigned int nSize, int (__cdecl* pfCompare)(const void*, const void*)); // 0x006881B1
-extern "C" unsigned int __cdecl strlen(const char* szString);
 int __cdecl sub_00527AE0_CompareKey(const void* pLeft, const void* pRight); // 0x00527AE0
 Unicode* __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70

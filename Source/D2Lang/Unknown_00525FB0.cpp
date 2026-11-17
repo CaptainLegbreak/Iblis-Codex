@@ -1,7 +1,5 @@
 #include "D2Lang.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-
 struct D2LangByteRangeStrc;
 struct D2UtfConvertSpecStrc;
 struct D2LangCharRangeStrc;
@@ -35,16 +33,6 @@ struct Unicode
 void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 Unicode* __fastcall sub_005267E0(Unicode* pDest, const Unicode* pSource); // 0x005267E0
 
-struct D2UtfConvertSpecStrc
-{
-    unsigned short nMask;
-    short nLeading;
-    short nTrailingBits;
-    short unk0x06;
-    int nLast;
-    int nFirst;
-};
-
 extern D2UtfConvertSpecStrc gaUtf8ConvertTable_007309B8[7]; // 0x007309B8
 
 struct D2LangCharRangeStrc
@@ -63,18 +51,10 @@ struct D2LangByteRangeStrc
     int sub_005276C0_Contains(unsigned char nValue) const;
 };
 
-struct D2LangCharMapEntryStrc
-{
-    unsigned short wValue;
-    unsigned short f_2;
-};
-
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
 Unicode* __fastcall sub_00526740(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526740
 Unicode* __fastcall sub_00526940_FindSubstring(const Unicode* pString, const Unicode* pSubstring); // 0x00526940
 int __stdcall sub_006C7410_Utf8ToUtf16(unsigned short* pDst, unsigned int nDstMax, const unsigned char* pSrc, unsigned int nSrcMax, unsigned int* pnDstWritten, unsigned int* pnSrcRead); // 0x006C7410
-
-typedef unsigned int size_t;
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x00412650
 void* __stdcall SMemAlloc(size_t nSize, const char* szFile, int nLine, int nFlags); // 0x00413020
