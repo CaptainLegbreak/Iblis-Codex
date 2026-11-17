@@ -1,3 +1,12 @@
+#pragma intrinsic(memset)
+
+#define TEXT_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
+struct D2TextNodeStrc;
+struct D2TextHeaderStrc;
+struct D2MessageStrc;
+struct D2MessageListStrc;
+
 struct D2TextNodeStrc
 {
     short nStringId;
@@ -28,16 +37,13 @@ struct D2MessageListStrc
     D2MessageStrc pMessages[8];
 };
 
-void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);               // 0x0040B430
-void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);             // 0x0040B480
+void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
+void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
-#pragma intrinsic(memset)
-extern "C" const char gszEmptyAssertText;                                                                         // 0x006CC837
-extern "C" const char* __cdecl sub_00408090();                                                              // 0x00408090
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                  // 0x00408A60
-extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                                // 0x00681E09
-
-#define TEXT_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+extern "C" const char gszEmptyAssertText; // 0x006CC837
+extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 // 0x00661240
 D2TextHeaderStrc* __stdcall TEXT_AllocTextHeader(void* pMemPool)
@@ -229,4 +235,99 @@ void __stdcall TEXT_CreateTextHeaderFromMessageList(D2TextHeaderStrc* pTextHeade
     {
         TEXT_AddNodeToTextList(pTextHeader, pMsgList->pMessages[i].nStringId, pMsgList->pMessages[i].nMenu);
     }
+}
+
+// 0x006615D0
+static int __fastcall sub_006615D0(const D2TextNodeStrc* pLeft, const D2TextNodeStrc* pRight)
+{
+    if ((unsigned short)pLeft->nStringId > (unsigned short)pRight->nStringId)
+    {
+        return 1;
+    }
+
+    return (unsigned short)pLeft->nStringId < (unsigned short)pRight->nStringId ? -1 : 0;
+}
+
+// 0x006615F0
+static void __stdcall sub_006615F0(unsigned short nCount, D2TextNodeStrc* pList, int (__fastcall* pfnCompare)(const D2TextNodeStrc*, const D2TextNodeStrc*))
+{
+    if (nCount <= 1)
+    {
+        return;
+    }
+
+    D2TextNodeStrc tPrevious;
+    tPrevious.nStringId = pList[0].nStringId;
+    tPrevious.nMenu = pList[0].nMenu;
+
+    for (unsigned int k = 1; k < nCount; ++k)
+    {
+        D2TextNodeStrc tCurrent;
+        tCurrent.nStringId = pList[k].nStringId;
+        tCurrent.nMenu = pList[k].nMenu;
+
+        if (pfnCompare(&tPrevious, &tCurrent) > 0)
+        {
+            pList[k].nStringId = tPrevious.nStringId;
+            pList[k].nMenu = tPrevious.nMenu;
+
+            unsigned int j = k - 1;
+            while (j > 0)
+            {
+                D2TextNodeStrc tOther;
+                tOther.nMenu = pList[j - 1].nMenu;
+                tOther.nStringId = pList[j - 1].nStringId;
+                if (pfnCompare(&tOther, &tCurrent) <= 0)
+                {
+                    break;
+                }
+
+                pList[j].nMenu = tOther.nMenu;
+                pList[j].nStringId = tOther.nStringId;
+                --j;
+            }
+
+            pList[j].nMenu = tCurrent.nMenu;
+            pList[j].nStringId = tCurrent.nStringId;
+        }
+        else
+        {
+            tPrevious.nStringId = tCurrent.nStringId;
+            tPrevious.nMenu = tCurrent.nMenu;
+        }
+    }
+}
+
+// 0x006616E0
+void __stdcall TEXT_SortTextNodeListByStringId(D2TextHeaderStrc* pTextHeader)
+{
+    TEXT_ASSERT(pTextHeader, 357);
+
+    if (pTextHeader->nCount <= 1)
+    {
+        return;
+    }
+
+    D2TextNodeStrc* pNode = pTextHeader->pNode;
+    D2TextNodeStrc* pNodeList = (D2TextNodeStrc*)sub_0040B430(pTextHeader->pMemPool, sizeof(D2TextNodeStrc) * pTextHeader->nCount, ".\\Text\\Text.cpp", 364, 0);
+
+    D2TextNodeStrc* pCopy = pNodeList;
+    for (; pNode; pNode = pNode->pNext)
+    {
+        pCopy->nStringId = pNode->nStringId;
+        pCopy->nMenu = pNode->nMenu;
+        ++pCopy;
+    }
+
+    sub_006615F0(pTextHeader->nCount, pNodeList, sub_006615D0);
+
+    pNode = pTextHeader->pNode;
+    for (int i = 0; i < pTextHeader->nCount; ++i)
+    {
+        pNode->nStringId = pNodeList[i].nStringId;
+        pNode->nMenu = pNodeList[i].nMenu;
+        pNode = pNode->pNext;
+    }
+
+    sub_0040B480(pTextHeader->pMemPool, pNodeList, ".\\Text\\Text.cpp", 382, 0);
 }

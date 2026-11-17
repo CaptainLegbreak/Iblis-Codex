@@ -1,3 +1,17 @@
+#pragma function(memcpy)
+#pragma intrinsic(memset)
+
+#define FIELD_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define FIELD_CELL(pFieldArg, nPosX, nPosY) \
+    *reinterpret_cast<unsigned char*>(gCollisionField_0096D658.nCenterX \
+        + ((((nPosY - (pFieldArg)->nY + gCollisionField_0096D658.nCenterY) << 8) - (pFieldArg)->nX + nPosX) \
+        + reinterpret_cast<unsigned int>(gpFieldData_0096D654)))
+
+struct D2ActiveRoomStrc;
+struct D2FieldStrc;
+struct D2CollisionFieldStrc;
+struct D2DataTablesStrc;
+
 struct D2FieldStrc
 {
     int nX;
@@ -21,25 +35,23 @@ struct D2DataTablesStrc
     D2CollisionFieldStrc pCollisionField;
 };
 
-struct D2ActiveRoomStrc;
-
-extern D2DataTablesStrc gtDataTables_0096BC30;                                                                       // 0x0096BC30
-extern const int gnFieldXOffsets[9];                                                                          // 0x00749780
-extern const int gnFieldYOffsets[9];                                                                          // 0x007497A4
-void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);               // 0x0040B430
-void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);             // 0x0040B480
-void __fastcall sub_0040B3C0(void* pMemory, const char* szFile, int nLine, int n0);                          // 0x0040B3C0
-extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);                           // 0x006829C0
-#pragma function(memcpy)
+extern D2DataTablesStrc gtDataTables_0096BC30; // 0x0096BC30
+extern const int gnFieldXOffsets[9]; // 0x00749780
+extern const int gnFieldYOffsets[9]; // 0x007497A4
+void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
+void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
+void __fastcall sub_0040B3C0(void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B3C0
+extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
-#pragma intrinsic(memset)
-unsigned short __stdcall COLLISION_CheckMask(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask);         // 0x0064CB30
-extern "C" const char gszEmptyAssertText;                                                                         // 0x006CC837
-extern "C" const char* __cdecl sub_00408090();                                                              // 0x00408090
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                  // 0x00408A60
-extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                                // 0x00681E09
-
-#define FIELD_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+unsigned short __stdcall COLLISION_CheckMask(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask); // 0x0064CB30
+extern "C" const char gszEmptyAssertText; // 0x006CC837
+extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+int __stdcall D2Common_11098(D2FieldStrc* pField, int* pX, int* pY); // 0x0066A5D0
+extern "C" const char gszDataGlobalPath[]; // 0x006D4118
+extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szBuffer, const char* szFormat, ...); // 0x006CC468
+void* __fastcall sub_00517079(void* hArchive, const char* szPath, int* pSize, const char* szFile, int nLine); // 0x00517079
 
 // 0x0066A2B0
 int __stdcall DATATBLS_InitializeCollisionFieldTable(char* pExpField, int nSize)
@@ -143,19 +155,21 @@ int __stdcall D2Common_11097(D2FieldStrc* pField, int nX, int nY)
     return *(&gtDataTables_0096BC30.pFieldData[((nY - pField->nY) << 8) - pField->nX] + nX);
 }
 
-int __stdcall D2Common_11098(D2FieldStrc* pField, int* pX, int* pY); // 0x0066A5D0
+unsigned char* gpFieldData_0096D654; // 0x0096D654
 
-// build: context D2Common_11098
+D2CollisionFieldStrc gCollisionField_0096D658; // 0x0096D658
+
+// 0x0066A5D0
 int __stdcall D2Common_11098(D2FieldStrc* pField, int* pX, int* pY)
 {
     FIELD_ASSERT(pField, 191);
 
-    const int nIndex = *(&gtDataTables_0096BC30.pFieldData[((gtDataTables_0096BC30.pCollisionField.nCenterY + *pY - pField->nY) << 8) - pField->nX] + *pX + gtDataTables_0096BC30.pCollisionField.nCenterX);
+    const int nIndex = FIELD_CELL(pField, *pX, *pY);
 
     *pX += gnFieldXOffsets[nIndex];
     *pY += gnFieldYOffsets[nIndex];
 
-    return *(&gtDataTables_0096BC30.pFieldData[((gtDataTables_0096BC30.pCollisionField.nCenterY + *pY - pField->nY) << 8) - pField->nX] + *pX + gtDataTables_0096BC30.pCollisionField.nCenterX) != 8;
+    return FIELD_CELL(pField, *pX, *pY) != 8;
 }
 
 // 0x0066A670
@@ -183,3 +197,13 @@ int __stdcall D2Common_11099(D2FieldStrc* pField, D2ActiveRoomStrc* pRoom, int n
 }
 
 #include "gen/data/Source/D2Common/DATATBLS/FieldTbls.inc"
+
+// 0x0066A700
+int __fastcall DATATBLS_LoadExpFieldD2(void* hArchive)
+{
+    char szPath[260];
+    int nSize;
+    wsprintfA(szPath, "%s\\expfield.d2", gszDataGlobalPath);
+    char* pExpField = (char*)sub_00517079(hArchive, szPath, &nSize, ".\\DATATBLS\\FieldTbls.cpp", 40);
+    return DATATBLS_InitializeCollisionFieldTable(pExpField, nSize);
+}

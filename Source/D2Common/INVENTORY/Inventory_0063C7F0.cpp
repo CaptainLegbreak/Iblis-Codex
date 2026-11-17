@@ -1,19 +1,9 @@
 #include "D2Common.h"
 
 typedef int BOOL;
-#define TRUE 1
-#define FALSE 0
 #define INVENTORY_SIGNATURE 0x1020304
 #define UNIT_ITEM 4
-#define INVGRID_BODYLOC 0
-#define INVGRID_BELT 1
-#define BELT_SLOTS 16
-#define BODYLOC_TORSO 3
-#define BODYLOC_RARM 4
-#define BODYLOC_LARM 5
-#define ITEMTYPE_ARMOR 3
 #define ITEMTYPE_WEAPON 45
-#define INVENTORY_GRID_X_LIMIT 11
 
 struct D2InventoryStrc;
 

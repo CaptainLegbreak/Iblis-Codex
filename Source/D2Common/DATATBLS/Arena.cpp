@@ -1,4 +1,12 @@
+#pragma function(memset)
+
+#define ARENA_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
 struct D2TxtLinkStrc;
+struct D2BinFieldStrc;
+struct D2DataTablesStrc;
+struct D2ArenaTxt;
+struct D2CharTemplateTxt;
 
 struct D2BinFieldStrc
 {
@@ -34,22 +42,20 @@ struct D2CharTemplateTxt
     char unk0x20[0xD0];
 };
 
-extern "C" const char gszTxtField_end[];                                                                    // 0x006D9060
-extern "C" const char gszTxtField_int[];                                                                    // 0x006E67EC
-extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
-extern D2ArenaTxt* gpArenaTxtTable;                                                                         // 0x0096D608
-extern D2CharTemplateTxt* gpCharTemplateTxtTable;                                                           // 0x0096D600
-extern int gnCharTemplateTxtTableRecordCount;                                                               // 0x0096D604
-extern int gnCharTemplateStartIds[64];                                                                      // 0x0096D500
-void* __stdcall DATATBLS_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pTbl, int* pRecordCount, int nRecordSize);// 0x006122F0
-extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
-#pragma function(memset)
-extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
-extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
-extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
-
-#define ARENA_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+extern "C" const char gszTxtField_end[]; // 0x006D9060
+extern "C" const char gszTxtField_int[]; // 0x006E67EC
+extern D2DataTablesStrc* sgptDataTables; // 0x00744304
+extern D2ArenaTxt* gpArenaTxtTable; // 0x0096D608
+extern D2CharTemplateTxt* gpCharTemplateTxtTable; // 0x0096D600
+extern int gnCharTemplateTxtTableRecordCount; // 0x0096D604
+extern int gnCharTemplateStartIds[64]; // 0x0096D500
+void* __stdcall DATATBLS_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pTbl, int* pRecordCount, int nRecordSize); // 0x006122F0
+extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+extern "C" const char gszEmptyAssertText; // 0x006CC837
+extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+void __stdcall DATATBLS_UnloadBin(void* pBinFile); // 0x006125C0
 
 // 0x006649B0
 void __fastcall DATATBLS_LoadArenaTxt(void* hArchive)
@@ -67,6 +73,29 @@ void __fastcall DATATBLS_LoadArenaTxt(void* hArchive)
     };
 
     gpArenaTxtTable = (D2ArenaTxt*)DATATBLS_CompileTxt(hArchive, "arena", pTbl, 0, sizeof(D2ArenaTxt));
+}
+
+D2ArenaTxt* gpArenaTxtTable; // 0x0096D608
+
+D2CharTemplateTxt* gpCharTemplateTxtTable; // 0x0096D600
+
+int gnCharTemplateTxtTableRecordCount; // 0x0096D604
+
+int gnCharTemplateStartIds[64]; // 0x0096D500
+
+// 0x00664AB0
+D2ArenaTxt* __fastcall DATATBLS_GetArenaTxtRecord(int nArenaType)
+{
+    ARENA_ASSERT(nArenaType < 1, 65);
+
+    return &gpArenaTxtTable[nArenaType];
+}
+
+// 0x00664AF0
+void __fastcall DATATBLS_UnloadArenaTxt()
+{
+    DATATBLS_UnloadBin(gpArenaTxtTable);
+    gpArenaTxtTable = 0;
 }
 
 // 0x00664B10
@@ -176,4 +205,33 @@ void __fastcall DATATBLS_LoadCharTemplateTxt(void* hArchive)
 
     gpCharTemplateTxtTable = (D2CharTemplateTxt*)DATATBLS_CompileTxt(hArchive, "chartemplate", pTbl, &gnCharTemplateTxtTableRecordCount, sizeof(D2CharTemplateTxt));
     sub_00664B10(gpCharTemplateTxtTable, gnCharTemplateTxtTableRecordCount);
+}
+
+// 0x00665740
+void __fastcall DATATBLS_UnloadCharTemplateTxt()
+{
+    DATATBLS_UnloadBin(gpCharTemplateTxtTable);
+    gpCharTemplateTxtTable = 0;
+}
+
+// 0x00665760
+int __fastcall DATATBLS_GetCharTemplateTxtRecordCount()
+{
+    return gnCharTemplateTxtTableRecordCount;
+}
+
+// 0x00665770
+D2CharTemplateTxt* __fastcall DATATBLS_GetCharTemplateTxtRecord(int nTemplate, int nLevel)
+{
+    ARENA_ASSERT(nTemplate > 0, 245);
+    const int nIndex = gnCharTemplateStartIds[nLevel] + nTemplate - 1;
+    ARENA_ASSERT(nIndex < gnCharTemplateTxtTableRecordCount, 248);
+
+    return &gpCharTemplateTxtTable[nIndex];
+}
+
+// 0x006657C0
+int __fastcall DATATBLS_GetClassFromCharTemplateTxtRecord(int nTemplate, int nLevel)
+{
+    return DATATBLS_GetCharTemplateTxtRecord(nTemplate, nLevel)->nClass;
 }

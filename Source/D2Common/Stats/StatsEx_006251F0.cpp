@@ -3,17 +3,8 @@
 #define STATLIST_NEWLENGTH 0x00000002
 #define STATLIST_UNK_0x100 0x00000100
 #define STATLIST_SET 0x00002000
-#define STATLIST_EXTENDED 0x80000000
-#define ISC_FLAG_FMIN 10
-#define STATEMASK_DISGUISE 16
-#define UNITFLAGEX_ISSHAPESHIFTED 8
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
-#define STAT_SHIFT 16
-#define STAT_MAKE(nStatId, nLayer) (((nStatId) << STAT_SHIFT) + (nLayer))
-#define ITEMSTATCOST_HASFLAG(pRecord, nFlag) ((pRecord)->nItemStatFlags[(nFlag) >> 3] & gdwBitMasks[(nFlag) & 7])
-#define STATES_CHECKFLAG(pRecord, nFlag) ((pRecord)->nStateFlags[(nFlag) >> 3] & gdwBitMasks[(nFlag) & 7])
-#define UNITS_IsType(pUnit, nType) ((pUnit) && (pUnit)->dwUnitType == (nType))
 struct D2StatStrc;
 struct D2ModStatsArrayStrc;
 struct D2StatsArrayStrc;

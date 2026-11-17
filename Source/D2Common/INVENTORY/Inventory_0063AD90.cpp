@@ -63,7 +63,6 @@ extern "C" const char gszEmptyAssertText;                                       
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);   // 0x0040B430
@@ -73,7 +72,6 @@ int __stdcall INVENTORY_CheckForItemInTradeInventory(D2InventoryStrc* pInventory
 
 #define INVENTORY_SIGNATURE 0x1020304
 #define UNIT_ITEM 4
-#define D2UnitInvalidGUID -1
 
 inline D2InventoryStrc* INVENTORY_GetPtrIfValid(D2InventoryStrc* pInventory)
 {

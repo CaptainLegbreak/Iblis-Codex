@@ -1,6 +1,7 @@
 #include "D2Common.h"
 
 #define D2_ABS(x) ((x) < 0 ? -(x) : (x))
+
 struct D2DrlgOutdoorInfoStrc;
 struct D2SeedStrc;
 struct D2OutdoorPresetFileStrc;
@@ -8,6 +9,9 @@ struct D2DrlgDrlgStrc;
 struct D2LvlPrestRecordStrc;
 struct D2DrlgCoordsStrc;
 struct D2DrlgVertexStrc;
+struct D2DrlgGridStrc;
+struct D2DrlgLevelStrc;
+struct D2CoordStrc;
 
 struct D2DrlgGridStrc
 {
@@ -21,10 +25,20 @@ struct D2DrlgGridStrc
 struct D2DrlgOutdoorInfoStrc
 {
     int field_00;
-    D2DrlgGridStrc tGrid04;
-    char pad_after_grid[20];
-    D2DrlgGridStrc tGridFlags;
-    char pad_after_flags[28];
+    union
+    {
+        struct
+        {
+            D2DrlgGridStrc pGrid[4];
+        };
+        struct
+        {
+            D2DrlgGridStrc tGrid04;
+            unsigned char unk_18[0x14];
+            D2DrlgGridStrc tGridFlags;
+        };
+    };
+    char unk0x054[0x08];
     int nGridWidth;
     int nGridHeight;
     unsigned char unk_64[0x4];
@@ -102,7 +116,17 @@ struct D2DrlgVertexStrc
     int dwFlags;
     D2DrlgVertexStrc* pNext;
 };
+
 int __fastcall sub_0067DCE0(D2DrlgLevelStrc* pLevel); // 0x0067DCE0
+
+struct D2CoordStrc
+{
+    int nX;
+    int nY;
+};
+
+extern "C" const int gdwAct12ShrineFlags_006F061C[4]; // 0x006F061C
+int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pDrlgGrid, int nX, int nY); // 0x0067C570
 
 // 0x00674320
 static __declspec(noinline) int __cdecl sub_00674320_PickFile(D2DrlgLevelStrc* pLevel, int nPresetId)
@@ -223,6 +247,69 @@ int __fastcall DRLGOUTDOORS_SpawnPresetFarAway(D2DrlgLevelStrc* pLevel, D2DrlgCo
     return 0;
 }
 
+int __fastcall DRLGOUTDOORS_TestGridCellSpawnValid(D2DrlgLevelStrc* pLevel, int nX, int nY)
+{
+    D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoor;
+    return !(DRLGGRID_GetGridEntry(&pOutdoors->pGrid[2], nX, nY) & 0x1B81);
+}
+
+static __forceinline unsigned int SEED_RollRandomNumberHighFirst(D2SeedStrc* pSeed)
+{
+    unsigned __int64 lSeed = (unsigned __int64)pSeed->dwHigh + (unsigned __int64)pSeed->dwLow * 0x6AC690C5;
+    pSeed->dwHigh = (unsigned int)(lSeed >> 32);
+    pSeed->dwLow = (unsigned int)lSeed;
+    return (unsigned int)lSeed;
+}
+
+// 0x00674E40
+void __fastcall DRLGOUTDOORS_SpawnAct12Shrines(D2DrlgLevelStrc* pLevel, int nShrines)
+{
+    D2CoordStrc pCoord[256];
+
+    D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoor;
+    int nIndex = SEED_RollRandomNumber(&pLevel->tSeed) & 3;
+    const int nWidth = pOutdoors->nGridWidth - 2;
+    const int nArea = nWidth * (pOutdoors->nGridHeight - 2);
+
+    if (nArea)
+    {
+        for (int i = 0; i < nArea; ++i)
+        {
+            pCoord[i].nX = i % nWidth;
+            pCoord[i].nY = i / nWidth;
+        }
+
+        for (int i = 0; i < nArea; ++i)
+        {
+            const unsigned int nRand1 = SEED_RollLimitedRandomNumber(&pLevel->tSeed, nArea);
+            const unsigned int nRand2 = SEED_RollLimitedRandomNumber(&pLevel->tSeed, nArea);
+
+            const D2CoordStrc tCoord = pCoord[nRand1];
+            pCoord[nRand1] = pCoord[nRand2];
+            pCoord[nRand2] = tCoord;
+        }
+
+        for (int i = 0; i < nArea; ++i)
+        {
+            if (nShrines <= 0)
+            {
+                break;
+            }
+
+            const int nX = pCoord[i].nX + 1;
+            const int nY = pCoord[i].nY + 1;
+
+            if (DRLGOUTDOORS_TestGridCellSpawnValid(pLevel, nX, nY))
+            {
+                DRLGGRID_AlterGridFlag(&pOutdoors->pGrid[1], nX, nY, gdwAct12ShrineFlags_006F061C[nIndex], 0);
+                DRLGGRID_AlterGridFlag(&pOutdoors->pGrid[2], nX, nY, 0x1000, 0);
+                nIndex = (nIndex + 1) % 4;
+                --nShrines;
+            }
+        }
+    }
+}
+
 // 0x00675080
 static void sub_00675080_ScaleAndMergeVertices(void* pMemPool, D2DrlgVertexStrc** ppVertex)
 {
@@ -284,3 +371,5 @@ int __fastcall sub_006757E0_GetLevelStyle(D2DrlgLevelStrc* pLevel, bool bFlag)
     }
     return -1;
 }
+
+#include "gen/data/Source/D2Common/DRLG/Outdoors.inc"

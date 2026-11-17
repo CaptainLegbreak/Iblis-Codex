@@ -163,8 +163,6 @@ int __stdcall MISSILE_GetTargetX(D2UnitStrc* pMissile); // 0x0064A730
 int __stdcall DATATBLS_GetMissileVelocityFromMissilesTxt(int nMissileId, int nLevel); // 0x00663270
 unsigned int __stdcall sub_00620510(D2UnitStrc*); // 0x00620510
 extern int data_006EB180[64]; // 0x006EB180
-int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
-int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 int __stdcall UNITS_GetUnitSizeX(D2UnitStrc* pUnit); // 0x00620510
 
 struct D2DrlgCoordsStrc
@@ -182,16 +180,9 @@ struct D2DrlgCoordsStrc
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 
 typedef int (__fastcall* D2UnitFindCallback)(D2UnitStrc*,void*);
-
-void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc*,D2DrlgCoordsStrc*); // 0x00619730
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc*,D2ActiveRoomStrc***,int*); // 0x00619790
-int __stdcall UNITS_GetUnitSizeX(D2UnitStrc*); // 0x00620510
-int __stdcall PATH_GetXPosition(D2DynamicPathStrc*); // 0x006488C0
-int __stdcall PATH_GetYPosition(D2DynamicPathStrc*); // 0x00648900
 static int sub_00641930_IsPointNearRoom(D2ActiveRoomStrc*,int,int,int); // 0x00641930
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc*); // 0x00620BB0
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc*); // 0x0045ADF0
-int __fastcall CLIENTS_GetUnitY(D2UnitStrc*); // 0x0045AE20
 
 struct D2PlayerDataStrc
 {

@@ -2,7 +2,6 @@
 
 #define DRLGTYPE_OUTDOOR 3
 #define DRLGTYPE_PRESET 2
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define D2_ABS(x) ((x) >= 0 ? (x) : -(x))
 
 struct D2DrlgStrc;

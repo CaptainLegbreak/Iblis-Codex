@@ -1,7 +1,5 @@
 #include "D2Common.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-
 struct D2DrlgStrc;
 struct D2DrlgListEntryStrc;
 struct D2DrlgListOwnerStrc;
@@ -151,11 +149,6 @@ D2DrlgRoomStrc* __fastcall DRLG_GetRoomExFromLevelAndCoordinates(D2DrlgLevelStrc
 int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 D2PresetUnitStrc* __fastcall DRLGROOM_GetPresetUnits(D2DrlgRoomStrc* pDrlgRoom); // 0x0066BFA0
 void __fastcall sub_00678AD0_CreateLevelConnections(D2DrlgStrc* pDrlg); // 0x00678AD0
-D2DrlgLevelStrc* __stdcall DRLG_GetLevel(D2DrlgStrc* pDrlg,int nLevelId); // 0x00642BB0
-int* __fastcall DRLGROOM_GetVisArrayFromLevelId(D2DrlgStrc* pDrlg,int nLevelId); // 0x0066C040
-int* __fastcall DRLGWARP_GetWarpIdArrayFromLevelId(D2DrlgStrc* pDrlg,int nLevelId); // 0x0066AEC0
-void __fastcall DRLGACTIVATE_InitializeRoomEx(D2DrlgRoomStrc* pRoom); // 0x0061B730
-D2PresetUnitStrc* __fastcall DRLGROOM_GetPresetUnits(D2DrlgRoomStrc* pRoom); // 0x0066BFA0
 
 // 0x0066A290
 void __cdecl sub_0066A290_AssertFail()

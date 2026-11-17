@@ -1,6 +1,4 @@
 #include "D2Common.h"
-
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
 #define UNIT_OBJECT 2
@@ -11,8 +9,6 @@
 #define COLLIDE_MISSILE_BARRIER 0x4
 #define COLLIDE_ITEM 0x200
 #define COLLIDE_OBJECT 0x400
-#define COLLIDE_DOOR 0x800
-#define COLLIDE_CORPSE 0x8000
 #define COLLIDE_MASK_DOOR_BLOCK_VIS 0x806
 #define OBJSUBCLASS_TOWNPORTAL 0x4
 #define STAT_TOHIT 0x13

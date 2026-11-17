@@ -1,6 +1,4 @@
 #include "D2Common.h"
-
-#define LEVEL_BLOODMOOR 2
 #define LEVEL_COLDPLAINS 3
 #define FLAG_OPERATION_OR 0
 

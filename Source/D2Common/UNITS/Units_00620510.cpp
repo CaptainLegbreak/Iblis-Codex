@@ -1,15 +1,9 @@
 #include "D2Common.h"
-
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_ITEM 4
 #define UNIT_TILE 5
 #define SIZE_PLAYER 2
 #define SIZE_ITEM 1
-#define TRUE 1
-#define FALSE 0
-#define MONMODE_NEUTRAL 1
 #define UNITFLAG_DOUPDATE 0x00000001
-#define MONSTATSFLAGINDEX_BOSS 6
 #define MONSTATSFLAGINDEX_SWITCHAI 16
 struct T00620190;
 struct D2InventoryStrc;

@@ -1,7 +1,4 @@
 #include "D2Common.h"
-
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define TBL_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2SkillListStrc;
 struct D2InventoryStrc;
 struct D2PropertyStrc;
@@ -391,7 +388,7 @@ extern D2TxtLinkStrc* gpSkillCalcLinker_0096BC6C; // 0x0096BC6C
 extern D2TxtLinkStrc* gpEventsLinker_0096BCA8; // 0x0096BCA8
 extern "C" const char gszTxtField_int[]; // 0x006E67EC
 void __fastcall sub_006117B0(); // 0x006117B0
-extern D2TxtLinkStrc* gTxtLink_0096BC3C; // 0x0096BC3C
+extern D2TxtLinkStrc* gpBodyLocsLinker_0096BC3C; // 0x0096BC3C
 void __fastcall sub_00612600(void* pTable, int nRecordCount, int nRecordSize, int nNameOffset, int a5, int nNameLength); // 0x00612600
 
 enum
@@ -1599,16 +1596,16 @@ void __stdcall DATATBLS_LoadCharStatsTxt(void* hArchive)
         { "Skill 9", 20, 0, 190, &gTxtLink_0096C7CC },
         { "Skill 10", 20, 0, 192, &gTxtLink_0096C7CC },
         { "StatPerLevel", 4, 0, 80, 0 },
-        { "item1loc", 13, 0, 96, &gTxtLink_0096BC3C },
-        { "item2loc", 13, 0, 104, &gTxtLink_0096BC3C },
-        { "item3loc", 13, 0, 112, &gTxtLink_0096BC3C },
-        { "item4loc", 13, 0, 120, &gTxtLink_0096BC3C },
-        { "item5loc", 13, 0, 128, &gTxtLink_0096BC3C },
-        { "item6loc", 13, 0, 136, &gTxtLink_0096BC3C },
-        { "item7loc", 13, 0, 144, &gTxtLink_0096BC3C },
-        { "item8loc", 13, 0, 152, &gTxtLink_0096BC3C },
-        { "item9loc", 13, 0, 160, &gTxtLink_0096BC3C },
-        { "item10loc", 13, 0, 168, &gTxtLink_0096BC3C },
+        { "item1loc", 13, 0, 96, &gpBodyLocsLinker_0096BC3C },
+        { "item2loc", 13, 0, 104, &gpBodyLocsLinker_0096BC3C },
+        { "item3loc", 13, 0, 112, &gpBodyLocsLinker_0096BC3C },
+        { "item4loc", 13, 0, 120, &gpBodyLocsLinker_0096BC3C },
+        { "item5loc", 13, 0, 128, &gpBodyLocsLinker_0096BC3C },
+        { "item6loc", 13, 0, 136, &gpBodyLocsLinker_0096BC3C },
+        { "item7loc", 13, 0, 144, &gpBodyLocsLinker_0096BC3C },
+        { "item8loc", 13, 0, 152, &gpBodyLocsLinker_0096BC3C },
+        { "item9loc", 13, 0, 160, &gpBodyLocsLinker_0096BC3C },
+        { "item10loc", 13, 0, 168, &gpBodyLocsLinker_0096BC3C },
         { "item1", 9, 0, 92, 0 },
         { "item1count", 4, 0, 97, 0 },
         { "item2", 9, 0, 100, 0 },

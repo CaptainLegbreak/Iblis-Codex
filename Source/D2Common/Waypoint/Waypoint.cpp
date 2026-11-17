@@ -1,3 +1,13 @@
+#pragma intrinsic(memset)
+
+#define WP_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
+struct D2WaypointDataStrc;
+struct D2WaypointBitStrc;
+struct D2LevelsTxt;
+struct D2DataTablesStrc;
+
 struct D2WaypointDataStrc
 {
     unsigned short nFlags[8];
@@ -21,20 +31,17 @@ struct D2DataTablesStrc
     int nLevelsTxtRecordCount;
 };
 
-extern D2DataTablesStrc* sgptDataTables;                                                                         // 0x00744304
-extern "C" int gnWaypointBits;                                                                                 // 0x00746424
-extern "C" D2WaypointBitStrc gaWaypointBits[];                                                                     // 0x00746428
-void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);               // 0x0040B430
-void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);             // 0x0040B480
+extern D2DataTablesStrc* sgptDataTables; // 0x00744304
+extern "C" int gnWaypointBits; // 0x00746424
+extern "C" D2WaypointBitStrc gaWaypointBits[]; // 0x00746428
+void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
+void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
-#pragma intrinsic(memset)
-extern "C" const char gszEmptyAssertText;                                                                         // 0x006CC837
-extern "C" const char* __cdecl sub_00408090();                                                              // 0x00408090
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                  // 0x00408A60
-extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                                // 0x00681E09
-D2LevelsTxt* __stdcall DATATBLS_GetLevelsTxtRecord(int nLevelId);                                                           // 0x0061DB70
-
-#define WP_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+extern "C" const char gszEmptyAssertText; // 0x006CC837
+extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+D2LevelsTxt* __stdcall DATATBLS_GetLevelsTxtRecord(int nLevelId); // 0x0061DB70
 
 static void WAYPOINTS_ValidateWaypointData(D2WaypointDataStrc* pData)
 {
@@ -121,6 +128,20 @@ D2WaypointDataStrc* __stdcall WAYPOINTS_AllocWaypointData(void* pMemPool)
     return pData;
 }
 
+#include "gen/data/Source/D2Common/Waypoint/Waypoint.inc"
+
+// 0x00660F80
+int __fastcall sub_00660F80_ValidateWaypointData(D2WaypointDataStrc* pData)
+{
+    if (pData->nFlags[0] != 0x102)
+    {
+        D2_ASSERT(pData->nFlags[0] == 0 || pData->nFlags[0] == 0x101, 0x113);
+        pData->nFlags[0] = 0x102;
+        return 0;
+    }
+    return 1;
+}
+
 // 0x00660FD0
 void __stdcall WAYPOINTS_FreeWaypointData(void* pMemPool, D2WaypointDataStrc* pData)
 {
@@ -149,5 +170,3 @@ void __stdcall WAYPOINTS_ValidateAndCopyWaypointData(D2WaypointDataStrc* pSource
     WAYPOINTS_ValidateWaypointData(pSource);
     *pDestination = *pSource;
 }
-
-#include "gen/data/Source/D2Common/Waypoint/Waypoint.inc"

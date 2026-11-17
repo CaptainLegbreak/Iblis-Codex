@@ -1,15 +1,5 @@
 #include "D2Common.h"
-
-#define LINE_GRID_ALLOC1 721
-#define LINE_GRID_REALLOC 740
-#define LINE_GRID_ALLOC2 747
 #define INVENTORY_SIGNATURE 0x1020304
-#define INVGRID_INVENTORY 2
-#define TRUE 1
-#define FALSE 0
-#define INVGRID_BODYLOC 0
-#define BODYLOC_RARM 4
-#define BODYLOC_LARM 5
 struct D2InventoryGridStrc;
 struct D2InventoryGridInfoStrc;
 struct D2InventoryStrc;

@@ -9,9 +9,7 @@
 #define LEVEL_CANYONOFTHEMAGI 46
 #define LEVEL_PANDEMONIUMRUN2 134
 #define LEVEL_ROGUEENCAMPMENT 1
-#define LEVEL_BLOODMOOR 2
 #define LEVEL_MOOMOOFARM 39
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2DrlgStrc;
 union D2SeedStrc;
@@ -99,7 +97,6 @@ extern const D2DrlgOutDesertInitStrc gaDesertCliffs_006F2390[8][5]; // 0x006F239
 extern const D2DrlgOutDesertInitStrc gaCanyonTombEntries_006F2610[9]; // 0x006F2610
 static __declspec(noinline) void __stdcall DRLGOUTDESR_PlacePresetVariants(const int* pLevelPrestIds, int nVariants, int bIterateFiles, D2DrlgLevelStrc* pLevel); // 0x0067F470
 static __declspec(noinline) void DRLGOUTWILD_SpawnTownTransitionsAndCaves(D2DrlgLevelStrc* pLevel); // 0x006803D0
-extern const D2DrlgOutDesertInitStrc gaTombEntries_006F2610[9]; // 0x006F2610
 
 static __declspec(noinline) void DRLGOUTDESR_PlaceTombEntriesInCanyon(D2DrlgLevelStrc* pLevel);
 
@@ -481,7 +478,7 @@ static __declspec(noinline) void DRLGOUTDESR_PlaceTombEntriesInCanyon(D2DrlgLeve
 {
     for (int i = 0; i < 9; ++i)
     {
-        const D2DrlgOutDesertInitStrc* pInit = &gaTombEntries_006F2610[i];
+        const D2DrlgOutDesertInitStrc* pInit = &gaCanyonTombEntries_006F2610[i];
         DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, pInit->nX, pInit->nY, pInit->nLvlPrestId, pInit->nRand, 0);
     }
 

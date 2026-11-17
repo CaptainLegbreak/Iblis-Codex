@@ -111,31 +111,10 @@ struct D2DataTablesStrc
     char unk0xBD0[0x04];
     int nItemStatCostTxtRecordCount;
 };
-
-#define STATLIST_EXTENDED 0x80000000
-#define STATLIST_DYNAMIC 0x40000000
-#define STATLIST_PERMANENT 0x20000000
 #define STATLIST_SET 0x2000
-#define ISC_FLAG_DAMAGERELATED 2
-#define ISC_FLAG_FMIN 10
-#define ISC_FLAG_FCALLBACK 11
-#define ISC_FLAG_SAVED 12
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
 #define UNIT_ITEM 4
-#define STATS_GROWTH 4
-#define STATS_SHRINK 8
-#define STAT_SHIFT 16
-#define STAT_NONE 0xFFFF
-#define STAT_MAXSTAMINA 11
-#define STAT_MAXDURABILITY 73
-#define OPSTAT_COUNT 3
-#define OPDATA_COUNT 16
-#define AFFECTED_COUNT 64
-#define STAT_MAKE(nStatId, nLayer) (((nStatId) << STAT_SHIFT) + (nLayer))
-#define STAT_GETID(nLayer_StatId) (((nLayer_StatId) >> STAT_SHIFT) & 0xFFFF)
-#define ITEMSTATCOST_HASFLAG(pRecord, nFlag) ((pRecord)->nItemStatFlags[(nFlag) >> 3] & gdwBitMasks[(nFlag) & 7])
-#define UNITS_IsType(pUnit, nType) ((pUnit) && (pUnit)->dwUnitType == (nType))
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268

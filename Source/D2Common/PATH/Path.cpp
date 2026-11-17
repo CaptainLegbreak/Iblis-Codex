@@ -1,40 +1,16 @@
 #include "D2Common.h"
-
-#define TRUE 1
-#define FALSE 0
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
 #define UNIT_OBJECT 2
 #define UNIT_MISSILE 3
 #define UNIT_ITEM 4
 #define UNIT_TILE 5
-#define UNIT_NONE 6
-#define PATHTYPE_MISSILE 4
-#define PATHTYPE_CHARGEDBOLT 10
-#define PATHTYPE_BLESSEDHAMMER 14
 #define PATH_UNKNOWN_FLAG_0x00010 0x00010
 #define PATH_UNKNOWN_FLAG_0x00020 0x00020
-#define PATH_UNKNOWN_FLAG_0x00800 0x00800
-#define PATH_UNKNOWN_FLAG_0x01000 0x01000
-#define PATH_MISSILE_MASK 0x40000
-#define PATH_MAX_DISTANCE 100
-#define PATH_SNAP_RANGE 5
-#define PATH_DIR_NULL 0xFF
-#define PATH_TRUE 1
-#define PATH_ONE 1
-#define LINE_PREPARE_MISSILE 0xC7
-#define LINE_NOT_MISSILE_PATH 0x207
-#define LINE_DOOR 0x215
-#define LINE_PATH_UNIT 0x2E8
-#define LINE_PATH_FUNCTION 0x37E
-#define LINE_START_COORD 0x389
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define D2_ABS(x) ((x) >= 0 ? (x) : -(x))
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
-#define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
-#define COLLIDE_CORPSE 0x8000
-#define COLLISION_PATTERN_SMALL_NO_PRESENCE 5
 #define PATH_CORPSE_SIZE 3
+
 struct ActiveRoom;
 struct Room;
 struct D2CoordStrc;
@@ -97,6 +73,10 @@ struct Pad40_00649070;
 struct Obj00649070;
 struct Obj006490A0;
 struct Obj00649120;
+struct D2PathPointStrc;
+struct D2ActiveRoomStrc;
+struct D2UnitStrc;
+struct D2DynamicPathStrc;
 
 typedef int BOOL;
 
@@ -1032,129 +1012,9 @@ struct Obj00649120 { unsigned char bUnknown00[0x94]; unsigned char bValue94; };
 
 void __stdcall PATH_SetFootprintCollisionMask(D2DynamicPathStrc* pDynamicPath, int nCollisionMask); // 0x00648C30
 void __stdcall PATH_RecacheRoomIfNeeded(D2DynamicPathStrc* pPath); // 0x00650590
-
 static __declspec(noinline) unsigned char PATH_UpdateTargetUnit(D2PathInfoStrc* pPathInfo);
-
-inline unsigned int PATH_InlineGetUnitX(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->tGameCoords.nX;
-    }
-    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
-}
-
-inline unsigned int PATH_InlineGetUnitY(D2UnitStrc* pUnit)
-{
-    switch (pUnit->dwUnitType)
-    {
-    case UNIT_OBJECT:
-    case UNIT_ITEM:
-    case UNIT_TILE:
-        return pUnit->pStaticPath->tGameCoords.nY;
-    }
-    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
-}
-
-// 0x00648120
-static BOOL PATH_PreparePathTargetForPathUpdate(D2PathInfoStrc* pPathInfo)
-{
-    D2DynamicPathStrc* pPath = pPathInfo->pDynamicPath;
-    D2_ASSERT(!(pPath->dwFlags & PATH_MISSILE_MASK), LINE_PREPARE_MISSILE);
-
-    const unsigned short nStartX = pPathInfo->tStartCoord.X;
-    const unsigned short nStartY = pPathInfo->tStartCoord.Y;
-    const unsigned short nTargetX = pPathInfo->tTargetCoord.X;
-    const unsigned short nTargetY = pPathInfo->tTargetCoord.Y;
-    D2ActiveRoomStrc* pRoom = pPathInfo->pStartRoom;
-    const int nCollisionPattern = pPathInfo->nCollisionPattern;
-    const int nCollisionMask = pPathInfo->nCollisionMask;
-    const int nUnitType = !pPath->pUnit ? UNIT_NONE : pPath->pUnit->dwUnitType;
-
-    D2PathPointStrc aTestDirPathPoints[3];
-    aTestDirPathPoints[0].X = nTargetX;
-    aTestDirPathPoints[0].Y = nTargetY;
-    aTestDirPathPoints[1].X = nTargetX;
-    aTestDirPathPoints[1].Y = nTargetY;
-    aTestDirPathPoints[2].X = nTargetX;
-    aTestDirPathPoints[2].Y = nTargetY;
-
-    int aTestDir[3];
-    sub_6FDAB7D0(aTestDir, pPathInfo->tTargetCoord, pPathInfo->tStartCoord);
-    while (1)
-    {
-        if (nStartX == aTestDirPathPoints[0].X && nStartY == aTestDirPathPoints[0].Y)
-        {
-            break;
-        }
-
-        aTestDirPathPoints[0].X += gatDirectionToOffset_006EB398[aTestDir[0]].nX;
-        aTestDirPathPoints[0].Y += gatDirectionToOffset_006EB398[aTestDir[0]].nY;
-        if (!COLLISION_CheckAnyCollisionWithPattern(pRoom, aTestDirPathPoints[0].X, aTestDirPathPoints[0].Y, nCollisionPattern, nCollisionMask))
-        {
-            pPathInfo->tTargetCoord.X = aTestDirPathPoints[0].X;
-            pPathInfo->tTargetCoord.Y = aTestDirPathPoints[0].Y;
-            if (aTestDirPathPoints[0].X == nStartX && aTestDirPathPoints[0].Y == nStartY)
-            {
-                return FALSE;
-            }
-
-            if (nUnitType == UNIT_PLAYER)
-            {
-                PATH_FindValidTargetCoordsByMovingOrthogonally(pPathInfo);
-            }
-            return PATH_TRUE;
-        }
-
-        aTestDirPathPoints[1].X += gatDirectionToOffset_006EB398[aTestDir[1]].nX;
-        aTestDirPathPoints[1].Y += gatDirectionToOffset_006EB398[aTestDir[1]].nY;
-        if (!COLLISION_CheckAnyCollisionWithPattern(pRoom, aTestDirPathPoints[1].X, aTestDirPathPoints[1].Y, nCollisionPattern, nCollisionMask))
-        {
-            pPathInfo->tTargetCoord.X = aTestDirPathPoints[1].X;
-            pPathInfo->tTargetCoord.Y = aTestDirPathPoints[1].Y;
-            if (aTestDirPathPoints[1].X == nStartX && aTestDirPathPoints[1].Y == nStartY)
-            {
-                return FALSE;
-            }
-
-            if (nUnitType == UNIT_PLAYER)
-            {
-                PATH_FindValidTargetCoordsByMovingOrthogonally(pPathInfo);
-            }
-            return PATH_TRUE;
-        }
-
-        if (aTestDir[2] != PATH_DIR_NULL)
-        {
-            aTestDirPathPoints[2].X += gatDirectionToOffset_006EB398[aTestDir[2]].nX;
-            aTestDirPathPoints[2].Y += gatDirectionToOffset_006EB398[aTestDir[2]].nY;
-            if (!COLLISION_CheckAnyCollisionWithPattern(pRoom, aTestDirPathPoints[2].X, aTestDirPathPoints[2].Y, nCollisionPattern, nCollisionMask))
-            {
-                pPathInfo->tTargetCoord.X = aTestDirPathPoints[2].X;
-                pPathInfo->tTargetCoord.Y = aTestDirPathPoints[2].Y;
-                if (aTestDirPathPoints[2].X == nStartX && aTestDirPathPoints[2].Y == nStartY)
-                {
-                    return FALSE;
-                }
-
-                if (nUnitType == UNIT_PLAYER)
-                {
-                    PATH_FindValidTargetCoordsByMovingOrthogonally(pPathInfo);
-                }
-                return PATH_TRUE;
-            }
-        }
-
-        int aNextTestDir[3];
-        sub_6FDAB7D0(aNextTestDir, aTestDirPathPoints[0], pPathInfo->tStartCoord);
-        aTestDir[0] = aNextTestDir[0];
-    }
-
-    return FALSE;
-}
+static __declspec(noinline) int PATH_ComputePathClassicMissile(D2DynamicPathStrc* pPath);
+static __declspec(noinline) int PATH_MissileToTarget(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit);
 
 static __declspec(noinline) BOOL PATH_IsTargetDestinationAllowed(D2PathInfoStrc* pPathInfo, D2UnitStrc* pUnit)
 {
@@ -1184,89 +1044,6 @@ static __declspec(noinline) BOOL PATH_IsTargetDestinationAllowed(D2PathInfoStrc*
     }
 
     return !DUNGEON_IsRoomInTown(pTargetRoom);
-}
-
-static __declspec(noinline) int PATH_ComputePathClassicMissile(D2DynamicPathStrc* pPath)
-{
-    D2PathPointStrc tOldCoords;
-    tOldCoords.X = pPath->tGameCoords.wPosX;
-    tOldCoords.Y = pPath->tGameCoords.wPosY;
-
-    pPath->dwCurrentPointIdx = 0;
-
-    if (pPath->pTargetUnit)
-    {
-        pPath->tTargetCoord.X = PATH_InlineGetUnitX(pPath->pTargetUnit);
-        pPath->tTargetCoord.Y = PATH_InlineGetUnitY(pPath->pTargetUnit);
-    }
-
-    int nXDistance = tOldCoords.X - pPath->tTargetCoord.X;
-    if (nXDistance < 0)
-    {
-        nXDistance = -nXDistance;
-    }
-    if (nXDistance >= PATH_MAX_DISTANCE)
-    {
-        return 0;
-    }
-
-    int nYDistance = tOldCoords.Y - pPath->tTargetCoord.Y;
-    if (nYDistance < 0)
-    {
-        nYDistance = -nYDistance;
-    }
-    if (nYDistance >= PATH_MAX_DISTANCE)
-    {
-        return 0;
-    }
-
-    if (!pPath->tTargetCoord.X || !pPath->tTargetCoord.Y)
-    {
-        return 0;
-    }
-
-    pPath->PathPoints[0] = pPath->tTargetCoord;
-    pPath->dwPathPoints = PATH_ONE;
-    pPath->unk0x38 = 0;
-    PATH_ComputeVelocityAndDirectionVectorsToNextPoint(pPath, PATH_ONE, PATH_ONE);
-
-    D2ActiveRoomStrc* pRoom = pPath->pRoom;
-    if (!pRoom
-        || !(pPath->tTargetCoord.X >= pRoom->tCoords.nSubtileX && pPath->tTargetCoord.X < pRoom->tCoords.nSubtileX + pRoom->tCoords.nSubtileWidth
-            && pPath->tTargetCoord.Y >= pRoom->tCoords.nSubtileY && pPath->tTargetCoord.Y < pRoom->tCoords.nSubtileY + pRoom->tCoords.nSubtileHeight))
-    {
-        pPath->dwFlags |= PATH_ONE;
-    }
-    return pPath->dwPathPoints;
-}
-
-static __declspec(noinline) int PATH_MissileToTarget(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit)
-{
-    switch (pPath->dwPathType)
-    {
-    default:
-        D2_ASSERT(0, LINE_NOT_MISSILE_PATH);
-        break;
-
-    case PATHTYPE_MISSILE:
-        if (!PATH_ComputePathClassicMissile(pPath))
-        {
-            pPath->dwFlags &= ~PATH_UNKNOWN_FLAG_0x00020;
-            return 0;
-        }
-        break;
-
-    case PATHTYPE_BLESSEDHAMMER:
-        PATH_ComputePathBlessedHammer_6FDAB3C0(pPath, &pUnit->tSeed);
-        break;
-
-    case PATHTYPE_CHARGEDBOLT:
-        PATH_ComputePathChargedBolt_6FDAB4A0(pPath, &pUnit->tSeed);
-        break;
-    }
-
-    pPath->dwFlags |= PATH_UNKNOWN_FLAG_0x00020;
-    return pPath->dwPathPoints;
 }
 
 int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown)
@@ -1408,6 +1185,160 @@ void __cdecl sub_00403F50_Nop()
 {
 }
 
+// 0x00648050
+static __declspec(noinline) void PATH_FindValidTargetCoordsByMovingOrthogonally(D2PathInfoStrc* pPathInfo)
+{
+    int nY;
+    const int nDeltaX = pPathInfo->tTargetCoord.X - pPathInfo->tStartCoord.X;
+    const int nDeltaY = pPathInfo->tTargetCoord.Y - pPathInfo->tStartCoord.Y;
+    const int nAbsDeltaX = D2_ABS(nDeltaX);
+    const int nAbsDeltaY = D2_ABS(nDeltaY);
+    if (nAbsDeltaX < PATH_SNAP_RANGE && nAbsDeltaY < PATH_SNAP_RANGE && (nAbsDeltaX != 0 || nAbsDeltaY != 0))
+    {
+        int nX = pPathInfo->tTargetCoord.X;
+        const int nCollisionPattern = pPathInfo->nCollisionPattern;
+        const int nCollisionMask = pPathInfo->nCollisionMask;
+        const int nOffsetX = gnTable_006EB490[nDeltaY][nDeltaX];
+        const int nOffsetY = gnTable_006EB490[nDeltaX][nDeltaY];
+        nY = pPathInfo->tTargetCoord.Y;
+        int nChebyshevDistance = D2_MAX(nAbsDeltaX, nAbsDeltaY);
+        while (nChebyshevDistance < PATH_SNAP_RANGE)
+        {
+            nX += nOffsetX;
+            nY += nOffsetY;
+            if (COLLISION_CheckAnyCollisionWithPattern(pPathInfo->pStartRoom, nX, nY, nCollisionPattern, nCollisionMask))
+            {
+                break;
+            }
+
+            pPathInfo->tTargetCoord.X = nX;
+            pPathInfo->tTargetCoord.Y = nY;
+            ++nChebyshevDistance;
+        }
+    }
+}
+
+inline unsigned int PATH_InlineGetUnitX(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->tGameCoords.nX;
+    }
+    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+}
+
+inline unsigned int PATH_InlineGetUnitY(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->tGameCoords.nY;
+    }
+    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+}
+
+// 0x00648120
+static BOOL PATH_PreparePathTargetForPathUpdate(D2PathInfoStrc* pPathInfo)
+{
+    D2DynamicPathStrc* pPath = pPathInfo->pDynamicPath;
+    D2_ASSERT(!(pPath->dwFlags & PATH_MISSILE_MASK), LINE_PREPARE_MISSILE);
+
+    const unsigned short nStartX = pPathInfo->tStartCoord.X;
+    const unsigned short nStartY = pPathInfo->tStartCoord.Y;
+    const unsigned short nTargetX = pPathInfo->tTargetCoord.X;
+    const unsigned short nTargetY = pPathInfo->tTargetCoord.Y;
+    D2ActiveRoomStrc* pRoom = pPathInfo->pStartRoom;
+    const int nCollisionPattern = pPathInfo->nCollisionPattern;
+    const int nCollisionMask = pPathInfo->nCollisionMask;
+    const int nUnitType = !pPath->pUnit ? UNIT_NONE : pPath->pUnit->dwUnitType;
+
+    D2PathPointStrc aTestDirPathPoints[3];
+    aTestDirPathPoints[0].X = nTargetX;
+    aTestDirPathPoints[0].Y = nTargetY;
+    aTestDirPathPoints[1].X = nTargetX;
+    aTestDirPathPoints[1].Y = nTargetY;
+    aTestDirPathPoints[2].X = nTargetX;
+    aTestDirPathPoints[2].Y = nTargetY;
+
+    int aTestDir[3];
+    sub_6FDAB7D0(aTestDir, pPathInfo->tTargetCoord, pPathInfo->tStartCoord);
+    while (1)
+    {
+        if (nStartX == aTestDirPathPoints[0].X && nStartY == aTestDirPathPoints[0].Y)
+        {
+            break;
+        }
+
+        aTestDirPathPoints[0].X += gatDirectionToOffset_006EB398[aTestDir[0]].nX;
+        aTestDirPathPoints[0].Y += gatDirectionToOffset_006EB398[aTestDir[0]].nY;
+        if (!COLLISION_CheckAnyCollisionWithPattern(pRoom, aTestDirPathPoints[0].X, aTestDirPathPoints[0].Y, nCollisionPattern, nCollisionMask))
+        {
+            pPathInfo->tTargetCoord.X = aTestDirPathPoints[0].X;
+            pPathInfo->tTargetCoord.Y = aTestDirPathPoints[0].Y;
+            if (aTestDirPathPoints[0].X == nStartX && aTestDirPathPoints[0].Y == nStartY)
+            {
+                return FALSE;
+            }
+
+            if (nUnitType == UNIT_PLAYER)
+            {
+                PATH_FindValidTargetCoordsByMovingOrthogonally(pPathInfo);
+            }
+            return PATH_TRUE;
+        }
+
+        aTestDirPathPoints[1].X += gatDirectionToOffset_006EB398[aTestDir[1]].nX;
+        aTestDirPathPoints[1].Y += gatDirectionToOffset_006EB398[aTestDir[1]].nY;
+        if (!COLLISION_CheckAnyCollisionWithPattern(pRoom, aTestDirPathPoints[1].X, aTestDirPathPoints[1].Y, nCollisionPattern, nCollisionMask))
+        {
+            pPathInfo->tTargetCoord.X = aTestDirPathPoints[1].X;
+            pPathInfo->tTargetCoord.Y = aTestDirPathPoints[1].Y;
+            if (aTestDirPathPoints[1].X == nStartX && aTestDirPathPoints[1].Y == nStartY)
+            {
+                return FALSE;
+            }
+
+            if (nUnitType == UNIT_PLAYER)
+            {
+                PATH_FindValidTargetCoordsByMovingOrthogonally(pPathInfo);
+            }
+            return PATH_TRUE;
+        }
+
+        if (aTestDir[2] != PATH_DIR_NULL)
+        {
+            aTestDirPathPoints[2].X += gatDirectionToOffset_006EB398[aTestDir[2]].nX;
+            aTestDirPathPoints[2].Y += gatDirectionToOffset_006EB398[aTestDir[2]].nY;
+            if (!COLLISION_CheckAnyCollisionWithPattern(pRoom, aTestDirPathPoints[2].X, aTestDirPathPoints[2].Y, nCollisionPattern, nCollisionMask))
+            {
+                pPathInfo->tTargetCoord.X = aTestDirPathPoints[2].X;
+                pPathInfo->tTargetCoord.Y = aTestDirPathPoints[2].Y;
+                if (aTestDirPathPoints[2].X == nStartX && aTestDirPathPoints[2].Y == nStartY)
+                {
+                    return FALSE;
+                }
+
+                if (nUnitType == UNIT_PLAYER)
+                {
+                    PATH_FindValidTargetCoordsByMovingOrthogonally(pPathInfo);
+                }
+                return PATH_TRUE;
+            }
+        }
+
+        int aNextTestDir[3];
+        sub_6FDAB7D0(aNextTestDir, aTestDirPathPoints[0], pPathInfo->tStartCoord);
+        aTestDir[0] = aNextTestDir[0];
+    }
+
+    return FALSE;
+}
+
 // 0x00648370
 void __cdecl sub_00648370_Nop()
 {
@@ -1449,6 +1380,12 @@ extern "C" __declspec(dllexport) void __stdcall sub_006486D0(Obj006486D0* pObj, 
     pObj->dwValue84 = dwValue;
 }
 
+// 0x00648700
+extern "C" void __stdcall sub_00648700_acceleration(View_00648700* path, int value)
+{
+    path->acceleration = value;
+}
+
 extern "C" ActiveRoom* __fastcall DRLGACTIVATE_GetARoomInClientSight(DrlgView* drlg)
 {
     T00648730* room = drlg->statusRooms[0].statusNext;
@@ -1468,12 +1405,6 @@ extern "C" void __stdcall sub_00648730(PathView* path)
     path->pointCount = 0x0;
 }
 
-// 0x00649190
-extern "C" void __stdcall PATH_SetUnitCollisionPattern(UnitView* unit,int collisionPattern)
-{
-    unit->path->collisionPattern = collisionPattern;
-}
-
 // 0x00648750
 extern "C" __declspec(dllexport) void __stdcall sub_00648750(Obj00648750* pObj, int bSet) {
     if (bSet) {
@@ -1487,23 +1418,6 @@ extern "C" __declspec(dllexport) void __stdcall sub_00648750(Obj00648750* pObj, 
 extern "C" int __stdcall sub_00648780_pointCount(View_00648780* path)
 {
     return path->pointCount;
-}
-
-extern "C" int __stdcall sub_006489C0_clientX(View_006489C0* path)
-{
-    return path->clientX;
-}
-
-// 0x00648AA0
-extern "C" Room* __stdcall sub_00648AA0_previousRoom(View_00648AA0* path)
-{
-    return path->previousRoom;
-}
-
-// 0x00648700
-extern "C" void __stdcall sub_00648700_acceleration(View_00648700* path, int value)
-{
-    path->acceleration = value;
 }
 
 // 0x00648790
@@ -1538,13 +1452,6 @@ extern "C" __declspec(dllexport) void __stdcall sub_006488A0(Obj006488A0* pObj, 
 extern "C" void __stdcall PATH_SetPrecisionX(PathPrecisionView* path,U32 precisionX)
 {
     path->precisionX = precisionX;
-}
-
-// 0x00649050
-extern "C" void __stdcall sub_00649050(PathPreviousView* path)
-{
-    path->previousTargetX = 0;
-    path->previousTargetY = 0;
 }
 
 // 0x006489C0
@@ -1590,6 +1497,17 @@ extern "C" __declspec(dllexport) unsigned int __stdcall sub_00648A80(Obj00648A80
     return pObj->dwValue1C;
 }
 
+extern "C" int __stdcall sub_006489C0_clientX(View_006489C0* path)
+{
+    return path->clientX;
+}
+
+// 0x00648AA0
+extern "C" Room* __stdcall sub_00648AA0_previousRoom(View_00648AA0* path)
+{
+    return path->previousRoom;
+}
+
 // 0x00648AB0
 extern "C" __declspec(dllexport) void __stdcall sub_00648AB0(Obj00648AB0* pObj) {
     pObj->dwValue20 = 0;
@@ -1621,26 +1539,6 @@ extern "C" void __stdcall sub_00648B40_roomInvalid(PathFlags* path, int invalid)
         path->flags &= ~2U;
 }
 
-// 0x006BD130
-extern "C" int __stdcall sub_006BD130_findKey(LinkView* link, U32 key, int unusedLogError)
-{
-    int upper = link->count;
-    int lower = 0;
-    KeyValue* entries = link->entries;
-    while (lower < upper)
-    {
-        int middle = lower + (upper - lower) / 2;
-        U32 current = entries[middle].key;
-        if (key > current)
-            lower = middle + 1;
-        else if (key < current)
-            upper = middle;
-        else
-            return entries[middle].value;
-    }
-    return -1;
-}
-
 // 0x00648B90
 extern "C" void __stdcall sub_00648B90_SetPathTarget(B25Path* path, B25TargetUnit* target)
 {
@@ -1650,26 +1548,6 @@ extern "C" void __stdcall sub_00648B90_SetPathTarget(B25Path* path, B25TargetUni
         path->targetType = target->type;
         path->targetId = target->id;
     }
-}
-
-// 0x00648E70
-extern "C" void __stdcall sub_00648E70_SetDistance(B25DistancePath* path, U8 distance)
-{
-    if (path)
-    {
-        if (distance >= 0x4D)
-            distance = 0x4D;
-        path->newDistance = distance;
-        path->distance = distance;
-    }
-}
-
-// 0x0064A730
-extern "C" int __stdcall sub_0064A730_GetMissileTargetStatus(B25MissileUnit* unit)
-{
-    if (unit && unit->type == 3 && unit->data)
-        return unit->data->targetStatus;
-    return 0;
 }
 
 // 0x00648C10
@@ -1691,12 +1569,31 @@ void __stdcall sub_00648E40_SetByte90(D2Record00648E40Strc* pRecord, unsigned ch
     pRecord->nValue90 = nValue;
 }
 
+// 0x00648E70
+extern "C" void __stdcall sub_00648E70_SetDistance(B25DistancePath* path, U8 distance)
+{
+    if (path)
+    {
+        if (distance >= 0x4D)
+            distance = 0x4D;
+        path->newDistance = distance;
+        path->distance = distance;
+    }
+}
+
 // 0x00648EB0
 extern "C" U16 __stdcall sub_00648EB0(PathCollisionView* path)
 {
     if (path->velocity == 0)
         path->collidedMask = COLLISION_CheckMaskWithSize(path->room,path->positionX,path->positionY,path->f_44,0x7FFF);
     return path->collidedMask;
+}
+
+// 0x00649050
+extern "C" void __stdcall sub_00649050(PathPreviousView* path)
+{
+    path->previousTargetX = 0;
+    path->previousTargetY = 0;
 }
 
 // 0x00649070
@@ -1720,6 +1617,12 @@ extern "C" __declspec(dllexport) unsigned int __stdcall sub_00649120(Obj00649120
     return pObj->bValue94;
 }
 
+// 0x00649190
+extern "C" void __stdcall PATH_SetUnitCollisionPattern(UnitView* unit,int collisionPattern)
+{
+    unit->path->collisionPattern = collisionPattern;
+}
+
 // 0x006492A0
 extern "C" __declspec(dllexport) int __stdcall sub_006492A0(int nX1, int nY1, int nX2, int nY2) {
     int nDX = nX2 - nX1;
@@ -1727,36 +1630,85 @@ extern "C" __declspec(dllexport) int __stdcall sub_006492A0(int nX1, int nY1, in
     return nDX * nDX + nDY * nDY;
 }
 
-// 0x00648050
-static __declspec(noinline) void PATH_FindValidTargetCoordsByMovingOrthogonally(D2PathInfoStrc* pPathInfo)
+// 0x006492F0
+static __declspec(noinline) int PATH_ComputePathClassicMissile(D2DynamicPathStrc* pPath)
 {
-    int nY;
-    const int nDeltaX = pPathInfo->tTargetCoord.X - pPathInfo->tStartCoord.X;
-    const int nDeltaY = pPathInfo->tTargetCoord.Y - pPathInfo->tStartCoord.Y;
-    const int nAbsDeltaX = D2_ABS(nDeltaX);
-    const int nAbsDeltaY = D2_ABS(nDeltaY);
-    if (nAbsDeltaX < PATH_SNAP_RANGE && nAbsDeltaY < PATH_SNAP_RANGE && (nAbsDeltaX != 0 || nAbsDeltaY != 0))
-    {
-        int nX = pPathInfo->tTargetCoord.X;
-        const int nCollisionPattern = pPathInfo->nCollisionPattern;
-        const int nCollisionMask = pPathInfo->nCollisionMask;
-        const int nOffsetX = gnTable_006EB490[nDeltaY][nDeltaX];
-        const int nOffsetY = gnTable_006EB490[nDeltaX][nDeltaY];
-        nY = pPathInfo->tTargetCoord.Y;
-        int nChebyshevDistance = D2_MAX(nAbsDeltaX, nAbsDeltaY);
-        while (nChebyshevDistance < PATH_SNAP_RANGE)
-        {
-            nX += nOffsetX;
-            nY += nOffsetY;
-            if (COLLISION_CheckAnyCollisionWithPattern(pPathInfo->pStartRoom, nX, nY, nCollisionPattern, nCollisionMask))
-            {
-                break;
-            }
+    D2PathPointStrc tOldCoords;
+    tOldCoords.X = pPath->tGameCoords.wPosX;
+    tOldCoords.Y = pPath->tGameCoords.wPosY;
 
-            pPathInfo->tTargetCoord.X = nX;
-            pPathInfo->tTargetCoord.Y = nY;
-            ++nChebyshevDistance;
+    pPath->dwCurrentPointIdx = 0;
+
+    if (pPath->pTargetUnit)
+    {
+        pPath->tTargetCoord.X = PATH_InlineGetUnitX(pPath->pTargetUnit);
+        pPath->tTargetCoord.Y = PATH_InlineGetUnitY(pPath->pTargetUnit);
+    }
+
+    int nXDistance = tOldCoords.X - pPath->tTargetCoord.X;
+    if (nXDistance < 0)
+    {
+        nXDistance = -nXDistance;
+    }
+    if (nXDistance >= PATH_MAX_DISTANCE)
+    {
+        return 0;
+    }
+
+    int nYDistance = tOldCoords.Y - pPath->tTargetCoord.Y;
+    if (nYDistance < 0)
+    {
+        nYDistance = -nYDistance;
+    }
+    if (nYDistance >= PATH_MAX_DISTANCE)
+    {
+        return 0;
+    }
+
+    if (!pPath->tTargetCoord.X || !pPath->tTargetCoord.Y)
+    {
+        return 0;
+    }
+
+    pPath->PathPoints[0] = pPath->tTargetCoord;
+    pPath->dwPathPoints = PATH_ONE;
+    pPath->unk0x38 = 0;
+    PATH_ComputeVelocityAndDirectionVectorsToNextPoint(pPath, PATH_ONE, PATH_ONE);
+
+    D2ActiveRoomStrc* pRoom = pPath->pRoom;
+    if (!pRoom
+        || !(pPath->tTargetCoord.X >= pRoom->tCoords.nSubtileX && pPath->tTargetCoord.X < pRoom->tCoords.nSubtileX + pRoom->tCoords.nSubtileWidth
+            && pPath->tTargetCoord.Y >= pRoom->tCoords.nSubtileY && pPath->tTargetCoord.Y < pRoom->tCoords.nSubtileY + pRoom->tCoords.nSubtileHeight))
+    {
+        pPath->dwFlags |= PATH_ONE;
+    }
+    return pPath->dwPathPoints;
+}
+
+// 0x00649760
+static int PATH_MissileToTarget(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit)
+{
+    switch (pPath->dwPathType)
+    {
+    case 4:
+        if (PATH_ComputePathClassicMissile(pPath))
+        {
+            pPath->dwFlags |= 0x20;
+            return pPath->dwPathPoints;
         }
+        pPath->dwFlags &= ~0x20;
+        return 0;
+    case 10:
+        PATH_ComputePathChargedBolt_6FDAB4A0(pPath, &pUnit->tSeed);
+        pPath->dwFlags |= 0x20;
+        return pPath->dwPathPoints;
+    case 14:
+        PATH_ComputePathBlessedHammer_6FDAB3C0(pPath, &pUnit->tSeed);
+        pPath->dwFlags |= 0x20;
+        return pPath->dwPathPoints;
+    default:
+        sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x207);
+        exit(-1);
     }
 }
 
@@ -1861,4 +1813,32 @@ void __stdcall PATH_SetUnitDeadCollision(D2UnitStrc* pUnit, BOOL bForGameLogic)
         PATH_AddCollisionFootprintForUnit(pUnit);
     }
     PATH_RecacheRoomIfNeeded(pPath);
+}
+
+// 0x0064A730
+extern "C" int __stdcall sub_0064A730_GetMissileTargetStatus(B25MissileUnit* unit)
+{
+    if (unit && unit->type == 3 && unit->data)
+        return unit->data->targetStatus;
+    return 0;
+}
+
+// 0x006BD130
+extern "C" int __stdcall sub_006BD130_findKey(LinkView* link, U32 key, int unusedLogError)
+{
+    int upper = link->count;
+    int lower = 0;
+    KeyValue* entries = link->entries;
+    while (lower < upper)
+    {
+        int middle = lower + (upper - lower) / 2;
+        U32 current = entries[middle].key;
+        if (key > current)
+            lower = middle + 1;
+        else if (key < current)
+            upper = middle;
+        else
+            return entries[middle].value;
+    }
+    return -1;
 }

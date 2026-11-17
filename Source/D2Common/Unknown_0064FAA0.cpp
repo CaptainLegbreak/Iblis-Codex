@@ -1,13 +1,8 @@
 #include "D2Common.h"
-
-#define TRUE 1
-#define FALSE 0
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define D2_ABS(x) ((x) >= 0 ? (x) : -(x))
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define UNIT_ALIGNMENT_EVIL 0
 #define UNIT_ALIGNMENT_NEUTRAL 1
-#define UNIT_ALIGNMENT_GOOD 2
 union D2FP32_16;
 struct D2CoordStrc;
 struct D2DrlgCoordsStrc;

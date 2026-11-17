@@ -1,8 +1,7 @@
 #include "D2Common.h"
+// build: base-profile
+#define NULL 0
 
-#define ITEM_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define TBL_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2ItemRatioTxt;
 struct D2RunesTxt;
 struct D2BinFieldStrc;
@@ -26,6 +25,10 @@ struct D2GambleDataTbl;
 struct D2RuneDataTbl;
 struct D2UniqueItemsTxt;
 struct D2GambleTxt;
+struct D2TxtLinkStrc;
+struct Unicode;
+struct D2PropertyStrc;
+struct D2DataTablesStrc;
 
 struct D2BinFieldStrc
 {
@@ -48,6 +51,7 @@ struct D2ItemsTxt
     unsigned char nLevel;
     char unk0x0FE[0xAA];
 };
+
 extern D2TxtLinkStrc* gpItemTypesLinker_0096C824; // 0x0096C824
 extern D2TxtLinkStrc* gpSoundsLinker_0096BDC8; // 0x0096BDC8
 extern D2TxtLinkStrc* gpStatesLinker_0096BCF0; // 0x0096BCF0
@@ -128,16 +132,16 @@ struct D2GambleDataTbl
 
 struct D2RuneDataTbl { int nRunesTxtRecordCount; D2RunesTxt* pRunesTxt; };
 
-extern D2TxtLinkStrc* gpItemsLinker; // 0x0096BCC4
-extern D2TxtLinkStrc* gpPropertiesLinker; // 0x0096BCD8
+extern D2TxtLinkStrc* gpItemsLinker_0096BCC4; // 0x0096BCC4
+extern D2TxtLinkStrc* gTxtLink_0096BCD8; // 0x0096BCD8
 extern void* gpItemStatCostTxt; // 0x0096C7FC
 extern int gnItemStatCostTxtRecordCount; // 0x0096C804
 extern void* gpStatsWithDescFunc; // 0x0096C808
 extern int gnStatsWithDescFunc; // 0x0096C80C
 extern void* gp_0096C828; // 0x0096C828
-extern int gnUniqueItemsTxtRecordCount; // 0x0096C858
+extern int gnUniqueitemsTxtRecordCount; // 0x0096C858
 extern D2ItemDataTbl gItemDataTables; // 0x0096CA58
-extern unsigned short* gpIndexOldToCurrent; // 0x0096CA78
+extern unsigned short* gpIndexOldToCurrent_0096CA78; // 0x0096CA78
 extern D2GemDataTbl gGemDataTables; // 0x0096CA90
 extern D2RuneDataTbl gRuneDataTables; // 0x0096CA98
 extern D2ItemRatioDataTbl gItemRatioDataTables; // 0x0096CC48
@@ -163,12 +167,10 @@ struct D2UniqueItemsTxt
 
 extern "C" const char gszTxtField_index[]; // 0x006E9CCC
 extern D2TxtLinkStrc* gTxtLink_0096C5E4; // 0x0096C5E4
-extern D2TxtLinkStrc* gTxtLink_0096BCD8; // 0x0096BCD8
 void __fastcall sub_006336A0(); // 0x006336A0
 void __stdcall FOG_10216_AddRecordToLinkingTable(D2TxtLinkStrc* pLinker, const char* szName); // 0x006BD500
 unsigned short __stdcall D2LANG_GetTblIndex(const char* szReference, void** ppUnicode); // 0x00524D30
-extern D2TxtLinkStrc* gTxtLink_0096BCC4; // 0x0096BCC4
-extern D2ItemsTxt* gpItemsTxt; // 0x0096CA5C
+extern D2ItemsTxt* gpItemsTxt_0096CA5C; // 0x0096CA5C
 void __fastcall sub_006117B0(); // 0x006117B0
 
 struct D2ItemRatioTxt
@@ -208,6 +210,68 @@ struct D2GambleTxt
 extern "C" const char gszGambleTxtName[]; // 0x006EA750
 extern "C" const char gszItemsTblsSourceFile[]; // 0x006E90E4
 extern D2GambleDataTbl gGambleDataTables; // 0x0096CAB0
+
+typedef void* HD2ARCHIVE;
+
+typedef void* HSFILE;
+
+enum D2C_TxtFieldTypes
+{
+    TXTFIELD_NONE = 0,
+    TXTFIELD_ASCII = 1,
+    TXTFIELD_DWORD = 2,
+    TXTFIELD_BYTE = 4,
+    TXTFIELD_UNKNOWN3 = 11,
+    TXTFIELD_CODETOWORD = 15,
+    TXTFIELD_NAMETODWORD = 19,
+    TXTFIELD_CALCTODWORD = 25,
+};
+
+struct D2PropertyStrc
+{
+    int nProperty;
+    int nLayer;
+    int nMin;
+    int nMax;
+};
+
+struct D2RunesTxt
+{
+    char szName[64];
+    char szRuneName[64];
+    unsigned char nComplete;
+    unsigned char nServer;
+    unsigned short wStringId;
+    unsigned short pad0x84;
+    unsigned short wIType[6];
+    unsigned short wEType[3];
+    int nRune[6];
+    D2PropertyStrc pProperties[7];
+};
+
+extern "C" unsigned int __security_cookie; // 0x00749DE0
+extern "C" void __fastcall __security_check_cookie(unsigned int nCookie); // 0x00681A48
+extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szBuffer, const char* szFormat, ...); // 0x006CC468
+int __fastcall ARCHIVE_OpenFile(HD2ARCHIVE hArchive, const char* szFilePath, HSFILE* phFile, int bQuiet); // 0x00516E46
+void __fastcall ARCHIVE_CloseFile(HD2ARCHIVE hArchive, HSFILE hFile); // 0x00516E84
+short __stdcall sub_00524D30_FindString(const char* szReference, const Unicode** ppUnicode); // 0x00524D30
+void __fastcall DATATBLS_ItemParamLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn); // 0x006336A0
+
+struct D2DataTablesStrc
+{
+    char pad0x000[0x94];
+    D2TxtLinkStrc* pItemsLinker;
+    char pad0x098[0x10];
+    D2TxtLinkStrc* pPropertiesLinker;
+    char pad0x0AC[0x04];
+    D2TxtLinkStrc* pRunesLinker;
+    char pad0x0B4[0xB40];
+    D2TxtLinkStrc* pItemTypesLinker;
+    char pad0xBF8[0x270];
+    D2RuneDataTbl pRuneDataTables;
+};
+
+extern D2DataTablesStrc gD2DataTables; // 0x0096BC30
 
 D2TxtLinkStrc* gpItemsLinker_0096BCC4; // 0x0096BCC4
 
@@ -517,16 +581,16 @@ D2GambleDataTbl gGambleDataTables; // 0x0096CAB0
 // 0x00633540
 void __fastcall DATATBLS_UnloadItemsTxt()
 {
-    FOG_FreeLinker(gpItemsLinker);
+    FOG_FreeLinker(gpItemsLinker_0096BCC4);
 
     if (gItemDataTables.pItemsTxt)
     {
         sub_0040B480(0, gItemDataTables.pItemsTxt, ".\\DATATBLS\\ItemTbls.cpp", 456, 0);
     }
 
-    if (gpIndexOldToCurrent)
+    if (gpIndexOldToCurrent_0096CA78)
     {
-        sub_0040B480(0, gpIndexOldToCurrent, ".\\DATATBLS\\ItemTbls.cpp", 459, 0);
+        sub_0040B480(0, gpIndexOldToCurrent_0096CA78, ".\\DATATBLS\\ItemTbls.cpp", 459, 0);
     }
 
     gItemDataTables.pItemsTxt = 0;
@@ -551,14 +615,24 @@ int __stdcall DATATBLS_MapOldItemIndexToCurrent(int nItemId)
         return -1;
     }
 
-    ITEM_ASSERT(gpIndexOldToCurrent, 482);
-    return gpIndexOldToCurrent[nItemId];
+    ITEM_ASSERT(gpIndexOldToCurrent_0096CA78, 482);
+    return gpIndexOldToCurrent_0096CA78[nItemId];
+}
+
+// 0x006335F0
+D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId)
+{
+    if ((unsigned int)nItemId >= (unsigned int)gItemDataTables.nItemsTxtRecordCount)
+        return 0;
+
+    D2_ASSERT(gItemDataTables.pItemsTxt, 0x1EF);
+    return &gItemDataTables.pItemsTxt[nItemId];
 }
 
 // 0x00633640
 D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId)
 {
-    int nItemId = FOG_GetLinkIndex(gpItemsLinker, dwCode, 0);
+    int nItemId = FOG_GetLinkIndex(gpItemsLinker_0096BCC4, dwCode, 0);
     if (nItemId < 0)
     {
         *pItemId = 0;
@@ -572,7 +646,57 @@ D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, in
 // 0x00633680
 int __stdcall DATATBLS_GetItemIdFromItemCode(unsigned int dwCode)
 {
-    return FOG_GetLinkIndex(gpItemsLinker, dwCode, 0);
+    return FOG_GetLinkIndex(gpItemsLinker_0096BCC4, dwCode, 0);
+}
+
+// 0x006336A0
+void __fastcall DATATBLS_ItemParamLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn)
+{
+    int nRow = 0;
+
+    if (pRecord)
+    {
+        int* pValue = (int*)((char*)pRecord + nOffset);
+        if (pSrc && *pSrc)
+        {
+            if (*pSrc == '-' || *pSrc >= '0' && *pSrc <= '9')
+            {
+                *pValue = atoi(pSrc);
+                return;
+            }
+
+            if (gpSkillsLinker_0096C7CC)
+            {
+                nRow = FOG_GetRowFromTxt(gpSkillsLinker_0096C7CC, pSrc, 0);
+                if (nRow >= 0)
+                {
+                    *pValue = nRow;
+                    return;
+                }
+            }
+
+            if (gpMonTypeLinker_0096C868)
+            {
+                nRow = FOG_GetRowFromTxt(gpMonTypeLinker_0096C868, pSrc, 0);
+                if (nRow >= 0)
+                {
+                    *pValue = nRow;
+                    return;
+                }
+            }
+
+            if (!gpStatesLinker_0096BCF0 || (nRow = FOG_GetRowFromTxt(gpStatesLinker_0096BCF0, pSrc, 0)) < 0)
+            {
+                *pValue = 0;
+                return;
+            }
+
+            *pValue = nRow;
+            return;
+        }
+
+        *pValue = 0;
+    }
 }
 
 // 0x00633EA0
@@ -632,287 +756,6 @@ D2RareAffixTxt* __stdcall DATATBLS_GetRareAffixTxtRecord(int nId)
     {
         ITEM_ASSERT(gRareAffixDataTables.pRareAffixTxt, 799);
         return &gRareAffixDataTables.pRareAffixTxt[nId - 1];
-    }
-}
-
-// 0x00634D90
-void __fastcall DATATBLS_UnloadUniqueItemsTxt()
-{
-    FOG_FreeLinker(gpUniqueItemsLinker);
-    DATATBLS_UnloadBin(gpUniqueItemsTxt);
-    gnUniqueItemsTxtRecordCount = 0;
-}
-
-// 0x00636730
-void __fastcall DATATBLS_UnloadSets_SetItemsTxt()
-{
-    FOG_FreeLinker(gpSetsLinker);
-    FOG_FreeLinker(gpSetItemsLinker);
-    DATATBLS_UnloadBin(gpSetItemsTxt);
-    DATATBLS_UnloadBin(gpSetsTxt);
-    gnSetsTxtRecordCount = 0;
-    gnSetItemsTxtRecordCount = 0;
-}
-
-// 0x00636B00
-void __fastcall DATATBLS_UnloadQualityItemsTxt()
-{
-    DATATBLS_UnloadBin(gQualityItemDataTables.pQualityItemsTxt);
-}
-
-// 0x00636B10
-D2QualityItemDataTbl* __fastcall DATATBLS_GetQualityItemDataTables()
-{
-    return &gQualityItemDataTables;
-}
-
-// 0x00636B20
-D2QualityItemsTxt* __stdcall DATATBLS_GetQualityItemsTxtRecord(int nIndex)
-{
-    if (nIndex >= gQualityItemDataTables.nQualityItemsTxtRecordCount || nIndex == -1)
-    {
-        return 0;
-    }
-    else
-    {
-        ITEM_ASSERT(gQualityItemDataTables.pQualityItemsTxt, 1266);
-        ITEM_ASSERT(&gQualityItemDataTables.pQualityItemsTxt[nIndex], 1266 + 1);
-        return &gQualityItemDataTables.pQualityItemsTxt[nIndex];
-    }
-}
-
-// 0x006372A0
-void __fastcall DATATBLS_UnloadGemsTxt()
-{
-    DATATBLS_UnloadBin(gGemDataTables.pGemsTxt);
-}
-
-// 0x006372B0
-D2GemDataTbl* __fastcall DATATBLS_GetGemDataTables()
-{
-    return &gGemDataTables;
-}
-
-// 0x006372C0
-D2GemsTxt* __stdcall DATATBLS_GetGemsTxtRecord(int nIndex)
-{
-    if (nIndex >= gGemDataTables.nGemsTxtRecordCount || nIndex == -1)
-    {
-        return 0;
-    }
-    else
-    {
-        ITEM_ASSERT(gGemDataTables.pGemsTxt, 1379);
-        ITEM_ASSERT(&gGemDataTables.pGemsTxt[nIndex], 1379 + 1);
-        return &gGemDataTables.pGemsTxt[nIndex];
-    }
-}
-
-// 0x00637490
-void __fastcall DATATBLS_UnloadBooksTxt()
-{
-    DATATBLS_UnloadBin(gBookDataTables.pBooksTxt);
-}
-
-// 0x006374A0
-D2BookDataTbl* __fastcall DATATBLS_GetBookDataTables()
-{
-    return &gBookDataTables;
-}
-
-// 0x006374B0
-D2BooksTxt* __stdcall DATATBLS_GetBooksTxtRecord(int nIndex)
-{
-    if (nIndex >= gBookDataTables.nBooksTxtRecordCount || nIndex == -1)
-    {
-        return 0;
-    }
-    else
-    {
-        ITEM_ASSERT(gBookDataTables.pBooksTxt, 1436);
-        ITEM_ASSERT(&gBookDataTables.pBooksTxt[nIndex], 1436 + 1);
-        return &gBookDataTables.pBooksTxt[nIndex];
-    }
-}
-
-// 0x006375A0
-void __fastcall DATATBLS_UnloadLowQualityItemsTxt()
-{
-    DATATBLS_UnloadBin(gLowQualityItemDataTables.pLowQualityItemsTxt);
-}
-
-// 0x006375B0
-D2LowQualityItemDataTbl* __fastcall DATATBLS_GetLowQualityItemDataTables()
-{
-    return &gLowQualityItemDataTables;
-}
-
-// 0x006375C0
-D2LowQualityItemsTxt* __stdcall DATATBLS_GetLowQualityItemsTxtRecord(int nIndex)
-{
-    if (nIndex >= gLowQualityItemDataTables.nLowQualityItemsTxtRecordCount || nIndex == -1)
-    {
-        return 0;
-    }
-    else
-    {
-        ITEM_ASSERT(gLowQualityItemDataTables.pLowQualityItemsTxt, 1488);
-        ITEM_ASSERT(&gLowQualityItemDataTables.pLowQualityItemsTxt[nIndex], 1488 + 1);
-        return &gLowQualityItemDataTables.pLowQualityItemsTxt[nIndex];
-    }
-}
-
-// 0x006378F0
-void __fastcall DATATBLS_UnloadItemRatioTxt()
-{
-    DATATBLS_UnloadBin(gItemRatioDataTables.pItemRatioTxt);
-}
-
-// 0x00637900
-D2ItemRatioDataTbl* __fastcall DATATBLS_GetItemRatioDataTables()
-{
-    return &gItemRatioDataTables;
-}
-
-// 0x006379D0
-int __cdecl DATATBLS_CompareItemStatCostDescs(const void* pRecord1, const void* pRecord2)
-{
-    D2ItemStatCostDescStrc* pElem1 = (D2ItemStatCostDescStrc*)pRecord1;
-    D2ItemStatCostDescStrc* pElem2 = (D2ItemStatCostDescStrc*)pRecord2;
-
-    if (pElem1->nDescPriority < pElem2->nDescPriority)
-    {
-        return -1;
-    }
-
-    return pElem1->nDescPriority != pElem2->nDescPriority;
-}
-
-// 0x006385D0
-void __fastcall DATATBLS_UnloadItemStatCostTxt()
-{
-    if (gpItemStatCostTxt)
-    {
-        DATATBLS_UnloadBin(gpItemStatCostTxt);
-    }
-    gpItemStatCostTxt = 0;
-
-    if (gpItemStatCostLinker)
-    {
-        FOG_FreeLinker(gpItemStatCostLinker);
-    }
-    gpItemStatCostLinker = 0;
-    gnItemStatCostTxtRecordCount = 0;
-
-    if (gpStatsWithDescFunc)
-    {
-        sub_0040B480(0, gpStatsWithDescFunc, ".\\DATATBLS\\ItemTbls.cpp", 1891, 0);
-    }
-    gnStatsWithDescFunc = 0;
-}
-
-// 0x00638AA0
-void __fastcall DATATBLS_UnloadPropertiesTxt()
-{
-    DATATBLS_UnloadBin(gpPropertiesTxt);
-    FOG_FreeLinker(gpPropertiesLinker);
-}
-
-// 0x00638C80
-void __fastcall DATATBLS_UnloadGambleTxt()
-{
-    if (gGambleDataTables.pGambleSelection)
-    {
-        sub_0040B480(0, gGambleDataTables.pGambleSelection, ".\\DATATBLS\\ItemTbls.cpp", 2061, 0);
-        gGambleDataTables.pGambleSelection = 0;
-        gGambleDataTables.nGambleTxtRecordCount = 0;
-    }
-}
-
-// 0x00638CC0
-D2GambleDataTbl* __fastcall DATATBLS_GetGambleDataTables()
-{
-    return &gGambleDataTables;
-}
-
-// 0x006393E0
-void __fastcall DATATBLS_UnloadItemTypesTxt()
-{
-    sub_0040B480(0, gpItemTypesEquivalenceLUTs, ".\\DATATBLS\\ItemTbls.cpp", 2215, 0);
-    DATATBLS_UnloadBin(gp_0096C828);
-    FOG_FreeLinker(gpItemTypesLinker);
-}
-
-// 0x00639C90
-void __fastcall DATATBLS_UnloadRunesTxt()
-{
-    DATATBLS_UnloadBin(gRuneDataTables.pRunesTxt);
-    FOG_FreeLinker(gpRunesLinker);
-}
-
-// 0x00639CB0
-D2RuneDataTbl* __fastcall DATATBLS_GetRuneDataTables()
-{
-    return &gRuneDataTables;
-}
-
-// 0x006335F0
-D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId)
-{
-    if ((unsigned int)nItemId >= (unsigned int)gItemDataTables.nItemsTxtRecordCount)
-        return 0;
-
-    D2_ASSERT(gItemDataTables.pItemsTxt, 0x1EF);
-    return &gItemDataTables.pItemsTxt[nItemId];
-}
-
-// 0x006336A0
-void __fastcall DATATBLS_ItemParamLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn)
-{
-    int nRow = 0;
-
-    if (pRecord)
-    {
-        int* pValue = (int*)((char*)pRecord + nOffset);
-        if (pSrc && *pSrc)
-        {
-            if (*pSrc == '-' || *pSrc >= '0' && *pSrc <= '9')
-            {
-                *pValue = atoi(pSrc);
-                return;
-            }
-
-            if (gpSkillsLinker_0096C7CC)
-            {
-                nRow = FOG_GetRowFromTxt(gpSkillsLinker_0096C7CC, pSrc, 0);
-                if (nRow >= 0)
-                {
-                    *pValue = nRow;
-                    return;
-                }
-            }
-
-            if (gpMonTypeLinker_0096C868)
-            {
-                nRow = FOG_GetRowFromTxt(gpMonTypeLinker_0096C868, pSrc, 0);
-                if (nRow >= 0)
-                {
-                    *pValue = nRow;
-                    return;
-                }
-            }
-
-            if (!gpStatesLinker_0096BCF0 || (nRow = FOG_GetRowFromTxt(gpStatesLinker_0096BCF0, pSrc, 0)) < 0)
-            {
-                *pValue = 0;
-                return;
-            }
-
-            *pValue = nRow;
-            return;
-        }
-
-        *pValue = 0;
     }
 }
 
@@ -1015,6 +858,25 @@ void __fastcall DATATBLS_LoadUniqueItemsTxt(void* hArchive)
     }
 }
 
+// 0x00634D90
+void __fastcall DATATBLS_UnloadUniqueItemsTxt()
+{
+    FOG_FreeLinker(gpUniqueItemsLinker);
+    DATATBLS_UnloadBin(gpUniqueItemsTxt);
+    gnUniqueitemsTxtRecordCount = 0;
+}
+
+// 0x00636730
+void __fastcall DATATBLS_UnloadSets_SetItemsTxt()
+{
+    FOG_FreeLinker(gpSetsLinker);
+    FOG_FreeLinker(gpSetItemsLinker);
+    DATATBLS_UnloadBin(gpSetItemsTxt);
+    DATATBLS_UnloadBin(gpSetsTxt);
+    gnSetsTxtRecordCount = 0;
+    gnSetItemsTxtRecordCount = 0;
+}
+
 D2QualityItemsTxt* gpQualityitemsTxt; // 0x0096CC54
 
 int gnQualityitemsTxtRecordCount; // 0x0096CC50
@@ -1065,6 +927,33 @@ void __fastcall DATATBLS_LoadQualityItemsTxt(void* hArchive)
     }
 }
 
+// 0x00636B00
+void __fastcall DATATBLS_UnloadQualityItemsTxt()
+{
+    DATATBLS_UnloadBin(gQualityItemDataTables.pQualityItemsTxt);
+}
+
+// 0x00636B10
+D2QualityItemDataTbl* __fastcall DATATBLS_GetQualityItemDataTables()
+{
+    return &gQualityItemDataTables;
+}
+
+// 0x00636B20
+D2QualityItemsTxt* __stdcall DATATBLS_GetQualityItemsTxtRecord(int nIndex)
+{
+    if (nIndex >= gQualityItemDataTables.nQualityItemsTxtRecordCount || nIndex == -1)
+    {
+        return 0;
+    }
+    else
+    {
+        ITEM_ASSERT(gQualityItemDataTables.pQualityItemsTxt, 1266);
+        ITEM_ASSERT(&gQualityItemDataTables.pQualityItemsTxt[nIndex], 1266 + 1);
+        return &gQualityItemDataTables.pQualityItemsTxt[nIndex];
+    }
+}
+
 D2GemsTxt* gpGemsTxt; // 0x0096CA94
 
 int gnGemsTxtRecordCount; // 0x0096CA90
@@ -1076,7 +965,7 @@ void __fastcall DATATBLS_LoadGemsTxt(void* hArchive)
     {
         { "name", 1, 31, 0, 0 },
         { "letter", 1, 5, 32, 0 },
-        { gszTxtField_code, 11, 0, 40, &gTxtLink_0096BCC4 },
+        { gszTxtField_code, 11, 0, 40, &gpItemsLinker_0096BCC4 },
         { "transform", 4, 0, 47, 0 },
         { "nummods", 4, 0, 46, 0 },
         { "weaponmod1code", 19, 0, 48, &gTxtLink_0096BCD8 },
@@ -1134,12 +1023,39 @@ void __fastcall DATATBLS_LoadGemsTxt(void* hArchive)
 
     for (int i = 0; i < gnGemsTxtRecordCount; ++i)
     {
-        gpItemsTxt[i].dwGemOffset = -1;
+        gpItemsTxt_0096CA5C[i].dwGemOffset = -1;
         int nItemCode = gpGemsTxt[i].dwItemCode;
         if (nItemCode >= 0)
         {
-            gpItemsTxt[nItemCode].dwGemOffset = i;
+            gpItemsTxt_0096CA5C[nItemCode].dwGemOffset = i;
         }
+    }
+}
+
+// 0x006372A0
+void __fastcall DATATBLS_UnloadGemsTxt()
+{
+    DATATBLS_UnloadBin(gGemDataTables.pGemsTxt);
+}
+
+// 0x006372B0
+D2GemDataTbl* __fastcall DATATBLS_GetGemDataTables()
+{
+    return &gGemDataTables;
+}
+
+// 0x006372C0
+D2GemsTxt* __stdcall DATATBLS_GetGemsTxtRecord(int nIndex)
+{
+    if (nIndex >= gGemDataTables.nGemsTxtRecordCount || nIndex == -1)
+    {
+        return 0;
+    }
+    else
+    {
+        ITEM_ASSERT(gGemDataTables.pGemsTxt, 1379);
+        ITEM_ASSERT(&gGemDataTables.pGemsTxt[nIndex], 1379 + 1);
+        return &gGemDataTables.pGemsTxt[nIndex];
     }
 }
 
@@ -1167,6 +1083,33 @@ void __fastcall DATATBLS_LoadBooksTxt(void* hArchive)
     gpBooksTxt = DATATBLS_CompileTxt(hArchive, "books", pTbl, &gnBooksTxtRecordCount, 32);
 }
 
+// 0x00637490
+void __fastcall DATATBLS_UnloadBooksTxt()
+{
+    DATATBLS_UnloadBin(gBookDataTables.pBooksTxt);
+}
+
+// 0x006374A0
+D2BookDataTbl* __fastcall DATATBLS_GetBookDataTables()
+{
+    return &gBookDataTables;
+}
+
+// 0x006374B0
+D2BooksTxt* __stdcall DATATBLS_GetBooksTxtRecord(int nIndex)
+{
+    if (nIndex >= gBookDataTables.nBooksTxtRecordCount || nIndex == -1)
+    {
+        return 0;
+    }
+    else
+    {
+        ITEM_ASSERT(gBookDataTables.pBooksTxt, 1436);
+        ITEM_ASSERT(&gBookDataTables.pBooksTxt[nIndex], 1436 + 1);
+        return &gBookDataTables.pBooksTxt[nIndex];
+    }
+}
+
 D2LowQualityItemsTxt* gpLowqualityitemsTxt; // 0x0096CC5C
 
 int gnLowqualityitemsTxtRecordCount; // 0x0096CC58
@@ -1186,6 +1129,33 @@ void __fastcall DATATBLS_LoadLowQualityItemsTxt(void* hArchive)
     for (int i = 0; i < gnLowqualityitemsTxtRecordCount; ++i)
     {
         gpLowqualityitemsTxt[i].wTblId = D2LANG_GetTblIndex(gpLowqualityitemsTxt[i].szName, &pUnicode);
+    }
+}
+
+// 0x006375A0
+void __fastcall DATATBLS_UnloadLowQualityItemsTxt()
+{
+    DATATBLS_UnloadBin(gLowQualityItemDataTables.pLowQualityItemsTxt);
+}
+
+// 0x006375B0
+D2LowQualityItemDataTbl* __fastcall DATATBLS_GetLowQualityItemDataTables()
+{
+    return &gLowQualityItemDataTables;
+}
+
+// 0x006375C0
+D2LowQualityItemsTxt* __stdcall DATATBLS_GetLowQualityItemsTxtRecord(int nIndex)
+{
+    if (nIndex >= gLowQualityItemDataTables.nLowQualityItemsTxtRecordCount || nIndex == -1)
+    {
+        return 0;
+    }
+    else
+    {
+        ITEM_ASSERT(gLowQualityItemDataTables.pLowQualityItemsTxt, 1488);
+        ITEM_ASSERT(&gLowQualityItemDataTables.pLowQualityItemsTxt[nIndex], 1488 + 1);
+        return &gLowQualityItemDataTables.pLowQualityItemsTxt[nIndex];
     }
 }
 
@@ -1223,6 +1193,18 @@ void __fastcall DATATBLS_LoadItemRatioTxt(void* hArchive)
     gpItemratioTxt = DATATBLS_CompileTxt(hArchive, "itemratio", pTbl, &gnItemratioTxtRecordCount, 68);
 }
 
+// 0x006378F0
+void __fastcall DATATBLS_UnloadItemRatioTxt()
+{
+    DATATBLS_UnloadBin(gItemRatioDataTables.pItemRatioTxt);
+}
+
+// 0x00637900
+D2ItemRatioDataTbl* __fastcall DATATBLS_GetItemRatioDataTables()
+{
+    return &gItemRatioDataTables;
+}
+
 // 0x00637910
 D2ItemRatioTxt* __stdcall DATATBLS_GetItemRatioTxtRecord(int nItemId, unsigned char nDifficulty, unsigned short wVersion)
 {
@@ -1252,6 +1234,43 @@ D2ItemRatioTxt* __stdcall DATATBLS_GetItemRatioTxtRecord(int nItemId, unsigned c
     }
 
     return &gItemRatioDataTables.pItemRatioTxt[nId];
+}
+
+// 0x006379D0
+int __cdecl DATATBLS_CompareItemStatCostDescs(const void* pRecord1, const void* pRecord2)
+{
+    D2ItemStatCostDescStrc* pElem1 = (D2ItemStatCostDescStrc*)pRecord1;
+    D2ItemStatCostDescStrc* pElem2 = (D2ItemStatCostDescStrc*)pRecord2;
+
+    if (pElem1->nDescPriority < pElem2->nDescPriority)
+    {
+        return -1;
+    }
+
+    return pElem1->nDescPriority != pElem2->nDescPriority;
+}
+
+// 0x006385D0
+void __fastcall DATATBLS_UnloadItemStatCostTxt()
+{
+    if (gpItemStatCostTxt)
+    {
+        DATATBLS_UnloadBin(gpItemStatCostTxt);
+    }
+    gpItemStatCostTxt = 0;
+
+    if (gpItemStatCostLinker)
+    {
+        FOG_FreeLinker(gpItemStatCostLinker);
+    }
+    gpItemStatCostLinker = 0;
+    gnItemStatCostTxtRecordCount = 0;
+
+    if (gpStatsWithDescFunc)
+    {
+        sub_0040B480(0, gpStatsWithDescFunc, ".\\DATATBLS\\ItemTbls.cpp", 1891, 0);
+    }
+    gnStatsWithDescFunc = 0;
 }
 
 D2TxtLinkStrc* gTxtLink_0096BCD8; // 0x0096BCD8
@@ -1299,6 +1318,13 @@ void __fastcall DATATBLS_LoadPropertiesTxt(void* hArchive)
     gpPropertiesTxt = DATATBLS_CompileTxt(hArchive, "properties", pTbl, &gnPropertiesTxtRecordCount, 46);
 }
 
+// 0x00638AA0
+void __fastcall DATATBLS_UnloadPropertiesTxt()
+{
+    DATATBLS_UnloadBin(gpPropertiesTxt);
+    FOG_FreeLinker(gTxtLink_0096BCD8);
+}
+
 // 0x00638AC0
 int __cdecl DATATBLS_CompareGambleTxtRecords(const void* pRecord1, const void* pRecord2)
 {
@@ -1316,4 +1342,136 @@ int __cdecl DATATBLS_CompareGambleTxtRecords(const void* pRecord1, const void* p
     }
 
     return 0;
+}
+
+// 0x00638C80
+void __fastcall DATATBLS_UnloadGambleTxt()
+{
+    if (gGambleDataTables.pGambleSelection)
+    {
+        sub_0040B480(0, gGambleDataTables.pGambleSelection, ".\\DATATBLS\\ItemTbls.cpp", 2061, 0);
+        gGambleDataTables.pGambleSelection = 0;
+        gGambleDataTables.nGambleTxtRecordCount = 0;
+    }
+}
+
+// 0x00638CC0
+D2GambleDataTbl* __fastcall DATATBLS_GetGambleDataTables()
+{
+    return &gGambleDataTables;
+}
+
+// 0x006393E0
+void __fastcall DATATBLS_UnloadItemTypesTxt()
+{
+    sub_0040B480(0, gpItemTypesEquivalenceLUTs, ".\\DATATBLS\\ItemTbls.cpp", 2215, 0);
+    DATATBLS_UnloadBin(gp_0096C828);
+    FOG_FreeLinker(gpItemTypesLinker);
+}
+
+// 0x00639420
+static int __stdcall sub_00639420(HD2ARCHIVE hArchive, const char* szFileName, const char* szExtension)
+{
+    char szPath[260];
+    HSFILE hFile;
+
+    wsprintfA(szPath, "%s\\%s%s", "DATA\\GLOBAL\\EXCEL", szFileName, szExtension);
+    if (!ARCHIVE_OpenFile(hArchive, szPath, &hFile, 1))
+    {
+        return 0;
+    }
+
+    ARCHIVE_CloseFile(hArchive, hFile);
+    return 1;
+}
+
+// 0x006394A0
+void __fastcall DATATBLS_LoadRunesTxt(HD2ARCHIVE hArchive)
+{
+    D2BinFieldStrc pTbl[] =
+    {
+        { "name", TXTFIELD_ASCII, 63, 0, NULL },
+        { "rune name", TXTFIELD_ASCII, 63, 0x40, NULL },
+        { "complete", TXTFIELD_BYTE, 0, 0x80, NULL },
+        { "server", TXTFIELD_BYTE, 0, 0x81, NULL },
+        { "itype1", TXTFIELD_CODETOWORD, 0, 0x86, &gD2DataTables.pItemTypesLinker },
+        { "itype2", TXTFIELD_CODETOWORD, 0, 0x88, &gD2DataTables.pItemTypesLinker },
+        { "itype3", TXTFIELD_CODETOWORD, 0, 0x8a, &gD2DataTables.pItemTypesLinker },
+        { "itype4", TXTFIELD_CODETOWORD, 0, 0x8c, &gD2DataTables.pItemTypesLinker },
+        { "itype5", TXTFIELD_CODETOWORD, 0, 0x8e, &gD2DataTables.pItemTypesLinker },
+        { "itype6", TXTFIELD_CODETOWORD, 0, 0x90, &gD2DataTables.pItemTypesLinker },
+        { "etype1", TXTFIELD_CODETOWORD, 0, 0x92, &gD2DataTables.pItemTypesLinker },
+        { "etype2", TXTFIELD_CODETOWORD, 0, 0x94, &gD2DataTables.pItemTypesLinker },
+        { "etype3", TXTFIELD_CODETOWORD, 0, 0x96, &gD2DataTables.pItemTypesLinker },
+        { "rune1", TXTFIELD_UNKNOWN3, 0, 0x98, &gD2DataTables.pItemsLinker },
+        { "rune2", TXTFIELD_UNKNOWN3, 0, 0x9c, &gD2DataTables.pItemsLinker },
+        { "rune3", TXTFIELD_UNKNOWN3, 0, 0xa0, &gD2DataTables.pItemsLinker },
+        { "rune4", TXTFIELD_UNKNOWN3, 0, 0xa4, &gD2DataTables.pItemsLinker },
+        { "rune5", TXTFIELD_UNKNOWN3, 0, 0xa8, &gD2DataTables.pItemsLinker },
+        { "rune6", TXTFIELD_UNKNOWN3, 0, 0xac, &gD2DataTables.pItemsLinker },
+        { "t1code1", TXTFIELD_NAMETODWORD, 0, 0xb0, &gD2DataTables.pPropertiesLinker },
+        { "t1param1", TXTFIELD_CALCTODWORD, 0, 0xb4, DATATBLS_ItemParamLinker },
+        { "t1min1", TXTFIELD_DWORD, 0, 0xb8, NULL },
+        { "t1max1", TXTFIELD_DWORD, 0, 0xbc, NULL },
+        { "t1code2", TXTFIELD_NAMETODWORD, 0, 0xc0, &gD2DataTables.pPropertiesLinker },
+        { "t1param2", TXTFIELD_CALCTODWORD, 0, 0xc4, DATATBLS_ItemParamLinker },
+        { "t1min2", TXTFIELD_DWORD, 0, 0xc8, NULL },
+        { "t1max2", TXTFIELD_DWORD, 0, 0xcc, NULL },
+        { "t1code3", TXTFIELD_NAMETODWORD, 0, 0xd0, &gD2DataTables.pPropertiesLinker },
+        { "t1param3", TXTFIELD_CALCTODWORD, 0, 0xd4, DATATBLS_ItemParamLinker },
+        { "t1min3", TXTFIELD_DWORD, 0, 0xd8, NULL },
+        { "t1max3", TXTFIELD_DWORD, 0, 0xdc, NULL },
+        { "t1code4", TXTFIELD_NAMETODWORD, 0, 0xe0, &gD2DataTables.pPropertiesLinker },
+        { "t1param4", TXTFIELD_CALCTODWORD, 0, 0xe4, DATATBLS_ItemParamLinker },
+        { "t1min4", TXTFIELD_DWORD, 0, 0xe8, NULL },
+        { "t1max4", TXTFIELD_DWORD, 0, 0xec, NULL },
+        { "t1code5", TXTFIELD_NAMETODWORD, 0, 0xf0, &gD2DataTables.pPropertiesLinker },
+        { "t1param5", TXTFIELD_CALCTODWORD, 0, 0xf4, DATATBLS_ItemParamLinker },
+        { "t1min5", TXTFIELD_DWORD, 0, 0xf8, NULL },
+        { "t1max5", TXTFIELD_DWORD, 0, 0xfc, NULL },
+        { "t1code6", TXTFIELD_NAMETODWORD, 0, 0x100, &gD2DataTables.pPropertiesLinker },
+        { "t1param6", TXTFIELD_CALCTODWORD, 0, 0x104, DATATBLS_ItemParamLinker },
+        { "t1min6", TXTFIELD_DWORD, 0, 0x108, NULL },
+        { "t1max6", TXTFIELD_DWORD, 0, 0x10c, NULL },
+        { "t1code7", TXTFIELD_NAMETODWORD, 0, 0x110, &gD2DataTables.pPropertiesLinker },
+        { "t1param7", TXTFIELD_CALCTODWORD, 0, 0x114, DATATBLS_ItemParamLinker },
+        { "t1min7", TXTFIELD_DWORD, 0, 0x118, NULL },
+        { "t1max7", TXTFIELD_DWORD, 0, 0x11c, NULL },
+        { "end", TXTFIELD_NONE, 0, 0, NULL },
+    };
+
+    gD2DataTables.pRunesLinker = sub_006BD040_AllocBlock(".\\DATATBLS\\ItemTbls.cpp", 2303);
+
+    D2_ASSERT(!sub_00639420(hArchive, "runessrv", ".txt"), 2308);
+    D2_ASSERT(!sub_00639420(hArchive, "runessrv", ".bin"), 2312);
+    D2_ASSERT(!sub_00639420(hArchive, "runessrv", ".xls"), 2316);
+
+    gD2DataTables.pRuneDataTables.pRunesTxt = (D2RunesTxt*)DATATBLS_CompileTxt(hArchive, "runes", pTbl, &gD2DataTables.pRuneDataTables.nRunesTxtRecordCount, sizeof(D2RunesTxt));
+
+    const Unicode* pUnicode = NULL;
+    int i = 0;
+    if (i < gD2DataTables.pRuneDataTables.nRunesTxtRecordCount)
+    {
+        hArchive = NULL;
+        do
+        {
+            ((D2RunesTxt*)((char*)gD2DataTables.pRuneDataTables.pRunesTxt + (int)hArchive))->wStringId = sub_00524D30_FindString(((D2RunesTxt*)((char*)gD2DataTables.pRuneDataTables.pRunesTxt + (int)hArchive))->szName, &pUnicode);
+            hArchive = (char*)hArchive + sizeof(D2RunesTxt);
+            ++i;
+        }
+        while (i < gD2DataTables.pRuneDataTables.nRunesTxtRecordCount);
+    }
+}
+
+// 0x00639C90
+void __fastcall DATATBLS_UnloadRunesTxt()
+{
+    DATATBLS_UnloadBin(gRuneDataTables.pRunesTxt);
+    FOG_FreeLinker(gpRunesLinker);
+}
+
+// 0x00639CB0
+D2RuneDataTbl* __fastcall DATATBLS_GetRuneDataTables()
+{
+    return &gRuneDataTables;
 }

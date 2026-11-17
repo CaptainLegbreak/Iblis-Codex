@@ -1,8 +1,4 @@
 #include "D2Common.h"
-
-#define MASK_INVALID 0x27
-#define MASK_ALL 0xFFFF
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define COLLISION_ABS(a) ((a) < 0 ? -(a) : (a))
 struct D2CoordStrc;
 struct D2FieldStrc;

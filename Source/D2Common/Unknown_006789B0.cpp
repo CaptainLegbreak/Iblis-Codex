@@ -768,9 +768,6 @@ typedef void (__fastcall* FLAGFN)(D2DrlgLevelStrc* pLevel, int nIteration, int* 
 
 #define DRLGTYPE_PRESET 2
 #define DRLGTYPE_OUTDOOR 3
-
-D2DrlgLevelStrc* __stdcall DRLG_GetLevel(D2DrlgStrc* pDrlg, int nLevelId);                                  // 0x00642BB0
-D2LevelDefBin* __fastcall DATATBLS_GetLevelDefRecord(int nLevelId);                                         // 0x0061E470
 D2DrlgWarpStrc* __fastcall DRLG_GetDrlgWarpFromLevelId(D2DrlgStrc* pDrlg, int nLevelId);                    // 0x00642860
 D2DrlgWarpStrc* __fastcall DRLG_SetWarpId(D2DrlgWarpStrc* pDrlgWarp, int nVis, int nWarp, int nShift);      // 0x00642920
 int __fastcall DRLG_CheckOverlappingWithOrthogonalMargin(D2DrlgCoordStrc* pDrlgCoord1, D2DrlgCoordStrc* pDrlgCoord2, int nMargin); // 0x0066B880

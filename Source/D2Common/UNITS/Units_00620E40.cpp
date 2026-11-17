@@ -1,12 +1,8 @@
 #include "D2Common.h"
-
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_OBJECT 2
 #define UNIT_MISSILE 3
 #define UNIT_ITEM 4
 #define UNIT_TILE 5
-#define TRUE 1
-#define FALSE 0
 #define UNITFLAGEX_HASINV 0x1
 #define UNITFLAGEX_UPDATEINV 0x2
 #define UNITFLAGEX_STORELASTATTACKER 0x20000

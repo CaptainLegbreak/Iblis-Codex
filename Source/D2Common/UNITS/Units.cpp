@@ -1,6 +1,4 @@
 #include "D2Common.h"
-
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
 #define UNIT_OBJECT 2
@@ -9,11 +7,7 @@
 #define UNIT_TILE 5
 #define UNIT_INVALID 6
 #define FP16_SHIFT 16
-#define TRUE 1
-#define FALSE 0
 #define OBJSUBCLASS_SHRINE 0x01
-#define PCLASS_BARBARIAN 4
-#define PCLASS_ASSASSIN 6
 #define MONSTER_SHADOWWARRIOR 0x1A1
 #define MONSTER_SHADOWMASTER 0x1A2
 #define STAT_HITPOINTS 6
@@ -242,9 +236,6 @@ struct D2MonStats2Txt
     unsigned char unk_0F[0x5];
     unsigned char nHitClass;
 };
-
-extern "C" void __cdecl sub_00408A60(const char*, const char*, int); // 0x00408A60
-extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int); // 0x00451FE0
 int __stdcall INVENTORY_GetEquippedWeapon(D2InventoryStrc*, D2UnitStrc**, int*, int*); // 0x0063C9B0
 unsigned char __stdcall ITEMS_GetMeleeRange(D2UnitStrc*); // 0x006288D0
@@ -253,7 +244,6 @@ int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc* pDynamicPath)
 int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pDynamicPath); // 0x00648A10
 int __stdcall PATH_GetNewDirection(D2DynamicPathStrc* pDynamicPath); // 0x00648810
 int __stdcall UNITS_GetDirectionToCoords(D2UnitStrc* pUnit, int nNewX, int nNewY); // 0x00621DC0
-int __stdcall INVENTORY_GetEquippedWeapon(D2InventoryStrc* pInventory, D2UnitStrc** ppItem, int* pBodyLoc, int* pIsLeftHand); // 0x0063C9B0
 int __stdcall UNITS_CanDualWield(D2UnitStrc* pUnit); // 0x006235A0
 D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill); // 0x00644140
 int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
@@ -262,7 +252,6 @@ int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x0062
 int __fastcall sub_00463720_TestUnitFlagEx(D2UnitStrc* pUnit, unsigned int dwMask); // 0x00463720
 D2UnitStrc* __stdcall D2Common_10434(D2UnitStrc* pUnit, int a2); // 0x00623990
 unsigned char __stdcall ITEMS_GetHitClassFromItem(D2UnitStrc* pItem); // 0x0062A180
-D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
 
 // 0x00620100
 unsigned char __stdcall UNITS_GetDirection(D2UnitStrc* pUnit)

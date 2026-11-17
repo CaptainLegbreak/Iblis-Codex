@@ -1,6 +1,4 @@
 #include "D2Common.h"
-
-#define MASK_INVALID 0x27
 struct D2RoomCollisionGridStrc;
 struct D2BoundingBoxStrc;
 

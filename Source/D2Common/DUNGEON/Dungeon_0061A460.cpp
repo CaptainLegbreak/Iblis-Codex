@@ -47,8 +47,6 @@ int gStatsClientAllocatedRooms;                                                 
 int gStatsClientFreedRooms;                                                                                 // 0x0096C8BC
 int gStatsFreedRooms;                                                                                       // 0x0096C8C0
 int gStatsAllocatedRooms;                                                                                   // 0x0096C8C4
-
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define ROOMFLAG_1 0x00000001
 
 // 0x0061A460

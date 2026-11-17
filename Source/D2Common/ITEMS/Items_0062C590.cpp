@@ -1,24 +1,13 @@
 #include "D2Common.h"
-
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
 #define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
 #define UNIT_OBJECT 2
 #define UNIT_ITEM 4
 #define UNIT_TILE 5
-#define IMODE_ONGROUND 3
-#define IMODE_DROPPING 5
-#define ITEMTYPE_GOLD 4
-#define STAT_GOLD 14
-#define STAT_QUESTITEMDIFFICULTY 356
 #define IFLAG_IDENTIFIED 0x10
-#define IFLAG_SOCKETED 0x800
 #define IFLAG_ISEAR 0x10000
-#define IFLAG_INIT 0x80000
 #define IFLAG_COMPACTSAVE 0x200000
 #define IFLAG_ETHEREAL 0x400000
-#define IFLAG_JUSTSAVED 0x800000
-#define IFLAG_LOWQUALITY 0x2000000
 
 struct D2InventoryStrc;
 struct D2ItemDataStrc;

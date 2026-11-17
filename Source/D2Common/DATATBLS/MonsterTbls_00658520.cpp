@@ -21,7 +21,7 @@ extern "C" const char gszTxtField_equiv2[];                                     
 extern "C" const char gszTxtField_end[];                                                                    // 0x006D9060
 D2TxtLinkStrc* gTxtLink_0096C868;                                                                           // 0x0096C868
 void __fastcall sub_006117B0();                                                                 // 0x006117B0
-extern D2TxtLinkStrc* gpMonTypeLinker;                                                                      // 0x0096C868
+extern D2TxtLinkStrc* gTxtLink_0096C868;                                                                      // 0x0096C868
 extern D2MonTypeTxt* gpMonTypeTxt;                                                                          // 0x0096C86C
 int gnMonTypeTxtRecordCount;                                                                                // 0x0096C870
 unsigned int* gpMonTypeNest;                                                                                // 0x0096C874
@@ -96,7 +96,7 @@ void __fastcall DATATBLS_LoadMonTypeTxt(void* hArchive)
         { gszTxtField_end, 0, 0, 0, 0 },
     };
 
-    gpMonTypeLinker = FOG_AllocLinker(".\\DATATBLS\\MonsterTbls.cpp", 2806);
+    gTxtLink_0096C868 = FOG_AllocLinker(".\\DATATBLS\\MonsterTbls.cpp", 2806);
     gpMonTypeTxt = (D2MonTypeTxt*)DATATBLS_CompileTxt(hArchive, "montype", pTbl, &gnMonTypeTxtRecordCount, 12);
 
     gnMonTypeIndex = (gnMonTypeTxtRecordCount + 31) / 32;

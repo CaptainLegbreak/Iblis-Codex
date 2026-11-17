@@ -211,3 +211,225 @@ void __stdcall STATLIST_SetState(D2StatListStrc* pStatList, int nState); // 0x00
 void __stdcall sub_00620F00(D2UnitStrc* pUnit, int nUnitType, int nClassId, int nAnimMode); // 0x00620F00
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
+
+#define ACT_III 2
+#define ACT_IV 3
+#define ACT_V 4
+#define AFFECTED_COUNT 64
+#define BELT_COLUMNS 4
+#define BELT_DEFAULT_TYPE 2
+#define BELT_SLOTS 16
+#define BITARRAY_CHECK(pBytes, nBit) ((pBytes)[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
+#define BODYLOC_BELT 8
+#define BODYLOC_LARM 5
+#define BODYLOC_RARM 4
+#define BODYLOC_TORSO 3
+#define COLLIDE_CORPSE 0x8000
+#define COLLIDE_DOOR 0x800
+#define COLLIDE_MASK_FLYING_UNIT 0x1804
+#define COLLIDE_MASK_LINE 0x804
+#define COLLIDE_MASK_MONSTER_PATH 0x3C01
+#define COLLIDE_MASK_MONSTER_THAT_CAN_OPEN_DOORS 0x3401
+#define COLLIDE_MASK_PLAYER_PATH 0x1C09
+#define COLLIDE_MONSTER 0x100
+#define COLLIDE_PLAYER 0x80
+#define COLLISION_PATTERN_BIG_PET_PRESENCE 4
+#define COLLISION_PATTERN_BIG_UNIT_PRESENCE 2
+#define COLLISION_PATTERN_SMALL_NO_PRESENCE 5
+#define COLLISION_PATTERN_SMALL_PET_PRESENCE 3
+#define COLLISION_PATTERN_SMALL_UNIT_PRESENCE 1
+#define COLLISION_UNIT_SIZE_COUNT 4
+#define COMPOSIT_LEFTHAND 6
+#define D2UnitInvalidGUID -1
+#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define ENVCYCLE_NOON 2
+#define ENVCYCLE_SUNRISE 0
+#define ENVPERIOD_NIGHT 2
+#define ENV_FULL_CIRCLE_DEGREES 360
+#define ENV_HALF_CIRCLE_DEGREES 180
+#define EXTRA_OFFSET 0x5C
+#define FALSE 0
+#define FIELD(T, p, off) (*(T*)((u8*)(p) + (off)))
+#define IFLAG_BROKEN 0x00000100
+#define IFLAG_INIT 0x80000
+#define IFLAG_JUSTSAVED 0x800000
+#define IFLAG_LOWQUALITY 0x2000000
+#define IFLAG_NOEQUIP 0x00004000
+#define IFLAG_PERSONALIZED 0x1000000
+#define IFLAG_RUNEWORD 0x4000000
+#define IFLAG_SOCKETED 0x800
+#define IMODE_DROPPING 5
+#define IMODE_EQUIP 1
+#define IMODE_ONGROUND 3
+#define INVENTORY_GRID_X_LIMIT 11
+#define INVGRID_BELT 1
+#define INVGRID_BODYLOC 0
+#define INVGRID_INVENTORY 2
+#define INVPAGE_INVENTORY 0
+#define ISC_FLAG_DAMAGERELATED 2
+#define ISC_FLAG_FCALLBACK 11
+#define ISC_FLAG_FMIN 10
+#define ISC_FLAG_SAVED 12
+#define ITEMMODS_ITEMSTXT() \
+    D2ItemsTxt* pItemsTxtRecord; \
+    if (pUnit && pUnit->dwUnitType == 4) \
+    { \
+        pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(pUnit->dwClassId); \
+    } \
+    else \
+    { \
+        pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(pItem ? pItem->dwClassId : -1); \
+    }
+#define ITEMMODS_ROLL_MIN() \
+    int nMin = pProperty->nMin; \
+    int nMax = pProperty->nMax; \
+    if (nMin != nMax) \
+    { \
+        if (nMax < nMin) \
+        { \
+            const int nTemp = nMax; \
+            nMax = nMin; \
+            nMin = nTemp; \
+        } \
+        int nPossibleRolls = nMax - nMin; \
+        if (ITEMS_GetItemFormat(pItem) >= 1) \
+        { \
+            ++nPossibleRolls; \
+        } \
+        nMin += ITEMS_RollLimitedRandomNumber(ITEMS_GetItemSeed(pItem), nPossibleRolls); \
+    }
+#define ITEMMODS_ROLL_VALUE(nValue) \
+        int nMin = pProperty->nMin; \
+        int nMax = pProperty->nMax; \
+        if (nMax == nMin) \
+        { \
+            nValue = nMin; \
+        } \
+        else \
+        { \
+            if (nMax < nMin) \
+            { \
+                const int nTemp = nMax; \
+                nMax = nMin; \
+                nMin = nTemp; \
+            } \
+            int nPossibleRolls = nMax - nMin; \
+            if (ITEMS_GetItemFormat(pItem) >= 1) \
+            { \
+                ++nPossibleRolls; \
+            } \
+            nValue = nMin + ITEMS_RollLimitedRandomNumber(ITEMS_GetItemSeed(pItem), nPossibleRolls); \
+        }
+#define ITEMQUAL_INFERIOR 1
+#define ITEMQUAL_MAGIC 4
+#define ITEMQUAL_NORMAL 2
+#define ITEMQUAL_SET 5
+#define ITEMQUAL_TEMPERED 9
+#define ITEMSTATCOST_HASFLAG(pRecord, nFlag) ((pRecord)->nItemStatFlags[(nFlag) >> 3] & gdwBitMasks[(nFlag) & 7])
+#define ITEMTYPE_ARMOR 3
+#define ITEMTYPE_BOOK 18
+#define ITEMTYPE_CHARM 13
+#define ITEMTYPE_GOLD 4
+#define ITEM_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define LEVEL_BLOODMOOR 2
+#define LEVEL_CITYOFTHEDAMNED 106
+#define LEVEL_OUTERSTEPPES 104
+#define LEVEL_PLAINSOFDESPAIR 105
+#define LEVEL_ROCKYSUMMIT 120
+#define LEVEL_THEPANDEMONIUMFORTRESS 103
+#define LINE_DOOR 0x215
+#define LINE_GETDIMENSIONS 2855
+#define LINE_GRID_ALLOC1 721
+#define LINE_GRID_ALLOC2 747
+#define LINE_GRID_REALLOC 740
+#define LINE_NOT_MISSILE_PATH 0x207
+#define LINE_PATH_FUNCTION 0x37E
+#define LINE_PATH_UNIT 0x2E8
+#define LINE_PREPARE_MISSILE 0xC7
+#define LINE_START_COORD 0x389
+#define MASK_ALL 0xFFFF
+#define MASK_INVALID 0x27
+#define MONMODE_DEAD 12
+#define MONMODE_DEATH 0
+#define MONMODE_NEUTRAL 1
+#define MONSTATSFLAGINDEX_BOSS 6
+#define MONSTATSFLAGINDEX_FLYING 14
+#define MONSTATSFLAGINDEX_OPENDOORS 3
+#define MONSTER_ACT5HIRE1 560
+#define MONSTER_ACT5HIRE2 561
+#define MONSTER_WRAITH1 38
+#define NUM_ENVIRONMENT_CYCLES 6
+#define NUM_GRID_BODYLOCS 11
+#define NUM_TIME_RATES 3
+#define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
+#define OPDATA_COUNT 16
+#define OPSTAT_COUNT 3
+#define PATHTYPE_BLESSEDHAMMER 14
+#define PATHTYPE_CHARGEDBOLT 10
+#define PATHTYPE_KNOCKBACK_CLIENT 11
+#define PATHTYPE_KNOCKBACK_SERVER 8
+#define PATHTYPE_MISSILE 4
+#define PATHTYPE_STRAIGHT 7
+#define PATHTYPE_TOWARD 2
+#define PATH_DIR_NULL 0xFF
+#define PATH_MAX_DISTANCE 100
+#define PATH_MISSILE_MASK 0x40000
+#define PATH_ONE 1
+#define PATH_SET_TARGET_AND_LEAVE(tPoint)                                       \
+    pPathInfo->tTargetCoord.X = tPoint.X;                                       \
+    pPathInfo->tTargetCoord.Y = tPoint.Y;                                       \
+    if (tPoint.X == nStartX && tPoint.Y == nStartY)                             \
+    {                                                                           \
+        return FALSE;                                                           \
+    }                                                                           \
+    break;
+#define PATH_SNAP_RANGE 5
+#define PATH_TRUE 1
+#define PATH_UNKNOWN_FLAG_0x00800 0x00800
+#define PATH_UNKNOWN_FLAG_0x01000 0x01000
+#define PCLASS_AMAZON 0
+#define PCLASS_ASSASSIN 6
+#define PCLASS_BARBARIAN 4
+#define PCLASS_DRUID 5
+#define PCLASS_INVALID 7
+#define PCLASS_NECROMANCER 2
+#define PCLASS_PALADIN 3
+#define PCLASS_SORCERESS 1
+#define SIZE_LINE 0x199
+#define SKILLS_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define SKILLS_HasFlag(pSkillsTxt, nFlag) ((pSkillsTxt)->nFlags[(nFlag) >> 3] & gdwBitMasks[(nFlag) & 7])
+#define STATEMASK_AURA 1
+#define STATEMASK_DISGUISE 16
+#define STATEMASK_HIDE 2
+#define STATEMASK_MONSTAYDEATH 14
+#define STATEMASK_PGSV 4
+#define STATEMASK_PLRSTAYDEATH 13
+#define STATES_CHECKFLAG(pRecord, nFlag) ((pRecord)->nStateFlags[(nFlag) >> 3] & gdwBitMasks[(nFlag) & 7])
+#define STATLIST_DYNAMIC 0x40000000
+#define STATLIST_EXTENDED 0x80000000
+#define STATLIST_PERMANENT 0x20000000
+#define STATS_GROWTH 4
+#define STATS_SHRINK 8
+#define STAT_SHIFT 16
+#define STAT_GETID(nLayer_StatId) (((nLayer_StatId) >> STAT_SHIFT) & 0xFFFF)
+#define STAT_GOLD 14
+#define STAT_ITEM_CHARGED_SKILL 204
+#define STAT_ITEM_REQ_PERCENT 91
+#define STAT_MAKE(nStatId, nLayer) (((nStatId) << STAT_SHIFT) + (nLayer))
+#define STAT_MAXDURABILITY 73
+#define STAT_MAXSTAMINA 11
+#define STAT_NONE 0xFFFF
+#define STAT_QUESTITEMDIFFICULTY 356
+#define STAT_STRENGTH 0
+#define TBL_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define TRUE 1
+#define UNITFLAGEX_ISSHAPESHIFTED 8
+#define UNITFLAGEX_SERVERUNIT 0x4000000
+#define UNITFLAGEX_UNK_PATH_RELATED 0x00002000
+#define UNITS_IsType(pUnit, nType) ((pUnit) && (pUnit)->dwUnitType == (nType))
+#define UNIT_ALIGNMENT_GOOD 2
+#define UNIT_NONE 6
+#define WEAPONCLASS_1HS 2
+#define WEAPONCLASS_1HT 3
+
+typedef unsigned char u8;

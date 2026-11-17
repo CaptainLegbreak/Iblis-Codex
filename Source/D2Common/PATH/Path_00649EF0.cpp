@@ -1,6 +1,4 @@
 #include "D2Common.h"
-
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_MONSTER 1
 #define UNIT_INVALID 6
 union D2FP32_16;

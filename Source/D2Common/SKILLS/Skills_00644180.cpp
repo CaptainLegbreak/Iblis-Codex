@@ -1,17 +1,9 @@
 #include "D2Common.h"
-
-#define TRUE 1
-#define FALSE 0
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
-#define SKILLS_HasFlag(pSkillsTxt, nFlag) ((pSkillsTxt)->nFlags[(nFlag) >> 3] & gdwBitMasks[(nFlag) & 7])
 #define UNIT_OBJECT 2
 #define UNIT_ITEM 4
 #define UNIT_TILE 5
-#define COLLIDE_MASK_PLAYER_PATH 0x1C09
-#define COLLIDE_MASK_LINE 0x804
-#define BITARRAY_CHECK(pBytes, nBit) ((pBytes)[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
 
 struct D2InventoryStrc;
 struct D2SkillsTxt;

@@ -1,6 +1,4 @@
 #include "D2Common.h"
-
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
 #define STAT_TOHIT 19
 #define STAT_DEXTERITY 2
@@ -77,8 +75,6 @@ struct D2AnimDataRecordStrc
     char unk_00[0x10];
     unsigned char nFrameFlags[144];
 };
-
-extern "C" __declspec(noreturn) void __cdecl exit(int);
 D2AnimSeqTxt* __stdcall DATATBLS_GetMonSeqTxtRecordFromUnit(D2UnitStrc*); // 0x006633B0
 void __stdcall DATATBLS_ComputeSequenceAnimation(D2AnimSeqTxt*, int, int, int*, int*, int*, int*); // 0x00663410
 
@@ -116,8 +112,6 @@ int __stdcall UNITS_CanDualWield(D2UnitStrc* pUnit); // 0x006235A0
 D2UnitStrc* __stdcall D2Common_10434(D2UnitStrc* pUnit, int a2); // 0x00623990
 unsigned short __stdcall ITEMS_GetWeaponClassId(D2UnitStrc* pItem); // 0x00629FE0
 extern int gaFrameBonus_006E8E60[][7]; // 0x006E8E60
-void __stdcall DATATBLS_ComputeSequenceAnimation(D2AnimSeqTxt* pMonSeqTxt, int nTargetFramePoint, int nCurrentFramePoint, int* pMode, int* pFrame, int* pDirection, int* pEvent); // 0x00663410
-D2AnimSeqTxt* __stdcall DATATBLS_GetMonSeqTxtRecordFromUnit(D2UnitStrc* pUnit); // 0x006633B0
 int __stdcall DATATBLS_GetSeqFramePointsCount(D2UnitStrc* pUnit); // 0x006633D0
 int __stdcall DATATBLS_GetSeqFrameCount(D2UnitStrc* pUnit); // 0x006633F0
 int __stdcall UNITS_GetFrameBonus(D2UnitStrc* pUnit); // 0x00623B10

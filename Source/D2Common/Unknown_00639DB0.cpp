@@ -1,8 +1,6 @@
 #include "D2Common.h"
 
 #define UNIT_PLAYER 0
-#define STATEMASK_PLRSTAYDEATH 13
-#define STATEMASK_MONSTAYDEATH 14
 #define STATEMASK_BOSSSTAYDEATH 15
 
 struct D2UnitStrc

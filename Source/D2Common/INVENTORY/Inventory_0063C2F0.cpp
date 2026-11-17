@@ -2,19 +2,11 @@
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 typedef int BOOL;
-#define TRUE 1
-#define FALSE 0
 #define INVENTORY_SIGNATURE 0x1020304
 #define UNIT_PLAYER 0
 #define UNIT_ITEM 4
-#define INVGRID_BODYLOC 0
-#define INVGRID_BELT 1
-#define INVGRID_INVENTORY 2
 #define NUM_BODYLOC 13
 #define BODYLOC_LAST (13 - 1)
-#define BODYLOC_RARM 4
-#define BODYLOC_LARM 5
-#define BELT_COLUMNS 4
 #define ITEMTYPE_ANY_SHIELD 51
 #define STAT_QUANTITY 70
 #define ITEMCODE_ISC ' csi'
@@ -115,10 +107,6 @@ inline D2UnitStrc* INVENTORY_GetNextGridItemInline(D2UnitStrc* pItem)
 
     return 0;
 }
-
-#define LINE_GRID_ALLOC1 721
-#define LINE_GRID_REALLOC 740
-#define LINE_GRID_ALLOC2 747
 
 static __declspec(noinline) D2InventoryGridStrc* __stdcall INVENTORY_GetGrid(D2InventoryStrc* pInventory, int nInventoryGrid, D2InventoryGridInfoStrc* pInventoryGridInfo); // 0x0063ADD0
 

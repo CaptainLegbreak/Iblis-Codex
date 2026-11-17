@@ -2,9 +2,7 @@
 
 #define ACT_I 0
 #define ACT_II 1
-#define ACT_III 2
 #define MAX_PATH 260
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define DRLGROOMFLAG_0x40000 0x40000
 struct Level;
 struct Room;
@@ -325,8 +323,6 @@ struct D2UnkDrlgRoomTileStrc2
 
 extern const D2UnkDrlgRoomTileStrc gDrlgRoomTileLevelRanges_006EEFC8[37]; // 0x006EEFC8
 extern const D2UnkDrlgRoomTileStrc2 gDrlgRoomTilePresetUnits_006EF188[]; // 0x006EF188
-D2LevelDefBin* __fastcall DATATBLS_GetLevelDefRecord(int); // 0x0061E470
-D2DrlgLevelStrc* __fastcall DRLG_AllocLevel(D2DrlgStrc*,int); // 0x00642AE0
 static __inline D2DrlgLevelStrc* __stdcall DRLG_GetLevel(D2DrlgStrc* pDrlg,int id); // 0x00642BB0
 
 // 0x00641F60

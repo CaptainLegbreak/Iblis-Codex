@@ -1,13 +1,16 @@
 #include "D2Common.h"
 
 #define UF_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2UnitFindArgStrc;
 struct D2FieldStrc;
 struct D2UnitFindDataStrc;
 struct D2StaticPathStrc;
 struct D2MissilesTxt;
+struct D2UnitStrc;
+struct D2ActiveRoomStrc;
+struct D2DrlgCoordsStrc;
+struct UnitFindArgStrc;
 
 struct D2UnitStrc
 {
@@ -75,10 +78,31 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc*); // 0x00648900
 int __stdcall MONSTERS_IsUndead(D2UnitStrc*); // 0x0063E990
 D2MissilesTxt* __fastcall DATATBLS_GetMissilesTxtRecord(int); // 0x0046ACE0
 int __fastcall sub_00451F30_TestUnitFlag(D2UnitStrc*,int); // 0x00451F30
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc*); // 0x00620BB0
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc*); // 0x0061AB00
 int __stdcall D2Common_11098(D2FieldStrc*,int*,int*); // 0x0066A5D0
 unsigned short __stdcall COLLISION_CheckMask(D2ActiveRoomStrc*,int,int,unsigned short); // 0x0064CB30
+
+struct D2DrlgCoordsStrc
+{
+    int nSubtileX;
+    int nSubtileY;
+    int nSubtileWidth;
+    int nSubtileHeight;
+    int nTileXPos;
+    int nTileYPos;
+    int nTileWidth;
+    int nTileHeight;
+};
+
+void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
+
+struct UnitFindArgStrc
+{
+    unsigned char unk0x00[0x20];
+    int nX;
+    int nY;
+    int nRange;
+};
 
 inline int UnitGetType(D2UnitStrc* pUnit) { return pUnit ? pUnit->dwUnitType : 6; }
 
@@ -151,6 +175,47 @@ D2UnitStrc* __stdcall sub_0065A620_FindUnitInAdjacentRooms(D2ActiveRoomStrc* pRo
         }
     }
     return 0;
+}
+
+// 0x0065A710
+static int __stdcall sub_0065A710_IsInRoomRange(D2ActiveRoomStrc* pRoom, int nX, int nY, int nRange)
+{
+    D2DrlgCoordsStrc tCoords;
+    DUNGEON_GetRoomCoordinates(pRoom, &tCoords);
+
+    if (nX + nRange >= tCoords.nSubtileX)
+    {
+        if (nY + nRange >= tCoords.nSubtileY || nY - nRange <= tCoords.nSubtileY + tCoords.nSubtileHeight)
+            return 1;
+    }
+    else if (nX - nRange <= tCoords.nSubtileX + tCoords.nSubtileWidth)
+    {
+        if (nY + nRange >= tCoords.nSubtileY || nY - nRange <= tCoords.nSubtileY + tCoords.nSubtileHeight)
+            return 1;
+    }
+    return 0;
+}
+
+// 0x0065A790
+int __stdcall UNITFINDS_GetTestedUnitsFromRoom(D2ActiveRoomStrc* pRoom, D2UnitStrc** ppUnits, UNITFINDTEST pfnUnitTest, D2UnitFindArgStrc* pUnitFindArg)
+{
+    int nUnitIndex = 0;
+    D2UnitStrc* pUnit = pRoom->pUnitFirst;
+
+    D2_ASSERT(!IsBadCodePtr((int (__stdcall*)())pfnUnitTest), 114);
+
+    for (; pUnit; pUnit = pUnit->pRoomNext)
+    {
+        if (pfnUnitTest(pUnit, pUnitFindArg))
+        {
+            ppUnits[nUnitIndex] = pUnit;
+            ++nUnitIndex;
+
+            D2_ASSERT(nUnitIndex < 15, 120);
+        }
+    }
+
+    return nUnitIndex;
 }
 
 // 0x0065A950
@@ -238,4 +303,17 @@ int __stdcall UNITFINDS_TestUnit(D2UnitStrc* unit,D2UnitFindArgStrc* args)
  if((args->flags&2048) && args->filter(unit,args))return 0;
  ++args->count;
  return 1;
+}
+
+// build: context sub_0065A710_Shim
+// calling-convention shim (not game code)
+int __stdcall sub_0065A710_Shim(UnitFindArgStrc* pArg, D2ActiveRoomStrc** ppRooms, int nRooms)
+{
+    int nCount = 0;
+    for (int i = 0; i < nRooms; ++i)
+    {
+        if (sub_0065A710_IsInRoomRange(ppRooms[i], pArg->nX, pArg->nY, pArg->nRange))
+            ++nCount;
+    }
+    return nCount;
 }

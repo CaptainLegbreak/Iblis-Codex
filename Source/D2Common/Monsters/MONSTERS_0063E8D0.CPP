@@ -53,11 +53,7 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                             
 
 #define UNIT_MONSTER 1
 #define UNIT_INVALID 6
-#define MONMODE_DEATH 0
-#define MONMODE_NEUTRAL 1
-#define MONMODE_DEAD 12
 #define MONSTER_SANDLEAPER1 78
-#define MONSTATSFLAGINDEX_BOSS 6
 
 __forceinline D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
 {

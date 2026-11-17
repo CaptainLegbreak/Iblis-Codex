@@ -1,12 +1,9 @@
 #include "D2Common.h"
-
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define DRLGROOMFLAG_HAS_ROOM 0x100000
 #define DRLGROOMFLAG_HASPORTAL 0x400000
 #define DRLGROOMFLAG_TILELIB_LOADED 0x1000000
 #define DRLGROOMFLAG_PRESET_UNITS_ADDED 0x2000000
 #define DRLGTYPE_PRESET 2
-#define LEVEL_ROCKYSUMMIT 120
 struct D2DrlgEnvironmentStrc;
 struct D2DrlgStrc;
 struct D2DrlgActStrc;

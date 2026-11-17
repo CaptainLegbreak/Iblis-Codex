@@ -1,21 +1,9 @@
 #include "D2Common.h"
-
-#define TRUE 1
-#define FALSE 0
 #define INVENTORY_SIGNATURE 0x1020304
 #define UNIT_PLAYER 0
 #define UNIT_ITEM 4
-#define IMODE_ONGROUND 3
-#define UNITFLAGEX_SERVERUNIT 0x4000000
-#define INVGRID_BODYLOC 0
-#define INVGRID_BELT 1
-#define INVGRID_INVENTORY 2
 #define NUM_BODYLOC 13
-#define BELT_SLOTS 16
-#define D2UnitInvalidGUID -1
 #define UNIT_INVALID 6
-#define FIELD(T, p, off) (*(T*)((u8*)(p) + (off)))
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2InventoryStrc;
 struct Inventory;
@@ -116,8 +104,6 @@ void __stdcall DATATBLS_GetInventoryGridInfo(int nInventoryRecordId, int nUnused
 static __declspec(noinline) D2InventoryGridStrc* __stdcall INVENTORY_GetGrid(D2InventoryStrc* pInventory, int nInventoryGrid, D2InventoryGridInfoStrc* pInventoryGridInfo); // 0x0063ADD0
 static __declspec(noinline) unsigned char __stdcall INVENTORY_GetPlacementWeight(D2InventoryGridStrc* pInventoryGrid, int nXPos, unsigned char nItemWidth, unsigned char nItemHeight, int nYPos);
 
-typedef unsigned char u8;
-
 typedef unsigned short u16;
 
 typedef unsigned int u32;
@@ -144,7 +130,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char*, const char*, int); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
-extern "C" void* __cdecl memset(void*, int, unsigned int); // 0x00681EF0
 extern CodeEntry gTable_0096CC68[]; // 0x0096CC68
 s32 __fastcall sub_00451F60_ClassId(Unit*); // 0x00451F60
 u8 __stdcall sub_00627D40_Page(Unit*); // 0x00627D40

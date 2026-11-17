@@ -124,7 +124,6 @@ extern "C" const char gszEmptyAssertText;                                       
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc* pUnit);                                                 // 0x00451F50
@@ -172,16 +171,8 @@ void __stdcall D2Common_10845(int nValue, int* pSkillId, int* pSkillLevel, int* 
 void __stdcall sub_0065CB60_DecodeAddSkillTab(int nValue, int* pClass, int* pTab, int* pLevel);             // 0x0065CB60
 
 #define UNIT_ITEM 4
-#define IMODE_ONGROUND 3
-#define IMODE_DROPPING 5
-#define ITEMQUAL_INFERIOR 1
-#define ITEMQUAL_NORMAL 2
-#define ITEMQUAL_SET 5
 #define IFLAG_IDENTIFIED 0x10
-#define IFLAG_SOCKETED 0x800
 #define IFLAG_ISEAR 0x10000
-#define IFLAG_PERSONALIZED 0x1000000
-#define IFLAG_RUNEWORD 0x4000000
 
 static __declspec(noinline) void __stdcall ITEMS_ReadStatFromItemBitstream(D2BitBufferStrc* pBuffer, D2StatListStrc* pStatList, D2ItemStatCostTxt* pItemStatCostTxtRecord, int nStatId, unsigned int dwVersion, int n109)
 {

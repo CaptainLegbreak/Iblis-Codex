@@ -1,8 +1,6 @@
 #include "D2Common.h"
 
 typedef int BOOL;
-#define TRUE 1
-#define FALSE 0
 
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
@@ -10,30 +8,9 @@ typedef int BOOL;
 #define UNIT_MISSILE 3
 #define UNIT_ITEM 4
 #define UNIT_TILE 5
-#define UNIT_NONE 6
-
-#define PATHTYPE_MISSILE 4
-#define PATHTYPE_CHARGEDBOLT 10
-#define PATHTYPE_BLESSEDHAMMER 14
 
 #define PATH_UNKNOWN_FLAG_0x00010 0x00010
 #define PATH_UNKNOWN_FLAG_0x00020 0x00020
-#define PATH_UNKNOWN_FLAG_0x00800 0x00800
-#define PATH_UNKNOWN_FLAG_0x01000 0x01000
-#define PATH_MISSILE_MASK 0x40000
-
-#define PATH_MAX_DISTANCE 100
-#define PATH_SNAP_RANGE 5
-#define PATH_DIR_NULL 0xFF
-#define PATH_TRUE 1
-#define PATH_ONE 1
-
-#define LINE_PREPARE_MISSILE 0xC7
-#define LINE_NOT_MISSILE_PATH 0x207
-#define LINE_DOOR 0x215
-#define LINE_PATH_UNIT 0x2E8
-#define LINE_PATH_FUNCTION 0x37E
-#define LINE_START_COORD 0x389
 
 struct D2PathPointStrc
 {
@@ -190,7 +167,6 @@ extern "C" const char gszEmptyAssertText;                                       
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(void* lpfn);                                    // 0x006CC34C
 
@@ -251,15 +227,6 @@ static __declspec(noinline) void PATH_FindValidTargetCoordsByMovingOrthogonally(
         }
     }
 }
-
-#define PATH_SET_TARGET_AND_LEAVE(tPoint)                                       \
-    pPathInfo->tTargetCoord.X = tPoint.X;                                       \
-    pPathInfo->tTargetCoord.Y = tPoint.Y;                                       \
-    if (tPoint.X == nStartX && tPoint.Y == nStartY)                             \
-    {                                                                           \
-        return FALSE;                                                           \
-    }                                                                           \
-    break;
 
 static __declspec(noinline) BOOL PATH_PreparePathTargetForPathUpdate(D2PathInfoStrc* pPathInfo)
 {

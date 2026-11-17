@@ -1,7 +1,5 @@
 #include "D2Common.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-
 extern "C" const char gszEmptyAssertText;
 extern "C" const char* __cdecl sub_00408090();
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);

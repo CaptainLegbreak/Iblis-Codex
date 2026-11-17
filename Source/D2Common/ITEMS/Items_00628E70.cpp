@@ -18,7 +18,6 @@
 #define IFLAG_ISEAR 0x00010000
 #define IFLAG_COMPACTSAVE 0x00200000
 #define IFLAG_UNK_GAMBLE 0x02000000
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_INVALID 6
 #define IFLAG_IDENTIFIED 0x10
 #define IFLAG_ETHEREAL 0x400000

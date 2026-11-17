@@ -5,7 +5,6 @@
 #define LEVEL_FLAYERJUNGLE 78
 #define LVLPREST_ACT3_JUNGLE_HEAD 573
 #define LVLPREST_ACT3_JUNGLE_TAIL 574
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2SeedStrc;
 struct D2DrlgStrc;
@@ -82,7 +81,6 @@ struct D2DrlgCoordStrc
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0); // 0x0040B480
 int __fastcall DRLGOUTDOORS_TestOutdoorLevelPreset(D2DrlgLevelStrc* pLevel, int nX, int nY, int nId, int nOffset, char nFlags); // 0x00674230
-void __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(D2DrlgLevelStrc* pLevel, int nX, int nY, int nPresetId, int nPickedFile, int bFlag); // 0x006743C0
 
 // 0x0067E910
 void __fastcall DRLGOUTJUNG_BuildJungle(D2DrlgLevelStrc* pLevel)

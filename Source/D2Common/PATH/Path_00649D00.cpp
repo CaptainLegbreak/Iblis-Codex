@@ -60,7 +60,6 @@ extern "C" const char gszEmptyAssertText;                                       
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 extern D2DataTablesStrc* sgptDataTables;                                                                         // 0x00744304
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
@@ -75,26 +74,8 @@ int __stdcall UNITROOM_AddUnitToRoom(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom)
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
 #define UNIT_MISSILE 3
-#define PATHTYPE_TOWARD 2
-#define PATHTYPE_MISSILE 4
-#define PATHTYPE_STRAIGHT 7
-#define PATHTYPE_KNOCKBACK_SERVER 8
-#define PATHTYPE_KNOCKBACK_CLIENT 11
-#define COLLISION_PATTERN_SMALL_NO_PRESENCE 5
-#define MONSTER_WRAITH1 38
-#define MONSTATSFLAGINDEX_OPENDOORS 3
-#define MONSTATSFLAGINDEX_FLYING 14
-#define COLLIDE_PLAYER 0x80
-#define COLLIDE_MONSTER 0x100
-#define COLLIDE_DOOR 0x800
 #define COLLIDE_MISSILE_BARRIER 0x4
-#define COLLIDE_MASK_PLAYER_PATH 0x1C09
-#define COLLIDE_MASK_FLYING_UNIT 0x1804
-#define COLLIDE_MASK_MONSTER_THAT_CAN_OPEN_DOORS 0x3401
-#define COLLIDE_MASK_MONSTER_PATH 0x3C01
 #define PATH_UNKNOWN_FLAG_0x00010 0x10
-
-#define BITARRAY_CHECK(pBytes, nBit) ((pBytes)[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
 
 inline unsigned int PATH_ToFP16Center(int nValue)
 {

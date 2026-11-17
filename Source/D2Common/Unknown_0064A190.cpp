@@ -1,6 +1,4 @@
 #include "D2Common.h"
-
-#define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
 struct Data0064A190;
 struct Unit0064A190;
 struct D2MissileDataStrc;

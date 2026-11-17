@@ -119,7 +119,6 @@ extern "C" const char* __cdecl sub_00408090();                                  
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
 #define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
@@ -157,23 +156,12 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath);                      
 #define UNIT_OBJECT 2
 #define UNIT_ITEM 4
 #define UNIT_TILE 5
-#define IMODE_ONGROUND 3
-#define IMODE_DROPPING 5
-#define ITEMQUAL_INFERIOR 1
-#define ITEMQUAL_NORMAL 2
 #define ITEMQUAL_SUPERIOR 3
-#define ITEMQUAL_MAGIC 4
-#define ITEMQUAL_SET 5
 #define ITEMQUAL_RARE 6
 #define ITEMQUAL_UNIQUE 7
 #define ITEMQUAL_CRAFT 8
-#define ITEMQUAL_TEMPERED 9
-#define ITEMTYPE_GOLD 4
 #define IFLAG_IDENTIFIED 0x10
-#define IFLAG_SOCKETED 0x800
 #define IFLAG_ISEAR 0x10000
-#define IFLAG_PERSONALIZED 0x1000000
-#define IFLAG_RUNEWORD 0x4000000
 
 static __forceinline void ITEMS_WriteBitsCoreInl(D2BitBufferStrc* pBuffer, unsigned int nData, int nBits)
 {

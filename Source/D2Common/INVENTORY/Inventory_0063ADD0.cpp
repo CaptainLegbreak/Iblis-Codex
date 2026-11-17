@@ -1,28 +1,11 @@
 #include "D2Common.h"
-
-#define LINE_GRID_ALLOC1 721
-#define LINE_GRID_REALLOC 740
-#define LINE_GRID_ALLOC2 747
 #define INVENTORY_SIGNATURE 0x1020304
-#define INVGRID_INVENTORY 2
-#define TRUE 1
-#define FALSE 0
 #define UNIT_PLAYER 0
 #define UNIT_ITEM 4
-#define IMODE_ONGROUND 3
-#define UNITFLAGEX_SERVERUNIT 0x4000000
-#define INVGRID_BODYLOC 0
-#define INVGRID_BELT 1
 #define NUM_BODYLOC 13
-#define BELT_SLOTS 16
-#define D2UnitInvalidGUID -1
 #define UNIT_INVALID 6
 #define ITEMTYPE_WEAPON 0x2D
 #define ITEMTYPE_MISSILE_POTION 0x26
-#define BODYLOC_RARM 4
-#define BODYLOC_LARM 5
-#define FIELD(T, p, off) (*(T*)((u8*)(p) + (off)))
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2InventoryStrc;
 struct D2ItemDataStrc;
 struct Inventory;
@@ -125,7 +108,6 @@ unsigned int __stdcall ITEMS_CheckIfBeltable(D2UnitStrc* pItem); // 0x0062BAD0
 int __fastcall INVENTORY_RemoveItem(D2UnitStrc* pItem); // 0x0063AAF0
 int __stdcall INVENTORY_GetFreeBeltSlot(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int* pFreeSlotId); // 0x0063C600
 void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit); // 0x0064C370
-void __stdcall DATATBLS_GetInventoryGridInfo(int nInventoryRecordId, int nUnused, D2InventoryGridInfoStrc* pInventoryGridInfo); // 0x0065C1F0
 static __declspec(noinline) BOOL __stdcall sub_0063A8A0_CheckGridCellsFree(D2InventoryGridStrc* pInventoryGrid, int nX, int nY, unsigned char nItemWidth, unsigned char nItemHeight);
 static __declspec(noinline) BOOL __stdcall INVENTORY_PlaceItemInGrid(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nXPos, int nYPos, int nInventoryGrid, int nInventoryRecordId); // 0x0063AFD0
 static __declspec(noinline) BOOL __stdcall INVENTORY_FindFreePositionBottomRightToTopLeftWithWeight(D2InventoryGridStrc* pInventoryGrid, int* pFreeX, int* pFreeY, unsigned char nItemWidth, unsigned char nItemHeight); // 0x0063B490
@@ -134,8 +116,6 @@ BOOL __stdcall INVENTORY_GetFreePosition(D2InventoryStrc* pInventory, D2UnitStrc
 unsigned char __stdcall ITEMS_GetBodyLocation(D2UnitStrc* pItem); // 0x00627D40
 D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
 int __stdcall ITEMS_CanBeEquipped(D2UnitStrc* pItem); // 0x0062A4E0
-
-typedef unsigned char u8;
 
 typedef unsigned short u16;
 
@@ -163,7 +143,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char*, const char*, int); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
-extern "C" void* __cdecl memset(void*, int, unsigned int); // 0x00681EF0
 extern CodeEntry gTable_0096CC68[]; // 0x0096CC68
 s32 __fastcall sub_00451F60_ClassId(Unit*); // 0x00451F60
 u8 __stdcall sub_00627D40_Page(Unit*); // 0x00627D40

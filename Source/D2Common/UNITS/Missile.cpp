@@ -70,7 +70,6 @@ struct D2MissileCalcStrc
 };
 
 #define UNIT_MISSILE 3
-#define D2UnitInvalidGUID -1
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0

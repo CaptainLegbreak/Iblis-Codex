@@ -1,3 +1,7 @@
+#pragma intrinsic(strlen, strcpy)
+
+struct D2HoverTextStrc;
+
 typedef unsigned int size_t;
 
 struct D2HoverTextStrc
@@ -10,13 +14,12 @@ struct D2HoverTextStrc
     char szMsg[256];
 };
 
-void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);               // 0x0040B430
-void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);             // 0x0040B480
+void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
+void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 extern "C" size_t __cdecl strlen(const char* szString);
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
-#pragma intrinsic(strlen, strcpy)
-extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, size_t nCount);                         // 0x00687330
-unsigned char __stdcall STRTABLE_GetLanguage();                                                                      // 0x00525150
+extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, size_t nCount); // 0x00687330
+unsigned char __stdcall STRTABLE_GetLanguage(); // 0x00525150
 
 // 0x00661110
 D2HoverTextStrc* __stdcall CHAT_AllocHoverMsg(void* pMemPool, const char* szText, int nTimeout)

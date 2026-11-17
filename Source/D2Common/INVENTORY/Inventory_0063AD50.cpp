@@ -2,12 +2,6 @@
 
 #define INVENTORY_SIGNATURE 0x1020304
 #define UNIT_ITEM 4
-#define D2UnitInvalidGUID -1
-#define TRUE 1
-#define FALSE 0
-#define INVGRID_BODYLOC 0
-#define BODYLOC_RARM 4
-#define BODYLOC_LARM 5
 #define UNIT_INVALID 6
 #define ITEMTYPE_WEAPON 0x2D
 

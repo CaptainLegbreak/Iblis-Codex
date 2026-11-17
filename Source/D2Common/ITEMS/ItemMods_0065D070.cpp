@@ -35,7 +35,6 @@ extern "C" const char gszEmptyAssertText;                                       
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                          // 0x0045C3E0
 D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
@@ -332,59 +331,6 @@ static int __stdcall sub_0065D2E0_AddValueStat1(int nType, D2UnitStrc* pUnit, D2
 {
     return sub_0065D070_AddValueStat(nType, pUnit, pItem, nValue, nStatId, nApplyType, 1, nState, fStatList);
 }
-
-#define ITEMMODS_ROLL_VALUE(nValue) \
-        int nMin = pProperty->nMin; \
-        int nMax = pProperty->nMax; \
-        if (nMax == nMin) \
-        { \
-            nValue = nMin; \
-        } \
-        else \
-        { \
-            if (nMax < nMin) \
-            { \
-                const int nTemp = nMax; \
-                nMax = nMin; \
-                nMin = nTemp; \
-            } \
-            int nPossibleRolls = nMax - nMin; \
-            if (ITEMS_GetItemFormat(pItem) >= 1) \
-            { \
-                ++nPossibleRolls; \
-            } \
-            nValue = nMin + ITEMS_RollLimitedRandomNumber(ITEMS_GetItemSeed(pItem), nPossibleRolls); \
-        }
-
-#define ITEMMODS_ROLL_MIN() \
-    int nMin = pProperty->nMin; \
-    int nMax = pProperty->nMax; \
-    if (nMin != nMax) \
-    { \
-        if (nMax < nMin) \
-        { \
-            const int nTemp = nMax; \
-            nMax = nMin; \
-            nMin = nTemp; \
-        } \
-        int nPossibleRolls = nMax - nMin; \
-        if (ITEMS_GetItemFormat(pItem) >= 1) \
-        { \
-            ++nPossibleRolls; \
-        } \
-        nMin += ITEMS_RollLimitedRandomNumber(ITEMS_GetItemSeed(pItem), nPossibleRolls); \
-    }
-
-#define ITEMMODS_ITEMSTXT() \
-    D2ItemsTxt* pItemsTxtRecord; \
-    if (pUnit && pUnit->dwUnitType == 4) \
-    { \
-        pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(pUnit->dwClassId); \
-    } \
-    else \
-    { \
-        pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(pItem ? pItem->dwClassId : -1); \
-    }
 
 // 0x0065D310
 int __fastcall sub_0065D310_AddAllResist(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)

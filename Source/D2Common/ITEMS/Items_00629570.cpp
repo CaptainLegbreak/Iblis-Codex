@@ -1,24 +1,7 @@
 #include "D2Common.h"
-
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
 #define UNIT_ITEM 4
 #define UNIT_INVALID 6
-#define ITEMQUAL_NORMAL 2
-#define ITEMQUAL_SET 5
-#define IFLAG_BROKEN 0x00000100
-#define IFLAG_NOEQUIP 0x00004000
-#define ITEMTYPE_CHARM 13
-#define INVPAGE_INVENTORY 0
-#define PCLASS_AMAZON 0
-#define PCLASS_SORCERESS 1
-#define PCLASS_NECROMANCER 2
-#define PCLASS_PALADIN 3
-#define PCLASS_BARBARIAN 4
-#define PCLASS_DRUID 5
-#define PCLASS_ASSASSIN 6
-#define TRUE 1
-#define FALSE 0
 #define IFLAG_ETHEREAL 0x00400000
 #define STAT_MINDAMAGE 21
 #define STAT_MAXDAMAGE 22

@@ -1,14 +1,9 @@
 #include "D2Common.h"
-
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define TRUE 1
-#define FALSE 0
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
 #define UNIT_OBJECT 2
 #define UNIT_ITEM 4
 #define UNIT_TILE 5
-#define UNIT_ALIGNMENT_GOOD 2
 struct D2CoordStrc;
 struct D2StaticPathStrc;
 struct D2DrlgCoordsStrc;

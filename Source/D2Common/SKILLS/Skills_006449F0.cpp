@@ -1,6 +1,4 @@
 #include "D2Common.h"
-
-#define BITARRAY_CHECK(pBytes, nBit) ((pBytes)[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
 struct D2InventoryStrc;
 struct D2SkillsTxt;
 struct D2SkillCalcStrc;

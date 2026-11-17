@@ -1,15 +1,6 @@
 #include "D2Common.h"
-
-#define STATLIST_EXTENDED 0x80000000
-#define ISC_FLAG_FMIN 10
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
-#define STAT_SHIFT 16
-#define STAT_MAKE(nStatId, nLayer) (((nStatId) << STAT_SHIFT) + (nLayer))
-#define ITEMSTATCOST_HASFLAG(pRecord, nFlag) ((pRecord)->nItemStatFlags[(nFlag) >> 3] & gdwBitMasks[(nFlag) & 7])
-#define UNITS_IsType(pUnit, nType) ((pUnit) && (pUnit)->dwUnitType == (nType))
-#define STAT_MAXDURABILITY 73
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2GameStrc;
 struct D2DrlgActStrc;
 struct D2SkillListStrc;

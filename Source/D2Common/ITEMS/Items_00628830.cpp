@@ -1,28 +1,14 @@
 #include "D2Common.h"
 
 #define D2_NORETURN __declspec(noreturn)
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define STAT_ITEM_CHARGED_SKILL 204
-#define ITEMQUAL_NORMAL 2
-#define ITEMQUAL_SET 5
 #define Min(a,b) ((a) < (b) ? (a) : (b))
 #define Max(a,b) ((a) > (b) ? (a) : (b))
-#define TRUE 1
-#define FALSE 0
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
 #define UNIT_INVALID 6
-#define IMODE_EQUIP 1
-#define PCLASS_BARBARIAN 4
-#define PCLASS_INVALID 7
-#define STAT_STRENGTH 0
 #define STAT_DEXTERITY 2
 #define STAT_LEVEL 12
 #define STAT_QUANTITY 70
-#define STAT_ITEM_REQ_PERCENT 91
-#define ITEMTYPE_BOOK 18
-#define MONSTER_ACT5HIRE1 560
-#define MONSTER_ACT5HIRE2 561
 #define IFLAG_IDENTIFIED 0x10
 #define IFLAG_ETHEREAL 0x400000
 
@@ -153,18 +139,10 @@ typedef int BOOL;
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
-D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 BOOL __stdcall INVENTORY_HasSimilarPotionInBelt(D2InventoryStrc* pInventory, D2UnitStrc* pPotion); // 0x0063C560
 extern "C" D2_NORETURN void __cdecl exit(int nCode); // 0x00681E09
 extern "C" const char gszEmptyAssertText; // 0x006CC837
-int __stdcall STATLIST_CopyStats(D2UnitStrc* pUnit, int nStatId, D2StatStrc* pBuffer, int nBufferSize); // 0x006261D0
-D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x0063B2C0
-D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
-D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pUnit); // 0x0063DFD0
 static __declspec(noinline) void __stdcall sub_006292F0_AddSocketablesCost(D2UnitStrc* pItem, int* pSellCost, int* pBuyCost, int* pRepCost);
-int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem); // 0x00629DA0
-D2SetItemsTxt* __fastcall sub_00483440_GetSetItemsTxtRecord(int nIndex); // 0x00483440
-D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
 int __stdcall INVENTORY_GetItemNodePage(D2UnitStrc* pItem); // 0x0063E020
 extern "C" const char gszItemsSourceFile_006E1150[]; // 0x006E1150
 
@@ -174,7 +152,6 @@ static __declspec(noinline) int sub_0062A900_CountSocketedItems(D2UnitStrc* pIte
 unsigned char __stdcall ITEMS_GetMaxSockets(D2UnitStrc*); // 0x0062BC20
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc*, int, int, int); // 0x00627260
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); // 0x00483360
-int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625500
 D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic); // 0x00625820
 int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem); // 0x0062B400

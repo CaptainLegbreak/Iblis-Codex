@@ -1,11 +1,5 @@
 #include "D2Common.h"
-
-#define TRUE 1
-#define FALSE 0
 #define UNIT_INVALID 6
-#define INVGRID_BODYLOC 0
-#define BODYLOC_RARM 4
-#define BODYLOC_LARM 5
 
 struct D2InventoryStrc;
 struct D2ItemExtraDataStrc;

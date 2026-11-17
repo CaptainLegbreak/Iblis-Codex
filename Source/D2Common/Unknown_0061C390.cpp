@@ -1,22 +1,5 @@
 #include "D2Common.h"
 
-#define ACT_III 2
-#define ACT_IV 3
-#define ACT_V 4
-#define ENVPERIOD_NIGHT 2
-#define ENVCYCLE_SUNRISE 0
-#define ENVCYCLE_NOON 2
-#define NUM_ENVIRONMENT_CYCLES 6
-#define NUM_TIME_RATES 3
-#define ENV_HALF_CIRCLE_DEGREES 180
-#define ENV_FULL_CIRCLE_DEGREES 360
-#define LEVEL_THEPANDEMONIUMFORTRESS 103
-#define LEVEL_OUTERSTEPPES 104
-#define LEVEL_PLAINSOFDESPAIR 105
-#define LEVEL_CITYOFTHEDAMNED 106
-#define LEVEL_ROCKYSUMMIT 120
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-
 struct Act;
 struct D2DrlgActStrc;
 struct Environment;
