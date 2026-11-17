@@ -17,3 +17,24 @@ int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 
 int __stdcall FOG_10175(QServer* pServer, const unsigned char* pBuffer, int nBufferSize, int a4); // 0x006BF370
 void __fastcall sub_0052B810(int nArg); // 0x0052B810
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
+
+#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define MAX_MSG_SIZE 516
+
+struct D2NetPacketRecStrc
+{
+    unsigned char data[MAX_MSG_SIZE];
+    int nPacketSize;
+    unsigned long dwTickCount;
+    D2NetPacketRecStrc* pNext;
+};
+
+struct D2CriticalSectionStrc
+{
+    void* pDebugInfo;
+    long nLockCount;
+    long nRecursionCount;
+    void* hOwningThread;
+    void* hLockSemaphore;
+    unsigned long nSpinCount;
+};

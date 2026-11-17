@@ -51098,9 +51098,19 @@
      "name": "?CLIENT_IsConnected@@YAHXZ"
     },
     {
+     "va": "0x0052A680",
+     "length": 162,
+     "name": "CLIENT_ConnectToHost"
+    },
+    {
      "va": "0x0052A730",
      "length": 29,
      "name": "?sub_0052A730_StartConnectThread@@YAXPBD@Z"
+    },
+    {
+     "va": "0x0052A750",
+     "length": 138,
+     "name": "CLIENT_Initialize"
     },
     {
      "va": "0x0052A7E0",
@@ -51118,6 +51128,11 @@
      "name": "?CLIENT_DequeueSystemPacket@@YGHPAEI@Z"
     },
     {
+     "va": "0x0052A8D0",
+     "length": 450,
+     "name": "?sub_0052A8D0@@YGHXZ"
+    },
+    {
      "va": "0x0052AAA0",
      "length": 47,
      "name": "?sub_0052AAA0_OnSocketError@@YAXXZ"
@@ -51126,6 +51141,11 @@
      "va": "0x0052AAD0",
      "length": 42,
      "name": "?sub_0052AAD0_ClearConnected@@YAXXZ"
+    },
+    {
+     "va": "0x0052AB00",
+     "length": 691,
+     "name": "?sub_0052AB00@@YGKPAX@Z"
     },
     {
      "va": "0x0052ADC0",
@@ -51141,22 +51161,11 @@
      "va": "0x0052AE50",
      "length": 95,
      "name": "?sub_0052AE50_SendPacket@@YGHHHPAX@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Net/SRC/Client_0052A680.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0052A680",
-     "length": 162,
-     "name": "CLIENT_ConnectToHost"
     },
     {
-     "va": "0x0052A750",
-     "length": 138,
-     "name": "CLIENT_Initialize"
+     "va": "0x0052AEB0",
+     "length": 303,
+     "name": "CLIENT_ReadPacketFromBuffer"
     },
     {
      "va": "0x0052B1F0",
@@ -51237,27 +51246,6 @@
      "va": "0x0052B550",
      "length": 30,
      "name": "sub_0052B550_ObjectCall_6C06D0"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Net/SRC/Client_0052A8D0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0052A8D0",
-     "length": 450,
-     "name": "?sub_0052A8D0@@YGHXZ"
-    },
-    {
-     "va": "0x0052AB00",
-     "length": 691,
-     "name": "?sub_0052AB00@@YGKPAX@Z"
-    },
-    {
-     "va": "0x0052AEB0",
-     "length": 303,
-     "name": "CLIENT_ReadPacketFromBuffer"
     }
    ]
   },

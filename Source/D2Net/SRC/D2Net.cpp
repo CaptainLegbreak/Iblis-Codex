@@ -1,29 +1,8 @@
 #include "D2Net.h"
-
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define MAX_MSG_SIZE 516
 struct D2NetPacketRecStrc;
 struct D2NetLockStrc;
 struct D2Net52BE10Strc;
 struct D2ServerCallbackFunctions;
-
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
-
-struct D2NetPacketRecStrc
-{
-    unsigned char data[MAX_MSG_SIZE];
-    int nPacketSize;
-    unsigned long dwTickCount;
-    D2NetPacketRecStrc* pNext;
-};
 extern int gnConnectionMode_00882D10; // 0x00882D10
 
 struct D2NetLockStrc

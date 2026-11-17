@@ -1,9 +1,6 @@
 #include "D2Net.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-
 #define GAME_PORT 4000
-#define MAX_MSG_SIZE 516
 struct D2PacketBufferStrc;
 
 typedef int (__fastcall* D2NET_Unk_Callback)(int, int, int, int);

@@ -4484,15 +4484,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Net/SRC/Client_0052A8D0.cpp": {
-   "bytes": 4,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Net/SRC/Client_0052A8D0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Game/ITEMS/ItemMode.cpp": {
    "bytes": 372,
    "definitions": 3,
@@ -8276,6 +8267,15 @@
    "lang": "cpp",
    "state": "static",
    "static_definitions": 1
+  },
+  "Source/D2Net/SRC/Client.cpp": {
+   "bytes": 4,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Net/SRC/Client.inc",
+   "lang": "cpp",
+   "state": "included"
   }
  },
  "definitions": [
@@ -92839,7 +92839,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Net/SRC/Client_0052A8D0.cpp",
+   "file": "Source/D2Net/SRC/Client.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gClientSocket = ",
