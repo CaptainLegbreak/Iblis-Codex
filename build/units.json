@@ -103686,37 +103686,11 @@
     {
      "va": "0x006C9640",
      "length": 65
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Gdi/Src/gdiSmack_006C9690.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x006C9690",
      "length": 113
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Gdi/Src/gdiSmack_006C9710.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x006C9710",
      "length": 495
