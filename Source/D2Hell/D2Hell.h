@@ -14,3 +14,11 @@ extern "C" void __fastcall FOG_Free(void* pMemory, const char* szFile, int nLine
 int __stdcall SFileOpenArchive(const char*,int,unsigned int,void**); // 0x0041BA60
 unsigned int __stdcall SStrCopy(char*,const char*,unsigned int); // 0x004135D0
 unsigned int __stdcall sub_00413800(char*,const char*,unsigned int); // 0x00413800
+
+typedef int (__stdcall* ARCHIVE_ShowMessageFunctionPtr)();
+
+struct D2ArchiveHandleStrc
+{
+    void* hArchive;
+    char szPath[260];
+};

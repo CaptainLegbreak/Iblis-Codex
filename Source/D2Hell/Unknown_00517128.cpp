@@ -5,14 +5,6 @@ extern "C" __declspec(dllimport) char* __stdcall lstrcpyA(char* szDst, const cha
 extern "C" void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int nFlags); // 0x0040B380
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds);
 
-struct D2ArchiveHandleStrc
-{
-    void* hArchive;
-    char szPath[260];
-};
-
-typedef int (__stdcall* ARCHIVE_ShowMessageFunctionPtr)();
-
 static __declspec(noinline) void* __stdcall sub_00517299_FindAndOpenArchive(char* szOutPath, const char* szFileName, int nPriority, int bSomething);
 
 // 0x00517128

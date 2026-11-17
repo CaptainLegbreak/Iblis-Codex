@@ -14,7 +14,6 @@ struct D2SoundStrc {
  unsigned int progress; int dataSet,complete; unsigned int fillLimit;
  unsigned int flags; int volume; float attenuation; int loop; unsigned int loopStart;
 };
-struct D2CriticalSectionStrc { void* debugInfo; long lockCount,recursion; void* owner; void* semaphore; unsigned long spinCount; };
 extern D2CriticalSectionStrc gSoundLock; // 0x0088174C
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc*); // 0x006CC218
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc*); // 0x006CC214

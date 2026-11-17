@@ -28,3 +28,30 @@ int __stdcall sub_00418140(void* hSample, unsigned int* pValueA, unsigned int* p
 void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
 void __fastcall sub_004068F0(void* hFile); // 0x004068F0
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
+
+struct D2ComObjectStrc
+{
+    virtual long __stdcall QueryInterface(const void* riid, void** ppvObject) = 0;
+    virtual unsigned long __stdcall AddRef() = 0;
+    virtual unsigned long __stdcall Release() = 0;
+};
+
+struct D2CriticalSectionStrc
+{
+    void* pDebugInfo;
+    long nLockCount;
+    long nRecursionCount;
+    void* hOwningThread;
+    void* hLockSemaphore;
+    unsigned long nSpinCount;
+};
+
+struct D2GuidStrc
+{
+    unsigned long Data1;
+    unsigned short Data2;
+    unsigned short Data3;
+    unsigned char Data4[8];
+};
+
+#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }

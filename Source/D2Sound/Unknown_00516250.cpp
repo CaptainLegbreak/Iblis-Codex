@@ -1,22 +1,10 @@
 #include "D2Sound.h"
-
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2DSoundBufferStrc;
 struct D2SoundStrc;
 struct D2SoundNodeStrc;
 struct D2WaveFormatStrc;
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
 
 struct D2DSoundBufferStrc
 {
@@ -39,6 +27,8 @@ struct D2DSoundBufferStrc
     virtual long __stdcall SetPan(long lPan) = 0;
     virtual long __stdcall SetFrequency(unsigned long dwFrequency) = 0;
     virtual long __stdcall Stop() = 0;
+    virtual long __stdcall Unlock(void* pv1, unsigned long dw1, void* pv2, unsigned long dw2) = 0;
+    virtual long __stdcall Restore() = 0;
 };
 
 struct D2SoundStrc

@@ -46278,6 +46278,11 @@
      "name": "?sub_00513AF0_ReleaseSoundObjects@@YAXXZ"
     },
     {
+     "va": "0x00513C50",
+     "length": 631,
+     "name": "sub_00513C50_SetEaxEnvironment"
+    },
+    {
      "va": "0x00513ED0",
      "length": 355,
      "name": "?sub_00513ED0_GetDSoundErrorString@@YIPBDJ@Z"
@@ -46328,6 +46333,16 @@
      "name": "?sub_00515120_StopSoundThread@@YAXXZ"
     },
     {
+     "va": "0x00515300",
+     "length": 177,
+     "name": "sub_00515300_ClearSoundBuffer"
+    },
+    {
+     "va": "0x00515530",
+     "length": 146,
+     "name": "?sub_00515530_CreateSound@@YIPAUD2SoundStrc@@IH@Z"
+    },
+    {
      "va": "0x005156A0",
      "length": 104,
      "name": "?sub_005156A0_PlaySound@@YIHPAUD2SoundStrc@@@Z"
@@ -46338,9 +46353,29 @@
      "name": "?sub_00515710_GetSoundPlaying@@YIHPAUD2SoundStrc@@@Z"
     },
     {
+     "va": "0x00515740",
+     "length": 112,
+     "name": "sub_00515740_IsSoundPlaying"
+    },
+    {
+     "va": "0x005157B0",
+     "length": 167,
+     "name": "sub_005157B0_SetSoundVolume"
+    },
+    {
      "va": "0x00515860",
      "length": 39,
      "name": "?sub_00515860_GetField38@@YIHPAUD2SoundViewStrc@@@Z"
+    },
+    {
+     "va": "0x00515890",
+     "length": 187,
+     "name": "?sub_00515890_SetSoundPan@@YIXPAUD2SoundStrc@@H@Z"
+    },
+    {
+     "va": "0x00515950",
+     "length": 90,
+     "name": "sub_00515950_SetSoundPosition"
     },
     {
      "va": "0x005159B0",
@@ -46356,6 +46391,16 @@
      "va": "0x00515A60",
      "length": 39,
      "name": "@sub_00515A60_SetValue44@8"
+    },
+    {
+     "va": "0x00515A90",
+     "length": 163,
+     "name": "sub_00515A90_SetSoundAttenuation"
+    },
+    {
+     "va": "0x00515B40",
+     "length": 229,
+     "name": "sub_00515B40_SetSoundReverbMix"
     },
     {
      "va": "0x00515C30",
@@ -46386,6 +46431,31 @@
      "va": "0x00515ED0",
      "length": 1,
      "name": "?sub_00515ED0_Nop@@YAXXZ"
+    },
+    {
+     "va": "0x00515EE0",
+     "length": 98,
+     "name": "?sub_00515EE0_StopSound@@YIXPAUD2SoundStrc@@@Z"
+    },
+    {
+     "va": "0x00515FD0",
+     "length": 159,
+     "name": "?sub_00515FD0_RestoreLostBuffer@@YIHPAUD2SoundStrc@@@Z"
+    },
+    {
+     "va": "0x00516070",
+     "length": 85,
+     "name": "?sub_00516070_ResetSound@@YAXPAUD2SoundStrc@@@Z"
+    },
+    {
+     "va": "0x005160D0",
+     "length": 98,
+     "name": "?sub_005160D0_DestroySound@@YIXPAUD2SoundStrc@@@Z"
+    },
+    {
+     "va": "0x00516140",
+     "length": 271,
+     "name": "?sub_00516140_ResetSound@@YIXPAUD2SoundStrc@@@Z"
     },
     {
      "va": "0x00516510",
@@ -46437,62 +46507,6 @@
      "va": "0x00513BC0",
      "length": 135,
      "name": "?sub_00513BC0_SetEaxRoomOff@@YIHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Sound/Src/D2SoundSmp_00513C50.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00513C50",
-     "length": 631,
-     "name": "sub_00513C50_SetEaxEnvironment"
-    },
-    {
-     "va": "0x00515300",
-     "length": 177,
-     "name": "sub_00515300_ClearSoundBuffer"
-    },
-    {
-     "va": "0x00515530",
-     "length": 146,
-     "name": "?sub_00515530_CreateSound@@YIPAUD2SoundStrc@@IH@Z"
-    },
-    {
-     "va": "0x00515740",
-     "length": 112,
-     "name": "sub_00515740_IsSoundPlaying"
-    },
-    {
-     "va": "0x00515950",
-     "length": 90,
-     "name": "sub_00515950_SetSoundPosition"
-    },
-    {
-     "va": "0x00515A90",
-     "length": 163,
-     "name": "sub_00515A90_SetSoundAttenuation"
-    },
-    {
-     "va": "0x00515B40",
-     "length": 229,
-     "name": "sub_00515B40_SetSoundReverbMix"
-    },
-    {
-     "va": "0x00516070",
-     "length": 85,
-     "name": "?sub_00516070_ResetSound@@YAXPAUD2SoundStrc@@@Z"
-    },
-    {
-     "va": "0x005160D0",
-     "length": 98,
-     "name": "?sub_005160D0_DestroySound@@YIXPAUD2SoundStrc@@@Z"
-    },
-    {
-     "va": "0x00516140",
-     "length": 271,
-     "name": "?sub_00516140_ResetSound@@YIXPAUD2SoundStrc@@@Z"
     }
    ]
   },
@@ -46735,38 +46749,6 @@
    ]
   },
   {
-   "file": "Source/D2Sound/Src/D2SoundSmp_005157B0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005157B0",
-     "length": 167,
-     "name": "sub_005157B0_SetSoundVolume"
-    },
-    {
-     "va": "0x00515890",
-     "length": 187,
-     "name": "?sub_00515890_SetSoundPan@@YIXPAUD2SoundStrc@@H@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Sound/Src/D2SoundSmp_00515EE0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00515EE0",
-     "length": 98,
-     "name": "?sub_00515EE0_StopSound@@YIXPAUD2SoundStrc@@@Z"
-    },
-    {
-     "va": "0x00515FD0",
-     "length": 159,
-     "name": "?sub_00515FD0_RestoreLostBuffer@@YIHPAUD2SoundStrc@@@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Sound/Unknown_00516250.cpp",
    "rank": 1,
    "functions": [
@@ -46842,6 +46824,11 @@
      "length": 72
     },
     {
+     "va": "0x00516AC0",
+     "length": 377,
+     "name": "?sub_00516AC0_ReadVxdVersionResource@@YIHPBDPAKPAX@Z"
+    },
+    {
      "va": "0x00516C40",
      "length": 57,
      "name": "?sub_00516C40_GetVersionInfoSize@@YIKPBD@Z"
@@ -46855,17 +46842,6 @@
      "va": "0x00516CA0",
      "length": 235,
      "name": "?sub_00516CA0_GetFileVersion@@YIHPBDPAI11@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Sound/Src/D2SoundUtil_00516AC0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00516AC0",
-     "length": 377,
-     "name": "?sub_00516AC0_ReadVxdVersionResource@@YIHPBDPAKPAX@Z"
     }
    ],
    "flags": [
@@ -47044,11 +47020,20 @@
   },
   {
    "file": "Source/D2Hell/SRC/Archive.cpp",
-   "rank": 1,
+   "rank": 0,
    "functions": [
     {
      "va": "0x00517079",
      "length": 110
+    },
+    {
+     "va": "0x00517332",
+     "length": 122
+    },
+    {
+     "va": "0x005173AC",
+     "length": 39,
+     "name": "?sub_005173AC_Unload@@YIXPAUD2ArchiveHandleStrc@@@Z"
     }
    ],
    "flags": [
@@ -47116,57 +47101,6 @@
     "/Ob2",
     "/Gd",
     "/O1"
-   ]
-  },
-  {
-   "file": "Source/D2Hell/SRC/Archive_00517332.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00517332",
-     "length": 122
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/O1",
-    "/Ob1",
-    "/Oy-"
-   ]
-  },
-  {
-   "file": "Source/D2Hell/SRC/Archive_005173AC.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005173AC",
-     "length": 39,
-     "name": "?sub_005173AC_Unload@@YIXPAUD2ArchiveHandleStrc@@@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Os",
-    "/Oy-",
-    "/Ob2",
-    "/Gd"
    ]
   },
   {
