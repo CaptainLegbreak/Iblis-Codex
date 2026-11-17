@@ -1,22 +1,5 @@
 #include "Bnclient.h"
 
-struct D2SrpSha1ContextStrc
-{
-    unsigned int aState[5];
-    unsigned int aCount[2];
-    unsigned char f_1C[64];
-};
-
-struct D2BigLoginRecordStrc
-{
-    char szName[0x20];
-    char szPassword[0x20];
-    unsigned char abPrivate[0x20];
-    unsigned char abPublic[0x20];
-    unsigned char abKey[0x28];
-    unsigned char abProof[0x14];
-};
-
 struct D2BigPowModStrc
 {
     void* pUnknown0x00;

@@ -10,8 +10,6 @@ struct T0043E860;
 struct D2LaunchFuncsStrc;
 struct ComAdStrc;
 
-typedef unsigned int size_t;
-
 struct Unicode
 {
     unsigned short wChar;
@@ -68,7 +66,6 @@ struct D2LaunchCharSelectStrc
 };
 
 #pragma pack(pop)
-typedef void (__cdecl* D2LaunchDoneFn)();
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" char* __cdecl strncat(char* szDest, const char* szSource, size_t nCount); // 0x00687490
@@ -174,8 +171,6 @@ extern char gszName_00798CD4[]; // 0x00798CD4
 extern int gnPendingValueA_00798CE4; // 0x00798CE4
 extern int gnPendingValueB_00798CE8; // 0x00798CE8
 extern T0043E860* gpSelectedChannelUser_00798F48; // 0x00798F48
-
-typedef int (__stdcall* D2LaunchCallback)(int nArg);
 
 struct D2LaunchFuncsStrc
 {

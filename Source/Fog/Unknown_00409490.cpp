@@ -1,6 +1,4 @@
 #include "Fog.h"
-
-#define gtDefaultPoolSystem_0074F104 (gtPoolManager_0074F0E8.aSystems[0])
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2CriticalSectionStrc;
@@ -9,8 +7,6 @@ struct T00408A30;
 struct T00408A30_2;
 struct D2PoolRecordStrc;
 struct T00408A30_1;
-
-typedef unsigned int size_t;
 
 struct D2CriticalSectionStrc
 {

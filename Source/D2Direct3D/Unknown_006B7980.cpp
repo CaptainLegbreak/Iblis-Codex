@@ -1,7 +1,5 @@
 #include "D2Direct3D.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-
 struct D2TLVertexStrc;
 struct D2DeviceStrc;
 struct D2Rect006B7ED0Strc;
@@ -54,8 +52,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 void __fastcall sub_006B1EA0_SetState(int state); // 0x006B1EA0
 void __fastcall sub_006B1F40_SetBlendMode(int mode); // 0x006B1F40
 void __fastcall sub_006B2030_SetFilterMode(int mode); // 0x006B2030
-extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
 struct D2Rect006B7ED0Strc
 {

@@ -1,8 +1,6 @@
 #include "D2Win.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
-#define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
 #define gnMouseY_007D55A8 (gMousePosition_6F8FE234.y)
 
 struct D2CellFileStrc;

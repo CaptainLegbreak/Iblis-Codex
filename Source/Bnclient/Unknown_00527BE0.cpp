@@ -7,28 +7,6 @@ struct D2SrpSeedRecordStrc;
 struct D2BigPairStrc;
 struct D2BigLoginRecordStrc;
 
-struct Unicode
-{
-    unsigned short wChar;
-
-    operator unsigned short() const
-    {
-        return wChar;
-    }
-};
-
-struct D2LangByteRangeStrc
-{
-    unsigned char f_0;
-    unsigned char f_1;
-};
-
-struct D2LangCharMapEntryStrc
-{
-    unsigned short wValue;
-    unsigned short f_2;
-};
-
 extern unsigned char gnLeadByteRangeCount_00882B22; // 0x00882B22
 extern "C" unsigned int __cdecl strlen(const char* szString);
 extern unsigned short gnCharMapCount_00882B20; // 0x00882B20
@@ -75,13 +53,6 @@ struct D2BigPowModStrc
     int sub_005280C0_ComputeSessionKey(void* const& hSecret, void* const& hPublic, void* const& hExp, void* const& hKey);
 };
 
-struct D2SrpSha1ContextStrc
-{
-    unsigned int aState[5];
-    unsigned int aCount[2];
-    unsigned char f_1C[64];
-};
-
 struct D2SrpSeedRecordStrc
 {
     long nTime;
@@ -97,16 +68,6 @@ struct D2BigPairStrc
     D2BigPowModStrc* pState;
     void sub_00527E70_RandomBytes(unsigned char* pBuffer, unsigned int nSize);
     void sub_005286D0_InitLogin(D2BigLoginRecordStrc* pRecord, const char* szName, const char* szPassword);
-};
-
-struct D2BigLoginRecordStrc
-{
-    char szName[0x20];
-    char szPassword[0x20];
-    unsigned char abPrivate[0x20];
-    unsigned char abPublic[0x20];
-    unsigned char abKey[0x28];
-    unsigned char abProof[0x14];
 };
 
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0

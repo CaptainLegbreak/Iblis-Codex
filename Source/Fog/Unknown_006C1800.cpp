@@ -4,14 +4,6 @@ union FOGASTNodeStrc;
 struct D2CalcCallbackInfoStrc;
 struct FOGExpressionParserContextStrc;
 
-typedef unsigned char uint8_t;
-
-typedef int int32_t;
-
-typedef int BOOL;
-
-typedef unsigned char FOGCalcExpressionParserTokenType;
-
 enum FOGCalcExpressionParserTokenValues
 {
 	TOKEN_PAREN_OPEN = 0,
@@ -34,8 +26,6 @@ enum FOGCalcExpressionParserTokenValues
 	TOKEN_CUSTOM_FUNCTION_PARAMETER_CONSTANT = 17,
 	TOKEN_CUSTOM_FUNCTION_TABLE = 18,
 };
-
-typedef unsigned char FOGASTType;
 
 enum FOGASTValues
 {
@@ -71,24 +61,6 @@ union FOGASTNodeStrc
 	FOGASTType nType;
 	uint8_t nRawValue;
 };
-
-typedef int(__fastcall* CalcFogCallBack_t)(int, int, int, void*);
-
-typedef int(__fastcall* CalcFogCallBack2_t)(int, void*);
-
-struct D2CalcCallbackInfoStrc
-{
-	CalcFogCallBack_t fpCallBack;
-	int nParameters;
-};
-
-typedef int(__fastcall* CalcGetKeyWordToNumber_t)(char* szKey);
-
-typedef int(__fastcall* CalcGetFunctionParameterCount_t)(int nFunctionIndex);
-
-typedef int(__fastcall* CalcGetLinkerIndex_t)(char* szText, BOOL* pOutHasResolvedToConstant, int nAST, int nKeywordNumber);
-
-typedef int(__fastcall* CalcProcessCache_t)(int nIndex);
 
 struct FOGExpressionParserContextStrc
 {

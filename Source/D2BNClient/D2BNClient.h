@@ -78,3 +78,111 @@ void __stdcall sub_0041D2A0_MemCopy(void* pDst, const void* pSrc, unsigned int n
 void __stdcall sub_0041D300_ZeroMemory(void* pDest, unsigned int nSize); // 0x0041D300
 void __stdcall sub_00420120_LogAdjust(void* hLog, int nValue); // 0x00420120
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
+
+#define CACHE_CRC32(dwCrc, pBytes, nCount) \
+    dwCrc = 0xFFFFFFFF; \
+    for (; nCount; --nCount, ++pBytes) \
+        dwCrc = (dwCrc >> 8) ^ gdwCacheCrcTable_0072FB80[(*pBytes ^ dwCrc) & 0xFF]; \
+    dwCrc = ~dwCrc
+#define VALIDATE(x) nValid &= (x) ? -1 : 0
+#define VALIDATEBEGIN int nValid = -1
+#define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
+
+struct D2BigLoginRecordStrc
+{
+    char szName[0x20];
+    char szPassword[0x20];
+    unsigned char abPrivate[0x20];
+    unsigned char abPublic[0x20];
+    unsigned char abKey[0x28];
+    unsigned char abProof[0x14];
+};
+
+struct D2BnDnsArgsStrc
+{
+    char* szResult;
+    const char* f_4;
+};
+
+struct D2BnMessageStrc
+{
+    int nId;
+    char szText[0x120];
+    unsigned int nLength;
+    D2BnMessageStrc* pNext;
+};
+
+struct D2BnSizedReplyStrc
+{
+    unsigned int nSize;
+    unsigned char abData[0x14];
+    unsigned int nValue;
+};
+
+struct D2BnStateStrc
+{
+    int nState;
+    void* pArg;
+};
+
+struct D2CacheHashEntryStrc
+{
+    unsigned int dwNameA;
+    unsigned int dwNameB;
+    unsigned int dwLocale;
+    unsigned int dwBlockIndex;
+};
+
+struct D2CriticalSectionStrc
+{
+    void* pDebugInfo;
+    long nLockCount;
+    long nRecursionCount;
+    void* hOwningThread;
+    void* hLockSemaphore;
+    unsigned long nSpinCount;
+};
+
+struct D2InAddrStrc
+{
+    unsigned long s_addr;
+};
+
+struct D2SystemTimeStrc
+{
+    unsigned short wYear;
+    unsigned short wMonth;
+    unsigned short wDayOfWeek;
+    unsigned short wDay;
+    unsigned short wHour;
+    unsigned short wMinute;
+    unsigned short wSecond;
+    unsigned short wMilliseconds;
+};
+
+struct D2TimeZoneInformationStrc
+{
+    long f_0;
+    unsigned short wszStandardName[32];
+    D2SystemTimeStrc tStandardDate;
+    long nStandardBias;
+    unsigned short wszDaylightName[32];
+    D2SystemTimeStrc tDaylightDate;
+    long nDaylightBias;
+};
+
+struct FSafeSock
+{
+    int bConnected;
+    int bConnecting;
+    unsigned int nSocket;
+    D2CriticalSectionStrc tCriticalSection;
+    void* hThread;
+    unsigned long nThreadId;
+    int bStopping;
+    unsigned long nFogErrorCode;
+    unsigned long nWSALastError;
+    char szName[64];
+};
+
+typedef unsigned int size_t;

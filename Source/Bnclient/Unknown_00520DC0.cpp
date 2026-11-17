@@ -1,7 +1,5 @@
 #include "Bnclient.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-
 struct D2BigPowModStrc;
 struct D2BnReply00520DC0Strc;
 struct D2BigPairStrc;
@@ -48,11 +46,6 @@ struct D2BnHashCtxStrc
     int nBitCountLo;
     int nBitCountHi;
     unsigned int f_1C[16];
-};
-
-struct D2IdeaUserKeyStrc
-{
-    unsigned int aKey[4];
 };
 
 struct D2IdeaKeyScheduleStrc

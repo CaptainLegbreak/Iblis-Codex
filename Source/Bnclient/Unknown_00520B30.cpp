@@ -1,6 +1,4 @@
 #include "Bnclient.h"
-
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define CHECK(p,line) if(!(p)){sub_00408A60(&gszEmptyAssertText,sub_00408090(),line);exit(-1);}
 
 struct D2BigPowModStrc;
@@ -18,12 +16,6 @@ extern "C" int gnSlotArrayB_008822A8[94]; // 0x008822A8
 extern "C" int gnFlag_00882528; // 0x00882528
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 0x006CC260
 int __fastcall sub_005204A0_SetError(int nError); // 0x005204A0
-
-struct D2FileTimeStrc
-{
-    unsigned long dwLowDateTime;
-    unsigned long dwHighDateTime;
-};
 
 struct D2BnReportStrc
 {
@@ -86,16 +78,6 @@ extern "C" __declspec(dllimport) int __stdcall FreeLibrary(void* hModule); // 0x
 extern "C" __declspec(dllimport) unsigned short __stdcall GetSystemDefaultLangID(void); // 0x006CC354
 extern "C" const char gszKernel32_006CD6E4[]; // 0x006CD6E4
 
-struct D2BigLoginRecordStrc
-{
-    char szName[0x20];
-    char szPassword[0x20];
-    unsigned char abPrivate[0x20];
-    unsigned char abPublic[0x20];
-    unsigned char abKey[0x28];
-    unsigned char abProof[0x14];
-};
-
 struct D2BnAccountLogonStrc
 {
     unsigned char abPublic[0x20];
@@ -104,7 +86,6 @@ struct D2BnAccountLogonStrc
 
 extern D2BigLoginRecordStrc gtLoginRecord_00882680; // 0x00882680
 void __stdcall sub_0041D2A0_MemCopy(void* pDst, const void* pSrc, unsigned int nSize); // 0x0041D2A0
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
 void __cdecl sub_00524740_ClearKeySchedules(); // 0x00524740
 void __cdecl sub_005241A0_ClearHashContexts(); // 0x005241A0
 
@@ -123,11 +104,6 @@ void __fastcall sub_00522650(const char* szKey, unsigned char* pOut); // 0x00522
 void __stdcall sub_00522980(unsigned int* pKey); // 0x00522980
 __declspec(noinline) static unsigned int __fastcall sub_005226D0_PermuteKeyBits(int nUnused, unsigned int* pKey);
 
-struct D2IdeaUserKeyStrc
-{
-    unsigned int aKey[4];
-};
-
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
@@ -135,8 +111,6 @@ void __fastcall sub_00524280_InitHashContext(int nIndex); // 0x00524280
 void __fastcall sub_00524200_HashBlock(int nIndex, const void* pBlock, unsigned int* pDigest); // 0x00524200
 void __fastcall sub_00524780_SetKey(int nIndex, int bEncrypt, const D2IdeaUserKeyStrc* pUserKey); // 0x00524780
 extern "C" void* __cdecl memcpy(void*,const void*,unsigned int);
-extern "C" void __cdecl sub_00408A60(const char*,const char*,int); // 0x00408A60
-extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 extern "C" void __fastcall __security_check_cookie(unsigned int); // 0x00681A48
 
 struct D2CipherKeyView {
@@ -144,7 +118,6 @@ struct D2CipherKeyView {
 };
 
 void __fastcall sub_005241C0_GetDigest(int,void*); // 0x005241C0
-void __fastcall sub_00524200_HashBlock(int,const void*,unsigned int*); // 0x00524200
 void __fastcall sub_00524760_CipherBlock(int,const unsigned short*,unsigned short*); // 0x00524760
 static __declspec(noinline) unsigned int sub_00523280_CountTerminatedBytes(unsigned int maxLength, unsigned int length, const unsigned char* data);
 

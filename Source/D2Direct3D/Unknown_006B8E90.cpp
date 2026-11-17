@@ -174,10 +174,8 @@ static int __stdcall sub_006B8950_Lit(int nScreenPanels, D2TileStrc* pTile, int 
 }
 
 int __stdcall sub_005FDEA0(D2TileStrc* pTile, int a2, int a3);                      // 0x005FDEA0
-void __fastcall sub_006B1EA0_SetState(int nState);                                              // 0x006B1EA0
 void __fastcall sub_006B1F40_SetBlendMode(int nMode);                                           // 0x006B1F40
 void __fastcall sub_006B2030_SetFilterMode(int nMode);                                          // 0x006B2030
-int __cdecl sub_006B9830_GetPerspective();                                                      // 0x006B9830
 struct D2ScreenPanelsStrc
 {
     int __thiscall sub_006B87A0_DrawNoPerspective(D2TileStrc* pTile, int nPosX, int nPosY, U32* pLight, unsigned char nAlpha); // 0x006B87A0

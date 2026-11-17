@@ -10,7 +10,6 @@ int __fastcall sub_00605340_LoadPcxPalette(const char* szFileName);             
 extern unsigned int gnPaletteEnd_008E902C;                                                                  // 0x008E902C
 extern unsigned int gnPaletteStart_008E9930;                                                                // 0x008E9930
 extern int gnSquareTable_008E9034[511];                                                                     // 0x008E9034
-#define gnSquareTableCenter_008E9430 (gnSquareTable_008E9034 + 255)
 extern unsigned int gdwSwappedColor_008E9D38;                                                               // 0x008E9D38
 int gbPaletteLoaded_008E9934;                                                                               // 0x008E9934
 unsigned char gaPaletteRaw_008E8D28[0x300];                                                                 // 0x008E8D28

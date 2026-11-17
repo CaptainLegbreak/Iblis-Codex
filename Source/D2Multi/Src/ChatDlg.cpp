@@ -53,13 +53,6 @@ struct D2LaunchCharInfoStrc
     unsigned char unk_255[0x10C];
     char nByte361;
 };
-
-struct D2LaunchThreadRecordStrc
-{
-    int nData[0x52];
-};
-
-typedef int (__stdcall* D2LaunchCallback)(int nArg);
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
@@ -108,16 +101,6 @@ extern int gnValue_007992E0; // 0x007992E0
 extern int gnValue_007992E8; // 0x007992E8
 extern int gnValue_007992F0; // 0x007992F0
 
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
-
 struct D2ChatMessageStrc
 {
     char* szText;
@@ -162,7 +145,6 @@ struct D2LaunchNameNodeStrc
 };
 
 extern D2LaunchNameNodeStrc* gpNameList_0077BDB4; // 0x0077BDB4
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 void __cdecl sub_0043F730(); // 0x0043F730
 
 D2WinControlStrc* gpControlMain_0077BC4C; // 0x0077BC4C

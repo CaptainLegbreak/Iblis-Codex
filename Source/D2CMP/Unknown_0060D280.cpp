@@ -22,14 +22,6 @@ struct D2CmpSubTileRecordStrc
     unsigned char* pData;
 };
 
-struct D2CmpColorStrc
-{
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-    unsigned char nPad;
-};
-
 typedef unsigned char (__stdcall* D2CmpMapColorFn)(unsigned char nRed, unsigned char nGreen, unsigned char nBlue);
 
 // 0x0060D280

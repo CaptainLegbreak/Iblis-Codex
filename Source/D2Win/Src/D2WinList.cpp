@@ -79,13 +79,6 @@ struct D2WinListStrc
     D2WinListDataStrc* pSelectedDataEntry;
 };
 
-struct D2WinAccountListDataStrc
-{
-    char szText[50];
-    short field_32;
-    D2WinAccountListDataStrc* pNext;
-};
-
 struct D2WinAccountListStrc
 {
     D2WinControlStrc controlHeader;

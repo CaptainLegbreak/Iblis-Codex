@@ -3,13 +3,6 @@
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);                          // 0x006829C0
 extern "C" unsigned short __stdcall ntohs(unsigned short nValue);                                           // 0x006B019E
 
-struct D2BnSizedReplyStrc
-{
-    unsigned int nSize;
-    unsigned char abData[0x14];
-    unsigned int nValue;
-};
-
 void* gnChannelList_008818C8;                                                                               // 0x008818C8
 void* gpReply_008818CC;                                                                                     // 0x008818CC
 void* gpReply_008818D0;                                                                                     // 0x008818D0

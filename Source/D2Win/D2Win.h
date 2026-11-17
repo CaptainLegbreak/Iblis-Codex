@@ -93,3 +93,49 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 void* __fastcall sub_00517079_LoadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
 void* __stdcall sub_004FAC80(); // 0x004FAC80
+
+#define BUTTONFLAG_HAS_DISABLED_FRAMES 0x20
+#define BUTTONFLAG_SUBTITLE 0x40
+#define D2FONT_FONTEXOCET10 9
+#define D2FONT_FONTRIDICULOUS 10
+#define D2WIN_MAX(a, b) (((a) > (b)) ? (a) : (b))
+#define D2WIN_MIN(a, b) (((a) < (b)) ? (a) : (b))
+#define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
+#define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
+#define DRAWMODE_BURN 4
+#define DRAWMODE_TRANS50 1
+
+struct D2CropRectStrc
+{
+    int nX0;
+    int nX1;
+    int nY0;
+    int nY1;
+};
+
+struct D2TileLibraryBlockStrc
+{
+    short nPosX;
+    short nPosY;
+    short unk0x04;
+    unsigned char nGridX;
+    unsigned char nGridY;
+    unsigned char nFormat;
+    char unk0x09[0x07];
+    unsigned char* pData;
+};
+
+struct D2WinAccountListDataStrc
+{
+    char szText[50];
+    short field_32;
+    D2WinAccountListDataStrc* pNext;
+};
+
+struct tagRECT
+{
+    long left;
+    long top;
+    long right;
+    long bottom;
+};

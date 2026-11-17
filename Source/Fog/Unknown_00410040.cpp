@@ -1,7 +1,4 @@
 #include "Fog.h"
-
-#define _INTSIZEOF(n) ((sizeof(n) + sizeof(int) - 1) & ~(sizeof(int) - 1))
-#define va_start(ap, v) (ap = (va_list)&v + _INTSIZEOF(v))
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2CriticalSectionStrc;
@@ -11,10 +8,6 @@ struct D2LogMessageStrc;
 struct D2LogMemoryInfoStrc;
 struct T00410610;
 
-typedef unsigned int size_t;
-
-typedef char* va_list;
-
 struct D2CriticalSectionStrc
 {
     void* pDebugInfo;
@@ -23,18 +16,6 @@ struct D2CriticalSectionStrc
     void* hOwningThread;
     void* hLockSemaphore;
     unsigned long nSpinCount;
-};
-
-struct D2SystemTimeStrc
-{
-    unsigned short wYear;
-    unsigned short wMonth;
-    unsigned short wDayOfWeek;
-    unsigned short wDay;
-    unsigned short wHour;
-    unsigned short wMinute;
-    unsigned short wSecond;
-    unsigned short wMilliseconds;
 };
 
 struct D2LogMsgLinkStrc

@@ -140,28 +140,12 @@ struct Unicode
     Unicode();                                                                                              // 0x0042F530
 };
 
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
-
 struct D2ChatMessageStrc
 {
     char* szText;
     int nColor;
     int bClear;
     D2ChatMessageStrc* pNext;
-};
-
-struct _FILETIME
-{
-    unsigned long dwLowDateTime;
-    unsigned long dwHighDateTime;
 };
 
 struct _SYSTEMTIME
@@ -185,8 +169,6 @@ extern "C" __declspec(dllimport) int __stdcall FileTimeToLocalFileTime(const _FI
 void __stdcall SStrCopy(char* szDest, const char* szSource, int nMax); // 0x004135D0
 void __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
 
-typedef unsigned int size_t;
-
 struct D2LaunchFuncsStrc
 {
     char unk0x00[0x14];
@@ -209,8 +191,6 @@ public:
     virtual int GetPersist();
     virtual void SetPersist(int bPersist);
 };
-
-typedef int (__stdcall* D2LaunchCallback)(int nArg);
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 extern "C" size_t __cdecl strlen(const char* szString);
 const char* __stdcall SStrChr(const char* szString, char nChar); // 0x00413490

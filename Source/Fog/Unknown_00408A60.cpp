@@ -1,7 +1,6 @@
 #include "Fog.h"
 
 #define FOG_ASSERT(expr, line) if (!(expr)) { const char* szAssertFile = sub_00408090(); FOG_SOCKET_WSACleanup(); sub_00408900_RaiseErrorReport(6, &gszEmptyAssertText, line, "Unrecoverable internal error %08x", szAssertFile); sub_0040F960_CloseLogFiles(); exit(-1); }
-#define gtDefaultPoolSystem_0074F104 (gtPoolManager_0074F0E8.aSystems[0])
 struct D2PoolRecordStrc;
 struct D2CriticalSectionStrc;
 struct D2InspectorInfoStrc;
@@ -11,10 +10,6 @@ struct T00408A30_1;
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 void __cdecl sub_00408900_RaiseErrorReport(int nType, const char* szFile, int nLine, const char* szFormat, ...); // 0x00408900
 void __cdecl sub_0040F960_CloseLogFiles(); // 0x0040F960
-
-typedef char* va_list;
-
-typedef unsigned int size_t;
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" __declspec(dllimport) int __stdcall MessageBoxA(void* hWnd, const char* szText, const char* szCaption, unsigned int nType); // 0x006CC464
 extern "C" int __cdecl _vsnprintf(char* szDest, size_t nCount, const char* szFormat, va_list args); // 0x00682F22
@@ -32,19 +27,6 @@ struct D2CriticalSectionStrc
     void* hOwningThread;
     void* hLockSemaphore;
     unsigned long nSpinCount;
-};
-
-struct D2InspectorInfoStrc
-{
-    int f_0;
-    const char* szUnused04;
-    const char* szApplication;
-    const char* szModule;
-    const char* szMilestone;
-    const char* szBuildNumber;
-    const char* f_18;
-    const char* szPrimaryAssignment;
-    const char* szAssignments;
 };
 
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210

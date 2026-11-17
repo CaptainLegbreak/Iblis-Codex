@@ -410,6 +410,11 @@
      "name": "?sub_004082C0_DebugPrintfLog@@YAXPBDZZ"
     },
     {
+     "va": "0x00408660",
+     "length": 604,
+     "name": "?sub_00408660_ShowErrorReport@@YI_NPBD0PAPBDHI_N@Z"
+    },
+    {
      "va": "0x00408900",
      "length": 297,
      "name": "sub_00408900_RaiseErrorReport"
@@ -429,6 +434,20 @@
      "length": 5,
      "name": "?sub_0040F960_CloseLogFiles@@YAXXZ"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/EHa"
    ]
   },
   {
@@ -1162,9 +1181,24 @@
      "name": "??0sub_0040F810@@QAE@XZ"
     },
     {
+     "va": "0x0040F820",
+     "length": 50,
+     "name": "??1D2LogMsgLinkStrc@@QAE@XZ"
+    },
+    {
      "va": "0x0040F860",
      "length": 17,
      "name": "?sub_0060E5F0_Reset@D2ChatStormListAStrc@@QAEXXZ"
+    },
+    {
+     "va": "0x0040FAA0",
+     "length": 163,
+     "name": "??1D2LogMsgNodeStrc@@QAE@XZ"
+    },
+    {
+     "va": "0x0040FCB0",
+     "length": 75,
+     "name": "??0D2LogMsgNodeStrc@@QAE@XZ"
     },
     {
      "va": "0x00410C40",
@@ -1431,6 +1465,20 @@
      "length": 50,
      "name": "??1sub_00426D80@@QAE@XZ"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/EHa"
    ]
   },
   {
@@ -2436,31 +2484,6 @@
    ]
   },
   {
-   "file": "Source/Fog/Src/ErrorManager_00408660.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00408660",
-     "length": 604,
-     "name": "?sub_00408660_ShowErrorReport@@YI_NPBD0PAPBDHI_N@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/EHa"
-   ]
-  },
-  {
    "file": "Source/Fog/Unknown_00408A30.cpp",
    "rank": 0,
    "functions": [
@@ -2937,6 +2960,10 @@
      "name": "?sub_0040C620_SymInitializeOnce@@YAHXZ"
     },
     {
+     "va": "0x0040C720",
+     "length": 117
+    },
+    {
      "va": "0x0040C7A0",
      "length": 1136
     },
@@ -3030,30 +3057,6 @@
      "va": "0x0040BCF0",
      "length": 1018
     }
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/Exceptions_0040C720.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0040C720",
-     "length": 117
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -4226,41 +4229,6 @@
      "length": 3,
      "name": "@sub_0040F590@4"
     }
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/LogManager_0040F820.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0040F820",
-     "length": 50,
-     "name": "??1D2LogMsgLinkStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x0040FAA0",
-     "length": 163,
-     "name": "??1D2LogMsgNodeStrc@@QAE@XZ"
-    },
-    {
-     "va": "0x0040FCB0",
-     "length": 75,
-     "name": "??0D2LogMsgNodeStrc@@QAE@XZ"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/EHa"
    ]
   },
   {
@@ -42581,36 +42549,6 @@
    ]
   },
   {
-   "file": "Source/D2Win/Src/D2WinTextBox_004FB480.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004FB480",
-     "length": 128,
-     "name": "?D2Win_10177@@YIHE@Z"
-    },
-    {
-     "va": "0x004FCFF0",
-     "length": 108,
-     "name": "?D2Win_10046@@YIXPAUD2WinControlStrc@@PBDH@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Win/Unknown_004FB500.cpp",
    "rank": 0,
    "functions": [
@@ -42639,6 +42577,11 @@
    "file": "Source/D2Win/Src/D2WinTextBox.cpp",
    "rank": 0,
    "functions": [
+    {
+     "va": "0x004FB480",
+     "length": 128,
+     "name": "?D2Win_10177@@YIHE@Z"
+    },
     {
      "va": "0x004FB6A0",
      "length": 158,
@@ -42720,15 +42663,63 @@
      "name": "?D2Win_10203_TEXTBOX@@YIHPAUD2WinTextBoxStrc@@@Z"
     },
     {
+     "va": "0x004FCC40",
+     "length": 244,
+     "name": "D2Win_10198"
+    },
+    {
+     "va": "0x004FCD40",
+     "length": 73,
+     "name": "?D2Win_10057@@YIHPAUD2WinControlStrc@@PBDHH@Z"
+    },
+    {
      "va": "0x004FCD90",
      "length": 9,
      "name": "?sub_004FCD90_sub_004FB790@@YIHPAUD2WinControlStrc@@PBUUnicode@@HH@Z"
     },
     {
+     "va": "0x004FCDA0",
+     "length": 478
+    },
+    {
+     "va": "0x004FCF80",
+     "length": 104,
+     "name": "?D2Win_10045@@YIXPAUD2WinControlStrc@@PBD@Z"
+    },
+    {
+     "va": "0x004FCFF0",
+     "length": 108,
+     "name": "?D2Win_10046@@YIXPAUD2WinControlStrc@@PBDH@Z"
+    },
+    {
      "va": "0x004FD470",
      "length": 299,
      "name": "?IMAGE_Draw@@YIHPAUD2WinControlStrc@@@Z"
+    },
+    {
+     "va": "0x004FFE10",
+     "length": 63,
+     "name": "?D2Win_10076@@YIHPAUD2WinControlStrc@@PBD@Z"
+    },
+    {
+     "va": "0x00501690",
+     "length": 151,
+     "name": "sub_6F8AA140"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
    ]
   },
   {
@@ -43183,61 +43174,6 @@
    ]
   },
   {
-   "file": "Source/D2Win/Src/D2WinTextBox_004FCC40.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004FCC40",
-     "length": 244,
-     "name": "D2Win_10198"
-    },
-    {
-     "va": "0x00501690",
-     "length": 151,
-     "name": "sub_6F8AA140"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinTextBox_004FCDA0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004FCD40",
-     "length": 73,
-     "name": "?D2Win_10057@@YIHPAUD2WinControlStrc@@PBDHH@Z"
-    },
-    {
-     "va": "0x004FCDA0",
-     "length": 478
-    },
-    {
-     "va": "0x004FCF80",
-     "length": 104,
-     "name": "?D2Win_10045@@YIXPAUD2WinControlStrc@@PBD@Z"
-    },
-    {
-     "va": "0x004FFE10",
-     "length": 63,
-     "name": "?D2Win_10076@@YIHPAUD2WinControlStrc@@PBD@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Win/Src/D2WinImage.cpp",
    "rank": 0,
    "functions": [
@@ -43347,6 +43283,11 @@
      "name": "?sub_004FDC70_HasSelection@@YAHPAUD2WinEditBoxStrc@@@Z"
     },
     {
+     "va": "0x004FDE30",
+     "length": 442,
+     "name": "?sub_004FDE30_GetEditTextHeight@@YGHPBUUnicode@@PAUD2WinEditBoxStrc@@@Z"
+    },
+    {
      "va": "0x004FE3B0",
      "length": 856
     },
@@ -43361,39 +43302,14 @@
      "name": "?sub_004FE9F0_DeleteSelection@@YAXPAUD2WinEditBoxStrc@@@Z"
     },
     {
-     "va": "0x004FF5A0",
-     "length": 119,
-     "name": "?sub_004FF5A0@@YIHPAUD2WinEditBoxStrc@@PBUUnicode@@@Z"
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinEditBox_004FDE30.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004FDE30",
-     "length": 442,
-     "name": "?sub_004FDE30_GetEditTextHeight@@YGHPBUUnicode@@PAUD2WinEditBoxStrc@@@Z"
-    },
-    {
      "va": "0x004FEAE0",
      "length": 1392,
      "name": "?D2Win_10074@@YIHPAUD2WinEditBoxStrc@@D@Z"
+    },
+    {
+     "va": "0x004FF5A0",
+     "length": 119,
+     "name": "?sub_004FF5A0@@YIHPAUD2WinEditBoxStrc@@PBUUnicode@@@Z"
     }
    ],
    "flags": [
@@ -43687,6 +43603,16 @@
      "name": "?sub_6F8AA100@@YIPAUD2CharStrc@@G@Z"
     },
     {
+     "va": "0x005019C0",
+     "length": 119,
+     "name": "?sub_005019C0_GetTextHeight@@YAHPBUUnicode@@@Z"
+    },
+    {
+     "va": "0x00501A40",
+     "length": 20,
+     "name": "?D2Win_10125@@YGHXZ"
+    },
+    {
      "va": "0x00501A60",
      "length": 29,
      "name": "?sub_00501A60_DrawRectUp@@YGXHHHHIH@Z"
@@ -43746,22 +43672,6 @@
      "va": "0x00501910",
      "length": 174,
      "name": "?sub_00501910_GetTextLineWidth@@YAHPBUUnicode@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinFont_00501A40.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005019C0",
-     "length": 119,
-     "name": "?sub_005019C0_GetTextHeight@@YAHPBUUnicode@@@Z"
-    },
-    {
-     "va": "0x00501A40",
-     "length": 20,
-     "name": "?D2Win_10125@@YGHXZ"
     }
    ]
   },
@@ -44576,7 +44486,7 @@
    ]
   },
   {
-   "file": "Source/D2Win/Src/D2WinScrollbar_00508000.cpp",
+   "file": "Source/D2Win/Src/D2WinScrollbar.cpp",
    "rank": 0,
    "functions": [
     {
@@ -44590,23 +44500,17 @@
      "name": "@sub_005080F0_GetScrollBarField50@4"
     },
     {
-     "va": "0x005088C0",
-     "length": 170,
-     "name": "?POPUP_Create@@YGXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Win/Src/D2WinScrollbar.cpp",
-   "rank": 1,
-   "functions": [
-    {
      "va": "0x00508120",
      "length": 481
     },
     {
      "va": "0x00508370",
      "length": 380
+    },
+    {
+     "va": "0x005088C0",
+     "length": 170,
+     "name": "?POPUP_Create@@YGXXZ"
     }
    ],
    "flags": [
@@ -47765,6 +47669,10 @@
      "name": "GetSystemTimeZone"
     },
     {
+     "va": "0x00517FD0",
+     "length": 106
+    },
+    {
      "va": "0x00518150",
      "length": 49,
      "name": "SetCurGateway"
@@ -47835,30 +47743,6 @@
      "length": 326,
      "name": "?PickClosestZone@BNGatewayAccess@@AAEXH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/BNetGW_00517FD0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00517FD0",
-     "length": 106
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -48329,9 +48213,18 @@
      "name": "?sub_0051AB30_SetAdUrlReply@@YIXPBXI@Z"
     },
     {
+     "va": "0x0051AB80",
+     "length": 38
+    },
+    {
      "va": "0x0051ABB0",
      "length": 59,
      "name": "sub_0051ABB0_QueryAdUrl"
+    },
+    {
+     "va": "0x0051ABF0",
+     "length": 38,
+     "name": "?sub_0051ABF0_QueryRealms@@YAPAXXZ"
     },
     {
      "va": "0x0051AC20",
@@ -48346,6 +48239,11 @@
     {
      "va": "0x0051AD70",
      "length": 149
+    },
+    {
+     "va": "0x0051AE10",
+     "length": 269,
+     "name": "?sub_0051AE10_Send@@YIHPBD0H@Z"
     },
     {
      "va": "0x0051AF20",
@@ -48550,46 +48448,6 @@
     {
      "va": "0x0051BB90",
      "length": 350
-    }
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/BnSend_0051AB80.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0051AB80",
-     "length": 38
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/BnSend_0051ABF0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0051ABF0",
-     "length": 38,
-     "name": "?sub_0051ABF0_QueryRealms@@YAPAXXZ"
-    },
-    {
-     "va": "0x0051AE10",
-     "length": 269,
-     "name": "?sub_0051AE10_Send@@YIHPBD0H@Z"
     }
    ]
   },
@@ -48876,6 +48734,10 @@
      "name": "?sub_0051D350_CopyElement@@YIXPAUD2Storm408ElemStrc@@PBU1@@Z"
     },
     {
+     "va": "0x0051D370",
+     "length": 414
+    },
+    {
      "va": "0x0051D510",
      "length": 87,
      "name": "?sub_0051D510_ReportNews@@YAXXZ"
@@ -48950,30 +48812,6 @@
      "length": 35,
      "name": "?BNNEWS_DecodeCDKey26Char@@YIHPBDPAX11@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/BNNews_0051D370.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0051D370",
-     "length": 414
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -49216,19 +49054,13 @@
      "name": "?sub_005203B0_TakeMessage@@YIIPAHPAX@Z"
     },
     {
+     "va": "0x00520440",
+     "length": 85
+    },
+    {
      "va": "0x00520580",
      "length": 109,
      "name": "?sub_00520580_TakeState@@YIHPAUD2BnStateStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2BNClient/BnMessQueue_00520440.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00520440",
-     "length": 85
     }
    ]
   },
@@ -71175,6 +71007,11 @@
      "name": "?sub_005FE110_Empty@@YAXXZ"
     },
     {
+     "va": "0x005FEC90",
+     "length": 366,
+     "name": "?sub_005FEC90_InitDC6Frames@@YGXPAUD2CmpSpriteFileStrc@@PAUD2CmpSpriteContextStrc@@PAUD2CmpSpriteEntryStrc@@@Z"
+    },
+    {
      "va": "0x005FEE00",
      "length": 10,
      "name": "?sub_005FEE00_DestroyBlockTableB@@YAXXZ"
@@ -79611,6 +79448,11 @@
      "name": "?sub_00601DF0_InitTerminator@@YIXPAUD2StormListStrc@@@Z"
     },
     {
+     "va": "0x00601E00",
+     "length": 13,
+     "name": "??0D2Warden47F930Strc@@QAE@XZ"
+    },
+    {
      "va": "0x00601E10",
      "length": 11,
      "name": "?sub_00601E10_InitTerminator@@YIXPAUD2StormListStrc@@@Z"
@@ -80125,17 +79967,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2CMP/SRC/SpriteCache_005FEC90.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005FEC90",
-     "length": 366,
-     "name": "?sub_005FEC90_InitDC6Frames@@YGXPAUD2CmpSpriteFileStrc@@PAUD2CmpSpriteContextStrc@@PAUD2CmpSpriteEntryStrc@@@Z"
-    }
    ]
   },
   {
@@ -80861,17 +80692,6 @@
      "va": "0x006048C0",
      "length": 58,
      "name": "sub_006048C0_NewLock"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/SRC/CelCmp_00601E00.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00601E00",
-     "length": 13,
-     "name": "??0D2Warden47F930Strc@@QAE@XZ"
     }
    ]
   },
@@ -82349,7 +82169,7 @@
   },
   {
    "file": "Source/D2CMP/SRC/SubTile.cpp",
-   "rank": 1,
+   "rank": 0,
    "functions": [
     {
      "va": "0x0060D430",
@@ -82360,57 +82180,9 @@
      "length": 306
     },
     {
-     "va": "0x0060D840",
-     "length": 376
-    },
-    {
-     "va": "0x0060DA80",
-     "length": 145
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2CMP/SRC/SubTile_0060D6F0.cpp",
-   "rank": 1,
-   "functions": [
-    {
      "va": "0x0060D6F0",
      "length": 200
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2CMP/SRC/SubTile_0060D7C0.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x0060D7C0",
      "length": 29,
@@ -82422,6 +82194,14 @@
      "name": "?sub_0060D7E0_HasTransparentDiamondPixel@@YAHPBE@Z"
     },
     {
+     "va": "0x0060D840",
+     "length": 376
+    },
+    {
+     "va": "0x0060DA80",
+     "length": 145
+    },
+    {
      "va": "0x0060DB20",
      "length": 57,
      "name": "?sub_0060DB20_RecodeSubTile@@YIXPAUD2CmpSubTileRecordStrc@@@Z"
@@ -82431,6 +82211,20 @@
      "length": 52,
      "name": "?sub_0060DC30_ForEachPaletteColor@@YIXPAUD2CmpPaletteStrc@@P6GXI@Z@Z"
     }
+   ],
+   "flags": [
+    "/nologo",
+    "/c",
+    "/TP",
+    "/Zl",
+    "/Z7",
+    "/Gy",
+    "/MT",
+    "/O2",
+    "/Oy-",
+    "/Ob2",
+    "/Gd",
+    "/GS-"
    ]
   },
   {
@@ -98855,6 +98649,10 @@
      "length": 874
     },
     {
+     "va": "0x006BFAD0",
+     "length": 152
+    },
+    {
      "va": "0x006BFEA0",
      "length": 252
     },
@@ -99200,7 +98998,7 @@
   },
   {
    "file": "Source/D2Direct3D/Src/d3dCore.cpp",
-   "rank": 1,
+   "rank": 0,
    "functions": [
     {
      "va": "0x006B4FD0",
@@ -99211,12 +99009,26 @@
      "length": 77
     },
     {
+     "va": "0x006B56C0",
+     "length": 94,
+     "name": "?sub_006B56C0_RunWithState@@YIXHHH@Z"
+    },
+    {
+     "va": "0x006B57D0",
+     "length": 82,
+     "name": "?sub_006B57D0_EndScene@@YAHXZ"
+    },
+    {
      "va": "0x006B5830",
      "length": 100
     },
     {
      "va": "0x006B58A0",
      "length": 226
+    },
+    {
+     "va": "0x006B5990",
+     "length": 5
     },
     {
      "va": "0x006B59A0",
@@ -99261,70 +99073,6 @@
      "length": 161,
      "name": "?sub_006B5720_BeginScene@@YIHHHHH@Z"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Src/d3dCore_006B56C0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x006B56C0",
-     "length": 94,
-     "name": "?sub_006B56C0_RunWithState@@YIXHHH@Z"
-    },
-    {
-     "va": "0x006B57D0",
-     "length": 82,
-     "name": "?sub_006B57D0_EndScene@@YAHXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Src/d3dCore_006B5990.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006B5990",
-     "length": 5
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Src/d3dSprite_006B5B10.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006B5B10",
-     "length": 155
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
    ]
   },
   {
@@ -99448,12 +99196,20 @@
    "rank": 0,
    "functions": [
     {
+     "va": "0x006B5B10",
+     "length": 155
+    },
+    {
      "va": "0x006B6680",
      "length": 120
     },
     {
      "va": "0x006B6700",
      "length": 45
+    },
+    {
+     "va": "0x006B7090",
+     "length": 110
     },
     {
      "va": "0x006B7100",
@@ -99632,31 +99388,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Src/d3dSprite_006B7090.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006B7090",
-     "length": 110
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-",
-    "/Ob1"
    ]
   },
   {
@@ -100077,8 +99808,24 @@
      "length": 29
     },
     {
+     "va": "0x006BA600",
+     "length": 46
+    },
+    {
+     "va": "0x006BA630",
+     "length": 46
+    },
+    {
      "va": "0x006BA660",
      "length": 110
+    },
+    {
+     "va": "0x006BA6D0",
+     "length": 135
+    },
+    {
+     "va": "0x006BA830",
+     "length": 236
     }
    ]
   },
@@ -100104,62 +99851,6 @@
     "/Ob2",
     "/Gd",
     "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Src/d3dTextureCache_006BA600.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006BA600",
-     "length": 46
-    },
-    {
-     "va": "0x006BA630",
-     "length": 46
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Src/d3dTextureCache_006BA6D0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006BA6D0",
-     "length": 135
-    },
-    {
-     "va": "0x006BA830",
-     "length": 236
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -100219,8 +99910,24 @@
      "length": 103
     },
     {
+     "va": "0x006BAB50",
+     "length": 29
+    },
+    {
+     "va": "0x006BAB70",
+     "length": 46
+    },
+    {
+     "va": "0x006BABA0",
+     "length": 46
+    },
+    {
      "va": "0x006BABD0",
      "length": 115
+    },
+    {
+     "va": "0x006BAC50",
+     "length": 95
     },
     {
      "va": "0x006BADC0",
@@ -100250,62 +99957,6 @@
     "/Ob2",
     "/Gd",
     "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Src/d3dSubtileCache_006BAB50.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006BAB50",
-     "length": 29
-    },
-    {
-     "va": "0x006BAB70",
-     "length": 46
-    },
-    {
-     "va": "0x006BABA0",
-     "length": 46
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Src/d3dSubtileCache_006BAC50.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006BAC50",
-     "length": 95
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -100356,6 +100007,14 @@
      "length": 103
     },
     {
+     "va": "0x006BB150",
+     "length": 29
+    },
+    {
+     "va": "0x006BB170",
+     "length": 29
+    },
+    {
      "va": "0x006BB190",
      "length": 46
     },
@@ -100376,34 +100035,6 @@
      "va": "0x006BB3E0",
      "length": 312
     }
-   ]
-  },
-  {
-   "file": "Source/D2Direct3D/Src/d3dFloorCache_006BB150.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006BB150",
-     "length": 29
-    },
-    {
-     "va": "0x006BB170",
-     "length": 29
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
    ]
   },
   {
@@ -100665,6 +100296,14 @@
     {
      "va": "0x006BD3C0",
      "length": 196
+    },
+    {
+     "va": "0x006BD5A0",
+     "length": 154
+    },
+    {
+     "va": "0x006BD640",
+     "length": 317
     }
    ]
   },
@@ -100834,31 +100473,11 @@
     {
      "va": "0x006BC6A0",
      "length": 218
-    }
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/D2QSSocket_006BC780.cpp",
-   "rank": 1,
-   "functions": [
+    },
     {
      "va": "0x006BC780",
      "length": 82
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -101058,34 +100677,6 @@
     "/Gd",
     "/GS-",
     "/Ob1"
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/Excel/Excel_006BD5A0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006BD5A0",
-     "length": 154
-    },
-    {
-     "va": "0x006BD640",
-     "length": 317
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -101455,31 +101046,6 @@
    ]
   },
   {
-   "file": "Source/Fog/Src/QServer/QServer_006BFAD0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006BFAD0",
-     "length": 152
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-",
-    "/Ob1"
-   ]
-  },
-  {
    "file": "Source/Fog/Src/QServer/QServer_006BFFA0.cpp",
    "rank": 1,
    "functions": [
@@ -101673,6 +101239,10 @@
      "length": 70
     },
     {
+     "va": "0x006C1FF0",
+     "length": 156
+    },
+    {
      "va": "0x006C2090",
      "length": 125,
      "name": "?sub_006C2090_Pop@@YIHPAUD2Queue006C2090Strc@@PAXG@Z"
@@ -101704,30 +101274,6 @@
    ]
   },
   {
-   "file": "Source/Fog/Src/D2QSQueue_006C1FF0.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C1FF0",
-     "length": 156
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/Fog/Unknown_006C2110.cpp",
    "rank": 1,
    "functions": [
@@ -101756,6 +101302,10 @@
     {
      "va": "0x006C2D70",
      "length": 694
+    },
+    {
+     "va": "0x006C3030",
+     "length": 152
     }
    ],
    "flags": [
@@ -101833,30 +101383,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/Fog/Src/QServer/QServerNT_006C3030.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x006C3030",
-     "length": 152
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/Ob1"
    ]
   },
   {

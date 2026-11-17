@@ -1,8 +1,6 @@
 #include "Fog.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define QS_IS_READ(f) (((f) & 1) == 1)
-#define QS_IS_WRITE(f) (((f) & 3) == 2)
 struct D2CriticalSectionStrc;
 struct D2QOverlappedStrc;
 struct D2QWriteNodeStrc;
@@ -15,23 +13,6 @@ union D2QTickStrc;
 struct D2HackListStrc;
 
 struct D2CriticalSectionStrc { void* pDebugInfo; long nLockCount; long nRecursionCount; void* hOwningThread; void* hLockSemaphore; unsigned long nSpinCount; };
-
-struct D2QOverlappedStrc
-{
-    unsigned long nInternal;
-    unsigned long nInternalHigh;
-    unsigned long nOffset;
-    unsigned long nOffsetHigh;
-    void* hEvent;
-    unsigned int nFlags;
-};
-
-struct D2QWriteNodeStrc
-{
-    unsigned int nSize;
-    D2QWriteNodeStrc* pNext;
-    unsigned char pData[1];
-};
 
 struct D2SockAddrInStrc
 {
@@ -105,12 +86,6 @@ struct T006BE350
     int __thiscall sub_006BF660_CheckAddress(unsigned int nAddress);                                        // 0x006BF660
 };
 static __declspec(noinline) int sub_006C2810_PopWrite(D2QClientStrc* pClient);
-
-struct D2LargeIntegerStrc
-{
-    unsigned int f_0;
-    int f_4;
-};
 
 extern "C" __declspec(dllimport) int __stdcall GetQueuedCompletionStatus(void* hPort, unsigned long* pBytes, unsigned long* pKey, D2QOverlappedStrc** ppOverlapped, unsigned long nTimeout);
 extern "C" __declspec(dllimport) unsigned long __stdcall GetLastError();

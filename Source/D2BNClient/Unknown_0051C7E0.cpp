@@ -26,30 +26,6 @@ struct D2BnCheckAdReplyStrc
     unsigned char pData[1];
 };
 
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
-
-struct FSafeSock
-{
-    int bConnected;
-    int bConnecting;
-    unsigned int nSocket;
-    D2CriticalSectionStrc tCriticalSection;
-    void* hThread;
-    unsigned long nThreadId;
-    int bStopping;
-    unsigned long nFogErrorCode;
-    unsigned long nWSALastError;
-    char szName[64];
-};
-
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile* pAddend); // 0x006CC204
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 0x006CC260
 extern "C" __declspec(dllimport) long __stdcall InterlockedCompareExchange(long volatile* pDestination, long nExchange, long nComparand); // 0x006CC3A0
@@ -72,23 +48,12 @@ struct D2TimevalStrc
     long tv_usec;
 };
 
-struct D2InAddrStrc
-{
-    unsigned long s_addr;
-};
-
 struct D2SockAddrInStrc
 {
     short sin_family;
     unsigned short sin_port;
     D2InAddrStrc sin_addr;
     char sin_zero[8];
-};
-
-struct D2BnStateStrc
-{
-    int nState;
-    void* pArg;
 };
 
 struct D2BnServerEntryStrc

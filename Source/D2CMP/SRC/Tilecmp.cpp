@@ -19,14 +19,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 D2TileListHeaderStrc* __cdecl sub_006094B0_AllocTileListHeader(); // 0x006094B0
 void __fastcall sub_005179B3_ConvertCelPixels(void* pDst, void* pSrc, int nRows, unsigned int nSrcSize, unsigned int nWidth, int nRows2);
 
-struct D2CmpColorStrc
-{
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-    unsigned char nPad;
-};
-
 struct D2CmpTileNodeStrc
 {
     unsigned short nX;
@@ -42,11 +34,6 @@ struct D2CmpTileNodeStrc
     short unk0x0A;
     unsigned char* pData;
     D2CmpTileNodeStrc* pNext;
-};
-
-struct D2CmpTileInfoStrc
-{
-    char data[25];
 };
 
 struct D2CmpTileStrc
@@ -78,12 +65,6 @@ struct D2CmpTileStrc
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
-
-struct D2CmpSubTilePosStrc
-{
-    int nX;
-    int nY;
-};
 
 extern D2CmpSubTilePosStrc gSubTilePositions_00743500[25]; // 0x00743500
 
@@ -139,8 +120,6 @@ struct D2CmpTileLibraryStrc
     int nBlocks;
     D2CmpTileBlockStrc* pBlocks;
 };
-
-typedef void (__stdcall* D2CmpColorCallback)(unsigned int nColor);
 
 // 0x00609770
 static __declspec(noinline) int __stdcall sub_00609770_IsUniformBlock(D2CmpTileStrc* pTile, const unsigned char* pPixels, int nPitch)

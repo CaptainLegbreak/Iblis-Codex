@@ -1,49 +1,7 @@
 #include "D2Direct3D.h"
-
-struct D2D3DObjVtblStrc
-{
-	void* pQueryInterface;
-	void* pAddRef;
-	unsigned long (__stdcall* pRelease)(D2D3DObjStrc* pObj);
-};
-
-struct D2D3DObjStrc
-{
-	D2D3DObjVtblStrc* pVtbl;
-};
-
-struct D2TexOwnerSlotStrc
-{
-	void* pTexture;
-	void* pInfo;
-};
-
-struct D2TexPoolEntryStrc
-{
-	int nIndex;
-	D2TexOwnerSlotStrc* pOwnerSlots;
-	int nOwnerSlot;
-	int unk0x0C;
-	D2D3DObjStrc* pTexture;
-	D2D3DObjStrc* pSurface;
-	D2TexPoolEntryStrc* pNext;
-	D2TexPoolEntryStrc* pPrev;
-};
-
-struct D2TexPoolStrc
-{
-	int nCapacity;
-	int nInUse;
-	D2TexPoolEntryStrc* pInUseFirst;
-	D2TexPoolEntryStrc* pInUseLast;
-	D2TexPoolEntryStrc* pSpareFirst;
-	D2TexPoolEntryStrc* pSpareLast;
-	D2TexPoolEntryStrc* pEntries;
-};
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0

@@ -1,27 +1,5 @@
 #include "Bnclient.h"
 
-struct Unicode
-{
-    unsigned short wChar;
-
-    operator unsigned short() const
-    {
-        return wChar;
-    }
-};
-
-struct D2LangByteRangeStrc
-{
-    unsigned char f_0;
-    unsigned char f_1;
-};
-
-struct D2LangCharMapEntryStrc
-{
-    unsigned short wValue;
-    unsigned short f_2;
-};
-
 extern unsigned short gnCharMapCount_00882B20;                                                              // 0x00882B20
 unsigned char gnLeadByteRangeCount_00882B22;                                                                // 0x00882B22
 extern D2LangCharMapEntryStrc* gpCharMap_00882B24;                                                          // 0x00882B24

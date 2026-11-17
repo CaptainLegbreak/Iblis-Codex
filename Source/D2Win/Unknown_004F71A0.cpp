@@ -1,8 +1,6 @@
 #include "D2Win.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
-#define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
 
 struct D2PaletteStrc;
 struct D2TileLibraryBlockStrc;
@@ -25,20 +23,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 extern int gnRowOffsets_007C9828[]; // 0x007C9828
 extern unsigned char* gpScreenBuffer_007D5448; // 0x007D5448
-extern unsigned char gLightRamps_007CA320[32][32][32]; // 0x007CA320
 extern unsigned char** gppBlendTables_007D5578; // 0x007D5578
-
-struct D2TileLibraryBlockStrc
-{
-    short nPosX;
-    short nPosY;
-    short unk0x04;
-    unsigned char nGridX;
-    unsigned char nGridY;
-    unsigned char nFormat;
-    char unk0x09[0x07];
-    unsigned char* pData;
-};
 
 void __fastcall sub_004F7580_DrawRleRowsClipped(int nX, int nY, unsigned char* pSrc, unsigned char* pDst, unsigned char* pPalette, int nRows); // 0x004F7580
 extern int gnBlockClipBottom_007C97A0; // 0x007C97A0
@@ -502,7 +487,7 @@ void __fastcall sub_004F84F0_TileDrawLitBlend(unsigned char* pSrc, int nX, int n
     D2_ASSERT(pBuffer, 0x48B);
     unsigned char* pDst = gnRowOffsets_007C9828[nY] + pBuffer + nX;
     unsigned char* p = pDst;
-    unsigned char* pRamp = gLightRamps_007CA320[nLightX >> 8][nLightY >> 8];
+    unsigned char* pRamp = gLightCube_007CA320[nLightX >> 8][nLightY >> 8];
     if (nY >= gnInnerTop_007CA31C && nY < gnInnerBottom_007C9790 && nX >= gnInnerLeft_007D2328 && nX < gnInnerRight_007C9784)
     {
         int nRows = 0x20;
@@ -517,7 +502,7 @@ void __fastcall sub_004F84F0_TileDrawLitBlend(unsigned char* pSrc, int nX, int n
                 p = pDst;
                 nLightX += nLightXStep;
                 nLightY += nLightYStep;
-                pRamp = gLightRamps_007CA320[nLightX >> 8][nLightY >> 8];
+                pRamp = gLightCube_007CA320[nLightX >> 8][nLightY >> 8];
             }
             else
             {
@@ -551,7 +536,7 @@ void __fastcall sub_004F84F0_TileDrawLitBlend(unsigned char* pSrc, int nX, int n
                 p = pDst;
                 nLightX += nLightXStep;
                 nLightY += nLightYStep;
-                pRamp = gLightRamps_007CA320[nLightX >> 8][nLightY >> 8];
+                pRamp = gLightCube_007CA320[nLightX >> 8][nLightY >> 8];
             }
             else
             {

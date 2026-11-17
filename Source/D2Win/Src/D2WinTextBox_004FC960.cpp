@@ -1,5 +1,17 @@
 #include "D2Win.h"
 
+struct D2CharStrc
+{
+    unsigned short wChar;
+    unsigned char unk0x02;
+    unsigned char nWidth;
+    unsigned char nHeight;
+    unsigned char unk0x05;
+    unsigned short unk0x06;
+    unsigned short nImageIndex;
+    unsigned short unk0x0A[2];
+};
+
 enum D2ControlTypes
 {
     D2WIN_EDITBOX = 1,
@@ -133,13 +145,6 @@ struct D2WinListStrc
     D2WinControlStrc controlHeader;
     int unk0x40[9];
     D2WinListDataStrc* pDataList;
-};
-
-struct D2WinAccountListDataStrc
-{
-    char szText[50];
-    short field_32;
-    D2WinAccountListDataStrc* pNext;
 };
 
 struct D2WinAccountListStrc

@@ -1,8 +1,6 @@
 #include "D2Multi.h"
-
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // build: symbol ??_FUnicode@@QAEXXZ 0x0042F530
-typedef unsigned int size_t;
 
 struct Unicode
 {
@@ -41,8 +39,6 @@ public:
     virtual int GetPersist();
     virtual void SetPersist(int bPersist);
 };
-
-typedef int (__stdcall* D2LaunchCallback)(int nArg);
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 extern "C" size_t __cdecl strlen(const char* szString);
 const char* __stdcall SStrChr(const char* szString, char nChar);                                            // 0x00413490

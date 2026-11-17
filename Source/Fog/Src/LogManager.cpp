@@ -1,6 +1,7 @@
 #include "Fog.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
 struct D2CriticalSectionStrc;
 struct D2ExceptionPointersStrc;
 struct D2LogMessageStrc;
@@ -101,8 +102,11 @@ struct sub_00602130;
 struct sub_00602180;
 struct sub_00602420;
 struct sub_00602750;
-
-typedef unsigned int size_t;
+struct D2SystemTimeStrc;
+struct D2ThreadContextStrc;
+struct D2FileTimeStrc;
+struct D2LogMsgLinkStrc;
+struct D2LogMsgNodeStrc;
 
 struct D2CriticalSectionStrc
 {
@@ -112,18 +116,6 @@ struct D2CriticalSectionStrc
     void* hOwningThread;
     void* hLockSemaphore;
     unsigned long nSpinCount;
-};
-
-struct D2SystemTimeStrc
-{
-    unsigned short wYear;
-    unsigned short wMonth;
-    unsigned short wDayOfWeek;
-    unsigned short wDay;
-    unsigned short wHour;
-    unsigned short wMinute;
-    unsigned short wSecond;
-    unsigned short wMilliseconds;
 };
 
 struct D2ThreadContextStrc
@@ -164,12 +156,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern int gbImageHlpLoaded_0075D014; // 0x0075D014
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-
-struct D2FileTimeStrc
-{
-    unsigned long dwLowDateTime;
-    unsigned long dwHighDateTime;
-};
 
 struct D2LogMessageStrc
 {
@@ -912,6 +898,46 @@ struct sub_00602750
     sub_00602750();
 };
 
+struct D2LogMsgLinkStrc
+{
+    D2LogMsgLinkStrc* m_prevlink;
+    char* m_next;
+
+    D2LogMsgLinkStrc() { m_prevlink = 0; m_next = 0; }
+    // 0x0040F820
+    ~D2LogMsgLinkStrc() { Unlink(); }
+    D2LogMsgLinkStrc* NextLink(int nLinkOffset)
+    {
+        if ((int)m_next < 0)
+            return (D2LogMsgLinkStrc*)~(unsigned int)m_next;
+        if (nLinkOffset < 0)
+            nLinkOffset = (char*)this - m_prevlink->m_next;
+        return (D2LogMsgLinkStrc*)(m_next + nLinkOffset);
+    }
+    char* Next()
+    {
+        return (int)m_next <= 0 ? 0 : m_next;
+    }
+    void Unlink()
+    {
+        if (m_prevlink)
+        {
+            NextLink(-1)->m_prevlink = m_prevlink;
+            m_prevlink->m_next = m_next;
+            m_prevlink = 0;
+            m_next = 0;
+        }
+    }
+};
+
+struct D2LogMsgNodeStrc
+{
+    D2LogMsgLinkStrc f_0;
+
+    D2LogMsgNodeStrc();
+    ~D2LogMsgNodeStrc();
+};
+
 D2CriticalSectionStrc gtLogLock_0075E850; // 0x0075E850
 
 void* gpDbgHelpRequest_0098A6E4; // 0x0098A6E4
@@ -1034,6 +1060,46 @@ void __cdecl sub_0040D540_SETranslator(unsigned int nCode, D2ExceptionPointersSt
     CloseHandle(hThread);
 }
 
+// 0x0040F000
+void __fastcall sub_0040F000_GetLogDirectory(char* szDirectory, int nSize)
+{
+    char szPath[0x104];
+    *szDirectory = 0;
+    if (SHGetFolderPathA(0, 5, 0, 0, szPath) >= 0)
+    {
+        SStrCopy(szDirectory, szPath, nSize);
+        sub_00406B20_AppendBackslash(szDirectory, nSize);
+        sub_00413800(szDirectory, "Diablo II\\GameLogs\\", nSize);
+        sub_00406A10_CreateDirectoryTree(szDirectory);
+    }
+}
+
+// 0x0040F3D0
+void __fastcall sub_0040F3D0_SweepLogFile(const D2FileTimeStrc* pNow, const char* szFile)
+{
+    int nOffset = SStrLen(szFile) - 10;
+    if (nOffset > 0)
+    {
+        int nYear, nMonth, nDay;
+        sscanf(szFile + nOffset, "%2d%2d%2d", &nYear, &nMonth, &nDay);
+        D2SystemTimeStrc tTime;
+        memset(&tTime, 0, sizeof(tTime));
+        tTime.wYear = nYear > 90 ? nYear + 1900 : nYear + 2000;
+        tTime.wMonth = nMonth;
+        tTime.wDay = nDay;
+        D2FileTimeStrc tFileTime;
+        SystemTimeToFileTime(&tTime, &tFileTime);
+        if (pNow->dwHighDateTime >= tFileTime.dwHighDateTime && pNow->dwHighDateTime - tFileTime.dwHighDateTime >= 0x4B7)
+            DeleteFileA(szFile);
+    }
+}
+
+// 0x0040F530
+sub_0040F530::~sub_0040F530()
+{
+    f_0.Unlink();
+}
+
 // 0x0040F5A0
 void __fastcall sub_0040F5A0_SetLogPrefix(const char* szName)
 {
@@ -1080,61 +1146,6 @@ char* __fastcall sub_0040F670_ReadLogRange(const char* szName, long nStart, long
     return pBuffer;
 }
 
-// 0x00410C40
-void __stdcall sub_00410C40_OrBits(const unsigned char* pA, const unsigned char* pB, unsigned char* pOut, int nBits)
-{
-    nBits = (nBits + 7) / 8;
-    const int nAligned = 4 * (nBits / 4);
-    int i;
-    for (i = 0; i < nAligned; i += 4)
-    {
-        *(int*)&pOut[i] = *(const int*)&pA[i] | *(const int*)&pB[i];
-    }
-    switch (nBits - nAligned)
-    {
-    case 3:
-        pOut[i + 2] = pA[i + 2] | pB[i + 2];
-    case 2:
-        pOut[i + 1] = pA[i + 1] | pB[i + 1];
-    case 1:
-        pOut[i] = pA[i] | pB[i];
-    }
-}
-
-// 0x0040F000
-void __fastcall sub_0040F000_GetLogDirectory(char* szDirectory, int nSize)
-{
-    char szPath[0x104];
-    *szDirectory = 0;
-    if (SHGetFolderPathA(0, 5, 0, 0, szPath) >= 0)
-    {
-        SStrCopy(szDirectory, szPath, nSize);
-        sub_00406B20_AppendBackslash(szDirectory, nSize);
-        sub_00413800(szDirectory, "Diablo II\\GameLogs\\", nSize);
-        sub_00406A10_CreateDirectoryTree(szDirectory);
-    }
-}
-
-// 0x0040F3D0
-void __fastcall sub_0040F3D0_SweepLogFile(const D2FileTimeStrc* pNow, const char* szFile)
-{
-    int nOffset = SStrLen(szFile) - 10;
-    if (nOffset > 0)
-    {
-        int nYear, nMonth, nDay;
-        sscanf(szFile + nOffset, "%2d%2d%2d", &nYear, &nMonth, &nDay);
-        D2SystemTimeStrc tTime;
-        memset(&tTime, 0, sizeof(tTime));
-        tTime.wYear = nYear > 90 ? nYear + 1900 : nYear + 2000;
-        tTime.wMonth = nMonth;
-        tTime.wDay = nDay;
-        D2FileTimeStrc tFileTime;
-        SystemTimeToFileTime(&tTime, &tFileTime);
-        if (pNow->dwHighDateTime >= tFileTime.dwHighDateTime && pNow->dwHighDateTime - tFileTime.dwHighDateTime >= 0x4B7)
-            DeleteFileA(szFile);
-    }
-}
-
 // 0x0040F720
 void __fastcall sub_0040F720_WriteMessage(D2LogMessageStrc* pMessage)
 {
@@ -1150,19 +1161,6 @@ void __fastcall sub_0040F720_WriteMessage(D2LogMessageStrc* pMessage)
         fwrite(szText, SStrLen(szText), 1, pFile);
         gadwLogWriteTick_0075D2F0[nSlot] = GetTickCount();
     }
-}
-
-// 0x0040F530
-sub_0040F530::~sub_0040F530()
-{
-    f_0.Unlink();
-}
-
-// 0x0040F810
-sub_0040F810::sub_0040F810()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
 }
 
 bool D2ChatStormLinkStrc::sub_0060E0C0_IsLinked()
@@ -1336,16 +1334,83 @@ sub_0040F7D0::~sub_0040F7D0()
     f_0.Unlink();
 }
 
+// 0x0040F810
+sub_0040F810::sub_0040F810()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x0040F860
+void D2ChatStormListAStrc::sub_0060E5F0_Reset()
+{
+    m_linkoffset = 0;
+    InitializeTerminator();
+}
+
+// 0x0040FAA0
+D2LogMsgNodeStrc::~D2LogMsgNodeStrc()
+{
+    f_0.Unlink();
+}
+
+// 0x0040FCB0
+D2LogMsgNodeStrc::D2LogMsgNodeStrc()
+{
+}
+
+// 0x00410C40
+void __stdcall sub_00410C40_OrBits(const unsigned char* pA, const unsigned char* pB, unsigned char* pOut, int nBits)
+{
+    nBits = (nBits + 7) / 8;
+    const int nAligned = 4 * (nBits / 4);
+    int i;
+    for (i = 0; i < nAligned; i += 4)
+    {
+        *(int*)&pOut[i] = *(const int*)&pA[i] | *(const int*)&pB[i];
+    }
+    switch (nBits - nAligned)
+    {
+    case 3:
+        pOut[i + 2] = pA[i + 2] | pB[i + 2];
+    case 2:
+        pOut[i + 1] = pA[i + 1] | pB[i + 1];
+    case 1:
+        pOut[i] = pA[i] | pB[i];
+    }
+}
+
+// 0x00417780
+sub_00417780::sub_00417780()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
 // 0x00417810
 sub_00417810::~sub_00417810()
 {
     f_0.Unlink();
 }
 
+// 0x00417850
+sub_00417850::sub_00417850()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
 // 0x00417860
 sub_00417860::~sub_00417860()
 {
     f_0.Unlink();
+}
+
+// 0x004178B0
+sub_004178B0::sub_004178B0()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
 }
 
 // 0x004178C0
@@ -1360,10 +1425,24 @@ sub_00417900::~sub_00417900()
     f_0.Unlink();
 }
 
+// 0x00417940
+sub_00417940::sub_00417940()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
 // 0x00417950
 sub_00417950::~sub_00417950()
 {
     f_0.Unlink();
+}
+
+// 0x00417990
+sub_00417990::sub_00417990()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
 }
 
 // 0x004179B0
@@ -1382,6 +1461,20 @@ sub_004183F0::~sub_004183F0()
 sub_00418430::~sub_00418430()
 {
     f_0.Unlink();
+}
+
+// 0x00418760
+sub_00418760::sub_00418760()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x00418770
+sub_00418770::sub_00418770()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
 }
 
 // 0x00418780
@@ -1420,6 +1513,13 @@ sub_004188C0::~sub_004188C0()
     f_0.Unlink();
 }
 
+// 0x00418A40
+sub_00418A40::sub_00418A40()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
 // 0x00418BA0
 sub_00418BA0::~sub_00418BA0()
 {
@@ -1436,218 +1536,6 @@ sub_00418BE0::~sub_00418BE0()
 sub_00418C20::~sub_00418C20()
 {
     f_0.Unlink();
-}
-
-// 0x00418E10
-sub_00418E10::~sub_00418E10()
-{
-    f_0.Unlink();
-}
-
-// 0x0041C3D0
-sub_0041C3D0::~sub_0041C3D0()
-{
-    f_0.Unlink();
-}
-
-// 0x0041C500
-sub_0041C500::~sub_0041C500()
-{
-    f_0.Unlink();
-}
-
-// 0x0041C730
-sub_0041C730::~sub_0041C730()
-{
-    f_0.Unlink();
-}
-
-// 0x0041C800
-sub_0041C800::~sub_0041C800()
-{
-    f_0.Unlink();
-}
-
-// 0x00420430
-sub_00420430::~sub_00420430()
-{
-    f_0.Unlink();
-}
-
-// 0x004204B0
-sub_004204B0::~sub_004204B0()
-{
-    f_0.Unlink();
-}
-
-// 0x00420710
-sub_00420710::~sub_00420710()
-{
-    f_0.Unlink();
-}
-
-// 0x004207E0
-sub_004207E0::~sub_004207E0()
-{
-    f_0.Unlink();
-}
-
-// 0x00426960
-sub_00426960::~sub_00426960()
-{
-    f_0.Unlink();
-}
-
-// 0x00426A80
-sub_00426A80::~sub_00426A80()
-{
-    f_0.Unlink();
-}
-
-// 0x00426CB0
-sub_00426CB0::~sub_00426CB0()
-{
-    f_0.Unlink();
-}
-
-// 0x00426D80
-sub_00426D80::~sub_00426D80()
-{
-    f_0.Unlink();
-}
-
-// 0x0044DDD0
-sub_0044DDD0::~sub_0044DDD0()
-{
-    f_0.Unlink();
-}
-
-// 0x0044DE90
-sub_0044DE90::~sub_0044DE90()
-{
-    f_0.Unlink();
-}
-
-// 0x0044ECC0
-sub_0044ECC0::~sub_0044ECC0()
-{
-    f_0.Unlink();
-}
-
-// 0x0044ED50
-sub_0044ED50::~sub_0044ED50()
-{
-    f_0.Unlink();
-}
-
-// 0x00601BF0
-sub_00601BF0::~sub_00601BF0()
-{
-    f_0.Unlink();
-}
-
-// 0x00601C70
-sub_00601C70::~sub_00601C70()
-{
-    f_0.Unlink();
-}
-
-// 0x00601D60
-sub_00601D60::~sub_00601D60()
-{
-    f_0.Unlink();
-}
-
-// 0x00601F20
-sub_00601F20::~sub_00601F20()
-{
-    f_0.Unlink();
-}
-
-// 0x00601F60
-sub_00601F60::~sub_00601F60()
-{
-    f_0.Unlink();
-}
-
-// 0x006020D0
-sub_006020D0::~sub_006020D0()
-{
-    f_0.Unlink();
-}
-
-// 0x00602140
-sub_00602140::~sub_00602140()
-{
-    f_0.Unlink();
-}
-
-// 0x006024A0
-sub_006024A0::~sub_006024A0()
-{
-    f_0.Unlink();
-}
-
-// 0x00602760
-sub_00602760::~sub_00602760()
-{
-    f_0.Unlink();
-}
-
-// 0x00417780
-sub_00417780::sub_00417780()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x00417850
-sub_00417850::sub_00417850()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x004178B0
-sub_004178B0::sub_004178B0()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x00417940
-sub_00417940::sub_00417940()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x00417990
-sub_00417990::sub_00417990()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x00418760
-sub_00418760::sub_00418760()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x00418770
-sub_00418770::sub_00418770()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x00418A40
-sub_00418A40::sub_00418A40()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
 }
 
 // 0x00418DE0
@@ -1671,6 +1559,12 @@ sub_00418E00::sub_00418E00()
     f_0.m_next = 0;
 }
 
+// 0x00418E10
+sub_00418E10::~sub_00418E10()
+{
+    f_0.Unlink();
+}
+
 // 0x00418E50
 sub_00418E50::sub_00418E50()
 {
@@ -1692,11 +1586,23 @@ sub_00419060::sub_00419060()
     f_0.m_next = 0;
 }
 
+// 0x0041C3D0
+sub_0041C3D0::~sub_0041C3D0()
+{
+    f_0.Unlink();
+}
+
 // 0x0041C4F0
 sub_0041C4F0::sub_0041C4F0()
 {
     f_0.m_prevlink = 0;
     f_0.m_next = 0;
+}
+
+// 0x0041C500
+sub_0041C500::~sub_0041C500()
+{
+    f_0.Unlink();
 }
 
 // 0x0041C720
@@ -1706,11 +1612,29 @@ sub_0041C720::sub_0041C720()
     f_0.m_next = 0;
 }
 
+// 0x0041C730
+sub_0041C730::~sub_0041C730()
+{
+    f_0.Unlink();
+}
+
 // 0x0041C7F0
 sub_0041C7F0::sub_0041C7F0()
 {
     f_0.m_prevlink = 0;
     f_0.m_next = 0;
+}
+
+// 0x0041C800
+sub_0041C800::~sub_0041C800()
+{
+    f_0.Unlink();
+}
+
+// 0x00420430
+sub_00420430::~sub_00420430()
+{
+    f_0.Unlink();
 }
 
 // 0x004204A0
@@ -1720,11 +1644,23 @@ sub_004204A0::sub_004204A0()
     f_0.m_next = 0;
 }
 
+// 0x004204B0
+sub_004204B0::~sub_004204B0()
+{
+    f_0.Unlink();
+}
+
 // 0x00420700
 sub_00420700::sub_00420700()
 {
     f_0.m_prevlink = 0;
     f_0.m_next = 0;
+}
+
+// 0x00420710
+sub_00420710::~sub_00420710()
+{
+    f_0.Unlink();
 }
 
 // 0x004207D0
@@ -1734,11 +1670,35 @@ sub_004207D0::sub_004207D0()
     f_0.m_next = 0;
 }
 
+// 0x004207E0
+sub_004207E0::~sub_004207E0()
+{
+    f_0.Unlink();
+}
+
+// 0x00426960
+sub_00426960::~sub_00426960()
+{
+    f_0.Unlink();
+}
+
+// 0x00426A80
+sub_00426A80::~sub_00426A80()
+{
+    f_0.Unlink();
+}
+
 // 0x00426CA0
 sub_00426CA0::sub_00426CA0()
 {
     f_0.m_prevlink = 0;
     f_0.m_next = 0;
+}
+
+// 0x00426CB0
+sub_00426CB0::~sub_00426CB0()
+{
+    f_0.Unlink();
 }
 
 // 0x00426D70
@@ -1748,11 +1708,35 @@ sub_00426D70::sub_00426D70()
     f_0.m_next = 0;
 }
 
+// 0x00426D80
+sub_00426D80::~sub_00426D80()
+{
+    f_0.Unlink();
+}
+
 // 0x0044BDE0
 sub_0044BDE0::sub_0044BDE0()
 {
     f_0.m_prevlink = 0;
     f_0.m_next = 0;
+}
+
+// 0x0044DDD0
+sub_0044DDD0::~sub_0044DDD0()
+{
+    f_0.Unlink();
+}
+
+// 0x0044DE90
+sub_0044DE90::~sub_0044DE90()
+{
+    f_0.Unlink();
+}
+
+// 0x0044ECC0
+sub_0044ECC0::~sub_0044ECC0()
+{
+    f_0.Unlink();
 }
 
 // 0x0044ED40
@@ -1762,11 +1746,35 @@ sub_0044ED40::sub_0044ED40()
     f_0.m_next = 0;
 }
 
+// 0x0044ED50
+sub_0044ED50::~sub_0044ED50()
+{
+    f_0.Unlink();
+}
+
 // 0x0044ED90
 sub_0044ED90::sub_0044ED90()
 {
     f_0.m_prevlink = 0;
     f_0.m_next = 0;
+}
+
+// 0x00601BF0
+sub_00601BF0::~sub_00601BF0()
+{
+    f_0.Unlink();
+}
+
+// 0x00601C70
+sub_00601C70::~sub_00601C70()
+{
+    f_0.Unlink();
+}
+
+// 0x00601D60
+sub_00601D60::~sub_00601D60()
+{
+    f_0.Unlink();
 }
 
 // 0x00601F10
@@ -1776,11 +1784,35 @@ sub_00601F10::sub_00601F10()
     f_0.m_next = 0;
 }
 
+// 0x00601F20
+sub_00601F20::~sub_00601F20()
+{
+    f_0.Unlink();
+}
+
+// 0x00601F60
+sub_00601F60::~sub_00601F60()
+{
+    f_0.Unlink();
+}
+
+// 0x006020D0
+sub_006020D0::~sub_006020D0()
+{
+    f_0.Unlink();
+}
+
 // 0x00602130
 sub_00602130::sub_00602130()
 {
     f_0.m_prevlink = 0;
     f_0.m_next = 0;
+}
+
+// 0x00602140
+sub_00602140::~sub_00602140()
+{
+    f_0.Unlink();
 }
 
 // 0x00602180
@@ -1797,6 +1829,12 @@ sub_00602420::sub_00602420()
     f_0.m_next = 0;
 }
 
+// 0x006024A0
+sub_006024A0::~sub_006024A0()
+{
+    f_0.Unlink();
+}
+
 // 0x00602750
 sub_00602750::sub_00602750()
 {
@@ -1804,9 +1842,8 @@ sub_00602750::sub_00602750()
     f_0.m_next = 0;
 }
 
-// 0x0040F860
-void D2ChatStormListAStrc::sub_0060E5F0_Reset()
+// 0x00602760
+sub_00602760::~sub_00602760()
 {
-    m_linkoffset = 0;
-    InitializeTerminator();
+    f_0.Unlink();
 }

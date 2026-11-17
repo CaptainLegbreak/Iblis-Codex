@@ -44,8 +44,6 @@ struct D2LaunchReplyStrc
     int nStatus;
     unsigned short f_4;
 };
-
-typedef int (__stdcall* D2LaunchCallback)(int nArg);
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
 extern "C" __declspec(dllimport) int __stdcall SetRect(tagRECT* lprc, int xLeft, int yTop, int xRight, int yBottom); // 0x006CC498
 

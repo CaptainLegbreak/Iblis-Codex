@@ -20,12 +20,6 @@ extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 void __fastcall sub_005206B0_HashTransform(D2BnetHashContextStrc* pContext); // 0x005206B0
 
-struct D2FileTimeStrc
-{
-    unsigned long dwLowDateTime;
-    unsigned long dwHighDateTime;
-};
-
 struct D2VersionReplyStrc
 {
     unsigned int nResult;

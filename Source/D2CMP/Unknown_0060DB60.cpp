@@ -7,14 +7,6 @@ void* __fastcall FOG_Alloc(int, const char*, int, int); // 0x0040B380
 int __fastcall FOG_Free(void*, const char*, int, int); // 0x0040B3C0
 extern "C" void* __cdecl memset(void*, int, unsigned int); // 0x00681EF0
 extern "C" void* __cdecl memcpy(void*, const void*, unsigned int); // 0x006829C0
-
-struct D2CmpColorStrc
-{
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-    unsigned char nPad;
-};
 typedef unsigned char (__stdcall* D2CmpMapColorFn)(unsigned char, unsigned char, unsigned char);
 struct D2CmpSubTileHeaderStrc
 {

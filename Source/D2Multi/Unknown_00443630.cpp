@@ -1,7 +1,5 @@
 #include "D2Multi.h"
 
-typedef unsigned int size_t;
-
 struct Unicode
 {
     unsigned short wChar;
@@ -19,9 +17,6 @@ struct SMSGHANDLER_PARAMS
     int bReturn;
     int lResult;
 };
-
-typedef int (__stdcall* D2LaunchCallback)(int nArg);
-typedef void (__cdecl* D2LaunchDoneFn)();
 
 struct D2FuncTable_0077ABF0Strc
 {
@@ -137,9 +132,6 @@ extern D2WinControlStrc* gpSubmitEditA_00798C80;                                
 extern D2WinControlStrc* gpSubmitEditB_00798C84;                                                            // 0x00798C84
 extern D2WinControlStrc* gpSubmitEditC_00798C88;                                                            // 0x00798C88
 extern int gnSubmitMode_00798CAC;                                                                           // 0x00798CAC
-
-#define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
-#define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 
 // 0x00443630
 void __cdecl sub_00443630_UpdateCreateButton()

@@ -15,16 +15,6 @@ struct D2SockAddrInStrc;
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
-
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
@@ -38,27 +28,7 @@ void __fastcall sub_0051ACA0_SendString(const char* szText, int nArg2, int nArg3
 int __fastcall sub_005204A0_SetError(int nError); // 0x005204A0
 int __fastcall sub_00520520_SetState(int nState); // 0x00520520
 
-struct D2BnStateStrc
-{
-    int nState;
-    void* pArg;
-};
-
 int __fastcall sub_005205F0_GetState(D2BnStateStrc* pState); // 0x005205F0
-
-struct D2BnDnsArgsStrc
-{
-    char* szResult;
-    const char* f_4;
-};
-
-struct D2BnMessageStrc
-{
-    int nId;
-    char szText[0x120];
-    unsigned int nLength;
-    D2BnMessageStrc* pNext;
-};
 
 struct D2BnLogStrc
 {
@@ -192,11 +162,6 @@ struct D2BnDownloadReplyStrc
     char szFile[1];
 };
 
-struct D2InAddrStrc
-{
-    unsigned long s_addr;
-};
-
 struct D2SockAddrInStrc
 {
     short sin_family;
@@ -206,8 +171,6 @@ struct D2SockAddrInStrc
 };
 
 extern "C" __declspec(dllimport) int __stdcall SetFileTime(void* hFile, const D2FileTimeStrc* pCreation, const D2FileTimeStrc* pAccess, const D2FileTimeStrc* pWrite); // 0x006CC3A8
-extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pSection); // 0x006CC218
-extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pSection); // 0x006CC214
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile* pValue); // 0x006CC204
 extern "C" int __stdcall connect(unsigned int nSocket, const D2SockAddrInStrc* pName, int nLength); // 0x006B014A
 extern "C" unsigned short __stdcall htons(unsigned short nValue); // 0x006B0156

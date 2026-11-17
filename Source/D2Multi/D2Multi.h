@@ -152,3 +152,40 @@ void __stdcall sub_005051A0(void* pObject, int nValue); // 0x005051A0
 void __stdcall sub_00505260(void* pObject, int nValue); // 0x00505260
 void __stdcall sub_005052F0(void* pObject, int nValue); // 0x005052F0
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
+
+#define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
+#define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
+
+struct D2ChannelEntryStrc
+{
+    char szName[0x32];
+    char szAccount[0x12];
+    D2ChannelEntryStrc* pNext;
+};
+
+struct D2CriticalSectionStrc
+{
+    void* pDebugInfo;
+    long nLockCount;
+    long nRecursionCount;
+    void* hOwningThread;
+    void* hLockSemaphore;
+    unsigned long nSpinCount;
+};
+
+typedef int (__stdcall* D2LaunchCallback)(int nArg);
+
+typedef void (__cdecl* D2LaunchDoneFn)();
+
+struct D2LaunchThreadRecordStrc
+{
+    int nData[0x52];
+};
+
+struct _FILETIME
+{
+    unsigned long dwLowDateTime;
+    unsigned long dwHighDateTime;
+};
+
+typedef unsigned int size_t;

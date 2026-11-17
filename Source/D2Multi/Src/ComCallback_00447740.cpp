@@ -41,8 +41,6 @@ extern D2LaunchMsgHandler gpfnMsgHandlers_0070EC20[]; // 0x0070EC20
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-typedef unsigned int size_t;
-
 struct Unicode
 {
     unsigned short wChar;
@@ -85,7 +83,6 @@ extern "C" int __cdecl rand(); // 0x00687461
 extern "C" int __cdecl strcmp(const char* szA, const char* szB);
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 const char* __stdcall SStrChr(const char* szString, char nChar); // 0x00413490
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
 int __fastcall sub_0043E630_ShowChannelText(Unicode* pText); // 0x0043E630
 void __fastcall sub_00447400_SetNamedValue(const char* szName, const char* szValue); // 0x00447400
 void __fastcall sub_00448BD0_UpdateScroll(int nDelta); // 0x00448BD0

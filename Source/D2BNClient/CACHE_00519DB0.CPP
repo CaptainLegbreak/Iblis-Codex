@@ -1,27 +1,5 @@
 #include "D2BNClient.h"
 
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
-
-struct D2SystemTimeStrc
-{
-    unsigned short wYear;
-    unsigned short wMonth;
-    unsigned short wDayOfWeek;
-    unsigned short wDay;
-    unsigned short wHour;
-    unsigned short wMinute;
-    unsigned short wSecond;
-    unsigned short wMilliseconds;
-};
-
 struct D2CacheHeaderStrc
 {
     char unk0x00[0x08];
@@ -34,14 +12,6 @@ struct D2CacheHeaderStrc
     unsigned int dwHeaderCrc;
     unsigned int dwHashCrc;
     unsigned int dwBlockCrc;
-};
-
-struct D2CacheHashEntryStrc
-{
-    unsigned int dwNameA;
-    unsigned int dwNameB;
-    unsigned int dwLocale;
-    unsigned int dwBlockIndex;
 };
 
 struct D2CacheBlockEntryStrc
@@ -133,16 +103,6 @@ void __cdecl sub_00519300_FreeCache()
     }
     LeaveCriticalSection(&gCacheLock_00881894);
 }
-
-#define VALIDATEBEGIN int nValid = -1
-#define VALIDATE(x) nValid &= (x) ? -1 : 0
-#define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
-
-#define CACHE_CRC32(dwCrc, pBytes, nCount) \
-    dwCrc = 0xFFFFFFFF; \
-    for (; nCount; --nCount, ++pBytes) \
-        dwCrc = (dwCrc >> 8) ^ gdwCacheCrcTable_0072FB80[(*pBytes ^ dwCrc) & 0xFF]; \
-    dwCrc = ~dwCrc
 
 // 0x00518DE0
 static __declspec(noinline) unsigned int sub_00518DE0_Crc32(const void* pData, unsigned int nSize)

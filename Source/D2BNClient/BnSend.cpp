@@ -34,58 +34,15 @@ struct D2BnChangeProofStrc;
 struct D2PacketBufferStrc;
 struct D2BnKeyValuePacketStrc;
 struct D2BnReadUserDataReplyStrc;
-
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
-
-struct FSafeSock
-{
-    int bConnected;
-    int bConnecting;
-    unsigned int nSocket;
-    D2CriticalSectionStrc tCriticalSection;
-    void* hThread;
-    unsigned long nThreadId;
-    int bStopping;
-    unsigned long nFogErrorCode;
-    unsigned long nWSALastError;
-    char szName[64];
-};
-
-struct D2SystemTimeStrc
-{
-    unsigned short wYear;
-    unsigned short wMonth;
-    unsigned short wDayOfWeek;
-    unsigned short wDay;
-    unsigned short wHour;
-    unsigned short wMinute;
-    unsigned short wSecond;
-    unsigned short wMilliseconds;
-};
+struct FSafeSock;
+struct D2SystemTimeStrc;
+struct D2FileTimeStrc;
+struct D2TimeZoneInformationStrc;
 
 struct D2FileTimeStrc
 {
     unsigned long dwLowDateTime;
     unsigned long dwHighDateTime;
-};
-
-struct D2TimeZoneInformationStrc
-{
-    long f_0;
-    unsigned short wszStandardName[32];
-    D2SystemTimeStrc tStandardDate;
-    long nStandardBias;
-    unsigned short wszDaylightName[32];
-    D2SystemTimeStrc tDaylightDate;
-    long nDaylightBias;
 };
 
 struct T0041D340
@@ -250,6 +207,7 @@ enum
 typedef void (__cdecl* D2WheelCallbackFn)();
 
 typedef int (__stdcall* D2FarProcFn)();
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(D2FarProcFn lpfn); // 0x006CC34C
@@ -309,13 +267,6 @@ struct D2BnLogonRealmPacketStrc
     char szRealmName[0x100];
 };
 
-struct D2BnSizedReplyStrc
-{
-    unsigned int nSize;
-    unsigned char abData[0x14];
-    unsigned int nValue;
-};
-
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 extern int gdwGlobal_008818BC; // 0x008818BC
 extern D2BnSizedReplyStrc* gpSizedReply_008818D4; // 0x008818D4
@@ -332,16 +283,6 @@ struct D2StormArray408Strc
     unsigned int f_4;
     D2Storm408ElemStrc* f_8;
     unsigned int f_C;
-};
-
-struct D2BigLoginRecordStrc
-{
-    char szName[0x20];
-    char szPassword[0x20];
-    unsigned char abPrivate[0x20];
-    unsigned char abPublic[0x20];
-    unsigned char abKey[0x28];
-    unsigned char abProof[0x14];
 };
 
 struct D2BigPowModStrc
@@ -378,9 +319,9 @@ struct D2PacketBufferStrc
     unsigned char data[1976];
     int nUsedBytes;
 };
+
 extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* pThreadAttributes, unsigned long nStackSize, unsigned long (__stdcall* pStartAddress)(void*), void* pParameter, unsigned long nCreationFlags, unsigned long* pThreadId); // 0x006CC250
 extern "C" int __cdecl memcmp(const void* pBuffer1, const void* pBuffer2, unsigned int nSize);
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int dwFlags); // 0x00412650
 void __cdecl sub_00518D40_Log(const char* szFormat, ...); // 0x00518D40
 int __cdecl sub_005193E0_OpenLog(); // 0x005193E0
 void __cdecl sub_0051A480_DebugLog(const char* szFormat, ...); // 0x0051A480
@@ -415,6 +356,7 @@ struct D2BnKeyValuePacketStrc
     unsigned int nCount;
     char szText[1];
 };
+
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned int nCount); // 0x00687330
 
@@ -426,313 +368,7 @@ struct D2BnReadUserDataReplyStrc
     char aData[1];
 };
 
-unsigned int gnVersion_0088252C; // 0x0088252C
-
-// 0x0051A490
-int __cdecl sub_0051A490_SendRegistration()
-{
-    D2BnRegistrationPacketStrc tPacket;
-    SRegLoadValue(szConfiguration_006DEC7C, "Registration Version", 2, &tPacket.nRegistrationVersion);
-    SRegLoadValue(szConfiguration_006DEC7C, "Registration Authority", 2, &tPacket.nRegistrationAuthority);
-    SRegLoadValue(szConfiguration_006DEC7C, "Client ID", 2, &tPacket.nClientId);
-    SRegLoadValue(szConfiguration_006DEC7C, "Client Token", 2, &tPacket.f_10);
-    tPacket.nLead = 1;
-    tPacket.szText[1] = tPacket.szText[0] = 0;
-    sub_0051C5C0_SendPacket(0x1E, &tPacket, 0x16);
-    return 1;
-}
-
-// 0x0051A9C0
-int __cdecl sub_0051A9C0_RequestLogon()
-{
-    sub_00520C00_ClearReply(7);
-    sub_0051EA80_SetName(&gszEmptyAssertText);
-    D2BnLogonRequestStrc tRequest;
-    memset(&tRequest, 0, sizeof(tRequest));
-    tRequest.dwPlatform = 0x49583836;
-    tRequest.dwProduct = sub_0051BEC0_IsExpansion() ? 0x44325850 : 0x44324456;
-    tRequest.dwVersion = 0x0E;
-    sub_00520C00_ClearReply(6);
-    if (sub_0051C5C0_SendPacket(6, &tRequest, sizeof(tRequest)) < 0)
-        return 0;
-    while (!sub_0051EAA0_HasName())
-    {
-        if (sub_00520BF0_IsReplyReceived(7))
-            break;
-        if (sub_00520AE0())
-            return 0;
-        Sleep(10);
-    }
-    sub_0051EA40_SetStatus(0x66);
-    if (sub_00520BF0_IsReplyReceived(7))
-        return 0;
-    char szText[0x100] = { 0 };
-    int nArg2;
-    int nArg1;
-    if (!sub_0051E6D0_ParseLogon(&nArg1, &nArg2, szText))
-    {
-        sub_005204A0_SetError(1);
-        return 0;
-    }
-    sub_0051E370_SetText(szEmpty_006DEF80, 2);
-    sub_0051A8F0_HandleLogon(nArg1, nArg2, szText);
-    sub_00520B70_WaitForReply(7);
-    return 0;
-}
-
-// 0x0051B010
-int __cdecl sub_0051B010_CheckAd()
-{
-    D2BnCheckAdPacketStrc tPacket;
-    tPacket.dwPlatform = 0x49583836;
-    tPacket.dwProduct = sub_0051BEC0_IsExpansion() ? 0x44325850 : 0x44324456;
-    tPacket.dwVersion = gnVersion_0088252C;
-    tPacket.nTime = _time32(0);
-    sub_0051C5C0_SendPacket(0x15, &tPacket, sizeof(tPacket));
-    return 1;
-}
-
-// 0x0051B060
-int __cdecl sub_0051B060_SendVersion()
-{
-    D2BnVersionPacketStrc tPacket;
-    tPacket.dwPlatform = 0x49583836;
-    tPacket.dwProduct = sub_0051BEC0_IsExpansion() ? 0x44325850 : 0x44324456;
-    tPacket.dwVersion = gnVersion_0088252C;
-    tPacket.szText[1] = tPacket.szText[0] = 0;
-    sub_0051C5C0_SendPacket(0x21, &tPacket, 0x0E);
-    return 1;
-}
-
-// 0x0051B540
-void __cdecl sub_0051B540_SendLocale()
-{
-    D2TimeZoneInformationStrc tTimeZone;
-    memset(&tTimeZone, 0, sizeof(tTimeZone));
-    GetTimeZoneInformation(&tTimeZone);
-    D2SystemTimeStrc tSystemTime;
-    GetSystemTime(&tSystemTime);
-    D2SystemTimeStrc tLocalTime;
-    GetLocalTime(&tLocalTime);
-    D2BnLocalePacketStrc tPacket;
-    SystemTimeToFileTime(&tSystemTime, &tPacket.tSystemTime);
-    SystemTimeToFileTime(&tLocalTime, &tPacket.tLocalTime);
-    tPacket.f_10 = tTimeZone.f_0;
-    tPacket.nSystemLcid = GetSystemDefaultLCID();
-    tPacket.nUserLcid = GetUserDefaultLCID();
-    tPacket.nUserLangId = GetUserDefaultLangID();
-    tPacket.szText[0] = 0;
-    GetLocaleInfoA(0x400, 3, tPacket.szText, 0x40);
-    char* p = tPacket.szText + strlen(tPacket.szText) + 1;
-    GetLocaleInfoA(0x400, 5, p, 0x40);
-    p += strlen(p) + 1;
-    GetLocaleInfoA(0x400, 7, p, 0x40);
-    p += strlen(p) + 1;
-    GetLocaleInfoA(0x400, 0x1002, p, 0x40);
-    p += strlen(p) + 1;
-    sub_0051C5C0_SendPacket(0x12, &tPacket, p - tPacket.szText + 0x20);
-}
-
-// 0x0051BCF0
-int __cdecl sub_0051BCF0_SendBuffer()
-{
-    unsigned int nSize = 0x5DC;
-    char aBuffer[0x5DC];
-    if (!sub_0040D290_GetData(aBuffer, &nSize))
-        return 0;
-    return sub_0051C5C0_SendPacket(0x5D, aBuffer, nSize) >= 0;
-}
-
-// build: context sub_0051C7E0_ReceiveThread
-unsigned long __stdcall sub_0051C7E0_ReceiveThread(void* pParameter)
-{
-    char aBuffer[0x2000];
-    int nResult = 1;
-    if (InterlockedIncrement(&gnReceiveThreads_00881BF4) > 1)
-    {
-        InterlockedDecrement(&gnReceiveThreads_00881BF4);
-        return 1;
-    }
-    while (!InterlockedCompareExchange(&gnDnsDone_00881BFC, 0, 0) && !gbReady_00881BF8)
-        Sleep(10);
-    unsigned long dwLastTick = GetTickCount();
-    int nUsed = 0;
-    FSafeSock* pSafeSock = (FSafeSock*)InterlockedCompareExchange(&gnConnected_00881BF0, 0, 0);
-    while (pSafeSock && !pSafeSock->bStopping && !InterlockedCompareExchange(&gnDnsDone_00881BFC, 0, 0))
-    {
-        const int bReady = FOG_SOCKET_Select(pSafeSock);
-        pSafeSock = (FSafeSock*)InterlockedCompareExchange(&gnConnected_00881BF0, 0, 0);
-        if (!pSafeSock || pSafeSock->bStopping || InterlockedCompareExchange(&gnDnsDone_00881BFC, 0, 0))
-            break;
-        if (bReady)
-        {
-            const int nReceived = FOG_SOCKET_Receive(pSafeSock, &aBuffer[nUsed], sizeof(aBuffer) - nUsed);
-            if (nReceived <= 0)
-            {
-                sub_00520AD0_SetDisconnected();
-                nResult = 0;
-                break;
-            }
-            nUsed = sub_0051C760_SplitPackets((unsigned char*)aBuffer, nReceived + nUsed);
-        }
-        const unsigned long dwTick = GetTickCount();
-        if (dwTick - dwLastTick >= 180000)
-        {
-            sub_0051C5C0_SendPacket(0, 0, 0);
-            dwLastTick = dwTick;
-        }
-        pSafeSock = (FSafeSock*)InterlockedCompareExchange(&gnConnected_00881BF0, 0, 0);
-    }
-    InterlockedDecrement(&gnReceiveThreads_00881BF4);
-    return nResult;
-}
-
-// 0x0051DC80
-void __fastcall sub_0051DC80(unsigned char* pDigest, const unsigned char* pData, unsigned int nLength)
-{
-    T0041D340 tContext;
-    tContext.sub_00425D90_Init();
-    tContext.sub_00425DD0_Update(pData, nLength);
-    tContext.sub_00425F00_Final(pDigest);
-}
-
-char* gpAdUrlReply_008818DC; // 0x008818DC
-
-// 0x0051AB30
-void __fastcall sub_0051AB30_SetAdUrlReply(const void* pData, unsigned int nSize)
-{
-    if (gpAdUrlReply_008818DC)
-        SMemFree(gpAdUrlReply_008818DC, ".\\BnSend.cpp", 0x188, 0);
-    gpAdUrlReply_008818DC = (char*)SMemAlloc(nSize, ".\\BnSend.cpp", 0x189, 0);
-    memcpy(gpAdUrlReply_008818DC, pData, nSize);
-}
-
-// 0x0051AF20
-int __cdecl sub_0051AF20_SendPacket10()
-{
-    return sub_0051C5C0_SendPacket(0x10, 0, 0) >= 0;
-}
-
-// 0x0051ABB0
-char* __fastcall sub_0051ABB0_QueryAdUrl(int nAdId)
-{
-    sub_00520C00_ClearReply(0x41);
-    if (sub_0051C5C0_SendPacket(0x41, &nAdId, 4) < 0)
-    {
-        return 0;
-    }
-
-    sub_00520B70_WaitForReply(0x41);
-    if (!gpAdUrlReply_008818DC)
-    {
-        return 0;
-    }
-
-    return gpAdUrlReply_008818DC + 4;
-}
-
-// 0x0051AC50
-int __fastcall sub_0051AC50_GetChannelList(int bNoExpansion)
-{
-    unsigned int nFlags = 0;
-    if (sub_0051BEC0_IsExpansion() && !bNoExpansion)
-    {
-        nFlags |= 1;
-    }
-
-    sub_00520C00_ClearReply(0x0B);
-    sub_0051C5C0_SendPacket(0x0B, &nFlags, 4);
-    sub_00520B70_WaitForReply(0x0B);
-    return gnChannelList_008818C8;
-}
-
-// 0x0051AF40
-int __fastcall sub_0051AF40_ChatCommand(const char* szText)
-{
-    if (!szText || !strlen(szText))
-    {
-        return 0;
-    }
-
-    unsigned short wszText[0x200];
-    unsigned int nLength = sub_006C7960_ToWide(wszText, szText, 0x1FF);
-    if (!nLength)
-    {
-        return 0;
-    }
-
-    wszText[nLength] = 0;
-
-    char szBuffer[0x200];
-    if (sub_006C7130_FromWide(szBuffer, 0x1FF, wszText, 0x1FF, &nLength, 0))
-    {
-        return 0;
-    }
-
-    szBuffer[nLength] = 0;
-    return sub_0051C5C0_SendPacket(0x0E, szBuffer, nLength) >= 0;
-}
-
-// 0x0051AC20
-void __cdecl sub_0051AC20_FreeChannelList()
-{
-    if (gnChannelList_008818C8)
-    {
-        FOG_Free((void*)gnChannelList_008818C8, ".\\BnSend.cpp", 0x1EF, 0);
-    }
-    gnChannelList_008818C8 = 0;
-}
-
-// 0x0051AD70
-int __fastcall sub_0051AD70_EscapeBytes(unsigned char* data, unsigned int length)
-{
- if(length>0) {
- unsigned int i=0;
- do {
-  if(i==255)return 0;
-  if(data[0]==0) {
-   SMemCopy(data+2,data+1,256);
-   ++length;
-   data[1]=1;
-   data[0]=255;
-   ++data;
-   ++i;
-  } else if(data[0]==255) {
-   SMemCopy(data+2,data+1,256);
-   ++length;
-   data[1]=255;
-   data[0]=255;
-   ++data;
-   ++i;
-  }
- ++i;
- ++data;
- } while(i<length);
- }
- return 1;
-}
-
-// 0x0051B1B0
-int __cdecl sub_0051B1B0_SendStopAdv()
-{
-    sub_0051C5C0_SendPacket(2, 0, 0);
-    return 1;
-}
-
-// 0x0051B1D0
-int __cdecl sub_0051B1D0_LeaveGame()
-{
-    sub_00611560_GetOrCreateIgnoreList()->sub_0060F500_VirtSlot10();
-    sub_0051C5C0_SendPacket(0x1F, 0, 0);
-    return 1;
-}
-
-// 0x0051B1F0
-int __fastcall sub_0051B1F0_GetStartAdvResult(int* pValue)
-{
-    *pValue = sub_00520C20_GetSlotB(0x1C);
-    return sub_00520BF0_IsReplyReceived(0x1C);
-}
+extern void* gpReply_008818CC; // 0x008818CC
 
 // 0x00464810
 void __fastcall sub_00464810_SetUnitFlag16(D2UnitStrc* pUnit)
@@ -962,6 +598,256 @@ void __cdecl sub_005125B0_DDrawFreeDebugFont()
     }
 }
 
+unsigned int gnVersion_0088252C; // 0x0088252C
+
+// 0x0051A490
+int __cdecl sub_0051A490_SendRegistration()
+{
+    D2BnRegistrationPacketStrc tPacket;
+    SRegLoadValue(szConfiguration_006DEC7C, "Registration Version", 2, &tPacket.nRegistrationVersion);
+    SRegLoadValue(szConfiguration_006DEC7C, "Registration Authority", 2, &tPacket.nRegistrationAuthority);
+    SRegLoadValue(szConfiguration_006DEC7C, "Client ID", 2, &tPacket.nClientId);
+    SRegLoadValue(szConfiguration_006DEC7C, "Client Token", 2, &tPacket.f_10);
+    tPacket.nLead = 1;
+    tPacket.szText[1] = tPacket.szText[0] = 0;
+    sub_0051C5C0_SendPacket(0x1E, &tPacket, 0x16);
+    return 1;
+}
+
+// 0x0051A9C0
+int __cdecl sub_0051A9C0_RequestLogon()
+{
+    sub_00520C00_ClearReply(7);
+    sub_0051EA80_SetName(&gszEmptyAssertText);
+    D2BnLogonRequestStrc tRequest;
+    memset(&tRequest, 0, sizeof(tRequest));
+    tRequest.dwPlatform = 0x49583836;
+    tRequest.dwProduct = sub_0051BEC0_IsExpansion() ? 0x44325850 : 0x44324456;
+    tRequest.dwVersion = 0x0E;
+    sub_00520C00_ClearReply(6);
+    if (sub_0051C5C0_SendPacket(6, &tRequest, sizeof(tRequest)) < 0)
+        return 0;
+    while (!sub_0051EAA0_HasName())
+    {
+        if (sub_00520BF0_IsReplyReceived(7))
+            break;
+        if (sub_00520AE0())
+            return 0;
+        Sleep(10);
+    }
+    sub_0051EA40_SetStatus(0x66);
+    if (sub_00520BF0_IsReplyReceived(7))
+        return 0;
+    char szText[0x100] = { 0 };
+    int nArg2;
+    int nArg1;
+    if (!sub_0051E6D0_ParseLogon(&nArg1, &nArg2, szText))
+    {
+        sub_005204A0_SetError(1);
+        return 0;
+    }
+    sub_0051E370_SetText(szEmpty_006DEF80, 2);
+    sub_0051A8F0_HandleLogon(nArg1, nArg2, szText);
+    sub_00520B70_WaitForReply(7);
+    return 0;
+}
+
+char* gpAdUrlReply_008818DC; // 0x008818DC
+
+// 0x0051AB30
+void __fastcall sub_0051AB30_SetAdUrlReply(const void* pData, unsigned int nSize)
+{
+    if (gpAdUrlReply_008818DC)
+        SMemFree(gpAdUrlReply_008818DC, ".\\BnSend.cpp", 0x188, 0);
+    gpAdUrlReply_008818DC = (char*)SMemAlloc(nSize, ".\\BnSend.cpp", 0x189, 0);
+    memcpy(gpAdUrlReply_008818DC, pData, nSize);
+}
+
+// 0x0051AB80
+void __cdecl sub_0051AB80_FreeReplyBuffer()
+{
+    if (gpReply_008818CC)
+    {
+        FOG_Free(gpReply_008818CC, ".\\BnSend.cpp", 410, 0);
+    }
+    gpReply_008818CC = 0;
+}
+
+// 0x0051ABB0
+char* __fastcall sub_0051ABB0_QueryAdUrl(int nAdId)
+{
+    sub_00520C00_ClearReply(0x41);
+    if (sub_0051C5C0_SendPacket(0x41, &nAdId, 4) < 0)
+    {
+        return 0;
+    }
+
+    sub_00520B70_WaitForReply(0x41);
+    if (!gpAdUrlReply_008818DC)
+    {
+        return 0;
+    }
+
+    return gpAdUrlReply_008818DC + 4;
+}
+
+// 0x0051ABF0
+void* __cdecl sub_0051ABF0_QueryRealms()
+{
+    sub_00520C00_ClearReply(0x40);
+    if (sub_0051C5C0_SendPacket(0x40, 0, 0) < 0)
+    {
+        return 0;
+    }
+    sub_00520B70_WaitForReply(0x40);
+    return gpReply_008818CC;
+}
+
+// 0x0051AC20
+void __cdecl sub_0051AC20_FreeChannelList()
+{
+    if (gnChannelList_008818C8)
+    {
+        FOG_Free((void*)gnChannelList_008818C8, ".\\BnSend.cpp", 0x1EF, 0);
+    }
+    gnChannelList_008818C8 = 0;
+}
+
+// 0x0051AC50
+int __fastcall sub_0051AC50_GetChannelList(int bNoExpansion)
+{
+    unsigned int nFlags = 0;
+    if (sub_0051BEC0_IsExpansion() && !bNoExpansion)
+    {
+        nFlags |= 1;
+    }
+
+    sub_00520C00_ClearReply(0x0B);
+    sub_0051C5C0_SendPacket(0x0B, &nFlags, 4);
+    sub_00520B70_WaitForReply(0x0B);
+    return gnChannelList_008818C8;
+}
+
+// 0x0051AD70
+int __fastcall sub_0051AD70_EscapeBytes(unsigned char* data, unsigned int length)
+{
+ if(length>0) {
+ unsigned int i=0;
+ do {
+  if(i==255)return 0;
+  if(data[0]==0) {
+   SMemCopy(data+2,data+1,256);
+   ++length;
+   data[1]=1;
+   data[0]=255;
+   ++data;
+   ++i;
+  } else if(data[0]==255) {
+   SMemCopy(data+2,data+1,256);
+   ++length;
+   data[1]=255;
+   data[0]=255;
+   ++data;
+   ++i;
+  }
+ ++i;
+ ++data;
+ } while(i<length);
+ }
+ return 1;
+}
+
+// 0x0051AE10
+int __fastcall sub_0051AE10_Send(const char* szArg1, const char* szArg2, int nArg3)
+{
+    int nProduct = sub_0051BEC0_IsExpansion() ? 0x44325850 : 0x44324456;
+    sub_0051C5C0_SendPacket(0x0B, &nProduct, 4);
+
+    char szBuffer[0x200] = { 0 };
+    SStrCopy(szBuffer, szArg1, 0x100);
+    SStrCopy(&szBuffer[strlen(szBuffer) + 1], szArg2, 0x100);
+    return sub_0051C5C0_SendPacket(0x0A, szBuffer, strlen(szBuffer) + strlen(&szBuffer[strlen(szBuffer) + 1]) + 2) >= 0;
+}
+
+// 0x0051AF20
+int __cdecl sub_0051AF20_SendPacket10()
+{
+    return sub_0051C5C0_SendPacket(0x10, 0, 0) >= 0;
+}
+
+// 0x0051AF40
+int __fastcall sub_0051AF40_ChatCommand(const char* szText)
+{
+    if (!szText || !strlen(szText))
+    {
+        return 0;
+    }
+
+    unsigned short wszText[0x200];
+    unsigned int nLength = sub_006C7960_ToWide(wszText, szText, 0x1FF);
+    if (!nLength)
+    {
+        return 0;
+    }
+
+    wszText[nLength] = 0;
+
+    char szBuffer[0x200];
+    if (sub_006C7130_FromWide(szBuffer, 0x1FF, wszText, 0x1FF, &nLength, 0))
+    {
+        return 0;
+    }
+
+    szBuffer[nLength] = 0;
+    return sub_0051C5C0_SendPacket(0x0E, szBuffer, nLength) >= 0;
+}
+
+// 0x0051B010
+int __cdecl sub_0051B010_CheckAd()
+{
+    D2BnCheckAdPacketStrc tPacket;
+    tPacket.dwPlatform = 0x49583836;
+    tPacket.dwProduct = sub_0051BEC0_IsExpansion() ? 0x44325850 : 0x44324456;
+    tPacket.dwVersion = gnVersion_0088252C;
+    tPacket.nTime = _time32(0);
+    sub_0051C5C0_SendPacket(0x15, &tPacket, sizeof(tPacket));
+    return 1;
+}
+
+// 0x0051B060
+int __cdecl sub_0051B060_SendVersion()
+{
+    D2BnVersionPacketStrc tPacket;
+    tPacket.dwPlatform = 0x49583836;
+    tPacket.dwProduct = sub_0051BEC0_IsExpansion() ? 0x44325850 : 0x44324456;
+    tPacket.dwVersion = gnVersion_0088252C;
+    tPacket.szText[1] = tPacket.szText[0] = 0;
+    sub_0051C5C0_SendPacket(0x21, &tPacket, 0x0E);
+    return 1;
+}
+
+// 0x0051B1B0
+int __cdecl sub_0051B1B0_SendStopAdv()
+{
+    sub_0051C5C0_SendPacket(2, 0, 0);
+    return 1;
+}
+
+// 0x0051B1D0
+int __cdecl sub_0051B1D0_LeaveGame()
+{
+    sub_00611560_GetOrCreateIgnoreList()->sub_0060F500_VirtSlot10();
+    sub_0051C5C0_SendPacket(0x1F, 0, 0);
+    return 1;
+}
+
+// 0x0051B1F0
+int __fastcall sub_0051B1F0_GetStartAdvResult(int* pValue)
+{
+    *pValue = sub_00520C20_GetSlotB(0x1C);
+    return sub_00520BF0_IsReplyReceived(0x1C);
+}
+
 // 0x0051B210
 void __cdecl sub_0051B210_FreeBuffer()
 {
@@ -971,22 +857,6 @@ void __cdecl sub_0051B210_FreeBuffer()
     }
 
     gpReply_008818D0 = 0;
-}
-
-// 0x005239C0
-void __cdecl sub_005239C0_UnlockCDKeys()
-{
-    if (gpCDKeyHandle_00882744)
-    {
-        sub_00416710_Unlock(gpCDKeyHandle_00882744);
-        gpCDKeyHandle_00882744 = 0;
-    }
-
-    if (gpCDKeyHandle_00882750)
-    {
-        sub_00416710_Unlock(gpCDKeyHandle_00882750);
-        gpCDKeyHandle_00882750 = 0;
-    }
 }
 
 int gnClientToken_008818C4; // 0x008818C4
@@ -1028,6 +898,16 @@ void* __fastcall sub_0051B240_GetGamesList(const char* szGameName, const char* s
     return gpReply_008818D0;
 }
 
+// 0x0051B3B0
+void __cdecl sub_0051B3B0_FreeSizedReply()
+{
+    if (gpSizedReply_008818D4)
+    {
+        FOG_Free(gpSizedReply_008818D4, ".\\BnSend.cpp", 0x3B2, 0);
+    }
+    gpSizedReply_008818D4 = 0;
+}
+
 // 0x0051B460
 D2BnSizedReplyStrc* __fastcall sub_0051B460_LogonRealm(const char* szRealmName, const char* szRealmPassword)
 {
@@ -1057,14 +937,119 @@ D2BnSizedReplyStrc* __fastcall sub_0051B460_LogonRealm(const char* szRealmName, 
     return gpSizedReply_008818D4;
 }
 
-// 0x0051B3B0
-void __cdecl sub_0051B3B0_FreeSizedReply()
+// 0x0051B540
+void __cdecl sub_0051B540_SendLocale()
 {
-    if (gpSizedReply_008818D4)
+    D2TimeZoneInformationStrc tTimeZone;
+    memset(&tTimeZone, 0, sizeof(tTimeZone));
+    GetTimeZoneInformation(&tTimeZone);
+    D2SystemTimeStrc tSystemTime;
+    GetSystemTime(&tSystemTime);
+    D2SystemTimeStrc tLocalTime;
+    GetLocalTime(&tLocalTime);
+    D2BnLocalePacketStrc tPacket;
+    SystemTimeToFileTime(&tSystemTime, &tPacket.tSystemTime);
+    SystemTimeToFileTime(&tLocalTime, &tPacket.tLocalTime);
+    tPacket.f_10 = tTimeZone.f_0;
+    tPacket.nSystemLcid = GetSystemDefaultLCID();
+    tPacket.nUserLcid = GetUserDefaultLCID();
+    tPacket.nUserLangId = GetUserDefaultLangID();
+    tPacket.szText[0] = 0;
+    GetLocaleInfoA(0x400, 3, tPacket.szText, 0x40);
+    char* p = tPacket.szText + strlen(tPacket.szText) + 1;
+    GetLocaleInfoA(0x400, 5, p, 0x40);
+    p += strlen(p) + 1;
+    GetLocaleInfoA(0x400, 7, p, 0x40);
+    p += strlen(p) + 1;
+    GetLocaleInfoA(0x400, 0x1002, p, 0x40);
+    p += strlen(p) + 1;
+    sub_0051C5C0_SendPacket(0x12, &tPacket, p - tPacket.szText + 0x20);
+}
+
+int gdwGlobal_00881C04; // 0x00881C04
+
+// 0x0051B6C0
+int __fastcall sub_0051B6C0_OnAdClick(int nAdId, int bFlag)
+{
+    D2BnAdClickStrc tRecord;
+    tRecord.nAdId = nAdId;
+    tRecord.bFlag = bFlag != 0;
+    sub_0051C5C0_SendPacket(0x16, &tRecord, sizeof(tRecord));
+    return 1;
+}
+
+// 0x0051B6F0
+int __fastcall sub_0051B6F0_SendKeyValues(const char* szName, unsigned int nCount, const char** ppKeys, const char** ppValues)
+{
+    unsigned int nSize = SStrLen(szName) + 1;
+    for (unsigned int i = 0; i < nCount; ++i)
     {
-        FOG_Free(gpSizedReply_008818D4, ".\\BnSend.cpp", 0x3B2, 0);
+        nSize += SStrLen(ppKeys[i]) + 1;
+        nSize += SStrLen(ppValues[i]) + 1;
     }
-    gpSizedReply_008818D4 = 0;
+
+    D2BnKeyValuePacketStrc* pPacket = (D2BnKeyValuePacketStrc*)FOG_Alloc(nSize + 8, ".\\BnSend.cpp", 0x4C4, 0);
+    pPacket->nType = 1;
+    pPacket->nCount = nCount;
+
+    char* pText = pPacket->szText;
+    pText += SStrCopy(pText, szName, 0x7FFFFFFF) + 1;
+
+    unsigned int i;
+    for (i = 0; i < nCount; ++i)
+    {
+        pText += SStrCopy(pText, ppKeys[i], 0x7FFFFFFF) + 1;
+    }
+
+    for (i = 0; i < nCount; ++i)
+    {
+        pText += SStrCopy(pText, ppValues[i], 0x7FFFFFFF) + 1;
+    }
+
+    sub_00520C00_ClearReply(0x27);
+    int bResult = sub_0051C5C0_SendPacket(0x27, pPacket, (unsigned int)(pText - (char*)pPacket)) >= 0;
+    FOG_Free(pPacket, ".\\BnSend.cpp", 0x4E0, 0);
+    return bResult;
+}
+
+static void* gpReply_008818D8; // 0x008818D8
+
+// 0x0051B960
+int __fastcall sub_0051B960_GetReadUserDataReply(unsigned int nKeys, unsigned int nCookie, char** ppValues, const unsigned int* pSizes)
+{
+    if (!sub_00520BF0_IsReplyReceived(0x26))
+        return 0;
+
+    D2BnReadUserDataReplyStrc* pReply = (D2BnReadUserDataReplyStrc*)gpReply_008818D8;
+    if (!pReply || pReply->nAccounts != 1 || pReply->nKeys != nKeys || pReply->nCookie != nCookie)
+        return 0;
+
+    const char* pText = pReply->aData;
+    for (unsigned int i = 0; i < nKeys; ++i)
+    {
+        if (*pText)
+        {
+            strncpy(ppValues[i], pText, pSizes[i]);
+            const unsigned int nSize = pSizes[i];
+            ppValues[i][nSize] = 0;
+        }
+        else
+        {
+            *ppValues[i] = 0;
+        }
+        pText += SStrLen(pText) + 1;
+    }
+    return 1;
+}
+
+// 0x0051BCF0
+int __cdecl sub_0051BCF0_SendBuffer()
+{
+    unsigned int nSize = 0x5DC;
+    char aBuffer[0x5DC];
+    if (!sub_0040D290_GetData(aBuffer, &nSize))
+        return 0;
+    return sub_0051C5C0_SendPacket(0x5D, aBuffer, nSize) >= 0;
 }
 
 // 0x0051BEA0
@@ -1078,18 +1063,6 @@ void __fastcall sub_0051BED0_SetDnsPending(int bPending)
 {
     gbDnsPending_008818E0 = bPending;
     Sleep(10);
-}
-
-int gdwGlobal_00881C04; // 0x00881C04
-
-// 0x0051B6C0
-int __fastcall sub_0051B6C0_OnAdClick(int nAdId, int bFlag)
-{
-    D2BnAdClickStrc tRecord;
-    tRecord.nAdId = nAdId;
-    tRecord.bFlag = bFlag != 0;
-    sub_0051C5C0_SendPacket(0x16, &tRecord, sizeof(tRecord));
-    return 1;
 }
 
 // 0x0051C350
@@ -1150,6 +1123,59 @@ int __fastcall sub_0051DBF0_LoadBNetNews(int (__fastcall* pfnMessage)(unsigned i
     return 1;
 }
 
+// build: context sub_0051C7E0_ReceiveThread
+unsigned long __stdcall sub_0051C7E0_ReceiveThread(void* pParameter)
+{
+    char aBuffer[0x2000];
+    int nResult = 1;
+    if (InterlockedIncrement(&gnReceiveThreads_00881BF4) > 1)
+    {
+        InterlockedDecrement(&gnReceiveThreads_00881BF4);
+        return 1;
+    }
+    while (!InterlockedCompareExchange(&gnDnsDone_00881BFC, 0, 0) && !gbReady_00881BF8)
+        Sleep(10);
+    unsigned long dwLastTick = GetTickCount();
+    int nUsed = 0;
+    FSafeSock* pSafeSock = (FSafeSock*)InterlockedCompareExchange(&gnConnected_00881BF0, 0, 0);
+    while (pSafeSock && !pSafeSock->bStopping && !InterlockedCompareExchange(&gnDnsDone_00881BFC, 0, 0))
+    {
+        const int bReady = FOG_SOCKET_Select(pSafeSock);
+        pSafeSock = (FSafeSock*)InterlockedCompareExchange(&gnConnected_00881BF0, 0, 0);
+        if (!pSafeSock || pSafeSock->bStopping || InterlockedCompareExchange(&gnDnsDone_00881BFC, 0, 0))
+            break;
+        if (bReady)
+        {
+            const int nReceived = FOG_SOCKET_Receive(pSafeSock, &aBuffer[nUsed], sizeof(aBuffer) - nUsed);
+            if (nReceived <= 0)
+            {
+                sub_00520AD0_SetDisconnected();
+                nResult = 0;
+                break;
+            }
+            nUsed = sub_0051C760_SplitPackets((unsigned char*)aBuffer, nReceived + nUsed);
+        }
+        const unsigned long dwTick = GetTickCount();
+        if (dwTick - dwLastTick >= 180000)
+        {
+            sub_0051C5C0_SendPacket(0, 0, 0);
+            dwLastTick = dwTick;
+        }
+        pSafeSock = (FSafeSock*)InterlockedCompareExchange(&gnConnected_00881BF0, 0, 0);
+    }
+    InterlockedDecrement(&gnReceiveThreads_00881BF4);
+    return nResult;
+}
+
+// 0x0051DC80
+void __fastcall sub_0051DC80(unsigned char* pDigest, const unsigned char* pData, unsigned int nLength)
+{
+    T0041D340 tContext;
+    tContext.sub_00425D90_Init();
+    tContext.sub_00425DD0_Update(pData, nLength);
+    tContext.sub_00425F00_Final(pDigest);
+}
+
 // 0x0051F2D0
 int __fastcall sub_0051F2D0_PatchUnk(int* pResult)
 {
@@ -1198,6 +1224,22 @@ int __fastcall sub_00522310_SendChangeProof(const unsigned char* pSalt, const un
         return 1;
     }
     return 0;
+}
+
+// 0x005239C0
+void __cdecl sub_005239C0_UnlockCDKeys()
+{
+    if (gpCDKeyHandle_00882744)
+    {
+        sub_00416710_Unlock(gpCDKeyHandle_00882744);
+        gpCDKeyHandle_00882744 = 0;
+    }
+
+    if (gpCDKeyHandle_00882750)
+    {
+        sub_00416710_Unlock(gpCDKeyHandle_00882750);
+        gpCDKeyHandle_00882750 = 0;
+    }
 }
 
 // 0x00528890
@@ -1265,69 +1307,5 @@ int __fastcall sub_6FC020B0(QServer* pServer, int nClientId, const char* szFile,
     data[0] = 0xAF;
     data[1] = 1;
     sub_0052B330(0, nClientId, data, sizeof(data));
-    return 1;
-}
-
-// 0x0051B6F0
-int __fastcall sub_0051B6F0_SendKeyValues(const char* szName, unsigned int nCount, const char** ppKeys, const char** ppValues)
-{
-    unsigned int nSize = SStrLen(szName) + 1;
-    for (unsigned int i = 0; i < nCount; ++i)
-    {
-        nSize += SStrLen(ppKeys[i]) + 1;
-        nSize += SStrLen(ppValues[i]) + 1;
-    }
-
-    D2BnKeyValuePacketStrc* pPacket = (D2BnKeyValuePacketStrc*)FOG_Alloc(nSize + 8, ".\\BnSend.cpp", 0x4C4, 0);
-    pPacket->nType = 1;
-    pPacket->nCount = nCount;
-
-    char* pText = pPacket->szText;
-    pText += SStrCopy(pText, szName, 0x7FFFFFFF) + 1;
-
-    unsigned int i;
-    for (i = 0; i < nCount; ++i)
-    {
-        pText += SStrCopy(pText, ppKeys[i], 0x7FFFFFFF) + 1;
-    }
-
-    for (i = 0; i < nCount; ++i)
-    {
-        pText += SStrCopy(pText, ppValues[i], 0x7FFFFFFF) + 1;
-    }
-
-    sub_00520C00_ClearReply(0x27);
-    int bResult = sub_0051C5C0_SendPacket(0x27, pPacket, (unsigned int)(pText - (char*)pPacket)) >= 0;
-    FOG_Free(pPacket, ".\\BnSend.cpp", 0x4E0, 0);
-    return bResult;
-}
-
-static void* gpReply_008818D8; // 0x008818D8
-
-// 0x0051B960
-int __fastcall sub_0051B960_GetReadUserDataReply(unsigned int nKeys, unsigned int nCookie, char** ppValues, const unsigned int* pSizes)
-{
-    if (!sub_00520BF0_IsReplyReceived(0x26))
-        return 0;
-
-    D2BnReadUserDataReplyStrc* pReply = (D2BnReadUserDataReplyStrc*)gpReply_008818D8;
-    if (!pReply || pReply->nAccounts != 1 || pReply->nKeys != nKeys || pReply->nCookie != nCookie)
-        return 0;
-
-    const char* pText = pReply->aData;
-    for (unsigned int i = 0; i < nKeys; ++i)
-    {
-        if (*pText)
-        {
-            strncpy(ppValues[i], pText, pSizes[i]);
-            const unsigned int nSize = pSizes[i];
-            ppValues[i][nSize] = 0;
-        }
-        else
-        {
-            *ppValues[i] = 0;
-        }
-        pText += SStrLen(pText) + 1;
-    }
     return 1;
 }

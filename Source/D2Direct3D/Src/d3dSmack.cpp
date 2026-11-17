@@ -4,8 +4,6 @@
 #define gnHandle_00989780 (gVideoVertices_00989750[1].color)
 #define gnHandle_009897A0 (gVideoVertices_00989750[2].color)
 #define gnHandle_009897C0 (gVideoVertices_00989750[3].color)
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define RELEASE(p) if (p) { p->lpVtbl->Release(p); p = 0; }
 #define D2_IMPORT __declspec(dllimport)
 
 struct D2ComObject006B9B30Strc;
@@ -16,13 +14,6 @@ struct D2VideoHandleStrc;
 struct D2ComObjectVtbl006B9BD0Strc;
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-
-struct D2VideoBlitVertex
-{
-    float x, y, z, rhw;
-    unsigned int color, specular;
-    float u, v;
-};
 
 extern D2VideoBlitVertex gVideoVertices_00989750[4]; // 0x00989750
 extern void* gpBuffer_009897D0; // 0x009897D0

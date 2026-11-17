@@ -1,7 +1,5 @@
 #include "Fog.h"
 
-typedef unsigned int size_t;
-
 struct D2CriticalSectionStrc
 {
     void* pDebugInfo;

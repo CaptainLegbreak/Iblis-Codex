@@ -26,17 +26,6 @@ struct D2HostentStrc
     char** h_addr_list;
 };
 
-struct D2InAddrStrc
-{
-    unsigned long s_addr;
-};
-
-struct D2BnDnsArgsStrc
-{
-    char* szResult;
-    const char* f_4;
-};
-
 extern "C" int __cdecl isdigit(int c); // 0x00686F0F
 extern "C" D2HostentStrc* __stdcall gethostbyname(const char* szName); // 0x006B0192
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
@@ -87,26 +76,6 @@ extern "C" char* __cdecl strchr(const char* s, int c); // 0x00687740
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 extern "C" void __fastcall __security_check_cookie(unsigned int cookie); // 0x00681A48
 
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
-
-struct D2BigLoginRecordStrc
-{
-    char szName[0x20];
-    char szPassword[0x20];
-    unsigned char abPrivate[0x20];
-    unsigned char abPublic[0x20];
-    unsigned char abKey[0x28];
-    unsigned char abProof[0x14];
-};
-
 struct D2BigPairStrc
 {
     D2BigPowModStrc* pState;
@@ -116,7 +85,6 @@ struct D2BigPairStrc
 
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 extern int gdwGlobal_00881C04; // 0x00881C04
 extern D2CriticalSectionStrc gMessageLock_00882004; // 0x00882004
 extern int gnBnState_0088201C; // 0x0088201C

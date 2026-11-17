@@ -1,8 +1,6 @@
 #include "D2Win.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define D2WIN_MAX(a, b) (((a) > (b)) ? (a) : (b))
-#define D2WIN_MIN(a, b) (((a) < (b)) ? (a) : (b))
 
 struct D2CellFileStrc;
 struct D2WinEditBoxStrc;
@@ -77,14 +75,6 @@ struct tagPOINT
 {
     long x;
     long y;
-};
-
-struct tagRECT
-{
-    long left;
-    long top;
-    long right;
-    long bottom;
 };
 
 struct tagTRACKMOUSEEVENT
@@ -313,13 +303,6 @@ struct D2WinListStrc
     int nWidestEntry;
     D2WinListDataStrc* pDataList;
     D2WinListDataStrc* pSelectedDataEntry;
-};
-
-struct D2WinAccountListDataStrc
-{
-    char szText[50];
-    short field_32;
-    D2WinAccountListDataStrc* pNext;
 };
 
 struct D2WinAccountListStrc

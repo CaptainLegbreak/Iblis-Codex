@@ -16,14 +16,6 @@ struct tagMONITORINFO;
 struct Point;
 struct Obj004FA490;
 
-struct tagRECT
-{
-    long left;
-    long top;
-    long right;
-    long bottom;
-};
-
 struct D2WinControlStrc
 {
     int nType;

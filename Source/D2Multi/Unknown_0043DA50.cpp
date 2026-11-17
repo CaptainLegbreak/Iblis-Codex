@@ -9,8 +9,6 @@ struct D2LaunchCharInfoStrc;
 
 typedef unsigned short Unicode;
 
-typedef int (__stdcall* D2LaunchCallback)(int nArg);
-
 struct D2LaunchFuncsStrc
 {
     char unk0x00[0x10];
@@ -68,16 +66,6 @@ extern "C" __declspec(dllimport) int __stdcall CreateProcessA(const char* szAppl
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 void __fastcall sub_00440140_ShowError(const Unicode* pText, D2LaunchCallback pfnDone); // 0x00440140
 extern D2LaunchFuncsStrc* gpLaunchFuncs_0077B09C; // 0x0077B09C
-
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
 
 struct D2WinControlInitStrc
 {

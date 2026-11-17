@@ -28,29 +28,11 @@ extern int gnGlobal_008E9028; // 0x008E9028
 extern int gnGlobal_008E9D3C; // 0x008E9D3C
 extern unsigned char gaTable_008E9830[0x100]; // 0x008E9830
 extern int gbTableSet_008E9D40; // 0x008E9D40
-
-struct D2GfxCellStrc
-{
-    unsigned int dwFlags;
-    unsigned int dwWidth;
-    unsigned int dwHeight;
-    int nXOffset;
-    int nYOffset;
-    unsigned int unk0x14;
-    unsigned int dwParent;
-    unsigned int dwLength;
-    unsigned char pPixels[1];
-};
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 int __stdcall SStrCmpI(const char* szString1, const char* szString2, int nMaxChars); // 0x00413590
-
-struct D2CmpTileInfoStrc
-{
-    char data[25];
-};
 
 struct D2CmpTileStrc
 {
@@ -129,32 +111,10 @@ extern int gnRemapOffsets_008E9FC8[80 * 80]; // 0x008E9FC8
 struct D2CelStrc { unsigned int unknown000,width; char unknown008[24]; };
 
 extern const char gszEmptyAssert[]; // 0x006CC837
-extern "C" void __cdecl sub_00408A60(const char*,const char*,int); // 0x00408A60
-extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
-extern "C" void* __cdecl memset(void*,int,unsigned int); // 0x00681EF0
 extern "C" void* __cdecl sub_006829C0_memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 int __fastcall sub_0060D280_ScanSameRun(const unsigned char* pData, const unsigned char* pEnd, int nMax, int* pbRunReachedEnd, int* pbRestReachedEnd); // 0x0060D280
 int __fastcall sub_0060D3A0_ScanOtherRun(const unsigned char* pData, const unsigned char* pEnd, unsigned char nValue, int nMax, int* pbRunReachedEnd, int* pbRestReachedEnd); // 0x0060D3A0
-
-struct D2CellFileStrc
-{
-    unsigned int dwVersion;
-    unsigned int dwFlags;
-    unsigned int eFormat;
-    unsigned int dwTermination;
-    unsigned int nDirections;
-    unsigned int nFrames;
-    D2GfxCellStrc* pGfxCells[1];
-};
-
-struct D2CmpColorStrc
-{
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-    unsigned char nPad;
-};
 
 typedef unsigned char (__stdcall* D2CmpMapColorFn)(unsigned char nRed, unsigned char nGreen, unsigned char nBlue);
 

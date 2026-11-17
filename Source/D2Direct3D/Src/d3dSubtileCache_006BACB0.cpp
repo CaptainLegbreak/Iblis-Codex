@@ -1,7 +1,5 @@
 #include "D2Direct3D.h"
 
-#define LRU_ASSERT(expr, line) if (!(expr)) { sub_00408A60(gszAssertExpr_006CC837, sub_00408090(), line); exit(-1); }
-
 struct sub_006BACB0_Node;
 struct sub_006BACB0_List;
 struct D2Owner006BAD70Strc;

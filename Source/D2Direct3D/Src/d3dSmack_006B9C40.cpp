@@ -1,7 +1,5 @@
 #include "D2Direct3D.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-
 struct D2VideoBlitDevice;
 struct D2DDSurfaceStrc;
 struct D2VideoHandleStrc;
@@ -11,16 +9,6 @@ struct D2DDSurfaceDesc2Strc;
 struct D2DDSurfaceVtbl;
 struct T004F51E0;
 struct D2SmackRecordStrc;
-
-struct D2SmackStrc
-{
-    unsigned int Version;
-    unsigned int Width;
-    unsigned int Height;
-    unsigned int Frames;
-    unsigned char unknown_0010[0x364];
-    unsigned int FrameNum;
-};
 
 struct D2VideoHandleStrc
 {
@@ -32,13 +20,6 @@ struct D2VideoHandleStrc
 };
 void __fastcall sub_006B9BB0_CloseSmack(D2VideoHandleStrc* video); // 0x006B9BB0
 void __cdecl sub_006B9BD0_Apply(); // 0x006B9BD0
-
-struct D2VideoBlitVertex
-{
-    float x, y, z, rhw;
-    unsigned int color, specular;
-    float u, v;
-};
 
 struct D2VideoBlitDeviceVtbl
 {

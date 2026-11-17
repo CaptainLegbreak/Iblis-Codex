@@ -30,8 +30,6 @@ struct D2CmpPoolEntryStrc
 
 typedef void (__fastcall* D2TileFreeCallbackFn)(D2CmpTileStrc* pTile);
 
-typedef unsigned int size_t;
-
 struct D2LRUNodeStrc
 {
     void* pData;

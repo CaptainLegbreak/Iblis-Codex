@@ -38,3 +38,393 @@ void __fastcall sub_006092D0_PoolFree(D2CmpPoolStrc* pPool, void* pMemory); // 0
 void __fastcall sub_006093E0_PoolFreeAll(D2CmpPoolStrc* pPool); // 0x006093E0
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 void* __fastcall sub_0060D430_Compress(const void* pSrc, int* pLength); // 0x0060D430
+
+#define gnSquareTableCenter_008E9430 (gnSquareTable_008E9034 + 255)
+
+struct D2CelBlockStrc
+{
+    char unk0x00[0x28];
+    unsigned char* pPixels;
+};
+
+struct D2GfxCellStrc
+{
+    unsigned int dwFlags;
+    unsigned int dwWidth;
+    unsigned int dwHeight;
+    int nXOffset;
+    int nYOffset;
+    unsigned int unk0x14;
+    unsigned int dwParent;
+    unsigned int dwLength;
+    unsigned char pPixels[1];
+};
+
+struct D2CellFileStrc
+{
+    unsigned int dwVersion;
+    unsigned int dwFlags;
+    unsigned int eFormat;
+    unsigned int dwTermination;
+    unsigned int nDirections;
+    unsigned int nFrames;
+    D2GfxCellStrc* pGfxCells[1];
+};
+
+struct D2ChatStormBaseArrayAStrc
+{
+    unsigned int f_0;
+    unsigned int f_4;
+    void* f_8;
+
+    D2ChatStormBaseArrayAStrc();
+    unsigned int sub_0060E230_Count();
+};
+
+struct D2ChatStormBaseArrayBStrc
+{
+    unsigned int f_0;
+    unsigned int f_4;
+    void* f_8;
+
+    D2ChatStormBaseArrayBStrc();
+    unsigned int sub_0060E250_Count();
+};
+
+struct D2ChatStormCtorLinkStrc
+{
+    D2ChatStormCtorLinkStrc* m_prevlink;
+    char* m_next;
+
+    D2ChatStormCtorLinkStrc()
+    {
+        m_prevlink = 0;
+        m_next = 0;
+    }
+};
+
+struct D2ChatStormLinkStrc
+{
+    D2ChatStormLinkStrc* m_prevlink;
+    char* m_next;
+
+    D2ChatStormLinkStrc* NextLink(int nLinkOffset)
+    {
+        if ((int)m_next < 0)
+            return (D2ChatStormLinkStrc*)~(unsigned int)m_next;
+        if (nLinkOffset < 0)
+            nLinkOffset = (char*)this - m_prevlink->m_next;
+        return (D2ChatStormLinkStrc*)(m_next + nLinkOffset);
+    }
+    char* MaskNext()
+    {
+        return (char*)((((int)m_next <= 0) - 1) & (int)m_next);
+    }
+    void Unlink()
+    {
+        if (m_prevlink)
+        {
+            NextLink(-1)->m_prevlink = m_prevlink;
+            m_prevlink->m_next = m_next;
+            m_prevlink = 0;
+            m_next = 0;
+        }
+    }
+    bool sub_0060E0C0_IsLinked();
+    char* sub_0060E1A0_Next();
+    char* sub_0060E240_Next();
+    void sub_0060E3B0_Unlink();
+    void sub_0060E400_Unlink();
+    void sub_0060E690_Unlink();
+    void sub_0060E760_Unlink();
+};
+
+struct D2ChatStormListAStrc
+{
+    int m_linkoffset;
+    D2ChatStormLinkStrc m_terminator;
+
+    void InitializeTerminator()
+    {
+        m_terminator.m_prevlink = &m_terminator;
+        m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
+    }
+    void sub_0060E260_InitializeTerminator();
+    char* sub_0060E440_Head();
+    void sub_0060E5F0_Reset();
+};
+
+struct D2ChatStormHashTableStrc
+{
+    void* m_pVTable;
+    D2ChatStormListAStrc m_fulllist;
+
+    char* sub_0060E6D0_Head();
+};
+
+struct D2ChatStormLinkAStrc
+{
+    D2ChatStormLinkAStrc* m_prevlink;
+    char* m_next;
+
+    D2ChatStormLinkAStrc();
+};
+
+struct D2ChatStormLinkBStrc
+{
+    D2ChatStormLinkBStrc* m_prevlink;
+    char* m_next;
+
+    D2ChatStormLinkBStrc();
+};
+
+struct D2ChatStormListBStrc
+{
+    int m_linkoffset;
+    D2ChatStormLinkStrc m_terminator;
+
+    void InitializeTerminator()
+    {
+        m_terminator.m_prevlink = &m_terminator;
+        m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
+    }
+    void sub_0060E270_InitializeTerminator();
+    char* sub_0060E5D0_Head();
+    void sub_0060E610_Reset();
+};
+
+struct D2ChatStormListCStrc
+{
+    int m_linkoffset;
+    D2ChatStormCtorLinkStrc m_terminator;
+
+    D2ChatStormListCStrc();
+};
+
+struct D2ChatStormListDStrc
+{
+    int m_linkoffset;
+    D2ChatStormCtorLinkStrc m_terminator;
+
+    D2ChatStormListDStrc();
+};
+
+struct D2ChatStormListEStrc
+{
+    int m_linkoffset;
+    D2ChatStormCtorLinkStrc m_terminator;
+
+    D2ChatStormListEStrc();
+};
+
+struct D2ChatStormNodeStrc
+{
+    unsigned int f_0;
+    D2ChatStormLinkStrc m_linktoslot;
+    D2ChatStormLinkStrc f_C;
+    char* f_14;
+
+    char* sub_0060E0B0_GetKey();
+};
+
+struct D2CmpByteMapStrc
+{
+    unsigned char ab[0x100];
+    int nCount;
+};
+
+struct D2CmpCacheKeyStrc
+{
+    int nKeyA;
+    int nKeyB;
+    int nKeyC;
+    char unk0x0C[0x14];
+    unsigned char nFlags;
+    char unk0x21[0x8F];
+    T00481720* pAsyncData;
+};
+
+struct D2CmpCacheListEntryStrc
+{
+    D2CmpCacheKeyStrc* pKey;
+    char unk0x04[0x10];
+    D2CmpCacheListEntryStrc* pNext;
+};
+
+typedef void (__stdcall* D2CmpColorCallback)(unsigned int nColor);
+
+struct D2CmpColorStrc
+{
+    unsigned char nRed;
+    unsigned char nGreen;
+    unsigned char nBlue;
+    unsigned char nPad;
+};
+
+struct D2CmpPoolStrc
+{
+    unsigned char unk0x00[0x34];
+};
+
+struct D2CmpRGBStrc
+{
+    unsigned char b0;
+    unsigned char b1;
+    unsigned char b2;
+};
+
+struct D2CmpSubTilePosStrc
+{
+    int nX;
+    int nY;
+};
+
+struct D2CmpTileInfoStrc
+{
+    char data[25];
+};
+
+struct D2CommonMappingEntryNodeBaseStrc
+{
+    unsigned int f_0;
+    D2ChatStormLinkStrc m_linktoslot;
+    D2ChatStormLinkStrc f_C;
+    char* f_14;
+
+    ~D2CommonMappingEntryNodeBaseStrc();
+};
+
+struct D2CommonMappingEntryNodeStrc : D2CommonMappingEntryNodeBaseStrc
+{
+    void* pMapped;
+
+    ~D2CommonMappingEntryNodeStrc();
+};
+
+struct D2CommonStormHashTableAStrc
+{
+    void sub_0060EB70_InternalClear(int bWarn);
+    void sub_0060ED60_Clear();
+};
+
+struct D2CommonStormSlotLinkStrc
+{
+    D2CommonStormSlotLinkStrc* m_prevlink;
+    char* m_next;
+
+    ~D2CommonStormSlotLinkStrc()
+    {
+        Unlink();
+    }
+    D2CommonStormSlotLinkStrc* NextLink(int nLinkOffset)
+    {
+        if ((int)m_next < 0)
+            return (D2CommonStormSlotLinkStrc*)~(unsigned int)m_next;
+        if (nLinkOffset < 0)
+            nLinkOffset = (char*)this - m_prevlink->m_next;
+        return (D2CommonStormSlotLinkStrc*)(m_next + nLinkOffset);
+    }
+    void Unlink()
+    {
+        if (m_prevlink)
+        {
+            NextLink(-1)->m_prevlink = m_prevlink;
+            m_prevlink->m_next = m_next;
+            m_prevlink = 0;
+            m_next = 0;
+        }
+    }
+};
+
+struct D2CommonStormSlotListAStrc
+{
+    int m_linkoffset;
+    D2CommonStormSlotLinkStrc m_terminator;
+    ~D2CommonStormSlotListAStrc();
+    void UnlinkAll();
+};
+
+struct D2CommonStormSlotListBStrc
+{
+    int m_linkoffset;
+    D2CommonStormSlotLinkStrc m_terminator;
+
+    ~D2CommonStormSlotListBStrc();
+    void UnlinkAll();
+};
+
+struct D2CommonStringEntryNodeStrc
+{
+    unsigned int f_0;
+    D2ChatStormLinkStrc m_linktoslot;
+    D2ChatStormLinkStrc f_C;
+    char* f_14;
+
+    ~D2CommonStringEntryNodeStrc();
+    void sub_0060EE30_Destroy();
+};
+
+struct D2HslStrc
+{
+    double f_0;
+    double f_8;
+    double f_10;
+};
+
+struct D2PalRgbaStrc
+{
+    unsigned char nRed;
+    unsigned char nGreen;
+    unsigned char nBlue;
+    unsigned char nPad;
+};
+
+typedef void (__fastcall* D2SpriteCacheFreeFn)(unsigned int nKey);
+
+struct D2SpriteCacheLockStrc
+{
+    char data[0x18];
+};
+
+struct D2Storm408ElemStrc
+{
+    char unk0x00[0x408];
+};
+
+struct D2Storm416A90Strc
+{
+    char pad00[0x14C];
+    int n14C;
+    int n150;
+};
+
+struct D2StormArray408Strc
+{
+    unsigned int f_0;
+    unsigned int f_4;
+    D2Storm408ElemStrc* f_8;
+    unsigned int f_C;
+
+    D2StormArray408Strc* sub_0051D2C0_InitBase();
+    unsigned int sub_0051D2F0_CalcChunkSize(unsigned int nCount);
+    void sub_0051D570_FreeData();
+    void sub_0051D5D0_ReallocData(unsigned int nCount);
+    void sub_0051D670_FreeData();
+    D2StormArray408Strc* sub_0051D690_Init();
+    void sub_0051D6A0_Clear();
+    D2StormArray408Strc* sub_0051D720_Init();
+    void sub_0051D730_FreeData();
+    D2Storm408ElemStrc* sub_0051D7A0_New();
+    void ReserveInline(unsigned int nCount, int bRound);
+};
+
+struct D2TileListHeaderStrc
+{
+    int nUnk0x00;
+    int nUnk0x04;
+    int nUnk0x08;
+    int f_C;
+    int f_10;
+};
+
+typedef unsigned int size_t;

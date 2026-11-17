@@ -22,53 +22,6 @@ struct D2ModuleInfoStrc
     D2ModuleInfoStrc* pNext;
 };
 
-struct D2ImageHlpLineStrc
-{
-    unsigned long dwSizeOfStruct;
-    void* pKey;
-    unsigned long dwLineNumber;
-    char* szFileName;
-    unsigned long dwAddress;
-};
-
-struct D2MemoryBasicInfoStrc
-{
-    void* BaseAddress;
-    void* AllocationBase;
-    unsigned long AllocationProtect;
-    unsigned long RegionSize;
-    unsigned long State;
-    unsigned long Protect;
-    unsigned long Type;
-};
-
-struct D2PeDosHeaderStrc
-{
-    unsigned short f_0;
-    char unk0x02[0x3A];
-    long nNtHeadersOffset;
-};
-
-struct D2PeNtHeadersStrc
-{
-    unsigned long dwSignature;
-    unsigned short wMachine;
-    unsigned short wNumberOfSections;
-    char unk0x08[0x0C];
-    unsigned short wSizeOfOptionalHeader;
-    unsigned short wCharacteristics;
-    char aOptionalHeader[4];
-};
-
-struct D2PeSectionStrc
-{
-    char szName[0x08];
-    unsigned long dwVirtualSize;
-    unsigned long dwVirtualAddress;
-    unsigned long dwSizeOfRawData;
-    char unk0x14[0x14];
-};
-
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock);         // 0x006CC218
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock);         // 0x006CC214
 extern "C" __declspec(dllimport) unsigned long __stdcall GetLastError();                                    // 0x006CC1B4

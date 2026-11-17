@@ -1,7 +1,5 @@
 #include "Fog.h"
 
-typedef unsigned int size_t;
-
 struct D2CriticalSectionStrc
 {
     void* pDebugInfo;
@@ -81,33 +79,6 @@ struct D2SockAddrInStrc
     unsigned short sin_port;
     D2InAddrStrc sin_addr;
     char sin_zero[8];
-};
-
-struct D2HostentStrc
-{
-    char* h_name;
-    char** h_aliases;
-    short h_addrtype;
-    short h_length;
-    char** h_addr_list;
-};
-
-struct D2SystemTimeStrc
-{
-    unsigned short wYear;
-    unsigned short wMonth;
-    unsigned short wDayOfWeek;
-    unsigned short wDay;
-    unsigned short wHour;
-    unsigned short wMinute;
-    unsigned short wSecond;
-    unsigned short wMilliseconds;
-};
-
-struct D2FileTimeStrc
-{
-    unsigned long dwLowDateTime;
-    unsigned long dwHighDateTime;
 };
 
 struct D2FindDataStrc

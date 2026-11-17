@@ -4,8 +4,6 @@ struct Unicode;
 struct T0043E860;
 struct D2LaunchFuncsStrc;
 
-typedef unsigned int size_t;
-
 struct Unicode
 {
     unsigned short wChar;

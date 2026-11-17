@@ -1,6 +1,7 @@
 #include "D2CMP.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
 struct D2CmpCellStrc;
 struct D2DrlgLevelStrc;
 struct D2CmpTileCacheStrc;
@@ -165,13 +166,11 @@ struct D2CriticalSectionStrc;
 struct D2CelEntryStrc;
 struct D2StormEntry38Strc;
 struct D2GameDataTableStrc;
-
-typedef unsigned int size_t;
-
-struct D2CmpPoolStrc
-{
-    unsigned char unk0x00[0x34];
-};
+struct D2CmpPoolStrc;
+class WardenModule;
+struct D2Warden47F930Strc;
+struct D2WardenModuleHolderAStrc;
+struct D2WardenModuleHolderBStrc;
 
 struct D2CmpTileCacheStrc
 {
@@ -230,26 +229,9 @@ struct D2CmpCacheBlockOwnerStrc
     char unk0x58[4];
     void* pBlock;
 };
+
 extern const char* gszCmpCompressedExtension; // 0x00741F00
 extern const char* gszCmpDefaultExtension; // 0x00741F04
-
-struct D2CmpCacheKeyStrc
-{
-    int nKeyA;
-    int nKeyB;
-    int nKeyC;
-    char unk0x0C[0x14];
-    unsigned char nFlags;
-    char unk0x21[0x8F];
-    T00481720* pAsyncData;
-};
-
-struct D2CmpCacheListEntryStrc
-{
-    D2CmpCacheKeyStrc* pKey;
-    char unk0x04[0x10];
-    D2CmpCacheListEntryStrc* pNext;
-};
 
 extern D2CmpCacheListEntryStrc* gpCmpCacheEntries; // 0x0089DB7C
 
@@ -300,12 +282,6 @@ struct D2CmpCelFileStrc
 typedef void(__fastcall* CELFILECONVERTFN)(D2CmpCelFileStrc* pSource, D2CmpCelFileStrc* pTarget, int nArg1, int nArg2);
 
 extern CELFILECONVERTFN gpfCelFileConvert[]; // 0x006E3690
-
-struct D2CelBlockStrc
-{
-    char unk0x00[0x28];
-    unsigned char* pPixels;
-};
 
 struct D2CelStrc
 {
@@ -370,7 +346,6 @@ struct CellTable { int type; unsigned char flags; char pad[0xB]; int nDirections
 struct Unit { int type; char pad4[0xC]; int mode; };
 
 extern "C" const char emptyAssert; // 0x006CC837
-extern "C" void __cdecl sub_00408A60(const char*,const char*,int); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl sub_00681E09(int); // 0x00681E09
 
 enum { REQUIRED_TYPE = 6 };
@@ -434,13 +409,6 @@ struct D2Storm4168F0Strc
     D2StormLinkStrc f_0;
 
     ~D2Storm4168F0Strc();
-};
-
-struct D2Storm416A90Strc
-{
-    char pad00[0x14C];
-    int n14C;
-    int n150;
 };
 
 struct PairStrc_00601BB0
@@ -920,43 +888,6 @@ struct sub_00602750
     sub_00602750();
 };
 
-struct D2CommonStormSlotLinkStrc
-{
-    D2CommonStormSlotLinkStrc* m_prevlink;
-    char* m_next;
-
-    ~D2CommonStormSlotLinkStrc()
-    {
-        Unlink();
-    }
-    D2CommonStormSlotLinkStrc* NextLink(int nLinkOffset)
-    {
-        if ((int)m_next < 0)
-            return (D2CommonStormSlotLinkStrc*)~(unsigned int)m_next;
-        if (nLinkOffset < 0)
-            nLinkOffset = (char*)this - m_prevlink->m_next;
-        return (D2CommonStormSlotLinkStrc*)(m_next + nLinkOffset);
-    }
-    void Unlink()
-    {
-        if (m_prevlink)
-        {
-            NextLink(-1)->m_prevlink = m_prevlink;
-            m_prevlink->m_next = m_next;
-            m_prevlink = 0;
-            m_next = 0;
-        }
-    }
-};
-
-struct D2CommonStormSlotListAStrc
-{
-    int m_linkoffset;
-    D2CommonStormSlotLinkStrc m_terminator;
-    ~D2CommonStormSlotListAStrc();
-    void UnlinkAll();
-};
-
 struct D2CommonStormSlotArrayAStrc {
  unsigned int m_alloc,m_count;
 #ifdef MOVED_TEST
@@ -969,205 +900,6 @@ struct D2CommonStormSlotArrayAStrc {
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);
 extern "C" const char gszIgnoreListSourceFile_006E6290[];
-
-struct D2ChatStormLinkStrc
-{
-    D2ChatStormLinkStrc* m_prevlink;
-    char* m_next;
-
-    D2ChatStormLinkStrc* NextLink(int nLinkOffset)
-    {
-        if ((int)m_next < 0)
-            return (D2ChatStormLinkStrc*)~(unsigned int)m_next;
-        if (nLinkOffset < 0)
-            nLinkOffset = (char*)this - m_prevlink->m_next;
-        return (D2ChatStormLinkStrc*)(m_next + nLinkOffset);
-    }
-    char* MaskNext()
-    {
-        return (char*)((((int)m_next <= 0) - 1) & (int)m_next);
-    }
-    void Unlink()
-    {
-        if (m_prevlink)
-        {
-            NextLink(-1)->m_prevlink = m_prevlink;
-            m_prevlink->m_next = m_next;
-            m_prevlink = 0;
-            m_next = 0;
-        }
-    }
-    bool sub_0060E0C0_IsLinked();
-    char* sub_0060E1A0_Next();
-    char* sub_0060E240_Next();
-    void sub_0060E3B0_Unlink();
-    void sub_0060E400_Unlink();
-    void sub_0060E690_Unlink();
-    void sub_0060E760_Unlink();
-};
-
-struct D2ChatStormLinkAStrc
-{
-    D2ChatStormLinkAStrc* m_prevlink;
-    char* m_next;
-
-    D2ChatStormLinkAStrc();
-};
-
-struct D2ChatStormLinkBStrc
-{
-    D2ChatStormLinkBStrc* m_prevlink;
-    char* m_next;
-
-    D2ChatStormLinkBStrc();
-};
-
-struct D2ChatStormNodeStrc
-{
-    unsigned int f_0;
-    D2ChatStormLinkStrc m_linktoslot;
-    D2ChatStormLinkStrc f_C;
-    char* f_14;
-
-    char* sub_0060E0B0_GetKey();
-};
-
-struct D2ChatStormBaseArrayAStrc
-{
-    unsigned int f_0;
-    unsigned int f_4;
-    void* f_8;
-
-    D2ChatStormBaseArrayAStrc();
-    unsigned int sub_0060E230_Count();
-};
-
-struct D2ChatStormBaseArrayBStrc
-{
-    unsigned int f_0;
-    unsigned int f_4;
-    void* f_8;
-
-    D2ChatStormBaseArrayBStrc();
-    unsigned int sub_0060E250_Count();
-};
-
-struct D2ChatStormListAStrc
-{
-    int m_linkoffset;
-    D2ChatStormLinkStrc m_terminator;
-
-    void InitializeTerminator()
-    {
-        m_terminator.m_prevlink = &m_terminator;
-        m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
-    }
-    void sub_0060E260_InitializeTerminator();
-    char* sub_0060E440_Head();
-    void sub_0060E5F0_Reset();
-};
-
-struct D2ChatStormListBStrc
-{
-    int m_linkoffset;
-    D2ChatStormLinkStrc m_terminator;
-
-    void InitializeTerminator()
-    {
-        m_terminator.m_prevlink = &m_terminator;
-        m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
-    }
-    void sub_0060E270_InitializeTerminator();
-    char* sub_0060E5D0_Head();
-    void sub_0060E610_Reset();
-};
-
-struct D2ChatStormHashTableStrc
-{
-    void* m_pVTable;
-    D2ChatStormListAStrc m_fulllist;
-
-    char* sub_0060E6D0_Head();
-};
-
-struct D2ChatStormCtorLinkStrc
-{
-    D2ChatStormCtorLinkStrc* m_prevlink;
-    char* m_next;
-
-    D2ChatStormCtorLinkStrc()
-    {
-        m_prevlink = 0;
-        m_next = 0;
-    }
-};
-
-struct D2ChatStormListCStrc
-{
-    int m_linkoffset;
-    D2ChatStormCtorLinkStrc m_terminator;
-
-    D2ChatStormListCStrc();
-};
-
-struct D2ChatStormListDStrc
-{
-    int m_linkoffset;
-    D2ChatStormCtorLinkStrc m_terminator;
-
-    D2ChatStormListDStrc();
-};
-
-struct D2ChatStormListEStrc
-{
-    int m_linkoffset;
-    D2ChatStormCtorLinkStrc m_terminator;
-
-    D2ChatStormListEStrc();
-};
-
-struct D2CommonStormSlotListBStrc
-{
-    int m_linkoffset;
-    D2CommonStormSlotLinkStrc m_terminator;
-
-    ~D2CommonStormSlotListBStrc();
-    void UnlinkAll();
-};
-
-struct D2CommonMappingEntryNodeBaseStrc
-{
-    unsigned int f_0;
-    D2ChatStormLinkStrc m_linktoslot;
-    D2ChatStormLinkStrc f_C;
-    char* f_14;
-
-    ~D2CommonMappingEntryNodeBaseStrc();
-};
-
-struct D2CommonMappingEntryNodeStrc : D2CommonMappingEntryNodeBaseStrc
-{
-    void* pMapped;
-
-    ~D2CommonMappingEntryNodeStrc();
-};
-
-struct D2CommonStringEntryNodeStrc
-{
-    unsigned int f_0;
-    D2ChatStormLinkStrc m_linktoslot;
-    D2ChatStormLinkStrc f_C;
-    char* f_14;
-
-    ~D2CommonStringEntryNodeStrc();
-    void sub_0060EE30_Destroy();
-};
-
-struct D2CommonStormHashTableAStrc
-{
-    void sub_0060EB70_InternalClear(int bWarn);
-    void sub_0060ED60_Clear();
-};
 
 struct R0052E0F0
 {
@@ -1517,31 +1249,6 @@ struct D2StormGameHashChunkStrc
 
 extern "C" const char gszTypeNewsTableItem_0072FF8C[];
 
-struct D2Storm408ElemStrc
-{
-    char unk0x00[0x408];
-};
-
-struct D2StormArray408Strc
-{
-    unsigned int f_0;
-    unsigned int f_4;
-    D2Storm408ElemStrc* f_8;
-    unsigned int f_C;
-
-    D2StormArray408Strc* sub_0051D2C0_InitBase();
-    unsigned int sub_0051D2F0_CalcChunkSize(unsigned int nCount);
-    void sub_0051D570_FreeData();
-    void sub_0051D5D0_ReallocData(unsigned int nCount);
-    void sub_0051D670_FreeData();
-    D2StormArray408Strc* sub_0051D690_Init();
-    void sub_0051D6A0_Clear();
-    D2StormArray408Strc* sub_0051D720_Init();
-    void sub_0051D730_FreeData();
-    D2Storm408ElemStrc* sub_0051D7A0_New();
-    void ReserveInline(unsigned int nCount, int bRound);
-};
-
 struct DeleteFlags { unsigned value; };
 
 int __stdcall sub_00412650(void*,const char*,int,unsigned); // 0x00412650
@@ -1625,8 +1332,527 @@ struct D2GameDataTableStrc
 };
 
 extern D2GameDataTableStrc gCelListTable; // 0x008E8CC0
-
 inline void* __cdecl operator new(unsigned int nSize, void* pWhere) throw();
+void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);
+extern "C" const char szWardenClientFile_006D8E18[];
+
+class WardenModule
+{
+public:
+    WardenModule();
+    ~WardenModule();
+
+    void* pImage;
+    int unk0x04;
+    int nImports;
+    int unk0x0C;
+    void* f_10;
+};
+
+struct D2Warden47F930Strc
+{
+    int n00;
+    int n04;
+    int n08;
+
+    D2Warden47F930Strc();
+};
+
+struct D2WardenModuleHolderAStrc
+{
+    WardenModule tModule;
+
+    ~D2WardenModuleHolderAStrc();
+};
+
+struct D2WardenModuleHolderBStrc
+{
+    WardenModule tModule;
+
+    ~D2WardenModuleHolderBStrc();
+};
+
+// build: context sub_0068A420
+int __cdecl sub_0068A420()
+{
+    return 0;
+}
+
+// build: context sub_0069FA20
+int __cdecl sub_0069FA20()
+{
+    return 0;
+}
+
+// 0x0040F7D0
+sub_0040F7D0::~sub_0040F7D0()
+{
+    f_0.Unlink();
+}
+
+// 0x00417780
+sub_00417780::sub_00417780()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x00417810
+sub_00417810::~sub_00417810()
+{
+    f_0.Unlink();
+}
+
+// 0x00417850
+sub_00417850::sub_00417850()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x00417860
+sub_00417860::~sub_00417860()
+{
+    f_0.Unlink();
+}
+
+// 0x004178B0
+sub_004178B0::sub_004178B0()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x004178C0
+sub_004178C0::~sub_004178C0()
+{
+    f_0.Unlink();
+}
+
+// 0x00417900
+sub_00417900::~sub_00417900()
+{
+    f_0.Unlink();
+}
+
+// 0x00417940
+sub_00417940::sub_00417940()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x00417950
+sub_00417950::~sub_00417950()
+{
+    f_0.Unlink();
+}
+
+// 0x00417990
+sub_00417990::sub_00417990()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x004179B0
+sub_004179B0::~sub_004179B0()
+{
+    f_0.Unlink();
+}
+
+// 0x004183F0
+sub_004183F0::~sub_004183F0()
+{
+    f_0.Unlink();
+}
+
+// 0x00418430
+sub_00418430::~sub_00418430()
+{
+    f_0.Unlink();
+}
+
+// 0x00418760
+sub_00418760::sub_00418760()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x00418770
+sub_00418770::sub_00418770()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x00418780
+sub_00418780::~sub_00418780()
+{
+    f_0.Unlink();
+}
+
+// 0x004187C0
+sub_004187C0::~sub_004187C0()
+{
+    f_0.Unlink();
+}
+
+// 0x00418800
+sub_00418800::~sub_00418800()
+{
+    f_0.Unlink();
+}
+
+// 0x00418840
+sub_00418840::~sub_00418840()
+{
+    f_0.Unlink();
+}
+
+// 0x00418880
+sub_00418880::~sub_00418880()
+{
+    f_0.Unlink();
+}
+
+// 0x004188C0
+sub_004188C0::~sub_004188C0()
+{
+    f_0.Unlink();
+}
+
+// 0x00418A40
+sub_00418A40::sub_00418A40()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x00418BA0
+sub_00418BA0::~sub_00418BA0()
+{
+    f_0.Unlink();
+}
+
+// 0x00418BE0
+sub_00418BE0::~sub_00418BE0()
+{
+    f_0.Unlink();
+}
+
+// 0x00418C20
+sub_00418C20::~sub_00418C20()
+{
+    f_0.Unlink();
+}
+
+// 0x00418DE0
+sub_00418DE0::sub_00418DE0()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x00418DF0
+sub_00418DF0::sub_00418DF0()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x00418E00
+sub_00418E00::sub_00418E00()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x00418E10
+sub_00418E10::~sub_00418E10()
+{
+    f_0.Unlink();
+}
+
+// 0x00418E50
+sub_00418E50::sub_00418E50()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x00418FF0
+sub_00418FF0::sub_00418FF0()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x00419060
+sub_00419060::sub_00419060()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x0041C3D0
+sub_0041C3D0::~sub_0041C3D0()
+{
+    f_0.Unlink();
+}
+
+// 0x0041C4F0
+sub_0041C4F0::sub_0041C4F0()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x0041C500
+sub_0041C500::~sub_0041C500()
+{
+    f_0.Unlink();
+}
+
+// 0x0041C720
+sub_0041C720::sub_0041C720()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x0041C730
+sub_0041C730::~sub_0041C730()
+{
+    f_0.Unlink();
+}
+
+// 0x0041C7F0
+sub_0041C7F0::sub_0041C7F0()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x0041C800
+sub_0041C800::~sub_0041C800()
+{
+    f_0.Unlink();
+}
+
+// 0x00420430
+sub_00420430::~sub_00420430()
+{
+    f_0.Unlink();
+}
+
+// 0x004204A0
+sub_004204A0::sub_004204A0()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x004204B0
+sub_004204B0::~sub_004204B0()
+{
+    f_0.Unlink();
+}
+
+// 0x00420700
+sub_00420700::sub_00420700()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x00420710
+sub_00420710::~sub_00420710()
+{
+    f_0.Unlink();
+}
+
+// 0x004207D0
+sub_004207D0::sub_004207D0()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x004207E0
+sub_004207E0::~sub_004207E0()
+{
+    f_0.Unlink();
+}
+
+// 0x00426960
+sub_00426960::~sub_00426960()
+{
+    f_0.Unlink();
+}
+
+// 0x00426A80
+sub_00426A80::~sub_00426A80()
+{
+    f_0.Unlink();
+}
+
+// 0x00426CA0
+sub_00426CA0::sub_00426CA0()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x00426CB0
+sub_00426CB0::~sub_00426CB0()
+{
+    f_0.Unlink();
+}
+
+// 0x00426D70
+sub_00426D70::sub_00426D70()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x00426D80
+sub_00426D80::~sub_00426D80()
+{
+    f_0.Unlink();
+}
+
+char* __fastcall sub_0060E360_AddLinkOffset(char* pNode, int nLinkOffset)
+{
+    return pNode + nLinkOffset;
+}
+
+char* D2ChatStormHashTableStrc::sub_0060E6D0_Head()
+{
+    return m_fulllist.m_terminator.MaskNext();
+}
+
+D2ChatStormListDStrc::D2ChatStormListDStrc()
+{
+    m_linkoffset = 0;
+    m_terminator.m_prevlink = &m_terminator;
+    m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
+}
+
+D2CommonStormSlotListAStrc::~D2CommonStormSlotListAStrc()
+{
+    UnlinkAll();
+}
+
+D2CommonStormSlotListBStrc::~D2CommonStormSlotListBStrc()
+{
+    UnlinkAll();
+}
+
+D2CommonMappingEntryNodeStrc::~D2CommonMappingEntryNodeStrc()
+{
+    if (pMapped)
+        SMemFree(pMapped, gszIgnoreListSourceFile_006E6290, 0x11, 0);
+}
+
+void D2CommonStringEntryNodeStrc::sub_0060EE30_Destroy()
+{
+    this->~D2CommonStringEntryNodeStrc();
+}
+
+void D2CommonStormHashTableAStrc::sub_0060ED60_Clear()
+{
+    sub_0060EB70_InternalClear(0);
+}
+
+// 0x00436E90
+int __stdcall sub_00436E90_AlwaysOne(int nArg)
+{
+    return 1;
+}
+
+// 0x0044BDE0
+sub_0044BDE0::sub_0044BDE0()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x0044DDD0
+sub_0044DDD0::~sub_0044DDD0()
+{
+    f_0.Unlink();
+}
+
+// 0x0044DE90
+sub_0044DE90::~sub_0044DE90()
+{
+    f_0.Unlink();
+}
+
+// 0x0044ECC0
+sub_0044ECC0::~sub_0044ECC0()
+{
+    f_0.Unlink();
+}
+
+// 0x0044ED40
+sub_0044ED40::sub_0044ED40()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x0044ED50
+sub_0044ED50::~sub_0044ED50()
+{
+    f_0.Unlink();
+}
+
+// 0x0044ED90
+sub_0044ED90::sub_0044ED90()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x004C5390
+void __fastcall sub_004C5390_EnlargeVector(int* pX, int* pY)
+{
+    int nDistance = *pX * *pX + *pY * *pY;
+    if (nDistance < 4)
+    {
+        *pX <<= 2;
+        *pY <<= 2;
+        nDistance = *pX * *pX + *pY * *pY;
+    }
+
+    if (nDistance < 16)
+    {
+        *pX <<= 1;
+        *pY <<= 1;
+    }
+}
+
+// 0x004C6020
+int __stdcall sub_004C6020_AlwaysOne(int nArg)
+{
+    return 1;
+}
+
+// 0x0052E0F0
+bool R0052E0F0::sub_0052E0F0_IsOpen()
+{
+    return m_pFile != 0;
+}
+
+// 0x00551FF0
+int __stdcall sub_00551FF0_AlwaysOne(int nArg)
+{
+    return 1;
+}
 
 int gbCmpPoolInitialized; // 0x0088CB14
 
@@ -1647,6 +1873,14 @@ void __stdcall sub_005FDE10_FreeCelPool(int bFree)
     }
 
     sub_006006B0_FreeTileRecords();
+}
+
+// 0x005FDF50
+void __stdcall sub_005FDF50_FreeCacheBlock(D2CmpCacheBlockOwnerStrc* pOwner)
+{
+    sub_006092D0_PoolFree(&gCmpPool, pOwner->pBlock);
+    pOwner->nBlockUsed = 0;
+    pOwner->pBlock = 0;
 }
 
 // 0x005FDF80
@@ -1671,41 +1905,6 @@ void __stdcall sub_005FE120_InitCelPool(void* pMemPool, int nArg)
     memset(&gCmpPool, 0, sizeof(gCmpPool));
     sub_00609020_PoolInit(&gCmpPool, pMemPool, nArg, sub_005FDE50, 0x1000);
     gbCmpPoolInitialized = 1;
-}
-
-// 0x005FFE30
-void __stdcall sub_005FFE30_FreeTileCache(int bFree)
-{
-    if (bFree && gCmpTileCache.bActive)
-    {
-        sub_005FFBE0_FreeTileCache(&gCmpTileCache);
-    }
-
-    memset(&gCmpTileCache, 0, sizeof(gCmpTileCache));
-
-    if (bFree)
-    {
-        sub_006093E0_PoolFreeAll(&gCmpTilePool);
-    }
-
-    memset(&gCmpTilePool, 0, sizeof(gCmpTilePool));
-    sub_0060CD50_ReleaseTileLock();
-}
-
-// 0x00601E80
-void D2TSListStrc::sub_00601E80_InitCopy(const D2TSListStrc& source)
-{
-    nLinkOffset = source.nLinkOffset;
-    tTerminator.pPrevLink = &tTerminator;
-    tTerminator.nNext = ~(unsigned int)&tTerminator;
-}
-
-// 0x005FDF50
-void __stdcall sub_005FDF50_FreeCacheBlock(D2CmpCacheBlockOwnerStrc* pOwner)
-{
-    sub_006092D0_PoolFree(&gCmpPool, pOwner->pBlock);
-    pOwner->nBlockUsed = 0;
-    pOwner->pBlock = 0;
 }
 
 // 0x005FE1F0
@@ -1767,6 +1966,25 @@ void __fastcall sub_005FF630_ResizeCacheEntry(D2CmpCacheStrc* pCache, D2CmpCache
     EnterCriticalSection(pCache->tLock);
     pNode->dwFlags &= ~2;
     LeaveCriticalSection(pCache->tLock);
+}
+
+// 0x005FFE30
+void __stdcall sub_005FFE30_FreeTileCache(int bFree)
+{
+    if (bFree && gCmpTileCache.bActive)
+    {
+        sub_005FFBE0_FreeTileCache(&gCmpTileCache);
+    }
+
+    memset(&gCmpTileCache, 0, sizeof(gCmpTileCache));
+
+    if (bFree)
+    {
+        sub_006093E0_PoolFreeAll(&gCmpTilePool);
+    }
+
+    memset(&gCmpTilePool, 0, sizeof(gCmpTilePool));
+    sub_0060CD50_ReleaseTileLock();
 }
 
 // 0x00600960
@@ -1835,13 +2053,6 @@ int __stdcall sub_00600F10_CelFileConvert(D2CmpCelFileStrc* pSource, D2CmpCelFil
     return 1;
 }
 
-// 0x00601410
-void __stdcall sub_00601410_CelFileFree(D2CmpCelFileStrc* pCelFile)
-{
-    D2_ASSERT(pCelFile, 0x40D);
-    FOG_Free(pCelFile, ".\\SRC\\CelCmp.cpp", 0x40E, 0);
-}
-
 #include "gen/data/Source/D2CMP/SRC/CelCmp.inc"
 
 // 0x00601340
@@ -1889,6 +2100,13 @@ void __stdcall D2CMP_CelFileNormalize(D2CelFileStrc* pFile, D2CelFileStrc** ppOu
     }
 
     *ppOutFile = pFile;
+}
+
+// 0x00601410
+void __stdcall sub_00601410_CelFileFree(D2CmpCelFileStrc* pCelFile)
+{
+    D2_ASSERT(pCelFile, 0x40D);
+    FOG_Free(pCelFile, ".\\SRC\\CelCmp.cpp", 0x40E, 0);
 }
 
 // 0x006014C0
@@ -1950,41 +2168,6 @@ void __stdcall sub_006014C0(D2CmpCelContextStrc* pContext, int nX, int nY, int n
     pfnDraw(pCel, pDst, nX, nArg4, nArg5, nPitch, nSkipRows, nRows, nArg9, nArg10, nArg11);
 }
 
-// 0x0060D040
-int __fastcall sub_0060D040(D2FindTileEntryStrc** ppTable, void** ppResults, unsigned int nMax, int nKey1, int nKey2, int nKey3)
-{
-    int bFound = 0;
-    int nCount = 0;
-    D2_ASSERT(ppTable, 0xCF);
-    D2_ASSERT(ppResults, 0xD0);
-    if (!nMax)
-    {
-        return 0;
-    }
-
-    D2FindTileEntryStrc* pEntry = ppTable[sub_0060CD70_WrapIndex(nKey3, nKey2, nKey1)];
-    while (pEntry && !bFound)
-    {
-        if (pEntry->nKey3 == nKey3 && pEntry->nKey2 == nKey2 && pEntry->nKey1 == nKey1)
-            bFound = 1;
-        else
-            pEntry = pEntry->pNext;
-    }
-
-    if (bFound)
-    {
-        unsigned int i = 0;
-        for (D2FindTileNodeStrc* pNode = pEntry->pTileList; pNode && i < nMax; pNode = pNode->pNext)
-        {
-            ppResults[i] = pNode->pTile;
-            nCount += 1;
-            i += 1;
-        }
-    }
-
-    return nCount;
-}
-
 // 0x006015D0
 int __stdcall sub_006015D0(CellTable* p, int nDirection, int nIndex, void* pDst)
 {
@@ -2029,32 +2212,6 @@ void __cdecl sub_00601B50_Empty()
 char* __fastcall sub_00601B60_LinkNext(D2StormLinkStrc* pLink)
 {
     return (int)pLink->m_next > 0 ? pLink->m_next : 0;
-}
-
-// 0x00601C60
-char* __fastcall sub_00601C60_LinkNext(D2StormLinkStrc* pLink)
-{
-    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
-}
-
-// 0x00601CE0
-char* __fastcall sub_00601CE0_LinkNext(D2StormLinkStrc* pLink)
-{
-    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
-}
-
-// 0x00601DF0
-void __fastcall sub_00601DF0_InitTerminator(D2StormListStrc* pList)
-{
-    pList->m_terminator.m_prevlink = &pList->m_terminator;
-    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
-}
-
-// 0x00601E10
-void __fastcall sub_00601E10_InitTerminator(D2StormListStrc* pList)
-{
-    pList->m_terminator.m_prevlink = &pList->m_terminator;
-    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
 }
 
 unsigned short __stdcall sub_004166F0_GetWord()
@@ -2184,6 +2341,36 @@ void __fastcall sub_00601BB0(PairStrc_00601BB0* pPair)
     pPair->nSecond = 0;
 }
 
+// 0x00601BF0
+sub_00601BF0::~sub_00601BF0()
+{
+    f_0.Unlink();
+}
+
+// 0x00601C60
+char* __fastcall sub_00601C60_LinkNext(D2StormLinkStrc* pLink)
+{
+    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
+}
+
+// 0x00601C70
+sub_00601C70::~sub_00601C70()
+{
+    f_0.Unlink();
+}
+
+// 0x00601CC0
+D2CommonStormSlotListAStrc* D2CommonStormSlotArrayAStrc::sub_00601CC0_At(unsigned int index) {return &m_data[index];}
+
+// 0x00601CE0
+char* __fastcall sub_00601CE0_LinkNext(D2StormLinkStrc* pLink)
+{
+    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
+}
+
+// 0x00601CF0
+extern "C" void* __fastcall sub_00601CF0(void* value) { return value; }
+
 // 0x00601D10
 int __cdecl sub_00601D10()
 {
@@ -2197,641 +2384,11 @@ void __fastcall sub_00601D20(PairStrc_00601D20* pPair)
     pPair->nSecond = 0;
 }
 
-// 0x00601DB0
-void __fastcall sub_00601DB0(PairStrc_00601DB0* pPair)
-{
-    pPair->nFirst = 0;
-    pPair->nSecond = 0;
-}
-
-// 0x0060E0D0
-int __cdecl sub_0060E0D0()
-{
-    return 4;
-}
-
-// 0x0060E100
-int __cdecl sub_0060E100()
-{
-    return 4;
-}
-
-// 0x0060E1B0
-void __fastcall sub_0060E1B0(PairStrc_0060E1B0* pPair)
-{
-    pPair->nFirst = 0;
-    pPair->nSecond = 0;
-}
-
-// 0x0060E290
-void __fastcall sub_0060E290(PairStrc_0060E290* pPair)
-{
-    pPair->nFirst = 0;
-    pPair->nSecond = 0;
-}
-
-// 0x00611610
-void __stdcall sub_00611610(int nUnused1)
-{
-}
-
-// 0x00611640
-void __stdcall sub_00611640(int nUnused1)
-{
-}
-
-// 0x00611D10
-int __cdecl sub_00611D10()
-{
-    return gdwGlobal_0096C7F4;
-}
-
-// 0x00611D20
-int __cdecl sub_00611D20()
-{
-    return gdwGlobal_0096C8A4;
-}
-
-// 0x00624710
-int __cdecl sub_00624710()
-{
-    return gdwGlobal_0096CA48;
-}
-
-// 0x0062A360
-int __stdcall sub_0062A360(int nUnused1, int nUnused2)
-{
-    return 0;
-}
-
-// 0x00631490
-int __cdecl sub_00631490()
-{
-    return 2;
-}
-
-// 0x0063DB80
-void __stdcall sub_0063DB80(int nUnused1, int nUnused2)
-{
-}
-
-// 0x0063E050
-void __stdcall sub_0063E050(int nUnused1, int nUnused2)
-{
-}
-
-// 0x0063EBC0
-void __stdcall sub_0063EBC0(int nUnused1, int nUnused2)
-{
-}
-
-// 0x00641500
-int __cdecl sub_00641500()
-{
-    return gdwGlobal_0096D46C;
-}
-
-// 0x00642740
-int __cdecl sub_00642740()
-{
-    return 0;
-}
-
-// 0x0065CCB0
-int __cdecl sub_0065CCB0()
-{
-    return 0;
-}
-
-// 0x00663740
-void __stdcall sub_00663740(int nUnused1)
-{
-}
-
-// 0x0066A210
-void __stdcall sub_0066A210(int nUnused1, int nUnused2)
-{
-}
-
-// 0x0066A220
-void __stdcall sub_0066A220(int nUnused1, int nUnused2)
-{
-}
-
-// 0x0066A230
-int __stdcall sub_0066A230(int nUnused1, int nUnused2)
-{
-    return 0;
-}
-
-// 0x0066A240
-int __stdcall sub_0066A240(int nUnused1, int nUnused2)
-{
-    return 0;
-}
-
-// 0x0066A250
-void __stdcall sub_0066A250(int nUnused1)
-{
-}
-
-// 0x00675810
-int __fastcall sub_00675810(D2DrlgLevelStrc* pLevel)
-{
-    return sub_0067DCE0(pLevel);
-}
-
-// build: context sub_0068A420
-int __cdecl sub_0068A420()
-{
-    return 0;
-}
-
-// build: context sub_0069FA20
-int __cdecl sub_0069FA20()
-{
-    return 0;
-}
-
-// 0x0040F7D0
-sub_0040F7D0::~sub_0040F7D0()
-{
-    f_0.Unlink();
-}
-
-// 0x00417810
-sub_00417810::~sub_00417810()
-{
-    f_0.Unlink();
-}
-
-// 0x00417860
-sub_00417860::~sub_00417860()
-{
-    f_0.Unlink();
-}
-
-// 0x004178C0
-sub_004178C0::~sub_004178C0()
-{
-    f_0.Unlink();
-}
-
-// 0x00417900
-sub_00417900::~sub_00417900()
-{
-    f_0.Unlink();
-}
-
-// 0x00417950
-sub_00417950::~sub_00417950()
-{
-    f_0.Unlink();
-}
-
-// 0x004179B0
-sub_004179B0::~sub_004179B0()
-{
-    f_0.Unlink();
-}
-
-// 0x004183F0
-sub_004183F0::~sub_004183F0()
-{
-    f_0.Unlink();
-}
-
-// 0x00418430
-sub_00418430::~sub_00418430()
-{
-    f_0.Unlink();
-}
-
-// 0x00418780
-sub_00418780::~sub_00418780()
-{
-    f_0.Unlink();
-}
-
-// 0x004187C0
-sub_004187C0::~sub_004187C0()
-{
-    f_0.Unlink();
-}
-
-// 0x00418800
-sub_00418800::~sub_00418800()
-{
-    f_0.Unlink();
-}
-
-// 0x00418840
-sub_00418840::~sub_00418840()
-{
-    f_0.Unlink();
-}
-
-// 0x00418880
-sub_00418880::~sub_00418880()
-{
-    f_0.Unlink();
-}
-
-// 0x004188C0
-sub_004188C0::~sub_004188C0()
-{
-    f_0.Unlink();
-}
-
-// 0x00418BA0
-sub_00418BA0::~sub_00418BA0()
-{
-    f_0.Unlink();
-}
-
-// 0x00418BE0
-sub_00418BE0::~sub_00418BE0()
-{
-    f_0.Unlink();
-}
-
-// 0x00418C20
-sub_00418C20::~sub_00418C20()
-{
-    f_0.Unlink();
-}
-
-// 0x00418E10
-sub_00418E10::~sub_00418E10()
-{
-    f_0.Unlink();
-}
-
-// 0x0041C3D0
-sub_0041C3D0::~sub_0041C3D0()
-{
-    f_0.Unlink();
-}
-
-// 0x0041C500
-sub_0041C500::~sub_0041C500()
-{
-    f_0.Unlink();
-}
-
-// 0x0041C730
-sub_0041C730::~sub_0041C730()
-{
-    f_0.Unlink();
-}
-
-// 0x0041C800
-sub_0041C800::~sub_0041C800()
-{
-    f_0.Unlink();
-}
-
-// 0x00420430
-sub_00420430::~sub_00420430()
-{
-    f_0.Unlink();
-}
-
-// 0x004204B0
-sub_004204B0::~sub_004204B0()
-{
-    f_0.Unlink();
-}
-
-// 0x00420710
-sub_00420710::~sub_00420710()
-{
-    f_0.Unlink();
-}
-
-// 0x004207E0
-sub_004207E0::~sub_004207E0()
-{
-    f_0.Unlink();
-}
-
-// 0x00426960
-sub_00426960::~sub_00426960()
-{
-    f_0.Unlink();
-}
-
-// 0x00426A80
-sub_00426A80::~sub_00426A80()
-{
-    f_0.Unlink();
-}
-
-// 0x00426CB0
-sub_00426CB0::~sub_00426CB0()
-{
-    f_0.Unlink();
-}
-
-// 0x00426D80
-sub_00426D80::~sub_00426D80()
-{
-    f_0.Unlink();
-}
-
-// 0x0044DDD0
-sub_0044DDD0::~sub_0044DDD0()
-{
-    f_0.Unlink();
-}
-
-// 0x0044DE90
-sub_0044DE90::~sub_0044DE90()
-{
-    f_0.Unlink();
-}
-
-// 0x0044ECC0
-sub_0044ECC0::~sub_0044ECC0()
-{
-    f_0.Unlink();
-}
-
-// 0x0044ED50
-sub_0044ED50::~sub_0044ED50()
-{
-    f_0.Unlink();
-}
-
-// 0x00601BF0
-sub_00601BF0::~sub_00601BF0()
-{
-    f_0.Unlink();
-}
-
-// 0x00601C70
-sub_00601C70::~sub_00601C70()
-{
-    f_0.Unlink();
-}
-
 // 0x00601D60
 sub_00601D60::~sub_00601D60()
 {
     f_0.Unlink();
 }
-
-// 0x00601F20
-sub_00601F20::~sub_00601F20()
-{
-    f_0.Unlink();
-}
-
-// 0x00601F60
-sub_00601F60::~sub_00601F60()
-{
-    f_0.Unlink();
-}
-
-// 0x006020D0
-sub_006020D0::~sub_006020D0()
-{
-    f_0.Unlink();
-}
-
-// 0x00602140
-sub_00602140::~sub_00602140()
-{
-    f_0.Unlink();
-}
-
-// 0x006024A0
-sub_006024A0::~sub_006024A0()
-{
-    f_0.Unlink();
-}
-
-// 0x00602760
-sub_00602760::~sub_00602760()
-{
-    f_0.Unlink();
-}
-
-// 0x00417780
-sub_00417780::sub_00417780()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x00417850
-sub_00417850::sub_00417850()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x004178B0
-sub_004178B0::sub_004178B0()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x00417940
-sub_00417940::sub_00417940()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x00417990
-sub_00417990::sub_00417990()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x00418760
-sub_00418760::sub_00418760()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x00418770
-sub_00418770::sub_00418770()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x00418A40
-sub_00418A40::sub_00418A40()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x00418DE0
-sub_00418DE0::sub_00418DE0()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x00418DF0
-sub_00418DF0::sub_00418DF0()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x00418E00
-sub_00418E00::sub_00418E00()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x00418E50
-sub_00418E50::sub_00418E50()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x00418FF0
-sub_00418FF0::sub_00418FF0()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x00419060
-sub_00419060::sub_00419060()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x0041C4F0
-sub_0041C4F0::sub_0041C4F0()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x0041C720
-sub_0041C720::sub_0041C720()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x0041C7F0
-sub_0041C7F0::sub_0041C7F0()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x004204A0
-sub_004204A0::sub_004204A0()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x00420700
-sub_00420700::sub_00420700()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x004207D0
-sub_004207D0::sub_004207D0()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x00426CA0
-sub_00426CA0::sub_00426CA0()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x00426D70
-sub_00426D70::sub_00426D70()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x0044BDE0
-sub_0044BDE0::sub_0044BDE0()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x0044ED40
-sub_0044ED40::sub_0044ED40()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x0044ED90
-sub_0044ED90::sub_0044ED90()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x00601F10
-sub_00601F10::sub_00601F10()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x00602130
-sub_00602130::sub_00602130()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x00602180
-sub_00602180::sub_00602180()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x00602420
-sub_00602420::sub_00602420()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x00602750
-sub_00602750::sub_00602750()
-{
-    f_0.m_prevlink = 0;
-    f_0.m_next = 0;
-}
-
-// 0x00601CC0
-D2CommonStormSlotListAStrc* D2CommonStormSlotArrayAStrc::sub_00601CC0_At(unsigned int index) {return &m_data[index];}
-
-// 0x00601CF0
-extern "C" void* __fastcall sub_00601CF0(void* value) { return value; }
 
 bool D2ChatStormLinkStrc::sub_0060E0C0_IsLinked()
 {
@@ -2936,143 +2493,69 @@ char* __fastcall sub_0060E280_AddLinkOffset(char* pNode, int nLinkOffset)
     return pNode + nLinkOffset;
 }
 
-char* __fastcall sub_0060E360_AddLinkOffset(char* pNode, int nLinkOffset)
+// 0x00601DB0
+void __fastcall sub_00601DB0(PairStrc_00601DB0* pPair)
 {
-    return pNode + nLinkOffset;
-}
-
-char* D2ChatStormHashTableStrc::sub_0060E6D0_Head()
-{
-    return m_fulllist.m_terminator.MaskNext();
-}
-
-D2ChatStormListDStrc::D2ChatStormListDStrc()
-{
-    m_linkoffset = 0;
-    m_terminator.m_prevlink = &m_terminator;
-    m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
-}
-
-D2CommonStormSlotListAStrc::~D2CommonStormSlotListAStrc()
-{
-    UnlinkAll();
-}
-
-D2CommonStormSlotListBStrc::~D2CommonStormSlotListBStrc()
-{
-    UnlinkAll();
-}
-
-D2CommonMappingEntryNodeStrc::~D2CommonMappingEntryNodeStrc()
-{
-    if (pMapped)
-        SMemFree(pMapped, gszIgnoreListSourceFile_006E6290, 0x11, 0);
-}
-
-void D2CommonStringEntryNodeStrc::sub_0060EE30_Destroy()
-{
-    this->~D2CommonStringEntryNodeStrc();
-}
-
-void D2CommonStormHashTableAStrc::sub_0060ED60_Clear()
-{
-    sub_0060EB70_InternalClear(0);
-}
-
-// 0x00436E90
-int __stdcall sub_00436E90_AlwaysOne(int nArg)
-{
-    return 1;
-}
-
-// 0x004C6020
-int __stdcall sub_004C6020_AlwaysOne(int nArg)
-{
-    return 1;
-}
-
-// 0x00551FF0
-int __stdcall sub_00551FF0_AlwaysOne(int nArg)
-{
-    return 1;
-}
-
-// 0x00643880
-int __stdcall sub_00643880_AlwaysOne(int nArg)
-{
-    return 1;
-}
-
-// 0x00646260
-int __stdcall sub_00646260_AlwaysOne(int nArg)
-{
-    return 1;
-}
-
-// 0x00646270
-int __stdcall sub_00646270_AlwaysOne(int nArg)
-{
-    return 1;
-}
-
-// 0x006436E0
-int __fastcall sub_006436E0_Min(int nA, int nB, int nUnused1, int nUnused2)
-{
-    return nA < nB ? nA : nB;
-}
-
-// 0x0064B700
-int __fastcall sub_0064B700_Min(int nA, int nB, int nUnused1, int nUnused2)
-{
-    return nA < nB ? nA : nB;
-}
-
-// 0x006436F0
-int __fastcall sub_006436F0_Max(int nA, int nB, int nUnused1, int nUnused2)
-{
-    return nA > nB ? nA : nB;
-}
-
-// 0x0064B710
-int __fastcall sub_0064B710_Max(int nA, int nB, int nUnused1, int nUnused2)
-{
-    return nA > nB ? nA : nB;
-}
-
-// 0x00648390
-int __stdcall sub_00648390_AlwaysZero(int nUnused1, int nUnused2)
-{
-    return 0;
-}
-
-// 0x004C5390
-void __fastcall sub_004C5390_EnlargeVector(int* pX, int* pY)
-{
-    int nDistance = *pX * *pX + *pY * *pY;
-    if (nDistance < 4)
-    {
-        *pX <<= 2;
-        *pY <<= 2;
-        nDistance = *pX * *pX + *pY * *pY;
-    }
-
-    if (nDistance < 16)
-    {
-        *pX <<= 1;
-        *pY <<= 1;
-    }
-}
-
-// 0x0052E0F0
-bool R0052E0F0::sub_0052E0F0_IsOpen()
-{
-    return m_pFile != 0;
+    pPair->nFirst = 0;
+    pPair->nSecond = 0;
 }
 
 // 0x00601DC0
 bool R00601DC0::sub_00601DC0_IsOpen()
 {
     return m_pFile != 0;
+}
+
+// 0x00601DF0
+void __fastcall sub_00601DF0_InitTerminator(D2StormListStrc* pList)
+{
+    pList->m_terminator.m_prevlink = &pList->m_terminator;
+    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
+}
+
+namespace NWardenClient
+{
+struct Library
+{
+    Library();
+    virtual void Slot00() = 0;
+    virtual void Slot01() = 0;
+    virtual void Slot02() = 0;
+    virtual void Slot03() = 0;
+    virtual void Slot04() = 0;
+    virtual void Slot05() = 0;
+    virtual void Slot06() = 0;
+};
+}
+
+void __fastcall sub_0047F8B0_SwapBytes(unsigned char* pA, unsigned char* pB)
+{
+    unsigned char nTemp = *pA;
+    *pA = *pB;
+    *pB = nTemp;
+}
+
+// 0x00601E00
+D2Warden47F930Strc::D2Warden47F930Strc()
+{
+    n00 = 0;
+    n04 = 0;
+    n08 = 0;
+}
+
+// 0x00601E10
+void __fastcall sub_00601E10_InitTerminator(D2StormListStrc* pList)
+{
+    pList->m_terminator.m_prevlink = &pList->m_terminator;
+    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
+}
+
+// 0x00601E80
+void D2TSListStrc::sub_00601E80_InitCopy(const D2TSListStrc& source)
+{
+    nLinkOffset = source.nLinkOffset;
+    tTerminator.pPrevLink = &tTerminator;
+    tTerminator.nNext = ~(unsigned int)&tTerminator;
 }
 
 // 0x00601EA0
@@ -3093,6 +2576,25 @@ void __stdcall sub_00601EA0_CelFileRelease(D2CelFileStrc* pCelFile)
 char* D2ChatStormListAStrc::sub_0060E440_Head()
 {
     return m_terminator.MaskNext();
+}
+
+// 0x00601F10
+sub_00601F10::sub_00601F10()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x00601F20
+sub_00601F20::~sub_00601F20()
+{
+    f_0.Unlink();
+}
+
+// 0x00601F60
+sub_00601F60::~sub_00601F60()
+{
+    f_0.Unlink();
 }
 
 // 0x00601FA0
@@ -3132,10 +2634,42 @@ char* D2StormNodeListStrc::sub_00602070_Next(D2StormNodeStrc* pNode)
     return Link(pNode)->Next();
 }
 
+// 0x00602090
+void LockedObject::sub_00602090(int acquired)
+{
+    if(acquired!=NOT_ACQUIRED) LeaveCriticalSection(&lock);
+}
+
+// 0x006020D0
+sub_006020D0::~sub_006020D0()
+{
+    f_0.Unlink();
+}
+
 // 0x00602110
 D2StormLinkStrc* D2StormListEStrc::sub_00602110_Link(char* pNode)
 {
     return pNode ? (D2StormLinkStrc*)(pNode + m_linkoffset) : &m_terminator;
+}
+
+// 0x00602130
+sub_00602130::sub_00602130()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x00602140
+sub_00602140::~sub_00602140()
+{
+    f_0.Unlink();
+}
+
+// 0x00602180
+sub_00602180::sub_00602180()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
 }
 
 // 0x00602190
@@ -3170,6 +2704,26 @@ void D2StormListEStrc::sub_00602350_InitLinkField(int nLinkOffset)
     InitializeTerminator();
 }
 
+// 0x00602370
+void D2ChatStormListAStrc::sub_0060E5F0_Reset()
+{
+    m_linkoffset = 0;
+    InitializeTerminator();
+}
+
+// 0x00602420
+sub_00602420::sub_00602420()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x006024A0
+sub_006024A0::~sub_006024A0()
+{
+    f_0.Unlink();
+}
+
 // 0x006024E0
 void D2StormListEStrc::sub_006024E0_LinkNode(char* pNode, int nLinkType, char* pExistingNode)
 {
@@ -3195,186 +2749,25 @@ void D2StormListEStrc::sub_006024E0_LinkNode(char* pNode, int nLinkType, char* p
     }
 }
 
-// 0x00603C80
-void D2GameHashTableStrc::sub_00603C80_GrowListArray()
-{
-    unsigned int nOldCount = m_slotmask + 1;
-    unsigned int nNewCount = 2 * nOldCount;
-    D2StormSlotListStrc tTempList;
-    tTempList.ChangeLinkOffset(4);
-
-    for (unsigned int i = 0; i < nOldCount; i++)
-    {
-        char* pNode;
-        while ((pNode = m_slotlistarray.f_8[i].Head()) != 0)
-            tTempList.LinkToTail(pNode);
-    }
-
-    m_slotlistarray.sub_00603300_SetCount(nNewCount);
-    for (unsigned int i = 0; i < nNewCount; i++)
-        m_slotlistarray.f_8[i].ChangeLinkOffset(4);
-    m_slotmask = nNewCount - 1;
-
-    char* pNode;
-    while ((pNode = tTempList.Head()) != 0)
-        m_slotlistarray.f_8[((D2StormHashNodeStrc*)pNode)->f_0 & m_slotmask].LinkToTail(pNode);
-}
-
-// 0x00603F50
-void D2StormListEStrc::sub_00603F50_CopyLinkOffset(const D2StormListEStrc* pSource)
-{
-    m_linkoffset = pSource->m_linkoffset;
-    InitializeTerminator();
-}
-
-// 0x00603FC0
-void D2StormListEStrc::sub_00603FC0_LinkNode(char* pNode, int nLinkType, char* pExistingNode)
-{
-    D2StormLinkStrc* pLink = Link(pNode);
-    pLink->Unlink();
-    D2StormLinkStrc* pExistingLink = Link(pExistingNode);
-    D2StormLinkStrc* pPrevLink;
-    switch (nLinkType)
-    {
-    case 1:
-        pLink->m_prevlink = pExistingLink;
-        pLink->m_next = pExistingLink->m_next;
-        pExistingLink->NextLink(m_linkoffset)->m_prevlink = pLink;
-        pExistingLink->m_next = pNode;
-        break;
-    default:
-        pPrevLink = pExistingLink->m_prevlink;
-        pLink->m_prevlink = pPrevLink;
-        pLink->m_next = pPrevLink->m_next;
-        pPrevLink->m_next = pNode;
-        pExistingLink->m_prevlink = pLink;
-        break;
-    }
-}
-
-// 0x0060E0E0
-D2StormListEStrc* D2StormListEArrayStrc::sub_0060E0E0_At(unsigned int nIndex)
-{
-    return &f_8[nIndex];
-}
-
-// 0x0060E110
-D2StormListEStrc* D2StormListEArrayStrc::sub_0060E110_At(unsigned int nIndex)
-{
-    return &f_8[nIndex];
-}
-
-// 0x0060E170
-D2StormLinkStrc* D2StormLinkStrc::sub_0060E170_NextLink(int nLinkOffset)
-{
-    if ((int)m_next < 0)
-        return (D2StormLinkStrc*)~(unsigned int)m_next;
-    if (nLinkOffset < 0)
-        nLinkOffset = (char*)this - m_prevlink->m_next;
-    return (D2StormLinkStrc*)(m_next + nLinkOffset);
-}
-
-// 0x0060E1C0
-D2StormLinkStrc* D2StormLinkStrc::sub_0060E1C0_NextLink(int nLinkOffset)
-{
-    if ((int)m_next < 0)
-        return (D2StormLinkStrc*)~(unsigned int)m_next;
-    if (nLinkOffset < 0)
-        nLinkOffset = (char*)this - m_prevlink->m_next;
-    return (D2StormLinkStrc*)(m_next + nLinkOffset);
-}
-
-// 0x0060E1F0
-unsigned int D2StormHashTableEStrc::sub_0060E1F0_SlotIndex(unsigned int nHashVal)
-{
-    return m_slotmask & nHashVal;
-}
-
-// 0x0060E210
-unsigned int D2StormHashTableEStrc::sub_0060E210_SlotIndex(unsigned int nHashVal)
-{
-    return m_slotmask & nHashVal;
-}
-
-// 0x0060E2A0
-unsigned int D2StormListEArrayStrc::sub_0060E2A0_CalcChunkSize(unsigned int nCount)
-{
-    if (nCount < 0x15)
-    {
-        unsigned int nResult = nCount;
-        while (nResult & (nResult - 1))
-            nResult &= nResult - 1;
-        return nResult < 1 ? 1 : nResult;
-    }
-    f_C = 0x15;
-    return 0x15;
-}
-
-// 0x0060E2E0
-unsigned int __stdcall sub_0060E2E0_RoundUp(unsigned int nValue, unsigned int nAlign)
-{
-    unsigned int nRemainder = nValue % nAlign;
-    if (nRemainder)
-        nValue += nAlign - nRemainder;
-    return nValue;
-}
-
-// 0x0060E300
-unsigned int D2StormListEArrayStrc::sub_0060E300_CalcChunkSize(unsigned int nCount)
-{
-    if (nCount < 0x15)
-    {
-        unsigned int nResult = nCount;
-        while (nResult & (nResult - 1))
-            nResult &= nResult - 1;
-        return nResult < 1 ? 1 : nResult;
-    }
-    f_C = 0x15;
-    return 0x15;
-}
-
-// 0x0060E340
-unsigned int __stdcall sub_0060E340_RoundUp(unsigned int nValue, unsigned int nAlign)
-{
-    unsigned int nRemainder = nValue % nAlign;
-    if (nRemainder)
-        nValue += nAlign - nRemainder;
-    return nValue;
-}
-
-// 0x0060E370
-void D2StormListEStrc::sub_0060E370_CopyLinkOffset(const D2StormListEStrc* pSource)
-{
-    m_linkoffset = pSource->m_linkoffset;
-    InitializeTerminator();
-}
-
-// 0x0060E390
-void D2StormListEStrc::sub_0060E390_CopyLinkOffset(const D2StormListEStrc* pSource)
-{
-    m_linkoffset = pSource->m_linkoffset;
-    InitializeTerminator();
-}
-
-// 0x00602090
-void LockedObject::sub_00602090(int acquired)
-{
-    if(acquired!=NOT_ACQUIRED) LeaveCriticalSection(&lock);
-}
-
-// 0x00602370
-void D2ChatStormListAStrc::sub_0060E5F0_Reset()
-{
-    m_linkoffset = 0;
-    InitializeTerminator();
-}
-
 // 0x00602710
 D2ChatStormListCStrc::D2ChatStormListCStrc()
 {
     m_linkoffset = 0;
     m_terminator.m_prevlink = &m_terminator;
     m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
+}
+
+// 0x00602750
+sub_00602750::sub_00602750()
+{
+    f_0.m_prevlink = 0;
+    f_0.m_next = 0;
+}
+
+// 0x00602760
+sub_00602760::~sub_00602760()
+{
+    f_0.Unlink();
 }
 
 // 0x00602910
@@ -3600,4 +2993,416 @@ unsigned int __stdcall sub_00603A70(unsigned int hCelList, D2CelFileStrc** ppCel
     gCelListTable.SyncLeaveLock(hLock);
     *ppCelFile = pCelFile;
     return 0;
+}
+
+// 0x00603C80
+void D2GameHashTableStrc::sub_00603C80_GrowListArray()
+{
+    unsigned int nOldCount = m_slotmask + 1;
+    unsigned int nNewCount = 2 * nOldCount;
+    D2StormSlotListStrc tTempList;
+    tTempList.ChangeLinkOffset(4);
+
+    for (unsigned int i = 0; i < nOldCount; i++)
+    {
+        char* pNode;
+        while ((pNode = m_slotlistarray.f_8[i].Head()) != 0)
+            tTempList.LinkToTail(pNode);
+    }
+
+    m_slotlistarray.sub_00603300_SetCount(nNewCount);
+    for (unsigned int i = 0; i < nNewCount; i++)
+        m_slotlistarray.f_8[i].ChangeLinkOffset(4);
+    m_slotmask = nNewCount - 1;
+
+    char* pNode;
+    while ((pNode = tTempList.Head()) != 0)
+        m_slotlistarray.f_8[((D2StormHashNodeStrc*)pNode)->f_0 & m_slotmask].LinkToTail(pNode);
+}
+
+// 0x00603F50
+void D2StormListEStrc::sub_00603F50_CopyLinkOffset(const D2StormListEStrc* pSource)
+{
+    m_linkoffset = pSource->m_linkoffset;
+    InitializeTerminator();
+}
+
+// 0x00603FC0
+void D2StormListEStrc::sub_00603FC0_LinkNode(char* pNode, int nLinkType, char* pExistingNode)
+{
+    D2StormLinkStrc* pLink = Link(pNode);
+    pLink->Unlink();
+    D2StormLinkStrc* pExistingLink = Link(pExistingNode);
+    D2StormLinkStrc* pPrevLink;
+    switch (nLinkType)
+    {
+    case 1:
+        pLink->m_prevlink = pExistingLink;
+        pLink->m_next = pExistingLink->m_next;
+        pExistingLink->NextLink(m_linkoffset)->m_prevlink = pLink;
+        pExistingLink->m_next = pNode;
+        break;
+    default:
+        pPrevLink = pExistingLink->m_prevlink;
+        pLink->m_prevlink = pPrevLink;
+        pLink->m_next = pPrevLink->m_next;
+        pPrevLink->m_next = pNode;
+        pExistingLink->m_prevlink = pLink;
+        break;
+    }
+}
+
+// 0x0060D040
+int __fastcall sub_0060D040(D2FindTileEntryStrc** ppTable, void** ppResults, unsigned int nMax, int nKey1, int nKey2, int nKey3)
+{
+    int bFound = 0;
+    int nCount = 0;
+    D2_ASSERT(ppTable, 0xCF);
+    D2_ASSERT(ppResults, 0xD0);
+    if (!nMax)
+    {
+        return 0;
+    }
+
+    D2FindTileEntryStrc* pEntry = ppTable[sub_0060CD70_WrapIndex(nKey3, nKey2, nKey1)];
+    while (pEntry && !bFound)
+    {
+        if (pEntry->nKey3 == nKey3 && pEntry->nKey2 == nKey2 && pEntry->nKey1 == nKey1)
+            bFound = 1;
+        else
+            pEntry = pEntry->pNext;
+    }
+
+    if (bFound)
+    {
+        unsigned int i = 0;
+        for (D2FindTileNodeStrc* pNode = pEntry->pTileList; pNode && i < nMax; pNode = pNode->pNext)
+        {
+            ppResults[i] = pNode->pTile;
+            nCount += 1;
+            i += 1;
+        }
+    }
+
+    return nCount;
+}
+
+// 0x0060E0D0
+int __cdecl sub_0060E0D0()
+{
+    return 4;
+}
+
+// 0x0060E0E0
+D2StormListEStrc* D2StormListEArrayStrc::sub_0060E0E0_At(unsigned int nIndex)
+{
+    return &f_8[nIndex];
+}
+
+// 0x0060E100
+int __cdecl sub_0060E100()
+{
+    return 4;
+}
+
+// 0x0060E110
+D2StormListEStrc* D2StormListEArrayStrc::sub_0060E110_At(unsigned int nIndex)
+{
+    return &f_8[nIndex];
+}
+
+// 0x0060E170
+D2StormLinkStrc* D2StormLinkStrc::sub_0060E170_NextLink(int nLinkOffset)
+{
+    if ((int)m_next < 0)
+        return (D2StormLinkStrc*)~(unsigned int)m_next;
+    if (nLinkOffset < 0)
+        nLinkOffset = (char*)this - m_prevlink->m_next;
+    return (D2StormLinkStrc*)(m_next + nLinkOffset);
+}
+
+// 0x0060E1B0
+void __fastcall sub_0060E1B0(PairStrc_0060E1B0* pPair)
+{
+    pPair->nFirst = 0;
+    pPair->nSecond = 0;
+}
+
+// 0x0060E1C0
+D2StormLinkStrc* D2StormLinkStrc::sub_0060E1C0_NextLink(int nLinkOffset)
+{
+    if ((int)m_next < 0)
+        return (D2StormLinkStrc*)~(unsigned int)m_next;
+    if (nLinkOffset < 0)
+        nLinkOffset = (char*)this - m_prevlink->m_next;
+    return (D2StormLinkStrc*)(m_next + nLinkOffset);
+}
+
+// 0x0060E1F0
+unsigned int D2StormHashTableEStrc::sub_0060E1F0_SlotIndex(unsigned int nHashVal)
+{
+    return m_slotmask & nHashVal;
+}
+
+// 0x0060E210
+unsigned int D2StormHashTableEStrc::sub_0060E210_SlotIndex(unsigned int nHashVal)
+{
+    return m_slotmask & nHashVal;
+}
+
+// 0x0060E290
+void __fastcall sub_0060E290(PairStrc_0060E290* pPair)
+{
+    pPair->nFirst = 0;
+    pPair->nSecond = 0;
+}
+
+// 0x0060E2A0
+unsigned int D2StormListEArrayStrc::sub_0060E2A0_CalcChunkSize(unsigned int nCount)
+{
+    if (nCount < 0x15)
+    {
+        unsigned int nResult = nCount;
+        while (nResult & (nResult - 1))
+            nResult &= nResult - 1;
+        return nResult < 1 ? 1 : nResult;
+    }
+    f_C = 0x15;
+    return 0x15;
+}
+
+// 0x0060E2E0
+unsigned int __stdcall sub_0060E2E0_RoundUp(unsigned int nValue, unsigned int nAlign)
+{
+    unsigned int nRemainder = nValue % nAlign;
+    if (nRemainder)
+        nValue += nAlign - nRemainder;
+    return nValue;
+}
+
+// 0x0060E300
+unsigned int D2StormListEArrayStrc::sub_0060E300_CalcChunkSize(unsigned int nCount)
+{
+    if (nCount < 0x15)
+    {
+        unsigned int nResult = nCount;
+        while (nResult & (nResult - 1))
+            nResult &= nResult - 1;
+        return nResult < 1 ? 1 : nResult;
+    }
+    f_C = 0x15;
+    return 0x15;
+}
+
+// 0x0060E340
+unsigned int __stdcall sub_0060E340_RoundUp(unsigned int nValue, unsigned int nAlign)
+{
+    unsigned int nRemainder = nValue % nAlign;
+    if (nRemainder)
+        nValue += nAlign - nRemainder;
+    return nValue;
+}
+
+// 0x0060E370
+void D2StormListEStrc::sub_0060E370_CopyLinkOffset(const D2StormListEStrc* pSource)
+{
+    m_linkoffset = pSource->m_linkoffset;
+    InitializeTerminator();
+}
+
+// 0x0060E390
+void D2StormListEStrc::sub_0060E390_CopyLinkOffset(const D2StormListEStrc* pSource)
+{
+    m_linkoffset = pSource->m_linkoffset;
+    InitializeTerminator();
+}
+
+// 0x00611610
+void __stdcall sub_00611610(int nUnused1)
+{
+}
+
+// 0x00611640
+void __stdcall sub_00611640(int nUnused1)
+{
+}
+
+// 0x00611D10
+int __cdecl sub_00611D10()
+{
+    return gdwGlobal_0096C7F4;
+}
+
+// 0x00611D20
+int __cdecl sub_00611D20()
+{
+    return gdwGlobal_0096C8A4;
+}
+
+// 0x00624710
+int __cdecl sub_00624710()
+{
+    return gdwGlobal_0096CA48;
+}
+
+// 0x0062A360
+int __stdcall sub_0062A360(int nUnused1, int nUnused2)
+{
+    return 0;
+}
+
+// 0x00631490
+int __cdecl sub_00631490()
+{
+    return 2;
+}
+
+// 0x0063DB80
+void __stdcall sub_0063DB80(int nUnused1, int nUnused2)
+{
+}
+
+// 0x0063E050
+void __stdcall sub_0063E050(int nUnused1, int nUnused2)
+{
+}
+
+// 0x0063EBC0
+void __stdcall sub_0063EBC0(int nUnused1, int nUnused2)
+{
+}
+
+// 0x00641500
+int __cdecl sub_00641500()
+{
+    return gdwGlobal_0096D46C;
+}
+
+// 0x00642740
+int __cdecl sub_00642740()
+{
+    return 0;
+}
+
+// 0x006436E0
+int __fastcall sub_006436E0_Min(int nA, int nB, int nUnused1, int nUnused2)
+{
+    return nA < nB ? nA : nB;
+}
+
+// 0x006436F0
+int __fastcall sub_006436F0_Max(int nA, int nB, int nUnused1, int nUnused2)
+{
+    return nA > nB ? nA : nB;
+}
+
+// 0x00643880
+int __stdcall sub_00643880_AlwaysOne(int nArg)
+{
+    return 1;
+}
+
+// 0x00646260
+int __stdcall sub_00646260_AlwaysOne(int nArg)
+{
+    return 1;
+}
+
+// 0x00646270
+int __stdcall sub_00646270_AlwaysOne(int nArg)
+{
+    return 1;
+}
+
+// 0x00648390
+int __stdcall sub_00648390_AlwaysZero(int nUnused1, int nUnused2)
+{
+    return 0;
+}
+
+// 0x0064B700
+int __fastcall sub_0064B700_Min(int nA, int nB, int nUnused1, int nUnused2)
+{
+    return nA < nB ? nA : nB;
+}
+
+// 0x0064B710
+int __fastcall sub_0064B710_Max(int nA, int nB, int nUnused1, int nUnused2)
+{
+    return nA > nB ? nA : nB;
+}
+
+// 0x0065CCB0
+int __cdecl sub_0065CCB0()
+{
+    return 0;
+}
+
+// 0x00663740
+void __stdcall sub_00663740(int nUnused1)
+{
+}
+
+// 0x0066A210
+void __stdcall sub_0066A210(int nUnused1, int nUnused2)
+{
+}
+
+// 0x0066A220
+void __stdcall sub_0066A220(int nUnused1, int nUnused2)
+{
+}
+
+// 0x0066A230
+int __stdcall sub_0066A230(int nUnused1, int nUnused2)
+{
+    return 0;
+}
+
+// 0x0066A240
+int __stdcall sub_0066A240(int nUnused1, int nUnused2)
+{
+    return 0;
+}
+
+// 0x0066A250
+void __stdcall sub_0066A250(int nUnused1)
+{
+}
+
+// 0x00675810
+int __fastcall sub_00675810(D2DrlgLevelStrc* pLevel)
+{
+    return sub_0067DCE0(pLevel);
+}
+
+D2WardenModuleHolderAStrc::~D2WardenModuleHolderAStrc()
+{
+}
+
+WardenModule::WardenModule()
+{
+    pImage = 0;
+    unk0x04 = 0;
+    nImports = 0;
+    unk0x0C = 0;
+    f_10 = 0;
+}
+
+D2WardenModuleHolderBStrc::~D2WardenModuleHolderBStrc()
+{
+}
+
+void* __fastcall sub_0047FBF0_WardenAlloc(unsigned int nSize)
+{
+    return SMemAlloc(nSize, szWardenClientFile_006D8E18, 0x10D, 0);
+}
+
+void __fastcall sub_0047FC10_WardenFree(void* pMemory)
+{
+    SMemFree(pMemory, szWardenClientFile_006D8E18, 0x117, 0);
+}
+
+NWardenClient::Library::Library()
+{
 }

@@ -1,5 +1,17 @@
 #include "D2Win.h"
 
+struct D2CharStrc
+{
+    unsigned short wChar;
+    unsigned char unk0x02;
+    unsigned char nWidth;
+    unsigned char nHeight;
+    unsigned char unk0x05;
+    unsigned short unk0x06;
+    unsigned short nImageIndex;
+    unsigned short unk0x0A[2];
+};
+
 struct Unicode;
 struct D2CharStrc;
 struct D2FontStrc;
@@ -23,18 +35,6 @@ struct Unicode
     }
     static int __fastcall strncmp(const Unicode* str1, const Unicode* str2, unsigned int count);            // 0x00526540
     static Unicode* __fastcall strncpy(Unicode* dest, const Unicode* src, int count);                       // 0x00526790
-};
-
-struct D2CharStrc
-{
-    unsigned short wChar;
-    unsigned char unk0x02;
-    unsigned char nWidth;
-    unsigned char nHeight;
-    unsigned char unk0x05;
-    unsigned short unk0x06;
-    unsigned short nImageIndex;
-    unsigned short unk0x0A[2];
 };
 
 struct D2FontStrc

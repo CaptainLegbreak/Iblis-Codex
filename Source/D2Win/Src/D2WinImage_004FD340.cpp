@@ -48,14 +48,6 @@ struct D2GfxDataStrc
     int unk0x44;
 };
 
-struct D2CropRectStrc
-{
-    int nX0;
-    int nX1;
-    int nY0;
-    int nY1;
-};
-
 enum D2ControlTypes
 {
     D2WIN_IMAGE = 2,
@@ -78,9 +70,6 @@ int __fastcall sub_004FCD90_D2Win_10058(D2WinControlStrc* pControl, const Unicod
 {
     return D2Win_10058_0(pControl, pText, a3, nColumn);
 }
-
-#define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
-#define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
 
 // 0x004FD340
 static void __stdcall sub_004FD340_ImageDrawTiled(const D2CropRectStrc* pDst, const D2CropRectStrc* pSrc, D2GfxDataStrc* pGfxData)

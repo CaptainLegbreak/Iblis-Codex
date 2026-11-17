@@ -11,14 +11,6 @@ struct D2CacheHeaderStrc
     unsigned int nHashTableSize;
 };
 
-struct D2CacheHashEntryStrc
-{
-    unsigned int dwNameA;
-    unsigned int dwNameB;
-    unsigned int dwLocale;
-    unsigned int dwBlockIndex;
-};
-
 extern unsigned int* gpCacheTable_00881888; // 0x00881888
 extern D2CacheHeaderStrc* gpCacheHeader_00881880; // 0x00881880
 extern D2CacheHashEntryStrc* gpCacheHashTable_0088188C; // 0x0088188C

@@ -97,3 +97,273 @@ void __fastcall sub_006C0420_Disconnect(T006BE350* pServer, unsigned int nId, co
 void __fastcall sub_006C08A0_Dispatch(T006BE350* pServer, D2QClientStrc* pClient); // 0x006C08A0
 void __stdcall SMemZero(void* pDest, unsigned int nSize); // 0x0041D300
 void* __fastcall sub_004098B0_ReallocLarge(D2PoolSystemStrc* pSystem, void* pMemory, int nSize, const char* szFile, int nLine); // 0x004098B0
+
+#define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
+#define QS_IS_READ(f) (((f) & 1) == 1)
+#define QS_IS_WRITE(f) (((f) & 3) == 2)
+#define S_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText_006CC837, sub_00408090(), line); exit(-1); }
+#define _INTSIZEOF(n) ((sizeof(n) + sizeof(int) - 1) & ~(sizeof(int) - 1))
+#define gtDefaultPoolSystem_0074F104 (gtPoolManager_0074F0E8.aSystems[0])
+#define va_start(ap, v) (ap = (va_list)&v + _INTSIZEOF(v))
+
+typedef char* va_list;
+
+typedef unsigned int size_t;
+
+struct AsyncDataLoadFileCallback
+{
+    unsigned long (__stdcall* callback)(void* pFileData, size_t nDataLength, AsyncDataLoadFileCallback* pCallbackData);
+    unsigned long userData[4];
+    void* pData;
+    size_t nFileSize;
+};
+
+typedef int BOOL;
+
+typedef struct _RTL_CRITICAL_SECTION CRITICAL_SECTION;
+
+typedef int(__fastcall* CalcFogCallBack2_t)(int, void*);
+
+typedef int(__fastcall* CalcFogCallBack_t)(int, int, int, void*);
+
+typedef int(__fastcall* CalcGetFunctionParameterCount_t)(int nFunctionIndex);
+
+typedef int(__fastcall* CalcGetKeyWordToNumber_t)(char* szKey);
+
+typedef int(__fastcall* CalcGetLinkerIndex_t)(char* szText, BOOL* pOutHasResolvedToConstant, int nAST, int nKeywordNumber);
+
+typedef int(__fastcall* CalcProcessCache_t)(int nIndex);
+
+struct D2CalcCallbackInfoStrc
+{
+	CalcFogCallBack_t fpCallBack;
+	int nParameters;
+};
+
+struct D2Connection006C03A0Strc
+{
+    unsigned char unk_00[0x0C];
+    int bClosing;
+};
+
+typedef void (__fastcall* D2CrashPrintFn)(void* pContext, const char* szText);
+
+struct D2FileTimeStrc
+{
+    unsigned long dwLowDateTime;
+    unsigned long dwHighDateTime;
+};
+
+struct D2HostentStrc
+{
+    char* h_name;
+    char** h_aliases;
+    short h_addrtype;
+    short h_length;
+    char** h_addr_list;
+};
+
+struct D2ImageHlpLineStrc
+{
+    unsigned long dwSizeOfStruct;
+    void* pKey;
+    unsigned long dwLineNumber;
+    char* szFileName;
+    unsigned long dwAddress;
+};
+
+struct D2InspectorInfoStrc
+{
+    int f_0;
+    const char* szUnused04;
+    const char* szApplication;
+    const char* szModule;
+    const char* szMilestone;
+    const char* szBuildNumber;
+    const char* f_18;
+    const char* szPrimaryAssignment;
+    const char* szAssignments;
+};
+
+struct D2LargeIntegerStrc
+{
+    unsigned int f_0;
+    int f_4;
+};
+
+struct D2MemoryBasicInfoStrc
+{
+    void* BaseAddress;
+    void* AllocationBase;
+    unsigned long AllocationProtect;
+    unsigned long RegionSize;
+    unsigned long State;
+    unsigned long Protect;
+    unsigned long Type;
+};
+
+struct D2OverlappedStrc
+{
+    unsigned long Internal;
+    unsigned long InternalHigh;
+    unsigned long Offset;
+    unsigned long OffsetHigh;
+    void* hEvent;
+};
+
+struct D2PeDosHeaderStrc
+{
+    unsigned short f_0;
+    char unk0x02[0x3A];
+    long nNtHeadersOffset;
+};
+
+struct D2PeNtHeadersStrc
+{
+    unsigned long dwSignature;
+    unsigned short wMachine;
+    unsigned short wNumberOfSections;
+    char unk0x08[0x0C];
+    unsigned short wSizeOfOptionalHeader;
+    unsigned short wCharacteristics;
+    char aOptionalHeader[4];
+};
+
+struct D2PeSectionStrc
+{
+    char szName[0x08];
+    unsigned long dwVirtualSize;
+    unsigned long dwVirtualAddress;
+    unsigned long dwSizeOfRawData;
+    char unk0x14[0x14];
+};
+
+struct D2QOverlappedStrc
+{
+    unsigned long nInternal;
+    unsigned long nInternalHigh;
+    unsigned long nOffset;
+    unsigned long nOffsetHigh;
+    void* hEvent;
+    unsigned int nFlags;
+};
+
+struct D2QServerConfigStrc
+{
+    int nClientCapacity;
+    int nValue04;
+    int nValue08;
+    int nValue0C;
+};
+
+struct D2QWriteNodeStrc
+{
+    unsigned int nSize;
+    D2QWriteNodeStrc* pNext;
+    unsigned char pData[1];
+};
+
+struct D2SNameEntryStrc
+{
+    const char* szName;
+    int nType;
+    unsigned int nCount;
+    int unk0x0C;
+    int unk0x10;
+};
+
+struct D2SNameListStrc
+{
+    const char* pStrings;
+    int unk0x04;
+    int unk0x08;
+    unsigned int nCount;
+};
+
+struct D2SNameNodeStrc
+{
+    D2SNameNodeStrc* pNext;
+    unsigned int nHash;
+    D2SNameEntryStrc* pEntry;
+};
+
+typedef int (__fastcall* SERVERHANDLER)(D2Server006C03A0Strc* pServer, int a, int b);
+
+struct D2Server006C03A0Strc
+{
+    int bQueued;
+    unsigned char unk_004[0x868];
+    int nMode;
+    unsigned char unk_870[0xBCC - 0x870];
+    SERVERHANDLER pfnHandler;
+};
+
+struct D2SystemTimeStrc
+{
+    unsigned short wYear;
+    unsigned short wMonth;
+    unsigned short wDayOfWeek;
+    unsigned short wDay;
+    unsigned short wHour;
+    unsigned short wMinute;
+    unsigned short wSecond;
+    unsigned short wMilliseconds;
+};
+
+typedef unsigned char FOGASTType;
+
+typedef unsigned char FOGCalcExpressionParserTokenType;
+
+typedef unsigned char U8;
+
+struct PaletteColor
+{
+    U8 c0;
+    U8 c1;
+    U8 c2;
+    U8 unused;
+};
+
+struct PaletteTables
+{
+    PaletteColor colors[256];
+    U8 tables[256*32];
+};
+
+typedef unsigned int U32;
+
+struct ReceiveQueue
+{
+    U32 status;
+    U8 criticalSection[0x18];
+    void* head;
+    void* tail;
+};
+
+struct ReceiveConnection
+{
+    U8 pad0[0x170];
+    ReceiveQueue queue;
+};
+
+struct T006C23B0
+{
+    unsigned int nPacketSize;
+    T006C23B0* f_4;
+};
+
+typedef char check_PaletteColor_size[sizeof(PaletteColor)==4?1:-1];
+
+typedef char check_PaletteTables_tables[OFFSET(PaletteTables,tables)==0x400?1:-1];
+
+typedef char check_ReceiveConnection_queue[OFFSET(ReceiveConnection,queue)==0x170?1:-1];
+
+typedef char check_ReceiveQueue_head[OFFSET(ReceiveQueue,head)==0x1C?1:-1];
+
+typedef char check_ReceiveQueue_size[sizeof(ReceiveQueue)==0x24?1:-1];
+
+typedef char check_pointer_size[sizeof(void*)==4?1:-1];
+
+typedef int int32_t;
+
+typedef unsigned char uint8_t;

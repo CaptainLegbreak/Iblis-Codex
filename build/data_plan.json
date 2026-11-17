@@ -4,8 +4,8 @@
  "image_sha256": "631066c1649c4ea9ffe48bf97e24c00bca1f7a6759c21150f1a79982589adaaf",
  "files": {
   "Source/Fog/Src/ErrorManager.cpp": {
-   "bytes": 4196,
-   "definitions": 1,
+   "bytes": 4200,
+   "definitions": 2,
    "externs": [
     "extern \"C\" char gData_006CCB00[]; // 0x006CCB00",
     "extern \"C\" char gData_006CCB04[]; // 0x006CCB04",
@@ -112,15 +112,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/Fog/Src/ErrorManager_004082E0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/Fog/Src/ErrorManager_00408660.cpp": {
-   "bytes": 4,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/Fog/Src/ErrorManager_00408660.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -3956,15 +3947,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Win/Src/D2WinFont_005013A0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Win/Src/D2WinFont_00501A40.cpp": {
-   "bytes": 4,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Win/Src/D2WinFont_00501A40.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -8258,6 +8240,15 @@
    "include": "gen/data/Source/D2Net/SRC/Client.inc",
    "lang": "cpp",
    "state": "included"
+  },
+  "Source/D2Win/Src/D2WinFont.cpp": {
+   "bytes": 4,
+   "definitions": 1,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Win/Src/D2WinFont.inc",
+   "lang": "cpp",
+   "state": "included"
   }
  },
  "definitions": [
@@ -10408,7 +10399,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/Fog/Src/ErrorManager_00408660.cpp",
+   "file": "Source/Fog/Src/ErrorManager.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern long volatile gnReportBusy_007076BC = ",
@@ -86202,7 +86193,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Win/Src/D2WinFont_00501A40.cpp",
+   "file": "Source/D2Win/Src/D2WinFont.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern int gnCurrentFont_0072DFFC = ",

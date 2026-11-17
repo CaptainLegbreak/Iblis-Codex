@@ -24,12 +24,6 @@ struct D2CmpBitCursorStrc
     int sub_0060B1F0_GetBitPos();
 };
 
-struct D2CmpByteMapStrc
-{
-    unsigned char ab[0x100];
-    int nCount;
-};
-
 struct D2CmpByteRunStrc
 {
     unsigned char* pData;

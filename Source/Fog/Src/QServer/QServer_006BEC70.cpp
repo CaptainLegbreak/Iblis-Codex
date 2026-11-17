@@ -115,7 +115,6 @@ extern const char gszQServerSource[]; // 0x006FC460
 void* __fastcall FOG_Alloc(unsigned int size,const char* file,int line,int flags); // 0x0040B380
 void* __cdecl sub_006829C0_Copy(void* dest,const void* source,unsigned int size); // 0x006829C0
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc*);
-extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc*);
 extern "C" __declspec(dllimport) unsigned int __stdcall GetTickCount();
 
 struct D2QClientStrc
@@ -157,7 +156,6 @@ extern "C" void* __cdecl memset(void*,int,unsigned int);
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc*);
 extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long*);
 static int __stdcall sub_006BF180_ReferenceAddress(T006BE350* server,const unsigned int* address); // 0x006BF180
-extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pCriticalSection); // 0x006CC218
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pCriticalSection); // 0x006CC1FC
 
 struct D2QNodeStrc

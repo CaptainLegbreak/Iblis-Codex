@@ -1,11 +1,4 @@
 #include "D2Direct3D.h"
-
-struct D2TexturedVertexStrc
-{
-    float nX, nY, nZ, nRhw;
-    unsigned int nDiffuse, nSpecular;
-    float nU, nV;
-};
 struct D2D3DDeviceVtbl
 {
     char unk0x00[0x70];

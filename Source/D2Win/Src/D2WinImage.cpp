@@ -69,14 +69,6 @@ struct Unicode
     unsigned short wChar;
 };
 
-struct tagRECT
-{
-    long left;
-    long top;
-    long right;
-    long bottom;
-};
-
 typedef int (__stdcall* D2WinMsgHandler)(SMSGHANDLER_PARAMS* pMsg);
 
 typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
@@ -154,13 +146,6 @@ struct D2WinListStrc
     int nWidestEntry;
     D2WinListDataStrc* pDataList;
     D2WinListDataStrc* pSelectedDataEntry;
-};
-
-struct D2WinAccountListDataStrc
-{
-    char szText[50];
-    short field_32;
-    D2WinAccountListDataStrc* pNext;
 };
 
 struct D2WinAccountListStrc

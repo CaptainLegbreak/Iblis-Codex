@@ -1,6 +1,5 @@
 #include "D2Direct3D.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2SurfaceStrc;
 struct D2D3DObjVtblStrc;
 struct D2TexOwnerSlotStrc;
@@ -11,47 +10,8 @@ struct D2TextureEntryStrc;
 struct D2TextureSetStrc;
 struct D2Node006BA660Strc;
 struct D2List006BA660Strc;
+struct D2D3DObjStrc;
 
-struct D2D3DObjVtblStrc
-{
-	void* pQueryInterface;
-	void* pAddRef;
-	unsigned long (__stdcall* pRelease)(D2D3DObjStrc* pObj);
-};
-
-struct D2D3DObjStrc
-{
-	D2D3DObjVtblStrc* pVtbl;
-};
-
-struct D2TexOwnerSlotStrc
-{
-	void* pTexture;
-	void* pInfo;
-};
-
-struct D2TexPoolEntryStrc
-{
-	int nIndex;
-	D2TexOwnerSlotStrc* pOwnerSlots;
-	int nOwnerSlot;
-	int unk0x0C;
-	D2D3DObjStrc* pTexture;
-	D2D3DObjStrc* pSurface;
-	D2TexPoolEntryStrc* pNext;
-	D2TexPoolEntryStrc* pPrev;
-};
-
-struct D2TexPoolStrc
-{
-	int nCapacity;
-	int nInUse;
-	D2TexPoolEntryStrc* pInUseFirst;
-	D2TexPoolEntryStrc* pInUseLast;
-	D2TexPoolEntryStrc* pSpareFirst;
-	D2TexPoolEntryStrc* pSpareLast;
-	D2TexPoolEntryStrc* pEntries;
-};
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
@@ -127,6 +87,21 @@ int __fastcall sub_006BA420_Init(D2TexPoolStrc* pPool, int nBase, int nLimit, in
 	pPool->pSpareFirst = pPool->pEntries;
 	pPool->pSpareLast = &pPool->pEntries[pPool->nCapacity - 1];
 	return pPool->nCapacity * nUnit + nBase;
+}
+
+#include "gen/data/Source/D2Direct3D/Src/d3dTextureCache.inc"
+
+// 0x006BA550
+void __fastcall sub_006BA550_SetTexturePalette(D2TextureSetStrc* textures, void* palette)
+{
+    if (!palette) return;
+    for (int i=0; i<textures->count-1; ++i) {
+        D2TextureEntryStrc* entry=&textures->entries[i];
+        if (entry->surface) {
+            int result=entry->surface->vtable->SetPalette(entry->surface,palette);
+            if (result) { sub_006B20E0("SetPalette (texture surface)",result); return; }
+        }
+    }
 }
 
 // 0x006BA5C0
@@ -205,6 +180,45 @@ static D2TexPoolEntryStrc* sub_006BA630_PopSpare(D2TexPoolStrc* pPool)
 	pEntry->pNext = 0;
 	pEntry->pPrev = 0;
 	return pEntry;
+}
+
+// 0x006BA660
+D2Node006BA660Strc* __fastcall sub_006BA660_Unlink(D2List006BA660Strc* pList, int nIndex)
+{
+    D2Node006BA660Strc* pHead = pList->pHead8;
+    if (!pHead)
+    {
+        return 0;
+    }
+    D2Node006BA660Strc* pNode = &pList->pNodes18[nIndex];
+    if (pNode == pHead)
+    {
+        pList->pHead8 = pHead->pNext18;
+        if (pList->pHead8)
+        {
+            pList->pHead8->pPrev1C = 0;
+        }
+        else
+        {
+            pList->pTailC = 0;
+        }
+        pHead->pNext18 = 0;
+        pHead->pPrev1C = 0;
+        return pHead;
+    }
+    if (pNode == pList->pTailC)
+    {
+        pList->pTailC = pList->pTailC->pPrev1C;
+        pList->pTailC->pNext18 = 0;
+    }
+    else
+    {
+        pNode->pPrev1C->pNext18 = pNode->pNext18;
+        pNode->pNext18->pPrev1C = pNode->pPrev1C;
+    }
+    pNode->pNext18 = 0;
+    pNode->pPrev1C = 0;
+    return pNode;
 }
 
 // 0x006BA6D0
@@ -296,58 +310,4 @@ int __fastcall sub_006BA920_AllocOrEvict(D2TexPoolStrc* pPool)
 		nId = sub_006BA6D0_Alloc(pPool);
 	}
 	return nId;
-}
-
-#include "gen/data/Source/D2Direct3D/Src/d3dTextureCache.inc"
-
-// 0x006BA550
-void __fastcall sub_006BA550_SetTexturePalette(D2TextureSetStrc* textures, void* palette)
-{
-    if (!palette) return;
-    for (int i=0; i<textures->count-1; ++i) {
-        D2TextureEntryStrc* entry=&textures->entries[i];
-        if (entry->surface) {
-            int result=entry->surface->vtable->SetPalette(entry->surface,palette);
-            if (result) { sub_006B20E0("SetPalette (texture surface)",result); return; }
-        }
-    }
-}
-
-// 0x006BA660
-D2Node006BA660Strc* __fastcall sub_006BA660_Unlink(D2List006BA660Strc* pList, int nIndex)
-{
-    D2Node006BA660Strc* pHead = pList->pHead8;
-    if (!pHead)
-    {
-        return 0;
-    }
-    D2Node006BA660Strc* pNode = &pList->pNodes18[nIndex];
-    if (pNode == pHead)
-    {
-        pList->pHead8 = pHead->pNext18;
-        if (pList->pHead8)
-        {
-            pList->pHead8->pPrev1C = 0;
-        }
-        else
-        {
-            pList->pTailC = 0;
-        }
-        pHead->pNext18 = 0;
-        pHead->pPrev1C = 0;
-        return pHead;
-    }
-    if (pNode == pList->pTailC)
-    {
-        pList->pTailC = pList->pTailC->pPrev1C;
-        pList->pTailC->pNext18 = 0;
-    }
-    else
-    {
-        pNode->pPrev1C->pNext18 = pNode->pNext18;
-        pNode->pNext18->pPrev1C = pNode->pPrev1C;
-    }
-    pNode->pNext18 = 0;
-    pNode->pPrev1C = 0;
-    return pNode;
 }

@@ -145,14 +145,6 @@ struct D2HoverLineStrc
     D2HoverLineStrc() {} // 0x00504020
 };
 
-struct tagRECT
-{
-    long left;
-    long top;
-    long right;
-    long bottom;
-};
-
 extern "C" __declspec(dllimport) int __stdcall SetRect(tagRECT* lprc, int xLeft, int yTop, int xRight, int yBottom); // 0x006CC498
 void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned char nColor, int eDrawMode); // 0x004F6300
 int __stdcall CONTROL_MouseInsideRect(const tagRECT* pRect); // 0x004F97B0

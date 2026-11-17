@@ -1,12 +1,17 @@
 #include "D2Win.h"
 
-#define D2WIN_SCROLLBAR 5
 #define WM_LBUTTONDOWN 0x201
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
 struct D2WinControlStrc;
 struct D2WinTextBoxStrc;
 struct tagPOINT;
 struct D2CelContextStrc;
+struct SMSGHANDLER_PARAMS;
+struct D2WinScrollBarStrc;
+struct Unicode;
+struct D2WinPopUpLineStrc;
+struct D2WinPopUpStrc;
 
 struct SMSGHANDLER_PARAMS
 {
@@ -62,6 +67,7 @@ struct tagPOINT
     int x;
     int y;
 };
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern unsigned int gdwBitMasks[]; // 0x006CE268
@@ -77,12 +83,54 @@ struct D2CelContextStrc
     int unk0x40;
     int unk0x44;
 };
-
-extern "C" void __cdecl sub_00408A60(const char* text, const char* file, int line); // 0x00408A60
-extern "C" __declspec(noreturn) void __cdecl exit(int code); // 0x00681E09
 extern "C" void* __cdecl memset(void* destination, int value, unsigned int size); // 0x00681EF0
 int __stdcall SCROLLBAR_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg); // 0x00508120
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
+
+enum D2C_WinControlTypes
+{
+    D2WIN_SCROLLBAR = 5,
+    D2WIN_POPUP = 11,
+};
+
+struct Unicode
+{
+    unsigned short wChar;
+};
+
+struct D2WinPopUpLineStrc
+{
+    Unicode wszText[64];
+    void (__stdcall* pfHandleMouseInput)();
+};
+
+struct D2WinPopUpStrc
+{
+    D2WinControlStrc controlHeader;
+    int nLines;
+    D2WinPopUpLineStrc lines[8];
+    int nCurrentLine;
+};
+int __stdcall CONTROL_AppendToList(D2WinControlStrc* pControl); // 0x004F9210
+int __stdcall CONTROL_RemoveFromList(D2WinControlStrc* pControl); // 0x004F9310
+int __fastcall sub_00508710(D2WinControlStrc* pControl); // 0x00508710
+int __fastcall POPUP_Draw(D2WinControlStrc* pControl); // 0x005087A0
+extern D2WinPopUpStrc* gpPopUp_0087E974; // 0x0087E974
+
+// 0x00508000
+extern "C" int __fastcall sub_00508000_SetScrollBarHandler(D2WinScrollBarStrc* pScrollBar, D2WinMsgHandler pfHandler)
+{
+    D2_ASSERT(pScrollBar->controlHeader.nType == D2WIN_SCROLLBAR, 0x8B);
+    pScrollBar->field_5C = pfHandler;
+    return 1;
+}
+
+// 0x005080F0
+extern "C" int __fastcall sub_005080F0_GetScrollBarField50(D2WinScrollBarStrc* pScrollBar)
+{
+    D2_ASSERT(pScrollBar->controlHeader.nType == D2WIN_SCROLLBAR, 0xD2);
+    return pScrollBar->field_50;
+}
 
 // 0x00508120
 int __stdcall SCROLLBAR_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
@@ -249,4 +297,33 @@ int __fastcall SCROLLBAR_Draw(D2WinControlStrc* pControl)
             -1, 5, 0);
     }
     return 1;
+}
+
+// 0x005088C0
+void __stdcall POPUP_Create()
+{
+    if (gpPopUp_0087E974)
+    {
+        CONTROL_RemoveFromList(&gpPopUp_0087E974->controlHeader);
+        gpPopUp_0087E974 = 0;
+    }
+    D2WinPopUpStrc* pPopUp = (D2WinPopUpStrc*)FOG_Alloc(sizeof(D2WinPopUpStrc), ".\\Src\\D2WinPopup.cpp", 0x29, 0);
+    memset(pPopUp, 0, sizeof(D2WinPopUpStrc));
+    pPopUp->controlHeader.nType = D2WIN_POPUP;
+    pPopUp->controlHeader.dwFlags |= gdwBitMasks_006CE268[0];
+    pPopUp->controlHeader.dwFlags |= gdwBitMasks_006CE268[2];
+    pPopUp->controlHeader.dwFlags |= gdwBitMasks_006CE268[3];
+    pPopUp->controlHeader.nImageX = gMousePosition_6F8FE234.x;
+    pPopUp->controlHeader.nImageY = gMousePosition_6F8FE234.y;
+    pPopUp->controlHeader.pfDraw = POPUP_Draw;
+    pPopUp->controlHeader.pfInitialize = sub_00508710;
+    pPopUp->controlHeader.pNext = 0;
+    pPopUp->controlHeader.pfHandleMouseDown = 0;
+    pPopUp->controlHeader.pfHandleMouseUp = 0;
+    pPopUp->controlHeader.pfHandleCharInput = 0;
+    pPopUp->controlHeader.pfHandleVirtualKeyInput = 0;
+    pPopUp->controlHeader.field_34 = 0;
+    pPopUp->nCurrentLine = -1;
+    CONTROL_AppendToList(&pPopUp->controlHeader);
+    gpPopUp_0087E974 = pPopUp;
 }

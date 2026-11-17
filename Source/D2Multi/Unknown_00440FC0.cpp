@@ -65,10 +65,6 @@ extern D2WinControlInitStrc gtControlInit_0070E110; // 0x0070E110
 extern D2LaunchFuncsStrc* gpLaunchFuncs_0077B09C; // 0x0077B09C
 extern D2LaunchCharInfoStrc* gpCharInfo_0077BBD8; // 0x0077BBD8
 extern D2WinControlStrc* gpControl_0077BCEC; // 0x0077BCEC
-
-typedef unsigned int size_t;
-
-typedef int (__stdcall* D2LaunchCallback)(int nArg);
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 extern "C" size_t __cdecl strlen(const char* szString);
 void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320

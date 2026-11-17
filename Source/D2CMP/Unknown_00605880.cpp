@@ -16,21 +16,6 @@ struct D2PalRgba006059B0Strc
     unsigned char nPad;
 };
 
-struct D2HslStrc
-{
-    double f_0;
-    double f_8;
-    double f_10;
-};
-
-struct D2PalRgbaStrc
-{
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-    unsigned char nPad;
-};
-
 // 0x00605880
 void __stdcall sub_00605880_BuildTablesA(unsigned char* pTables)
 {

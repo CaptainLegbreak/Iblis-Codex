@@ -18,8 +18,6 @@ struct D2TransPaletteStrc
     unsigned char data[65536];
 };
 
-#define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
-
 extern "C" void* __cdecl memcpy(void* pDest, const void* pSource, unsigned int nSize); // 0x006829C0
 void* __stdcall D2Win_GetArchive(); // 0x004FAC80
 unsigned char __stdcall sub_00605210_FindNearestColor(const unsigned char* pPalette, unsigned int nCount, int nRed, int nGreen, int nBlue); // 0x00605210

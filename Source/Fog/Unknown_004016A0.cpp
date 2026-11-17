@@ -21,20 +21,9 @@ struct D2ProcessEntryStrc;
 
 void __cdecl sub_00402980_StartDbgHelpThreadBody(); // 0x00402980
 
-typedef unsigned int size_t;
-
 struct D2WSADataStrc
 {
     char data[0x190];
-};
-
-struct D2HostentStrc
-{
-    char* h_name;
-    char** h_aliases;
-    short h_addrtype;
-    short h_length;
-    char** h_addr_list;
 };
 
 struct D2ThreadNameInfoStrc
@@ -157,8 +146,6 @@ struct D2ProcessEntryStrc
     unsigned long dwFlags;
     char szExeFile[260];
 };
-
-typedef void (__fastcall* D2CrashPrintFn)(void* pContext, const char* szText);
 
 typedef long (__stdcall* D2KnownFolderPathFn)(const D2GuidStrc* pFolderId, unsigned long dwFlags, void* hToken, wchar_t** pwszPath);
 

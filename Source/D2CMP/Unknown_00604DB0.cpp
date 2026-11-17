@@ -1,7 +1,5 @@
 #include "D2CMP.h"
 
-#define gnSquareTableCenter_008E9430 (gnSquareTable_008E9034 + 255)
-
 struct T00604DB0;
 struct D2HslStrc;
 struct D2PalRgbaStrc;
@@ -11,21 +9,6 @@ struct D2PcxPaletteStrc;
 struct T00604DB0 { double value[1]; };
 
 enum { VALUE_SLOT_INDEX = 0 };
-
-struct D2HslStrc
-{
-    double f_0;
-    double f_8;
-    double f_10;
-};
-
-struct D2PalRgbaStrc
-{
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-    unsigned char nPad;
-};
 
 unsigned char __stdcall sub_00605210_FindNearestColor(const unsigned char* pPalette, unsigned int nCount, int nC0, int nC1, int nC2); // 0x00605210
 extern int gnSquareTable_008E9034[511]; // 0x008E9034

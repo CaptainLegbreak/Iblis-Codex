@@ -32,3 +32,55 @@ unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 void __fastcall sub_00529F50_Sha1Init(D2SrpSha1ContextStrc* pContext); // 0x00529F50
 void __fastcall sub_00529F80_Sha1Update(D2SrpSha1ContextStrc* pContext, const unsigned char* pData, unsigned int nLength); // 0x00529F80
 void __fastcall sub_0052A040_Sha1Final(unsigned char* pDigest, D2SrpSha1ContextStrc* pContext); // 0x0052A040
+
+#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
+struct D2BigLoginRecordStrc
+{
+    char szName[0x20];
+    char szPassword[0x20];
+    unsigned char abPrivate[0x20];
+    unsigned char abPublic[0x20];
+    unsigned char abKey[0x28];
+    unsigned char abProof[0x14];
+};
+
+struct D2FileTimeStrc
+{
+    unsigned long dwLowDateTime;
+    unsigned long dwHighDateTime;
+};
+
+struct D2IdeaUserKeyStrc
+{
+    unsigned int aKey[4];
+};
+
+struct D2LangByteRangeStrc
+{
+    unsigned char f_0;
+    unsigned char f_1;
+};
+
+struct D2LangCharMapEntryStrc
+{
+    unsigned short wValue;
+    unsigned short f_2;
+};
+
+struct D2SrpSha1ContextStrc
+{
+    unsigned int aState[5];
+    unsigned int aCount[2];
+    unsigned char f_1C[64];
+};
+
+struct Unicode
+{
+    unsigned short wChar;
+
+    operator unsigned short() const
+    {
+        return wChar;
+    }
+};

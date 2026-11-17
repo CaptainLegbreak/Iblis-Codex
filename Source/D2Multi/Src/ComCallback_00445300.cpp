@@ -13,13 +13,6 @@ struct D2MsgHandlerEntryStrc;
 
 typedef void (__stdcall* SMSGHANDLER)(SMSGHANDLER_PARAMS* pMsg);
 
-struct D2ChannelEntryStrc
-{
-    char szName[0x32];
-    char szAccount[0x12];
-    D2ChannelEntryStrc* pNext;
-};
-
 struct T0043E860
 {
     int nUnk0x00;

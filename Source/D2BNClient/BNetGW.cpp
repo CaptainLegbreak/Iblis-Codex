@@ -1,32 +1,14 @@
 #include "D2BNClient.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
 class BNGatewayAccess;
+struct D2SystemTimeStrc;
+struct D2TimeZoneInformationStrc;
+struct Table;
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-
-struct D2SystemTimeStrc
-{
-    unsigned short wYear;
-    unsigned short wMonth;
-    unsigned short wDayOfWeek;
-    unsigned short wDay;
-    unsigned short wHour;
-    unsigned short wMinute;
-    unsigned short wSecond;
-    unsigned short wMilliseconds;
-};
-
-struct D2TimeZoneInformationStrc
-{
-    long f_0;
-    unsigned short wszStandardName[32];
-    D2SystemTimeStrc tStandardDate;
-    long nStandardBias;
-    unsigned short wszDaylightName[32];
-    D2SystemTimeStrc tDaylightDate;
-    long nDaylightBias;
-};
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
 extern "C" unsigned int __cdecl strlen(const char* szString);
@@ -59,6 +41,10 @@ private:
     void* m_pRealms;
 };
 
+unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
+
+struct Table { char pad0[8]; int count; char padC[4]; const char* data; int length; const char* Nth(int n); };
+
 // build: symbol ??4BNGatewayAccess@@QAEAAV0@ABV0@@Z 0x00517E40
 // 0x00517E40
 BNGatewayAccess& BNGatewayAccess::operator=(const BNGatewayAccess& source)
@@ -77,6 +63,29 @@ int BNGatewayAccess::GetSystemTimeZone()
     if ((nLangId & 0x3FF) == 9 && (nLangId >> 10) == 3)
         return 480;
     return tTimeZone.f_0;
+}
+
+// 0x00517FD0
+const char* Table::Nth(int n)
+{
+    Table* self = this;
+    const char* base = self->data;
+    if (base == 0 || n < 1 || n > self->count)
+        return (const char*)self;
+    int i = 1;
+    int target = n * 3;
+    int offset = 0;
+    const char* p = base;
+    while (i < target && offset < self->length)
+    {
+        int len = SStrLen(p) + 1;
+        offset += len;
+        p += len;
+        ++i;
+    }
+    if (offset < self->length && i <= target)
+        return p;
+    return (const char*)self;
 }
 
 // 0x00518150
@@ -106,6 +115,22 @@ void BNGatewayAccess::WriteDefaultGatewayList()
     char* szText = sub_00518300_LoadGatewayFile(&nSize);
     if (szText)
         UpdateGatewaysFromIni(szText);
+}
+
+// 0x00518390
+extern "C" __declspec(dllexport) const char* __stdcall sub_00518390(const char* pText, const char* pEnd) {
+    while (pText < pEnd && *pText && *pText != '\r' && *pText != '\n') {
+        pText++;
+    }
+    return pText;
+}
+
+// 0x005183C0
+extern "C" __declspec(dllexport) const char* __stdcall sub_005183C0(const char* pText, const char* pEnd) {
+    while (pText < pEnd && *pText && (*pText == '\r' || *pText == '\n')) {
+        pText++;
+    }
+    return pText;
 }
 
 // 0x005183F0
@@ -153,20 +178,4 @@ char* BNGatewayAccess::FindKey(char* pSection, const char* szKey)
         p = BnSkipEOL(BnSkipToEOL(p, pSection + nSectionLength), pSection + nSectionLength);
     }
     return 0;
-}
-
-// 0x00518390
-extern "C" __declspec(dllexport) const char* __stdcall sub_00518390(const char* pText, const char* pEnd) {
-    while (pText < pEnd && *pText && *pText != '\r' && *pText != '\n') {
-        pText++;
-    }
-    return pText;
-}
-
-// 0x005183C0
-extern "C" __declspec(dllexport) const char* __stdcall sub_005183C0(const char* pText, const char* pEnd) {
-    while (pText < pEnd && *pText && (*pText == '\r' || *pText == '\n')) {
-        pText++;
-    }
-    return pText;
 }

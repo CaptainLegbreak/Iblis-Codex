@@ -15,14 +15,6 @@ int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 
-struct D2CmpColorStrc
-{
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-    unsigned char nPad;
-};
-
 struct D2CmpTileNodeStrc
 {
     unsigned short nX;
@@ -47,12 +39,6 @@ struct D2CmpTileStrc
     char unk0x38[0x1C];
     int nCount;
     D2CmpTileNodeStrc* pNodes;
-};
-
-struct D2CmpSubTilePosStrc
-{
-    int nX;
-    int nY;
 };
 
 extern D2CmpSubTilePosStrc gSubTilePositions_00743500[25]; // 0x00743500

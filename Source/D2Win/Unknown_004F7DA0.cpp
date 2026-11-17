@@ -3,25 +3,25 @@
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define gnRowOffsets_007C9828 (gnRowOffsets_007C97A8 + 32)
 extern int gnScreen_7C9780; // 0x007C9780
-extern int gnScreen_7C9784; // 0x007C9784
+extern int gnInnerRight_007C9784; // 0x007C9784
 extern int gnScreen_7C9788; // 0x007C9788
-extern int gnScreen_7C978C; // 0x007C978C
-extern int gnScreen_7C9790; // 0x007C9790
-extern int gnScreen_7C9794; // 0x007C9794
+extern int gnClipBottom_007C978C; // 0x007C978C
+extern int gnInnerBottom_007C9790; // 0x007C9790
+extern int gnClipLeft_007C9794; // 0x007C9794
 extern int gnScreen_7C9798; // 0x007C9798
 extern int gnScreen_7C979C; // 0x007C979C
-extern int gnScreen_7C97A0; // 0x007C97A0
+extern int gnRowClipBottom_007C97A0; // 0x007C97A0
 extern int gnScreen_7C97A4; // 0x007C97A4
-extern int gnScreen_7CA318; // 0x007CA318
-extern int gnScreen_7CA31C; // 0x007CA31C
+extern int gnColClipLeft_007CA318; // 0x007CA318
+extern int gnInnerTop_007CA31C; // 0x007CA31C
 extern int gnScreen_7D2320; // 0x007D2320
-extern int gnScreen_7D2324; // 0x007D2324
-extern int gnScreen_7D2328; // 0x007D2328
-extern int gnScreen_7D232C; // 0x007D232C
+extern int gnClipRight_007D2324; // 0x007D2324
+extern int gnInnerLeft_007D2328; // 0x007D2328
+extern int gnClipTop_007D232C; // 0x007D232C
 extern int gnScreen_7D2330; // 0x007D2330
-extern int gnScreen_7D2334; // 0x007D2334
+extern int gnRowClipTop_007D2334; // 0x007D2334
 extern int gnScreen_7D2338; // 0x007D2338
-extern int gnScreen_7D233C; // 0x007D233C
+extern int gnColClipRight_007D233C; // 0x007D233C
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern unsigned char* gpScreenBuffer_007D5448; // 0x007D5448
@@ -42,24 +42,24 @@ void __fastcall sub_004F7DA0_SetPanelCoords(int nWidth, int nHeight)
     }
     gnScreen_7D2338 = nBottom;
     gnScreen_7C97A4 = nLeft;
-    gnScreen_7D2328 = nLeft;
-    gnScreen_7CA318 = nLeft;
+    gnInnerLeft_007D2328 = nLeft;
+    gnColClipLeft_007CA318 = nLeft;
     gnScreen_7D2330 = -0x10;
     gnScreen_7C9788 = nLeft - 0x20;
     gnScreen_7C979C = nBottom - 0x10;
     gnScreen_7C9798 = nRight;
     gnScreen_7C9780 = 0;
     gnScreen_7D2320 = nRight - 0x20;
-    gnScreen_7D232C = -0x20;
-    gnScreen_7D2324 = nRight;
-    gnScreen_7C978C = nBottom;
-    gnScreen_7CA31C = 0;
-    gnScreen_7C9794 = nLeft - 0x20;
-    gnScreen_7C9790 = nBottom - 0x20;
-    gnScreen_7C9784 = nRight - 0x20;
-    gnScreen_7D2334 = 0;
-    gnScreen_7D233C = nRight;
-    gnScreen_7C97A0 = nBottom;
+    gnClipTop_007D232C = -0x20;
+    gnClipRight_007D2324 = nRight;
+    gnClipBottom_007C978C = nBottom;
+    gnInnerTop_007CA31C = 0;
+    gnClipLeft_007C9794 = nLeft - 0x20;
+    gnInnerBottom_007C9790 = nBottom - 0x20;
+    gnInnerRight_007C9784 = nRight - 0x20;
+    gnRowClipTop_007D2334 = 0;
+    gnColClipRight_007D233C = nRight;
+    gnRowClipBottom_007C97A0 = nBottom;
 }
 
 int gnClipBottom_007C978C; // 0x007C978C

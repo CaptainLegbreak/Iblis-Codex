@@ -6,28 +6,12 @@ struct _FILETIME;
 struct SMSGHANDLER_PARAMS;
 struct Unicode;
 
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
-
 struct D2ChatMessageStrc
 {
     char* szText;
     int nColor;
     int bClear;
     D2ChatMessageStrc* pNext;
-};
-
-struct _FILETIME
-{
-    unsigned long dwLowDateTime;
-    unsigned long dwHighDateTime;
 };
 extern unsigned char gnSelectModeA_0070CD62; // 0x0070CD62
 
@@ -73,8 +57,6 @@ struct D2WinControlInitStrc
 {
     char data[0x30];
 };
-
-typedef int (__stdcall* D2LaunchCallback)(int nArg);
 void __fastcall sub_004FD060_SetText(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FD060
 extern D2WinControlInitStrc gtWaitInit_0070D3C0; // 0x0070D3C0
 extern D2WinControlStrc* gpControlA_0077B070; // 0x0077B070

@@ -37,7 +37,6 @@ struct D2WinButtonStrc
 };
 
 #define D2WIN_BUTTON 6
-#define BUTTONFLAG_HAS_DISABLED_FRAMES 0x20
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268

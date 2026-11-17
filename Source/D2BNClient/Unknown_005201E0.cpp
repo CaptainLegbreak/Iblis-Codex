@@ -4,22 +4,6 @@ struct D2CriticalSectionStrc;
 struct D2BnStateStrc;
 struct T0041D340;
 
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
-
-struct D2BnStateStrc
-{
-    int nState;
-    void* pArg;
-};
-
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
@@ -30,7 +14,7 @@ struct T0041D340
 };
 
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC1FC
-extern D2CriticalSectionStrc gtQueueLock_00882004; // 0x00882004
+extern D2CriticalSectionStrc gMessageLock_00882004; // 0x00882004
 extern int gnSlotArrayB_008822A8[94]; // 0x008822A8
 
 void* gpBnStateArg_00882000; // 0x00882000
@@ -91,7 +75,7 @@ int __fastcall sub_005205F0_GetState(D2BnStateStrc* pState)
 // 0x00520200
 void __cdecl sub_00520200_DeleteQueueLock()
 {
-    DeleteCriticalSection(&gtQueueLock_00882004);
+    DeleteCriticalSection(&gMessageLock_00882004);
 }
 
 // 0x00520680

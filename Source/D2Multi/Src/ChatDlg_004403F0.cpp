@@ -15,8 +15,6 @@ struct D2LadderEntryStrc
     char szName[1];
 };
 
-typedef int (__stdcall* D2LaunchCallback)(int nArg);
-
 extern "C" char* __cdecl strcat(char* szDest, const char* szSource);
 extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);
 

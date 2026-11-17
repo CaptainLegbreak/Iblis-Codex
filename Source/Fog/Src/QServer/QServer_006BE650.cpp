@@ -30,7 +30,6 @@ struct D2CriticalSection006BE650Strc
     unsigned long nSpinCount;
 };
 
-
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSection006BE650Strc* pLock);
 
 struct D2QMsg006BE650Strc
@@ -48,7 +47,6 @@ struct D2QClient006BE650Strc
     unsigned char unk_44[0x30];
     D2QMsg006BE650Strc* pMsgHead;
 };
-
 
 static __declspec(noinline) void sub_006BE650_FreeClient(D2QClient006BE650Strc* ptClient);
 
@@ -70,7 +68,6 @@ struct D2CriticalSectionStrc
     unsigned long spinCount;
 };
 
-
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* section);
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* section);
@@ -90,11 +87,6 @@ struct D2HackListStrc
 
     void __thiscall sub_006BE700_ExpireEntries(); // 0x006BE700
 };
-
-
-extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pCriticalSection);
-extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pCriticalSection);
-void __cdecl sub_00410660_Log(const char* szChannel, const char* szFormat, ...); // 0x00410660
 extern unsigned long gdwLastHackListLog_00989C34; // 0x00989C34
 
 struct D2HackNode006BE890Strc
@@ -135,7 +127,6 @@ struct D2QueueServerStrc
     D2QServerIpNodeStrc** ppIpBuckets;
 };
 
-
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 static __declspec(noinline) int __cdecl sub_006BF180_IncrementPerIpConnCount(D2QueueServerStrc* pServer, D2InAddrStrc* pAddress);
 
@@ -153,7 +144,6 @@ struct D2QTable006BF1F0Strc
     unsigned char unk_14[0x2C];
     D2QNode006BF1F0Strc** ppBuckets;
 };
-
 
 static __declspec(noinline) int sub_006BF1F0_Release(D2QTable006BF1F0Strc* pTable, unsigned int* pKey);
 extern unsigned int gaMaskTable_0074C3F0[]; // 0x0074C3F0
@@ -193,10 +183,6 @@ struct D2ServerClientStrc
     unsigned int nPending;
     D2CriticalSectionStrc lock;
 };
-
-
-extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc*);
-extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc*);
 static __declspec(noinline) int __stdcall sub_006C00A0_AccountTraffic(D2ClientTableStrc* pTable, unsigned int nBytes, D2ServerClientStrc* pClient);
 
 // 0x006BE650

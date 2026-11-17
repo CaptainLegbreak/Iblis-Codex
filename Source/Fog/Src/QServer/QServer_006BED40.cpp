@@ -1,6 +1,4 @@
 #include "Fog.h"
-
-typedef struct _RTL_CRITICAL_SECTION CRITICAL_SECTION;
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(CRITICAL_SECTION* lpCriticalSection);
 
 struct sub_006BED40_Entry

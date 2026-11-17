@@ -1,3 +1,7 @@
+#include "Fog.h"
+
+#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
 struct D2CriticalSection006C1F80Strc;
 struct D2QSNode006C1F80Strc;
 struct D2QSQueue006C1F80Strc;
@@ -26,12 +30,10 @@ struct D2QSQueue006C1F80Strc
     void Destroy();
 };
 
-
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSection006C1F80Strc* pLock); // 0x006CC1FC
 
 struct D2CriticalSectionStrc { void* pDebugInfo; long nLockCount; long nRecursionCount; void* hOwningThread; void* hLockSemaphore; unsigned long nSpinCount; };
-
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pCriticalSection);
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pCriticalSection);
@@ -53,6 +55,10 @@ struct D2Queue006C2090Strc
     D2QueueMessage006C2090Strc* pTail;
 };
 
+void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
+extern "C" const char gszEmptyAssertText; // 0x006CC837
+extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 // 0x006C1F80
 void D2QSQueue006C1F80Strc::Destroy()
@@ -67,6 +73,28 @@ void D2QSQueue006C1F80Strc::Destroy()
     nCount = 0;
     pHead = 0;
     DeleteCriticalSection(&tLock);
+}
+
+// 0x006C1FF0
+void __fastcall sub_006C1FF0_Push(D2Queue006C2090Strc* pQueue, const void* pSource, unsigned short nLength)
+{
+    D2_ASSERT(nLength > 0, 0x4A);
+
+    EnterCriticalSection(&pQueue->tLock);
+    D2QueueMessage006C2090Strc* pMessage = (D2QueueMessage006C2090Strc*)FOG_Alloc(nLength + 8, ".\\Src\\D2QSQueue.cpp", 0x4E, 0);
+    pMessage->nLength = nLength;
+    pMessage->pNext = 0;
+    memcpy(pMessage->pData, pSource, nLength);
+    if (!pQueue->pHead)
+    {
+        pQueue->pHead = pMessage;
+    }
+    else
+    {
+        pQueue->pTail->pNext = pMessage;
+    }
+    pQueue->pTail = pMessage;
+    LeaveCriticalSection(&pQueue->tLock);
 }
 
 // 0x006C2090

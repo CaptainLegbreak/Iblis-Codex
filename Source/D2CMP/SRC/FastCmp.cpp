@@ -16,45 +16,11 @@ int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 
 int __fastcall sub_0060D280_ScanSameRun(const unsigned char* pData, const unsigned char* pEnd, int nMax, int* pbRunReachedEnd, int* pbRestReachedEnd); // 0x0060D280
 int __fastcall sub_0060D3A0_ScanOtherRun(const unsigned char* pData, const unsigned char* pEnd, unsigned char nValue, int nMax, int* pbRunReachedEnd, int* pbRestReachedEnd); // 0x0060D3A0
 
-struct D2GfxCellStrc
-{
-    unsigned int dwFlags;
-    unsigned int dwWidth;
-    unsigned int dwHeight;
-    int nXOffset;
-    int nYOffset;
-    unsigned int unk0x14;
-    unsigned int dwParent;
-    unsigned int dwLength;
-    unsigned char pPixels[1];
-};
-
-struct D2CellFileStrc
-{
-    unsigned int dwVersion;
-    unsigned int dwFlags;
-    unsigned int eFormat;
-    unsigned int dwTermination;
-    unsigned int nDirections;
-    unsigned int nFrames;
-    D2GfxCellStrc* pGfxCells[1];
-};
-
-struct D2CmpColorStrc
-{
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-    unsigned char nPad;
-};
-
 typedef unsigned char (__stdcall* D2CmpMapColorFn)(unsigned char nRed, unsigned char nGreen, unsigned char nBlue);
 
 typedef unsigned char BYTE;
 
 struct D2CelStrc { unsigned int flags,width,height; unsigned char unknown0C[0x14]; unsigned char pixels[1]; };
-
-extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 extern int gnGenericRle_008F03C8; // 0x008F03C8
 const unsigned char* __fastcall sub_00606D10_SkipCelLines(const unsigned char*,int); // 0x00606D10
 void __fastcall sub_00606D40_RleCopyRows(const unsigned char*,unsigned char*,int,int); // 0x00606D40

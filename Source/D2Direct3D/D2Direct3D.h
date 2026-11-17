@@ -35,3 +35,111 @@ void __cdecl sub_006B3800_Flush(); // 0x006B3800
 void __fastcall sub_006B1EA0_SetMode(int); // 0x006B1EA0
 void __stdcall sub_006B9F00_PresentFrame(); // 0x006B9F00
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
+
+#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define LRU_ASSERT(expr, line) if (!(expr)) { sub_00408A60(gszAssertExpr_006CC837, sub_00408090(), line); exit(-1); }
+#define RELEASE(p) if (p) { p->lpVtbl->Release(p); p = 0; }
+
+struct D2CriticalSectionStrc { void* pDebugInfo; long nLockCount; long nRecursionCount; void* hOwningThread; void* hLockSemaphore; unsigned long nSpinCount; };
+
+struct D2D3DObjVtblStrc
+{
+	void* pQueryInterface;
+	void* pAddRef;
+	unsigned long (__stdcall* pRelease)(D2D3DObjStrc* pObj);
+};
+
+struct D2D3DObjStrc
+{
+	D2D3DObjVtblStrc* pVtbl;
+};
+
+struct D2FloorPoolOwnerStrc
+{
+	char unk0x00[0x42];
+	short nPoolId;
+};
+
+struct D2FloorPoolEntryStrc
+{
+	int nIndex;
+	D2FloorPoolOwnerStrc* pOwner;
+	D2D3DObjStrc* pTexture;
+	D2D3DObjStrc* pSurface;
+	D2FloorPoolEntryStrc* pNext;
+	D2FloorPoolEntryStrc* pPrev;
+};
+
+struct D2FloorPoolStrc
+{
+	int nCapacity;
+	int nInUse;
+	D2FloorPoolEntryStrc* pInUseFirst;
+	D2FloorPoolEntryStrc* pInUseLast;
+	D2FloorPoolEntryStrc* pSpareFirst;
+	D2FloorPoolEntryStrc* pSpareLast;
+	D2FloorPoolEntryStrc* pEntries;
+};
+
+struct D2QuadVertexStrc { float x,y,z,rhw; unsigned int color,specular; float s,t; };
+
+struct D2RectStrc
+{
+    int nLeft;
+    int nTop;
+    int nRight;
+    int nBottom;
+};
+
+struct D2SmackStrc
+{
+    unsigned int Version;
+    unsigned int Width;
+    unsigned int Height;
+    unsigned int Frames;
+    unsigned char unknown_0010[0x364];
+    unsigned int FrameNum;
+};
+
+struct D2TexOwnerSlotStrc
+{
+	void* pTexture;
+	void* pInfo;
+};
+
+struct D2TexPoolEntryStrc
+{
+	int nIndex;
+	D2TexOwnerSlotStrc* pOwnerSlots;
+	int nOwnerSlot;
+	int unk0x0C;
+	D2D3DObjStrc* pTexture;
+	D2D3DObjStrc* pSurface;
+	D2TexPoolEntryStrc* pNext;
+	D2TexPoolEntryStrc* pPrev;
+};
+
+struct D2TexPoolStrc
+{
+	int nCapacity;
+	int nInUse;
+	D2TexPoolEntryStrc* pInUseFirst;
+	D2TexPoolEntryStrc* pInUseLast;
+	D2TexPoolEntryStrc* pSpareFirst;
+	D2TexPoolEntryStrc* pSpareLast;
+	D2TexPoolEntryStrc* pEntries;
+};
+
+struct D2TexturedVertexStrc
+{
+    float nX, nY, nZ, nRhw;
+    unsigned int nDiffuse, nSpecular;
+    float nU, nV;
+};
+
+struct D2VideoBlitVertex
+{
+    float x, y, z, rhw;
+    unsigned int color, specular;
+    float u, v;
+};

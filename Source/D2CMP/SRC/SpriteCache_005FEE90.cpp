@@ -22,11 +22,6 @@ struct D2SpriteCacheNodeStrc
     D2SpriteCacheNodeStrc* pPrev;
 };
 
-struct D2SpriteCacheLockStrc
-{
-    char data[0x18];
-};
-
 struct D2SpriteCacheStrc
 {
     void* pMemPool;

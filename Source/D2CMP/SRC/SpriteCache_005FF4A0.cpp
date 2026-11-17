@@ -6,8 +6,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(void* lpCriticalSection);             // 0x006CC218
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(void* lpCriticalSection);             // 0x006CC214
 
-typedef void (__fastcall* D2SpriteCacheFreeFn)(unsigned int nKey);
-
 struct D2SpriteCacheNodeStrc;
 struct NodeLinks { D2SpriteCacheNodeStrc* pNext; D2SpriteCacheNodeStrc* pPrev; void Clear() { pNext = 0; pPrev = 0; } };
 struct D2SpriteCacheNodeStrc
@@ -18,11 +16,6 @@ struct D2SpriteCacheNodeStrc
     unsigned int dwFlags;
     unsigned int dwTick;
     NodeLinks link;
-};
-
-struct D2SpriteCacheLockStrc
-{
-    char data[0x18];
 };
 
 struct D2SpriteCacheStrc

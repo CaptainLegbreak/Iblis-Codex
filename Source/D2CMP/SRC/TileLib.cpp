@@ -99,13 +99,6 @@ struct D2CmpFindTilesNodeStrc
     D2CmpFindTilesNodeStrc* pNext;
 };
 
-struct D2CmpRGBStrc
-{
-    unsigned char b0;
-    unsigned char b1;
-    unsigned char b2;
-};
-
 struct D2CmpRGBImageStrc
 {
     int unk0x00;
@@ -114,8 +107,6 @@ struct D2CmpRGBImageStrc
     char unk0x0C[0x14];
     D2CmpRGBStrc aPixels[1];
 };
-
-typedef void (__stdcall* D2CmpColorCallback)(unsigned int nColor);
 
 struct D2CmpSubTileRecordStrc
 {

@@ -22,8 +22,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 const char* __fastcall sub_00408090(); // 0x00408090
 void __cdecl sub_00408A60(const char* szExpression, const char* szFile, int nLine); // 0x00408A60
 
-#define LRU_ASSERT(expr, line) if (!(expr)) { sub_00408A60(gszAssertExpr_006CC837, sub_00408090(), line); exit(-1); }
-
 static __declspec(noinline) void sub_006BA5C0_AppendTail(sub_006BA760_List* pList, sub_006BA760_Node* pNode);
 // 0x006BA5C0
 static void sub_006BA5C0_AppendTail(sub_006BA760_List* pList, sub_006BA760_Node* pNode)

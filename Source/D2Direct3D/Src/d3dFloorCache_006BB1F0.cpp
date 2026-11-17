@@ -1,6 +1,4 @@
 #include "D2Direct3D.h"
-
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2Node006BB1F0Strc;
 struct D2List006BB1F0Strc;
 struct D2D3DObjVtblStrc;
@@ -22,45 +20,6 @@ struct D2List006BB1F0Strc
     D2Node006BB1F0Strc* pTailC;
     unsigned char unk_10[8];
     D2Node006BB1F0Strc* pNodes18;
-};
-
-struct D2D3DObjVtblStrc
-{
-	void* pQueryInterface;
-	void* pAddRef;
-	unsigned long (__stdcall* pRelease)(D2D3DObjStrc* pObj);
-};
-
-struct D2D3DObjStrc
-{
-	D2D3DObjVtblStrc* pVtbl;
-};
-
-struct D2FloorPoolOwnerStrc
-{
-	char unk0x00[0x42];
-	short nPoolId;
-};
-
-struct D2FloorPoolEntryStrc
-{
-	int nIndex;
-	D2FloorPoolOwnerStrc* pOwner;
-	D2D3DObjStrc* pTexture;
-	D2D3DObjStrc* pSurface;
-	D2FloorPoolEntryStrc* pNext;
-	D2FloorPoolEntryStrc* pPrev;
-};
-
-struct D2FloorPoolStrc
-{
-	int nCapacity;
-	int nInUse;
-	D2FloorPoolEntryStrc* pInUseFirst;
-	D2FloorPoolEntryStrc* pInUseLast;
-	D2FloorPoolEntryStrc* pSpareFirst;
-	D2FloorPoolEntryStrc* pSpareLast;
-	D2FloorPoolEntryStrc* pEntries;
 };
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60

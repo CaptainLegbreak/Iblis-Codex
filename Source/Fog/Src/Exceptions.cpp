@@ -1,7 +1,7 @@
 #include "Fog.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
+
 struct D2CriticalSectionStrc;
 struct FSafeSock;
 struct D2InAddrStrc;
@@ -29,8 +29,9 @@ struct D2ImageHlpModuleStrc;
 struct D2ContextStrc;
 struct T0040D1C0;
 struct D2CrashDumpEntryStrc;
-
-typedef unsigned int size_t;
+struct D2SystemTimeStrc;
+struct D2ModuleInfoStrc;
+struct D2MemoryBasicInfoStrc;
 
 struct D2CriticalSectionStrc
 {
@@ -59,18 +60,6 @@ struct FSafeSock
 struct D2InAddrStrc
 {
     unsigned long s_addr;
-};
-
-struct D2SystemTimeStrc
-{
-    unsigned short wYear;
-    unsigned short wMonth;
-    unsigned short wDayOfWeek;
-    unsigned short wDay;
-    unsigned short wHour;
-    unsigned short wMinute;
-    unsigned short wSecond;
-    unsigned short wMilliseconds;
 };
 
 struct D2TSLinkStrc
@@ -149,53 +138,6 @@ struct D2ModuleInfoStrc
     unsigned long dwBase;
     unsigned long dwSize;
     D2ModuleInfoStrc* pNext;
-};
-
-struct D2ImageHlpLineStrc
-{
-    unsigned long dwSizeOfStruct;
-    void* pKey;
-    unsigned long dwLineNumber;
-    char* szFileName;
-    unsigned long dwAddress;
-};
-
-struct D2MemoryBasicInfoStrc
-{
-    void* BaseAddress;
-    void* AllocationBase;
-    unsigned long AllocationProtect;
-    unsigned long RegionSize;
-    unsigned long State;
-    unsigned long Protect;
-    unsigned long Type;
-};
-
-struct D2PeDosHeaderStrc
-{
-    unsigned short f_0;
-    char unk0x02[0x3A];
-    long nNtHeadersOffset;
-};
-
-struct D2PeNtHeadersStrc
-{
-    unsigned long dwSignature;
-    unsigned short wMachine;
-    unsigned short wNumberOfSections;
-    char unk0x08[0x0C];
-    unsigned short wSizeOfOptionalHeader;
-    unsigned short wCharacteristics;
-    char aOptionalHeader[4];
-};
-
-struct D2PeSectionStrc
-{
-    char szName[0x08];
-    unsigned long dwVirtualSize;
-    unsigned long dwVirtualAddress;
-    unsigned long dwSizeOfRawData;
-    char unk0x14[0x14];
 };
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetLastError(); // 0x006CC1B4
@@ -419,6 +361,7 @@ struct T0040D1C0
     int nCount;
     unsigned long adwData[8];
 };
+
 void __fastcall sub_0040F000_GetLogDirectory(char* szDirectory, int nSize); // 0x0040F000
 void __stdcall sub_0041D2A0_MemCopy(void* pDst, const void* pSrc, unsigned int nSize); // 0x0041D2A0
 
@@ -434,12 +377,17 @@ struct D2CrashDumpEntryStrc
 };
 
 #pragma pack(pop)
+
 extern "C" unsigned int __cdecl fread(void* pBuffer, unsigned int nSize, unsigned int nCount, _iobuf* pFile); // 0x00684782
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
 int __stdcall SMemCmp(const void* pLocation1, const void* pLocation2, unsigned int nSize); // 0x0041D200
 extern "C" const char gszReadBinary_006CDC90[]; // 0x006CDC90
-extern "C" const char gszExceptionsFile_006CD628[]; // 0x006CD628
+extern D2CriticalSectionStrc gtImageHlpLock_0075CFBC; // 0x0075CFBC
+extern int gnSymInitCount_0075CFD4; // 0x0075CFD4
+extern int (__stdcall *gpCleanup_0075CFDC)(void*); // 0x0075CFDC
+
+static void __stdcall sub_0040C520_GetLogicalAddress(char* szModule, unsigned long* pnSection, unsigned long* pnOffset, void* pAddress, unsigned int nSize);
 
 char gszAddressText_0075D020[32]; // 0x0075D020
 
@@ -456,159 +404,6 @@ int gnLogQueueCount_0075E870; // 0x0075E870
 // 0x0040B320
 void __cdecl FOG_10082_Noop()
 {
-}
-
-// 0x0040C220
-int __fastcall sub_0040C220_GetAppPath(char* szPath, unsigned int nSize)
-{
-    szPath[0] = 0;
-    if (!GetModuleFileNameA(0, szPath, nSize))
-    {
-        return 0;
-    }
-    int i;
-    for (i = (int)strlen(szPath) - 1; i > 0; i--)
-    {
-        if (szPath[i] == '\\' || szPath[i] == '/' || szPath[i] == ':')
-        {
-            break;
-        }
-    }
-    if (i <= 0)
-    {
-        return 0;
-    }
-    if (szPath[i] == ':')
-    {
-        i += 1;
-    }
-    szPath[i] = 0;
-    return 1;
-}
-
-// 0x0040DBD0
-void __fastcall FOG_SOCKET_Destroy(FSafeSock* pSafeSock)
-{
-    EnterCriticalSection(&pSafeSock->tCriticalSection);
-    pSafeSock->bStopping = 1;
-    LeaveCriticalSection(&pSafeSock->tCriticalSection);
-    if (pSafeSock->hThread)
-    {
-        WaitForSingleObject(pSafeSock->hThread, 5000);
-    }
-    if (pSafeSock->hThread)
-    {
-        CloseHandle(pSafeSock->hThread);
-        pSafeSock->hThread = 0;
-    }
-    if (pSafeSock->nSocket != (unsigned int)-1)
-    {
-        const unsigned int nSocket = pSafeSock->nSocket;
-        pSafeSock->nSocket = (unsigned int)-1;
-        pSafeSock->bConnected = 0;
-        if (closesocket(nSocket) == -1)
-        {
-            pSafeSock->nWSALastError = WSAGetLastError();
-            pSafeSock->nFogErrorCode = 5;
-        }
-    }
-    DeleteCriticalSection(&pSafeSock->tCriticalSection);
-    FOG_Free(pSafeSock, ".\\Src\\Safesock.cpp", 387, 0);
-}
-
-// 0x0040E080
-char* __fastcall sub_0040E080_AddressToString(int nAddress)
-{
-    D2InAddrStrc tAddress;
-    tAddress.s_addr = nAddress;
-    return strcpy(gszAddressText_0075D020, inet_ntoa(tAddress));
-}
-
-// 0x0040EB90
-unsigned int __fastcall sub_0040EB90_GetLogFiles(char** apszFiles, unsigned int nCount)
-{
-    unsigned int i;
-    for (i = 0; i < nCount; i++)
-    {
-        if (i >= 20)
-        {
-            break;
-        }
-        apszFiles[i] = gaszLogFilePaths_0075D340[i];
-    }
-    return i;
-}
-
-// 0x0040F470
-void __fastcall sub_0040F470_LookupLog(const char* szName)
-{
-    for (int i = 0; i < 20; i++)
-    {
-        if (gapLogFiles_0075E790[i] && !strcmp(gaszLogNames_0075D148[i], szName))
-        {
-            if (gapLogFiles_0075E790[i])
-            {
-                fclose(gapLogFiles_0075E790[i]);
-                gapLogFiles_0075E790[i] = 0;
-            }
-            return;
-        }
-    }
-}
-
-// 0x0040F8A0
-void __cdecl sub_0040F8A0_CloseLogFilesNow()
-{
-    D2_ASSERT(gbLogInitialized_0075D2EC, 456);
-    const unsigned long dwStart = GetTickCount();
-    while (GetTickCount() - dwStart < 1000)
-    {
-        EnterCriticalSection(&gtLogQueueLock_0075E838);
-        const int nQueued = gnLogQueueCount_0075E870 > 0 ? gnLogQueueCount_0075E870 : 0;
-        LeaveCriticalSection(&gtLogQueueLock_0075E838);
-        if (!nQueued)
-        {
-            break;
-        }
-        Sleep(10);
-    }
-    for (int i = 0; i < 20; i++)
-    {
-        EnterCriticalSection(&gtLogLock_0075E850);
-        if (gapLogFiles_0075E790[i])
-        {
-            fclose(gapLogFiles_0075E790[i]);
-            gapLogFiles_0075E790[i] = 0;
-        }
-        LeaveCriticalSection(&gtLogLock_0075E850);
-    }
-}
-
-// 0x0040FD00
-void D2TSListStrc::sub_0040FD00_UnlinkAll()
-{
-    D2TSLinkStrc* pNode;
-    while ((pNode = Head()) != 0)
-    {
-        pNode->Unlink();
-    }
-}
-
-// 0x00410540
-void __cdecl sub_00410540_InitLogSystem()
-{
-    gbLogThreadStop_0075E830 = 0;
-    ghLogThread_0075D2E8 = CreateThread(0, 0, sub_004101C0_LogThreadProc, 0, 0, &gnLogThreadId_0075E834);
-    gbLogInitialized_0075D2EC = 1;
-    GetLocalTime(&gLogStartTime_0075D288);
-    for (unsigned int i = 0; i < 20; i++)
-    {
-        ganLogNewFile_0075D298[i] = 1;
-    }
-    for (unsigned int i = 0; i < 20; i++)
-    {
-        gaszLogFilePaths_0075D340[i][0] = 0;
-    }
 }
 
 char gszSymSearchPath_0075BFB8[4096]; // 0x0075BFB8
@@ -646,6 +441,36 @@ static int __stdcall sub_0040B600_GetLineFromAddrRetry(void* hProcess, unsigned 
     return 1;
 }
 
+__declspec(noinline) int sub_H13_EmitLineRetry(void* hProcess, unsigned long dwAddress, unsigned long dwDisplacement)
+{
+    D2ImageHlpLineStrc tLine;
+    unsigned long dwDisp = dwDisplacement;
+    tLine.dwSizeOfStruct = 0x14;
+    const int bResult = sub_0040B600_GetLineFromAddrRetry(hProcess, dwAddress, &dwDisp, &tLine);
+    sub_H13_EmitUse(tLine.szFileName, dwDisp, tLine.dwLineNumber, bResult);
+    return bResult;
+}
+
+__declspec(noinline) void sub_H13_EmitLogicalAddress(void* pAddress)
+{
+    char szModule[0x104];
+    unsigned long nSection;
+    unsigned long nOffset;
+    sub_0040C520_GetLogicalAddress(szModule, &nSection, &nOffset, pAddress, sizeof(szModule));
+    sub_H13_EmitUse(szModule, nSection, nOffset, 0);
+}
+
+// 0x0040B660
+extern "C" void __fastcall sub_0040B660_FreeList(List20C* node)
+{
+    while (node)
+    {
+        List20C* next = node->next;
+        FOG_Free(node, gSource_006CD628, 0x1F7, 0);
+        node = next;
+    }
+}
+
 // 0x0040BC50
 static D2ModuleInfoStrc* __stdcall sub_0040BC50_GetModuleList(void* hProcess, unsigned long dwPid)
 {
@@ -661,6 +486,35 @@ static D2ModuleInfoStrc* __stdcall sub_0040BC50_GetModuleList(void* hProcess, un
     }
 
     return pList;
+}
+
+extern "C" FourWords* __stdcall sub_006BD040_AllocateFourWords(const char* file, int line)
+{
+    FourWords* result = (FourWords*)FOG_AllocPool(0, 0x10, file, line, 0);
+    result->first = 0;
+    result->second = 0;
+    result->third = 0;
+    result->fourth = 0;
+    return result;
+}
+
+extern "C" unsigned char __fastcall sub_0059D7E0_QuestStateCheck(void* game)
+{
+    QuestView* quest = QUESTS_GetQuestData(game, 0xD);
+    if (quest && quest->active != 0 && quest->state == 1)
+        return 1;
+    return 0;
+}
+
+// 0x0040BCB0
+D2ModuleInfoStrc* __fastcall sub_0040BCB0_FindModuleByAddress(unsigned long dwAddress, D2ModuleInfoStrc* pList)
+{
+    for (D2ModuleInfoStrc* pModule = pList; pModule; pModule = pModule->pNext)
+    {
+        if (dwAddress >= pModule->dwBase && dwAddress < pModule->dwBase + pModule->dwSize)
+            return pModule;
+    }
+    return 0;
 }
 
 // 0x0040C0F0
@@ -696,6 +550,34 @@ static D2ModuleInfoStrc* __stdcall sub_0040C0F0_EnumModuleSymbols(unsigned long 
     }
 
     return pList;
+}
+
+// 0x0040C220
+int __fastcall sub_0040C220_GetAppPath(char* szPath, unsigned int nSize)
+{
+    szPath[0] = 0;
+    if (!GetModuleFileNameA(0, szPath, nSize))
+    {
+        return 0;
+    }
+    int i;
+    for (i = (int)strlen(szPath) - 1; i > 0; i--)
+    {
+        if (szPath[i] == '\\' || szPath[i] == '/' || szPath[i] == ':')
+        {
+            break;
+        }
+    }
+    if (i <= 0)
+    {
+        return 0;
+    }
+    if (szPath[i] == ':')
+    {
+        i += 1;
+    }
+    szPath[i] = 0;
+    return 1;
 }
 
 // 0x0040C290
@@ -854,109 +736,37 @@ int __cdecl sub_0040C620_SymInitializeOnce()
     return bResult;
 }
 
-__declspec(noinline) int sub_H13_EmitLineRetry(void* hProcess, unsigned long dwAddress, unsigned long dwDisplacement)
+// 0x0040C720
+int __fastcall sub_0040C720_ReleaseReferences(int all)
 {
-    D2ImageHlpLineStrc tLine;
-    unsigned long dwDisp = dwDisplacement;
-    tLine.dwSizeOfStruct = 0x14;
-    const int bResult = sub_0040B600_GetLineFromAddrRetry(hProcess, dwAddress, &dwDisp, &tLine);
-    sub_H13_EmitUse(tLine.szFileName, dwDisp, tLine.dwLineNumber, bResult);
-    return bResult;
-}
-
-__declspec(noinline) void sub_H13_EmitLogicalAddress(void* pAddress)
-{
-    char szModule[0x104];
-    unsigned long nSection;
-    unsigned long nOffset;
-    sub_0040C520_GetLogicalAddress(szModule, &nSection, &nOffset, pAddress, sizeof(szModule));
-    sub_H13_EmitUse(szModule, nSection, nOffset, 0);
-}
-
-// 0x0040B660
-extern "C" void __fastcall sub_0040B660_FreeList(List20C* node)
-{
-    while (node)
+    int result = 0;
+    if (!gbImageHlpLoaded_0075D014)
     {
-        List20C* next = node->next;
-        FOG_Free(node, gSource_006CD628, 0x1F7, 0);
-        node = next;
+        return 0;
     }
-}
-
-extern "C" void __cdecl sub_0043F800_FreeList()
-{
-    List204* node = gList_0077BDB4;
-    while (node)
+    EnterCriticalSection(&gtImageHlpLock_0075CFBC);
+    int nCount = gnSymInitCount_0075CFD4;
+    do
     {
-        List204* next = node->next;
-        FOG_Free(node, gSource_006D5460, 0x1C01, 0);
-        node = next;
-    }
-    gList_0077BDB4 = 0;
-}
-
-extern "C" void __cdecl sub_004797C0_FreeList()
-{
-    List08* node = gList_007BB5C8;
-    while (node)
-    {
-        List08* next = node->next;
-        FOG_Free(node, gSource_006D7268, 0x22F, 0);
-        node = next;
-    }
-    gList_007BB5C8 = 0;
-}
-
-extern "C" void __cdecl sub_0049A020_FreeList()
-{
-    ListCD* node = gList_007BF014;
-    while (node)
-    {
-        ListCD* next = node->next;
-        FOG_Free(node, gSource_006DA04C, 0x108, 0);
-        node = next;
-    }
-    gList_007BF014 = 0;
-}
-
-// 0x006B9B00
-extern "C" void __cdecl sub_006B9B00_FreeGlobal()
-{
-    if (gAllocation_009897D0)
-    {
-        FOG_Free(gAllocation_009897D0, ".\\Src\\d3dSmack.cpp", 0x5E, 0);
-        gAllocation_009897D0 = 0;
-    }
-}
-
-extern "C" FourWords* __stdcall sub_006BD040_AllocateFourWords(const char* file, int line)
-{
-    FourWords* result = (FourWords*)FOG_AllocPool(0, 0x10, file, line, 0);
-    result->first = 0;
-    result->second = 0;
-    result->third = 0;
-    result->fourth = 0;
+        if (!nCount)
+        {
+            break;
+        }
+        gnSymInitCount_0075CFD4 = --nCount;
+        if (nCount)
+        {
+            result = 1;
+            break;
+        }
+        gpCleanup_0075CFDC(GetCurrentProcess());
+        if (!all)
+        {
+            break;
+        }
+        nCount = gnSymInitCount_0075CFD4;
+    } while (nCount);
+    LeaveCriticalSection(&gtImageHlpLock_0075CFBC);
     return result;
-}
-
-extern "C" unsigned char __fastcall sub_0059D7E0_QuestStateCheck(void* game)
-{
-    QuestView* quest = QUESTS_GetQuestData(game, 0xD);
-    if (quest && quest->active != 0 && quest->state == 1)
-        return 1;
-    return 0;
-}
-
-// 0x0040BCB0
-D2ModuleInfoStrc* __fastcall sub_0040BCB0_FindModuleByAddress(unsigned long dwAddress, D2ModuleInfoStrc* pList)
-{
-    for (D2ModuleInfoStrc* pModule = pList; pModule; pModule = pModule->pNext)
-    {
-        if (dwAddress >= pModule->dwBase && dwAddress < pModule->dwBase + pModule->dwSize)
-            return pModule;
-    }
-    return 0;
 }
 
 // 0x0040C7A0
@@ -1117,7 +927,7 @@ int __fastcall sub_0040D290_GetData(char* pBuffer, unsigned int* pnSize)
 
     const long nFileSize = ftell(pFile);
     fseek(pFile, 0, 0);
-    char* pData = (char*)FOG_Alloc(nFileSize, gszExceptionsFile_006CD628, 0x75B, 0);
+    char* pData = (char*)FOG_Alloc(nFileSize, gSource_006CD628, 0x75B, 0);
     fread(pData, 1, nFileSize, pFile);
     fclose(pFile);
     DeleteFileA(szPath);
@@ -1174,4 +984,175 @@ int __fastcall sub_0040D290_GetData(char* pBuffer, unsigned int* pnSize)
 
     *pBuffer = (char)nEntries;
     return 1;
+}
+
+// 0x0040DBD0
+void __fastcall FOG_SOCKET_Destroy(FSafeSock* pSafeSock)
+{
+    EnterCriticalSection(&pSafeSock->tCriticalSection);
+    pSafeSock->bStopping = 1;
+    LeaveCriticalSection(&pSafeSock->tCriticalSection);
+    if (pSafeSock->hThread)
+    {
+        WaitForSingleObject(pSafeSock->hThread, 5000);
+    }
+    if (pSafeSock->hThread)
+    {
+        CloseHandle(pSafeSock->hThread);
+        pSafeSock->hThread = 0;
+    }
+    if (pSafeSock->nSocket != (unsigned int)-1)
+    {
+        const unsigned int nSocket = pSafeSock->nSocket;
+        pSafeSock->nSocket = (unsigned int)-1;
+        pSafeSock->bConnected = 0;
+        if (closesocket(nSocket) == -1)
+        {
+            pSafeSock->nWSALastError = WSAGetLastError();
+            pSafeSock->nFogErrorCode = 5;
+        }
+    }
+    DeleteCriticalSection(&pSafeSock->tCriticalSection);
+    FOG_Free(pSafeSock, ".\\Src\\Safesock.cpp", 387, 0);
+}
+
+// 0x0040E080
+char* __fastcall sub_0040E080_AddressToString(int nAddress)
+{
+    D2InAddrStrc tAddress;
+    tAddress.s_addr = nAddress;
+    return strcpy(gszAddressText_0075D020, inet_ntoa(tAddress));
+}
+
+// 0x0040EB90
+unsigned int __fastcall sub_0040EB90_GetLogFiles(char** apszFiles, unsigned int nCount)
+{
+    unsigned int i;
+    for (i = 0; i < nCount; i++)
+    {
+        if (i >= 20)
+        {
+            break;
+        }
+        apszFiles[i] = gaszLogFilePaths_0075D340[i];
+    }
+    return i;
+}
+
+// 0x0040F470
+void __fastcall sub_0040F470_LookupLog(const char* szName)
+{
+    for (int i = 0; i < 20; i++)
+    {
+        if (gapLogFiles_0075E790[i] && !strcmp(gaszLogNames_0075D148[i], szName))
+        {
+            if (gapLogFiles_0075E790[i])
+            {
+                fclose(gapLogFiles_0075E790[i]);
+                gapLogFiles_0075E790[i] = 0;
+            }
+            return;
+        }
+    }
+}
+
+// 0x0040F8A0
+void __cdecl sub_0040F8A0_CloseLogFilesNow()
+{
+    D2_ASSERT(gbLogInitialized_0075D2EC, 456);
+    const unsigned long dwStart = GetTickCount();
+    while (GetTickCount() - dwStart < 1000)
+    {
+        EnterCriticalSection(&gtLogQueueLock_0075E838);
+        const int nQueued = gnLogQueueCount_0075E870 > 0 ? gnLogQueueCount_0075E870 : 0;
+        LeaveCriticalSection(&gtLogQueueLock_0075E838);
+        if (!nQueued)
+        {
+            break;
+        }
+        Sleep(10);
+    }
+    for (int i = 0; i < 20; i++)
+    {
+        EnterCriticalSection(&gtLogLock_0075E850);
+        if (gapLogFiles_0075E790[i])
+        {
+            fclose(gapLogFiles_0075E790[i]);
+            gapLogFiles_0075E790[i] = 0;
+        }
+        LeaveCriticalSection(&gtLogLock_0075E850);
+    }
+}
+
+// 0x0040FD00
+void D2TSListStrc::sub_0040FD00_UnlinkAll()
+{
+    D2TSLinkStrc* pNode;
+    while ((pNode = Head()) != 0)
+    {
+        pNode->Unlink();
+    }
+}
+
+// 0x00410540
+void __cdecl sub_00410540_InitLogSystem()
+{
+    gbLogThreadStop_0075E830 = 0;
+    ghLogThread_0075D2E8 = CreateThread(0, 0, sub_004101C0_LogThreadProc, 0, 0, &gnLogThreadId_0075E834);
+    gbLogInitialized_0075D2EC = 1;
+    GetLocalTime(&gLogStartTime_0075D288);
+    for (unsigned int i = 0; i < 20; i++)
+    {
+        ganLogNewFile_0075D298[i] = 1;
+    }
+    for (unsigned int i = 0; i < 20; i++)
+    {
+        gaszLogFilePaths_0075D340[i][0] = 0;
+    }
+}
+
+extern "C" void __cdecl sub_0043F800_FreeList()
+{
+    List204* node = gList_0077BDB4;
+    while (node)
+    {
+        List204* next = node->next;
+        FOG_Free(node, gSource_006D5460, 0x1C01, 0);
+        node = next;
+    }
+    gList_0077BDB4 = 0;
+}
+
+extern "C" void __cdecl sub_004797C0_FreeList()
+{
+    List08* node = gList_007BB5C8;
+    while (node)
+    {
+        List08* next = node->next;
+        FOG_Free(node, gSource_006D7268, 0x22F, 0);
+        node = next;
+    }
+    gList_007BB5C8 = 0;
+}
+
+extern "C" void __cdecl sub_0049A020_FreeList()
+{
+    ListCD* node = gList_007BF014;
+    while (node)
+    {
+        ListCD* next = node->next;
+        FOG_Free(node, gSource_006DA04C, 0x108, 0);
+        node = next;
+    }
+    gList_007BF014 = 0;
+}
+
+// 0x006B9B00
+extern "C" void __cdecl sub_006B9B00_FreeGlobal()
+{
+    if (gAllocation_009897D0)
+    {
+        FOG_Free(gAllocation_009897D0, ".\\Src\\d3dSmack.cpp", 0x5E, 0);
+        gAllocation_009897D0 = 0;
+    }
 }

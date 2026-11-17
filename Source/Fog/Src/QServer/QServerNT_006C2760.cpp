@@ -1,10 +1,4 @@
 #include "Fog.h"
-
-struct T006C23B0
-{
-    unsigned int nPacketSize;
-    T006C23B0* f_4;
-};
 struct D2CriticalSectionStrc { unsigned int fields[6]; };
 struct T006BFAD0
 {

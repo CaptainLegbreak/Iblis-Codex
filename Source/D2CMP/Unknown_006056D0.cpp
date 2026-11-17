@@ -25,21 +25,6 @@ struct D2PalRgba00605AA0Strc
 
 unsigned char __stdcall sub_00605210_FindNearestColor(const unsigned char* pPalette, unsigned int nCount, int nC0, int nC1, int nC2); // 0x00605210
 
-struct D2HslStrc
-{
-    double f_0;
-    double f_8;
-    double f_10;
-};
-
-struct D2PalRgbaStrc
-{
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-    unsigned char nPad;
-};
-
 struct D2ColorBlockStrc
 {
     unsigned char data[39];

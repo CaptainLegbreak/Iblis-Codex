@@ -1,7 +1,5 @@
 #include "Fog.h"
 
-typedef unsigned int size_t;
-
 struct D2CriticalSectionStrc
 {
     void* pDebugInfo;
@@ -66,7 +64,6 @@ struct T00408A30_1
 };
 
 extern T00408A30_1 gtPoolManager_0074F0E8;                                                                  // 0x0074F0E8
-#define gtDefaultPoolSystem_0074F104 (gtPoolManager_0074F0E8.aSystems[0])
 void* __fastcall sub_0040A080_PoolAlloc(void* pPool, int nSize, const char* szFile, int nLine);             // 0x0040A080
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837

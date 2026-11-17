@@ -1,14 +1,6 @@
 #include "D2BNClient.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define VALIDATEBEGIN int nValid = -1
-#define VALIDATE(x) nValid &= (x) ? -1 : 0
-#define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
-#define CACHE_CRC32(dwCrc, pBytes, nCount) \
-    dwCrc = 0xFFFFFFFF; \
-    for (; nCount; --nCount, ++pBytes) \
-        dwCrc = (dwCrc >> 8) ^ gdwCacheCrcTable_0072FB80[(*pBytes ^ dwCrc) & 0xFF]; \
-    dwCrc = ~dwCrc
 
 struct BnClientInterface;
 struct D2CacheHeaderStrc;
@@ -41,14 +33,6 @@ struct D2CacheHeaderStrc
     unsigned int f_1C;
 };
 
-struct D2CacheHashEntryStrc
-{
-    unsigned int dwNameA;
-    unsigned int dwNameB;
-    unsigned int dwLocale;
-    unsigned int dwBlockIndex;
-};
-
 struct D2CacheBlockEntryStrc
 {
     char unk0x00[0x08];
@@ -60,18 +44,6 @@ extern D2CacheBlockEntryStrc* gpCacheBlockTable_00881884; // 0x00881884
 extern unsigned int* gpCacheTable_00881888; // 0x00881888
 extern D2CacheHashEntryStrc* gpCacheHashTable_0088188C; // 0x0088188C
 extern const char gszH08EmitKey[];
-
-struct D2SystemTimeStrc
-{
-    unsigned short wYear;
-    unsigned short wMonth;
-    unsigned short wDayOfWeek;
-    unsigned short wDay;
-    unsigned short wHour;
-    unsigned short wMinute;
-    unsigned short wSecond;
-    unsigned short wMilliseconds;
-};
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 extern "C" __declspec(dllimport) int __stdcall SystemTimeToFileTime(const D2SystemTimeStrc* pSystemTime, void* pFileTime); // 0x006CC26C

@@ -21,8 +21,6 @@ struct D2WinControlInitStrc
     int field_2C;
 };
 
-typedef int (__stdcall* D2LaunchCallback)(int nArg);
-
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
 void __fastcall sub_0043FB50_ShowWait(const Unicode* pText, D2LaunchCallback pfnDone);                      // 0x0043FB50
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30

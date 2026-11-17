@@ -1,7 +1,5 @@
 #include "Fog.h"
 
-#define S_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText_006CC837, sub_00408090(), line); exit(-1); }
-
 struct D2SNameEntryStrc;
 struct D2SNameListStrc;
 struct D2SNameNodeStrc;
@@ -10,30 +8,6 @@ struct D2TxtLinkNodeStrc;
 extern "C" const char gszEmptyAssertText_006CC837; // 0x006CC837
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-
-struct D2SNameEntryStrc
-{
-    const char* szName;
-    int nType;
-    unsigned int nCount;
-    int unk0x0C;
-    int unk0x10;
-};
-
-struct D2SNameListStrc
-{
-    const char* pStrings;
-    int unk0x04;
-    int unk0x08;
-    unsigned int nCount;
-};
-
-struct D2SNameNodeStrc
-{
-    D2SNameNodeStrc* pNext;
-    unsigned int nHash;
-    D2SNameEntryStrc* pEntry;
-};
 
 __declspec(noinline) static int __stdcall sub_006BCE20_MapNames(unsigned short* pOut, D2SNameListStrc* pList, D2SNameEntryStrc* pEntries);
 

@@ -1,7 +1,5 @@
 #include "Fog.h"
-
-#define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
-#define S_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText_006CC837, sub_00408090(), line); exit(-1); }
+#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText_006CC837, sub_00408090(), line); exit(-1); }
 
 struct Server;
 struct SafeSocketView;
@@ -35,12 +33,9 @@ struct D2TxtLinkStrc;
 struct D2TreeNode006BD330Strc;
 struct D2StringTableStrc;
 struct D2TxtLinkNodeStrc;
-
-typedef unsigned int U32;
+struct D2BinFileStrc;
 
 typedef unsigned short U16;
-
-typedef char check_pointer_size[sizeof(void*)==4?1:-1];
 
 struct SafeSocketView
 {
@@ -90,18 +85,6 @@ extern "C" void __fastcall sub_006BD070_FreeNodes(LinkNode* node);
 extern "C" int __fastcall sub_0040B480_FreePool(void* pool,void* block,const char* file,int line,int unused);
 extern "C" const char gExcelFile[]; // 0x006FC448
 
-typedef unsigned char U8;
-
-struct PaletteColor
-{
-    U8 c0;
-    U8 c1;
-    U8 c2;
-    U8 unused;
-};
-
-typedef char check_PaletteColor_size[sizeof(PaletteColor)==4?1:-1];
-
 struct Unit
 {
     int type;
@@ -113,18 +96,6 @@ struct Unit
 typedef char check_Unit_classId[OFFSET(Unit,classId)==4?1:-1];
 
 typedef char check_Unit_unitId[OFFSET(Unit,f_C)==0xC?1:-1];
-
-struct ReceiveQueue
-{
-    U32 status;
-    U8 criticalSection[0x18];
-    void* head;
-    void* tail;
-};
-
-typedef char check_ReceiveQueue_size[sizeof(ReceiveQueue)==0x24?1:-1];
-
-typedef char check_ReceiveQueue_head[OFFSET(ReceiveQueue,head)==0x1C?1:-1];
 
 struct BinFile
 {
@@ -150,26 +121,9 @@ extern "C" int __fastcall sub_0063E860_UnitPredicate(Unit* unit);
 extern "C" int __fastcall sub_00457490_MonsterFlag(int classId,int flag);
 extern "C" U32 __fastcall sub_006C2090_ReadQueue(ReceiveQueue* queue,char* buffer,int capacity);
 extern "C" int __fastcall sub_0040B3C0_Free(void* block,const char* file,int line,int flags);
-extern "C" int __fastcall sub_0040B480_FreePool(void* pool,void* block,const char* file,int line,int flags);
 extern "C" ClientNode* __fastcall sub_006BE540_FindClient(Server* server,int clientId);
 extern "C" const int gCollisionPatterns_006EB3DC[4];
 extern "C" const char gExcelFile_006FC448[]; // 0x006FC448
-
-struct PaletteTables
-{
-    PaletteColor colors[256];
-    U8 tables[256*32];
-};
-
-typedef char check_PaletteTables_tables[OFFSET(PaletteTables,tables)==0x400?1:-1];
-
-struct ReceiveConnection
-{
-    U8 pad0[0x170];
-    ReceiveQueue queue;
-};
-
-typedef char check_ReceiveConnection_queue[OFFSET(ReceiveConnection,queue)==0x170?1:-1];
 
 struct Obj006BCDE0 {
     unsigned int dwUnknown00;
@@ -180,30 +134,6 @@ struct Obj006BCDE0 {
 extern "C" const char gszEmptyAssertText_006CC837; // 0x006CC837
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-
-struct D2SNameEntryStrc
-{
-    const char* szName;
-    int nType;
-    unsigned int nCount;
-    int unk0x0C;
-    int unk0x10;
-};
-
-struct D2SNameListStrc
-{
-    const char* pStrings;
-    int unk0x04;
-    int unk0x08;
-    unsigned int nCount;
-};
-
-struct D2SNameNodeStrc
-{
-    D2SNameNodeStrc* pNext;
-    unsigned int nHash;
-    D2SNameEntryStrc* pEntry;
-};
 
 struct D2Block006BD040Strc
 {
@@ -222,6 +152,7 @@ struct D2ExcelNode006BD070Strc
     D2ExcelNode006BD070Strc* pLeft24;
     D2ExcelNode006BD070Strc* pRight28;
 };
+
 extern const char gszExcelSourceFile_006FC448[]; // 0x006FC448
 
 typedef signed char S8;
@@ -353,7 +284,11 @@ struct D2TxtLinkStrc
 {
     int count;
     int unk_04;
-    D2TxtLinkEntryStrc* entries;
+    union
+    {
+        D2TxtLinkEntryStrc* entries;
+        void* pTbl;
+    };
     D2TxtLinkNodeStrc* pFirstNode;
 };
 
@@ -383,6 +318,39 @@ struct D2TxtLinkNodeStrc
 extern "C" int __cdecl strcmp(const char* szLeft, const char* szRight);
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 void __fastcall sub_004113C0(char* szText, int nLength); // 0x004113C0
+extern "C" const char gszExcelCppFile[]; // 0x006FC448
+void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
+int __stdcall FOG_GetRowFromTxt(D2TxtLinkStrc* pLinker, const char* szText, int nColumn); // 0x006BD3C0
+static __declspec(noinline) void sub_006BD490_InsertNode(D2TxtLinkNodeStrc** ppNode, D2TxtLinkNodeStrc* pNew);
+
+struct D2BinFileStrc
+{
+    char* pDataBuffer;
+    char* pFirstRow;
+    int nRecordCount;
+    unsigned int nColumns;
+};
+
+int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
+int __stdcall SStrCmp(const char* szString1, const char* szString2, int nMaxChars); // 0x00413550
+void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
+
+extern "C" void __fastcall sub_0061BAC0_portalFlag(RoomFlags* room, int reset)
+{
+    if (reset)
+        room->flags &= ~0x400000U;
+    else
+        room->flags |= 0x400000U;
+}
+
+// 0x00648B40
+extern "C" void __stdcall sub_00648B40_roomInvalid(PathFlags* path, int invalid)
+{
+    if (invalid != 0)
+        path->flags |= 2U;
+    else
+        path->flags &= ~2U;
+}
 
 // 0x006BC0B0
 extern "C" int __stdcall sub_006BC0B0_Send(ConnectionView* connection,const char* data,U16 length)
@@ -397,26 +365,6 @@ extern "C" int __stdcall sub_006BC0B0_Send(ConnectionView* connection,const char
         return length == (U16)sent;
     }
     return 0;
-}
-
-// 0x006BD0B0
-extern "C" void __stdcall sub_006BD0B0_FreeLinker(LinkerView* linker)
-{
-    if (linker)
-    {
-        LinkNode* root = linker->root;
-        if (root)
-        {
-            if (root->firstChild)
-                sub_006BD070_FreeNodes(root->firstChild);
-            if (root->secondChild)
-                sub_006BD070_FreeNodes(root->secondChild);
-            sub_0040B480_FreePool(0,root,gExcelFile,0x346,0);
-        }
-        if (linker->entries)
-            sub_0040B480_FreePool(0,linker->entries,gExcelFile,0x35D,0);
-        sub_0040B480_FreePool(0,linker,gExcelFile,0x360,0);
-    }
 }
 
 // 0x006BC120
@@ -541,21 +489,24 @@ void __fastcall sub_006BD070_FreeTree(D2ExcelNode006BD070Strc* pNode)
     FOG_FreeServerMemory(0, pNode, gszExcelSourceFile_006FC448, 0x346, 0);
 }
 
-extern "C" void __fastcall sub_0061BAC0_portalFlag(RoomFlags* room, int reset)
+// 0x006BD0B0
+extern "C" void __stdcall sub_006BD0B0_FreeLinker(LinkerView* linker)
 {
-    if (reset)
-        room->flags &= ~0x400000U;
-    else
-        room->flags |= 0x400000U;
-}
-
-// 0x00648B40
-extern "C" void __stdcall sub_00648B40_roomInvalid(PathFlags* path, int invalid)
-{
-    if (invalid != 0)
-        path->flags |= 2U;
-    else
-        path->flags &= ~2U;
+    if (linker)
+    {
+        LinkNode* root = linker->root;
+        if (root)
+        {
+            if (root->firstChild)
+                sub_006BD070_FreeNodes(root->firstChild);
+            if (root->secondChild)
+                sub_006BD070_FreeNodes(root->secondChild);
+            sub_0040B480_FreePool(0,root,gExcelFile,0x346,0);
+        }
+        if (linker->entries)
+            sub_0040B480_FreePool(0,linker->entries,gExcelFile,0x35D,0);
+        sub_0040B480_FreePool(0,linker,gExcelFile,0x360,0);
+    }
 }
 
 // 0x006BD130
@@ -677,4 +628,121 @@ int __stdcall FOG_GetLinkIndex(D2TxtLinkStrc* pLink, const char* szText, int bLo
     }
 
     return -1;
+}
+
+static void sub_006BD490_InsertNode(D2TxtLinkNodeStrc** ppNode, D2TxtLinkNodeStrc* pNew)
+{
+    while (*ppNode)
+    {
+        D2TxtLinkNodeStrc* pNode = *ppNode;
+        const int nCmp = strcmp(pNew->szText, pNode->szText);
+        if (nCmp < 0)
+        {
+            ppNode = &pNode->pPrevious;
+        }
+        else if (nCmp > 0)
+        {
+            ppNode = &pNode->pNext;
+        }
+        else
+        {
+            FOG_FreePool(0, pNew, gszExcelCppFile, 0x4A7, 0);
+            return;
+        }
+    }
+
+    *ppNode = pNew;
+}
+
+// 0x006BD5A0
+int __fastcall sub_006BD5A0_AddTxtLink(D2TxtLinkStrc* pLinker, const char* szText)
+{
+    D2_ASSERT(pLinker, 0x4CC);
+    D2_ASSERT(!pLinker->pTbl, 0x4D0);
+
+    const int nRow = FOG_GetRowFromTxt(pLinker, szText, 0);
+    if (nRow >= 0)
+    {
+        return nRow;
+    }
+
+    D2TxtLinkNodeStrc* pNode = (D2TxtLinkNodeStrc*)FOG_AllocPool(0, sizeof(D2TxtLinkNodeStrc), gszExcelCppFile, 0x4D9, 0);
+    memset(pNode, 0, sizeof(D2TxtLinkNodeStrc));
+    SStrCopy(pNode->szText, szText, sizeof(pNode->szText));
+    sub_004113C0(pNode->szText, sizeof(pNode->szText));
+    pNode->nLinkIndex = pLinker->count;
+    sub_006BD490_InsertNode(&pLinker->pFirstNode, pNode);
+    return pLinker->count++;
+}
+
+// 0x006BD640
+D2BinFileStrc* __stdcall FOG_CreateBinFile(char* pDataBuffer, int nBufferSize)
+{
+    char* pCur = pDataBuffer;
+    char* pEnd = pCur + nBufferSize;
+    D2BinFileStrc* pBinFile = (D2BinFileStrc*)FOG_AllocPool(0, sizeof(D2BinFileStrc), gszExcelCppFile, 0x4D, 0);
+    pBinFile->pDataBuffer = pCur;
+    pBinFile->pFirstRow = 0;
+    pBinFile->nRecordCount = 0;
+    pBinFile->nColumns = 0;
+
+    while (pCur < pEnd)
+    {
+        const char c = *pCur++;
+        if (c == '\t')
+        {
+            pCur[-1] = 0;
+            ++pBinFile->nColumns;
+        }
+        else if (c == '\r')
+        {
+            pCur[-1] = 0;
+            D2_ASSERT(*pCur == '\n', 0x5C);
+            ++pBinFile->nColumns;
+            ++pCur;
+            break;
+        }
+    }
+
+    if (pCur >= pEnd)
+    {
+        FOG_Free(pBinFile->pDataBuffer, gszExcelCppFile, 0x9A, 0);
+        FOG_FreePool(0, pBinFile, gszExcelCppFile, 0x9B, 0);
+        return 0;
+    }
+
+    D2_ASSERT(pBinFile->nColumns <= 0x118, 0x67);
+    pBinFile->pFirstRow = pCur;
+
+    while (pCur < pEnd)
+    {
+        pDataBuffer = pCur;
+        while (pCur < pEnd)
+        {
+            const char c = *pCur++;
+            if (c == '\t')
+            {
+                pCur[-1] = 0;
+            }
+            else if (c == '\r')
+            {
+                pCur[-1] = 0;
+                D2_ASSERT(*pCur == '\n', 0x75);
+                ++pCur;
+                ++pBinFile->nRecordCount;
+                break;
+            }
+        }
+
+        if (!SStrCmp(pDataBuffer, "Expansion", 10))
+        {
+            --pBinFile->nRecordCount;
+            SMemCopy(pDataBuffer, pCur, pEnd - pCur);
+            char* pNew = pDataBuffer;
+            pEnd += pNew - pCur;
+            pCur = pNew;
+        }
+    }
+
+    return pBinFile;
 }

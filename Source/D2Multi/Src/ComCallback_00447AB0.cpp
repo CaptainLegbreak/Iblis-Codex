@@ -39,13 +39,6 @@ extern T0043E860* gpChannelUsers_00798F34; // 0x00798F34
 extern int gnChannelLines_00798F40; // 0x00798F40
 extern T0043E860* gpSelectedChannelUser_00798F48; // 0x00798F48
 
-struct D2ChannelEntryStrc
-{
-    char szName[0x32];
-    char szAccount[0x12];
-    D2ChannelEntryStrc* pNext;
-};
-
 struct D2LaunchCharInfoStrc
 {
     char unk0x00[0x361];

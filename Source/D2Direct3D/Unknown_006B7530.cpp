@@ -1,6 +1,4 @@
 #include "D2Direct3D.h"
-
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define WRITE_CORNER(i) pVertices[i].dwColor=PackGridColor(pPoints[i],nAlpha); pVertices[i].fX=(float)pPoints[i].nX; pVertices[i].fY=(float)pPoints[i].nY;
 struct D2DrawDeviceStrc;
 struct D2VertexBufferStrc;
@@ -24,13 +22,6 @@ struct IndexStrip;
 struct D2GridPointStrc;
 struct D2VertexBufferVtbl;
 struct D2RendererSettingsStrc;
-
-struct D2TexturedVertexStrc
-{
-    float nX, nY, nZ, nRhw;
-    unsigned int nDiffuse, nSpecular;
-    float nU, nV;
-};
 
 struct D2D3DDeviceVtbl
 {
@@ -56,8 +47,6 @@ __declspec(noinline) static int __stdcall sub_006B7530_DrawGlyph(int nX, int nY,
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
-
-struct D2RectStrc { int nLeft; int nTop; int nRight; int nBottom; };
 __declspec(noinline) static void __stdcall sub_006B7FD0_GetPanelRect(D2RectStrc* pRect, int nSide, int* pOffset, int bFlag);
 
 struct D2ClipRectStrc { int left,top,right,bottom; };
@@ -65,8 +54,6 @@ struct D2ClipRectStrc { int left,top,right,bottom; };
 struct D2TilePartStrc { short x,y; char unknown004[16]; };
 
 struct D2TileContextStrc { char unknown000[0x50]; int count; D2TilePartStrc* parts; };
-
-struct D2QuadVertexStrc { float x,y,z,rhw; unsigned int color,specular; float s,t; };
 
 struct D2DrawVtableStrc { void* unknown000[28]; int (__stdcall* DrawPrimitive)(D2DrawDeviceStrc*,int,unsigned int,void*,unsigned int,unsigned int); };
 
@@ -163,8 +150,6 @@ extern D2VertexBufferStrc* gpGridBuffer_00971734; // 0x00971734
 extern unsigned short gaFlatIndices_0074C3D0[4]; // 0x0074C3D0
 extern unsigned short gaGridIndices_009716B0[65]; // 0x009716B0
 extern unsigned char gaPaletteRows_00971740[256][256]; // 0x00971740
-extern const char gszLockFailure_006FC330[]; // 0x006FC330
-extern const char gszUnlockFailure_006FC310[]; // 0x006FC310
 int __fastcall sub_006BB870_BindTileTexture(D2TileLibraryEntryStrc* pTile); // 0x006BB870
 void __fastcall sub_006B1EA0_SetState(int nState); // 0x006B1EA0
 void __fastcall sub_006B1F40_SetBlendMode(int nState); // 0x006B1F40
@@ -540,19 +525,19 @@ void __fastcall sub_006B9170_DrawGrid(D2TileLibraryEntryStrc* pTexture,D2GridPoi
     if(gpRendererSettings_007C9148->bFlat)
     {
         long nResult=gpGridBuffer_00971734->lpVtbl->Lock(gpGridBuffer_00971734,0x21,&pVertices,0);
-        if(nResult) { sub_006B20E0_DDrawLogError(gszLockFailure_006FC330,nResult);return; }
+        if(nResult) { sub_006B20E0_DDrawLogError(gLockFailure,nResult);return; }
         WRITE_CORNER(0)
         WRITE_CORNER(5)
         WRITE_CORNER(35)
         WRITE_CORNER(30)
         nResult=gpGridBuffer_00971734->lpVtbl->Unlock(gpGridBuffer_00971734);
-        if(nResult) { sub_006B20E0_DDrawLogError(gszUnlockFailure_006FC310,nResult);return; }
+        if(nResult) { sub_006B20E0_DDrawLogError(gUnlockFailure,nResult);return; }
         gpDevice_00970E78->lpVtbl->DrawIndexedPrimitiveVB(gpDevice_00970E78,6,gpGridBuffer_00971734,gaFlatIndices_0074C3D0,4,0x1c);
     }
     else
     {
         long nResult=gpGridBuffer_00971734->lpVtbl->Lock(gpGridBuffer_00971734,0x21,&pVertices,0);
-        if(nResult) { sub_006B20E0_DDrawLogError(gszLockFailure_006FC330,nResult);return; }
+        if(nResult) { sub_006B20E0_DDrawLogError(gLockFailure,nResult);return; }
         const D2GridPointStrc* pPoint=pPoints;
         for(int nPoint=0;nPoint<36;++nPoint)
         {
@@ -563,7 +548,7 @@ void __fastcall sub_006B9170_DrawGrid(D2TileLibraryEntryStrc* pTexture,D2GridPoi
             ++pPoint;
         }
         nResult=gpGridBuffer_00971734->lpVtbl->Unlock(gpGridBuffer_00971734);
-        if(nResult) { sub_006B20E0_DDrawLogError(gszUnlockFailure_006FC310,nResult);return; }
+        if(nResult) { sub_006B20E0_DDrawLogError(gUnlockFailure,nResult);return; }
         gpDevice_00970E78->lpVtbl->DrawIndexedPrimitiveVB(gpDevice_00970E78,5,gpGridBuffer_00971734,gaGridIndices_009716B0,65,0x1c);
     }
     }

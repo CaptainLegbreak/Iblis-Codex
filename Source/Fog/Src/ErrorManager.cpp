@@ -1,8 +1,6 @@
 #include "Fog.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define _INTSIZEOF(n) ((sizeof(n) + sizeof(int) - 1) & ~(sizeof(int) - 1))
-#define va_start(ap, v) (ap = (va_list)&v + _INTSIZEOF(v))
 
 struct AsyncDataEventSlot;
 struct D2CriticalSectionStrc;
@@ -15,9 +13,12 @@ struct D2OverlappedStrc;
 struct AsyncDataLoadFileCallback;
 struct AsyncData;
 struct _SYSTEMTIME;
-
+struct _iobuf;
+struct D2ThreadContextStrc;
+struct D2PoolSystemStrc;
+struct D2InspectorInfoStrc;
+struct D2CrashSubmitInfoStrc;
 // build: context sub_00406BA0_GetModuleDirectoryAndSave
-typedef unsigned int size_t;
 
 struct D2CriticalSectionStrc
 {
@@ -92,6 +93,7 @@ struct D2ProcessEntryWStrc
     unsigned long dwFlags;
     wchar_t szExeFile[260];
 };
+
 extern "C" int __stdcall Process32FirstW(void* hSnapshot, D2ProcessEntryWStrc* pEntry); // 0x006B1524
 extern "C" int __stdcall Process32NextW(void* hSnapshot, D2ProcessEntryWStrc* pEntry); // 0x006B1530
 
@@ -127,7 +129,6 @@ struct D2ProcessInformationStrc
 
 extern "C" __declspec(dllimport) int __stdcall CreateProcessW(const wchar_t* wszApplicationName, wchar_t* wszCommandLine, void* pProcessAttributes, void* pThreadAttributes, int bInheritHandles, unsigned long dwCreationFlags, void* pEnvironment, const wchar_t* wszCurrentDirectory, D2StartupInfoWStrc* pStartupInfo, D2ProcessInformationStrc* pProcessInformation); // 0x006CC2C4
 
-typedef char* va_list;
 extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, ...); // 0x00413A40
 void __cdecl sub_0040F960_CloseLogFiles(); // 0x0040F960
 const char* __fastcall sub_00408000_StripSourcePath(const char* szFile); // 0x00408000
@@ -144,23 +145,6 @@ struct D2PoolSystemStrc
     char unk0x7A4[0x08];
     int* apLargeBlocks[1023];
     int nCount;
-};
-
-struct D2OverlappedStrc
-{
-    unsigned long Internal;
-    unsigned long InternalHigh;
-    unsigned long Offset;
-    unsigned long OffsetHigh;
-    void* hEvent;
-};
-
-struct AsyncDataLoadFileCallback
-{
-    unsigned long (__stdcall* callback)(void* pFileData, size_t nDataLength, AsyncDataLoadFileCallback* pCallbackData);
-    unsigned long userData[4];
-    void* pData;
-    size_t nFileSize;
 };
 
 struct AsyncData
@@ -215,6 +199,28 @@ extern "C" int __cdecl _vsnprintf(char* szDest, size_t nCount, const char* szFor
 extern "C" size_t __cdecl strlen(const char* szString);
 extern "C" const char gszPercentS_006FFC58[]; // 0x006FFC58
 
+struct D2CrashSubmitInfoStrc
+{
+    const char* szName;
+    int nUnk04;
+    int nUnk08;
+    unsigned int dwFlags;
+    const char* apszLines[16];
+    int nLines;
+};
+
+extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volatile* pAddend); // 0x006CC208
+extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile* pAddend); // 0x006CC204
+void __fastcall sub_00403070_DumpThread(unsigned long dwThreadId, D2ThreadContextStrc* pThreadContext, D2CrashPrintFn pfnPrint, void* pContext, int nArg5, int nArg6, int nArg7); // 0x00403070
+void __fastcall sub_004032F0_DumpRegisters(unsigned long dwThreadId, D2CrashPrintFn pfnPrint, void* pContext); // 0x004032F0
+void __fastcall sub_00403A20_DumpOtherThreads(D2CrashPrintFn pfnPrint, void* pContext, unsigned long dwSkipThreadId); // 0x00403A20
+void __fastcall sub_00407980_ReportPrint(void* pContext, const char* szText); // 0x00407980
+bool __fastcall sub_00401790_SubmitReport(const char* szText, D2CrashSubmitInfoStrc* pInfo); // 0x00401790
+extern long volatile gnReportBusy_007076BC; // 0x007076BC
+extern D2InspectorInfoStrc gtInspectorInfo_0074D868; // 0x0074D868
+
+bool __fastcall sub_00408660_ShowErrorReport(const char* szSummary, const char* szUnused, const char** ppszFiles, int nFiles, unsigned int nLine, bool bFlag);
+
 char gszTextBuffer_0098A280[0x400]; // 0x0098A280
 
 void* gpCrashContext_00992B14; // 0x00992B14
@@ -227,6 +233,28 @@ int gnSourcePrefixLength_0074F0D4; // 0x0074F0D4
 void __fastcall sub_004013C0_TerminateCurrentProcess(unsigned int nExitCode)
 {
     TerminateProcess(GetCurrentProcess(), nExitCode);
+}
+
+int gbAsyncDataEnabled_0075AF94; // 0x0075AF94
+
+// 0x004013D0
+int __cdecl sub_004013D0_GetCurrentProcessThreadCount()
+{
+    const unsigned long dwProcessId = GetCurrentProcessId();
+    void* hSnapshot = CreateToolhelp32Snapshot(0x0F, 0);
+    D2ProcessEntryWStrc tEntry = { 0 };
+    tEntry.dwSize = sizeof(tEntry);
+    int bFound = Process32FirstW(hSnapshot, &tEntry);
+    while (bFound && tEntry.th32ProcessID != dwProcessId)
+    {
+        bFound = Process32NextW(hSnapshot, &tEntry);
+    }
+    CloseHandle(hSnapshot);
+    if (bFound)
+    {
+        return tEntry.cntThreads;
+    }
+    return -1;
 }
 
 // 0x00401690
@@ -322,6 +350,29 @@ void __fastcall sub_00403F60_SetCrashHandler(void* pfnHandler, void* pContext, i
     {
         gpfnPreviousFilter_00992B18 = SetUnhandledExceptionFilter(sub_00403E90_UnhandledExceptionFilter);
     }
+}
+
+// 0x00404210
+bool __fastcall sub_00404210_CreateProcessUtf8(const char* szApplicationName, const char* szCommandLine)
+{
+    wchar_t wszCmdLine[0x8000];
+    wchar_t wszApp[0x400];
+    if (!szCommandLine || MultiByteToWideChar(0xFDE9, 0, szCommandLine, -1, wszCmdLine, 0x8000))
+    {
+        if (!szApplicationName || MultiByteToWideChar(0xFDE9, 0, szApplicationName, -1, wszApp, 0x400))
+        {
+            D2ProcessInformationStrc tInfo;
+            D2StartupInfoWStrc tStartup = { sizeof(tStartup) };
+            memset(&tInfo, 0, sizeof(tInfo));
+            if (CreateProcessW(szApplicationName ? wszApp : 0, szCommandLine ? wszCmdLine : 0, 0, 0, 0, 0, 0, 0, &tStartup, &tInfo))
+            {
+                CloseHandle(tInfo.hProcess);
+                CloseHandle(tInfo.hThread);
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 // 0x00404560
@@ -517,55 +568,151 @@ const char* __fastcall sub_00408000_StripSourcePath(const char* szFile)
     return szFile;
 }
 
-// 0x0040F960
-void __cdecl sub_0040F960_CloseLogFiles()
+// 0x00408050
+void __cdecl sub_00408050_Empty()
 {
-    sub_0040F8A0_CloseLogFilesNow();
 }
 
-int gbAsyncDataEnabled_0075AF94; // 0x0075AF94
-
-// 0x004013D0
-int __cdecl sub_004013D0_GetCurrentProcessThreadCount()
+// 0x00408060
+void __cdecl sub_00408060_Empty()
 {
-    const unsigned long dwProcessId = GetCurrentProcessId();
-    void* hSnapshot = CreateToolhelp32Snapshot(0x0F, 0);
-    D2ProcessEntryWStrc tEntry = { 0 };
-    tEntry.dwSize = sizeof(tEntry);
-    int bFound = Process32FirstW(hSnapshot, &tEntry);
-    while (bFound && tEntry.th32ProcessID != dwProcessId)
-    {
-        bFound = Process32NextW(hSnapshot, &tEntry);
-    }
-    CloseHandle(hSnapshot);
-    if (bFound)
-    {
-        return tEntry.cntThreads;
-    }
-    return -1;
 }
 
-// 0x00404210
-bool __fastcall sub_00404210_CreateProcessUtf8(const char* szApplicationName, const char* szCommandLine)
+// 0x00408070
+void __cdecl sub_00408070_Empty()
 {
-    wchar_t wszCmdLine[0x8000];
-    wchar_t wszApp[0x400];
-    if (!szCommandLine || MultiByteToWideChar(0xFDE9, 0, szCommandLine, -1, wszCmdLine, 0x8000))
+}
+
+// 0x00408080
+void __cdecl sub_00408080_Empty()
+{
+}
+
+// 0x004080B0
+static __declspec(noinline) void __stdcall sub_004080B0_DebugPrintV(unsigned int nFlags, const char* szFormat, va_list args)
+{
+    char szBuffer[0x1000];
+    szBuffer[0] = 0;
+    if (nFlags & 4)
     {
-        if (!szApplicationName || MultiByteToWideChar(0xFDE9, 0, szApplicationName, -1, wszApp, 0x400))
+        _SYSTEMTIME tTime;
+        GetLocalTime(&tTime);
+        _snprintf(szBuffer, 0x1000, "%02d:%02d:%02d.%03d    ", tTime.wHour, tTime.wMinute, tTime.wSecond, tTime.wMilliseconds);
+    }
+    const size_t nLength = strlen(szBuffer);
+    _vsnprintf(&szBuffer[nLength], 0x1000 - nLength, szFormat, args);
+    szBuffer[0xFFF] = 0;
+    if (!(nFlags & 2))
+    {
+        OutputDebugStringA(szBuffer);
+    }
+    if (nFlags & 1)
+    {
+        sub_00410740_LogWritePrefixed00("LOG", gszPercentS_006FFC58, szBuffer);
+    }
+    if (nFlags & 0x18)
+    {
+        GetKeyState(0x14);
+    }
+}
+
+// 0x004082A0
+void __cdecl sub_004082A0_DebugPrintf(unsigned int nFlags, const char* szFormat, ...)
+{
+    sub_004080B0_DebugPrintV(nFlags, szFormat, (va_list)(&szFormat + 1));
+}
+
+// 0x004082C0
+void __cdecl sub_004082C0_DebugPrintfLog(const char* szFormat, ...)
+{
+    sub_004080B0_DebugPrintV(1, szFormat, (va_list)(&szFormat + 1));
+}
+
+namespace crashy
+{
+class Report
+{
+public:
+    Report();                                                               // 0x00401070
+    virtual ~Report();                                                      // 0x004010D0
+    bool sub_00401100_Open(const char* szFileName);                         // 0x00401100
+    bool sub_004011F0_Close();                                              // 0x004011F0
+    bool sub_00401220_AddFile(const char* szPath, bool bFlag);              // 0x00401220
+    int sub_00401380(const char* szFormat, ...);                                  // 0x00401380
+    bool sub_00407A80_WriteInspectorHeader();                               // 0x00407A80
+
+    _iobuf* m_pFile;
+    char m_szText08[0x400];
+    char m_szText408[0x400];
+    int m_nLineCount;
+    char m_aszLines[16][0x400];
+};
+}
+
+int gdwGlobal_0074F0C8; // 0x0074F0C8
+
+// 0x00408660
+bool __fastcall sub_00408660_ShowErrorReport(const char* szSummary, const char* szUnused, const char** ppszFiles, int nFiles, unsigned int nLine, bool bFlag)
+{
+    crashy::Report tReport;
+    const long nBusy = InterlockedIncrement(&gnReportBusy_007076BC);
+    if (nBusy != 0)
+    {
+        gdwGlobal_0074F0C8 = 0;
+        InterlockedDecrement(&gnReportBusy_007076BC);
+        return false;
+    }
+
+    gdwGlobal_0074F0C8 = 1;
+    if (!tReport.sub_00401100_Open("Crash.txt"))
+    {
+        gdwGlobal_0074F0C8 = 0;
+        InterlockedDecrement(&gnReportBusy_007076BC);
+        return false;
+    }
+
+    tReport.sub_00407A80_WriteInspectorHeader();
+    tReport.sub_00401380("<Inspector.Summary:>\n%s\n<:Inspector.Summary>\n", szSummary);
+    if (nLine > 0)
+    {
+        tReport.sub_00401380("<Inspector.LineNumber>%u\n", nLine);
+    }
+    tReport.sub_00401380("<Inspector.Assertion:>\n");
+    const unsigned long dwThreadId = GetCurrentThreadId();
+    sub_00403070_DumpThread(dwThreadId, 0, sub_00407980_ReportPrint, &tReport, nBusy, 1, 4);
+    tReport.sub_00401380("<:Inspector.Assertion>\n");
+    tReport.sub_00401380("Registers:\n");
+    sub_004032F0_DumpRegisters(dwThreadId, sub_00407980_ReportPrint, &tReport);
+    tReport.sub_00401380("Threads:\n");
+    sub_00403A20_DumpOtherThreads(sub_00407980_ReportPrint, &tReport, dwThreadId);
+
+    const char** ppszEnd = ppszFiles + nFiles;
+    for (const char** ppszFile = ppszFiles; ppszFile != ppszEnd; ++ppszFile)
+    {
+        tReport.sub_00401220_AddFile(*ppszFile, true);
+    }
+    tReport.sub_004011F0_Close();
+
+    D2CrashSubmitInfoStrc tInfo;
+    memset(&tInfo, 0, sizeof(tInfo));
+    tInfo.szName = gtInspectorInfo_0074D868.szUnused04;
+    if (bFlag)
+    {
+        tInfo.dwFlags |= 1;
+    }
+    for (int i = 0; i < tReport.m_nLineCount; i++)
+    {
+        if (i < sizeof(tInfo.apszLines) / sizeof(tInfo.apszLines[0]))
         {
-            D2ProcessInformationStrc tInfo;
-            D2StartupInfoWStrc tStartup = { sizeof(tStartup) };
-            memset(&tInfo, 0, sizeof(tInfo));
-            if (CreateProcessW(szApplicationName ? wszApp : 0, szCommandLine ? wszCmdLine : 0, 0, 0, 0, 0, 0, 0, &tStartup, &tInfo))
-            {
-                CloseHandle(tInfo.hProcess);
-                CloseHandle(tInfo.hThread);
-                return true;
-            }
+            tInfo.apszLines[i] = tReport.m_aszLines[i];
+            tInfo.nLines++;
         }
     }
-    return false;
+
+    const bool bResult = sub_00401790_SubmitReport(tReport.m_szText08, &tInfo);
+    gdwGlobal_0074F0C8 = 0;
+    InterlockedDecrement(&gnReportBusy_007076BC);
+    return bResult;
 }
 
 // 0x00408900
@@ -704,64 +851,10 @@ AsyncData* __fastcall FOG_AsyncDataLoadFileEx(void* pMemPool, const char* szFile
     return pAsync;
 }
 
+// 0x0040F960
+void __cdecl sub_0040F960_CloseLogFiles()
+{
+    sub_0040F8A0_CloseLogFilesNow();
+}
+
 #include "gen/data/Source/Fog/Src/ErrorManager.inc"
-
-// 0x00408050
-void __cdecl sub_00408050_Empty()
-{
-}
-
-// 0x00408060
-void __cdecl sub_00408060_Empty()
-{
-}
-
-// 0x00408070
-void __cdecl sub_00408070_Empty()
-{
-}
-
-// 0x00408080
-void __cdecl sub_00408080_Empty()
-{
-}
-
-// 0x004080B0
-static __declspec(noinline) void __stdcall sub_004080B0_DebugPrintV(unsigned int nFlags, const char* szFormat, va_list args)
-{
-    char szBuffer[0x1000];
-    szBuffer[0] = 0;
-    if (nFlags & 4)
-    {
-        _SYSTEMTIME tTime;
-        GetLocalTime(&tTime);
-        _snprintf(szBuffer, 0x1000, "%02d:%02d:%02d.%03d    ", tTime.wHour, tTime.wMinute, tTime.wSecond, tTime.wMilliseconds);
-    }
-    const size_t nLength = strlen(szBuffer);
-    _vsnprintf(&szBuffer[nLength], 0x1000 - nLength, szFormat, args);
-    szBuffer[0xFFF] = 0;
-    if (!(nFlags & 2))
-    {
-        OutputDebugStringA(szBuffer);
-    }
-    if (nFlags & 1)
-    {
-        sub_00410740_LogWritePrefixed00("LOG", gszPercentS_006FFC58, szBuffer);
-    }
-    if (nFlags & 0x18)
-    {
-        GetKeyState(0x14);
-    }
-}
-
-// 0x004082A0
-void __cdecl sub_004082A0_DebugPrintf(unsigned int nFlags, const char* szFormat, ...)
-{
-    sub_004080B0_DebugPrintV(nFlags, szFormat, (va_list)(&szFormat + 1));
-}
-
-// 0x004082C0
-void __cdecl sub_004082C0_DebugPrintfLog(const char* szFormat, ...)
-{
-    sub_004080B0_DebugPrintV(1, szFormat, (va_list)(&szFormat + 1));
-}

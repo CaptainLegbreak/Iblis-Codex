@@ -11,12 +11,6 @@ struct D2BitBufferInitStrc {
  unsigned char* pBuffer; unsigned char* pCurrent; int nBits; int nPos;
 };
 
-struct D2CmpByteMapStrc
-{
-    unsigned char ab[0x100];
-    int nCount;
-};
-
 struct D2CmpByteMapArgStrc
 {
     D2CmpByteMapStrc* p;

@@ -91,9 +91,7 @@ int __cdecl sub_0051BEC0_IsExpansion(); // 0x0051BEC0
 int __fastcall sub_0051C5C0_SendPacket(unsigned char nId, const void* pData, unsigned int nSize); // 0x0051C5C0
 extern "C" void __cdecl sub_00408A60(const char* text,const char* file,int line); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int code); // 0x00681E09
-unsigned int __stdcall SStrLen(const char* text); // 0x00413750
 extern "C" void* __cdecl memcpy(void* dest,const void* source,unsigned int count); // 0x006829C0
-int __fastcall sub_0051C5C0_SendPacket(unsigned char type,const void* data,unsigned int size); // 0x0051C5C0
 extern "C" void __fastcall __security_check_cookie(unsigned int); // 0x00681A48
 
 int gdwGlobal_008818BC; // 0x008818BC

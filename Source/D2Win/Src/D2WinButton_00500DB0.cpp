@@ -56,13 +56,7 @@ struct tagPOINT
 };
 
 #define D2WIN_BUTTON 6
-#define BUTTONFLAG_HAS_DISABLED_FRAMES 0x20
-#define BUTTONFLAG_SUBTITLE 0x40
-#define DRAWMODE_TRANS50 1
 #define DRAWMODE_NORMAL 5
-#define DRAWMODE_BURN 4
-#define D2FONT_FONTEXOCET10 9
-#define D2FONT_FONTRIDICULOUS 10
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }

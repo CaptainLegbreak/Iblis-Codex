@@ -1,16 +1,5 @@
 #include "Fog.h"
 
-struct D2MemoryBasicInfoStrc
-{
-    void* BaseAddress;
-    void* AllocationBase;
-    unsigned long AllocationProtect;
-    unsigned long RegionSize;
-    unsigned long State;
-    unsigned long Protect;
-    unsigned long Type;
-};
-
 struct D2FloatSaveStrc
 {
     unsigned long ControlWord;

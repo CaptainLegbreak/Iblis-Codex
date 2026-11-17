@@ -45,6 +45,7 @@ struct D2ClientTableStrc;
 struct D2ConnectionNodeStrc;
 struct D2ConnectionTableStrc;
 struct D2ClientNodeStrc;
+struct D2SrvClientStrc;
 
 extern int gdwGlobal_00970E50; // 0x00970E50
 extern char gData_007C90C8[]; // 0x007C90C8
@@ -161,9 +162,6 @@ struct D2RecordTableStrc {
     int threshold;
 };
 
-extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc*);
-extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc*);
-
 struct D2NetPacketStrc
 {
     unsigned char data[0x5B4];
@@ -232,8 +230,6 @@ struct D2HashTableStrc
 
 extern "C" char* __stdcall inet_ntoa(D2InAddrStrc); // 0x006B013E
 unsigned int __stdcall SStrCopy(char*, const char*, unsigned int); // 0x004135D0
-extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* section);
-extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* section);
 
 struct D2SocketNodeStrc
 {
@@ -284,7 +280,14 @@ void __fastcall sub_006BE890_UnlistIP(D2Server006BEFB0Strc* pServer, const char*
 
 struct D2QueueServerStrc
 {
-    char unk0x000[0x890];
+    int bAltSend;
+    int unk0x04;
+    unsigned int nBuckets;
+    int unk0x0C[2];
+    D2SrvClientStrc** ppBuckets;
+    int unk0x18;
+    D2CriticalSectionStrc* pLocks;
+    unsigned char unk_20[0x870];
     int unk0x890;
     char unk0x894[0xBD0 - 0x894];
     int unk0xBD0;
@@ -328,8 +331,6 @@ struct D2ServerStrc
 };
 
 struct D2RecordStrc { unsigned char data[0xac]; int value; };
-
-extern "C" void* __cdecl memcpy(void*,const void*,unsigned int); // 0x006829C0
 
 struct D2WSADataStrc
 {
@@ -396,8 +397,6 @@ struct QServer
     int nValueC18;
     char unkC1C[0x30];
 };
-
-extern "C" void* __cdecl memset(void* pMemory, int nValue, unsigned int nSize);
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int nFlags); // 0x0040B380
 int __cdecl sub_00410960_IsPlatformNT(); // 0x00410960
@@ -407,14 +406,6 @@ int __fastcall sub_006C3360_Startup(QServer* pServer, int nPort); // 0x006C3360
 int __fastcall sub_006C3B50_StartServer(QServer* pServer, int nPort); // 0x006C3B50
 extern "C" const char gszQServerTag_006FC47C[]; // 0x006FC47C
 extern "C" const char gszQServerAllocated_006FC548[]; // 0x006FC548
-
-struct D2QServerConfigStrc
-{
-    int nClientCapacity;
-    int nValue04;
-    int nValue08;
-    int nValue0C;
-};
 
 struct D2AddressRecordStrc
 {
@@ -446,8 +437,6 @@ struct D2ClientTableStrc
     int enabled;
     int __thiscall sub_006BF660_CheckAddress(unsigned int nAddress); // 0x006BF660
 };
-
-void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 void __stdcall sub_006BE6C0_LogHackListSize(int nSize); // 0x006BE6C0
 int __fastcall sub_006C0420_ProcessClient(QServer* pServer, int nClientId, const char* szFile, int nLine); // 0x006C0420
 
@@ -468,18 +457,24 @@ struct D2ConnectionTableStrc
     int unk_24;
     D2CriticalSectionStrc tLock;
 };
-
-extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock);
-extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock);
 void __fastcall sub_006C0420_DisconnectClient(D2ConnectionTableStrc* pTable, int nClient, const char* pFile, int nLine); // 0x006C0420
 const char* __stdcall sub_006B013E_FormatIP(unsigned int nIP); // 0x006B013E
-void __cdecl sub_00410660_Log(const char* pCategory, const char* pFormat, ...); // 0x00410660
-extern const char gszCategory_006FC4A8[]; // 0x006FC4A8
 
 struct D2ClientNodeStrc { int client; D2ClientNodeStrc* next; unsigned char pad[0x10]; unsigned int address; };
 
 void __fastcall sub_006C0420_CloseClient(D2ClientTableStrc* table, int client, const char* file, int line); // 0x006C0420
 void __fastcall sub_006BFEA0_RecordAddress(D2ClientTableStrc* table, const char* file, unsigned int address, int line); // 0x006BFEA0
+
+struct D2SrvClientStrc
+{
+    int unk0x00;
+    D2SrvClientStrc* pNext;
+    int unk0x08;
+    int bClosed;
+};
+
+int __fastcall sub_006C2C70(D2QueueServerStrc* pServer, D2SrvClientStrc* pClient, char* pData, int nSize); // 0x006C2C70
+int __fastcall sub_006C3410_Send(D2QueueServerStrc* pServer, D2SrvClientStrc* pClient, char* pData, int nSize); // 0x006C3410
 
 // 0x006B1C00
 int __cdecl sub_006B1C00()
@@ -515,14 +510,24 @@ void __stdcall sub_006BC850(int nUnused1)
 {
 }
 
-// 0x006BF5F0
-void __stdcall sub_006BF5F0(int nUnused1)
-{
-}
+static int gnLockCount_0074C3E0; // 0x0074C3E0
 
-// 0x006BF600
-void __stdcall sub_006BF600(int nUnused1, int nUnused2)
+static int gnGlobal_0074C3E4; // 0x0074C3E4
+
+static int gnGlobal_0074C3E8; // 0x0074C3E8
+
+static int gnGlobal_0074C3EC; // 0x0074C3EC
+
+static int gnGlobal_00989C28; // 0x00989C28
+
+// 0x006BE310
+void __stdcall sub_006BE310_SetServerConfig(D2QServerConfigStrc* pConfig)
 {
+    gnLockCount_0074C3E0 = pConfig->nClientCapacity;
+    gnGlobal_0074C3E4 = pConfig->nClientCapacity - 1;
+    gnGlobal_0074C3E8 = pConfig->nValue04;
+    gnGlobal_0074C3EC = pConfig->nValue08;
+    gnGlobal_00989C28 = pConfig->nValue0C;
 }
 
 // 0x006BE3C0
@@ -847,6 +852,16 @@ extern "C" __declspec(dllexport) void __stdcall sub_006BF4E0(Obj006BF4E0* pObj, 
     pObj->dwValueBD0 = dwValue;
 }
 
+// 0x006BF5F0
+void __stdcall sub_006BF5F0(int nUnused1)
+{
+}
+
+// 0x006BF600
+void __stdcall sub_006BF600(int nUnused1, int nUnused2)
+{
+}
+
 // 0x006BF610
 void __fastcall sub_006BF610_AddPair(D2PairTable006BF610Strc* pTable, int nValue, int nKey)
 {
@@ -888,26 +903,6 @@ void __cdecl sub_006BF740_Nop()
 // 0x006BF750
 void __cdecl sub_006BF750_Nop()
 {
-}
-
-static int gnLockCount_0074C3E0; // 0x0074C3E0
-
-static int gnGlobal_0074C3E4; // 0x0074C3E4
-
-static int gnGlobal_0074C3E8; // 0x0074C3E8
-
-static int gnGlobal_0074C3EC; // 0x0074C3EC
-
-static int gnGlobal_00989C28; // 0x00989C28
-
-// 0x006BE310
-void __stdcall sub_006BE310_SetServerConfig(D2QServerConfigStrc* pConfig)
-{
-    gnLockCount_0074C3E0 = pConfig->nClientCapacity;
-    gnGlobal_0074C3E4 = pConfig->nClientCapacity - 1;
-    gnGlobal_0074C3E8 = pConfig->nValue04;
-    gnGlobal_0074C3EC = pConfig->nValue08;
-    gnGlobal_00989C28 = pConfig->nValue0C;
 }
 
 // 0x006BF760
@@ -982,6 +977,71 @@ QServer* __stdcall FOG_InitializeServer(int nState, int nSlots, int nPort, int b
     return pServer;
 }
 
+static __declspec(noinline)
+// 0x006C0770
+void __stdcall sub_006C0770_BanClient(D2ClientTableStrc* table, int client, const char* file, int line)
+{
+    if (!table->enabled)
+        return;
+    unsigned int bucket = table->mask & client;
+    EnterCriticalSection(&table->locks[bucket]);
+    D2ClientNodeStrc* node = table->buckets[bucket];
+    unsigned int address = 0;
+    while (node)
+    {
+        if (node->client == client)
+        {
+            address = node->address;
+            break;
+        }
+        node = node->next;
+    }
+    LeaveCriticalSection(&table->locks[bucket]);
+    sub_006C0420_CloseClient(table, client, file, line);
+    if (address)
+        sub_006BFEA0_RecordAddress(table, file, address, line);
+}
+
+void __fastcall EmitBanClient(D2ClientTableStrc* table, int client, const char* file, int line)
+{
+    sub_006C0770_BanClient(table + 1, client, file, line);
+}
+
+// 0x006BFAD0
+int __stdcall sub_006BFAD0_BroadcastToAllClients(D2QueueServerStrc* pServer, char* pData, int nSize)
+{
+    for (unsigned int i = 0; i < pServer->nBuckets; ++i)
+    {
+        EnterCriticalSection(&pServer->pLocks[i]);
+        D2SrvClientStrc* pClient = pServer->ppBuckets[i];
+        do
+        {
+            if (!pClient)
+            {
+                break;
+            }
+
+            if (!pClient->bClosed)
+            {
+                if (pServer->bAltSend)
+                {
+                    sub_006C2C70(pServer, pClient, pData, nSize);
+                }
+                else
+                {
+                    sub_006C3410_Send(pServer, pClient, pData, nSize);
+                }
+            }
+
+            pClient = pClient->pNext;
+        }
+        while (pClient);
+        LeaveCriticalSection(&pServer->pLocks[i]);
+    }
+
+    return 1;
+}
+
 #include "gen/data/Source/Fog/Src/QServer/QServer.inc"
 
 // 0x006BFEA0
@@ -1042,36 +1102,6 @@ void __stdcall sub_006C06D0_DisconnectIP(D2ConnectionTableStrc* pTable, unsigned
     if (pNode)
         sub_006C0420_DisconnectClient(pTable, pNode->nClient, pFile, nLine);
     else
-        sub_00410660_Log(gszCategory_006FC4A8, "[HACKLIST]  Client %s is already closed", sub_006B013E_FormatIP(nIP));
-    sub_00410660_Log(gszCategory_006FC4A8, "[HACKLIST]  IP:%s  QSDisconnectIP() from FILE:%s  LINE:%d", sub_006B013E_FormatIP(nIP), pFile, nLine);
-}
-
-static __declspec(noinline)
-// 0x006C0770
-void __stdcall sub_006C0770_BanClient(D2ClientTableStrc* table, int client, const char* file, int line)
-{
-    if (!table->enabled)
-        return;
-    unsigned int bucket = table->mask & client;
-    EnterCriticalSection(&table->locks[bucket]);
-    D2ClientNodeStrc* node = table->buckets[bucket];
-    unsigned int address = 0;
-    while (node)
-    {
-        if (node->client == client)
-        {
-            address = node->address;
-            break;
-        }
-        node = node->next;
-    }
-    LeaveCriticalSection(&table->locks[bucket]);
-    sub_006C0420_CloseClient(table, client, file, line);
-    if (address)
-        sub_006BFEA0_RecordAddress(table, file, address, line);
-}
-
-void __fastcall EmitBanClient(D2ClientTableStrc* table, int client, const char* file, int line)
-{
-    sub_006C0770_BanClient(table + 1, client, file, line);
+        sub_00410660_Log(gszHackChannel_006FC4A8, "[HACKLIST]  Client %s is already closed", sub_006B013E_FormatIP(nIP));
+    sub_00410660_Log(gszHackChannel_006FC4A8, "[HACKLIST]  IP:%s  QSDisconnectIP() from FILE:%s  LINE:%d", sub_006B013E_FormatIP(nIP), pFile, nLine);
 }

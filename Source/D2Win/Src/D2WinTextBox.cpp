@@ -1,8 +1,19 @@
 #include "D2Win.h"
 
+struct D2CharStrc
+{
+    unsigned short wChar;
+    unsigned char unk0x02;
+    unsigned char nWidth;
+    unsigned char nHeight;
+    unsigned char unk0x05;
+    unsigned short unk0x06;
+    unsigned short nImageIndex;
+    unsigned short unk0x0A[2];
+};
+
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
-#define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
+
 struct D2WinTextBoxLineStrc;
 struct Unicode;
 struct D2WinControlStrc;
@@ -10,10 +21,19 @@ struct D2WinImageClickRectStrc;
 struct D2WinTextBoxStrc;
 struct D2WinImageStrc;
 struct D2CropRectStrc;
+struct D2GfxDataStrc;
+struct D2CharStrc;
+struct D2FontStrc;
+struct D2FontCacheStrc;
+struct D2GemsTxt;
+struct T004F51E0;
+struct D2UnitStrc;
+struct D2ItemsTxt;
 
 struct Unicode
 {
     unsigned short wChar;
+    Unicode(unsigned short ch = 0) : wChar(ch) {}
 };
 
 struct D2WinControlStrc
@@ -49,7 +69,19 @@ struct D2WinTextBoxLineStrc
 
 struct D2WinTextBoxStrc
 {
-    D2WinControlStrc controlHeader;
+    union
+    {
+        struct
+        {
+            D2WinControlStrc controlHeader;
+        };
+        struct
+        {
+            int nType;
+            unsigned char unk_04[0x10];
+            int nWidth;
+        };
+    };
     int field_40;
     int field_44;
     D2WinTextBoxLineStrc* pFirstLine;
@@ -63,7 +95,9 @@ struct D2WinTextBoxStrc
     int unk0x68[5];
     int unk0x7C[5];
     D2WinScrollBarStrc* pScrollBar;
+    int eFont;
 };
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
@@ -110,14 +144,6 @@ struct D2GfxDataStrc
     int unk0x44;
 };
 
-struct D2CropRectStrc
-{
-    int nX0;
-    int nX1;
-    int nY0;
-    int nY1;
-};
-
 enum D2ControlTypes
 {
     D2WIN_IMAGE = 2,
@@ -131,6 +157,147 @@ enum DrawMode
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 void __stdcall TEXTURE_CelDrawClipped(D2GfxDataStrc* pData, int nXPos, int nYPos, void* pCropRect, int eDrawMode); // 0x004F6510
 int __fastcall D2Win_10058_0(D2WinControlStrc* pControl, const Unicode* pText, int a3, int nColumn); // 0x004FB790
+
+struct D2FontStrc
+{
+    unsigned int dwHeader;
+    unsigned short unk0x04;
+    unsigned short unk0x06;
+    unsigned short unk0x08;
+};
+
+struct D2FontCacheStrc
+{
+    D2CelFileStrc* pCellFile;
+    D2FontStrc* pFontInfo[2];
+    D2CharStrc* pCharInfo;
+    unsigned int dwShiftedTickCount;
+};
+
+int __fastcall D2Win_10055(D2WinTextBoxStrc* pTextBox); // 0x004FBAB0
+Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
+int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
+extern D2FontCacheStrc gFontCache_00841DA8[]; // 0x00841DA8
+
+struct D2UnitStrc
+{
+    int dwUnitType;
+    int dwClassId;
+};
+
+struct D2ItemsTxt
+{
+    char unk0x00[0xF0];
+    unsigned int dwGemOffset;
+};
+
+void __fastcall sub_004E6720_BuildItemPropTextB(D2UnitStrc* pItem, int nArg, int nArg2, Unicode* wszText, int nArg3, int nArg4); // 0x004E6720
+void __fastcall sub_004E67D0_BuildItemPropText(D2UnitStrc* pItem, int nArg, int nArg2, Unicode* wszText, int nArg3, int nArg4); // 0x004E67D0
+void __stdcall D2GFX_SetPalette(T004F51E0* pPalette); // 0x004F63D0
+int __stdcall sub_004FB1E0_LoadPaletteFiles(const char* szDatFileName, const char* szPL2FileName); // 0x004FB1E0
+void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* pText, int nA, int nB, int nC); // 0x004FC9B0
+const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
+Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
+void __fastcall sub_00526E40_Utf8ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526E40
+int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
+D2GemsTxt* __stdcall DATATBLS_GetGemsTxtRecord(int nGemId); // 0x006372C0
+extern T004F51E0 gRGBAPalette_0081E668[]; // 0x0081E668
+extern "C" const char szD2WinTextBoxCpp_006DC840[]; // 0x006DC840
+Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526790
+int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
+int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
+int __fastcall D2Win_10122(const Unicode* wszText, int nTextLength); // 0x005017D0
+int __fastcall D2Win_10051(D2WinTextBoxStrc* pTextBox, const Unicode* wszText, int nColor, char bIsWrapped, int nIndent); // 0x004FC9B0
+int __fastcall sub_004FF5A0_SetEditText(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FF5A0
+void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
+
+// 0x004E6850
+void __fastcall sub_004E6850_BuildSocketFillerText(D2UnitStrc* pItem, Unicode* pBuffer, int nSize)
+{
+    Unicode wszTemp[0x100];
+    for (int i = 0; i < 0x100; ++i)
+        wszTemp[i].wChar = 0;
+
+    D2_ASSERT(ITEMS_CheckItemTypeId(pItem, 0x35), 0x21A);
+    D2ItemsTxt* pItemsTxt = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
+    D2_ASSERT(pItemsTxt, 0x21C);
+    pBuffer[0].wChar = 0;
+
+    if (ITEMS_CheckItemTypeId(pItem, 0x14))
+    {
+        D2GemsTxt* pGemsTxt = DATATBLS_GetGemsTxtRecord(pItemsTxt->dwGemOffset);
+        D2_ASSERT(pGemsTxt, 0x223);
+        sub_00526700(pBuffer, D2LANG_GetStringFromTblIndex(0xF9E));
+        wszTemp[0].wChar = 0;
+        sub_00526700(wszTemp, D2LANG_GetStringFromTblIndex(0x2B42));
+        sub_00526700(wszTemp, D2LANG_GetStringFromTblIndex(0xF9B));
+        sub_004E67D0_BuildItemPropText(pItem, (int)pGemsTxt, 2, pBuffer, nSize, (int)wszTemp);
+        sub_00526700(pBuffer, D2LANG_GetStringFromTblIndex(0xF9E));
+        wszTemp[0].wChar = 0;
+        sub_00526700(wszTemp, D2LANG_GetStringFromTblIndex(0x2B41));
+        sub_00526700(wszTemp, D2LANG_GetStringFromTblIndex(0xF9B));
+        sub_004E67D0_BuildItemPropText(pItem, (int)pGemsTxt, 1, pBuffer, nSize, (int)wszTemp);
+        sub_00526700(pBuffer, D2LANG_GetStringFromTblIndex(0xF9E));
+        wszTemp[0].wChar = 0;
+        sub_00526700(wszTemp, D2LANG_GetStringFromTblIndex(0x2B44));
+        sub_00526700(wszTemp, D2LANG_GetStringFromTblIndex(0xF9B));
+        sub_004E67D0_BuildItemPropText(pItem, (int)pGemsTxt, 1, pBuffer, nSize, (int)wszTemp);
+        sub_00526700(pBuffer, D2LANG_GetStringFromTblIndex(0xF9E));
+        wszTemp[0].wChar = 0;
+        sub_00526700(wszTemp, D2LANG_GetStringFromTblIndex(0x2B43));
+        sub_00526700(wszTemp, D2LANG_GetStringFromTblIndex(0xF9B));
+        sub_004E67D0_BuildItemPropText(pItem, (int)pGemsTxt, 0, pBuffer, nSize, (int)wszTemp);
+    }
+    else if (ITEMS_CheckItemTypeId(pItem, 0x4A))
+    {
+        D2GemsTxt* pGemsTxt = DATATBLS_GetGemsTxtRecord(pItemsTxt->dwGemOffset);
+        D2_ASSERT(pGemsTxt, 0x245);
+        sub_00526700(pBuffer, D2LANG_GetStringFromTblIndex(0xF9E));
+        wszTemp[0].wChar = 0;
+        sub_00526700(wszTemp, D2LANG_GetStringFromTblIndex(0x2B42));
+        sub_00526700(wszTemp, D2LANG_GetStringFromTblIndex(0xF9B));
+        sub_004E6720_BuildItemPropTextB(pItem, (int)pGemsTxt, 2, pBuffer, nSize, (int)wszTemp);
+        sub_00526700(pBuffer, D2LANG_GetStringFromTblIndex(0xF9E));
+        wszTemp[0].wChar = 0;
+        sub_00526700(wszTemp, D2LANG_GetStringFromTblIndex(0x2B41));
+        sub_00526700(wszTemp, D2LANG_GetStringFromTblIndex(0xF9B));
+        sub_004E6720_BuildItemPropTextB(pItem, (int)pGemsTxt, 1, pBuffer, nSize, (int)wszTemp);
+        sub_00526700(pBuffer, D2LANG_GetStringFromTblIndex(0xF9E));
+        wszTemp[0].wChar = 0;
+        sub_00526700(wszTemp, D2LANG_GetStringFromTblIndex(0x2B44));
+        sub_00526700(wszTemp, D2LANG_GetStringFromTblIndex(0xF9B));
+        sub_004E6720_BuildItemPropTextB(pItem, (int)pGemsTxt, 1, pBuffer, nSize, (int)wszTemp);
+        sub_00526700(pBuffer, D2LANG_GetStringFromTblIndex(0xF9E));
+        wszTemp[0].wChar = 0;
+        sub_00526700(wszTemp, D2LANG_GetStringFromTblIndex(0x2B43));
+        sub_00526700(wszTemp, D2LANG_GetStringFromTblIndex(0xF9B));
+        sub_004E6720_BuildItemPropTextB(pItem, (int)pGemsTxt, 0, pBuffer, nSize, (int)wszTemp);
+    }
+    else
+    {
+        return;
+    }
+
+    sub_00526700(pBuffer, D2LANG_GetStringFromTblIndex(0xF9E));
+    sub_00526700(pBuffer, D2LANG_GetStringFromTblIndex(0xF9E));
+}
+
+// 0x004FB480
+int __fastcall D2Win_10177(unsigned char nAct)
+{
+    int nActNo = nAct + 1;
+    if (nActNo < 1 || nActNo > 5)
+        nActNo = 1;
+
+    char szPL2Filename[260];
+    char szDatFilename[260];
+    sprintf(szDatFilename, "%s\\palette\\act%d\\%s", szDataGlobal_006D4118, nActNo, "pal.dat");
+    sprintf(szPL2Filename, "%s\\palette\\act%d\\%s", szDataGlobal_006D4118, nActNo, "pal.pl2");
+    const int nResult = sub_004FB1E0_LoadPaletteFiles(szDatFilename, szPL2Filename);
+    D2GFX_SetPalette(gRGBAPalette_0081E668);
+    return nResult;
+}
 
 // 0x004FB6A0
 int __fastcall D2Win_10047(D2WinTextBoxStrc* pTextBox)
@@ -190,6 +357,15 @@ void __fastcall D2Win_10197(D2WinTextBoxStrc* pTextBox, int nLineNum)
             pLine->pColumns[j] = 0;
         }
     }
+}
+
+// 0x004FB910
+int __fastcall D2Win_10052_TEXTBOX_GetNumLines(D2WinTextBoxStrc* pTextBox)
+{
+    D2_ASSERT(pTextBox, 0x23E);
+    D2_ASSERT(pTextBox->controlHeader.nType == D2WIN_TEXTBOX, 0x23F);
+
+    return pTextBox->nNumLines;
 }
 
 // 0x004FB950
@@ -268,6 +444,26 @@ void __fastcall D2Win_10056(D2WinTextBoxStrc* pTextBox, int nNumColumns)
     }
 }
 
+// 0x004FBD20
+int __fastcall D2Win_10061(D2WinTextBoxStrc* pTextBox)
+{
+    D2_ASSERT(pTextBox, 0x309);
+    D2_ASSERT(pTextBox->controlHeader.nType == D2WIN_TEXTBOX, 0x30A);
+
+    int nLineCount = 0;
+    for (D2WinTextBoxLineStrc* pLine = pTextBox->pFirstLine; pLine; pLine = pLine->pNext)
+    {
+        if (!pLine->pNext)
+        {
+            break;
+        }
+
+        ++nLineCount;
+    }
+
+    return nLineCount;
+}
+
 // 0x004FC5E0
 int __fastcall D2Win_10191(D2WinTextBoxStrc* pTextBox, int nMaxSteps)
 {
@@ -313,15 +509,6 @@ int __fastcall D2Win_10195(D2WinTextBoxStrc* pTextBox, void(__stdcall* pfScrollC
     return sub_00508000_SetScrollCallback(pTextBox->pScrollBar, pfScrollCallback);
 }
 
-// 0x004FB910
-int __fastcall D2Win_10052_TEXTBOX_GetNumLines(D2WinTextBoxStrc* pTextBox)
-{
-    D2_ASSERT(pTextBox, 0x23E);
-    D2_ASSERT(pTextBox->controlHeader.nType == D2WIN_TEXTBOX, 0x23F);
-
-    return pTextBox->nNumLines;
-}
-
 // 0x004FC720
 void __fastcall D2Win_10204(D2WinTextBoxStrc* pTextBox, int nPosition)
 {
@@ -329,26 +516,6 @@ void __fastcall D2Win_10204(D2WinTextBoxStrc* pTextBox, int nPosition)
     D2_ASSERT(pTextBox->controlHeader.nType == D2WIN_TEXTBOX, 0x5B5);
 
     sub_005080C0_SetScrollBarField50(pTextBox->pScrollBar, nPosition);
-}
-
-// 0x004FBD20
-int __fastcall D2Win_10061(D2WinTextBoxStrc* pTextBox)
-{
-    D2_ASSERT(pTextBox, 0x309);
-    D2_ASSERT(pTextBox->controlHeader.nType == D2WIN_TEXTBOX, 0x30A);
-
-    int nLineCount = 0;
-    for (D2WinTextBoxLineStrc* pLine = pTextBox->pFirstLine; pLine; pLine = pLine->pNext)
-    {
-        if (!pLine->pNext)
-        {
-            break;
-        }
-
-        ++nLineCount;
-    }
-
-    return nLineCount;
 }
 
 // 0x004FC760
@@ -360,10 +527,142 @@ int __fastcall D2Win_10203_TEXTBOX(D2WinTextBoxStrc* pTextBox)
     return sub_005080F0_GetScrollBarField50(pTextBox->pScrollBar);
 }
 
+// 0x004FCC40
+int __fastcall D2Win_10198(D2WinTextBoxStrc* pTextBox, const Unicode* pText, int nCount, int nValue, char nFlag)
+{
+    D2_ASSERT(pTextBox, 0x1A7);
+    D2_ASSERT(pTextBox->controlHeader.nType == 4, 0x1A8);
+
+    const int nSize = sizeof(Unicode) * (sub_00526800(pText) + 1);
+    for (int i = 0; i < nCount; ++i)
+    {
+        D2WinTextBoxLineStrc* pLine = (D2WinTextBoxLineStrc*)FOG_Alloc(sizeof(D2WinTextBoxLineStrc), ".\\Src\\D2WinTextBox.cpp", 0x1AF, 0);
+        pLine->pColumns[0] = (Unicode*)FOG_Alloc(nSize, ".\\Src\\D2WinTextBox.cpp", 0x1B0, 0);
+        sub_005267E0(pLine->pColumns[0], pText);
+        for (int j = 1; j < 5; ++j)
+        {
+            pLine->pColumns[j] = 0;
+        }
+
+        pLine->field_14 = nValue;
+        pLine->field_18 = nFlag;
+        pLine->pNext = 0;
+
+        if (!pTextBox->pFirstLine)
+        {
+            pTextBox->pFirstLine = pLine;
+        }
+        else
+        {
+            pTextBox->pLastLine->pNext = pLine;
+        }
+
+        pTextBox->pLastLine = pLine;
+        ++pTextBox->nNumLines;
+    }
+
+    if (pTextBox->pScrollBar)
+    {
+        SCROLLBAR_SetMaxSteps(pTextBox->pScrollBar, pTextBox->nNumLines - D2Win_10055(pTextBox));
+    }
+
+    return 1;
+}
+
+// 0x004FCD40
+int __fastcall D2Win_10057(D2WinControlStrc* pControl, const char* szText, int a3, int a4)
+{
+    Unicode wszText[1024];
+    sub_00526F20_ToUnicode(wszText, szText, 1024);
+    return D2Win_10058_0(pControl, wszText, a3, a4);
+}
+
 // 0x004FCD90
 int __fastcall sub_004FCD90_D2Win_10058(D2WinControlStrc* pControl, const Unicode* pText, int a3, int nColumn)
 {
     return D2Win_10058_0(pControl, pText, a3, nColumn);
+}
+
+// build: symbol ??_FUnicode@@QAEXXZ 0x0042F530
+// build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
+// 0x004FCDA0
+int __fastcall sub_004FCDA0_AddWrappedText(D2WinTextBoxStrc* pTextBox, const Unicode* wszText, int nColor, int nIndent)
+{
+    D2_ASSERT(pTextBox, 0x482);
+    D2_ASSERT(pTextBox->nType == 4, 0x483);
+
+    int nMaxWidth = pTextBox->nWidth - 2 * pTextBox->field_40;
+    if (nIndent == 2)
+    {
+        Unicode wszSpaces[6];
+        wszSpaces[0].wChar = wszSpaces[1].wChar = wszSpaces[2].wChar = wszSpaces[3].wChar = wszSpaces[4].wChar = 0x20;
+        wszSpaces[5].wChar = 0;
+        nMaxWidth -= sub_00501820(wszSpaces);
+    }
+
+    Unicode* pBuffer = (Unicode*)SMemAlloc(0x800, szD2WinTextBoxCpp_006DC840, 0x497, 0);
+    Unicode* pText = pBuffer;
+    sub_005267E0(pText, wszText);
+
+    int nSplit = 0;
+    const int nLength = sub_00526800(pText);
+    Unicode* pChar = pText;
+    Unicode* pSpace = 0;
+    while (nSplit < nLength)
+    {
+        if (pChar->wChar == 0x20)
+            pSpace = pChar;
+
+        const int nNext = nSplit + 1;
+        if (D2Win_10122(wszText, nNext) >= nMaxWidth)
+        {
+            if (pSpace)
+            {
+                nSplit = pSpace - pText;
+                pChar = pSpace;
+            }
+            break;
+        }
+
+        ++pChar;
+        ++nSplit;
+    }
+
+    Unicode* pFirst = (Unicode*)SMemAlloc(0x800, szD2WinTextBoxCpp_006DC840, 0x4B7, 0);
+    pText = (Unicode*)SMemAlloc(0x800, szD2WinTextBoxCpp_006DC840, 0x4B8, 0);
+    sub_00526790(pFirst, pBuffer, nSplit);
+    pFirst[nSplit].wChar = 0;
+    sub_00526790(pText, pChar, nLength - nSplit);
+    pText[nLength - nSplit].wChar = 0;
+    SMemFree(pBuffer, szD2WinTextBoxCpp_006DC840, 0x4BF, 0);
+
+    D2Win_10051(pTextBox, pFirst, nColor, 1, nIndent);
+    D2Win_10051(pTextBox, pText, nColor, 0, nIndent == 1 ? 2 : nIndent);
+
+    SMemFree(pFirst, szD2WinTextBoxCpp_006DC840, 0x4C4, 0);
+    SMemFree(pText, szD2WinTextBoxCpp_006DC840, 0x4C5, 0);
+    return 1;
+}
+
+// 0x004FCF80
+void __fastcall D2Win_10045(D2WinControlStrc* pControl, const char* szText)
+{
+    D2_ASSERT(pControl, 0x109);
+    Unicode wszText[1024];
+    sub_00526F20_ToUnicode(wszText, szText, 1024);
+    sub_004FC9B0_SetText(pControl, wszText, 4, 0, 0);
+}
+
+// 0x004FCFF0
+void __fastcall D2Win_10046(D2WinControlStrc* pTextBox, const char* szText, int a3)
+{
+    Unicode wszText[1024];
+    for (int i = 0; i < 1024; ++i)
+        wszText[i].wChar = 0;
+
+    D2_ASSERT(pTextBox, 0x11E);
+    sub_00526E40_Utf8ToUnicode(wszText, szText, 1024);
+    sub_004FC9B0_SetText(pTextBox, wszText, a3, 0, 0);
 }
 
 // build: context sub_004FD340_ImageDrawTiled
@@ -454,4 +753,51 @@ int __fastcall IMAGE_Draw(D2WinControlStrc* pControl)
     }
 
     return 1;
+}
+
+// 0x004FFE10
+int __fastcall D2Win_10076(D2WinControlStrc* pControl, const char* szText)
+{
+    Unicode wszText[256];
+    sub_00526F20_ToUnicode(wszText, szText, 256);
+    return sub_004FF5A0_SetEditText(pControl, wszText);
+}
+
+// 0x00501690
+D2CharStrc* __fastcall sub_6F8AA140(unsigned short wChar)
+{
+    int nIterations = 0;
+    int nMin = 0;
+    D2FontCacheStrc* pFontCache = &gFontCache_00841DA8[gnCurrentFont_0072DFFC];
+    int nMax = pFontCache->pFontInfo[1]->unk0x08 - 1;
+    if (nMax >= 0)
+    {
+        D2CharStrc* pCharInfo = pFontCache->pCharInfo;
+        do
+        {
+            const int nMid = (nMin + nMax) / 2;
+            ++nIterations;
+            if (wChar == pCharInfo[nMid].wChar)
+            {
+                return &pCharInfo[nMid];
+            }
+
+            if (wChar < pCharInfo[nMid].wChar)
+            {
+                nMax = nMid - 1;
+            }
+            else
+            {
+                nMin = nMid + 1;
+            }
+
+            if (nIterations > 1000)
+            {
+                break;
+            }
+        }
+        while (nMax >= nMin);
+    }
+
+    return pFontCache->pCharInfo + 31;
 }

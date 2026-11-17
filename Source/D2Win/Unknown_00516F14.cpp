@@ -5,10 +5,7 @@ extern "C" void __cdecl sub_00408A60(const char*, const char*, int); // 0x00408A
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 int __fastcall sub_00406940_mpqSetFilePointer(void* hFile, long nOffset, long* pnOffsetHigh, int nMethod); // 0x00406940
 int __stdcall sub_00416230_GetFileName(void*, char*, unsigned int); // 0x00416230
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
-extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 int __fastcall sub_00406900(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped, int nArg7, int nArg6); // 0x00406900
-int __stdcall sub_00416230_GetFileName(void* hFile, char* szFileName, unsigned int nSize); // 0x00416230
 int __fastcall sub_00516E46_OpenFile(void* pUnused, const char* szFileName, void** phFile, int bAllowMissing); // 0x00516E46
 void __fastcall sub_00516E84_CloseFile(void* pUnused, void* pFile); // 0x00516E84
 unsigned int __fastcall sub_00516EAB_FileSize(void* unused, void* file, unsigned int* high); // 0x00516EAB

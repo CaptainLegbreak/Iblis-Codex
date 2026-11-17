@@ -1,7 +1,5 @@
 #include "D2Direct3D.h"
 
-#define RELEASE(p) if (p) { p->lpVtbl->Release(p); p = 0; }
-
 struct D2Device006B5520Strc;
 struct D2ComObject006B5550Strc;
 struct D2Direct3DDeviceStrc;
@@ -30,16 +28,6 @@ struct D2RenderConfig006B5520Strc
 extern D2RenderConfig006B5520Strc* gpConfig_007C9148; // 0x007C9148
 extern D2Device006B5520Strc* gpDevice_00970E68; // 0x00970E68
 
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
-
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pCriticalSection);
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
@@ -61,7 +49,6 @@ extern D2ComObject006B5550Strc* gpObject_00970E60; // 0x00970E60
 void __cdecl sub_006B9B00_FreeGlobal(); // 0x006B9B00
 void __cdecl sub_006B3320_Free(); // 0x006B3320
 extern D2CriticalSectionStrc* gpCriticalSection_007C9134; // 0x007C9134
-extern int gnWindow_007C9140; // 0x007C9140
 extern int gnPaused_007C9144; // 0x007C9144
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char*, const char*, int); // 0x00408A60
@@ -131,7 +118,7 @@ void __fastcall sub_006B5630_SetPaused(int window, int mode, int paused)
     if (paused) {
         gnPaused_007C9144 = 1;
         sub_006B3320_ReleaseResources();
-        gnWindow_007C9140 = 0;
+        gn_007C9140 = 0;
     }
     else {
         gnPaused_007C9144 = 0;

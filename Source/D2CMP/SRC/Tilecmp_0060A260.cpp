@@ -23,14 +23,6 @@ struct D2CmpSubTileRecordStrc
     unsigned char* pData;
 };
 
-struct D2CmpColorStrc
-{
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-    unsigned char nPad;
-};
-
 struct D2CmpTileBlockStrc
 {
     char unk0x00[0x24];

@@ -1,6 +1,5 @@
 #include "D2Direct3D.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2SurfaceStrc;
 struct D2D3DObjVtblStrc;
 struct D2SubtilePoolOwnerStrc;
@@ -11,18 +10,7 @@ struct D2SubtileEntryStrc;
 struct D2SubtileSetStrc;
 struct D2Node006BABD0Strc;
 struct D2List006BABD0Strc;
-
-struct D2D3DObjVtblStrc
-{
-	void* pQueryInterface;
-	void* pAddRef;
-	unsigned long (__stdcall* pRelease)(D2D3DObjStrc* pObj);
-};
-
-struct D2D3DObjStrc
-{
-	D2D3DObjVtblStrc* pVtbl;
-};
+struct D2D3DObjStrc;
 
 struct D2SubtilePoolOwnerStrc
 {
@@ -50,6 +38,7 @@ struct D2SubtilePoolStrc
 	D2SubtilePoolEntryStrc* pSpareLast;
 	D2SubtilePoolEntryStrc* pEntries;
 };
+
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
@@ -124,6 +113,21 @@ int __fastcall sub_006BA9A0_Init(D2SubtilePoolStrc* pPool, unsigned int nBase, u
 	pPool->pSpareFirst = pPool->pEntries;
 	pPool->pSpareLast = &pPool->pEntries[pPool->nCapacity - 1];
 	return pPool->nCapacity * nUnit + nBase;
+}
+
+#include "gen/data/Source/D2Direct3D/Src/d3dSubtileCache.inc"
+
+// 0x006BAAC0
+void __fastcall sub_006BAAC0_SetSubtilePalette(D2SubtileSetStrc* textures, void* palette)
+{
+    if (!palette) return;
+    for (int i=0; i<textures->count-1; ++i) {
+        D2SubtileEntryStrc* entry=&textures->entries[i];
+        if (entry->surface) {
+            int result=entry->surface->vtable->SetPalette(entry->surface,palette);
+            if (result) { sub_006B20E0("SetPalette (subtile surface)",result); return; }
+        }
+    }
 }
 
 // 0x006BAB30
@@ -202,6 +206,45 @@ static D2SubtilePoolEntryStrc* sub_006BABA0_PopSpare(D2SubtilePoolStrc* pPool)
 	pEntry->pNext = 0;
 	pEntry->pPrev = 0;
 	return pEntry;
+}
+
+// 0x006BABD0
+D2Node006BABD0Strc* __fastcall sub_006BABD0_TakeNode(D2List006BABD0Strc* pList, int nIndex)
+{
+    D2Node006BABD0Strc* pHead = pList->pHead8;
+    if (!pHead)
+    {
+        return 0;
+    }
+    D2Node006BABD0Strc* pNode = &pList->pNodes18[nIndex];
+    if (pNode == pHead)
+    {
+        pList->pHead8 = pHead->pNext10;
+        if (pList->pHead8)
+        {
+            pList->pHead8->pPrev14 = 0;
+        }
+        else
+        {
+            pList->pTailC = 0;
+        }
+        pHead->pNext10 = 0;
+        pHead->pPrev14 = 0;
+        return pHead;
+    }
+    if (pNode == pList->pTailC)
+    {
+        pList->pTailC = pList->pTailC->pPrev14;
+        pList->pTailC->pNext10 = 0;
+    }
+    else
+    {
+        pNode->pPrev14->pNext10 = pNode->pNext10;
+        pNode->pNext10->pPrev14 = pNode->pPrev14;
+    }
+    pNode->pNext10 = 0;
+    pNode->pPrev14 = 0;
+    return pNode;
 }
 
 // 0x006BAC50
@@ -290,58 +333,4 @@ int __fastcall sub_006BAF00_AllocOrEvict(D2SubtilePoolStrc* pPool)
 		nId = sub_006BAC50_Alloc(pPool);
 	}
 	return nId;
-}
-
-#include "gen/data/Source/D2Direct3D/Src/d3dSubtileCache.inc"
-
-// 0x006BAAC0
-void __fastcall sub_006BAAC0_SetSubtilePalette(D2SubtileSetStrc* textures, void* palette)
-{
-    if (!palette) return;
-    for (int i=0; i<textures->count-1; ++i) {
-        D2SubtileEntryStrc* entry=&textures->entries[i];
-        if (entry->surface) {
-            int result=entry->surface->vtable->SetPalette(entry->surface,palette);
-            if (result) { sub_006B20E0("SetPalette (subtile surface)",result); return; }
-        }
-    }
-}
-
-// 0x006BABD0
-D2Node006BABD0Strc* __fastcall sub_006BABD0_TakeNode(D2List006BABD0Strc* pList, int nIndex)
-{
-    D2Node006BABD0Strc* pHead = pList->pHead8;
-    if (!pHead)
-    {
-        return 0;
-    }
-    D2Node006BABD0Strc* pNode = &pList->pNodes18[nIndex];
-    if (pNode == pHead)
-    {
-        pList->pHead8 = pHead->pNext10;
-        if (pList->pHead8)
-        {
-            pList->pHead8->pPrev14 = 0;
-        }
-        else
-        {
-            pList->pTailC = 0;
-        }
-        pHead->pNext10 = 0;
-        pHead->pPrev14 = 0;
-        return pHead;
-    }
-    if (pNode == pList->pTailC)
-    {
-        pList->pTailC = pList->pTailC->pPrev14;
-        pList->pTailC->pNext10 = 0;
-    }
-    else
-    {
-        pNode->pPrev14->pNext10 = pNode->pNext10;
-        pNode->pNext10->pPrev14 = pNode->pPrev14;
-    }
-    pNode->pNext10 = 0;
-    pNode->pPrev14 = 0;
-    return pNode;
 }

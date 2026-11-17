@@ -9,8 +9,6 @@ struct D2QLockStrc;
 struct D2QNodeStrc;
 struct D2QIpCountStrc;
 
-typedef struct _RTL_CRITICAL_SECTION CRITICAL_SECTION;
-
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(CRITICAL_SECTION* lpCriticalSection);
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(CRITICAL_SECTION* lpCriticalSection);
 void __fastcall FOG_Free(void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B3C0

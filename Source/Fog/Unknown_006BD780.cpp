@@ -32,17 +32,6 @@ typedef int (__fastcall* KeyCallback)(const char*);
 
 typedef void (__fastcall* FieldCallback)(const char*,void*,int,int,int,int);
 
-struct D2QServerConfigStrc
-{
-    int nClientCapacity;
-    int nValue04;
-    int nValue08;
-    int nValue0C;
-};
-
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
-extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-
 struct D2QueueServerStrc
 {
     void* pHandle;

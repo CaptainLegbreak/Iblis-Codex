@@ -1,7 +1,5 @@
 #include "Fog.h"
 
-#define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
-
 struct SkillLink;
 struct Drlg;
 struct Pad40_006BC810;
@@ -50,23 +48,7 @@ struct Obj006BC810 {
     unsigned int dwValue110;
 };
 
-typedef unsigned int U32;
-
-typedef unsigned char U8;
-
 typedef signed short S16;
-
-typedef char check_pointer_size[sizeof(void*)==4?1:-1];
-
-struct PaletteColor
-{
-    U8 c0;
-    U8 c1;
-    U8 c2;
-    U8 unused;
-};
-
-typedef char check_PaletteColor_size[sizeof(PaletteColor)==4?1:-1];
 
 typedef char check_PaletteColor_c1[OFFSET(PaletteColor,c1)==1?1:-1];
 
@@ -87,19 +69,7 @@ typedef char check_MonStatsView_sequences[OFFSET(MonStatsView,sequences)==0x188?
 
 typedef char check_MonStatsView_size[sizeof(MonStatsView)==0x1A8?1:-1];
 
-struct ReceiveQueue
-{
-    U32 status;
-    U8 criticalSection[0x18];
-    void* head;
-    void* tail;
-};
-
-typedef char check_ReceiveQueue_head[OFFSET(ReceiveQueue,head)==0x1C?1:-1];
-
 typedef char check_ReceiveQueue_tail[OFFSET(ReceiveQueue,tail)==0x20?1:-1];
-
-typedef char check_ReceiveQueue_size[sizeof(ReceiveQueue)==0x24?1:-1];
 
 struct Transport
 {
@@ -113,14 +83,6 @@ extern "C" void* __fastcall sub_00451F80_MonStats(int classId);
 extern "C" int* __fastcall sub_0066C040_Visibility(Drlg* drlg, int levelId);
 extern "C" unsigned short __fastcall sub_006C2090_ReadQueue(ReceiveQueue* queue, char* buffer, int capacity);
 extern "C" int __fastcall sub_006BC030_Send(Transport* transport, const char* buffer, U32 size);
-
-struct PaletteTables
-{
-    PaletteColor colors[256];
-    U8 tables[256*32];
-};
-
-typedef char check_PaletteTables_tables[OFFSET(PaletteTables,tables)==0x400?1:-1];
 
 typedef char check_PaletteTables_size[sizeof(PaletteTables)==9216?1:-1];
 
@@ -159,14 +121,6 @@ struct LevelView
 typedef char check_LevelView_drlg[OFFSET(LevelView,drlg)==0x1B4?1:-1];
 
 typedef char check_LevelView_levelId[OFFSET(LevelView,f_1D0)==0x1D0?1:-1];
-
-struct ReceiveConnection
-{
-    U8 pad0[0x170];
-    ReceiveQueue queue;
-};
-
-typedef char check_ReceiveConnection_queue[OFFSET(ReceiveConnection,queue)==0x170?1:-1];
 
 struct SendContext
 {

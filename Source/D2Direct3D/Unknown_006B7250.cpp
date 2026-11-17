@@ -1,6 +1,4 @@
 #include "D2Direct3D.h"
-
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define ASSERT(expr,line) if (!(expr)) { sub_00408A60(gszEmpty_006CC837,sub_00408090(),line); exit(-1); }
 #define MIN(a,b) ((a)<(b)?(a):(b))
 #define MAX(a,b) ((a)>(b)?(a):(b))
@@ -46,14 +44,6 @@ struct D2Unknown006B7250Strc
 };
 
 extern D2Unknown006B7250Strc* gpTextures_00971150[0x60]; // 0x00971150
-
-struct D2RectStrc
-{
-    int nLeft;
-    int nTop;
-    int nRight;
-    int nBottom;
-};
 
 struct D2SurfaceDescStrc
 {
@@ -127,13 +117,6 @@ struct D2SurfaceStrc { D2SurfaceVtableStrc* vtable; };
 
 void __fastcall sub_006B20E0_Report(const char*, int); // 0x006B20E0
 
-struct D2TexturedVertexStrc
-{
-    float nX, nY, nZ, nRhw;
-    unsigned int nDiffuse, nSpecular;
-    float nU, nV;
-};
-
 void __cdecl sub_006B72A0_PrepareRenderer(); // 0x006B72A0
 
 struct D2GfxSettingsStrc
@@ -185,7 +168,6 @@ struct D2Rect006B7C90Strc
 
 void __fastcall sub_006B7B30_DrawLine(int nX1, int nY1, int nX2, int nY2, int nColor, int nAlpha); // 0x006B7B30
 extern const char gszEmpty_006CC837[]; // 0x006CC837
-void __fastcall sub_006B7B30_DrawLine(int,int,int,int,int,int); // 0x006B7B30
 
 struct D2D3DRect006B7F70Strc
 {
@@ -206,8 +188,6 @@ struct D2Direct3DDevice006B7F70Strc
     D2Direct3DDeviceVtbl006B7F70Strc* lpVtbl;
 };
 extern D2Direct3DDevice006B7F70Strc* gpDevice_00970E7C; // 0x00970E7C
-
-struct D2QuadVertexStrc { float x,y,z,rhw; unsigned int color,specular; float s,t; };
 
 struct D2GridVertexStrc { float x,y,unknown08,unknown0C,s,t,unknown18,unknown1C; };
 
@@ -230,16 +210,15 @@ struct D2Object006B9730Strc
     unsigned int dwColor10;
 };
 
-extern unsigned char gnOffsetR_0097173A; // 0x0097173A
-extern unsigned char gnOffsetG_00971738; // 0x00971738
-extern unsigned char gnOffsetB_00971739; // 0x00971739
+extern unsigned char gnColorComponent_0097173A; // 0x0097173A
+extern unsigned char gnColorComponent_00971738; // 0x00971738
+extern unsigned char gnColorComponent_00971739; // 0x00971739
 extern unsigned char gaPaletteRows_00971740[][256]; // 0x00971740
 extern int gaScaleTable_00981748[0x2000]; // 0x00981748
 extern int gnScaleTableReady_00989748; // 0x00989748
 extern int gnOriginX_00981740; // 0x00981740
 extern int gnOriginY_00981744; // 0x00981744
 extern int gnPerspective_00981748[]; // 0x00981748
-extern int gnScale_00989748; // 0x00989748
 
 D2Unknown006B7250Strc* gpSurfaces_009712D0[0x60]; // 0x009712D0
 
@@ -615,7 +594,7 @@ void __fastcall sub_006B9710_SetColorComponents(unsigned char first, unsigned ch
 void __fastcall sub_006B9730_SetColor(D2Object006B9730Strc* pObject, unsigned char nIndex, unsigned char nAlpha)
 {
     const unsigned char* pRow = gaPaletteRows_00971740[nIndex];
-    pObject->dwColor10 = ((((unsigned int)nAlpha << 8 | pRow[gnOffsetR_0097173A]) << 8 | pRow[gnOffsetG_00971738]) << 8) | pRow[gnOffsetB_00971739];
+    pObject->dwColor10 = ((((unsigned int)nAlpha << 8 | pRow[gnColorComponent_0097173A]) << 8 | pRow[gnColorComponent_00971738]) << 8) | pRow[gnColorComponent_00971739];
 }
 
 // 0x006B9780
@@ -671,5 +650,5 @@ void __fastcall sub_006B9860_Project(int x, int y, int z, int* outX, int* outY)
 // 0x006B9A00
 void __cdecl sub_006B9A00_ResetScale()
 {
-    gnScale_00989748 = 256;
+    gnScaleTableReady_00989748 = 256;
 }

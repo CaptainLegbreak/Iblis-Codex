@@ -1,6 +1,5 @@
 #include "D2Direct3D.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2SurfaceStrc;
 struct D2D3DObjVtblStrc;
 struct D2FloorPoolOwnerStrc;
@@ -12,45 +11,8 @@ struct D2FloorSetStrc;
 struct D2Owner006BB390Strc;
 struct D2Node006BB390Strc;
 struct D2List006BB390Strc;
+struct D2D3DObjStrc;
 
-struct D2D3DObjVtblStrc
-{
-	void* pQueryInterface;
-	void* pAddRef;
-	unsigned long (__stdcall* pRelease)(D2D3DObjStrc* pObj);
-};
-
-struct D2D3DObjStrc
-{
-	D2D3DObjVtblStrc* pVtbl;
-};
-
-struct D2FloorPoolOwnerStrc
-{
-	char unk0x00[0x42];
-	short nPoolId;
-};
-
-struct D2FloorPoolEntryStrc
-{
-	int nIndex;
-	D2FloorPoolOwnerStrc* pOwner;
-	D2D3DObjStrc* pTexture;
-	D2D3DObjStrc* pSurface;
-	D2FloorPoolEntryStrc* pNext;
-	D2FloorPoolEntryStrc* pPrev;
-};
-
-struct D2FloorPoolStrc
-{
-	int nCapacity;
-	int nInUse;
-	D2FloorPoolEntryStrc* pInUseFirst;
-	D2FloorPoolEntryStrc* pInUseLast;
-	D2FloorPoolEntryStrc* pSpareFirst;
-	D2FloorPoolEntryStrc* pSpareLast;
-	D2FloorPoolEntryStrc* pEntries;
-};
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
@@ -135,6 +97,21 @@ int __fastcall sub_006BAFC0_Init(D2FloorPoolStrc* pPool, unsigned int nBase, uns
 	pPool->pSpareFirst = pPool->pEntries;
 	pPool->pSpareLast = &pPool->pEntries[pPool->nCapacity - 1];
 	return pPool->nCapacity * nUnit + nBase;
+}
+
+#include "gen/data/Source/D2Direct3D/Src/d3dFloorCache.inc"
+
+// 0x006BB0E0
+void __fastcall sub_006BB0E0_SetFloorPalette(D2FloorSetStrc* textures, void* palette)
+{
+    if (!palette) return;
+    for (int i=0; i<textures->count-1; ++i) {
+        D2FloorEntryStrc* entry=&textures->entries[i];
+        if (entry->surface) {
+            int result=entry->surface->vtable->SetPalette(entry->surface,palette);
+            if (result) { sub_006B20E0("SetPalette (floor surface)",result); return; }
+        }
+    }
 }
 
 // 0x006BB150
@@ -248,6 +225,35 @@ void __fastcall sub_006BB330_ReleaseOldest(D2FloorPoolStrc* pPool)
 	}
 }
 
+// 0x006BB390
+void __fastcall sub_006BB390_MoveNode(D2List006BB390Strc* pList)
+{
+    if (pList->nCount4)
+    {
+        D2Node006BB390Strc* pNode = sub_006BB1F0_TakeNode(pList);
+        if (pNode)
+        {
+            if (pNode->pOwner4)
+            {
+                pNode->pOwner4->wFlags42 = 0;
+                pNode->pOwner4 = 0;
+            }
+            if (!pList->pHead10)
+            {
+                pList->pHead10 = pNode;
+                pList->pTail14 = pNode;
+            }
+            else
+            {
+                pList->pTail14->pNext10 = pNode;
+                pNode->pPrev14 = pList->pTail14;
+                pList->pTail14 = pNode;
+            }
+        }
+        --pList->nCount4;
+    }
+}
+
 // 0x006BB3E0
 void __fastcall sub_006BB3E0_Destroy(D2FloorPoolStrc* pPool, int bReleaseAll)
 {
@@ -301,48 +307,4 @@ int __fastcall sub_006BB520_AllocOrEvict(D2FloorPoolStrc* pPool)
 		nId = sub_006BB270_Alloc(pPool);
 	}
 	return nId;
-}
-
-#include "gen/data/Source/D2Direct3D/Src/d3dFloorCache.inc"
-
-// 0x006BB0E0
-void __fastcall sub_006BB0E0_SetFloorPalette(D2FloorSetStrc* textures, void* palette)
-{
-    if (!palette) return;
-    for (int i=0; i<textures->count-1; ++i) {
-        D2FloorEntryStrc* entry=&textures->entries[i];
-        if (entry->surface) {
-            int result=entry->surface->vtable->SetPalette(entry->surface,palette);
-            if (result) { sub_006B20E0("SetPalette (floor surface)",result); return; }
-        }
-    }
-}
-
-// 0x006BB390
-void __fastcall sub_006BB390_MoveNode(D2List006BB390Strc* pList)
-{
-    if (pList->nCount4)
-    {
-        D2Node006BB390Strc* pNode = sub_006BB1F0_TakeNode(pList);
-        if (pNode)
-        {
-            if (pNode->pOwner4)
-            {
-                pNode->pOwner4->wFlags42 = 0;
-                pNode->pOwner4 = 0;
-            }
-            if (!pList->pHead10)
-            {
-                pList->pHead10 = pNode;
-                pList->pTail14 = pNode;
-            }
-            else
-            {
-                pList->pTail14->pNext10 = pNode;
-                pNode->pPrev14 = pList->pTail14;
-                pList->pTail14 = pNode;
-            }
-        }
-        --pList->nCount4;
-    }
 }

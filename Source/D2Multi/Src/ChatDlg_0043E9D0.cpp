@@ -23,8 +23,6 @@ struct D2LaunchCharInfoStrc
     char unk0x000[0x22D];
     char nByte22D;
 };
-
-typedef int (__stdcall* D2LaunchCallback)(int nArg);
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 int __stdcall D2Win_10033(D2WinControlStrc* pControl, int nArg); // 0x004FA470

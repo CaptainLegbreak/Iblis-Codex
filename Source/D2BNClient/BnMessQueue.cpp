@@ -1,51 +1,38 @@
-typedef unsigned int size_t;
-extern "C" size_t __cdecl strlen(const char* szString);
+#include "D2BNClient.h"
+
 #pragma intrinsic(strlen)
 
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
-
-struct D2BnStateStrc
-{
-    int nState;
-    void* pArg;
-};
-
-struct D2BnMessageStrc
-{
-    int nId;
-    char szText[0x120];
-    unsigned int nLength;
-    D2BnMessageStrc* pNext;
-};
-
-extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
-extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
-extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
-extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock);        // 0x006CC214
-extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock);        // 0x006CC218
-extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);                          // 0x006829C0
-void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);                               // 0x0040B380
-int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0
-unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x004135D0
+struct D2CriticalSectionStrc;
+struct D2BnStateStrc;
+struct D2BnMessageStrc;
+struct D2BnMessage00520440Strc;
 
-extern "C" const char szBnMessQueueFile_006DF78C[];                                                         // 0x006DF78C
-char gszEmptyStateText_00881F80[128];                                                                       // 0x00881F80
-extern void* gpBnStateArg_00882000;                                                                         // 0x00882000
-extern D2CriticalSectionStrc gMessageLock_00882004;                                                         // 0x00882004
-extern int gnBnState_0088201C;                                                                              // 0x0088201C
-D2BnMessageStrc* gpMessageHead_00882020;                                                                    // 0x00882020
-D2BnMessageStrc* gpMessageTail_00882024;                                                                    // 0x00882024
+extern "C" size_t __cdecl strlen(const char* szString);
+extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
+extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
+extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
+unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
+extern "C" const char szBnMessQueueFile_006DF78C[]; // 0x006DF78C
+extern void* gpBnStateArg_00882000; // 0x00882000
+extern D2CriticalSectionStrc gMessageLock_00882004; // 0x00882004
+extern int gnBnState_0088201C; // 0x0088201C
+
+struct D2BnMessage00520440Strc
+{
+    unsigned char unk_000[0x128];
+    D2BnMessage00520440Strc* pNext128;
+};
+extern D2BnMessage00520440Strc* gpMessQueueHead_00882020; // 0x00882020
+
+char gszEmptyStateText_00881F80[128]; // 0x00881F80
+
+D2BnMessageStrc* gpMessageHead_00882020; // 0x00882020
+
+D2BnMessageStrc* gpMessageTail_00882024; // 0x00882024
 
 // 0x005202F0
 int __fastcall sub_005202F0_QueueText(int nId, const char* szText)
@@ -88,6 +75,21 @@ unsigned int __fastcall sub_005203B0_TakeMessage(int* pId, void* pBuffer)
     }
     LeaveCriticalSection(&gMessageLock_00882004);
     return nLength;
+}
+
+// 0x00520440
+int __cdecl sub_00520440_FreeAllMessages()
+{
+    EnterCriticalSection(&gMessageLock_00882004);
+    D2BnMessage00520440Strc* pMessage = gpMessQueueHead_00882020;
+    while (gpMessQueueHead_00882020)
+    {
+        pMessage = pMessage->pNext128;
+        FOG_Free(gpMessQueueHead_00882020, ".\\BnMessQueue.cpp", 0x9F, 0);
+        gpMessQueueHead_00882020 = pMessage;
+    }
+    LeaveCriticalSection(&gMessageLock_00882004);
+    return 1;
 }
 
 // 0x00520580
