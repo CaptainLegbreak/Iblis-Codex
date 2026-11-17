@@ -1,0 +1,806 @@
+#include "Storm.h"
+
+struct D2StormHashBufferStrc;
+struct D2CriticalSectionStrc;
+struct D2FogBlockStrc;
+struct D2StormMemSourceStrc;
+struct D2StormMemSinkStrc;
+struct D2StormCompParamStrc;
+struct D2StormZArenaStrc;
+struct D2StormLinkStrc;
+struct D2StormNodeListAStrc;
+struct D2StormHuffItemStrc;
+struct D2StormHuffTreeStrc;
+struct D2AdpcmHeaderStrc;
+struct D2SCompLinkStrc;
+struct D2SCompListViewStrc;
+struct D2SCompLinkNextAStrc;
+struct D2SCompLinkNextBStrc;
+struct D2SCompLinkPrevStrc;
+struct D2SCompLinkRawAStrc;
+struct D2SCompLinkRawBStrc;
+struct D2SCompUnlinkAStrc;
+struct D2SCompUnlinkBStrc;
+struct D2SCompUnlinkCStrc;
+struct D2SCompUnlinkDStrc;
+struct D2SCompListTermStrc;
+struct D2SCompLinkCtorAStrc;
+struct D2SCompLinkCtorBStrc;
+struct D2SCompListHeadStrc;
+struct D2SCompListTailStrc;
+struct D2SCompListInitStrc;
+struct D2SCompTermLinkStrc;
+struct D2SCompListStrc;
+
+struct D2CriticalSectionStrc
+{
+    void* pDebugInfo;
+    long nLockCount;
+    long nRecursionCount;
+    void* hOwningThread;
+    void* hLockSemaphore;
+    unsigned long nSpinCount;
+};
+
+struct D2FogBlockStrc
+{
+    D2FogBlockStrc* pNext;
+    unsigned int dwSize;
+    int unk0x08[2];
+    int bReportLeak;
+    int bInUse;
+};
+
+struct D2StormMemSourceStrc
+{
+    int unk0x00[3];
+    char* pBuffer;
+    unsigned int nPos;
+    unsigned int nSize;
+};
+
+struct D2StormMemSinkStrc
+{
+    char* pBuffer;
+    unsigned int nPos;
+    unsigned int nSize;
+};
+
+struct D2StormCompParamStrc
+{
+    char* pDst;
+    unsigned int nDstPos;
+    unsigned int nDstSize;
+    char* pSrc;
+    unsigned int nSrcPos;
+    unsigned int nSrcSize;
+};
+
+struct D2StormZArenaStrc
+{
+    char* f_0;
+    char* f_8;
+    unsigned int nSize;
+};
+
+struct D2StormLinkStrc
+{
+    D2StormLinkStrc* m_prevlink;
+    char* m_next;
+
+    char* Next()
+    {
+        return (int)m_next <= 0 ? 0 : m_next;
+    }
+};
+
+struct D2StormNodeListAStrc
+{
+    int m_linkoffset;
+    D2StormLinkStrc m_terminator;
+
+    char* Head()
+    {
+        return m_terminator.Next();
+    }
+    void sub_0041ED90_LinkNode(char* pNode, unsigned int nLinkType, char* pExisting);                       // 0x0041ED90
+};
+
+struct D2StormHuffItemStrc
+{
+    D2StormLinkStrc f_0;
+    unsigned int nValue;
+    unsigned int nWeight;
+    D2StormHuffItemStrc* pParent;
+    D2StormHuffItemStrc* pChild;
+};
+
+struct D2StormHuffTreeStrc
+{
+    int unk0x00[2];
+    D2StormHuffItemStrc f_8[0x203];
+    D2StormNodeListAStrc tFreeList;
+    D2StormNodeListAStrc tItemList;
+    unsigned int nItemsUsed;
+
+    D2StormHuffItemStrc* sub_0041EED0_NewItem(unsigned int nLinkType);
+};
+
+extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
+extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
+extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC1FC
+void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
+int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
+void __fastcall sub_00411A80_ReleaseBlock(D2FogBlockStrc** ppLink); // 0x00411A80
+D2FogBlockStrc** __fastcall sub_00411F00_ProcessUsedBlock(D2FogBlockStrc** ppLink); // 0x00411F00
+void __stdcall sub_0041D1E0_ReportHandleLeak(const char* szName); // 0x0041D1E0
+void __fastcall sub_0041D3B0_NewHashBuffer(D2StormHashBufferStrc** ppBuffer, unsigned int nSignSize, int nModulusSize); // 0x0041D3B0
+void __fastcall sub_0041D420_HashBuffered(D2StormHashBufferStrc* pBuffer, const char* pData, int nSize); // 0x0041D420
+int __fastcall sub_0041D6D0_VerifyHashBuffer(D2StormHashBufferStrc* pBuffer, const void* pExponent, const void* pModulus); // 0x0041D6D0
+unsigned int __cdecl sub_0041DEC0_ReadMemory(char* pBuffer, unsigned int* pSize, D2StormMemSourceStrc* pSource); // 0x0041DEC0
+void __cdecl sub_0041DF00_WriteMemory(char* pBuffer, unsigned int* pSize, D2StormMemSinkStrc* pSink); // 0x0041DF00
+extern "C" unsigned int __cdecl sub_006B01B0_Explode(unsigned int (__cdecl* pRead)(char*, unsigned int*, D2StormMemSourceStrc*), void (__cdecl* pWrite)(char*, unsigned int*, D2StormMemSinkStrc*), char* pWork, void* pParam); // 0x006B01B0
+extern "C" unsigned int __cdecl sub_006B0870_Implode(unsigned int (__cdecl* pRead)(char*, unsigned int*, D2StormMemSourceStrc*), void (__cdecl* pWrite)(char*, unsigned int*, D2StormMemSinkStrc*), char* pWork, void* pParam, unsigned int* pType, unsigned int* pDictSize); // 0x006B0870
+extern D2FogBlockStrc* gapFreeBlocks_007768B8[0x100]; // 0x007768B8
+extern D2CriticalSectionStrc gaFreeBlockLocks_00776CC0[0x100]; // 0x00776CC0
+extern int gabFreeBlockDirty_007784C8[0x100]; // 0x007784C8
+extern int gbHeapInitialized_007788D0; // 0x007788D0
+
+struct D2AdpcmHeaderStrc
+{
+    unsigned char nZero;
+    unsigned char f_1;
+};
+
+struct D2SCompLinkStrc
+{
+    D2SCompLinkStrc* m_prevlink;
+    char* m_next;
+
+    D2SCompLinkStrc* NextLink(int nLinkOffset)
+    {
+        if ((int)m_next < 0)
+            return (D2SCompLinkStrc*)~(unsigned int)m_next;
+        if (nLinkOffset < 0)
+            nLinkOffset = (char*)this - m_prevlink->m_next;
+        return (D2SCompLinkStrc*)(m_next + nLinkOffset);
+    }
+    void Unlink()
+    {
+        if (m_prevlink)
+        {
+            NextLink(-1)->m_prevlink = m_prevlink;
+            m_prevlink->m_next = m_next;
+            m_prevlink = 0;
+            m_next = 0;
+        }
+    }
+};
+
+struct D2SCompListViewStrc
+{
+    int m_linkoffset;
+    D2SCompLinkStrc m_terminator;
+};
+
+struct D2SCompLinkNextAStrc { D2SCompLinkStrc tLink; char* sub_0041E930_Next(); };
+
+struct D2SCompLinkNextBStrc { D2SCompLinkStrc tLink; char* sub_0041EA40_Next(); };
+
+struct D2SCompLinkPrevStrc { D2SCompLinkStrc tLink; char* sub_0041E940_Prev(); };
+
+struct D2SCompLinkRawAStrc { D2SCompLinkStrc tLink; char* sub_0041E960_RawNext(); };
+
+struct D2SCompLinkRawBStrc { D2SCompLinkStrc tLink; char* sub_0041EA50_RawNext(); };
+
+struct D2SCompUnlinkAStrc { D2SCompLinkStrc tLink; void sub_0041E970_Unlink(); };
+
+struct D2SCompUnlinkBStrc { D2SCompLinkStrc tLink; void sub_0041EA70_Unlink(); };
+
+struct D2SCompUnlinkCStrc { D2SCompLinkStrc tLink; void sub_0041EAE0_Unlink(); };
+
+struct D2SCompUnlinkDStrc { D2SCompLinkStrc tLink; void sub_0041ED30_Unlink(); };
+
+struct D2SCompListTermStrc { D2SCompListViewStrc tList; void sub_0041E9B0_InitializeTerminator(); };
+
+struct D2SCompLinkCtorAStrc { D2SCompLinkStrc* m_prevlink; char* m_next; D2SCompLinkCtorAStrc(); };
+
+struct D2SCompLinkCtorBStrc { D2SCompLinkStrc* m_prevlink; char* m_next; D2SCompLinkCtorBStrc(); };
+
+struct D2SCompListHeadStrc { D2SCompListViewStrc tList; char* sub_0041EAB0_Head(); };
+
+struct D2SCompListTailStrc { D2SCompListViewStrc tList; char* sub_0041EAC0_Tail(); };
+
+struct D2SCompListInitStrc { D2SCompListViewStrc tList; void sub_0041EB20_Init(); };
+
+struct D2SCompTermLinkStrc
+{
+    D2SCompTermLinkStrc* m_prevlink;
+    char* m_next;
+    D2SCompTermLinkStrc() { m_prevlink = 0; m_next = 0; }
+};
+
+struct D2SCompListStrc
+{
+    int m_linkoffset;
+    D2SCompTermLinkStrc m_terminator;
+    D2SCompListStrc();
+};
+
+// 0x00412240
+int __cdecl sub_00412240_DestroyHeaps()
+{
+    int i = 0;
+    if (gbHeapInitialized_007788D0)
+    {
+        gbHeapInitialized_007788D0 = 0;
+        D2CriticalSectionStrc* pLock = gaFreeBlockLocks_00776CC0;
+        int n = 0x100;
+        do
+        {
+            EnterCriticalSection(pLock);
+            D2FogBlockStrc** ppLink = &gapFreeBlocks_007768B8[i];
+            gabFreeBlockDirty_007784C8[i] = 0;
+            while (*ppLink)
+            {
+                D2FogBlockStrc* pBlock = *ppLink;
+                if (pBlock->bInUse)
+                {
+                    ppLink = sub_00411F00_ProcessUsedBlock(ppLink);
+                }
+                else
+                {
+                    if (pBlock->bReportLeak && pBlock->dwSize >= 0x80000000)
+                        sub_0041D1E0_ReportHandleLeak("HSHEAP");
+                    sub_00411A80_ReleaseBlock(ppLink);
+                }
+            }
+            LeaveCriticalSection(pLock);
+            DeleteCriticalSection(pLock);
+            ++i;
+            ++pLock;
+        } while (--n);
+    }
+    return 1;
+}
+
+// build: context sub_0041D7D0_VerifySignature
+int __fastcall sub_0041D7D0_VerifySignature(const char* pData, int nSize, const void* pExponent, unsigned int nSignSize, const void* pModulus, int nModulusSize)
+{
+    D2StormHashBufferStrc* pBuffer;
+    sub_0041D3B0_NewHashBuffer(&pBuffer, nSignSize, nModulusSize);
+    sub_0041D420_HashBuffered(pBuffer, pData, nSize);
+    return sub_0041D6D0_VerifyHashBuffer(pBuffer, pExponent, pModulus);
+}
+
+// 0x0041DF40
+void __fastcall sub_0041DF40_CompressImplode(char* pDst, unsigned int* pDstLen, char* pSrc, unsigned int nSrcLen, int* pType, int nLevel)
+{
+    char* pWork = (char*)SMemAlloc(0x8DD8, ".\\SOURCE\\SCOMP.CPP", 0x440, 0);
+    D2StormCompParamStrc tParam;
+    unsigned int nType;
+    unsigned int nDictSize;
+    tParam.pDst = pDst;
+    tParam.nDstPos = 0;
+    tParam.nDstSize = *pDstLen;
+    tParam.pSrc = pSrc;
+    tParam.nSrcPos = 0;
+    tParam.nSrcSize = nSrcLen;
+    nType = *pType == 2;
+    if (nSrcLen >= 0xC00)
+        nDictSize = 0x1000;
+    else
+        nDictSize = nSrcLen < 0x600 ? 0x400 : 0x800;
+    sub_006B0870_Implode(sub_0041DEC0_ReadMemory, sub_0041DF00_WriteMemory, pWork, &tParam, &nType, &nDictSize);
+    SMemFree(pWork, ".\\SOURCE\\SCOMP.CPP", 0x467, 0);
+    *pDstLen = tParam.nDstPos;
+    *pType = 0;
+}
+
+// 0x0041E000
+void __fastcall sub_0041E000_DecompressExplode(char* pDst, unsigned int* pDstLen, char* pSrc, unsigned int nSrcLen, int nUnused)
+{
+    char* pWork = (char*)SMemAlloc(0x3134, ".\\SOURCE\\SCOMP.CPP", 0x47B, 0);
+    D2StormCompParamStrc tParam;
+    tParam.pDst = pDst;
+    tParam.nDstPos = 0;
+    tParam.nDstSize = *pDstLen;
+    tParam.pSrc = pSrc;
+    tParam.nSrcPos = 0;
+    tParam.nSrcSize = nSrcLen;
+    sub_006B01B0_Explode(sub_0041DEC0_ReadMemory, sub_0041DF00_WriteMemory, pWork, &tParam);
+    SMemFree(pWork, ".\\SOURCE\\SCOMP.CPP", 0x48D, 0);
+    *pDstLen = tParam.nDstPos;
+}
+
+// 0x0041E080
+void* __fastcall sub_0041E080_ZAlloc(D2StormZArenaStrc* pArena, unsigned int nItems, unsigned int nSize)
+{
+    unsigned int nBytes = nItems * nSize;
+    if (nBytes & 3)
+        nBytes += 4 - (nBytes & 3);
+    if (nBytes < (unsigned int)(pArena->f_8 + pArena->nSize - pArena->f_0))
+    {
+        char* pResult = pArena->f_0;
+        pArena->f_0 += nBytes;
+        return pResult;
+    }
+    return SMemAlloc(nBytes, ".\\SOURCE\\SCOMP.CPP", 0x4C4, 0);
+}
+
+// 0x0041EED0
+D2StormHuffItemStrc* D2StormHuffTreeStrc::sub_0041EED0_NewItem(unsigned int nLinkType)
+{
+    D2StormHuffItemStrc* pItem = (D2StormHuffItemStrc*)tFreeList.Head();
+    if (!pItem)
+        pItem = &f_8[nItemsUsed++];
+    tItemList.sub_0041ED90_LinkNode((char*)pItem, nLinkType, 0);
+    pItem->pParent = 0;
+    pItem->pChild = 0;
+    return pItem;
+}
+
+static __declspec(noinline) void sub_0041DA30_GetCompressionLevel(unsigned int nCmpLevel, unsigned char* pnLevel, int* pCmpType)
+{
+    switch (nCmpLevel)
+    {
+    case 1:
+    case 2:
+        *pnLevel = 4;
+        *pCmpType = 6;
+        break;
+    case 3:
+        *pnLevel = 6;
+        *pCmpType = 8;
+        break;
+    default:
+        *pnLevel = 5;
+        *pCmpType = 7;
+        break;
+    }
+}
+
+static int __stdcall sub_0041DA60_CompressADPCM(int nOutSize, const short* pIn, int nInSize, unsigned int nChannels, unsigned char nLevel, unsigned char* pOut)
+{
+    unsigned char* pOutStart = pOut;
+    if ((unsigned int)nOutSize < 2)
+    {
+        return 2;
+    }
+    D2AdpcmHeaderStrc tHeader;
+    tHeader.f_1 = nLevel - 1;
+    tHeader.nZero = 0;
+    *(D2AdpcmHeaderStrc*)pOut = tHeader;
+    pOut += 2;
+    const int nHeader = nChannels * 2 + (pOut - pOutStart);
+    if (nHeader > nOutSize)
+    {
+        return nHeader;
+    }
+    int aPredicted[2];
+    int aStepIndex[2];
+    aStepIndex[0] = 0x2C;
+    aStepIndex[1] = 0x2C;
+    for (unsigned int i = 0; i < nChannels; i++)
+    {
+        const int nSample = *pIn++;
+        aPredicted[i] = nSample;
+        *(short*)pOut = nSample;
+        pOut += 2;
+    }
+    int nGrowLeft = nInSize / 2 - (pOut - pOutStart);
+    nGrowLeft = nGrowLeft < 0 ? 0 : nGrowLeft;
+    unsigned int nIndex = nChannels;
+    const unsigned int nWords = (unsigned int)nInSize >> 1;
+    int nChannel = nChannels - 1;
+    if (nIndex >= nWords)
+    {
+        return pOut - pOutStart;
+    }
+    do
+    {
+        if ((pOut - pOutStart) + 2 > nOutSize)
+        {
+            return (pOut - pOutStart) + 2;
+        }
+        if (nChannels == 2)
+        {
+            nChannel = nChannel == 0;
+        }
+        const int nSample = *pIn++;
+        int nDifference = nSample - aPredicted[nChannel];
+        const unsigned int nAbs = nDifference < 0 ? -nDifference : nDifference;
+        const unsigned char nSignBit = nSample >= aPredicted[nChannel] ? 0 : 0x40;
+        unsigned int nStepSize = gaADPCMStepTable_006CFD38[aStepIndex[nChannel]];
+        if (nAbs < (nStepSize >> nLevel))
+        {
+            if (aStepIndex[nChannel])
+            {
+                aStepIndex[nChannel]--;
+            }
+            *pOut++ = 0x80;
+        }
+        else
+        {
+            while (nAbs > nStepSize * 2 && aStepIndex[nChannel] < 0x58 && nGrowLeft)
+            {
+                aStepIndex[nChannel] += 8;
+                if (aStepIndex[nChannel] > 0x58)
+                {
+                    aStepIndex[nChannel] = 0x58;
+                }
+                nStepSize = gaADPCMStepTable_006CFD38[aStepIndex[nChannel]];
+                nGrowLeft--;
+                *pOut++ = 0x81;
+            }
+            const unsigned int nStepRest = nStepSize >> tHeader.f_1;
+            const unsigned int nMaxBit = 1 << (nLevel - 2);
+            unsigned int nTotal = 0;
+            unsigned int nMask = 0;
+            unsigned int nLimit = 0x20;
+            nInSize = 1;
+            if (nMaxBit <= 0x20)
+            {
+                nLimit = nMaxBit;
+            }
+            for (;;)
+            {
+                if (nTotal + nStepSize <= nAbs)
+                {
+                    nTotal += nStepSize;
+                    nMask |= nInSize;
+                }
+                if (nInSize == nLimit)
+                {
+                    break;
+                }
+                nStepSize >>= 1;
+                nInSize <<= 1;
+            }
+            const int nDelta = nTotal + nStepRest;
+            int nPredicted = aPredicted[nChannel];
+            if (nSignBit)
+            {
+                nPredicted -= nDelta;
+                if (nPredicted < -0x8000)
+                {
+                    nPredicted = -0x8000;
+                }
+            }
+            else
+            {
+                nPredicted += nDelta;
+                if (nPredicted > 0x7FFF)
+                {
+                    nPredicted = 0x7FFF;
+                }
+            }
+            *pOut++ = nSignBit | (unsigned char)nMask;
+            aStepIndex[nChannel] += gaADPCMIndexTable_006CFCB8[nMask & 0x1F];
+            aPredicted[nChannel] = nPredicted;
+            if (aStepIndex[nChannel] < 0)
+            {
+                aStepIndex[nChannel] = 0;
+            }
+            else if (aStepIndex[nChannel] > 0x58)
+            {
+                aStepIndex[nChannel] = 0x58;
+            }
+        }
+        nIndex++;
+    } while (nIndex < nWords);
+    return pOut - pOutStart;
+}
+
+// 0x0041E360
+void __fastcall sub_0041E360_SCompADPCMCompressMono(unsigned char* pvOutBuffer, int* pcbOutBuffer, const short* pvInBuffer, int cbInBuffer, int* pCmpType, int nCmpLevel)
+{
+    unsigned char nLevel;
+    sub_0041DA30_GetCompressionLevel(nCmpLevel, &nLevel, pCmpType);
+    *pcbOutBuffer = sub_0041DA60_CompressADPCM(*pcbOutBuffer, pvInBuffer, cbInBuffer, 1, nLevel, pvOutBuffer);
+}
+
+// 0x0041E3C0
+void __fastcall sub_0041E3C0_SCompADPCMCompressStereo(unsigned char* pvOutBuffer, int* pcbOutBuffer, const short* pvInBuffer, int cbInBuffer, int* pCmpType, int nCmpLevel)
+{
+    unsigned char nLevel;
+    sub_0041DA30_GetCompressionLevel(nCmpLevel, &nLevel, pCmpType);
+    *pcbOutBuffer = sub_0041DA60_CompressADPCM(*pcbOutBuffer, pvInBuffer, cbInBuffer, 2, nLevel, pvOutBuffer);
+}
+
+static int __stdcall sub_0041DCE0_DecompressADPCM(short* pOut, int nInLength, unsigned int nOutSize, unsigned char* pIn, unsigned int nChannels)
+{
+    int aPredicted[2];
+    int aStep[2];
+    aStep[0] = 0x2C;
+    aStep[1] = 0x2C;
+    unsigned char* pHeader = pIn;
+    unsigned char* pInEnd = pIn + nInLength;
+    short* pOutStart = pOut;
+    pIn += 2;
+    for (unsigned int i = 0; i < nChannels; i++)
+    {
+        const int nSample = *(short*)pIn;
+        pIn += 2;
+        aPredicted[i] = nSample;
+        if (nOutSize < 2)
+        {
+            return (char*)pOut - (char*)pOutStart;
+        }
+        nOutSize -= 2;
+        *pOut = nSample;
+        pOut++;
+    }
+    int nChannel = nChannels - 1;
+    while (pIn < pInEnd)
+    {
+        if (nChannels == 2)
+        {
+            nChannel = (nChannel == 0);
+        }
+        const unsigned char nByte = *pIn++;
+        if (nByte & 0x80)
+        {
+            switch (nByte & 0x7F)
+            {
+            case 0:
+                if (aStep[nChannel])
+                {
+                    aStep[nChannel]--;
+                }
+                if (nOutSize < 2)
+                {
+                    return (char*)pOut - (char*)pOutStart;
+                }
+                *pOut = aPredicted[nChannel];
+                pOut++;
+                nOutSize -= 2;
+                continue;
+            case 1:
+                aStep[nChannel] += 8;
+                if (aStep[nChannel] > 0x58)
+                {
+                    aStep[nChannel] = 0x58;
+                }
+                break;
+            case 2:
+                aStep[nChannel] -= 8;
+                if (aStep[nChannel] < 0)
+                {
+                    aStep[nChannel] = 0;
+                }
+                break;
+            default:
+                continue;
+            }
+            if (nChannels == 2)
+            {
+                nChannel = (nChannel == 0);
+            }
+        }
+        else
+        {
+            const unsigned int nStep = gaADPCMStepTable_006CFD38[aStep[nChannel]];
+            unsigned int nDiff = nStep >> pHeader[1];
+            if (nByte & 1)
+                nDiff += nStep;
+            if (nByte & 2)
+                nDiff += nStep >> 1;
+            if (nByte & 4)
+                nDiff += nStep >> 2;
+            if (nByte & 8)
+                nDiff += nStep >> 3;
+            if (nByte & 0x10)
+                nDiff += nStep >> 4;
+            if (nByte & 0x20)
+                nDiff += nStep >> 5;
+            int nValue = aPredicted[nChannel];
+            if (nByte & 0x40)
+            {
+                nValue -= nDiff;
+                if (nValue <= -0x8000)
+                {
+                    nValue = -0x8000;
+                }
+            }
+            else
+            {
+                nValue += nDiff;
+                if (nValue >= 0x7FFF)
+                {
+                    nValue = 0x7FFF;
+                }
+            }
+            aPredicted[nChannel] = nValue;
+            if (nOutSize < 2)
+            {
+                return (char*)pOut - (char*)pOutStart;
+            }
+            nOutSize -= 2;
+            *pOut = aPredicted[nChannel];
+            pOut++;
+            aStep[nChannel] += gaADPCMIndexTable_006CFCB8[nByte & 0x1F];
+            if (aStep[nChannel] < 0)
+            {
+                aStep[nChannel] = 0;
+            }
+            else if (aStep[nChannel] > 0x58)
+            {
+                aStep[nChannel] = 0x58;
+            }
+        }
+    }
+    return (char*)pOut - (char*)pOutStart;
+}
+
+// 0x0041E3A0
+void __fastcall sub_0041E3A0_SCompADPCMDecompressMono(short* pOut, unsigned int* pOutSize, unsigned char* pIn, int nInLength, int nUnused)
+{
+    *pOutSize = sub_0041DCE0_DecompressADPCM(pOut, nInLength, *pOutSize, pIn, 1);
+}
+
+// 0x0041E400
+void __fastcall sub_0041E400_SCompADPCMDecompressStereo(short* pOut, unsigned int* pOutSize, unsigned char* pIn, int nInLength, int nUnused)
+{
+    *pOutSize = sub_0041DCE0_DecompressADPCM(pOut, nInLength, *pOutSize, pIn, 2);
+}
+
+#include "gen/data/Source/Storm/SOURCE/SCOMP.inc"
+
+// 0x0041E420
+static int sub_0041E420_RangesOverlap(const char* pA, const char* pB, unsigned int nSize)
+{
+    if (pA + nSize > pB && pB + nSize > pA)
+        return 1;
+    return 0;
+}
+
+int __stdcall sub_M107_Emit_0041E420(const char* pA, const char* pB, unsigned int nSize, int nCount)
+{
+    if (nCount >= 2 || sub_0041E420_RangesOverlap(pA, pB, nSize))
+        return nCount + 1;
+    return nCount;
+}
+
+// 0x0041E930
+char* D2SCompLinkNextAStrc::sub_0041E930_Next() { return (int)tLink.m_next <= 0 ? 0 : tLink.m_next; }
+
+// 0x0041E940
+char* D2SCompLinkPrevStrc::sub_0041E940_Prev()
+{
+    D2SCompLinkStrc* pLink = tLink.m_prevlink->m_prevlink;
+    return (int)pLink->m_next <= 0 ? 0 : pLink->m_next;
+}
+
+// 0x0041E960
+char* D2SCompLinkRawAStrc::sub_0041E960_RawNext() { return tLink.m_next; }
+
+// 0x0041E970
+void D2SCompUnlinkAStrc::sub_0041E970_Unlink() { tLink.Unlink(); }
+
+// 0x0041E9B0
+void D2SCompListTermStrc::sub_0041E9B0_InitializeTerminator()
+{
+    tList.m_terminator.m_prevlink = &tList.m_terminator;
+    tList.m_terminator.m_next = (char*)~(unsigned int)&tList.m_terminator;
+}
+
+// 0x0041E9D0
+void __fastcall sub_0041E9D0_SwapDwords(int* pA, int* pB)
+{
+    int nTemp = *pA;
+    *pA = *pB;
+    *pB = nTemp;
+}
+
+// 0x0041EA40
+char* D2SCompLinkNextBStrc::sub_0041EA40_Next() { return (int)tLink.m_next <= 0 ? 0 : tLink.m_next; }
+
+// 0x0041EA50
+char* D2SCompLinkRawBStrc::sub_0041EA50_RawNext() { return tLink.m_next; }
+
+// 0x0041EA60
+D2SCompLinkCtorAStrc::D2SCompLinkCtorAStrc() { m_prevlink = 0; m_next = 0; }
+
+// 0x0041EA70
+void D2SCompUnlinkBStrc::sub_0041EA70_Unlink() { tLink.Unlink(); }
+
+// 0x0041EAB0
+char* D2SCompListHeadStrc::sub_0041EAB0_Head() { return (int)tList.m_terminator.m_next <= 0 ? 0 : tList.m_terminator.m_next; }
+
+// 0x0041EAC0
+char* D2SCompListTailStrc::sub_0041EAC0_Tail()
+{
+    D2SCompLinkStrc* pLink = tList.m_terminator.m_prevlink->m_prevlink;
+    return (int)pLink->m_next <= 0 ? 0 : pLink->m_next;
+}
+
+// 0x0041EAE0
+void D2SCompUnlinkCStrc::sub_0041EAE0_Unlink() { tLink.Unlink(); }
+
+// 0x0041EB20
+void D2SCompListInitStrc::sub_0041EB20_Init()
+{
+    tList.m_linkoffset = 0;
+    tList.m_terminator.m_prevlink = &tList.m_terminator;
+    tList.m_terminator.m_next = (char*)~(unsigned int)&tList.m_terminator;
+}
+
+// 0x0041EBB0
+D2SCompLinkCtorBStrc::D2SCompLinkCtorBStrc() { m_prevlink = 0; m_next = 0; }
+
+// 0x0041ED30
+void D2SCompUnlinkDStrc::sub_0041ED30_Unlink() { tLink.Unlink(); }
+
+// 0x0041ED70
+D2SCompListStrc::D2SCompListStrc()
+{
+    m_linkoffset = 0;
+    m_terminator.m_prevlink = &m_terminator;
+    m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
+}
+
+static unsigned int gnWorkBufferSize_00779208; // 0x00779208
+
+static void* gpWorkBuffer_0077920C; // 0x0077920C
+
+static unsigned long gdwWorkBufferOwner_00779210; // 0x00779210
+
+static D2CriticalSectionStrc gtWorkBufferLock_00779214; // 0x00779214
+
+// 0x0041E440
+static void* sub_0041E440_AllocWorkBuffer(unsigned int nSize, int* pbShared)
+{
+    EnterCriticalSection(&gtWorkBufferLock_00779214);
+    const unsigned long dwThreadId = GetCurrentThreadId();
+    if (!gpWorkBuffer_0077920C)
+    {
+        gnWorkBufferSize_00779208 = nSize;
+        gpWorkBuffer_0077920C = SMemAlloc(nSize, ".\\SOURCE\\SCOMP.CPP", 0x620, 0);
+        gdwWorkBufferOwner_00779210 = 0;
+    }
+    else if (gdwWorkBufferOwner_00779210)
+    {
+        void* pBuffer = SMemAlloc(nSize, ".\\SOURCE\\SCOMP.CPP", 0x626, 0);
+        *pbShared = 0;
+        LeaveCriticalSection(&gtWorkBufferLock_00779214);
+        return pBuffer;
+    }
+    if (gnWorkBufferSize_00779208 < nSize)
+    {
+        SMemFree(gpWorkBuffer_0077920C, ".\\SOURCE\\SCOMP.CPP", 0x62F, 0);
+        gnWorkBufferSize_00779208 = nSize;
+        gpWorkBuffer_0077920C = SMemAlloc(nSize, ".\\SOURCE\\SCOMP.CPP", 0x631, 0);
+    }
+    *pbShared = 1;
+    gdwWorkBufferOwner_00779210 = dwThreadId;
+    void* pBuffer = gpWorkBuffer_0077920C;
+    LeaveCriticalSection(&gtWorkBufferLock_00779214);
+    return pBuffer;
+}
+
+// 0x0041E510
+static void __stdcall sub_0041E510_FreeWorkBuffer(int bShared, void* pBuffer)
+{
+    if (!pBuffer)
+    {
+        return;
+    }
+    EnterCriticalSection(&gtWorkBufferLock_00779214);
+    if (bShared)
+    {
+        gdwWorkBufferOwner_00779210 = 0;
+        LeaveCriticalSection(&gtWorkBufferLock_00779214);
+        return;
+    }
+    SMemFree(pBuffer, ".\\SOURCE\\SCOMP.CPP", 0x647, 0);
+    LeaveCriticalSection(&gtWorkBufferLock_00779214);
+}
+
+int __stdcall sub_M01_Emit_0041E440(unsigned int nSize)
+{
+    int bShared;
+    void* pBuffer = sub_0041E440_AllocWorkBuffer(nSize, &bShared);
+    sub_0041E510_FreeWorkBuffer(bShared, pBuffer);
+    return 1;
+}

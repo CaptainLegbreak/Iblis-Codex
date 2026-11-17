@@ -1,0 +1,287 @@
+#include "Bnclient.h"
+
+#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
+struct D2BigPowModStrc;
+struct D2BnReply00520DC0Strc;
+struct D2BigPairStrc;
+struct D2BnHashCtxStrc;
+struct D2IdeaUserKeyStrc;
+struct D2IdeaKeyScheduleStrc;
+
+extern int gnLastStatus_0072FFA8; // 0x0072FFA8
+void __fastcall sub_005204A0_SetError(int nError); // 0x005204A0
+void __fastcall sub_005204D0_SetErrorText(int nError, const char* szText); // 0x005204D0
+
+struct D2BnReply00520DC0Strc
+{
+    int nStatus;
+    char szText[1];
+};
+
+struct D2BigPairStrc
+{
+    D2BigPowModStrc* pState;
+
+    void sub_005285A0_Init(int nSize1, const unsigned char* pData1, int nSize2, const unsigned char* pData2); // 0x005285A0
+    void sub_00528620_Seed(unsigned long nSeedTicks);                                                        // 0x00528620
+    void sub_00528630_Clear();                                                                               // 0x00528630
+};
+
+extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
+extern const unsigned char gabSrpData1_00730164[]; // 0x00730164
+extern int gnSrpSize1_00730168; // 0x00730168
+extern const unsigned char gabSrpData2_0073016C[]; // 0x0073016C
+extern int gnSrpSize2_0073018C; // 0x0073018C
+extern D2BigPairStrc gtBigPair_0088273C; // 0x0088273C
+extern "C" long __cdecl _time32(long* pTime);
+extern "C" int __cdecl tolower(int nChar);
+extern const char gacCDKeyMap_006DF238[];
+extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+
+struct D2BnHashCtxStrc
+{
+    unsigned int aState[5];
+    int nBitCountLo;
+    int nBitCountHi;
+    unsigned int f_1C[16];
+};
+
+struct D2IdeaUserKeyStrc
+{
+    unsigned int aKey[4];
+};
+
+struct D2IdeaKeyScheduleStrc
+{
+    unsigned short aKey[52];
+};
+
+extern D2BnHashCtxStrc gaBnHashCtx_00882760[]; // 0x00882760
+extern D2IdeaKeyScheduleStrc gaIdeaKeySchedules_00882878[]; // 0x00882878
+void __fastcall sub_00522BC0_FillRandomBytes(unsigned char* pBuffer, int nSize); // 0x00522BC0
+unsigned int __fastcall sub_00522E10_Decrypt(unsigned char* pBuffer, unsigned int nSize, unsigned char* pKey); // 0x00522E10
+static __declspec(noinline) int __cdecl sub_005232B0_DecodeAndValidate(unsigned char* pBuffer, unsigned int nSize);
+
+// 0x00520DC0
+int __fastcall sub_00520DC0_HandleStatus(D2BnReply00520DC0Strc* pReply)
+{
+    const int nStatus = pReply->nStatus;
+    gnLastStatus_0072FFA8 = nStatus;
+    switch (nStatus)
+    {
+    case 0:
+        break;
+    case 1:
+        sub_005204A0_SetError(0xD);
+        break;
+    case 2:
+        sub_005204A0_SetError(0xE);
+        break;
+    case 3:
+        sub_005204A0_SetError(0xF);
+        break;
+    case 6:
+        sub_005204D0_SetErrorText(0x1B, pReply->szText);
+        break;
+    default:
+        sub_005204A0_SetError(0x12);
+        break;
+    }
+    return 1;
+}
+
+// 0x00521B50
+void __cdecl sub_00521B50_ReseedLogin()
+{
+    gtBigPair_0088273C.sub_005285A0_Init(gnSrpSize1_00730168, gabSrpData1_00730164, gnSrpSize2_0073018C, gabSrpData2_0073016C);
+    gtBigPair_0088273C.sub_00528620_Seed(GetTickCount());
+}
+
+// 0x00521B90
+void __cdecl sub_00521B90_ClearSrpState()
+{
+    gtBigPair_0088273C.sub_00528630_Clear();
+}
+
+#include "gen/data/Source/Bnclient/Unknown_00520DC0.inc"
+
+// 0x00522BB0
+static __declspec(noinline) long sub_0051DC70_GetTime(long* pTime)
+{
+    return _time32(pTime);
+}
+
+static __declspec(noinline) unsigned int sub_0051DD10_NibbleToHex(unsigned int nValue)
+{
+    nValue &= 0xF;
+    if (nValue >= 10)
+        return nValue + 0x37;
+    return nValue + 0x30;
+}
+
+static __declspec(noinline) int sub_0051DD20_HexToNibble(char cChar)
+{
+    char cLower = (char)tolower(cChar);
+    if (cLower >= 'a')
+        return cLower - 0x57;
+    return cLower - 0x30;
+}
+
+static __declspec(noinline) int sub_0051DD40_MapKeyChar(unsigned char cChar)
+{
+    return gacCDKeyMap_006DF238[cChar];
+}
+
+long __stdcall sub_M106_Emit_0051DC70(long* pTime)
+{
+    return sub_0051DC70_GetTime(pTime);
+}
+
+unsigned int __stdcall sub_M106_Emit_0051DD10(int n)
+{
+    return sub_0051DD10_NibbleToHex(tolower(n)) + sub_0051DD10_NibbleToHex(tolower(n + 1));
+}
+
+int __stdcall sub_M106_Emit_0051DD20(int n)
+{
+    return sub_0051DD20_HexToNibble((char)tolower(n)) * 16 + sub_0051DD20_HexToNibble((char)tolower(n + 1));
+}
+
+int __stdcall sub_M106_Emit_0051DD40(int n)
+{
+    return sub_0051DD40_MapKeyChar((unsigned char)tolower(n)) * 24 + sub_0051DD40_MapKeyChar((unsigned char)tolower(n + 1));
+}
+
+// 0x00523020
+char* __fastcall sub_00523020_GetAlignedData(char* pBuffer)
+{
+    D2_ASSERT(pBuffer, 0xF2);
+    const unsigned int nMisalign = (unsigned int)pBuffer & 0x3F;
+    if (nMisalign)
+        pBuffer += 0x40 - nMisalign;
+    return pBuffer + 8;
+}
+
+// 0x005241C0
+void __fastcall sub_005241C0_GetDigest(int nIndex, unsigned int* pDigest)
+{
+    if (pDigest)
+    {
+        for (int i = 0; i < 5; ++i)
+            pDigest[i] = gaBnHashCtx_00882760[nIndex].aState[i];
+    }
+}
+
+// 0x005242F0
+unsigned int __fastcall sub_005242F0_MulInv(unsigned int x)
+{
+    if (x <= 1)
+        return x;
+    unsigned int t1 = 0x10001 / x;
+    unsigned int y = 0x10001 % x;
+    if (y == 1)
+        return (1 - t1) & 0xFFFF;
+    unsigned int t0 = 1;
+    do
+    {
+        unsigned int q = x / y;
+        x = x % y;
+        t0 += q * t1;
+        if (x == 1)
+            return t0;
+        q = y / x;
+        y = y % x;
+        t1 += q * t0;
+    }
+    while (y != 1);
+    return (1 - t1) & 0xFFFF;
+}
+
+// 0x00524360
+void __fastcall sub_00524360_ExpandKey(const D2IdeaUserKeyStrc* pUserKey, D2IdeaKeyScheduleStrc* pSchedule)
+{
+    const unsigned short* pKey = (const unsigned short*)pUserKey->aKey;
+    unsigned short* pEK = pSchedule->aKey;
+    int i, j;
+    for (j = 0; j < 8; ++j)
+        pEK[j] = pKey[j];
+    for (i = 0; j < 52; ++j)
+    {
+        i += 1;
+        pEK[i + 7] = (unsigned short)((pEK[i & 7] << 9) | (pEK[(i + 1) & 7] >> 7));
+        pEK += i & 8;
+        i &= 7;
+    }
+}
+
+// 0x00524740
+void __cdecl sub_00524740_ClearKeySchedules()
+{
+    memset(gaIdeaKeySchedules_00882878, 0, sizeof(D2IdeaKeyScheduleStrc) * 3);
+}
+
+// build: context sub_GetTerminatedLength
+static __forceinline unsigned int sub_GetTerminatedLength(const unsigned char* pString, unsigned int nSize)
+{
+    unsigned int nMax = 0x80;
+    unsigned int nLength = 0;
+    if (nSize <= nMax)
+    {
+        nMax = nSize;
+    }
+
+    if (!nMax)
+    {
+        return 0;
+    }
+
+    do
+    {
+        --nMax;
+        ++nLength;
+        if (!*pString++)
+        {
+            return nLength;
+        }
+    }
+    while (nMax);
+
+    return 0;
+}
+
+// 0x005232B0
+static int __cdecl sub_005232B0_DecodeAndValidate(unsigned char* pBuffer, unsigned int nSize)
+{
+    unsigned char aKey[20];
+    sub_00522BC0_FillRandomBytes(aKey, sizeof(aKey));
+    unsigned int nLength = sub_00522E10_Decrypt(pBuffer, nSize, aKey);
+    if (!nLength)
+    {
+        return 0;
+    }
+
+    if (nLength >= nSize)
+    {
+        return 0;
+    }
+
+    pBuffer[nLength] = 0;
+    ++nLength;
+    if (!sub_GetTerminatedLength(pBuffer, nLength))
+    {
+        return 0;
+    }
+
+    return 1;
+}
+
+// build: context sub_005232B0_Shim
+// calling-convention shim (not game code)
+int __fastcall sub_005232B0_Shim(unsigned char* pBuffer, unsigned int nSize)
+{
+    return sub_005232B0_DecodeAndValidate(pBuffer, nSize);
+}

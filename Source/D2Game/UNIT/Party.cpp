@@ -1,0 +1,531 @@
+#include "D2Game.h"
+
+#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define UNIT_PLAYER 0
+#define D2PartyIdNone 0xFFFF
+#define PARTY_FIRST_ID 3
+#define UNIT_INVALID 6
+#define STAT_GOLD 14
+#define STAT_GOLDBANK 15
+struct D2PartyNodeStrc;
+struct D2PartyStrc;
+struct D2PartyControlStrc;
+
+extern "C" const char gszEmptyAssertText; // 0x006CC837
+extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
+struct D2UnitStrc
+{
+    int dwUnitType;
+    int dwClassId;
+    void* pMemoryPool;
+    int dwUnitId;
+    char unk0x10[0x50];
+    D2InventoryStrc* pInventory;
+};
+
+struct D2PartyNodeStrc
+{
+    int nUnitGUID;
+    D2PartyNodeStrc* pNext;
+};
+
+struct D2PartyStrc
+{
+    short nPartyId;
+    short field_2;
+    D2PartyNodeStrc* pPartyNodes;
+    D2PartyStrc* pNext;
+};
+
+struct D2PartyControlStrc
+{
+    short nNextPartyId;
+    short field_2;
+    D2PartyStrc* pParties;
+};
+
+struct D2GameStrc
+{
+    char unk0x00[0x1C];
+    void* pMemoryPool;
+    char unk0x20[0x1D0C];
+    D2PartyControlStrc* pPartyControl;
+};
+
+extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
+int __stdcall INVENTORY_GetOwnerId(D2InventoryStrc* pInventory); // 0x0063D450
+void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
+void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
+D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
+void __fastcall D2GAME_PACKETS_SendPacket0x8D_6FC3F960(D2UnitStrc* pUnit, D2UnitStrc* pPlayer); // 0x0053DF00
+
+typedef void(__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs);
+
+D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
+int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
+unsigned short __fastcall SUNIT_GetPartyId(D2UnitStrc* pPlayer); // 0x00554630
+D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
+void __fastcall sub_6FC3E200(D2ClientStrc* pClient, D2UnitStrc* pUnit); // 0x0053CDF0
+unsigned short __fastcall PARTY_GetPartyIdForUnitOwner(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540710
+int __fastcall sub_00540460_GetPartyMemberCount(D2GameStrc* pGame, short nPartyId); // 0x00540460
+void __fastcall sub_00540220_RemoveParty(D2GameStrc* pGame, short nPartyId); // 0x00540220
+void __fastcall sub_6FC3F8F0(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x0053DEC0
+void __fastcall FRIENDLY_RemoveHostility(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2); // 0x005A6080
+void __fastcall PARTY_CountLivingUnits(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pLivingUnits); // 0x005404F0
+int __stdcall UNITS_GetInventoryGoldLimit(D2UnitStrc* pUnit); // 0x00622E70
+int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
+void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
+void __stdcall STATLIST_AddUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x006272B0
+void __fastcall PLRTRADE_AddGold(D2UnitStrc*, int, int); // 0x0053FF00
+static D2PartyStrc* sub_00540290_FindParty(D2GameStrc*, short); // 0x00540290
+static void __stdcall PARTY_CalculatePickAndDrop(int*, int*, D2UnitStrc*, int); // 0x00540650
+void __fastcall PARTY_IteratePartyMembersInSameLevel(D2GameStrc*, D2UnitStrc*, PartyCallbackFunction, void*); // 0x005405A0
+
+static D2PartyStrc* PARTY_FindParty_Inlined(D2GameStrc* pGame, short nPartyId)
+{
+    D2_ASSERT(pGame->pPartyControl, 210);
+
+    for (D2PartyStrc* pParty = pGame->pPartyControl->pParties; pParty; pParty = pParty->pNext)
+    {
+        if (pParty->nPartyId == nPartyId)
+        {
+            return pParty;
+        }
+    }
+
+    return 0;
+}
+
+// 0x0053FF90
+void __fastcall PARTY_AllocPartyControl(D2GameStrc* pGame)
+{
+    D2_ASSERT(pGame, 0x18);
+    D2_ASSERT(!pGame->pPartyControl, 0x19);
+
+    D2PartyControlStrc* pPartyControl = (D2PartyControlStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2PartyControlStrc), ".\\UNIT\\Party.cpp", 0x1A, 0);
+    D2_ASSERT(pPartyControl, 0x1B);
+
+    memset(pPartyControl, 0, sizeof(D2PartyControlStrc));
+    pPartyControl->nNextPartyId = 3;
+
+    pGame->pPartyControl = pPartyControl;
+}
+
+// 0x00540460
+int __fastcall sub_00540460_GetPartyMemberCount(D2GameStrc* pGame, short nPartyId)
+{
+    D2PartyStrc* pParty = PARTY_FindParty_Inlined(pGame, nPartyId);
+    int nCount = 0;
+    if (!pParty)
+    {
+        return -1;
+    }
+
+    for (D2PartyNodeStrc* pPartyNode = pParty->pPartyNodes; pPartyNode; pPartyNode = pPartyNode->pNext)
+    {
+        ++nCount;
+    }
+
+    return nCount;
+}
+
+// 0x00540710
+unsigned short __fastcall PARTY_GetPartyIdForUnitOwner(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    int nUnitGUID = !pUnit ? -1 : pUnit->dwUnitId;
+    if (pUnit->pInventory)
+    {
+        nUnitGUID = INVENTORY_GetOwnerId(pUnit->pInventory);
+    }
+
+    D2_ASSERT(pUnit->dwUnitType == UNIT_PLAYER, 0x27B);
+    D2_ASSERT(pGame, 0x27C);
+
+    if (!pGame->pPartyControl)
+    {
+        return D2PartyIdNone;
+    }
+
+    for (D2PartyStrc* pParty = pGame->pPartyControl->pParties; pParty; pParty = pParty->pNext)
+    {
+        for (D2PartyNodeStrc* pPartyNode = pParty->pPartyNodes; pPartyNode; pPartyNode = pPartyNode->pNext)
+        {
+            if (pPartyNode->nUnitGUID == nUnitGUID)
+            {
+                return pParty->nPartyId;
+            }
+        }
+    }
+
+    return D2PartyIdNone;
+}
+
+// 0x005400B0
+static short sub_005400B0_GetFreePartyId(D2GameStrc* pGame)
+{
+    D2PartyControlStrc* pPartyControl = pGame->pPartyControl;
+    short nPartyId = pPartyControl->nNextPartyId;
+    if ((unsigned short)nPartyId < PARTY_FIRST_ID)
+    {
+        nPartyId = PARTY_FIRST_ID;
+    }
+
+    for (;;)
+    {
+        D2PartyStrc* pCurrent = pPartyControl->pParties;
+        while (pCurrent && pCurrent->nPartyId != nPartyId)
+        {
+            pCurrent = pCurrent->pNext;
+        }
+
+        if (!pCurrent)
+        {
+            break;
+        }
+
+        ++nPartyId;
+        if ((unsigned short)nPartyId < PARTY_FIRST_ID)
+        {
+            nPartyId = PARTY_FIRST_ID;
+        }
+    }
+
+    pPartyControl->nNextPartyId = nPartyId + 1;
+    return nPartyId;
+}
+
+// 0x00540100
+short __fastcall PARTY_CreateParty(D2GameStrc* pGame)
+{
+    D2PartyControlStrc* pPartyControl = pGame->pPartyControl;
+    D2_ASSERT(pPartyControl, 0x7F);
+    D2PartyStrc* pParty = (D2PartyStrc*)sub_0040B430(pGame->pMemoryPool, sizeof(D2PartyStrc), ".\\UNIT\\Party.cpp", 0x80, 0);
+    D2_ASSERT(pParty, 0x81);
+    *pParty = D2PartyStrc();
+    pParty->nPartyId = sub_005400B0_GetFreePartyId(pGame);
+    pParty->pNext = pPartyControl->pParties;
+    pPartyControl->pParties = pParty;
+    return pParty->nPartyId;
+}
+
+// 0x00540180
+static void __stdcall sub_00540180_FreeParty(D2PartyStrc* pParty, D2GameStrc* pGame)
+{
+    D2_ASSERT(pParty, 149);
+    D2PartyNodeStrc* pNode = pParty->pPartyNodes;
+    while (pNode)
+    {
+        D2UnitStrc* pMember = SUNIT_GetServerUnit(pGame, UNIT_PLAYER, pNode->nUnitGUID);
+        D2_ASSERT(pMember, 154);
+        sub_6FC7B450(pGame, pMember);
+        D2GAME_PACKETS_SendPacket0x8D_6FC3F960(pMember, pMember);
+        D2PartyNodeStrc* pNext = pNode->pNext;
+        FOG_FreeServerMemory(pGame->pMemoryPool, pNode, ".\\UNIT\\Party.cpp", 162, 0);
+        pNode = pNext;
+    }
+    FOG_FreeServerMemory(pGame->pMemoryPool, pParty, ".\\UNIT\\Party.cpp", 165, 0);
+}
+
+// 0x00540220
+void __fastcall sub_00540220_RemoveParty(D2GameStrc* pGame, short nPartyId)
+{
+    D2PartyControlStrc* pPartyControl = pGame->pPartyControl;
+    D2PartyStrc* pPrevious = 0;
+    D2_ASSERT(pPartyControl, 180);
+    for (D2PartyStrc* pParty = pPartyControl->pParties; pParty; pParty = pParty->pNext)
+    {
+        if (pParty->nPartyId == nPartyId)
+        {
+            if (pPrevious)
+            {
+                pPrevious->pNext = pParty->pNext;
+            }
+            else
+            {
+                pPartyControl->pParties = pParty->pNext;
+            }
+            sub_00540180_FreeParty(pParty, pGame);
+            return;
+        }
+        pPrevious = pParty;
+    }
+}
+
+// 0x00540290
+static D2PartyStrc* sub_00540290_FindParty(D2GameStrc* pGame, short nPartyId)
+{
+    D2_ASSERT(pGame->pPartyControl, 210);
+    for (D2PartyStrc* pParty = pGame->pPartyControl->pParties; pParty; pParty = pParty->pNext)
+    {
+        if (pParty->nPartyId == nPartyId)
+        {
+            return pParty;
+        }
+    }
+    return 0;
+}
+
+// 0x005405A0
+void __fastcall PARTY_IteratePartyMembersInSameLevel(D2GameStrc* pGame, D2UnitStrc* pUnit, PartyCallbackFunction pCallback, void* pArgs)
+{
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    if (!pRoom)
+    {
+        pCallback(pGame, pUnit, pArgs);
+        return;
+    }
+    const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
+    const unsigned short nPartyId = SUNIT_GetPartyId(pUnit);
+    if (nPartyId == D2PartyIdNone)
+    {
+        pCallback(pGame, pUnit, pArgs);
+        return;
+    }
+    D2PartyStrc* pParty = sub_00540290_FindParty(pGame, nPartyId);
+    if (!pParty)
+    {
+        return;
+    }
+    for (D2PartyNodeStrc* pPartyNode = pParty->pPartyNodes; pPartyNode; pPartyNode = pPartyNode->pNext)
+    {
+        D2UnitStrc* pPartyMember = SUNIT_GetServerUnit(pGame, UNIT_PLAYER, pPartyNode->nUnitGUID);
+        if (pPartyMember)
+        {
+            D2ActiveRoomStrc* pPartyMemberRoom = UNITS_GetRoom(pPartyMember);
+            if (pPartyMemberRoom && DUNGEON_GetLevelIdFromRoom(pPartyMemberRoom) == nLevelId)
+            {
+                pCallback(pGame, pPartyMember, pArgs);
+            }
+        }
+    }
+}
+
+// 0x005406A0
+void __fastcall PARTY_SynchronizeWithClient(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pUnit, ".\\UNIT\\Party.cpp", 591);
+    const unsigned short nPartyId = SUNIT_GetPartyId(pUnit);
+    if (nPartyId == D2PartyIdNone)
+    {
+        return;
+    }
+    D2PartyStrc* pParty = sub_00540290_FindParty(pGame, nPartyId);
+    if (!pParty)
+    {
+        return;
+    }
+    for (D2PartyNodeStrc* pPartyNode = pParty->pPartyNodes; pPartyNode; pPartyNode = pPartyNode->pNext)
+    {
+        D2UnitStrc* pPartyMember = SUNIT_GetServerUnit(pGame, UNIT_PLAYER, pPartyNode->nUnitGUID);
+        if (pPartyMember && pPartyMember != pUnit)
+        {
+            sub_6FC3E200(pClient, pPartyMember);
+        }
+    }
+}
+
+// 0x005402D0
+static int sub_005402D0_PartyHasMember(D2PartyStrc* pParty, int nUnitGUID)
+{
+    D2_ASSERT(pParty, 229);
+    for (D2PartyNodeStrc* pNode = pParty->pPartyNodes; pNode; pNode = pNode->pNext)
+    {
+        if (pNode->nUnitGUID == nUnitGUID)
+        {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+static D2PartyStrc* sub_M08_FindPartyById(D2PartyControlStrc* pPartyControl, short nPartyId)
+{
+    for (D2PartyStrc* pParty = pPartyControl->pParties; pParty; pParty = pParty->pNext)
+    {
+        if (pParty->nPartyId == nPartyId)
+        {
+            return pParty;
+        }
+    }
+    return 0;
+}
+
+int __fastcall sub_00540320(D2GameStrc* pGame, short nPartyId, D2UnitStrc* pPlayer)
+{
+    D2_ASSERT(pGame->pPartyControl, 210);
+    D2PartyStrc* pParty = sub_M08_FindPartyById(pGame->pPartyControl, nPartyId);
+    const int nUnitGUID = !pPlayer ? -1 : pPlayer->dwUnitId;
+    D2_ASSERT(pParty, 254);
+    const int nType = pPlayer ? pPlayer->dwUnitType : UNIT_INVALID;
+    D2_ASSERT(pPlayer && nType == UNIT_PLAYER, 255);
+    if (sub_005402D0_PartyHasMember(pParty, nUnitGUID))
+    {
+        return 1;
+    }
+    D2PartyNodeStrc* pPartyNode = (D2PartyNodeStrc*)sub_0040B430(pGame->pMemoryPool, sizeof(D2PartyNodeStrc), ".\\UNIT\\Party.cpp", 264, 0);
+    D2_ASSERT(pPartyNode, 265);
+    pPartyNode->nUnitGUID = 0;
+    pPartyNode->pNext = 0;
+    pPartyNode->nUnitGUID = nUnitGUID;
+    pPartyNode->pNext = pParty->pPartyNodes;
+    pParty->pPartyNodes = pPartyNode;
+    sub_6FC3F8F0(pGame, pPlayer);
+    for (D2PartyNodeStrc* i = pPartyNode->pNext; i; i = i->pNext)
+    {
+        D2UnitStrc* pPartyMember = SUNIT_GetServerUnit(pGame, UNIT_PLAYER, i->nUnitGUID);
+        if (pPartyMember)
+        {
+            FRIENDLY_RemoveHostility(pGame, pPlayer, pPartyMember);
+            FRIENDLY_RemoveHostility(pGame, pPartyMember, pPlayer);
+        }
+    }
+    return 1;
+}
+
+// 0x005407A0
+void __fastcall PARTY_LeaveParty(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    D2PartyNodeStrc* pPreviousPartyNode = 0;
+    int nUnitGUID;
+    const int nType = pUnit ? (nUnitGUID = pUnit->dwUnitId, pUnit->dwUnitType) : UNIT_INVALID;
+    D2_ASSERT(nType == UNIT_PLAYER, 304);
+    const unsigned short nPartyId = PARTY_GetPartyIdForUnitOwner(pGame, pUnit);
+    if (nPartyId == D2PartyIdNone)
+    {
+        return;
+    }
+    D2PartyStrc* pParty = sub_00540290_FindParty(pGame, nPartyId);
+    D2_ASSERT(pParty, 312);
+    for (D2PartyNodeStrc* pPartyNode = pParty->pPartyNodes; pPartyNode; pPartyNode = pPartyNode->pNext)
+    {
+        if (pPartyNode->nUnitGUID == nUnitGUID)
+        {
+            if (pPreviousPartyNode)
+            {
+                pPreviousPartyNode->pNext = pPartyNode->pNext;
+            }
+            else
+            {
+                pParty->pPartyNodes = pPartyNode->pNext;
+            }
+            sub_6FC7B450(pGame, pUnit);
+            D2GAME_PACKETS_SendPacket0x8D_6FC3F960(pUnit, pUnit);
+            FOG_FreeServerMemory(pGame->pMemoryPool, pPartyNode, ".\\UNIT\\Party.cpp", 328, 0);
+            break;
+        }
+        pPreviousPartyNode = pPartyNode;
+    }
+    if (sub_00540460_GetPartyMemberCount(pGame, nPartyId) <= 1)
+    {
+        sub_00540220_RemoveParty(pGame, nPartyId);
+    }
+}
+
+static __forceinline void PLRTRADE_AddGoldInline(D2UnitStrc* pUnit, int nStat, int nValue)
+{
+    if (!pUnit)
+    {
+        return;
+    }
+
+    const int nNewValue = STATLIST_UnitGetStatValue(pUnit, nStat, 0) + nValue;
+    if (nNewValue < 0)
+    {
+        STATLIST_SetUnitStat(pUnit, nStat, 0, 0);
+        return;
+    }
+
+    if (pUnit->dwUnitType == UNIT_PLAYER)
+    {
+        switch (nStat)
+        {
+        case STAT_GOLD:
+            if (nNewValue > UNITS_GetInventoryGoldLimit(pUnit))
+            {
+                STATLIST_SetUnitStat(pUnit, STAT_GOLD, 0, 0);
+                return;
+            }
+            break;
+
+        case STAT_GOLDBANK:
+            if (nNewValue > UNITS_GetStashGoldLimit(pUnit))
+            {
+                STATLIST_SetUnitStat(pUnit, STAT_GOLDBANK, 0, 0);
+                return;
+            }
+            break;
+        }
+    }
+
+    STATLIST_AddUnitStat(pUnit, nStat, nValue, 0);
+}
+
+static __forceinline int PARTY_GetLivingUnitsInSameLevel(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    int nLivingUnits = 0;
+    PARTY_IteratePartyMembersInSameLevel(pGame, pUnit, PARTY_CountLivingUnits, &nLivingUnits);
+    return nLivingUnits;
+}
+
+static void __stdcall PARTY_CalculatePickAndDrop(int* pGoldToPick, int* pGoldToDrop, D2UnitStrc* pUnit, int nValue)
+{
+    const int nGoldLimit = UNITS_GetInventoryGoldLimit(pUnit);
+    const int nGold = STATLIST_UnitGetStatValue(pUnit, STAT_GOLD, 0);
+    *pGoldToDrop = 0;
+    *pGoldToPick = nValue;
+    if (nGold + nValue > nGoldLimit)
+    {
+        *pGoldToPick = nGoldLimit - nGold;
+        *pGoldToDrop = nValue - *pGoldToPick;
+    }
+}
+
+// 0x00540900
+int __fastcall PARTY_ShareGoldDrop(D2GameStrc* pGame, D2UnitStrc* pUnit, int nGoldValue)
+{
+    const int nLivingUnits = PARTY_GetLivingUnitsInSameLevel(pGame, pUnit);
+    int nGoldToPick;
+    int nGoldToDrop;
+    if (nLivingUnits <= 1)
+    {
+        PARTY_CalculatePickAndDrop(&nGoldToPick, &nGoldToDrop, pUnit, nGoldValue);
+        PLRTRADE_AddGoldInline(pUnit, STAT_GOLD, nGoldToPick);
+        return nGoldToDrop;
+    }
+
+    const int nPartyId = SUNIT_GetPartyId(pUnit);
+    D2PartyStrc* pParty = sub_00540290_FindParty(pGame, nPartyId);
+    if (!pParty)
+    {
+        PARTY_CalculatePickAndDrop(&nGoldToPick, &nGoldToDrop, pUnit, nGoldValue);
+        PLRTRADE_AddGold(pUnit, STAT_GOLD, nGoldToPick);
+        return nGoldToDrop;
+    }
+
+    const int nDividedGold = nGoldValue / nLivingUnits;
+    const int nLevelId = DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pUnit));
+    for (D2PartyNodeStrc* pPartyNode = pParty->pPartyNodes; pPartyNode; pPartyNode = pPartyNode->pNext)
+    {
+        D2UnitStrc* pPartyMember = SUNIT_GetServerUnit(pGame, UNIT_PLAYER, pPartyNode->nUnitGUID);
+        if (pPartyMember && pPartyMember != pUnit)
+        {
+            D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPartyMember);
+            if (pRoom && DUNGEON_GetLevelIdFromRoom(pRoom) == nLevelId && sub_00451F70_GetUnitMode(pUnit) != 0 && sub_00451F70_GetUnitMode(pUnit) != 17)
+            {
+                nGoldToPick = 0;
+                nGoldToDrop = 0;
+                PARTY_CalculatePickAndDrop(&nGoldToPick, &nGoldToDrop, pPartyMember, nDividedGold);
+                PLRTRADE_AddGold(pPartyMember, STAT_GOLD, nGoldToPick);
+                nGoldValue += nGoldToDrop - nDividedGold;
+            }
+        }
+    }
+
+    PARTY_CalculatePickAndDrop(&nGoldToPick, &nGoldToDrop, pUnit, nGoldValue);
+    PLRTRADE_AddGold(pUnit, STAT_GOLD, nGoldToPick);
+    return nGoldToDrop;
+}

@@ -1,0 +1,583 @@
+#include "Storm.h"
+
+#define VALIDATEBEGIN int nValid = -1
+#define VALIDATE(x) nValid &= (x) ? -1 : 0
+#define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
+
+struct D2ChatStormLinkStrc;
+struct D2ChatStormLinkAStrc;
+struct D2ChatStormLinkBStrc;
+struct D2ChatStormNodeStrc;
+struct D2ChatStormBaseArrayAStrc;
+struct D2ChatStormBaseArrayBStrc;
+struct D2ChatStormListAStrc;
+struct D2ChatStormListBStrc;
+struct D2ChatStormHashTableStrc;
+struct D2ChatStormCtorLinkStrc;
+struct D2ChatStormListCStrc;
+struct D2ChatStormListDStrc;
+struct D2ChatStormListEStrc;
+struct D2CommonStormSlotLinkStrc;
+struct D2CommonStormSlotListAStrc;
+struct D2CommonStormSlotListBStrc;
+struct D2CommonMappingEntryNodeBaseStrc;
+struct D2CommonMappingEntryNodeStrc;
+struct D2CommonStringEntryNodeStrc;
+struct D2CommonStormHashTableAStrc;
+struct D2CriticalSectionStrc;
+struct D2StormLinkStrc;
+struct D2StormArchiveListStrc;
+
+int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);
+extern "C" const char gszIgnoreListSourceFile_006E6290[];
+
+struct D2ChatStormLinkStrc
+{
+    D2ChatStormLinkStrc* m_prevlink;
+    char* m_next;
+
+    D2ChatStormLinkStrc* NextLink(int nLinkOffset)
+    {
+        if ((int)m_next < 0)
+            return (D2ChatStormLinkStrc*)~(unsigned int)m_next;
+        if (nLinkOffset < 0)
+            nLinkOffset = (char*)this - m_prevlink->m_next;
+        return (D2ChatStormLinkStrc*)(m_next + nLinkOffset);
+    }
+    char* MaskNext()
+    {
+        return (char*)((((int)m_next <= 0) - 1) & (int)m_next);
+    }
+    void Unlink()
+    {
+        if (m_prevlink)
+        {
+            NextLink(-1)->m_prevlink = m_prevlink;
+            m_prevlink->m_next = m_next;
+            m_prevlink = 0;
+            m_next = 0;
+        }
+    }
+    bool sub_0060E0C0_IsLinked();
+    char* sub_0060E1A0_Next();
+    char* sub_0060E240_Next();
+    void sub_0060E3B0_Unlink();
+    void sub_0060E400_Unlink();
+    void sub_0060E690_Unlink();
+    void sub_0060E760_Unlink();
+};
+
+struct D2ChatStormLinkAStrc
+{
+    D2ChatStormLinkAStrc* m_prevlink;
+    char* m_next;
+
+    D2ChatStormLinkAStrc();
+};
+
+struct D2ChatStormLinkBStrc
+{
+    D2ChatStormLinkBStrc* m_prevlink;
+    char* m_next;
+
+    D2ChatStormLinkBStrc();
+};
+
+struct D2ChatStormNodeStrc
+{
+    unsigned int f_0;
+    D2ChatStormLinkStrc m_linktoslot;
+    D2ChatStormLinkStrc f_C;
+    char* f_14;
+
+    char* sub_0060E0B0_GetKey();
+};
+
+struct D2ChatStormBaseArrayAStrc
+{
+    unsigned int f_0;
+    unsigned int f_4;
+    void* f_8;
+
+    D2ChatStormBaseArrayAStrc();
+    unsigned int sub_0060E230_Count();
+};
+
+struct D2ChatStormBaseArrayBStrc
+{
+    unsigned int f_0;
+    unsigned int f_4;
+    void* f_8;
+
+    D2ChatStormBaseArrayBStrc();
+    unsigned int sub_0060E250_Count();
+};
+
+struct D2ChatStormListAStrc
+{
+    int m_linkoffset;
+    D2ChatStormLinkStrc m_terminator;
+
+    void InitializeTerminator()
+    {
+        m_terminator.m_prevlink = &m_terminator;
+        m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
+    }
+    void sub_0060E260_InitializeTerminator();
+    char* sub_0060E440_Head();
+    void sub_0060E5F0_Reset();
+};
+
+struct D2ChatStormListBStrc
+{
+    int m_linkoffset;
+    D2ChatStormLinkStrc m_terminator;
+
+    void InitializeTerminator()
+    {
+        m_terminator.m_prevlink = &m_terminator;
+        m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
+    }
+    void sub_0060E270_InitializeTerminator();
+    char* sub_0060E5D0_Head();
+    void sub_0060E610_Reset();
+};
+
+struct D2ChatStormHashTableStrc
+{
+    void* m_pVTable;
+    D2ChatStormListAStrc m_fulllist;
+
+    char* sub_0060E6D0_Head();
+};
+
+struct D2ChatStormCtorLinkStrc
+{
+    D2ChatStormCtorLinkStrc* m_prevlink;
+    char* m_next;
+
+    D2ChatStormCtorLinkStrc()
+    {
+        m_prevlink = 0;
+        m_next = 0;
+    }
+};
+
+struct D2ChatStormListCStrc
+{
+    int m_linkoffset;
+    D2ChatStormCtorLinkStrc m_terminator;
+
+    D2ChatStormListCStrc();
+};
+
+struct D2ChatStormListDStrc
+{
+    int m_linkoffset;
+    D2ChatStormCtorLinkStrc m_terminator;
+
+    D2ChatStormListDStrc();
+};
+
+struct D2ChatStormListEStrc
+{
+    int m_linkoffset;
+    D2ChatStormCtorLinkStrc m_terminator;
+
+    D2ChatStormListEStrc();
+};
+
+struct D2CommonStormSlotLinkStrc
+{
+    D2CommonStormSlotLinkStrc* m_prevlink;
+    char* m_next;
+
+    ~D2CommonStormSlotLinkStrc()
+    {
+        Unlink();
+    }
+    D2CommonStormSlotLinkStrc* NextLink(int nLinkOffset)
+    {
+        if ((int)m_next < 0)
+            return (D2CommonStormSlotLinkStrc*)~(unsigned int)m_next;
+        if (nLinkOffset < 0)
+            nLinkOffset = (char*)this - m_prevlink->m_next;
+        return (D2CommonStormSlotLinkStrc*)(m_next + nLinkOffset);
+    }
+    void Unlink()
+    {
+        if (m_prevlink)
+        {
+            NextLink(-1)->m_prevlink = m_prevlink;
+            m_prevlink->m_next = m_next;
+            m_prevlink = 0;
+            m_next = 0;
+        }
+    }
+};
+
+struct D2CommonStormSlotListAStrc
+{
+    int m_linkoffset;
+    D2CommonStormSlotLinkStrc m_terminator;
+
+    ~D2CommonStormSlotListAStrc();
+    void UnlinkAll();
+};
+
+struct D2CommonStormSlotListBStrc
+{
+    int m_linkoffset;
+    D2CommonStormSlotLinkStrc m_terminator;
+
+    ~D2CommonStormSlotListBStrc();
+    void UnlinkAll();
+};
+
+struct D2CommonMappingEntryNodeBaseStrc
+{
+    unsigned int f_0;
+    D2ChatStormLinkStrc m_linktoslot;
+    D2ChatStormLinkStrc f_C;
+    char* f_14;
+
+    ~D2CommonMappingEntryNodeBaseStrc();
+};
+
+struct D2CommonMappingEntryNodeStrc : D2CommonMappingEntryNodeBaseStrc
+{
+    void* pMapped;
+
+    ~D2CommonMappingEntryNodeStrc();
+};
+
+struct D2CommonStringEntryNodeStrc
+{
+    unsigned int f_0;
+    D2ChatStormLinkStrc m_linktoslot;
+    D2ChatStormLinkStrc f_C;
+    char* f_14;
+
+    ~D2CommonStringEntryNodeStrc();
+    void sub_0060EE30_Destroy();
+};
+
+struct D2CommonStormHashTableAStrc
+{
+    void sub_0060EB70_InternalClear(int bWarn);
+    void sub_0060ED60_Clear();
+};
+
+struct D2CriticalSectionStrc
+{
+    void* pDebugInfo;
+    long nLockCount;
+    long nRecursionCount;
+    void* hOwningThread;
+    void* hLockSemaphore;
+    unsigned long nSpinCount;
+};
+
+struct D2StormLinkStrc
+{
+    D2StormLinkStrc* m_prevlink;
+    char* m_next;
+
+    D2StormLinkStrc* NextLink(int nLinkOffset)
+    {
+        if ((int)m_next < 0)
+            return (D2StormLinkStrc*)~(unsigned int)m_next;
+        if (nLinkOffset < 0)
+            nLinkOffset = (char*)this - m_prevlink->m_next;
+        return (D2StormLinkStrc*)(m_next + nLinkOffset);
+    }
+    char* Next()
+    {
+        return (int)m_next <= 0 ? 0 : m_next;
+    }
+    void Unlink()
+    {
+        if (m_prevlink)
+        {
+            NextLink(-1)->m_prevlink = m_prevlink;
+            m_prevlink->m_next = m_next;
+            m_prevlink = 0;
+            m_next = 0;
+        }
+    }
+};
+
+struct D2StormArchiveRecStrc
+{
+    D2StormLinkStrc f_0;
+    char szName[0x104];
+    void* hFile;
+    int nMode;
+    int bNoDiskSearch;
+    int nPriority;
+    char pad0x11C[0x148 - 0x11C];
+    int nRefCount;
+    void* hNestedFile;
+    D2StormArchiveRecStrc* pParent;
+    char szPrefix[0x104];
+    int nRefs;
+
+    D2StormArchiveRecStrc()
+    {
+        f_0.m_prevlink = 0;
+        f_0.m_next = 0;
+    }
+};
+
+struct D2StormArchiveListStrc
+{
+    int m_linkoffset;
+    D2StormLinkStrc m_terminator;
+
+    D2StormArchiveRecStrc* Head()
+    {
+        return (D2StormArchiveRecStrc*)m_terminator.Next();
+    }
+    void LinkBefore(D2StormArchiveRecStrc* pNode, D2StormArchiveRecStrc* pExisting)
+    {
+        pNode->f_0.Unlink();
+        D2StormLinkStrc* pExistingLink = &pExisting->f_0;
+        if (!pExisting)
+            pExistingLink = &m_terminator;
+        D2StormLinkStrc* pPrevLink = pExistingLink->m_prevlink;
+        pNode->f_0.m_prevlink = pPrevLink;
+        pNode->f_0.m_next = pPrevLink->m_next;
+        pPrevLink->m_next = (char*)pNode;
+        pExistingLink->m_prevlink = &pNode->f_0;
+    }
+};
+
+extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
+extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
+void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
+unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
+void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
+void __cdecl sub_00415B90_InitCryptTable(); // 0x00415B90
+extern D2CriticalSectionStrc gBasePathLock_00779068; // 0x00779068
+extern D2StormArchiveListStrc gArchiveList_00708354; // 0x00708354
+
+inline void* operator new(unsigned int, void* pWhere) throw();
+
+bool D2ChatStormLinkStrc::sub_0060E0C0_IsLinked()
+{
+    return m_next != 0;
+}
+
+char* D2ChatStormLinkStrc::sub_0060E1A0_Next()
+{
+    return MaskNext();
+}
+
+char* D2ChatStormLinkStrc::sub_0060E240_Next()
+{
+    return MaskNext();
+}
+
+void D2ChatStormLinkStrc::sub_0060E3B0_Unlink()
+{
+    Unlink();
+}
+
+void D2ChatStormLinkStrc::sub_0060E400_Unlink()
+{
+    Unlink();
+}
+
+void D2ChatStormLinkStrc::sub_0060E690_Unlink()
+{
+    Unlink();
+}
+
+void D2ChatStormLinkStrc::sub_0060E760_Unlink()
+{
+    Unlink();
+}
+
+D2ChatStormLinkAStrc::D2ChatStormLinkAStrc()
+{
+    m_prevlink = 0;
+    m_next = 0;
+}
+
+D2ChatStormLinkBStrc::D2ChatStormLinkBStrc()
+{
+    m_prevlink = 0;
+    m_next = 0;
+}
+
+char* D2ChatStormNodeStrc::sub_0060E0B0_GetKey()
+{
+    return f_14;
+}
+
+D2ChatStormBaseArrayAStrc::D2ChatStormBaseArrayAStrc()
+{
+    f_0 = 0;
+    f_4 = 0;
+    f_8 = 0;
+}
+
+unsigned int D2ChatStormBaseArrayAStrc::sub_0060E230_Count()
+{
+    return f_4;
+}
+
+D2ChatStormBaseArrayBStrc::D2ChatStormBaseArrayBStrc()
+{
+    f_0 = 0;
+    f_4 = 0;
+    f_8 = 0;
+}
+
+unsigned int D2ChatStormBaseArrayBStrc::sub_0060E250_Count()
+{
+    return f_4;
+}
+
+void D2ChatStormListAStrc::sub_0060E260_InitializeTerminator()
+{
+    InitializeTerminator();
+}
+
+// 0x00417800
+char* D2ChatStormListAStrc::sub_0060E440_Head()
+{
+    return m_terminator.MaskNext();
+}
+
+void D2ChatStormListAStrc::sub_0060E5F0_Reset()
+{
+    m_linkoffset = 0;
+    InitializeTerminator();
+}
+
+void D2ChatStormListBStrc::sub_0060E270_InitializeTerminator()
+{
+    InitializeTerminator();
+}
+
+char* D2ChatStormListBStrc::sub_0060E5D0_Head()
+{
+    return m_terminator.MaskNext();
+}
+
+void D2ChatStormListBStrc::sub_0060E610_Reset()
+{
+    m_linkoffset = 0;
+    InitializeTerminator();
+}
+
+char* __fastcall sub_0060E280_AddLinkOffset(char* pNode, int nLinkOffset)
+{
+    return pNode + nLinkOffset;
+}
+
+char* __fastcall sub_0060E360_AddLinkOffset(char* pNode, int nLinkOffset)
+{
+    return pNode + nLinkOffset;
+}
+
+char* D2ChatStormHashTableStrc::sub_0060E6D0_Head()
+{
+    return m_fulllist.m_terminator.MaskNext();
+}
+
+D2ChatStormListDStrc::D2ChatStormListDStrc()
+{
+    m_linkoffset = 0;
+    m_terminator.m_prevlink = &m_terminator;
+    m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
+}
+
+D2ChatStormListEStrc::D2ChatStormListEStrc()
+{
+    m_linkoffset = 0xDDDDDDDD;
+    m_terminator.m_prevlink = &m_terminator;
+    m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
+}
+
+D2CommonStormSlotListAStrc::~D2CommonStormSlotListAStrc()
+{
+    UnlinkAll();
+}
+
+D2CommonStormSlotListBStrc::~D2CommonStormSlotListBStrc()
+{
+    UnlinkAll();
+}
+
+D2CommonMappingEntryNodeStrc::~D2CommonMappingEntryNodeStrc()
+{
+    if (pMapped)
+        SMemFree(pMapped, gszIgnoreListSourceFile_006E6290, 0x11, 0);
+}
+
+void D2CommonStringEntryNodeStrc::sub_0060EE30_Destroy()
+{
+    this->~D2CommonStringEntryNodeStrc();
+}
+
+void D2CommonStormHashTableAStrc::sub_0060ED60_Clear()
+{
+    sub_0060EB70_InternalClear(0);
+}
+
+// 0x00418D80
+D2ChatStormListCStrc::D2ChatStormListCStrc()
+{
+    m_linkoffset = 0;
+    m_terminator.m_prevlink = &m_terminator;
+    m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
+}
+
+inline void* operator new(unsigned int, void* pWhere) throw()
+{
+    return pWhere;
+}
+
+// 0x00419180
+int __stdcall sub_00419180_OpenPathAsArchive(void* hArchive, const char* szPrefix, int nPriority, unsigned int nFlags, void** phArchive)
+{
+    VALIDATEBEGIN;
+    if (!phArchive)
+        nValid = 0;
+    else
+        *phArchive = 0;
+    VALIDATE(szPrefix);
+    VALIDATE(*(const volatile char*)szPrefix);
+    VALIDATEEND;
+    EnterCriticalSection(&gBasePathLock_00779068);
+    sub_00415B90_InitCryptTable();
+    D2StormArchiveRecStrc* pParent = (D2StormArchiveRecStrc*)hArchive;
+    if (!pParent)
+    {
+        sub_0041C340_SetLastError(0x57);
+        LeaveCriticalSection(&gBasePathLock_00779068);
+        return 0;
+    }
+    void* pMemory = SMemAlloc(sizeof(D2StormArchiveRecStrc), gszTypeNameArchiveRec_00708398, -2, 8);
+    D2StormArchiveRecStrc* pArchive = pMemory ? new (pMemory) D2StormArchiveRecStrc : 0;
+    SStrCopy(pArchive->szName, pParent->szName, 0x104);
+    pArchive->hFile = pParent->hFile;
+    pArchive->pParent = pParent;
+    pArchive->nPriority = nPriority;
+    pArchive->nRefs = 0;
+    SStrCopy(pArchive->szPrefix, szPrefix, 0x7FFFFFFF);
+    pArchive->nRefCount = 1;
+    ++pParent->nRefCount;
+    D2StormArchiveRecStrc* pExisting;
+    for (pExisting = gArchiveList_00708354.Head(); pExisting; pExisting = (D2StormArchiveRecStrc*)pExisting->f_0.Next())
+    {
+        if (pExisting->nPriority <= pArchive->nPriority)
+            break;
+    }
+    gArchiveList_00708354.LinkBefore(pArchive, pExisting);
+    *phArchive = pArchive;
+    LeaveCriticalSection(&gBasePathLock_00779068);
+    return 1;
+}

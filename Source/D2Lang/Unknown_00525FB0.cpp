@@ -1,0 +1,750 @@
+#include "D2Lang.h"
+
+#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
+struct D2LangByteRangeStrc;
+struct D2UtfConvertSpecStrc;
+struct D2LangCharRangeStrc;
+extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+extern "C" unsigned int __cdecl strlen(const char* szString);
+extern "C" char* __cdecl _itoa(int nValue, char* szOut, int nRadix); // 0x00687605
+extern "C" int __cdecl isspace(int c); // 0x00687006
+
+struct Unicode
+{
+    union
+    {
+        unsigned short wChar;
+        unsigned short ch;
+    };
+    static Unicode* __fastcall strncat(Unicode* dest, const Unicode* src, int count);
+    static int __fastcall strcmp(const Unicode* str1, const Unicode* str2);
+    static Unicode* __fastcall strcat(Unicode* dest, const Unicode* src);
+    static int __fastcall strncmp(const Unicode* str1, const Unicode* str2, unsigned int count);
+    static int __fastcall stricmp(const Unicode* str1, const Unicode* str2);
+    Unicode(unsigned short wValue = 0) : wChar(wValue) {}
+    static Unicode* __fastcall strchr(const Unicode* str, Unicode ch);
+    static Unicode* __fastcall strncpy(Unicode* dest, const Unicode* src, int count);
+    int isWhitespace() const
+    {
+        return wChar < 0x100 && isspace(wChar);
+    }
+    static Unicode* __fastcall win2Unicode(Unicode* dest, const char* src, int count);
+};
+void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
+Unicode* __fastcall sub_005267E0(Unicode* pDest, const Unicode* pSource); // 0x005267E0
+
+struct D2UtfConvertSpecStrc
+{
+    unsigned short nMask;
+    short nLeading;
+    short nTrailingBits;
+    short unk0x06;
+    int nLast;
+    int nFirst;
+};
+
+extern D2UtfConvertSpecStrc gaUtf8ConvertTable_007309B8[7]; // 0x007309B8
+
+struct D2LangCharRangeStrc
+{
+    unsigned short wLow;
+    unsigned short wHigh;
+
+    void sub_005276A0_SetFromBytes(const unsigned char* pBytes);
+};
+
+struct D2LangByteRangeStrc
+{
+    unsigned char f_0;
+    unsigned char f_1;
+
+    int sub_005276C0_Contains(unsigned char nValue) const;
+};
+
+struct D2LangCharMapEntryStrc
+{
+    unsigned short wValue;
+    unsigned short f_2;
+};
+
+extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
+Unicode* __fastcall sub_00526740(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526740
+Unicode* __fastcall sub_00526940_FindSubstring(const Unicode* pString, const Unicode* pSubstring); // 0x00526940
+int __stdcall sub_006C7410_Utf8ToUtf16(unsigned short* pDst, unsigned int nDstMax, const unsigned char* pSrc, unsigned int nSrcMax, unsigned int* pnDstWritten, unsigned int* pnSrcRead); // 0x006C7410
+
+typedef unsigned int size_t;
+
+int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x00412650
+void* __stdcall SMemAlloc(size_t nSize, const char* szFile, int nLine, int nFlags); // 0x00413020
+
+void __cdecl operator delete[](void* pMemory);
+void* __cdecl operator new[](size_t nSize);
+
+// 0x00525FB0
+void __stdcall sub_00525FB0_FormatInt(Unicode* pOut, int nValue, int nSize)
+{
+    char szBuffer[64];
+    int nGroup = 0;
+    D2_ASSERT(nSize > 2, 0x4B9);
+    if (nValue < 0)
+    {
+        pOut->wChar = '-';
+        ++pOut;
+        --nSize;
+        nValue = -nValue;
+    }
+    _itoa(nValue, szBuffer, 10);
+    int nLength = strlen(szBuffer);
+    if (nLength)
+    {
+        int nPos = nLength + (nLength - 1) / 3;
+        if (nPos >= 1 && nPos < nSize - 1)
+        {
+            pOut[nPos].wChar = 0;
+            while (nLength)
+            {
+                D2_ASSERT(nPos != 0, 0x4D3);
+                --nLength;
+                --nPos;
+                pOut[nPos].wChar = szBuffer[nLength];
+                ++nGroup;
+                if (nGroup >= 3 && strlen(szBuffer) > 3)
+                {
+                    nGroup = 0;
+                    if (nPos > 0)
+                    {
+                        --nPos;
+                        pOut[nPos].wChar = ',';
+                    }
+                }
+            }
+            return;
+        }
+    }
+    {
+        Unicode wszStar[2];
+        wszStar[0].wChar = 0;
+        wszStar[1].wChar = 0;
+        sub_00526320_ToUnicode(wszStar, szStar_006D5830, 2);
+        sub_005267E0(pOut, wszStar);
+    }
+}
+
+// 0x00526740
+Unicode* __fastcall Unicode::strncat(Unicode* dest, const Unicode* src, int count)
+{
+    Unicode* pEnd = dest;
+    while (pEnd->wChar)
+    {
+        ++pEnd;
+    }
+
+    unsigned short wChar;
+    while (count-- && (wChar = src->wChar) != 0)
+    {
+        pEnd->wChar = wChar;
+        ++pEnd;
+        ++src;
+    }
+
+    pEnd->wChar = 0;
+    return dest;
+}
+
+// 0x00526190
+static int __stdcall sub_00526190_UnicodeCharToUtf8(char* pDest, Unicode ch)
+{
+    const int nCode = ch.wChar;
+    int n = 0;
+    for (const D2UtfConvertSpecStrc* pSpec = gaUtf8ConvertTable_007309B8; pSpec->nMask; ++pSpec)
+    {
+        ++n;
+        if (nCode <= pSpec->nLast)
+        {
+            int nBits = pSpec->nTrailingBits;
+            *pDest = (nCode >> nBits) | (unsigned char)pSpec->nLeading;
+            while (nBits > 0)
+            {
+                nBits -= 6;
+                *++pDest = ((nCode >> nBits) & 0x3F) | 0x80;
+            }
+            return n;
+        }
+    }
+    return -1;
+}
+
+int __fastcall sub_005262F0_UnicodeCharUtf8Length(const Unicode* pChar)
+{
+    char szBuffer[8];
+    return sub_00526190_UnicodeCharToUtf8(szBuffer, *pChar);
+}
+
+// 0x005263E0
+char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength)
+{
+    int nLength = 0;
+    for (int i = 0; pSource[i].wChar; ++i)
+    {
+        if (nLength >= nMaxLength - 1)
+            break;
+        const int nUnits = sub_00526190_UnicodeCharToUtf8(&szDest[nLength], pSource[i]);
+        if (nUnits == -1)
+            break;
+        nLength += nUnits;
+    }
+    szDest[nLength] = 0;
+    return szDest;
+}
+
+// 0x00526430
+int __fastcall sub_00526430_UnicodeUtf8Length(const Unicode* pSource, int nCount)
+{
+    char szBuffer[12];
+    int nLength = 0;
+    for (int i = 0; pSource[i].wChar; ++i)
+    {
+        if (i >= nCount)
+            break;
+        const int nUnits = sub_00526190_UnicodeCharToUtf8(szBuffer, pSource[i]);
+        if (nUnits == -1)
+            break;
+        nLength += nUnits;
+    }
+    return nLength;
+}
+
+// 0x005264F0
+int __fastcall Unicode::strcmp(const Unicode* str1, const Unicode* str2)
+{
+    while (str1->ch && str2->ch && str1->ch == str2->ch)
+    {
+        ++str1;
+        ++str2;
+    }
+    if (str1->ch < str2->ch)
+        return -1;
+    return str1->ch > str2->ch;
+}
+
+// 0x00526700
+Unicode* __fastcall Unicode::strcat(Unicode* dest, const Unicode* src)
+{
+    Unicode* pEnd = dest;
+    while (pEnd->ch)
+        ++pEnd;
+    do
+    {
+        pEnd->ch = src->ch;
+        ++pEnd;
+    }
+    while ((src++)->ch);
+    return dest;
+}
+
+// 0x00526540
+int __fastcall Unicode::strncmp(const Unicode* str1, const Unicode* str2, unsigned int count)
+{
+    while (str1->wChar && str2->wChar && count--)
+    {
+        const Unicode tChar1 = *str1++;
+        const Unicode tChar2 = *str2++;
+        if (tChar1.wChar != tChar2.wChar)
+            return tChar1.wChar < tChar2.wChar ? -1 : 1;
+    }
+    return 0;
+}
+
+// 0x00526590
+int __fastcall Unicode::stricmp(const Unicode* str1, const Unicode* str2)
+{
+    while (str1->ch && str2->ch)
+    {
+        const unsigned short ch1 = str1->ch < 0x100 ? gwToUpperTable_00730578[str1->ch] : str1->ch;
+        const unsigned short ch2 = str2->ch < 0x100 ? gwToUpperTable_00730578[str2->ch] : str2->ch;
+        if (ch1 != ch2)
+            return ch1 < ch2 ? -1 : 1;
+        ++str1;
+        ++str2;
+    }
+    if (str1->ch)
+        return 1;
+    return str2->ch ? -1 : 0;
+}
+
+// 0x005266C0
+Unicode* __fastcall Unicode::strchr(const Unicode* str, Unicode ch)
+{
+    while (str->wChar && str->wChar != ch.wChar)
+        ++str;
+    if (str->wChar)
+        return (Unicode*)str;
+    return 0;
+}
+
+// 0x00526790
+Unicode* __fastcall Unicode::strncpy(Unicode* dest, const Unicode* src, int count)
+{
+    Unicode* current_dest = dest;
+    for (; (count--) != 0 && src->wChar != 0; ++current_dest, ++src)
+    {
+        current_dest->wChar = src->wChar;
+    }
+
+    for (; count != -1; ++current_dest, --count)
+    {
+        current_dest->wChar = 0;
+    }
+
+    return dest;
+}
+
+// 0x005276A0
+void D2LangCharRangeStrc::sub_005276A0_SetFromBytes(const unsigned char* pBytes)
+{
+    wLow = pBytes[0];
+    wHigh = pBytes[2];
+}
+
+// 0x005276C0
+int D2LangByteRangeStrc::sub_005276C0_Contains(unsigned char nValue) const
+{
+    if (f_0 <= nValue && nValue <= f_1)
+        return 1;
+    return 0;
+}
+
+// 0x00527AE0
+int __cdecl sub_00527AE0_CompareKey(const void* pLeft, const void* pRight)
+{
+    return ((const D2LangCharMapEntryStrc*)pLeft)->f_2 - ((const D2LangCharMapEntryStrc*)pRight)->f_2;
+}
+
+// 0x00526800
+extern "C" __declspec(dllexport) int __fastcall sub_00526800(const unsigned short* pText) {
+    int nLength = 0;
+    if (!pText) {
+        return 0;
+    }
+    while (*pText) {
+        pText++;
+        nLength++;
+    }
+    return nLength;
+}
+
+// 0x00526820
+Unicode* __fastcall sub_00526820_StrStrI(const Unicode* str, const Unicode* substr)
+{
+    if (!str || !substr)
+    {
+        return 0;
+    }
+
+    Unicode c = *str;
+    for (;;)
+    {
+        const Unicode first = *substr;
+        for (;;)
+        {
+            const unsigned short ch1 = c.ch < 0x100 ? gwToUpperTable_00730578[c.ch] : c.ch;
+            const unsigned short ch2 = first.ch < 0x100 ? gwToUpperTable_00730578[first.ch] : first.ch;
+            if (ch1 == ch2)
+            {
+                break;
+            }
+
+            c = *++str;
+            if (!c.ch)
+            {
+                return 0;
+            }
+        }
+
+        int n = 0;
+        for (;;)
+        {
+            const unsigned short s1 = str->ch;
+            const unsigned short s2 = substr->ch;
+            const unsigned short ch1 = s1 < 0x100 ? gwToUpperTable_00730578[s1] : s1;
+            const unsigned short ch2 = s2 < 0x100 ? gwToUpperTable_00730578[s2] : s2;
+            if (ch1 != ch2 || !s1)
+            {
+                break;
+            }
+
+            if (!s2)
+            {
+                goto found;
+            }
+
+            ++str;
+            ++substr;
+            ++n;
+        }
+
+        if (!substr->ch)
+        {
+found:
+            return (Unicode*)(str - n);
+        }
+
+        if (!str->ch)
+        {
+            return 0;
+        }
+
+        str = str - n + 1;
+        substr -= n;
+    }
+}
+
+// 0x00526940
+Unicode* __fastcall sub_00526940_FindSubstring(const Unicode* str, const Unicode* substr)
+{
+    if (!str || !substr) return 0;
+    for (;;) {
+        const Unicode first = *substr;
+        const unsigned short wFirst = first.ch;
+        while (str->ch != wFirst) {
+            if (!str->ch) return 0;
+            ++str;
+        }
+        if (!str->ch) return 0;
+        int n = 0;
+        for (;;) {
+            if (str->ch != substr->ch || !str->ch) break;
+            if (!substr->ch) goto found;
+            ++str; ++substr; ++n;
+        }
+        if (!substr->ch) {
+found:
+            return (Unicode*)(str - n);
+        }
+        if (!str->ch) return 0;
+        str = str - n + 1;
+        substr -= n;
+    }
+}
+
+static __forceinline int Unicode_strlen_Inline(const Unicode* pString)
+{
+    int nLength = 0;
+    if (pString)
+    {
+        while (pString->wChar)
+        {
+            ++pString;
+            ++nLength;
+        }
+    }
+    return nLength;
+}
+
+static __forceinline void Unicode_strcpy_Inline(Unicode* pDest, const Unicode* pSource)
+{
+    do
+    {
+        *pDest++ = *pSource;
+    }
+    while (pSource++->wChar);
+}
+
+// 0x005269D0
+void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...)
+{
+    if (!pFormat)
+    {
+        return;
+    }
+
+    int nArg = *(const int*)(&pFormat + 1);
+    pBuffer->wChar = 0;
+    int nPos = 0;
+    const Unicode* pFound = 0;
+    if (!pFormat->wChar)
+    {
+        return;
+    }
+
+    Unicode szPercent[2];
+    szPercent[0].wChar = '%';
+    szPercent[1].wChar = 0;
+    Unicode wSpec;
+    const int* pArgs = (const int*)(&pFormat + 1);
+
+    do
+    {
+        wSpec.wChar = 0;
+        const Unicode* pNext = sub_00526940_FindSubstring(pFormat, szPercent);
+        if (pNext)
+        {
+            pFound = pNext;
+            wSpec = pNext[1];
+        }
+
+        while (pFormat != pFound && pFormat->wChar)
+        {
+            if (nPos >= nBufferSize)
+            {
+                pBuffer[-1].wChar = 0;
+                return;
+            }
+            *pBuffer++ = *pFormat++;
+            ++nPos;
+        }
+
+        if (nPos >= nBufferSize)
+        {
+            pBuffer[-1].wChar = 0;
+            return;
+        }
+
+        if (!pFormat->wChar)
+        {
+            pBuffer->wChar = 0;
+            return;
+        }
+
+        D2_ASSERT(pFound, 0x10D);
+
+        switch (wSpec.wChar)
+        {
+        case 'd':
+        case 'u':
+        {
+            Unicode wszNumber[15];
+            char szNumber[16];
+            memset(wszNumber, 0, sizeof(wszNumber));
+            if (wSpec.wChar == 'd')
+            {
+                _itoa(nArg, szNumber, 10);
+            }
+            else
+            {
+                _ultoa(nArg, szNumber, 10);
+            }
+            sub_00526320_ToUnicode(wszNumber, szNumber, 15);
+            const int nLength = Unicode_strlen_Inline(wszNumber);
+            if (nLength + nPos + 1 >= nBufferSize)
+            {
+                return;
+            }
+            Unicode_strcpy_Inline(pBuffer, wszNumber);
+            nPos += nLength;
+            pBuffer += nLength;
+            break;
+        }
+
+        case 's':
+        {
+            const Unicode* pString = (const Unicode*)nArg;
+            const int nLength = Unicode_strlen_Inline(pString);
+            if (!nLength || nLength + nPos + 1 >= nBufferSize)
+            {
+                sub_00526740(pBuffer, pString, nBufferSize - nPos - 1);
+                return;
+            }
+            Unicode_strcpy_Inline(pBuffer, pString);
+            pBuffer += nLength;
+            nPos += nLength;
+            break;
+        }
+
+        case '%':
+            if (nPos + 1 >= nBufferSize)
+            {
+                return;
+            }
+            Unicode_strcpy_Inline(pBuffer, szPercent);
+            ++pBuffer;
+            ++nPos;
+            break;
+
+        case 0:
+            sub_005267E0(pBuffer, szPercent);
+            return;
+
+        default:
+            D2_ASSERT(0, 0x154);
+            break;
+        }
+
+        pFormat += 2;
+        ++pArgs;
+        nArg = *pArgs;
+    }
+    while (pFormat->wChar);
+}
+
+// 0x00526D30
+int __fastcall sub_00526D30_IsLineBreak(const Unicode* pText, unsigned int nIndex)
+{
+    if (!nIndex)
+    {
+        return 1;
+    }
+
+    switch (sub_00525150())
+    {
+    case 6:
+    case 8:
+    case 9:
+    {
+#define wChar pText[nIndex].wChar
+        if (wChar == 0x2026 || wChar == 0x3001 || wChar == 0x3002 || wChar == 0xFF01 || wChar == 0xFF0C
+            || wChar == 0xFF0E || wChar == 0xFF1F || wChar == 0xFF61 || wChar == 0xFF64)
+        {
+            return 0;
+        }
+        if (wChar >= 'a' && wChar <= 'z')
+        {
+            return 0;
+        }
+        if (wChar >= 0xFF41 && wChar <= 0xFF5A)
+        {
+            return 0;
+        }
+        if (wChar >= 'A' && wChar <= 'Z')
+        {
+            return 0;
+        }
+        if (wChar >= 0xFF21 && wChar <= 0xFF3A)
+        {
+            return 0;
+        }
+        if (wChar >= '0' && wChar <= '9')
+        {
+            return 0;
+        }
+        if (wChar >= 0xFF10 && wChar <= 0xFF19)
+        {
+            return 0;
+        }
+        return 1;
+#undef wChar
+    }
+    }
+
+    if (pText[nIndex].isWhitespace())
+    {
+        return 0;
+    }
+    return pText[nIndex - 1].isWhitespace();
+}
+
+// 0x00526E40
+Unicode* __fastcall sub_00526E40_Utf8ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength)
+{
+    unsigned int nWritten;
+    unsigned short wszBuffer[0x400];
+
+    if (sub_006C7410_Utf8ToUtf16(wszBuffer, 0x3FF, (const unsigned char*)szSrc, strlen(szSrc) + 1, &nWritten, 0))
+    {
+        nWritten = 0;
+    }
+    wszBuffer[nWritten] = 0;
+
+    int i = 0;
+    for (; i < nMaxLength; ++i)
+    {
+        if (!wszBuffer[i])
+        {
+            break;
+        }
+        pDst[i].wChar = wszBuffer[i];
+    }
+
+    if (wszBuffer[i])
+    {
+        pDst[i - 1].wChar = 0;
+    }
+    else
+    {
+        pDst[i].wChar = 0;
+    }
+
+    return pDst;
+}
+
+// 0x00526F20
+Unicode* __fastcall Unicode::win2Unicode(Unicode* dest, const char* src, int count)
+{
+    int i;
+    for (i = 0; i < count; ++i)
+    {
+        unsigned char src_ch = src[i];
+        if (src_ch == '\0')
+        {
+            break;
+        }
+        dest[i].wChar = src_ch;
+    }
+
+    if (src[i] != '\0')
+    {
+        dest[i - 1].wChar = 0;
+        return dest;
+    }
+
+    dest[i].wChar = 0;
+    return dest;
+}
+
+// 0x00526F70
+char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount)
+{
+    char* pCurrentDest = szDest;
+    while (nCount > 1 && pSource->wChar != 0)
+    {
+        const Unicode* pCurrentSource = pSource++;
+        *pCurrentDest = (char)pCurrentSource->wChar;
+        --nCount;
+        ++pCurrentDest;
+    }
+    *pCurrentDest = '\0';
+    return szDest;
+}
+
+// build: symbol ??_U@YAPAXI@Z 0x00527680
+// build: symbol ??_V@YAXPAX@Z 0x00527660
+// 0x00527660
+void __cdecl operator delete[](void* pMemory)
+{
+    if (pMemory)
+    {
+        SMemFree(pMemory, "delete[]", -1, 0);
+    }
+}
+
+// 0x00527680
+void* __cdecl operator new[](size_t nSize)
+{
+    return SMemAlloc(nSize, "new[]", -1, 0);
+}
+
+D2LangByteRangeStrc* gpLeadByteRanges_00882B28; // 0x00882B28
+
+unsigned short* gpCharMapIndex_00882B2C; // 0x00882B2C
+
+// 0x00527720
+void __cdecl sub_00527720_FreeCodePageTables()
+{
+    if (gpLeadByteRanges_00882B28)
+    {
+        SMemFree(gpLeadByteRanges_00882B28, "delete[]", -1, 0);
+        gpLeadByteRanges_00882B28 = 0;
+    }
+    if (gpCharMap_00882B24)
+    {
+        SMemFree(gpCharMap_00882B24, "delete[]", -1, 0);
+        gpCharMap_00882B24 = 0;
+    }
+    if (gpCharMapIndex_00882B2C)
+    {
+        SMemFree(gpCharMapIndex_00882B2C, "delete[]", -1, 0);
+        gpCharMapIndex_00882B2C = 0;
+    }
+}

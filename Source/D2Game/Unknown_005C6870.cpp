@@ -1,0 +1,79 @@
+#include "D2Game.h"
+
+struct D2UnitStrc
+{
+    int dwUnitType;
+    int dwClassId;
+};
+
+struct D2MonStatsTxt
+{
+    char unk_000[0x170];
+    short nSkill[8];
+};
+
+D2UnitStrc* __fastcall sub_6FC7E8B0(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetType, int bIncludeDead); // 0x00574EC0
+D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
+int __fastcall sub_004F4110_GetSkillParam5(int nSkillId); // 0x004F4110
+int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
+void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStat, int nValue, unsigned short nLayer); // 0x00627260
+int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStat, unsigned short nLayer); // 0x00625480
+
+// build: context sub_005C5F10_AddLifeAndGetGain
+static __declspec(noinline) int sub_005C5F10_AddLifeAndGetGain(D2UnitStrc* pUnit, int nValue)
+{
+    if (nValue > 0)
+    {
+        int nNewHp = nValue + STATLIST_UnitGetStatValue(pUnit, 6, 0);
+        const int nMaxHp = STATLIST_GetMaxLifeFromUnit(pUnit);
+        if (nNewHp > nMaxHp)
+        {
+            nValue += nMaxHp - nNewHp;
+            nNewHp = nMaxHp;
+        }
+
+        STATLIST_SetUnitStat(pUnit, 6, nNewHp, 0);
+        return nValue;
+    }
+
+    return 0;
+}
+
+static __forceinline int sub_IsBloodGolem(D2UnitStrc* pUnit)
+{
+    return pUnit && pUnit->dwUnitType == 1 && (!pUnit ? -1 : pUnit->dwClassId) == 290;
+}
+
+// 0x005C6870
+int __fastcall SKILLS_SharePotionLifeWithBloodGolem(D2GameStrc* pGame, D2UnitStrc* pUnit, int nLife)
+{
+    if (!pUnit)
+    {
+        return nLife;
+    }
+
+    D2UnitStrc* pBloodGolem = sub_6FC7E8B0(pGame, pUnit, 3, 0);
+    if (!sub_IsBloodGolem(pBloodGolem))
+    {
+        return nLife;
+    }
+
+    if (nLife)
+    {
+        D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(pBloodGolem->dwClassId);
+        if (pMonStatsTxtRecord && pMonStatsTxtRecord->nSkill[0] >= 0)
+        {
+            const int nParam = sub_004F4110_GetSkillParam5(pMonStatsTxtRecord->nSkill[0]);
+            const int nResult = nLife - sub_005C5F10_AddLifeAndGetGain(pBloodGolem, nParam * nLife / 100);
+
+            return nResult;
+        }
+    }
+    else
+    {
+        const int nMaxHp = STATLIST_GetMaxLifeFromUnit(pBloodGolem);
+        STATLIST_SetUnitStat(pBloodGolem, 6, nMaxHp, 0);
+    }
+
+    return nLife;
+}

@@ -1,0 +1,985 @@
+#include "D2Game.h"
+
+#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define MAX_NPC_RECORDS 64
+struct D2NpcRecordStrc;
+struct D2ItemCacheStrc;
+struct D2UnitProxyStrc;
+struct M08EmitRecStrc;
+struct D2NpcGambleStrc;
+struct D2NpcVendorChainStrc;
+struct D2NpcEventStrc;
+struct D2NpcControlStrc;
+struct D2NpcTradeStrc;
+struct Pad40_00536B40;
+struct Pad400_00536B40;
+struct Obj00536B40;
+struct D2ItemsTxt;
+struct D2EventTimerSlabListStrc;
+struct D2EventTimerQueueStrc;
+struct D2QuestGUIDStrc;
+struct D2RegurgitatorAiCallbackArgStrc;
+
+extern "C" const char gszEmptyAssertText; // 0x006CC837
+extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
+struct D2GameStrc
+{
+    char unk0x00[0x1C];
+    union
+    {
+        void* pMemoryPool;
+        void* pool;
+    };
+    char unk0x20[0x4D];
+    unsigned char nDifficulty;
+    char unk0x6E[0x1A];
+    D2ClientStrc* pClientList;
+    char unk0x8C[0x2C];
+    D2EventTimerQueueStrc* pTimerQueue;
+    unsigned char unk_BC[0x1C68];
+    struct D2NpcControlStrc* pNpcControl;
+};
+
+struct D2ItemCacheStrc
+{
+    unsigned char nMin;
+    unsigned char nMax;
+    unsigned char nMagicMin;
+    unsigned char nMagicMax;
+    unsigned int dwCode;
+    unsigned char nMagicLevel;
+    char unk0x09[3];
+};
+
+struct D2UnitProxyStrc
+{
+    D2ItemCacheStrc* pItemCache;
+    int nItems;
+    unsigned int* pPermCache;
+    int nPerms;
+};
+
+extern D2UnitProxyStrc gUnitProxyItemCache_00883D78[17]; // 0x00883D78
+void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
+extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
+
+struct M08EmitRecStrc
+{
+    int nKind;
+    char bFlagA;
+    char bFlagB;
+    char unk0x06[2];
+    D2UnitProxyStrc tProxy;
+};
+
+struct D2UnitStrc
+{
+    int dwUnitType;
+    union
+    {
+        int dwClassId;
+        int classId;
+    };
+    void* pMemoryPool;
+    union
+    {
+        int dwUnitId;
+        int id;
+    };
+    char unk0x10[0x50];
+    union
+    {
+        D2InventoryStrc* pInventory;
+        D2InventoryStrc* inv;
+    };
+    unsigned char unk_64[0x60];
+    unsigned int dwFlags;
+    char unk0xC8[0x14];
+    D2EventTimerStrc* pTimer;
+};
+
+struct D2NpcGambleStrc
+{
+    D2InventoryStrc* pInventory;
+    int dwGUID;
+    D2NpcGambleStrc* pNext;
+};
+
+struct D2NpcVendorChainStrc
+{
+    int dwGUID;
+    int unk0x04;
+    D2NpcVendorChainStrc* pNext;
+};
+
+struct D2NpcEventStrc
+{
+    union
+    {
+        D2UnitStrc* pUnit;
+        D2UnitStrc* item;
+    };
+    union
+    {
+        int field_4;
+        int quality;
+    };
+    union
+    {
+        int field_8;
+        int active;
+    };
+    union
+    {
+        int field_C;
+        int mode;
+    };
+    union
+    {
+        D2NpcEventStrc* pNext;
+        D2NpcEventStrc* next;
+    };
+};
+
+struct D2NpcTradeStrc
+{
+    unsigned char bVendorInit;
+    unsigned char unk0x01;
+    unsigned char unk0x02;
+    unsigned char bTrader;
+    int unk0x04;
+    unsigned int dwTick;
+};
+
+struct D2NpcRecordStrc
+{
+    int nNPC;
+    D2InventoryStrc* pInventory;
+    D2NpcGambleStrc* pGamble;
+    int bGambleInit;
+    void* pMercData;
+    union
+    {
+        D2NpcEventStrc* pEvent;
+        D2NpcEventStrc* events;
+    };
+    D2NpcVendorChainStrc* pVendorChain;
+    int bTrading;
+    union
+    {
+        struct
+        {
+            D2NpcTradeStrc tTrade;
+        };
+        struct
+        {
+            unsigned char bVendorInit;
+            unsigned char unk_21[0x1];
+            unsigned char nAct;
+            unsigned char bTrader;
+            unsigned char unk_24[0x3];
+            unsigned char bRefreshInventory;
+            unsigned int dwTicks;
+        };
+    };
+    void* pItemCache;
+    int nPerms;
+    void* pPermCache;
+    char unk0x38[8];
+    int dwNPCGUID;
+};
+
+struct D2NpcControlStrc
+{
+    int nArraySize;
+    D2NpcRecordStrc* pFirstRecord;
+};
+
+extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
+D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x0063B2C0
+D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
+D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
+D2InventoryStrc* __stdcall INVENTORY_AllocInventory(void* pMemPool, D2UnitStrc* pOwner); // 0x0063ABD0
+void __fastcall SUNIT_RemoveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00555600
+D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
+void __fastcall ITEMS_RemoveFromAllPlayers(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00557FD0
+D2NpcRecordStrc* __fastcall SUNITPROXY_GetNpcRecordFromClassId(D2GameStrc* pGame, int nNpcClassId, int* pIndex); // 0x00535EA0
+D2MonsterInteractStrc* __fastcall sub_00535E80_GetMonInteract(D2UnitStrc* pUnit); // 0x00535E80
+D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc*); // 0x0063B2C0
+D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc*); // 0x0063DFA0
+D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc*); // 0x0063DFD0
+int __stdcall ITEMS_GetItemQuality(D2UnitStrc*); // 0x00627E70
+void __fastcall sub_005766D0(D2UnitStrc*,D2UnitStrc*,D2GameStrc*,int); // 0x005766D0
+int __fastcall D2GAME_PlaceItem_6FC44410(const char*,int,D2GameStrc*,D2UnitStrc*,int,int,int,int,int,D2InventoryStrc*); // 0x00560200
+unsigned char __stdcall ITEMS_GetInvPage(D2UnitStrc*); // 0x00628250
+void __stdcall ITEMS_SetInvPage(D2UnitStrc*,unsigned char); // 0x00628280
+void __fastcall sub_005762C0_SetItemTradeFlags(D2UnitStrc*,D2UnitStrc*,D2GameStrc*,int,int); // 0x005762C0
+int __fastcall sub_00579030(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,int); // 0x00579030
+void __fastcall FOG_FreePool(void*,void*,const char*,int,int); // 0x0040B480
+
+struct Pad40_00536B40 {
+    unsigned int dw00;
+    unsigned int dw04;
+    unsigned int dw08;
+    unsigned int f_C;
+    unsigned int dw10;
+    unsigned int dw14;
+    unsigned int dw18;
+    unsigned int dw1C;
+    unsigned int dw20;
+    unsigned int dw24;
+    unsigned int dw28;
+    unsigned int dw2C;
+    unsigned int dw30;
+    unsigned int dw34;
+    unsigned int dw38;
+    unsigned int dw3C;
+};
+
+struct Pad400_00536B40 {
+    Pad40_00536B40 t000;
+    Pad40_00536B40 t040;
+    Pad40_00536B40 t080;
+    Pad40_00536B40 t0C0;
+    Pad40_00536B40 t100;
+    Pad40_00536B40 t140;
+    Pad40_00536B40 t180;
+    Pad40_00536B40 t1C0;
+    Pad40_00536B40 t200;
+    Pad40_00536B40 t240;
+    Pad40_00536B40 t280;
+    Pad40_00536B40 t2C0;
+    Pad40_00536B40 t300;
+    Pad40_00536B40 t340;
+    Pad40_00536B40 t380;
+    Pad40_00536B40 t3C0;
+};
+
+struct Obj00536B40 {
+    Pad400_00536B40 tPad0000;
+    Pad400_00536B40 tPad0400;
+    Pad400_00536B40 tPad0800;
+    Pad400_00536B40 tPad0C00;
+    Pad400_00536B40 tPad1000;
+    Pad400_00536B40 tPad1400;
+    Pad400_00536B40 tPad1800;
+    Pad40_00536B40 tPad1C00;
+    Pad40_00536B40 tPad1C40;
+    Pad40_00536B40 tPad1C80;
+    Pad40_00536B40 tPad1CC0;
+    unsigned int dwUnknown1D00;
+    unsigned int dwUnknown1D04;
+    unsigned int dwUnknown1D08;
+    unsigned int dwUnknown1D0C;
+    unsigned int dwUnknown1D10;
+    unsigned int dwUnknown1D14;
+    unsigned int dwUnknown1D18;
+    unsigned int dwUnknown1D1C;
+    unsigned int dwUnknown1D20;
+    unsigned int dwValue1D24;
+};
+
+void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
+
+struct D2ItemsTxt
+{
+    char unk0x000[0x80];
+    unsigned int dwCode;
+    char unk0x084[0xAF];
+    unsigned char nSpawnable;
+    char unk0x134[0x12];
+    unsigned char nVendorMin[17];
+    unsigned char nVendorMax[17];
+    unsigned char nVendorMagicMin[17];
+    unsigned char nVendorMagicMax[17];
+    unsigned char nVendorMagicLvl[17];
+    char unk0x19B[9];
+    unsigned char nPermStoreItem;
+    char unk0x1A5[3];
+};
+
+struct D2ItemDataTbl
+{
+    int nItemsTxtRecordCount;
+    D2ItemsTxt* pItemsTxt;
+};
+
+extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+extern unsigned char gbUnitProxyItemCacheInitialized_00883E88[17]; // 0x00883E88
+
+struct D2EventTimerSlabListStrc
+{
+    char unk0x0000[0x7084];
+    D2EventTimerSlabListStrc* pNextSlab;
+};
+
+struct D2EventTimerQueueStrc
+{
+    char unk0x000[0xA1C];
+    D2EventTimerSlabListStrc* pSlabListHead;
+};
+
+struct D2ClientStrc
+{
+    char unk0x000[0x4A8];
+    D2ClientStrc* pNext;
+};
+
+struct D2QuestGUIDStrc
+{
+    unsigned int nPlayerGUIDs[32];
+    unsigned short nPlayerCount;
+    unsigned char pad0x82[2];
+};
+
+struct D2RegurgitatorAiCallbackArgStrc
+{
+    D2UnitStrc* pTarget;
+    int nDistance;
+};
+
+enum
+{
+    MAX_NPC_INVENTORY = 17,
+    UNIT_MONSTER = 1,
+    UNIT_INVALID = 6,
+    UNIT_ALIGNMENT_EVIL = 0,
+    UNITFLAG_TARGETABLE = 0x00000002,
+    UNITFLAG_ISMERC = 0x00000200,
+    MONSTATS2FLAGINDEX_SOFT = 12,
+};
+
+void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
+int __stdcall MONSTERS_IsDead(D2UnitStrc* pUnit); // 0x0063EA40
+int __stdcall STATLIST_GetUnitAlignment(D2UnitStrc* pUnit); // 0x006259B0
+int __fastcall AITHINK_GetSquaredDistance(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2); // 0x005B0BD0
+extern const int gnDifficultyBonus_006E21F4[]; // 0x006E21F4
+
+// 0x00535FB0
+static void SUNITPROXY_InitializeItemCache(D2GameStrc* pGame, D2UnitProxyStrc* pUnitProxy, int nNpcInventoryId)
+{
+    D2_ASSERT(nNpcInventoryId < MAX_NPC_INVENTORY, 164);
+    pUnitProxy->nItems = gUnitProxyItemCache_00883D78[nNpcInventoryId].nItems;
+    pUnitProxy->pItemCache = (D2ItemCacheStrc*)sub_0040B430(pGame->pMemoryPool, gUnitProxyItemCache_00883D78[nNpcInventoryId].nItems * sizeof(D2ItemCacheStrc), ".\\UNIT\\sunitproxy.cpp", 168, 0);
+    memcpy(pUnitProxy->pItemCache, gUnitProxyItemCache_00883D78[nNpcInventoryId].pItemCache, gUnitProxyItemCache_00883D78[nNpcInventoryId].nItems * sizeof(D2ItemCacheStrc));
+    pUnitProxy->nPerms = gUnitProxyItemCache_00883D78[nNpcInventoryId].nPerms;
+    pUnitProxy->pPermCache = (unsigned int*)sub_0040B430(pGame->pMemoryPool, gUnitProxyItemCache_00883D78[nNpcInventoryId].nPerms * sizeof(unsigned int), ".\\UNIT\\sunitproxy.cpp", 171, 0);
+    memcpy(pUnitProxy->pPermCache, gUnitProxyItemCache_00883D78[nNpcInventoryId].pPermCache, gUnitProxyItemCache_00883D78[nNpcInventoryId].nPerms * sizeof(unsigned int));
+}
+
+void __fastcall sub_M08_EmitInitializeItemCache(D2GameStrc* pGame, M08EmitRecStrc* pRec)
+{
+    for (; pRec->nKind; ++pRec)
+    {
+        switch (pRec->nKind)
+        {
+        case 31:
+            SUNITPROXY_InitializeItemCache(pGame, &pRec->tProxy, 9);
+            pRec->bFlagA = 1;
+            break;
+        case 37:
+            SUNITPROXY_InitializeItemCache(pGame, &pRec->tProxy, 3);
+            pRec->bFlagB = 1;
+            break;
+        case 45:
+            SUNITPROXY_InitializeItemCache(pGame, &pRec->tProxy, 0);
+            break;
+        }
+    }
+}
+
+static D2NpcRecordStrc* D10_GetNpcRecordFromUnit(D2GameStrc* pGame, D2UnitStrc* pNpc)
+{
+    int nIndex;
+    return SUNITPROXY_GetNpcRecordFromClassId(pGame, !pNpc ? -1 : pNpc->dwClassId, &nIndex);
+}
+
+// 0x00536510
+static void __stdcall sub_00536510_RemoveInventoryItems(D2GameStrc* pGame, D2InventoryStrc* pInventory)
+{
+    if (!pInventory)
+    {
+        return;
+    }
+
+    D2UnitStrc* pItem = INVENTORY_GetFirstItem(pInventory);
+    while (pItem)
+    {
+        D2UnitStrc* pUnit = INVENTORY_UnitIsItem(pItem);
+        D2UnitStrc* pNext = INVENTORY_GetNextItem(pItem);
+        D2_ASSERT(pUnit, 0x1C6);
+        INVENTORY_GetItemNodePage(pItem);
+        SUNIT_RemoveUnit(pGame, pUnit);
+        pItem = pNext;
+    }
+}
+
+// 0x00536580
+static void __stdcall SUNITPROXY_ClearNpcRecordData(D2NpcRecordStrc* pNpcRecord, D2GameStrc* pGame)
+{
+    if (pNpcRecord->bGambleInit)
+    {
+        D2NpcGambleStrc* pGamble = pNpcRecord->pGamble;
+        while (pGamble)
+        {
+            D2NpcGambleStrc* pNextGamble = pGamble->pNext;
+            if (pGamble->pInventory)
+            {
+                sub_00536510_RemoveInventoryItems(pGame, pGamble->pInventory);
+                INVENTORY_FreeInventory(pGamble->pInventory);
+                pGamble->pInventory = 0;
+            }
+            sub_0040B480(pGame->pMemoryPool, pGamble, ".\\UNIT\\sunitproxy.cpp", 0x1E6, 0);
+            pGamble = pNextGamble;
+        }
+        pNpcRecord->pGamble = 0;
+    }
+
+    sub_00536510_RemoveInventoryItems(pGame, pNpcRecord->pInventory);
+    INVENTORY_FreeInventory(pNpcRecord->pInventory);
+    pNpcRecord->pInventory = 0;
+
+    D2NpcEventStrc* pNpcEvent = pNpcRecord->pEvent;
+    while (pNpcEvent)
+    {
+        D2NpcEventStrc* pNextEvent = pNpcEvent->pNext;
+        if (pNpcEvent->field_C == 1 && pNpcEvent->pUnit)
+        {
+            ITEMS_RemoveFromAllPlayers(pGame, pNpcEvent->pUnit);
+        }
+        sub_0040B480(pGame->pMemoryPool, pNpcEvent, ".\\UNIT\\sunitproxy.cpp", 0x204, 0);
+        pNpcEvent = pNextEvent;
+    }
+    pNpcRecord->pEvent = 0;
+}
+
+void __fastcall SUNITPROXY_FreeNpcControl(D2GameStrc* pGame)
+{
+    D2NpcControlStrc* pNpcControl = pGame->pNpcControl;
+    D2NpcRecordStrc* pRecords = pNpcControl->pFirstRecord;
+    for (int i = 0; i < pNpcControl->nArraySize; ++i)
+    {
+        D2NpcRecordStrc* pRecord = &pRecords[i];
+
+        D2NpcVendorChainStrc* pVendorChain = pRecord->pVendorChain;
+        if (pVendorChain)
+        {
+            do
+            {
+                D2NpcVendorChainStrc* pNext = pVendorChain->pNext;
+                sub_0040B480(pGame->pMemoryPool, pVendorChain, ".\\UNIT\\sunitproxy.cpp", 0x21E, 0);
+                pVendorChain = pNext;
+            }
+            while (pVendorChain);
+            pRecord->pVendorChain = 0;
+        }
+
+        SUNITPROXY_ClearNpcRecordData(pRecord, pGame);
+
+        if (pRecord->pItemCache)
+        {
+            sub_0040B480(pGame->pMemoryPool, pRecord->pItemCache, ".\\UNIT\\sunitproxy.cpp", 0x227, 0);
+            pRecord->pItemCache = 0;
+        }
+
+        if (pRecord->pPermCache)
+        {
+            sub_0040B480(pGame->pMemoryPool, pRecord->pPermCache, ".\\UNIT\\sunitproxy.cpp", 0x22C, 0);
+            pRecord->pPermCache = 0;
+        }
+
+        if (pRecord->pMercData)
+        {
+            sub_0040B480(pGame->pMemoryPool, pRecord->pMercData, ".\\UNIT\\sunitproxy.cpp", 0x237, 0);
+            pRecord->pMercData = 0;
+        }
+
+        pRecord->pEvent = 0;
+    }
+
+    sub_0040B480(pGame->pMemoryPool, pNpcControl->pFirstRecord, ".\\UNIT\\sunitproxy.cpp", 0x242, 0);
+    sub_0040B480(pGame->pMemoryPool, pNpcControl, ".\\UNIT\\sunitproxy.cpp", 0x243, 0);
+    pGame->pNpcControl = 0;
+}
+
+void __fastcall SUNITPROXY_FreeVendorChain(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc)
+{
+    D2NpcRecordStrc* pNpcRecord = D10_GetNpcRecordFromUnit(pGame, pNpc);
+    if (!pNpcRecord)
+    {
+        return;
+    }
+
+    const int nPlayerGUID = !pPlayer ? -1 : pPlayer->dwUnitId;
+    if (pNpcRecord->bGambleInit)
+    {
+        D2NpcGambleStrc* pPreviousGamble = 0;
+        for (D2NpcGambleStrc* pGamble = pNpcRecord->pGamble; pGamble; pGamble = pGamble->pNext)
+        {
+            if (pGamble->dwGUID == nPlayerGUID)
+            {
+                if (pPreviousGamble)
+                {
+                    pPreviousGamble->pNext = pGamble->pNext;
+                }
+                else
+                {
+                    pNpcRecord->pGamble = pGamble->pNext;
+                }
+
+                if (pGamble->pInventory)
+                {
+                    sub_00536510_RemoveInventoryItems(pGame, pGamble->pInventory);
+                    INVENTORY_FreeInventory(pGamble->pInventory);
+                    pGamble->pInventory = 0;
+                }
+
+                sub_0040B480(pGame->pMemoryPool, pGamble, ".\\UNIT\\sunitproxy.cpp", 0x48F, 0);
+                break;
+            }
+
+            pPreviousGamble = pGamble;
+        }
+    }
+
+    D2NpcVendorChainStrc* pPreviousVendorChain = 0;
+    for (D2NpcVendorChainStrc* pVendorChain = pNpcRecord->pVendorChain; pVendorChain; pVendorChain = pVendorChain->pNext)
+    {
+        if (pVendorChain->dwGUID == nPlayerGUID)
+        {
+            if (pPreviousVendorChain)
+            {
+                pPreviousVendorChain->pNext = pVendorChain->pNext;
+            }
+            else
+            {
+                pNpcRecord->pVendorChain = pVendorChain->pNext;
+            }
+
+            sub_0040B480(pGame->pMemoryPool, pVendorChain, ".\\UNIT\\sunitproxy.cpp", 0x4A7, 0);
+            return;
+        }
+
+        pPreviousVendorChain = pVendorChain;
+    }
+}
+
+// 0x00536D10
+void __fastcall SUNITPROXY_AllocNpcInventory(D2GameStrc* pGame, D2NpcRecordStrc* pNpcRecord, D2UnitStrc* pNpc)
+{
+    SUNITPROXY_ClearNpcRecordData(pNpcRecord, pGame);
+
+    pNpcRecord->bVendorInit = 0;
+    pNpcRecord->dwTicks = 0;
+    pNpcRecord->pInventory = INVENTORY_AllocInventory(pGame->pMemoryPool, 0);
+
+    if (pNpc)
+    {
+        pNpc->pInventory = pNpcRecord->pInventory;
+    }
+}
+
+// 0x00537190
+void __fastcall SUNITPROXY_FreeNpcGamble(D2GameStrc* pGame, D2UnitStrc* pNpc, D2UnitStrc* pPlayer)
+{
+    int nIndex;
+    D2NpcRecordStrc* pNpcRecord = SUNITPROXY_GetNpcRecordFromClassId(pGame, !pNpc ? -1 : pNpc->dwClassId, &nIndex);
+    const int nPlayerGUID = !pPlayer ? -1 : pPlayer->dwUnitId;
+
+    if (pNpcRecord && pNpcRecord->bGambleInit)
+    {
+        D2NpcGambleStrc* pPreviousGamble = 0;
+        for (D2NpcGambleStrc* pGamble = pNpcRecord->pGamble; pGamble; pGamble = pGamble->pNext)
+        {
+            if (pGamble->dwGUID == nPlayerGUID)
+            {
+                if (pPreviousGamble)
+                {
+                    pPreviousGamble->pNext = pGamble->pNext;
+                }
+                else
+                {
+                    pNpcRecord->pGamble = pGamble->pNext;
+                }
+
+                if (pGamble->pInventory)
+                {
+                    sub_00536510_RemoveInventoryItems(pGame, pGamble->pInventory);
+                    INVENTORY_FreeInventory(pGamble->pInventory);
+                    pGamble->pInventory = 0;
+                }
+
+                sub_0040B480(pGame->pMemoryPool, pGamble, ".\\UNIT\\sunitproxy.cpp", 0x5D0, 0);
+                return;
+            }
+
+            pPreviousGamble = pGamble;
+        }
+    }
+}
+
+void __stdcall SUNITPROXY_UpdateVendorInventory(D2GameStrc* pGame, unsigned char nAct, int bNoMorePlayersInLevel)
+{
+    D2NpcControlStrc* pNpcControl = pGame->pNpcControl;
+    D2NpcRecordStrc* pRecords = pNpcControl->pFirstRecord;
+    const unsigned int nTickCount = GetTickCount();
+    for (int i = 0; i < pNpcControl->nArraySize; ++i)
+    {
+        D2NpcRecordStrc* pNpcRecord = &pRecords[i];
+        if (&pNpcRecord->bVendorInit && pNpcRecord->nAct == nAct && pNpcRecord->bTrader == 1 && pNpcRecord->bTrading == 1 && pNpcRecord->bVendorInit == 1)
+        {
+            if (bNoMorePlayersInLevel)
+            {
+                D2UnitStrc* pNpc = SUNIT_GetServerUnit(pGame, UNIT_MONSTER, pNpcRecord->dwNPCGUID);
+                if (pNpc && pNpc->dwClassId == pNpcRecord->nNPC)
+                {
+                    if (!MONSTERAI_GetInteractUnitCount(sub_00535E80_GetMonInteract(pNpc)))
+                    {
+                        SUNITPROXY_AllocNpcInventory(pGame, pNpcRecord, pNpc);
+                    }
+                    else
+                    {
+                        pNpcRecord->bRefreshInventory = 1;
+                    }
+                }
+                else
+                {
+                    SUNITPROXY_AllocNpcInventory(pGame, pNpcRecord, 0);
+                }
+            }
+            else
+            {
+                if (nTickCount > pNpcRecord->dwTicks + 240000)
+                {
+                    pNpcRecord->bRefreshInventory = 1;
+                    pNpcRecord->dwTicks = nTickCount;
+                }
+            }
+        }
+    }
+}
+
+// 0x00536760
+static void __stdcall sub_00536760_AddNpcEvent(D2UnitStrc* pUnit, int nParam, int nAction, D2GameStrc* pGame, D2NpcRecordStrc* pNpcRecord)
+{
+    D2NpcEventStrc* pNpcEvent = (D2NpcEventStrc*)sub_0040B430(pGame->pMemoryPool, sizeof(D2NpcEventStrc), ".\\UNIT\\sunitproxy.cpp", 0x263, 0);
+    pNpcEvent->pNext = pNpcRecord->pEvent;
+    pNpcEvent->pUnit = pUnit;
+    pNpcEvent->field_C = 0;
+    pNpcEvent->field_8 = nParam;
+    pNpcEvent->field_4 = nAction;
+    pNpcRecord->pEvent = pNpcEvent;
+}
+
+// 0x005367B0
+void __fastcall sub_005367B0_QueueTradeEvent(D2UnitStrc* pNpc, D2GameStrc* pGame, D2UnitStrc* pUnit, int nParam, int nAction)
+{
+    const unsigned long dwTick = GetTickCount();
+    int nIndex;
+    D2NpcRecordStrc* pNpcRecord = SUNITPROXY_GetNpcRecordFromClassId(pGame, !pNpc ? -1 : pNpc->dwClassId, &nIndex);
+    if (pNpcRecord)
+    {
+        D2NpcTradeStrc* pTrade = &pNpcRecord->tTrade;
+        if (pTrade && pTrade->bTrader == 1 && pTrade->bVendorInit == 1 && pNpcRecord->bTrading == 1)
+        {
+            sub_00536760_AddNpcEvent(pUnit, nParam, nAction, pGame, pNpcRecord);
+            pTrade->dwTick = dwTick;
+        }
+    }
+}
+
+// 0x00535EA0
+D2NpcRecordStrc* __fastcall SUNITPROXY_GetNpcRecordFromClassId(D2GameStrc* pGame, int nNpcClassId, int* pIndex)
+{
+    D2NpcRecordStrc* pRecords = pGame->pNpcControl->pFirstRecord;
+    for (*pIndex = 0; *pIndex < MAX_NPC_RECORDS; ++*pIndex)
+    {
+        if (pRecords[*pIndex].nNPC == nNpcClassId)
+        {
+            return &pRecords[*pIndex];
+        }
+    }
+
+    D2_ASSERT(nNpcClassId, 114);
+    return 0;
+}
+
+// 0x005368F0
+void __fastcall sub_005368F0_ProcessNpcEvents(D2GameStrc* game,D2UnitStrc* npc)
+{
+ int count=0;
+ D2NpcRecordStrc* record;
+ record=SUNITPROXY_GetNpcRecordFromClassId(game,!npc?-1:npc->classId,(int*)&record);
+ if(!record)return;
+ D2NpcEventStrc* prev=0;
+ for(D2NpcEventStrc* event=record->events;event;event=event->next) {
+  if(event->active) { event->active=0;if(!event->mode && event->quality==4)++count; }
+ }
+ if(count && npc->inv) {
+  D2UnitStrc* iter=INVENTORY_GetFirstItem(npc->inv);
+  while(iter && count) {
+   D2UnitStrc* item=INVENTORY_UnitIsItem(iter);
+   iter=INVENTORY_GetNextItem(iter);
+   if(ITEMS_GetItemQuality(item)==4){sub_005766D0(npc,item,game,0);--count;}
+  }
+ }
+ D2NpcEventStrc* event=record->events;
+ while(event) {
+  if(event->mode==1) {
+   int placed=D2GAME_PlaceItem_6FC44410(".\\UNIT\\sunitproxy.cpp",0x3cb,game,npc,!event->item?-1:event->item->id,0,0,1,1,0);
+   if(!placed) {
+    if(ITEMS_GetInvPage(event->item)==1){
+     ITEMS_SetInvPage(event->item,2);
+     placed=D2GAME_PlaceItem_6FC44410(".\\UNIT\\sunitproxy.cpp",0x3d1,game,npc,!event->item?-1:event->item->id,0,0,1,1,0);
+    }else if(ITEMS_GetInvPage(event->item)==2){
+     ITEMS_SetInvPage(event->item,1);
+     placed=D2GAME_PlaceItem_6FC44410(".\\UNIT\\sunitproxy.cpp",0x3d9,game,npc,!event->item?-1:event->item->id,0,0,1,1,0);
+    }
+   }
+   if(!placed){prev=event;event=event->next;continue;}
+   sub_005762C0_SetItemTradeFlags(npc,event->item,game,0,0);
+   if(event==record->events){record->events=event->next;FOG_FreePool(game->pool,event,".\\UNIT\\sunitproxy.cpp",0x3ea,0);event=record->events;prev=0;}
+   else{prev->next=event->next;FOG_FreePool(game->pool,event,".\\UNIT\\sunitproxy.cpp",0x3f1,0);event=prev->next;}
+  }else {
+   if(!sub_00579030(game,npc,event->item,event->quality)){prev=event;event=event->next;continue;}
+   if(event==record->events){record->events=event->next;FOG_FreePool(game->pool,event,".\\UNIT\\sunitproxy.cpp",0x403,0);event=record->events;prev=0;}
+   else{prev->next=event->next;FOG_FreePool(game->pool,event,".\\UNIT\\sunitproxy.cpp",0x40a,0);event=prev->next;}
+  }
+ }
+}
+
+// 0x00536B40
+extern "C" __declspec(dllexport) unsigned int __fastcall sub_00536B40(Obj00536B40* pObj) {
+    return pObj->dwValue1D24 + 8;
+}
+
+// 0x00536CB0
+D2NpcVendorChainStrc* __fastcall SUNITPROXY_GetVendorChain(D2GameStrc* pGame, D2NpcRecordStrc* pNpcRecord, D2UnitStrc* pPlayer)
+{
+    const int nNpcGUID = !pPlayer ? -1 : pPlayer->dwUnitId;
+
+    for (D2NpcVendorChainStrc* pVendorChain = pNpcRecord->pVendorChain; pVendorChain; pVendorChain = pVendorChain->pNext)
+    {
+        if (pVendorChain->dwGUID == nNpcGUID)
+        {
+            return pVendorChain;
+        }
+    }
+
+    D2NpcVendorChainStrc* pVendorChain = (D2NpcVendorChainStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2NpcVendorChainStrc), ".\\UNIT\\sunitproxy.cpp", 0x4ED, 0);
+    pVendorChain->dwGUID = nNpcGUID;
+    pVendorChain->pNext = pNpcRecord->pVendorChain;
+    pNpcRecord->pVendorChain = pVendorChain;
+    return pVendorChain;
+}
+
+D2UnitProxyStrc gUnitProxyItemCache_00883D78[17]; // 0x00883D78
+
+// 0x00536D50
+void __stdcall SUNITPROXY_FillIGlobaltemCacheRecordForNpc(int nNpcId)
+{
+    D2ItemDataTbl* pItemDataTbl = DATATBLS_GetItemDataTables();
+    if (gbUnitProxyItemCacheInitialized_00883E88[nNpcId])
+    {
+        return;
+    }
+
+    gbUnitProxyItemCacheInitialized_00883E88[nNpcId] = 1;
+
+    int nItemCount = 0;
+    int nPermStoreItemCount = 0;
+    for (int i = 0; i < pItemDataTbl->nItemsTxtRecordCount; ++i)
+    {
+        if (pItemDataTbl->pItemsTxt[i].nSpawnable && (pItemDataTbl->pItemsTxt[i].nVendorMax[nNpcId] || pItemDataTbl->pItemsTxt[i].nVendorMagicMax[nNpcId]))
+        {
+            if (!pItemDataTbl->pItemsTxt[i].nPermStoreItem)
+            {
+                ++nItemCount;
+            }
+            else
+            {
+                ++nPermStoreItemCount;
+            }
+        }
+    }
+
+    gUnitProxyItemCache_00883D78[nNpcId].pItemCache = (D2ItemCacheStrc*)FOG_AllocPool(0, sizeof(D2ItemCacheStrc) * nItemCount, ".\\UNIT\\sunitproxy.cpp", 0x523, 0);
+    memset(gUnitProxyItemCache_00883D78[nNpcId].pItemCache, 0, sizeof(D2ItemCacheStrc) * nItemCount);
+    gUnitProxyItemCache_00883D78[nNpcId].nItems = nItemCount;
+
+    gUnitProxyItemCache_00883D78[nNpcId].pPermCache = (unsigned int*)FOG_AllocPool(0, sizeof(unsigned int) * nPermStoreItemCount, ".\\UNIT\\sunitproxy.cpp", 0x528, 0);
+    memset(gUnitProxyItemCache_00883D78[nNpcId].pPermCache, 0, sizeof(unsigned int) * nPermStoreItemCount);
+    gUnitProxyItemCache_00883D78[nNpcId].nPerms = nPermStoreItemCount;
+
+    int nItemCacheIndex = 0;
+    int nPermCacheIndex = 0;
+    for (int i = 0; i < pItemDataTbl->nItemsTxtRecordCount; ++i)
+    {
+        if (pItemDataTbl->pItemsTxt[i].nSpawnable && (pItemDataTbl->pItemsTxt[i].nVendorMax[nNpcId] || pItemDataTbl->pItemsTxt[i].nVendorMagicMax[nNpcId]))
+        {
+            if (!pItemDataTbl->pItemsTxt[i].nPermStoreItem)
+            {
+                gUnitProxyItemCache_00883D78[nNpcId].pItemCache[nItemCacheIndex].nMin = pItemDataTbl->pItemsTxt[i].nVendorMin[nNpcId];
+                gUnitProxyItemCache_00883D78[nNpcId].pItemCache[nItemCacheIndex].nMax = pItemDataTbl->pItemsTxt[i].nVendorMax[nNpcId];
+                gUnitProxyItemCache_00883D78[nNpcId].pItemCache[nItemCacheIndex].nMagicMin = pItemDataTbl->pItemsTxt[i].nVendorMagicMin[nNpcId];
+                gUnitProxyItemCache_00883D78[nNpcId].pItemCache[nItemCacheIndex].nMagicMax = pItemDataTbl->pItemsTxt[i].nVendorMagicMax[nNpcId];
+                gUnitProxyItemCache_00883D78[nNpcId].pItemCache[nItemCacheIndex].nMagicLevel = pItemDataTbl->pItemsTxt[i].nVendorMagicLvl[nNpcId];
+                gUnitProxyItemCache_00883D78[nNpcId].pItemCache[nItemCacheIndex].dwCode = pItemDataTbl->pItemsTxt[i].dwCode;
+                ++nItemCacheIndex;
+            }
+            else
+            {
+                gUnitProxyItemCache_00883D78[nNpcId].pPermCache[nPermCacheIndex] = pItemDataTbl->pItemsTxt[i].dwCode;
+                ++nPermCacheIndex;
+            }
+        }
+    }
+}
+
+unsigned char gbUnitProxyItemCacheInitialized_00883E88[17]; // 0x00883E88
+
+inline int UNIT_HasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
+{
+    if (pUnit)
+    {
+        return (pUnit->dwFlags & nFlag) != 0;
+    }
+    return 0;
+}
+
+// 0x00537120
+void __fastcall SUNITPROXY_ClearGlobalItemCache()
+{
+    for (int i = 0; i < MAX_NPC_INVENTORY; ++i)
+    {
+        if (gbUnitProxyItemCacheInitialized_00883E88[i] == 1)
+        {
+            gbUnitProxyItemCacheInitialized_00883E88[i] = 0;
+
+            if (gUnitProxyItemCache_00883D78[i].pItemCache)
+            {
+                FOG_FreeServerMemory(0, gUnitProxyItemCache_00883D78[i].pItemCache, ".\\UNIT\\sunitproxy.cpp", 0x59D, 0);
+                gUnitProxyItemCache_00883D78[i].pItemCache = 0;
+            }
+
+            if (gUnitProxyItemCache_00883D78[i].pPermCache)
+            {
+                FOG_FreeServerMemory(0, gUnitProxyItemCache_00883D78[i].pPermCache, ".\\UNIT\\sunitproxy.cpp", 0x5A2, 0);
+                gUnitProxyItemCache_00883D78[i].pPermCache = 0;
+            }
+        }
+    }
+}
+
+// 0x00537AC0
+void __fastcall CLIENTS_FreeClientsFromGame(D2GameStrc* pGame)
+{
+    D2ClientStrc* pClient = pGame->pClientList;
+    while (pClient)
+    {
+        D2ClientStrc* pCurrent = pClient;
+        pClient = pClient->pNext;
+        FOG_FreeServerMemory(pGame->pMemoryPool, pCurrent, ".\\GAME\\Clients.cpp", 0x617, 0);
+    }
+}
+
+// 0x00541400
+void __fastcall EVENT_FreeEventQueue(D2GameStrc* pGame)
+{
+    D2EventTimerQueueStrc* pTimerQueue = pGame->pTimerQueue;
+    if (!pTimerQueue)
+    {
+        return;
+    }
+
+    D2EventTimerSlabListStrc* pTimerArray = pTimerQueue->pSlabListHead;
+    while (pTimerArray)
+    {
+        D2EventTimerSlabListStrc* pNext = pTimerArray->pNextSlab;
+        FOG_FreeServerMemory(pGame->pMemoryPool, pTimerArray, ".\\GAME\\Event.cpp", 0x314, 0);
+        pTimerArray = pNext;
+    }
+
+    FOG_FreeServerMemory(pGame->pMemoryPool, pTimerQueue, ".\\GAME\\Event.cpp", 0x317, 0);
+    pGame->pTimerQueue = 0;
+}
+
+// 0x00545300
+void __fastcall QUESTS_ResetPlayerGUIDCount(D2QuestGUIDStrc* pGUIDs)
+{
+    pGUIDs->nPlayerCount = 0;
+}
+
+// 0x00553980
+D2EventTimerStrc* __fastcall SUNIT_GetTimerFromUnit(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return 0;
+    }
+
+    return pUnit->pTimer;
+}
+
+// 0x005A4F20
+int __fastcall sub_005A4F20_GetDifficultyScaledBonus(D2GameStrc* pGame, int nCount)
+{
+    if (pGame->nDifficulty <= 0)
+    {
+        return 0;
+    }
+
+    if (nCount < 2)
+    {
+        return 0;
+    }
+
+    if (nCount < 9)
+    {
+        return gnDifficultyBonus_006E21F4[nCount];
+    }
+
+    return 8 * nCount - 16;
+}
+
+// 0x005FA690
+D2UnitStrc* __fastcall AITHINK_TargetCallback_Regurgitator(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg)
+{
+    D2RegurgitatorAiCallbackArgStrc* pArg = (D2RegurgitatorAiCallbackArgStrc*)pCallbackArg;
+
+    if (pUnit == pTarget)
+    {
+        return 0;
+    }
+
+    const int nType = pTarget ? pTarget->dwUnitType : UNIT_INVALID;
+    if (nType != UNIT_MONSTER || UNIT_HasFlag(pTarget, UNITFLAG_ISMERC) || !UNIT_HasFlag(pTarget, UNITFLAG_TARGETABLE))
+    {
+        return 0;
+    }
+
+    if (!MONSTERS_IsDead(pTarget) || STATES_CheckStateMaskUdeadOnUnit(pTarget) || STATLIST_GetUnitAlignment(pTarget) != UNIT_ALIGNMENT_EVIL)
+    {
+        return 0;
+    }
+
+    if (!sub_004638A0_CheckMonStats2Flag(pTarget->dwClassId, MONSTATS2FLAGINDEX_SOFT))
+    {
+        return 0;
+    }
+
+    const int nDistance = AITHINK_GetSquaredDistance(pUnit, pTarget);
+    if (nDistance > pArg->nDistance)
+    {
+        return 0;
+    }
+
+    pArg->pTarget = pTarget;
+    pArg->nDistance = nDistance;
+    return 0;
+}
+
+#include "gen/data/Source/D2Game/UNIT/sunitproxy.inc"

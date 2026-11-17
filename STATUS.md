@@ -8,8 +8,8 @@ Generated from the build data. Every address below is a virtual address in the 1
 | Verified (built from source) | 14916 (2,601,688 bytes) |
 | Unmatched (taken from your Game.exe) | 11 (12,434 bytes) |
 | Function bytes verified | 99.524 % |
-| Game.exe bytes built from source (code, generated data, runtime, imports, linker output, padding) | 3,578,372 of 3,618,792 (98.88 %) |
-| Game.exe bytes taken from your Game.exe (unmatched code, undefined data, resources, stamps, signature) | 40,420 |
+| Game.exe bytes built from source (code, generated data, runtime, imports, linker output, padding) | 3,578,379 of 3,618,792 (98.88 %) |
+| Game.exe bytes taken from your Game.exe (unmatched code, undefined data, resources, stamps, signature) | 40,413 |
 | Output SHA-256 equals the original | yes |
 | Names: blizzard / d2moo / placeholder | 173 / 4394 / 10360 |
 
@@ -17,14 +17,14 @@ Bytes of the built Game.exe by origin:
 
 | Origin | Bytes |
 |---|---:|
-| game code and data compiled from Source/ | 2,686,985 |
+| game code and data compiled from Source/ | 2,686,988 |
 | initialised data generated from your Game.exe (build/data_plan.json) | 362,543 |
 | C runtime (libcmt.lib, placed by identity) | 239,696 |
 | import thunks and the import address table | 3,782 |
 | headers, import and export tables, relocations, checksum | 163,407 |
-| alignment padding | 121,959 |
+| alignment padding | 121,963 |
 | code taken from your Game.exe (unmatched functions) | 12,434 |
-| data no source defines yet, taken from your Game.exe | 15,698 |
+| data no source defines yet, taken from your Game.exe | 15,691 |
 | resources (from your Game.exe) | 5,888 |
 | link timestamps, Rich header, debug directory | 272 |
 | Authenticode signature | 6,128 |
@@ -51,7 +51,7 @@ These have no verified source yet; the build takes their bytes from your Game.ex
 
 Functions whose source needs something the original source very likely did not have to produce the original bytes: a per-file compiler option other than the default (`build/config.json`), link-time code generation, a calling-convention shim for a register-argument function, or inline assembly.
 
-Not listed one by one: 2017 functions are compiled with `/GS-` and 61 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 2870 times and `__declspec(dllexport)` 182 times to keep a body out of line or emitted.
+Not listed one by one: 2016 functions are compiled with `/GS-` and 61 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 2632 times and `__declspec(dllexport)` 178 times to keep a body out of line or emitted.
 
 | Address | Name | Construct |
 |---|---|---|
@@ -100,7 +100,6 @@ Not listed one by one: 2017 functions are compiled with `/GS-` and 61 with `/EHs
 | 0x004107D0 | sub_004107D0_Read64Locked | inline assembly, naked function |
 | 0x00413A00 | sub_00413A00_VPrintf | calling-convention shim |
 | 0x00414B00 | sub_00414B00_SRegLoadEntry | calling-convention shim |
-| 0x00414C70 | sub_00414C70_SRegSaveEntry | calling-convention shim |
 | 0x00414DE0 | SRegLoadData | compiler option /GS |
 | 0x00414E50 | SRegLoadString | compiler option /GS |
 | 0x0041D7D0 | sub_0041D7D0_VerifySignature | compiler option /Ob1 |
@@ -238,14 +237,12 @@ Not listed one by one: 2017 functions are compiled with `/GS-` and 61 with `/EHs
 | 0x0056F070 | SKILLS_SrvDo001_Attack_LeftHandSwing | compiler option /Ob1 |
 | 0x0056F7F0 | SKILLS_ExecuteSkill | compiler option /Ob1 |
 | 0x00574250 | MONSTER_Initialize | compiler option /Ob1 |
-| 0x005747B0 | sub_6FC7D9D0 | calling-convention shim |
 | 0x00575070 | sub_00575070_HasPetOfType7 | compiler option /Ob1 |
 | 0x0057A880 | sub_0057A880_AddRolledDamage | calling-convention shim |
 | 0x0057A8E0 | sub_0057A8E0_AddStatDamage | calling-convention shim |
 | 0x0057B660 | sub_0057B660_AddUndeadDamagePercent | calling-convention shim |
 | 0x0057B6A0 | sub_0057B6A0_AddMonTypeDamagePercent | calling-convention shim |
 | 0x0057BF10 | sub_0057BF10_AbsorbDamage | calling-convention shim |
-| 0x0057C420 | sub_0057C420_ApplyLeech | calling-convention shim |
 | 0x0057DFB0 | SUNITDMG_ApplyBlockOrDodge | compiler option /Ob1 |
 | 0x0057F410 | sub_6FC802F0 | calling-convention shim |
 | 0x0057F4F0 | sub_6FC803F0 | calling-convention shim |
@@ -266,7 +263,6 @@ Not listed one by one: 2017 functions are compiled with `/GS-` and 61 with `/EHs
 | 0x005BE020 | MONSTERCHOOSE_GetBossSpawnType | compiler option /Ob1 |
 | 0x005C3300 | sub_005C3300_CorpseConsumedCheck | calling-convention shim |
 | 0x005D81C0 | SKILLS_SrvDo069_FindPotion | compiler option /Ob1 |
-| 0x005DCF70 | sub_005DCF70_FindTargetInAdjacentActiveRooms | calling-convention shim |
 | 0x005E36F0 | AITHINK_Fn125_BloodLord | compiler option /Ob1 |
 | 0x005E3EA0 | D2GAME_AI_PetMove_6FCE2BA0 | compiler option /Ob1 |
 | 0x005EEDA0 | AITHINK_AncientBarb2SkillHandler | compiler option /Ob1 |
@@ -295,6 +291,7 @@ Not listed one by one: 2017 functions are compiled with `/GS-` and 61 with `/EHs
 | 0x0060D6F0 | sub_0060D6F0_ConvertPixels | calling-convention shim |
 | 0x0060DA80 | sub_0060DA80_MapSubTile | calling-convention shim |
 | 0x0061BB60 | sub_0061BB60_SetColorForId | calling-convention shim |
+| 0x00620510 | UNITS_GetUnitSizeX | calling-convention shim |
 | 0x00620E80 | UNITS_CharacterStartRunningOrKnockback | calling-convention shim |
 | 0x00621420 | sub_00621420_GetRecordForValue | calling-convention shim |
 | 0x00628830 | sub_00628830_ApplyClassMinimum | calling-convention shim |

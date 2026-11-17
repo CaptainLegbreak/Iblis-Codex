@@ -162,6 +162,16 @@ def compile_env(s):
     return env
 
 
+def unit_env(s, env, rel):
+    """compile_env plus the unit's module folder, where its module header lives."""
+    d = module_dir(rel)
+    if not d:
+        return env
+    env = dict(env)
+    env["INCLUDE"] = env["INCLUDE"] + ";" + _win_path(d, s)
+    return env
+
+
 def gen_includes(text):
     return GEN_INCLUDE.findall(text)
 
@@ -170,7 +180,34 @@ def missing_gen_includes(text):
     return [p for p in gen_includes(text) if not os.path.exists(os.path.join(ROOT, p))]
 
 
-def expand_gen_includes(text):
+HEADER_INCLUDE = re.compile(r'^[ \t]*#[ \t]*include[ \t]+"([^"\n/]+\.h)"[ \t]*$', re.M)
+
+
+def module_dir(rel):
+    """Source/<Module>: the folder whose headers a unit includes by bare name."""
+    parts = rel.replace("\\", "/").split("/")
+    return os.path.join(ROOT, parts[0], parts[1]) if len(parts) > 2 and parts[0] == "Source" else None
+
+
+def unit_headers(text, rel):
+    """Paths of the module headers a unit includes."""
+    d = module_dir(rel) if rel else None
+    if not d:
+        return []
+    return [os.path.join(d, h) for h in HEADER_INCLUDE.findall(text) if os.path.exists(os.path.join(d, h))]
+
+
+def expand_gen_includes(text, rel=None):
+    """The unit's text with its generated data and its module headers written in place (what the checker reads)."""
+    d = module_dir(rel) if rel else None
+    if d:
+        def hdr(m):
+            p = os.path.join(d, m.group(1))
+            if not os.path.exists(p):
+                return m.group(0)
+            return open(p, encoding="latin-1", newline="").read().rstrip("\n")
+        text = HEADER_INCLUDE.sub(hdr, text)
+
     def one(m):
         p = os.path.join(ROOT, m.group(1))
         if not os.path.exists(p):

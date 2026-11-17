@@ -1,0 +1,352 @@
+#include "D2Game.h"
+
+struct D2MonsterDataStrc;
+struct D2QuestExStrc;
+struct D2ObjInitFnStrc;
+struct D2Act2Quest4Strc;
+
+struct D2GameStrc
+{
+    char unk00[0xA8];
+    int dwGameFrame;
+    unsigned char unk_AC[0x1874];
+    char unk0x1920[0x7A00];
+};
+
+struct D2CoordStrc
+{
+    union
+    {
+        int x;
+        int nX;
+    };
+    union
+    {
+        int y;
+        int nY;
+    };
+};
+
+struct D2MonsterDataStrc { int unk00[12]; void* interact; };
+
+struct D2UnitStrc { int type; int classId; int pool; int id; int mode; D2MonsterDataStrc* monster; int unk18[43]; unsigned int flags; };
+
+struct D2QuestExStrc {
+    char unk00[12]; unsigned char oldSpawned; unsigned char spawned;
+    char unk0E[7]; unsigned char coordinatesSet; char unk16[18];
+    int x; int y; int guardX; int guardY; int blockerId; int unitId;
+};
+
+struct D2QuestDataStrc
+{
+    int id;
+    union
+    {
+        D2GameStrc* game;
+        D2GameStrc* pGame;
+    };
+    unsigned char act;
+    union
+    {
+        unsigned char notIntro;
+        bool bNotIntro;
+    };
+    unsigned char active;
+    unsigned char lastState;
+    union
+    {
+        unsigned char state;
+        unsigned char fState;
+    };
+    char unk0D[11];
+    union
+    {
+        D2QuestExStrc* ex;
+        void* pQuestDataEx;
+    };
+};
+
+D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc*,int,int); // 0x00552F60
+int __fastcall MONSTERAI_HasInteractUnit(void*); // 0x00572DC0
+void __fastcall sub_00573180(D2GameStrc*,D2UnitStrc*,void*,int); // 0x00573180
+D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc*,int); // 0x00543640
+D2ActiveRoomStrc* __fastcall sub_00463740(D2ActiveRoomStrc*,int,int); // 0x00463740
+void __fastcall QUESTS_GetFreePosition(D2ActiveRoomStrc*,D2CoordStrc*,unsigned int,unsigned int,D2ActiveRoomStrc**,int,int); // 0x00545340
+D2UnitStrc* __fastcall sub_005B2F20(D2GameStrc*,D2ActiveRoomStrc*,int,int,int,int,int,int); // 0x005B2F20
+
+struct D2ObjInitFnStrc {
+    D2GameStrc* pGame;
+    D2UnitStrc* pObject;
+    D2ActiveRoomStrc* pRoom;
+    int unk0C[2];
+    int nX;
+    int nY;
+};
+
+int __fastcall QUESTS_GetGlobalState(D2GameStrc*, int, int); // 0x00544760
+D2UnitStrc* __fastcall sub_005B3090_SpawnAtPosition(D2GameStrc*,D2ActiveRoomStrc*,int,int,int,int,int); // 0x005B3090
+void __fastcall sub_005417D0_DirectDated(D2GameStrc*,D2UnitStrc*,int,int,int,int); // 0x005417D0
+
+struct D2Act2Quest4Strc
+{
+    unsigned char unused0x00[4];
+    unsigned char bDrognanActivated;
+    unsigned char pad0x05[3];
+    D2ActiveRoomStrc* pRoom;
+    unsigned char bJerhynStartInitialized;
+    unsigned char bJerhynPalaceInitialized;
+    unsigned char bPalaceOpen;
+    unsigned char unk0x0F;
+    unsigned char unk0x10;
+    unsigned char bHaremBlockerInitialized;
+    unsigned char unk0x12;
+    unsigned char unk0x13;
+    unsigned char unk0x14;
+    unsigned char bJerhynCoordinatesStored;
+    unsigned char bPortalToCanyonOpen;
+    unsigned char unused0x17;
+    unsigned char unk0x18;
+    unsigned char unk0x19;
+    unsigned char bPlayerCloseToHaremBlocker;
+    unsigned char pad0x1B;
+    int nPlayerCloseToHaremBlockerGUID;
+    D2CoordStrc pHaremBlockerCoords;
+    D2CoordStrc pJerhynCoords;
+    D2CoordStrc pGuardCoords;
+    int nHaremBlockerGUID;
+};
+
+D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
+bool __fastcall sub_0059DFB0_ACT2Q6_IsStateBelow4Inactive(D2GameStrc* pGame); // 0x0059DFB0
+unsigned char __fastcall sub_0059F510_ACT2Q4_IsJerhynPalaceBlocked(D2GameStrc* pGame); // 0x0059F510
+
+typedef int (__fastcall* SUNIT_ITERATEFN)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
+
+int __fastcall QUESTS_GetGlobalState(D2GameStrc* pGame, int nQuestId, int nState); // 0x00544760
+D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
+D2UnitStrc* __fastcall SUNIT_IterateUnitsOfType(D2GameStrc* pGame, int nType, void* pArg, SUNIT_ITERATEFN pfIterate); // 0x005537D0
+int __fastcall sub_6FCBDFE0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pInputRoom, int nX, int nY, int a6, int a7); // 0x00554EA0
+bool __fastcall sub_0059D7C0_ACT2Q6_IsStateBelow2Inactive(D2GameStrc* pGame); // 0x0059D7C0
+unsigned char __fastcall sub_0059D7E0_ACT2Q6_IsStateOne(D2GameStrc* pGame); // 0x0059D7E0
+int __fastcall AIUTIL_GetDistanceToCoordinates(D2UnitStrc* pUnit, int nX, int nY); // 0x005DC5C0
+int __fastcall AITACTICS_WalkToTargetCoordinates(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY); // 0x005DED90
+void __stdcall UNITS_GetCoords(D2UnitStrc* pUnit, D2CoordStrc* pCoord); // 0x00620870
+D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
+D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, int nUnitSize, unsigned int nMask, int bAllowNeighborRooms); // 0x0064E7B0
+int __fastcall ACT2Q4_UnitIterate_CheckDistanceToHaremBlocker(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x0059B820
+extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+
+static __forceinline void* GetMonsterInteract(D2UnitStrc* unit) {
+    if (unit && unit->type==1 && unit->monster) return unit->monster->interact;
+    return 0;
+}
+
+static __declspec(noinline)
+// 0x0059EF70
+void __stdcall sub_0059EF70_SpawnQuestNpc(D2QuestDataStrc* quest,D2ActiveRoomStrc* room,D2CoordStrc* coords) {
+    D2QuestExStrc* ex=quest->ex;
+    if (ex->oldSpawned==1) {
+        D2UnitStrc* unit=SUNIT_GetServerUnit(quest->game,1,ex->unitId);
+        if (unit) {
+            void* interact=GetMonsterInteract(unit);
+            if (MONSTERAI_HasInteractUnit(interact)) {
+                sub_00573180(quest->game,unit,0,1);
+                return;
+            }
+            sub_0052E050_RemoveUnit(unit,quest->game);
+            ex->oldSpawned=0;
+        }
+    }
+    if (ex->spawned==1) return;
+    D2QuestDataStrc* other=QUESTS_GetQuestData(quest->game,13);
+    int bDone=1;
+    if (other && other->notIntro && other->state < 2) bDone=0;
+    if (bDone) coords->x+=15;
+    else coords->x-=10;
+    coords->y-=3;
+    D2ActiveRoomStrc* found=sub_00463740(room,coords->x,coords->y);
+    QUESTS_GetFreePosition(room,coords,3,0x100,&found,9,100);
+    D2UnitStrc* npc=sub_005B2F20(quest->game,found,coords->x,coords->y,201,1,-1,0);
+    if (!npc) npc=sub_005B2F20(quest->game,found,coords->x,coords->y,201,1,2,0);
+    if (npc) {
+        npc->flags|=0x03000000;
+        ex=quest->ex;
+        ex->spawned=1;
+        if (!ex->coordinatesSet) {
+            ex->coordinatesSet=1;
+            ex->x=coords->x;
+            ex->y=coords->y;
+        }
+    }
+}
+
+// 0x0059F440
+void __fastcall ACT2Q4_InitializeJerhynPalaceObject(D2QuestDataStrc* pQuestData, D2ObjInitFnStrc* pOp)
+{
+    D2QuestExStrc* pQuestDataEx = pQuestData->ex;
+    if (QUESTS_GetGlobalState((!pQuestData ? 0 : pQuestData->game), 14, 13) != 1)
+    {
+        D2ActiveRoomStrc* pRoom = pOp->pRoom;
+        pQuestDataEx->guardX = pOp->nX + 1;
+        pQuestDataEx->guardY = pOp->nY;
+        sub_005B3090_SpawnAtPosition((pQuestData ? pQuestData->game : 0), pRoom, pQuestDataEx->guardX, pQuestDataEx->guardY, 331, 1, 0);
+    }
+    sub_005417D0_DirectDated(pOp->pGame, pOp->pObject, 7, pOp->pGame->dwGameFrame + 1, 0, 0);
+    D2CoordStrc pCoord;
+    pCoord.x = pOp->nX;
+    pCoord.y = pOp->nY;
+    if (pQuestDataEx->spawned) return;
+    if (!QUESTS_GetGlobalState((pQuestData ? pQuestData->game : 0), 8, 13) && !QUESTS_GetGlobalState((pQuestData ? pQuestData->game : 0), 9, 13))
+    {
+        D2QuestDataStrc* pQuest = QUESTS_GetQuestData((pQuestData ? pQuestData->game : 0), 13);
+        if (pQuest && pQuest->notIntro && pQuest->state < 2) return;
+    }
+    sub_0059EF70_SpawnQuestNpc(pQuestData, pOp->pRoom, &pCoord);
+}
+
+// 0x0059F510
+unsigned char __fastcall sub_0059F510_ACT2Q4_IsJerhynPalaceBlocked(D2GameStrc* pGame)
+{
+    D2QuestDataStrc* pQuestData11 = QUESTS_GetQuestData(pGame, 11);
+    if (!pQuestData11 || !((D2Act2Quest4Strc*)pQuestData11->pQuestDataEx)->bJerhynPalaceInitialized)
+    {
+        return 1;
+    }
+
+    D2QuestDataStrc* pQuestData8 = QUESTS_GetQuestData(pQuestData11->pGame, 8);
+    return !pQuestData8 || !pQuestData8->bNotIntro || pQuestData8->fState == 5 || sub_0059DFB0_ACT2Q6_IsStateBelow4Inactive(pQuestData11->pGame)
+        || pQuestData11->bNotIntro != 1 || pQuestData11->fState >= 2;
+}
+
+// 0x0059F570
+int __fastcall ACT2Q4_IsJerhynPalaceActivated(D2GameStrc* pGame)
+{
+    return sub_0059F510_ACT2Q4_IsJerhynPalaceBlocked(pGame) == 1 ? 1 : 0;
+}
+
+// 0x0059F580
+void __fastcall ACT2Q4_GetAndUpdatePalaceNpcState(D2GameStrc* pGame, D2UnitStrc* pUnit, int* a3, int* pIdle)
+{
+    D2QuestDataStrc* pQuestData11 = QUESTS_GetQuestData(pGame, 11);
+    if (!pQuestData11 || !pQuestData11->bNotIntro)
+    {
+        *a3 = 1;
+        *pIdle = 0;
+        return;
+    }
+
+    D2Act2Quest4Strc* pQuestDataEx = (D2Act2Quest4Strc*)pQuestData11->pQuestDataEx;
+    if (!pQuestDataEx->bJerhynPalaceInitialized)
+    {
+        *a3 = 1;
+        *pIdle = 0;
+        return;
+    }
+
+    if (QUESTS_GetGlobalState(pGame, 12, 13) || QUESTS_GetGlobalState(pGame, 14, 13) || sub_0059D7C0_ACT2Q6_IsStateBelow2Inactive(pGame))
+    {
+        *a3 = 1;
+        *pIdle = 0;
+        return;
+    }
+
+    if (pQuestDataEx->unk0x14)
+    {
+        *a3 = 1;
+        *pIdle = 0;
+        return;
+    }
+
+    {
+        if (sub_0059D7E0_ACT2Q6_IsStateOne(pGame))
+        {
+            pQuestDataEx->unk0x12 = 1;
+        }
+
+        if (pQuestDataEx->unk0x12 == 1)
+        {
+            if (!pQuestDataEx->unk0x13 || pQuestDataEx->unk0x0F)
+            {
+                pQuestDataEx->bPlayerCloseToHaremBlocker = 0;
+                pQuestDataEx->nPlayerCloseToHaremBlockerGUID = 0;
+                SUNIT_IterateUnitsOfType(pQuestData11->pGame, 0, 0, ACT2Q4_UnitIterate_CheckDistanceToHaremBlocker);
+
+                if (pQuestDataEx->bPlayerCloseToHaremBlocker)
+                {
+                    AITACTICS_WalkToTargetCoordinates(pGame, pUnit, pQuestDataEx->pHaremBlockerCoords.nX, pQuestDataEx->pHaremBlockerCoords.nY);
+                    pQuestDataEx->unk0x13 = 1;
+                    pQuestDataEx->unk0x12 = 0;
+                    *a3 = 0;
+                    *pIdle = 0;
+                    return;
+                }
+
+                *a3 = 0;
+                *pIdle = 1;
+                return;
+            }
+
+            *a3 = 0;
+            *pIdle = 1;
+
+            if (pQuestDataEx->bHaremBlockerInitialized != 1)
+            {
+                return;
+            }
+
+            if ((unsigned int)AIUTIL_GetDistanceToCoordinates(pUnit, pQuestDataEx->pHaremBlockerCoords.nX, pQuestDataEx->pHaremBlockerCoords.nY) <= 2)
+            {
+                D2UnitStrc* pHaremBlocker = SUNIT_GetServerUnit(pGame, 2, pQuestDataEx->nHaremBlockerGUID);
+                if (!pHaremBlocker)
+                {
+                    *a3 = 0;
+                    *pIdle = 1;
+                    return;
+                }
+
+                D2CoordStrc pCoord;
+                UNITS_GetCoords(pHaremBlocker, &pCoord);
+                pCoord.nX += 4;
+                D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pHaremBlocker);
+                if (!COLLISION_GetFreeCoordinates(pRoom, &pCoord, 1, 0x3C01, 0) && !COLLISION_GetFreeCoordinates(pRoom, &pCoord, 2, 0x3C01, 0) && !COLLISION_GetFreeCoordinates(pRoom, &pCoord, 3, 0x3C01, 0))
+                {
+                    *a3 = 0;
+                    *pIdle = 1;
+                    return;
+                }
+
+                if (!sub_6FCBDFE0(pGame, pUnit, pRoom, pCoord.nX, pCoord.nY, 0, 0))
+                {
+                    *a3 = 0;
+                    *pIdle = 1;
+                    return;
+                }
+
+                pQuestDataEx->unk0x0F = 1;
+                pQuestDataEx->unk0x14 = 1;
+                return;
+            }
+
+            pQuestDataEx->unk0x19 = 1;
+            pQuestDataEx->unk0x18 = 0;
+            AITACTICS_WalkToTargetCoordinates(pGame, pUnit, pQuestDataEx->pHaremBlockerCoords.nX, pQuestDataEx->pHaremBlockerCoords.nY);
+            *pIdle = 0;
+            return;
+        }
+    }
+
+    *a3 = 1;
+    *pIdle = 0;
+}
+
+// 0x0059F820
+void __fastcall sub_0059F820_ClearGameBlock(D2GameStrc* pGame)
+{
+    memset(pGame->unk0x1920, 0, sizeof(pGame->unk0x1920));
+}
+
+// 0x0059FFF0
+unsigned short __fastcall sub_0059FFF0_ToWord(unsigned short nValue)
+{
+    return nValue;
+}

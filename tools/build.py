@@ -14,11 +14,11 @@
 Settings come from local.json (written by tools/setup.py) unless given on the command line. Objects are cached in
 <out>/obj and reused while the source, its generated data and its flags are unchanged.
 """
-import os, sys, json, glob, shutil, subprocess, time, hashlib, threading, concurrent.futures as cf
+import os, re, sys, json, glob, shutil, subprocess, time, hashlib, threading, concurrent.futures as cf
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from common import ROOT, CFG, settings, check_image, check_toolchain, compile_env, cl_command, sha256, \
-    expand_gen_includes, missing_gen_includes, gen_includes, load_json, norm_va, PE, die
+from common import ROOT, CFG, settings, check_image, check_toolchain, compile_env, unit_env, unit_headers, cl_command, \
+    sha256, expand_gen_includes, missing_gen_includes, gen_includes, load_json, norm_va, PE, die
 import checker
 
 EQUAL = ("RAW_EQUAL", "RELOCATION_RESOLVED_EQUAL")
@@ -28,8 +28,10 @@ def opt(args, name, default=None):
     return args[args.index(name) + 1] if name in args else default
 
 
-def gen_hash(text):
+def gen_hash(text, rel=None):
     h = hashlib.sha256()
+    for p in unit_headers(text, rel):
+        h.update(p.encode() + b"\0" + open(p, "rb").read() + b"\0")
     for p in gen_includes(text):
         q = os.path.join(ROOT, p)
         h.update(p.encode() + b"\0" + (open(q, "rb").read() if os.path.exists(q) else b"<missing>") + b"\0")
@@ -109,9 +111,9 @@ class Builder:
     def unit(self, idx, u):
         rel = u["file"]; src_path = os.path.join(ROOT, rel)
         od = os.path.join(self.out, "obj"); os.makedirs(od, exist_ok=True)
-        base = "%05d" % idx; obj = os.path.join(od, base + ".obj"); rp = os.path.join(od, base + ".json")
+        base = re.sub(r"[^A-Za-z0-9_.-]", "_", os.path.splitext(rel)[0]); obj = os.path.join(od, base + ".obj"); rp = os.path.join(od, base + ".json")
         text = open(src_path, encoding="latin-1").read()
-        key = hashlib.sha256(json.dumps([rel, sha256(src_path), gen_hash(text), self.flags(u), u.get("ltcg"), u.get("link"),
+        key = hashlib.sha256(json.dumps([rel, sha256(src_path), gen_hash(text, rel), self.flags(u), u.get("ltcg"), u.get("link"),
                                          self.cl_sha, u["functions"]]).encode()).hexdigest()
         if os.path.exists(rp) and os.path.exists(obj):
             try:
@@ -131,13 +133,13 @@ class Builder:
         else:
             wd = os.path.join(od, base + ".d"); shutil.rmtree(wd, ignore_errors=True); os.makedirs(wd)
             shutil.copy(src_path, os.path.join(wd, "unit.cpp"))
-            r = subprocess.run(cl_command(self.s, self.flags(u), "unit.obj", "unit.cpp"), capture_output=True, text=True, env=self.env, cwd=wd)
+            r = subprocess.run(cl_command(self.s, self.flags(u), "unit.obj", "unit.cpp"), capture_output=True, text=True, env=unit_env(self.s, self.env, rel), cwd=wd)
             if r.returncode or not os.path.exists(os.path.join(wd, "unit.obj")):
                 rec.update(status="COMPILE_ERROR", output=(r.stdout + r.stderr)[-3000:])
                 shutil.rmtree(wd, ignore_errors=True)
                 json.dump(rec, open(rp, "w"), indent=1); return rec, False
             shutil.move(os.path.join(wd, "unit.obj"), obj); shutil.rmtree(wd, ignore_errors=True)
-            exp = expand_gen_includes(text); ob = open(obj, "rb").read(); res = {}
+            exp = expand_gen_includes(text, rel); ob = open(obj, "rb").read(); res = {}
             for f in u["functions"]:
                 va = int(f["va"], 16)
                 res[va] = unit_twins(checker.compare(ob, exp, va, f["length"], self.pe.read, self.known_length), exp)
@@ -159,10 +161,10 @@ class Builder:
         g = self.ltcg_env(); G = g["G"]
         wd = os.path.join(od, base + ".ltcg"); shutil.rmtree(wd, ignore_errors=True); os.makedirs(wd)
         shutil.copy(os.path.join(ROOT, u["file"]), os.path.join(wd, "unit.cpp"))
-        r = subprocess.run(cl_command(self.s, self.flags(u) + ["/GL"], "unit.gl.obj", "unit.cpp"), capture_output=True, text=True, env=self.env, cwd=wd)
+        r = subprocess.run(cl_command(self.s, self.flags(u) + ["/GL"], "unit.gl.obj", "unit.cpp"), capture_output=True, text=True, env=unit_env(self.s, self.env, u["file"]), cwd=wd)
         if r.returncode or not os.path.exists(os.path.join(wd, "unit.gl.obj")):
             rec.update(status="COMPILE_ERROR", output=(r.stdout + r.stderr)[-3000:]); return {}
-        exp = expand_gen_includes(text)
+        exp = expand_gen_includes(text, u["file"])
         targets = {int(f["va"], 16): f["length"] for f in u["functions"]}
         R = G.Resolver(exp, g["iat"], g["crt"]); L = G.Linker(g["link"], g["runner"])
         lflags = list(u.get("link") or G.UNIT_LINK_FLAGS)

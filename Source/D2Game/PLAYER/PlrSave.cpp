@@ -1,0 +1,2531 @@
+#include "D2Game.h"
+
+#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define UNIT_PLAYER 0
+#define UNIT_OBJECT 2
+#define UNIT_ITEM 4
+#define UNIT_TILE 5
+#define STATE_PLAYERBODY 7
+#define STAT_GOLD 14
+#define STAT_GOLDBANK 15
+#define ITEMTYPE_WEAPON 45
+#define ITEMACTION_DROPTOGROUND 2
+#define ITEMACTION_ONGROUND 3
+#define NUM_ACTS 5
+#define LEVEL_ROGUEENCAMPMENT 1
+#define LEVEL_LUTGHOLEIN 40
+#define LEVEL_KURASTDOCKTOWN 75
+#define LEVEL_THEPANDEMONIUMFORTRESS 103
+#define ACT_I 0
+#define ACT_II 1
+#define ACT_III 2
+#define ACT_IV 3
+#define PLRMODE_WALK 2
+#define PLRMODE_RUN 3
+#define EVENTTYPE_REMOVESTATE 12
+#define STATE_POISON 2
+#define QUESTSTATEFLAG_A2Q6 14
+#define QUESTSTATEFLAG_A5Q3 37
+#define QUESTSTATEFLAG_A5Q4 38
+#define QUEST_A5Q4_NIHLATHAK 34
+#define QFLAG_REWARDGRANTED 0
+#define QFLAG_REWARDPENDING 1
+#define QFLAG_LEAVETOWN 3
+#define QFLAG_ENTERAREA 4
+#define QFLAG_CUSTOM2 6
+#define QFLAG_CUSTOM3 7
+#define QFLAG_CUSTOM4 8
+#define QFLAG_CUSTOM5 9
+#define QFLAG_CUSTOM6 10
+#define QFLAG_CUSTOM7 11
+#define QFLAG_PRIMARYGOALDONE 13
+#define QFLAG_COMPLETEDNOW 14
+#define MONSTER_WARRIV2 175
+#define MONSTER_ATMA 176
+#define MONSTER_DROGNAN 177
+#define MONSTER_FARA 178
+#define MONSTER_JERHYN 201
+#define MONSTER_LYSANDER 202
+#define MONSTER_MESHIF1 210
+#define MONSTER_CAIN2 244
+#define MONSTER_TYRAEL1 251
+#define CLIENTSAVEFLAG_HARDCORE 0x4
+#define CLIENTSAVEFLAG_DEAD 0x8
+#define CLIENTSAVEFLAG_EXPANSION 0x20
+#define CLIENTSAVEFLAG_LADDER 0x40
+#define GAMEFLAG_ARENA_HARDCORE 0x800
+#define NUM_DIFFICULTIES 3
+#define PLRSAVE2ERROR_BAD_PLAYERINTRO 11
+struct D2CorpseStrc;
+struct D2SaveHeaderStrc;
+struct D2ServerCallbackFunctions;
+struct D2ClientInfoStrc;
+struct D2SeedStrc;
+struct D2StaticPathStrc;
+struct D2PlayerDataStrc;
+struct D2SkillsTxt;
+struct D2PartyNodeStrc;
+struct D2PartyStrc;
+struct D2PartyControlStrc;
+struct D2CorpseSaveStrc;
+struct D2LargeIntegerStrc;
+struct D2FileTimeStrc;
+struct D2UnitProxyArgStrc;
+struct D2UnitFindArgStrc;
+struct D2Act2Quest6Strc;
+struct D2Act5Quest4Strc;
+struct D2StatesTxt;
+struct D2PlrIntroSaveStrc;
+struct D2RosterIterateStrc;
+struct D2SavedItemStrc;
+struct D2ItemKeyStrc;
+
+struct D2UnitStrc
+{
+    int dwUnitType;
+    union
+    {
+        struct
+        {
+            char unk0x04[0x5C];
+        };
+        struct
+        {
+            unsigned char unk_04[0x8];
+            int dwUnitId;
+            int dwAnimMode;
+            unsigned char unk_14[0x18];
+            D2StaticPathStrc* pStaticPath;
+            unsigned char unk_30[0x8];
+            int dwSeqFrame;
+        };
+        struct
+        {
+            unsigned char unk_04_2[0x28];
+            D2DynamicPathStrc* pDynamicPath;
+        };
+    };
+    D2InventoryStrc* pInventory;
+    int dwInteractGUID;
+    int dwInteractType;
+    unsigned char nInteract;
+    unsigned char unk_6D[0x57];
+    unsigned int dwFlags;
+    unsigned int dwFlagEx;
+    char unk0xCC[0x18];
+    D2UnitStrc* pListNext;
+};
+
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc*); // 0x0045ADF0
+int __fastcall CLIENTS_GetUnitY(D2UnitStrc*); // 0x0045AE20
+int __stdcall UNITS_ChangeAnimMode(D2UnitStrc*,int); // 0x00624690
+unsigned char __stdcall ITEMS_GetBodyLocation(D2UnitStrc*); // 0x00627D40
+void __stdcall INVENTORY_SetCursorItem(D2InventoryStrc*,D2UnitStrc*); // 0x0063C180
+
+struct D2GameStrc
+{
+    char unk0x00[0x1C];
+    void* pMemoryPool;
+    char unk0x20[0x4A];
+    unsigned char nGameType;
+    unsigned char nArenaTemplate;
+    unsigned char nMaxLevelDifference;
+    unsigned char nDifficulty;
+    unsigned char nMaxPlayers;
+    unsigned char unk0x6F;
+    int bExpansion;
+    unsigned int dwGameType;
+    char unk0x78[0x30];
+    int dwGameFrame;
+    char unk0xAC[0x10];
+    D2DrlgActStrc* pAct[5];
+    char unk0xD0[0x1050];
+    D2UnitStrc* pUnitList[5][128];
+    unsigned char unk_1B20[0x20C];
+    D2PartyControlStrc* pPartyControl;
+};
+
+int __fastcall sub_00560200(const char*,int,D2GameStrc*,D2UnitStrc*,int,int,int,int,int,D2InventoryStrc*); // 0x00560200
+int __fastcall sub_005606B0_EquipItem(D2GameStrc*,D2UnitStrc*,int,unsigned char,int,int*); // 0x005606B0
+int __fastcall sub_0055E9B0_PlaceInBelt(D2GameStrc*,D2UnitStrc*,int,int,int,int*); // 0x0055E9B0
+int __fastcall sub_0055FB10_UpdateCursorItem(D2GameStrc*,D2UnitStrc*,D2UnitStrc*); // 0x0055FB10
+int __fastcall sub_00562660(D2GameStrc*,D2UnitStrc*,int,int,int*,int,int,int,int); // 0x00562660
+
+struct D2CoordStrc
+{
+    int nX;
+    int nY;
+};
+
+struct D2StaticPathStrc
+{
+    char unk0x00[0x0C];
+    union
+    {
+        struct
+        {
+            D2CoordStrc tGameCoords;
+        };
+        struct
+        {
+            int nX;
+            int nY;
+        };
+    };
+};
+
+struct D2PlayerDataStrc
+{
+    char szName[16];
+    D2BitBufferStrc* pQuestData[3];
+    unsigned char unk_1C[0x2C];
+    int dwUniqueId;
+    int bBusy;
+    char unk0x50[0x10];
+    D2PlrIntroStrc* pPlayerIntro[NUM_DIFFICULTIES];
+};
+
+struct D2FileTimeStrc
+{
+    unsigned long dwLowDateTime;
+    unsigned long dwHighDateTime;
+};
+
+struct D2ClientStrc
+{
+    unsigned int dwClientId;
+    int dwClientState;
+    unsigned char nClassId;
+    unsigned char unk_09[0x4];
+    char szName[16];
+    unsigned char unk_1D[0x157];
+    D2UnitStrc* pPlayer;
+    unsigned char unk_178[0x18];
+    D2FileTimeStrc nSaveCreationTimestamp;
+    char unk0x198[0x318];
+    D2ClientStrc* pServerNextByName;
+};
+
+typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
+
+extern "C" const char gszEmptyAssertText; // 0x006CC837
+extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+D2UnitStrc* __stdcall CLIENTS_GetPlayerFromClient(D2ClientStrc* pClient, int bIgnoreDeath); // 0x00537860
+void __fastcall sub_00538410_RemoveUnitIfNotAdjacent2(D2ClientStrc* pClient, D2UnitStrc* pUnit); // 0x00538410
+
+struct D2ActiveRoomStrc
+{
+    char unk0x00[0x7C];
+    D2ActiveRoomStrc* pRoomNext;
+};
+
+void __fastcall sub_005394A0(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x005394A0
+void __fastcall sub_00539760(D2ClientStrc* pClient, D2GameStrc* pGame, int a3, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00539760
+void __fastcall D2GAME_UpdateAttribute_6FC822D0(D2UnitStrc* pUnit, unsigned short nStat, unsigned int nNewValue, D2UnitStrc* pPlayer); // 0x00548520
+int __stdcall SUNIT_GetInteractInfo(D2UnitStrc* pUnit, int* pUnitType, int* pUnitGUID); // 0x00554100
+void __fastcall SUNIT_RemoveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00555600
+int __fastcall D2GAME_Return1_6FC41900(D2UnitStrc* pItem); // 0x00564CA0
+void __stdcall DUNGEON_AllocDrlgDelete(D2ActiveRoomStrc* pRoom, int nUnitType, int nUnitGUID); // 0x0061A270
+D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
+D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
+int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
+int __stdcall ITEMS_SerializeItemToBitstream(D2UnitStrc* pItem, unsigned char* pBitstream, int nSize, int bServer, int bSaveItemInv, int bGamble); // 0x006313E0
+int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
+D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0
+int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
+int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
+extern const int dword_6FD307F8[]; // 0x00731AD8
+D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x0063B2C0
+D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
+D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
+void __fastcall sub_M93_UseCount_00531750(int nCount);
+
+struct D2SkillsTxt
+{
+    char unk0x00[0x168];
+    unsigned char nWeapSel;
+};
+
+struct D2PartyNodeStrc
+{
+    int nUnitGUID;
+    D2PartyNodeStrc* pNext;
+};
+
+struct D2PartyStrc
+{
+    unsigned short nPartyId;
+    short field_2;
+    D2PartyNodeStrc* pPartyNodes;
+    D2PartyStrc* pNext;
+};
+
+struct D2PartyControlStrc
+{
+    short field_0;
+    short field_2;
+    D2PartyStrc* pParties;
+};
+
+typedef void (__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs);
+
+int __fastcall sub_005317B0_WriteItems(D2GameStrc* pGame, D2UnitStrc* pUnit, D2InventoryStrc* pInventory, unsigned char* pBuffer, int nBufferSize, int nArg5, int nArg6, int nArg7); // 0x005317B0
+void __fastcall SUNITPROXY_UpdateNpcsOnActChange(D2GameStrc* pGame, D2UnitStrc* pUnit, int nCurrentLevelId, int nDestLevelId); // 0x00537340
+unsigned char __fastcall CLIENTS_GetActNo(D2ClientStrc* pClient); // 0x005382B0
+void __fastcall LEVEL_ChangeAct(D2GameStrc* pGame, D2ClientStrc* pClient, int nDestinationLevelId, int nTileCalc); // 0x0053ACC0
+void __fastcall D2GAME_SendPacket0x9C_6FC3E570(D2ClientStrc* pClient, D2UnitStrc* pItem, char nAction, unsigned int dwFlag, int bGamble); // 0x0053EAE0
+D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
+D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
+int __fastcall sub_6FCBDFE0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int a6, int a7); // 0x00554EA0
+int __fastcall PLRTRADE_CopyTradeSaveDataToBuffer(D2UnitStrc* pUnit, unsigned char* pBuffer, int nBufferSize); // 0x005675E0
+int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
+
+struct D2DrlgActStrc
+{
+    char unk0x00[0x58];
+    int bHasPendingRoomDeletions;
+};
+
+D2ActiveRoomStrc* __stdcall DUNGEON_FindActSpawnLocationEx(D2DrlgActStrc* pAct, int nLevelId, int a3, int* pX, int* pY, int nUnitSize); // 0x0061B060
+D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
+int __stdcall UNITS_GetUnitSizeX(D2UnitStrc* pUnit); // 0x00620510
+int __stdcall UNITS_GetInventoryGoldLimit(D2UnitStrc* pUnit); // 0x00622E70
+int __stdcall UNITS_CanDualWield(D2UnitStrc* pUnit); // 0x006235A0
+int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
+void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
+void __stdcall STATLIST_AddUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x006272B0
+int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
+D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill); // 0x00644140
+int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
+
+struct D2CorpseSaveStrc
+{
+    unsigned int unk0x00;
+    int nX;
+    int nY;
+};
+
+extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
+D2CorpseStrc* __stdcall INVENTORY_GetFirstCorpse(D2InventoryStrc* pInventory); // 0x0063D570
+int __stdcall INVENTORY_GetUnitGUIDFromCorpse(D2CorpseStrc* pCorpse); // 0x0063D630
+int __fastcall sub_005317B0_WriteItems(D2GameStrc* pGame, D2UnitStrc* pUnit, D2InventoryStrc* pInventory, unsigned char* pData, int nBufferSize, int a4, int a5, int a6); // 0x005317B0
+int __fastcall PLRSAVE2_CreateSaveFile(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char* pData, unsigned int* pSize, unsigned int nMaxSize, int a6, int a7); // 0x00569AD0
+
+typedef unsigned int size_t;
+
+struct D2CriticalSectionStrc
+{
+    void* pDebugInfo;
+    long nLockCount;
+    long nRecursionCount;
+    void* hOwningThread;
+    void* hLockSemaphore;
+    unsigned long nSpinCount;
+};
+
+struct D2LargeIntegerStrc
+{
+    __int64 QuadPart;
+};
+
+struct D2SaveHeaderStrc
+{
+    unsigned int dwHeaderMagic;
+    unsigned int dwVersion;
+    unsigned int dwSize;
+    unsigned int dwChecksum;
+    char unk0x10[0x20];
+    unsigned int dwLasTime;
+    unsigned int dwPlayTime;
+    char unk0x38[0x73];
+    unsigned char dwMapSeed[4];
+    unsigned char unk_AF[0x1];
+};
+
+struct D2UnitProxyArgStrc
+{
+    int nLevelId;
+    int nCounter;
+};
+
+struct D2UnitFindArgStrc
+{
+    int nFlags;
+    int unk0x04;
+    D2UnitStrc* pUnit;
+    int nX;
+    int nY;
+    int nSize;
+    int nMaxArrayEntries;
+    int nIndex;
+    void* pField;
+    void* pfnUnitTest;
+    int unk0x28;
+    int unk0x2C;
+    int unk0x30;
+    int unk0x34;
+};
+
+struct D2UnitFindDataStrc
+{
+    void* pMemPool;
+    int unk0x04[10];
+};
+
+struct D2QuestDataStrc
+{
+    int nQuestNo;
+    D2GameStrc* pGame;
+    unsigned char nActNo;
+    unsigned char bNotIntro;
+    unsigned char bActive;
+    unsigned char fLastState;
+    unsigned char fState;
+    char nInitNo;
+    unsigned short dw0E;
+    int nSeqId;
+    unsigned int dwFlags;
+    void* pQuestDataEx;
+};
+
+struct D2Act2Quest6Strc
+{
+    unsigned char unk0x00;
+    unsigned char bDurielKilled;
+    unsigned char unk0x02[0x0D];
+    unsigned char bPortalToLutGholeinOpened;
+};
+
+struct D2Act5Quest4Strc
+{
+    char unk0x00[0x8C];
+    D2ActiveRoomStrc* pRoom;
+};
+
+struct D2StatesTxt
+{
+    char unk0x00[0x1E];
+    short wGroup;
+    char unk0x20[0x1C];
+};
+
+struct D2DataTablesStrc
+{
+    char unk0x000[0xBC];
+    D2StatesTxt* pStatesTxt;
+    char unk0x0C0[0x04];
+    int nStatesTxtRecordCount;
+    char unk0x0C8[0xAC];
+    short* pCurseStates;
+    short nCurseStates;
+};
+
+typedef void (__fastcall* RealmSaveCallback)(unsigned int*, const char*, char*, void*, int, unsigned int);
+
+typedef void (__fastcall* RealmUpdateCallback)(unsigned int*, const char*, char*);
+
+struct D2ServerCallbackFunctions
+{
+    char pad00[0x0C];
+    RealmSaveCallback pfSave;
+    char pad10[0x28];
+    RealmUpdateCallback pfUpdate;
+    unsigned char unk_3C[0x18];
+    void (__fastcall* pfGetTime)(D2FileTimeStrc* pTime);
+};
+
+extern D2DataTablesStrc* sgptDataTables; // 0x00744304
+extern D2CriticalSectionStrc gSrvClientListByNameLock_6FD443B8; // 0x008846C0
+extern D2ClientStrc* gpClientListByName_6FD443D0[256]; // 0x00883EA8
+extern int gbHasHighResolutionClock; // 0x0088C7A0
+extern D2LargeIntegerStrc gPerformanceFrequency; // 0x0088C790
+extern D2ServerCallbackFunctions* gpD2EventCallbackTable_6FD45830; // 0x00883D50
+extern int gbD2ServerCallbackFunctionsInitialized_6FD45834; // 0x00883D54
+extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
+extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
+extern "C" __declspec(dllimport) int __stdcall QueryPerformanceCounter(D2LargeIntegerStrc* pCount); // 0x006CC25C
+extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 0x006CC260
+extern "C" __declspec(dllimport) long __stdcall CompareFileTime(const D2FileTimeStrc* pFileTime1, const D2FileTimeStrc* pFileTime2); // 0x006CC390
+extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
+extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x00681EF0
+int __fastcall CRC32_Compute(const void* pData, int nSize); // 0x006C99F6
+unsigned short __stdcall FOG_ComputeStringCRC16(const char* szString); // 0x004112C0
+int __stdcall SStrCmpI(const char* szString1, const char* szString2, int nMaxChars); // 0x00413590
+void __stdcall SStrCopy(char* szDest, const char* szSource, int nMax); // 0x004135D0
+void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
+void __stdcall DUNGEON_FreeDrlgDelete(D2ActiveRoomStrc* pRoom); // 0x0061A2C0
+void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
+void __fastcall SUNIT_IterateLivingPlayers(D2GameStrc* pGame, SUNIT_IterateFn pfIterate, void* pArg); // 0x005538D0
+void __fastcall SUNITPROXY_CountPlayersInLevel(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg); // 0x00536820
+void __stdcall SUNITPROXY_UpdateVendorInventory(D2GameStrc* pGame, unsigned char nAct, int bStale); // 0x00537230
+int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
+void __stdcall UNITFINDS_InitializeUnitFindData(void* pMemPool, D2UnitFindDataStrc* pUnitFindData, D2ActiveRoomStrc* pRoom, int nX, int nY, int nSize, void* pfnUnitTest, D2UnitFindArgStrc* pUnitFindArg); // 0x0065A950
+void __stdcall UNITFINDS_FindAllMatchingUnitsInNeighboredRooms(D2UnitFindDataStrc* pUnitFindData); // 0x0065AC70
+unsigned int __fastcall ARENA_GetFlags(D2GameStrc* pGame); // 0x0053FD40
+D2UnitStrc* __fastcall SUNIT_GetNextUnitFromList(D2UnitStrc* pUnit); // 0x00552DB0
+int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
+void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C360
+D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
+D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState); // 0x006256B0
+int __stdcall D2COMMON_10473(D2StatListStrc* pStatList); // 0x00626090
+void __stdcall D2COMMON_10476(D2StatListStrc* pStatList, int nExpireFrame); // 0x006260B0
+int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); // 0x00483360
+void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
+extern "C" _iobuf* __cdecl fopen(const char* szFileName, const char* szMode);
+extern "C" unsigned int __cdecl fwrite(const void* pBuffer, unsigned int nSize, unsigned int nCount, _iobuf* pFile);
+extern "C" int __cdecl fclose(_iobuf* pFile);
+int __fastcall sub_00407050_GetSavePath(char* szPath, int nSize); // 0x00407050
+int __fastcall CLIENTS_GetClientId(D2ClientStrc* pClient); // 0x00538590
+int __fastcall CLIENTS_AttachSaveFile(int nClientId, const void* pSaveData, int nSize, int nTotalSize, int a5, int a6, int a7); // 0x00538CE0
+D2SaveHeaderStrc* __fastcall CLIENTS_GetSaveHeader(D2ClientStrc* pClient); // 0x00538E00
+void __fastcall CLIENTS_FreeSaveHeader(D2ClientStrc* pClient); // 0x00538F10
+void __fastcall D2GAME_SetSaveLoadComplete_6FC34300(D2ClientStrc* pClient); // 0x00538F80
+extern "C" int __stdcall sub_00554100(D2UnitStrc* pUnit, int* pUnitType, int* pUnitGUID); // 0x00554100
+extern "C" void __fastcall sub_00539300(D2ClientStrc* pClient, unsigned int* pOut); // 0x00539300
+extern "C" void __fastcall sub_00539310(D2ClientStrc* pClient, unsigned int* pOut); // 0x00539310
+void __fastcall CLIENTS_CopyAccountNameToBuffer(D2ClientStrc* pClient, char* szBuffer); // 0x005392F0
+extern "C" const char gszSaveFormat_006D4230[];
+extern "C" const char gszFileModeWb_006D69E0[];
+extern "C" const char gszSaveOpenError_006E09C4[];
+extern "C" const char szPlrSaveCppFile_006E09AC[]; // 0x006E09AC
+
+typedef int (__stdcall* FARPROC)();
+
+extern int gnGlobal_00883D6C; // 0x00883D6C
+extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x006CC34C
+unsigned int __fastcall D2GAME_GetSaveChecksumFromClient_6FC33940(D2ClientStrc* pClient); // 0x00538350
+int __fastcall D2GAME_SAVE_CalculateChecksum_6FC8A140(D2SaveHeaderStrc* pSaveHeader, int nSize); // 0x00531E30
+int __fastcall CLIENTS_GetSaveHeaderSize(D2ClientStrc* pClient); // 0x00538E30
+void __fastcall sub_00539320(D2ClientStrc* pClient, unsigned int nClientInfo); // 0x00539320
+void __fastcall D2GAME_SetSaveFileChecksum_6FC33970(D2ClientStrc* pClient, unsigned int nChecksum); // 0x00538380
+void __fastcall CLIENTS_CopySaveDataToClient(D2ClientStrc* pClient, const void* pData, unsigned int nSize); // 0x00538E60
+static __declspec(noinline) int __stdcall sub_00531EB0_WriteFileOnRealm(D2GameStrc* pGame, D2UnitStrc* pPlayer, const char* szName, char* szAccountName, int bInteractsWithPlayer, unsigned int nToken, unsigned int dwArg, unsigned int nClientInfo);
+
+struct D2PlrIntroSaveStrc
+{
+    unsigned short nHeader;
+    unsigned short nLength;
+    unsigned char unk0x04[NUM_DIFFICULTIES][8];
+    unsigned char unk0x1C[NUM_DIFFICULTIES][8];
+};
+
+struct D2RosterIterateStrc
+{
+    int bFlag;
+    D2UnitStrc* pUnit;
+};
+
+void __fastcall sub_00535AF0_RosterFlagCb(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs); // 0x00535AF0
+D2UnitStrc* __fastcall sub_6FC7C7B0(D2UnitStrc* pUnit); // 0x00535BC0
+D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic); // 0x00625820
+void __stdcall STATLIST_MergeStatLists(D2UnitStrc* pTarget, D2UnitStrc* pUnit, int bType); // 0x00627910
+D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
+D2UnitStrc* __stdcall INVENTORY_GetSecondaryWeapon(D2InventoryStrc* pInventory); // 0x0063BF90
+extern "C" char* __cdecl strcpy(char* pDst, const char* pSrc);
+extern "C" void __fastcall __security_check_cookie(unsigned int); // 0x00681A48
+
+#pragma pack(push, 1)
+struct D2SavedItemStrc
+{
+    unsigned char nBodyLoc;
+    unsigned char nSocketedItems;
+    int nItemLevel;
+    int nItemId;
+    unsigned char nSpawnType;
+    unsigned char nItemQuality;
+    int nQuantity;
+    int nMinDurability;
+    int nMaxDurability;
+    int nX;
+    int nY;
+    int nItemIndex;
+    unsigned int nItemFlags;
+    unsigned int nSeed;
+    unsigned int nItemSeed;
+    unsigned char nInvPage;
+    unsigned char nEarLevel;
+    char szName[16];
+    unsigned short nItemFormat;
+    unsigned int nItemCode;
+};
+
+#pragma pack(pop)
+struct D2ItemDropStrc
+{
+    D2UnitStrc* pUnit;
+    D2SeedStrc* pSeed;
+    D2GameStrc* pGame;
+    int nItemLvl;
+    unsigned int unk0x10;
+    int nId;
+    int nSpawnType;
+    int nX;
+    int nY;
+    D2ActiveRoomStrc* pRoom;
+    unsigned short wUnitInitFlags;
+    unsigned short wItemFormat;
+    int bForce;
+    int nQuality;
+    int nQuantity;
+    unsigned int nMinDur;
+    unsigned int nMaxDur;
+    int nItemIndex;
+    unsigned int dwFlags1;
+    unsigned int dwSeed;
+    unsigned int dwItemSeed;
+    unsigned char nEarLvl;
+    char unk0x51[3];
+    int nQtyOverride;
+    char szName[16];
+    int nPrefix[3];
+    int nSuffix[3];
+    unsigned int dwFlags2;
+};
+
+struct D2ItemKeyStrc
+{
+    unsigned int nCode;
+    int nIndex;
+    int nLevel;
+    unsigned int nSeed;
+    unsigned int nItemSeed;
+};
+
+D2UnitStrc* __fastcall D2GAME_CreateItemEx_6FC4ED80(D2GameStrc* pGame, D2ItemDropStrc* pItemDrop, int bUseSeed); // 0x00558D90
+void __stdcall ITEMS_SetFileIndex(D2UnitStrc* pItem, unsigned int dwFileIndex); // 0x00629DF0
+void __stdcall ITEMS_SetInvPage(D2UnitStrc* pItem, unsigned char nPage); // 0x00628280
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
+int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
+void __fastcall QUESTS_ItemPickedUp(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem); // 0x00543D80
+void __stdcall UNITS_RefreshInventory(D2UnitStrc* pUnit, int bSetFlag); // 0x00621000
+unsigned char __stdcall ITEMS_GetBodyLocation(D2UnitStrc* pItem); // 0x00627D40
+void __stdcall ITEMS_SetBodyLocation(D2UnitStrc* pItem, unsigned char nBodyLoc); // 0x00627D70
+void __stdcall ITEMS_SetItemCMDFlag(D2UnitStrc* pItem, int nFlag, int bSet); // 0x00628170
+int __stdcall INVENTORY_PlaceItemInBodyLoc(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nBodyLoc); // 0x0063BDB0
+void __stdcall INVENTORY_AddItemToTradeInventory(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063CC70
+int __stdcall INVENTORY_PlaceItemInSocket(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nPage); // 0x0063B210
+int __fastcall D2GAME_PlaceItem_6FC44410(const char* szFile, int nLine, D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnitId, int nX, int nY, int a8, int a9, D2InventoryStrc* pInventory); // 0x00560200
+int __fastcall D2GAME_ITEMSOCKET_PlaceItem_6FC497E0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSocketFillerGUID, int nItemGUID, int* bPlaced, int bRefresh, int bResetCursorItem, int bCheckMode, int a9); // 0x00562660
+int __fastcall PLRSAVE_ReadLegacyItemData(D2SavedItemStrc* pSavedItem, unsigned char* pData); // 0x00532F30
+int __fastcall PLRSAVE_CreateAndPlaceLegacyPlayerItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2SavedItemStrc* pSavedItem, D2UnitStrc** ppItem, int* pSocketedItemCount); // 0x00531040
+static int __stdcall sub_00531520_PlaceSavedItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem, D2UnitStrc* pParent); // 0x00531520
+
+struct D2ItemSaveStrc
+{
+    int nClassId;
+    unsigned short nX;
+    unsigned short nY;
+    unsigned char nAnimMode;
+    unsigned char nPad09;
+    unsigned short nPad0A;
+    unsigned int dwFlags;
+    unsigned char nStorePage;
+    unsigned char nBodyloc;
+    unsigned short nPad12;
+    int nItemFileIndex;
+};
+
+int __fastcall sub_00531210_PlaceSavedItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem, D2UnitStrc* pParent); // 0x00531210
+D2UnitStrc* __fastcall ITEMS_CreateItemFromBitstream(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, unsigned char* pBitstream, unsigned int nBufferSize, int bCheckForHeader, D2ItemSaveStrc* pItemSave, int* pSize, unsigned int dwVersion); // 0x00558CB0
+void __fastcall ITEMMODE_DetachItemFromOwner(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x00563470
+void __fastcall sub_00564CB0_Nop(D2UnitStrc* pUnit); // 0x00564CB0
+unsigned int __stdcall ITEMS_GetItemFlags(D2UnitStrc* pItem); // 0x00628110
+const void* __stdcall ITEMS_GetRunesTxtRecordFromItem(D2UnitStrc* pItem); // 0x0062BED0
+int __fastcall PLRSAVE_ReadLegacyItems(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char* pSection, unsigned int dwVersion, int nSize, int bCorpseItems, int* pSize); // 0x00533350
+int __fastcall sub_005335E0(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char* pSection, unsigned int dwVersion, int nSize, int bCorpseItems, int* pSize);
+
+struct D2HirelingTxt
+{
+    char unk0x00[0x20];
+    int dwExpPerLvl;
+};
+
+static __forceinline unsigned int GetMode(D2UnitStrc* pUnit) { if (!pUnit) return 0; return pUnit->dwAnimMode; }
+
+static __forceinline int GetId(D2UnitStrc* pUnit) { if (!pUnit) return -1; return pUnit->dwUnitId; }
+
+// 0x00531210
+int __fastcall sub_00531210_PlaceLoadedItem(D2GameStrc* pGame,D2UnitStrc* pPlayer,D2UnitStrc* pItem,D2UnitStrc* pSocketItem)
+{
+    switch (GetMode(pItem))
+    {
+    case 0:
+        {
+            UNITS_ChangeAnimMode(pItem,4);
+            int nId=GetId(pItem);
+            if (!sub_00560200(".\\PLAYER\\PlrSave.cpp",319,pGame,pPlayer,nId,CLIENTS_GetUnitX(pItem),CLIENTS_GetUnitY(pItem),0,1,0))
+                return 12;
+            break;
+        }
+    case 1:
+        {
+            UNITS_ChangeAnimMode(pItem,4);
+            int nId=GetId(pItem);
+            int nResult;
+            if (!sub_005606B0_EquipItem(pGame,pPlayer,nId,ITEMS_GetBodyLocation(pItem),1,&nResult))
+                return 12;
+            break;
+        }
+    case 2:
+        {
+            UNITS_ChangeAnimMode(pItem,4);
+            int nId=GetId(pItem);
+            int nResult;
+            if (!sub_0055E9B0_PlaceInBelt(pGame,pPlayer,nId,CLIENTS_GetUnitX(pItem),0,&nResult))
+                return 12;
+            break;
+        }
+    case 4:
+        UNITS_ChangeAnimMode(pItem,4);
+        INVENTORY_SetCursorItem(pPlayer->pInventory,pItem);
+        if (!sub_0055FB10_UpdateCursorItem(pGame,pPlayer,pItem))
+            return 12;
+        break;
+    case 6:
+        {
+            UNITS_ChangeAnimMode(pItem,4);
+            if (!pSocketItem) return 12;
+            const int nSocketId = pSocketItem->dwUnitId;
+            int nResult;
+            if (!sub_00562660(pGame,pPlayer,GetId(pItem),nSocketId,&nResult,0,0,0,0))
+                return 12;
+            break;
+        }
+    default: return 12;
+    }
+    return 0;
+}
+
+inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->tGameCoords.nX;
+    }
+    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+}
+
+inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->tGameCoords.nY;
+    }
+    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+}
+
+// 0x005316D0
+int __stdcall D2GAME_SAVE_SerializeItem_6FC89AD0(D2UnitStrc* pItem, unsigned char* pBitstream, unsigned int nBitstreamSize, int a4, int a5, int a6)
+{
+    if (pItem)
+    {
+        const int bFlag = (pItem->dwFlagEx >> 15) & 1;
+        if (!bFlag && (a4 != bFlag || a5 == bFlag || a6 != bFlag || D2GAME_Return1_6FC41900(pItem)))
+        {
+            const int nBits = ITEMS_SerializeItemToBitstream(pItem, pBitstream, nBitstreamSize, 1, 1, 0);
+            D2_ASSERT(nBits, 1884);
+            return nBits;
+        }
+    }
+    return 0;
+}
+
+// 0x00535060
+int __fastcall PLAYER_IsBusy(D2UnitStrc* pUnit)
+{
+    if (!pUnit || pUnit->dwUnitType != UNIT_PLAYER)
+    {
+        return 0;
+    }
+
+    int nUnitType;
+    int nUnitGUID;
+    if (SUNIT_GetInteractInfo(pUnit, &nUnitType, &nUnitGUID))
+    {
+        return 1;
+    }
+
+    D2InventoryStrc* pInventory = pUnit->pInventory;
+    if (INVENTORY_GetCursorItem(pInventory))
+    {
+        return 1;
+    }
+
+    return UNITS_GetPlayerData(pUnit)->bBusy;
+}
+
+// 0x0053A420
+void __fastcall sub_0053A420_RebuildPlayerWithClass(D2GameStrc* pGame, D2ClientStrc* pClient, unsigned char nClassId)
+{
+    D2UnitStrc* pPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
+    pClient->nClassId = nClassId;
+    const int nX = CLIENTS_GetUnitXInline(pPlayer);
+    const int nY = CLIENTS_GetUnitYInline(pPlayer);
+    const int nUnitId = pPlayer->dwUnitId;
+    const int nUnitType = pPlayer->dwUnitType;
+    DUNGEON_AllocDrlgDelete(UNITS_GetRoom(pPlayer), nUnitType, nUnitId);
+    SUNIT_RemoveUnit(pGame, pPlayer);
+    sub_00539760(pClient, pGame, 0, pRoom, nX, nY);
+    D2UnitStrc* pClientPlayer = pClient->pPlayer;
+    sub_005394A0(pClient, pClientPlayer, pGame, pRoom, nX, nY);
+}
+
+// 0x005489F0
+void __fastcall sub_6FC82830(D2UnitStrc* pUnit, D2ClientStrc* pClient)
+{
+    D2UnitStrc* pPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
+    if (pPlayer != pUnit)
+    {
+        for (int i = 0; dword_6FD307F8[i] != -1; ++i)
+        {
+            const int nStatId = dword_6FD307F8[i];
+            const int nValue = STATLIST_GetUnitBaseStat(pUnit, nStatId, 0);
+            D2GAME_UpdateAttribute_6FC822D0(pUnit, nStatId, nValue, pPlayer);
+        }
+    }
+}
+
+// 0x005531E0
+void __fastcall sub_005531E0_FixRoomIfInvalid(D2UnitStrc* pUnit, D2ClientStrc* pClient)
+{
+    if (UNITS_IsCurrentRoomInvalid(pUnit))
+    {
+        int bFlag = 0;
+        if (pUnit)
+        {
+            bFlag = (pUnit->dwFlags >> 4) & 1;
+        }
+
+        if (!bFlag)
+        {
+            sub_00538410_RemoveUnitIfNotAdjacent2(pClient, pUnit);
+        }
+    }
+}
+
+// 0x005538D0
+void __fastcall SUNIT_IterateLivingPlayers(D2GameStrc* pGame, SUNIT_IterateFn pfIterate, void* pArg)
+{
+    D2UnitStrc** ppSlot = pGame->pUnitList[0];
+    SUNIT_IterateFn pfCallback = pfIterate;
+    D2_ASSERT(pGame && pfCallback, 2022);
+
+    for (int i = 0; i < 128; ++i, ++ppSlot)
+    {
+        for (D2UnitStrc* pUnit = *ppSlot; pUnit; pUnit = pUnit->pListNext)
+        {
+            if (!STATES_CheckState(pUnit, STATE_PLAYERBODY))
+            {
+                pfCallback(pGame, pUnit, pArg);
+            }
+
+            D2_ASSERT(pUnit, 222);
+        }
+    }
+}
+
+#include "gen/data/Source/D2Game/PLAYER/PlrSave.inc"
+
+// 0x00531750
+static __declspec(noinline) unsigned short sub_00531750_CountInventoryItems(D2InventoryStrc* pInventory)
+{
+    int nCount = 0;
+    if (!pInventory)
+        return 0;
+    if (INVENTORY_GetCursorItem(pInventory))
+        nCount = 1;
+    D2UnitStrc* pItem = INVENTORY_GetFirstItem(pInventory);
+    while (pItem)
+    {
+        D2UnitStrc* pIsItem = INVENTORY_UnitIsItem(pItem);
+        pItem = INVENTORY_GetNextItem(pItem);
+        if (pIsItem)
+            ++nCount;
+    }
+    return (unsigned short)nCount;
+}
+
+void __stdcall sub_M93_Emit_00531750(int nUnused, D2InventoryStrc* pInventory)
+{
+    sub_M93_UseCount_00531750(sub_00531750_CountInventoryItems(pInventory));
+}
+
+// 0x00531BB0
+int __fastcall sub_00531BB0_WriteItemList(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char* pBuffer, int nBufferSize, int nArg5, int nArg6, int nArg7)
+{
+    if (nArg5 && pUnit && pUnit->dwUnitType == UNIT_PLAYER)
+    {
+        const int nResult = PLRTRADE_CopyTradeSaveDataToBuffer(pUnit, pBuffer, nBufferSize);
+        if (nResult != 0)
+        {
+            return nResult;
+        }
+    }
+
+    D2InventoryStrc* pInventory = pUnit->pInventory;
+    return sub_005317B0_WriteItems(pGame, pUnit, pInventory, pBuffer, nBufferSize, nArg5, nArg6, nArg7);
+}
+
+// 0x00535BC0
+D2UnitStrc* __fastcall sub_6FC7C7B0(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return 0;
+    }
+
+    D2InventoryStrc* pInventory = pUnit->pInventory;
+    if (!pInventory)
+    {
+        return 0;
+    }
+
+    D2UnitStrc* pEquippedWeapon;
+    int nBodyLoc;
+    int bIsLeftHandItem;
+    INVENTORY_GetEquippedWeapon(pInventory, &pEquippedWeapon, &nBodyLoc, &bIsLeftHandItem);
+
+    if (UNITS_CanDualWield(pUnit))
+    {
+        D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
+        if (pSkill)
+        {
+            D2SkillsTxt* pSkillsTxtRecord = sub_00644140_GetSkillsTxtFromSkill(pSkill);
+            if (pSkillsTxtRecord)
+            {
+                D2UnitStrc* pWeapon = 0;
+                switch (pSkillsTxtRecord->nWeapSel)
+                {
+                case 2:
+                {
+                    const int nFlag = SKILLS_GetFlags(pSkill) & 0x2000;
+                    pWeapon = sub_0063C050_GetBodyLocItem(pInventory, 5);
+                    D2UnitStrc* pTemp = sub_0063C050_GetBodyLocItem(pInventory, 6);
+                    if (!pWeapon || !ITEMS_CheckItemTypeId(pWeapon, ITEMTYPE_WEAPON) || pTemp && ITEMS_CheckItemTypeId(pTemp, ITEMTYPE_WEAPON) && nFlag)
+                    {
+                        pWeapon = pTemp;
+                    }
+                    break;
+                }
+                case 3:
+                {
+                    if (((pUnit->dwSeqFrame >> 8) % 2) != 0)
+                    {
+                        pWeapon = sub_0063C050_GetBodyLocItem(pInventory, 6);
+                    }
+                    else
+                    {
+                        pWeapon = sub_0063C050_GetBodyLocItem(pInventory, 5);
+                    }
+                    break;
+                }
+                case 4:
+                {
+                    pEquippedWeapon = 0;
+                    break;
+                }
+                case 1:
+                {
+                    pWeapon = sub_0063C050_GetBodyLocItem(pInventory, 6);
+                    break;
+                }
+                default:
+                    pWeapon = sub_0063C050_GetBodyLocItem(pInventory, 5);
+                    if (!pWeapon || !ITEMS_CheckItemTypeId(pWeapon, ITEMTYPE_WEAPON))
+                    {
+                        pWeapon = sub_0063C050_GetBodyLocItem(pInventory, 6);
+                    }
+                    break;
+                }
+
+                if (ITEMS_CheckItemTypeId(pWeapon, ITEMTYPE_WEAPON) && ITEMS_CanBeEquipped(pWeapon))
+                {
+                    return pWeapon;
+                }
+            }
+        }
+        return pEquippedWeapon;
+    }
+    return pEquippedWeapon;
+}
+
+// 0x0053AEC0
+void __fastcall LEVEL_WarpUnit(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nDestinationLevelId, int nTileCalc)
+{
+    const unsigned char nDestinationAct = DRLG_GetActNoFromLevelId(nDestinationLevelId);
+    D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pPlayer, ".\\GAME\\Level.cpp", 506);
+    D2_ASSERT(pClient, 507);
+
+    int nSourceLevelId = 0;
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
+    if (pRoom)
+    {
+        nSourceLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
+    }
+
+    if (nDestinationAct != CLIENTS_GetActNo(pClient))
+    {
+        SUNITPROXY_UpdateNpcsOnActChange(pGame, pPlayer, nSourceLevelId, nDestinationLevelId);
+        LEVEL_ChangeAct(pGame, pClient, nDestinationLevelId, nTileCalc);
+        return;
+    }
+
+    int nX;
+    int nY;
+    D2ActiveRoomStrc* pSpawnRoom = DUNGEON_FindActSpawnLocationEx(pGame->pAct[nDestinationAct], nDestinationLevelId, nTileCalc, &nX, &nY, UNITS_GetUnitSizeX(pPlayer));
+    if (pSpawnRoom)
+    {
+        sub_6FCBDFE0(pGame, pPlayer, pSpawnRoom, nX, nY, 0, 0);
+    }
+}
+
+// 0x0053EC90
+void __fastcall D2GAME_SendP0x9C_ItemAction_DropToGround_6FC3E8E0(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2UnitStrc* pItem, int a4)
+{
+    D2_ASSERT(SUNIT_GetClientFromPlayer(pPlayer, ".\\GAME\\SCmd.cpp", 2013) == pClient, 2013);
+    D2GAME_SendPacket0x9C_6FC3E570(pClient, pItem, ITEMACTION_DROPTOGROUND, a4, 0);
+}
+
+// 0x0053ECF0
+void __fastcall D2GAME_SendP0x9C_ItemAction_OnGround_6FC3E930(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2UnitStrc* pItem, int a4)
+{
+    D2_ASSERT(SUNIT_GetClientFromPlayer(pPlayer, ".\\GAME\\SCmd.cpp", 2022) == pClient, 2022);
+    D2GAME_SendPacket0x9C_6FC3E570(pClient, pItem, ITEMACTION_ONGROUND, a4, 0);
+}
+
+// 0x0053FF00
+void __fastcall PLRTRADE_AddGold(D2UnitStrc* pUnit, int nStat, int nValue)
+{
+    if (!pUnit)
+    {
+        return;
+    }
+
+    const int nNewValue = nValue + STATLIST_UnitGetStatValue(pUnit, nStat, 0);
+    if (nNewValue < 0)
+    {
+        STATLIST_SetUnitStat(pUnit, nStat, 0, 0);
+        return;
+    }
+
+    if (pUnit->dwUnitType == UNIT_PLAYER)
+    {
+        switch (nStat)
+        {
+        case STAT_GOLD:
+            if (nNewValue > UNITS_GetInventoryGoldLimit(pUnit))
+            {
+                STATLIST_SetUnitStat(pUnit, STAT_GOLD, 0, 0);
+                return;
+            }
+            break;
+        case STAT_GOLDBANK:
+            if (nNewValue > UNITS_GetStashGoldLimit(pUnit))
+            {
+                STATLIST_SetUnitStat(pUnit, STAT_GOLDBANK, 0, 0);
+                return;
+            }
+            break;
+        }
+    }
+
+    STATLIST_AddUnitStat(pUnit, nStat, nValue, 0);
+}
+
+// 0x00540510
+void __fastcall PARTY_IteratePartyMembers(D2GameStrc* pGame, unsigned short nPartyId, PartyCallbackFunction pCallback, void* pArgs)
+{
+    D2_ASSERT(pGame->pPartyControl, 210);
+
+    for (D2PartyStrc* pParty = pGame->pPartyControl->pParties; pParty; pParty = pParty->pNext)
+    {
+        if (pParty->nPartyId == nPartyId)
+        {
+            if (nPartyId != 0xFFFF)
+            {
+                for (D2PartyNodeStrc* pPartyNode = pParty->pPartyNodes; pPartyNode; pPartyNode = pPartyNode->pNext)
+                {
+                    D2UnitStrc* pPartyMember = SUNIT_GetServerUnit(pGame, UNIT_PLAYER, pPartyNode->nUnitGUID);
+                    if (pPartyMember)
+                    {
+                        pCallback(pGame, pPartyMember, pArgs);
+                    }
+                }
+            }
+            return;
+        }
+    }
+}
+
+static __forceinline int sub_00531C10_GetUnitX(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case 2:
+    case 4:
+    case 5:
+        return pUnit->pStaticPath->nX;
+    }
+    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+}
+
+static __forceinline int sub_00531C10_GetUnitY(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case 2:
+    case 4:
+    case 5:
+        return pUnit->pStaticPath->nY;
+    }
+    return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+}
+
+// 0x00531C10
+int __fastcall sub_00531C10_WriteCorpse(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char* pData, unsigned int nSize, int a5)
+{
+    D2InventoryStrc* pInventory = pPlayer->pInventory;
+    D2UnitStrc* pCorpse = 0;
+    unsigned short nCorpses = 0;
+    D2CorpseStrc* pCorpseNode = INVENTORY_GetFirstCorpse(pInventory);
+    if (pCorpseNode)
+    {
+        pCorpse = SUNIT_GetServerUnit(pGame, 0, INVENTORY_GetUnitGUIDFromCorpse(pCorpseNode));
+        if (pCorpse)
+        {
+            nCorpses = 1;
+        }
+    }
+
+    *(unsigned short*)pData = 0x4D4A;
+    pData += 2;
+    nSize -= 4;
+    *(unsigned short*)pData = nCorpses;
+    pData += 2;
+
+    if (!pCorpse)
+    {
+        return 4;
+    }
+
+    D2CorpseSaveStrc tCorpse;
+    const int nX = sub_00531C10_GetUnitX(pCorpse);
+    const int nY = sub_00531C10_GetUnitY(pCorpse);
+
+    D2_ASSERT(nSize >= sizeof(tCorpse), 0x97A);
+    tCorpse.nX = nX;
+    tCorpse.nY = nY;
+    memcpy(pData, &tCorpse, sizeof(tCorpse));
+    pData += sizeof(tCorpse);
+    nSize -= sizeof(tCorpse);
+
+    D2InventoryStrc* const tArg3 = pCorpse->pInventory;
+    const int nWritten = sub_005317B0_WriteItems(pGame, pCorpse, tArg3, pData, nSize, 0, a5, 0);
+    D2_ASSERT(nWritten > 0, 0x984);
+    return nWritten + 16;
+}
+
+// 0x00531D30
+static unsigned int __stdcall sub_00531D30_GetSaveFileSize(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char* pData, unsigned int nMaxSize, int a6, int a7)
+{
+    unsigned int nSize = 0;
+    PLRSAVE2_CreateSaveFile(pGame, pPlayer, pData, &nSize, nMaxSize, a6, a7);
+    return nSize;
+}
+
+unsigned int __fastcall sub_K10_EmitSaveFileSize(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+{
+    unsigned char aBuffer[4];
+    return sub_00531D30_GetSaveFileSize(pGame, pPlayer, aBuffer, sizeof(aBuffer), 0, 0);
+}
+
+// 0x00531E30
+int __fastcall D2GAME_SAVE_CalculateChecksum_6FC8A140(D2SaveHeaderStrc* pSaveHeader, int nSize)
+{
+    int nCheckSum = 0;
+    int nLastTime = 0;
+    int nPlayTime = 0;
+    int nMapSeed = 0;
+    const unsigned int nVersion = pSaveHeader->dwVersion;
+    if (nVersion > 91)
+    {
+        nCheckSum = pSaveHeader->dwChecksum;
+        nLastTime = pSaveHeader->dwLasTime;
+        nPlayTime = pSaveHeader->dwPlayTime;
+        nMapSeed = *(int*)pSaveHeader->dwMapSeed;
+
+        pSaveHeader->dwChecksum = 0;
+        pSaveHeader->dwLasTime = 0;
+        pSaveHeader->dwPlayTime = 0;
+        *(int*)pSaveHeader->dwMapSeed = 0;
+    }
+
+    const int result = CRC32_Compute(pSaveHeader, nSize);
+
+    if (nVersion > 91)
+    {
+        pSaveHeader->dwChecksum = nCheckSum;
+        pSaveHeader->dwLasTime = nLastTime;
+        pSaveHeader->dwPlayTime = nPlayTime;
+        *(int*)pSaveHeader->dwMapSeed = nMapSeed;
+    }
+
+    return result;
+}
+
+// 0x00537580
+void __fastcall SUNITPROXY_OnClientRemovedFromGame(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    if (pGame->nGameType == 3)
+    {
+        return;
+    }
+
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    if (!pRoom)
+    {
+        return;
+    }
+
+    unsigned char nAct = 0;
+
+    D2UnitProxyArgStrc unitProxyArg;
+    unitProxyArg.nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
+    unitProxyArg.nCounter = 0;
+
+    switch (unitProxyArg.nLevelId)
+    {
+    case LEVEL_ROGUEENCAMPMENT:
+        nAct = ACT_I;
+        break;
+
+    case LEVEL_LUTGHOLEIN:
+        nAct = ACT_II;
+        break;
+
+    case LEVEL_KURASTDOCKTOWN:
+        nAct = ACT_III;
+        break;
+
+    case LEVEL_THEPANDEMONIUMFORTRESS:
+        nAct = ACT_IV;
+        break;
+
+    default:
+        return;
+    }
+
+    SUNIT_IterateLivingPlayers(pGame, SUNITPROXY_CountPlayersInLevel, &unitProxyArg);
+    --unitProxyArg.nCounter;
+    SUNITPROXY_UpdateVendorInventory(pGame, nAct, unitProxyArg.nCounter == 0);
+}
+
+// 0x00538C60
+int __fastcall sub_6FC33F90(const char* szName, char* szGameName)
+{
+    int result = 1;
+    const int nIndex = FOG_ComputeStringCRC16(szName) & 0xFF;
+    EnterCriticalSection(&gSrvClientListByNameLock_6FD443B8);
+
+    for (D2ClientStrc* pClient = gpClientListByName_6FD443D0[nIndex]; pClient; pClient = pClient->pServerNextByName)
+    {
+        if (!SStrCmpI(pClient->szName, szName, sizeof(pClient->szName)))
+        {
+            if (szGameName)
+            {
+                SStrCopy(szGameName, pClient->szName, sizeof(pClient->szName));
+            }
+
+            result = 0;
+            break;
+        }
+    }
+
+    LeaveCriticalSection(&gSrvClientListByNameLock_6FD443B8);
+    return result;
+}
+
+// 0x0053A820
+void __fastcall LEVEL_FreeDrlgDeletes(D2GameStrc* pGame)
+{
+    for (int i = 0; i < NUM_ACTS; ++i)
+    {
+        D2DrlgActStrc* pAct = pGame->pAct[i];
+        if (pAct && pAct->bHasPendingRoomDeletions)
+        {
+            for (D2ActiveRoomStrc* pRoom = DUNGEON_GetRoomFromAct(pAct); pRoom; pRoom = pRoom->pRoomNext)
+            {
+                DUNGEON_FreeDrlgDelete(pRoom);
+            }
+
+            pAct->bHasPendingRoomDeletions = 0;
+        }
+    }
+}
+
+// 0x0053AB80
+void __fastcall LEVEL_RemoveClientFromAdjacentRooms(D2ActiveRoomStrc* pRoom, D2ClientStrc* pClient)
+{
+    D2_ASSERT(pRoom, 334);
+
+    D2ActiveRoomStrc** ppRoomList;
+    unsigned int nNumRooms;
+    DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRoomList, &nNumRooms);
+
+    for (unsigned int i = 0; i < nNumRooms; ++i)
+    {
+        DUNGEON_RemoveClientFromRoom(ppRoomList[i], pClient);
+    }
+}
+
+// 0x0054C990
+int __fastcall D2GAME_PACKETCALLBACK_Rcv0x54_TurnStaminaOff_6FC88380(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
+{
+    if (nSize != 1)
+    {
+        return 3;
+    }
+
+    if (pUnit && pUnit->dwUnitType == UNIT_PLAYER && pUnit->dwAnimMode == PLRMODE_RUN)
+    {
+        UNITS_ChangeAnimMode(pUnit, PLRMODE_WALK);
+    }
+
+    return 0;
+}
+
+// 0x00554120
+void __stdcall SUNIT_SetInteractInfo(D2UnitStrc* pUnit, int nInteractUnitType, int nInteractUnitGUID)
+{
+    if (pUnit->nInteract)
+    {
+        if (pUnit->dwUnitType == UNIT_PLAYER)
+        {
+            D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pUnit);
+            if (pPlayerData)
+            {
+                char szMessage[80];
+                sprintf(szMessage, "Player %s attempted to operate while busy\n", pPlayerData->szName);
+            }
+        }
+    }
+    else
+    {
+        pUnit->dwInteractGUID = nInteractUnitGUID;
+        pUnit->dwInteractType = nInteractUnitType;
+        pUnit->nInteract = 1;
+    }
+}
+
+// 0x00564340
+int __fastcall TASK_GetClockTime()
+{
+    if (gbHasHighResolutionClock)
+    {
+        D2LargeIntegerStrc nQPC;
+        QueryPerformanceCounter(&nQPC);
+        return 1000 * nQPC.QuadPart / gPerformanceFrequency.QuadPart;
+    }
+
+    return GetTickCount();
+}
+
+// 0x0056C210
+D2UnitFindDataStrc* __fastcall sub_6FD10D90(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSize, int nX, int nY)
+{
+    D2UnitFindDataStrc* pUnitFindData = (D2UnitFindDataStrc*)sub_0040B430(pGame->pMemoryPool, sizeof(D2UnitFindDataStrc), ".\\SKILLS\\Skills.cpp", 1099, 0);
+
+    D2UnitFindArgStrc unitFindArg = {};
+    unitFindArg.nFlags = 0x583;
+    unitFindArg.pUnit = pUnit;
+    unitFindArg.nX = nX;
+    unitFindArg.nY = nY;
+    unitFindArg.nSize = nSize;
+
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    UNITFINDS_InitializeUnitFindData(pGame->pMemoryPool, pUnitFindData, pRoom, nX, nY, nSize, 0, &unitFindArg);
+    UNITFINDS_FindAllMatchingUnitsInNeighboredRooms(pUnitFindData);
+
+    return pUnitFindData;
+}
+
+// 0x00569D80
+int __fastcall sub_00569D80(D2GameStrc* pGame, unsigned short nFlags, D2ClientStrc* pClient)
+{
+    if (nFlags & CLIENTSAVEFLAG_EXPANSION)
+    {
+        if (!pGame->bExpansion)
+        {
+            return 8;
+        }
+    }
+    else
+    {
+        if (pGame->bExpansion)
+        {
+            return 9;
+        }
+    }
+
+    if (gbD2ServerCallbackFunctionsInitialized_6FD45834)
+    {
+        D2FileTimeStrc tNow;
+        gpD2EventCallbackTable_6FD45830->pfGetTime(&tNow);
+        if ((nFlags & CLIENTSAVEFLAG_LADDER) && CompareFileTime(&pClient->nSaveCreationTimestamp, &tNow) > 0)
+        {
+            if (!pGame->dwGameType)
+            {
+                return 25;
+            }
+        }
+        else
+        {
+            if (pGame->dwGameType)
+            {
+                return 26;
+            }
+        }
+    }
+
+    if (nFlags & CLIENTSAVEFLAG_HARDCORE)
+    {
+        if (nFlags & CLIENTSAVEFLAG_DEAD)
+        {
+            return 10;
+        }
+
+        if (!(ARENA_GetFlags(pGame) & GAMEFLAG_ARENA_HARDCORE))
+        {
+            return 11;
+        }
+    }
+    else
+    {
+        if (ARENA_GetFlags(pGame) & GAMEFLAG_ARENA_HARDCORE)
+        {
+            return 12;
+        }
+    }
+
+    const int nProgression = (nFlags >> 8) & 0x1F;
+    if (pGame->nDifficulty > 1)
+    {
+        if (((nFlags & CLIENTSAVEFLAG_EXPANSION) && nProgression < 10) || nProgression < 8)
+        {
+            return 14;
+        }
+    }
+    else if (pGame->nDifficulty > 0)
+    {
+        if (((nFlags & CLIENTSAVEFLAG_EXPANSION) && nProgression < 5) || nProgression < 4)
+        {
+            return 13;
+        }
+    }
+
+    return 0;
+}
+
+// 0x00573640
+void __fastcall MONSTER_RemoveAll(D2GameStrc* pGame)
+{
+    for (int i = 0; i < 128; ++i)
+    {
+        D2UnitStrc* pMonster = pGame->pUnitList[1][i];
+        while (pMonster)
+        {
+            D2UnitStrc* pNext = SUNIT_GetNextUnitFromList(pMonster);
+            pGame->pUnitList[1][i] = pNext;
+            SUNIT_RemoveUnit(pGame, pMonster);
+            pMonster = pNext;
+        }
+    }
+}
+
+// 0x0058B4A0
+int __fastcall ACT5Q4_UnitIterate_SetRewardPending(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
+{
+    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    if (!pRoom || QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q4, QFLAG_COMPLETEDNOW) || QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q4, QFLAG_REWARDGRANTED))
+    {
+        return 0;
+    }
+
+    D2Act5Quest4Strc* pQuestDataEx = (D2Act5Quest4Strc*)QUESTS_GetQuestData(pGame, QUEST_A5Q4_NIHLATHAK)->pQuestDataEx;
+
+    bool bFound = false;
+    if (pRoom == pQuestDataEx->pRoom)
+    {
+        bFound = true;
+    }
+    else
+    {
+        D2ActiveRoomStrc** ppRoomList;
+        unsigned int nNumRooms;
+        DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRoomList, &nNumRooms);
+
+        for (unsigned int i = 0; i < nNumRooms; ++i)
+        {
+            if (ppRoomList[i] == pQuestDataEx->pRoom)
+            {
+                bFound = true;
+                break;
+            }
+        }
+    }
+
+    pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
+    if (!bFound)
+    {
+        return 0;
+    }
+
+    if (!QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q3, QFLAG_REWARDGRANTED) && !QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q3, QFLAG_REWARDPENDING))
+    {
+        return 0;
+    }
+
+    if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q4, QFLAG_REWARDGRANTED) || QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q4, QFLAG_REWARDPENDING))
+    {
+        return 0;
+    }
+
+    QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q4, QFLAG_REWARDPENDING);
+    QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q4, QFLAG_PRIMARYGOALDONE);
+    return 0;
+}
+
+// 0x0059D300
+bool __fastcall ACT2Q6_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
+{
+    if (nNpcId == MONSTER_JERHYN)
+    {
+        if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q6, QFLAG_REWARDGRANTED) == 1)
+        {
+            return false;
+        }
+
+        if (pQuest->fState == 1 && !QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q6, QFLAG_LEAVETOWN) && !QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q6, QFLAG_ENTERAREA))
+        {
+            return true;
+        }
+
+        if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q6, QFLAG_LEAVETOWN) == 1)
+        {
+            return true;
+        }
+    }
+    else if (nNpcId == MONSTER_MESHIF1)
+    {
+        if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q6, QFLAG_ENTERAREA) == 1)
+        {
+            return true;
+        }
+    }
+    else if (nNpcId == MONSTER_TYRAEL1)
+    {
+        D2Act2Quest6Strc* pQuestDataEx = (D2Act2Quest6Strc*)pQuest->pQuestDataEx;
+        if (pQuest->bNotIntro != 1 || pQuestDataEx->bDurielKilled != 1)
+        {
+            return false;
+        }
+
+        if (pQuestDataEx->bPortalToLutGholeinOpened == 0)
+        {
+            return true;
+        }
+    }
+    else
+    {
+        if (!QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q6, QFLAG_PRIMARYGOALDONE))
+        {
+            return false;
+        }
+
+        if (nNpcId == MONSTER_ATMA)
+        {
+            if (!QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q6, QFLAG_CUSTOM2))
+            {
+                return true;
+            }
+        }
+        else if (nNpcId == MONSTER_WARRIV2)
+        {
+            if (!QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q6, QFLAG_CUSTOM3))
+            {
+                return true;
+            }
+        }
+        else if (nNpcId == MONSTER_DROGNAN)
+        {
+            if (!QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q6, QFLAG_CUSTOM4))
+            {
+                return true;
+            }
+        }
+        else if (nNpcId == MONSTER_LYSANDER)
+        {
+            if (!QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q6, QFLAG_CUSTOM5))
+            {
+                return true;
+            }
+        }
+        else if (nNpcId == MONSTER_CAIN2)
+        {
+            if (!QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q6, QFLAG_CUSTOM6))
+            {
+                return true;
+            }
+        }
+        else if (nNpcId == MONSTER_FARA)
+        {
+            if (!QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q6, QFLAG_CUSTOM7))
+            {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
+
+// 0x005CEC90
+int __stdcall sub_005CEC90_ShortenPoisonAndCurses(D2GameStrc* pGame, D2UnitStrc* pUnit, int nPercent)
+{
+    int bPoisonedOrCursed = 0;
+    if (STATES_CheckState(pUnit, STATE_POISON))
+    {
+        D2StatListStrc* pPoisonStatList = STATLIST_GetStatListFromUnitAndState(pUnit, STATE_POISON);
+        if (pPoisonStatList)
+        {
+            const int nFrame = pGame->dwGameFrame;
+            const int nRemaining = D2COMMON_10473(pPoisonStatList) - nFrame;
+            const int nExpireFrame = DATATBLS_ApplyRatio(nRemaining, nPercent, 100) + nFrame;
+            D2COMMON_10476(pPoisonStatList, nExpireFrame);
+            EVENT_SetEvent(pGame, pUnit, EVENTTYPE_REMOVESTATE, nExpireFrame, 0, 0);
+            bPoisonedOrCursed = 1;
+        }
+    }
+
+    for (int i = 0; i < sgptDataTables->nCurseStates; ++i)
+    {
+        const int nCurseStateId = sgptDataTables->pCurseStates[i];
+        if (STATES_CheckState(pUnit, nCurseStateId))
+        {
+            D2StatListStrc* pCurseStatList = STATLIST_GetStatListFromUnitAndState(pUnit, nCurseStateId);
+            if (pCurseStatList)
+            {
+                if (STATES_CheckStateMaskCurableByStateId(nCurseStateId))
+                {
+                    const int nFrame = pGame->dwGameFrame;
+                    const int nRemaining = D2COMMON_10473(pCurseStatList) - nFrame;
+                    const int nExpireFrame = DATATBLS_ApplyRatio(nRemaining, nPercent, 100) + nFrame;
+                    D2COMMON_10476(pCurseStatList, nExpireFrame);
+                    EVENT_SetEvent(pGame, pUnit, EVENTTYPE_REMOVESTATE, nExpireFrame, 0, 0);
+                }
+                bPoisonedOrCursed = 1;
+            }
+        }
+    }
+
+    return bPoisonedOrCursed;
+}
+
+static inline D2StatesTxt* STATES_GetStatesTxtRecordInline(int nStateId)
+{
+    if (nStateId >= 0 && nStateId < sgptDataTables->nStatesTxtRecordCount)
+    {
+        return &sgptDataTables->pStatesTxt[nStateId];
+    }
+
+    return 0;
+}
+
+// 0x005EB7F0
+int __fastcall sub_005EB7F0_IsStateGroupActive(D2UnitStrc* pUnit, int nStateId)
+{
+    D2StatesTxt* pStatesTxtRecord = STATES_GetStatesTxtRecordInline(nStateId);
+    if (!pStatesTxtRecord || !pStatesTxtRecord->wGroup)
+    {
+        return 0;
+    }
+
+    int nResult = 0;
+    const int nGroup = pStatesTxtRecord->wGroup;
+    const int nCount = sgptDataTables->nStatesTxtRecordCount;
+    for (int i = 0; i < nCount; ++i)
+    {
+        if (i != nStateId)
+        {
+            if (STATES_GetStatesTxtRecordInline(i)->wGroup == nGroup && STATES_CheckState(pUnit, i))
+            {
+                nResult = 1;
+            }
+        }
+    }
+
+    return nResult;
+}
+
+// 0x00531EB0
+static int __stdcall sub_00531EB0_WriteFileOnRealm(D2GameStrc* pGame, D2UnitStrc* pPlayer, const char* szName, char* szAccountName, int bInteractsWithPlayer, unsigned int nToken, unsigned int dwArg, unsigned int nClientInfo)
+{
+    unsigned char pData[0x2000];
+    if (!gnGlobal_007310CC) return 0;
+    unsigned int nTotalSize;
+    {
+    unsigned int nSize = 0;
+    PLRSAVE2_CreateSaveFile(pGame, pPlayer, pData + 2, &nSize, 0x2000, bInteractsWithPlayer, dwArg);
+    if ((int)nSize <= 0) return 0;
+    nTotalSize = nSize + 2;
+    }
+    *(unsigned short*)pData = (unsigned short)nTotalSize;
+    D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pPlayer, szPlrSaveCppFile_006E09AC, 0xA3B);
+    unsigned int nOldChecksum = D2GAME_GetSaveChecksumFromClient_6FC33940(pClient);
+    unsigned int nChecksum = D2GAME_SAVE_CalculateChecksum_6FC8A140((D2SaveHeaderStrc*)(pData + 2), nTotalSize - 2);
+    int bMatching = nChecksum == nOldChecksum;
+    if (bMatching)
+    {
+        D2SaveHeaderStrc* pOldHeader = CLIENTS_GetSaveHeader(pClient);
+        int nOldSize = CLIENTS_GetSaveHeaderSize(pClient);
+        D2_ASSERT(pOldHeader, 0xA46);
+        bMatching = 1;
+        if (nOldSize == nTotalSize - 2)
+        {
+            const unsigned int nOldVersion = pOldHeader->dwVersion;
+            int nOldCheck = 0;
+            int nOldLast = 0;
+            int nOldPlay = 0;
+            int nOldMap = 0;
+            if (nOldVersion > 91)
+            {
+                nOldCheck = pOldHeader->dwChecksum;
+                nOldLast = pOldHeader->dwLasTime;
+                nOldPlay = pOldHeader->dwPlayTime;
+                nOldMap = *(int*)pOldHeader->dwMapSeed;
+                pOldHeader->dwChecksum = 0;
+                pOldHeader->dwLasTime = 0;
+                pOldHeader->dwPlayTime = 0;
+                *(int*)pOldHeader->dwMapSeed = 0;
+            }
+            D2SaveHeaderStrc* pNewHeader = (D2SaveHeaderStrc*)(pData + 2);
+            const unsigned int nNewVersion = pNewHeader->dwVersion;
+            int nNewCheck = 0;
+            int nNewLast = 0;
+            int nNewPlay = 0;
+            int nNewMap = 0;
+            if (nNewVersion > 91)
+            {
+                nNewCheck = pNewHeader->dwChecksum;
+                nNewLast = pNewHeader->dwLasTime;
+                nNewPlay = pNewHeader->dwPlayTime;
+                nNewMap = *(int*)pNewHeader->dwMapSeed;
+                pNewHeader->dwChecksum = 0;
+                pNewHeader->dwLasTime = 0;
+                pNewHeader->dwPlayTime = 0;
+                *(int*)pNewHeader->dwMapSeed = 0;
+            }
+            for (int i = 0; i < nOldSize; ++i)
+            {
+                if (((unsigned char*)pOldHeader)[i] != pData[i + 2])
+                {
+                    bMatching = 0;
+                    break;
+                }
+            }
+            if (nOldVersion > 91)
+            {
+                pOldHeader->dwChecksum = nOldCheck;
+                pOldHeader->dwLasTime = nOldLast;
+                pOldHeader->dwPlayTime = nOldPlay;
+                *(int*)pOldHeader->dwMapSeed = nOldMap;
+            }
+            if (nNewVersion > 91)
+            {
+                pNewHeader->dwChecksum = nNewCheck;
+                pNewHeader->dwLasTime = nNewLast;
+                pNewHeader->dwPlayTime = nNewPlay;
+                *(int*)pNewHeader->dwMapSeed = nNewMap;
+            }
+        }
+        else bMatching = 0;
+    }
+    if (bMatching)
+    {
+        ++gnGlobal_00883D6C;
+        if (gpD2EventCallbackTable_6FD45830 && gpD2EventCallbackTable_6FD45830->pfUpdate)
+        {
+            gpD2EventCallbackTable_6FD45830->pfUpdate(&nClientInfo, szName, szAccountName);
+        }
+        sub_00539320(pClient, nClientInfo);
+        return 0;
+    }
+    sub_00539320(pClient, nClientInfo);
+    D2GAME_SetSaveFileChecksum_6FC33970(pClient, nChecksum);
+    if (gpD2EventCallbackTable_6FD45830 && gpD2EventCallbackTable_6FD45830->pfSave)
+    {
+        D2_ASSERT(!IsBadCodePtr((FARPROC)gpD2EventCallbackTable_6FD45830->pfSave), 0xADC);
+        gpD2EventCallbackTable_6FD45830->pfSave(&nClientInfo, szName, szAccountName, pData, nTotalSize, nToken);
+        CLIENTS_CopySaveDataToClient(pClient, pData + 2, nTotalSize - 2);
+    }
+    return 1;
+}
+
+// build: context sub_00532240_SaveToLocalFile
+static __declspec(noinline) void __stdcall sub_00532240_SaveToLocalFile(int bInteractsWithPlayer, unsigned int dwArg, D2GameStrc* pGame, D2UnitStrc* pPlayer, const char* szName)
+{
+    if (!gnGlobal_007310CC)
+    {
+        return;
+    }
+
+    char szPath[0x400];
+    char szFile[0x1F4];
+    unsigned char pData[0x2000];
+    unsigned int nSize;
+
+    sub_00407050_GetSavePath(szPath, sizeof(szPath));
+    sprintf(szFile, gszSaveFormat_006D4230, szPath, szName);
+    nSize = 0;
+    PLRSAVE2_CreateSaveFile(pGame, pPlayer, pData, &nSize, sizeof(pData), bInteractsWithPlayer, dwArg);
+    const int nFileSize = nSize;
+    if (nFileSize > 0)
+    {
+        _iobuf* pFile = fopen(szFile, gszFileModeWb_006D69E0);
+        if (pFile)
+        {
+            fwrite(pData, nFileSize, 1, pFile);
+            fclose(pFile);
+            return;
+        }
+
+        sub_00410610_WriteLogLine(gszSaveOpenError_006E09C4, szFile);
+    }
+}
+
+// build: context sub_00532340_SaveToClient
+static __declspec(noinline) void __stdcall sub_00532340_SaveToClient(int bInteractsWithPlayer, D2GameStrc* pGame, D2UnitStrc* pPlayer, D2ClientStrc* pClient)
+{
+    unsigned char pData[0x2000];
+    unsigned int nSize;
+
+    if (CLIENTS_GetSaveHeader(pClient))
+    {
+        CLIENTS_FreeSaveHeader(pClient);
+    }
+
+    nSize = 0;
+    PLRSAVE2_CreateSaveFile(pGame, pPlayer, pData, &nSize, sizeof(pData), bInteractsWithPlayer, 0);
+    const int nFileSize = nSize;
+    D2_ASSERT(nFileSize > 0, 2866);
+    const int nClientId = CLIENTS_GetClientId(pClient);
+    CLIENTS_AttachSaveFile(nClientId, pData, nFileSize, nFileSize, 0, 0, 0);
+    D2GAME_SetSaveLoadComplete_6FC34300(pClient);
+}
+
+// build: context D2GAME_SAVE_WriteFile_6FC8A500
+int __fastcall D2GAME_SAVE_WriteFile_6FC8A500(D2GameStrc* pGame, D2UnitStrc* pPlayer, const char* szName, unsigned int dwArg)
+{
+    if (!pPlayer)
+    {
+        return 0;
+    }
+
+    pPlayer->dwFlagEx &= ~2;
+
+    int bInteractsWithPlayer = 0;
+    int nUnitType = 6;
+    int nUnitGUID;
+    if (sub_00554100(pPlayer, &nUnitType, &nUnitGUID) && nUnitType == 0)
+    {
+        bInteractsWithPlayer = 1;
+    }
+
+    D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pPlayer, szPlrSaveCppFile_006E09AC, 2919);
+    char szAccountName[50];
+    CLIENTS_CopyAccountNameToBuffer(pClient, szAccountName);
+    unsigned int nToken;
+    sub_00539300(pClient, &nToken);
+    unsigned int nClientInfo;
+    sub_00539310(pClient, &nClientInfo);
+
+    int nResult = 1;
+    if (pGame->nGameType == 1 || pGame->nGameType == 2)
+    {
+        sub_00532340_SaveToClient(bInteractsWithPlayer, pGame, pPlayer, pClient);
+    }
+    else if (gpD2EventCallbackTable_6FD45830)
+    {
+        nResult = sub_00531EB0_WriteFileOnRealm(pGame, pPlayer, szName, szAccountName, bInteractsWithPlayer, nToken, dwArg, nClientInfo);
+    }
+    else
+    {
+        sub_00532240_SaveToLocalFile(bInteractsWithPlayer, (dwArg), pGame, pPlayer, szName);
+    }
+
+    return nResult;
+}
+
+// 0x00532580
+void __cdecl sub_00532580_Empty()
+{
+}
+
+// 0x00532D90
+static int sub_00532D90_ClearValue(int* pValue)
+{
+    *pValue = 0;
+    return 0;
+}
+
+int __fastcall sub_M107_Emit_00532D90(int* pValue, int bClear)
+{
+    if (bClear)
+        return sub_00532D90_ClearValue(pValue);
+    return bClear + 1;
+}
+
+// 0x00532D00
+int __fastcall sub_00532D00_ReadPlayerIntro(D2UnitStrc* pUnit, const D2PlrIntroSaveStrc* pSection, int nUnused, int* pSize)
+{
+    *pSize = 0;
+    D2PlrIntroSaveStrc plrIntro = *pSection;
+    if (plrIntro.nHeader != 0x7701)
+    {
+        return PLRSAVE2ERROR_BAD_PLAYERINTRO;
+    }
+
+    for (int i = 0; i < NUM_DIFFICULTIES; ++i)
+    {
+        PLRINTRO_CopyBufferToQuestIntroFlags(UNITS_GetPlayerData(pUnit)->pPlayerIntro[i], plrIntro.unk0x04[i]);
+        PLRINTRO_CopyBufferToNpcIntroFlags(UNITS_GetPlayerData(pUnit)->pPlayerIntro[i], plrIntro.unk0x1C[i]);
+    }
+
+    *pSize = sizeof(D2PlrIntroSaveStrc);
+    return 0;
+}
+
+// 0x005350B0
+void __fastcall PLAYER_ResetBusyState(D2UnitStrc* pUnit)
+{
+    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pUnit);
+    D2_ASSERT(pPlayerData->bBusy != 0, 0x1C7);
+
+    pPlayerData->bBusy = 0;
+}
+
+// 0x005353F0
+int __fastcall PLAYER_GetUniqueIdFromPlayerData(D2UnitStrc* pPlayer)
+{
+    D2_ASSERT(pPlayer, 0x24D);
+
+    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
+    D2_ASSERT(pPlayerData, 0x250);
+
+    return pPlayerData->dwUniqueId;
+}
+
+// 0x00535B10
+int __fastcall PLAYER_HasHostilePlayer(D2GameStrc* pGame, D2UnitStrc* pUnit)
+{
+    if (!pGame || !pUnit || pUnit->dwUnitType != UNIT_PLAYER)
+    {
+        return 0;
+    }
+
+    D2RosterIterateStrc rosterIterate = {};
+
+    rosterIterate.bFlag = 0;
+    rosterIterate.pUnit = pUnit;
+
+    SUNIT_IterateLivingPlayers(pGame, sub_00535AF0_RosterFlagCb, &rosterIterate);
+    return rosterIterate.bFlag;
+}
+
+// 0x00535D10
+void __fastcall PLAYER_ApplyWeaponStatsForSkill(D2UnitStrc* pAttacker, int bTemporaryWeaponStats)
+{
+    if (bTemporaryWeaponStats)
+    {
+        D2UnitStrc* pLeftHandWeapon = INVENTORY_GetLeftHandWeapon(pAttacker->pInventory);
+        if (pLeftHandWeapon && STATLIST_GetOwner(pLeftHandWeapon, 0))
+        {
+            STATLIST_MergeStatLists(pAttacker, pLeftHandWeapon, 0);
+        }
+
+        D2UnitStrc* pSecondaryWeapon = INVENTORY_GetSecondaryWeapon(pAttacker->pInventory);
+        if (pSecondaryWeapon && pSecondaryWeapon != pLeftHandWeapon && STATLIST_GetOwner(pSecondaryWeapon, 0))
+        {
+            STATLIST_MergeStatLists(pAttacker, pSecondaryWeapon, 0);
+        }
+    }
+
+    if (UNITS_CanDualWield(pAttacker))
+    {
+        D2UnitStrc* pWeapon = sub_6FC7C7B0(pAttacker);
+        D2UnitStrc* pLeftHandWeapon = INVENTORY_GetLeftHandWeapon(pAttacker->pInventory);
+        if (!pWeapon)
+        {
+            if (pLeftHandWeapon)
+            {
+                if (STATLIST_GetOwner(pLeftHandWeapon, 0))
+                {
+                    STATLIST_MergeStatLists(pAttacker, pLeftHandWeapon, 1);
+                }
+            }
+        }
+        else if (pWeapon == pLeftHandWeapon)
+        {
+            D2UnitStrc* pSecondaryWeapon = INVENTORY_GetSecondaryWeapon(pAttacker->pInventory);
+            if (STATLIST_GetOwner(pLeftHandWeapon, 0))
+            {
+                STATLIST_MergeStatLists(pAttacker, pLeftHandWeapon, 1);
+            }
+
+            if (pSecondaryWeapon && STATLIST_GetOwner(pSecondaryWeapon, 0))
+            {
+                STATLIST_MergeStatLists(pAttacker, pSecondaryWeapon, 0);
+            }
+        }
+        else
+        {
+            if (STATLIST_GetOwner(pWeapon, 0))
+            {
+                STATLIST_MergeStatLists(pAttacker, pWeapon, 1);
+            }
+
+            if (pLeftHandWeapon && STATLIST_GetOwner(pLeftHandWeapon, 0))
+            {
+                STATLIST_MergeStatLists(pAttacker, pLeftHandWeapon, 0);
+            }
+        }
+    }
+}
+
+// 0x00535E20
+void __fastcall PLAYER_RestoreWeaponStats(D2UnitStrc* pTarget, int bTemporaryWeaponStats)
+{
+    if (!bTemporaryWeaponStats)
+    {
+        return;
+    }
+
+    D2UnitStrc* pLeftHandWeapon = INVENTORY_GetLeftHandWeapon(pTarget->pInventory);
+    if (pLeftHandWeapon && STATLIST_GetOwner(pLeftHandWeapon, 0))
+    {
+        STATLIST_MergeStatLists(pTarget, pLeftHandWeapon, 1);
+    }
+
+    D2UnitStrc* pSecondaryWeapon = INVENTORY_GetSecondaryWeapon(pTarget->pInventory);
+    if (pSecondaryWeapon && pSecondaryWeapon != pLeftHandWeapon)
+    {
+        if (STATLIST_GetOwner(pSecondaryWeapon, 0))
+        {
+            STATLIST_MergeStatLists(pTarget, pSecondaryWeapon, 0);
+        }
+    }
+}
+
+static __forceinline int sub_00451F50(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return -1;
+    }
+    return pUnit->dwUnitId;
+}
+
+// 0x00530F40
+static __declspec(noinline) D2UnitStrc* PLRSAVE_CreateItemFromSavedData(D2GameStrc* pGame, D2SavedItemStrc* pSavedItem)
+{
+    D2ItemDropStrc itemDrop;
+    memset(&itemDrop, 0, sizeof(itemDrop));
+
+    itemDrop.wItemFormat = pSavedItem->nItemFormat;
+    itemDrop.nItemLvl = pSavedItem->nItemLevel;
+    itemDrop.nId = pSavedItem->nItemId;
+    itemDrop.nSpawnType = pSavedItem->nSpawnType;
+    itemDrop.nX = pSavedItem->nX;
+    itemDrop.nY = pSavedItem->nY;
+    itemDrop.nQuality = pSavedItem->nItemQuality;
+    itemDrop.nQuantity = pSavedItem->nQuantity;
+    itemDrop.nMinDur = pSavedItem->nMinDurability;
+    itemDrop.nMaxDur = pSavedItem->nMaxDurability;
+    itemDrop.dwSeed = pSavedItem->nSeed;
+    itemDrop.pGame = pGame;
+    itemDrop.pRoom = 0;
+    itemDrop.wUnitInitFlags = 1;
+    itemDrop.dwItemSeed = pSavedItem->nItemSeed;
+    itemDrop.dwFlags1 = pSavedItem->nItemFlags;
+    itemDrop.bForce = 1;
+    itemDrop.nItemIndex = pSavedItem->nItemIndex;
+
+    strcpy(itemDrop.szName, pSavedItem->szName);
+
+    itemDrop.nEarLvl = pSavedItem->nEarLevel;
+
+    D2UnitStrc* pItem = D2GAME_CreateItemEx_6FC4ED80(pGame, &itemDrop, 0);
+    if (!pItem)
+        return 0;
+
+    ITEMS_SetFileIndex(pItem, pSavedItem->nItemIndex);
+    ITEMS_SetInvPage(pItem, pSavedItem->nInvPage);
+    return pItem;
+}
+
+// 0x00531390
+static __declspec(noinline) int __stdcall PLRSAVE_CreateAndPlaceLegacyCorpseItem(D2GameStrc* pGame, D2SavedItemStrc* pSavedItem, D2UnitStrc** ppItem, int* pSocketedItemCount, D2UnitStrc* pUnit)
+{
+    D2UnitStrc* pItem = PLRSAVE_CreateItemFromSavedData(pGame, pSavedItem);
+    if (!pItem)
+        return 13;
+
+    switch (pItem->dwAnimMode)
+    {
+    case 0:
+    {
+        UNITS_ChangeAnimMode(pItem, 4);
+        const int nX = pSavedItem->nX;
+        const int nY = pSavedItem->nY;
+        UNITS_SetXForStaticUnit(pItem, nX);
+        UNITS_SetYForStaticUnit(pItem, nY);
+        const int nItemId = pItem->dwUnitId;
+        if (!D2GAME_PlaceItem_6FC44410(".\\PLAYER\\PlrSave.cpp", 0x1C2, pGame, pUnit, nItemId, CLIENTS_GetUnitX(pItem), CLIENTS_GetUnitY(pItem), 0, 0, 0))
+            return 13;
+        break;
+    }
+    case 1:
+    {
+        D2InventoryStrc* pInventory = pUnit->pInventory;
+        const int nBodyLoc = ITEMS_GetBodyLocation(pItem);
+        if (!nBodyLoc || !INVENTORY_PlaceItemInBodyLoc(pInventory, pItem, nBodyLoc))
+            return 13;
+
+        int nPage = 3;
+        if (nBodyLoc == 11 || nBodyLoc == 12)
+            nPage = 4;
+
+        if (!INVENTORY_PlaceItemInSocket(pInventory, pItem, nPage))
+            return 13;
+
+        ITEMS_SetBodyLocation(pItem, nBodyLoc);
+        pItem->dwFlags &= 0xFFFFFFFDu;
+        UNITS_ChangeAnimMode(pItem, 1);
+        ITEMS_SetInvPage(pItem, 0xFF);
+        ITEMS_SetItemCMDFlag(pItem, 8, 1);
+        pItem->dwFlags &= 0xFDFFFFFFu;
+        INVENTORY_AddItemToTradeInventory(pInventory, pItem);
+        UNITS_RefreshInventory(pUnit, 1);
+        QUESTS_ItemPickedUp(pGame, pUnit, pItem);
+        break;
+    }
+    case 6:
+    {
+        if (!*ppItem)
+            return 13;
+
+        UNITS_ChangeAnimMode(pItem, 4);
+        int nUnused;
+        if (!D2GAME_ITEMSOCKET_PlaceItem_6FC497E0(pGame, pUnit, sub_00451F50(pItem), sub_00451F50(*ppItem), &nUnused, 0, 1, 0, 0))
+            return 13;
+        break;
+    }
+    default:
+        return 13;
+    }
+
+    if (pSavedItem->nSocketedItems > 0)
+        *ppItem = pItem;
+
+    *pSocketedItemCount = pSavedItem->nSocketedItems;
+    return 0;
+}
+
+// 0x00533350
+int __fastcall PLRSAVE_ReadLegacyItems(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char* pSection, unsigned int dwVersion, int nSize, int bCorpseItems, int* pSize)
+{
+    D2ItemKeyStrc keys[0x400];
+    struct D2ReadStateStrc { int* pSize; int nUnused; } state;
+    D2ReadStateStrc* pState = &state;
+    unsigned short nTotal16;
+    pState->pSize = pSize;
+
+    if (*(unsigned short*)pSection != 0x4D4A)
+        return 14;
+
+    unsigned char* pData = pSection + 2;
+    nTotal16 = *(unsigned short*)pData;
+    pData += 2;
+    int nTotalSize = 4;
+    nSize -= 4;
+    int nKeys = 0;
+    for (unsigned int j = 0; j < nTotal16; ++j)
+    {
+        D2SavedItemStrc savedItem;
+        memset(&savedItem, 0, sizeof(savedItem));
+        if (*(unsigned short*)pData != 0x4D4A)
+            return 14;
+
+        pData += 2;
+        int nDataSize = PLRSAVE_ReadLegacyItemData(&savedItem, pData);
+        nSize -= nDataSize + 2;
+        pData += nDataSize;
+        nTotalSize += nDataSize + 2;
+
+        for (int k = 0; k < nKeys; ++k)
+        {
+            if (savedItem.nItemCode == keys[k].nCode && savedItem.nItemIndex == keys[k].nIndex && savedItem.nItemLevel == keys[k].nLevel
+                && savedItem.nSeed == keys[k].nSeed && savedItem.nItemSeed == keys[k].nItemSeed)
+            {
+                for (int s = 0; s < savedItem.nSocketedItems; ++s)
+                {
+                    memset(&savedItem, 0, sizeof(savedItem));
+                    if (*(unsigned short*)pData != 0x4D4A)
+                        return 14;
+
+                    pData += 2;
+                    nDataSize = PLRSAVE_ReadLegacyItemData(&savedItem, pData);
+                    nSize -= nDataSize + 2;
+                    pData += nDataSize;
+                    nTotalSize += nDataSize + 2;
+                }
+                goto next_item;
+            }
+
+            keys[nKeys].nCode = savedItem.nItemCode;
+            keys[nKeys].nIndex = savedItem.nItemIndex;
+            keys[nKeys].nLevel = savedItem.nItemLevel;
+            keys[nKeys].nSeed = savedItem.nSeed;
+            keys[nKeys].nItemSeed = savedItem.nItemSeed;
+            ++nKeys;
+        }
+
+        {
+            int nCount = 0;
+            D2UnitStrc* pItem = 0;
+            if (bCorpseItems)
+            {
+                const int nResult = PLRSAVE_CreateAndPlaceLegacyCorpseItem(pGame, &savedItem, &pItem, &nCount, pPlayer);
+                if (nResult)
+                    return nResult;
+            }
+            else
+            {
+                if (PLRSAVE_CreateAndPlaceLegacyPlayerItem(pGame, pPlayer, &savedItem, &pItem, &nCount))
+                    continue;
+            }
+
+            for (int i = 0; i < nCount; ++i)
+            {
+                memset(&savedItem, 0, sizeof(savedItem));
+                if (*(unsigned short*)pData != 0x4D4A)
+                    return 14;
+
+                pData += 2;
+                nDataSize = PLRSAVE_ReadLegacyItemData(&savedItem, pData);
+                nSize -= nDataSize + 2;
+                pData += nDataSize;
+                nTotalSize += nDataSize + 2;
+
+                int nResult;
+                if (bCorpseItems)
+                    nResult = PLRSAVE_CreateAndPlaceLegacyCorpseItem(pGame, &savedItem, &pItem, &pState->nUnused, pPlayer);
+                else
+                    nResult = PLRSAVE_CreateAndPlaceLegacyPlayerItem(pGame, pPlayer, &savedItem, &pItem, &pState->nUnused);
+
+                if (nResult)
+                    return nResult;
+            }
+        }
+next_item:
+        ;
+    }
+
+    *pState->pSize = nTotalSize;
+    return 0;
+}
+
+__declspec(noinline)
+
+static int __stdcall sub_00531520_PlaceSavedItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem, D2UnitStrc* pParent)
+{
+    switch (!pItem ? 0 : pItem->dwAnimMode)
+    {
+    case 6:
+        if (pParent)
+        {
+            UNITS_ChangeAnimMode(pItem, 4);
+            const int nParentGUID = pParent->dwUnitId;
+            const int nItemGUID = !pItem ? -1 : pItem->dwUnitId;
+            int bPlaced;
+            if (D2GAME_ITEMSOCKET_PlaceItem_6FC497E0(pGame, pPlayer, nItemGUID, nParentGUID, &bPlaced, 0, 1, 0, 0))
+                break;
+        }
+    default:
+        return 13;
+    case 1:
+        {
+            D2InventoryStrc* pInventory = pPlayer->pInventory;
+            const int nBodyLoc = ITEMS_GetBodyLocation(pItem);
+            if (!nBodyLoc || !INVENTORY_PlaceItemInBodyLoc(pInventory, pItem, nBodyLoc))
+                return 13;
+            int nPage = 3;
+            if (nBodyLoc == 11 || nBodyLoc == 12)
+                nPage = 4;
+            if (!INVENTORY_PlaceItemInSocket(pInventory, pItem, nPage))
+                return 13;
+            ITEMS_SetBodyLocation(pItem, nBodyLoc);
+            if (pItem)
+                pItem->dwFlags &= ~2u;
+            UNITS_ChangeAnimMode(pItem, 1);
+            ITEMS_SetInvPage(pItem, 255);
+            sub_00628170_SetItemCommandFlag(pItem, 8, 1);
+            if (pItem)
+                pItem->dwFlags &= ~0x02000000u;
+            INVENTORY_AddItemToTradeInventory(pInventory, pItem);
+            UNITS_RefreshInventory(pPlayer, 1);
+            QUESTS_ItemPickedUp(pGame, pPlayer, pItem);
+            return 0;
+        }
+    case 0:
+        {
+            UNITS_ChangeAnimMode(pItem, 4);
+            int nY;
+            switch (pItem->dwUnitType)
+            {
+            case 2:
+            case 4:
+            case 5:
+                nY = pItem->pStaticPath->nY;
+                break;
+            default:
+                nY = pItem->pDynamicPath ? PATH_GetYPosition(pItem->pDynamicPath) : 0;
+                break;
+            }
+            int nX;
+            switch (pItem->dwUnitType)
+            {
+            case 2:
+            case 4:
+            case 5:
+                nX = pItem->pStaticPath->nX;
+                break;
+            default:
+                nX = pItem->pDynamicPath ? PATH_GetXPosition(pItem->pDynamicPath) : 0;
+                break;
+            }
+            const int nItemGUID = pItem->dwUnitId;
+            if (!D2GAME_PlaceItem_6FC44410(".\\PLAYER\\PlrSave.cpp", 536, pGame, pPlayer, nItemGUID, nX, nY, 0, 0, 0))
+                return 13;
+            break;
+        }
+    }
+    return 0;
+}
+
+// 0x005335E0
+int __fastcall sub_005335E0(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char* pSection, unsigned int dwVersion, int nSize, int bCorpseItems, int* pSize)
+{
+    unsigned char* pBegin = pSection;
+    if (*(unsigned short*)pSection != 0x4D4A)
+    {
+        return 14;
+    }
+
+    pSection += 2;
+    const int nItems = *(unsigned short*)pSection;
+    pSection += 2;
+    for (int i = 0; i < nItems; ++i)
+    {
+        D2ItemSaveStrc tItemSave;
+        int nItemSize;
+        int nResult = 0;
+        ITEMS_GetCompactItemDataFromBitstream(pSection, nSize - (pSection - pBegin), 1, &tItemSave, dwVersion);
+        if (tItemSave.nClassId == -1)
+        {
+            return 14;
+        }
+
+        D2UnitStrc* pItem = ITEMS_CreateItemFromBitstream(pGame, 0, pSection, nSize - (pSection - pBegin), 1, &tItemSave, &nItemSize, dwVersion);
+        if (!pItem && nItemSize <= 0)
+        {
+            return 14;
+        }
+
+        pSection += nItemSize;
+        if (pItem)
+        {
+            sub_00564CB0_Nop(pItem);
+            if (bCorpseItems)
+            {
+                nResult = sub_00531520_PlaceSavedItem(pGame, pPlayer, pItem, 0);
+            }
+            else
+            {
+                nResult = sub_00531210_PlaceSavedItem(pGame, pPlayer, pItem, 0);
+            }
+        }
+
+        const int nSockets = tItemSave.nItemFileIndex;
+        D2UnitStrc* pParent = pItem;
+        if (nResult)
+        {
+            if (pItem)
+            {
+                SUNIT_RemoveUnit(pGame, pItem);
+            }
+            pParent = 0;
+        }
+
+        for (int j = 0; j < nSockets; ++j)
+        {
+            ITEMS_GetCompactItemDataFromBitstream(pSection, nSize - (pSection - pBegin), 1, &tItemSave, dwVersion);
+            D2UnitStrc* pSocketed = ITEMS_CreateItemFromBitstream(pGame, 0, pSection, nSize - (pSection - pBegin), 1, &tItemSave, &nItemSize, dwVersion);
+            if (!pSocketed && nItemSize <= 0)
+            {
+                return 14;
+            }
+
+            pSection += nItemSize;
+            if (!pParent)
+            {
+                if (pSocketed)
+                {
+                    SUNIT_RemoveUnit(pGame, pSocketed);
+                }
+            }
+            else if (pSocketed)
+            {
+                sub_00564CB0_Nop(pSocketed);
+                if (bCorpseItems)
+                {
+                    sub_00531520_PlaceSavedItem(pGame, pPlayer, pSocketed, pParent);
+                }
+                else
+                {
+                    sub_00531210_PlaceSavedItem(pGame, pPlayer, pSocketed, pParent);
+                }
+            }
+        }
+
+        if (pParent && (ITEMS_GetItemFlags(pParent) & 0x4000000) && !ITEMS_GetRunesTxtRecordFromItem(pParent))
+        {
+            ITEMMODE_DetachItemFromOwner(pGame, pPlayer, pParent);
+        }
+    }
+
+    if (pSize)
+    {
+        *pSize = pSection - pBegin;
+    }
+
+    return 0;
+}
+
+// 0x005337F0
+int __fastcall sub_005337F0_ReadItems(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char* pSection, int nVersion, int nSize, int nUnused, int* pReadSize)
+{
+    int nResult;
+    if (nVersion == 0x47)
+        nResult = PLRSAVE_ReadLegacyItems(pGame, pUnit, pSection, 0x47, nSize, nUnused, pReadSize);
+    else if (nVersion < 0x48 || nVersion > 0x60)
+        return 1;
+    else
+        nResult = sub_005335E0(pGame, pUnit, pSection, nVersion, nSize, nUnused, pReadSize);
+    return nResult;
+}
+
+// 0x00533A60
+int __fastcall sub_00533A60_CalcValue(int nA, int nB)
+{
+    return (nA + 1) * nA * nB * 3;
+}
+
+// 0x00533A70
+__declspec(noinline) int __fastcall PLRSAVE_GetLegacyHirelingExpFactor(unsigned short nHirelingId, int nLevel)
+{
+    switch (nHirelingId)
+    {
+    case 0:
+    case 1:
+        if (nLevel >= 49)
+            return 400;
+        return (((nLevel < 25) - 1) & 100) + 100;
+    case 2:
+    case 3:
+        return (((nLevel < 49) - 1) & 220) + 220;
+    case 4:
+    case 5:
+    case 12:
+    case 13:
+    case 14:
+    case 21:
+    case 23:
+        return 480;
+    case 6:
+    case 7:
+    case 8:
+        if (nLevel >= 55)
+            return 420;
+        return (((nLevel < 31) - 1) & 105) + 105;
+    case 9:
+    case 10:
+    case 11:
+        return (((nLevel < 55) - 1) & 230) + 230;
+    case 15:
+    case 17:
+        if (nLevel >= 61)
+            return 440;
+        return (((nLevel < 37) - 1) & 110) + 110;
+    case 16:
+        if (nLevel >= 61)
+            return 260;
+        return (((nLevel < 37) - 1) & 115) + 115;
+    case 18:
+    case 20:
+        return (((nLevel < 61) - 1) & 230) + 230;
+    case 19:
+        return (((nLevel < 61) - 1) & 240) + 240;
+    case 22:
+        return 500;
+    case 24:
+    case 25:
+        if (nLevel >= 75)
+            return 880;
+        return (((nLevel < 42) - 1) & 220) + 220;
+    case 26:
+    case 27:
+        return (((nLevel < 75) - 1) & 460) + 460;
+    default:
+        return 960;
+    }
+}
+
+// 0x00533BF0
+unsigned int __fastcall PLRSAVE_ConvertLegacyHirelingExperience(D2GameStrc* pGame, unsigned short nHirelingId, unsigned int nSavedExperience)
+{
+    int nLevel = 1;
+    while ((unsigned int)((nLevel + 2) * (nLevel + 1) * PLRSAVE_GetLegacyHirelingExpFactor(nHirelingId, nLevel + 1) * 3) <= nSavedExperience && nLevel + 1 < 99)
+        ++nLevel;
+
+    D2HirelingTxt* pHirelingTxtRecord = DATATBLS_GetHirelingTxtRecordFromIdAndLevel(pGame->bExpansion, nHirelingId, nLevel);
+    if (!pHirelingTxtRecord)
+        return nSavedExperience;
+
+    const unsigned int nExperience = MONSTERS_GetHirelingExpForNextLevel(nLevel, pHirelingTxtRecord->dwExpPerLvl);
+    if (nExperience <= nSavedExperience)
+        return nSavedExperience;
+
+    return nExperience;
+}

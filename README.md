@@ -18,12 +18,20 @@ Structs and most game-logic names come from D2MOO by ThePhrozenKeep (https://git
 
 | Path | Contents |
 |---|---|
-| `Source/<Module>/*.cpp` | 6,800 compilation units, one per file, defining 14,916 functions |
+| `Source/<Module>/` | 2,775 compilation units, laid out like Blizzard's own source tree, defining 14,916 functions |
+| `Source/<Module>/<Module>.h` | the declarations several files of a module share |
+| `CMakeLists.txt` | the sources as an ordinary CMake project (compiles the objects; see Building) |
 | `build/` | the data the build needs: the unit list with per-unit compiler options (`units.json`), every address record (`functions.json`), the layout of initialised data (`data_plan.json`), import thunk runs, file-layout plans, toolchain pins |
 | `docs/` | the function grid (`grid.svg`) and its interactive viewer (`index.html`) |
 | `tools/` | setup and build scripts (Python 3.9+, standard library only) |
 | `names.csv` | every function's address, name and where the name comes from |
 | `STATUS.md` | what is verified, what is not yet, and which functions need non-original constructs |
+
+Functions sit in files named after Blizzard's original source files, as the game's own diagnostics name them (for
+example `Source/D2Common/ITEMS/Items.cpp`). A run of functions whose original file is not known is in
+`Unknown_<address>.cpp`, named after its first function. Functions of one original file that cannot share its
+compilation unit yet (another compiler option, or declarations that do not agree) are in `<File>_<address>.cpp` beside
+it.
 
 Above every function definition, a line `// 0x<address>` gives the address of the function in the original
 `Game.exe`; a trailing `// 0x<address>` on a declaration gives the address of that callee or global. Lines starting
@@ -59,7 +67,19 @@ python tools/build.py
 `setup.py` checks your `Game.exe`, fetches and verifies the toolchain into `toolchain/`, generates `gen/` from your
 `Game.exe` and records the paths in `local.json`. `build.py` compiles every unit (in parallel, `-j N`), checks each
 function's bytes against the original, links all of them at their original addresses and writes `out/Game.exe`. A
-full build takes about half an hour on two cores; later builds reuse the objects of unchanged units.
+full build takes about a quarter of an hour on two cores; later builds reuse the objects of unchanged units.
+
+`CMakeLists.txt` describes the same sources as an ordinary project. From a Visual C++ 2005 SP1 command prompt, after
+`tools/setup.py`:
+
+```
+cmake -G "NMake Makefiles" -S . -B out/cmake
+cmake --build out/cmake
+```
+
+compiles every source file into an object with its recorded compiler options. It does not check the objects against
+the original or link them at the original addresses, so it does not produce `Game.exe`; `tools/build.py` is the build
+that does.
 
 ## Verifying
 

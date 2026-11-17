@@ -1,0 +1,40 @@
+#include "D2Client.h"
+
+struct D2CellFileStrc;
+
+D2CellFileStrc* __fastcall sub_004788B0(const char* szFile, int nType); // 0x004788B0
+extern D2CellFileStrc* gpGlobal_007A523C; // 0x007A523C
+extern D2CellFileStrc* gpGlobal_007A5240; // 0x007A5240
+extern D2CellFileStrc* gpGlobal_007A5244; // 0x007A5244
+void __stdcall sub_0045FBC0_DrawCelPair(int bFirst); // 0x0045FBC0
+void __cdecl sub_0045FC60_DrawLoadingTexts(); // 0x0045FC60
+void __stdcall sub_0045FD20_DrawPanelCel(int nFrame); // 0x0045FD20
+void __cdecl sub_0045FD80_DrawCenteredString(); // 0x0045FD80
+void __fastcall sub_004684C0(); // 0x004684C0
+extern int gnGlobal_007A524C; // 0x007A524C
+
+// 0x0045FB40
+void __cdecl sub_0045FB40_LoadPopupCels()
+{
+    gpGlobal_007A523C = sub_004788B0("Data\\Global\\UI\\Bigmenu\\popupok", 0);
+    gpGlobal_007A5244 = sub_004788B0("Data\\Global\\UI\\Bigmenu\\popupok", 0);
+    gpGlobal_007A5240 = sub_004788B0("Data\\Global\\UI\\Menu\\okcancelbtn", 0);
+    sub_004FB480_SetActA(0);
+}
+
+// 0x0045FDE0
+void __cdecl sub_0045FDE0_DrawLoadingScreen()
+{
+    if (WINDOW_GetState())
+        return;
+    if (!D2GFX_StartDraw(1, 0, 0, 0))
+        return;
+    D2GFX_ClearScreen(0);
+    sub_004FB0D0();
+    sub_0045FBC0_DrawCelPair(1);
+    sub_0045FC60_DrawLoadingTexts();
+    sub_0045FD20_DrawPanelCel(gnGlobal_007A524C);
+    sub_0045FD80_DrawCenteredString();
+    sub_004684C0();
+    D2GFX_EndScene();
+}

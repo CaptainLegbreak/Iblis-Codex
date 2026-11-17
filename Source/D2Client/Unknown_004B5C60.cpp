@@ -1,0 +1,272 @@
+#include "D2Client.h"
+
+typedef unsigned int size_t;
+
+struct Unicode
+{
+    unsigned short wChar;
+
+    Unicode(unsigned short ch = 0) : wChar(ch) {}
+};
+
+struct UnicodeChar : Unicode
+{
+    UnicodeChar();                                                                                          // 0x0042F530
+};
+
+struct D2HirelingInitStrc
+{
+    int nId;
+    int nLevel;
+    int nHitpoints;
+    int nStrength;
+    int nDexterity;
+    int nGold;
+    int nExperience;
+    int nDefense;
+    int nMinDamage;
+    int nMaxDamage;
+    int nShare;
+    int nResist;
+    int nHireDesc;
+    int field_34;
+    short nFlags;
+    short unk0x3A;
+};
+
+struct D2ClientItemSlotStrc
+{
+    unsigned short wId;
+    char unk0x02[0x02];
+    int nSeed;
+    int nUnitId;
+    char unk0x0C[0x04];
+};
+
+void* __stdcall SMemAlloc(size_t nSize, const char* szFile, int nLine, int nFlags);                         // 0x00413020
+
+class UIWidget
+{
+public:
+    static void* operator new(size_t nSize)
+    {
+        return SMemAlloc(nSize, "new", -1, 0);
+    }
+
+    virtual ~UIWidget();
+    virtual void Slot01() = 0;
+    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot03(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot04(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot09(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int Slot11() = 0;
+
+    int unk0x04;
+};
+
+class ListBoxImplementation;
+
+class ListBoxWrapper : public UIWidget
+{
+public:
+    ListBoxWrapper(int nX, int nY, int nWidth, int nHeight, int nArg10, int nArg14, int nArg18, int nArg1C,
+        int nArg20);                                                                                        // 0x004BF8F0
+    virtual ~ListBoxWrapper();
+    virtual void Slot01();
+    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot03(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot04(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot09(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg);
+    virtual int Slot11();
+    virtual void AddItem(const Unicode* wszText, const Unicode* wszHover, int nArg8, int nArgC, int nArg10,
+        int nArg14, int nData, int nArg1C, int nArg20, int nArg24);
+    virtual void Slot13();
+    virtual void Slot14();
+    virtual void Slot15();
+
+    ListBoxImplementation* pImpl;
+};
+
+extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szDest, const char* szFormat, ...);          // 0x006CC468
+
+int __cdecl sub_0044DCC0();                                                                                 // 0x0044DCC0
+unsigned char __cdecl sub_0044DCD0_GetDifficulty();                                                         // 0x0044DCD0
+D2UnitStrc* __fastcall sub_00463DD0();                                                             // 0x00463DD0
+int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);                               // 0x00625480
+const Unicode* __fastcall MONSTERS_GetHirelingDescString(int nId);                                          // 0x00663720
+void __cdecl sub_0048BE80_FormatArgs(Unicode* pDest, const Unicode* pFormat, ...);                          // 0x0048BE80
+int __cdecl sub_004B3660_TradeMenuHandler();                                                                // 0x004B3660
+void __cdecl sub_004B4830_Rebuild();                                                                        // 0x004B4830
+int __cdecl sub_004B5C20_ClosePanel77();                                                                    // 0x004B5C20
+void __fastcall sub_004B7C00_AddWidget(D2ClientDialogStrc* pDialog, void* pWidget, int nArg8, int nArgC);   // 0x004B7C00
+D2ClientDialogStrc* __fastcall sub_004B7EB0_CreateDialog(int nArg1, int nArg2, int nArg8, int nArgC, int nArg10, int nArg14,
+    int nArg18, int nArg1C, int nArg20, int nArg24, int nArg28);                                            // 0x004B7EB0
+void __fastcall sub_004B8020(D2ClientDialogStrc* pDialog);                                                  // 0x004B8020
+void __fastcall sub_004B82F0_Select(D2ClientDialogStrc* pDialog, int nIndex);                               // 0x004B82F0
+void __fastcall sub_004B8370_SetField5C(D2ClientDialogStrc* pDialog, int nValue);                           // 0x004B8370
+void __fastcall sub_004B85F0_AddTextLine(D2ClientDialogStrc* pDialog, const Unicode* wszText, int nArg8, int nArgC,
+    int nArg10, int nArg14, int (__cdecl* pfnCallback)(), int nArg1C);                                      // 0x004B85F0
+const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
+Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);                                 // 0x00526700
+Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCount);                    // 0x00526790
+Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc);                                     // 0x005267E0
+void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...);              // 0x005269D0
+void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);                   // 0x00526F20
+
+extern int gnGlobal_0071146C;                                                                               // 0x0071146C
+extern int gnAutomapHeight_007A521C;                                                                        // 0x007A521C
+extern D2ClientItemSlotStrc gaItemSlots_007C0C85[10];                                                       // 0x007C0C85
+extern ListBoxWrapper* gpListBox_007C0D83;                                                                  // 0x007C0D83
+
+// build: symbol ??0ListBoxWrapper@@QAE@HHHHHHHHH@Z 0x004BF8F0
+// build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
+// 0x004B5C60
+int __cdecl sub_004B5C60_Handler()
+{
+    if (gpDialog_007C0D6B)
+    {
+        sub_004B8020(gpDialog_007C0D6B);
+        gpDialog_007C0D6B = 0;
+    }
+
+    if (gpDialog_007C0D77)
+    {
+        sub_004B8020(gpDialog_007C0D77);
+        delete gpListBox_007C0D83;
+        gpListBox_007C0D83 = 0;
+        gpDialog_007C0D77 = 0;
+        sub_004B4830_Rebuild();
+        return 0;
+    }
+
+    gpDialog_007C0D77 = sub_004B7EB0_CreateDialog((gnGlobal_0071146C - 0x1EA) / 2, gnAutomapHeight_007A521C / 2 - 0xC3,
+        (int)sub_004B5C20_ClosePanel77, 0, 0, 0, 0, 0x1EA, 0x15E, 0, 1);
+    sub_004B8370_SetField5C(gpDialog_007C0D77, 1);
+
+    Unicode wszGold[300];
+    sub_005269D0(300, wszGold, D2LANG_GetStringFromTblIndex(0xD24),
+        STATLIST_UnitGetStatValue(sub_00463DD0(), 15, 0) + STATLIST_UnitGetStatValue(sub_00463DD0(), 14, 0));
+    sub_004B85F0_AddTextLine(gpDialog_007C0D77, wszGold, 0x15, 0, 4, 1, 0, 0);
+    sub_004B85F0_AddTextLine(gpDialog_007C0D77, D2LANG_GetStringFromTblIndex(0xD48), 0x13B, 0, 0, 1, sub_004B5C20_ClosePanel77, 1);
+
+    gpListBox_007C0D83 = new ListBoxWrapper((gnGlobal_0071146C - 0x1EA) / 2, gnAutomapHeight_007A521C / 2 - 0xA0, 0x1EA,
+        0x118, 6, 0, 1, (int)sub_004B3660_TradeMenuHandler, 0);
+    if (!gpListBox_007C0D83)
+    {
+        sub_004B5C20_ClosePanel77();
+        return 0;
+    }
+
+    sub_004B7C00_AddWidget(gpDialog_007C0D77, gpListBox_007C0D83, 0x23, 0x1E);
+
+    D2ClientItemSlotStrc* pSlot = gaItemSlots_007C0C85;
+    int nCount = 0;
+    int i;
+    for (i = 0; i < 10; ++i)
+    {
+        if (pSlot->nUnitId)
+        {
+            D2HirelingInitStrc hirelingInit;
+            const int nAct = MONSTERS_GetActFromHirelingTxt(sub_0044DCC0(), 0, pSlot->wId);
+            const int nDifficulty = sub_0044DCD0_GetDifficulty();
+            if (!MONSTERS_HirelingInit(sub_0044DCC0(), sub_00463DD0(), pSlot->nSeed, nAct, nDifficulty,
+                &hirelingInit))
+            {
+                return 0;
+            }
+
+            const int nLevel = hirelingInit.nLevel;
+            const int nHitpoints = hirelingInit.nHitpoints;
+            const int nDefense = hirelingInit.nDefense;
+            const int nGold = hirelingInit.nGold;
+            const int nHireDesc = hirelingInit.nHireDesc;
+
+            Unicode wszText[150];
+            Unicode wszHover[150];
+
+            unsigned short wNameId = pSlot->wId;
+            if (wNameId == 0x421)
+            {
+                wNameId = 0x2B0D;
+            }
+            sub_005267E0(wszText, D2LANG_GetStringFromTblIndex(wNameId));
+            sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9B));
+            sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9C));
+            sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9B));
+
+            Unicode wszLabel[20];
+            Unicode wszNumber[10];
+            char szNumber[10];
+
+            sub_00526790(wszLabel, D2LANG_GetStringFromTblIndex(0xD28), 20);
+            sub_00526700(wszText, wszLabel);
+            sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9D));
+            sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9B));
+            wsprintfA(szNumber, "%2u", nLevel);
+            sub_00526F20_ToUnicode(wszNumber, szNumber, 9);
+            sub_00526700(wszText, wszNumber);
+            sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9B));
+            sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9B));
+
+            sub_00526790(wszLabel, D2LANG_GetStringFromTblIndex(0xD26), 20);
+            sub_00526700(wszText, wszLabel);
+            sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9D));
+            sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9B));
+            wsprintfA(szNumber, "%2u", nHitpoints);
+            sub_00526F20_ToUnicode(wszNumber, szNumber, 9);
+            sub_00526700(wszText, wszNumber);
+            sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9B));
+            sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9B));
+
+            sub_00526790(wszLabel, D2LANG_GetStringFromTblIndex(0xD27), 20);
+            sub_00526700(wszText, wszLabel);
+            sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9D));
+            sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9B));
+            wsprintfA(szNumber, "%2u", nDefense);
+            sub_00526F20_ToUnicode(wszNumber, szNumber, 9);
+            sub_00526700(wszText, wszNumber);
+            sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9B));
+            sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9B));
+
+            sub_00526790(wszLabel, D2LANG_GetStringFromTblIndex(0xD29), 20);
+            sub_00526700(wszText, wszLabel);
+            sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9D));
+            sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9B));
+            wsprintfA(szNumber, "%2u", nGold);
+            sub_00526F20_ToUnicode(wszNumber, szNumber, 9);
+            sub_00526700(wszText, wszNumber);
+            sub_00526700(wszHover, D2LANG_GetStringFromTblIndex(0xF9B));
+            sub_00526700(wszHover, D2LANG_GetStringFromTblIndex(0xF9B));
+
+            if (MONSTERS_GetHirelingDescString(nHireDesc))
+            {
+                UnicodeChar wszDesc[150];
+                Unicode wszFormat[6] = { 'a', '0', ':', '%', '0', 0 };
+                sub_0048BE80_FormatArgs(wszDesc, wszFormat, MONSTERS_GetHirelingDescString(nHireDesc), 0);
+                sub_00526700(wszHover, wszDesc);
+            }
+
+            gpListBox_007C0D83->AddItem(wszText, wszHover, 0, 0, 0, 0, i, 0, 1, 0xE);
+            ++nCount;
+        }
+        ++pSlot;
+    }
+
+    if (!nCount)
+    {
+        gpListBox_007C0D83->AddItem(D2LANG_GetStringFromTblIndex(0xD25), 0, 0, 0, 0, 0, 10, 0, 1, 0xE);
+    }
+
+    sub_004B82F0_Select(gpDialog_007C0D77, -1);
+    return 1;
+}

@@ -1,0 +1,428 @@
+#include "D2Multi.h"
+
+#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+struct D2WinTextBoxStrc;
+struct Unicode;
+struct D2LaunchCharInfoStrc;
+struct D2GameListRecordStrc;
+struct D2LaunchFuncsStrc;
+
+struct Unicode
+{
+    unsigned short wChar;
+};
+
+struct D2WinControlInitStrc
+{
+    int nType;
+    int nX;
+    int nY;
+    int nWidth;
+    int nHeight;
+    int field_14;
+    int nStringId;
+    void* ppCellFile;
+    int field_20;
+    int field_24;
+    int field_28;
+    int field_2C;
+};
+
+const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
+void __fastcall BUTTON_SetIsPressed(D2WinControlStrc* pButton, int bIsPressed); // 0x005009A0
+void __fastcall sub_004FD060_SetText(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FD060
+extern D2WinControlInitStrc gtControlInit_0070E9E0; // 0x0070E9E0
+extern D2WinControlInitStrc gtControlInit_0070EA10; // 0x0070EA10
+extern D2WinControlInitStrc gtControlInit_0070EA40; // 0x0070EA40
+extern D2WinControlInitStrc gtControlInit_0070EA70; // 0x0070EA70
+extern D2WinControlStrc* gpControlA_0077B070; // 0x0077B070
+extern D2WinControlStrc* gpChatControl_0077B074; // 0x0077B074
+extern D2WinControlStrc* gpControlB_0077B078; // 0x0077B078
+extern D2WinControlStrc* gpControlC_0077B07C; // 0x0077B07C
+extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
+
+#pragma pack(push, 1)
+struct D2LaunchCharInfoStrc
+{
+    char unk0x000[0x1EF];
+    unsigned short wProgressFlags;
+};
+
+struct D2GameListRecordStrc
+{
+    char szName[0x10];
+    char szDesc[0x22];
+    unsigned short wType;
+    char unk0x34[2];
+    unsigned int f_36;
+    char unk0x3A;
+};
+
+#pragma pack(pop)
+struct D2LaunchFuncsStrc
+{
+    char unk0x00[0x38];
+    int* (__fastcall* pfnGetGameList)(int nA, int nB, int nFlags, int nDifficulties);
+};
+
+extern D2LaunchFuncsStrc* gpLaunchFuncs_0077B09C; // 0x0077B09C
+extern D2LaunchCharInfoStrc* gpCharInfo_0077BBD8; // 0x0077BBD8
+extern D2GameListRecordStrc gtGameList_0077BDC9[]; // 0x0077BDC9
+int __fastcall sub_00442B20_IsCharOverLimit(const char* szText); // 0x00442B20
+void __fastcall D2Win_10050_TEXTBOX_SetLine(D2WinTextBoxStrc* pTextBox, int nLine); // 0x004FB9D0
+int __stdcall sub_00443540_IsNameChar(D2WinControlStrc* pControl, int nArg, const char* pChar); // 0x00443540
+void __cdecl sub_00443630_UpdateCreateButton(); // 0x00443630
+void __cdecl sub_004453B0_BuildPanel(); // 0x004453B0
+void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* pText, int nA, int nB, int nC); // 0x004FC9B0
+extern D2WinControlStrc* gpControl_00798C04; // 0x00798C04
+extern D2WinControlStrc* gpControl_00798C08; // 0x00798C08
+extern D2WinControlStrc* gpControl_00798C1C; // 0x00798C1C
+extern D2WinControlStrc* gpControl_00798C20; // 0x00798C20
+extern D2WinControlStrc* gpControl_00798C24; // 0x00798C24
+extern D2WinControlStrc* gpControl_00798C3C; // 0x00798C3C
+extern D2WinControlStrc* gpButton_00798C40; // 0x00798C40
+extern D2WinControlStrc* gpControl_00798C44; // 0x00798C44
+
+D2WinControlStrc* gpControl_00798CB0; // 0x00798CB0
+
+D2WinControlStrc* gpControl_00798CB4; // 0x00798CB4
+
+D2WinControlStrc* gpControl_00798CB8; // 0x00798CB8
+
+D2WinControlStrc* gpControl_00798CBC; // 0x00798CBC
+
+int gnValue_00798CC0; // 0x00798CC0
+
+// 0x00444020
+int __cdecl sub_00444020_CreateControls()
+{
+    sub_0043F8C0_ResetLaunchState();
+    int bExpansion = sub_0043DB10();
+    BUTTON_SetIsPressed(gpChatControl_0077B074, 0);
+    BUTTON_SetIsPressed(gpControlA_0077B070, 0);
+    BUTTON_SetIsPressed(gpControlB_0077B078, 0);
+    BUTTON_SetIsPressed(gpControlC_0077B07C, 0);
+    gpControl_00798CBC = CONTROL_Create(&gtControlInit_0070E9E0);
+    gpControl_00798CB0 = CONTROL_Create(&gtControlInit_0070EA10);
+    sub_004FD060_SetText(gpControl_00798CB0, D2LANG_GetStringFromTblIndex(bExpansion ? 0x14BC : 0x2AE));
+    gpControl_00798CB4 = CONTROL_Create(&gtControlInit_0070EA40);
+    if (!bExpansion)
+    {
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2AF));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2B0));
+        D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, bExpansion);
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2B1));
+        D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, bExpansion);
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2B2));
+        D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, bExpansion);
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2B3));
+        D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, bExpansion);
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2B4));
+        D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, bExpansion);
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2B5));
+        D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, bExpansion);
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2B6));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2B7));
+        D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, bExpansion);
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2B8));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2B34));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2B9));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2BA));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2BB));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2B35));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2BD));
+        D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, bExpansion);
+    }
+    sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2BE));
+    sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2BF));
+    D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+    sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2C0));
+    sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2C1));
+    D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+    sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2C2));
+    D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+    sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2C3));
+    D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+    sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2C4));
+    D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+    sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2C5));
+    D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+    sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2C6));
+    sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2C7));
+    D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+    sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2C8));
+    D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+    sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2C9));
+    sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2CA));
+    sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2CB));
+    D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+    sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2CC));
+    sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2CD));
+    sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2CE));
+    D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+    sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2CF));
+    sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2D0));
+    D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+    sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2D1));
+    D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+    sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2D2));
+    D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+    sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x276C));
+    D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+    sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x276D));
+    D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+    sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2D3));
+    D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+    if (!bExpansion)
+    {
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2D4));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2B26));
+        D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2B27));
+        D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2B28));
+        D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2714));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2715));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2DA));
+        D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2B21));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2B22));
+        D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2DB));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2DC));
+        D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2716));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2717));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2DF));
+        D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2718));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2719));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2E2));
+        D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2E3));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2E4));
+        D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2E5));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2E6));
+        D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2E7));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2E8));
+        D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2E9));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2EA));
+        D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x271A));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2EC));
+        D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2ED));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2EE));
+        D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x271B));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2F0));
+        D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x271C));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2F2));
+        D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2F3));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2F4));
+        D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x271D));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x271E));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2F7));
+        D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2F8));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2F9));
+        D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2FA));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2FB));
+        D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2FC));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2FD));
+        D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2FE));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2FF));
+        D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x300));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x301));
+        D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x271F));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x303));
+        D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x304));
+        D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x305));
+        D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x306));
+        D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x307));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x2B23));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x309));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x30A));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x30B));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x30C));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x30D));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x30E));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x30F));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x310));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x311));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x312));
+        sub_004FD060_SetText(gpControl_00798CB4, D2LANG_GetStringFromTblIndex(0x313));
+        D2Win_10046(gpControl_00798CB4, gszSpace_006FFC44, 0);
+    }
+    gpControl_00798CB8 = CONTROL_Create(&gtControlInit_0070EA70);
+    sub_004FA450_SetActive(gpControl_00798CB8);
+    gnValue_00798CC0 = 1;
+    D2Win_10053(gpControl_00798CB4, 0);
+    return 1;
+}
+
+#include "gen/data/Source/D2Multi/Unknown_00444020.inc"
+
+int gnGameCount_00798CCC; // 0x00798CCC
+
+static __forceinline int sub_00444E70_HasProgress(unsigned short wFlags, unsigned int nClassic, unsigned int nExpansion)
+{
+    if (wFlags & 0x20)
+        return (wFlags & 0x1F00u) >= nExpansion;
+    return (wFlags & 0x1F00u) >= nClassic;
+}
+
+static __forceinline char* sub_00444E70_NextString(char* p)
+{
+    D2_ASSERT(p, 0xAD);
+    while (*p)
+        ++p;
+    return p + 1;
+}
+
+// 0x00444E70
+void __cdecl sub_00444E70_FillGameList()
+{
+    int nFlags = 0;
+    int nDifficulties = 0;
+    if (gpCharInfo_0077BBD8->wProgressFlags & 4)
+    {
+        nFlags = 4;
+        nDifficulties = 4;
+    }
+    if (gpCharInfo_0077BBD8->wProgressFlags & 0x20)
+    {
+        nFlags |= 8;
+        nDifficulties |= 8;
+    }
+    if (!sub_00444E70_HasProgress(gpCharInfo_0077BBD8->wProgressFlags, 0x800, 0xA00))
+    {
+        if (sub_00444E70_HasProgress(gpCharInfo_0077BBD8->wProgressFlags, 0x400, 0x500))
+            nDifficulties |= 2;
+        else
+            nDifficulties |= 3;
+    }
+
+    char* p = (char*)gpLaunchFuncs_0077B09C->pfnGetGameList(0, 0, nFlags, nDifficulties);
+    if (p)
+    {
+        gnGameCount_00798CCC = *(int*)p;
+        p += 4;
+        int i = 0;
+        while (i < gnGameCount_00798CCC)
+        {
+            p += 0xC;
+            gtGameList_0077BDC9[i].wType = 1;
+            gtGameList_0077BDC9[i].f_36 = *(unsigned int*)p;
+            p += 0x14;
+            strcpy(gtGameList_0077BDC9[i].szName, p);
+            if (gpGameList_00798BC0)
+                sub_004FCF80_SetTextA(gpGameList_00798BC0, p);
+            p = sub_00444E70_NextString(p);
+            p = sub_00444E70_NextString(p);
+            if (sub_00442B20_IsCharOverLimit(p))
+            {
+                --gnGameCount_00798CCC;
+            }
+            else
+            {
+                strcpy(gtGameList_0077BDC9[i].szDesc, p + 1);
+                ++i;
+            }
+            p = sub_00444E70_NextString(p);
+        }
+    }
+
+    sub_00442C20_HandleList();
+}
+
+// 0x004450A0
+int __stdcall sub_004450A0_JoinNameKey(D2WinControlStrc* pControl, int nArg, const char* pChar)
+{
+    D2Win_10050_TEXTBOX_SetLine((D2WinTextBoxStrc*)gpGameList_00798BC0, -1);
+    return sub_00443540_IsNameChar(pControl, nArg, pChar);
+}
+
+// 0x004450C0
+int __stdcall sub_004450C0_JoinNameEnter(int nArg)
+{
+    sub_004437E0_UpdateButtonState();
+    return 1;
+}
+
+// 0x00445530
+int __stdcall sub_00445530_ResetBuildPanel(int nArg)
+{
+    sub_0043F8C0_ResetLaunchState();
+    sub_004453B0_BuildPanel();
+    return 1;
+}
+
+// 0x004456A0
+int __stdcall sub_004456A0_OnEnter(int nArg)
+{
+    sub_00443630_UpdateCreateButton();
+    return 1;
+}
+
+// 0x004456B0
+int __stdcall sub_004456B0_OnEnter(int nArg)
+{
+    sub_00443630_UpdateCreateButton();
+    return 1;
+}
+
+// 0x004456C0
+int __stdcall sub_004456C0_OnEnter(int nArg)
+{
+    sub_00443630_UpdateCreateButton();
+    return 1;
+}
+
+// 0x004451C0
+void __cdecl sub_004451C0_UpdateLevelControls()
+{
+    if (sub_00500960_IsPressed(gpButton_00798C40))
+    {
+        sub_004F9740_SetControlState(gpControl_00798C44, 0);
+        sub_004F9740_SetControlState(gpControl_00798C24, 0);
+        sub_004F9740_SetControlState(gpControl_00798C1C, 1);
+        sub_004F9740_SetControlState(gpControl_00798C20, 1);
+        sub_004F96F0_ControlClearState(gpControl_00798C3C, 1);
+        sub_004F96F0_ControlClearState(gpControl_00798C1C, 1);
+        sub_004F96F0_ControlClearState(gpControl_00798C20, 1);
+        sub_004FC9B0_SetText(gpControl_00798C04, D2LANG_GetStringFromTblIndex(0x148B), 4, 0, 0);
+        sub_004FC9B0_SetText(gpControl_00798C08, D2LANG_GetStringFromTblIndex(0x148C), 4, 0, 0);
+    }
+    else
+    {
+        sub_004F9740_SetControlState(gpControl_00798C44, 1);
+        sub_004F9740_SetControlState(gpControl_00798C24, 1);
+        sub_004F9740_SetControlState(gpControl_00798C1C, 0);
+        sub_004F9740_SetControlState(gpControl_00798C20, 0);
+        sub_004F96F0_ControlClearState(gpControl_00798C3C, 0);
+        sub_004F96F0_ControlClearState(gpControl_00798C1C, 0);
+        sub_004F96F0_ControlClearState(gpControl_00798C20, 0);
+        sub_004FC9B0_SetText(gpControl_00798C04, D2LANG_GetStringFromTblIndex(0x148B), 5, 0, 0);
+        sub_004FC9B0_SetText(gpControl_00798C08, D2LANG_GetStringFromTblIndex(0x148C), 5, 0, 0);
+    }
+    sub_00443630_UpdateCreateButton();
+}
