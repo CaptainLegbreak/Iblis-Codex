@@ -8,8 +8,8 @@ Generated from the build data. Every address below is a virtual address in the 1
 | Verified (built from source) | 14916 (2,601,688 bytes) |
 | Unmatched (taken from your Game.exe) | 11 (12,434 bytes) |
 | Function bytes verified | 99.524 % |
-| Game.exe bytes built from source (code, generated data, runtime, imports, linker output, padding) | 3,578,379 of 3,618,792 (98.88 %) |
-| Game.exe bytes taken from your Game.exe (unmatched code, undefined data, resources, stamps, signature) | 40,413 |
+| Game.exe bytes built from source (code, generated data, runtime, imports, linker output, padding) | 3,578,383 of 3,618,792 (98.88 %) |
+| Game.exe bytes taken from your Game.exe (unmatched code, undefined data, resources, stamps, signature) | 40,409 |
 | Output SHA-256 equals the original | yes |
 | Names: blizzard / d2moo / placeholder | 173 / 4394 / 10360 |
 
@@ -17,14 +17,14 @@ Bytes of the built Game.exe by origin:
 
 | Origin | Bytes |
 |---|---:|
-| game code and data compiled from Source/ | 2,686,988 |
+| game code and data compiled from Source/ | 2,686,992 |
 | initialised data generated from your Game.exe (build/data_plan.json) | 362,543 |
 | C runtime (libcmt.lib, placed by identity) | 239,696 |
 | import thunks and the import address table | 3,782 |
 | headers, import and export tables, relocations, checksum | 163,407 |
 | alignment padding | 121,963 |
 | code taken from your Game.exe (unmatched functions) | 12,434 |
-| data no source defines yet, taken from your Game.exe | 15,691 |
+| data no source defines yet, taken from your Game.exe | 15,687 |
 | resources (from your Game.exe) | 5,888 |
 | link timestamps, Rich header, debug directory | 272 |
 | Authenticode signature | 6,128 |
@@ -51,10 +51,14 @@ These have no verified source yet; the build takes their bytes from your Game.ex
 
 Functions whose source needs something the original source very likely did not have to produce the original bytes: a per-file compiler option other than the default (`build/config.json`), link-time code generation, a calling-convention shim for a register-argument function, or inline assembly.
 
-Not listed one by one: 2016 functions are compiled with `/GS-` and 61 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 2632 times and `__declspec(dllexport)` 178 times to keep a body out of line or emitted.
+Not listed one by one: 2332 functions are compiled with `/GS-` and 91 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 2580 times and `__declspec(dllexport)` 178 times to keep a body out of line or emitted.
 
 | Address | Name | Construct |
 |---|---|---|
+| 0x004013C0 | sub_004013C0_TerminateCurrentProcess | compiler option /EHa |
+| 0x004013D0 | sub_004013D0_GetCurrentProcessThreadCount | compiler option /EHa |
+| 0x00401690 | sub_00401690_GetCurrentThreadId | compiler option /EHa |
+| 0x00401740 | sub_00401740_SetText | compiler option /EHa |
 | 0x00401DF0 | sub_00401DF0_GetModuleFromAddr | calling-convention shim, link-time code generation (/GL /LTCG) |
 | 0x00401F10 | sub_00401F10_GetSymbolFromAddr | link-time code generation (/GL /LTCG) |
 | 0x004020D0 | sub_004020D0_GetLineFromAddr | calling-convention shim, link-time code generation (/GL /LTCG) |
@@ -65,19 +69,46 @@ Not listed one by one: 2016 functions are compiled with `/GS-` and 61 with `/EHs
 | 0x00402530 | sub_00402530_UnloadModule | link-time code generation (/GL /LTCG) |
 | 0x004025F0 | sub_004025F0_StackWalk | link-time code generation (/GL /LTCG) |
 | 0x004026D0 | sub_004026D0_WriteMiniDump | link-time code generation (/GL /LTCG) |
+| 0x004027C0 | sub_004027C0_DbgHelpThreadProc | compiler option /EHa |
 | 0x00402AE0 | sub_00402AE0_ShutdownSymbols | link-time code generation (/GL /LTCG) |
 | 0x00402D60 | sub_00402D60_FormatStackFrame | calling-convention shim, link-time code generation (/GL /LTCG) |
 | 0x00403100 | sub_00403100_PrintFrames | link-time code generation (/GL /LTCG) |
+| 0x00403F60 | sub_00403F60_SetCrashHandler | compiler option /EHa |
+| 0x00404210 | sub_00404210_CreateProcessUtf8 | compiler option /EHa |
 | 0x00404330 | sub_00404330_FileExistsUtf8 | compiler option /Oy, without /Oy- |
+| 0x00404560 | sub_00404560_UseWidePath | compiler option /EHa |
 | 0x00404AB0 | sub_00404AB0_VisitModule | compiler option /Oy |
 | 0x00404C60 | sub_00404C60_EnumModulesPsapi | compiler option /Oy, without /Oy- |
 | 0x00404DC0 | sub_00404DC0_EnumModulesToolhelp | compiler option /Oy, without /Oy- |
 | 0x00405250 | sub_00405250_DescribeAddress | link-time code generation (/GL /LTCG) |
+| 0x00406990 | sub_00406990_DeleteFile | compiler option /EHa |
+| 0x004069A0 | sub_004069A0_CloseFile | compiler option /EHa |
+| 0x00406B20 | sub_00406B20_AppendBackslash | compiler option /EHa |
+| 0x00406B60 | sub_00406B60_GetModuleDirectory | compiler option /EHa |
+| 0x00406BA0 | FOG_GetInstallPath | compiler option /EHa |
+| 0x00407360 | sub_00407360_GetSystemInfo | compiler option /EHa |
+| 0x00407440 | sub_00407440_JulianToDate | compiler option /EHa |
+| 0x00407960 | FOG_SetLogPrefix | compiler option /EHa |
+| 0x00408000 | sub_00408000_StripSourcePath | compiler option /EHa |
+| 0x00408050 | sub_00408050_Empty | compiler option /EHa |
+| 0x00408060 | sub_00408060_Empty | compiler option /EHa |
+| 0x00408070 | sub_00408070_Empty | compiler option /EHa |
+| 0x00408080 | sub_00408080_Empty | compiler option /EHa |
 | 0x00408090 | sub_00408090 | compiler option /Oy, without /Oy- |
+| 0x004080B0 | sub_004080B0_DebugPrintV | compiler option /EHa |
+| 0x004082A0 | sub_004082A0_DebugPrintf | compiler option /EHa |
+| 0x004082C0 | sub_004082C0_DebugPrintfLog | compiler option /EHa |
 | 0x004082E0 | sub_004082E0_CrashHandler | compiler option /EHa |
 | 0x00408660 | sub_00408660_ShowErrorReport | compiler option /EHa |
+| 0x00408900 | sub_00408900_RaiseErrorReport | compiler option /EHa |
 | 0x00409000 | sub_00409000_GetBitWidth | inline assembly |
 | 0x00409220 | sub_00409220_FindZeroBit | inline assembly |
+| 0x00409810 | sub_00409810_PoolFreeLarge | compiler option /EHa |
+| 0x0040A620 | FOG_AsyncDataLoadFileEx | compiler option /EHa |
+| 0x0040ABF0 | sub_0040ABF0_HeapSiftDown | compiler option /EHa |
+| 0x0040ACA0 | sub_0040ACA0_CalcCodeLengths | compiler option /EHa |
+| 0x0040B540 | sub_0040B540_DumpThreadStackAndCode | compiler option /EHa |
+| 0x0040D540 | sub_0040D540_SETranslator | compiler option /EHa |
 | 0x0040D7D0 | sub_0040D7D0_WalkCurrentStack | inline assembly |
 | 0x0040E250 | sub_0040E250_GetCpuVendor | inline assembly |
 | 0x0040E850 | sub_0040E850_ReadTimeStampCounter | inline assembly |
@@ -85,7 +116,19 @@ Not listed one by one: 2016 functions are compiled with `/GS-` and 61 with `/EHs
 | 0x0040E980 | sub_0040E980_GetCpuidEbxIfBrandIndexed | inline assembly |
 | 0x0040E9E0 | sub_0040E9E0_GetCpuidEdx | inline assembly |
 | 0x0040EB30 | ??3D2LogMessageStrc@@SAXPAX0@Z | compiler option /EHa |
+| 0x0040F000 | sub_0040F000_GetLogDirectory | compiler option /EHa |
+| 0x0040F3D0 | sub_0040F3D0_SweepLogFile | compiler option /EHa |
+| 0x0040F530 | ~sub_0040F530 | compiler option /EHa |
+| 0x0040F5A0 | sub_0040F5A0_SetLogPrefix | compiler option /EHa |
+| 0x0040F600 | sub_0040F600_MeasureLogFile | compiler option /EHa |
+| 0x0040F670 | sub_0040F670_ReadLogRange | compiler option /EHa |
+| 0x0040F720 | sub_0040F720_WriteMessage | compiler option /EHa |
+| 0x0040F7C0 | sub_0060E440_Head | compiler option /EHa |
+| 0x0040F7D0 | ~sub_0040F7D0 | compiler option /EHa |
+| 0x0040F810 | sub_0040F810 | compiler option /EHa |
 | 0x0040F820 | ~D2LogMsgLinkStrc | compiler option /EHa |
+| 0x0040F860 | sub_0060E5F0_Reset | compiler option /EHa |
+| 0x0040F960 | sub_0040F960_CloseLogFiles | compiler option /EHa |
 | 0x0040FAA0 | ~D2LogMsgNodeStrc | compiler option /EHa |
 | 0x0040FB50 | D2LogMsgListStrc | compiler option /EHa |
 | 0x0040FCB0 | D2LogMsgNodeStrc | compiler option /EHa |
@@ -98,12 +141,65 @@ Not listed one by one: 2016 functions are compiled with `/GS-` and 61 with `/EHs
 | 0x004101C0 | sub_004101C0_LogThreadProc | compiler option /EHa |
 | 0x004107B0 | sub_004107B0_AtomicStore64 | inline assembly |
 | 0x004107D0 | sub_004107D0_Read64Locked | inline assembly, naked function |
+| 0x00410C40 | sub_00410C40_OrBits | compiler option /EHa |
 | 0x00413A00 | sub_00413A00_VPrintf | calling-convention shim |
 | 0x00414B00 | sub_00414B00_SRegLoadEntry | calling-convention shim |
 | 0x00414DE0 | SRegLoadData | compiler option /GS |
 | 0x00414E50 | SRegLoadString | compiler option /GS |
+| 0x00417780 | sub_00417780 | compiler option /EHa |
+| 0x00417810 | ~sub_00417810 | compiler option /EHa |
+| 0x00417850 | sub_00417850 | compiler option /EHa |
+| 0x00417860 | ~sub_00417860 | compiler option /EHa |
+| 0x004178B0 | sub_004178B0 | compiler option /EHa |
+| 0x004178C0 | ~sub_004178C0 | compiler option /EHa |
+| 0x00417900 | ~sub_00417900 | compiler option /EHa |
+| 0x00417940 | sub_00417940 | compiler option /EHa |
+| 0x00417950 | ~sub_00417950 | compiler option /EHa |
+| 0x00417990 | sub_00417990 | compiler option /EHa |
+| 0x004179B0 | ~sub_004179B0 | compiler option /EHa |
+| 0x004183F0 | ~sub_004183F0 | compiler option /EHa |
+| 0x00418430 | ~sub_00418430 | compiler option /EHa |
+| 0x00418760 | sub_00418760 | compiler option /EHa |
+| 0x00418770 | sub_00418770 | compiler option /EHa |
+| 0x00418780 | ~sub_00418780 | compiler option /EHa |
+| 0x004187C0 | ~sub_004187C0 | compiler option /EHa |
+| 0x00418800 | ~sub_00418800 | compiler option /EHa |
+| 0x00418840 | ~sub_00418840 | compiler option /EHa |
+| 0x00418880 | ~sub_00418880 | compiler option /EHa |
+| 0x004188C0 | ~sub_004188C0 | compiler option /EHa |
+| 0x00418A40 | sub_00418A40 | compiler option /EHa |
+| 0x00418BA0 | ~sub_00418BA0 | compiler option /EHa |
+| 0x00418BE0 | ~sub_00418BE0 | compiler option /EHa |
+| 0x00418C20 | ~sub_00418C20 | compiler option /EHa |
+| 0x00418DE0 | sub_00418DE0 | compiler option /EHa |
+| 0x00418DF0 | sub_00418DF0 | compiler option /EHa |
+| 0x00418E00 | sub_00418E00 | compiler option /EHa |
+| 0x00418E10 | ~sub_00418E10 | compiler option /EHa |
+| 0x00418E50 | sub_00418E50 | compiler option /EHa |
+| 0x00418FF0 | sub_00418FF0 | compiler option /EHa |
+| 0x00419060 | sub_00419060 | compiler option /EHa |
+| 0x0041C3D0 | ~sub_0041C3D0 | compiler option /EHa |
+| 0x0041C4F0 | sub_0041C4F0 | compiler option /EHa |
+| 0x0041C500 | ~sub_0041C500 | compiler option /EHa |
+| 0x0041C720 | sub_0041C720 | compiler option /EHa |
+| 0x0041C730 | ~sub_0041C730 | compiler option /EHa |
+| 0x0041C7F0 | sub_0041C7F0 | compiler option /EHa |
+| 0x0041C800 | ~sub_0041C800 | compiler option /EHa |
 | 0x0041D7D0 | sub_0041D7D0_VerifySignature | compiler option /Ob1 |
+| 0x00420430 | ~sub_00420430 | compiler option /EHa |
+| 0x004204A0 | sub_004204A0 | compiler option /EHa |
+| 0x004204B0 | ~sub_004204B0 | compiler option /EHa |
+| 0x00420700 | sub_00420700 | compiler option /EHa |
+| 0x00420710 | ~sub_00420710 | compiler option /EHa |
+| 0x004207D0 | sub_004207D0 | compiler option /EHa |
+| 0x004207E0 | ~sub_004207E0 | compiler option /EHa |
 | 0x00421100 | sub_00421100_GetSelf | compiler option /Ob1 |
+| 0x00426960 | ~sub_00426960 | compiler option /EHa |
+| 0x00426A80 | ~sub_00426A80 | compiler option /EHa |
+| 0x00426CA0 | sub_00426CA0 | compiler option /EHa |
+| 0x00426CB0 | ~sub_00426CB0 | compiler option /EHa |
+| 0x00426D70 | sub_00426D70 | compiler option /EHa |
+| 0x00426D80 | ~sub_00426D80 | compiler option /EHa |
 | 0x00427420 | putShortMSB | compiler option /TC |
 | 0x00427450 | flush_pending | compiler option /TC |
 | 0x00427800 | longest_match | compiler option /TC |
@@ -139,17 +235,13 @@ Not listed one by one: 2016 functions are compiled with `/GS-` and 61 with `/EHs
 | 0x00442180 | sub_00442180_ReplyCommand | calling-convention shim |
 | 0x00446D30 | sub_00446D30_GetUserRank | calling-convention shim |
 | 0x00447FD0 | sub_00447FD0_UpdateUser | calling-convention shim |
-| 0x00451710 | sub_00451710_LoadRecord | compiler option /Ob1 |
 | 0x004549F0 | sub_004549F0_DrawHoverLine | calling-convention shim |
 | 0x00461DC0 | sub_00461DC0_InteractWithUnit | calling-convention shim |
 | 0x004623C0 | sub_004623C0_ClampTarget | calling-convention shim |
 | 0x00463260 | sub_00463260_UpdateStoredUnit | calling-convention shim |
-| 0x00464600 | sub_00464600_CanStartMode | compiler option /Ob1 |
 | 0x00467130 | sub_00467130_GetHoverCursorPos | calling-convention shim |
 | 0x00468750 | sub_00468750_SetCursorPos | compiler option /Ob1 |
 | 0x0046E040 | sub_0046E040_RemoveOverlay | calling-convention shim |
-| 0x004744B0 | sub_004744B0_FillLightGrid | compiler option /Ob1 |
-| 0x00474610 | sub_00474610_UpdateLightGrid | compiler option /Ob1 |
 | 0x00477060 | sub_00477060_BuildBloodShift | calling-convention shim |
 | 0x00479770 | sub_00479770_GetOrAddGroup | calling-convention shim |
 | 0x004814A0 | sub_004814A0_TryMonsterAction | calling-convention shim |
@@ -183,8 +275,8 @@ Not listed one by one: 2016 functions are compiled with `/GS-` and 61 with `/EHs
 | 0x005170E7 | sub_005170E7_GetModuleDirectory | calling-convention shim, compiler option /O1 |
 | 0x00517128 | sub_00517128_FindArchive | compiler option /O1 |
 | 0x00517299 | sub_00517299_FindAndOpenArchive | compiler option /O1 |
-| 0x00517332 | ARCHIVE_LoadMPQFile | compiler option /O1, compiler option /Ob1 |
-| 0x005173AC | sub_005173AC_Unload | compiler option /Os |
+| 0x00517332 | ARCHIVE_LoadMPQFile | compiler option /O1 |
+| 0x005173AC | sub_005173AC_Unload | compiler option /O1 |
 | 0x005173EF | sub_005173EF_FatalBox | compiler option /Os |
 | 0x0051740B | sub_0051740B_ErrorBox | compiler option /Os |
 | 0x00517423 | FaultDoAssert | compiler option /O1 |
@@ -227,9 +319,7 @@ Not listed one by one: 2016 functions are compiled with `/GS-` and 61 with `/EHs
 | 0x00540DF0 | EVENT_AllocateUnitTimer | calling-convention shim |
 | 0x00542E10 | sub_00542E10_CompressInactiveUnit | compiler option /GS |
 | 0x005485B0 | sub_005485B0_GetPoisonedLifePercent | calling-convention shim |
-| 0x0054D130 | sub_0054D130_TakeMercItemToCursor | compiler option /Ob1 |
 | 0x005502F0 | sub_005502F0_CanPlace | calling-convention shim |
-| 0x0055CF50 | D2GAME_PickupItemEx_6FC42B80 | compiler option /Ob1 |
 | 0x0055DBC0 | D2GAME_RemoveItem_6FC471F0 | compiler option /Ob1 |
 | 0x005697F0 | PLRSAVE2_WriteCorpsesSection | compiler option /Ob1 |
 | 0x0056EDE0 | D2GAME_CreateMissile_6FD115E0 | compiler option /Ob1 |
@@ -333,21 +423,11 @@ Not listed one by one: 2016 functions are compiled with `/GS-` and 61 with `/EHs
 | 0x00681560 | sub_00681560 | calling-convention shim |
 | 0x006B2F30 | sub_006B2F30_SetGlobal | compiler option /Ob1 |
 | 0x006B2F40 | sub_006B2F40_CloseKey | compiler option /Ob1 |
-| 0x006B5990 | sub_006B5990_Shutdown | compiler option /Ob1 |
-| 0x006B5B10 | sub_006B5B10_ReleaseSprites | compiler option /Ob1 |
 | 0x006B6700 | sub_006B6700_IsOutsideScreen | calling-convention shim |
-| 0x006B7090 | sub_006B7090_DrawCel | compiler option /Ob1 |
 | 0x006B7630 | sub_006B7630_DrawTextV | compiler option /Ob1 |
 | 0x006B9EB0 | sub_006B9EB0_CopyBlock | calling-convention shim |
 | 0x006BA5C0 | sub_006BA5C0_Append | compiler option /Ob1 |
-| 0x006BA600 | sub_006BA600_PopInUse | compiler option /Ob1 |
-| 0x006BA630 | sub_006BA630_PopSpare | compiler option /Ob1 |
 | 0x006BAB30 | sub_006BAB30_Append | compiler option /Ob1 |
-| 0x006BAB50 | sub_006BAB50_AppendSpare | compiler option /Ob1 |
-| 0x006BAB70 | sub_006BAB70_PopInUse | compiler option /Ob1 |
-| 0x006BABA0 | sub_006BABA0_PopSpare | compiler option /Ob1 |
-| 0x006BB150 | sub_006BB150_AppendInUse | compiler option /Ob1 |
-| 0x006BB170 | sub_006BB170_AppendSpare | compiler option /Ob1 |
 | 0x006BBF60 | sub_006BBF60_DecodeBase255 | compiler option /Ob1 |
 | 0x006BBFA0 | sub_006BBFA0_EncodeBase255 | compiler option /Ob1 |
 | 0x006BC290 | sub_006BC290_SetValues | compiler option /Ob1 |
@@ -371,14 +451,12 @@ Not listed one by one: 2016 functions are compiled with `/GS-` and 61 with `/EHs
 | 0x006BF1F0 | sub_006BF1F0_Release | calling-convention shim |
 | 0x006BF250 | sub_006BF250_Nop | compiler option /Ob1 |
 | 0x006BF320 | sub_006BF320_FreePending | calling-convention shim |
-| 0x006BFAD0 | sub_006BFAD0_BroadcastToAllClients | compiler option /Ob1 |
 | 0x006C0140 | sub_006C0140_SendToKey | calling-convention shim |
 | 0x006C0420 | sub_006C0420_DisconnectClient | compiler option /EHa |
 | 0x006C19C0 | DATATBLS_ExpressionBuffer_PushRawConstant | calling-convention shim |
 | 0x006C1A50 | DATATBLS_ExpressionBuffer_PushCallbackConstant | calling-convention shim |
 | 0x006C1FD0 | sub_006C1FD0_GetLocked | compiler option /Ob1 |
 | 0x006C23B0 | sub_006C23B0_QueueMessage | calling-convention shim |
-| 0x006C3030 | sub_006C3030_ReleaseSlot | compiler option /Ob1 |
 | 0x006C3DA0 | sub_006C3DA0_SetName | calling-convention shim |
 | 0x006C4010 | sub_006C4010_Head | compiler option /Ob1 |
 | 0x006C4040 | NextLink | compiler option /Ob1 |
