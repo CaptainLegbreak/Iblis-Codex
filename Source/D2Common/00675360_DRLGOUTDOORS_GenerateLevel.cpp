@@ -1,0 +1,236 @@
+struct D2SeedStrc
+{
+    unsigned int nLowSeed;
+    unsigned int nHighSeed;
+};
+
+struct D2DrlgGridStrc
+{
+    int unk_00[5];
+};
+
+struct D2DrlgCoordStrc
+{
+    int nPosX;
+    int nPosY;
+    int nWidth;
+    int nHeight;
+};
+
+struct D2DrlgVertexStrc
+{
+    int nPosX;
+    int nPosY;
+    unsigned char nDirection;
+    unsigned char pad0x09[3];
+    int dwFlags;
+    D2DrlgVertexStrc* pNext;
+};
+
+struct D2DrlgOrthStrc;
+
+struct D2DrlgOutdoorInfoStrc
+{
+    unsigned int dwFlags;
+    D2DrlgGridStrc pGrid[4];
+    void* pRoomData;
+    int nRoomData;
+    int nGridWidth;
+    int nGridHeight;
+    D2DrlgVertexStrc* pVertex;
+    char unk_068[0x1FC];
+    D2DrlgOrthStrc* pOrth;
+};
+
+struct D2DrlgStrc
+{
+    char unk_000[0x478];
+    void* pMempool;
+};
+
+struct D2DrlgLevelStrc
+{
+    int unk_000[5];
+    D2DrlgOutdoorInfoStrc* pOutdoors;
+    int unk_018;
+    D2DrlgCoordStrc pLevelCoords;
+    char unk_02C[0x188];
+    D2DrlgStrc* pDrlg;
+    char unk_1B8[0x08];
+    int nLevelType;
+    D2SeedStrc pSeed;
+    char unk_1CC[0x04];
+    int nLevelId;
+};
+
+struct D2DrlgMapStrc;
+struct D2DrlgRoomStrc;
+
+int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY); // 0x0067C570
+D2DrlgMapStrc* __fastcall DRLGPRESET_AllocDrlgMap(D2DrlgLevelStrc* pLevel, int nLvlPrestId, D2DrlgCoordStrc* pDrlgCoord, D2SeedStrc* pSeed); // 0x00666ED0
+int __fastcall DRLGPRESET_SetPickedFileInDrlgMap(D2DrlgMapStrc* pDrlgMap, int nPickedFile); // 0x00666EC0
+D2DrlgRoomStrc* __fastcall DRLGPRESET_BuildArea(D2DrlgLevelStrc* pLevel, D2DrlgMapStrc* pDrlgMap, int nFlags, int bSingleRoom); // 0x00667ED0
+D2DrlgRoomStrc* __fastcall sub_0067D540(D2DrlgLevelStrc* pLevel, int nX, int nY, int nWidth, int nHeight, unsigned int dwRoomFlags, unsigned int dwOutdoorFlags, int nOutdoor58, int nRoom50); // 0x0067D540
+
+static __forceinline int sub_006750F0_GetLevelRoomFlags(int nLevelType)
+{
+    int nFlags = 0;
+    switch (nLevelType)
+    {
+    case 2:
+        nFlags = 0x44103;
+        break;
+    case 16:
+    case 22:
+    case 27:
+    case 28:
+        nFlags = 1;
+        break;
+    case 21:
+        nFlags = 4;
+        break;
+    case 30:
+    case 31:
+        nFlags = 0x11;
+        break;
+    }
+    return nFlags;
+}
+
+static __declspec(noinline) void sub_006750F0_SpawnPresetsAndRooms(D2DrlgLevelStrc* pLevel);
+
+// build: context sub_006750F0_SpawnPresetsAndRooms
+static void sub_006750F0_SpawnPresetsAndRooms(D2DrlgLevelStrc* pLevel)
+{
+    D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
+    const int nLevelFlags = sub_006750F0_GetLevelRoomFlags(pLevel->nLevelType);
+
+    int nPosY = pLevel->pLevelCoords.nPosY;
+    for (int nY = 0; nY < pOutdoors->nGridHeight; ++nY)
+    {
+        int nPosX = pLevel->pLevelCoords.nPosX;
+        for (int nX = 0; nX < pOutdoors->nGridWidth; ++nX)
+        {
+            const int nRoomFlags = DRLGGRID_GetGridEntry(&pOutdoors->pGrid[1], nX, nY);
+            const unsigned int dwCellFlags = DRLGGRID_GetGridEntry(&pOutdoors->pGrid[2], nX, nY);
+            if (dwCellFlags & 0x200)
+            {
+                const int nLvlPrestId = DRLGGRID_GetGridEntry(&pOutdoors->pGrid[0], nX, nY);
+                if (nLvlPrestId)
+                {
+                    D2DrlgCoordStrc tDrlgCoord;
+                    tDrlgCoord.nPosX = nPosX;
+                    tDrlgCoord.nPosY = nPosY;
+                    tDrlgCoord.nWidth = 0;
+                    tDrlgCoord.nHeight = 0;
+                    D2DrlgMapStrc* pDrlgMap = DRLGPRESET_AllocDrlgMap(pLevel, nLvlPrestId, &tDrlgCoord, &pLevel->pSeed);
+                    DRLGPRESET_SetPickedFileInDrlgMap(pDrlgMap, (dwCellFlags >> 16) & 0xF);
+                    DRLGPRESET_BuildArea(pLevel, pDrlgMap, nRoomFlags, 0);
+                }
+            }
+            else if (!(dwCellFlags & 0x100))
+            {
+                sub_0067D540(pLevel, nPosX, nPosY, 8, 8, nRoomFlags, dwCellFlags, DRLGGRID_GetGridEntry(&pOutdoors->pGrid[3], nX, nY), nLevelFlags);
+            }
+
+            nPosX += 8;
+        }
+
+        nPosY += 8;
+    }
+}
+
+void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
+
+// 0x00675080
+static __declspec(noinline) void sub_00675080_ScaleAndMergeVertices(void* pMemPool, D2DrlgVertexStrc** ppVertex)
+{
+    D2DrlgVertexStrc* pVertex = *ppVertex;
+    do
+    {
+        pVertex->nPosX /= 8;
+        pVertex->nPosY /= 8;
+        pVertex = pVertex->pNext;
+    }
+    while (pVertex != *ppVertex);
+
+    do
+    {
+        D2DrlgVertexStrc* pNextVertex = pVertex->pNext;
+
+        if (pVertex->nPosX == pNextVertex->nPosX && pVertex->nPosY == pNextVertex->nPosY)
+        {
+            if (pNextVertex == *ppVertex)
+            {
+                *ppVertex = pVertex;
+            }
+
+            pVertex->pNext = pNextVertex->pNext;
+            pVertex->dwFlags |= pNextVertex->dwFlags;
+            pVertex->nDirection = pNextVertex->nDirection;
+            FOG_FreeServerMemory(pMemPool, pNextVertex, ".\\DRLG\\Outdoors.cpp", 715, 0);
+        }
+
+        pVertex = pVertex->pNext;
+    }
+    while (pVertex != *ppVertex);
+}
+
+unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId);                                             // 0x006427F0
+void __fastcall DRLGGRID_InitializeGridCells(void* pMemPool, D2DrlgGridStrc* pGrid, int nWidth, int nHeight);  // 0x0067CB80
+void __fastcall DRLGVER_CreateVertices(void* pMemPool, D2DrlgVertexStrc** ppVertices, D2DrlgCoordStrc* pDrlgCoord, unsigned char nDirection, D2DrlgOrthStrc* pDrlgOrth); // 0x0067D050
+void __fastcall sub_0067E600(D2DrlgLevelStrc* pLevel);                                            // 0x0067E600
+void __fastcall sub_0067E890(D2DrlgLevelStrc* pLevel);                                            // 0x0067E890
+void __fastcall sub_0067F450(D2DrlgLevelStrc* pLevel);                                  // 0x0067F450
+void __fastcall DRLGOUTDESR_InitAct2OutdoorLevel(D2DrlgLevelStrc* pLevel);                                  // 0x0067F980
+void __fastcall DRLGOUTWILD_InitAct1OutdoorLevel(D2DrlgLevelStrc* pLevel);                                  // 0x006807F0
+
+// 0x00675360
+void __fastcall DRLGOUTDOORS_GenerateLevel(D2DrlgLevelStrc* pLevel)
+{
+    void* pMemPool = pLevel->pDrlg->pMempool;
+    D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
+
+    pOutdoors->pRoomData = 0;
+    pOutdoors->nRoomData = 0;
+    pOutdoors->nGridWidth = pLevel->pLevelCoords.nWidth / 8;
+    pOutdoors->nGridHeight = pLevel->pLevelCoords.nHeight / 8;
+
+    const int nGridWidth = pOutdoors->nGridWidth;
+    const int nGridHeight = pOutdoors->nGridHeight;
+    DRLGGRID_InitializeGridCells(pMemPool, &pOutdoors->pGrid[0], nGridWidth, nGridHeight);
+    DRLGGRID_InitializeGridCells(pMemPool, &pOutdoors->pGrid[1], nGridWidth, nGridHeight);
+    DRLGGRID_InitializeGridCells(pMemPool, &pOutdoors->pGrid[2], nGridWidth, nGridHeight);
+    DRLGGRID_InitializeGridCells(pMemPool, &pOutdoors->pGrid[3], nGridWidth, nGridHeight);
+
+    unsigned char nAct = DRLG_GetActNoFromLevelId(pLevel->nLevelId);
+
+    DRLGVER_CreateVertices(pMemPool, &pOutdoors->pVertex, &pLevel->pLevelCoords, 0, pOutdoors->pOrth);
+    sub_00675080_ScaleAndMergeVertices(pMemPool, (D2DrlgVertexStrc**)&pOutdoors->pVertex);
+
+    if (pLevel->nLevelId == 134)
+    {
+        nAct = 1;
+    }
+
+    switch (nAct)
+    {
+    case 0:
+        DRLGOUTWILD_InitAct1OutdoorLevel(pLevel);
+        break;
+    case 1:
+        DRLGOUTDESR_InitAct2OutdoorLevel(pLevel);
+        break;
+    case 2:
+        sub_0067F450(pLevel);
+        break;
+    case 3:
+        sub_0067E890(pLevel);
+        break;
+    case 4:
+        sub_0067E600(pLevel);
+        break;
+    }
+
+    sub_006750F0_SpawnPresetsAndRooms(pLevel);
+}

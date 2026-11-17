@@ -1,0 +1,59 @@
+struct T004013C0
+{
+    int unk0x00;
+    int nPlatform;
+    char unk0x08[0x04];
+    unsigned int nTotalMemory;
+};
+
+extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
+extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
+extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
+extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
+#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
+extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
+
+T004013C0* __cdecl sub_00407360_GetSystemInfo();                                                     // 0x00407360
+int __stdcall SRegLoadData(const char* szKeyName, const char* szValueName, unsigned int nFlags, void* pBuffer, unsigned int nBufferSize, unsigned int* pnBytesRead); // 0x00414DE0
+int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned int nBufferSize); // 0x00414E50
+int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
+
+extern const unsigned int gdwBitMasks[32];                                                                  // 0x006CE268
+unsigned long gdwVideoFlags_00881140;                                                                       // 0x00881140
+extern unsigned char gabDDrawDeviceGuid_00881144[16];                                                       // 0x00881144
+char gszDDrawDeviceName_00881154[256];                                                                      // 0x00881154
+int gbDDrawPlatformFlag_0088125C;                                                                           // 0x0088125C
+
+// 0x00510020
+int __fastcall sub_00510020_DDrawDetect(void* hInstance)
+{
+    T004013C0* pSystemInfo = sub_00407360_GetSystemInfo();
+    D2_ASSERT(pSystemInfo, 0x6F);
+
+    if (pSystemInfo->nPlatform == 1)
+    {
+        gbDDrawPlatformFlag_0088125C = 1;
+    }
+
+    char szKey[] = "Diablo II\\VideoConfig";
+    if (SRegLoadString(szKey, "DeviceName", 0, gszDDrawDeviceName_00881154, sizeof(gszDDrawDeviceName_00881154))
+        && SRegLoadValue(szKey, "dwFlags", 0, &gdwVideoFlags_00881140))
+    {
+        if (gdwVideoFlags_00881140 & gdwBitMasks[0])
+        {
+            return 1;
+        }
+
+        unsigned int nSize = sizeof(gabDDrawDeviceGuid_00881144);
+        if (SRegLoadData(szKey, "GUID", 0, gabDDrawDeviceGuid_00881144, sizeof(gabDDrawDeviceGuid_00881144), &nSize)
+            && nSize == sizeof(gabDDrawDeviceGuid_00881144))
+        {
+            return 1;
+        }
+    }
+
+    strcpy(gszDDrawDeviceName_00881154, "Fallback DirectDraw Device");
+    gdwVideoFlags_00881140 = gdwBitMasks[0];
+    return 1;
+}

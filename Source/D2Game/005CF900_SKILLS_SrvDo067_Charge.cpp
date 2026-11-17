@@ -1,0 +1,154 @@
+struct D2SkillStrc;
+struct D2AnimSeqTxt;
+struct D2UnitStrc { int dwUnitType; int dwClassId; int unk08; int dwUnitId; char pad10[0x34]; int dwSeqFrame; char pad48[0x7C]; unsigned int dwFlags; };
+struct D2GameStrc { char pad00[0xA8]; int dwGameFrame; };
+struct D2SkillsTxt { char pad00[0x138]; unsigned int dwCalc[4]; char pad148[0x5D]; unsigned char nSrcDam; char pad1A6[0x36]; unsigned char nEType; char pad1DD[0x5F]; };
+struct D2DataTablesStrc { char pad00[0xB98]; D2SkillsTxt* pSkillsTxt; int unkB9C; int nSkillsTxtRecordCount; };
+struct D2DamageStrc { unsigned int dwHitFlags; unsigned short wResultFlags; unsigned short wExtra; int dwPhysDamage; int dwEnDmgPct; int pad10[20]; unsigned int dwHitClass; unsigned char nHitClassActiveSet; unsigned char nConvType; unsigned short unk66; int dwConvPct; int nOverlay; };
+extern D2DataTablesStrc* sgptDataTables; // 0x00744304
+extern "C" void* __cdecl memset(void*, int, unsigned int);
+int __fastcall sub_00463860_GetClassId(D2UnitStrc* pUnit); // 0x00463860
+int __fastcall sub_00463900_GetBaseId(int nClassId); // 0x00463900
+void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUnit, int nType, int nCustom); // 0x00540E60
+void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nType, int nFrame, int nCustom, int nParam); // 0x005417D0
+D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nType, int nId); // 0x00552F60
+void __fastcall D2GAME_SKILLS_RewindSkillEx_6FCBD260(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode); // 0x00553DC0
+int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
+D2UnitStrc* __fastcall sub_6FD107F0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nRange, unsigned int nFilter, int nId, int* pArg); // 0x0056BD10
+int __fastcall D2GAME_RollElementalDamage_6FD14DD0(D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel); // 0x0056E0C0
+void __fastcall sub_00571B70_SkillUpdate(D2UnitStrc* pUnit, int nSkillId); // 0x00571B70
+void __fastcall SUNITDMG_DrainItemDurability(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int nUnused); // 0x0057D4F0
+void __fastcall SUNITDMG_AllocCombat(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, D2DamageStrc* pDamage, unsigned char nSrcDam); // 0x0057DBF0
+unsigned short __fastcall SUNITDMG_GetResultFlags(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int nToHit); // 0x0057EC10
+void __fastcall sub_6FC627B0(D2UnitStrc* pUnit, int nMode); // 0x005A4F50
+int __fastcall sub_005CF8C0_GetChargeFrame(D2UnitStrc* pUnit); // 0x005CF8C0
+D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
+void __stdcall UNITS_SetOverlay(D2UnitStrc* pUnit, int nOverlay, int nUnused); // 0x00621E40
+int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nBonus); // 0x00622C40
+int __stdcall SKILLS_GetParam1(D2SkillStrc* pSkill); // 0x006444A0
+int __stdcall SKILLS_GetParam2(D2SkillStrc* pSkill); // 0x006444D0
+void __stdcall SKILLS_SetParam1(D2SkillStrc* pSkill, int nValue); // 0x00644560
+void __stdcall SKILLS_SetParam2(D2SkillStrc* pSkill, int nValue); // 0x006445A0
+void __stdcall SKILLS_SetFlags(D2SkillStrc* pSkill, int nFlags); // 0x00644660
+int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
+int __stdcall SKILLS_GetToHitFactor(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nUnused); // 0x006449F0
+int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
+D2AnimSeqTxt* __stdcall DATATBLS_GetMonSeqTxtRecordFromUnit(D2UnitStrc* pUnit); // 0x006633B0
+int __stdcall DATATBLS_GetSeqFrameCount(D2UnitStrc* pUnit); // 0x006633F0
+static __forceinline D2SkillsTxt* GetSkillsRecord(int nSkillId)
+{
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount) return &sgptDataTables->pSkillsTxt[nSkillId];
+    return 0;
+}
+static __forceinline int GetUnitType(D2UnitStrc* pUnit) { int nType = 6; if (pUnit) nType = pUnit->dwUnitType; return nType; }
+static __forceinline int GetUnitId(D2UnitStrc* pUnit) { int nId = -1; if (pUnit) nId = pUnit->dwUnitId; return nId; }
+// 0x005CF900
+int __fastcall SKILLS_SrvDo067_Charge(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pRecord = GetSkillsRecord(nSkillId);
+    if (!pRecord) return 0;
+    D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
+    if (!pSkill) return 0;
+    if (DATATBLS_GetMonSeqTxtRecordFromUnit(pUnit)) DATATBLS_GetSeqFrameCount(pUnit);
+    int nFrame = sub_005CF8C0_GetChargeFrame(pUnit);
+    int nTargetType = SKILLS_GetParam1(pSkill);
+    int nTargetId = SKILLS_GetParam2(pSkill);
+    D2UnitStrc* pTarget = 0;
+    if (nTargetType != 6) pTarget = SUNIT_GetServerUnit(pGame, nTargetType, nTargetId);
+    int nFlags = SKILLS_GetFlags(pSkill);
+    if (nFlags & 1)
+    {
+        int nRange = 0;
+        if (pUnit && pUnit->dwUnitType == 1 && (nFlags & 2)) nRange = 3;
+        if (pTarget && UNITS_IsInMeleeRange(pUnit, pTarget, nRange))
+        {
+            SKILLS_SetFlags(pSkill, 0);
+            D2GAME_SKILLS_RewindSkillEx_6FCBD260(pGame, pUnit, nFrame + 1);
+            sub_00571B70_SkillUpdate(pUnit, nSkillId);
+            return 1;
+        }
+        if (nFlags & 2)
+        {
+            SKILLS_SetFlags(pSkill, 0);
+            sub_00571B70_SkillUpdate(pUnit, nSkillId);
+            pTarget = sub_6FD107F0(pGame, pUnit, 0, 0, 3, 3, nTargetId, 0);
+            if (pTarget && UNITS_IsInMeleeRange(pUnit, pTarget, 0))
+            {
+                SKILLS_SetParam1(pSkill, GetUnitType(pTarget));
+                SKILLS_SetParam2(pSkill, GetUnitId(pTarget));
+            }
+            else
+            {
+                if (!pUnit || pUnit->dwUnitType != 1 || sub_00463900_GetBaseId(sub_00463860_GetClassId(pUnit)) != 436 || sub_00463900_GetBaseId(sub_00463860_GetClassId(pUnit)) != 441)
+                {
+                    D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 1, 0);
+                    EVENT_SetEvent(pGame, pUnit, 1, pGame->dwGameFrame + 1, 0, 0);
+                }
+                return 0;
+            }
+        }
+        else
+        {
+            if (pGame->dwGameFrame - (pUnit->dwSeqFrame >> 8) >= nFrame)
+            {
+                D2GAME_SKILLS_RewindSkillEx_6FCBD260(pGame, pUnit, 0);
+                SKILLS_SetFlags(pSkill, 1);
+            }
+            D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 0, 0);
+            EVENT_SetEvent(pGame, pUnit, 0, pGame->dwGameFrame + 1, 1, 0);
+            pUnit->dwFlags &= ~0x40;
+        }
+        return 1;
+    }
+    SKILLS_SetFlags(pSkill, 0);
+    SKILLS_SetParam1(pSkill, 0);
+    SKILLS_SetParam2(pSkill, 0);
+    sub_00571B70_SkillUpdate(pUnit, nSkillId);
+    D2GAME_SKILLS_RewindSkillEx_6FCBD260(pGame, pUnit, nFrame);
+    if (pUnit) pUnit->dwFlags |= 0x40;
+    if (!pTarget)
+    {
+        pTarget = sub_6FD107F0(pGame, pUnit, 0, 0, 3, 3, -1, 0);
+        if (!pTarget)
+        {
+            D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 1, 0);
+            EVENT_SetEvent(pGame, pUnit, 1, pGame->dwGameFrame + 1, 0, 0);
+            return 0;
+        }
+    }
+    int nRange = 0;
+    if (pUnit && pUnit->dwUnitType == 1) nRange = 3;
+    if (UNITS_IsInMeleeRange(pUnit, pTarget, nRange) && !SUNIT_IsDead(pUnit))
+    {
+        D2DamageStrc damage;
+        memset(&damage, 0, sizeof(damage));
+        if (pUnit && pUnit->dwUnitType == 0)
+        {
+            damage.wResultFlags = SUNITDMG_GetResultFlags(pGame, pUnit, pTarget, SKILLS_GetToHitFactor(pUnit, nSkillId, nSkillLevel, 0)) | 8;
+        }
+        else damage.wResultFlags = 9;
+        damage.dwEnDmgPct = SKILLS_EvaluateSkillFormula(pUnit, pRecord->dwCalc[0], nSkillId, nSkillLevel);
+        if (pRecord->nEType > 0)
+        {
+            damage.dwConvPct = SKILLS_EvaluateSkillFormula(pUnit, pRecord->dwCalc[3], nSkillId, nSkillLevel);
+            if (damage.dwConvPct > 0) damage.nConvType = pRecord->nEType;
+        }
+        D2GAME_RollElementalDamage_6FD14DD0(pUnit, &damage, nSkillId, nSkillLevel);
+        if (pUnit && pUnit->dwUnitType == 1)
+        {
+            int nMode;
+            switch (sub_00463900_GetBaseId(pUnit->dwClassId))
+            {
+            case 73: nMode = 8; break;
+            case 211: case 436: nMode = 5; break;
+            default: nMode = 4; break;
+            }
+            sub_6FC627B0(pUnit, nMode);
+        }
+        damage.dwHitClass = 0x70;
+        SUNITDMG_AllocCombat(pGame, pUnit, pTarget, &damage, pRecord->nSrcDam);
+        SUNITDMG_DrainItemDurability(pGame, pUnit, pTarget, 0);
+        UNITS_SetOverlay(pTarget, 147, 0);
+    }
+    return 1;
+}

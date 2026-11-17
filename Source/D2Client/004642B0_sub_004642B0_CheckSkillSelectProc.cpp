@@ -1,0 +1,55 @@
+struct D2UnitStrc;
+
+struct D2SkillsTxt
+{
+    char unk0x00[0x15];
+    unsigned char nSelectProc;
+    char unk0x16[0x226];
+};
+
+struct D2DataTablesStrc
+{
+    char unk0x00[0xB98];
+    D2SkillsTxt* pSkillsTxt;
+    char unk0xB9C[0x04];
+    int nSkillsTxtRecordCount;
+};
+
+typedef int (__fastcall* SKILLSELECTPROC)(D2UnitStrc* pPlayer, D2UnitStrc* pTarget);
+
+extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
+extern SKILLSELECTPROC gpfSkillSelectProcs_00711F34[];                                                      // 0x00711F34
+extern int gnSkillSelectProcs_00711F50;                                                                     // 0x00711F50
+int __stdcall sub_O05_EmitArg_SkillId(D2UnitStrc* pUnit);
+
+inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord_Inl(int nSkillId)
+{
+    return nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount ? &sgptDataTables->pSkillsTxt[nSkillId] : 0;
+}
+
+// 0x004642B0
+static int __stdcall sub_004642B0_CheckSkillSelectProc(D2UnitStrc* pPlayer, D2UnitStrc* pTarget, int nSkillId)
+{
+    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord_Inl(nSkillId);
+    if (pSkillsTxtRecord && pSkillsTxtRecord->nSelectProc > 0 && pSkillsTxtRecord->nSelectProc < gnSkillSelectProcs_00711F50)
+    {
+        if (gpfSkillSelectProcs_00711F34[pSkillsTxtRecord->nSelectProc](pPlayer, pTarget))
+        {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+int __stdcall sub_O05_Emit_004642B0(D2UnitStrc* pPlayer, D2UnitStrc* pTarget)
+{
+    if (sub_004642B0_CheckSkillSelectProc(pPlayer, pTarget, sub_O05_EmitArg_SkillId(pPlayer)))
+    {
+        return 1;
+    }
+
+    return sub_004642B0_CheckSkillSelectProc(pPlayer, pTarget, sub_O05_EmitArg_SkillId(pTarget)) != 0;
+}
+
+#include "gen/data/Source/D2Client/004642B0_sub_004642B0_CheckSkillSelectProc.inc"

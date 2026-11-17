@@ -1,0 +1,354 @@
+extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
+extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
+extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
+extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
+#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
+extern "C" const char szSubTileFile[];                                                                      // 0x006E61F8
+
+void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);                               // 0x0040B380
+int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0
+void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);           // 0x0040B430
+int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0);            // 0x0040B480
+unsigned int __stdcall SStrHash(const char* szString, unsigned int nFlags, unsigned int nSeed);             // 0x00413CE0
+extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
+extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);                          // 0x006829C0
+extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
+
+struct D2CmpTileStrc;
+struct D2CmpTileProjectStrc;
+
+int __fastcall sub_0060D040_LookupTilesInProject(D2CmpTileProjectStrc* pProject, D2CmpTileStrc** ppTiles, int nMaxTiles, int nOrientation, int nMainIndex, int nSubIndex); // 0x0060D040
+
+// 0x00604AE0
+int __stdcall D2CMP_GetTiles(D2CmpTileProjectStrc** ppProjects, int nOrientation, int nMainIndex, int nSubIndex, D2CmpTileStrc** ppTiles, int nMaxTiles)
+{
+    D2_ASSERT(ppProjects, 0x5D);
+    int nFound = 0;
+    int nLeft = nMaxTiles;
+    for (int i = 0; i < 0x20; i++)
+    {
+        if (!ppProjects[i])
+            break;
+        int n = sub_0060D040_LookupTilesInProject(ppProjects[i], &ppTiles[nFound], nLeft, nOrientation, nMainIndex, nSubIndex);
+        nLeft -= n;
+        nFound += n;
+        if (!nLeft)
+            return nMaxTiles;
+    }
+    return nMaxTiles - nLeft;
+}
+
+void* __stdcall sub_00606930_BuildTables(void* pSource);                                                   // 0x00606930
+
+// 0x006069F0
+void* __stdcall sub_006069F0_BuildTablesWithSize(void* pSource, int* pSize)
+{
+    *pSize = 0x6C327;
+    return sub_00606930_BuildTables(pSource);
+}
+
+struct D2CmpTileSubStrc
+{
+    int unk0x00;
+    int unk0x04;
+    short unk0x08;
+    unsigned short nSize;
+    int unk0x0C;
+    char* pData;
+};
+
+struct D2CmpTileBlockStrc
+{
+    char unk0x00[0x48];
+    int f_48;
+    int unk0x4C;
+    int nSubs;
+    D2CmpTileSubStrc* pSubs;
+    char* pName;
+    void* pExtra;
+};
+
+struct D2CmpTileLibraryStrc
+{
+    int nVersion;
+    unsigned int dwFlags;
+    char szName[0x104];
+    int nBlocks;
+    D2CmpTileBlockStrc* pBlocks;
+};
+
+void __fastcall sub_005FE080_ReleaseBlockCaches(D2CmpTileLibraryStrc* pLibrary);                            // 0x005FE080
+
+// 0x00609E90
+void __stdcall sub_00609E90_FreeTileLibrary(D2CmpTileLibraryStrc* pLibrary, int bKeep)
+{
+    if (bKeep)
+        return;
+    D2_ASSERT(pLibrary, 0x25A);
+    sub_005FE080_ReleaseBlockCaches(pLibrary);
+    if (pLibrary->dwFlags & 4)
+    {
+        FOG_Free(pLibrary, ".\\SRC\\Tilecmp.cpp", 0x262, 0);
+        return;
+    }
+    D2_ASSERT(!(pLibrary->dwFlags & 8), 0x267);
+    for (int i = 0; i < pLibrary->nBlocks; i++)
+    {
+        D2CmpTileBlockStrc* pBlock = &pLibrary->pBlocks[i];
+        for (int j = 0; j < pBlock->nSubs; j++)
+        {
+            D2CmpTileSubStrc* pSub = &pBlock->pSubs[j];
+            if (pSub->pData)
+                FOG_Free(pSub->pData, ".\\SRC\\Tilecmp.cpp", 0x274, 0);
+            pSub->nSize = 0;
+            pSub->pData = 0;
+        }
+        if (pBlock->pSubs)
+            FOG_Free(pBlock->pSubs, ".\\SRC\\Tilecmp.cpp", 0x27B, 0);
+        pBlock->pSubs = 0;
+        pBlock->nSubs = 0;
+    }
+    FOG_Free(pLibrary->pBlocks, ".\\SRC\\Tilecmp.cpp", 0x281, 0);
+    pLibrary->pBlocks = 0;
+    pLibrary->nBlocks = 0;
+    FOG_Free(pLibrary, ".\\SRC\\Tilecmp.cpp", 0x285, 0);
+}
+
+// 0x0060A290
+void __stdcall sub_0060A290_RelocateWithData(D2CmpTileLibraryStrc* pLibrary, D2CmpTileLibraryStrc** ppLibrary, const char* szName)
+{
+    D2_ASSERT(pLibrary->nVersion == 7, 0x348);
+    if (pLibrary->dwFlags & 3)
+    {
+        pLibrary->pBlocks = (D2CmpTileBlockStrc*)((char*)pLibrary + (int)pLibrary->pBlocks);
+        if (szName)
+            strcpy(pLibrary->szName, szName);
+        char* pData = (char*)pLibrary + sizeof(D2CmpTileLibraryStrc) + pLibrary->nBlocks * sizeof(D2CmpTileBlockStrc);
+        for (int i = 0; i < pLibrary->nBlocks; i++)
+        {
+            D2CmpTileBlockStrc* pBlock = &pLibrary->pBlocks[i];
+            pBlock->pName = pLibrary->szName;
+            pBlock->pSubs = (D2CmpTileSubStrc*)((char*)pLibrary + pBlock->f_48);
+            int nSize = pBlock->nSubs * sizeof(D2CmpTileSubStrc);
+            for (int j = 0; j < pBlock->nSubs; j++)
+            {
+                D2CmpTileSubStrc* pSub = &pBlock->pSubs[j];
+                pSub->pData += (int)pData;
+                nSize += pSub->nSize;
+            }
+            pData += nSize;
+        }
+        pLibrary->dwFlags = (pLibrary->dwFlags & ~2) | 4;
+        *ppLibrary = pLibrary;
+    }
+}
+
+// 0x0060A390
+void __stdcall sub_0060A390(D2CmpTileLibraryStrc* pLibrary, D2CmpTileLibraryStrc** ppLibrary, const char* szName)
+{
+    D2_ASSERT(pLibrary->nVersion == 7, 0x37F);
+    if (pLibrary->dwFlags & 2)
+    {
+        pLibrary->pBlocks = (D2CmpTileBlockStrc*)((char*)pLibrary + (int)pLibrary->pBlocks);
+        strcpy(pLibrary->szName, szName);
+        for (int i = 0; i < pLibrary->nBlocks; i++)
+        {
+            D2CmpTileBlockStrc* pBlock = &pLibrary->pBlocks[i];
+            pBlock->pName = pLibrary->szName;
+            D2_ASSERT(!pBlock->pSubs, 0x3A2);
+            D2_ASSERT(!pBlock->pExtra, 0x3A3);
+        }
+        pLibrary->dwFlags = (pLibrary->dwFlags & ~2) | 4;
+        *ppLibrary = pLibrary;
+    }
+}
+
+// 0x0060A4C0
+void __stdcall sub_0060A4C0_RelocateBlockSubs(D2CmpTileBlockStrc* pBlock)
+{
+    D2_ASSERT(pBlock, 0x3C9);
+    char* pBase = (char*)pBlock->pSubs;
+    for (int i = 0; i < pBlock->nSubs; i++)
+    {
+        D2CmpTileSubStrc* pSub = &pBlock->pSubs[i];
+        pSub->pData += (int)pBase;
+    }
+}
+
+struct D2CmpGfxHashEntryStrc
+{
+    char unk0x00[0x28];
+    D2CmpGfxHashEntryStrc* pPrev;
+    D2CmpGfxHashEntryStrc* pNext;
+};
+
+struct D2CmpGfxHashStrc
+{
+    void sub_0060A9D0_Remove(void* pMemPool, D2CmpGfxHashEntryStrc* pEntry);                               // 0x0060A9D0
+};
+
+// 0x0060AB10
+void __fastcall sub_0060AB10_GfxHashRemove(void* pMemPool, D2CmpGfxHashStrc* pHash, D2CmpGfxHashEntryStrc* pEntry)
+{
+    D2_ASSERT(pEntry, 0x141);
+    if (pEntry->pPrev)
+        pEntry->pPrev->pNext = pEntry->pNext;
+    if (pEntry->pNext)
+        pEntry->pNext->pPrev = pEntry->pPrev;
+    pHash->sub_0060A9D0_Remove(pMemPool, pEntry);
+}
+
+struct T00604AE0
+{
+    unsigned int nKey;
+    char szName[0x20];
+    int nValue;
+    T00604AE0* pPrev;
+    T00604AE0* pNext;
+};
+
+struct D2CelDataHashStrc
+{
+    int nCheck[0x200];
+    T00604AE0* pBuckets[0x200];
+};
+
+// 0x0060B010
+T00604AE0* __fastcall sub_0060B010_CelDataHashAdd(void* pMemPool, D2CelDataHashStrc* pHash, int nValue, const char* szName)
+{
+    T00604AE0* pEntry = (T00604AE0*)FOG_AllocPool(pMemPool, sizeof(T00604AE0), ".\\SRC\\CelDataHash.cpp", 0x88, 0);
+    pEntry->nValue = nValue;
+    unsigned int nHash = SStrHash(szName, 1, 0);
+    unsigned int nKey = ((nHash ^ (nHash >> 8)) ^ ((nHash ^ (nHash >> 8)) >> 16)) & 0x1FF;
+    pEntry->pPrev = 0;
+    pEntry->pNext = pHash->pBuckets[nKey];
+    if (pEntry->pNext)
+        pEntry->pNext->pPrev = pEntry;
+    pEntry->nKey = nKey;
+    strcpy(pEntry->szName, szName);
+    pHash->pBuckets[nKey] = pEntry;
+    return pEntry;
+}
+
+// 0x0060B0B0
+void __fastcall sub_0060B0B0_CelDataHashRemove(void* pMemPool, D2CelDataHashStrc* pHash, T00604AE0* pEntry)
+{
+    D2_ASSERT(pEntry, 0xB2);
+    if (pEntry->pPrev)
+        pEntry->pPrev->pNext = pEntry->pNext;
+    if (pEntry->pNext)
+        pEntry->pNext->pPrev = pEntry->pPrev;
+    if (pHash->pBuckets[pEntry->nKey] == pEntry)
+        pHash->pBuckets[pEntry->nKey] = pEntry->pNext;
+    FOG_FreePool(pMemPool, pEntry, ".\\SRC\\CelDataHash.cpp", 0x3A, 0);
+}
+
+struct D2CmpFindTilesSubStrc
+{
+    int unk0x00;
+    D2CmpFindTilesSubStrc* pNext;
+};
+
+struct D2CmpFindTilesNodeStrc
+{
+    int unk0x00[3];
+    D2CmpFindTilesSubStrc* pSubs;
+    D2CmpFindTilesNodeStrc* pNext;
+};
+
+// 0x0060CE00
+void __fastcall sub_0060CE00_FreeFindTilesTable(D2CmpFindTilesNodeStrc** ppBuckets)
+{
+    if (!ppBuckets)
+        return;
+    for (int i = 0; i < 0x80; i++)
+    {
+        D2CmpFindTilesNodeStrc* pNode = ppBuckets[i];
+        while (pNode)
+        {
+            D2CmpFindTilesSubStrc* pSub = pNode->pSubs;
+            D2CmpFindTilesNodeStrc* pNext = pNode->pNext;
+            while (pSub)
+            {
+                D2CmpFindTilesSubStrc* pSubNext = pSub->pNext;
+                FOG_Free(pSub, ".\\SRC\\FindTiles.cpp", 0x4C, 0);
+                pSub = pSubNext;
+            }
+            pNode->pSubs = 0;
+            FOG_Free(pNode, ".\\SRC\\FindTiles.cpp", 0x50, 0);
+            pNode = pNext;
+        }
+        ppBuckets[i] = 0;
+    }
+    FOG_Free(ppBuckets, ".\\SRC\\FindTiles.cpp", 0x57, 0);
+}
+
+struct D2CmpRGBStrc
+{
+    unsigned char b0;
+    unsigned char b1;
+    unsigned char b2;
+};
+
+struct D2CmpRGBImageStrc
+{
+    int unk0x00;
+    unsigned int nWidth;
+    unsigned int nHeight;
+    char unk0x0C[0x14];
+    D2CmpRGBStrc aPixels[1];
+};
+
+typedef void (__stdcall* D2CmpColorCallback)(unsigned int nColor);
+
+// 0x0060D110
+void __fastcall sub_0060D110_ForEachOtherColor(D2CmpRGBImageStrc* pImage, D2CmpColorCallback pfnColor, unsigned int nKey)
+{
+    unsigned int nPacked = (((unsigned char)(nKey >> 16) << 8) + (unsigned char)(nKey >> 8) << 8) + (unsigned char)nKey;
+    D2CmpRGBStrc* pPixel = pImage->aPixels;
+    for (unsigned int i = 0; i < pImage->nWidth * pImage->nHeight; i++)
+    {
+        unsigned int nColor = ((pPixel->b2 << 8) + pPixel->b1 << 8) + pPixel->b0;
+        pPixel++;
+        if (nColor != nPacked)
+            pfnColor(nColor);
+    }
+}
+
+struct D2CmpSubTileRecordStrc
+{
+    int unk0x00;
+    int unk0x04;
+    short unk0x08;
+    unsigned short nLength;
+    int unk0x0C;
+    void* pData;
+};
+
+void* __fastcall sub_0060D430_Compress(const void* pSrc, int* pLength);                                    // 0x0060D430
+
+// 0x0060D510
+D2CmpSubTileRecordStrc* __fastcall sub_0060D510_CreateSubTileRecord(const void* pSrc, int bRaw)
+{
+    void* pData;
+    int nSize;
+    if (bRaw)
+    {
+        pData = FOG_Alloc(0xC00, szSubTileFile, 0x66, 0);
+        memcpy(pData, pSrc, 0xC00);
+        nSize = 0xC00;
+    }
+    else
+    {
+        int nLength;
+        pData = sub_0060D430_Compress(pSrc, &nLength);
+        nSize = nLength;
+    }
+    D2CmpSubTileRecordStrc* pRecord = (D2CmpSubTileRecordStrc*)FOG_Alloc(sizeof(D2CmpSubTileRecordStrc), szSubTileFile, 0x6E, 0);
+    memset(pRecord, 0, sizeof(D2CmpSubTileRecordStrc));
+    D2_ASSERT(nSize > 0xFFFF, 0x70);
+    pRecord->pData = pData;
+    pRecord->nLength = (unsigned short)nSize;
+    return pRecord;
+}

@@ -1,0 +1,29 @@
+struct D2UnitStrc
+{
+    unsigned int dwUnitType;
+};
+
+D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit);                                        // 0x004639D0
+int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit);                                               // 0x00464820
+void __fastcall sub_004D2D70_CltMissileHit(D2UnitStrc* pMissile, D2UnitStrc* pTarget, int bArg);          // 0x004D2D70
+void __fastcall sub_004CD390_CltDoDefault(D2UnitStrc* pMissile);                                            // 0x004CD390
+void __stdcall D2Common_10235_PATH_UpdateRiderPath(D2UnitStrc* pRiderUnit, D2UnitStrc* pMountUnit);         // 0x006505E0
+void __stdcall UNITS_UpdateFrame(D2UnitStrc* pUnit);                                                        // 0x00621310
+
+// 0x004D3070
+void __fastcall sub_004D3070_CltDoOwnerStep(D2UnitStrc* pMissile)
+{
+    D2UnitStrc* pOwner = sub_004639D0_GetOwnerUnit(pMissile);
+    if (!pOwner)
+    {
+        sub_004CD390_CltDoDefault(pMissile);
+        return;
+    }
+    if (pOwner->dwUnitType <= 1 && sub_00464820_IsDeadOrDying(pOwner))
+    {
+        sub_004D2D70_CltMissileHit(pMissile, 0, 0);
+        return;
+    }
+    D2Common_10235_PATH_UpdateRiderPath(pMissile, pOwner);
+    UNITS_UpdateFrame(pMissile);
+}

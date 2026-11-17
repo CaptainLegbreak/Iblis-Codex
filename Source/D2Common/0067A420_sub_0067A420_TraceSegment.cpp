@@ -1,0 +1,143 @@
+struct D2ActiveRoomStrc;
+
+struct D2PathPointStrc
+{
+    unsigned short X;
+    unsigned short Y;
+};
+
+struct D2CoordStrc
+{
+    int nX;
+    int nY;
+};
+
+struct D2DynamicPathStrc
+{
+    char unk0x00[0x1C];
+    D2ActiveRoomStrc* pRoom;
+    char unk0x20[0x08];
+    int dwPathPoints;
+    char unk0x2C[0x1C];
+    unsigned int dwCollisionPattern;
+    char unk0x4C[0x04];
+    unsigned int nMoveTestCollisionMask;
+    char unk0x54[0x28];
+    int dwVelocity;
+    char unk0x80[0x1C];
+    D2PathPointStrc PathPoints[78];
+};
+
+struct D2PathInfoStrc
+{
+    D2PathPointStrc tStartCoord;
+    char unk0x04[0x2C];
+    D2DynamicPathStrc* pDynamicPath;
+};
+
+extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
+extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
+extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
+extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
+#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define D2_ABS(x) ((x) < 0 ? -(x) : (x))
+
+int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, unsigned short nMask); // 0x0064D910
+void __fastcall sub_6FDAB810(int* a1, int* a2);                                                             // 0x00678F00
+void __fastcall sub_0067A390_GetScaledDirectionVector(int nVelocity, D2CoordStrc* pDirectionVector, D2PathPointStrc tPoint1, D2PathPointStrc tPoint2); // 0x0067A390
+
+static int __stdcall sub_00679530_TraceLineFP16(D2DynamicPathStrc* pDynamicPath, D2CoordStrc* pDirectionVector, D2PathPointStrc tStartCoord, D2PathPointStrc* pDestination)
+{
+    D2ActiveRoomStrc* pRoom = pDynamicPath->pRoom;
+    const int nCollisionPattern = pDynamicPath->dwCollisionPattern;
+    const int nCollisionMask = pDynamicPath->nMoveTestCollisionMask;
+    D2PathPointStrc tPrevPoint = tStartCoord;
+    int nX = (tStartCoord.X << 16) + 0x8000;
+    int nY = (tStartCoord.Y << 16) + 0x8000;
+    D2PathPointStrc tTargetPoint = *pDestination;
+    const int nDeltaX = tTargetPoint.X - (unsigned short)(nX >> 16);
+    const int nDeltaY = tTargetPoint.Y - (unsigned short)(nY >> 16);
+    int nVelocityX = pDirectionVector->nX;
+    int nVelocityY = pDirectionVector->nY;
+    D2_ASSERT(D2_ABS(nVelocityX) > 0 || D2_ABS(nVelocityY) > 0, 110);
+    sub_6FDAB810(&nVelocityX, &nVelocityY);
+    if (D2_ABS(nDeltaX) > D2_ABS(nDeltaY))
+    {
+        while (tStartCoord.X != tTargetPoint.X)
+        {
+            nX += nVelocityX;
+            nY += nVelocityY;
+            tStartCoord.X = (unsigned short)(nX >> 16);
+            tStartCoord.Y = (unsigned short)(nY >> 16);
+            if (tPrevPoint.X != tStartCoord.X || tPrevPoint.Y != tStartCoord.Y)
+            {
+                if (COLLISION_CheckAnyCollisionWithPattern(pRoom, tStartCoord.X, tStartCoord.Y, nCollisionPattern, nCollisionMask))
+                {
+                    *pDestination = tPrevPoint;
+                    return 0;
+                }
+            }
+            tPrevPoint = tStartCoord;
+        }
+    }
+    else
+    {
+        while (tStartCoord.Y != tTargetPoint.Y)
+        {
+            nX += nVelocityX;
+            nY += nVelocityY;
+            tStartCoord.X = (unsigned short)(nX >> 16);
+            tStartCoord.Y = (unsigned short)(nY >> 16);
+            if (tPrevPoint.X != tStartCoord.X || tPrevPoint.Y != tStartCoord.Y)
+            {
+                if (COLLISION_CheckAnyCollisionWithPattern(pRoom, tStartCoord.X, tStartCoord.Y, nCollisionPattern, nCollisionMask))
+                {
+                    *pDestination = tPrevPoint;
+                    return 0;
+                }
+            }
+            tPrevPoint = tStartCoord;
+        }
+    }
+    D2_ASSERT(tTargetPoint.X, 171);
+    D2_ASSERT(tTargetPoint.Y, 172);
+    return 1;
+}
+
+// 0x0067A420
+static int __stdcall sub_0067A420_TraceSegment(D2DynamicPathStrc* pDynamicPath, D2PathPointStrc tStartCoord, D2PathPointStrc tTargetCoord)
+{
+    if (!pDynamicPath->dwVelocity)
+        return 0;
+
+    D2CoordStrc tDirectionVector;
+    sub_0067A390_GetScaledDirectionVector(pDynamicPath->dwVelocity, &tDirectionVector, tStartCoord, tTargetCoord);
+    D2_ASSERT(D2_ABS(tDirectionVector.nX) > 0 || D2_ABS(tDirectionVector.nY) > 0, 834);
+    sub_6FDAB810(&tDirectionVector.nX, &tDirectionVector.nY);
+    return sub_00679530_TraceLineFP16(pDynamicPath, &tDirectionVector, tStartCoord, &tTargetCoord);
+}
+
+int __fastcall sub_0067A4A0_TestPathPoints(D2PathInfoStrc* pPathInfo)
+{
+    D2PathPointStrc tPrevPoint = pPathInfo->tStartCoord;
+    D2DynamicPathStrc* pDynamicPath = pPathInfo->pDynamicPath;
+    D2ActiveRoomStrc* pRoom = pDynamicPath->pRoom;
+    const int nPathPoints = pDynamicPath->dwPathPoints;
+    const int nCollisionPattern = pDynamicPath->dwCollisionPattern;
+    const int nCollisionMask = pDynamicPath->nMoveTestCollisionMask;
+    for (int i = 0; i < nPathPoints; ++i)
+    {
+        const D2PathPointStrc tPoint = pDynamicPath->PathPoints[i];
+        if (D2_ABS(tPoint.X - tPrevPoint.X) <= 1 && D2_ABS(tPoint.Y - tPrevPoint.Y) <= 1)
+        {
+            if (COLLISION_CheckAnyCollisionWithPattern(pRoom, tPoint.X, tPoint.Y, nCollisionPattern, nCollisionMask))
+                return 0;
+        }
+        else if (!sub_0067A420_TraceSegment(pDynamicPath, tPrevPoint, tPoint))
+        {
+            return 0;
+        }
+        tPrevPoint = tPoint;
+    }
+    return 1;
+}

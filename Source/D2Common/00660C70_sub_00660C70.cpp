@@ -1,0 +1,59 @@
+struct D2InvRectStrc
+{
+    int nLeft;
+    int nRight;
+    int nTop;
+    int nBottom;
+};
+
+struct D2BeltsTxt
+{
+    unsigned char nIndex;
+    unsigned char pad0x01[3];
+    int nBoxes;
+    D2InvRectStrc beltBoxes[16];
+};
+
+extern D2BeltsTxt* gpBeltsTxtTable;                                                                                // 0x0096D4F8
+void __stdcall DATATBLS_UnloadBin(void* pBinFile);                                                               // 0x006125C0
+extern "C" const char gszEmptyAssertText;                                                                         // 0x006CC837
+extern "C" const char* __cdecl sub_00408090();                                                              // 0x00408090
+extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                  // 0x00408A60
+extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                                // 0x00681E09
+
+#define BELTS_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
+// @ref 0x00660C60
+void __fastcall DATATBLS_UnloadBeltsTxt()
+{
+    DATATBLS_UnloadBin(gpBeltsTxtTable);
+}
+
+// 0x00660C70
+static D2BeltsTxt* sub_00660C70(int nIndex)
+{
+    BELTS_ASSERT(gpBeltsTxtTable, 121);
+    D2BeltsTxt* pBeltsTxtRecord = &gpBeltsTxtTable[nIndex];
+    BELTS_ASSERT(pBeltsTxtRecord, 122);
+    return pBeltsTxtRecord;
+}
+
+// @ref 0x00660CB0
+void __stdcall DATATBLS_GetBeltsTxtRecord(int nIndex, int bHigherRes, D2BeltsTxt* pRecord)
+{
+    BELTS_ASSERT(&gpBeltsTxtTable[nIndex], 131);
+    *pRecord = gpBeltsTxtTable[nIndex + 7 * bHigherRes];
+}
+
+// @ref 0x00660D10
+void __stdcall DATATBLS_GetInvRectFromBeltsTxt(int nIndex, int bHigherRes, D2InvRectStrc* pInvRect, int nBoxId)
+{
+    D2BeltsTxt* pBeltsTxtRecord = sub_00660C70(nIndex + 7 * bHigherRes);
+    const D2InvRectStrc* pBoxStats = &pBeltsTxtRecord->beltBoxes[nBoxId];
+    BELTS_ASSERT(pBoxStats, 143);
+
+    pInvRect->nLeft = pBoxStats->nLeft;
+    pInvRect->nRight = pBoxStats->nRight;
+    pInvRect->nTop = pBoxStats->nTop;
+    pInvRect->nBottom = pBoxStats->nBottom;
+}

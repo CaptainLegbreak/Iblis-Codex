@@ -1,0 +1,297 @@
+struct SMSGHANDLER_PARAMS
+{
+    void* hWnd;
+    unsigned int uMessage;
+    union
+    {
+        struct
+        {
+            unsigned short nWParamLo;
+            short nWParamHi;
+        };
+        unsigned int wParam;
+    };
+    union
+    {
+        struct
+        {
+            unsigned short nXpos;
+            unsigned short nYpos;
+        };
+        unsigned int lParam;
+    };
+    unsigned int dwCommandSource;
+    unsigned int dwArg;
+    int bReturn;
+    int lResult;
+};
+
+struct Unicode
+{
+    unsigned short wChar;
+};
+
+struct D2CelContextStrc
+{
+    int nFrame;
+    int unk0x04[12];
+    void* pCellFile;
+    int unk0x38[2];
+    int unk0x40;
+    int unk0x44;
+};
+
+struct D2ButtonStringStrc
+{
+    unsigned short nCelFrame;
+    unsigned short nStringIndex;
+};
+
+int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags);                           // 0x00412650
+
+class UIWidget
+{
+public:
+    virtual ~UIWidget();
+    virtual void Slot01() = 0;
+    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot03(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot04(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot09(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg) = 0;
+    virtual int Slot11() = 0;
+
+    void operator delete(void* pMemory)
+    {
+        if (pMemory)
+        {
+            SMemFree(pMemory, "delete", -1, 0);
+        }
+    }
+
+    int unk0x04;
+};
+
+// build: symbol ??1ButtonWrapper@@UAE@XZ 0x004BADD0
+// build: symbol ??1EditBoxImplementation@@UAE@XZ 0x004BB170
+// build: symbol ??1EditBoxWrapper@@UAE@XZ 0x004BB9F0
+// build: symbol ??1UIWidget@@UAE@XZ 0x004BE080
+// build: symbol ??_7ButtonImplementation@@6B@ 0x006DA6F4
+// build: symbol ??_GButtonImplementation@@UAEPAXI@Z 0x004BAFD0
+// build: symbol ??_GButtonWrapper@@UAEPAXI@Z 0x004BAE30
+// build: symbol ??_GEditBoxImplementation@@UAEPAXI@Z 0x004BBD50
+// build: symbol ??_GEditBoxWrapper@@UAEPAXI@Z 0x004BBA50
+// 0x004BAFD0
+class ButtonImplementation : public UIWidget
+{
+public:
+    virtual ~ButtonImplementation();
+    virtual void Slot01();
+    virtual int MsgSlot02(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot03(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot04(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot05(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot06(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot07(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot08(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot09(SMSGHANDLER_PARAMS* pMsg);
+    virtual int MsgSlot10(SMSGHANDLER_PARAMS* pMsg);
+    virtual int Slot11();
+    virtual void sub_004BAC60_SetUnk24(int nValue);
+
+    int sub_004BAC00_HitTest(SMSGHANDLER_PARAMS* pMsg);
+
+    int nX;
+    int nY;
+    char unk0x10[0x08];
+    int nHeight;
+    int nWidth;
+    int f_20;
+    int unk0x24;
+    int (__cdecl* pfnCallback)();
+    int unk0x2C;
+    unsigned short nBaseFrame;
+    unsigned char nStringSlot[4];
+};
+
+// 0x004BBD50
+class EditBoxImplementation : public UIWidget
+{
+public:
+    EditBoxImplementation();
+    virtual ~EditBoxImplementation();
+    virtual void sub_004BB5B0_Slot12(char* szBuffer);
+
+    char unk0x08[0x20];
+    Unicode* pText;
+    char unk0x2C[8];
+    unsigned short nMaxLength;
+};
+
+// 0x004BAE30
+class ButtonWrapper : public UIWidget
+{
+public:
+    ButtonWrapper();
+    virtual ~ButtonWrapper();
+
+    ButtonImplementation* pImpl;
+};
+
+// 0x004BBA50
+class EditBoxWrapper : public UIWidget
+{
+public:
+    EditBoxWrapper();
+    virtual ~EditBoxWrapper();
+
+    EditBoxImplementation* pImpl;
+};
+
+class SpinnerImplementation : public UIWidget
+{
+public:
+    int sub_004BBEF0_HitTestUp(SMSGHANDLER_PARAMS* pMsg);
+    int sub_004BBF40_HitTestDown(SMSGHANDLER_PARAMS* pMsg);
+
+    char unk0x08[8];
+    int nUpX;
+    int nUpY;
+    int nDownX;
+    int nDownY;
+    int unk0x20;
+    int nArrowHeight;
+    int nArrowWidth;
+};
+
+extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
+void* __cdecl sub_00454600();                                                                               // 0x00454600
+int __cdecl sub_00468730();                                                                                 // 0x00468730
+int __cdecl sub_00468740();                                                                                 // 0x00468740
+int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4);                   // 0x004B9A00
+int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
+int __fastcall sub_00501820(const Unicode* wszText);                                             // 0x00501820
+void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
+int __fastcall sub_00502EF0(int nArg);                                                                      // 0x00502EF0
+const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
+void __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength);               // 0x005263E0
+
+extern D2ButtonStringStrc gaButtonStrings_007275A8[];                                                       // 0x007275A8
+
+// 0x004BAC00
+int ButtonImplementation::sub_004BAC00_HitTest(SMSGHANDLER_PARAMS* pMsg)
+{
+    const int nMouseX = pMsg->nXpos;
+    const int nMouseY = pMsg->nYpos;
+    if (nMouseX < nX || nMouseX > nX + nWidth || nMouseY < nY - nHeight || nMouseY > nY)
+    {
+        return 0;
+    }
+    return 1;
+}
+
+// 0x004BAC70
+int ButtonImplementation::MsgSlot03(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (sub_004BAC00_HitTest(pMsg))
+    {
+        f_20 = 1;
+        sub_004B9A00(4, 0, 0, 0, 0);
+        return 1;
+    }
+    return 0;
+}
+
+// 0x004BACD0
+int ButtonImplementation::MsgSlot04(SMSGHANDLER_PARAMS* pMsg)
+{
+    if (!f_20)
+    {
+        return 0;
+    }
+    if (sub_004BAC00_HitTest(pMsg))
+    {
+        f_20 = 0;
+        return pfnCallback();
+    }
+    unk0x2C = 0;
+    f_20 = 0;
+    return 0;
+}
+
+ButtonImplementation::~ButtonImplementation()
+{
+}
+
+// 0x004BB000
+void ButtonImplementation::Slot01()
+{
+    D2CelContextStrc tCelContext;
+    memset(&tCelContext, 0, sizeof(tCelContext));
+    tCelContext.pCellFile = sub_00454600();
+    tCelContext.nFrame = f_20 + nBaseFrame;
+    tCelContext.unk0x40 = 0;
+    sub_004F6480(&tCelContext, nX, nY, -1, 5, 0);
+
+    const int nMouseX = sub_00468730();
+    const unsigned int dwMousePos = ((unsigned short)sub_00468740() << 16) | (unsigned short)nMouseX;
+    const int nPosX = (unsigned short)dwMousePos;
+    const int nPosY = dwMousePos >> 16;
+    if (nPosX >= nX && nPosX <= nX + nWidth && nPosY >= nY - nHeight && nPosY <= nY)
+    {
+        const int nOldFont = sub_00502EF0(1);
+        const Unicode* wszText = D2LANG_GetStringFromTblIndex(gaButtonStrings_007275A8[*(int*)nStringSlot].nStringIndex);
+        const int nTextWidth = sub_00501820(wszText);
+        sub_00502320(wszText, nX + (nWidth - nTextWidth) / 2, nY - nHeight - 5, 0, 0);
+        sub_00502EF0(nOldFont);
+    }
+}
+
+// 0x004BB5B0
+void EditBoxImplementation::sub_004BB5B0_Slot12(char* szBuffer)
+{
+    sub_005263E0(szBuffer, pText, nMaxLength);
+}
+
+// 0x004BBEF0
+int SpinnerImplementation::sub_004BBEF0_HitTestUp(SMSGHANDLER_PARAMS* pMsg)
+{
+    const int nMouseX = pMsg->nXpos;
+    const int nMouseY = pMsg->nYpos;
+    if (nMouseX <= nUpX || nMouseX >= nUpX + nArrowWidth || nMouseY <= nUpY - nArrowHeight || nMouseY > nUpY)
+    {
+        return 0;
+    }
+    return 1;
+}
+
+// 0x004BBF40
+int SpinnerImplementation::sub_004BBF40_HitTestDown(SMSGHANDLER_PARAMS* pMsg)
+{
+    const int nMouseX = pMsg->nXpos;
+    const int nMouseY = pMsg->nYpos;
+    if (nMouseX <= nDownX || nMouseX >= nDownX + nArrowWidth || nMouseY <= nDownY - nArrowHeight || nMouseY >= nDownY)
+    {
+        return 0;
+    }
+    return 1;
+}
+
+ButtonWrapper::ButtonWrapper()
+{
+    pImpl = 0;
+}
+
+EditBoxWrapper::EditBoxWrapper()
+{
+    pImpl = 0;
+}
+
+EditBoxImplementation::EditBoxImplementation()
+{
+    pText = 0;
+}

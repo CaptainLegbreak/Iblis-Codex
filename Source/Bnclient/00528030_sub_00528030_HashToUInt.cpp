@@ -1,0 +1,101 @@
+struct D2SrpSha1ContextStrc
+{
+    unsigned int aState[5];
+    unsigned int aCount[2];
+    unsigned char f_1C[64];
+};
+
+struct D2BigLoginRecordStrc
+{
+    char szName[0x20];
+    char szPassword[0x20];
+    unsigned char abPrivate[0x20];
+    unsigned char abPublic[0x20];
+    unsigned char abKey[0x28];
+    unsigned char abProof[0x14];
+};
+
+struct D2BigPowModStrc
+{
+    void* pUnknown0x00;
+    void* hBase;
+    void* hModulus;
+
+    void sub_00527F40_ComputePrivateKey(const unsigned char* pSalt, const char* szName, const char* szPassword, void** phResult); // 0x00527F40
+    void sub_00528030_HashToUInt(void* const& hBig, unsigned int* pValue);
+    int sub_005280C0_ComputeSessionKey(void* const& hSecret, void* const& hPublic, void* const& hExp, void* const& hKey); // 0x005280C0
+    void sub_005282A0_ComputeProof(const char* szName, const unsigned char* pSalt, const unsigned char* pClientPublic, const unsigned char* pServerPublic, const unsigned char* pKey, unsigned char* pProof); // 0x005282A0
+};
+
+struct D2BigPairStrc
+{
+    D2BigPowModStrc* pState;
+
+    int sub_00528760_ComputeLoginProof(D2BigLoginRecordStrc* pRecord, const unsigned char* pSalt, const unsigned char* pServerPublic);
+};
+
+void __fastcall sub_00529F50_Sha1Init(D2SrpSha1ContextStrc* pContext);                                      // 0x00529F50
+void __fastcall sub_00529F80_Sha1Update(D2SrpSha1ContextStrc* pContext, const unsigned char* pData, unsigned int nLength); // 0x00529F80
+void __fastcall sub_0052A040_Sha1Final(unsigned char* pDigest, D2SrpSha1ContextStrc* pContext);            // 0x0052A040
+unsigned char* __fastcall sub_0052A120_HashInterleave(unsigned char* pDest, const unsigned char* pData, unsigned int nSize); // 0x0052A120
+void* __fastcall sub_0052A240_BigFromUnsigned(unsigned int nValue);                                         // 0x0052A240
+void* __fastcall sub_0052A270_BigFromBinary(const void* pData, unsigned int nSize);                         // 0x0052A270
+unsigned int __fastcall sub_0052A2A0_BigToBinary(void* hBig, void* pBuffer, unsigned int nSize);            // 0x0052A2A0
+int __fastcall sub_0052A2F0_BigCompareUnsigned(void* hBig, unsigned int nValue);                            // 0x0052A2F0
+int __fastcall sub_0052A600(void* pArg);                                                                    // 0x0052A600
+
+// 0x00528030
+void D2BigPowModStrc::sub_00528030_HashToUInt(void* const& hBig, unsigned int* pValue)
+{
+    unsigned char abBuffer[0x20];
+    D2SrpSha1ContextStrc tContext;
+    unsigned char abDigest[20];
+    const unsigned int nSize = sub_0052A2A0_BigToBinary(hBig, abBuffer, 0x20);
+    sub_00529F50_Sha1Init(&tContext);
+    sub_00529F80_Sha1Update(&tContext, abBuffer, nSize);
+    sub_0052A040_Sha1Final(abDigest, &tContext);
+    *pValue = ((((abDigest[0] << 8) | abDigest[1]) << 8 | abDigest[2]) << 8) | abDigest[3];
+}
+
+// 0x00528480
+void __stdcall sub_00528480_HashThreeBlocks(const unsigned char* pFirst, const unsigned char* pSecond, const unsigned char* pThird, unsigned char* pDigest)
+{
+    D2SrpSha1ContextStrc tContext;
+    sub_00529F50_Sha1Init(&tContext);
+    sub_00529F80_Sha1Update(&tContext, pFirst, 0x20);
+    sub_00529F80_Sha1Update(&tContext, pSecond, 0x14);
+    sub_00529F80_Sha1Update(&tContext, pThird, 0x28);
+    sub_0052A040_Sha1Final(pDigest, &tContext);
+}
+
+// 0x00528760
+int D2BigPairStrc::sub_00528760_ComputeLoginProof(D2BigLoginRecordStrc* pRecord, const unsigned char* pSalt, const unsigned char* pServerPublic)
+{
+    unsigned char abKey[0x20];
+    void* hPublic = sub_0052A270_BigFromBinary(pServerPublic, 0x20);
+    void* hPublicRef = hPublic;
+    if (sub_0052A2F0_BigCompareUnsigned(hPublic, 0) != 1)
+    {
+        sub_0052A600(hPublic);
+        return 0;
+    }
+    void* hExp;
+    pState->sub_00527F40_ComputePrivateKey(pSalt, pRecord->szName, pRecord->szPassword, &hExp);
+    void* hKey = sub_0052A240_BigFromUnsigned(0);
+    void* hKeyRef = hKey;
+    void* hSecret = sub_0052A270_BigFromBinary(pRecord->abPrivate, 0x20);
+    const int nResult = pState->sub_005280C0_ComputeSessionKey(hSecret, hPublicRef, hExp, hKeyRef);
+    sub_0052A600(hSecret);
+    sub_0052A600(hPublicRef);
+    sub_0052A600(hExp);
+    if (!nResult)
+    {
+        sub_0052A600(hKey);
+        return 0;
+    }
+    const unsigned int nSize = sub_0052A2A0_BigToBinary(hKey, abKey, 0x20);
+    sub_0052A120_HashInterleave(pRecord->abKey, abKey, nSize);
+    sub_0052A600(hKeyRef);
+    pState->sub_005282A0_ComputeProof(pRecord->szName, pSalt, pRecord->abPublic, pServerPublic, pRecord->abKey, pRecord->abProof);
+    return 1;
+}

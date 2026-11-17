@@ -1,0 +1,245 @@
+typedef unsigned int size_t;
+extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize);                                    // 0x00681EF0
+
+extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
+extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
+extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
+extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
+#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
+struct D2CmpTileProjectStrc;
+struct D2CmpTileStrc;
+struct D2DrlgLevelStrc;
+
+struct D2DrlgCoordsStrc
+{
+    int nSubtileX;
+    int nSubtileY;
+    int nSubtileWidth;
+    int nSubtileHeight;
+};
+
+struct D2DrlgStrc
+{
+    char unk0x000[0x00C];
+    D2CmpTileProjectStrc* pTiles[32];
+    char unk0x08C[0x450 - 0x08C];
+    unsigned char nDifficulty;
+    char unk0x451[0x478 - 0x451];
+    void* pMempool;
+    D2DrlgLevelStrc* pLevel;
+    unsigned char nAct;
+};
+
+struct D2DrlgRoomStrc
+{
+    char unk0x00[0x08];
+    D2DrlgRoomStrc** ppRoomsNear;
+    char unk0x0C[0x24 - 0x0C];
+    D2DrlgRoomStrc* pDrlgRoomNext;
+    unsigned int dwFlags;
+    int nRoomsNear;
+    char unk0x30[0x34 - 0x30];
+    D2DrlgCoordsStrc pDrlgCoord;
+    unsigned char fRoomStatus;
+};
+
+struct D2DrlgLevelStrc
+{
+    char unk0x000[0x00C];
+    int bActive;
+    D2DrlgRoomStrc* pFirstRoomEx;
+    char unk0x014[0x1AC - 0x014];
+    D2DrlgLevelStrc* pNextLevel;
+    char unk0x1B0[0x1B4 - 0x1B0];
+    D2DrlgStrc* pDrlg;
+    char unk0x1B8[0x1D0 - 0x1B8];
+    int nLevelId;
+    int dwInactiveFrames;
+};
+
+struct D2DrlgTileDataStrc
+{
+    char unk0x00[0x30];
+};
+
+int __stdcall D2CMP_GetTiles(D2CmpTileProjectStrc** ppProjects, int nOrientation, int nMainIndex, int nSubIndex, D2CmpTileStrc** ppTiles, int nMaxTiles); // 0x00604AE0
+void __fastcall DRLGROOMTILE_InitTileData(D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileDataStrc* pTileData, int nX, int nY, unsigned int nPackedTileInformation, D2CmpTileStrc* pTileLibraryEntry); // 0x0066DDE0
+int __fastcall DRLGROOM_AreXYInsideCoordinates(D2DrlgCoordsStrc* pCoords, int nX, int nY);                  // 0x0066B980
+int __fastcall sub_006427A0_GetLevelIdFromCoordinates(D2DrlgStrc* pDrlg, int nX, int nY);                   // 0x006427A0
+D2DrlgRoomStrc* __fastcall sub_00642630_GetRoomExFromLevelAndCoordinates(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x00642630
+void __stdcall DRLG_InitLevel(D2DrlgLevelStrc* pLevel);                                                     // 0x006424A0
+D2DrlgLevelStrc* __fastcall DRLG_AllocLevel(D2DrlgStrc* pDrlg, int nLevelId);                               // 0x00642AE0
+int* __fastcall DRLGROOM_GetVisArrayFromLevelId(D2DrlgStrc* pDrlg, int nLevelId);                           // 0x0066C040
+void __fastcall DRLGROOM_FreeRoomTiles(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom);                          // 0x0066B4F0
+void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
+
+inline D2DrlgLevelStrc* DRLG_InlineGetLevel(D2DrlgStrc* pDrlg, int nLevelId)
+{
+    for (D2DrlgLevelStrc* pLevel = pDrlg->pLevel; pLevel; pLevel = pLevel->pNextLevel)
+    {
+        if (pLevel->nLevelId == nLevelId)
+        {
+            return pLevel;
+        }
+    }
+
+    return DRLG_AllocLevel(pDrlg, nLevelId);
+}
+
+// 0x00642A30
+void __fastcall DRLGANIM_InitCache(D2DrlgStrc* pDrlg, D2DrlgTileDataStrc* pTileData)
+{
+    D2CmpTileStrc* ppTileLibraryEntry[40];
+
+    D2_ASSERT(pDrlg, 1079);
+    D2_ASSERT(pTileData, 1080);
+
+    memset(pTileData, 0x00, sizeof(D2DrlgTileDataStrc));
+
+    int nSequence = 0;
+    int nStyle = 0;
+    switch (pDrlg->nAct)
+    {
+    case 0:
+        break;
+
+    case 1:
+        nSequence = 1;
+        break;
+
+    case 2:
+        nStyle = 29;
+        nSequence = 12;
+        break;
+
+    default:
+        return;
+    }
+
+    D2_ASSERT(D2CMP_GetTiles(pDrlg->pTiles, 0, nStyle, nSequence, ppTileLibraryEntry, 40), 1100);
+    DRLGROOMTILE_InitTileData(0, pTileData, 0, 0, 0, ppTileLibraryEntry[0]);
+}
+
+// 0x00642C30
+D2DrlgRoomStrc* __fastcall DRLG_GetRoomExFromCoordinates(int nX, int nY, D2DrlgStrc* pDrlg, D2DrlgRoomStrc* pDrlgRoomHint, D2DrlgLevelStrc* pLevel)
+{
+    if (pDrlgRoomHint)
+    {
+        if (DRLGROOM_AreXYInsideCoordinates(&pDrlgRoomHint->pDrlgCoord, nX, nY))
+        {
+            return pDrlgRoomHint;
+        }
+
+        for (int i = 0; i < pDrlgRoomHint->nRoomsNear; ++i)
+        {
+            D2DrlgRoomStrc* pNear = pDrlgRoomHint->ppRoomsNear[i];
+            if (pDrlgRoomHint != pNear && DRLGROOM_AreXYInsideCoordinates(&pNear->pDrlgCoord, nX, nY))
+            {
+                return pNear;
+            }
+        }
+    }
+
+    if (!pLevel)
+    {
+        pLevel = DRLG_InlineGetLevel(pDrlg, sub_006427A0_GetLevelIdFromCoordinates(pDrlg, nX, nY));
+    }
+
+    if (!pLevel->pFirstRoomEx)
+    {
+        DRLG_InitLevel(pLevel);
+    }
+
+    return sub_00642630_GetRoomExFromLevelAndCoordinates(pLevel, nX, nY);
+}
+
+// 0x00642F70
+void __fastcall sub_00642F70_AddLevelActivity(D2DrlgLevelStrc* pLevel, int nDelta)
+{
+    pLevel->bActive += nDelta;
+    pLevel->bActive = pLevel->bActive <= 0 ? 0 : pLevel->bActive;
+    pLevel->dwInactiveFrames = 10;
+
+    int* pVisLevelIds = DRLGROOM_GetVisArrayFromLevelId(pLevel->pDrlg, pLevel->nLevelId);
+    for (int i = 0; i < 8; ++i)
+    {
+        const int nVisLevelId = pVisLevelIds[i];
+        if (nVisLevelId)
+        {
+            D2DrlgLevelStrc* pVisLevel = DRLG_InlineGetLevel(pLevel->pDrlg, nVisLevelId);
+            pVisLevel->bActive += nDelta;
+            pVisLevel->bActive = pVisLevel->bActive <= 0 ? 0 : pVisLevel->bActive;
+            pVisLevel->dwInactiveFrames = 10;
+        }
+    }
+}
+
+// 0x00643060
+int __stdcall sub_00643060_FreeInactiveVisRoomTiles(D2DrlgLevelStrc* pLevel)
+{
+    void* pMemPool = pLevel->pDrlg->pMempool;
+
+    for (D2DrlgRoomStrc* pRoom = pLevel->pFirstRoomEx; pRoom; pRoom = pRoom->pDrlgRoomNext)
+    {
+        if (pRoom->fRoomStatus <= 3 || pRoom->dwFlags & 0x100000)
+        {
+            return 0;
+        }
+    }
+
+    int* pLevelIds = DRLGROOM_GetVisArrayFromLevelId(pLevel->pDrlg, pLevel->nLevelId);
+    for (int j = 0; j < 8; ++j)
+    {
+        if (pLevelIds[j])
+        {
+            D2DrlgLevelStrc* pCurrentLevel = DRLG_InlineGetLevel(pLevel->pDrlg, pLevelIds[j]);
+            D2DrlgRoomStrc* pRoom = pCurrentLevel->pFirstRoomEx;
+            if (pRoom)
+            {
+                int* pLevels = DRLGROOM_GetVisArrayFromLevelId(pCurrentLevel->pDrlg, pCurrentLevel->nLevelId);
+                unsigned int dwFlags = 0;
+                for (int i = 0; i < 8; ++i)
+                {
+                    if (pLevels[i] == pLevel->nLevelId)
+                    {
+                        dwFlags |= 1 << (i + 4);
+                    }
+                }
+
+                for (; pRoom; pRoom = pRoom->pDrlgRoomNext)
+                {
+                    if (pRoom->dwFlags & dwFlags && (pRoom->fRoomStatus <= 3 || pRoom->dwFlags & 0x100000))
+                    {
+                        return 0;
+                    }
+                }
+
+                for (pRoom = pCurrentLevel->pFirstRoomEx; pRoom; pRoom = pRoom->pDrlgRoomNext)
+                {
+                    if (pRoom->dwFlags & dwFlags)
+                    {
+                        DRLGROOM_FreeRoomTiles(pMemPool, pRoom);
+                        if (pRoom->ppRoomsNear)
+                        {
+                            FOG_FreeServerMemory(pMemPool, pRoom->ppRoomsNear, ".\\DRLG\\Drlg.cpp", 367, 0);
+                            pRoom->ppRoomsNear = 0;
+                            pRoom->nRoomsNear = 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return 1;
+}
+
+// 0x006433C0
+void __stdcall DUNGEON_GameToClientTileDrawPositionCoords(int nX, int nY, int* pX, int* pY)
+{
+    *pX = 80 * (nX - nY);
+    *pY = 40 * (nX + nY);
+    *pX -= 80;
+    *pY += 80;
+}

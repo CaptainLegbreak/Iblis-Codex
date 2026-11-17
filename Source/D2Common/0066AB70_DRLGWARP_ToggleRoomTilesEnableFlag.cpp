@@ -1,0 +1,87 @@
+struct D2LvlWarpTxt
+{
+    int dwLevelId;
+};
+
+struct D2DrlgTileDataStrc
+{
+    char unk0x00[0x14];
+    unsigned int dwFlags;
+    char unk0x18[0x08];
+    D2DrlgTileDataStrc* unk0x20;
+};
+
+struct D2DrlgRoomStrc;
+
+struct D2RoomTileStrc
+{
+    D2DrlgRoomStrc* pDrlgRoom;
+    D2RoomTileStrc* pNext;
+    int bEnabled;
+    D2DrlgTileDataStrc* unk0x0C;
+    D2LvlWarpTxt* pLvlWarpTxtRecord;
+    D2DrlgTileDataStrc* unk0x14;
+};
+
+struct D2DrlgRoomStrc
+{
+    char unk0x00[0x4C];
+    D2RoomTileStrc* pRoomTiles;
+};
+
+// 0x0066AB70
+void __fastcall DRLGWARP_ToggleRoomTilesEnableFlag(D2DrlgRoomStrc* pDrlgRoom, int bEnabled)
+{
+    for (D2RoomTileStrc* i = pDrlgRoom->pRoomTiles; i; i = i->pNext)
+    {
+        i->bEnabled = bEnabled;
+    }
+}
+
+// 0x0066AB90
+void __fastcall DRLGWARP_UpdateWarpRoomSelect(D2DrlgRoomStrc* pDrlgRoom, int nLevelId)
+{
+    for (D2RoomTileStrc* pRoomTile = pDrlgRoom->pRoomTiles; pRoomTile; pRoomTile = pRoomTile->pNext)
+    {
+        if (pRoomTile->pLvlWarpTxtRecord->dwLevelId == nLevelId)
+        {
+            if (pRoomTile->unk0x14)
+            {
+                for (D2DrlgTileDataStrc* i = pRoomTile->unk0x14; i; i = i->unk0x20)
+                {
+                    i->dwFlags &= 0xFFFFFFF7;
+                }
+
+                for (D2DrlgTileDataStrc* i = pRoomTile->unk0x0C; i; i = i->unk0x20)
+                {
+                    i->dwFlags |= 8;
+                }
+            }
+            return;
+        }
+    }
+}
+
+// 0x0066ABE0
+void __fastcall DRLGWARP_UpdateWarpRoomDeselect(D2DrlgRoomStrc* pDrlgRoom, int nLevelId)
+{
+    for (D2RoomTileStrc* pRoomTile = pDrlgRoom->pRoomTiles; pRoomTile; pRoomTile = pRoomTile->pNext)
+    {
+        if (pRoomTile->pLvlWarpTxtRecord->dwLevelId == nLevelId)
+        {
+            if (pRoomTile->unk0x0C)
+            {
+                for (D2DrlgTileDataStrc* i = pRoomTile->unk0x0C; i; i = i->unk0x20)
+                {
+                    i->dwFlags &= 0xFFFFFFF7;
+                }
+
+                for (D2DrlgTileDataStrc* i = pRoomTile->unk0x14; i; i = i->unk0x20)
+                {
+                    i->dwFlags |= 8;
+                }
+            }
+            return;
+        }
+    }
+}
