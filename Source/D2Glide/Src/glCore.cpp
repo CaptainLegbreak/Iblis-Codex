@@ -1,6 +1,4 @@
 #include "D2Glide.h"
-
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2GfxSettingsStrc;
 struct D2GlideHwQueryStrc;
 struct D2GlideTexSlotStrc;
@@ -117,12 +115,6 @@ extern int gdwGlobal_0087EFC0; // 0x0087EFC0
 extern int gdwGlobal_0087EFBC; // 0x0087EFBC
 extern int (__stdcall* gpfGlideGet_0087EB1C)(int nName, int nSize, int* pParams); // 0x0087EB1C
 extern void (__stdcall* gpfGlideFn_0087EB9C)(int a1, int a2, int a3); // 0x0087EB9C
-
-struct D2GlideTexSlotStrc
-{
-    int nCache;
-    int nId;
-};
 
 struct D2GlideTexCacheEntryStrc
 {

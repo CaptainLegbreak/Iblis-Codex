@@ -71,7 +71,6 @@ void __cdecl sub_0050E030(); // 0x0050E030
 void __fastcall sub_0050ECB0(D2GlideCache00509AA0Strc* pCache, int bFree); // 0x0050ECB0
 void __cdecl sub_0050A0C0(); // 0x0050A0C0
 void __cdecl sub_0050BB70(); // 0x0050BB70
-extern int gbGlideTexCaches_0087EFE8; // 0x0087EFE8
 
 typedef void (__stdcall* D2GlideFinishFn)();
 
@@ -226,7 +225,7 @@ int __cdecl sub_00509AA0_GlideShutdown()
     {
         gbGlideInit_0087EFC8 = 0;
         gpfnGlideFinish_0087EB14();
-        if (gbGlideTexCaches_0087EFE8)
+        if (gbFloorTiles_0087EFE8)
         {
             sub_0050F7C0(&gTexCacheA_0087EB68, 1);
             sub_0050F210(&gTexCacheB_0087EB48, 1);

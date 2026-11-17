@@ -1,7 +1,5 @@
 #include "Storm.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-
 struct D2Callbacks006C7CF0Strc;
 struct D2CriticalSectionStrc;
 struct D2RectStrc;
@@ -31,7 +29,6 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern D2CriticalSectionStrc* gpLock_007C9134; // 0x007C9134
 extern int gnValue_007C9144; // 0x007C9144
-extern int gbSkip_007C9144; // 0x007C9144
 void __fastcall sub_006C9280_Send(int n1, char nKey, int a, int b); // 0x006C9280
 
 struct D2RectStrc { long nLeft; long nTop; long nRight; long nBottom; };
@@ -53,7 +50,6 @@ void* __stdcall sub_004F59A0(); // 0x004F59A0
 extern int gnScreenHeight_007C913C; // 0x007C913C
 extern D2RgbQuadStrc gaPalette_00989C40[256]; // 0x00989C40
 extern void* ghPalette_0098A160; // 0x0098A160
-extern void* ghBitmap_0098A164; // 0x0098A164
 
 struct D2PaletteEntry006C7FA0Strc
 {
@@ -75,8 +71,6 @@ extern "C" __declspec(dllimport) unsigned int __stdcall SetPaletteEntries(void* 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
 extern D2RgbQuad006C7FA0Strc gaColors_00989C40[256]; // 0x00989C40
 extern D2PaletteEntry006C7FA0Strc gaPalette_007C8CC8[256]; // 0x007C8CC8
-
-struct D2GfxPaletteViewStrc { unsigned int fields[72]; };
 
 extern D2GfxPaletteViewStrc* gpGfxPaletteView_007C9150; // 0x007C9150
 
@@ -102,7 +96,7 @@ void __stdcall sub_006C7D30_SetValue(int nValue)
 // 0x006C7D80
 int __fastcall sub_006C7D80_LockAndSend(void* pObject, char nKey, int a, int b)
 {
-    if (gbSkip_007C9144)
+    if (gnValue_007C9144)
     {
         return 0;
     }
@@ -130,7 +124,7 @@ int __cdecl sub_006C7E30_BlitWindow()
 {
     void* hDC = GetDC(ghWindow_007C9140);
     void* hMemoryDC = CreateCompatibleDC(hDC);
-    SelectObject(hMemoryDC, ghBitmap_0098A164);
+    SelectObject(hMemoryDC, ghObject_0098A164);
     SetDIBColorTable(hMemoryDC, 0, 256, gaPalette_00989C40);
     SelectPalette(hDC, ghPalette_0098A160, 0);
     RealizePalette(hDC);

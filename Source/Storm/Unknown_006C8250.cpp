@@ -1,23 +1,10 @@
 #include "Storm.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-
 struct D2CelStrc;
 struct D2ClipRectStrc;
 struct D2ClipResultStrc;
 struct D2GfxPaletteView006C85A0Strc;
 struct D2GfxSettingsStrc;
-
-struct D2Config006C8250Strc
-{
-    int n000;
-    int n004;
-    int n008;
-    unsigned char unk_00C[0xF8];
-    int n104;
-    int n108;
-    int n10C;
-};
 extern int gnWideWidth_0098A16C; // 0x0098A16C
 int __stdcall sub_006018C0(D2CelStrc* pCel); // 0x006018C0
 int __stdcall sub_006018F0(D2CelStrc* pCel); // 0x006018F0
@@ -30,10 +17,6 @@ struct D2ClipRectStrc { int left, right, top, bottom; };
 
 struct D2ClipResultStrc { int left, right, skipRows, rowCount; };
 extern const char gszEmptyAssertText; // 0x006CC837
-int __stdcall sub_006018C0(D2CelStrc* cel); // 0x006018C0
-int __stdcall sub_006018F0(D2CelStrc* cel); // 0x006018F0
-int __stdcall sub_00601920(D2CelStrc* cel); // 0x00601920
-int __stdcall sub_00601950(D2CelStrc* cel); // 0x00601950
 const char* __cdecl sub_00408090(); // 0x00408090
 void __cdecl sub_00408A60(const char* text, const char* file, int line); // 0x00408A60
 __declspec(noreturn) void __cdecl exit(int code); // 0x00681E09
@@ -79,14 +62,6 @@ extern "C" __declspec(dllimport) void* __stdcall CreateFontA(int height, int wid
 extern const char gszCourier_006DD52C[]; // 0x006DD52C
 extern "C" __declspec(dllimport) int __stdcall DeleteObject(void* object); // 0x006CC0D4
 extern void* gpGraphicObject_0098A170; // 0x0098A170
-
-struct tagRECT
-{
-    long left;
-    long top;
-    long right;
-    long bottom;
-};
 
 extern "C" __declspec(dllimport) int __stdcall wvsprintfA(char* szDest, const char* szFormat, char* args); // 0x006CC4AC
 extern "C" __declspec(dllimport) void* __stdcall GetDC(void* hWnd); // 0x006CC44C

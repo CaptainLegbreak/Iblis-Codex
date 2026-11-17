@@ -146,12 +146,6 @@ struct D2StormHuffTreeStrc
     void sub_0041F350_IncWeights(D2StormHuffItemStrc* pItem);
 };
 
-struct D2AdpcmHeaderStrc
-{
-    unsigned char nZero;
-    unsigned char f_1;
-};
-
 // 0x0041D880
 extern "C" __declspec(dllexport) Obj0041D880* __fastcall sub_0041D880(Obj0041D880* pObj, int nUnusedEdx, const unsigned int* pBuffer) {
     pObj->pCur00 = pBuffer;

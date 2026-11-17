@@ -65,3 +65,114 @@ void __fastcall sub_0050DBE0_GlideSetVertexShade(D2GlideSpriteVertexStrc* pVerte
 void __fastcall sub_0050FBD0_GlideBindTileTexture(D2GlideTileStrc* pTile); // 0x0050FBD0
 void __stdcall sub_006014C0(D2CelContextStrc* pContext, int nX, int nY, int nArg4, int nArg5, unsigned char* pBuffer, int nHeight, int nPitch, int nArg9, int nArg10, int nArg11); // 0x006014C0
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
+
+#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#define GLIDE_VERTEX_IN_RECT(v, r) ((v).x >= (r).left && (v).x < (r).right && (v).y >= (r).top && (v).y < (r).bottom)
+
+struct D2BoundsStrc
+{
+    int nLeft;
+    int nRight;
+    int nTop;
+    int nBottom;
+};
+
+struct D2ClipStrc
+{
+    int nLeft;
+    int nWidth;
+    int nTop;
+    int nHeight;
+};
+
+struct D2DDSurfaceDescStrc
+{
+    unsigned int dwSize;
+    unsigned int dwFlags;
+    unsigned int dwHeight;
+    unsigned int dwWidth;
+    int lPitch;
+    unsigned int dwBackBufferCount;
+    unsigned int dwRefreshRate;
+    unsigned int dwAlphaBitDepth;
+    unsigned int dwReserved;
+    void* lpSurface;
+    unsigned int unk0x28[17];
+};
+
+struct D2GfxLightStrc
+{
+    unsigned int aColor[8];
+};
+
+struct D2GlideDebugCellStrc
+{
+    unsigned char unk0x00[4];
+    unsigned char nAlpha;
+    unsigned char nRed;
+    unsigned char nGreen;
+    unsigned char nBlue;
+};
+
+struct D2GlideSpriteVertexStrc
+{
+    float x;
+    float y;
+    unsigned int dwColor;
+    float oow;
+    float sow;
+    float tow;
+    float unk0x18;
+};
+
+struct D2GlideTexDimsStrc
+{
+    int nWidth;
+    int nHeight;
+};
+
+struct D2GlideTexOwnerStrc
+{
+    int unk0x00;
+    int unk0x04;
+};
+
+struct D2GlideTexSlotStrc
+{
+    int nCache;
+    int nId;
+};
+
+struct D2GrLfbInfoStrc
+{
+    int size;
+    void* f_4;
+    unsigned int strideInBytes;
+    int f_C;
+    int origin;
+};
+
+struct D2GrTexInfoExStrc
+{
+    int nSmallLodLog2;
+    int nLargeLodLog2;
+    int nAspectRatioLog2;
+    int nFormat;
+    void* pData;
+};
+
+struct T004F51E0
+{
+    unsigned char peRed;
+    unsigned char peGreen;
+    unsigned char peBlue;
+    unsigned char peFlags;
+};
+
+struct tagRECT
+{
+    long left;
+    long top;
+    long right;
+    long bottom;
+};

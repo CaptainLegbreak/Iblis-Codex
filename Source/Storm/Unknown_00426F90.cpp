@@ -1,7 +1,5 @@
 #include "Storm.h"
 
-typedef void (__stdcall* SEVTHANDLER)(void* pData);
-
 struct D2CriticalSectionStrc
 {
     void* pDebugInfo;

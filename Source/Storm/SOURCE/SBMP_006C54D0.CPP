@@ -6,7 +6,6 @@ struct D2TargaHeaderStrc { unsigned char bytes[18]; };
 
 struct D2PaletteColorStrc { unsigned char red, green, blue, alpha; };
 
-
 extern "C" unsigned int __security_cookie; // 0x00749DE0
 extern "C" void __fastcall __security_check_cookie(unsigned int nCookie); // 0x00681A48
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int dwFlags); // 0x00412650
@@ -35,14 +34,12 @@ struct D2BitOutputStrc
     unsigned char pBlock[256];
 };
 
-
 void __stdcall sub_0041D2A0_CopyBytes(void*, const void*, unsigned int); // 0x0041D2A0
 static __declspec(noinline) void sub_006C5A60_FlushBlock(D2BitOutputStrc*, unsigned char**);
 static __declspec(noinline) void __fastcall sub_006C5A90_EmitCode(D2BitOutputStrc*, unsigned char**, int);
 void __stdcall sub_0041D300_ZeroBytes(void*, unsigned int); // 0x0041D300
 static __declspec(noinline) void __stdcall sub_006C6330_ResetDictionary(unsigned char**, D2BitOutputStrc*);
 __declspec(noinline) static void __stdcall sub_006C6370_AddChar(unsigned char** ppOutput, int nChar, D2BitOutputStrc* pState);
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 
 static __declspec(noinline)
 

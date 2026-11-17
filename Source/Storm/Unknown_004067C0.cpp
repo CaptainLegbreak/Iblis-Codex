@@ -11,18 +11,6 @@ int __stdcall sub_00419980(const char* szFileName, void** phFile); // 0x00419980
 int __stdcall sub_0041AAD0_StormReadFile(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped, int nArg6, int nArg7); // 0x0041AAD0
 int __stdcall sub_00416370_StormGetFileSize(void* hFile, unsigned int* pnSizeHigh); // 0x00416370
 
-struct D2SystemTimeStrc
-{
-    unsigned short wYear;
-    unsigned short wMonth;
-    unsigned short wDayOfWeek;
-    unsigned short wDay;
-    unsigned short wHour;
-    unsigned short wMinute;
-    unsigned short wSecond;
-    unsigned short wMilliseconds;
-};
-
 struct D2FileTimeStrc
 {
     unsigned long dwLowDateTime;
@@ -59,33 +47,6 @@ void __fastcall sub_00407440_FromJulianDay(int nJulianDay, int* pnYear, int* pnM
 int __fastcall sub_0040C220_GetAppPath(char* szPath, unsigned int nSize); // 0x0040C220
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);
 extern "C" const char gszTypeNewsTableItem_0072FF8C[];
-
-struct D2Storm408ElemStrc
-{
-    char unk0x00[0x408];
-};
-
-struct D2StormArray408Strc
-{
-    unsigned int f_0;
-    unsigned int f_4;
-    D2Storm408ElemStrc* f_8;
-    unsigned int f_C;
-
-    D2StormArray408Strc* sub_0051D2C0_InitBase();
-    unsigned int sub_0051D2F0_CalcChunkSize(unsigned int nCount);
-    void sub_0051D570_FreeData();
-    void sub_0051D5D0_ReallocData(unsigned int nCount);
-    void sub_0051D670_FreeData();
-    D2StormArray408Strc* sub_0051D690_Init();
-    void sub_0051D6A0_Clear();
-    D2StormArray408Strc* sub_0051D720_Init();
-    void sub_0051D730_FreeData();
-    D2Storm408ElemStrc* sub_0051D7A0_New();
-    void ReserveInline(unsigned int nCount, int bRound);
-};
-
-typedef unsigned int size_t;
 extern "C" void* __cdecl memcpy(void* pDest, const void* pSource, size_t nSize); // 0x006829C0
 const char* __cdecl sub_0040DF60_GetLocalIp(); // 0x0040DF60
 void __stdcall sub_0040EA00_WriteProcessorReport(); // 0x0040EA00

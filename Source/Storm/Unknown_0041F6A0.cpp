@@ -1,9 +1,4 @@
 #include "Storm.h"
-
-#define _INTSIZEOF(n) ((sizeof(n) + sizeof(int) - 1) & ~(sizeof(int) - 1))
-#define va_start(ap, v) (ap = (va_list)&v + _INTSIZEOF(v))
-#define VALIDATEBEGIN int nValid = -1
-#define VALIDATE(x) nValid &= (x) ? -1 : 0
 #define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 
 struct HWND__;
@@ -32,16 +27,8 @@ struct D2StormBigStrc;
 
 struct D2StormLinkStrc
 {
-    union
-    {
-        D2StormLinkStrc* pPrevious;
-        D2StormLinkStrc* m_prevlink;
-    };
-    union
-    {
-        char* pNext;
-        char* m_next;
-    };
+    D2StormLinkStrc* pPrevious;
+    char* pNext;
     D2StormLinkStrc* NextLink(int nOffset)
     {
         if ((int)pNext < 0)
@@ -115,10 +102,6 @@ public:
     unsigned int adwData[0x3474 / 4];
 };
 
-typedef unsigned int size_t;
-
-typedef char* va_list;
-
 struct D2CriticalSectionStrc
 {
     void* pDebugInfo;
@@ -127,30 +110,6 @@ struct D2CriticalSectionStrc
     void* hOwningThread;
     void* hLockSemaphore;
     unsigned long nSpinCount;
-};
-
-struct D2SystemTimeStrc
-{
-    unsigned short wYear;
-    unsigned short wMonth;
-    unsigned short wDayOfWeek;
-    unsigned short wDay;
-    unsigned short wHour;
-    unsigned short wMinute;
-    unsigned short wSecond;
-    unsigned short wMilliseconds;
-};
-
-struct T0041FA40
-{
-    void* hLog;
-    T0041FA40* pNext;
-    void* hFile;
-    unsigned long nUsed;
-    unsigned long nPended;
-    int nIndent;
-    int f_18;
-    char szBuffer[0x10000];
 };
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
@@ -185,25 +144,6 @@ void __stdcall sub_004208E0_AddWndRec(int nValue);
 int __stdcall sub_00420CF0_WindowProc(void* hWnd, unsigned int uMsg, unsigned int wParam, int lParam);
 int __fastcall sub_004209E0_FindWndRec(HWND__* hWnd);
 int __stdcall SEvtRegisterHandler(unsigned int nType, HWND__* hWnd, unsigned int nId, int nFlags, SMSGHANDLER pHandler); // 0x00426420
-
-struct D2Field14Strc
-{
-    char unk0x00[0x14];
-    int nField14;
-};
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    char unk0x14[0x3A];
-    unsigned char nActionFrame;
-    char unk0x4F[0x75];
-    unsigned int dwFlags;
-};
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 
@@ -626,29 +566,29 @@ void __cdecl sub_00601B50_Empty()
 // 0x004204F0
 char* __fastcall sub_00601B60_LinkNext(D2StormLinkStrc* pLink)
 {
-    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
+    return (int)pLink->pNext > 0 ? pLink->pNext : 0;
 }
 
 char* __fastcall sub_00601C60_LinkNext(D2StormLinkStrc* pLink)
 {
-    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
+    return (int)pLink->pNext > 0 ? pLink->pNext : 0;
 }
 
 char* __fastcall sub_00601CE0_LinkNext(D2StormLinkStrc* pLink)
 {
-    return (int)pLink->m_next > 0 ? pLink->m_next : 0;
+    return (int)pLink->pNext > 0 ? pLink->pNext : 0;
 }
 
 void __fastcall sub_00601DF0_InitTerminator(D2StormListStrc* pList)
 {
-    pList->m_terminator.m_prevlink = &pList->m_terminator;
-    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
+    pList->m_terminator.pPrevious = &pList->m_terminator;
+    pList->m_terminator.pNext = (char*)~(unsigned int)&pList->m_terminator;
 }
 
 void __fastcall sub_00601E10_InitTerminator(D2StormListStrc* pList)
 {
-    pList->m_terminator.m_prevlink = &pList->m_terminator;
-    pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
+    pList->m_terminator.pPrevious = &pList->m_terminator;
+    pList->m_terminator.pNext = (char*)~(unsigned int)&pList->m_terminator;
 }
 
 // 0x00420A70

@@ -1,18 +1,10 @@
 #include "D2Launch.h"
 
-struct D2FuncRecordStrc
-{
-    char unk0x00[0x0C];
-    int nIndex;
-};
-
 struct D2FuncTable_0077ABF0Strc
 {
     char unk0x00[0x98];
     D2FuncRecordStrc* (__cdecl* pfnGetRecord)();
 };
-
-typedef void (__cdecl* D2LaunchDoneFn)();
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax);                     // 0x004135D0
 D2WinControlStrc* __fastcall sub_0042F430_CreateControl(int nId);                                           // 0x0042F430
 char* __fastcall sub_00430B50_GetSlotName(int nIndex);                                                      // 0x00430B50

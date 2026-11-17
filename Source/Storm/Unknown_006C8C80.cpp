@@ -1,7 +1,5 @@
 #include "Storm.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-
 struct D2RectStrc;
 struct tagPOINT;
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -18,22 +16,7 @@ struct D2RectStrc
     int nRight;
     int nBottom;
 };
-
-struct tagRECT
-{
-    long left;
-    long top;
-    long right;
-    long bottom;
-};
-
-struct tagPOINT
-{
-    long x;
-    long y;
-};
 void __fastcall sub_006C90E0_GdiUtilFilledRect(tagRECT* pRect, unsigned char nColor); // 0x006C90E0
-extern int gnRows_007C913C; // 0x007C913C
 void __stdcall sub_006C9220_Apply(int enabled); // 0x006C9220
 
 int gnScreenHeight_007C913C; // 0x007C913C
@@ -197,11 +180,11 @@ void __stdcall sub_006C9220_ClearBuffer(int bPartial)
 {
     if (bPartial)
     {
-        memset(gpBuffer_007C9154, 0, gnStride_007C9138 * (gnRows_007C913C - 47));
+        memset(gpBuffer_007C9154, 0, gnStride_007C9138 * (gnScreenHeight_007C913C - 47));
     }
     else
     {
-        memset(gpBuffer_007C9154, 0, gnStride_007C9138 * gnRows_007C913C);
+        memset(gpBuffer_007C9154, 0, gnStride_007C9138 * gnScreenHeight_007C913C);
     }
 }
 

@@ -1,7 +1,5 @@
 #include "Storm.h"
 
-#define gwProcessorLevel_0074D8C0 (gtSystemInfo_0074D8A0.wProcessorLevel)
-
 struct FSafeSock;
 struct D2CriticalSectionStrc;
 struct Obj0040E0B0;
@@ -90,8 +88,6 @@ extern unsigned long gnLogThreadId_0075E834; // 0x0075E834
 extern D2CriticalSectionStrc gtLogQueueLock_0075E838; // 0x0075E838
 extern D2LogMsgListStrc gtLogMsgQueue_0075E868; // 0x0075E868
 extern D2CriticalSectionStrc gTimeLock_0075E880; // 0x0075E880
-
-typedef unsigned int size_t;
 
 void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
 int __cdecl sub_0040E870_MeasureCpuMHz(); // 0x0040E870

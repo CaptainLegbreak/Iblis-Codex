@@ -5,8 +5,6 @@ struct D2CrashModuleStrc;
 struct D2CrashModuleListStrc;
 struct D2ModuleStrc;
 
-typedef unsigned int size_t;
-
 struct D2CrashGuidStrc
 {
     unsigned long Data1;
@@ -33,29 +31,8 @@ struct D2CrashModuleListStrc
     unsigned int nCount;
     D2CrashModuleStrc aModules[0x100];
 };
-
-struct D2ModuleStrc
-{
-    bool sub_00404AB0_VisitModule(void* pContext, const wchar_t* wszName, int nNameLength);                 // 0x00404AB0
-};
-
-struct D2ModuleEntry32Strc
-{
-    unsigned long dwSize;
-    unsigned long th32ModuleID;
-    unsigned long th32ProcessID;
-    unsigned long GlblcntUsage;
-    unsigned long ProccntUsage;
-    D2ModuleStrc* modBaseAddr;
-    unsigned long modBaseSize;
-    void* hModule;
-    wchar_t szModule[256];
-    wchar_t szExePath[260];
-};
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
 bool __stdcall sub_00404C60_EnumModulesPsapi(void* pContext); // 0x00404C60
-
-typedef void (__fastcall* D2CrashPrintFn)(void* pContext, const char* szText);
 
 extern "C" size_t __cdecl strlen(const char* szString);
 extern "C" void __cdecl qsort(void* pBase, unsigned int nCount, unsigned int nSize, int (__cdecl* pfCompare)(const void*, const void*)); // 0x00685B50

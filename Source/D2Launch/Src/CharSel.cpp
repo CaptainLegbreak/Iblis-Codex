@@ -1,6 +1,7 @@
 #include "D2Launch.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+#pragma intrinsic(strlen)
+
 struct D2UnitStrc;
 struct D2ActiveRoomStrc;
 struct D2InventoryStrc;
@@ -13,6 +14,12 @@ struct D2DataTablesStrc;
 struct D2LaunchRequestStrc;
 struct D2UnitDropItemsPacketStrc;
 struct D2GridCellStrc;
+struct D2CellFileStrc;
+struct Unicode;
+struct D2FuncTable_0077ABF0Strc;
+struct D2LaunchCharInfoStrc;
+struct D2FuncRecordStrc;
+struct D2LaunchCharEntryStrc;
 
 struct Unicode
 {
@@ -52,6 +59,7 @@ struct D2FuncTable_0077ABF0Strc
     unsigned char unk_9C[0x4];
     int (__fastcall* pfnSlotA0)(int* pValue);
 };
+
 extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);
 void __fastcall sub_004F9740_SetControlState(D2WinControlStrc* pControl, int bSet); // 0x004F9740
 void __fastcall sub_004307A0(unsigned int nArg, int nMode, int nStringId1, int nStringId2); // 0x004307A0
@@ -64,13 +72,6 @@ extern D2WinControlStrc* gpControl_007795E4; // 0x007795E4
 extern void** gppSlots_00779988; // 0x00779988
 extern int gdwGlobal_0077998C; // 0x0077998C
 
-struct D2CharSelCacheStrc
-{
-    unsigned int dwHash;
-    void* pData;
-    unsigned int dwExpireTick;
-    D2CharSelCacheStrc* pNext;
-};
 unsigned int __stdcall SStrHash(const char* szString, unsigned int nFlags, unsigned int nSeed); // 0x00413CE0
 char* __fastcall sub_00430B50_GetSlotName(int nIndex); // 0x00430B50
 int __cdecl sub_00430A20_FreeSlots(); // 0x00430A20
@@ -221,18 +222,25 @@ void __stdcall sub_00439E60_AddToValue(int nDelta); // 0x00439E60
 int __stdcall sub_00439E90_ListKeyDown(SMSGHANDLER_PARAMS* pMsg); // 0x00439E90
 extern int gnTopRow_00779DC8; // 0x00779DC8
 
-struct D2FuncRecordStrc
-{
-    char unk0x00[0x0C];
-    int nIndex;
-};
-
-typedef void (__cdecl* D2LaunchDoneFn)();
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
 D2WinControlStrc* __fastcall sub_0042F430_CreateControl(int nId); // 0x0042F430
 void __fastcall sub_00433450_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone); // 0x00433450
 void __cdecl sub_0043B9A0(); // 0x0043B9A0
 extern int gnState_00779DAC; // 0x00779DAC
+extern "C" unsigned int __cdecl strlen(const char* sz);
+
+struct D2LaunchCharEntryStrc
+{
+    char szName[0x324];
+    int nFlags;
+    char unk0x328[0x0C];
+    int bShared;
+    D2CellFileStrc* pCellFile;
+    char unk0x33C[0x10];
+    D2LaunchCharEntryStrc* pNext;
+};
+int __stdcall sub_005041B0_Destroy(D2CellFileStrc* pCellFile, int nFlag); // 0x005041B0
+extern D2LaunchCharEntryStrc* gpCharEntry_00779DC0; // 0x00779DC0
 
 // 0x0042E5B0
 char* __cdecl sub_0042E5B0_StrStr(char* szString, const char* szSubString)
@@ -244,24 +252,6 @@ char* __cdecl sub_0042E5B0_StrStr(char* szString, const char* szSubString)
 Unicode::Unicode(unsigned short wValue)
 {
     wChar = wValue;
-}
-
-// 0x004303E0
-bool __stdcall sub_004303E0_IsLineBreak(Unicode wc)
-{
-    if (wc.wChar == 13 || wc.wChar == 10)
-        return true;
-    return false;
-}
-
-// 0x0043A610
-void __cdecl sub_0043A610_ShowString()
-{
-    const Unicode* pTitle = D2LANG_GetStringFromTblIndex(0x2B3B);
-    Unicode wEmpty;
-    wEmpty.wChar = 0;
-    gdwGlobal_0070CC08 = gdwGlobal_00779DC4;
-    sub_0043A460(pTitle, &wEmpty, 2, 0x12);
 }
 
 // 0x0042FDE0
@@ -330,6 +320,14 @@ int __stdcall sub_00430160_OnToggle(SMSGHANDLER_PARAMS* pMsg)
     return 1;
 }
 
+// 0x004303E0
+bool __stdcall sub_004303E0_IsLineBreak(Unicode wc)
+{
+    if (wc.wChar == 13 || wc.wChar == 10)
+        return true;
+    return false;
+}
+
 // 0x00430840
 int __stdcall sub_00430840(SMSGHANDLER_PARAMS* pMsg)
 {
@@ -384,33 +382,6 @@ int __stdcall sub_004309C0_AddToSlots(void* pEntry)
 int __cdecl sub_00430B00_CompareNames(const void* pEntry1, const void* pEntry2)
 {
     return strcmp(**(const char* const* const*)pEntry1, **(const char* const* const*)pEntry2);
-}
-
-// 0x00439B80
-int __stdcall sub_00439B80(SMSGHANDLER_PARAMS* pMsg)
-{
-    sub_00439AF0(pMsg, 0);
-    return 1;
-}
-
-// 0x00439BA0
-int __stdcall sub_00439BA0(SMSGHANDLER_PARAMS* pMsg)
-{
-    sub_00439AF0(pMsg, 1);
-    return 1;
-}
-
-// 0x00439BC0
-int __stdcall sub_00439BC0(SMSGHANDLER_PARAMS* pMsg)
-{
-    sub_00439AF0(pMsg, 2);
-    return 1;
-}
-
-// 0x00439E60
-void __stdcall sub_00439E60_AddToValue(int nDelta)
-{
-    sub_004FC660_SetValue(gpControl_00779C84, sub_004FC620_GetValue(gpControl_00779C84) + nDelta);
 }
 
 // build: context sub_0043B8E0_OnTick
@@ -486,22 +457,6 @@ void* __fastcall sub_00437A70_CharSelCacheFind(const char* szKey)
     return 0;
 }
 
-// 0x00437C90
-void __cdecl sub_00437C90_ScrollNameControl()
-{
-    if (gbFlag_00779C6C)
-        D2Win_10188(gpNameControl_007799E8, -1, 4);
-}
-
-// 0x00437F30
-void __fastcall sub_00437F30_CopyBaseName(const char* szName)
-{
-    char* pDest = gszBaseName_00779B68;
-    while (*szName && *szName != '.')
-        *pDest++ = *szName++;
-    *pDest = 0;
-}
-
 int __fastcall sub_M110_Emit_00437A00(int nIndex)
 {
     return sub_00437A00_GetSlotNameChecked(nIndex + 1) != 0;
@@ -543,168 +498,68 @@ void __fastcall sub_00437AB0_CharSelCacheStore(const char* szKey, const void* pD
     gpCharSelCache_00779DE8 = pEntry;
 }
 
-// 0x00445020
-void __cdecl sub_00445020_SendLaunchRequest()
+// 0x00437C90
+void __cdecl sub_00437C90_ScrollNameControl()
 {
-    gnLaunchMode_0077BBE4 = 3;
-    gnValue_00798CCC = 0;
-    if (gpCharInfo_0077BBD8->nType0x35E == 2)
+    if (gbFlag_00779C6C)
+        D2Win_10188(gpNameControl_007799E8, -1, 4);
+}
+
+// 0x00437F30
+void __fastcall sub_00437F30_CopyBaseName(const char* szName)
+{
+    char* pDest = gszBaseName_00779B68;
+    while (*szName && *szName != '.')
+        *pDest++ = *szName++;
+    *pDest = 0;
+}
+
+// 0x00438060
+void __cdecl sub_00438060_FreeCharEntry()
+{
+    if (gpCharEntry_00779DC0)
     {
-        D2LaunchRequestStrc tRequest;
-        memset(&tRequest, 0, sizeof(tRequest));
-        if (gpCharInfo_0077BBD8->wFlags[0] & 4)
-            tRequest.dwFlags |= 0x800;
-        while (++gwRequestId_0070CD60 == 0)
-        {
-        }
-        sub_0044A590_SendRequest(&tRequest, gwRequestId_0070CD60);
-        gwSavedRequestId_0077BBDC = gwRequestId_0070CD60;
-    }
-    else
-    {
-        sub_00444E70_SendFallbackRequest();
+        if (!gpCharEntry_00779DC0->bShared)
+            sub_005041B0_Destroy(gpCharEntry_00779DC0->pCellFile, 1);
+        sub_0040B3C0(gpCharEntry_00779DC0, ".\\Src\\CharSel.cpp", 0x2A1, 0);
+        gpCharEntry_00779DC0 = 0;
     }
 }
 
-// 0x00451920
-void __stdcall sub_00451920_RecordHandler(int nArg1, int nArg2, int nArg3)
+// 0x00438F40
+int __fastcall sub_00438F40_IsValidCharName(const char* szName)
 {
-    sub_00451620_WriteRecordFile();
-    if (gpfnPrevHandler_007A2764)
-        gpfnPrevHandler_007A2764(nArg1, nArg2, nArg3);
+    const int nLen = strlen(szName);
+    if (nLen < 2 || nLen > 15 || szName[nLen - 1] == '-' || szName[0] == '_')
+        return 0;
+    return 1;
 }
 
-// 0x00453470
-void __cdecl sub_00453470_DrawProgressiveStates()
+// 0x00439B80
+int __stdcall sub_00439B80(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (!gpGlobal_007A0634)
-        return;
-    if (!sub_00463DE0_GetStoredUnit())
-        return;
-    if (!UNITS_GetRoom(sub_00463DE0_GetStoredUnit()))
-        return;
-    if (!gbOverlaysEnabled_007A289C)
-        return;
-    int nY = gnGlobal_00711470 - gnGlobal_007111D4;
-    int nX = gnGlobal_0071146C - gnGlobal_007111D0;
-    if (D2GFX_GetResolutionMode() == 2)
-        nY = gnGlobal_00711470 - gnGlobal_007111CC;
-    D2UnitStrc* pUnit = sub_00463DE0_GetStoredUnit();
-    for (int i = 0; i < sgptDataTables->nProgressiveStates; ++i)
-    {
-        const int nState = sgptDataTables->pProgressiveStates[i];
-        if (!STATES_CheckState(pUnit, nState))
-            continue;
-        if (!STATLIST_GetStatListFromUnitAndState(pUnit, nState))
-            continue;
-        D2StatesTxt* pStatesTxtRecord = DATATBLS_GetStatesTxtRecord(nState);
-        if (!pStatesTxtRecord)
-            continue;
-        if (!(pStatesTxtRecord->nStateFlags[0] & gdwBitMasks[4]))
-            continue;
-        if (pStatesTxtRecord->wPrgOverlay <= 0 || pStatesTxtRecord->wPrgOverlay >= sgptDataTables->nOverlayTxtRecordCount)
-            continue;
-        if (pStatesTxtRecord->wStat < 0 || pStatesTxtRecord->wStat > sgptDataTables->nItemStatCostTxtRecordCount)
-            continue;
-        const int nCharges = STATLIST_UnitGetStatValue(pUnit, pStatesTxtRecord->wStat, 0);
-        if (nCharges < 1 || nCharges > 3)
-            continue;
-        sub_0046E1B0_DrawOverlay(pUnit, pStatesTxtRecord->wPrgOverlay + nCharges - 1, nX, nY);
-        nX -= gnOverlayStep_007A3138;
-    }
+    sub_00439AF0(pMsg, 0);
+    return 1;
 }
 
-// 0x00458CD0
-void __stdcall sub_00458CD0_SetAutomapContext(void* pContext)
+// 0x00439BA0
+int __stdcall sub_00439BA0(SMSGHANDLER_PARAMS* pMsg)
 {
-    sub_004584C0_ResetA();
-    sub_00458680_ResetB();
-    gpAutomapContext_007A5164 = pContext;
-    sub_00458750_Rebuild();
+    sub_00439AF0(pMsg, 1);
+    return 1;
 }
 
-// build: context sub_00462F60_UnitDropItems
-void __fastcall sub_00462F60_UnitDropItems(D2UnitDropItemsPacketStrc* pPacket)
+// 0x00439BC0
+int __stdcall sub_00439BC0(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (!pPacket->bActive)
-        return;
-    D2UnitStrc* pUnit = sub_00463990(*(int*)pPacket->nUnitId, 0);
-    if (!pUnit)
-        return;
-    if (!sub_00464820_IsDeadOrDying(pUnit))
-        sub_00480E70_SetState(pUnit, 0);
-    if (pUnit == sub_00463DD0())
-    {
-        D2UnitStrc* pOther = sub_00463990(*(int*)pPacket->nOtherUnitId, 0);
-        if (!pOther)
-            return;
-        D2DynamicPathStrc* pPath = pOther->pDynamicPath;
-        PATH_SetMoveTestCollisionMask(pPath, 0);
-        sub_00649190_SetPathMode(pOther, 5);
-        D2_ASSERT(sub_00650BE0_PlaceUnit(pPath, pOther, UNITS_GetRoom(pUnit), UNITS_GetXPosition(pUnit), CLIENTS_GetUnitY(pUnit)), 0xABA);
-        sub_006488A0_SetDirection(pOther->pDynamicPath, PATH_GetDirection(pUnit->pDynamicPath));
-    }
-    D2InventoryStrc* pInventory = pUnit->pInventory;
-    D2UnitStrc* pItem = INVENTORY_GetFirstItem(pInventory);
-    while (pItem)
-    {
-        D2UnitStrc* pNext = INVENTORY_GetNextItem(pItem);
-        if (INVENTORY_GetItemNodePage(pItem) == 3)
-        {
-            pItem = INVENTORY_UnitIsItem(pItem);
-            sub_0063D2B0_DetachItem(pInventory, pItem);
-            sub_0046F280(pUnit, sub_00462EE0_GetItemComponent(pUnit, pItem));
-            D2UnitStrc* pRemoved = INVENTORY_RemoveItemFromInventory(pInventory, pItem);
-            D2_ASSERT(pRemoved, 0xAC8);
-            D2_ASSERT(pRemoved == pItem, 0xAC9);
-            sub_004C0EC0_UpdateItemLink(pItem, pUnit, 0, 0);
-            sub_0063BE30(pInventory, ITEMS_GetBodyLocation(pItem));
-            sub_00470610_Refresh(pUnit, 0);
-            const int nUnitType = !pItem ? 6 : pItem->dwUnitType;
-            const int nUnitId = !pItem ? -1 : pItem->dwUnitId;
-            sub_00465EE0_RemoveClientSideUnit(nUnitId, nUnitType);
-        }
-        pItem = pNext;
-    }
+    sub_00439AF0(pMsg, 2);
+    return 1;
 }
 
-// 0x004756D0
-void __cdecl sub_004756D0_ScanGridCollision()
+// 0x00439E60
+void __stdcall sub_00439E60_AddToValue(int nDelta)
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
-    if (!pPlayer)
-        return;
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
-    if (!pRoom)
-        return;
-    for (int nY = 0; nY < 0x30; ++nY)
-    {
-        for (int nX = 0; nX < 0x30; ++nX)
-        {
-            pRoom = D2GAME_GetRoom_6FC52070(pRoom, gnGlobal_007B0A54 + nX, gnGlobal_007B0A58 + nY);
-            if (!pRoom)
-                pRoom = UNITS_GetRoom(pPlayer);
-            if (COLLISION_CheckMask(pRoom, gnGlobal_007B0A54 + nX, gnGlobal_007B0A58 + nY, 0x22))
-                gtGridCells_007B0E68[nY * 0x30 + nX].nFlag = 1;
-        }
-    }
-}
-
-// 0x00478160
-void __fastcall sub_00478160_ShowProgressSteps(int nDone, int nTotal)
-{
-    const int nDivisor = nTotal * 8;
-    int nPosition = nDone * 8;
-    for (int i = 0; i < 8; ++i)
-    {
-        if (nDivisor == 0)
-            gnProgress_007BB3B4 = 0;
-        else
-            gnProgress_007BB3B4 = (nPosition * 0x100) / nDivisor;
-        sub_004565E0_Redraw(0);
-        Sleep(250);
-        ++nPosition;
-    }
+    sub_004FC660_SetValue(gpControl_00779C84, sub_004FC620_GetValue(gpControl_00779C84) + nDelta);
 }
 
 #include "gen/data/Source/D2Launch/Src/CharSel.inc"
@@ -947,4 +802,178 @@ int __cdecl sub_0043A2B0_InitRealmScreen()
 fail:
     sub_00433450_ShowText(D2LANG_GetStringFromTblIndex(nStringId), sub_004336C0);
     return 0;
+}
+
+// 0x0043A610
+void __cdecl sub_0043A610_ShowString()
+{
+    const Unicode* pTitle = D2LANG_GetStringFromTblIndex(0x2B3B);
+    Unicode wEmpty;
+    wEmpty.wChar = 0;
+    gdwGlobal_0070CC08 = gdwGlobal_00779DC4;
+    sub_0043A460(pTitle, &wEmpty, 2, 0x12);
+}
+
+// 0x00445020
+void __cdecl sub_00445020_SendLaunchRequest()
+{
+    gnLaunchMode_0077BBE4 = 3;
+    gnValue_00798CCC = 0;
+    if (gpCharInfo_0077BBD8->nType0x35E == 2)
+    {
+        D2LaunchRequestStrc tRequest;
+        memset(&tRequest, 0, sizeof(tRequest));
+        if (gpCharInfo_0077BBD8->wFlags[0] & 4)
+            tRequest.dwFlags |= 0x800;
+        while (++gwRequestId_0070CD60 == 0)
+        {
+        }
+        sub_0044A590_SendRequest(&tRequest, gwRequestId_0070CD60);
+        gwSavedRequestId_0077BBDC = gwRequestId_0070CD60;
+    }
+    else
+    {
+        sub_00444E70_SendFallbackRequest();
+    }
+}
+
+// 0x00451920
+void __stdcall sub_00451920_RecordHandler(int nArg1, int nArg2, int nArg3)
+{
+    sub_00451620_WriteRecordFile();
+    if (gpfnPrevHandler_007A2764)
+        gpfnPrevHandler_007A2764(nArg1, nArg2, nArg3);
+}
+
+// 0x00453470
+void __cdecl sub_00453470_DrawProgressiveStates()
+{
+    if (!gpGlobal_007A0634)
+        return;
+    if (!sub_00463DE0_GetStoredUnit())
+        return;
+    if (!UNITS_GetRoom(sub_00463DE0_GetStoredUnit()))
+        return;
+    if (!gbOverlaysEnabled_007A289C)
+        return;
+    int nY = gnGlobal_00711470 - gnGlobal_007111D4;
+    int nX = gnGlobal_0071146C - gnGlobal_007111D0;
+    if (D2GFX_GetResolutionMode() == 2)
+        nY = gnGlobal_00711470 - gnGlobal_007111CC;
+    D2UnitStrc* pUnit = sub_00463DE0_GetStoredUnit();
+    for (int i = 0; i < sgptDataTables->nProgressiveStates; ++i)
+    {
+        const int nState = sgptDataTables->pProgressiveStates[i];
+        if (!STATES_CheckState(pUnit, nState))
+            continue;
+        if (!STATLIST_GetStatListFromUnitAndState(pUnit, nState))
+            continue;
+        D2StatesTxt* pStatesTxtRecord = DATATBLS_GetStatesTxtRecord(nState);
+        if (!pStatesTxtRecord)
+            continue;
+        if (!(pStatesTxtRecord->nStateFlags[0] & gdwBitMasks[4]))
+            continue;
+        if (pStatesTxtRecord->wPrgOverlay <= 0 || pStatesTxtRecord->wPrgOverlay >= sgptDataTables->nOverlayTxtRecordCount)
+            continue;
+        if (pStatesTxtRecord->wStat < 0 || pStatesTxtRecord->wStat > sgptDataTables->nItemStatCostTxtRecordCount)
+            continue;
+        const int nCharges = STATLIST_UnitGetStatValue(pUnit, pStatesTxtRecord->wStat, 0);
+        if (nCharges < 1 || nCharges > 3)
+            continue;
+        sub_0046E1B0_DrawOverlay(pUnit, pStatesTxtRecord->wPrgOverlay + nCharges - 1, nX, nY);
+        nX -= gnOverlayStep_007A3138;
+    }
+}
+
+// 0x00458CD0
+void __stdcall sub_00458CD0_SetAutomapContext(void* pContext)
+{
+    sub_004584C0_ResetA();
+    sub_00458680_ResetB();
+    gpAutomapContext_007A5164 = pContext;
+    sub_00458750_Rebuild();
+}
+
+// build: context sub_00462F60_UnitDropItems
+void __fastcall sub_00462F60_UnitDropItems(D2UnitDropItemsPacketStrc* pPacket)
+{
+    if (!pPacket->bActive)
+        return;
+    D2UnitStrc* pUnit = sub_00463990(*(int*)pPacket->nUnitId, 0);
+    if (!pUnit)
+        return;
+    if (!sub_00464820_IsDeadOrDying(pUnit))
+        sub_00480E70_SetState(pUnit, 0);
+    if (pUnit == sub_00463DD0())
+    {
+        D2UnitStrc* pOther = sub_00463990(*(int*)pPacket->nOtherUnitId, 0);
+        if (!pOther)
+            return;
+        D2DynamicPathStrc* pPath = pOther->pDynamicPath;
+        PATH_SetMoveTestCollisionMask(pPath, 0);
+        sub_00649190_SetPathMode(pOther, 5);
+        D2_ASSERT(sub_00650BE0_PlaceUnit(pPath, pOther, UNITS_GetRoom(pUnit), UNITS_GetXPosition(pUnit), CLIENTS_GetUnitY(pUnit)), 0xABA);
+        sub_006488A0_SetDirection(pOther->pDynamicPath, PATH_GetDirection(pUnit->pDynamicPath));
+    }
+    D2InventoryStrc* pInventory = pUnit->pInventory;
+    D2UnitStrc* pItem = INVENTORY_GetFirstItem(pInventory);
+    while (pItem)
+    {
+        D2UnitStrc* pNext = INVENTORY_GetNextItem(pItem);
+        if (INVENTORY_GetItemNodePage(pItem) == 3)
+        {
+            pItem = INVENTORY_UnitIsItem(pItem);
+            sub_0063D2B0_DetachItem(pInventory, pItem);
+            sub_0046F280(pUnit, sub_00462EE0_GetItemComponent(pUnit, pItem));
+            D2UnitStrc* pRemoved = INVENTORY_RemoveItemFromInventory(pInventory, pItem);
+            D2_ASSERT(pRemoved, 0xAC8);
+            D2_ASSERT(pRemoved == pItem, 0xAC9);
+            sub_004C0EC0_UpdateItemLink(pItem, pUnit, 0, 0);
+            sub_0063BE30(pInventory, ITEMS_GetBodyLocation(pItem));
+            sub_00470610_Refresh(pUnit, 0);
+            const int nUnitType = !pItem ? 6 : pItem->dwUnitType;
+            const int nUnitId = !pItem ? -1 : pItem->dwUnitId;
+            sub_00465EE0_RemoveClientSideUnit(nUnitId, nUnitType);
+        }
+        pItem = pNext;
+    }
+}
+
+// 0x004756D0
+void __cdecl sub_004756D0_ScanGridCollision()
+{
+    D2UnitStrc* pPlayer = sub_00463DD0();
+    if (!pPlayer)
+        return;
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
+    if (!pRoom)
+        return;
+    for (int nY = 0; nY < 0x30; ++nY)
+    {
+        for (int nX = 0; nX < 0x30; ++nX)
+        {
+            pRoom = D2GAME_GetRoom_6FC52070(pRoom, gnGlobal_007B0A54 + nX, gnGlobal_007B0A58 + nY);
+            if (!pRoom)
+                pRoom = UNITS_GetRoom(pPlayer);
+            if (COLLISION_CheckMask(pRoom, gnGlobal_007B0A54 + nX, gnGlobal_007B0A58 + nY, 0x22))
+                gtGridCells_007B0E68[nY * 0x30 + nX].nFlag = 1;
+        }
+    }
+}
+
+// 0x00478160
+void __fastcall sub_00478160_ShowProgressSteps(int nDone, int nTotal)
+{
+    const int nDivisor = nTotal * 8;
+    int nPosition = nDone * 8;
+    for (int i = 0; i < 8; ++i)
+    {
+        if (nDivisor == 0)
+            gnProgress_007BB3B4 = 0;
+        else
+            gnProgress_007BB3B4 = (nPosition * 0x100) / nDivisor;
+        sub_004565E0_Redraw(0);
+        Sleep(250);
+        ++nPosition;
+    }
 }

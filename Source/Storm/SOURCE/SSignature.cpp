@@ -184,11 +184,6 @@ struct D2StormHuffItemStrc
     D2StormHuffItemStrc* pChild;
 };
 
-struct D2StormHuffLinkSlotStrc
-{
-    int nData[3];
-};
-
 struct D2StormHuffTreeStrc
 {
     int unk0x00[2];

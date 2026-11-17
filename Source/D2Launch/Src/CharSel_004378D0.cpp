@@ -1,14 +1,10 @@
 #include "D2Launch.h"
-
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 struct SMSGHANDLER_PARAMS;
 struct D2LaunchCharEntryStrc;
 struct D2LaunchCharSelectStrc;
 struct D2LaunchGameRecStrc;
-
-typedef unsigned int size_t;
 
 struct Unicode
 {
@@ -27,10 +23,6 @@ struct SMSGHANDLER_PARAMS
     int bReturn;
     int lResult;
 };
-
-typedef int (__stdcall* D2LaunchCallback)(int nArg);
-
-typedef void (__cdecl* D2LaunchDoneFn)();
 
 struct D2FuncTable_0077ABF0Strc
 {

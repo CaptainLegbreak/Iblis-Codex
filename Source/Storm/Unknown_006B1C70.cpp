@@ -9,7 +9,7 @@ struct T004F51E0
 };
 
 
-extern unsigned short gwPaletteTo16_0096FA80[256]; // 0x0096FA80
+extern unsigned short gwColors16_0096FA80[256]; // 0x0096FA80
 void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
 
 unsigned short gwColors16_0096FA80[256]; // 0x0096FA80
@@ -53,7 +53,7 @@ void __fastcall sub_006B1DC0_Blit8To16(const unsigned char* pSrc, unsigned short
         const unsigned char* s = pRowSrc;
         for (int x = 0; x < nWidth; ++x)
         {
-            *d++ = gwPaletteTo16_0096FA80[*s++];
+            *d++ = gwColors16_0096FA80[*s++];
         }
         pRowSrc += nWidth;
         pRowDst += nDstPitch;

@@ -27,31 +27,6 @@ struct PairStrc_006C4030
 extern int gdwGlobal_0098A164; // 0x0098A164
 extern int gdwGlobal_007C914C; // 0x007C914C
 
-struct D2SCompLinkStrc
-{
-    D2SCompLinkStrc* m_prevlink;
-    char* m_next;
-
-    D2SCompLinkStrc* NextLink(int nLinkOffset)
-    {
-        if ((int)m_next < 0)
-            return (D2SCompLinkStrc*)~(unsigned int)m_next;
-        if (nLinkOffset < 0)
-            nLinkOffset = (char*)this - m_prevlink->m_next;
-        return (D2SCompLinkStrc*)(m_next + nLinkOffset);
-    }
-    void Unlink()
-    {
-        if (m_prevlink)
-        {
-            NextLink(-1)->m_prevlink = m_prevlink;
-            m_prevlink->m_next = m_next;
-            m_prevlink = 0;
-            m_next = 0;
-        }
-    }
-};
-
 struct D2FogUnlinkStrc
 {
     D2SCompLinkStrc tLink;
@@ -154,9 +129,7 @@ struct CMDDEFList
         return (int)m_terminator.m_next <= 0 ? 0 : (CMDDEF*)m_terminator.m_next;
     }
 };
-
 // build: context ??_GD2StormCmdDefStrc@@QAEPAXI@Z
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 
 struct D2StormCmdDefStrc
 {
@@ -182,7 +155,6 @@ struct D2StormCmdDefListStrc
 };
 
 extern const char gszCmdDef_0074C47C[]; // 0x0074C47C
-int __stdcall SMemFree(void*,const char*,int,unsigned int); // 0x00412650
 
 struct D2CmdListStrc {
  int offset; D2StormLinkStrc terminator;

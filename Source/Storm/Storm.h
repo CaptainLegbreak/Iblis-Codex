@@ -171,3 +171,689 @@ void __stdcall SErrSetLastError(unsigned int); // 0x0041C340
 void __stdcall sub_0041D300_ZeroMemory(void* pDest, unsigned int nSize); // 0x0041D300
 void __stdcall sub_006014C0(D2CmpCelContextStrc* pContext, int nX, int nY, int nArg4, int nArg5, unsigned char* pBuffer, int nHeight, int nPitch, int nArg9, int nArg10, int nArg11); // 0x006014C0
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
+
+#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
+#define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
+#define DOLIT4 c ^= *buf4++; \
+        c = crc_table[3][c & 0xff] ^ crc_table[2][(c >> 8) & 0xff] ^ \
+            crc_table[1][(c >> 16) & 0xff] ^ crc_table[0][c >> 24]
+#define DOLIT32 DOLIT4; DOLIT4; DOLIT4; DOLIT4; DOLIT4; DOLIT4; DOLIT4; DOLIT4
+#define Z_NEED_DICT     2
+#define ERR_MSG(err) z_errmsg[Z_NEED_DICT - (err)]
+#define INVALID_FILE_HANDLE ((void*)-1)
+#define MAX_WBITS       15
+#define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
+#define VALIDATE(x) nValid &= (x) ? -1 : 0
+#define VALIDATEBEGIN int nValid = -1
+#define VALIDATEENDVOID if (!nValid) { sub_0041C340_SetLastError(0x57); return; }
+#define ZSWAP32(q) ((((q) >> 24) & 0xff) + (((q) >> 8) & 0xff00) + \
+                    (((q) & 0xff00) << 8) + (((q) & 0xff) << 24))
+#define Z_BLOCK         5
+#define Z_BUF_ERROR     (-5)
+#define Z_DATA_ERROR    (-3)
+#define Z_DEFAULT_COMPRESSION (-1)
+#define Z_DEFLATED      8
+#define Z_FINISH        4
+#define Z_FIXED         4
+#define Z_MEM_ERROR     (-4)
+#define Z_NULL          0
+#define Z_OK            0
+#define Z_STREAM_END    1
+#define Z_STREAM_ERROR  (-2)
+#define _INTSIZEOF(n) ((sizeof(n) + sizeof(int) - 1) & ~(sizeof(int) - 1))
+#define gwProcessorLevel_0074D8C0 (gtSystemInfo_0074D8A0.wProcessorLevel)
+#define va_start(ap, v) (ap = (va_list)&v + _INTSIZEOF(v))
+
+typedef char* va_list;
+
+typedef unsigned char BOOLEAN;
+
+struct D2AdpcmHeaderStrc
+{
+    unsigned char nZero;
+    unsigned char f_1;
+};
+
+struct D2BitmapInfoStrc
+{
+    unsigned int biSize;
+    int biWidth;
+    int biHeight;
+    unsigned short biPlanes;
+    unsigned short biBitCount;
+    unsigned int biCompression;
+    unsigned int biSizeImage;
+    int biXPelsPerMeter;
+    int biYPelsPerMeter;
+    unsigned int biClrUsed;
+    unsigned int biClrImportant;
+    unsigned int bmiColors[256];
+};
+
+struct D2ChatStormBaseArrayAStrc
+{
+    unsigned int f_0;
+    unsigned int f_4;
+    void* f_8;
+
+    D2ChatStormBaseArrayAStrc();
+    unsigned int sub_0060E230_Count();
+};
+
+struct D2ChatStormBaseArrayBStrc
+{
+    unsigned int f_0;
+    unsigned int f_4;
+    void* f_8;
+
+    D2ChatStormBaseArrayBStrc();
+    unsigned int sub_0060E250_Count();
+};
+
+struct D2ChatStormCtorLinkStrc
+{
+    D2ChatStormCtorLinkStrc* m_prevlink;
+    char* m_next;
+
+    D2ChatStormCtorLinkStrc()
+    {
+        m_prevlink = 0;
+        m_next = 0;
+    }
+};
+
+struct D2ChatStormLinkStrc
+{
+    D2ChatStormLinkStrc* m_prevlink;
+    char* m_next;
+
+    D2ChatStormLinkStrc* NextLink(int nLinkOffset)
+    {
+        if ((int)m_next < 0)
+            return (D2ChatStormLinkStrc*)~(unsigned int)m_next;
+        if (nLinkOffset < 0)
+            nLinkOffset = (char*)this - m_prevlink->m_next;
+        return (D2ChatStormLinkStrc*)(m_next + nLinkOffset);
+    }
+    char* MaskNext()
+    {
+        return (char*)((((int)m_next <= 0) - 1) & (int)m_next);
+    }
+    void Unlink()
+    {
+        if (m_prevlink)
+        {
+            NextLink(-1)->m_prevlink = m_prevlink;
+            m_prevlink->m_next = m_next;
+            m_prevlink = 0;
+            m_next = 0;
+        }
+    }
+    bool sub_0060E0C0_IsLinked();
+    char* sub_0060E1A0_Next();
+    char* sub_0060E240_Next();
+    void sub_0060E3B0_Unlink();
+    void sub_0060E400_Unlink();
+    void sub_0060E690_Unlink();
+    void sub_0060E760_Unlink();
+};
+
+struct D2ChatStormListAStrc
+{
+    int m_linkoffset;
+    D2ChatStormLinkStrc m_terminator;
+
+    void InitializeTerminator()
+    {
+        m_terminator.m_prevlink = &m_terminator;
+        m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
+    }
+    void sub_0060E260_InitializeTerminator();
+    char* sub_0060E440_Head();
+    void sub_0060E5F0_Reset();
+};
+
+struct D2ChatStormHashTableStrc
+{
+    void* m_pVTable;
+    D2ChatStormListAStrc m_fulllist;
+
+    char* sub_0060E6D0_Head();
+};
+
+struct D2ChatStormLinkAStrc
+{
+    D2ChatStormLinkAStrc* m_prevlink;
+    char* m_next;
+
+    D2ChatStormLinkAStrc();
+};
+
+struct D2ChatStormLinkBStrc
+{
+    D2ChatStormLinkBStrc* m_prevlink;
+    char* m_next;
+
+    D2ChatStormLinkBStrc();
+};
+
+struct D2ChatStormListBStrc
+{
+    int m_linkoffset;
+    D2ChatStormLinkStrc m_terminator;
+
+    void InitializeTerminator()
+    {
+        m_terminator.m_prevlink = &m_terminator;
+        m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
+    }
+    void sub_0060E270_InitializeTerminator();
+    char* sub_0060E5D0_Head();
+    void sub_0060E610_Reset();
+};
+
+struct D2ChatStormListCStrc
+{
+    int m_linkoffset;
+    D2ChatStormCtorLinkStrc m_terminator;
+
+    D2ChatStormListCStrc();
+};
+
+struct D2ChatStormListDStrc
+{
+    int m_linkoffset;
+    D2ChatStormCtorLinkStrc m_terminator;
+
+    D2ChatStormListDStrc();
+};
+
+struct D2ChatStormListEStrc
+{
+    int m_linkoffset;
+    D2ChatStormCtorLinkStrc m_terminator;
+
+    D2ChatStormListEStrc();
+};
+
+struct D2ChatStormNodeStrc
+{
+    unsigned int f_0;
+    D2ChatStormLinkStrc m_linktoslot;
+    D2ChatStormLinkStrc f_C;
+    char* f_14;
+
+    char* sub_0060E0B0_GetKey();
+};
+
+struct D2CommonMappingEntryNodeBaseStrc
+{
+    unsigned int f_0;
+    D2ChatStormLinkStrc m_linktoslot;
+    D2ChatStormLinkStrc f_C;
+    char* f_14;
+
+    ~D2CommonMappingEntryNodeBaseStrc();
+};
+
+struct D2CommonMappingEntryNodeStrc : D2CommonMappingEntryNodeBaseStrc
+{
+    void* pMapped;
+
+    ~D2CommonMappingEntryNodeStrc();
+};
+
+struct D2CommonStormHashTableAStrc
+{
+    void sub_0060EB70_InternalClear(int bWarn);
+    void sub_0060ED60_Clear();
+};
+
+struct D2CommonStormSlotLinkStrc
+{
+    D2CommonStormSlotLinkStrc* m_prevlink;
+    char* m_next;
+
+    ~D2CommonStormSlotLinkStrc()
+    {
+        Unlink();
+    }
+    D2CommonStormSlotLinkStrc* NextLink(int nLinkOffset)
+    {
+        if ((int)m_next < 0)
+            return (D2CommonStormSlotLinkStrc*)~(unsigned int)m_next;
+        if (nLinkOffset < 0)
+            nLinkOffset = (char*)this - m_prevlink->m_next;
+        return (D2CommonStormSlotLinkStrc*)(m_next + nLinkOffset);
+    }
+    void Unlink()
+    {
+        if (m_prevlink)
+        {
+            NextLink(-1)->m_prevlink = m_prevlink;
+            m_prevlink->m_next = m_next;
+            m_prevlink = 0;
+            m_next = 0;
+        }
+    }
+};
+
+struct D2CommonStormSlotListAStrc
+{
+    int m_linkoffset;
+    D2CommonStormSlotLinkStrc m_terminator;
+
+    ~D2CommonStormSlotListAStrc();
+    void UnlinkAll();
+};
+
+struct D2CommonStormSlotListBStrc
+{
+    int m_linkoffset;
+    D2CommonStormSlotLinkStrc m_terminator;
+
+    ~D2CommonStormSlotListBStrc();
+    void UnlinkAll();
+};
+
+struct D2CommonStringEntryNodeStrc
+{
+    unsigned int f_0;
+    D2ChatStormLinkStrc m_linktoslot;
+    D2ChatStormLinkStrc f_C;
+    char* f_14;
+
+    ~D2CommonStringEntryNodeStrc();
+    void sub_0060EE30_Destroy();
+};
+
+struct D2Config006C8250Strc
+{
+    int n000;
+    int n004;
+    int n008;
+    unsigned char unk_00C[0xF8];
+    int n104;
+    int n108;
+    int n10C;
+};
+
+typedef void (__fastcall* D2CrashPrintFn)(void* pContext, const char* szText);
+
+typedef int (__stdcall* D2CryptAcquireContextFn)(unsigned int*, const char*, const char*, unsigned int, unsigned int);
+
+typedef int (__stdcall* D2CryptCreateHashFn)(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int*);
+
+typedef int (__stdcall* D2CryptDestroyFn)(unsigned int);
+
+typedef int (__stdcall* D2CryptHashDataFn)(unsigned int, const unsigned char*, unsigned int, unsigned int);
+
+typedef int (__stdcall* D2CryptImportKeyFn)(unsigned int, const void*, unsigned int, unsigned int, unsigned int, unsigned int*);
+
+typedef int (__stdcall* D2CryptReleaseContextFn)(unsigned int, unsigned int);
+
+typedef int (__stdcall* D2CryptSignHashFn)(unsigned int, unsigned int, const char*, unsigned int, unsigned char*, unsigned int*);
+
+typedef int (__stdcall* D2CryptVerifySignatureFn)(unsigned int, const unsigned char*, unsigned int, unsigned int, const char*, unsigned int);
+
+struct D2CvNb10Strc
+{
+    unsigned long dwCvSignature;
+    unsigned long dwOffset;
+    unsigned long dwSignature;
+    unsigned long dwAge;
+    char szPdbName[4];
+};
+
+struct D2DDSurfaceDescStrc
+{
+    unsigned int dwSize;
+    unsigned int dwFlags;
+    unsigned int dwHeight;
+    unsigned int dwWidth;
+    int lPitch;
+    unsigned int dwBackBufferCount;
+    unsigned int dwRefreshRate;
+    unsigned int dwAlphaBitDepth;
+    unsigned int dwReserved;
+    void* lpSurface;
+    unsigned int unk0x28[21];
+};
+
+struct D2Field14Strc
+{
+    char unk0x00[0x14];
+    int nField14;
+};
+
+struct D2FloatSaveStrc
+{
+    unsigned long ControlWord;
+    unsigned long StatusWord;
+    unsigned long TagWord;
+    unsigned long ErrorOffset;
+    unsigned long ErrorSelector;
+    unsigned long DataOffset;
+    unsigned long DataSelector;
+    unsigned char RegisterArea[80];
+    unsigned long Cr0NpxState;
+};
+
+struct D2GfxBufferFuncsStrc
+{
+    void (__fastcall* pfnSetBuffer)(void* pBits, int nWidth, int nHeight, int a4);
+};
+
+struct D2GfxPaletteViewStrc { unsigned int fields[72]; };
+
+struct D2ImageDataDirStrc
+{
+    unsigned long VirtualAddress;
+    unsigned long Size;
+};
+
+struct D2ImageDebugDirStrc
+{
+    unsigned long Characteristics;
+    unsigned long TimeDateStamp;
+    unsigned short MajorVersion;
+    unsigned short MinorVersion;
+    unsigned long Type;
+    unsigned long SizeOfData;
+    unsigned long AddressOfRawData;
+    unsigned long PointerToRawData;
+};
+
+struct D2ImageDosHeaderStrc
+{
+    unsigned short e_magic;
+    unsigned short e_unk02[25];
+    unsigned short e_res2[4];
+    long e_lfanew;
+};
+
+struct D2ImageFileHeaderStrc
+{
+    unsigned short Machine;
+    unsigned short NumberOfSections;
+    unsigned long TimeDateStamp;
+    unsigned long PointerToSymbolTable;
+    unsigned long NumberOfSymbols;
+    unsigned short SizeOfOptionalHeader;
+    unsigned short Characteristics;
+};
+
+struct D2ImageOptionalHeaderStrc
+{
+    unsigned short Magic;
+    unsigned char unk0x02[0x36];
+    unsigned long SizeOfImage;
+    unsigned char unk0x3C[0x20];
+    unsigned long NumberOfRvaAndSizes;
+    D2ImageDataDirStrc DataDirectory[16];
+};
+
+struct D2ImageNtHeadersStrc
+{
+    unsigned long Signature;
+    D2ImageFileHeaderStrc FileHeader;
+    D2ImageOptionalHeaderStrc OptionalHeader;
+};
+
+struct D2ImageOptionalHeader64Strc
+{
+    unsigned short Magic;
+    unsigned char unk0x02[0x6A];
+    unsigned long NumberOfRvaAndSizes;
+    D2ImageDataDirStrc DataDirectory[16];
+};
+
+struct D2PaletteEntry006C7C10Strc
+{
+    unsigned char peRed;
+    unsigned char peGreen;
+    unsigned char peBlue;
+    unsigned char peFlags;
+};
+
+struct D2LogPalette006C7C10Strc
+{
+    unsigned short palVersion;
+    unsigned short palNumEntries;
+    D2PaletteEntry006C7C10Strc palPalEntry[256];
+};
+
+struct D2ModuleStrc
+{
+    bool sub_00404AB0_VisitModule(void* pContext, const wchar_t* wszName, int nNameLength);                 // 0x00404AB0
+};
+
+struct D2ModuleEntry32Strc
+{
+    unsigned long dwSize;
+    unsigned long th32ModuleID;
+    unsigned long th32ProcessID;
+    unsigned long GlblcntUsage;
+    unsigned long ProccntUsage;
+    D2ModuleStrc* modBaseAddr;
+    unsigned long modBaseSize;
+    void* hModule;
+    wchar_t szModule[256];
+    wchar_t szExePath[260];
+};
+
+struct D2PsapiModuleInfoStrc
+{
+    D2ModuleStrc* lpBaseOfDll;
+    unsigned long SizeOfImage;
+    void* EntryPoint;
+};
+
+struct D2SCompLinkStrc
+{
+    D2SCompLinkStrc* m_prevlink;
+    char* m_next;
+
+    D2SCompLinkStrc* NextLink(int nLinkOffset)
+    {
+        if ((int)m_next < 0)
+            return (D2SCompLinkStrc*)~(unsigned int)m_next;
+        if (nLinkOffset < 0)
+            nLinkOffset = (char*)this - m_prevlink->m_next;
+        return (D2SCompLinkStrc*)(m_next + nLinkOffset);
+    }
+    void Unlink()
+    {
+        if (m_prevlink)
+        {
+            NextLink(-1)->m_prevlink = m_prevlink;
+            m_prevlink->m_next = m_next;
+            m_prevlink = 0;
+            m_next = 0;
+        }
+    }
+};
+
+struct D2SMemHeapInfoStrc
+{
+    unsigned int dwSize;
+    unsigned int hHeap;
+    char szName[0x104];
+    int nLine;
+    unsigned int dwUnk110;
+    unsigned int dwSizeA;
+    unsigned int dwSizeB;
+    unsigned int dwUnk11C;
+    unsigned int nBlocks;
+    unsigned int dwSizeC;
+};
+
+struct D2Storm408ElemStrc
+{
+    char unk0x00[0x408];
+};
+
+struct D2Storm416A90Strc
+{
+    char pad00[0x14C];
+    int n14C;
+    int n150;
+};
+
+struct D2StormArray408Strc
+{
+    unsigned int f_0;
+    unsigned int f_4;
+    D2Storm408ElemStrc* f_8;
+    unsigned int f_C;
+
+    D2StormArray408Strc* sub_0051D2C0_InitBase();
+    unsigned int sub_0051D2F0_CalcChunkSize(unsigned int nCount);
+    void sub_0051D570_FreeData();
+    void sub_0051D5D0_ReallocData(unsigned int nCount);
+    void sub_0051D670_FreeData();
+    D2StormArray408Strc* sub_0051D690_Init();
+    void sub_0051D6A0_Clear();
+    D2StormArray408Strc* sub_0051D720_Init();
+    void sub_0051D730_FreeData();
+    D2Storm408ElemStrc* sub_0051D7A0_New();
+    void ReserveInline(unsigned int nCount, int bRound);
+};
+
+struct D2StormCryptFuncsStrc
+{
+    int (__stdcall* pfnAcquireContext)(unsigned int* phProv, const char* szContainer, const char* szProvider, unsigned int nProvType, unsigned int nFlags);
+    int (__stdcall* pfnCreateHash)(unsigned int hProv, unsigned int nAlgId, unsigned int hKey, unsigned int nFlags, unsigned int* phHash);
+    int (__stdcall* pfnDestroyHash)(unsigned int hHash);
+    int (__stdcall* pfnDestroyKey)(unsigned int hKey);
+    int (__stdcall* pfnHashData)(unsigned int hHash, const unsigned char* pData, unsigned int nSize, unsigned int nFlags);
+    int (__stdcall* pfnImportKey)(unsigned int hProv, const void* pKey, unsigned int nSize, unsigned int hPubKey, unsigned int nFlags, unsigned int* phKey);
+    int (__stdcall* pfnReleaseContext)(unsigned int hProv, unsigned int nFlags);
+    int (__stdcall* pfnSignHash)(unsigned int hHash, unsigned int nKeySpec, const char* szDesc, unsigned int nFlags, unsigned char* pSig, unsigned int* pnSigLen);
+    int (__stdcall* pfnVerifySignature)(unsigned int hHash, const unsigned char* pSig, unsigned int nSigLen, unsigned int hKey, const char* szDesc, unsigned int nFlags);
+
+};
+
+struct D2StormHuffLinkSlotStrc
+{
+    int nData[3];
+};
+
+struct D2StormMsgSourceStrc
+{
+    unsigned short wFacility;
+    char unk0x02[2];
+    void* hModule;
+    D2StormMsgSourceStrc* pNext;
+};
+
+struct D2StormRequestCallbackStrc
+{
+    void (__stdcall* pfnDone)(unsigned int nSize, unsigned char* pEnd, D2StormRequestCallbackStrc* pCallback);
+};
+
+struct D2StormRequestLinkStrc
+{
+    D2StormRequestLinkStrc* m_prevlink;
+    char* m_next;
+
+    D2StormRequestLinkStrc* NextLink(int nLinkOffset)
+    {
+        if ((int)m_next < 0)
+            return (D2StormRequestLinkStrc*)~(unsigned int)m_next;
+        if (nLinkOffset < 0)
+            nLinkOffset = (char*)this - m_prevlink->m_next;
+        return (D2StormRequestLinkStrc*)(m_next + nLinkOffset);
+    }
+    void Unlink()
+    {
+        if (m_prevlink)
+        {
+            NextLink(-1)->m_prevlink = m_prevlink;
+            m_prevlink->m_next = m_next;
+            m_prevlink = 0;
+            m_next = 0;
+        }
+    }
+};
+
+struct D2StormSignatureKeyStrc
+{
+    const char* szResourceName;
+    unsigned int nResult;
+};
+
+struct D2SystemTimeStrc
+{
+    unsigned short wYear;
+    unsigned short wMonth;
+    unsigned short wDayOfWeek;
+    unsigned short wDay;
+    unsigned short wHour;
+    unsigned short wMinute;
+    unsigned short wSecond;
+    unsigned short wMilliseconds;
+};
+
+struct D2UnitStrc
+{
+    int dwUnitType;
+    int dwClassId;
+    void* pMemoryPool;
+    int dwUnitId;
+    int dwAnimMode;
+    char unk0x14[0x3A];
+    unsigned char nActionFrame;
+    char unk0x4F[0x75];
+    unsigned int dwFlags;
+};
+
+typedef int (__stdcall* EnumProcessModulesFn)(void* hProcess, void** phModules, unsigned long nSize, unsigned long* pnNeeded);
+
+typedef unsigned long (__stdcall* GetModuleBaseNameWFn)(void* hProcess, void* hModule, wchar_t* wszName, unsigned long nSize);
+
+typedef int (__stdcall* GetModuleInformationFn)(void* hProcess, void* hModule, D2PsapiModuleInfoStrc* pInfo, unsigned long nSize);
+
+typedef void (__stdcall* SEVTHANDLER)(void* pData);
+
+typedef int (__stdcall* SymCleanupFn)(void* hProcess);
+
+struct T0041FA40
+{
+    void* hLog;
+    T0041FA40* pNext;
+    void* hFile;
+    unsigned long nUsed;
+    unsigned long nPended;
+    int nIndent;
+    int f_18;
+    char szBuffer[0x10000];
+};
+
+typedef void* (__fastcall* alloc_func)(void* opaque, unsigned int items, unsigned int size);
+
+struct code
+{
+    unsigned char op;
+    unsigned char bits;
+    unsigned short val;
+};
+
+typedef void (__fastcall* free_func)(void* opaque, void* address);
+
+typedef unsigned int size_t;
+
+struct tagPOINT
+{
+    long x;
+    long y;
+};
+
+struct tagRECT
+{
+    long left;
+    long top;
+    long right;
+    long bottom;
+};

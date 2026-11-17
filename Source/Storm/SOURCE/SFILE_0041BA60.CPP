@@ -81,9 +81,6 @@ static __declspec(noinline) void __stdcall sub_00415A80_BuildPath(int bStripPath
 
 extern D2CriticalSectionStrc gBasePathLock_00779068;                                                        // 0x00779068
 extern char gszBasePath_00778F28[];                                                                         // 0x00778F28
-
-#define VALIDATEBEGIN int nValid = -1
-#define VALIDATE(x) nValid &= (x) ? -1 : 0
 #define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 
 inline void* operator new(unsigned int, void* pWhere) throw()

@@ -1,10 +1,5 @@
 #include "D2Glide.h"
 
-struct D2GfxLightStrc
-{
-    unsigned int aColor[8];
-};
-
 struct D2GlideTileStrc
 {
     short nPosX;
@@ -19,29 +14,7 @@ struct D2TileLibraryEntryStrc
     int nBlocks;
     D2GlideTileStrc* pBlocks;
 };
-
-struct tagRECT
-{
-    long left;
-    long top;
-    long right;
-    long bottom;
-};
-
-struct D2GlideSpriteVertexStrc
-{
-    float x;
-    float y;
-    unsigned int dwColor;
-    float oow;
-    float sow;
-    float tow;
-    float unk0x18;
-};
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-
-#define GLIDE_VERTEX_IN_RECT(v, r) ((v).x >= (r).left && (v).x < (r).right && (v).y >= (r).top && (v).y < (r).bottom)
 
 extern int gnScreenWidth_007C9138;                                                                          // 0x007C9138
 extern D2GlideSpriteVertexStrc gaGlideTileGrid_00880458[15];                                                 // 0x00880458

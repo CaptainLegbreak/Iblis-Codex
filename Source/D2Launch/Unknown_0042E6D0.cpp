@@ -11,26 +11,6 @@ struct D2FuncTable_0077ABF0Strc
     void (__fastcall* pfnSlot80)(int* pValue);
 };
 
-struct D2FileTimeStrc
-{
-    unsigned long dwLowDateTime;
-    unsigned long dwHighDateTime;
-};
-
-struct D2FindDataStrc
-{
-    unsigned long dwFileAttributes;
-    D2FileTimeStrc ftCreationTime;
-    D2FileTimeStrc ftLastAccessTime;
-    D2FileTimeStrc ftLastWriteTime;
-    unsigned long nFileSizeHigh;
-    unsigned long nFileSizeLow;
-    unsigned long dwReserved0;
-    unsigned long dwReserved1;
-    char cFileName[260];
-    char cAlternateFileName[14];
-};
-
 struct D2LaunchRecordStrc
 {
     char unk0x000[0x19];
@@ -63,8 +43,6 @@ struct D2LaunchRecordStrc
 };
 extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
-
-typedef int (__stdcall* D2LaunchCallback)(int nArg);
 void __stdcall SMemZero(void* pDest, unsigned int nSize);                                                   // 0x0041D300
 void* __fastcall sub_00406960_CreateFile(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x00406960
 int __fastcall sub_004069A0_CloseFile(void* hFile);                                                         // 0x004069A0

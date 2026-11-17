@@ -32,12 +32,6 @@ struct D2FuncTable_0077ABF0Strc
     D2FuncRecordStrc* (__cdecl* pfnGetRecord)();
 };
 
-struct D2LaunchSlotStrc
-{
-    char* szName;
-    void* pData;
-};
-
 struct D2LaunchCharEntryStrc
 {
     char szName[0x324];
@@ -80,16 +74,6 @@ struct D2CharSaveHeaderStrc
     char unk0xA8[0xA7];
 };
 
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
-
 struct D2ChatMessageStrc
 {
     char* szText;
@@ -97,10 +81,6 @@ struct D2ChatMessageStrc
     int bClear;
     D2ChatMessageStrc* pNext;
 };
-
-typedef int (__stdcall* D2LaunchCallback)(int nArg);
-typedef void (__cdecl* D2LaunchDoneFn)();
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
 extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);

@@ -10,7 +10,6 @@ static __declspec(noinline) int __stdcall sub_006C77F0_ConvertFromWide(const uns
 extern const unsigned short gWideTable_006FCDC0[]; // 0x006FCDC0
 static __declspec(noinline) int __stdcall sub_006C78C0_ConvertToWide(unsigned short*,const unsigned char*,unsigned int,const unsigned short*); // 0x006C78C0
 static __declspec(noinline) int __cdecl sub_006C78C0_Translate(const unsigned short* pTable, unsigned short* pDest, const unsigned char* pSource, int nCount);
-static __declspec(noinline) int __stdcall sub_006C78C0_ConvertToWide(unsigned short* pDest, const unsigned char* pSource, unsigned int nCount, const unsigned short* pTable);
 
 // 0x006C7000
 int __stdcall sub_006C7000_Wrapper(int a1, int a2, int a3, int a4, int a5, int a6)

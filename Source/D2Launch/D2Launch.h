@@ -146,3 +146,71 @@ void __stdcall sub_00449E70_SetMcpPacket(const char* pData, int nSize); // 0x004
 void __stdcall sub_004F5D90_PlayVideo(const char* szFile, int nMode, int nArg); // 0x004F5D90
 void __stdcall sub_004FA450_SetActive(D2WinControlStrc* pControl); // 0x004FA450
 void __stdcall sub_0052A750(int nArg, const char* szAddress); // 0x0052A750
+
+#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
+struct D2CharSelCacheStrc
+{
+    unsigned int dwHash;
+    void* pData;
+    unsigned int dwExpireTick;
+    D2CharSelCacheStrc* pNext;
+};
+
+struct D2CriticalSectionStrc
+{
+    void* pDebugInfo;
+    long nLockCount;
+    long nRecursionCount;
+    void* hOwningThread;
+    void* hLockSemaphore;
+    unsigned long nSpinCount;
+};
+
+struct D2FileTimeStrc
+{
+    unsigned long dwLowDateTime;
+    unsigned long dwHighDateTime;
+};
+
+struct D2FindDataStrc
+{
+    unsigned long dwFileAttributes;
+    D2FileTimeStrc ftCreationTime;
+    D2FileTimeStrc ftLastAccessTime;
+    D2FileTimeStrc ftLastWriteTime;
+    unsigned long nFileSizeHigh;
+    unsigned long nFileSizeLow;
+    unsigned long dwReserved0;
+    unsigned long dwReserved1;
+    char cFileName[260];
+    char cAlternateFileName[14];
+};
+
+struct D2FuncRecordStrc
+{
+    char unk0x00[0x0C];
+    int nIndex;
+};
+
+typedef int (__stdcall* D2LaunchCallback)(int nArg);
+
+struct D2LaunchControlTemplateStrc
+{
+    char unk0x00[0x14];
+    int nFlags;
+    int nStringId;
+    char unk0x1C[0x04];
+    D2LaunchCallback pfnCallback;
+    char unk0x24[0x0C];
+};
+
+typedef void (__cdecl* D2LaunchDoneFn)();
+
+struct D2LaunchSlotStrc
+{
+    char* szName;
+    void* pData;
+};
+
+typedef unsigned int size_t;

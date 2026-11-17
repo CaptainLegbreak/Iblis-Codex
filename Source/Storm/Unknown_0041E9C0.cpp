@@ -1,11 +1,7 @@
 #include "Storm.h"
-
-#define _INTSIZEOF(n) ((sizeof(n) + sizeof(int) - 1) & ~(sizeof(int) - 1))
-#define va_start(ap, v) (ap = (va_list)&v + _INTSIZEOF(v))
 #define DECODE_LENGTH sub_00420F80_DecodeLength
 #define FROM_BINARY sub_00423380_FromBinary
 #define FROM_LENGTH_PREFIXED sub_004234F0_FromLengthPrefixed
-#define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
 
 struct D2StormHuffItemStrc;
 struct UiContext;
@@ -180,10 +176,6 @@ struct D2StormHuffOutputStrc
     void sub_0041D9A0_Flush();                                                                              // 0x0041D9A0
 };
 
-typedef unsigned int size_t;
-
-typedef char* va_list;
-
 struct D2CriticalSectionStrc
 {
     void* pDebugInfo;
@@ -192,30 +184,6 @@ struct D2CriticalSectionStrc
     void* hOwningThread;
     void* hLockSemaphore;
     unsigned long nSpinCount;
-};
-
-struct D2SystemTimeStrc
-{
-    unsigned short wYear;
-    unsigned short wMonth;
-    unsigned short wDayOfWeek;
-    unsigned short wDay;
-    unsigned short wHour;
-    unsigned short wMinute;
-    unsigned short wSecond;
-    unsigned short wMilliseconds;
-};
-
-struct T0041FA40
-{
-    void* hLog;
-    T0041FA40* pNext;
-    void* hFile;
-    unsigned long nUsed;
-    unsigned long nPended;
-    int nIndent;
-    int f_18;
-    char szBuffer[0x10000];
 };
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
@@ -234,7 +202,7 @@ unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int
 void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
 void __stdcall SMemFill(void* pLocation, unsigned int nLength, unsigned char nFillWith); // 0x0041D2C0
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
-extern D2CriticalSectionStrc gaLocks_00779238[4]; // 0x00779238
+extern D2CriticalSectionStrc gaSLogLocks_00779238[4]; // 0x00779238
 
 struct D2StormListStrc
 {
@@ -258,252 +226,8 @@ struct D2Storm4168F0Strc
     ~D2Storm4168F0Strc();
 };
 
-struct D2Storm416A90Strc
-{
-    char pad00[0x14C];
-    int n14C;
-    int n150;
-};
-
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);
 extern "C" const char gszIgnoreListSourceFile_006E6290[];
-
-struct D2ChatStormLinkStrc
-{
-    D2ChatStormLinkStrc* m_prevlink;
-    char* m_next;
-
-    D2ChatStormLinkStrc* NextLink(int nLinkOffset)
-    {
-        if ((int)m_next < 0)
-            return (D2ChatStormLinkStrc*)~(unsigned int)m_next;
-        if (nLinkOffset < 0)
-            nLinkOffset = (char*)this - m_prevlink->m_next;
-        return (D2ChatStormLinkStrc*)(m_next + nLinkOffset);
-    }
-    char* MaskNext()
-    {
-        return (char*)((((int)m_next <= 0) - 1) & (int)m_next);
-    }
-    void Unlink()
-    {
-        if (m_prevlink)
-        {
-            NextLink(-1)->m_prevlink = m_prevlink;
-            m_prevlink->m_next = m_next;
-            m_prevlink = 0;
-            m_next = 0;
-        }
-    }
-    bool sub_0060E0C0_IsLinked();
-    char* sub_0060E1A0_Next();
-    char* sub_0060E240_Next();
-    void sub_0060E3B0_Unlink();
-    void sub_0060E400_Unlink();
-    void sub_0060E690_Unlink();
-    void sub_0060E760_Unlink();
-};
-
-struct D2ChatStormLinkAStrc
-{
-    D2ChatStormLinkAStrc* m_prevlink;
-    char* m_next;
-
-    D2ChatStormLinkAStrc();
-};
-
-struct D2ChatStormLinkBStrc
-{
-    D2ChatStormLinkBStrc* m_prevlink;
-    char* m_next;
-
-    D2ChatStormLinkBStrc();
-};
-
-struct D2ChatStormNodeStrc
-{
-    unsigned int f_0;
-    D2ChatStormLinkStrc m_linktoslot;
-    D2ChatStormLinkStrc f_C;
-    char* f_14;
-
-    char* sub_0060E0B0_GetKey();
-};
-
-struct D2ChatStormBaseArrayAStrc
-{
-    unsigned int f_0;
-    unsigned int f_4;
-    void* f_8;
-
-    D2ChatStormBaseArrayAStrc();
-    unsigned int sub_0060E230_Count();
-};
-
-struct D2ChatStormBaseArrayBStrc
-{
-    unsigned int f_0;
-    unsigned int f_4;
-    void* f_8;
-
-    D2ChatStormBaseArrayBStrc();
-    unsigned int sub_0060E250_Count();
-};
-
-struct D2ChatStormListAStrc
-{
-    int m_linkoffset;
-    D2ChatStormLinkStrc m_terminator;
-
-    void InitializeTerminator()
-    {
-        m_terminator.m_prevlink = &m_terminator;
-        m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
-    }
-    void sub_0060E260_InitializeTerminator();
-    char* sub_0060E440_Head();
-    void sub_0060E5F0_Reset();
-};
-
-struct D2ChatStormListBStrc
-{
-    int m_linkoffset;
-    D2ChatStormLinkStrc m_terminator;
-
-    void InitializeTerminator()
-    {
-        m_terminator.m_prevlink = &m_terminator;
-        m_terminator.m_next = (char*)~(unsigned int)&m_terminator;
-    }
-    void sub_0060E270_InitializeTerminator();
-    char* sub_0060E5D0_Head();
-    void sub_0060E610_Reset();
-};
-
-struct D2ChatStormHashTableStrc
-{
-    void* m_pVTable;
-    D2ChatStormListAStrc m_fulllist;
-
-    char* sub_0060E6D0_Head();
-};
-
-struct D2ChatStormCtorLinkStrc
-{
-    D2ChatStormCtorLinkStrc* m_prevlink;
-    char* m_next;
-
-    D2ChatStormCtorLinkStrc()
-    {
-        m_prevlink = 0;
-        m_next = 0;
-    }
-};
-
-struct D2ChatStormListCStrc
-{
-    int m_linkoffset;
-    D2ChatStormCtorLinkStrc m_terminator;
-
-    D2ChatStormListCStrc();
-};
-
-struct D2ChatStormListDStrc
-{
-    int m_linkoffset;
-    D2ChatStormCtorLinkStrc m_terminator;
-
-    D2ChatStormListDStrc();
-};
-
-struct D2ChatStormListEStrc
-{
-    int m_linkoffset;
-    D2ChatStormCtorLinkStrc m_terminator;
-
-    D2ChatStormListEStrc();
-};
-
-struct D2CommonStormSlotLinkStrc
-{
-    D2CommonStormSlotLinkStrc* m_prevlink;
-    char* m_next;
-
-    ~D2CommonStormSlotLinkStrc()
-    {
-        Unlink();
-    }
-    D2CommonStormSlotLinkStrc* NextLink(int nLinkOffset)
-    {
-        if ((int)m_next < 0)
-            return (D2CommonStormSlotLinkStrc*)~(unsigned int)m_next;
-        if (nLinkOffset < 0)
-            nLinkOffset = (char*)this - m_prevlink->m_next;
-        return (D2CommonStormSlotLinkStrc*)(m_next + nLinkOffset);
-    }
-    void Unlink()
-    {
-        if (m_prevlink)
-        {
-            NextLink(-1)->m_prevlink = m_prevlink;
-            m_prevlink->m_next = m_next;
-            m_prevlink = 0;
-            m_next = 0;
-        }
-    }
-};
-
-struct D2CommonStormSlotListAStrc
-{
-    int m_linkoffset;
-    D2CommonStormSlotLinkStrc m_terminator;
-
-    ~D2CommonStormSlotListAStrc();
-    void UnlinkAll();
-};
-
-struct D2CommonStormSlotListBStrc
-{
-    int m_linkoffset;
-    D2CommonStormSlotLinkStrc m_terminator;
-
-    ~D2CommonStormSlotListBStrc();
-    void UnlinkAll();
-};
-
-struct D2CommonMappingEntryNodeBaseStrc
-{
-    unsigned int f_0;
-    D2ChatStormLinkStrc m_linktoslot;
-    D2ChatStormLinkStrc f_C;
-    char* f_14;
-
-    ~D2CommonMappingEntryNodeBaseStrc();
-};
-
-struct D2CommonMappingEntryNodeStrc : D2CommonMappingEntryNodeBaseStrc
-{
-    void* pMapped;
-
-    ~D2CommonMappingEntryNodeStrc();
-};
-
-struct D2CommonStringEntryNodeStrc
-{
-    unsigned int f_0;
-    D2ChatStormLinkStrc m_linktoslot;
-    D2ChatStormLinkStrc f_C;
-    char* f_14;
-
-    ~D2CommonStringEntryNodeStrc();
-    void sub_0060EE30_Destroy();
-};
-
-struct D2CommonStormHashTableAStrc
-{
-    void sub_0060EB70_InternalClear(int bWarn);
-    void sub_0060ED60_Clear();
-};
 
 struct D2TSLinkStrc
 {
@@ -592,25 +316,6 @@ struct SlotArray {
     Entry slots[16];
     int count;
     Entry* sub_00420E10(Entry* existing,int mode);
-};
-
-struct D2Field14Strc
-{
-    char unk0x00[0x14];
-    int nField14;
-};
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    char unk0x14[0x3A];
-    unsigned char nActionFrame;
-    char unk0x4F[0x75];
-    unsigned int dwFlags;
 };
 
 void __stdcall SMemZero(void* pDest, unsigned int nSize); // 0x0041D300
@@ -1231,7 +936,7 @@ void __cdecl SLogWrite(void* hLog, const char* szFormat, ...)
 // 0x00420040
 void __cdecl sub_00420040_InitLocks()
 {
-    D2CriticalSectionStrc* pLock = gaLocks_00779238;
+    D2CriticalSectionStrc* pLock = gaSLogLocks_00779238;
     int n = 4;
     do
     {

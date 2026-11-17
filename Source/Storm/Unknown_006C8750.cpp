@@ -31,7 +31,6 @@ extern int gnValue_007C913C; // 0x007C913C
 extern int gnValue_007C9138; // 0x007C9138
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
-#define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 
 static __declspec(noinline) int __stdcall sub_006C8380_Clip(D2CellFileStrc* pCelFile, int nY, D2ClipRect006C8750Strc* pClip, int nX, D2ClipRect006C8750Strc* pOut);
 

@@ -1,11 +1,5 @@
 #include "D2Glide.h"
 
-struct D2GlideTexOwnerStrc
-{
-    int unk0x00;
-    int unk0x04;
-};
-
 struct D2GlideTexCacheEntryStrc
 {
     int nId;
@@ -29,7 +23,6 @@ struct D2GlideTexCacheStrc
     D2GlideTexCacheEntryStrc* pEntries;
 };
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 // 0x0050EB60
 static int sub_0050EB60_ListTakeFree(D2GlideTexCacheStrc* pList)

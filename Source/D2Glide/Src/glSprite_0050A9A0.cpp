@@ -18,23 +18,6 @@ struct D2GlideTexInfoStrc
     int f_34;
 };
 
-struct D2GlideSpriteVertexStrc
-{
-    float x;
-    float y;
-    unsigned int dwColor;
-    float oow;
-    float sow;
-    float tow;
-    float unk0x18;
-};
-
-struct D2GlideTexDimsStrc
-{
-    int nWidth;
-    int nHeight;
-};
-
 struct D2PaletteRgbStrc
 {
     unsigned char nRed;

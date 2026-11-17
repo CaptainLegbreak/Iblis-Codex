@@ -9,26 +9,10 @@ void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); /
 
 struct D2StormArrayAStrc
 {
-    union
-    {
-        unsigned int f_0;
-        unsigned int m_alloc;
-    };
-    union
-    {
-        unsigned int f_4;
-        unsigned int m_count;
-    };
-    union
-    {
-        unsigned int* f_8;
-        unsigned int* m_data;
-    };
-    union
-    {
-        unsigned int f_C;
-        unsigned int m_chunk;
-    };
+    unsigned int f_0;
+    unsigned int f_4;
+    unsigned int* f_8;
+    unsigned int f_C;
     unsigned int sub_004210A0_CalcChunkSize(unsigned int nCount); // 0x004210A0
     void sub_004216E0_ReallocData(unsigned int nAlloc); // 0x004216E0
 };
@@ -215,9 +199,9 @@ void __stdcall SBigToStreamPtr(D2StormBigStrc* pBig, unsigned char** ppData, uns
 
 static __forceinline void ReserveCount(D2StormArrayAStrc* pArray, unsigned int nCount)
 {
-    if (nCount > pArray->m_alloc)
+    if (nCount > pArray->f_0)
     {
-        unsigned int nChunk = pArray->m_chunk;
+        unsigned int nChunk = pArray->f_C;
         if (!nChunk)
         {
             nChunk = pArray->sub_004210A0_CalcChunkSize(nCount);
@@ -236,11 +220,11 @@ static __forceinline void ReserveCount(D2StormArrayAStrc* pArray, unsigned int n
 static void __stdcall sub_00423380_FromBytes(D2StormQueueStrc* pThis, const unsigned char* pData, unsigned int nSize)
 {
     unsigned int nStart = pThis->m_start;
-    if (nStart > pThis->m_array.m_count)
+    if (nStart > pThis->m_array.f_4)
     {
         ReserveCount(&pThis->m_array, nStart);
     }
-    pThis->m_array.m_count = nStart;
+    pThis->m_array.f_4 = nStart;
 
     for (unsigned int i = 0; i < nSize; ++i)
     {
@@ -251,21 +235,21 @@ static void __stdcall sub_00423380_FromBytes(D2StormQueueStrc* pThis, const unsi
         if (nShift)
         {
             pThis->sub_00421FE0_GrowToFit(nIdx);
-            nCur = pThis->m_array.m_data[pThis->m_start + nIdx];
+            nCur = pThis->m_array.f_8[pThis->m_start + nIdx];
         }
         else
         {
             nCur = 0;
         }
         unsigned int nPos = pThis->m_start + nIdx;
-        if (nPos >= pThis->m_array.m_count)
+        if (nPos >= pThis->m_array.f_4)
         {
             unsigned int nNewCount = nPos + 1;
             ReserveCount(&pThis->m_array, nNewCount);
-            SMemZero(&pThis->m_array.m_data[pThis->m_array.m_count], (nPos - pThis->m_array.m_count) * 4 + 4);
-            pThis->m_array.m_count = nNewCount;
+            SMemZero(&pThis->m_array.f_8[pThis->m_array.f_4], (nPos - pThis->m_array.f_4) * 4 + 4);
+            pThis->m_array.f_4 = nNewCount;
         }
-        pThis->m_array.m_data[pThis->m_start + nIdx] = (nByte << (nShift * 8)) + nCur;
+        pThis->m_array.f_8[pThis->m_start + nIdx] = (nByte << (nShift * 8)) + nCur;
     }
 }
 

@@ -1,7 +1,5 @@
 #include "Storm.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-
 struct D2D3DObjStrc;
 struct D2D3DObjVtblStrc;
 struct D2FloorPoolOwnerStrc;
@@ -58,7 +56,6 @@ int __fastcall sub_006B58A0_CreateTexture(D2D3DObjStrc** ppTexture, D2D3DObjStrc
 extern int gnGlobal_0096F4DC; // 0x0096F4DC
 extern int gnGlobal_009702B8; // 0x009702B8
 extern const char gszFloorPoolSourceFile_006FC3E4[]; // 0x006FC3E4
-extern "C" void* __cdecl memset(void*,int,unsigned int);
 
 struct D2TileBlockStrc {
  short x,y;

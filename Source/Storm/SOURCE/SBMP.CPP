@@ -14,11 +14,9 @@ struct D2CopyStackArg;
 
 struct D2TargaHeaderStrc { unsigned char bytes[18]; };
 
-
 void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
 
 struct T004F51E0 { unsigned char red, green, blue, alpha; };
-
 
 void __stdcall SMemZero(void* destination, unsigned int size); // 0x0041D300
 
@@ -64,7 +62,6 @@ struct D2BitOutputStrc
     unsigned char pBlock[256];
 };
 
-
 void __stdcall sub_0041D2A0_CopyBytes(void*, const void*, unsigned int); // 0x0041D2A0
 static __declspec(noinline) void sub_006C5A60_FlushBlock(D2BitOutputStrc*, unsigned char**);
 static __declspec(noinline) void __fastcall sub_006C5A90_EmitCode(D2BitOutputStrc*, unsigned char**, int);
@@ -93,15 +90,11 @@ struct D2BitmapInfoHeader {
 struct D2PaletteEntry { BYTE red, green, blue, flags; };
 
 struct D2BitmapColor { BYTE blue, green, red, reserved; };
-
-
-void __stdcall SMemZero(void*, unsigned int); // 0x0041D300
 void* __stdcall sub_00413020_Alloc(unsigned int, const char*, int, unsigned int); // 0x00413020
 void __stdcall SMemFree(void*, const char*, int, unsigned int); // 0x00412650
 extern "C" __declspec(dllimport) int __stdcall WriteFile(void*, const void*, unsigned int, unsigned int*, void*); // 0x006CC1A8
 
 struct D2CopyStackArg { unsigned int value; };
-
 
 static __declspec(noinline) unsigned int __stdcall sub_006C59C0_CopyPixels(BYTE* out, D2CopyStackArg src, D2CopyStackArg size, D2CopyStackArg pitch, D2CopyStackArg width, unsigned int rows); // 0x006C59C0
 static __declspec(noinline) int __stdcall sub_006C61C0_WriteBmp(void* file, const D2PaletteEntry* palette, const BYTE* pixels, int width, int height);

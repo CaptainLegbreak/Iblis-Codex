@@ -5,8 +5,6 @@ struct Unicode
     unsigned short wChar;
 };
 
-typedef void (__cdecl* D2LaunchDoneFn)();
-
 #pragma pack(push, 1)
 struct D2LaunchRecordStrc
 {

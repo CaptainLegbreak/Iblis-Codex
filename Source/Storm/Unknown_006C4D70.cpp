@@ -1,7 +1,4 @@
 #include "Storm.h"
-
-#define VALIDATEBEGIN int nValid = -1
-#define VALIDATE(x) nValid &= (x) ? -1 : 0
 #define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 
 struct D2ErrorReportStrc;
@@ -82,8 +79,6 @@ int __fastcall sub_006C4EC0_ParseCommandText(char** ppCursor, unsigned char* pSt
 struct D2TargaHeaderStrc { unsigned char bytes[18]; };
 
 struct T004F51E0 { unsigned char red, green, blue, alpha; };
-
-void __stdcall SMemZero(void* destination, unsigned int size); // 0x0041D300
 
 // 0x006C4D70
 int __stdcall sub_006C4D70_FindValue(int nId)

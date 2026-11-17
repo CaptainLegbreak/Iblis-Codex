@@ -45,14 +45,6 @@ struct D2StormList00708420Strc
     void sub_0041C9C0_DeleteAll();                                                                          // 0x0041C9C0
 };
 
-struct D2StormMsgSourceStrc
-{
-    unsigned short wFacility;
-    char unk0x02[2];
-    void* hModule;
-    D2StormMsgSourceStrc* pNext;
-};
-
 struct D2CriticalSectionStrc
 {
     void* pDebugInfo;

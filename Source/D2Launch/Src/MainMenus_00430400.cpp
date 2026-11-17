@@ -13,7 +13,6 @@ struct D2FuncTable_0077ABF0Strc
     char unk0x00[0x4C];
     int (__fastcall* pfnSlot4C)();
 };
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 extern D2LaunchRecordStrc* gpLaunchRecord_007795D4;                                                         // 0x007795D4
 int gdwGlobal_0077932C;                                                                                     // 0x0077932C
 D2WinControlStrc* gapControlsB_00779350[0x40];                                                              // 0x00779350

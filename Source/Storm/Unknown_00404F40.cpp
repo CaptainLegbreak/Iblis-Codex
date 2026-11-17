@@ -1,6 +1,4 @@
 #include "Storm.h"
-
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define CMD_BOOLEAN 0
 #define CMD_INTEGER 1
 #define CMD_STRING 2
@@ -16,20 +14,6 @@ struct D2IniEntryStrc;
 struct Character;
 struct D2CmdArgStrc;
 struct D2ComInterfaceStrc;
-
-struct D2ImageDataDirStrc
-{
-    unsigned long VirtualAddress;
-    unsigned long Size;
-};
-
-struct D2ImageOptionalHeader64Strc
-{
-    unsigned short Magic;
-    unsigned char unk0x02[0x6A];
-    unsigned long NumberOfRvaAndSizes;
-    D2ImageDataDirStrc DataDirectory[16];
-};
 
 struct D2ImageOptionalHeader32Strc
 {
@@ -50,19 +34,6 @@ struct D2MemoryBasicInfoStrc
     unsigned long State;
     unsigned long Protect;
     unsigned long Type;
-};
-
-struct D2FloatSaveStrc
-{
-    unsigned long ControlWord;
-    unsigned long StatusWord;
-    unsigned long TagWord;
-    unsigned long ErrorOffset;
-    unsigned long ErrorSelector;
-    unsigned long DataOffset;
-    unsigned long DataSelector;
-    unsigned char RegisterArea[80];
-    unsigned long Cr0NpxState;
 };
 
 struct D2StackFrameStrc
@@ -108,8 +79,6 @@ struct D2ThreadContextStrc
 
 extern "C" __declspec(dllimport) unsigned long __stdcall VirtualQuery(const void* pAddress, D2MemoryBasicInfoStrc* pBuffer, unsigned long nLength); // 0x006CC244
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
-
-typedef unsigned int size_t;
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x00412650
 void* __stdcall SMemAlloc(size_t nSize, const char* szFile, int nLine, int nFlags); // 0x00413020

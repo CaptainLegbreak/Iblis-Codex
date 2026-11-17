@@ -1,6 +1,4 @@
 #include "D2Glide.h"
-
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2GlideTileCacheEntryStrc;
 struct D2GlideTileCacheStrc;
 struct D2GlideFloorCacheEntryStrc;
@@ -8,11 +6,7 @@ struct D2GlideFloorCacheStrc;
 
 struct D2GlideTileCacheEntryStrc
 {
-    union
-    {
-        int unk0x00;
-        int nId;
-    };
+    int unk0x00;
     unsigned int f_4;
     D2GlideTileStrc* pTile;
     D2GlideTileCacheEntryStrc* pNext;
@@ -387,14 +381,14 @@ static int sub_0050F070_TileCacheAlloc(D2GlideTileCacheStrc* pCache)
         ++pCache->nUsed;
         pCache->pHead = pEntry;
         pCache->pTail = pEntry;
-        return pEntry->nId + 1;
+        return pEntry->unk0x00 + 1;
     }
 
     pCache->pTail->pNext = pEntry;
     pEntry->pPrev = pCache->pTail;
     ++pCache->nUsed;
     pCache->pTail = pEntry;
-    return pEntry->nId + 1;
+    return pEntry->unk0x00 + 1;
 }
 
 // 0x0050F2B0

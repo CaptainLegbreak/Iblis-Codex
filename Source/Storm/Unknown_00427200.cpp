@@ -1,10 +1,5 @@
 #include "Storm.h"
 
-// Altered from the original zlib source.
-#define Z_OK            0
-#define Z_STREAM_ERROR  (-2)
-#define Z_NEED_DICT     2
-
 struct gz_header;
 
 struct deflate_state
@@ -28,8 +23,6 @@ struct z_stream
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);                          // 0x006829C0
 unsigned long __fastcall adler32(unsigned long adler, const unsigned char* buf, unsigned int len);          // 0x0042B660
 unsigned long __fastcall crc32(unsigned long crc, const unsigned char* buf, unsigned int len);              // 0x0042DC00
-
-#define ERR_MSG(err) z_errmsg[Z_NEED_DICT - (err)]
 
 // 0x00427200
 int __fastcall deflateSetHeader(z_stream* strm, gz_header* head)

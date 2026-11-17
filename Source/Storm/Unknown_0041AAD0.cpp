@@ -193,7 +193,6 @@ static unsigned int __stdcall sub_00417040_ReadArchived(unsigned char* pBuffer, 
     }
     return nMiddle + nTail + nHead;
 }
-static unsigned int __stdcall sub_00417040_ReadArchived(unsigned char* pBuffer, unsigned int nSize, D2StormFileRecStrc* pFile, unsigned int nPosition); // 0x00417040
 // 0x00419790
 static D2StormRequestStrc* __stdcall sub_00419790_QueueRequest(D2StormFileRecStrc* pFile, unsigned int nPosition, void* pDest, unsigned int nDestSize, D2StormSoundBufferStrc* pBuffer, unsigned int nBufferOffset, D2StormStreamStrc* pStream, unsigned int nBytes, unsigned int nDelay, int nArg9, int nUser, int nArg11, int bSignal, void* pCallback)
 {

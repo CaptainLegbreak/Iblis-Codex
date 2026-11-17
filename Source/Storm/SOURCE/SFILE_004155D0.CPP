@@ -1,7 +1,5 @@
 #include "Storm.h"
 
-#define INVALID_FILE_HANDLE ((void*)-1)
-
 struct D2StormFileRecStrc;
 struct D2CriticalSectionStrc;
 struct D2StormLinkStrc;
@@ -208,11 +206,6 @@ struct D2StormStreamStrc
     int nRefs;
 };
 
-struct D2StormRequestCallbackStrc
-{
-    void (__stdcall* pfnDone)(unsigned int nSize, unsigned char* pEnd, D2StormRequestCallbackStrc* pCallback);
-};
-
 struct D2StormRequestStrc
 {
     D2StormLinkStrc f_0;
@@ -269,42 +262,6 @@ struct D2StormEventListStrc
     D2StormLinkStrc m_terminator;
 
     char* sub_00419690_DeleteNode(char* pNode);                                                             // 0x00419690
-};
-
-struct D2StormCryptFuncsStrc
-{
-    int (__stdcall* pfnAcquireContext)(unsigned int* phProv, const char* szContainer, const char* szProvider, unsigned int nProvType, unsigned int nFlags);
-    int (__stdcall* pfnCreateHash)(unsigned int hProv, unsigned int nAlgId, unsigned int hKey, unsigned int nFlags, unsigned int* phHash);
-    int (__stdcall* pfnDestroyHash)(unsigned int hHash);
-    int (__stdcall* pfnDestroyKey)(unsigned int hKey);
-    int (__stdcall* pfnHashData)(unsigned int hHash, const unsigned char* pData, unsigned int nSize, unsigned int nFlags);
-    int (__stdcall* pfnImportKey)(unsigned int hProv, const void* pKey, unsigned int nSize, unsigned int hPubKey, unsigned int nFlags, unsigned int* phKey);
-    int (__stdcall* pfnReleaseContext)(unsigned int hProv, unsigned int nFlags);
-    int (__stdcall* pfnSignHash)(unsigned int hHash, unsigned int nKeySpec, const char* szDesc, unsigned int nFlags, unsigned char* pSig, unsigned int* pnSigLen);
-    int (__stdcall* pfnVerifySignature)(unsigned int hHash, const unsigned char* pSig, unsigned int nSigLen, unsigned int hKey, const char* szDesc, unsigned int nFlags);
-
-};
-
-typedef int (__stdcall* D2CryptAcquireContextFn)(unsigned int*, const char*, const char*, unsigned int, unsigned int);
-
-typedef int (__stdcall* D2CryptCreateHashFn)(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int*);
-
-typedef int (__stdcall* D2CryptDestroyFn)(unsigned int);
-
-typedef int (__stdcall* D2CryptHashDataFn)(unsigned int, const unsigned char*, unsigned int, unsigned int);
-
-typedef int (__stdcall* D2CryptImportKeyFn)(unsigned int, const void*, unsigned int, unsigned int, unsigned int, unsigned int*);
-
-typedef int (__stdcall* D2CryptReleaseContextFn)(unsigned int, unsigned int);
-
-typedef int (__stdcall* D2CryptSignHashFn)(unsigned int, unsigned int, const char*, unsigned int, unsigned char*, unsigned int*);
-
-typedef int (__stdcall* D2CryptVerifySignatureFn)(unsigned int, const unsigned char*, unsigned int, unsigned int, const char*, unsigned int);
-
-struct D2StormSignatureKeyStrc
-{
-    const char* szResourceName;
-    unsigned int nResult;
 };
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218

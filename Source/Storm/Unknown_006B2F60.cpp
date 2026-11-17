@@ -1,7 +1,5 @@
 #include "Storm.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-
 struct D2Object006BB3E0Strc;
 struct D2Object006BADC0Strc;
 struct D2DDrawDeviceStrc;

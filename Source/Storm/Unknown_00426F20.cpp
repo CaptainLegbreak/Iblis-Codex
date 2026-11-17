@@ -1,21 +1,10 @@
 #include "Storm.h"
 
 #define ZLIB_VERSION    "1.2.8"
-#define Z_OK            0
-#define Z_NEED_DICT     2
-#define Z_STREAM_ERROR  (-2)
-#define Z_MEM_ERROR     (-4)
 #define Z_VERSION_ERROR (-6)
-#define Z_DEFLATED      8
-#define Z_FIXED         4
-#define Z_DEFAULT_COMPRESSION (-1)
 #define MAX_MEM_LEVEL   9
-#define MAX_WBITS       15
 #define MIN_MATCH       3
 #define FINISH_STATE    666
-#define Z_NULL          0
-#define ERR_MSG(err) z_errmsg[Z_NEED_DICT - (err)]
-#define Z_DATA_ERROR    (-3)
 
 struct D2StormLinkStrc;
 struct D2StormBreakCmdListStrc;
@@ -118,10 +107,6 @@ struct D2StormGameDataArrayStrc
     void sub_00450D90_ReallocData(unsigned int nAlloc);
 };
 
-typedef void* (__fastcall* alloc_func)(void* opaque, unsigned int items, unsigned int size);
-
-typedef void (__fastcall* free_func)(void* opaque, void* address);
-
 struct z_stream
 {
     char pad00[0x18];
@@ -208,13 +193,6 @@ void __fastcall zcfree(void* opaque, void* ptr); // 0x0042DC90
 int __fastcall deflateEnd(z_stream* strm); // 0x004274A0
 int __fastcall deflateReset(z_stream* strm); // 0x00428C40
 int __fastcall inflateReset2(z_stream* strm, int windowBits); // 0x004298B0
-
-struct code
-{
-    unsigned char op;
-    unsigned char bits;
-    unsigned short val;
-};
 
 struct gz_header
 {

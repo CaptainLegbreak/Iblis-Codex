@@ -112,31 +112,6 @@ struct D2StormStreamListStrc
     }
 };
 
-struct D2StormRequestLinkStrc
-{
-    D2StormRequestLinkStrc* m_prevlink;
-    char* m_next;
-
-    D2StormRequestLinkStrc* NextLink(int nLinkOffset)
-    {
-        if ((int)m_next < 0)
-            return (D2StormRequestLinkStrc*)~(unsigned int)m_next;
-        if (nLinkOffset < 0)
-            nLinkOffset = (char*)this - m_prevlink->m_next;
-        return (D2StormRequestLinkStrc*)(m_next + nLinkOffset);
-    }
-    void Unlink()
-    {
-        if (m_prevlink)
-        {
-            NextLink(-1)->m_prevlink = m_prevlink;
-            m_prevlink->m_next = m_next;
-            m_prevlink = 0;
-            m_next = 0;
-        }
-    }
-};
-
 struct D2StormRequestStrc
 {
     D2StormRequestLinkStrc f_0;

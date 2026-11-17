@@ -1,6 +1,4 @@
 #include "D2Launch.h"
-
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2LaunchControlTemplateStrc;
 
 struct Unicode
@@ -11,18 +9,6 @@ struct Unicode
 int __fastcall sub_0042F2E0_ReadPaletteFiles(const char* szFile1, const char* szFile2); // 0x0042F2E0
 void __cdecl sub_0042F3F0_DestroyControls(); // 0x0042F3F0
 extern "C" const char gszPalFeCharDat_006D39E8[]; // 0x006D39E8
-
-typedef int (__stdcall* D2LaunchCallback)(int nArg);
-
-struct D2LaunchControlTemplateStrc
-{
-    char unk0x00[0x14];
-    int nFlags;
-    int nStringId;
-    char unk0x1C[0x04];
-    D2LaunchCallback pfnCallback;
-    char unk0x24[0x0C];
-};
 extern "C" int __cdecl strcmp(const char* szString1, const char* szString2);
 const char* __cdecl sub_0040DF60_GetLocalIp(); // 0x0040DF60
 void __cdecl sub_0042F6C0_SetDone(); // 0x0042F6C0

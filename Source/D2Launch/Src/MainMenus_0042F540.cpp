@@ -1,6 +1,4 @@
 #include "D2Launch.h"
-
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct SMSGHANDLER_PARAMS;
 struct D2LaunchControlTemplateStrc;
 struct D2LaunchRecord3Strc;
@@ -21,18 +19,6 @@ struct SMSGHANDLER_PARAMS
     unsigned int dwArg;
     int bReturn;
     int lResult;
-};
-
-typedef int (__stdcall* D2LaunchCallback)(int nArg);
-
-struct D2LaunchControlTemplateStrc
-{
-    char unk0x00[0x14];
-    int nFlags;
-    int nStringId;
-    char unk0x1C[0x04];
-    D2LaunchCallback pfnCallback;
-    char unk0x24[0x0C];
 };
 
 struct D2LaunchRecord3Strc

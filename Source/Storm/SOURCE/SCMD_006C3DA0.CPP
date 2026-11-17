@@ -1,7 +1,4 @@
 #include "Storm.h"
-
-#define VALIDATEBEGIN int nValid = -1
-#define VALIDATE(x) nValid &= (x) ? -1 : 0
 #define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 
 struct D2ScmdStrc;
@@ -22,9 +19,6 @@ void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, uns
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 static __declspec(noinline) void __stdcall sub_006C3DA0_SetName(D2ScmdStrc* pScmd, const char* szName, unsigned int* pnLength);
-void* __stdcall SMemAlloc(unsigned int, const char*, int, unsigned int); // 0x00413020
-unsigned int __stdcall SStrCopy(char*, const char*, unsigned int); // 0x004135D0
-unsigned int __stdcall SStrLen(const char*); // 0x00413750
 void __stdcall sub_0041C340_SetLastError(unsigned long); // 0x0041C340
 extern const char gszCmdDefType_0074C47C[]; // 0x0074C47C
 

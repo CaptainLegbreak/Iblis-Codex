@@ -1,31 +1,6 @@
 #include "Storm.h"
-
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2PaletteEntry006C7C10Strc;
 struct D2LogPalette006C7C10Strc;
-
-typedef unsigned int size_t;
-
-struct D2BitmapInfoStrc
-{
-    unsigned int biSize;
-    int biWidth;
-    int biHeight;
-    unsigned short biPlanes;
-    unsigned short biBitCount;
-    unsigned int biCompression;
-    unsigned int biSizeImage;
-    int biXPelsPerMeter;
-    int biYPelsPerMeter;
-    unsigned int biClrUsed;
-    unsigned int biClrImportant;
-    unsigned int bmiColors[256];
-};
-
-struct D2GfxBufferFuncsStrc
-{
-    void (__fastcall* pfnSetBuffer)(void* pBits, int nWidth, int nHeight, int a4);
-};
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -35,21 +10,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x0068
 extern "C" __declspec(dllimport) void* __stdcall GetDC(void* hWnd); // 0x006CC44C
 extern "C" __declspec(dllimport) int __stdcall ReleaseDC(void* hWnd, void* hDC); // 0x006CC448
 static __declspec(noinline) void sub_006C7B00_CreateBackBuffer(int nResolution);
-
-struct D2PaletteEntry006C7C10Strc
-{
-    unsigned char peRed;
-    unsigned char peGreen;
-    unsigned char peBlue;
-    unsigned char peFlags;
-};
-
-struct D2LogPalette006C7C10Strc
-{
-    unsigned short palVersion;
-    unsigned short palNumEntries;
-    D2PaletteEntry006C7C10Strc palPalEntry[256];
-};
 
 extern "C" __declspec(dllimport) void* __stdcall CreatePalette(const D2LogPalette006C7C10Strc* pLogPalette);
 extern "C" __declspec(dllimport) int __stdcall DeleteObject(void* ho);

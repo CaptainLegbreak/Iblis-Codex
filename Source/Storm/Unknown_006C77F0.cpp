@@ -1,11 +1,4 @@
 #include "Storm.h"
-
-#define Z_OK            0
-#define Z_STREAM_END    1
-#define Z_NEED_DICT     2
-#define Z_DATA_ERROR    (-3)
-#define Z_BUF_ERROR     (-5)
-#define Z_FINISH        4
 static __declspec(noinline) int __stdcall sub_006C77F0_ConvertFromWide(const unsigned short* source, unsigned int count, const unsigned short* volatile table, char* destination);
 static __declspec(noinline) int __cdecl sub_006C78C0_Translate(const unsigned short* pTable, unsigned short* pDest, const unsigned char* pSource, int nCount);
 

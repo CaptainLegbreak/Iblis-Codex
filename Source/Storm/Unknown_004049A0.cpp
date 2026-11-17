@@ -1,79 +1,5 @@
 #include "Storm.h"
 
-typedef unsigned int size_t;
-typedef unsigned char BOOLEAN;
-
-struct D2ImageDosHeaderStrc
-{
-    unsigned short e_magic;
-    unsigned short e_unk02[25];
-    unsigned short e_res2[4];
-    long e_lfanew;
-};
-
-struct D2ImageFileHeaderStrc
-{
-    unsigned short Machine;
-    unsigned short NumberOfSections;
-    unsigned long TimeDateStamp;
-    unsigned long PointerToSymbolTable;
-    unsigned long NumberOfSymbols;
-    unsigned short SizeOfOptionalHeader;
-    unsigned short Characteristics;
-};
-
-struct D2ImageDataDirStrc
-{
-    unsigned long VirtualAddress;
-    unsigned long Size;
-};
-
-struct D2ImageOptionalHeaderStrc
-{
-    unsigned short Magic;
-    unsigned char unk0x02[0x36];
-    unsigned long SizeOfImage;
-    unsigned char unk0x3C[0x20];
-    unsigned long NumberOfRvaAndSizes;
-    D2ImageDataDirStrc DataDirectory[16];
-};
-
-struct D2ImageOptionalHeader64Strc
-{
-    unsigned short Magic;
-    unsigned char unk0x02[0x6A];
-    unsigned long NumberOfRvaAndSizes;
-    D2ImageDataDirStrc DataDirectory[16];
-};
-
-struct D2ImageNtHeadersStrc
-{
-    unsigned long Signature;
-    D2ImageFileHeaderStrc FileHeader;
-    D2ImageOptionalHeaderStrc OptionalHeader;
-};
-
-struct D2ImageDebugDirStrc
-{
-    unsigned long Characteristics;
-    unsigned long TimeDateStamp;
-    unsigned short MajorVersion;
-    unsigned short MinorVersion;
-    unsigned long Type;
-    unsigned long SizeOfData;
-    unsigned long AddressOfRawData;
-    unsigned long PointerToRawData;
-};
-
-struct D2CvNb10Strc
-{
-    unsigned long dwCvSignature;
-    unsigned long dwOffset;
-    unsigned long dwSignature;
-    unsigned long dwAge;
-    char szPdbName[4];
-};
-
 struct D2CrashGuidStrc
 {
     unsigned long Data1;
@@ -107,11 +33,6 @@ struct D2CrashModuleListStrc
 {
     unsigned int nCount;
     D2CrashModuleStrc aModules[0x100];
-};
-
-struct D2ModuleStrc
-{
-    bool sub_00404AB0_VisitModule(void* pContext, const wchar_t* wszName, int nNameLength);                 // 0x00404AB0
 };
 extern "C" int __cdecl strncpy_s(char* szDest, size_t nDestSize, const char* szSource, size_t nCount);      // 0x006859D2
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize);

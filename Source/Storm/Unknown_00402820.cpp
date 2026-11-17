@@ -110,8 +110,6 @@ unsigned long __stdcall sub_004027C0_DbgHelpThreadProc(void* pParam); // 0x00402
 void __stdcall sub_M127_EmitSink(D2CrashGuidStrc* pGuid);
 extern D2CriticalSectionStrc gtSymbolLock_0098A6F0; // 0x0098A6F0
 
-typedef int (__stdcall* SymCleanupFn)(void* hProcess);
-
 extern int gdwGlobal_007A0670; // 0x007A0670
 extern int gnGlobal_007A5254; // 0x007A5254
 extern int gdwGlobal_007BC974; // 0x007BC974
@@ -125,19 +123,6 @@ struct D2ModuleInfoStrc
 };
 extern "C" int __stdcall GetModuleInformation(void* hProcess, void* hModule, D2ModuleInfoStrc* pInfo, unsigned long cb); // 0x006B13C8
 void __stdcall sub_M452_EmitSink(D2CrashModuleListStrc* pList);
-
-struct D2FloatSaveStrc
-{
-    unsigned long ControlWord;
-    unsigned long StatusWord;
-    unsigned long TagWord;
-    unsigned long ErrorOffset;
-    unsigned long ErrorSelector;
-    unsigned long DataOffset;
-    unsigned long DataSelector;
-    unsigned char RegisterArea[80];
-    unsigned long Cr0NpxState;
-};
 
 struct D2ThreadContextStrc
 {
@@ -187,12 +172,8 @@ union D2WordArgStrc
     unsigned int dwValue;
     unsigned short wValue;
 };
-
-typedef void (__fastcall* D2CrashPrintFn)(void* pContext, const char* szText);
 extern "C" const char gszNewLine_006FFCB0[]; // 0x006FFCB0
 extern "C" const char gszNewLine2_006FFCD8[]; // 0x006FFCD8
-
-typedef unsigned int size_t;
 
 struct D2ExceptionRecordStrc
 {
@@ -239,90 +220,12 @@ bool __stdcall sub_00404330_FileExistsUtf8(const char* szPath); // 0x00404330
 bool __fastcall sub_00404210_CreateProcessUtf8(const char* szApplicationName, const char* szCommandLine); // 0x00404210
 static size_t __stdcall sub_00404150_StrlCat(const char* szSource, char* szDest, size_t nSize);
 
-typedef unsigned char BOOLEAN;
-
-struct D2ImageDosHeaderStrc
-{
-    unsigned short e_magic;
-    unsigned short e_unk02[25];
-    unsigned short e_res2[4];
-    long e_lfanew;
-};
-
-struct D2ImageFileHeaderStrc
-{
-    unsigned short Machine;
-    unsigned short NumberOfSections;
-    unsigned long TimeDateStamp;
-    unsigned long PointerToSymbolTable;
-    unsigned long NumberOfSymbols;
-    unsigned short SizeOfOptionalHeader;
-    unsigned short Characteristics;
-};
-
-struct D2ImageDataDirStrc
-{
-    unsigned long VirtualAddress;
-    unsigned long Size;
-};
-
-struct D2ImageOptionalHeaderStrc
-{
-    unsigned short Magic;
-    unsigned char unk0x02[0x36];
-    unsigned long SizeOfImage;
-    unsigned char unk0x3C[0x20];
-    unsigned long NumberOfRvaAndSizes;
-    D2ImageDataDirStrc DataDirectory[16];
-};
-
-struct D2ImageOptionalHeader64Strc
-{
-    unsigned short Magic;
-    unsigned char unk0x02[0x6A];
-    unsigned long NumberOfRvaAndSizes;
-    D2ImageDataDirStrc DataDirectory[16];
-};
-
-struct D2ImageNtHeadersStrc
-{
-    unsigned long Signature;
-    D2ImageFileHeaderStrc FileHeader;
-    D2ImageOptionalHeaderStrc OptionalHeader;
-};
-
-struct D2ImageDebugDirStrc
-{
-    unsigned long Characteristics;
-    unsigned long TimeDateStamp;
-    unsigned short MajorVersion;
-    unsigned short MinorVersion;
-    unsigned long Type;
-    unsigned long SizeOfData;
-    unsigned long AddressOfRawData;
-    unsigned long PointerToRawData;
-};
-
-struct D2CvNb10Strc
-{
-    unsigned long dwCvSignature;
-    unsigned long dwOffset;
-    unsigned long dwSignature;
-    unsigned long dwAge;
-    char szPdbName[4];
-};
-
 struct D2CvRsdsStrc
 {
     unsigned long dwCvSignature;
     D2CrashGuidStrc tGuid;
     unsigned long dwAge;
     char szPdbName[4];
-};
-
-struct D2ModuleStrc
-{
-    bool sub_00404AB0_VisitModule(void* pContext, const wchar_t* wszName, int nNameLength);                 // 0x00404AB0
 };
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize);
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize);

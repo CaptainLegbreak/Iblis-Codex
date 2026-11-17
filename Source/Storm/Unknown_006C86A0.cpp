@@ -17,17 +17,6 @@ int __stdcall sub_00601950(D2CelStrc* pCel); // 0x00601950
 void __stdcall sub_00601650_DrawCelClipped(D2CelContextStrc* pContext, int nX, int nY, int nOriginX, int nModeWidth, unsigned char* pBuffer, int nHeight, int nWidth, int nArg9, unsigned char* pCaps, int nSkipTop, int nDrawHeight, int nArg13); // 0x00601650
 extern int gnScreenHeight_007C913C; // 0x007C913C
 
-struct D2Config006C8250Strc
-{
-    int n000;
-    int n004;
-    int n008;
-    unsigned char unk_00C[0xF8];
-    int n104;
-    int n108;
-    int n10C;
-};
-
 struct D2GfxPaletteView006C85A0Strc
 {
     unsigned char* pShadowTable;

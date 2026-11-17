@@ -41,7 +41,6 @@ struct D2GlideAspectScaleStrc
 	int nScaleT;
 };
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 int __stdcall sub_006001F0(D2CelContextStrc* pData, int nArg2, int nArg3);                                  // 0x006001F0
 int __stdcall sub_00601B10_GetCelPixels(D2CelStrc* pCel);                                                  // 0x00601B10

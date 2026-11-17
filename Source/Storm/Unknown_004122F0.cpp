@@ -1,7 +1,4 @@
 #include "Storm.h"
-
-#define VALIDATEBEGIN int nValid = -1
-#define VALIDATE(x) nValid &= (x) ? -1 : 0
 #define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 
 struct D2CriticalSectionStrc;
@@ -112,20 +109,6 @@ extern int gbHeapInitialized_007788D0; // 0x007788D0
 static void __stdcall sub_004117A0_SetAndShowError(const char* szFile, int nLine, unsigned int nError); // 0x004117A0
 static int sub_00411910_CheckPtr(void* pMemory, int bReport, const char* szFile, int nLine); // 0x00411910
 static void sub_00411B90_GetBlockSizes(D2SMemBlockStrc* pBlock, void* pMemory, unsigned int* pDataSize, unsigned int* pHeaderSize); // 0x00411B90
-
-struct D2SMemHeapInfoStrc
-{
-    unsigned int dwSize;
-    unsigned int hHeap;
-    char szName[0x104];
-    int nLine;
-    unsigned int dwUnk110;
-    unsigned int dwSizeA;
-    unsigned int dwSizeB;
-    unsigned int dwUnk11C;
-    unsigned int nBlocks;
-    unsigned int dwSizeC;
-};
 
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 extern "C" const char szSMemFindNextHeap_006CED18[]; // 0x006CED18

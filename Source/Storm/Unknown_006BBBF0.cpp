@@ -1,8 +1,5 @@
 #include "Storm.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
-
 struct D2CriticalSectionStrc;
 struct D2DDrawSurfaceStrc;
 struct D2BinkStrc;
@@ -19,21 +16,6 @@ struct D2BinkStrc
     unsigned int Height;
     unsigned int Frames;
     unsigned int f_C;
-};
-
-struct D2DDSurfaceDescStrc
-{
-    unsigned int dwSize;
-    unsigned int dwFlags;
-    unsigned int dwHeight;
-    unsigned int dwWidth;
-    int lPitch;
-    unsigned int dwBackBufferCount;
-    unsigned int dwRefreshRate;
-    unsigned int dwAlphaBitDepth;
-    unsigned int dwReserved;
-    void* lpSurface;
-    unsigned int unk0x28[21];
 };
 
 struct D2DDrawSurfaceVtblStrc
@@ -67,12 +49,6 @@ extern D2DDrawSurfaceStrc* gpSurface_00970E68; // 0x00970E68
 extern unsigned int gnBinkX_00989C0C; // 0x00989C0C
 extern D2BinkStrc* gpBink_00989C10; // 0x00989C10
 extern int gbBinkDone_00989C1C; // 0x00989C1C
-
-struct tagPOINT
-{
-    long x;
-    long y;
-};
 
 struct tagMSG
 {

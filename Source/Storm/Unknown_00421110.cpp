@@ -86,31 +86,6 @@ int __stdcall sub_004212F0_Compare(void* hLeft, void* hRight); // 0x004212F0
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);
 extern "C" const char gszTypeNewsTableItem_0072FF8C[];
 
-struct D2Storm408ElemStrc
-{
-    char unk0x00[0x408];
-};
-
-struct D2StormArray408Strc
-{
-    unsigned int f_0;
-    unsigned int f_4;
-    D2Storm408ElemStrc* f_8;
-    unsigned int f_C;
-
-    D2StormArray408Strc* sub_0051D2C0_InitBase();
-    unsigned int sub_0051D2F0_CalcChunkSize(unsigned int nCount);
-    void sub_0051D570_FreeData();
-    void sub_0051D5D0_ReallocData(unsigned int nCount);
-    void sub_0051D670_FreeData();
-    D2StormArray408Strc* sub_0051D690_Init();
-    void sub_0051D6A0_Clear();
-    D2StormArray408Strc* sub_0051D720_Init();
-    void sub_0051D730_FreeData();
-    D2Storm408ElemStrc* sub_0051D7A0_New();
-    void ReserveInline(unsigned int nCount, int bRound);
-};
-
 static __declspec(noinline) void __cdecl sub_00421510_ToUnsigned(unsigned int* pnResult, D2StormBigBufferStrc* pBuf);
 
 // 0x00421110

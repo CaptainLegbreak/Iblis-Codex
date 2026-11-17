@@ -138,12 +138,8 @@ static int __stdcall sub_006C5F70_LoadBmpFile(unsigned char* pPalette, void* hFi
 
     return 1;
 }
-
-int __stdcall SFileReadFile(void* hFile, void* pBuffer, unsigned int nToRead, unsigned int* pnRead, void* pOverlapped); // 0x0041B050
 unsigned int __stdcall sub_00416370_StormGetFileSize(void* hFile, unsigned int* pnSizeHigh);                         // 0x00416370
 unsigned long __stdcall sub_004165A0_SetFilePointer(void* hFile, long nDistance, long* pnDistanceHigh, unsigned long dwMoveMethod); // 0x004165A0
-void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);                   // 0x00413020
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);                           // 0x00412650
 
 struct PcxHeaderStrc
 {
@@ -253,9 +249,6 @@ struct D2PaletteColorStrc { unsigned char red, green, blue, alpha; };
 
 extern "C" unsigned int __security_cookie; // 0x00749DE0
 extern "C" void __fastcall __security_check_cookie(unsigned int nCookie); // 0x00681A48
-
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int dwFlags); // 0x00412650
-unsigned int __stdcall sub_00416370_StormGetFileSize(void* hFile, unsigned int* pnSizeHigh); // 0x00416370
 void __stdcall SMemZero(void* destination, unsigned int size); // 0x0041D300
 void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
 

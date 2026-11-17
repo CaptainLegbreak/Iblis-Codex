@@ -2,14 +2,6 @@
 
 struct D2GfxLightExStrc;
 
-struct T004F51E0
-{
-    unsigned char peRed;
-    unsigned char peGreen;
-    unsigned char peBlue;
-    unsigned char peFlags;
-};
-
 struct T00508FE0
 {
     float x;
@@ -21,36 +13,12 @@ struct T00508FE0
     float unk0x18;
 };
 
-struct D2GrLfbInfoStrc
-{
-    int size;
-    void* f_4;
-    unsigned int strideInBytes;
-    int f_C;
-    int origin;
-};
-
 struct D2BinkStrc
 {
     unsigned int Width;
     unsigned int Height;
     unsigned int Frames;
     unsigned int f_C;
-};
-
-struct D2DDSurfaceDescStrc
-{
-    unsigned int dwSize;
-    unsigned int dwFlags;
-    unsigned int dwHeight;
-    unsigned int dwWidth;
-    int lPitch;
-    unsigned int dwBackBufferCount;
-    unsigned int dwRefreshRate;
-    unsigned int dwAlphaBitDepth;
-    unsigned int dwReserved;
-    void* lpSurface;
-    unsigned int unk0x28[17];
 };
 
 struct D2DDrawSurfaceVtblStrc
@@ -85,16 +53,7 @@ struct D2TileDrawFunctionsStrc
     void* unk0x00[3];
     int (__fastcall* pfDrawFloorTile)(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, D2GfxLightExStrc* pLight);
 };
-
-struct tagRECT
-{
-    long left;
-    long top;
-    long right;
-    long bottom;
-};
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))

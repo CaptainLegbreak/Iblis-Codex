@@ -1,17 +1,5 @@
 #include "Storm.h"
 
-struct D2SystemTimeStrc
-{
-    unsigned short wYear;
-    unsigned short wMonth;
-    unsigned short wDayOfWeek;
-    unsigned short wDay;
-    unsigned short wHour;
-    unsigned short wMinute;
-    unsigned short wSecond;
-    unsigned short wMilliseconds;
-};
-
 extern "C" int __cdecl strcmp(const char* szA, const char* szB);
 extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 
@@ -19,8 +7,6 @@ extern "C" const char gszEmptyAssertText;                                       
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
-
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
 unsigned int __stdcall SStrLen(const char* szString);                                                       // 0x00413750

@@ -1,8 +1,4 @@
 #include "Storm.h"
-
-#define VALIDATEBEGIN int nValid = -1
-#define VALIDATE(x) nValid &= (x) ? -1 : 0
-#define VALIDATEENDVOID if (!nValid) { sub_0041C340_SetLastError(0x57); return; }
 #define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 #define STREAM_NEXT(l) ((D2StormAudioStreamStrc*)((((int)(l)->m_next <= 0) - 1) & (int)(l)->m_next))
 

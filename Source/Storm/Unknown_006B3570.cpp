@@ -33,21 +33,6 @@ void __fastcall sub_006BE190_BuildGammaTable(int nGamma, void* pTable, double dS
 void __fastcall sub_006B20E0_ReportError(const char* szMessage, int nResult); // 0x006B20E0
 extern "C" void* __cdecl memcpy(void* pDest, const void* pSource, unsigned int nBytes);
 
-struct D2DDSurfaceDescStrc
-{
-    unsigned int dwSize;
-    unsigned int dwFlags;
-    unsigned int dwHeight;
-    unsigned int dwWidth;
-    int lPitch;
-    unsigned int dwBackBufferCount;
-    unsigned int dwRefreshRate;
-    unsigned int dwAlphaBitDepth;
-    unsigned int dwReserved;
-    void* lpSurface;
-    unsigned int unk0x28[21];
-};
-
 struct D2DDrawSurfaceVtblStrc
 {
     void* unk0x00[25];
@@ -128,9 +113,6 @@ struct D2SurfaceStrc
 
 extern D2SurfaceStrc* gpPrimarySurface_00970E68; // 0x00970E68
 extern D2SurfaceStrc* gpRenderSurface_00970E6C; // 0x00970E6C
-extern int gnRenderHeight_007C913C; // 0x007C913C
-extern "C" void* __cdecl memset(void*, int, unsigned int);
-void __fastcall sub_006B20E0_ReportError(const char*, int); // 0x006B20E0
 void __cdecl sub_00410610_WriteLogLine(const char*,...); // 0x00410610
 
 struct T004013C0 { int unk00; int mode; };
@@ -250,7 +232,7 @@ void __cdecl sub_006B3800_Flush()
         sub_006B20E0_ReportError("Failed to lock render surface for clear", nResult);
         return;
     }
-    int nHeight = gnRenderHeight_007C913C;
+    int nHeight = gnScreenHeight_007C913C;
     int nPitch = desc.nPitch;
     char* pPixels = (char*)desc.pPixels;
     while (nHeight)

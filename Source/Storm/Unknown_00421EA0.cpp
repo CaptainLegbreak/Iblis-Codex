@@ -162,7 +162,6 @@ struct D2StormBigStrc
     static void operator delete(void* pMemory);
 };
 
-
 void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
 void __stdcall sub_00421CB0_AppendDigits(D2StormArrayBStrc* pOut, D2StormQueueStrc* pIn); // 0x00421CB0
 int __stdcall SMemFree(void* pLocation, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
@@ -260,9 +259,6 @@ struct D2StormListArrayStrc
     static void operator delete(void* pMemory);
 };
 
-
-void __stdcall SMemZero(void* pDest, unsigned int nSize); // 0x0041D300
-
 struct D2StormBigBufferStrc
 {
     unsigned int f_0;
@@ -323,7 +319,6 @@ struct D2StormBigBufferStrc
     }
 };
 
-
 extern "C" unsigned int __cdecl _rotl(unsigned int nValue, int nShift);
 void __fastcall sub_00425850_Sha1Transform(unsigned int* pState, const unsigned char* pBlock); // 0x00425850
 
@@ -337,7 +332,6 @@ struct T0041D340
     void sub_00425F00_Final(unsigned char* pDigest);
 };
 
-
 extern "C" const unsigned char gaSha1Padding_00708890[]; // 0x00708890
 
 struct D2StormTSListStrc
@@ -348,7 +342,6 @@ struct D2StormTSListStrc
     ~D2StormTSListStrc();
     void sub_00426CF0_UnlinkAll();                                                                          // 0x00426CF0
 };
-
 
 static void __cdecl sub_00420F80_DecodeLength(const unsigned char* pData, unsigned int nSize, unsigned int* pnOffset, unsigned int* pnLength);
 static void __stdcall sub_00423380_FromBinary(const unsigned char* pData, unsigned int nCount, D2StormBigBufferStrc* pBuf);

@@ -65,8 +65,6 @@ static int __stdcall sub_004154B0_ReadAt(unsigned int offset, unsigned int* file
         }
     }
 }
-#define VALIDATEBEGIN int nValid = -1
-#define VALIDATE(x) nValid &= (x) ? -1 : 0
 #define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 
 // 0x00416AD0

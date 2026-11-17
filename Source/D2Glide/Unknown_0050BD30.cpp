@@ -1,6 +1,4 @@
 #include "D2Glide.h"
-
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2GlideDebugCellStrc;
 
 struct T00508FE0
@@ -13,15 +11,6 @@ struct T00508FE0
     float tow;
     float unk0x18;
 };
-
-struct D2GlideDebugCellStrc
-{
-    unsigned char unk0x00[4];
-    unsigned char nAlpha;
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-};
 extern void (__stdcall* gpfGlideColorCombine_0087EB2C)(int nFunction, int nFactor, int nLocal, int nOther, int bInvert); // 0x0087EB2C
 extern void (__stdcall* gpfGlideMask_0087EB8C)(int bEnable); // 0x0087EB8C
 extern void (__stdcall* gpfGlideConstantColor_0087EFA0)(unsigned int dwColor); // 0x0087EFA0
@@ -31,28 +20,9 @@ void __fastcall sub_005094B0_GlideSetState(int nState); // 0x005094B0
 void __fastcall sub_00509500_GlideSetCombine(int nMode); // 0x00509500
 extern int gnScreenWidth_007C9138; // 0x007C9138
 extern void (__stdcall* gpfGlideDrawLine_0087E978)(const T00508FE0* pStart, const T00508FE0* pEnd); // 0x0087E978
-
-struct tagRECT
-{
-    long left;
-    long top;
-    long right;
-    long bottom;
-};
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 void __fastcall sub_0050BF50_GlideDrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int nDrawMode); // 0x0050BF50
 extern void (__stdcall* gpfGlideBufferClear_0087EB88)(unsigned int color, unsigned int alpha, unsigned int depth); // 0x0087EB88
-
-struct D2GlideSpriteVertexStrc
-{
-    float x;
-    float y;
-    unsigned int dwColor;
-    float oow;
-    float sow;
-    float tow;
-    float unk0x18;
-};
 
 typedef char cc_M439_D2GlideSpriteVertexStrc_size[sizeof(D2GlideSpriteVertexStrc) == 0x1C ? 1 : -1];
 

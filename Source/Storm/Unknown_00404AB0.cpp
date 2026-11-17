@@ -1,79 +1,5 @@
 #include "Storm.h"
 
-typedef unsigned int size_t;
-typedef unsigned char BOOLEAN;
-
-struct D2ImageDosHeaderStrc
-{
-    unsigned short e_magic;
-    unsigned short e_unk02[25];
-    unsigned short e_res2[4];
-    long e_lfanew;
-};
-
-struct D2ImageFileHeaderStrc
-{
-    unsigned short Machine;
-    unsigned short NumberOfSections;
-    unsigned long TimeDateStamp;
-    unsigned long PointerToSymbolTable;
-    unsigned long NumberOfSymbols;
-    unsigned short SizeOfOptionalHeader;
-    unsigned short Characteristics;
-};
-
-struct D2ImageDataDirStrc
-{
-    unsigned long VirtualAddress;
-    unsigned long Size;
-};
-
-struct D2ImageOptionalHeaderStrc
-{
-    unsigned short Magic;
-    unsigned char unk0x02[0x36];
-    unsigned long SizeOfImage;
-    unsigned char unk0x3C[0x20];
-    unsigned long NumberOfRvaAndSizes;
-    D2ImageDataDirStrc DataDirectory[16];
-};
-
-struct D2ImageOptionalHeader64Strc
-{
-    unsigned short Magic;
-    unsigned char unk0x02[0x6A];
-    unsigned long NumberOfRvaAndSizes;
-    D2ImageDataDirStrc DataDirectory[16];
-};
-
-struct D2ImageNtHeadersStrc
-{
-    unsigned long Signature;
-    D2ImageFileHeaderStrc FileHeader;
-    D2ImageOptionalHeaderStrc OptionalHeader;
-};
-
-struct D2ImageDebugDirStrc
-{
-    unsigned long Characteristics;
-    unsigned long TimeDateStamp;
-    unsigned short MajorVersion;
-    unsigned short MinorVersion;
-    unsigned long Type;
-    unsigned long SizeOfData;
-    unsigned long AddressOfRawData;
-    unsigned long PointerToRawData;
-};
-
-struct D2CvNb10Strc
-{
-    unsigned long dwCvSignature;
-    unsigned long dwOffset;
-    unsigned long dwSignature;
-    unsigned long dwAge;
-    char szPdbName[4];
-};
-
 struct D2CrashGuidStrc
 {
     unsigned long Data1;
@@ -408,29 +334,7 @@ static bool sub_00404FF0_ReadRsds(const D2CvRsdsStrc* pCv, D2CrashModuleStrc* pM
     sub_00404890_CopyRsdsGuid(pModule, pCv);
     return true;
 }
-
 // build: context ??0D2CrashModuleStrc@@QAE@XZ
-
-struct D2ModuleEntry32Strc
-{
-    unsigned long dwSize;
-    unsigned long th32ModuleID;
-    unsigned long th32ProcessID;
-    unsigned long GlblcntUsage;
-    unsigned long ProccntUsage;
-    D2ModuleStrc* modBaseAddr;
-    unsigned long modBaseSize;
-    void* hModule;
-    wchar_t szModule[256];
-    wchar_t szExePath[260];
-};
-
-struct D2PsapiModuleInfoStrc
-{
-    D2ModuleStrc* lpBaseOfDll;
-    unsigned long SizeOfImage;
-    void* EntryPoint;
-};
 
 struct D2UnicodeStringStrc
 {
@@ -473,12 +377,6 @@ struct D2TebStrc
     char unk0x00[0x30];
     D2PebStrc* ProcessEnvironmentBlock;
 };
-
-typedef int (__stdcall* EnumProcessModulesFn)(void* hProcess, void** phModules, unsigned long nSize, unsigned long* pnNeeded);
-
-typedef int (__stdcall* GetModuleInformationFn)(void* hProcess, void* hModule, D2PsapiModuleInfoStrc* pInfo, unsigned long nSize);
-
-typedef unsigned long (__stdcall* GetModuleBaseNameWFn)(void* hProcess, void* hModule, wchar_t* wszName, unsigned long nSize);
 
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject);                                  // 0x006CC134
 

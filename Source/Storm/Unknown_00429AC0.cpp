@@ -1,16 +1,5 @@
 #include "Storm.h"
-
-#define Z_OK            0
-#define Z_STREAM_END    1
-#define Z_NEED_DICT     2
-#define Z_STREAM_ERROR  (-2)
-#define Z_DATA_ERROR    (-3)
-#define Z_MEM_ERROR     (-4)
-#define Z_BUF_ERROR     (-5)
-#define Z_FINISH        4
-#define Z_BLOCK         5
 #define Z_TREES         6
-#define Z_DEFLATED      8
 #define UPDATEWINDOW updatewindow
 #define UPDATE(check, buf, len) \
     (state->flags ? crc32(check, buf, len) : adler32(check, buf, len))
@@ -75,21 +64,10 @@
         hold >>= bits & 7; \
         bits -= bits & 7; \
     } while (0)
-#define ZSWAP32(q) ((((q) >> 24) & 0xff) + (((q) >> 8) & 0xff00) + \
-                    (((q) & 0xff00) << 8) + (((q) & 0xff) << 24))
 
 struct inflate_state;
 struct code;
 struct gz_header;
-
-typedef unsigned int size_t;
-
-struct code
-{
-    unsigned char op;
-    unsigned char bits;
-    unsigned short val;
-};
 
 struct inflate_state
 {

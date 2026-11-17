@@ -2114,6 +2114,14 @@
      "name": "?sub_00432350_IsListedCode@@YAHH@Z"
     },
     {
+     "va": "0x00432400",
+     "length": 79
+    },
+    {
+     "va": "0x00432480",
+     "length": 295
+    },
+    {
      "va": "0x00433020",
      "length": 52,
      "name": "?sub_00433020_PollConnectA@@YGHH@Z"
@@ -9349,6 +9357,16 @@
      "name": "?sub_00437F30_CopyBaseName@@YIXPBD@Z"
     },
     {
+     "va": "0x00438060",
+     "length": 67,
+     "name": "?sub_00438060_FreeCharEntry@@YAXXZ"
+    },
+    {
+     "va": "0x00438F40",
+     "length": 47,
+     "name": "?sub_00438F40_IsValidCharName@@YIHPBD@Z"
+    },
+    {
      "va": "0x00439B80",
      "length": 22,
      "name": "sub_00439B80"
@@ -11248,54 +11266,6 @@
    ]
   },
   {
-   "file": "Source/D2Launch/Src/MainMenus_00432400.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00432400",
-     "length": 79
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Src/MainMenus_00432480.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x00432480",
-     "length": 295
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
-   ]
-  },
-  {
    "file": "Source/D2Launch/Src/MainMenus_00432EF0.cpp",
    "rank": 0,
    "functions": [
@@ -12175,22 +12145,6 @@
      "va": "0x0043AC00",
      "length": 257,
      "name": "?sub_0043AC00_PollConnect@@YGHH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Launch/Src/CharSel_00438060.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00438060",
-     "length": 67,
-     "name": "?sub_00438060_FreeCharEntry@@YAXXZ"
-    },
-    {
-     "va": "0x00438F40",
-     "length": 47,
-     "name": "?sub_00438F40_IsValidCharName@@YIHPBD@Z"
     }
    ]
   },
@@ -45459,6 +45413,10 @@
      "name": "?sub_0050E040_GlideCloseSmacker@@YIXPAUD2GlideSmackStrc@@@Z"
     },
     {
+     "va": "0x0050E070",
+     "length": 693
+    },
+    {
      "va": "0x0050E5D0",
      "length": 532,
      "name": "?sub_0050E5D0_GlideDecodeSmacker@@YIXPBDPAUD2GlideSmackStrc@@E@Z"
@@ -45498,30 +45456,6 @@
      "length": 66,
      "name": "?sub_0050F870_GlideBlocksInit@@YAXXZ"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Glide/Src/glSmack_0050E070.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0050E070",
-     "length": 693
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {

@@ -1,7 +1,6 @@
 #include "Storm.h"
 
 #define RELEASE(p) if (p) { p->lpVtbl->Release((D2ComObject006BB640Strc*)p); p = 0; }
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2ComObject006BB640Strc;
 struct D2DDrawSurfaceStrc;
@@ -43,21 +42,6 @@ struct D2CacheBindingStrc
     short unk_06;
     int f_8[2];
     const unsigned char* pData;
-};
-
-struct D2DDSurfaceDescStrc
-{
-    unsigned int dwSize;
-    unsigned int dwFlags;
-    unsigned int dwHeight;
-    unsigned int dwWidth;
-    int lPitch;
-    unsigned int dwBackBufferCount;
-    unsigned int dwRefreshRate;
-    unsigned int dwAlphaBitDepth;
-    unsigned int dwReserved;
-    void* lpSurface;
-    unsigned int unk0x28[21];
 };
 
 struct D2DDrawSurfaceVtblStrc

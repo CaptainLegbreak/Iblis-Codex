@@ -1,7 +1,5 @@
 #include "Storm.h"
 
-typedef unsigned int size_t;
-
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...);                                                           // 0x00410610
 int __stdcall sub_0040E870_MeasureCpuMHz();                                                                   // 0x0040E870
@@ -19,7 +17,6 @@ struct T004013C0
     unsigned short wProcessorRevision;
 };
 T004013C0 gtSystemInfo_0074D8A0;                                                                            // 0x0074D8A0
-#define gwProcessorLevel_0074D8C0 (gtSystemInfo_0074D8A0.wProcessorLevel)
 
 // 0x0040E300
 static void __stdcall sub_0040E300(char* szBuf, int nVendor, int nFamily, unsigned int nModel, int nBrand, int nType)

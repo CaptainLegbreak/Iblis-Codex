@@ -146,37 +146,6 @@ extern D2CriticalSectionStrc gaFreeBlockLocks_00776CC0[0x100]; // 0x00776CC0
 extern int gabFreeBlockDirty_007784C8[0x100]; // 0x007784C8
 extern int gbHeapInitialized_007788D0; // 0x007788D0
 
-struct D2AdpcmHeaderStrc
-{
-    unsigned char nZero;
-    unsigned char f_1;
-};
-
-struct D2SCompLinkStrc
-{
-    D2SCompLinkStrc* m_prevlink;
-    char* m_next;
-
-    D2SCompLinkStrc* NextLink(int nLinkOffset)
-    {
-        if ((int)m_next < 0)
-            return (D2SCompLinkStrc*)~(unsigned int)m_next;
-        if (nLinkOffset < 0)
-            nLinkOffset = (char*)this - m_prevlink->m_next;
-        return (D2SCompLinkStrc*)(m_next + nLinkOffset);
-    }
-    void Unlink()
-    {
-        if (m_prevlink)
-        {
-            NextLink(-1)->m_prevlink = m_prevlink;
-            m_prevlink->m_next = m_next;
-            m_prevlink = 0;
-            m_next = 0;
-        }
-    }
-};
-
 struct D2SCompListViewStrc
 {
     int m_linkoffset;

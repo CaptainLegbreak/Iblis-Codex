@@ -3,8 +3,6 @@
 #define D2_GUARD_BEGIN do { int d2Guard_ = -1
 #define D2_CHECK(c) d2Guard_ &= (c) ? -1 : 0
 #define D2_GUARD_END(fail, r) if (!d2Guard_) { fail; return r; } } while (0)
-#define VALIDATEBEGIN int nValid = -1
-#define VALIDATE(x) nValid &= (x) ? -1 : 0
 #define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 
 struct D2TargaHeaderStrc;

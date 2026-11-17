@@ -1,6 +1,4 @@
 #include "D2Launch.h"
-
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2ConfigStrc;
 struct D2FileTimeStrc;
 struct D2LaunchRecordStrc;
@@ -19,26 +17,6 @@ struct D2FuncTable_0077ABF0Strc
     D2MenuListStrc* (__fastcall* pfnGetMenuList)(int nArg);
     unsigned char unk_44[0x3C];
     void (__fastcall* pfnSlot80)(int* pValue);
-};
-
-struct D2FileTimeStrc
-{
-    unsigned long dwLowDateTime;
-    unsigned long dwHighDateTime;
-};
-
-struct D2FindDataStrc
-{
-    unsigned long dwFileAttributes;
-    D2FileTimeStrc ftCreationTime;
-    D2FileTimeStrc ftLastAccessTime;
-    D2FileTimeStrc ftLastWriteTime;
-    unsigned long nFileSizeHigh;
-    unsigned long nFileSizeLow;
-    unsigned long dwReserved0;
-    unsigned long dwReserved1;
-    char cFileName[260];
-    char cAlternateFileName[14];
 };
 
 struct D2LaunchRecordStrc
@@ -73,8 +51,6 @@ struct D2LaunchRecordStrc
 };
 extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
-
-typedef int (__stdcall* D2LaunchCallback)(int nArg);
 void __stdcall SMemZero(void* pDest, unsigned int nSize); // 0x0041D300
 void* __fastcall sub_00406960_CreateFile(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x00406960
 int __fastcall sub_004069A0_CloseFile(void* hFile); // 0x004069A0
@@ -360,12 +336,6 @@ extern D2CellFileStrc* gpCellFile_00779890; // 0x00779890
 extern D2CellFileStrc* gpCellFile_007798A0; // 0x007798A0
 extern D2CellFileStrc* gpCellFile_007798A4; // 0x007798A4
 
-struct D2LaunchSlotStrc
-{
-    char* szName;
-    void* pData;
-};
-
 struct D2MenuListStrc
 {
     int unk_00;
@@ -373,7 +343,6 @@ struct D2MenuListStrc
 };
 
 extern "C" unsigned int __cdecl strlen(const char* szText);
-extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize); // 0x00681EF0
 extern "C" void __cdecl qsort(void* pBase, unsigned int nCount, unsigned int nSize, int (__cdecl* pfnCompare)(const void*, const void*)); // 0x00685B50
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
 int __stdcall sub_00431D10_ClearLoop(int nArg); // 0x00431D10

@@ -1,7 +1,5 @@
 #include "D2Glide.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-
 struct D2GlideTexOwnerStrc;
 struct D2GlideTexCacheEntryStrc;
 struct D2GlideTexCacheStrc;
@@ -43,12 +41,6 @@ struct D2GlideTexCacheStrc
 };
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-
-struct D2GlideTexOwnerStrc
-{
-    int unk0x00;
-    int unk0x04;
-};
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 D2GlideTexCacheEntryStrc* __fastcall sub_0050EAE0_TexCacheUnlink(D2GlideTexCacheStrc* pCache, int nIndex); // 0x0050EAE0
 

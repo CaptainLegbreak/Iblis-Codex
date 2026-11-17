@@ -29,12 +29,6 @@ struct D2GlideTexInfoStrc
     int f_34;
 };
 
-struct D2GlideTexSlotStrc
-{
-    int nCache;
-    int nId;
-};
-
 struct D2GlideTexCacheEntryStrc
 {
     int nId;
@@ -58,32 +52,6 @@ struct D2GlideTexCacheStrc
     D2GlideTexCacheEntryStrc* pEntries;
 };
 
-struct D2GrTexInfoExStrc
-{
-    int nSmallLodLog2;
-    int nLargeLodLog2;
-    int nAspectRatioLog2;
-    int nFormat;
-    void* pData;
-};
-
-struct D2GlideSpriteVertexStrc
-{
-    float x;
-    float y;
-    unsigned int dwColor;
-    float oow;
-    float sow;
-    float tow;
-    float unk0x18;
-};
-
-struct D2GlideTexDimsStrc
-{
-    int nWidth;
-    int nHeight;
-};
-
 struct D2GfxPaletteViewStrc
 {
     char unk0x00[0x114];
@@ -91,7 +59,6 @@ struct D2GfxPaletteViewStrc
     unsigned char* f_118;
 };
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3);                // 0x006001F0
@@ -676,22 +643,6 @@ void __fastcall sub_0050B720_GlideDrawSpriteOutline(D2CelContextStrc* pContext, 
 
     sub_0050A9A0_GlideDrawSpriteQuad(nX - 1, nY + 1, -1, 1, &tInfo, 0);
 }
-
-struct D2BoundsStrc
-{
-    int nLeft;
-    int nRight;
-    int nTop;
-    int nBottom;
-};
-
-struct D2ClipStrc
-{
-    int nLeft;
-    int nWidth;
-    int nTop;
-    int nHeight;
-};
 
 static __declspec(noinline) int __stdcall sub_0050B390_ClipSprite(D2GlideTexInfoStrc* pInfo, int nY, const D2BoundsStrc* pBounds, int nX, D2ClipStrc* pClip);
 

@@ -1,31 +1,5 @@
 #include "Storm.h"
 
-struct D2ModuleStrc
-{
-    bool sub_00404AB0_VisitModule(void* pContext, const wchar_t* wszName, int nNameLength);                 // 0x00404AB0
-};
-
-struct D2ModuleEntry32Strc
-{
-    unsigned long dwSize;
-    unsigned long th32ModuleID;
-    unsigned long th32ProcessID;
-    unsigned long GlblcntUsage;
-    unsigned long ProccntUsage;
-    D2ModuleStrc* modBaseAddr;
-    unsigned long modBaseSize;
-    void* hModule;
-    wchar_t szModule[256];
-    wchar_t szExePath[260];
-};
-
-struct D2PsapiModuleInfoStrc
-{
-    D2ModuleStrc* lpBaseOfDll;
-    unsigned long SizeOfImage;
-    void* EntryPoint;
-};
-
 struct D2FindDataWStrc
 {
     unsigned long dwFileAttributes;
@@ -39,10 +13,6 @@ struct D2FindDataWStrc
 };
 
 struct D2CrashModuleListStrc;
-
-typedef int (__stdcall* EnumProcessModulesFn)(void* hProcess, void** phModules, unsigned long nSize, unsigned long* pnNeeded);
-typedef int (__stdcall* GetModuleInformationFn)(void* hProcess, void* hModule, D2PsapiModuleInfoStrc* pInfo, unsigned long nSize);
-typedef unsigned long (__stdcall* GetModuleBaseNameWFn)(void* hProcess, void* hModule, wchar_t* wszName, unsigned long nSize);
 extern "C" __declspec(dllimport) void* __stdcall FindFirstFileW(const wchar_t* wszFileName, D2FindDataWStrc* pFindData); // 0x006CC2C0
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject);                                  // 0x006CC134
 

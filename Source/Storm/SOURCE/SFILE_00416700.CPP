@@ -1,12 +1,4 @@
 #include "Storm.h"
-
-struct D2StormMsgSourceStrc
-{
-    unsigned short wFacility;
-    char unk0x02[2];
-    void* hModule;
-    D2StormMsgSourceStrc* pNext;
-};
 extern "C" __declspec(dllimport) void* __stdcall HeapAlloc(void* hHeap, unsigned long dwFlags, unsigned long dwBytes); // 0x006CC318
 
 unsigned char gnStormByteFlag_0077905E;                                                                     // 0x0077905E

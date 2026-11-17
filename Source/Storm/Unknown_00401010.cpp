@@ -1,7 +1,5 @@
 #include "Storm.h"
 
-typedef unsigned int size_t;
-
 struct D2CriticalSectionStrc
 {
     void* pDebugInfo;
@@ -17,8 +15,6 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalS
 extern void* gpfnSymCleanup_0098A6B8;                                                                       // 0x0098A6B8
 extern D2CriticalSectionStrc gtSymbolLock_0098A6F0;                                                         // 0x0098A6F0
 extern char gszLogDirectory_00992708[0x400];                                                                // 0x00992708
-
-typedef int (__stdcall* SymCleanupFn)(void* hProcess);
 
 static __forceinline size_t StrLCopy(char* szDest, const char* szSource, size_t nSize)
 {

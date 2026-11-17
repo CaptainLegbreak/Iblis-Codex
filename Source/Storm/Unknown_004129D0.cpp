@@ -1,9 +1,5 @@
 #include "Storm.h"
-
-#define VALIDATEBEGIN int nValid = -1
-#define VALIDATE(x) nValid &= (x) ? -1 : 0
 #define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
-#define VALIDATEENDVOID if (!nValid) { sub_0041C340_SetLastError(0x57); return; }
 
 struct D2CriticalSectionStrc;
 struct D2SMemBlockSigStrc;
@@ -118,28 +114,10 @@ static void __stdcall sub_004117A0_SetAndShowError(const char* szFile, int nLine
 static void sub_00411AA0_FreeBlock(D2SMemHeapStrc* pHeap, D2SMemBlockStrc* pBlock);
 static __declspec(noinline) int sub_00411910_CheckPtr(void* pMemory, int bReport, const char* szFile, int nLine);
 
-struct D2SMemHeapInfoStrc
-{
-    unsigned int dwSize;
-    unsigned int hHeap;
-    char szName[0x104];
-    int nLine;
-    unsigned int dwUnk110;
-    unsigned int dwSizeA;
-    unsigned int dwSizeB;
-    unsigned int dwUnk11C;
-    unsigned int nBlocks;
-    unsigned int dwSizeC;
-};
-
 typedef void (__stdcall* SMEMDUMPCALLBACK)(void* pParam, const char* szText);
 
 int __stdcall SMemFindNextHeap(unsigned int hPrev, unsigned int* phNext, D2SMemHeapInfoStrc* pInfo); // 0x004124B0
 extern "C" int __cdecl strncmp(const char* szLeft, const char* szRight, unsigned int nCount);
-
-typedef unsigned int size_t;
-
-typedef char* va_list;
 
 extern "C" int __cdecl _vsnprintf(char* szDest, size_t nCount, const char* szFormat, va_list args); // 0x00682F22
 extern "C" int __cdecl vsprintf(char* szDest, const char* szFormat, va_list args); // 0x00682DA1

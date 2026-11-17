@@ -1,7 +1,5 @@
 #include "Storm.h"
 
-typedef void (__stdcall* SEVTHANDLER)(void* pData);
-
 struct D2CriticalSectionStrc
 {
     void* pDebugInfo;
@@ -36,9 +34,6 @@ struct D2StormEventTypeStrc
     D2StormHandlerTableStrc* f_C;
     D2StormEventTypeStrc* pNext;
 };
-
-#define VALIDATEBEGIN int nValid = -1
-#define VALIDATE(x) nValid &= (x) ? -1 : 0
 #define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock);        // 0x006CC214

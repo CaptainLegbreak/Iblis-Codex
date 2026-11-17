@@ -1,6 +1,5 @@
 #include "D2Glide.h"
 
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2GlideSmackStrc;
 struct D2GlideFloorCacheEntryStrc;
 struct D2GlideFloorCacheStrc;
@@ -12,6 +11,9 @@ struct D2GlideTileCacheEntryStrc;
 struct D2GlideTileCacheStrc;
 struct T004F51E0;
 struct D2RgbColorStrc;
+struct T00508FE0;
+struct D2TileLibraryEntryStrc;
+struct D2GlideTileStrc;
 
 struct T00508FE0
 {
@@ -65,6 +67,7 @@ struct D2GrTexInfoStrc
     int nFormat;
     unsigned char* pData;
 };
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" __declspec(dllimport) void __stdcall SmackClose(void* hSmack); // 0x006CC608
 D2GlideFloorCacheEntryStrc* __fastcall sub_0050F570_FloorCacheUnlink(D2GlideFloorCacheStrc* pCache, int nIndex); // 0x0050F570
@@ -77,12 +80,6 @@ extern unsigned char* gpGlideSmackBuffer_00880BF0; // 0x00880BF0
 extern unsigned char* gpGlideTileDecodeBuffer_00880BFC; // 0x00880BFC
 extern unsigned char* gpGlideFloorDecodeBuffer_00880C00; // 0x00880C00
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-
-struct D2GlideTexOwnerStrc
-{
-    int unk0x00;
-    int unk0x04;
-};
 
 struct D2GlideTexCacheEntryStrc
 {
@@ -134,14 +131,6 @@ struct D2GlideTileCacheStrc
     D2GlideTileCacheEntryStrc* pEntries;
 };
 
-struct T004F51E0
-{
-    unsigned char peRed;
-    unsigned char peGreen;
-    unsigned char peBlue;
-    unsigned char peFlags;
-};
-
 struct D2RgbColorStrc
 {
     unsigned char nRed;
@@ -168,53 +157,6 @@ void __cdecl sub_0050DF10_GlideSmackInit()
     gpGlideSmackBufferB_00880B70 = (unsigned char*)FOG_Alloc(0x8000, ".\\Src\\glSmack.cpp", 0x47, 0);
     gpGlideSmackBufferC_00880B74 = (unsigned char*)FOG_Alloc(0x8000, ".\\Src\\glSmack.cpp", 0x48, 0);
     gpGlideSmackBuffer_00880BF0 = (unsigned char*)FOG_Alloc(0x8000, ".\\Src\\glSmack.cpp", 0x49, 0);
-}
-
-// 0x0050E040
-void __fastcall sub_0050E040_GlideCloseSmacker(D2GlideSmackStrc* pRecord)
-{
-    if (pRecord->nType == 's' && pRecord->f_0)
-    {
-        SmackClose(pRecord->f_0);
-        pRecord->f_0 = 0;
-    }
-    pRecord->nType = 0;
-}
-
-// 0x0050F750
-void __fastcall sub_0050F750_FloorCacheRemove(D2GlideFloorCacheStrc* pCache, int nIndex)
-{
-    if (!pCache->nUsed)
-        return;
-    D2GlideFloorCacheEntryStrc* pEntry = sub_0050F570_FloorCacheUnlink(pCache, nIndex);
-    if (pEntry)
-    {
-        D2TileLibraryEntryStrc* pTile = pEntry->pTile;
-        D2_ASSERT(pTile, 0xF1);
-        pTile->nCacheIndex = 0;
-        pEntry->pTile = 0;
-        if (!pCache->f_14)
-        {
-            pCache->f_14 = pEntry;
-            pCache->f_18 = pEntry;
-        }
-        else
-        {
-            pCache->f_18->pNext = pEntry;
-            pEntry->pPrev = pCache->f_18;
-            pCache->f_18 = pEntry;
-        }
-    }
-    --pCache->nUsed;
-}
-
-// 0x0050F870
-void __cdecl sub_0050F870_GlideBlocksInit()
-{
-    gpGlideTileDecodeBuffer_00880BFC = (unsigned char*)FOG_Alloc(0x400, ".\\Src\\glBlocks.cpp", 0x33, 0);
-    gpGlideFloorDecodeBuffer_00880C00 = (unsigned char*)FOG_Alloc(0x8000, ".\\Src\\glBlocks.cpp", 0x34, 0);
-    gGlideTileTexInfo_0072F6A8.pData = gpGlideTileDecodeBuffer_00880BFC;
-    gGlideFloorTexInfo_0072F6BC.pData = gpGlideFloorDecodeBuffer_00880C00;
 }
 
 static D2GlideTexCacheEntryStrc* sub_N19_TexPopHead(D2GlideTexCacheStrc* pCache)
@@ -293,6 +235,123 @@ static D2GlideFloorCacheEntryStrc* sub_N19_FloorPopHead(D2GlideFloorCacheStrc* p
 // 0x0050E030
 void __cdecl sub_0050E030_GlideNoOp()
 {
+}
+
+// 0x0050E040
+void __fastcall sub_0050E040_GlideCloseSmacker(D2GlideSmackStrc* pRecord)
+{
+    if (pRecord->nType == 's' && pRecord->f_0)
+    {
+        SmackClose(pRecord->f_0);
+        pRecord->f_0 = 0;
+    }
+    pRecord->nType = 0;
+}
+
+static unsigned short PackRgb565(int red, int green, int blue)
+{
+ unsigned short packed=red;
+ packed &= ~7;
+ packed=(unsigned short)((packed<<5)|(unsigned char)(green & 252));
+ packed=(unsigned short)((packed<<3)|(unsigned char)(blue>>3));
+ return packed;
+}
+
+// 0x0050E070
+void __fastcall sub_0050E070_GlideSetSmackPalette(D2RgbColorStrc* colors)
+{
+ const unsigned char* source=gpGlideSmackBuffer_00880BF0;
+ unsigned short* left=(unsigned short*)gpGlideSmackBufferB_00880B70;
+ unsigned short* right=(unsigned short*)gpGlideSmackBufferC_00880B74;
+ for(int y=0;y<64;++y){
+  for(int x=0;x<256;++x){
+   const int nLeftIndex=source[x];
+   left[x]=PackRgb565(colors[nLeftIndex].nRed,colors[nLeftIndex].nGreen,colors[nLeftIndex].nBlue);
+   const int nRightIndex=source[x+256];
+   right[x]=PackRgb565(colors[nRightIndex].nRed,colors[nRightIndex].nGreen,colors[nRightIndex].nBlue);
+  }
+  source+=512;left+=256;right+=256;
+ }
+}
+
+unsigned char* gpGlideSmackBuffer_00880BF0; // 0x00880BF0
+
+// 0x0050E5D0
+void __fastcall sub_0050E5D0_GlideDecodeSmacker(const char* szFile, D2GlideSmackStrc* pSmack, unsigned char nType)
+{
+    D2_ASSERT(gpGlideSmackBuffer_00880BF0, 142);
+    memset(gpGlideSmackBuffer_00880BF0, 0, 0x8000);
+    memset(gpGlideSmackBufferB_00880B70, 0, 0x8000);
+    memset(gpGlideSmackBufferC_00880B74, 0, 0x8000);
+    if (!gbRenderPaused_007C9144)
+    {
+        sub_0050E330_GlideRefresh();
+    }
+
+    pSmack->nType = nType;
+    switch (nType)
+    {
+    case 's':
+        if (pSmack->f_0)
+        {
+            return;
+        }
+        pSmack->f_0 = SmackOpen(szFile, 0xFE000, -1);
+        if (!pSmack->f_0)
+        {
+            break;
+        }
+        SmackToBuffer(pSmack->f_0, 0, 0, 0x200, 0x40, gpGlideSmackBuffer_00880BF0, 0);
+        return;
+
+    case 'p':
+    {
+        void* pBuffer = 0;
+        int nSize = 0;
+        if (!SFileLoadFileEx(0, szFile, &pBuffer, &nSize, 0, 3, 0) || !pBuffer)
+        {
+            break;
+        }
+
+        T004F51E0 aPalette[256];
+        int nWidth;
+        int nHeight;
+        int nDepth;
+        const int bDecoded = sub_006C6A80_DecodeImage(2, pBuffer, nSize, aPalette, gpGlideSmackBuffer_00880BF0, 0x6DB0, &nWidth, &nHeight, &nDepth);
+        SMemFree(pBuffer, ".\\Src\\glSmack.cpp", 219, 0);
+        if (!bDecoded || nWidth != 468 || nHeight != 60 || nDepth != 8)
+        {
+            break;
+        }
+
+        D2RgbColorStrc aColors[256];
+        for (int i = 0; i < 256; ++i)
+        {
+            aColors[i].nRed = aPalette[i].peRed;
+            aColors[i].nGreen = aPalette[i].peGreen;
+            aColors[i].nBlue = aPalette[i].peBlue;
+        }
+
+        for (int y = 59; y > 0; --y)
+        {
+            memmove(&gpGlideSmackBuffer_00880BF0[y * 0x200], &gpGlideSmackBuffer_00880BF0[y * nWidth], nWidth);
+        }
+
+        sub_0050E070_GlideSetSmackPalette(aColors);
+        sub_0050E330_GlideRefresh();
+        return;
+    }
+
+    default:
+        return;
+    }
+
+    if (pSmack->nType == 's' && pSmack->f_0)
+    {
+        SmackClose(pSmack->f_0);
+        pSmack->f_0 = 0;
+    }
+    pSmack->nType = 0;
 }
 
 // 0x0050EAE0
@@ -441,82 +500,38 @@ void __fastcall sub_0050F6D0_FloorCacheEvict(D2GlideFloorCacheStrc* pCache)
     --pCache->nUsed;
 }
 
-unsigned char* gpGlideSmackBuffer_00880BF0; // 0x00880BF0
-
-// 0x0050E5D0
-void __fastcall sub_0050E5D0_GlideDecodeSmacker(const char* szFile, D2GlideSmackStrc* pSmack, unsigned char nType)
+// 0x0050F750
+void __fastcall sub_0050F750_FloorCacheRemove(D2GlideFloorCacheStrc* pCache, int nIndex)
 {
-    D2_ASSERT(gpGlideSmackBuffer_00880BF0, 142);
-    memset(gpGlideSmackBuffer_00880BF0, 0, 0x8000);
-    memset(gpGlideSmackBufferB_00880B70, 0, 0x8000);
-    memset(gpGlideSmackBufferC_00880B74, 0, 0x8000);
-    if (!gbRenderPaused_007C9144)
-    {
-        sub_0050E330_GlideRefresh();
-    }
-
-    pSmack->nType = nType;
-    switch (nType)
-    {
-    case 's':
-        if (pSmack->f_0)
-        {
-            return;
-        }
-        pSmack->f_0 = SmackOpen(szFile, 0xFE000, -1);
-        if (!pSmack->f_0)
-        {
-            break;
-        }
-        SmackToBuffer(pSmack->f_0, 0, 0, 0x200, 0x40, gpGlideSmackBuffer_00880BF0, 0);
+    if (!pCache->nUsed)
         return;
-
-    case 'p':
+    D2GlideFloorCacheEntryStrc* pEntry = sub_0050F570_FloorCacheUnlink(pCache, nIndex);
+    if (pEntry)
     {
-        void* pBuffer = 0;
-        int nSize = 0;
-        if (!SFileLoadFileEx(0, szFile, &pBuffer, &nSize, 0, 3, 0) || !pBuffer)
+        D2TileLibraryEntryStrc* pTile = pEntry->pTile;
+        D2_ASSERT(pTile, 0xF1);
+        pTile->nCacheIndex = 0;
+        pEntry->pTile = 0;
+        if (!pCache->f_14)
         {
-            break;
+            pCache->f_14 = pEntry;
+            pCache->f_18 = pEntry;
         }
-
-        T004F51E0 aPalette[256];
-        int nWidth;
-        int nHeight;
-        int nDepth;
-        const int bDecoded = sub_006C6A80_DecodeImage(2, pBuffer, nSize, aPalette, gpGlideSmackBuffer_00880BF0, 0x6DB0, &nWidth, &nHeight, &nDepth);
-        SMemFree(pBuffer, ".\\Src\\glSmack.cpp", 219, 0);
-        if (!bDecoded || nWidth != 468 || nHeight != 60 || nDepth != 8)
+        else
         {
-            break;
+            pCache->f_18->pNext = pEntry;
+            pEntry->pPrev = pCache->f_18;
+            pCache->f_18 = pEntry;
         }
-
-        D2RgbColorStrc aColors[256];
-        for (int i = 0; i < 256; ++i)
-        {
-            aColors[i].nRed = aPalette[i].peRed;
-            aColors[i].nGreen = aPalette[i].peGreen;
-            aColors[i].nBlue = aPalette[i].peBlue;
-        }
-
-        for (int y = 59; y > 0; --y)
-        {
-            memmove(&gpGlideSmackBuffer_00880BF0[y * 0x200], &gpGlideSmackBuffer_00880BF0[y * nWidth], nWidth);
-        }
-
-        sub_0050E070_GlideSetSmackPalette(aColors);
-        sub_0050E330_GlideRefresh();
-        return;
     }
+    --pCache->nUsed;
+}
 
-    default:
-        return;
-    }
-
-    if (pSmack->nType == 's' && pSmack->f_0)
-    {
-        SmackClose(pSmack->f_0);
-        pSmack->f_0 = 0;
-    }
-    pSmack->nType = 0;
+// 0x0050F870
+void __cdecl sub_0050F870_GlideBlocksInit()
+{
+    gpGlideTileDecodeBuffer_00880BFC = (unsigned char*)FOG_Alloc(0x400, ".\\Src\\glBlocks.cpp", 0x33, 0);
+    gpGlideFloorDecodeBuffer_00880C00 = (unsigned char*)FOG_Alloc(0x8000, ".\\Src\\glBlocks.cpp", 0x34, 0);
+    gGlideTileTexInfo_0072F6A8.pData = gpGlideTileDecodeBuffer_00880BFC;
+    gGlideFloorTexInfo_0072F6BC.pData = gpGlideFloorDecodeBuffer_00880C00;
 }

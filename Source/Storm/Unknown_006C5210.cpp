@@ -357,7 +357,6 @@ static int sub_006C5F40_GetImageType(unsigned short signature)
 extern "C" void* __cdecl memset(void*, int, unsigned int); // 0x00681EF0
 __declspec(noinline) static void __stdcall sub_006C5CF0_DecodeRle(unsigned char* pDst, unsigned int nLimit, const unsigned char* pSrc, unsigned int nWidth, int nSrcSize, unsigned int nBytesPerLine, int nPlanes);
 static void __stdcall sub_006C5CF0_DecodeRle(unsigned char* pDst, unsigned int nLimit, const unsigned char* pSrc, unsigned int nWidth, int nSrcSize, unsigned int nBytesPerLine, int nPlanes); // 0x006C5CF0
-static void __stdcall sub_006C5CF0_DecodeRle(unsigned char* pDst, unsigned int nLimit, const unsigned char* pSrc, unsigned int nWidth, int nSrcSize, unsigned int nBytesPerLine, int nPlanes); // 0x006C5CF0
 
 // 0x006C5CF0
 static void __stdcall sub_006C5CF0_DecodeRle(unsigned char* pDst, unsigned int nLimit, const unsigned char* pSrc, unsigned int nWidth, int nSrcSize, unsigned int nBytesPerLine, int nPlanes)
@@ -543,7 +542,6 @@ typedef unsigned int uint32_t;
 typedef unsigned int size_t;
 typedef int intptr_t;
 void __stdcall SErrSetLastError(unsigned long); // 0x0041C340
-void __stdcall SMemCopy(void*, const void*, unsigned int); // 0x0041D2A0
 #define D2_GUARD_BEGIN do { int d2Guard_ = -1
 #define D2_CHECK(c) d2Guard_ &= (c) ? -1 : 0
 #define D2_GUARD_END_VOID(fail) if (!d2Guard_) { fail; return; } } while (0)

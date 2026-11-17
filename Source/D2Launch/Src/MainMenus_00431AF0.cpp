@@ -1,6 +1,4 @@
 #include "D2Launch.h"
-
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2FileTimeStrc;
 struct D2FuncTable;
 struct D2MenuCallbackArgStrc;
@@ -11,36 +9,10 @@ struct Unicode
     unsigned short wChar;
 };
 
-struct D2FuncRecordStrc
-{
-    char unk0x00[0x0C];
-    int nIndex;
-};
-
 struct D2FuncTable_0077ABF0Strc
 {
     char unk0x00[0x98];
     D2FuncRecordStrc* (__cdecl* pfnGetRecord)();
-};
-
-struct D2FileTimeStrc
-{
-    unsigned long dwLowDateTime;
-    unsigned long dwHighDateTime;
-};
-
-struct D2FindDataStrc
-{
-    unsigned long dwFileAttributes;
-    D2FileTimeStrc ftCreationTime;
-    D2FileTimeStrc ftLastAccessTime;
-    D2FileTimeStrc ftLastWriteTime;
-    unsigned long nFileSizeHigh;
-    unsigned long nFileSizeLow;
-    unsigned long dwReserved0;
-    unsigned long dwReserved1;
-    char cFileName[260];
-    char cAlternateFileName[14];
 };
 extern "C" __declspec(dllimport) int __stdcall FindNextFileA(void* hFindFile, D2FindDataStrc* pFindData); // 0x006CC1C8
 extern "C" __declspec(dllimport) unsigned long __stdcall GetFileAttributesA(const char* szFileName); // 0x006CC1B0
@@ -60,8 +32,6 @@ int __fastcall sub_00449920_DecodeCdKey(const char* szCdKey, unsigned int* pProd
 extern D2WinControlStrc* gpControl_007795AC; // 0x007795AC
 extern int gdwGlobal_00779974; // 0x00779974
 
-typedef void (__cdecl* D2LaunchDoneFn)();
-
 void __cdecl sub_0042F3F0_DestroyControls(); // 0x0042F3F0
 D2WinControlStrc* __fastcall sub_0042F3A0_CreateFromTemplate(int nTemplateId); // 0x0042F3A0
 int __fastcall D2Win_10051(D2WinControlStrc* pTextBox, const Unicode* wszText, int nColor, char bIsWrapped, int nIndent); // 0x004FC9B0
@@ -77,14 +47,11 @@ extern const char gszTextExt[]; // 0x006D48E0
 extern const char gszTosPrefix[]; // 0x006D48E8
 extern "C" __declspec(dllimport) unsigned long __stdcall GetFileSize(void*, unsigned long*); // 0x006CC2F0
 extern "C" unsigned int __cdecl strlen(const char*);
-extern "C" void* __cdecl memset(void*, int, unsigned int); // 0x00681EF0
 void __cdecl sub_0042F800(); // 0x0042F800
 void __stdcall sub_00525260(char*, int); // 0x00525260
-unsigned int __stdcall SStrCopy(char*, const char*, unsigned int); // 0x004135D0
 unsigned int __stdcall sub_00413800(char*, const char*, unsigned int); // 0x00413800
 void __cdecl sub_00430400_PollSlot4C(); // 0x00430400
 void __stdcall sub_004FA590(D2LaunchDoneFn); // 0x004FA590
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short); // 0x00524A30
 void __cdecl sub_004336C0_ShowMainMenu(); // 0x004336C0
 void __fastcall sub_00433380_ShowMessage(const Unicode*, D2LaunchDoneFn, int); // 0x00433380
 void __cdecl sub_00430390_CreateScreenControls(); // 0x00430390
@@ -98,9 +65,7 @@ void __fastcall FOG_Free(void*, const char*, int, int); // 0x0040B3C0
 void __fastcall sub_0042E5D0_SwapUnicode(Unicode*, unsigned int); // 0x0042E5D0
 Unicode* __fastcall win2Unicode(Unicode*, const char*, int); // 0x00526F20
 int __fastcall sub_00501820(const Unicode*); // 0x00501820
-int __fastcall sub_00526800(const Unicode*); // 0x00526800
 int __fastcall sub_00526D30_IsBreak(const Unicode*, int); // 0x00526D30
-int __fastcall D2Win_10051(D2WinControlStrc*, const Unicode*, int, char, int); // 0x004FC9B0
 void __fastcall D2Win_10053(D2WinControlStrc*, int); // 0x004FBA30
 
 struct D2MenuCallbackArgStrc { D2WinControlStrc* pControl; unsigned int nMessage, nParam, nArg; };

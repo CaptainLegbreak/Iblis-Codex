@@ -18,25 +18,6 @@ struct D2TileLibraryEntryStrc
     D2GlideTileStrc* pBlocks;
 };
 
-struct tagRECT
-{
-    long left;
-    long top;
-    long right;
-    long bottom;
-};
-
-struct D2GlideSpriteVertexStrc
-{
-    float x;
-    float y;
-    unsigned int dwColor;
-    float oow;
-    float sow;
-    float tow;
-    float unk0x18;
-};
-
 extern int gnScreenWidth_007C9138; // 0x007C9138
 extern D2GlideSpriteVertexStrc gaGlideTileQuad_00880600[4]; // 0x00880600
 

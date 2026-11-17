@@ -33,8 +33,6 @@ extern D2Interface006B1C30Strc* gpInterface_00970E68; // 0x00970E68
 extern int gnScreenHeight_007C913C; // 0x007C913C
 extern unsigned int gdwColors_009702C0[]; // 0x009702C0
 
-struct D2GfxPaletteViewStrc { unsigned int fields[72]; };
-
 extern D2GfxPaletteViewStrc* gpGfxPaletteView_007C9150; // 0x007C9150
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 

@@ -1,8 +1,11 @@
 #include "D2Launch.h"
 
+#pragma intrinsic(_ReadWriteBarrier)
+#pragma intrinsic(strcmp)
+
 #define _INTSIZEOF(n) ((sizeof(n) + sizeof(int) - 1) & ~(sizeof(int) - 1))
 #define va_start(ap, v) (ap = (va_list)&v + _INTSIZEOF(v))
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
+
 struct D2ServiceStatusStrc;
 struct D2PoolSystemStrc;
 struct D2MemoryStatusStrc;
@@ -12,8 +15,11 @@ struct SMSGHANDLER_PARAMS;
 struct D2WinMsgStrc;
 struct D2CoordPairStrc;
 struct D2LaunchRecordStrc;
-
-typedef unsigned int size_t;
+struct D2CriticalSectionStrc;
+struct Unicode;
+struct D2FuncTable_0077ABF0Strc;
+struct D2LaunchThreadRecordStrc;
+struct D2LaunchPayloadStrc;
 
 typedef char* va_list;
 
@@ -26,16 +32,6 @@ struct D2ServiceStatusStrc
     unsigned long dwServiceExitCode;
     unsigned long dwCheckPoint;
     unsigned long dwWaitHint;
-};
-
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
 };
 
 struct D2PoolSystemStrc
@@ -71,6 +67,7 @@ struct D2MenuCallbackArgStrc
 };
 
 typedef int (__stdcall* D2GetDiskFreeSpaceExFn)(const char* szDirectory, unsigned __int64* pnFreeToCaller, unsigned __int64* pnTotal, unsigned __int64* pnTotalFree);
+
 extern "C" __declspec(dllimport) void* __stdcall RegisterServiceCtrlHandlerA(const char* szServiceName, void (__stdcall* pfnHandler)(unsigned long dwCtrlCode)); // 0x006CC024
 extern "C" __declspec(dllimport) int __stdcall SetServiceStatus(void* hServiceStatus, D2ServiceStatusStrc* pStatus); // 0x006CC048
 extern "C" __declspec(dllimport) void* __stdcall LoadLibraryA(const char* szLibFileName); // 0x006CC144
@@ -124,7 +121,6 @@ extern D2WinControlStrc* gpList_0077995C; // 0x0077995C
 extern D2WinControlStrc* gpList_00779960; // 0x00779960
 extern int gdwGlobal_00779990; // 0x00779990
 extern D2WinControlStrc* gpList_00779964; // 0x00779964
-void __fastcall sub_004FCF80_SetTextA(D2WinControlStrc*,const char*);
 void __cdecl sub_0042F480_Reset(); // 0x0042F480
 void __fastcall sub_0042F2E0_ReadPaletteFiles(const char* szFile1, const char* szFile2); // 0x0042F2E0
 D2WinControlStrc* __fastcall sub_0042F430_CreateControl(int nId); // 0x0042F430
@@ -175,8 +171,6 @@ struct Unicode
     unsigned short wChar;
 };
 
-typedef int (__stdcall* D2LaunchCallback)(int nArg);
-
 void __cdecl sub_0042F3F0_DestroyControls(); // 0x0042F3F0
 void __cdecl sub_0042FFE0_CreateScreen(); // 0x0042FFE0
 int __cdecl CLIENT_GetConnectionStatus(); // 0x0052B050
@@ -205,8 +199,20 @@ struct D2LaunchRecordStrc
     unsigned char nFlag08B;
     unsigned char unk_8C[0x1];
     char szAccount[0x18];
-    unsigned char unk_A5[0x149];
-    char nMode;
+    unsigned char unk_A5[0x30];
+    union
+    {
+        struct
+        {
+            char szNameD5[0x158];
+        };
+        struct
+        {
+            unsigned char unk_D5[0x119];
+            char nMode;
+        };
+    };
+    char szName22D[0x100];
 };
 
 extern D2LaunchRecordStrc* gpLaunchRecord_007795D4; // 0x007795D4
@@ -214,11 +220,11 @@ void __cdecl sub_00515020_FadeOutWaves();
 void __cdecl sub_0043B080();
 void __cdecl sub_00432100_CreateLoginScreen();
 
-typedef void (__cdecl* D2LaunchDoneFn)();
-
 struct D2FuncTable_0077ABF0Strc
 {
-    char unk0x00[0x68];
+    char unk0x00[0x44];
+    D2LaunchPayloadStrc* (__fastcall* pfn0x44)(const char* szRealm, const char* szKey);
+    unsigned char unk_48[0x20];
     int (__fastcall* pfnSlot68)();
 };
 
@@ -255,6 +261,26 @@ void __cdecl sub_00430620_UpdateNameOk(); // 0x00430620
 void __cdecl sub_004306C0_UpdateOk(); // 0x004306C0
 extern int gdwGlobal_00779974; // 0x00779974
 void __fastcall sub_00433380_ShowMessage(const Unicode* pText, D2LaunchDoneFn pfnDone, int nArg); // 0x00433380
+extern "C" void _ReadWriteBarrier(void);
+void* __cdecl sub_00449AC0_GetHandle(); // 0x00449AC0
+void __cdecl sub_00449C00_CloseHandle(); // 0x00449C00
+int __cdecl sub_00432350_GetStatus(); // 0x00432350
+extern "C" int __cdecl strcmp(const char* szA, const char* szB);
+
+struct D2LaunchThreadRecordStrc
+{
+    int nData[0x52];
+};
+
+struct D2LaunchPayloadStrc
+{
+    unsigned int nSize;
+    D2LaunchThreadRecordStrc tRecord;
+};
+unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
+void __cdecl sub_0042F6E0(); // 0x0042F6E0
+int __stdcall sub_00432450_OnWait(int nArg); // 0x00432450
+void __stdcall sub_0044A130_StartThread(D2LaunchThreadRecordStrc* pRecord); // 0x0044A130
 
 int gnCmdShow_0074C71C; // 0x0074C71C
 
@@ -452,6 +478,20 @@ int __stdcall sub_00420320_RegisterHandlers(void* pContext)
     return 1;
 }
 
+// 0x00430600
+static __forceinline int sub_00430600_CountNameMarks(const char* szText, int nLength)
+{
+    int nCount = 0;
+    for (int i = 0; i < nLength; ++i)
+    {
+        if (szText[i] == '-' || szText[i] == '_')
+        {
+            ++nCount;
+        }
+    }
+    return nCount;
+}
+
 // 0x004308A0
 int __stdcall sub_004308A0_ExpansionNotice6(D2MenuCallbackArgStrc* pArg)
 {
@@ -474,28 +514,6 @@ int __stdcall sub_004308E0_ExpansionNotice5(D2MenuCallbackArgStrc* pArg)
     return 1;
 }
 
-// 0x00431930
-int __stdcall sub_00431930_RunAndSetFlag(int nArg)
-{
-    sub_00431600(nArg);
-    gnFlag_007798D0 = 1;
-    return 1;
-}
-
-// 0x00430600
-static __forceinline int sub_00430600_CountNameMarks(const char* szText, int nLength)
-{
-    int nCount = 0;
-    for (int i = 0; i < nLength; ++i)
-    {
-        if (szText[i] == '-' || szText[i] == '_')
-        {
-            ++nCount;
-        }
-    }
-    return nCount;
-}
-
 int __stdcall sub_M121_Emit_00430600(const char* szText, int nLength) { return sub_00430600_CountNameMarks(szText, nLength); }
 
 // 0x00430B80
@@ -511,23 +529,6 @@ void __cdecl sub_00431020_ClearLists()
 {
     sub_004FCF80_SetTextA(gpList_0077995C, &gszEmptyAssertText);
     sub_004FCF80_SetTextA(gpList_00779960, &gszEmptyAssertText);
-}
-
-// 0x00431C60
-void __fastcall sub_00431C60_HandleModeMessage(unsigned char* pMsg, int nSize)
-{
-    if (nSize != -1)
-    {
-        switch (*pMsg)
-        {
-        case 0xAF:
-            gdwGlobal_00779990 = 1;
-            break;
-        case 0xB0:
-            gdwGlobal_00779990 = 0;
-            break;
-        }
-    }
 }
 
 // 0x00431040
@@ -650,12 +651,37 @@ int __stdcall sub_00431920_SetFlagD4(int nArg)
     return 1;
 }
 
+// 0x00431930
+int __stdcall sub_00431930_RunAndSetFlag(int nArg)
+{
+    sub_00431600(nArg);
+    gnFlag_007798D0 = 1;
+    return 1;
+}
+
 // 0x00431950
 int __stdcall sub_00431950_LoopCallback(int nArg)
 {
     if (gnFlag_007798D0 || gnFlag_007798D4)
         sub_004F9190();
     return 1;
+}
+
+// 0x00431970
+void __cdecl sub_00431970_CreateScreen()
+{
+    sub_0042F3F0_DestroyControls();
+    D2WinControlStrc* pControl = sub_0042F3A0_CreateFromTemplate(0xD6);
+    D2Win_10033(pControl, 1);
+    D2Win_10030_CONTROL_ToggleFourthFlag(pControl, 1);
+    pControl = sub_0042F3A0_CreateFromTemplate(0x3A);
+    D2Win_10030_CONTROL_ToggleFourthFlag(pControl, 1);
+    pControl = sub_0042F3A0_CreateFromTemplate(0x3B);
+    D2Win_10030_CONTROL_ToggleFourthFlag(pControl, 1);
+    pControl = sub_0042F3A0_CreateFromTemplate(0xD9);
+    D2Win_10030_CONTROL_ToggleFourthFlag(pControl, 1);
+    sub_004FC9B0_SetText(pControl, D2LANG_GetStringFromTblIndex(0x1430), 0, 0, 0);
+    sub_004FC9B0_SetText(pControl, D2LANG_GetStringFromTblIndex(0x1432), 0, 0, 0);
 }
 
 // 0x00431A00
@@ -679,6 +705,39 @@ int __stdcall sub_00431A40_SetMode2(int nArg)
     return 1;
 }
 
+// build: context sub_00436CF0
+void __cdecl sub_00436CF0()
+{
+    const Unicode* pText1 = sub_004FDD90_GetEditText(gpEdit_007799CC);
+    const Unicode* pText2 = sub_004FDD90_GetEditText(gpEdit_007799D0);
+    sub_004F96F0_ControlClearState(gpControl_007799D4, (sub_00526800(pText1) > 0) | (sub_00526800(pText2) > 0));
+}
+
+int gnLastClickX_00779998; // 0x00779998
+
+int gnLastClickY_0077999C; // 0x0077999C
+
+int gnLastClickTick_007799A0; // 0x007799A0
+
+// 0x00431A60
+int __fastcall sub_00431A60_IsDoubleClick(SMSGHANDLER_PARAMS* pMsg)
+{
+    int bResult = 1;
+    if (pMsg->uMessage != 0x201)
+        bResult = 0;
+    int nTick = GetTickCount();
+    if (nTick - gnLastClickTick_007799A0 > 300)
+        bResult = 0;
+    D2CoordPairStrc tPoint;
+    GetCursorPos(&tPoint);
+    if (abs(tPoint.nY - gnLastClickY_0077999C) + abs(tPoint.nX - gnLastClickX_00779998) > 4)
+        bResult = 0;
+    gnLastClickY_0077999C = tPoint.nY;
+    gnLastClickTick_007799A0 = nTick;
+    gnLastClickX_00779998 = tPoint.nX;
+    return bResult;
+}
+
 // 0x00431C30
 int __stdcall sub_00431C30_Leave(int nArg)
 {
@@ -686,6 +745,23 @@ int __stdcall sub_00431C30_Leave(int nArg)
     sub_00515F50(0xB4);
     sub_004F9190();
     return 1;
+}
+
+// 0x00431C60
+void __fastcall sub_00431C60_HandleModeMessage(unsigned char* pMsg, int nSize)
+{
+    if (nSize != -1)
+    {
+        switch (*pMsg)
+        {
+        case 0xAF:
+            gdwGlobal_00779990 = 1;
+            break;
+        case 0xB0:
+            gdwGlobal_00779990 = 0;
+            break;
+        }
+    }
 }
 
 // 0x00431D10
@@ -742,56 +818,6 @@ int __stdcall sub_00431E30_PollConnection(int nArg)
         sub_004F9190();
     }
     return 1;
-}
-
-// 0x00431970
-void __cdecl sub_00431970_CreateScreen()
-{
-    sub_0042F3F0_DestroyControls();
-    D2WinControlStrc* pControl = sub_0042F3A0_CreateFromTemplate(0xD6);
-    D2Win_10033(pControl, 1);
-    D2Win_10030_CONTROL_ToggleFourthFlag(pControl, 1);
-    pControl = sub_0042F3A0_CreateFromTemplate(0x3A);
-    D2Win_10030_CONTROL_ToggleFourthFlag(pControl, 1);
-    pControl = sub_0042F3A0_CreateFromTemplate(0x3B);
-    D2Win_10030_CONTROL_ToggleFourthFlag(pControl, 1);
-    pControl = sub_0042F3A0_CreateFromTemplate(0xD9);
-    D2Win_10030_CONTROL_ToggleFourthFlag(pControl, 1);
-    sub_004FC9B0_SetText(pControl, D2LANG_GetStringFromTblIndex(0x1430), 0, 0, 0);
-    sub_004FC9B0_SetText(pControl, D2LANG_GetStringFromTblIndex(0x1432), 0, 0, 0);
-}
-
-// build: context sub_00436CF0
-void __cdecl sub_00436CF0()
-{
-    const Unicode* pText1 = sub_004FDD90_GetEditText(gpEdit_007799CC);
-    const Unicode* pText2 = sub_004FDD90_GetEditText(gpEdit_007799D0);
-    sub_004F96F0_ControlClearState(gpControl_007799D4, (sub_00526800(pText1) > 0) | (sub_00526800(pText2) > 0));
-}
-
-int gnLastClickX_00779998; // 0x00779998
-
-int gnLastClickY_0077999C; // 0x0077999C
-
-int gnLastClickTick_007799A0; // 0x007799A0
-
-// 0x00431A60
-int __fastcall sub_00431A60_IsDoubleClick(SMSGHANDLER_PARAMS* pMsg)
-{
-    int bResult = 1;
-    if (pMsg->uMessage != 0x201)
-        bResult = 0;
-    int nTick = GetTickCount();
-    if (nTick - gnLastClickTick_007799A0 > 300)
-        bResult = 0;
-    D2CoordPairStrc tPoint;
-    GetCursorPos(&tPoint);
-    if (abs(tPoint.nY - gnLastClickY_0077999C) + abs(tPoint.nX - gnLastClickX_00779998) > 4)
-        bResult = 0;
-    gnLastClickY_0077999C = tPoint.nY;
-    gnLastClickTick_007799A0 = nTick;
-    gnLastClickX_00779998 = tPoint.nX;
-    return bResult;
 }
 
 // 0x00431E70
@@ -921,6 +947,176 @@ void __cdecl sub_00432100_CreateLoginScreen()
     sub_004FDDD0_LinkTab(gpEdit_007795A8, gpEdit_0077958C);
     sub_0042F430_CreateControl(0x5D);
     sub_0042F430_CreateControl(0x5E);
+}
+
+// 0x00432340
+int __stdcall sub_00432340_Callback(int nUnused)
+{
+    sub_004370C0();
+    return 1;
+}
+
+// 0x00432350
+static int sub_00432350_IsListedCode(int nCode)
+{
+    switch (nCode)
+    {
+    case 2:
+    case 10:
+    case 11:
+    case 12:
+    case 13:
+    case 126:
+    case 127:
+        return 1;
+    }
+    return 0;
+}
+
+// 0x00432400
+int __cdecl sub_00432400_PollStatus()
+{
+    if (gnWaitDone_00779994)
+        return 1;
+    if (!sub_00449AC0_GetHandle())
+        return 2;
+    switch (WaitForSingleObject(sub_00449AC0_GetHandle(), 0))
+    {
+    default:
+        return 2;
+    case 0x102:
+        _ReadWriteBarrier();
+        return 3;
+    case 0:
+        sub_00449C00_CloseHandle();
+        return sub_00432350_GetStatus() ? 2 : 0;
+    }
+}
+
+static int gnWaitDone_00779994; // 0x00779994
+
+// 0x00432480
+int __fastcall sub_00432480(const char* szName, int bFlag)
+{
+    if (*szName && gpLaunchRecord_007795D4->szName22D[0] && !strcmp(szName, gpLaunchRecord_007795D4->szName22D) && sub_00449B30_QueryAddress())
+    {
+        return 0;
+    }
+
+    if (!bFlag)
+    {
+        sub_0042F6E0();
+    }
+
+    D2MCPClientCloseMCP();
+    gnWaitDone_00779994 = 0;
+
+    if (!*szName)
+    {
+        gpLaunchRecord_007795D4->szName22D[0] = 0;
+        gpLaunchRecord_007795D4->szNameD5[0] = 0;
+        if (!bFlag)
+        {
+            sub_0042F3F0_DestroyControls();
+        }
+
+        return 0;
+    }
+
+    D2LaunchPayloadStrc* pPayload;
+    if (!gpFuncTable_0077ABF0)
+        goto fail;
+    pPayload = gpFuncTable_0077ABF0->pfn0x44(szName, "password");
+    if (!pPayload)
+        goto fail;
+    if (pPayload->nSize == 8)
+    {
+fail:
+        if (!bFlag)
+            sub_0042F3F0_DestroyControls();
+        return 2;
+    }
+    SStrCopy(gpLaunchRecord_007795D4->szName22D, szName, 0x100);
+    SStrCopy(gpLaunchRecord_007795D4->szNameD5, szName, 0x100);
+    sub_0044A130_StartThread(&pPayload->tRecord);
+    int nResult = 3;
+    if (!bFlag)
+    {
+        sub_004FA590_RunLoop(sub_00432450_OnWait);
+        nResult = sub_00432400_GetStatus();
+        sub_0042F3F0_DestroyControls();
+    }
+    return nResult;
+}
+
+int __cdecl sub_00432400_GetWaitStatus()
+{
+    if (gnWaitDone_00779994)
+        return 1;
+
+    if (sub_00449AC0())
+    {
+        switch (WaitForSingleObject((void*)sub_00449AC0(), 0))
+        {
+        case 0:
+            return sub_00432350_IsListedCode(sub_00449C00()) ? 2 : 0;
+        case 0x102:
+            return 3;
+        }
+    }
+
+    return 2;
+}
+
+// 0x00433020
+int __stdcall sub_00433020_PollConnectA(int nArg)
+{
+    sub_00449B70_Receive();
+    if (sub_00449C50() || !sub_00449B30_QueryAddress() || gdwGlobal_00779974)
+    {
+        sub_00449C60_SetValue(0);
+        sub_004F9190();
+    }
+    return 1;
+}
+
+// 0x00433060
+int __stdcall sub_00433060_PollConnectB(int nArg)
+{
+    sub_00449B70_Receive();
+    if (sub_00449C70() || !sub_00449B30_QueryAddress() || gdwGlobal_00779974)
+    {
+        sub_00449C80_SetValue(0);
+        sub_004F9190();
+    }
+    return 1;
+}
+
+// 0x00433440
+void __fastcall sub_00433440_ShowMessageNoArg(const Unicode* pText, D2LaunchDoneFn pfnDone)
+{
+    sub_00433380_ShowMessage(pText, pfnDone, 0);
+}
+
+// 0x004334D0
+int __stdcall sub_004334D0_DestroyControls(int nArg)
+{
+    sub_0042F3F0_DestroyControls();
+    return 1;
+}
+
+// 0x00433BD0
+int __stdcall sub_00433BD0_UpdateNameOk(int nArg)
+{
+    sub_00430620_UpdateNameOk();
+    return 1;
+}
+
+// 0x00433BE0
+int __stdcall sub_00433BE0_UpdateOk(int nArg)
+{
+    sub_004306C0_UpdateOk();
+    return 1;
 }
 
 // 0x00436F30
@@ -1055,98 +1251,4 @@ int __cdecl sub_004F9050()
 {
     gdwGlobal_007D55B8 = 0x0;
     return sub_004F5D60();
-}
-
-// 0x00432340
-int __stdcall sub_00432340_Callback(int nUnused)
-{
-    sub_004370C0();
-    return 1;
-}
-
-// 0x00432350
-static int sub_00432350_IsListedCode(int nCode)
-{
-    switch (nCode)
-    {
-    case 2:
-    case 10:
-    case 11:
-    case 12:
-    case 13:
-    case 126:
-    case 127:
-        return 1;
-    }
-    return 0;
-}
-
-int __cdecl sub_00432400_GetWaitStatus()
-{
-    if (gnWaitDone_00779994)
-        return 1;
-
-    if (sub_00449AC0())
-    {
-        switch (WaitForSingleObject((void*)sub_00449AC0(), 0))
-        {
-        case 0:
-            return sub_00432350_IsListedCode(sub_00449C00()) ? 2 : 0;
-        case 0x102:
-            return 3;
-        }
-    }
-
-    return 2;
-}
-
-// 0x00433020
-int __stdcall sub_00433020_PollConnectA(int nArg)
-{
-    sub_00449B70_Receive();
-    if (sub_00449C50() || !sub_00449B30_QueryAddress() || gdwGlobal_00779974)
-    {
-        sub_00449C60_SetValue(0);
-        sub_004F9190();
-    }
-    return 1;
-}
-
-// 0x00433060
-int __stdcall sub_00433060_PollConnectB(int nArg)
-{
-    sub_00449B70_Receive();
-    if (sub_00449C70() || !sub_00449B30_QueryAddress() || gdwGlobal_00779974)
-    {
-        sub_00449C80_SetValue(0);
-        sub_004F9190();
-    }
-    return 1;
-}
-
-// 0x004334D0
-int __stdcall sub_004334D0_DestroyControls(int nArg)
-{
-    sub_0042F3F0_DestroyControls();
-    return 1;
-}
-
-// 0x00433BD0
-int __stdcall sub_00433BD0_UpdateNameOk(int nArg)
-{
-    sub_00430620_UpdateNameOk();
-    return 1;
-}
-
-// 0x00433BE0
-int __stdcall sub_00433BE0_UpdateOk(int nArg)
-{
-    sub_004306C0_UpdateOk();
-    return 1;
-}
-
-// 0x00433440
-void __fastcall sub_00433440_ShowMessageNoArg(const Unicode* pText, D2LaunchDoneFn pfnDone)
-{
-    sub_00433380_ShowMessage(pText, pfnDone, 0);
 }

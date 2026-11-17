@@ -1,6 +1,4 @@
 #include "D2Glide.h"
-
-#define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2GlideTexInfoStrc;
 struct D2GlideTexSlotStrc;
 struct D2GlideTexCacheEntryStrc;
@@ -39,12 +37,6 @@ struct D2GlideTexInfoStrc
     int f_34;
 };
 
-struct D2GlideTexSlotStrc
-{
-    int nCache;
-    int nId;
-};
-
 struct D2GlideTexCacheEntryStrc
 {
     int nId;
@@ -66,32 +58,6 @@ struct D2GlideTexCacheStrc
     D2GlideTexCacheEntryStrc* f_14;
     D2GlideTexCacheEntryStrc* f_18;
     D2GlideTexCacheEntryStrc* pEntries;
-};
-
-struct D2GrTexInfoExStrc
-{
-    int nSmallLodLog2;
-    int nLargeLodLog2;
-    int nAspectRatioLog2;
-    int nFormat;
-    void* pData;
-};
-
-struct D2GlideSpriteVertexStrc
-{
-    float x;
-    float y;
-    unsigned int dwColor;
-    float oow;
-    float sow;
-    float tow;
-    float unk0x18;
-};
-
-struct D2GlideTexDimsStrc
-{
-    int nWidth;
-    int nHeight;
 };
 
 struct D2GfxPaletteViewStrc
@@ -145,22 +111,6 @@ extern int gnGlideSpriteScale_00880B64; // 0x00880B64
 extern D2GlideTexDimsStrc gaGlideAspectTexDims_0072F278[7]; // 0x0072F278
 void __stdcall sub_0050A9A0_GlideDrawSpriteQuad(int nX, int nY, unsigned int dwColor, int bTinted, D2GlideTexInfoStrc* pInfo, int nPaletteIndex);
 void sub_0050ABF0_GlideSetBlendMode(int nMode);
-
-struct D2BoundsStrc
-{
-    int nLeft;
-    int nRight;
-    int nTop;
-    int nBottom;
-};
-
-struct D2ClipStrc
-{
-    int nLeft;
-    int nWidth;
-    int nTop;
-    int nHeight;
-};
 static __declspec(noinline) int __stdcall sub_0050B390_ClipSprite(D2GlideTexInfoStrc* pInfo, int nY, const D2BoundsStrc* pBounds, int nX, D2ClipStrc* pClip);
 
 // 0x0050A260

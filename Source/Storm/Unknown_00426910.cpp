@@ -74,13 +74,6 @@ struct D2Storm4168F0Strc
     ~D2Storm4168F0Strc();
 };
 
-struct D2Storm416A90Strc
-{
-    char pad00[0x14C];
-    int n14C;
-    int n150;
-};
-
 struct D2StormTSListStrc
 {
     int m_linkoffset;
@@ -173,8 +166,6 @@ struct D2StormChunkListStrc
     void sub_004508A0_LinkNode(D2StormHashObjectChunkStrc* pNode, unsigned int nLinkType, D2StormHashObjectChunkStrc* pExisting); // 0x004508A0
     D2StormHashObjectChunkStrc* sub_00450FA0_NewNode(unsigned int nLocation, unsigned int nExtraBytes, unsigned int nFlags);
 };
-
-typedef unsigned int size_t;
 
 extern "C" void* __cdecl memset(void* pDest, int nValue, size_t nSize); // 0x00681EF0
 
