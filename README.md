@@ -18,7 +18,7 @@ Structs and most game-logic names come from D2MOO by ThePhrozenKeep (https://git
 
 | Path | Contents |
 |---|---|
-| `Source/<Module>/*.cpp` | 6,805 compilation units, one per file, defining 14,916 functions |
+| `Source/<Module>/*.cpp` | 6,800 compilation units, one per file, defining 14,916 functions |
 | `build/` | the data the build needs: the unit list with per-unit compiler options (`units.json`), every address record (`functions.json`), the layout of initialised data (`data_plan.json`), import thunk runs, file-layout plans, toolchain pins |
 | `docs/` | the function grid (`grid.svg`) and its interactive viewer (`index.html`) |
 | `tools/` | setup and build scripts (Python 3.9+, standard library only) |
