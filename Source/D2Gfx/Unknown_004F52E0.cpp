@@ -14,31 +14,6 @@ struct WNDCLASSA
     const char* lpszMenuName;
     const char* lpszClassName;
 };
-struct D2GfxSettingsStrc
-{
-    int bPerspectiveEnabled;
-    int bPerspectiveCapable;
-    int bLowQuality;
-    int nGamma;
-    int bVSync;
-    int bBlendedShadows;
-};
-struct D2GraphicsInterfaceStrc
-{
-    int (__fastcall* pfDetect)(void*);
-    int (__fastcall* pfInit)(D2GfxSettingsStrc*, const void*);
-    int (__fastcall* pfClose)();
-    int (__fastcall* pfCreateSurface)(void*, int);
-    int (__fastcall* pfCloseSurface)();
-    void (__fastcall* pfPauseSurface)(void*, int, int);
-    int (__fastcall* pfStartDraw)(int, unsigned char, unsigned char, unsigned char);
-    int (__fastcall* pfEndDraw)();
-    int (__fastcall* pfBlit)();
-    int (__fastcall* pfChangeRes)(void*, int);
-    int (__fastcall* pfGetBackBuffer)(unsigned char*);
-    int (__fastcall* pfActivateWindow)(int, int);
-    int (__fastcall* pfSetOption)(int, int);
-};
 extern "C" __declspec(dllimport) void* __stdcall LoadImageA(void*, const char*, unsigned int, int, int, unsigned int); // 0x006CC4D4
 extern "C" __declspec(dllimport) void* __stdcall LoadCursorA(void*, const char*); // 0x006CC4D0
 extern "C" __declspec(dllimport) void* __stdcall GetStockObject(int); // 0x006CC0E8
@@ -53,7 +28,6 @@ void __cdecl sub_00408900_RaiseErrorReport(int, const char*, int, const char*, .
 extern WNDPROC gpWndProc_007C8CAC; // 0x007C8CAC
 extern const char* gszWindowClassName_007C9158; // 0x007C9158
 extern int gbIsWindowed; // 0x007C8CB4
-extern D2GraphicsInterfaceStrc* gpGraphicsInterface; // 0x007C8CC0
 extern D2GraphicsInterfaceStrc* gapGraphicsInterfaces_0072DA80[]; // 0x0072DA80
 extern D2GfxSettingsStrc gGfxSettings; // 0x0072DA48
 extern const unsigned char gGraphicsHelpers_0072DA60[]; // 0x0072DA60
