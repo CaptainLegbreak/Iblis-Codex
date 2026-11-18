@@ -141,7 +141,7 @@ static int __fastcall sub_00628830_ApplyClassMinimum(D2MagicAffixTxt* pAffix, D2
     if (pAffix)
     {
         int nLevelRequirement;
-        if (pAffix->nClass != 255 && pPlayer && pAffix->nClass == *(int volatile*)&pPlayer->dwClassId)
+        if (pAffix->nClass != 255 && pPlayer && pAffix->nClass == (int)pPlayer->dwClassId)
             nLevelRequirement = pAffix->nClassLevelReq;
         else
             nLevelRequirement = pAffix->nLevelReq;
