@@ -20,6 +20,7 @@ Structs and most game-logic names come from D2MOO by ThePhrozenKeep (https://git
 |---|---|
 | `Source/<Module>/` | 2,575 compilation units, laid out like Blizzard's own source tree, defining 14,916 functions |
 | `Source/<Module>/<Module>.h` | the declarations several files of a module share |
+| `Source/StandIns/` | functional replacements for the 11 functions that are not reconstructed yet, used only by the ordinary build (see Building) |
 | `CMakeLists.txt` | the sources as an ordinary CMake project (compiles the objects; see Building) |
 | `build/` | the data the build needs: the unit list with per-unit compiler options (`units.json`), every address record (`functions.json`), the layout of initialised data (`data_plan.json`), import thunk runs, file-layout plans, toolchain pins |
 | `docs/` | the function grid (`grid.svg`) and its interactive viewer (`index.html`) |
@@ -59,15 +60,59 @@ them.
 
 ## Building
 
+There are two builds of the same sources. Both start with:
+
 ```
 python tools/setup.py --game /path/to/Game.exe --crt
-python tools/build.py
 ```
 
 `setup.py` checks your `Game.exe`, fetches and verifies the toolchain into `toolchain/`, generates `gen/` from your
-`Game.exe` and records the paths in `local.json`. `build.py` compiles every unit (in parallel, `-j N`), checks each
-function's bytes against the original, links all of them at their original addresses and writes `out/Game.exe`. A
-full build takes about a quarter of an hour on two cores; later builds reuse the objects of unchanged units.
+`Game.exe` and records the paths in `local.json`.
+
+### The byte-exact build
+
+```
+python tools/build.py
+```
+
+compiles every unit (in parallel, `-j N`), checks each function's bytes against the original, links all of them at
+their original addresses and writes `out/Game.exe`, whose SHA-256 must equal the original's. This proves that the
+sources are the game's code: every verified function compiles to exactly the bytes the game shipped with. A full
+build takes about a quarter of an hour on two cores; later builds reuse the objects of unchanged units. The 11
+functions that are not reconstructed yet are taken from your `Game.exe` here.
+
+### The ordinary build
+
+```
+python tools/link.py
+```
+
+compiles the same units with the same options (it runs the compile step of `build.py` and shares its objects), and
+links them with the Visual C++ 2005 SP1 linker and its static C runtime the way any program is linked: the linker
+lays out code and data itself, nothing is placed at an original address, and the result,
+`out/Game.ordinary.exe`, is relocatable. It is not byte-identical with the original and is not meant to be. This
+proves that the sources form a complete program: every reference has exactly one definition, with no unresolved
+or duplicate symbols.
+
+What it does beyond an ordinary link, and why:
+
+- The 11 functions that are not reconstructed yet come from `Source/StandIns/`, one file each, written to do what
+  the original function does; they are not the original code, and `build.py` never uses them.
+- Some files declare a callee or global under a different name than the file that defines it, and some files
+  carry a copy of a function for its calling convention or a call site. `link.py` keeps one definition per
+  function and global and binds every reference to the definition at the address it means: in verified code the
+  address the original's bytes hold there, elsewhere the address of the declaration's `// 0x<address>` marker.
+- Data no source defines yet, the PKWARE compression routines that Storm links as a prebuilt library, and runs
+  of globals that the code treats as one object (it reaches from one into the next, so their original layout must
+  be kept) are copied from your `Game.exe` into `gen/link/` at build time, with every pointer in them relinked.
+  So are the import libraries for the DLLs `Game.exe` imports, its export table and its resources.
+
+`link.py` then checks the linked file without running it: a valid PE image whose entry point is the C runtime's
+`WinMainCRTStartup`, the same imports as the original, each one an export of its DLL, and every verified function
+and initialised global read back from the image equal to the original's once addresses are mapped.
+`out/ordinary/LINK_REPORT.json` has the details, including the size of everything taken from your `Game.exe`.
+
+### CMake
 
 `CMakeLists.txt` describes the same sources as an ordinary project. From a Visual C++ 2005 SP1 command prompt, after
 `tools/setup.py`:
@@ -77,9 +122,8 @@ cmake -G "NMake Makefiles" -S . -B out/cmake
 cmake --build out/cmake
 ```
 
-compiles every source file into an object with its recorded compiler options. It does not check the objects against
-the original or link them at the original addresses, so it does not produce `Game.exe`; `tools/build.py` is the build
-that does.
+compiles every source file into an object with its recorded compiler options. It does not link them;
+`tools/build.py` and `tools/link.py` are the builds that do.
 
 ## Verifying
 

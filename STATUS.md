@@ -29,23 +29,32 @@ Bytes of the built Game.exe by origin:
 | link timestamps, Rich header, debug directory | 272 |
 | Authenticode signature | 6,128 |
 
+## Two builds
+
+`tools/build.py` links every function at its original address and produces a file byte-identical with the original:
+it proves that each verified function is the game's own code. `tools/link.py` links the same objects as an ordinary
+program (the linker chooses the layout, the image is relocatable): it proves that the sources form one complete
+program, with every reference resolved to exactly one definition. See README, "Building".
+
 ## Unmatched functions
 
-These have no verified source yet; the build takes their bytes from your Game.exe.
+These have no verified source yet. The byte-exact build takes their bytes from your Game.exe. The ordinary build
+uses a functional replacement for each instead, written to do what the original does; the replacements are not the
+original code, compile to different bytes, and are never used by the byte-exact build.
 
-| Address | Size | Name |
-|---|---:|---|
-| 0x004A4AD0 | 1232 | sub_004A4AD0 |
-| 0x004F8B80 | 561 | sub_004F8B80 |
-| 0x00502550 | 105 | sub_00502550 |
-| 0x0055A6D0 | 2253 | sub_0055A6D0 |
-| 0x005DD7F0 | 1084 | sub_005DD7F0 |
-| 0x005EDC50 | 791 | sub_005EDC50 |
-| 0x0062B5B0 | 1192 | sub_0062B5B0 |
-| 0x0065F470 | 288 | sub_0065F470 |
-| 0x00677880 | 4232 | sub_00677880 |
-| 0x00679C80 | 450 | sub_00679C80 |
-| 0x006BD230 | 246 | sub_006BD230 |
+| Address | Size | Name | Replacement in the ordinary build |
+|---|---:|---|---|
+| 0x004A4AD0 | 1232 | sub_004A4AD0 | `Source/StandIns/D2Client_004A4AD0.cpp` |
+| 0x004F8B80 | 561 | sub_004F8B80 | `Source/StandIns/D2Win_004F8B80.cpp` |
+| 0x00502550 | 105 | sub_00502550 | `Source/StandIns/D2Win_00502550.cpp` |
+| 0x0055A6D0 | 2253 | sub_0055A6D0 | `Source/StandIns/D2Game_0055A6D0.cpp` |
+| 0x005DD7F0 | 1084 | sub_005DD7F0 | `Source/StandIns/D2Game_005DD7F0.cpp` |
+| 0x005EDC50 | 791 | sub_005EDC50 | `Source/StandIns/D2Game_005EDC50.cpp` |
+| 0x0062B5B0 | 1192 | sub_0062B5B0 | `Source/StandIns/D2Common_0062B5B0.cpp` |
+| 0x0065F470 | 288 | sub_0065F470 | `Source/StandIns/D2Common_0065F470.cpp` |
+| 0x00677880 | 4232 | sub_00677880 | `Source/StandIns/D2Common_00677880.cpp` |
+| 0x00679C80 | 450 | sub_00679C80 | `Source/StandIns/D2Common_00679C80.cpp` |
+| 0x006BD230 | 246 | sub_006BD230 | `Source/StandIns/Fog_006BD230.cpp` |
 
 ## Non-original constructs
 

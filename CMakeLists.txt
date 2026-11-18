@@ -1,8 +1,8 @@
 # Compiles every source file into an object with the compiler options recorded in build/units.json.
 #
 # This is the ordinary project view of the sources: it builds the objects, nothing more. It does not check
-# the objects against Game.exe and does not link them at the original addresses; tools/build.py does both and
-# is the verified build.
+# the objects against Game.exe and does not link them; tools/build.py links them at the original addresses into
+# the byte-identical Game.exe, and tools/link.py links them as an ordinary program (see README, "Building").
 #
 # Use the Visual C++ 2005 SP1 compiler (cl 14.00.50727.762) from its command prompt, run tools/setup.py first
 # (the sources include generated data from gen/), then:
