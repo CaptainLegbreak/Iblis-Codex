@@ -19,7 +19,7 @@ struct D2StormArrayAStrc
     {
         unsigned int nRemainder = nValue % nAlign;
         if (nRemainder)
-            nValue += (*(unsigned int volatile*)&nAlign) - nRemainder;
+            nValue += nAlign - nRemainder;
         return nValue;
     }
     void Reserve(unsigned int nCount, int bRound)
@@ -29,7 +29,9 @@ struct D2StormArrayAStrc
         {
             if (bRound)
             {
-                unsigned int nChunk = f_C ? f_C : sub_004210A0_CalcChunkSize(nCount);
+                unsigned int nChunk = f_C;
+                if (!nChunk)
+                    nChunk = sub_004210A0_CalcChunkSize(nCount);
                 nCount = RoundUp(nCount, nChunk);
             }
             sub_004216E0_ReallocData(nCount);
@@ -95,6 +97,12 @@ void D2StormArrayAStrc::sub_004215C0_Set(unsigned int nCount, const unsigned int
     f_4 = nCount;
 }
 
+struct D2StormArrayViewStrc
+{
+    const unsigned int* pData;
+    unsigned int nCount;
+};
+
 struct D2StormQueueStrc
 {
     D2StormArrayAStrc m_array;
@@ -125,9 +133,11 @@ struct D2StormQueueStrc
     {
         if (this != &tSource)
         {
-            const unsigned int* const pData = *(const unsigned int* const volatile*)&tSource.m_array.f_8;
-            const unsigned int nCount = *(const volatile unsigned int*)&tSource.m_array.f_4;
-            m_array.sub_004215C0_Set(nCount, pData);
+            // the source's data pointer and count are taken together as one (pointer, count) view
+            D2StormArrayViewStrc tView;
+            tView.pData = tSource.m_array.f_8;
+            tView.nCount = tSource.m_array.f_4;
+            m_array.sub_004215C0_Set(tView.nCount, tView.pData);
         }
         m_array.f_C = tSource.m_array.f_C;
         m_start = tSource.m_start;

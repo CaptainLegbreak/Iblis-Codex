@@ -11,7 +11,7 @@ Generated from the build data. Every address below is a virtual address in the 1
 | Game.exe bytes built from source (code, generated data, runtime, imports, linker output, padding) | 3,578,383 of 3,618,792 (98.88 %) |
 | Game.exe bytes taken from your Game.exe (unmatched code, undefined data, resources, stamps, signature) | 40,409 |
 | Output SHA-256 equals the original | yes |
-| Names: blizzard / d2moo / placeholder | 173 / 4394 / 10360 |
+| Names: blizzard / d2moo / placeholder | 173 / 4396 / 10358 |
 
 Bytes of the built Game.exe by origin:
 
@@ -46,21 +46,19 @@ original code, compile to different bytes, and are never used by the byte-exact 
 |---|---:|---|---|
 | 0x004A4AD0 | 1232 | sub_004A4AD0 | `Source/StandIns/D2Client_004A4AD0.cpp` |
 | 0x004F8B80 | 561 | sub_004F8B80 | `Source/StandIns/D2Win_004F8B80.cpp` |
-| 0x00502550 | 105 | sub_00502550 | `Source/StandIns/D2Win_00502550.cpp` |
 | 0x0055A6D0 | 2253 | sub_0055A6D0 | `Source/StandIns/D2Game_0055A6D0.cpp` |
 | 0x005DD7F0 | 1084 | sub_005DD7F0 | `Source/StandIns/D2Game_005DD7F0.cpp` |
 | 0x005EDC50 | 791 | sub_005EDC50 | `Source/StandIns/D2Game_005EDC50.cpp` |
 | 0x0062B5B0 | 1192 | sub_0062B5B0 | `Source/StandIns/D2Common_0062B5B0.cpp` |
-| 0x0065F470 | 288 | sub_0065F470 | `Source/StandIns/D2Common_0065F470.cpp` |
 | 0x00677880 | 4232 | sub_00677880 | `Source/StandIns/D2Common_00677880.cpp` |
 | 0x00679C80 | 450 | sub_00679C80 | `Source/StandIns/D2Common_00679C80.cpp` |
 | 0x006BD230 | 246 | sub_006BD230 | `Source/StandIns/Fog_006BD230.cpp` |
 
 ## Non-original constructs
 
-Functions whose source needs something the original source very likely did not have to produce the original bytes: a per-file compiler option other than the default (`build/config.json`), link-time code generation, a calling-convention shim for a register-argument function, or inline assembly.
+Functions whose source needs something the original source very likely did not have to produce the original bytes: a per-file compiler option other than the default (`build/config.json`), link-time code generation, a calling-convention shim for a register-argument function, inline assembly, or a redundant conditional or `__assume` that only shapes register use.
 
-Not listed one by one: 2332 functions are compiled with `/GS-` and 91 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 2580 times and `__declspec(dllexport)` 178 times to keep a body out of line or emitted.
+Not listed one by one: 2334 functions are compiled with `/GS-` and 91 with `/EHsc` (see `build/units.json`); the sources use `__declspec(noinline)` 2580 times and `__declspec(dllexport)` 178 times to keep a body out of line or emitted.
 
 | Address | Name | Construct |
 |---|---|---|
@@ -271,6 +269,7 @@ Not listed one by one: 2332 functions are compiled with `/GS-` and 91 with `/EHs
 | 0x004F0650 | sub_004F0650_CreateClientMissiles | compiler option /Ob1 |
 | 0x004F4590 | sub_004F4590_DoSkillSound | compiler option /Ob1 |
 | 0x00501A80 | FONT_DrawString | calling-convention shim |
+| 0x00502550 | D2Win_10128 | compiler option /Ob1, identical-arm conditional, `__assume` |
 | 0x00512250 | sub_00512250_DrawCel | compiler option /Ob1 |
 | 0x00516D8B | sub_00516D8B_RunSurvey | compiler option /Os |
 | 0x00516DE1 | sub_00516DE1_Verify | compiler option /O1 |
@@ -421,6 +420,7 @@ Not listed one by one: 2332 functions are compiled with `/GS-` and 91 with `/EHs
 | 0x0064DDF0 | sub_0064DDF0 | link-time code generation (/GL /LTCG) |
 | 0x0064DE30 | COLLISION_SetMaskWithSizeXY | compiler option /Ob1, link-time code generation (/GL /LTCG) |
 | 0x0065A710 | sub_0065A710_IsInRoomRange | calling-convention shim |
+| 0x0065F470 | ITEMMODS_PropertyFunc11 | identical-arm conditional |
 | 0x00661A30 | sub_00661A30_ClampMissileField | calling-convention shim |
 | 0x0066CDE0 | sub_0066CDE0 | link-time code generation (/GL /LTCG) |
 | 0x00675EB0 | sub_00675EB0_PlaceCoord | calling-convention shim |
@@ -519,4 +519,4 @@ Not listed one by one: 2332 functions are compiled with `/GS-` and 91 with `/EHs
 
 ## Names
 
-`names.csv` gives the source of every function name: 173 `blizzard`, 4394 `d2moo`, 10360 `placeholder`. Placeholder names (mostly `sub_<address>_<Verb>`) are waiting for a real name.
+`names.csv` gives the source of every function name: 173 `blizzard`, 4396 `d2moo`, 10358 `placeholder`. Placeholder names (mostly `sub_<address>_<Verb>`) are waiting for a real name.

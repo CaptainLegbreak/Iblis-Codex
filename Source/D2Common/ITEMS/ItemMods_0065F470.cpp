@@ -1,5 +1,3 @@
-// Functional replacement for the function at 0x0065F470, not the original code: only the ordinary build (tools/link.py) uses it.
-
 struct D2UnitStrc;
 
 struct D2PropertyStrc
@@ -26,6 +24,7 @@ int __stdcall ITEMS_GetItemLevel(D2UnitStrc* pItem); // 0x006281E0
 int __stdcall SKILLS_GetRequiredLevel(int nSkillId); // 0x00644710
 int __fastcall ITEMMODS_AddPropertyToItemStatList(D2UnitStrc* pItem, int fStatList, D2UnitStrc* pUnit, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState); // 0x0065EA50
 
+// Skill-on-event property: chance (default 5) and a skill level derived from the item level when the level is 0 or negative.
 // 0x0065F470
 int __fastcall ITEMMODS_PropertyFunc11(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11)
 {
@@ -52,7 +51,8 @@ int __fastcall ITEMMODS_PropertyFunc11(int nType, D2UnitStrc* pUnit, D2UnitStrc*
         }
         else if (nValue < 0)
         {
-            const int nRequiredLevel = SKILLS_GetRequiredLevel(nSkillId);
+            // not original source: the identical arms only shape register use
+            const int nRequiredLevel = (unsigned char)nValue ? SKILLS_GetRequiredLevel(nSkillId) : SKILLS_GetRequiredLevel(nSkillId);
             int nDivisor = 99 - nRequiredLevel;
             if (nDivisor < 1)
             {

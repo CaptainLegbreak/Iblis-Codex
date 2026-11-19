@@ -6,7 +6,7 @@ original file.
 
 ![Function grid: one cell per function of Game.exe in address order. Bright green is byte-identical with no address fields, green is byte-identical once linked at its original address, purple matches only with a non-original construct, red is not reconstructed yet, grey is runtime library code placed by identity](docs/grid.svg)
 
-**[Open the interactive grid](https://raw.githack.com/Regubreaku/Iblis-Codex/main/docs/index.html)**: hover or tap a cell to see the
+**[Open the interactive grid](https://raw.githack.com/CaptainLegbreak/Iblis-Codex/main/docs/index.html)**: hover or tap a cell to see the
 function, search by address or name, filter by module or state, and click through to its source file. The same page is
 `docs/index.html` in this repository and works offline.
 
@@ -18,9 +18,9 @@ Structs and most game-logic names come from D2MOO by ThePhrozenKeep (https://git
 
 | Path | Contents |
 |---|---|
-| `Source/<Module>/` | 2,575 compilation units, laid out like Blizzard's own source tree, defining 14,916 functions |
+| `Source/<Module>/` | 2,577 compilation units, laid out like Blizzard's own source tree, defining 14,918 functions |
 | `Source/<Module>/<Module>.h` | the declarations several files of a module share |
-| `Source/StandIns/` | functional replacements for the 11 functions that are not reconstructed yet, used only by the ordinary build (see Building) |
+| `Source/StandIns/` | functional replacements for the 9 functions that are not reconstructed yet, used only by the ordinary build (see Building) |
 | `CMakeLists.txt` | the sources as an ordinary CMake project (compiles the objects; see Building) |
 | `build/` | the data the build needs: the unit list with per-unit compiler options (`units.json`), every address record (`functions.json`), the layout of initialised data (`data_plan.json`), import thunk runs, file-layout plans, toolchain pins |
 | `docs/` | the function grid (`grid.svg`) and its interactive viewer (`index.html`) |
@@ -41,7 +41,7 @@ compiler-generated function). The build uses all of these, so keep them when you
 
 The repository contains no part of the game. The layouts of the game's initialised data tables come from the same
 D2MOO structs as the code (`build/data_plan.json` holds only their addresses, sizes, types and names); their values, the
-code of the 11 functions that are not reconstructed yet, the resources and the file's signature are read from
+code of the 9 functions that are not reconstructed yet, the resources and the file's signature are read from
 your own copy of `Game.exe` at build time and written to the git-ignored `gen/` and `out/` folders.
 
 ## Requirements
@@ -78,7 +78,7 @@ python tools/build.py
 compiles every unit (in parallel, `-j N`), checks each function's bytes against the original, links all of them at
 their original addresses and writes `out/Game.exe`, whose SHA-256 must equal the original's. This proves that the
 sources are the game's code: every verified function compiles to exactly the bytes the game shipped with. A full
-build takes about a quarter of an hour on two cores; later builds reuse the objects of unchanged units. The 11
+build takes about a quarter of an hour on two cores; later builds reuse the objects of unchanged units. The 9
 functions that are not reconstructed yet are taken from your `Game.exe` here.
 
 ### The ordinary build
@@ -96,7 +96,7 @@ or duplicate symbols.
 
 What it does beyond an ordinary link, and why:
 
-- The 11 functions that are not reconstructed yet come from `Source/StandIns/`, one file each, written to do what
+- The 9 functions that are not reconstructed yet come from `Source/StandIns/`, one file each, written to do what
   the original function does; they are not the original code, and `build.py` never uses them.
 - Some files declare a callee or global under a different name than the file that defines it, and some files
   carry a copy of a function for its calling convention or a call site. `link.py` keeps one definition per
