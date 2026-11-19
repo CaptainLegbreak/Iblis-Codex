@@ -5,11 +5,11 @@ Generated from the build data. Every address below is a virtual address in the 1
 | | |
 |---|---|
 | Functions | 14927 |
-| Verified (built from source) | 14916 (2,601,688 bytes) |
-| Unmatched (taken from your Game.exe) | 11 (12,434 bytes) |
-| Function bytes verified | 99.524 % |
-| Game.exe bytes built from source (code, generated data, runtime, imports, linker output, padding) | 3,578,383 of 3,618,792 (98.88 %) |
-| Game.exe bytes taken from your Game.exe (unmatched code, undefined data, resources, stamps, signature) | 40,409 |
+| Verified (built from source) | 14918 (2,602,081 bytes) |
+| Unmatched (taken from your Game.exe) | 9 (12,041 bytes) |
+| Function bytes verified | 99.539 % |
+| Game.exe bytes built from source (code, generated data, runtime, imports, linker output, padding) | 3,578,776 of 3,618,792 (98.89 %) |
+| Game.exe bytes taken from your Game.exe (unmatched code, undefined data, resources, stamps, signature) | 40,016 |
 | Output SHA-256 equals the original | yes |
 | Names: blizzard / d2moo / placeholder | 173 / 4396 / 10358 |
 
@@ -17,13 +17,13 @@ Bytes of the built Game.exe by origin:
 
 | Origin | Bytes |
 |---|---:|
-| game code and data compiled from Source/ | 2,686,992 |
+| game code and data compiled from Source/ | 2,687,385 |
 | initialised data generated from your Game.exe (build/data_plan.json) | 362,543 |
 | C runtime (libcmt.lib, placed by identity) | 239,696 |
 | import thunks and the import address table | 3,782 |
 | headers, import and export tables, relocations, checksum | 163,407 |
 | alignment padding | 121,963 |
-| code taken from your Game.exe (unmatched functions) | 12,434 |
+| code taken from your Game.exe (unmatched functions) | 12,041 |
 | data no source defines yet, taken from your Game.exe | 15,687 |
 | resources (from your Game.exe) | 5,888 |
 | link timestamps, Rich header, debug directory | 272 |
