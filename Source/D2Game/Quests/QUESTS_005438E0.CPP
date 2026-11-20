@@ -2,11 +2,12 @@
 #include "D2Structs.h"
 #include "D2Txt.h"
 #include "D2UnitData.h"
+#include "D2GameStrc.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_MONSTER 1
 #define UNIT_INVALID 6
-struct T005438E0;
+struct D2QuestInfoStrc;
 struct D2ItemsTxt;
 struct D2MessageStrc;
 struct D2MessageListStrc;
@@ -18,7 +19,6 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 typedef int (__stdcall* FARPROC)();
-
 
 struct D2QuestArgStrc
 {
@@ -49,20 +49,10 @@ struct D2QuestArgStrc
 
 typedef void(__fastcall* QUESTCALLBACK)(D2QuestDataStrc*, D2QuestArgStrc*);
 
-
-struct T005438E0
+struct D2QuestInfoStrc
 {
     D2QuestDataStrc* pLastQuest;
 };
-
-struct D2GameStrc
-{
-    char unk0x0000[0x1C];
-    void* pMemoryPool;
-    char unk0x0020[0x10D4];
-    T005438E0* pQuestControl;
-};
-
 
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x006CC34C
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
@@ -95,7 +85,7 @@ void __fastcall QUESTS_SendCurrentFlags(D2GameStrc* pGame, D2ClientStrc* pClient
 // 0x005438E0
 static void __stdcall QUESTS_EventCallback(bool bCheckActive, unsigned char bCheckAct, D2QuestArgStrc* pArgs)
 {
-    T005438E0* pQuestControl = pArgs->pGame->pQuestControl;
+    D2QuestInfoStrc* pQuestControl = pArgs->pGame->pQuestControl;
     if (!pQuestControl)
     {
         return;

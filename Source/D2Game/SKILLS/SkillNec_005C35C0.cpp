@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2GameTypes.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 #define D2_MAX(a, b) ((a) < (b) ? (b) : (a))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -16,14 +17,6 @@ union D2SeedStrc;
 struct D2NecroSkeletonComponentStrc;
 struct D2StaticPathStrc;
 struct D2SummonArgStrc;
-
-struct D2GameStrc
-{
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-    unsigned char unk_6E[0x3A];
-    int dwGameFrame;
-};
 
 typedef void (__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);
 

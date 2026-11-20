@@ -3,17 +3,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameTypes.h"
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk_20[0x4D];
-    unsigned char nDifficulty;
-    char unk_6E[6];
-    int dwGameType;
-    char unk_78[0x78];
-    void* pMonsterRegion;
-};
+#include "D2GameStrc.h"
 struct D2DynamicPathStrc;
 struct D2HoverTextStrc;
 struct D2UnitStrc;
@@ -205,7 +195,7 @@ int __fastcall sub_005A6FF0_MonsterDeath(D2GameStrc* pGame, D2ModeChangeStrc* pM
     SUNIT_SetCombatMode(pGame, pUnit, 0);
     sub_6FC63E80(pModeChange->nDirection, pGame, pUnit);
     sub_005A6830(pGame, pModeChange, 0);
-    sub_00547E50_RemoveMonster(&pGame->pMonsterRegion, pUnit);
+    sub_00547E50_RemoveMonster(pGame->pMonReg, pUnit);
     int nUnitId;
     if (!pUnit) nUnitId = -1;
     else nUnitId = pUnit->dwUnitId;

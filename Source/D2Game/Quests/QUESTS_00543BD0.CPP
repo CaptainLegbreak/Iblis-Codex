@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Txt.h"
 #include "D2UnitData.h"
+#include "D2GameStrc.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -10,7 +11,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 typedef int (__stdcall* FARPROC)();
-
 
 #pragma pack(push, 1)
 struct D2GSPacketSrv27
@@ -50,20 +50,10 @@ struct D2QuestArgStrc
 };
 typedef void(__fastcall* QUESTCALLBACK)(D2QuestDataStrc*, D2QuestArgStrc*);
 
-
-struct T005438E0
+struct D2QuestInfoStrc
 {
     D2QuestDataStrc* pLastQuest;
 };
-
-struct D2GameStrc
-{
-    char unk0x0000[0x1C];
-    void* pMemoryPool;
-    char unk0x0020[0x10D4];
-    T005438E0* pQuestControl;
-};
-
 
 #define UNIT_MONSTER 1
 #define UNIT_INVALID 6
@@ -87,7 +77,7 @@ void __fastcall QUESTS_SendCurrentFlags(D2GameStrc* pGame, D2ClientStrc* pClient
 // build: symbol ?QUESTS_EventCallback@@YGX_NEPAUD2QuestArgStrc@@@Z 0x005438E0
 static void __stdcall QUESTS_EventCallback(bool bCheckActive, unsigned char bCheckAct, D2QuestArgStrc* pArgs)
 {
-    T005438E0* pQuestControl = pArgs->pGame->pQuestControl;
+    D2QuestInfoStrc* pQuestControl = pArgs->pGame->pQuestControl;
     if (!pQuestControl)
     {
         return;
@@ -126,7 +116,7 @@ void __fastcall QUESTS_ChangeLevel(D2GameStrc* pGame, int nOldLevelId, int nTarg
 
 static __forceinline D2QuestDataStrc* QUESTS_GetQuestData(D2GameStrc* pGame, int nId)
 {
-    T005438E0* pControl = pGame->pQuestControl;
+    D2QuestInfoStrc* pControl = pGame->pQuestControl;
     D2_ASSERT(nId >= 0, 119);
     if (!pControl)
     {

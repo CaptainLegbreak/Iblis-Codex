@@ -1,14 +1,9 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 union D2SeedStrc;
 struct D2SkillsTxt;
-
-struct D2GameStrc
-{
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-};
 
 extern int gnPotionTableMax_00741B54; // 0x00741B54
 extern int gaPotionTable_00741B58[][3]; // 0x00741B58

@@ -33,7 +33,7 @@ struct D2GameStrc
     D2CriticalSectionStrc* lpCriticalSection; // 0x18
     void* pMemoryPool; // 0x1C
     D2ClientInfoStrc* pClientInfo; // 0x20
-    unsigned char unk0x24[0x4]; // 0x24
+    int unk0x24; // 0x24
     unsigned short nGameId; // 0x28
     char szGameName[16]; // 0x2A
     char szGamePassword[16]; // 0x3A
@@ -82,7 +82,18 @@ struct D2GameStrc
     unsigned int nSyncTimer; // 0x1DC4
     int nDebugBreakTrigger; // 0x1DC8
     unsigned char unk0x1DCC[0x8]; // 0x1DCC
-    int nUberFields[8]; // 0x1DD4
+    union // 0x1DD4
+    {
+        int nUberFields[8];
+        struct
+        {
+            int unk0x1DD4[4]; // 0x1DD4
+            unsigned int dwUberSandsCounter; // 0x1DE4
+            int bUberBaalKilled; // 0x1DE8
+            int bUberDiabloKilled; // 0x1DEC
+            int bUberMephistoKilled; // 0x1DF0
+        };
+    };
 };
 
 D2_CHECK_SIZE(D2GameLinkStrc, 0x8);

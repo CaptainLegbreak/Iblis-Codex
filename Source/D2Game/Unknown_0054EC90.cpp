@@ -2,23 +2,12 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2ItemsWorld.h"
+#include "D2GameStrc.h"
 struct D2MonStatsTxt;
 struct D2UnitStrc;
 struct D2RoomCoordListStrc;
 struct D2ActiveRoomStrc;
 struct D2UnkMonCreateStrc2;
-
-
-
-
-
-
-struct D2GameStrc
-{
-    char pad0x00[0xBC];
-    union { int nActData[13]; struct { char seedPad[0x14]; D2SeedStrc seed; }; };
-    D2MonsterRegionStrc* pMonReg[1];
-};
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 extern const unsigned int gdwBitMasks[32];                                                                  // 0x006CE268
@@ -43,7 +32,7 @@ D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveR
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);                                          // 0x0061A1B0
 int __stdcall DUNGEON_GetLevelIdFromPopulatedRoom(D2ActiveRoomStrc* pRoom);                                 // 0x0061A1F0
 D2MonsterRegionStrc* __fastcall MONSTERREGION_GetMonsterRegionFromLevelId(D2MonsterRegionStrc** ppMonsterRegion, int nLevelId); // 0x00547BB0
-int __stdcall sub_0061ABF0(int nActData, int nLevelId);                                                     // 0x0061ABF0
+int __stdcall DUNGEON_GetNumberOfPopulatedRoomsInLevel(D2DrlgActStrc* pAct, int nLevelId); // 0x0061ABF0
 int __fastcall sub_005B5210(D2GameStrc* pGame);                                                             // 0x005B5210
 
 // build: context SEED_RollRandomNumber
@@ -141,7 +130,7 @@ static int sub_0054EBC0_CanPopulateRoom(D2GameStrc* pGame, D2ActiveRoomStrc* pRo
         return 0;
 
     if (pRegion->nMonsterRegionLevel < 0)
-        pRegion->nMonsterRegionLevel = sub_0061ABF0(pGame->nActData[pRegion->nAct], nLevelId);
+        pRegion->nMonsterRegionLevel = DUNGEON_GetNumberOfPopulatedRoomsInLevel(pGame->pAct[pRegion->nAct], nLevelId);
 
     if (!pRegion->nMonsterCount)
         return 0;
@@ -200,7 +189,7 @@ void __fastcall D2GAME_PopulateRoom_6FC67190(D2GameStrc* pGame, D2ActiveRoomStrc
 
                 for (int i = (tRect.right - tRect.left) / 3 * ((tRect.bottom - tRect.top) / 3); i > 0; )
                 {
-                    if ((int)(SEED_RollRandomNumber(&pGame->seed) % 100000) <= pMonsterRegion->nMonsterCount)
+                    if ((int)(SEED_RollRandomNumber(&pGame->pGameSeed) % 100000) <= pMonsterRegion->nMonsterCount)
                     {
                         D2MonStatsTxt* pMonStatsTxtRecord;
                         const int nMonsterId = MONSTERCHOOSE_GetPresetMonsterId(pGame, pMonsterRegion, pRoom, &pMonStatsTxtRecord, 20, 0);
@@ -241,7 +230,7 @@ void __fastcall D2GAME_PopulateRoom_6FC67190(D2GameStrc* pGame, D2ActiveRoomStrc
                                 nMinGrp = pMonStatsTxtRecord->nMinGrp;
                                 nMaxGrp = pMonStatsTxtRecord->nMaxGrp;
                             }
-                            if ((!pMonStatsTxtRecord->nSparsePopulate || (int)(SEED_RollRandomNumber(&pGame->seed) % 100) <= pMonStatsTxtRecord->nSparsePopulate))
+                            if ((!pMonStatsTxtRecord->nSparsePopulate || (int)(SEED_RollRandomNumber(&pGame->pGameSeed) % 100) <= pMonStatsTxtRecord->nSparsePopulate))
                             {
                                 bSpawned = (int)sub_0054DF80_SpawnGroupInCoordList(pGame, pRoom, pRoomCoordList, nMinGrp, nMaxGrp, nMonsterId);
                             }

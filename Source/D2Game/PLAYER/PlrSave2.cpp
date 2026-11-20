@@ -5,6 +5,8 @@
 #include "D2UnitData.h"
 #include "D2QuestData.h"
 #include "D2Primitives.h"
+#include "D2GameStrc.h"
+#include "D2GameRecords.h"
 struct D2ClientStrc;
 struct D2InventoryStrc;
 
@@ -50,22 +52,6 @@ struct D2BitBufferStrc;
 struct D2ItemStatCostTxt;
 struct D2QuestDataStrc;
 struct D2ItemSaveStrc;
-
-struct D2GameStrc
-{
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-    char unk0x6E[0x02];
-    int bExpansion;
-    int dwGameType;
-    char unk0x78[0x04];
-    unsigned int dwInitSeed;
-    unsigned char unk_80[0x28];
-    int dwGameFrame;
-    unsigned char unk_AC[0x24];
-    int pGameSeed;
-};
-
 
 struct D2SaveSkillKeyStrc
 {
@@ -128,7 +114,6 @@ char* __fastcall CLIENTS_GetName(D2ClientStrc* pClient); // 0x00538830
 void __fastcall sub_005390D0(D2ClientStrc* pClient, int nId, int* pSkillId, int* pHand, int* pItemGUID); // 0x005390D0
 unsigned char __fastcall CLIENTS_GetWeaponSwitch(D2ClientStrc* pClient); // 0x00539220
 
-
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 unsigned short __fastcall PLRSAVE2_GetItemIndex(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nGUID); // 0x00568DC0
 void __fastcall PLRSAVE2_WriteMercData(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2SaveHeaderStrc* pSaveHeader); // 0x00568E60
@@ -146,7 +131,6 @@ struct D2WaypointDataStrc
     unsigned short unk0x02;
     int unk0x04[3];
 };
-
 
 #pragma pack(push, 1)
 struct D2WaypointSaveFlagStrc
@@ -201,8 +185,6 @@ D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x
 D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
 D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
 
-
-
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268
 void __stdcall BITMANIP_Initialize(D2BitBufferStrc* pBuffer, unsigned char* pBitStream, int nSize); // 0x00410E40
 unsigned int __stdcall sub_00411020_ReadBits(D2BitBufferStrc* pBuffer, int nBits); // 0x00411020
@@ -216,8 +198,6 @@ struct T0056A6F0 { unsigned char value; };
 void __fastcall sub_0056DEB0(Unit*,int,int,int); // 0x0056DEB0
 
 enum { REMOVE_SKILL = 1 };
-
-
 
 int __fastcall sub_005337F0_ReadItems(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char* pSection, int nVersion, int nSize, int nUnused, int* pReadSize); // 0x005337F0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
@@ -241,21 +221,6 @@ void __fastcall sub_6FCC6540(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x005
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
 
-struct D2ItemSaveStrc
-{
-    int nClassId;
-    unsigned short nX;
-    unsigned short nY;
-    unsigned char bMode;
-    unsigned char nPad09;
-    unsigned short nPad0A;
-    unsigned int dwFlags;
-    unsigned char nStorePage;
-    unsigned char nBodyloc;
-    unsigned short nPad12;
-    int nItemFileIndex;
-};
-
 D2UnitStrc* __fastcall ITEMS_CreateItemFromBitstream(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, unsigned char* pBitstream, unsigned int nBufferSize, int bCheckForHeader, D2ItemSaveStrc* pItemSave, unsigned int* pSize, unsigned int dwVersion); // 0x00558CB0
 void __fastcall sub_00564CB0_Nop(D2UnitStrc* pUnit); // 0x00564CB0
 int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
@@ -275,7 +240,7 @@ void __fastcall D2GAME_PACKETS_SendPacket0x97_6FC3FB60(D2ClientStrc* pClient); /
 D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char a7, int nMode, unsigned int a9); // 0x00555230
 void __fastcall SUNIT_InitClientInPlayerData(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00553180
 unsigned int __stdcall UNITS_SetNameInPlayerData(D2UnitStrc* ptUnit, char* szName); // 0x006220F0
-void __fastcall SUNIT_InitSeed(D2UnitStrc* pUnit, int* pSeed); // 0x00552DF0
+void __fastcall SUNIT_InitSeed(D2UnitStrc* pUnit, D2SeedStrc* pSeed); // 0x00552DF0
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
 void __stdcall INVENTORY_SetOwnerId(D2InventoryStrc* pInventory, int nOwner); // 0x0063D430
 void __fastcall D2GAME_SendPacket0x8E_CorpseAssign_ToAllPlayers_6FC3F9B0(D2GameStrc* pGame, int nUnitId, int nCorpseId, unsigned char bAssign); // 0x0053DF80

@@ -1,14 +1,9 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
+#include "D2LevelTxt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-
-struct D2GameStrc
-{
-    char unk0x00[0x70];
-    int nGameType;
-};
-
 
 struct D2NpcHirelingStrc
 {
@@ -25,15 +20,6 @@ struct D2NpcRecordStrc
     D2NpcHirelingStrc* pHirelings;
     char unk0x14[0x0D];
     unsigned char bHirelingsInit;
-};
-
-struct D2HirelingTxt
-{
-    char unk0x000[0x08];
-    int dwClass;
-    char unk0x00C[0x108];
-    unsigned short wNameFirst;
-    unsigned short wNameLast;
 };
 
 #pragma pack(push, 1)
@@ -58,7 +44,7 @@ void __fastcall D2GAME_SendPacket0x4E_6FC3F410(D2ClientStrc* pClient, D2GSPacket
 
 static __forceinline int __fastcall sub_00575FF0(D2GameStrc* pGame, int nHirelingId, int* pNameFirst, int* pNameLast, int* pClass)
 {
-    D2HirelingTxt* pHirelingTxtRecord = DATATBLS_GetNextHirelingTxtRecordFromVendorIdAndDifficulty(pGame->nGameType, nHirelingId, 0, 0);
+    D2HirelingTxt* pHirelingTxtRecord = DATATBLS_GetNextHirelingTxtRecordFromVendorIdAndDifficulty(pGame->bExpansion, nHirelingId, 0, 0);
     if (!pHirelingTxtRecord)
     {
         *pNameFirst = 0;

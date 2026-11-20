@@ -4,6 +4,7 @@
 #include "D2Txt.h"
 #include "D2GameTypes.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 #define MONTYPEFLAG_UNIQUE 8
 #define STATE_STUNNED 0x15
@@ -19,16 +20,6 @@ struct D2CharStatsTxt;
 struct D2ServerCallbacks;
 struct D2StatesTxt;
 struct D2GSPacketSrvAA;
-
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    unsigned char unk_20[0x8];
-    unsigned short gameId;
-    unsigned char unk_2A[0x7E];
-    int dwGameFrame;
-};
 
 typedef void (__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);
 
@@ -246,7 +237,7 @@ void __fastcall PLAYERSTATS_LevelUp(D2GameStrc* game,D2UnitStrc* unit)
   SUNIT_IterateLivingPlayers(game,(SUNIT_IterateFn)sub_00570850_Forward,unit);
   sub_0055F500_RefreshItemStatLists(game,unit);
   D2GAME_UpdatePlayerItems_6FC4BB90(game,unit,1);
-  if(gpServerCallbacks && gpServerCallbacks->levelUp) gpServerCallbacks->levelUp(game->gameId,sub_00622150_GetLevelInfo(unit,classId,level));
+  if(gpServerCallbacks && gpServerCallbacks->levelUp) gpServerCallbacks->levelUp(game->nGameId,sub_00622150_GetLevelInfo(unit,classId,level));
  }
 }
 

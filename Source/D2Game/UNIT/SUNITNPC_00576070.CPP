@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Txt.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 struct D2ClientStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -13,16 +14,6 @@ struct D2NpcRecordStrc;
 struct D2ItemsTxt;
 struct D2PlayerDataStrc;
 struct D2StaticPathStrc;
-
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    unsigned char unk_20[0x4D];
-    unsigned char nDifficulty;
-    char unk_6E[2];
-    int nGameType;
-};
 
 struct D2HirelingTxt
 {
@@ -149,7 +140,7 @@ static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 // 0x00575FF0
 int __fastcall sub_00575FF0(D2GameStrc* pGame, int nHirelingId, int* pNameFirst, int* pNameLast, int* pClass)
 {
-    D2HirelingTxt* pHirelingTxtRecord = DATATBLS_GetNextHirelingTxtRecordFromVendorIdAndDifficulty(pGame->nGameType, nHirelingId, 0, 0);
+    D2HirelingTxt* pHirelingTxtRecord = DATATBLS_GetNextHirelingTxtRecordFromVendorIdAndDifficulty(pGame->bExpansion, nHirelingId, 0, 0);
     if (!pHirelingTxtRecord)
     {
         *pNameFirst = 0;
@@ -266,7 +257,7 @@ D2UnitStrc* __fastcall D2GAME_NPC_GenerateStoreItem_6FCC6A60(D2UnitStrc* hNPC, u
         else
         {
             unsigned int nChance = ITEMS_RollLimitedRandomNumber(SUNITPROXY_GetSeedFromNpcControl(ptGame), 100000);
-            if (ptGame->nGameType && nChance < (unsigned int)(16 * nItemLevel + 1000) && pRecord->dwUltraCode && pRecord->dwUltraCode != 0x20202020)
+            if (ptGame->bExpansion && nChance < (unsigned int)(16 * nItemLevel + 1000) && pRecord->dwUltraCode && pRecord->dwUltraCode != 0x20202020)
             {
                 DATATBLS_GetItemRecordFromItemCode(pRecord->dwUltraCode, &nItemId);
                 dwNewCode = pRecord->dwUltraCode;

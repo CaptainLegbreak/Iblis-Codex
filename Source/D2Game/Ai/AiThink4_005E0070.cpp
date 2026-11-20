@@ -6,6 +6,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
+#include "D2GameStrc.h"
 struct D2UnitStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -90,35 +91,6 @@ enum
     MONSTER_UBERDIABLO = 705,
     MONSTER_UBERBAAL = 709,
 };
-
-struct D2GameStrc
-{
-    union
-    {
-        struct
-        {
-            char unk0x00[0x8C];
-        };
-        struct
-        {
-            unsigned char unk_00[0x6D];
-            unsigned char nDifficulty;
-        };
-    };
-    int nClients;
-    unsigned char unk_90[0x18];
-    int dwGameFrame;
-    unsigned char unk_AC[0x1D3C];
-    int bUberBaalKilled;
-    int bUberDiabloKilled;
-    int bUberMephistoKilled;
-};
-
-
-
-
-
-
 
 struct D2SiegeBeastTowerAiCallbackArgStrc
 {
@@ -215,9 +187,6 @@ void __stdcall SKILLS_AssignSkill(D2UnitStrc* pUnit, int nSkillId, int nSkillLev
 int __fastcall AITHINK_ShadowMasterCheckTargetPetType(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillId); // 0x005EAB20
 int __fastcall sub_005EB420_ShadowMasterSkillLevel(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pOwner, int nParam, int nSkillId); // 0x005EB420
 
-
-
-
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 D2UnitStrc* __fastcall sub_6FC7C7B0(D2UnitStrc* pUnit); // 0x00535BC0
@@ -245,7 +214,6 @@ enum D2C_Y11AiConstants
     STAT_TOHIT = 0x13,
     STAT_ITEM_TOHIT_PERCENT = 0x77,
 };
-
 
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900

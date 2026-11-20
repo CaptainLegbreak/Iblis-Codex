@@ -2,14 +2,10 @@
 #include "D2Structs.h"
 #include "D2GameTypes.h"
 #include "D2Drlg.h"
+#include "D2GameStrc.h"
 struct D2RoomCoordListStrc;
 struct D2UnitStrc;
 
-struct D2GameStrc
-{
-    char unk0x00[0xC4];
-    void* pAct;
-};
 struct D2QuestExStrc
 {
     char unk0x00[0x02];
@@ -59,9 +55,9 @@ bool __fastcall sub_005B9A30_QuestSeqCallback(D2GameStrc* pGame, D2QuestDataStrc
 {
     D2QuestExStrc* pQuestDataEx = pQuestData->pQuestDataEx;
     pQuestDataEx->unk0x05 = 0;
-    if (pQuestDataEx->bInitDone == 1 && pQuestDataEx->f_3 && !pQuestDataEx->bMonsterSpawned && pGame->pAct)
+    if (pQuestDataEx->bInitDone == 1 && pQuestDataEx->f_3 && !pQuestDataEx->bMonsterSpawned && pGame->pAct[2])
     {
-        D2ActiveRoomStrc* pRoom = sub_00619DA0_ActLookup(pGame->pAct, pQuestDataEx->nX, pQuestDataEx->nY);
+        D2ActiveRoomStrc* pRoom = sub_00619DA0_ActLookup(pGame->pAct[2], pQuestDataEx->nX, pQuestDataEx->nY);
         if (pRoom)
         {
             D2ActiveRoomStrc** ppRoomList;

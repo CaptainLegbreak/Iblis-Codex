@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2ItemsWorld.h"
+#include "D2GameStrc.h"
 
 struct D2ActiveRoomStrc
 {
@@ -8,11 +9,6 @@ struct D2ActiveRoomStrc
     D2SeedStrc pSeed;
     unsigned int field74;
     int field78;
-};
-struct D2GameStrc
-{
-    char pad00[0xF0];
-    D2MonsterRegionStrc* pMonsterRegion[1];
 };
 struct D2LevelsTxt
 {
@@ -76,7 +72,7 @@ static __declspec(noinline) void __stdcall sub_0054EFF0_CheckWandering(
     D2SeedStrc* pSeed = pRoom ? &pRoom->pSeed : 0;
     if ((int)((unsigned int)RollSeedInline(pSeed) % 100) < 3)
     {
-        D2MonsterRegionStrc* pRegion = MONSTERREGION_GetMonsterRegionFromLevelId(pGame->pMonsterRegion, nLevel);
+        D2MonsterRegionStrc* pRegion = MONSTERREGION_GetMonsterRegionFromLevelId(pGame->pMonReg, nLevel);
         if (pRegion->nWanderingCount < 3)
             sub_0054EF50_SpawnWandering(pRegion, pGame, pRoom, pLevels);
     }
