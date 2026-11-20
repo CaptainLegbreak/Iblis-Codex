@@ -2731,49 +2731,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/UNIT/Object.cpp": {
-   "bytes": 464,
-   "definitions": 2,
-   "externs": [
-    "extern \"C\" void __cdecl sub_004BD090_OperateReverseNameShrine(); // 0x004BD090",
-    "extern \"C\" void __cdecl sub_004BD0C0_SpawnMissileGrid(); // 0x004BD0C0",
-    "extern \"C\" void __cdecl sub_004BD220_SpawnMissileStar(); // 0x004BD220",
-    "extern \"C\" void __cdecl sub_004BD360_SpawnMissileStar(); // 0x004BD360",
-    "extern \"C\" void __cdecl sub_004BD4A0_InitShrineOverlays(); // 0x004BD4A0"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/UNIT/Object.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Client/UNIT/Object_004BC8D0.cpp": {
-   "bytes": 136,
-   "definitions": 1,
-   "externs": [
-    "extern \"C\" void __cdecl sub_004BD730_AnimCycle(); // 0x004BD730",
-    "extern \"C\" void __cdecl sub_004BD7C0_AnimCycleUpdate(); // 0x004BD7C0",
-    "extern \"C\" void __cdecl sub_004BD860_TimedSpecial(); // 0x004BD860",
-    "extern \"C\" void __cdecl sub_004BD900_TimedSpecialRandom(); // 0x004BD900",
-    "extern \"C\" void __cdecl sub_004BD9C0_TimedSpecialExact(); // 0x004BD9C0",
-    "extern \"C\" void __cdecl sub_004BDA60_TimedOperate(); // 0x004BDA60",
-    "extern \"C\" void __cdecl sub_004BDAF0_AlwaysOne(); // 0x004BDAF0",
-    "extern \"C\" void __cdecl sub_004BDB00_TimedOperateShort(); // 0x004BDB00",
-    "extern \"C\" void __cdecl sub_004BDB90_AlwaysOne(); // 0x004BDB90",
-    "extern \"C\" void __cdecl sub_004BDBA0_RemoveWhenFar(); // 0x004BDBA0",
-    "extern \"C\" void __cdecl sub_004BDBF0_TriggerOnce219(); // 0x004BDBF0",
-    "extern \"C\" void __cdecl sub_004BDC10_QuestObject(); // 0x004BDC10",
-    "extern \"C\" void __cdecl sub_004BDCA0_TriggerOnceD3(); // 0x004BDCA0",
-    "extern \"C\" void __cdecl sub_004BDCC0_UpdateEnvObject(); // 0x004BDCC0",
-    "extern \"C\" void __cdecl sub_004BDCF0_TimedOverlay(); // 0x004BDCF0",
-    "extern \"C\" void __cdecl sub_004BDD50_RandomSound(); // 0x004BDD50",
-    "extern \"C\" void __cdecl sub_004BDE00_FinishOperate(); // 0x004BDE00",
-    "extern \"C\" void __cdecl sub_004BDE40_ReportPosition(); // 0x004BDE40"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/UNIT/Object_004BC8D0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Client/UNIT/Item.cpp": {
    "bytes": 354,
    "definitions": 9,
@@ -8120,6 +8077,39 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Glide/Src/glDebugFont.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Client/UNIT/Object.cpp": {
+   "bytes": 600,
+   "definitions": 3,
+   "externs": [
+    "extern \"C\" void __cdecl sub_004BD090_OperateReverseNameShrine(); // 0x004BD090",
+    "extern \"C\" void __cdecl sub_004BD0C0_SpawnMissileGrid(); // 0x004BD0C0",
+    "extern \"C\" void __cdecl sub_004BD220_SpawnMissileStar(); // 0x004BD220",
+    "extern \"C\" void __cdecl sub_004BD360_SpawnMissileStar(); // 0x004BD360",
+    "extern \"C\" void __cdecl sub_004BD4A0_InitShrineOverlays(); // 0x004BD4A0",
+    "extern \"C\" void __cdecl sub_004BD730_AnimCycle(); // 0x004BD730",
+    "extern \"C\" void __cdecl sub_004BD7C0_AnimCycleUpdate(); // 0x004BD7C0",
+    "extern \"C\" void __cdecl sub_004BD860_TimedSpecial(); // 0x004BD860",
+    "extern \"C\" void __cdecl sub_004BD900_TimedSpecialRandom(); // 0x004BD900",
+    "extern \"C\" void __cdecl sub_004BD9C0_TimedSpecialExact(); // 0x004BD9C0",
+    "extern \"C\" void __cdecl sub_004BDA60_TimedOperate(); // 0x004BDA60",
+    "extern \"C\" void __cdecl sub_004BDAF0_AlwaysOne(); // 0x004BDAF0",
+    "extern \"C\" void __cdecl sub_004BDB00_TimedOperateShort(); // 0x004BDB00",
+    "extern \"C\" void __cdecl sub_004BDB90_AlwaysOne(); // 0x004BDB90",
+    "extern \"C\" void __cdecl sub_004BDBA0_RemoveWhenFar(); // 0x004BDBA0",
+    "extern \"C\" void __cdecl sub_004BDBF0_TriggerOnce219(); // 0x004BDBF0",
+    "extern \"C\" void __cdecl sub_004BDC10_QuestObject(); // 0x004BDC10",
+    "extern \"C\" void __cdecl sub_004BDCA0_TriggerOnceD3(); // 0x004BDCA0",
+    "extern \"C\" void __cdecl sub_004BDCC0_UpdateEnvObject(); // 0x004BDCC0",
+    "extern \"C\" void __cdecl sub_004BDCF0_TimedOverlay(); // 0x004BDCF0",
+    "extern \"C\" void __cdecl sub_004BDD50_RandomSound(); // 0x004BDD50",
+    "extern \"C\" void __cdecl sub_004BDE00_FinishOperate(); // 0x004BDE00",
+    "extern \"C\" void __cdecl sub_004BDE40_ReportPosition(); // 0x004BDE40"
+   ],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Client/UNIT/Object.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -63330,7 +63320,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Client/UNIT/Object_004BC8D0.cpp",
+   "file": "Source/D2Client/UNIT/Object.cpp",
    "fill": 34,
    "form": "declared",
    "fwd": null,

@@ -33580,6 +33580,16 @@
      "name": "?sub_004BC720_InitObject@@YIXPAUD2UnitStrc@@PAUD2ActiveRoomStrc@@HHHE@Z"
     },
     {
+     "va": "0x004BC8D0",
+     "length": 384,
+     "name": "?sub_004BC8D0_UpdateObjectOverlay@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004BCA50",
+     "length": 58,
+     "name": "?sub_004BCA50_ReleaseUnit@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x004BD550",
      "length": 101,
      "name": "?sub_004BD550_PlayShrineSound@@YGXPAUD2UnitStrc@@0@Z"
@@ -33605,27 +33615,6 @@
      "name": "?sub_004BD6D0_ObjectCommand@@YIXHPAUD2UnitStrc@@PAUD2UnitTargetStrc@@@Z"
     },
     {
-     "va": "0x004BDFF0",
-     "length": 45,
-     "name": "?sub_004BDFF0_UpdateObject@@YIXPAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/Object_004BC8D0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004BC8D0",
-     "length": 384,
-     "name": "?sub_004BC8D0_UpdateObjectOverlay@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004BCA50",
-     "length": 58,
-     "name": "?sub_004BCA50_ReleaseUnit@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
      "va": "0x004BDEE0",
      "length": 76,
      "name": "?sub_004BDEE0@@YIDPAUD2UnitStrc@@@Z"
@@ -33634,6 +33623,11 @@
      "va": "0x004BDFE0",
      "length": 16,
      "name": "?sub_004BDFE0_SetObjectName@@YIXPAUD2UnitStrc@@PBD@Z"
+    },
+    {
+     "va": "0x004BDFF0",
+     "length": 45,
+     "name": "?sub_004BDFF0_UpdateObject@@YIXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004C1A70",
