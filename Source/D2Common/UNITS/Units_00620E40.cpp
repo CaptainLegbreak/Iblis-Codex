@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 #define UNITFLAGEX_HASINV 0x1
 #define UNITFLAGEX_UPDATEINV 0x2
 #define UNITFLAGEX_STORELASTATTACKER 0x20000
@@ -20,15 +21,6 @@ struct D2CharStatsTxt;
 struct D2MonStatsTxt;
 
 
-struct D2ObjectsTxt
-{
-    char unk0x00[216];
-    int dwFrameCnt[8];
-    char unk0xF8[66];
-    unsigned char nIsDoor;
-    char unk0x13B;
-    unsigned char nOrientation;
-};
 
 struct D2ObjectDataStrc
 {
@@ -37,22 +29,7 @@ struct D2ObjectDataStrc
     D2ShrinesTxt* pShrineTxt;
 };
 
-struct D2ItemsTxt
-{
-    char unk0x00[304];
-    unsigned char nBelt;
-};
 
-struct D2CharStatsTxt
-{
-    char unk0x00[0x3C];
-    int dwToHitFactor;
-    unsigned char nWalkSpeed;
-    unsigned char nRunSpeed;
-    unsigned char unk_42[0x7];
-    unsigned char nBlockFactor;
-    char unk0x4A[0x7A];
-};
 
 
 
@@ -69,12 +46,6 @@ void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int a4);
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625480
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x0C];
-    unsigned char nMonStatsFlags[4];
-    char unk0x10[0x198];
-};
 
 enum
 {
@@ -256,7 +227,7 @@ bool __fastcall UNITS_CheckIfObjectOrientationIs1(D2UnitStrc* ptUnit)
 {
     D2_ASSERT(ptUnit->dwUnitType == UNIT_OBJECT, 3614);
 
-    return ptUnit->pObjectData->pObjectTxt->nOrientation == 1;
+    return ptUnit->pObjectData->pObjectTxt->nSide == 1;
 }
 
 // 0x00621B30

@@ -1,33 +1,10 @@
 #include "D2Client.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 struct D2UnitStrc;
 
 typedef wchar_t Unicode;
 
-struct D2SkillsTxt
-{
-    short nSkillId;
-    char unk0x002[0x52];
-    short wAuraStat[6];
-    char unk0x060[0x8];
-    int dwAuraStatCalc[6];
-    char unk0x080[0x18];
-    short nPassiveStat[5];
-    char unk0x0A2[0x2];
-    int dwPassiveCalc[5];
-    char unk0x0B8[0x4];
-    short wSummon;
-    char unk0x0BE[0x8A];
-    int dwParam[8];
-    char unk0x168[0x1E];
-    short wMinMana;
-    short nManaShift;
-    short wMana;
-    short wLevelMana;
-    char unk0x18E[0x4E];
-    unsigned char nEType;
-    char unk0x1DD[0x5F];
-};
 
 struct D2SkillDescTxt
 {
@@ -43,16 +20,6 @@ struct D2SkillDescTxt
     int dwDescCalcB[17];
 };
 
-struct D2MissilesTxt
-{
-    char unk0x00[0x18];
-    short wSubMissile[3];
-    char unk0x1E[0x1A];
-    int dwParam[5];
-    char unk0x4C[0x4A];
-    short wRange;
-    short wLevRange;
-};
 
 struct D2DifficultyLevelsTxt
 {
@@ -60,12 +27,6 @@ struct D2DifficultyLevelsTxt
     int dwAiCurseDivisor;
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x0[0xAA];
-    short nLevel[3];
-    char unk0xB0[0xF8];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables;                                                                     // 0x00744304

@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameTypes.h"
+#include "D2Txt.h"
 
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
@@ -25,30 +26,6 @@ struct D2ItemStatCostTxt;
 
 
 
-struct D2SkillsTxt
-{
-    short nSkillId;
-    char unk0x002[0x02];
-    unsigned char nFlags[8];
-    unsigned char unk_0C[0x22];
-    short wSrvDoFunc;
-    unsigned char unk_30[0x30];
-    unsigned int dwAuraLenCalc;
-    int dwAuraRangeCalc;
-    char unk0x068[0x82];
-    short wCltMissileA;
-    short wCltMissileB;
-    short wCltMissileC;
-    short wCltMissileD;
-    char unk0x0F2[0x1A];
-    short wPrgOverlay;
-    short wPrgSound;
-    char unk0x110[0x04];
-    int dwCltCalc[3];
-    char unk0x120[0x18];
-    int dwCalc[4];
-    char unk0x148[0xF4];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -128,16 +105,7 @@ D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoo
 void __fastcall sub_004ADCE0_StateRequests(D2UnitStrc* pUnit); // 0x004ADCE0
 void __fastcall sub_0044CE40(int nValue); // 0x0044CE40
 
-struct D2MissilesTxt
-{
-    char unk0x000[0x1A4];
-};
 
-struct D2MonStats2Txt
-{
-    char unk0x00[0x0C];
-    unsigned char nOverlayHeight;
-};
 
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArg);
 
@@ -167,13 +135,6 @@ int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pDynamicPath)
 void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int a4); // 0x00649EF0
 void __stdcall MISSILE_SetTargetX(D2UnitStrc* pMissile, int nTargetX); // 0x0064A710
 
-struct D2ItemStatCostTxt
-{
-    unsigned short wStatId;
-    unsigned short pad0x02;
-    unsigned char nItemStatFlags[4];
-    char unk0x08[0x13C];
-};
 
 void __fastcall sub_00463C00_OnModeChange(D2UnitStrc* pUnit, unsigned char nOldMode, unsigned char nNewMode); // 0x00463C00
 D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0

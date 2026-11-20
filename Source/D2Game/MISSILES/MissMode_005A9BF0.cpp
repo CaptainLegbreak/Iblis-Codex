@@ -6,6 +6,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2GameTypes.h"
+#include "D2Txt.h"
 
 enum D2C_Q05MissModeConstants
 {
@@ -15,40 +16,9 @@ enum D2C_Q05MissModeConstants
 
 
 
-struct D2MissilesTxt
-{
-    char pad0x000[0x24];
-    short wHitSubMissile[4];
-    char pad0x02C[0x20];
-    int dwHitPar[3];
-    char pad0x058[0x50];
-    unsigned int dwHitFlags;
-    unsigned short wResultFlags;
-    char pad0x0AE[0xD8];
-    unsigned char nCollideKill;
-    char pad0x187[0x1D];
-};
-
-struct D2SkillsTxt
-{
-    char pad0x000[0x50];
-    int dwAuraFilter;
-    char pad0x054[0x0C];
-    int dwAuraLenCalc;
-    int dwAuraRangeCalc;
-    char pad0x068[0x1A];
-    short wAuraTargetState;
-    char pad0x084[0xB4];
-    int dwCalc[4];
-    char pad0x148[0xF4];
-};
 
 
-struct D2ObjectsTxt
-{
-    char pad0x00[0xD8];
-    unsigned int dwFrameCnt[8];
-};
+
 
 
 typedef void(__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nUnused);

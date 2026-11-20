@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_OBJECT 2
@@ -34,13 +35,6 @@ struct D2WarpEventArgStrc;
 struct R0052E0F0;
 struct R00601DC0;
 
-struct D2MonStatsTxt
-{
-    short nId;
-    short nBaseId;
-    short nNextInClass;
-    char unk0x006[0x1A2];
-};
 
 
 struct D2TimerArg2Strc
@@ -166,17 +160,6 @@ struct InitContext
 Unit* __stdcall sub_00550A30_Spawn(Game*,int,int,int,Room*,int,int,Permit); // 0x00550A30
 U32 __stdcall sub_0061A1B0_Level(Room*); // 0x0061A1B0
 
-struct D2ObjectsTxt
-{
-    char unk0x000[0x13F];
-    unsigned char nMode[8];
-    char unk0x147[0x2A];
-    unsigned char nLockable;
-    unsigned char unk_172[0x6];
-    unsigned int dwParm[8];
-    char unk0x198[0x1B];
-    unsigned char nOperateFn;
-};
 
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40

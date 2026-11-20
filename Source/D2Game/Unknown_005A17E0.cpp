@@ -5,6 +5,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2GameTypes.h"
+#include "D2Txt.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -48,12 +49,6 @@ D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
 D2DifficultyLevelsTxt* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int nDifficulty); // 0x00611D30
 void __stdcall STATLIST_AddUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x006272B0
 
-struct D2MonStatsTxt
-{
-    unsigned char unk_000[0x32];
-    short nVelocity;
-    unsigned char unk_034[0x1A8 - 0x34];
-};
 
 typedef void(__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);
 
@@ -70,17 +65,6 @@ struct D2CurseStrc
     StatListRemoveCallback pStateRemoveCallback;
 };
 
-struct D2SkillsTxt
-{
-    char pad0x000[0x54];
-    short wAuraStat[6];
-    int dwAuraLenCalc;
-    int dwAuraRangeCalc;
-    int dwAuraStatCalc[6];
-    char pad0x080[0x02];
-    short wAuraTargetState;
-    char pad0x084[0x1B8];
-};
 
 int __fastcall sub_00554200(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget);
 D2StatListStrc* __fastcall sub_0056E970(D2CurseStrc* pCurse);

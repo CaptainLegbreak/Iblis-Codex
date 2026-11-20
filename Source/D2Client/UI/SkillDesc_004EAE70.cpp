@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define LEVELV (*(volatile int*)&nSkillLevel)
 struct D2SkillsTxt;
@@ -10,31 +11,6 @@ struct UnicodeChar;
 struct D2MonStatsTxt;
 
 
-struct D2SkillsTxt
-{
-    short nSkillId;
-    char unk0x02[0x02];
-    unsigned char nFlags[8];
-    unsigned char unk_0C[0x48];
-    short wAuraStat[6];
-    char unk0x60[0x8];
-    int dwAuraStatCalc[6];
-    char unk0x80[0x18];
-    short nPassiveStat[5];
-    char unk0xA2[0x2];
-    int dwPassiveCalc[5];
-    char unk0xB8[0x4];
-    short wSummon;
-    unsigned char unk_BE[0x7A];
-    unsigned int dwCalc[3];
-    char unk0x144[0x04];
-    int dwParam[8];
-    char unk0x168[0x3D];
-    unsigned char nSrcDam;
-    char unk0x1A6[0x36];
-    unsigned char nEType;
-    char unk0x1DD[0x5F];
-};
 
 struct D2SkillDescTxt
 {
@@ -85,12 +61,6 @@ D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill);
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
 
-struct D2ItemsTxt
-{
-    char unk0x00[0xFE];
-    unsigned char nMinMisDam;
-    unsigned char nMaxMisDam;
-};
 
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 int __stdcall D2Common_11248(D2UnitStrc* pUnused, D2UnitStrc* pUnit, int nStatId); // 0x00626070
@@ -109,12 +79,6 @@ int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus); // 0x006442A0
 __declspec(noinline) static int sub_004E6FB0_GetETypeColor(int nEType);
 
-struct D2MonStatsTxt
-{
-    char unk0x0[0xAA];
-    short nLevel[3];
-    char unk0xB0[0xF8];
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30

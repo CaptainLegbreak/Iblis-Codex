@@ -4,32 +4,13 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameTypes.h"
+#include "D2Txt.h"
 
 struct D2GfxLightStrc;
 
 
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x48];
-    short wSrvMissileA;
-    char pad4A[0x1A];
-    int dwAuraRangeCalc;
-    char unk0x068[0xAC];
-    int dwCltCalc[3];
-    char unk0x120[0x18];
-    int dwCalc[4];
-    char unk0x148[0xF4];
-};
 
-struct D2MissilesTxt
-{
-    char unk0x000[0x38];
-    int dwParam[5];
-    char pad4C[0x0C];
-    int dwCltParam[5];
-    char unk0x06C[0x138];
-};
 
 struct D2StatesTxt
 {

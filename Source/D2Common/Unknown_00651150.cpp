@@ -1,15 +1,9 @@
 #include "D2Common.h"
+#include "D2Txt.h"
 
 extern "C" unsigned int __cdecl strlen(const char* sz);
 extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 
-struct D2MonStatsTxt
-{
-    char unk0x000[0x170];
-    short nSkill[8];
-    char nSkillMode[8];
-    short nSequence[8];
-};
 
 extern D2TxtLinkStrc* gTxtLink_0096BC5C;                                                                    // 0x0096BC5C
 
@@ -59,7 +53,7 @@ void __fastcall sub_00651150(char* pSrc, void* pRecord, int nOffset, int nPositi
     }
 
     pMonStatsTxtRecord->nSkillMode[nOffset] = 0;
-    pMonStatsTxtRecord->nSequence[nOffset] = -1;
+    pMonStatsTxtRecord->nSkillLevel[nOffset] = -1;
     if (pMonStatsTxtRecord->nSkill[nOffset] < 0 || !pSrc)
     {
         return;
@@ -80,5 +74,5 @@ void __fastcall sub_00651150(char* pSrc, void* pRecord, int nOffset, int nPositi
     }
 
     pMonStatsTxtRecord->nSkillMode[nOffset] = 14;
-    pMonStatsTxtRecord->nSequence[nOffset] = FOG_GetRowFromTxt(gpMonTableLinker_96C7AC, pSrc, 1);
+    pMonStatsTxtRecord->nSkillLevel[nOffset] = FOG_GetRowFromTxt(gpMonTableLinker_96C7AC, pSrc, 1);
 }

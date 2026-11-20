@@ -5,6 +5,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameTypes.h"
+#include "D2Txt.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -17,31 +18,6 @@ struct D2MissileStrc;
 
 
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x04];
-    unsigned char nFlags[8];
-    char unk0x00C[0x2C];
-    unsigned int dwPrgCalc[3];
-    char unk0x044[0x10];
-    short wAuraStat[6];
-    unsigned char unk_60[0x4];
-    int dwAuraRangeCalc;
-    unsigned char unk_68[0x18];
-    short nAuraState;
-    unsigned char unk_82[0x68];
-    short wCltMissileA;
-    short wCltMissileB;
-    short wCltMissileC;
-    char unk0x0F0[0x1E];
-    short wPrgSound;
-    short wCltOverlayA;
-    short wCltOverlayB;
-    unsigned int dwCltCalc[3];
-    unsigned char unk_120[0x28];
-    int dwParam[8];
-    char unk0x168[0xD4];
-};
 
 
 struct D2UnitFindArgStrc

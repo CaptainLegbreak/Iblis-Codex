@@ -1,5 +1,6 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 #ifdef MOVED_TEST
 #define SKILL_FLAG 0x20
 #else
@@ -7,28 +8,6 @@
 #endif
 struct D2MissilesTxt;
 
-struct D2SkillsTxt
-{
-#ifdef MOVED_TEST
-    char movedPrefix[4];
-#endif
-    char unk0x000[0x0C];
-    char nCharClass;
-    char unk0x00D[0x09];
-    unsigned char nSeqInput;
-    char unk0x017[0x4D];
-    int dwAuraRangeCalc;
-    char unk0x068[0x82];
-    short wCltMissileA;
-    char unk0x0EC[0x22];
-    short wPrgSound;
-    short wCltOverlayA;
-    char unk0x112[0x02];
-    int dwCltCalc[3];
-    char unk0x120[0x18];
-    int dwCalc[4];
-    char unk0x148[0xF4];
-};
 
 extern D2DataTablesStrc* sgptDataTables;  // 0x00744304
 int __fastcall sub_004F21B0_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId);                               // 0x004F21B0

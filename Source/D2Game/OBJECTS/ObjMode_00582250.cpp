@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2GameTypes.h"
+#include "D2Txt.h"
 struct D2ActiveRoomStrc;
 struct D2RoomCoordListStrc;
 struct D2UnitStrc;
@@ -40,15 +41,6 @@ struct D2ObjectControlStrc
     D2SeedStrc pSeed;
 };
 
-struct D2ObjectsTxt
-{
-    char unk0x000[0xD8];
-    unsigned int dwFrameCnt[8];
-    char unk0x0F8[0x28];
-    unsigned char nHasCollision[8];
-    char unk0x128[0x50];
-    unsigned int dwParm[8];
-};
 
 struct D2ObjectDataStrc
 {
