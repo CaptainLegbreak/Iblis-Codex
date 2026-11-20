@@ -60,51 +60,51 @@ __declspec(noinline) int __stdcall ITEMS_IsEthereal(D2UnitStrc* pItem);
 // 0x00629570
 int __stdcall ITEMS_GetMaxStack(int nItemId)
 {
-    struct D2ItemsTxt* ptItemStats = DATATBLS_GetItemsTxtRecord(nItemId);
+    struct D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(nItemId);
 
-    D2_ASSERT(ptItemStats, 3407);
+    D2_ASSERT(pItemsTxtRecord, 3407);
 
-    return ptItemStats->dwMaxStack;
+    return pItemsTxtRecord->dwMaxStack;
 }
 
 // 0x00629620
 int __stdcall ITEMS_GetSpawnStackFromItemId(int nItemId)
 {
-    struct D2ItemsTxt* ptItemStats = DATATBLS_GetItemsTxtRecord(nItemId);
+    struct D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(nItemId);
 
-    D2_ASSERT(ptItemStats, 3436);
+    D2_ASSERT(pItemsTxtRecord, 3436);
 
-    return ptItemStats->dwSpawnStack;
+    return pItemsTxtRecord->dwSpawnStack;
 }
 
 // 0x006296B0
 int __stdcall ITEMS_GetMinStackFromItemId(int nItemId)
 {
-    struct D2ItemsTxt* ptItemStats = DATATBLS_GetItemsTxtRecord(nItemId);
+    struct D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(nItemId);
 
-    D2_ASSERT(ptItemStats, 3466);
+    D2_ASSERT(pItemsTxtRecord, 3466);
 
-    return ptItemStats->dwMinStack;
+    return pItemsTxtRecord->dwMinStack;
 }
 
 // 0x00629A00
 int __stdcall ITEMS_GetGemApplyTypeFromItemId(int nItemId)
 {
-    struct D2ItemsTxt* ptItemStats = DATATBLS_GetItemsTxtRecord(nItemId);
+    struct D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(nItemId);
 
-    D2_ASSERT(ptItemStats, 3880);
+    D2_ASSERT(pItemsTxtRecord, 3880);
 
-    return ptItemStats->nGemApplyType;
+    return pItemsTxtRecord->nGemApplyType;
 }
 
 // 0x0062A060
 unsigned int __stdcall ITEMS_GetTransmogrifyFromItemId(int nItemId)
 {
-    struct D2ItemsTxt* ptItemStats = DATATBLS_GetItemsTxtRecord(nItemId);
+    struct D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(nItemId);
 
-    D2_ASSERT(ptItemStats, 4437);
+    D2_ASSERT(pItemsTxtRecord, 4437);
 
-    return ptItemStats->nTransmogrify != 0;
+    return pItemsTxtRecord->nTransmogrify != 0;
 }
 
 // 0x0062B4D0
@@ -122,9 +122,9 @@ int __stdcall ITEMS_GetQuestFromItemId(int nItemId)
         return 0;
     }
 
-    struct D2ItemsTxt* ptItemStats = DATATBLS_GetItemsTxtRecord(nItemId);
-    D2_ASSERT(ptItemStats, 1677);
-    if (ptItemStats->wType[0] == 38)
+    struct D2ItemsTxt* pRecord = DATATBLS_GetItemsTxtRecord(nItemId);
+    D2_ASSERT(pRecord, 1677);
+    if (pRecord->wType[0] == 38)
     {
         return 0;
     }

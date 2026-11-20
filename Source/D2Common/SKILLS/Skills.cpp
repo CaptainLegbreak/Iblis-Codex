@@ -1115,8 +1115,8 @@ int __stdcall SKILLS_SetCharges(D2SkillStrc* hSkill, int nCharges)
 // 0x00643BC0
 void __stdcall SKILLS_SetLeftActiveSkill(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID)
 {
-    D2SkillsTxt* ptTable = DATATBLS_GetSkillsTxtRecord(nSkillId);
-    D2_ASSERT(ptTable, 0x668);
+    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
+    D2_ASSERT(pSkillsTxtRecord, 0x668);
 
     D2SkillStrc* pSkill = UNITS_GetStartSkill(pUnit);
     int bSkillFound = 0;
@@ -1129,7 +1129,7 @@ void __stdcall SKILLS_SetLeftActiveSkill(D2UnitStrc* pUnit, int nSkillId, int nO
                 break;
             }
 
-            if (pSkill->pSkillsTxt == ptTable && pSkill->nOwnerGUID == nOwnerGUID)
+            if (pSkill->pSkillsTxt == pSkillsTxtRecord && pSkill->nOwnerGUID == nOwnerGUID)
             {
                 bSkillFound = 1;
             }
@@ -1149,8 +1149,8 @@ void __stdcall SKILLS_SetLeftActiveSkill(D2UnitStrc* pUnit, int nSkillId, int nO
 // 0x00643C50
 void __stdcall SKILLS_SetRightActiveSkill(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID)
 {
-    D2SkillsTxt* ptTable = DATATBLS_GetSkillsTxtRecord(nSkillId);
-    D2_ASSERT(ptTable, 0x67F);
+    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
+    D2_ASSERT(pSkillsTxtRecord, 0x67F);
 
     D2SkillStrc* pSkill = UNITS_GetStartSkill(pUnit);
     int bSkillFound = 0;
@@ -1163,7 +1163,7 @@ void __stdcall SKILLS_SetRightActiveSkill(D2UnitStrc* pUnit, int nSkillId, int n
                 break;
             }
 
-            if (pSkill->pSkillsTxt == ptTable && pSkill->nOwnerGUID == nOwnerGUID)
+            if (pSkill->pSkillsTxt == pSkillsTxtRecord && pSkill->nOwnerGUID == nOwnerGUID)
             {
                 bSkillFound = 1;
             }

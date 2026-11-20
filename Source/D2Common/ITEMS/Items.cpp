@@ -981,11 +981,11 @@ void __stdcall ITEMS_GetDimensions(D2UnitStrc* pItem, unsigned char* pWidth, uns
 // 0x00628700
 unsigned int __stdcall ITEMS_GetItemTypeFromItemId(unsigned int dwItemId)
 {
-    D2ItemsTxt* ptItemStats = DATATBLS_GetItemsTxtRecord(dwItemId);
+    D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(dwItemId);
 
-    D2_ASSERT(ptItemStats, 1677);
+    D2_ASSERT(pItemsTxtRecord, 1677);
 
-    return ptItemStats->wType[0];
+    return pItemsTxtRecord->wType[0];
 }
 
 // 0x00628740
@@ -1071,11 +1071,11 @@ unsigned char __stdcall ITEMS_GetMeleeRange(D2UnitStrc* pItem)
 // 0x00628900
 int __stdcall ITEMS_CheckWeaponClassByItemId(int nItemId, int nWeapClass)
 {
-    D2ItemsTxt* ptItemStats = DATATBLS_GetItemsTxtRecord(nItemId);
+    D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(nItemId);
 
-    D2_ASSERT(ptItemStats, 2283);
+    D2_ASSERT(pItemsTxtRecord, 2283);
 
-    return ptItemStats->dwWeapClass == nWeapClass;
+    return pItemsTxtRecord->dwWeapClass == nWeapClass;
 }
 
 // 0x00628950
@@ -1093,11 +1093,11 @@ int __stdcall ITEMS_CheckWeaponClass(D2UnitStrc* pItem, int nWeapClass)
 // 0x00628980
 unsigned int __stdcall ITEMS_CheckWeaponIfTwoHandedByItemId(int nItemId)
 {
-    D2ItemsTxt* ptItemStats = DATATBLS_GetItemsTxtRecord(nItemId);
+    D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(nItemId);
 
-    D2_ASSERT(ptItemStats, 2310);
+    D2_ASSERT(pItemsTxtRecord, 2310);
 
-    return ptItemStats->n2Handed;
+    return pItemsTxtRecord->n2Handed;
 }
 
 // 0x006289C0
@@ -1112,11 +1112,11 @@ unsigned int __stdcall ITEMS_CheckWeaponIfTwoHanded(D2UnitStrc* pItem)
 }
 
 // 0x006289F0
-unsigned int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* ptItemStats)
+unsigned int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem)
 {
-    if (ptItemStats && ptItemStats->dwUnitType == UNIT_ITEM)
+    if (pItem && pItem->dwUnitType == UNIT_ITEM)
     {
-        D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(ptItemStats->dwClassId);
+        D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(pItem->dwClassId);
         D2_ASSERT(pItemsTxtRecord, 2338);
         return pItemsTxtRecord->nStackable;
     }
@@ -2961,10 +2961,10 @@ int __fastcall sub_6FD55150(char* szText, int* a2, int a3, int nKeywordNumber)
 }
 
 // 0x00639D60
-D2RunesTxt* __stdcall DATATBLS_GetRunesTxtRecord(int nIndex)
+D2RunesTxt* __stdcall DATATBLS_GetRunesTxtRecord(int nRunewordId)
 {
-    D2_ASSERT(nIndex > 0 && nIndex < gRuneDataTables.nRunesTxtRecordCount, 2418);
-    return &gRuneDataTables.pRunesTxt[nIndex];
+    D2_ASSERT(nRunewordId > 0 && nRunewordId < gRuneDataTables.nRunesTxtRecordCount, 2418);
+    return &gRuneDataTables.pRunesTxt[nRunewordId];
 }
 
 // 0x00639DF0

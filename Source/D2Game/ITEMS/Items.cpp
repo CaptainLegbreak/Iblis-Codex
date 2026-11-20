@@ -1019,8 +1019,8 @@ int __stdcall ITEMS_RollItemQuality(D2UnitStrc* pItem, D2ItemDropStrc* pDrop)
     D2GameStrc* ptGame = SUNIT_GetGameFromUnit(pItem);
     D2_ASSERT(ptGame, 0x482);
     const unsigned short nVersion = ITEMS_GetItemFormat(pItem) >= 1 ? 100 : 0;
-    D2ItemRatioTxt* ptItemStats = DATATBLS_GetItemRatioTxtRecord(!pItem ? -1 : pItem->dwClassId, ptGame->nDifficulty, nVersion);
-    D2_ASSERT(ptItemStats, 0x486);
+    D2ItemRatioTxt* pRatio = DATATBLS_GetItemRatioTxtRecord(!pItem ? -1 : pItem->dwClassId, ptGame->nDifficulty, nVersion);
+    D2_ASSERT(pRatio, 0x486);
     D2ItemsTxt* pRecord = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
     D2_ASSERT(pRecord, 0x489);
     if (pRecord->nQuest)
@@ -1045,12 +1045,12 @@ int __stdcall ITEMS_RollItemQuality(D2UnitStrc* pItem, D2ItemDropStrc* pDrop)
         {
             switch (gnQualityOrder_006E1138[i])
             {
-            case 7: nChance = ptItemStats->dwUnique - nItemLevel / ptItemStats->dwUniqueDivisor; nQuality = 7; break;
-            case 6: nChance = ptItemStats->dwRare - nItemLevel / ptItemStats->dwRareDivisor; nQuality = 6; break;
-            case 5: nChance = ptItemStats->dwSet - nItemLevel / ptItemStats->dwSetDivisor; nQuality = 5; break;
-            case 4: nChance = ptItemStats->dwMagic - nItemLevel / ptItemStats->dwMagicDivisor; nQuality = 4; break;
-            case 3: nChance = ptItemStats->dwHiQuality - nItemLevel / ptItemStats->dwHiQualityDivisor; nQuality = 3; break;
-            case 2: nChance = ptItemStats->dwNormal - nItemLevel / ptItemStats->dwNormalDivisor; nQuality = 2; break;
+            case 7: nChance = pRatio->dwUnique - nItemLevel / pRatio->dwUniqueDivisor; nQuality = 7; break;
+            case 6: nChance = pRatio->dwRare - nItemLevel / pRatio->dwRareDivisor; nQuality = 6; break;
+            case 5: nChance = pRatio->dwSet - nItemLevel / pRatio->dwSetDivisor; nQuality = 5; break;
+            case 4: nChance = pRatio->dwMagic - nItemLevel / pRatio->dwMagicDivisor; nQuality = 4; break;
+            case 3: nChance = pRatio->dwHiQuality - nItemLevel / pRatio->dwHiQualityDivisor; nQuality = 3; break;
+            case 2: nChance = pRatio->dwNormal - nItemLevel / pRatio->dwNormalDivisor; nQuality = 2; break;
             }
             if (nChance <= 0 || !ITEMS_RollLimitedRandomNumber(ITEMS_GetItemSeed(pItem), nChance))
                 return nQuality;
@@ -1062,12 +1062,12 @@ int __stdcall ITEMS_RollItemQuality(D2UnitStrc* pItem, D2ItemDropStrc* pDrop)
         {
             switch (gnQualityOrder_006E1138[i])
             {
-            case 7: nChance = ptItemStats->dwUnique - nItemLevel; nQuality = 7; break;
-            case 6: nChance = ptItemStats->dwRare - nItemLevel; nQuality = 6; break;
-            case 5: nChance = ptItemStats->dwSet - nItemLevel; nQuality = 5; break;
-            case 4: nChance = ptItemStats->dwMagic - nItemLevel / ptItemStats->dwMagicDivisor; nQuality = 4; break;
-            case 3: nChance = ptItemStats->dwHiQuality - nItemLevel / ptItemStats->dwHiQualityDivisor; nQuality = 3; break;
-            case 2: nChance = ptItemStats->dwNormal - nItemLevel / ptItemStats->dwNormalDivisor; nQuality = 2; break;
+            case 7: nChance = pRatio->dwUnique - nItemLevel; nQuality = 7; break;
+            case 6: nChance = pRatio->dwRare - nItemLevel; nQuality = 6; break;
+            case 5: nChance = pRatio->dwSet - nItemLevel; nQuality = 5; break;
+            case 4: nChance = pRatio->dwMagic - nItemLevel / pRatio->dwMagicDivisor; nQuality = 4; break;
+            case 3: nChance = pRatio->dwHiQuality - nItemLevel / pRatio->dwHiQualityDivisor; nQuality = 3; break;
+            case 2: nChance = pRatio->dwNormal - nItemLevel / pRatio->dwNormalDivisor; nQuality = 2; break;
             }
             if (nChance <= 0)
                 nChance = 1;

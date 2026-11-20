@@ -841,9 +841,9 @@ void __stdcall D2CMPSpriteCacheInit(void* pMemPool, unsigned int nMaxSize, int n
     sub_0060CD30_InitTileLock();
     if (!nCacheSize)
     {
-        T004013C0* pSysInfo = sub_00407360_GetSystemInfo();
-        D2_ASSERT(pSysInfo, 0x10B);
-        nCacheSize = pSysInfo->nTotalMemory - 0xB00000;
+        T004013C0* pInfo = sub_00407360_GetSystemInfo();
+        D2_ASSERT(pInfo, 0x10B);
+        nCacheSize = pInfo->nTotalMemory - 0xB00000;
     }
     gbCmpSmallCelCache = nCacheSize < 0x4000000;
     sub_0060AEE0_ClearBlockTableA(&gCmpBlockTableA);

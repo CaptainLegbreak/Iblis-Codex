@@ -230,10 +230,10 @@ int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nS
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
 
 // 0x004FD110
-int __stdcall sub_004FD110_SetFrame(D2WinControl004FD110Strc* ptImageData, int nFrame)
+int __stdcall sub_004FD110_SetFrame(D2WinControl004FD110Strc* pControl, int nFrame)
 {
-    D2_ASSERT(ptImageData->nType == 2, 0x8B);
-    const int nFrames = CelFileGetCelsPerDirection(ptImageData->pCellFile);
+    D2_ASSERT(pControl->nType == 2, 0x8B);
+    const int nFrames = CelFileGetCelsPerDirection(pControl->pCellFile);
     if (nFrame > nFrames - 1)
     {
         nFrame = nFrames - 1;
@@ -242,7 +242,7 @@ int __stdcall sub_004FD110_SetFrame(D2WinControl004FD110Strc* ptImageData, int n
     {
         nFrame = 0;
     }
-    ptImageData->nFrame = nFrame;
+    pControl->nFrame = nFrame;
     return 1;
 }
 

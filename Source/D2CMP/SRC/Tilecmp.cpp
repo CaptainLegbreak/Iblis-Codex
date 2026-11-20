@@ -392,13 +392,13 @@ static void sub_0060A520_ForEachDataColor(D2CmpColorCallback pfnColor, const uns
 }
 
 // 0x0060A570
-void __stdcall TileProjectIteratePixels(D2CmpTileLibraryStrc* ptProject, D2CmpColorCallback pfnColor)
+void __stdcall TileProjectIteratePixels(D2CmpTileLibraryStrc* pLibrary, D2CmpColorCallback pfnColor)
 {
-    D2_ASSERT(ptProject, 0x3EA);
-    D2_ASSERT(ptProject->dwFlags & 1, 0x3EB);
-    for (int i = 0; i < ptProject->nBlocks; i++)
+    D2_ASSERT(pLibrary, 0x3EA);
+    D2_ASSERT(pLibrary->dwFlags & 1, 0x3EB);
+    for (int i = 0; i < pLibrary->nBlocks; i++)
     {
-        D2CmpTileBlockStrc* pBlock = &ptProject->pBlocks[i];
+        D2CmpTileBlockStrc* pBlock = &pLibrary->pBlocks[i];
         for (int j = 0; j < pBlock->nSubs; j++)
         {
             D2CmpTileSubStrc* pSub = &pBlock->pSubs[j];

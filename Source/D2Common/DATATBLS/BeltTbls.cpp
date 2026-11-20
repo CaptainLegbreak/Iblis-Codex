@@ -18,7 +18,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 // 0x00660290
 void __fastcall DATATBLS_LoadBeltsTxt(void* hArchive)
 {
-    int nSize;
+    int nRecordCount;
     D2BinFieldStrc pTbl[] =
     {
         { "numboxes", 4, 0, 4, 0 },
@@ -89,6 +89,6 @@ void __fastcall DATATBLS_LoadBeltsTxt(void* hArchive)
         { gszTxtField_end, 0, 0, 0, 0 },
     };
 
-    gpBeltsTxtTable = DATATBLS_CompileTxt(hArchive, "belts", pTbl, &nSize, 0x108);
-    TBL_ASSERT(nSize / 2 == 7, 106);
+    gpBeltsTxtTable = DATATBLS_CompileTxt(hArchive, "belts", pTbl, &nRecordCount, 0x108);
+    TBL_ASSERT(nRecordCount / 2 == 7, 106);
 }

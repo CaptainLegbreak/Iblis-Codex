@@ -496,13 +496,13 @@ static int __stdcall ITEMS_DecodeItemBitstreamCompact(D2UnitStrc* pItem, D2BitBu
 
         if (pItemsTxtRecord->nQuantity && pItemsTxtRecord->nStackable)
         {
-            D2ItemStatCostTxt* hItem = DATATBLS_GetItemStatCostTxtRecord(356);
-            if (!hItem)
+            D2ItemStatCostTxt* pRecord = DATATBLS_GetItemStatCostTxtRecord(356);
+            if (!pRecord)
             {
                 sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x1607);
                 exit(-1);
             }
-            const int nValue = ITEMS_ReadQuestItemDifficultyForceInl(pBuffer, hItem);
+            const int nValue = ITEMS_ReadQuestItemDifficultyForceInl(pBuffer, pRecord);
             D2StatListStrc* pStatList = sub_00625790_UnitFindStatList(pItem, 0, 0x40);
             if (!pStatList)
             {

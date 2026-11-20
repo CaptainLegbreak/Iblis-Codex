@@ -105,7 +105,7 @@ static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 }
 
 // 0x005516C0
-D2UnitStrc* __fastcall sub_005516C0_SpawnWell(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, unsigned char bDensity, int nObjectId, unsigned short nChance)
+D2UnitStrc* __fastcall sub_005516C0_SpawnWell(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, unsigned char nWellType, int nObjectId, unsigned short nChance)
 {
     const int nLevelId = DUNGEON_GetLevelIdFromPopulatedRoom(pRoom);
     if (OBJRGN_CanNotSpawnMoreWells(pGame, nLevelId))
@@ -113,7 +113,7 @@ D2UnitStrc* __fastcall sub_005516C0_SpawnWell(D2GameStrc* pGame, D2ActiveRoomStr
         return 0;
     }
 
-    D2_ASSERT(bDensity <= 128, 0x8D0);
+    D2_ASSERT(nWellType <= 128, 0x8D0);
 
     D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(nObjectId);
     const int nSizeX = pObjectsTxtRecord->dwSizeX;

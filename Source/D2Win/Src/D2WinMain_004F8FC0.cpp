@@ -1474,21 +1474,21 @@ int __fastcall sub_6F8AF240(SMSGHANDLER_PARAMS* pMsg, D2WinScrollBarStrc* ptScro
 // 0x00508610
 int __stdcall POPUP_AddLine(D2WinPopUpLineStrc* pPopUpLine)
 {
-    D2WinPopUpStrc* ptData = gpPopUp_0087E974;
+    D2WinPopUpStrc* pPopUp = gpPopUp_0087E974;
 
-    D2_ASSERT(ptData->controlHeader.nType == D2WIN_POPUP, 0x74);
+    D2_ASSERT(pPopUp->controlHeader.nType == D2WIN_POPUP, 0x74);
 
-    if (ptData->nLines >= 8)
+    if (pPopUp->nLines >= 8)
     {
         return 0;
     }
 
-    ptData->lines[ptData->nLines] = *pPopUpLine;
+    pPopUp->lines[pPopUp->nLines] = *pPopUpLine;
     sub_00502EF0(1);
 
     const int nTextWidth = sub_00501820(pPopUpLine->wszText);
-    ptData->controlHeader.nWidth = ptData->controlHeader.nWidth > nTextWidth ? ptData->controlHeader.nWidth : nTextWidth;
-    ++ptData->nLines;
-    ptData->controlHeader.nHeight = 20 * ptData->nLines;
+    pPopUp->controlHeader.nWidth = pPopUp->controlHeader.nWidth > nTextWidth ? pPopUp->controlHeader.nWidth : nTextWidth;
+    ++pPopUp->nLines;
+    pPopUp->controlHeader.nHeight = 20 * pPopUp->nLines;
     return 1;
 }

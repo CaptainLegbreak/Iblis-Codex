@@ -154,12 +154,12 @@ void __stdcall sub_00605D20_BuildTintTables(unsigned char* pData)
 // 0x00609620
 D2TileRecordStrc* __stdcall TileListCreate(int nFirst, int nSecond)
 {
-    D2TileRecordStrc* ptList = (D2TileRecordStrc*)FOG_Alloc(sizeof(D2TileRecordStrc), ".\\SRC\\Tilecmp.cpp", 0x6D, 0);
-    D2_ASSERT(ptList, 0x6E);
-    memset(ptList, 0, sizeof(D2TileRecordStrc));
-    ptList->nFirst = nFirst;
-    ptList->nSecond = nSecond;
-    return ptList;
+    D2TileRecordStrc* pRecord = (D2TileRecordStrc*)FOG_Alloc(sizeof(D2TileRecordStrc), ".\\SRC\\Tilecmp.cpp", 0x6D, 0);
+    D2_ASSERT(pRecord, 0x6E);
+    memset(pRecord, 0, sizeof(D2TileRecordStrc));
+    pRecord->nFirst = nFirst;
+    pRecord->nSecond = nSecond;
+    return pRecord;
 }
 
 #include "gen/data/Source/D2CMP/SRC/Tilecmp_00600CB0.inc"

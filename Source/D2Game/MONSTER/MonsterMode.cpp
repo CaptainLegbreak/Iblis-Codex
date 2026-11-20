@@ -498,8 +498,8 @@ void __fastcall sub_005A6830(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, i
         D2ActiveRoomStrc* hRoom = UNITS_GetRoom(hUnit);
         D2_ASSERT(hRoom, 511);
 
-        D2MonStatsTxt* ptMonsterStats = DATATBLS_GetMonStatsTxtRecord(hUnit->dwClassId);
-        D2_ASSERT(ptMonsterStats, 516);
+        D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(hUnit->dwClassId);
+        D2_ASSERT(pMonStatsTxtRecord, 516);
 
         sub_6FC631B0(pGame, hUnit, 0, pModeChange);
     }

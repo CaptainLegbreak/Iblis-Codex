@@ -2103,10 +2103,10 @@ void __stdcall CelFileNormalize(D2CelFileStrc* pFile, D2CelFileStrc** ppOutFile,
 }
 
 // 0x00601410
-void __stdcall sub_00601410_CelFileFree(D2CmpCelFileStrc* pSerializedFile)
+void __stdcall sub_00601410_CelFileFree(D2CmpCelFileStrc* pCelFile)
 {
-    D2_ASSERT(pSerializedFile, 0x40D);
-    FOG_Free(pSerializedFile, ".\\SRC\\CelCmp.cpp", 0x40E, 0);
+    D2_ASSERT(pCelFile, 0x40D);
+    FOG_Free(pCelFile, ".\\SRC\\CelCmp.cpp", 0x40E, 0);
 }
 
 // 0x006014C0
@@ -2189,13 +2189,13 @@ int __stdcall CelGetRawData(CellTable* p, int nDirection, int nIndex, void* pDst
 }
 
 // 0x006019B0
-int __stdcall CelFileGetNumDirections(Unit* pFile)
+int __stdcall CelFileGetNumDirections(Unit* unit)
 {
-    if(pFile->type!=REQUIRED_TYPE) {
+    if(unit->type!=REQUIRED_TYPE) {
         sub_00408A60(&emptyAssert,sub_00408090(),0x5C2);
         exit(-1);
     }
-    return pFile->mode;
+    return unit->mode;
 }
 
 // 0x00601B40

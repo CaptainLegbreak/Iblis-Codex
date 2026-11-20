@@ -109,13 +109,13 @@ int __stdcall WAYPOINTS_IsActivated(D2WaypointDataStrc* pData, unsigned short wF
 }
 
 // 0x00660EC0
-void __stdcall WAYPOINTS_ActivateWaypoint(D2WaypointDataStrc* pHistory, unsigned short wField)
+void __stdcall WAYPOINTS_ActivateWaypoint(D2WaypointDataStrc* pData, unsigned short wField)
 {
-    WP_ASSERT(pHistory, 237);
+    WP_ASSERT(pData, 237);
     WP_ASSERT(gnWaypointBits == 112, 238);
     WP_ASSERT(wField < 112, 241);
 
-    WAYPOINTS_SetWaypointBit(pHistory, wField);
+    WAYPOINTS_SetWaypointBit(pData, wField);
 }
 
 // 0x00660F30
@@ -150,18 +150,18 @@ void __stdcall WAYPOINTS_FreeWaypointData(void* pMemPool, D2WaypointDataStrc* pD
 }
 
 // 0x00661030
-void __stdcall WAYPOINTS_CopyAndValidateWaypointData(D2WaypointDataStrc* pHistory, D2WaypointDataStrc* pSource)
+void __stdcall WAYPOINTS_CopyAndValidateWaypointData(D2WaypointDataStrc* pDestination, D2WaypointDataStrc* pSource)
 {
-    *pHistory = *pSource;
+    *pDestination = *pSource;
 
-    if (pHistory->nFlags[0] != 0x102)
+    if (pDestination->nFlags[0] != 0x102)
     {
-        WP_ASSERT(pHistory->nFlags[0] == 0 || pHistory->nFlags[0] == 0x101, 275);
-        pHistory->nFlags[0] = 0x102;
-        memset(pHistory, 0, sizeof(D2WaypointDataStrc));
+        WP_ASSERT(pDestination->nFlags[0] == 0 || pDestination->nFlags[0] == 0x101, 275);
+        pDestination->nFlags[0] = 0x102;
+        memset(pDestination, 0, sizeof(D2WaypointDataStrc));
     }
 
-    WAYPOINTS_SetWaypointBit(pHistory, 0);
+    WAYPOINTS_SetWaypointBit(pDestination, 0);
 }
 
 // 0x006610B0

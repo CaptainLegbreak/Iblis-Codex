@@ -231,11 +231,11 @@ void __fastcall CCMD_ProcessClientSystemMessage(void* pData, int nSize)
         break;
     case 0x6C:
     {
-        D2GSPacketClt6B* ptPkt = (D2GSPacketClt6B*)pData;
-        D2_ASSERT(ptPkt->nTotalSize < 0x2000, 0x1A8);
+        D2GSPacketClt6B* p6B = (D2GSPacketClt6B*)pData;
+        D2_ASSERT(p6B->nTotalSize < 0x2000, 0x1A8);
         if (sub_0052DB00_Return1(nClientId))
         {
-            sub_6FC399A0(nClientId, ptPkt);
+            sub_6FC399A0(nClientId, p6B);
         }
         break;
     }

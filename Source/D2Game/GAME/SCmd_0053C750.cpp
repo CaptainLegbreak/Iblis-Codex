@@ -78,26 +78,26 @@ extern "C" unsigned int __cdecl strlen(const char*);
 unsigned int __stdcall SStrCopy(char*, const char*, unsigned int); // 0x004135D0
 
 // 0x0053C750
-void __fastcall D2GAME_PACKETS_SendPacket0x26_ServerMessage_6FC3DDF0(D2ClientStrc* pClient, D2GSPacketSrv26* pChatData)
+void __fastcall D2GAME_PACKETS_SendPacket0x26_ServerMessage_6FC3DDF0(D2ClientStrc* pClient, D2GSPacketSrv26* pPacket)
 {
     int nMessageLength = 0;
-    if (strlen(pChatData->szMessage) >= 256)
+    if (strlen(pPacket->szMessage) >= 256)
     {
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x5BA);
         exit(-1);
     }
-    if (pChatData->szMessage[255])
-        pChatData->szMessage[255] = 0;
+    if (pPacket->szMessage[255])
+        pPacket->szMessage[255] = 0;
     D2GSPacketSrv26 packet;
-    packet.nHeader = pChatData->nHeader;
-    packet.nChatType = pChatData->nChatType;
-    packet.nLanguage = pChatData->nLanguage;
-    packet.nUnitType = pChatData->nUnitType;
-    packet.nUnitGUID = pChatData->nUnitGUID;
-    packet.nColor = pChatData->nColor;
-    packet.nSubType = pChatData->nSubType;
-    char* pText = packet.szName + SStrCopy(packet.szName, pChatData->szName, 16) + 1;
-    nMessageLength = SStrCopy(pText, pChatData->szMessage, 256);
+    packet.nHeader = pPacket->nHeader;
+    packet.nChatType = pPacket->nChatType;
+    packet.nLanguage = pPacket->nLanguage;
+    packet.nUnitType = pPacket->nUnitType;
+    packet.nUnitGUID = pPacket->nUnitGUID;
+    packet.nColor = pPacket->nColor;
+    packet.nSubType = pPacket->nSubType;
+    char* pText = packet.szName + SStrCopy(packet.szName, pPacket->szName, 16) + 1;
+    nMessageLength = SStrCopy(pText, pPacket->szMessage, 256);
     nMessageLength += pText - (char*)&packet + 1;
     D2GAME_PACKETS_SendPacket_6FC3C710(&packet, nMessageLength, pClient);
 }

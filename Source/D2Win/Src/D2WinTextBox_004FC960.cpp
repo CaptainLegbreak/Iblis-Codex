@@ -594,11 +594,11 @@ void __fastcall sub_005055D0_ApplyPalette()
 }
 
 // 0x00506A40
-int __fastcall SMACK_Destroy(D2WinSmackStrc* ptData)
+int __fastcall SMACK_Destroy(D2WinSmackStrc* pSmack)
 {
-    D2_ASSERT(ptData->controlHeader.nType == D2WIN_SMACK, 0x8C);
-    SMACK_DeleteFile(ptData);
-    return CONTROL_RemoveFromList(&ptData->controlHeader);
+    D2_ASSERT(pSmack->controlHeader.nType == D2WIN_SMACK, 0x8C);
+    SMACK_DeleteFile(pSmack);
+    return CONTROL_RemoveFromList(&pSmack->controlHeader);
 }
 
 // 0x00506E60
@@ -675,11 +675,11 @@ int __stdcall POPUP_Destroy()
 // 0x005085C0
 int __stdcall POPUP_IsActive()
 {
-    D2WinPopUpStrc* ptData = gpPopUp_0087E974;
-    if (!ptData)
+    D2WinPopUpStrc* pPopUp = gpPopUp_0087E974;
+    if (!pPopUp)
         return 0;
-    D2_ASSERT(ptData->controlHeader.nType == D2WIN_POPUP, 0x62);
-    if (!(ptData->controlHeader.dwFlags & gdwBitMasks_006CE268[2]) || !(ptData->controlHeader.dwFlags & gdwBitMasks_006CE268[0]))
+    D2_ASSERT(pPopUp->controlHeader.nType == D2WIN_POPUP, 0x62);
+    if (!(pPopUp->controlHeader.dwFlags & gdwBitMasks_006CE268[2]) || !(pPopUp->controlHeader.dwFlags & gdwBitMasks_006CE268[0]))
         return 0;
     return 1;
 }

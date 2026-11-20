@@ -120,7 +120,7 @@ void __fastcall sub_00536070_InitNpcControl(D2GameStrc* pGame)
     if (!gnItemCode_00883E9C) DATATBLS_GetItemRecordFromItemCode(0x20767163, &gnItemCode_00883E9C);
     if (!gnItemCode_00883EA0) DATATBLS_GetItemRecordFromItemCode(0x20767161, &gnItemCode_00883EA0);
     DATATBLS_GetItemDataTables();
-    int nIndex = 0;
+    int nCount = 0;
     const int nTotal = sgptDataTables->nMonStatsTxtRecordCount;
     for (int nClass = 0; nClass < nTotal; ++nClass)
     {
@@ -129,7 +129,7 @@ void __fastcall sub_00536070_InitNpcControl(D2GameStrc* pGame)
         if (pTxt)
             bInteract = pTxt->nFlags1 & gdwBitMasks[1];
         if (!bInteract) continue;
-        D2NpcRecordStrc* pNpc = &pRecords[nIndex];
+        D2NpcRecordStrc* pNpc = &pRecords[nCount];
         pNpc->nNPC = nClass;
         pNpc->bTrading = 0;
         ++pControl->nNpcCount;
@@ -142,7 +142,7 @@ void __fastcall sub_00536070_InitNpcControl(D2GameStrc* pGame)
         pNpc->pVendorChain = 0;
         pNpc->pGamble = 0;
         pNpc->bGambleInit = 0;
-        D2_ASSERT(nIndex < 64, 0xE6);
+        D2_ASSERT(nCount < 64, 0xE6);
         const int nConfigCount = gNpcConfig.nCount;
         ++pControl->nArraySize;
         int nConfig = 0;
@@ -237,7 +237,7 @@ initialize_shared:
                 pNpc->tProxy.pPermCache = 0;
             }
         }
-        ++nIndex;
+        ++nCount;
     }
     pControl->pFirstRecord = pRecords;
     pGame->pNpcControl = pControl;

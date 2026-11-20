@@ -412,17 +412,17 @@ void __fastcall DRLGROOM_SetRoom(D2DrlgRoomStrc* pDrlgRoom, D2ActiveRoomStrc* pR
 // 0x0066C040
 int* __fastcall DRLGROOM_GetVisArrayFromLevelId(D2DrlgStrc* pDrlg, int nLevelId)
 {
-    for (D2DrlgWarpStrc* ptVisInfo = pDrlg->pWarp; ptVisInfo; ptVisInfo = ptVisInfo->pNext)
+    for (D2DrlgWarpStrc* pDrlgWarp = pDrlg->pWarp; pDrlgWarp; pDrlgWarp = pDrlgWarp->pNext)
     {
-        if (!ptVisInfo->nLevel)
+        if (!pDrlgWarp->nLevel)
         {
             sub_00408A60(&gszEmptyAssertText, sub_00408090(), 1040);
             exit(-1);
         }
 
-        if (nLevelId == ptVisInfo->nLevel)
+        if (nLevelId == pDrlgWarp->nLevel)
         {
-            return ptVisInfo->nVis;
+            return pDrlgWarp->nVis;
         }
     }
 

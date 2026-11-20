@@ -66,32 +66,32 @@ D2UnitStrc* __fastcall D2GAME_MERCS_Create_6FCC8630(D2GameStrc* pGame, D2UnitStr
         return 0;
     }
 
-    D2HirelingTxt* ptHireStats;
+    D2HirelingTxt* pHirelingTxtRecord;
     if (wVersion != 0xFFFF)
     {
-        ptHireStats = DATATBLS_GetHirelingTxtRecordFromIdAndLevel(pGame->bExpansion, wVersion, 1);
+        pHirelingTxtRecord = DATATBLS_GetHirelingTxtRecordFromIdAndLevel(pGame->bExpansion, wVersion, 1);
     }
     else
     {
-        ptHireStats = DATATBLS_GetNextHirelingTxtRecordFromActAndDifficulty(pGame->bExpansion, nMercAct, pGame->nDifficulty, 0);
+        pHirelingTxtRecord = DATATBLS_GetNextHirelingTxtRecordFromActAndDifficulty(pGame->bExpansion, nMercAct, pGame->nDifficulty, 0);
     }
 
-    if (!ptHireStats)
+    if (!pHirelingTxtRecord)
     {
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x744);
         exit(-1);
     }
 
-    const unsigned short wNameFirst = ptHireStats->wNameFirst;
-    const int nSeller = ptHireStats->dwSeller;
+    const unsigned short wNameFirst = pHirelingTxtRecord->wNameFirst;
+    const int nSeller = pHirelingTxtRecord->dwSeller;
     const int nNameFirst = wNameFirst;
     int nClassId = nBaseMonster;
     if (!nBaseMonster)
     {
-        nClassId = ptHireStats->dwClass;
+        nClassId = pHirelingTxtRecord->dwClass;
     }
 
-    if (wName < wNameFirst || wName > ptHireStats->wNameLast)
+    if (wName < wNameFirst || wName > pHirelingTxtRecord->wNameLast)
     {
         wName = wNameFirst;
     }

@@ -803,18 +803,18 @@ int __fastcall sub_0060D310_ScanRun(unsigned char nValue, const unsigned char* p
 // 0x0060D9C0
 void __stdcall sub_0060D9C0_BuildDiamondBlock(D2CmpSubTileBlockStrc* pBlock, const unsigned char* pSrc)
 {
-    unsigned char* ptSquished = (unsigned char*)FOG_Alloc(0x100, szSubTileFile, 0x185, 0);
-    D2_ASSERT(ptSquished, 0x186);
-    unsigned char* pData = ptSquished;
-    memset(ptSquished, 0, 0x100);
+    unsigned char* pDst = (unsigned char*)FOG_Alloc(0x100, szSubTileFile, 0x185, 0);
+    D2_ASSERT(pDst, 0x186);
+    unsigned char* pData = pDst;
+    memset(pDst, 0, 0x100);
     int i = 0;
     int nOffset = 0xE;
     int nWidth = 4;
     for (; i < 15; i++)
     {
-        memcpy(ptSquished, pSrc + nOffset, nWidth);
+        memcpy(pDst, pSrc + nOffset, nWidth);
         pSrc += 0x20;
-        ptSquished += nWidth;
+        pDst += nWidth;
         if (i < 7)
         {
             nOffset -= 2;

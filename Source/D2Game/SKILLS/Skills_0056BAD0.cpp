@@ -866,9 +866,9 @@ int __fastcall D2GAME_CreatePortalObject_6FD13DF0(D2GameStrc* pGame, D2UnitStrc*
     }
 
     const unsigned char bAct = DRLG_GetActNoFromLevelId(nDestLevel);
-    const int eLevelIdLocal = DUNGEON_GetLevelIdFromRoom(hRoom);
+    const int nSourceLevel = DUNGEON_GetLevelIdFromRoom(hRoom);
 
-    D2_ASSERT(bAct == DRLG_GetActNoFromLevelId(eLevelIdLocal), 0xE5C);
+    D2_ASSERT(bAct == DRLG_GetActNoFromLevelId(nSourceLevel), 0xE5C);
 
     D2CoordStrc coords;
     coords.nX = nX;
@@ -899,7 +899,7 @@ int __fastcall D2GAME_CreatePortalObject_6FD13DF0(D2GameStrc* pGame, D2UnitStrc*
 
     UNITS_ChangeAnimMode(pPortal, 1);
 
-    D2UnitStrc* pLinkPortal = D2GAME_CreateLinkPortal_6FD13B20(pGame, pUnit, pPortal, nDestLevel, eLevelIdLocal);
+    D2UnitStrc* pLinkPortal = D2GAME_CreateLinkPortal_6FD13B20(pGame, pUnit, pPortal, nDestLevel, nSourceLevel);
     if (!pLinkPortal)
     {
         return 0;

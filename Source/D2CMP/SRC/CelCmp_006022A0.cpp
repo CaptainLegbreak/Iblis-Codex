@@ -668,17 +668,17 @@ inline void D2GameDataTableStrc::operator delete(void* pMemory)
 #define D2CMP_BITCOUNT(x) (((D2CMP_BITCOUNT_BX(x) + (D2CMP_BITCOUNT_BX(x) >> 4)) & 0x0F0F0F0F) % 255)
 
 // 0x00604940
-unsigned int __stdcall CelCompressCreate(int nType, unsigned int dwNumDirections, int* pData, int bHasData)
+unsigned int __stdcall CelCompressCreate(int nType, unsigned int nDirections, int* pData, int bHasData)
 {
-    D2_ASSERT(D2CMP_BITCOUNT(dwNumDirections) == 1, 0x1FF);
-    D2_ASSERT(dwNumDirections <= 32, 0x200);
+    D2_ASSERT(D2CMP_BITCOUNT(nDirections) == 1, 0x1FF);
+    D2_ASSERT(nDirections <= 32, 0x200);
     D2_ASSERT(nType < 2, 0x201);
     unsigned int hHandle;
     int hLock;
     D2StormEntry38Strc* pList = (D2StormEntry38Strc*)gCelListTable.sub_006048C0_NewLock(&hHandle, &hLock);
     pList->tList.sub_00602BF0_DeleteAll();
     pList->nType = nType;
-    pList->nDirections = dwNumDirections;
+    pList->nDirections = nDirections;
     pList->nCount = 0;
     pList->dwFlags = 0;
     if (bHasData)

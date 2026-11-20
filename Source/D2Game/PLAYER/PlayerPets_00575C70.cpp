@@ -756,10 +756,10 @@ void __fastcall PLAYERPETS_AddSummonedPet(D2GameStrc* pGame, D2UnitStrc* pPlayer
 // 0x00575E90
 void __fastcall PLAYERPETS_AddPetWithInfo(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pPet, int nPetType, D2PetInfoStrc* pPetInfo)
 {
-    D2PlayerDataStrc* ptInfo = UNITS_GetPlayerData(pPlayer);
-    D2_ASSERT(ptInfo, 0x3B5);
+    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
+    D2_ASSERT(pPlayerData, 0x3B5);
 
-    D2PlayerPetStrc* pPlayerPets = ptInfo->pPlayerPets;
+    D2PlayerPetStrc* pPlayerPets = pPlayerData->pPlayerPets;
     if (!pPlayerPets)
     {
         return;

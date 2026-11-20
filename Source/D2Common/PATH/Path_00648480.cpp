@@ -474,22 +474,22 @@ int __stdcall PATH_ComputeDirection(int nX1, int nY1, int nX2, int nY2)
 }
 
 // 0x00648DC0
-void __stdcall PATH_ResetToPreviousType(D2DynamicPathStrc* hUnit)
+void __stdcall PATH_ResetToPreviousType(D2DynamicPathStrc* pDynamicPath)
 {
-    D2_ASSERT(hUnit->pUnit, 2174);
+    D2_ASSERT(pDynamicPath->pUnit, 2174);
 
-    if (hUnit->dwFlags & PATH_WITH_PREVIOUS_VELOCITY)
+    if (pDynamicPath->dwFlags & PATH_WITH_PREVIOUS_VELOCITY)
     {
-        hUnit->dwVelocity = hUnit->nPreviousVelocity;
+        pDynamicPath->dwVelocity = pDynamicPath->nPreviousVelocity;
     }
 
-    if (hUnit->pUnit->dwUnitType == UNIT_PLAYER)
+    if (pDynamicPath->pUnit->dwUnitType == UNIT_PLAYER)
     {
-        PATH_SetType(hUnit, PATHTYPE_STRAIGHT);
+        PATH_SetType(pDynamicPath, PATHTYPE_STRAIGHT);
     }
-    else if (hUnit->dwFlags & PATH_UNKNOWN_FLAG_0x02000)
+    else if (pDynamicPath->dwFlags & PATH_UNKNOWN_FLAG_0x02000)
     {
-        PATH_SetType(hUnit, hUnit->dwPrevPathType);
+        PATH_SetType(pDynamicPath, pDynamicPath->dwPrevPathType);
     }
 }
 

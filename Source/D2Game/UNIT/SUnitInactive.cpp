@@ -995,14 +995,14 @@ void __fastcall sub_EMIT_00542871(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Inacti
 #include "gen/data/Source/D2Game/UNIT/SUnitInactive.inc"
 
 // 0x005429B0
-int __fastcall sub_005429B0_IsDeadMonsterAt(D2GameStrc* ptGame, D2ActiveRoomStrc* hRoomNear, int nX, int nY, int nClassId)
+int __fastcall sub_005429B0_IsDeadMonsterAt(D2GameStrc* ptGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nClassId)
 {
     D2_ASSERT(ptGame, 0x6DA);
-    D2_ASSERT(hRoomNear, 0x6DB);
+    D2_ASSERT(pRoom, 0x6DB);
     D2_ASSERT(nX && nY, 0x6DC);
 
-    D2ActiveRoomStrc* pTargetRoom = sub_00463740_FindRoomBySubtile(hRoomNear, nX, nY);
-    const int nAct = DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(hRoomNear));
+    D2ActiveRoomStrc* pTargetRoom = sub_00463740_FindRoomBySubtile(pRoom, nX, nY);
+    const int nAct = DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom));
     if (!pTargetRoom)
     {
         pTargetRoom = sub_00619DA0_ActLookup(ptGame->pAct[nAct], nX, nY);

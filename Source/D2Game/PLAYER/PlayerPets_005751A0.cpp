@@ -82,12 +82,12 @@ static D2PetListStrc* __stdcall sub_00574540_GetPetListFromPetType(D2PlayerPetSt
 // 0x005751A0
 void __fastcall sub_6FC7D470(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pPet)
 {
-    D2PlayerDataStrc* ptInfo = UNITS_GetPlayerData(pPlayer);
-    D2_ASSERT(ptInfo, 672);
+    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
+    D2_ASSERT(pPlayerData, 672);
 
     const int nPetGUID = !pPet ? -1 : pPet->dwUnitId;
 
-    D2PlayerPetStrc* pPlayerPets = ptInfo->pPlayerPets;
+    D2PlayerPetStrc* pPlayerPets = pPlayerData->pPlayerPets;
     if (!pPlayerPets)
     {
         return;

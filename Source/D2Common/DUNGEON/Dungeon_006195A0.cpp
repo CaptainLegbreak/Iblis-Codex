@@ -282,12 +282,12 @@ void __stdcall DUNGEON_RemoveRoomFromAct(D2DrlgActStrc* pAct, D2ActiveRoomStrc* 
 void __stdcall DUNGEON_GetPortalLevelArrayFromPortalFlags(void* pMemPool, int nFlags, int** ppLevels, int* pnLevels)
 {
     int pLevels[32];
-    int nMax;
+    int nPortalLevels;
     int nCurrentFlag = 1;
     int nCount = 0;
-    int* pPortalLevels = DATATBLS_GetPortalLevels(&nMax);
-    D2_ASSERT(nMax <= 32, 1546);
-    for (int i = 0; i < nMax; ++i)
+    int* pPortalLevels = DATATBLS_GetPortalLevels(&nPortalLevels);
+    D2_ASSERT(nPortalLevels <= 32, 1546);
+    for (int i = 0; i < nPortalLevels; ++i)
     {
         if (nFlags & nCurrentFlag)
         {

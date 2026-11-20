@@ -1606,12 +1606,12 @@ void __fastcall D2GAME_PACKETS_SendPacket0x0C_6FC3C8A0(D2ClientStrc* pClient, un
 }
 
 // 0x0053B4B0
-void __fastcall D2GAME_PACKETS_SendPacket0x0D_6FC3C920(D2ClientStrc* pClient, unsigned char nPacketId, unsigned char bTOU, int nUnitId, unsigned char nHitClass, unsigned short nX, unsigned short nY, unsigned char nHitType, unsigned char nLife)
+void __fastcall D2GAME_PACKETS_SendPacket0x0D_6FC3C920(D2ClientStrc* pClient, unsigned char nPacketId, unsigned char nUnitType, int nUnitId, unsigned char nHitClass, unsigned short nX, unsigned short nY, unsigned char nHitType, unsigned char nLife)
 {
     D2GSPacketSrv0D packet0D;
 
     packet0D.nHeader = nPacketId;
-    packet0D.nUnitType = bTOU;
+    packet0D.nUnitType = nUnitType;
     packet0D.dwUnitGUID = nUnitId;
     packet0D.nHitClass = nHitClass;
     packet0D.nX = nX;
@@ -1619,7 +1619,7 @@ void __fastcall D2GAME_PACKETS_SendPacket0x0D_6FC3C920(D2ClientStrc* pClient, un
     packet0D.nHitType = nHitType;
     packet0D.nUnitLifePct = nLife;
 
-    D2_ASSERT(bTOU < 6, 0x136);
+    D2_ASSERT(nUnitType < 6, 0x136);
 
     D2GAME_PACKETS_SendPacket_6FC3C710(&packet0D, sizeof(packet0D), pClient);
 }
@@ -1977,11 +1977,11 @@ void __fastcall D2GAME_PACKETS_SendPacket0x22_6FC3DBE0(D2ClientStrc* pClient, un
 }
 
 // 0x0053C850
-void __fastcall D2GAME_PACKETS_SendPacket0x5A_6FC3DEC0(D2ClientStrc* pClient, D2GSPacketSrv5A* pSystemMsg)
+void __fastcall D2GAME_PACKETS_SendPacket0x5A_6FC3DEC0(D2ClientStrc* pClient, D2GSPacketSrv5A* pPacket)
 {
-    D2_ASSERT(strlen(pSystemMsg->szText) < 16, 1498);
+    D2_ASSERT(strlen(pPacket->szText) < 16, 1498);
 
-    D2GSPacketSrv5A packet5A = *pSystemMsg;
+    D2GSPacketSrv5A packet5A = *pPacket;
     D2GAME_PACKETS_SendPacket_6FC3C710(&packet5A, sizeof(packet5A), pClient);
 }
 
