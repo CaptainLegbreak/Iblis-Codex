@@ -199,7 +199,7 @@ struct D2Storm4168F0Strc
     ~D2Storm4168F0Strc();
 };
 
-int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);
+int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 extern "C" const char gszIgnoreListSourceFile_006E6290[];
 
 extern "C" const char gszTypeNameCelEntry[]; // 0x00741F14
@@ -209,6 +209,7 @@ struct D2StormNodeStrc
     D2StormLinkStrc f_0;
 };
 
+// build: context ??_GD2CelEntryStrc@@QAEPAXI@Z
 struct D2CelEntryStrc : D2StormNodeStrc
 {
     int nArg8;

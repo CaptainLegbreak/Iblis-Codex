@@ -58,8 +58,8 @@ struct D2GlideTileCacheStrc
     D2GlideTileCacheEntryStrc* pEntries;
 };
 
-extern D2GlideTileCacheStrc gGlideTileCache_0087EB48;
-extern D2GlideFloorCacheStrc gGlideFloorCache_0087EB68;
+extern D2GlideTileCacheStrc gGlideTileCache_0087EB48; // 0x0087EB48
+extern D2GlideFloorCacheStrc gGlideFloorCache_0087EB68; // 0x0087EB68
 void __fastcall sub_0050F1B0_TileCacheRelease(D2GlideTileCacheStrc* pCache, int nIndex);
 D2GlideFloorCacheEntryStrc* __fastcall sub_0050F570_FloorCacheUnlink(D2GlideFloorCacheStrc* pCache, int nIndex);
 void __fastcall sub_0050F750_FloorCacheRemove(D2GlideFloorCacheStrc* pCache, int nIndex);
@@ -165,6 +165,7 @@ static D2GlideTileCacheEntryStrc* sub_M117_TilePopHead(D2GlideTileCacheStrc* pCa
     return pEntry;
 }
 
+// 0x0050F150
 static void sub_0050F150_TileCacheEvict(D2GlideTileCacheStrc* pCache)
 {
     if (!pCache->nUsed)
@@ -222,6 +223,7 @@ static D2GlideFloorCacheEntryStrc* sub_0050F540_FloorCachePopFree(D2GlideFloorCa
     return pEntry;
 }
 
+// build: context sub_M117_Emit_0050F150
 D2GlideFloorCacheEntryStrc* __fastcall sub_M117_Emit_0050F150(D2GlideTileCacheStrc* pTileCache, D2GlideFloorCacheStrc* pCache, D2GlideFloorCacheEntryStrc* pEntry)
 {
     sub_0050F150_TileCacheEvict(pTileCache);

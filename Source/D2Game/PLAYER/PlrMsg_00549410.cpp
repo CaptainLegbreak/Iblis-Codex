@@ -79,7 +79,7 @@ extern "C" const char gszEmptyAssertText;
 extern "C" const char* __cdecl sub_00408090();
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);
-extern "C" const char gszPlrMsgSourceFile[];
+extern "C" const char gszPlrMsgSourceFile[]; // 0x006E1050
 extern D2DataTablesStrc* sgptDataTables;
 extern unsigned int gdwBitMasks[];
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void);
@@ -96,7 +96,7 @@ D2WaypointDataStrc* __fastcall sub_00547F50(D2GameStrc* pGame, D2UnitStrc* pPlay
 void __fastcall sub_00549A60_SendCantDoThat(D2UnitStrc* pUnit);
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 D2UnitStrc* __fastcall SUNIT_GetOwner(D2GameStrc* pGame, D2UnitStrc* pUnit);
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine);
+D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc* pUpdateUnit);
 void __stdcall SUNIT_ResetInteractInfo(D2UnitStrc* pUnit);
 D2UnitStrc* __fastcall SUNIT_GetInteractUnit(D2GameStrc* pGame, D2UnitStrc* pUnit);
@@ -256,6 +256,7 @@ static __declspec(noinline) int __stdcall sub_6FC83D00(D2UnitStrc* pUnit, D2Unit
     return 2;
 }
 
+// build: context sub_6FC828D0
 int __fastcall sub_6FC828D0(D2UnitStrc* pPlayer, int nUnitType, int nUnitGUID, int a4, D2GameStrc* pGame)
 {
     switch (nUnitType)
