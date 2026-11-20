@@ -1,41 +1,9 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
-struct D2StatStrc
-{
-    int nPackedValue;
-    int nValue;
-};
 
-struct D2StatsArrayStrc
-{
-    D2StatStrc* pStat;
-    short nStatCount;
-    short nCapacity;
-};
 
-struct D2StatListExStrc
-{
-    void* pMemPool;
-    D2UnitStrc* pUnit;
-    char unk0x08[0x08];
-    unsigned int dwFlags;
-    char unk0x14[0x10];
-    D2StatsArrayStrc Stats;
-    D2StatListExStrc* pPrevLink;
-    D2StatListExStrc* pNextLink;
-    D2StatListExStrc* pParent;
-    void* fpStatRemove;
-    D2StatListExStrc* pMyLastList;
-    D2StatListExStrc* pMyStats;
-    D2UnitStrc* pOwner;
-    D2StatsArrayStrc FullStats;
-};
 
-struct D2UnitStrc
-{
-    char unk0x00[0x5C];
-    D2StatListExStrc* pStatListEx;
-};
 
 struct D2ItemStatCostTxt
 {
@@ -91,7 +59,7 @@ void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListEx
 
     D2Common_ExpireStatList_6FDB6E30(pStatList);
 
-    for (D2StatListExStrc* pParent = pStatListEx; pParent; pParent = pParent->pParent)
+    for (D2StatListStrc* pParent = pStatListEx; pParent; pParent = pParent->pParent)
     {
         if (pStatList == pParent)
             return;
@@ -112,7 +80,7 @@ void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListEx
         return;
     }
 
-    D2StatListExStrc* pLastList = pStatListEx->pMyLastList;
+    D2StatListStrc* pLastList = pStatListEx->pMyLastList;
     pStatList->pPrevLink = pLastList;
     if (pLastList)
         pLastList->pNextLink = pStatList;
