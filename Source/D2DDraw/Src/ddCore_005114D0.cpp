@@ -12,22 +12,6 @@ struct D2RectStrc
     long bottom;
 };
 
-struct D2IDirectDrawSurface
-{
-    virtual long __stdcall QueryInterface(void* riid, void** ppObject) = 0;
-    virtual unsigned long __stdcall AddRef() = 0;
-    virtual unsigned long __stdcall Release() = 0;
-    virtual long __stdcall AddAttachedSurface(void* pSurface) = 0;
-    virtual long __stdcall AddOverlayDirtyRect(void* pRect) = 0;
-    virtual long __stdcall Blt(void* pDestRect, void* pSrcSurface, void* pSrcRect, unsigned long dwFlags, void* pFx) = 0;
-    virtual long __stdcall BltBatch(void* pBatch, unsigned long dwCount, unsigned long dwFlags) = 0;
-    virtual long __stdcall BltFast(unsigned long dwX, unsigned long dwY, D2IDirectDrawSurface* pSrcSurface, D2RectStrc* pSrcRect, unsigned long dwTrans) = 0;
-    virtual long __stdcall DeleteAttachedSurface(unsigned long dwFlags, void* pSurface) = 0;
-    virtual long __stdcall EnumAttachedSurfaces(void* pContext, void* pfCallback) = 0;
-    virtual long __stdcall EnumOverlayZOrders(unsigned long dwFlags, void* pContext, void* pfCallback) = 0;
-    virtual long __stdcall Flip(D2IDirectDrawSurface* pTargetOverride, unsigned long dwFlags) = 0;
-};
-
 struct D2IDirectDrawPalette
 {
     virtual long __stdcall QueryInterface(void* riid, void** ppObject) = 0;
@@ -47,7 +31,7 @@ struct D2IDirectDraw
     virtual long __stdcall Compact() = 0;
     virtual long __stdcall CreateClipper(unsigned long dwFlags, void** ppClipper, void* pOuter) = 0;
     virtual long __stdcall CreatePalette(unsigned long dwFlags, void* pEntries, void** ppPalette, void* pOuter) = 0;
-    virtual long __stdcall CreateSurface(D2DDSurfaceDescStrc* pSurfaceDesc, D2IDirectDrawSurface** ppSurface, void* pOuter) = 0;
+    virtual long __stdcall CreateSurface(D2DDSurfaceDescStrc* pSurfaceDesc, D2DDrawSurfaceStrc** ppSurface, void* pOuter) = 0;
     virtual long __stdcall DuplicateSurface(void* pSurface, void** ppDuplicate) = 0;
     virtual long __stdcall EnumDisplayModes(unsigned long dwFlags, void* pDesc, void* pContext, void* pfCallback) = 0;
     virtual long __stdcall EnumSurfaces(unsigned long dwFlags, void* pDesc, void* pContext, void* pfCallback) = 0;
@@ -70,9 +54,9 @@ int gnScreenWidth2_00881258;                                                    
 int gbDDrawReady_00881264;                                                                                  // 0x00881264
 int gbDDrawReady2_00881268;                                                                                 // 0x00881268
 extern D2IDirectDraw* gpDirectDraw_00881270;                                                                // 0x00881270
-extern D2IDirectDrawSurface* gpDDrawSurface_00881278;                                                       // 0x00881278
-extern D2IDirectDrawSurface* gpDDrawBackSurface_0088127C;                                                   // 0x0088127C
-extern D2IDirectDrawSurface* gpDDrawSurface_00881280;                                                       // 0x00881280
+extern D2DDrawSurfaceStrc* gpDDrawSurface_00881278;                                                       // 0x00881278
+extern D2DDrawSurfaceStrc* gpDDrawBackSurface_0088127C;                                                   // 0x0088127C
+extern D2DDrawSurfaceStrc* gpDDrawSurface_00881280;                                                       // 0x00881280
 extern D2IDirectDrawPalette* gpDDrawPalette_00881290;                                                       // 0x00881290
 extern int gbDDrawWindowed_00881294;                                                                        // 0x00881294
 static int gbPaletteDirty_00881298;                                                                         // 0x00881298
@@ -138,7 +122,7 @@ int __fastcall sub_00511870_EndScene()
             tRect.top = 0;
             tRect.right = gnScreenWidth_007C9138;
             tRect.bottom = gnScreenHeight_007C913C;
-            const long hResult = gpDDrawBackSurface_0088127C->BltFast(0, 0, gpDDrawSurface_00881280, &tRect, 0x10);
+            const long hResult = gpDDrawBackSurface_0088127C->lpVtbl->BltFast(gpDDrawBackSurface_0088127C, 0, 0, gpDDrawSurface_00881280, &tRect, 0x10);
             if (hResult)
             {
                 sub_005103B0("BltFast failed!", hResult);
@@ -146,7 +130,7 @@ int __fastcall sub_00511870_EndScene()
             }
         }
 
-        gpDDrawSurface_00881278->Flip(0, 1);
+        gpDDrawSurface_00881278->lpVtbl->Flip(gpDDrawSurface_00881278, 0, 1);
     }
     else if (gpDDrawSurface_00881280)
     {
@@ -155,7 +139,7 @@ int __fastcall sub_00511870_EndScene()
         tRect.top = 0;
         tRect.right = gnScreenWidth_007C9138;
         tRect.bottom = gnScreenHeight_007C913C;
-        const long hResult = gpDDrawSurface_00881278->BltFast(0, 0, gpDDrawSurface_00881280, &tRect, 0x10);
+        const long hResult = gpDDrawSurface_00881278->lpVtbl->BltFast(gpDDrawSurface_00881278, 0, 0, gpDDrawSurface_00881280, &tRect, 0x10);
         if (hResult)
         {
             sub_005103B0("BltFast failed!", hResult);

@@ -15,6 +15,7 @@ struct D2BinkStrc;
 struct D2SmackRecordStrc;
 struct D2BoundsStrc;
 struct D2ClipStrc;
+struct D2GlideRectViewStrc;
 struct D2TileDrawFunctionsStrc;
 
 struct D2RgbColorStrc
@@ -95,6 +96,15 @@ struct D2ClipStrc
     int nHeight; // 0x0C
 };
 
+struct D2GlideRectViewStrc
+{
+    int unk0x00; // 0x00
+    int nLeft; // 0x04
+    int nTop; // 0x08
+    int nOffsetX; // 0x0C
+    int nOffsetY; // 0x10
+};
+
 struct D2TileDrawFunctionsStrc
 {
     void (__fastcall* pfFillYBufferTable)(unsigned char* pBits, int nWidth, int nHeight, int a4); // 0x00
@@ -114,4 +124,5 @@ D2_CHECK_SIZE(D2SmackRecordStrc, 0x10);
 D2_CHECK_SIZE(D2BinkStrc, 0x10);
 D2_CHECK_SIZE(D2BoundsStrc, 0x10);
 D2_CHECK_SIZE(D2ClipStrc, 0x10);
+D2_CHECK_SIZE(D2GlideRectViewStrc, 0x14);
 D2_CHECK_SIZE(D2TileDrawFunctionsStrc, 0x1C);

@@ -1,6 +1,5 @@
 #include "D2DDraw.h"
 #include "D2DDrawTypes.h"
-#include "D2GfxTypes.h"
 #include "D2GlideTypes.h"
 #include "D2DrlgMaps.h"
 

@@ -1,7 +1,6 @@
 #include "D2Direct3D.h"
 
 struct D2Direct3D006B7110Strc;
-struct D2GlideRectViewStrc;
 struct D2VertexBufferDescStrc;
 struct D2Direct3DVtbl006B7110Strc;
 struct D2ComObjectStrc;
@@ -11,15 +10,6 @@ struct D2CelContext006B7090Strc;
 struct D2TextureInfo006B7090Strc;
 
 void __fastcall sub_006B1F40_SetBlendMode(int mode); // 0x006B1F40
-
-struct D2GlideRectViewStrc
-{
-    int unk0x00;
-    int nLeft;
-    int nTop;
-    int nOffsetX;
-    int nOffsetY;
-};
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60

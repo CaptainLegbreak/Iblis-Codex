@@ -14,40 +14,9 @@ struct D2SpriteQuad006B61A0Strc
     float fV1;
 };
 
-struct D2VertexBuffer006B61A0Strc;
-struct D2VertexBufferVtbl006B61A0Strc
-{
-    void* unk_00[3];
-    long (__stdcall* Lock)(D2VertexBuffer006B61A0Strc* pThis, unsigned long dwFlags, void** ppData, unsigned long* pSize);
-    long (__stdcall* Unlock)(D2VertexBuffer006B61A0Strc* pThis);
-};
-struct D2VertexBuffer006B61A0Strc
-{
-    D2VertexBufferVtbl006B61A0Strc* lpVtbl;
-};
-
-struct D2Device006B61A0Strc;
-struct D2DeviceVtbl006B61A0Strc
-{
-    void* unk_00[34];
-    long (__stdcall* DrawPrimitiveVB)(D2Device006B61A0Strc* pThis, int nPrimitiveType, D2VertexBuffer006B61A0Strc* pBuffer, unsigned long dwStart, unsigned long dwCount, unsigned long dwFlags);
-};
-struct D2Device006B61A0Strc
-{
-    D2DeviceVtbl006B61A0Strc* lpVtbl;
-};
-
-struct D2QuadRect006B61A0Strc
-{
-    int nX;
-    int nY;
-    int nWidth;
-    int nHeight;
-};
-
 int __cdecl sub_006B9830_GetPerspective(); // 0x006B9830
-extern D2Device006B61A0Strc* gpDevice_00970E78; // 0x00970E78
-D2VertexBuffer006B61A0Strc* gpVertexBuffer_00970F3C;        // 0x00970F3C
+extern D2D3DDeviceStrc* gpDevice_00970E78; // 0x00970E78
+D2VertexBufferStrc* gpVertexBuffer_00970F3C;        // 0x00970F3C
 static int gnVertexCount_00970F40; // 0x00970F40
 int gnScale_00989748;        // 0x00989748
 
@@ -62,7 +31,7 @@ static void __stdcall sub_006B61A0_DrawQuad(int nOffsetX, int nOffsetY, unsigned
     float fV1 = pQuad->fV1;
     int bPerspective = sub_006B9830_GetPerspective();
 
-    D2QuadRect006B61A0Strc tRect;
+    D2QuadRectStrc tRect;
     tRect.nHeight = pQuad->nHeight >> 1;
     pQuad->nHalf >>= 1;
     tRect.nWidth = pQuad->nWidth;

@@ -1,9 +1,7 @@
 #include "D2DDraw.h"
-#include "D2GfxTypes.h"
 #include "D2CelContext.h"
 
 struct D2CelStrc;
-struct D2CelContextStrc;
 struct D2DDrawClipRectStrc;
 struct D2DDrawCelClipStrc;
 

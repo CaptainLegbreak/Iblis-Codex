@@ -1,17 +1,7 @@
 #include "D2Glide.h"
 #include "D2CelContext.h"
 
-struct D2GlideRectViewStrc;
 struct D2GlideTexDimsStrc;
-
-struct D2GlideRectViewStrc
-{
-    int unk0x00;
-    int nLeft;
-    int nTop;
-    int nOffsetX;
-    int nOffsetY;
-};
 
 extern int gnScreenWidth_007C9138; // 0x007C9138
 

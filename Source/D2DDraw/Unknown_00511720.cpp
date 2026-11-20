@@ -1,6 +1,5 @@
 #include "D2DDraw.h"
 #include "D2DDrawTypes.h"
-#include "D2GfxTypes.h"
 
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
