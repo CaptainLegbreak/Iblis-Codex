@@ -240,7 +240,7 @@ extern CELDRAWFN gpfnCelDraw[]; // 0x006E3688
 
 typedef void(__fastcall* PixelDataFreeCallback)(void* pData);
 
-void __stdcall sub_00600790_LoadTileLibrary(D2TileLibraryHeaderStrc** ppLibrary, const char* szFilePath); // 0x00600790
+void __stdcall D2CMPLoadProjectRecord(D2TileLibraryHeaderStrc** ppLibrary, const char* szFilePath); // 0x00600790
 extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
 int __stdcall SStrCmpI(const char* szString1, const char* szString2, int nMaxChars);
@@ -386,7 +386,7 @@ void __cdecl sub_005FE0F0_Empty()
 }
 
 // 0x005FE100
-void __stdcall sub_005FE100(int nUnused1, int nUnused2)
+void __stdcall D2CMPTileCacheMarkTileForPreLoad(int nUnused1, int nUnused2)
 {
 }
 
@@ -769,7 +769,7 @@ void __cdecl sub_005FF390_Nop()
 }
 
 // 0x005FF3A0
-void __cdecl sub_005FF3A0()
+void __cdecl D2CMPSpriteFreeAsyncLoads()
 {
     for (D2CmpCacheListEntryStrc* pEntry = gpCmpCacheEntries; pEntry; pEntry = pEntry->pNext)
     {
@@ -836,7 +836,7 @@ D2CmpBlockTableBStrc gCmpBlockTableB; // 0x0088DB58
 int gbCmpSmallCelCache; // 0x0089DB58
 
 // 0x005FFD40
-void __stdcall D2CMP_InitSpriteCache(void* pMemPool, unsigned int nMaxSize, int nArg, unsigned int nCacheSize)
+void __stdcall D2CMPSpriteCacheInit(void* pMemPool, unsigned int nMaxSize, int nArg, unsigned int nCacheSize)
 {
     sub_0060CD30_InitTileLock();
     if (!nCacheSize)
@@ -883,7 +883,7 @@ int __stdcall sub_00600D30_CanConvertDirections(int nDirections, int nNewDirecti
 }
 
 // 0x00600D60
-int __stdcall sub_00600D60_GetDirectionIndex64A(unsigned int nIndex, unsigned int nDirections)
+int __stdcall CelGameDirToShadowGameDir(unsigned int nIndex, unsigned int nDirections)
 {
     D2_ASSERT(nIndex < 64, 0x1DD);
     D2_ASSERT(sub_00517ABB_BitScanForward1(nDirections) < 8u, 0x1DE);
@@ -892,7 +892,7 @@ int __stdcall sub_00600D60_GetDirectionIndex64A(unsigned int nIndex, unsigned in
 }
 
 // 0x00600E20
-int __stdcall sub_00600E20_GetDirectionIndex64B(unsigned int nIndex, unsigned int nDirections)
+int __stdcall CelGameDirToNormalDir(unsigned int nIndex, unsigned int nDirections)
 {
     D2_ASSERT(nIndex < 64, 0x1EC);
     D2_ASSERT(sub_00517ABB_BitScanForward1(nDirections) < 8u, 0x1ED);
@@ -901,7 +901,7 @@ int __stdcall sub_00600E20_GetDirectionIndex64B(unsigned int nIndex, unsigned in
 }
 
 // 0x00601180
-void __stdcall sub_00601180_ForEachCel(D2CelFileStrc* pCelFile, int nArg)
+void __stdcall CelFileIteratePixels(D2CelFileStrc* pCelFile, int nArg)
 {
     D2_ASSERT(pCelFile->dwFlags & 4, 0x322);
     for (unsigned int nDirection = 0; nDirection < pCelFile->nDirections; nDirection++)
@@ -914,7 +914,7 @@ void __stdcall sub_00601180_ForEachCel(D2CelFileStrc* pCelFile, int nArg)
 }
 
 // 0x006011F0
-int __stdcall sub_006011F0_CloneCelFile(D2CelFileStrc* pCelFile, D2CelFileStrc** ppNewCelFile, unsigned int* pnSize)
+int __stdcall CelFileSerialize(D2CelFileStrc* pCelFile, D2CelFileStrc** ppNewCelFile, unsigned int* pnSize)
 {
     const unsigned int nCels = pCelFile->nCelsPerDirection * pCelFile->nDirections;
     unsigned int nSize = nCels * sizeof(D2CelStrc*) + 0x18;
@@ -955,7 +955,7 @@ int __stdcall sub_006011F0_CloneCelFile(D2CelFileStrc* pCelFile, D2CelFileStrc**
 }
 
 // 0x00601450
-void __stdcall sub_00601450_CelFileCellOp(D2CelFileStrc* pCelFile, int nArg)
+void __stdcall CelFileTransform(D2CelFileStrc* pCelFile, int nArg)
 {
     D2_ASSERT(pCelFile, 0x431);
     for (unsigned int i = 0; i < pCelFile->nDirections * pCelFile->nCelsPerDirection; i++)
@@ -965,7 +965,7 @@ void __stdcall sub_00601450_CelFileCellOp(D2CelFileStrc* pCelFile, int nArg)
 }
 
 // 0x00601650
-void __stdcall sub_00601650_DrawCelClipped(D2CmpCelContextStrc* pContext, int nX, int nY, int nArg4, int nArg5, unsigned char* pBuffer, int nHeight, int nPitch, int nArg9, int nArg10, int nClipTop, int nClipRows, int nArg13)
+void __stdcall CelDrawEx(D2CmpCelContextStrc* pContext, int nX, int nY, int nArg4, int nArg5, unsigned char* pBuffer, int nHeight, int nPitch, int nArg9, int nArg10, int nClipTop, int nClipRows, int nArg13)
 {
     D2CelFileStrc* pCelFile = pContext->pCelFile;
     if (pCelFile)
@@ -1003,7 +1003,7 @@ void __stdcall sub_00601650_DrawCelClipped(D2CmpCelContextStrc* pContext, int nX
 }
 
 // 0x00601730
-void __stdcall sub_00601730_DrawCelShadow(D2CmpCelContextStrc* pContext, int nX, int nY, int nClipLeft, int nClipRight, unsigned char* pBuffer, int nHeightLimit, int nPitch, int nTable, int nColor)
+void __stdcall CelDrawShadow(D2CmpCelContextStrc* pContext, int nX, int nY, int nClipLeft, int nClipRight, unsigned char* pBuffer, int nHeightLimit, int nPitch, int nTable, int nColor)
 {
     D2CelFileStrc* pCelFile = pContext->pCelFile;
     if (pCelFile)
@@ -1077,7 +1077,7 @@ void __stdcall sub_F43_EmitPixelDataFreeWriter(PixelDataFreeCallback pfnCallback
 }
 
 // 0x00601A50
-int __stdcall D2CMP_CelFileFreeHardware(D2CelFileStrc* pCelFile)
+int __stdcall CelFileFreeHardware(D2CelFileStrc* pCelFile)
 {
     if (!pCelFile)
     {
@@ -1102,7 +1102,7 @@ int __stdcall D2CMP_CelFileFreeHardware(D2CelFileStrc* pCelFile)
 }
 
 // 0x00604A40
-void __stdcall DT1_ListAdd(D2TileLibraryHeaderStrc** ppList, const char* szFilePath)
+void __stdcall TileLibraryAddProject(D2TileLibraryHeaderStrc** ppList, const char* szFilePath)
 {
     D2_ASSERT(ppList, 0x1C);
     D2_ASSERT(szFilePath, 0x1D);
@@ -1111,7 +1111,7 @@ void __stdcall DT1_ListAdd(D2TileLibraryHeaderStrc** ppList, const char* szFileP
     {
         if (!ppList[i])
         {
-            sub_00600790_LoadTileLibrary(&ppList[i], szFilePath);
+            D2CMPLoadProjectRecord(&ppList[i], szFilePath);
             break;
         }
     }

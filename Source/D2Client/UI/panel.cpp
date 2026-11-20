@@ -140,7 +140,7 @@ extern int gbGlobal_007C0C38; // 0x007C0C38
 int __cdecl sub_0047A560(); // 0x0047A560
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
 int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 int __stdcall ITEMS_GetQuiverType(D2UnitStrc* pItem); // 0x0062E740
 D2ActiveRoomStrc* __fastcall sub_004646A0_GetPlayerRoom(); // 0x004646A0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
@@ -741,7 +741,7 @@ found:
             if (ITEMS_HasDurability(pItem) && !ITEMS_CheckIfStackable(pItem))
             {
                 const int nMaxDurability = STATLIST_GetMaxDurabilityFromUnit(pItem);
-                bType = ITEMS_CheckItemTypeId(pItem, 0x33);
+                bType = ITEMSIsA(pItem, 0x33);
                 nQuiverType = ITEMS_GetQuiverType(pItem);
                 if (nMaxDurability)
                 {
@@ -973,7 +973,7 @@ static void __stdcall sub_00498A90_UseBeltSlot(int nSlot, D2UnitStrc* pPlayer, D
         const int nPetId = sub_00478F20_FindPetIdByOwner(pPlayer, 7, 0);
         if (nPetId != -1)
         {
-            if (ITEMS_CheckItemTypeId(pItem, 0x4C) || ITEMS_CheckItemTypeId(pItem, 0x51) || ITEMS_CheckItemTypeId(pItem, 0x50))
+            if (ITEMSIsA(pItem, 0x4C) || ITEMSIsA(pItem, 0x51) || ITEMSIsA(pItem, 0x50))
             {
                 sub_004CBDE0_PlayEventSound(nPetId, 1, 0x54);
             }

@@ -322,7 +322,7 @@ int __fastcall ITEMS_IsInPlayersInventory(D2UnitStrc* pPlayer, D2UnitStrc* pItem
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 void __fastcall ACT1Q4_SendStoneOrderToClient(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00593CB0
 void __fastcall ACT2Q6_SendTombIdToClient(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0059D6A0
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 void __fastcall D2GAME_PACKETS_SendPacket0x27_6FC3DF20(D2ClientStrc* pClient, D2GSPacketSrv27* pPacket); // 0x0053C8D0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
@@ -871,7 +871,7 @@ void __fastcall QUESTS_UseClueItem(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUn
 // 0x005456A0
 void __fastcall QUESTS_SendScrollMessage(D2UnitStrc* pPlayer, D2UnitStrc* pUnit, unsigned short nMessage)
 {
-    D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pPlayer, gszQuestsSourceFile, 3274);
+    D2ClientStrc* pClient = UnitGetClient(pPlayer, gszQuestsSourceFile, 3274);
 
     D2GSPacketSrv27 packet27;
     packet27.nHeader = 0x27;
@@ -902,7 +902,7 @@ void __fastcall QUESTS_SendLogUpdateEx(D2UnitStrc* pPlayer, int nQuestId, unsign
     packet5D.nFlags = 0;
     packet5D.nQuestId = nQuestId;
     packet5D.nState = 12;
-    D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pPlayer, gszQuestsSourceFile, 3458);
+    D2ClientStrc* pClient = UnitGetClient(pPlayer, gszQuestsSourceFile, 3458);
     sub_6FC3F380(pClient, &packet5D);
 }
 
@@ -1194,7 +1194,7 @@ void __fastcall sub_6FC82270(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc*
 // 0x00548520
 void __fastcall D2GAME_UpdateAttribute_6FC822D0(D2UnitStrc* pUnit, unsigned short nStat, unsigned int nNewValue, D2UnitStrc* pPlayer)
 {
-    D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pPlayer, ".\\PLAYER\\PlrMsg.cpp", 339);
+    D2ClientStrc* pClient = UnitGetClient(pPlayer, ".\\PLAYER\\PlrMsg.cpp", 339);
     D2_ASSERT(pClient, 340);
 
     if (pUnit == pPlayer)
@@ -1427,7 +1427,7 @@ int __fastcall QUESTS_FastRemovePlayerGUID(D2QuestGUIDStrc* pGUIDs, int dwGUID)
 // 0x005440A0
 static void __stdcall QUESTS_DeleteItemEx(D2InventoryStrc* pInventory, D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem)
 {
-    D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pPlayer, gszQuestsSourceFile, 0x534);
+    D2ClientStrc* pClient = UnitGetClient(pPlayer, gszQuestsSourceFile, 0x534);
     int nFlags = 0;
     ITEMS_SetOrRemoveFlag(&nFlags, 0x20, 1);
     const int nAnimMode = !pItem ? 0 : pItem->dwAnimMode;
@@ -1555,7 +1555,7 @@ void __fastcall QUESTS_SequenceCycler(D2GameStrc* pGame, D2UnitStrc* pPlayer, in
         packet5E.unk0x001[i] = pQuest->bNotIntro;
     }
 
-    D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pPlayer, gszQuestsSourceFile, 0x681);
+    D2ClientStrc* pClient = UnitGetClient(pPlayer, gszQuestsSourceFile, 0x681);
     sub_0053D830_SendPacket0x5E(pClient, &packet5E);
     QUESTS_UpdatePlayerFlags(pGame, pPlayer);
     QUESTS_SendCurrentFlags(pGame, pClient);
@@ -1591,7 +1591,7 @@ int __stdcall QUESTS_CheckNotIntroQuest(D2GameStrc* pGame, int nQuestId)
 void __fastcall QUESTS_UpdatePlayerFlags(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
-    D2GAME_SendPacket0x28_6FC3F2F0(SUNIT_GetClientFromPlayer(pUnit, gszQuestsSourceFile, 3239), QUEST_FLAGS_PACKET, QUEST_FLAGS_KIND, 0, pQuestFlags, 0);
+    D2GAME_SendPacket0x28_6FC3F2F0(UnitGetClient(pUnit, gszQuestsSourceFile, 3239), QUEST_FLAGS_PACKET, QUEST_FLAGS_KIND, 0, pQuestFlags, 0);
 }
 
 // 0x00545760
@@ -1621,7 +1621,7 @@ void __fastcall QUESTS_SendLogUpdate(D2UnitStrc* pUnit, unsigned char nQuestId)
     packet5D.nQuestId = nQuestId;
     packet5D.nFlags = QUEST_LOG_FLAGS;
 
-    D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pUnit, gszQuestsSourceFile, 3433);
+    D2ClientStrc* pClient = UnitGetClient(pUnit, gszQuestsSourceFile, 3433);
     sub_6FC3F380(pClient, &packet5D);
 }
 
@@ -1950,7 +1950,7 @@ void __fastcall QUESTS_UpdateNPCIntros(D2GameStrc* pGame, D2UnitStrc* pUnit, uns
     {
         packet91.nHeader = 0x91;
         packet91.nAct = nAct;
-        sub_0053E060_SendPacket0x91(SUNIT_GetClientFromPlayer(pUnit, gszQuestsSourceFile, 0xAB7), &packet91);
+        sub_0053E060_SendPacket0x91(UnitGetClient(pUnit, gszQuestsSourceFile, 0xAB7), &packet91);
     }
 }
 

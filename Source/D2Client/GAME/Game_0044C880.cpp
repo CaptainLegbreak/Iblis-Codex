@@ -111,7 +111,7 @@ void __fastcall sub_005177B2_SetLoadStringFn(D2LoadStringFn pfnLoadString);     
 Unicode* __fastcall sub_005267E0(Unicode* pDest, const Unicode* pSource);                                 // 0x005267E0
 int __fastcall sub_00526800(const Unicode* pString);                                                      // 0x00526800
 void __cdecl sub_005FE070();                                                                                // 0x005FE070
-void __cdecl sub_005FF3A0();                                                                                // 0x005FF3A0
+void __cdecl D2CMPSpriteFreeAsyncLoads();                                                                                // 0x005FF3A0
 void __cdecl sub_00600B80();                                                                                // 0x00600B80
 
 extern "C" const char gszLngFileName_006D5EE0[];                                                            // 0x006D5EE0
@@ -183,7 +183,7 @@ void __cdecl sub_0044C890_ReleaseGameState()
     if (gpAct_007A0634)
         DUNGEON_FreeAct(gpAct_007A0634);
     gpAct_007A0634 = 0;
-    sub_005FF3A0();
+    D2CMPSpriteFreeAsyncLoads();
     sub_005FE070();
     sub_00457420(0);
     sub_00475FD0(gpView_007A0640);

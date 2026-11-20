@@ -51,7 +51,7 @@ void __fastcall D2GAME_RollPhysicalDamage_6FD14EC0(D2UnitStrc* pUnit, D2DamageSt
 int __fastcall D2GAME_RollElementalDamage_6FD14DD0(D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel); // 0x0056E0C0
 void __fastcall SUNITDMG_ExecuteEvents(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int bMissile, D2DamageStrc* pDamage); // 0x0057C6C0
 void __fastcall SUNITDMG_ExecuteMissileDamage(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, D2DamageStrc* pDamage); // 0x0057CEE0
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nType); // 0x00629BB0
 void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc* pUpdateUnit); // 0x00553380
 int __fastcall D2GAME_PickupItem_6FC43340(D2GameStrc* pGame, D2UnitStrc* pUnit, int nItemGUID, int* pItemStatus); // 0x00563560
 int __fastcall OBJECTS_OperateHandler(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nObjectType, int nObjectGUID, int* pResult); // 0x00584420
@@ -162,12 +162,12 @@ int __fastcall sub_005C98F0_Telekinesis(D2GameStrc* pGame, D2UnitStrc* pUnit, in
             return 1;
         }
     case 4:
-        if (!ITEMS_CheckItemTypeId(pTarget, 0x16)
-            && !ITEMS_CheckItemTypeId(pTarget, 4)
-            && !ITEMS_CheckItemTypeId(pTarget, 0x26)
-            && !ITEMS_CheckItemTypeId(pTarget, 0x38)
-            && !ITEMS_CheckItemTypeId(pTarget, 9)
-            && !ITEMS_CheckItemTypeId(pTarget, 0x29))
+        if (!ITEMSIsA(pTarget, 0x16)
+            && !ITEMSIsA(pTarget, 4)
+            && !ITEMSIsA(pTarget, 0x26)
+            && !ITEMSIsA(pTarget, 0x38)
+            && !ITEMSIsA(pTarget, 9)
+            && !ITEMSIsA(pTarget, 0x29))
         {
             SUNIT_AttachSound(pUnit, 0x13, pUnit);
             return 1;

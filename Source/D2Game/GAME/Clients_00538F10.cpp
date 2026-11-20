@@ -51,7 +51,7 @@ struct D2ClientStrc
 };
 
 int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0);           // 0x0040B480
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine);    // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine);    // 0x005531C0
 
 static int CLIENTS_IsPlayerUnit_Inlined(D2UnitStrc* pUnit)
 {
@@ -107,7 +107,7 @@ void __fastcall CLIENTS_NotifyWarpAttempt(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     D2_ASSERT(CLIENTS_IsPlayerUnit_Inlined(pUnit), 0xD1B);
 
-    D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pUnit, ".\\GAME\\Clients.cpp", 0xD1D);
+    D2ClientStrc* pClient = UnitGetClient(pUnit, ".\\GAME\\Clients.cpp", 0xD1D);
     D2_ASSERT(pClient, 0xD1E);
 
     for (int i = 0; i < NUM_WARP_ATTEMPT_SLOTS; ++i)
@@ -126,7 +126,7 @@ int __fastcall CLIENTS_ShouldDelayWarpAttempt(D2GameStrc* pGame, D2UnitStrc* pUn
 {
     D2_ASSERT(CLIENTS_IsPlayerUnit_Inlined(pUnit), 0xD2D);
 
-    D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pUnit, ".\\GAME\\Clients.cpp", 0xD2F);
+    D2ClientStrc* pClient = UnitGetClient(pUnit, ".\\GAME\\Clients.cpp", 0xD2F);
     D2_ASSERT(pClient, 0xD30);
 
     for (int i = 0; i < NUM_WARP_ATTEMPT_SLOTS; ++i)

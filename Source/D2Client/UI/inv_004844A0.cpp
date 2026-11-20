@@ -110,7 +110,7 @@ Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x00526
 Unicode* __fastcall sub_00526F20(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 int __stdcall sub_00625560(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625560
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc* pItem); // 0x0062BA80
 void* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId); // 0x006439F0
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
@@ -567,7 +567,7 @@ static void __stdcall sub_00485D40_AppendThrowDamage(D2UnitStrc* pItem, D2ItemsT
     int nMin = pItemsTxt->nMinDam;
     int nMax = pItemsTxt->nMaxDam;
     int nStringId;
-    if (ITEMS_CheckItemTypeId(pItem, 0x33))
+    if (ITEMSIsA(pItem, 0x33))
     {
         nStringId = 0xD8C;
         D2UnitStrc* pUnit = sub_00463DE0_GetStoredUnit();
@@ -581,7 +581,7 @@ static void __stdcall sub_00485D40_AppendThrowDamage(D2UnitStrc* pItem, D2ItemsT
     }
     else
     {
-        if (!ITEMS_CheckItemTypeId(pItem, 0xF))
+        if (!ITEMSIsA(pItem, 0xF))
         {
             return;
         }
@@ -684,14 +684,14 @@ static void __stdcall sub_004861D0_AppendAttackSpeed(Unicode* pText, D2UnitStrc*
     else
     {
         D2UnitStrc* pUnit = sub_00463DE0_GetStoredUnit();
-        const int bMissile = (ITEMS_CheckItemTypeId(pItem, 0x23) || ITEMS_CheckItemTypeId(pItem, 0x1B)) ? 1 : 0;
+        const int bMissile = (ITEMSIsA(pItem, 0x23) || ITEMSIsA(pItem, 0x1B)) ? 1 : 0;
         const int nClass = !pUnit ? -1 : pUnit->dwClassId;
         nSpeed = gaSpeedTable_00721F10[nAttackSpeed - 10][gaClassSpeedOffsets_00722078[nClass][bMissile]];
     }
     int nFound = -1;
     for (int i = 0; i < 15; ++i)
     {
-        if (ITEMS_CheckItemTypeId(pItem, gaItemTypeNames_00721EB0[i].nItemType))
+        if (ITEMSIsA(pItem, gaItemTypeNames_00721EB0[i].nItemType))
         {
             nFound = i;
             break;
@@ -1121,7 +1121,7 @@ void __fastcall sub_0048D1D0_DrawSetItemTooltip(D2UnitStrc* pUnit)
         sub_00484FF0_AppendNumberLine(nLevelReq, wszLevelReq);
     }
 
-    if (ITEMS_CheckItemTypeId(gpHoverItem_007BCBF4, 0x2D) || ITEMS_CheckItemTypeId(gpHoverItem_007BCBF4, 0x32))
+    if (ITEMSIsA(gpHoverItem_007BCBF4, 0x2D) || ITEMSIsA(gpHoverItem_007BCBF4, 0x32))
     {
         int nStrBonus = 0;
         int nDexBonus = 0;
@@ -1169,7 +1169,7 @@ void __fastcall sub_0048D1D0_DrawSetItemTooltip(D2UnitStrc* pUnit)
 
     sub_00526700(wszStats, sub_004521C0_PrefixLevelText(wszDurability, 0));
 
-    if (ITEMS_CheckItemTypeId(gpHoverItem_007BCBF4, 0x2D))
+    if (ITEMSIsA(gpHoverItem_007BCBF4, 0x2D))
     {
         sub_004861D0_AppendAttackSpeed(wszSpeed, gpHoverItem_007BCBF4);
         sub_004521C0_PrefixLevelText(wszSpeed, 0);
@@ -1183,7 +1183,7 @@ void __fastcall sub_0048D1D0_DrawSetItemTooltip(D2UnitStrc* pUnit)
         }
     }
 
-    if (ITEMS_CheckItemTypeId(gpHoverItem_007BCBF4, 0x33))
+    if (ITEMSIsA(gpHoverItem_007BCBF4, 0x33))
     {
         if (pPlayer && pPlayer->dwUnitType == 0)
         {
@@ -1201,7 +1201,7 @@ void __fastcall sub_0048D1D0_DrawSetItemTooltip(D2UnitStrc* pUnit)
         sub_00526700(wszStats, wszBlock);
     }
 
-    if (ITEMS_CheckItemTypeId(gpHoverItem_007BCBF4, 0x32) && sub_00626020_ArmorValue(gpHoverItem_007BCBF4) > 0)
+    if (ITEMSIsA(gpHoverItem_007BCBF4, 0x32) && sub_00626020_ArmorValue(gpHoverItem_007BCBF4) > 0)
     {
         sub_00485EE0_AppendDefense(pPlayer, gpHoverItem_007BCBF4, wszDefense);
         sub_004521C0_PrefixLevelText(wszDefense, 0);

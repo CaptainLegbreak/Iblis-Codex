@@ -182,7 +182,7 @@ struct D2GSPacketSrv5D
 };
 
 void __fastcall sub_6FC3F380(D2ClientStrc* pClient, D2GSPacketSrv5D* pPacket); // 0x0053D710
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 unsigned int __stdcall ITEMS_GetBaseCode(D2UnitStrc* pItem); // 0x00628590
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
@@ -710,7 +710,7 @@ static void __stdcall sub_005B81C0_SendKhalimPacket(D2QuestDataStrc* pQuestData,
     packet5D.nQuestId = QUEST_A3Q2_KHALIMFLAIL;
     packet5D.nFlags = (unsigned char)pQuestData->dwFlags;
     packet5D.nState = nState;
-    sub_6FC3F380(SUNIT_GetClientFromPlayer(pQuestArg->pPlayer, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q2.cpp", 568), &packet5D);
+    sub_6FC3F380(UnitGetClient(pQuestArg->pPlayer, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q2.cpp", 568), &packet5D);
 }
 
 // 0x005B8210

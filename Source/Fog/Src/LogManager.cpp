@@ -146,7 +146,7 @@ extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const ch
 void __cdecl sub_00401A70_SetMiniDumpThreadName(); // 0x00401A70
 void __cdecl sub_004026D0_LockedDbgHelpCall(); // 0x004026D0
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
-void __fastcall sub_0040CC10_WalkThreadStack(void* hThread, D2ThreadContextStrc* pContext); // 0x0040CC10
+void __fastcall sShowStack(void* hThread, D2ThreadContextStrc* pContext); // 0x0040CC10
 _iobuf* __fastcall sub_0040EBD0_OpenDatedLogFile(const char* szName, D2SystemTimeStrc* pTime, const char* szMode, int* pbNew, char* szPathOut, unsigned int nPathOutSize); // 0x0040EBD0
 void __fastcall sub_0040F000_GetLogDirectory(char* szDirectory, int nSize); // 0x0040F000
 void __fastcall sub_0040F470_LookupLog(const char* szName); // 0x0040F470
@@ -1056,7 +1056,7 @@ void __cdecl sub_0040D540_SETranslator(unsigned int nCode, D2ExceptionPointersSt
     }
     void* hThread;
     DuplicateHandle(GetCurrentProcess(), GetCurrentThread(), GetCurrentProcess(), &hThread, 0, 0, 2);
-    sub_0040CC10_WalkThreadStack(hThread, pExceptionInfo->pContextRecord);
+    sShowStack(hThread, pExceptionInfo->pContextRecord);
     CloseHandle(hThread);
 }
 

@@ -77,7 +77,7 @@ void __fastcall D2GAME_PACKETS_SendPacket0x0D_6FC3C920(D2ClientStrc* pClient, un
 void __fastcall QUESTS_ChangeLevel(D2GameStrc* pGame, int nSourceLevelId, int nDestinationLevelId, D2UnitStrc* pPlayer); // 0x00543B90
 int __fastcall OBJECTS_GetUnitIdFromTimerArg(D2UnitStrc* pUnit); // 0x00552B10
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc* pUpdateUnit); // 0x00553380
 short __fastcall SUNIT_GetPartyId(D2UnitStrc* pPlayer); // 0x00554630
 int __fastcall sub_6FCBDFE0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int a6, int a7); // 0x00554EA0
@@ -246,7 +246,7 @@ int __fastcall sub_00584870_OperatePortal(D2ObjOperateFnStrc* pOp)
         return 0;
     int nX = coords.nX, nY = coords.nY;
     D2_ASSERT(sub_6FCBDFE0(pOp->pGame, pOp->pPlayer, pRoom, nX, nY, 0, 0), 0xF52);
-    D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pOp->pPlayer, gszObjModeSourceFile_006E1970, 0xF54);
+    D2ClientStrc* pClient = UnitGetClient(pOp->pPlayer, gszObjModeSourceFile_006E1970, 0xF54);
     SUNIT_AttachSound(pOp->pPlayer, 8, 0);
     sub_6FC817D0(pOp->pGame, pOp->pPlayer, 0, 2, nX + 5, nY + 5, 0);
     D2GAME_PACKETS_SendPacket0x0D_6FC3C920(pClient, 0x0D, UNIT_GetType(pOp->pPlayer), UNIT_GetId(pOp->pPlayer), 1, nX + 5, nY + 5, 0, 0);

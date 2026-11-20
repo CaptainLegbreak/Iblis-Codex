@@ -235,7 +235,7 @@ static void __stdcall sub_0040C520_GetLogicalAddress(char* szModule, unsigned lo
 }
 
 // 0x0040C620
-int __cdecl sub_0040C620_SymInitializeOnce()
+int __cdecl s_DoSymInitialize()
 {
     int bResult = 0;
     EnterCriticalSection(&gtImageHlpLock_0075CFBC);
@@ -365,7 +365,7 @@ extern int (__stdcall* gpfnSymGetSymFromAddr_0075CFF4)(void* hProcess, unsigned 
 extern int (__stdcall* gpfnStackWalk_0075D008)(unsigned long dwMachineType, void* hProcess, void* hThread, D2StackFrameStrc* pStackFrame, void* pContextRecord, void* pfnReadMemory, void* pfnFunctionTableAccess, void* pfnGetModuleBase, void* pfnTranslateAddress); // 0x0075D008
 
 // 0x0040CC10
-int __fastcall sub_0040CC10_WalkThreadStack(void* hThread, D2ThreadContextStrc* pContext)
+int __fastcall sShowStack(void* hThread, D2ThreadContextStrc* pContext)
 {
     unsigned long dwNoStackDump = 0;
     SRegLoadValue("Diablo II", "NoStackDump", 0, &dwNoStackDump);

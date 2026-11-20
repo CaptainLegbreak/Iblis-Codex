@@ -180,7 +180,7 @@ int __stdcall UNITS_CanDualWield(D2UnitStrc* pUnit); // 0x006235A0
 D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill); // 0x00644140
 int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
 D2UnitStrc* __stdcall sub_0063C050_GetBodyLocItem(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063C050
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 int __fastcall sub_00463720_TestUnitFlagEx(D2UnitStrc* pUnit, unsigned int dwMask); // 0x00463720
 D2UnitStrc* __stdcall D2Common_10434(D2UnitStrc* pUnit, int a2); // 0x00623990
 unsigned char __stdcall ITEMS_GetHitClassFromItem(D2UnitStrc* pItem); // 0x0062A180
@@ -1179,7 +1179,7 @@ D2UnitStrc* __stdcall D2Common_10434(D2UnitStrc* pUnit, int a2)
             const int nFlags = SKILLS_GetFlags(pSkill) & 0x2000;
             pWeapon = sub_0063C050_GetBodyLocItem(pInventory, 5);
             D2UnitStrc* pHandItem = sub_0063C050_GetBodyLocItem(pInventory, 6);
-            if (!pWeapon || !ITEMS_CheckItemTypeId(pWeapon, 45) || pHandItem && ITEMS_CheckItemTypeId(pHandItem, 45) && nFlags)
+            if (!pWeapon || !ITEMSIsA(pWeapon, 45) || pHandItem && ITEMSIsA(pHandItem, 45) && nFlags)
             {
                 pWeapon = pHandItem;
             }
@@ -1216,14 +1216,14 @@ D2UnitStrc* __stdcall D2Common_10434(D2UnitStrc* pUnit, int a2)
 
         default:
             pWeapon = sub_0063C050_GetBodyLocItem(pInventory, 5);
-            if (!pWeapon || !ITEMS_CheckItemTypeId(pWeapon, 45))
+            if (!pWeapon || !ITEMSIsA(pWeapon, 45))
             {
                 pWeapon = sub_0063C050_GetBodyLocItem(pInventory, 6);
             }
             break;
         }
 
-        if (ITEMS_CheckItemTypeId(pWeapon, 45) && sub_0062A4E0_TestItem(pWeapon))
+        if (ITEMSIsA(pWeapon, 45) && sub_0062A4E0_TestItem(pWeapon))
         {
             return pWeapon;
         }

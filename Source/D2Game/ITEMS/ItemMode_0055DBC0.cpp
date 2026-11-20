@@ -74,13 +74,13 @@ int __fastcall PARTY_ShareGoldDrop(D2GameStrc* pGame, D2UnitStrc* pPlayer, int n
 void __fastcall QUESTS_ItemPickedUp(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem);             // 0x00543D80
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID);                // 0x00552F60
 D2UnitStrc* __fastcall SUNIT_GetOwner(D2GameStrc* pGame, D2UnitStrc* pUnit);                                // 0x00552FD0
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine);     // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine);     // 0x005531C0
 void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc* pUpdateUnit);             // 0x00553380
 short __fastcall SUNIT_GetPartyId(D2UnitStrc* pPlayer);                                                     // 0x00554630
 void __fastcall ITEMS_RemoveFromAllPlayers(D2GameStrc* pGame, D2UnitStrc* pUnit);                           // 0x00557FD0
 void __fastcall ITEMS_DropGoldPile(D2GameStrc* pGame, D2UnitStrc* pUnit, int nAmount);                      // 0x0055B030
 void __fastcall sub_0055BF50_ClearTargetingFlags(D2UnitStrc* pUnit, const char* szFile, int nLine);         // 0x0055BF50
-void __fastcall D2GAME_ITEMS_UpdateItemStatlist_6FC42310(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pUnit, int a4); // 0x0055C2C0
+void __fastcall sITEMSAddStatsList(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pUnit, int a4); // 0x0055C2C0
 int __fastcall ITEMMODE_CanPickUpItem(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem);             // 0x0055CC90
 void __fastcall sub_0055DBC0_RecalcEquippedItemStates(D2GameStrc* pGame, D2UnitStrc* pUnit, int nArg);
 static __forceinline int sub_0055DBC0_GetUnitType(D2UnitStrc* pUnit)
@@ -128,7 +128,7 @@ unsigned char __stdcall ITEMS_GetInvPage(D2UnitStrc* pItem);                    
 void __stdcall ITEMS_SetInvPage(D2UnitStrc* pItem, unsigned char nPage);                                    // 0x00628280
 void __stdcall ITEMS_SetOrRemoveFlag(int* pFlags, int nFlag, int bSet);                                     // 0x006287B0
 int __stdcall ITEMS_CheckType(int nItemType, int nItemTypeToCheck);                                         // 0x00629B50
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType);                                     // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType);                                     // 0x00629BB0
 int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem);                                                         // 0x0062B400
 int __stdcall ITEMS_IsCharmUsable(D2UnitStrc* pItem, D2UnitStrc* pPlayer);                                  // 0x0062FF70
 D2BooksTxt* __stdcall DATATBLS_GetBooksTxtRecord(int nIndex);                                               // 0x006374B0
@@ -185,7 +185,7 @@ static void __stdcall sub_0055D970_UpdateEquippedItemStats(D2GameStrc* pGame, D2
 
     if (UNITS_GetAnimOrSeqMode(pItem) == 1 || !UNITS_GetAnimOrSeqMode(pItem) && ITEMS_IsCharmUsable(pItem, pUnit))
     {
-        D2GAME_ITEMS_UpdateItemStatlist_6FC42310(pGame, pItem, pUnit, 1);
+        sITEMSAddStatsList(pGame, pItem, pUnit, 1);
     }
 }
 
@@ -343,11 +343,11 @@ void __fastcall sub_0055DBC0_RecalcEquippedItemStates(D2GameStrc* pGame,D2UnitSt
                         sub_0063D1D0_InventoryItemCall(pCurrentInventory,pItem);
                         if (UNITS_GetAnimOrSeqMode(pItem)==1)
                         {
-                            D2GAME_ITEMS_UpdateItemStatlist_6FC42310(pGame,pItem,pUnit,1);
+                            sITEMSAddStatsList(pGame,pItem,pUnit,1);
                         }
                         else if (!UNITS_GetAnimOrSeqMode(pItem) && ITEMS_IsCharmUsable(pItem,pUnit))
                         {
-                            D2GAME_ITEMS_UpdateItemStatlist_6FC42310(pGame,pItem,pUnit,1);
+                            sITEMSAddStatsList(pGame,pItem,pUnit,1);
                         }
                     }
                 }
@@ -361,7 +361,7 @@ void __fastcall sub_0055DBC0_RecalcEquippedItemStates(D2GameStrc* pGame,D2UnitSt
         if(pItem && ITEMS_GetItemQuality(pItem)==5 && !ITEMS_CheckItemFlag(pItem,0x100,0xac2,szItemModeCpp) && !ITEMS_CheckItemFlag(pItem,0x4000,0xac3,szItemModeCpp))
         {
             sub_0055C730_UpdateTransferredProperties(*(D2GameStrc* *)&pGame,pItem,pUnit,1,1);
-            D2GAME_ITEMS_UpdateItemStatlist_6FC42310(pGame,pItem,pUnit,1);
+            sITEMSAddStatsList(pGame,pItem,pUnit,1);
         }
     }
     sub_0055DA70_RestoreSelectedSkills(pUnit,&refreshState);
@@ -369,12 +369,12 @@ void __fastcall sub_0055DBC0_RecalcEquippedItemStates(D2GameStrc* pGame,D2UnitSt
     if(bRefresh)
     {
         D2ClientStrc* pClient;
-        if(pUnit->dwUnitType==0) pClient=SUNIT_GetClientFromPlayer(pUnit,szItemModeCpp,0xa44);
+        if(pUnit->dwUnitType==0) pClient=UnitGetClient(pUnit,szItemModeCpp,0xa44);
         else
         {
             D2UnitStrc* pOwner=AIGENERAL_GetMinionOwner(pUnit);
             if(!pOwner || pOwner->dwUnitType!=0) return;
-            pClient=SUNIT_GetClientFromPlayer(pOwner,szItemModeCpp,0xa49);
+            pClient=UnitGetClient(pOwner,szItemModeCpp,0xa49);
         }
         if(pClient) D2GAME_SendPacket0x48_6FC3EF40(pClient,pUnit,0);
     }

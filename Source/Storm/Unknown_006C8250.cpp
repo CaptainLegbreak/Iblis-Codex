@@ -252,7 +252,7 @@ int __fastcall sub_006C85A0_DrawImage(void* pData, int nX, int nY, unsigned int 
         if (nPalette)
             pPaletteTable = gpGfxPaletteView_007C9150->pPalettes[nPalette];
 
-        sub_006014C0((D2CmpCelContextStrc*)pContext, nX, nY, gnOriginX_0098A168, gnModeWidth_0098A16C,
+        CelDraw((D2CmpCelContextStrc*)pContext, nX, nY, gnOriginX_0098A168, gnModeWidth_0098A16C,
             gpScreenBuffer_007C9154, gnScreenHeight_007C913C, gnScreenWidth_007C9138, (int)pGammaTable, nCaps, (int)pPaletteTable);
     }
     return 1;

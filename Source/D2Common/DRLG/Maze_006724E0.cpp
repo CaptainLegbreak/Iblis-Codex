@@ -280,7 +280,7 @@ static int __stdcall sub_00670880(D2DrlgRoomStrc* pDrlgRoom, int nDirection, D2D
 }
 
 // 0x006709B0
-static D2DrlgRoomStrc* __stdcall DRLGMAZE_PickRoomPreset(int bResetFlag, D2DrlgRoomStrc* pDrlgRoom)
+static D2DrlgRoomStrc* __stdcall sSetChamberPreset(int bResetFlag, D2DrlgRoomStrc* pDrlgRoom)
 {
     int nLevelPrest = 0;
     int nPickedFile = -1;
@@ -479,7 +479,7 @@ static D2DrlgRoomStrc* __stdcall DRLGMAZE_InitRoomFixedPreset(D2DrlgRoomStrc* pD
         DRLGROOM_AddRoomExToLevel(pDrlgRoom->pLevel, pNewRoomEx);
         if (bUseInitPreset)
         {
-            DRLGMAZE_PickRoomPreset(1, pDrlgRoom);
+            sSetChamberPreset(1, pDrlgRoom);
         }
 
         MAZE_SetPreset(pNewRoomEx, nLvlPrestId, nFile);
@@ -528,7 +528,7 @@ static int DRLGMAZE_CheckIfMayPlaceAdjacentPresetRoom(D2DrlgRoomStrc* pDrlgRoom,
     D2DrlgRoomStrc* pNewRoomEx = DRLGMAZE_PlaceAdjacentPresetRoom(pDrlgRoom, nDirection, 0);
     if (pNewRoomEx)
     {
-        DRLGMAZE_PickRoomPreset(1, pNewRoomEx);
+        sSetChamberPreset(1, pNewRoomEx);
     }
 
     const int bResult = pNewRoomEx != 0;

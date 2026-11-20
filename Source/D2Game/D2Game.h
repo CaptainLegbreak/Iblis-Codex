@@ -580,7 +580,7 @@ void __stdcall UNITS_SetXForStaticUnit(D2UnitStrc* pUnit, int nX); // 0x00620470
 void __stdcall UNITS_SetYForStaticUnit(D2UnitStrc* pUnit, int nY); // 0x006204C0
 void __stdcall UNITS_StopSequence(D2UnitStrc* pUnit); // 0x00623E00
 void __stdcall UNITS_StoreLastAttacker(D2UnitStrc* pUnit, D2UnitStrc* pAttacker); // 0x00621D50
-void __stdcall UNITS_UpdateAnimRateAndVelocity(D2UnitStrc* pUnit, const char* szFile, int nLine); // 0x00623F50
+void __stdcall UnitUpdateAnimRateAndVel(D2UnitStrc* pUnit, const char* szFile, int nLine); // 0x00623F50
 void __stdcall WAYPOINTS_ValidateAndCopyWaypointData(D2WaypointDataStrc* pSource, D2WaypointDataStrc* pDestination); // 0x006610B0
 void __stdcall sub_00619730_Bounds(Room*,RoomBounds*); // 0x00619730
 void __stdcall sub_00621780_SetMissileArg(D2UnitStrc* pMissile, int nArg); // 0x00621780

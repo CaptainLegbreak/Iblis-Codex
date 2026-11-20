@@ -102,7 +102,7 @@ void __cdecl sub_00410660_Log(const char* szChannel, const char* szFormat, ...);
 int __fastcall sub_006BE9F0_CheckRecordThreshold(T006BE350* pServer, const unsigned int* pAddress); // 0x006BE9F0
 int __fastcall sub_006C0800_BanByAddress(T006BE350* pServer, unsigned int* pAddress, const char* szFile, int nLine); // 0x006C0800
 void __fastcall sub_006BFEA0_RecordAddress(T006BE350* pServer, const char* szFile, unsigned int nAddress, int nLine); // 0x006BFEA0
-D2QClientStrc* __fastcall sub_006BFB70_AddClient(T006BE350* pServer, unsigned int s, unsigned int nAddress); // 0x006BFB70
+D2QClientStrc* __fastcall QSrvAddClient(T006BE350* pServer, unsigned int s, unsigned int nAddress); // 0x006BFB70
 extern "C" const char gszHack_006FC4A8[]; // 0x006FC4A8
 static __declspec(noinline) int sub_006C2280_PostRead(T006BE350* pServer, D2QClientStrc* pClient);
 extern "C" void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int nFlags); // 0x0040B380
@@ -143,7 +143,7 @@ void __fastcall sub_00407F90_ThreadHookNop1(int n); // 0x00407F90
 void __fastcall sub_006C2D70(D2QueueServerStrc* pServer, int nSlot, int nWait); // 0x006C2D70
 extern const char gszQServerFile[]; // 0x006FC8A0
 
-static unsigned int __stdcall sub_006C2420_Accept(int nSlot, int* pAddrLen, T006BE350* pServer, D2SockAddrInStrc* pAddr);
+static unsigned int __stdcall sQSNTAccept(int nSlot, int* pAddrLen, T006BE350* pServer, D2SockAddrInStrc* pAddr);
 
 // 0x006C2280
 static int sub_006C2280_PostRead(T006BE350* pServer, D2QClientStrc* pClient)
@@ -192,7 +192,7 @@ unsigned int __fastcall sub_Emit_006C2420(T006BE350* pServer, int nSlot)
 {
     D2SockAddrInStrc tAddr;
     int nAddrLen;
-    return sub_006C2420_Accept(nSlot, &nAddrLen, pServer, &tAddr);
+    return sQSNTAccept(nSlot, &nAddrLen, pServer, &tAddr);
 }
 
 // 0x006C23B0
@@ -216,7 +216,7 @@ static void __stdcall sub_006C23B0_QueueMessage(D2QConn006C23B0Strc* pConn, unsi
 }
 
 // 0x006C2420
-static unsigned int __stdcall sub_006C2420_Accept(int nSlot, int* pAddrLen, T006BE350* pServer, D2SockAddrInStrc* pAddr)
+static unsigned int __stdcall sQSNTAccept(int nSlot, int* pAddrLen, T006BE350* pServer, D2SockAddrInStrc* pAddr)
 {
     memset(&pServer->aStats[nSlot].aTimes[0], 0, sizeof(pServer->aStats[nSlot].aTimes));
     QueryPerformanceCounter(&pServer->aStats[nSlot].aTimes[0]);
@@ -269,7 +269,7 @@ static unsigned int __stdcall sub_006C2420_Accept(int nSlot, int* pAddrLen, T006
         return (unsigned int)-1;
     }
 
-    D2QClientStrc* pClient = sub_006BFB70_AddClient(pServer, (unsigned int)pAddrLen, pAddr->f_4);
+    D2QClientStrc* pClient = QSrvAddClient(pServer, (unsigned int)pAddrLen, pAddr->f_4);
     pClient->nSlot = nSlot;
     QueryPerformanceCounter(&pServer->aStats[nSlot].aTimes[5]);
 

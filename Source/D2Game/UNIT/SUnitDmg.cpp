@@ -287,7 +287,7 @@ typedef void(__fastcall* PartyCallbackFunction)(D2GameStrc*, D2UnitStrc*, void*)
 void __fastcall PARTY_IteratePartyMembersInSameLevel(D2GameStrc* pGame, D2UnitStrc* pUnit, PartyCallbackFunction pCallback, void* pArgs); // 0x005405A0
 void __fastcall SUNITDMG_PartyCallback_ComputePartyExperience(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg); // 0x0057E5A0
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndFlag(D2UnitStrc* pUnit, int nFlag); // 0x00625760
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 void __fastcall MONSTERAI_UpdateMercStatsAndSkills(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pMerc, int nLevel); // 0x00572840
 void __fastcall MONSTERAI_SendMercStats(D2GameStrc* pGame, D2UnitStrc* pPlayer, int a3); // 0x005726C0
 void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc* pUpdateUnit); // 0x00553380
@@ -330,7 +330,7 @@ void __fastcall SUNITDMG_RemoveShatterState(D2UnitStrc* pUnit, int nState, D2Sta
         STATES_ToggleState(pUnit, 107, 0);
     }
 
-    UNITS_UpdateAnimRateAndVelocity(pUnit, ".\\UNIT\\SUnitDmg.cpp", 338);
+    UnitUpdateAnimRateAndVel(pUnit, ".\\UNIT\\SUnitDmg.cpp", 338);
 }
 
 // 0x0057AF00
@@ -1161,7 +1161,7 @@ static void __stdcall SUNITDMG_AddExperienceForHireling(D2GameStrc* pGame, D2Uni
     }
 
     STATLIST_SetUnitStat(pHireling, STAT_EXPERIENCE, nNewExp, 0);
-    D2GAME_PACKETS_SendPacket0xA0_A1_A2_6FC3D610(SUNIT_GetClientFromPlayer(pPlayer, ".\\UNIT\\SUnitDmg.cpp", 4029), pHireling, STAT_EXPERIENCE, nCurrentExp, nNewExp);
+    D2GAME_PACKETS_SendPacket0xA0_A1_A2_6FC3D610(UnitGetClient(pPlayer, ".\\UNIT\\SUnitDmg.cpp", 4029), pHireling, STAT_EXPERIENCE, nCurrentExp, nNewExp);
 
     int nNewLevel = nLevel;
     do

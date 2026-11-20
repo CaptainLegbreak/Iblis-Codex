@@ -80,8 +80,8 @@ char* __cdecl sub_00407310_Sprintf(char* szDest, const char* szFormat, ...);    
 extern "C" const char gszDrlgAnimSourceFile[];                                                              // 0x006EEF08
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);           // 0x0040B430
-int __stdcall D2CMP_GetTiles(void** ppTiles, int nTileType, int nStyle, int nSequence, D2TileLibraryEntryStrc** ppTileEntries, int nMaxEntries); // 0x00604AE0
-unsigned int __stdcall TILE_GetRarity(D2TileLibraryEntryStrc* pTile);                                       // 0x00604C20
+int __stdcall TileLibraryGetTiles(void** ppTiles, int nTileType, int nStyle, int nSequence, D2TileLibraryEntryStrc** ppTileEntries, int nMaxEntries); // 0x00604AE0
+unsigned int __stdcall TileGetRarity(D2TileLibraryEntryStrc* pTile);                                       // 0x00604C20
 D2DrlgTileDataStrc* __fastcall DRLGROOMTILE_InitWallTileData(D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileDataStrc** ppTileData, int nX, int nY, unsigned int nPackedTileInformation, D2TileLibraryEntryStrc* pTileLibraryEntry, int nTileType); // 0x0066DC50
 D2DrlgTileDataStrc* __fastcall DRLGROOMTILE_InitFloorTileData(D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileDataStrc** ppTileData, int nX, int nY, unsigned int nPackedTileInformation, D2TileLibraryEntryStrc* pTileLibraryEntry); // 0x0066DEF0
 D2DrlgTileDataStrc* __fastcall DRLGROOMTILE_InitShadowTileData(D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileDataStrc** ppTileData, int nX, int nY, unsigned int nPackedTileInformation, D2TileLibraryEntryStrc* pTileLibraryEntry); // 0x0066DF40
@@ -128,7 +128,7 @@ static void __fastcall DRLGANIM_AllocAnimationTileGrid(D2DrlgRoomStrc* pDrlgRoom
                 nSeq = 0;
             }
 
-            unsigned int nFrames = D2CMP_GetTiles(&pDrlgRoom->pTiles, pCurrentTileData.nTileType, nStyle, nSeq, pTileLibraryEntries, 40);
+            unsigned int nFrames = TileLibraryGetTiles(&pDrlgRoom->pTiles, pCurrentTileData.nTileType, nStyle, nSeq, pTileLibraryEntries, 40);
 
             D2DrlgAnimTileGridStrc* pDrlgAnimTileGrid = (D2DrlgAnimTileGridStrc*)FOG_AllocPool(pMemPool, sizeof(D2DrlgAnimTileGridStrc), gszDrlgAnimSourceFile, 155, 0);
             memset(pDrlgAnimTileGrid, 0x00, sizeof(D2DrlgAnimTileGridStrc));
@@ -143,7 +143,7 @@ static void __fastcall DRLGANIM_AllocAnimationTileGrid(D2DrlgRoomStrc* pDrlgRoom
             unsigned int nEntryIndex;
             for (nEntryIndex = 0; nEntryIndex < nFrames; ++nEntryIndex)
             {
-                if (TILE_GetRarity(pTileLibraryEntries[nEntryIndex]) == 0)
+                if (TileGetRarity(pTileLibraryEntries[nEntryIndex]) == 0)
                 {
                     break;
                 }
@@ -162,7 +162,7 @@ static void __fastcall DRLGANIM_AllocAnimationTileGrid(D2DrlgRoomStrc* pDrlgRoom
                 unsigned int nEntry;
                 for (nEntry = 0; nEntry < nFrames; ++nEntry)
                 {
-                    if (TILE_GetRarity(pTileLibraryEntries[nEntry]) == nRarity)
+                    if (TileGetRarity(pTileLibraryEntries[nEntry]) == nRarity)
                     {
                         break;
                     }

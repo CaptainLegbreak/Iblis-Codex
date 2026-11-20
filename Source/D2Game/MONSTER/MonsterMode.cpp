@@ -371,7 +371,7 @@ static void sub_005A6380_SetVelocityPercent(D2MonVelocityParamStrc* pParam, D2Un
     }
 
     sub_006270B0(pStatList, STAT_VELOCITYPERCENT, nVelocityPercent, 0);
-    UNITS_UpdateAnimRateAndVelocity(pUnit, ".\\MONSTER\\MonsterMode.cpp", 269);
+    UnitUpdateAnimRateAndVel(pUnit, ".\\MONSTER\\MonsterMode.cpp", 269);
 }
 
 // 0x005A68E0

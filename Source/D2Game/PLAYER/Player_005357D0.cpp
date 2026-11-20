@@ -130,7 +130,7 @@ struct D2DifficultyLevelsTxt { unsigned int dwResistPenalty; unsigned int dwDeat
 #define STAT_LEVEL 12
 D2DifficultyLevelsTxt* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int nDifficulty); // 0x00611D30
 int __stdcall DATATBLS_GetLevelThreshold(int nClass, int nLevel); // 0x00611800
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 void __fastcall CLIENTS_SetExperienceLoss(D2ClientStrc* pClient, int nExpLoss); // 0x005391E0
 // 0x005359F0
 static void __stdcall sub_005359F0(D2GameStrc* pGame, D2UnitStrc* pDefender)
@@ -157,7 +157,7 @@ static void __stdcall sub_005359F0(D2GameStrc* pGame, D2UnitStrc* pDefender)
                 }
                 nNewExperienceValue = nPreviousExpThreshold + 1;
             }
-            CLIENTS_SetExperienceLoss(SUNIT_GetClientFromPlayer(pDefender, szPlayerCppFile, 0x3C4), nExperiencePenalty);
+            CLIENTS_SetExperienceLoss(UnitGetClient(pDefender, szPlayerCppFile, 0x3C4), nExperiencePenalty);
             STATLIST_SetUnitStat(pDefender, STAT_EXPERIENCE, nNewExperienceValue, 0);
         }
     }

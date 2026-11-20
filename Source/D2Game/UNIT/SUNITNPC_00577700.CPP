@@ -60,7 +60,7 @@ void __stdcall STATLIST_FreeStatList(D2StatListStrc* pStatList); // 0x00626CD0
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 D2UnitStrc* __fastcall SUNIT_GetInteractUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00554D00
 unsigned int __stdcall UNITS_GetHealingCost(D2UnitStrc* pUnit); // 0x00622DE0
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 void __fastcall D2GAME_SendPacket0x2A_6FC3F3B0(D2ClientStrc* pClient, unsigned char nHeader, int nCode, int nGold, int nUnitGUID, int a6); // 0x0053D740
 int __fastcall sub_00576D90_SpendGold(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nCost); // 0x00576D90
 void __fastcall D2GAME_NPC_HealPlayer_6FCCB080(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pNpc); // 0x00578D30
@@ -241,7 +241,7 @@ void __fastcall D2GAME_NPC_PurchaseHeal_6FCCB280(D2GameStrc* pGame, D2UnitStrc* 
     const int nMaxStamina = STATLIST_GetMaxStaminaFromUnit(pUnit);
     if (STATLIST_UnitGetStatValue(pUnit, 10, 0) == nMaxStamina && !nStatRestored)
     {
-        D2GAME_SendPacket0x2A_6FC3F3B0(SUNIT_GetClientFromPlayer(pUnit, gszNpcSourceFile, 3848), 0x2A, 14, STATLIST_UnitGetStatValue(pUnit, 14, 0), -1, 0);
+        D2GAME_SendPacket0x2A_6FC3F3B0(UnitGetClient(pUnit, gszNpcSourceFile, 3848), 0x2A, 14, STATLIST_UnitGetStatValue(pUnit, 14, 0), -1, 0);
         return;
     }
 
@@ -249,15 +249,15 @@ void __fastcall D2GAME_NPC_PurchaseHeal_6FCCB280(D2GameStrc* pGame, D2UnitStrc* 
     {
         if (!sub_00576D90_SpendGold(pGame, pUnit, nHealingCost))
         {
-            D2GAME_SendPacket0x2A_6FC3F3B0(SUNIT_GetClientFromPlayer(pUnit, gszNpcSourceFile, 3861), 0x2A, 9, STATLIST_UnitGetStatValue(pUnit, 14, 0), -1, 0);
+            D2GAME_SendPacket0x2A_6FC3F3B0(UnitGetClient(pUnit, gszNpcSourceFile, 3861), 0x2A, 9, STATLIST_UnitGetStatValue(pUnit, 14, 0), -1, 0);
             return;
         }
 
         D2GAME_NPC_HealPlayer_6FCCB080(pGame, pUnit, pNpc);
-        D2GAME_SendPacket0x2A_6FC3F3B0(SUNIT_GetClientFromPlayer(pUnit, gszNpcSourceFile, 3874), 0x2A, 6, STATLIST_UnitGetStatValue(pUnit, 14, 0), -1, 0);
+        D2GAME_SendPacket0x2A_6FC3F3B0(UnitGetClient(pUnit, gszNpcSourceFile, 3874), 0x2A, 6, STATLIST_UnitGetStatValue(pUnit, 14, 0), -1, 0);
     }
     else
     {
-        D2GAME_SendPacket0x2A_6FC3F3B0(SUNIT_GetClientFromPlayer(pUnit, gszNpcSourceFile, 3868), 0x2A, 12, STATLIST_UnitGetStatValue(pUnit, 14, 0), -1, 0);
+        D2GAME_SendPacket0x2A_6FC3F3B0(UnitGetClient(pUnit, gszNpcSourceFile, 3868), 0x2A, 12, STATLIST_UnitGetStatValue(pUnit, 14, 0), -1, 0);
     }
 }

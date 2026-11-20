@@ -160,7 +160,7 @@ int __stdcall EDITBOX_HandleMouseUp(SMSGHANDLER_PARAMS* pMsg);                  
 int __fastcall sub_004FF620_EditBoxDrawAlt(D2WinControlStrc* pControl);                                     // 0x004FF620
 int __stdcall sub_004FFBF0_EditBoxMouseDown(SMSGHANDLER_PARAMS* pMsg);                                      // 0x004FFBF0
 int __fastcall sub_004FFE50_EditBoxDraw(D2WinControlStrc* pControl);                                        // 0x004FFE50
-D2CelStrc* __stdcall D2CMP_CelGetHandle(D2CelContextStrc* pContext);                                        // 0x00601840
+D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext);                                        // 0x00601840
 int __stdcall sub_006018F0(D2CelStrc* pCel);                                                                // 0x006018F0
 
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268
@@ -235,7 +235,7 @@ int __fastcall ANIMIMAGE_ShouldMouseInputBeHandled(D2WinControlStrc* pControl)
     tContext.unk0x40 = 0;
     tContext.nFrame = 0;
 
-    D2CelStrc* pCel = D2CMP_CelGetHandle(&tContext);
+    D2CelStrc* pCel = CelGetHandle(&tContext);
     const int nImageX = pAnimImage->controlHeader.nImageX;
     const int nImageY = pAnimImage->controlHeader.nImageY;
     const int nWidth = sub_006018C0(pCel);

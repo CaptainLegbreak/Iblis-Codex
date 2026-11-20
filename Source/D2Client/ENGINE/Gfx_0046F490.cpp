@@ -895,7 +895,7 @@ static void __stdcall sub_0046FDA0_PreloadMonsterMode(int bAsync, D2UnitStrc* pU
             gpPoolBlock_007A80FC[nClass].aPending[nMode] = 1;
         }
     }
-    else if (!sub_005FF300_IsEntryPending(nType, nMode, nClass))
+    else if (!D2CMPSpriteFindAsynchSiblings(nType, nMode, nClass))
     {
         gpPoolBlock_007A80FC[nClass].f_0[nMode] = 1;
     }
@@ -961,7 +961,7 @@ static void __stdcall sub_0046FF50_PreloadPlayerMode(int bAsync, D2UnitStrc* pUn
             gaPlayerGfxCache_007A7490[nClass].aPending[nMode] = 1;
         }
     }
-    else if (!sub_005FF300_IsEntryPending(nType, nMode, nClass))
+    else if (!D2CMPSpriteFindAsynchSiblings(nType, nMode, nClass))
     {
         gaPlayerGfxCache_007A7490[nClass].f_0[nMode] = 1;
     }

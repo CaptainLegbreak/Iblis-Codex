@@ -92,7 +92,7 @@ void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* 
 void __fastcall D2GAME_PACKETS_SendPacket0x9B_6FC3FB30(D2ClientStrc* pClient, unsigned short nUnitGUID, int a3); // 0x0053E0E0
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID);                // 0x00552F60
 D2UnitStrc* __fastcall SUNIT_GetOwner(D2GameStrc* pGame, D2UnitStrc* pUnit);                                // 0x00552FD0
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine);     // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine);     // 0x005531C0
 void __fastcall SUNIT_IterateLivingPlayers(D2GameStrc* pGame, SUNIT_IterateFn pfIterate, void* pArg);       // 0x005538D0
 void __fastcall sub_6FCBB190(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom);               // 0x00554670
 void __fastcall SUNIT_RemoveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit);                                     // 0x00555600
@@ -295,7 +295,7 @@ static void __stdcall sub_00574570_ClearPetList(D2UnitStrc* pPlayer, D2PetListSt
                             D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
                         }
 
-                        D2GAME_PACKETS_SendPacket0x9B_6FC3FB30(SUNIT_GetClientFromPlayer(pPlayer, gszPlayerPetsSourceFile, 0xDB), pPetData->petInfo.nName, MONSTERS_GetHirelingResurrectionCost(pPet));
+                        D2GAME_PACKETS_SendPacket0x9B_6FC3FB30(UnitGetClient(pPlayer, gszPlayerPetsSourceFile, 0xDB), pPetData->petInfo.nName, MONSTERS_GetHirelingResurrectionCost(pPet));
                     }
                 }
                 else

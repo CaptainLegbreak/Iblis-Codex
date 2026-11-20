@@ -138,7 +138,7 @@ D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
 int __fastcall sub_6FCBDFE0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int a6, int a7); // 0x00554EA0
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 void __fastcall D2GAME_PACKETS_SendPacket0x07_6FC3D120(D2ClientStrc* pClient, int nAreaId, unsigned short nTileX, unsigned short nTileY); // 0x0053BC50
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
 
@@ -214,7 +214,7 @@ void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc
 void __stdcall SUNIT_SetInteractInfo(D2UnitStrc* pUnit, int nInteractUnitType, int nInteractUnitGUID); // 0x00554120
 void __stdcall SUNIT_ResetInteractInfo(D2UnitStrc* pUnit); // 0x00554190
 D2UnitStrc* __fastcall SUNIT_GetInteractUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00554D00
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x0063B2C0
 D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
 D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
@@ -580,7 +580,7 @@ static void sub_00581B50_TeleportToUnit(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRo
     {
         D2DrlgCoordsStrc tRoomCoords;
         DUNGEON_GetRoomCoordinates(pRoom, &tRoomCoords);
-        D2GAME_PACKETS_SendPacket0x07_6FC3D120(SUNIT_GetClientFromPlayer(pPlayer, ".\\OBJECTS\\ObjMode.cpp", 865), DUNGEON_GetLevelIdFromRoom(pRoom), tRoomCoords.nTileXPos, tRoomCoords.nTileYPos);
+        D2GAME_PACKETS_SendPacket0x07_6FC3D120(UnitGetClient(pPlayer, ".\\OBJECTS\\ObjMode.cpp", 865), DUNGEON_GetLevelIdFromRoom(pRoom), tRoomCoords.nTileXPos, tRoomCoords.nTileYPos);
         UNITROOM_RefreshUnit(pPlayer);
         if (pPlayer)
         {
@@ -769,7 +769,7 @@ static int sub_005825B0_HasItemOfType(D2UnitStrc* pUnit, int nItemType)
     for (D2UnitStrc* pItem = INVENTORY_GetFirstItem(pUnit->pInventory); pItem; pItem = INVENTORY_GetNextItem(pItem))
     {
         D2UnitStrc* pCheckedItem = INVENTORY_UnitIsItem(pItem);
-        if (ITEMS_CheckItemTypeId(pCheckedItem, nItemType))
+        if (ITEMSIsA(pCheckedItem, nItemType))
         {
             return 1;
         }
@@ -781,7 +781,7 @@ static int sub_005825B0_HasItemOfType(D2UnitStrc* pUnit, int nItemType)
 int __fastcall OBJECTS_OperateFunction17_Obelisk(D2ObjOperateFnStrc* pOp, int nOperate)
 {
     D2UnitStrc* pInteractUnit = SUNIT_GetInteractUnit(pOp->pGame, pOp->pPlayer);
-    D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pOp->pPlayer, ".\\OBJECTS\\ObjMode.cpp", 1772);
+    D2ClientStrc* pClient = UnitGetClient(pOp->pPlayer, ".\\OBJECTS\\ObjMode.cpp", 1772);
     const int nAnimMode = !pOp->pObject ? 0 : pOp->pObject->dwAnimMode;
     if (nAnimMode)
     {
@@ -991,7 +991,7 @@ static int __stdcall sub_00582AC0_UpgradeGem(D2UnitStrc* pItem, int nItemId, D2G
             int nFlags = 0;
             ITEMS_SetOrRemoveFlag(&nFlags, 0x20, 1);
             ITEMS_SetItemCell(pItem, ITEMS_GetInvPage(pItem));
-            D2GAME_UpdateClientItem_6FC3E9D0(SUNIT_GetClientFromPlayer(pPlayer, ".\\OBJECTS\\ObjMode.cpp", 0x80F), pPlayer, pItem, (unsigned int)nFlags);
+            D2GAME_UpdateClientItem_6FC3E9D0(UnitGetClient(pPlayer, ".\\OBJECTS\\ObjMode.cpp", 0x80F), pPlayer, pItem, (unsigned int)nFlags);
             D2GAME_RemoveItem_6FC471F0(pGame, pPlayer, pItem, 0);
         }
 
@@ -1519,7 +1519,7 @@ void __fastcall OBJMODE_TravelViaWaypoint(D2GameStrc* pGame, D2UnitStrc* pPlayer
     int nY;
     if (pRoom && pRoom == DUNGEON_FindActSpawnLocation(pGame->pAct[DRLG_GetActNoFromLevelId(nDestLevelId)], nDestLevelId, nTileIndex, &nX, &nY))
     {
-        D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pPlayer, ".\\OBJECTS\\ObjMode.cpp", 0x1072);
+        D2ClientStrc* pClient = UnitGetClient(pPlayer, ".\\OBJECTS\\ObjMode.cpp", 0x1072);
         const int nUnitGUID = sub_F05_WpGetUnitId(pPlayer);
         D2CoordStrc tCoord;
         UNITS_GetCoords(pPlayer, &tCoord);

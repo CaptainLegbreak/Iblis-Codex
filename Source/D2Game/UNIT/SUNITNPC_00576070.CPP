@@ -2,7 +2,7 @@
 #include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define SEND_GOLD(code,line,guid,kind) D2GAME_SendPacket0x2A_6FC3F3B0(SUNIT_GetClientFromPlayer(pPlayer,gszNpcSourceFile,line),0x2A,code,STATLIST_UnitGetStatValue(pPlayer,14,0),guid,kind)
+#define SEND_GOLD(code,line,guid,kind) D2GAME_SendPacket0x2A_6FC3F3B0(UnitGetClient(pPlayer,gszNpcSourceFile,line),0x2A,code,STATLIST_UnitGetStatValue(pPlayer,14,0),guid,kind)
 
 struct D2SeedStrc;
 struct D2RoomStrc;
@@ -115,7 +115,7 @@ void __fastcall D2GAME_SendPacket0x2A_6FC3F3B0(D2ClientStrc*,unsigned char,int,i
 void __fastcall sub_0053FF00_AddGold(D2UnitStrc*,int,int); // 0x0053FF00
 D2BitBufferStrc* __fastcall sub_00543520_GetQuestFlags(D2GameStrc*,D2UnitStrc*); // 0x00543520
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc*,int,int); // 0x00552F60
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc*,const char*,int); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc*,const char*,int); // 0x005531C0
 int __fastcall sub_00557FF0_CheckVendorItem(D2UnitStrc*,D2UnitStrc*,D2InventoryStrc*); // 0x00557FF0
 D2UnitStrc* __fastcall sub_0055A2A0_DuplicateItem(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,int); // 0x0055A2A0
 int __fastcall sub_0055E9B0_PlaceBelt(D2GameStrc*,D2UnitStrc*,int,int,int,int*); // 0x0055E9B0
@@ -134,7 +134,7 @@ void __stdcall STATLIST_AddUnitStat(D2UnitStrc*,int,int,int); // 0x006272B0
 void __stdcall ITEMS_SetItemFlag(D2UnitStrc*,int,int); // 0x006280D0
 int __stdcall ITEMS_CheckIfStackable(D2UnitStrc*); // 0x006289F0
 int __stdcall sub_00628BA0_CanPlaceInBelt(D2InventoryStrc*,D2UnitStrc*); // 0x00628BA0
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc*,int); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc*,int); // 0x00629BB0
 int __stdcall ITEMS_GetAutoStack(D2UnitStrc*); // 0x0062E790
 D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc*); // 0x0063BEF0
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc*); // 0x0063C1E0
@@ -468,7 +468,7 @@ int __fastcall sub_00577830_BuyItem(D2GameStrc* pGame,D2UnitStrc* pPlayer,D2Unit
     D2InventoryStrc* pInventory=pPlayer->pInventory;
     if(INVENTORY_GetCursorItem(pInventory)){SEND_GOLD(7,2129,-1,0);return 1;}
     if(!sub_00576ED0_CanMultibuy(pGame,pNpc,pItem))bMultibuy=0;
-    if(ITEMS_CheckItemTypeId(pItem,22))
+    if(ITEMSIsA(pItem,22))
     {
         int nFree;
         D2UnitStrc* pBook=ITEMMODE_FindMatchingBookWithSpace(pGame,pPlayer,pItem,&nFree);
@@ -504,7 +504,7 @@ int __fastcall sub_00577830_BuyItem(D2GameStrc* pGame,D2UnitStrc* pPlayer,D2Unit
             if(!sub_00576D90_SpendGold(pGame,pPlayer,nCount*nCost)){SEND_GOLD(12,2207,-1,0);return 0;}
             sub_00576F50_UpdateVendor(pGame,pNpc,pItem,pPlayer,nTransaction);
             STATLIST_AddUnitStat(pStack,70,nCount,0);
-            sub_0053D130_SendItemStat(SUNIT_GetClientFromPlayer(pPlayer,gszNpcSourceFile,2214),pStack,1,70,STATLIST_UnitGetStatValue(pStack,70,0),0);
+            sub_0053D130_SendItemStat(UnitGetClient(pPlayer,gszNpcSourceFile,2214),pStack,1,70,STATLIST_UnitGetStatValue(pStack,70,0),0);
             int nGuid=pStack->dwUnitId;
             SEND_GOLD(0,2216,nGuid,5);return 0;
         }
@@ -541,7 +541,7 @@ int __fastcall sub_00577830_BuyItem(D2GameStrc* pGame,D2UnitStrc* pPlayer,D2Unit
             int nPlayerClass=sub_00623C60(pPlayer);
             if(nItemClass==gnSpecialItem1 && pWeapon && nPlayerClass!=7)bAutoEquip=0;
             if(nItemClass==gnSpecialItem2 && pWeapon && nPlayerClass!=1)bAutoEquip=0;
-            if((pWeapon && ITEMS_CheckItemTypeId(pItem,45)) || (!pWeapon && (nItemClass==gnSpecialItem1 || nItemClass==gnSpecialItem2)))goto inventory;
+            if((pWeapon && ITEMSIsA(pItem,45)) || (!pWeapon && (nItemClass==gnSpecialItem1 || nItemClass==gnSpecialItem2)))goto inventory;
             if(bAutoEquip)
             {
                 bPlaced=sub_00562E00_AutoEquip(pGame,pPlayer,pItem,0);

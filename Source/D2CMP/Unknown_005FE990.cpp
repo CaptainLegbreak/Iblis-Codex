@@ -774,7 +774,7 @@ extern HashTable gHash_0088DB58; // 0x0088DB58
 extern SpriteCache gCache_0089DB60; // 0x0089DB60
 extern int gWarn_008ADBB0; // 0x008ADBB0
 extern int __fastcall FOG_AsyncDataTestLoaded(AsyncData*); // 0x0040A7F0
-extern void* __stdcall D2CMP_CelGetHandle(D2CmpSpriteContextStrc*); // 0x00601840
+extern void* __stdcall CelGetHandle(D2CmpSpriteContextStrc*); // 0x00601840
 extern HashNode* __fastcall sub_0060ACE0_GfxHashFind(HashTable*, D2CmpSpriteContextStrc*, unsigned int*, unsigned int*, SpriteFile*); // 0x0060ACE0
 extern void __fastcall sub_005FF5B0_SpriteCacheTouchNode(SpriteCache*, void*); // 0x005FF5B0
 extern unsigned int __stdcall sub_00600CB0_ConvertDirection(unsigned int, unsigned int, unsigned int, int); // 0x00600CB0
@@ -866,7 +866,7 @@ int __stdcall sub_006001F0_LoadSprite(D2CmpSpriteContextStrc* context, int async
     context->pFrame = 0;
     if (context->pCel)
     {
-        context->pFrame = D2CMP_CelGetHandle(context);
+        context->pFrame = CelGetHandle(context);
         return 1;
     }
     char name[0x104];

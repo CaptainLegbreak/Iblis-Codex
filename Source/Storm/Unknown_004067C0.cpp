@@ -70,7 +70,7 @@ void __cdecl sub_00413740_Nop()
 }
 
 // 0x00608520
-int __cdecl sub_00608520_ToggleGlobal()
+int __cdecl D2CMPToggleCelDrawMode()
 {
     return gdwGlobal_008F03C8 = (gdwGlobal_008F03C8 == 0);
 }

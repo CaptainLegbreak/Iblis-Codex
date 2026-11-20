@@ -106,7 +106,7 @@ void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int
 unsigned int __stdcall sub_0052B330(unsigned char nFlags, int nClientId, void* pPacket, int nSize);          // 0x0052B330
 int __cdecl sub_0052B910();                                                                                 // 0x0052B910
 void __fastcall sub_0052CA10(D2GameStrc* pGame);                                                          // 0x0052CA10
-void __fastcall GAME_DisconnectClient(D2GameStrc* pGame, D2ClientStrc* pClient, int nEventType);            // 0x0052CAF0
+void __fastcall SrvDisconnectClient(D2GameStrc* pGame, D2ClientStrc* pClient, int nEventType);            // 0x0052CAF0
 void __fastcall GAME_LeaveGamesCriticalSection(D2GameStrc* pGame);                                          // 0x0052DA90
 void __fastcall GAME_CloseGame(int nGameGUID);                                                              // 0x0052E770
 D2GameStrc* __fastcall GAME_LockGame(int nGameGUID);                                                        // 0x0052E860
@@ -125,7 +125,7 @@ D2PacketDataStrc* __fastcall CLIENTS_PacketDataList_PopHead(D2ClientStrc* pClien
 D2PacketDataStrc* __fastcall CLIENTS_PacketDataList_GetHead(D2ClientStrc* pClient);                         // 0x005392E0
 void __fastcall GAME_EndGameForConnectedClient(D2GameStrc* pGame, D2ClientStrc* pClient);                   // 0x00530590
 void __fastcall CLIENTS_CopyAccountNameToBuffer(D2ClientStrc* pClient, char* szBuffer);                     // 0x005392F0
-void __fastcall CLIENTS_RemoveClientFromGame(D2GameStrc* pGame, int nClientId, int bTriggerSave);           // 0x00539DA0
+void __fastcall ClientRemoveFromGame(D2GameStrc* pGame, int nClientId, int bTriggerSave);           // 0x00539DA0
 void __fastcall sub_0053B220_SendHeaderOnly0xB0(int nClientId);                                             // 0x0053B220
 void __fastcall D2GAME_PACKETS_SendHeaderOnlyPacket(D2ClientStrc* pClient, unsigned char nHeader);        // 0x0053B320
 void __fastcall D2GAME_PACKETS_SendPacket0x16_UnitsUpdate(D2ClientStrc* pClient);                           // 0x0053E130
@@ -247,7 +247,7 @@ static void __stdcall GAME_SendSaveFilePart(D2GameStrc* pGame, D2ClientStrc* pCl
     if (pClient->nSaveHeaderSendFailures >= 3)
     {
         CLIENTS_FreeSaveHeader(pClient);
-        GAME_DisconnectClient(pGame, pClient, 0);
+        SrvDisconnectClient(pGame, pClient, 0);
     }
 }
 
@@ -332,7 +332,7 @@ static void __stdcall GAME_SendClientPackets(D2GameStrc* pGame, int bSyncPlayer,
             CLIENTS_PacketDataList_Reset(pClient, pPacketData);
             if (pClient->nSaveHeaderSendFailures >= 3)
             {
-                GAME_DisconnectClient(pGame, pClient, 0);
+                SrvDisconnectClient(pGame, pClient, 0);
                 return;
             }
         }
@@ -375,7 +375,7 @@ void __stdcall GAME_CloseAllGames()
                 D2GAME_SAVE_WriteFile_6FC8A500(pGame, pPlayer, CLIENTS_GetName(pClient), 1);
                 sub_0052E260_SendRemainingSaveParts(pGame, pClient);
                 sub_0053B240_SendHeaderOnly0x06(pClient->dwClientId);
-                CLIENTS_RemoveClientFromGame(pGame, pClient->dwClientId, 0);
+                ClientRemoveFromGame(pGame, pClient->dwClientId, 0);
 
                 pClient = pNextClient;
             }
@@ -462,7 +462,7 @@ int __stdcall GAME_UpdateClients(int bForceUpdate1, int bForceUpdate2)
 }
 
 // 0x005303D0
-void __fastcall GAME_EndGame(int nClientId, int bSendLeaveMessage)
+void __fastcall SrvEndGame(int nClientId, int bSendLeaveMessage)
 {
     D2GameStrc* pGame = GAME_LockGame(SERVER_GetClientGameGUID(nClientId));
     if (!pGame)
@@ -501,7 +501,7 @@ void __fastcall GAME_EndGame(int nClientId, int bSendLeaveMessage)
             CLIENTS_CopyAccountNameToBuffer(pClient, &packet5A.szText[16]);
             packet5A.szText[31] = '\0';
             SStrCopy(packet5A.szText, CLIENTS_GetName(pClient), 16);
-            CLIENTS_RemoveClientFromGame(pGame, nClientId, !bOwner);
+            ClientRemoveFromGame(pGame, nClientId, !bOwner);
 
             if (bSendLeaveMessage)
             {

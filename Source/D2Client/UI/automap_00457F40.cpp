@@ -112,7 +112,7 @@ extern int gnAutomapWidth_007A5220; // 0x007A5220
 
 extern "C" __declspec(dllimport) int __stdcall wvsprintfA(char* szDest, const char* szFormat, va_list args); // 0x006CC4AC
 D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType); // 0x004788B0
-int __stdcall sub_006019F0(D2CelFileStrc* pCelFile); // 0x006019F0
+int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pCelFile); // 0x006019F0
 void __fastcall sub_00478A00(void* pCel); // 0x00478A00
 extern int gdwGlobal_007A5150; // 0x007A5150
 extern "C" size_t __cdecl strlen(const char* szString);
@@ -596,32 +596,32 @@ void __cdecl sub_0045A2B0_ReloadAutomapCels()
     case 1:
         sprintf(szPath, "%s\\UI\\AutoMap\\MaxiMapS", szDataGlobal_006D4118);
         gpAutomapCels_007A5168[0] = sub_004788B0(szPath, 0);
-        gnAutomapCelFrames_007A5178[0] = sub_006019F0(gpAutomapCels_007A5168[0]);
+        gnAutomapCelFrames_007A5178[0] = CelFileGetCelsPerDirection(gpAutomapCels_007A5168[0]);
         sprintf(szPath, "%s\\UI\\AutoMap\\Act2MapS", szDataGlobal_006D4118);
         gpAutomapCels_007A5168[1] = sub_004788B0(szPath, 0);
-        gnAutomapCelFrames_007A5178[1] = sub_006019F0(gpAutomapCels_007A5168[1]);
+        gnAutomapCelFrames_007A5178[1] = CelFileGetCelsPerDirection(gpAutomapCels_007A5168[1]);
         sprintf(szPath, "%s\\UI\\AutoMap\\Act4MapS", szDataGlobal_006D4118);
         gpAutomapCels_007A5168[2] = sub_004788B0(szPath, 0);
-        gnAutomapCelFrames_007A5178[2] = sub_006019F0(gpAutomapCels_007A5168[2]);
+        gnAutomapCelFrames_007A5178[2] = CelFileGetCelsPerDirection(gpAutomapCels_007A5168[2]);
         sprintf(szPath, "%s\\UI\\AutoMap\\ExTnMapS", szDataGlobal_006D4118);
         gpAutomapCels_007A5168[3] = sub_004788B0(szPath, 0);
-        gnAutomapCelFrames_007A5178[3] = sub_006019F0(gpAutomapCels_007A5168[3]);
+        gnAutomapCelFrames_007A5178[3] = CelFileGetCelsPerDirection(gpAutomapCels_007A5168[3]);
         break;
     default:
         sprintf(szPath, "%s\\UI\\AutoMap\\MaxiMap", szDataGlobal_006D4118);
         gpAutomapCels_007A5168[0] = sub_004788B0(szPath, 0);
-        gnAutomapCelFrames_007A5178[0] = sub_006019F0(gpAutomapCels_007A5168[0]);
+        gnAutomapCelFrames_007A5178[0] = CelFileGetCelsPerDirection(gpAutomapCels_007A5168[0]);
         sprintf(szPath, "%s\\UI\\AutoMap\\Act2Map", szDataGlobal_006D4118);
         gpAutomapCels_007A5168[1] = sub_004788B0(szPath, 0);
-        gnAutomapCelFrames_007A5178[1] = sub_006019F0(gpAutomapCels_007A5168[1]);
+        gnAutomapCelFrames_007A5178[1] = CelFileGetCelsPerDirection(gpAutomapCels_007A5168[1]);
         sprintf(szPath, "%s\\UI\\AutoMap\\Act4Map", szDataGlobal_006D4118);
         gpAutomapCels_007A5168[2] = sub_004788B0(szPath, 0);
-        gnAutomapCelFrames_007A5178[2] = sub_006019F0(gpAutomapCels_007A5168[2]);
+        gnAutomapCelFrames_007A5178[2] = CelFileGetCelsPerDirection(gpAutomapCels_007A5168[2]);
         if (sub_00408F20_HasExpansionMpq())
         {
             sprintf(szPath, "%s\\UI\\AutoMap\\ExTnMap", szDataGlobal_006D4118);
             gpAutomapCels_007A5168[3] = sub_004788B0(szPath, 0);
-            gnAutomapCelFrames_007A5178[3] = sub_006019F0(gpAutomapCels_007A5168[3]);
+            gnAutomapCelFrames_007A5178[3] = CelFileGetCelsPerDirection(gpAutomapCels_007A5168[3]);
         }
         else
         {

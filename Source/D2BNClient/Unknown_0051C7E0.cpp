@@ -161,7 +161,7 @@ int __cdecl sub_0051CA30_IsReady()
 }
 
 // 0x0051CA90
-int __stdcall sub_0051CA90_Connect(char* szServerList)
+int __stdcall sFastestConnect(char* szServerList)
 {
     D2BnServerEntryStrc aServers[32];
 

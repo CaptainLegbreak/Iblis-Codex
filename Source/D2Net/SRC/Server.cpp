@@ -8,7 +8,7 @@ typedef int (__fastcall* D2NET_PacketCallback)(int, int, int, int);
 typedef int (__fastcall* D2NET_ReadPacketCallback)(QServer*, D2PacketBufferStrc*, int);
 int gnLocalClientGameGuid_6FC0B26C;                                                                         // 0x00882D0C
 
-QServer* __stdcall FOG_InitializeServer(int a1, int a2, int a3, int a4, D2NET_PacketCallback a5, D2NET_PacketCallback a6, D2NET_PacketCallback a7, D2NET_ReadPacketCallback a8); // 0x006BF760
+QServer* __stdcall QSInit(int a1, int a2, int a3, int a4, D2NET_PacketCallback a5, D2NET_PacketCallback a6, D2NET_PacketCallback a7, D2NET_ReadPacketCallback a8); // 0x006BF760
 int __stdcall FOG_10165(QServer* pServer, int nClientId, const char* szFile, int nLine);                   // 0x006C06B0
 int __stdcall FOG_10170(QServer* pServer, int a2);                                                          // 0x006BF040
 int __stdcall FOG_10171(QServer* pServer, D2NET_Unk_Callback pfCallback);                                   // 0x006BF080
@@ -99,5 +99,5 @@ int __fastcall sub_6FC020E0(int a1, int a2, int a3, int a4)
 // 0x0052B7A0
 void __stdcall SERVER_Initialize(int a1, int a2)
 {
-    gpServer = FOG_InitializeServer(a1, 3, GAME_PORT, a2, SERVER_ValidateClientPacket, sub_6FC020B0, sub_6FC020E0, sub_0052B0E0);
+    gpServer = QSInit(a1, 3, GAME_PORT, a2, SERVER_ValidateClientPacket, sub_6FC020B0, sub_6FC020E0, sub_0052B0E0);
 }

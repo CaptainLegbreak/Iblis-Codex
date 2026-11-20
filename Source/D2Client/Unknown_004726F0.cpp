@@ -148,7 +148,7 @@ struct D2WeatherLayerStateStrc
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szBuffer, const char* szFormat, ...);          // 0x006CC468
 D2CelFileStrc* __fastcall ARCHIVE_LoadCellFileWithFileSize(const char* szFile, unsigned int* pFileSize, int nType); // 0x00478950
-int __stdcall sub_006019F0(D2CelFileStrc* pCelFile);                                                // 0x006019F0
+int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pCelFile);                                                // 0x006019F0
 void __cdecl sub_00472610_InitWindAngle();                                                                  // 0x00472610
 
 extern "C" const char gszDataGlobalPath[];                                                                  // 0x006D4118
@@ -222,7 +222,7 @@ void __fastcall sub_00472890_InitWeather(int nLevelId)
     wsprintfA(szPath, "%s\\UncompOverlays\\Rain4", gszDataGlobalPath);
     gtWeatherLayer_007A89B0.apCelFiles[3] = ARCHIVE_LoadCellFileWithFileSize(szPath, &nFileSize, 0);
     for (int i = 0; i < 4; ++i)
-        gnSplashFrames_007A89C8[i] = sub_006019F0(gtWeatherLayer_007A89B0.apCelFiles[i]);
+        gnSplashFrames_007A89C8[i] = CelFileGetCelsPerDirection(gtWeatherLayer_007A89B0.apCelFiles[i]);
 
     wsprintfA(szPath, "%s\\UncompOverlays\\bubble1", gszDataGlobalPath);
     gtWeatherLayer_007A893C.apCelFiles[0] = ARCHIVE_LoadCellFileWithFileSize(szPath, &nFileSize, 0);
@@ -233,7 +233,7 @@ void __fastcall sub_00472890_InitWeather(int nLevelId)
     wsprintfA(szPath, "%s\\UncompOverlays\\bubble4", gszDataGlobalPath);
     gtWeatherLayer_007A893C.apCelFiles[3] = ARCHIVE_LoadCellFileWithFileSize(szPath, &nFileSize, 0);
     for (int i = 0; i < 4; ++i)
-        gnBubbleFrames_007A892C[i] = sub_006019F0(gtWeatherLayer_007A893C.apCelFiles[i]);
+        gnBubbleFrames_007A892C[i] = CelFileGetCelsPerDirection(gtWeatherLayer_007A893C.apCelFiles[i]);
 
     gfPhaseLevel_007A89A0 = 0.0f;
 }

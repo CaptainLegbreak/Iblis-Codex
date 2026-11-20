@@ -45,7 +45,7 @@ int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem);
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile);
 void __stdcall ITEMS_SetItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int bSet);                         // 0x006280D0
 int __stdcall sub_00629A40(D2UnitStrc* pItem);
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType);
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType);
 int __stdcall ITEMS_IsCharmUsable(D2UnitStrc* pItem, D2UnitStrc* pPlayer);
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId);
 D2GemsTxt* __stdcall DATATBLS_GetGemsTxtRecord(int nGemId);
@@ -75,14 +75,14 @@ static void __stdcall sub_004C0D20_ApplyItemStats(D2UnitStrc* pUnit, D2UnitStrc*
         return;
     }
 
-    if (ITEMS_CheckItemTypeId(pItem, 0x14))
+    if (ITEMSIsA(pItem, 0x14))
     {
         D2_ASSERT(pUnit->dwUnitType == 4, 0x30);
         pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
         pGemsTxtRecord = DATATBLS_GetGemsTxtRecord(pItemsTxtRecord->dwGemOffset);
         sub_0065FEC0_ItemApplyProps(2, NULL, pItem, pGemsTxtRecord, sub_00629A40(pUnit), 0);
     }
-    else if (ITEMS_CheckItemTypeId(pItem, 0x4A))
+    else if (ITEMSIsA(pItem, 0x4A))
     {
         D2_ASSERT(pUnit->dwUnitType == 4, 0x3A);
         pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
@@ -105,7 +105,7 @@ static void __stdcall sub_004C0D20_ApplyItemStats(D2UnitStrc* pUnit, D2UnitStrc*
         if (UNITS_CanDualWield(pUnit))
         {
             int bType = 1;
-            if (pLeftHand && pItem != pLeftHand && ITEMS_CheckItemTypeId(pItem, 0x2D))
+            if (pLeftHand && pItem != pLeftHand && ITEMSIsA(pItem, 0x2D))
             {
                 bType = 0;
             }

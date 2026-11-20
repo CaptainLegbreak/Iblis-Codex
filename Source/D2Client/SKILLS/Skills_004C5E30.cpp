@@ -50,7 +50,7 @@ D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall UNITS_CanDualWield(D2UnitStrc* pUnit); // 0x006235A0
 int __fastcall sub_00623C20(D2UnitStrc* pUnit); // 0x00623C20
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 int __stdcall sub_0062A4E0_TestItem(D2UnitStrc* pItem); // 0x0062A4E0
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
@@ -469,7 +469,7 @@ static __declspec(noinline) void __stdcall sub_004C6DE0_SwapDualWieldSkill(D2Cli
         pLeftHand = NULL;
     }
 
-    if (ITEMS_CheckItemTypeId(pRightHand, 0x2D) && ITEMS_CheckItemTypeId(pLeftHand, 0x2D))
+    if (ITEMSIsA(pRightHand, 0x2D) && ITEMSIsA(pLeftHand, 0x2D))
     {
         D2SkillStrc* pSkill = SKILLS_GetSkill(pUnit, 0, -1);
         if (!SKILLS_GetParam4(pSkill))

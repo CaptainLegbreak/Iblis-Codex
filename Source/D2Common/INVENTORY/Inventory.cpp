@@ -181,7 +181,7 @@ int __stdcall ITEMS_GetAmmoType(D2UnitStrc* pItem); // 0x0062E6F0
 int __stdcall ITEMS_GetQuiverType(D2UnitStrc* pItem); // 0x0062E740
 unsigned int __stdcall ITEMS_CheckWeaponIfTwoHanded(D2UnitStrc* pItem); // 0x006289C0
 int __stdcall ITEMS_Is1Or2Handed(D2UnitStrc* pPlayer, D2UnitStrc* pItem); // 0x0062A1E0
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 
 typedef int BOOL;
 
@@ -1281,8 +1281,8 @@ int __stdcall sub_K15_Emit5(int* p, int n)
 static __declspec(noinline) int sub_0063DBC0_PairIsWieldable(D2UnitStrc* pUnit, D2UnitStrc* pItem1, D2UnitStrc* pItem2)
 {
     if (!pItem1 || !pItem2
-        || ITEMS_GetAmmoType(pItem1) && ITEMS_CheckItemTypeId(pItem2, ITEMS_GetAmmoType(pItem1))
-        || ITEMS_GetAmmoType(pItem2) && ITEMS_CheckItemTypeId(pItem1, ITEMS_GetAmmoType(pItem2)))
+        || ITEMS_GetAmmoType(pItem1) && ITEMSIsA(pItem2, ITEMS_GetAmmoType(pItem1))
+        || ITEMS_GetAmmoType(pItem2) && ITEMSIsA(pItem1, ITEMS_GetAmmoType(pItem2)))
     {
         return 1;
     }
@@ -1302,7 +1302,7 @@ static __declspec(noinline) int sub_0063DBC0_PairIsWieldable(D2UnitStrc* pUnit, 
         return 0;
     }
 
-    if (ITEMS_CheckItemTypeId(pItem1, 0x2D) && ITEMS_CheckItemTypeId(pItem2, 0x2D))
+    if (ITEMSIsA(pItem1, 0x2D) && ITEMSIsA(pItem2, 0x2D))
     {
         if (!pUnit)
         {
@@ -1315,7 +1315,7 @@ static __declspec(noinline) int sub_0063DBC0_PairIsWieldable(D2UnitStrc* pUnit, 
             {
             case 0x1A1:
             case 0x1A2:
-                return ITEMS_CheckItemTypeId(pItem1, 0x43) && ITEMS_CheckItemTypeId(pItem2, 0x43);
+                return ITEMSIsA(pItem1, 0x43) && ITEMSIsA(pItem2, 0x43);
 
             case 0x21C:
             case 0x21D:
@@ -1337,24 +1337,24 @@ static __declspec(noinline) int sub_0063DBC0_PairIsWieldable(D2UnitStrc* pUnit, 
             return 1;
         }
 
-        if (pUnit->dwClassId != 6 || !ITEMS_CheckItemTypeId(pItem1, 0x43))
+        if (pUnit->dwClassId != 6 || !ITEMSIsA(pItem1, 0x43))
         {
             return 0;
         }
 
-        if (!ITEMS_CheckItemTypeId(pItem2, 0x43))
+        if (!ITEMSIsA(pItem2, 0x43))
         {
             return 0;
         }
     }
     else
     {
-        if (ITEMS_CheckItemTypeId(pItem1, 0x2D))
+        if (ITEMSIsA(pItem1, 0x2D))
         {
             return 1;
         }
 
-        if (!ITEMS_CheckItemTypeId(pItem2, 0x2D))
+        if (!ITEMSIsA(pItem2, 0x2D))
         {
             return 0;
         }

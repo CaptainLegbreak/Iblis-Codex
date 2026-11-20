@@ -343,7 +343,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 extern "C" const char gszEmptyString_006FFC44[]; // 0x006FFC44
 const char* __fastcall sub_00408000_StripSourcePath(const char* szPath); // 0x00408000
 int __stdcall SStrLen(const char* szString); // 0x00413750
-int __cdecl sub_0040C620_SymInitializeOnce(); // 0x0040C620
+int __cdecl s_DoSymInitialize(); // 0x0040C620
 int __fastcall sub_0040C720_SymCleanupOnce(int bAll); // 0x0040C720
 extern SymGetLineFromAddrFn gpfnSymGetLineFromAddr_0075CFE4; // 0x0075CFE4
 extern void* gpfnSymFunctionTableAccess_0075CFE0; // 0x0075CFE0
@@ -689,7 +689,7 @@ static void __stdcall sub_0040C520_GetLogicalAddress(char* szModule, unsigned lo
 }
 
 // 0x0040C620
-int __cdecl sub_0040C620_SymInitializeOnce()
+int __cdecl s_DoSymInitialize()
 {
     int bResult = 0;
     EnterCriticalSection(&gtImageHlpLock_0075CFBC);
@@ -768,7 +768,7 @@ int __fastcall sub_0040C720_ReleaseReferences(int all)
 }
 
 // 0x0040C7A0
-int __fastcall sub_0040C7A0_QuickStackWalk(const char* szPrefix, void* hThread, D2ContextStrc* pContext)
+int __fastcall QuickStackWalk(const char* szPrefix, void* hThread, D2ContextStrc* pContext)
 {
     if (gnStackWalkDepth_0075D018 > 0)
     {
@@ -782,7 +782,7 @@ int __fastcall sub_0040C7A0_QuickStackWalk(const char* szPrefix, void* hThread, 
     __int64 aEnd[4] = {};
 
     void* hProcess = GetCurrentProcess();
-    if (!sub_0040C620_SymInitializeOnce())
+    if (!s_DoSymInitialize())
     {
         --gnStackWalkDepth_0075D018;
         return 0;

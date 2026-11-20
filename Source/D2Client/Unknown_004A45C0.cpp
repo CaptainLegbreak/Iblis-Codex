@@ -85,7 +85,7 @@ void __fastcall sub_005023B0_DrawTextBox(const Unicode* wszText, int nX, int nY,
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 int __stdcall sub_00622720(D2UnitStrc* pUnit, int nArg); // 0x00622720
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
 int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClassId, int nAnimMode, int a5); // 0x0064F380
 
@@ -594,7 +594,7 @@ static int sub_004A70C0_GetWieldedTypeStatMax(D2UnitStrc* pUnit)
     {
         const int nItemType = aStats[i].nLayer;
         const int nValue = aStats[i].nValue;
-        if (nItemType <= 0 || ((pLeftItem && ITEMS_CheckItemTypeId(pLeftItem, nItemType)) || (pRightItem && ITEMS_CheckItemTypeId(pRightItem, nItemType))) && nValue > nBest)
+        if (nItemType <= 0 || ((pLeftItem && ITEMSIsA(pLeftItem, nItemType)) || (pRightItem && ITEMSIsA(pRightItem, nItemType))) && nValue > nBest)
         {
             nBest = nValue;
         }

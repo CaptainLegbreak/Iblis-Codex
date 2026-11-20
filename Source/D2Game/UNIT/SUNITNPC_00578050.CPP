@@ -10,7 +10,7 @@ extern "C" void __cdecl sub_00408A60(const char*, const char*, int); // 0x00408A
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 D2UnitStrc* __fastcall SUNIT_GetInteractUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00554D00
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 void __fastcall sub_0053D740_SendPacket0x2A(D2ClientStrc* pClient, char nHeader, char nResult, int nGold, int nUnitGUID, char nTransactionType); // 0x0053D740
 void __fastcall D2GAME_PACKETS_SendPacket0x3E_6FC3EC20(D2ClientStrc* pClient, D2UnitStrc* pItem, unsigned char a3, int nStatId, unsigned int nValue, unsigned short a6); // 0x0053D130
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
@@ -33,7 +33,7 @@ unsigned int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwMas
 
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define SEND_0x2A(nResult, nLine, bSuccess) sub_0053D740_SendPacket0x2A(SUNIT_GetClientFromPlayer(pUnit, gszNpcSourceFile, nLine), 0x2A, nResult, STATLIST_UnitGetStatValue(pUnit, 14, 0), -1, bSuccess)
+#define SEND_0x2A(nResult, nLine, bSuccess) sub_0053D740_SendPacket0x2A(UnitGetClient(pUnit, gszNpcSourceFile, nLine), 0x2A, nResult, STATLIST_UnitGetStatValue(pUnit, 14, 0), -1, bSuccess)
 
 // 0x00578050
 int __fastcall D2GAME_NPC_Repair_6FCC95B0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nNpcGUID, int nItemGUID, unsigned short nUnused, int nRepairFlags)
@@ -133,7 +133,7 @@ lNotRepairable:
                         const int nNewDurability = D2_MIN(nMaxDurability, nDurability + nRepairDurability);
 
                         STATLIST_SetUnitStat(pItem, 72, nNewDurability, 0);
-                        D2GAME_PACKETS_SendPacket0x3E_6FC3EC20(SUNIT_GetClientFromPlayer(pUnit, gszNpcSourceFile, 0xA4A), pItem, 1, 72, nNewDurability, 0);
+                        D2GAME_PACKETS_SendPacket0x3E_6FC3EC20(UnitGetClient(pUnit, gszNpcSourceFile, 0xA4A), pItem, 1, 72, nNewDurability, 0);
                         SEND_0x2A(2, 0xA4B, 1);
                         return 0;
                     }

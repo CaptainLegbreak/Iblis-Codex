@@ -135,7 +135,7 @@ void __stdcall STATLIST_SetStat(D2StatListStrc* pStatList, int nStatId, int nVal
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
 void __stdcall ITEMS_AssignSuffix(D2UnitStrc* pItem, unsigned short nSuffix, int nSuffixNo); // 0x00627FB0
 int __stdcall ITEMS_GetBaseCode(D2UnitStrc* pItem); // 0x00628590
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 void __stdcall ITEMS_SetFileIndex(D2UnitStrc* pItem, unsigned int dwFileIndex); // 0x00629DF0
 void __stdcall sub_00629EA0(D2UnitStrc* pItem, int nFirst, int nSecond); // 0x00629EA0
 void __stdcall ITEMS_SetItemFormat(D2UnitStrc* pItem, unsigned short nItemFormat); // 0x0062A6C0
@@ -470,7 +470,7 @@ static int __stdcall ITEMS_DecodeItemBitstreamCompact(D2UnitStrc* pItem, D2BitBu
         if (pItem)
             pItem->dwClassId = nClassId;
 
-        if (ITEMS_CheckItemTypeId(pItem, 4))
+        if (ITEMSIsA(pItem, 4))
         {
             if (sub_00411020_ReadBits(pBuffer, 1))
                 STATLIST_SetUnitStat(pItem, 14, sub_00411020_ReadBits(pBuffer, 32), 0);
@@ -478,7 +478,7 @@ static int __stdcall ITEMS_DecodeItemBitstreamCompact(D2UnitStrc* pItem, D2BitBu
                 STATLIST_SetUnitStat(pItem, 14, sub_00411020_ReadBits(pBuffer, 12), 0);
         }
 
-        if (ITEMS_CheckItemTypeId(pItem, 22))
+        if (ITEMSIsA(pItem, 22))
         {
             if (dwCode == ' cst')
                 ITEMS_SetMagicSuffix(pItem, 0, 0);
@@ -561,7 +561,7 @@ static __forceinline int sub_00623C60(D2UnitStrc* pUnit)
 
 static __forceinline int ITEMS_IsOfType(D2UnitStrc* pItem, int nItemType)
 {
-    return ITEMS_CheckItemTypeId(pItem, nItemType);
+    return ITEMSIsA(pItem, nItemType);
 }
 
 // 0x0062BED0
@@ -644,7 +644,7 @@ const D2RunesTxt* __stdcall ITEMS_GetRunesTxtRecordFromItem(D2UnitStrc* pItem)
                 bool isItemTypeIgnored = false;
                 for (int nETypeCounter = 0; nETypeCounter < 3 && pRunesTxtRecord->wEType[nETypeCounter]; ++nETypeCounter)
                 {
-                    if (ITEMS_CheckItemTypeId(pItem, pRunesTxtRecord->wEType[nETypeCounter]))
+                    if (ITEMSIsA(pItem, pRunesTxtRecord->wEType[nETypeCounter]))
                     {
                         isItemTypeIgnored = true;
                         break;
@@ -655,7 +655,7 @@ const D2RunesTxt* __stdcall ITEMS_GetRunesTxtRecordFromItem(D2UnitStrc* pItem)
                 {
                     for (int nITypeCounter = 0; nITypeCounter < 6 && pRunesTxtRecord->wIType[nITypeCounter]; ++nITypeCounter)
                     {
-                        if (ITEMS_CheckItemTypeId(pItem, pRunesTxtRecord->wIType[nITypeCounter]))
+                        if (ITEMSIsA(pItem, pRunesTxtRecord->wIType[nITypeCounter]))
                         {
                             return pRunesTxtRecord;
                         }
@@ -775,7 +775,7 @@ unsigned char* __stdcall ITEMS_GetColor(D2UnitStrc* pPlayer, D2UnitStrc* pItem, 
                 if (STATES_CheckState(pPlayer, nState))
                 {
                     D2StatesTxt* pStatesTxtRecord = DATATBLS_GetStatesTxtRecord_Inl(nState);
-                    if (pStatesTxtRecord && pStatesTxtRecord->nItemTrans < 0x15 && ITEMS_CheckItemTypeId(pItem, pStatesTxtRecord->wItemType))
+                    if (pStatesTxtRecord && pStatesTxtRecord->nItemTrans < 0x15 && ITEMSIsA(pItem, pStatesTxtRecord->wItemType))
                     {
                         if (D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(sub_00451F60_UnitClassId(pItem)))
                         {
@@ -914,7 +914,7 @@ unsigned char* __stdcall ITEMS_GetColor(D2UnitStrc* pPlayer, D2UnitStrc* pItem, 
                 if (pInventoryItem)
                 {
                     pInventoryItem = INVENTORY_UnitIsItem(pInventoryItem);
-                    if (pInventoryItem && ITEMS_CheckItemTypeId(pInventoryItem, 0x14))
+                    if (pInventoryItem && ITEMSIsA(pInventoryItem, 0x14))
                     {
                         D2ItemsTxt* pGemItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pInventoryItem ? -1 : pInventoryItem->dwClassId);
                         D2_ASSERT(pGemItemsTxtRecord, 0x1271);

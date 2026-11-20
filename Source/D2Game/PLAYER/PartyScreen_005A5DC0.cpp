@@ -9,7 +9,7 @@ struct D2ClientStrc
 
 typedef void(__fastcall* PARTYCALLBACK)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
 
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine);    // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine);    // 0x005531C0
 short __fastcall SUNIT_GetPartyId(D2UnitStrc* pPlayer);                                                     // 0x00554630
 void __fastcall FRIENDLY_OpenHostility(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2);      // 0x005A60E0
 void __fastcall FRIENDLY_RemoveHostility(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2);    // 0x005A6080
@@ -38,7 +38,7 @@ static void __stdcall sub_005A5DC0(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2Un
     {
         FRIENDLY_OpenHostility(pGame, pPlayer1, pPlayer2);
         FRIENDLY_OpenHostility(pGame, pPlayer2, pPlayer1);
-        SUNIT_GetClientFromPlayer(pPlayer2, ".\\PLAYER\\PartyScreen.cpp", 412)->PARTYSCREEN_SendEventUpdateToClient(!pPlayer1 ? -1 : pPlayer1->dwUnitId, 3);
+        UnitGetClient(pPlayer2, ".\\PLAYER\\PartyScreen.cpp", 412)->PARTYSCREEN_SendEventUpdateToClient(!pPlayer1 ? -1 : pPlayer1->dwUnitId, 3);
     }
     else if (STATLIST_GetUnitBaseStat(pPlayer1, 12, 0) >= 9)
     {
@@ -95,5 +95,5 @@ void __fastcall PARTYSCREEN_ToggleHostile(D2GameStrc* pGame, D2UnitStrc* pPlayer
     }
 
     FRIENDLY_RemoveHostility(pGame, pPlayer1, pPlayer2);
-    SUNIT_GetClientFromPlayer(pPlayer2, ".\\PLAYER\\PartyScreen.cpp", 534)->PARTYSCREEN_SendEventUpdateToClient(!pPlayer1 ? -1 : pPlayer1->dwUnitId, 4);
+    UnitGetClient(pPlayer2, ".\\PLAYER\\PartyScreen.cpp", 534)->PARTYSCREEN_SendEventUpdateToClient(!pPlayer1 ? -1 : pPlayer1->dwUnitId, 4);
 }

@@ -607,7 +607,7 @@ static D2UnitStrc* __stdcall sub_00465FD0_InitUnit(unsigned int nUnitId, int nCl
         sub_004DC510_InitGfxData(pUnit);
         if (nUnitType == 0 || nUnitType == 1)
         {
-            UNITS_UpdateAnimRateAndVelocity(pUnit, ".\\UNIT\\CUnit.cpp", 0x21D);
+            UnitUpdateAnimRateAndVel(pUnit, ".\\UNIT\\CUnit.cpp", 0x21D);
         }
     }
 
@@ -672,7 +672,7 @@ D2UnitStrc* __fastcall sub_00466200_CreatePlayerUnit(unsigned int nUnitId, int n
 
     sub_00460BF0_InitPlayerUnit(pUnit, pRoom, nX, nY);
     sub_004DC510_InitGfxData(pUnit);
-    UNITS_UpdateAnimRateAndVelocity(pUnit, ".\\UNIT\\CUnit.cpp", 0x21D);
+    UnitUpdateAnimRateAndVel(pUnit, ".\\UNIT\\CUnit.cpp", 0x21D);
 
     pUnit = sub_00465F20_InsertUnit(pUnit);
     if (pUnit)

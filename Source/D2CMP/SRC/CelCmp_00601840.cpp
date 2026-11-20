@@ -345,7 +345,7 @@ int __stdcall sub_00601810_IsGfxFrameValid(D2CmpCelContextStrc* pContext)
 }
 
 // 0x00601840
-D2CelStrc* __stdcall D2CMP_CelGetHandle(D2CmpCelContextStrc* pContext)
+D2CelStrc* __stdcall CelGetHandle(D2CmpCelContextStrc* pContext)
 {
     D2_ASSERT(pContext, 0x566);
     D2_ASSERT(sub_00601810_IsGfxFrameValid(pContext), 0x567);

@@ -276,12 +276,12 @@ static __declspec(noinline) int __stdcall sub_00670880(D2DrlgRoomStrc* pDrlgRoom
     return DRLGMAZE_CheckRoomNotOverlaping(pNewRoomEx->pLevel, pNewRoomEx, pDrlgRoom, 0);
 }
 
-static D2DrlgRoomStrc* __stdcall DRLGMAZE_PickRoomPreset(int bResetFlag, D2DrlgRoomStrc* pDrlgRoom); // 0x006709B0
+static D2DrlgRoomStrc* __stdcall sSetChamberPreset(int bResetFlag, D2DrlgRoomStrc* pDrlgRoom); // 0x006709B0
 
 // @ref 0x006709B0
 
-// build: context DRLGMAZE_PickRoomPreset
-static D2DrlgRoomStrc* __stdcall DRLGMAZE_PickRoomPreset(int bResetFlag, D2DrlgRoomStrc* pDrlgRoom)
+// build: context sSetChamberPreset
+static D2DrlgRoomStrc* __stdcall sSetChamberPreset(int bResetFlag, D2DrlgRoomStrc* pDrlgRoom)
 {
     int nLevelPrest = 0;
     int nPickedFile = -1;
@@ -455,9 +455,9 @@ static __forceinline D2DrlgRoomStrc* DRLGMAZE_AddAdjacentMazeRoom(D2DrlgRoomStrc
     {
         if (bMergeRooms)
         {
-            DRLGMAZE_PickRoomPreset(1, pDrlgRoom);
+            sSetChamberPreset(1, pDrlgRoom);
         }
-        DRLGMAZE_PickRoomPreset(1, pNewRoomEx);
+        sSetChamberPreset(1, pNewRoomEx);
     }
     return pNewRoomEx;
 }

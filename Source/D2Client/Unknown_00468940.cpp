@@ -32,7 +32,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(void* lpfn); // 0x006CC34C
 D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 void __fastcall sub_0044BE60_SetFlag(int nValue); // 0x0044BE60
 int __cdecl sub_0044BE90(); // 0x0044BE90
 void __fastcall sub_0044BE80(int bAlwaysRun); // 0x0044BE80
@@ -397,7 +397,7 @@ void __cdecl sub_00468F00()
     if (pPlayer)
     {
         D2UnitStrc* pItem = INVENTORY_GetItemFromBodyLoc(pPlayer->pInventory, BODYLOC_BELT);
-        if (pItem && ITEMS_CheckItemTypeId(pItem, ITEMTYPE_BELT))
+        if (pItem && ITEMSIsA(pItem, ITEMTYPE_BELT))
         {
             sub_00455F20(0x1F, 2, 0);
         }

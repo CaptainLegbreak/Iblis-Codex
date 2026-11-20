@@ -282,7 +282,7 @@ struct D2ItemStatCostTxt
 D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625D00
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 extern const int gnSetMaskToBonusMappingTable_006DBD90[0x40]; // 0x006DBD90
 void __fastcall sub_004E5A10_UseBonusCount(int nCount);
 
@@ -1823,7 +1823,7 @@ static int __stdcall sub_004E4C50_GetStatDisplayValue(int nValue, D2ItemStatCost
     }
 
     nValue >>= pRecord->nValShift;
-    if (nStatId == 122 && pUnit && pUnit->dwUnitType == UNIT_ITEM && ITEMS_CheckItemTypeId(pUnit, 57))
+    if (nStatId == 122 && pUnit && pUnit->dwUnitType == UNIT_ITEM && ITEMSIsA(pUnit, 57))
         nValue += 50;
 
     return nValue;

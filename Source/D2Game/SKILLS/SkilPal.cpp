@@ -664,6 +664,6 @@ void __fastcall SKILLS_CurseStateCallback_HolyFreeze(D2UnitStrc* pUnit, int nSta
             STATES_ToggleState(pUnit, STATE_SHATTER, 0);
         }
 
-        UNITS_UpdateAnimRateAndVelocity(pUnit, ".\\SKILLS\\SkilPal.cpp", 1558);
+        UnitUpdateAnimRateAndVel(pUnit, ".\\SKILLS\\SkilPal.cpp", 1558);
     }
 }

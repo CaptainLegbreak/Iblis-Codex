@@ -155,8 +155,8 @@ struct D2CelContextStrc
 void __fastcall sub_0047DBB0_LoadOptionCels(D2OptionHeaderStrc* pHeader, D2OptionEntryStrc* pEntries); // 0x0047DBB0
 D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType); // 0x004788B0
 D2CelFileStrc* __cdecl sub_00453AA0(); // 0x00453AA0
-int __stdcall sub_006019F0(D2CelFileStrc* pCelFile); // 0x006019F0
-D2CelStrc* __stdcall D2CMP_CelGetHandle(D2CelContextStrc* pContext); // 0x00601840
+int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pCelFile); // 0x006019F0
+D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext); // 0x00601840
 int __stdcall sub_006018C0(D2CelStrc* pCel); // 0x006018C0
 extern D2OptionHeaderStrc gOptionHeader_00713044; // 0x00713044
 extern D2OptionEntryStrc gaOptionEntries_00713220[]; // 0x00713220
@@ -625,9 +625,9 @@ void __cdecl sub_0047DD70_LoadOptionMenus()
     gpOptionCel_007BC958 = sub_004788B0(szPath, 0);
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = sub_00453AA0();
-    const unsigned int nFrames = sub_006019F0(tContext.pCellFile);
+    const unsigned int nFrames = CelFileGetCelsPerDirection(tContext.pCellFile);
     int nMax = 0;
     for (tContext.nFrame = 0; tContext.nFrame < nFrames; ++tContext.nFrame)
-        nMax = D2_MAX(nMax, sub_006018C0(D2CMP_CelGetHandle(&tContext)));
+        nMax = D2_MAX(nMax, sub_006018C0(CelGetHandle(&tContext)));
     gnOptionMaxWidth_007BC95C = nMax;
 }

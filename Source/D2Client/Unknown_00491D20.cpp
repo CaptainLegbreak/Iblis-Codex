@@ -43,7 +43,7 @@ unsigned char __stdcall ITEMS_GetInvPage(D2UnitStrc* pItem); // 0x00628250
 void __stdcall ITEMS_GetDimensions(D2UnitStrc* pItem, unsigned char* pWidth, unsigned char* pHeight, const char* szFile, int nLine); // 0x006286C0
 int __stdcall ITEMS_CheckIfSocketable(D2UnitStrc* pItem); // 0x00629900
 unsigned char __stdcall ITEMS_GetSockets(D2UnitStrc* pItem); // 0x006299B0
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 int __stdcall ITEMS_IsNotQuestItem(D2UnitStrc* pItem); // 0x0062A130
 unsigned int __stdcall ITEMS_CheckIfBeltable(D2UnitStrc* pItem); // 0x0062BAD0
 unsigned char __stdcall ITEMS_GetMaxSockets(D2UnitStrc* pItem); // 0x0062BC20
@@ -339,7 +339,7 @@ static int __stdcall sub_0048FFE0_ClickInvGrid(D2UnitStrc* pUnit, D2InventoryStr
                     nResult = 1;
                 }
 
-                if (ITEMS_CheckItemTypeId(pCursorItem, 0x16) && ITEMS_CheckItemTypeId(pHit, 0x12)
+                if (ITEMSIsA(pCursorItem, 0x16) && ITEMSIsA(pHit, 0x12)
                     && ITEMS_GetSuffixId(pCursorItem, 0) == ITEMS_GetSuffixId(pHit, 0)
                     && !sub_004C2240(pCursorItem) && sub_00486D10_CheckTick() && gdwGlobal_007BCBF0 != 0xB)
                 {

@@ -411,7 +411,7 @@ void __cdecl sub_00475EB0(); // 0x00475EB0
 void __fastcall sub_004DCF30(D2ViewStrc* pView); // 0x004DCF30
 int __cdecl sub_0045AE90(); // 0x0045AE90
 void __fastcall sub_004DDB70_PrepareWallCells(D2ViewStrc* pView, int nValue); // 0x004DDB70
-extern "C" void __cdecl sub_005FE060_ClearPair88CB10(); // 0x005FE060
+extern "C" void __cdecl D2CMPResetTileCacheHits(); // 0x005FE060
 extern "C" int gnModeValue_00712CCC; // 0x00712CCC
 extern int gnGlobal_007B8D2C; // 0x007B8D2C
 extern int gnGlobal_007B9534; // 0x007B9534
@@ -1239,7 +1239,7 @@ void __cdecl sub_00477C00_ToggleCacheStats()
         memset(pStats->nSpriteAccesses, 0, sizeof(pStats->nSpriteAccesses));
         memset(pStats->unk0x60, 0, sizeof(pStats->unk0x60));
     }
-    sub_005FE060_ClearPair88CB10();
+    D2CMPResetTileCacheHits();
 }
 
 // 0x00479010

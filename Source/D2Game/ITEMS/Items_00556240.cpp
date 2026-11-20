@@ -8,7 +8,7 @@
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define D2_MIN(a,b) ((a)<(b)?(a):(b))
-#define SEND(stat,value,line) D2GAME_PACKETS_SendPacket0x3E_6FC3EC20(SUNIT_GetClientFromPlayer(pPlayer,".\\ITEMS\\Items.cpp",line),pItem,1,stat,value,0)
+#define SEND(stat,value,line) D2GAME_PACKETS_SendPacket0x3E_6FC3EC20(UnitGetClient(pPlayer,".\\ITEMS\\Items.cpp",line),pItem,1,stat,value,0)
 struct D2SeedStrc;
 struct D2StatListExStrc;
 struct D2ItemsTxt;
@@ -104,7 +104,7 @@ unsigned int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
 int __stdcall ITEMS_GetTotalMaxStack(D2UnitStrc* pItem); // 0x006295B0
 int __stdcall ITEMS_GetSpawnStack(D2UnitStrc* pItem); // 0x00629660
 int __stdcall ITEMS_GetMinStack(D2UnitStrc* pItem); // 0x006296F0
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem); // 0x0062B400
 int __stdcall ITEMS_GetQuiverType(D2UnitStrc* pItem); // 0x0062E740
 unsigned char __stdcall ITEMS_GetVarInvGfxCount(D2UnitStrc* pItem); // 0x0062E8D0
@@ -112,7 +112,7 @@ void __stdcall ITEMMODS_SetRandomElixirFileIndex(D2UnitStrc* pItem); // 0x0065E8
 int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc*); // 0x0062BA80
 int __stdcall STATLIST_GetMaxDurabilityFromUnit(D2UnitStrc*); // 0x00625E00
 void __fastcall ITEMS_ScheduleDurabilityReplenishment(D2GameStrc*,D2UnitStrc*); // 0x00558530
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc*,const char*,int); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc*,const char*,int); // 0x005531C0
 void __fastcall D2GAME_PACKETS_SendPacket0x3E_6FC3EC20(D2ClientStrc*,D2UnitStrc*,int,int,int,int); // 0x0053D130
 int __stdcall sub_006280A0(D2UnitStrc*,int,int,const char*); // 0x006280A0
 void __fastcall sub_6FC4B580(D2GameStrc*,D2UnitStrc*,D2UnitStrc*); // 0x0055F850
@@ -516,7 +516,7 @@ int __fastcall D2GAME_InitItemStats_6FC4E520(D2GameStrc* pGame, D2UnitStrc** ppI
         D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!*ppItem ? -1 : (*ppItem)->dwClassId);
         D2_ASSERT(pItemsTxtRecord, 0x686);
 
-        if (ITEMS_CheckItemTypeId(*ppItem, 50))
+        if (ITEMSIsA(*ppItem, 50))
         {
             STATLIST_SetUnitStat(*ppItem, 20, pItemsTxtRecord->nBlock, 0);
             STATLIST_SetUnitStat(*ppItem, 67, -pItemsTxtRecord->dwSpeed, 0);
@@ -531,7 +531,7 @@ int __fastcall D2GAME_InitItemStats_6FC4E520(D2GameStrc* pGame, D2UnitStrc** ppI
             STATLIST_SetUnitStat(*ppItem, 73, nMaxDurability >= 255 ? 255 : nMaxDurability, 0);
             sub_00556360_RollArmorClass(*ppItem);
         }
-        else if (ITEMS_CheckItemTypeId(*ppItem, 45))
+        else if (ITEMSIsA(*ppItem, 45))
         {
             if (ITEMS_CheckIfStackable(*ppItem))
             {
@@ -637,8 +637,8 @@ inline unsigned __int64 Roll(D2UnitStrc* pUnit) {
 
 // 0x00559E30
 void __fastcall sub_00559E30_DecreaseDurability(D2GameStrc* pGame,D2UnitStrc* pPlayer,D2UnitStrc* pItem) {
- int bWeapon=ITEMS_CheckItemTypeId(pItem,50);
- int bStack=ITEMS_CheckItemTypeId(pItem,45);
+ int bWeapon=ITEMSIsA(pItem,50);
+ int bStack=ITEMSIsA(pItem,45);
  if ((!bWeapon && !bStack) || !ITEMS_HasDurability(pItem)) return;
  int chance=4;
  if (bWeapon) chance=10;

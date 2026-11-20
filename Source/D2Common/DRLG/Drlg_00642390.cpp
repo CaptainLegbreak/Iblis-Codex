@@ -68,7 +68,7 @@ void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed);     
 void __fastcall DRLGMAZE_InitLevelData(D2DrlgLevelStrc* pLevel);                                            // 0x00673B10
 void __fastcall DRLGPRESET_InitLevelData(D2DrlgLevelStrc* pLevel);                                          // 0x00667430
 void __fastcall DRLGOUTDOORS_AllocOutdoorInfo(D2DrlgLevelStrc* pLevel);                                     // 0x00675320
-void __fastcall DRLGMAZE_GenerateLevel(D2DrlgLevelStrc* pLevel);                                            // 0x00673B30
+void __fastcall MazeLevelGenerate(D2DrlgLevelStrc* pLevel);                                            // 0x00673B30
 void __fastcall DRLGPRESET_GenerateLevel(D2DrlgLevelStrc* pLevel);                                          // 0x00668100
 void __fastcall DRLGOUTDOORS_GenerateLevel(D2DrlgLevelStrc* pLevel);                                        // 0x00675360
 int __fastcall DRLGWARP_GetWarpDestinationFromArray(D2DrlgLevelStrc* pLevel, unsigned char nWarpId);         // 0x0066AF30
@@ -136,7 +136,7 @@ void __stdcall DRLG_InitLevel(D2DrlgLevelStrc* pLevel)
     switch (pLevel->nDrlgType)
     {
     case 1:
-        DRLGMAZE_GenerateLevel(pLevel);
+        MazeLevelGenerate(pLevel);
         break;
     case 2:
         DRLGPRESET_GenerateLevel(pLevel);

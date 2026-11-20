@@ -21,7 +21,7 @@ struct T006BE350
     D2QAcceptCallback pfnOnAccept;
 };
 
-D2QClientStrc* __fastcall sub_006BFB70_AddClient(T006BE350* pServer, unsigned int s, unsigned int nAddress); // 0x006BFB70
+D2QClientStrc* __fastcall QSrvAddClient(T006BE350* pServer, unsigned int s, unsigned int nAddress); // 0x006BFB70
 
 struct D2QAddressArg
 {
@@ -92,7 +92,7 @@ extern const char gszStopped_006FCBA8[]; // 0x006FCBA8
 // 0x006C3440
 static void __stdcall sub_006C3440_AddClient(T006BE350* pServer, unsigned int s, D2QAddressArg tAddress)
 {
-    D2QClientStrc* pClient = sub_006BFB70_AddClient(pServer, s, tAddress.nAddress);
+    D2QClientStrc* pClient = QSrvAddClient(pServer, s, tAddress.nAddress);
     if (pServer->pfnOnAccept)
         pServer->pfnOnAccept(pServer, pClient->nId, ".\\Src\\QServer\\QServer98.cpp", 0x91);
 }

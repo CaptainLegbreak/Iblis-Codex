@@ -223,7 +223,7 @@ int __fastcall CLIENTS_GetClientId(D2ClientStrc* pClient); // 0x00538590
 int __fastcall CLIENTS_GetClassId(D2ClientStrc* pClient); // 0x005385F0
 char* __fastcall CLIENTS_GetName(D2ClientStrc* pClient); // 0x00538830
 void __fastcall CLIENTS_CopyAccountNameToBuffer(D2ClientStrc* pClient, char* szBuffer); // 0x005392F0
-void __fastcall CLIENTS_RemoveClientFromGame(D2GameStrc* pGame, int nClientId, int bTriggerSave); // 0x00539DA0
+void __fastcall ClientRemoveFromGame(D2GameStrc* pGame, int nClientId, int bTriggerSave); // 0x00539DA0
 void __fastcall sub_0053B1B0_SendGameInfo(void* pClientId, unsigned short nGameId, int nClients, const char* szGameName); // 0x0053B1B0
 void __fastcall sub_0053C5D0(D2ClientStrc* pClient, D2UnitStrc* pUnit); // 0x0053C5D0
 void __fastcall D2GAME_SetSkills_6FD14C60(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove); // 0x0056DEB0
@@ -439,7 +439,7 @@ struct D2GameDataTableStrc
     }
 };
 
-void __fastcall GAME_FreeGame(int nGameGUID, D2GameStrc* pGame); // 0x0052C7F0
+void __fastcall SrvFreeGame(int nGameGUID, D2GameStrc* pGame); // 0x0052C7F0
 int __stdcall SStrCmpI(const char* szString1, const char* szString2, int nMaxChars); // 0x00413590
 
 extern "C" __declspec(dllimport) int __stdcall QueryPerformanceCounter(D2LargeIntegerUnion* pCount); // 0x006CC25C
@@ -448,7 +448,7 @@ extern int dword_6FD2CA10; // 0x0073100C
 void __fastcall GAME_UpdateProgress(D2GameStrc* pGame); // 0x0052D870
 void __fastcall sub_0052CBB0_FindOwnerClient(D2ClientStrc* client, void* context); // 0x0052CBB0
 void __fastcall sub_0052CBD0_FindFirstClient(D2ClientStrc* client, void* context); // 0x0052CBD0
-void __fastcall GAME_EndGame(int clientId, int flag); // 0x005303D0
+void __fastcall SrvEndGame(int clientId, int flag); // 0x005303D0
 extern "C" void _ReadWriteBarrier(void);
 
 struct D2StormHashNodeStrc
@@ -784,7 +784,7 @@ static int IsClientNameValid(const char* szClientName, int nLength)
 }
 
 // 0x0052C690
-int __fastcall GAME_VerifyJoinGame(int nClientId, unsigned short nGameId, unsigned char nPlayerClass, const char* szClientName, int nTokenId, char* pszInOutAccountName, int* pOutCharSaveTransactionToken, unsigned char nLocale, int* a9, int* a10, int* a11, int* a12, int a13)
+int __fastcall SrvVerifyJoinGame(int nClientId, unsigned short nGameId, unsigned char nPlayerClass, const char* szClientName, int nTokenId, char* pszInOutAccountName, int* pOutCharSaveTransactionToken, unsigned char nLocale, int* a9, int* a10, int* a11, int* a12, int a13)
 {
     if (!CCMD_IsStringZeroTerminated(szClientName, 16))
     {
@@ -841,7 +841,7 @@ static __forceinline void sub_0052C7C0_RemoveGameGUID(int nGameGUID)
 }
 
 // 0x0052C7F0
-void __fastcall GAME_FreeGame(int nGameGUID, D2GameStrc* pGame)
+void __fastcall SrvFreeGame(int nGameGUID, D2GameStrc* pGame)
 {
     EnterCriticalSection(&gCriticalSection_6FD45800);
 
@@ -923,7 +923,7 @@ void __fastcall sub_0052C900_SaveClientAndGamePlayers(D2ClientStrc* pClient, D2G
 }
 
 // 0x0052CAF0
-void __fastcall GAME_DisconnectClient(D2GameStrc* pGame, D2ClientStrc* pClient, int nEventType)
+void __fastcall SrvDisconnectClient(D2GameStrc* pGame, D2ClientStrc* pClient, int nEventType)
 {
     if (!pClient)
         return;
@@ -940,7 +940,7 @@ void __fastcall GAME_DisconnectClient(D2GameStrc* pGame, D2ClientStrc* pClient, 
     SStrCopy(tPacket.szText, CLIENTS_GetName(pClient), 16);
     sub_6FC84D40(pGame, &tPacket);
 
-    CLIENTS_RemoveClientFromGame(pGame, CLIENTS_GetClientId(pClient), 1);
+    ClientRemoveFromGame(pGame, CLIENTS_GetClientId(pClient), 1);
     sub_0053B220_SendHeaderOnly0xB0(nClientId);
     D2NET_10016(nClientId);
 }
@@ -1568,7 +1568,7 @@ void __fastcall GAME_CloseGame(int nGameGUID)
             D2_ASSERT(pGame->lpCriticalSection, 0x108D);
             EnterCriticalSection(pGame->lpCriticalSection);
 
-            GAME_FreeGame(nGameGUID, pGame);
+            SrvFreeGame(nGameGUID, pGame);
 
             gpGameDataTbl_6FD45818->DeleteUnlock(pGame, hLock);
         }
@@ -1849,7 +1849,7 @@ void __stdcall sub_00530300(int nClientId)
     tPacket.szText[16] = 0;
     SStrCopy(tPacket.szText, CLIENTS_GetName(pClient), 16);
     sub_6FC84D40(pGame, &tPacket);
-    CLIENTS_RemoveClientFromGame(pGame, CLIENTS_GetClientId(pClient), 1);
+    ClientRemoveFromGame(pGame, CLIENTS_GetClientId(pClient), 1);
     GAME_LeaveGamesCriticalSection(pGame);
 }
 
@@ -1866,14 +1866,14 @@ void __fastcall GAME_EndGameForConnectedClient(D2GameStrc* game, D2ClientStrc* c
             GAME_ForEachIngameClient(game, sub_0052CBD0_FindFirstClient, &first);
             if (first)
             {
-                GAME_EndGame(CLIENTS_GetClientId(first), 0);
+                SrvEndGame(CLIENTS_GetClientId(first), 0);
             }
             return;
         }
-        GAME_EndGame(CLIENTS_GetClientId(client), 0);
+        SrvEndGame(CLIENTS_GetClientId(client), 0);
         return;
     }
-    GAME_EndGame(CLIENTS_GetClientId(owner), 0);
+    SrvEndGame(CLIENTS_GetClientId(owner), 0);
 }
 
 // 0x00530600

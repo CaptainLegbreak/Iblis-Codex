@@ -45,7 +45,7 @@ void __fastcall SUNIT_SetCombatMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nM
 void __fastcall D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553990
 int __fastcall SUNIT_UpdateUnitPath(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00554CA0
 void __fastcall PLRMODE_StartXY_Neutral(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nMode, int nX, int nY); // 0x0057F020
-void __fastcall D2GAME_PLAYERMODE_Change_6FC81A00(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2SkillStrc* pSkill, int nMode, int nUnitType, int nTargetGUID, int bAllowReEnter); // 0x00580A70
+void __fastcall StartModeID(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2SkillStrc* pSkill, int nMode, int nUnitType, int nTargetGUID, int bAllowReEnter); // 0x00580A70
 void __fastcall SKILLS_CreateBlazeMissile(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005C9D90
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 void __stdcall UNITS_SetUsedSkill(D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill); // 0x00620210
@@ -85,7 +85,7 @@ struct D2PlayerModeChartStrc
 
 extern D2PlayerModeChartStrc gsPlayerModeChart_006E1740[]; // 0x006E1740
 extern D2ServerCallbackFunctions* gpD2EventCallbackTable_6FD45830; // 0x00883D50
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 void __fastcall D2GAME_SetClientDead_6FC33830(D2ClientStrc* pClient, void* pArg); // 0x00538260
 void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nEventCustomId); // 0x00540E60
 D2UnitStrc* __fastcall sub_0057F700(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, D2ActiveRoomStrc* pRoom); // 0x0057F700
@@ -345,7 +345,7 @@ int __fastcall PLRMODE_UpdateMovement(D2GameStrc* pGame, D2UnitStrc* pPlayer, in
                 if (pSkill)
                 {
                     const int nSkillMode = SKILLS_GetSkillModeFromUnit(pPlayer, pSkill);
-                    D2GAME_PLAYERMODE_Change_6FC81A00(pGame, pPlayer, pSkill, nSkillMode, sub_F05_GetInteractUnitType(pPlayer), sub_F05_GetInteractUnitGUID(pPlayer), 0);
+                    StartModeID(pGame, pPlayer, pSkill, nSkillMode, sub_F05_GetInteractUnitType(pPlayer), sub_F05_GetInteractUnitGUID(pPlayer), 0);
                     nPathResult = 1;
                 }
                 else
@@ -415,7 +415,7 @@ static void sub_6FC814F0(D2GameStrc* pGame, D2UnitStrc* pPlayer)
     STATLIST_SetUnitStat(pPlayer, 0x06, 0, 0);
     D2Common_10469(pPlayer);
     STATES_UpdateStayDeathFlags(pPlayer, 0);
-    D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pPlayer, ".\\PLAYER\\PlrModes.cpp", 0x234);
+    D2ClientStrc* pClient = UnitGetClient(pPlayer, ".\\PLAYER\\PlrModes.cpp", 0x234);
     D2GAME_SetClientDead_6FC33830(pClient, 0);
     PATH_SetUnitDeadCollision(pPlayer, 1);
     D2GAME_EVENTS_Delete_6FC34840(pGame, pPlayer, 0x08, 0);
@@ -429,12 +429,12 @@ void __fastcall PLRMODE_StartXY_Dead(D2GameStrc* pGame, D2UnitStrc* pUnit, int n
     sub_0057F700(pGame, pUnit, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), UNITS_GetRoom(pUnit));
     D2GAME_KillPlayerPets_6FC7CD10(pGame, pUnit);
 
-    D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pUnit, ".\\PLAYER\\PlrModes.cpp", 0x434);
+    D2ClientStrc* pClient = UnitGetClient(pUnit, ".\\PLAYER\\PlrModes.cpp", 0x434);
     CLIENTS_ToggleFlag(pClient, 0x08, 1);
 
     if (!gpD2EventCallbackTable_6FD45830 || CLIENTS_CheckFlag(pClient, 0x04))
     {
-        D2GAME_SAVE_WriteFile_6FC8A500(pGame, pUnit, CLIENTS_GetName(SUNIT_GetClientFromPlayer(pUnit, ".\\PLAYER\\PlrModes.cpp", 0x43A)), 0);
+        D2GAME_SAVE_WriteFile_6FC8A500(pGame, pUnit, CLIENTS_GetName(UnitGetClient(pUnit, ".\\PLAYER\\PlrModes.cpp", 0x43A)), 0);
     }
 
     SUNIT_SetCombatMode(pGame, pUnit, 0x11);
@@ -469,7 +469,7 @@ void __fastcall PLRMODE_StartID_Death(D2GameStrc* pGame, D2UnitStrc* pDefender, 
 
     PLAYER_ApplyDeathPenalty(pGame, pDefender, pAttacker);
     SUNIT_SetCombatMode(pGame, pDefender, 0);
-    D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pDefender, ".\\PLAYER\\PlrModes.cpp", 0x40B);
+    D2ClientStrc* pClient = UnitGetClient(pDefender, ".\\PLAYER\\PlrModes.cpp", 0x40B);
     CLIENTS_ToggleFlag(pClient, 0x08, 1);
     sub_6FCBC4D0(pDefender);
     sub_6FC814F0(pGame, pDefender);

@@ -128,7 +128,7 @@ unsigned char __fastcall sub_00552AA0_GetRegenerateMax(D2ObjectsTxt* pObjectsTxt
 unsigned char __fastcall sub_00552AB0();                                                    // 0x00552AB0
 int __fastcall OBJECTS_GetUnitIdFromTimerArg(D2UnitStrc* pUnit);                                            // 0x00552B10
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID);                // 0x00552F60
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine);     // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine);     // 0x005531C0
 void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc* pUpdateUnit);             // 0x00553380
 int __stdcall SUNIT_GetInteractInfo(D2UnitStrc* pUnit, int* pUnitType, int* pUnitGUID);                     // 0x00554100
 void __stdcall SUNIT_SetInteractInfo(D2UnitStrc* pUnit, int nInteractUnitType, int nInteractUnitGUID);      // 0x00554120
@@ -587,7 +587,7 @@ int __fastcall OBJECTS_OperateFunction23_Waypoint(D2ObjOperateFnStrc* pOp, int n
             *(int*)packet63.dwUnitId = nUnitId;
             WAYPOINTS_ValidateAndCopyWaypointData(pWaypointFlags, (D2WaypointDataStrc*)packet63.pData);
 
-            D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pOp->pPlayer, ".\\OBJECTS\\ObjMode.cpp", 4126);
+            D2ClientStrc* pClient = UnitGetClient(pOp->pPlayer, ".\\OBJECTS\\ObjMode.cpp", 4126);
             sub_0053D960_SendPacket0x63(pClient, &packet63);
 
             SUNIT_SetInteractInfo(pOp->pPlayer, UNIT_OBJECT, !pOp->pObject ? -1 : pOp->pObject->dwUnitId);

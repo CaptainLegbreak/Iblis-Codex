@@ -304,7 +304,7 @@ int __cdecl sub_005193E0_OpenLog(); // 0x005193E0
 void __cdecl sub_0051A480_DebugLog(const char* szFormat, ...); // 0x0051A480
 int __fastcall sub_0051A7D0_ChangePasswordLegacy(const char* szAccountName, const char* szOldPassword, const char* szNewPassword); // 0x0051A7D0
 int __cdecl sub_0051C470_Startup(); // 0x0051C470
-unsigned long __stdcall sub_0051D0A0_ConnectThread(void* pParameter); // 0x0051D0A0
+unsigned long __stdcall BattleConnectFastest(void* pParameter); // 0x0051D0A0
 void __cdecl sub_0051D510_ReportNews(); // 0x0051D510
 int __cdecl sub_0051DA30_LoadNews(); // 0x0051DA30
 void __fastcall sub_0051ED00_QueryState(int* pState); // 0x0051ED00
@@ -1077,7 +1077,7 @@ void* __cdecl sub_0051D1C0_OpenBNetConnection()
     sub_00520B30_ResetReplies();
     sub_00521B50_ReseedLogin();
     gdwGlobal_00881C04 = 0;
-    return CreateThread(0, 0, sub_0051D0A0_ConnectThread, 0, 0, &nThreadId);
+    return CreateThread(0, 0, BattleConnectFastest, 0, 0, &nThreadId);
 }
 
 // 0x0051DBF0

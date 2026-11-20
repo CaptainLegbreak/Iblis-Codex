@@ -159,7 +159,7 @@ struct D2MonsterDataStrc
 
 int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
 void __fastcall sub_6FC3F340(D2ClientStrc* pClient, unsigned char nHeader, unsigned char nUnitType, int nUnitId, int a5); // 0x0053D6D0
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 int __stdcall SUNIT_GetInteractInfo(D2UnitStrc* pUnit, int* pUnitType, int* pUnitGUID); // 0x00554100
 void __stdcall SUNIT_ResetInteractInfo(D2UnitStrc* pUnit); // 0x00554190
 void __fastcall D2GAME_NPC_Heal_6FCCB220(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pNpc); // 0x00578E70
@@ -432,7 +432,7 @@ static int __stdcall sub_00572C10_StartNpcInteraction(D2GameStrc* pGame, D2Monst
         }
     }
 
-    D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pUnit, gszMonsterAISourceFile, 0x1C4);
+    D2ClientStrc* pClient = UnitGetClient(pUnit, gszMonsterAISourceFile, 0x1C4);
     D2InteractInfoStrc* pNewInteractInfo = (D2InteractInfoStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2InteractInfoStrc), gszMonsterAISourceFile, 0x1C7, 0);
     pNewInteractInfo->pUnit = pUnit;
 
@@ -813,7 +813,7 @@ void __fastcall sub_00573180(D2GameStrc* pGame, D2UnitStrc* pMonster, void(__fas
     while (pInteractInfo)
     {
         D2InteractInfoStrc* pNext = pInteractInfo->pNext;
-        sub_6FC3F340(SUNIT_GetClientFromPlayer(pInteractInfo->pUnit, ".\\MONSTER\\MonsterAI.cpp", 860), 0x62, UNIT_MONSTER, sub_00451F50_GetUnitGUID(pMonster), 0);
+        sub_6FC3F340(UnitGetClient(pInteractInfo->pUnit, ".\\MONSTER\\MonsterAI.cpp", 860), 0x62, UNIT_MONSTER, sub_00451F50_GetUnitGUID(pMonster), 0);
 
         int nInteractType;
         int nInteractGUID;
@@ -876,7 +876,7 @@ void __fastcall MONSTERAI_AssignHireling(D2GameStrc* pGame, D2UnitStrc* pPlayer,
     D2UnitStrc* pPet = sub_6FC7E8B0(pGame, pPlayer, 7, 1);
     if (pPet)
     {
-        D2GAME_PACKETS_SendPacket0x9B_6FC3FB30(SUNIT_GetClientFromPlayer(pPlayer, gszMonsterAISourceFile, 0x52), 0xFFFF, 0);
+        D2GAME_PACKETS_SendPacket0x9B_6FC3FB30(UnitGetClient(pPlayer, gszMonsterAISourceFile, 0x52), 0xFFFF, 0);
 
         AIGENERAL_SetOwnerData(pGame, pPet, -1, 1, 0, 0);
         PLAYERPETS_RemovePet(pGame, pPlayer, UNITS_GetUnitId(pPet), 0);

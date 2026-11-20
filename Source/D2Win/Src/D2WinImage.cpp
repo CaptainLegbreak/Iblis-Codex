@@ -33,7 +33,7 @@ struct D2WinControl004FD110Strc
     int nFrame;
 };
 
-int __stdcall sub_006019F0(D2CellFileStrc* pCellFile); // 0x006019F0
+int __stdcall CelFileGetCelsPerDirection(D2CellFileStrc* pCellFile); // 0x006019F0
 
 enum D2ControlTypes
 {
@@ -233,7 +233,7 @@ void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, 
 int __stdcall sub_004FD110_SetFrame(D2WinControl004FD110Strc* pControl, int nFrame)
 {
     D2_ASSERT(pControl->nType == 2, 0x8B);
-    const int nFrames = sub_006019F0(pControl->pCellFile);
+    const int nFrames = CelFileGetCelsPerDirection(pControl->pCellFile);
     if (nFrame > nFrames - 1)
     {
         nFrame = nFrames - 1;

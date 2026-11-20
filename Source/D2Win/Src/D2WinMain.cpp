@@ -58,7 +58,7 @@ int __fastcall sub_004F9250_AppendToDeadList(D2WinControlStrc* pControl); // 0x0
 void __cdecl sub_004F9290_FreeDeadControls(); // 0x004F9290
 void __cdecl sub_004F97E0_PaintCursor(); // 0x004F97E0
 void __cdecl sub_004F9870_DrawFontCaches(); // 0x004F9870
-void __stdcall D2CMP_InitSpriteCache(int a1, int nCacheSize, int nCacheCount, int a4); // 0x005FFD40
+void __stdcall D2CMPSpriteCacheInit(int a1, int nCacheSize, int nCacheCount, int a4); // 0x005FFD40
 void __stdcall sub_005FFE30_FreeTileCache(int bFree); // 0x005FFE30
 extern void* ghMainWindow_6F8FE23C; // 0x007D55AC
 extern int gbWindowed_6F8FE244; // 0x007D55B4
@@ -182,7 +182,7 @@ int __stdcall D2Win_InitializeSpriteCache(int bWindowed, int nResolution)
         return 0;
     }
 
-    D2CMP_InitSpriteCache(0, 0x800000, 0x7D000, 0);
+    D2CMPSpriteCacheInit(0, 0x800000, 0x7D000, 0);
     ghMainWindow_6F8FE23C = sub_004F59A0();
     gpBackgroundCellFile = 0;
     gpControlList_6F8FE24C = 0;
@@ -215,7 +215,7 @@ void __stdcall D2Win_10004(int nResolution)
 
     if (nResolution == 1)
     {
-        D2CMP_InitSpriteCache(0, 0x800000, 0x7D000, 0);
+        D2CMPSpriteCacheInit(0, 0x800000, 0x7D000, 0);
     }
 }
 
@@ -238,7 +238,7 @@ int __stdcall sub_004F90A0_SwitchResolution(int nResolution)
     }
 
     sub_004FB130_SetActiveState(0);
-    D2CMP_InitSpriteCache(0, 0x800000, 0x7D000, 0);
+    D2CMPSpriteCacheInit(0, 0x800000, 0x7D000, 0);
     return 1;
 }
 

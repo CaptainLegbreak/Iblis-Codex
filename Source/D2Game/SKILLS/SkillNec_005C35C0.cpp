@@ -329,7 +329,7 @@ int __fastcall sub_005C35C0_CurseUnitCallback(D2UnitStrc* pUnit, D2UnkNecSkillSt
 
     if (pArgs->bUpdateAnimRate)
     {
-        UNITS_UpdateAnimRateAndVelocity(pUnit, ".\\SKILLS\\SkillNec.cpp", 582);
+        UnitUpdateAnimRateAndVel(pUnit, ".\\SKILLS\\SkillNec.cpp", 582);
     }
 
     if (pArgs->nAuraEvent[0] >= 0 && pArgs->nAuraEventFunc[0] > 0)

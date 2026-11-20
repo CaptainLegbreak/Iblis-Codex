@@ -25,7 +25,7 @@ struct D2SkillsTxt { char pad0[0x18]; short nItemType; char pad1[0x23C-0x1A]; };
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 unsigned short __stdcall ITEMS_GetItemFormat(D2UnitStrc*); // 0x0062A670
 int __stdcall ITEMS_GetItemQuality(D2UnitStrc*); // 0x00627E70
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc*, int); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc*, int); // 0x00629BB0
 
 struct D2ItemsTxt
 {
@@ -167,7 +167,7 @@ void __stdcall ITEMS_AssignModernStaffMods(D2UnitStrc* pUnit, int nItemLvl, int 
             nSkillId = nRoll + 5 * (nBaseLayer - 1) + nClassFirstSkillId;
 
             D2SkillsTxt* pSkillsTxtRecord = GetSkillsRecord(nSkillId);
-            if (!pSkillsTxtRecord || pSkillsTxtRecord->nItemType <= 0 || ITEMS_CheckItemTypeId(pUnit, pSkillsTxtRecord->nItemType))
+            if (!pSkillsTxtRecord || pSkillsTxtRecord->nItemType <= 0 || ITEMSIsA(pUnit, pSkillsTxtRecord->nItemType))
             {
                 if (nSkillId != skillIds[0] && nSkillId != skillIds[1] && nSkillId != skillIds[2])
                 {

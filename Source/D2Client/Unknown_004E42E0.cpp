@@ -88,7 +88,7 @@ int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLay
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625500
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitStateAndFlag(D2UnitStrc* pUnit, int nState, int nFlag); // 0x006257D0
 int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625D00
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem); // 0x00629DA0
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x0063B2C0
@@ -388,7 +388,7 @@ static int __stdcall sub_004E4C50_GetStatDisplayValue(int nValue, D2ItemStatCost
     }
 
     nValue >>= pRecord->nValShift;
-    if (nStatId == 122 && pUnit && pUnit->dwUnitType == 4 && ITEMS_CheckItemTypeId(pUnit, 57))
+    if (nStatId == 122 && pUnit && pUnit->dwUnitType == 4 && ITEMSIsA(pUnit, 57))
         nValue += 50;
 
     return nValue;
@@ -1157,7 +1157,7 @@ void __fastcall sub_004E60A0_AddSetPropText(D2UnitStrc* pUnit, Unicode* pOut, in
     const Unicode* pSpace = D2LANG_GetStringFromTblIndex(0xF9B);
     const Unicode* pComma = D2LANG_GetStringFromTblIndex(0xF0C);
 
-    if (bQuantity && ITEMS_CheckItemTypeId(pUnit, 57) && !STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, 122, 0))
+    if (bQuantity && ITEMSIsA(pUnit, 57) && !STATLIST_UnitGetItemStatOrSkillStatValue(pUnit, 122, 0))
     {
         sub_004E48B0_BuildText(pUnit, wszQuantity, 128);
         sub_00526700(pOut, wszQuantity);
@@ -1344,7 +1344,7 @@ static D2UnitStrc* sub_004E9260_MergeOtherHandWeapon(D2UnitStrc* pUnit)
     if (!pOther || pOther == pWeapon)
         return 0;
 
-    if (!ITEMS_CheckItemTypeId(pOther, 45))
+    if (!ITEMSIsA(pOther, 45))
         return 0;
 
     if (!sub_0062A4E0_TestItem(pWeapon) || !sub_0062A4E0_TestItem(pOther))
@@ -1374,7 +1374,7 @@ static D2UnitStrc* sub_004E9300_MergeWeaponPair(D2UnitStrc* pUnit)
     D2UnitStrc* pOther = INVENTORY_GetItemFromBodyLoc(pInventory, nBodyLoc == 4 ? 5 : 4);
     if (pOther && pOther != pWeapon)
     {
-        if (ITEMS_CheckItemTypeId(pOther, 45))
+        if (ITEMSIsA(pOther, 45))
         {
             if (sub_0062A4E0_TestItem(pWeapon) && sub_0062A4E0_TestItem(pOther))
             {
@@ -1401,11 +1401,11 @@ static int __stdcall sub_004E93A0_EvaluateForEachWeapon(int* pValue1, int* pValu
         return 0;
 
     D2UnitStrc* pRight = INVENTORY_GetItemFromBodyLoc(pInventory, 4);
-    if (!sub_0062A4E0_TestItem(pRight) || ITEMS_CheckItemTypeId(pRight, 0x26))
+    if (!sub_0062A4E0_TestItem(pRight) || ITEMSIsA(pRight, 0x26))
         pRight = 0;
 
     D2UnitStrc* pLeft = INVENTORY_GetItemFromBodyLoc(pInventory, 5);
-    if (!sub_0062A4E0_TestItem(pLeft) || ITEMS_CheckItemTypeId(pLeft, 0x26))
+    if (!sub_0062A4E0_TestItem(pLeft) || ITEMSIsA(pLeft, 0x26))
         pLeft = 0;
 
     if (pRight && pLeft)

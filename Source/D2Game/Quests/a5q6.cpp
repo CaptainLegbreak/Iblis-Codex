@@ -54,7 +54,7 @@ struct D2QuestDataStrc
 
 void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C360
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 void __fastcall CLIENTS_UpdateCharacterProgression(D2ClientStrc* pClient, int nAct, int nDifficulty); // 0x00538680
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
@@ -96,7 +96,7 @@ static void __stdcall sub_0058DD30(D2UnitStrc* pPlayer, D2GameStrc* pGame, D2Bit
 {
     QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q6, QFLAG_PRIMARYGOALDONE);
     QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q6, QFLAG_REWARDGRANTED);
-    CLIENTS_UpdateCharacterProgression(SUNIT_GetClientFromPlayer(pPlayer, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q6.cpp", 418), 5, pGame->nDifficulty);
+    CLIENTS_UpdateCharacterProgression(UnitGetClient(pPlayer, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q6.cpp", 418), 5, pGame->nDifficulty);
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A5Q6_BAAL);
     if (pQuestData)
     {
@@ -128,7 +128,7 @@ int __fastcall sub_0058DEA0_UnitIterate_CompleteInChamber(D2GameStrc* pGame, D2U
 // 0x0058E120
 static void sub_0058E120_SendZooMonsterId(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
-    D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pUnit, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q6.cpp", 579);
+    D2ClientStrc* pClient = UnitGetClient(pUnit, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q6.cpp", 579);
     D2GSPacketSrv50 packet50;
     packet50.nHeader = 0x50;
     packet50.nQuestId = QUEST_A5Q6_BAAL;

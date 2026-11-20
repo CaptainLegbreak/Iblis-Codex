@@ -236,7 +236,7 @@ unsigned char __fastcall CLIENTS_GetActNo(D2ClientStrc* pClient); // 0x005382B0
 void __fastcall LEVEL_ChangeAct(D2GameStrc* pGame, D2ClientStrc* pClient, int nDestinationLevelId, int nTileCalc); // 0x0053ACC0
 void __fastcall D2GAME_SendPacket0x9C_6FC3E570(D2ClientStrc* pClient, D2UnitStrc* pItem, char nAction, unsigned int dwFlag, int bGamble); // 0x0053EAE0
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 int __fastcall sub_6FCBDFE0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int a6, int a7); // 0x00554EA0
 int __fastcall PLRTRADE_CopyTradeSaveDataToBuffer(D2UnitStrc* pUnit, unsigned char* pBuffer, int nBufferSize); // 0x005675E0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
@@ -255,7 +255,7 @@ int __stdcall UNITS_CanDualWield(D2UnitStrc* pUnit); // 0x006235A0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
 void __stdcall STATLIST_AddUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x006272B0
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill); // 0x00644140
 int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
@@ -1089,7 +1089,7 @@ static int __stdcall sub_00531EB0_WriteFileOnRealm(D2GameStrc* pGame, D2UnitStrc
     nTotalSize = nSize + 2;
     }
     *(unsigned short*)pData = (unsigned short)nTotalSize;
-    D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pPlayer, szPlrSaveCppFile_006E09AC, 0xA3B);
+    D2ClientStrc* pClient = UnitGetClient(pPlayer, szPlrSaveCppFile_006E09AC, 0xA3B);
     unsigned int nOldChecksum = D2GAME_GetSaveChecksumFromClient_6FC33940(pClient);
     unsigned int nChecksum = D2GAME_SAVE_CalculateChecksum_6FC8A140((D2SaveHeaderStrc*)(pData + 2), nTotalSize - 2);
     int bMatching = nChecksum == nOldChecksum;
@@ -1275,7 +1275,7 @@ int __fastcall D2GAME_SAVE_WriteFile_6FC8A500(D2GameStrc* pGame, D2UnitStrc* pPl
         bInteractsWithPlayer = 1;
     }
 
-    D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pPlayer, szPlrSaveCppFile_006E09AC, 2919);
+    D2ClientStrc* pClient = UnitGetClient(pPlayer, szPlrSaveCppFile_006E09AC, 2919);
     char szAccountName[50];
     CLIENTS_CopyAccountNameToBuffer(pClient, szAccountName);
     unsigned int nToken;
@@ -2095,7 +2095,7 @@ D2UnitStrc* __fastcall sub_6FC7C7B0(D2UnitStrc* pUnit)
                     const int nFlag = SKILLS_GetFlags(pSkill) & 0x2000;
                     pWeapon = sub_0063C050_GetBodyLocItem(pInventory, 5);
                     D2UnitStrc* pTemp = sub_0063C050_GetBodyLocItem(pInventory, 6);
-                    if (!pWeapon || !ITEMS_CheckItemTypeId(pWeapon, ITEMTYPE_WEAPON) || pTemp && ITEMS_CheckItemTypeId(pTemp, ITEMTYPE_WEAPON) && nFlag)
+                    if (!pWeapon || !ITEMSIsA(pWeapon, ITEMTYPE_WEAPON) || pTemp && ITEMSIsA(pTemp, ITEMTYPE_WEAPON) && nFlag)
                     {
                         pWeapon = pTemp;
                     }
@@ -2125,14 +2125,14 @@ D2UnitStrc* __fastcall sub_6FC7C7B0(D2UnitStrc* pUnit)
                 }
                 default:
                     pWeapon = sub_0063C050_GetBodyLocItem(pInventory, 5);
-                    if (!pWeapon || !ITEMS_CheckItemTypeId(pWeapon, ITEMTYPE_WEAPON))
+                    if (!pWeapon || !ITEMSIsA(pWeapon, ITEMTYPE_WEAPON))
                     {
                         pWeapon = sub_0063C050_GetBodyLocItem(pInventory, 6);
                     }
                     break;
                 }
 
-                if (ITEMS_CheckItemTypeId(pWeapon, ITEMTYPE_WEAPON) && ITEMS_CanBeEquipped(pWeapon))
+                if (ITEMSIsA(pWeapon, ITEMTYPE_WEAPON) && ITEMS_CanBeEquipped(pWeapon))
                 {
                     return pWeapon;
                 }
@@ -2353,7 +2353,7 @@ void __fastcall LEVEL_RemoveClientFromAdjacentRooms(D2ActiveRoomStrc* pRoom, D2C
 void __fastcall LEVEL_WarpUnit(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nDestinationLevelId, int nTileCalc)
 {
     const unsigned char nDestinationAct = DRLG_GetActNoFromLevelId(nDestinationLevelId);
-    D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pPlayer, ".\\GAME\\Level.cpp", 506);
+    D2ClientStrc* pClient = UnitGetClient(pPlayer, ".\\GAME\\Level.cpp", 506);
     D2_ASSERT(pClient, 507);
 
     int nSourceLevelId = 0;
@@ -2382,14 +2382,14 @@ void __fastcall LEVEL_WarpUnit(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nDest
 // 0x0053EC90
 void __fastcall D2GAME_SendP0x9C_ItemAction_DropToGround_6FC3E8E0(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2UnitStrc* pItem, int a4)
 {
-    D2_ASSERT(SUNIT_GetClientFromPlayer(pPlayer, ".\\GAME\\SCmd.cpp", 2013) == pClient, 2013);
+    D2_ASSERT(UnitGetClient(pPlayer, ".\\GAME\\SCmd.cpp", 2013) == pClient, 2013);
     D2GAME_SendPacket0x9C_6FC3E570(pClient, pItem, ITEMACTION_DROPTOGROUND, a4, 0);
 }
 
 // 0x0053ECF0
 void __fastcall D2GAME_SendP0x9C_ItemAction_OnGround_6FC3E930(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2UnitStrc* pItem, int a4)
 {
-    D2_ASSERT(SUNIT_GetClientFromPlayer(pPlayer, ".\\GAME\\SCmd.cpp", 2022) == pClient, 2022);
+    D2_ASSERT(UnitGetClient(pPlayer, ".\\GAME\\SCmd.cpp", 2022) == pClient, 2022);
     D2GAME_SendPacket0x9C_6FC3E570(pClient, pItem, ITEMACTION_ONGROUND, a4, 0);
 }
 

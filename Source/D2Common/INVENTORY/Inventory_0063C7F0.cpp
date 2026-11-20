@@ -35,7 +35,7 @@ void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int
 void* __fastcall sub_0040B4B0(void* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0); // 0x0040B4B0
 extern D2InventoryGridInfoStrc gBodyLocInventoryGridInfo;                                                   // 0x0074479C
 extern D2InventoryGridInfoStrc gBeltInventoryGridInfo;                                                      // 0x007447B4
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType);                                     // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType);                                     // 0x00629BB0
 int __stdcall ITEMS_CanBeEquipped(D2UnitStrc* pItem);                                                       // 0x0062A4E0
 D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId);                // 0x00633640
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath);                                           // 0x006488C0
@@ -186,7 +186,7 @@ BOOL __stdcall INVENTORY_GetEquippedWeapon(D2InventoryStrc* pInventory, D2UnitSt
     D2UnitStrc* pLeftHandItem = INVENTORY_GetLeftHandWeapon(pInventory);
 
     D2UnitStrc* pItem = INVENTORY_GetBodyLocItemInline(pInventory, BODYLOC_RARM);
-    if (ITEMS_CanBeEquipped(pItem) && ITEMS_CheckItemTypeId(pItem, ITEMTYPE_WEAPON))
+    if (ITEMS_CanBeEquipped(pItem) && ITEMSIsA(pItem, ITEMTYPE_WEAPON))
     {
         *ppItem = pItem;
         *pBodyLoc = BODYLOC_RARM;
@@ -200,7 +200,7 @@ BOOL __stdcall INVENTORY_GetEquippedWeapon(D2InventoryStrc* pInventory, D2UnitSt
     }
 
     pItem = INVENTORY_GetBodyLocItemInline(pInventory, BODYLOC_LARM);
-    if (ITEMS_CanBeEquipped(pItem) && ITEMS_CheckItemTypeId(pItem, ITEMTYPE_WEAPON))
+    if (ITEMS_CanBeEquipped(pItem) && ITEMSIsA(pItem, ITEMTYPE_WEAPON))
     {
         *ppItem = pItem;
         *pBodyLoc = BODYLOC_LARM;
@@ -226,7 +226,7 @@ BOOL __stdcall INVENTORY_HasBodyArmorEquipped(D2InventoryStrc* pInventory)
         if (pInventoryGrid)
         {
             D2UnitStrc* pItem = pInventoryGrid->ppItems[BODYLOC_TORSO];
-            if (pItem && ITEMS_CheckItemTypeId(pItem, ITEMTYPE_ARMOR))
+            if (pItem && ITEMSIsA(pItem, ITEMTYPE_ARMOR))
             {
                 return TRUE;
             }
@@ -271,7 +271,7 @@ D2UnitStrc* __stdcall INVENTORY_GetEquippedItemByType(D2InventoryStrc* pInventor
 
     while (pItem)
     {
-        if (ITEMS_CheckItemTypeId(pItem, nItemType) && INVENTORY_GetUnitXInline(pItem) < INVENTORY_GRID_X_LIMIT)
+        if (ITEMSIsA(pItem, nItemType) && INVENTORY_GetUnitXInline(pItem) < INVENTORY_GRID_X_LIMIT)
         {
             return pItem;
         }

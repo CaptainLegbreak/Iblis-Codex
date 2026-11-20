@@ -63,7 +63,7 @@ void __stdcall ITEMS_SetBodyLocation(D2UnitStrc* pItem, unsigned char nBodyLoc);
 void __stdcall ITEMS_SetItemCMDFlag(D2UnitStrc* pItem, int nFlag, int bSet);                                // 0x00628170
 void __stdcall ITEMS_SetInvPage(D2UnitStrc* pItem, unsigned char nPage);                                    // 0x00628280
 int __stdcall ITEMS_CheckType(int nItemType, int nItemTypeToCheck);                                         // 0x00629B50
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType);                                     // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType);                                     // 0x00629BB0
 int __stdcall INVENTORY_PlaceItemInSocket(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nPage);       // 0x0063B210
 int __stdcall sub_0063BDB0(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nBodyLoc);                   // 0x0063BDB0
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc);             // 0x0063BDE0
@@ -75,7 +75,7 @@ void __stdcall sub_0063D1D0_InventoryItemCall(D2InventoryStrc* pInventory, D2Uni
 D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID);              // 0x006439B0
 D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill);                            // 0x00644140
 int __stdcall SKILLS_GetUseState(D2UnitStrc* pUnit, D2SkillStrc* pSkill);                                   // 0x00647960
-void __fastcall D2GAME_ITEMS_UpdateItemStatlist_6FC42310(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pUnit, int a4); // 0x0055C2C0
+void __fastcall sITEMSAddStatsList(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pUnit, int a4); // 0x0055C2C0
 void __fastcall D2GAME_AssignSkill_6FD13800(D2UnitStrc* pUnit, int a2, int nSkillId, int nFlags);          // 0x005701B0
 
 static __declspec(noinline) void sub_0055C470_GetWeapons(D2UnitStrc* pUnit, D2UnitStrc** ppMainWeapon, D2UnitStrc** ppRightHandWeapon);
@@ -101,7 +101,7 @@ static void sub_0055C470_GetWeapons(D2UnitStrc* pUnit, D2UnitStrc** ppMainWeapon
             *ppRightHandWeapon = pRightHandWeapon;
         }
 
-        if (*ppRightHandWeapon && !ITEMS_CheckItemTypeId(*ppRightHandWeapon, 0x2D))
+        if (*ppRightHandWeapon && !ITEMSIsA(*ppRightHandWeapon, 0x2D))
         {
             *ppRightHandWeapon = 0;
         }
@@ -197,7 +197,7 @@ static void sub_0055C5C0_RefreshSkillsForEquippedWeapons(D2UnitStrc* pUnit)
         return;
     }
 
-    int bThrown = ITEMS_CheckItemTypeId(pMainWeapon, 0x30) && !ITEMS_CheckItemTypeId(pMainWeapon, 0x2E);
+    int bThrown = ITEMSIsA(pMainWeapon, 0x30) && !ITEMSIsA(pMainWeapon, 0x2E);
     D2SkillStrc* pLeftSkill = UNITS_GetLeftSkill(pUnit);
     if (bThrown && !sub_0055C560_IsThrowSkillUsable(pUnit, pLeftSkill))
     {
@@ -214,7 +214,7 @@ static void sub_0055C5C0_RefreshSkillsForEquippedWeapons(D2UnitStrc* pUnit)
         break;
     }
 
-    bThrown = pRightHandWeapon && ITEMS_CheckItemTypeId(pRightHandWeapon, 0x30) && !ITEMS_CheckItemTypeId(pRightHandWeapon, 0x2E);
+    bThrown = pRightHandWeapon && ITEMSIsA(pRightHandWeapon, 0x30) && !ITEMSIsA(pRightHandWeapon, 0x2E);
     D2SkillStrc* pRightSkill = UNITS_GetRightSkill(pUnit);
     if (bThrown && !sub_0055C560_IsThrowSkillUsable(pUnit, pRightSkill))
     {
@@ -271,27 +271,27 @@ static void sub_6FC43160(D2UnitStrc* pUnit, D2UnitStrc* pItem, D2ItemModeArgStrc
         pItemModeArg->bCanUse2Weapons = 1;
     }
     const int nUnitType2 = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-    if (nUnitType2 == 0 && pUnit->dwClassId == 6 && ITEMS_CheckItemTypeId(pItem, 0x43))
+    if (nUnitType2 == 0 && pUnit->dwClassId == 6 && ITEMSIsA(pItem, 0x43))
     {
         pItemModeArg->bCanUse2Weapons = 1;
     }
-    if (ITEMS_CheckItemTypeId(pItem, 0x1B))
+    if (ITEMSIsA(pItem, 0x1B))
     {
         pItemModeArg->bIsBow = 1;
     }
-    if (ITEMS_CheckItemTypeId(pItem, 0x23))
+    if (ITEMSIsA(pItem, 0x23))
     {
         pItemModeArg->bIsCrossBow = 1;
     }
-    if (ITEMS_CheckItemTypeId(pItem, 5))
+    if (ITEMSIsA(pItem, 5))
     {
         pItemModeArg->bIsBowQuiver = 1;
     }
-    if (ITEMS_CheckItemTypeId(pItem, 6))
+    if (ITEMSIsA(pItem, 6))
     {
         pItemModeArg->bIsCrossBowQuiver = 1;
     }
-    if (ITEMS_CheckItemTypeId(pItem, 0x33))
+    if (ITEMSIsA(pItem, 0x33))
     {
         pItemModeArg->bIsShield = 1;
     }
@@ -299,7 +299,7 @@ static void sub_6FC43160(D2UnitStrc* pUnit, D2UnitStrc* pItem, D2ItemModeArgStrc
     {
         pItemModeArg->bIsTwoHanded = 1;
     }
-    if (ITEMS_CheckItemTypeId(pItem, 0x2D))
+    if (ITEMSIsA(pItem, 0x2D))
     {
         pItemModeArg->bIsWeapon = 1;
     }
@@ -307,7 +307,7 @@ static void sub_6FC43160(D2UnitStrc* pUnit, D2UnitStrc* pItem, D2ItemModeArgStrc
     {
         pItemModeArg->bIsThrowable = 1;
     }
-    if (ITEMS_CheckItemTypeId(pItem, 0x0A))
+    if (ITEMSIsA(pItem, 0x0A))
     {
         pItemModeArg->bIsRing = 1;
     }
@@ -363,9 +363,9 @@ int __fastcall sub_6FC42F20(D2UnitStrc* pUnit, D2UnitStrc* pItem, int* pBodyLoc,
     D2UnitStrc* pLeftArmItem = INVENTORY_GetItemFromBodyLoc(pInventory, 5);
     if (ITEMS_GetQuiverTypeFromItemType(ITEMS_GetItemType(pItem)))
     {
-        if (!pRightArmItem || !ITEMS_CheckItemTypeId(pItem, ITEMS_GetAmmoType(pRightArmItem)))
+        if (!pRightArmItem || !ITEMSIsA(pItem, ITEMS_GetAmmoType(pRightArmItem)))
         {
-            if (!pLeftArmItem || !ITEMS_CheckItemTypeId(pItem, ITEMS_GetAmmoType(pLeftArmItem)))
+            if (!pLeftArmItem || !ITEMSIsA(pItem, ITEMS_GetAmmoType(pLeftArmItem)))
             {
                 return 0;
             }
@@ -432,7 +432,7 @@ int __fastcall ITEMMODE_EquipItemAtResolvedBodyLocation(D2GameStrc* pGame, D2Uni
                     ITEMS_SetBodyLocation(pItem, nBodyLoc);
                     sub_0063D1D0_InventoryItemCall(pInventory, pItem);
                     INVENTORY_SetCursorItem(pInventory, 0);
-                    D2GAME_ITEMS_UpdateItemStatlist_6FC42310(pGame, pItem, pUnit, 0);
+                    sITEMSAddStatsList(pGame, pItem, pUnit, 0);
                     if (pItem)
                     {
                         pItem->dwFlags &= ~2;

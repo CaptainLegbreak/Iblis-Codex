@@ -43,7 +43,7 @@ extern "C" int __fastcall sub_00523AB0_SelectValue(int bSecond)
 }
 
 // 0x005FE060
-extern "C" void __cdecl sub_005FE060_ClearPair88CB10()
+extern "C" void __cdecl D2CMPResetTileCacheHits()
 {
     gnValue_0088CB10 = 0;
     gnValue_0088CB0C = 0;

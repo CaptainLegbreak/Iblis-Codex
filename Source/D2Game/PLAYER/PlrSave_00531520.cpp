@@ -59,7 +59,7 @@ char* __fastcall CLIENTS_GetName(D2ClientStrc* pClient); // 0x00538830
 void __fastcall D2GAME_SendPacket0x8E_CorpseAssign_ToAllPlayers_6FC3F9B0(D2GameStrc* pGame, int nUnitId, int nCorpseId, unsigned char bAssign); // 0x0053DF80
 void __fastcall SUNIT_InitSeed(D2UnitStrc* pUnit, int* pSeed); // 0x00552DF0
 void __fastcall SUNIT_InitClientInPlayerData(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00553180
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char a7, int nMode, unsigned int a9); // 0x00555230
 void __stdcall UNITS_SetNameInPlayerData(D2UnitStrc* pUnit, char* szName); // 0x006220F0
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
@@ -245,7 +245,7 @@ static int __stdcall sub_00533850_ReadCorpse(D2UnitStrc* pUnit, D2GameStrc* pGam
 
     pUnit->dwFlags &= ~4;
     {
-        D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pPlayer, gszPlrSaveFile_006E09AC, 0x1511);
+        D2ClientStrc* pClient = UnitGetClient(pPlayer, gszPlrSaveFile_006E09AC, 0x1511);
         SUNIT_InitClientInPlayerData(pUnit, pClient);
         char* const szName = CLIENTS_GetName(pClient);
         UNITS_SetNameInPlayerData(pUnit, szName);

@@ -12,7 +12,7 @@ extern unsigned char gaPcxPalette_008E9938[256 * 4]; // 0x008E9938
 
 typedef unsigned char (__stdcall* MapFn)(unsigned char nRed, unsigned char nGreen, unsigned char nBlue);
 
-unsigned char __stdcall sub_006056D0_FindNearestPaletteIndex(unsigned char nRed, unsigned char nGreen, unsigned char nBlue); // 0x006056D0
+unsigned char __stdcall Palette24BitTo8BitPixel(unsigned char nRed, unsigned char nGreen, unsigned char nBlue); // 0x006056D0
 extern int gbPaletteLoaded_008E9934; // 0x008E9934
 
 struct D2PalRgba00605AA0Strc
@@ -59,7 +59,7 @@ unsigned int gdwSwappedColor_008E9D38; // 0x008E9D38
 int gnSquareTable_008E9034[511]; // 0x008E9034
 
 // 0x006056D0
-unsigned char __stdcall sub_006056D0_FindNearestPaletteIndex(unsigned char nRed, unsigned char nGreen, unsigned char nBlue)
+unsigned char __stdcall Palette24BitTo8BitPixel(unsigned char nRed, unsigned char nGreen, unsigned char nBlue)
 {
     unsigned int nBestDistance = 0x7FFFFFFF;
     unsigned int nBestIndex = 0;
@@ -98,7 +98,7 @@ int __stdcall sub_006057A0_MapColors(const unsigned char* pSource, unsigned char
     unsigned char* pDst = pDest;
     if (gbPaletteLoaded_008E9934)
     {
-        MapFn pfn = !pfnMap ? sub_006056D0_FindNearestPaletteIndex : pfnMap;
+        MapFn pfn = !pfnMap ? Palette24BitTo8BitPixel : pfnMap;
 
         for (unsigned int i = 0; i < nCount; ++i)
         {

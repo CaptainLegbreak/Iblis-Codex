@@ -45,7 +45,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 
 D2NpcRecordStrc* __fastcall SUNITPROXY_GetNpcRecordFromClassId(D2GameStrc* pGame, int nNpcClassId, int* pIndex); // 0x00535EA0
 unsigned char __fastcall CLIENTS_GetActNo(D2ClientStrc* pClient);                                           // 0x005382B0
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine);     // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine);     // 0x005531C0
 D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char a7, int nMode, unsigned int a9); // 0x00555230
 void __fastcall MONSTERAI_AssignHireling(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pUnit, unsigned short nId, D2MercDataStrc* pMercData, int bDead); // 0x00573270
 D2HirelingTxt* __stdcall DATATBLS_GetNextHirelingTxtRecordFromActAndDifficulty(int bExpansion, int nAct, int nDifficulty, D2HirelingTxt* pOldRecord); // 0x00656580
@@ -56,9 +56,9 @@ D2UnitStrc* __fastcall D2GAME_MERCS_Create_6FCC8630(D2GameStrc* pGame, D2UnitStr
 {
     const int nMercAct = MONSTERS_GetActFromHirelingTxt(pGame->bExpansion, 0, wName);
     int nAct = pPlayer->nAct;
-    if (SUNIT_GetClientFromPlayer(pPlayer, gszSUnitNpcFile_006E15F0, 0x735))
+    if (UnitGetClient(pPlayer, gszSUnitNpcFile_006E15F0, 0x735))
     {
-        nAct = CLIENTS_GetActNo(SUNIT_GetClientFromPlayer(pPlayer, gszSUnitNpcFile_006E15F0, 0x737));
+        nAct = CLIENTS_GetActNo(UnitGetClient(pPlayer, gszSUnitNpcFile_006E15F0, 0x737));
     }
 
     if (!pGame->bExpansion && (nMercAct < 0 || nAct != nMercAct))

@@ -129,7 +129,7 @@ void __stdcall INVENTORY_AddItemToTradeInventory(D2InventoryStrc* pInventory, D2
 void __fastcall sub_0055D930(D2UnitStrc* pUnit, D2UnitStrc* pItem, int nUnused); // 0x0055D930
 int __stdcall ITEMS_UpdateSets(D2UnitStrc* pUnit, D2UnitStrc* pItem, int a3, int a4); // 0x00663CC0
 void __stdcall UNITS_RefreshInventory(D2UnitStrc* pUnit, int bSetFlag); // 0x00621000
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 void __fastcall D2GAME_PACKETS_SendPacket0x42_6FC3EE40(D2ClientStrc* pClient, D2UnitStrc* pUnit); // 0x0053D2E0
 void __stdcall INVENTORY_SetCursorItem(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063C180
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
@@ -172,7 +172,7 @@ void __stdcall UNITS_SetWeaponGUID(D2UnitStrc* pUnit, int nWeaponGUID); // 0x006
 int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
 int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc* pItem); // 0x0062BA80
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625500
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
 void __fastcall sub_6FC4B580(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x0055F850
 unsigned char __stdcall ITEMS_GetBodyLocation(D2UnitStrc* pItem); // 0x00627D40
@@ -184,7 +184,7 @@ D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
 int __stdcall SKILLS_GetUseState(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x00647960
 D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x006439B0
 void __fastcall D2GAME_AssignSkill_6FD13800(D2UnitStrc* pUnit, int a2, int nSkillId, int nFlags); // 0x005701B0
-static void __stdcall sub_6FC80B90(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pWeapon); // 0x00580030
+static void __stdcall sRestoreWeapon(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pWeapon); // 0x00580030
 
 typedef void(__fastcall* STATLIST_UpdateFn)(D2UnitStrc* pUnit, int nValue, int nStatId, D2UnitStrc* pOther);
 
@@ -590,7 +590,7 @@ static void __stdcall sub_6FC802F0(D2GameStrc* pGame, int nBodyloc, D2UnitStrc* 
 static void sub_6FC803F0(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pPlayer)
 {
     D2InventoryStrc* pInventory = pPlayer->pInventory;
-    D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pPlayer, ".\\PLAYER\\PlrModes.cpp", 0x27D);
+    D2ClientStrc* pClient = UnitGetClient(pPlayer, ".\\PLAYER\\PlrModes.cpp", 0x27D);
     D2GAME_PACKETS_SendPacket0x42_6FC3EE40(pClient, pPlayer);
     INVENTORY_SetCursorItem(pInventory, 0);
     ITEMS_SetItemCMDFlag(pItem, 1, 1);
@@ -717,7 +717,7 @@ D2UnitStrc* __fastcall sub_0057F700_CreateDeadBody(D2GameStrc* pGame,D2UnitStrc*
  }
  D2UnitStrc* pCorpse=SUNIT_AllocUnitData(0,pUnit->dwClassId,nX,nY,pGame,pCorpseRoom,1,17,0);
  D2_ASSERT(pCorpse,0x304);
- D2ClientStrc* pClient=SUNIT_GetClientFromPlayer(pUnit,gszPlrModesSourceFile_006E17E0,0x306);
+ D2ClientStrc* pClient=UnitGetClient(pUnit,gszPlrModesSourceFile_006E17E0,0x306);
  pCorpse->dwFlags&=~4;
  sub_00553180(pCorpse,pClient);
  sub_006220F0(pCorpse,CLIENTS_GetName(pClient));
@@ -926,7 +926,7 @@ void __fastcall sub_0057F240_EmitCaller(void* pGame, D2UnitStrc* pPlayer)
 }
 
 // 0x00580030
-static void __stdcall sub_6FC80B90(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pWeapon)
+static void __stdcall sRestoreWeapon(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pWeapon)
 {
     if ((ITEMS_CheckIfStackable(pWeapon) || ITEMS_CheckIfThrowable(pWeapon) || STATLIST_UnitGetItemStatOrSkillStatValue(pWeapon, 0x7D, 0)) && STATLIST_UnitGetStatValue(pWeapon, 0x46, 0) <= 0)
     {
@@ -936,7 +936,7 @@ static void __stdcall sub_6FC80B90(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2Uni
             return;
         }
 
-        if (ITEMS_CheckItemTypeId(pWeapon, 0x2D) && ITEMS_IsMagSetRarUniCrfOrTmp(pWeapon))
+        if (ITEMSIsA(pWeapon, 0x2D) && ITEMS_IsMagSetRarUniCrfOrTmp(pWeapon))
         {
             if (!ITEMS_CheckItemFlag(pWeapon, 0x100, 0x513, gszPlrModesSourceFile_006E17E0))
             {
@@ -1061,13 +1061,13 @@ void __fastcall sub_6FC80A30(D2GameStrc* pGame, D2UnitStrc* pUnit)
             D2UnitStrc* pRightWeapon = INVENTORY_GetItemFromBodyLoc(pInventory, 0x04);
             if (pRightWeapon)
             {
-                sub_6FC80B90(pGame, pUnit, pRightWeapon);
+                sRestoreWeapon(pGame, pUnit, pRightWeapon);
             }
 
             D2UnitStrc* pLeftWeapon = INVENTORY_GetItemFromBodyLoc(pInventory, 0x05);
             if (pLeftWeapon)
             {
-                sub_6FC80B90(pGame, pUnit, pLeftWeapon);
+                sRestoreWeapon(pGame, pUnit, pLeftWeapon);
             }
 
             sub_00580280_RestoreActiveSkills(pUnit, &tSkills);
@@ -1108,7 +1108,7 @@ void __fastcall sub_6FC80E10(D2GameStrc* pGame, D2UnitStrc* pPlayer)
             if (INVENTORY_GetItemNodePage(pItem) == 3)
             {
                 D2UnitStrc* pWeapon = INVENTORY_UnitIsItem(pItem);
-                if (ITEMS_CheckItemTypeId(pWeapon, ITEMTYPE_WEAPON) && ITEMS_HasDurability(pWeapon)
+                if (ITEMSIsA(pWeapon, ITEMTYPE_WEAPON) && ITEMS_HasDurability(pWeapon)
                     && STATLIST_UnitGetStatValue(pWeapon, STAT_DURABILITY, 0) <= 0
                     && !ITEMS_CheckItemFlag(pWeapon, IFLAG_BROKEN, 1513, ".\\PLAYER\\PlrModes.cpp"))
                 {
@@ -1409,7 +1409,7 @@ void __fastcall sub_6FC817D0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillStrc* 
 }
 
 // 0x00580A70
-void __fastcall D2GAME_PLAYERMODE_Change_6FC81A00(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2SkillStrc* pSkill, int nMode, int nUnitType, int nTargetGUID, int bAllowReEnter)
+void __fastcall StartModeID(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2SkillStrc* pSkill, int nMode, int nUnitType, int nTargetGUID, int bAllowReEnter)
 {
     D2_ASSERT(pGame, 0x835);
 

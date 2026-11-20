@@ -76,7 +76,7 @@ void __stdcall UNITS_SetOverlay(D2UnitStrc* pUnit, int nOverlay, int a3);       
 int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nRangeBonus);                // 0x00622C40
 unsigned int __fastcall UNITS_GetHitClass(D2UnitStrc* pUnit);                                               // 0x00623C20
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc);              // 0x0063BDE0
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType);                                      // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType);                                      // 0x00629BB0
 
 static __forceinline int SUNITDMG_IsInDeathMode(D2UnitStrc* pUnit)
 {
@@ -123,7 +123,7 @@ static void __stdcall sub_0057D3D0_DamageItems(D2UnitStrc* pAttacker, D2GameStrc
     for (int i = 0; i < gnBodyLocWeightCount_00732BC8; ++i)
     {
         D2UnitStrc* pItem = INVENTORY_GetItemFromBodyLoc(pInventory, gaBodyLocWeights_00732B90[i].nBodyLoc);
-        if (pItem && ITEMS_CheckItemTypeId(pItem, 0x32))
+        if (pItem && ITEMSIsA(pItem, 0x32))
         {
             nTotal += gaBodyLocWeights_00732B90[i].nWeight;
             pItems[i] = pItem;

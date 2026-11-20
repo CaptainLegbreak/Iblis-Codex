@@ -324,7 +324,7 @@ void __stdcall sub_00643260(int* pX, int* pY); // 0x00643260
 extern "C" int __fastcall sub_004D9FC0(D2UnitStrc* unit, D2SkillStrc* skill); // 0x004D9FC0
 int __stdcall ITEMS_CheckRequirements(D2UnitStrc* pItem, D2UnitStrc* pUnit, int bEquipping, int* bStrength, int* bDexterity, int* bLevel); // 0x0062EAF0
 int __stdcall ITEMS_GetQuiverType(D2UnitStrc* pItem); // 0x0062E740
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 
 
 #pragma pack(push, 1)
@@ -656,7 +656,7 @@ int __fastcall sub_0055DB00_CheckEquipRequirements(D2UnitStrc* pUnit, D2UnitStrc
             pOtherArmItem = INVENTORY_GetItemFromBodyLoc(pInventory, 5);
         }
 
-        if (!pOtherArmItem || !ITEMS_CheckItemTypeId(pOtherArmItem, ITEMS_GetQuiverType(pItem)))
+        if (!pOtherArmItem || !ITEMSIsA(pOtherArmItem, ITEMS_GetQuiverType(pItem)))
         {
             bResult = 0;
         }
@@ -675,14 +675,14 @@ static void __stdcall sub_004C0D20_ApplyItemStats(D2UnitStrc* pUnit, D2UnitStrc*
         return;
     }
 
-    if (ITEMS_CheckItemTypeId(pItem, 0x14))
+    if (ITEMSIsA(pItem, 0x14))
     {
         D2_ASSERT(pUnit->dwUnitType == 4, 0x30);
         pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
         pGemsTxtRecord = DATATBLS_GetGemsTxtRecord(pItemsTxtRecord->dwGemOffset);
         sub_0065FEC0_ItemApplyProps(2, NULL, pItem, pGemsTxtRecord, sub_00629A40(pUnit), 0);
     }
-    else if (ITEMS_CheckItemTypeId(pItem, 0x4A))
+    else if (ITEMSIsA(pItem, 0x4A))
     {
         D2_ASSERT(pUnit->dwUnitType == 4, 0x3A);
         pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
@@ -705,7 +705,7 @@ static void __stdcall sub_004C0D20_ApplyItemStats(D2UnitStrc* pUnit, D2UnitStrc*
         if (UNITS_CanDualWield(pUnit))
         {
             int bType = 1;
-            if (pLeftHand && pItem != pLeftHand && ITEMS_CheckItemTypeId(pItem, 0x2D))
+            if (pLeftHand && pItem != pLeftHand && ITEMSIsA(pItem, 0x2D))
             {
                 bType = 0;
             }
@@ -1141,7 +1141,7 @@ void __fastcall sub_004C2180_UpdateCursorItem(D2UnitStrc* pItem)
         STATES_ToggleState(pItem, 0x36, 0);
         D2Common_10474(pItem, pStatList);
         STATLIST_FreeStatList(pStatList);
-        UNITS_UpdateAnimRateAndVelocity(pItem, ".\\UNIT\\Item.cpp", 0xCCA);
+        UnitUpdateAnimRateAndVel(pItem, ".\\UNIT\\Item.cpp", 0xCCA);
     }
 }
 
@@ -2116,7 +2116,7 @@ static void __stdcall sub_004C43E0_ItemToBelt(D2GSPacketSrv9C* pPacket, D2ItemSa
 
     UNITS_SetXForStaticUnit(pItem, pItemSave->nX);
     UNITS_SetYForStaticUnit(pItem, pItemSave->nY);
-    if (ITEMS_CheckItemTypeId(pItem, 0x0D))
+    if (ITEMSIsA(pItem, 0x0D))
     {
         sub_004C0D20_ApplyItemStats(pPlayer, pItem, 0);
     }
@@ -2613,7 +2613,7 @@ int __fastcall sub_004DF630_QueryAddress(D2AddressQueryStrc* pQuery)
 }
 
 // 0x004DF9D0
-D2SlotStrc* __fastcall sub_004DF9D0_FindBestSlot(int nOwner)
+D2SlotStrc* __fastcall SoundChannelFind(int nOwner)
 {
     if (!gdwGlobal_007C8C78)
     {

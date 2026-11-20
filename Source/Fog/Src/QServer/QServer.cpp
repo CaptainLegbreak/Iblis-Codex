@@ -455,7 +455,7 @@ struct D2ConnectionTableStrc
     int unk_24;
     D2CriticalSectionStrc tLock;
 };
-void __fastcall sub_006C0420_DisconnectClient(D2ConnectionTableStrc* pTable, int nClient, const char* pFile, int nLine); // 0x006C0420
+void __fastcall QSrvCloseRemoteConnection(D2ConnectionTableStrc* pTable, int nClient, const char* pFile, int nLine); // 0x006C0420
 const char* __stdcall sub_006B013E_FormatIP(unsigned int nIP); // 0x006B013E
 
 struct D2ClientNodeStrc { int client; D2ClientNodeStrc* next; unsigned char pad[0x10]; unsigned int address; };
@@ -904,7 +904,7 @@ void __cdecl sub_006BF750_Nop()
 }
 
 // 0x006BF760
-QServer* __stdcall FOG_InitializeServer(int nState, int nSlots, int nPort, int bDisableNt, D2NET_ValidatePacketCallback pfCallback1, D2NET_ClientCallback pfCallback2, D2NET_PacketCallback pfCallback3, D2NET_ReadPacketCallback pfReadPacket)
+QServer* __stdcall QSInit(int nState, int nSlots, int nPort, int bDisableNt, D2NET_ValidatePacketCallback pfCallback1, D2NET_ClientCallback pfCallback2, D2NET_PacketCallback pfCallback3, D2NET_ReadPacketCallback pfReadPacket)
 {
     D2WSADataStrc tWsaData;
     QServer* pServer = (QServer*)FOG_Alloc(sizeof(QServer), gszQServerFile_006FC460, 148, 0);
@@ -1098,7 +1098,7 @@ void __stdcall sub_006C06D0_DisconnectIP(D2ConnectionTableStrc* pTable, unsigned
     }
     LeaveCriticalSection(&pTable->tLock);
     if (pNode)
-        sub_006C0420_DisconnectClient(pTable, pNode->nClient, pFile, nLine);
+        QSrvCloseRemoteConnection(pTable, pNode->nClient, pFile, nLine);
     else
         sub_00410660_LogWritePrefixed(gszHackChannel_006FC4A8, "[HACKLIST]  Client %s is already closed", sub_006B013E_FormatIP(nIP));
     sub_00410660_LogWritePrefixed(gszHackChannel_006FC4A8, "[HACKLIST]  IP:%s  QSDisconnectIP() from FILE:%s  LINE:%d", sub_006B013E_FormatIP(nIP), pFile, nLine);

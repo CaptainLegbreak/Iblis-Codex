@@ -100,11 +100,11 @@ D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, in
 void __stdcall ITEMS_SetItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int bSet); // 0x006280D0
 void __stdcall ITEMS_SetBodyLocation(D2UnitStrc* pItem, unsigned char nBodyLoc); // 0x00627D70
 int __fastcall sub_6FC48940(D2GameStrc* pGame, D2UnitStrc* pUnit, int nItemGUID, int nBeltSlot, int bFindFreeSlot, int* a6); // 0x0055E9B0
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 int __stdcall STATLIST_GetMaxDurabilityFromUnit(D2UnitStrc* pUnit); // 0x00625E00
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall SUNIT_GetInteractInfo(D2UnitStrc* pUnit, int* pUnitType, int* pUnitGUID); // 0x00554100
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 void __fastcall sub_6FC3F340(D2ClientStrc* pClient, unsigned char nHeader, unsigned char nUnitType, int nUnitId, int a5); // 0x0053D6D0
 void __fastcall D2GAME_NPC_ResetInteract_6FCCB4D0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pNpc); // 0x00579130
 void __fastcall sub_6FC79B50(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pObject); // 0x005854D0
@@ -299,7 +299,7 @@ void __fastcall PLAYER_CreateStartItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, D
             {
                 PLAYER_PlaceItemInInventory(pGame, 1, pItem, pPlayer);
             }
-            if (ITEMS_CheckItemTypeId(pItem, ITEMTYPE_BOW_QUIVER))
+            if (ITEMSIsA(pItem, ITEMTYPE_BOW_QUIVER))
             {
                 STATLIST_SetUnitStat(pItem, STAT_QUANTITY, 250, 0);
             }
@@ -311,7 +311,7 @@ void __fastcall PLAYER_CreateStartItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, D
         else
         {
             PLAYER_PlaceItemInInventory(pGame, 1, pItem, pPlayer);
-            if (ITEMS_CheckItemTypeId(pItem, ITEMTYPE_BOW_QUIVER))
+            if (ITEMSIsA(pItem, ITEMTYPE_BOW_QUIVER))
             {
                 STATLIST_SetUnitStat(pItem, STAT_QUANTITY, 250, 0);
             }
@@ -319,7 +319,7 @@ void __fastcall PLAYER_CreateStartItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, D
             {
                 STATLIST_SetUnitStat(pItem, STAT_DURABILITY, STATLIST_GetMaxDurabilityFromUnit(pItem), 0);
             }
-            if (ITEMS_CheckItemTypeId(pItem, ITEMTYPE_BOW_QUIVER))
+            if (ITEMSIsA(pItem, ITEMTYPE_BOW_QUIVER))
             {
                 STATLIST_SetUnitStat(pItem, STAT_QUANTITY, 100, 0);
             }
@@ -347,13 +347,13 @@ void __fastcall sub_6FC7BEC0(D2GameStrc* pGame, D2UnitStrc* pUnit)
             case UNIT_MONSTER:
                 D2GAME_NPC_ResetInteract_6FCCB4D0(pGame, pUnit, pInteractUnit);
                 nInteractUnitId = pInteractUnit->dwUnitId;
-                sub_6FC3F340(SUNIT_GetClientFromPlayer(pUnit, ".\\PLAYER\\Player.cpp", 0x202), 0x62, UNIT_MONSTER, nInteractUnitId, 0);
+                sub_6FC3F340(UnitGetClient(pUnit, ".\\PLAYER\\Player.cpp", 0x202), 0x62, UNIT_MONSTER, nInteractUnitId, 0);
                 return;
 
             case UNIT_OBJECT:
                 sub_6FC79B50(pGame, pUnit, pInteractUnit);
                 nInteractUnitId = pInteractUnit->dwUnitId;
-                sub_6FC3F340(SUNIT_GetClientFromPlayer(pUnit, ".\\PLAYER\\Player.cpp", 0x206), 0x62, UNIT_OBJECT, nInteractUnitId, 0);
+                sub_6FC3F340(UnitGetClient(pUnit, ".\\PLAYER\\Player.cpp", 0x206), 0x62, UNIT_OBJECT, nInteractUnitId, 0);
                 return;
 
             case UNIT_PLAYER:
@@ -365,14 +365,14 @@ void __fastcall sub_6FC7BEC0(D2GameStrc* pGame, D2UnitStrc* pUnit)
                 {
                     sub_6FC92EF0(pGame, pUnit);
                     nInteractUnitId = pInteractUnit->dwUnitId;
-                    sub_6FC3F340(SUNIT_GetClientFromPlayer(pUnit, ".\\PLAYER\\Player.cpp", 0x211), 0x62, UNIT_ITEM, nInteractUnitId, 0);
+                    sub_6FC3F340(UnitGetClient(pUnit, ".\\PLAYER\\Player.cpp", 0x211), 0x62, UNIT_ITEM, nInteractUnitId, 0);
                 }
                 return;
             }
         }
     }
 
-    sub_6FC3F340(SUNIT_GetClientFromPlayer(pUnit, ".\\PLAYER\\Player.cpp", 0x217), 0x62, UNIT_INVALID, 0, 0);
+    sub_6FC3F340(UnitGetClient(pUnit, ".\\PLAYER\\Player.cpp", 0x217), 0x62, UNIT_INVALID, 0, 0);
 }
 
 // 0x005353B0

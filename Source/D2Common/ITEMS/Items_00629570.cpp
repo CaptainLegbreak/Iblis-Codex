@@ -48,7 +48,7 @@ struct D2SetItemsTxt
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem); // 0x00629DA0
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 int __stdcall ITEMS_CheckRequirements(D2UnitStrc* pItem, D2UnitStrc* pPlayer, int bEquipping, int* a4, int* a5, int* a6); // 0x0062EAF0
 
 
@@ -276,7 +276,7 @@ int __stdcall ITEMS_IsCharmUsable(D2UnitStrc* pItem, D2UnitStrc* pPlayer)
     if (!ITEMS_CanBeEquippedInline(pItem))
         return FALSE;
 
-    if (!ITEMS_CheckItemTypeId(pItem, ITEMTYPE_CHARM))
+    if (!ITEMSIsA(pItem, ITEMTYPE_CHARM))
         return FALSE;
 
     D2ItemDataStrc* pItemData = ITEMS_GetItemData(pItem);

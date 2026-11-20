@@ -181,7 +181,7 @@ int __fastcall SKILLS_AuraCallback_BasicAura(D2AuraCallbackStrc* pAuraCallback, 
             }
         }
     }
-    UNITS_UpdateAnimRateAndVelocity(pUnit, ".\\SKILLS\\SkilPal.cpp", 413);
+    UnitUpdateAnimRateAndVel(pUnit, ".\\SKILLS\\SkilPal.cpp", 413);
     STATLIST_SetStat(pStatList, 350, pArgs->nSkillId, 0);
     STATLIST_SetStat(pStatList, 351, pArgs->nSkillLevel, 0);
     if (pArgs->nPassiveState > 0)

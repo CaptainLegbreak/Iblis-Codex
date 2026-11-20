@@ -16,7 +16,7 @@ extern "C" const char* __cdecl sub_00408090();                                  
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType);                                      // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType);                                      // 0x00629BB0
 unsigned int __stdcall ITEMS_CheckWeaponIfTwoHanded(D2UnitStrc* pItem);                                     // 0x006289C0
 int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc* pItem);                                                    // 0x0062BA80
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);         // 0x00625500
@@ -39,27 +39,27 @@ static void sub_6FC43160(D2UnitStrc* pUnit, D2UnitStrc* pItem, D2ItemModeArgStrc
         pItemModeArg->bCanUse2Weapons = 1;
     }
     const int nUnitType2 = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
-    if (nUnitType2 == 0 && pUnit->dwClassId == 6 && ITEMS_CheckItemTypeId(pItem, 0x43))
+    if (nUnitType2 == 0 && pUnit->dwClassId == 6 && ITEMSIsA(pItem, 0x43))
     {
         pItemModeArg->bCanUse2Weapons = 1;
     }
-    if (ITEMS_CheckItemTypeId(pItem, 0x1B))
+    if (ITEMSIsA(pItem, 0x1B))
     {
         pItemModeArg->bIsBow = 1;
     }
-    if (ITEMS_CheckItemTypeId(pItem, 0x23))
+    if (ITEMSIsA(pItem, 0x23))
     {
         pItemModeArg->bIsCrossBow = 1;
     }
-    if (ITEMS_CheckItemTypeId(pItem, 5))
+    if (ITEMSIsA(pItem, 5))
     {
         pItemModeArg->bIsBowQuiver = 1;
     }
-    if (ITEMS_CheckItemTypeId(pItem, 6))
+    if (ITEMSIsA(pItem, 6))
     {
         pItemModeArg->bIsCrossBowQuiver = 1;
     }
-    if (ITEMS_CheckItemTypeId(pItem, 0x33))
+    if (ITEMSIsA(pItem, 0x33))
     {
         pItemModeArg->bIsShield = 1;
     }
@@ -67,7 +67,7 @@ static void sub_6FC43160(D2UnitStrc* pUnit, D2UnitStrc* pItem, D2ItemModeArgStrc
     {
         pItemModeArg->bIsTwoHanded = 1;
     }
-    if (ITEMS_CheckItemTypeId(pItem, 0x2D))
+    if (ITEMSIsA(pItem, 0x2D))
     {
         pItemModeArg->bIsWeapon = 1;
     }
@@ -75,7 +75,7 @@ static void sub_6FC43160(D2UnitStrc* pUnit, D2UnitStrc* pItem, D2ItemModeArgStrc
     {
         pItemModeArg->bIsThrowable = 1;
     }
-    if (ITEMS_CheckItemTypeId(pItem, 0x0A))
+    if (ITEMSIsA(pItem, 0x0A))
     {
         pItemModeArg->bIsRing = 1;
     }
@@ -131,9 +131,9 @@ int __fastcall sub_6FC42F20(D2UnitStrc* pUnit, D2UnitStrc* pItem, int* pBodyLoc,
     D2UnitStrc* pLeftArmItem = INVENTORY_GetItemFromBodyLoc(pInventory, 5);
     if (ITEMS_GetQuiverTypeFromItemType(ITEMS_GetItemType(pItem)))
     {
-        if (!pRightArmItem || !ITEMS_CheckItemTypeId(pItem, ITEMS_GetAmmoType(pRightArmItem)))
+        if (!pRightArmItem || !ITEMSIsA(pItem, ITEMS_GetAmmoType(pRightArmItem)))
         {
-            if (!pLeftArmItem || !ITEMS_CheckItemTypeId(pItem, ITEMS_GetAmmoType(pLeftArmItem)))
+            if (!pLeftArmItem || !ITEMSIsA(pItem, ITEMS_GetAmmoType(pLeftArmItem)))
             {
                 return 0;
             }

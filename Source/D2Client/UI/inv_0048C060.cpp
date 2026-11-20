@@ -105,7 +105,7 @@ unsigned short __stdcall ITEMS_GetRareSuffixId(D2UnitStrc* pItem);              
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile);   // 0x006280A0
 char* __stdcall ITEMS_GetEarName(D2UnitStrc* pItem);                                                        // 0x00628340
 unsigned char __stdcall ITEMS_GetEarLevel(D2UnitStrc* pItem);                                               // 0x006283A0
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType);                                      // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType);                                      // 0x00629BB0
 int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem);                                                        // 0x00629DA0
 int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem);                                                         // 0x0062B400
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId);                                              // 0x006335F0
@@ -257,9 +257,9 @@ void __fastcall sub_0048C060_BuildItemName(D2UnitStrc* pItem, Unicode* pOut, int
             }
             case 2:
             {
-                if (!ITEMS_CheckItemTypeId(pItem, 0x16) && !ITEMS_CheckItemTypeId(pItem, 0x12))
+                if (!ITEMSIsA(pItem, 0x16) && !ITEMSIsA(pItem, 0x12))
                 {
-                    if (ITEMS_CheckItemTypeId(pItem, 7))
+                    if (ITEMSIsA(pItem, 7))
                     {
                         char szLevel[18] = { 0 };
                         UnicodeChar aEarName[0x100];
@@ -292,7 +292,7 @@ void __fastcall sub_0048C060_BuildItemName(D2UnitStrc* pItem, Unicode* pOut, int
                         sub_005272B0_FormatText(WSZ(aText), WSZ(aEarName), WSZ(aFormat), 100, STRTABLE_GetLanguage());
                         sub_00526700(pOut, WSZ(aText));
                     }
-                    else if (ITEMS_CheckItemTypeId(pItem, 0x28))
+                    else if (ITEMSIsA(pItem, 0x28))
                     {
                         D2MonStatsTxt* pMonStatsTxt = DATATBLS_GetMonStatsTxtRecord(ITEMS_GetFileIndex(pItem));
                         sub_0048BE80_FormatArgs(pOut, D2LANG_GetStringFromTblIndex(0x6B4), D2LANG_GetStringFromTblIndex(pMonStatsTxt->wNameStr), D2LANG_GetStringFromTblIndex(pItemsTxt->wNameStr), 0);

@@ -26,7 +26,7 @@ void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQues
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
 
 
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 void __fastcall CLIENTS_UpdateCharacterProgression(D2ClientStrc* pClient, int nAct, int nDifficulty); // 0x00538680
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
@@ -246,7 +246,7 @@ static __declspec(noinline) void __stdcall sub_0059C810_FinishDurielQuest(D2Game
 {
     QUESTRECORD_SetQuestState(pQuestFlags, 14, 13);
     QUESTRECORD_SetQuestState(pQuestFlags, 14, 3);
-    CLIENTS_UpdateCharacterProgression(SUNIT_GetClientFromPlayer(pUnit, szA2Q6File_006E2068, 386), 2, pGame->nDifficulty);
+    CLIENTS_UpdateCharacterProgression(UnitGetClient(pUnit, szA2Q6File_006E2068, 386), 2, pGame->nDifficulty);
 }
 
 // 0x0059D050

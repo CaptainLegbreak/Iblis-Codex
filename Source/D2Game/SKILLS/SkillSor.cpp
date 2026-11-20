@@ -318,7 +318,7 @@ void __fastcall SKILLS_CurseStateCallback_DefensiveBuff(D2UnitStrc* pUnit, int n
     if (!SUNIT_IsDead(pUnit) || !STATES_CheckStateMaskStayDeathOnUnitByStateId(pUnit, nState))
     {
         STATES_ToggleState(pUnit, nState, 0);
-        UNITS_UpdateAnimRateAndVelocity(pUnit, ".\\SKILLS\\SkillSor.cpp", 425);
+        UnitUpdateAnimRateAndVel(pUnit, ".\\SKILLS\\SkillSor.cpp", 425);
         SKILLS_RefreshPassivesAndPetLimits(pUnit);
     }
 }

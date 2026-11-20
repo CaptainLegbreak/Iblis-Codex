@@ -1080,7 +1080,7 @@ void* __stdcall SMemHeapAlloc(unsigned int hHeap, unsigned int dwFlags, unsigned
     return pResult;
 }
 
-void* __stdcall sub_00413310(unsigned int hHeap, unsigned int dwFlags, void* pMemory, unsigned int nSize)
+void* __stdcall SMemHeapReAlloc(unsigned int hHeap, unsigned int dwFlags, void* pMemory, unsigned int nSize)
 {
     if (!gbHeapInitialized_007788D0)
     {

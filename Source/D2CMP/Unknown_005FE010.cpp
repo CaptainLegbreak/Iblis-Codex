@@ -71,7 +71,7 @@ void __fastcall sub_0060AB10_GfxHashRemove(void* pMemPool, D2CmpGfxHashStrc* pHa
 void __fastcall sub_0060B0B0_CelDataHashRemove(void* pMemPool, D2CelDataHashStrc* pHash, T00604AE0* pEntry); // 0x0060B0B0
 
 // 0x005FE010
-void __stdcall sub_005FE010_GetPoolStats(int* pnArg, int* pnCountB, int* pnCountA, int* pnHitPercent)
+void __stdcall D2CMPGetTileCacheHits(int* pnArg, int* pnCountB, int* pnCountA, int* pnHitPercent)
 {
     *pnArg = gnCmpPoolArg_0088CB18;
     *pnCountA = gnValue_0088CB10;

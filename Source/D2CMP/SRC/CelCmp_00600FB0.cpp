@@ -136,7 +136,7 @@ void* __stdcall SMemReAlloc(void* pLocation, unsigned int nAmount, const char* s
 inline void* __cdecl operator new(unsigned int nSize, void* pWhere) throw();
 
 // 0x00600FB0
-void __stdcall sub_00600FB0_ConvertCell(unsigned* cell,unsigned** output,unsigned* outputSize)
+void __stdcall CelFileConvertOldToNew(unsigned* cell,unsigned** output,unsigned* outputSize)
 {
  unsigned* cellCopy = cell;
  D2_ASSERT(cellCopy[1]&1,0x2cb);

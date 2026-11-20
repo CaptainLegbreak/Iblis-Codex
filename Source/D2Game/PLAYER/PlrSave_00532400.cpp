@@ -27,7 +27,7 @@ void __fastcall D2GAME_SetSaveLoadComplete_6FC34300(D2ClientStrc* pClient);     
 extern "C" int __stdcall sub_00554100(D2UnitStrc* pUnit, int* pUnitType, int* pUnitGUID);                 // 0x00554100
 extern "C" void __fastcall sub_00539300(D2ClientStrc* pClient, unsigned int* pOut);                       // 0x00539300
 extern "C" void __fastcall sub_00539310(D2ClientStrc* pClient, unsigned int* pOut);                       // 0x00539310
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine);     // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine);     // 0x005531C0
 void __fastcall CLIENTS_CopyAccountNameToBuffer(D2ClientStrc* pClient, char* szBuffer);                     // 0x005392F0
 int __fastcall sub_00531EB0_WriteFileOnRealm(D2GameStrc* pGame, char* szAccountName, D2UnitStrc* pPlayer, const char* szName, int bInteractsWithPlayer, unsigned int nToken, unsigned int dwArg, unsigned int nClientInfo);
 extern D2ServerCallbackFunctions* gpD2EventCallbackTable_6FD45830;                                          // 0x00883D50
@@ -107,7 +107,7 @@ int __fastcall D2GAME_SAVE_WriteFile_6FC8A500(D2GameStrc* pGame, D2UnitStrc* pPl
         bInteractsWithPlayer = 1;
     }
 
-    D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pPlayer, szPlrSaveCppFile_006E09AC, 2919);
+    D2ClientStrc* pClient = UnitGetClient(pPlayer, szPlrSaveCppFile_006E09AC, 2919);
     char szAccountName[50];
     CLIENTS_CopyAccountNameToBuffer(pClient, szAccountName);
     unsigned int nToken;

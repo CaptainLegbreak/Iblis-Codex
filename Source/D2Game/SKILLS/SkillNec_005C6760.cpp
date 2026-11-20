@@ -45,7 +45,7 @@ struct D2CurseStrc
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625500
 extern "C" int __fastcall sub_005A0180(Unit005A0180* pUnit, unsigned short wMask);                         // 0x005A0180
 D2StatListStrc* __fastcall sub_0056E970(D2CurseStrc* pCurse);
-void __stdcall UNITS_UpdateAnimRateAndVelocity(D2UnitStrc* pUnit, const char* szFile, int nLine);           // 0x00623F50
+void __stdcall UnitUpdateAnimRateAndVel(D2UnitStrc* pUnit, const char* szFile, int nLine);           // 0x00623F50
 int __stdcall sub_006270B0(D2StatListStrc* pStatList, int nStatId, int nValue, int nLayer);          // 0x006270B0
 // 0x005C6760
 int __fastcall sub_005C6760(D2GameStrc* pGame, int nEvent, D2UnitStrc* pAttacker, D2UnitStrc* pTarget, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel)
@@ -87,6 +87,6 @@ int __fastcall sub_005C6760(D2GameStrc* pGame, int nEvent, D2UnitStrc* pAttacker
         return 0;
     sub_006270B0(pStatList, STAT_B, nSlow, 0);
     sub_006270B0(pStatList, STAT_C, nSlow, 0);
-    UNITS_UpdateAnimRateAndVelocity(pTarget, ".\\SKILLS\\SkillNec.cpp", SOURCE_LINE);
+    UnitUpdateAnimRateAndVel(pTarget, ".\\SKILLS\\SkillNec.cpp", SOURCE_LINE);
     return 1;
 }

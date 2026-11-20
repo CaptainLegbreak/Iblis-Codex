@@ -171,7 +171,7 @@ void __fastcall QUESTS_ActChange_HirelingChangeAct(D2GameStrc* pGame, D2UnitStrc
 D2WaypointDataStrc* __fastcall sub_00547F50(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00547F50
 void __fastcall D2GAME_PlayerChangeAct_6FC867C0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nDestLevel, int nTileCalc); // 0x0054B830
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nSound, D2UnitStrc* pTarget); // 0x00553380
 D2ActiveRoomStrc* __fastcall D2GAME_GetFreeSpaceEx_6FC4BF00(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, D2CoordStrc* pReturnCoords, int nUnitSize, int a5); // 0x00555DA0
 int __fastcall ITEMS_GetItemLevelForNewItem(D2UnitStrc* pUnit, int nLevel); // 0x00558200
@@ -460,7 +460,7 @@ int __fastcall NPC_HandleDialogMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
 
     if (nType == 3)
     {
-        D2GAME_NPC_BuildHirelingList_6FCC6FF0(pGame, SUNIT_GetClientFromPlayer(pPlayer, gszNpcSource_006E15F0, 0xB50), pMonster,
+        D2GAME_NPC_BuildHirelingList_6FCC6FF0(pGame, UnitGetClient(pPlayer, gszNpcSource_006E15F0, 0xB50), pMonster,
             MONSTERAI_GetInteractUnitCount(sub_00535E80_GetMonInteract(pMonster)) <= 1);
         return 0;
     }
@@ -471,7 +471,7 @@ int __fastcall NPC_HandleDialogMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
         packet58.nHeader = 0x58;
         packet58.nUnitId = nNpcGUID;
 
-        D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pPlayer, gszNpcSource_006E15F0, 0xB59);
+        D2ClientStrc* pClient = UnitGetClient(pPlayer, gszNpcSource_006E15F0, 0xB59);
         if (!sub_00578610_IsCursorItem(nItemGUID, pPlayer))
         {
             return 3;
@@ -589,7 +589,7 @@ int __fastcall NPC_HandleDialogMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
         packet58.nHeader = 0x58;
         packet58.nUnitId = nNpcGUID;
 
-        D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pPlayer, gszNpcSource_006E15F0, 0xBE2);
+        D2ClientStrc* pClient = UnitGetClient(pPlayer, gszNpcSource_006E15F0, 0xBE2);
         if (!sub_00578610_IsCursorItem(nItemGUID, pPlayer))
         {
             return 3;
@@ -688,7 +688,7 @@ int __fastcall NPC_HandleDialogMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
         packet58.nHeader = 0x58;
         packet58.nUnitId = nNpcGUID;
 
-        D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pPlayer, gszNpcSource_006E15F0, 0xC57);
+        D2ClientStrc* pClient = UnitGetClient(pPlayer, gszNpcSource_006E15F0, 0xC57);
         if (!sub_00578610_IsCursorItem(nItemGUID, pPlayer))
         {
             return 3;

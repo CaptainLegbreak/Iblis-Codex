@@ -35,7 +35,7 @@ void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* 
 void __fastcall PARTY_CountLivingUnits(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pLivingUnits);           // 0x005404F0
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID);               // 0x00552F60
 unsigned short __fastcall SUNIT_GetPartyId(D2UnitStrc* pPlayer);                                            // 0x00554630
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine);     // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine);     // 0x005531C0
 void __fastcall sub_6FC3E200(D2ClientStrc* pClient, D2UnitStrc* pUnit);                                     // 0x0053CDF0
 unsigned short __fastcall PARTY_GetPartyIdForUnitOwner(D2GameStrc* pGame, D2UnitStrc* pUnit);               // 0x00540710
 void __fastcall D2GAME_PACKETS_SendPacket0x8D_6FC3F960(D2UnitStrc* pUnit, D2UnitStrc* pPlayer);             // 0x0053DF00
@@ -158,7 +158,7 @@ static void __stdcall PARTY_CalculatePickAndDrop(int* pGoldToPick, int* pGoldToD
 
 void __fastcall PARTY_SynchronizeWithClient(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
-    D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pUnit, ".\\UNIT\\Party.cpp", 591);
+    D2ClientStrc* pClient = UnitGetClient(pUnit, ".\\UNIT\\Party.cpp", 591);
     const unsigned short nPartyId = SUNIT_GetPartyId(pUnit);
     if (nPartyId == D2PartyIdNone)
     {

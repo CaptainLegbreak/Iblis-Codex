@@ -32,7 +32,7 @@ D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonster
 int __stdcall ITEMS_GetWeaponClassCode(D2UnitStrc* pItem);                                                  // 0x00628500
 int __stdcall ITEMS_Get2HandWeaponClassCode(D2UnitStrc* pItem);                                             // 0x00628530
 unsigned char __stdcall ITEMS_GetComponent(D2UnitStrc* pUnit);                                              // 0x00628660
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType);                                      // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType);                                      // 0x00629BB0
 unsigned short __stdcall ITEMS_GetWeaponClassId(D2UnitStrc* pUnit);                                         // 0x00629FE0
 int __stdcall ITEMS_CanBeEquipped(D2UnitStrc* pItem);                                                       // 0x0062A4E0
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc);             // 0x0063BDE0
@@ -133,7 +133,7 @@ LABEL_CLASS:
 
         if (nClass == 4)
         {
-            if (ITEMS_CheckItemTypeId(pRightHandItem, 0x2D) && ITEMS_CheckItemTypeId(pLeftHandItem, 0x2D))
+            if (ITEMSIsA(pRightHandItem, 0x2D) && ITEMSIsA(pLeftHandItem, 0x2D))
             {
                 D2UnitStrc* pPrimaryWeapon = INVENTORY_GetLeftHandWeapon(pInventory);
                 if (!pPrimaryWeapon)
@@ -187,7 +187,7 @@ LABEL_CLASS:
         }
         else if (nClass == 6)
         {
-            if (ITEMS_CheckItemTypeId(pRightHandItem, 0x2D) && ITEMS_CheckItemTypeId(pLeftHandItem, 0x2D))
+            if (ITEMSIsA(pRightHandItem, 0x2D) && ITEMSIsA(pLeftHandItem, 0x2D))
             {
                 *pWeaponClassId = COMPOSIT_GetWeaponClassIdFromCode(WEAPONCLASS_HT2);
                 return WEAPONCLASS_HT2;

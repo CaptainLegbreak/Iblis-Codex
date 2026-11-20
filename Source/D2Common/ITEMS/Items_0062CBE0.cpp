@@ -113,7 +113,7 @@ void __stdcall sub_00628070(D2UnitStrc* pItem, unsigned short nSuffix);         
 unsigned int __stdcall ITEMS_GetItemFlags(D2UnitStrc* pItem);                                               // 0x00628110
 int __stdcall ITEMS_GetBaseCode(D2UnitStrc* pItem);                                                         // 0x00628590
 int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem);                                                    // 0x006289F0
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType);                                      // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType);                                      // 0x00629BB0
 void __stdcall ITEMS_SetFileIndex(D2UnitStrc* pItem, unsigned int dwFileIndex);                             // 0x00629DF0
 void __stdcall sub_00629EA0(D2UnitStrc* pItem, int nRealmData0, int nRealmData1);                         // 0x00629EA0
 void __stdcall ITEMS_SetItemFormat(D2UnitStrc* pItem, unsigned short nItemFormat);                          // 0x0062A6C0
@@ -228,7 +228,7 @@ static __declspec(noinline) void __stdcall ITEMS_SetDefenseOrDamage(D2UnitStrc* 
     {
     case 16:
     case 31:
-        if (ITEMS_CheckItemTypeId(pItem, 50) && pItemsTxtRecord->dwMaxAc)
+        if (ITEMSIsA(pItem, 50) && pItemsTxtRecord->dwMaxAc)
         {
             int nArmor = STATLIST_GetUnitBaseStat(pItem, 31, 0) + 1;
             if (nArmor <= pItemsTxtRecord->dwMaxAc)
@@ -238,7 +238,7 @@ static __declspec(noinline) void __stdcall ITEMS_SetDefenseOrDamage(D2UnitStrc* 
         break;
     case 17:
     case 22:
-        if (ITEMS_CheckItemTypeId(pItem, 45))
+        if (ITEMSIsA(pItem, 45))
         {
             const int nMax = STATLIST_GetUnitBaseStat(pItem, 22, 0);
             if (pItemsTxtRecord->nMaxDam && nMax < pItemsTxtRecord->nMaxDam)
@@ -253,7 +253,7 @@ static __declspec(noinline) void __stdcall ITEMS_SetDefenseOrDamage(D2UnitStrc* 
         break;
     case 18:
     case 21:
-        if (ITEMS_CheckItemTypeId(pItem, 45))
+        if (ITEMSIsA(pItem, 45))
         {
             const int nMin = STATLIST_GetUnitBaseStat(pItem, 21, 0);
             if (pItemsTxtRecord->nMinDam && nMin < pItemsTxtRecord->nMinDam)
@@ -572,7 +572,7 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
         break;
 
     case 2:
-        if (ITEMS_CheckItemTypeId(pItem, 13))
+        if (ITEMSIsA(pItem, 13))
         {
             if (bCheckForHeader || ITEMS_GetItemFlags(pItem) & IFLAG_IDENTIFIED)
             {
@@ -592,12 +592,12 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
             }
         }
 
-        if (ITEMS_CheckItemTypeId(pItem, 40) && !ITEMS_CheckItemTypeId(pItem, 7))
+        if (ITEMSIsA(pItem, 40) && !ITEMSIsA(pItem, 7))
         {
             ITEMS_SetFileIndex(pItem, BITMANIP_ReadInl(pBuffer, 10));
         }
 
-        if (ITEMS_CheckItemTypeId(pItem, 22) || ITEMS_CheckItemTypeId(pItem, 18))
+        if (ITEMSIsA(pItem, 22) || ITEMSIsA(pItem, 18))
         {
             sub_00627FB0(pItem, BITMANIP_ReadInl(pBuffer, 5), 0);
         }
@@ -787,7 +787,7 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
         b109 = 1;
     }
 
-    if (ITEMS_CheckItemTypeId(pItem, 50))
+    if (ITEMSIsA(pItem, 50))
     {
         pItemStatCostTxtRecord = ITEMS_GetRecF3(31);
         nValue = BITMANIP_ReadInl(pBuffer, pItemStatCostTxtRecord->nSaveBits[b109]) - pItemStatCostTxtRecord->dwSaveAdd[b109];
@@ -816,7 +816,7 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
             STATLIST_SetUnitStat(pItem, 72, nValue, 0);
         }
     }
-    else if (ITEMS_CheckItemTypeId(pItem, 45))
+    else if (ITEMSIsA(pItem, 45))
     {
         pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(UNITS_GetClassIdInl(pItem));
         D2_ASSERT(pItemsTxtRecord, 6349);
@@ -923,7 +923,7 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
             STATLIST_SetUnitStat(pItem, 72, nValue, 0);
         }
     }
-    else if (ITEMS_CheckItemTypeId(pItem, 4))
+    else if (ITEMSIsA(pItem, 4))
     {
         if (BITMANIP_ReadInl(pBuffer, 1))
         {

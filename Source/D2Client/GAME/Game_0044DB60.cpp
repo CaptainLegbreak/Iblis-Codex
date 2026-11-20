@@ -78,7 +78,7 @@ void __cdecl sub_0044E5A0_DrawOverlayB(); // 0x0044E5A0
 int __fastcall sub_0044D390_GetTextX(int nStringId, int nX); // 0x0044D390
 void __fastcall sub_004684C0(); // 0x004684C0
 void __fastcall sub_0044B880_SetValue(int nValue); // 0x0044B880
-void __stdcall sub_00600790_LoadTileLibrary(D2TileLibraryHeaderStrc** ppLibrary, const char* szFilePath); // 0x00600790
+void __stdcall D2CMPLoadProjectRecord(D2TileLibraryHeaderStrc** ppLibrary, const char* szFilePath); // 0x00600790
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 D2CellFileStrc* __fastcall sub_004788B0_LoadCellFile(const char* szPath, int nType); // 0x004788B0
 void __stdcall sub_004FB500(const char* szPalette, const char* szPl2); // 0x004FB500
@@ -225,7 +225,7 @@ void __stdcall sub_0044DB60_PreloadActTiles(unsigned char nAct)
                 if (szFile[0] != '0' && szFile[0])
                 {
                     D2TileLibraryHeaderStrc* pLibrary;
-                    sub_00600790_LoadTileLibrary(&pLibrary, szFile);
+                    D2CMPLoadProjectRecord(&pLibrary, szFile);
                 }
             }
         }
@@ -233,8 +233,8 @@ void __stdcall sub_0044DB60_PreloadActTiles(unsigned char nAct)
 
     {
         D2TileLibraryHeaderStrc* pLibrary;
-        sub_00600790_LoadTileLibrary(&pLibrary, "data\\global\\tiles\\act1\\barracks\\warp.dt1");
-        sub_00600790_LoadTileLibrary(&pLibrary, "data\\global\\tiles\\act1\\outdoors\\blank.dt1");
+        D2CMPLoadProjectRecord(&pLibrary, "data\\global\\tiles\\act1\\barracks\\warp.dt1");
+        D2CMPLoadProjectRecord(&pLibrary, "data\\global\\tiles\\act1\\outdoors\\blank.dt1");
     }
 }
 
@@ -442,7 +442,7 @@ void* __fastcall sub_00454650_ReadWholeFile(const char* szName, unsigned long* p
     unsigned long nRead;
     char szPath[0x104];
     strcpy(szPath, szName);
-    strcat(szPath, D2CMP_GetGfxFileExtension(0));
+    strcat(szPath, D2CMPGetGfxFileExtension(0));
     void* hFile = CreateFileA(szName, 0x80000000, 0, 0, 3, 0x80, 0);
     if (hFile == (void*)-1)
     {

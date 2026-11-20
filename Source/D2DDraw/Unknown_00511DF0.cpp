@@ -55,7 +55,7 @@ struct D2DDrawCelClipStrc
 };
 
 int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3);
-void __stdcall sub_00601650_DrawCelClipped(D2CmpCelContextStrc* pContext, int nX, int nY, int nArg4, int nArg5, unsigned char* pBuffer, int nHeight, int nPitch, int nArg9, int nArg10, int nClipTop, int nClipRows, int nArg13); // 0x00601650
+void __stdcall CelDrawEx(D2CmpCelContextStrc* pContext, int nX, int nY, int nArg4, int nArg5, unsigned char* pBuffer, int nHeight, int nPitch, int nArg9, int nArg10, int nClipTop, int nClipRows, int nArg13); // 0x00601650
 int __fastcall sub_00511D70_GetCapsValue(int nIndex, int* pType); // 0x00511D70
 
 struct D2DDrawCapsStrc
@@ -173,7 +173,7 @@ void __fastcall sub_M366_Emit_00512250(D2CelContextStrc* pContext, int nX, int n
     if (sub_00511E80_ClipCel(pContext->pCel, nY, nX, &tOut, pClip))
         return;
     const int nCaps = sub_00511D70_GetCapsValue(nDrawMode, (int*)&pClip);
-    sub_00601650_DrawCelClipped((D2CmpCelContextStrc*)pContext, nX, nY, tOut.nLeft, tOut.nRight, gpScreenBuffer_007C9154,
+    CelDrawEx((D2CmpCelContextStrc*)pContext, nX, nY, tOut.nLeft, tOut.nRight, gpScreenBuffer_007C9154,
         gnScreenHeight_007C913C, gnScreenWidth_007C9138, 0, nCaps, tOut.f_8, tOut.nRows, 0);
 }
 
@@ -195,7 +195,7 @@ int __fastcall sub_00511FB0_DrawImage(void* pData, int nX, int nY, unsigned int 
     if (nDrawMode == 7)
         pGammaTable = gpDDrawCaps_007C9150->pMode7Table;
 
-    sub_006014C0((D2CmpCelContextStrc*)pContext, nX, nY, gnDDrawOriginX_0088129C, gnDDrawModeWidth_008812A0,
+    CelDraw((D2CmpCelContextStrc*)pContext, nX, nY, gnDDrawOriginX_0088129C, gnDDrawModeWidth_008812A0,
         gpScreenBuffer_007C9154, gnScreenHeight_007C913C, gnScreenWidth_007C9138, (int)pGammaTable, nCaps, (int)pPalette);
     return 1;
 }

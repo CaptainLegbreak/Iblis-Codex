@@ -6,7 +6,7 @@ int __stdcall sub_006018F0(D2CelStrc*); // 0x006018F0
 int __stdcall sub_00601920(D2CelStrc*); // 0x00601920
 int __stdcall sub_00601950(D2CelStrc*); // 0x00601950
 int __fastcall sub_00511D70_GetCapsValue(int, int*); // 0x00511D70
-void __stdcall sub_00601650_DrawCelClipped(D2CmpCelContextStrc*, int, int, int, int, unsigned char*, int, int, int, int, int, int, int); // 0x00601650
+void __stdcall CelDrawEx(D2CmpCelContextStrc*, int, int, int, int, unsigned char*, int, int, int, int, int, int, int); // 0x00601650
 extern int gnWidth_007C9138; // 0x007C9138
 extern int gnHeight_007C913C; // 0x007C913C
 extern unsigned char* gpPixels_007C9154; // 0x007C9154
@@ -41,5 +41,5 @@ void __fastcall sub_005121A0_DrawClipped(D2CmpCelContextStrc* context, int x, in
     if (!sub_006001F0_ValidateContext(context, 0, 1)) return;
     if (sub_00511E10_IsCelOffScreen(context->cel, x, y, 0)) return;
     int screenHeight = gnHeight_007C913C;
-    sub_00601650_DrawCelClipped(context, x, y, gnClip_0088129C, gnClip_008812A0, gpPixels_007C9154, screenHeight, gnWidth_007C9138, 0, sub_00511D70_GetCapsValue(index, &rows), top, rows, 0);
+    CelDrawEx(context, x, y, gnClip_0088129C, gnClip_008812A0, gpPixels_007C9154, screenHeight, gnWidth_007C9138, 0, sub_00511D70_GetCapsValue(index, &rows), top, rows, 0);
 }

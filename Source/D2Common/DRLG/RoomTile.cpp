@@ -69,8 +69,8 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-int __stdcall D2CMP_GetTiles(void** ppTiles, int nTileType, int nStyle, int nSequence, D2TileLibraryEntryStrc** ppTileEntries, int nMaxEntries); // 0x00604AE0
-int __stdcall TILE_GetRarity(D2TileLibraryEntryStrc* pTile); // 0x00604C20
+int __stdcall TileLibraryGetTiles(void** ppTiles, int nTileType, int nStyle, int nSequence, D2TileLibraryEntryStrc** ppTileEntries, int nMaxEntries); // 0x00604AE0
+int __stdcall TileGetRarity(D2TileLibraryEntryStrc* pTile); // 0x00604C20
 
 union D2C_PackedTileInformation
 {
@@ -247,10 +247,10 @@ D2TileLibraryEntryStrc* __fastcall DRLGROOMTILE_GetTileCache(D2DrlgRoomStrc* pDr
     const unsigned char nStyle = nPackedTileInformation ? (unsigned char)(nPackedTileInformation >> 20) & 0x3F : 0;
     const unsigned char nSequence = nPackedTileInformation ? (unsigned char)(nPackedTileInformation >> 8) : 0;
 
-    const unsigned int nTiles = D2CMP_GetTiles(&pDrlgRoom->pTiles, nType, nStyle, nSequence, ppTileEntries, 40);
+    const unsigned int nTiles = TileLibraryGetTiles(&pDrlgRoom->pTiles, nType, nStyle, nSequence, ppTileEntries, 40);
     if (!nTiles)
     {
-        D2_ASSERT(D2CMP_GetTiles(&pDrlgRoom->pTiles, 10, 0, 0, ppTileEntries, 40), 0x73);
+        D2_ASSERT(TileLibraryGetTiles(&pDrlgRoom->pTiles, 10, 0, 0, ppTileEntries, 40), 0x73);
         return ppTileEntries[0];
     }
 
@@ -258,14 +258,14 @@ D2TileLibraryEntryStrc* __fastcall DRLGROOMTILE_GetTileCache(D2DrlgRoomStrc* pDr
     for (unsigned int i = 0; i < nTiles; ++i)
     {
         D2_ASSERT(ppTileEntries[i], 0x7C);
-        nTotalRarity += TILE_GetRarity(ppTileEntries[i]);
+        nTotalRarity += TileGetRarity(ppTileEntries[i]);
     }
 
     int nRand = SEED_RollLimitedRandomNumber(&pDrlgRoom->pSeed, nTotalRarity) + 1;
     int nIndex = 0;
     while (nTotalRarity && nTiles > 1 && nRand > 0)
     {
-        nRand -= TILE_GetRarity(ppTileEntries[nIndex]);
+        nRand -= TileGetRarity(ppTileEntries[nIndex]);
         ++nIndex;
     }
 

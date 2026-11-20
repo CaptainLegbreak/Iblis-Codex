@@ -189,7 +189,7 @@ struct D2GSPacketSrv5D
 };
 
 void __fastcall LEVEL_WarpUnit(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nDestinationLevelId, int nTileCalc); // 0x0053AEC0
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 void __fastcall sub_6FC3F380(D2ClientStrc* pClient, D2GSPacketSrv5D* pPacket); // 0x0053D710
 void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C360
 void __stdcall QUESTRECORD_ResetIntermediateStateFlags(D2BitBufferStrc* pQuestRecord, int nQuest); // 0x0065C3E0
@@ -481,7 +481,7 @@ void __fastcall ACT3Q6_SetObjectModes(D2GameStrc* pGame)
 static void sub_005B4A30_ACT4Q2_WarpPlayerAndSendQuestPacket(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
     LEVEL_WarpUnit(pGame, pPlayer, 103, 0);
-    D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pPlayer, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a4q2.cpp", 440);
+    D2ClientStrc* pClient = UnitGetClient(pPlayer, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a4q2.cpp", 440);
     D2GSPacketSrv5D packet = {};
     packet.nHeader = 0x5D;
     packet.nQuestId = 0x17;
@@ -505,7 +505,7 @@ static void __stdcall sub_005B4D20(D2BitBufferStrc* pQuestFlags, D2GameStrc* pGa
     {
         QUESTRECORD_SetQuestState(pQuestFlags, 26, 6);
         QUESTRECORD_SetQuestState(pQuestFlags, 26, 7);
-        CLIENTS_UpdateCharacterProgression(SUNIT_GetClientFromPlayer(pUnit, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a4q2.cpp", 592), 4, pGame->nDifficulty);
+        CLIENTS_UpdateCharacterProgression(UnitGetClient(pUnit, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a4q2.cpp", 592), 4, pGame->nDifficulty);
     }
 
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 23);

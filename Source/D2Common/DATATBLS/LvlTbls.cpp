@@ -702,7 +702,7 @@ void __fastcall DATATBLS_AllocGlobalTileLibraryHash()
 
             if (bExpansion || !gpLvlTypesTxt_0096C9F0[i].dwExpansion)
             {
-                DT1_ListAdd(ppTileLibraryHash, gpLvlTypesTxt_0096C9F0[i].szFile[j]);
+                TileLibraryAddProject(ppTileLibraryHash, gpLvlTypesTxt_0096C9F0[i].szFile[j]);
             }
         }
         ppTileLibraryHash += 1024;

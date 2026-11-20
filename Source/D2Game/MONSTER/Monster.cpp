@@ -70,7 +70,7 @@ int __fastcall MONSTER_SetVelocityAndPosition(D2GameStrc* pGame, D2UnitStrc* pMo
     }
 
     PATH_SetVelocity(pMonster->pDynamicPath, pMonStatsTxtRecord->nVelocity << 8, ".\\MONSTER\\Monster.cpp", 383);
-    UNITS_UpdateAnimRateAndVelocity(pMonster, ".\\MONSTER\\Monster.cpp", 384);
+    UnitUpdateAnimRateAndVel(pMonster, ".\\MONSTER\\Monster.cpp", 384);
 
     D2ModeChangeStrc modeChange;
     MONSTERMODE_GetModeChangeInfo(pMonster, nAnimMode, &modeChange);

@@ -188,7 +188,7 @@ int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625500
 unsigned int __stdcall ITEMS_GetItemTypeFromItemId(unsigned int dwItemId); // 0x00628700
 int __stdcall ITEMS_CheckItemTypeIfThrowable(int nItemType); // 0x00628860
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem); // 0x0062B400
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 int __stdcall DATATBLS_GetItemIdFromItemCode(unsigned int dwCode); // 0x00633680
@@ -808,7 +808,7 @@ void __fastcall D2GAME_DropTC_6FC51360(D2GameStrc* pGame, D2UnitStrc* pMonster, 
                 continue;
             }
 
-            if (ITEMS_CheckItemTypeId(pItem, 4) && pTC->pInfo[nIndex].nTxtRow)
+            if (ITEMSIsA(pItem, 4) && pTC->pInfo[nIndex].nTxtRow)
             {
                 D2GAME_SetStatOrResetGold_6FC7CA70(pItem, 0xE, STATLIST_UnitGetStatValue(pItem, 0xE, 0) * pTC->pInfo[nIndex].nTxtRow >> 8);
             }

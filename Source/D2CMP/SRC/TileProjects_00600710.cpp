@@ -50,7 +50,7 @@ D2TileLibraryHashStrc* __stdcall sub_00600760_GetTileHashBlock(const char* szNam
 }
 
 // 0x00600790
-D2CmpTileLibraryStrc* __stdcall sub_00600790_LoadTileLibrary(D2TileLibraryHashStrc** ppHashBlock, const char* szName)
+D2CmpTileLibraryStrc* __stdcall D2CMPLoadProjectRecord(D2TileLibraryHashStrc** ppHashBlock, const char* szName)
 {
     D2CmpTileLibraryStrc* pLibrary = 0;
     void* hFile = 0;

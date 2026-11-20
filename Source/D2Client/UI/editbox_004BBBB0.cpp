@@ -23,7 +23,7 @@ void* __fastcall sub_004788B0_LoadCellFile(const char* szPath, int nFlags);     
 int __fastcall sub_00501820(const Unicode* wszText);                                             // 0x00501820
 int __fastcall sub_00502EF0(int nArg);                                                                      // 0x00502EF0
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);                  // 0x00526F20
-D2CelStrc* __stdcall D2CMP_CelGetHandle(D2CelContextStrc* pContext);                                        // 0x00601840
+D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext);                                        // 0x00601840
 int __stdcall sub_006018C0(D2CelStrc* pCel);                                                                 // 0x006018C0
 int __stdcall sub_006018F0(D2CelStrc* pCel);                                                                // 0x006018F0
 extern D2ButtonStringStrc gaButtonStrings_007275A8[];                                                       // 0x007275A8
@@ -262,7 +262,7 @@ ButtonImplementation::ButtonImplementation(int nX, int nY, int nStringSlot, int 
     tContext.pCellFile = sub_00454600();
     tContext.unk0x40 = 0;
     tContext.nFrame = nBaseFrame;
-    D2CelStrc* pCel = D2CMP_CelGetHandle(&tContext);
+    D2CelStrc* pCel = CelGetHandle(&tContext);
     this->nX = nX;
     this->nY = nY;
     unk0x24 = 0;

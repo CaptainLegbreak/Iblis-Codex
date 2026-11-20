@@ -92,7 +92,7 @@ void __fastcall D2GAME_PACKETS_SendPacket0x5A_6FC3DEC0(D2ClientStrc* pClient, D2
 void __fastcall QUESTS_NPCMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, int dwNPCGUID, unsigned short nMessage); // 0x005443B0
 void __fastcall QUESTS_StatusCallback(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00546040
 void __fastcall j_D2GAME_PACKETS_SendPacket0x26_ServerMessage_6FC3DDF0(D2ClientStrc* pClient, void* pMsg); // 0x0054A5C0
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 int __fastcall D2GAME_CreatePortalObject_6FD13DF0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int nDestLevel, D2UnitStrc** ppSourceUnit, int nObjectId, int bPerm); // 0x0056D130
 void __fastcall D2GAME_NPC_HireMerc_6FCC9540(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nNpcUnitId, unsigned short a4); // 0x00577FE0
 int __fastcall D2GAME_NPC_Repair_6FCC95B0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nNpcGUID, int nItemGUID, unsigned short nUnused, int a6); // 0x00578050
@@ -196,7 +196,7 @@ void __fastcall sub_00549A60_SendCantDoThat(D2UnitStrc* pUnit)
     packet5A.nColor = STRCOLOR_RED;
     *(int*)&packet5A.dwParam = 0;
     packet5A.nType = EVENTTYPE_CANTDOTHAT;
-    D2GAME_PACKETS_SendPacket0x5A_6FC3DEC0(SUNIT_GetClientFromPlayer(pUnit, ".\\PLAYER\\PlrMsg.cpp", 1852), &packet5A);
+    D2GAME_PACKETS_SendPacket0x5A_6FC3DEC0(UnitGetClient(pUnit, ".\\PLAYER\\PlrMsg.cpp", 1852), &packet5A);
 }
 
 // 0x0054A9B0
@@ -449,7 +449,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x5F_UpdatePlayerPos_6FC88530(D2GameStrc
     const int nX = ((D2GSPacketClt5F*)pPacket)->nX;
     const int nY = ((D2GSPacketClt5F*)pPacket)->nY;
 
-    D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pUnit, ".\\PLAYER\\PlrMsg.cpp", 5654);
+    D2ClientStrc* pClient = UnitGetClient(pUnit, ".\\PLAYER\\PlrMsg.cpp", 5654);
     D2_ASSERT(pClient, 5655);
 
     if (UNITS_GetUsedSkill(pUnit) || SUNIT_IsDead(pUnit))

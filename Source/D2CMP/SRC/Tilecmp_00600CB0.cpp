@@ -152,7 +152,7 @@ void __stdcall sub_00605D20_BuildTintTables(unsigned char* pData)
 }
 
 // 0x00609620
-D2TileRecordStrc* __stdcall sub_00609620_AllocTileRecord(int nFirst, int nSecond)
+D2TileRecordStrc* __stdcall TileListCreate(int nFirst, int nSecond)
 {
     D2TileRecordStrc* pRecord = (D2TileRecordStrc*)FOG_Alloc(sizeof(D2TileRecordStrc), ".\\SRC\\Tilecmp.cpp", 0x6D, 0);
     D2_ASSERT(pRecord, 0x6E);

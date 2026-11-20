@@ -73,7 +73,7 @@ unsigned int __stdcall ITEMS_GetItemFlags(D2UnitStrc* pItem);                   
 unsigned int __stdcall ITEMS_GetBaseCode(D2UnitStrc* pItem);                                                // 0x00628590
 unsigned int __stdcall ITEMS_GetNormalCode(D2UnitStrc* pItem);                                              // 0x006287D0
 int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem);                                                    // 0x006289F0
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType);                                      // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType);                                      // 0x00629BB0
 int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem);                                                        // 0x00629DA0
 void __stdcall ITEMS_GetRealmData(D2UnitStrc* pItem, int* pRealmData0, int* pRealmData1);                   // 0x00629E40
 static int __stdcall sub_0062A900_GetSocketedItemCount(D2UnitStrc* pItem);                                  // 0x0062A900
@@ -596,7 +596,7 @@ static void __stdcall ITEMS_SerializeItemComplete(D2UnitStrc* pItem, D2BitBuffer
             bInvalidQuality = 1;
         }
 
-        if (ITEMS_CheckItemTypeId(pItem, 13))
+        if (ITEMSIsA(pItem, 13))
         {
             if (bServer || ITEMS_GetItemFlags(pItem) & IFLAG_IDENTIFIED)
             {
@@ -618,12 +618,12 @@ static void __stdcall ITEMS_SerializeItemComplete(D2UnitStrc* pItem, D2BitBuffer
             }
         }
 
-        if (ITEMS_CheckItemTypeId(pItem, 40) && !ITEMS_CheckItemTypeId(pItem, 7))
+        if (ITEMSIsA(pItem, 40) && !ITEMSIsA(pItem, 7))
         {
             ITEMS_WriteBitsInl(10, ITEMS_GetFileIndex(pItem), pBuffer);
         }
 
-        if (ITEMS_CheckItemTypeId(pItem, 22) || ITEMS_CheckItemTypeId(pItem, 18))
+        if (ITEMSIsA(pItem, 22) || ITEMSIsA(pItem, 18))
         {
             ITEMS_WriteBitsInl(5, ITEMS_GetMagicSuffixInl(pItem, 0), pBuffer);
         }
@@ -675,7 +675,7 @@ static void __stdcall ITEMS_SerializeItemComplete(D2UnitStrc* pItem, D2BitBuffer
         }
     }
 
-    if (ITEMS_CheckItemTypeId(pItem, 50))
+    if (ITEMSIsA(pItem, 50))
     {
         D2ItemStatCostTxt* pItemStatCostTxtRecord = ITEMS_GetItemStatCostTxtRecordConstInl(31);
         ITEMS_WriteBitsInl(pItemStatCostTxtRecord->nSaveBits, STATLIST_GetUnitBaseStat(pItem, 31, 0) + pItemStatCostTxtRecord->dwSaveAdd, pBuffer);
@@ -689,7 +689,7 @@ static void __stdcall ITEMS_SerializeItemComplete(D2UnitStrc* pItem, D2BitBuffer
             ITEMS_WriteBitsInl(pItemStatCostTxtRecord->nSaveBits, STATLIST_UnitGetStatValue(pItem, 72, 0) + pItemStatCostTxtRecord->dwSaveAdd, pBuffer);
         }
     }
-    else if (ITEMS_CheckItemTypeId(pItem, 45))
+    else if (ITEMSIsA(pItem, 45))
     {
         D2ItemStatCostTxt* pItemStatCostTxtRecord = ITEMS_GetItemStatCostTxtRecordConstInl(73);
         const int nMaxDurability = STATLIST_GetUnitBaseStat(pItem, 73, 0);
@@ -700,7 +700,7 @@ static void __stdcall ITEMS_SerializeItemComplete(D2UnitStrc* pItem, D2BitBuffer
             ITEMS_WriteBitsToBitstream(pBuffer, STATLIST_UnitGetStatValue(pItem, 72, 0) + pItemStatCostTxtRecord->dwSaveAdd, pItemStatCostTxtRecord->nSaveBits);
         }
     }
-    else if (ITEMS_CheckItemTypeId(pItem, ITEMTYPE_GOLD))
+    else if (ITEMSIsA(pItem, ITEMTYPE_GOLD))
     {
         const int nGold = STATLIST_UnitGetStatValue(pItem, 14, 0);
         ITEMS_WriteBitsInl(1, nGold >= 4096, pBuffer);

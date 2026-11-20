@@ -473,7 +473,7 @@ int __fastcall sub_6FC33EA0(int nClientId, char* szName)
 }
 
 // 0x00539A30
-D2ClientStrc* __fastcall CLIENTS_AddToGame(D2GameStrc* pGame, int nClientId, unsigned char nClassIdOrCharTemplate, const char* szClientName, const char* szAccount, int nCharSaveTransactionToken, unsigned char nLocale, int a8, int a9)
+D2ClientStrc* __fastcall ClientAddToGame(D2GameStrc* pGame, int nClientId, unsigned char nClassIdOrCharTemplate, const char* szClientName, const char* szAccount, int nCharSaveTransactionToken, unsigned char nLocale, int a8, int a9)
 {
     if (!gbClientListInitialized_008846D8 || !pGame)
     {

@@ -84,7 +84,7 @@ void __stdcall ITEMS_SetItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int bSe
 unsigned char __stdcall ITEMS_GetInvPage(D2UnitStrc* pItem); // 0x00628250
 int __stdcall sub_006287A0_TestFlags(unsigned int dwFlags, unsigned int dwMask); // 0x006287A0
 int __stdcall sub_00629A40(D2UnitStrc* pItem); // 0x00629A40
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 int __stdcall sub_0062E410(unsigned char* pBitstream, unsigned int nSize, int bCheckForHeader, void* pItemSave); // 0x0062E410
 int __stdcall ITEMS_DecodeItemFromBitstream(D2UnitStrc* pItem, unsigned char* pBitstream, int nSize, int bCheckForHeader, int* pSocketedItemCount, unsigned int dwVersion, int* pFail); // 0x0062E430
 int __stdcall ITEMS_IsCharmUsable(D2UnitStrc* pItem, D2UnitStrc* pPlayer); // 0x0062FF70
@@ -155,14 +155,14 @@ static void __stdcall sub_004C0D20_ApplyItemStats(D2UnitStrc* pUnit, D2UnitStrc*
         return;
     }
 
-    if (ITEMS_CheckItemTypeId(pItem, 0x14))
+    if (ITEMSIsA(pItem, 0x14))
     {
         D2_ASSERT(pUnit->dwUnitType == 4, 0x30);
         pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
         pGemsTxtRecord = DATATBLS_GetGemsTxtRecord(pItemsTxtRecord->dwGemOffset);
         sub_0065FEC0_ItemApplyProps(2, NULL, pItem, pGemsTxtRecord, sub_00629A40(pUnit), 0);
     }
-    else if (ITEMS_CheckItemTypeId(pItem, 0x4A))
+    else if (ITEMSIsA(pItem, 0x4A))
     {
         D2_ASSERT(pUnit->dwUnitType == 4, 0x3A);
         pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
@@ -185,7 +185,7 @@ static void __stdcall sub_004C0D20_ApplyItemStats(D2UnitStrc* pUnit, D2UnitStrc*
         if (UNITS_CanDualWield(pUnit))
         {
             int bType = 1;
-            if (pLeftHand && pItem != pLeftHand && ITEMS_CheckItemTypeId(pItem, 0x2D))
+            if (pLeftHand && pItem != pLeftHand && ITEMSIsA(pItem, 0x2D))
             {
                 bType = 0;
             }
@@ -872,7 +872,7 @@ static void __stdcall sub_004C43E0_ItemToBelt(D2GSPacketSrv9C* pPacket, D2ItemSa
 
     UNITS_SetXForStaticUnit(pItem, pItemSave->nX);
     UNITS_SetYForStaticUnit(pItem, pItemSave->nY);
-    if (ITEMS_CheckItemTypeId(pItem, 0x0D))
+    if (ITEMSIsA(pItem, 0x0D))
     {
         sub_004C0D20_ApplyItemStats(pPlayer, pItem, 0);
     }

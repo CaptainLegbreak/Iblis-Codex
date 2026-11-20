@@ -275,7 +275,7 @@ D2DifficultyLevelsTxt* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int nDiff
 int __fastcall sub_6FD0B450(D2UnitStrc* pUnit, void* pArgs); // 0x005C35C0
 D2UnitStrc* __fastcall D2GAME_SummonPet_6FD14430(D2GameStrc* pGame, D2SummonArgStrc* pSummonArg); // 0x0056D940
 void __fastcall sub_005C50C0_SetSummonStats(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pPet, int nSkillId, int nSkillLevel); // 0x005C50C0
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 void __fastcall sub_6FC3E200(D2ClientStrc* pClient, D2UnitStrc* pUnit); // 0x0053CDF0
 void __fastcall D2GAME_UpdateSummonAI_6FC401F0(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int nNodeIndex); // 0x005B1900
 int __stdcall sub_00625480(Unit*,int,unsigned short); // 0x00625480
@@ -778,7 +778,7 @@ int __fastcall sub_6FD0C060(D2UnitStrc* pUnit, D2UnkNecSkillStrc* pArgs)
 
     if (pArgs->bUpdateAnimRate)
     {
-        UNITS_UpdateAnimRateAndVelocity(pUnit, ".\\SKILLS\\SkillNec.cpp", 983);
+        UnitUpdateAnimRateAndVel(pUnit, ".\\SKILLS\\SkillNec.cpp", 983);
     }
 
     sub_6FCBDD30(pUnit, 1, 1);
@@ -932,7 +932,7 @@ int __fastcall SKILLS_SrvDo056_Golem(D2GameStrc* pGame, D2UnitStrc* pUnit, int n
     }
 
     sub_005C50C0_SetSummonStats(pGame, pUnit, pPet, nSkillId, nSkillLevel);
-    sub_6FC3E200(SUNIT_GetClientFromPlayer(pUnit, ".\\SKILLS\\SkillNec.cpp", 1787), pPet);
+    sub_6FC3E200(UnitGetClient(pUnit, ".\\SKILLS\\SkillNec.cpp", 1787), pPet);
     D2GAME_UpdateSummonAI_6FC401F0(pGame, pPet, 0, pUnit->dwNodeIndex);
     return 1;
 }

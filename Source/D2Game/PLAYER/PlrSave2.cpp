@@ -124,7 +124,7 @@ void __fastcall CLIENTS_GetSkillHotKey(D2ClientStrc* pClient, int nId, int* pSki
 unsigned char __fastcall CLIENTS_GetWeaponSwitch(D2ClientStrc* pClient); // 0x00539220
 
 
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 unsigned short __fastcall PLRSAVE2_GetItemIndex(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nGUID); // 0x00568DC0
 void __fastcall PLRSAVE2_WriteMercData(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2SaveHeaderStrc* pSaveHeader); // 0x00568E60
 D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit); // 0x00620190
@@ -336,7 +336,7 @@ int __fastcall PLRSAVE2_WriteSaveHeader(D2GameStrc* pGame, D2UnitStrc* pPlayer, 
 {
     D2ClientStrc* pClient;
     unsigned char* pSection = *ppSection;
-    pClient = SUNIT_GetClientFromPlayer(pPlayer, ".\\PLAYER\\PlrSave2.cpp", 0x1B4);
+    pClient = UnitGetClient(pPlayer, ".\\PLAYER\\PlrSave2.cpp", 0x1B4);
     if (!pClient)
     {
         return 2;
@@ -382,7 +382,7 @@ int __fastcall PLRSAVE2_WriteSaveHeader(D2GameStrc* pGame, D2UnitStrc* pPlayer, 
     saveHeader.dwMapSeed = pGame->dwInitSeed;
     saveHeader.nStats = 16;
     saveHeader.nSkills = (unsigned char)sgptDataTables->nHighestClassSkillCount;
-    if (CLIENTS_GetWeaponSwitch(SUNIT_GetClientFromPlayer(pPlayer, ".\\PLAYER\\PlrSave2.cpp", 0x1DD)))
+    if (CLIENTS_GetWeaponSwitch(UnitGetClient(pPlayer, ".\\PLAYER\\PlrSave2.cpp", 0x1DD)))
     {
         saveHeader.dwWeaponSwitch |= 1;
     }
@@ -479,7 +479,7 @@ int __fastcall sub_005696F0(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char*
     *(unsigned short*)pData = PLRSAVE2_SKILLS_MARKER;
     pData += 2;
 
-    const int nClassId = CLIENTS_GetClassId(SUNIT_GetClientFromPlayer(pUnit, ".\\PLAYER\\PlrSave2.cpp", 775));
+    const int nClassId = CLIENTS_GetClassId(UnitGetClient(pUnit, ".\\PLAYER\\PlrSave2.cpp", 775));
     if (nClassId >= NUMBER_OF_PLAYERCLASSES)
     {
         return 2;
@@ -736,7 +736,7 @@ int __fastcall PLRSAVE2_ReadSkills(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsig
         return PLRSAVE2ERROR_BAD_SKILLS;
     }
 
-    D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pPlayer, ".\\PLAYER\\PlrSave2.cpp", 1773);
+    D2ClientStrc* pClient = UnitGetClient(pPlayer, ".\\PLAYER\\PlrSave2.cpp", 1773);
     if (!pClient)
     {
         return PLRSAVE2ERROR_BAD_SKILLS;
@@ -815,7 +815,7 @@ int __fastcall PLRSAVE2_ReadCorpses(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsi
         unsigned char* pData;
     } t;
     unsigned char* pDataStart = *ppSection;
-    t.pClient = SUNIT_GetClientFromPlayer(pPlayer, ".\\PLAYER\\PlrSave2.cpp", 0x733);
+    t.pClient = UnitGetClient(pPlayer, ".\\PLAYER\\PlrSave2.cpp", 0x733);
 
     if (!t.pClient)
     {
@@ -1096,7 +1096,7 @@ inline void UNITS_SetStashGold(D2UnitStrc* pUnit, unsigned int nGold)
 // 0x0056AF80
 void __fastcall PLRSAVE2_InitializeStats(D2GameStrc* pGame, D2UnitStrc* pUnit, int nHitpoints, int nMana)
 {
-    D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pUnit, ".\\PLAYER\\PlrSave2.cpp", 2222);
+    D2ClientStrc* pClient = UnitGetClient(pUnit, ".\\PLAYER\\PlrSave2.cpp", 2222);
     D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pUnit);
 
     const int nGold = STATLIST_UnitGetStatValue(pUnit, STAT_GOLD, 0);

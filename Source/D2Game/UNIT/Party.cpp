@@ -50,7 +50,7 @@ typedef void(__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* p
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 unsigned short __fastcall SUNIT_GetPartyId(D2UnitStrc* pPlayer); // 0x00554630
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 void __fastcall sub_6FC3E200(D2ClientStrc* pClient, D2UnitStrc* pUnit); // 0x0053CDF0
 unsigned short __fastcall PARTY_GetPartyIdForUnitOwner(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540710
 int __fastcall sub_00540460_GetPartyMemberCount(D2GameStrc* pGame, short nPartyId); // 0x00540460
@@ -323,7 +323,7 @@ void __fastcall PARTY_IteratePartyMembersInSameLevel(D2GameStrc* pGame, D2UnitSt
 // 0x005406A0
 void __fastcall PARTY_SynchronizeWithClient(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
-    D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pUnit, ".\\UNIT\\Party.cpp", 591);
+    D2ClientStrc* pClient = UnitGetClient(pUnit, ".\\UNIT\\Party.cpp", 591);
     const unsigned short nPartyId = SUNIT_GetPartyId(pUnit);
     if (nPartyId == D2PartyIdNone)
     {

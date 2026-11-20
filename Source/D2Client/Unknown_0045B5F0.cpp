@@ -81,7 +81,7 @@ void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsS
 D2RoomCoordListStrc* __stdcall DUNGEON_GetRoomCoordList(D2ActiveRoomStrc* pRoom); // 0x0061AD50
 void __stdcall sub_00643260(int* pX, int* pY); // 0x00643260
 void __stdcall DUNGEON_GameTileToClientCoords(int* pX, int* pY); // 0x00643310
-int __stdcall TILE_GetFlags16(D2TileLibraryEntryStrc* pTile); // 0x00604BC0
+int __stdcall TileGetFlags(D2TileLibraryEntryStrc* pTile); // 0x00604BC0
 void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha); // 0x004F6380
 void __fastcall sub_0045B1A0_DrawDiamond(int nX, int nY, unsigned char nColor);
 D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom();
@@ -197,7 +197,7 @@ void __stdcall sub_0045B5F0(D2ActiveRoomStrc* pRoom)
             continue;
         }
 
-        if (TILE_GetFlags16(pTile->pTile) & 4)
+        if (TileGetFlags(pTile->pTile) & 4)
         {
             const int nDiamondX = nX + 0x20;
             tagRECT tRect;

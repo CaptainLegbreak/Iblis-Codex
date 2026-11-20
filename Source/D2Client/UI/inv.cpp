@@ -470,7 +470,7 @@ void __cdecl InitializePalette();
 void __fastcall sub_004F6300(int x, int y, int width, int height, int color, int mode);
 int __stdcall ReleaseResource(void* resource);
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 int __fastcall sub_00479120_GetHirelingClassId(int nUnitId); // 0x00479120
 unsigned int __stdcall ITEMS_CheckWeaponIfTwoHanded(D2UnitStrc* pItem); // 0x006289C0
 int __stdcall ITEMS_CheckRequirements(D2UnitStrc* pItem, D2UnitStrc* pUnit, int bEquipping, int* bStrength, int* bDexterity, int* bLevel); // 0x0062EAF0
@@ -1086,7 +1086,7 @@ void __stdcall sub_00485410_BuildItemDamageText(D2UnitStrc* pItem, Unicode* pBuf
     const Unicode* wszNewLine = D2LANG_GetStringFromTblIndex(0xF9E);
     D2UnitStrc* pPlayer = sub_00463DD0();
 
-    if (ITEMS_CheckItemTypeId(pItem, 0x26))
+    if (ITEMSIsA(pItem, 0x26))
     {
         int nElemMin;
         nMin = ITEMS_GetMissileType(pItem);
@@ -2821,7 +2821,7 @@ static int __stdcall sub_0048B290(D2UnitStrc* pUnit, D2UnitStrc* pItem, int* pbS
         return 0;
     if (ITEMS_CheckItemFlag(pItem, 0x100, 0x302F, ".\\UI\\inv.cpp"))
         return 0;
-    if (ITEMS_CheckItemTypeId(pItem, 3) || ITEMS_CheckItemTypeId(pItem, 0x25))
+    if (ITEMSIsA(pItem, 3) || ITEMSIsA(pItem, 0x25))
     {
         bResult = 1;
         *pbSlotMatch = bResult;
@@ -2829,50 +2829,50 @@ static int __stdcall sub_0048B290(D2UnitStrc* pUnit, D2UnitStrc* pItem, int* pbS
     switch (sub_00479120_GetHirelingClassId(!pUnit ? -1 : pUnit->dwUnitId))
     {
     case 0x10F:
-        if (ITEMS_CheckItemTypeId(pItem, 0x1B))
+        if (ITEMSIsA(pItem, 0x1B))
         {
             bResult = 1;
             *pbSlotMatch = bResult;
         }
         break;
     case 0x152:
-        if (ITEMS_CheckItemTypeId(pItem, 0x21) || ITEMS_CheckItemTypeId(pItem, 0x22))
+        if (ITEMSIsA(pItem, 0x21) || ITEMSIsA(pItem, 0x22))
         {
             bResult = 1;
             *pbSlotMatch = bResult;
         }
         break;
     case 0x167:
-        if (ITEMS_CheckItemTypeId(pItem, 2))
+        if (ITEMSIsA(pItem, 2))
         {
             bResult = 1;
             *pbSlotMatch = bResult;
         }
-        if (ITEMS_CheckItemTypeId(pItem, 0x1E) && !ITEMS_CheckWeaponIfTwoHanded(pItem))
+        if (ITEMSIsA(pItem, 0x1E) && !ITEMS_CheckWeaponIfTwoHanded(pItem))
         {
             bResult = 1;
             *pbSlotMatch = bResult;
         }
         break;
     case 0x230:
-        if (ITEMS_CheckItemTypeId(pItem, 0x1C) && !ITEMS_CheckWeaponIfTwoHanded(pItem))
+        if (ITEMSIsA(pItem, 0x1C) && !ITEMS_CheckWeaponIfTwoHanded(pItem))
         {
             bResult = 1;
             *pbSlotMatch = bResult;
         }
-        if (ITEMS_CheckItemTypeId(pItem, 0x47))
+        if (ITEMSIsA(pItem, 0x47))
         {
             bResult = 1;
             *pbSlotMatch = bResult;
         }
         break;
     case 0x231:
-        if (ITEMS_CheckItemTypeId(pItem, 0x1E))
+        if (ITEMSIsA(pItem, 0x1E))
         {
             bResult = 1;
             *pbSlotMatch = bResult;
         }
-        if (ITEMS_CheckItemTypeId(pItem, 0x47))
+        if (ITEMSIsA(pItem, 0x47))
         {
             bResult = 1;
             *pbSlotMatch = bResult;

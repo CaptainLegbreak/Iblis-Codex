@@ -39,7 +39,7 @@ extern const CubeOutputFunc gCubeOutputFunctions_006E11C8[]; // 0x006E11C8
 extern const unsigned gdwBitMasks[]; // 0x006CE268
 extern const unsigned gdwInvBitMasks[]; // 0x006CE2E8
 extern const char gszPlrTradeCpp[]; // 0x006E11D8
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc*,const char*,int); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc*,const char*,int); // 0x005531C0
 void __fastcall SUNIT_AttachSound(D2UnitStrc*,int,D2UnitStrc*); // 0x00553380
 void __fastcall SUNIT_RemoveUnit(D2GameStrc*,D2UnitStrc*); // 0x00555600
 void __fastcall sub_00557AB0_InitItemStats(D2GameStrc*,D2UnitStrc**,int,int); // 0x00557AB0
@@ -277,7 +277,7 @@ D2UnitStrc* __fastcall PLRTRADE_CreateCubeOutputs(D2GameStrc* game,D2UnitStrc* p
  }
  }
  if(bSuccess) {
-  sub_00564F30_RemoveCubeInputs(game,player,SUNIT_GetClientFromPlayer(player,gszPlrTradeCpp,0x54e));
+  sub_00564F30_RemoveCubeInputs(game,player,UnitGetClient(player,gszPlrTradeCpp,0x54e));
   SUNIT_AttachSound(player,4,player);
   for(int i=0;i<3;++i) {
    D2UnitStrc* item=outputs[i];if(!item)continue;
@@ -391,8 +391,8 @@ int __fastcall sub_00567620(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* 
             pPlayerData2->dwTradeState = 7;
             EVENT_SetEvent(pGame, pPlayer, 0xD, pGame->dwGameFrame + 1, 0, 0);
             EVENT_SetEvent(pGame, pOtherPlayer, 0xD, pGame->dwGameFrame + 1, 0, 0);
-            D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(SUNIT_GetClientFromPlayer(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xD6E), 6);
-            D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(SUNIT_GetClientFromPlayer(pOtherPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xD6F), 6);
+            D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xD6E), 6);
+            D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pOtherPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xD6F), 6);
             return nResult;
         }
     }

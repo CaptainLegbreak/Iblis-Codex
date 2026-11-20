@@ -106,10 +106,10 @@ static int sub_006BF1F0_Release(D2QueueServerStrc* pTable, unsigned int* pKey)
     return 0;
 }
 
-static __declspec(noinline) void __stdcall sub_006BFCD0_RemoveClient(D2QueueServerStrc* pServer, unsigned int nClientId);
+static __declspec(noinline) void __stdcall sRemoveClient(D2QueueServerStrc* pServer, unsigned int nClientId);
 
 // 0x006BFCD0
-static void __stdcall sub_006BFCD0_RemoveClient(D2QueueServerStrc* pServer, unsigned int nClientId)
+static void __stdcall sRemoveClient(D2QueueServerStrc* pServer, unsigned int nClientId)
 {
     const unsigned int nBucket = nClientId & pServer->nHashMask;
     EnterCriticalSection((CRITICAL_SECTION*)&pServer->pClientLocks[nBucket]);
@@ -228,7 +228,7 @@ void __fastcall sub_006C0360_ReleaseClient(D2QueueServerStrc* pServer, D2QClient
     {
         if (pServer->pfnOnRemove)
             pServer->pfnOnRemove(pServer, pClient->nId, ".\\Src\\QServer\\QServer.cpp", 891);
-        sub_006BFCD0_RemoveClient(pServer, pClient->nId);
+        sRemoveClient(pServer, pClient->nId);
         sub_006BE650_DestroyClient(pClient);
     }
 }

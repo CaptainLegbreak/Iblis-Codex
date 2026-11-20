@@ -118,7 +118,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00
 D2ActiveRoomStrc* __fastcall D2GAME_GetRoom_6FC52070(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
 void __fastcall D2GAME_PACKETS_SendPacket0x07_6FC3D120(D2ClientStrc* pClient, int nAreaId, unsigned short nTileX, unsigned short nTileY); // 0x0053BC50
 void __fastcall sub_00541800(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, EventTimerCallback pfCallBack, int nSkillId, int nSkillLevel); // 0x00541800
-D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
+D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 int __fastcall sub_6FCBDF90(D2GameStrc* pGame, D2UnitStrc* pPlayer, int a3, int a4, int a5); // 0x00554570
 void __fastcall sub_6FCBB190(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom); // 0x00554670
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
@@ -316,7 +316,7 @@ void __fastcall SUNIT_InitializeAnimation(D2UnitStrc* pUnit)
     if ((pUnit->dwUnitType == UNIT_MONSTER && pUnit->dwAnimMode == MONMODE_SEQUENCE || bPlayerSequence) && DATATBLS_GetMonSeqTxtRecordFromUnit(pUnit))
     {
         UNITS_InitializeSequence(pUnit);
-        UNITS_UpdateAnimRateAndVelocity(pUnit, ".\\UNIT\\SUnit.cpp", 0x570);
+        UnitUpdateAnimRateAndVel(pUnit, ".\\UNIT\\SUnit.cpp", 0x570);
         return;
     }
 
@@ -324,7 +324,7 @@ void __fastcall SUNIT_InitializeAnimation(D2UnitStrc* pUnit)
     pUnit->nSeqCurrentFramePrecise = 0;
     if (pUnit->pDynamicPath)
     {
-        UNITS_UpdateAnimRateAndVelocity(pUnit, ".\\UNIT\\SUnit.cpp", 0x578);
+        UnitUpdateAnimRateAndVel(pUnit, ".\\UNIT\\SUnit.cpp", 0x578);
     }
     else
     {
@@ -466,7 +466,7 @@ int __fastcall sub_6FCBDFE0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomSt
 
     if (pUnit->dwUnitType == 0)
     {
-        D2ClientStrc* pClient = SUNIT_GetClientFromPlayer(pUnit, ".\\UNIT\\SUnit.cpp", 0xC3C);
+        D2ClientStrc* pClient = UnitGetClient(pUnit, ".\\UNIT\\SUnit.cpp", 0xC3C);
         D2DrlgCoordsStrc tDrlgCoords;
         DUNGEON_GetRoomCoordinates(pRoom, &tDrlgCoords);
         D2GAME_PACKETS_SendPacket0x07_6FC3D120(pClient, DUNGEON_GetLevelIdFromRoom(pRoom), (unsigned short)tDrlgCoords.nTileXPos, (unsigned short)tDrlgCoords.nTileYPos);

@@ -70,7 +70,7 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                             
 D2ActiveRoomStrc* __fastcall COLLISION_GetRoomBySubTileCoordinates(D2ActiveRoomStrc* pRoom, int nX, int nY);// 0x00463740
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom);                                                // 0x0061AB00
 int __stdcall UNITS_GetUnitSizeX(D2UnitStrc* pUnit);                                                        // 0x00620510
-int __stdcall UNITS_IsDoor(D2UnitStrc* pUnit);                                                              // 0x00621A70
+int __stdcall UnitIsDoor(D2UnitStrc* pUnit);                                                              // 0x00621A70
 int __fastcall UNITS_CheckIfObjectOrientationIs1(D2UnitStrc* pUnit);                                        // 0x00621AC0
 int __fastcall MONSTERS_CanBeInTown(D2UnitStrc* pMonster);                                                  // 0x0063E860
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath);                                                  // 0x006488C0
@@ -348,7 +348,7 @@ static __declspec(noinline) unsigned char PATH_AdvanceToDoor(D2PathInfoStrc* pPa
     D2DynamicPathStrc* pPath = pPathInfo->pDynamicPath;
     D2UnitStrc* pTargetUnit = pPath->pTargetUnit;
 
-    D2_ASSERT(UNITS_IsDoor(pTargetUnit), LINE_DOOR);
+    D2_ASSERT(UnitIsDoor(pTargetUnit), LINE_DOOR);
 
     if (UNITS_CheckIfObjectOrientationIs1(pTargetUnit))
     {
@@ -399,7 +399,7 @@ static __declspec(noinline) unsigned char PATH_UpdateTargetUnit(D2PathInfoStrc* 
             return 2;
 
         case UNIT_OBJECT:
-            if (!UNITS_IsDoor(pPathTargetUnit))
+            if (!UnitIsDoor(pPathTargetUnit))
             {
                 return 2;
             }

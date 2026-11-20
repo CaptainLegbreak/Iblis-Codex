@@ -67,7 +67,7 @@ void __fastcall D2GAME_RollElementalDamage_6FD14DD0(D2UnitStrc* pUnit, D2DamageS
 D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
 unsigned char __stdcall ITEMS_GetBodyLocation(D2UnitStrc* pItem); // 0x00627D40
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
-int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic); // 0x00625820
 void __stdcall STATLIST_MergeStatLists(D2UnitStrc* pTarget, D2UnitStrc* pUnit, int bType); // 0x00627910
 
@@ -247,7 +247,7 @@ static void __stdcall sub_005D54B0_KickDamage(D2GameStrc* pGame, D2DamageStrc* p
         pSecondaryWeapon = INVENTORY_GetItemFromBodyLoc(pInventory, (nBodyLoc == 4) ? 5 : 4);
     }
 
-    if (ITEMS_CheckItemTypeId(pMainWeapon, 0x2D) && ITEMS_CanBeEquipped(pMainWeapon) && STATLIST_GetOwner(pMainWeapon, 0))
+    if (ITEMSIsA(pMainWeapon, 0x2D) && ITEMS_CanBeEquipped(pMainWeapon) && STATLIST_GetOwner(pMainWeapon, 0))
     {
         STATLIST_MergeStatLists(pUnit, pMainWeapon, 0);
     }
@@ -256,7 +256,7 @@ static void __stdcall sub_005D54B0_KickDamage(D2GameStrc* pGame, D2DamageStrc* p
         pMainWeapon = 0;
     }
 
-    if (pSecondaryWeapon && pSecondaryWeapon != pMainWeapon && ITEMS_CheckItemTypeId(pSecondaryWeapon, 0x2D) && ITEMS_CanBeEquipped(pSecondaryWeapon) && STATLIST_GetOwner(pSecondaryWeapon, 0))
+    if (pSecondaryWeapon && pSecondaryWeapon != pMainWeapon && ITEMSIsA(pSecondaryWeapon, 0x2D) && ITEMS_CanBeEquipped(pSecondaryWeapon) && STATLIST_GetOwner(pSecondaryWeapon, 0))
     {
         STATLIST_MergeStatLists(pUnit, pSecondaryWeapon, 0);
     }
