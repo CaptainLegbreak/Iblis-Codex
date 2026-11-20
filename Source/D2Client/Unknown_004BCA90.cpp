@@ -5,6 +5,7 @@
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
 #include "D2ClientTypes.h"
+#include "D2GameObjs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define SEED_STEP_HIFIRST(pSeed, nOut) { const unsigned __int64 lSeed_ = (unsigned __int64)(pSeed)->nHighSeed + (unsigned __int64)(pSeed)->nLowSeed * 0x6AC690C5; (pSeed)->nHighSeed = (unsigned int)(lSeed_ >> 32); (pSeed)->nLowSeed = (unsigned int)lSeed_; nOut = (unsigned int)lSeed_; }
@@ -18,18 +19,6 @@ union D2SeedStrc;
 struct D2PlayerDataStrc;
 struct D2StaticPathStrc;
 struct D2MissileStrc;
-
-struct D2ObjectDataStrc
-{
-    D2ObjectsTxt* pObjectTxt;
-    unsigned char nInteractType;
-    char unk0x05[0x0B];
-    int bPermanent;
-    int unk0x14;
-    char unk0x18[0x20];
-};
-
-
 
 struct D2ObjectsTxt
 {
@@ -60,7 +49,6 @@ struct D2ObjectsTxt
     unsigned char nOverlay;
     unsigned char unk_1B6[0x2];
 };
-
 
 struct D2ShrineHandlerStrc
 {
@@ -112,7 +100,6 @@ int __stdcall UNITROOM_AddUnitToRoom(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom)
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);
 
-
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned int nCount); // 0x00687330
 extern "C" char* __cdecl _strrev(char* szString); // 0x00687860
@@ -127,9 +114,6 @@ D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A
 int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
 void __stdcall D2Common_10153(D2DynamicPathStrc* pDynamicPath); // 0x00648730
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
-
-
-
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
@@ -252,16 +236,16 @@ void __fastcall sub_004BC720_InitObject(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRo
         nMode = DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom));
         const int nTownLevelId = DUNGEON_GetTownLevelIdFromActNo(nMode);
         D2_ASSERT(nTownLevelId <= 0xFF, 0x95);
-        pUnit->pObjectData->nInteractType = nTownLevelId;
+        pUnit->pObjectData->InteractType = nTownLevelId;
         break;
     }
     case 0x3C:
     {
         const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
         if (nLevelId == 0x26)
-            pUnit->pObjectData->nInteractType = 4;
+            pUnit->pObjectData->InteractType = 4;
         else if (nLevelId == 4)
-            pUnit->pObjectData->nInteractType = 0x26;
+            pUnit->pObjectData->InteractType = 0x26;
         break;
     }
     }
@@ -536,7 +520,7 @@ static void sub_004BD650_InitShrine(D2UnitStrc* pUnit)
 
 void __fastcall sub_004BD6B0_SetShrine(D2UnitStrc* pUnit)
 {
-    UNITS_SetShrineTxtRecordInObjectData(pUnit, DATATBLS_GetShrinesTxtRecord(pUnit->pObjectData->nInteractType));
+    UNITS_SetShrineTxtRecordInObjectData(pUnit, DATATBLS_GetShrinesTxtRecord(pUnit->pObjectData->InteractType));
     sub_004BD650_InitShrine(pUnit);
 }
 

@@ -1,11 +1,5 @@
 #include "D2Client.h"
-
-struct D2MsgHandlerEntryStrc
-{
-    int nType;
-    int nId;
-    void* f_8;
-};
+#include "D2ClientTypes.h"
 
 int __cdecl sub_004F59A0();                                                                                // 0x004F59A0
 void __fastcall sub_00451DB0_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0

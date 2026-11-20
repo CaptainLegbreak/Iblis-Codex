@@ -6,6 +6,7 @@
 #include "D2Txt.h"
 #include "D2UnitData.h"
 #include "D2ClientGame.h"
+#include "D2StormLink.h"
 struct D2SkillStrc;
 struct D2UnitStrc;
 
@@ -26,31 +27,6 @@ union D2SeedStrc;
 struct D2PlayerCmdStrc;
 struct D2SkillsTxt;
 struct D2StringRefStrc;
-
-struct D2StormLinkStrc
-{
-    D2StormLinkStrc* m_prevlink;
-    char* m_next;
-
-    D2StormLinkStrc* NextLink(int nLinkOffset)
-    {
-        if ((int)m_next < 0)
-            return (D2StormLinkStrc*)~(unsigned int)m_next;
-        if (nLinkOffset < 0)
-            nLinkOffset = (char*)this - m_prevlink->m_next;
-        return (D2StormLinkStrc*)(m_next + nLinkOffset);
-    }
-    void Unlink()
-    {
-        if (m_prevlink)
-        {
-            NextLink(-1)->m_prevlink = m_prevlink;
-            m_prevlink->m_next = m_next;
-            m_prevlink = 0;
-            m_next = 0;
-        }
-    }
-};
 
 struct D2StormExplicitListStrc
 {

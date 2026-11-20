@@ -24,7 +24,11 @@ struct D2CelContextStrc
     unsigned int dwCode; // 0x28
     const char* szName; // 0x2C
     int nFrames; // 0x30
-    void* pCellFile; // 0x34
+    union
+    {
+        void* pCellFile; // 0x34
+        int nArg34; // 0x34
+    };
     int unk0x38; // 0x38
     D2CelStrc* pCel; // 0x3C
     int nDirection; // 0x40
