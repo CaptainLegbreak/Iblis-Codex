@@ -1,47 +1,14 @@
 #include "D2Win.h"
+#include "D2GfxTypes.h"
+#include "D2GlideTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2DDrawSurfaceStrc;
-struct D2GlideTileStrc;
-struct D2GlideTileCacheEntryStrc;
-struct D2GlideTileCacheStrc;
 struct D2BinkStrc;
 struct tagPOINT;
 struct T004F51E0;
-struct D2GfxPaletteViewStrc;
 
-struct D2GrTexInfoStrc
-{
-    int nSmallLodLog2;
-    int nLargeLodLog2;
-    int nAspectRatioLog2;
-};
-
-struct D2GlideTileStrc
-{
-    int unk0x00;
-    short nCacheIndex;
-    short unk0x06;
-    int unk0x08[2];
-    unsigned char* pData;
-};
-
-struct D2GlideTileCacheEntryStrc
-{
-    int unk0x00;
-    int f_4;
-    D2GlideTileStrc* pTile;
-    int unk0x0C[2];
-};
-
-struct D2GlideTileCacheStrc
-{
-    int unk0x00;
-    int nCount;
-    int unk0x08[5];
-    D2GlideTileCacheEntryStrc* pEntries;
-};
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
@@ -102,11 +69,6 @@ struct T004F51E0
     unsigned char peFlags;
 };
 
-struct D2GfxPaletteViewStrc
-{
-    int dwData[0x48];
-};
-
 void __fastcall sub_00510160_DDrawSetPalette(T004F51E0* pPalette); // 0x00510160
 extern D2GfxPaletteViewStrc* gpGfxPaletteView_007C9150; // 0x007C9150
 extern T004F51E0 gaDDrawSavedPalette_00880D40[256]; // 0x00880D40
@@ -160,13 +122,13 @@ void __fastcall sub_0050FBD0_GlideBindTileTexture(D2GlideTileStrc* pTile)
         D2_ASSERT(nEntry >= 0, 0x112);
         D2_ASSERT(nEntry < gGlideTileCache_0087EB48.nCount, 0x113);
         gGlideTileCache_0087EB48.pEntries[pTile->nCacheIndex - 1].pTile = pTile;
-        nTexAddress = gGlideTileCache_0087EB48.pEntries[pTile->nCacheIndex - 1].f_4;
+        nTexAddress = gGlideTileCache_0087EB48.pEntries[pTile->nCacheIndex - 1].nAddress;
         gpfGlideTexDownloadMipMap_0087EAB8(gnGlideTileTmu_00880BF8, nTexAddress, 3, &gGlideTileTexInfo_0072F6A8);
     }
     else
     {
         sub_0050F0F0_TileCacheTouch(&gGlideTileCache_0087EB48, pTile->nCacheIndex);
-        nTexAddress = gGlideTileCache_0087EB48.pEntries[pTile->nCacheIndex - 1].f_4;
+        nTexAddress = gGlideTileCache_0087EB48.pEntries[pTile->nCacheIndex - 1].nAddress;
     }
 
     gpfGlideTexSource_0087EB98(gnGlideTileTmu_00880BF8, nTexAddress, 3, &gGlideTileTexInfo_0072F6A8);

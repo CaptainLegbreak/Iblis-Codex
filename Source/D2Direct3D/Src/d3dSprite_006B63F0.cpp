@@ -1,16 +1,6 @@
 #include "D2Direct3D.h"
-
-struct D2TLVertexStrc
-{
-    float fX;
-    float fY;
-    float fZ;
-    float fRhw;
-    unsigned int dwColor;
-    unsigned int f_14;
-    float fU;
-    float fV;
-};
+#include "D2D3DTypes.h"
+#include "D2GfxTypes.h"
 
 struct D2QuadSpriteStrc
 {
@@ -26,44 +16,7 @@ struct D2QuadSpriteStrc
     float f_2C;
 };
 
-struct D2QuadRectStrc
-{
-    int nX;
-    int nY;
-    int nWidth;
-    int nHeight;
-};
-
-struct D2VertexBufferStrc;
-struct D2VertexBufferVtbl
-{
-    void* pfnQueryInterface;
-    void* pfnAddRef;
-    void* pfnRelease;
-    long (__stdcall* Lock)(D2VertexBufferStrc* pThis, unsigned long dwFlags, void** ppData, unsigned long* pSize);
-    long (__stdcall* Unlock)(D2VertexBufferStrc* pThis);
-};
-struct D2VertexBufferStrc
-{
-    D2VertexBufferVtbl* lpVtbl;
-};
-struct D2D3DDeviceVtbl
-{
-    void* pfn00[34];
-    long (__stdcall* DrawPrimitiveVB)(D2D3DDeviceStrc* pThis, int nType, D2VertexBufferStrc* pBuffer, unsigned long dwStart, unsigned long dwCount, unsigned long dwFlags);
-};
-struct D2D3DDeviceStrc
-{
-    D2D3DDeviceVtbl* lpVtbl;
-};
-
-struct D2GlideContextStrc
-{
-    unsigned char unk_00[0x114];
-    unsigned char* pPalette;
-};
-
-extern D2GlideContextStrc* gpGlideState_007C9150; // 0x007C9150
+extern D2GfxPaletteViewStrc* gpGlideState_007C9150; // 0x007C9150
 extern D2D3DDeviceStrc* gpDevice_00970E78; // 0x00970E78
 extern D2VertexBufferStrc* gpVertexBuffer_00970F3C; // 0x00970F3C
 int gnVertexIndex_00970F40;        // 0x00970F40
@@ -121,7 +74,7 @@ void __stdcall sub_006B63F0_DrawQuad(D2QuadSpriteStrc* pSprite, int nX, int nY, 
     }
     else
     {
-        pVertices->dwColor = (((unsigned int)nAlpha << 8 | gpGlideState_007C9150->pPalette[nPaletteIndex * 3]) << 8 | gpGlideState_007C9150->pPalette[nPaletteIndex * 3 + 1]) << 8 | gpGlideState_007C9150->pPalette[nPaletteIndex * 3 + 2];
+        pVertices->dwColor = (((unsigned int)nAlpha << 8 | gpGlideState_007C9150->pRgbTable[nPaletteIndex * 3]) << 8 | gpGlideState_007C9150->pRgbTable[nPaletteIndex * 3 + 1]) << 8 | gpGlideState_007C9150->pRgbTable[nPaletteIndex * 3 + 2];
     }
 
     pVertices[1].dwColor = pVertices[0].dwColor;

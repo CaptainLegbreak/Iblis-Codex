@@ -1,4 +1,5 @@
 #include "Fog.h"
+#include "D2NetTypes.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
@@ -8,14 +9,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                               // 0x00681EF0
 extern "C" __declspec(dllimport) void* __stdcall CreateIoCompletionPort(void* hFile, void* hExistingPort, unsigned long nKey, unsigned long nThreads); // 0x006CC124
 extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* pAttributes, unsigned long nStackSize, unsigned long (__stdcall* pfStart)(void*), void* pParameter, unsigned long nFlags, unsigned long* pThreadId); // 0x006CC250
-
-struct D2SockAddrInStrc
-{
-    short sin_family;
-    unsigned short sin_port;
-    unsigned long sin_addr;
-    char sin_zero[8];
-};
 
 struct T006BE350
 {

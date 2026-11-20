@@ -1,16 +1,9 @@
 #include "D2DrlgMaps.h"
+#include "D2GlideTypes.h"
 struct D2GfxLightStrc
 {
     unsigned int aColor[8];
 };
-
-struct D2GlideTileStrc
-{
-    short nPosX;
-    short nPosY;
-    char unk0x04[0x10];
-};
-
 
 struct tagRECT
 {
@@ -18,17 +11,6 @@ struct tagRECT
     long top;
     long right;
     long bottom;
-};
-
-struct D2GlideSpriteVertexStrc
-{
-    float x;
-    float y;
-    unsigned int dwColor;
-    float oow;
-    float sow;
-    float tow;
-    float unk0x18;
 };
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837

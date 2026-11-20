@@ -1,11 +1,11 @@
 #include "Fog.h"
 #include "D2GameTypes.h"
+#include "D2NetTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2CriticalSectionStrc;
 struct FSafeSock;
-struct D2InAddrStrc;
 struct D2TSLinkStrc;
 struct D2TSListStrc;
 struct D2ImageHlpLineStrc;
@@ -34,7 +34,6 @@ struct D2SystemTimeStrc;
 struct D2ModuleInfoStrc;
 struct D2MemoryBasicInfoStrc;
 
-
 struct FSafeSock
 {
     int bConnected;
@@ -47,11 +46,6 @@ struct FSafeSock
     unsigned long nFogErrorCode;
     unsigned long nWSALastError;
     char szName[64];
-};
-
-struct D2InAddrStrc
-{
-    unsigned long s_addr;
 };
 
 struct D2TSLinkStrc

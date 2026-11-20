@@ -1,12 +1,10 @@
 #include "D2Net.h"
+#include "D2NetTypes.h"
 
 struct D2NetPacketRecStrc;
 struct D2PacketBufferStrc;
 struct D2CriticalSectionStrc;
-struct D2WSADataStrc;
-struct D2SockAddrInStrc;
 struct D2FdSetStrc;
-struct D2TimevalStrc;
 
 unsigned long __stdcall CLIENT_ConnectToHost(void* szIpAddress); // 0x0052A680
 int __fastcall NET_IsLocalConnection(); // 0x0052B7E0
@@ -31,26 +29,6 @@ extern int gdwGlobal_00882D00; // 0x00882D00
 int __fastcall NET_DequeueFirstPacketFromList(D2CriticalSectionStrc* pCriticalSection, D2NetPacketRecStrc** ppPacketList, unsigned char* pBuffer, unsigned int nBufferSize); // 0x0052B820
 int __fastcall sub_0052B690_SendToServer(const unsigned char* pBuffer, unsigned short nSize); // 0x0052B690
 extern "C" int __stdcall send(unsigned int nSocket, const char* pBuffer, int nLength, int nFlags); // 0x006B017A
-
-struct D2WSADataStrc
-{
-    unsigned short wVersion;
-    unsigned short wHighVersion;
-    char szDescription[0x101];
-    char szSystemStatus[0x81];
-    unsigned short iMaxSockets;
-    unsigned short iMaxUdpDg;
-    char pad0x18A[2];
-    char* lpVendorInfo;
-};
-
-struct D2SockAddrInStrc
-{
-    short sin_family;
-    unsigned short sin_port;
-    unsigned long sin_addr;
-    char sin_zero[8];
-};
 
 extern "C" int __stdcall WSAStartup(unsigned short wVersionRequested, D2WSADataStrc* pData); // 0x006B0132
 extern "C" int __stdcall socket(int nFamily, int nType, int nProtocol); // 0x006B016E
@@ -92,12 +70,6 @@ struct D2FdSetStrc
 {
     unsigned int fd_count;
     unsigned int fd_array[64];
-};
-
-struct D2TimevalStrc
-{
-    long tv_sec;
-    long tv_usec;
 };
 
 extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char* szText); // 0x006CC200
@@ -171,7 +143,7 @@ unsigned long __stdcall CLIENT_ConnectToHost(void* szIpAddress)
     memset(&gHostSockAddr, 0, sizeof(gHostSockAddr));
     gHostSockAddr.sin_family = 2;
     gHostSockAddr.sin_port = htons(4000);
-    gHostSockAddr.sin_addr = inet_addr(FOG_ResolveHostIPAddress((const char*)szIpAddress));
+    gHostSockAddr.sin_addr.s_addr = inet_addr(FOG_ResolveHostIPAddress((const char*)szIpAddress));
     if (connect(gClientSocket, &gHostSockAddr, sizeof(D2SockAddrInStrc)) == -1)
         gClientSocket = -1;
     return 1;

@@ -1,9 +1,10 @@
 #pragma once
 
+#include "D2GfxTypes.h"
+
 struct D2CriticalSectionStrc;
 struct D2D3DDeviceStrc;
 struct D2D3DObjStrc;
-struct D2SmackStrc;
 
 extern "C" __declspec(dllimport) unsigned int __stdcall SmackDoFrame(D2SmackStrc* smack); // 0x006CC5FC
 extern "C" __declspec(dllimport) unsigned int __stdcall SmackWait(D2SmackStrc* smack); // 0x006CC5F8
@@ -89,16 +90,6 @@ struct D2RectStrc
     int nTop;
     int nRight;
     int nBottom;
-};
-
-struct D2SmackStrc
-{
-    unsigned int Version;
-    unsigned int Width;
-    unsigned int Height;
-    unsigned int Frames;
-    unsigned char unknown_0010[0x364];
-    unsigned int FrameNum;
 };
 
 struct D2TexOwnerSlotStrc

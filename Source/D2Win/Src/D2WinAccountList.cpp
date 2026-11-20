@@ -1,4 +1,6 @@
 #include "D2Win.h"
+#include "D2WinTypes.h"
+#include "D2WinControls.h"
 
 struct Unicode
 {
@@ -7,28 +9,6 @@ struct Unicode
     Unicode(unsigned short ch = 0) : wChar(ch) {}
 };
 
-struct D2WinControlStrc
-{
-    int eType;
-    void* pCellFile;
-    unsigned int dwFlags;
-    int nImageX;
-    int nImageY;
-    int nWidth;
-    int nHeight;
-    int unk0x1C[9];
-};
-
-struct D2WinAccountListStrc
-{
-    D2WinControlStrc controlHeader;
-    D2WinAccountListDataStrc* pDataList;
-    D2WinAccountListDataStrc* pSelectedDataEntry;
-    int field_48;
-    int field_4C;
-    int eFont;
-    int field_54;
-};
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -66,7 +46,7 @@ int __fastcall ACCOUNTLIST_Draw(D2WinControlStrc* pControl)
 
     for (; pData; pData = pData->pNext)
     {
-        if (nCounter >= pAccountList->field_48 && nCounter < pAccountList->field_48 + 24)
+        if (nCounter >= pAccountList->unk0x48 && nCounter < pAccountList->unk0x48 + 24)
         {
             const int nX = nBaseX + 120 * (nCounter % 6);
             const int nY = nBaseY + 20 * (nCounter / 6);

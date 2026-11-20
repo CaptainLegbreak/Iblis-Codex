@@ -4,27 +4,8 @@
 #define gCacheB_0087F088 (gaGlideTexCaches_0087F048[2])
 #define gCacheC_0087F0A8 (gaGlideTexCaches_0087F048[3])
 
-struct D2GlideTexCacheEntryStrc;
-struct D2GlideTexCacheStrc;
-struct D2GlideTileCacheStrc;
-struct D2GlideFloorCacheStrc;
 struct D2GlideCache00509AA0Strc;
 
-struct D2GlideTexCacheStrc
-{
-	int unk0x00;
-	int nEntries;
-};
-
-struct D2GlideTileCacheStrc
-{
-	int unk0x00;
-};
-
-struct D2GlideFloorCacheStrc
-{
-	int unk0x00;
-};
 int __fastcall sub_0050B860_GlideDownloadDebugFont(int nStartAddress, int nAlignment); // 0x0050B860
 int __fastcall sub_0050DFE0_GlideSetSmackTexAddresses(int nBase, int nAlign); // 0x0050DFE0
 int __fastcall sub_0050E890_TexCacheInit(D2GlideTexCacheStrc* pCache, unsigned int nStart, unsigned int nEnd, unsigned int nAlign); // 0x0050E890
@@ -173,11 +154,11 @@ int __cdecl sub_00509670_InitTextureMemory()
 		const unsigned int nStart = nEnd;
 		const unsigned int nSize = gdwTmuMaxAddress_0087EAE4[nTmu] - nStart;
 		nEnd = sub_0050E890_TexCacheInit(&gTexCache_0087F068, nStart, nStart + 25 * nSize / 100, nAlign64K);
-		gnTexCacheSize_007C90E0 = gTexCache_0087F068.nEntries * nAlign64K;
+		gnTexCacheSize_007C90E0 = gTexCache_0087F068.nCount * nAlign64K;
 		nEnd = sub_0050E890_TexCacheInit(&gTexCache_0087F088, nEnd, nStart + 65 * nSize / 100, nAlign16K);
-		gnTexCacheSize_007C90E4 = gTexCache_0087F088.nEntries * nAlign16K;
+		gnTexCacheSize_007C90E4 = gTexCache_0087F088.nCount * nAlign16K;
 		sub_0050E890_TexCacheInit(&gTexCache_0087F0A8, nEnd, gdwTmuMaxAddress_0087EAE4[nTmu], nAlign4K);
-		gnTexCacheSize_007C90E8 = gTexCache_0087F0A8.nEntries * nAlign4K;
+		gnTexCacheSize_007C90E8 = gTexCache_0087F0A8.nCount * nAlign4K;
 	}
 	else if (gnScreenWidth_007C9138 == 800 && gnScreenHeight_007C913C == 600)
 	{
@@ -186,20 +167,20 @@ int __cdecl sub_00509670_InitTextureMemory()
 		if (gnTmuCount_0087EFB4 > 1)
 		{
 			int nEnd = sub_0050E890_TexCacheInit(&gTexCache_0087F088, nAddress, nAddress + 50 * nFree / 100, nAlign16K);
-			gnTexCacheSize_007C90E4 = gTexCache_0087F088.nEntries * nAlign16K;
+			gnTexCacheSize_007C90E4 = gTexCache_0087F088.nCount * nAlign16K;
 			sub_0050E890_TexCacheInit(&gTexCache_0087F0A8, nEnd, gdwTmuMaxAddress_0087EAE4[0], nAlign4K);
-			gnTexCacheSize_007C90E8 = gTexCache_0087F0A8.nEntries * nAlign4K;
+			gnTexCacheSize_007C90E8 = gTexCache_0087F0A8.nCount * nAlign4K;
 			sub_0050E890_TexCacheInit(&gTexCache_0087F068, gdwTmuMinAddress_0087EAA4[1], gdwTmuMaxAddress_0087EAE4[1], nAlign64K);
-			gnTexCacheSize_007C90E0 = gTexCache_0087F068.nEntries * nAlign64K;
+			gnTexCacheSize_007C90E0 = gTexCache_0087F068.nCount * nAlign64K;
 		}
 		else
 		{
 			int nEnd = sub_0050E890_TexCacheInit(&gTexCache_0087F068, nAddress, nAddress + 50 * nFree / 100, nAlign64K);
-			gnTexCacheSize_007C90E0 = gTexCache_0087F068.nEntries * nAlign64K;
+			gnTexCacheSize_007C90E0 = gTexCache_0087F068.nCount * nAlign64K;
 			nEnd = sub_0050E890_TexCacheInit(&gTexCache_0087F088, nEnd, nAddress + 75 * nFree / 100, nAlign16K);
-			gnTexCacheSize_007C90E4 = gTexCache_0087F088.nEntries * nAlign16K;
+			gnTexCacheSize_007C90E4 = gTexCache_0087F088.nCount * nAlign16K;
 			sub_0050E890_TexCacheInit(&gTexCache_0087F0A8, nEnd, gdwTmuMaxAddress_0087EAE4[0], nAlign4K);
-			gnTexCacheSize_007C90E8 = gTexCache_0087F0A8.nEntries * nAlign4K;
+			gnTexCacheSize_007C90E8 = gTexCache_0087F0A8.nCount * nAlign4K;
 		}
 	}
 

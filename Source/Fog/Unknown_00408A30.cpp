@@ -1,6 +1,6 @@
 #include "Fog.h"
 #include "D2GameTypes.h"
-
+#include "D2NetTypes.h"
 
 struct T00408A30
 {
@@ -53,24 +53,6 @@ struct FSafeSock
     unsigned long nFogErrorCode;
     unsigned long nWSALastError;
     char szName[64];
-};
-
-struct D2WSADataStrc
-{
-    char data[0x190];
-};
-
-struct D2InAddrStrc
-{
-    unsigned long s_addr;
-};
-
-struct D2SockAddrInStrc
-{
-    short sin_family;
-    unsigned short sin_port;
-    D2InAddrStrc sin_addr;
-    char sin_zero[8];
 };
 
 struct D2FindDataStrc

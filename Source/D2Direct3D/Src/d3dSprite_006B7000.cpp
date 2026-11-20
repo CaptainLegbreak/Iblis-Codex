@@ -1,66 +1,7 @@
+#include "D2D3DTypes.h"
+
 struct D2CelStrc;
 struct D2CelContextStrc { unsigned char pad0[8]; int unitType; int classId; int mode; unsigned char pad1[0x18]; const char* name; unsigned char pad2[12]; D2CelStrc* cel; };
-
-struct D2SpriteInfoStrc
-{
-    D2CelContextStrc* context;
-    int width;
-    int height;
-    int offsetX;
-    int offsetY;
-    int f_14;
-    int f_18;
-    int nTexSize;
-    float f_20;
-    float f_24;
-    float f_28;
-    float f_2C;
-};
-
-struct D2TLVertexStrc
-{
-    float fX;
-    float fY;
-    float fZ;
-    float fRhw;
-    unsigned int dwColor;
-    unsigned int f_14;
-    float fU;
-    float fV;
-};
-
-struct D2QuadRectStrc
-{
-    int nX;
-    int nY;
-    int nWidth;
-    int nHeight;
-};
-
-struct D2VertexBufferStrc;
-struct D2VertexBufferVtbl
-{
-    void* pfnQueryInterface;
-    void* pfnAddRef;
-    void* pfnRelease;
-    long (__stdcall* Lock)(D2VertexBufferStrc* pThis, unsigned long dwFlags, void** ppData, unsigned long* pSize);
-    long (__stdcall* Unlock)(D2VertexBufferStrc* pThis);
-};
-struct D2VertexBufferStrc
-{
-    D2VertexBufferVtbl* lpVtbl;
-};
-
-struct D2D3DDeviceStrc;
-struct D2D3DDeviceVtbl
-{
-    void* pfn00[34];
-    long (__stdcall* DrawPrimitiveVB)(D2D3DDeviceStrc* pThis, int nType, D2VertexBufferStrc* pBuffer, unsigned long dwStart, unsigned long dwCount, unsigned long dwFlags);
-};
-struct D2D3DDeviceStrc
-{
-    D2D3DDeviceVtbl* lpVtbl;
-};
 
 extern D2D3DDeviceStrc* gpDevice_00970E78; // 0x00970E78
 extern D2VertexBufferStrc* gpVertexBuffer_00970F3C; // 0x00970F3C
@@ -98,11 +39,11 @@ int sub_006B5C80_LoadSpriteInfo(D2CelContextStrc* context, D2SpriteInfoStrc* inf
         sub_00410610_WriteLogLine("error loading sprite unit:%d  class:%d  mode:%d  %s", context->unitType, context->classId, context->mode, context->name);
         return 0;
     }
-    info->context = context;
-    info->width = sub_006018C0(context->cel);
-    info->offsetX = sub_00601920(context->cel);
-    info->height = sub_006018F0(context->cel);
-    info->offsetY = sub_00601950(context->cel);
+    info->pContext = context;
+    info->nWidth = sub_006018C0(context->cel);
+    info->nOffsetX = sub_00601920(context->cel);
+    info->nHeight = sub_006018F0(context->cel);
+    info->nOffsetY = sub_00601950(context->cel);
     return 1;
 }
 
@@ -110,38 +51,38 @@ int sub_006B5C80_LoadSpriteInfo(D2CelContextStrc* context, D2SpriteInfoStrc* inf
 void sub_006B5CF0_SetTextureSize(D2SpriteInfoStrc* pInfo)
 {
     int nSize = 32;
-    if (pInfo->width > nSize || pInfo->height > nSize)
+    if (pInfo->nWidth > nSize || pInfo->nHeight > nSize)
     {
         nSize = 128;
-        if (pInfo->width > nSize || pInfo->height > nSize)
+        if (pInfo->nWidth > nSize || pInfo->nHeight > nSize)
         {
             nSize = 256;
-            if (pInfo->width > nSize || pInfo->height > nSize)
+            if (pInfo->nWidth > nSize || pInfo->nHeight > nSize)
             {
                 goto done;
             }
         }
     }
-    pInfo->f_14 = nSize;
-    pInfo->f_18 = nSize;
+    pInfo->nTexWidth = nSize;
+    pInfo->nTexHeight = nSize;
 done:
-    pInfo->nTexSize = pInfo->f_18 * pInfo->f_14;
-    pInfo->f_20 = 0.0f;
-    pInfo->f_24 = 1.0f;
-    pInfo->f_28 = 0.0f;
-    pInfo->f_2C = 1.0f;
+    pInfo->nTexSize = pInfo->nTexHeight * pInfo->nTexWidth;
+    pInfo->fU0 = 0.0f;
+    pInfo->fU1 = 1.0f;
+    pInfo->fV0 = 0.0f;
+    pInfo->fV1 = 1.0f;
 }
 
 // calling-convention shim (not game code)
 int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* pInfo, int nMode, int nArg3, int nArg4)
 {
-    int* pSlots = sub_00601B10_GetCelTextureSlots(pInfo->context->cel);
+    int* pSlots = sub_00601B10_GetCelTextureSlots(pInfo->pContext->cel);
     if (nMode == 4)
     {
         nMode = 1;
     }
     int nSlot = pSlots[nMode * 2];
-    int nWidth = pInfo->width;
+    int nWidth = pInfo->nWidth;
     sub_006BA760_Touch(&nArg3, 0);
     sub_006BA760_Touch(&nArg4, nSlot);
     return nWidth + nSlot;
@@ -150,18 +91,18 @@ int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* pInfo, int nMode, int
 // build: context sub_006B61A0_DrawShadowQuad
 void __stdcall sub_006B61A0_DrawShadowQuad(int nOffsetX, int nOffsetY, unsigned char nAlpha, D2SpriteInfoStrc* pQuad)
 {
-    float fU0 = pQuad->f_20;
-    float fU1 = pQuad->f_24;
-    float fV0 = pQuad->f_28;
-    float fV1 = pQuad->f_2C;
+    float fU0 = pQuad->fU0;
+    float fU1 = pQuad->fU1;
+    float fV0 = pQuad->fV0;
+    float fV1 = pQuad->fV1;
     int bPerspective = sub_006B9830_GetPerspective();
 
     D2QuadRectStrc tRect;
-    tRect.nHeight = pQuad->f_18 >> 1;
-    pQuad->offsetY >>= 1;
-    tRect.nWidth = pQuad->f_14;
-    tRect.nX = pQuad->offsetX + pQuad->offsetY;
-    tRect.nY = pQuad->offsetY - tRect.nHeight;
+    tRect.nHeight = pQuad->nTexHeight >> 1;
+    pQuad->nOffsetY >>= 1;
+    tRect.nWidth = pQuad->nTexWidth;
+    tRect.nX = pQuad->nOffsetX + pQuad->nOffsetY;
+    tRect.nY = pQuad->nOffsetY - tRect.nHeight;
 
     if (bPerspective && gnScale_00989748 != 256)
     {

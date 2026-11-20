@@ -1,4 +1,5 @@
 #include "D2Win.h"
+#include "D2GfxTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define gnRowOffsets_007C9828 (gnRowOffsets_007C97A8 + 32)
@@ -6,7 +7,6 @@
 #define DISPLAYTYPE_GLIDE 4
 struct D2PaletteStrc;
 struct D2TileLibraryBlockStrc;
-struct D2GfxSettingsStrc;
 
 struct D2PaletteStrc
 {
@@ -43,16 +43,6 @@ extern "C" void __cdecl sub_004F7CC0(); // 0x004F7CC0
 extern "C" void __cdecl sub_004E4280(); // 0x004E4280
 int __stdcall GAME_Shutdown(); // 0x0052C030
 extern D2PaletteTableStrc gPaletteTables_007D5458; // 0x007D5458
-
-struct D2GfxSettingsStrc
-{
-    int bPerspectiveEnabled;
-    int bPerspectiveCapable;
-    int bLowQuality;
-    int nGamma;
-    int bVSync;
-    int bBlendedShadows;
-};
 
 extern int gnViewMatrixAdjustDefault_0072DBFC; // 0x0072DBFC
 extern int gnDisplayType; // 0x007C8CB0

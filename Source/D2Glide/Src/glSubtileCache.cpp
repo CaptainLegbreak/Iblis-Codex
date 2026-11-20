@@ -1,61 +1,8 @@
 #include "D2Glide.h"
-struct D2GlideTileCacheEntryStrc;
-struct D2GlideTileCacheStrc;
-struct D2GlideFloorCacheEntryStrc;
-struct D2GlideFloorCacheStrc;
-
-struct D2GlideTileCacheEntryStrc
-{
-    int unk0x00;
-    unsigned int f_4;
-    D2GlideTileStrc* pTile;
-    D2GlideTileCacheEntryStrc* pNext;
-    D2GlideTileCacheEntryStrc* pPrev;
-};
-
-struct D2GlideTileCacheStrc
-{
-    unsigned int nBlockSize;
-    int nCount;
-    int nUsed;
-    D2GlideTileCacheEntryStrc* pHead;
-    D2GlideTileCacheEntryStrc* pTail;
-    D2GlideTileCacheEntryStrc* f_14;
-    D2GlideTileCacheEntryStrc* f_18;
-    D2GlideTileCacheEntryStrc* pEntries;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern int gdwGlobal_0087EFB8; // 0x0087EFB8
-
-struct D2GlideTileStrc
-{
-    int unk0x00;
-    short nCacheIndex;
-    short unk0x06;
-};
-
-struct D2GlideFloorCacheEntryStrc
-{
-    int unk0x00;
-    int f_4;
-    D2TileLibraryEntryStrc* pTile;
-    D2GlideFloorCacheEntryStrc* pNext;
-    D2GlideFloorCacheEntryStrc* pPrev;
-};
-
-struct D2GlideFloorCacheStrc
-{
-    int unk0x00;
-    int nCount;
-    int nUsed;
-    D2GlideFloorCacheEntryStrc* pHead;
-    D2GlideFloorCacheEntryStrc* pTail;
-    D2GlideFloorCacheEntryStrc* f_14;
-    D2GlideFloorCacheEntryStrc* f_18;
-    D2GlideFloorCacheEntryStrc* pEntries;
-};
 
 // 0x0050ED90
 int __fastcall sub_0050ED90_TileCacheInit(D2GlideTileCacheStrc* pCache, unsigned int nStart, unsigned int nEnd, unsigned int nBlockSize)
@@ -70,7 +17,7 @@ int __fastcall sub_0050ED90_TileCacheInit(D2GlideTileCacheStrc* pCache, unsigned
     for (int i = 0; i <= pCache->nCount - 1; ++i)
     {
         D2GlideTileCacheEntryStrc* pEntry = &pCache->pEntries[i];
-        pEntry->unk0x00 = i;
+        pEntry->nId = i;
         if (i < pCache->nCount - 1)
         {
             pEntry->pNext = &pCache->pEntries[i + 1];
@@ -79,20 +26,20 @@ int __fastcall sub_0050ED90_TileCacheInit(D2GlideTileCacheStrc* pCache, unsigned
         {
             pEntry->pPrev = &pCache->pEntries[i - 1];
         }
-        pEntry->f_4 = nStart + i * nBlockSize;
+        pEntry->nAddress = nStart + i * nBlockSize;
     }
 
     pCache->nUsed = 0;
     pCache->pHead = 0;
     pCache->pTail = 0;
-    pCache->f_14 = pCache->pEntries;
-    pCache->f_18 = &pCache->pEntries[pCache->nCount - 1];
+    pCache->pFreeHead = pCache->pEntries;
+    pCache->pFreeTail = &pCache->pEntries[pCache->nCount - 1];
 
     if (!gdwGlobal_0087EFB8)
     {
         for (int i = 1; i < pCache->nCount - 1; ++i)
         {
-            const unsigned int nEntryAddress = pCache->pEntries[i].f_4;
+            const unsigned int nEntryAddress = pCache->pEntries[i].nAddress;
             if (nEntryAddress < 0x200000 && pCache->nBlockSize + nEntryAddress > 0x200000)
             {
                 pCache->pEntries[i - 1].pNext = &pCache->pEntries[i + 1];
@@ -104,11 +51,11 @@ int __fastcall sub_0050ED90_TileCacheInit(D2GlideTileCacheStrc* pCache, unsigned
             }
         }
 
-        if (pCache->pEntries[pCache->nCount - 1].f_4 < 0x200000 && pCache->nBlockSize + pCache->pEntries[pCache->nCount - 1].f_4 > 0x200000)
+        if (pCache->pEntries[pCache->nCount - 1].nAddress < 0x200000 && pCache->nBlockSize + pCache->pEntries[pCache->nCount - 1].nAddress > 0x200000)
         {
             pCache->pEntries[pCache->nCount - 1].pPrev = 0;
             pCache->pEntries[pCache->nCount - 2].pNext = 0;
-            pCache->f_18 = &pCache->pEntries[pCache->nCount - 2];
+            pCache->pFreeTail = &pCache->pEntries[pCache->nCount - 2];
             --pCache->nCount;
         }
     }
@@ -182,16 +129,16 @@ static void sub_0050F150_TileCacheEvict(D2GlideTileCacheStrc* pCache)
             pTile->nCacheIndex = 0;
             pEntry->pTile = 0;
         }
-        if (!pCache->f_14)
+        if (!pCache->pFreeHead)
         {
-            pCache->f_14 = pEntry;
-            pCache->f_18 = pEntry;
+            pCache->pFreeHead = pEntry;
+            pCache->pFreeTail = pEntry;
         }
         else
         {
-            pCache->f_18->pNext = pEntry;
-            pEntry->pPrev = pCache->f_18;
-            pCache->f_18 = pEntry;
+            pCache->pFreeTail->pNext = pEntry;
+            pEntry->pPrev = pCache->pFreeTail;
+            pCache->pFreeTail = pEntry;
         }
     }
     --pCache->nUsed;
@@ -199,28 +146,28 @@ static void sub_0050F150_TileCacheEvict(D2GlideTileCacheStrc* pCache)
 
 static void sub_0050F4F0_FloorCacheAppendFree(D2GlideFloorCacheStrc* pCache, D2GlideFloorCacheEntryStrc* pEntry)
 {
-    if (!pCache->f_14)
+    if (!pCache->pFreeHead)
     {
-        pCache->f_14 = pEntry;
-        pCache->f_18 = pEntry;
+        pCache->pFreeHead = pEntry;
+        pCache->pFreeTail = pEntry;
         return;
     }
 
-    pCache->f_18->pNext = pEntry;
-    pEntry->pPrev = pCache->f_18;
-    pCache->f_18 = pEntry;
+    pCache->pFreeTail->pNext = pEntry;
+    pEntry->pPrev = pCache->pFreeTail;
+    pCache->pFreeTail = pEntry;
 }
 
 static D2GlideFloorCacheEntryStrc* sub_0050F540_FloorCachePopFree(D2GlideFloorCacheStrc* pCache)
 {
-    D2GlideFloorCacheEntryStrc* pEntry = pCache->f_14;
+    D2GlideFloorCacheEntryStrc* pEntry = pCache->pFreeHead;
     if (!pEntry)
         return 0;
-    pCache->f_14 = pEntry->pNext;
-    if (pCache->f_14)
-        pCache->f_14->pPrev = 0;
+    pCache->pFreeHead = pEntry->pNext;
+    if (pCache->pFreeHead)
+        pCache->pFreeHead->pPrev = 0;
     else
-        pCache->f_18 = 0;
+        pCache->pFreeTail = 0;
     pEntry->pNext = 0;
     pEntry->pPrev = 0;
     return pEntry;
@@ -299,16 +246,16 @@ void __fastcall sub_0050F1B0_TileCacheRelease(D2GlideTileCacheStrc* pCache, int 
             pEntry->pTile = 0;
         }
 
-        if (!pCache->f_14)
+        if (!pCache->pFreeHead)
         {
-            pCache->f_14 = pEntry;
-            pCache->f_18 = pEntry;
+            pCache->pFreeHead = pEntry;
+            pCache->pFreeTail = pEntry;
         }
         else
         {
-            pCache->f_18->pNext = pEntry;
-            pEntry->pPrev = pCache->f_18;
-            pCache->f_18 = pEntry;
+            pCache->pFreeTail->pNext = pEntry;
+            pEntry->pPrev = pCache->pFreeTail;
+            pCache->pFreeTail = pEntry;
         }
     }
     --pCache->nUsed;
@@ -342,16 +289,16 @@ static void sub_N19_TileEvict(D2GlideTileCacheStrc* pCache)
             pTile->nCacheIndex = 0;
             pEntry->pTile = 0;
         }
-        if (!pCache->f_14)
+        if (!pCache->pFreeHead)
         {
-            pCache->f_14 = pEntry;
-            pCache->f_18 = pEntry;
+            pCache->pFreeHead = pEntry;
+            pCache->pFreeTail = pEntry;
         }
         else
         {
-            pCache->f_18->pNext = pEntry;
-            pEntry->pPrev = pCache->f_18;
-            pCache->f_18 = pEntry;
+            pCache->pFreeTail->pNext = pEntry;
+            pEntry->pPrev = pCache->pFreeTail;
+            pCache->pFreeTail = pEntry;
         }
     }
     --pCache->nUsed;
@@ -363,14 +310,14 @@ static int sub_0050F070_TileCacheAlloc(D2GlideTileCacheStrc* pCache)
     if (pCache->nUsed == pCache->nCount)
         return 0;
 
-    D2GlideTileCacheEntryStrc* pEntry = pCache->f_14;
+    D2GlideTileCacheEntryStrc* pEntry = pCache->pFreeHead;
     if (pEntry)
     {
-        pCache->f_14 = pEntry->pNext;
-        if (pCache->f_14)
-            pCache->f_14->pPrev = 0;
+        pCache->pFreeHead = pEntry->pNext;
+        if (pCache->pFreeHead)
+            pCache->pFreeHead->pPrev = 0;
         else
-            pCache->f_18 = 0;
+            pCache->pFreeTail = 0;
         pEntry->pNext = 0;
         pEntry->pPrev = 0;
     }
@@ -381,14 +328,14 @@ static int sub_0050F070_TileCacheAlloc(D2GlideTileCacheStrc* pCache)
         ++pCache->nUsed;
         pCache->pHead = pEntry;
         pCache->pTail = pEntry;
-        return pEntry->unk0x00 + 1;
+        return pEntry->nId + 1;
     }
 
     pCache->pTail->pNext = pEntry;
     pEntry->pPrev = pCache->pTail;
     ++pCache->nUsed;
     pCache->pTail = pEntry;
-    return pEntry->unk0x00 + 1;
+    return pEntry->nId + 1;
 }
 
 // 0x0050F2B0

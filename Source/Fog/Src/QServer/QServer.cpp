@@ -1,5 +1,6 @@
 #include "Fog.h"
 #include "D2GameTypes.h"
+#include "D2NetTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -23,7 +24,6 @@ struct D2NetPacketStrc;
 struct D2NetQueueStrc;
 struct D2HashNode006BEC00Strc;
 struct D2HashTable006BEC00Strc;
-struct D2InAddrStrc;
 struct D2HashNodeStrc;
 struct D2HashTableStrc;
 struct D2SocketNodeStrc;
@@ -39,7 +39,6 @@ struct D2PairEntry006BF610Strc;
 struct D2PairTable006BF610Strc;
 struct D2ServerStrc;
 struct D2RecordStrc;
-struct D2WSADataStrc;
 struct D2QServerConfigStrc;
 struct D2AddressRecordStrc;
 struct D2ClientTableStrc;
@@ -51,7 +50,6 @@ struct D2SrvClientStrc;
 extern int gdwGlobal_00970E50; // 0x00970E50
 extern char gData_007C90C8[]; // 0x007C90C8
 extern int gdwGlobal_00970E8C; // 0x00970E8C
-
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pCriticalSection);
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pCriticalSection);
@@ -193,8 +191,6 @@ struct D2HashTable006BEC00Strc
     D2CriticalSectionStrc* pLocks;
 };
 
-struct D2InAddrStrc { unsigned int address; };
-
 struct D2HashNodeStrc
 {
     unsigned int key;
@@ -321,18 +317,6 @@ struct D2ServerStrc
 };
 
 struct D2RecordStrc { unsigned char data[0xac]; int value; };
-
-struct D2WSADataStrc
-{
-    unsigned short wVersion;
-    unsigned short wHighVersion;
-    char szDescription[257];
-    char szSystemStatus[129];
-    unsigned short iMaxSockets;
-    unsigned short iMaxUdpDg;
-    char pad0x18A[2];
-    char* lpVendorInfo;
-};
 
 typedef int (__fastcall* D2NET_ValidatePacketCallback)(D2PacketBufferStrc*, int, int*, int*, int*, int*, int, int, int);
 

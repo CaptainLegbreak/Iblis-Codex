@@ -1,15 +1,4 @@
-struct D2InAddrStrc
-{
-    unsigned long s_addr;
-};
-
-struct D2SockAddrInStrc
-{
-    short sin_family;
-    unsigned short sin_port;
-    unsigned long sin_addr;
-    char sin_zero[8];
-};
+#include "D2NetTypes.h"
 
 extern "C" char* __stdcall inet_ntoa(D2InAddrStrc tAddress);                                                // 0x006B013E
 extern "C" int __stdcall getsockname(unsigned int nSocket, void* pAddress, int* pnLength);                 // 0x006B0144
@@ -23,6 +12,6 @@ void __stdcall CLIENT_GetLocalIpAddressString(char* szBuffer)
     D2SockAddrInStrc tAddress = {};
     int nLength = sizeof(tAddress);
     getsockname(gClientSocket, &tAddress, &nLength);
-    const char* szLocalIpAddress = inet_ntoa(*(D2InAddrStrc*)&tAddress.sin_addr);
+    const char* szLocalIpAddress = inet_ntoa(*(D2InAddrStrc*)&tAddress.sin_addr.s_addr);
     SStrCopy(szBuffer, szLocalIpAddress, 0x7FFFFFFF);
 }

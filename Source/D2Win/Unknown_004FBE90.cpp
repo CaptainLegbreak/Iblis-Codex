@@ -1,7 +1,8 @@
 #include "D2Win.h"
+#include "D2WinControls.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-struct D2CellFileStrc;
+struct D2CelFileStrc;
 struct Unicode;
 struct D2WinTextBoxLineStrc;
 struct D2WinTextBoxStrc;
@@ -12,47 +13,6 @@ struct Unicode
     Unicode(unsigned short ch = 0) : wChar(ch) {}
 };
 
-struct D2WinTextBoxLineStrc
-{
-    Unicode* pColumns[5];
-    int field_14;
-    char field_18;
-    char field_19;
-    char field_1A;
-    char field_1B;
-    D2WinTextBoxLineStrc* pNext;
-};
-
-struct D2WinTextBoxStrc
-{
-    int eType;
-    D2CellFileStrc* pCellFile;
-    unsigned int dwFlags;
-    int nImageX;
-    int nImageY;
-    int nWidth;
-    int nHeight;
-    char unk0x1C[0x24];
-    int field_40;
-    int field_44;
-    D2WinTextBoxLineStrc* pFirstLine;
-    D2WinTextBoxLineStrc* pLastLine;
-    D2WinTextBoxLineStrc* pCurrentLine;
-    int nNumLines;
-    int nLine;
-    unsigned int dwTextBoxFlags;
-    int nCurrentLine;
-    int nNumColumns;
-    int unk0x68[5];
-    int unk0x7C[5];
-    D2WinScrollBarStrc* pScrollBar;
-    int eFont;
-    int field_98;
-    int field_9C;
-    int field_A0;
-    int field_A4;
-    int field_A8;
-};
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
@@ -70,7 +30,7 @@ struct D2GfxDataStrc
 {
     int nFrame;
     char unk0x04[0x30];
-    D2CellFileStrc* pCellFile;
+    D2CelFileStrc* pCellFile;
     char unk0x38[0x08];
     int nDirection;
     char unk0x44[0x04];
@@ -88,7 +48,7 @@ void __fastcall sub_00501FE0_DrawTickerText(const Unicode* wszText, int nX, int 
 static __declspec(noinline) int sub_004FBE90_CountLinesFromCurrent(D2WinTextBoxStrc* pTextBox)
 {
     D2_ASSERT(pTextBox, 0x393);
-    D2_ASSERT(pTextBox->eType == 4, 0x394);
+    D2_ASSERT(pTextBox->controlHeader.eType == 4, 0x394);
 
     D2WinTextBoxLineStrc* pLine = pTextBox->pCurrentLine;
     int nCount = 0;
@@ -126,8 +86,8 @@ static __forceinline int sub_B03_AddLineRecord(D2WinTextBoxStrc* pTextBox, const
     pLine->pColumns[2] = 0;
     pLine->pColumns[3] = 0;
     pLine->pColumns[4] = 0;
-    pLine->field_14 = nColor;
-    pLine->field_18 = bIsWrapped;
+    pLine->unk0x14 = nColor;
+    pLine->unk0x18 = bIsWrapped;
     pLine->pNext = 0;
 
     int bScrolled = 0;
@@ -173,7 +133,7 @@ static __forceinline int sub_B03_AddLineRecord(D2WinTextBoxStrc* pTextBox, const
 int __fastcall D2Win_10051(D2WinTextBoxStrc* pTextBox, const Unicode* wszText, int nColor, char bIsWrapped, int nIndent)
 {
     D2_ASSERT(pTextBox, 0x132);
-    D2_ASSERT(pTextBox->eType == 4, 0x133);
+    D2_ASSERT(pTextBox->controlHeader.eType == 4, 0x133);
 
     Unicode wszBuffer[0x400];
     sub_005267E0(wszBuffer, wszText);
@@ -191,7 +151,7 @@ int __fastcall D2Win_10051(D2WinTextBoxStrc* pTextBox, const Unicode* wszText, i
 
     if (!(pTextBox->dwTextBoxFlags & 0x20))
     {
-        int nMaxWidth = pTextBox->nWidth - 2 * pTextBox->field_40;
+        int nMaxWidth = pTextBox->controlHeader.nWidth - 2 * pTextBox->unk0x40;
         if (nIndent == 2)
         {
             Unicode wszSpaces[6];
@@ -210,9 +170,9 @@ int __fastcall D2Win_10051(D2WinTextBoxStrc* pTextBox, const Unicode* wszText, i
 int __fastcall sub_004FCDA0_AddWrappedText(D2WinTextBoxStrc* pTextBox, const Unicode* wszText, int nColor, int nIndent)
 {
     D2_ASSERT(pTextBox, 0x482);
-    D2_ASSERT(pTextBox->eType == 4, 0x483);
+    D2_ASSERT(pTextBox->controlHeader.eType == 4, 0x483);
 
-    int nMaxWidth = pTextBox->nWidth - 2 * pTextBox->field_40;
+    int nMaxWidth = pTextBox->controlHeader.nWidth - 2 * pTextBox->unk0x40;
     if (nIndent == 2)
     {
         Unicode wszSpaces[6];
@@ -337,16 +297,16 @@ static void sub_004FB5A0_SetTextBoxLineGap(int nFont)
 int __fastcall TEXTBOX_Draw(D2WinTextBoxStrc* pTextBox)
 {
     D2_ASSERT(pTextBox, 0x3BC);
-    D2_ASSERT(pTextBox->eType == 4, 0x3BD);
+    D2_ASSERT(pTextBox->controlHeader.eType == 4, 0x3BD);
 
-    if (!(pTextBox->dwFlags & gdwBitMasks_006CE268[2]) || !(pTextBox->dwFlags & gdwBitMasks_006CE268[0]))
+    if (!(pTextBox->controlHeader.dwFlags & gdwBitMasks_006CE268[2]) || !(pTextBox->controlHeader.dwFlags & gdwBitMasks_006CE268[0]))
     {
         return 0;
     }
 
     const unsigned char nColor = D2Win_10034_MixRGB(0x40, 0x40, 0x40);
 
-    D2CellFileStrc* pCellFile = pTextBox->pCellFile;
+    D2CelFileStrc* pCellFile = pTextBox->controlHeader.pCellFile;
     if (pCellFile)
     {
         D2GfxDataStrc tGfxData;
@@ -354,30 +314,30 @@ int __fastcall TEXTBOX_Draw(D2WinTextBoxStrc* pTextBox)
         tGfxData.pCellFile = pCellFile;
         tGfxData.nDirection = 0;
         tGfxData.nFrame = 0;
-        TEXTURE_CelDraw(&tGfxData, pTextBox->nImageX, pTextBox->nImageY - 1, -1, 5, 0);
+        TEXTURE_CelDraw(&tGfxData, pTextBox->controlHeader.nImageX, pTextBox->controlHeader.nImageY - 1, -1, 5, 0);
     }
 
     sub_004FB5A0_SetTextBoxLineGap(pTextBox->eFont);
     sub_00502EF0(pTextBox->eFont);
 
-    const int v51 = pTextBox->nImageX + pTextBox->field_40;
-    int nY = D2Win_10125() + (pTextBox->nImageY - pTextBox->nHeight) + pTextBox->field_44;
+    const int v51 = pTextBox->controlHeader.nImageX + pTextBox->unk0x40;
+    int nY = D2Win_10125() + (pTextBox->controlHeader.nImageY - pTextBox->controlHeader.nHeight) + pTextBox->unk0x44;
 
     sub_004FB5A0_SetTextBoxLineGap(pTextBox->eFont);
 
-    const int v8 = D2Win_10125() + pTextBox->field_A8;
-    int v49 = pTextBox->nHeight - 2 * pTextBox->field_44;
-    const int nBoxWidth = pTextBox->nWidth - 2 * pTextBox->field_40;
+    const int v8 = D2Win_10125() + pTextBox->unk0xA8;
+    int v49 = pTextBox->controlHeader.nHeight - 2 * pTextBox->unk0x44;
+    const int nBoxWidth = pTextBox->controlHeader.nWidth - 2 * pTextBox->unk0x40;
 
     if (pTextBox->dwTextBoxFlags & 0x40)
     {
         D2WinTextBoxLineStrc* pCurrentLine = pTextBox->pCurrentLine;
         if (pCurrentLine)
         {
-            pTextBox->field_9C -= 2;
-            if (pTextBox->field_9C < -sub_00501820(pCurrentLine->pColumns[0]))
+            pTextBox->unk0x9C -= 2;
+            if (pTextBox->unk0x9C < -sub_00501820(pCurrentLine->pColumns[0]))
             {
-                pTextBox->field_9C = nBoxWidth;
+                pTextBox->unk0x9C = nBoxWidth;
             }
         }
     }
@@ -387,10 +347,10 @@ int __fastcall TEXTBOX_Draw(D2WinTextBoxStrc* pTextBox)
         D2WinTextBoxLineStrc* pCurrentLine = pTextBox->pCurrentLine;
         if (pCurrentLine)
         {
-            pTextBox->field_9C -= 2;
-            if (pTextBox->field_9C < -v8)
+            pTextBox->unk0x9C -= 2;
+            if (pTextBox->unk0x9C < -v8)
             {
-                pTextBox->field_9C = 0;
+                pTextBox->unk0x9C = 0;
                 pTextBox->pCurrentLine = pCurrentLine->pNext;
             }
         }
@@ -410,7 +370,7 @@ int __fastcall TEXTBOX_Draw(D2WinTextBoxStrc* pTextBox)
                     break;
                 }
 
-                int v48 = pTextBox->nWidth;
+                int v48 = pTextBox->controlHeader.nWidth;
                 if (i < pTextBox->nNumColumns - 1)
                 {
                     v48 = pTextBox->unk0x68[i + 1];
@@ -430,7 +390,7 @@ int __fastcall TEXTBOX_Draw(D2WinTextBoxStrc* pTextBox)
                     }
                     else
                     {
-                        v48 = pTextBox->nWidth - v16;
+                        v48 = pTextBox->controlHeader.nWidth - v16;
                         v18 = v48;
                     }
 
@@ -455,12 +415,12 @@ int __fastcall TEXTBOX_Draw(D2WinTextBoxStrc* pTextBox)
                 }
                 else if (pTextBox->dwTextBoxFlags & 2)
                 {
-                    int nOffset = (pTextBox->nWidth - sub_00501820(pLine->pColumns[0])) / 2;
+                    int nOffset = (pTextBox->controlHeader.nWidth - sub_00501820(pLine->pColumns[0])) / 2;
                     if (nOffset < 0)
                     {
                         nOffset = 0;
                     }
-                    nX = pTextBox->nImageX + nOffset;
+                    nX = pTextBox->controlHeader.nImageX + nOffset;
                 }
                 else if (pTextBox->dwTextBoxFlags & 0x10)
                 {
@@ -469,7 +429,7 @@ int __fastcall TEXTBOX_Draw(D2WinTextBoxStrc* pTextBox)
                     {
                         nTextWidth = 0;
                     }
-                    nX = pTextBox->nImageX - nTextWidth;
+                    nX = pTextBox->controlHeader.nImageX - nTextWidth;
                 }
                 else
                 {
@@ -486,7 +446,7 @@ int __fastcall TEXTBOX_Draw(D2WinTextBoxStrc* pTextBox)
 
                 if (pTextBox->nCurrentLine == nCounter + pTextBox->nLine && (pTextBox->dwTextBoxFlags & 1))
                 {
-                    const int nLineColor = pLine->field_14 != 4 ? pLine->field_14 : 0;
+                    const int nLineColor = pLine->unk0x14 != 4 ? pLine->unk0x14 : 0;
                     if (!i)
                     {
                         sub_005025C0_DrawFramedText(wszText, nX, nY, nBoxWidth, nColor, 5, nLineColor);
@@ -498,25 +458,25 @@ int __fastcall TEXTBOX_Draw(D2WinTextBoxStrc* pTextBox)
                 }
                 else if (pTextBox->dwTextBoxFlags & 0x40)
                 {
-                    sub_00501FE0_DrawTickerText(pLine->pColumns[i], nX, nY, pLine->field_14, pTextBox->field_9C, nBoxWidth);
+                    sub_00501FE0_DrawTickerText(pLine->pColumns[i], nX, nY, pLine->unk0x14, pTextBox->unk0x9C, nBoxWidth);
                 }
                 else if (pTextBox->dwTextBoxFlags & 0x80)
                 {
-                    sub_00502320(wszText, nX, nY + pTextBox->field_9C, pLine->field_14, 0);
+                    sub_00502320(wszText, nX, nY + pTextBox->unk0x9C, pLine->unk0x14, 0);
                 }
                 else
                 {
-                    sub_00502320(wszText, nX, nY, pLine->field_14, 0);
+                    sub_00502320(wszText, nX, nY, pLine->unk0x14, 0);
                 }
             }
 
-            const int v34 = (!pLine->field_18 ? pTextBox->field_A4 : pTextBox->field_A0) + v8;
+            const int v34 = (!pLine->unk0x18 ? pTextBox->unk0xA4 : pTextBox->unk0xA0) + v8;
             ++nCounter;
             nY += v34;
             v49 -= v34;
             pLine = pLine->pNext;
         }
-        while (pLine && v49 >= (!pLine->field_18 ? pTextBox->field_A4 : pTextBox->field_A0) + v8);
+        while (pLine && v49 >= (!pLine->unk0x18 ? pTextBox->unk0xA4 : pTextBox->unk0xA0) + v8);
     }
 
     sub_00502EF0(1);

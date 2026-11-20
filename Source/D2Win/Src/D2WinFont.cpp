@@ -1,18 +1,7 @@
 #include "D2Win.h"
 #include "D2ClientTypes.h"
 #include "D2WinTypes.h"
-
-struct D2CharStrc
-{
-    unsigned short wChar;
-    unsigned char unk0x02;
-    unsigned char nWidth;
-    unsigned char nHeight;
-    unsigned char unk0x05;
-    unsigned short unk0x06;
-    unsigned short nImageIndex;
-    unsigned short unk0x0A[2];
-};
+#include "D2WinTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -25,10 +14,8 @@ struct T0044CB60;
 struct D2GfxDataStrc;
 struct Unicode;
 
-
 extern D2FontCacheStrc gFontCache_00841DA8[]; // 0x00841DA8
 void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode); // 0x004F6300
-
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pCelFile); // 0x006019F0
@@ -45,16 +32,6 @@ struct T0044CB60
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-
-struct D2FontStrc
-{
-    unsigned int dwHeader;
-    unsigned short unk0x04;
-    unsigned short unk0x06;
-    unsigned short unk0x08;
-    unsigned char nHeight;
-    unsigned char unk0x0B;
-};
 
 struct Unicode
 {

@@ -1,4 +1,5 @@
 #include "D2Win.h"
+#include "D2WinTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2WinControlStrc;
@@ -9,26 +10,6 @@ struct D2WinButtonStrc;
 typedef int (__stdcall* D2WinMsgHandler)(struct SMSGHANDLER_PARAMS* pMsg);
 
 typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
-
-struct D2WinControlStrc
-{
-    int eType;
-    D2CelFileStrc* pCellFile;
-    unsigned int dwFlags;
-    int nImageX;
-    int nImageY;
-    int nWidth;
-    int nHeight;
-    D2WinControlFn pfDraw;
-    D2WinControlFn pfInitialize;
-    D2WinMsgHandler pfHandleMouseDown;
-    D2WinMsgHandler pfHandleMouseUp;
-    D2WinMsgHandler pfHandleCharInput;
-    D2WinMsgHandler pfHandleVirtualKeyInput;
-    D2WinMsgHandler field_34;
-    D2WinControlFn pfShouldMouseInputBeHandled;
-    D2WinControlStrc* pNext;
-};
 
 struct D2WinAnimImageStrc
 {

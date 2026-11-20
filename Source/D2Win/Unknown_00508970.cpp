@@ -1,14 +1,11 @@
 #include "D2Win.h"
+#include "D2GlideTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define GLIDE_GETPROC(pfn, szName, nLine) *(void**)&pfn = GetProcAddress(ghGlideLibrary_0087EFA8, szName); D2_ASSERT(pfn, nLine)
 
 struct T00508FE0;
 struct D2GrLfbInfoStrc;
-struct D2GlideTexCacheEntryStrc;
-struct D2GlideTileCacheStrc;
-struct D2GlideFloorCacheStrc;
-struct D2GlideTexCacheStrc;
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);
 extern "C" __declspec(dllimport) void* __stdcall LoadLibraryA(const char* szLibFileName);
@@ -31,18 +28,6 @@ extern void (__stdcall* gpfGlideFn7_0087EAD0)(int a1, int a2, int a3, int a4, in
 extern void (__stdcall* gpfGlideFn3_0087EAFC)(int a1, int a2, int a3); // 0x0087EAFC
 extern void (__stdcall* gpfGlideFn_0087EB04)(); // 0x0087EB04
 extern void (__stdcall* gpfGlideFn_0087EAB0)(); // 0x0087EAB0
-
-struct D2GlideTexCacheStrc
-{
-    int unk0x00;
-    int nCount;
-    int nUsed;
-    D2GlideTexCacheEntryStrc* pHead;
-    D2GlideTexCacheEntryStrc* pTail;
-    D2GlideTexCacheEntryStrc* f_14;
-    D2GlideTexCacheEntryStrc* f_18;
-    D2GlideTexCacheEntryStrc* pEntries;
-};
 
 int __cdecl sub_00508970_GlideLoadLibrary(); // 0x00508970
 void __fastcall sub_0050ECB0_TexCacheDestroy(D2GlideTexCacheStrc* pCache, int bFlush); // 0x0050ECB0

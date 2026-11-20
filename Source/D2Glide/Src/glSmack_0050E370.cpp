@@ -1,22 +1,6 @@
 #include "D2Glide.h"
+#include "D2GfxTypes.h"
 
-struct D2RgbColorStrc
-{
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-};
-struct D2SmackStrc
-{
-    int nVersion;
-    int nWidth;
-    int nHeight;
-    int nFrames;
-    unsigned char unk0x10[0x5C];
-    D2RgbColorStrc aPalette[256];
-    unsigned char unk0x36C[8];
-    int f_374;
-};
 struct D2GlideSmackStrc
 {
     D2SmackStrc* f_0;
@@ -34,12 +18,6 @@ struct T00508FE0
     float sow;
     float tow;
     float unk0x18;
-};
-struct D2GrTexInfoStrc
-{
-    int nSmallLodLog2;
-    int nLargeLodLog2;
-    int nAspectRatioLog2;
 };
 
 extern "C" __declspec(dllimport) int __stdcall SmackWait(D2SmackStrc* hSmack);                             // 0x006CC5F8
@@ -144,7 +122,7 @@ void __fastcall sub_0050E7F0_GlidePlaySmacker(D2GlideSmackStrc* pRecord)
             if (!gbSurfaceActive_007C9140)
                 return;
             SmackDoFrame(hSmack);
-            if (hSmack->f_374 == hSmack->nFrames)
+            if (hSmack->nFrameNum == hSmack->nFrames)
                 sub_0050E040_GlideCloseSmacker(pRecord);
             else
                 SmackNextFrame(hSmack);

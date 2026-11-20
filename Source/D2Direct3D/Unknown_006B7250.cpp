@@ -1,4 +1,6 @@
 #include "D2Direct3D.h"
+#include "D2D3DTypes.h"
+#include "D2GfxTypes.h"
 #define ASSERT(expr,line) if (!(expr)) { sub_00408A60(gszEmpty_006CC837,sub_00408090(),line); exit(-1); }
 #define MIN(a,b) ((a)<(b)?(a):(b))
 #define MAX(a,b) ((a)>(b)?(a):(b))
@@ -7,7 +9,6 @@
 
 struct D2Unknown006B7250Strc;
 struct D2DDSurfaceStrc;
-struct D2D3DTextureStrc;
 struct D2SurfaceStrc;
 struct D2Device006B77B0Strc;
 struct D2Direct3DDevice006B7F70Strc;
@@ -15,10 +16,8 @@ struct D2Unknown006B7250VtblStrc;
 struct D2RectStrc;
 struct D2SurfaceDescStrc;
 struct D2DDSurfaceVtbl;
-struct D2D3DTextureVtbl;
 struct D2SurfaceVtableStrc;
 struct D2TexturedVertexStrc;
-struct D2GfxSettingsStrc;
 struct D2TLVertex006B77B0Strc;
 struct D2DeviceVtbl006B77B0Strc;
 struct D2Rect006B7C90Strc;
@@ -69,21 +68,6 @@ struct D2DDSurfaceStrc
     D2DDSurfaceVtbl* lpVtbl;
 };
 
-struct D2D3DTextureVtbl
-{
-    void* pfnQueryInterface;
-    void* pfnAddRef;
-    unsigned long (__stdcall* Release)(D2D3DTextureStrc* pThis);
-    void* pfnGetHandle;
-    void* pfnPaletteChanged;
-    long (__stdcall* Load)(D2D3DTextureStrc* pThis, D2D3DTextureStrc* pSource);
-};
-
-struct D2D3DTextureStrc
-{
-    D2D3DTextureVtbl* lpVtbl;
-};
-
 extern "C" __declspec(dllimport) void* __stdcall CreateCompatibleDC(void* hDC);
 extern "C" __declspec(dllimport) void* __stdcall CreateFontA(int cHeight, int cWidth, int cEscapement, int cOrientation, int cWeight, unsigned long bItalic, unsigned long bUnderline, unsigned long bStrikeOut, unsigned long iCharSet, unsigned long iOutPrecision, unsigned long iClipPrecision, unsigned long iQuality, unsigned long iPitchAndFamily, const char* pszFaceName);
 extern "C" __declspec(dllimport) void* __stdcall CreateCompatibleBitmap(void* hDC, int cx, int cy);
@@ -118,16 +102,6 @@ struct D2SurfaceStrc { D2SurfaceVtableStrc* vtable; };
 void __fastcall sub_006B20E0_DDrawLogError(const char*, int); // 0x006B20E0
 
 void __cdecl sub_006B72A0_CreateFontTextures(); // 0x006B72A0
-
-struct D2GfxSettingsStrc
-{
-    int bPerspectiveEnabled;
-    int bPerspectiveCapable;
-    int bLowQuality;
-    int nGamma;
-    int bVSync;
-    int bBlendedShadows;
-};
 
 extern D2GfxSettingsStrc* gpGfxSettings_007C9148; // 0x007C9148
 

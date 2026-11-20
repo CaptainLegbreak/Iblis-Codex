@@ -143,10 +143,7 @@ struct D2CriticalSectionStrc
     unsigned long nSpinCount;
 };
 
-struct D2InAddrStrc
-{
-    unsigned long s_addr;
-};
+#include "D2NetTypes.h"
 
 struct D2SystemTimeStrc
 {

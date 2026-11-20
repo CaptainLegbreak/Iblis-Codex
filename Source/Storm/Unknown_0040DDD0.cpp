@@ -1,17 +1,16 @@
 #include "Storm.h"
 #include "D2GameTypes.h"
+#include "D2NetTypes.h"
 
 struct FSafeSock;
 struct D2CriticalSectionStrc;
 struct Obj0040E0B0;
 struct D2HostentStrc;
-struct D2InAddrStrc;
 struct D2LogMsgLinkStrc;
 struct D2LogMsgListStrc;
 struct D2LogMsgNodeStrc;
 struct D2LogMessageStrc;
 class CCritSect;
-
 
 struct FSafeSock
 {
@@ -39,11 +38,6 @@ struct D2HostentStrc
     short h_addrtype;
     short h_length;
     char** h_addr_list;
-};
-
-struct D2InAddrStrc
-{
-    unsigned long s_addr;
 };
 
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);

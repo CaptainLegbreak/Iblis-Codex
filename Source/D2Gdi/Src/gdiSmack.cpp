@@ -1,29 +1,8 @@
 #include "D2Gdi.h"
+#include "D2GfxTypes.h"
 
-struct D2RgbColorStrc;
-struct D2SmackStrc;
 struct D2GdiSmackStrc;
 struct T004F51E0;
-
-struct D2RgbColorStrc
-{
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-};
-
-struct D2SmackStrc
-{
-    unsigned int nVersion;
-    unsigned int nWidth;
-    unsigned int nHeight;
-    unsigned int nFrames;
-    unsigned char unk0x10[0x58];
-    int bNewPalette;
-    D2RgbColorStrc aPalette[256];
-    unsigned char unk0x36C[8];
-    int nFrameNum;
-};
 
 struct D2GdiSmackStrc
 {

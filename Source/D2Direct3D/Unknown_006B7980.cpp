@@ -1,17 +1,10 @@
 #include "D2Direct3D.h"
+#include "D2D3DTypes.h"
 
-struct D2TLVertexStrc;
 struct D2DeviceStrc;
 struct D2Rect006B7ED0Strc;
 struct D2Rect006B7F20Strc;
 struct D2Point006B7F20Strc;
-
-struct D2TLVertexStrc
-{
-    float x, y, z, rhw;
-    unsigned int diffuse, specular;
-    float tu, tv;
-};
 
 struct D2DeviceStrc
 {
@@ -106,35 +99,35 @@ void __fastcall sub_006B7980_DrawRectangle(int left, int top, int right, int bot
     sub_006B2030_SetFilterMode(1);
 
     D2TLVertexStrc vertices[4];
-    vertices[0].x = (float)left;
-    vertices[0].y = (float)top;
-    vertices[0].z = 0.5f;
-    vertices[0].rhw = 1.0f;
-    vertices[0].tu = 0.0f;
-    vertices[0].tv = 0.0f;
-    vertices[1].x = (float)left;
-    vertices[1].y = (float)bottom;
-    vertices[1].z = 0.5f;
-    vertices[1].rhw = 1.0f;
-    vertices[1].tu = 0.0f;
-    vertices[1].tv = 0.0f;
-    vertices[2].x = (float)right;
-    vertices[2].y = (float)bottom;
-    vertices[2].z = 0.5f;
-    vertices[2].rhw = 1.0f;
-    vertices[2].tu = 0.0f;
-    vertices[2].tv = 0.0f;
-    vertices[3].x = (float)right;
-    vertices[3].y = (float)top;
-    vertices[3].z = 0.5f;
-    vertices[3].rhw = 1.0f;
-    vertices[3].tu = 0.0f;
-    vertices[3].tv = 0.0f;
+    vertices[0].fX = (float)left;
+    vertices[0].fY = (float)top;
+    vertices[0].fZ = 0.5f;
+    vertices[0].fRhw = 1.0f;
+    vertices[0].fU = 0.0f;
+    vertices[0].fV = 0.0f;
+    vertices[1].fX = (float)left;
+    vertices[1].fY = (float)bottom;
+    vertices[1].fZ = 0.5f;
+    vertices[1].fRhw = 1.0f;
+    vertices[1].fU = 0.0f;
+    vertices[1].fV = 0.0f;
+    vertices[2].fX = (float)right;
+    vertices[2].fY = (float)bottom;
+    vertices[2].fZ = 0.5f;
+    vertices[2].fRhw = 1.0f;
+    vertices[2].fU = 0.0f;
+    vertices[2].fV = 0.0f;
+    vertices[3].fX = (float)right;
+    vertices[3].fY = (float)top;
+    vertices[3].fZ = 0.5f;
+    vertices[3].fRhw = 1.0f;
+    vertices[3].fU = 0.0f;
+    vertices[3].fV = 0.0f;
     unsigned int diffuse = (sub_006B1D50_GetColor(color) & 0x00FFFFFF) | ((unsigned int)alpha << 24);
-    vertices[0].diffuse = diffuse;
-    vertices[1].diffuse = diffuse;
-    vertices[2].diffuse = diffuse;
-    vertices[3].diffuse = diffuse;
+    vertices[0].dwColor = diffuse;
+    vertices[1].dwColor = diffuse;
+    vertices[2].dwColor = diffuse;
+    vertices[3].dwColor = diffuse;
     gpDevice_00970E78->DrawPrimitive(6, 0x1C4, vertices, 4, 0x1C);
 }
 

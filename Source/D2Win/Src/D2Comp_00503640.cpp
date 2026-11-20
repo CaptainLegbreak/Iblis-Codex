@@ -1,5 +1,6 @@
 #include "D2Win.h"
 #include "D2CmpTypes.h"
+#include "D2WinTypes.h"
 
 struct D2CofDataStrc
 {
@@ -7,13 +8,6 @@ struct D2CofDataStrc
     unsigned char nFramesPerDirection;
     unsigned char nDirections;
     unsigned char nVersion;
-};
-
-
-
-struct D2GfxInfoStrc
-{
-    D2CofInfoStrc* pCofInfo;
 };
 
 struct D2GfxDataStrc
@@ -39,39 +33,6 @@ struct D2GfxDataStrc
     unsigned int dwFlags;
 };
 
-struct D2CompositeUnitStrc
-{
-    unsigned int dwFlags;
-    unsigned char nDirection;
-    unsigned char nDirections;
-    unsigned char unk0x06[2];
-    int nFrame;
-    int nFrameCount;
-    int nAnimSpeed;
-    int nX;
-    int nY;
-    unsigned int nUnitIndex;
-    unsigned int nMode;
-    unsigned int nWClassTokenIndex;
-    unsigned char nComponentColors[16];
-    unsigned int dwArmorType[16];
-    int nItemTypes[16];
-    D2GfxInfoStrc* pGfxInfo;
-    D2CelFileStrc* pEmblemCellFile;
-    unsigned char nEmblemColor1;
-    unsigned char nEmblemColor2;
-    unsigned char unk0xC2[2];
-    D2CompositeUnitStrc* pNext;
-    D2CompositeUnitStrc* pPrev;
-    char unk0xCC[0x168];
-};
-
-struct D2CompItemStrc
-{
-    unsigned int dwCode;
-    int nWeaponClass;
-    int nItemType;
-};
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }

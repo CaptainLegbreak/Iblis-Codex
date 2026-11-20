@@ -1,36 +1,5 @@
 #include "D2Glide.h"
-
-struct D2GlideTexInfoStrc
-{
-    D2CelContextStrc* pContext;
-    int nWidth;
-    int nHeight;
-    int nOffsetX;
-    int nOffsetY;
-    int f_14;
-    int f_18;
-    int nTexSize;
-    float fS0;
-    float fS1;
-    float fT0;
-    float fT1;
-    int nLod;
-    int f_34;
-};
-
-struct D2PaletteRgbStrc
-{
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-};
-
-struct D2GfxPaletteViewStrc
-{
-    char unk0x00[0x114];
-    D2PaletteRgbStrc* pRgbTable;
-    unsigned char* f_118;
-};
+#include "D2GfxTypes.h"
 
 void __fastcall sub_005094B0_GlideSetState(int nState); // 0x005094B0
 void __fastcall sub_005095D0_GlideSetDepth(int nMode); // 0x005095D0
@@ -58,14 +27,14 @@ static void __stdcall sub_0050A9A0_GlideDrawSpriteQuad(int nX, int nY, unsigned 
     }
     else
     {
-        gaGlideSpriteVertices_0087EFF8[0].dwColor = ((gpGfxPaletteView_007C9150->pRgbTable[nPaletteIndex].nRed | 0xFFFFFF00) << 8
-            | gpGfxPaletteView_007C9150->pRgbTable[nPaletteIndex].nGreen) << 8 | gpGfxPaletteView_007C9150->pRgbTable[nPaletteIndex].nBlue;
+        gaGlideSpriteVertices_0087EFF8[0].dwColor = ((gpGfxPaletteView_007C9150->pRgbTable[nPaletteIndex * 3] | 0xFFFFFF00) << 8
+            | gpGfxPaletteView_007C9150->pRgbTable[nPaletteIndex * 3 + 1]) << 8 | gpGfxPaletteView_007C9150->pRgbTable[nPaletteIndex * 3 + 2];
     }
     gaGlideSpriteVertices_0087EFF8[3].dwColor = gaGlideSpriteVertices_0087EFF8[0].dwColor;
     gaGlideSpriteVertices_0087EFF8[2].dwColor = gaGlideSpriteVertices_0087EFF8[0].dwColor;
     gaGlideSpriteVertices_0087EFF8[1].dwColor = gaGlideSpriteVertices_0087EFF8[0].dwColor;
 
-    const int nDimIndex = pInfo->f_34 + 3;
+    const int nDimIndex = pInfo->nAspect + 3;
     int nTexW = gaGlideAspectTexDims_0072F278[nDimIndex].nWidth;
     int nTexH = gaGlideAspectTexDims_0072F278[nDimIndex].nHeight;
     const float fS0 = pInfo->fS0 * nTexW;
@@ -83,8 +52,8 @@ static void __stdcall sub_0050A9A0_GlideDrawSpriteQuad(int nX, int nY, unsigned 
     }
     else
     {
-        nWidth = pInfo->f_14;
-        nHeight = pInfo->f_18;
+        nWidth = pInfo->nTexWidth;
+        nHeight = pInfo->nTexHeight;
     }
 
     int nLeft = pInfo->nOffsetX;

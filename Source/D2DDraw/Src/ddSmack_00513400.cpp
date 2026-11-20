@@ -1,11 +1,5 @@
 #include "D2DDraw.h"
-
-struct D2SmackStrc
-{
-    unsigned int Version;
-    unsigned int Width;
-    unsigned int Height;
-};
+#include "D2GfxTypes.h"
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 extern "C" __declspec(dllimport) D2SmackStrc* __stdcall SmackOpen(const char* szName, unsigned int nFlags, unsigned int nExtraBuf); // 0x006CC604
@@ -50,10 +44,10 @@ void __fastcall sub_00513400_DDrawDecodeSmacker(const char* szFile, D2SmackRecor
         {
             break;
         }
-        unsigned char* pBuffer = (unsigned char*)FOG_Alloc(pSmack->Width * pSmack->Height, szDDSmackFile_006DE20C, 0x42, 0);
+        unsigned char* pBuffer = (unsigned char*)FOG_Alloc(pSmack->nWidth * pSmack->nHeight, szDDSmackFile_006DE20C, 0x42, 0);
         gpDDrawSmackBuffer_008816B0 = pBuffer;
-        memset(pBuffer, 0, pSmack->Width * pSmack->Height);
-        SmackToBuffer(pRecord->f_0, 0, 0, pSmack->Width, pSmack->Height, pBuffer, 0);
+        memset(pBuffer, 0, pSmack->nWidth * pSmack->nHeight);
+        SmackToBuffer(pRecord->f_0, 0, 0, pSmack->nWidth, pSmack->nHeight, pBuffer, 0);
         gbDDrawSmackRemapReady_008816B4 = 0;
         return;
     }

@@ -1,13 +1,7 @@
+#include "D2WinTypes.h"
 struct Unicode
 {
     unsigned short wChar;
-};
-
-struct D2CharStrc
-{
-    unsigned short wChar;
-    unsigned char unk0x02;
-    unsigned char nWidth;
 };
 
 extern D2CharStrc* (__fastcall* gpfGetCharInfo_00841DA0)(int nChar);                                        // 0x00841DA0

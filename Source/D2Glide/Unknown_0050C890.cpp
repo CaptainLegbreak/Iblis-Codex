@@ -1,16 +1,8 @@
 #include "D2Glide.h"
 #include "D2DrlgMaps.h"
+#include "D2GfxTypes.h"
 
 struct D2TileVertexStrc;
-struct D2GfxSettingsStrc;
-
-struct D2GlideTileStrc
-{
-    short nPosX;
-    short nPosY;
-    char unk0x04[0x10];
-};
-
 
 extern int gnScreenWidth_007C9138; // 0x007C9138
 extern D2GlideSpriteVertexStrc gaGlideTileQuad_00880600[4]; // 0x00880600
@@ -33,13 +25,6 @@ struct D2TileVertexStrc
     unsigned char aColor[4];
     int nX;
     int nY;
-};
-
-struct D2GfxSettingsStrc
-{
-    int unk0x00;
-    int unk0x04;
-    int bFanOnly;
 };
 
 typedef void (__stdcall* GlideConstantColorFn)(unsigned int dwColor);
@@ -138,7 +123,7 @@ void __fastcall sub_0050D6A0_GlideDrawFloorTile(void* pTile, const D2TileVertexS
     else
         sub_005095D0_GlideSetDepth(1);
 
-    if (gpGfxSettings_007C9148->bFanOnly)
+    if (gpGfxSettings_007C9148->bLowQuality)
     {
         GLIDE_SetTileVertex(&pVertices[0], &gaGlideTileVertices_00880678[0]);
         GLIDE_SetTileVertex(&pVertices[5], &gaGlideTileVertices_00880678[5]);

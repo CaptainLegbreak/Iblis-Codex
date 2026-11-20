@@ -1,3 +1,4 @@
+#include "D2WinTypes.h"
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
@@ -11,13 +12,6 @@ struct Unicode
     unsigned short wChar;
 
     static int __fastcall strnicmp(const Unicode* str1, const Unicode* str2, size_t count);                 // 0x00526610
-};
-
-struct D2CharStrc
-{
-    unsigned short wChar;
-    unsigned char unk0x02;
-    unsigned char nWidth;
 };
 
 extern "C" int __fastcall sub_00526800(const unsigned short* pText);                                      // 0x00526800

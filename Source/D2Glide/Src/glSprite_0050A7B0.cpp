@@ -1,54 +1,7 @@
 #include "D2Glide.h"
 #include "D2CelContext.h"
+#include "D2GfxTypes.h"
 
-
-struct D2GlideTexInfoStrc
-{
-    D2CelContextStrc* pContext;
-    int nWidth;
-    int nHeight;
-    int nOffsetX;
-    int nOffsetY;
-    int f_14;
-    int f_18;
-    int nTexSize;
-    float fS0;
-    float fS1;
-    float fT0;
-    float fT1;
-    int nLod;
-    int f_34;
-};
-
-struct D2GlideTexCacheEntryStrc
-{
-    int nId;
-    int f_4;
-    D2GlideTexSlotStrc* pOwner;
-    int nOwnerIndex;
-    int f_10;
-    D2GlideTexCacheEntryStrc* pNext;
-    D2GlideTexCacheEntryStrc* pPrev;
-};
-
-struct D2GlideTexCacheStrc
-{
-    int unk0x00;
-    int nCount;
-    int nUsed;
-    D2GlideTexCacheEntryStrc* pHead;
-    D2GlideTexCacheEntryStrc* pTail;
-    D2GlideTexCacheEntryStrc* f_14;
-    D2GlideTexCacheEntryStrc* f_18;
-    D2GlideTexCacheEntryStrc* pEntries;
-};
-
-struct D2GfxPaletteViewStrc
-{
-    char unk0x00[0x114];
-    unsigned char* pRgbTable;
-    unsigned char* f_118;
-};
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
@@ -64,8 +17,8 @@ int __cdecl sub_0050DD30_GlideIsPerspective();                                  
 void __fastcall sub_0050DD60_ProjectToScreen(int nX, int nY, int nZ, int* pScreenX, int* pScreenY);          // 0x0050DD60
 void __fastcall sub_0050EBE0_TexCacheTouch(D2GlideTexCacheStrc* pCache, int nId);                            // 0x0050EBE0
 int __fastcall sub_0050ED10_ListRefill(D2GlideTexCacheStrc* pList);                                          // 0x0050ED10
-extern void (__stdcall* gpfGlideTexDownloadMipMap_0087EAB8)(int nTmu, int nStartAddress, int nEvenOdd, D2GrTexInfoExStrc* pInfo); // 0x0087EAB8
-extern void (__stdcall* gpfGlideTexSource_0087EB98)(int nTmu, int nStartAddress, int nEvenOdd, D2GrTexInfoExStrc* pInfo); // 0x0087EB98
+extern void (__stdcall* gpfGlideTexDownloadMipMap_0087EAB8)(int nTmu, int nStartAddress, int nEvenOdd, D2GrTexInfoStrc* pInfo); // 0x0087EAB8
+extern void (__stdcall* gpfGlideTexSource_0087EB98)(int nTmu, int nStartAddress, int nEvenOdd, D2GrTexInfoStrc* pInfo); // 0x0087EB98
 extern void (__stdcall* gpfGlideDrawVertexArrayContiguous_0087EAC4)(int nMode, int nCount, void* pVertices, int nStride); // 0x0087EAC4
 extern void (__stdcall* gpfGlideAlphaFunction_0087EAB4)(int nFunction);                                     // 0x0087EAB4
 extern void (__stdcall* gpfGlideConstantColor_0087EFA0)(unsigned int dwColor);                              // 0x0087EFA0
@@ -107,7 +60,7 @@ static void sub_0050A2D0_GlideTexInfoSetupSize(D2GlideTexInfoStrc* pInfo)
         nTexWidth = 0x20;
     else
         nTexWidth = pInfo->nWidth > 8 ? 0x10 : 8;
-    pInfo->f_14 = nTexWidth;
+    pInfo->nTexWidth = nTexWidth;
 
     int nTexHeight;
     if (pInfo->nHeight > 0x80)
@@ -120,7 +73,7 @@ static void sub_0050A2D0_GlideTexInfoSetupSize(D2GlideTexInfoStrc* pInfo)
         nTexHeight = 0x20;
     else
         nTexHeight = pInfo->nHeight > 8 ? 0x10 : 8;
-    pInfo->f_18 = nTexHeight;
+    pInfo->nTexHeight = nTexHeight;
 
     const int nMax = nTexWidth > nTexHeight ? nTexWidth : nTexHeight;
     int nLod;
@@ -138,7 +91,7 @@ static void sub_0050A2D0_GlideTexInfoSetupSize(D2GlideTexInfoStrc* pInfo)
 
     if (nTexWidth == nTexHeight)
     {
-        pInfo->f_34 = 0;
+        pInfo->nAspect = 0;
     }
     else if (nTexWidth < nTexHeight)
     {
@@ -149,8 +102,8 @@ static void sub_0050A2D0_GlideTexInfoSetupSize(D2GlideTexInfoStrc* pInfo)
             if (nTexWidth > nTexHeight)
                 break;
         }
-        pInfo->f_14 = nTexHeight >> i;
-        pInfo->f_34 = gaGlideAspectLodTall_0072F258[i];
+        pInfo->nTexWidth = nTexHeight >> i;
+        pInfo->nAspect = gaGlideAspectLodTall_0072F258[i];
     }
     else
     {
@@ -161,15 +114,15 @@ static void sub_0050A2D0_GlideTexInfoSetupSize(D2GlideTexInfoStrc* pInfo)
             if (nTexHeight > nTexWidth)
                 break;
         }
-        pInfo->f_18 = nTexWidth >> i;
-        pInfo->f_34 = gaGlideAspectLodWide_0072F268[i];
+        pInfo->nTexHeight = nTexWidth >> i;
+        pInfo->nAspect = gaGlideAspectLodWide_0072F268[i];
     }
 
     if (!sub_0050DD30_GlideIsPerspective())
     {
         pInfo->fS0 = 0.0f;
-        pInfo->fS1 = (float)pInfo->nWidth / pInfo->f_14;
-        pInfo->fT0 = 1.0f - (float)pInfo->nHeight / pInfo->f_18;
+        pInfo->fS1 = (float)pInfo->nWidth / pInfo->nTexWidth;
+        pInfo->fT0 = 1.0f - (float)pInfo->nHeight / pInfo->nTexHeight;
         pInfo->fT1 = 1.0f;
     }
     else
@@ -179,7 +132,7 @@ static void sub_0050A2D0_GlideTexInfoSetupSize(D2GlideTexInfoStrc* pInfo)
         pInfo->fT0 = 0.0f;
         pInfo->fT1 = 1.0f;
     }
-    pInfo->nTexSize = pInfo->f_18 * pInfo->f_14;
+    pInfo->nTexSize = pInfo->nTexHeight * pInfo->nTexWidth;
 }
 
 static int __stdcall sub_0050A450_GlideTexInfoUpload(int nPalette, int nColor, int nType, D2GlideTexInfoStrc* pInfo)
@@ -192,9 +145,9 @@ static int __stdcall sub_0050A450_GlideTexInfoUpload(int nPalette, int nColor, i
     if (nType == 4)
         nType = 1;
 
-    D2GrTexInfoExStrc tTexInfo;
+    D2GrTexInfoStrc tTexInfo;
     tTexInfo.nSmallLodLog2 = tTexInfo.nLargeLodLog2 = pInfo->nLod;
-    tTexInfo.nAspectRatioLog2 = pInfo->f_34;
+    tTexInfo.nAspectRatioLog2 = pInfo->nAspect;
     tTexInfo.nFormat = 5;
     tTexInfo.pData = gpGlideSpriteBufferA_0087F0C8;
 
@@ -216,10 +169,10 @@ static int __stdcall sub_0050A450_GlideTexInfoUpload(int nPalette, int nColor, i
         gbGlideMultiTmu_0087EFF4 = pSlot->nCache == 1;
 
     int nAddress;
-    if (pSlot->nId && (pCache->pEntries[pSlot->nId - 1].f_10 == nPalette || nRequested == 4))
+    if (pSlot->nId && (pCache->pEntries[pSlot->nId - 1].unk0x10 == nPalette || nRequested == 4))
     {
         sub_0050EBE0_TexCacheTouch(pCache, pSlot->nId);
-        nAddress = pCache->pEntries[pSlot->nId - 1].f_4;
+        nAddress = pCache->pEntries[pSlot->nId - 1].nAddress;
     }
     else
     {
@@ -228,8 +181,8 @@ static int __stdcall sub_0050A450_GlideTexInfoUpload(int nPalette, int nColor, i
 
         pCache->pEntries[pSlot->nId - 1].pOwner = pSlots;
         pCache->pEntries[pSlot->nId - 1].nOwnerIndex = nType;
-        pCache->pEntries[pSlot->nId - 1].f_10 = nPalette;
-        nAddress = pCache->pEntries[pSlot->nId - 1].f_4;
+        pCache->pEntries[pSlot->nId - 1].unk0x10 = nPalette;
+        nAddress = pCache->pEntries[pSlot->nId - 1].nAddress;
 
         unsigned char* pBuffer = gpGlideSpriteBufferA_0087F0C8;
         D2_ASSERT(pBuffer, 0x184);
@@ -240,13 +193,13 @@ static int __stdcall sub_0050A450_GlideTexInfoUpload(int nPalette, int nColor, i
         {
         case 1:
         case 4:
-            CelDraw(pInfo->pContext, -pInfo->nOffsetX, pInfo->f_18 - pInfo->nOffsetY - 1, 0, 0, pBuffer, pInfo->f_18, pInfo->f_14, 0, 0, nPalette);
+            CelDraw(pInfo->pContext, -pInfo->nOffsetX, pInfo->nTexHeight - pInfo->nOffsetY - 1, 0, 0, pBuffer, pInfo->nTexHeight, pInfo->nTexWidth, 0, 0, nPalette);
             break;
 
         case 2:
         {
-            CelDraw(pInfo->pContext, -pInfo->nOffsetX, pInfo->f_18 - pInfo->nOffsetY - 1, 0, 0, pBuffer, pInfo->f_18, pInfo->f_14, 0, 0, nPalette);
-            unsigned char* pRemap = gpGfxPaletteView_007C9150->f_118;
+            CelDraw(pInfo->pContext, -pInfo->nOffsetX, pInfo->nTexHeight - pInfo->nOffsetY - 1, 0, 0, pBuffer, pInfo->nTexHeight, pInfo->nTexWidth, 0, 0, nPalette);
+            unsigned char* pRemap = gpGfxPaletteView_007C9150->pRemap;
             unsigned char* pPixel = gpGlideSpriteBufferA_0087F0C8;
             for (int i = 0; i < pInfo->nTexSize; ++i)
             {
@@ -259,13 +212,13 @@ static int __stdcall sub_0050A450_GlideTexInfoUpload(int nPalette, int nColor, i
 
         case 3:
         {
-            CelDraw(pInfo->pContext, 1 - pInfo->nOffsetX, pInfo->f_18 - pInfo->nOffsetY - 2, 0, 0, pBuffer, pInfo->f_18, pInfo->f_14, 0, 0, 0);
+            CelDraw(pInfo->pContext, 1 - pInfo->nOffsetX, pInfo->nTexHeight - pInfo->nOffsetY - 2, 0, 0, pBuffer, pInfo->nTexHeight, pInfo->nTexWidth, 0, 0, 0);
             unsigned char* pOutline = gpGlideSpriteBufferB_0087F0CC;
             D2_ASSERT(pOutline, 0x1AD);
             D2_ASSERT(pInfo->nTexSize <= 0x10000, 0x1AE);
             memset(pOutline, 0, pInfo->nTexSize);
 
-            const int nPitch = pInfo->f_14;
+            const int nPitch = pInfo->nTexWidth;
             unsigned char* pSrc = gpGlideSpriteBufferA_0087F0C8 + nPitch;
             unsigned char* pDst = pOutline + nPitch;
             const int nCount = pInfo->nTexSize - 2 * nPitch;
@@ -273,10 +226,10 @@ static int __stdcall sub_0050A450_GlideTexInfoUpload(int nPalette, int nColor, i
             {
                 if (*pSrc++)
                 {
-                    pDst[-pInfo->f_14] = (unsigned char)nColor;
+                    pDst[-pInfo->nTexWidth] = (unsigned char)nColor;
                     pDst[-1] = (unsigned char)nColor;
                     pDst[1] = (unsigned char)nColor;
-                    pDst[pInfo->f_14] = (unsigned char)nColor;
+                    pDst[pInfo->nTexWidth] = (unsigned char)nColor;
                 }
                 ++pDst;
             }
@@ -296,7 +249,7 @@ static int __stdcall sub_0050A450_GlideTexInfoUpload(int nPalette, int nColor, i
 // 0x0050A7B0
 static void __stdcall sub_0050A7B0_GlideDrawIsoQuad(int nX, int nY, D2GlideTexInfoStrc* pInfo)
 {
-    const int nDimIndex = pInfo->f_34 + 3;
+    const int nDimIndex = pInfo->nAspect + 3;
     int nTexW = gaGlideAspectTexDims_0072F278[nDimIndex].nWidth;
     int nTexH = gaGlideAspectTexDims_0072F278[nDimIndex].nHeight;
     const float fS0 = pInfo->fS0 * nTexW;
@@ -314,8 +267,8 @@ static void __stdcall sub_0050A7B0_GlideDrawIsoQuad(int nX, int nY, D2GlideTexIn
     }
     else
     {
-        nWidth = pInfo->f_14;
-        nHeight = pInfo->f_18;
+        nWidth = pInfo->nTexWidth;
+        nHeight = pInfo->nTexHeight;
     }
 
     pInfo->nOffsetY >>= 1;
@@ -385,7 +338,7 @@ static void __stdcall sub_0050A9A0_GlideDrawSpriteQuad(int nX, int nY, unsigned 
     gaGlideSpriteVertices_0087EFF8[2].dwColor = gaGlideSpriteVertices_0087EFF8[0].dwColor;
     gaGlideSpriteVertices_0087EFF8[1].dwColor = gaGlideSpriteVertices_0087EFF8[0].dwColor;
 
-    const D2GlideTexDimsStrc tDims = gaGlideAspectTexDims_0072F278[pInfo->f_34 + 3];
+    const D2GlideTexDimsStrc tDims = gaGlideAspectTexDims_0072F278[pInfo->nAspect + 3];
     const float fTexWidth = (float)tDims.nWidth;
     const float fS0 = pInfo->fS0 * fTexWidth;
     const float fS1 = pInfo->fS1 * fTexWidth;
@@ -403,8 +356,8 @@ static void __stdcall sub_0050A9A0_GlideDrawSpriteQuad(int nX, int nY, unsigned 
     }
     else
     {
-        nWidth = pInfo->f_14;
-        nHeight = pInfo->f_18;
+        nWidth = pInfo->nTexWidth;
+        nHeight = pInfo->nTexHeight;
     }
 
     int nLeft = pInfo->nOffsetX;
@@ -560,7 +513,7 @@ void __fastcall sub_0050B230_GlideDrawSpriteRows(D2CelContextStrc* pContext, int
     if (!sub_0050A450_GlideTexInfoUpload(0, 0, 1, &tInfo))
         return;
 
-    const float fScale = 1.0f / tInfo.f_18;
+    const float fScale = 1.0f / tInfo.nTexHeight;
     if (!sub_0050DD30_GlideIsPerspective())
     {
         if (nSkip)
@@ -580,15 +533,15 @@ void __fastcall sub_0050B230_GlideDrawSpriteRows(D2CelContextStrc* pContext, int
         if (nSkip)
         {
             nY -= nSkip;
-            const unsigned int nRest = tInfo.f_18 - nSkip;
+            const unsigned int nRest = tInfo.nTexHeight - nSkip;
             tInfo.fT0 = (nRest - nRows) * fScale;
             tInfo.fT1 = nRest * fScale;
         }
         else
         {
-            tInfo.fT0 = (tInfo.f_18 - nRows) * fScale;
+            tInfo.fT0 = (tInfo.nTexHeight - nRows) * fScale;
         }
-        tInfo.f_18 = nRows;
+        tInfo.nTexHeight = nRows;
     }
 
     sub_0050A9A0_GlideDrawSpriteQuad(nX, nY, -1, 0, &tInfo, 0);

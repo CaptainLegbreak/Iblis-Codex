@@ -185,7 +185,7 @@ void __fastcall sub_006BA390_PlaySmack(D2VideoHandleStrc* video)
                         return;
                     SmackDoFrame(smack);
                     sub_006B9F00_PresentFrame();
-                    if (smack->FrameNum == smack->Frames)
+                    if (smack->nFrameNum == smack->nFrames)
                         sub_006B9BB0_CloseSmack(video);
                     else
                         SmackNextFrame(smack);
@@ -194,7 +194,7 @@ void __fastcall sub_006BA390_PlaySmack(D2VideoHandleStrc* video)
                     sub_006B9BD0_Apply();
                 }
                 if (!gbRenderPaused_007C9144)
-                    sub_006B9C40_BlitVideo(video, smack->Width, smack->Height);
+                    sub_006B9C40_BlitVideo(video, smack->nWidth, smack->nHeight);
             }
         }
         break;

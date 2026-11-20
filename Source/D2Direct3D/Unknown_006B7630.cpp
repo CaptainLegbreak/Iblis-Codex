@@ -1,12 +1,6 @@
 #include "D2Direct3D.h"
-struct D2D3DDeviceVtbl
-{
-    char unk0x00[0x70];
-    int (__stdcall* DrawPrimitive)(D2D3DDeviceStrc* pThis, int nType, unsigned int dwFVF, void* pVertices, unsigned int nCount, unsigned int dwFlags);
-    char unk0x74[0x98 - 0x74];
-    int (__stdcall* SetTexture)(D2D3DDeviceStrc* pThis, unsigned int nStage, void* pTexture);
-};
-struct D2D3DDeviceStrc { D2D3DDeviceVtbl* pVtbl; };
+#include "D2D3DTypes.h"
+
 extern D2TexturedVertexStrc gaVertices_00970F48[4];                                                         // 0x00970F48
 
 __declspec(noinline) static int __stdcall sub_006B7530_DrawGlyph(int nX, int nY, char nChar);
@@ -38,8 +32,8 @@ static int __stdcall sub_006B7530_DrawGlyph(int nX, int nY, char nChar)
         gaVertices_00970F48[3].nY = (float)nY;
 
         nChar -= 0x20;
-        gpD3DDevice_00970E78->pVtbl->SetTexture(gpD3DDevice_00970E78, 0, gapGlyphTextures_009712D0[nChar]);
-        gpD3DDevice_00970E78->pVtbl->DrawPrimitive(gpD3DDevice_00970E78, 6, 0x1C4, gaVertices_00970F48, 4, 0x1C);
+        gpD3DDevice_00970E78->lpVtbl->SetTexture(gpD3DDevice_00970E78, 0, gapGlyphTextures_009712D0[nChar]);
+        gpD3DDevice_00970E78->lpVtbl->DrawPrimitive(gpD3DDevice_00970E78, 6, 0x1C4, gaVertices_00970F48, 4, 0x1C);
         return gaGlyphWidths_00970FC8[nChar];
     }
 

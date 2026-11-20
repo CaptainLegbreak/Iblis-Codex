@@ -1,8 +1,9 @@
 #include "D2Win.h"
+#include "D2WinControls.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-struct D2CellFileStrc;
+struct D2CelFileStrc;
 struct D2WinEditBoxStrc;
 struct D2WinControlStrc;
 struct tagPOINT;
@@ -89,47 +90,6 @@ typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
 
 typedef int (__stdcall* D2WinMsgHandler)(SMSGHANDLER_PARAMS* pMsg);
 
-struct D2WinControlStrc
-{
-    int eType;
-    D2CellFileStrc* pCellFile;
-    unsigned int dwFlags;
-    int nImageX;
-    int nImageY;
-    int nWidth;
-    int nHeight;
-    D2WinControlFn pfDraw;
-    D2WinControlFn pfInitialize;
-    D2WinMsgHandler pfHandleMouseDown;
-    D2WinMsgHandler pfHandleMouseUp;
-    D2WinMsgHandler pfHandleCharInput;
-    D2WinMsgHandler pfHandleVirtualKeyInput;
-    D2WinMsgHandler field_34;
-    D2WinControlFn pfShouldMouseInputBeHandled;
-    D2WinControlStrc* pNext;
-};
-
-struct D2WinTextBoxStrc
-{
-    D2WinControlStrc controlHeader;
-    int field_40;
-    int field_44;
-    D2WinTextBoxLineStrc* pFirstLine;
-    D2WinTextBoxLineStrc* pLastLine;
-    D2WinTextBoxLineStrc* pCurrentLine;
-    int nNumLines;
-    int nLine;
-    int dwTextBoxFlags;
-    int nCurrentLine;
-    int nNumColumns;
-    int unk0x68[5];
-    int unk0x7C[5];
-    D2WinScrollBarStrc* pScrollBar;
-    unsigned char unk_94[0xC];
-    int field_A0;
-    int field_A4;
-};
-
 struct D2WinControlInitStrc
 {
     int nType;
@@ -139,7 +99,7 @@ struct D2WinControlInitStrc
     int nHeight;
     int field_14;
     int nStringId;
-    D2CellFileStrc** ppCellFile;
+    D2CelFileStrc** ppCellFile;
     int field_20;
     int field_24;
     int field_28;
@@ -180,27 +140,20 @@ int __stdcall WINDOW_GetDimensions(int* pWidth, int* pHeight); // 0x004F59B0
 void __stdcall WINDOW_ShowCursor(int nArg); // 0x004F59F0
 int __stdcall WINDOW_CheckCutScene(); // 0x004F5DD0
 int __stdcall D2GFX_HardwareAcceleratedRenderMode(); // 0x004F6270
-D2WinControlStrc* __fastcall D2Win_10042_TEXTBOX_Create(int nX, int nY, int nWidth, int nHeight, int a5, int a6, D2CellFileStrc* pCellFile, int a8, int a9, int a10, int a11); // 0x004FC7A0
-
-struct D2WinEditBoxStrc
-{
-    D2WinControlStrc controlHeader;
-    int field_40;
-    int field_44;
-};
+D2WinControlStrc* __fastcall D2Win_10042_TEXTBOX_Create(int nX, int nY, int nWidth, int nHeight, int a5, int a6, D2CelFileStrc* pCellFile, int a8, int a9, int a10, int a11); // 0x004FC7A0
 
 void __fastcall sub_004FDCC0(D2WinEditBoxStrc* pEditBox); // 0x004FDCC0
-D2WinControlStrc* __fastcall IMAGE2_Create(int nX, int nY, int nWidth, int nHeight, D2CellFileStrc* pCellFile, int a6, int a7, int a8); // 0x004FD6C0
-D2WinControlStrc* __fastcall IMAGE_Create(int nX, int nY, int nWidth, int nHeight, D2CellFileStrc* pCellFile, int a6, int a7); // 0x004FD770
+D2WinControlStrc* __fastcall IMAGE2_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, int a6, int a7, int a8); // 0x004FD6C0
+D2WinControlStrc* __fastcall IMAGE_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, int a6, int a7); // 0x004FD770
 D2WinControlStrc* __fastcall TIMER_Create(int nTimeout, int a2); // 0x004FD9D0
-D2WinControlStrc* __fastcall D2Win_10070_EDITBOX_Create(int nX, int nY, int nWidth, int nHeight, int a5, int a6, D2CellFileStrc* pCellFile, int a8, int a9, int a10, int a11); // 0x005001D0
-D2WinControlStrc* __fastcall ANIMIMAGE_Create(int nX, int nY, int nWidth, int nHeight, D2CellFileStrc* pCellFile, int a6, int a7, int a8, int a9, int a10); // 0x00500850
-D2WinControlStrc* __fastcall BUTTON_Create(int nX, int nY, int nWidth, int nHeight, D2CellFileStrc* pCellFile, int a6, int a7, int a8, int a9, int a10, int a11); // 0x00501290
+D2WinControlStrc* __fastcall D2Win_10070_EDITBOX_Create(int nX, int nY, int nWidth, int nHeight, int a5, int a6, D2CelFileStrc* pCellFile, int a8, int a9, int a10, int a11); // 0x005001D0
+D2WinControlStrc* __fastcall ANIMIMAGE_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, int a6, int a7, int a8, int a9, int a10); // 0x00500850
+D2WinControlStrc* __fastcall BUTTON_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, int a6, int a7, int a8, int a9, int a10, int a11); // 0x00501290
 D2WinControlStrc* __fastcall SMACK_Create(int nX, int nY, int nWidth, int nHeight, int a5); // 0x00506B70
 D2WinControlStrc* __fastcall LIST_Create(int nX, int nY, int nWidth, int nHeight, int a5, int a6); // 0x005075E0
 D2WinControlStrc* __fastcall ACCOUNTLIST_Create(int nX, int nY, int nWidth, int nHeight, int a5, int a6); // 0x00507CA0
 D2WinControlStrc* __fastcall PROGRESSBAR_Create(int nX, int nY, int nWidth, int nHeight); // 0x00507E50
-D2WinControlStrc* __fastcall SCROLLBAR_Create(int nX, int nY, int nWidth, int nHeight, D2CellFileStrc* pCellFile, int a6); // 0x005084F0
+D2WinControlStrc* __fastcall SCROLLBAR_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, int a6); // 0x005084F0
 void __fastcall sub_005148F0_SetChannelValue(int nArg); // 0x005148F0
 void __cdecl sub_00514960_FadeOutChannel(); // 0x00514960
 int __cdecl sub_00514CF0(); // 0x00514CF0
@@ -213,7 +166,7 @@ extern "C" const char szD2XVideoMpq_006DC788[]; // 0x006DC788
 extern unsigned int gdwInvBitMasks_006CE2E8[]; // 0x006CE2E8
 extern int dword_6F8BDE20; // 0x0072DC44
 extern tagPOINT gMousePosition_6F8FE234; // 0x007D55A4
-extern D2CellFileStrc* gpBackgroundCellFile; // 0x007D55B0
+extern D2CelFileStrc* gpBackgroundCellFile; // 0x007D55B0
 extern D2WinControlStrc* gpControlList_6F8FE24C; // 0x007D55BC
 extern void* dword_6F8FE260; // 0x007D55D0
 extern D2WinControlStrc* dword_6F8FE264; // 0x007D55D4
@@ -234,17 +187,6 @@ struct tagMSG
 struct Unicode
 {
     unsigned short wChar;
-};
-
-struct D2WinTextBoxLineStrc
-{
-    Unicode* pColumns[5];
-    int field_14;
-    char field_18;
-    char field_19;
-    char field_1A;
-    char field_1B;
-    D2WinTextBoxLineStrc* pNext;
 };
 
 struct D2WinImageClickRectStrc
@@ -304,13 +246,6 @@ struct D2WinListStrc
     D2WinListDataStrc* pSelectedDataEntry;
 };
 
-struct D2WinAccountListStrc
-{
-    D2WinControlStrc controlHeader;
-    D2WinAccountListDataStrc* pDataList;
-    D2WinAccountListDataStrc* pSelectedDataEntry;
-};
-
 struct D2WinScrollBarStrc
 {
     D2WinControlStrc controlHeader;
@@ -368,7 +303,7 @@ extern D2WinPopUpStrc* gpPopUp_0087E974; // 0x0087E974
 
 int gdwGlobal_007D5590; // 0x007D5590
 
-D2CellFileStrc* gpCursorCellFile; // 0x007D5594
+D2CelFileStrc* gpCursorCellFile; // 0x007D5594
 
 int gdwGlobal_007D55B4; // 0x007D55B4
 
@@ -412,14 +347,14 @@ int __stdcall D2Win_10014_SetWndProc(WNDPROC wndProc)
 }
 
 // 0x004F9140
-int __stdcall BACKGROUND_SetCellFile(D2CellFileStrc* pCellFile)
+int __stdcall BACKGROUND_SetCellFile(D2CelFileStrc* pCellFile)
 {
     gpBackgroundCellFile = pCellFile;
     return 1;
 }
 
 // 0x004F9160
-int __stdcall CURSOR_SetCellFile(D2CellFileStrc* pCellFile)
+int __stdcall CURSOR_SetCellFile(D2CelFileStrc* pCellFile)
 {
     gpCursorCellFile = pCellFile;
     return 1;
@@ -432,7 +367,7 @@ void __stdcall sub_004F9180(int (__cdecl* a1)())
 }
 
 // 0x004F91A0
-int __stdcall CONTROL_SetCellFile(D2WinControlStrc* pControl, D2CellFileStrc* pCellFile)
+int __stdcall CONTROL_SetCellFile(D2WinControlStrc* pControl, D2CelFileStrc* pCellFile)
 {
     pControl->pCellFile = pCellFile;
     return 1;
@@ -477,7 +412,7 @@ int __stdcall CONTROL_AppendToList(D2WinControlStrc* pControl)
 // 0x004F93C0
 D2WinControlStrc* __stdcall CONTROL_Create(D2WinControlInitStrc* pControlInit)
 {
-    D2CellFileStrc* pCellFile = pControlInit->ppCellFile ? *pControlInit->ppCellFile : 0;
+    D2CelFileStrc* pCellFile = pControlInit->ppCellFile ? *pControlInit->ppCellFile : 0;
 
     switch (pControlInit->nType)
     {
@@ -781,8 +716,8 @@ int __fastcall D2Win_10062(D2WinTextBoxStrc* ptTextData, int a2, int a3)
     D2_ASSERT(ptTextData, 0xFA);
     D2_ASSERT(ptTextData->controlHeader.eType == D2WIN_TEXTBOX, 0xFB);
 
-    ptTextData->field_A0 = a2;
-    ptTextData->field_A4 = a3;
+    ptTextData->unk0xA0 = a2;
+    ptTextData->unk0xA4 = a3;
     return 1;
 }
 
@@ -1134,7 +1069,7 @@ int __fastcall D2Win_10188(D2WinTextBoxStrc* pTextBox, int nLineNum, int a3)
     {
         for (D2WinTextBoxLineStrc* pLine = pTextBox->pFirstLine; pLine; pLine = pLine->pNext)
         {
-            pLine->field_14 = a3;
+            pLine->unk0x14 = a3;
         }
 
         return 1;
@@ -1158,7 +1093,7 @@ int __fastcall D2Win_10188(D2WinTextBoxStrc* pTextBox, int nLineNum, int a3)
     D2_ASSERT(pLine, 0x382);
     D2_ASSERT(i == nLineNum, 0x383);
 
-    pLine->field_14 = a3;
+    pLine->unk0x14 = a3;
     return 1;
 }
 
@@ -1312,8 +1247,8 @@ int __stdcall sub_004FE710_EditBoxMouseDown(SMSGHANDLER_PARAMS* pMsg)
     D2_ASSERT(pEditBox, 0x7E5);
     D2_ASSERT(pEditBox->controlHeader.eType == D2WIN_EDITBOX, 0x7E6);
 
-    const int nX = gMousePosition_6F8FE234.x - pEditBox->field_40 - pEditBox->controlHeader.nImageX;
-    const int nY = gMousePosition_6F8FE234.y + pEditBox->controlHeader.nHeight - pEditBox->field_44 - pEditBox->controlHeader.nImageY;
+    const int nX = gMousePosition_6F8FE234.x - pEditBox->nTextInsetX - pEditBox->controlHeader.nImageX;
+    const int nY = gMousePosition_6F8FE234.y + pEditBox->controlHeader.nHeight - pEditBox->nTextInsetY - pEditBox->controlHeader.nImageY;
     return sub_004FE3B0_EditBoxClick(pMsg, nX, nY);
 }
 

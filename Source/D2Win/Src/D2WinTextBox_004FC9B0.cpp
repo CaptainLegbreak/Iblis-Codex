@@ -1,3 +1,4 @@
+#include "D2WinControls.h"
 struct Unicode
 {
     unsigned short wChar;
@@ -6,36 +7,6 @@ struct Unicode
 };
 
 struct D2WinScrollBarStrc;
-
-struct D2WinTextBoxLineStrc
-{
-    Unicode* pColumns[5];
-    int field_14;
-    char field_18;
-    char field_19;
-    char field_1A;
-    char field_1B;
-    D2WinTextBoxLineStrc* pNext;
-};
-
-struct D2WinTextBoxStrc
-{
-    int eType;
-    int unk0x04[4];
-    int nWidth;
-    int unk0x18[10];
-    int field_40;
-    int field_44;
-    D2WinTextBoxLineStrc* pFirstLine;
-    D2WinTextBoxLineStrc* pLastLine;
-    D2WinTextBoxLineStrc* pCurrentLine;
-    int nNumLines;
-    int nLine;
-    unsigned int dwTextBoxFlags;
-    int unk0x60[12];
-    D2WinScrollBarStrc* pScrollBar;
-    int eFont;
-};
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -68,7 +39,7 @@ static int sub_004FBE90_CountLinesFromCurrent(D2WinTextBoxStrc* pTextBox); // 0x
 static int sub_004FBE90_CountLinesFromCurrent(D2WinTextBoxStrc* pTextBox)
 {
     D2_ASSERT(pTextBox, 0x393);
-    D2_ASSERT(pTextBox->eType == 4, 0x394);
+    D2_ASSERT(pTextBox->controlHeader.eType == 4, 0x394);
 
     D2WinTextBoxLineStrc* pLine = pTextBox->pCurrentLine;
     int nCount = 0;
@@ -89,7 +60,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 int __fastcall D2Win_10051(D2WinTextBoxStrc* ptTextData, const Unicode* wszText, int nColor, char bIsWrapped, int nIndent)
 {
     D2_ASSERT(ptTextData, 0x132);
-    D2_ASSERT(ptTextData->eType == 4, 0x133);
+    D2_ASSERT(ptTextData->controlHeader.eType == 4, 0x133);
 
     Unicode wszBuffer[0x400];
     sub_005267E0(wszBuffer, wszText);
@@ -107,7 +78,7 @@ int __fastcall D2Win_10051(D2WinTextBoxStrc* ptTextData, const Unicode* wszText,
 
     if (!(ptTextData->dwTextBoxFlags & 0x20))
     {
-        int nMaxWidth = ptTextData->nWidth - 2 * ptTextData->field_40;
+        int nMaxWidth = ptTextData->controlHeader.nWidth - 2 * ptTextData->unk0x40;
         if (nIndent == 2)
         {
             Unicode wszSpaces[6];
@@ -141,8 +112,8 @@ int __fastcall D2Win_10051(D2WinTextBoxStrc* ptTextData, const Unicode* wszText,
     pLine->pColumns[2] = 0;
     pLine->pColumns[3] = 0;
     pLine->pColumns[4] = 0;
-    pLine->field_14 = nColor;
-    pLine->field_18 = bIsWrapped;
+    pLine->unk0x14 = nColor;
+    pLine->unk0x18 = bIsWrapped;
     pLine->pNext = 0;
     int bScrolled = 0;
 

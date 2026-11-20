@@ -1,108 +1,11 @@
+#include "D2D3DTypes.h"
+#include "D2GfxTypes.h"
+
 struct D2CelStrc;
+
 struct D2CelContextStrc { unsigned char pad0[8]; int unitType; int classId; int mode; unsigned char pad1[0x18]; const char* name; unsigned char pad2[12]; D2CelStrc* cel; };
 
-struct D2SpriteInfoStrc
-{
-    D2CelContextStrc* context;
-    int width;
-    int height;
-    int offsetX;
-    int offsetY;
-    int f_14;
-    int f_18;
-    int nTexSize;
-    float f_20;
-    float f_24;
-    float f_28;
-    float f_2C;
-};
-
-struct D2TLVertexStrc
-{
-    float fX;
-    float fY;
-    float fZ;
-    float fRhw;
-    unsigned int dwColor;
-    unsigned int f_14;
-    float fU;
-    float fV;
-};
-
-struct D2QuadRectStrc
-{
-    int nX;
-    int nY;
-    int nWidth;
-    int nHeight;
-};
-
-struct D2VertexBufferStrc;
-struct D2VertexBufferVtbl
-{
-    void* pfnQueryInterface;
-    void* pfnAddRef;
-    void* pfnRelease;
-    long (__stdcall* Lock)(D2VertexBufferStrc* pThis, unsigned long dwFlags, void** ppData, unsigned long* pSize);
-    long (__stdcall* Unlock)(D2VertexBufferStrc* pThis);
-};
-struct D2VertexBufferStrc
-{
-    D2VertexBufferVtbl* lpVtbl;
-};
-
-struct D2D3DTextureStrc;
-struct D2D3DDeviceStrc
-{
-    virtual void __stdcall Unused00() = 0;
-    virtual void __stdcall Unused04() = 0;
-    virtual void __stdcall Unused08() = 0;
-    virtual void __stdcall Unused0C() = 0;
-    virtual void __stdcall Unused10() = 0;
-    virtual void __stdcall Unused14() = 0;
-    virtual void __stdcall Unused18() = 0;
-    virtual void __stdcall Unused1C() = 0;
-    virtual void __stdcall Unused20() = 0;
-    virtual void __stdcall Unused24() = 0;
-    virtual void __stdcall Unused28() = 0;
-    virtual void __stdcall Unused2C() = 0;
-    virtual void __stdcall Unused30() = 0;
-    virtual void __stdcall Unused34() = 0;
-    virtual void __stdcall Unused38() = 0;
-    virtual void __stdcall Unused3C() = 0;
-    virtual void __stdcall Unused40() = 0;
-    virtual void __stdcall Unused44() = 0;
-    virtual void __stdcall Unused48() = 0;
-    virtual void __stdcall Unused4C() = 0;
-    virtual void __stdcall Unused50() = 0;
-    virtual void __stdcall Unused54() = 0;
-    virtual void __stdcall Unused58() = 0;
-    virtual void __stdcall Unused5C() = 0;
-    virtual void __stdcall Unused60() = 0;
-    virtual void __stdcall Unused64() = 0;
-    virtual void __stdcall Unused68() = 0;
-    virtual void __stdcall Unused6C() = 0;
-    virtual void __stdcall Unused70() = 0;
-    virtual void __stdcall Unused74() = 0;
-    virtual void __stdcall Unused78() = 0;
-    virtual void __stdcall Unused7C() = 0;
-    virtual void __stdcall Unused80() = 0;
-    virtual void __stdcall Unused84() = 0;
-    virtual long __stdcall DrawPrimitiveVB(int nType, D2VertexBufferStrc* pBuffer, unsigned long dwStart, unsigned long dwCount, unsigned long dwFlags) = 0;
-    virtual void __stdcall Unused8C() = 0;
-    virtual void __stdcall Unused90() = 0;
-    virtual void __stdcall Unused94() = 0;
-    virtual long __stdcall SetTexture(unsigned long dwStage, D2D3DTextureStrc* pTexture) = 0;
-};
-
-struct D2GlideContextStrc
-{
-    unsigned char unk_00[0x114];
-    unsigned char* pPalette;
-    unsigned char* pRemap;
-};
-
-extern D2GlideContextStrc* gpGlideState_007C9150; // 0x007C9150
+extern D2GfxPaletteViewStrc* gpGlideState_007C9150; // 0x007C9150
 
 struct D2DDSurfaceDesc2Strc
 {
@@ -130,17 +33,6 @@ struct D2DDSurfaceVtbl
 struct D2DDSurfaceStrc
 {
     D2DDSurfaceVtbl* lpVtbl;
-};
-
-struct D2D3DTextureStrc;
-struct D2D3DTextureVtbl
-{
-    void* pfn00[5];
-    long (__stdcall* Load)(D2D3DTextureStrc* pThis, D2D3DTextureStrc* pSource);
-};
-struct D2D3DTextureStrc
-{
-    D2D3DTextureVtbl* lpVtbl;
 };
 
 struct D2TexturePoolEntryStrc
@@ -228,11 +120,11 @@ int sub_006B5C80_LoadSpriteInfo(D2CelContextStrc* context, D2SpriteInfoStrc* inf
         sub_00410610_WriteLogLine(gszSpriteError_006FC238, context->unitType, context->classId, context->mode, context->name);
         return 0;
     }
-    info->context = context;
-    info->width = sub_006018C0(context->cel);
-    info->offsetX = sub_00601920(context->cel);
-    info->height = sub_006018F0(context->cel);
-    info->offsetY = sub_00601950(context->cel);
+    info->pContext = context;
+    info->nWidth = sub_006018C0(context->cel);
+    info->nOffsetX = sub_00601920(context->cel);
+    info->nHeight = sub_006018F0(context->cel);
+    info->nOffsetY = sub_00601950(context->cel);
     return 1;
 }
 
@@ -240,26 +132,26 @@ int sub_006B5C80_LoadSpriteInfo(D2CelContextStrc* context, D2SpriteInfoStrc* inf
 void sub_006B5CF0_SetTextureSize(D2SpriteInfoStrc* pInfo)
 {
     int nSize = 32;
-    if (pInfo->width > nSize || pInfo->height > nSize)
+    if (pInfo->nWidth > nSize || pInfo->nHeight > nSize)
     {
         nSize = 128;
-        if (pInfo->width > nSize || pInfo->height > nSize)
+        if (pInfo->nWidth > nSize || pInfo->nHeight > nSize)
         {
             nSize = 256;
-            if (pInfo->width > nSize || pInfo->height > nSize)
+            if (pInfo->nWidth > nSize || pInfo->nHeight > nSize)
             {
                 goto done;
             }
         }
     }
-    pInfo->f_14 = nSize;
-    pInfo->f_18 = nSize;
+    pInfo->nTexWidth = nSize;
+    pInfo->nTexHeight = nSize;
 done:
-    pInfo->nTexSize = pInfo->f_18 * pInfo->f_14;
-    pInfo->f_20 = 0.0f;
-    pInfo->f_24 = 1.0f;
-    pInfo->f_28 = 0.0f;
-    pInfo->f_2C = 1.0f;
+    pInfo->nTexSize = pInfo->nTexHeight * pInfo->nTexWidth;
+    pInfo->fU0 = 0.0f;
+    pInfo->fU1 = 1.0f;
+    pInfo->fV0 = 0.0f;
+    pInfo->fV1 = 1.0f;
 }
 
 struct D2TexLocationStrc
@@ -271,8 +163,8 @@ struct D2TexLocationStrc
 // 0x006B5D40
 int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* ptInfo, int nMode, int nArg3, unsigned char nColor)
 {
-    D2_ASSERT(ptInfo->context->cel, 0x11E);
-    int* pSlots = sub_00601B10_GetCelTextureSlots(ptInfo->context->cel);
+    D2_ASSERT(ptInfo->pContext->cel, 0x11E);
+    int* pSlots = sub_00601B10_GetCelTextureSlots(ptInfo->pContext->cel);
     const int nOrigMode = nMode;
     if (nMode == 4)
     {
@@ -282,15 +174,15 @@ int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* ptInfo, int nMode, in
     D2TexLocationStrc* tLocation = &((D2TexLocationStrc*)pSlots)[nMode];
     if (!tLocation->nCache)
     {
-        if (ptInfo->width <= 32 && ptInfo->height <= 32)
+        if (ptInfo->nWidth <= 32 && ptInfo->nHeight <= 32)
         {
             tLocation->nCache = 3;
         }
-        else if (ptInfo->width <= 128 && ptInfo->height <= 128)
+        else if (ptInfo->nWidth <= 128 && ptInfo->nHeight <= 128)
         {
             tLocation->nCache = 2;
         }
-        else if (ptInfo->width <= 256 && ptInfo->height <= 256)
+        else if (ptInfo->nWidth <= 256 && ptInfo->nHeight <= 256)
         {
             tLocation->nCache = 1;
         }
@@ -306,7 +198,7 @@ int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* ptInfo, int nMode, in
     {
         sub_006BA760_TouchEntry(pPool, tLocation->nIndex);
         D2TexturePoolEntryStrc* pHit = &pPool->pEntries[tLocation->nIndex - 1];
-        hResult = gpDevice_00970E78->SetTexture(0, pHit->pTexture);
+        hResult = gpDevice_00970E78->lpVtbl->SetTexture(gpDevice_00970E78, 0, pHit->pTexture);
         if (hResult)
         {
             sub_006B39B0_ShowD3DError(gszSetTextureFailed_006FC26C, hResult);
@@ -340,14 +232,14 @@ int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* ptInfo, int nMode, in
     {
     case 1:
     case 4:
-        CelDraw(ptInfo->context, -ptInfo->offsetX, ptInfo->f_18 - ptInfo->offsetY - 1, 0, 0, pBuffer,
-            ptInfo->f_18, ptInfo->f_14, 0, 0, nArg3);
+        CelDraw(ptInfo->pContext, -ptInfo->nOffsetX, ptInfo->nTexHeight - ptInfo->nOffsetY - 1, 0, 0, pBuffer,
+            ptInfo->nTexHeight, ptInfo->nTexWidth, 0, 0, nArg3);
         break;
 
     case 2:
     {
-        CelDraw(ptInfo->context, -ptInfo->offsetX, ptInfo->f_18 - ptInfo->offsetY - 1, 0, 0, pBuffer,
-            ptInfo->f_18, ptInfo->f_14, 0, 0, nArg3);
+        CelDraw(ptInfo->pContext, -ptInfo->nOffsetX, ptInfo->nTexHeight - ptInfo->nOffsetY - 1, 0, 0, pBuffer,
+            ptInfo->nTexHeight, ptInfo->nTexWidth, 0, 0, nArg3);
         unsigned char* pPixel = gpBuffer_00970F34;
         unsigned char* pRemap = gpGlideState_007C9150->pRemap;
         for (int i = 0; i < ptInfo->nTexSize; ++i)
@@ -363,24 +255,24 @@ int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* ptInfo, int nMode, in
 
     case 3:
     {
-        CelDraw(ptInfo->context, 1 - ptInfo->offsetX, ptInfo->f_18 - ptInfo->offsetY - 2, 0, 0, pBuffer,
-            ptInfo->f_18, ptInfo->f_14, 0, 0, 0);
+        CelDraw(ptInfo->pContext, 1 - ptInfo->nOffsetX, ptInfo->nTexHeight - ptInfo->nOffsetY - 2, 0, 0, pBuffer,
+            ptInfo->nTexHeight, ptInfo->nTexWidth, 0, 0, 0);
         unsigned char* pOutline = gpBuffer_00970F38;
         D2_ASSERT(pOutline, 0x19A);
         D2_ASSERT(ptInfo->nTexSize <= 0x10000, 0x19B);
         memset(pOutline, 0, ptInfo->nTexSize);
-        unsigned char* pSrc = gpBuffer_00970F34 + ptInfo->f_14;
-        unsigned char* pDst = pOutline + ptInfo->f_14;
-        const int nPitch = ptInfo->f_14;
+        unsigned char* pSrc = gpBuffer_00970F34 + ptInfo->nTexWidth;
+        unsigned char* pDst = pOutline + ptInfo->nTexWidth;
+        const int nPitch = ptInfo->nTexWidth;
         const int nCount = ptInfo->nTexSize - 2 * nPitch;
         for (int i = 0; i < nCount; ++i)
         {
             if (*pSrc++)
             {
-                pDst[-ptInfo->f_14] = nColor;
+                pDst[-ptInfo->nTexWidth] = nColor;
                 pDst[-1] = nColor;
                 pDst[1] = nColor;
-                pDst[ptInfo->f_14] = nColor;
+                pDst[ptInfo->nTexWidth] = nColor;
             }
             ++pDst;
         }
@@ -399,8 +291,8 @@ int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* ptInfo, int nMode, in
         sub_006B20E0_DDrawLogError(gszLockFailed_006FC2A4, hResult);
     }
     D2_ASSERT(tDesc.dwFlags & 8, 0x1C0);
-    sub_006B1DC0_Blit8To16(pData, (unsigned short*)tDesc.lpSurface, ptInfo->f_14, ptInfo->f_18, tDesc.lPitch >> 1,
-        ptInfo->f_18);
+    sub_006B1DC0_Blit8To16(pData, (unsigned short*)tDesc.lpSurface, ptInfo->nTexWidth, ptInfo->nTexHeight, tDesc.lPitch >> 1,
+        ptInfo->nTexHeight);
     hResult = pSurface->lpVtbl->Unlock(pSurface, 0);
     if (hResult)
     {
@@ -409,14 +301,14 @@ int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* ptInfo, int nMode, in
 
     if (gnRenderFlags_0096F3A8 & gnRenderFlag_006CE290)
     {
-        sub_006B38A0_Copy(pEntry->pTarget, pSurface, ptInfo->f_18);
+        sub_006B38A0_Copy(pEntry->pTarget, pSurface, ptInfo->nTexHeight);
     }
     else
     {
         pEntry->pTexture->lpVtbl->Load(pEntry->pTexture, pSource);
     }
 
-    hResult = gpDevice_00970E78->SetTexture(0, pEntry->pTexture);
+    hResult = gpDevice_00970E78->lpVtbl->SetTexture(gpDevice_00970E78, 0, pEntry->pTexture);
     }
     if (hResult)
     {
@@ -432,16 +324,16 @@ void __stdcall sub_006B63F0_DrawQuad(D2SpriteInfoStrc* pSprite, int nX, int nY, 
     sub_006B2030_SetFilterMode(1);
 
     D2QuadRectStrc tRect;
-    tRect.nX = pSprite->offsetX;
-    float fU0 = pSprite->f_20;
-    float fU1 = pSprite->f_24;
-    float fV0 = pSprite->f_28;
-    float fV1 = pSprite->f_2C;
+    tRect.nX = pSprite->nOffsetX;
+    float fU0 = pSprite->fU0;
+    float fU1 = pSprite->fU1;
+    float fV0 = pSprite->fV0;
+    float fV1 = pSprite->fV1;
 
     int bPerspective = sub_006B9830_GetPerspective();
-    tRect.nWidth = pSprite->f_14;
-    tRect.nHeight = pSprite->f_18;
-    tRect.nY = pSprite->offsetY - tRect.nHeight;
+    tRect.nWidth = pSprite->nTexWidth;
+    tRect.nHeight = pSprite->nTexHeight;
+    tRect.nY = pSprite->nOffsetY - tRect.nHeight;
     if (bPerspective && gnScale_00989748 != 256)
     {
         tRect.nX = gnScale_00989748 * tRect.nX / 256;
@@ -470,7 +362,7 @@ void __stdcall sub_006B63F0_DrawQuad(D2SpriteInfoStrc* pSprite, int nX, int nY, 
     }
     else
     {
-        pVertices->dwColor = (((unsigned int)nAlpha << 8 | gpGlideState_007C9150->pPalette[nPaletteIndex * 3]) << 8 | gpGlideState_007C9150->pPalette[nPaletteIndex * 3 + 1]) << 8 | gpGlideState_007C9150->pPalette[nPaletteIndex * 3 + 2];
+        pVertices->dwColor = (((unsigned int)nAlpha << 8 | gpGlideState_007C9150->pRgbTable[nPaletteIndex * 3]) << 8 | gpGlideState_007C9150->pRgbTable[nPaletteIndex * 3 + 1]) << 8 | gpGlideState_007C9150->pRgbTable[nPaletteIndex * 3 + 2];
     }
 
     pVertices[1].dwColor = pVertices[0].dwColor;
@@ -506,7 +398,7 @@ void __stdcall sub_006B63F0_DrawQuad(D2SpriteInfoStrc* pSprite, int nX, int nY, 
     pVertices[3].fV = fV0;
 
     gpVertexBuffer_00970F3C->lpVtbl->Unlock(gpVertexBuffer_00970F3C);
-    gpDevice_00970E78->DrawPrimitiveVB(6, gpVertexBuffer_00970F3C, gnVertexIndex_00970F40, 4, 0x1C);
+    gpDevice_00970E78->lpVtbl->DrawPrimitiveVB(gpDevice_00970E78, 6, gpVertexBuffer_00970F3C, gnVertexIndex_00970F40, 4, 0x1C);
     gnVertexIndex_00970F40 += 4;
     if (gnVertexIndex_00970F40 > 43)
     {
@@ -560,21 +452,21 @@ void __fastcall sub_006B6C90_DrawSpriteRows(D2CelContextStrc* pContext, int nX, 
         return;
     }
 
-    float fScale = 1.0f / (float)tInfo.f_18;
-    int nTexHeight = tInfo.f_18;
+    float fScale = 1.0f / (float)tInfo.nTexHeight;
+    int nTexHeight = tInfo.nTexHeight;
     if (nSkip)
     {
         nY -= nSkip;
         unsigned int nBottom = nTexHeight - nSkip;
-        tInfo.f_28 = (float)(nBottom - nRows) * fScale;
-        tInfo.f_2C = (float)nBottom * fScale;
+        tInfo.fV0 = (float)(nBottom - nRows) * fScale;
+        tInfo.fV1 = (float)nBottom * fScale;
     }
     else
     {
-        tInfo.f_28 = (float)(nTexHeight - nRows) * fScale;
+        tInfo.fV0 = (float)(nTexHeight - nRows) * fScale;
     }
 
-    tInfo.f_18 = nRows;
+    tInfo.nTexHeight = nRows;
     sub_006B63F0_DrawQuad(&tInfo, nX, nY, 0xFFFFFFFF, 0, nAlpha, 0);
 }
 

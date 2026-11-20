@@ -1,17 +1,15 @@
 #include "D2Direct3D.h"
+#include "D2D3DTypes.h"
 #define WRITE_CORNER(i) pVertices[i].dwColor=PackGridColor(pPoints[i],nAlpha); pVertices[i].fX=(float)pPoints[i].nX; pVertices[i].fY=(float)pPoints[i].nY;
 struct D2DrawDeviceStrc;
-struct D2VertexBufferStrc;
 struct D2TileLibraryEntryStrc;
 struct D2TexturedVertexStrc;
-struct D2D3DDeviceVtbl;
 struct D2RectStrc;
 struct D2ClipRectStrc;
 struct D2TilePartStrc;
 struct D2TileContextStrc;
 struct D2QuadVertexStrc;
 struct D2DrawVtableStrc;
-struct D2TLVertexStrc;
 struct D2PerspectiveTileStrc;
 struct D2PerspectiveSpriteStrc;
 struct Vertex;
@@ -20,28 +18,8 @@ struct VertexBuffer;
 struct GraphicsInterface;
 struct IndexStrip;
 struct D2GridPointStrc;
-struct D2VertexBufferVtbl;
 struct D2RendererSettingsStrc;
 
-struct D2D3DDeviceVtbl
-{
-    char unk0x00[0x70];
-    int (__stdcall* DrawPrimitive)(D2D3DDeviceStrc* pThis, int nType, unsigned int dwFVF, void* pVertices, unsigned int nCount, unsigned int dwFlags);
-    long (__stdcall* DrawIndexedPrimitive)(D2D3DDeviceStrc*,int,unsigned int,D2TLVertexStrc*,unsigned int,unsigned short*,unsigned int,unsigned int);
-    unsigned char unk_78[0x14];
-    long (__stdcall* DrawIndexedPrimitiveVB)(D2D3DDeviceStrc*,int,D2VertexBufferStrc*,unsigned short*,unsigned int,unsigned int);
-    unsigned char unk_90[0x8];
-    int (__stdcall* SetTexture)(D2D3DDeviceStrc* pThis, unsigned int nStage, void* pTexture);
-};
-
-struct D2D3DDeviceStrc
-{
-    union
-    {
-        D2D3DDeviceVtbl* pVtbl;
-        D2D3DDeviceVtbl* lpVtbl;
-    };
-};
 extern D2TexturedVertexStrc gaVertices_00970F48[4]; // 0x00970F48
 __declspec(noinline) static int __stdcall sub_006B7530_DrawGlyph(int nX, int nY, char nChar);
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
@@ -63,18 +41,6 @@ extern D2QuadVertexStrc gaQuadVertices[4]; // 0x00971630
 extern D2DrawDeviceStrc* gpDrawDevice; // 0x00970E78
 void __fastcall sub_006BBA00_BindTilePart(D2TilePartStrc*); // 0x006BBA00
 void __fastcall sub_006B9730_SetQuadColor(D2QuadVertexStrc*,unsigned char,int); // 0x006B9730
-
-struct D2TLVertexStrc
-{
-    float fX;
-    float fY;
-    float fZ;
-    float fRhw;
-    unsigned int dwColor;
-    unsigned int dwSpecular;
-    float fU;
-    float fV;
-};
 
 struct D2PerspectiveTileStrc { short nX,nY; char unknown04[0x10]; };
 
@@ -134,15 +100,6 @@ void __fastcall sub_006B20E0_DDrawLogError(const char* szWhere, int hResult); //
 
 struct D2GridPointStrc { unsigned char nScale,nRed,nGreen,nBlue; int nX,nY; };
 
-struct D2VertexBufferVtbl
-{
-    void* previous[3];
-    long (__stdcall* Lock)(D2VertexBufferStrc*,unsigned int,D2TLVertexStrc**,unsigned int*);
-    long (__stdcall* Unlock)(D2VertexBufferStrc*);
-};
-
-struct D2VertexBufferStrc { D2VertexBufferVtbl* lpVtbl; };
-
 struct D2RendererSettingsStrc { int unknown00,unknown04; int bFlat; };
 
 extern D2RendererSettingsStrc* gpRendererSettings_007C9148; // 0x007C9148
@@ -186,8 +143,8 @@ static int __stdcall sub_006B7530_DrawGlyph(int nX, int nY, char nChar)
         gaVertices_00970F48[3].nY = (float)nY;
 
         nChar -= 0x20;
-        gpD3DDevice_00970E78->pVtbl->SetTexture(gpD3DDevice_00970E78, 0, gapGlyphTextures_009712D0[nChar]);
-        gpD3DDevice_00970E78->pVtbl->DrawPrimitive(gpD3DDevice_00970E78, 6, 0x1C4, gaVertices_00970F48, 4, 0x1C);
+        gpD3DDevice_00970E78->lpVtbl->SetTexture(gpD3DDevice_00970E78, 0, gapGlyphTextures_009712D0[nChar]);
+        gpD3DDevice_00970E78->lpVtbl->DrawPrimitive(gpD3DDevice_00970E78, 6, 0x1C4, gaVertices_00970F48, 4, 0x1C);
         return gaGlyphWidths_00970FC8[nChar];
     }
 
@@ -522,7 +479,7 @@ void __fastcall sub_006B9170_DrawGrid(D2TileLibraryEntryStrc* pTexture,D2GridPoi
     D2TLVertexStrc* pVertices;
     if(gpRendererSettings_007C9148->bFlat)
     {
-        long nResult=gpGridBuffer_00971734->lpVtbl->Lock(gpGridBuffer_00971734,0x21,&pVertices,0);
+        long nResult=gpGridBuffer_00971734->lpVtbl->Lock(gpGridBuffer_00971734,0x21,(void**)&pVertices,0);
         if(nResult) { sub_006B20E0_DDrawLogError(gLockFailure,nResult);return; }
         WRITE_CORNER(0)
         WRITE_CORNER(5)
@@ -534,7 +491,7 @@ void __fastcall sub_006B9170_DrawGrid(D2TileLibraryEntryStrc* pTexture,D2GridPoi
     }
     else
     {
-        long nResult=gpGridBuffer_00971734->lpVtbl->Lock(gpGridBuffer_00971734,0x21,&pVertices,0);
+        long nResult=gpGridBuffer_00971734->lpVtbl->Lock(gpGridBuffer_00971734,0x21,(void**)&pVertices,0);
         if(nResult) { sub_006B20E0_DDrawLogError(gLockFailure,nResult);return; }
         const D2GridPointStrc* pPoint=pPoints;
         for(int nPoint=0;nPoint<36;++nPoint)

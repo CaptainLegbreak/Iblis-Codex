@@ -1,11 +1,12 @@
 #pragma once
 
+#include "D2GlideTypes.h"
+
 struct D2CelContextStrc;
 struct D2CelStrc;
 struct D2CriticalSectionStrc;
 struct D2DDrawSurfaceStrc;
 struct D2GfxPaletteViewStrc;
-struct D2GlideSpriteVertexStrc;
 struct D2GlideTileStrc;
 struct D2GrLfbInfoStrc;
 struct D2TileDrawFunctionsStrc;
@@ -114,33 +115,10 @@ struct D2GlideDebugCellStrc
     unsigned char nBlue;
 };
 
-struct D2GlideSpriteVertexStrc
-{
-    float x;
-    float y;
-    unsigned int dwColor;
-    float oow;
-    float sow;
-    float tow;
-    float unk0x18;
-};
-
 struct D2GlideTexDimsStrc
 {
     int nWidth;
     int nHeight;
-};
-
-struct D2GlideTexOwnerStrc
-{
-    int unk0x00;
-    int unk0x04;
-};
-
-struct D2GlideTexSlotStrc
-{
-    int nCache;
-    int nId;
 };
 
 struct D2GrLfbInfoStrc
@@ -150,15 +128,6 @@ struct D2GrLfbInfoStrc
     unsigned int strideInBytes;
     int f_C;
     int origin;
-};
-
-struct D2GrTexInfoExStrc
-{
-    int nSmallLodLog2;
-    int nLargeLodLog2;
-    int nAspectRatioLog2;
-    int nFormat;
-    void* pData;
 };
 
 struct T004F51E0
