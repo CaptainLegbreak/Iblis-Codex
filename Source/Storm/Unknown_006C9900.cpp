@@ -1,24 +1,5 @@
 #include "Storm.h"
-
-struct D2RgbColorStrc
-{
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-};
-
-struct D2SmackStrc
-{
-    int nVersion;
-    int nWidth;
-    int nHeight;
-    int nFrames;
-    unsigned char unk0x10[0x58];
-    int bNewPalette;
-    D2RgbColorStrc aPalette[256];
-    unsigned char unk0x36C[8];
-    int nFrameNum;
-};
+#include "D2GfxTypes.h"
 
 struct D2GdiSmackStrc
 {

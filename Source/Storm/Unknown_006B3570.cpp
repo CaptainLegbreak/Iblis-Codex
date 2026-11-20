@@ -1,17 +1,14 @@
 #include "Storm.h"
+#include "D2DDrawTypes.h"
 
 struct D2GammaControlStrc;
-struct D2DDrawSurfaceStrc;
 struct D2ComObject006B3730Strc;
 struct D2SurfaceStrc;
 struct D2GammaRampStrc;
 struct D2GammaControlVTableStrc;
-struct D2DDSurfaceDescStrc;
-struct D2DDrawSurfaceVtblStrc;
 struct D2DDPixelFormat006B3730Strc;
 struct D2DDSurfaceDesc006B3730Strc;
 struct D2ComObjectVtbl006B3730Strc;
-struct D2SurfaceDescStrc;
 struct D2SurfaceVtableStrc;
 struct D2VideoKeyStrc;
 
@@ -33,22 +30,9 @@ void __fastcall sub_006BE190_BuildGammaTable(int nGamma, void* pTable, double dS
 void __fastcall sub_006B20E0_DDrawLogError(const char* szMessage, int nResult); // 0x006B20E0
 extern "C" void* __cdecl memcpy(void* pDest, const void* pSource, unsigned int nBytes);
 
-struct D2DDrawSurfaceVtblStrc
-{
-    void* unk0x00[25];
-    long (__stdcall* Lock)(D2DDrawSurfaceStrc* pThis, void* pDestRect, D2DDSurfaceDescStrc* pSurfaceDesc, unsigned long dwFlags, void* hEvent);
-    void* unk0x68[6];
-    long (__stdcall* Unlock)(D2DDrawSurfaceStrc* pThis, void* pRect);
-};
-
-struct D2DDrawSurfaceStrc
-{
-    D2DDrawSurfaceVtblStrc* lpVtbl;
-};
-
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern int gnScreenHeight_007C913C; // 0x007C913C
-extern D2DDrawSurfaceStrc* gpSurface_00970E6C; // 0x00970E6C
+extern D2DDSurfaceStrc* gpSurface_00970E6C; // 0x00970E6C
 
 struct D2DDPixelFormat006B3730Strc
 {
@@ -88,20 +72,10 @@ extern D2ComObject006B3730Strc* gpDirectDraw_00970E60; // 0x00970E60
 extern D2DDPixelFormat006B3730Strc gtWantedFormat_0074C024; // 0x0074C024
 extern const unsigned char gIidTexture_006FF478[16]; // 0x006FF478
 
-struct D2SurfaceDescStrc
-{
-    unsigned int nSize;
-    unsigned int f_4[3];
-    int nPitch;
-    unsigned int unk_14[4];
-    void* pPixels;
-    unsigned int unk_28[21];
-};
-
 struct D2SurfaceVtableStrc
 {
     void* unk_00[25];
-    int (__stdcall* Lock)(D2SurfaceStrc*, void*, D2SurfaceDescStrc*, unsigned int, void*);
+    int (__stdcall* Lock)(D2SurfaceStrc*, void*, D2DDSurfaceDesc2Strc*, unsigned int, void*);
     void* unk_68[6];
     int (__stdcall* Unlock)(D2SurfaceStrc*, void*);
 };
@@ -152,7 +126,7 @@ void __fastcall sub_006B3570_SetGamma(int nGamma)
 // 0x006B3610
 int __fastcall sub_006B3610_ReadScreenRGB(unsigned char* pDst)
 {
-    D2DDSurfaceDescStrc tDesc = { sizeof(D2DDSurfaceDescStrc) };
+    D2DDSurfaceDesc2Strc tDesc = { sizeof(D2DDSurfaceDesc2Strc) };
     if (!gpSurface_00970E6C)
     {
         return 0;
@@ -223,9 +197,9 @@ int __fastcall sub_006B3730_CreateMemoryTexture(D2ComObject006B3730Strc** ppSurf
 void __cdecl sub_006B3800_Flush()
 {
     D2SurfaceStrc* pSurface = gpRenderSurface_00970E6C ? gpRenderSurface_00970E6C : gpPrimarySurface_00970E68;
-    D2SurfaceDescStrc desc;
-    desc.nSize = sizeof(desc);
-    memset((char*)&desc + sizeof(desc.nSize), 0, sizeof(desc) - sizeof(desc.nSize));
+    D2DDSurfaceDesc2Strc desc;
+    desc.dwSize = sizeof(desc);
+    memset((char*)&desc + sizeof(desc.dwSize), 0, sizeof(desc) - sizeof(desc.dwSize));
     int nResult = pSurface->f_0->Lock(pSurface, 0, &desc, 0x21, 0);
     if (nResult)
     {
@@ -233,8 +207,8 @@ void __cdecl sub_006B3800_Flush()
         return;
     }
     int nHeight = gnScreenHeight_007C913C;
-    int nPitch = desc.nPitch;
-    char* pPixels = (char*)desc.pPixels;
+    int nPitch = desc.lPitch;
+    char* pPixels = (char*)desc.lpSurface;
     while (nHeight)
     {
         --nHeight;

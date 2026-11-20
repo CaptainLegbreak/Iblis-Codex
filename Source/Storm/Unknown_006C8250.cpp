@@ -1,11 +1,11 @@
 #include "Storm.h"
 #include "D2CelContext.h"
+#include "D2GfxTypes.h"
 
 struct D2CelStrc;
 struct D2ClipRectStrc;
 struct D2ClipResultStrc;
 struct D2GfxPaletteView006C85A0Strc;
-struct D2GfxSettingsStrc;
 extern int gnWideWidth_0098A16C; // 0x0098A16C
 int __stdcall sub_006018C0(D2CelStrc* pCel); // 0x006018C0
 int __stdcall sub_006018F0(D2CelStrc* pCel); // 0x006018F0
@@ -21,7 +21,6 @@ extern const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 __declspec(noreturn) void __cdecl exit(int code); // 0x00681E09
-
 
 struct D2GfxPaletteView006C85A0Strc
 {
@@ -54,16 +53,6 @@ extern "C" __declspec(dllimport) int __stdcall DeleteDC(void* hdc); // 0x006CC0D
 void* __cdecl sub_006C8020(); // 0x006C8020
 extern unsigned long gdwGdiDebugTextColor_0074C5C0; // 0x0074C5C0
 extern void* ghGdiDebugFont_0098A170; // 0x0098A170
-
-struct D2GfxSettingsStrc
-{
-    int bPerspectiveEnabled;
-    int bPerspectiveCapable;
-    int bLowQuality;
-    int nGamma;
-    int bVSync;
-    int bBlendedShadows;
-};
 
 extern D2GfxSettingsStrc* gpGfxSettings_007C9148; // 0x007C9148
 void __fastcall sub_006C8A60_Draw(int nX1, int nY1, int nX2, int nY2, unsigned char nColor, int nLevel); // 0x006C8A60

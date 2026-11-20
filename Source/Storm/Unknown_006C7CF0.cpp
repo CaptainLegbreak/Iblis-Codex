@@ -1,4 +1,5 @@
 #include "Storm.h"
+#include "D2GfxTypes.h"
 
 struct D2Callbacks006C7CF0Strc;
 struct D2CriticalSectionStrc;
@@ -6,7 +7,6 @@ struct D2RectStrc;
 struct D2RgbQuadStrc;
 struct D2PaletteEntry006C7FA0Strc;
 struct D2RgbQuad006C7FA0Strc;
-struct D2GfxPaletteViewStrc;
 
 extern "C" __declspec(dllimport) int __stdcall DeleteObject(void* hObject);
 

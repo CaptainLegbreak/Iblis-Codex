@@ -1,35 +1,12 @@
 #include "Storm.h"
+#include "D2DDrawTypes.h"
+#include "D2GfxTypes.h"
 
 struct D2CriticalSectionStrc;
-struct D2DDrawSurfaceStrc;
-struct D2BinkStrc;
-struct D2DDSurfaceDescStrc;
-struct D2DDrawSurfaceVtblStrc;
 struct tagPOINT;
 struct tagMSG;
 struct ConnectionHandlerView;
 struct D2Socket006BC030Strc;
-
-struct D2BinkStrc
-{
-    unsigned int Width;
-    unsigned int Height;
-    unsigned int Frames;
-    unsigned int f_C;
-};
-
-struct D2DDrawSurfaceVtblStrc
-{
-    void* unk0x00[25];
-    long (__stdcall* Lock)(D2DDrawSurfaceStrc* pThis, void* pDestRect, D2DDSurfaceDescStrc* pSurfaceDesc, unsigned long dwFlags, void* hEvent);
-    void* unk0x68[6];
-    long (__stdcall* Unlock)(D2DDrawSurfaceStrc* pThis, void* pRect);
-};
-
-struct D2DDrawSurfaceStrc
-{
-    D2DDrawSurfaceVtblStrc* lpVtbl;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -45,7 +22,7 @@ extern "C" __declspec(dllimport) void __stdcall BinkNextFrame(D2BinkStrc* pBink)
 extern "C" __declspec(dllimport) int __stdcall BinkCopyToBuffer(D2BinkStrc* pBink, void* pDest, int nDestPitch, unsigned int nDestHeight, unsigned int nDestX, unsigned int nDestY, unsigned int nFlags); // 0x006CC5C0
 extern "C" __declspec(dllimport) int __stdcall BinkDoFrame(D2BinkStrc* pBink); // 0x006CC5C4
 extern D2CriticalSectionStrc* gpRenderCriticalSection_007C9134; // 0x007C9134
-extern D2DDrawSurfaceStrc* gpSurface_00970E68; // 0x00970E68
+extern D2DDSurfaceStrc* gpSurface_00970E68; // 0x00970E68
 extern unsigned int gnBinkX_00989C0C; // 0x00989C0C
 extern D2BinkStrc* gpBink_00989C10; // 0x00989C10
 extern int gbBinkDone_00989C1C; // 0x00989C1C
@@ -69,7 +46,7 @@ extern "C" __declspec(dllimport) int __stdcall PeekMessageA(tagMSG* pMsg, void* 
 extern "C" __declspec(dllimport) D2BinkStrc* __stdcall BinkOpen(void* hFile, unsigned int nFlags); // 0x006CC5B8
 extern "C" __declspec(dllimport) int __stdcall BinkWait(D2BinkStrc* pBink); // 0x006CC5C8
 extern "C" __declspec(dllimport) void __stdcall BinkClose(D2BinkStrc* pBink); // 0x006CC5CC
-extern "C" __declspec(dllimport) unsigned int __stdcall BinkDDSurfaceType(D2DDrawSurfaceStrc* pSurface); // 0x006CC5D0
+extern "C" __declspec(dllimport) unsigned int __stdcall BinkDDSurfaceType(D2DDSurfaceStrc* pSurface); // 0x006CC5D0
 extern "C" __declspec(dllimport) int __stdcall BinkSetSoundSystem(void* pfOpen, unsigned long nParam); // 0x006CC5D4
 extern "C" __declspec(dllimport) void* __stdcall BinkOpenDirectSound(unsigned long nParam); // 0x006CC5D8
 int __cdecl sub_00406D20(); // 0x00406D20
@@ -122,17 +99,17 @@ void __cdecl sub_006BBBF0_RenderVideoFrame()
 {
     if (!gbSurfaceActive_007C9140)
         return;
-    D2DDSurfaceDescStrc ddsd = { sizeof(D2DDSurfaceDescStrc) };
+    D2DDSurfaceDesc2Strc ddsd = { sizeof(D2DDSurfaceDesc2Strc) };
     BinkDoFrame(gpBink_00989C10);
     D2_ASSERT(gpRenderCriticalSection_007C9134, 0x3D);
     EnterCriticalSection(gpRenderCriticalSection_007C9134);
     if (gpSurface_00970E68->lpVtbl->Lock(gpSurface_00970E68, 0, &ddsd, 0x21, 0) == 0)
     {
-        BinkCopyToBuffer(gpBink_00989C10, ddsd.lpSurface, ddsd.lPitch, gpBink_00989C10->Height, gnBinkX_00989C0C, gnBinkY_00989C08, gnBinkFlags_00989C18);
+        BinkCopyToBuffer(gpBink_00989C10, ddsd.lpSurface, ddsd.lPitch, gpBink_00989C10->nHeight, gnBinkX_00989C0C, gnBinkY_00989C08, gnBinkFlags_00989C18);
         gpSurface_00970E68->lpVtbl->Unlock(gpSurface_00970E68, 0);
     }
     LeaveCriticalSection(gpRenderCriticalSection_007C9134);
-    if (gpBink_00989C10->f_C == gpBink_00989C10->Frames)
+    if (gpBink_00989C10->nFrameNum == gpBink_00989C10->nFrames)
     {
         gbBinkDone_00989C1C = 1;
         return;
@@ -206,12 +183,12 @@ LABEL_FAIL:
         return;
     }
 
-    gnBinkX_00989C0C = (gnScreenWidth_007C9138 - gpBink_00989C10->Width) >> 1;
+    gnBinkX_00989C0C = (gnScreenWidth_007C9138 - gpBink_00989C10->nWidth) >> 1;
     if (gnBinkX_00989C0C & 3)
     {
         gnBinkX_00989C0C = (gnBinkX_00989C0C | 3) + 1;
     }
-    gnBinkY_00989C08 = (gnScreenHeight_007C913C - gpBink_00989C10->Height) >> 1;
+    gnBinkY_00989C08 = (gnScreenHeight_007C913C - gpBink_00989C10->nHeight) >> 1;
     {
         const unsigned long dwEnd = GetTickCount() + 500;
         for (;;)

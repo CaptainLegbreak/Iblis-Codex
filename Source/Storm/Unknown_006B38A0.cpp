@@ -1,32 +1,4 @@
-struct D2DDSurfaceDescStrc
-{
-    unsigned int dwSize;
-    unsigned int dwFlags;
-    unsigned int dwHeight;
-    unsigned int dwWidth;
-    int lPitch;
-    unsigned int dwBackBufferCount;
-    unsigned int dwRefreshRate;
-    unsigned int dwAlphaBitDepth;
-    unsigned int dwReserved;
-    void* lpSurface;
-    unsigned int unk0x28[21];
-};
-
-struct D2DDrawSurfaceStrc;
-
-struct D2DDrawSurfaceVtblStrc
-{
-    void* unk0x00[25];
-    long (__stdcall* Lock)(D2DDrawSurfaceStrc* pThis, void* pDestRect, D2DDSurfaceDescStrc* pSurfaceDesc, unsigned long dwFlags, void* hEvent);
-    void* unk0x68[6];
-    long (__stdcall* Unlock)(D2DDrawSurfaceStrc* pThis, void* pRect);
-};
-
-struct D2DDrawSurfaceStrc
-{
-    D2DDrawSurfaceVtblStrc* lpVtbl;
-};
+#include "D2DDrawTypes.h"
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);                          // 0x006829C0
@@ -35,13 +7,13 @@ extern "C" const char gszFailedToLockDest_006FB130[];                           
 extern "C" const char gszFailedToLockSource_006FB14C[];                                                     // 0x006FB14C
 
 // 0x006B38A0
-void __fastcall sub_006B38A0_Copy(D2DDrawSurfaceStrc* pDst, D2DDrawSurfaceStrc* pSrc, unsigned int nRows)
+void __fastcall sub_006B38A0_Copy(D2DDSurfaceStrc* pDst, D2DDSurfaceStrc* pSrc, unsigned int nRows)
 {
     unsigned char* pSrcBits;
     unsigned char* pDstBits;
     unsigned int nDstPitch;
     unsigned int nWidth;
-    D2DDSurfaceDescStrc tSrcDesc = { sizeof(D2DDSurfaceDescStrc) };
+    D2DDSurfaceDesc2Strc tSrcDesc = { sizeof(D2DDSurfaceDesc2Strc) };
     long hResult = pSrc->lpVtbl->Lock(pSrc, 0, &tSrcDesc, 0x21, 0);
     if (hResult)
     {
@@ -50,7 +22,7 @@ void __fastcall sub_006B38A0_Copy(D2DDrawSurfaceStrc* pDst, D2DDrawSurfaceStrc* 
     else
     {
         pSrcBits = (unsigned char*)tSrcDesc.lpSurface;
-        D2DDSurfaceDescStrc tDstDesc = { sizeof(D2DDSurfaceDescStrc) };
+        D2DDSurfaceDesc2Strc tDstDesc = { sizeof(D2DDSurfaceDesc2Strc) };
         hResult = pDst->lpVtbl->Lock(pDst, 0, &tDstDesc, 0x21, 0);
         if (hResult)
         {

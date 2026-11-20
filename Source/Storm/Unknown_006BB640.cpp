@@ -1,18 +1,13 @@
 #include "Storm.h"
+#include "D2DDrawTypes.h"
+#include "D2D3DTypes.h"
 
 #define RELEASE(p) if (p) { p->lpVtbl->Release((D2ComObject006BB640Strc*)p); p = 0; }
 
 struct D2ComObject006BB640Strc;
-struct D2DDrawSurfaceStrc;
-struct D2D3DTextureStrc;
-struct D2D3DDeviceStrc;
 struct D2ComObjectVtbl006BB640Strc;
 struct D2ComPtr006BB640Strc;
 struct D2CacheBindingStrc;
-struct D2DDSurfaceDescStrc;
-struct D2DDrawSurfaceVtblStrc;
-struct D2D3DTextureVtblStrc;
-struct D2D3DDeviceVtblStrc;
 struct D2CacheNodeStrc;
 struct D2CacheListStrc;
 
@@ -44,46 +39,11 @@ struct D2CacheBindingStrc
     const unsigned char* pData;
 };
 
-struct D2DDrawSurfaceVtblStrc
-{
-    void* unk0x00[25];
-    long (__stdcall* Lock)(D2DDrawSurfaceStrc* pThis, void* pDestRect, D2DDSurfaceDescStrc* pSurfaceDesc, unsigned long dwFlags, void* hEvent);
-    void* unk0x68[6];
-    long (__stdcall* Unlock)(D2DDrawSurfaceStrc* pThis, void* pRect);
-};
-
-struct D2DDrawSurfaceStrc
-{
-    D2DDrawSurfaceVtblStrc* lpVtbl;
-};
-
-struct D2D3DTextureVtblStrc
-{
-    void* unk0x00[5];
-    long (__stdcall* Load)(D2D3DTextureStrc* pThis, D2D3DTextureStrc* pSource);
-};
-
-struct D2D3DTextureStrc
-{
-    D2D3DTextureVtblStrc* lpVtbl;
-};
-
-struct D2D3DDeviceVtblStrc
-{
-    void* unk0x00[38];
-    long (__stdcall* SetTexture)(D2D3DDeviceStrc* pThis, unsigned long dwStage, D2D3DTextureStrc* pTexture);
-};
-
-struct D2D3DDeviceStrc
-{
-    D2D3DDeviceVtblStrc* lpVtbl;
-};
-
 struct D2CacheNodeStrc
 {
     int id;
     D2CacheBindingStrc* binding;
-    D2DDrawSurfaceStrc* pSurface;
+    D2DDSurfaceStrc* pSurface;
     D2D3DTextureStrc* pTexture;
     D2CacheNodeStrc* next;
     D2CacheNodeStrc* previous;
@@ -107,7 +67,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 void __fastcall sub_006B1DC0_Blit8To16(const unsigned char* pSource, unsigned short* pDest, int nWidth, int nHeight, int nPitch, int nUnused); // 0x006B1DC0
 void __fastcall sub_006B20E0_DDrawLogError(const char* szWhere, int hResult); // 0x006B20E0
-void __fastcall sub_006B38A0_Copy(D2DDrawSurfaceStrc* pDst, D2DDrawSurfaceStrc* pSrc, unsigned int nRows); // 0x006B38A0
+void __fastcall sub_006B38A0_Copy(D2DDSurfaceStrc* pDst, D2DDSurfaceStrc* pSrc, unsigned int nRows); // 0x006B38A0
 void __fastcall sub_006BACB0_TouchCacheNode(D2CacheListStrc* pList, int nSlot); // 0x006BACB0
 int __fastcall sub_006BAF00_AllocateCacheNode(D2CacheListStrc* pList); // 0x006BAF00
 static void sub_006BB6B0_DecodeTile(const unsigned char* source, unsigned char* destination); // 0x006BB6B0
@@ -136,7 +96,7 @@ D2CacheListStrc gTexCache_0096FC80; // 0x0096FC80
 
 unsigned char gabTileBuffer_009897F8[0x400]; // 0x009897F8
 
-D2DDrawSurfaceStrc* gpMemorySurface_00989C00; // 0x00989C00
+D2DDSurfaceStrc* gpMemorySurface_00989C00; // 0x00989C00
 
 static __declspec(noinline) void sub_006BB6B0_DecodeTile(const unsigned char* source, unsigned char* destination)
 {
@@ -180,7 +140,7 @@ void __fastcall sub_006BBA00_BindTileTexture(D2CacheBindingStrc* pTile)
         D2CacheNodeStrc* pNode = &gTexCache_0096FC80.pNodes[pTile->wSlot - 1];
         pNode->binding = pTile;
 
-        D2DDSurfaceDescStrc tDesc = { sizeof(D2DDSurfaceDescStrc) };
+        D2DDSurfaceDesc2Strc tDesc = { sizeof(D2DDSurfaceDesc2Strc) };
         long hResult = gpMemorySurface_00989C00->lpVtbl->Lock(gpMemorySurface_00989C00, 0, &tDesc, 0x21, 0);
         if (hResult)
         {
