@@ -2,6 +2,7 @@
 #include "D2Constants.h"
 #include "D2DataTbls.h"
 #include "D2Path.h"
+#include "D2GameStrc.h"
 struct D2StatListStrc;
 struct D2UnitStrc;
 
@@ -27,22 +28,11 @@ union D2SeedStrc;
 struct D2MonEquipTxt;
 struct D2MonsterItemCodeStrc;
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x88];
-    int dwGameFrame;
-};
-
-
 struct D2MonsterDataStrc
 {
     char unk0x00[0x28];
     D2AiControlStrc* pAiControl;
 };
-
-
 
 struct D2DamageStrc
 {
@@ -209,7 +199,6 @@ struct D2SrvDo06Strc
     int nAuraStatCalcValue;
 };
 
-
 struct D2MonStats2Txt
 {
     char unk0x00[0x04];
@@ -254,7 +243,6 @@ struct D2SkillsTxt
     unsigned char nEType;
     char unk0x1DD[0x5F];
 };
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern unsigned int gdwBitMasks[]; // 0x006CE268

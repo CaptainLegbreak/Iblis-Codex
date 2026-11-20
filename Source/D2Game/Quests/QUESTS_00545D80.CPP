@@ -1,19 +1,8 @@
 #include "D2Structs.h"
 #include "D2UnitData.h"
+#include "D2GameStrc.h"
 struct D2BitBufferStrc;
 struct D2QuestInfoStrc;
-
-
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0xB0];
-    D2SeedStrc pGameSeed;
-    char unk0xD8[0x101C];
-    D2QuestInfoStrc* pQuestControl;
-};
-
 
 struct D2QuestInfoStrc
 {
@@ -29,7 +18,6 @@ struct D2QuestInfoStrc
 
 typedef char QUESTINIT_check_data[sizeof(D2QuestDataStrc) == 0xF8 ? 1 : -1];
 typedef char QUESTINIT_check_info[sizeof(D2QuestInfoStrc) == 0x24 ? 1 : -1];
-typedef char QUESTINIT_check_game[sizeof(D2GameStrc) == 0x10F8 ? 1 : -1];
 
 typedef void (__fastcall* QUESTINIT)(D2QuestDataStrc* pQuestData);
 typedef int (__stdcall* FARPROC)();

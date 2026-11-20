@@ -1,49 +1,13 @@
 #include "D2Txt.h"
+#include "D2Structs.h"
+#include "D2Path.h"
+#include "D2GameStrc.h"
 struct D2ClientStrc;
 struct D2ActiveRoomStrc;
 struct D2InventoryStrc;
 struct D2SkillStrc;
 
 struct D2DynamicPathStrc;
-
-struct D2StaticPathStrc
-{
-    char unk0x00[0x0C];
-    int nX;
-    int nY;
-};
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    char unk0x14[0x20 - 0x14];
-    int pSeed[2];
-    unsigned int dwInitSeed;
-    union
-    {
-        D2StaticPathStrc* pStaticPath;
-        D2DynamicPathStrc* pDynamicPath;
-    };
-    char unk0x30[0x60 - 0x2C - 4];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0xC4 - 0x60 - 4];
-    unsigned int dwFlags;
-};
-
-struct D2GameStrc
-{
-    char unk0x00[0x70];
-    int bExpansion;
-    char f_74[0x78 - 0x70 - 4];
-    unsigned short wItemFormat;
-    char unk0x7A[0xA8 - 0x78 - 2];
-    unsigned int dwGameFrame;
-};
-
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -232,7 +196,6 @@ static void sub_0055C5C0_RefreshSkillsForEquippedWeapons(D2UnitStrc* pUnit)
     }
 }
 
-enum { UNIT_INVALID = 6 };
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 unsigned int __stdcall ITEMS_CheckWeaponIfTwoHanded(D2UnitStrc* pItem);                                     // 0x006289C0
 int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc* pItem);                                                    // 0x0062BA80

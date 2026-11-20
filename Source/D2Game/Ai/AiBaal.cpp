@@ -1,6 +1,9 @@
 #include "D2Game.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Structs.h"
+#include "D2UnitData.h"
+#include "D2GameStrc.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2AiBaalTargetArgsStrc;
@@ -8,11 +11,10 @@ struct D2SkillsTxt;
 struct D2MonStatsTxt;
 struct D2MonsterDataStrc;
 struct D2AiTableStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 
 enum D2C_M244AiBaalConstants
 {
-    UNIT_MONSTER = 1,
     STAT_DAMAGERESIST = 0x24,
     STAT_MAGICRESIST = 0x25,
     STAT_FIRERESIST = 0x27,
@@ -27,36 +29,6 @@ enum D2C_M244AiBaalConstants
     STATE_COLD = 0x0B,
 };
 
-struct D2SeedStrc
-{
-    union
-    {
-        struct
-        {
-            unsigned __int64 lSeed;
-        };
-        struct
-        {
-            unsigned int nLowSeed;
-            unsigned int nHighSeed;
-        };
-    };
-};
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[12];
-    D2MonsterDataStrc* pMonsterData;
-    unsigned char nAct;
-    unsigned char unk_19[0x7];
-    D2SeedStrc pSeed;
-};
-
-
-
-
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nRangeBonus); // 0x00622C40
 int __fastcall AIUTIL_GetDistanceToCoordinates_HalfUnitSize(D2UnitStrc* pUnit, int nX, int nY); // 0x005DC480
@@ -68,11 +40,6 @@ D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus); // 0x006442A0
 int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine); // 0x00643CE0
 int __fastcall sub_005DD290_NoMissileBarrierCollision(D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x005DD290
-
-struct D2MonsterDataStrc
-{
-    D2MonStatsTxt* pMonstatsTxt;
-};
 
 struct D2AiTableStrc
 {
@@ -89,12 +56,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 int __fastcall AIUTIL_GetDistanceToCoordinates_NoUnitSize(D2UnitStrc* pUnit, int nX, int nY); // 0x005DC530
-
-struct D2GameStrc
-{
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-};
 
 static __declspec(noinline) int __stdcall AI_GetRandomArrayIndex(int* pArray, int nArraySize, D2UnitStrc* pUnit);
 

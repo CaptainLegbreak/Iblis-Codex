@@ -1,23 +1,12 @@
 #include "D2Game.h"
+#include "D2Structs.h"
+#include "D2UnitData.h"
 
 struct D2MonsterDataStrc;
 
-struct D2MonsterDataStrc
-{
-    char unk_00[0x16];
-    unsigned short nTypeFlag;
-};
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk_04[0x10];
-    D2MonsterDataStrc* pMonsterData;
-};
-
 extern "C" __int64 __stdcall _alldiv(__int64 a, __int64 b); // 0x00684240
 
-enum { UNIT_MONSTER = 1, STAT_HITPOINTS = 6, STAT_MAXHP = 7, MONTYPEFLAG_POSSESSED = 0x20 };
+enum { STAT_HITPOINTS = 6, STAT_MAXHP = 7, MONTYPEFLAG_POSSESSED = 0x20 };
 
 int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, unsigned short nLayer); // 0x00627260
