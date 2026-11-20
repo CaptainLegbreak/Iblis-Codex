@@ -1,7 +1,7 @@
 #include "D2Win.h"
+#include "D2GfxTypes.h"
 
 struct D2CacheStatsStrc;
-struct D2GfxSettingsStrc;
 
 struct D2GraphicsInterfaceStrc
 {
@@ -18,16 +18,6 @@ struct D2GraphicsInterfaceStrc
 };
 
 extern int gnResolutionMode; // 0x007C8CB8
-
-struct D2GfxSettingsStrc
-{
-    int bPerspectiveEnabled;
-    int bPerspectiveCapable;
-    int bLowQuality;
-    int nGamma;
-    int bVSync;
-    int bBlendedShadows;
-};
 
 extern D2GfxSettingsStrc gGfxSettings; // 0x0072DA48
 extern int gdwGlobal_0072DA7C; // 0x0072DA7C

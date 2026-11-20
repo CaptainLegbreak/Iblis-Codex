@@ -1,18 +1,5 @@
 #include "D2Glide.h"
-
-struct D2PaletteRgbStrc
-{
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-};
-
-struct D2GfxPaletteViewStrc
-{
-    char unk0x00[0x114];
-    D2PaletteRgbStrc* pRgbTable;
-    unsigned char* f_118;
-};
+#include "D2GfxTypes.h"
 
 void __fastcall sub_005094B0_GlideSetState(int nState); // 0x005094B0
 void __fastcall sub_005095D0_GlideSetDepth(int nMode); // 0x005095D0
@@ -40,8 +27,8 @@ static void __stdcall sub_0050A9A0_GlideDrawSpriteQuad(int nX, int nY, unsigned 
     }
     else
     {
-        gaGlideSpriteVertices_0087EFF8[0].dwColor = ((gpGfxPaletteView_007C9150->pRgbTable[nPaletteIndex].nRed | 0xFFFFFF00) << 8
-            | gpGfxPaletteView_007C9150->pRgbTable[nPaletteIndex].nGreen) << 8 | gpGfxPaletteView_007C9150->pRgbTable[nPaletteIndex].nBlue;
+        gaGlideSpriteVertices_0087EFF8[0].dwColor = ((gpGfxPaletteView_007C9150->pRgbTable[nPaletteIndex * 3] | 0xFFFFFF00) << 8
+            | gpGfxPaletteView_007C9150->pRgbTable[nPaletteIndex * 3 + 1]) << 8 | gpGfxPaletteView_007C9150->pRgbTable[nPaletteIndex * 3 + 2];
     }
     gaGlideSpriteVertices_0087EFF8[3].dwColor = gaGlideSpriteVertices_0087EFF8[0].dwColor;
     gaGlideSpriteVertices_0087EFF8[2].dwColor = gaGlideSpriteVertices_0087EFF8[0].dwColor;

@@ -1,11 +1,7 @@
 #include "D2Glide.h"
-struct D2TileLibraryEntryStrc;
+#include "D2GfxTypes.h"
 
-struct D2GfxSettingsStrc
-{
-    int unk0x00[4];
-    int unk0x10;
-};
+struct D2TileLibraryEntryStrc;
 
 struct tagPOINT
 {
@@ -148,7 +144,7 @@ void __fastcall sub_00509B60_GlideOpenSmackCutscene(const char* szFile, int nRes
     if (!gbRenderPaused_007C9144)
     {
         gpfGlideBufferClear_0087EB88(0, 0, 0);
-        if (gpGfxSettings_007C9148->unk0x10)
+        if (gpGfxSettings_007C9148->bVSync)
         {
             gpfGlideBufferSwap_0087EB90(1);
         }

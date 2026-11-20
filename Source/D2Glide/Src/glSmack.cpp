@@ -1,9 +1,9 @@
 #include "D2Glide.h"
 #include "D2DrlgMaps.h"
+#include "D2GfxTypes.h"
 
 struct D2GlideSmackStrc;
 struct T004F51E0;
-struct D2RgbColorStrc;
 struct T00508FE0;
 struct D2TileLibraryEntryStrc;
 
@@ -36,13 +36,6 @@ extern unsigned char* sgbSmack8BitBuffer; // 0x00880BF0
 extern unsigned char* gpGlideTileDecodeBuffer_00880BFC; // 0x00880BFC
 extern unsigned char* gpGlideFloorDecodeBuffer_00880C00; // 0x00880C00
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-
-struct D2RgbColorStrc
-{
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-};
 
 extern "C" void* __cdecl memmove(void* pDst, const void* pSrc, unsigned int nSize); // 0x00683840
 extern "C" __declspec(dllimport) void* __stdcall SmackOpen(const char* szName, unsigned int nFlags, unsigned int nExtraBuf); // 0x006CC604

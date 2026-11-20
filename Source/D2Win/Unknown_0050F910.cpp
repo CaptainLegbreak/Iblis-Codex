@@ -1,4 +1,5 @@
 #include "D2Win.h"
+#include "D2GfxTypes.h"
 #include "D2GlideTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -7,7 +8,6 @@ struct D2DDrawSurfaceStrc;
 struct D2BinkStrc;
 struct tagPOINT;
 struct T004F51E0;
-struct D2GfxPaletteViewStrc;
 
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
@@ -67,11 +67,6 @@ struct T004F51E0
     unsigned char peGreen;
     unsigned char peBlue;
     unsigned char peFlags;
-};
-
-struct D2GfxPaletteViewStrc
-{
-    int dwData[0x48];
 };
 
 void __fastcall sub_00510160_DDrawSetPalette(T004F51E0* pPalette); // 0x00510160

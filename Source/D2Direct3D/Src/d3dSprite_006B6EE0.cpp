@@ -1,15 +1,10 @@
 #include "D2D3DTypes.h"
+#include "D2GfxTypes.h"
 
 struct D2CelStrc;
 struct D2CelContextStrc { unsigned char pad0[8]; int unitType; int classId; int mode; unsigned char pad1[0x18]; const char* name; unsigned char pad2[12]; D2CelStrc* cel; };
 
-struct D2GlideContextStrc
-{
-    unsigned char unk_00[0x114];
-    unsigned char* pPalette;
-};
-
-extern D2GlideContextStrc* gpGlideState_007C9150; // 0x007C9150
+extern D2GfxPaletteViewStrc* gpGlideState_007C9150; // 0x007C9150
 extern D2D3DDeviceStrc* gpDevice_00970E78; // 0x00970E78
 extern D2VertexBufferStrc* gpVertexBuffer_00970F3C; // 0x00970F3C
 extern int gnVertexIndex_00970F40; // 0x00970F40
@@ -165,7 +160,7 @@ void __stdcall sub_006B63F0_DrawQuad(D2SpriteInfoStrc* pSprite, int nX, int nY, 
     }
     else
     {
-        pVertices->dwColor = (((unsigned int)nAlpha << 8 | gpGlideState_007C9150->pPalette[nPaletteIndex * 3]) << 8 | gpGlideState_007C9150->pPalette[nPaletteIndex * 3 + 1]) << 8 | gpGlideState_007C9150->pPalette[nPaletteIndex * 3 + 2];
+        pVertices->dwColor = (((unsigned int)nAlpha << 8 | gpGlideState_007C9150->pRgbTable[nPaletteIndex * 3]) << 8 | gpGlideState_007C9150->pRgbTable[nPaletteIndex * 3 + 1]) << 8 | gpGlideState_007C9150->pRgbTable[nPaletteIndex * 3 + 2];
     }
 
     pVertices[1].dwColor = pVertices[0].dwColor;

@@ -1,6 +1,6 @@
 #include "D2Glide.h"
+#include "D2GfxTypes.h"
 #include "D2GameTypes.h"
-struct D2GfxSettingsStrc;
 struct D2GlideHwQueryStrc;
 
 extern int gdwGlobal_007C8CB0; // 0x007C8CB0
@@ -40,25 +40,11 @@ extern int gdwGlobal_008818C0; // 0x008818C0
 extern int gdwGlobal_00881C04; // 0x00881C04
 extern int gdwGlobal_00881C50; // 0x00881C50
 
-struct D2GfxSettingsStrc
-{
-    int bPerspectiveEnabled;
-    int bPerspectiveCapable;
-    int bLowQuality;
-    int nGamma;
-    int bVSync;
-    int bBlendedShadows;
-};
-
 int __cdecl sub_00509E10_GlideClose(); // 0x00509E10
 extern D2GfxSettingsStrc* gpGfxSettings_007C9148; // 0x007C9148
 extern void (__stdcall* gpfGlideBufferClear_0087EB88)(unsigned int dwColor, unsigned int nAlpha, unsigned int nDepth); // 0x0087EB88
 extern void (__stdcall* gpfGlideBufferSwap_0087EB90)(int nSwapInterval); // 0x0087EB90
 
-struct D2GfxPaletteViewStrc
-{
-    int dwData[0x48];
-};
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214

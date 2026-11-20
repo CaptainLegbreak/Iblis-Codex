@@ -1,14 +1,5 @@
 #include "D2Glide.h"
-
-struct D2GfxSettingsStrc
-{
-    int bPerspectiveEnabled;
-    int bPerspectiveCapable;
-    int bLowQuality;
-    int nGamma;
-    int bVSync;
-    int bBlendedShadows;
-};
+#include "D2GfxTypes.h"
 
 typedef void (__fastcall* PixelDataFreeCallback)(void* pData);
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09

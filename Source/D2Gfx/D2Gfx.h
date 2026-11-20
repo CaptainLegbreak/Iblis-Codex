@@ -1,5 +1,7 @@
 #pragma once
 
+#include "D2GfxTypes.h"
+
 struct tagRECT;
 
 extern "C" __declspec(dllimport) int __stdcall AdjustWindowRectEx(tagRECT* lpRect, unsigned long dwStyle, int bMenu, unsigned long dwExStyle); // 0x006CC4FC
@@ -21,16 +23,6 @@ void __cdecl sub_004F8EA0(); // 0x004F8EA0
 struct tagPOINT;
 struct T004F51E0;
 struct D2PaletteTableStrc;
-
-struct D2GfxSettingsStrc
-{
-    int bPerspectiveEnabled;
-    int bPerspectiveCapable;
-    int bLowQuality;
-    int nGamma;
-    int bVSync;
-    int bBlendedShadows;
-};
 
 struct D2GraphicsInterfaceStrc
 {

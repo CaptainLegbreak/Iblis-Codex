@@ -1,14 +1,5 @@
 #include "D2DDraw.h"
-
-struct D2GfxSettingsStrc
-{
-    int bPerspectiveEnabled;
-    int bPerspectiveCapable;
-    int bLowQuality;
-    int nGamma;
-    int bVSync;
-    int bBlendedShadows;
-};
+#include "D2GfxTypes.h"
 
 struct D2TileDrawFunctionsStrc
 {

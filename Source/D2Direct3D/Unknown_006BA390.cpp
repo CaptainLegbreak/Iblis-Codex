@@ -116,7 +116,7 @@ void __fastcall sub_006BA390_PlaySmack(D2VideoHandleStrc* pVideo)
 
             SmackDoFrame(pSmack);
             sub_006B9F00_PresentFrame();
-            if (pSmack->FrameNum == pSmack->Frames)
+            if (pSmack->nFrameNum == pSmack->nFrames)
             {
                 sub_006B9BB0_CloseSmack(pVideo);
             }
@@ -134,7 +134,7 @@ void __fastcall sub_006BA390_PlaySmack(D2VideoHandleStrc* pVideo)
 
         if (!gbRenderPaused_007C9144)
         {
-            sub_006B9C40_BlitVideo(pVideo, pSmack->Width, pSmack->Height);
+            sub_006B9C40_BlitVideo(pVideo, pSmack->nWidth, pSmack->nHeight);
         }
         break;
     }

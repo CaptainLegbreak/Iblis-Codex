@@ -1,12 +1,7 @@
 #include "D2Glide.h"
 #include "D2CelContext.h"
+#include "D2GfxTypes.h"
 
-struct D2GfxPaletteViewStrc
-{
-    char unk0x00[0x114];
-    unsigned char* pRgbTable;
-    unsigned char* f_118;
-};
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
@@ -207,7 +202,7 @@ static int __stdcall sub_0050A450_GlideTexInfoUpload(int nPalette, int nColor, i
         case 2:
         {
             CelDraw(pInfo->pContext, -pInfo->nOffsetX, pInfo->nTexHeight - pInfo->nOffsetY - 1, 0, 0, pBuffer, pInfo->nTexHeight, pInfo->nTexWidth, 0, 0, nPalette);
-            unsigned char* pRemap = gpGfxPaletteView_007C9150->f_118;
+            unsigned char* pRemap = gpGfxPaletteView_007C9150->pRemap;
             unsigned char* pPixel = gpGlideSpriteBufferA_0087F0C8;
             for (int i = 0; i < pInfo->nTexSize; ++i)
             {

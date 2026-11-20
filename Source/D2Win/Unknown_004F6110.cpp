@@ -1,4 +1,5 @@
 #include "D2Win.h"
+#include "D2GfxTypes.h"
 
 #define _INTSIZEOF(n) ((sizeof(n) + sizeof(int) - 1) & ~(sizeof(int) - 1))
 #define va_start(ap, v) (ap = (va_list)&v + _INTSIZEOF(v))
@@ -8,7 +9,6 @@ struct D2GfxLightStrc;
 struct D2GfxLightExStrc;
 union D2LargeIntegerStrc;
 struct D2PerfStartStrc;
-struct D2GfxSettingsStrc;
 struct D2PaletteStrc;
 
 union D2LargeIntegerStrc
@@ -82,11 +82,6 @@ struct D2GraphicsInterfaceStrc
     void (__fastcall* pfOutputString)(int nPosX, int nPosY, const char* szFormat, va_list va);
     void (__fastcall* pfDebugDraw)(unsigned int* pLight, unsigned int* pPlayerLight, int nPosX, int nPosY);
     void (__fastcall* pfDebugFillBackBuffer)(int nPosX, int nPosY);
-};
-
-struct D2GfxSettingsStrc
-{
-    int bPerspectiveEnabled;
 };
 
 struct D2PaletteStrc
