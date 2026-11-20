@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define MONSTER_AKARA 148
 #define MONSTER_DROGNAN 177
@@ -56,13 +57,6 @@ struct D2QuestArgStrc
     unsigned char unk_1A[0x2];
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x04];
-    int dwUnitId;
-};
 
 struct D2GameStrc
 {

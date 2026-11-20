@@ -1,5 +1,4 @@
-struct D2SeedStrc { unsigned int nLowSeed; unsigned int nHighSeed; };
-struct D2UnitStrc { int dwUnitType; int dwClassId; void* pMem; int dwUnitId; int dwAnimMode; char pad14[0xC]; D2SeedStrc pSeed; };
+#include "D2Structs.h"
 struct D2GameStrc { char pad00[0x6D]; unsigned char nDifficulty; };
 struct D2AiControlStrc { char pad00[0x14]; int dwAiParam[3]; };
 struct D2MonStatsTxt { char pad00[0x56]; short wAiParam[8][3]; char pad86[0xEA]; short nSkill[8]; unsigned char nSkillMode[8]; };

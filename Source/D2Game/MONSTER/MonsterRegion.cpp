@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 struct D2MonsterRegionStrc;
 struct D2SeedStrc;
 struct D2MonRegDataStrc;
@@ -5,7 +6,6 @@ struct D2LevelsTxt;
 struct D2MonStatsTxt;
 struct D2DataTablesStrc;
 
-struct D2SeedStrc { unsigned int low, high; };
 
 struct D2MonRegDataStrc { short id; unsigned char rarity; char pad03[0x31]; };
 
@@ -63,7 +63,7 @@ static void __stdcall sub_005475E0_SelectMonsters(D2SeedStrc* pSeed, int bHigher
     SEED_InitLowSeed((D2SeedStrc*)pB, (unsigned int)pA);
     SEED_InitLowSeed((D2SeedStrc*)pA, (unsigned int)pB);
     SEED_InitLowSeed((D2SeedStrc*)pB, (unsigned int)pA);
-    SEED_InitLowSeed(pSeed, pSeed->high + (unsigned int)pB);
+    SEED_InitLowSeed(pSeed, pSeed->nHighSeed + (unsigned int)pB);
 }
 
 // 0x005479C0

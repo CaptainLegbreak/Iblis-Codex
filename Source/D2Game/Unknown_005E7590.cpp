@@ -1,4 +1,6 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 struct D2MonStatsTxt;
 struct D2SeedStrc;
@@ -10,22 +12,7 @@ struct D2CoordStrc
     int nY;
 };
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    char unk0x14[0x0C];
-    D2SeedStrc pSeed;
-};
 
 struct D2GameStrc
 {
@@ -38,11 +25,6 @@ struct D2AiCmdStrc
     D2AiCmdStrc* pNextCmd;
     D2AiCmdStrc* pPrevCmd;
     int nCmdParam[5];
-};
-
-enum D2C_M76AiConstants
-{
-    UNIT_PLAYER = 0,
 };
 
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390

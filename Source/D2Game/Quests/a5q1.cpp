@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define MONSTER_AKARA 148
 #define MONSTER_KASHYA 150
@@ -66,15 +67,6 @@ struct D2PlayerDataStrc
     D2BitBufferStrc* pQuestData[3];
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-};
 
 struct D2QuestGUIDStrc
 {

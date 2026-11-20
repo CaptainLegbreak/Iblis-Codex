@@ -1,13 +1,7 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2ItemsTxt;
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-};
 struct D2CoordStrc
 {
     int nX;

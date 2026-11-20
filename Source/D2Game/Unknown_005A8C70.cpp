@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 // build: ob1
 
 enum D2C_ItemStats
@@ -48,27 +49,9 @@ enum D2C_DamageFlags
     DAMAGERESULTFLAG_CRITICALSTRIKE = 0x2000,
 };
 
-struct D2SeedStrc
-{
-    unsigned int lSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x18];
-    D2SeedStrc pSeed;
-};
 
 struct D2GameStrc;
-struct D2StatStrc
-{
-    unsigned short nLayer;
-    unsigned short nStat;
-    int nValue;
-};
 
 struct D2DamageStrc
 {

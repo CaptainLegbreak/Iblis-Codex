@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 #define QFLAG_PRIMARYGOALDONE 13
 struct D2PlayerDataStrc;
 struct D2Act3Quest5Strc;
@@ -33,13 +34,6 @@ struct D2QuestDataStrc
 
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08;
-    int dwUnitId;
-};
 
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310

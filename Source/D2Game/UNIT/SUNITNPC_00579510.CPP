@@ -1,7 +1,7 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2GameStrc { char unknown00[0x6D]; unsigned char difficulty; };
-struct D2UnitStrc { int type, classId; void* pool; int id; int mode; };
 struct D2NpcRecordStrc;
 struct D2NpcVendorChainStrc { int unknown00; unsigned char gamble; };
 struct D2BooksTxt { int unknown00[2]; int scrollSkill, bookSkill; };
@@ -54,8 +54,8 @@ int __stdcall ITEMS_GetItemType(D2UnitStrc*); // 0x0062B400
 unsigned char __stdcall sub_0062E880(D2UnitStrc*); // 0x0062E880
 D2BooksTxt* __stdcall DATATBLS_GetBooksTxtRecord(int); // 0x006374B0
 D2LowQualityItemsTxt* __stdcall DATATBLS_GetLowQualityItemsTxtRecord(int); // 0x006375C0
-static __forceinline int GetMode(D2UnitStrc* unit) { if (unit) return unit->mode; return 0; }
-static __forceinline int GetId(D2UnitStrc* unit) { if (unit) return unit->id; return -1; }
+static __forceinline int GetMode(D2UnitStrc* unit) { if (unit) return unit->dwAnimMode; return 0; }
+static __forceinline int GetId(D2UnitStrc* unit) { if (unit) return unit->dwUnitId; return -1; }
 #define SEND_ERROR(code,line) D2GAME_SendPacket0x2A_6FC3F3B0(SUNIT_GetClientFromPlayer(player,gszNpcSource_006E15F0,line),0x2A,code,STATLIST_UnitGetStatValue(player,14,0),-1,0)
 // 0x00579510
 int __fastcall D2GAME_STORES_SellItem_6FCC7680(D2GameStrc* game,D2UnitStrc* player,int npcId,int itemId,unsigned short itemMode,int unused)
@@ -69,7 +69,7 @@ int __fastcall D2GAME_STORES_SellItem_6FCC7680(D2GameStrc* game,D2UnitStrc* play
     if (!ITEMS_IsInPlayersInventory(player,item,0)) { SEND_ERROR(11,0x4C2); return 3; }
     if (GetMode(item)==itemMode) {
     if (!sub_0062A130(item)) { SEND_ERROR(9,0x4DE); return 3; }
-    const int vendorId=npc->classId;
+    const int vendorId=npc->dwClassId;
     int price=ITEMS_GetTransactionCost(player,item,game->difficulty,sub_00543520(game,player),vendorId,1);
     int keep=1;
     if (ITEMS_GetItemQuality(item)==1) { const char* name=DATATBLS_GetLowQualityItemsTxtRecord(ITEMS_GetFileIndex(item))->name; if (!_stricmp(name,"Cracked")) keep=0; }
@@ -103,7 +103,7 @@ int __fastcall D2GAME_STORES_SellItem_6FCC7680(D2GameStrc* game,D2UnitStrc* play
                         STATLIST_SetUnitStat(copy,72,durability,0);
                         const int quantity=ITEMS_GetTotalMaxStack(copy);
                         STATLIST_SetUnitStat(copy,70,quantity,0);
-                        const int vendorId=npc->classId;
+                        const int vendorId=npc->dwClassId;
                         int newPrice=ITEMS_GetTransactionCost(player,copy,game->difficulty,sub_00543520(game,player),vendorId,1);
                         if (price>newPrice) price=newPrice;
                     }
@@ -116,7 +116,7 @@ int __fastcall D2GAME_STORES_SellItem_6FCC7680(D2GameStrc* game,D2UnitStrc* play
                         STATLIST_SetUnitStat(copy,72,durability,0);
                 const int quantity=ITEMS_GetTotalMaxStack(copy);
                         STATLIST_SetUnitStat(copy,70,quantity,0);
-                const int vendorId=npc->classId;
+                const int vendorId=npc->dwClassId;
                         int newPrice=ITEMS_GetTransactionCost(player,copy,game->difficulty,sub_00543520(game,player),vendorId,1);
                 if (price>newPrice) price=newPrice;
             }

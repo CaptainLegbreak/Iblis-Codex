@@ -1,22 +1,12 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 #define STAT_DAMAGEPERCENT 25
 struct D2SkillsTxt;
 struct D2StaticPathStrc;
 struct Skills;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char pad4[8];
-    int dwUnitId;
-    char pad10[0x1C];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-};
 
 struct D2DamageStrc
 {
@@ -70,13 +60,6 @@ struct D2DataTablesStrc
     D2SkillsTxt* pSkillsTxt;
     char unk0xB9C[0x04];
     int nSkillsTxtRecordCount;
-};
-
-enum D2C_UnitTypes
-{
-    UNIT_PLAYER = 0,
-    UNIT_MONSTER = 1,
-    UNIT_INVALID = 6,
 };
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

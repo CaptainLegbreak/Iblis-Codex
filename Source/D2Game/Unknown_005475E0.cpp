@@ -1,8 +1,8 @@
+#include "D2Structs.h"
 // build: context MonStats
 // build: context RollLimited
 // build: context Roll
 
-struct D2SeedStrc { unsigned int low, high; };
 struct D2MonRegDataStrc { short id; unsigned char rarity; char pad03[0x31]; };
 struct D2MonsterRegionStrc {
  unsigned char act; char pad01[0xB]; int unknown0C;
@@ -38,9 +38,9 @@ D2LevelsTxt* __stdcall DATATBLS_GetLevelsTxtRecord(int); // 0x0061DB70
 void __stdcall sub_005BDB20_GenerateComponentVariants(D2SeedStrc*,D2MonRegDataStrc*,int); // 0x005BDB20
 static __forceinline unsigned __int64 Roll(D2SeedStrc* pSeed)
 {
-    unsigned __int64 lSeed = pSeed->high + 0x6AC690C5i64 * pSeed->low;
-    pSeed->high = (unsigned int)(lSeed >> 32);
-    pSeed->low = (unsigned int)lSeed;
+    unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
     return lSeed;
 }
 

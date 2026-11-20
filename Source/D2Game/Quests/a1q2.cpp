@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 #define LEVEL_ROGUEENCAMPMENT 1
 #define QFLAG_REWARDGRANTED 0
 #define QFLAG_REWARDPENDING 1
@@ -27,13 +28,6 @@ struct D2GameStrc
     unsigned char unk_6E[0x2];
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08;
-    int dwUnitId;
-};
 
 struct D2PlayerDataStrc
 {

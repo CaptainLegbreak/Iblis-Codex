@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
 
@@ -43,15 +44,6 @@ struct Unicode
     static Unicode* __fastcall win2Unicode(Unicode* dest, const char* src, int count);                    // 0x00526F20
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    unsigned int dwClassId;
-    unsigned char unk_08[0x4];
-    int dwUnitId;
-    unsigned char unk_10[0x94];
-    D2HoverTextStrc* pHoverText;
-};
 
 struct D2TextListNodeStrc
 {
@@ -503,7 +495,7 @@ void __cdecl sub_00491940_ResetNpcPanel()
         int bMatched = 0;
         if (pNpc)
         {
-            switch (pNpc->dwClassId)
+            switch ((unsigned int)pNpc->dwClassId)
             {
             case 0x9A:
             case 0x1FF:

@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2TargetNodeStrc;
 struct D2MonsterSpawnParamsStrc;
@@ -24,15 +25,6 @@ struct D2GameStrc
     int unk0x1120;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char pad0x08[0xBC];
-    unsigned int dwFlags;
-    unsigned char unk_C8[0x8];
-    int dwNodeIndex;
-};
 
 void __fastcall D2GAME_FreeUnitNode_6FC40310(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005B1A20
 D2TargetNodeStrc* __fastcall sub_005B1BC0_FindTargetNode(D2UnitStrc* pUnit, D2GameStrc* pGame); // 0x005B1BC0

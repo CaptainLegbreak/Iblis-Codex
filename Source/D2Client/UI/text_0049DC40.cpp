@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2MsgHandlerEntryStrc;
@@ -72,16 +73,6 @@ int __fastcall sub_004538D0(int nUIVar); // 0x004538D0
 int __cdecl sub_0045AE90(); // 0x0045AE90
 void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08;
-    int dwUnitId;
-    int dwAnimMode;
-    unsigned char unk_14[0x90];
-    D2HoverTextStrc* pHoverText;
-};
 
 void __fastcall sub_004E6410_BuildPropText(D2UnitStrc* pItem, Unicode* wszText, int nArg, int bFlag, int nArg2); // 0x004E6410
 int __fastcall sub_00501730_GetTextWidthN(const Unicode* wszText, int nLength); // 0x00501730

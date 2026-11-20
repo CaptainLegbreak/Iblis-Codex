@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
@@ -225,11 +226,6 @@ extern D2MsgHandlerEntryStrc gaMsgHandlers_00724738[]; // 0x00724738
 extern D2MsgHandlerEntryStrc gaMsgHandlers_00724780[]; // 0x00724780
 extern D2MsgHandlerEntryStrc gaMsgHandlers_0072478C[]; // 0x0072478C
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-};
 
 struct D2CharStatsTxt
 {

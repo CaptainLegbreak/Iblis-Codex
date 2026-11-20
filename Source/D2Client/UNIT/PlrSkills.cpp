@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
@@ -20,31 +21,7 @@ struct D2UnitStrc;
 struct D2DataTablesStrc;
 struct D2ItemStatCostTxt;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    char unk0x14[0x0C];
-    D2SeedStrc tSeed;
-    unsigned char unk_28[0x4];
-    D2DynamicPathStrc* pDynamicPath;
-    unsigned char unk_30[0x14];
-    int n44;
-    unsigned char unk_48[0x18];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0x60];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-};
 
 struct D2SkillsTxt
 {
@@ -1054,17 +1031,17 @@ void __fastcall sub_004D9920_StartStateOverlays(D2UnitStrc* pUnit, int nState)
 
     if (nCastOverlay != -1)
     {
-        nCastOverlay += ITEMS_RollLimitedRandomNumber(&pUnit->tSeed, DATATBLS_Get1OfNFromOverlayTxt(nCastOverlay));
+        nCastOverlay += ITEMS_RollLimitedRandomNumber(&pUnit->pSeed, DATATBLS_Get1OfNFromOverlayTxt(nCastOverlay));
     }
 
     if (nOverlay1 != -1)
     {
-        nOverlay1 += ITEMS_RollLimitedRandomNumber(&pUnit->tSeed, DATATBLS_Get1OfNFromOverlayTxt(nOverlay1));
+        nOverlay1 += ITEMS_RollLimitedRandomNumber(&pUnit->pSeed, DATATBLS_Get1OfNFromOverlayTxt(nOverlay1));
     }
 
     if (nOverlay2 != -1)
     {
-        nOverlay2 += ITEMS_RollLimitedRandomNumber(&pUnit->tSeed, DATATBLS_Get1OfNFromOverlayTxt(nOverlay2));
+        nOverlay2 += ITEMS_RollLimitedRandomNumber(&pUnit->pSeed, DATATBLS_Get1OfNFromOverlayTxt(nOverlay2));
     }
 
     if (bMask)
@@ -1134,7 +1111,7 @@ static __declspec(noinline) void sub_004D9AD0_ResetTransform(D2UnitStrc* pUnit)
     }
     sub_00470610_Refresh(pUnit, 1);
     sub_00624390_AnimInit(pUnit);
-    pUnit->n44 = 0;
+    pUnit->nSeqCurrentFramePrecise = 0;
     UNITS_SetUsedSkill(pUnit, 0);
 }
 
@@ -1222,7 +1199,7 @@ void __fastcall sub_004D9C30_EndState(D2UnitStrc* pUnit, int nState)
         int nOverlay = pTxt->wRemoveOverlay;
         if (nOverlay != -1)
         {
-            nOverlay += ITEMS_RollLimitedRandomNumber(&pUnit->tSeed, DATATBLS_Get1OfNFromOverlayTxt(nOverlay));
+            nOverlay += ITEMS_RollLimitedRandomNumber(&pUnit->pSeed, DATATBLS_Get1OfNFromOverlayTxt(nOverlay));
         }
         sub_00470390(pUnit, nOverlay, 4, 0, -1, -1, 0, 0);
     }

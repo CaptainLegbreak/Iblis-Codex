@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define UNIT_PLAYER 0
 #define STAT_HITPOINTS 6
@@ -7,13 +8,6 @@ struct D2PlayerDataStrc;
 struct D2CharStatsTxt;
 struct D2SaveHeaderStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08;
-    int dwUnitId;
-};
 
 struct D2PlayerDataStrc
 {

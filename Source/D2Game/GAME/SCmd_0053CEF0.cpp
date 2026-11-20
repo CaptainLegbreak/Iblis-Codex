@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 struct D2PacketDataStrc
 {
     int nPacketSize;
@@ -55,7 +56,6 @@ static void __stdcall D2GAME_PACKETS_SendPacket_6FC3C710(const void* pPacket, in
     pPacketData->nPacketSize += nPacketSize;
 }
 
-struct D2UnitStrc { int dwUnitType; int dwClassId; void* pMemoryPool; int dwUnitId; };
 #pragma pack(push, 1)
 struct D2GSPacketSrv9D { unsigned char nHeader; unsigned char nAction; unsigned char nPacketSize; unsigned char nComponent; int nItemId; unsigned char nUnitType; int nUnitId; unsigned char pBitstream[244]; };
 #pragma pack(pop)

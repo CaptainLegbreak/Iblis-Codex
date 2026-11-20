@@ -1,9 +1,6 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-};
 struct D2OverlayStrc;
 
 struct D2GfxDataStrc

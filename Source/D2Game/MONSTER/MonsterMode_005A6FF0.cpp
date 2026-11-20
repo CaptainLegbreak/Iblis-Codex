@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 struct D2GameStrc
 {
     char unk0x00[0x1C];
@@ -12,27 +13,8 @@ struct D2GameStrc
 struct D2DynamicPathStrc;
 struct D2HoverTextStrc;
 struct D2UnitStrc;
-struct D2SeedStrc { unsigned int nLowSeed; unsigned int nHighSeed; };
 struct D2ActiveRoomStrc;
 struct D2StaticPathStrc { int unk_00[3]; int nX; int nY; };
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    char unk_14[0xC];
-    D2SeedStrc pSeed;
-    int unk_28;
-    union { D2DynamicPathStrc* pDynamicPath; D2StaticPathStrc* pStaticPath; };
-    char unk_30[0x74];
-    D2HoverTextStrc* pHoverText;
-    char unk_A8[0x1C];
-    unsigned int dwFlags;
-    char unk_C8[0x20];
-    D2UnitStrc* pRoomNext;
-};
 struct D2ActiveRoomStrc { char unk_00[0x74]; D2UnitStrc* pUnitFirst; };
 struct D2MonStatsTxt
 {

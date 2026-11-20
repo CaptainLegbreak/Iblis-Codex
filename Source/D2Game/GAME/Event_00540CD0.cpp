@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 struct D2EventTimerSlabListStrc;
 struct D2EventTimerQueueStrc;
 
@@ -49,14 +50,6 @@ struct D2GameStrc
     D2EventTimerQueueStrc* pTimerQueue;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char padding0x04[0x08];
-    int dwUnitId;
-    char padding0x10[0xCC];
-    D2EventTimerStrc* pTimer;
-};
 
 D2EventTimerStrc* __fastcall SUNIT_GetTimerFromUnit(D2UnitStrc* pUnit); // 0x00553980
 

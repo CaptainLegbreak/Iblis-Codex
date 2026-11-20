@@ -1,14 +1,6 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    unsigned int dwClassId;
-    int unk0x08;
-    int dwUnitId;
-    char unk0x10[0x50];
-    D2InventoryStrc* pInventory;
-};
 
 struct Unicode
 {

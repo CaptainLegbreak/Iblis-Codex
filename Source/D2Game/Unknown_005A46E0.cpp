@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define UNIT_MONSTER 1
 #define MONTYPEFLAG_MINION 0x10
@@ -12,12 +13,6 @@ struct D2MonsterDataStrc
     unsigned char nMonUmod[10];
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x10];
-    D2MonsterDataStrc* pMonsterData;
-};
 
 typedef void (__fastcall* UModInitFunc)(D2UnitStrc* pUnit, int nUMod, int bUnique);
 

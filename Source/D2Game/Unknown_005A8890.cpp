@@ -1,16 +1,5 @@
-enum D2C_UnitTypes
-{
-    UNIT_PLAYER = 0,
-    UNIT_MONSTER = 1,
-    UNIT_OBJECT = 2,
-    UNIT_MISSILE = 3,
-};
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-};
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 struct D2MissilesTxt
 {

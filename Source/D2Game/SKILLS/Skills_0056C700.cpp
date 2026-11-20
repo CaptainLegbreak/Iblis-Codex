@@ -1,4 +1,6 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 #define STAT_FIRERESIST 39
 #define STAT_LIGHTRESIST 41
@@ -15,30 +17,7 @@ struct D2StatesTxt;
 struct D2MonStatsTxt;
 struct D2MonStats2Txt;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    unsigned char unk_14[0xC];
-    D2SeedStrc pSeed;
-    unsigned char unk_28[0x4];
-    union
-    {
-        D2StaticPathStrc* pStaticPath;
-        D2DynamicPathStrc* pDynamicPath;
-    };
-    unsigned char unk_30[0x94];
-    unsigned int dwFlags;
-};
 
 struct D2SkillsTxt
 {
@@ -115,16 +94,6 @@ extern const int gnRandomElemTypes_006E1278[4]; // 0x006E1278
 struct D2CoordStrc { int nX; int nY; };
 
 struct D2StaticPathStrc { char unk0x00[0x0C]; D2CoordStrc tGameCoords; };
-
-enum D2C_UnitTypes
-{
-    UNIT_PLAYER = 0,
-    UNIT_MONSTER = 1,
-    UNIT_OBJECT = 2,
-    UNIT_ITEM = 4,
-    UNIT_TILE = 5,
-    UNIT_INVALID = 6,
-};
 
 struct D2GameStrc
 {

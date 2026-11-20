@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
@@ -15,15 +16,6 @@ struct D2GfxHeaderStrc;
 struct D2GfxRecordStrc;
 struct D2GfxNodeStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x60 - 0x08];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0xC8 - 0x64];
-    unsigned int dwFlagEx;
-};
 
 struct D2HashedFileEntryStrc
 {

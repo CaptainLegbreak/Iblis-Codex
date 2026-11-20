@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 struct D2SkillsTxt;
 struct Unicode;
@@ -6,13 +7,6 @@ struct UnicodeChar;
 struct D2SkillDescTxt;
 struct D2MonStatsTxt;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x58];
-    D2InventoryStrc* pInventory;
-};
 
 struct D2SkillsTxt
 {

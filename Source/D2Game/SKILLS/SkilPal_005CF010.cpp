@@ -1,9 +1,7 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-};
 
 struct D2GameStrc
 {
@@ -62,7 +60,6 @@ typedef int (__fastcall* AURACALLBACK)(D2AuraCallbackStrc* pAuraCallback, D2Unit
 
 enum D2C_Y09BasicAuraConstants
 {
-    UNIT_PLAYER = 0,
     STAT_MANA = 8,
     STATE_NOMANAREGEN = 85,
 };

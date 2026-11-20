@@ -1,25 +1,12 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define STAT_HITPOINTS 6
 struct D2SeedStrc;
 struct D2MissilesTxt;
 struct D2SkillsTxt;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x18];
-    D2SeedStrc pSeed;
-    int dwInitSeed;
-    D2DynamicPathStrc* pDynamicPath;
-};
 
 struct D2MissilesTxt
 {

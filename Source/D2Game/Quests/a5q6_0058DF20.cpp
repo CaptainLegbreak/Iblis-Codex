@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 struct D2UnitStrc;
 struct D2BitBufferStrc;
 struct D2ActiveRoomStrc;
@@ -126,19 +127,9 @@ void __fastcall ACT5Q6_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
 void __fastcall ACT5Q6_Callback14_PlayerJoinedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
 bool __fastcall ACT5Q6_SeqCallback(D2QuestDataStrc* pQuestData);
 
-struct D2SeedStrc { unsigned int nLowSeed; unsigned int nHighSeed; };
 struct D2ActiveRoomStrc;
 struct D2DynamicPathStrc;
 struct D2StaticPathStrc { char unk0x00[0x0C]; int nX; int nY; };
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x20 - 0x08];
-    D2SeedStrc pSeed;
-    char unk0x28[4];
-    union { D2DynamicPathStrc* pDynamicPath; D2StaticPathStrc* pStaticPath; };
-};
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath);                                                  // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath);                                                  // 0x00648900
 D2UnitStrc* __fastcall D2GAME_CreateMissile_6FD115E0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nMissileId, int nX, int nY); // 0x0056EDE0

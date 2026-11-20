@@ -1,4 +1,6 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 #define MONSTER_SUCKERNEST1 334
@@ -45,31 +47,7 @@ struct D2MonStatsTxt
     char unk0x188[0x20];
 };
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-    char unk0x18[0x08];
-    D2SeedStrc pSeed;
-    unsigned char unk_28[0x4];
-    union
-    {
-        D2StaticPathStrc* pStaticPath;
-        D2DynamicPathStrc* pDynamicPath;
-    };
-    unsigned char unk_30[0x94];
-    unsigned int dwFlags;
-};
 
 struct D2AiTickParamStrc
 {
@@ -102,8 +80,6 @@ int __fastcall AITACTICS_UseSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned
 
 enum D2C_F41AiThinkConstants
 {
-    UNIT_PLAYER = 0,
-    UNIT_MONSTER = 1,
     UNIT_ALIGNMENT_EVIL = 0,
     MONMODE_ATTACK1 = 4,
     MONMODE_SKILL1 = 8,

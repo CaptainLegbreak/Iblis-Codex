@@ -1,10 +1,6 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
-struct D2UnitStrc
-{
-    char unk0x00[0x90];
-    D2CltUnitEventStrc* pCltTimerList;
-};
 
 typedef int (__fastcall* D2CltUnitEventFn)(int nType, D2UnitStrc* pUnit, int a3, int a4, int nParam1, int nParam2);
 

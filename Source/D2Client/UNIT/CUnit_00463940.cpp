@@ -1,11 +1,6 @@
 #include "D2Client.h"
+#include "D2Constants.h"
 
-#define UNIT_PLAYER 0
-#define UNIT_MONSTER 1
-#define UNIT_OBJECT 2
-#define UNIT_MISSILE 3
-#define UNIT_ITEM 4
-#define UNIT_TILE 5
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define gpUnitTable_007A5470 (gpUnitHashTable_007A5270 + 1 * 0x80)
 #define gpUnitTable_007A5670 (gpUnitHashTable_007A5270 + 2 * 0x80)

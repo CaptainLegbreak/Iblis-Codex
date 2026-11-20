@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 #define ACT_I 0
 #define ACT_II 1
@@ -176,11 +177,6 @@ struct D2LevelDefBin
     int dwWarp[8];
 };
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2DrlgRoomStrc
 {

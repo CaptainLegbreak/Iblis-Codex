@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 struct D2DrlgGridStrc
 {
     int* pCellsFlags;
@@ -7,11 +8,6 @@ struct D2DrlgGridStrc
     int unk0x10;
 };
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2DrlgOutdoorInfoStrc
 {

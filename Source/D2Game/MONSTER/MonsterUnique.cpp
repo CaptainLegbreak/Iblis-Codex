@@ -1,9 +1,7 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
-#define UNIT_OBJECT 2
-#define UNIT_MISSILE 3
-#define UNIT_ITEM 4
-#define UNIT_TILE 5
 #define UNITFLAG_TARGETABLE 0x00000002
 #define UNITFLAG_ISVALIDTARGET 0x00000008
 #define MONMODE_DEATH 0
@@ -18,7 +16,6 @@
 #define MISSILE_FROSTNOVA 119
 #define MISSILE_CORPSEPOISONCLOUD 155
 #define MISSILE_COLDUNIQUE 194
-#define UNIT_PLAYER 0
 #define MONMODE_SKILL1 8
 #define UNIT_ALIGNMENT_EVIL 0
 #define UNIT_ALIGNMENT_GOOD 2
@@ -55,33 +52,7 @@ struct D2StaticPathStrc
     int nY;
 };
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char pad0x08[0x04];
-    int dwUnitId;
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-    char unk0x18[0x08];
-    D2SeedStrc pSeed;
-    unsigned char unk_28[0x4];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    unsigned char unk_30[0x30];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0x60];
-    unsigned int dwFlags;
-};
 
 struct D2ModeChangeStrc
 {
@@ -271,8 +242,6 @@ int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 
 enum D2C_M187TrapConstants
 {
-    UNIT_MONSTER = 1,
-    UNIT_INVALID = 6,
     STAT_LEVEL = 12,
     STAT_TOHIT = 19,
     STAT_MINDAMAGE = 21,

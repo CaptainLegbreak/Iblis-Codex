@@ -1,16 +1,10 @@
+#include "D2Structs.h"
 #define NOINLINE __declspec(noinline)
 
 struct D2InventoryStrc;
 struct D2SkillStrc;
 struct D2StatListStrc;
 
-struct D2UnitStrc
-{
-    unsigned int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x58];
-    D2InventoryStrc* pInventory;
-};
 
 struct D2SkillsTxt
 {

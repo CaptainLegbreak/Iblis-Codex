@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define MONSTER_QUALKEHK 515
 struct Unit0058F000;
@@ -12,15 +13,6 @@ struct D2CoordStrc
     int nY;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char pad0x08[0x4];
-    int dwUnitId;
-    char pad0x10[0xB4];
-    unsigned int dwFlags;
-};
 
 struct D2MapAIStrc
 {

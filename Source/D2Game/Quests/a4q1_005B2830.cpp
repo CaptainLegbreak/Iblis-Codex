@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define MONSTER_TENTACLEHEAD1 261
 #define MONSTATSFLAGINDEX_SETBOSS 4
@@ -8,21 +9,7 @@ struct D2UnkMonCreateStrc;
 struct D2MonStatsTxt;
 struct D2UnkMonCreateStrc3;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    char unk0x10[0x10];
-    D2SeedStrc pSeed;
-};
 
 struct D2UnkMonCreateStrc
 {

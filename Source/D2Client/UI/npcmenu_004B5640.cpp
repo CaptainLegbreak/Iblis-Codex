@@ -1,10 +1,6 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    unsigned int dwClassId;
-};
 
 struct Unicode;
 
@@ -36,7 +32,7 @@ static __forceinline void sub_004B5640_RefreshNpcMenu()
         D2UnitStrc* pNpc = sub_00463990(gnGlobal_007C0D25, 1);
         if (pNpc)
         {
-            switch (pNpc->dwClassId)
+            switch ((unsigned int)pNpc->dwClassId)
             {
             case 0xF4:
             case 0xF5:

@@ -1,15 +1,9 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2EventTimerSlabListStrc;
 struct D2EventTimerQueueStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-};
 
 struct D2EventTimerStrc
 {

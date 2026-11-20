@@ -1,21 +1,7 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[8];
-    int dwUnitId;
-    char unk10[0x10];
-    D2SeedStrc pSeed;
-    char unk28[0x9C];
-    unsigned int dwFlags;
-};
 
 struct D2GameStrc
 {

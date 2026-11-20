@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -99,10 +100,6 @@ int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamm
 void __cdecl sub_0044DA40(); // 0x0044DA40
 void __cdecl sub_0044DA70(); // 0x0044DA70
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-};
 
 struct D2UIVarRecordStrc
 {

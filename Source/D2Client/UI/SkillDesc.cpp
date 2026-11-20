@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 struct Unicode;
 struct UnicodeChar;
@@ -19,11 +20,6 @@ struct UnicodeChar : Unicode
     UnicodeChar();                                                                                          // 0x0042F530
 };
 
-struct D2UnitStrc
-{
-    char unk0x00[0x60];
-    D2InventoryStrc* pInventory;
-};
 
 struct D2SkillsTxt
 {

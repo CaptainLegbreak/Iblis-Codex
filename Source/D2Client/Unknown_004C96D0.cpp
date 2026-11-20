@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 struct D2GfxLightStrc;
 struct D2StaticPathStrc;
@@ -14,27 +15,6 @@ struct D2StaticPathStrc
     int nY;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    char unk0x10[0x1C];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    unsigned char unk_30[0x14];
-    int nSeqCurrentFramePrecise;
-    unsigned char unk_48[0x1C];
-    D2GfxLightStrc* pLight;
-    int dwStartLight;
-    int nPaletteIndex;
-    char f_70[0x54];
-    unsigned int dwFlags;
-};
 
 struct D2SkillsTxt
 {

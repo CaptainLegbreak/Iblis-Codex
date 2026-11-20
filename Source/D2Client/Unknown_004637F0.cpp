@@ -1,18 +1,10 @@
+#include "D2Structs.h"
 struct D2MonsterDataStrc
 {
     void* pMonstatsTxt;
     unsigned char nComponent[16];
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    unsigned int dwUnitId;
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-};
 
 extern D2UnitStrc* gpUnitHashTable_007A5E70[6 * 0x80];                                                    // 0x007A5E70
 extern D2UnitStrc* gpUnitHashTable_007A5270[6 * 0x80];                                                    // 0x007A5270

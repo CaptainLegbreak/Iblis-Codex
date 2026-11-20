@@ -1,10 +1,9 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 enum
 {
-    UNIT_OBJECT = 2,
-    UNIT_ITEM = 4,
-    UNIT_TILE = 5,
     MONMODE_WALK = 2,
 };
 struct D2GameStrc
@@ -25,21 +24,6 @@ struct D2StaticPathStrc
     D2CoordStrc tGameCoords;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    void* pMonsterData;
-    char unk0x18[0x14];
-    union
-    {
-        D2StaticPathStrc* pStaticPath;
-        D2DynamicPathStrc* pDynamicPath;
-    };
-};
 
 struct D2ModeChangeStrc
 {

@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 struct D2DrlgMapStrc;
 struct D2DrlgOrthStrc;
@@ -8,11 +9,6 @@ struct D2DrlgOutdoorInfoStrc;
 struct D2DrlgVertexStrc;
 struct D2DrlgStrc;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2DrlgGridStrc
 {

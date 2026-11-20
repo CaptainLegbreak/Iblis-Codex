@@ -1,7 +1,6 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
-struct D2SeedStrc { unsigned int low; unsigned int high; };
-struct D2UnitStrc { int dwUnitType; int dwClassId; void* pMemoryPool; int dwUnitId; char pad10[0x10]; D2SeedStrc seed; int pad28; D2DynamicPathStrc* pDynamicPath; char pad30[0xA0]; int dwNodeIndex; };
 #pragma pack(push,1)
 struct D2Packet8A { unsigned char header; unsigned char type; int guid; };
 #pragma pack(pop)
@@ -32,16 +31,16 @@ void __fastcall sub_0053DFF0(D2ClientStrc*,D2Packet8A*); // 0x0053DFF0
 // build: context SEED_RollRandomNumber
 static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
-    unsigned __int64 lSeed = (unsigned __int64)pSeed->high + (unsigned __int64)pSeed->low * 0x6AC690C5;
-    pSeed->high = (unsigned int)(lSeed >> 32);
-    pSeed->low = (unsigned int)lSeed;
+    unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
     return (unsigned int)lSeed;
 }
 // 0x005EE3C0
 void __fastcall AITHINK_Fn131_Wussie(D2GameStrc* pGame,D2UnitStrc* pUnit,D2AiTickParamStrc* pAiTickParam)
 {
     D2UnitStrc* pPortal = 0;
-    D2SeedStrc* pSeed = &pUnit->seed;
+    D2SeedStrc* pSeed = &pUnit->pSeed;
     if (ACT5Q2_FindPortal(pGame,pUnit,&pPortal))
     {
         if (pPortal && (ACT5Q2_CheckWussieCounters(pGame,pUnit) || AIUTIL_GetDistanceToCoordinates(pUnit,CLIENTS_GetUnitX(pPortal),CLIENTS_GetUnitY(pPortal)) < 4))

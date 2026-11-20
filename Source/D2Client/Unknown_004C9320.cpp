@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 struct D2SkillsTxt;
 struct D2SkillDescTxt;
@@ -6,24 +7,7 @@ struct D2SeedStrc;
 
 typedef unsigned short Unicode;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x1C];
-    D2SeedStrc pSeed;
-    char unk0x28[0x04];
-    D2DynamicPathStrc* pDynamicPath;
-    char unk0x30[0x18];
-    unsigned int dwFrameCountPrecise;
-    unsigned char unk_4C[0x78];
-    unsigned int dwFlags;
-};
 
 struct D2SkillsTxt
 {

@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2HashedFileEntryStrc;
@@ -63,16 +64,6 @@ struct D2StateOwnerStrc
     D2StateNodeStrc* pFirst;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x60 - 0x08];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0xC4 - 0x64];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-};
 
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0

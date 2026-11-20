@@ -1,4 +1,6 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -9,12 +11,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 typedef int (__stdcall* FARPROC)();
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn);                                  // 0x006CC34C
 struct D2AiCmdStrc;
-
-enum D2C_F33Ai2Constants
-{
-    UNIT_MONSTER = 1,
-    UNIT_INVALID = 6,
-};
 
 struct D2AiControlStrc
 {
@@ -39,15 +35,6 @@ struct D2MonsterDataStrc
     D2AiControlStrc* pAiControl;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-};
 
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID);                // 0x00552F60
 

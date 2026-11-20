@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 // build: ob1
 
 struct D2GameStrc;
@@ -5,9 +6,7 @@ struct D2ActiveRoomStrc;
 struct D2DynamicPathStrc;
 struct D2RoomCoordListStrc;
 struct D2AiParamStrc;
-struct D2SeedStrc { unsigned int nLowSeed; unsigned int nHighSeed; };
 struct D2StaticPathStrc { char unk00[0xc]; int nXPos; int nYPos; };
-struct D2UnitStrc { int dwUnitType; char unk04[0xc]; int dwAnimMode; char unk14[0xc]; D2SeedStrc pSeed; char unk28[4]; union { D2DynamicPathStrc* pDynamicPath; D2StaticPathStrc* pStaticPath; }; char unk30[0x98]; unsigned int dwFlagsEx; };
 struct D2CoordStrc { int nX; int nY; };
 struct D2PlayerDataStrc { char unk00[0xa0]; unsigned char nPathIndex; char unkA1[7]; D2CoordStrc pPath[20]; };
 struct D2PetMoveStrc { D2UnitStrc* pUnit; D2UnitStrc* pTarget; int nCounter; };
@@ -176,7 +175,7 @@ int __fastcall D2GAME_AI_PetMove_6FCE2BA0(D2GameStrc* pGame, D2UnitStrc* pOwner,
             if (!pRoom) break;
             if (!sub_6FCBDFE0(pGame, pUnit, pRoom, nSpawnX, nSpawnY, 0, 0)) break;
             UNITROOM_RefreshUnit(pUnit);
-            pUnit->dwFlagsEx |= 0x10000;
+            pUnit->dwFlagEx |= 0x10000;
             AITACTICS_IdleInNeutralMode(pGame, pUnit, 5);
             return 1;
         }

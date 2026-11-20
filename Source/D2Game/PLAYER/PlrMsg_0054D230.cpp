@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2GameStrc
 {
@@ -8,16 +9,6 @@ struct D2GameStrc
     unsigned int dwGameFrame;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    unsigned int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    char unk0x14[0x4C];
-    D2InventoryStrc* pInventory;
-};
 
 typedef char H15_CheckInventoryOffset[(int)&((D2UnitStrc*)0)->pInventory == 0x60 ? 1 : -1];
 typedef char H15_CheckGameFrameOffset[(int)&((D2GameStrc*)0)->dwGameFrame == 0xA8 ? 1 : -1];
@@ -232,7 +223,7 @@ static int __stdcall sub_0054D230_TryEquipMercItem(D2GameStrc* pGame, D2UnitStrc
         bCanBeEquipped = 1;
     }
 
-    switch (!pMerc ? -1 : pMerc->dwClassId)
+    switch (!pMerc ? -1 : (unsigned int)pMerc->dwClassId)
     {
     case 0x10F:
         if (ITEMS_CheckItemTypeId(pItem, 0x1B))

@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
@@ -19,35 +20,7 @@ struct D2ItemTypesTxt;
 struct D2SaveHeaderStrc;
 struct D2PlayerDataStrc;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    union
-    {
-        int dwItemMode;
-        int dwAnimMode;
-    };
-    unsigned char unk_14[0xC];
-    union
-    {
-        D2SeedStrc tSeed;
-        D2SeedStrc pSeed;
-    };
-    unsigned char unk_28[0x38];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0x60];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-};
 
 struct D2ItemsTxt
 {
@@ -312,7 +285,7 @@ static __declspec(noinline) void sub_00556360_RollArmorClass(D2UnitStrc* pItem)
 
     const unsigned int nMinAc = pItemsTxtRecord->dwMinAc;
     const unsigned int nMaxAc = pItemsTxtRecord->dwMaxAc;
-    const unsigned int nACValue = sub_00472280(&pItem->tSeed, nMinAc, nMaxAc - nMinAc + 1);
+    const unsigned int nACValue = sub_00472280(&pItem->pSeed, nMinAc, nMaxAc - nMinAc + 1);
     D2_ASSERT(nACValue <= nMaxAc, 0x1CE);
     STATLIST_SetUnitStat(pItem, 31, nACValue, 0);
 }
@@ -1154,7 +1127,7 @@ static void sub_00557A70_RollVarInvGfx(D2UnitStrc* pItem)
 {
     if (sub_0062E8D0_HasAltInvGfx(pItem))
     {
-        const unsigned char nIndex = sub_00472280(&pItem->tSeed, 0, sub_0062E8D0_HasAltInvGfx(pItem));
+        const unsigned char nIndex = sub_00472280(&pItem->pSeed, 0, sub_0062E8D0_HasAltInvGfx(pItem));
         ITEMS_SetVarGfxIndex(pItem, nIndex);
     }
 }

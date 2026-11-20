@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2StaticPathStrc
 {
@@ -7,18 +8,6 @@ struct D2StaticPathStrc
     int nY;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x08];
-    int dwUnitId;
-    char unk0x10[0x1C];
-    union
-    {
-        D2StaticPathStrc* pStaticPath;
-        D2DynamicPathStrc* pDynamicPath;
-    };
-};
 
 struct D2GameStrc
 {

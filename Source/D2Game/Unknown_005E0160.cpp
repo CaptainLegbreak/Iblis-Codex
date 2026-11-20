@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 #define MONMODE_ATTACK1 4
@@ -60,27 +61,7 @@ struct D2DataTablesStrc
 
 extern D2DataTablesStrc* gpDataTables; // 0x00744304
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-    char unk0x18[0x08];
-    D2SeedStrc pSeed;
-    int unk28;
-    D2DynamicPathStrc* pDynamicPath;
-    char unk30[0x98];
-    unsigned int dwFlagsEx;
-};
 
 int __fastcall AITACTICS_ChangeModeAndTargetCoordinates(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, int nX, int nY); // 0x005DDFC0
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames); // 0x005DE080
@@ -470,7 +451,7 @@ int __fastcall sub_005E3930_MovePet(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2Un
         D2ActiveRoomStrc* pNewRoom=sub_00463740_FindRoom(pRoom,nX,nY);
         if (!pNewRoom || !sub_00554EA0_Teleport(pGame,pPet,pNewRoom,nX,nY,0,0)) return 0;
         UNITROOM_RefreshUnit(pPet);
-        if (pPet) pPet->dwFlagsEx|=0x10000;
+        if (pPet) pPet->dwFlagEx|=0x10000;
         AITACTICS_IdleInNeutralMode(pGame,pPet,5);
         return 1;
     }

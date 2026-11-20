@@ -1,8 +1,9 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 enum D2C_V04AiBaalConstants
 {
-    UNIT_MONSTER = 1,
     STAT_DAMAGERESIST = 0x24,
     STAT_MAGICRESIST = 0x25,
     STAT_FIRERESIST = 0x27,
@@ -17,11 +18,6 @@ enum D2C_V04AiBaalConstants
     STATE_COLD = 0x0B,
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-};
 
 struct D2SkillsTxt
 {

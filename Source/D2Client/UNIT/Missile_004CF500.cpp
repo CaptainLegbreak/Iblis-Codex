@@ -1,10 +1,6 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2StaticPathStrc
 {
@@ -13,19 +9,6 @@ struct D2StaticPathStrc
     int nYPos;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08[6];
-    D2SeedStrc tSeed;
-    int unk0x28;
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-};
 
 struct D2MissilesTxt
 {
@@ -223,8 +206,8 @@ int __fastcall sub_004CF640_CltHitPatternSubMissiles(D2UnitStrc* pMissile, D2Uni
         return 1;
     }
 
-    const unsigned int nPattern = SEED_RollRandomNumber(&pMissile->tSeed) % 3;
-    const int nOffset = SEED_RollRandomNumber(&pMissile->tSeed) & 7;
+    const unsigned int nPattern = SEED_RollRandomNumber(&pMissile->pSeed) % 3;
+    const int nOffset = SEED_RollRandomNumber(&pMissile->pSeed) & 7;
     for (int i = 0; i < gaCltHitPatterns_006DB008[nPattern].nCount; ++i)
     {
         const int nIndex = (gaCltHitPatterns_006DB008[nPattern].aIndex[i] + nOffset) & 7;

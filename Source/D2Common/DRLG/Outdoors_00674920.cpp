@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 #ifdef MOVED_TEST
 #define PREFIX char movedPrefix[4];
 #define BORDER 4
@@ -9,11 +10,6 @@
 #define CELL_OFFSET 1
 #define TEST_FLAGS 15
 #endif
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 struct D2DrlgStrc;
 struct D2DrlgGridStrc
 {

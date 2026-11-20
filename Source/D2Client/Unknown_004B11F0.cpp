@@ -1,8 +1,4 @@
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-};
+#include "D2Structs.h"
 
 int __fastcall UNITS_CanSwitchAI(int nMonsterId); // 0x00623470
 int __fastcall sub_004AC7E0(D2UnitStrc* pUnit, unsigned short wFlag); // 0x004AC7E0

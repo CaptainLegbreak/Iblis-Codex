@@ -1,14 +1,5 @@
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
+#include "D2Structs.h"
 
-struct D2UnitStrc
-{
-    char unk0x00[0x20];
-    D2SeedStrc tSeed;
-};
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
 D2UnitStrc* __cdecl sub_00463DD0();                                                               // 0x00463DD0
@@ -122,7 +113,7 @@ void __fastcall sub_00476D40_AdjustViewPos(int* pX, int* pY)
 
     if (nMagnitude)
     {
-        D2SeedStrc* pSeed = &sub_00463DD0()->tSeed;
+        D2SeedStrc* pSeed = &sub_00463DD0()->pSeed;
         gnGlobal_007B9538 = sub_00472280(pSeed, -nMagnitude, 2 * nMagnitude);
         const int nOffsetY = sub_00472280(pSeed, -nMagnitude, 2 * nMagnitude);
         *pX += gnGlobal_007B9538;

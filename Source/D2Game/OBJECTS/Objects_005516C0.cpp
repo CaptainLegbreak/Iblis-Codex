@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2SeedStrc;
@@ -6,11 +7,6 @@ struct D2DrlgCoordsStrc;
 struct D2StaticPathStrc;
 struct D2ObjectControlStrc;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2ActiveRoomStrc
 {
@@ -37,20 +33,6 @@ struct D2StaticPathStrc
     int nYPos;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x0C];
-    int dwAnimMode;
-    char unk0x14[0x18];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x94];
-    unsigned int dwFlags;
-};
 
 struct D2ObjectsTxt
 {

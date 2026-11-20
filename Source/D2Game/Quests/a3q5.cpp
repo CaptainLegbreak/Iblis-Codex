@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define QFLAG_PRIMARYGOALDONE 13
@@ -35,20 +36,6 @@ struct D2GameStrc
     void* pAct[5];
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08;
-    int dwUnitId;
-    int dwAnimMode;
-    unsigned char unk_14[0xA4];
-    unsigned int dwDropItemCode;
-    char pad0xBC[0x08];
-    unsigned int dwFlags;
-    unsigned char unk_C8[0x20];
-    D2UnitStrc* pRoomNext;
-};
 
 struct D2PlayerDataStrc
 {

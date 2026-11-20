@@ -1,9 +1,8 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 extern "C" int __cdecl abs(int);
 struct D2StaticPathStrc { char unk_00[0xC]; int nX; int nY; };
-struct D2SeedStrc { unsigned int nLowSeed; unsigned int nHighSeed; };
-struct D2UnitStrc { int dwUnitType; char dwClassId[0x1C]; D2SeedStrc pSeed; unsigned int dwInitSeed; union { D2DynamicPathStrc* pDynamicPath; D2StaticPathStrc* pStaticPath; }; };
 struct D2GameStrc { char unk_00[0x6D]; unsigned char nDifficulty; };
 struct D2AiControlStrc { char unk_00[0x14]; int dwAiParam[3]; };
 struct D2MonStatsTxt { char unk_00[0x56]; short wAiParam[8][3]; char unk_86[0xEA]; short nSkill[8]; unsigned char nSkillMode[8]; };

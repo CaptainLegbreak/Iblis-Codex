@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2InteractionStrc
 {
@@ -14,12 +15,6 @@ struct D2MonsterDataStrc
 {
     char unk_00[0x30];
     D2InteractionListStrc* pInteractions;
-};
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char dwClassId[0x10];
-    D2MonsterDataStrc* pMonsterData;
 };
 static __forceinline int GetUnitType(D2UnitStrc* pUnit) { return !pUnit ? 6 : pUnit->dwUnitType; }
 static __forceinline D2InteractionListStrc* GetInteractions(D2UnitStrc* pUnit)

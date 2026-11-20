@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -6,16 +7,6 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0xC0];
-    unsigned int fFlags0 : 4;
-    unsigned int fInitSeedSet : 1;
-    unsigned int fFlags5 : 27;
-    char unk0xC8[0x18];
-    D2UnitStrc* pChangeNextUnit;
-};
 
 struct D2ActiveRoomStrc
 {
@@ -53,7 +44,7 @@ static void __stdcall sub_0053A500_UpdateUnitForClient(D2GameStrc* pGame, D2Unit
     D2_ASSERT(pUnit, 21);
     const int nUnitType = pUnit->dwUnitType;
     int v10 = 0;
-    if (pUnit->fInitSeedSet)
+    if (pUnit->dwFlags)
     {
         if (CLIENTS_GetPlayerFromClient(pClient, 0) != pUnit)
         {

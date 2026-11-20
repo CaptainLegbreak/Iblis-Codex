@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 struct D2DrlgCoordsStrc { int nSubtileX; int nSubtileY; int nSubtileWidth; int nSubtileHeight; int nTileXPos; int nTileYPos; int nTileWidth; int nTileHeight; };
 struct D2SpawnAreaStrc { char unk0x00[0x10]; tagRECT tRect; char unk0x20[0x08]; int nIndex; };
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords);              // 0x00619730
@@ -36,11 +37,6 @@ void __fastcall sub_M96_Emit_0054DAC0(void* pGame, D2ActiveRoomStrc* pRoom, D2Sp
     sub_M96_UseBounds_0054DAC0(nX, nY, nWidth, nHeight);
 }
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2ActiveRoomViewStrc
 {

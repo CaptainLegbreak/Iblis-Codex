@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2MonsterDataStrc;
@@ -19,16 +20,6 @@ struct D2MonsterDataStrc
     D2MonsterInteractStrc* pMonInteract;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x08];
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-    char unk0x18[0xAC];
-    unsigned int dwFlags;
-};
 
 struct D2ModeChangeStrc
 {

@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
@@ -11,17 +12,6 @@ struct D2SkillStrc;
 struct D2GemsTxt;
 struct D2UnitTargetStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[8];
-    int dwAnimMode;
-    char unk0x14[0x4C];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0x60];
-    unsigned int dwFlags;
-};
 
 struct D2ItemsTxt
 {

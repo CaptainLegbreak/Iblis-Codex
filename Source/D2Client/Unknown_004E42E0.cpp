@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct T00481920;
@@ -48,22 +49,7 @@ struct Unicode
     Unicode(unsigned short ch = 0) : wChar(ch) {}
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    char unk0x10[0x50];
-    D2InventoryStrc* pInventory;
-};
 
-struct D2StatStrc
-{
-    unsigned short nLayer;
-    unsigned short nStatId;
-    int nValue;
-};
 
 struct D2ItemStatCostTxt
 {

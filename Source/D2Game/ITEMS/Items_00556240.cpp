@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define D2_MIN(a,b) ((a)<(b)?(a):(b))
@@ -8,11 +9,6 @@ struct D2StatListExStrc;
 struct D2ItemsTxt;
 struct D2UniqueSelection;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2ActiveRoomStrc
 {
@@ -26,31 +22,6 @@ struct D2CoordStrc
     int nY;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    unsigned char unk_14[0xC];
-    union
-    {
-        struct
-        {
-            D2SeedStrc tSeed;
-        };
-        struct
-        {
-            unsigned nLowSeed;
-            unsigned nHighSeed;
-        };
-    };
-    unsigned char unk_28[0x38];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0x60];
-    unsigned int dwFlags;
-};
 
 struct D2GameStrc
 {
@@ -471,7 +442,7 @@ static __declspec(noinline) void sub_00556360_RollArmorClass(D2UnitStrc* pItem)
 
     const unsigned int nMinAc = pItemsTxtRecord->dwMinAc;
     const unsigned int nMaxAc = pItemsTxtRecord->dwMaxAc;
-    const unsigned int nACValue = sub_00472280(&pItem->tSeed, nMinAc, nMaxAc - nMinAc + 1);
+    const unsigned int nACValue = sub_00472280(&pItem->pSeed, nMinAc, nMaxAc - nMinAc + 1);
     D2_ASSERT(nACValue <= nMaxAc, 0x1CE);
     STATLIST_SetUnitStat(pItem, 31, nACValue, 0);
 }
@@ -538,7 +509,7 @@ static void sub_00557A70_RollVarInvGfx(D2UnitStrc* pItem)
 {
     if (ITEMS_GetVarInvGfxCount(pItem))
     {
-        const unsigned char nIndex = sub_00472280(&pItem->tSeed, 0, ITEMS_GetVarInvGfxCount(pItem));
+        const unsigned char nIndex = sub_00472280(&pItem->pSeed, 0, ITEMS_GetVarInvGfxCount(pItem));
         ITEMS_SetVarGfxIndex(pItem, nIndex);
     }
 }
@@ -552,7 +523,7 @@ int __fastcall D2GAME_InitItemStats_6FC4E520(D2GameStrc* pGame, D2UnitStrc** ppI
         if (pItemDrop)
         {
             const int nItemLevel = pItemDrop->nItemLvl;
-            nQuantity = SEED_RollLimitedRandomNumber(&(*ppItem)->tSeed, 5 * nItemLevel) + nItemLevel;
+            nQuantity = SEED_RollLimitedRandomNumber(&(*ppItem)->pSeed, 5 * nItemLevel) + nItemLevel;
             if (nQuantity <= 0)
             {
                 nQuantity = 1;
@@ -569,7 +540,7 @@ int __fastcall D2GAME_InitItemStats_6FC4E520(D2GameStrc* pGame, D2UnitStrc** ppI
     else if (ITEMS_GetQuiverType(*ppItem))
     {
         const int nMinStack = ITEMS_GetMinStack(*ppItem);
-        int nQuantity = nMinStack + ITEMS_RollLimitedRandomNumber(&(*ppItem)->tSeed, ITEMS_GetTotalMaxStack(*ppItem) - nMinStack);
+        int nQuantity = nMinStack + ITEMS_RollLimitedRandomNumber(&(*ppItem)->pSeed, ITEMS_GetTotalMaxStack(*ppItem) - nMinStack);
         if (nQuantity < 1)
         {
             nQuantity = 1;
@@ -593,7 +564,7 @@ int __fastcall D2GAME_InitItemStats_6FC4E520(D2GameStrc* pGame, D2UnitStrc** ppI
             STATLIST_SetUnitStat(*ppItem, 67, -pItemsTxtRecord->dwSpeed, 0);
             const unsigned int nMaxDurability = pItemsTxtRecord->nDurability;
             const unsigned int nDurability = nMaxDurability >> 1;
-            unsigned int nValue = ITEMS_RollLimitedRandomNumber(&(*ppItem)->tSeed, nDurability) + nDurability;
+            unsigned int nValue = ITEMS_RollLimitedRandomNumber(&(*ppItem)->pSeed, nDurability) + nDurability;
             if (nValue >= 255)
             {
                 nValue = 255;
@@ -608,7 +579,7 @@ int __fastcall D2GAME_InitItemStats_6FC4E520(D2GameStrc* pGame, D2UnitStrc** ppI
             {
                 const int nMinStack = ITEMS_GetMinStack(*ppItem);
                 const int nMaxStack = ITEMS_GetTotalMaxStack(*ppItem);
-                unsigned int nQuantity = ITEMS_RollLimitedRandomNumber(&(*ppItem)->tSeed, nMaxStack - nMinStack) + nMinStack;
+                unsigned int nQuantity = ITEMS_RollLimitedRandomNumber(&(*ppItem)->pSeed, nMaxStack - nMinStack) + nMinStack;
                 if (pItemDrop && pItemDrop->nQtyOverride > 0)
                 {
                     nQuantity = pItemDrop->nQtyOverride;
@@ -628,7 +599,7 @@ int __fastcall D2GAME_InitItemStats_6FC4E520(D2GameStrc* pGame, D2UnitStrc** ppI
             }
 
             const unsigned int nDurability = pItemsTxtRecord->nDurability;
-            STATLIST_SetUnitStat(*ppItem, 72, D2_MinU(ITEMS_RollLimitedRandomNumber(&(*ppItem)->tSeed, nDurability >> 1) + (nDurability >> 1), 255), 0);
+            STATLIST_SetUnitStat(*ppItem, 72, D2_MinU(ITEMS_RollLimitedRandomNumber(&(*ppItem)->pSeed, nDurability >> 1) + (nDurability >> 1), 255), 0);
             STATLIST_SetUnitStat(*ppItem, 73, D2_MinU(nDurability, 255), 0);
             sub_005563D0_SetWeaponDamage(*ppItem);
             STATLIST_SetUnitStat(*ppItem, 68, -pItemsTxtRecord->dwSpeed, 0);
@@ -645,7 +616,7 @@ int __fastcall D2GAME_InitItemStats_6FC4E520(D2GameStrc* pGame, D2UnitStrc** ppI
                     nSpawnStack = nMinStack > nMaxStack ? nMinStack : nMaxStack;
                 }
 
-                unsigned int nQuantity = ITEMS_RollLimitedRandomNumber(&(*ppItem)->tSeed, nSpawnStack - nMinStack) + nMinStack;
+                unsigned int nQuantity = ITEMS_RollLimitedRandomNumber(&(*ppItem)->pSeed, nSpawnStack - nMinStack) + nMinStack;
                 if (pItemDrop && pItemDrop->nQtyOverride > 0)
                 {
                     nQuantity = pItemDrop->nQtyOverride;
@@ -702,8 +673,8 @@ int __fastcall sub_00558610_GetDiminishedMagicFind(int nMagicFind, int nFactor, 
 }
 
 inline unsigned __int64 Roll(D2UnitStrc* pUnit) {
- unsigned __int64 seed=pUnit->nHighSeed+0x6AC690C5i64*pUnit->nLowSeed;
- pUnit->nHighSeed=(unsigned)(seed>>32);pUnit->nLowSeed=(unsigned)seed;return seed;
+ unsigned __int64 seed=pUnit->pSeed.nHighSeed+0x6AC690C5i64*pUnit->pSeed.nLowSeed;
+ pUnit->pSeed.nHighSeed=(unsigned)(seed>>32);pUnit->pSeed.nLowSeed=(unsigned)seed;return seed;
 }
 
 // 0x00559E30

@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2DrlgCoordsStrc;
 struct D2SpawnAreaStrc;
@@ -12,17 +13,7 @@ struct D2SpawnAreaStrc { char unk0x00[0x10]; tagRECT tRect; };
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 void __stdcall sub_M96_UseBounds_0054DAC0(int nX, int nY, int nWidth, int nHeight);
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    char pad0x00[0x20];
-    D2SeedStrc tSeed;
-};
 
 struct D2MonStatsTxt
 {
@@ -156,7 +147,7 @@ static __declspec(noinline) D2UnitStrc* __stdcall sub_0054DF80_SpawnGroupInCoord
     if (sub_004638A0_CheckMonStats2Flag(nMonsterId, 0x12) && MONSTERS_GetBaseIdFromMonsterId(nMonsterId) == 0x210)
         SUNIT_AllocUnitData(2, 0x232, CLIENTS_GetUnitX(pMonster), CLIENTS_GetUnitY(pMonster), pGame, pRoom, 1, 0, 0);
 
-    for (int nCount = nMin + ITEMS_RollLimitedRandomNumber(&pMonster->tSeed, nMax - nMin + 1); nCount > 0; --nCount)
+    for (int nCount = nMin + ITEMS_RollLimitedRandomNumber(&pMonster->pSeed, nMax - nMin + 1); nCount > 0; --nCount)
         MONSTERSPAWN_SpawnAtUnitInCoordList(pGame, pCoordList, pMonster, nMonsterId, 1, 3, 0);
 
     return pMonster;
@@ -180,7 +171,7 @@ static __declspec(noinline) D2UnitStrc* __stdcall sub_0054E090_SpawnGroupAtPoint
         return 0;
 
     --nMinGrp;
-    for (int nCount = nMinGrp + ITEMS_RollLimitedRandomNumber(&pMonster->tSeed, (unsigned char)(nMaxGrp - 1) - nMinGrp + 1); nCount > 0; --nCount)
+    for (int nCount = nMinGrp + ITEMS_RollLimitedRandomNumber(&pMonster->pSeed, (unsigned char)(nMaxGrp - 1) - nMinGrp + 1); nCount > 0; --nCount)
         MONSTERSPAWN_SpawnAtUnitInCoordList(pGame, pCoordList, pMonster, nMonsterId, 1, 3, 0);
 
     return pMonster;
@@ -203,7 +194,7 @@ static void __stdcall sub_0054E1E0_SpawnChampionMinions(D2RoomCoordListStrc* pCo
     if (!MONSTERUNIQUE_CheckMonTypeFlag(pMonster, 4))
         return;
 
-    const int nMinions = SEED_RollRandomNumber(&pMonster->tSeed) % 3 + 1;
+    const int nMinions = SEED_RollRandomNumber(&pMonster->pSeed) % 3 + 1;
     for (int i = 0; i < nMinions; ++i)
     {
         D2UnitStrc* pMinion = MONSTERSPAWN_SpawnAtUnitInCoordList(pGame, pCoordList, pMonster, nMonsterId, 1, 4, 0);

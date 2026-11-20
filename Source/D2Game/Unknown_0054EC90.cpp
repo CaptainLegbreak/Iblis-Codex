@@ -1,18 +1,9 @@
+#include "D2Structs.h"
 struct D2RoomCoordListStrc;
 struct D2ActiveRoomStrc;
 struct D2UnkMonCreateStrc2;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    char pad0x00[0x20];
-    D2SeedStrc tSeed;
-};
 
 struct D2MonStatsTxt
 {
@@ -124,7 +115,7 @@ static D2UnitStrc* __stdcall sub_0054DF80_SpawnGroupInCoordList(D2GameStrc* pGam
     if (sub_004638A0_CheckMonStats2Flag(nMonsterId, 0x12) && MONSTERS_GetBaseIdFromMonsterId(nMonsterId) == 0x210)
         SUNIT_AllocUnitData(2, 0x232, CLIENTS_GetUnitX(pMonster), CLIENTS_GetUnitY(pMonster), pGame, pRoom, 1, 0, 0);
 
-    for (int nCount = nMin + ITEMS_RollLimitedRandomNumber(&pMonster->tSeed, nMax - nMin + 1); nCount > 0; --nCount)
+    for (int nCount = nMin + ITEMS_RollLimitedRandomNumber(&pMonster->pSeed, nMax - nMin + 1); nCount > 0; --nCount)
         MONSTERSPAWN_SpawnAtUnitInCoordList(pGame, pCoordList, pMonster, nMonsterId, 1, 3, 0);
 
     return pMonster;
@@ -150,7 +141,7 @@ static void __stdcall sub_0054E1E0_SpawnChampionMinions(D2RoomCoordListStrc* pCo
     if (!MONSTERUNIQUE_CheckMonTypeFlag(pMonster, 4))
         return;
 
-    const int nMinions = SEED_RollRandomNumber(&pMonster->tSeed) % 3 + 1;
+    const int nMinions = SEED_RollRandomNumber(&pMonster->pSeed) % 3 + 1;
     for (int i = 0; i < nMinions; ++i)
     {
         D2UnitStrc* pMinion = MONSTERSPAWN_SpawnAtUnitInCoordList(pGame, pCoordList, pMonster, nMonsterId, 1, 4, 0);

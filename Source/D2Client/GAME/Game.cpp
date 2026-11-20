@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -273,10 +274,6 @@ struct SMSGHANDLER_PARAMS
     int lResult;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-};
 
 struct Unicode
 {

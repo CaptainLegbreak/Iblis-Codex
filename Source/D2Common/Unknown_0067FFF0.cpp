@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 typedef int BOOL;
 
 #define LEVEL_ROGUEENCAMPMENT 1
@@ -10,11 +11,6 @@ typedef int BOOL;
 #define LEVEL_BURIALGROUNDS 17
 #define LEVEL_MOOMOOFARM 39
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2DrlgStrc;
 

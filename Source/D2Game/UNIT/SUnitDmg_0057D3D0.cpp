@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
@@ -8,11 +9,6 @@ struct D2InventoryStrc;
 #define UNIT_MONSTER 1
 #define UNIT_OBJECT 2
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2DamageStrc
 {
@@ -60,22 +56,6 @@ struct D2CombatStrc
     D2CombatStrc* pNext;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    void* f_14;
-    int unk0x18;
-    int unk0x1C;
-    D2SeedStrc pSeed;
-    int unk0x28[14];
-    D2InventoryStrc* pInventory;
-    int unk0x64[18];
-    D2CombatStrc* pCombat;
-};
 
 struct D2BodyLocWeightStrc
 {

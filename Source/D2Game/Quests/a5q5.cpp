@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define QUEST_A5Q5_ANCIENTS 35
 #define STAT_LEVEL 12
@@ -32,14 +33,6 @@ struct D2CoordStrc
     int nY;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08;
-    int dwUnitId;
-    int dwAnimMode;
-};
 
 struct D2ModeChangeStrc
 {

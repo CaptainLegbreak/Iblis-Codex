@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define UNIT_MONSTER 1
 #define MONTYPEFLAG_CHAMPION 4
@@ -8,11 +9,6 @@ struct D2SeedStrc;
 struct D2MonsterDataStrc;
 struct D2MonStats2Txt;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2MonsterDataStrc
 {
@@ -22,17 +18,6 @@ struct D2MonsterDataStrc
     int unknown18;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x0C];
-    D2MonsterDataStrc* pMonsterData;
-    char unk0x18[0x08];
-    D2SeedStrc pSeed;
-    char unk0x28[0x3C];
-    D2GfxLightStrc* pLight;
-};
 
 struct D2MonStats2Txt
 {

@@ -1,8 +1,5 @@
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 struct D2DynamicPathStrc;
 struct D2ActiveRoomStrc;
@@ -16,29 +13,6 @@ struct D2ObjectDataStrc
     char unk0x04[0x34];
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2ObjectDataStrc* pObjectData;
-    unsigned char nAct;
-    char unk0x19[3];
-    D2DrlgActStrc* pDrlgAct;
-    char unk0x20[0x0C];
-    D2DynamicPathStrc* pDynamicPath;
-    char unk0x30[0x44];
-    void* pQuestEventList;
-    char unk0x78[0x08];
-    D2GameStrc* pGame;
-    char unk0x84[0x40];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-    char unk0xCC[0x04];
-    int dwNodeIndex;
-};
 
 struct D2GameStrc
 {
@@ -73,12 +47,6 @@ struct D2DataTablesStrc
 
 enum D2C_M192SUnitAlloc
 {
-    UNIT_PLAYER = 0,
-    UNIT_MONSTER = 1,
-    UNIT_OBJECT = 2,
-    UNIT_MISSILE = 3,
-    UNIT_ITEM = 4,
-    UNIT_TILE = 5,
     PLRMODE_DEATH = 0,
     PLRMODE_DEAD = 17,
     MONSTATSFLAGINDEX_ENABLED = 25,

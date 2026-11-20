@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define D2_FREE_POOL(pMemPool, ptr, line) FOG_FreePool(pMemPool, ptr, ".\\MONSTER\\MonsterRegion.cpp", line, 0)
 #define SUMMONER_FLAG 2
@@ -7,11 +8,6 @@
 struct D2MonsterRegionStrc;
 struct D2SeedStrc;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2GameStrc
 {

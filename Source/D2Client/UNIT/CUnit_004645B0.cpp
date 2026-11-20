@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define BITARRAY_CHECK(pBytes, nBit) ((pBytes)[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -13,28 +14,6 @@ struct D2RectStrc;
 struct D2CoordPairStrc;
 struct D2MonStats2SelectStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08;
-    int dwUnitId;
-    int dwAnimMode;
-    char unk0x14[0x18];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    unsigned char unk_30[0x8];
-    int nFrame;
-    unsigned char unk_3C[0x58];
-    int unk0x94;
-    int dwOwnerId;
-    char unk0x9C[0x28];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-};
 
 struct D2SkillsTxt
 {
@@ -290,7 +269,7 @@ static __declspec(noinline) int __stdcall sub_004645B0_CheckSkillFrame(int nUnus
         return 0;
     }
 
-    return (pUnit->nFrame >> 8) >= nFrame;
+    return (pUnit->dwSeqFrame >> 8) >= nFrame;
 }
 
 int __fastcall sub_Emit_004645B0(D2UnitStrc* pUnit, int nArg)
@@ -703,10 +682,10 @@ int __fastcall sub_00465C60_CheckUnitPair(D2UnitStrc* pUnit, D2UnitStrc* pOther)
             bUnitOwned = (pUnit->dwFlagEx >> 10) & 1;
         }
 
-        if (bUnitOwned && !pOther->unk0x94)
+        if (bUnitOwned && !pOther->dwOwnerType)
         {
             nUnitType = 0;
-            nUnitId = pUnit->dwOwnerId;
+            nUnitId = pUnit->dwOwnerGUID;
         }
     }
 
@@ -725,9 +704,9 @@ int __fastcall sub_00465C60_CheckUnitPair(D2UnitStrc* pUnit, D2UnitStrc* pOther)
             bOtherOwned = (pOther->dwFlagEx >> 10) & 1;
         }
 
-        if (bOtherOwned && !pOther->unk0x94)
+        if (bOtherOwned && !pOther->dwOwnerType)
         {
-            nOtherId = pOther->dwOwnerId;
+            nOtherId = pOther->dwOwnerGUID;
             nOtherType = 0;
         }
     }

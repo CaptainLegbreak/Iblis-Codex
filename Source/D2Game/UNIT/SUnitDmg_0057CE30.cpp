@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define D2MAX(a, b) (((a) > (b)) ? (a) : (b))
 #define D2MIN(a, b) (((a) < (b)) ? (a) : (b))
@@ -9,26 +10,7 @@ struct D2DamageHitClassMappingStrc;
 struct D2SeedStrc;
 struct D2CurseStrc;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x04];
-    int dwUnitId;
-    int dwAnimMode;
-    unsigned char unk_14[0xC];
-    D2SeedStrc pSeed;
-    unsigned char unk_28[0x88];
-    unsigned int dwLastHitClass;
-    char unk0xB4[0x10];
-    unsigned int dwFlags;
-};
 
 struct D2GameStrc
 {
@@ -102,12 +84,6 @@ void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc
 void __fastcall sub_6FC817D0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill, int nMode, int nX, int nY, int a7); // 0x005809D0
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
 
-struct D2StatStrc
-{
-    unsigned short nLayer;
-    unsigned short nStat;
-    int nValue;
-};
 
 typedef void (__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState, void* pStatList);
 

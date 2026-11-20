@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 #ifdef MOVED_TEST
 #define STAT_ID_LIMIT 253
 #define ASSERT_LINE 708
@@ -25,19 +26,6 @@ struct D2UnitPacketListStrc
     unsigned char nHeader;
 };
 
-struct D2UnitStrc
-{
-#ifdef MOVED_TEST
-    int moved_prefix;
-#endif
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    char unk0x10[0xDC];
-    D2UnitPacketListStrc* pMsgFirst;
-    D2UnitPacketListStrc* pMsgLast;
-};
 
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);   // 0x0040B430
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit);                                                     // 0x0064C040

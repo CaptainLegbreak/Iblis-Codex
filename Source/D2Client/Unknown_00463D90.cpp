@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define UNIT_OBJECT 2
 #define UNIT_ITEM 4
@@ -10,22 +11,6 @@ struct D2SkillsTxt;
 struct D2CoordPairStrc;
 struct D2MonStats2SelectStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x008[8];
-    int dwAnimMode;
-    char unk0x014[0x18];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x030[0x94];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-};
 void __cdecl sub_00453DE0(); // 0x00453DE0
 void __stdcall sub_006488A0_SetDirection(D2DynamicPathStrc* pPath, int nDirection); // 0x006488A0
 void __fastcall sub_0044BEA0_SetValue(int nValue); // 0x0044BEA0

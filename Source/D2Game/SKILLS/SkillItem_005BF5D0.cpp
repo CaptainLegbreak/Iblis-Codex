@@ -1,3 +1,5 @@
+#include "D2Constants.h"
+#include "D2Structs.h"
 struct D2AiControlStrc;
 struct D2AnimSeqTxt;
 struct D2ActiveRoomStrc;
@@ -8,8 +10,6 @@ struct D2UnitEventStrc;
 
 enum D2C_G4Constants
 {
-    UNIT_PLAYER = 0,
-    UNIT_MONSTER = 1,
     PCLASS_PALADIN = 3,
     NUMBER_OF_PLAYERCLASSES = 7,
     SKILLSFLAGINDEX_AURA = 5,
@@ -61,31 +61,6 @@ struct D2AnimDataRecordStrc
     unsigned char pFrameFlags[144];
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x0C];
-    D2MonsterDataStrc* pMonsterData;
-    char unk0x18[0x14];
-    D2DynamicPathStrc* pDynamicPath;
-    D2AnimSeqTxt* pAnimSeq;
-    char unk0x34[0x04];
-    int dwSeqFrame;
-    unsigned int dwSeqSpeed;
-    char unk0x40[0x04];
-    int nSeqCurrentFramePrecise;
-    int dwFrameCountPrecise;
-    char unk0x4C[0x02];
-    unsigned char nActionFrame;
-    char unk0x4F;
-    D2AnimDataRecordStrc* pAnimData;
-    char unk0x54[0x3C];
-    D2UnitEventStrc* pSrvUnitEventsList;
-    char unk0x94[0x30];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-};
 
 struct D2DamageStrc
 {

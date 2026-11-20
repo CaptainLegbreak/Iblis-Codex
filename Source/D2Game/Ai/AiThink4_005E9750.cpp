@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 extern "C" void* __cdecl memcpy(void*,const void*,unsigned int);
 #pragma intrinsic(memcpy)
 struct D2GameStrc;
@@ -5,8 +6,6 @@ struct D2ActiveRoomStrc;
 struct D2SkillStrc;
 struct D2DynamicPathStrc;
 struct D2StaticPathStrc { char unk00[12];int nX,nY; };
-struct D2SeedStrc { unsigned int nLowSeed,nHighSeed; };
-struct D2UnitStrc { int dwUnitType;char unk04[0x1C];D2SeedStrc pSeed;int unk28;union {D2DynamicPathStrc* pDynamicPath;D2StaticPathStrc* pStaticPath;}; };
 struct D2AiControlStrc { char unk00[0x14];int nAction; };
 struct D2BaalTargetInfoStrc {char unk00[12];int nX,nY;};
 struct D2PlayerCountBonusStrc {int nHp,nExperience,nSkillBonus,nDifficulty,nPlayerCount;};

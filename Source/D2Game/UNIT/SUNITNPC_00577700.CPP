@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 #define MONSTER_KASHYA 150
 #define MONSTER_GREIZ 198
 #define MONSTER_ASHEARA 252
@@ -7,15 +8,6 @@ struct D2NpcTradeStrc;
 struct D2NpcRecordStrc;
 struct D2NpcVendorChainStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    char unk0x10[0x50];
-    D2InventoryStrc* pInventory;
-};
 
 struct D2NpcTradeStrc
 {

@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -102,10 +103,6 @@ void __fastcall GAME_DisconnectClientById(int nClientId, int nEventType); // 0x0
 D2ClientStrc* __fastcall sub_00537760_GetClientFromId(int nClientId); // 0x00537760
 void __fastcall sub_005377A0_RemoveClient(int nClientId); // 0x005377A0
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-};
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
 D2ClientStrc* __fastcall CLIENTS_GetClientFromClientId(D2GameStrc* pGame, int nClientId); // 0x00537810

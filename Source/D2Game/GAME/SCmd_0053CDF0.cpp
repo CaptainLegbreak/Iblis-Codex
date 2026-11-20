@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2PacketDataStrc
 {
@@ -15,13 +16,6 @@ struct D2ClientStrc
     D2PacketDataStrc* pPacketDataPool;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-};
 
 #pragma pack(push, 1)
 struct D2GSPacketSrv7F

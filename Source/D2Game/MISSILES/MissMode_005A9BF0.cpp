@@ -1,10 +1,9 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 enum D2C_Q05MissModeConstants
 {
-    UNIT_OBJECT = 2,
-    UNIT_ITEM = 4,
-    UNIT_TILE = 5,
     EVENTTYPE_ENDANIM = 1,
 };
 
@@ -25,20 +24,6 @@ struct D2StaticPathStrc
     int nYPos;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    char unk0x14[0x18];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-};
 
 struct D2MissilesTxt
 {

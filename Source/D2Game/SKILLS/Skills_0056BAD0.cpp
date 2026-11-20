@@ -1,8 +1,7 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
-#define UNIT_OBJECT 2
-#define UNIT_ITEM 4
-#define UNIT_TILE 5
 #define STAT_ITEM_MAGICARROW 157
 #define DAMAGERESULTFLAG_SUCCESSFULHIT 1
 #define SKILLSRVDOFN_COUNT 191
@@ -89,34 +88,6 @@ struct D2StaticPathStrc
     };
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x08];
-    int dwUnitId;
-    union
-    {
-        struct
-        {
-            char unk0x10[0x1C];
-        };
-        struct
-        {
-            unsigned char unk_10[0x4];
-            D2MonsterDataStrc* pMonsterData;
-        };
-    };
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x30];
-    D2InventoryStrc* pInventory;
-    unsigned char unk_64[0x60];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-};
 
 struct D2SkillsTxt
 {
@@ -385,9 +356,6 @@ struct D2ModeChangeStrc
 
 enum
 {
-    UNIT_PLAYER = 0,
-    UNIT_MONSTER = 1,
-    UNIT_INVALID = 6,
     PLRMODE_ATTACK1 = 7,
     MONMODE_ATTACK1 = 4,
 };

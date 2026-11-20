@@ -1,16 +1,7 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    char unk0x00[0x20];
-    D2SeedStrc tSeed;
-};
 
 struct D2WeatherStrc
 {
@@ -282,7 +273,7 @@ void __cdecl sub_00473F50_UpdateWeather()
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2_ASSERT(pPlayer, 0x547);
 
-    D2SeedStrc* pSeed = &pPlayer->tSeed;
+    D2SeedStrc* pSeed = &pPlayer->pSeed;
     if (nTick <= gnLastTick_007A8A0C)
     {
         return;

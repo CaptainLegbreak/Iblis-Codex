@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 #define DRLGROOMFLAG_NO_LOS_DRAW 0x80000
 #define DRLGROOMFLAG_PRESET_UNITS_SPAWNED 0x4000000
@@ -11,11 +12,6 @@ struct D2DrlgWarpStrc;
 struct D2LevelDefBin;
 struct D2DrlgOrthStrc;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2DrlgStrc
 {

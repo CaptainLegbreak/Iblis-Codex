@@ -1,20 +1,7 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08[2];
-    int dwAnimMode;
-    int unk0x14[3];
-    D2SeedStrc pSeed;
-};
 
 struct D2MonStatsTxt
 {

@@ -1,6 +1,6 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
-struct D2UnitStrc { int dwUnitType; };
 struct D2DamageStrc { char unk_00[0x4C]; int dwDmgTotal; };
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625500
 int __stdcall STATLIST_GetMaxManaFromUnit(D2UnitStrc* pUnit); // 0x00625D60

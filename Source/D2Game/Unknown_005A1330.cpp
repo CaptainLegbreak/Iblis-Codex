@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 struct D2GameStrc
 {
     char pad0x00[0x6A];
@@ -10,11 +11,6 @@ struct D2GameStrc
     int dwGameFrame;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-};
 
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit);                                            // 0x00554010
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0

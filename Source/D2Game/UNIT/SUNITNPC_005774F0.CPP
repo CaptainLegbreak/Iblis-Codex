@@ -1,10 +1,6 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
-struct D2UnitStrc
-{
-    char unk0x00[0x18];
-    unsigned char nAct;
-};
 
 struct D2GameStrc
 {

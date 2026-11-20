@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
@@ -27,11 +28,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 typedef int (__stdcall* FARPROC)();
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2ObjectControlStrc
 {
@@ -54,24 +50,6 @@ struct D2ObjectDataStrc
     unsigned char InteractType;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x004[0x8];
-    int dwUnitId;
-    int dwAnimMode;
-    D2ObjectDataStrc* pObjectData;
-    unsigned char unk_18[0x8];
-    D2SeedStrc pSeed;
-    char unk0x28[0x04];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x94];
-    unsigned int dwFlags;
-};
 
 struct D2MonRegDataStrc
 {

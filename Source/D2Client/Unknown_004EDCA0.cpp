@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 struct Unit0064A300;
 struct D2SkillsTxt;
@@ -108,14 +109,6 @@ void __stdcall sub_00403040_VectorConstructor(void* pArray, unsigned int nSize, 
 void __fastcall sub_004521C0_PrefixLevelText(Unicode* wszText, int nLevel); // 0x004521C0
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); // 0x00483360
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x28];
-    D2DynamicPathStrc* pDynamicPath;
-    char unk0x30[0x98];
-    unsigned int dwFlagEx;
-};
 
 D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
 int __cdecl sub_0044DCA0_GetGameType(); // 0x0044DCA0

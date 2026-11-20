@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define STATE_BLAZE 13
 #define STAT_MODIFIERLIST_SKILL 350
@@ -6,15 +7,6 @@
 struct D2SkillsTxt;
 struct D2MissilesTxt;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    char unk0x10[0x1C];
-    D2DynamicPathStrc* pDynamicPath;
-};
 
 struct D2SkillsTxt
 {

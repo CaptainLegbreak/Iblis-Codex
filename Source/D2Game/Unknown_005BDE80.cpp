@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define MONSTATSFLAGINDEX_PLACESPAWN 23
 
@@ -9,11 +10,6 @@ struct D2LevelsTxt;
 struct D2MonStatsTxt;
 struct D2SeedOwnerStrc;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2ActiveRoomStrc
 {

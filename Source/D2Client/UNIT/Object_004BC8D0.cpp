@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 struct D2ObjectsTxt
 {
@@ -14,22 +15,6 @@ struct D2ObjectDataStrc
     char szOwner[0x10];
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    unsigned int dwClassId;
-    int unk0x08[2];
-    int dwAnimMode;
-    union
-    {
-        D2ObjectDataStrc* pObjectData;
-        void* pData;
-    };
-    char unk0x18[0x48];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0x60];
-    unsigned int dwFlags;
-};
 
 typedef char (__fastcall* D2ObjectClientFn)(D2UnitStrc* pUnit);
 
@@ -64,7 +49,7 @@ void __fastcall sub_004BC8D0_UpdateObjectOverlay(D2UnitStrc* pUnit)
         return;
     }
 
-    switch (pUnit->dwClassId)
+    switch ((unsigned int)pUnit->dwClassId)
     {
     case 0x98:
         sub_00470390(pUnit, 0xB6, 3, 0, 0, 0, 0, 0);
@@ -104,7 +89,7 @@ void __fastcall sub_004BCA50_ReleaseUnit(D2UnitStrc* pUnit)
         sub_00464930_FreeLight(pUnit);
     }
 
-    sub_0040B3C0(pUnit->pData, ".\\UNIT\\Object.cpp", 0xFE, 0);
+    sub_0040B3C0(pUnit->pPlayerData, ".\\UNIT\\Object.cpp", 0xFE, 0);
 }
 
 // 0x004BDEE0

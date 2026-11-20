@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct UiControl;
@@ -125,7 +126,6 @@ struct Obj004B8580 {
 extern char gbGlobal_007C0E80; // 0x007C0E80
 int __cdecl sub_004549C0_IsPanelAllocated(); // 0x004549C0
 
-struct D2UnitStrc { char unk0x00[0x60]; D2InventoryStrc* pInventory; };
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __cdecl sub_00463DF0(); // 0x00463DF0

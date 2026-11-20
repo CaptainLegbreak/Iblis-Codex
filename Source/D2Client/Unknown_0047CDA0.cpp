@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -124,14 +125,6 @@ extern int gnOptionMaxWidth_007BC95C; // 0x007BC95C
 extern int gnOptionLastX_007BC980; // 0x007BC980
 extern int gnOptionLastY_007BC984; // 0x007BC984
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0xC];
-    int dwAnimMode;
-    char unk0x14[0x4C];
-    D2InventoryStrc* pInventory;
-};
 
 D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0

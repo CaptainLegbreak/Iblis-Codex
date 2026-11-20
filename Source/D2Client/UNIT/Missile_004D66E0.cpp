@@ -1,15 +1,11 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 struct D2SeedStrc;
 struct D2StaticPathStrc;
 struct D2MissileStrc;
 struct D2MissilesTxt;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2StaticPathStrc
 {
@@ -18,21 +14,6 @@ struct D2StaticPathStrc
     int nYPos;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08;
-    unsigned int dwUnitFlags0C;
-    int unk0x10[4];
-    D2SeedStrc tSeed;
-    int unk0x28;
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-};
 
 struct D2MissileStrc
 {
@@ -176,8 +157,8 @@ static int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
 // 0x004D1300
 static void __stdcall sub_004D1300_SpawnScattered(int nRange, int nMissile, D2UnitStrc* pMissile)
 {
-    const int nOffsetX = SEED_RollLimitedRandomNumberInline(&pMissile->tSeed, 2 * nRange) - nRange;
-    const int nOffsetY = SEED_RollLimitedRandomNumberInline(&pMissile->tSeed, 2 * nRange) - nRange;
+    const int nOffsetX = SEED_RollLimitedRandomNumberInline(&pMissile->pSeed, 2 * nRange) - nRange;
+    const int nOffsetY = SEED_RollLimitedRandomNumberInline(&pMissile->pSeed, 2 * nRange) - nRange;
     D2MissileStrc tParams;
     memset(&tParams, 0, sizeof(tParams));
     tParams.dwFlags = 0x21;
@@ -201,7 +182,7 @@ void __fastcall sub_004D66E0_CltDoFallingSpawn(D2UnitStrc* pMissile)
     if (nRemaining < pMissilesTxtRecord->wRange - pMissilesTxtRecord->dwParam[0] && nRemaining > pMissilesTxtRecord->wRange - pMissilesTxtRecord->dwParam[1])
     {
         D2UnitStrc* pOwner = sub_004639D0_GetOwnerUnit(pMissile);
-        D2SeedStrc* pSeed = &pMissile->tSeed;
+        D2SeedStrc* pSeed = &pMissile->pSeed;
         if (pOwner)
         {
             const int nTargetX = CLIENTS_GetUnitX(pOwner) + SEED_RollLimitedRandomNumber(pSeed, 10) - 5;
@@ -234,7 +215,7 @@ void __fastcall sub_004D66E0_CltDoFallingSpawn(D2UnitStrc* pMissile)
 void __fastcall sub_004D7E00_CltDoStateTarget(D2UnitStrc* pMissile)
 {
     D2UnitStrc* pStateUnit;
-    D2SeedStrc* pSeed = &pMissile->tSeed;
+    D2SeedStrc* pSeed = &pMissile->pSeed;
     const int nState = MISSILE_GetTargetY(pMissile);
     D2DynamicPathStrc* pPath = pMissile->pDynamicPath;
     if (!pPath)
@@ -279,7 +260,7 @@ void __fastcall sub_004D7E00_CltDoStateTarget(D2UnitStrc* pMissile)
         {
             int nDX = CLIENTS_GetUnitX(pMissile) - CLIENTS_GetUnitX(pStateUnit);
             int nDY = CLIENTS_GetUnitY(pMissile) - CLIENTS_GetUnitY(pStateUnit);
-            if (pMissile->dwUnitFlags0C & 2)
+            if (pMissile->dwUnitId & 2)
             {
                 nDX = -nDX;
                 nDY = -nDY;

@@ -1,4 +1,6 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2AiParamStrc;
@@ -14,13 +16,6 @@ struct D2Act3Quest5Strc;
 struct D2Act4Quest1Strc;
 struct D2Act4Quest3Strc;
 struct D2GSPacketSrv5D;
-
-enum D2C_SrvHitConstants
-{
-    UNIT_OBJECT = 2,
-    UNIT_ITEM = 4,
-    UNIT_TILE = 5,
-};
 
 struct D2StaticPathStrc
 {
@@ -39,23 +34,6 @@ struct D2StaticPathStrc
     };
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-    char unk0x18[0x14];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x94];
-    unsigned int dwFlags;
-};
 
 struct D2MissilesTxt
 {

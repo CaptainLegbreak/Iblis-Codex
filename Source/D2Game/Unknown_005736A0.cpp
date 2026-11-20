@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2AiParamStrc;
 
@@ -10,17 +11,6 @@ struct D2MonsterDataStrc
     D2MonsterInteractStrc* pMonInteract;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x14 - 0x08];
-    D2MonsterDataStrc* pMonsterData;
-    char unk0x18[0x60 - 0x14 - 4];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0xA4 - 0x60 - 4];
-    D2HoverTextStrc* pHoverText;
-};
 
 struct D2GameStrc
 {

@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 #pragma intrinsic(memset)
 
@@ -49,11 +50,6 @@ struct D2DrlgRoomSubStrc
     int nFieldEC;
 };
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2DrlgCoordStrc
 {

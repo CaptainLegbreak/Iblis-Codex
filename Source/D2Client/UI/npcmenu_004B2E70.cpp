@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2ClientStringListStrc;
@@ -14,15 +15,6 @@ void __cdecl sub_004B1E80(); // 0x004B1E80
 int __cdecl sub_004B5C60_Handler(); // 0x004B5C60
 void __fastcall sub_004B8020(void* pRes); // 0x004B8020
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x8];
-    int dwAnimMode;
-    unsigned char unk_14[0x4C];
-    D2InventoryStrc* pInventory;
-};
 
 class D2NpcTradeObjStrc
 {

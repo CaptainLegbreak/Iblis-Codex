@@ -1,10 +1,8 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
-#define UNIT_PLAYER 0
-#define UNIT_MONSTER 1
-#define UNIT_ITEM 4
 #define IFLAG_TARGETING 4
-#define UNIT_OBJECT 2
 #define OBJECT_STASH 267
 #define UPDATEUI_CLOSEALL 17
 #define UPDATEUI_OPENCUBE 21
@@ -34,28 +32,7 @@ struct D2DamageStrc;
 struct D2AnimSeqTxt;
 struct D2ItemStatCostTxt;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x04];
-    unsigned int dwUnitId;
-    int dwAnimMode;
-    unsigned char unk_14[0xC];
-    D2SeedStrc pSeed;
-    unsigned char unk_28[0x4];
-    D2DynamicPathStrc* pDynamicPath;
-    char unk0x30[0x30];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0x60];
-    unsigned int dwFlags;
-};
 
 void __stdcall ITEMS_SetItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int bSet); // 0x006280D0
 int __stdcall ITEMS_GetSpellIcon(D2UnitStrc* pItem); // 0x0062BB20
@@ -134,7 +111,6 @@ struct D2DataTablesStrc
 
 enum D2C_Z09ItemConstants
 {
-    UNIT_INVALID = 6,
     EVENTTYPE_REMOVESTATE = 0x0C,
     STAT_STAMINA = 0x0A,
     STAT_MAXSTAMINA = 0x0B,

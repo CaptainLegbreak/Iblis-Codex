@@ -1,28 +1,13 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 struct D2SeedStrc;
 struct D2MissilesTxt;
 struct D2MissileUnitFindTableStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x24];
-    D2DynamicPathStrc* pDynamicPath;
-    char unk0x30[0x14];
-    int nSeqCurrentFramePrecise;
-    char unk0x48[0x7C];
-    unsigned int dwFlags;
-};
 
 void __stdcall MISSILE_FreeMissileData(D2UnitStrc* pMissile); // 0x0064A150
 void __fastcall sub_6FC349F0(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540EE0
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 typedef void(__fastcall* MISSILEINITFUNC)(D2UnitStrc* pMissile, int nInitArg);
 

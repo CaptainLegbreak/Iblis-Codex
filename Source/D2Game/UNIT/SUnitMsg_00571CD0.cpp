@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2UnitPacketListStrc
 {
@@ -73,11 +74,6 @@ struct D2UnitPacketListStrc
     };
 };
 
-struct D2UnitStrc
-{
-    char unk0x00[0xEC];
-    D2UnitPacketListStrc* pMsgFirst;
-};
 
 int __fastcall sub_0044BE50_GetUnitTypeOrInvalid(D2UnitStrc* pUnit);                                        // 0x0044BE50
 int __fastcall sub_00451F30_TestUnitFlag(D2UnitStrc* pUnit, int nFlag);                                     // 0x00451F30

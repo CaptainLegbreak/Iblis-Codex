@@ -1,11 +1,7 @@
+#include "D2Structs.h"
 #pragma function(memset)
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                 // 0x00681EF0
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2ActiveRoomStrc
 {
@@ -65,36 +61,6 @@ struct D2MonsterDataStrc
     D2AiControlStrc* pAiControl;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    union
-    {
-        D2MonsterDataStrc* pMonsterData;
-        D2ObjectDataStrc* pObjectData;
-    };
-    char unk0x18[0x14];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x30];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0x14];
-    unsigned char bSparkChest;
-    char unk0x79[0x3F];
-    int dwDropItemCode;
-    char unk0xBC[8];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-    int unk0xCC;
-    int dwNodeIndex;
-};
 
 struct D2InactiveMonsterNodeStrc
 {

@@ -1,19 +1,11 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2MonStatsTxt;
 struct D2ModeChangeStrc;
 struct D2MissilesTxt;
 struct D2MissileUnitFindArgStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int pMemoryPool[2];
-    int dwAnimMode;
-    unsigned char unk_14[0xB0];
-    unsigned int dwFlags;
-};
 
 struct D2MonStatsTxt { short nId; short nBaseId; char unk_04[0x1A2]; unsigned char nSpecialEnd; char unk_1A7; };
 

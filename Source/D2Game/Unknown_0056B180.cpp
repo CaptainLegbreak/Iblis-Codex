@@ -1,6 +1,7 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
-#define UNIT_PLAYER 0
 #define STAT_HITPOINTS 6
 #define STAT_MANA 8
 struct D2PlayerDataStrc;
@@ -9,16 +10,6 @@ struct D2SaveHeaderStrc;
 struct D2MonStatsTxt;
 struct D2MissilesTxt;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08;
-    int dwUnitId;
-    int dwAnimMode;
-    char unk0x14[0xB0];
-    unsigned int dwFlags;
-};
 
 struct D2PlayerDataStrc
 {
@@ -113,8 +104,6 @@ typedef char M195_CheckMissilesFlags[(int)&((D2MissilesTxt*)0)->nFlags == 0x04 ?
 
 enum
 {
-    UNIT_MONSTER = 1,
-    UNIT_MISSILE = 3,
     UNITFLAG_CANBEATTACKED = 0x00000004,
     UNITFLAG_ISVALIDTARGET = 0x00000008,
     STATE_JUSTHIT = 0x56,

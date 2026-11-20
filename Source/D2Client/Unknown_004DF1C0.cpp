@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define SKILLS_GetSkillsTxtRecord_E1120(nSkillId) \
@@ -176,15 +177,6 @@ int __fastcall sub_00515D70(D2SoundStrc* pSound, char* szPath, int nA, int nB); 
 void __fastcall sub_00516140(D2SoundStrc* pSound); // 0x00516140
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    unsigned int dwClassId;
-    char unk0x08[0x24];
-    D2DynamicPathStrc* pDynamicPath;
-    char unk0x30[0x94];
-    unsigned int dwFlags;
-};
 
 extern D2NpcSoundStrc gaNpcSounds_0072AE28[]; // 0x0072AE28
 extern D2DrlgActStrc* gpAct_007A0634; // 0x007A0634

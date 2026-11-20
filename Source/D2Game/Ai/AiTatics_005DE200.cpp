@@ -1,23 +1,8 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 struct D2StaticPathStrc;
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x1C];
-    D2SeedStrc pSeed;
-    char unk0x28[0x4];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-};
 struct D2StaticPathStrc
 {
     char unk0x00[0xC];
@@ -27,9 +12,6 @@ struct D2StaticPathStrc
 
 enum D2C_M86WalkCloseToUnit
 {
-    UNIT_OBJECT = 2,
-    UNIT_ITEM = 4,
-    UNIT_TILE = 5,
     MONMODE_WALK = 2,
 };
 

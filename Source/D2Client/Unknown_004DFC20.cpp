@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 struct D2SoundPosStrc;
 struct D2SlotObjectStrc;
@@ -66,11 +67,6 @@ extern int gnSfxVolume_00727564; // 0x00727564
 extern int gnEnvVolume_00727568; // 0x00727568
 extern int gdwGlobal_007C8C78; // 0x007C8C78
 
-struct D2UnitStrc
-{
-    char unk0x000[0xC4];
-    unsigned int dwFlags;
-};
 
 struct D2SkillsTxt
 {

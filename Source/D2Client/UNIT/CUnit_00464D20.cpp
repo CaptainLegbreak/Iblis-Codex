@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Constants.h"
 
 struct D2LightStrc;
 
@@ -51,12 +52,6 @@ struct D2UnitStrc
     D2UnitStrc* pListNext;
 };
 
-#define UNIT_PLAYER 0
-#define UNIT_MONSTER 1
-#define UNIT_OBJECT 2
-#define UNIT_MISSILE 3
-#define UNIT_ITEM 4
-#define UNIT_TILE 5
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090

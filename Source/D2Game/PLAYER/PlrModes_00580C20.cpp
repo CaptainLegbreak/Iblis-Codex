@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2ItemsTxt;
 
@@ -31,23 +32,6 @@ struct D2PlayerDataStrc
     int nInteractUnitGUID;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2PlayerDataStrc* pPlayerData;
-    char unk0x18[0x14];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x30];
-    D2InventoryStrc* pInventory;
-};
 
 struct D2CharStatsTxt
 {

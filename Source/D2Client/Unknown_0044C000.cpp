@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 struct SMSGHANDLER_PARAMS
 {
@@ -13,10 +14,6 @@ struct SMSGHANDLER_PARAMS
     int lResult;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-};
 
 D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
 int __cdecl sub_00468730(); // 0x00468730

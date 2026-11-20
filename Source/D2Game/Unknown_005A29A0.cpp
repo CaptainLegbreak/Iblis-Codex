@@ -1,8 +1,7 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
-#define UNIT_OBJECT 2
-#define UNIT_ITEM 4
-#define UNIT_TILE 5
 #define MISSILE_LIGHTUNIQUE 195
 #define MONTYPEFLAG_LIGHTNINGUNIQUE 0x100
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
@@ -43,29 +42,7 @@ struct D2MonsterDataStrc
     int dwDurielFlag;
 };
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-    unsigned char unk_18[0x8];
-    D2SeedStrc pSeed;
-    unsigned char unk_28[0x4];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-};
 
 struct D2MissilesTxt
 {
@@ -155,8 +132,6 @@ int __stdcall MISSILE_GetSkill(D2UnitStrc* pMissile); // 0x0064A280
 
 enum D2C_H16ElemConstants
 {
-    UNIT_MONSTER = 1,
-    UNIT_MISSILE = 3,
     MONLVL_DM = 6,
     STAT_LEVEL = 12,
 };

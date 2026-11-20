@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr,line) if(!(expr)){sub_00408A60(&gszEmptyAssertText,sub_00408090(),line);exit(-1);}
 struct D2RoomStrc;
@@ -45,15 +46,6 @@ struct D2GSPacketSrv5D { unsigned char header,id,flags,state; unsigned short rem
 
 extern const char gszQuestsSourceFile[]; // 0x006E0BE4
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08;
-    int dwUnitId;
-    char unk0x10[0xB4];
-    unsigned int dwFlags;
-};
 
 D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc*,const char*,int); // 0x005531C0
 D2RoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc*); // 0x00620BB0

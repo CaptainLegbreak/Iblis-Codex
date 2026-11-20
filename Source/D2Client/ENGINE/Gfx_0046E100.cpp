@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 #define GFX_MODE_KEEP 0x11
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2HashedFileEntryStrc;
@@ -105,21 +106,6 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x24];
-    D2DynamicPathStrc* pDynamicPath;
-    char unk0x30[0x44 - 0x30];
-    int nFrameFixed;
-    char unk0x48[0x60 - 0x48];
-    D2InventoryStrc* pInventory;
-    int unk0x64[25];
-    unsigned int dwFlagEx;
-    int unk0xCC[7];
-    D2UnitStrc* pRoomNext;
-};
 
 D2GfxDataStrc* __fastcall sub_00463E10_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
@@ -1118,7 +1104,7 @@ void __fastcall sub_004706E0_GetUnitCelOffsets(D2UnitStrc* pUnit, int nComponent
     memset(&tContext, 0, sizeof(tContext));
 
     int nOut;
-    if (sub_004DBB50_GetItemCelContext(&tContext, pUnit, 0, PATH_GetDirection(pPath), pUnit->nFrameFixed >> 8, &nOut, nComponent, -1) && sub_006001F0(&tContext, 0, 1))
+    if (sub_004DBB50_GetItemCelContext(&tContext, pUnit, 0, PATH_GetDirection(pPath), pUnit->nSeqCurrentFramePrecise >> 8, &nOut, nComponent, -1) && sub_006001F0(&tContext, 0, 1))
     {
         D2_ASSERT(tContext.pCel, 0xD7A);
         *pOffsetX = sub_00601920(tContext.pCel);

@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2MessageListStrc;
@@ -27,13 +28,6 @@ struct D2HoverTextPacketStrc
 };
 
 #pragma pack(pop)
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08[39];
-    D2HoverTextStrc* pHoverText;
-};
 
 D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 void __fastcall sub_004A1320_OpenTextPanel(unsigned short nStringId, int bSide, int bSound);

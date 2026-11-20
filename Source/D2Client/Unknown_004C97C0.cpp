@@ -1,22 +1,7 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    char unk0x10[0x10];
-    D2SeedStrc tSeed;
-    int unk0x28;
-    D2DynamicPathStrc* pDynamicPath;
-};
 
 struct D2SkillsTxt
 {
@@ -119,7 +104,7 @@ int __fastcall sub_004C97C0_SpawnScatterMissiles(D2UnitStrc* pUnit, int nSkillId
 
     const int nRadiusSq = nRadius * nRadius;
     const int nRange = 2 * nRadius + 1;
-    const int nRoll = SEED_RollLimitedRandomNumber(&pUnit->tSeed, 18);
+    const int nRoll = SEED_RollLimitedRandomNumber(&pUnit->pSeed, 18);
     const int nCount = nRadiusSq / (nSpacing * nSpacing) / (nRoll + 1);
     const int nX = CLIENTS_GetUnitX(pUnit);
     const int nY = CLIENTS_GetUnitY(pUnit);
@@ -134,8 +119,8 @@ int __fastcall sub_004C97C0_SpawnScatterMissiles(D2UnitStrc* pUnit, int nSkillId
 
     for (int i = 0; i < nCount; ++i)
     {
-        const int nOffsetX = ITEMS_RollLimitedRandomNumber(&pUnit->tSeed, nRange) - nRadius;
-        const int nOffsetY = ITEMS_RollLimitedRandomNumber(&pUnit->tSeed, nRange) - nRadius;
+        const int nOffsetX = ITEMS_RollLimitedRandomNumber(&pUnit->pSeed, nRange) - nRadius;
+        const int nOffsetY = ITEMS_RollLimitedRandomNumber(&pUnit->pSeed, nRange) - nRadius;
         if (nOffsetY * nOffsetY + nOffsetX * nOffsetX < nRadiusSq)
         {
             tParams.nX = nOffsetX + nX + 2;
@@ -143,7 +128,7 @@ int __fastcall sub_004C97C0_SpawnScatterMissiles(D2UnitStrc* pUnit, int nSkillId
             D2UnitStrc* pMissile = sub_004CD540_CreateMissile(&tParams);
             if (pMissile)
             {
-                PATH_SetDirection(pMissile->pDynamicPath, SEED_RollLimitedRandomNumber(&pUnit->tSeed, 0x40));
+                PATH_SetDirection(pMissile->pDynamicPath, SEED_RollLimitedRandomNumber(&pUnit->pSeed, 0x40));
             }
         }
     }

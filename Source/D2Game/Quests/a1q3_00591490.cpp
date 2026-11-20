@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 typedef int(__stdcall* FARPROC)();
@@ -23,13 +24,6 @@ struct D2PlayerDataStrc
     D2BitBufferStrc* pQuestData[3];
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    unsigned short dwClassId;
-    char unk0x06[0x6];
-    int dwUnitId;
-};
 
 struct D2QuestGUIDStrc
 {

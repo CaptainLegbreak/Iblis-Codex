@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
@@ -57,15 +58,6 @@ void __cdecl sub_00453EC0(); // 0x00453EC0
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x08];
-    int dwAnimMode;
-    char unk0x14[0x4C];
-    D2InventoryStrc* pInventory;
-};
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
@@ -99,12 +91,6 @@ const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); /
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 extern D2TextEntryStrc gaTextEntries_00724824[15]; // 0x00724824
 
-struct D2StatStrc
-{
-    unsigned short nLayer;
-    unsigned short nStat;
-    int nValue;
-};
 
 struct D2MonStatsTxt
 {

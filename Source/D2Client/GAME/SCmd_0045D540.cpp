@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 #pragma pack(push, 1)
 struct D2PacketRecord11Strc
 {
@@ -54,14 +55,6 @@ struct D2UnitStatPacket2Strc
 };
 #pragma pack(pop)
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-};
 
 void __fastcall sub_004C1BC0(D2PacketRecord11Strc* pPacket, int nArg);                                      // 0x004C1BC0
 D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType);                             // 0x00463990

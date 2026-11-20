@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 #ifdef MOVED_TEST
 #define SLOW_STAT 152
 #define SMALL_CAP 52
@@ -27,24 +28,7 @@ struct D2GameStrc;
 struct D2DamageStrc;
 struct Unit005A0180;
 typedef void (__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-#ifdef MOVED_TEST
-    char movedPrefix[4];
-#endif
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x04];
-    unsigned int dwUnitId;
-    char unk0x10[0x10];
-    D2SeedStrc pSeed;
-};
 
 struct D2CurseStrc
 {

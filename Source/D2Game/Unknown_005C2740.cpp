@@ -1,5 +1,4 @@
-struct D2SeedStrc { unsigned int nLowSeed; unsigned int nHighSeed; };
-struct D2UnitStrc { int dwUnitType; int dwClassId; };
+#include "D2Structs.h"
 struct D2ItemsTxt { char unk_00[0x80]; unsigned int dwCode; };
 struct D2SetItemsTxt { short nId; char unk_02[0x26]; unsigned int dwItemCode; };
 struct D2SetsTxt { int unk_00; unsigned short wVersion; char unk_06[6]; int nItemCount; char unk_10[0x100]; D2SetItemsTxt* pSetItems[6]; };

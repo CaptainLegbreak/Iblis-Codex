@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
@@ -8,11 +9,6 @@ struct D2StaticPathStrc;
 struct D2MissileStrc;
 struct D2SkillsTxt;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2StaticPathStrc
 {
@@ -21,22 +17,6 @@ struct D2StaticPathStrc
     int nYPos;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    unsigned char unk_14[0xC];
-    D2SeedStrc tSeed;
-    int unk0x28[1];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-};
 
 struct D2MissileStrc
 {
@@ -156,15 +136,15 @@ void __fastcall sub_004D8260_CltDoMissileSpray(D2UnitStrc* pMissile)
     const int nFrames = sub_0064A3B0_GetElapsedFrames(pMissile);
     if (nFrames - nFrames / 3 * 3 == 0)
     {
-        D2SeedStrc* pSeed = &pMissile->tSeed;
+        D2SeedStrc* pSeed = &pMissile->pSeed;
         D2SeedStrc tSeed;
         const int nOffsetX = SEED_RollFromInline(pSeed, &tSeed) % 20 - 10;
         const unsigned int nRoll = SEED_RollLowInline(&tSeed);
         pSeed->nHighSeed = tSeed.nHighSeed;
         pSeed->nLowSeed = tSeed.nLowSeed;
         const int nOffsetY = nRoll % 20 - 10;
-        const int nX = UNITS_GetUnitXPosition(pMissile) + (SEED_RollRandomNumber(&pMissile->tSeed) & 1) - 1;
-        const int nY = UNITS_GetUnitYPosition(pMissile) + (SEED_RollRandomNumber(&pMissile->tSeed) & 1) - 1;
+        const int nX = UNITS_GetUnitXPosition(pMissile) + (SEED_RollRandomNumber(&pMissile->pSeed) & 1) - 1;
+        const int nY = UNITS_GetUnitYPosition(pMissile) + (SEED_RollRandomNumber(&pMissile->pSeed) & 1) - 1;
 
         D2MissileStrc tParams;
         memset(&tParams, 0, sizeof(tParams));

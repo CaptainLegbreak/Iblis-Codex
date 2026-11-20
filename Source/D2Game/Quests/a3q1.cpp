@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -34,15 +35,6 @@ struct D2GameStrc
     unsigned char nDifficulty;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08;
-    int dwUnitId;
-    char unk0x10[0xB4];
-    unsigned int dwFlags;
-};
 
 struct D2PlayerDataStrc
 {

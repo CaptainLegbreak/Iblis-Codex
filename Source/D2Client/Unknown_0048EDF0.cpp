@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 struct D2CellFileStrc;
 
@@ -14,12 +15,6 @@ struct UnicodeChar : Unicode
     void sub_0042F530_ClearUnicode();                                                                      // 0x0042F530
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x5C];
-    D2InventoryStrc* pInventory;
-};
 
 struct D2CelContextStrc
 {

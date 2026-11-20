@@ -1,11 +1,11 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
-#define UNIT_MONSTER 1
 #define MONMODE_NEUTRAL 1
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define MONSTER_BONEWALL 344
 #define UNITFLAG_NOTC 0x00020000
-#define UNIT_INVALID 6
 #define MONSTER_BASEID_63 63
 struct D2AiParamStrc;
 struct D2MonStatsTxt;
@@ -38,27 +38,6 @@ struct D2MonsterDataStrc
     D2MonStatsTxt* pMonstatsTxt;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-    unsigned char unk_18[0x14];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    unsigned char unk_30[0x1E];
-    unsigned char nActionFrame;
-    unsigned char unk_4F[0x61];
-    int dwKillerGUID;
-    unsigned char unk_B4[0x10];
-    unsigned int dwFlags;
-};
 
 struct D2GameStrc
 {
@@ -194,11 +173,6 @@ struct D2CoordStrc
     int nY;
 };
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553540
 D2UnitStrc* __fastcall sub_6FD11420(D2GameStrc* pGame, int nMissileId, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nX, int nY, int nTargetX, int nTargetY, int a10); // 0x0056ECB0
@@ -636,7 +610,7 @@ void __fastcall sub_005A6920_MonsterRegenEvent(D2GameStrc* pGame, D2UnitStrc* pU
     }
 
     D2UnitStrc* pKiller = 0;
-    pUnit->dwKillerGUID = 0;
+    pUnit->dwLastHitClass = 0;
     if (pStatList)
     {
         pKiller = SUNIT_GetServerUnit(pGame, STATLIST_GetOwnerType(pStatList), STATLIST_GetOwnerGUID(pStatList));

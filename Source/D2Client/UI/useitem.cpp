@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct UIWidget;
@@ -155,15 +156,6 @@ extern int gnGlobal_007C5478; // 0x007C5478
 extern int gnGlobal_007C547C; // 0x007C547C
 extern unsigned long gdwTick_007C5488; // 0x007C5488
 
-struct D2UnitStrc
-{
-    char unk0x00[0x4];
-    unsigned int dwClassId;
-    char unk0x08[0x4];
-    int dwUnitId;
-    char unk0x10[0x50];
-    D2InventoryStrc* pInventory;
-};
 
 struct D2ItemsTxt
 {

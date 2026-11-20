@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 struct D2SkillsTxt;
@@ -12,17 +13,6 @@ struct D2GameStrc
     int dwGameFrame;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    char unk0x10[0xB4];
-    unsigned int dwFlags;
-    char unk0xC8[0x8];
-    int dwNodeIndex;
-};
 
 struct D2SkillsTxt
 {

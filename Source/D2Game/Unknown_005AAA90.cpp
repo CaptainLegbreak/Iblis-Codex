@@ -1,11 +1,9 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 enum D2C_M11MeteorConstants
 {
-    UNIT_MONSTER = 1,
-    UNIT_OBJECT = 2,
-    UNIT_ITEM = 4,
-    UNIT_TILE = 5,
     MONSTATS2FLAGINDEX_LARGE = 11,
 };
 struct D2CoordStrc
@@ -17,17 +15,6 @@ struct D2StaticPathStrc
 {
     char unk0x00[0x0C];
     D2CoordStrc tGameCoords;
-};
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x24];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
 };
 struct D2MissilesTxt
 {

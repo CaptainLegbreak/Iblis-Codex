@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define UNIT_OBJECT 2
 #define UNITFLAGEX_TELEPORTED 0x10000
@@ -35,42 +36,7 @@ struct D2ObjectDataStrc
     int dwOperateGUID;
 };
 
-struct D2SeedStrc { unsigned int nLowSeed; unsigned int nHighSeed; };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    union
-    {
-        struct
-        {
-            char unk0x08[0x58];
-        };
-        struct
-        {
-            unsigned char unk_08[0x4];
-            int dwUnitId;
-            int dwAnimMode;
-            D2ObjectDataStrc* pObjectData;
-            unsigned char unk_18[0x8];
-            D2SeedStrc pSeed;
-        };
-        struct
-        {
-            unsigned char unk_08_2[0x8];
-            unsigned int mode;
-        };
-    };
-    D2InventoryStrc* pInventory;
-    unsigned char unk_64[0x60];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-    unsigned char unk_CC[0x8];
-    unsigned int lastOperateTick;
-    unsigned char unk_D8[0x10];
-    D2UnitStrc* pRoomNext;
-};
 
 struct D2ActiveRoomStrc
 {
@@ -447,7 +413,7 @@ int __fastcall OBJECTS_OperateFunction27_TeleportPad(D2ObjOperateFnStrc* pOp, in
     return 0;
 }
 
-static inline unsigned int GetAnimMode(D2UnitStrc* unit) { if(!unit) return 0; return unit->mode; }
+static inline unsigned int GetAnimMode(D2UnitStrc* unit) { if(!unit) return 0; return unit->dwAnimMode; }
 
 // 0x00581D40
 int __fastcall sub_00581D40_OperateDoor(D2ObjOperateStrc* context,int unused)
@@ -459,7 +425,7 @@ int __fastcall sub_00581D40_OperateDoor(D2ObjOperateStrc* context,int unused)
  unsigned int sizeY=sub_006205A0(context->object);
  unsigned int tick=GetTickCount();
  unsigned int mode=GetAnimMode(context->object);
- if(tick<context->object->lastOperateTick+500) return 1;
+ if(tick<context->object->dwTickCount+500) return 1;
  switch(mode) {
  case 6:
   if(!sub_0055F140(context->game,context->player)) {
@@ -469,25 +435,25 @@ int __fastcall sub_00581D40_OperateDoor(D2ObjOperateStrc* context,int unused)
  case 0:
   UNITS_FreeCollisionPath(context->object);
   UNITS_ChangeAnimMode(context->object,2);
-  context->object->lastOperateTick=tick;
+  context->object->dwTickCount=tick;
   return 1;
  case 2:
  case 5:
   if(!COLLISION_CheckMaskWithSizeXY(room,coords.nX,coords.nY,sizeX,sizeY,0x8180)) {
    UNITS_BlockCollisionPath(context->object,room,coords.nX,coords.nY);
    UNITS_ChangeAnimMode(context->object,0);
-   context->object->lastOperateTick=tick;
+   context->object->dwTickCount=tick;
    return 1;
   }
   if(!COLLISION_CheckMaskWithSizeXY(room,coords.nX,coords.nY,sizeX,sizeY,0x8000)) {
    if(mode!=5) {
     UNITS_ChangeAnimMode(context->object,5);
-    context->object->lastOperateTick=tick;
+    context->object->dwTickCount=tick;
     break;
    }
   } else {
    UNITS_ChangeAnimMode(context->object,4);
-   context->object->lastOperateTick=tick;
+   context->object->dwTickCount=tick;
    return 1;
   }
  }

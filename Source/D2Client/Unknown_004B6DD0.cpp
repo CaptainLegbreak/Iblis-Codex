@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 struct D2BitBufferStrc;
 struct D2TextHeaderStrc;
 struct D2InventoryStrc;
@@ -12,21 +13,6 @@ struct D2PlayerDataStrc
     int nValue15C;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    unsigned int dwClassId;
-    char unk0x08[0x04];
-    int dwUnitId;
-    char unk0x10[0x04];
-    D2PlayerDataStrc* pPlayerData;
-    char unk0x18[0x14];
-    D2DynamicPathStrc* pDynamicPath;
-    char unk0x30[0x30];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0x60];
-    int dwFlags;
-};
 
 struct D2NpcQuestHandlerStrc
 {

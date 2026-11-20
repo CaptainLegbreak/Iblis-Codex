@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 struct D2StaticPathStrc;
 struct D2MissilesTxt;
@@ -17,25 +18,7 @@ struct D2StaticPathStrc
     D2CoordStrc tGameCoords;
 };
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08[6];
-    D2SeedStrc tSeed;
-    int unk0x28;
-    union
-    {
-        D2StaticPathStrc* pStaticPath;
-        D2DynamicPathStrc* pDynamicPath;
-    };
-};
 
 struct D2MissilesTxt
 {
@@ -267,7 +250,7 @@ void __fastcall sub_004D3630_CltDoCommon2(D2UnitStrc* pMissile)
         {
             if (pMissilesTxtRecord->wCltSubMissile[2] >= 0)
             {
-                switch (SEED_RollLimitedRandomNumber(&pMissile->tSeed, 3))
+                switch (SEED_RollLimitedRandomNumber(&pMissile->pSeed, 3))
                 {
                 case 0:
                     tParams.nMissile = pMissilesTxtRecord->wCltSubMissile[1];
@@ -277,14 +260,14 @@ void __fastcall sub_004D3630_CltDoCommon2(D2UnitStrc* pMissile)
                     break;
                 }
             }
-            else if (!SEED_RollLimitedRandomNumber(&pMissile->tSeed, 2))
+            else if (!SEED_RollLimitedRandomNumber(&pMissile->pSeed, 2))
             {
                 tParams.nMissile = pMissilesTxtRecord->wCltSubMissile[1];
             }
         }
 
         const int nChance = pMissilesTxtRecord->dwCltParam[0];
-        if (!nChance || SEED_RollLimitedRandomNumber(&pMissile->tSeed, nChance))
+        if (!nChance || SEED_RollLimitedRandomNumber(&pMissile->pSeed, nChance))
             tParams.dwFlags |= 0x4000;
 
         tParams.nTargetX = UNITS_GetXPosition(pMissile);

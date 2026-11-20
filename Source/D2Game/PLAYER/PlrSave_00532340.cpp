@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2SaveHeaderStrc;
 struct D2ServerCallbackFunctions;
@@ -9,11 +10,6 @@ struct D2GameStrc
     unsigned char nGameType;
 };
 
-struct D2UnitStrc
-{
-    char unk0x00[0xC8];
-    unsigned int dwFlagEx;
-};
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090

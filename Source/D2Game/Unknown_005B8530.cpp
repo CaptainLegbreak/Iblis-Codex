@@ -1,11 +1,4 @@
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08;
-    int dwUnitId;
-    int dwAnimMode;
-};
+#include "D2Structs.h"
 struct D2GameStrc
 {
     char unk0x00[0xA8];

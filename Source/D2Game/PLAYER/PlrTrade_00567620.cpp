@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2GameStrc
 {
@@ -6,15 +7,6 @@ struct D2GameStrc
     int dwGameFrame;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x58];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0x64];
-    unsigned int dwFlagEx;
-};
 
 struct D2PlayerDataStrc
 {

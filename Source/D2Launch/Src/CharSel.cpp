@@ -1,4 +1,5 @@
 #include "D2Launch.h"
+#include "D2Structs.h"
 
 #pragma intrinsic(strlen)
 
@@ -79,19 +80,6 @@ extern D2CharSelCacheStrc* gpCharSelCache_00779DE8; // 0x00779DE8
 extern int gbFlag_00779C6C; // 0x00779C6C
 extern char gszBaseName_00779B68[]; // 0x00779B68
 
-struct D2UnitStrc
-{
-    unsigned int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    unsigned int dwUnitId;
-    char unk0x10[0x1C];
-    D2DynamicPathStrc* pDynamicPath;
-    char unk0x30[0x30];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0x84];
-    D2UnitStrc* pRoomNext;
-};
 
 struct D2ActiveRoomStrc
 {

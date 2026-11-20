@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define QUEST_A2Q4_HORAZONTOME 11
 #define LEVEL_PALACECELLARLEV3 54
@@ -14,15 +15,6 @@ struct D2PlayerDataStrc;
 struct D2QuestGUIDStrc;
 struct D2Act2Quest6Strc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char pad0x08[0x4];
-    int dwUnitId;
-    unsigned char unk_10[0xD8];
-    D2UnitStrc* pRoomNext;
-};
 
 struct D2ActiveRoomStrc
 {

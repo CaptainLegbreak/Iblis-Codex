@@ -1,10 +1,6 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2GameStrc
 {
@@ -12,12 +8,6 @@ struct D2GameStrc
     unsigned char nDifficulty;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0[0xB4];
-    unsigned int dwDropItemCode;
-};
 
 struct D2ObjOperateFnStrc
 {

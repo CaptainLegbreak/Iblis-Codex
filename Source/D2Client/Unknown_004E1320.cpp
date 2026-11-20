@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 #ifdef MOVED_TEST
 #define UNIT_FLAG 0x20
 #define COUNT_BIAS 8
@@ -14,32 +15,6 @@ struct D2StaticPathStrc;
 struct D2InventoryStrc;
 struct D2GfxLightStrc;
 struct D2MissilesTxt;
-struct D2UnitStrc
-{
-#ifdef MOVED_TEST
-    int movedPrefix;
-#endif
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    void* f_14;
-    char unk0x18[0x10];
-    int dwInitSeed;
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x18];
-    int dwFrameCountPrecise;
-    char unk0x4C[0x14];
-    D2InventoryStrc* pInventory;
-    D2GfxLightStrc* pLight;
-    char unk0x68[0x5C];
-    unsigned int dwFlags;
-};
 struct D2SkillsTxt
 {
 #ifdef MOVED_TEST

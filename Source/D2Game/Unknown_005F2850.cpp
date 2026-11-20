@@ -1,20 +1,11 @@
+#include "D2Structs.h"
 struct D2GameStrc
 {
     char unk0x00[0x6D];
     unsigned char nDifficulty;
 };
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    char unk0x00[0x20];
-    D2SeedStrc pSeed;
-};
 
 struct D2MonStatsTxt
 {

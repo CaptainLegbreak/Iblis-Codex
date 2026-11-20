@@ -1,4 +1,6 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr,line) if(!(expr)) { sub_00408A60(&gszEmptyAssertText,sub_00408090(),line);exit(-1); }
 struct D2MonsterDataStrc;
@@ -20,42 +22,9 @@ struct D2MonsterDataStrc
     int pVision;
 };
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-    unsigned char unk_18[0x8];
-    D2SeedStrc pSeed;
-    unsigned char unk_28[0x4];
-    union
-    {
-        D2StaticPathStrc* pStaticPath;
-        D2DynamicPathStrc* pDynamicPath;
-    };
-    unsigned char unk_30[0x94];
-    unsigned int dwFlags;
-    unsigned char unk_C8[0x20];
-    D2UnitStrc* pRoomNext;
-};
 
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
-
-enum D2C_Y10AiUtilConstants
-{
-    UNIT_OBJECT = 2,
-    UNIT_ITEM = 4,
-    UNIT_TILE = 5,
-};
 
 struct D2CoordStrc
 {
@@ -96,8 +65,6 @@ int __fastcall sub_00554200_CheckTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
 
 enum D2C_P11AiUtilConstants
 {
-    UNIT_MONSTER = 1,
-    UNIT_INVALID = 6,
     MONMODE_DEATH = 0,
 };
 

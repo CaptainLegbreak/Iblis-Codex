@@ -1,6 +1,6 @@
 #include "D2Client.h"
+#include "D2Constants.h"
 
-#define UNIT_MONSTER 1
 
 struct D2GraphicsInterfaceStrc;
 struct D2MonStatsTxt;

@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Constants.h"
 
 struct D2GameStrc
 {
@@ -71,7 +72,6 @@ int __fastcall SKILLS_HasManaOrChargesForUsedSkill(D2UnitStrc* pUnit);          
 int __fastcall sub_6FD118C0(D2GameStrc* pGame, D2UnitStrc* pUnit);                                          // 0x0056C3F0
 struct D2CoordStrc { int nX; int nY; };
 struct D2StaticPathStrc { char unk0x00[0x0C]; D2CoordStrc tGameCoords; };
-enum D2C_UnitTypes { UNIT_OBJECT = 2, UNIT_ITEM = 4, UNIT_TILE = 5 };
 void __fastcall sub_6FD10E50(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);                   // 0x0056E900
 D2UnitStrc* __fastcall sub_6FD11420(D2GameStrc* pGame, int nMissileId, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nX, int nY, int nTargetX, int nTargetY, int bCheckItemQuantity); // 0x0056ECB0
 D2UnitStrc* __fastcall sub_6FD11710(D2GameStrc* pGame, int nMissileId, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nX, int nY, int nTargetX, int nTargetY, int bCheckItemQuantity); // 0x0056EE90
@@ -93,8 +93,6 @@ int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int b
 unsigned int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill);                                                // 0x006446A0
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 
-#define UNIT_PLAYER 0
-#define UNIT_MONSTER 1
 #define PLRMODE_TOWNNEUTRAL 5
 #define PLRMODE_SEQUENCE 18
 #define STATE_SKILLDELAY 121

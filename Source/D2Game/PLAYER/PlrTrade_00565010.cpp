@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2CubeInputItem;
@@ -9,17 +10,6 @@ struct D2PlayerDataStrc;
 struct D2SystemTimeStrc;
 struct D2GSPacketSrv78;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x04];
-    int dwUnitId;
-    char unk0x10[0x50];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0x64];
-    unsigned int dwFlagEx;
-};
 
 struct D2GameStrc
 {

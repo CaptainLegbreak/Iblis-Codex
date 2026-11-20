@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -8,15 +9,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 
 typedef int (__stdcall* FARPROC)();
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08;
-    int dwUnitId;
-    char unk0x10[0x50];
-    D2InventoryStrc* pInventory;
-};
 
 #pragma pack(push, 1)
 struct D2GSPacketSrv27

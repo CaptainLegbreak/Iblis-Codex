@@ -1,4 +1,6 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2QuestGUIDStrc;
@@ -57,22 +59,6 @@ struct D2Act5Quest4Strc
 
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    char unk0x14[0x18];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x88];
-    int dwDropItemCode;
-};
 
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -86,9 +72,6 @@ extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x
 
 enum D2C_F33QuestConstants
 {
-    UNIT_PLAYER = 0,
-    UNIT_MONSTER = 1,
-    UNIT_OBJECT = 2,
     ACT_V = 4,
     LEVEL_ROGUEENCAMPMENT = 1,
     LEVEL_TRISTRAM = 38,

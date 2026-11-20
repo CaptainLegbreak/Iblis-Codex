@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 struct D2MonStatsTxt
 {
     char unk0x00[0x0C];
@@ -20,13 +21,6 @@ struct D2MonsterDataStrc
     int nAiState;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x0C];
-    D2MonsterDataStrc* pMonsterData;
-};
 
 #define UNIT_MONSTER 1
 #define UNIT_INVALID 6

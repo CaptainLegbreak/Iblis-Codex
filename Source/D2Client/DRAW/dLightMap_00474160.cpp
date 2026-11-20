@@ -1,17 +1,9 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 struct D2LightStrc;
 struct D2DrlgCoordsStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    unsigned int dwClassId;
-    void* pMemoryPool;
-    unsigned int dwUnitId;
-    char unk0x10[0xB4];
-    unsigned int dwFlagEx;
-};
 
 struct D2LightStrc
 {
@@ -70,7 +62,7 @@ static inline int UNITS_IsServerSide(D2UnitStrc* pUnit)
 {
     if (pUnit)
     {
-        return (pUnit->dwFlagEx >> 21) & 1;
+        return (pUnit->dwFlags >> 21) & 1;
     }
     return 0;
 }

@@ -1,15 +1,11 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 #define AI_GetParam(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 struct D2SeedStrc;
 struct D2MonStatsTxt;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2GameStrc
 {
@@ -40,13 +36,6 @@ struct D2MonStatsTxt
     char unk0x188[0x20];
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x18];
-    D2SeedStrc pSeed;
-};
 
 struct D2AiTickParamStrc
 {

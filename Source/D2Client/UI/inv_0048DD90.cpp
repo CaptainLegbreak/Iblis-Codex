@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 #pragma intrinsic(memset)
 
@@ -8,15 +9,6 @@ struct Unicode
 
 struct D2InventoryStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x08];
-    int dwAnimMode;
-    char unk0x14[0x4C];
-    D2InventoryStrc* pInventory;
-};
 
 struct D2ItemsTxt
 {

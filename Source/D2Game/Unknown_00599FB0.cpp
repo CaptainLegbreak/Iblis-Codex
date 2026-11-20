@@ -1,4 +1,4 @@
-struct D2UnitStrc { unsigned char padding[12]; int dwUnitId; };
+#include "D2Structs.h"
 struct D2QuestGUIDStrc { unsigned int playerIds[32]; unsigned short playerCount; unsigned char padding[2]; };
 struct D2Act2Quest3Strc { unsigned char padding[0x14]; D2QuestGUIDStrc playerGuids; };
 struct D2QuestDataStrc { unsigned char padding[0x18]; D2Act2Quest3Strc* data; };

@@ -1,32 +1,12 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2MonStatsTxt;
 struct D2MonStats2Txt;
 struct D2SkillsTxt;
 struct D2SeedStrc;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    char unk0x10[0x10];
-    D2SeedStrc pSeed;
-    int dwInitSeed;
-    D2DynamicPathStrc* pDynamicPath;
-    char unk0x30[0x14];
-    int nSeqCurrentFramePrecise;
-    int dwFrameCountPrecise;
-    unsigned char unk_4C[0x78];
-    unsigned int dwFlags;
-};
 
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
 

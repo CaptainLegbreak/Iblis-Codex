@@ -1,10 +1,6 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2MonStatsTxt
 {
@@ -24,17 +20,6 @@ struct D2MonsterDataStrc
     D2MonStatsTxt* pMonstatsTxt;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x04];
-    unsigned int dwUnitId;
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-    char unk0x18[0x08];
-    D2SeedStrc pSeed;
-};
 
 struct D2GameStrc
 {

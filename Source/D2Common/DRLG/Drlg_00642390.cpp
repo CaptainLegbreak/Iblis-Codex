@@ -1,11 +1,7 @@
+#include "D2Structs.h"
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                  // 0x00681EF0
 #pragma function(memset)
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2DrlgLevelStrc;
 

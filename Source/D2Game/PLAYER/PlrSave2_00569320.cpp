@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
 #define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
 struct D2StatListExStrc;
@@ -48,11 +49,6 @@ extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize
 void __fastcall PLRINTRO_CopyQuestIntroFlagsToBuffer(D2PlrIntroStrc* pPlayerIntro, unsigned char* pBuffer); // 0x00572520
 void __fastcall PLRINTRO_CopyNpcIntroFlagsToBuffer(D2PlrIntroStrc* pPlayerIntro, unsigned char* pBuffer); // 0x00572530
 
-struct D2UnitStrc
-{
-    char unk0x00[0x5C];
-    D2StatListExStrc* pStatListEx;
-};
 
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
 
@@ -65,19 +61,6 @@ struct D2BitBufferStrc
     int bFull;
 };
 
-struct D2StatStrc
-{
-    union
-    {
-        struct
-        {
-            unsigned short nLayer;
-            unsigned short nStat;
-        };
-        int nPackedValue;
-    };
-    int nValue;
-};
 
 struct D2ItemStatCostTxt
 {

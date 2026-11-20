@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define BODYLOC_BELT 8
 #define ITEMTYPE_BELT 19
@@ -23,14 +24,6 @@ void __fastcall sub_004AA030_SelectHotkey(int nSlot); // 0x004AA030
 int __cdecl sub_0044DCC0(); // 0x0044DCC0
 void __fastcall sub_004785B0_SendPacket3(unsigned char nCmd, unsigned short nArg); // 0x004785B0
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x0C];
-    int dwAnimMode;
-    unsigned char unk_14[0x4C];
-    D2InventoryStrc* pInventory;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090

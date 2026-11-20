@@ -1,9 +1,6 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
-struct D2UnitStrc
-{
-    unsigned int dwUnitType;
-};
 
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit);                                        // 0x004639D0
 int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit);                                               // 0x00464820
@@ -18,7 +15,7 @@ void __fastcall sub_004D3070_CltDoOwnerStep(D2UnitStrc* pMissile)
         sub_004CD390_CltDoDefault(pMissile);
         return;
     }
-    if (pOwner->dwUnitType <= 1 && sub_00464820_IsDeadOrDying(pOwner))
+    if ((unsigned int)pOwner->dwUnitType <= UNIT_MONSTER && sub_00464820_IsDeadOrDying(pOwner))
     {
         sub_004D2D70_CltMissileHit(pMissile, 0, 0);
         return;

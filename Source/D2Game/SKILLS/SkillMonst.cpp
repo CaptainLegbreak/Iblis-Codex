@@ -1,4 +1,6 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 #define STAT_HITPOINTS 6
 #define DAMAGERESULTFLAG_SUCCESSFULHIT 1
@@ -23,31 +25,9 @@ struct D2StaticPathStrc
     int nYPos;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08;
-    int dwUnitId;
-    char unk0x10[0x1C];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x18];
-    int dwFrameCountPrecise;
-    char unk0x4C[0x02];
-    unsigned char nActionFrame;
-    unsigned char unk_4F[0x75];
-    unsigned int dwFlags;
-};
 
 enum D2C_M54SkillMonstConstants
 {
-    UNIT_OBJECT = 2,
-    UNIT_ITEM = 4,
-    UNIT_TILE = 5,
     PATHTYPE_ASTAR = 1,
     PATHTYPE_TOWARD = 2,
 };
@@ -73,11 +53,6 @@ int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bA
 void __stdcall COLLISION_ResetMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, int nMask); // 0x0064EC10
 
 typedef int (__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nInitArg);
-
-enum D2C_UnitTypes
-{
-    UNIT_MONSTER = 1,
-};
 
 struct D2SkillsTxt
 {

@@ -1,4 +1,6 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 #define QFLAG_REWARDGRANTED 0
 #define QFLAG_COMPLETEDNOW 14
@@ -42,16 +44,6 @@ struct D2GameStrc
     int dwGameFrame;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    char unk0x14[0xB0];
-    unsigned int dwFlags;
-};
 
 struct D2PlayerDataStrc
 {
@@ -157,7 +149,6 @@ struct D2Act2Quest4Strc
 
 enum D2C_M11A2Q4Constants
 {
-    UNIT_OBJECT = 2,
     OBJMODE_NEUTRAL = 0,
     OBJMODE_OPENED = 2,
     QUEST_A2Q4_HORAZONTOME = 11,
@@ -196,11 +187,6 @@ void __fastcall QUESTS_SetGlobalState(D2GameStrc* pGame, int nQuestId, int nStat
 int __fastcall ACT2Q4_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x0059AD50
 int __fastcall ACT2Q4_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x0059ADB0
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2ObjInitFnStrc
 {

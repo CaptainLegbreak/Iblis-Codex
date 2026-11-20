@@ -1,6 +1,6 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
-struct D2UnitStrc { int dwUnitType; int dwClassId; int unk08; int dwUnitId; char pad10[0x34]; int dwSeqFrame; char pad48[0x7C]; unsigned int dwFlags; };
 struct D2GameStrc { char pad00[0xA8]; int dwGameFrame; };
 struct D2SkillsTxt { char pad00[0x138]; unsigned int dwCalc[4]; char pad148[0x5D]; unsigned char nSrcDam; char pad1A6[0x36]; unsigned char nEType; char pad1DD[0x5F]; };
 struct D2DataTablesStrc { char pad00[0xB98]; D2SkillsTxt* pSkillsTxt; int unkB9C; int nSkillsTxtRecordCount; };
@@ -86,7 +86,7 @@ int __fastcall SKILLS_SrvDo067_Charge(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
         }
         else
         {
-            if (pGame->dwGameFrame - (pUnit->dwSeqFrame >> 8) >= nFrame)
+            if (pGame->dwGameFrame - (pUnit->nSeqCurrentFramePrecise >> 8) >= nFrame)
             {
                 D2GAME_SKILLS_RewindSkillEx_6FCBD260(pGame, pUnit, 0);
                 SKILLS_SetFlags(pSkill, 1);

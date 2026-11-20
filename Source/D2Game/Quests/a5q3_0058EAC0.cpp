@@ -1,7 +1,7 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2GameStrc { char unk_00[0xA8]; int dwGameFrame; };
-struct D2UnitStrc { int dwUnitType; int dwClassId; int pMemoryPool; int dwUnitId; };
 struct D2ObjInitFnStrc
 {
     D2GameStrc* pGame; D2UnitStrc* pObject; D2ActiveRoomStrc* pRoom;

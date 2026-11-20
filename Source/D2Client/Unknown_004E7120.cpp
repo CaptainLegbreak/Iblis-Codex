@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -15,13 +16,6 @@ extern "C" const char szFmtPlusDec_006DBE9C[]; // 0x006DBE9C
 extern "C" const char szFmtDec_006DBE94[]; // 0x006DBE94
 extern "C" const char szFmtRange_006D9D70[]; // 0x006D9D70
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x58];
-    D2InventoryStrc* pInventory;
-};
 
 struct D2SkillsTxt
 {

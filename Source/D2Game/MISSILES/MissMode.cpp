@@ -1,7 +1,8 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define UNIT_INVALID 6
 #define STAT_TOHIT 19
 #define UNITFLAGEX_0x40000 0x40000
 #define PATHTYPE_CHARGEDBOLT 10
@@ -26,33 +27,7 @@ struct D2AuraCallbackStrc;
 struct D2SeedStrc;
 struct D2SkillsTxt;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char pad0x08[0x08];
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-    char unk0x18[0x08];
-    D2SeedStrc tSeed;
-    int unk0x28;
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    int unk0x30[5];
-    int nSeqCurrentFramePrecise;
-    unsigned char unk_48[0x7C];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-};
 
 struct D2MonsterDataStrc
 {
@@ -168,8 +143,6 @@ struct D2UnkFieldsStrc
 
 enum D2MiscConstants
 {
-    UNIT_PLAYER = 0,
-    UNIT_MONSTER = 1,
     MONMODE_DEATH = 0,
     MONMODE_GETHIT = 3,
     EVENTTYPE_MONUMOD = 7,
@@ -304,13 +277,6 @@ void __stdcall PATH_SetType(D2DynamicPathStrc* pDynamicPath, int nPathType); // 
 void __stdcall PATH_SetNewDistance(D2DynamicPathStrc* pDynamicPath, unsigned char nNewDistance); // 0x00648E70
 int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown); // 0x00649970
 void __cdecl sub_00476AF0_ClearGlobals();
-
-enum D2C_M57MissHitConstants
-{
-    UNIT_OBJECT = 2,
-    UNIT_ITEM = 4,
-    UNIT_TILE = 5,
-};
 
 int __fastcall MONSTERSPAWN_SpawnRandomMonsterForLevel(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x005B3570
 
@@ -970,12 +936,12 @@ void __fastcall sub_004CC870_InitFromOwner(D2UnitStrc* pMissile, int nInitArg)
 
     int nOffset = 0;
     if (pMissilesTxtRecord->dwCltParam[1] > 0)
-        nOffset = SEED_RollLimitedRandomNumber(&pOwner->tSeed, pMissilesTxtRecord->dwCltParam[1]) - pMissilesTxtRecord->dwCltParam[1] / 2;
+        nOffset = SEED_RollLimitedRandomNumber(&pOwner->pSeed, pMissilesTxtRecord->dwCltParam[1]) - pMissilesTxtRecord->dwCltParam[1] / 2;
 
     sub_004DA1D0_SetMotionVectorA(pMissile, 0, 0, nOffset);
     PATH_SetDirection(pMissile->pDynamicPath, PATH_GetDirection(pOwner->pDynamicPath));
     sub_00649030_SetPathFlag40(pMissile->pDynamicPath, 0);
-    pMissile->nSeqCurrentFramePrecise = ITEMS_RollLimitedRandomNumber(&pMissile->tSeed, pMissilesTxtRecord->nAnimLen) << 8;
+    pMissile->nSeqCurrentFramePrecise = ITEMS_RollLimitedRandomNumber(&pMissile->pSeed, pMissilesTxtRecord->nAnimLen) << 8;
 }
 
 // build: context sub_004CC9A0_CltHitProgOverlay
@@ -1010,7 +976,7 @@ void __fastcall sub_004CCCC0_SubmissileInitFunc(D2UnitStrc* pMissile, int nUnuse
 
     const int nRange = MISSILE_GetTotalFrames(pMissile) > 255 ? 255 : MISSILE_GetTotalFrames(pMissile);
     D2DynamicPathStrc* pPath = pMissile->pDynamicPath;
-    SEED_InitLowSeed(&pMissile->tSeed, D2COMMON_10175_PathGetFirstPointX(pPath));
+    SEED_InitLowSeed(&pMissile->pSeed, D2COMMON_10175_PathGetFirstPointX(pPath));
     PATH_SetType(pPath, PATHTYPE_CHARGEDBOLT);
     PATH_SetNewDistance(pPath, nRange);
     D2Common_10142(pPath, pMissile, 0);
@@ -1401,7 +1367,7 @@ int __fastcall sub_005AC350(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc*
 
     const int nMin = SKILLS_GetMinPhysDamage(SUNIT_GetOwner(pGame, pMissile), nSkillId, nSkillLevel, 1);
     const int nMax = SKILLS_GetMaxPhysDamage(SUNIT_GetOwner(pGame, pMissile), nSkillId, nSkillLevel, 1);
-    const int nHeal = ITEMS_RollLimitedRandomNumber(&pMissile->tSeed, nMax - nMin) + nMin;
+    const int nHeal = ITEMS_RollLimitedRandomNumber(&pMissile->pSeed, nMax - nMin) + nMin;
 
     int nHitpoints = STATLIST_UnitGetStatValue(pUnit, STAT_HITPOINTS, 0);
     const int nMaxHitpoints = STATLIST_GetMaxLifeFromUnit(pUnit);
@@ -1436,13 +1402,13 @@ int __fastcall MISSMODE_SrvHit58_BaalTauntLightningControl(D2GameStrc* pGame, D2
     }
 
     const int nSeedX = CLIENTS_GetUnitX(pMissile);
-    SEED_InitLowSeed(&pMissile->tSeed, nSeedX);
+    SEED_InitLowSeed(&pMissile->pSeed, nSeedX);
     const int nParam = D2_MAX(1, pMissilesTxtRecord->dwHitPar[0]);
 
     const int nX = CLIENTS_GetUnitX(pMissile);
     const int nY = CLIENTS_GetUnitY(pMissile);
-    const int nTargetX = nX + SEED_RollLimitedRandomNumber(&pMissile->tSeed, 2 * nParam + 1) - nParam;
-    const int nTargetY = nY + SEED_RollLimitedRandomNumber(&pMissile->tSeed, 2 * nParam + 1) - nParam;
+    const int nTargetX = nX + SEED_RollLimitedRandomNumber(&pMissile->pSeed, 2 * nParam + 1) - nParam;
+    const int nTargetY = nY + SEED_RollLimitedRandomNumber(&pMissile->pSeed, 2 * nParam + 1) - nParam;
 
     D2MissileStrc missileParams = {};
     missileParams.dwFlags = 32;
@@ -1599,7 +1565,7 @@ void __fastcall MISSMODE_SrvDmg03_Blaze_FireWall_ImmolationFire_MeteorFire(D2Gam
     D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecordFromUnit(pMissile);
     if (pMissilesTxtRecord)
     {
-        const int nRand = SEED_RollRandomNumber(&pMissile->tSeed) & 127;
+        const int nRand = SEED_RollRandomNumber(&pMissile->pSeed) & 127;
         if (nRand < pMissilesTxtRecord->dwDmgParam[0])
         {
             pDamage->wResultFlags |= 0x4000;
@@ -1729,7 +1695,7 @@ void __fastcall MISSMODE_SrvDmg14_MoltenBoulder(D2GameStrc* pGame, D2UnitStrc* p
         return;
     }
 
-    if (nChance > 0 && (int)SEED_RollLimitedRandomNumber(&pMissile->tSeed, 100) < nChance)
+    if (nChance > 0 && (int)SEED_RollLimitedRandomNumber(&pMissile->pSeed, 100) < nChance)
     {
         pDamage->wResultFlags |= 8;
     }

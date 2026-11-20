@@ -1,15 +1,12 @@
 #include "D2Client.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 enum D2C_F06CursorConstants
 {
-    UNIT_ITEM = 4,
     NUM_CURSOR_CELLS = 7,
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-};
 
 struct D2CelContextStrc
 {

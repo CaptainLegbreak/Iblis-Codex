@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_ITEM 4
@@ -16,11 +17,6 @@ struct D2ItemDataStrc;
 struct D2ActiveRoomStrcView;
 struct D2ItemsTxt;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2StaticPathStrc
 {
@@ -35,29 +31,6 @@ struct D2ItemDataStrc
     int dwActionStamp;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2ItemDataStrc* pItemData;
-    char unk0x18[0x08];
-    D2SeedStrc pSeed;
-    unsigned int dwInitSeed;
-    union
-    {
-        D2StaticPathStrc* pStaticPath;
-        D2DynamicPathStrc* pDynamicPath;
-    };
-    unsigned char unk_30[0x88];
-    unsigned int dwDropItemCode;
-    unsigned char unk_BC[0x8];
-    unsigned int dwFlags;
-    char unk0xC8[0x20];
-    D2UnitStrc* pRoomNext;
-};
 
 struct D2ActiveRoomStrc
 {

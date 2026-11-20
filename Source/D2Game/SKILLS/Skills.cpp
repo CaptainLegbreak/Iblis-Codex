@@ -1,10 +1,8 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
-#define UNIT_OBJECT 2
-#define UNIT_ITEM 4
-#define UNIT_TILE 5
 #define MONSTATSFLAGINDEX_NOAURA 27
-#define UNIT_MISSILE 3
 #define ITEMTYPE_CROSSBOW 35
 #define STAT_TOHIT 19
 #define STAT_DAMAGEPERCENT 25
@@ -79,67 +77,7 @@ struct D2StaticPathStrc
     };
 };
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    union
-    {
-        int dwUnitType;
-        unsigned int type;
-    };
-    union
-    {
-        struct
-        {
-            char unk0x04[0x08];
-        };
-        struct
-        {
-            int dwClassId;
-            void* pMemoryPool;
-        };
-    };
-    int dwUnitId;
-    union
-    {
-        struct
-        {
-            char unk0x10[0x1C];
-        };
-        struct
-        {
-            int dwAnimMode;
-            D2MonsterDataStrc* pMonsterData;
-            unsigned char unk_18[0x8];
-            D2SeedStrc pSeed;
-        };
-        struct
-        {
-            unsigned char unk_10[0x4];
-            D2ObjectDataStrc* pObjectData;
-        };
-    };
-    union
-    {
-        D2StaticPathStrc* pStaticPath;
-        D2DynamicPathStrc* pDynamicPath;
-    };
-    unsigned char unk_30[0x14];
-    int nSeqCurrentFramePrecise;
-    char unk0x48[0x18];
-    D2InventoryStrc* pInventory;
-    unsigned char unk_64[0x44];
-    D2SkillListStrc* pSkills;
-    unsigned char unk_AC[0x18];
-    unsigned int dwFlags;
-    unsigned char unk_C8[0x20];
-    D2UnitStrc* pRoomNext;
-};
 
 struct D2DrlgCoordsStrc
 {
@@ -501,13 +439,6 @@ typedef char H15_CheckSkillsTxtSize[sizeof(D2SkillsTxt) == 0x23C ? 1 : -1];
 typedef char H15_CheckUnitFlags[(int)&((D2UnitStrc*)0)->dwFlags == 0xC4 ? 1 : -1];
 
 typedef char H15_CheckSkillsCount[(int)&((D2DataTablesStrc*)0)->nSkillsTxtRecordCount == 0xBA0 ? 1 : -1];
-
-enum D2C_UnitTypes
-{
-    UNIT_PLAYER = 0,
-    UNIT_MONSTER = 1,
-    UNIT_INVALID = 6,
-};
 
 enum
 {
@@ -1233,7 +1164,7 @@ static inline unsigned int sub_0056CBA0_GetUnitType(D2UnitStrc* pUnit)
     {
         return 6;
     }
-    return pUnit->type;
+    return pUnit->dwUnitType;
 }
 
 static inline int sub_0056CBA0_GetUnitId(D2UnitStrc* pUnit)
@@ -1255,7 +1186,7 @@ int __fastcall SKILLS_SrvSt03_Unsummon(D2GameStrc* game, D2UnitStrc* unit, int s
         return 0;
     if (!unit)
         return 0;
-    if (unit->type != 0)
+    if (unit->dwUnitType != 0)
         return 0;
     if (AIGENERAL_GetMinionOwner(target) != unit)
         return 0;

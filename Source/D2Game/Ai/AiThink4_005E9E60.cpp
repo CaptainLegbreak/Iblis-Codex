@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 #define AI_ROLL_PERCENT(pSeed) ((int)((unsigned int)SEED_RollRandomNumber(pSeed) % 100))
@@ -7,23 +8,7 @@ struct D2MonStatsTxt;
 struct D2SkillsTxt;
 struct D2NihlathakOverseerAiCallbackArgStrc;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x04];
-    int dwUnitId;
-    unsigned char unk_10[0x10];
-    D2SeedStrc pSeed;
-    unsigned char unk_28[0x9C];
-    unsigned int flags;
-};
 
 struct D2GameStrc
 {
@@ -238,7 +223,7 @@ void __fastcall sub_005EA130_UpdateWanderer(D2GameStrc* game,D2UnitStrc* unit,D2
   }
   else if(nState==2) {
    if(AIUTIL_GetDistanceToCoordinates(unit,coords.x,coords.y)<2) {
-    if(unit) unit->flags|=0x20000;
+    if(unit) unit->dwFlags|=0x20000;
     AITACTICS_ChangeModeAndTargetCoordinates(game,unit,0,0,0);
     ACT3Q7_CreateVileDogSpawnTimer(game,unit);return;
    }
@@ -247,7 +232,7 @@ void __fastcall sub_005EA130_UpdateWanderer(D2GameStrc* game,D2UnitStrc* unit,D2
     AITACTICS_SetVelocity(unit,1,0,0);
     AITACTICS_WalkToTargetCoordinates(game,unit,coords.x,coords.y);return;
    }
-   if(unit) unit->flags|=0x20000;
+   if(unit) unit->dwFlags|=0x20000;
    AITACTICS_ChangeModeAndTargetCoordinates(game,unit,0,0,0);
    ACT3Q7_CreateVileDogSpawnTimer(game,unit);return;
   }

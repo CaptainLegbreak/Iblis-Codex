@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 #define LIGHT_MIN(a, b) ((a) < (b) ? (a) : (b))
 #define LIGHT_ABS(x) ((x) >= 0 ? (x) : -(x))
 
@@ -13,19 +14,6 @@ struct D2StaticPathStrc
     int nYPos;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    unsigned int dwClassId;
-    void* pMemoryPool;
-    unsigned int dwUnitId;
-    char unk0x10[0x1C];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-};
 
 struct D2GridCellStrc
 {

@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 #ifdef MOVED_TEST
 #define UNIT_FLAG 0x20
 #else
@@ -9,30 +10,6 @@ struct D2MissilesTxt;
 struct D2MonsterDataStrc;
 struct D2SkillsTxt;
 struct D2StaticPathStrc;
-struct D2UnitStrc
-{
-#ifdef MOVED_TEST
-    int movedPrefix;
-#endif
-    int dwUnitType;
-    unsigned int dwClassId;
-    char unk0x08[0x04];
-    int dwUnitId;
-    char unk0x10[0x04];
-    D2MonsterDataStrc* pMonsterData;
-    char unk0x18[0x14];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x0C];
-    unsigned int dwSeqSpeed;
-    char unk0x40[0x0E];
-    unsigned char nActionFrame;
-    char unk0x4F[0x75];
-    unsigned int dwFlags;
-};
 struct D2SkillsTxt
 {
 #ifdef MOVED_TEST

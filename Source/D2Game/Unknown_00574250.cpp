@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2GameStrc
 {
@@ -23,17 +24,6 @@ struct D2MonsterDataStrc
     int dwTxtLevelNo;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-    char unk_18[0xC4 - 0x18];
-    unsigned int dwFlags;
-};
 
 struct D2DataTablesStrc
 {

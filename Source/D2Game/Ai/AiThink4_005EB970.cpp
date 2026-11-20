@@ -1,21 +1,10 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 struct D2SkillListStrc;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x1C];
-    D2SeedStrc pSeed;
-    char unk0x28[0x80];
-    D2SkillListStrc* pSkills;
-};
 
 struct D2GameStrc
 {
@@ -160,7 +149,6 @@ int __stdcall D2Common_11016(D2UnitStrc* pUnit, D2SkillStrc* pSkill);           
 
 enum D2C_ShadowMasterConstants
 {
-    UNIT_MONSTER = 1,
     EVENTTYPE_AITHINK = 2,
     COLLIDE_MISSILE_BARRIER = 4,
     SKILLSFLAGINDEX_AURA = 2,

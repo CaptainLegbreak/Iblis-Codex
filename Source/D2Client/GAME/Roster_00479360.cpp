@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
@@ -8,13 +9,6 @@ extern "C" int __cdecl strcmp(const char* szLeft, const char* szRight);
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08;
-    int dwUnitId;
-};
 
 struct D2RosterCorpseStrc
 {

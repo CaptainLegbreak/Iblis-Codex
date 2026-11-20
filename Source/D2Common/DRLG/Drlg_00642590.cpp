@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 struct D2DrlgActStrc;
 struct D2GameStrc;
@@ -47,11 +48,6 @@ typedef void (__fastcall* AUTOMAPFN)(void*);
 
 typedef void (__fastcall* TOWNAUTOMAPFN)(int, int, int, int);
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2DrlgStrc
 {

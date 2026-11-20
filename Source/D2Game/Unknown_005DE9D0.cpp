@@ -1,13 +1,7 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2StaticPathStrc { char unk_00[0x0C]; int nX; int nY; };
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char pMemoryPool[0x24];
-    union { D2DynamicPathStrc* pDynamicPath; D2StaticPathStrc* pStaticPath; };
-};
 struct D2GameStrc { char unk_00[0xA8]; int dwGameFrame; };
 D2UnitStrc* __fastcall sub_6FCF2110(D2GameStrc*, D2UnitStrc*, D2AiControlStrc*, int*, int*); // 0x005DD7F0
 int __stdcall PATH_GetUnitCollisionPattern(D2UnitStrc*); // 0x00649180

@@ -1,7 +1,6 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
-struct D2SeedStrc { unsigned int nLowSeed, nHighSeed; };
-struct D2UnitStrc { int dwUnitType; int dwClassId; char pad08[0x18]; D2SeedStrc pSeed; };
 struct D2MonRegDataStrc { unsigned short nMonHcIdx; unsigned char nRarity; unsigned char nComponentVariantsMax; unsigned char nComponentVariants[3][16]; };
 struct D2MonsterRegionStrc { unsigned char nAct; unsigned char unk01[3]; int unk04; int unk08; int unk0C; unsigned char nMonCount; unsigned char nTotalRarity; unsigned char nSpawnCount; unsigned char unk13; D2MonRegDataStrc pMonData[13]; };
 struct D2MonStatsTxt { char pad00[0x18]; short wMonStatsEx; char pad1A[0x1A8 - 0x1A]; };

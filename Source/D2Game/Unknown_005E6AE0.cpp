@@ -1,27 +1,12 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 struct D2SeedStrc;
 struct D2AiCmdStrc;
 struct D2MonsterDataStrc;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x08];
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-    unsigned char unk_18[0x8];
-    D2SeedStrc pSeed;
-    int unk0x28;
-    D2DynamicPathStrc* pDynamicPath;
-};
 
 struct D2AiCmdStrc
 {
@@ -42,7 +27,6 @@ void __stdcall D2COMMON_10160_PathUpdateDirection(D2DynamicPathStrc* pDynamicPat
 
 enum
 {
-    UNIT_MONSTER = 1,
 };
 
 enum

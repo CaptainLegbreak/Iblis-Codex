@@ -1,7 +1,7 @@
 #include "D2Client.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
-#define UNIT_MONSTER 1
-#define UNIT_INVALID 6
 struct D2CellNodeStrc;
 struct D2CellGridViewStrc;
 struct D2SlotObjectStrc;
@@ -51,32 +51,7 @@ extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volati
 int __fastcall sub_004E0000_SetSoundMode(int nMode); // 0x004E0000
 void __fastcall sub_00515F50_FadeOutMaster(int nTime); // 0x00515F50
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x18];
-    D2SeedStrc pSeed;
-    char unk0x28[0x4];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x0C];
-    unsigned int dwSeqSpeed;
-    unsigned char unk_40[0x4];
-    int nSeqCurrentFramePrecise;
-    int dwFrameCountPrecise;
-    unsigned char unk_4C[0x78];
-    unsigned int dwFlags;
-};
 
 struct D2MissilesTxt
 {
@@ -199,14 +174,6 @@ struct D2MissileStrc
     int nLightRadius;
     MissileInitFunc pInitFunc;
     int pInitArgs;
-};
-
-enum D2C_UnitTypes
-{
-    UNIT_OBJECT = 2,
-    UNIT_MISSILE = 3,
-    UNIT_ITEM = 4,
-    UNIT_TILE = 5,
 };
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0

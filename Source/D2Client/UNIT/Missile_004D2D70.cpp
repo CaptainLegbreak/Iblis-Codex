@@ -1,26 +1,9 @@
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
+#include "D2Structs.h"
 
 struct D2DynamicPathStrc;
 struct D2StatListStrc;
 struct D2GfxLightStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x04];
-    int dwUnitId;
-    char unk0x10[0x10];
-    D2SeedStrc tSeed;
-    char unk0x28[0x04];
-    D2DynamicPathStrc* pDynamicPath;
-    char unk0x30[0x94];
-    unsigned int dwFlags;
-};
 
 struct D2MissilesTxt
 {
@@ -209,7 +192,7 @@ D2UnitStrc* __fastcall sub_004D2D70_CltMissileHit(D2UnitStrc* pMissile, D2UnitSt
                     if (pSubMissile->dwClassId != 0x92)
                         D2COMMON_10160_PathUpdateDirection(pSubMissile->pDynamicPath, PATH_GetDirection(pMissile->pDynamicPath));
                     else
-                        D2COMMON_10160_PathUpdateDirection(pSubMissile->pDynamicPath, (unsigned char)SEED_RollLimitedRandomNumber(&pSubMissile->tSeed, 0x40));
+                        D2COMMON_10160_PathUpdateDirection(pSubMissile->pDynamicPath, (unsigned char)SEED_RollLimitedRandomNumber(&pSubMissile->pSeed, 0x40));
                 }
             }
         }

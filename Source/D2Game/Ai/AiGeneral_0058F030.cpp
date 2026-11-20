@@ -1,16 +1,12 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 struct D2AiCmdStrc;
 struct D2MinionListStrc;
 struct D2MonsterDataStrc;
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
-
-enum D2C_F33AiConstants
-{
-    UNIT_MONSTER = 1,
-    UNIT_INVALID = 6,
-};
 
 struct D2GameStrc
 {
@@ -41,15 +37,6 @@ struct D2MonsterDataStrc
     D2AiControlStrc* pAiControl;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-};
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 

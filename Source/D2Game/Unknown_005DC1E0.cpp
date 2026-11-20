@@ -1,4 +1,6 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 struct D2GameStrc
 {
@@ -6,17 +8,6 @@ struct D2GameStrc
     int dwGameFrame;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08;
-    int dwUnitId;
-    char unk0x10[0xB4];
-    unsigned int dwFlags;
-    char unk0xC8[0x08];
-    int dwNodeIndex;
-};
 
 struct D2SummonArgStrc
 {
@@ -67,7 +58,6 @@ void __fastcall D2GAME_UpdateSummonAI_6FC401F0(D2GameStrc* pGame, D2UnitStrc* pU
 
 enum
 {
-    UNIT_PLAYER = 0,
     UNITFLAG_SKSRVDOFUNC = 0x40,
     AISPECIALSTATE_NONE = 0,
     EVENTTYPE_AITHINK = 2,

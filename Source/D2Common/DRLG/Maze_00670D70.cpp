@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 struct D2DrlgRoomStrc;
 struct D2DrlgLevelStrc;
 struct D2DrlgOrthStrc;
@@ -11,11 +12,6 @@ struct D2DrlgCoordStrc
     int nHeight;
 };
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2DrlgOrthStrc
 {

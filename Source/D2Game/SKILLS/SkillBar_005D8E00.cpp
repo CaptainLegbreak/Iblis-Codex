@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 #ifdef MOVED_TEST
 #define SKILL_FLAG 0x20
 #define TARGET_FILTER 0x20007
@@ -6,27 +7,6 @@
 #define TARGET_FILTER 0x20003
 #endif
 struct D2GameStrc;
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
-struct D2UnitStrc
-{
-#ifdef MOVED_TEST
-    int moved_prefix;
-#endif
-    int dwUnitType;
-    int dwClassId;
-    char pad0x08[0x04];
-    int dwUnitId;
-    char pad0x10[0x10];
-    D2SeedStrc pSeed;
-    char pad0x28[0x10];
-    int dwSeqFrame;
-    char pad0x3C[0x88];
-    unsigned int dwFlags;
-};
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit);                            // 0x00553540
 D2UnitStrc* __fastcall sub_6FD107F0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nAuraRange, unsigned int nAuraFilter, int a7, int* a8); // 0x0056BD10
 int __fastcall sub_6FD15460(D2UnitStrc* pUnit);                                                             // 0x0056E510

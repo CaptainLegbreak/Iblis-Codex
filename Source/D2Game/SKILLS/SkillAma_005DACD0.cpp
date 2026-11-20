@@ -1,10 +1,10 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 struct D2SkillsTxt;
 
-struct D2UnitStrc { int dwUnitType; int dwClassId; void* pMemoryPool; int dwUnitId; };
 
 struct D2SkillsTxt
 {

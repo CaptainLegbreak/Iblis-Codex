@@ -1,7 +1,6 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
-struct D2SeedStrc { unsigned int nLowSeed; unsigned int nHighSeed; };
-struct D2UnitStrc { char unk_00[0x20]; D2SeedStrc pSeed; char unk_28[0x20]; unsigned int dwFrame; };
 struct D2SkillsTxt { char unk_000[0x140]; unsigned int f_13C; int unk_144; int nAnimFrame; char unk_14C[0xF0]; };
 struct D2DataTablesStrc { char unk_000[0xB98]; D2SkillsTxt* pSkillsTxt; int unk_B9C; int nSkillsTxtRecordCount; };
 struct D2DamageStrc {
@@ -78,7 +77,7 @@ int __fastcall sub_005CDA00_ApplySkillDamage(D2GameStrc* pGame, D2UnitStrc* pUni
     {
         SKILLS_SetParam1(pSkill, nCount);
         UNITS_SetAnimationFrame(pUnit, pSkillsTxt->nAnimFrame);
-        pUnit->dwFrame = (pUnit->dwFrame & 0xFFFFFF00) + 0x100;
+        pUnit->dwFrameCountPrecise = (pUnit->dwFrameCountPrecise & 0xFFFFFF00) + 0x100;
     }
     return 1;
 }

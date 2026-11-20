@@ -1,17 +1,9 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 struct D2MsgHandlerEntryStrc;
 struct D2RectStrc;
 
-struct D2UnitStrc
-{
-    int type;
-    int classId;
-    void* pool;
-    int id;
-    char unknown10[0x50];
-    D2InventoryStrc* inventory;
-};
 
 extern int gnGlobal_007C5470; // 0x007C5470
 extern int gnGlobal_007C5474; // 0x007C5474
@@ -51,13 +43,13 @@ int __cdecl sub_004C02F0_ClosePanel()
     if (mode == 3) return 0;
     if (mode == 2) {
         D2UnitStrc* player = sub_00463DD0_GetPlayerUnit();
-        D2InventoryStrc* inventory = player ? player->inventory : 0;
+        D2InventoryStrc* inventory = player ? player->pInventory : 0;
         sub_00468070_SetCursorItemState(player ? INVENTORY_GetCursorItem(inventory) : 0);
     }
     sub_004B9A00(1, 0, 0, 0, 0);
     if (!gnGlobal_007C5470) {
         D2UnitStrc* player = sub_00463DD0_GetPlayerUnit();
-        int id = !player ? -1 : player->id;
+        int id = !player ? -1 : player->dwUnitId;
         int value = gnGlobal_007C547C;
         sub_00478700_SendCommand(0x44, id, value, 0, 2);
         sub_004C0090_CloseUseItemPanel();
@@ -81,7 +73,7 @@ void __cdecl sub_004C0380_OpenPanel()
         if (!gnGlobal_007C5470)
         {
             D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-            sub_00478700_SendCommand(0x44, !pPlayer ? -1 : pPlayer->id, gnGlobal_007C547C, 0, 2);
+            sub_00478700_SendCommand(0x44, !pPlayer ? -1 : pPlayer->dwUnitId, gnGlobal_007C547C, 0, 2);
             sub_004C0090();
         }
         else

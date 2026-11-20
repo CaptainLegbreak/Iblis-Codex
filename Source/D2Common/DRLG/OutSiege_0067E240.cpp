@@ -1,8 +1,4 @@
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
+#include "D2Structs.h"
 
 struct D2DrlgOutdoorInfoStrc
 {

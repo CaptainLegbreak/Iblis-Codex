@@ -1,19 +1,8 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int unk0x04[2];
-    unsigned int dwUnitId;
-    char unk0x10[0x10];
-    D2SeedStrc pSeed;
-};
 
 struct D2GameStrc
 {
@@ -47,7 +36,6 @@ struct D2AiTickParamStrc
 
 enum D2C_M84QuillMotherAi
 {
-    UNIT_TYPES_COUNT = 6,
     MONMODE_ATTACK1 = 4,
     QUILLMOTHER_AI_PARAM_ATTACK_CHANCE_PCT = 0,
     QUILLMOTHER_AI_PARAM_APPROACH_CHANCE_PCT = 1,

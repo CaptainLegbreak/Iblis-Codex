@@ -1,13 +1,9 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2SaveHeaderStrc;
 struct D2ServerCallbackFunctions;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-};
 
 struct D2GameStrc
 {

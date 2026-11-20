@@ -110,7 +110,7 @@ struct D2UnitStrc
     int dwUnitType; // 0x00
     int dwClassId; // 0x04
     void* pMemoryPool; // 0x08
-    int dwUnitId; // 0x0C
+    unsigned int dwUnitId; // 0x0C
     union // 0x10
     {
         int dwAnimMode;

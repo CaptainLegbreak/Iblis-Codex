@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define ASSERT(expr,line) if (!(expr)) { sub_00408A60(gszEmpty_006CC837,sub_00408090(),line); exit(-1); }
 #define AI_PARAM(n) (pMonStatsTxt->wAiParam[n][pGame->nDifficulty])
@@ -25,27 +26,7 @@ struct D2BaalThroneAiCallbackArgStrc;
 
 extern "C" void* __cdecl memset(void*,int,unsigned int);
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int type;
-    int classId;
-    unsigned char unk_08[0x4];
-    int dwUnitId;
-    char unk_10[0x10];
-    D2SeedStrc pSeed;
-    unsigned char unk_28[0x4];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-};
 
 typedef void (__fastcall* AiFn)(D2GameStrc*,D2UnitStrc*,D2AiTickStrc*);
 
@@ -200,12 +181,12 @@ void __fastcall AITHINK_ExecuteAiFn(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiCo
 {
     ASSERT(!STATES_CheckState(pUnit, 54), 422);
 
-    if (!pGame || !pUnit || !pAiControl || nAiSpecialState >= 18 || (!pUnit ? 6 : pUnit->type) != 1)
+    if (!pGame || !pUnit || !pAiControl || nAiSpecialState >= 18 || (!pUnit ? 6 : pUnit->dwUnitType) != 1)
     {
         return;
     }
 
-    const int nClassId = pUnit->classId;
+    const int nClassId = pUnit->dwClassId;
     if (nClassId >= sgptDataTables->monstatsCount)
     {
         nAiSpecialState = 1;
@@ -270,7 +251,7 @@ static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 
 static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 {
-    switch (pUnit->type)
+    switch (pUnit->dwUnitType)
     {
     case 2:
     case 4:
@@ -282,7 +263,7 @@ static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
 
 static __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 {
-    switch (pUnit->type)
+    switch (pUnit->dwUnitType)
     {
     case 2:
     case 4:
@@ -313,12 +294,12 @@ void __fastcall sub_005E5730_InitOwnerOffset(D2GameStrc* pGame, D2UnitStrc* pUni
 }
 
 static __forceinline int GetX(D2UnitStrc* pUnit) {
-    switch (pUnit->type) { case 2: case 4: case 5: return pUnit->pStaticPath->nXPos; }
+    switch (pUnit->dwUnitType) { case 2: case 4: case 5: return pUnit->pStaticPath->nXPos; }
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 
 static __forceinline int GetY(D2UnitStrc* pUnit) {
-    switch (pUnit->type) { case 2: case 4: case 5: return pUnit->pStaticPath->nYPos; }
+    switch (pUnit->dwUnitType) { case 2: case 4: case 5: return pUnit->pStaticPath->nYPos; }
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
 
@@ -427,7 +408,7 @@ void __fastcall sub_005E9170_Think(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTic
         break;
     case 15:
         {
-            if ((pTarget ? pTarget->type : 6) != 0) { AITACTICS_IdleInNeutralMode(pGame, pUnit, 3); break; }
+            if ((pTarget ? pTarget->dwUnitType : 6) != 0) { AITACTICS_IdleInNeutralMode(pGame, pUnit, 3); break; }
             int nObjectId = PLAYER_GetUniqueIdFromPlayerData(pTarget);
             if (!SUNIT_GetServerUnit(pGame, 2, nObjectId)) { AITACTICS_IdleInNeutralMode(pGame, pUnit, 2); break; }
             if (pStats->nSkill[6] >= 0) {
@@ -590,7 +571,7 @@ void __fastcall sub_005EF320_ThinkBaalThrone(D2GameStrc* pGame, D2UnitStrc* pUni
             AITHINK_ExecuteAiFn(pGame, pUnit, AIGENERAL_GetAiControlFromUnit(pUnit), 0);
             STATES_ToggleState(pUnit, 142, 1);
             D2StatListStrc* pList = STATLIST_AllocStatList(pGame->pMemoryPool, 0, 0,
-                !pUnit ? 6 : pUnit->type, !pUnit ? -1 : pUnit->dwUnitId);
+                !pUnit ? 6 : pUnit->dwUnitType, !pUnit ? -1 : pUnit->dwUnitId);
             if (pList)
             {
                 sub_00626E10(pUnit, pList, 1);

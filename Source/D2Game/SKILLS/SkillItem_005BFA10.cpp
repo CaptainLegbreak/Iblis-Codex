@@ -1,20 +1,8 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x18];
-    D2SeedStrc pSeed;
-    char unk0x28[0x04];
-    D2DynamicPathStrc* pDynamicPath;
-};
 
 struct D2DamageStrc
 {
@@ -43,8 +31,6 @@ struct D2DataTablesStrc
 
 enum D2C_J10SkillItemConstants
 {
-    UNIT_MONSTER = 1,
-    UNIT_INVALID = 6,
     MONTYPEFLAG_UNIQUE_CHAMPION = 12,
     SKILL_HOWL = 130,
     DAMAGERESULTFLAG_GETHIT = 4,

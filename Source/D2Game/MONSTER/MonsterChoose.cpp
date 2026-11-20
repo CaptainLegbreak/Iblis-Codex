@@ -1,4 +1,4 @@
-struct D2SeedStrc { unsigned int nLowSeed; unsigned int nHighSeed; };
+#include "D2Structs.h"
 struct D2MonStats2Txt { char pad00[0x15]; unsigned char nComponentCount[16]; unsigned char nTotalPieces; };
 struct D2MonPresetStrc { short nMonsterId; unsigned char nUnk02; unsigned char nCount; unsigned char nComponents[3][16]; };
 extern "C" const char gszEmptyAssertText; // 0x006CC837

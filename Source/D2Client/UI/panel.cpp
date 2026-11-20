@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -18,16 +19,6 @@ struct SMSGHANDLER_PARAMS;
 struct D2GfxMotionStrc;
 struct D2ItemsTxt;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08;
-    int dwUnitId;
-    int dwAnimMode;
-    unsigned char unk_14[0x4C];
-    D2InventoryStrc* pInventory;
-};
 
 struct D2CelContextStrc
 {

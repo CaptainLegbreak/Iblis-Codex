@@ -1,17 +1,11 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2AiTableStrc;
 struct D2MonStatsTxt;
 struct D2MonsterDataStrc;
 struct D2AiStateStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char pad[0xC];
-    D2MonsterDataStrc* pMonsterData;
-};
 
 struct D2AiControlStrc
 {

@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -99,10 +100,6 @@ struct D2FlagWordStrc
     unsigned short wFlags;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-};
 
 void* ghInstance_007A043C; // 0x007A043C
 

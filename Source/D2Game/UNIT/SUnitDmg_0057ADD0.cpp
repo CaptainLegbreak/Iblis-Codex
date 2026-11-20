@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define STAT_HITPOINTS 6
 #define STAT_MANA 8
@@ -21,11 +22,6 @@ struct D2ModeChangeStrc;
 struct D2DamageHitClassMappingStrc;
 struct D2UnitFindArgStrc;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2MonStatsTxt
 {
@@ -47,23 +43,6 @@ struct D2MonsterDataStrc
     D2MonStatsTxt* pMonstatsTxt;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x04];
-    unsigned int dwUnitId;
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-    char unk0x18[0x08];
-    D2SeedStrc pSeed;
-    char unk28[0x38];
-    D2InventoryStrc* pInventory;
-    unsigned char unk_64[0x4C];
-    unsigned int dwLastHitClass;
-    char unk0xB4[0x10];
-    unsigned int dwFlags;
-};
 
 struct D2GameStrc
 {
@@ -189,12 +168,6 @@ int __stdcall SKILLS_GetWeaponMasteryBonus(D2UnitStrc*, D2UnitStrc*, D2SkillStrc
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc*, int); // 0x0045C3E0
 int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 
-struct D2StatStrc
-{
-    unsigned short nLayer;
-    unsigned short nStat;
-    int nValue;
-};
 void __fastcall sub_00535D10_PrepareWeapon(D2UnitStrc*,int); // 0x00535D10
 void __fastcall sub_00535E20_RestoreWeapon(D2UnitStrc*,int); // 0x00535E20
 int __stdcall STATLIST_GetUnitAlignment(D2UnitStrc*); // 0x006259B0

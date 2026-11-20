@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define MAX(a, b) ((a) < (b) ? (b) : (a))
 struct D2StaticPathStrc;
@@ -20,27 +21,7 @@ struct D2StaticPathStrc
     int nYPos;
 };
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x04];
-    int dwUnitId;
-    unsigned char unk_10[0x10];
-    D2SeedStrc tSeed;
-    int unk0x28;
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-};
 
 struct D2MissileStrc
 {
@@ -197,7 +178,7 @@ void __fastcall sub_004CDDB0(D2UnitStrc* pUnit, const int* pMissiles, int nMissi
 
     int i = 0;
     int j = 0;
-    D2SeedStrc* pSeed = &pUnit->tSeed;
+    D2SeedStrc* pSeed = &pUnit->pSeed;
     if (!pSeed)
     {
         return;

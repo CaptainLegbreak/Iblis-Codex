@@ -1,14 +1,6 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
-union D2SeedStrc
-{
-    struct
-    {
-        unsigned int nLowSeed;
-        unsigned int nHighSeed;
-    };
-    unsigned __int64 lSeed;
-};
 
 struct D2StaticPathStrc
 {
@@ -17,22 +9,6 @@ struct D2StaticPathStrc
     int nY;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x04];
-    int dwUnitId;
-    int dwAnimMode;
-    char unk0x14[0x0C];
-    D2SeedStrc tSeed;
-    char unk0x28[0x04];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-};
 
 struct D2MonCommandStrc
 {
@@ -82,9 +58,9 @@ static __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 
 static __forceinline unsigned int SEED_RollUnitHL_0046CE40(D2UnitStrc* pUnit)
 {
-    const unsigned __int64 lSeed = pUnit->tSeed.nHighSeed + 0x6AC690C5i64 * pUnit->tSeed.nLowSeed;
-    pUnit->tSeed.nHighSeed = (unsigned int)(lSeed >> 32);
-    pUnit->tSeed.nLowSeed = (unsigned int)lSeed;
+    const unsigned __int64 lSeed = pUnit->pSeed.nHighSeed + 0x6AC690C5i64 * pUnit->pSeed.nLowSeed;
+    pUnit->pSeed.nHighSeed = (unsigned int)(lSeed >> 32);
+    pUnit->pSeed.nLowSeed = (unsigned int)lSeed;
     return (unsigned int)lSeed;
 }
 

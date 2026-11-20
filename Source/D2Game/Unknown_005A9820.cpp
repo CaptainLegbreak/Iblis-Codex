@@ -1,29 +1,12 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2SeedStrc;
 struct D2MissilesTxt;
 struct D2SkillsTxt;
 struct D2StaticPathStrc;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char pad08[0x18];
-    D2SeedStrc pSeed;
-    unsigned char unk_28[0x4];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-};
 
 struct D2MissilesTxt
 {

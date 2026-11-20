@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 #ifdef MOVED_TEST
 #define MON_FLAG 11
 #define ATTACK_MODE 6
@@ -15,22 +16,7 @@ struct D2GameStrc;
 struct D2AiControlStrc;
 struct D2MonStats2Txt;
 struct D2MissilesTxt;
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-#ifdef MOVED_TEST
-    int moved_prefix;
-#endif
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x18];
-    D2SeedStrc pSeed;
-};
 
 struct D2MonStatsTxt
 {

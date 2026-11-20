@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 #define STAT_ITEM_UNDEADDAMAGE_PERCENT 122
 #define STAT_HITPOINTS 6
 #define STAT_MANA 8
@@ -26,40 +27,7 @@ struct D2SkillsTxt;
 struct D2ModeChangeStrc;
 struct D2DamageHitClassMappingStrc;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x04];
-    unsigned int dwUnitId;
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-    char unk0x18[0x08];
-    D2SeedStrc pSeed;
-    union
-    {
-        struct
-        {
-            char unk0x28[0x88];
-        };
-        struct
-        {
-            unsigned char unk_28[0x4];
-            D2DynamicPathStrc* pDynamicPath;
-        };
-    };
-    unsigned int dwLastHitClass;
-    char unk0xB4[0x10];
-    unsigned int dwFlags;
-    char unk0xC8[0x20];
-    D2UnitStrc* pRoomNext;
-};
 
 struct D2DamageStrc
 {
@@ -201,12 +169,6 @@ int __stdcall MONSTERS_IsBoss(D2MonStatsTxt* pMonStatsTxtRecord, D2UnitStrc* pMo
 int __stdcall MONSTERS_GetHirelingTypeId(D2UnitStrc* pUnit); // 0x0063EE90
 void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pClass, int* pMode, const char* szFile, int nLine); // 0x00645270
 
-struct D2StatStrc
-{
-    unsigned short nLayer;
-    unsigned short nStat;
-    int nValue;
-};
 
 struct D2SkillsTxt
 {

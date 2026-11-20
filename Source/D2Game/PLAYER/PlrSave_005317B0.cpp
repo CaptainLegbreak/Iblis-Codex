@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define WRITE_ITEM(pItem) { const int nSize = D2GAME_SAVE_SerializeItem_6FC89AD0(pGame, pUnit, pItem, pData, nBufferSize - (pData - pBuffer), a4, a5, a6); if (nSize < 0) return -1; pData += nSize; if (!nSize && nItems > 0) --nItems; }
 #define PREPARE_ITEM(pItem) (ITEMS_SerializeItemToBitstream(pItem, tempBuffer, sizeof(tempBuffer), 1, 1, 0))
@@ -36,22 +37,6 @@ struct D2ItemsTxt;
 struct D2UnitProxyArgStrc;
 struct D2DrlgDeleteStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x4];
-    int dwUnitId;
-    char unk0x10[0x1C];
-    D2DynamicPathStrc* pDynamicPath;
-    char unk0x30[0x30];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0x44];
-    D2SkillListStrc* pSkills;
-    char unk0xAC[0x18];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-};
 
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0
 D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x0063B2C0

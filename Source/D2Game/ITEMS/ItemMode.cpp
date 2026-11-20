@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Constants.h"
 
 #pragma intrinsic(_ReadWriteBarrier)
 
@@ -7,7 +8,6 @@
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNITFLAG_INITSEEDSET 0x00000010
 #define UNITFLAG_DOUPDATE 0x00000001
-#define UNIT_ITEM 4
 #define UNITFLAG_TARGETABLE 0x2
 #define IFLAG_NEWITEM 0x1
 #define IFLAG_TARGETING 0x4
@@ -251,7 +251,6 @@ void __fastcall sub_00571600(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x005
 int __stdcall ITEMS_CheckIfSocketable(D2UnitStrc* pItem); // 0x00629900
 unsigned int __stdcall INVENTORY_GetItemCount(D2InventoryStrc* pInventory); // 0x0063CD60
 
-enum { UNIT_INVALID = 6 };
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
@@ -268,7 +267,6 @@ int __stdcall ITEMS_GetQuiverType(D2UnitStrc* pItem); // 0x0062E740
 
 enum
 {
-    UNIT_PLAYER = 0,
 };
 
 D2UnitStrc* __fastcall AIGENERAL_GetMinionOwner(D2UnitStrc* pUnit); // 0x0058F0D0

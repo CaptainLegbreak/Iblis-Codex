@@ -1,14 +1,6 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int unk0x10[7];
-    D2DynamicPathStrc* pDynamicPath;
-};
 
 struct D2SkillsTxt
 {

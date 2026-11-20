@@ -1,17 +1,10 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2GameStrc
 {
     char unk0x00[0xC4];
     void* pAct;
-};
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int unk0x04[2];
-    int dwUnitId;
-    char unk0x10[0xD8];
-    D2UnitStrc* pRoomNext;
 };
 struct D2ActiveRoomStrc
 {

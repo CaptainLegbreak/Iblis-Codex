@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 // build: context CLIENTS_UnlinkId
 // build: context CLIENTS_UnlinkName
@@ -12,7 +13,6 @@ struct D2GameStrc {
  char unk00[0x1C]; void* pMemoryPool; char unk20[8]; unsigned short nGameId;
  char unk2A[0x5E]; D2ClientStrc* pClientList; int nClients;
 };
-struct D2UnitStrc { int dwUnitType; int dwClassId; void* pMemoryPool; int dwUnitId; };
 struct D2PacketDataStrc { char data[0x204]; D2PacketDataStrc* pNext; };
 struct D2ClientStrc {
  int dwClientId; int dwClientState; unsigned char nClassId; unsigned char unk09; unsigned short nSaveFlags;

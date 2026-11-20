@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define QUEST_A2Q2_HORADRICSTAFF 9
 #define QFLAG_COMPLETEDNOW 14
@@ -12,13 +13,6 @@ struct D2GameStrc
     unsigned char nDifficulty;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    unsigned int dwUnitId;
-};
 
 struct D2PlayerDataStrc
 {

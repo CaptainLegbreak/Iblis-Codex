@@ -1,19 +1,9 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2SkillsTxt;
 struct D2MissilesTxt;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    char unk0x10[0x1C];
-    D2DynamicPathStrc* pDynamicPath;
-    char unk0x30[0x94];
-    unsigned int dwFlags;
-};
 
 struct D2SkillsTxt
 {

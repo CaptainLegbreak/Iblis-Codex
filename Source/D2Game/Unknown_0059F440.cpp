@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2MonsterDataStrc;
 struct D2QuestExStrc;
@@ -29,7 +30,6 @@ struct D2CoordStrc
 
 struct D2MonsterDataStrc { int unk00[12]; void* interact; };
 
-struct D2UnitStrc { int type; int classId; int pool; int id; int mode; D2MonsterDataStrc* monster; int unk18[43]; unsigned int flags; };
 
 struct D2QuestExStrc {
     char unk00[12]; unsigned char oldSpawned; unsigned char spawned;
@@ -132,7 +132,7 @@ int __fastcall ACT2Q4_UnitIterate_CheckDistanceToHaremBlocker(D2GameStrc* pGame,
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
 static __forceinline void* GetMonsterInteract(D2UnitStrc* unit) {
-    if (unit && unit->type==1 && unit->monster) return unit->monster->interact;
+    if (unit && unit->dwUnitType==1 && unit->pMonsterData) return unit->pMonsterData->interact;
     return 0;
 }
 
@@ -164,7 +164,7 @@ void __stdcall sub_0059EF70_SpawnQuestNpc(D2QuestDataStrc* quest,D2ActiveRoomStr
     D2UnitStrc* npc=sub_005B2F20(quest->game,found,coords->x,coords->y,201,1,-1,0);
     if (!npc) npc=sub_005B2F20(quest->game,found,coords->x,coords->y,201,1,2,0);
     if (npc) {
-        npc->flags|=0x03000000;
+        npc->dwFlags|=0x03000000;
         ex=quest->ex;
         ex->spawned=1;
         if (!ex->coordinatesSet) {

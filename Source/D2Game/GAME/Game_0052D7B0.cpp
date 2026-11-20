@@ -1,4 +1,6 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define PLRMODE_DEATH 0
@@ -35,16 +37,6 @@ struct D2RosterIterateStrc;
 struct D2UnitProxyArgStrc;
 struct D2GSPacketSrv8C;
 struct D2GSPacketSrv8E;
-
-enum D2C_UnitTypes
-{
-    UNIT_PLAYER = 0,
-    UNIT_MONSTER = 1,
-    UNIT_OBJECT = 2,
-    UNIT_MISSILE = 3,
-    UNIT_ITEM = 4,
-    UNIT_TILE = 5,
-};
 
 enum D2C_MonsterIds
 {
@@ -86,22 +78,6 @@ struct D2StaticPathStrc
     D2CoordStrc tGameCoords;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    char unk0x14[0x18];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    unsigned char unk_30[0xB0];
-    D2UnitStrc* pChangeNextUnit;
-};
 
 struct D2ClientStrc
 {

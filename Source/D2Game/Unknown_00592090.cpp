@@ -1,12 +1,6 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char pad0x08[0x04];
-    int dwUnitId;
-};
 
 struct D2ObjInitFnStrc
 {

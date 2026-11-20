@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 #ifdef MOVED_TEST
 #define MV(x) (x)
 #define PACKET(x) ((x)+0x10)
@@ -8,24 +9,6 @@
 struct D2InventoryStrc;
 struct D2DynamicPathStrc;
 struct D2StaticPathStrc;
-struct D2UnitStrc
-{
-#ifdef MOVED_TEST
-    int movedPrefix;
-#endif
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08;
-    int dwUnitId;
-    char unk0x10[0x1C];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x30];
-    D2InventoryStrc* pInventory;
-};
 
 int __cdecl sub_00468830();
 D2UnitStrc* __cdecl sub_004680A0();

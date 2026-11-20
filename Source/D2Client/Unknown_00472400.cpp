@@ -1,27 +1,11 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 struct D2SeedStrc;
 struct D2WeatherSplashStrc;
 struct D2WeatherLayerStateStrc;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    void* f_14;
-    int nAct;
-    void* pDrlgAct;
-    D2SeedStrc pSeed;
-};
 
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0

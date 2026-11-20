@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 struct D2PlayerDataStrc
 {
@@ -15,18 +16,6 @@ struct D2MonsterDataStrc
     unsigned short wFlags;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x10];
-    union
-    {
-        D2PlayerDataStrc* pPlayerData;
-        D2MonsterDataStrc* pMonsterData;
-    };
-    char unk0x18[0xAC];
-    unsigned int dwFlags;
-};
 
 struct D2DataTablesStrc
 {

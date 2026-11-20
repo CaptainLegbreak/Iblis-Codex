@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct CellResource;
@@ -7,11 +8,6 @@ struct D2WeatherSplashStrc;
 struct D2PeriodLightStrc;
 struct D2B10EmitWeatherStrc;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 extern "C" double __cdecl fabs(double x);
 
@@ -38,11 +34,6 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-struct D2UnitStrc
-{
-    char unk0x00[0x20];
-    D2SeedStrc tSeed;
-};
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2ActiveRoomStrc* __fastcall sub_004646A0_GetPlayerRoom(); // 0x004646A0
@@ -331,7 +322,7 @@ int __stdcall sub_004726F0(int bForce)
         break;
     }
 
-    const int nRoll = (unsigned int)CLIENT_RollRandomNumberForceInline(&pPlayer->tSeed) % 100;
+    const int nRoll = (unsigned int)CLIENT_RollRandomNumberForceInline(&pPlayer->pSeed) % 100;
     if (nRoll < nChance && !bForce)
     {
         sub_00472590_SetSplash(0, 0);
@@ -368,11 +359,11 @@ void __cdecl sub_00472610_InitWindAngle()
     if (pPlayer)
     {
         D2SeedStrc tSeed;
-        gnWindCountdown_007A89E4 = SEED_RollFromInline(&pPlayer->tSeed, &tSeed) % 375 + 125;
+        gnWindCountdown_007A89E4 = SEED_RollFromInline(&pPlayer->pSeed, &tSeed) % 375 + 125;
         gnGlobal_007A8968 = SEED_RollLowInline(&tSeed) % 1500 + 500;
         const unsigned int nRoll = SEED_RollLowInline(&tSeed);
-        pPlayer->tSeed.nHighSeed = tSeed.nHighSeed;
-        pPlayer->tSeed.nLowSeed = tSeed.nLowSeed;
+        pPlayer->pSeed.nHighSeed = tSeed.nHighSeed;
+        pPlayer->pSeed.nLowSeed = tSeed.nLowSeed;
         const int nAngle = nRoll % 71 + 92;
         gnWeatherAngle_007A89C4 = nAngle;
         gnTargetAngle_007A89F8 = nAngle;
@@ -532,7 +523,7 @@ void __fastcall sub_00473D00_SetPhase(int nPhase)
 
     case 1:
         sub_004726F0(0);
-        gnPhaseMax_007A89C0 = sub_00472280(&pPlayer->tSeed, 0x20, 0xE0);
+        gnPhaseMax_007A89C0 = sub_00472280(&pPlayer->pSeed, 0x20, 0xE0);
         break;
 
     case 2:

@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2ObjOperateFnStrc;
 struct D2Act4Quest2Strc;
@@ -9,11 +10,6 @@ struct D2CoordStrc
     int nY;
 };
 
-struct D2UnitStrc
-{
-    char unk0x00[0x10];
-    int dwAnimMode;
-};
 
 struct D2ObjOperateFnStrc
 {

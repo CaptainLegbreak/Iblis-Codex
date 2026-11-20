@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define QUEST_A2Q3_TAINTEDSUN 10
@@ -140,28 +141,6 @@ struct D2QuestChainStrc
     D2QuestChainStrc* pNext;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    char unk0x14[0x18];
-    union
-    {
-        D2StaticPathStrc* pStaticPath;
-        D2DynamicPathStrc* pDynamicPath;
-    };
-    char unk0x30[0x30];
-    D2InventoryStrc* pInventory;
-    unsigned char unk_64[0x10];
-    D2QuestChainStrc* pQuestEventList;
-    unsigned char unk_78[0x38];
-    unsigned int dwLastHitClass;
-    unsigned char unk_B4[0x10];
-    unsigned int dwFlags;
-};
 
 struct D2SuperUniquesTxt
 {
@@ -187,11 +166,6 @@ struct D2DataTablesStrc
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
 
-struct D2SeedStrc
-{
-    int lSeed;
-    int nHighSeed;
-};
 
 struct D2QuestInfoStrc
 {

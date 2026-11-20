@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 struct D2GfxCodeRecordStrc;
 struct D2GfxCodeTableStrc;
@@ -24,13 +25,6 @@ struct D2GfxCodeTableStrc
 };
 
 #pragma pack(pop)
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x24];
-    D2DynamicPathStrc* pDynamicPath;
-};
 
 struct D2OverlayTxt
 {

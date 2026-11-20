@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
@@ -38,17 +39,6 @@ struct D2DataTablesStrc
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    unsigned char unk_08[0x30];
-    int nSeqFrame;
-    char unk0x3C[0x24];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0x60];
-    unsigned int dwFlags;
-};
 
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState); // 0x006256B0
 int __stdcall sub_006260E0(D2StatListStrc* pStatList); // 0x006260E0
@@ -162,7 +152,7 @@ int __fastcall sub_005D35D0_AlternateChargeWeapon(D2GameStrc* pGame, D2UnitStrc*
             return 1;
         }
     }
-    const int nFrame = pUnit->nSeqFrame >> 8;
+    const int nFrame = pUnit->dwSeqFrame >> 8;
     if (nFrame % 2 == 0)
     {
         pUnit->dwFlags &= ~0x40;

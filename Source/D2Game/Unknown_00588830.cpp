@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 struct D2Act5Quest2Strc;
 struct D2PlayerDataStrc;
 struct D2ObjInitFnStrc;
@@ -75,18 +76,6 @@ struct D2GameStrc
 
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    char unk0x14[0xC4 - 0x14];
-    unsigned int dwFlags;
-    char unk0xC8[0xE8 - 0xC8];
-    D2UnitStrc* pRoomNext;
-};
 
 int __fastcall sub_00587FC0_GetWussieGroupIndex(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit); // 0x00587FC0
 

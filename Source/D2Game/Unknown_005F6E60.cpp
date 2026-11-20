@@ -1,10 +1,7 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2StaticPathStrc
 {
@@ -13,18 +10,6 @@ struct D2StaticPathStrc
     int nYPos;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x1C];
-    D2SeedStrc pSeed;
-    char unk0x28[0x04];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-};
 
 struct D2GameStrc
 {
@@ -66,8 +51,6 @@ struct D2PlayerDataStrc
 
 enum D2C_M150ZakarumZealotAi
 {
-    UNIT_PLAYER = 0,
-    UNIT_MONSTER = 1,
     ACT_III = 2,
     MONMODE_ATTACK1 = 4,
     MONMODE_ATTACK2 = 5,

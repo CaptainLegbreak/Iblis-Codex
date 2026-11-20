@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2PacketRecord11Strc;
@@ -91,18 +92,6 @@ struct D2UnitStatPacket2Strc
 };
 
 #pragma pack(pop)
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    unsigned char unk_14[0x8];
-    D2DrlgActStrc* pDrlgAct;
-    unsigned char unk_20[0xA8];
-    unsigned int dwFlagsEx;
-};
 
 void __fastcall sub_004C1BC0(D2PacketRecord11Strc* pPacket, int nArg); // 0x004C1BC0
 D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType); // 0x00463990
@@ -794,7 +783,7 @@ void __fastcall sub_0045F190_SpawnMonsterPacket(D2PacketSpawnStrc* pPacket)
         STATLIST_SetUnitStat(pUnit, 7, 0x8000, 0);
         STATLIST_SetUnitStat(pUnit, 6, pPacket->nLife << 8, 0);
     }
-    if (MONSTERS_GetHirelingTypeId(pUnit) && nMode == 1) pUnit->dwFlagsEx &= ~0x40000;
+    if (MONSTERS_GetHirelingTypeId(pUnit) && nMode == 1) pUnit->dwFlagEx &= ~0x40000;
     STATLIST_SetUnitStat(pUnit, 0x148, (unsigned short)(nX + nY), 0);
     if (sub_00411020_ReadBits(&tBuffer, 1)) UNITS_StoreOwnerTypeAndGUID(pUnit, 0, sub_00411020_ReadBits(&tBuffer, 31));
     if (sub_00411020_ReadBits(&tBuffer, 1))

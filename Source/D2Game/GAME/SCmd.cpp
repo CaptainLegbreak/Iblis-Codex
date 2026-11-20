@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define ITEMACTION_REMOVEFROMCONTAINER 5
@@ -171,37 +172,6 @@ struct D2ClientStrc
     int nCount;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    union
-    {
-        struct
-        {
-            char unk0x10[0x1C];
-        };
-        struct
-        {
-            unsigned char unk_10[0x4];
-            D2MonsterDataStrc* pMonsterData;
-        };
-        struct
-        {
-            unsigned char unk_10_2[0x4];
-            D2ObjectDataStrc* pObjectData;
-        };
-    };
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    unsigned char unk_30[0x30];
-    D2InventoryStrc* pInventory;
-};
 
 void __fastcall D2GAME_SendPacket0x9D_6FC3E6F0(D2ClientStrc* pClient, D2UnitStrc* pUnit, D2UnitStrc* pItem, char nAction, unsigned int dwFlag, int bGamble); // 0x0053CEF0
 D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0

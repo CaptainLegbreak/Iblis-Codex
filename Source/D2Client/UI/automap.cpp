@@ -1,4 +1,6 @@
 #include "D2Client.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 #define OFFSET(T, M) ((unsigned int)&(((T*)0)->M))
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -215,39 +217,6 @@ void __fastcall sub_00478A00(void* pCel); // 0x00478A00
 extern int gdwGlobal_007A520C; // 0x007A520C
 extern int gdwGlobal_007A5208; // 0x007A5208
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    union
-    {
-        struct
-        {
-            char unk0x04[0x5C];
-        };
-        struct
-        {
-            int dwClassId;
-            unsigned char unk_08[0x4];
-            int dwUnitId;
-            int dwAnimMode;
-            unsigned char unk_14[0x18];
-            D2DynamicPathStrc* pDynamicPath;
-        };
-        struct
-        {
-            unsigned char unk_04[0x28];
-            D2StaticPathStrc* pStaticPath;
-        };
-    };
-    D2InventoryStrc* pInventory;
-    D2GfxLightStrc* pLight;
-    char unk0x68[0x40];
-    D2SkillListStrc* pSkills;
-    char unk0xAC[0x18];
-    unsigned int dwFlags;
-    char unk0xC8[0x20];
-    D2UnitStrc* pRoomNext;
-};
 
 struct D2UnitTargetStrc
 {
@@ -417,11 +386,6 @@ void __fastcall sub_00457640(int force); // 0x00457640
 
 enum D2C_F06UiConstants
 {
-    UNIT_PLAYER = 0,
-    UNIT_MONSTER = 1,
-    UNIT_OBJECT = 2,
-    UNIT_ITEM = 4,
-    UNIT_TILE = 5,
     PLAYER_MODE_WALK = 2,
     PLAYER_MODE_RUN = 3,
     PLAYER_MODE_6 = 6,

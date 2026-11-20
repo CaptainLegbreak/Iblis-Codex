@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2GameActsViewStrc;
 struct D2RoomWarpCoordsStrc;
@@ -27,7 +28,6 @@ struct D2LevelsTxt
     int nWarpDistSq;
 };
 
-struct D2SeedStrc { unsigned int low,high; };
 
 struct D2ActiveRoomStrc { char pad[0x6c]; D2SeedStrc seed; };
 
@@ -132,9 +132,9 @@ static void __stdcall sub_0054DAC0_GetSpawnBounds(D2ActiveRoomStrc* pRoom, int* 
 
 static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
-    const unsigned __int64 lSeed = pSeed->high + 0x6AC690C5i64 * pSeed->low;
-    pSeed->high = (unsigned int)(lSeed >> 32);
-    pSeed->low = (unsigned int)lSeed;
+    const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
     return (unsigned int)lSeed;
 }
 

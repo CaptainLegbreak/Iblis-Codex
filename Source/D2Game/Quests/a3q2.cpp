@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 #define QFLAG_REWARDGRANTED 0
 #define QFLAG_STARTED 2
 #define QFLAG_CUSTOM3 7
@@ -22,11 +23,6 @@ struct D2MonsterDataStrc;
 struct D2GSPacketSrv5D;
 struct D2QuestGUIDStrc;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2GameStrc
 {
@@ -38,17 +34,6 @@ struct D2GameStrc
     int dwGameFrame;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08;
-    int dwUnitId;
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-    unsigned char unk_18[0xA0];
-    unsigned int dwDropItemCode;
-};
 
 struct D2PlayerDataStrc
 {

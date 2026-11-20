@@ -1,13 +1,7 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 #define QFLAG_PRIMARYGOALDONE 13
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08;
-    int dwUnitId;
-};
 
 struct D2QuestDataStrc
 {

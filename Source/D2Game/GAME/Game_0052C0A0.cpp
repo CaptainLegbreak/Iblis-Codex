@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2ServerCallbackFunctions;
 
@@ -14,11 +15,6 @@ struct D2CriticalSectionStrc
     unsigned long nSpinCount;
 };
 
-struct D2UnitStrc
-{
-    char unk0x00[0xE8];
-    D2UnitStrc* pRoomNext;
-};
 
 struct D2ActiveRoomStrc
 {

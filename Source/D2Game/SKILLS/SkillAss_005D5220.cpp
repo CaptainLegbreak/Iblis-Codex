@@ -1,7 +1,6 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
-struct D2SeedStrc { unsigned int nLowSeed; unsigned int nHighSeed; };
-struct D2UnitStrc { char unk_00[0x20]; D2SeedStrc pSeed; char unk_28[0x9C]; unsigned int dwFlags; };
 struct D2DamageStrc { int unk_00; unsigned short wResultFlags; };
 struct D2SkillsTxt { char unk_00[4]; unsigned char nFlags[4]; char f_8[0x28]; short wProgFunc[3]; char unk_36[0x1E]; short wAuraStat[6]; };
 struct D2DataTablesStrc { char unk_00[0x16C]; short* pProgressiveStates; short nProgressiveStates; char unk_172[0xA62]; int nItemStatCostTxtRecordCount; };

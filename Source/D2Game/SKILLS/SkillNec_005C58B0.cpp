@@ -1,6 +1,6 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
-struct D2UnitStrc { int dwUnitType; int dwClassId; int pMemoryPool; int dwUnitId; char unk_10[0xB4]; unsigned int dwFlags; };
 struct D2SkillsTxt { char unk_00[0x48]; short nSrvMissile; char unk_4A[0x74]; unsigned char nPetType; char unk_BF; unsigned int dwPetMax; char unk_C4[0x78]; unsigned int dwCalc[4]; char unk_14C[0xF0]; };
 struct D2DataTablesStrc { char unk_00[0xB6C]; int nMissilesTxtRecordCount; char unk_B70[0x28]; D2SkillsTxt* pSkillsTxt; int unk_B9C; int nSkillsTxtRecordCount; char unk_BA4[0x4C]; int nPetTypeTxtRecordCount; };
 struct D2SummonArgStrc { unsigned int dwFlags; D2UnitStrc* pOwner; int nHcIdx; int nAiSpecialState; int nMonMode; int nX; int nY; int nPetType; int nPetMax; };

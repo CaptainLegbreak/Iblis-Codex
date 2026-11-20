@@ -1,6 +1,6 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
-struct D2UnitStrc { unsigned int dwUnitType; unsigned int dwClassId; unsigned int unk08; unsigned int dwUnitId; };
 struct D2TextRowStrc { void* pText; D2TextRowStrc* pNext; };
 #pragma pack(push, 2)
 struct D2TextBlockStrc { D2TextRowStrc* pLines; unsigned char unknown04[0x12]; int unknown16; };

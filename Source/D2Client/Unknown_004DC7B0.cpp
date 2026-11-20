@@ -1,26 +1,6 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x8];
-    int dwMode;
-    char unk0x14[0xB0];
-    unsigned int dwFlags;
-    union
-    {
-        struct
-        {
-            unsigned int dwFlagExBits0 : 7;
-            unsigned int bOutOfSight : 1;
-            unsigned int dwFlagExBits8 : 10;
-            unsigned int bNoDraw : 1;
-            unsigned int dwFlagExBits19 : 13;
-        };
-        unsigned int dwFlagEx;
-    };
-};
 
 struct D2ObjectsTxt
 {
@@ -72,11 +52,11 @@ static int sub_004DC710_UpdateUnitSightFlag(D2UnitStrc* pUnit)
         {
         case 0:
             pPlayer = sub_00463DE0_GetStoredUnit();
-            if (pPlayer == pUnit || !pUnit->dwMode || pUnit->dwMode == 0x11)
+            if (pPlayer == pUnit || !pUnit->dwAnimMode || pUnit->dwAnimMode == 0x11)
                 goto set_flag;
             break;
         case 1:
-            if (!pUnit->dwMode || pUnit->dwMode == 0xC)
+            if (!pUnit->dwAnimMode || pUnit->dwAnimMode == 0xC)
                 goto set_flag;
             pPlayer = sub_00463DE0_GetStoredUnit();
             break;
@@ -92,12 +72,12 @@ static int sub_004DC710_UpdateUnitSightFlag(D2UnitStrc* pUnit)
             D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
             if ((!pRoom || DRLG_GetLOSDrawFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom))) && UNITS_TestCollisionWithUnit(pPlayer, pUnit, 2))
             {
-                pUnit->bOutOfSight = 0;
+                pUnit->dwFlagEx = 0;
                 return 0;
             }
         }
 set_flag:
-        pUnit->bOutOfSight = 1;
+        pUnit->dwFlagEx = 1;
     }
     return 1;
 }
@@ -111,7 +91,7 @@ void __fastcall sub_004DC7B0_DrawUnitByType(D2UnitStrc* pUnit, int nColor, int b
     int bFlag;
     if (!bForce && UNIT_HasFlagEx(pUnit, 0x40000))
         return;
-    if (pUnit && pUnit->dwUnitType == 0 && pUnit->dwMode == 0x11 && !STATES_CheckState(pUnit, 7))
+    if (pUnit && pUnit->dwUnitType == 0 && pUnit->dwAnimMode == 0x11 && !STATES_CheckState(pUnit, 7))
         return;
     if (!bForce && pUnit && pUnit->dwUnitType > 0 && pUnit->dwUnitType <= 2)
     {

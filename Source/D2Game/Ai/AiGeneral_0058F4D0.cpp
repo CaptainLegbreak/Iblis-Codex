@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2MinionListStrc;
 
@@ -14,15 +15,6 @@ struct D2MonsterDataStrc
 	D2AiControlStrc* pAiControl;
 };
 
-struct D2UnitStrc
-{
-	int dwUnitType;
-	int dwClassId;
-	void* pMemoryPool;
-	int dwUnitId;
-	int dwAnimMode;
-	D2MonsterDataStrc* pMonsterData;
-};
 
 void __fastcall AIGENERAL_SetOwnerData(D2GameStrc* pGame, D2UnitStrc* pUnit, int nOwnerGUID, int nOwnerType, int bSetFlag1, int bSetFlag2); // 0x0058F030
 void __fastcall AIGENERAL_FreeAllMinionLists(D2GameStrc* pGame, D2MinionListStrc* pMinionList); // 0x0058F350

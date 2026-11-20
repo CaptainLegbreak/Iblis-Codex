@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define QUEST_A3Q3_GIDBINN 0x11
 #define QUESTSTATEFLAG_A3Q5 21
@@ -10,13 +11,6 @@ struct D2Act3Quest3Strc;
 struct D2PlayerDataStrc;
 struct D2Act3Quest5Strc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    unsigned int dwUnitId;
-};
 
 typedef void (__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
 

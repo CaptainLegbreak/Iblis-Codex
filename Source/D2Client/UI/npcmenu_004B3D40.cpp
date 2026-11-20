@@ -1,25 +1,10 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2SeedStrc;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x08];
-    int dwAnimMode;
-    char unk0x14[0x0C];
-    D2SeedStrc pSeed;
-    char unk0x28[0x38];
-    D2InventoryStrc* pInventory;
-};
 
 #pragma pack(push, 2)
 struct D2NpcEntryStrc

@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 struct D2CoordStrc
 {
@@ -13,26 +14,6 @@ struct D2StaticPathStrc
     int nYPos;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    unsigned int dwUnitId;
-    int dwAnimMode;
-    char unk0x14[0x2C - 0x14];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0xC4 - 0x30];
-    unsigned int dwFlags;
-    char unk0xC8[0xD4 - 0xC8];
-    unsigned int dwLastSoundTick;
-    char unk0xD8[0xE8 - 0xD8];
-    D2UnitStrc* pRoomNext;
-};
 
 struct D2SkillsTxt
 {
@@ -254,11 +235,11 @@ static void sub_00466DE0_SetHoverUnit(D2UnitStrc* pUnit)
         if (UNITS_IsDoor(pUnit) && pUnit->dwAnimMode != 4)
         {
             const unsigned int dwNow = GetTickCount();
-            if (dwNow - pUnit->dwLastSoundTick > 0x1F4)
+            if (dwNow - pUnit->dwTickCount > 0x1F4)
             {
                 sprintf(szBuffer, gszHoverTimeFormat_006D6AD4, dwNow);
                 OutputDebugStringA(szBuffer);
-                pUnit->dwLastSoundTick = dwNow;
+                pUnit->dwTickCount = dwNow;
                 sub_00478680_SendPacket5(0x3D, gnSelectedUnitId_007A6A78);
             }
         }

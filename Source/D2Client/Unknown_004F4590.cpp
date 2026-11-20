@@ -1,11 +1,6 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
-struct D2UnitStrc
-{
-    unsigned int dwUnitType;
-    unsigned char unk_04[0x4A];
-    unsigned char nState4E;
-};
 
 struct D2SkillsTxt
 {
@@ -36,7 +31,7 @@ static __forceinline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int nSkillId)
 // 0x004F4590
 int __fastcall sub_004F4590_DoSkillSound(D2UnitStrc* pUnit, int nSkillId, int nUnused)
 {
-    if (pUnit->nState4E == 3)
+    if (pUnit->nActionFrame == 3)
     {
         D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
         if (!pSkillsTxtRecord)

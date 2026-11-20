@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define UNIT_INVALID 6
 #define UNIT_MONSTER 1
@@ -15,27 +16,7 @@ enum D2C_Y10UseSkillConstants
     UNITFLAG_SKSRVDOFUNC = 0x40,
 };
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-    char unk0x18[0x08];
-    D2SeedStrc pSeed;
-    char unk0x28[0x04];
-    D2DynamicPathStrc* pDynamicPath;
-    char unk0x30[0x94];
-    unsigned int dwFlags;
-};
 
 struct D2ModeChangeStrc
 {

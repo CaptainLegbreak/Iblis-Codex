@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 #pragma once
 
 struct D2BitmapInfoStrc;
@@ -796,18 +797,6 @@ struct D2SystemTimeStrc
     unsigned short wMilliseconds;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    char unk0x14[0x3A];
-    unsigned char nActionFrame;
-    char unk0x4F[0x75];
-    unsigned int dwFlags;
-};
 
 typedef int (__stdcall* EnumProcessModulesFn)(void* hProcess, void** phModules, unsigned long nSize, unsigned long* pnNeeded);
 

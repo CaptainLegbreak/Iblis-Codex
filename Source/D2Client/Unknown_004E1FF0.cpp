@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define UNIT_ITEM 4
 struct D2StaticPathStrc;
@@ -17,34 +18,7 @@ struct D2MonStatsTxt;
 struct D2MonSoundsTxt;
 struct D2DifficultyLevelsTxt;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-    unsigned char unk_18[0x8];
-    D2SeedStrc pSeed;
-    int dwInitSeed;
-    D2DynamicPathStrc* pDynamicPath;
-    D2AnimSeqTxt* pAnimSeq;
-    char unk0x34[0x10];
-    int dwGFXcurrentFrame;
-    int dwFrameCountPrecise;
-    char unk0x4C[0x14];
-    D2InventoryStrc* pInventory;
-    D2GfxLightStrc* pLight;
-    char unk0x68[0x5C];
-    unsigned int dwFlags;
-};
 
 struct D2SkillsTxt
 {
@@ -502,7 +476,7 @@ int __fastcall sub_004E2630_SkillDoFrameSteps(D2UnitStrc* pUnit, int nSkillId, i
     D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nSkillId);
     const int nRepeats = SKILLS_GetParam1(pSkill);
 
-    switch (pUnit->dwGFXcurrentFrame >> 8)
+    switch (pUnit->nSeqCurrentFramePrecise >> 8)
     {
     case SKILLDO_FRAME_A:
         UNITS_SetAnimationFrame(pUnit, SKILLDO_FRAME_A_SET);
@@ -825,7 +799,7 @@ D2UnitStrc* __fastcall sub_004E31C0_CltDo(D2UnitStrc* pUnit, int nSkillId, int n
         }
         else
         {
-            pUnit->dwGFXcurrentFrame = (pUnit->dwGFXcurrentFrame & 0xFFFFFF00) - 0x200;
+            pUnit->nSeqCurrentFramePrecise = (pUnit->nSeqCurrentFramePrecise & 0xFFFFFF00) - 0x200;
         }
     }
 

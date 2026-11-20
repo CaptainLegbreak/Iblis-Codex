@@ -1,4 +1,6 @@
 #include "D2Client.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
@@ -81,42 +83,7 @@ void __stdcall D2CMP_InitSpriteCache(void* pMemPool, unsigned int nMaxSize, int 
 void __fastcall sub_00470200_InitTables(int nSize); // 0x00470200
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    char unk0x14[0x0C];
-    union
-    {
-        D2SeedStrc tSeed;
-        D2SeedStrc pSeed;
-    };
-    int unk0x28;
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x08];
-    int dwSeqFrame;
-    char unk0x3C[0x08];
-    int nSeqCurrentFramePrecise;
-    unsigned char unk_48[0x18];
-    D2InventoryStrc* pInventory;
-    unsigned char unk_64[0x60];
-    unsigned int dwFlags;
-    unsigned char unk_C8[0x20];
-    D2UnitStrc* pRoomNext;
-};
 
 D2UnitStrc* __fastcall sub_004C52E0(D2UnitStrc* pUnit, int* pTargetX, int* pTargetY); // 0x004C52E0
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
@@ -441,10 +408,6 @@ void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsS
 
 enum
 {
-    UNIT_MONSTER = 1,
-    UNIT_OBJECT = 2,
-    UNIT_ITEM = 4,
-    UNIT_TILE = 5,
 };
 
 struct D2ActiveRoomViewStrc
@@ -1139,7 +1102,7 @@ static __declspec(noinline) int sub_004C5710_GetAttackMode(D2UnitStrc* pUnit)
 
     if (bRandom)
     {
-        const char nRoll = SKILLCLT_RollSeed(&pUnit->tSeed) & 0x3F;
+        const char nRoll = SKILLCLT_RollSeed(&pUnit->pSeed) & 0x3F;
         if (nRoll < 0x20)
         {
             return 8;

@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 extern "C" size_t __cdecl strlen(const char* szString);
@@ -8,20 +9,6 @@ struct Unicode
     unsigned short wChar;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    unsigned int dwUnitId;
-    int dwAnimMode;
-    char unk0x14[0x60 - 0x14];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0xC4 - 0x64];
-    unsigned int dwFlags;
-    char unk0xC8[0xE8 - 0xC8];
-    D2UnitStrc* pRoomNext;
-};
 
 struct D2ActiveRoomStrc
 {

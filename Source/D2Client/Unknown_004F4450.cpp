@@ -1,14 +1,7 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 struct D2StaticPathStrc { char pad[0xC]; int x, y; };
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char pad04[8];
-    int dwUnitId;
-    char pad10[0x1C];
-    union { D2DynamicPathStrc* pDynamicPath; D2StaticPathStrc* pStaticPath; };
-};
 struct D2SkillsTxt
 {
     char pad00[0x138];

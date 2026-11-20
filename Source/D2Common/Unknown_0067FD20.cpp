@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 struct D2DrlgGridStrc
 {
@@ -17,11 +18,6 @@ struct D2DrlgOutdoorInfoStrc
     char pad_after_grid_flags[32];
     int nHeight;
 };
-struct D2SeedStrc
-{
-    unsigned int dwLow;
-    unsigned int dwHigh;
-};
 struct D2DrlgLevelStrc
 {
     char pad_00[20];
@@ -39,9 +35,9 @@ extern D2OutdoorColumnFilesStrc gColumnFiles_006F2680[]; // 0x006F2680
 // build: context SEED_RollRandomNumber_Inline
 static __forceinline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed)
 {
-    unsigned __int64 lSeed = pSeed->dwHigh + 0x6AC690C5i64 * pSeed->dwLow;
-    pSeed->dwHigh = (unsigned int)(lSeed >> 32);
-    pSeed->dwLow = (unsigned int)lSeed;
+    unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
     return (unsigned int)lSeed;
 }
 

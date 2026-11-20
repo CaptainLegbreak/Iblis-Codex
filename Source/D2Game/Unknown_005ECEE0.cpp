@@ -1,7 +1,6 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
-struct D2SeedStrc { unsigned int nLowSeed; unsigned int nHighSeed; };
-struct D2UnitStrc { int dwUnitType; int dwClassId; void* pMemoryPool; int dwUnitId; int dwAnimMode; char unk_14[0xC]; D2SeedStrc pSeed; };
 struct D2GameStrc { char unk_00[0x6D]; unsigned char nDifficulty; char unk_6E[0x3A]; int dwGameFrame; };
 struct D2AiControlStrc { char unk_00[0x14]; int dwAiParam[3]; };
 struct D2MonStatsTxt { char unk_00[0x32]; short wVelocity; short wRun; char unk_36[0x20]; short wAiParam[8][3]; char unk_86[0xEA]; short nSkill[8]; unsigned char nSkillMode[8]; };

@@ -1,4 +1,6 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 struct D2MonsterRegionStrc;
 struct D2StaticPathStrc;
@@ -24,8 +26,6 @@ struct D2DataTablesStrc;
 
 enum D2C_F39Constants
 {
-    UNIT_PLAYER = 0,
-    UNIT_MONSTER = 1,
     STAT_HITPOINTS = 6,
     STAT_MODIFIERLIST_SKILL = 350,
     STAT_MODIFIERLIST_LEVEL = 351,
@@ -62,9 +62,6 @@ enum D2C_F39Constants
     STATE_NOMANAREGEN = 0x55,
     STATE_CONVERSION_SAVE = 0x6D,
     STATLIST_FLAG_8 = 8,
-    UNIT_OBJECT = 2,
-    UNIT_ITEM = 4,
-    UNIT_TILE = 5,
 };
 
 struct D2StaticPathStrc
@@ -107,39 +104,7 @@ struct D2GameStrc
     D2MonsterRegionStrc* pMonReg;
 };
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    unsigned int dwClassId;
-    char unk0x08[0x04];
-    int dwUnitId;
-    char unk0x10[0x04];
-    D2MonsterDataStrc* pMonsterData;
-    unsigned char unk_18[0x8];
-    D2SeedStrc pSeed;
-    unsigned char unk_28[0x4];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x0C];
-    unsigned int dwSeqSpeed;
-    char unk0x40[0x0E];
-    unsigned char nActionFrame;
-    unsigned char unk_4F[0x11];
-    D2InventoryStrc* pInventory;
-    unsigned char unk_64[0x60];
-    unsigned int dwFlags;
-    char padC8[8];
-    int nNodeIndex;
-};
 
 struct D2DamageStrc
 {
@@ -731,7 +696,7 @@ Drain:
  EVENT_SetEvent(pGame, pTarget, 12, nExpireFrame, 0, 0);
  sub_6FD154D0(pTarget);
  sub_6FCBDD30(pTarget, 2, 1);
- D2GAME_UpdateSummonAI_6FC401F0(pGame, pTarget, 0, pUnit->nNodeIndex);
+ D2GAME_UpdateSummonAI_6FC401F0(pGame, pTarget, 0, pUnit->dwNodeIndex);
  UNITS_SetTargetUnitForDynamicUnit(pUnit, 0);
  for (D2StatListStrc* i = STATLIST_GetStatListFromUnitAndFlag(pTarget, 8); i; i = STATLIST_GetStatListFromUnitAndFlag(pTarget, 8))
  {

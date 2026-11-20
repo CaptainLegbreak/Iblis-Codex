@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 struct Unicode;
 struct D2SkillsTxt;
@@ -40,25 +41,7 @@ struct D2SkillsTxt
 
 extern "C" const char szFmtRange_006D9D70[]; // 0x006D9D70
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    unsigned int dwUnitType;
-    unsigned int dwClassId;
-    char unk0x08[0x18];
-    D2SeedStrc tSeed;
-    char unk0x28[0x04];
-    D2DynamicPathStrc* pDynamicPath;
-    unsigned char unk_30[0x18];
-    int dwFrameCountPrecise;
-    char unk0x4C[0x78];
-    unsigned int dwFlags;
-};
 
 int __stdcall SKILLS_GetElementalLength(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bFlag); // 0x00644F20
 int __stdcall SKILLS_GetMinElemDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a4); // 0x00644D50
@@ -633,7 +616,7 @@ int __fastcall sub_004EFDF0_LobMissile(D2UnitStrc* pUnit, int nSkillId, int nSki
                     nFall /= nFrames;
                 }
 
-                D2SeedStrc* pSeed = &pUnit->tSeed;
+                D2SeedStrc* pSeed = &pUnit->pSeed;
                 tMissileParams.nMissile = nMissile;
                 if (nAltMissile > 0 && SEED_RollLimitedRandomNumber(pSeed, 2))
                 {

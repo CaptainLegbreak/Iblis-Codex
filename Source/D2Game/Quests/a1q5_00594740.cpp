@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define UNIT_PLAYER 0
 #define LEVEL_ROGUEENCAMPMENT 1
@@ -11,13 +12,6 @@ struct D2Act1Quest5Strc;
 struct D2QuestGUIDStrc;
 struct D2ObjInitFnStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-};
 
 struct D2GameStrc
 {
