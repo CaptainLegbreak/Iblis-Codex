@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Unicode.h"
 #include "D2CelContext.h"
 #include "D2LevelTxt.h"
 
@@ -13,11 +14,6 @@ struct D2MessageStrc;
 struct D2CriticalSectionStrc;
 struct D2VersionInfoStrc;
 struct D2ComInterfaceStrc;
-
-struct Unicode
-{
-    unsigned short wChar;
-};
 
 
 
@@ -196,7 +192,7 @@ static D2CelFileStrc* s_pEndGameCell_007A0700; // 0x007A0700
 
 static D2CelFileStrc* s_pEndGameOkCell_007A06FC; // 0x007A06FC
 
-// build: symbol ?$S1@?7??sub_00455510_DrawLevelLoadingScreen@@YAXXZ@4IA 0x007A314C
+// build: symbol ?$S4@?7??sub_00455510_DrawLevelLoadingScreen@@YAXXZ@4IA 0x007A314C
 // 0x0044DB60
 void __stdcall sub_0044DB60_PreloadActTiles(unsigned char nAct)
 {

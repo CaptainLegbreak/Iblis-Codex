@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2GameAux.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
 #include "D2Path.h"
@@ -21,18 +22,6 @@ extern "C" void* __cdecl memset(void*, int, unsigned int);
 
 
 
-
-struct D2SummonArgStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pOwner;
-    int nHcIdx;
-    int nAiSpecialState;
-    int nMonMode;
-    D2CoordStrc pPosition;
-    int nPetType;
-    int nPetMax;
-};
 
 struct D2SkillsTxt
 {

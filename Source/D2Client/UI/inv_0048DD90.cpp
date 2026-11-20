@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2ClientTypes.h"
 #include "D2Unicode.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
@@ -28,14 +29,6 @@ struct D2ItemTypeNameStrc
     unsigned short f_4;
 };
 #pragma pack(pop)
-
-struct D2InvRectStrc
-{
-    int nLeft;
-    int nRight;
-    int nTop;
-    int nBottom;
-};
 
 struct D2InvCompGridStrc
 {

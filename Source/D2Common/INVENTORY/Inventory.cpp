@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2ClientTypes.h"
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
@@ -178,14 +179,6 @@ extern const signed char gaDirectionDeltaY_006EA978[32]; // 0x006EA978
 static __declspec(noinline) s32 __cdecl sub_0063D900_FindCode(u32 second, u32 first);
 static __declspec(noinline) int sub_0063DBC0_PairIsWieldable(D2UnitStrc* pUnit, D2UnitStrc* pItem1, D2UnitStrc* pItem2);
 static __declspec(noinline) BOOL __stdcall INVENTORY_CanItemBePlacedInInventory(D2UnitStrc* pPlayer, D2UnitStrc* pItem, D2InventoryStrc* pInventory);
-
-struct D2InvRectStrc
-{
-    int nLeft;
-    int nRight;
-    int nTop;
-    int nBottom;
-};
 
 struct D2BeltsTxt
 {
