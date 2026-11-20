@@ -1,5 +1,9 @@
 #include "D2Client.h"
 #include "D2DataTbls.h"
+#include "D2Structs.h"
+#include "D2LevelTxt.h"
+#include "D2ClientGame.h"
+#include "D2Records.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define MAX(a, b) ((a) < (b) ? (b) : (a))
@@ -13,7 +17,7 @@ struct D2MissileStrc;
 struct D2UnitSfxNodeStrc;
 struct D2SetItemsTxt;
 struct D2LevelSpeechStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2CltUnitEventStrc;
 struct D2CltRateStrc;
 struct D2CltMissileFindArgStrc;
@@ -30,43 +34,6 @@ struct D2StaticPathStrc
     char unk0x00[0x0C];
     int nX;
     int nY;
-};
-
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    unsigned char unk_10[0x10];
-    D2SeedStrc pSeed;
-    int unk0x28;
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    int unk0x30[5];
-    int nSeqCurrentFramePrecise;
-    unsigned char unk_48[0x18];
-    D2InventoryStrc* pInventory;
-    D2GfxLightStrc* pLight;
-    int dwStartLight;
-    int nPaletteIndex;
-    unsigned char unk_70[0x8];
-    D2UnitSfxNodeStrc* pUnitSfxData;
-    unsigned int dwSfxTicks;
-    unsigned char unk_80[0x10];
-    D2CltUnitEventStrc* pCltTimerList;
-    int unk0x94[12];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
 };
 
 struct D2SkillsTxt
@@ -143,20 +110,6 @@ struct D2MissilesTxt
     unsigned char nClientCol;
     char unk0x186[0x1E];
 };
-
-struct D2StatesTxt
-{
-    unsigned short wState;
-    short wOverlay[4];
-    unsigned char unk_0A[0x16];
-    unsigned char nColorPri;
-    unsigned char nColorShift;
-    unsigned char nLightRGB[3];
-    unsigned char unk_25[0x13];
-    short wSkill;
-    short wMissile;
-};
-
 
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArg);
 
@@ -239,19 +192,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-
-struct D2UnitSfxNodeStrc
-{
-    void* pUnitSfx;
-    D2UnitSfxNodeStrc* pNext;
-};
-
-struct D2SetItemsTxt
-{
-    char unk0x00[0x2C];
-    short nSetId;
-    char unk0x2E[0x18A];
-};
 
 struct D2LevelSpeechStrc
 {
@@ -700,7 +640,7 @@ void* __fastcall sub_004CA900_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId)
 
     int nGroup = sub_00481890_GetCacheFirst(nId);
     int nCount = sub_004818C0_GetCacheCount(nGroup);
-    for (D2UnitSfxNodeStrc* pNode = pUnit->pUnitSfxData; pNode; pNode = pNode->pNext)
+    for (D2UnitSfxNodeStrc* pNode = (D2UnitSfxNodeStrc*)pUnit->pUnitSfxData; pNode; pNode = pNode->pNext)
     {
         void* pUnitSfx = pNode->pUnitSfx;
         int nHintId = sub_004B9CA0_GetHintIdByKey(pUnitSfx);

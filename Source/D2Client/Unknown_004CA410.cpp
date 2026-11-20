@@ -3,6 +3,11 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
+#include "D2Structs.h"
+#include "D2LevelTxt.h"
+#include "D2Path.h"
+#include "D2Drlg.h"
+#include "D2DrlgMaps.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNITFLAGEX_0x40000 0x40000
@@ -21,7 +26,7 @@ struct D2StaticPathStrc;
 struct D2DrlgCoordsStrc;
 struct D2TileLibraryEntryStrc;
 struct T00481920;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2MissilesTxt;
 struct D2MissileStrc;
 
@@ -34,47 +39,6 @@ struct D2UnitSfxNodeStrc
 {
     void* f_0;
     D2UnitSfxNodeStrc* pNext;
-};
-
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08[6];
-    D2SeedStrc tSeed;
-    int unk0x28;
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    int unk0x30[5];
-    int nSeqCurrentFramePrecise;
-    unsigned int dwFrameCountPrecise;
-    short wAnimSpeed;
-    char unk0x4E[0x22];
-    unsigned char bUnitSfx;
-    char unk0x71[3];
-    int dwSfxMode;
-    union
-    {
-        D2UnitSfxNodeStrc* pUnitSfxList;
-        D2TimedHintNodeStrc* pHintList;
-    };
-    unsigned int dwSfxTicks;
-    unsigned int dwSfxAsyncTicks;
-    unsigned int dwSfxStepTicks;
-    int bHasActiveSound;
-    char unk0x8C[0x24];
-    int dwLastHitClass;
-    unsigned char unk_B4[0x14];
-    unsigned int dwFlagEx;
 };
 
 struct D2MonSoundsTxt
@@ -120,15 +84,6 @@ struct D2MonSoundsTxt
     unsigned short pad0x8E;
     int dwCvtSk3;
 };
-
-struct D2SuperUniquesTxt
-{
-    char unk0x00[0x18];
-    int dwMonSound;
-};
-
-
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern D2UnitSndPlayerStrc* gpUnitSndPlayer_0072A008[]; // 0x0072A008
@@ -199,44 +154,6 @@ void __fastcall sub_00516950_LinkEntry(D2TimedHintNodeStrc** ppList, D2TimedHint
 void __fastcall sub_00516980_RemoveNode(D2TimedHintNodeStrc** ppList, D2TimedHintEntryStrc* pEntry); // 0x00516980
 int __fastcall sub_004818F0_GetCacheKind(int nIndex); // 0x004818F0
 
-struct D2StaticPathStrc
-{
-    int unk0x00[3];
-    int nXPos;
-    int nYPos;
-};
-
-struct D2DrlgCoordsStrc
-{
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-    int nTileXPos;
-    int nTileYPos;
-    int nTileWidth;
-    int nTileHeight;
-};
-
-struct D2TileLibraryEntryStrc
-{
-    int nLightDirection;
-    unsigned short nRoofHeight;
-    unsigned short nFlags;
-};
-
-struct D2DrlgTileDataStrc
-{
-    int nWidth;
-    int nHeight;
-    int nPosX;
-    int nPosY;
-    int unk0x10;
-    unsigned int dwFlags;
-    D2TileLibraryEntryStrc* pTile;
-    int unk0x1C[5];
-};
-
 struct T00481920
 {
     int unk0x00[7];
@@ -249,13 +166,7 @@ T00481920* __fastcall sub_00481920_GetSoundEnvironTxtRecord(int nEnvironId); // 
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath); // 0x00648900
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
-
 
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 void __stdcall sub_004DA1D0_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ); // 0x004DA1D0
@@ -269,7 +180,6 @@ void __stdcall PATH_SetType(D2DynamicPathStrc* pDynamicPath, int nPathType); // 
 void __stdcall PATH_SetNewDistance(D2DynamicPathStrc* pDynamicPath, unsigned char nNewDistance); // 0x00648E70
 int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown); // 0x00649970
 void __cdecl sub_00476AF0_ClearGlobals(); // 0x00476AF0
-
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
@@ -631,7 +541,7 @@ void __fastcall sub_004CB190_ReleaseSkillSfx(D2UnitStrc* pUnit)
         return;
 
     D2_ASSERT(pUnit, 0xC2C);
-    D2UnitSfxNodeStrc* pNode = pUnit->pUnitSfxList;
+    D2UnitSfxNodeStrc* pNode = (D2UnitSfxNodeStrc*)pUnit->pUnitSfxData;
     while (pNode)
     {
         void* pEntry = pNode->f_0;
@@ -648,7 +558,7 @@ void __fastcall sub_004CB190_ReleaseSkillSfx(D2UnitStrc* pUnit)
 void __stdcall sub_004CB220_ReleaseNeutralSfx(D2UnitStrc* pUnit, int bArm)
 {
     D2_ASSERT(pUnit, 0xC2C);
-    D2UnitSfxNodeStrc* pNode = pUnit->pUnitSfxList;
+    D2UnitSfxNodeStrc* pNode = (D2UnitSfxNodeStrc*)pUnit->pUnitSfxData;
     while (pNode)
     {
         D2UnitSfxNodeStrc* pNext = pNode->pNext;
@@ -1202,21 +1112,21 @@ int __fastcall sub_004CA810_GetModeSound(D2UnitStrc* pUnit, int nMode)
 void __fastcall sub_004CA8A0_AddUnitHint(D2UnitStrc* pUnit, D2TimedHintEntryStrc* pEntry)
 {
     D2_ASSERT(pUnit, 0xC2C);
-    sub_00516950_LinkEntry(&pUnit->pHintList, pEntry);
+    sub_00516950_LinkEntry((D2TimedHintNodeStrc**)&pUnit->pUnitSfxData, pEntry);
 }
 
 // 0x004CA8D0
 void __fastcall sub_004CA8D0_NotifyUnitHint(D2UnitStrc* pUnit, D2TimedHintEntryStrc* pEntry)
 {
     D2_ASSERT(pUnit, 0xC2C);
-    sub_00516980_RemoveNode(&pUnit->pHintList, pEntry);
+    sub_00516980_RemoveNode((D2TimedHintNodeStrc**)&pUnit->pUnitSfxData, pEntry);
 }
 
 // 0x004CA9C0
 void __fastcall sub_004CA9C0_ReleaseUnitHints(D2UnitStrc* pUnit, int bForce)
 {
     D2_ASSERT(pUnit, 0xC2C);
-    D2TimedHintNodeStrc* pNode = pUnit->pHintList;
+    D2TimedHintNodeStrc* pNode = (D2TimedHintNodeStrc*)pUnit->pUnitSfxData;
     while (pNode)
     {
         D2TimedHintNodeStrc* pNext = pNode->pNext;
@@ -1229,7 +1139,7 @@ void __fastcall sub_004CA9C0_ReleaseUnitHints(D2UnitStrc* pUnit, int bForce)
 void __fastcall sub_004CAA10_PurgeUnitHints(D2UnitStrc* pUnit)
 {
     D2_ASSERT(pUnit, 0xC2C);
-    D2TimedHintNodeStrc* pNode = pUnit->pHintList;
+    D2TimedHintNodeStrc* pNode = (D2TimedHintNodeStrc*)pUnit->pUnitSfxData;
     while (pNode)
     {
         D2TimedHintEntryStrc* pEntry = pNode->f_0;
@@ -1413,7 +1323,7 @@ void __stdcall sub_004CB2C0_ReleaseMonsterSfx(D2UnitStrc* pUnit)
         return;
 
     D2_ASSERT(pUnit, 0xC2C);
-    D2UnitSfxNodeStrc* pNode = pUnit->pUnitSfxList;
+    D2UnitSfxNodeStrc* pNode = (D2UnitSfxNodeStrc*)pUnit->pUnitSfxData;
     while (pNode)
     {
         void* pEntry = pNode->f_0;
@@ -1703,12 +1613,12 @@ void __fastcall sub_004CC870_InitFromOwner(D2UnitStrc* pMissile, int nInitArg)
 
     int nOffset = 0;
     if (pMissilesTxtRecord->dwCltParam[1] > 0)
-        nOffset = SEED_RollLimitedRandomNumber(&pOwner->tSeed, pMissilesTxtRecord->dwCltParam[1]) - pMissilesTxtRecord->dwCltParam[1] / 2;
+        nOffset = SEED_RollLimitedRandomNumber(&pOwner->pSeed, pMissilesTxtRecord->dwCltParam[1]) - pMissilesTxtRecord->dwCltParam[1] / 2;
 
     sub_004DA1D0_SetMotionVectorA(pMissile, 0, 0, nOffset);
     PATH_SetDirection(pMissile->pDynamicPath, PATH_GetDirection(pOwner->pDynamicPath));
     D2COMMON_10203_PATH_SetRotateFlag(pMissile->pDynamicPath, 0);
-    pMissile->nSeqCurrentFramePrecise = ITEMS_RollLimitedRandomNumber(&pMissile->tSeed, pMissilesTxtRecord->nAnimLen) << 8;
+    pMissile->nSeqCurrentFramePrecise = ITEMS_RollLimitedRandomNumber(&pMissile->pSeed, pMissilesTxtRecord->nAnimLen) << 8;
 }
 
 // 0x004CC9A0
@@ -1744,7 +1654,7 @@ void __fastcall sub_004CCCC0_SubmissileInitFunc(D2UnitStrc* pMissile, int nUnuse
 
     const int nRange = MISSILE_GetTotalFrames(pMissile) > 255 ? 255 : MISSILE_GetTotalFrames(pMissile);
     D2DynamicPathStrc* pPath = pMissile->pDynamicPath;
-    SEED_InitLowSeed(&pMissile->tSeed, D2COMMON_10175_PathGetFirstPointX(pPath));
+    SEED_InitLowSeed(&pMissile->pSeed, D2COMMON_10175_PathGetFirstPointX(pPath));
     PATH_SetType(pPath, PATHTYPE_CHARGEDBOLT);
     PATH_SetNewDistance(pPath, nRange);
     D2Common_10142(pPath, pMissile, 0);
@@ -1806,13 +1716,13 @@ void __fastcall sub_004D48B0_CltDoDelayedSpawn(D2UnitStrc* pMissile)
             missileParams.pOwner = pOwner;
             missileParams.pOrigin = pOwner;
             const int nRange = pMissilesTxtRecord->dwCltParam[0];
-            int nX = SEED_RollLimitedRandomNumber(&pMissile->tSeed, 2 * nRange + 1) - nRange;
+            int nX = SEED_RollLimitedRandomNumber(&pMissile->pSeed, 2 * nRange + 1) - nRange;
             missileParams.nTargetX = nX;
-            int nY = SEED_RollLimitedRandomNumber(&pMissile->tSeed, 2 * nRange + 1) - pMissilesTxtRecord->dwCltParam[0];
+            int nY = SEED_RollLimitedRandomNumber(&pMissile->pSeed, 2 * nRange + 1) - pMissilesTxtRecord->dwCltParam[0];
             missileParams.nTargetY = nY;
             if (!nX && !nY)
             {
-                nX = SEED_RollLimitedRandomNumber(&pMissile->tSeed, pMissilesTxtRecord->dwCltParam[0]) + 1;
+                nX = SEED_RollLimitedRandomNumber(&pMissile->pSeed, pMissilesTxtRecord->dwCltParam[0]) + 1;
                 missileParams.nTargetX = nX;
             }
             D2UnitStrc* pNewMissile = sub_004CD540_CreateMissile(&missileParams);
