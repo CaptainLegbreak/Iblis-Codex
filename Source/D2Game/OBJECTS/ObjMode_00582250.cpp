@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2GameTypes.h"
 #include "D2Txt.h"
+#include "D2TxtItems.h"
 struct D2ActiveRoomStrc;
 struct D2RoomCoordListStrc;
 struct D2UnitStrc;
@@ -35,19 +36,16 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 typedef int (__stdcall* FARPROC)();
 
-
 struct D2ObjectControlStrc
 {
     D2SeedStrc pSeed;
 };
-
 
 struct D2ObjectDataStrc
 {
     D2ObjectsTxt* pObjectTxt;
     unsigned char InteractType;
 };
-
 
 struct D2MonRegDataStrc
 {
@@ -108,17 +106,6 @@ unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x006439B0
 int __stdcall SKILLS_GetSkillMode(D2SkillStrc* pSkill); // 0x00644360
 
-
-
-struct D2ShrinesTxt
-{
-    unsigned char bCode;
-    char unk0x01[0x03];
-    int dwArg0;
-    int dwArg1;
-    int dwDurationInFrames;
-};
-
 struct D2ItemDropStrc
 {
     D2UnitStrc* pUnit;
@@ -151,7 +138,6 @@ struct D2ItemDropStrc
 };
 
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc*, int);
-
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 D2ActiveRoomStrc* __fastcall D2GAME_GetFreeSpaceEx_6FC4BF00(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, D2CoordStrc* pReturnCoords, int nUnitSize, unsigned char bAllowNeighborRooms); // 0x00555DA0

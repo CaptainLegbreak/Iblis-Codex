@@ -1,43 +1,11 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2EventTimer.h"
 
 struct D2EventTimerSlabListStrc;
 struct D2EventTimerQueueStrc;
-typedef void(__fastcall* EventTimerCallback)(D2GameStrc*, D2UnitStrc*, int, int, int);
 
-struct D2EventTimerStrc
-{
-    unsigned char nEventType;
-    char padding0x01;
-    unsigned short nFlags;
-    int nExpireFrame;
-    D2UnitStrc* pUnit;
-    int nUnitGUID;
-    int nUnitType;
-    int dwEventCustomId;
-    int dwEventCustomParam;
-    D2EventTimerStrc* pNextFreeEventTimer;
-    D2EventTimerStrc* unk0x20;
-    D2EventTimerStrc* pNext;
-    D2EventTimerStrc* pPrevious;
-    EventTimerCallback pCallback;
-};
-struct D2EventTimerSlabListStrc
-{
-    D2EventTimerStrc tEventTimersStorage[600];
-    D2EventTimerStrc* pFreeEventTimerListHead;
-    D2EventTimerSlabListStrc* pNextSlab;
-};
-struct D2EventTimerQueueStrc
-{
-    int nArrayIndex;
-    D2EventTimerStrc* pHead[5][64];
-    D2EventTimerStrc* pTail[5][64];
-    D2EventTimerStrc* pInfinite[5];
-    D2EventTimerStrc* pCurrent;
-    D2EventTimerSlabListStrc* pSlabListHead;
-};
 typedef char TimerSizeCheck[(sizeof(D2EventTimerStrc)==0x30)?1:-1];
 typedef char SlabSizeCheck[(sizeof(D2EventTimerSlabListStrc)==0x7088)?1:-1];
 typedef char QueueSizeCheck[(sizeof(D2EventTimerQueueStrc)==0xA20)?1:-1];
@@ -123,9 +91,9 @@ static __declspec(noinline) void __stdcall sub_005415E0_InsertInfinite(EventTime
     const int nUnitType = pUnit ? pUnit->dwUnitType : 6;
     D2EventTimerStrc** ppFirst = &pGame->pTimerQueue->pInfinite[gaSlotRows_006E0B9C[nUnitType]];
     pTimer->pNextFreeEventTimer = *ppFirst;
-    pTimer->unk0x20 = 0;
+    pTimer->pPreviousQueuedTimer = 0;
     if (pTimer->pNextFreeEventTimer)
-        pTimer->pNextFreeEventTimer->unk0x20 = pTimer;
+        pTimer->pNextFreeEventTimer->pPreviousQueuedTimer = pTimer;
     *ppFirst = pTimer;
 }
 
@@ -163,9 +131,9 @@ static __declspec(noinline) void __stdcall sub_005416B0_InsertDated(D2UnitStrc* 
     pTimer->pCallback = pCallback;
     D2EventTimerStrc** ppTail = nExpireFrame == -1 ? 0 : &pGame->pTimerQueue->pTail[gaSlotRows_006E0B9C[pTimer->nUnitType]][nExpireFrame % 64];
     pTimer->pNextFreeEventTimer = 0;
-    pTimer->unk0x20 = *ppTail;
-    if (pTimer->unk0x20)
-        pTimer->unk0x20->pNextFreeEventTimer = pTimer;
+    pTimer->pPreviousQueuedTimer = *ppTail;
+    if (pTimer->pPreviousQueuedTimer)
+        pTimer->pPreviousQueuedTimer->pNextFreeEventTimer = pTimer;
     *ppTail = pTimer;
     D2EventTimerStrc** ppHead;
     if (pTimer->nExpireFrame == -1)

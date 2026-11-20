@@ -1,26 +1,6 @@
 #include "D2Direct3D.h"
-struct D2Node006BB1F0Strc;
-struct D2List006BB1F0Strc;
-struct D2D3DObjVtblStrc;
-struct D2FloorPoolOwnerStrc;
-struct D2FloorPoolEntryStrc;
-struct D2FloorPoolStrc;
+#include "D2DrlgMaps.h"
 
-struct D2Node006BB1F0Strc
-{
-    unsigned char unk_00[0x10];
-    D2Node006BB1F0Strc* pNext10;
-    D2Node006BB1F0Strc* pPrev14;
-};
-
-struct D2List006BB1F0Strc
-{
-    unsigned char unk_00[8];
-    D2Node006BB1F0Strc* pHead8;
-    D2Node006BB1F0Strc* pTailC;
-    unsigned char unk_10[8];
-    D2Node006BB1F0Strc* pNodes18;
-};
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
@@ -28,41 +8,41 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
 // 0x006BB1F0
-D2Node006BB1F0Strc* __fastcall sub_006BB1F0_TakeNode(D2List006BB1F0Strc* pList, int nIndex)
+D2FloorPoolEntryStrc* __fastcall sub_006BB1F0_TakeNode(D2FloorPoolStrc* pList, int nIndex)
 {
-    D2Node006BB1F0Strc* pHead = pList->pHead8;
+    D2FloorPoolEntryStrc* pHead = pList->pInUseFirst;
     if (!pHead)
     {
         return 0;
     }
-    D2Node006BB1F0Strc* pNode = &pList->pNodes18[nIndex];
+    D2FloorPoolEntryStrc* pNode = &pList->pEntries[nIndex];
     if (pNode == pHead)
     {
-        pList->pHead8 = pHead->pNext10;
-        if (pList->pHead8)
+        pList->pInUseFirst = pHead->pNext;
+        if (pList->pInUseFirst)
         {
-            pList->pHead8->pPrev14 = 0;
+            pList->pInUseFirst->pPrev = 0;
         }
         else
         {
-            pList->pTailC = 0;
+            pList->pInUseLast = 0;
         }
-        pHead->pNext10 = 0;
-        pHead->pPrev14 = 0;
+        pHead->pNext = 0;
+        pHead->pPrev = 0;
         return pHead;
     }
-    if (pNode == pList->pTailC)
+    if (pNode == pList->pInUseLast)
     {
-        pList->pTailC = pList->pTailC->pPrev14;
-        pList->pTailC->pNext10 = 0;
+        pList->pInUseLast = pList->pInUseLast->pPrev;
+        pList->pInUseLast->pNext = 0;
     }
     else
     {
-        pNode->pPrev14->pNext10 = pNode->pNext10;
-        pNode->pNext10->pPrev14 = pNode->pPrev14;
+        pNode->pPrev->pNext = pNode->pNext;
+        pNode->pNext->pPrev = pNode->pPrev;
     }
-    pNode->pNext10 = 0;
-    pNode->pPrev14 = 0;
+    pNode->pNext = 0;
+    pNode->pPrev = 0;
     return pNode;
 }
 
@@ -212,7 +192,7 @@ void __fastcall sub_006BB330_ReleaseOldest(D2FloorPoolStrc* pPool)
 		{
 			if (pEntry->pOwner)
 			{
-				pEntry->pOwner->nPoolId = 0;
+				pEntry->pOwner->nCacheIndex = 0;
 				pEntry->pOwner = 0;
 			}
 			sub_006BB170_AppendSpare(pPool, pEntry);

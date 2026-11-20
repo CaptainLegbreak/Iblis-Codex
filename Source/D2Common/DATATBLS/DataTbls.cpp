@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2Txt.h"
 #include "D2Records.h"
+#include "D2TxtItems.h"
 struct D2SkillListStrc;
 struct D2InventoryStrc;
 struct D2PropertyStrc;
@@ -74,15 +75,11 @@ extern D2TxtLinkStrc* gpMissilesLinker_0096C798; // 0x0096C798
 extern D2TxtLinkStrc* gpMissileCalcLinker_0096BC8C; // 0x0096BC8C
 int __stdcall FOG_GetLinkIndex(D2TxtLinkStrc* pLinker, unsigned int dwCode, int bLogError); // 0x006BD130
 
-
-
 struct D2SkillStrc
 {
     D2SkillsTxt* pSkillsTxt;
     D2SkillStrc* pNextSkill;
 };
-
-
 
 struct D2DataTablesStrc
 {
@@ -169,12 +166,6 @@ struct D2DataTablesStrc
 struct D2DifficultyLevelsTxt
 {
     char unk0x00[0x58];
-};
-
-
-struct D2RunesTxt
-{
-    char unk0x000[0x120];
 };
 
 struct D2RuneDataTbl
@@ -274,7 +265,6 @@ void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, 
 void __stdcall DATATBLS_WriteBinFile(char* szFileName, void* pWriteBuffer, unsigned int nBufferSize, int nRecordCount); // 0x006121F0
 D2BinFileStrc* __stdcall FOG_CreateBinFile(void* pDataBuffer, int nBufferSize); // 0x006BD640
 int __stdcall FOG_GetRecordCountFromBinFile(D2BinFileStrc* pBinFile); // 0x006BCDE0
-
 
 void __stdcall FOG_10207(D2BinFileStrc* pBinFile, D2BinFieldStrc* pBinField, void* pTxt, int nRecordCount, int nRecordSize); // 0x006BD780
 void __stdcall FOG_FreeBinFile(D2BinFileStrc* pBinFile); // 0x006BCDA0

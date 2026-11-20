@@ -7,6 +7,7 @@
 #include "D2GameRecords.h"
 #include "D2TxtTables.h"
 #include "D2Primitives.h"
+#include "D2TxtItems.h"
 struct D2UnitStrc;
 
 #define ITEMS_ADD_BONUS_COSTS(nMult, nAdd, nValue, nBuyDiv)                                        \
@@ -44,7 +45,6 @@ struct D2UniqueItemsTxt;
 struct D2SetItemsTxt;
 struct D2GemsTxt;
 
-
 struct D2SkillsTxt
 {
     char unk0x00[0x234];
@@ -66,7 +66,6 @@ struct D2ItemStatCostTxt
     char unk0x31[0x144 - 0x31];
 };
 
-
 struct D2TimeModStrc
 {
     int nPeriodOfDay;
@@ -76,13 +75,9 @@ struct D2TimeModStrc
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-
-
 int __stdcall STATLIST_GetFullStatsDataFromUnit(D2UnitStrc* pUnit, D2StatStrc* pStatBuffer, int nBufferSize); // 0x00625C30
 int __stdcall STATLIST_GetUnitStatBonus(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625560
 int __stdcall ITEMMODS_GetByTimeAdjustment(int nAmount, int nPeriodOfDay, int nBaseTime, int* pItemModPeriodOfDay, int* pItemModMin, int* pItemModMax); // 0x0065CA30
-
-
 
 struct D2ItemsTxt
 {
@@ -123,21 +118,6 @@ int __stdcall DATATBLS_GetItemIdFromItemCode(unsigned int dwCode); // 0x00633680
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
 static __declspec(noinline) int __stdcall ITEMS_DecodeItemBitstreamCompact(D2UnitStrc* pItem, D2BitBufferStrc* pBuffer, int bCheckForHeader, unsigned int dwVersion);
 
-struct D2RunesTxt
-{
-    char szName[64];
-    char szRuneName[64];
-    unsigned char bComplete;
-    unsigned char bServer;
-    unsigned short wStringId;
-    unsigned short unk0x84;
-    short wIType[6];
-    short wEType[3];
-    int nRune[6];
-    char unk0xB0[0x70];
-};
-
-
 typedef char check_D2RunesTxt_size[sizeof(D2RunesTxt) == 0x120 ? 1 : -1];
 
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
@@ -146,16 +126,6 @@ D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
 D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
 unsigned char __stdcall ITEMS_GetSockets(D2UnitStrc* pItem); // 0x006299B0
 D2RuneDataTbl* __fastcall DATATBLS_GetRuneDataTables(); // 0x00639CB0
-
-
-
-
-
-struct D2GemsTxt
-{
-    char unk0x00[0x2F];
-    unsigned char nTransform;
-};
 
 int __fastcall sub_00451F60_UnitClassId(D2UnitStrc* pUnit); // 0x00451F60
 D2SetItemsTxt* __fastcall sub_00483440_GetSetItemsTxtRecord(int nIndex); // 0x00483440
@@ -572,7 +542,7 @@ const D2RunesTxt* __stdcall ITEMS_GetRunesTxtRecordFromItem(D2UnitStrc* pItem)
     for (int i = 0; i < pRuneDataTbl->nRunesTxtRecordCount; ++i)
     {
         D2RunesTxt* pRunesTxtRecord = &pRuneDataTbl->pRunesTxt[i];
-        if (pRunesTxtRecord->bComplete)
+        if (pRunesTxtRecord->nComplete)
         {
             int nRuneCounter = 0;
             bool bMatch = true;

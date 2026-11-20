@@ -1,43 +1,12 @@
 #include "D2Direct3D.h"
+#include "D2GlideTypes.h"
 
 struct D2SurfaceStrc;
-struct D2D3DObjVtblStrc;
-struct D2SubtilePoolOwnerStrc;
-struct D2SubtilePoolEntryStrc;
-struct D2SubtilePoolStrc;
 struct D2SurfaceVtableStrc;
 struct D2SubtileEntryStrc;
 struct D2SubtileSetStrc;
 struct D2Node006BABD0Strc;
 struct D2List006BABD0Strc;
-struct D2D3DObjStrc;
-
-struct D2SubtilePoolOwnerStrc
-{
-	int unk0x00;
-	short nPoolId;
-};
-
-struct D2SubtilePoolEntryStrc
-{
-	int nIndex;
-	D2SubtilePoolOwnerStrc* pOwner;
-	D2D3DObjStrc* pTexture;
-	D2D3DObjStrc* pSurface;
-	D2SubtilePoolEntryStrc* pNext;
-	D2SubtilePoolEntryStrc* pPrev;
-};
-
-struct D2SubtilePoolStrc
-{
-	int nCapacity;
-	int nInUse;
-	D2SubtilePoolEntryStrc* pInUseFirst;
-	D2SubtilePoolEntryStrc* pInUseLast;
-	D2SubtilePoolEntryStrc* pSpareFirst;
-	D2SubtilePoolEntryStrc* pSpareLast;
-	D2SubtilePoolEntryStrc* pEntries;
-};
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -271,7 +240,7 @@ void __fastcall sub_006BAD10_ReleaseOldest(D2SubtilePoolStrc* pPool)
 		{
 			if (pEntry->pOwner)
 			{
-				pEntry->pOwner->nPoolId = 0;
+				pEntry->pOwner->nCacheIndex = 0;
 				pEntry->pOwner = 0;
 			}
 			sub_006BAB50_AppendSpare(pPool, pEntry);

@@ -1,7 +1,7 @@
 #include "D2Game.h"
 struct D2MonsterInteractStrc;
 struct D2MonsterModeDataStrc;
-struct D2PropertyStrc;
+struct D2PropertyStrc { int nProperty,nLayer,nMin,nMax; };
 struct D2SkillStrc;
 struct D2StatListStrc;
 

@@ -6,6 +6,7 @@
 #include "D2Txt.h"
 #include "D2ItemsWorld.h"
 #include "D2ClientTypes.h"
+#include "D2TxtItems.h"
 #define INVENTORY_SIGNATURE 0x1020304
 #define NUM_BODYLOC 13
 #define WEAPONCLASS_HT1 12
@@ -30,11 +31,6 @@ struct D2BeltsTxt;
 struct D2Block1;
 
 typedef int BOOL;
-
-
-
-
-
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern D2InventoryGridInfoStrc gBodyLocInventoryGridInfo; // 0x0074479C
@@ -68,19 +64,6 @@ int __stdcall ITEMS_CheckWeaponClass(D2UnitStrc* pItem, int nWeaponClass); // 0x
 unsigned short __stdcall ITEMS_GetWeaponClassId(D2UnitStrc* pUnit); // 0x00629FE0
 unsigned char __stdcall ITEMS_GetComponent(D2UnitStrc* pUnit); // 0x00628660
 D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
-
-
-
-
-struct D2BeltsTxt
-{
-    unsigned char nIndex;
-    unsigned char pad0x01[3];
-    unsigned char nBoxes;
-    unsigned char pad0x05[3];
-    D2InvRectStrc beltBoxes[16];
-};
-
 
 struct D2Block1 { int n[6]; };
 

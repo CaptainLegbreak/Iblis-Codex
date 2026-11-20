@@ -4,6 +4,7 @@
 #include "D2Records.h"
 #include "D2LevelTxt.h"
 #include "D2GameRecords.h"
+#include "D2TxtItems.h"
 struct D2PropertyStrc;
 struct D2PropertiesTxt;
 struct D2MagicAffixTxt;
@@ -17,7 +18,6 @@ struct D2UniqueItemsTxt;
 struct D2SetItemsTxt;
 struct D2PropertyAssignStrc;
 
-
 struct D2PropertiesTxt
 {
     unsigned short wProp;
@@ -28,8 +28,6 @@ struct D2PropertiesTxt
     char unk0x1F;
     unsigned short wStat[7];
 };
-
-
 
 struct D2RareAffixTxt
 {
@@ -59,12 +57,6 @@ struct D2ItemTypeCheckStrc
     int nItemType;
 };
 
-struct D2RunesTxt
-{
-    char unk0x00[0xB0];
-    D2PropertyStrc pProperties[7];
-};
-
 typedef int(__fastcall* PROPERTYASSIGNFN)(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState, int fStatList, D2UnitStrc* a11);
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -74,7 +66,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-
 
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitStateOrFlag(D2UnitStrc* pUnit, int nState, int nFlag); // 0x00625790
@@ -99,14 +90,6 @@ struct D2GradeModsStrc
     char pad0x00[0xC];
     D2PropertyStrc pProperties[12];
 };
-
-struct D2GemsTxt
-{
-    char pad0x00[0x30];
-    D2PropertyStrc pProperties[3][3];
-};
-
-
 
 struct D2SetsTxt
 {

@@ -6,6 +6,7 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2Drlg.h"
+#include "D2InactiveUnits.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_MONSTER 1
@@ -38,63 +39,12 @@ struct D2ItemDataStrc
     int dwActionStamp;
 };
 
-
-struct D2InactiveItemNodeStrc
-{
-    D2InactiveItemNodeStrc* pNext;
-    int nFrame;
-    int nOwnerId;
-    unsigned short nBitstreamSize;
-    unsigned char pBitstream[1];
-    unsigned char unk_0F[0x1];
-};
-
-struct D2InactiveMonsterNodeStrc
-{
-    int nX;
-    int nY;
-    int nClassId;
-    int nUnitId;
-    unsigned int nUnitFlags;
-    unsigned int nUnitFlagsEx;
-    int nTypeFlags;
-    int nOwnerId;
-    D2MinionListStrc* pMinionList;
-    D2MapAIStrc* pMapAI;
-    int nAiSpecialState;
-    int nLevelId;
-    unsigned short nNameSeed;
-    unsigned char nMonUMods[9];
-    unsigned char unk0x3B;
-    unsigned short nBossHcIdx;
-    unsigned short unk0x3E;
-    int nExperience;
-    int nMaxHitpoints;
-    int nHitpoints;
-    int nCmdParam1;
-    int nCmdParam2;
-    int nGameFrame;
-    D2InactiveMonsterNodeStrc* pNext;
-};
-
-struct D2InactiveUnitListStrc
-{
-    int nX;
-    int nY;
-    D2InactiveItemNodeStrc* pInactiveItems;
-    D2InactiveMonsterNodeStrc* pInactiveMonsters;
-    D2InactiveUnitNodeStrc* pInactiveUnits;
-    D2InactiveUnitListStrc* pNext;
-};
-
-
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 void __fastcall AIGENERAL_FreeAllMinionLists(D2GameStrc* pGame, D2MinionListStrc* pMinionList); // 0x0058F350
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-
 
 struct D2ItemSaveStrc
 {
@@ -110,8 +60,6 @@ struct D2ItemSaveStrc
     unsigned short nPad12;
     int nItemFileIndex;
 };
-
-
 
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
@@ -142,15 +90,6 @@ D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
 D2UnitStrc* __stdcall INVENTORY_RemoveItemFromInventory(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063AD90
 void __fastcall SUNIT_RemoveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00555600
 
-struct D2InactiveUnitNodeStrc
-{
-    char unk0x00[0x08];
-    int nUnitType;
-    int nClassId;
-    char unk0x10[0x20];
-    D2InactiveUnitNodeStrc* pNext;
-};
-
 static __declspec(noinline) D2InactiveUnitListStrc* __stdcall sub_00541DE0_GetListNodeFromRoom(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int bAllocNewNode);
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
@@ -164,7 +103,6 @@ struct D2MapAIStrc
 {
     int nPathNodes;
 };
-
 
 struct D2MonsterDataStrc
 {
@@ -192,9 +130,6 @@ struct D2AiCmdStrc
     int nCmdParam2;
     int nCmdParam3;
 };
-
-
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268

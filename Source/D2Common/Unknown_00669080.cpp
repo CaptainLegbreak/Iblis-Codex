@@ -1,17 +1,9 @@
+#include "D2TxtItems.h"
 struct D2ItemsTxt;
-struct D2CubeInputItemStrc
-{
-    unsigned short wInputFlags;
-    unsigned short wItem;
-    unsigned short wItemID;
-    unsigned char nQuality;
-    unsigned char nQuantity;
-};
-
 struct D2CubeMainTxtStrc
 {
     char unk0x00[0x0C];
-    D2CubeInputItemStrc pInputItem[7];
+    D2CubeInputItem pInputItem[7];
 };
 
 struct D2UniqueItemsTxtStrc
@@ -89,10 +81,10 @@ static __forceinline int DATATBLS_StringToCode(const char* szText)
     return nCode;
 }
 
-static __declspec(noinline) int __stdcall sub_00668600_CubeMainInputParser(D2CubeInputItemStrc* pCubeInput, char* szInput);
+static __declspec(noinline) int __stdcall sub_00668600_CubeMainInputParser(D2CubeInputItem* pCubeInput, char* szInput);
 
 // build: context sub_00668600_CubeMainInputParser
-static int __stdcall sub_00668600_CubeMainInputParser(D2CubeInputItemStrc* pCubeInput, char* szInput)
+static int __stdcall sub_00668600_CubeMainInputParser(D2CubeInputItem* pCubeInput, char* szInput)
 {
     char* szInputModifier;
     char* szNext;
@@ -320,5 +312,5 @@ StoreBaseItem:
 void __fastcall sub_00669080_CubeInputLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn)
 {
     if (pRecord && pSrc && *pSrc)
-        sub_00668600_CubeMainInputParser((D2CubeInputItemStrc*)((char*)pRecord + 0x14 + 8 * nOffset), pSrc);
+        sub_00668600_CubeMainInputParser((D2CubeInputItem*)((char*)pRecord + 0x14 + 8 * nOffset), pSrc);
 }

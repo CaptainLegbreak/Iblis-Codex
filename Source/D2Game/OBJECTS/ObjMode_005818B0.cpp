@@ -5,6 +5,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Drlg.h"
+#include "D2TxtItems.h"
 struct D2UnitStrc;
 
 #define UNIT_OBJECT 2
@@ -42,11 +43,6 @@ struct D2ObjectDataStrc
     int dwOperateGUID;
 };
 
-
-
-
-
-
 struct D2ObjectsTxt
 {
     char pad00[0xD8];
@@ -75,15 +71,6 @@ void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E90
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
 
-struct D2ShrinesTxt
-{
-    unsigned char bCode;
-    char unk0x01[0x03];
-    int dwArg0;
-    int dwArg1;
-    int dwDurationInFrames;
-};
-
 void __fastcall D2GAME_PACKETS_SendPacket0x0E_6FC3C8E0(D2ClientStrc* pClient, unsigned char nHeader, unsigned char nUnitType, int nUnitGUID, unsigned char a5, unsigned char a6, int nAnimMode); // 0x0053B470
 void __fastcall sub_6FC3F060(D2ClientStrc* pClient, unsigned char a2, int a3, unsigned short a4, unsigned short a5, int a6, unsigned short a7, unsigned char a8, int a9); // 0x0053D4D0
 void __fastcall sub_6FC3F550(D2ClientStrc* pClient, D2UnitStrc* pUnit); // 0x0053D900
@@ -96,7 +83,6 @@ struct D2ObjOperateFnStrc
     D2ObjectControlStrc* pObjectregion;
     int nObjectIdx;
 };
-
 
 extern "C" const char gszObjModeSourceFile_006E1970[]; // 0x006E1970
 D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, int nUnitSize, unsigned int nMask, int bAllowNeighboringRooms); // 0x0064E7B0
@@ -152,7 +138,6 @@ struct D2CharStatsTxt
     int dwToHitFactor;
     char unk0x40[0x84];
 };
-
 
 typedef void(__fastcall* ObjShrineFunction)(D2ObjOperateFnStrc* pOp, D2ShrinesTxt* pShrinesTxtRecord);
 

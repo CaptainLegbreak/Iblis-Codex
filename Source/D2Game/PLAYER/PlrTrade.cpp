@@ -5,6 +5,7 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2GameAux.h"
+#include "D2TxtItems.h"
 struct D2ClientStrc;
 struct D2GameStrc;
 struct D2UnitStrc;
@@ -23,7 +24,6 @@ struct D2CubeItemStrc;
 struct D2GSPacketSrv78;
 struct Item;
 struct ItemRecordTable;
-
 
 void __stdcall SUNIT_ResetInteractInfo(D2UnitStrc* pUnit); // 0x00554190
 
@@ -50,7 +50,6 @@ void __stdcall SUNIT_SetInteractInfo(D2UnitStrc* pUnit, int nInteractUnitType, i
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 
-
 struct D2PlayerDataStrc
 {
     char szName[0x10];
@@ -60,23 +59,6 @@ struct D2PlayerDataStrc
     unsigned int dwAcceptTradeTick;
     D2PlayerTradeStrc* hTrade;
 };
-
-struct D2CubeMainTxt
-{
-    unsigned char nEnabled;
-    unsigned char nLadder;
-    unsigned char nMinDiff;
-    unsigned char nClass;
-    unsigned char nOp;
-    char unk0x05[0x03];
-    int nParam;
-    int nValue;
-    unsigned char nNumInputs;
-    char unk0x11;
-    unsigned short wVersion;
-};
-
-
 
 struct D2CubeItemStrc
 {

@@ -3,6 +3,7 @@
 #include "D2Txt.h"
 #include "D2Records.h"
 #include "D2LevelTxt.h"
+#include "D2TxtItems.h"
 // build: base-profile
 #define NULL 0
 
@@ -34,8 +35,6 @@ struct Unicode;
 struct D2PropertyStrc;
 struct D2DataTablesStrc;
 
-
-
 extern D2TxtLinkStrc* gpItemTypesLinker_0096C824; // 0x0096C824
 extern D2TxtLinkStrc* gpSoundsLinker_0096BDC8; // 0x0096BDC8
 extern D2TxtLinkStrc* gpStatesLinker_0096BCF0; // 0x0096BCF0
@@ -64,18 +63,6 @@ struct D2QualityItemsTxt
     unsigned short wEffect2TblId;
 };
 
-struct D2GemsTxt
-{
-    char unk0x00[0x28];
-    union
-    {
-        unsigned char szItemCode[4];
-        int dwItemCode;
-    };
-    unsigned short wStringId;
-    char unk0x2E[0x92];
-};
-
 struct D2BooksTxt { char unk[0x20]; };
 
 struct D2LowQualityItemsTxt
@@ -93,7 +80,6 @@ struct D2ItemStatCostDescStrc
 
 struct D2ItemDataTbl { int nItemsTxtRecordCount; D2ItemsTxt* pItemsTxt; };
 
-
 struct D2RareAffixDataTbl { int nRareAffixTxtRecordCount; D2RareAffixTxt* pRareAffixTxt; };
 
 struct D2QualityItemDataTbl { int nQualityItemsTxtRecordCount; D2QualityItemsTxt* pQualityItemsTxt; };
@@ -105,8 +91,6 @@ struct D2BookDataTbl { int nBooksTxtRecordCount; D2BooksTxt* pBooksTxt; };
 struct D2LowQualityItemDataTbl { int nLowQualityItemsTxtRecordCount; D2LowQualityItemsTxt* pLowQualityItemsTxt; };
 
 struct D2ItemRatioDataTbl { int nItemRatioTxtRecordCount; D2ItemRatioTxt* pItemRatioTxt; };
-
-
 
 extern D2TxtLinkStrc* gpItemsLinker_0096BCC4; // 0x0096BCC4
 extern D2TxtLinkStrc* gTxtLink_0096BCD8; // 0x0096BCD8
@@ -132,7 +116,6 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern D2TxtLinkStrc* gpSkillsLinker_0096C7CC; // 0x0096C7CC
 extern D2TxtLinkStrc* gpMonTypeLinker_0096C868; // 0x0096C868
-
 
 extern "C" const char gszTxtField_index[]; // 0x006E9CCC
 extern D2TxtLinkStrc* gTxtLink_0096C5E4; // 0x0096C5E4
@@ -195,21 +178,6 @@ enum D2C_TxtFieldTypes
     TXTFIELD_CALCTODWORD = 25,
 };
 
-
-struct D2RunesTxt
-{
-    char szName[64];
-    char szRuneName[64];
-    unsigned char nComplete;
-    unsigned char nServer;
-    unsigned short wStringId;
-    unsigned short pad0x84;
-    unsigned short wIType[6];
-    unsigned short wEType[3];
-    int nRune[6];
-    D2PropertyStrc pProperties[7];
-};
-
 extern "C" unsigned int __security_cookie; // 0x00749DE0
 extern "C" void __fastcall __security_check_cookie(unsigned int nCookie); // 0x00681A48
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szBuffer, const char* szFormat, ...); // 0x006CC468
@@ -217,7 +185,6 @@ int __fastcall sub_00516E46_OpenFile(HD2ARCHIVE hArchive, const char* szFilePath
 void __fastcall sub_00516E84_CloseFile(HD2ARCHIVE hArchive, HSFILE hFile); // 0x00516E84
 short __stdcall sub_00524D30_FindString(const char* szReference, const Unicode** ppUnicode); // 0x00524D30
 void __fastcall DATATBLS_ItemParamLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn); // 0x006336A0
-
 
 extern D2DataTablesStrc sgtDataTables; // 0x0096BC30
 

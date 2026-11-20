@@ -5,6 +5,7 @@
 #include "D2Txt.h"
 #include "D2UnitData.h"
 #include "D2GameAux.h"
+#include "D2TxtItems.h"
 struct D2ClientStrc;
 struct D2GameStrc;
 struct D2UnitStrc;
@@ -17,40 +18,6 @@ struct D2PlayerTradeStrc;
 struct D2PlayerDataStrc;
 struct D2SystemTimeStrc;
 struct D2GSPacketSrv78;
-
-
-
-struct D2CubeInputItem
-{
-    unsigned short wInputFlags;
-    unsigned short wItem;
-    unsigned short wItemID;
-    unsigned char nQuality;
-    unsigned char nQuantity;
-};
-
-struct D2CubeMainTxt
-{
-    unsigned char nEnabled;
-    unsigned char nLadder;
-    unsigned char nMinDiff;
-    unsigned char nClass;
-    unsigned char nOp;
-    char unk0x05[0x03];
-    int nParam;
-    int nValue;
-    unsigned char nNumInputs;
-    char unk0x11;
-    unsigned short wVersion;
-    D2CubeInputItem pInputItem[7];
-    unsigned short wOutItemFlags;
-    char unk0x4E[0x06];
-    unsigned char nOutType;
-    unsigned char unk_55[0x3];
-};
-
-
-
 
 struct D2CubeItemStrc
 {
@@ -79,8 +46,6 @@ D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x
 D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
 D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
 int __stdcall FOG_GetLinkIndex(void* pLink, unsigned int dwCode, int bLogError); // 0x006BD130
-
-
 
 #pragma pack(push, 1)
 struct D2GSPacketSrv78
@@ -334,7 +299,7 @@ int __fastcall PLRTRADE_CheckCubeInput(D2GameStrc* pGame, D2InventoryStrc* pInve
             continue;
         }
 
-        if (!nInputIndex && (pRecord->nOutType == 255 || pRecord->nOutType == 254) && (pRecord->wOutItemFlags & 2) && !sub_0062BC20(pItem))
+        if (!nInputIndex && (pRecord->pOutputItem[0].nType == 255 || pRecord->pOutputItem[0].nType == 254) && (pRecord->pOutputItem[0].wItemFlags & 2) && !sub_0062BC20(pItem))
         {
             continue;
         }
@@ -595,17 +560,17 @@ int __fastcall PLRTRADE_CheckCubeInput(D2GameStrc* pGame, D2InventoryStrc* pInve
             {
                 pCubeItem[i].nItemLevel = ITEMS_GetItemLevel(pItem);
 
-                if (pRecord->wOutItemFlags & 1)
+                if (pRecord->pOutputItem[0].wItemFlags & 1)
                 {
                     pCubeItem[i].pItem = pItem;
                 }
 
-                if (pRecord->nOutType == 255)
+                if (pRecord->pOutputItem[0].nType == 255)
                 {
                     pCubeItem[i].pItem = pItem;
                     pCubeItem[i].nClassId = sub_00451F60_UnitClassId(pItem);
 
-                    if (pRecord->wOutItemFlags & 0x80)
+                    if (pRecord->pOutputItem[0].wItemFlags & 0x80)
                     {
                         if (pItemsTxtRecord->dwUberCode != 0x20202020)
                         {
@@ -620,7 +585,7 @@ int __fastcall PLRTRADE_CheckCubeInput(D2GameStrc* pGame, D2InventoryStrc* pInve
                             }
                         }
                     }
-                    else if (pRecord->wOutItemFlags & 0x100)
+                    else if (pRecord->pOutputItem[0].wItemFlags & 0x100)
                     {
                         if (pItemsTxtRecord->dwUltraCode != 0x20202020)
                         {
@@ -636,12 +601,12 @@ int __fastcall PLRTRADE_CheckCubeInput(D2GameStrc* pGame, D2InventoryStrc* pInve
                         }
                     }
                 }
-                else if (pRecord->nOutType == 254)
+                else if (pRecord->pOutputItem[0].nType == 254)
                 {
                     pCubeItem[i].pItem = pItem;
                     pCubeItem[i].nClassId = -1;
 
-                    if (pRecord->wOutItemFlags & 0x80)
+                    if (pRecord->pOutputItem[0].wItemFlags & 0x80)
                     {
                         if (pItemsTxtRecord->dwUberCode != 0x20202020)
                         {
@@ -656,7 +621,7 @@ int __fastcall PLRTRADE_CheckCubeInput(D2GameStrc* pGame, D2InventoryStrc* pInve
                             }
                         }
                     }
-                    else if (pRecord->wOutItemFlags & 0x100)
+                    else if (pRecord->pOutputItem[0].wItemFlags & 0x100)
                     {
                         if (pItemsTxtRecord->dwUltraCode != 0x20202020)
                         {

@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Records.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2TxtTables.h"
@@ -11,8 +12,6 @@ struct D2BooksTxt;
 struct D2BookDataTbl;
 struct D2SetItemsTxt;
 
-
-
 D2SeedStrc* __stdcall ITEMS_GetItemSeed(D2UnitStrc*); // 0x00627D90
 int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc*); // 0x00451F50
 void* __fastcall sub_004DC0B0_GetUnitMemoryPool(D2UnitStrc*); // 0x004DC0B0
@@ -22,7 +21,6 @@ void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc*, D2StatListStrc*, i
 void __stdcall STATLIST_SetStatIfListIsValid(D2StatListStrc*, int, int, int); // 0x00627150
 
 struct D2SkillsTxt { char pad0[0x18]; short nItemType; char pad1[0x23C-0x1A]; };
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 unsigned short __stdcall ITEMS_GetItemFormat(D2UnitStrc*); // 0x0062A670
@@ -34,7 +32,6 @@ struct D2ItemsTxt
     char unk0x00[0x80];
     int dwCode;
 };
-
 
 struct D2BookDataTbl
 {
@@ -273,7 +270,7 @@ static int __stdcall sub_005C25C0_RollSetItemRecord(D2ItemDropStrc* pItemDrop, D
     do
     {
         if ((pSetItemsTxtRecord->wVersion < 100 || nItemFormat >= 100) && pSetItemsTxtRecord->wLvl <= nItemLevel
-            && dwCode == pSetItemsTxtRecord->szItemCode
+            && dwCode == pSetItemsTxtRecord->dwItemCode
             && (pSetItemsTxtRecord->nSetId != 29 || pItemDrop->dwFlags2 & 1))
         {
             if (pItemDrop->nItemIndex > 0 && pItemDrop->nItemIndex - 1 == i)

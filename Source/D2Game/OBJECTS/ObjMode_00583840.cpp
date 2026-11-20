@@ -1,15 +1,12 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2TxtItems.h"
 #define NOINLINE __declspec(noinline)
 
 struct D2InventoryStrc;
 struct D2SkillStrc;
 struct D2StatListStrc;
-
-
-
-
 
 struct D2GameStrc;
 
@@ -18,15 +15,6 @@ struct D2ObjOperateFnStrc
     D2GameStrc* pGame;
     D2UnitStrc* hObject;
     D2UnitStrc* hPlayer;
-};
-
-struct D2ShrinesTxt
-{
-    unsigned char bCode;
-    char unk0x01[0x03];
-    int dwArg0;
-    int dwArg1;
-    int dwDurationInFrames;
 };
 
 typedef void(__fastcall* ObjShrineFunction)(D2ObjOperateFnStrc* pOp, D2ShrinesTxt* pShrinesTxtRecord);

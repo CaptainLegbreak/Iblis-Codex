@@ -6,18 +6,10 @@
 #include "D2Txt.h"
 #include "D2UnitData.h"
 #include "D2Drlg.h"
+#include "D2TxtItems.h"
 
 struct D2ObjectControlStrc;
 union D2SeedStrc;
-
-
-struct D2ShrinesTxt
-{
-    unsigned char bCode;
-    char unk0x01[0x0F];
-    unsigned char nResetTimeInMins;
-};
-
 
 struct D2ObjectDataStrc
 {
@@ -28,10 +20,6 @@ struct D2ObjectDataStrc
     D2ShrinesTxt* pShrineTxt;
     int dwOperateGUID;
 };
-
-
-
-
 
 struct D2ObjOperateFnStrc
 {

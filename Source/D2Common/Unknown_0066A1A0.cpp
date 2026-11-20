@@ -1,10 +1,5 @@
 #include "D2DataTbls.h"
-struct D2CubeMainTxt
-{
-    char unk0x000[0x144];
-    int nSynTail;
-};
-
+#include "D2TxtItems.h"
 
 extern D2DataTablesStrc sgtDataTables;                                                                       // 0x0096BC30
 void __stdcall DATATBLS_UnloadBin(void* pBinFile);                                                               // 0x006125C0

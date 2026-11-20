@@ -1,12 +1,5 @@
 #include "D2ClientTypes.h"
-
-struct D2BeltsTxt
-{
-    unsigned char nIndex;
-    unsigned char pad0x01[3];
-    int nBoxes;
-    D2InvRectStrc beltBoxes[16];
-};
+#include "D2TxtItems.h"
 
 D2BeltsTxt* sgptBeltInitStats;                                                                                       // 0x0096D4F8
 void __stdcall DATATBLS_UnloadBin(void* pBinFile);                                                               // 0x006125C0

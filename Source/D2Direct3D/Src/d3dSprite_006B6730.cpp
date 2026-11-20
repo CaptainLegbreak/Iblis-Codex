@@ -3,7 +3,6 @@
 
 struct D2CelStrc;
 
-
 struct D2D3DQuadSetupStrc
 {
 	D2GfxDataStrc* pData;
@@ -20,66 +19,6 @@ struct D2D3DQuadSetupStrc
 	float fV1;
 };
 
-struct D2D3DVtxStrc
-{
-	float fX;
-	float fY;
-	float fZ;
-	float fRhw;
-	unsigned int dwColor;
-	unsigned int dwSpecular;
-	float fU;
-	float fV;
-};
-
-struct D2D3DVertexBufferStrc
-{
-	virtual long __stdcall QueryInterface(const void* pIid, void** ppObject) = 0;
-	virtual unsigned long __stdcall AddRef() = 0;
-	virtual unsigned long __stdcall Release() = 0;
-	virtual long __stdcall Lock(unsigned int dwFlags, void** ppData, unsigned int* pSize) = 0;
-	virtual long __stdcall Unlock() = 0;
-};
-
-struct D2D3DDeviceStrc
-{
-	virtual long __stdcall QueryInterface(const void* pIid, void** ppObject) = 0;
-	virtual unsigned long __stdcall AddRef() = 0;
-	virtual unsigned long __stdcall Release() = 0;
-	virtual long __stdcall Method03() = 0;
-	virtual long __stdcall Method04() = 0;
-	virtual long __stdcall Method05() = 0;
-	virtual long __stdcall Method06() = 0;
-	virtual long __stdcall Method07() = 0;
-	virtual long __stdcall Method08() = 0;
-	virtual long __stdcall Method09() = 0;
-	virtual long __stdcall Method10() = 0;
-	virtual long __stdcall Method11() = 0;
-	virtual long __stdcall Method12() = 0;
-	virtual long __stdcall Method13() = 0;
-	virtual long __stdcall Method14() = 0;
-	virtual long __stdcall Method15() = 0;
-	virtual long __stdcall Method16() = 0;
-	virtual long __stdcall Method17() = 0;
-	virtual long __stdcall Method18() = 0;
-	virtual long __stdcall Method19() = 0;
-	virtual long __stdcall Method20() = 0;
-	virtual long __stdcall Method21() = 0;
-	virtual long __stdcall Method22() = 0;
-	virtual long __stdcall Method23() = 0;
-	virtual long __stdcall Method24() = 0;
-	virtual long __stdcall Method25() = 0;
-	virtual long __stdcall Method26() = 0;
-	virtual long __stdcall Method27() = 0;
-	virtual long __stdcall Method28() = 0;
-	virtual long __stdcall Method29() = 0;
-	virtual long __stdcall Method30() = 0;
-	virtual long __stdcall Method31() = 0;
-	virtual long __stdcall Method32() = 0;
-	virtual long __stdcall Method33() = 0;
-	virtual long __stdcall DrawPrimitiveVB(int nPrimitiveType, D2D3DVertexBufferStrc* pBuffer, unsigned int nStartVertex, unsigned int nVertices, unsigned int dwFlags) = 0;
-};
-
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
 void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...);                                          // 0x00410610
 int __stdcall sub_006001F0(D2GfxDataStrc* pData, int nArg2, int nArg3);                                     // 0x006001F0
@@ -92,9 +31,9 @@ int __stdcall sub_00601B10_GetCelPixels(D2CelStrc* pCel);                       
 void __fastcall sub_006B1EA0_SetState(int nState);                                                          // 0x006B1EA0
 void __fastcall sub_006B1F40_SetBlendMode(int nBlendMode);                                                  // 0x006B1F40
 void __fastcall sub_006B2030_SetFilterMode(int nFilterMode);                                                // 0x006B2030
-void __fastcall sub_006B9780_SetColor(D2D3DVtxStrc* pVertex, unsigned int dwColor, unsigned char nAlpha); // 0x006B9780
+void __fastcall sub_006B9780_SetColor(D2TLVertexStrc* pVertex, unsigned int dwColor, unsigned char nAlpha); // 0x006B9780
 void __fastcall sub_006B9860_Project(int nX, int nY, int nZ, int* pScreenX, int* pScreenY);                  // 0x006B9860
-extern D2D3DVertexBufferStrc* gpVertexBuffer_00970F3C;                                                      // 0x00970F3C
+extern D2VertexBufferStrc* gpVertexBuffer_00970F3C;                                                      // 0x00970F3C
 extern int gnVertexBufferPos_00970F40;                                                                      // 0x00970F40
 
 static int __declspec(noinline) sub_006B5C80_GetSpriteInfo(D2GfxDataStrc* pData, D2D3DQuadSetupStrc* pInfo);
@@ -210,7 +149,7 @@ static unsigned char sub_006B6680_GetAlpha(int nDrawMode)
 int __fastcall sub_006B6730_DrawFlatSprite(D2GfxDataStrc* pData, int nX, int nY, unsigned int dwGamma, int eDrawMode, int nScreenMode, unsigned char* pPalette)
 {
 	D2D3DQuadSetupStrc tInfo;
-	D2D3DVtxStrc pVertices[4];
+	D2TLVertexStrc pVertices[4];
 	int nScreenX;
 	int nScreenY;
 
@@ -303,16 +242,16 @@ int __fastcall sub_006B6730_DrawFlatSprite(D2GfxDataStrc* pData, int nX, int nY,
 		pVertices[2].dwColor = pVertices[0].dwColor;
 		pVertices[3].dwColor = pVertices[0].dwColor;
 
-		D2D3DVtxStrc* pLocked;
-		if (gpVertexBuffer_00970F3C->Lock(0x21, (void**)&pLocked, 0))
+		D2TLVertexStrc* pLocked;
+		if (gpVertexBuffer_00970F3C->lpVtbl->Lock(gpVertexBuffer_00970F3C, 0x21, (void**)&pLocked, 0))
 		{
 			return 1;
 		}
 
 		pLocked += gnVertexBufferPos_00970F40;
 		memcpy(pLocked, pVertices, sizeof(pVertices));
-		gpVertexBuffer_00970F3C->Unlock();
-		gpD3DDevice_00970E78->DrawPrimitiveVB(6, gpVertexBuffer_00970F3C, gnVertexBufferPos_00970F40, 4, 0x1C);
+		gpVertexBuffer_00970F3C->lpVtbl->Unlock(gpVertexBuffer_00970F3C);
+		gpD3DDevice_00970E78->lpVtbl->DrawPrimitiveVB(gpD3DDevice_00970E78, 6, gpVertexBuffer_00970F3C, gnVertexBufferPos_00970F40, 4, 0x1C);
 
 		gnVertexBufferPos_00970F40 += 4;
 		if (gnVertexBufferPos_00970F40 > 43)

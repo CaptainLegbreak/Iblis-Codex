@@ -4,6 +4,7 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2UnitData.h"
+#include "D2EventTimer.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2NpcRecordStrc;
@@ -29,7 +30,6 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-
 extern D2UnitProxyStrc gUnitProxyItemCache_00883D78[17]; // 0x00883D78
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
@@ -42,7 +42,6 @@ struct M08EmitRecStrc
     char unk0x06[2];
     D2UnitProxyStrc tProxy;
 };
-
 
 struct D2NpcGambleStrc
 {
@@ -198,7 +197,6 @@ struct Obj00536B40 {
     unsigned int dwValue1D24;
 };
 
-
 struct D2ItemDataTbl
 {
     int nItemsTxtRecordCount;
@@ -208,24 +206,11 @@ struct D2ItemDataTbl
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern unsigned char gbUnitProxyItemCacheInitialized_00883E88[17]; // 0x00883E88
 
-struct D2EventTimerSlabListStrc
-{
-    char unk0x0000[0x7084];
-    D2EventTimerSlabListStrc* pNextSlab;
-};
-
-struct D2EventTimerQueueStrc
-{
-    char unk0x000[0xA1C];
-    D2EventTimerSlabListStrc* pSlabListHead;
-};
-
 struct D2ClientStrc
 {
     char unk0x000[0x4A8];
     D2ClientStrc* pNext;
 };
-
 
 struct D2RegurgitatorAiCallbackArgStrc
 {

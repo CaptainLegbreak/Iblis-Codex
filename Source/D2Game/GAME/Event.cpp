@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2GameStrc.h"
+#include "D2EventTimer.h"
 #define EVENTROW_PLAYER 0
 #define EVENTROW_MONSTER 1
 #define EVENTROW_MISSILE 2
@@ -7,44 +8,6 @@
 #define EVENTROW_ITEM 4
 struct D2EventTimerSlabListStrc;
 struct D2EventTimerQueueStrc;
-
-typedef void(__fastcall* EventTimerCallback)(D2GameStrc*, D2UnitStrc*, int, int, int);
-
-struct D2EventTimerStrc
-{
-    unsigned char nEventType;
-    char padding0x01;
-    unsigned short nFlags;
-    int nExpireFrame;
-    D2UnitStrc* pUnit;
-    int nUnitGUID;
-    int nUnitType;
-    int dwEventCustomId;
-    int dwEventCustomParam;
-    D2EventTimerStrc* pNextFreeEventTimer;
-    D2EventTimerStrc* unk0x20;
-    D2EventTimerStrc* pNext;
-    D2EventTimerStrc* pPrevious;
-    EventTimerCallback pCallback;
-};
-
-struct D2EventTimerSlabListStrc
-{
-    D2EventTimerStrc tEventTimersStorage[600];
-    D2EventTimerStrc* pFreeEventTimerListHead;
-    D2EventTimerSlabListStrc* pNextSlab;
-};
-
-struct D2EventTimerQueueStrc
-{
-    int nArrayIndex;
-    D2EventTimerStrc* pHead[5][64];
-    D2EventTimerStrc* pTail[5][64];
-    D2EventTimerStrc* pInfinite[5];
-    D2EventTimerStrc* pCurrent;
-    D2EventTimerSlabListStrc* pSlabListHead;
-};
-
 
 typedef char TimerSizeCheck[(sizeof(D2EventTimerStrc) == 0x30) ? 1 : -1];
 
@@ -73,9 +36,9 @@ static __forceinline void sub_00540C10_PushFreeTimer(D2EventTimerStrc* pTimer, D
 {
     D2EventTimerStrc* pHead = *ppHead;
     pTimer->pNextFreeEventTimer = pHead;
-    pTimer->unk0x20 = 0;
+    pTimer->pPreviousQueuedTimer = 0;
     if (pHead)
-        pHead->unk0x20 = pTimer;
+        pHead->pPreviousQueuedTimer = pTimer;
     *ppHead = pTimer;
 }
 
@@ -84,7 +47,7 @@ static __forceinline void sub_00540CA0_ReleaseTimer(D2EventTimerQueueStrc* pQueu
 {
     D2EventTimerSlabListStrc* pSlab = pQueue->pSlabListHead;
     pTimer->pNextFreeEventTimer = pSlab->pFreeEventTimerListHead;
-    pTimer->unk0x20 = 0;
+    pTimer->pPreviousQueuedTimer = 0;
     pSlab->pFreeEventTimerListHead = pTimer;
     pTimer->nFlags = 2;
 }
@@ -116,9 +79,9 @@ static void sub_6FC34890(D2GameStrc* pGame, D2EventTimerStrc* pTimer)
     {
         pGame->pTimerQueue->pCurrent = pTimer->pNextFreeEventTimer;
     }
-    if (pTimer->unk0x20)
+    if (pTimer->pPreviousQueuedTimer)
     {
-        pTimer->unk0x20->pNextFreeEventTimer = pTimer->pNextFreeEventTimer;
+        pTimer->pPreviousQueuedTimer->pNextFreeEventTimer = pTimer->pNextFreeEventTimer;
     }
     else
     {
@@ -127,14 +90,14 @@ static void sub_6FC34890(D2GameStrc* pGame, D2EventTimerStrc* pTimer)
     }
     if (pTimer->pNextFreeEventTimer)
     {
-        pTimer->pNextFreeEventTimer->unk0x20 = pTimer->unk0x20;
+        pTimer->pNextFreeEventTimer->pPreviousQueuedTimer = pTimer->pPreviousQueuedTimer;
     }
     else if (pTimer->nExpireFrame != -1)
     {
         D2EventTimerStrc** ppEventTimer = &pGame->pTimerQueue->pTail[gaSlotRows_006E0B9C[pTimer->nUnitType]][pTimer->nExpireFrame % 64];
         if (ppEventTimer && *ppEventTimer == pTimer)
         {
-            *ppEventTimer = pTimer->unk0x20;
+            *ppEventTimer = pTimer->pPreviousQueuedTimer;
         }
     }
     if (pTimer->pUnit)
@@ -153,7 +116,7 @@ static void sub_6FC34890(D2GameStrc* pGame, D2EventTimerStrc* pTimer)
         }
     }
     D2EventTimerSlabListStrc* pEventTimerArray = pGame->pTimerQueue->pSlabListHead;
-    pTimer->unk0x20 = 0;
+    pTimer->pPreviousQueuedTimer = 0;
     pTimer->pNextFreeEventTimer = pEventTimerArray->pFreeEventTimerListHead;
     pEventTimerArray->pFreeEventTimerListHead = pTimer;
     pTimer->nFlags = EVENTFLAG_0x2;

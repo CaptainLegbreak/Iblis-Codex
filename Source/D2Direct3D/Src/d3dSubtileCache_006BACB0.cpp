@@ -1,99 +1,52 @@
 #include "D2Direct3D.h"
-
-struct sub_006BACB0_Node;
-struct sub_006BACB0_List;
-struct D2Owner006BAD70Strc;
-struct D2Node006BAD70Strc;
-struct D2List006BAD70Strc;
-
-struct sub_006BACB0_Node
-{
-    char unk_00[0x10];
-    sub_006BACB0_Node* pNext;
-    sub_006BACB0_Node* pPrev;
-
-};
-
-struct sub_006BACB0_List
-{
-    int nMax;
-    int nCount;
-    sub_006BACB0_Node* pHead;
-    sub_006BACB0_Node* pTail;
-    char unk_10[8];
-    sub_006BACB0_Node* pEntries;
-};
+#include "D2GlideTypes.h"
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
-static __declspec(noinline) void sub_006BAB30_AppendTail(sub_006BACB0_List* pList, sub_006BACB0_Node* pNode);
-__declspec(noinline) sub_006BACB0_Node* __fastcall sub_006BABD0_Unlink(sub_006BACB0_List* pList, int nIndex);
+static __declspec(noinline) void sub_006BAB30_AppendTail(D2SubtilePoolStrc* pList, D2SubtilePoolEntryStrc* pNode);
+__declspec(noinline) D2SubtilePoolEntryStrc* __fastcall sub_006BABD0_Unlink(D2SubtilePoolStrc* pList, int nIndex);
 
-struct D2Owner006BAD70Strc
-{
-    unsigned char unk_0[4];
-    unsigned short wFlags4;
-};
-
-struct D2Node006BAD70Strc
-{
-    unsigned char unk_00[4];
-    D2Owner006BAD70Strc* pOwner4;
-    unsigned char unk_08[8];
-    D2Node006BAD70Strc* pNext10;
-    D2Node006BAD70Strc* pPrev14;
-};
-
-struct D2List006BAD70Strc
-{
-    unsigned char unk_00[4];
-    int nCount4;
-    unsigned char unk_08[8];
-    D2Node006BAD70Strc* pHead10;
-    D2Node006BAD70Strc* pTail14;
-};
-
-D2Node006BAD70Strc* __fastcall sub_006BABD0_TakeNode(D2List006BAD70Strc* pList); // 0x006BABD0
+D2SubtilePoolEntryStrc* __fastcall sub_006BABD0_TakeNode(D2SubtilePoolStrc* pList); // 0x006BABD0
 
 // 0x006BAB30
-static void sub_006BAB30_AppendTail(sub_006BACB0_List* pList, sub_006BACB0_Node* pNode)
+static void sub_006BAB30_AppendTail(D2SubtilePoolStrc* pList, D2SubtilePoolEntryStrc* pNode)
 {
-    if (!pList->pHead)
+    if (!pList->pInUseFirst)
     {
-        pList->pHead = pNode;
-        pList->pTail = pNode;
+        pList->pInUseFirst = pNode;
+        pList->pInUseLast = pNode;
         return;
     }
-    pList->pTail->pNext = pNode;
-    pNode->pPrev = pList->pTail;
-    pList->pTail = pNode;
+    pList->pInUseLast->pNext = pNode;
+    pNode->pPrev = pList->pInUseLast;
+    pList->pInUseLast = pNode;
 }
 
 // build: context sub_006BABD0_Unlink
-sub_006BACB0_Node* __fastcall sub_006BABD0_Unlink(sub_006BACB0_List* pList, int nIndex)
+D2SubtilePoolEntryStrc* __fastcall sub_006BABD0_Unlink(D2SubtilePoolStrc* pList, int nIndex)
 {
-    sub_006BACB0_Node* pHead = pList->pHead;
+    D2SubtilePoolEntryStrc* pHead = pList->pInUseFirst;
     if (!pHead)
         return 0;
 
-    sub_006BACB0_Node* pNode = &pList->pEntries[nIndex];
+    D2SubtilePoolEntryStrc* pNode = &pList->pEntries[nIndex];
     if (pNode == pHead)
     {
-        pList->pHead = pHead->pNext;
+        pList->pInUseFirst = pHead->pNext;
         if (pHead->pNext)
             pHead->pNext->pPrev = 0;
         else
-            pList->pTail = 0;
+            pList->pInUseLast = 0;
         pHead->pNext = 0;
         pHead->pPrev = 0;
         return pHead;
     }
 
-    if (pNode == pList->pTail)
+    if (pNode == pList->pInUseLast)
     {
-        pList->pTail = pNode->pPrev;
-        pList->pTail->pNext = 0;
+        pList->pInUseLast = pNode->pPrev;
+        pList->pInUseLast->pNext = 0;
     }
     else
     {
@@ -106,42 +59,42 @@ sub_006BACB0_Node* __fastcall sub_006BABD0_Unlink(sub_006BACB0_List* pList, int 
 }
 
 // 0x006BACB0
-void __fastcall sub_006BACB0_MoveToTail(sub_006BACB0_List* pList, int nIndex)
+void __fastcall sub_006BACB0_MoveToTail(D2SubtilePoolStrc* pList, int nIndex)
 {
-    if (pList->nCount > 1)
+    if (pList->nInUse > 1)
     {
         LRU_ASSERT(nIndex, 199);
-        LRU_ASSERT(nIndex <= pList->nMax, 200);
+        LRU_ASSERT(nIndex <= pList->nCapacity, 200);
         LRU_ASSERT(nIndex >= 1, 201);
         sub_006BAB30_AppendTail(pList, sub_006BABD0_Unlink(pList, nIndex - 1));
     }
 }
 
 // 0x006BAD70
-void __fastcall sub_006BAD70_MoveNode(D2List006BAD70Strc* pList)
+void __fastcall sub_006BAD70_MoveNode(D2SubtilePoolStrc* pList)
 {
-    if (pList->nCount4)
+    if (pList->nInUse)
     {
-        D2Node006BAD70Strc* pNode = sub_006BABD0_TakeNode(pList);
+        D2SubtilePoolEntryStrc* pNode = sub_006BABD0_TakeNode(pList);
         if (pNode)
         {
-            if (pNode->pOwner4)
+            if (pNode->pOwner)
             {
-                pNode->pOwner4->wFlags4 = 0;
-                pNode->pOwner4 = 0;
+                pNode->pOwner->nCacheIndex = 0;
+                pNode->pOwner = 0;
             }
-            if (!pList->pHead10)
+            if (!pList->pSpareFirst)
             {
-                pList->pHead10 = pNode;
-                pList->pTail14 = pNode;
+                pList->pSpareFirst = pNode;
+                pList->pSpareLast = pNode;
             }
             else
             {
-                pList->pTail14->pNext10 = pNode;
-                pNode->pPrev14 = pList->pTail14;
-                pList->pTail14 = pNode;
+                pList->pSpareLast->pNext = pNode;
+                pNode->pPrev = pList->pSpareLast;
+                pList->pSpareLast = pNode;
             }
         }
-        --pList->nCount4;
+        --pList->nInUse;
     }
 }

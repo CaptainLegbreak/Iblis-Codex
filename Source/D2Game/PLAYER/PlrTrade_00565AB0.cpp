@@ -1,8 +1,10 @@
 #include "D2Game.h"
+#include "D2Records.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2UnitData.h"
+#include "D2TxtItems.h"
 
 #define CUBE_MAX(a,b) ((a)>(b)?(a):(b))
 #define CUBE_MIN(a,b) ((a)<(b)?(a):(b))
@@ -15,17 +17,7 @@ struct D2CubeOutputItem;
 struct D2PropertyStrc;
 struct D2PlayerDataStrc;
 
-
-
-
-
 struct D2CubeItemStrc { D2UnitStrc* pItem; int nClassId,nItemLevel; };
-
-struct D2CubeParam { int nMod; short nModParam,nModMin,nModMax; unsigned char nModChance,unkB; };
-
-struct D2CubeOutputItem { unsigned short wItemFlags,wBaseItemId,wItemID; unsigned char nQuality,nQuantity,nType,nLvl,nPLvl,nILvl; unsigned short wPrefixId[3],wSuffixId[3]; D2CubeParam pParam[5]; };
-
-struct D2CubeMainTxt { char unk00[0x4c]; D2CubeOutputItem pOutputItem[3]; };
 
 struct D2ItemDropStrc {
  D2UnitStrc* pUnit; D2SeedStrc* pSeed; D2GameStrc* pGame; int nItemLvl; unsigned unk10; int nId,nSpawnType,nX,nY; D2ActiveRoomStrc* pRoom;
@@ -82,7 +74,6 @@ D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc*); // 0x0063DFD0
 void __stdcall ITEMMODS_AddCraftPropertyList(D2UnitStrc*,D2PropertyStrc*,int); // 0x00660240
 void __fastcall D2GAME_UpdateClientItem_6FC3E9D0(D2ClientStrc*,D2UnitStrc*,D2UnitStrc*,unsigned); // 0x0053D010
 void __fastcall D2GAME_RemoveItem_6FC471F0(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,int); // 0x0055DF10
-
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090

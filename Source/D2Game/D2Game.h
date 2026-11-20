@@ -927,7 +927,6 @@ struct D2ItemTradeStrc
     D2ItemTradeStrc* pNext;
 };
 
-
 struct D2ItemsTxtSpeed
 {
     char unk0x00[0xD8];
@@ -969,7 +968,6 @@ struct D2LinkStrc
     D2LinkStrc* pPrev;
     D2LinkStrc* pNext;
 };
-
 
 struct D2MessageStrc
 {
@@ -1102,7 +1100,6 @@ struct D2PartyNodeStrc
     D2PartyNodeStrc* pNext;
 };
 
-
 struct D2PlayerListStrc
 {
     int nUnitGUID;
@@ -1111,9 +1108,6 @@ struct D2PlayerListStrc
     int field_C;
     D2PlayerListStrc* pNext;
 };
-
-
-struct D2PropertyStrc { int nProperty,nLayer,nMin,nMax; };
 
 struct D2PutridDefilerAiCallbackArgStrc
 {
@@ -1163,20 +1157,6 @@ struct D2RareAffixIndexAndPtrStrc
 {
     int nIndex;
     D2RareAffixTxt* pRareAffixRecord;
-};
-
-struct D2SetItemsTxt
-{
-    char unk0x000[0x22];
-    unsigned short wVersion;
-    char unk0x024[0x04];
-    unsigned int szItemCode;
-    short nSetId;
-    short nSetItems;
-    short wLvl;
-    short wLvlReq;
-    unsigned int dwRarity;
-    char unk0x038[0x180];
 };
 
 struct D2SrvDo47Strc
