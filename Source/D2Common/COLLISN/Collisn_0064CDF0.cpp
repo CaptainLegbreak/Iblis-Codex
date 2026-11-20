@@ -1,19 +1,8 @@
 #include "D2Common.h"
+#include "D2DrlgPresets.h"
 struct D2RoomCollisionGridStrc;
 struct D2BoundingBoxStrc;
 
-struct D2RoomCollisionGridStrc
-{
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-    int nTileX;
-    int nTileY;
-    int nTileWidth;
-    int nTileHeight;
-    unsigned short* pCollisionMask;
-};
 
 struct D2BoundingBoxStrc
 {

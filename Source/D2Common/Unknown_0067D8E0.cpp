@@ -1,25 +1,10 @@
 #include "D2Structs.h"
 #include "D2Drlg.h"
 #include "D2DrlgTiles.h"
+#include "D2DrlgPresets.h"
 
 
-struct D2DrlgLinkStrc
-{
-    void* pfLinker;
-    int nLevel;
-    int nLevelLink;
-    int nLevelLinkEx;
-};
 
-struct D2DrlgLevelLinkDataStrc
-{
-    D2SeedStrc pSeed;
-    D2DrlgCoordStrc pLevelCoord[15];
-    D2DrlgLinkStrc* pLink;
-    int nRand[4][15];
-    int nIteration;
-    int nCurrentLevel;
-};
 
 
 D2LevelDefBin* __fastcall DATATBLS_GetLevelDefRecord(int nLevelId);                                         // 0x0061E470

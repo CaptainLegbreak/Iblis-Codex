@@ -2,6 +2,7 @@
 #include "D2Path.h"
 #include "D2Drlg.h"
 #include "D2DrlgMaps.h"
+#include "D2DrlgPresets.h"
 #pragma function(memset)
 
 struct D2DrlgCoordStrc;
@@ -44,18 +45,7 @@ struct D2DrlgLogicalRoomInfoStrc
 };
 
 
-struct D2DrlgTileLinkStrc
-{
-    int bFloor;
-    D2DrlgTileDataStrc* pMapTile;
-    D2DrlgTileLinkStrc* pNext;
-};
 
-struct D2DrlgRoomTilesStrc
-{
-    D2DrlgTileDataStrc* pWallTiles;
-    unsigned int nWalls;
-};
 
 struct D2DrlgTileGridStrc
 {
