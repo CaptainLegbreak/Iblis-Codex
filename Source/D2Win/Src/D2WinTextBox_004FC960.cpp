@@ -3,6 +3,7 @@
 #include "D2WinTypes.h"
 #include "D2WinTypes.h"
 #include "D2CmpTypes.h"
+#include "D2Unicode.h"
 
 enum D2ControlTypes
 {
@@ -33,10 +34,6 @@ struct SMSGHANDLER_PARAMS
     int lResult;
 };
 
-struct Unicode
-{
-    unsigned short wChar;
-};
 struct D2FontStrc;
 struct D2CharStrc;
 struct D2WinControlStrc;

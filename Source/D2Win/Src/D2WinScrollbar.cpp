@@ -1,6 +1,7 @@
 #include "D2Win.h"
 #include "D2CelContext.h"
 #include "D2WinTypes.h"
+#include "D2Unicode.h"
 
 #define WM_LBUTTONDOWN 0x201
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -64,11 +65,6 @@ enum D2C_WinControlTypes
 {
     D2WIN_SCROLLBAR = 5,
     D2WIN_POPUP = 11,
-};
-
-struct Unicode
-{
-    unsigned short wChar;
 };
 
 struct D2WinPopUpLineStrc

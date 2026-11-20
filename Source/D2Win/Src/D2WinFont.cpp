@@ -2,6 +2,7 @@
 #include "D2ClientTypes.h"
 #include "D2WinTypes.h"
 #include "D2WinTypes.h"
+#include "D2Unicode.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -32,11 +33,6 @@ struct T0044CB60
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-
-struct Unicode
-{
-    unsigned short wChar;
-};
 
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 extern int gnFontMetric2_0072E004; // 0x0072E004

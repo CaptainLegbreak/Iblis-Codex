@@ -1,4 +1,5 @@
 #include "D2Win.h"
+#include "D2Unicode.h"
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct Character;
@@ -9,11 +10,6 @@ struct tagPOINT;
 struct Character { signed char value; };
 
 enum { FIRST_DIGIT = 48, LAST_DIGIT = 57 };
-
-struct Unicode
-{
-    unsigned short wChar;
-};
 
 struct SMSGHANDLER_PARAMS
 {

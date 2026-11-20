@@ -1,5 +1,6 @@
 #include "D2Win.h"
 #include "D2WinTypes.h"
+#include "D2Unicode.h"
 
 enum D2C_WinControlTypes
 {
@@ -12,10 +13,6 @@ struct tagPOINT
     long y;
 };
 
-struct Unicode
-{
-    unsigned short ch;
-};
 struct D2WinControlStrc;
 
 typedef int (__stdcall* D2WinMsgHandler)(SMSGHANDLER_PARAMS* pMsg);

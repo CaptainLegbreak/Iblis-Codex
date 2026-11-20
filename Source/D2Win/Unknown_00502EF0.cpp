@@ -1,11 +1,7 @@
 #include "D2WinTypes.h"
 #include "D2WinTypes.h"
+#include "D2Unicode.h"
 struct D2CelFileStrc;
-
-struct Unicode
-{
-    unsigned short wChar;
-};
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090

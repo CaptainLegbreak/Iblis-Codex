@@ -141,10 +141,7 @@ struct tagPOINT
     long y;
 };
 
-struct Unicode
-{
-    unsigned short wChar;
-};
+#include "D2Unicode.h"
 
 typedef int (__stdcall* D2WinMsgHandler)(SMSGHANDLER_PARAMS* pMsg);
 

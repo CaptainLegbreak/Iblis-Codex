@@ -1,3 +1,4 @@
+#include "D2Unicode.h"
 // build: ob1
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
@@ -5,21 +6,6 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 extern unsigned int gaFontCharValidBits_006DC9B8[8]; // 0x006DC9B8
-
-struct Unicode
-{
-    unsigned short ch;
-
-    inline Unicode(unsigned short c) : ch(c) {}
-    inline int isPipe() const
-    {
-        if (this->ch < 0x100)
-        {
-            return this->ch == 0xFF;
-        }
-        return 0;
-    }
-};
 
 // Returns whether the font can draw a character: 0 for the colour-code prefix 0xFF, else the character's bit in its
 // row of gaFontCharValidBits_006DC9B8.

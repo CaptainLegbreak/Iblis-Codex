@@ -3,6 +3,7 @@
 #include "D2CmpTypes.h"
 #include "D2WinTypes.h"
 #include "D2WinControls.h"
+#include "D2Unicode.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -66,11 +67,6 @@ struct SMSGHANDLER_PARAMS
     unsigned int dwArg;
     int bReturn;
     int lResult;
-};
-
-struct Unicode
-{
-    unsigned short wChar;
 };
 
 typedef int (__stdcall* D2WinMsgHandler)(SMSGHANDLER_PARAMS* pMsg);

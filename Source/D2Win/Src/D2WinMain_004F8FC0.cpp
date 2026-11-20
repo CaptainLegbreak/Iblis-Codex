@@ -1,5 +1,6 @@
 #include "D2Win.h"
 #include "D2WinControls.h"
+#include "D2Unicode.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -182,11 +183,6 @@ struct tagMSG
     long lParam;
     unsigned long time;
     tagPOINT pt;
-};
-
-struct Unicode
-{
-    unsigned short wChar;
 };
 
 struct D2WinImageClickRectStrc
