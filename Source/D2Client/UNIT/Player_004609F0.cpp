@@ -2,6 +2,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2Structs.h"
+#include "D2UnitData.h"
 
 struct D2GameStrc;
 struct D2SkillsTxt;
@@ -17,14 +18,6 @@ D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus); // 0x006442A0
 void __stdcall SKILLS_AssignSkill(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove, const char* szFile, int nLine); // 0x00647280
 void __stdcall D2Common_10954(D2UnitStrc* pUnit, int nOwnerGUID, int nSkillId, int nSkillLevel, int nCharges, int bFreeMemory); // 0x00647530
-
-struct D2PlayerDataStrc
-{
-    char unk_000[0x154];
-    int nState;
-    int nValue1;
-    int nValue2;
-};
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 
@@ -99,7 +92,7 @@ static __forceinline int PLAYER_GetValue1(D2UnitStrc* pUnit)
 {
     const int nUnitType = !pUnit ? 6 : pUnit->dwUnitType;
     if (nUnitType == UNIT_PLAYER)
-        return pUnit->pPlayerData->nValue1;
+        return pUnit->pPlayerData->nArg1;
     return 0;
 }
 
@@ -107,7 +100,7 @@ static __forceinline int PLAYER_GetValue2(D2UnitStrc* pUnit)
 {
     const int nUnitType = !pUnit ? 6 : pUnit->dwUnitType;
     if (nUnitType == UNIT_PLAYER)
-        return pUnit->pPlayerData->nValue2;
+        return pUnit->pPlayerData->nArg2;
     return 0;
 }
 
@@ -120,7 +113,7 @@ int __stdcall sub_00461D60_CheckPlayerState(int nValue1, int nValue2)
         return 0;
 
     D2PlayerDataStrc* pPlayerData = pPlayer->pPlayerData;
-    if (!pPlayerData || pPlayerData->nState != 19)
+    if (!pPlayerData || pPlayerData->nMode != 19)
         return 0;
 
     const int nFirst = PLAYER_GetValue1(pPlayer);

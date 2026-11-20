@@ -1,56 +1,21 @@
 #include "D2Client.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
-struct D2LightStrc;
-struct D2SeedStrc;
+struct D2GfxLightStrc;
+union D2SeedStrc;
 struct D2StaticPathStrc;
 struct D2MissilesTxt;
-
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
-
-struct D2StaticPathStrc
-{
-    int unk0x00[3];
-    int nXPos;
-    int nYPos;
-};
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemPool;
-    int dwUnitId;
-    unsigned char unk_10[0x10];
-    D2SeedStrc tSeed;
-    int unk0x28;
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    int unk0x30[5];
-    unsigned int dwFlags0x44;
-    char unk0x48[0x04];
-    short wAnimSpeed;
-    unsigned char unk_4E[0x16];
-    D2LightStrc* pLight;
-};
-
-
 
 typedef void (__fastcall* D2CltDoFunc)(D2UnitStrc* pMissile);
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268
 extern D2CltDoFunc gpfnCltDoFuncs_0072A398[]; // 0x0072A398
-int __fastcall sub_00474350_GetLightSize(D2LightStrc* pLight); // 0x00474350
-void __fastcall sub_00474290_SetLightSize(D2LightStrc* pLight, int nSize); // 0x00474290
+int __fastcall sub_00474350_GetLightSize(D2GfxLightStrc* pLight); // 0x00474350
+void __fastcall sub_00474290_SetLightSize(D2GfxLightStrc* pLight, int nSize); // 0x00474290
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 void __fastcall sub_004CD390_CltDoDefault(D2UnitStrc* pMissile); // 0x004CD390
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
@@ -106,14 +71,14 @@ static int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
 static void sub_004CD1C0_FlickerLight(D2UnitStrc* pMissile)
 {
     D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecord(pMissile ? pMissile->dwClassId : -1);
-    if (pMissile->dwFlags0x44 & 0x300)
+    if (pMissile->nSeqCurrentFramePrecise & 0x300)
         return;
-    D2LightStrc* pLight = pMissile->pLight;
+    D2GfxLightStrc* pLight = pMissile->pLight;
     if (!pLight)
         return;
     if (sub_00474350_GetLightSize(pLight) < pMissilesTxtRecord->nLight)
         return;
-    const int nRadius = pMissilesTxtRecord->nLight + ITEMS_RollLimitedRandomNumber(&pMissile->tSeed, pMissilesTxtRecord->nFlicker);
+    const int nRadius = pMissilesTxtRecord->nLight + ITEMS_RollLimitedRandomNumber(&pMissile->pSeed, pMissilesTxtRecord->nFlicker);
     sub_00474290_SetLightSize(pLight, nRadius);
 }
 

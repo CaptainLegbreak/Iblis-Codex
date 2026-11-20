@@ -4,7 +4,7 @@
 #include "D2UnitData.h"
 struct D2UnitStrc;
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-struct D2LightStrc;
+struct D2GfxLightStrc;
 struct D2RoomStrc;
 struct D2MonStatsTxt;
 struct D2MonsterDataStrc;
@@ -13,8 +13,6 @@ union D2SeedStrc;
 struct D2StaticPathStrc;
 struct D2DirectionArgStrc;
 struct D2DifficultyLevelsTxt;
-
-
 
 struct D2MonStatsTxt
 {
@@ -47,7 +45,6 @@ struct D2MonStatsTxt
     char unk0x1A0[0x08];
 };
 
-
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
@@ -55,14 +52,12 @@ unsigned char __stdcall sub_0063E7A0_GetByteTableEntry(unsigned char nIndex); //
 int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
 unsigned char __stdcall PATH_GetDirection(D2DynamicPathStrc* pPath); // 0x006487F0
 
-
 struct D2MonStats2Txt
 {
     char unk0x000[0x04];
     unsigned char nFlags[4];
     char unk0x008[0x12C];
 };
-
 
 typedef char I07_check_unit_a[(I07_OFFSET(D2UnitStrc, pSeed) == 0x20 && I07_OFFSET(D2UnitStrc, pDynamicPath) == 0x2C) ? 1 : -1];
 
@@ -86,7 +81,7 @@ void __fastcall sub_00464930_FreeLight(D2UnitStrc* pUnit); // 0x00464930
 void __fastcall sub_00466CB0_RemoveInventoryUnits(D2UnitStrc* pUnit, int nArg); // 0x00466CB0
 void __fastcall sub_0046EC10_FreeGfxData(D2UnitStrc* pUnit); // 0x0046EC10
 void __fastcall sub_00470390(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
-void __fastcall sub_004743D0_ReleaseOverlayResource(D2LightStrc* pLight); // 0x004743D0
+void __fastcall sub_004743D0_ReleaseOverlayResource(D2GfxLightStrc* pLight); // 0x004743D0
 void __fastcall sub_004AE0A0_SetClientFlags(D2UnitStrc* pUnit, unsigned short wFlags); // 0x004AE0A0
 void __fastcall sub_004AE210_SetMonsterLight(D2UnitStrc* pUnit); // 0x004AE210
 void __fastcall sub_004DC510_InitGfxData(D2UnitStrc* pUnit); // 0x004DC510
@@ -95,7 +90,7 @@ void __stdcall STATLIST_AllocStatListEx(D2UnitStrc* pUnit, int nFlags, void* pCa
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
 D2InventoryStrc* __stdcall INVENTORY_AllocInventory(void* pMemPool, D2UnitStrc* pOwner); // 0x0063ABD0
 void __stdcall INVENTORY_FreeInventory(D2InventoryStrc* pInventory); // 0x0063AC40
-D2LightStrc* __stdcall D2Common_10958(D2UnitStrc* pUnit, void* a2); // 0x00643A00
+D2GfxLightStrc* __stdcall D2Common_10958(D2UnitStrc* pUnit, void* a2); // 0x00643A00
 void __stdcall SKILLS_AssignSkill(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove, const char* szFile, int nLine); // 0x00647280
 void __stdcall PATH_SetVelocity(D2DynamicPathStrc* pDynamicPath, int nVelocity, const char* szFile, int nLine); // 0x00648690
 void __stdcall PATH_SetDirection(D2DynamicPathStrc* pDynamicPath, unsigned char nDirection); // 0x006488A0
@@ -438,7 +433,7 @@ void __fastcall sub_004AEDD0_ChangeMonsterClass(D2UnitStrc* pUnit, int nClassId)
     INVENTORY_FreeInventory(pUnit->pInventory);
     pUnit->pInventory = 0;
     sub_00464930_FreeLight(pUnit);
-    D2LightStrc* pLight = D2Common_10958(pUnit, 0);
+    D2GfxLightStrc* pLight = D2Common_10958(pUnit, 0);
     if (pLight)
     {
         sub_004743D0_ReleaseOverlayResource(pLight);

@@ -1,3 +1,9 @@
+#include "D2ClientGame.h"
+#include "D2DataTbls.h"
+#include "D2LevelTxt.h"
+#include "D2Structs.h"
+#include "D2Txt.h"
+#include "D2TxtItems.h"
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
@@ -6,77 +12,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 struct D2ActiveRoomStrc;
 struct D2StatListStrc;
 
-struct D2UnitSfxNodeStrc
-{
-    void* f_0;
-    D2UnitSfxNodeStrc* pNext;
-};
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x3C];
-    int nSeqCurrentFramePrecise;
-    unsigned int dwFrameCountPrecise;
-    short wAnimSpeed;
-    char unk0x4E[0x22];
-    unsigned char bUnitSfx;
-    char unk0x71[3];
-    int dwSfxMode;
-    D2UnitSfxNodeStrc* pUnitSfxList;
-    unsigned int dwSfxTicks;
-    unsigned int dwSfxAsyncTicks;
-    unsigned int dwSfxStepTicks;
-    int bHasActiveSound;
-    char unk0x8C[0x24];
-    int dwLastHitClass;
-};
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
-
-struct D2MonSoundsTxt
-{
-    unsigned int dwId;
-    unsigned int dwAttack1;
-    unsigned int dwAtt1Del;
-    unsigned int dwAtt1Prb;
-    unsigned int dwAttack2;
-    unsigned int dwAtt2Del;
-    unsigned int dwAtt2Prb;
-    unsigned int dwWeapon1;
-    unsigned int dwWea1Del;
-    unsigned int dwWea1Vol;
-    unsigned int dwWeapon2;
-    unsigned int dwWea2Del;
-    unsigned int dwWea2Vol;
-    unsigned int dwHitSound;
-    unsigned int dwHitDelay;
-    unsigned int dwDeathSound;
-    unsigned int dwDeaDelay;
-    unsigned int dwSkill[4];
-    unsigned int dwFootstep;
-    unsigned int dwFootstepLayer;
-    unsigned int dwFsCnt;
-    unsigned int dwFsOff;
-    unsigned int dwFsPrb;
-    unsigned int dwNeutral;
-    unsigned int dwNeuTime;
-    unsigned int dwInit;
-    unsigned int dwTaunt;
-    unsigned int dwFlee;
-    unsigned char nCvtMo1;
-    unsigned char nCvtTgt1;
-    unsigned short pad0x7E;
-    int dwCvtSk1;
-    unsigned char nCvtMo2;
-    unsigned char nCvtTgt2;
-    unsigned short pad0x86;
-    int dwCvtSk2;
-    unsigned char nCvtMo3;
-    unsigned char nCvtTgt3;
-    unsigned short pad0x8E;
-    int dwCvtSk3;
-};
 
 struct D2UnitSndPlayerStrc
 {
@@ -95,34 +31,10 @@ struct D2UnitSndObjectStrc
     int nSoundBMode;
 };
 
-struct D2SuperUniquesTxt
-{
-    char unk0x00[0x18];
-    int dwMonSound;
-};
-
-struct D2MonStatsTxt
-{
-    char unk0x00[0x16];
-    short wUMonSound;
-};
-
-struct D2DataTablesStrc
-{
-    char unk0x00[0xA80];
-    int nMonStatsTxtRecordCount;
-};
-
 struct D2DirRateStrc
 {
     int nValue;
     unsigned int nRate;
-};
-
-struct D2SkillsTxt
-{
-    char unk0x00[0xFC];
-    short wStSound;
 };
 
 struct D2SkillStrc;

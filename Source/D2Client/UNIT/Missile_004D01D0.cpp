@@ -1,98 +1,16 @@
 #include "D2Client.h"
 #include "D2DataTbls.h"
+#include "D2Path.h"
+#include "D2Structs.h"
+#include "D2Txt.h"
 
 #define D2_ABS(x) ((x) < 0 ? -(x) : (x))
 struct D2StaticPathStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2MissilesTxt;
 struct D2MissileStrc;
 struct D2SkillsTxt;
 struct D2SpawnArgsStrc;
-
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
-
-struct D2StaticPathStrc
-{
-    char unk0x00[0x0C];
-    D2CoordStrc tGameCoords;
-};
-
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x04];
-    int dwUnitId;
-    char unk0x10[0x10];
-    D2SeedStrc pSeed;
-    char unk0x28[0x04];
-    union
-    {
-        D2StaticPathStrc* pStaticPath;
-        D2DynamicPathStrc* pDynamicPath;
-    };
-    char unk0x30[0x14];
-    int nSeqCurrentFramePrecise;
-    int nFrameRate;
-    char unk0x4C[0x18];
-    void* pLight;
-    char unk0x68[0x5C];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-};
-
-struct D2MissilesTxt
-{
-    char unk0x000[0x04];
-    unsigned char nFlags[4];
-    char unk0x008[0x0A];
-    short wTravelSound;
-    char unk0x014[0x0A];
-    short wCltSubMissile[3];
-    unsigned char unk_24[0x8];
-    short wCltHitSubMissile;
-    unsigned char unk_2E[0xA];
-    int dwCltHitPar38;
-    unsigned char unk_3C[0x1C];
-    int dwCltParam[5];
-    int dwCltHitPar0;
-    char unk0x070[0x26];
-    short wRange;
-    short wLevRange;
-    unsigned char nVel;
-    unsigned char nVelLev;
-    unsigned char nMaxVel;
-    char unk0x09D;
-    short wAccel;
-    char unk0x0A0[0x90];
-    unsigned char nLight;
-    unsigned char nFlicker;
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-    unsigned char nCanDestroy;
-    unsigned char nActivate;
-    char unk0x137[0x41];
-    unsigned char nAnimLen;
-    char unk0x179[0x07];
-    unsigned char nSubLoop;
-    unsigned char nSubStart;
-    unsigned char nSubStop;
-    char unk0x183[0x1E];
-    unsigned char nAnimSpeed;
-    char unk0x1A2[0x02];
-};
-
 
 typedef void(__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArgs);
 
@@ -133,7 +51,7 @@ unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 void __fastcall sub_00464930_FreeLight(D2UnitStrc* pUnit); // 0x00464930
 D2UnitStrc* __fastcall sub_00466730_SpawnPresetUnit(int nIndex, int nX, int nY, int nUnitType, int nMode); // 0x00466730
-void* __fastcall sub_00474160_MakeLightEntry(D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6); // 0x00474160
+D2GfxLightStrc* __fastcall sub_00474160_MakeLightEntry(D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6); // 0x00474160
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); // 0x00483360
 void __fastcall sub_004ADE80(D2UnitStrc* pUnit, void* pArg); // 0x004ADE80
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
@@ -170,13 +88,6 @@ extern int gnMissileTargetX_006DB100[]; // 0x006DB100
 extern int gnMissileTargetY_006DB120[]; // 0x006DB120
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath); // 0x00648900
-
-struct D2SkillsTxt
-{
-    char unk0x000[0x138];
-    int dwCalc0;
-    char unk0x13C[0x100];
-};
 
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc*); // 0x004639D0
 int __stdcall MISSILE_GetSkill(D2UnitStrc*); // 0x0064A280
@@ -244,7 +155,7 @@ static void __stdcall sub_004CD420_RollPierce(D2UnitStrc* pOwner, D2UnitStrc* pM
     }
 
     D2MissilesTxt* pMissilesTxtRecord = DATATBLS_GetMissilesTxtRecord(MISSILE_GetClassId(pMissile));
-    if (!(pMissilesTxtRecord->nFlags[2 >> 3] & gdwBitMasks[2 & 7]))
+    if (!(pMissilesTxtRecord->nMissileFlags[2 >> 3] & gdwBitMasks[2 & 7]))
     {
         return;
     }
@@ -351,7 +262,7 @@ D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams)
         : (pMissilesTxtRecord->nVel + (pMissilesTxtRecord->nVelLev * pMissileParams->nSkillLevel) / 8) << 8;
 
     int nVelocityPercent = 100;
-    if (pMissileParams->pOwner && (pMissilesTxtRecord->nFlags[3 >> 3] & gdwBitMasks[3 & 7])
+    if (pMissileParams->pOwner && (pMissilesTxtRecord->nMissileFlags[3 >> 3] & gdwBitMasks[3 & 7])
         && STATES_CheckState(pMissileParams->pOwner, 0x57))
     {
         D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pMissileParams->pOwner, 0x57);
@@ -414,7 +325,7 @@ D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams)
 
     sub_00624390_AnimInit(pMissile);
     STATLIST_AllocStatListEx(pMissile, 0, 0, 0);
-    pMissile->nFrameRate = pMissilesTxtRecord->nAnimLen << 8;
+    pMissile->dwFrameCountPrecise = pMissilesTxtRecord->nAnimLen << 8;
     MISSILE_SetAnimSpeed(pMissile, pMissilesTxtRecord->nAnimSpeed << 4);
 
     int nRange;
@@ -632,7 +543,7 @@ int __fastcall sub_004D01D0_CreateMissileFan(D2UnitStrc* pOwner, D2UnitStrc* pOr
     tMissile.nSkillLevel = nSkillLevel;
     tMissile.nSkill = nSkill;
     tMissile.nLoops = nSkillLevel - 1;
-    tMissile.nVelocity = pMissilesTxt->dwCltHitPar38 << 7;
+    tMissile.nVelocity = pMissilesTxt->dwParam[0] << 7;
 
     for (int i = 0; i < 8; i += nStep)
     {
@@ -663,23 +574,23 @@ static __forceinline D2SkillsTxt* GetSkillRecord(int id) {
 int __fastcall sub_004D0380_CreateChildMissile(D2UnitStrc* unit)
 {
  D2MissilesTxt* missile=GetMissileRecord(unit ? unit->dwClassId : -1);
- if(!missile || missile->wCltHitSubMissile<0)return 1;
+ if(!missile || missile->wCltHitSubMissile[0]<0)return 1;
  D2UnitStrc* owner=sub_004639D0_GetOwnerUnit(unit);
  if(!owner)return 1;
  int skillId=MISSILE_GetSkill(unit);
  int level=MISSILE_GetLevel(unit);
  D2SkillsTxt* skill=GetSkillRecord(skillId);
  if(!skill)return 1;
- int range=missile->dwCltHitPar0;
+ int range=missile->dwCltHitPar[0];
  if(!range) {
-  range=SKILLS_EvaluateSkillFormula(owner,skill->dwCalc0,skillId,level);
+  range=SKILLS_EvaluateSkillFormula(owner,skill->dwCalc[0],skillId,level);
   if(range<5)range=5;
  }
  D2MissileStrc params;
  memset(&params,0,sizeof(params));
  params.pOwner=owner;
  params.dwFlags=1;
- params.nMissile=missile->wCltHitSubMissile;
+ params.nMissile=missile->wCltHitSubMissile[0];
  params.nSkill=level;
  params.nSkillLevel=level;
  params.nX=CLIENTS_GetUnitX(unit);
