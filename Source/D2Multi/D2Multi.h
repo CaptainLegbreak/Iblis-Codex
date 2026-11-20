@@ -174,10 +174,6 @@ struct D2LaunchThreadRecordStrc
     int nData[0x52];
 };
 
-struct _FILETIME
-{
-    unsigned long dwLowDateTime;
-    unsigned long dwHighDateTime;
-};
+#include "D2Win32Types.h"
 
 typedef unsigned int size_t;

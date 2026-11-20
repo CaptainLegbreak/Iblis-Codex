@@ -1,13 +1,4 @@
-struct T004F51E0;
-
-struct T004F51E0
-{
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-    unsigned char nFlags;
-};
-
+#include "D2Win32Types.h"
 
 extern unsigned short gwColors16_0096FA80[256]; // 0x0096FA80
 void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
@@ -17,24 +8,24 @@ unsigned short gwColors16_0096FA80[256]; // 0x0096FA80
 unsigned int gdwColors_009702C0[256]; // 0x009702C0
 
 // 0x006B1C70
-void __fastcall sub_006B1C70_SetPalette(T004F51E0* pPalette)
+void __fastcall sub_006B1C70_SetPalette(tagPALETTEENTRY* pPalette)
 {
     for (int i = 0; i < 256; ++i)
     {
-        gdwColors_009702C0[i] = 0xFF000000 | (pPalette[i].nRed << 16) | (pPalette[i].nGreen << 8) | pPalette[i].nBlue;
+        gdwColors_009702C0[i] = 0xFF000000 | (pPalette[i].peRed << 16) | (pPalette[i].peGreen << 8) | pPalette[i].peBlue;
 
-        int nRed = pPalette[i].nRed >> 3;
-        int nBlue = pPalette[i].nBlue >> 3;
-        int nGreen = pPalette[i].nGreen >> 3;
-        if (nRed < 31 && (pPalette[i].nRed & 7) >= 4)
+        int nRed = pPalette[i].peRed >> 3;
+        int nBlue = pPalette[i].peBlue >> 3;
+        int nGreen = pPalette[i].peGreen >> 3;
+        if (nRed < 31 && (pPalette[i].peRed & 7) >= 4)
             ++nRed;
-        if (nBlue < 31 && (pPalette[i].nBlue & 7) >= 4)
+        if (nBlue < 31 && (pPalette[i].peBlue & 7) >= 4)
             ++nBlue;
-        if (nGreen < 31 && (pPalette[i].nGreen & 7) >= 4)
+        if (nGreen < 31 && (pPalette[i].peGreen & 7) >= 4)
             ++nGreen;
         gwColors16_0096FA80[i] = (unsigned short)(0x8000 | (nRed << 10) | (nGreen << 5) | nBlue);
 
-        if (!pPalette[i].nRed && !pPalette[i].nGreen && !pPalette[i].nBlue)
+        if (!pPalette[i].peRed && !pPalette[i].peGreen && !pPalette[i].peBlue)
         {
             gdwColors_009702C0[i] = 0;
             gwColors16_0096FA80[i] = 0;

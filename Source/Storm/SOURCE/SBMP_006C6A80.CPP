@@ -7,7 +7,7 @@ void __stdcall SMemCopy(void* pDst, const void* pSrc, unsigned int nSize);      
 
 struct D2TargaHeaderStrc { unsigned char bytes[18]; };
 
-struct T004F51E0 { unsigned char red, green, blue, alpha; };
+struct tagPALETTEENTRY { unsigned char red, green, blue, alpha; };
 void __stdcall SMemZero(void* destination, unsigned int size);                                              // 0x0041D300
 
 #pragma pack(push, 1)
@@ -52,14 +52,14 @@ static int sub_006C50D0_IsSupportedTgaHeader(const D2TgaFieldsStrc* pHeader)
     return 0;
 }
 
-static __declspec(noinline) int __stdcall sub_006C5150_ReadTgaPalette(const D2TargaHeaderStrc* header, const unsigned char* source, int size, T004F51E0* palette)
+static __declspec(noinline) int __stdcall sub_006C5150_ReadTgaPalette(const D2TargaHeaderStrc* header, const unsigned char* source, int size, tagPALETTEENTRY* palette)
 {
     int bytesPerColor = (header->bytes[7] + 7) / 8;
     int index = *(const unsigned short*)&header->bytes[3];
     int end = index + *(const unsigned short*)&header->bytes[5];
     if ((end - index) * bytesPerColor != size)
         return 0;
-    SMemZero(palette, index * sizeof(T004F51E0));
+    SMemZero(palette, index * sizeof(tagPALETTEENTRY));
     for (; index < end; ++index)
     {
         palette[index].red = source[2];
@@ -68,7 +68,7 @@ static __declspec(noinline) int __stdcall sub_006C5150_ReadTgaPalette(const D2Ta
         palette[index].alpha = bytesPerColor > 3 ? source[3] : 0;
         source += bytesPerColor;
     }
-    SMemZero(palette + index, (256 - index) * sizeof(T004F51E0));
+    SMemZero(palette + index, (256 - index) * sizeof(tagPALETTEENTRY));
     return 1;
 }
 
@@ -260,10 +260,10 @@ static __declspec(noinline) int __fastcall sub_006C5210_DecodeTgaPixels(const D2
     return 0;
 }
 
-static __declspec(noinline) int __stdcall DecodeTgaMem(const D2TgaFieldsStrc* pHeader, unsigned int nSize, T004F51E0* pPalette, unsigned char* pDst, int nDstSize, int* pWidth, int* pHeight, int* pDepth);
+static __declspec(noinline) int __stdcall DecodeTgaMem(const D2TgaFieldsStrc* pHeader, unsigned int nSize, tagPALETTEENTRY* pPalette, unsigned char* pDst, int nDstSize, int* pWidth, int* pHeight, int* pDepth);
 
 // 0x006C5730
-static int __stdcall DecodeTgaMem(const D2TgaFieldsStrc* pHeader, unsigned int nSize, T004F51E0* pPalette, unsigned char* pDst, int nDstSize, int* pWidth, int* pHeight, int* pDepth)
+static int __stdcall DecodeTgaMem(const D2TgaFieldsStrc* pHeader, unsigned int nSize, tagPALETTEENTRY* pPalette, unsigned char* pDst, int nDstSize, int* pWidth, int* pHeight, int* pDepth)
 {
     if (nSize < 18)
     {
@@ -517,7 +517,7 @@ int __stdcall sub_006C6A80_DecodeImage(int nType, const unsigned char* pData, un
     case 2:
         return DecodePcxMem(pWidth, pData, nDataSize, pPalette, pPixels, nPixelsSize, pHeight, pBitDepth);
     case 3:
-        return DecodeTgaMem((const D2TgaFieldsStrc*)pData, nDataSize, (T004F51E0*)pPalette, pPixels, nPixelsSize, pWidth, pHeight, pBitDepth);
+        return DecodeTgaMem((const D2TgaFieldsStrc*)pData, nDataSize, (tagPALETTEENTRY*)pPalette, pPixels, nPixelsSize, pWidth, pHeight, pBitDepth);
     }
 
     return 0;

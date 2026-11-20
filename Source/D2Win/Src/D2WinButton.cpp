@@ -1,8 +1,8 @@
 #include "D2Win.h"
 #include "D2CelContext.h"
+#include "D2Win32Types.h"
 
 typedef unsigned short Unicode;
-
 
 struct SMSGHANDLER_PARAMS
 {
@@ -38,12 +38,6 @@ struct D2WinButtonStrc
     void (__fastcall* pfUpdateHoverState)(SMSGHANDLER_PARAMS* pMsg);
     int isButtonHovered;
     unsigned short nStringId;
-};
-
-struct tagPOINT
-{
-    int x;
-    int y;
 };
 
 #define D2WIN_BUTTON 6

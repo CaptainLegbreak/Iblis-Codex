@@ -21,7 +21,7 @@ extern void* ghInstance_007C8CA8; // 0x007C8CA8
 void __cdecl sub_004F8EA0(); // 0x004F8EA0
 
 struct tagPOINT;
-struct T004F51E0;
+struct tagPALETTEENTRY;
 struct D2PaletteTableStrc;
 
 struct D2GraphicsInterfaceStrc
@@ -54,7 +54,7 @@ struct D2GraphicsInterfaceStrc
     void (__fastcall* pfPerspectiveTransform)(int nPosX, int nPosY, int nBias, int* pXAdjust, int* pYAdjust);
     void (__fastcall* pfPerspectiveTransformScale)(int nPosX, int nPosY, int nAngle, int* pXAdjust, int* pYAdjust, int bOrder);
     void (__fastcall* pfPerspectiveClearScale)();
-    void (__fastcall* pfSetPalette)(T004F51E0* pPalette);
+    void (__fastcall* pfSetPalette)(tagPALETTEENTRY* pPalette);
     void (__fastcall* pfSetPaletteTables)(D2PaletteTableStrc* pPaletteTables);
     void (__fastcall* pfSetAmbientColor)(unsigned char nRed, unsigned char nGreen, unsigned char nBlue);
     void* pfFloorTileDraw;
@@ -86,29 +86,7 @@ extern D2GraphicsInterfaceStrc* gpGraphicsInterface; // 0x007C8CC0
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-struct tagRECT
-{
-    long left;
-    long top;
-    long right;
-    long bottom;
-};
-
-struct tagPOINT
-{
-    long x;
-    long y;
-};
-
-struct tagWINDOWPLACEMENT
-{
-    unsigned int length;
-    unsigned int flags;
-    unsigned int showCmd;
-    tagPOINT ptMinPosition;
-    tagPOINT ptMaxPosition;
-    tagRECT rcNormalPosition;
-};
+#include "D2Win32Types.h"
 
 struct D2WindowPlacementStrc
 {

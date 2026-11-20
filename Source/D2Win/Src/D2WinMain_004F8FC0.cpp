@@ -1,16 +1,13 @@
 #include "D2Win.h"
 #include "D2WinControls.h"
 #include "D2Unicode.h"
-#include "D2WinControls.h"
+#include "D2Win32Types.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2CelFileStrc;
 struct D2WinEditBoxStrc;
 struct D2WinControlStrc;
-struct tagPOINT;
-struct tagRECT;
-struct tagTRACKMOUSEEVENT;
 struct D2WinTextBoxStrc;
 struct D2WinControlInitStrc;
 struct D2TransPaletteStrc;
@@ -72,20 +69,6 @@ struct SMSGHANDLER_PARAMS
     unsigned int dwArg;
     int bReturn;
     int lResult;
-};
-
-struct tagPOINT
-{
-    long x;
-    long y;
-};
-
-struct tagTRACKMOUSEEVENT
-{
-    unsigned long cbSize;
-    unsigned long dwFlags;
-    void* hwndTrack;
-    unsigned long dwHoverTime;
 };
 
 typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
@@ -175,16 +158,6 @@ extern D2WinControlStrc* dword_6F8FE264; // 0x007D55D4
 extern WNDPROC gpfWndProc_6F8FE268; // 0x007D55D8
 extern int dword_6F8FE278; // 0x007D55E8
 extern D2ArchiveHandleStrc* gpD2VideoMPQ; // 0x007D5614
-
-struct tagMSG
-{
-    void* hwnd;
-    unsigned int message;
-    unsigned int wParam;
-    long lParam;
-    unsigned long time;
-    tagPOINT pt;
-};
 
 struct D2WinImageClickRectStrc
 {

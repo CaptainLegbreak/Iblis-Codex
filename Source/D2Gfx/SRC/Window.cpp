@@ -1,26 +1,15 @@
 #include "D2Gfx.h"
 
 struct D2GraphicsInterfaceStrc;
-struct tagPOINT;
 struct D2PaletteTableStrc;
 struct D2GfxSettingsStrc;
-struct T004F51E0;
 struct D2PaletteStrc;
 struct _AppBarData;
-struct tagWINDOWPLACEMENT;
 struct D2WindowPlacementStrc;
 struct D2DevModeStrc;
 
 extern D2GfxSettingsStrc gGfxSettings; // 0x0072DA48
 extern int gbIsWindowed; // 0x007C8CB4
-
-struct T004F51E0
-{
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-    unsigned char nFlags;
-};
 
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds); // 0x006CC258
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
@@ -81,7 +70,7 @@ extern "C" __declspec(dllimport) int __stdcall SystemParametersInfoA(unsigned in
 extern "C" __declspec(dllimport) int __stdcall GetWindowPlacement(void* hWnd, tagWINDOWPLACEMENT* lpwndpl); // 0x006CC508
 void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
 int __stdcall WINDOW_Resize(int nResolution, int bForceResize); // 0x004F5AA0
-void __stdcall D2GFX_SetPalette(T004F51E0* pPalette); // 0x004F63D0
+void __stdcall D2GFX_SetPalette(tagPALETTEENTRY* pPalette); // 0x004F63D0
 extern tagRECT gWindowRect_007C9160; // 0x007C9160
 extern D2WindowPlacementStrc gWindowPlacement[4]; // 0x007C9278
 extern "C" __declspec(dllimport) int __stdcall IsIconic(void* hWnd); // 0x006CC50C
@@ -147,7 +136,7 @@ D2GraphicsInterfaceStrc* gpGraphicsInterface; // 0x007C8CC0
 
 double gdFrameRemainder_007C9360; // 0x007C9360
 
-T004F51E0 gpPalette_6FA8D278[256]; // 0x007C9378
+tagPALETTEENTRY gpPalette_6FA8D278[256]; // 0x007C9378
 
 // build: symbol ?$S1@?1??D2GFX_EndScene@@YGHXZ@4IA 0x007C9370
 // build: symbol ?sdLastFrame@?1??D2GFX_EndScene@@YGHXZ@4NA 0x007C9368
@@ -817,7 +806,7 @@ void __stdcall D2GFX_ClearScreen(int bPartial)
 }
 
 // 0x004F63D0
-__declspec(noinline) void __stdcall D2GFX_SetPalette(T004F51E0* pPalette)
+__declspec(noinline) void __stdcall D2GFX_SetPalette(tagPALETTEENTRY* pPalette)
 {
     if (pPalette)
     {

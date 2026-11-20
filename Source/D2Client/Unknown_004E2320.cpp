@@ -8,7 +8,7 @@
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2GemsTxt;
-struct T004F51E0;
+struct tagPALETTEENTRY;
 union D2SeedStrc;
 struct D2SkillsTxt;
 struct D2StaticPathStrc;
@@ -23,8 +23,6 @@ struct D2CombinedStatsStrc;
 struct D2CombinedStatIdStrc;
 struct D2FileIndexTextStrc;
 struct UnicodeChar;
-
-
 
 struct D2SkillsTxt
 {
@@ -51,7 +49,6 @@ struct D2SkillsTxt
     char unk0x1DD[0x5F];
 };
 
-
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 D2UnitStrc* __fastcall sub_004648F0_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
@@ -62,8 +59,6 @@ int __fastcall sub_0045C3E0(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 void __stdcall SKILLS_SetParam1(D2SkillStrc* pSkill, int nValue); // 0x00644560
 void __stdcall SKILLS_SetParam2(D2SkillStrc* pSkill, int nValue); // 0x006445A0
 void __stdcall SKILLS_SetParam3(D2SkillStrc* pSkill, int nValue); // 0x006445E0
-
-
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
@@ -167,12 +162,12 @@ const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); /
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 void __fastcall sub_004E6720_BuildItemPropTextB(D2UnitStrc* pItem, int nArg, int nArg2, Unicode* wszText, int nArg3, int nArg4); // 0x004E6720
 void __fastcall sub_004E67D0_BuildItemPropText(D2UnitStrc* pItem, int nArg, int nArg2, Unicode* wszText, int nArg3, int nArg4); // 0x004E67D0
-void __stdcall D2GFX_SetPalette(T004F51E0* pPalette); // 0x004F63D0
+void __stdcall D2GFX_SetPalette(tagPALETTEENTRY* pPalette); // 0x004F63D0
 int __stdcall sub_004FB1E0_LoadPaletteFiles(const char* szDatFileName, const char* szPL2FileName); // 0x004FB1E0
 void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* pText, int nA, int nB, int nC); // 0x004FC9B0
 Unicode* __fastcall sub_00526E40_Utf8ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526E40
 D2GemsTxt* __stdcall DATATBLS_GetGemsTxtRecord(int nGemId); // 0x006372C0
-extern T004F51E0 gRGBAPalette_0081E668[]; // 0x0081E668
+extern tagPALETTEENTRY gRGBAPalette_0081E668[]; // 0x0081E668
 
 struct UnicodeChar : Unicode
 {
@@ -1231,6 +1226,7 @@ static void __stdcall sub_004E5E90_BuildFileIndexStatText(D2UnitStrc* pUnit, Uni
 }
 
 #include "gen/data/Source/D2Client/Unknown_004E2320.inc"
+
 struct D2UnitStrc;
 
 // 0x004E60A0

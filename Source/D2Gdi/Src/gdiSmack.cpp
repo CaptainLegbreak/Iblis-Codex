@@ -1,8 +1,8 @@
 #include "D2Gdi.h"
 #include "D2GfxTypes.h"
+#include "D2Win32Types.h"
 
 struct D2GdiSmackStrc;
-struct T004F51E0;
 
 struct D2GdiSmackStrc
 {
@@ -26,20 +26,12 @@ extern int gbSurfaceActive_007C9140; // 0x007C9140
 extern int gbRenderPaused_007C9144; // 0x007C9144
 static __declspec(noinline) void __stdcall sub_006C9690_RemapRows(int nWidth, D2GdiSmackStrc* pRect, unsigned int nRows);
 
-struct T004F51E0
-{
-    unsigned char peRed;
-    unsigned char peGreen;
-    unsigned char peBlue;
-    unsigned char peFlags;
-};
-
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern "C" __declspec(dllimport) D2SmackStrc* __stdcall SmackOpen(const char* szName, unsigned int nFlags, unsigned int nExtraBuf); // 0x006CC604
 extern "C" __declspec(dllimport) void __stdcall SmackToBuffer(D2SmackStrc* hSmack, unsigned int nLeft, unsigned int nTop, unsigned int nPitch, unsigned int nHeight, void* pBuffer, unsigned int nFlags); // 0x006CC60C
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 int __stdcall SFileLoadFileEx(void* hMpq, const char* szFileName, void** ppBuffer, int* pnSize, int nExtraBytes, int nFlags, void* pOverlapped); // 0x0041B680
-int __stdcall sub_006C6A80_DecodeImage(int nMode, void* pData, int nSize, T004F51E0* pPalette, unsigned char* pDest, int nDestSize, int* pWidth, int* pHeight, int* pDepth); // 0x006C6A80
+int __stdcall sub_006C6A80_DecodeImage(int nMode, void* pData, int nSize, tagPALETTEENTRY* pPalette, unsigned char* pDest, int nDestSize, int* pWidth, int* pHeight, int* pDepth); // 0x006C6A80
 
 static unsigned char* gpGdiSmackBuffer_0098A278; // 0x0098A278
 
@@ -122,7 +114,7 @@ void __fastcall sub_006C9710_GdiDecodeSmacker(const char* szFile, D2GdiSmackStrc
             break;
         }
 
-        T004F51E0 aPalette[256];
+        tagPALETTEENTRY aPalette[256];
         int nWidth;
         int nHeight;
         int nDepth;

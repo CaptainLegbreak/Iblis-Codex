@@ -89,18 +89,4 @@ struct D2GlideTexDimsStrc
     int nHeight;
 };
 
-struct T004F51E0
-{
-    unsigned char peRed;
-    unsigned char peGreen;
-    unsigned char peBlue;
-    unsigned char peFlags;
-};
-
-struct tagRECT
-{
-    long left;
-    long top;
-    long right;
-    long bottom;
-};
+#include "D2Win32Types.h"

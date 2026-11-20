@@ -5,8 +5,8 @@ extern "C" __declspec(dllimport) D2SmackStrc* __stdcall SmackOpen(const char* sz
 extern "C" __declspec(dllimport) void __stdcall SmackToBuffer(void* hSmack, unsigned int nLeft, unsigned int nTop, unsigned int nPitch, unsigned int nHeight, void* pBuffer, unsigned int nFlags); // 0x006CC60C
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);                  // 0x00412650
 int __stdcall SFileLoadFileEx(void* hMpq, const char* szFileName, void** ppBuffer, int* pnSize, int nExtraBytes, int nFlags, void* pOverlapped); // 0x0041B680
-int __stdcall sub_006C6A80_DecodeImage(int nMode, void* pData, int nSize, T004F51E0* pPalette, unsigned char* pDest, int nDestSize, int* pWidth, int* pHeight, int* pDepth);
-extern T004F51E0 gaDDrawPalette_007C8CC8[256];                                                     // 0x007C8CC8
+int __stdcall sub_006C6A80_DecodeImage(int nMode, void* pData, int nSize, tagPALETTEENTRY* pPalette, unsigned char* pDest, int nDestSize, int* pWidth, int* pHeight, int* pDepth);
+extern tagPALETTEENTRY gaDDrawPalette_007C8CC8[256];                                                     // 0x007C8CC8
 extern unsigned char gaDDrawSmackRemap_008815B0[256];                                                       // 0x008815B0
 extern int gbDDrawSmackRemapReady_008816B4;                                                                 // 0x008816B4
 static void* gpDDrawSmackBuffer_008816B0; // 0x008816B0
@@ -62,7 +62,7 @@ void __fastcall sub_00513400_DDrawDecodeSmacker(const char* szFile, D2SmackRecor
             break;
         }
 
-        T004F51E0 aPalette[256];
+        tagPALETTEENTRY aPalette[256];
         int nHeight;
         int nDepth;
         int nWidth;

@@ -1,11 +1,11 @@
 #include "D2Win.h"
 #include "D2Unicode.h"
+#include "D2Win32Types.h"
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct Character;
 struct Unicode;
 struct D2WinEditBoxStrc;
-struct tagPOINT;
 
 struct Character { signed char value; };
 
@@ -53,11 +53,6 @@ struct D2WinEditBoxStrc
     int bDragging;
 };
 
-struct tagPOINT
-{
-    int x;
-    int y;
-};
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 0x006CC260

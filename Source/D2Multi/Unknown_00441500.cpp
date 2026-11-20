@@ -1,13 +1,6 @@
 #include "D2Multi.h"
 #include "D2Unicode.h"
-
-struct tagRECT
-{
-    long left;
-    long top;
-    long right;
-    long bottom;
-};
+#include "D2Win32Types.h"
 
 struct D2LaunchFuncsStrc
 {

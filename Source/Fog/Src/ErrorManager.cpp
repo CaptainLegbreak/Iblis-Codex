@@ -1,6 +1,7 @@
 #include "Fog.h"
 #include "D2GameTypes.h"
 #include "D2FogTypes.h"
+#include "D2Win32Types.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -14,7 +15,6 @@ struct D2ProcessInformationStrc;
 struct D2OverlappedStrc;
 struct AsyncDataLoadFileCallback;
 struct AsyncData;
-struct _SYSTEMTIME;
 struct _iobuf;
 struct D2InspectorInfoStrc;
 struct D2CrashSubmitInfoStrc;
@@ -157,19 +157,7 @@ void* __fastcall sub_0040A080_PoolAlloc(void* pPool, int nSize, const char* szFi
 AsyncDataEventSlot* __cdecl sub_0040A550_AsyncDataGetEventSlot(); // 0x0040A550
 void __fastcall sub_0040A4C0_AsyncDataFinish(AsyncData* pAsyncData); // 0x0040A4C0
 
-struct _SYSTEMTIME
-{
-    unsigned short wYear;
-    unsigned short wMonth;
-    unsigned short wDayOfWeek;
-    unsigned short wDay;
-    unsigned short wHour;
-    unsigned short wMinute;
-    unsigned short wSecond;
-    unsigned short wMilliseconds;
-};
-
-extern "C" __declspec(dllimport) void __stdcall GetLocalTime(_SYSTEMTIME* lpSystemTime); // 0x006CC1D4
+extern "C" __declspec(dllimport) void __stdcall GetLocalTime(D2SystemTimeStrc* lpSystemTime); // 0x006CC1D4
 extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char* szText); // 0x006CC200
 extern "C" __declspec(dllimport) short __stdcall GetKeyState(int nVirtKey); // 0x006CC45C
 extern "C" int __cdecl _snprintf(char* szDest, size_t nCount, const char* szFormat, ...); // 0x006831DB
@@ -573,7 +561,7 @@ static __declspec(noinline) void __stdcall sub_004080B0_DebugPrintV(unsigned int
     szBuffer[0] = 0;
     if (nFlags & 4)
     {
-        _SYSTEMTIME tTime;
+        D2SystemTimeStrc tTime;
         GetLocalTime(&tTime);
         _snprintf(szBuffer, 0x1000, "%02d:%02d:%02d.%03d    ", tTime.wHour, tTime.wMinute, tTime.wSecond, tTime.wMilliseconds);
     }

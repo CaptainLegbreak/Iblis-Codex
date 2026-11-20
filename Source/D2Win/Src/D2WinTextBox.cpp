@@ -22,7 +22,6 @@ struct D2CharStrc;
 struct D2FontStrc;
 struct D2FontCacheStrc;
 struct D2GemsTxt;
-struct T004F51E0;
 struct D2UnitStrc;
 struct D2ItemsTxt;
 
@@ -73,7 +72,7 @@ extern D2FontCacheStrc gFontCache_00841DA8[]; // 0x00841DA8
 
 void __fastcall sub_004E6720_BuildItemPropTextB(D2UnitStrc* pItem, int nArg, int nArg2, Unicode* wszText, int nArg3, int nArg4); // 0x004E6720
 void __fastcall sub_004E67D0_BuildItemPropText(D2UnitStrc* pItem, int nArg, int nArg2, Unicode* wszText, int nArg3, int nArg4); // 0x004E67D0
-void __stdcall D2GFX_SetPalette(T004F51E0* pPalette); // 0x004F63D0
+void __stdcall D2GFX_SetPalette(tagPALETTEENTRY* pPalette); // 0x004F63D0
 int __stdcall sub_004FB1E0_LoadPaletteFiles(const char* szDatFileName, const char* szPL2FileName); // 0x004FB1E0
 void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* pText, int nA, int nB, int nC); // 0x004FC9B0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
@@ -82,7 +81,7 @@ Unicode* __fastcall sub_00526E40_Utf8ToUnicode(Unicode* pDst, const char* szSrc,
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 D2GemsTxt* __stdcall DATATBLS_GetGemsTxtRecord(int nGemId); // 0x006372C0
-extern T004F51E0 gRGBAPalette_0081E668[]; // 0x0081E668
+extern tagPALETTEENTRY gRGBAPalette_0081E668[]; // 0x0081E668
 extern "C" const char szD2WinTextBoxCpp_006DC840[]; // 0x006DC840
 Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526790
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0

@@ -2,6 +2,7 @@
 #include "D2CelContext.h"
 #include "D2WinTypes.h"
 #include "D2Unicode.h"
+#include "D2Win32Types.h"
 
 struct SMSGHANDLER_PARAMS
 {
@@ -31,11 +32,6 @@ struct SMSGHANDLER_PARAMS
     int lResult;
 };
 
-struct tagPOINT
-{
-    long x;
-    long y;
-};
 struct D2WinControlStrc;
 
 typedef int (__stdcall* D2WinMsgHandler)(SMSGHANDLER_PARAMS* pMsg);

@@ -1,16 +1,11 @@
 #include "D2Win.h"
 #include "D2WinTypes.h"
 #include "D2Unicode.h"
+#include "D2Win32Types.h"
 
 enum D2C_WinControlTypes
 {
     D2WIN_POPUP = 11,
-};
-
-struct tagPOINT
-{
-    long x;
-    long y;
 };
 
 struct D2WinControlStrc;

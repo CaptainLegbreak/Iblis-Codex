@@ -56,7 +56,7 @@ extern unsigned int gnDDrawBinkFlags_008816C8;                                  
 extern int gbDDrawBinkDone_008816CC;                                                                        // 0x008816CC
 
 // 0x00509300
-void __fastcall sub_00509300_GlideSetPalette(const T004F51E0* pPalette)
+void __fastcall sub_00509300_GlideSetPalette(const tagPALETTEENTRY* pPalette)
 {
     if (gbGlidePaletteTable_0087EFC8)
     {

@@ -46,7 +46,7 @@ public:
     virtual unsigned long __stdcall Release();
     virtual long __stdcall Compact();
     virtual long __stdcall CreateClipper(unsigned long dwFlags, void** ppClipper, void* pUnkOuter);
-    virtual long __stdcall CreatePalette(unsigned int dwFlags, T004F51E0* pEntries, D2DDrawPaletteClass** ppPalette, void* pUnkOuter);
+    virtual long __stdcall CreatePalette(unsigned int dwFlags, tagPALETTEENTRY* pEntries, D2DDrawPaletteClass** ppPalette, void* pUnkOuter);
     virtual long __stdcall CreateSurface(D2DDSurfaceDescStrc* pDesc, D2DDrawSurfaceClass** ppSurface, void* pUnkOuter);
     virtual long __stdcall DuplicateSurface(D2DDrawSurfaceClass* pSurface, D2DDrawSurfaceClass** ppDuplicate);
     virtual long __stdcall EnumDisplayModes(unsigned long dwFlags, D2DDSurfaceDescStrc* pDesc, void* pContext, void* pfCallback);
@@ -79,7 +79,7 @@ D2DDrawSurfaceClass* gpDDrawSurface_00881278;                                   
 extern D2DDrawSurfaceClass* gpDDrawBackSurface_0088127C;                                                    // 0x0088127C
 extern D2DDrawSurfaceClass* gpDDrawSurface_00881280;                                                        // 0x00881280
 extern D2DDrawPaletteClass* gpDDrawObject_00881290;                                                         // 0x00881290
-extern T004F51E0 gaDDrawPalette_007C8CC8[256];                                                     // 0x007C8CC8
+extern tagPALETTEENTRY gaDDrawPalette_007C8CC8[256];                                                     // 0x007C8CC8
 static int gnScreenWidth2_00881258;                                                                         // 0x00881258
 static int gnScreenHeight2_00881254;                                                                        // 0x00881254
 

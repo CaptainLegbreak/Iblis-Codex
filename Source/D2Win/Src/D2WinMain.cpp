@@ -10,11 +10,7 @@ struct D2CelFileStrc;
 struct Control;
 struct D2WinControlStrc;
 struct D2WinButtonStrc;
-struct tagRECT;
 struct D2CelContextStrc;
-struct tagPOINT;
-struct tagWINDOWPLACEMENT;
-struct tagMONITORINFO;
 struct Point;
 struct Obj004FA490;
 
@@ -49,11 +45,6 @@ int __stdcall WINDOW_Destroy(); // 0x004F5900
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 
-struct tagPOINT
-{
-    long x;
-    long y;
-};
 extern D2CelFileStrc* gpCursorCellFile; // 0x007D5594
 extern int gnCursorFrame; // 0x007D55A0
 extern tagPOINT gMousePosition_6F8FE234; // 0x007D55A4
@@ -73,24 +64,6 @@ struct SMSGHANDLER_PARAMS
     unsigned int dwArg;
     int bReturn;
     int lResult;
-};
-
-struct tagWINDOWPLACEMENT
-{
-    unsigned int length;
-    unsigned int flags;
-    unsigned int showCmd;
-    tagPOINT ptMinPosition;
-    tagPOINT ptMaxPosition;
-    tagRECT rcNormalPosition;
-};
-
-struct tagMONITORINFO
-{
-    unsigned long cbSize;
-    tagRECT rcMonitor;
-    tagRECT rcWork;
-    unsigned long dwFlags;
 };
 
 extern "C" __declspec(dllimport) void* __stdcall GetDesktopWindow(); // 0x006CC494

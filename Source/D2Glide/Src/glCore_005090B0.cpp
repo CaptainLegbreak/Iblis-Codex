@@ -2,12 +2,6 @@
 
 struct D2TileLibraryEntryStrc;
 
-struct tagPOINT
-{
-    long x;
-    long y;
-};
-
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
@@ -32,7 +26,7 @@ void __fastcall sub_005137E0_DDrawPlaySmacker(const char* szFile, int nResolutio
 void __fastcall sub_006BE190_BuildGammaTable(int gamma,void* table,double scale,int entrySize,int entries,int mask); // 0x006BE190
 
 extern const double gdGlideGammaScale_006CD038;                                                             // 0x006CD038
-extern T004F51E0 gaDDrawPalette_007C8CC8[256];                                                     // 0x007C8CC8
+extern tagPALETTEENTRY gaDDrawPalette_007C8CC8[256];                                                     // 0x007C8CC8
 int gnScreenWidth_007C9138;                                                                                 // 0x007C9138
 int gbRenderPaused_007C9144;                                                                                // 0x007C9144
 extern D2GfxSettingsStrc* gpGfxSettings_007C9148;                                                           // 0x007C9148
@@ -305,7 +299,7 @@ int __fastcall sub_00511970_DDrawGetBackBuffer(unsigned char* pBuffer)
         unsigned char* pDst = pDstRow;
         for (int x = 0; x < gnScreenWidth_007C9138; ++x)
         {
-            const T004F51E0* pEntry = &gaDDrawPalette_007C8CC8[*pSrc];
+            const tagPALETTEENTRY* pEntry = &gaDDrawPalette_007C8CC8[*pSrc];
             *pDst = pEntry->peRed;
             ++pDst;
             *pDst = pEntry->peGreen;

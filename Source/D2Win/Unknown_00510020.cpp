@@ -3,7 +3,6 @@
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct T004013C0;
-struct T004F51E0;
 
 struct T004013C0
 {
@@ -21,17 +20,9 @@ int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, uns
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268
 extern unsigned char gabDDrawDeviceGuid_00881144[16]; // 0x00881144
 
-struct T004F51E0
-{
-    unsigned char peRed;
-    unsigned char peGreen;
-    unsigned char peBlue;
-    unsigned char peFlags;
-};
-
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
 void __fastcall sub_006BE190_BuildGammaTable(int nGamma, void* pTable, double dScale, int nArg, int nEntries, int nMask); // 0x006BE190
-extern T004F51E0 gaDDrawPalette_007C8CC8[256]; // 0x007C8CC8
+extern tagPALETTEENTRY gaDDrawPalette_007C8CC8[256]; // 0x007C8CC8
 
 unsigned long gdwVideoFlags_00881140; // 0x00881140
 
@@ -72,12 +63,12 @@ int __fastcall sub_00510020_DDrawDetect(void* hInstance)
     return 1;
 }
 
-T004F51E0 gaDDrawSavedPalette_00880D40[256]; // 0x00880D40
+tagPALETTEENTRY gaDDrawSavedPalette_00880D40[256]; // 0x00880D40
 
 int gbPaletteDirty_00881298; // 0x00881298
 
 // 0x00510160
-void __fastcall sub_00510160_DDrawSetPalette(T004F51E0* pPalette)
+void __fastcall sub_00510160_DDrawSetPalette(tagPALETTEENTRY* pPalette)
 {
     memcpy(gaDDrawSavedPalette_00880D40, pPalette, sizeof(gaDDrawSavedPalette_00880D40));
 
@@ -94,3 +85,4 @@ void __fastcall sub_00510160_DDrawSetPalette(T004F51E0* pPalette)
 }
 
 #include "gen/data/Source/D2Win/Unknown_00510020.inc"
+#include "D2Win32Types.h"
