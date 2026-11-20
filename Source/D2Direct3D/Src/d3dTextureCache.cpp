@@ -1,16 +1,9 @@
 #include "D2Direct3D.h"
 
 struct D2SurfaceStrc;
-struct D2D3DObjVtblStrc;
-struct D2TexOwnerSlotStrc;
-struct D2TexPoolEntryStrc;
-struct D2TexPoolStrc;
 struct D2SurfaceVtableStrc;
 struct D2TextureEntryStrc;
 struct D2TextureSetStrc;
-struct D2Node006BA660Strc;
-struct D2List006BA660Strc;
-struct D2D3DObjStrc;
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -27,22 +20,6 @@ struct D2TextureEntryStrc { char unknown[16]; D2SurfaceStrc* surface; char tail[
 struct D2TextureSetStrc { int count; char unknown[20]; D2TextureEntryStrc* entries; };
 
 void __fastcall sub_006B20E0_DDrawLogError(const char*, int); // 0x006B20E0
-
-struct D2Node006BA660Strc
-{
-    unsigned char unk_00[0x18];
-    D2Node006BA660Strc* pNext18;
-    D2Node006BA660Strc* pPrev1C;
-};
-
-struct D2List006BA660Strc
-{
-    unsigned char unk_00[8];
-    D2Node006BA660Strc* pHead8;
-    D2Node006BA660Strc* pTailC;
-    unsigned char unk_10[8];
-    D2Node006BA660Strc* pNodes18;
-};
 
 // 0x006BA420
 int __fastcall sub_006BA420_Init(D2TexPoolStrc* pPool, int nBase, int nLimit, int nWidth, int nHeight)
@@ -183,41 +160,41 @@ static D2TexPoolEntryStrc* sub_006BA630_PopSpare(D2TexPoolStrc* pPool)
 }
 
 // 0x006BA660
-D2Node006BA660Strc* __fastcall sub_006BA660_Unlink(D2List006BA660Strc* pList, int nIndex)
+D2TexPoolEntryStrc* __fastcall sub_006BA660_Unlink(D2TexPoolStrc* pList, int nIndex)
 {
-    D2Node006BA660Strc* pHead = pList->pHead8;
+    D2TexPoolEntryStrc* pHead = pList->pInUseFirst;
     if (!pHead)
     {
         return 0;
     }
-    D2Node006BA660Strc* pNode = &pList->pNodes18[nIndex];
+    D2TexPoolEntryStrc* pNode = &pList->pEntries[nIndex];
     if (pNode == pHead)
     {
-        pList->pHead8 = pHead->pNext18;
-        if (pList->pHead8)
+        pList->pInUseFirst = pHead->pNext;
+        if (pList->pInUseFirst)
         {
-            pList->pHead8->pPrev1C = 0;
+            pList->pInUseFirst->pPrev = 0;
         }
         else
         {
-            pList->pTailC = 0;
+            pList->pInUseLast = 0;
         }
-        pHead->pNext18 = 0;
-        pHead->pPrev1C = 0;
+        pHead->pNext = 0;
+        pHead->pPrev = 0;
         return pHead;
     }
-    if (pNode == pList->pTailC)
+    if (pNode == pList->pInUseLast)
     {
-        pList->pTailC = pList->pTailC->pPrev1C;
-        pList->pTailC->pNext18 = 0;
+        pList->pInUseLast = pList->pInUseLast->pPrev;
+        pList->pInUseLast->pNext = 0;
     }
     else
     {
-        pNode->pPrev1C->pNext18 = pNode->pNext18;
-        pNode->pNext18->pPrev1C = pNode->pPrev1C;
+        pNode->pPrev->pNext = pNode->pNext;
+        pNode->pNext->pPrev = pNode->pPrev;
     }
-    pNode->pNext18 = 0;
-    pNode->pPrev1C = 0;
+    pNode->pNext = 0;
+    pNode->pPrev = 0;
     return pNode;
 }
 

@@ -5,6 +5,8 @@
 #include "D2Structs.h"
 
 struct D2CelContextStrc;
+struct D2GlideTileStrc;
+struct D2TileLibraryEntryStrc;
 struct D2TLVertexStrc;
 struct D2QuadRectStrc;
 struct D2SpriteInfoStrc;
@@ -14,6 +16,15 @@ struct D2D3DTextureVtbl;
 struct D2D3DTextureStrc;
 struct D2D3DDeviceVtbl;
 struct D2D3DDeviceStrc;
+struct D2D3DObjVtblStrc;
+struct D2D3DObjStrc;
+struct D2TexOwnerSlotStrc;
+struct D2TexPoolEntryStrc;
+struct D2TexPoolStrc;
+struct D2FloorPoolEntryStrc;
+struct D2FloorPoolStrc;
+struct D2SubtilePoolEntryStrc;
+struct D2SubtilePoolStrc;
 
 struct D2TLVertexStrc
 {
@@ -131,6 +142,89 @@ struct D2D3DDeviceStrc
     D2D3DDeviceVtbl* lpVtbl; // 0x00
 };
 
+struct D2D3DObjVtblStrc
+{
+    void* pQueryInterface; // 0x00
+    void* pAddRef; // 0x04
+    unsigned long (__stdcall* pRelease)(D2D3DObjStrc* pObj); // 0x08
+};
+
+struct D2D3DObjStrc
+{
+    D2D3DObjVtblStrc* pVtbl; // 0x00
+};
+
+struct D2TexOwnerSlotStrc
+{
+    void* pTexture; // 0x00
+    void* pInfo; // 0x04
+};
+
+struct D2TexPoolEntryStrc
+{
+    int nIndex; // 0x00
+    D2TexOwnerSlotStrc* pOwnerSlots; // 0x04
+    int nOwnerSlot; // 0x08
+    int unk0x0C; // 0x0C
+    D2D3DObjStrc* pTexture; // 0x10
+    D2D3DObjStrc* pSurface; // 0x14
+    D2TexPoolEntryStrc* pNext; // 0x18
+    D2TexPoolEntryStrc* pPrev; // 0x1C
+};
+
+struct D2TexPoolStrc
+{
+    int nCapacity; // 0x00
+    int nInUse; // 0x04
+    D2TexPoolEntryStrc* pInUseFirst; // 0x08
+    D2TexPoolEntryStrc* pInUseLast; // 0x0C
+    D2TexPoolEntryStrc* pSpareFirst; // 0x10
+    D2TexPoolEntryStrc* pSpareLast; // 0x14
+    D2TexPoolEntryStrc* pEntries; // 0x18
+};
+
+struct D2FloorPoolEntryStrc
+{
+    int nIndex; // 0x00
+    D2TileLibraryEntryStrc* pOwner; // 0x04
+    D2D3DObjStrc* pTexture; // 0x08
+    D2D3DObjStrc* pSurface; // 0x0C
+    D2FloorPoolEntryStrc* pNext; // 0x10
+    D2FloorPoolEntryStrc* pPrev; // 0x14
+};
+
+struct D2FloorPoolStrc
+{
+    int nCapacity; // 0x00
+    int nInUse; // 0x04
+    D2FloorPoolEntryStrc* pInUseFirst; // 0x08
+    D2FloorPoolEntryStrc* pInUseLast; // 0x0C
+    D2FloorPoolEntryStrc* pSpareFirst; // 0x10
+    D2FloorPoolEntryStrc* pSpareLast; // 0x14
+    D2FloorPoolEntryStrc* pEntries; // 0x18
+};
+
+struct D2SubtilePoolEntryStrc
+{
+    int nIndex; // 0x00
+    D2GlideTileStrc* pOwner; // 0x04
+    D2D3DObjStrc* pTexture; // 0x08
+    D2D3DObjStrc* pSurface; // 0x0C
+    D2SubtilePoolEntryStrc* pNext; // 0x10
+    D2SubtilePoolEntryStrc* pPrev; // 0x14
+};
+
+struct D2SubtilePoolStrc
+{
+    int nCapacity; // 0x00
+    int nInUse; // 0x04
+    D2SubtilePoolEntryStrc* pInUseFirst; // 0x08
+    D2SubtilePoolEntryStrc* pInUseLast; // 0x0C
+    D2SubtilePoolEntryStrc* pSpareFirst; // 0x10
+    D2SubtilePoolEntryStrc* pSpareLast; // 0x14
+    D2SubtilePoolEntryStrc* pEntries; // 0x18
+};
+
 D2_CHECK_SIZE(D2TLVertexStrc, 0x20);
 D2_CHECK_SIZE(D2QuadRectStrc, 0x10);
 D2_CHECK_SIZE(D2SpriteInfoStrc, 0x30);
@@ -140,3 +234,12 @@ D2_CHECK_SIZE(D2D3DTextureVtbl, 0x18);
 D2_CHECK_SIZE(D2D3DTextureStrc, 0x4);
 D2_CHECK_SIZE(D2D3DDeviceVtbl, 0x9C);
 D2_CHECK_SIZE(D2D3DDeviceStrc, 0x4);
+D2_CHECK_SIZE(D2D3DObjVtblStrc, 0xC);
+D2_CHECK_SIZE(D2D3DObjStrc, 0x4);
+D2_CHECK_SIZE(D2TexOwnerSlotStrc, 0x8);
+D2_CHECK_SIZE(D2TexPoolEntryStrc, 0x20);
+D2_CHECK_SIZE(D2TexPoolStrc, 0x1C);
+D2_CHECK_SIZE(D2FloorPoolEntryStrc, 0x18);
+D2_CHECK_SIZE(D2FloorPoolStrc, 0x1C);
+D2_CHECK_SIZE(D2SubtilePoolEntryStrc, 0x18);
+D2_CHECK_SIZE(D2SubtilePoolStrc, 0x1C);

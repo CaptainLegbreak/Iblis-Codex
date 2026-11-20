@@ -1,10 +1,9 @@
 #pragma once
 
 #include "D2GfxTypes.h"
+#include "D2D3DTypes.h"
 
 struct D2CriticalSectionStrc;
-struct D2D3DDeviceStrc;
-struct D2D3DObjStrc;
 
 extern "C" __declspec(dllimport) unsigned int __stdcall SmackDoFrame(D2SmackStrc* smack); // 0x006CC5FC
 extern "C" __declspec(dllimport) unsigned int __stdcall SmackWait(D2SmackStrc* smack); // 0x006CC5F8
@@ -43,79 +42,11 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 
 struct D2CriticalSectionStrc { void* pDebugInfo; long nLockCount; long nRecursionCount; void* hOwningThread; void* hLockSemaphore; unsigned long nSpinCount; };
 
-struct D2D3DObjVtblStrc
-{
-	void* pQueryInterface;
-	void* pAddRef;
-	unsigned long (__stdcall* pRelease)(D2D3DObjStrc* pObj);
-};
-
-struct D2D3DObjStrc
-{
-	D2D3DObjVtblStrc* pVtbl;
-};
-
-struct D2FloorPoolOwnerStrc
-{
-	char unk0x00[0x42];
-	short nPoolId;
-};
-
-struct D2FloorPoolEntryStrc
-{
-	int nIndex;
-	D2FloorPoolOwnerStrc* pOwner;
-	D2D3DObjStrc* pTexture;
-	D2D3DObjStrc* pSurface;
-	D2FloorPoolEntryStrc* pNext;
-	D2FloorPoolEntryStrc* pPrev;
-};
-
-struct D2FloorPoolStrc
-{
-	int nCapacity;
-	int nInUse;
-	D2FloorPoolEntryStrc* pInUseFirst;
-	D2FloorPoolEntryStrc* pInUseLast;
-	D2FloorPoolEntryStrc* pSpareFirst;
-	D2FloorPoolEntryStrc* pSpareLast;
-	D2FloorPoolEntryStrc* pEntries;
-};
-
 struct D2RectStrc
 {
     int nLeft;
     int nTop;
     int nRight;
     int nBottom;
-};
-
-struct D2TexOwnerSlotStrc
-{
-	void* pTexture;
-	void* pInfo;
-};
-
-struct D2TexPoolEntryStrc
-{
-	int nIndex;
-	D2TexOwnerSlotStrc* pOwnerSlots;
-	int nOwnerSlot;
-	int unk0x0C;
-	D2D3DObjStrc* pTexture;
-	D2D3DObjStrc* pSurface;
-	D2TexPoolEntryStrc* pNext;
-	D2TexPoolEntryStrc* pPrev;
-};
-
-struct D2TexPoolStrc
-{
-	int nCapacity;
-	int nInUse;
-	D2TexPoolEntryStrc* pInUseFirst;
-	D2TexPoolEntryStrc* pInUseLast;
-	D2TexPoolEntryStrc* pSpareFirst;
-	D2TexPoolEntryStrc* pSpareLast;
-	D2TexPoolEntryStrc* pEntries;
 };
 
