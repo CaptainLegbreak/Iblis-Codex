@@ -4,7 +4,7 @@
 struct D2CompositeUnitStrc;
 struct D2NamedValueStrc;
 struct Unicode;
-struct T0043E860;
+struct D2MultiChannelUserStrc;
 
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 extern "C" int __cdecl strcmp(const char* szLeft, const char* szRight);
@@ -18,7 +18,8 @@ struct D2NamedValueStrc
 
 const char* __stdcall SStrChr(const char* szString, char nChar); // 0x00413490
 
-struct T0043E860
+
+struct D2MultiChannelUserStrc
 {
     int nUnk0x00;
     char szName[0x32];
@@ -30,7 +31,7 @@ struct T0043E860
     int unk0xA4;
     int nValue0xA8;
     int unk0xAC;
-    T0043E860* pNext;
+    D2MultiChannelUserStrc* pNext;
 };
 
 const Unicode* __fastcall sub_004FDD90_GetEditText(D2WinControlStrc* pControl); // 0x004FDD90
@@ -95,7 +96,7 @@ D2WinControlStrc* gpChatControl_0077B068; // 0x0077B068
 
 D2WinControlStrc* gpChatControl_0077B06C; // 0x0077B06C
 
-T0043E860* gpSelectedChannelUser_00798F48; // 0x00798F48
+D2MultiChannelUserStrc* gpSelectedChannelUser_00798F48; // 0x00798F48
 
 // 0x004477A0
 void __cdecl sub_004477A0_Refresh()

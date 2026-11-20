@@ -1,4 +1,5 @@
 #include "D2Multi.h"
+#include "D2StormTypes.h"
 #include "D2Unicode.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -134,6 +135,7 @@ extern D2CelFileStrc* gpCellFile_0077BD4C; // 0x0077BD4C
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
+
 struct D2ChatMessageStrc
 {
     char* szText;
@@ -204,18 +206,6 @@ extern char gszLastWhisperer_0077B0D0[]; // 0x0077B0D0
 extern D2LaunchFuncsStrc* gpLaunchFuncs_0077B09C; // 0x0077B09C
 extern unsigned char gnSelectModeA_0070CD62; // 0x0070CD62
 extern int gnGlobal_0077B0A0; // 0x0077B0A0
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    unsigned int lParam;
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 extern "C" int __cdecl strcmp(const char*, const char*);

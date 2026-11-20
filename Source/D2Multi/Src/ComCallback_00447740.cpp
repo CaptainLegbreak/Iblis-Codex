@@ -1,12 +1,13 @@
 #include "D2Multi.h"
 #include "D2MultiTypes.h"
+#include "D2MultiTypes.h"
 #include "D2Unicode.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2LaunchMsgStrc;
 struct D2LaunchFuncsStrc;
 struct Unicode;
-struct T0043E860;
+struct D2MultiChannelUserStrc;
 
 struct D2LaunchMsgStrc
 {
@@ -37,32 +38,7 @@ extern D2LaunchMsgHandler gpfnMsgHandlers_0070EC20[]; // 0x0070EC20
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-struct T0043E860
-{
-    unsigned int dwCode;
-    char szName[0x32];
-    char szText[0x10];
-    char szRealm[0x20];
-    unsigned char aComponents[16];
-    unsigned char aColors[16];
-    unsigned char nClass;
-    char unk0x087[0x1];
-    unsigned short wLevel;
-    unsigned short wFlags;
-    unsigned short wW8C;
-    char unk0x08E[0x2];
-    unsigned int dwFlags;
-    unsigned char nB94;
-    unsigned char nB95;
-    unsigned char nB96;
-    char szS97[5];
-    D2CompositeStrc* f_9C;
-    int bFlagA0;
-    int bFlagA4;
-    int bFlagA8;
-    int bFlagAC;
-    struct T0043E860* pNext;
-};
+
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 extern "C" int __cdecl rand(); // 0x00687461
@@ -77,12 +53,12 @@ D2CompositeStrc* __stdcall sub_005066C0(int nA, int nMode, unsigned char* pCompo
 extern "C" const char szLaunchFile_006D5810[]; // 0x006D5810
 extern "C" const char gszChannelCountFormat_006D5994[]; // 0x006D5994
 extern char gData_00798D30[]; // 0x00798D30
-extern T0043E860* gpChannelUsers_00798F34; // 0x00798F34
+extern D2MultiChannelUserStrc* gpChannelUsers_00798F34; // 0x00798F34
 extern int gnChannelLines_00798F40; // 0x00798F40
 extern int gbRandSeeded_00798F54; // 0x00798F54
-static __declspec(noinline) unsigned char sub_00446D90_ParseStatString(T0043E860* pUser, unsigned int nFlags, const unsigned char* pStat);
-static __declspec(noinline) void sub_004471B0_UpdateUserText(T0043E860* pUser);
-static __declspec(noinline) void __fastcall sub_00447FD0_UpdateUser(T0043E860* pUser, unsigned int nFlags, const char* szName, const unsigned char* pStat);
+static __declspec(noinline) unsigned char sub_00446D90_ParseStatString(D2MultiChannelUserStrc* pUser, unsigned int nFlags, const unsigned char* pStat);
+static __declspec(noinline) void sub_004471B0_UpdateUserText(D2MultiChannelUserStrc* pUser);
+static __declspec(noinline) void __fastcall sub_00447FD0_UpdateUser(D2MultiChannelUserStrc* pUser, unsigned int nFlags, const char* szName, const unsigned char* pStat);
 
 static __declspec(noinline) int sub_00446B70_PlayVideoMessage(D2LaunchMsgStrc* pMsg)
 {
@@ -181,7 +157,7 @@ static int CHANNEL_IsMaleClass(int nClass)
     return 1;
 }
 
-static unsigned char sub_00446D90_ParseStatString(T0043E860* pUser, unsigned int nFlags, const unsigned char* pStat)
+static unsigned char sub_00446D90_ParseStatString(D2MultiChannelUserStrc* pUser, unsigned int nFlags, const unsigned char* pStat)
 {
     unsigned char nResult = 7;
     int bValid = 0;
@@ -413,7 +389,7 @@ LABEL_DEFAULT_LOOK:
     return nResult;
 }
 
-static void sub_004471B0_UpdateUserText(T0043E860* pUser)
+static void sub_004471B0_UpdateUserText(D2MultiChannelUserStrc* pUser)
 {
     Unicode wszName[51];
     Unicode wszAccount[17];
@@ -471,11 +447,11 @@ static void sub_004471B0_UpdateUserText(T0043E860* pUser)
         nLevel = pUser->wLevel;
     }
 
-    sub_00504270_SetCompositeText(pUser->f_9C, wszName, wszAccount, wszS97, wszRealm, nLevel, dwCode);
+    sub_00504270_SetCompositeText(pUser->pComposite, wszName, wszAccount, wszS97, wszRealm, nLevel, dwCode);
 }
 
 // 0x00447FD0
-static void __fastcall sub_00447FD0_UpdateUser(T0043E860* pUser, unsigned int nFlags, const char* szName, const unsigned char* pStat)
+static void __fastcall sub_00447FD0_UpdateUser(D2MultiChannelUserStrc* pUser, unsigned int nFlags, const char* szName, const unsigned char* pStat)
 {
     pUser->dwFlags = nFlags;
     const unsigned char nResult = sub_00446D90_ParseStatString(pUser, nFlags, pStat);
@@ -487,13 +463,13 @@ static void __fastcall sub_00447FD0_UpdateUser(T0043E860* pUser, unsigned int nF
         nMode = 1;
     }
 
-    sub_00504F80_UpdateComposite(pUser->f_9C, nResult, nMode, pUser->aComponents, pUser->aColors);
+    sub_00504F80_UpdateComposite(pUser->pComposite, nResult, nMode, pUser->aComponents, pUser->aColors);
     sub_004471B0_UpdateUserText(pUser);
     sub_00447BB0_Refresh();
 }
 
 // calling-convention shim (not game code)
-void __fastcall Caller_00447FD0(T0043E860* pUser, unsigned int nFlags, const char* szName, const unsigned char* pStat)
+void __fastcall Caller_00447FD0(D2MultiChannelUserStrc* pUser, unsigned int nFlags, const char* szName, const unsigned char* pStat)
 {
     sub_00447FD0_UpdateUser(pUser, nFlags, szName, pStat);
 }

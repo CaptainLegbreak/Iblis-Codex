@@ -18,6 +18,9 @@ struct D2LaunchFuncsStrc;
 struct D2WinControlInitStrc;
 struct D2LaunchRecordStrc;
 struct D2FuncTable_0077ABF0Strc;
+struct D2CompositeStrc;
+struct D2MultiChannelUserStrc;
+struct D2LaunchGameRecStrc;
 
 #pragma pack(push, 1)
 struct D2LaunchCharInfoStrc
@@ -243,6 +246,46 @@ struct D2FuncTable_0077ABF0Strc
     int (__fastcall* pfnSlotC0)(char*, char*, char*); // 0xC0
 };
 
+struct D2MultiChannelUserStrc
+{
+    unsigned int dwCode; // 0x00
+    char szName[50]; // 0x04
+    char szText[16]; // 0x36
+    char szRealm[32]; // 0x46
+    unsigned char aComponents[16]; // 0x66
+    unsigned char aColors[16]; // 0x76
+    unsigned char nClass; // 0x86
+    unsigned char unk0x87; // 0x87
+    unsigned short wLevel; // 0x88
+    unsigned short wFlags; // 0x8A
+    unsigned short wW8C; // 0x8C
+    unsigned short unk0x8E; // 0x8E
+    unsigned int dwFlags; // 0x90
+    unsigned char nB94; // 0x94
+    unsigned char nB95; // 0x95
+    unsigned char nB96; // 0x96
+    char szS97[5]; // 0x97
+    D2CompositeStrc* pComposite; // 0x9C
+    int bFlagA0; // 0xA0
+    int bFlagA4; // 0xA4
+    int bFlagA8; // 0xA8
+    int bFlagAC; // 0xAC
+    D2MultiChannelUserStrc* pNext; // 0xB0
+};
+
+struct D2LaunchGameRecStrc
+{
+    unsigned char unk0x00; // 0x00
+    char szName[48]; // 0x01
+    char wValue0x31[2]; // 0x31
+    char wValue0x33[2]; // 0x33
+    unsigned char unk0x35; // 0x35
+    unsigned char unk0x36; // 0x36
+    char nAddress0x37[4]; // 0x37
+};
+
+D2_CHECK_SIZE(D2MultiChannelUserStrc, 0xB4);
+D2_CHECK_SIZE(D2LaunchGameRecStrc, 0x3B);
 D2_CHECK_SIZE(D2LaunchCharInfoStrc, 0x3CD);
 D2_CHECK_SIZE(D2LaunchFuncsStrc, 0xB0);
 D2_CHECK_SIZE(D2WinControlInitStrc, 0x30);

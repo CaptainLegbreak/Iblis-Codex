@@ -1,4 +1,5 @@
 #include "D2Launch.h"
+#include "D2StormTypes.h"
 
 struct SMSGHANDLER_PARAMS;
 
@@ -11,17 +12,6 @@ extern "C" long __cdecl _time32(long* pTime); // 0x006850E6
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 void __fastcall sub_A15_UseText(const Unicode* pText);
 
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    unsigned int lParam;
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
 void __cdecl sub_0042F3F0_DestroyControls(); // 0x0042F3F0
 D2WinControlStrc* __fastcall sub_0042F3A0_CreateFromTemplate(int nTemplateId); // 0x0042F3A0
 void __cdecl sub_00439CC0_CreateControls(); // 0x00439CC0

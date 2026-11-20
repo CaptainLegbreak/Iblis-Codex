@@ -1,5 +1,6 @@
 #include "D2Launch.h"
 #include "D2MultiTypes.h"
+#include "D2StormTypes.h"
 struct SMSGHANDLER_PARAMS;
 struct D2LaunchControlTemplateStrc;
 struct D2LaunchRecord3Strc;
@@ -8,18 +9,6 @@ struct D2LaunchRecordStrc;
 struct Unicode
 {
     unsigned short wChar;
-};
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    unsigned int lParam;
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
 };
 
 struct D2LaunchRecord3Strc
