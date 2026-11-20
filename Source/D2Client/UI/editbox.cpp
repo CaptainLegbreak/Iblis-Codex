@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2CelContext.h"
 #include "D2Unicode.h"
+#include "D2StormTypes.h"
 
 struct Unicode;
 struct D2ButtonStringStrc;
@@ -12,34 +13,6 @@ class EditBoxWrapper;
 class SpinnerImplementation;
 class D2InterfaceStrc;
 class D2WrapperStrc;
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    union
-    {
-        struct
-        {
-            unsigned short nWParamLo;
-            short nWParamHi;
-        };
-        unsigned int wParam;
-    };
-    union
-    {
-        struct
-        {
-            unsigned short nXpos;
-            unsigned short nYpos;
-        };
-        unsigned int lParam;
-    };
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x00412650
 

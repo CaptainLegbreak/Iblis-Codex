@@ -3,6 +3,7 @@
 #include "D2LevelTxt.h"
 #include "D2ClientUi.h"
 #include "D2Unicode.h"
+#include "D2StormTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -240,34 +241,6 @@ void* __stdcall sub_0052FC20(int nArg); // 0x0052FC20
 extern unsigned short gwMcpRequestId_00798F8C; // 0x00798F8C
 extern D2ClientCharRecordStrc* gpCharRecord_007A0438; // 0x007A0438
 extern int gnQServerThreshold_0070F560; // 0x0070F560
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    union
-    {
-        struct
-        {
-            unsigned short nWParamLo;
-            short nWParamHi;
-        };
-        unsigned int wParam;
-    };
-    union
-    {
-        struct
-        {
-            unsigned short nXpos;
-            unsigned short nYpos;
-        };
-        unsigned int lParam;
-    };
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
 
 struct D2CmdLineArgStrc
 {
@@ -1833,7 +1806,7 @@ void __stdcall sub_0044C370_ClickMapMsgMode5(SMSGHANDLER_PARAMS* pMsg)
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         if (pPlayer && pPlayer->dwUnitType == 0)
         {
-            gdwGlobal_007A0654 = sub_00462D00(5, pMsg->nXpos, pMsg->nYpos, pMsg->nWParamLo);
+            gdwGlobal_007A0654 = sub_00462D00(5, pMsg->nXpos, pMsg->nYpos, pMsg->wParamLow);
         }
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
@@ -1846,7 +1819,7 @@ void __stdcall sub_0044C400_WheelMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     if (gdwGlobal_007A061C)
     {
-        gdwGlobal_007A06F8 += pMsg->nWParamHi;
+        gdwGlobal_007A06F8 += (short)pMsg->wParamHigh;
         if (abs(gdwGlobal_007A06F8) >= 120)
         {
             sub_004693B0(gdwGlobal_007A06F8 / 120);
@@ -1887,7 +1860,7 @@ void __stdcall sub_0044C4D0_HiWordDispatchMsgA(SMSGHANDLER_PARAMS* pMsg)
 {
     if (gdwGlobal_007A061C)
     {
-        unsigned short nCode = pMsg->nWParamHi;
+        unsigned short nCode = pMsg->wParamHigh;
         if (nCode == 1)
             sub_004692B0();
         else if (nCode == 2)
@@ -1903,7 +1876,7 @@ void __stdcall sub_0044C520_HiWordDispatchMsgB(SMSGHANDLER_PARAMS* pMsg)
 {
     if (gdwGlobal_007A061C)
     {
-        unsigned short nCode = pMsg->nWParamHi;
+        unsigned short nCode = pMsg->wParamHigh;
         if (nCode == 1)
             sub_004692F0();
         else if (nCode == 2)
@@ -1917,7 +1890,7 @@ void __stdcall sub_0044C520_HiWordDispatchMsgB(SMSGHANDLER_PARAMS* pMsg)
 // 0x0044C570
 void __stdcall sub_0044C570_SysCommandMsg(SMSGHANDLER_PARAMS* pMsg)
 {
-    unsigned short nCommand = pMsg->nWParamLo & 0xFFF0;
+    unsigned short nCommand = pMsg->wParamLow & 0xFFF0;
     if (nCommand == 0xF130 || nCommand == 0xF100 || (nCommand == 0xF010 && WINDOW_IsFullScreen()))
     {
         pMsg->bReturn = 1;

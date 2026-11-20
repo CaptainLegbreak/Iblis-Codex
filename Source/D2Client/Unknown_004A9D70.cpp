@@ -5,6 +5,7 @@
 #include "D2CelContext.h"
 #include "D2Records.h"
 #include "D2Unicode.h"
+#include "D2StormTypes.h"
 
 #define TEXT(y, id) sub_004AAAA0_DrawSkillTreeText(D2LANG_GetStringFromTblIndex(id), y)
 #define BITARRAY_CHECK(pBytes, nBit) ((pBytes)[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
@@ -12,7 +13,6 @@
 struct Unicode;
 struct D2SkillsTxt;
 struct D2SkillDescTxt;
-
 
 extern int gnTable_007C04E0[60]; // 0x007C04E0
 extern int gnHotkeySkill_007C06C8[16]; // 0x007C06C8
@@ -38,23 +38,6 @@ extern int gnGlobal_0071146C; // 0x0071146C
 extern unsigned char gbColor_007C0C50; // 0x007C0C50
 void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
-
-
-
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    int wParam;
-    unsigned short nXpos;
-    unsigned short nYpos;
-    unsigned int nNotifyCode;
-    void* pExtra;
-    int bUseResult;
-    int lResult;
-};
-
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

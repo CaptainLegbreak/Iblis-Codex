@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Unicode.h"
+#include "D2StormTypes.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 struct D2ChatTextStrc;
@@ -32,17 +33,6 @@ struct D2ClientNotifyStrc
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 extern "C" size_t __cdecl strlen(const char* sz);
 D2ClientNotifyStrc* __cdecl sub_0044B7B0_GetNotify(); // 0x0044B7B0
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    long lParam;
-    char unk0x10[8];
-    int bUseResult;
-    long lResult;
-};
 
 struct T0044CB60
 {
@@ -577,7 +567,7 @@ void __stdcall sub_0047CA70_OnChatChar(SMSGHANDLER_PARAMS* pMsg)
         break;
     }
     }
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }

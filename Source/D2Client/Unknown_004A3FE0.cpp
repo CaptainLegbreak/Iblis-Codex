@@ -4,6 +4,7 @@
 #include "D2Txt.h"
 #include "D2GameTypes.h"
 #include "D2Unicode.h"
+#include "D2StormTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
@@ -84,29 +85,6 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-struct SMSGHANDLER_PARAMS
-{
-    void* hWindow;
-    unsigned int nMessage;
-    unsigned int wParam;
-    union
-    {
-        struct
-        {
-            unsigned int lParam;
-        };
-        struct
-        {
-            unsigned short nXpos;
-            unsigned short nYpos;
-        };
-    };
-    unsigned int unk0x10;
-    unsigned int unk0x14;
-    int bUseResult;
-    int lResult;
-};
-
 #pragma pack(push, 1)
 struct D2QuestPanelEntryStrc
 {
@@ -174,8 +152,6 @@ extern int gnGlobal_007C0284;
 int __fastcall sub_00469D90(int nA, int nB); // 0x00469D90
 int __stdcall sub_B05_Sink(int nA, int nB);
 
-
-
 int __fastcall sub_0040C720_ReleaseReferences(int nArg); // 0x0040C720
 void __fastcall sub_00469A60_ResetKeyConfig(int nArg); // 0x00469A60
 void __fastcall sub_00478A00(void* pCel); // 0x00478A00
@@ -208,10 +184,6 @@ extern D2MsgHandlerEntryStrc gaMsgHandlers_0072472C[]; // 0x0072472C
 extern D2MsgHandlerEntryStrc gaMsgHandlers_00724738[]; // 0x00724738
 extern D2MsgHandlerEntryStrc gaMsgHandlers_00724780[]; // 0x00724780
 extern D2MsgHandlerEntryStrc gaMsgHandlers_0072478C[]; // 0x0072478C
-
-
-
-
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -428,7 +400,7 @@ void __stdcall sub_004A42A0_OnLeftButtonUp(SMSGHANDLER_PARAMS* pMsg)
         if ((int)(pMsg->lParam >> 16) > gnGlobal_00711470 - 0x31) return;
     }
     sub_0044DA70();
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }
@@ -664,7 +636,7 @@ void __stdcall sub_004A5F10_ButtonUpMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 {
     if (sub_0044DA30())
     {
-        pMsg->bUseResult = 0;
+        pMsg->bReturn = 0;
         return;
     }
 
@@ -673,7 +645,7 @@ void __stdcall sub_004A5F10_ButtonUpMsgHandler(SMSGHANDLER_PARAMS* pMsg)
     sub_004A5E60_Release(nX, nY);
     gnGlobal_007C0280 = 0;
     sub_004A4AD0_Press(nX, nY);
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }

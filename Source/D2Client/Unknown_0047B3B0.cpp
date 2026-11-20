@@ -3,6 +3,7 @@
 #include "D2CelContext.h"
 #include "D2ClientUi.h"
 #include "D2Unicode.h"
+#include "D2StormTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -30,29 +31,6 @@ extern Unicode gawszChatHistory_007BB840[8][257]; // 0x007BB840
 extern Unicode gwszChatLine_007BB638[]; // 0x007BB638
 extern unsigned short gwChatHistoryCount_007BB5E4; // 0x007BB5E4
 extern int gnChatCaret_007BB5E8; // 0x007BB5E8
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    union
-    {
-        struct
-        {
-            unsigned int lParam;
-        };
-        struct
-        {
-            unsigned short nXPos;
-            unsigned short nYPos;
-        };
-    };
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
 
 typedef void(__fastcall* MENUSELECT)(D2MenuItemStrc*, SMSGHANDLER_PARAMS*);
 
@@ -1002,8 +980,8 @@ void __stdcall sub_0047ED90_SlotsClickMsg(SMSGHANDLER_PARAMS* pMsg)
     if (!gdwGlobal_007BC970)
     {
         D2UnitStrc* pUnit = sub_00463DD0_GetPlayerUnit();
-        const int nX = pMsg->nXPos;
-        const int nY = pMsg->nYPos;
+        const int nX = pMsg->nXpos;
+        const int nY = pMsg->nYpos;
         int nOffset = 0;
         for (int i = 0; i < nCount; ++i)
             gnSlotState_007BC8F8[i] = 0;

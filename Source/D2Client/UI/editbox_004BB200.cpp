@@ -1,38 +1,11 @@
 #include "D2Client.h"
 #include "D2Unicode.h"
+#include "D2StormTypes.h"
 
 struct Unicode;
 class UIWidget;
 class EditBoxImplementation;
 class EditBoxWrapper;
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    union
-    {
-        struct
-        {
-            unsigned short nWParamLo;
-            short nWParamHi;
-        };
-        unsigned int wParam;
-    };
-    union
-    {
-        struct
-        {
-            unsigned short nXpos;
-            unsigned short nYpos;
-        };
-        unsigned int lParam;
-    };
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
 
 class UIWidget
 {

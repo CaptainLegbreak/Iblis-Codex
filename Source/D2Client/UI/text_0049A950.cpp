@@ -2,6 +2,7 @@
 #include "D2CelContext.h"
 #include "D2ClientTypes.h"
 #include "D2ClientUi.h"
+#include "D2StormTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct Unicode;
@@ -10,34 +11,6 @@ struct D2TextNodeStrc;
 struct D2TextListStrc;
 struct D2MsgHandlerEntryStrc;
 class ListBoxWrapper;
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    union
-    {
-        int wParam;
-        struct
-        {
-            unsigned short wParamLow;
-            unsigned short wParamHigh;
-        };
-    };
-    union
-    {
-        int lParam;
-        struct
-        {
-            unsigned short nXpos;
-            unsigned short nYpos;
-        };
-    };
-    unsigned int nNotifyCode;
-    void* pExtra;
-    int bUseResult;
-    int lResult;
-};
 
 struct D2ClientListEntryStrc
 {
@@ -167,7 +140,7 @@ void __stdcall sub_0049CEC0_KeyMsgHandler(SMSGHANDLER_PARAMS* pMsg)
     }
 
     sub_00455F20(20, 1, 1);
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }
@@ -221,7 +194,7 @@ void __stdcall sub_0049D4D0_FreeTextList(D2TextListStrc* pList)
 // 0x0049DA10
 void __stdcall sub_0049DA10_EatMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 {
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }
@@ -241,7 +214,7 @@ void __cdecl sub_0049E810_SetPanelRect()
 // 0x0049FE60
 void __stdcall sub_0049FE60_CloseMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 {
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
     sub_00455F20(16, 2, 0);
@@ -254,7 +227,7 @@ void __stdcall sub_004A1770_KeyUpMsgHandler(SMSGHANDLER_PARAMS* pMsg)
     gnGlobal_007BF1FA = 0;
     if (GetTickCount() - gnGlobal_007BF22C < 100)
     {
-        pMsg->bUseResult = 1;
+        pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
         gnGlobal_007BF23F = 0;
@@ -263,7 +236,7 @@ void __stdcall sub_004A1770_KeyUpMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 
     if (sub_004A08C0())
     {
-        pMsg->bUseResult = 1;
+        pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
     }
@@ -311,7 +284,7 @@ int __stdcall sub_004A26B0_OpenPanel(int nArg)
 // 0x004A2840
 void __stdcall sub_004A2840_OpenPanelMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 {
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
     if (gnGlobal_007BF298 == 2)
@@ -336,14 +309,14 @@ void __stdcall sub_004A4110_ButtonUpMsgHandler(SMSGHANDLER_PARAMS* pMsg)
         sub_00455F20(17, 1, 0);
         sub_004A3FE0(0);
         gbGlobal_007BF2B0 = 0;
-        pMsg->bUseResult = 1;
+        pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
         return;
     }
 
     gbGlobal_007BF2B0 = 0;
-    pMsg->bUseResult = 0;
+    pMsg->bReturn = 0;
 }
 
 // 0x004A4780
@@ -358,7 +331,7 @@ void __stdcall sub_004A5A40_PrevEntryMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 {
     if (sub_0044DA30())
     {
-        pMsg->bUseResult = 0;
+        pMsg->bReturn = 0;
         return;
     }
 
@@ -375,7 +348,7 @@ void __stdcall sub_004A5A40_PrevEntryMsgHandler(SMSGHANDLER_PARAMS* pMsg)
         sub_004B9A00(1, 0, 0, 0, 0);
     }
 
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }
@@ -385,7 +358,7 @@ void __stdcall sub_004A5AB0_NextEntryMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 {
     if (sub_0044DA30())
     {
-        pMsg->bUseResult = 0;
+        pMsg->bReturn = 0;
         return;
     }
 
@@ -402,7 +375,7 @@ void __stdcall sub_004A5AB0_NextEntryMsgHandler(SMSGHANDLER_PARAMS* pMsg)
         sub_004B9A00(1, 0, 0, 0, 0);
     }
 
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }
@@ -412,7 +385,7 @@ void __stdcall sub_004A5B30_SetFlagMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 {
     if (sub_0044DA30())
     {
-        pMsg->bUseResult = 0;
+        pMsg->bReturn = 0;
         return;
     }
 
@@ -422,7 +395,7 @@ void __stdcall sub_004A5B30_SetFlagMsgHandler(SMSGHANDLER_PARAMS* pMsg)
         sub_004B9A00(1, 0, 0, 0, 0);
     }
 
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }
@@ -432,7 +405,7 @@ void __stdcall sub_004A5B90_ClearFlagMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 {
     if (sub_0044DA30())
     {
-        pMsg->bUseResult = 0;
+        pMsg->bReturn = 0;
         return;
     }
 
@@ -442,7 +415,7 @@ void __stdcall sub_004A5B90_ClearFlagMsgHandler(SMSGHANDLER_PARAMS* pMsg)
         sub_004B9A00(1, 0, 0, 0, 0);
     }
 
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }
@@ -452,7 +425,7 @@ void __stdcall sub_004A5BF0_SelectEntryMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 {
     if (sub_0044DA30())
     {
-        pMsg->bUseResult = 0;
+        pMsg->bReturn = 0;
         return;
     }
 
@@ -469,7 +442,7 @@ void __stdcall sub_004A5BF0_SelectEntryMsgHandler(SMSGHANDLER_PARAMS* pMsg)
         gnGlobal_00724728 = 1;
     }
 
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }
@@ -493,7 +466,7 @@ void __stdcall sub_004A5F70_ApplyEntryMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 {
     if (sub_0044DA30())
     {
-        pMsg->bUseResult = 0;
+        pMsg->bReturn = 0;
         return;
     }
 
@@ -511,7 +484,7 @@ void __stdcall sub_004A5F70_ApplyEntryMsgHandler(SMSGHANDLER_PARAMS* pMsg)
         gnGlobal_00724728 = 1;
     }
 
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }
@@ -521,12 +494,12 @@ void __stdcall sub_004A6310_ToggleMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 {
     if (sub_0044DA30())
     {
-        pMsg->bUseResult = 0;
+        pMsg->bReturn = 0;
         return;
     }
 
     sub_004A6260(0x100);
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }
@@ -536,7 +509,7 @@ void __stdcall sub_004A6350_CommandMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 {
     if (sub_0044DA30())
     {
-        pMsg->bUseResult = 0;
+        pMsg->bReturn = 0;
         return;
     }
 
@@ -550,7 +523,7 @@ void __stdcall sub_004A6350_CommandMsgHandler(SMSGHANDLER_PARAMS* pMsg)
         break;
     }
 
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }

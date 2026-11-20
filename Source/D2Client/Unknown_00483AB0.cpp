@@ -8,19 +8,7 @@
 #include "D2ClientTypes.h"
 #include "D2ClientUi.h"
 #include "D2Unicode.h"
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    unsigned short nXpos;
-    unsigned short nYpos;
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
+#include "D2StormTypes.h"
 
 #pragma pack(push, 2)
 struct D2NpcButtonStrc

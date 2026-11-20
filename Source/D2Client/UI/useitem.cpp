@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Txt.h"
 #include "D2ClientTypes.h"
+#include "D2StormTypes.h"
 struct D2SelectionRectStrc;
 struct Unicode;
 
@@ -13,30 +14,6 @@ struct D2ListBoxEntryStrc;
 struct ListBoxImplementation;
 struct D2HotspotStrc;
 struct D2MsgHandlerEntryStrc;
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    union
-    {
-        struct
-        {
-            unsigned int wParam;
-        };
-        struct
-        {
-            unsigned char unk_08[0x2];
-            short nWParamHi;
-        };
-    };
-    unsigned short nXpos;
-    unsigned short nYpos;
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
 
 struct UIWidget
 {
@@ -160,9 +137,6 @@ extern int gnGlobal_007C5478; // 0x007C5478
 extern int gnGlobal_007C547C; // 0x007C547C
 extern unsigned long gdwTick_007C5488; // 0x007C5488
 
-
-
-
 extern int gnGlobal_007C5480; // 0x007C5480
 extern int gnGlobal_007C5470; // 0x007C5470
 extern void* gpGlobal_007C5484; // 0x007C5484
@@ -282,12 +256,12 @@ int ListBoxImplementation::sub_004BE7C0_HitTestRows(SMSGHANDLER_PARAMS* pMsg)
 // 0x004BE860
 int ListBoxImplementation::sub_004BE860_WheelMsg(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (pMsg->nWParamHi > 0)
+    if ((short)pMsg->wParamHigh > 0)
     {
         nSelectedIndex = f_180730;
         Slot1C(pMsg);
     }
-    else if (pMsg->nWParamHi < 0)
+    else if ((short)pMsg->wParamHigh < 0)
     {
         nSelectedIndex = f_180730 + *(int*)f_18074E - 1;
         Slot20(pMsg);

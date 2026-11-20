@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2ClientUi.h"
 #include "D2Unicode.h"
+#include "D2StormTypes.h"
 struct D2StoredUnitRecordStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -92,13 +93,6 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" char* __cdecl strcat(char* szDest, const char* szSource);
-
-struct SMSGHANDLER_PARAMS
-{
-    char unk0x00[0x18];
-    int bReturn;
-    int lResult;
-};
 
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 void __cdecl sub_0044DA70(); // 0x0044DA70

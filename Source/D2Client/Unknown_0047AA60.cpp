@@ -1,16 +1,6 @@
 #include "D2Client.h"
 #include "D2Unicode.h"
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    long lParam;
-    char unk0x10[8];
-    int bUseResult;
-    long lResult;
-};
+#include "D2StormTypes.h"
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 extern "C" __declspec(dllimport) int __stdcall MultiByteToWideChar(unsigned int nCodePage, unsigned long dwFlags, const char* szSource, int nSource, wchar_t* wszDest, int nDest); // 0x006CC29C
@@ -97,7 +87,7 @@ void __stdcall sub_0047AA60_OnImeComposition(SMSGHANDLER_PARAMS* pMsg)
         }
         ImmReleaseContext(sub_004F59A0(), hImc);
     }
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }

@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2CelContext.h"
 #include "D2Unicode.h"
+#include "D2StormTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct Unicode;
@@ -8,16 +9,6 @@ struct D2MotionVectorStrc;
 struct D2HotkeySlotTableStrc;
 struct D2TextPanelLineStrc;
 struct D2TextPanelStrc;
-
-struct SMSGHANDLER_PARAMS
-{
-    char pad_00[12];
-    unsigned short nX;
-    unsigned short nY;
-    char pad_10[8];
-    int bReturn;
-    int lResult;
-};
 
 extern int gnGlobal_0071146C; // 0x0071146C
 extern int gnGlobal_00711470; // 0x00711470
@@ -127,8 +118,8 @@ void __stdcall sub_00499500_Click(SMSGHANDLER_PARAMS* pMsg)
         pMsg->bReturn=0;
         return;
     }
-    int nY=pMsg->nY;
-    int nX=pMsg->nX;
+    int nY=pMsg->nYpos;
+    int nX=pMsg->nXpos;
     if (sub_00498DC0_OverlayHit(pMsg))
     {
         gnGlobal_007BEFA4=1;

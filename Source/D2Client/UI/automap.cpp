@@ -2,7 +2,6 @@
 #include "D2Constants.h"
 #include "D2Structs.h"
 #include "D2Path.h"
-#include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
@@ -10,6 +9,7 @@
 #include "D2TxtTables.h"
 #include "D2Unicode.h"
 #include "D2Win32Types.h"
+#include "D2StormTypes.h"
 
 #define OFFSET(T, M) ((unsigned int)&(((T*)0)->M))
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -251,20 +251,6 @@ struct D2AutomapPairStrc
 {
     int nIndex;
     int nValue;
-};
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned short nWParamLo;
-    short nWParamHi;
-    unsigned short nXpos;
-    unsigned short nYpos;
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bUseResult;
-    int lResult;
 };
 
 struct D2UiRectStrc
@@ -1185,13 +1171,13 @@ void __stdcall sub_0045FE30_ButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
         gnGlobal_007A524C = 1;
         gnGlobal_007A5248 = 1;
         sub_004B9A00(4, 0, 0, 0, 0);
-        pMsg->bUseResult = 1;
+        pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
         return;
     }
     sub_0044DA70();
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }
@@ -1208,7 +1194,7 @@ void __stdcall sub_004601F0_TwoButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
         gnGlobal_007A524C = 1;
         gnGlobal_007A5248 = 1;
         sub_004B9A00(4, 0, 0, 0, 0);
-        pMsg->bUseResult = 1;
+        pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
         return;
@@ -1222,13 +1208,13 @@ void __stdcall sub_004601F0_TwoButtonDownMsg(SMSGHANDLER_PARAMS* pMsg)
         gnGlobal_007A5250 = 1;
         gnGlobal_007A5248 = 1;
         sub_004B9A00(4, 0, 0, 0, 0);
-        pMsg->bUseResult = 1;
+        pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
         return;
     }
     sub_0044DA70();
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }
@@ -1258,13 +1244,13 @@ void __stdcall sub_004602E0_TwoButtonUpMsg(SMSGHANDLER_PARAMS* pMsg)
             gnGlobal_007A525C = 1;
             gnGlobal_007A5248 = 0;
         }
-        pMsg->bUseResult = 1;
+        pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
         return;
     }
     sub_0044DA70();
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }

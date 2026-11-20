@@ -2,6 +2,7 @@
 #include "D2LevelTxt.h"
 #include "D2ClientTypes.h"
 #include "D2Unicode.h"
+#include "D2StormTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2ActInfoStrc;
@@ -33,7 +34,6 @@ struct D2CommonStringEntryNodeStrc;
 struct D2CommonStormHashTableAStrc;
 struct D2LoadingTimerStrc;
 
-
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -64,18 +64,6 @@ void __stdcall sub_004F98E0(); // 0x004F98E0
 void __fastcall sub_00468820(int nArg1, int nArg2); // 0x00468820
 void __cdecl sub_004684C0(); // 0x004684C0
 void __fastcall sub_00477980(); // 0x00477980
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    unsigned int lParam;
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
 
 extern int gnGlobal_0071146C; // 0x0071146C
 extern int gnGlobal_00711470; // 0x00711470
@@ -130,7 +118,6 @@ struct D2GSPacketSrv8F
 #pragma pack(pop)
 
 extern D2PongDataStrc gtPongData_007A04D4; // 0x007A04D4
-
 
 typedef char D2MsgHandlerEntrySize[(sizeof(D2MsgHandlerEntryStrc) == 12) ? 1 : -1];
 

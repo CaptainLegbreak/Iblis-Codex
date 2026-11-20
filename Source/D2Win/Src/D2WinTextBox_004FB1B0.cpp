@@ -1,5 +1,6 @@
 #include "D2Win.h"
 #include "D2Win32Types.h"
+#include "D2StormTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define gnMouseY_007D55A8 (gMousePosition_6F8FE234.y)
@@ -21,12 +22,6 @@ struct D2WinControlStrc
 
 void __stdcall D2GFX_SetPalette(tagPALETTEENTRY* pPalette); // 0x004F63D0
 void __fastcall sub_004F9740(D2WinControlStrc* pControl, int bSet); // 0x004F9740
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-};
 
 struct D2WinTextBoxStrc
 {

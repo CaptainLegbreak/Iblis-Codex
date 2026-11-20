@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2Unicode.h"
+#include "D2StormTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
@@ -22,18 +23,6 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-struct SMSGHANDLER_PARAMS
-{
-    void* hWindow;
-    unsigned int nMessage;
-    unsigned int wParam;
-    unsigned int lParam;
-    unsigned int unk0x10;
-    unsigned int unk0x14;
-    int bUseResult;
-    int lResult;
-};
-
 #pragma pack(push, 1)
 struct D2QuestPanelEntryStrc
 {
@@ -52,7 +41,6 @@ struct D2QuestPanelEntryStrc
 
 D2BitBufferStrc* __cdecl sub_004B32D0(); // 0x004B32D0
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
-
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
@@ -152,9 +140,6 @@ extern int gnAutomapHeight_007A521C; // 0x007A521C
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
 static __declspec(noinline) int sub_004A70C0_GetWieldedTypeStatMax(D2UnitStrc* pUnit);
-
-
-
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -368,7 +353,7 @@ void __stdcall sub_004A3E40_OnLeftButtonDown(SMSGHANDLER_PARAMS* pMsg)
             if (nIndex != -1 && nIndex < gnQuestCount_007BF2A0)
             {
                 sub_004A3E40_ClickSlot_Inline(nIndex);
-                pMsg->bUseResult = 1;
+                pMsg->bReturn = 1;
                 pMsg->lResult = 0;
                 sub_00420290_BreakHandlerChain(pMsg);
                 return;
@@ -388,7 +373,7 @@ void __stdcall sub_004A3E40_OnLeftButtonDown(SMSGHANDLER_PARAMS* pMsg)
             }
         }
     }
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }
@@ -432,7 +417,7 @@ void __stdcall sub_004A42A0_OnLeftButtonUp(SMSGHANDLER_PARAMS* pMsg)
         if ((int)(pMsg->lParam >> 16) > gnGlobal_00711470 - 0x31) return;
     }
     sub_0044DA70();
-    pMsg->bUseResult = 1;
+    pMsg->bReturn = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
 }

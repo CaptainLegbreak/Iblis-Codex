@@ -4,25 +4,8 @@
 #include "D2CelContext.h"
 #include "D2Records.h"
 #include "D2Unicode.h"
+#include "D2StormTypes.h"
 struct D2SkillStrc;
-
-
-
-
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    int wParam;
-    unsigned short nXpos;
-    unsigned short nYpos;
-    unsigned int nNotifyCode;
-    void* pExtra;
-    int bUseResult;
-    int lResult;
-};
-
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                              // 0x00681EF0
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szBuffer, const char* szFormat, ...);           // 0x006CC468
@@ -188,7 +171,7 @@ void __stdcall sub_004AB7E0_SkillTreeLButtonDown(SMSGHANDLER_PARAMS* pMsg)
     if (!gnGlobal_007C0C4C)
     {
         sub_0044DA70();
-        pMsg->bUseResult = 1;
+        pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
         return;
@@ -224,12 +207,12 @@ void __stdcall sub_004AB7E0_SkillTreeLButtonDown(SMSGHANDLER_PARAMS* pMsg)
                     }
                 }
 
-                pMsg->bUseResult = 1;
+                pMsg->bReturn = 1;
                 pMsg->lResult = 0;
                 sub_00420290_BreakHandlerChain(pMsg);
             }
 
-            pMsg->bUseResult = 1;
+            pMsg->bReturn = 1;
             pMsg->lResult = 0;
             sub_00420290_BreakHandlerChain(pMsg);
         }
@@ -250,7 +233,7 @@ void __stdcall sub_004AB7E0_SkillTreeLButtonDown(SMSGHANDLER_PARAMS* pMsg)
                 sub_004B9A00(6, 0, 0, 0, 0);
         }
 
-        pMsg->bUseResult = 1;
+        pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
     }
@@ -308,26 +291,26 @@ void __stdcall sub_004AB7E0_SkillTreeLButtonDown(SMSGHANDLER_PARAMS* pMsg)
                 ganSkillState_007C0A38[i] = 1;
                 ganSkillMode_007C0838[i] = 3;
                 sub_00467F20_MsgHandler(pMsg);
-                pMsg->bUseResult = 1;
+                pMsg->bReturn = 1;
                 pMsg->lResult = 0;
                 sub_004B9A00(5, 0, 0, 0, 0);
                 sub_00420290_BreakHandlerChain(pMsg);
                 return;
             }
 
-            pMsg->bUseResult = 1;
+            pMsg->bReturn = 1;
             pMsg->lResult = 0;
             sub_00420290_BreakHandlerChain(pMsg);
             return;
         }
 
-        pMsg->bUseResult = 1;
+        pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
         return;
     }
 
-    pMsg->bUseResult = 0;
+    pMsg->bReturn = 0;
 }
 
 void __stdcall sub_004ABC30_SkillTreeLButtonUp(SMSGHANDLER_PARAMS* pMsg)
@@ -347,7 +330,7 @@ void __stdcall sub_004ABC30_SkillTreeLButtonUp(SMSGHANDLER_PARAMS* pMsg)
     {
 LNotHandled:
         sub_0044DA70();
-        pMsg->bUseResult = 1;
+        pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
         return;
@@ -372,7 +355,7 @@ LNotHandled:
                 sub_00455F20(4, 2, 0);
         }
 
-        pMsg->bUseResult = 1;
+        pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);
         return;
@@ -429,7 +412,7 @@ LNotHandled:
 LDone:
                             ganSkillState_007C0A38[i] = 0;
                             ganSkillMode_007C0838[i] = 0;
-                            pMsg->bUseResult = 1;
+                            pMsg->bReturn = 1;
                             pMsg->lResult = 0;
                             sub_00420290_BreakHandlerChain(pMsg);
                             return;
@@ -448,7 +431,7 @@ LDone:
         goto LNotHandled;
     }
 
-    pMsg->bUseResult = 0;
+    pMsg->bReturn = 0;
 }
 
 void __stdcall sub_004ABF60_DrawSkillIcon(int nSkillId, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nState, int nMode)

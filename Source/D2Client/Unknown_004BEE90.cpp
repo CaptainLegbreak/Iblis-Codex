@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2CelContext.h"
 #include "D2Unicode.h"
+#include "D2StormTypes.h"
 
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
 struct Unicode;
@@ -9,29 +10,6 @@ struct D2ListScrollStrc;
 struct D2ListBoxLineStrc;
 class ListBoxImplementation;
 struct ListBoxView;
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    union
-    {
-        struct
-        {
-            unsigned int lParam;
-        };
-        struct
-        {
-            unsigned char unk_0C[0x2];
-            unsigned short nLParamHi;
-        };
-    };
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
 
 #pragma pack(push, 2)
 struct D2ListScrollStrc
@@ -275,7 +253,7 @@ void ListBoxImplementation::Slot01()
 // 0x004BF2F0
 int ListBoxView::sub_004BF2F0_ClickScrollTrack(SMSGHANDLER_PARAMS* pMsg)
 {
-    const int nMouseY = pMsg->nLParamHi;
+    const int nMouseY = pMsg->nYpos;
     const unsigned short nCount = nEntryCount;
     const int nTop = nY;
 
