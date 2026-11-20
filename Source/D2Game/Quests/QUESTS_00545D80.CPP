@@ -49,7 +49,7 @@ typedef int (__stdcall* FARPROC)();
 struct D2QuestInitTableStrc
 {
     QUESTINIT pfInit;
-    unsigned char nAct;
+    unsigned char bAct;
     unsigned char pad0x05[3];
     unsigned int nVersion;
     unsigned char bNoSetState;
@@ -110,7 +110,7 @@ void __fastcall QUESTS_QuestInit(D2GameStrc* pGame)
     for (i = 0; i < gnQuestInitTableCount_00731888; ++i)
     {
         pCurrent = (D2QuestDataStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2QuestDataStrc), gszQuestsSourceFile, 0x195, 0);
-        QUESTS_InitQuestData(pCurrent, pGame, sgQuestInit[i].nChainNo, sgQuestInit[i].nAct);
+        QUESTS_InitQuestData(pCurrent, pGame, sgQuestInit[i].nChainNo, sgQuestInit[i].bAct);
         pCurrent->pPrev = pPrev;
         pPrev = pCurrent;
 

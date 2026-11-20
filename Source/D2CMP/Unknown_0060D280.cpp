@@ -19,7 +19,7 @@ struct D2CmpSubTileHeaderStrc
 struct D2CmpSubTileRecordStrc
 {
     D2CmpSubTileHeaderStrc tHeader;
-    unsigned char* pData;
+    unsigned char* ptData;
 };
 
 typedef unsigned char (__stdcall* D2CmpMapColorFn)(unsigned char nRed, unsigned char nGreen, unsigned char nBlue);
@@ -76,21 +76,21 @@ void __fastcall sub_0060D5B0_MapSubTileColors(D2CmpSubTileRecordStrc* pDst, cons
 {
     D2_ASSERT(pDst, 0x82);
     D2_ASSERT(pSrc, 0x83);
-    D2_ASSERT(pSrc->pData, 0x84);
+    D2_ASSERT(pSrc->ptData, 0x84);
     pDst->tHeader = pSrc->tHeader;
     pDst->tHeader.nFlags &= ~1;
-    pDst->pData = 0;
+    pDst->ptData = 0;
     pDst->tHeader.nLength = 0;
     int nCount = pSrc->tHeader.nLength / 3;
     D2_ASSERT(nCount, 0x8E);
     D2_ASSERT(nCount < 0x10000, 0x8F);
-    pDst->pData = (unsigned char*)FOG_Alloc(nCount, szSubTileFile, 0x90, 0);
-    D2_ASSERT(pDst->pData, 0x91);
-    memset(pDst->pData, 0, nCount);
+    pDst->ptData = (unsigned char*)FOG_Alloc(nCount, szSubTileFile, 0x90, 0);
+    D2_ASSERT(pDst->ptData, 0x91);
+    memset(pDst->ptData, 0, nCount);
     pDst->tHeader.nFlags |= 1;
     pDst->tHeader.nLength = (unsigned short)nCount;
-    const unsigned char* pIn = pSrc->pData;
-    unsigned char* pOut = pDst->pData;
+    const unsigned char* pIn = pSrc->ptData;
+    unsigned char* pOut = pDst->ptData;
     for (int i = 0; i < nCount; i++)
     {
         unsigned char nIndex = 0;

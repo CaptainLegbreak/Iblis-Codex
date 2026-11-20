@@ -83,7 +83,7 @@ struct D2DrlgRoomStrc
     int nTileWidth;
     int nTileHeight;
     char unk0x44[0x14];
-    D2DrlgLevelStrc* pLevel;
+    D2DrlgLevelStrc* ptDrlgLevel;
 };
 
 struct D2DrlgOutdoorRoomStrc
@@ -198,7 +198,7 @@ static int __stdcall sub_0066FE00_TestSubstGroupTiles(int nX, int nY, D2UnkOutdo
 void __stdcall sub_0066FF50(D2UnkOutdoorStrc2* pOutdoor, D2LvlSubTxt* pLvlSubTxtRecord)
 {
     D2DrlgRoomStrc* pDrlgRoom = pOutdoor->pDrlgRoom;
-    void* pMemPool = pDrlgRoom->pLevel->pDrlg->pMemPool;
+    void* pMemPool = pDrlgRoom->ptDrlgLevel->pDrlg->pMemPool;
     D2DrlgFileStrc* pDrlgFile = pLvlSubTxtRecord->pDrlgFile;
 
     for (int nGroup = 0; nGroup < pDrlgFile->nSubstGroups; ++nGroup)

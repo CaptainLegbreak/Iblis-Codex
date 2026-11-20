@@ -93,8 +93,8 @@ struct D2DrlgRoomStrc
     int nTileXPos;
     int nTileYPos;
     char unk0x3C[0x18];
-    D2DrlgTileGridStrc* pTileGrid;
-    D2DrlgLevelStrc* pLevel;
+    D2DrlgTileGridStrc* ptDrlgTiles;
+    D2DrlgLevelStrc* ptDrlgLevel;
 };
 
 struct D2DrlgOutdoorRoomStrc
@@ -190,7 +190,7 @@ void __stdcall sub_0066FAD0(void* pMemPool, int nX, int nY, D2UnkOutdoorStrc2* p
     const int nBaseX = pSubstGroup->tBox.nPosX + nOffset;
     const int nWallLayers = pLvlSubTxtRecord->pDrlgFile->nWallLayers;
     D2DrlgRoomStrc* pDrlgRoom = pOutdoor->pDrlgRoom;
-    D2DrlgTileGridStrc* pTileGrid = pDrlgRoom->pTileGrid;
+    D2DrlgTileGridStrc* pTileGrid = pDrlgRoom->ptDrlgTiles;
     const int nBaseY = pSubstGroup->tBox.nPosY;
     int nCounter = 0;
     int nFlags = 0;

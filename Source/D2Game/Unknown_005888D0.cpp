@@ -58,7 +58,7 @@ void __fastcall sub_005888D0_SpawnRescuePortal(D2GameStrc* pGame,D2UnitStrc* pPl
       while(pUnit)
       {
        if((!pUnit ? 6 : pUnit->dwUnitType)==1 && pUnit->dwClassId==434 && pUnit->dwAnimMode==12 && sub_006416D0_UnitEdgeDistance(pUnit,pTarget)<15) break;
-       pUnit=pUnit->pRoomNext;
+       pUnit=pUnit->ptRoomNext;
       }
       if(pUnit)
       {

@@ -226,7 +226,7 @@ void __fastcall ITEMS_DeleteInactiveItems(D2GameStrc* pGame, int nAct)
         while (pNext)
         {
             D2UnitStrc* pItem = pNext;
-            pNext = pItem->pRoomNext;
+            pNext = pItem->ptRoomNext;
             if (pItem->dwUnitType == UNIT_ITEM)
             {
                 const int nDeletionFrame = pItem->pItemData->dwActionStamp;

@@ -123,7 +123,7 @@ void __fastcall ACT5Q2_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
             DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRooms, &nRooms);
             for (unsigned int i = 0; i < nRooms; ++i)
             {
-                for (D2UnitStrc* pUnit = ((D2ActiveRoomUnitsStrc*)ppRooms[i])->pUnitFirst; pUnit; pUnit = pUnit->pRoomNext)
+                for (D2UnitStrc* pUnit = ((D2ActiveRoomUnitsStrc*)ppRooms[i])->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
                 {
                     if ((!pUnit ? 6 : pUnit->dwUnitType) == 1 && pUnit->dwClassId == 0x216 && pUnit->dwAnimMode != 12 && pUnit->dwAnimMode != 0
                         && sub_006416D0_GetDistance(pUnit, pQuestArg->pTarget) < 15)

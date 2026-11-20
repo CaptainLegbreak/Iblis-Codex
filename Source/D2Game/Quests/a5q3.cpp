@@ -105,7 +105,7 @@ struct D2QuestDataStrc
     D2Act5Quest3Strc* pQuestDataEx;
     D2QuestGUIDStrc tPlayerGUIDs;
     unsigned char unk_A0[0x40];
-    int nQuestFilter;
+    int eFilter;
 };
 
 struct D2QuestArgStrc
@@ -601,9 +601,9 @@ void __fastcall ACT5Q3_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
                 QUESTS_UpdatePlayerFlags(pQuestArg->pGame, pQuestArg->pPlayer);
                 return;
             }
-            if ((QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, 0) || QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, 15))
+            if ((QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 0) || QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 15))
                 && !pQuestDataEx->unk_102 && QUESTRECORD_GetQuestState(pQuestFlags, 37, 8)
-                && !QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, 7)
+                && !QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 7)
                 && !ITEMS_FindQuestItem(pQuestArg->pGame, pQuestArg->pPlayer, ' 2rt'))
             {
                 if (QUESTS_CreateItem(pQuestArg->pGame, pQuestArg->pPlayer, ' 2rt', 0, 2, 1))
@@ -710,8 +710,8 @@ void __fastcall ACT5Q3_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2Que
 {
     D2GameStrc* pGame = pQuestData->pGame;
     D2BitBufferStrc* pFlags = UNITS_GetPlayerData(pQuestArg->pPlayer)->pQuestData[pGame->nDifficulty];
-    const int bRewardGranted = QUESTRECORD_GetQuestState(pFlags, pQuestData->nQuestFilter, 0);
-    const int bPrimaryGoalDone = QUESTRECORD_GetQuestState(pFlags, pQuestData->nQuestFilter, 13);
+    const int bRewardGranted = QUESTRECORD_GetQuestState(pFlags, pQuestData->eFilter, 0);
+    const int bPrimaryGoalDone = QUESTRECORD_GetQuestState(pFlags, pQuestData->eFilter, 13);
     const int nNpcId = !pQuestArg->pTarget ? -1 : pQuestArg->pTarget->dwClassId;
     D2Act5Quest3Strc* pQuestDataEx = pQuestData->pQuestDataEx;
     if (nNpcId == 527)
@@ -732,14 +732,14 @@ void __fastcall ACT5Q3_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2Que
                 QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, 513, 3);
             return;
         }
-        if ((QUESTRECORD_GetQuestState(pFlags, pQuestData->nQuestFilter, 0) || QUESTRECORD_GetQuestState(pFlags, pQuestData->nQuestFilter, 15))
+        if ((QUESTRECORD_GetQuestState(pFlags, pQuestData->eFilter, 0) || QUESTRECORD_GetQuestState(pFlags, pQuestData->eFilter, 15))
             && !pQuestDataEx->unk_102 && QUESTRECORD_GetQuestState(pFlags, 37, 8)
-            && !QUESTRECORD_GetQuestState(pFlags, pQuestData->nQuestFilter, 7)
+            && !QUESTRECORD_GetQuestState(pFlags, pQuestData->eFilter, 7)
             && !ITEMS_FindQuestItem(pQuestArg->pGame, pQuestArg->pPlayer, 0x20327274)
             && !QUESTRECORD_GetQuestState(pFlags, 37, 8))
             QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, 513, 5);
     }
-    if (QUESTRECORD_GetQuestState(pFlags, pQuestData->nQuestFilter, 1))
+    if (QUESTRECORD_GetQuestState(pFlags, pQuestData->eFilter, 1))
     {
         if (nNpcId == 512 && QUESTRECORD_GetQuestState(pFlags, 37, 9)) return;
         if (nNpcId == 513 && QUESTRECORD_GetQuestState(pFlags, 37, 8)) return;
@@ -816,7 +816,7 @@ void __fastcall ACT5Q3_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
         {
             D2GameStrc* pGame = pQuestArg->pGame;
             D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pQuestArg->pPlayer)->pQuestData[pGame->nDifficulty];
-            if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, 0) == 1 || QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, 1) == 1)
+            if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 0) == 1 || QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 1) == 1)
             {
                 return;
             }

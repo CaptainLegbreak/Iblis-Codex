@@ -8,7 +8,7 @@ typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
 
 struct D2WinControlStrc
 {
-    int nType;
+    int eType;
     D2CelFileStrc* pCellFile;
     unsigned int dwFlags;
     int nImageX;
@@ -109,7 +109,7 @@ int __fastcall IMAGE_Draw(D2WinControlStrc* pControl)
 {
     D2WinImageStrc* pImage = (D2WinImageStrc*)pControl;
 
-    D2_ASSERT(pImage->controlHeader.nType == D2WIN_IMAGE, 0x10F);
+    D2_ASSERT(pImage->controlHeader.eType == D2WIN_IMAGE, 0x10F);
 
     const int nBorderX = pImage->field_4C;
     const int nBorderY = pImage->field_50;

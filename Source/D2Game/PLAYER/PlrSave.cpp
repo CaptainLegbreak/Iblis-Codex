@@ -127,7 +127,7 @@ struct D2GameStrc
     unsigned char unk_D4[0x104C];
     D2UnitStrc* pUnitList[5][128];
     unsigned char unk_1B20[0x20C];
-    D2PartyControlStrc* pPartyControl;
+    D2PartyControlStrc* hParty;
 };
 
 int __fastcall D2GAME_PlaceItem_6FC44410(const char*,int,D2GameStrc*,D2UnitStrc*,int,int,int,int,int,D2InventoryStrc*); // 0x00560200
@@ -148,7 +148,7 @@ struct D2PlayerDataStrc
     int dwTradeState;
     int unk0x54;
     int dwAcceptTradeTick;
-    void* pTrade;
+    void* hTrade;
     D2PlrIntroStrc* pPlayerIntro[NUM_DIFFICULTIES];
     unsigned char unk_6C[0x4];
     int nRightSkillId;
@@ -557,7 +557,7 @@ struct D2ItemSaveStrc
     int nClassId;
     unsigned short nX;
     unsigned short nY;
-    unsigned char nAnimMode;
+    unsigned char bMode;
     unsigned char nPad09;
     unsigned short nPad0A;
     unsigned int dwFlags;
@@ -1199,7 +1199,7 @@ static void __stdcall sub_00532520_AttachPlayerToClient(D2GameStrc* pGame, D2Cli
     UNITS_ChangeAnimMode(pPlayer, PLRMODE_NEUTRAL);
 
     D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
-    pPlayerData->pTrade = 0;
+    pPlayerData->hTrade = 0;
     pPlayerData->dwTradeState = 0;
     pPlayerData->dwAcceptTradeTick = 0;
     pPlayerData->unk0x54 = 0;
@@ -2435,9 +2435,9 @@ void __fastcall PLRTRADE_AddGold(D2UnitStrc* pUnit, int nStat, int nValue)
 // 0x00540510
 void __fastcall PARTY_IteratePartyMembers(D2GameStrc* pGame, unsigned short nPartyId, PartyCallbackFunction pCallback, void* pArgs)
 {
-    D2_ASSERT(pGame->pPartyControl, 210);
+    D2_ASSERT(pGame->hParty, 210);
 
-    for (D2PartyStrc* pParty = pGame->pPartyControl->pParties; pParty; pParty = pParty->pNext)
+    for (D2PartyStrc* pParty = pGame->hParty->pParties; pParty; pParty = pParty->pNext)
     {
         if (pParty->nPartyId == nPartyId)
         {

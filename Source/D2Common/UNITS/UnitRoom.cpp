@@ -87,7 +87,7 @@ static int __stdcall sub_0064BF60_CanAddUnitToRoom(int bAssertIfPresent, D2UnitS
     D2_ASSERT(pRoom && nX >= pRoom->nSubtileX && nX < pRoom->nSubtileX + pRoom->nSubtileWidth
         && nY >= pRoom->nSubtileY && nY < pRoom->nSubtileY + pRoom->nSubtileHeight, 46);
 
-    for (D2UnitStrc* i = pRoom->pUnitFirst; i; i = i->pRoomNext)
+    for (D2UnitStrc* i = pRoom->pUnitFirst; i; i = i->ptRoomNext)
     {
         if (pUnit == i)
         {
@@ -110,7 +110,7 @@ int __stdcall UNITROOM_AddUnitToRoomEx(D2UnitStrc* pUnit, D2ActiveRoomStrc* hRoo
 
     D2UnitStrc** ppUnitFirst = DUNGEON_GetUnitListFromRoom(hRoom);
     D2_ASSERT(ppUnitFirst, 87);
-    pUnit->pRoomNext = *ppUnitFirst;
+    pUnit->ptRoomNext = *ppUnitFirst;
     *ppUnitFirst = pUnit;
 
     UNITROOM_RefreshUnit(pUnit);
@@ -164,7 +164,7 @@ void __stdcall UNITROOM_SortUnitListByTargetY(D2ActiveRoomStrc* pRoom)
 
     if (pUnit)
     {
-        pNextUnit = pUnit->pRoomNext;
+        pNextUnit = pUnit->ptRoomNext;
         do
         {
             bContinue = 0;
@@ -176,24 +176,24 @@ void __stdcall UNITROOM_SortUnitListByTargetY(D2ActiveRoomStrc* pRoom)
                 {
                     if (pPreviousUnit)
                     {
-                        pPreviousUnit->pRoomNext = pNextUnit;
+                        pPreviousUnit->ptRoomNext = pNextUnit;
                     }
                     else
                     {
                         *ppUnitFirst = pNextUnit;
                     }
 
-                    pUnit->pRoomNext = pNextUnit->pRoomNext;
-                    pNextUnit->pRoomNext = pUnit;
+                    pUnit->ptRoomNext = pNextUnit->ptRoomNext;
+                    pNextUnit->ptRoomNext = pUnit;
                     pPreviousUnit = pNextUnit;
-                    pNextUnit = pUnit->pRoomNext;
+                    pNextUnit = pUnit->ptRoomNext;
                     bContinue = 1;
                 }
                 else
                 {
                     pPreviousUnit = pUnit;
                     pUnit = pNextUnit;
-                    pNextUnit = pNextUnit->pRoomNext;
+                    pNextUnit = pNextUnit->ptRoomNext;
                 }
             }
         }
@@ -230,7 +230,7 @@ int __stdcall UNITROOM_IsUnitInRoom(D2ActiveRoomStrc* pRoom, D2UnitStrc* hUnit)
     D2UnitStrc* pRoomUnit = *DUNGEON_GetUnitListFromRoom(pRoom);
     while (pRoomUnit != hUnit)
     {
-        pRoomUnit = pRoomUnit->pRoomNext;
+        pRoomUnit = pRoomUnit->ptRoomNext;
         if (!pRoomUnit)
         {
             return 0;
@@ -316,14 +316,14 @@ void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* hUnit)
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(hUnit);
     if (!pRoom)
     {
-        D2_ASSERT(!hUnit->pRoomNext, 253);
+        D2_ASSERT(!hUnit->ptRoomNext, 253);
         return;
     }
 
     D2UnitStrc** ppRoomUnit = DUNGEON_GetUnitListFromRoom(pRoom);
     D2UnitStrc* pRoomUnit = *ppRoomUnit;
     D2UnitStrc* pPreviousUnit = 0;
-    for (; pRoomUnit; pRoomUnit = pRoomUnit->pRoomNext)
+    for (; pRoomUnit; pRoomUnit = pRoomUnit->ptRoomNext)
     {
         if (pRoomUnit == hUnit)
         {
@@ -338,14 +338,14 @@ void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* hUnit)
         bReset = 1;
         if (!pPreviousUnit)
         {
-            *ppRoomUnit = pRoomUnit->pRoomNext;
+            *ppRoomUnit = pRoomUnit->ptRoomNext;
         }
         else
         {
-            pPreviousUnit->pRoomNext = pRoomUnit->pRoomNext;
+            pPreviousUnit->ptRoomNext = pRoomUnit->ptRoomNext;
         }
 
-        pRoomUnit->pRoomNext = 0;
+        pRoomUnit->ptRoomNext = 0;
 
         switch (hUnit->dwUnitType)
         {

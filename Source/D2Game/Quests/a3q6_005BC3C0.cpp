@@ -37,8 +37,8 @@ struct D2QuestDataStrc
     unsigned char pad0x15[3];
     D2QuestExtraStrc* pQuestDataEx;
     D2QuestGUIDStrc tPlayerGUIDs;
-    void* pfCallback[16];
-    int nQuestFilter;
+    void* pCallback[16];
+    int eFilter;
 };
 
 struct D2QuestArgStrc
@@ -106,12 +106,12 @@ void __fastcall ACT3Q6_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
         {
             D2GameStrc* pGame = pQuestArg->pGame;
             D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pQuestArg->pPlayer)->pQuestData[pGame->nDifficulty];
-            if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, 0) == 1)
+            if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 0) == 1)
             {
                 return;
             }
 
-            if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, 11) == 1)
+            if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 11) == 1)
             {
                 return;
             }
@@ -138,7 +138,7 @@ void __fastcall ACT3Q6_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
     if (nNewLevel >= 98 && pQuestData->bNotIntro && !pQuestData->fState)
     {
         pQuestData->fState = 1;
-        pQuestData->pfCallback[2] = ACT3Q6_Callback02_NpcDeactivate;
+        pQuestData->pCallback[2] = ACT3Q6_Callback02_NpcDeactivate;
     }
 
     if (nNewLevel == 100)
@@ -200,7 +200,7 @@ void __fastcall sub_005BCAC0_UpdateQuestObject(D2QuestDataStrc* pQuest, D2UnitSt
     {
         const int nMode = !pObject ? 0 : pObject->dwAnimMode;
         if (nMode == 2) return;
-        for (D2UnitStrc* pUnit = UNITS_GetRoom(pObject)->pUnitFirst; pUnit; pUnit = pUnit->pRoomNext)
+        for (D2UnitStrc* pUnit = UNITS_GetRoom(pObject)->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
         {
             if (UNITS_GetUnitTypeInline(pUnit) == 0 && D2Common_10399(pUnit, pObject) < 18)
             {

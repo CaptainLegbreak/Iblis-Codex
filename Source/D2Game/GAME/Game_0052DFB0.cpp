@@ -7,7 +7,7 @@
 struct D2ClientStrc
 {
     char unk_000[0x1B4];
-    D2ActiveRoomStrc* pRoom;
+    D2ActiveRoomStrc* hRoom;
 };
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -32,7 +32,7 @@ void __fastcall GAME_SendUnitRemovalToClient(D2ClientStrc* pClient, D2UnitStrc* 
     }
 
     D2ActiveRoomStrc* pUnitRoom = UNITS_GetRoom(pUnit);
-    D2ActiveRoomStrc* pClientRoom = pClient->pRoom;
+    D2ActiveRoomStrc* pClientRoom = pClient->hRoom;
     D2_ASSERT(pClientRoom, 5566);
 
     D2ActiveRoomStrc** ppRoomList;

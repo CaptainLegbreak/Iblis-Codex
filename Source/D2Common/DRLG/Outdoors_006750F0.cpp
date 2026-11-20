@@ -48,7 +48,7 @@ struct D2DrlgLevelStrc
     int nLevelType;
     D2SeedStrc pSeed;
     char unk_1CC[0x04];
-    int nLevelId;
+    int eLevelId;
 };
 
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY); // 0x0067C570
@@ -232,12 +232,12 @@ void __fastcall DRLGOUTDOORS_GenerateLevel(D2DrlgLevelStrc* pLevel)
     DRLGGRID_InitializeGridCells(pMemPool, &pOutdoors->pGrid[2], nGridWidth, nGridHeight);
     DRLGGRID_InitializeGridCells(pMemPool, &pOutdoors->pGrid[3], nGridWidth, nGridHeight);
 
-    unsigned char nAct = DRLG_GetActNoFromLevelId(pLevel->nLevelId);
+    unsigned char nAct = DRLG_GetActNoFromLevelId(pLevel->eLevelId);
 
     DRLGVER_CreateVertices(pMemPool, &pOutdoors->pVertex, &pLevel->pLevelCoords, 0, pOutdoors->pOrth);
     sub_00675080_ScaleAndMergeVertices(pMemPool, (D2DrlgVertexStrc**)&pOutdoors->pVertex);
 
-    if (pLevel->nLevelId == 134)
+    if (pLevel->eLevelId == 134)
     {
         nAct = 1;
     }

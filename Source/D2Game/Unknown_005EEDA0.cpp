@@ -11,7 +11,7 @@
 
 struct D2TargetNodeStrc
 {
-    D2UnitStrc* pUnit;
+    D2UnitStrc* hUnit;
     int unk0x04;
     D2TargetNodeStrc* pNext;
     D2TargetNodeStrc* unk0x0C;
@@ -104,8 +104,8 @@ D2UnitStrc* __fastcall AIBAAL_GetTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, in
     {
         if (pTargetNode)
         {
-            D2_ASSERT(pTargetNode->pUnit && pTargetNode->pUnit->dwUnitType == UNIT_PLAYER, 917);
-            D2UnitStrc* pTargetUnit = pTargetNode->pUnit;
+            D2_ASSERT(pTargetNode->hUnit && pTargetNode->hUnit->dwUnitType == UNIT_PLAYER, 917);
+            D2UnitStrc* pTargetUnit = pTargetNode->hUnit;
 
             if (pfCull(pUnit, pTargetUnit))
             {
@@ -135,7 +135,7 @@ D2UnitStrc* __fastcall AIBAAL_GetTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, in
                         break;
                     }
 
-                    pTargetUnit = pTargetNode->pUnit;
+                    pTargetUnit = pTargetNode->hUnit;
                     nCurrent = AIBAAL_GetTargetScore(pGame, pUnit, pTargetUnit, pArgs);
                 }
             }
@@ -146,7 +146,7 @@ D2UnitStrc* __fastcall AIBAAL_GetTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, in
 
     while (pTargetNode)
     {
-        D2UnitStrc* pTargetUnit = pTargetNode->pUnit;
+        D2UnitStrc* pTargetUnit = pTargetNode->hUnit;
         if (nAct == pTargetUnit->nAct)
         {
             const int nCurrent = AIBAAL_GetTargetScore(pGame, pUnit, pTargetUnit, pArgs);
@@ -169,7 +169,7 @@ D2UnitStrc* __fastcall AIBAAL_GetTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, in
     {
         do
         {
-            D2UnitStrc* pTargetUnit = pTargetNode->pUnit;
+            D2UnitStrc* pTargetUnit = pTargetNode->hUnit;
             if (nAct == pTargetUnit->nAct)
             {
                 const int nCurrent = AIBAAL_GetTargetScore(pGame, pUnit, pTargetUnit, pArgs);

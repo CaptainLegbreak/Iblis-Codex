@@ -17,7 +17,7 @@ struct D2WinTextBoxStrc
 #ifdef MOVED_TEST
     int moved_prefix;
 #endif
-    int nType;
+    int eType;
     int unk0x04[4];
     int nWidth;
     int unk0x18[10];
@@ -53,6 +53,6 @@ int __fastcall SCROLLBAR_GetMaxSteps(D2WinScrollBarStrc* pScrollBar);  // 0x0050
 extern "C" int __fastcall sub_004FC5A0_GetMaxSteps(D2WinTextBoxStrc* ptTextData)
 {
     D2_ASSERT(ptTextData, ASSERT_LINE(0x578));
-    D2_ASSERT(ptTextData->nType == TEXTBOX_TYPE, ASSERT_LINE(0x579));
+    D2_ASSERT(ptTextData->eType == TEXTBOX_TYPE, ASSERT_LINE(0x579));
     return SCROLLBAR_GetMaxSteps(ptTextData->pScrollBar);
 }

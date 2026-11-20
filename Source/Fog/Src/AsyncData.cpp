@@ -18,10 +18,10 @@ struct AsyncData
     D2OverlappedStrc tOverlapped;
     AsyncDataLoadFileCallback pAsyncOpDesc;
     AsyncDataEventSlot* pEventSlot;
-    void* pBuffer;
+    void* ptBuffer;
     unsigned int nFileSize;
     int nPriority;
-    unsigned int nFlags;
+    unsigned int dwFlags;
     int nPreviousPriority;
     AsyncData* pNextPostponedPriorityChange;
 };
@@ -64,11 +64,11 @@ void __cdecl sub_0040A030_Nop()
 void __fastcall FOG_AsyncDataSetPriority(AsyncData* pAsyncData, int nPriority)
 {
     D2_ASSERT(pAsyncData, 0x1DA);
-    D2_ASSERT((pAsyncData->nFlags & 0xFFFFFFF0) == 0x41737960, 0x1DB);
+    D2_ASSERT((pAsyncData->dwFlags & 0xFFFFFFF0) == 0x41737960, 0x1DB);
     D2_ASSERT(nPriority <= 0, 0x1DC);
     if (gnAsyncDataPostponeCount_0075AF8C > 0)
     {
-        if (pAsyncData->nFlags & 8)
+        if (pAsyncData->dwFlags & 8)
         {
             if (nPriority > pAsyncData->nPriority)
             {
@@ -79,7 +79,7 @@ void __fastcall FOG_AsyncDataSetPriority(AsyncData* pAsyncData, int nPriority)
         {
             pAsyncData->nPreviousPriority = pAsyncData->nPriority;
             pAsyncData->nPriority = nPriority;
-            pAsyncData->nFlags |= 8;
+            pAsyncData->dwFlags |= 8;
             pAsyncData->pNextPostponedPriorityChange = gpAsyncDataPostponed_0075AF90;
             gpAsyncDataPostponed_0075AF90 = pAsyncData;
         }
@@ -87,7 +87,7 @@ void __fastcall FOG_AsyncDataSetPriority(AsyncData* pAsyncData, int nPriority)
     else if (nPriority != pAsyncData->nPriority)
     {
         pAsyncData->nPriority = nPriority;
-        sub_0041AA80(pAsyncData->pBuffer, nPriority);
+        sub_0041AA80(pAsyncData->ptBuffer, nPriority);
     }
 }
 
@@ -108,9 +108,9 @@ void __fastcall FOG_AsyncDataHandlePriorityChanges(int bPostpone)
             pNext = p->pNextPostponedPriorityChange;
             if (p->nPriority != p->nPreviousPriority)
             {
-                sub_0041AA80(p->pBuffer, p->nPriority);
+                sub_0041AA80(p->ptBuffer, p->nPriority);
             }
-            p->nFlags &= ~8;
+            p->dwFlags &= ~8;
             p->nPreviousPriority = 0;
             p->pNextPostponedPriorityChange = 0;
         }
@@ -245,20 +245,20 @@ AsyncDataEventSlot* __cdecl sub_0040A550_AsyncDataGetEventSlot()
 void* __fastcall FOG_AsyncDataGetBuffer(AsyncData* pAsyncData)
 {
     D2_ASSERT(pAsyncData, 607);
-    D2_ASSERT((pAsyncData->nFlags & 0xFFFFFFF0) == 0x41737960, 608);
-    if (!(pAsyncData->nFlags & 1))
+    D2_ASSERT((pAsyncData->dwFlags & 0xFFFFFFF0) == 0x41737960, 608);
+    if (!(pAsyncData->dwFlags & 1))
     {
         FOG_AsyncDataWaitAndGetBuffer(pAsyncData);
     }
-    D2_ASSERT(pAsyncData->nFlags & 1, 614);
-    return pAsyncData->pBuffer;
+    D2_ASSERT(pAsyncData->dwFlags & 1, 614);
+    return pAsyncData->ptBuffer;
 }
 
 // 0x0040AA40
 unsigned int __fastcall FOG_AsyncDataGetBufferSize(AsyncData* pAsyncData)
 {
     D2_ASSERT(pAsyncData, 625);
-    D2_ASSERT((pAsyncData->nFlags & 0xFFFFFFF0) == 0x41737960, 626);
+    D2_ASSERT((pAsyncData->dwFlags & 0xFFFFFFF0) == 0x41737960, 626);
     return pAsyncData->nFileSize;
 }
 
@@ -266,8 +266,8 @@ unsigned int __fastcall FOG_AsyncDataGetBufferSize(AsyncData* pAsyncData)
 void __fastcall FOG_AsyncDataFree(AsyncData* ptAsyncData)
 {
     D2_ASSERT(ptAsyncData, 656);
-    D2_ASSERT((ptAsyncData->nFlags & 0xFFFFFFF0) == 0x41737960, 657);
-    if (ptAsyncData->nFlags & 8)
+    D2_ASSERT((ptAsyncData->dwFlags & 0xFFFFFFF0) == 0x41737960, 657);
+    if (ptAsyncData->dwFlags & 8)
     {
         for (AsyncData** ppLink = &gpAsyncDataPostponed_0075AF90; ppLink; ppLink = &(*ppLink)->pNextPostponedPriorityChange)
         {
@@ -280,16 +280,16 @@ void __fastcall FOG_AsyncDataFree(AsyncData* ptAsyncData)
     }
     if (!FOG_AsyncDataTestLoaded(ptAsyncData))
     {
-        sub_0041A930_CancelRead(ptAsyncData->pBuffer);
+        sub_0041A930_CancelRead(ptAsyncData->ptBuffer);
         WaitForSingleObject(ptAsyncData->pEventSlot->hEvent, (unsigned long)-1);
         sub_0040A4C0_AsyncDataFinish(ptAsyncData);
     }
-    if (ptAsyncData->nFlags & 2)
+    if (ptAsyncData->dwFlags & 2)
     {
-        D2_ASSERT(ptAsyncData->pBuffer, 707);
-        FOG_FreeServerMemory(ptAsyncData->pMemPool, ptAsyncData->pBuffer, ".\\Src\\AsyncData.cpp", 710, 0);
-        ptAsyncData->nFlags &= 0xF;
-        ptAsyncData->pBuffer = 0;
+        D2_ASSERT(ptAsyncData->ptBuffer, 707);
+        FOG_FreeServerMemory(ptAsyncData->pMemPool, ptAsyncData->ptBuffer, ".\\Src\\AsyncData.cpp", 710, 0);
+        ptAsyncData->dwFlags &= 0xF;
+        ptAsyncData->ptBuffer = 0;
     }
     FOG_FreeServerMemory(ptAsyncData->pMemPool, ptAsyncData, ".\\Src\\AsyncData.cpp", 717, 0);
 }
@@ -297,7 +297,7 @@ void __fastcall FOG_AsyncDataFree(AsyncData* ptAsyncData)
 // 0x0040A4C0
 void __fastcall sub_0040A4C0_AsyncDataFinish(AsyncData* pAsyncData)
 {
-    if (pAsyncData->nFlags & 1)
+    if (pAsyncData->dwFlags & 1)
     {
         return;
     }
@@ -314,11 +314,11 @@ void __fastcall sub_0040A4C0_AsyncDataFinish(AsyncData* pAsyncData)
         sub_004068F0(pAsyncData->hFile);
         pAsyncData->hFile = 0;
     }
-    pAsyncData->nFlags |= 1;
+    pAsyncData->dwFlags |= 1;
     if (pAsyncData->pAsyncOpDesc.pData)
     {
-        FOG_FreeServerMemory(pAsyncData->pMemPool, pAsyncData->pBuffer, ".\\Src\\AsyncData.cpp", 215, 0);
-        pAsyncData->pBuffer = pAsyncData->pAsyncOpDesc.pData;
+        FOG_FreeServerMemory(pAsyncData->pMemPool, pAsyncData->ptBuffer, ".\\Src\\AsyncData.cpp", 215, 0);
+        pAsyncData->ptBuffer = pAsyncData->pAsyncOpDesc.pData;
         pAsyncData->nFileSize = pAsyncData->pAsyncOpDesc.nFileSize;
         memset(&pAsyncData->pAsyncOpDesc, 0, sizeof(pAsyncData->pAsyncOpDesc));
     }
@@ -331,26 +331,26 @@ int __fastcall FOG_AsyncDataTestLoaded(AsyncData* ptAsyncData)
     {
         return 0;
     }
-    D2_ASSERT((ptAsyncData->nFlags & 0xFFFFFFF0) == 0x41737960, 452);
-    if (!(ptAsyncData->nFlags & 1))
+    D2_ASSERT((ptAsyncData->dwFlags & 0xFFFFFFF0) == 0x41737960, 452);
+    if (!(ptAsyncData->dwFlags & 1))
     {
         if (!WaitForSingleObject(ptAsyncData->pEventSlot->hEvent, 0))
         {
             sub_0040A4C0_AsyncDataFinish(ptAsyncData);
         }
     }
-    return ptAsyncData->nFlags & 1;
+    return ptAsyncData->dwFlags & 1;
 }
 
 // 0x0040A960
 void __fastcall FOG_AsyncDataWaitAndGetBuffer(AsyncData* pAsyncData)
 {
     D2_ASSERT(pAsyncData, 562);
-    D2_ASSERT((pAsyncData->nFlags & 0xFFFFFFF0) == 0x41737960, 563);
+    D2_ASSERT((pAsyncData->dwFlags & 0xFFFFFFF0) == 0x41737960, 563);
 
     if (!FOG_AsyncDataTestLoaded(pAsyncData))
     {
-        sub_0041AA80(pAsyncData->pBuffer, 1);
+        sub_0041AA80(pAsyncData->ptBuffer, 1);
         D2_ASSERT(!WaitForSingleObject(pAsyncData->pEventSlot->hEvent, 0xFFFFFFFF), 584);
         sub_0040A4C0_AsyncDataFinish(pAsyncData);
     }

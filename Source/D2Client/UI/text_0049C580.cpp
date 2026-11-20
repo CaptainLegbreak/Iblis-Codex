@@ -177,7 +177,7 @@ struct D2TextNodeStrc
 struct D2TextListStrc
 {
     D2TextNodeStrc* pFirst;
-    unsigned short nCount;
+    unsigned short wCount;
 };
 
 #pragma pack(pop)
@@ -688,7 +688,7 @@ void __fastcall sub_004A0D20_DrawObjectHoverText(D2UnitStrc* pUnit)
 // 0x0049DEE0
 void __cdecl sub_0049DEE0_DrawOverheadTextList()
 {
-    if (!gtTextList_007BF1EA.nCount)
+    if (!gtTextList_007BF1EA.wCount)
     {
         return;
     }
@@ -730,7 +730,7 @@ void __cdecl sub_0049DEE0_DrawOverheadTextList()
     {
         if (pNode->dwEndTick < dwNow)
         {
-            --gtTextList_007BF1EA.nCount;
+            --gtTextList_007BF1EA.wCount;
             D2TextNodeStrc* pNext = pNode->pNext;
             if (gtTextList_007BF1EA.pFirst == pNode)
             {

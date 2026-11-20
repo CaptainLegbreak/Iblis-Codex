@@ -57,7 +57,7 @@ struct D2DrlgRoomStrc
     char unk0x2C[0x24];
     unsigned int dwDT1Mask;
     char unk0x54[0x04];
-    D2DrlgLevelStrc* pLevel;
+    D2DrlgLevelStrc* ptDrlgLevel;
     char unk0x5C[0x0C];
     D2TileLibraryHeaderStrc* pTiles;
 };
@@ -112,7 +112,7 @@ int __fastcall DRLG_CheckNotOverlappingUsingManhattanDistance(D2DrlgCoordStrc* p
 // 0x0066F240
 void __fastcall DRLGROOMTILE_LoadDT1FilesForRoom(D2DrlgRoomStrc* pDrlgRoom)
 {
-    D2LvlTypesTxt* pLvlTypesTxtRecord = DATATBLS_GetLevelTypesTxtRecord(pDrlgRoom->pLevel->nLevelType);
+    D2LvlTypesTxt* pLvlTypesTxtRecord = DATATBLS_GetLevelTypesTxtRecord(pDrlgRoom->ptDrlgLevel->nLevelType);
 
     unsigned int dwDT1Mask = pDrlgRoom->dwDT1Mask;
     for (unsigned int nFileIndex = 0; dwDT1Mask && nFileIndex < 32; dwDT1Mask >>= 1, ++nFileIndex)

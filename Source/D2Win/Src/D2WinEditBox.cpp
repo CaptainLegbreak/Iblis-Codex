@@ -23,7 +23,7 @@ typedef int (__stdcall* D2WinMsgHandler)(SMSGHANDLER_PARAMS* pMsg);
 
 struct D2WinEditBoxStrc
 {
-    int nType;
+    int eType;
     char pad04[0x4];
     unsigned int dwFlags;
     int nImageX;
@@ -104,7 +104,7 @@ static __declspec(noinline) void sub_004FE9F0_DeleteSelection(D2WinEditBoxStrc* 
 static __declspec(noinline) int sub_004FDC70_HasSelection(D2WinEditBoxStrc* pEditBox)
 {
     D2_ASSERT(pEditBox, 0x198);
-    D2_ASSERT(pEditBox->nType == 1, 0x19A);
+    D2_ASSERT(pEditBox->eType == 1, 0x19A);
     if (pEditBox->nSelectionStart != -1 && pEditBox->nSelectionStart != pEditBox->nSelectionEnd)
         return 1;
     return 0;
@@ -116,7 +116,7 @@ static __declspec(noinline) int sub_004FDC70_HasSelection(D2WinEditBoxStrc* pEdi
 static int __stdcall sub_004FDE30_GetEditTextHeight(const Unicode* wszText, D2WinEditBoxStrc* ptEditData)
 {
     D2_ASSERT(ptEditData, 0x5EA);
-    D2_ASSERT(ptEditData->nType == 1, 0x5EC);
+    D2_ASSERT(ptEditData->eType == 1, 0x5EC);
     Unicode wszDash[2];
     sub_00502EF0(ptEditData->eFont);
     const int nStartY = D2Win_10125() + (ptEditData->nTextInsetY - ptEditData->nHeight) + ptEditData->nImageY;
@@ -210,7 +210,7 @@ int __stdcall sub_004FE3B0_EditBoxClick(SMSGHANDLER_PARAMS* pMsg, int nX, int nY
     D2WinEditBoxStrc* ptEditData = (D2WinEditBoxStrc*)pMsg->hWnd;
 
     D2_ASSERT(ptEditData, 0x74E);
-    D2_ASSERT(ptEditData->nType == 1, 0x74F);
+    D2_ASSERT(ptEditData->eType == 1, 0x74F);
 
     if (!(ptEditData->dwFlags & gdwBitMasks[2]) || !(ptEditData->dwFlags & gdwBitMasks[0]))
     {
@@ -447,7 +447,7 @@ static void sub_004FE7C0_UpdateVisibleChars(D2WinEditBoxStrc* pEditBox)
 static __declspec(noinline) void sub_004FE9F0_DeleteSelection(D2WinEditBoxStrc* pEditBox)
 {
     D2_ASSERT(pEditBox, 0x1C2);
-    D2_ASSERT(pEditBox->nType == 1, 0x1C4);
+    D2_ASSERT(pEditBox->eType == 1, 0x1C4);
     Unicode wszHead[256];
     Unicode wszTail[256];
     for (int i = 0; i < 256; ++i)
@@ -487,7 +487,7 @@ static __declspec(noinline) void sub_004FE9F0_DeleteSelection(D2WinEditBoxStrc* 
 int __fastcall D2Win_10074(D2WinEditBoxStrc* pEditBox, char nChar)
 {
     D2_ASSERT(pEditBox, 0x1F6);
-    D2_ASSERT(pEditBox->nType == 1, 0x1F8);
+    D2_ASSERT(pEditBox->eType == 1, 0x1F8);
     if (!(pEditBox->dwFlags & gdwBitMasks[2]) || !(pEditBox->dwFlags & gdwBitMasks[0]))
     {
         return 0;
@@ -670,7 +670,7 @@ int __fastcall D2Win_10074(D2WinEditBoxStrc* pEditBox, char nChar)
 int __fastcall sub_004FF5A0(D2WinEditBoxStrc* pEditBox, const Unicode* pText)
 {
     D2_ASSERT(pEditBox, 0x45E);
-    D2_ASSERT(pEditBox->nType == 1, 0x460);
+    D2_ASSERT(pEditBox->eType == 1, 0x460);
     const int nLength = sub_00526800(pText);
     if (nLength)
     {

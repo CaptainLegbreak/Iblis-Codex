@@ -91,7 +91,7 @@ struct D2TextNodeStrc
 struct D2TextListStrc
 {
     D2TextNodeStrc* pFirst;
-    unsigned short nCount;
+    unsigned short wCount;
 };
 
 #pragma pack(pop)
@@ -428,22 +428,22 @@ void __fastcall sub_0049E5C0_PrintPartyText(const Unicode* wszText, char nColor)
                 nNodes++;
             } while (*ppNext);
         }
-        D2_ASSERT(nNodes == gtTextList_007BF1EA.nCount - 1, 0xDF1);
+        D2_ASSERT(nNodes == gtTextList_007BF1EA.wCount - 1, 0xDF1);
         *(D2TextNodeStrc**)pLast->pNext = pNode;
     }
     else
     {
         gtTextList_007BF1EA.pFirst = pNode;
     }
-    gtTextList_007BF1EA.nCount++;
+    gtTextList_007BF1EA.wCount++;
     sub_0049DBC0_AddToHistory(pNode);
 
-    if (gtTextList_007BF1EA.nCount > 2)
+    if (gtTextList_007BF1EA.wCount > 2)
     {
         D2TextNodeStrc* pFirst = gtTextList_007BF1EA.pFirst;
         gtTextList_007BF1EA.pFirst = *(D2TextNodeStrc**)gtTextList_007BF1EA.pFirst->pNext;
         sub_0049D490_FreeTextNode(pFirst);
-        gtTextList_007BF1EA.nCount--;
+        gtTextList_007BF1EA.wCount--;
     }
 
     if (sub_004538D0(0x18) && gpListBox_007BF1B4)

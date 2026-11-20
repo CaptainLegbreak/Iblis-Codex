@@ -19,7 +19,7 @@ typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
 
 struct D2WinControlStrc
 {
-    int nType;
+    int eType;
     D2CelFileStrc* pCellFile;
     unsigned int dwFlags;
     int nImageX;
@@ -81,7 +81,7 @@ int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamm
 // 0x00500480
 static int sub_00500480_AnimImageUpdateState(D2WinAnimImageStrc* pAnimImage)
 {
-    D2_ASSERT(pAnimImage->controlHeader.nType == 2, 0x9A);
+    D2_ASSERT(pAnimImage->controlHeader.eType == 2, 0x9A);
 
     if (!pAnimImage->pAnimatedImageDescriptor)
         return 0;
@@ -148,7 +148,7 @@ static int sub_00500480_AnimImageUpdateState(D2WinAnimImageStrc* pAnimImage)
 int __fastcall ANIMIMAGE_Draw(D2WinControlStrc* pControl)
 {
     D2WinAnimImageStrc* pAnimImage = (D2WinAnimImageStrc*)pControl;
-    D2_ASSERT(pAnimImage->controlHeader.nType == 2, 0xF9);
+    D2_ASSERT(pAnimImage->controlHeader.eType == 2, 0xF9);
 
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));

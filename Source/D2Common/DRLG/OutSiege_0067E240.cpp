@@ -18,7 +18,7 @@ struct D2DrlgLevelStrc
     char unk0x18[0x1AC];
     D2SeedStrc pSeed;
     int unk0x1CC;
-    int nLevelId;
+    int eLevelId;
 };
 
 extern "C" const char gszEmptyAssertText;      // 0x006CC837
@@ -63,7 +63,7 @@ static void sub_0067E240(D2DrlgLevelStrc* pLevel);
 
 static __declspec(noinline) void sub_0067E240(D2DrlgLevelStrc* pLevel)
 {
-    if (pLevel->nLevelId != 111)
+    if (pLevel->eLevelId != 111)
         return;
 
     D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoorInfo;

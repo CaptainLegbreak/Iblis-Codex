@@ -147,10 +147,10 @@ struct D2ClientStrc
     D2UnitStrc* pPlayer;
     char unk0x178[0x30];
     D2GameStrc* pGame;
-    unsigned char nAct;
+    unsigned char bAct;
     unsigned char nByte1AD;
     unsigned char unk_1AE[0x6];
-    D2ActiveRoomStrc* pRoom;
+    D2ActiveRoomStrc* hRoom;
     union
     {
         int nEmitterTag;
@@ -772,17 +772,17 @@ static __forceinline void sub_00537AB0_ChangeClientRooms(D2ActiveRoomStrc* pNewR
 
 void __fastcall sub_M124_Emit_00537AB0(D2ClientStrc* pClient, D2ActiveRoomStrc* pRoom)
 {
-    if (pClient->pRoom != pRoom)
+    if (pClient->hRoom != pRoom)
     {
-        sub_00537AB0_ChangeClientRooms(pRoom, pClient->pRoom);
-        pClient->pRoom = pRoom;
+        sub_00537AB0_ChangeClientRooms(pRoom, pClient->hRoom);
+        pClient->hRoom = pRoom;
     }
 }
 
 // 0x00537B00
 static __forceinline void sub_00537B00_UpdatePlayerPortalFlags(D2ClientStrc* pClient)
 {
-    D2ActiveRoomStrc* pRoom = pClient->pRoom;
+    D2ActiveRoomStrc* pRoom = pClient->hRoom;
     if (pRoom && pClient->pPlayer)
     {
         const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
@@ -879,7 +879,7 @@ static void __stdcall sub_00537D10_InsertUnitUpdate(D2UnitStrc* pRoomUnit, int n
 
 void __fastcall sub_M468_Emit_00537B00(D2ClientStrc* pClient, D2ActiveRoomStrc* pRoom)
 {
-    pClient->pRoom = pRoom;
+    pClient->hRoom = pRoom;
     pClient->nEmitterTag = 0x2D7;
     sub_00537B00_UpdatePlayerPortalFlags(pClient);
 }
@@ -930,10 +930,10 @@ static void __stdcall CLIENTS_SetUnitsUpdateList(D2ClientStrc* pClient, D2Client
 // 0x00537FD0
 void __fastcall CLIENTS_RefreshUnitsUpdateList(D2ClientStrc* ptClient, unsigned int nUpdateSize)
 {
-    D2_ASSERT(ptClient->pRoom, 0x70B);
+    D2_ASSERT(ptClient->hRoom, 0x70B);
     D2ActiveRoomStrc** pAdjacentRoomsList;
     unsigned int nNumRooms;
-    DUNGEON_GetAdjacentRoomsListFromRoom(ptClient->pRoom, &pAdjacentRoomsList, &nNumRooms);
+    DUNGEON_GetAdjacentRoomsListFromRoom(ptClient->hRoom, &pAdjacentRoomsList, &nNumRooms);
     D2_ASSERT(pAdjacentRoomsList, 0x70D);
     D2UnitStrc* pPlayer = CLIENTS_GetPlayerFromClient(ptClient, 0);
     if (!pPlayer)
@@ -949,7 +949,7 @@ void __fastcall CLIENTS_RefreshUnitsUpdateList(D2ClientStrc* ptClient, unsigned 
     tUnitUpdatesSort[0].nDistance = 0;
     for (unsigned int i = 0; i < nNumRooms; ++i)
     {
-        for (D2UnitStrc* pRoomUnit = pAdjacentRoomsList[i]->pUnitFirst; pRoomUnit; pRoomUnit = pRoomUnit->pRoomNext)
+        for (D2UnitStrc* pRoomUnit = pAdjacentRoomsList[i]->pUnitFirst; pRoomUnit; pRoomUnit = pRoomUnit->ptRoomNext)
         {
             sub_00537D10_InsertUnitUpdate(pRoomUnit, nPlayerX, nPlayerY, &nCurrentMaxDistance, ptClient, nUpdateSize, tUnitUpdatesSort);
         }
@@ -1418,7 +1418,7 @@ void __fastcall CLIENTS_FillCharacterPreviewInfo(D2ClientStrc* pClient, char* sz
 inline void W11_InlineFixRoomUnits(D2ActiveRoomStrc* pRoom, D2ClientStrc* pClient)
 {
     D2_ASSERT(pRoom, 0x62);
-    for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pUnit->pRoomNext)
+    for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
         sub_005531E0_FixRoomIfInvalid(pUnit, pClient);
 }
 

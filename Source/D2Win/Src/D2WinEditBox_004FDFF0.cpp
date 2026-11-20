@@ -19,7 +19,7 @@ struct SMSGHANDLER_PARAMS
 
 struct D2WinEditBoxStrc
 {
-    int nType;
+    int eType;
     char pad04[0x4];
     unsigned int dwFlags;
     int nImageX;
@@ -80,7 +80,7 @@ int __stdcall sub_004FE3B0_EditBoxClick(SMSGHANDLER_PARAMS* pMsg, int nX, int nY
 static __declspec(noinline) int sub_004FDC70_HasSelection(D2WinEditBoxStrc* pEditBox)
 {
     D2_ASSERT(pEditBox, 0x198);
-    D2_ASSERT(pEditBox->nType == 1, 0x19A);
+    D2_ASSERT(pEditBox->eType == 1, 0x19A);
     if (pEditBox->nSelectionStart != -1 && pEditBox->nSelectionStart != pEditBox->nSelectionEnd)
         return 1;
     return 0;
@@ -89,7 +89,7 @@ static __declspec(noinline) int sub_004FDC70_HasSelection(D2WinEditBoxStrc* pEdi
 static __declspec(noinline) void sub_004FE9F0_DeleteSelection(D2WinEditBoxStrc* pEditBox)
 {
     D2_ASSERT(pEditBox, 0x1C2);
-    D2_ASSERT(pEditBox->nType == 1, 0x1C4);
+    D2_ASSERT(pEditBox->eType == 1, 0x1C4);
     Unicode wszHead[256];
     Unicode wszTail[256];
     for (int i = 0; i < 256; ++i)
@@ -236,7 +236,7 @@ static void sub_004FE7C0_UpdateVisibleChars(D2WinEditBoxStrc* pEditBox)
 static void __stdcall sub_004FDFF0_GetCaretPosition(int* pX, int* pY, D2WinEditBoxStrc* ptEditData)
 {
     D2_ASSERT(ptEditData, 0x648);
-    D2_ASSERT(ptEditData->nType == 1, 0x64A);
+    D2_ASSERT(ptEditData->eType == 1, 0x64A);
     Unicode wszCopy[300];
     for (int i = 0; i < 300; ++i)
     {
@@ -356,7 +356,7 @@ int __fastcall sub_004FF050_EditBoxKeyDown(D2WinEditBoxStrc* ptEditData, char nK
 {
     Unicode* pChar;
     D2_ASSERT(ptEditData, 0x300);
-    D2_ASSERT(ptEditData->nType == 1, 0x302);
+    D2_ASSERT(ptEditData->eType == 1, 0x302);
     if (!(ptEditData->dwFlags & gdwBitMasks[2]) || !(ptEditData->dwFlags & gdwBitMasks[0]))
     {
         return 0;

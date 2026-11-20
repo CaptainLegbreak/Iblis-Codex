@@ -437,7 +437,7 @@ void __cdecl sub_0045AC90_DrawAutomapUnits()
     const int nCount = nRooms;
     for (int i = 0; i < nCount; ++i)
     {
-        for (D2UnitStrc* pUnit = ppRooms[i]->pUnitFirst; pUnit; pUnit = pUnit->pRoomNext)
+        for (D2UnitStrc* pUnit = ppRooms[i]->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
         {
             sub_0045A860_DrawAutomapUnit(pUnit);
         }

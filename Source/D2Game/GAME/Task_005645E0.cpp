@@ -97,14 +97,14 @@ static __forceinline void TASK_CloseGame(int nGameHashKey, int nTaskNumber, D2Ta
         D2LinkStrc* pNewTaskLink = 0;
         if (ptTaskQTail->nType == nTaskSlotType + 1)
         {
-            EnterCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[ptTaskQTail->nTaskQ]);
+            EnterCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[ptTaskQTail->dwTaskQ]);
             D2LinkStrc* ptTaskBalanceLink = TASK_GetLastTaskFromListHead(&ptTaskQTail->pTaskBalanceLink);
             D2_ASSERT(ptTaskBalanceLink, 0x2F5);
             TASK_LinkList_Remove(ptTaskBalanceLink);
-            LeaveCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[ptTaskQTail->nTaskQ]);
-            EnterCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[pTaskSlot->nTaskQ]);
+            LeaveCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[ptTaskQTail->dwTaskQ]);
+            EnterCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[pTaskSlot->dwTaskQ]);
             TASK_QueueIncrement(pTaskSlot, &TASK_GetTaskFromTaskQueueLink(ptTaskBalanceLink)->nType, 0);
-            LeaveCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[pTaskSlot->nTaskQ]);
+            LeaveCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[pTaskSlot->dwTaskQ]);
             --ptTaskQTail->nType;
             TASK_LinkList_Remove(ptTaskQTailLink);
             pNewTaskLink = ptTaskQTailLink;
@@ -178,9 +178,9 @@ IoTimeout:
             }
             else
             {
-                TASK_QueueIncrement(ptTaskQ, &ptTask->nTaskQ, 40);
-                D2_ASSERT((unsigned int)ptTaskQ->nTaskQ < 32, 0x97);
-                LeaveCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[ptTaskQ->nTaskQ]);
+                TASK_QueueIncrement(ptTaskQ, &ptTask->dwTaskQ, 40);
+                D2_ASSERT((unsigned int)ptTaskQ->dwTaskQ < 32, 0x97);
+                LeaveCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[ptTaskQ->dwTaskQ]);
             }
             return;
         }

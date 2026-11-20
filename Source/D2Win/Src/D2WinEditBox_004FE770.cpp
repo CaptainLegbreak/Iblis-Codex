@@ -27,7 +27,7 @@ typedef int (__stdcall* D2WinMsgHandler)(SMSGHANDLER_PARAMS* pMsg);
 
 struct D2WinEditBoxStrc
 {
-    int nType;
+    int eType;
     char pad04[0x4];
     unsigned int dwFlags;
     int nImageX;
@@ -91,7 +91,7 @@ int __stdcall sub_004FFBF0_EditBoxMouseDown(SMSGHANDLER_PARAMS* pMsg)
     D2WinEditBoxStrc* ptEditData = (D2WinEditBoxStrc*)pMsg->hWnd;
 
     D2_ASSERT(ptEditData, 0x6D0);
-    D2_ASSERT(ptEditData->nType == 1, 0x6D1);
+    D2_ASSERT(ptEditData->eType == 1, 0x6D1);
 
     if (!(ptEditData->dwFlags & gdwBitMasks[2]) || !(ptEditData->dwFlags & gdwBitMasks[0]))
     {

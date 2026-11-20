@@ -66,9 +66,9 @@ struct D2QuestDataStrc
     unsigned int dwFlags;
     void* pQuestDataEx;
     D2QuestGUIDStrc tPlayerGUIDs;
-    QUESTCALLBACK pfCallback[15];
+    QUESTCALLBACK pCallback[15];
     void* pNPCMessages;
-    int nQuestFilter;
+    int eFilter;
     int unk0xE4;
     QUESTSTATUSFILTER pfStatusFilter;
     QUESTACTIVEFILTER pfActiveFilter;
@@ -141,8 +141,8 @@ void __fastcall ACT1Q4_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
 struct D2ObjOperateFnStrc
 {
     D2GameStrc* pGame;
-    D2UnitStrc* pObject;
-    D2UnitStrc* pPlayer;
+    D2UnitStrc* hObject;
+    D2UnitStrc* hPlayer;
 };
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
@@ -183,7 +183,7 @@ int __fastcall OBJECTS_OperateFunction12_InifussTree(D2ObjOperateFnStrc* pOp, in
 
     if (!pQuestInfo->bNotIntro)
     {
-        UNITS_ChangeAnimMode(pOp->pObject, 1);
+        UNITS_ChangeAnimMode(pOp->hObject, 1);
         return 0;
     }
 
@@ -193,43 +193,43 @@ int __fastcall OBJECTS_OperateFunction12_InifussTree(D2ObjOperateFnStrc* pOp, in
     }
 
     D2BitBufferStrc* pQuestFlags;
-    if (pOp->pObject && pOp->pObject->dwAnimMode != 0
-        || QUESTRECORD_GetQuestState(pQuestFlags = sub_00593AF0_GetPlayerQuestFlags(pOp->pGame, pOp->pPlayer), 4, 0) == 1
+    if (pOp->hObject && pOp->hObject->dwAnimMode != 0
+        || QUESTRECORD_GetQuestState(pQuestFlags = sub_00593AF0_GetPlayerQuestFlags(pOp->pGame, pOp->hPlayer), 4, 0) == 1
         || QUESTRECORD_GetQuestState(pQuestFlags, 4, 1) == 1)
     {
         return 0;
     }
 
-    if (ITEMS_FindQuestItem(pOp->pGame, pOp->pPlayer, ' dkb') || ITEMS_FindQuestItem(pOp->pGame, pOp->pPlayer, ' skb'))
+    if (ITEMS_FindQuestItem(pOp->pGame, pOp->hPlayer, ' dkb') || ITEMS_FindQuestItem(pOp->pGame, pOp->hPlayer, ' skb'))
     {
-        SUNIT_AttachSound(pOp->pPlayer, 19, pOp->pPlayer);
+        SUNIT_AttachSound(pOp->hPlayer, 19, pOp->hPlayer);
         return 0;
     }
 
     D2Act1Quest4Strc* pQuestDataEx = (D2Act1Quest4Strc*)pQuestInfo->pQuestDataEx;
-    SUNIT_AttachSound(pOp->pPlayer, 45, 0);
+    SUNIT_AttachSound(pOp->hPlayer, 45, 0);
 
-    pOp->pObject->dwDropItemCode = ' skb';
+    pOp->hObject->dwDropItemCode = ' skb';
     sub_00592860_DebugStartedQuest(pQuestInfo);
     QUESTS_StateDebug(pQuestInfo, 4, gszA1Q4SourceFile, 0x84B);
 
     int nItemLevel;
-    D2UnitStrc* pItem = D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->pObject, 2, &nItemLevel, 0, -1, 0);
+    D2UnitStrc* pItem = D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->hObject, 2, &nItemLevel, 0, -1, 0);
     if (pItem)
     {
-        pQuestInfo->pfCallback[9] = ACT1Q4_Callback09_PlayerDroppedWithQuestItem;
+        pQuestInfo->pCallback[9] = ACT1Q4_Callback09_PlayerDroppedWithQuestItem;
         pQuestInfo->dwFlags &= 0xFFFFFF00;
-        QUESTS_UnitIterate(pQuestInfo, 2, pOp->pPlayer, ACT1Q4_UnitIterate_StatusCyclerEx, 1);
+        QUESTS_UnitIterate(pQuestInfo, 2, pOp->hPlayer, ACT1Q4_UnitIterate_StatusCyclerEx, 1);
         pQuestDataEx->unk0x4B = 1;
         const int nScrollGUID = (pItem ? pItem->dwUnitId : -1);
         pQuestDataEx->nDecipheredScrollGUID = nScrollGUID;
         pQuestDataEx->unk0x58 = 1;
         pQuestDataEx->bScrollAcquired = 1;
         ++pQuestDataEx->nScrollsInGame;
-        UNITS_ChangeAnimMode(pOp->pObject, 1);
+        UNITS_ChangeAnimMode(pOp->hObject, 1);
     }
 
     pQuestDataEx->bInifussTreeInitialized = 1;
-    pQuestDataEx->nInifussTreeGUID = !pOp->pObject ? -1 : pOp->pObject->dwUnitId;
+    pQuestDataEx->nInifussTreeGUID = !pOp->hObject ? -1 : pOp->hObject->dwUnitId;
     return 0;
 }

@@ -43,7 +43,7 @@ struct D2DrlgLevelStrc
     char pad_018[0x1C0 - 0x18];
     int nLevelType;
     char pad_1C4[0x0C];
-    int nLevelId;
+    int eLevelId;
 };
 extern int gaDesertBorderIds_006F112C[][2]; // 0x006F112C
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
@@ -184,7 +184,7 @@ void __fastcall DRLGOUTPLACE_PlaceAct1245OutdoorBorders(D2DrlgLevelStrc* pLevel)
     int nPacked;
     unsigned char nDirection;
 
-    unsigned char nAct = DRLG_GetActNoFromLevelId(pLevel->nLevelId);
+    unsigned char nAct = DRLG_GetActNoFromLevelId(pLevel->eLevelId);
     D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
     D2DrlgVertexStrc* pVertex = pOutdoors->pVertex;
     D2DrlgVertexStrc* pNext = pVertex->pNext;
@@ -267,7 +267,7 @@ void __fastcall DRLGOUTPLACE_PlaceAct1245OutdoorBorders(D2DrlgLevelStrc* pLevel)
 
                 nY = (pVertex->nPosY < pNext->nPosY ? pVertex->nPosY : pNext->nPosY) + nCurrentDiffYAbs * nDiff / 2;
 
-                if (pLevel->nLevelId == 17)
+                if (pLevel->eLevelId == 17)
                 {
                     DRLGGRID_AlterGridFlag(&pOutdoors->pGrid[2], nX, nY, 0xF0000, 5);
                     DRLGGRID_AlterGridFlag(&pOutdoors->pGrid[2], nX, nY, 0x40400, 0);

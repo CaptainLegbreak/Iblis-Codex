@@ -21,7 +21,7 @@ struct D2DynamicPathStrc
     char unk0x34[0x24];
     int unk0x58;
     char unk0x5C[0x35];
-    unsigned char nDistMax;
+    unsigned char bDistMax;
     char unk0x92[0x0A];
     D2PathPointStrc PathPoints[78];
 };
@@ -404,7 +404,7 @@ int __fastcall PATH_ComputePathOrSlideAlongObstacles(D2PathInfoStrc* pPathInfo)
     D2ActiveRoomStrc* pRoom = pPathInfo->pStartRoom;
     const int nCollisionPattern = pPathInfo->nCollisionPattern;
     const int nCollisionMask = pPathInfo->nCollisionMask;
-    const unsigned char nDist = ptPathInfo->nDistMax;
+    const unsigned char nDist = ptPathInfo->bDistMax;
     int i = 0;
     const D2PathPointStrc tStart = pPathInfo->tStartCoord;
     const D2PathPointStrc tTarget = pPathInfo->tTargetCoord;

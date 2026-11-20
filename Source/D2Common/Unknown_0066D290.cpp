@@ -57,7 +57,7 @@ struct D2DrlgRoomStrc
     unsigned char unk_30[0x4];
     D2DrlgCoordStrc pDrlgCoord;
     char unk0x44[0x10];
-    D2DrlgTileGridStrc* pTileGrid;
+    D2DrlgTileGridStrc* ptDrlgTiles;
     char unk0x58[0x10];
     void* pTiles;
 };
@@ -90,7 +90,7 @@ void __fastcall DRLGANIM_TestLoadAnimatedRoomTiles(D2DrlgRoomStrc* pDrlgRoom, D2
 
     const int nWidth = (nTileX == 0) + pDrlgRoom->pDrlgCoord.nWidth;
     const int nHeight = (nTileY == 0) + pDrlgRoom->pDrlgCoord.nHeight;
-    D2DrlgRoomTilesStrc* pRoomTiles = &pDrlgRoom->pTileGrid->pTiles;
+    D2DrlgRoomTilesStrc* pRoomTiles = &pDrlgRoom->ptDrlgTiles->pTiles;
 
     for (int nY = 0; nY < nHeight; ++nY)
     {
@@ -140,9 +140,9 @@ void __fastcall DRLGANIM_TestLoadAnimatedRoomTiles(D2DrlgRoomStrc* pDrlgRoom, D2
 // build: symbol ?DRLGANIM_AnimateRoomTiles@@YAXPAUD2DrlgRoomStrc@@@Z 0x0066D3B0
 static void DRLGANIM_AnimateRoomTiles(D2DrlgRoomStrc* pRoom)
 {
-    if (pRoom->dwFlags & 0x8000000 && pRoom->pTileGrid)
+    if (pRoom->dwFlags & 0x8000000 && pRoom->ptDrlgTiles)
     {
-        for (D2DrlgAnimTileGridStrc* pAnim = pRoom->pTileGrid->pAnimTiles; pAnim; pAnim = pAnim->pNext)
+        for (D2DrlgAnimTileGridStrc* pAnim = pRoom->ptDrlgTiles->pAnimTiles; pAnim; pAnim = pAnim->pNext)
         {
             if (pAnim->ppMapTileData[pAnim->nCurrentFrame >> 8])
             {
@@ -171,7 +171,7 @@ void __fastcall DRLGANIM_AnimateTiles(D2DrlgRoomStrc* pRoom)
 // 0x0066D700
 void __fastcall DRLGANIM_AllocAnimationTileGrids(D2DrlgRoomStrc* pRoom, int nAnimationSpeed, D2DrlgGridStrc* pWallGrid, int nWalls, D2DrlgGridStrc* pFloorGrid, int nFloors, D2DrlgGridStrc* pShadowGrid)
 {
-    D2DrlgTileGridStrc* pTileGrid = pRoom->pTileGrid;
+    D2DrlgTileGridStrc* pTileGrid = pRoom->ptDrlgTiles;
     DRLGANIM_AllocAnimationTileGrid(pWallGrid, pRoom, nAnimationSpeed, pTileGrid->pWallTiles, pTileGrid->nWalls);
     DRLGANIM_AllocAnimationTileGrid(pFloorGrid, pRoom, nAnimationSpeed, pTileGrid->pFloorTiles, pTileGrid->nFloors);
     DRLGANIM_AllocAnimationTileGrid(pShadowGrid, pRoom, nAnimationSpeed, pTileGrid->pRoofTiles, pTileGrid->nShadows);
@@ -190,9 +190,9 @@ void __fastcall DRLGANIM_UpdateFrameInAdjacentRooms(D2DrlgRoomStrc* pRoom1, D2Dr
     {
         for (int i = 0; i < pRoom1->nRoomsNear; ++i)
         {
-            if (pRoom1->ppRoomsNear[i]->pTileGrid && pRoom1->ppRoomsNear[i]->pTileGrid->pAnimTiles)
+            if (pRoom1->ppRoomsNear[i]->ptDrlgTiles && pRoom1->ppRoomsNear[i]->ptDrlgTiles->pAnimTiles)
             {
-                nCurrentFrame = pRoom1->ppRoomsNear[i]->pTileGrid->pAnimTiles->nCurrentFrame;
+                nCurrentFrame = pRoom1->ppRoomsNear[i]->ptDrlgTiles->pAnimTiles->nCurrentFrame;
                 break;
             }
         }
@@ -200,7 +200,7 @@ void __fastcall DRLGANIM_UpdateFrameInAdjacentRooms(D2DrlgRoomStrc* pRoom1, D2Dr
 
     for (int i = 0; i < pRoom2->nRoomsNear; ++i)
     {
-        if (D2DrlgTileGridStrc* pTileGrid = pRoom2->ppRoomsNear[i]->pTileGrid)
+        if (D2DrlgTileGridStrc* pTileGrid = pRoom2->ppRoomsNear[i]->ptDrlgTiles)
         {
             for (D2DrlgAnimTileGridStrc* pAnim = pTileGrid->pAnimTiles; pAnim; pAnim = pAnim->pNext)
             {

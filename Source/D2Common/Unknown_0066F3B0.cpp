@@ -98,7 +98,7 @@ struct D2DrlgLevelStrc
     char pad_after_drlg[12];
     D2SeedStrc pSeed;
     char pad_1CC[4];
-    int nLevelId;
+    int eLevelId;
 };
 
 
@@ -231,7 +231,7 @@ int __stdcall sub_0066F690_ApplySubstGroup(D2UnkOutdoorStrc* pOutdoor, D2LvlSubT
     const int bSubType1 = pOutdoor->nLvlSubId == 1;
     const int nFlags = pLevel->pOutdoors->dwFlags & 12;
 
-    if (pLevel->nLevelId >= 2 && pLevel->nLevelId <= 7)
+    if (pLevel->eLevelId >= 2 && pLevel->eLevelId <= 7)
         bWilderness = 1;
     else
         bWilderness = 0;

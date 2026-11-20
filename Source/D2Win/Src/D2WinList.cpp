@@ -28,7 +28,7 @@ typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
 
 struct D2WinControlStrc
 {
-    int nType;
+    int eType;
     D2CelFileStrc* pCellFile;
     unsigned int dwFlags;
     int nImageX;
@@ -150,7 +150,7 @@ extern int gnListFontHeight_006DD024[]; // 0x006DD024
 // 0x00507000
 int __fastcall LIST_GetSelectedDataIndex(D2WinListStrc* ptListData)
 {
-    D2_ASSERT(ptListData->controlHeader.nType == D2WIN_LIST, 0xD2);
+    D2_ASSERT(ptListData->controlHeader.eType == D2WIN_LIST, 0xD2);
     int nIndex = 0;
     D2WinListDataStrc* pData = ptListData->pDataList;
     while (pData)
@@ -172,7 +172,7 @@ int __fastcall LIST_GetSelectedDataIndex(D2WinListStrc* ptListData)
 // 0x00507050
 D2WinListDataStrc* __fastcall LIST_GetDataFromIndex(D2WinListStrc* ptListData, int nIndex)
 {
-    D2_ASSERT(ptListData->controlHeader.nType == D2WIN_LIST, 0xE5);
+    D2_ASSERT(ptListData->controlHeader.eType == D2WIN_LIST, 0xE5);
     int nCounter = 0;
     D2WinListDataStrc* pData = ptListData->pDataList;
     while (pData)
@@ -194,14 +194,14 @@ D2WinListDataStrc* __fastcall LIST_GetDataFromIndex(D2WinListStrc* ptListData, i
 // 0x005070A0
 int __fastcall D2Win_10141(D2WinListStrc* ptListData)
 {
-    D2_ASSERT(ptListData->controlHeader.nType == D2WIN_LIST, 0xF8);
+    D2_ASSERT(ptListData->controlHeader.eType == D2WIN_LIST, 0xF8);
     return ptListData->field_50;
 }
 
 // 0x005078A0
 void __fastcall ACCOUNTLIST_AllocData(D2WinAccountListStrc* ptListData, const char* szText)
 {
-    D2_ASSERT(ptListData->controlHeader.nType == D2WIN_ACCOUNTLIST, 0x72);
+    D2_ASSERT(ptListData->controlHeader.eType == D2WIN_ACCOUNTLIST, 0x72);
     D2WinAccountListDataStrc* pData = (D2WinAccountListDataStrc*)FOG_Alloc(sizeof(D2WinAccountListDataStrc), ".\\Src\\D2WinAccountList.cpp", 0x77, 0);
     strncpy(pData->szText, szText, sizeof(pData->szText));
     pData->pNext = ptListData->pDataList;
@@ -211,7 +211,7 @@ void __fastcall ACCOUNTLIST_AllocData(D2WinAccountListStrc* ptListData, const ch
 // 0x005079C0
 int __fastcall ACCOUNTLIST_GetTextFromSelectedEntry(D2WinAccountListStrc* ptListData, char* szBuffer)
 {
-    D2_ASSERT(ptListData->controlHeader.nType == D2WIN_ACCOUNTLIST, 0xB9);
+    D2_ASSERT(ptListData->controlHeader.eType == D2WIN_ACCOUNTLIST, 0xB9);
     const char* szText = ptListData->pSelectedDataEntry->szText;
     if (szText)
     {
@@ -337,7 +337,7 @@ D2WinListStrc* __fastcall LIST_Create(int nX, int nY, int nWidth, int nHeight, D
 {
     D2WinListStrc* pList = (D2WinListStrc*)FOG_Alloc(sizeof(D2WinListStrc), ".\\Src\\D2WinList.cpp", 0x2E, 0);
     memset(pList, 0, sizeof(D2WinListStrc));
-    pList->controlHeader.nType = D2WIN_LIST;
+    pList->controlHeader.eType = D2WIN_LIST;
     pList->controlHeader.dwFlags |= gdwBitMasks_006CE268[0];
     pList->controlHeader.dwFlags |= gdwBitMasks_006CE268[2];
     pList->controlHeader.nImageX = nX;

@@ -11,7 +11,7 @@ struct D2Act4Quest2Strc;
 struct D2ObjOperateFnStrc
 {
     D2GameStrc* pGame;
-    D2UnitStrc* pObject;
+    D2UnitStrc* hObject;
 };
 
 struct D2Act4Quest2Strc
@@ -58,7 +58,7 @@ static int GetAnimMode(D2UnitStrc* pUnit)
 // 0x005B6AD0
 static void sub_005B6AD0_ACT4Q2_SpawnSealObject(D2ObjOperateFnStrc* pOp, D2CoordStrc* pCoord, int nSeal)
 {
-    D2ActiveRoomStrc* pRoom = D2GAME_GetRoom_6FC52070(UNITS_GetRoom(pOp->pObject), pCoord->nX, pCoord->nY);
+    D2ActiveRoomStrc* pRoom = D2GAME_GetRoom_6FC52070(UNITS_GetRoom(pOp->hObject), pCoord->nX, pCoord->nY);
     if (!pRoom)
     {
         return;
@@ -76,7 +76,7 @@ static void sub_005B6AD0_ACT4Q2_SpawnSealObject(D2ObjOperateFnStrc* pOp, D2Coord
 // 0x005B6B70
 int __fastcall OBJECTS_OperateFunction54_DiabloSeal(D2ObjOperateFnStrc* pOp, int nOperate)
 {
-    if (GetAnimMode(pOp->pObject) != 0)
+    if (GetAnimMode(pOp->hObject) != 0)
     {
         return 0;
     }
@@ -89,7 +89,7 @@ int __fastcall OBJECTS_OperateFunction54_DiabloSeal(D2ObjOperateFnStrc* pOp, int
 
     D2Act4Quest2Strc* pQuestDataEx = pQuestData->pQuestDataEx;
     D2CoordStrc* pCoord = &pQuestDataEx->pSealCoords[0];
-    UNITS_GetCoords(pOp->pObject, pCoord);
+    UNITS_GetCoords(pOp->hObject, pCoord);
     pQuestDataEx->pSealCoords[0].nX -= 12;
     pQuestDataEx->pSealCoords[0].nY -= 52;
     sub_005B6AD0_ACT4Q2_SpawnSealObject(pOp, pCoord, 1);
@@ -99,7 +99,7 @@ int __fastcall OBJECTS_OperateFunction54_DiabloSeal(D2ObjOperateFnStrc* pOp, int
 // 0x005B6BC0
 int __fastcall OBJECTS_OperateFunction55_DiabloSeal(D2ObjOperateFnStrc* pOp, int nOperate)
 {
-    if (GetAnimMode(pOp->pObject) != 0)
+    if (GetAnimMode(pOp->hObject) != 0)
     {
         return 0;
     }
@@ -112,7 +112,7 @@ int __fastcall OBJECTS_OperateFunction55_DiabloSeal(D2ObjOperateFnStrc* pOp, int
 
     D2Act4Quest2Strc* pQuestDataEx = pQuestData->pQuestDataEx;
     D2CoordStrc* pCoord = &pQuestDataEx->pSealCoords[1];
-    UNITS_GetCoords(pOp->pObject, pCoord);
+    UNITS_GetCoords(pOp->hObject, pCoord);
     pQuestDataEx->pSealCoords[1].nX -= 39;
     pQuestDataEx->pSealCoords[1].nY += 33;
     sub_005B6AD0_ACT4Q2_SpawnSealObject(pOp, pCoord, 3);
@@ -122,7 +122,7 @@ int __fastcall OBJECTS_OperateFunction55_DiabloSeal(D2ObjOperateFnStrc* pOp, int
 // 0x005B6C10
 int __fastcall OBJECTS_OperateFunction56_DiabloSeal(D2ObjOperateFnStrc* pOp, int nOperate)
 {
-    if (GetAnimMode(pOp->pObject) != 0)
+    if (GetAnimMode(pOp->hObject) != 0)
     {
         return 0;
     }
@@ -135,7 +135,7 @@ int __fastcall OBJECTS_OperateFunction56_DiabloSeal(D2ObjOperateFnStrc* pOp, int
 
     D2Act4Quest2Strc* pQuestDataEx = pQuestData->pQuestDataEx;
     D2CoordStrc* pCoord = &pQuestDataEx->pSealCoords[2];
-    UNITS_GetCoords(pOp->pObject, pCoord);
+    UNITS_GetCoords(pOp->hObject, pCoord);
     pQuestDataEx->pSealCoords[2].nX += 32;
     pQuestDataEx->pSealCoords[2].nY += 16;
     sub_005B6AD0_ACT4Q2_SpawnSealObject(pOp, pCoord, 5);

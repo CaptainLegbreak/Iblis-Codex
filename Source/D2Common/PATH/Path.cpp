@@ -939,7 +939,7 @@ int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bA
     }
 
     pPath->nCollidedWithMask = 0;
-    D2UnitStrc* pTargetUnit = pPath->pTargetUnit;
+    D2UnitStrc* pTargetUnit = pPath->hTarget;
     if (pTargetUnit && (!CLIENTS_GetUnitX(pTargetUnit) || !CLIENTS_GetUnitY(pTargetUnit)))
     {
         return 0;
@@ -956,7 +956,7 @@ int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bA
         tPathInfo.nCollisionPattern = pPath->dwCollisionPattern;
         tPathInfo.pDynamicPath = pPath;
         tPathInfo.nCollisionMask = pPath->nMoveTestCollisionMask;
-        tPathInfo.nDistMax = pPath->nDistMax;
+        tPathInfo.nDistMax = pPath->bDistMax;
         tPathInfo.nMinimumFScoreToEvaluate = pPath->nIDAStarInitFScore;
         tPathInfo.field_14 = PATH_UpdateTargetUnit(&tPathInfo);
 
@@ -973,9 +973,9 @@ int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bA
                     tPathInfo.pTargetRoom = COLLISION_GetRoomBySubTileCoordinates(tPathInfo.pStartRoom, tPathInfo.tTargetCoord.X, tPathInfo.tTargetCoord.Y);
                     if (tPathInfo.pStartRoom && tPathInfo.pTargetRoom && (PATH_IsTargetDestinationAllowed(&tPathInfo, pUnit) || bAllowInTown))
                     {
-                        tPathInfo.nPathType = pPath->dwPathType;
+                        tPathInfo.nPathType = pPath->eType;
 
-                        D2UnitStrc* pPathTargetUnit = pPath->pTargetUnit;
+                        D2UnitStrc* pPathTargetUnit = pPath->hTarget;
                         BOOL bRemovedTargetUnitFootprint = FALSE;
                         PATH_RemoveCollisionFootprintForUnit(pUnit, FALSE);
                         if (pPathTargetUnit && UNITS_GetUnitSizeX(pPathTargetUnit) && (pPath->dwFlags & PATH_UNKNOWN_FLAG_0x00800))
@@ -1008,7 +1008,7 @@ int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bA
 
                         if (bRemovedTargetUnitFootprint)
                         {
-                            PATH_AddCollisionFootprintForUnit(pPath->pTargetUnit);
+                            PATH_AddCollisionFootprintForUnit(pPath->hTarget);
                         }
                         PATH_AddCollisionFootprintForUnit(pUnit);
 
@@ -1028,7 +1028,7 @@ int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bA
                             const unsigned int nFlags = pPath->dwFlags;
                             pPath->unk0x38 = 0;
                             pPath->tPrevTargetCoord.X = tPrev.X;
-                            if (!(nFlags & PATH_UNKNOWN_FLAG_0x00010) && !pPath->pTargetUnit)
+                            if (!(nFlags & PATH_UNKNOWN_FLAG_0x00010) && !pPath->hTarget)
                             {
                                 pPath->tTargetCoord.X = pPath->PathPoints[pPath->dwPathPoints - 1].X;
                                 pPath->tTargetCoord.Y = pPath->PathPoints[pPath->dwPathPoints - 1].Y;
@@ -1517,10 +1517,10 @@ static __declspec(noinline) int PATH_ComputePathClassicMissile(D2DynamicPathStrc
 
     pPath->dwCurrentPointIdx = 0;
 
-    if (pPath->pTargetUnit)
+    if (pPath->hTarget)
     {
-        pPath->tTargetCoord.X = PATH_InlineGetUnitX(pPath->pTargetUnit);
-        pPath->tTargetCoord.Y = PATH_InlineGetUnitY(pPath->pTargetUnit);
+        pPath->tTargetCoord.X = PATH_InlineGetUnitX(pPath->hTarget);
+        pPath->tTargetCoord.Y = PATH_InlineGetUnitY(pPath->hTarget);
     }
 
     int nXDistance = tOldCoords.X - pPath->tTargetCoord.X;
@@ -1566,7 +1566,7 @@ static __declspec(noinline) int PATH_ComputePathClassicMissile(D2DynamicPathStrc
 // 0x00649760
 static int PATH_MissileToTarget(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit)
 {
-    switch (pPath->dwPathType)
+    switch (pPath->eType)
     {
     case 4:
         if (PATH_ComputePathClassicMissile(pPath))
@@ -1594,7 +1594,7 @@ static int PATH_MissileToTarget(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit)
 static __declspec(noinline) unsigned char PATH_AdvanceToDoor(D2PathInfoStrc* pPathInfo)
 {
     D2DynamicPathStrc* pPath = pPathInfo->pDynamicPath;
-    D2UnitStrc* hTarget = pPath->pTargetUnit;
+    D2UnitStrc* hTarget = pPath->hTarget;
 
     D2_ASSERT(UnitIsDoor(hTarget), LINE_DOOR);
 
@@ -1628,7 +1628,7 @@ static __declspec(noinline) unsigned char PATH_AdvanceToDoor(D2PathInfoStrc* pPa
 static __declspec(noinline) unsigned char PATH_UpdateTargetUnit(D2PathInfoStrc* pPathInfo)
 {
     D2DynamicPathStrc* pPath = pPathInfo->pDynamicPath;
-    D2UnitStrc* pPathTargetUnit = pPath->pTargetUnit;
+    D2UnitStrc* pPathTargetUnit = pPath->hTarget;
     if (pPathTargetUnit)
     {
         pPath->tTargetCoord.X = PATH_InlineGetUnitX(pPathTargetUnit);

@@ -24,7 +24,7 @@ struct D2QuestDataStrc
     unsigned char unk_0E[0x6];
     unsigned int flags;
     char unknown18[0xC8];
-    int nQuestFilter;
+    int eFilter;
     int unknownE4;
     D2QuestStatusFilter statusFilter;
     char unknownEC[8];
@@ -84,12 +84,12 @@ void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsS
 // 0x00543F90
 void __fastcall QUESTS_RefreshStatus(D2QuestDataStrc* pQuest, unsigned char* pStatus, D2BitBufferStrc* pFlags)
 {
-    const int bCompletedBefore = QUESTRECORD_GetQuestState(pFlags, pQuest->nQuestFilter, 14);
+    const int bCompletedBefore = QUESTRECORD_GetQuestState(pFlags, pQuest->eFilter, 14);
     if (pQuest->fState >= pQuest->nInitNo)
     {
-        if (QUESTRECORD_GetQuestState(pFlags, pQuest->nQuestFilter, 13) == 1)
+        if (QUESTRECORD_GetQuestState(pFlags, pQuest->eFilter, 13) == 1)
         {
-            if (pQuest->nQuestFilter >= 41)
+            if (pQuest->eFilter >= 41)
             {
                 sub_00408A60(&gszEmptyAssertText, sub_00408090(), 1109);
                 exit(-1);
@@ -116,7 +116,7 @@ void __fastcall QUESTS_RefreshStatus(D2QuestDataStrc* pQuest, unsigned char* pSt
     }
     if (bCompletedBefore)
         goto status12;
-    if (pQuest->nQuestNo == 4 && pQuest->fLastState == 6 && !QUESTRECORD_GetQuestState(pFlags, pQuest->nQuestFilter, 13))
+    if (pQuest->nQuestNo == 4 && pQuest->fLastState == 6 && !QUESTRECORD_GetQuestState(pFlags, pQuest->eFilter, 13))
         goto status12;
     *pStatus = pQuest->fLastState;
     return;
@@ -154,8 +154,8 @@ void __fastcall QUESTS_StatusCyclerEx(D2GameStrc* game,D2UnitStrc* player,unsign
    if(pQuestInfo->statusFilter(pQuestInfo,player,game->questControl->flags,flags,&state)==1)
     packet.state=state;
   }
-  if(pQuestInfo->nQuestFilter==1) packet.remaining=ACT1Q1_GetMonstersToBeKilled(pQuestInfo);
-  else if(pQuestInfo->nQuestFilter==36) packet.remaining=ACT5Q2_GetBarbsToBeRescued(pQuestInfo);
+  if(pQuestInfo->eFilter==1) packet.remaining=ACT1Q1_GetMonstersToBeKilled(pQuestInfo);
+  else if(pQuestInfo->eFilter==36) packet.remaining=ACT5Q2_GetBarbsToBeRescued(pQuestInfo);
   sub_0053D710_SendQuestStatus(client,&packet);
  }
 }

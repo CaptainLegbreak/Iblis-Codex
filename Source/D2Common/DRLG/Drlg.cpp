@@ -38,7 +38,7 @@ struct D2DrlgCoordStrc
 struct D2DrlgLevelStrc
 {
     char unk0x000[0x010];
-    D2DrlgRoomStrc* pFirstRoomEx;
+    D2DrlgRoomStrc* ptRoomFirst;
     D2DrlgOutdoorInfoStrc* pOutdoors;
     unsigned char unk_18[0x4];
     union
@@ -60,7 +60,7 @@ struct D2DrlgLevelStrc
     char unk0x1B0[0x1B4 - 0x1B0];
     D2DrlgStrc* pDrlg;
     char unk0x1B8[0x1D0 - 0x1B8];
-    int nLevelId;
+    int eLevelId;
     char unk0x1D4[0x1E0 - 0x1D4];
     int nRoom_Center_Warp_X[4];
 };
@@ -202,8 +202,8 @@ struct D2DrlgRoomStrc
         };
     };
     char unk0x44[0x10];
-    D2RoomTileGridStrc* pTileGrid;
-    D2DrlgLevelStrc* pLevel;
+    D2RoomTileGridStrc* ptDrlgTiles;
+    D2DrlgLevelStrc* ptDrlgLevel;
     unsigned char unk_5C[0x4];
     unsigned int dwOtherFlags;
 };
@@ -353,7 +353,7 @@ int __fastcall sub_006427A0_GetLevelIdFromCoordinates(D2DrlgStrc* pDrlg, int nX,
     {
         if (DRLGROOM_AreXYInsideCoordinates(&pLevel->pLevelCoords, nX, nY))
         {
-            return pLevel->nLevelId;
+            return pLevel->eLevelId;
         }
     }
 
@@ -479,7 +479,7 @@ inline D2DrlgLevelStrc* DRLG_InlineGetLevel(D2DrlgStrc* pDrlg, int nLevelId)
 {
     for (D2DrlgLevelStrc* pLevel = pDrlg->pLevel; pLevel; pLevel = pLevel->pNextLevel)
     {
-        if (pLevel->nLevelId == nLevelId)
+        if (pLevel->eLevelId == nLevelId)
         {
             return pLevel;
         }
@@ -502,7 +502,7 @@ int __fastcall DRLG_GetHoradricStaffTombLevelId(D2DrlgStrc* pDrlg)
 // 0x00642380
 int* __fastcall DRLG_GetRoomCenterX_RoomWarpXFromRoom(D2DrlgRoomStrc* pDrlgRoom)
 {
-    return pDrlgRoom->pLevel->nRoom_Center_Warp_X;
+    return pDrlgRoom->ptDrlgLevel->nRoom_Center_Warp_X;
 }
 
 // 0x006426A0
@@ -563,7 +563,7 @@ int __fastcall DRLG_GetNumberOfPopulatedRoomsInLevel(D2DrlgStrc* pDrlg, int nLev
     int nCounter = 0;
     D2DrlgLevelStrc* pLevel = DRLG_InlineGetLevel(pDrlg, nLevelId);
 
-    for (D2DrlgRoomStrc* i = pLevel->pFirstRoomEx; i; i = i->pDrlgRoomNext)
+    for (D2DrlgRoomStrc* i = pLevel->ptRoomFirst; i; i = i->pDrlgRoomNext)
     {
         if (!(i->dwFlags & 0x800000))
         {
@@ -577,8 +577,8 @@ int __fastcall DRLG_GetNumberOfPopulatedRoomsInLevel(D2DrlgStrc* pDrlg, int nLev
 // 0x00643020
 void __fastcall sub_6FD745C0(D2DrlgRoomStrc* pDrlgRoom1, D2DrlgRoomStrc* pDrlgRoom2)
 {
-    D2DrlgLevelStrc* pLevel1 = pDrlgRoom1 ? pDrlgRoom1->pLevel : 0;
-    D2DrlgLevelStrc* pLevel2 = pDrlgRoom2 ? pDrlgRoom2->pLevel : 0;
+    D2DrlgLevelStrc* pLevel1 = pDrlgRoom1 ? pDrlgRoom1->ptDrlgLevel : 0;
+    D2DrlgLevelStrc* pLevel2 = pDrlgRoom2 ? pDrlgRoom2->ptDrlgLevel : 0;
 
     if (pLevel1 != pLevel2)
     {
@@ -625,7 +625,7 @@ void __fastcall DRLGOUTDESR_PlaceDesertTransitionToTown(D2DrlgLevelStrc* pLevel)
 {
     D2DrlgOrthStrc* pTownRoomData = pLevel->pOutdoors->pRoomData;
 
-    while (pTownRoomData && pTownRoomData->pLevel->nLevelId != 40)
+    while (pTownRoomData && pTownRoomData->pLevel->eLevelId != 40)
     {
         pTownRoomData = pTownRoomData->pNext;
     }
@@ -648,7 +648,7 @@ void __fastcall DRLGOUTDESR_AddExits(D2DrlgLevelStrc* pLevel)
 {
     int nLevelPrestId = 0;
 
-    switch (pLevel->nLevelId)
+    switch (pLevel->eLevelId)
     {
     case 41:
     case 42:
@@ -727,7 +727,7 @@ void __fastcall DRLG_CreateRoomForRoomEx(D2DrlgStrc* pDrlg, D2DrlgRoomStrc* pDrl
     DUNGEON_GameTileToSubtileCoords(&tDrlgCoords.nSubtileX, &tDrlgCoords.nSubtileY);
     DUNGEON_GameTileToSubtileCoords(&tDrlgCoords.nSubtileWidth, &tDrlgCoords.nSubtileHeight);
 
-    D2DrlgTileDataListStrc* pTiles = &pDrlgRoom->pTileGrid->pTiles;
+    D2DrlgTileDataListStrc* pTiles = &pDrlgRoom->ptDrlgTiles->pTiles;
     if (pTiles->nWalls || pTiles->nFloors)
     {
         int nFlags = 0;
@@ -747,7 +747,7 @@ void __fastcall DRLG_CreateRoomForRoomEx(D2DrlgStrc* pDrlg, D2DrlgRoomStrc* pDrl
 // 0x00642520
 void __fastcall DRLG_GetMinAndMaxCoordinatesFromLevel(D2DrlgLevelStrc* pLevel, int* pTileMinX, int* pTileMinY, int* pTileMaxX, int* pTileMaxY)
 {
-    D2DrlgRoomStrc* pDrlgRoom = pLevel->pFirstRoomEx;
+    D2DrlgRoomStrc* pDrlgRoom = pLevel->ptRoomFirst;
     const D2DrlgCoordStrc* pDrlgCoord = &pDrlgRoom->pDrlgCoord;
 
     *pTileMinX = pDrlgCoord->nPosX;
@@ -785,8 +785,8 @@ void __fastcall DRLG_GetMinAndMaxCoordinatesFromLevel(D2DrlgLevelStrc* pLevel, i
 D2DrlgRoomStrc* __fastcall DRLG_GetRoomExFromLevelAndCoordinates(D2DrlgLevelStrc* pLevel, int nX, int nY)
 {
     D2_ASSERT(pLevel, 0x2FD);
-    D2_ASSERT(pLevel->pFirstRoomEx, 0x2FE);
-    for (D2DrlgRoomStrc* pDrlgRoom = pLevel->pFirstRoomEx; pDrlgRoom; pDrlgRoom = pDrlgRoom->pDrlgRoomNext)
+    D2_ASSERT(pLevel->ptRoomFirst, 0x2FE);
+    for (D2DrlgRoomStrc* pDrlgRoom = pLevel->ptRoomFirst; pDrlgRoom; pDrlgRoom = pDrlgRoom->pDrlgRoomNext)
     {
         if (DRLGROOM_AreXYInsideCoordinates(&pDrlgRoom->pDrlgCoord, nX, nY))
             return pDrlgRoom;
@@ -902,14 +902,14 @@ int __stdcall sub_0066D960_FindTilePresetEntry(int nLevelId, unsigned int nPacke
 // build: context DRLG_GetLevel
 static D2DrlgLevelStrc* __stdcall DRLG_GetLevel(D2DrlgStrc* pDrlg,int id)
 {
- for(D2DrlgLevelStrc* p=pDrlg->pLevel;p;p=p->pNextLevel) if(p->nLevelId==id)return p;
+ for(D2DrlgLevelStrc* p=pDrlg->pLevel;p;p=p->pNextLevel) if(p->eLevelId==id)return p;
  return DRLG_AllocLevel(pDrlg,id);
 }
 
 // 0x00642D10
 void __fastcall DRLG_SetLevelPositionAndSize(D2DrlgStrc* pDrlg,D2DrlgLevelStrc* pLevel)
 {
- D2LevelDefBin* def=DATATBLS_GetLevelDefRecord(pLevel->nLevelId);
+ D2LevelDefBin* def=DATATBLS_GetLevelDefRecord(pLevel->eLevelId);
  D2DrlgLevelStrc* depend=0;
  int x=0,y=0;
  const int width=def->dwSizeX[pDrlg->nDifficulty];

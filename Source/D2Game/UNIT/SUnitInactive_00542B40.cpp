@@ -66,7 +66,7 @@ struct D2AiCmdStrc
 
 struct D2InactiveUnitNodeStrc
 {
-    int nX,nY,nUnitType,nClassId,nAnimMode,nGameFrame; unsigned int nUnitFlags,nUnitFlagsEx;
+    int nX,nY,nUnitType,nClassId,nMode,nGameFrame; unsigned int nUnitFlags,nUnitFlagsEx;
     int nUnitId,nFrame; unsigned char nInteractType; char pad29[3]; unsigned int nDropItemCode;
     D2InactiveUnitNodeStrc* pNext;
 };
@@ -75,7 +75,7 @@ struct D2InactiveUnitListStrc { int nX,nY; D2InactiveItemNodeStrc* pInactiveItem
 struct D2GameStrc { char pad00[0x1C]; void* pMemoryPool; char pad20[0x88]; int dwGameFrame; char padAC[0x2C]; D2InactiveUnitListStrc* pInactiveUnitList[5]; int padEC; void* pMonReg[1]; };
 struct D2DrlgCoordsStrc { int nSubtileX,nSubtileY,nSubtileWidth,nSubtileHeight,nTileXPos,nTileYPos,nTileWidth,nTileHeight; };
 struct D2CoordStrc { int nX,nY; };
-struct D2ItemSaveStrc { int nClassId; unsigned short nX,nY; unsigned char nAnimMode,nPad09; unsigned short nPad0A; unsigned int dwFlags; unsigned char nStorePage,nBodyloc; unsigned short nPad12; int nItemFileIndex; };
+struct D2ItemSaveStrc { int nClassId; unsigned short nX,nY; unsigned char bMode,nPad09; unsigned short nPad0A; unsigned int dwFlags; unsigned char nStorePage,nBodyloc; unsigned short nPad12; int nItemFileIndex; };
 extern D2DataTablesStrc* sgptDataTables;                                                                     // 0x00744304
 extern const unsigned int gdwBitMasks[32];                                                                   // 0x006CE268
 extern int gnInactiveCmdParam1_007314C0; // 0x007314C0
@@ -549,7 +549,7 @@ void __fastcall SUNITINACTIVE_RestoreInactiveUnits(D2GameStrc* pGame,D2ActiveRoo
     {
         D2InactiveUnitNodeStrc* node = next;
         next = node->pNext;
-        const int mode = node->nAnimMode;
+        const int mode = node->nMode;
         const int type = node->nUnitType;
         D2UnitStrc* unit = 0;
         if (node->nUnitFlagsEx & 0x100)
@@ -562,7 +562,7 @@ void __fastcall SUNITINACTIVE_RestoreInactiveUnits(D2GameStrc* pGame,D2ActiveRoo
                 switch (type)
                 {
                 case 0:
-                    D2_ASSERT(node->nAnimMode == 17,0x156);
+                    D2_ASSERT(node->nMode == 17,0x156);
                     UNITS_ChangeAnimMode(unit,17);
                     break;
                 case 2:

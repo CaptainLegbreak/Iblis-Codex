@@ -15,7 +15,7 @@ struct D2QuestDataStrc
     unsigned int dwFlags;
     void* pQuestDataEx;
     char unk0x1C[0xC4];
-    int nQuestFilter;
+    int eFilter;
 };
 
 struct D2Act5Quest5Strc

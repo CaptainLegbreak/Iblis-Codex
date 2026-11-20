@@ -39,9 +39,9 @@ struct D2QuestDataStrc
     unsigned int dwFlags;
     void* pQuestDataEx;
     char tPlayerGUIDs[0x84];
-    void* pfCallback[15];
+    void* pCallback[15];
     void* pNPCMessages;
-    int nQuestFilter;
+    int eFilter;
 };
 
 struct D2QuestArgStrc
@@ -152,7 +152,7 @@ bool __fastcall ACT5Q1_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc*
     *pStatus = 0;
     if (QUESTRECORD_GetQuestState(pFlags, QUESTSTATEFLAG_A5Q1, QFLAG_REWARDPENDING) || QUESTRECORD_GetQuestState(pFlags, QUESTSTATEFLAG_A5Q1, QFLAG_PRIMARYGOALDONE))
     {
-        if (QUESTRECORD_GetQuestState(pFlags, pQuest->nQuestFilter, QFLAG_CUSTOM1))
+        if (QUESTRECORD_GetQuestState(pFlags, pQuest->eFilter, QFLAG_CUSTOM1))
         {
             *pStatus = 4;
             return true;

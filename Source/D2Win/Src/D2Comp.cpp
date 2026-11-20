@@ -164,7 +164,7 @@ typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
 
 struct D2WinControlStrc
 {
-    int nType;
+    int eType;
     D2CelFileStrc* pCellFile;
     unsigned int dwFlags;
     int nImageX;
@@ -584,7 +584,7 @@ const char* __stdcall D2Win_10161(int nClass, int nLevel, int bExpansion, int bS
 // 0x00506910
 int __stdcall SMACK_Decode(D2WinSmackStrc* pSmack, const char* szFileName, int nVersion)
 {
-    D2_ASSERT(pSmack->controlHeader.nType == D2WIN_SMACK, 0x53);
+    D2_ASSERT(pSmack->controlHeader.eType == D2WIN_SMACK, 0x53);
     strncpy(pSmack->szFileName, szFileName, 0x100);
     WINDOW_CloseSmacker(&pSmack->field_140);
     WINDOW_DecodeSmacker(pSmack->szFileName, (unsigned char*)&pSmack->field_140, nVersion);
@@ -596,7 +596,7 @@ int __stdcall SMACK_Decode(D2WinSmackStrc* pSmack, const char* szFileName, int n
 // 0x00506990
 int __stdcall SMACK_DeleteFile(D2WinSmackStrc* pSmack)
 {
-    D2_ASSERT(pSmack->controlHeader.nType == D2WIN_SMACK, 0x66);
+    D2_ASSERT(pSmack->controlHeader.eType == D2WIN_SMACK, 0x66);
     WINDOW_CloseSmacker(&pSmack->field_140);
     if (!gbSmackKeepFile_0087E968)
         DeleteFileA(pSmack->szFileName);
@@ -606,7 +606,7 @@ int __stdcall SMACK_DeleteFile(D2WinSmackStrc* pSmack)
 // 0x005069F0
 int __stdcall SMACK_SetCoordinates(D2WinSmackStrc* pSmack, int nX, int nY)
 {
-    D2_ASSERT(pSmack->controlHeader.nType == D2WIN_SMACK, 0x7B);
+    D2_ASSERT(pSmack->controlHeader.eType == D2WIN_SMACK, 0x7B);
     pSmack->controlHeader.nImageX = nX;
     pSmack->controlHeader.nImageY = nY;
     pSmack->field_148 = nX;
@@ -618,7 +618,7 @@ int __stdcall SMACK_SetCoordinates(D2WinSmackStrc* pSmack, int nX, int nY)
 int __stdcall SMACK_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
 {
     D2WinSmackStrc* pSmack = (D2WinSmackStrc*)pMsg->hWnd;
-    D2_ASSERT(pSmack->controlHeader.nType == D2WIN_SMACK, 0xC0);
+    D2_ASSERT(pSmack->controlHeader.eType == D2WIN_SMACK, 0xC0);
     if (!(pSmack->controlHeader.dwFlags & gdwBitMasks[2]) || !(pSmack->controlHeader.dwFlags & gdwBitMasks[0]) || !pSmack->controlHeader.field_34)
         return 0;
     return pSmack->controlHeader.field_34(pMsg);
@@ -680,7 +680,7 @@ void __fastcall WREGISTER_UnregisterCommand(void* hWnd, int nType, int nId, D2Wi
 int __stdcall LIST_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
 {
     D2WinListStrc* pList = (D2WinListStrc*)pMsg->hWnd;
-    D2_ASSERT(pList->controlHeader.nType == D2WIN_LIST, 0x154);
+    D2_ASSERT(pList->controlHeader.eType == D2WIN_LIST, 0x154);
     const int nX = gMousePosition_6F8FE234.x;
     const int nY = gMousePosition_6F8FE234.y;
     const unsigned long dwTickCount = GetTickCount();
@@ -704,7 +704,7 @@ int __stdcall LIST_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
 int __stdcall LIST_HandleCharInput(SMSGHANDLER_PARAMS* pMsg)
 {
     D2WinListStrc* pList = (D2WinListStrc*)pMsg->hWnd;
-    D2_ASSERT(pList->controlHeader.nType == D2WIN_LIST, 0x179);
+    D2_ASSERT(pList->controlHeader.eType == D2WIN_LIST, 0x179);
     for (D2WinListDataStrc* pData = pList->pDataList; pData; pData = pData->pNext)
     {
         if (pData->field_218 == (char)pMsg->wParam && pData->field_204)
@@ -717,7 +717,7 @@ int __stdcall LIST_HandleCharInput(SMSGHANDLER_PARAMS* pMsg)
 int __stdcall LIST_HandleVirtualKeyInput(SMSGHANDLER_PARAMS* pMsg)
 {
     D2WinListStrc* pList = (D2WinListStrc*)pMsg->hWnd;
-    D2_ASSERT(pList->controlHeader.nType == D2WIN_LIST, 0x18F);
+    D2_ASSERT(pList->controlHeader.eType == D2WIN_LIST, 0x18F);
     if (pMsg->uMessage == 0x102)
         return 0;
     switch (pMsg->wParam)
@@ -785,7 +785,7 @@ D2WinAccountListStrc* __fastcall ACCOUNTLIST_Create(int nX, int nY, int nWidth, 
 {
     D2WinAccountListStrc* pAccountList = (D2WinAccountListStrc*)FOG_Alloc(sizeof(D2WinAccountListStrc), ".\\Src\\D2WinAccountList.cpp", 0x24, 0);
     memset(pAccountList, 0, sizeof(D2WinAccountListStrc));
-    pAccountList->controlHeader.nType = D2WIN_ACCOUNTLIST;
+    pAccountList->controlHeader.eType = D2WIN_ACCOUNTLIST;
     pAccountList->controlHeader.dwFlags |= gdwBitMasks[0];
     pAccountList->controlHeader.dwFlags |= gdwBitMasks[2];
     pAccountList->field_4C = a5;
@@ -820,7 +820,7 @@ D2WinAccountListStrc* __fastcall ACCOUNTLIST_Create(int nX, int nY, int nWidth, 
 // 0x00507D70
 int __stdcall PROGRESSBAR_SetProgress(D2WinProgressBarStrc* pProgressBar, float fProgress)
 {
-    D2_ASSERT(pProgressBar->controlHeader.nType == D2WIN_PROGRESSBAR, 0x3A);
+    D2_ASSERT(pProgressBar->controlHeader.eType == D2WIN_PROGRESSBAR, 0x3A);
     pProgressBar->fProgress = fProgress;
     return 1;
 }
@@ -830,7 +830,7 @@ D2WinProgressBarStrc* __fastcall PROGRESSBAR_Create(int nX, int nY, int nWidth, 
 {
     D2WinProgressBarStrc* pProgressBar = (D2WinProgressBarStrc*)FOG_Alloc(sizeof(D2WinProgressBarStrc), ".\\Src\\D2WinProgressBar.cpp", 0x1A, 0);
     memset(pProgressBar, 0, sizeof(D2WinProgressBarStrc));
-    pProgressBar->controlHeader.nType = D2WIN_PROGRESSBAR;
+    pProgressBar->controlHeader.eType = D2WIN_PROGRESSBAR;
     pProgressBar->controlHeader.dwFlags |= gdwBitMasks[0];
     pProgressBar->controlHeader.dwFlags |= gdwBitMasks[2];
     pProgressBar->controlHeader.pCellFile = 0;
@@ -854,7 +854,7 @@ D2WinProgressBarStrc* __fastcall PROGRESSBAR_Create(int nX, int nY, int nWidth, 
 int __stdcall SCROLLBAR_HandleMouseUp(SMSGHANDLER_PARAMS* pMsg)
 {
     D2WinScrollBarStrc* pScrollBar = (D2WinScrollBarStrc*)pMsg->hWnd;
-    D2_ASSERT(pScrollBar->controlHeader.nType == D2WIN_SCROLLBAR, 0x1B0);
+    D2_ASSERT(pScrollBar->controlHeader.eType == D2WIN_SCROLLBAR, 0x1B0);
     if (pScrollBar->bIsUpperArrowPressed || pScrollBar->bIsLowerArrowPressed || pScrollBar->bIsStepIndicatorDragged)
     {
         pScrollBar->bIsUpperArrowPressed = 0;
@@ -870,7 +870,7 @@ D2WinScrollBarStrc* __fastcall SCROLLBAR_Create(int nX, int nY, int nWidth, int 
 {
     D2WinScrollBarStrc* pScrollBar = (D2WinScrollBarStrc*)FOG_Alloc(sizeof(D2WinScrollBarStrc), ".\\Src\\D2WinScrollbar.cpp", 0x1C, 0);
     memset(pScrollBar, 0, sizeof(D2WinScrollBarStrc));
-    pScrollBar->controlHeader.nType = D2WIN_SCROLLBAR;
+    pScrollBar->controlHeader.eType = D2WIN_SCROLLBAR;
     pScrollBar->controlHeader.dwFlags |= gdwBitMasks[0];
     pScrollBar->controlHeader.dwFlags |= gdwBitMasks[2];
     pScrollBar->controlHeader.pCellFile = pCellFile;

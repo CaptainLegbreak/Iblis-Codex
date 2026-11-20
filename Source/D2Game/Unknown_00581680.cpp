@@ -40,8 +40,8 @@ struct D2ActiveRoomStrc
 struct D2ObjOperateFnStrc
 {
     D2GameStrc* pGame;
-    D2UnitStrc* pObject;
-    D2UnitStrc* pPlayer;
+    D2UnitStrc* hObject;
+    D2UnitStrc* hPlayer;
     D2ObjectControlStrc* pObjectregion;
     int nObjectIdx;
 };
@@ -71,7 +71,7 @@ static void __stdcall sub_00581680_DamagePlayersInRange(D2GameStrc* pGame, D2Uni
     D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(!pObject ? -1 : pObject->dwClassId);
     D2CoordStrc tCoord;
     UNITS_GetCoords(pObject, &tCoord);
-    for (D2UnitStrc* i = pRoom->pUnitFirst; i; i = i->pRoomNext)
+    for (D2UnitStrc* i = pRoom->pUnitFirst; i; i = i->ptRoomNext)
     {
         const int nType = (i ? i->dwUnitType : 6);
         const int nMode = (i ? i->dwAnimMode : 0);
@@ -101,8 +101,8 @@ void __fastcall OBJMODE_UpdateTrappedSoul(D2GameStrc* pGame, D2UnitStrc* pObject
         {
             D2ObjOperateFnStrc tOp;
             tOp.pGame = pGame;
-            tOp.pObject = pObject;
-            tOp.pPlayer = 0;
+            tOp.hObject = pObject;
+            tOp.hPlayer = 0;
             tOp.pObjectregion = OBJRGN_GetObjectControlFromGame(pGame, UNITS_GetRoom(pObject));
             tOp.nObjectIdx = pObject->dwClassId;
             if (OBJMODE_DropFromChestTCWithQuality(&tOp, 0))

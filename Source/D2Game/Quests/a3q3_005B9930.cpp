@@ -34,7 +34,7 @@ struct D2QuestDataStrc
     char unk0x0A[0x0E];
     D2QuestExStrc* pQuestDataEx;
     char unk0x1C[0xA4];
-    QUESTCB pfCallback;
+    QUESTCB pCallback;
 };
 struct D2ObjInitFnStrc
 {
@@ -79,12 +79,12 @@ bool __fastcall sub_005B9A30_QuestSeqCallback(D2GameStrc* pGame, D2QuestDataStrc
             DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRoomList, &nNumRooms);
             for (unsigned int i = 0; i < nNumRooms; ++i)
             {
-                for (D2UnitStrc* pUnit = ppRoomList[i]->pUnitFirst; pUnit; pUnit = pUnit->pRoomNext)
+                for (D2UnitStrc* pUnit = ppRoomList[i]->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
                 {
                     if (pUnit->dwUnitType == 0)
                     {
                         sub_005B9930_QUESTS_SpawnQuestMonster(pGame, pRoom, pQuestDataEx);
-                        pQuestData->pfCallback = sub_005B9980_QuestCallback;
+                        pQuestData->pCallback = sub_005B9980_QuestCallback;
                         return true;
                     }
                 }

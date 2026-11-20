@@ -118,9 +118,9 @@ struct D2QuestDataStrc
     unsigned int dwFlags;
     void* pQuestDataEx;
     D2QuestGUIDStrc tPlayerGUIDs;
-    QUESTCALLBACK pfCallback[15];
+    QUESTCALLBACK pCallback[15];
     D2NPCMessageTableStrc* pNPCMessages;
-    int nQuestFilter;
+    int eFilter;
     unsigned char unk_E4[0xC];
     QUESTSEQFILTER pfSeqFilter;
     D2QuestDataStrc* pPrev;
@@ -459,8 +459,8 @@ enum { EFFECT_PACKET = 0x89, FLAGS_PACKET = 0x28 };
 struct D2ObjOperateFnStrc
 {
     D2GameStrc* pGame;
-    D2UnitStrc* pObject;
-    D2UnitStrc* pPlayer;
+    D2UnitStrc* hObject;
+    D2UnitStrc* hPlayer;
     D2ObjectControlStrc* pObjectregion;
     int nObjectIdx;
 };
@@ -657,10 +657,10 @@ static void __stdcall QUESTS_StatusCycler(bool bForceActive, D2QuestArgStrc* pAr
 {
     for (D2QuestChainStrc* i = pArgs->pTarget->pQuestEventList; i; i = i->pNext)
     {
-        if (i->pQuestData->pfCallback[pArgs->nEvent] && (i->pQuestData->bActive == 1 || bForceActive))
+        if (i->pQuestData->pCallback[pArgs->nEvent] && (i->pQuestData->bActive == 1 || bForceActive))
         {
-            D2_ASSERT(!IsBadCodePtr((FARPROC)i->pQuestData->pfCallback[pArgs->nEvent]), 0x23E);
-            i->pQuestData->pfCallback[pArgs->nEvent](i->pQuestData, pArgs);
+            D2_ASSERT(!IsBadCodePtr((FARPROC)i->pQuestData->pCallback[pArgs->nEvent]), 0x23E);
+            i->pQuestData->pCallback[pArgs->nEvent](i->pQuestData, pArgs);
         }
     }
 }
@@ -1379,7 +1379,7 @@ void __fastcall QUESTS_SetGoldenBirdSpawn(D2GameStrc* pGame, D2UnitStrc* pUnit)
     }
 
     D2QuestDataStrc* pQuestData = pQuestChain->pQuestData;
-    if (pQuestData->nQuestFilter != 20 || pQuestData->bActive != 1)
+    if (pQuestData->eFilter != 20 || pQuestData->bActive != 1)
     {
         return;
     }
@@ -1490,27 +1490,27 @@ void __fastcall QUESTS_SequenceCycler(D2GameStrc* pGame, D2UnitStrc* pPlayer, in
             {
                 for (int i = 0; i < gnQuestInitTableCount_00731888; ++i)
                 {
-                    D2_ASSERT(sgQuestInit[i].nAct < 5, 0x637);
+                    D2_ASSERT(sgQuestInit[i].bAct < 5, 0x637);
                     if (!sgQuestInit[i].bNoSetState
                         && (QUESTRECORD_GetQuestState(pQuestFlags, sgQuestInit[i].nQuestNo, 0)
                             || QUESTRECORD_GetQuestState(pQuestFlags, sgQuestInit[i].nQuestNo, 15)))
                     {
                         sub_00544410_ClearQuestIntroState(pGame, sgQuestInit[i].nChainNo);
-                        ++anActQuests[sgQuestInit[i].nAct];
+                        ++anActQuests[sgQuestInit[i].bAct];
                         QUESTRECORD_SetQuestState(pQuestControl->pQuestFlags, sgQuestInit[i].nQuestNo, 15);
                     }
                 }
             }
             for (D2QuestDataStrc* pQuest = pQuestControl->pLastQuest; pQuest; pQuest = pQuest->pPrev)
             {
-                if (pQuest->pfCallback[13])
+                if (pQuest->pCallback[13])
                 {
-                    D2_ASSERT(!IsBadCodePtr((FARPROC)pQuest->pfCallback[13]), 0x640);
+                    D2_ASSERT(!IsBadCodePtr((FARPROC)pQuest->pCallback[13]), 0x640);
                     D2QuestArgStrc pArgs;
                     pArgs.pGame = pGame;
                     pArgs.pPlayer = pPlayer;
                     pArgs.nEvent = 13;
-                    pQuest->pfCallback[13](pQuest, &pArgs);
+                    pQuest->pCallback[13](pQuest, &pArgs);
                 }
             }
         }
@@ -1534,14 +1534,14 @@ void __fastcall QUESTS_SequenceCycler(D2GameStrc* pGame, D2UnitStrc* pPlayer, in
     {
         for (D2QuestDataStrc* pQuest = pQuestControl->pLastQuest; pQuest; pQuest = pQuest->pPrev)
         {
-            if (pQuest->pfCallback[14])
+            if (pQuest->pCallback[14])
             {
-                D2_ASSERT(!IsBadCodePtr((FARPROC)pQuest->pfCallback[14]), 0x666);
+                D2_ASSERT(!IsBadCodePtr((FARPROC)pQuest->pCallback[14]), 0x666);
                 D2QuestArgStrc pArgs;
                 pArgs.pGame = pGame;
                 pArgs.nEvent = 14;
                 pArgs.pPlayer = pPlayer;
-                pQuest->pfCallback[14](pQuest, &pArgs);
+                pQuest->pCallback[14](pQuest, &pArgs);
             }
         }
     }
@@ -2093,7 +2093,7 @@ void __fastcall QUESTS_RemovePlayerGUID(D2QuestDataStrc* pQuest, D2QuestArgStrc*
 {
     D2GameStrc* pGame = pQuest->pGame;
     D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pArgs->pPlayer)->pQuestData[pGame->nDifficulty];
-    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuest->nQuestFilter, QFLAG_REWARDPENDING) == 1 && QUESTRECORD_GetQuestState(pQuestFlags, pQuest->nQuestFilter, QFLAG_REWARDGRANTED)
+    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuest->eFilter, QFLAG_REWARDPENDING) == 1 && QUESTRECORD_GetQuestState(pQuestFlags, pQuest->eFilter, QFLAG_REWARDGRANTED)
         && pQuest->tPlayerGUIDs.nPlayerCount > 0)
     {
         QUESTS_FastRemovePlayerGUID(&pQuest->tPlayerGUIDs, !pArgs->pPlayer ? -1 : pArgs->pPlayer->dwUnitId);
@@ -2139,7 +2139,7 @@ int __fastcall sub_005456F0(Game* game, Unit* unit, void* unused)
 int __fastcall QUESTS_SetObjectSelection(D2ObjOperateFnStrc* pOp)
 {
     int bCanOperate = 1;
-    if (pOp->pObject && pOp->pObject->dwAnimMode != 0)
+    if (pOp->hObject && pOp->hObject->dwAnimMode != 0)
     {
         bCanOperate = 0;
     }
@@ -2147,20 +2147,20 @@ int __fastcall QUESTS_SetObjectSelection(D2ObjOperateFnStrc* pOp)
     if (bCanOperate)
     {
         D2CoordStrc tCoords;
-        UNITS_GetCoords(pOp->pObject, &tCoords);
+        UNITS_GetCoords(pOp->hObject, &tCoords);
 
         D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(pOp->nObjectIdx);
         if (pObjectsTxtRecord->nMode[1])
         {
-            UNITS_ChangeAnimMode(pOp->pObject, 1);
-            sub_005417D0_DirectDated(pOp->pGame, pOp->pObject, 1, (pObjectsTxtRecord->dwFrameCnt[1] >> 8) + pOp->pGame->dwGameFrame, 0, 0);
+            UNITS_ChangeAnimMode(pOp->hObject, 1);
+            sub_005417D0_DirectDated(pOp->pGame, pOp->hObject, 1, (pObjectsTxtRecord->dwFrameCnt[1] >> 8) + pOp->pGame->dwGameFrame, 0, 0);
         }
         else
         {
-            UNITS_ChangeAnimMode(pOp->pObject, 2);
+            UNITS_ChangeAnimMode(pOp->hObject, 2);
         }
 
-        D2UnitStrc* pObject = pOp->pObject;
+        D2UnitStrc* pObject = pOp->hObject;
         if (pObject)
         {
             pObject->dwFlags &= ~UNITFLAG_TARGETABLE;

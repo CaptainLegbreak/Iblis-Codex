@@ -5,7 +5,7 @@
 struct D2PlayerDataStrc { char unk00[0x10]; D2BitBufferStrc* pQuestData[3]; };
 struct D2QuestExStrc { char unk00[3]; unsigned char f_3; unsigned char bSpawning; unsigned char bTimerStarted; };
 struct D2QuestDataStrc { char unk00[9]; unsigned char bNotIntro; char unk0A[2]; unsigned char fState; char unk0D[0xB]; D2QuestExStrc* pQuestDataEx; };
-struct D2ObjOperateFnStrc { D2GameStrc* pGame; D2UnitStrc* pObject; D2UnitStrc* pPlayer; int unk0C; int nObjectIdx; };
+struct D2ObjOperateFnStrc { D2GameStrc* pGame; D2UnitStrc* hObject; D2UnitStrc* hPlayer; int unk0C; int nObjectIdx; };
 struct D2ObjectsTxt { char unk00[0xDC]; unsigned int dwFrameCnt3; };
 typedef bool (__fastcall* QUESTUPDATE)(D2GameStrc*, D2QuestDataStrc*);
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc*); // 0x006221A0
@@ -24,13 +24,13 @@ inline D2BitBufferStrc* GetPlayerQuestFlags(D2GameStrc* pGame, D2UnitStrc* pPlay
 // 0x005B9B40
 int __fastcall sub_005B9B40_OperateQuestObject(D2ObjOperateFnStrc* pOp)
 {
-    if (pOp->pObject && pOp->pObject->dwAnimMode)
+    if (pOp->hObject && pOp->hObject->dwAnimMode)
         return 0;
-    if (QUESTRECORD_GetQuestState(GetPlayerQuestFlags(pOp->pGame, pOp->pPlayer), 19, 0)
-        || QUESTRECORD_GetQuestState(GetPlayerQuestFlags(pOp->pGame, pOp->pPlayer), 19, 7)
-        || QUESTRECORD_GetQuestState(GetPlayerQuestFlags(pOp->pGame, pOp->pPlayer), 19, 8))
+    if (QUESTRECORD_GetQuestState(GetPlayerQuestFlags(pOp->pGame, pOp->hPlayer), 19, 0)
+        || QUESTRECORD_GetQuestState(GetPlayerQuestFlags(pOp->pGame, pOp->hPlayer), 19, 7)
+        || QUESTRECORD_GetQuestState(GetPlayerQuestFlags(pOp->pGame, pOp->hPlayer), 19, 8))
     {
-        SUNIT_AttachSound(pOp->pPlayer, 19, pOp->pPlayer);
+        SUNIT_AttachSound(pOp->hPlayer, 19, pOp->hPlayer);
         return 0;
     }
     D2QuestDataStrc* pQuest = QUESTS_GetQuestData(pOp->pGame, 17);
@@ -39,9 +39,9 @@ int __fastcall sub_005B9B40_OperateQuestObject(D2ObjOperateFnStrc* pOp)
         if (!pQuest->fState)
             pQuest->fState = 1;
         D2QuestExStrc* pEx = pQuest->pQuestDataEx;
-        UNITS_ChangeAnimMode(pOp->pObject, 1);
+        UNITS_ChangeAnimMode(pOp->hObject, 1);
         D2ObjectsTxt* pObjectsTxt = DATATBLS_GetObjectsTxtRecord(pOp->nObjectIdx);
-        EVENT_SetEvent(pOp->pGame, pOp->pObject, 1, pOp->pGame->dwGameFrame + (pObjectsTxt->dwFrameCnt3 >> 8), 0, 0);
+        EVENT_SetEvent(pOp->pGame, pOp->hObject, 1, pOp->pGame->dwGameFrame + (pObjectsTxt->dwFrameCnt3 >> 8), 0, 0);
         pEx->f_3 = 1;
         if (!pEx->bTimerStarted)
         {

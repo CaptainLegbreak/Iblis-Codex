@@ -64,7 +64,7 @@ struct D2DrlgMapStrc
     int nLevelPrest;
     int nPickedFile;
     D2LvlPrestTxt* pLvlPrestTxtRecord;
-    D2DrlgFileStrc* pFile;
+    D2DrlgFileStrc* ptFile;
 };
 
 struct D2DrlgPresetRoomStrc
@@ -114,7 +114,7 @@ struct D2DrlgRoomStrc
     char unk0x4C[0x4];
     unsigned int dwDT1Mask;
     char unk0x54[0x4];
-    D2DrlgLevelStrc* pLevel;
+    D2DrlgLevelStrc* ptDrlgLevel;
 };
 
 extern "C" const char gszDrlgPresetSourceFile;                                                                    // 0x006EE7C4
@@ -158,7 +158,7 @@ static void __stdcall DRLGPRESET_FreeDrlgGrids(void* pMemPool, D2DrlgRoomStrc* p
     D2DrlgPresetRoomStrc* pMaze = pDrlgRoom->pMaze;
     if (pMaze && pMaze->pMap)
     {
-        D2DrlgFileStrc* pDrlgFile = pMaze->pMap->pFile;
+        D2DrlgFileStrc* pDrlgFile = pMaze->pMap->ptFile;
         if (pDrlgFile)
         {
             const int nWallLayers = pDrlgFile->nWallLayers;
@@ -182,7 +182,7 @@ static void __stdcall DRLGPRESET_FreeDrlgGrids(void* pMemPool, D2DrlgRoomStrc* p
 // build: context DRLGPRESET_FreePresetRoomData
 void __fastcall DRLGPRESET_FreePresetRoomData(D2DrlgRoomStrc* pDrlgRoom)
 {
-    void* pMemPool = pDrlgRoom->pLevel->pDrlg->pMempool;
+    void* pMemPool = pDrlgRoom->ptDrlgLevel->pDrlg->pMempool;
     D2DrlgPresetRoomStrc* pMaze = pDrlgRoom->pMaze;
     if (pMaze)
     {
@@ -202,13 +202,13 @@ void __fastcall DRLGPRESET_FreeDrlgGridsFromPresetRoom(D2DrlgRoomStrc* pDrlgRoom
 {
     if (pDrlgRoom->pMaze)
     {
-        DRLGPRESET_FreeDrlgGrids(pDrlgRoom->pLevel->pDrlg->pMempool, pDrlgRoom);
+        DRLGPRESET_FreeDrlgGrids(pDrlgRoom->ptDrlgLevel->pDrlg->pMempool, pDrlgRoom);
     }
 }
 
 void __fastcall DRLGPRESET_AllocPresetRoomData(D2DrlgRoomStrc* pDrlgRoom)
 {
-    D2DrlgPresetRoomStrc* pMaze = (D2DrlgPresetRoomStrc*)sub_0040B430(pDrlgRoom->pLevel->pDrlg->pMempool, sizeof(D2DrlgPresetRoomStrc), &gszDrlgPresetSourceFile, 1807, 0);
+    D2DrlgPresetRoomStrc* pMaze = (D2DrlgPresetRoomStrc*)sub_0040B430(pDrlgRoom->ptDrlgLevel->pDrlg->pMempool, sizeof(D2DrlgPresetRoomStrc), &gszDrlgPresetSourceFile, 1807, 0);
     memset(pMaze, 0, sizeof(D2DrlgPresetRoomStrc));
     pDrlgRoom->pMaze = pMaze;
 }

@@ -34,7 +34,7 @@ struct D2DrlgRoomStrc
     int nTileXPos;
     int nTileYPos;
     char unk0x3C[0x18];
-    D2RoomTileGridStrc* pTileGrid;
+    D2RoomTileGridStrc* ptDrlgTiles;
     char unk0x58[0x0C];
     D2DrlgLogicalRoomInfoStrc* pLogicalRoomInfo;
 };
@@ -44,7 +44,7 @@ int __fastcall DRLGGRID_GetGridEntry(void* pDrlgGrid, int nX, int nY); // 0x0067
 // 0x0066C9C0
 void __stdcall DRLGLOGIC_SetCoordListForTiles(D2DrlgRoomStrc* pDrlgRoom)
 {
-    D2DrlgRoomTilesStrc* pTiles = &pDrlgRoom->pTileGrid->pTiles;
+    D2DrlgRoomTilesStrc* pTiles = &pDrlgRoom->ptDrlgTiles->pTiles;
     for (unsigned int i = 0; i < pTiles->nWalls; ++i)
     {
         D2DrlgTileDataStrc* pTile = &pTiles->pWallTiles[i];

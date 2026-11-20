@@ -280,7 +280,7 @@ struct D2ItemSaveStrc
     int nClassId;
     unsigned short nX;
     unsigned short nY;
-    unsigned char nAnimMode;
+    unsigned char bMode;
     unsigned char nPad09;
     unsigned short nPad0A;
     unsigned int dwFlags;

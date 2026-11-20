@@ -49,7 +49,7 @@ struct D2TextNodeStrc
 struct D2TextListStrc
 {
     D2TextNodeStrc* pFirst;
-    unsigned short nCount;
+    unsigned short wCount;
 };
 
 struct D2NamePacketStrc
@@ -268,7 +268,7 @@ void __cdecl sub_0049DC40_DrawTextList()
     int nY;
     T0044CB60* pTextLine;
 
-    if (!gtTextList_007BF1E4.nCount)
+    if (!gtTextList_007BF1E4.wCount)
     {
         return;
     }
@@ -351,7 +351,7 @@ void __cdecl sub_0049DC40_DrawTextList()
     {
         if (*(unsigned long*)pNode->dwEndTick < dwTick)
         {
-            --gtTextList_007BF1E4.nCount;
+            --gtTextList_007BF1E4.wCount;
             D2TextNodeStrc* pNext = *(D2TextNodeStrc**)pNode->pNext;
             if (gtTextList_007BF1E4.pFirst == pNode)
             {

@@ -38,7 +38,7 @@ struct D2DrlgLevelStrc
     char unk0x1B8[0x0C];
     D2SeedStrc tSeed;
     char unk0x1CC[0x04];
-    int nLevelId;
+    int eLevelId;
 };
 
 
@@ -134,7 +134,7 @@ static __forceinline unsigned int SEED_RollLimitedRandomNumber_Inline(D2SeedStrc
 void __fastcall DRLGOUTDOORS_SpawnAct12Waypoint(D2DrlgLevelStrc* pLevel)
 {
     D2CoordStrc pCoord[256];
-    const int nLevelId = pLevel->nLevelId;
+    const int nLevelId = pLevel->eLevelId;
     D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoor;
     if (nLevelId == LEVEL_COLDPLAINS)
     {

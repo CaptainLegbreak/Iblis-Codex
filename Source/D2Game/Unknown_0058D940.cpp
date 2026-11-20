@@ -25,7 +25,7 @@ struct D2QuestDataStrc
     int nQuestNo;
     D2GameStrc* pGame;
     char unk0x08[0xD8];
-    int nQuestFilter;
+    int eFilter;
 };
 
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit);                                         // 0x006221A0
@@ -41,7 +41,7 @@ void __fastcall sub_0058D940_Callback11_ScrollMessage(D2QuestDataStrc* pQuestDat
         D2UnitStrc* pPlayer = pQuestArg->pPlayer;
         D2GameStrc* pGame = pQuestData->pGame;
         D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
-        QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->nQuestFilter, 4);
+        QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->eFilter, 4);
         break;
     }
     case 20177:
@@ -49,7 +49,7 @@ void __fastcall sub_0058D940_Callback11_ScrollMessage(D2QuestDataStrc* pQuestDat
         D2UnitStrc* pPlayer = pQuestArg->pPlayer;
         D2GameStrc* pGame = pQuestData->pGame;
         D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
-        QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->nQuestFilter, 5);
+        QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->eFilter, 5);
         break;
     }
     case 20179:
@@ -57,7 +57,7 @@ void __fastcall sub_0058D940_Callback11_ScrollMessage(D2QuestDataStrc* pQuestDat
         D2UnitStrc* pPlayer = pQuestArg->pPlayer;
         D2GameStrc* pGame = pQuestData->pGame;
         D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
-        QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->nQuestFilter, 6);
+        QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->eFilter, 6);
         break;
     }
     case 20175:
@@ -65,7 +65,7 @@ void __fastcall sub_0058D940_Callback11_ScrollMessage(D2QuestDataStrc* pQuestDat
         D2UnitStrc* pPlayer = pQuestArg->pPlayer;
         D2GameStrc* pGame = pQuestData->pGame;
         D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
-        QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->nQuestFilter, 7);
+        QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->eFilter, 7);
         break;
     }
     case 20180:
@@ -73,7 +73,7 @@ void __fastcall sub_0058D940_Callback11_ScrollMessage(D2QuestDataStrc* pQuestDat
         D2UnitStrc* pPlayer = pQuestArg->pPlayer;
         D2GameStrc* pGame = pQuestData->pGame;
         D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
-        QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->nQuestFilter, 8);
+        QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->eFilter, 8);
         break;
     }
     case 20176:
@@ -81,7 +81,7 @@ void __fastcall sub_0058D940_Callback11_ScrollMessage(D2QuestDataStrc* pQuestDat
         D2UnitStrc* pPlayer = pQuestArg->pPlayer;
         D2GameStrc* pGame = pQuestData->pGame;
         D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
-        QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->nQuestFilter, 9);
+        QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->eFilter, 9);
         break;
     }
     }

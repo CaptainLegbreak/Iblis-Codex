@@ -30,7 +30,7 @@ struct D2ActiveRoomStrc
 struct D2ClientStrc
 {
     char unk0x00[0x1AC];
-    unsigned char nAct;
+    unsigned char bAct;
 };
 
 void __fastcall sub_005531E0_FixRoomIfInvalid(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x005531E0
@@ -105,14 +105,14 @@ static inline int UNITS_GetUnitTypeOrInvalid_Inline(D2UnitStrc* pUnit)
 static void sub_0053A6A0_FixRoomUnits(D2ActiveRoomStrc* pRoom, D2ClientStrc* pClient)
 {
     D2_ASSERT(pRoom, 0x62);
-    for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pUnit->pRoomNext)
+    for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
         sub_005531E0_FixRoomIfInvalid(pUnit, pClient);
 }
 
 // 0x0053A880
 static void sub_0053A880_UpdateMonsterAiCallbacks(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom)
 {
-    for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pUnit->pRoomNext)
+    for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
     {
         switch (UNITS_GetUnitTypeOrInvalid_Inline(pUnit))
         {
@@ -126,7 +126,7 @@ static void sub_0053A880_UpdateMonsterAiCallbacks(D2GameStrc* pGame, D2ActiveRoo
 // 0x0053A8B0
 static void sub_0053A8B0_DeleteMonsterEvents(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom)
 {
-    for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pUnit->pRoomNext)
+    for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
     {
         switch (UNITS_GetUnitTypeOrInvalid_Inline(pUnit))
         {
@@ -154,7 +154,7 @@ void __fastcall sub_M126_Emit_0053A8B0(D2GameStrc* pGame, D2ActiveRoomStrc* pRoo
 
 void __fastcall sub_M126_Emit_0053AA70(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2UnitStrc* pTarget)
 {
-    for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pUnit->pRoomNext)
+    for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
         sub_0053AA70_UpdateUnitTarget(pGame, pUnit, pTarget);
 }
 
@@ -174,7 +174,7 @@ void __fastcall LEVEL_AddClient(D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, D2Cl
     DUNGEON_AddClientToRoom(hRoom, pClient);
     if (hRoom->nNumClients <= 1)
     {
-        for (D2UnitStrc* pUnit = hRoom->pUnitFirst; pUnit; pUnit = pUnit->pRoomNext)
+        for (D2UnitStrc* pUnit = hRoom->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
         {
             const int nUnitType = !pUnit ? 6 : pUnit->dwUnitType;
             switch (nUnitType)
@@ -188,7 +188,7 @@ void __fastcall LEVEL_AddClient(D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, D2Cl
     while (pUnit)
     {
         if (pPlayer != pUnit) sub_00571F90(pGame, pUnit, pClient);
-        pUnit = pUnit->pRoomNext;
+        pUnit = pUnit->ptRoomNext;
     }
 }
 
@@ -197,7 +197,7 @@ void __fastcall LEVEL_RemoveClient(D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, D
 {
     D2_ASSERT(hRoom, 0x104);
 
-    for (D2UnitStrc* pUnit = hRoom->pUnitFirst; pUnit; pUnit = pUnit->pRoomNext)
+    for (D2UnitStrc* pUnit = hRoom->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
     {
         sub_00571600(pUnit, pClient);
     }
@@ -206,7 +206,7 @@ void __fastcall LEVEL_RemoveClient(D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, D
 
     if (!hRoom->nNumClients)
     {
-        for (D2UnitStrc* pUnit = hRoom->pUnitFirst; pUnit; pUnit = pUnit->pRoomNext)
+        for (D2UnitStrc* pUnit = hRoom->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
         {
             const int nUnitType = !pUnit ? 6 : pUnit->dwUnitType;
             switch (nUnitType)
@@ -243,7 +243,7 @@ void __fastcall sub_0053AAA0_UpdateRoomUnits(D2GameStrc* pGame, D2ActiveRoomStrc
 {
     D2_ASSERT(pRoom, 0x131);
 
-    for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pUnit->pRoomNext)
+    for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
     {
         switch (UNITS_GetUnitTypeOrInvalid_Inline(pUnit))
         {
@@ -284,7 +284,7 @@ void __fastcall LEVEL_ChangeAct(D2GameStrc* pGame, D2ClientStrc* ptClient, int n
     }
 
     const unsigned char bNewAct = DRLG_GetActNoFromLevelId(nDestinationLevelId);
-    D2_ASSERT(bNewAct != ptClient->nAct, 0x19F);
+    D2_ASSERT(bNewAct != ptClient->bAct, 0x19F);
 
     if (!pGame->pAct[bNewAct])
     {

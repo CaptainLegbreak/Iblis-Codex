@@ -57,7 +57,7 @@ D2UnitStrc* __stdcall D2Common_10407(D2ActiveRoomStrc* pRoom,int nX,int nY,D2Uni
  DUNGEON_GetAdjacentRoomsListFromRoom(pRoom,&ppRoomList,&nRooms);
  for(int i=0;i<nRooms;++i) {
   if(!sub_00641930_IsPointNearRoom(ppRoomList[i],nX,nY,2)) continue;
-  for(D2UnitStrc* pUnit=ppRoomList[i]->pUnitFirst;pUnit;pUnit=pUnit->pRoomNext) {
+  for(D2UnitStrc* pUnit=ppRoomList[i]->pUnitFirst;pUnit;pUnit=pUnit->ptRoomNext) {
    if(IsTarget(pUnit)) {
     int nUnitSize=UNITS_GetUnitSizeX(pUnit);
     if(nUnitSize>=3) nUnitSize=3;

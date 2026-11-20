@@ -167,7 +167,7 @@ struct D2ItemSaveStrc
     int nClassId;
     unsigned short nX;
     unsigned short nY;
-    unsigned char nAnimMode;
+    unsigned char bMode;
     unsigned char pad0x09[3];
 };
 
@@ -1512,7 +1512,7 @@ D2UnitStrc* __fastcall ITEMS_CreateItemFromBitstream(D2GameStrc* pGame, D2Active
         return 0;
     }
 
-    D2UnitStrc* pItem = SUNIT_AllocUnitData(4, pItemSave->nClassId, pItemSave->nX, pItemSave->nY, pGame, pRoom, 1, pItemSave->nAnimMode, 0);
+    D2UnitStrc* pItem = SUNIT_AllocUnitData(4, pItemSave->nClassId, pItemSave->nX, pItemSave->nY, pGame, pRoom, 1, pItemSave->bMode, 0);
     if (!pItem)
     {
         return 0;

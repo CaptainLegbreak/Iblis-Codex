@@ -22,7 +22,7 @@ struct D2CmpSubTileHeaderStrc
 struct D2CmpSubTileRecordStrc
 {
     D2CmpSubTileHeaderStrc tHeader;
-    unsigned char* pData;
+    unsigned char* ptData;
 };
 
 void __fastcall sub_0060D5B0_MapSubTileColors(D2CmpSubTileRecordStrc* pDst, const D2CmpSubTileRecordStrc* pSrc, D2CmpColorStrc tTransparent, D2CmpMapColorFn pfnMapColor); // 0x0060D5B0
@@ -43,7 +43,7 @@ struct D2CmpTileBlockStrc
 
 struct D2CmpTileLibraryStrc
 {
-    int nVersion;
+    int dwVersion;
     unsigned int dwFlags;
     char szName[0x104];
     int nBlocks;
@@ -66,21 +66,21 @@ static int IsSubTileDataEmpty(const D2CmpSubTileRecordStrc* pRecord, const unsig
 // 0x0060A650
 static void __stdcall sub_0060A650_MapSubTileRecord(D2CmpSubTileRecordStrc* pDst, const D2CmpSubTileRecordStrc* pSrc, D2CmpMapColorFn pfnMapColor, D2CmpColorStrc tTransparent)
 {
-    if (!pSrc->pData)
+    if (!pSrc->ptData)
     {
         pDst->tHeader.nFlags &= ~1;
         pDst->tHeader.nLength = 0;
-        pDst->pData = 0;
+        pDst->ptData = 0;
         return;
     }
     sub_0060D5B0_MapSubTileColors(pDst, pSrc, tTransparent, pfnMapColor);
-    unsigned char* pMapped = pDst->pData;
+    unsigned char* pMapped = pDst->ptData;
     if (IsSubTileDataEmpty(pDst, pMapped))
     {
         FOG_Free(pMapped, ".\\SRC\\Tilecmp.cpp", 0x429, 0);
         pDst->tHeader.nFlags &= ~1;
         pDst->tHeader.nLength = 0;
-        pDst->pData = 0;
+        pDst->ptData = 0;
         return;
     }
     if (pDst->tHeader.nFlags & 0x1000)
@@ -89,8 +89,8 @@ static void __stdcall sub_0060A650_MapSubTileRecord(D2CmpSubTileRecordStrc* pDst
         unsigned char* pData = (unsigned char*)sub_0060D430_Compress(pMapped, &nLength);
         D2_ASSERT(pData, 0x434);
         D2_ASSERT(nLength < 0x10000, 0x435);
-        FOG_Free(pDst->pData, ".\\SRC\\Tilecmp.cpp", 0x436, 0);
-        pDst->pData = pData;
+        FOG_Free(pDst->ptData, ".\\SRC\\Tilecmp.cpp", 0x436, 0);
+        pDst->ptData = pData;
         pDst->tHeader.nLength = nLength;
     }
     else

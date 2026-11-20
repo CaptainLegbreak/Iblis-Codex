@@ -31,7 +31,7 @@ struct D2QuestDataStrc
     unsigned char pad0x15[3];
     void* pQuestDataEx;
     char unk0x1C[0xA0 - 0x1C];
-    QUESTCALLBACK pfCallback[15];
+    QUESTCALLBACK pCallback[15];
 };
 
 struct D2QuestArgStrc
@@ -116,7 +116,7 @@ void __fastcall ACT3Q6_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
     QUESTS_DebugOutput(pQuestData->pGame, "killed boss for quest", "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q6.cpp", 619);
     QUESTS_StateDebug(pQuestData, 6, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q6.cpp", 620);
 
-    pQuestData->pfCallback[QUESTEVENT_PLAYERLEAVESGAME] = ACT3Q6_Callback10_PlayerLeavesGame;
+    pQuestData->pCallback[QUESTEVENT_PLAYERLEAVESGAME] = ACT3Q6_Callback10_PlayerLeavesGame;
     D2Act3Quest6Strc* pQuestDataEx = (D2Act3Quest6Strc*)pQuestData->pQuestDataEx;
     if (pQuestData->bNotIntro)
     {

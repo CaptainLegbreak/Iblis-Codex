@@ -19,7 +19,7 @@ struct D2CmpSubTileHeaderStrc
 struct D2CmpSubTileRecordStrc
 {
     D2CmpSubTileHeaderStrc tHeader;
-    unsigned char* pData;
+    unsigned char* ptData;
 };
 struct D2CmpTileBlockStrc
 {
@@ -141,7 +141,7 @@ static void __stdcall sub_0060D840_PackTransparent(D2CmpSubTileRecordStrc* pDst,
     D2_ASSERT(ptNewData, 0x16A);
     memset(ptNewData, 0, nSize);
     memcpy(ptNewData, ptDestBuffer, nSize);
-    pDst->pData = ptNewData;
+    pDst->ptData = ptNewData;
     pDst->tHeader.nLength = (unsigned short)nSize;
     pDst->tHeader.nFlags |= 5;
     FOG_Free(ptDestBuffer, szTileCodecFile, 0x176, 0);
@@ -168,13 +168,13 @@ static __declspec(noinline) void __stdcall sub_0060DA80_MapSubTile(D2CmpColorStr
 // 0x0060DA80
 static void __stdcall sub_0060DA80_MapSubTile(D2CmpColorStrc tColor, D2CmpMapColorFn pfnMap, D2CmpSubTileRecordStrc* pDst, const D2CmpSubTileRecordStrc* pSrc)
 {
-    unsigned char* pPixels = sub_0060D6F0_MapPixels(pSrc->pData, pSrc->tHeader.nLength, tColor, pfnMap);
+    unsigned char* pPixels = sub_0060D6F0_MapPixels(pSrc->ptData, pSrc->tHeader.nLength, tColor, pfnMap);
 
     if (SUBTILE_IsBlank(pPixels))
     {
         pDst->tHeader.nFlags = 0;
         pDst->tHeader.nLength = 0;
-        pDst->pData = 0;
+        pDst->ptData = 0;
         FOG_Free(pPixels, szTileCodecFile, 0x1B8, 0);
         return;
     }
@@ -205,8 +205,8 @@ void __fastcall sub_0060DB60_MapBlock(D2CmpTileBlockStrc* ptTile24, D2CmpTileBlo
         const D2CmpSubTileRecordStrc* pSrc = &ptTile24->pSubs[i];
 
         *pDst = *pSrc;
-        pDst->pData = 0;
-        if (pSrc->pData)
+        pDst->ptData = 0;
+        if (pSrc->ptData)
         {
             sub_0060DA80_MapSubTile(tColor, pfnQuantize, pDst, pSrc);
             if (pDst->tHeader.nFlags & 4)

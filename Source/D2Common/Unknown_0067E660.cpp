@@ -12,7 +12,7 @@ struct D2DrlgLevelStrc
     int unk0x10;
     D2DrlgOutdoorInfoStrc* pOutdoorInfo;
     char unk0x18[0x1B8];
-    int nLevelId;
+    int eLevelId;
 };
 
 void __fastcall sub_006743C0(D2DrlgLevelStrc* pLevel, int nX, int nY, int nPresetId, int nDirection, int a6);  // 0x006743C0
@@ -51,13 +51,13 @@ static void sub_0067E660(D2DrlgLevelStrc* pLevel)
 // 0x0067E6A0
 static void sub_0067E6A0(D2DrlgLevelStrc* pLevel)
 {
-    if (pLevel->nLevelId == 106)
+    if (pLevel->eLevelId == 106)
     {
         sub_00674730(pLevel, 0x32B, -1, 0, 15);
     }
 
-    int nFirst = gAct4FirstPresetBase[pLevel->nLevelId - 104];
-    int nSecond = gAct4SecondPresetBase[pLevel->nLevelId - 104];
+    int nFirst = gAct4FirstPresetBase[pLevel->eLevelId - 104];
+    int nSecond = gAct4SecondPresetBase[pLevel->eLevelId - 104];
 
     sub_00674730(pLevel, nFirst, -1, 0, 15);
     sub_00674730(pLevel, nFirst + 1, -1, 0, 15);
@@ -67,7 +67,7 @@ static void sub_0067E6A0(D2DrlgLevelStrc* pLevel)
     sub_00674730(pLevel, nFirst + 3, -1, 0, 15);
     sub_00674730(pLevel, nFirst + 3, -1, 0, 15);
 
-    if (pLevel->nLevelId == 105)
+    if (pLevel->eLevelId == 105)
     {
         sub_00674730(pLevel, 0x336, -1, 0, 15);
     }
@@ -100,7 +100,7 @@ static void sub_0067E840(D2DrlgLevelStrc* pLevel)
 // 0x0067E890
 void __fastcall sub_0067E890(D2DrlgLevelStrc* pLevel)
 {
-    if (pLevel->nLevelId == 108)
+    if (pLevel->eLevelId == 108)
     {
         sub_00675770(pLevel);
     }
@@ -110,7 +110,7 @@ void __fastcall sub_0067E890(D2DrlgLevelStrc* pLevel)
         sub_00675850(pLevel);
     }
 
-    switch (pLevel->nLevelId)
+    switch (pLevel->eLevelId)
     {
     case 104:
     case 105:

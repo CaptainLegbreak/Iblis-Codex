@@ -55,7 +55,7 @@ struct D2DrlgLevelStrc
     int nPosX;
     int nPosY;
     char unk0x24[0x1AC];
-    int nLevelId;
+    int eLevelId;
 };
 
 int __fastcall sub_0067C570(D2DrlgGridStrc* pGrid, int nX, int nY); // 0x0067C570
@@ -118,7 +118,7 @@ void __stdcall sub_00680D70(D2DrlgLevelStrc* pLevel)
     {
         D2DrlgLevelStrc* pRoomLevel = pRoomData->pLevel;
         D2DrlgVertexStrc* pVertex;
-        switch (pRoomLevel->nLevelId)
+        switch (pRoomLevel->eLevelId)
         {
         case 1:
             pVertex = &pOutdoors->pVertices[pOutdoors->nVertices];

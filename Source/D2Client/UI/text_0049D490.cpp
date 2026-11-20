@@ -43,7 +43,7 @@ struct D2TextNodeStrc
 struct D2TextListStrc
 {
     D2TextNodeStrc* pFirst;
-    unsigned short nCount;
+    unsigned short wCount;
 };
 
 #pragma pack(pop)
@@ -147,7 +147,7 @@ void __fastcall sub_0049DBC0_AddToHistory(D2TextNodeStrc* pSource)
 {
     D2TextNodeStrc* pClone = sub_0049DB10_CloneStringList(pSource);
     D2TextNodeStrc* pNode;
-    if (gtTextList_007BF1F0.nCount >= 0x80)
+    if (gtTextList_007BF1F0.wCount >= 0x80)
     {
         pNode = gtTextList_007BF1F0.pFirst;
         if (pNode)
@@ -161,13 +161,13 @@ void __fastcall sub_0049DBC0_AddToHistory(D2TextNodeStrc* pSource)
             sub_0049D490_FreeTextNode(pNode);
             if (pPrevious)
                 pPrevious->pNext = 0;
-            if (gtTextList_007BF1F0.nCount >= 1)
-                gtTextList_007BF1F0.nCount--;
+            if (gtTextList_007BF1F0.wCount >= 1)
+                gtTextList_007BF1F0.wCount--;
         }
     }
     pNode = gtTextList_007BF1F0.pFirst;
     pClone->pNext = pNode;
-    gtTextList_007BF1F0.nCount++;
+    gtTextList_007BF1F0.wCount++;
     gtTextList_007BF1F0.pFirst = pClone;
 }
 
@@ -224,22 +224,22 @@ void __fastcall sub_0049E5C0_PrintWrappedLine(const Unicode* wszText, char nColo
             pLast = pLast->pNext;
             nNodes++;
         }
-        D2_ASSERT(nNodes == gtTextList_007BF1EA.nCount - 1, 0xDF1);
+        D2_ASSERT(nNodes == gtTextList_007BF1EA.wCount - 1, 0xDF1);
         pLast->pNext = pNode;
     }
     else
     {
         gtTextList_007BF1EA.pFirst = pNode;
     }
-    gtTextList_007BF1EA.nCount++;
+    gtTextList_007BF1EA.wCount++;
     sub_0049DBC0_AddToHistory(pNode);
 
-    if (gtTextList_007BF1EA.nCount > 2)
+    if (gtTextList_007BF1EA.wCount > 2)
     {
         D2TextNodeStrc* pFirst = gtTextList_007BF1EA.pFirst;
         gtTextList_007BF1EA.pFirst = pFirst->pNext;
         sub_0049D490_FreeTextNode(pFirst);
-        gtTextList_007BF1EA.nCount--;
+        gtTextList_007BF1EA.wCount--;
     }
 
     if (sub_004538D0(0x18) && gpListBox_007BF1B4)
@@ -548,7 +548,7 @@ void __fastcall sub_0049E3A0_PrintChatLine(const Unicode* wszText, char nColor)
             }
             while (*ppNext);
         }
-        D2_ASSERT(wCount == gtTextList_007BF1E4.nCount - 1, 0xD6C);
+        D2_ASSERT(wCount == gtTextList_007BF1E4.wCount - 1, 0xD6C);
         pLast->pNext = pNode;
     }
     else
@@ -564,7 +564,7 @@ void __fastcall sub_0049E3A0_PrintChatLine(const Unicode* wszText, char nColor)
     }
 
     sub_0049DBC0_AddToHistory(pNode);
-    gtTextList_007BF1E4.nCount++;
+    gtTextList_007BF1E4.wCount++;
 
     int nTotal = 0;
     D2TextNodeStrc* p = gtTextList_007BF1E4.pFirst;
@@ -581,7 +581,7 @@ void __fastcall sub_0049E3A0_PrintChatLine(const Unicode* wszText, char nColor)
     {
         D2TextNodeStrc* pOld = gtTextList_007BF1E4.pFirst;
         gtTextList_007BF1E4.pFirst = gtTextList_007BF1E4.pFirst->pNext;
-        gtTextList_007BF1E4.nCount--;
+        gtTextList_007BF1E4.wCount--;
         sub_0049D490_FreeTextNode(pOld);
     }
 

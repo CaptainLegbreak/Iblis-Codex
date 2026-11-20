@@ -105,8 +105,8 @@ struct D2QuestArgStrc
 struct D2ObjOperateFnStrc
 {
     D2GameStrc* pGame;
-    D2UnitStrc* pObject;
-    D2UnitStrc* pPlayer;
+    D2UnitStrc* hObject;
+    D2UnitStrc* hPlayer;
     void* pObjectregion;
     int nObjectIdx;
 };
@@ -256,7 +256,7 @@ static void __stdcall ACT4Q2_KillAllMonstersInCS(D2GameStrc* pGame, D2Act4Quest2
             D2UnitStrc* pNext = 0;
             for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pNext)
             {
-                pNext = pUnit->pRoomNext;
+                pNext = pUnit->ptRoomNext;
                 if (pUnit->dwUnitType == 1 && pUnit->dwClassId != 243 && !SUNIT_IsDead(pUnit) && STATLIST_GetUnitAlignment(pUnit) == 0)
                 {
                     D2ModeChangeStrc modeChange;
@@ -367,12 +367,12 @@ void __fastcall ACT4Q2_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
 // 0x005B5630
 int __fastcall OBJECTS_OperateFunction52_DiabloSeal(D2ObjOperateFnStrc* pOp)
 {
-    if (!pOp->pObject || pOp->pObject->dwAnimMode == 0)
+    if (!pOp->hObject || pOp->hObject->dwAnimMode == 0)
     {
-        UNITS_ChangeAnimMode(pOp->pObject, 1);
+        UNITS_ChangeAnimMode(pOp->hObject, 1);
 
         D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(pOp->nObjectIdx);
-        EVENT_SetEvent(pOp->pGame, pOp->pObject, 1, (pObjectsTxtRecord->dwFrameCnt[1] >> 7) + pOp->pGame->dwGameFrame, 0, 0);
+        EVENT_SetEvent(pOp->pGame, pOp->hObject, 1, (pObjectsTxtRecord->dwFrameCnt[1] >> 7) + pOp->pGame->dwGameFrame, 0, 0);
 
         D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pOp->pGame, 23);
         if (!pQuestData)
@@ -382,7 +382,7 @@ int __fastcall OBJECTS_OperateFunction52_DiabloSeal(D2ObjOperateFnStrc* pOp)
 
         D2Act4Quest2Strc* pQuestDataEx = (D2Act4Quest2Strc*)pQuestData->pQuestDataEx;
 
-        switch (!pOp->pObject ? -1 : pOp->pObject->dwClassId)
+        switch (!pOp->hObject ? -1 : pOp->hObject->dwClassId)
         {
         case 392:
             pQuestDataEx->bSealActivated[0] = 1;

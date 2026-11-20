@@ -34,9 +34,9 @@ struct D2QuestDataStrc
     unsigned int dwFlags;
     void* pQuestDataEx;
     char tPlayerGUIDs[0x84];
-    QUESTCALLBACK pfCallback[15];
+    QUESTCALLBACK pCallback[15];
     void* pNPCMessages;
-    int nQuestFilter;
+    int eFilter;
     int unk0xE4;
     QUESTSTATUSFILTER pfStatusFilter;
     QUESTACTIVEFILTER pfActiveFilter;
@@ -300,7 +300,7 @@ void __fastcall ACT2Q5_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
 {
     D2GameStrc* pGame = pQuestArg->pGame;
     D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pQuestArg->pPlayer)->pQuestData[pGame->nDifficulty];
-    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, 0) || QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, 15))
+    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 0) || QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 15))
     {
         return;
     }
@@ -317,23 +317,23 @@ void __fastcall ACT2Q5_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
 // 0x0059C280
 void __fastcall ACT2Q5_InitQuestData(D2QuestDataStrc* pQuestData)
 {
-    memset(pQuestData->pfCallback, 0x00, sizeof(pQuestData->pfCallback));
+    memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
     pQuestData->pNPCMessages = gpAct2Q5NpcMessages;
     pQuestData->bActive = 1;
     pQuestData->fState = 0;
 
     D2Act2Quest5Strc* pQuestDataEx = (D2Act2Quest5Strc*)FOG_AllocPool(pQuestData->pGame->pMemoryPool, sizeof(D2Act2Quest5Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q5.cpp", 0x212, 0);
-    pQuestData->pfCallback[0] = ACT2Q5_Callback00_NpcActivate;
+    pQuestData->pCallback[0] = ACT2Q5_Callback00_NpcActivate;
     pQuestData->pfStatusFilter = 0;
     pQuestData->pQuestDataEx = pQuestDataEx;
-    pQuestData->nQuestFilter = 13;
+    pQuestData->eFilter = 13;
     pQuestData->nInitNo = 2;
     pQuestData->pfActiveFilter = ACT2Q5_ActiveFilterCallback;
-    pQuestData->pfCallback[3] = ACT2Q5_Callback03_ChangedLevel;
-    pQuestData->pfCallback[11] = ACT2Q5_Callback11_ScrollMessage;
-    pQuestData->pfCallback[10] = ACT2Q5_Callback10_PlayerLeavesGame;
-    pQuestData->pfCallback[13] = ACT2Q5_Callback13_PlayerStartedGame;
-    pQuestData->pfCallback[8] = ACT2Q5_Callback08_MonsterKilled;
+    pQuestData->pCallback[3] = ACT2Q5_Callback03_ChangedLevel;
+    pQuestData->pCallback[11] = ACT2Q5_Callback11_ScrollMessage;
+    pQuestData->pCallback[10] = ACT2Q5_Callback10_PlayerLeavesGame;
+    pQuestData->pCallback[13] = ACT2Q5_Callback13_PlayerStartedGame;
+    pQuestData->pCallback[8] = ACT2Q5_Callback08_MonsterKilled;
 
     pQuestDataEx->bSummonerKilled = 0;
     pQuestDataEx->unk0x01 = 0;
@@ -379,7 +379,7 @@ void __fastcall ACT2Q6_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
             pQuestData->dwFlags &= 0xFFFFFF00;
             QUESTS_UnitIterate(pQuestData, 4, 0, ACT2Q6_UnitIterate_StatusCyclerEx, 1);
             pQuestDataEx->bTyraelActivated = 0;
-            pQuestData->pfCallback[2] = 0;
+            pQuestData->pCallback[2] = 0;
         }
     }
     else if ((short)nNpcId == 201)
@@ -402,7 +402,7 @@ void __fastcall ACT2Q6_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
             pQuestDataEx->bEndJerhynActivated = 0;
         }
 
-        pQuestData->pfCallback[2] = 0;
+        pQuestData->pCallback[2] = 0;
         SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, (QUESTUNITITERATE)sub_0059C6C0_ACT2Q6_UpdateRewardFlags);
     }
 }

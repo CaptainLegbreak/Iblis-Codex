@@ -23,7 +23,7 @@ struct T004F51E0
 
 struct D2WinControlStrc
 {
-    int dwType;
+    int eType;
     char unk0x04[0x8C];
     D2WinControlStrc* pChild;
 };
@@ -39,7 +39,7 @@ struct SMSGHANDLER_PARAMS
 
 struct D2WinTextBoxStrc
 {
-    int nType;
+    int eType;
     D2CellFileStrc* pCellFile;
     unsigned int dwFlags;
     int nImageX;
@@ -99,7 +99,7 @@ struct D2WinListEntry004FBB30Strc
 
 struct D2WinControl004FBB30Strc
 {
-    int nType;
+    int eType;
     unsigned char f_4[0x44];
     D2WinListEntry004FBB30Strc* pFirstEntry48;
     unsigned char unk_4C[0x10];
@@ -122,7 +122,7 @@ void __fastcall sub_004FBD70_SetControlStateWithChild(D2WinControlStrc* pControl
 {
     sub_004F9740_SetControlState(pControl, bSet);
     D2_ASSERT(pControl, 0x320);
-    D2_ASSERT(pControl->dwType == 4, 0x321);
+    D2_ASSERT(pControl->eType == 4, 0x321);
     if (pControl->pChild)
     {
         sub_004F9740_SetControlState(pControl->pChild, bSet);
@@ -188,7 +188,7 @@ static void sub_004FB5A0_SetTextBoxLineGap(int nFont)
 int __fastcall D2Win_10055(D2WinTextBoxStrc* ptTextData)
 {
     D2_ASSERT(ptTextData, 0x290);
-    D2_ASSERT(ptTextData->nType == 4, 0x291);
+    D2_ASSERT(ptTextData->eType == 4, 0x291);
 
     sub_00502EF0(ptTextData->eFont);
     const int nHeight = ptTextData->nHeight - 2 * ptTextData->field_44;
@@ -202,7 +202,7 @@ int __stdcall TEXTBOX_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
 {
     D2WinTextBoxStrc* pTextBox = (D2WinTextBoxStrc*)pMsg->hWnd;
     D2_ASSERT(pTextBox, 0x4D0);
-    D2_ASSERT(pTextBox->nType == 4, 0x4D1);
+    D2_ASSERT(pTextBox->eType == 4, 0x4D1);
 
     if (!(pTextBox->dwFlags & gdwBitMasks_006CE268[2]) || !(pTextBox->dwFlags & gdwBitMasks_006CE268[0]) || pTextBox->nNumLines < 1)
     {
@@ -238,7 +238,7 @@ int __stdcall TEXTBOX_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
 void* __fastcall sub_004FBB30_GetSelectedData(D2WinControl004FBB30Strc* pControl)
 {
     D2_ASSERT(pControl, 0x2A6);
-    D2_ASSERT(pControl->nType == 4, 0x2A7);
+    D2_ASSERT(pControl->eType == 4, 0x2A7);
     if (pControl->nSelected60 != -1 && (pControl->dwFlags5C & 1))
     {
         D2WinListEntry004FBB30Strc* pEntry;
@@ -269,7 +269,7 @@ D2WinTextBoxStrc* __fastcall D2Win_10042_TEXTBOX_Create(int nX, int nY, int nWid
         dwTextBoxFlags |= 0x20;
     }
 
-    pTextBox->nType = 4;
+    pTextBox->eType = 4;
     pTextBox->dwFlags |= gdwBitMasks_006CE268[0];
     pTextBox->dwFlags |= gdwBitMasks_006CE268[2];
     pTextBox->pCellFile = pCellFile;

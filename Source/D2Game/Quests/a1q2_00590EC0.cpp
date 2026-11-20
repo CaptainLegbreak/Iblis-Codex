@@ -40,8 +40,8 @@ struct D2QuestDataStrc
     unsigned char pad0x15[3];
     void* pQuestDataEx;
     D2QuestGUIDStrc tPlayerGUIDs;
-    void* pfCallback[16];
-    int nQuestFilter;
+    void* pCallback[16];
+    int eFilter;
 };
 
 struct D2QuestArgStrc
@@ -97,9 +97,9 @@ void __fastcall sub_00590EC0_MonsterKilled(D2QuestDataStrc* pQuestData, D2QuestA
         SUNIT_IterateUnitsOfType(pQuestArg->pGame, 0, pQuestArg->pTarget, ACT1Q2_UnitIterate_SetCompletionFlag);
         SUNIT_IterateUnitsOfType(pQuestArg->pGame, 0, pQuestArg->pTarget, ACT1Q2_UnitIterate_AttachCompletionSound);
         QUESTS_CreateTimer(pQuestData, ACT1Q2_Timer_StatusCycler, TIMER_TICKS);
-        pQuestData->pfCallback[2] = 0;
+        pQuestData->pCallback[2] = 0;
         pQuestDataEx->unk0x00 = 1;
         pQuestDataEx->unk0x04 = 1;
-        QUESTS_SetGlobalState(pQuestArg->pGame, pQuestData->nQuestFilter, GLOBAL_STATE);
+        QUESTS_SetGlobalState(pQuestArg->pGame, pQuestData->eFilter, GLOBAL_STATE);
     }
 }

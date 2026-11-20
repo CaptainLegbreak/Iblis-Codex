@@ -234,7 +234,7 @@ struct D2GSPacketClt6B
 {
     unsigned char nHeader;
     unsigned char nSize;
-    unsigned int nTotalSize;
+    unsigned int dwTotalSize;
     unsigned char saveData[8192];
 };
 
@@ -1031,7 +1031,7 @@ unsigned long gdwPlayerPos_00883D4C; // 0x00883D4C
 // 0x0052DB10
 int __fastcall GAME_ReceiveSaveFilePart(int nClientId, D2GSPacketClt6B* pPacket)
 {
-    return CLIENTS_AttachSaveFile(nClientId, pPacket->saveData, pPacket->nSize, pPacket->nTotalSize, 0, 0, 0);
+    return CLIENTS_AttachSaveFile(nClientId, pPacket->saveData, pPacket->nSize, pPacket->dwTotalSize, 0, 0, 0);
 }
 
 int __fastcall sub_0052B800_IsConnectionMode2()

@@ -80,7 +80,7 @@ void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventT
 
 struct D2ShrinesTxt
 {
-    unsigned char nCode;
+    unsigned char bCode;
     char unk0x01[0x03];
     int dwArg0;
     int dwArg1;
@@ -94,8 +94,8 @@ void __fastcall sub_6FC3F550(D2ClientStrc* pClient, D2UnitStrc* pUnit); // 0x005
 struct D2ObjOperateFnStrc
 {
     D2GameStrc* pGame;
-    D2UnitStrc* pObject;
-    D2UnitStrc* pPlayer;
+    D2UnitStrc* hObject;
+    D2UnitStrc* hPlayer;
     D2ObjectControlStrc* pObjectregion;
     int nObjectIdx;
 };
@@ -266,7 +266,7 @@ void __fastcall D2GAME_SpikeTraps_6FC74F60(D2GameStrc* pGame, D2UnitStrc* pObjec
                     }
                 }
 
-                pUnit = pUnit->pRoomNext;
+                pUnit = pUnit->ptRoomNext;
             }
             while (pUnit);
 
@@ -326,7 +326,7 @@ void __fastcall OBJMODE_SendObjectModeAndShrineUpdate(D2UnitStrc* pUnit, D2Clien
             unsigned char nCode = 0;
             if (pShrineTxt)
             {
-                nCode = pShrineTxt->nCode;
+                nCode = pShrineTxt->bCode;
             }
 
             const int nOperateGUID = pUnit->pObjectData->dwOperateGUID;
@@ -359,20 +359,20 @@ static void sub_00581B50_TeleportToUnit(D2UnitStrc* pUnit, D2UnitStrc* pPlayer, 
 // 0x00581BF0
 int __fastcall OBJECTS_OperateFunction27_TeleportPad(D2ObjOperateFnStrc* pOp, int nOperate)
 {
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pOp->pObject);
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pOp->hObject);
     if (pRoom)
     {
-        const int nUnitId = !pOp->pObject ? -1 : pOp->pObject->dwClassId;
+        const int nUnitId = !pOp->hObject ? -1 : pOp->hObject->dwClassId;
 
         D2UnitStrc* pUnit = pRoom->pUnitFirst;
-        while (pUnit && ((!pUnit ? 6 : pUnit->dwUnitType) != UNIT_OBJECT || pUnit == pOp->pObject || (!pUnit ? -1 : pUnit->dwClassId) != nUnitId))
+        while (pUnit && ((!pUnit ? 6 : pUnit->dwUnitType) != UNIT_OBJECT || pUnit == pOp->hObject || (!pUnit ? -1 : pUnit->dwClassId) != nUnitId))
         {
-            pUnit = pUnit->pRoomNext;
+            pUnit = pUnit->ptRoomNext;
         }
 
         if (pUnit)
         {
-            sub_00581B50_TeleportToUnit(pUnit, pOp->pPlayer, pRoom);
+            sub_00581B50_TeleportToUnit(pUnit, pOp->hPlayer, pRoom);
             return 0;
         }
 
@@ -384,14 +384,14 @@ int __fastcall OBJECTS_OperateFunction27_TeleportPad(D2ObjOperateFnStrc* pOp, in
             if (ppRoomList[i] != pRoom)
             {
                 pUnit = ppRoomList[i]->pUnitFirst;
-                while (pUnit && ((!pUnit ? 6 : pUnit->dwUnitType) != UNIT_OBJECT || pUnit == pOp->pObject || (!pUnit ? -1 : pUnit->dwClassId) != nUnitId))
+                while (pUnit && ((!pUnit ? 6 : pUnit->dwUnitType) != UNIT_OBJECT || pUnit == pOp->hObject || (!pUnit ? -1 : pUnit->dwClassId) != nUnitId))
                 {
-                    pUnit = pUnit->pRoomNext;
+                    pUnit = pUnit->ptRoomNext;
                 }
 
                 if (pUnit)
                 {
-                    sub_00581B50_TeleportToUnit(pUnit, pOp->pPlayer, ppRoomList[i]);
+                    sub_00581B50_TeleportToUnit(pUnit, pOp->hPlayer, ppRoomList[i]);
                     return 0;
                 }
             }
@@ -462,7 +462,7 @@ static int __stdcall sub_00582AC0_UpgradeGem(D2UnitStrc* pItem, int nItemId, D2G
 // 0x00582C40
 void __fastcall sub_00582C40_OperateGemShrine(D2ObjOperateFnStrc* pOp, int nOperate)
 {
-    D2InventoryStrc* pInventory = pOp->pPlayer->pInventory;
+    D2InventoryStrc* pInventory = pOp->hPlayer->pInventory;
     D2UnitStrc* pItem = INVENTORY_GetBackPackItemByType(pInventory, 0x14, 0);
     int bUpgraded = 0;
     while (pItem)
@@ -477,7 +477,7 @@ void __fastcall sub_00582C40_OperateGemShrine(D2ObjOperateFnStrc* pOp, int nOper
         {
             const int nItemId = DATATBLS_GetItemIdFromItemCode(pItemsTxtRecord->dwUpgradeCode);
             D2_ASSERT(nItemId != -1, 0x823);
-            if (sub_00582AC0_UpgradeGem(pItem, nItemId, pOp->pGame, pOp->pPlayer))
+            if (sub_00582AC0_UpgradeGem(pItem, nItemId, pOp->pGame, pOp->hPlayer))
             {
                 bUpgraded = 1;
                 pItem = 0;
@@ -492,7 +492,7 @@ void __fastcall sub_00582C40_OperateGemShrine(D2ObjOperateFnStrc* pOp, int nOper
         return;
     }
 
-    D2SeedStrc* pSeed = &pOp->pPlayer->pSeed;
+    D2SeedStrc* pSeed = &pOp->hPlayer->pSeed;
     unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
     pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
     pSeed->nLowSeed = (unsigned int)lSeed;
@@ -510,7 +510,7 @@ void __fastcall sub_00582C40_OperateGemShrine(D2ObjOperateFnStrc* pOp, int nOper
 
     const int nItemId = DATATBLS_GetItemIdFromItemCode(dwCode);
     D2_ASSERT(nItemId != -1, 0x84C);
-    sub_00582AC0_UpgradeGem(0, nItemId, pOp->pGame, pOp->pPlayer);
+    sub_00582AC0_UpgradeGem(0, nItemId, pOp->pGame, pOp->hPlayer);
 }
 
 static __forceinline D2CharStatsTxt* sub_00583740_GetCharStatsRecord(int nClassId)
@@ -610,23 +610,23 @@ static __declspec(noinline) int __stdcall OBJMODE_CalculateShrineStatBonus(int n
 
 void __fastcall D2GAME_SHRINES_CombatBoost_6FC77690(D2ObjOperateFnStrc* pOp, D2ShrinesTxt* pShrinesTxtRecord)
 {
-    D2_ASSERT(pShrinesTxtRecord->nCode < gnShrineTableCount_00732EAC, 0x9C1);
+    D2_ASSERT(pShrinesTxtRecord->bCode < gnShrineTableCount_00732EAC, 0x9C1);
 
-    const D2ShrineTableStrc* pShrineRecord = &sgcptShrineChart[pShrinesTxtRecord->nCode];
-    const int nValue = OBJMODE_CalculateShrineStatBonus(0x13, pShrinesTxtRecord->dwArg0, pOp->pPlayer);
-    D2StatListStrc* pStatList = sub_00582800_ApplyShrineCurse(pOp->pObject, pOp->pPlayer, pShrinesTxtRecord->dwDurationInFrames, pShrinesTxtRecord->dwArg1, 0x19, pShrineRecord->unk0x08, 0);
+    const D2ShrineTableStrc* pShrineRecord = &sgcptShrineChart[pShrinesTxtRecord->bCode];
+    const int nValue = OBJMODE_CalculateShrineStatBonus(0x13, pShrinesTxtRecord->dwArg0, pOp->hPlayer);
+    D2StatListStrc* pStatList = sub_00582800_ApplyShrineCurse(pOp->hObject, pOp->hPlayer, pShrinesTxtRecord->dwDurationInFrames, pShrinesTxtRecord->dwArg1, 0x19, pShrineRecord->unk0x08, 0);
     sub_006270B0(pStatList, 0x13, nValue, 0);
 }
 
 void __fastcall D2GAME_SHRINES_Stamina_6FC779C0(D2ObjOperateFnStrc* pOp, D2ShrinesTxt* pShrinesTxtRecord)
 {
-    D2_ASSERT(pShrinesTxtRecord->nCode < gnShrineTableCount_00732EAC, 0x9E7);
+    D2_ASSERT(pShrinesTxtRecord->bCode < gnShrineTableCount_00732EAC, 0x9E7);
 
-    const D2ShrineTableStrc* pShrineRecord = &sgcptShrineChart[pShrinesTxtRecord->nCode];
-    const int nMaxStamina = STATLIST_GetMaxStaminaFromUnit(pOp->pPlayer);
-    STATLIST_SetUnitStat(pOp->pPlayer, 0x0A, nMaxStamina, 0);
-    const int nStatValue = OBJMODE_CalculateShrineStatBonus(pShrineRecord->unk0x04, pShrinesTxtRecord->dwArg0, pOp->pPlayer);
-    D2StatListStrc* pStatList = sub_00582800_ApplyShrineCurse(pOp->pObject, pOp->pPlayer, pShrinesTxtRecord->dwDurationInFrames, nStatValue, pShrineRecord->unk0x04, pShrineRecord->unk0x08, sub_6FC77AB0);
+    const D2ShrineTableStrc* pShrineRecord = &sgcptShrineChart[pShrinesTxtRecord->bCode];
+    const int nMaxStamina = STATLIST_GetMaxStaminaFromUnit(pOp->hPlayer);
+    STATLIST_SetUnitStat(pOp->hPlayer, 0x0A, nMaxStamina, 0);
+    const int nStatValue = OBJMODE_CalculateShrineStatBonus(pShrineRecord->unk0x04, pShrinesTxtRecord->dwArg0, pOp->hPlayer);
+    D2StatListStrc* pStatList = sub_00582800_ApplyShrineCurse(pOp->hObject, pOp->hPlayer, pShrinesTxtRecord->dwDurationInFrames, nStatValue, pShrineRecord->unk0x04, pShrineRecord->unk0x08, sub_6FC77AB0);
     sub_006270B0(pStatList, 0x0A, 2 * nStatValue, 0);
     sub_006270B0(pStatList, 0x1C, 1000, 0);
 }
@@ -634,12 +634,12 @@ void __fastcall D2GAME_SHRINES_Stamina_6FC779C0(D2ObjOperateFnStrc* pOp, D2Shrin
 // build: context D2GAME_SHRINES_DefensiveBoost_6FC77AE0
 void __fastcall D2GAME_SHRINES_DefensiveBoost_6FC77AE0(D2ObjOperateFnStrc* pOp, D2ShrinesTxt* pShrinesTxtRecord)
 {
-    D2_ASSERT(pShrinesTxtRecord->nCode < gnShrineTableCount_00732EAC, 0x9F9);
+    D2_ASSERT(pShrinesTxtRecord->bCode < gnShrineTableCount_00732EAC, 0x9F9);
 
-    const D2ShrineTableStrc* pShrineRecord = &sgcptShrineChart[pShrinesTxtRecord->nCode];
-    const int nStatValue = pShrineRecord->unk0x04 != -1 ? OBJMODE_CalculateShrineStatBonus(pShrineRecord->unk0x04, pShrinesTxtRecord->dwArg0, pOp->pPlayer) : 0;
+    const D2ShrineTableStrc* pShrineRecord = &sgcptShrineChart[pShrinesTxtRecord->bCode];
+    const int nStatValue = pShrineRecord->unk0x04 != -1 ? OBJMODE_CalculateShrineStatBonus(pShrineRecord->unk0x04, pShrinesTxtRecord->dwArg0, pOp->hPlayer) : 0;
 
-    sub_00582800_ApplyShrineCurse(pOp->pObject, pOp->pPlayer, pShrinesTxtRecord->dwDurationInFrames, nStatValue, pShrineRecord->unk0x04, pShrineRecord->unk0x08, 0);
+    sub_00582800_ApplyShrineCurse(pOp->hObject, pOp->hPlayer, pShrinesTxtRecord->dwDurationInFrames, nStatValue, pShrineRecord->unk0x04, pShrineRecord->unk0x08, 0);
 }
 
 inline void UNIT_ClearFlag(D2UnitStrc* pUnit, unsigned int nFlag)
@@ -661,32 +661,32 @@ static int sub_00584240_ExplodeBarrel(D2ObjOperateFnStrc* pOp)
 {
     D2ObjOperateFnStrc tNewOp = *pOp;
     D2CoordStrc tCoord;
-    UNITS_GetCoords(pOp->pObject, &tCoord);
-    for (D2UnitStrc* pUnit = UNITS_GetRoom(pOp->pObject)->pUnitFirst; pUnit; pUnit = pUnit->pRoomNext)
+    UNITS_GetCoords(pOp->hObject, &tCoord);
+    for (D2UnitStrc* pUnit = UNITS_GetRoom(pOp->hObject)->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
     {
         const int nUnitType = pUnit ? pUnit->dwUnitType : 6;
         const int nAnimMode = pUnit ? pUnit->dwAnimMode : 0;
-        if (pUnit != pOp->pObject && nUnitType != UNIT_TILE)
+        if (pUnit != pOp->hObject && nUnitType != UNIT_TILE)
         {
             if (nUnitType == UNIT_PLAYER)
             {
                 if (nAnimMode != PLRMODE_DEAD && UNITS_IsInRange(pUnit, &tCoord, 3))
                 {
-                    OBJEVAL_ApplyTrapObjectDamage(pOp->pGame, pOp->pObject, pUnit, 0);
+                    OBJEVAL_ApplyTrapObjectDamage(pOp->pGame, pOp->hObject, pUnit, 0);
                 }
             }
             else if (nUnitType == UNIT_MONSTER)
             {
                 if (nAnimMode != MONMODE_DEAD && UNITS_IsInRange(pUnit, &tCoord, 3))
                 {
-                    OBJEVAL_ApplyTrapObjectDamage(pOp->pGame, pOp->pObject, pUnit, 0);
+                    OBJEVAL_ApplyTrapObjectDamage(pOp->pGame, pOp->hObject, pUnit, 0);
                 }
             }
             else if (nUnitType == UNIT_OBJECT)
             {
-                if (OBJECTS_IsNeutralExplodingBarrel(pUnit) && sub_006416D0_UnitEdgeDistance(pOp->pObject, pUnit) <= 2)
+                if (OBJECTS_IsNeutralExplodingBarrel(pUnit) && sub_006416D0_UnitEdgeDistance(pOp->hObject, pUnit) <= 2)
                 {
-                    tNewOp.pObject = pUnit;
+                    tNewOp.hObject = pUnit;
                     OBJECTS_OperateFunction07_ExplodingBarrel(&tNewOp);
                 }
             }
@@ -698,14 +698,14 @@ static int sub_00584240_ExplodeBarrel(D2ObjOperateFnStrc* pOp)
 // 0x00584330
 int __fastcall OBJECTS_OperateFunction07_ExplodingBarrel(D2ObjOperateFnStrc* pOp)
 {
-    if ((!pOp->pObject ? 0 : pOp->pObject->dwAnimMode) == OBJMODE_NEUTRAL)
+    if ((!pOp->hObject ? 0 : pOp->hObject->dwAnimMode) == OBJMODE_NEUTRAL)
     {
-        UNITS_ChangeAnimMode(pOp->pObject, OBJMODE_OPERATING);
-        UNIT_ClearFlag(pOp->pObject, UNITFLAG_TARGETABLE);
+        UNITS_ChangeAnimMode(pOp->hObject, OBJMODE_OPERATING);
+        UNIT_ClearFlag(pOp->hObject, UNITFLAG_TARGETABLE);
         sub_00584240_ExplodeBarrel(pOp);
-        UNITS_FreeCollisionPath(pOp->pObject);
+        UNITS_FreeCollisionPath(pOp->hObject);
         D2ObjectsTxt* pTxt = DATATBLS_GetObjectsTxtRecord(pOp->nObjectIdx);
-        EVENT_SetEvent(pOp->pGame, pOp->pObject, EVENTTYPE_ENDANIM, (pTxt->dwFrameCnt[1] >> 8) + pOp->pGame->dwGameFrame + 1, 0, 0);
+        EVENT_SetEvent(pOp->pGame, pOp->hObject, EVENTTYPE_ENDANIM, (pTxt->dwFrameCnt[1] >> 8) + pOp->pGame->dwGameFrame + 1, 0, 0);
     }
     return 0;
 }

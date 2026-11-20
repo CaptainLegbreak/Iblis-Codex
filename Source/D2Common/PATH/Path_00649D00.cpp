@@ -20,8 +20,8 @@ struct D2DynamicPathStrc
     D2UnitStrc* pUnit;
     unsigned int dwFlags;
     char unk0x38[4];
-    int dwPathType;
-    int dwPrevPathType;
+    int eType;
+    int ePrevType;
     int dwUnitSize;
     int dwCollisionPattern;
     int nFootprintCollisionMask;
@@ -29,7 +29,7 @@ struct D2DynamicPathStrc
     char unk0x54[0x7C - 0x54];
     int dwVelocity;
     char unk0x80[0x91 - 0x80];
-    unsigned char nDistMax;
+    unsigned char bDistMax;
     unsigned char nIDAStarInitFScore;
     unsigned char nStepNum;
     char unk0x94[4];
@@ -107,7 +107,7 @@ void __stdcall PATH_AllocDynamicPath(void* pMemPool, D2ActiveRoomStrc* pRoom, in
         pDynamicPath->nFootprintCollisionMask = COLLIDE_PLAYER;
         pDynamicPath->nMoveTestCollisionMask = COLLIDE_MASK_PLAYER_PATH;
         PATH_SetType(pDynamicPath, PATHTYPE_STRAIGHT);
-        pDynamicPath->nDistMax = 73;
+        pDynamicPath->bDistMax = 73;
         pDynamicPath->nIDAStarInitFScore = 70;
         break;
 
@@ -117,10 +117,10 @@ void __stdcall PATH_AllocDynamicPath(void* pMemPool, D2ActiveRoomStrc* pRoom, in
 
         D2_ASSERT(!(pDynamicPath->pUnit && pDynamicPath->pUnit->dwUnitType == UNIT_PLAYER), 2145);
         pDynamicPath->dwFlags &= 0xFFF800FF;
-        pDynamicPath->dwPathType = PATHTYPE_TOWARD;
+        pDynamicPath->eType = PATHTYPE_TOWARD;
         pDynamicPath->nDirOffset = 0;
-        D2_ASSERT(pDynamicPath->dwPrevPathType != PATHTYPE_KNOCKBACK_CLIENT, 2161);
-        D2_ASSERT(pDynamicPath->dwPrevPathType != PATHTYPE_KNOCKBACK_SERVER, 2162);
+        D2_ASSERT(pDynamicPath->ePrevType != PATHTYPE_KNOCKBACK_CLIENT, 2161);
+        D2_ASSERT(pDynamicPath->ePrevType != PATHTYPE_KNOCKBACK_SERVER, 2162);
 
         const int nBaseId = sub_00463860(pUnit);
         if (nBaseId >= 0 && nBaseId < sgptDataTables->nMonStatsTxtRecordCount)
@@ -130,19 +130,19 @@ void __stdcall PATH_AllocDynamicPath(void* pMemPool, D2ActiveRoomStrc* pRoom, in
             case MONSTER_WRAITH1:
                 pUnit->pDynamicPath->dwCollisionPattern = COLLISION_PATTERN_SMALL_NO_PRESENCE;
                 pDynamicPath->nMoveTestCollisionMask = COLLIDE_MISSILE_BARRIER | COLLIDE_DOOR;
-                pDynamicPath->nDistMax = 14;
+                pDynamicPath->bDistMax = 14;
                 break;
 
             default:
                 pDynamicPath->nMoveTestCollisionMask = sub_00648480_GetMonsterMoveTestMask(pUnit);
-                pDynamicPath->nDistMax = 14;
+                pDynamicPath->bDistMax = 14;
                 break;
             }
         }
         else
         {
             pDynamicPath->nMoveTestCollisionMask = sub_00648480_GetMonsterMoveTestMask(pUnit);
-            pDynamicPath->nDistMax = 14;
+            pDynamicPath->bDistMax = 14;
         }
         break;
     }

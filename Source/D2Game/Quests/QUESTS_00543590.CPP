@@ -80,9 +80,9 @@ struct D2QuestDataStrc
     unsigned char unk_0A[0x1];
     unsigned char fLastState;
     unsigned char unk_0C[0x94];
-    QUESTCALLBACK pfCallback[15];
+    QUESTCALLBACK pCallback[15];
     unsigned char unk_DC[0x4];
-    int nQuestFilter;
+    int eFilter;
     char pad0xE4[0x4];
     QUESTSTATUSFILTER pfStatusFilter;
     QUESTACTIVEFILTER pfActiveFilter;
@@ -436,7 +436,7 @@ void __fastcall QUESTS_StatusCallback(D2GameStrc* pGame, D2UnitStrc* pUnit)
         {
             if (!pQuest->pfStatusFilter)
             {
-                QUESTS_RefreshStatus(pQuest, &packet52.pQuestList[pQuest->nQuestFilter], pQuestFlags);
+                QUESTS_RefreshStatus(pQuest, &packet52.pQuestList[pQuest->eFilter], pQuestFlags);
             }
             else
             {
@@ -445,7 +445,7 @@ void __fastcall QUESTS_StatusCallback(D2GameStrc* pGame, D2UnitStrc* pUnit)
                 unsigned char nStatus;
                 if (pQuest->pfStatusFilter(pQuest, pUnit, pQuestControl->pQuestFlags, pQuestFlags, &nStatus) == 1)
                 {
-                    packet52.pQuestList[pQuest->nQuestFilter] = nStatus;
+                    packet52.pQuestList[pQuest->eFilter] = nStatus;
                 }
             }
         }
@@ -627,10 +627,10 @@ void __fastcall QUESTS_ActChange_HirelingChangeAct(D2GameStrc* pGame, D2UnitStrc
                 tArgs.nOldLevel = 1;
                 tArgs.nNewLevel = 40;
                 tArgs.pPlayer = pUnit;
-                if (pQuestData->pfCallback[3])
+                if (pQuestData->pCallback[3])
                 {
-                    D2_ASSERT(!IsBadCodePtr((FARPROC)pQuestData->pfCallback[3]), 0xAEE);
-                    pQuestData->pfCallback[3](pQuestData, &tArgs);
+                    D2_ASSERT(!IsBadCodePtr((FARPROC)pQuestData->pCallback[3]), 0xAEE);
+                    pQuestData->pCallback[3](pQuestData, &tArgs);
                 }
             }
         }

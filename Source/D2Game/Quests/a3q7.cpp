@@ -42,9 +42,9 @@ struct D2QuestDataStrc
     unsigned int dwFlags;
     void* pQuestDataEx;
     D2QuestGUIDStrc tPlayerGUIDs;
-    QUESTCALLBACK pfCallback[15];
+    QUESTCALLBACK pCallback[15];
     void* pNPCMessages;
-    int nQuestFilter;
+    int eFilter;
     int unk0xE4;
     QUESTSTATUSFILTER pfStatusFilter;
     QUESTACTIVEFILTER pfActiveFilter;
@@ -151,15 +151,15 @@ void __fastcall ACT3Q7_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
 // 0x005BD300
 void __fastcall ACT3Q7_InitQuestData(D2QuestDataStrc* pQuestData)
 {
-    memset(pQuestData->pfCallback, 0x00, sizeof(pQuestData->pfCallback));
-    pQuestData->pfCallback[13] = ACT3Q7_Callback13_PlayerStartedGame;
+    memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
+    pQuestData->pCallback[13] = ACT3Q7_Callback13_PlayerStartedGame;
     pQuestData->pNPCMessages = 0;
     pQuestData->bActive = 1;
     pQuestData->fState = 0;
     pQuestData->fLastState = 0;
     pQuestData->pQuestDataEx = FOG_AllocPool(pQuestData->pGame->pMemoryPool, sizeof(D2Act3Quest7Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q7.cpp", 185, 0);
     memset(pQuestData->pQuestDataEx, 0x00, sizeof(D2Act3Quest7Strc));
-    pQuestData->nQuestFilter = 16;
+    pQuestData->eFilter = 16;
     pQuestData->pfStatusFilter = ACT3Q7_StatusFilterCallback;
     pQuestData->pfActiveFilter = ACT3Q7_ActiveFilterCallback;
     ((D2Act3Quest7Strc*)pQuestData->pQuestDataEx)->bPrimaryGoalOpen = 1;

@@ -77,8 +77,8 @@ struct D2QuestDataStrc
     unsigned char pad0x15[3];
     void* pQuestDataEx;
     D2QuestGUIDStrc tPlayerGUIDs;
-    void* pfCallback[16];
-    int nQuestFilter;
+    void* pCallback[16];
+    int eFilter;
     int unk0xE4;
     QUESTSTATUSFILTER pfStatusFilter;
     QUESTACTIVEFILTER pfActiveFilter;
@@ -242,7 +242,7 @@ void __fastcall ACT3Q6_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
     pQuestData->bStatusFlags = 0;
     QUESTS_UnitIterate(pQuestData, 2, 0, ACT3Q6_UnitIterate_StatusCyclerEx, 1);
     pQuestDataEx->bOrmusActivated = 0;
-    pQuestData->pfCallback[2] = 0;
+    pQuestData->pCallback[2] = 0;
 }
 
 // 0x005BC720
@@ -376,7 +376,7 @@ bool __fastcall ACT3Q6_SeqCallback(D2QuestDataStrc* pQuestData)
     if (!pQuestData->fState && pQuestData->bNotIntro)
     {
         pQuestData->fState = 1;
-        pQuestData->pfCallback[2] = ACT3Q6_Callback02_NpcDeactivate;
+        pQuestData->pCallback[2] = ACT3Q6_Callback02_NpcDeactivate;
     }
 
     return true;

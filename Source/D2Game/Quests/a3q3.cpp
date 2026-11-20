@@ -64,9 +64,9 @@ struct D2QuestDataStrc
     unsigned int dwFlags;
     void* pQuestDataEx;
     D2QuestGUIDStrc tPlayerGUIDs;
-    QUESTCALLBACK pfCallback[15];
+    QUESTCALLBACK pCallback[15];
     void* pNPCMessages;
-    int nQuestFilter;
+    int eFilter;
     int unk0xE4;
     QUESTSTATUSFILTER pfStatusFilter;
     QUESTACTIVEFILTER pfActiveFilter;
@@ -131,8 +131,8 @@ struct D2ObjOperateFnStrc
 {
     D2GameStrc* pGame;
 
-    D2UnitStrc* pObject;
-    D2UnitStrc* pPlayer;
+    D2UnitStrc* hObject;
+    D2UnitStrc* hPlayer;
     void* pObjectregion;
     int nObjectIdx;
 };
@@ -215,7 +215,7 @@ void __fastcall ACT3Q3_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
     if (pQuestData->fState == 2)
     {
         D2BitBufferStrc* pQuestFlags = PLAYER_GetQuestFlags(pQuestArg->pGame, pQuestArg->pPlayer);
-        if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, 0) != 1 && QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, 15) != 1)
+        if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 0) != 1 && QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 15) != 1)
         {
             QUESTS_StateDebug(pQuestData, 3, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q3.cpp", 482);
             SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT3Q3_UnitIterate_UpdateQuestStateFlags);
@@ -358,24 +358,24 @@ void __fastcall ACT3Q3_Callback09_PlayerDroppedWithQuestItem(D2QuestDataStrc* pQ
 // 0x005B9850
 void __fastcall ACT3Q3_InitQuestData(D2QuestDataStrc* pQuestData)
 {
-    memset(pQuestData->pfCallback, 0x00, sizeof(pQuestData->pfCallback));
+    memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
     pQuestData->pNPCMessages = gpAct3Q3NpcMessages;
     pQuestData->bActive = 1;
     pQuestData->fState = 0;
-    pQuestData->nQuestFilter = 19;
+    pQuestData->eFilter = 19;
     pQuestData->pfActiveFilter = ACT3Q3_ActiveFilterCallback;
     pQuestData->nInitNo = 4;
     pQuestData->pfStatusFilter = ACT3Q3_StatusFilterCallback;
     pQuestData->pfSeqFilter = ACT3Q3_SeqCallback;
     pQuestData->nSeqId = 15;
-    pQuestData->pfCallback[4] = ACT3Q3_Callback04_ItemPickedUp;
-    pQuestData->pfCallback[0] = ACT3Q3_Callback00_NpcActivate;
-    pQuestData->pfCallback[11] = ACT3Q3_Callback11_ScrollMessage;
-    pQuestData->pfCallback[3] = ACT3Q3_Callback03_ChangedLevel;
-    pQuestData->pfCallback[2] = ACT3Q3_Callback02_NpcDeactivate;
-    pQuestData->pfCallback[13] = ACT3Q3_Callback13_PlayerStartedGame;
-    pQuestData->pfCallback[14] = ACT3Q3_Callback14_PlayerJoinedGame;
-    pQuestData->pfCallback[9] = ACT3Q3_Callback09_PlayerDroppedWithQuestItem;
+    pQuestData->pCallback[4] = ACT3Q3_Callback04_ItemPickedUp;
+    pQuestData->pCallback[0] = ACT3Q3_Callback00_NpcActivate;
+    pQuestData->pCallback[11] = ACT3Q3_Callback11_ScrollMessage;
+    pQuestData->pCallback[3] = ACT3Q3_Callback03_ChangedLevel;
+    pQuestData->pCallback[2] = ACT3Q3_Callback02_NpcDeactivate;
+    pQuestData->pCallback[13] = ACT3Q3_Callback13_PlayerStartedGame;
+    pQuestData->pCallback[14] = ACT3Q3_Callback14_PlayerJoinedGame;
+    pQuestData->pCallback[9] = ACT3Q3_Callback09_PlayerDroppedWithQuestItem;
 
     D2Act3Quest3Strc* pQuestDataEx = (D2Act3Quest3Strc*)FOG_AllocPool(pQuestData->pGame->pMemoryPool, sizeof(D2Act3Quest3Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q3.cpp", 916, 0);
     pQuestData->pQuestDataEx = pQuestDataEx;

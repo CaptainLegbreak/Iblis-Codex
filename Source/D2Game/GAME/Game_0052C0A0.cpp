@@ -203,7 +203,7 @@ void __stdcall sub_0052D240(D2GameStrc* pGame)
                     D2UnitStrc* pNextUnit = 0;
                     for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pNextUnit)
                     {
-                        pNextUnit = pUnit->pRoomNext;
+                        pNextUnit = pUnit->ptRoomNext;
                         SUNITINACTIVE_CompressUnitIfNeeded(pGame, pUnit);
                     }
 

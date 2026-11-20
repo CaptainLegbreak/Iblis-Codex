@@ -39,9 +39,9 @@ struct D2ClientStrc
     char unk0x190[8];
     int unk0x198[4];
     D2GameStrc* pGame;
-    unsigned char nAct;
+    unsigned char bAct;
     char f_1AD[7];
-    D2ActiveRoomStrc* pRoom;
+    D2ActiveRoomStrc* hRoom;
     char unk0x1B8[0x21C];
     unsigned int dwFlags;
     char unk0x3D8[4];
@@ -89,7 +89,7 @@ D2ActiveRoomStrc* __fastcall sub_00538230(D2ClientStrc* pClient)
 {
     D2_ASSERT(pClient, 1966);
 
-    return pClient->pRoom;
+    return pClient->hRoom;
 }
 
 // 0x00538260
@@ -113,7 +113,7 @@ unsigned char __fastcall CLIENTS_GetActNo(D2ClientStrc* ptClient)
 {
     D2_ASSERT(ptClient, 2015);
 
-    return ptClient->nAct;
+    return ptClient->bAct;
 }
 
 // 0x005382E0
@@ -122,7 +122,7 @@ void __fastcall CLIENTS_SetActNo(D2ClientStrc* pClient, unsigned char nAct)
     D2_ASSERT(pClient, 2026);
     D2_ASSERT(nAct < NUM_ACTS, 2027);
 
-    pClient->nAct = nAct;
+    pClient->bAct = nAct;
 }
 
 // 0x00538320

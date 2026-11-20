@@ -48,7 +48,7 @@ struct D2DrlgLevelStrc
     char unk0x00[0x08];
     int nRooms;
     char unk0x0C[0x04];
-    D2DrlgRoomStrc* pFirstRoomEx;
+    D2DrlgRoomStrc* ptRoomFirst;
     char unk0x14[0x08];
     int nPosX;
     int nPosY;
@@ -59,7 +59,7 @@ struct D2DrlgLevelStrc
     char unk0x1B8[0x0C];
     D2SeedStrc pSeed;
     char unk0x1CC[0x04];
-    int nLevelId;
+    int eLevelId;
 
     D2DrlgRoomStrc* sub_0066AC40_GetTileRoom(int nTileIndex, int* pX, int* pY);    // 0x0066AC40
 };
@@ -108,7 +108,7 @@ static __forceinline int* __fastcall sub_0066AEC0(D2DrlgStrc* pDrlg, int nLevelI
 // 0x0066AD80
 static D2DrlgRoomStrc* __stdcall DRLGWARP_GetWaypointRoomExFromLevel(D2DrlgLevelStrc* pLevel, int* pX, int* pY)
 {
-    for (D2DrlgRoomStrc* pDrlgRoom = pLevel->pFirstRoomEx; pDrlgRoom; pDrlgRoom = pDrlgRoom->pDrlgRoomNext)
+    for (D2DrlgRoomStrc* pDrlgRoom = pLevel->ptRoomFirst; pDrlgRoom; pDrlgRoom = pDrlgRoom->pDrlgRoomNext)
     {
         if (DRLGROOM_CheckWaypointFlags(pDrlgRoom))
         {
@@ -132,9 +132,9 @@ static D2DrlgRoomStrc* __stdcall DRLGWARP_GetWaypointRoomExFromLevel(D2DrlgLevel
 static D2DrlgRoomStrc* sub_0066AE70_GetRandomRoom(D2DrlgLevelStrc* pLevel)
 {
     D2_ASSERT(pLevel, 318);
-    D2_ASSERT(pLevel->pFirstRoomEx, 319);
+    D2_ASSERT(pLevel->ptRoomFirst, 319);
     int nRand = ITEMS_RollLimitedRandomNumber(&pLevel->pSeed, pLevel->nRooms);
-    D2DrlgRoomStrc* pDrlgRoom = pLevel->pFirstRoomEx;
+    D2DrlgRoomStrc* pDrlgRoom = pLevel->ptRoomFirst;
     while (nRand)
     {
         pDrlgRoom = pDrlgRoom->pDrlgRoomNext;
@@ -146,7 +146,7 @@ static D2DrlgRoomStrc* sub_0066AE70_GetRandomRoom(D2DrlgLevelStrc* pLevel)
 // 0x0066B1F0
 static D2DrlgRoomStrc* sub_0066B1F0_GetFirstWarpRoom(D2DrlgLevelStrc* pLevel)
 {
-    for (D2DrlgRoomStrc* pDrlgRoom = pLevel->pFirstRoomEx; pDrlgRoom; pDrlgRoom = pDrlgRoom->pDrlgRoomNext)
+    for (D2DrlgRoomStrc* pDrlgRoom = pLevel->ptRoomFirst; pDrlgRoom; pDrlgRoom = pDrlgRoom->pDrlgRoomNext)
     {
         if (pDrlgRoom->dwFlags & 0xFF0)
         {
@@ -154,7 +154,7 @@ static D2DrlgRoomStrc* sub_0066B1F0_GetFirstWarpRoom(D2DrlgLevelStrc* pLevel)
             unsigned char nCounter = 0;
             do
             {
-                if ((nFlags & pDrlgRoom->dwFlags) && sub_0066AEC0(pLevel->pDrlg, pLevel->nLevelId)[nCounter] != -1)
+                if ((nFlags & pDrlgRoom->dwFlags) && sub_0066AEC0(pLevel->pDrlg, pLevel->eLevelId)[nCounter] != -1)
                 {
                     return pDrlgRoom;
                 }
@@ -179,7 +179,7 @@ D2ActiveRoomStrc* __fastcall sub_0066B2B0_GetLevelEntryRoom(D2DrlgStrc* pDrlg, i
     *pY = -1;
 
     pLevel = DRLG_GetLevel(pDrlg, nLevelId);
-    if (!pLevel->pFirstRoomEx)
+    if (!pLevel->ptRoomFirst)
     {
         DRLG_InitLevel(pLevel);
     }

@@ -118,7 +118,7 @@ static D2UnitStrc* __stdcall AIUTIL_FindTargetInAdjacentRooms(D2GameStrc* pGame,
     DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRoomList, &nNumRooms);
     for (unsigned int i = 0; i < nNumRooms; ++i)
     {
-        for (D2UnitStrc* pTarget = ppRoomList[i]->pUnitFirst; pTarget; pTarget = pTarget->pRoomNext)
+        for (D2UnitStrc* pTarget = ppRoomList[i]->pUnitFirst; pTarget; pTarget = pTarget->ptRoomNext)
         {
             D2UnitStrc* pResult = pfCallback(pGame, pUnit, pTarget, pCallbackArg);
             if (pResult)
@@ -157,7 +157,7 @@ static D2UnitStrc* __stdcall sub_005DCF70_FindTargetInAdjacentActiveRooms(D2Game
     {
         if (!DUNGEON_IsRoomInTown(ppRoomList[i]) && ROOM_HAS_CLIENTS(ppRoomList[i]))
         {
-            for (D2UnitStrc* pTarget = ppRoomList[i]->pUnitFirst; pTarget; pTarget = pTarget->pRoomNext)
+            for (D2UnitStrc* pTarget = ppRoomList[i]->pUnitFirst; pTarget; pTarget = pTarget->ptRoomNext)
             {
                 D2UnitStrc* pResult = pfCallback(pGame, pUnit, pTarget, pCallbackArg);
                 if (pResult)

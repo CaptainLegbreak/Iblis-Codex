@@ -307,7 +307,7 @@ struct D2ItemSaveStrc
     int nClassId;
     unsigned short nX;
     unsigned short nY;
-    unsigned char nAnimMode;
+    unsigned char bMode;
     unsigned char pad0x09[3];
     unsigned int dwFlags;
     unsigned char nStorePage;
@@ -2337,8 +2337,8 @@ int __stdcall ITEMS_GetCompactItemDataFromBitstream(unsigned char* pBitstream, u
     unsigned int dwFlags = sub_00411020_ReadBits(&pBuffer, 32);
     pItemSave->dwFlags = dwFlags;
     sub_00411020_ReadBits(&pBuffer, 10);
-    pItemSave->nAnimMode = (unsigned char)sub_00411020_ReadBits(&pBuffer, 3);
-    if (pItemSave->nAnimMode == IMODE_ONGROUND || pItemSave->nAnimMode == IMODE_DROPPING)
+    pItemSave->bMode = (unsigned char)sub_00411020_ReadBits(&pBuffer, 3);
+    if (pItemSave->bMode == IMODE_ONGROUND || pItemSave->bMode == IMODE_DROPPING)
     {
         pItemSave->nX = (unsigned short)sub_00411020_ReadBits(&pBuffer, 16);
         pItemSave->nY = (unsigned short)sub_00411020_ReadBits(&pBuffer, 16);

@@ -32,7 +32,7 @@ struct D2PlayerDataStrc
     int dwTradeState;
     int unk0x54;
     int dwAcceptTradeTick;
-    void* pTrade;
+    void* hTrade;
     char unk0x60[0x10];
     int nRightSkillId;
     int nLeftSkillId;
@@ -100,7 +100,7 @@ static void __stdcall sub_00532520_AttachPlayerToClient(D2GameStrc* pGame, D2Uni
     UNITS_ChangeAnimMode(pPlayer, PLRMODE_NEUTRAL);
 
     D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
-    pPlayerData->pTrade = 0;
+    pPlayerData->hTrade = 0;
     pPlayerData->dwTradeState = 0;
     pPlayerData->dwAcceptTradeTick = 0;
     pPlayerData->unk0x54 = 0;

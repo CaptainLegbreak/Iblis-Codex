@@ -56,7 +56,7 @@ struct D2DrlgLevelStrc
     char unk0x1B8[0x0C];
     D2SeedStrc pSeed;
     char unk0x1CC[0x04];
-    int nLevelId;
+    int eLevelId;
 };
 
 struct D2DrlgOutRectStrc
@@ -74,7 +74,7 @@ M303_OFFSET_CHECK(M303_check_pOutdoors, D2DrlgLevelStrc, pOutdoors, 0x14);
 M303_OFFSET_CHECK(M303_check_pLevelCoords, D2DrlgLevelStrc, pLevelCoords, 0x1C);
 M303_OFFSET_CHECK(M303_check_pDrlg, D2DrlgLevelStrc, pDrlg, 0x1B4);
 M303_OFFSET_CHECK(M303_check_pSeed, D2DrlgLevelStrc, pSeed, 0x1C4);
-M303_OFFSET_CHECK(M303_check_nLevelId, D2DrlgLevelStrc, nLevelId, 0x1D0);
+M303_OFFSET_CHECK(M303_check_nLevelId, D2DrlgLevelStrc, eLevelId, 0x1D0);
 M303_OFFSET_CHECK(M303_check_nGridWidth, D2DrlgOutdoorInfoStrc, nGridWidth, 0x5C);
 M303_OFFSET_CHECK(M303_check_nGridHeight, D2DrlgOutdoorInfoStrc, nGridHeight, 0x60);
 M303_OFFSET_CHECK(M303_check_pVertex, D2DrlgOutdoorInfoStrc, pVertex, 0x64);
@@ -246,7 +246,7 @@ static __declspec(noinline) void DRLGOUTWILD_SpawnTownTransitionsAndCaves(D2Drlg
 // build: context DRLGOUTWILD_SpawnTownTransitionsAndCaves
 static __declspec(noinline) void DRLGOUTWILD_SpawnTownTransitionsAndCaves(D2DrlgLevelStrc* pLevel)
 {
-    if (pLevel->nLevelId == LEVEL_MOOMOOFARM)
+    if (pLevel->eLevelId == LEVEL_MOOMOOFARM)
     {
         return;
     }
@@ -284,7 +284,7 @@ static __declspec(noinline) void DRLGOUTWILD_SpawnTownTransitionsAndCaves(D2Drlg
     if (!(pOutdoors->dwFlags & 0x40))
     {
         int bAdded = 0;
-        if (pLevel->nLevelId == LEVEL_BLOODMOOR)
+        if (pLevel->eLevelId == LEVEL_BLOODMOOR)
         {
             D2DrlgCoordsStrc* pCoords = &DRLG_GetLevel(pLevel->pDrlg, LEVEL_ROGUEENCAMPMENT)->pLevelCoords;
             bAdded = DRLGOUTDOORS_SpawnPresetFarAway(pLevel, pCoords, 0x34, -1, 1, 15);
@@ -322,7 +322,7 @@ static __declspec(noinline) void DRLGOUTWILD_SpawnSpecialPresets(D2DrlgLevelStrc
 // build: context DRLGOUTWILD_SpawnSpecialPresets
 static __declspec(noinline) void DRLGOUTWILD_SpawnSpecialPresets(D2DrlgLevelStrc* pLevel)
 {
-    switch (pLevel->nLevelId)
+    switch (pLevel->eLevelId)
     {
     case LEVEL_BLOODMOOR:
         DRLGOUTDOORS_SpawnRandomOutdoorDS1(pLevel, 0x2E, -1);
@@ -395,7 +395,7 @@ static __declspec(noinline) void DRLGOUTWILD_SpawnSpecialPresets(D2DrlgLevelStrc
 // 0x006807F0
 void __fastcall DRLGOUTWILD_InitAct1OutdoorLevel(D2DrlgLevelStrc* pLevel)
 {
-    if (pLevel->nLevelId != LEVEL_BLOODMOOR && pLevel->nLevelId != LEVEL_COLDPLAINS && pLevel->nLevelId != LEVEL_BURIALGROUNDS)
+    if (pLevel->eLevelId != LEVEL_BLOODMOOR && pLevel->eLevelId != LEVEL_COLDPLAINS && pLevel->eLevelId != LEVEL_BURIALGROUNDS)
     {
         sub_00680070_MarkVertexDirections(pLevel);
     }
@@ -403,7 +403,7 @@ void __fastcall DRLGOUTWILD_InitAct1OutdoorLevel(D2DrlgLevelStrc* pLevel)
     DRLGOUTPLACE_SetOutGridLinkFlags(pLevel);
     DRLGOUTPLACE_PlaceAct1245OutdoorBorders(pLevel);
 
-    if (pLevel->nLevelId >= LEVEL_BLOODMOOR && pLevel->nLevelId <= LEVEL_TAMOEHIGHLAND)
+    if (pLevel->eLevelId >= LEVEL_BLOODMOOR && pLevel->eLevelId <= LEVEL_TAMOEHIGHLAND)
     {
         DRLGOUTDOORS_AddAct124SecondaryBorder(pLevel, 0, 4);
         sub_00680200_SpawnRiverAndCliffCaves(pLevel);
@@ -414,7 +414,7 @@ void __fastcall DRLGOUTWILD_InitAct1OutdoorLevel(D2DrlgLevelStrc* pLevel)
         DRLGOUTDOORS_SpawnAct1DirtPaths(pLevel);
     }
 
-    if (pLevel->nLevelId == LEVEL_MOOMOOFARM)
+    if (pLevel->eLevelId == LEVEL_MOOMOOFARM)
     {
         DRLGOUTDOORS_AddAct124SecondaryBorder(pLevel, 0, 4);
         DRLGOUTDOORS_AddAct124SecondaryBorder(pLevel, 1, 4);
@@ -422,12 +422,12 @@ void __fastcall DRLGOUTWILD_InitAct1OutdoorLevel(D2DrlgLevelStrc* pLevel)
         DRLGOUTDOORS_AddAct124SecondaryBorder(pLevel, 3, 4);
     }
 
-    if (pLevel->nLevelId >= LEVEL_COLDPLAINS && pLevel->nLevelId <= LEVEL_BLACKMARSH)
+    if (pLevel->eLevelId >= LEVEL_COLDPLAINS && pLevel->eLevelId <= LEVEL_BLACKMARSH)
     {
         DRLGOUTDOORS_SpawnAct12Waypoint(pLevel);
     }
 
-    if (pLevel->nLevelId >= LEVEL_BLOODMOOR && pLevel->nLevelId <= LEVEL_TAMOEHIGHLAND)
+    if (pLevel->eLevelId >= LEVEL_BLOODMOOR && pLevel->eLevelId <= LEVEL_TAMOEHIGHLAND)
     {
         DRLGOUTDOORS_SpawnAct12Shrines(pLevel, 5);
     }

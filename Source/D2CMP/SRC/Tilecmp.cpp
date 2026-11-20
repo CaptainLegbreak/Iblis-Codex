@@ -114,7 +114,7 @@ struct D2CmpTileBlockStrc
 
 struct D2CmpTileLibraryStrc
 {
-    int nVersion;
+    int dwVersion;
     unsigned int dwFlags;
     char szName[0x104];
     int nBlocks;
@@ -359,7 +359,7 @@ int __stdcall sub_00609D60_BuildTileLibrary(D2CmpTileListStrc* pList, D2CmpTileL
     D2CmpTileLibraryStrc* pLibrary = (D2CmpTileLibraryStrc*)FOG_Alloc(sizeof(D2CmpTileLibraryStrc), ".\\SRC\\Tilecmp.cpp", 0x22C, 0);
     D2_ASSERT(pLibrary, 0x22D);
     memset(pLibrary, 0, sizeof(D2CmpTileLibraryStrc));
-    pLibrary->nVersion = 7;
+    pLibrary->dwVersion = 7;
     if (pList->bFlag)
     {
         pLibrary->dwFlags = 1;

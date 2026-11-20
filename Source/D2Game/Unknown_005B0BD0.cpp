@@ -12,7 +12,7 @@ struct D2MonStatsTxt;
 
 struct D2TargetNodeStrc
 {
-    D2UnitStrc* pUnit;
+    D2UnitStrc* hUnit;
     int nNodeData;
     D2TargetNodeStrc* pNext;
     D2TargetNodeStrc* pPrevious;
@@ -115,7 +115,7 @@ D2TargetNodeStrc* __fastcall sub_005B1BC0_FindTargetNode(D2UnitStrc* pUnit, D2Ga
 
     for (D2TargetNodeStrc* pNode = pGame->pTargetNodes[nNodeIndex]; pNode; pNode = pNode->pNext)
     {
-        if (pNode->pUnit == pUnit)
+        if (pNode->hUnit == pUnit)
         {
             return pNode;
         }

@@ -51,7 +51,7 @@ struct D2GSPacketClt6B
 {
     unsigned char nHeader;
     unsigned char nSize;
-    unsigned int nTotalSize;
+    unsigned int dwTotalSize;
 };
 
 struct D2GSPacketClt6D
@@ -232,7 +232,7 @@ void __fastcall CCMD_ProcessClientSystemMessage(void* pData, int nSize)
     case 0x6C:
     {
         D2GSPacketClt6B* p6B = (D2GSPacketClt6B*)pData;
-        D2_ASSERT(p6B->nTotalSize < 0x2000, 0x1A8);
+        D2_ASSERT(p6B->dwTotalSize < 0x2000, 0x1A8);
         if (sub_0052DB00_Return1(nClientId))
         {
             sub_6FC399A0(nClientId, p6B);

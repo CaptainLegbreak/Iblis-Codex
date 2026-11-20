@@ -19,7 +19,7 @@ struct D2Act3Quest2Strc
 struct D2ObjOperateFnStrc
 {
     D2GameStrc* pGame;
-    D2UnitStrc* pObject;
+    D2UnitStrc* hObject;
     int unk0x08[2];
     int nObjectIdx;
 };
@@ -33,7 +33,7 @@ void __fastcall QUESTS_TriggerFX(D2GameStrc* pGame, unsigned char nEffect); // 0
 // 0x005B8530
 int __fastcall sub_005B8530_OperateSewerLever(D2ObjOperateFnStrc* pOp, int nOperate)
 {
-    D2UnitStrc* pObject = pOp->pObject;
+    D2UnitStrc* pObject = pOp->hObject;
     if (!pObject || !pObject->dwAnimMode)
     {
         D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pOp->pGame, 16);
@@ -47,11 +47,11 @@ int __fastcall sub_005B8530_OperateSewerLever(D2ObjOperateFnStrc* pOp, int nOper
 
             if (SUNIT_GetServerUnit(pOp->pGame, 2, pQuestDataEx->nSewerStairsObjectGUID))
             {
-                UNITS_ChangeAnimMode(pOp->pObject, 1);
+                UNITS_ChangeAnimMode(pOp->hObject, 1);
                 D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(pOp->nObjectIdx);
-                EVENT_SetEvent(pOp->pGame, pOp->pObject, 1, (pObjectsTxtRecord->dwFrameCnt[1] >> 8) + pOp->pGame->dwGameFrame, 0, 0);
+                EVENT_SetEvent(pOp->pGame, pOp->hObject, 1, (pObjectsTxtRecord->dwFrameCnt[1] >> 8) + pOp->pGame->dwGameFrame, 0, 0);
                 pQuestDataEx->nSewerStairsObjectMode = 2;
-                EVENT_SetEvent(pOp->pGame, pOp->pObject, 7, pOp->pGame->dwGameFrame + 30, 0, 0);
+                EVENT_SetEvent(pOp->pGame, pOp->hObject, 7, pOp->pGame->dwGameFrame + 30, 0, 0);
                 QUESTS_TriggerFX(pQuestData->pGame, 9);
             }
         }

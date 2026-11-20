@@ -22,7 +22,7 @@ struct D2ClientStrc
     char unk0x000[0x68];
     D2ClientInfoStrc* pClientInfo;
     char unk0x06C[0x140];
-    unsigned char nAct;
+    unsigned char bAct;
 };
 
 struct D2ServerCallbackFunctions
@@ -118,7 +118,7 @@ void __fastcall SrvJoinGame(int dwClientId, unsigned short nGameId, int nClass, 
     }
 
     sub_0052C260_SendGameInit(pGame, pClient);
-    pClient->nAct = gnAct_6FD45824;
+    pClient->bAct = gnAct_6FD45824;
     GAME_LeaveGamesCriticalSection(pGame);
 
     if (gpD2EventCallbackTable_6FD45830 && gpD2EventCallbackTable_6FD45830->pfGetDatabaseCharacter)

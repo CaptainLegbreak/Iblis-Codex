@@ -29,7 +29,7 @@ struct D2QuestDataStrc
     unsigned int dwFlags;
     void* pQuestDataEx;
     char tPlayerGUIDs[0x84];
-    QUESTCALLBACK pfCallback[15];
+    QUESTCALLBACK pCallback[15];
 };
 
 struct D2Act2Quest4Strc
@@ -88,6 +88,6 @@ void __fastcall ACT2Q4_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
     pQuestData->dwFlags &= 0xFFFFFF00;
     QUESTS_UnitIterate(pQuestData, A2Q4_ITERATE_DEACTIVATE, 0, ACT2Q4_UnitIterate_StatusCyclerEx, 1);
     pQuestDataEx->bDrognanActivated = 0;
-    pQuestData->pfCallback[2] = 0;
+    pQuestData->pCallback[2] = 0;
     SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT2Q4_UnitIterate_UpdateQuestStateFlags);
 }

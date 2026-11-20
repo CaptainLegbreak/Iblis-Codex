@@ -639,7 +639,7 @@ void __cdecl sub_E01_Emit_00467AC0(D2UnitStrc* pFirst)
     int nPY = CLIENTS_GetUnitY(pPlayer);
     sub_00643260(&nPX, &nPY);
     D2UnitStrc* pBest = 0;
-    for (D2UnitStrc* pUnit = pFirst; pUnit; pUnit = pUnit->pRoomNext)
+    for (D2UnitStrc* pUnit = pFirst; pUnit; pUnit = pUnit->ptRoomNext)
     {
         if (sub_00467000_CheckWarpTileHover(pPlayer, nPY, nX, nY, pUnit, nPX, &gdwGlobal_007A6AA0))
         {

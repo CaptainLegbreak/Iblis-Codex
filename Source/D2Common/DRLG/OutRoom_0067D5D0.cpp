@@ -59,7 +59,7 @@ struct D2DrlgLevelStrc
     int unk0x1C4;
     int unk0x1C8;
     int unk0x1CC;
-    int nLevelId;
+    int eLevelId;
 };
 
 struct D2LevelDefRecordStrc
@@ -122,7 +122,7 @@ struct D2DrlgRoomStrc
     int unk0x4C;
     int unk0x50;
     D2RoomTileInfoStrc* pTileInfo;
-    D2DrlgLevelStrc* pLevel;
+    D2DrlgLevelStrc* ptDrlgLevel;
 };
 
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);    // 0x0040B430
@@ -167,7 +167,7 @@ static void sub_0067D5D0(void* pMemPool, D2DrlgOutdoorRoomStrc* pOutdoor)
 // 0x0067D610
 void __fastcall sub_0067D610(D2DrlgRoomStrc* pRoom)
 {
-    void* pMemPool = pRoom->pLevel->pDrlg->pMemPool;
+    void* pMemPool = pRoom->ptDrlgLevel->pDrlg->pMemPool;
     D2DrlgOutdoorRoomStrc* pOutdoor = pRoom->pOutdoor;
     if (pOutdoor)
     {

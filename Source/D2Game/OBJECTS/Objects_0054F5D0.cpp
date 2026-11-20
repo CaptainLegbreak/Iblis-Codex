@@ -162,7 +162,7 @@ struct D2PlayerDataStrc
     char unk0x3C[0x14];
     unsigned int dwTradeState;
     char unk0x54[0x08];
-    D2PlayerTradeStrc* pTrade;
+    D2PlayerTradeStrc* hTrade;
     char unk0x60[0x100];
     unsigned int dwHostileDelay;
 };
@@ -750,7 +750,7 @@ void __stdcall sub_005665B0_GetLocalDate(D2LocalDateStrc* pDate)
 void __fastcall PLRTRADE_Free(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pUnit);
-    D2PlayerTradeStrc* pTrade = pPlayerData->pTrade;
+    D2PlayerTradeStrc* pTrade = pPlayerData->hTrade;
     if (pTrade)
     {
         FOG_FreePool(pGame->pMemoryPool, pTrade->pSaveData, ".\\PLAYER\\PlrTrade.cpp", 2082, 0);
@@ -765,7 +765,7 @@ void __fastcall PLRTRADE_Free(D2GameStrc* pGame, D2UnitStrc* pUnit)
 
         pTrade->pItemTrade = 0;
         FOG_FreePool(pGame->pMemoryPool, pTrade, ".\\PLAYER\\PlrTrade.cpp", 2091, 0);
-        pPlayerData->pTrade = 0;
+        pPlayerData->hTrade = 0;
     }
 }
 
@@ -792,7 +792,7 @@ void __fastcall sub_00567020_StartTrade(D2UnitStrc* pPlayer, int nUnused, D2Unit
 // 0x005675E0
 int __fastcall PLRTRADE_CopyTradeSaveDataToBuffer(D2UnitStrc* pUnit, unsigned char* pBuffer, int nBufferSize)
 {
-    D2PlayerTradeStrc* pTrade = UNITS_GetPlayerData(pUnit)->pTrade;
+    D2PlayerTradeStrc* pTrade = UNITS_GetPlayerData(pUnit)->hTrade;
     if (!pTrade)
     {
         return 0;

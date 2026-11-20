@@ -101,8 +101,8 @@ struct D2DrlgMapStrc
     int nLevelPrest;
     int nPickedFile;
     D2LvlPrestTxt* pLvlPrestTxtRecord;
-    D2DrlgFileStrc* pFile;
-    D2DrlgCoordStrc pDrlgCoord;
+    D2DrlgFileStrc* ptFile;
+    D2DrlgCoordStrc tCoords;
     D2DrlgVertexStrc* pVertices;
     D2DrlgGridStrc pMapGrid;
     D2PresetUnitStrc* pPresetUnit;
@@ -156,7 +156,7 @@ struct D2DrlgRoomStrc;
 struct D2DrlgLevelStrc
 {
     char unk0x000[0x10];
-    D2DrlgRoomStrc* pFirstRoomEx;
+    D2DrlgRoomStrc* ptRoomFirst;
     D2DrlgPresetLevelStrc* pPreset;
     char unk0x018[0x4];
     D2DrlgCoordStrc pLevelCoords;
@@ -165,7 +165,7 @@ struct D2DrlgLevelStrc
     char unk0x1B8[0xC];
     D2SeedStrc pSeed;
     char unk0x1CC[0x4];
-    int nLevelId;
+    int eLevelId;
 };
 
 struct D2DrlgRoomStrc
@@ -184,7 +184,7 @@ struct D2DrlgRoomStrc
     char unk0x4C[0x4];
     unsigned int dwDT1Mask;
     char unk0x54[0x4];
-    D2DrlgLevelStrc* pLevel;
+    D2DrlgLevelStrc* ptDrlgLevel;
     struct D2PresetUnitStrc* pPresetUnits;
 };
 
@@ -257,7 +257,7 @@ static void DRLGPRESET_SpawnRiver(D2DrlgMapStrc* pDrlgMap, int nX, int nY, void*
     int nSubtileX = nX;
     int nSubtileY = nY;
     int nEndSubtileX = 0;
-    int nEndSubtileY = nY + pDrlgMap->pFile->nHeight;
+    int nEndSubtileY = nY + pDrlgMap->ptFile->nHeight;
 
     DUNGEON_GameTileToSubtileCoords(&nSubtileX, &nSubtileY);
     DUNGEON_GameTileToSubtileCoords(&nEndSubtileX, &nEndSubtileY);
@@ -271,11 +271,11 @@ static void DRLGPRESET_SpawnRiver(D2DrlgMapStrc* pDrlgMap, int nX, int nY, void*
 
 static void __stdcall DRLGPRESET_AddPresetRiverObjects(D2DrlgMapStrc* pDrlgMap, void* pMemPool, int nOffsetX, D2DrlgGridStrc* pDrlgGrid)
 {
-    for (int nY = 0; nY < pDrlgMap->pDrlgCoord.nHeight; ++nY)
+    for (int nY = 0; nY < pDrlgMap->tCoords.nHeight; ++nY)
     {
         const int nX = nOffsetX > 0 ? nOffsetX : 0;
-        int nObjectX = pDrlgMap->pDrlgCoord.nPosX + nOffsetX;
-        int nObjectY = pDrlgMap->pDrlgCoord.nPosY + nY;
+        int nObjectX = pDrlgMap->tCoords.nPosX + nOffsetX;
+        int nObjectY = pDrlgMap->tCoords.nPosY + nY;
         DUNGEON_GameTileToSubtileCoords(&nObjectX, &nObjectY);
         nObjectX -= 5;
 
@@ -313,12 +313,12 @@ static void sub_006663C0(D2DrlgMapStrc* pDrlgMap, void* pMemPool)
 
     tDrlgCoord.nPosX = 0;
     tDrlgCoord.nPosY = 0;
-    tDrlgCoord.nWidth = pDrlgMap->pDrlgCoord.nWidth;
-    tDrlgCoord.nHeight = pDrlgMap->pDrlgCoord.nHeight;
-    DRLGGRID_AssignCellsOffsetsAndFlags(&tDrlgGrid, (int*)pDrlgMap->pFile->pFloorLayer[0], &tDrlgCoord, pDrlgMap->pDrlgCoord.nWidth + 1, nCellFlags);
+    tDrlgCoord.nWidth = pDrlgMap->tCoords.nWidth;
+    tDrlgCoord.nHeight = pDrlgMap->tCoords.nHeight;
+    DRLGGRID_AssignCellsOffsetsAndFlags(&tDrlgGrid, (int*)pDrlgMap->ptFile->pFloorLayer[0], &tDrlgCoord, pDrlgMap->tCoords.nWidth + 1, nCellFlags);
 
-    tDrlgCoord.nPosX = pDrlgMap->pDrlgCoord.nPosX;
-    tDrlgCoord.nPosY = pDrlgMap->pDrlgCoord.nPosY;
+    tDrlgCoord.nPosX = pDrlgMap->tCoords.nPosX;
+    tDrlgCoord.nPosY = pDrlgMap->tCoords.nPosY;
 
     if (pDrlgMap->pLvlPrestTxtRecord->dwDef == 27)
     {
@@ -344,8 +344,8 @@ static void sub_006663C0(D2DrlgMapStrc* pDrlgMap, void* pMemPool)
 
 static void __stdcall sub_006664A0(D2DrlgMapStrc* pDrlgMap, void* pMemPool)
 {
-    int nX = pDrlgMap->pDrlgCoord.nPosX + pDrlgMap->pDrlgCoord.nWidth / 2;
-    int nY = pDrlgMap->pDrlgCoord.nPosY + pDrlgMap->pDrlgCoord.nHeight / 2;
+    int nX = pDrlgMap->tCoords.nPosX + pDrlgMap->tCoords.nWidth / 2;
+    int nY = pDrlgMap->tCoords.nPosY + pDrlgMap->tCoords.nHeight / 2;
     DUNGEON_GameTileToSubtileCoords(&nX, &nY);
 
     const int nClassId = sgptDataTables->nMonStatsTxtRecordCount <= 266 ? -1 : 266;
@@ -359,7 +359,7 @@ static void __stdcall DRLGPRESET_FreeDrlgGrids(void* pMemPool, D2DrlgRoomStrc* p
     D2DrlgPresetRoomStrc* pMaze = pDrlgRoom->pMaze;
     if (pMaze && pMaze->pMap)
     {
-        D2DrlgFileStrc* pDrlgFile = pMaze->pMap->pFile;
+        D2DrlgFileStrc* pDrlgFile = pMaze->pMap->ptFile;
         if (pDrlgFile)
         {
             const int nWallLayers = pDrlgFile->nWallLayers;
@@ -382,7 +382,7 @@ static void __stdcall DRLGPRESET_FreeDrlgGrids(void* pMemPool, D2DrlgRoomStrc* p
 
 void __fastcall DRLGPRESET_FreePresetRoomData(D2DrlgRoomStrc* pDrlgRoom)
 {
-    void* pMemPool = pDrlgRoom->pLevel->pDrlg->pMempool;
+    void* pMemPool = pDrlgRoom->ptDrlgLevel->pDrlg->pMempool;
     D2DrlgPresetRoomStrc* pMaze = pDrlgRoom->pMaze;
     if (pMaze)
     {
@@ -402,13 +402,13 @@ void __fastcall DRLGPRESET_FreeDrlgGridsFromPresetRoom(D2DrlgRoomStrc* pDrlgRoom
 {
     if (pDrlgRoom->pMaze)
     {
-        DRLGPRESET_FreeDrlgGrids(pDrlgRoom->pLevel->pDrlg->pMempool, pDrlgRoom);
+        DRLGPRESET_FreeDrlgGrids(pDrlgRoom->ptDrlgLevel->pDrlg->pMempool, pDrlgRoom);
     }
 }
 
 void __fastcall DRLGPRESET_AllocPresetRoomData(D2DrlgRoomStrc* pDrlgRoom)
 {
-    D2DrlgPresetRoomStrc* pMaze = (D2DrlgPresetRoomStrc*)sub_0040B430(pDrlgRoom->pLevel->pDrlg->pMempool, sizeof(D2DrlgPresetRoomStrc), &gszDrlgPresetSourceFile, 1807, 0);
+    D2DrlgPresetRoomStrc* pMaze = (D2DrlgPresetRoomStrc*)sub_0040B430(pDrlgRoom->ptDrlgLevel->pDrlg->pMempool, sizeof(D2DrlgPresetRoomStrc), &gszDrlgPresetSourceFile, 1807, 0);
     memset(pMaze, 0, sizeof(D2DrlgPresetRoomStrc));
     pDrlgRoom->pMaze = pMaze;
 }
@@ -499,16 +499,16 @@ void __fastcall DRLGPRESET_InitPresetRoomGrids(D2DrlgRoomStrc* pDrlgRoom)
     int i = 0;
     D2DrlgPresetRoomStrc* pMaze = pDrlgRoom->pMaze;
     D2DrlgMapStrc* pDrlgMap = pMaze->pMap;
-    D2DrlgFileStrc* pDrlgFile = pDrlgMap->pFile;
-    void* pMemPool = pDrlgRoom->pLevel->pDrlg->pMempool;
+    D2DrlgFileStrc* pDrlgFile = pDrlgMap->ptFile;
+    void* pMemPool = pDrlgRoom->ptDrlgLevel->pDrlg->pMempool;
 
     D2DrlgCoordStrc tDrlgCoord;
-    tDrlgCoord.nPosX = pDrlgRoom->pDrlgCoord.nPosX - pDrlgMap->pDrlgCoord.nPosX;
-    tDrlgCoord.nPosY = pDrlgRoom->pDrlgCoord.nPosY - pDrlgMap->pDrlgCoord.nPosY;
+    tDrlgCoord.nPosX = pDrlgRoom->pDrlgCoord.nPosX - pDrlgMap->tCoords.nPosX;
+    tDrlgCoord.nPosY = pDrlgRoom->pDrlgCoord.nPosY - pDrlgMap->tCoords.nPosY;
     tDrlgCoord.nWidth = pDrlgRoom->pDrlgCoord.nWidth + 1;
     tDrlgCoord.nHeight = pDrlgRoom->pDrlgCoord.nHeight + 1;
 
-    const int nWidth = pDrlgMap->pDrlgCoord.nWidth + 1;
+    const int nWidth = pDrlgMap->tCoords.nWidth + 1;
 
     for (i = 0; i < pDrlgFile->nWallLayers; ++i)
     {
@@ -628,10 +628,10 @@ void __fastcall DRLGPRESET_FreePresetUnit(void* pMemPool, D2PresetUnitStrc* pPre
 void __fastcall DRLGPRESET_SpawnHardcodedPresetUnits(D2DrlgRoomStrc* pDrlgRoom)
 {
     D2DrlgMapStrc* pDrlgMap = pDrlgRoom->pMaze->pMap;
-    void* pMemPool = pDrlgRoom->pLevel->pDrlg->pMempool;
-    if (!pDrlgMap->pFile)
+    void* pMemPool = pDrlgRoom->ptDrlgLevel->pDrlg->pMempool;
+    if (!pDrlgMap->ptFile)
     {
-        DRLGPRESET_LoadDrlgFile(&pDrlgMap->pFile, pDrlgRoom->pLevel->pDrlg->hArchive, pDrlgMap->pLvlPrestTxtRecord->szFile[pDrlgMap->nPickedFile]);
+        DRLGPRESET_LoadDrlgFile(&pDrlgMap->ptFile, pDrlgRoom->ptDrlgLevel->pDrlg->hArchive, pDrlgMap->pLvlPrestTxtRecord->szFile[pDrlgMap->nPickedFile]);
         DRLGPRESET_AddPresetUnitToDrlgMap(pMemPool, pDrlgMap, &pDrlgRoom->pSeed);
     }
 
@@ -645,7 +645,7 @@ void __fastcall DRLGPRESET_SpawnHardcodedPresetUnits(D2DrlgRoomStrc* pDrlgRoom)
         case 5:
         case 6:
         case 7:
-            if (pDrlgRoom->pLevel->nLevelId == 2 && pDrlgMap->nPickedFile == 3)
+            if (pDrlgRoom->ptDrlgLevel->eLevelId == 2 && pDrlgMap->nPickedFile == 3)
             {
                 sub_006664A0(pDrlgMap, pMemPool);
             }
@@ -675,7 +675,7 @@ void __fastcall DRLGPRESET_SpawnHardcodedPresetUnits(D2DrlgRoomStrc* pDrlgRoom)
 void __fastcall DRLGPRESET_GenerateLevel(D2DrlgLevelStrc* pLevel)
 {
     D2DrlgPresetLevelStrc* pPreset = pLevel->pPreset;
-    D2LvlPrestTxt* pLvlPrestTxtRecord = DATATBLS_GetLvlPrestTxtRecordFromLevelId(pLevel->nLevelId);
+    D2LvlPrestTxt* pLvlPrestTxtRecord = DATATBLS_GetLvlPrestTxtRecordFromLevelId(pLevel->eLevelId);
     D2DrlgMapStrc* pDrlgMap = DRLGPRESET_AllocDrlgMap(pLevel, pLvlPrestTxtRecord->dwDef, &pLevel->pLevelCoords, &pLevel->pSeed);
     pPreset->pDrlgMap = pDrlgMap;
 
@@ -690,31 +690,31 @@ void __fastcall DRLGPRESET_GenerateLevel(D2DrlgLevelStrc* pLevel)
 
     DRLGPRESET_BuildArea(pLevel, pPreset->pDrlgMap, 0, 0);
 
-    if (pLevel->nLevelId == 40 || pLevel->nLevelId == 103 || pLevel->nLevelId == 109)
+    if (pLevel->eLevelId == 40 || pLevel->eLevelId == 103 || pLevel->eLevelId == 109)
     {
         if (pLevel->pDrlg->pfTownAutomap && pDrlgMap->pLvlPrestTxtRecord->dwAutoMap)
         {
-            pLevel->pDrlg->pfTownAutomap(pLevel->nLevelId, pDrlgMap->nPickedFile, pLevel->pLevelCoords.nPosX + pLevel->pLevelCoords.nWidth / 2, pLevel->pLevelCoords.nPosY + pLevel->pLevelCoords.nHeight / 2);
+            pLevel->pDrlg->pfTownAutomap(pLevel->eLevelId, pDrlgMap->nPickedFile, pLevel->pLevelCoords.nPosX + pLevel->pLevelCoords.nWidth / 2, pLevel->pLevelCoords.nPosY + pLevel->pLevelCoords.nHeight / 2);
         }
     }
     else
     {
         if (pLevel->pDrlg->pfAutomap && pDrlgMap->pLvlPrestTxtRecord->dwAutoMap)
         {
-            int* pVisLevelIds = DRLGROOM_GetVisArrayFromLevelId(pLevel->pDrlg, pLevel->nLevelId);
+            int* pVisLevelIds = DRLGROOM_GetVisArrayFromLevelId(pLevel->pDrlg, pLevel->eLevelId);
             for (int i = 0; i < 8; ++i)
             {
                 if (pVisLevelIds[i])
                 {
                     D2DrlgLevelStrc* pCurrentLevel = DRLG_GetLevel(pLevel->pDrlg, pVisLevelIds[i]);
-                    if (!pCurrentLevel->pFirstRoomEx)
+                    if (!pCurrentLevel->ptRoomFirst)
                     {
                         DRLG_InitLevel(pCurrentLevel);
                     }
                 }
             }
 
-            for (D2DrlgRoomStrc* pDrlgRoom = pLevel->pFirstRoomEx; pDrlgRoom; pDrlgRoom = pDrlgRoom->pDrlgRoomNext)
+            for (D2DrlgRoomStrc* pDrlgRoom = pLevel->ptRoomFirst; pDrlgRoom; pDrlgRoom = pDrlgRoom->pDrlgRoomNext)
             {
                 DRLGACTIVATE_InitializeRoomEx(pDrlgRoom);
                 pLevel->pDrlg->pfAutomap(pDrlgRoom->pRoom);
@@ -733,7 +733,7 @@ void __fastcall DRLGPRESET_FreeDrlgMap(void* pMemPool, D2DrlgMapStrc* pDrlgMap)
 
         DRLGGRID_FreeGrid(pMemPool, &pMap->pMapGrid);
         DRLGVER_FreeVertices(pMemPool, &pMap->pVertices);
-        DRLGPRESET_FreeDrlgFile(&pMap->pFile);
+        DRLGPRESET_FreeDrlgFile(&pMap->ptFile);
 
         D2PresetUnitStrc* pPresetUnit = pMap->pPresetUnit;
         while (pPresetUnit)

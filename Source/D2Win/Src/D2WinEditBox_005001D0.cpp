@@ -48,7 +48,7 @@ typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
 
 struct D2WinControlStrc
 {
-    int nType;
+    int eType;
     D2CelFileStrc* pCellFile;
     unsigned int dwFlags;
     int nImageX;
@@ -171,7 +171,7 @@ D2WinEditBoxStrc* __fastcall D2Win_10070_EDITBOX_Create(int nX, int nY, int nWid
 {
     D2WinEditBoxStrc* pEditBox = (D2WinEditBoxStrc*)FOG_Alloc(sizeof(D2WinEditBoxStrc), ".\\Src\\D2WinEditBox.cpp", 0x39, 0);
     memset(pEditBox, 0, sizeof(D2WinEditBoxStrc));
-    pEditBox->controlHeader.nType = 1;
+    pEditBox->controlHeader.eType = 1;
     pEditBox->controlHeader.dwFlags |= gdwBitMasks[0];
     pEditBox->controlHeader.dwFlags |= gdwBitMasks[2];
     pEditBox->controlHeader.pCellFile = pCellFile;
@@ -217,7 +217,7 @@ D2WinEditBoxStrc* __fastcall D2Win_10070_EDITBOX_Create(int nX, int nY, int nWid
 int __fastcall ANIMIMAGE_ShouldMouseInputBeHandled(D2WinControlStrc* pControl)
 {
     D2WinAnimImageStrc* pAnimImage = (D2WinAnimImageStrc*)pControl;
-    D2_ASSERT(pAnimImage->controlHeader.nType == 2, 0x73);
+    D2_ASSERT(pAnimImage->controlHeader.eType == 2, 0x73);
 
     int nY = gMousePosition_6F8FE234.y;
     int nX = gMousePosition_6F8FE234.x;
@@ -248,7 +248,7 @@ int __fastcall ANIMIMAGE_ShouldMouseInputBeHandled(D2WinControlStrc* pControl)
 // 0x00500B50
 int __fastcall BUTTON_OnMouseWheelScrolled(D2WinButtonStrc* ptBtnData, int nMouseWheelIncrement)
 {
-    D2_ASSERT(ptBtnData->controlHeader.nType == 6, 0xE2);
+    D2_ASSERT(ptBtnData->controlHeader.eType == 6, 0xE2);
 
     if (!(ptBtnData->controlHeader.dwFlags & gdwBitMasks[0]) || !(ptBtnData->controlHeader.dwFlags & gdwBitMasks[2]) || ptBtnData->bIsPressed || ptBtnData->bIsCallbackPending)
     {

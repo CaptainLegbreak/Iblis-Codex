@@ -30,7 +30,7 @@ struct D2QuestDataStrc
     unsigned int dwFlags;
     void* pQuestDataEx;
     char tPlayerGUIDs[0x84];
-    QUESTCALLBACK pfCallback[15];
+    QUESTCALLBACK pCallback[15];
 };
 
 struct D2Act3Quest4Strc
@@ -91,7 +91,7 @@ int __fastcall ACT3Q4_UnitIterate_SetGoldenBirdBoss(D2QuestDataStrc* pQuestData,
     }
 
     QUESTS_CreateChainRecord(pQuestData->pGame, pUnit, QUEST_A3Q4_GOLDENBIRD);
-    pQuestData->pfCallback[QUESTEVENT_MONSTERKILLED] = ACT3Q4_Callback08_MonsterKilled;
+    pQuestData->pCallback[QUESTEVENT_MONSTERKILLED] = ACT3Q4_Callback08_MonsterKilled;
     pQuestDataEx->unk0x01 = 0;
     pQuestDataEx->unk0x02 = 1;
     pQuestDataEx->nBossGUID = !pUnit ? -1 : pUnit->dwUnitId;

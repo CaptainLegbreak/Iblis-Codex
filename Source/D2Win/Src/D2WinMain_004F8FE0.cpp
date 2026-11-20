@@ -20,7 +20,7 @@ struct D2CompositeUnitStrc;
 
 struct D2WinControlStrc
 {
-    int nType;
+    int eType;
     D2CelFileStrc* pCellFile;
     unsigned int dwFlags;
     int nImageX;
@@ -168,7 +168,7 @@ int __stdcall CONTROL_Destroy(D2WinControlStrc** ppControl)
     }
 
     int nResult;
-    switch (pControl->nType)
+    switch (pControl->eType)
     {
     case D2WIN_TEXTBOX:
         nResult = D2Win_10043_TEXTBOX_Destroy(pControl);

@@ -35,9 +35,9 @@ struct D2QuestDataStrc
     unsigned int dwFlags;
     void* pQuestDataEx;
     D2QuestGUIDStrc tPlayerGUIDs;
-    QUESTCALLBACK pfCallback[15];
+    QUESTCALLBACK pCallback[15];
     void* pNPCMessages;
-    int nQuestFilter;
+    int eFilter;
     int unk0xE4;
     void* pfStatusFilter;
     void* pfActiveFilter;
@@ -147,7 +147,7 @@ void __fastcall ACT3Q4_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
             {
                 QUESTS_StateDebug(pQuestData, 2, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q4.cpp", 478);
                 pQuestDataEx->bTalkedToCainOnce = 1;
-                pQuestData->pfCallback[2] = ACT3Q4_Callback02_NpcDeactivate;
+                pQuestData->pCallback[2] = ACT3Q4_Callback02_NpcDeactivate;
             }
             QUESTS_NPCActivateSpeeches(pQuestArg->pGame, pQuestArg->pPlayer, pQuestArg->pTarget);
             pQuestDataEx->nCurrentQuestFlag = 2;
@@ -179,7 +179,7 @@ void __fastcall ACT3Q4_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
 
                 QUESTRECORD_SetQuestState(pQuestFlags, 20, 1);
                 pQuestDataEx->bTalkedToAlkor = 1;
-                pQuestData->pfCallback[2] = ACT3Q4_Callback02_NpcDeactivate;
+                pQuestData->pCallback[2] = ACT3Q4_Callback02_NpcDeactivate;
                 pQuestDataEx->nCurrentQuestFlag = 1;
                 sub_005BA2F0_UpdatePartyQuestState(pQuestArg->pGame, pQuestArg->pPlayer);
             }
@@ -193,7 +193,7 @@ void __fastcall ACT3Q4_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
                     QUESTRECORD_ClearQuestState(pQuestFlags, 20, 1);
                     QUESTRECORD_SetQuestState(pQuestFlags, 20, 0);
                     QUESTRECORD_SetQuestState(pQuestFlags, 20, 13);
-                    QUESTRECORD_ResetIntermediateStateFlags(pQuestFlags, pQuestData->nQuestFilter);
+                    QUESTRECORD_ResetIntermediateStateFlags(pQuestFlags, pQuestData->eFilter);
                     QUESTRECORD_SetQuestState(pQuestFlags, 20, 5);
                     if (pQuestData->bNotIntro)
                     {
@@ -220,7 +220,7 @@ void __fastcall ACT3Q4_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
         {
             if (ITEMS_FindQuestItem(pQuestArg->pGame, pQuestArg->pPlayer, ' 43j'))
             {
-                pQuestData->pfCallback[2] = ACT3Q4_Callback02_NpcDeactivate;
+                pQuestData->pCallback[2] = ACT3Q4_Callback02_NpcDeactivate;
                 QUESTS_DeleteItem(pQuestArg->pGame, pQuestArg->pPlayer, ' 43j');
                 --pQuestDataEx->nGoldenBirdsInGame;
                 if (QUESTS_CreateItem(pQuestArg->pGame, pQuestArg->pPlayer, ' 43g', 0, 2, 1))
@@ -228,7 +228,7 @@ void __fastcall ACT3Q4_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
                     ++pQuestDataEx->nGoldenBirdsInGame;
                     QUESTS_StateDebug(pQuestData, 3, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q4.cpp", 566);
                     pQuestDataEx->bTalkedToMeshif = 1;
-                    pQuestData->pfCallback[2] = ACT3Q4_Callback02_NpcDeactivate;
+                    pQuestData->pCallback[2] = ACT3Q4_Callback02_NpcDeactivate;
                 }
             }
         }

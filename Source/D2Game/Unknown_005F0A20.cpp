@@ -77,7 +77,7 @@ int __fastcall AITACTICS_WalkCloseToUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, i
 
 struct D2TargetNodeStrc
 {
-    D2UnitStrc* pUnit;
+    D2UnitStrc* hUnit;
 };
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -282,7 +282,7 @@ D2UnitStrc* __fastcall AITHINK_GetTargetForUberMinion(D2GameStrc* pGame, D2UnitS
     {
         if (pNode)
         {
-            D2UnitStrc* pPlayer = pNode->pUnit;
+            D2UnitStrc* pPlayer = pNode->hUnit;
             if (DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pPlayer)) == nLevelId
                 && !SUNIT_IsDead(pPlayer)
                 && (unsigned int)AIUTIL_GetDistanceToCoordinates_NoUnitSize(pPlayer, nX, nY) < 1020)

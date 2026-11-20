@@ -28,8 +28,8 @@ void __fastcall PLRTRADE_StopAllPlayerInteractions(D2GameStrc* pGame, D2UnitStrc
 struct D2ObjOperateFnStrc
 {
     D2GameStrc* pGame;
-    D2UnitStrc* pObject;
-    D2UnitStrc* pPlayer;
+    D2UnitStrc* hObject;
+    D2UnitStrc* hPlayer;
     D2ObjectControlStrc* pObjectregion;
     int nObjectIdx;
 };
@@ -63,7 +63,7 @@ struct D2PlayerDataStrc
     int dwTradeState;
     unsigned int unk0x54;
     unsigned int dwAcceptTradeTick;
-    D2PlayerTradeStrc* pTrade;
+    D2PlayerTradeStrc* hTrade;
 };
 
 struct D2CubeMainTxt
@@ -244,15 +244,15 @@ int __fastcall sub_00564CD0_OperateStash(D2ObjOperateFnStrc* pOp, int nOperate)
 {
     if (pOp->nObjectIdx == OBJECT_STASH)
     {
-        D2ActiveRoomStrc* pPlayerRoom = UNITS_GetRoom(pOp->pPlayer);
+        D2ActiveRoomStrc* pPlayerRoom = UNITS_GetRoom(pOp->hPlayer);
         if (pPlayerRoom && DUNGEON_IsRoomInTown(pPlayerRoom))
         {
-            D2ActiveRoomStrc* pObjectRoom = UNITS_GetRoom(pOp->pObject);
+            D2ActiveRoomStrc* pObjectRoom = UNITS_GetRoom(pOp->hObject);
             if (pObjectRoom && DUNGEON_IsRoomInTown(pObjectRoom))
             {
-                SUNIT_SetInteractInfo(pOp->pPlayer, UNIT_OBJECT, !pOp->pObject ? -1 : pOp->pObject->dwUnitId);
-                D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pOp->pPlayer, ".\\PLAYER\\PlrTrade.cpp", 101), UPDATEUI_OPENSTASH);
-                sub_6FC4B830(pOp->pGame, pOp->pPlayer);
+                SUNIT_SetInteractInfo(pOp->hPlayer, UNIT_OBJECT, !pOp->hObject ? -1 : pOp->hObject->dwUnitId);
+                D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pOp->hPlayer, ".\\PLAYER\\PlrTrade.cpp", 101), UPDATEUI_OPENSTASH);
+                sub_6FC4B830(pOp->pGame, pOp->hPlayer);
             }
         }
     }
@@ -657,7 +657,7 @@ static __declspec(noinline) void sub_00566AE0_HandleCubeButton(D2GameStrc* pGame
 static __declspec(noinline) bool PLRTRADE_AllocPlayerTrade(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
     D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
-    if (!pPlayerData->pTrade)
+    if (!pPlayerData->hTrade)
     {
     D2PlayerTradeStrc* ptTradeRecord = (D2PlayerTradeStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2PlayerTradeStrc), ".\\PLAYER\\PlrTrade.cpp", 0x806, 0);
     ptTradeRecord->pSaveData = (unsigned char*)FOG_AllocPool(pGame->pMemoryPool, 0x2000, ".\\PLAYER\\PlrTrade.cpp", 0x807, 0);
@@ -667,7 +667,7 @@ static __declspec(noinline) bool PLRTRADE_AllocPlayerTrade(D2GameStrc* pGame, D2
     ptTradeRecord->nGoldInTrade = 0;
     ptTradeRecord->nNextUpdateTick = 0;
     ptTradeRecord->nGoldInTradeOtherPlayer = STATLIST_UnitGetStatValue(pPlayer, 0xE, 0);
-    pPlayerData->pTrade = ptTradeRecord;
+    pPlayerData->hTrade = ptTradeRecord;
     return true;
     }
 
@@ -790,8 +790,8 @@ static void __stdcall PLRTRADE_ResetTrade(D2PlayerDataStrc* pPlayerData1, D2Play
     {
         pPlayer2->dwFlagEx |= 0x800000;
     }
-    pPlayerData1->pTrade->nGoldInTrade = 0;
-    pPlayerData2->pTrade->nGoldInTrade = 0;
+    pPlayerData1->hTrade->nGoldInTrade = 0;
+    pPlayerData2->hTrade->nGoldInTrade = 0;
     sub_6FC90AE0(pGame, pPlayer1, 1);
     sub_6FC90AE0(pGame, pPlayer2, 1);
     D2GAME_PACKETS_SendPacket0x79_6FC3E1D0(UnitGetClient(pPlayer1, ".\\PLAYER\\PlrTrade.cpp", 0x991), 0, 0);
@@ -811,7 +811,7 @@ static void __stdcall PLRTRADE_ResetTrade(D2PlayerDataStrc* pPlayerData1, D2Play
 static void __stdcall sub_00567C70_AcceptTrade(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pInteractPlayer, D2PlayerDataStrc* pPlayerData, D2PlayerDataStrc* pInteractPlayerData)
 {
     {
-        D2PlayerTradeStrc* pTrade = pPlayerData->pTrade;
+        D2PlayerTradeStrc* pTrade = pPlayerData->hTrade;
         if (pTrade->nGoldInTrade)
         {
             if (STATLIST_UnitGetStatValue(pPlayer, 0xE, 0) < pTrade->nGoldInTrade)
@@ -831,7 +831,7 @@ static void __stdcall sub_00567C70_AcceptTrade(D2GameStrc* pGame, D2UnitStrc* pP
     }
 
     {
-        D2PlayerTradeStrc* pTrade = pInteractPlayerData->pTrade;
+        D2PlayerTradeStrc* pTrade = pInteractPlayerData->hTrade;
         if (pTrade->nGoldInTrade)
         {
             if (STATLIST_UnitGetStatValue(pInteractPlayer, 0xE, 0) < pTrade->nGoldInTrade)
@@ -853,8 +853,8 @@ static void __stdcall sub_00567C70_AcceptTrade(D2GameStrc* pGame, D2UnitStrc* pP
     int nTradeState = 0;
     if (!INVENTORY_CanItemsBeTraded(pGame->pMemoryPool, pPlayer, pInteractPlayer, &nTradeState))
     {
-        pPlayerData->pTrade->nGoldInTrade = 0;
-        pInteractPlayerData->pTrade->nGoldInTrade = 0;
+        pPlayerData->hTrade->nGoldInTrade = 0;
+        pInteractPlayerData->hTrade->nGoldInTrade = 0;
         if (nTradeState)
         {
             D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xA51), 9);
@@ -893,7 +893,7 @@ static void __stdcall sub_00567C70_AcceptTrade(D2GameStrc* pGame, D2UnitStrc* pP
 
         if (PLRTRADE_TransferItems(pInteractPlayer, pPlayer, pGame))
         {
-            D2PlayerTradeStrc* pTrade = pPlayerData->pTrade;
+            D2PlayerTradeStrc* pTrade = pPlayerData->hTrade;
             if (pTrade->nGoldInTrade)
             {
                 const int nGold = pTrade->nGoldInTrade;
@@ -904,7 +904,7 @@ static void __stdcall sub_00567C70_AcceptTrade(D2GameStrc* pGame, D2UnitStrc* pP
                 ITEMS_HandleGoldTransaction(pGame, pInteractPlayer, pTrade->nGoldInTrade);
             }
 
-            D2PlayerTradeStrc* pInteractTrade = pInteractPlayerData->pTrade;
+            D2PlayerTradeStrc* pInteractTrade = pInteractPlayerData->hTrade;
             if (pInteractTrade->nGoldInTrade)
             {
                 const int nGold = pInteractTrade->nGoldInTrade;
@@ -1078,7 +1078,7 @@ int __fastcall PLRTRADE_HandleTradeButton(D2GameStrc* pGame, D2UnitStrc* pPlayer
                         nGold = nInventoryGoldLimit - nCurrentGold;
                     }
 
-                    D2PlayerTradeStrc* pTrade = pPlayerData->pTrade;
+                    D2PlayerTradeStrc* pTrade = pPlayerData->hTrade;
                     if (pTrade)
                     {
                         pTrade->nGoldInTrade = nGold;
@@ -1358,7 +1358,7 @@ int __fastcall D2GAME_PLRTRADE_IsInteractingWithPlayer(D2GameStrc* pGame, D2Unit
 // 0x005678F0
 void __fastcall sPlayerRestoreInventoryCopy(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnused)
 {
-    if (!UNITS_GetPlayerData(pUnit)->pTrade)
+    if (!UNITS_GetPlayerData(pUnit)->hTrade)
     {
         return;
     }
@@ -1409,7 +1409,7 @@ void __fastcall PlayerTradeUpdate(D2GameStrc* game,D2UnitStrc* player,int unused
         EVENT_SetEvent(game,player,0xD,game->dwGameFrame+1,0,0);
         return;
     }
-    D2PlayerTradeStrc* trade=data->pTrade;
+    D2PlayerTradeStrc* trade=data->hTrade;
     if (data->dwTradeState==8) {
         if (player) player->dwFlagEx &= ~0x00400000u;
         if (trade->nNextUpdateTick) {

@@ -77,7 +77,7 @@ struct D2DrlgLevelStrc
     char unk0x02C[0x188];
     D2DrlgStrc* pDrlg;
     unsigned char unk_1B8[0x18];
-    int nLevelId;
+    int eLevelId;
 };
 
 
@@ -860,9 +860,9 @@ void __fastcall sub_00677180_SetAct1OutdoorFlags(D2DrlgLevelStrc* pLevel, int nI
         D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoor;
         for (int i = 0; i < 15; ++i)
         {
-            if (pLevel->nLevelId == stru_6FDD06C0[i].nLevelId || !stru_6FDD06C0[i].nLevelId)
+            if (pLevel->eLevelId == stru_6FDD06C0[i].nLevelId || !stru_6FDD06C0[i].nLevelId)
             {
-                if (pLevel->nLevelId != stru_6FDD06C0[i].nIgnoredLevel1 && pLevel->nLevelId != stru_6FDD06C0[i].nIgnoredLevel2 && pRand[nIteration] == stru_6FDD06C0[i].nRand)
+                if (pLevel->eLevelId != stru_6FDD06C0[i].nIgnoredLevel1 && pLevel->eLevelId != stru_6FDD06C0[i].nIgnoredLevel2 && pRand[nIteration] == stru_6FDD06C0[i].nRand)
                 {
                     if (pRand[nIteration + 1] == stru_6FDD06C0[i].nNextRand)
                     {

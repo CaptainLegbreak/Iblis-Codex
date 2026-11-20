@@ -10,7 +10,7 @@ struct D2PlayerDataStrc
     char unk0x00[0x50];
     int dwTradeState;
     char unk0x54[0x08];
-    void* pTrade;
+    void* hTrade;
 };
 
 
@@ -68,7 +68,7 @@ int __fastcall sub_00567620(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* 
         if (pOtherPlayer)
         {
             D2PlayerDataStrc* pPlayerData2 = UNITS_GetPlayerData(pOtherPlayer);
-            if (!pPlayerData2->pTrade)
+            if (!pPlayerData2->hTrade)
             {
                 return 0;
             }
@@ -80,7 +80,7 @@ int __fastcall sub_00567620(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* 
             {
                 return 0;
             }
-            D2_ASSERT(pPlayerData1->pTrade, 0xD3C);
+            D2_ASSERT(pPlayerData1->hTrade, 0xD3C);
             int nResult = 1;
             if (pPlayerData1->dwTradeState == 4)
             {

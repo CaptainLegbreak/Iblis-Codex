@@ -33,14 +33,14 @@ struct D2DynamicPathStrc
     D2UnitStrc* pUnit;
     unsigned int dwFlags;
     int unk0x38;
-    unsigned int dwPathType;
-    unsigned int dwPrevPathType;
+    unsigned int eType;
+    unsigned int ePrevType;
     int dwUnitSize;
     int dwCollisionPattern;
     int nFootprintCollisionMask;
     int nMoveTestCollisionMask;
     unsigned char unk_54[0x4];
-    D2UnitStrc* pTargetUnit;
+    D2UnitStrc* hTarget;
     char unk0x5C[0x8];
     unsigned char nDirection;
     unsigned char nNewDirection;
@@ -49,7 +49,7 @@ struct D2DynamicPathStrc
     int dwVelocity;
     unsigned int nPreviousVelocity;
     char unk0x84[0x0D];
-    unsigned char nDistMax;
+    unsigned char bDistMax;
     unsigned char nIDAStarInitFScore;
     unsigned char nStepNum;
     char unk0x94[4];
@@ -179,7 +179,7 @@ void __stdcall PATH_AllocDynamicPath(void* pMemPool, D2ActiveRoomStrc* pRoom, in
         pDynamicPath->nFootprintCollisionMask = COLLIDE_PLAYER;
         pDynamicPath->nMoveTestCollisionMask = COLLIDE_MASK_PLAYER_PATH;
         PATH_SetType(pDynamicPath, PATHTYPE_STRAIGHT);
-        pDynamicPath->nDistMax = 73;
+        pDynamicPath->bDistMax = 73;
         pDynamicPath->nIDAStarInitFScore = 70;
         break;
 
@@ -189,22 +189,22 @@ void __stdcall PATH_AllocDynamicPath(void* pMemPool, D2ActiveRoomStrc* pRoom, in
 
         D2_ASSERT(!(pDynamicPath->pUnit && pDynamicPath->pUnit->dwUnitType == UNIT_PLAYER), 2145);
         pDynamicPath->dwFlags &= 0xFFF800FF;
-        pDynamicPath->dwPathType = PATHTYPE_TOWARD;
+        pDynamicPath->eType = PATHTYPE_TOWARD;
         pDynamicPath->nDirOffset = 0;
-        D2_ASSERT(pDynamicPath->dwPrevPathType != PATHTYPE_KNOCKBACK_CLIENT, 2161);
-        D2_ASSERT(pDynamicPath->dwPrevPathType != PATHTYPE_KNOCKBACK_SERVER, 2162);
+        D2_ASSERT(pDynamicPath->ePrevType != PATHTYPE_KNOCKBACK_CLIENT, 2161);
+        D2_ASSERT(pDynamicPath->ePrevType != PATHTYPE_KNOCKBACK_SERVER, 2162);
 
         const int nBaseId = sub_00463860(pUnit);
         if (nBaseId >= 0 && nBaseId < sgptDataTables->nMonStatsTxtRecordCount && nBaseId == MONSTER_WRAITH1)
         {
             pUnit->pDynamicPath->dwCollisionPattern = COLLISION_PATTERN_SMALL_NO_PRESENCE;
             pDynamicPath->nMoveTestCollisionMask = COLLIDE_MISSILE_BARRIER | COLLIDE_DOOR;
-            pDynamicPath->nDistMax = 14;
+            pDynamicPath->bDistMax = 14;
         }
         else
         {
             pDynamicPath->nMoveTestCollisionMask = sub_00648480_GetMonsterMoveTestMask(pUnit);
-            pDynamicPath->nDistMax = 14;
+            pDynamicPath->bDistMax = 14;
         }
         break;
     }
@@ -360,7 +360,7 @@ void __stdcall PATH_SetType(D2DynamicPathStrc* ptPath, int eType)
     int nFlag = gaPathTypeFlags_006EB690[eType];
     if ((nFlag & 0x2000) && !(ptPath->dwFlags & 0x4000))
     {
-        ptPath->dwPrevPathType = ptPath->dwPathType;
+        ptPath->ePrevType = ptPath->eType;
     }
 
     if ((nFlag & 0x8000) && !(ptPath->dwFlags & 0x10000))
@@ -368,13 +368,13 @@ void __stdcall PATH_SetType(D2DynamicPathStrc* ptPath, int eType)
         ptPath->nPreviousVelocity = ptPath->dwVelocity;
     }
 
-    ptPath->dwPathType = eType;
+    ptPath->eType = eType;
     ptPath->dwFlags = nFlag | ptPath->dwFlags & 0xFFF800FF;
     ptPath->nDirOffset = gaOffsetForPathType_006EB648[eType];
 
-    D2_ASSERT(ptPath->dwPrevPathType != 0xB, 0x871);
-    D2_ASSERT(ptPath->dwPrevPathType != 8, 0x872);
-    D2_ASSERT((eType != 4) || (ptPath->nDistMax < 78), 0x873);
+    D2_ASSERT(ptPath->ePrevType != 0xB, 0x871);
+    D2_ASSERT(ptPath->ePrevType != 8, 0x872);
+    D2_ASSERT((eType != 4) || (ptPath->bDistMax < 78), 0x873);
 }
 
 // 0x006505C0
@@ -427,13 +427,13 @@ D2UnitStrc* __stdcall PATH_GetTargetUnit(D2DynamicPathStrc* pDynamicPath)
         return 0;
     }
 
-    return pDynamicPath->pTargetUnit;
+    return pDynamicPath->hTarget;
 }
 
 // 0x00648E30
 int __stdcall PATH_GetType(D2DynamicPathStrc* pDynamicPath)
 {
-    return pDynamicPath->dwPathType;
+    return pDynamicPath->eType;
 }
 
 // 0x00648B00
@@ -489,7 +489,7 @@ void __stdcall PATH_ResetToPreviousType(D2DynamicPathStrc* pDynamicPath)
     }
     else if (pDynamicPath->dwFlags & PATH_UNKNOWN_FLAG_0x02000)
     {
-        PATH_SetType(pDynamicPath, pDynamicPath->dwPrevPathType);
+        PATH_SetType(pDynamicPath, pDynamicPath->ePrevType);
     }
 }
 

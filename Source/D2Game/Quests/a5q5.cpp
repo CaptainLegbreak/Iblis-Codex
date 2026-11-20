@@ -61,7 +61,7 @@ struct D2QuestDataStrc
     void* pQuestDataEx;
     D2QuestGUIDStrc tPlayerGUIDs;
     char unk0xA0[0x40];
-    int nQuestFilter;
+    int eFilter;
 };
 
 struct D2Act5Quest5Strc
@@ -127,8 +127,8 @@ int __fastcall ACT5Q5_UnitIterate_CountLivingPlayers(D2GameStrc* pGame, D2UnitSt
 struct D2ObjOperateFnStrc
 {
     D2GameStrc* pGame;
-    D2UnitStrc* pObject;
-    D2UnitStrc* pPlayer;
+    D2UnitStrc* hObject;
+    D2UnitStrc* hPlayer;
     void* pObjectregion;
     int nObjectIdx;
 };
@@ -451,27 +451,27 @@ void __fastcall OBJECTS_InitFunction64_AncientStatue1(D2ObjInitFnStrc* pOp)
 // 0x0058D1D0
 static __forceinline void sub_0058D1D0_PlayStatueSound(D2ObjOperateFnStrc* pOp)
 {
-    SUNIT_AttachSound(pOp->pPlayer, 19, pOp->pPlayer);
+    SUNIT_AttachSound(pOp->hPlayer, 19, pOp->hPlayer);
 }
 
 // 0x0058D1E0
 int __fastcall sub_0058D1E0_OperateAncientStatue(D2ObjOperateFnStrc* pOp, int nOperate)
 {
-    SUNIT_AttachSound(pOp->pPlayer, 19, pOp->pPlayer);
+    SUNIT_AttachSound(pOp->hPlayer, 19, pOp->hPlayer);
     return 0;
 }
 
 // 0x0058D200
 int __fastcall sub_0058D200_OperateAncientStatue(D2ObjOperateFnStrc* pOp, int nOperate)
 {
-    SUNIT_AttachSound(pOp->pPlayer, 19, pOp->pPlayer);
+    SUNIT_AttachSound(pOp->hPlayer, 19, pOp->hPlayer);
     return 0;
 }
 
 // 0x0058D220
 int __fastcall sub_0058D220_OperateAncientStatue(D2ObjOperateFnStrc* pOp, int nOperate)
 {
-    SUNIT_AttachSound(pOp->pPlayer, 19, pOp->pPlayer);
+    SUNIT_AttachSound(pOp->hPlayer, 19, pOp->hPlayer);
     return 0;
 }
 
@@ -542,7 +542,7 @@ int __fastcall OBJECTS_OperateFunction65_AncientsAltar(D2ObjOperateFnStrc* pOp, 
     if (pQuestData)
     {
         D2Act5Quest5Strc* pQuestDataEx = (D2Act5Quest5Strc*)pQuestData->pQuestDataEx;
-        if (pOp->pObject && pOp->pObject->dwAnimMode != 0)
+        if (pOp->hObject && pOp->hObject->dwAnimMode != 0)
         {
             return 0;
         }
@@ -554,7 +554,7 @@ int __fastcall OBJECTS_OperateFunction65_AncientsAltar(D2ObjOperateFnStrc* pOp, 
                 SUNIT_IterateUnitsOfType(pOp->pGame, 0, 0, ACT5Q5_UnitIterate_ClosePortals);
             }
 
-            QUESTS_SendScrollMessage(pOp->pPlayer, pOp->pObject, 20002);
+            QUESTS_SendScrollMessage(pOp->hPlayer, pOp->hObject, 20002);
         }
         else if (pQuestData->fState < 4)
         {
@@ -563,7 +563,7 @@ int __fastcall OBJECTS_OperateFunction65_AncientsAltar(D2ObjOperateFnStrc* pOp, 
                 SUNIT_IterateUnitsOfType(pOp->pGame, 0, 0, ACT5Q5_UnitIterate_ClosePortals);
             }
 
-            QUESTS_SendScrollMessage(pOp->pPlayer, pOp->pObject, 20002);
+            QUESTS_SendScrollMessage(pOp->hPlayer, pOp->hObject, 20002);
 
             if (pQuestData->fState < 2)
             {
@@ -576,9 +576,9 @@ int __fastcall OBJECTS_OperateFunction65_AncientsAltar(D2ObjOperateFnStrc* pOp, 
             }
         }
 
-        if (!pOp->pObject || pOp->pObject->dwAnimMode == 0)
+        if (!pOp->hObject || pOp->hObject->dwAnimMode == 0)
         {
-            UNITS_ChangeAnimMode(pOp->pObject, 1);
+            UNITS_ChangeAnimMode(pOp->hObject, 1);
             pQuestDataEx->nAltarObjectMode = 2;
         }
     }
@@ -592,32 +592,32 @@ int __fastcall OBJECTS_OperateFunction66_AncientsDoor(D2ObjOperateFnStrc* pOp, i
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pOp->pGame, 0x23);
     if (pQuestData)
     {
-        D2BitBufferStrc* pQuestFlags = PLAYER_GetQuestFlags(pOp->pGame, pOp->pPlayer);
-        if (!QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, 0) && !QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, 1))
+        D2BitBufferStrc* pQuestFlags = PLAYER_GetQuestFlags(pOp->pGame, pOp->hPlayer);
+        if (!QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 0) && !QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 1))
         {
-            SUNIT_AttachSound(pOp->pPlayer, 19, pOp->pPlayer);
+            SUNIT_AttachSound(pOp->hPlayer, 19, pOp->hPlayer);
             return 0;
         }
 
         D2Act5Quest5Strc* pQuestDataEx = (D2Act5Quest5Strc*)pQuestData->pQuestDataEx;
         if (pQuestData->bNotIntro && !pQuestDataEx->bAncientsDefeated || pQuestDataEx->bAncientsActivated && !pQuestDataEx->bAncientsDefeated)
         {
-            SUNIT_AttachSound(pOp->pPlayer, 19, pOp->pPlayer);
+            SUNIT_AttachSound(pOp->hPlayer, 19, pOp->hPlayer);
             return 0;
         }
 
         D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(pOp->nObjectIdx);
-        switch (UNITS_GetAnimMode(pOp->pObject))
+        switch (UNITS_GetAnimMode(pOp->hObject))
         {
         case 0:
-            UNITS_ChangeAnimMode(pOp->pObject, 1);
-            DUNGEON_ToggleHasPortalFlag(UNITS_GetRoom(pOp->pObject), 0);
-            EVENT_SetEvent(pOp->pGame, pOp->pObject, 1, pOp->pGame->dwGameFrame + (pObjectsTxtRecord->dwFrameCnt[1] >> 8), 0, 0);
+            UNITS_ChangeAnimMode(pOp->hObject, 1);
+            DUNGEON_ToggleHasPortalFlag(UNITS_GetRoom(pOp->hObject), 0);
+            EVENT_SetEvent(pOp->pGame, pOp->hObject, 1, pOp->pGame->dwGameFrame + (pObjectsTxtRecord->dwFrameCnt[1] >> 8), 0, 0);
             break;
 
         case 2:
             D2GAME_WarpPlayerToTile_6FCA5B20(pOp);
-            DUNGEON_ToggleHasPortalFlag(UNITS_GetRoom(pOp->pObject), 1);
+            DUNGEON_ToggleHasPortalFlag(UNITS_GetRoom(pOp->hObject), 1);
             return 0;
         }
     }
@@ -678,13 +678,13 @@ void __fastcall ACT5Q5_OnPlayerDied(D2GameStrc* pGame, D2UnitStrc* pUnit)
 // 0x0058D5E0
 int __fastcall OBJECTS_OperateFunction69_InvisibleAncient(D2ObjOperateFnStrc* pOp, int nOperate)
 {
-    D2BitBufferStrc* pQuestFlags = PLAYER_GetQuestFlags(pOp->pGame, pOp->pPlayer);
+    D2BitBufferStrc* pQuestFlags = PLAYER_GetQuestFlags(pOp->pGame, pOp->hPlayer);
     if (QUESTRECORD_GetQuestState(pQuestFlags, 0x27, 0))
     {
-        pQuestFlags = PLAYER_GetQuestFlags(pOp->pGame, pOp->pPlayer);
+        pQuestFlags = PLAYER_GetQuestFlags(pOp->pGame, pOp->hPlayer);
         if (!QUESTRECORD_GetQuestState(pQuestFlags, 0x27, 4))
         {
-            QUESTS_SendScrollMessage(pOp->pPlayer, pOp->pObject, 20169);
+            QUESTS_SendScrollMessage(pOp->hPlayer, pOp->hObject, 20169);
         }
     }
     return 0;
@@ -714,12 +714,12 @@ int __fastcall OBJECTS_OperateFunction71_SummitDoor(D2ObjOperateFnStrc* pOp, int
     }
 
     D2Act5Quest5Strc* pQuestDataEx = (D2Act5Quest5Strc*)pQuestData->pQuestDataEx;
-    switch (UNITS_GetAnimMode(pOp->pObject))
+    switch (UNITS_GetAnimMode(pOp->hObject))
     {
     case 0:
         if (!pQuestDataEx->bAncientsDefeated)
         {
-            UNITS_ChangeAnimMode(pOp->pObject, 1);
+            UNITS_ChangeAnimMode(pOp->hObject, 1);
             pQuestDataEx->nSummitDoorObjectMode = 2;
             return 0;
         }
@@ -730,24 +730,24 @@ int __fastcall OBJECTS_OperateFunction71_SummitDoor(D2ObjOperateFnStrc* pOp, int
     case 2:
         if (!pQuestDataEx->bAncientsDefeated)
         {
-            SUNIT_AttachSound(pOp->pPlayer, 19, pOp->pPlayer);
+            SUNIT_AttachSound(pOp->hPlayer, 19, pOp->hPlayer);
         }
         else if (pQuestDataEx->bAncientsActivated)
         {
-            UNITS_ChangeAnimMode(pOp->pObject, 0);
+            UNITS_ChangeAnimMode(pOp->hObject, 0);
             pQuestDataEx->nSummitDoorObjectMode = 0;
         }
 
     case 1:
         if (!pQuestDataEx->bAncientsDefeated)
         {
-            SUNIT_AttachSound(pOp->pPlayer, 19, pOp->pPlayer);
-            UNITS_ChangeAnimMode(pOp->pObject, 2);
+            SUNIT_AttachSound(pOp->hPlayer, 19, pOp->hPlayer);
+            UNITS_ChangeAnimMode(pOp->hObject, 2);
         }
         else
         {
             pQuestDataEx->nSummitDoorObjectMode = 0;
-            UNITS_ChangeAnimMode(pOp->pObject, 0);
+            UNITS_ChangeAnimMode(pOp->hObject, 0);
         }
         return 0;
     }

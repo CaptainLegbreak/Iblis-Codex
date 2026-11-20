@@ -40,7 +40,7 @@ struct Unicode
 
 struct D2WinControlStrc
 {
-    int nType;
+    int eType;
     D2CelFileStrc* pCellFile;
     unsigned int dwFlags;
     int nImageX;
@@ -79,7 +79,7 @@ struct D2WinTextBoxStrc
         };
         struct
         {
-            int nType;
+            int eType;
             unsigned char unk_04[0x10];
             int nWidth;
         };
@@ -297,7 +297,7 @@ int __fastcall D2Win_10047(D2WinTextBoxStrc* ptTextData)
     if (!ptTextData)
         return 0;
 
-    D2_ASSERT(ptTextData->controlHeader.nType == 4, 0xDE);
+    D2_ASSERT(ptTextData->controlHeader.eType == 4, 0xDE);
 
     D2WinTextBoxLineStrc* pNext = 0;
     for (D2WinTextBoxLineStrc* pLine = ptTextData->pFirstLine; pLine; pLine = pNext)
@@ -323,7 +323,7 @@ int __fastcall D2Win_10047(D2WinTextBoxStrc* ptTextData)
 void __fastcall D2Win_10197(D2WinTextBoxStrc* pTextBox, int nLineNum)
 {
     D2_ASSERT(pTextBox, 0x21D);
-    D2_ASSERT(pTextBox->controlHeader.nType == D2WIN_TEXTBOX, 0x21E);
+    D2_ASSERT(pTextBox->controlHeader.eType == D2WIN_TEXTBOX, 0x21E);
     D2_ASSERT(nLineNum <= pTextBox->nNumLines, 0x21F);
 
     D2WinTextBoxLineStrc* ptLine = pTextBox->pFirstLine;
@@ -355,7 +355,7 @@ void __fastcall D2Win_10197(D2WinTextBoxStrc* pTextBox, int nLineNum)
 int __fastcall D2Win_10052_TEXTBOX_GetNumLines(D2WinTextBoxStrc* ptTextData)
 {
     D2_ASSERT(ptTextData, 0x23E);
-    D2_ASSERT(ptTextData->controlHeader.nType == D2WIN_TEXTBOX, 0x23F);
+    D2_ASSERT(ptTextData->controlHeader.eType == D2WIN_TEXTBOX, 0x23F);
 
     return ptTextData->nNumLines;
 }
@@ -364,7 +364,7 @@ int __fastcall D2Win_10052_TEXTBOX_GetNumLines(D2WinTextBoxStrc* ptTextData)
 int __fastcall D2Win_10054(D2WinTextBoxStrc* ptTextData)
 {
     D2_ASSERT(ptTextData, 0x24A);
-    D2_ASSERT(ptTextData->controlHeader.nType == D2WIN_TEXTBOX, 0x24B);
+    D2_ASSERT(ptTextData->controlHeader.eType == D2WIN_TEXTBOX, 0x24B);
 
     return ptTextData->nLine;
 }
@@ -373,7 +373,7 @@ int __fastcall D2Win_10054(D2WinTextBoxStrc* ptTextData)
 int __fastcall D2Win_10049(D2WinTextBoxStrc* ptTextData)
 {
     D2_ASSERT(ptTextData, 0x256);
-    D2_ASSERT(ptTextData->controlHeader.nType == D2WIN_TEXTBOX, 0x257);
+    D2_ASSERT(ptTextData->controlHeader.eType == D2WIN_TEXTBOX, 0x257);
 
     return ptTextData->nCurrentLine;
 }
@@ -382,7 +382,7 @@ int __fastcall D2Win_10049(D2WinTextBoxStrc* ptTextData)
 void __fastcall D2Win_10050_TEXTBOX_SetLine(D2WinTextBoxStrc* ptTextData, int nLine)
 {
     D2_ASSERT(ptTextData, 0x262);
-    D2_ASSERT(ptTextData->controlHeader.nType == D2WIN_TEXTBOX, 0x263);
+    D2_ASSERT(ptTextData->controlHeader.eType == D2WIN_TEXTBOX, 0x263);
 
     ptTextData->nCurrentLine = D2_MIN(D2_MAX(nLine, -1), ptTextData->nNumLines - 1);
 }
@@ -391,7 +391,7 @@ void __fastcall D2Win_10050_TEXTBOX_SetLine(D2WinTextBoxStrc* ptTextData, int nL
 int __fastcall D2Win_10053(D2WinTextBoxStrc* ptTextData, int nLine)
 {
     D2_ASSERT(ptTextData, 0x271);
-    D2_ASSERT(ptTextData->controlHeader.nType == D2WIN_TEXTBOX, 0x272);
+    D2_ASSERT(ptTextData->controlHeader.eType == D2WIN_TEXTBOX, 0x272);
 
     nLine = nLine < ptTextData->nNumLines ? nLine : ptTextData->nNumLines;
 
@@ -424,7 +424,7 @@ int __fastcall D2Win_10053(D2WinTextBoxStrc* ptTextData, int nLine)
 void __fastcall D2Win_10056(D2WinTextBoxStrc* pTextBox, int nNumColumns)
 {
     D2_ASSERT(pTextBox, 0x2DD);
-    D2_ASSERT(pTextBox->controlHeader.nType == D2WIN_TEXTBOX, 0x2DE);
+    D2_ASSERT(pTextBox->controlHeader.eType == D2WIN_TEXTBOX, 0x2DE);
     D2_ASSERT((nNumColumns > 0) && (nNumColumns <= 5), 0x2E0);
     D2_ASSERT(pTextBox->nNumColumns <= nNumColumns, 0x2E2);
 
@@ -440,7 +440,7 @@ void __fastcall D2Win_10056(D2WinTextBoxStrc* pTextBox, int nNumColumns)
 int __fastcall D2Win_10061(D2WinTextBoxStrc* ptTextData)
 {
     D2_ASSERT(ptTextData, 0x309);
-    D2_ASSERT(ptTextData->controlHeader.nType == D2WIN_TEXTBOX, 0x30A);
+    D2_ASSERT(ptTextData->controlHeader.eType == D2WIN_TEXTBOX, 0x30A);
 
     int nLineCount = 0;
     for (D2WinTextBoxLineStrc* pLine = ptTextData->pFirstLine; pLine; pLine = pLine->pNext)
@@ -460,7 +460,7 @@ int __fastcall D2Win_10061(D2WinTextBoxStrc* ptTextData)
 int __fastcall D2Win_10191(D2WinTextBoxStrc* ptTextData, int nMaxSteps)
 {
     D2_ASSERT(ptTextData, 0x582);
-    D2_ASSERT(ptTextData->controlHeader.nType == D2WIN_TEXTBOX, 0x583);
+    D2_ASSERT(ptTextData->controlHeader.eType == D2WIN_TEXTBOX, 0x583);
 
     return SCROLLBAR_SetMaxSteps(ptTextData->pScrollBar, nMaxSteps);
 }
@@ -469,7 +469,7 @@ int __fastcall D2Win_10191(D2WinTextBoxStrc* ptTextData, int nMaxSteps)
 int __fastcall D2Win_10192(D2WinTextBoxStrc* ptTextData)
 {
     D2_ASSERT(ptTextData, 0x58C);
-    D2_ASSERT(ptTextData->controlHeader.nType == D2WIN_TEXTBOX, 0x58D);
+    D2_ASSERT(ptTextData->controlHeader.eType == D2WIN_TEXTBOX, 0x58D);
 
     return sub_00507FA0_GetScrollBarField4C(ptTextData->pScrollBar);
 }
@@ -478,7 +478,7 @@ int __fastcall D2Win_10192(D2WinTextBoxStrc* ptTextData)
 int __fastcall D2Win_10193(D2WinTextBoxStrc* ptTextData, int nCurrentStep)
 {
     D2_ASSERT(ptTextData, 0x596);
-    D2_ASSERT(ptTextData->controlHeader.nType == D2WIN_TEXTBOX, 0x597);
+    D2_ASSERT(ptTextData->controlHeader.eType == D2WIN_TEXTBOX, 0x597);
 
     return SCROLLBAR_SetCurrentStep(ptTextData->pScrollBar, nCurrentStep);
 }
@@ -487,7 +487,7 @@ int __fastcall D2Win_10193(D2WinTextBoxStrc* ptTextData, int nCurrentStep)
 int __fastcall D2Win_10194(D2WinTextBoxStrc* ptTextData, D2WinTextBoxStrc* pLinkedTextBox)
 {
     D2_ASSERT(ptTextData, 0x5A0);
-    D2_ASSERT(ptTextData->controlHeader.nType == D2WIN_TEXTBOX, 0x5A1);
+    D2_ASSERT(ptTextData->controlHeader.eType == D2WIN_TEXTBOX, 0x5A1);
 
     return SCROLLBAR_SetTextBox(ptTextData->pScrollBar, pLinkedTextBox);
 }
@@ -496,7 +496,7 @@ int __fastcall D2Win_10194(D2WinTextBoxStrc* ptTextData, D2WinTextBoxStrc* pLink
 int __fastcall D2Win_10195(D2WinTextBoxStrc* pTextBox, void(__stdcall* pfScrollCallback)(SMSGHANDLER_PARAMS*))
 {
     D2_ASSERT(pTextBox, 0x5AA);
-    D2_ASSERT(pTextBox->controlHeader.nType == D2WIN_TEXTBOX, 0x5AB);
+    D2_ASSERT(pTextBox->controlHeader.eType == D2WIN_TEXTBOX, 0x5AB);
 
     return sub_00508000_SetScrollCallback(pTextBox->pScrollBar, pfScrollCallback);
 }
@@ -505,7 +505,7 @@ int __fastcall D2Win_10195(D2WinTextBoxStrc* pTextBox, void(__stdcall* pfScrollC
 void __fastcall D2Win_10204(D2WinTextBoxStrc* ptTextData, int nPosition)
 {
     D2_ASSERT(ptTextData, 0x5B4);
-    D2_ASSERT(ptTextData->controlHeader.nType == D2WIN_TEXTBOX, 0x5B5);
+    D2_ASSERT(ptTextData->controlHeader.eType == D2WIN_TEXTBOX, 0x5B5);
 
     sub_005080C0_SetScrollBarField50(ptTextData->pScrollBar, nPosition);
 }
@@ -514,7 +514,7 @@ void __fastcall D2Win_10204(D2WinTextBoxStrc* ptTextData, int nPosition)
 int __fastcall D2Win_10203_TEXTBOX(D2WinTextBoxStrc* pTextBox)
 {
     D2_ASSERT(pTextBox, 0x5BE);
-    D2_ASSERT(pTextBox->controlHeader.nType == D2WIN_TEXTBOX, 0x5BF);
+    D2_ASSERT(pTextBox->controlHeader.eType == D2WIN_TEXTBOX, 0x5BF);
 
     return sub_005080F0_GetScrollBarField50(pTextBox->pScrollBar);
 }
@@ -523,7 +523,7 @@ int __fastcall D2Win_10203_TEXTBOX(D2WinTextBoxStrc* pTextBox)
 int __fastcall D2Win_10198(D2WinTextBoxStrc* ptTextData, const Unicode* pText, int nCount, int nValue, char nFlag)
 {
     D2_ASSERT(ptTextData, 0x1A7);
-    D2_ASSERT(ptTextData->controlHeader.nType == 4, 0x1A8);
+    D2_ASSERT(ptTextData->controlHeader.eType == 4, 0x1A8);
 
     const int nSize = sizeof(Unicode) * (sub_00526800(pText) + 1);
     for (int i = 0; i < nCount; ++i)
@@ -581,7 +581,7 @@ int __fastcall sub_004FCD90_D2Win_10058(D2WinControlStrc* pControl, const Unicod
 int __fastcall sub_004FCDA0_AddWrappedText(D2WinTextBoxStrc* pTextBox, const Unicode* wszText, int nColor, int nIndent)
 {
     D2_ASSERT(pTextBox, 0x482);
-    D2_ASSERT(pTextBox->nType == 4, 0x483);
+    D2_ASSERT(pTextBox->eType == 4, 0x483);
 
     int nMaxWidth = pTextBox->nWidth - 2 * pTextBox->field_40;
     if (nIndent == 2)
@@ -696,7 +696,7 @@ int __fastcall IMAGE_Draw(D2WinControlStrc* pControl)
 {
     D2WinImageStrc* pImage = (D2WinImageStrc*)pControl;
 
-    D2_ASSERT(pImage->controlHeader.nType == D2WIN_IMAGE, 0x10F);
+    D2_ASSERT(pImage->controlHeader.eType == D2WIN_IMAGE, 0x10F);
 
     const int nBorderX = pImage->field_4C;
     const int nBorderY = pImage->field_50;

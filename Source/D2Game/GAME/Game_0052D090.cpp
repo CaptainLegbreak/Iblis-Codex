@@ -81,7 +81,7 @@ struct D2ClientStrc
     char unk0x000C[0x1];
     char szName[16];
     char unk0x001D[0x197];
-    D2ActiveRoomStrc* pRoom;
+    D2ActiveRoomStrc* hRoom;
     char unk0x01B8[0x2F0];
     D2ClientStrc* pNext;
 };
@@ -374,7 +374,7 @@ static __forceinline void sub_0052D090_CompressRoomUnits(D2GameStrc* pGame, D2Ac
     D2UnitStrc* pNextUnit = 0;
     for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pNextUnit)
     {
-        pNextUnit = pUnit->pRoomNext;
+        pNextUnit = pUnit->ptRoomNext;
         SUNITINACTIVE_CompressUnitIfNeeded(pGame, pUnit);
     }
 }
@@ -512,7 +512,7 @@ static __declspec(noinline) void sub_0052D440_UpdateAllClients(D2GameStrc* pGame
         {
             CLIENTS_SynchronizePlayer(pGame, pClient);
 
-            if (D2Common_10073(pClient->pRoom) && CLIENTS_GetPlayerFromClient(pClient, 0))
+            if (D2Common_10073(pClient->hRoom) && CLIENTS_GetPlayerFromClient(pClient, 0))
             {
                 GAME_LogMessage(6, "[JOIN 6] %d clientid, sUpdateClients: SCMD_STARTACT - Player(%s)", pClient->dwClientId, pClient->szName);
                 D2GAME_PACKETS_SendHeaderOnlyPacket(pClient, 4);
@@ -566,7 +566,7 @@ static __declspec(noinline) void sub_0052D440_UpdateAllClients(D2GameStrc* pGame
         {
             CLIENTS_SynchronizePlayer(pGame, pClient);
 
-            if (D2Common_10073(pClient->pRoom))
+            if (D2Common_10073(pClient->hRoom))
             {
                 D2GAME_PACKETS_SendHeaderOnlyPacket(pClient, 4);
                 CLIENTS_SetClientState(pClient, 4);

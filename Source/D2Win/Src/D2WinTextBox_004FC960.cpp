@@ -54,7 +54,7 @@ typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
 
 struct D2WinControlStrc
 {
-    int nType;
+    int eType;
     D2CelFileStrc* pCellFile;
     unsigned int dwFlags;
     int nImageX;
@@ -299,7 +299,7 @@ static void* ghClipboardData_00841D80;                                          
 int __fastcall D2Win_10043_TEXTBOX_Destroy(D2WinTextBoxStrc* ptTextData)
 {
     D2_ASSERT(ptTextData, 0xCB);
-    D2_ASSERT(ptTextData->controlHeader.nType == D2WIN_TEXTBOX, 0xCC);
+    D2_ASSERT(ptTextData->controlHeader.eType == D2WIN_TEXTBOX, 0xCC);
     if (ptTextData->pScrollBar)
         sub_00507EE0(ptTextData->pScrollBar);
     sub_004FB6A0_ClearText(&ptTextData->controlHeader);
@@ -315,7 +315,7 @@ void __fastcall D2Win_10044(D2WinControlStrc* pControl, const Unicode* pText)
 // 0x004FD830
 void __fastcall sub_004FD830_2(D2WinTimerStrc* ptTimerData)
 {
-    D2_ASSERT(ptTimerData->controlHeader.nType == D2WIN_TIMER, 0x3B);
+    D2_ASSERT(ptTimerData->controlHeader.eType == D2WIN_TIMER, 0x3B);
     ptTimerData->controlHeader.pfHandleVirtualKeyInput = 0;
 }
 
@@ -324,7 +324,7 @@ D2WinTimerStrc* __fastcall TIMER_Create(unsigned int nTimeout, D2WinMsgHandler p
 {
     D2WinTimerStrc* pTimer = (D2WinTimerStrc*)FOG_Alloc(sizeof(D2WinTimerStrc), ".\\Src\\D2WinTimer.cpp", 0x1C, 0);
     memset(pTimer, 0, sizeof(D2WinTimerStrc));
-    pTimer->controlHeader.nType = D2WIN_TIMER;
+    pTimer->controlHeader.eType = D2WIN_TIMER;
     pTimer->controlHeader.dwFlags |= gdwBitMasks_006CE268[0];
     pTimer->controlHeader.dwFlags |= gdwBitMasks_006CE268[2];
     pTimer->nTimeout = nTimeout;
@@ -340,7 +340,7 @@ D2WinTimerStrc* __fastcall TIMER_Create(unsigned int nTimeout, D2WinMsgHandler p
 // 0x004FDA50
 void __fastcall sub_004FDA50_2(D2WinTimerStrc* ptTimerData)
 {
-    D2_ASSERT(ptTimerData->controlHeader.nType == D2WIN_TIMER, 0x45);
+    D2_ASSERT(ptTimerData->controlHeader.eType == D2WIN_TIMER, 0x45);
     ptTimerData->controlHeader.pfInitialize = sub_6F8B1CF0;
 }
 
@@ -348,7 +348,7 @@ void __fastcall sub_004FDA50_2(D2WinTimerStrc* ptTimerData)
 int __fastcall D2Win_10071_EDITBOX_Destroy(D2WinEditBoxStrc* ptEditData)
 {
     D2_ASSERT(ptEditData, 0x6E);
-    D2_ASSERT(ptEditData->controlHeader.nType == D2WIN_EDITBOX, 0x70);
+    D2_ASSERT(ptEditData->controlHeader.eType == D2WIN_EDITBOX, 0x70);
     return CONTROL_RemoveFromList(&ptEditData->controlHeader);
 }
 
@@ -356,7 +356,7 @@ int __fastcall D2Win_10071_EDITBOX_Destroy(D2WinEditBoxStrc* ptEditData)
 void __fastcall sub_004FDAD0(D2WinEditBoxStrc* ptEditData, void* pfKeyFilter)
 {
     D2_ASSERT(ptEditData, 0x79);
-    D2_ASSERT(ptEditData->controlHeader.nType == D2WIN_EDITBOX, 0x7B);
+    D2_ASSERT(ptEditData->controlHeader.eType == D2WIN_EDITBOX, 0x7B);
     ptEditData->pfKeyFilter = pfKeyFilter;
 }
 
@@ -364,7 +364,7 @@ void __fastcall sub_004FDAD0(D2WinEditBoxStrc* ptEditData, void* pfKeyFilter)
 void __fastcall sub_004FDB00(D2WinEditBoxStrc* ptEditData, void* pfOnChange)
 {
     D2_ASSERT(ptEditData, 0x86);
-    D2_ASSERT(ptEditData->controlHeader.nType == D2WIN_EDITBOX, 0x88);
+    D2_ASSERT(ptEditData->controlHeader.eType == D2WIN_EDITBOX, 0x88);
     ptEditData->pfOnChange = pfOnChange;
 }
 
@@ -420,7 +420,7 @@ int __fastcall sub_004FDBB0_SetClipboardText(const char* szText)
 void __fastcall sub_004FDCC0(D2WinEditBoxStrc* ptEditData)
 {
     D2_ASSERT(ptEditData, 0x1A4);
-    D2_ASSERT(ptEditData->controlHeader.nType == D2WIN_EDITBOX, 0x1A6);
+    D2_ASSERT(ptEditData->controlHeader.eType == D2WIN_EDITBOX, 0x1A6);
     ptEditData->nSelectionStart = -1;
     ptEditData->nSelectionEnd = 0;
 }
@@ -429,7 +429,7 @@ void __fastcall sub_004FDCC0(D2WinEditBoxStrc* ptEditData)
 int __fastcall D2Win_10082(D2WinEditBoxStrc* pEditBox)
 {
     D2_ASSERT(pEditBox, 0x1B3);
-    D2_ASSERT(pEditBox->controlHeader.nType == D2WIN_EDITBOX, 0x1B5);
+    D2_ASSERT(pEditBox->controlHeader.eType == D2WIN_EDITBOX, 0x1B5);
     pEditBox->nSelectionStart = 0;
     pEditBox->nSelectionEnd = sub_00526800(pEditBox->wszText);
     return pEditBox->nSelectionEnd;
@@ -439,7 +439,7 @@ int __fastcall D2Win_10082(D2WinEditBoxStrc* pEditBox)
 void __fastcall sub_004FDD50(D2WinEditBoxStrc* pEditBox, int nMaxLength)
 {
     D2_ASSERT(pEditBox, 0x445);
-    D2_ASSERT(pEditBox->controlHeader.nType == D2WIN_EDITBOX, 0x448);
+    D2_ASSERT(pEditBox->controlHeader.eType == D2WIN_EDITBOX, 0x448);
     pEditBox->nMaxLength = nMaxLength;
 }
 
@@ -447,7 +447,7 @@ void __fastcall sub_004FDD50(D2WinEditBoxStrc* pEditBox, int nMaxLength)
 const Unicode* __fastcall D2Win_10077_EDITBOX_GetText(D2WinEditBoxStrc* pEditBox)
 {
     D2_ASSERT(pEditBox, 0x47E);
-    D2_ASSERT(pEditBox->controlHeader.nType == D2WIN_EDITBOX, 0x480);
+    D2_ASSERT(pEditBox->controlHeader.eType == D2WIN_EDITBOX, 0x480);
     return pEditBox->wszText;
 }
 
@@ -455,9 +455,9 @@ const Unicode* __fastcall D2Win_10077_EDITBOX_GetText(D2WinEditBoxStrc* pEditBox
 void __fastcall D2Win_10080_EDITBOX_SetNextEditBox(D2WinEditBoxStrc* pEditBox, D2WinEditBoxStrc* hNext)
 {
     D2_ASSERT(pEditBox, 0x48A);
-    D2_ASSERT(pEditBox->controlHeader.nType == D2WIN_EDITBOX, 0x48C);
+    D2_ASSERT(pEditBox->controlHeader.eType == D2WIN_EDITBOX, 0x48C);
     D2_ASSERT(hNext, 0x48E);
-    D2_ASSERT(hNext->controlHeader.nType == D2WIN_EDITBOX, 0x490);
+    D2_ASSERT(hNext->controlHeader.eType == D2WIN_EDITBOX, 0x490);
     pEditBox->pNext = hNext;
     hNext->pPrevious = pEditBox;
 }
@@ -465,14 +465,14 @@ void __fastcall D2Win_10080_EDITBOX_SetNextEditBox(D2WinEditBoxStrc* pEditBox, D
 // 0x00500930
 int __fastcall BUTTON_Destroy(D2WinButtonStrc* ptBtnData)
 {
-    D2_ASSERT(ptBtnData->controlHeader.nType == D2WIN_BUTTON, 0x59);
+    D2_ASSERT(ptBtnData->controlHeader.eType == D2WIN_BUTTON, 0x59);
     return CONTROL_RemoveFromList(&ptBtnData->controlHeader);
 }
 
 // 0x00500960
 int __fastcall BUTTON_IsPressed(D2WinButtonStrc* ptBtnData)
 {
-    D2_ASSERT(ptBtnData->controlHeader.nType == D2WIN_BUTTON, 0x65);
+    D2_ASSERT(ptBtnData->controlHeader.eType == D2WIN_BUTTON, 0x65);
     return ptBtnData->bIsPressed && ptBtnData->bIsCallbackPending ? 1 : 0;
 }
 
@@ -480,7 +480,7 @@ int __fastcall BUTTON_IsPressed(D2WinButtonStrc* ptBtnData)
 void __fastcall BUTTON_SimulateClick(SMSGHANDLER_PARAMS* pMsg)
 {
     D2WinButtonStrc* ptBtnData = (D2WinButtonStrc*)pMsg->hWnd;
-    D2_ASSERT(ptBtnData->controlHeader.nType == D2WIN_BUTTON, 0xBC);
+    D2_ASSERT(ptBtnData->controlHeader.eType == D2WIN_BUTTON, 0xBC);
     if (ptBtnData->controlHeader.pfHandleMouseDown)
     {
         ptBtnData->nActivationCounter = 1;
@@ -499,7 +499,7 @@ void __fastcall BUTTON_SimulateClick(SMSGHANDLER_PARAMS* pMsg)
 // 0x00500BF0
 void __fastcall BUTTON_SetStringId(D2WinButtonStrc* pButton, int nStringId)
 {
-    D2_ASSERT(pButton->controlHeader.nType == D2WIN_BUTTON, 0x100);
+    D2_ASSERT(pButton->controlHeader.eType == D2WIN_BUTTON, 0x100);
     pButton->nStringId = nStringId;
 }
 
@@ -596,7 +596,7 @@ void __fastcall sub_005055D0_ApplyPalette()
 // 0x00506A40
 int __fastcall SMACK_Destroy(D2WinSmackStrc* pSmack)
 {
-    D2_ASSERT(pSmack->controlHeader.nType == D2WIN_SMACK, 0x8C);
+    D2_ASSERT(pSmack->controlHeader.eType == D2WIN_SMACK, 0x8C);
     SMACK_DeleteFile(pSmack);
     return CONTROL_RemoveFromList(&pSmack->controlHeader);
 }
@@ -604,7 +604,7 @@ int __fastcall SMACK_Destroy(D2WinSmackStrc* pSmack)
 // 0x00506E60
 int __fastcall LIST_Destroy(D2WinListStrc* pList)
 {
-    D2_ASSERT(pList->controlHeader.nType == D2WIN_LIST, 0x80);
+    D2_ASSERT(pList->controlHeader.eType == D2WIN_LIST, 0x80);
     D2WinListDataStrc* pNext = 0;
     for (D2WinListDataStrc* pData = pList->pDataList; pData; pData = pNext)
     {
@@ -617,7 +617,7 @@ int __fastcall LIST_Destroy(D2WinListStrc* pList)
 // 0x00507850
 void __fastcall ACCOUNTLIST_FreeData(D2WinAccountListStrc* ptListData)
 {
-    D2_ASSERT(ptListData->controlHeader.nType == D2WIN_ACCOUNTLIST, 0x5D);
+    D2_ASSERT(ptListData->controlHeader.eType == D2WIN_ACCOUNTLIST, 0x5D);
     D2WinAccountListDataStrc* pNext = 0;
     for (D2WinAccountListDataStrc* pData = ptListData->pDataList; pData; pData = pNext)
     {
@@ -629,7 +629,7 @@ void __fastcall ACCOUNTLIST_FreeData(D2WinAccountListStrc* ptListData)
 // 0x00507AF0
 int __fastcall ACCOUNTLIST_Destroy(D2WinAccountListStrc* ptListData)
 {
-    D2_ASSERT(ptListData->controlHeader.nType == D2WIN_ACCOUNTLIST, 0x50);
+    D2_ASSERT(ptListData->controlHeader.eType == D2WIN_ACCOUNTLIST, 0x50);
     ACCOUNTLIST_FreeData(ptListData);
     return CONTROL_RemoveFromList(&ptListData->controlHeader);
 }
@@ -637,7 +637,7 @@ int __fastcall ACCOUNTLIST_Destroy(D2WinAccountListStrc* ptListData)
 // 0x00507F20
 int __fastcall SCROLLBAR_SetMaxSteps(D2WinScrollBarStrc* ptScrollbarData, int nMaxSteps)
 {
-    D2_ASSERT(ptScrollbarData->controlHeader.nType == D2WIN_SCROLLBAR, 0x56);
+    D2_ASSERT(ptScrollbarData->controlHeader.eType == D2WIN_SCROLLBAR, 0x56);
     ptScrollbarData->nMaxSteps = nMaxSteps > 0 ? nMaxSteps : 0;
     return 1;
 }
@@ -645,7 +645,7 @@ int __fastcall SCROLLBAR_SetMaxSteps(D2WinScrollBarStrc* ptScrollbarData, int nM
 // 0x00507F60
 int __fastcall SCROLLBAR_SetCurrentStep(D2WinScrollBarStrc* ptScrollbarData, int nCurrentStep)
 {
-    D2_ASSERT(ptScrollbarData->controlHeader.nType == D2WIN_SCROLLBAR, 0x65);
+    D2_ASSERT(ptScrollbarData->controlHeader.eType == D2WIN_SCROLLBAR, 0x65);
     if (nCurrentStep > ptScrollbarData->nMaxSteps)
         nCurrentStep = ptScrollbarData->nMaxSteps;
     ptScrollbarData->nCurrentStep = nCurrentStep;
@@ -655,7 +655,7 @@ int __fastcall SCROLLBAR_SetCurrentStep(D2WinScrollBarStrc* ptScrollbarData, int
 // 0x00507FD0
 int __fastcall SCROLLBAR_SetTextBox(D2WinScrollBarStrc* pScrollBar, D2WinTextBoxStrc* pTextBox)
 {
-    D2_ASSERT(pScrollBar->controlHeader.nType == D2WIN_SCROLLBAR, 0x7F);
+    D2_ASSERT(pScrollBar->controlHeader.eType == D2WIN_SCROLLBAR, 0x7F);
     pScrollBar->pTextBox = pTextBox;
     return 1;
 }
@@ -678,7 +678,7 @@ int __stdcall POPUP_IsActive()
     D2WinPopUpStrc* pPopUp = gpPopUp_0087E974;
     if (!pPopUp)
         return 0;
-    D2_ASSERT(pPopUp->controlHeader.nType == D2WIN_POPUP, 0x62);
+    D2_ASSERT(pPopUp->controlHeader.eType == D2WIN_POPUP, 0x62);
     if (!(pPopUp->controlHeader.dwFlags & gdwBitMasks_006CE268[2]) || !(pPopUp->controlHeader.dwFlags & gdwBitMasks_006CE268[0]))
         return 0;
     return 1;
@@ -688,7 +688,7 @@ int __stdcall POPUP_IsActive()
 int __stdcall POPUP_HandleMouseButtonInput(SMSGHANDLER_PARAMS* pMsg)
 {
     D2WinPopUpStrc* pPopUp = gpPopUp_0087E974;
-    D2_ASSERT(pPopUp->controlHeader.nType == D2WIN_POPUP, 0x90);
+    D2_ASSERT(pPopUp->controlHeader.eType == D2WIN_POPUP, 0x90);
     if (!(pPopUp->controlHeader.dwFlags & gdwBitMasks_006CE268[2]) || !(pPopUp->controlHeader.dwFlags & gdwBitMasks_006CE268[0]))
         return 0;
     const int nCurrentLine = pPopUp->nCurrentLine;

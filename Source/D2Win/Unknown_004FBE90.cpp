@@ -25,7 +25,7 @@ struct D2WinTextBoxLineStrc
 
 struct D2WinTextBoxStrc
 {
-    int nType;
+    int eType;
     D2CellFileStrc* pCellFile;
     unsigned int dwFlags;
     int nImageX;
@@ -88,7 +88,7 @@ void __fastcall sub_00501FE0_DrawTickerText(const Unicode* wszText, int nX, int 
 static __declspec(noinline) int sub_004FBE90_CountLinesFromCurrent(D2WinTextBoxStrc* pTextBox)
 {
     D2_ASSERT(pTextBox, 0x393);
-    D2_ASSERT(pTextBox->nType == 4, 0x394);
+    D2_ASSERT(pTextBox->eType == 4, 0x394);
 
     D2WinTextBoxLineStrc* pLine = pTextBox->pCurrentLine;
     int nCount = 0;
@@ -173,7 +173,7 @@ static __forceinline int sub_B03_AddLineRecord(D2WinTextBoxStrc* pTextBox, const
 int __fastcall D2Win_10051(D2WinTextBoxStrc* pTextBox, const Unicode* wszText, int nColor, char bIsWrapped, int nIndent)
 {
     D2_ASSERT(pTextBox, 0x132);
-    D2_ASSERT(pTextBox->nType == 4, 0x133);
+    D2_ASSERT(pTextBox->eType == 4, 0x133);
 
     Unicode wszBuffer[0x400];
     sub_005267E0(wszBuffer, wszText);
@@ -210,7 +210,7 @@ int __fastcall D2Win_10051(D2WinTextBoxStrc* pTextBox, const Unicode* wszText, i
 int __fastcall sub_004FCDA0_AddWrappedText(D2WinTextBoxStrc* pTextBox, const Unicode* wszText, int nColor, int nIndent)
 {
     D2_ASSERT(pTextBox, 0x482);
-    D2_ASSERT(pTextBox->nType == 4, 0x483);
+    D2_ASSERT(pTextBox->eType == 4, 0x483);
 
     int nMaxWidth = pTextBox->nWidth - 2 * pTextBox->field_40;
     if (nIndent == 2)
@@ -337,7 +337,7 @@ static void sub_004FB5A0_SetTextBoxLineGap(int nFont)
 int __fastcall TEXTBOX_Draw(D2WinTextBoxStrc* pTextBox)
 {
     D2_ASSERT(pTextBox, 0x3BC);
-    D2_ASSERT(pTextBox->nType == 4, 0x3BD);
+    D2_ASSERT(pTextBox->eType == 4, 0x3BD);
 
     if (!(pTextBox->dwFlags & gdwBitMasks_006CE268[2]) || !(pTextBox->dwFlags & gdwBitMasks_006CE268[0]))
     {

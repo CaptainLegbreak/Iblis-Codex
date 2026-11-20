@@ -8,7 +8,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 struct D2TargetNodeStrc
 {
-    D2UnitStrc* pUnit;
+    D2UnitStrc* hUnit;
     int unk0x04;
     D2TargetNodeStrc* pNext;
     D2TargetNodeStrc* unk0x0C;
@@ -52,7 +52,7 @@ void __fastcall sub_005B1880(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3)
     if (!p)
         return;
     memset(p, 0, sizeof(D2TargetNodeStrc));
-    p->pUnit = pUnit;
+    p->hUnit = pUnit;
     p->unk0x04 = a3;
     *ppNode = p;
     pUnit->dwNodeIndex = i;
@@ -64,13 +64,13 @@ void __fastcall D2GAME_UpdateSummonAI_6FC401F0(D2GameStrc* pGame, D2UnitStrc* pU
     if (!pGame || !pUnit || pUnit->dwNodeIndex != 11 || nNodeIndex >= 8 || (pUnit->dwUnitType != 0 && pUnit->dwUnitType != 1))
         return;
     D2TargetNodeStrc* pNode = pGame->pTargetNodes[nNodeIndex];
-    if (!pNode || !pNode->pUnit)
+    if (!pNode || !pNode->hUnit)
         return;
     D2TargetNodeStrc* p = (D2TargetNodeStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2TargetNodeStrc), gszTargetsSourceFile, 108, 0);
     if (!p)
         return;
     memset(p, 0, sizeof(D2TargetNodeStrc));
-    p->pUnit = pUnit;
+    p->hUnit = pUnit;
     p->unk0x04 = a3;
     p->pNext = pNode->pNext;
     p->unk0x0C = pNode;
@@ -92,7 +92,7 @@ void __fastcall sub_6FC40280(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int n
     if (!p)
         return;
     memset(p, 0, sizeof(D2TargetNodeStrc));
-    p->pUnit = pUnit;
+    p->hUnit = pUnit;
     p->unk0x04 = a3;
     pGame->pTargetNodes[nNodeIndex] = p;
     if (pNode)
@@ -121,9 +121,9 @@ void __fastcall D2GAME_FreeUnitNode_6FC40310(D2GameStrc* pGame, D2UnitStrc* pUni
     while (pTargetNode)
     {
         D2TargetNodeStrc* pNext = pTargetNode->pNext;
-        if (pTargetNode->pUnit)
+        if (pTargetNode->hUnit)
         {
-            pTargetNode->pUnit->dwNodeIndex = 11;
+            pTargetNode->hUnit->dwNodeIndex = 11;
         }
 
         FOG_FreePool(pGame->pMemoryPool, pTargetNode, gszTargetsSourceFile, 232, 0);
@@ -147,7 +147,7 @@ void __fastcall TARGETS_RemoveUnitNode(D2GameStrc* pGame, D2UnitStrc* pUnit)
     {
         for (pTargetNode = pTargetNode->pNext; pTargetNode; pTargetNode = pTargetNode->pNext)
         {
-            if (pTargetNode->pUnit == pUnit)
+            if (pTargetNode->hUnit == pUnit)
             {
                 pTargetNode->unk0x0C->pNext = pTargetNode->pNext;
                 if (pTargetNode->pNext) pTargetNode->pNext->unk0x0C = pTargetNode->unk0x0C;
@@ -162,7 +162,7 @@ void __fastcall TARGETS_RemoveUnitNode(D2GameStrc* pGame, D2UnitStrc* pUnit)
         D2TargetNodeStrc* const pHead = pTargetNode;
         for (; pTargetNode; pTargetNode = pTargetNode->pNext)
         {
-            if (pTargetNode->pUnit == pUnit)
+            if (pTargetNode->hUnit == pUnit)
             {
                 if (pTargetNode == pHead)
                 {

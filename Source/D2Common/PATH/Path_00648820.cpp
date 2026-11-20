@@ -138,7 +138,7 @@ int __stdcall PATH_GetUnusedFlag_0x00004(D2DynamicPathStrc* pDynamicPath)
 // 0x00648BB0
 void __stdcall PATH_GetTargetTypeAndGUID(D2DynamicPathStrc* ptPath, int* pTargetType, int* pTargetGUID)
 {
-    D2_ASSERT(ptPath->pTargetUnit, 1984);
+    D2_ASSERT(ptPath->hTarget, 1984);
 
     *pTargetType = ptPath->dwTargetType;
     *pTargetGUID = ptPath->dwTargetId;
@@ -193,7 +193,7 @@ unsigned char __stdcall D2COMMON_10191_PATH_GetDistance(D2DynamicPathStrc* pDyna
 // 0x00648EA0
 unsigned char __stdcall PATH_GetMaxDistance(D2DynamicPathStrc* pDynamicPath)
 {
-    return pDynamicPath->nDistMax;
+    return pDynamicPath->bDistMax;
 }
 
 // 0x00648EF0
@@ -205,7 +205,7 @@ unsigned short __stdcall D2Common_10202(D2DynamicPathStrc* pDynamicPath)
 // 0x00648F00
 void __stdcall PATH_SetIDAStarInitFScore(D2DynamicPathStrc* ptPath, int nIDAStarInitFScore)
 {
-    D2_ASSERT(ptPath->dwPathType == PATHTYPE_IDASTAR, 2280);
+    D2_ASSERT(ptPath->eType == PATHTYPE_IDASTAR, 2280);
 
     ptPath->nIDAStarInitFScore = nIDAStarInitFScore;
 }

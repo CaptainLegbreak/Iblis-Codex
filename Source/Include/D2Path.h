@@ -84,15 +84,15 @@ struct D2DynamicPathStrc
     D2UnitStrc* pUnit; // 0x30
     unsigned int dwFlags; // 0x34
     unsigned int unk0x38; // 0x38
-    unsigned int dwPathType; // 0x3C
-    unsigned int dwPrevPathType; // 0x40
+    unsigned int eType; // 0x3C
+    unsigned int ePrevType; // 0x40
     unsigned int dwUnitSize; // 0x44
     unsigned int dwCollisionPattern; // 0x48
     unsigned int nFootprintCollisionMask; // 0x4C
     unsigned int nMoveTestCollisionMask; // 0x50
     unsigned short nCollidedWithMask; // 0x54
     unsigned short unk0x56; // 0x56
-    D2UnitStrc* pTargetUnit; // 0x58
+    D2UnitStrc* hTarget; // 0x58
     unsigned int dwTargetType; // 0x5C
     unsigned int dwTargetId; // 0x60
     unsigned char nDirection; // 0x64
@@ -110,7 +110,7 @@ struct D2DynamicPathStrc
     int dwAcceleration; // 0x88
     int dwAccelerationsCounter; // 0x8C
     unsigned char nDist; // 0x90
-    unsigned char nDistMax; // 0x91
+    unsigned char bDistMax; // 0x91
     unsigned char nIDAStarInitFScore; // 0x92
     unsigned char nStepNum; // 0x93
     unsigned char nDistance; // 0x94
@@ -132,7 +132,7 @@ D2_CHECK_OFFSET(D2StaticPathStrc, tGameCoords, 0x0C);
 D2_CHECK_SIZE(D2DynamicPathStrc, 0x200);
 D2_CHECK_OFFSET(D2DynamicPathStrc, pRoom, 0x1C);
 D2_CHECK_OFFSET(D2DynamicPathStrc, pUnit, 0x30);
-D2_CHECK_OFFSET(D2DynamicPathStrc, pTargetUnit, 0x58);
+D2_CHECK_OFFSET(D2DynamicPathStrc, hTarget, 0x58);
 D2_CHECK_OFFSET(D2DynamicPathStrc, tDirectionVector, 0x6A);
 D2_CHECK_OFFSET(D2DynamicPathStrc, dwVelocity, 0x7C);
 D2_CHECK_OFFSET(D2DynamicPathStrc, PathPoints, 0x9C);

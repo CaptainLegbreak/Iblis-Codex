@@ -70,8 +70,8 @@ struct D2QuestDataStrc
     unsigned char pad0x15[3];
     void* pQuestDataEx;
     D2QuestGUIDStrc tPlayerGUIDs;
-    void* pfCallback[16];
-    int nQuestFilter;
+    void* pCallback[16];
+    int eFilter;
 };
 
 struct D2QuestArgStrc
@@ -149,7 +149,7 @@ void __fastcall ACT1Q2_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
     pQuestData->bStatusFlags = 0;
     QUESTS_UnitIterate(pQuestData, 1, 0, ACT1Q2_UnitIterate_StatusCyclerEx, 1);
     pQuestDataEx->bKashyaActivated = 0;
-    pQuestData->pfCallback[2] = 0;
+    pQuestData->pCallback[2] = 0;
     SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT1Q2_UnitIterate_UpdateQuestStateFlags);
 }
 

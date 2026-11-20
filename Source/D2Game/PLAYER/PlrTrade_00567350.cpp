@@ -21,7 +21,7 @@ struct D2PlayerDataStrc
     char unk0x00[0x50];
     unsigned int dwTradeState;
     char unk0x54[0x08];
-    D2PlayerTradeStrc* pTrade;
+    D2PlayerTradeStrc* hTrade;
 };
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
@@ -61,7 +61,7 @@ static void __stdcall sub_00567350_AddItemTrade(D2GameStrc* pGame, int nItemGUID
     D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
     if (pPlayerData)
     {
-        D2PlayerTradeStrc* pTrade = pPlayerData->pTrade;
+        D2PlayerTradeStrc* pTrade = pPlayerData->hTrade;
         if (pTrade)
         {
             D2ItemTradeStrc* pItemTrade = (D2ItemTradeStrc*)sub_0040B430(pGame->pMemoryPool, sizeof(D2ItemTradeStrc), ".\\PLAYER\\PlrTrade.cpp", 0xC5B, 0);
@@ -76,9 +76,9 @@ static void __stdcall sub_00567350_AddItemTrade(D2GameStrc* pGame, int nItemGUID
 static void sub_005673A0_WalkItemTrade(D2UnitStrc* pPlayer)
 {
     D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
-    if (pPlayerData && pPlayerData->pTrade)
+    if (pPlayerData && pPlayerData->hTrade)
     {
-        for (D2ItemTradeStrc* pItemTrade = pPlayerData->pTrade->pItemTrade; pItemTrade; pItemTrade = pItemTrade->pNext)
+        for (D2ItemTradeStrc* pItemTrade = pPlayerData->hTrade->pItemTrade; pItemTrade; pItemTrade = pItemTrade->pNext)
         {
         }
     }
@@ -88,9 +88,9 @@ static void sub_005673A0_WalkItemTrade(D2UnitStrc* pPlayer)
 static char __stdcall sub_005673C0_FindItemTrade(int* pItemGUID2, int nItemGUID1, D2UnitStrc* pPlayer)
 {
     D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
-    if (pPlayerData && pPlayerData->pTrade)
+    if (pPlayerData && pPlayerData->hTrade)
     {
-        for (D2ItemTradeStrc* pItemTrade = pPlayerData->pTrade->pItemTrade; pItemTrade; pItemTrade = pItemTrade->pNext)
+        for (D2ItemTradeStrc* pItemTrade = pPlayerData->hTrade->pItemTrade; pItemTrade; pItemTrade = pItemTrade->pNext)
         {
             if (pItemTrade->nItemGUID1 == nItemGUID1)
             {
@@ -133,8 +133,8 @@ void __fastcall PLRTRADE_RemoveItemFromTrade(D2GameStrc* pGame, D2UnitStrc* pPla
 
     D2PlayerDataStrc* pPlayerData1 = UNITS_GetPlayerData(pPlayer);
     D2PlayerDataStrc* pPlayerData2 = UNITS_GetPlayerData(pOtherPlayer);
-    D2PlayerTradeStrc* pTrade1 = pPlayerData1->pTrade;
-    D2PlayerTradeStrc* pTrade2 = pPlayerData2->pTrade;
+    D2PlayerTradeStrc* pTrade1 = pPlayerData1->hTrade;
+    D2PlayerTradeStrc* pTrade2 = pPlayerData2->hTrade;
     const unsigned int nTickCount = GetTickCount() + 10000;
     pTrade1->nNextUpdateTick = nTickCount;
     pTrade2->nNextUpdateTick = nTickCount;

@@ -96,9 +96,9 @@ struct D2QuestDataStrc
     unsigned int dwFlags;
     void* pQuestDataEx;
     D2QuestGUIDStrc tPlayerGUIDs;
-    QUESTCALLBACK pfCallback[15];
+    QUESTCALLBACK pCallback[15];
     D2NPCMessageTableStrc* pNPCMessages;
-    int nQuestFilter;
+    int eFilter;
     int unk0xE4;
     QUESTSTATUSFILTER pfStatusFilter;
     QUESTACTIVEFILTER pfActiveFilter;
@@ -115,8 +115,8 @@ struct D2ObjInitFnStrc
 struct D2ObjOperateFnStrc
 {
     D2GameStrc* pGame;
-    D2UnitStrc* pObject;
-    D2UnitStrc* pPlayer;
+    D2UnitStrc* hObject;
+    D2UnitStrc* hPlayer;
     int unk0x0C;
     int nObjectIdx;
 };
@@ -436,12 +436,12 @@ int __fastcall ACT1Q5_UnitIterate_SetRewardGranted(D2GameStrc* pGame, D2UnitStrc
 // 0x00594E70
 int __fastcall OBJECTS_OperateFunction06_TowerTome(D2ObjOperateFnStrc* pOp, int nOperate)
 {
-    if (!pOp->pObject || pOp->pObject->dwAnimMode == OBJMODE_NEUTRAL)
+    if (!pOp->hObject || pOp->hObject->dwAnimMode == OBJMODE_NEUTRAL)
     {
-        UNITS_ChangeAnimMode(pOp->pObject, OBJMODE_OPERATING);
+        UNITS_ChangeAnimMode(pOp->hObject, OBJMODE_OPERATING);
 
         D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(pOp->nObjectIdx);
-        EVENT_SetEvent(pOp->pGame, pOp->pObject, EVENTTYPE_ENDANIM, pOp->pGame->dwGameFrame + (pObjectsTxtRecord->dwFrameCnt[1] >> 8), 0, 0);
+        EVENT_SetEvent(pOp->pGame, pOp->hObject, EVENTTYPE_ENDANIM, pOp->pGame->dwGameFrame + (pObjectsTxtRecord->dwFrameCnt[1] >> 8), 0, 0);
     }
 
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pOp->pGame, QUEST_A1Q5_COUNTESS);
@@ -450,7 +450,7 @@ int __fastcall OBJECTS_OperateFunction06_TowerTome(D2ObjOperateFnStrc* pOp, int 
         return 0;
     }
 
-    QUESTS_SendScrollMessage(pOp->pPlayer, pOp->pObject, MSG_TOWER_TOME);
+    QUESTS_SendScrollMessage(pOp->hPlayer, pOp->hObject, MSG_TOWER_TOME);
 
     if (pQuestData->fState > 1)
     {
@@ -493,7 +493,7 @@ static __forceinline void sub_00594FD0_FinishCountessQuest(D2QuestDataStrc* pQue
     if (!((D2Act1Quest5Strc*)pQuestData->pQuestDataEx)->nUnitCount2)
         pQuestData->bActive = 0;
     else
-        pQuestData->pfCallback[10] = ACT1Q5_Callback10_PlayerLeavesGame;
+        pQuestData->pCallback[10] = ACT1Q5_Callback10_PlayerLeavesGame;
 }
 
 void __fastcall sub_M129_Emit_00594FD0(D2QuestDataStrc* pQuestData)

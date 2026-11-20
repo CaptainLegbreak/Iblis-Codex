@@ -25,7 +25,7 @@ struct D2QuestDataStrc
     unsigned char bActive;
     unsigned char fLastState;
     char unk0x0C[0x94];
-    QUESTCALLBACK pfCallback[15];
+    QUESTCALLBACK pCallback[15];
     char unk0xDC[0x14];
     QUESTSEQFILTER pfSeqFilter;
     D2QuestDataStrc* pPrev;
@@ -127,27 +127,27 @@ void __fastcall QUESTS_SequenceCycler(D2GameStrc* pGame, D2UnitStrc* pPlayer, in
                 for (int i = 0; i < gnQuestInitTableCount_00731888; ++i)
                 {
                     D2QuestInitTableStrc* pQuestInit = &sgQuestInit[i];
-                    D2_ASSERT(pQuestInit->nAct < 5, 0x637);
+                    D2_ASSERT(pQuestInit->bAct < 5, 0x637);
                     if (!pQuestInit->bNoSetState
                         && (QUESTRECORD_GetQuestState(pQuestFlags, pQuestInit->nQuestNo, 0)
                             || QUESTRECORD_GetQuestState(pQuestFlags, pQuestInit->nQuestNo, 15)))
                     {
                         sub_00544410_ClearQuestIntroState(pGame, pQuestInit->nChainNo);
-                        ++anActQuests[pQuestInit->nAct];
+                        ++anActQuests[pQuestInit->bAct];
                         QUESTRECORD_SetQuestState(pQuestControl->pQuestFlags, sgQuestInit[i].nQuestNo, 15);
                     }
                 }
             }
             for (D2QuestDataStrc* pQuest = pQuestControl->pLastQuest; pQuest; pQuest = pQuest->pPrev)
             {
-                if (pQuest->pfCallback[13])
+                if (pQuest->pCallback[13])
                 {
-                    D2_ASSERT(!IsBadCodePtr((FARPROC)pQuest->pfCallback[13]), 0x640);
+                    D2_ASSERT(!IsBadCodePtr((FARPROC)pQuest->pCallback[13]), 0x640);
                     D2QuestArgStrc pArgs;
                     pArgs.pGame = pGame;
                     pArgs.pPlayer = pPlayer;
                     pArgs.nEvent = 13;
-                    pQuest->pfCallback[13](pQuest, &pArgs);
+                    pQuest->pCallback[13](pQuest, &pArgs);
                 }
             }
         }
@@ -171,14 +171,14 @@ void __fastcall QUESTS_SequenceCycler(D2GameStrc* pGame, D2UnitStrc* pPlayer, in
     {
         for (D2QuestDataStrc* pQuest = pQuestControl->pLastQuest; pQuest; pQuest = pQuest->pPrev)
         {
-            if (pQuest->pfCallback[14])
+            if (pQuest->pCallback[14])
             {
-                D2_ASSERT(!IsBadCodePtr((FARPROC)pQuest->pfCallback[14]), 0x666);
+                D2_ASSERT(!IsBadCodePtr((FARPROC)pQuest->pCallback[14]), 0x666);
                 D2QuestArgStrc pArgs;
                 pArgs.pGame = pGame;
                 pArgs.nEvent = 14;
                 pArgs.pPlayer = pPlayer;
-                pQuest->pfCallback[14](pQuest, &pArgs);
+                pQuest->pCallback[14](pQuest, &pArgs);
             }
         }
     }

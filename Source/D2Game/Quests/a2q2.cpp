@@ -45,9 +45,9 @@ struct D2QuestDataStrc
     unsigned int dwFlags;
     void* pQuestDataEx;
     char tPlayerGUIDs[0x84];
-    QUESTCALLBACK pfCallback[15];
+    QUESTCALLBACK pCallback[15];
     void* pNPCMessages;
-    int nQuestFilter;
+    int eFilter;
     char unk0xE4[0x04];
     QUESTSTATUSFILTER pfStatusFilter;
     QUESTACTIVEFILTER pfActiveFilter;
@@ -302,26 +302,26 @@ void __fastcall ACT2Q2_Callback09_PlayerDroppedWithQuestItem(D2QuestDataStrc* pQ
 // 0x0059EB00
 void __fastcall ACT2Q2_InitQuestData(D2QuestDataStrc* pQuestData)
 {
-    memset(pQuestData->pfCallback, 0x00, sizeof(pQuestData->pfCallback));
+    memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
     pQuestData->pNPCMessages = gpAct2Q2NpcMessages;
     pQuestData->bActive = 1;
 
     D2Act2Quest2Strc* pQuestDataEx = (D2Act2Quest2Strc*)sub_0040B430(pQuestData->pGame->pMemoryPool, sizeof(D2Act2Quest2Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q2.cpp", 1005, 0);
     pQuestData->pQuestDataEx = pQuestDataEx;
-    pQuestData->nQuestFilter = QUESTSTATEFLAG_A2Q2;
+    pQuestData->eFilter = QUESTSTATEFLAG_A2Q2;
     pQuestData->pfStatusFilter = ACT2Q2_StatusFilterCallback;
     pQuestData->nInitNo = 0;
     pQuestData->pfActiveFilter = ACT2Q2_ActiveFilterCallback;
-    pQuestData->pfCallback[3] = ACT2Q2_Callback03_ChangedLevel;
-    pQuestData->pfCallback[0] = ACT2Q2_Callback00_NpcActivate;
-    pQuestData->pfCallback[11] = ACT2Q2_Callback11_ScrollMessage;
-    pQuestData->pfCallback[10] = ACT2Q2_Callback10_PlayerLeavesGame;
-    pQuestData->pfCallback[4] = ACT2Q2_Callback04_ItemPickedUp;
-    pQuestData->pfCallback[5] = ACT2Q2_Callback05_ItemDropped;
-    pQuestData->pfCallback[8] = sub_00599A20_ACT2Q2_Callback08_Empty;
-    pQuestData->pfCallback[13] = ACT2Q2_Callback13_PlayerStartedGame;
-    pQuestData->pfCallback[14] = ACT2Q2_Callback14_PlayerJoinedGame;
-    pQuestData->pfCallback[9] = ACT2Q2_Callback09_PlayerDroppedWithQuestItem;
+    pQuestData->pCallback[3] = ACT2Q2_Callback03_ChangedLevel;
+    pQuestData->pCallback[0] = ACT2Q2_Callback00_NpcActivate;
+    pQuestData->pCallback[11] = ACT2Q2_Callback11_ScrollMessage;
+    pQuestData->pCallback[10] = ACT2Q2_Callback10_PlayerLeavesGame;
+    pQuestData->pCallback[4] = ACT2Q2_Callback04_ItemPickedUp;
+    pQuestData->pCallback[5] = ACT2Q2_Callback05_ItemDropped;
+    pQuestData->pCallback[8] = sub_00599A20_ACT2Q2_Callback08_Empty;
+    pQuestData->pCallback[13] = ACT2Q2_Callback13_PlayerStartedGame;
+    pQuestData->pCallback[14] = ACT2Q2_Callback14_PlayerJoinedGame;
+    pQuestData->pCallback[9] = ACT2Q2_Callback09_PlayerDroppedWithQuestItem;
     memset(pQuestDataEx, 0x00, sizeof(D2Act2Quest2Strc));
     pQuestData->fLastState = 13;
 }

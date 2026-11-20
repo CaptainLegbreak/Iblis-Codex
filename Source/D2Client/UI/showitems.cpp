@@ -140,7 +140,7 @@ void __cdecl sub_004C0810_DrawUnitNames()
     int bSelected=0;
     for(unsigned int nRoom=0;nRoom<nRoomCount;++nRoom)
     {
-        for(D2UnitStrc* pItem=ppRooms[nRoom]->pUnitFirst;pItem;pItem=pItem->pRoomNext)
+        for(D2UnitStrc* pItem=ppRooms[nRoom]->pUnitFirst;pItem;pItem=pItem->ptRoomNext)
         {
             if(!UnitIsSelectable(pItem) || GetUnitType(pItem)!=4 || gnItemLabelCount_007C54A0>=32)continue;
             D2ItemLabelStrc* pLabel=&gaItemLabels_007C54A8[gnItemLabelCount_007C54A0];

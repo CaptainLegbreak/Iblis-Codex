@@ -66,7 +66,7 @@ struct D2ItemSaveStrc
     int nClassId;
     unsigned short nX;
     unsigned short nY;
-    unsigned char nAnimMode;
+    unsigned char bMode;
     unsigned char nPad09;
     unsigned short nPad0A;
     unsigned int dwFlags;
@@ -258,7 +258,7 @@ static __declspec(noinline) D2UnitStrc* __stdcall sub_004C0FF0_CreateOwnedItem(u
         pItemSave = &tItemSave;
     }
 
-    D2UnitStrc* pItem = sub_004661C0_AllocClientUnit(pPacket->nItemId, pItemSave->nClassId, nX, nY, 4, pItemSave->nAnimMode);
+    D2UnitStrc* pItem = sub_004661C0_AllocClientUnit(pPacket->nItemId, pItemSave->nClassId, nX, nY, 4, pItemSave->bMode);
     ITEMS_DecodeItemFromBitstream(pItem, pPacket->pBitstream, nSize, 0, 0, 0x60, &bFail);
     if (bFail)
     {
@@ -353,7 +353,7 @@ void __fastcall sub_004C2C80(D2GSPacketSrv9D* pPacket)
         }
         else
         {
-            sub_004C2540_PlaceItem(pItem, tItemSave.nX, tItemSave.nX, tItemSave.nAnimMode, 0, tItemSave.nStorePage);
+            sub_004C2540_PlaceItem(pItem, tItemSave.nX, tItemSave.nX, tItemSave.bMode, 0, tItemSave.nStorePage);
         }
 
         ITEMS_SetInvPage(pItem, 0xFF);

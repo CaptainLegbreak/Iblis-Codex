@@ -1371,7 +1371,7 @@ static void __stdcall sub_0057CC30_OpenBarricadeObject(D2UnitStrc* pDefender, in
     D2UnitStrc* pNext;
     for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pNext)
     {
-        pNext = pUnit->pRoomNext;
+        pNext = pUnit->ptRoomNext;
         if (pUnit->dwUnitType == UNIT_OBJECT && pUnit->dwClassId == nObjectId)
         {
             D2CoordStrc tCoords;

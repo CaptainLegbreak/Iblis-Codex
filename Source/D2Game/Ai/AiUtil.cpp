@@ -550,7 +550,7 @@ D2UnitStrc* __fastcall sub_005DD370_FindMonsterAtCoords(D2GameStrc* game,D2Activ
  D2_ASSERT(room,1954);
  room=D2GAME_GetRoom_6FC52070(room,x,y);
  D2_ASSERT(room,1956);
- for(D2UnitStrc* unit=room->pUnitFirst;unit;unit=unit->pRoomNext) {
+ for(D2UnitStrc* unit=room->pUnitFirst;unit;unit=unit->ptRoomNext) {
   if((!unit ? 6 : unit->dwUnitType)!=1) continue;
   int nBase = MONSTERS_GetBaseIdFromMonsterId(unit->dwClassId);
 

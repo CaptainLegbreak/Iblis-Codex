@@ -47,7 +47,7 @@ struct D2QuestDataStrc
     D2Act5Quest1Strc* pQuestDataEx;
     char tPlayerGUIDs[0x84];
     char unk0xA0[0x40];
-    int nQuestFilter;
+    int eFilter;
     char unk0xE4[0x0C];
     QUESTSEQFN pfSeqFilter;
 };
@@ -115,15 +115,15 @@ void __fastcall ACT5Q1_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
     }
     else if (nMessageIndex == 20090)
     {
-        if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, 1) != 1)
+        if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 1) != 1)
         {
             return;
         }
 
         pQuestDataEx->bLarzukEndActivated = 1;
-        QUESTRECORD_ResetIntermediateStateFlags(pQuestFlags, pQuestData->nQuestFilter);
-        QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->nQuestFilter, 5);
-        if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, 13) && pQuestData->fState != 5)
+        QUESTRECORD_ResetIntermediateStateFlags(pQuestFlags, pQuestData->eFilter);
+        QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->eFilter, 5);
+        if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 13) && pQuestData->fState != 5)
         {
             QUESTS_StateDebug(pQuestData, 5, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q1.cpp", 0x108);
             D2_ASSERT(!IsBadCodePtr((FARPROC)pQuestData->pfSeqFilter), 0x109);
@@ -178,7 +178,7 @@ void __fastcall ACT5Q1_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
     D2UnitStrc* pPlayer = pQuestArg->pPlayer;
     D2GameStrc* pGame = pQuestArg->pGame;
     D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
-    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, 0) == 1 || QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, 1) == 1)
+    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 0) == 1 || QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 1) == 1)
     {
         return;
     }

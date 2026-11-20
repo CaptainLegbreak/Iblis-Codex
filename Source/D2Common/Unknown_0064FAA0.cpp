@@ -280,7 +280,7 @@ static __declspec(noinline) BOOL __stdcall sub_0064FF90_TestStepCollision(D2Path
 static __declspec(noinline) BOOL __stdcall sub_00650090_GetStepToNextPoint(D2CoordStrc* pVelocity, D2DynamicPathStrc* pPath)
 {
     *pVelocity = pPath->tVelocityVector;
-    if (pPath->dwPathType == 4)
+    if (pPath->eType == 4)
     {
         return FALSE;
     }
@@ -408,7 +408,7 @@ static __declspec(noinline) void sub_6FD5CEB0(int nBaseVelocity, D2DynamicPathSt
 
 static __declspec(noinline) BOOL sub_6FD5DB70(D2DynamicPathStrc* pPath)
 {
-    switch (pPath->dwPathType)
+    switch (pPath->eType)
     {
     case 5:
     case 6:
@@ -419,7 +419,7 @@ static __declspec(noinline) BOOL sub_6FD5DB70(D2DynamicPathStrc* pPath)
         break;
     }
 
-    D2UnitStrc* pTargetUnit = pPath->pTargetUnit;
+    D2UnitStrc* pTargetUnit = pPath->hTarget;
     D2UnitStrc* pUnit = pPath->pUnit;
     if (!pTargetUnit)
     {
@@ -444,7 +444,7 @@ static __declspec(noinline) BOOL sub_6FD5DB70(D2DynamicPathStrc* pPath)
     D2PathPointStrc tTargetPos;
     sub_6FDAB940(&tTargetPos, pPath);
 
-    pTargetUnit = pPath->pTargetUnit;
+    pTargetUnit = pPath->hTarget;
     if (pTargetUnit && pTargetUnit->dwUnitType >= 0 && pTargetUnit->dwUnitType <= 1)
     {
         const int nDiffX = pPath->tPrevTargetCoord.X - tTargetPos.X;
@@ -521,7 +521,7 @@ static __declspec(noinline) BOOL __stdcall sub_00650660_AdvanceOnPath(D2FP32_16*
     tNew.Y = tNewCoord.dwPrecisionY >> 16;
     if (tOld.X != tNew.X || tOld.Y != tNew.Y)
     {
-        if (pPath->nDist && pPath->dwPathType != 8 && pPath->dwPathType != 11)
+        if (pPath->nDist && pPath->eType != 8 && pPath->eType != 11)
         {
             --pPath->nDist;
         }
@@ -530,7 +530,7 @@ static __declspec(noinline) BOOL __stdcall sub_00650660_AdvanceOnPath(D2FP32_16*
         {
             if (bRepath)
             {
-                return !D2Common_10236(pUnit, pPath->pTargetUnit != 0);
+                return !D2Common_10236(pUnit, pPath->hTarget != 0);
             }
 
             pPath->dwCurrentPointIdx = pPath->dwPathPoints;
@@ -608,7 +608,7 @@ BOOL __stdcall D2Common_10226(D2UnitStrc* pUnit, int nBaseVelocity)
                 D2FP32_16 tCoord;
                 sub_00650660_AdvanceOnPath(&tCoord, &nSteps, pPath);
                 PATH_RecacheRoomAtCoordIfNeeded(tCoord, 0, pPath);
-                if (pPath->dwPathType != 4 && pPath->dwCurrentPointIdx < pPath->dwPathPoints)
+                if (pPath->eType != 4 && pPath->dwCurrentPointIdx < pPath->dwPathPoints)
                 {
                     PATH_ComputeVelocityAndDirectionVectorsToNextPoint(pPath, 1, 1);
                 }

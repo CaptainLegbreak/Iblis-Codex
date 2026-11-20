@@ -17,7 +17,7 @@ struct D2DrlgRoomStrc;
 struct D2DrlgLevelStrc
 {
     char unk0x00[0x10];
-    D2DrlgRoomStrc* pFirstRoomEx;
+    D2DrlgRoomStrc* ptRoomFirst;
     char unk0x14[0x8];
     D2DrlgCoordStrc tCoords;
     char unk0x2C[0x188];
@@ -52,7 +52,7 @@ struct D2DrlgRoomStrc
     char unk0x44[0x8];
     D2RoomTileStrc* pRoomTiles;
     char unk0x50[0x8];
-    D2DrlgLevelStrc* pLevel;
+    D2DrlgLevelStrc* ptDrlgLevel;
     char unk0x5C[0x4];
     unsigned int dwOtherFlags;
 };
@@ -112,7 +112,7 @@ void __fastcall sub_0066B560(D2DrlgRoomStrc* pDrlgRoom1, D2DrlgRoomStrc* pDrlgRo
         }
     }
 
-    D2DrlgOrthStrc* pNew = (D2DrlgOrthStrc*)sub_0040B430(pDrlgRoom1->pLevel->pDrlg->pMempool, sizeof(D2DrlgOrthStrc), ".\\DRLG\\DrlgRoom.cpp", 212, 0);
+    D2DrlgOrthStrc* pNew = (D2DrlgOrthStrc*)sub_0040B430(pDrlgRoom1->ptDrlgLevel->pDrlg->pMempool, sizeof(D2DrlgOrthStrc), ".\\DRLG\\DrlgRoom.cpp", 212, 0);
     memset(pNew, 0, sizeof(D2DrlgOrthStrc));
     pNew->pNext = pDrlgRoom1->pDrlgOrth;
     pDrlgRoom1->pDrlgOrth = pNew;
@@ -270,7 +270,7 @@ void __fastcall DRLGROOM_AddOrth(D2DrlgOrthStrc** ppDrlgOrth, D2DrlgLevelStrc* p
 // 0x0066B900
 int __fastcall DRLGMAZE_CheckRoomNotOverlaping(D2DrlgLevelStrc* pLevel, D2DrlgRoomStrc* pDrlgRoom1, D2DrlgRoomStrc* pIgnoredRoom, int nMargin)
 {
-    for (D2DrlgRoomStrc* pCurrentRoomEx = pLevel->pFirstRoomEx; pCurrentRoomEx; pCurrentRoomEx = pCurrentRoomEx->pDrlgRoomNext)
+    for (D2DrlgRoomStrc* pCurrentRoomEx = pLevel->ptRoomFirst; pCurrentRoomEx; pCurrentRoomEx = pCurrentRoomEx->pDrlgRoomNext)
     {
         if (pCurrentRoomEx != pDrlgRoom1 && pCurrentRoomEx != pIgnoredRoom)
         {

@@ -20,11 +20,11 @@ struct D2LvlWarpTxt;
 struct D2DrlgLevelStrc
 {
     char unk0x00[0x10];
-    D2DrlgRoomStrc* pFirstRoomEx;
+    D2DrlgRoomStrc* ptRoomFirst;
     char unk0x14[0x1A0];
     D2DrlgStrc* pDrlg;
     char unk0x1B8[0x18];
-    int nLevelId;
+    int eLevelId;
 };
 
 struct D2RoomTileStrc
@@ -63,7 +63,7 @@ struct D2DrlgRoomStrc
     char unk0x44[0x8];
     D2RoomTileStrc* pRoomTiles;
     char unk0x50[0x8];
-    D2DrlgLevelStrc* pLevel;
+    D2DrlgLevelStrc* ptDrlgLevel;
     D2PresetUnitStrc* pPresetUnits;
 };
 
@@ -144,7 +144,7 @@ static void __stdcall sub_0066BC20(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom)
 {
     D2DrlgRoomStrc* ppNearRooms[30];
 
-    D2DrlgRoomStrc* pCurrentRoomEx = pDrlgRoom->pLevel->pFirstRoomEx;
+    D2DrlgRoomStrc* pCurrentRoomEx = pDrlgRoom->ptDrlgLevel->ptRoomFirst;
     pDrlgRoom->nRoomsNear = 0;
 
     while (pCurrentRoomEx)
@@ -200,11 +200,11 @@ int __fastcall DRLGROOM_ReorderNearRoomList(D2DrlgRoomStrc* pDrlgRoom, void** pp
 // 0x0066BD50
 static void sub_0066BD50(D2DrlgRoomStrc* pDrlgRoom)
 {
-    if (!DRLG_IsTownLevel(pDrlgRoom->pLevel->nLevelId))
+    if (!DRLG_IsTownLevel(pDrlgRoom->ptDrlgLevel->eLevelId))
     {
         for (int i = 0; i < pDrlgRoom->nRoomsNear; ++i)
         {
-            if (DRLG_IsTownLevel(pDrlgRoom->ppRoomsNear[i]->pLevel->nLevelId))
+            if (DRLG_IsTownLevel(pDrlgRoom->ppRoomsNear[i]->ptDrlgLevel->eLevelId))
             {
                 pDrlgRoom->dwFlags |= 0x800000;
                 return;
@@ -231,10 +231,10 @@ static void __stdcall sub_0066BDA0(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom1, D
 // 0x0066BE10
 static void __stdcall sub_0066BE10(D2DrlgRoomStrc* pDrlgRoom1, D2DrlgRoomStrc* pDrlgRoom2, unsigned char nWarpId)
 {
-    D2RoomTileStrc* pRoomTile = (D2RoomTileStrc*)sub_0040B430(pDrlgRoom1->pLevel->pDrlg->pMempool, sizeof(D2RoomTileStrc), ".\\DRLG\\DrlgRoom.cpp", 802, 0);
+    D2RoomTileStrc* pRoomTile = (D2RoomTileStrc*)sub_0040B430(pDrlgRoom1->ptDrlgLevel->pDrlg->pMempool, sizeof(D2RoomTileStrc), ".\\DRLG\\DrlgRoom.cpp", 802, 0);
     memset(pRoomTile, 0, sizeof(D2RoomTileStrc));
     pRoomTile->pDrlgRoom = pDrlgRoom2;
-    pRoomTile->pLvlWarpTxtRecord = DRLGWARP_GetLvlWarpTxtRecordFromWarpIdAndDirection(pDrlgRoom1->pLevel, nWarpId, 'b');
+    pRoomTile->pLvlWarpTxtRecord = DRLGWARP_GetLvlWarpTxtRecordFromWarpIdAndDirection(pDrlgRoom1->ptDrlgLevel, nWarpId, 'b');
     pRoomTile->bEnabled = 1;
     pRoomTile->pNext = pDrlgRoom1->pRoomTiles;
     pDrlgRoom1->pRoomTiles = pRoomTile;
@@ -303,7 +303,7 @@ D2PresetUnitStrc* __fastcall DRLGROOM_AllocPresetUnit(D2DrlgRoomStrc* pDrlgRoom,
 // 0x0066BFD0
 void __fastcall DRLGROOM_GetRGB_IntensityFromRoomEx(D2DrlgRoomStrc* pDrlgRoom, unsigned char* pIntensity, unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue)
 {
-    D2LevelDefBin* pLevelDefRecord = DATATBLS_GetLevelDefRecord(pDrlgRoom->pLevel->nLevelId);
+    D2LevelDefBin* pLevelDefRecord = DATATBLS_GetLevelDefRecord(pDrlgRoom->ptDrlgLevel->eLevelId);
 
     *pIntensity = pLevelDefRecord->nIntensity;
     *pRed = pLevelDefRecord->nRed;
@@ -320,19 +320,19 @@ D2DrlgStrc* __fastcall DRLGROOM_GetDrlgFromRoomEx(D2DrlgRoomStrc* pRoom)
         exit(-1);
     }
 
-    if (!pRoom->pLevel)
+    if (!pRoom->ptDrlgLevel)
     {
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 1068);
         exit(-1);
     }
 
-    if (!pRoom->pLevel->pDrlg)
+    if (!pRoom->ptDrlgLevel->pDrlg)
     {
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 1069);
         exit(-1);
     }
 
-    return pRoom->pLevel->pDrlg;
+    return pRoom->ptDrlgLevel->pDrlg;
 }
 
 // 0x0066C220
@@ -344,15 +344,15 @@ static void __stdcall sub_0066C220(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom, un
         exit(-1);
     }
 
-    D2DrlgLevelStrc* pLevel = pDrlgRoom->pLevel;
-    int nLevelId = pLevel->nLevelId;
+    D2DrlgLevelStrc* pLevel = pDrlgRoom->ptDrlgLevel;
+    int nLevelId = pLevel->eLevelId;
     int* pSourceVisArray = DRLGROOM_GetVisArrayFromLevelId(pLevel->pDrlg, nLevelId);
     int nDestinationLevelId = pSourceVisArray[nWarpId];
     D2DrlgLevelStrc* pDestinationLevel = DRLG_GetLevel(pLevel->pDrlg, nDestinationLevelId);
     int* pDestinationVisArray = DRLGROOM_GetVisArrayFromLevelId(pLevel->pDrlg, nDestinationLevelId);
     int nWarpDestination = DRLGWARP_GetWarpDestinationFromArray(pLevel, nWarpId);
 
-    if (!pDestinationLevel->pFirstRoomEx)
+    if (!pDestinationLevel->ptRoomFirst)
     {
         DRLG_InitLevel(pDestinationLevel);
     }
@@ -376,7 +376,7 @@ static void __stdcall sub_0066C220(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom, un
             {
                 if (nSourceVisCount == nDestinationVisCount)
                 {
-                    if (sub_0066BE80(pMemPool, pDrlgRoom, nWarpId, pDestinationLevel->pFirstRoomEx, i, nWarpDestination))
+                    if (sub_0066BE80(pMemPool, pDrlgRoom, nWarpId, pDestinationLevel->ptRoomFirst, i, nWarpDestination))
                     {
                         bLinkedWarp = 1;
                     }
@@ -392,7 +392,7 @@ static void __stdcall sub_0066C220(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom, un
     {
         for (unsigned char i = 0; i < 8; ++i)
         {
-            if (pDestinationVisArray[i] == nLevelId && sub_0066BE80(pMemPool, pDrlgRoom, nWarpId, pDestinationLevel->pFirstRoomEx, i, nWarpDestination))
+            if (pDestinationVisArray[i] == nLevelId && sub_0066BE80(pMemPool, pDrlgRoom, nWarpId, pDestinationLevel->ptRoomFirst, i, nWarpDestination))
             {
                 break;
             }
@@ -412,7 +412,7 @@ void __fastcall DRLGROOM_InitNearRooms(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom
 
         do
         {
-            if ((nFlags & pDrlgRoom->dwFlags) && pDrlgRoom->pLevel->nLevelId != 133)
+            if ((nFlags & pDrlgRoom->dwFlags) && pDrlgRoom->ptDrlgLevel->eLevelId != 133)
             {
                 sub_0066C220(pMemPool, pDrlgRoom, nWarpId);
             }

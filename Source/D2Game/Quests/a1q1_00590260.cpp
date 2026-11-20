@@ -78,9 +78,9 @@ struct D2QuestDataStrc
     unsigned char pad0x15[3];
     void* pQuestDataEx;
     D2QuestGUIDStrc tPlayerGUIDs;
-    QUESTCALLBACK pfCallback[15];
+    QUESTCALLBACK pCallback[15];
     D2NPCMessageTableStrc* pNPCMessages;
-    int nQuestFilter;
+    int eFilter;
     int unk0xE4;
     QUESTSTATUSFILTER pfStatusFilter;
     QUESTACTIVEFILTER pfActiveFilter;
@@ -177,18 +177,18 @@ void __fastcall ACT1Q1_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
         {
             pQuestData->bStatusFlags = 0x20;
             QUESTS_UnitIterate(pQuestData, 4, 0, ACT1Q1_UnitIterate_StatusCyclerEx, 1);
-            pQuestData->pfCallback[2] = 0;
+            pQuestData->pCallback[2] = 0;
         }
     }
     else
     {
         QUESTS_DebugOutput(pQuestData->pGame, "Finished quest", "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a1q1.cpp", 503);
         pQuestDataEx->bFinished = 1;
-        pQuestData->pfCallback[2] = 0;
+        pQuestData->pCallback[2] = 0;
         QUESTS_StateDebug(pQuestData, 4, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a1q1.cpp", 506);
-        pQuestData->pfCallback[8] = 0;
-        QUESTS_SetGlobalState(pQuestArg->pGame, pQuestData->nQuestFilter, QFLAG_PRIMARYGOALDONE);
-        QUESTS_GUIDUpdate(pQuestArg->pGame, &pQuestDataEx->pQuestGUID, pQuestData->nQuestFilter, 0);
+        pQuestData->pCallback[8] = 0;
+        QUESTS_SetGlobalState(pQuestArg->pGame, pQuestData->eFilter, QFLAG_PRIMARYGOALDONE);
+        QUESTS_GUIDUpdate(pQuestArg->pGame, &pQuestDataEx->pQuestGUID, pQuestData->eFilter, 0);
         SUNIT_IterateUnitsOfType(pQuestArg->pGame, 0, pQuestArg->pTarget, ACT1Q1_UnitIterate_SetPrimaryGoalDoneForPartyMembers);
         SUNIT_IterateUnitsOfType(pQuestArg->pGame, 0, pQuestArg->pTarget, ACT1Q1_UnitIterate_SetCompletionFlag);
         SUNIT_IterateUnitsOfType(pQuestArg->pGame, 0, pQuestArg->pTarget, ACT1Q1_UnitIterate_AttachCompletionSound);
@@ -205,22 +205,22 @@ void __fastcall ACT1Q1_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
 // 0x00590720
 void __fastcall ACT1Q1_InitQuestData(D2QuestDataStrc* pQuestData)
 {
-    memset(pQuestData->pfCallback, 0x00, sizeof(pQuestData->pfCallback));
+    memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
 
-    pQuestData->pfCallback[10] = ACT1Q1_Callback10_PlayerLeavesGame;
-    pQuestData->pfCallback[3] = ACT1Q1_Callback03_ChangedLevel;
-    pQuestData->pfCallback[8] = ACT1Q1_Callback08_MonsterKilled;
-    pQuestData->pfCallback[0] = ACT1Q1_Callback00_NpcActivate;
-    pQuestData->pfCallback[2] = ACT1Q1_Callback02_NpcDeactivate;
-    pQuestData->pfCallback[11] = ACT1Q1_Callback11_ScrollMessage;
-    pQuestData->pfCallback[13] = ACT1Q1_Callback13_PlayerStartedGame;
+    pQuestData->pCallback[10] = ACT1Q1_Callback10_PlayerLeavesGame;
+    pQuestData->pCallback[3] = ACT1Q1_Callback03_ChangedLevel;
+    pQuestData->pCallback[8] = ACT1Q1_Callback08_MonsterKilled;
+    pQuestData->pCallback[0] = ACT1Q1_Callback00_NpcActivate;
+    pQuestData->pCallback[2] = ACT1Q1_Callback02_NpcDeactivate;
+    pQuestData->pCallback[11] = ACT1Q1_Callback11_ScrollMessage;
+    pQuestData->pCallback[13] = ACT1Q1_Callback13_PlayerStartedGame;
 
     pQuestData->pNPCMessages = &gpAct1Q1NpcMessages;
     pQuestData->bActive = 1;
     pQuestData->fState = 1;
     D2Act1Quest1Strc* pQuestDataEx = (D2Act1Quest1Strc*)FOG_AllocPool(pQuestData->pGame->pMemoryPool, sizeof(D2Act1Quest1Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a1q1.cpp", 750, 0);
     pQuestData->pQuestDataEx = pQuestDataEx;
-    pQuestData->nQuestFilter = QUESTSTATEFLAG_A1Q1;
+    pQuestData->eFilter = QUESTSTATEFLAG_A1Q1;
     pQuestData->unk0xE4 = 0x29;
     pQuestData->pfStatusFilter = 0;
     pQuestData->nInitNo = 4;
@@ -259,7 +259,7 @@ void __fastcall ACT1Q1_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
         {
             pQuestData->bStatusFlags = 0;
             QUESTS_UnitIterate(pQuestData, 2, 0, ACT1Q1_UnitIterate_StatusCyclerEx, 1);
-            pQuestData->pfCallback[QUESTEVENT_NPCDEACTIVATE] = 0;
+            pQuestData->pCallback[QUESTEVENT_NPCDEACTIVATE] = 0;
         }
         else if (!bUpdated)
         {
@@ -279,7 +279,7 @@ void __fastcall ACT1Q1_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
         D2UnitStrc* pPlayer = pQuestArg->pPlayer;
         D2GameStrc* pGame = pQuestArg->pGame;
         D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
-        if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, QFLAG_REWARDGRANTED) == 1 || QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, QFLAG_REWARDPENDING) == 1)
+        if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_REWARDGRANTED) == 1 || QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_REWARDPENDING) == 1)
         {
             return;
         }
@@ -294,6 +294,6 @@ void __fastcall ACT1Q1_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
 
         pQuestData->bStatusFlags = 0;
         QUESTS_UnitIterate(pQuestData, 1, 0, ACT1Q1_UnitIterate_StatusCyclerEx, 1);
-        pQuestData->pfCallback[QUESTEVENT_NPCDEACTIVATE] = 0;
+        pQuestData->pCallback[QUESTEVENT_NPCDEACTIVATE] = 0;
     }
 }
