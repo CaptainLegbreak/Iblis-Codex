@@ -1,11 +1,5 @@
 #include "D2WinControls.h"
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode(unsigned short ch = 0) : wChar(ch) {}
-};
-
+#include "D2Unicode.h"
 struct D2WinScrollBarStrc;
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837

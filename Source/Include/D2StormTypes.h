@@ -128,6 +128,20 @@ struct D2StormEventTypeStrc
     D2StormEventTypeStrc* pNext; // 0x10
 };
 
+struct SMSGHANDLER_PARAMS
+{
+    void* hWnd; // 0x00
+    unsigned int uMessage; // 0x04
+    unsigned int wParam; // 0x08
+    unsigned short nXpos; // 0x0C
+    unsigned short nYpos; // 0x0E
+    unsigned int dwCommandSource; // 0x10
+    unsigned int dwArg; // 0x14
+    int bReturn; // 0x18
+    int lResult; // 0x1C
+};
+
+D2_CHECK_SIZE(SMSGHANDLER_PARAMS, 0x20);
 D2_CHECK_SIZE(D2SMemBlockSigStrc, 0x4);
 D2_CHECK_SIZE(D2SMemBlockStrc, 0x8);
 D2_CHECK_SIZE(D2SMemLargeHeaderStrc, 0x10);

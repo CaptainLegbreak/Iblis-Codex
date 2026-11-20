@@ -83,7 +83,11 @@ struct D2MonsterDataStrc
     unsigned int dwDurielFlag; // 0x18
     unsigned char nMonUmod[10]; // 0x1C
     short wBossHcIdx; // 0x26
-    D2AiControlStrc* pAiControl; // 0x28
+    union
+    {
+        D2AiControlStrc* pAiControl; // 0x28
+        unsigned short nClientFlags; // 0x28 (client side)
+    };
     D2AiParamStrc* pAiParam; // 0x2C
     D2MonsterInteractStrc* pMonInteract; // 0x30
     unsigned char unk0x34[0x28]; // 0x34

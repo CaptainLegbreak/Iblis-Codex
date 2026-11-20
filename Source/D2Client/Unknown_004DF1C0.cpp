@@ -437,9 +437,9 @@ D2SlotStrc* __fastcall sub_004E01B0_PlaySlotSound(D2SlotObjectStrc* pObject)
         float fValue = pRecord->nField0x4B ? 1.0f : 0.0f;
         sub_00515B40(pSlot->pSound, fValue);
     }
-    pSlot->fField0x1C = 0.0f;
+    pSlot->fAttenuation = 0.0f;
     pSlot->nVolume = -1;
-    memset(&pSlot->nField0x0C, 0, 3 * sizeof(int));
+    memset(&pSlot->tPos, 0, sizeof(pSlot->tPos));
     sub_004DFC20_UpdateSoundSlot(pSlot);
     int bOk;
     if (!pRecord->bStream)

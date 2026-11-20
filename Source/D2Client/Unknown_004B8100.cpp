@@ -4,6 +4,7 @@
 #include "D2CelContext.h"
 #include "D2ClientGame.h"
 #include "D2Unicode.h"
+#include "D2ClientUi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2SoundUnitNodeStrc;
@@ -27,42 +28,6 @@ struct D2DialogWidgetNodeStrc
 {
     D2DialogWidget* f_0;
     D2DialogWidgetNodeStrc* pNext;
-};
-
-struct D2DialogLineStrc
-{
-    Unicode wszText[0x78];
-    int nHeight;
-    int nX;
-    int nWidth;
-    int nArg4;
-    int nFont;
-    int nType;
-    int (__cdecl* pfnCallback)();
-    int bEnabled;
-};
-
-struct D2ClientDialogStrc
-{
-    char unk0x00[0x08];
-    void* pCelFile;
-    int bDrawCel;
-    char unk0x10[0x1C];
-    int nX;
-    int nY;
-    int nWidth;
-    int nHeight;
-    char unk0x3C[0x8];
-    int f_44;
-    char unk0x48[0x8];
-    int nLines;
-    int nDrawCount;
-    int bAutoSize;
-    int nMode;
-    char unk0x60[0x8];
-    D2DialogLineStrc pLines[10];
-    D2DialogWidgetNodeStrc* pWidgets;
-    D2ClientDialogStrc* pNext;
 };
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -140,7 +105,7 @@ void __fastcall sub_004B8100_DrawDialog(D2ClientDialogStrc* pDialog)
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
 
-    ++pDialog->nDrawCount;
+    ++pDialog->nState;
 
     tContext.nDirection = 0;
     D2RectStrc tRect;
@@ -183,7 +148,7 @@ void __fastcall sub_004B8100_DrawDialog(D2ClientDialogStrc* pDialog)
         nLineY += *(volatile int*)&nOffsetY;
         nLineY += pLine->nHeight;
         const int nLineX = pLine->nX + pDialog->nX;
-        if (pDialog->f_44 == i)
+        if (pDialog->nHover == i)
         {
             if (pDialog->nMode == 1)
             {

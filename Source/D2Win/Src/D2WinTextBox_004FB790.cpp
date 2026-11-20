@@ -1,13 +1,7 @@
 #include "D2Win.h"
 #include "D2WinTypes.h"
 #include "D2WinControls.h"
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode();                                                                                              // 0x0042F530
-};
+#include "D2Unicode.h"
 
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09

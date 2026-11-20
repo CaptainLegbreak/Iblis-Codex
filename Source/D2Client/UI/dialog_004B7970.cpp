@@ -1,3 +1,4 @@
+#include "D2ClientUi.h"
 struct SMSGHANDLER_PARAMS
 {
     void* hWnd;
@@ -28,31 +29,6 @@ struct D2DialogWidgetNodeStrc
     D2DialogWidgetNodeStrc* pNext;
 };
 
-struct D2DialogEntryStrc
-{
-    int (__cdecl* pfnCallback)();
-    int bEnabled;
-    char unk0x08[0x108];
-};
-
-struct D2ClientDialogStrc
-{
-    char unk0x00[0x18];
-    int unk0x18;
-    char unk0x1C[0x4];
-    int unk0x20;
-    char unk0x24[0x20];
-    int f_44;
-    char unk0x48[0x8];
-    int nEntries;
-    unsigned int nState;
-    char unk0x58[0x118];
-    D2DialogEntryStrc pEntries[9];
-    char unk0xB00[0x8];
-    D2DialogWidgetNodeStrc* pWidgets;
-    D2ClientDialogStrc* pNext;
-};
-
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
@@ -70,7 +46,7 @@ static D2ClientDialogStrc* gpGlobal_007C0E54;                                   
 // 0x004B7970
 static __declspec(noinline) int sub_004B7970_IsDialogKey(D2ClientDialogStrc* pDialog, int nKey)
 {
-    if (pDialog->unk0x20)
+    if (pDialog->bKeepKeys)
         return 0;
     if (sub_00469D90(5, 1) && sub_00469AA0(5, 1) == nKey)
         return 1;
@@ -91,19 +67,19 @@ void __stdcall sub_004B79D0_DialogEnterMsg(SMSGHANDLER_PARAMS* pMsg)
         return;
     if (sub_004B7970_IsDialogKey(pDialog, 0xD))
         return;
-    int nSelected = pDialog->f_44;
-    if (nSelected >= 0 && nSelected < pDialog->nEntries)
+    int nSelected = pDialog->nHover;
+    if (nSelected >= 0 && nSelected < pDialog->nLines)
     {
-        int (__cdecl* pfnCallback)() = pDialog->pEntries[nSelected].pfnCallback;
+        int (__cdecl* pfnCallback)() = pDialog->pLines[nSelected].pfnCallback;
         if (pfnCallback && pfnCallback() == 1)
             sub_00453AE0();
         return;
     }
-    for (int i = 0; i < pDialog->nEntries; ++i)
+    for (int i = 0; i < pDialog->nLines; ++i)
     {
-        if (pDialog->pEntries[i].bEnabled)
+        if (pDialog->pLines[i].bEnabled)
         {
-            pDialog->f_44 = i;
+            pDialog->nHover = i;
             return;
         }
     }

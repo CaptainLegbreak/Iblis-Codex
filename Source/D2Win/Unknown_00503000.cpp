@@ -1,6 +1,7 @@
 #include "D2CelContext.h"
 #include "D2WinTypes.h"
 #include "D2WinTypes.h"
+#include "D2Unicode.h"
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
@@ -12,14 +13,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 typedef unsigned int size_t;
 
 struct D2CelFileStrc;
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    static int __fastcall strnicmp(const Unicode* str1, const Unicode* str2, size_t count);                 // 0x00526610
-    static int __fastcall strncmp(const Unicode* str1, const Unicode* str2, unsigned int count);            // 0x00526540
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 void __stdcall TEXTURE_CelDrawColor(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, int nGlobalPaletteShift); // 0x004F64B0

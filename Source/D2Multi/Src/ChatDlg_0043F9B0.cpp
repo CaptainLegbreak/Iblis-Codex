@@ -1,11 +1,7 @@
 #include "D2Multi.h"
+#include "D2MultiTypes.h"
 #include "D2Unicode.h"
 
-struct T0043E860
-{
-    int nUnk0x00;
-    char szName[0x32];
-};
 
 extern "C" unsigned int __cdecl strlen(const char* szText);
 extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned int nCount);                  // 0x00687330
@@ -17,7 +13,7 @@ char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount);
 extern char gaszHistory_0077B1D8[10][0x100];                                                                // 0x0077B1D8
 extern int gnHistoryCount_0077BD50;                                                                         // 0x0077BD50
 extern D2WinControlStrc* gpChatEdit_0077BD94;                                                               // 0x0077BD94
-extern T0043E860* gpSelectedChannelUser_00798F48;                                                   // 0x00798F48
+extern D2MultiChannelUserStrc* gpSelectedChannelUser_00798F48;                                                   // 0x00798F48
 
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 

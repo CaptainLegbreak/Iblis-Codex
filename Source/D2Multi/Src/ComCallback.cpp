@@ -6,7 +6,7 @@ struct D2WinEditBoxStrc;
 struct Unicode;
 struct D2LaunchNameNodeStrc;
 struct D2LaunchCharInfoStrc;
-struct T0043E860;
+struct D2MultiChannelUserStrc;
 struct D2LaunchFuncsStrc;
 struct ComAdStrc;
 
@@ -116,7 +116,7 @@ struct D2LaunchCharInfoStrc
     };
 };
 
-struct T0043E860
+struct D2MultiChannelUserStrc
 {
     int nUnk0x00;
     char szName[0x32];
@@ -128,7 +128,7 @@ struct T0043E860
     int unk0xA4;
     int nValue0xA8;
     int unk0xAC;
-    T0043E860* pNext;
+    D2MultiChannelUserStrc* pNext;
 };
 
 extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
@@ -170,7 +170,7 @@ extern int gnSubmitMode_00798CAC; // 0x00798CAC
 extern char gszName_00798CD4[]; // 0x00798CD4
 extern int gnPendingValueA_00798CE4; // 0x00798CE4
 extern int gnPendingValueB_00798CE8; // 0x00798CE8
-extern T0043E860* gpSelectedChannelUser_00798F48; // 0x00798F48
+extern D2MultiChannelUserStrc* gpSelectedChannelUser_00798F48; // 0x00798F48
 
 struct D2LaunchFuncsStrc
 {

@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientUi.h"
 
 struct SMSGHANDLER_PARAMS
 {
@@ -30,33 +31,6 @@ struct D2DialogWidgetNodeStrc
     D2DialogWidgetNodeStrc* pNext;
 };
 
-struct D2ClientDialogStrc
-{
-    unsigned long dwTick;
-    int unk0x04;
-    void* pCelFile;
-    int unk0x0C;
-    int bActive;
-    char unk0x14[0x18];
-    int nX;
-    int nY;
-    int nWidth;
-    int nHeight;
-    char unk0x3C[8];
-    int nHover;
-    int f_44;
-    int unk0x4C;
-    int nCount;
-    char unk0x54[0xC];
-    void (__cdecl* pfnDefault)();
-    int (__cdecl* pfnOutside)();
-    char unk0x68[0xF0];
-    D2DialogItemStrc f_158[9];
-    char unk0xAE8[0x20];
-    D2DialogWidgetNodeStrc* pWidgets;
-    D2ClientDialogStrc* pNext;
-};
-
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
@@ -80,13 +54,13 @@ static int sub_004B7180_FindDialogItem(D2ClientDialogStrc* pDialog, SMSGHANDLER_
         const int nX = pMsg->nXPos;
         const int nY = pMsg->nYPos;
         int nOffset = 0;
-        for (int i = 0; i < pDialog->nCount; ++i)
+        for (int i = 0; i < pDialog->nLines; ++i)
         {
-            if (pDialog->f_158[i].nType == 1 && nX > pDialog->nX + 0xF && nX < pDialog->nX + pDialog->nWidth - 0xF
-                && nY > pDialog->nY + pDialog->f_158[i].nHeight + nOffset - 0xB
-                && nY < pDialog->nY + pDialog->f_158[i].nHeight + nOffset + 4)
+            if (pDialog->pLines[i].bEnabled == 1 && nX > pDialog->nX + 0xF && nX < pDialog->nX + pDialog->nWidth - 0xF
+                && nY > pDialog->nY + pDialog->pLines[i].nHeight + nOffset - 0xB
+                && nY < pDialog->nY + pDialog->pLines[i].nHeight + nOffset + 4)
                 return i;
-            nOffset += pDialog->f_158[i].nHeight;
+            nOffset += pDialog->pLines[i].nHeight;
         }
     }
     return -1;
@@ -98,7 +72,7 @@ static int __stdcall sub_004B7200_UpdateHoverItem(SMSGHANDLER_PARAMS* pMsg, D2Cl
     const int nOld = pDialog->nHover;
     const int nItem = sub_004B7180_FindDialogItem(pDialog, pMsg);
     pDialog->nHover = nItem;
-    pDialog->f_44 = nItem;
+    pDialog->unk0x48 = nItem;
     if (nItem == nOld || nItem == -1)
         return 0;
     sub_004B9A00(1, 0, 0, 0, 0);
@@ -137,9 +111,9 @@ void __stdcall sub_004B72E0_OnLButtonUp(SMSGHANDLER_PARAMS* pMsg)
     if (pDialog->dwTick + 0x50 > GetTickCount())
         return;
     const int nItem = sub_004B7180_FindDialogItem(pDialog, pMsg);
-    if (pDialog->f_44 == nItem && nItem >= 0 && nItem < pDialog->nCount)
+    if (pDialog->unk0x48 == nItem && nItem >= 0 && nItem < pDialog->nLines)
     {
-        int (__cdecl* pfnCallback)() = pDialog->f_158[pDialog->nHover].pfnCallback;
+        int (__cdecl* pfnCallback)() = pDialog->pLines[pDialog->nHover].pfnCallback;
         if (pfnCallback && pfnCallback())
             return;
     }

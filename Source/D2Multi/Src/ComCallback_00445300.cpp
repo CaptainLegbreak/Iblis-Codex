@@ -1,4 +1,6 @@
 #include "D2Multi.h"
+#include "D2MultiTypes.h"
+#include "D2StormTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -6,26 +8,12 @@ struct D2WinEditBoxStrc;
 struct D2WinButtonStrc;
 struct SMSGHANDLER_PARAMS;
 struct D2ChannelEntryStrc;
-struct T0043E860;
+struct D2MultiChannelUserStrc;
 struct D2MsgRecordStrc;
 struct D2MsgRecordChunkStrc;
 struct D2MsgHandlerEntryStrc;
 
 typedef void (__stdcall* SMSGHANDLER)(SMSGHANDLER_PARAMS* pMsg);
-
-struct T0043E860
-{
-    int nUnk0x00;
-    char szName[0x32];
-    char szText[0x50];
-    unsigned char nClass;
-    unsigned char unk_87[0x9];
-    unsigned int dwFlags;
-    unsigned char unk_94[0x8];
-    D2CompositeStrc* f_9C;
-    char unk0xA0[0x10];
-    T0043E860* pNext;
-};
 
 struct D2MsgRecordStrc
 {
@@ -75,25 +63,14 @@ extern const char gszFormatInt_006D57BC[]; // 0x006D57BC
 extern const unsigned int gdwTitleMaskA_006CE280; // 0x006CE280
 extern const unsigned int gdwTitleMaskB_006CE284; // 0x006CE284
 extern D2WinEditBoxStrc* gpEditBox_00798C3C; // 0x00798C3C
-extern T0043E860* gpChannelUsers_00798F34; // 0x00798F34
+extern D2MultiChannelUserStrc* gpChannelUsers_00798F34; // 0x00798F34
 extern D2ChannelEntryStrc* gpChannelEntries_00798F38; // 0x00798F38
 extern int gbStringsLoaded_007A070C; // 0x007A070C
 extern D2MsgRecordChunkStrc* gpMsgRecordChunk_0070F7A0; // 0x0070F7A0
 extern "C" __declspec(dllimport) unsigned long __stdcall GetFileAttributesA(const char* szFileName); // 0x006CC1B0
 extern D2WinControlStrc* gpControl_0077B098; // 0x0077B098
-static __declspec(noinline) int sub_00446D30_GetUserRank(T0043E860* pUser);
+static __declspec(noinline) int sub_00446D30_GetUserRank(D2MultiChannelUserStrc* pUser);
 
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    unsigned int lParam;
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
 void __cdecl sub_0043D990_ActivateEdit(); // 0x0043D990
 extern const unsigned char gnCdKeyMap_006D59F0[256]; // 0x006D59F0
 void* __stdcall sub_00449050_AddEntry(const char* szText, int nLength, int nA); // 0x00449050
@@ -151,7 +128,7 @@ void __fastcall sub_00447560_SplitName(const char* szName, char* szTitle, char* 
     }
     if (pEntry)
     {
-        T0043E860* pUser = gpChannelUsers_00798F34;
+        D2MultiChannelUserStrc* pUser = gpChannelUsers_00798F34;
         while (pUser)
         {
             if (!_stricmp(pUser->szName, szName))
@@ -160,7 +137,7 @@ void __fastcall sub_00447560_SplitName(const char* szName, char* szTitle, char* 
         }
         if (pUser)
         {
-            const unsigned int nFlags = sub_00505330_GetCompositeFlags(pUser->f_9C);
+            const unsigned int nFlags = sub_00505330_GetCompositeFlags(pUser->pComposite);
             if ((nFlags & gdwTitleMaskA_006CE280) || (nFlags & gdwTitleMaskB_006CE284))
             {
                 SStrCopy(szTitle, D2Win_10160_GetPlayerTitle(pUser->nClass, 3 * ((nFlags >> 5) & 1) + 2 * ((nFlags >> 7) & 1) + ((nFlags >> 6) & 1), (nFlags >> 12) & 1), 0x7FFFFFFF);
@@ -321,7 +298,7 @@ static __forceinline int sub_00446D00_SetText(const char* szText)
 int __stdcall sub_M121_Emit_00446D00(const char* szText) { return sub_00446D00_SetText(szText); }
 
 // 0x00446D30
-static int sub_00446D30_GetUserRank(T0043E860* pUser)
+static int sub_00446D30_GetUserRank(D2MultiChannelUserStrc* pUser)
 {
     const unsigned int dwFlags = pUser->dwFlags;
     if (dwFlags & 2)
@@ -337,7 +314,7 @@ static int sub_00446D30_GetUserRank(T0043E860* pUser)
 
 // build: context sub_00446D30_Shim
 // calling-convention shim (not game code)
-int __fastcall sub_00446D30_Shim(T0043E860* pLeft, T0043E860* pRight)
+int __fastcall sub_00446D30_Shim(D2MultiChannelUserStrc* pLeft, D2MultiChannelUserStrc* pRight)
 {
     return sub_00446D30_GetUserRank(pRight) - sub_00446D30_GetUserRank(pLeft);
 }

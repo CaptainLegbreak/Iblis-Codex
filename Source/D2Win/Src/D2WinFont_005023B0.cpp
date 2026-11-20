@@ -1,5 +1,6 @@
 #include "D2WinTypes.h"
 #include "D2WinTypes.h"
+#include "D2Unicode.h"
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
@@ -10,12 +11,6 @@ typedef unsigned int size_t;
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 
 struct D2CelFileStrc;
-
-struct Unicode
-{
-    unsigned short wChar;
-    static int __fastcall strnicmp(const Unicode* str1, const Unicode* str2, size_t count);                 // 0x00526610
-};
 
 extern "C" int __fastcall sub_00526800(const unsigned short* pText);                                      // 0x00526800
 extern D2CharStrc* (__fastcall* gpfGetCharInfo_00841DA0)(int nChar);                                        // 0x00841DA0

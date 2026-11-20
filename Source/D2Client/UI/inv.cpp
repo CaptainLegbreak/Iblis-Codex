@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Constants.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
@@ -40,26 +41,6 @@ struct D2PanelLabelStrc;
 extern void* ghDbgHelp_0098A680; // 0x0098A680
 extern int gdwGlobal_007A0670; // 0x007A0670
 extern int gnGlobal_007A5254; // 0x007A5254
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08;
-    int dwUnitId;
-    unsigned char unk_10[0x4];
-    D2MonsterDataStrc* pMonsterData;
-    unsigned char unk_18[0x4];
-    D2DrlgActStrc* pDrlgAct;
-    unsigned char unk_20[0xC];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x30];
-    D2InventoryStrc* pInventory;
-};
 
 extern D2UnitStrc* gdwGlobal_007BCBF4; // 0x007BCBF4
 
@@ -330,20 +311,6 @@ struct D2ItemsTxt
 {
     char unk0x00[0x80];
     int dwCode;
-};
-
-struct D2InventoryGridInfoStrc
-{
-    unsigned char nGridX;
-    unsigned char nGridY;
-    unsigned short pad0x02;
-    int nGridLeft;
-    int nGridRight;
-    int nGridTop;
-    int nGridBottom;
-    unsigned char nGridBoxWidth;
-    unsigned char nGridBoxHeight;
-    unsigned short pad0x16;
 };
 
 extern D2InventoryGridInfoStrc gGrid_007BCA78; // 0x007BCA78

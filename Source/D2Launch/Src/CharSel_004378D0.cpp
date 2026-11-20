@@ -1,5 +1,7 @@
 #include "D2Launch.h"
 #include "D2MultiTypes.h"
+#include "D2MultiTypes.h"
+#include "D2StormTypes.h"
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 struct SMSGHANDLER_PARAMS;
@@ -11,18 +13,6 @@ struct Unicode
 {
     unsigned short wChar;
     Unicode();
-};
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    unsigned int lParam;
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
 };
 
 struct D2LaunchCharEntryStrc
@@ -43,15 +33,6 @@ struct D2LaunchCharSelectStrc
     char nMode;
 };
 
-struct D2LaunchGameRecStrc
-{
-    char nUnk0x00;
-    char szName[0x30];
-    char wValue0x31[2];
-    char wValue0x33[2];
-    char f_35[2];
-    char nAddress0x37[4];
-};
 extern "C" int __cdecl atoi(const char* szString); // 0x00681EBB
 extern "C" char* __cdecl _itoa(int nValue, char* szOut, int nRadix); // 0x00687605
 extern "C" char* __cdecl strtok(char* szText, const char* szDelim); // 0x0068264F

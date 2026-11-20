@@ -1,20 +1,10 @@
 #include "D2Game.h"
+#include "D2Structs.h"
+#include "D2GameStrc.h"
 
 struct D2PlayerDataStrc;
 struct D2Act1Quest3Strc;
 struct D2Act1Quest3ExStrc;
-
-struct D2GameStrc
-{
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-};
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-};
 
 struct D2PlayerDataStrc
 {

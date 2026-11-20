@@ -1,13 +1,9 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 struct SGAMEDATA;
 struct D2MsgHandlerEntryStrc;
 struct D2PanelAnimEntryStrc;
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-};
 
 extern int gdwGlobal_007A6A94; // 0x007A6A94
 extern int gdwGlobal_007A6A98; // 0x007A6A98

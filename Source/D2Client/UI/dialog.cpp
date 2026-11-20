@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2ClientTypes.h"
+#include "D2ClientUi.h"
 
 #pragma function(memset)
 
@@ -7,7 +8,6 @@
 
 class D2DialogWidget;
 struct D2DialogWidgetNodeStrc;
-struct D2DialogItemStrc;
 struct Handler;
 struct HandlerNode;
 struct SelectionEntry;
@@ -45,56 +45,6 @@ struct D2DialogWidgetNodeStrc
 {
     D2DialogWidget* f_0;
     D2DialogWidgetNodeStrc* pNext;
-};
-
-struct D2ClientDialogStrc
-{
-    unsigned long dwTick;
-    int unk0x04;
-    int unk0x08;
-    int unk0x0C;
-    int bActive;
-    int unk0x14;
-    int unk0x18;
-    int bModal;
-    int bKeepKeys;
-    int unk0x24;
-    int unk0x28;
-    int nX;
-    int nY;
-    int nWidth;
-    int nHeight;
-    char unk0x3C[8];
-    int nHover;
-    int f_44;
-    int unk0x4C;
-    int nCount;
-    union
-    {
-        unsigned int nState;
-        int unk0x54;
-    };
-    int unk0x58;
-    int unk0x5C;
-    union
-    {
-        void (__cdecl* pfnDefault)();
-        int unk0x60;
-    };
-    union
-    {
-        int (__cdecl* pfnOutside)();
-        int unk0x64;
-    };
-    char unk0x68[0xF0];
-    D2DialogItemStrc f_158[9];
-    char unk0xAE8[0x20];
-    union
-    {
-        D2DialogWidgetNodeStrc* pWidgets;
-        int unk0xB08;
-    };
-    D2ClientDialogStrc* pNext;
 };
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -171,9 +121,9 @@ static __forceinline void sub_004B7BC0_InitDialog(D2ClientDialogStrc* pDialog);
 // 0x004B7150
 static __forceinline void sub_004B7150_HoverFirstTypedItem(D2ClientDialogStrc* pDialog)
 {
-    for (int i = 0; i < pDialog->nCount; ++i)
+    for (int i = 0; i < pDialog->nLines; ++i)
     {
-        if (pDialog->f_158[i].nType)
+        if (pDialog->pLines[i].bEnabled)
         {
             pDialog->nHover = i;
             return;
@@ -191,13 +141,13 @@ static int sub_004B7180_FindDialogItem(D2ClientDialogStrc* pDialog, SMSGHANDLER_
         const int nX = pMsg->nXPos;
         const int nY = pMsg->nYPos;
         int nOffset = 0;
-        for (int i = 0; i < pDialog->nCount; ++i)
+        for (int i = 0; i < pDialog->nLines; ++i)
         {
-            if (pDialog->f_158[i].nType == 1 && nX > pDialog->nX + 0xF && nX < pDialog->nX + pDialog->nWidth - 0xF
-                && nY > pDialog->nY + pDialog->f_158[i].nHeight + nOffset - 0xB
-                && nY < pDialog->nY + pDialog->f_158[i].nHeight + nOffset + 4)
+            if (pDialog->pLines[i].bEnabled == 1 && nX > pDialog->nX + 0xF && nX < pDialog->nX + pDialog->nWidth - 0xF
+                && nY > pDialog->nY + pDialog->pLines[i].nHeight + nOffset - 0xB
+                && nY < pDialog->nY + pDialog->pLines[i].nHeight + nOffset + 4)
                 return i;
-            nOffset += pDialog->f_158[i].nHeight;
+            nOffset += pDialog->pLines[i].nHeight;
         }
     }
     return -1;
@@ -210,7 +160,7 @@ static int __stdcall sub_004B7200_UpdateHoverItem(SMSGHANDLER_PARAMS* pMsg, D2Cl
     const int nOld = pDialog->nHover;
     const int nItem = sub_004B7180_FindDialogItem(pDialog, pMsg);
     pDialog->nHover = nItem;
-    pDialog->f_44 = nItem;
+    pDialog->unk0x48 = nItem;
     if (nItem == nOld || nItem == -1)
         return 0;
     sub_004B9A00(1, 0, 0, 0, 0);
@@ -269,9 +219,9 @@ void __stdcall sub_004B72E0_OnLButtonUp(SMSGHANDLER_PARAMS* pMsg)
     if (pDialog->dwTick + 0x50 > GetTickCount())
         return;
     const int nItem = sub_004B7180_FindDialogItem(pDialog, pMsg);
-    if (pDialog->f_44 == nItem && nItem >= 0 && nItem < pDialog->nCount)
+    if (pDialog->unk0x48 == nItem && nItem >= 0 && nItem < pDialog->nLines)
     {
-        int (__cdecl* pfnCallback)() = pDialog->f_158[pDialog->nHover].pfnCallback;
+        int (__cdecl* pfnCallback)() = pDialog->pLines[pDialog->nHover].pfnCallback;
         if (pfnCallback && pfnCallback())
             return;
     }
@@ -491,13 +441,13 @@ static __forceinline void sub_004B7BC0_InitDialog(D2ClientDialogStrc* pDialog)
     memset(pDialog, 0, sizeof(D2ClientDialogStrc));
     pDialog->nWidth = 0;
     pDialog->nHeight = 0;
-    pDialog->nCount = 0;
-    pDialog->unk0x4C = 0;
+    pDialog->nLines = 0;
+    pDialog->nEnabled = 0;
     pDialog->nX = 0;
     pDialog->nY = 0;
     pDialog->pWidgets = 0;
     pDialog->nHover = -1;
-    pDialog->unk0x5C = 2;
+    pDialog->nMode = 2;
 }
 
 static int gnGlobal_007C0E4C; // 0x007C0E4C
@@ -524,29 +474,29 @@ D2ClientDialogStrc* __fastcall sub_004B7EB0_CreateDialog(int nArg1, int nArg2, i
     pDialog->pNext = gpGlobal_007C0E54;
     gpGlobal_007C0E54 = pDialog;
     memset(pDialog, 0, sizeof(D2ClientDialogStrc));
-    pDialog->unk0x24 = nArg1;
+    pDialog->nCenterX = nArg1;
     pDialog->nX = nArg1;
-    pDialog->unk0x60 = nArg8;
-    pDialog->unk0x64 = nArgC;
-    pDialog->unk0x58 = nArg18;
+    pDialog->pfnDefault = (void (__cdecl*)())nArg8;
+    pDialog->pfnOutside = (int (__cdecl*)())nArgC;
+    pDialog->bAutoSize = nArg18;
     pDialog->nHeight = 0;
-    pDialog->nCount = 0;
-    pDialog->unk0x4C = 0;
+    pDialog->nLines = 0;
+    pDialog->nEnabled = 0;
     pDialog->nHover = -1;
-    pDialog->unk0x5C = 2;
-    pDialog->unk0xB08 = 0;
-    pDialog->unk0x28 = nArg2;
+    pDialog->nMode = 2;
+    pDialog->pWidgets = 0;
+    pDialog->nCenterY = nArg2;
     pDialog->nY = nArg2;
-    pDialog->unk0x14 = nArg14;
+    pDialog->bCountEnabled = nArg14;
     pDialog->bModal = nArg24;
     pDialog->nWidth = nArg1C;
     pDialog->dwTick = GetTickCount();
     pDialog->bActive = 0;
-    pDialog->unk0x54 = 0;
-    pDialog->unk0x0C = 0;
-    pDialog->unk0x08 = 0;
+    pDialog->nState = 0;
+    pDialog->bDrawCel = 0;
+    pDialog->pCelFile = 0;
     pDialog->nHeight = nArg20;
-    pDialog->f_44 = -1;
+    pDialog->unk0x48 = -1;
     pDialog->unk0x18 = nArg10;
     pDialog->bKeepKeys = nArg28;
     gnGlobal_007C0E58 = 1;

@@ -1,41 +1,9 @@
 #include "D2Client.h"
+#include "D2Structs.h"
+#include "D2LevelTxt.h"
+#include "D2DataTbls.h"
 
 struct D2StatesTxt;
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-};
-
-struct D2StatesTxt
-{
-    unsigned short wState;
-    unsigned short wOverlay[4];
-    unsigned short wCastOverlay;
-    unsigned short wRemoveOverlay;
-    unsigned short wPrgOverlay;
-    unsigned char nStateFlags[8];
-    unsigned short wStat;
-    short wSetFunc;
-    short wRemFunc;
-    unsigned short wGroup;
-    char unk0x20[0x10];
-    short wCltEvent;
-    short wCltEventFunc;
-    char unk0x34[8];
-};
-
-struct D2DataTablesStrc
-{
-    char unk0x00[0xBC];
-    D2StatesTxt* pStatesTxt;
-    void* pStatesLinker;
-    int nStatesTxtRecordCount;
-};
 
 typedef void (__fastcall* CLIENTSTATEFN)(D2UnitStrc* pUnit, int nState);
 

@@ -1,24 +1,15 @@
 #include "D2Multi.h"
 #include "D2MultiTypes.h"
+#include "D2MultiTypes.h"
 
 struct Unicode;
-struct T0043E860;
+struct D2MultiChannelUserStrc;
 struct D2LaunchFuncsStrc;
 
 struct Unicode
 {
     unsigned short wChar;
     static Unicode* __fastcall win2Unicode(Unicode* dest, const char* src, int count);                      // 0x00526F20
-};
-
-struct T0043E860
-{
-    int nUnk0x00;
-    char szName[0x32];
-    char unk0x36[0x5A];
-    unsigned int dwFlags;
-    char unk0x94[0x1C];
-    T0043E860* pNext;
 };
 
 class D2SquelchListStrc
@@ -43,7 +34,7 @@ Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x0
 int __fastcall sub_0043E610_PrintText(Unicode* pText, int nColor); // 0x0043E610
 void __fastcall sub_00447560_SplitName(const char* szName, char* szTitle, char* szOut); // 0x00447560
 extern D2LaunchFuncsStrc* gpLaunchFuncs_0077B09C; // 0x0077B09C
-extern T0043E860* gpChannelUsers_00798F34; // 0x00798F34
+extern D2MultiChannelUserStrc* gpChannelUsers_00798F34; // 0x00798F34
 Unicode* __fastcall sub_00526E40_Utf8ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526E40
 
 static const char* SkipStarPrefix_Inl(const char* szName)
@@ -97,7 +88,7 @@ void __fastcall sub_004481F0_PrintOwnLine(const char* szText)
     SStrCopy(szName, gpLaunchFuncs_0077B09C->pfnGetUserName(), 0x7FFFFFFF);
     int nPrefix = 4;
     int nColor = 0;
-    T0043E860* pUser = gpChannelUsers_00798F34;
+    D2MultiChannelUserStrc* pUser = gpChannelUsers_00798F34;
     if (gpChannelUsers_00798F34)
     {
         do
@@ -144,7 +135,7 @@ int __stdcall sub_00448370_OnChannelTalk(const char* szSender, const char* szMes
 
     int nPrefix = 4;
     int nColor = 0;
-    T0043E860* pUser = gpChannelUsers_00798F34;
+    D2MultiChannelUserStrc* pUser = gpChannelUsers_00798F34;
     if (gpChannelUsers_00798F34)
     {
         do

@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2Drlg.h"
 #include "D2ClientTypes.h"
+#include "D2ClientTypes.h"
 
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
@@ -18,7 +19,6 @@ struct D2MonCofInfoStrc;
 struct D2CofModeEntryStrc;
 struct D2GfxNodeTargetStrc;
 struct D2MonGfxCacheStrc;
-
 
 struct D2HashedFileEntryStrc
 {
@@ -55,7 +55,6 @@ struct D2GfxListNodeStrc
     D2GfxListNodeStrc* pNext;
 };
 
-
 struct D2ObjectsTxt
 {
     char unk0x000[0x13F];
@@ -88,7 +87,6 @@ struct D2MonStats2Txt
         unsigned char nModeFlags[4];
     };
 };
-
 
 struct D2GfxLayerHeaderStrc
 {
@@ -156,13 +154,6 @@ static int __stdcall sub_0046E740_LoadGfxNode(int* pValue, int nIndex, D2UnitStr
 static int sub_0046EA50_LoadGfxNodeSetByte(D2UnitStrc* pUnit, int nIndex);
 
 typedef unsigned long DWORD;
-
-
-struct D2GfxNodeTargetStrc
-{
-    int unk0x00[5];
-    D2GfxLayerStrc* pLayer;
-};
 
 struct D2MonGfxCacheStrc
 {

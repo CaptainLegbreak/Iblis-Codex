@@ -2,7 +2,7 @@
 #include "D2Unicode.h"
 
 struct D2LaunchCharInfoStrc;
-struct T0043E860;
+struct D2MultiChannelUserStrc;
 struct Unicode;
 struct Character;
 
@@ -23,7 +23,7 @@ struct D2LaunchCharInfoStrc
 extern D2LaunchCharInfoStrc* gpCharInfo_0077BBD8; // 0x0077BBD8
 void __stdcall sub_004413E0_Enable(int bEnable); // 0x004413E0
 
-struct T0043E860
+struct D2MultiChannelUserStrc
 {
     int nUnk0x00;
     char szName[0x32];
@@ -37,7 +37,7 @@ const char* __fastcall sub_00446820_SkipNamePrefix(const char* szName); // 0x004
 void __fastcall sub_0043EA70_ShowMessage(const Unicode* pTitle, const Unicode* pText); // 0x0043EA70
 int __stdcall sub_0043E900_FindCdKeyInText(const char* szText); // 0x0043E900
 int __cdecl sub_00442810_SendChatBuffer(); // 0x00442810
-extern T0043E860* gpSelectedChannelUser_00798F48; // 0x00798F48
+extern D2MultiChannelUserStrc* gpSelectedChannelUser_00798F48; // 0x00798F48
 
 struct Character { signed char value; };
 

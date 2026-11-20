@@ -1,5 +1,6 @@
 #include "D2Launch.h"
 #include "D2FogTypes.h"
+#include "D2StormTypes.h"
 
 #pragma intrinsic(_ReadWriteBarrier)
 #pragma intrinsic(strcmp)
@@ -116,18 +117,6 @@ D2WinControlStrc* __fastcall sub_0042F430_CreateControl(int nId); // 0x0042F430
 int __fastcall sub_00431050_ShowCredits(int nUnused); // 0x00431050
 int __fastcall D2Win_10053(D2WinControlStrc* pTextBox, int nLine); // 0x004FBA30
 static __declspec(noinline) unsigned char sub_004313A0_GetFlagIndex(unsigned char nFlags);
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    unsigned int lParam;
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
 
 struct D2WinMsgStrc
 {

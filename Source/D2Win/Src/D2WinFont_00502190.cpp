@@ -1,12 +1,8 @@
 #include "D2CelContext.h"
 #include "D2WinTypes.h"
 #include "D2WinTypes.h"
+#include "D2Unicode.h"
 struct D2CelFileStrc;
-
-struct Unicode
-{
-    unsigned short wChar;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480

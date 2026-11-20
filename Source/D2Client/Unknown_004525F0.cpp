@@ -1,21 +1,4 @@
-struct D2UnitFlags004525F0Strc
-{
-    unsigned int bFlag0 : 1;
-    unsigned int bFlag1 : 1;
-    unsigned int bFlag2 : 1;
-    unsigned int nRest : 29;
-};
-
-struct D2UnitStrc
-{
-    unsigned int dwUnitType;
-    unsigned int dwClassId;
-    void* pMemoryPool;
-    unsigned int dwUnitId;
-    char unk0x10[0xC4 - 0x10];
-    D2UnitFlags004525F0Strc tFlags;
-};
-
+#include "D2Structs.h"
 int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
 int __fastcall sub_00465C60_CheckUnitPair(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x00465C60
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
@@ -32,7 +15,7 @@ int __fastcall sub_004525F0_GetMonsterLifeFraction(D2UnitStrc* pUnit)
     if (pUnit && (!pUnit ? 6 : pUnit->dwUnitType) == 1 && !sub_00464820_IsDeadOrDying(pUnit))
     {
         int bPaired;
-        if ((!pUnit ? 0 : pUnit->tFlags.bFlag2) && sub_00465C60_CheckUnitPair(sub_00463DD0_GetPlayerUnit(), pUnit))
+        if ((!pUnit ? 0 : (pUnit->dwFlags >> 2) & 1) && sub_00465C60_CheckUnitPair(sub_00463DD0_GetPlayerUnit(), pUnit))
         {
             bPaired = 1;
         }

@@ -1,5 +1,8 @@
 #include "D2Game.h"
 #include "D2Txt.h"
+#include "D2Structs.h"
+#include "D2GameStrc.h"
+#include "D2UnitData.h"
 
 union D2SeedStrc;
 struct D2PlayerDataStrc;
@@ -9,32 +12,6 @@ struct D2HirelingInitStrc;
 struct D2ItemsTxt;
 struct D2MonsterDataStrc;
 struct D2NpcTradeStrc;
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08;
-    int dwUnitId;
-    char unk0x10[0x04];
-    D2MonsterDataStrc* pMonsterData;
-    char unk0x18[0x48];
-    D2InventoryStrc* pInventory;
-};
-
-struct D2GameStrc
-{
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-    char unk0x6E[0x02];
-    int bExpansion;
-};
-
-struct D2PlayerDataStrc
-{
-    char unk0x00[0x10];
-    D2BitBufferStrc* pQuestData[3];
-};
 
 struct D2MercDataStrc
 {
@@ -98,19 +75,10 @@ D2MonsterInteractStrc* __fastcall sub_00535E80_GetMonInteract(D2UnitStrc* pUnit)
 void __fastcall D2GAME_NPC_BuildHirelingList_6FCC6FF0(D2GameStrc* pGame, D2ClientStrc* pClient, D2UnitStrc* pNpc, int bSingle); // 0x00576770
 void __fastcall sub_00577010_VendorRefresh(D2GameStrc* pGame, int nVendorId, D2NpcRecordStrc* pNpcRecord); // 0x00577010
 
-
 D2SeedStrc* __fastcall SUNITPROXY_GetSeedFromNpcControl(D2GameStrc* pGame); // 0x00536B40
 int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId); // 0x00633640
-
-struct D2MonsterDataStrc
-{
-    char unk0x00[0x30];
-    D2MonsterInteractStrc* pMonInteract;
-};
-
-enum { UNIT_MONSTER = 1 };
 
 extern int gnNpcGUID_0088CAC4; // 0x0088CAC4
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60

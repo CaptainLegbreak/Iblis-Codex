@@ -1,3 +1,4 @@
+#include "D2Unicode.h"
 struct SMSGHANDLER_PARAMS
 {
     void* hWnd;
@@ -24,11 +25,6 @@ struct SMSGHANDLER_PARAMS
     unsigned int dwArg;
     int bReturn;
     int lResult;
-};
-
-struct Unicode
-{
-    unsigned short wChar;
 };
 
 struct D2CelFileStrc;

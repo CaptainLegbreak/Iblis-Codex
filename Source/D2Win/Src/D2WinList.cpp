@@ -1,6 +1,8 @@
 #include "D2Win.h"
 #include "D2WinTypes.h"
 #include "D2WinControls.h"
+#include "D2Unicode.h"
+#include "D2WinControls.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2WinControlStrc;
@@ -17,11 +19,6 @@ enum D2ControlTypes
 {
     D2WIN_LIST = 7,
     D2WIN_ACCOUNTLIST = 12,
-};
-
-struct Unicode
-{
-    unsigned short wChar;
 };
 
 typedef int (__stdcall* D2WinMsgHandler)(SMSGHANDLER_PARAMS* pMsg);
@@ -43,22 +40,6 @@ struct D2WinListDataStrc
     char field_21B;
     int field_21C;
     D2WinListDataStrc* pNext;
-};
-
-struct D2WinListStrc
-{
-    D2WinControlStrc controlHeader;
-    int eFont;
-    int field_44;
-    int field_48;
-    int field_4C;
-    int field_50;
-    int field_54;
-    int field_58;
-    int field_5C;
-    int nWidestEntry;
-    D2WinListDataStrc* pDataList;
-    D2WinListDataStrc* pSelectedDataEntry;
 };
 
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60

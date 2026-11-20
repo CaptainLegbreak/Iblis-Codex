@@ -1,28 +1,13 @@
 #include "D2Client.h"
 #include "D2GameTypes.h"
+#include "D2Structs.h"
 
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2StaticPathStrc;
 struct D2MissileStrc;
 struct D2MissilesTxtStrc;
 struct D2SkillsTxtStrc;
-
-struct D2SeedStrc
-{
-    union
-    {
-        struct
-        {
-            unsigned __int64 lSeed;
-        };
-        struct
-        {
-            unsigned int nLowSeed;
-            unsigned int nHighSeed;
-        };
-    };
-};
 
 struct D2StaticPathStrc
 {
@@ -30,25 +15,6 @@ struct D2StaticPathStrc
     int nXPos;
     int nYPos;
 };
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int nClassId;
-    int unk0x08[6];
-    union
-    {
-        D2SeedStrc tSeed;
-        int dwSeed;
-    };
-    int unk0x28;
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-};
-
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
@@ -158,7 +124,7 @@ int __fastcall sub_004D1BD0_CltHitScatter(D2UnitStrc* pMissile, D2UnitStrc* pUni
         return 0;
     }
 
-    D2SeedStrc* pSeed = &pMissile->tSeed;
+    D2SeedStrc* pSeed = &pMissile->pSeed;
     SEED_InitLowSeed(pSeed, sub_0064A780_targetValue(pMissile));
     const int nCount = MISSILE_GetTargetX(pMissile);
     const int nX = UNITS_GetUnitXPosition(pMissile);
@@ -202,9 +168,9 @@ void __fastcall sub_004D3F10_ClientMissileDo(D2UnitStrc* pMissile)
 {
     struct { int nValue1; int nLevel; D2UnitStrc* pOwner; int nRange; } tLocal;
     D2MissilesTxtStrc* pMissilesTxt;
-    if (pMissile && pMissile->nClassId >= 0 && pMissile->nClassId < sgptDataTables->nMissilesTxtRecordCount)
+    if (pMissile && pMissile->dwClassId >= 0 && pMissile->dwClassId < sgptDataTables->nMissilesTxtRecordCount)
     {
-        pMissilesTxt = &sgptDataTables->pMissilesTxt[pMissile->nClassId];
+        pMissilesTxt = &sgptDataTables->pMissilesTxt[pMissile->dwClassId];
     }
     else
     {
@@ -220,7 +186,7 @@ void __fastcall sub_004D3F10_ClientMissileDo(D2UnitStrc* pMissile)
     tLocal.nRange = nMin;
     if (nMin < pMissilesTxt->nMax)
     {
-        tLocal.nRange = ITEMS_RollLimitedRandomNumber((D2SeedStrc*)&pMissile->dwSeed, pMissilesTxt->nMax - nMin + 1) + nMin;
+        tLocal.nRange = ITEMS_RollLimitedRandomNumber(&pMissile->pSeed, pMissilesTxt->nMax - nMin + 1) + nMin;
     }
 
     int nSkillId = MISSILE_GetSkill(pMissile);
@@ -267,7 +233,7 @@ inline unsigned __int64 SEED_RollRandomNumberInline(D2SeedStrc* pSeed)
 // 0x004D6FA0
 void __fastcall sub_004D6FA0_CltDoLinked(D2UnitStrc* pMissile)
 {
-    D2SeedStrc* pSeed = &pMissile->tSeed;
+    D2SeedStrc* pSeed = &pMissile->pSeed;
     int nPrevState = sub_0064A780_targetValue(pMissile);
     D2DynamicPathStrc* pPath = pMissile->pDynamicPath;
     if (!pPath)

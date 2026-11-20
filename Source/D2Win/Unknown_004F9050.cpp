@@ -1,15 +1,11 @@
 #include "D2Win.h"
 #include "D2MultiTypes.h"
+#include "D2Unicode.h"
 
 struct D2WinControlStrc;
 struct Unicode;
 struct D2LaunchRecordStrc;
 struct D2FuncTable_0077ABF0Strc;
-
-struct Unicode
-{
-    unsigned short wChar;
-};
 
 typedef void (__cdecl* D2LaunchDoneFn)();
 

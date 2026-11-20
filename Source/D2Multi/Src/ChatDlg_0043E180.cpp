@@ -1,5 +1,6 @@
 #include "D2Multi.h"
 #include "D2MultiTypes.h"
+#include "D2StormTypes.h"
 #include "D2Unicode.h"
 
 struct D2LaunchCharInfoStrc;
@@ -16,18 +17,6 @@ struct D2ChatMessageStrc
     D2ChatMessageStrc* pNext;
 };
 extern unsigned char gnSelectModeA_0070CD62; // 0x0070CD62
-
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    unsigned int lParam;
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
 
 int __fastcall sub_004F9190(); // 0x004F9190
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
@@ -49,6 +38,7 @@ int __fastcall D2Win_10016(); // 0x004FA550
 extern int gbDone_0077BDA0; // 0x0077BDA0
 void __cdecl sub_00440980_OpenClassSelectB(); // 0x00440980
 int __cdecl sub_00442810_SendChatBuffer(); // 0x00442810
+
 
 void __fastcall D2Win_10044(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FD060
 extern D2WinControlInitStrc gtWaitInit_0070D3C0; // 0x0070D3C0

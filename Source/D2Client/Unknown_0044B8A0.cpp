@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2StormLink.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -43,31 +44,6 @@ extern D2ClientCharRecordStrc* gpCharRecord_007A0438; // 0x007A0438
 extern int (__cdecl* gpfnLaunchStates_0070EE54[])(); // 0x0070EE54
 extern unsigned short gwValue_0077905C;
 
-struct D2StormLinkStrc
-{
-    D2StormLinkStrc* m_prevlink;
-    char* m_next;
-
-    D2StormLinkStrc* NextLink(int nLinkOffset)
-    {
-        if ((int)m_next < 0)
-            return (D2StormLinkStrc*)~(unsigned int)m_next;
-        if (nLinkOffset < 0)
-            nLinkOffset = (char*)this - m_prevlink->m_next;
-        return (D2StormLinkStrc*)(m_next + nLinkOffset);
-    }
-    void Unlink()
-    {
-        if (m_prevlink)
-        {
-            NextLink(-1)->m_prevlink = m_prevlink;
-            m_prevlink->m_next = m_next;
-            m_prevlink = 0;
-            m_next = 0;
-        }
-    }
-};
-
 struct D2StormListStrc
 {
     int m_linkoffset;
@@ -99,7 +75,6 @@ struct D2FlagWordStrc
 {
     unsigned short wFlags;
 };
-
 
 void* ghInstance_007A043C; // 0x007A043C
 

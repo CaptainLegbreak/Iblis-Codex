@@ -1,19 +1,6 @@
 #include "D2Client.h"
-
-struct D2SkillsTxt
-{
-    char unk0x00[0x15];
-    unsigned char nSelectProc;
-    char unk0x16[0x226];
-};
-
-struct D2DataTablesStrc
-{
-    char unk0x00[0xB98];
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[0x04];
-    int nSkillsTxtRecordCount;
-};
+#include "D2DataTbls.h"
+#include "D2Txt.h"
 
 typedef int (__fastcall* SKILLSELECTPROC)(D2UnitStrc* pPlayer, D2UnitStrc* pTarget);
 

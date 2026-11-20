@@ -1,13 +1,9 @@
 #include "D2MultiTypes.h"
+#include "D2MultiTypes.h"
 #include "D2Unicode.h"
 #pragma pack(push, 1)
 #pragma pack(pop)
 
-struct T0043E860
-{
-    int nUnk0x00;
-    char szName[0x32];
-};
 
 unsigned int __stdcall SStrLen(const char* szString);                                                       // 0x00413750
 unsigned int __stdcall sub_00414150_HashPath(const char* szPath);                                           // 0x00414150
@@ -21,7 +17,7 @@ void __fastcall sub_0043EA70_ShowMessage(const Unicode* pTitle, const Unicode* p
 int __stdcall sub_0043E900_FindCdKeyInText(const char* szText);                                             // 0x0043E900
 int __cdecl sub_00442810_SendChatBuffer();                                                                  // 0x00442810
 
-extern T0043E860* gpSelectedChannelUser_00798F48;                                                   // 0x00798F48
+extern D2MultiChannelUserStrc* gpSelectedChannelUser_00798F48;                                                   // 0x00798F48
 extern D2LaunchCharInfoStrc* gpCharInfo_0077BBD8;                                                           // 0x0077BBD8
 extern char gszChatBuffer_0077AE40[0x200];                                                                  // 0x0077AE40
 

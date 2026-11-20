@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2ClientGame.h"
 #include "D2Unicode.h"
+#include "D2ClientUi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2SoundUnitNodeStrc;
@@ -13,44 +14,6 @@ struct D2SoundVecStrc;
 struct D2SoundsTxtStrc;
 struct T00481920;
 struct D2SoundNodeStrc;
-
-struct D2DialogLineStrc
-{
-    Unicode wszText[0x78];
-    int nHeight;
-    int nX;
-    int nWidth;
-    int nArg4;
-    int nFont;
-    int nType;
-    int (__cdecl* pfnCallback)();
-    int bEnabled;
-};
-
-struct D2ClientDialogStrc
-{
-    char unk0x00[0x14];
-    int bCountEnabled;
-    char unk0x18[0xC];
-    int nCenterX;
-    int nCenterY;
-    int nX;
-    int nY;
-    int nWidth;
-    int nHeight;
-    char unk0x3C[0x8];
-    int f_44;
-    char unk0x48[0x4];
-    int nEnabled;
-    int nLines;
-    char unk0x54[0x4];
-    int bAutoSize;
-    int nMode;
-    char unk0x60[0x8];
-    D2DialogLineStrc pLines[10];
-    void* pWidgets;
-    D2ClientDialogStrc* pNext;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -214,7 +177,7 @@ void __fastcall sub_004B85F0_AddTextLine(D2ClientDialogStrc* pDialog, const Unic
     tRect.nRight = pDialog->nX + pDialog->nWidth;
     tRect.nBottom = pDialog->nY + pDialog->nHeight;
     sub_00467430(&tRect);
-    if (pDialog->f_44 == -1 && bEnabled)
+    if (pDialog->nHover == -1 && bEnabled)
         sub_004B82F0_Select(pDialog, nIndex);
 }
 

@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2GameTypes.h"
+#include "D2Structs.h"
+#include "D2GameStrc.h"
 
 #define UNITFLAG_SKSRVDOFUNC 0x00000040
 #define ITEMTYPE_MISSILE_POTION 38
@@ -10,34 +12,8 @@ struct D2CoordStrc { int nX; int nY; };
 
 struct D2StaticPathStrc { char unk0x00[0x0C]; D2CoordStrc tGameCoords; };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    unsigned char unk_04[0x08];
-    unsigned int dwUnitId;
-    unsigned char unk_10[0x1C];
-    union
-    {
-        D2StaticPathStrc* pStaticPath;
-        D2DynamicPathStrc* pDynamicPath;
-    };
-    unsigned char unk_30[0x94];
-    unsigned int dwFlags;
-};
-
-enum D2C_UnitTypes { UNIT_OBJECT = 2, UNIT_ITEM = 4, UNIT_TILE = 5 };
-
-
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x00681EF0
 unsigned int __stdcall sub_006417F0(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
-
-struct D2GameStrc
-{
-    unsigned char unk_00[0x1C];
-    void* pMemoryPool;
-    unsigned char unk_20[0x88];
-    unsigned int dwGameFrame;
-};
 
 D2UnitStrc* __fastcall sub_0059FA30(D2GameStrc* pGame, D2MissileStrc* pMissileParams); // 0x0059FA30
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553540
@@ -55,7 +31,6 @@ void __stdcall D2COMMON_10476(D2StatListStrc* pStatList, int nExpireFrame); // 0
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nEventFrame, int a5, int a6); // 0x005417D0
 void __fastcall sub_6FD10E50(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x0056E900
 static __declspec(noinline) void __stdcall D2GAME_SKILLS_SetDelay_6FD11C00(D2GameStrc* pGame, D2UnitStrc* pUnit, int nDelay);
-
 
 D2UnitStrc* __fastcall sub_6FC7C7B0(D2UnitStrc* pUnit); // 0x00535BC0
 int __fastcall sub_0056C2D0_DrainTargetDurability(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillLevel); // 0x0056C2D0

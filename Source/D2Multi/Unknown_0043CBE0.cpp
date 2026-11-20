@@ -26,17 +26,6 @@ struct D2WinMsgStrc
 
 void __fastcall ARCHIVE_FreeCellFile(D2CelFileStrc* pCellFile); // 0x004FAAE0
 
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    unsigned int wParam;
-    unsigned int lParam;
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
 void __fastcall sub_00448BD0_UpdateScroll(int nDelta); // 0x00448BD0
 void __cdecl sub_004477A0_Refresh(); // 0x004477A0
 int __cdecl sub_00449AC0(); // 0x00449AC0
@@ -56,6 +45,7 @@ D2ModuleInterfaceStrc* __fastcall sub_0043CBE0_Init(void* hInstance)
 }
 
 #include "gen/data/Source/D2Multi/Unknown_0043CBE0.inc"
+#include "D2StormTypes.h"
 
 // 0x00515110
 void __cdecl sub_00515110_Nop()

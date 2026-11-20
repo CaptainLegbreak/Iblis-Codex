@@ -1,9 +1,5 @@
 #include "D2WinTypes.h"
-struct Unicode
-{
-    unsigned short wChar;
-};
-
+#include "D2Unicode.h"
 extern D2CharStrc* (__fastcall* gpfGetCharInfo_00841DA0)(int nChar);                                        // 0x00841DA0
 
 inline int D2Win_IsColorCodePrefix(unsigned short wChar)

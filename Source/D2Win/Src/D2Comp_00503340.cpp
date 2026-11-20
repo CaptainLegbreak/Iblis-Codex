@@ -3,6 +3,7 @@
 #include "D2Records.h"
 #include "D2CmpTypes.h"
 #include "D2CmpTypes.h"
+#include "D2Unicode.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define COF_PAD 0x20
@@ -46,13 +47,6 @@ struct D2GfxDataStrc
     D2CelStrc* pCel;
     int nDirection;
     unsigned int dwFlags;
-};
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode(unsigned short ch = 0) : wChar(ch) {}
 };
 
 struct D2CompositeUnitStrc

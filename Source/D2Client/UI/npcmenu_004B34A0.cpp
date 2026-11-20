@@ -2,21 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2ClientMenus.h"
-
-struct D2PlayerDataStrc
-{
-    char unk0x000[0x150];
-    int unk0x150;
-    int unk0x154;
-    int unk0x158;
-    int unk0x15C;
-};
-
-struct D2MonsterDataStrc
-{
-    char unk0x00[0x28];
-    unsigned short wFlags;
-};
+#include "D2UnitData.h"
 
 struct D2NpcMonListPacketStrc
 {
@@ -95,10 +81,10 @@ void __fastcall sub_004B3C20(int nValue)
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         if (pPlayer && pPlayer->dwUnitType == 0 && pPlayer->pPlayerData)
         {
-            pPlayer->pPlayerData->unk0x150 = 0;
-            pPlayer->pPlayerData->unk0x154 = 0;
-            pPlayer->pPlayerData->unk0x158 = 0;
-            pPlayer->pPlayerData->unk0x15C = 0;
+            pPlayer->pPlayerData->nState = 0;
+            pPlayer->pPlayerData->nMode = 0;
+            pPlayer->pPlayerData->nArg1 = 0;
+            pPlayer->pPlayerData->nArg2 = 0;
         }
     }
 
@@ -131,7 +117,7 @@ void __fastcall sub_004B3C20(int nValue)
     {
         if (pUnit->dwUnitType == 1 && pUnit->pMonsterData)
         {
-            pUnit->pMonsterData->wFlags &= ~1;
+            pUnit->pMonsterData->nClientFlags &= ~1;
         }
 
         sub_00480E70_SetUnitMode(pUnit, 1);

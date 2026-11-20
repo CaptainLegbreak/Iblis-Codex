@@ -1,9 +1,6 @@
 #include "D2Win.h"
+#include "D2Unicode.h"
 
-struct Unicode
-{
-    unsigned short wChar;
-};
 struct D2WinListStrc;
 
 typedef int (__stdcall* D2WinMsgHandler)(SMSGHANDLER_PARAMS* pMsg);

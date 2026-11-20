@@ -6,6 +6,8 @@
 #include "D2Records.h"
 #include "D2LevelTxt.h"
 #include "D2GameRecords.h"
+#include "D2DataTbls.h"
+#include "D2GameObjs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define ITEMQUAL_SET 5
@@ -51,16 +53,6 @@ struct D2ItemsTxt;
 struct D2ItemSaveStrc;
 struct D2GSPacketSrv9D;
 
-
-
-struct D2ObjectDataStrc
-{
-    void* pObjectTxt;
-    unsigned char InteractType;
-    unsigned char nPortalFlags;
-};
-
-
 struct D2GSPacketSrv60
 {
     unsigned char nHeader;
@@ -77,21 +69,6 @@ struct D2GSPacketSrv9C
     unsigned char nComponent;
     int nItemId;
     unsigned char pBitstream[244];
-};
-
-
-struct D2DataTablesStrc
-{
-    char unk0x000[0xB98];
-    D2SkillsTxt* pSkillsTxt;
-    void* pSkillsLinker;
-    int nSkillsTxtRecordCount;
-    unsigned char unk_BA4[0x74];
-    D2SetItemsTxt* pSetItemsTxt;
-    int nSetItemsTxtRecordCount;
-    char unk0xC20[0x04];
-    D2UniqueItemsTxt* pUniqueItemsTxt;
-    int nUniqueItemsTxtRecordCount;
 };
 
 struct D2GfxMotionStrc
@@ -307,7 +284,6 @@ int __stdcall ITEMS_CheckRequirements(D2UnitStrc* pItem, D2UnitStrc* pUnit, int 
 int __stdcall ITEMS_GetQuiverType(D2UnitStrc* pItem); // 0x0062E740
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 
-
 #pragma pack(push, 1)
 struct D2GSPacketSrv7DStrc
 {
@@ -354,8 +330,6 @@ void __stdcall SKILLS_SetRightActiveSkill(D2UnitStrc* pUnit, int nSkillId, int n
 int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine); // 0x00643CE0
 void __stdcall ITEMMODS_AssignProperty(int nType, D2UnitStrc* a2, D2UnitStrc* pItem, const void* pMods, int nPropSet, int nApplyType); // 0x0065FEC0
 int __stdcall ITEMS_UpdateSets(D2UnitStrc* pUnit, D2UnitStrc* pItem, int a3, int a4); // 0x00663CC0
-
-
 
 int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem); // 0x00629DA0
 
@@ -418,7 +392,6 @@ struct D2PacketRecord11Strc
 #pragma pack(pop)
 
 static void sub_004C1350_RefreshEquippedItems(D2UnitStrc* pUnit);
-
 
 #pragma pack(push, 1)
 struct D2GSPacketSrv9D

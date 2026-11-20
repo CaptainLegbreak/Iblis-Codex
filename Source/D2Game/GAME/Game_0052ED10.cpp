@@ -1,43 +1,12 @@
 #include "D2Game.h"
 #include "D2GameTypes.h"
+#include "D2GameStrc.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-
-
-struct D2GameStrc
-{
-    char unk0x0000[0x18];
-    D2CriticalSectionStrc* lpCriticalSection;
-    void* pMemoryPool;
-    char unk0x0020[0x8];
-    unsigned short nGameId;
-    char szGameName[16];
-    char szGamePassword[16];
-    char szGameDesc[32];
-    char unk0x006A;
-    unsigned char nArenaTemplate;
-    unsigned char nMaxLevelDifference;
-    unsigned char nDifficulty;
-    unsigned char nMaxPlayers;
-    char unk0x006F[0xD];
-    unsigned int dwInitSeed;
-    char unk0x0080[0xC];
-    unsigned int nClients;
-    unsigned int dwLastUsedUnitGUID[6];
-    int dwGameFrame;
-    unsigned int nFrameRate;
-    char unk0x00B0[0x1070];
-    D2UnitStrc* pUnitList[5][128];
-    char unk0x1B20[0x250];
-    unsigned int dwPathTypesCount[17];
-    unsigned int nTotalPathTypesCount;
-    char unk0x1DB8[0x4];
-    unsigned int nCreationTimeMs_Or_CPUTargetRatioFP10;
-};
 
 struct D2GameInfoStrc
 {
@@ -139,13 +108,13 @@ int __stdcall GAME_GetGameInformation(unsigned short nGameId, D2GameInfoStrc* pG
 
     if (ptGame->nTotalPathTypesCount)
     {
-        pGameInfo->nPathTowardPct = 100 * ptGame->dwPathTypesCount[PATHTYPE_TOWARD] / ptGame->nTotalPathTypesCount;
-        pGameInfo->nPathClockPct = 100 * ptGame->dwPathTypesCount[PATHTYPE_MON_CIRCLE_CW] / ptGame->nTotalPathTypesCount;
-        pGameInfo->nPathCounterPct = 100 * ptGame->dwPathTypesCount[PATHTYPE_MON_CIRCLE_CCW] / ptGame->nTotalPathTypesCount;
-        pGameInfo->nPathAStarPct = 100 * ptGame->dwPathTypesCount[PATHTYPE_ASTAR] / ptGame->nTotalPathTypesCount;
-        pGameInfo->nPathFoWallPct = 100 * ptGame->dwPathTypesCount[PATHTYPE_WALL_FOLLOW] / ptGame->nTotalPathTypesCount;
+        pGameInfo->nPathTowardPct = 100 * (unsigned int)ptGame->dwPathTypesCount[PATHTYPE_TOWARD] / (unsigned int)ptGame->nTotalPathTypesCount;
+        pGameInfo->nPathClockPct = 100 * (unsigned int)ptGame->dwPathTypesCount[PATHTYPE_MON_CIRCLE_CW] / (unsigned int)ptGame->nTotalPathTypesCount;
+        pGameInfo->nPathCounterPct = 100 * (unsigned int)ptGame->dwPathTypesCount[PATHTYPE_MON_CIRCLE_CCW] / (unsigned int)ptGame->nTotalPathTypesCount;
+        pGameInfo->nPathAStarPct = 100 * (unsigned int)ptGame->dwPathTypesCount[PATHTYPE_ASTAR] / (unsigned int)ptGame->nTotalPathTypesCount;
+        pGameInfo->nPathFoWallPct = 100 * (unsigned int)ptGame->dwPathTypesCount[PATHTYPE_WALL_FOLLOW] / (unsigned int)ptGame->nTotalPathTypesCount;
         pGameInfo->nPathTotalCalls = ptGame->nTotalPathTypesCount;
-        if (ptGame->nTotalPathTypesCount > 200 && pGameInfo->nPathTotalCalls)
+        if ((unsigned int)ptGame->nTotalPathTypesCount > 200 && pGameInfo->nPathTotalCalls)
         {
             memset(ptGame->dwPathTypesCount, 0, sizeof(ptGame->dwPathTypesCount) + sizeof(ptGame->nTotalPathTypesCount));
         }

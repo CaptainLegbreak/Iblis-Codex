@@ -1,12 +1,13 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2ClientGame.h"
+#include "D2Unicode.h"
+#include "D2ClientUi.h"
 struct D2UnitStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct UiControl;
 class SpinnerImplementation;
-struct D2ClientDialogLineStrc;
 struct Unicode;
 struct D2RectStrc;
 struct D2DialogLineStrc;
@@ -33,62 +34,6 @@ struct D2ValueLinkStrc;
 struct D2Packed004B9BC0Strc;
 struct D2Entry004B9CD0Strc;
 struct D2EntryNode004B9CD0Strc;
-
-struct D2ClientDialogLineStrc
-{
-    char unk0x00[0x10C];
-    int bEnabled;
-};
-
-struct Unicode
-{
-    unsigned short ch;
-};
-
-struct D2DialogLineStrc
-{
-    Unicode wszText[0x78];
-    int nHeight;
-    int nX;
-    int nWidth;
-    int nArg4;
-    int nFont;
-    int nType;
-    int (__cdecl* pfnCallback)();
-    int bEnabled;
-};
-
-struct D2ClientDialogStrc
-{
-    unsigned long dwTick;
-    int unk0x04;
-    void* pCelFile;
-    unsigned char unk_0C[0x8];
-    int bCountEnabled;
-    char unk0x18[0xC];
-    int nCenterX;
-    int nCenterY;
-    int nX;
-    int nY;
-    int nWidth;
-    int nHeight;
-    char unk0x3C[0x8];
-    int f_44;
-    int unk0x48;
-    int nEnabled;
-    int nLines;
-    char unk0x54[0x4];
-    int bAutoSize;
-    int nMode;
-    char unk0x60[0x8];
-    union
-    {
-        D2ClientDialogLineStrc aLines[10];
-        D2DialogLineStrc pLines[10];
-    };
-    void* pWidgets;
-    D2ClientDialogStrc* pNext;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -375,18 +320,6 @@ struct D2TimedHintEntryStrc
     unsigned int dwTick;
 };
 
-struct D2TimedHintNodeStrc
-{
-    D2TimedHintEntryStrc* f_0;
-    D2TimedHintNodeStrc* pNext;
-};
-
-struct D2HintCursorStrc
-{
-    char unk0x00[0x60];
-    int nGroup;
-};
-
 D2HintCursorStrc* __fastcall sub_00481860(int nId); // 0x00481860
 int __fastcall sub_005169D0_ListHasKey(void* pKeyList, int nKey); // 0x005169D0
 extern D2TimedHintNodeStrc* gpTimedHintList_007C5458; // 0x007C5458
@@ -442,18 +375,18 @@ void __fastcall sub_004B82F0_Select(D2ClientDialogStrc* pDialog, int nIndex)
     D2_ASSERT(nIndex < pDialog->nLines, 0x4ED);
     if (nIndex == -1)
     {
-        pDialog->f_44 = nIndex;
+        pDialog->nHover = nIndex;
         return;
     }
 
     for (int i = 0; i < pDialog->nLines; ++i)
     {
-        const int* pbEnabled = &pDialog->aLines[i].bEnabled;
+        const int* pbEnabled = &pDialog->pLines[i].bEnabled;
         if (nIndex == i)
         {
             if (*pbEnabled)
             {
-                pDialog->f_44 = nIndex;
+                pDialog->nHover = nIndex;
                 return;
             }
 
@@ -574,7 +507,7 @@ void __fastcall sub_004B85F0_AddTextLine(D2ClientDialogStrc* pDialog, const Unic
     if (nLen > 0x77)
         nLen = 0x77;
     sub_00526790(pDialog->pLines[nIndex].wszText, wszText, nLen);
-    pDialog->pLines[nIndex].wszText[nLen].ch = 0;
+    pDialog->pLines[nIndex].wszText[nLen].wChar = 0;
     if (bEnabled)
         pDialog->nEnabled += 1;
     if (pDialog->bAutoSize)
@@ -587,7 +520,7 @@ void __fastcall sub_004B85F0_AddTextLine(D2ClientDialogStrc* pDialog, const Unic
     tRect.nBottom = pDialog->nY + pDialog->nHeight;
     tRect.nRight = pDialog->nX + pDialog->nWidth;
     sub_00467430(&tRect);
-    if (pDialog->f_44 == -1 && bEnabled)
+    if (pDialog->nHover == -1 && bEnabled)
         sub_004B82F0_Select(pDialog, nIndex);
 }
 
@@ -1227,7 +1160,7 @@ int __fastcall sub_004B9590(int nKey)
     {
         for (D2TimedHintNodeStrc* pNode = gpTimedHintList_007C5458; pNode; pNode = pNode->pNext)
         {
-            D2TimedHintEntryStrc* pEntry = pNode->f_0;
+            D2TimedHintEntryStrc* pEntry = pNode->pEntry;
             if (pEntry->nKey == nKey)
             {
                 return pEntry->nState == 1;
@@ -1242,7 +1175,7 @@ void* __fastcall sub_004B9610(int nHintId)
 {
     for (D2TimedHintNodeStrc* pNode = gpTimedHintList_007C5458; pNode; pNode = pNode->pNext)
     {
-        D2TimedHintEntryStrc* pEntry = pNode->f_0;
+        D2TimedHintEntryStrc* pEntry = pNode->pEntry;
         if (pEntry->nHintId == nHintId)
         {
             return (void*)pEntry->nKey;
@@ -1258,7 +1191,7 @@ int __fastcall sub_004B9B20(int nKey)
     {
         for (D2TimedHintNodeStrc* pNode = gpTimedHintList_007C5458; pNode; pNode = pNode->pNext)
         {
-            D2TimedHintEntryStrc* pEntry = pNode->f_0;
+            D2TimedHintEntryStrc* pEntry = pNode->pEntry;
             if (pEntry->nKey == nKey)
             {
                 return pEntry->nValue1C;
@@ -1275,7 +1208,7 @@ int __fastcall sub_004B9BE0_HasActiveHint(int nKey)
     {
         for (D2TimedHintNodeStrc* pNode = gpTimedHintList_007C5458; pNode; pNode = pNode->pNext)
         {
-            D2TimedHintEntryStrc* pEntry = pNode->f_0;
+            D2TimedHintEntryStrc* pEntry = pNode->pEntry;
             if (pEntry->nKey == nKey)
             {
                 D2HintRecordStrc* pRecord = pEntry->pRecord;
@@ -1295,7 +1228,7 @@ int __cdecl sub_004B9C20_IsSpeechPlaying()
 {
     for (D2TimedHintNodeStrc* pNode = gpTimedHintList_007C5458; pNode; pNode = pNode->pNext)
     {
-        D2TimedHintEntryStrc* pEntry = pNode->f_0;
+        D2TimedHintEntryStrc* pEntry = pNode->pEntry;
         if (pEntry->nState != 2 && pEntry->nHintId >= 0xB76 && pEntry->nHintId <= 0x1230)
         {
             return 1;
@@ -1309,7 +1242,7 @@ int __cdecl sub_004B9C60_IsSongPlaying()
 {
     for (D2TimedHintNodeStrc* pNode = gpTimedHintList_007C5458; pNode; pNode = pNode->pNext)
     {
-        D2TimedHintEntryStrc* pEntry = pNode->f_0;
+        D2TimedHintEntryStrc* pEntry = pNode->pEntry;
         if (pEntry->nState != 2 && pEntry->nHintId >= 0x1231 && pEntry->nHintId <= 0x125A)
         {
             return 1;
@@ -1325,7 +1258,7 @@ int __fastcall sub_004B9CA0_GetHintIdByKey(int nKey)
     {
         for (D2TimedHintNodeStrc* pNode = gpTimedHintList_007C5458; pNode; pNode = pNode->pNext)
         {
-            D2TimedHintEntryStrc* pEntry = pNode->f_0;
+            D2TimedHintEntryStrc* pEntry = pNode->pEntry;
             if (pEntry->nKey == nKey)
             {
                 return pEntry->nHintId;
@@ -1344,8 +1277,8 @@ D2TimedHintEntryStrc* __stdcall sub_004B9690_FindOldestEntry(int nGroup, int nKe
     {
         for (; pNode; pNode = pNode->pNext)
         {
-            D2TimedHintEntryStrc* pEntry = pNode->f_0;
-            if (sub_00481860(pEntry->nHintId)->nGroup == nGroup && pEntry != pExclude && pEntry->nState == 1
+            D2TimedHintEntryStrc* pEntry = pNode->pEntry;
+            if (sub_00481860(pEntry->nHintId)->nOwnerId == nGroup && pEntry != pExclude && pEntry->nState == 1
                 && (!nKey || sub_005169D0_ListHasKey(pEntry->pKeyList, nKey)) && (!pOldest || pEntry->dwTick < pOldest->dwTick))
             {
                 pOldest = pEntry;

@@ -1,25 +1,8 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08[6];
-    D2SeedStrc tSeed;
-    int unk0x28[7];
-    int nSeqCurrentFramePrecise;
-};
-
-
+#include "D2Structs.h"
 
 typedef char cc_M439_D2MissilesTxt_size[sizeof(D2MissilesTxt) == 0x1A4 ? 1 : -1];
-typedef char cc_M439_D2UnitStrc_frame[sizeof(D2UnitStrc) == 0x48 ? 1 : -1];
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 
@@ -51,7 +34,7 @@ void __fastcall sub_004D3540_CltDoSubLoop(D2UnitStrc* pMissile)
     int nFrame = pMissile->nSeqCurrentFramePrecise >> 8;
     if (nFrame == pMissilesTxtRecord->nSubStart - 1)
     {
-        pMissile->nSeqCurrentFramePrecise = (ITEMS_RollLimitedRandomNumber(&pMissile->tSeed, pMissilesTxtRecord->nSubStop - pMissilesTxtRecord->nSubStart) + nFrame) << 8;
+        pMissile->nSeqCurrentFramePrecise = (ITEMS_RollLimitedRandomNumber(&pMissile->pSeed, pMissilesTxtRecord->nSubStop - pMissilesTxtRecord->nSubStart) + nFrame) << 8;
         sub_004D30C0_CltDoCommon(pMissile);
         return;
     }

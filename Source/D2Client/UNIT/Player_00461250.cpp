@@ -6,6 +6,7 @@
 #include "D2Txt.h"
 #include "D2ClientTypes.h"
 #include "D2ClientGame.h"
+#include "D2UnitData.h"
 struct D2ActiveRoomStrc;
 struct D2ClientRecordStrc;
 struct D2DrlgActStrc;
@@ -30,21 +31,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-
-struct D2PlayerDataStrc
-{
-    char unk0x000[0x150];
-    int nState;
-    int nMode;
-    int nArg1;
-    int nArg2;
-};
-
-struct D2MonsterDataStrc
-{
-    char unk0x00[0x28];
-    unsigned short nClientFlags;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern unsigned int gdwBitMasks[]; // 0x006CE268

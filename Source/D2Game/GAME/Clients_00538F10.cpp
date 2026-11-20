@@ -1,4 +1,6 @@
 #include "D2Structs.h"
+#include "D2GameStrc.h"
+#include "D2GameRecords.h"
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
@@ -9,21 +11,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 #define CLIENTFLAGEX_SAVE_LOADED 0x10
 #define WARP_ATTEMPT_EXPIRATION_FRAMES 0x8CA
 #define NUM_WARP_ATTEMPT_SLOTS 5
-
-
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x88];
-    unsigned int dwGameFrame;
-};
-
-struct D2PacketDataStrc
-{
-    char unk0x000[0x204];
-    D2PacketDataStrc* pNext;
-};
 
 struct D2ClientStrc
 {
@@ -113,7 +100,7 @@ void __fastcall CLIENTS_NotifyWarpAttempt(D2GameStrc* pGame, D2UnitStrc* hUnit)
     for (int i = 0; i < NUM_WARP_ATTEMPT_SLOTS; ++i)
     {
         const int nLastWarpFrame = ptClient->aLastWarpAttemptsFrame[i];
-        if (!nLastWarpFrame || pGame->dwGameFrame - nLastWarpFrame > WARP_ATTEMPT_EXPIRATION_FRAMES)
+        if (!nLastWarpFrame || (unsigned int)pGame->dwGameFrame - nLastWarpFrame > WARP_ATTEMPT_EXPIRATION_FRAMES)
         {
             ptClient->aLastWarpAttemptsFrame[i] = pGame->dwGameFrame;
             return;
@@ -132,7 +119,7 @@ int __fastcall CLIENTS_ShouldDelayWarpAttempt(D2GameStrc* pGame, D2UnitStrc* hUn
     for (int i = 0; i < NUM_WARP_ATTEMPT_SLOTS; ++i)
     {
         const int nLastWarpFrame = pClient->aLastWarpAttemptsFrame[i];
-        if (!nLastWarpFrame || pGame->dwGameFrame - nLastWarpFrame > WARP_ATTEMPT_EXPIRATION_FRAMES)
+        if (!nLastWarpFrame || (unsigned int)pGame->dwGameFrame - nLastWarpFrame > WARP_ATTEMPT_EXPIRATION_FRAMES)
         {
             return 0;
         }

@@ -3,21 +3,10 @@
 #include "D2Unicode.h"
 
 struct Unicode;
-struct T0043E860;
 struct D2ChannelEntryStrc;
 struct D2LaunchCharInfoStrc;
 
-struct T0043E860
-{
-    int nUnk0x00;
-    char szName[0x32];
-    char szText[0x50];
-    unsigned char nClass;
-    char unk0x87[0x15];
-    D2CompositeStrc* f_9C;
-    char unk0xA0[0x10];
-    T0043E860* pNext;
-};
+
 extern "C" unsigned int __cdecl strlen(const char* szString);
 extern "C" int __cdecl strcmp(const char* szA, const char* szB);
 int __fastcall sub_0043E610_PrintText(Unicode* pText, int nColor); // 0x0043E610
@@ -25,14 +14,14 @@ int __fastcall sub_0043E630_ShowChannelText(Unicode* pText); // 0x0043E630
 void __stdcall sub_00446A90_RemoveTableString(Unicode* pText); // 0x00446A90
 void __cdecl sub_00448050_ClearSelectedUser(); // 0x00448050
 void __fastcall sub_00448BD0_UpdateScroll(int nDelta); // 0x00448BD0
-T0043E860* __stdcall sub_00449050_AddEntry(const char* szText, int nLength, int nA); // 0x00449050
+D2MultiChannelUserStrc* __stdcall sub_00449050_AddEntry(const char* szText, int nLength, int nA); // 0x00449050
 int __stdcall sub_005041B0_Destroy(D2CompositeStrc* pComposite, int nFlag); // 0x005041B0
 Unicode* __fastcall sub_00526E40_Utf8ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526E40
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 extern char gData_00798D30[]; // 0x00798D30
-extern T0043E860* gpChannelUsers_00798F34; // 0x00798F34
+extern D2MultiChannelUserStrc* gpChannelUsers_00798F34; // 0x00798F34
 extern int gnChannelLines_00798F40; // 0x00798F40
-extern T0043E860* gpSelectedChannelUser_00798F48; // 0x00798F48
+extern D2MultiChannelUserStrc* gpSelectedChannelUser_00798F48; // 0x00798F48
 
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 extern D2WinControlStrc* gapChatButtons_0077AD78[]; // 0x0077AD78
@@ -55,7 +44,7 @@ static __declspec(noinline) int __stdcall sub_00447AB0_AddChatLine(const char* s
 // 0x00449350
 static __declspec(noinline) void sub_00449350_ShowUserJoined(const char* szName, int nLength, int nA)
 {
-    T0043E860* pUser = sub_00449050_AddEntry(szName, nLength, nA);
+    D2MultiChannelUserStrc* pUser = sub_00449050_AddEntry(szName, nLength, nA);
     if (!gbShowJoinLeave_0077BD54)
     {
         return;
@@ -83,8 +72,8 @@ int __fastcall sub_004493C0_OnUserJoin(int nA, int nB, const char* szText, int n
 // 0x004493E0
 void __stdcall sub_004493E0_RemoveChannelUser(const char* szName)
 {
-    T0043E860* pPrev = 0;
-    T0043E860* pUser = gpChannelUsers_00798F34;
+    D2MultiChannelUserStrc* pPrev = 0;
+    D2MultiChannelUserStrc* pUser = gpChannelUsers_00798F34;
     if (gpChannelUsers_00798F34)
     {
     while (pUser)
@@ -145,8 +134,8 @@ void __stdcall sub_004493E0_RemoveChannelUser(const char* szName)
             sub_00448050_ClearSelectedUser();
         }
 
-        sub_005041B0_Destroy(pUser->f_9C, 1);
-        pUser->f_9C = 0;
+        sub_005041B0_Destroy(pUser->pComposite, 1);
+        pUser->pComposite = 0;
         FOG_Free(pUser, ".\\Src\\ComCallback.cpp", 0x7FE, 0);
     }
     }
@@ -172,12 +161,12 @@ void __cdecl sub_004495A0_ClearChannel()
 {
     char szText[0x100];
     sub_00448050_ClearSelectedUser();
-    T0043E860* pUser = gpChannelUsers_00798F34;
+    D2MultiChannelUserStrc* pUser = gpChannelUsers_00798F34;
     while (pUser)
     {
-        T0043E860* pNext = pUser->pNext;
-        sub_005041B0_Destroy(pUser->f_9C, 1);
-        pUser->f_9C = 0;
+        D2MultiChannelUserStrc* pNext = pUser->pNext;
+        sub_005041B0_Destroy(pUser->pComposite, 1);
+        pUser->pComposite = 0;
         FOG_Free(pUser, ".\\Src\\ComCallback.cpp", 0x822, 0);
         pUser = pNext;
     }
