@@ -1,10 +1,6 @@
+#include "D2Primitives.h"
 struct D2CriticalSectionStrc;
 
-struct D2FileTimeStrc
-{
-    unsigned long dwLowDateTime;
-    unsigned long dwHighDateTime;
-};
 
 struct D2BnDownloadRecordStrc
 {

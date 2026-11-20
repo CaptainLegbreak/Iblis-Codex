@@ -1,14 +1,10 @@
 #include "D2BNClient.h"
+#include "D2Primitives.h"
 
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-struct D2FileTimeStrc
-{
-    unsigned long dwLowDateTime;
-    unsigned long dwHighDateTime;
-};
 
 struct D2SockAddrInStrc
 {

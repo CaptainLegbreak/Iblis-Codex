@@ -1,5 +1,6 @@
 #include "Storm.h"
 #include "D2GameTypes.h"
+#include "D2Primitives.h"
 
 
 struct D2StormLinkStrc
@@ -57,11 +58,6 @@ struct D2StormHashEntryStrc
     int nBlockIndex;
 };
 
-struct D2FileTimeStrc
-{
-    unsigned int dwLowDateTime;
-    unsigned int dwHighDateTime;
-};
 
 struct D2StormBlockStrc
 {

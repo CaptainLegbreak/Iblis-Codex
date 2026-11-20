@@ -1,5 +1,6 @@
 #include "Storm.h"
 #include "D2GameTypes.h"
+#include "D2Primitives.h"
 
 struct T00410B70;
 struct D2BitBufferStrc;
@@ -24,14 +25,6 @@ typedef unsigned int Word;
 
 enum { ROUND_BITS = 7, TAIL_HIGH = 2 };
 
-struct D2BitBufferStrc
-{
-    unsigned char* pBuffer;
-    int nBits;
-    int nPos;
-    int nPosBits;
-    int bFull;
-};
 
 struct D2BitCodeStrc
 {

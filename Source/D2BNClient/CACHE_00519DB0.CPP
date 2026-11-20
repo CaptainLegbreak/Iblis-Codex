@@ -1,4 +1,5 @@
 #include "D2BNClient.h"
+#include "D2Primitives.h"
 
 struct D2CacheHeaderStrc
 {
@@ -22,11 +23,6 @@ struct D2CacheBlockEntryStrc
     unsigned int dwFieldB;
 };
 
-struct D2FileTimeStrc
-{
-    unsigned int dwLow;
-    unsigned int dwHigh;
-};
 
 struct D2CacheRecordStrc
 {
@@ -347,19 +343,19 @@ int __fastcall sub_00519DB0_WriteCacheFile(const char* szName, const void* pData
     tRecord.dwSize = 0x144;
 
     const D2FileTimeStrc* pTime1 = sub_00518F30_GetCacheFileTime(0);
-    tRecord.qwTime1.dwLow = pTime1->dwLow;
-    tRecord.qwTime1.dwHigh = pTime1->dwHigh;
-    tRecord.qwFileTime.dwLow = pFileTime->dwLow;
-    tRecord.qwFileTime.dwHigh = pFileTime->dwHigh;
+    tRecord.qwTime1.dwLowDateTime = pTime1->dwLowDateTime;
+    tRecord.qwTime1.dwHighDateTime = pTime1->dwHighDateTime;
+    tRecord.qwFileTime.dwLowDateTime = pFileTime->dwLowDateTime;
+    tRecord.qwFileTime.dwHighDateTime = pFileTime->dwHighDateTime;
     const D2FileTimeStrc* pTime2 = sub_00518F30_GetCacheFileTime(nSeconds1);
-    tRecord.qwTime2.dwLow = pTime2->dwLow;
-    tRecord.qwTime2.dwHigh = pTime2->dwHigh;
+    tRecord.qwTime2.dwLowDateTime = pTime2->dwLowDateTime;
+    tRecord.qwTime2.dwHighDateTime = pTime2->dwHighDateTime;
     const D2FileTimeStrc* pTime3 = sub_00518F30_GetCacheFileTime(nSeconds2);
-    tRecord.qwTime3.dwLow = pTime3->dwLow;
-    tRecord.qwTime3.dwHigh = pTime3->dwHigh;
+    tRecord.qwTime3.dwLowDateTime = pTime3->dwLowDateTime;
+    tRecord.qwTime3.dwHighDateTime = pTime3->dwHighDateTime;
     const D2FileTimeStrc* pTime4 = sub_00518F30_GetCacheFileTime(0);
-    tRecord.qwTime4.dwLow = pTime4->dwLow;
-    tRecord.qwTime4.dwHigh = pTime4->dwHigh;
+    tRecord.qwTime4.dwLowDateTime = pTime4->dwLowDateTime;
+    tRecord.qwTime4.dwHighDateTime = pTime4->dwHighDateTime;
     strcpy(tRecord.szName, szName);
     tRecord.dwDataCrc = sub_00518DE0_Crc32(pData, nSize);
     {

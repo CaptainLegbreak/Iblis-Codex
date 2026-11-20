@@ -4,6 +4,7 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2UnitData.h"
+#include "D2Primitives.h"
 struct D2ClientStrc;
 struct D2StatListStrc;
 struct D2StatStrc;
@@ -43,14 +44,6 @@ void __fastcall PLRINTRO_CopyNpcIntroFlagsToBuffer(D2PlrIntroStrc* pPlayerIntro,
 
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
 
-struct D2BitBufferStrc
-{
-    unsigned char* pBuffer;
-    int nBits;
-    int nPos;
-    int nPosBits;
-    int bFull;
-};
 
 
 

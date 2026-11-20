@@ -1,4 +1,5 @@
 #include "D2BNClient.h"
+#include "D2Primitives.h"
 
 #define FD_ZERO(set) (((D2FdSetStrc*)(set))->fd_count = 0)
 #define FD_SET(fd, set) do { \
@@ -13,11 +14,6 @@ struct D2SockAddrInStrc;
 struct D2BnStateStrc;
 struct D2BnServerEntryStrc;
 
-struct D2FileTimeStrc
-{
-    unsigned long dwLowDateTime;
-    unsigned long dwHighDateTime;
-};
 
 struct D2BnCheckAdReplyStrc
 {

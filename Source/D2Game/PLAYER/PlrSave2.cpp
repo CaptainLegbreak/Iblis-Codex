@@ -4,6 +4,7 @@
 #include "D2Txt.h"
 #include "D2UnitData.h"
 #include "D2QuestData.h"
+#include "D2Primitives.h"
 struct D2ClientStrc;
 struct D2InventoryStrc;
 
@@ -200,14 +201,6 @@ D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x
 D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
 D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
 
-struct D2BitBufferStrc
-{
-    unsigned char* pBuffer;
-    int nBits;
-    int nPos;
-    int nPosBits;
-    int bFull;
-};
 
 
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268

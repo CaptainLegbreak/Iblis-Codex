@@ -5,6 +5,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2UnitData.h"
+#include "D2Primitives.h"
 
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
@@ -90,14 +91,6 @@ struct D2GSPacketSrv8D
 
 
 
-struct D2BitBufferStrc
-{
-    unsigned char* pBuffer;
-    int nBits;
-    int nPos;
-    int nPosBits;
-    int bFull;
-};
 
 
 

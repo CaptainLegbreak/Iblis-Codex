@@ -63,11 +63,6 @@ inline void* operator new(unsigned int, void* pPlace) throw();
 extern "C" size_t __cdecl strlen(const char* szString);
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 
-struct D2FileTimeStrc
-{
-    unsigned long dwLowDateTime;
-    unsigned long dwHighDateTime;
-};
 
 extern "C" __declspec(dllimport) int __stdcall SystemTimeToFileTime(const D2SystemTimeStrc* pSystemTime, D2FileTimeStrc* pFileTime); // 0x006CC26C
 int __fastcall sub_00519DB0_WriteCacheFile(const char* szName, const void* pData, unsigned int nSize, const D2FileTimeStrc* pFileTime, unsigned int nSeconds1, unsigned int nSeconds2); // 0x00519DB0
@@ -86,6 +81,7 @@ void __fastcall sub_0051D260_SelectVersion(int bAlternate)
 }
 
 #include "gen/data/Source/D2BNClient/BNNews.inc"
+#include "D2Primitives.h"
 
 inline unsigned int RoundUp(unsigned int nValue, unsigned int nAlign)
 {

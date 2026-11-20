@@ -1,8 +1,4 @@
-struct D2BitBufferStrc
-{
-    unsigned char* pBuffer;
-    char unk0x04[0x10];
-};
+#include "D2Primitives.h"
 
 int __stdcall sub_00410B30(unsigned char* pBitBuffer, int nBit);                                    // 0x00410B30
 void __stdcall sub_00410B10(unsigned char* pBitBuffer, int nBit);                                   // 0x00410B10

@@ -6,6 +6,7 @@
 #include "D2LevelTxt.h"
 #include "D2GameRecords.h"
 #include "D2TxtTables.h"
+#include "D2Primitives.h"
 #define STAT_ITEM_INDESCTRUCTIBLE 152
 #define IFLAG_IDENTIFIED 0x00000010
 #define NODEPAGE_STORAGE 1
@@ -166,14 +167,6 @@ struct D2ItemsTxt
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268
 
-struct D2BitBufferStrc
-{
-    unsigned char* pBuffer;
-    int nBits;
-    int nPos;
-    int nPosBits;
-    int bFull;
-};
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625480
 int __stdcall STATLIST_GetMaxDurabilityFromUnit(D2UnitStrc* pUnit); // 0x00625E00

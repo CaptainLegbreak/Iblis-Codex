@@ -1,12 +1,8 @@
+#include "D2Primitives.h"
 typedef unsigned int size_t;
 extern "C" size_t __cdecl strlen(const char* szString);
 #pragma intrinsic(strlen)
 
-struct D2FileTimeStrc
-{
-    unsigned long dwLowDateTime;
-    unsigned long dwHighDateTime;
-};
 
 struct D2BnClientIdReplyStrc
 {
