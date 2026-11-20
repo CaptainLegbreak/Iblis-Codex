@@ -11,7 +11,7 @@ Generated from the build data. Every address below is a virtual address in the 1
 | Game.exe bytes built from source (code, generated data, runtime, imports, linker output, padding) | 3,578,776 of 3,618,792 (98.89 %) |
 | Game.exe bytes taken from your Game.exe (unmatched code, undefined data, resources, stamps, signature) | 40,016 |
 | Output SHA-256 equals the original | yes |
-| Names: blizzard / d2moo / placeholder | 222 / 4367 / 10338 |
+| Names: blizzard / d2moo / placeholder | 247 / 4367 / 10313 |
 
 Bytes of the built Game.exe by origin:
 
@@ -519,4 +519,4 @@ Not listed one by one: 2334 functions are compiled with `/GS-` and 91 with `/EHs
 
 ## Names
 
-`names.csv` gives the source of every function name: 222 `blizzard`, 4367 `d2moo`, 10338 `placeholder`. Placeholder names (mostly `sub_<address>_<Verb>`) are waiting for a real name.
+`names.csv` gives the source of every function name: 247 `blizzard`, 4367 `d2moo`, 10313 `placeholder`. Placeholder names (mostly `sub_<address>_<Verb>`) are waiting for a real name.

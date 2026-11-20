@@ -5,7 +5,7 @@ struct D2StormBigStrc;
 void __stdcall SBigNew(D2StormBigStrc** ppBig);                                                             // 0x00423950
 void __stdcall SBigDel(D2StormBigStrc* pBig);                                                               // 0x00424E40
 int __stdcall sub_00423850(void* hBig, const void* pData, unsigned int nSize);                              // 0x00423850
-void __stdcall sub_00423B30(void* hBig, void* pBuffer, unsigned int nSize, unsigned int* pRead);            // 0x00423B30
+void __stdcall SBigToBinaryBuffer(void* hBig, void* pBuffer, unsigned int nSize, unsigned int* pRead);            // 0x00423B30
 void __stdcall sub_00425330(void* hResult, void* hArg1, void* hArg2, void* hArg3);                          // 0x00425330
 
 struct D2StormHandleStrc
@@ -24,7 +24,7 @@ struct D2StormHandleStrc
     void* ReadFill(void* pBuffer, unsigned int nSize)
     {
         unsigned int nRead;
-        sub_00423B30(hHandle, pBuffer, nSize, &nRead);
+        SBigToBinaryBuffer(hHandle, pBuffer, nSize, &nRead);
         if (nRead < nSize)
             sub_0041D300_ZeroMemory((char*)pBuffer + nRead, nSize - nRead);
         return pBuffer;

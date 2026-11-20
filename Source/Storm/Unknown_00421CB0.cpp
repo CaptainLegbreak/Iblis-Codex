@@ -156,7 +156,7 @@ void __stdcall SBigToBinaryArray(D2StormBigStrc* pBig, D2StormArrayBStrc* pArray
 }
 
 // 0x00423B30
-void __stdcall sub_00423B30(void* hBig, void* pBuffer, unsigned int nSize, unsigned int* pRead)
+void __stdcall SBigToBinaryBuffer(void* hBig, void* pBuffer, unsigned int nSize, unsigned int* pRead)
 {
     D2StormBigStrc* pBig = (D2StormBigStrc*)hBig;
     sub_004235F0_ToBinary(&pBig->tBuffer, &pBig->tQueue);

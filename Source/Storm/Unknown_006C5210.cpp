@@ -261,10 +261,10 @@ static int __fastcall sub_006C5210_DecodeTgaPixels(const D2TargaHeaderStrc* pHea
     return 1;
 }
 
-static __declspec(noinline) int __stdcall sub_006C5730_DecodeTga(const D2TgaFieldsStrc* pHeader, unsigned int nSize, T004F51E0* pPalette, unsigned char* pDst, int nDstSize, int* pWidth, int* pHeight, int* pDepth);
+static __declspec(noinline) int __stdcall DecodeTgaMem(const D2TgaFieldsStrc* pHeader, unsigned int nSize, T004F51E0* pPalette, unsigned char* pDst, int nDstSize, int* pWidth, int* pHeight, int* pDepth);
 
 // 0x006C5730
-static int __stdcall sub_006C5730_DecodeTga(const D2TgaFieldsStrc* pHeader, unsigned int nSize, T004F51E0* pPalette, unsigned char* pDst, int nDstSize, int* pWidth, int* pHeight, int* pDepth)
+static int __stdcall DecodeTgaMem(const D2TgaFieldsStrc* pHeader, unsigned int nSize, T004F51E0* pPalette, unsigned char* pDst, int nDstSize, int* pWidth, int* pHeight, int* pDepth)
 {
     if (nSize < 18)
     {
@@ -485,11 +485,11 @@ static void __stdcall sub_006C5CF0_DecodeRle(unsigned char* pDst, unsigned int n
     }
 }
 
-__declspec(noinline) static int __stdcall sub_006C6990_DecodePcx(int* pWidth, const unsigned char* pData, int nDataSize, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pHeight, int* pBitDepth);
-static int __stdcall sub_006C6990_DecodePcx(int* pWidth, const unsigned char* pData, int nDataSize, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pHeight, int* pBitDepth); // 0x006C6990
+__declspec(noinline) static int __stdcall DecodePcxMem(int* pWidth, const unsigned char* pData, int nDataSize, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pHeight, int* pBitDepth);
+static int __stdcall DecodePcxMem(int* pWidth, const unsigned char* pData, int nDataSize, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pHeight, int* pBitDepth); // 0x006C6990
 
 // 0x006C6990
-static int __stdcall sub_006C6990_DecodePcx(int* pWidth, const unsigned char* pData, int nDataSize, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pHeight, int* pBitDepth)
+static int __stdcall DecodePcxMem(int* pWidth, const unsigned char* pData, int nDataSize, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pHeight, int* pBitDepth)
 {
     const int nWidth = *(const unsigned short*)(pData + 8) - *(const unsigned short*)(pData + 4) + 1;
     const int nHeight = *(const unsigned short*)(pData + 0x0A) - *(const unsigned short*)(pData + 6) + 1;
@@ -667,9 +667,9 @@ int __stdcall sub_006C6A80_DecodeImage(int nType, const unsigned char* pData, un
     case 1:
         return sub_006C60F0_DecodeBmp(pWidth, pHeight, (unsigned int*)pBitDepth, pData, pPalette, pPixels, nPixelsSize);
     case 2:
-        return sub_006C6990_DecodePcx(pWidth, pData, nDataSize, pPalette, pPixels, nPixelsSize, pHeight, pBitDepth);
+        return DecodePcxMem(pWidth, pData, nDataSize, pPalette, pPixels, nPixelsSize, pHeight, pBitDepth);
     case 3:
-        return sub_006C5730_DecodeTga((const D2TgaFieldsStrc*)pData, nDataSize, (T004F51E0*)pPalette, pPixels, nPixelsSize, pWidth, pHeight, pBitDepth);
+        return DecodeTgaMem((const D2TgaFieldsStrc*)pData, nDataSize, (T004F51E0*)pPalette, pPixels, nPixelsSize, pWidth, pHeight, pBitDepth);
     }
 
     return 0;

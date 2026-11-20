@@ -1397,7 +1397,7 @@ void __stdcall sub_006460E0_Empty(int nUnused)
 // 0x0052E0E0
 unsigned int D2StormHashTableStrc::sub_0052E0E0_Mask(unsigned int value) {return m_slotmask & value;}
 
-unsigned short __stdcall sub_004166F0_GetWord()
+unsigned short __stdcall SFileGetLocale()
 {
     return gwValue_0077905C;
 }

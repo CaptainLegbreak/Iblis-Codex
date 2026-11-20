@@ -1,6 +1,6 @@
 int __stdcall SFileReadFile(void* hFile, void* pBuffer, unsigned int nToRead, unsigned int* pnRead, void* pOverlapped); // 0x0041B050
 unsigned int __stdcall sub_00416370_StormGetFileSize(void* hFile, unsigned int* pnSizeHigh);                         // 0x00416370
-unsigned long __stdcall sub_004165A0_SetFilePointer(void* hFile, long nDistance, long* pnDistanceHigh, unsigned long dwMoveMethod); // 0x004165A0
+unsigned long __stdcall SFileSetFilePointer(void* hFile, long nDistance, long* pnDistanceHigh, unsigned long dwMoveMethod); // 0x004165A0
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);                   // 0x00413020
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);                           // 0x00412650
 
@@ -43,11 +43,11 @@ static void __stdcall sub_006C5CF0_DecodeRle(unsigned char* pDst, unsigned int n
     pOut[3] = nWidth + nBytesPerLine + nPlanes + pSrc - (const unsigned char*)0;
 }
 
-__declspec(noinline) static int __stdcall sub_006C6790_LoadPcx(void* hFile, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pWidth, int* pHeight, int* pBitDepth);
-static int __stdcall sub_006C6790_LoadPcx(void* hFile, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pWidth, int* pHeight, int* pBitDepth); // 0x006C6790
+__declspec(noinline) static int __stdcall DecodePcxFile(void* hFile, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pWidth, int* pHeight, int* pBitDepth);
+static int __stdcall DecodePcxFile(void* hFile, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pWidth, int* pHeight, int* pBitDepth); // 0x006C6790
 
 // 0x006C6790
-static int __stdcall sub_006C6790_LoadPcx(void* hFile, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pWidth, int* pHeight, int* pBitDepth)
+static int __stdcall DecodePcxFile(void* hFile, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pWidth, int* pHeight, int* pBitDepth)
 {
     PcxHeaderStrc header;
     if (!SFileReadFile(hFile, &header, sizeof(header), 0, 0))
@@ -78,7 +78,7 @@ static int __stdcall sub_006C6790_LoadPcx(void* hFile, unsigned char* pPalette, 
 
     if (pPixels)
     {
-        const int nDataSize = sub_00416370_StormGetFileSize(hFile, 0) - (nBits == 8 ? 0x300 : 0) - sub_004165A0_SetFilePointer(hFile, 0, 0, 1);
+        const int nDataSize = sub_00416370_StormGetFileSize(hFile, 0) - (nBits == 8 ? 0x300 : 0) - SFileSetFilePointer(hFile, 0, 0, 1);
         unsigned char* pData = (unsigned char*)SMemAlloc(nDataSize, ".\\SOURCE\\SBMP.CPP", 1131, 0);
         SFileReadFile(hFile, pData, nDataSize, 0, 0);
         sub_006C5CF0_DecodeRle(pPixels, nPixelsSize, pData, nDataSize - (nBits == 8 ? 1 : 0), nWidth, header.nBytesPerLine, header.nPlanes);
@@ -86,7 +86,7 @@ static int __stdcall sub_006C6790_LoadPcx(void* hFile, unsigned char* pPalette, 
     }
     else if (bPalette)
     {
-        sub_004165A0_SetFilePointer(hFile, -0x300, 0, 2);
+        SFileSetFilePointer(hFile, -0x300, 0, 2);
     }
 
     if (bPalette)
@@ -107,5 +107,5 @@ static int __stdcall sub_006C6790_LoadPcx(void* hFile, unsigned char* pPalette, 
 
 int __stdcall sub_Emit_006C6790(void* hFile, unsigned char* pPalette, unsigned char* pPixels, unsigned int nSize, int* pWidth, int* pHeight, int* pBitDepth)
 {
-    return sub_006C6790_LoadPcx(hFile, pPalette, pPixels, nSize, pWidth, pHeight, pBitDepth) + 2;
+    return DecodePcxFile(hFile, pPalette, pPixels, nSize, pWidth, pHeight, pBitDepth) + 2;
 }

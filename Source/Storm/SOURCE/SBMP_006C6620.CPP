@@ -15,10 +15,10 @@ static __forceinline int SBmpWrite(HANDLE hFile, const void* pData, unsigned lon
     return WriteFile(hFile, pData, nBytes, &written, 0);
 }
 
-static __declspec(noinline) int __stdcall sub_006C6620_SaveGif(HANDLE hFile, const RGBQuad* pPalette, const unsigned char* pPixels, int nWidth, int nHeight);
+static __declspec(noinline) int __stdcall EncodeGif256File(HANDLE hFile, const RGBQuad* pPalette, const unsigned char* pPixels, int nWidth, int nHeight);
 
 // 0x006C6620
-static int __stdcall sub_006C6620_SaveGif(HANDLE hFile, const RGBQuad* pPalette, const unsigned char* pPixels, int nWidth, int nHeight)
+static int __stdcall EncodeGif256File(HANDLE hFile, const RGBQuad* pPalette, const unsigned char* pPixels, int nWidth, int nHeight)
 {
     unsigned char header[13];
     unsigned char marker;
@@ -71,5 +71,5 @@ static int __stdcall sub_006C6620_SaveGif(HANDLE hFile, const RGBQuad* pPalette,
 
 int __stdcall sub_Emit_006C6620(HANDLE hFile, const RGBQuad* pPalette, const unsigned char* pPixels, int nWidth, int nHeight)
 {
-    return sub_006C6620_SaveGif(hFile, pPalette, pPixels, nWidth, nHeight);
+    return EncodeGif256File(hFile, pPalette, pPixels, nWidth, nHeight);
 }

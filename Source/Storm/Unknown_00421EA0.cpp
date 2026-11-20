@@ -511,7 +511,7 @@ void __stdcall SBigToBinaryArray(D2StormBigStrc* pBig, D2StormArrayBStrc* pArray
         pArray->sub_004219F0_Set(pBig->tBuffer.f_4, pBig->tBuffer.f_8);
 }
 
-void __stdcall sub_00423B30(void* hBig, void* pBuffer, unsigned int nSize, unsigned int* pRead)
+void __stdcall SBigToBinaryBuffer(void* hBig, void* pBuffer, unsigned int nSize, unsigned int* pRead)
 {
     D2StormBigStrc* pBig = (D2StormBigStrc*)hBig;
     sub_004235F0_ToBinary(&pBig->tBuffer, &pBig->tQueue);
@@ -681,7 +681,7 @@ void __stdcall sub_00423850(void* hBig, const void* pData, unsigned int nSize)
 }
 
 // 0x00423890
-void __stdcall sub_00423890_FromLengthPrefixed(void* hBig, const void* pData, unsigned int nSize, unsigned int* pnUsed)
+void __stdcall SBigFromStream(void* hBig, const void* pData, unsigned int nSize, unsigned int* pnUsed)
 {
     FROM_LENGTH_PREFIXED((D2StormBigBufferStrc*)hBig, pnUsed, nSize, (const unsigned char*)pData);
 }

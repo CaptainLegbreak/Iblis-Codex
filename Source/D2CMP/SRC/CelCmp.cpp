@@ -2214,7 +2214,7 @@ char* __fastcall sub_00601B60_LinkNext(D2StormLinkStrc* pLink)
     return (int)pLink->m_next > 0 ? pLink->m_next : 0;
 }
 
-unsigned short __stdcall sub_004166F0_GetWord()
+unsigned short __stdcall SFileGetLocale()
 {
     return gwValue_0077905C;
 }

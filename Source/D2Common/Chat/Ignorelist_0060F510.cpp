@@ -183,7 +183,7 @@ char* D2StormHashTable0060F1D0Strc::sub_0060F1D0_Ptr(unsigned int nHashVal, cons
 {
     for (char* pNode = m_slotlistarray.f_8[nHashVal & m_slotmask].Head(); (int)pNode > 0; pNode = m_slotlistarray.f_8[nHashVal & m_slotmask].RawNext(pNode))
     {
-        if (((D2StormNamedNodeStrc*)pNode)->f_0 == nHashVal && !sub_00413590_StrCmpI(((D2StormNamedNodeStrc*)pNode)->f_14, tKey.m_str, 0x7FFFFFFF))
+        if (((D2StormNamedNodeStrc*)pNode)->f_0 == nHashVal && !SStrCmpI(((D2StormNamedNodeStrc*)pNode)->f_14, tKey.m_str, 0x7FFFFFFF))
         {
             return pNode;
         }
@@ -202,7 +202,7 @@ char* D2StormHashTable0060F590Strc::sub_0060F590_InternalFind(unsigned int nHash
 {
     for (char* pNode = m_slotlistarray.f_8[nHashVal & m_slotmask].Head(); (int)pNode > 0; pNode = m_slotlistarray.f_8[nHashVal & m_slotmask].RawNext(pNode))
     {
-        if (((D2StormNamedNodeStrc*)pNode)->f_0 == nHashVal && !sub_00413590_StrCmpI(((D2StormNamedNodeStrc*)pNode)->f_14, tKey.m_str, 0x7FFFFFFF))
+        if (((D2StormNamedNodeStrc*)pNode)->f_0 == nHashVal && !SStrCmpI(((D2StormNamedNodeStrc*)pNode)->f_14, tKey.m_str, 0x7FFFFFFF))
         {
             return pNode;
         }

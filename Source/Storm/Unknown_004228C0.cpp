@@ -96,7 +96,7 @@ struct D2StormBigStackStrc
 
 static void __stdcall sub_00422300_Add(D2StormQueueStrc& a, const D2StormQueueStrc& b, const D2StormQueueStrc& c);
 int __stdcall sub_00425330(void* hHandle, int nArg1, int nArg2, int nArg3); // 0x00425330
-void __stdcall sub_00423B30(void* hHandle, void* pBuffer, unsigned int nSize, unsigned int* pRead); // 0x00423B30
+void __stdcall SBigToBinaryBuffer(void* hHandle, void* pBuffer, unsigned int nSize, unsigned int* pRead); // 0x00423B30
 int __stdcall sub_00423850(void* hHandle, int nArg1, int nArg2); // 0x00423850
 
 struct D2StormHandleRefStrc
@@ -274,7 +274,7 @@ D2StormHandleRefStrc& D2StormHandleRefStrc::sub_00425FE0_Apply(const int& nArg1,
 void* D2StormHandleStrc::sub_00426010_ReadFill(void* pBuffer, unsigned int nSize)
 {
     unsigned int nRead;
-    sub_00423B30(hHandle, pBuffer, nSize, &nRead);
+    SBigToBinaryBuffer(hHandle, pBuffer, nSize, &nRead);
     if (nRead < nSize)
         sub_0041D300_ZeroMemory((char*)pBuffer + nRead, nSize - nRead);
     return pBuffer;

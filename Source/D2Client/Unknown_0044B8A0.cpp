@@ -171,7 +171,7 @@ int __stdcall sub_0044B8A0_LauncherRun(void* hInstance, D2ClientCharRecordStrc* 
 
 #include "gen/data/Source/D2Client/Unknown_0044B8A0.inc"
 
-unsigned short __stdcall sub_004166F0_GetWord()
+unsigned short __stdcall SFileGetLocale()
 {
     return gwValue_0077905C;
 }

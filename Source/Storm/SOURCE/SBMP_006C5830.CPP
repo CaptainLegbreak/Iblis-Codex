@@ -14,9 +14,9 @@ extern "C" __declspec(dllimport) void* __stdcall CreateFileA(const char*, unsign
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void*);
 char* __stdcall SStrChr(const char*, int); // 0x00413490
 extern "C" int __cdecl _stricmp(const char*, const char*); // 0x006841E9
-int __fastcall sub_006C5B60_WritePcx(int nHeight, int nWidth, void* hFile, unsigned char* pPalette, unsigned char* pPixels); // 0x006C5B60
+int __fastcall EncodePcx256File(int nHeight, int nWidth, void* hFile, unsigned char* pPalette, unsigned char* pPixels); // 0x006C5B60
 int __stdcall sub_006C6620_WriteGif(int nWidth, void* hFile, unsigned char* pPalette, unsigned char* pPixels, int nHeight); // 0x006C6620
-int __stdcall sub_006C61C0_WriteBmp(unsigned char* pPalette, void* hFile, unsigned char* pPixels, int nHeight); // 0x006C61C0
+int __stdcall EncodeBmp256File(unsigned char* pPalette, void* hFile, unsigned char* pPixels, int nHeight); // 0x006C61C0
 extern const char gszTga_006FCC7C[]; // 0x006FCC7C
 extern const char gszPcx_006FCC74[]; // 0x006FCC74
 extern const char gszGif_006FCC6C[]; // 0x006FCC6C
@@ -49,7 +49,7 @@ struct D2TgaSourceColorStrc
 };
 
 static __declspec(noinline) char* sub_006C5EE0_FindExtension(char* path);
-static __declspec(noinline) int __stdcall sub_006C5830_WriteTga(void* hFile, const unsigned char* pPixels, const D2TgaSourceColorStrc* pPalette, int nWidth, int nHeight, int nPixelDepth, int nPitch);
+static __declspec(noinline) int __stdcall EncodeTgaFile(void* hFile, const unsigned char* pPixels, const D2TgaSourceColorStrc* pPalette, int nWidth, int nHeight, int nPixelDepth, int nPitch);
 int __stdcall sub_006C6CB0_SaveImage(char* szFile, unsigned char* pPalette, unsigned char* pPixels, int nWidth, int nHeight, int nBits, int nPitch); // 0x006C6CB0
 
 struct D2PaletteColorStrc { unsigned char red, green, blue, alpha; };
@@ -80,7 +80,7 @@ static char* sub_006C5EE0_FindExtension(char* path)
 }
 
 // 0x006C5830
-static int __stdcall sub_006C5830_WriteTga(void* hFile, const unsigned char* pPixels, const D2TgaSourceColorStrc* pPalette, int nWidth, int nHeight, int nPixelDepth, int nPitch)
+static int __stdcall EncodeTgaFile(void* hFile, const unsigned char* pPixels, const D2TgaSourceColorStrc* pPalette, int nWidth, int nHeight, int nPixelDepth, int nPitch)
 {
     unsigned long nWritten;
     D2TargaHeaderStrc header;
@@ -181,7 +181,7 @@ int __stdcall sub_006C6CB0_SaveImage(char* szFile, unsigned char* pPalette, unsi
     {
         if (!_stricmp(pExtension, gszPcx_006FCC74))
         {
-            const int nResult = sub_006C5B60_WritePcx(nHeight, nWidth, hFile, pPalette, pPixels);
+            const int nResult = EncodePcx256File(nHeight, nWidth, hFile, pPalette, pPixels);
             CloseHandle(hFile);
             return nResult;
         }
@@ -195,13 +195,13 @@ int __stdcall sub_006C6CB0_SaveImage(char* szFile, unsigned char* pPalette, unsi
 
         if (!_stricmp(pExtension, gszTga_006FCC7C))
         {
-            const int nResult = sub_006C5830_WriteTga(hFile, pPixels, (const D2TgaSourceColorStrc*)pPalette, nWidth, nHeight, nBits, nPitch);
+            const int nResult = EncodeTgaFile(hFile, pPixels, (const D2TgaSourceColorStrc*)pPalette, nWidth, nHeight, nBits, nPitch);
             CloseHandle(hFile);
             return nResult;
         }
     }
 
-    const int nResult = sub_006C61C0_WriteBmp(pPalette, hFile, pPixels, nHeight);
+    const int nResult = EncodeBmp256File(pPalette, hFile, pPixels, nHeight);
     CloseHandle(hFile);
     return nResult;
 }

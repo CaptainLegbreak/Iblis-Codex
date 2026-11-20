@@ -5,7 +5,7 @@ struct D2FindDataStrc;
 struct D2Storm408ElemStrc;
 struct D2StormArray408Strc;
 
-int __stdcall sub_004164B0_SetBasePath(const char* szPath); // 0x004164B0
+int __stdcall SFileSetBasePath(const char* szPath); // 0x004164B0
 extern int gdwGlobal_008F03C8; // 0x008F03C8
 int __stdcall sub_00419980(const char* szFileName, void** phFile); // 0x00419980
 int __stdcall sub_0041AAD0_StormReadFile(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped, int nArg6, int nArg7); // 0x0041AAD0
@@ -61,7 +61,7 @@ extern "C" const char gszPercentS_006FFC58[]; // 0x006FFC58
 // 0x004067C0
 int __cdecl sub_004067C0_SetBasePathToCurrent()
 {
-    return sub_004164B0_SetBasePath(".\\");
+    return SFileSetBasePath(".\\");
 }
 
 // 0x00413740

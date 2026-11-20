@@ -37,9 +37,9 @@ static __declspec(noinline) void sub_006C5B10_EncodeRow(unsigned char** destinat
   *(*destination)++=value;
  }while(remaining);
 }
-static __declspec(noinline) int __fastcall sub_006C5B60_WritePcx(int width,int height,void* file,D2PaletteStrc* colors,unsigned char* pixels);
+static __declspec(noinline) int __fastcall EncodePcx256File(int width,int height,void* file,D2PaletteStrc* colors,unsigned char* pixels);
 // 0x006C5B60
-static int __fastcall sub_006C5B60_WritePcx(int width,int height,void* file,D2PaletteStrc* colors,unsigned char* pixels)
+static int __fastcall EncodePcx256File(int width,int height,void* file,D2PaletteStrc* colors,unsigned char* pixels)
 {
  const int nWidth=width;
  T006C5B10 header;
@@ -79,5 +79,5 @@ static int __fastcall sub_006C5B60_WritePcx(int width,int height,void* file,D2Pa
 // calling-convention shim (not game code)
 int __stdcall sub_006C5B60_Shim(int nHeight, int nWidth, void* hFile, D2PaletteStrc* pPalette, unsigned char* pPixels)
 {
-    return sub_006C5B60_WritePcx(nWidth, nHeight, hFile, pPalette, pPixels);
+    return EncodePcx256File(nWidth, nHeight, hFile, pPalette, pPixels);
 }

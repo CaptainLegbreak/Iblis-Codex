@@ -10,7 +10,7 @@ extern "C" __declspec(dllimport) void* __stdcall CreateFileA(const char*, unsign
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void*);
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
 void __stdcall SMemZero(void* pDst, unsigned int nSize); // 0x0041D300
-int __fastcall sub_006C5B60_WritePcx(int nHeight, int nWidth, void* hFile, unsigned char* pPalette, unsigned char* pPixels); // 0x006C5B60
+int __fastcall EncodePcx256File(int nHeight, int nWidth, void* hFile, unsigned char* pPalette, unsigned char* pPixels); // 0x006C5B60
 extern const char gszTga_006FCC7C[]; // 0x006FCC7C
 extern const char gszPcx_006FCC74[]; // 0x006FCC74
 extern const char gszGif_006FCC6C[]; // 0x006FCC6C
@@ -53,10 +53,10 @@ static __forceinline int SBmpWrite(void* hFile, const void* pData, unsigned int 
     return WriteFile(hFile, pData, nBytes, &written, 0);
 }
 
-static __declspec(noinline) int __stdcall sub_006C6620_SaveGif(void* hFile, const RGBQuad* pPalette, const unsigned char* pPixels, int nWidth, int nHeight);
+static __declspec(noinline) int __stdcall EncodeGif256File(void* hFile, const RGBQuad* pPalette, const unsigned char* pPixels, int nWidth, int nHeight);
 
 // 0x006C6620
-static int __stdcall sub_006C6620_SaveGif(void* hFile, const RGBQuad* pPalette, const unsigned char* pPixels, int nWidth, int nHeight)
+static int __stdcall EncodeGif256File(void* hFile, const RGBQuad* pPalette, const unsigned char* pPixels, int nWidth, int nHeight)
 {
     unsigned char header[13];
     unsigned char marker;
@@ -144,9 +144,9 @@ static void __stdcall sub_006C59C0_FlipRows(unsigned char* pDst, int nRows, cons
     }
 }
 
-static __declspec(noinline) int __stdcall sub_006C61C0_WriteBmp(void* file, const D2PaletteEntry* palette, const BYTE* pixels, int width, int height);
+static __declspec(noinline) int __stdcall EncodeBmp256File(void* file, const D2PaletteEntry* palette, const BYTE* pixels, int width, int height);
 // 0x006C61C0
-static int __stdcall sub_006C61C0_WriteBmp(void* file, const D2PaletteEntry* palette, const BYTE* pixels, int width, int height)
+static int __stdcall EncodeBmp256File(void* file, const D2PaletteEntry* palette, const BYTE* pixels, int width, int height)
 {
     D2BitmapFileHeader header;
     D2BitmapInfoHeader info;
@@ -218,10 +218,10 @@ struct D2TgaSourceColorStrc
     unsigned char nReserved;
 };
 
-static __declspec(noinline) int __stdcall sub_006C5830_WriteTga(void* hFile, const unsigned char* pPixels, const D2TgaSourceColorStrc* pPalette, int nWidth, int nHeight, int nPixelDepth, int nPitch);
+static __declspec(noinline) int __stdcall EncodeTgaFile(void* hFile, const unsigned char* pPixels, const D2TgaSourceColorStrc* pPalette, int nWidth, int nHeight, int nPixelDepth, int nPitch);
 
 // 0x006C5830
-static int __stdcall sub_006C5830_WriteTga(void* hFile, const unsigned char* pPixels, const D2TgaSourceColorStrc* pPalette, int nWidth, int nHeight, int nPixelDepth, int nPitch)
+static int __stdcall EncodeTgaFile(void* hFile, const unsigned char* pPixels, const D2TgaSourceColorStrc* pPalette, int nWidth, int nHeight, int nPixelDepth, int nPitch)
 {
     unsigned int nWritten;
     D2TargaHeaderStrc header;
@@ -328,27 +328,27 @@ int __stdcall sub_006C6CB0_SaveImage(char* szFile, unsigned char* pPalette, unsi
     {
         if (!_stricmp(pExtension, gszPcx_006FCC74))
         {
-            const int nResult = sub_006C5B60_WritePcx(nHeight, nWidth, hFile, pPalette, pPixels);
+            const int nResult = EncodePcx256File(nHeight, nWidth, hFile, pPalette, pPixels);
             CloseHandle(hFile);
             return nResult;
         }
 
         if (!_stricmp(pExtension, gszGif_006FCC6C))
         {
-            const int nResult = sub_006C6620_SaveGif(hFile, (const RGBQuad*)pPalette, pPixels, nWidth, nHeight);
+            const int nResult = EncodeGif256File(hFile, (const RGBQuad*)pPalette, pPixels, nWidth, nHeight);
             CloseHandle(hFile);
             return nResult;
         }
 
         if (!_stricmp(pExtension, gszTga_006FCC7C))
         {
-            const int nResult = sub_006C5830_WriteTga(hFile, pPixels, (const D2TgaSourceColorStrc*)pPalette, nWidth, nHeight, nBits, nPitch);
+            const int nResult = EncodeTgaFile(hFile, pPixels, (const D2TgaSourceColorStrc*)pPalette, nWidth, nHeight, nBits, nPitch);
             CloseHandle(hFile);
             return nResult;
         }
     }
 
-    const int nResult = sub_006C61C0_WriteBmp(hFile, (const D2PaletteEntry*)pPalette, pPixels, nWidth, nHeight);
+    const int nResult = EncodeBmp256File(hFile, (const D2PaletteEntry*)pPalette, pPixels, nWidth, nHeight);
     CloseHandle(hFile);
     return nResult;
 }

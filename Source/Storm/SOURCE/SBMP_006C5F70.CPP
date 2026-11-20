@@ -38,11 +38,11 @@ static void __stdcall sub_006C59C0_FlipRows(unsigned char* pDst, int nRows, cons
     FOG_AllocPool(0, nDstSize, (const char*)pSrc, nRowBytes, nStride);
 }
 
-__declspec(noinline) static int __stdcall sub_006C5F70_LoadBmpFile(unsigned char* pPalette, int* pWidth, void* hFile, unsigned char* pBuffer, unsigned int nBufferSize, int* pHeight, int* pBitDepth);
-static int __stdcall sub_006C5F70_LoadBmpFile(unsigned char* pPalette, int* pWidth, void* hFile, unsigned char* pBuffer, unsigned int nBufferSize, int* pHeight, int* pBitDepth); // 0x006C5F70
+__declspec(noinline) static int __stdcall DecodeBmpFile(unsigned char* pPalette, int* pWidth, void* hFile, unsigned char* pBuffer, unsigned int nBufferSize, int* pHeight, int* pBitDepth);
+static int __stdcall DecodeBmpFile(unsigned char* pPalette, int* pWidth, void* hFile, unsigned char* pBuffer, unsigned int nBufferSize, int* pHeight, int* pBitDepth); // 0x006C5F70
 
 // 0x006C5F70
-static int __stdcall sub_006C5F70_LoadBmpFile(unsigned char* pPalette, int* pWidth, void* hFile, unsigned char* pBuffer, unsigned int nBufferSize, int* pHeight, int* pBitDepth)
+static int __stdcall DecodeBmpFile(unsigned char* pPalette, int* pWidth, void* hFile, unsigned char* pBuffer, unsigned int nBufferSize, int* pHeight, int* pBitDepth)
 {
     unsigned char aColors[0x400];
     D2BmpFileHeaderStrc tFileHeader;
@@ -122,5 +122,5 @@ static int __stdcall sub_006C5F70_LoadBmpFile(unsigned char* pPalette, int* pWid
 
 int __stdcall sub_Emit_006C5F70(void* hFile, unsigned char* pPalette, unsigned char* pBuffer, unsigned int nBufferSize, int* pWidth, int* pHeight, int* pBitDepth)
 {
-    return sub_006C5F70_LoadBmpFile(pPalette, pWidth, hFile, pBuffer, nBufferSize, pHeight, pBitDepth) + 1;
+    return DecodeBmpFile(pPalette, pWidth, hFile, pBuffer, nBufferSize, pHeight, pBitDepth) + 1;
 }
