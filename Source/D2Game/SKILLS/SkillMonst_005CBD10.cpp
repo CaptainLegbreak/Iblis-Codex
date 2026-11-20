@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2DataTbls.h"
+#include "D2Path.h"
 
 struct D2MonsterRegionStrc;
 struct D2StaticPathStrc;
@@ -58,12 +59,6 @@ enum D2C_F39Constants
     STATLIST_FLAG_8 = 8,
 };
 
-struct D2StaticPathStrc
-{
-    int unk0x00[3];
-    int nXPos;
-    int nYPos;
-};
 
 struct D2ModeChangeStrc
 {
@@ -96,39 +91,7 @@ struct D2GameStrc
     D2MonsterRegionStrc* pMonReg;
 };
 
-union D2SeedStrc
-{
-    struct
-    {
-        unsigned int nLowSeed;
-        unsigned int nHighSeed;
-    };
-    unsigned __int64 lSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    unsigned int dwClassId;
-    char unk0x08[0x04];
-    int dwUnitId;
-    char unk0x10[0x04];
-    D2MonsterDataStrc* pMonsterData;
-    unsigned char unk_18[0x8];
-    D2SeedStrc pSeed;
-    char unk0x28[0x04];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x0C];
-    unsigned int dwSeqSpeed;
-    char unk0x40[0x0E];
-    unsigned char nActionFrame;
-    char unk0x4F[0x75];
-    unsigned int dwFlags;
-};
 
 struct D2DamageStrc
 {
@@ -704,7 +667,7 @@ int __fastcall SKILLS_SrvDo111_FetishAura(D2GameStrc* pGame, D2UnitStrc* pUnit, 
         D2UnitStrc* pFoundUnit = pUnitFindData->pUnitsArray[i];
         if (!sub_00554200(pGame, pUnit, pFoundUnit) && pFoundUnit)
         {
-            switch (pFoundUnit->dwClassId)
+            switch ((unsigned int)pFoundUnit->dwClassId)
             {
             case MONSTER_FETISH1:
             case MONSTER_FETISH2:

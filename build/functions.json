@@ -9209,7 +9209,7 @@
   ["0x00576900", 115, "verified"],
   ["0x00576980", 674, "verified", "?D2GAME_NPC_FillStoreInventory_6FCC7100@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1PAUD2NpcTradeStrc@@@Z"],
   ["0x00576C30", 93, "verified", "?sub_00576C30_AddItemsToTrade@@YIXPAUD2UnitStrc@@PAUD2InventoryStrc@@@Z"],
-  ["0x00576C90", 248, "verified", "?sub_00576C90_RollTraderItemCode@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PAUD2SeedStrc@@HPAIPAH@Z"],
+  ["0x00576C90", 248, "verified", "?sub_00576C90_RollTraderItemCode@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@PATD2SeedStrc@@HPAIPAH@Z"],
   ["0x00576D90", 173, "verified", "sub_00576D90_SpendGold"],
   ["0x00576E40", 132, "verified"],
   ["0x00576ED0", 112, "verified", "sub_00576ED0"],

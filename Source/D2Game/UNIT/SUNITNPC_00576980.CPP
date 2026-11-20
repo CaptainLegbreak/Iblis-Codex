@@ -2,6 +2,7 @@
 #include "D2Constants.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Path.h"
 
 #define STAT_LEVEL 12
 #define ITEMQUAL_NORMAL 2
@@ -15,7 +16,7 @@
 #define FILLSTORE_ASSERT_LINE 713
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define IFLAG_SOCKETED 0x800
-struct D2SeedStrc;
+union D2SeedStrc;
 struct Obj00536B40;
 struct D2ItemsTxt;
 struct D2ItemCacheStrc;
@@ -62,32 +63,9 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 
-struct D2SeedStrc
-{
-    union
-    {
-        struct
-        {
-            unsigned int nLowSeed;
-            unsigned int nHighSeed;
-        };
-        unsigned __int64 lSeed;
-    };
-};
 
 int __fastcall OBJECTS_RollRandomNumber(D2SeedStrc* pSeed, int nMin, int nMax); // 0x004BC500
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    unsigned int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-    char unk0x18[0x48];
-    D2InventoryStrc* pInventory;
-};
 
 D2NpcRecordStrc* __fastcall SUNITPROXY_GetNpcRecordFromUnit(D2GameStrc* pGame, D2UnitStrc* pNpc, int* pIndex); // 0x00535F10
 extern "C" unsigned int __fastcall sub_00536B40(Obj00536B40* pObj); // 0x00536B40
@@ -112,11 +90,6 @@ struct D2PlayerDataStrc
     char szName[16];
 };
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 struct D2ItemDropStrc
 {
@@ -416,7 +389,7 @@ int __fastcall NPC_HandleDialogMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
 
     if (nType == 1)
     {
-        switch (pMonster->dwClassId)
+        switch ((unsigned int)pMonster->dwClassId)
         {
         case 0x93:
         case 0x94:
@@ -443,7 +416,7 @@ int __fastcall NPC_HandleDialogMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
 
     if (nType == 2)
     {
-        switch (pMonster->dwClassId)
+        switch ((unsigned int)pMonster->dwClassId)
         {
         case 0x93:
         case 0xC7:
