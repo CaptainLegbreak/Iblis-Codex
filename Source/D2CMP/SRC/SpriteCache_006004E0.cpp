@@ -861,44 +861,44 @@ static SpriteFile* __stdcall sub_005FE990_LoadSpriteFile(D2CmpSpriteContextStrc*
 }
 
 // 0x006004E0
-int __stdcall D2CMPSpriteRequest(D2CmpSpriteContextStrc* ptCelContext)
+int __stdcall D2CMPSpriteRequest(D2CmpSpriteContextStrc* context)
 {
-    SPRITE_ASSERT(ptCelContext, 0x770);
-    if (ptCelContext->pCel)
+    SPRITE_ASSERT(context, 0x770);
+    if (context->pCel)
     {
-        ptCelContext->pFrame = CelGetHandle(ptCelContext);
+        context->pFrame = CelGetHandle(context);
         return 1;
     }
     char name[0x104];
     char path[0x104];
-    SpriteFile* file = sub_005FE990_LoadSpriteFile(ptCelContext, name, path);
+    SpriteFile* file = sub_005FE990_LoadSpriteFile(context, name, path);
     if (!file)
         return 0;
     unsigned int index = 0;
     unsigned int count = 0;
-    HashNode* node = sub_0060ACE0_GfxHashFind(&gHash_0088DB58, ptCelContext, &index, &count, file);
+    HashNode* node = sub_0060ACE0_GfxHashFind(&gHash_0088DB58, context, &index, &count, file);
     if (node)
     {
         if (*(unsigned char*)&node->entry->nFlags & 1)
-            ptCelContext->dwGfxFlags |= 4;
+            context->dwGfxFlags |= 4;
         return 1;
     }
     if (count > 1 && index > 0 && !(file->flags & 1))
     {
         const unsigned int directions = file->directions;
-        unsigned int frameDirection = (unsigned int)ptCelContext->nDirection * directions;
-        const int directionFlags = *(unsigned char*)&ptCelContext->dwFlags & 4;
+        unsigned int frameDirection = (unsigned int)context->nDirection * directions;
+        const int directionFlags = *(unsigned char*)&context->dwFlags & 4;
         frameDirection >>= 6;
         unsigned int direction = sub_00600CB0_ConvertDirection(frameDirection, directions, count, directionFlags);
         if (file->directions > 1)
             direction = (direction << 6) / file->directions;
         else
             direction = 1;
-        ptCelContext->nDirection = direction;
-        SPRITE_ASSERT(sub_0060ACE0_GfxHashFind(&gHash_0088DB58, ptCelContext, &index, &count, file), 0x7AB);
+        context->nDirection = direction;
+        SPRITE_ASSERT(sub_0060ACE0_GfxHashFind(&gHash_0088DB58, context, &index, &count, file), 0x7AB);
         SPRITE_ASSERT(!index, 0x7AC);
     }
-    if (!path[0] && !sub_005FE610_BuildGfxPath(name, ptCelContext, path))
+    if (!path[0] && !sub_005FE610_BuildGfxPath(name, context, path))
         return 0;
-    return sub_005FFFA0_LoadDC6CacheEntry((D2CmpSpriteFileStrc*)file, index, count, path, ptCelContext);
+    return sub_005FFFA0_LoadDC6CacheEntry((D2CmpSpriteFileStrc*)file, index, count, path, context);
 }

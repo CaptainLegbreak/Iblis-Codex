@@ -493,34 +493,34 @@ D2UnitStrc* __fastcall D2GAME_DropItemAtUnit_6FC4FEC0(D2GameStrc* ptGame, D2Unit
     }
     *pItemLevel = nLevel;
 
-    int nItemIndex = -1;
+    int nItemId = -1;
     if (!pUnit->dwDropItemCode)
     {
-        nItemIndex = ITEMS_SelectRandomDropItemId(ptGame, pSeed, *pItemLevel, nItemType, bIgnoreRarity, bIsMonster);
+        nItemId = ITEMS_SelectRandomDropItemId(ptGame, pSeed, *pItemLevel, nItemType, bIgnoreRarity, bIsMonster);
         if (nQuality == 4)
         {
             int nCounter = 0;
-            D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(nItemIndex);
+            D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(nItemId);
             while (!pItemsTxtRecord || !(pItemsTxtRecord->dwBitField1 & 1))
             {
                 if (nCounter > 10)
                 {
-                    nItemIndex = ITEMMODE_SelectRandomWeaponItemId(ptGame, pSeed, *pItemLevel, nItemType, bIgnoreRarity);
+                    nItemId = ITEMMODE_SelectRandomWeaponItemId(ptGame, pSeed, *pItemLevel, nItemType, bIgnoreRarity);
                 }
                 else
                 {
-                    nItemIndex = ITEMS_SelectRandomDropItemId(ptGame, pSeed, *pItemLevel, nItemType, bIgnoreRarity, bIsMonster);
+                    nItemId = ITEMS_SelectRandomDropItemId(ptGame, pSeed, *pItemLevel, nItemType, bIgnoreRarity, bIsMonster);
                 }
 
-                pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(nItemIndex);
+                pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(nItemId);
                 nCounter += 1;
             }
         }
     }
     else
     {
-        nItemIndex = DATATBLS_GetItemIdFromItemCode(pUnit->dwDropItemCode);
-        D2_ASSERT(nItemIndex != -1, 0x9EA);
+        nItemId = DATATBLS_GetItemIdFromItemCode(pUnit->dwDropItemCode);
+        D2_ASSERT(nItemId != -1, 0x9EA);
     }
 
     D2CoordStrc coords1;
@@ -542,7 +542,7 @@ D2UnitStrc* __fastcall D2GAME_DropItemAtUnit_6FC4FEC0(D2GameStrc* ptGame, D2Unit
         itemDrop.pUnit = pUnit;
         itemDrop.pSeed = 0;
         itemDrop.pGame = ptGame;
-        itemDrop.nId = nItemIndex;
+        itemDrop.nId = nItemId;
         itemDrop.nSpawnType = 3;
         itemDrop.wUnitInitFlags = 1;
 

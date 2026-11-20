@@ -1115,7 +1115,7 @@ void __fastcall DRLGPRESET_AddPresetUnitToDrlgMap(void* pMemPool, D2DrlgMapStrc*
 }
 
 // 0x00667970
-static void __stdcall DRLGPRESET_BuildPresetArea(D2DrlgLevelStrc* pLevel, D2DrlgGridStrc* pDrlgGrid, int nFlags, int bSingleRoom, D2DrlgMapStrc* ptRegion)
+static void __stdcall DRLGPRESET_BuildPresetArea(D2DrlgLevelStrc* pLevel, D2DrlgGridStrc* pDrlgGrid, int nFlags, int bSingleRoom, D2DrlgMapStrc* pDrlgMap)
 {
     D2DrlgStrc* pDrlg = pLevel->pDrlg;
     void* pMemPool = pDrlg->pMempool;
@@ -1133,8 +1133,8 @@ static void __stdcall DRLGPRESET_BuildPresetArea(D2DrlgLevelStrc* pLevel, D2Drlg
 
     DRLGGRID_AlterAllGridFlags(pDrlgGrid, nFlags, 0);
 
-    const int bScan = ptRegion->pLvlPrestTxtRecord->dwScan;
-    const int nPops = ptRegion->pLvlPrestTxtRecord->dwPops;
+    const int bScan = pDrlgMap->pLvlPrestTxtRecord->dwScan;
+    const int nPops = pDrlgMap->pLvlPrestTxtRecord->dwPops;
     int nProcessedPops = 0;
 
     if (!bScan && !nPops)
@@ -1142,26 +1142,26 @@ static void __stdcall DRLGPRESET_BuildPresetArea(D2DrlgLevelStrc* pLevel, D2Drlg
         return;
     }
 
-    DRLGPRESET_LoadDrlgFile(&ptRegion->pFile, pDrlg->hArchive, ptRegion->pLvlPrestTxtRecord->szFile[ptRegion->nPickedFile]);
-    DRLGPRESET_AddPresetUnitToDrlgMap(pMemPool, ptRegion, &pLevel->pSeed);
+    DRLGPRESET_LoadDrlgFile(&pDrlgMap->pFile, pDrlg->hArchive, pDrlgMap->pLvlPrestTxtRecord->szFile[pDrlgMap->nPickedFile]);
+    DRLGPRESET_AddPresetUnitToDrlgMap(pMemPool, pDrlgMap, &pLevel->pSeed);
 
-    D2_ASSERT(ptRegion->pFile->nWidth == ptRegion->pDrlgCoord.nWidth, 0x8B9);
-    D2_ASSERT(ptRegion->pFile->nHeight == ptRegion->pDrlgCoord.nHeight, 0x8BA);
+    D2_ASSERT(pDrlgMap->pFile->nWidth == pDrlgMap->pDrlgCoord.nWidth, 0x8B9);
+    D2_ASSERT(pDrlgMap->pFile->nHeight == pDrlgMap->pDrlgCoord.nHeight, 0x8BA);
 
     if (nPops)
     {
-        ptRegion->pPopsIndex = (int*)FOG_AllocPool(pMemPool, sizeof(int) * nPops, &gszDrlgPresetSourceFile, 0x8BF, 0);
-        ptRegion->pPopsSubIndex = (int*)FOG_AllocPool(pMemPool, sizeof(int) * nPops, &gszDrlgPresetSourceFile, 0x8C0, 0);
-        ptRegion->pPopsOrientation = (int*)FOG_AllocPool(pMemPool, sizeof(int) * nPops, &gszDrlgPresetSourceFile, 0x8C1, 0);
-        ptRegion->pPopsLocation = (D2DrlgCoordStrc*)FOG_AllocPool(pMemPool, sizeof(D2DrlgCoordStrc) * nPops, &gszDrlgPresetSourceFile, 0x8C2, 0);
+        pDrlgMap->pPopsIndex = (int*)FOG_AllocPool(pMemPool, sizeof(int) * nPops, &gszDrlgPresetSourceFile, 0x8BF, 0);
+        pDrlgMap->pPopsSubIndex = (int*)FOG_AllocPool(pMemPool, sizeof(int) * nPops, &gszDrlgPresetSourceFile, 0x8C0, 0);
+        pDrlgMap->pPopsOrientation = (int*)FOG_AllocPool(pMemPool, sizeof(int) * nPops, &gszDrlgPresetSourceFile, 0x8C1, 0);
+        pDrlgMap->pPopsLocation = (D2DrlgCoordStrc*)FOG_AllocPool(pMemPool, sizeof(D2DrlgCoordStrc) * nPops, &gszDrlgPresetSourceFile, 0x8C2, 0);
     }
 
-    memset(ptRegion->pPopsIndex, 0, sizeof(int) * nPops);
-    memset(ptRegion->pPopsSubIndex, 0, sizeof(int) * nPops);
-    memset(ptRegion->pPopsOrientation, 0, sizeof(int) * nPops);
-    memset(ptRegion->pPopsLocation, 0, sizeof(D2DrlgCoordStrc) * nPops);
+    memset(pDrlgMap->pPopsIndex, 0, sizeof(int) * nPops);
+    memset(pDrlgMap->pPopsSubIndex, 0, sizeof(int) * nPops);
+    memset(pDrlgMap->pPopsOrientation, 0, sizeof(int) * nPops);
+    memset(pDrlgMap->pPopsLocation, 0, sizeof(D2DrlgCoordStrc) * nPops);
 
-    D2DrlgFileStrc* pFile = ptRegion->pFile;
+    D2DrlgFileStrc* pFile = pDrlgMap->pFile;
     D2DrlgCoordStrc tDrlgCoord = { 0 };
     D2DrlgGridStrc tTileTypeGrid = { 0 };
     D2DrlgGridStrc tWallGrid = { 0 };
@@ -1211,10 +1211,10 @@ static void __stdcall DRLGPRESET_BuildPresetArea(D2DrlgLevelStrc* pLevel, D2Drlg
                         int nCounter = 0;
                         while (nCounter < nProcessedPops)
                         {
-                            if (ptRegion->pPopsIndex[nCounter] == nIndex)
+                            if (pDrlgMap->pPopsIndex[nCounter] == nIndex)
                             {
-                                ptRegion->pPopsLocation[nCounter].nWidth = nX;
-                                ptRegion->pPopsLocation[nCounter].nHeight = nY;
+                                pDrlgMap->pPopsLocation[nCounter].nWidth = nX;
+                                pDrlgMap->pPopsLocation[nCounter].nHeight = nY;
                                 break;
                             }
 
@@ -1223,18 +1223,18 @@ static void __stdcall DRLGPRESET_BuildPresetArea(D2DrlgLevelStrc* pLevel, D2Drlg
 
                         if (nCounter == nProcessedPops)
                         {
-                            ptRegion->pPopsIndex[nProcessedPops] = nIndex;
-                            ptRegion->pPopsSubIndex[nProcessedPops] = nSubIndex;
-                            ptRegion->pPopsLocation[nProcessedPops].nPosX = nX;
-                            ptRegion->pPopsLocation[nProcessedPops].nPosY = nY;
+                            pDrlgMap->pPopsIndex[nProcessedPops] = nIndex;
+                            pDrlgMap->pPopsSubIndex[nProcessedPops] = nSubIndex;
+                            pDrlgMap->pPopsLocation[nProcessedPops].nPosX = nX;
+                            pDrlgMap->pPopsLocation[nProcessedPops].nPosY = nY;
                             ++nProcessedPops;
                         }
                     }
 
                     if (bScan && nIndex >= 0x1E && nIndex <= 0x21)
                     {
-                        pLevel->pTileInfo[pLevel->nTileInfo].nPosX = nX + ptRegion->pDrlgCoord.nPosX;
-                        pLevel->pTileInfo[pLevel->nTileInfo].nPosY = nY + ptRegion->pDrlgCoord.nPosY;
+                        pLevel->pTileInfo[pLevel->nTileInfo].nPosX = nX + pDrlgMap->pDrlgCoord.nPosX;
+                        pLevel->pTileInfo[pLevel->nTileInfo].nPosY = nY + pDrlgMap->pDrlgCoord.nPosY;
 
                         switch (nIndex)
                         {
@@ -1271,7 +1271,7 @@ static void __stdcall DRLGPRESET_BuildPresetArea(D2DrlgLevelStrc* pLevel, D2Drlg
 
     if (nPops)
     {
-        sub_00666E00(ptRegion, nProcessedPops);
+        sub_00666E00(pDrlgMap, nProcessedPops);
     }
 
     if (bScan)

@@ -363,9 +363,9 @@ static const D2Act5TypeRangeStrc gAct5TypeRanges[10] = // 0x006F2038
 };
 
 // 0x0067E000
-int __fastcall sub_0067E000(D2DrlgLevelStrc* pLevel, int nStyle, int nIndex)
+int __fastcall sub_0067E000(D2DrlgLevelStrc* pLevel, int nType, int nIndex)
 {
-    if (nStyle != 48 && nStyle != 49)
+    if (nType != 48 && nType != 49)
     {
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 388);
         exit(-1);
@@ -375,7 +375,7 @@ int __fastcall sub_0067E000(D2DrlgLevelStrc* pLevel, int nStyle, int nIndex)
     for (int i = 0; i < 10; ++i)
     {
         const D2Act5TypeRangeStrc* pEntry = &gAct5TypeRanges[i];
-        if (nStyle == pEntry->nType && nIndex >= pEntry->nMin && nIndex <= pEntry->nMax)
+        if (nType == pEntry->nType && nIndex >= pEntry->nMin && nIndex <= pEntry->nMax)
         {
             if (bTundra)
             {

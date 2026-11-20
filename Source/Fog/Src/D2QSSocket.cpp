@@ -71,15 +71,15 @@ static void sub_006BC2C0_SetClosing(sub_006BC780_Strc* pThis)
 }
 
 // 0x006BC6A0
-T006BC290* __stdcall sub_006BC6A0_AllocSocketRecord(const char* szIpAddr, int nValue, const char* szLabel)
+T006BC290* __stdcall sub_006BC6A0_AllocSocketRecord(const char* szName, int nValue, const char* szLabel)
 {
-    D2_ASSERT(szIpAddr, 0x242);
-    D2_ASSERT(strlen(szIpAddr) < 0x103, 0x243);
+    D2_ASSERT(szName, 0x242);
+    D2_ASSERT(strlen(szName) < 0x103, 0x243);
     T006BC290* pRecord = (T006BC290*)FOG_Alloc(sizeof(T006BC290), gszSocketFile_006FC418, 0x245, 0);
     if (pRecord)
     {
         memset(pRecord, 0, sizeof(T006BC290));
-        SStrCopy(pRecord->szName, szIpAddr, 0x104);
+        SStrCopy(pRecord->szName, szName, 0x104);
         if (szLabel)
             SStrCopy(pRecord->szLabel, szLabel, 4);
         else

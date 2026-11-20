@@ -637,24 +637,24 @@ int __fastcall sub_004FCDA0_AddWrappedText(D2WinTextBoxStrc* pTextBox, const Uni
 }
 
 // 0x004FCF80
-void __fastcall D2Win_10045(D2WinControlStrc* hChild, const char* szText)
+void __fastcall D2Win_10045(D2WinControlStrc* pControl, const char* szText)
 {
-    D2_ASSERT(hChild, 0x109);
+    D2_ASSERT(pControl, 0x109);
     Unicode wszText[1024];
     sub_00526F20_ToUnicode(wszText, szText, 1024);
-    sub_004FC9B0_SetText(hChild, wszText, 4, 0, 0);
+    sub_004FC9B0_SetText(pControl, wszText, 4, 0, 0);
 }
 
 // 0x004FCFF0
-void __fastcall D2Win_10046(D2WinControlStrc* hChild, const char* szText, int a3)
+void __fastcall D2Win_10046(D2WinControlStrc* pTextBox, const char* szText, int a3)
 {
     Unicode wszText[1024];
     for (int i = 0; i < 1024; ++i)
         wszText[i].wChar = 0;
 
-    D2_ASSERT(hChild, 0x11E);
+    D2_ASSERT(pTextBox, 0x11E);
     sub_00526E40_Utf8ToUnicode(wszText, szText, 1024);
-    sub_004FC9B0_SetText(hChild, wszText, a3, 0, 0);
+    sub_004FC9B0_SetText(pTextBox, wszText, a3, 0, 0);
 }
 
 // build: context sub_004FD340_ImageDrawTiled

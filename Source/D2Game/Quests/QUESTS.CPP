@@ -637,11 +637,11 @@ int __stdcall QUESTS_CheckFirstPickedSet(D2GameStrc* pGame)
 }
 
 // 0x00544720
-void __fastcall QUESTS_SetGlobalState(D2GameStrc* pQuestHead, int nQuestId, int nState)
+void __fastcall QUESTS_SetGlobalState(D2GameStrc* pGame, int nQuestId, int nState)
 {
-    D2_ASSERT(pQuestHead->pQuestControl->bPickedSet, 2080);
+    D2_ASSERT(pGame->pQuestControl->bPickedSet, 2080);
 
-    QUESTRECORD_SetQuestState(pQuestHead->pQuestControl->pQuestFlags, nQuestId, nState);
+    QUESTRECORD_SetQuestState(pGame->pQuestControl->pQuestFlags, nQuestId, nState);
 }
 
 // 0x00544760
@@ -783,22 +783,22 @@ void __fastcall sub_00543DE0_QuestStatusEvent6(D2GameStrc* pGame, D2UnitStrc* pT
 // 0x00543F10
 void __fastcall QUESTS_CreateTimer(D2QuestDataStrc* pQuest, QUESTUPDATE pfnCallback, int nTicks)
 {
-    D2QuestInfoStrc* pQuestHead = pQuest->pGame->pQuestControl;
-    if (!pQuestHead)
+    D2QuestInfoStrc* pQuestControl = pQuest->pGame->pQuestControl;
+    if (!pQuestControl)
     {
         return;
     }
 
-    D2_ASSERT(!pQuestHead->bExecuting, 1047);
+    D2_ASSERT(!pQuestControl->bExecuting, 1047);
 
-    D2QuestTimerStrc* pPrevious = pQuestHead->pTimer;
+    D2QuestTimerStrc* pPrevious = pQuestControl->pTimer;
     D2QuestTimerStrc* pQuestTimer = (D2QuestTimerStrc*)sub_0040B430(pQuest->pGame->pMemoryPool, sizeof(D2QuestTimerStrc), gszQuestsSourceFile, 1050, 0);
     pQuestTimer->pNext = pPrevious;
     pQuestTimer->pfUpdate = pfnCallback;
     pQuestTimer->pQuest = pQuest;
-    pQuestTimer->dwTicks = nTicks + pQuestHead->dwTick;
+    pQuestTimer->dwTicks = nTicks + pQuestControl->dwTick;
     pQuestTimer->dwTimeout = nTicks;
-    pQuestHead->pTimer = pQuestTimer;
+    pQuestControl->pTimer = pQuestTimer;
 }
 
 // 0x00544300

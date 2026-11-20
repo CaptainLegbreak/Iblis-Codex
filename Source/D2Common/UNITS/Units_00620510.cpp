@@ -1569,11 +1569,11 @@ void __stdcall UNITS_GetRightSkillData(D2UnitStrc* pUnit, int* pRightSkillId, in
     }
     else
     {
-        D2PlayerDataStrc* ptInfo = UNITS_GetPlayerData(pUnit);
-        D2_ASSERT(ptInfo, 0x1438);
+        D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pUnit);
+        D2_ASSERT(pPlayerData, 0x1438);
 
-        *pRightSkillId = ptInfo->nRightSkillId;
-        *pRightSkillFlags = ptInfo->nRightSkillFlags;
+        *pRightSkillId = pPlayerData->nRightSkillId;
+        *pRightSkillFlags = pPlayerData->nRightSkillFlags;
     }
 }
 
@@ -1588,11 +1588,11 @@ void __stdcall UNITS_GetLeftSkillData(D2UnitStrc* pUnit, int* pLeftSkillId, int*
     }
     else
     {
-        D2PlayerDataStrc* ptInfo = UNITS_GetPlayerData(pUnit);
-        D2_ASSERT(ptInfo, 0x1449);
+        D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pUnit);
+        D2_ASSERT(pPlayerData, 0x1449);
 
-        *pLeftSkillId = ptInfo->nLeftSkillId;
-        *pLeftSkillFlags = ptInfo->nLeftSkillFlags;
+        *pLeftSkillId = pPlayerData->nLeftSkillId;
+        *pLeftSkillFlags = pPlayerData->nLeftSkillFlags;
     }
 }
 
@@ -1607,16 +1607,16 @@ void __stdcall UNITS_GetSwitchRightSkillDataResetRightSkill(D2UnitStrc* pUnit, i
     }
     else
     {
-        D2PlayerDataStrc* ptInfo = UNITS_GetPlayerData(pUnit);
-        D2_ASSERT(ptInfo, 0x145A);
+        D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pUnit);
+        D2_ASSERT(pPlayerData, 0x145A);
 
-        *pSwitchRightSkillId = ptInfo->nSwitchRightSkillId;
-        *pSwitchRightSkillFlags = ptInfo->nSwitchRightSkillFlags;
+        *pSwitchRightSkillId = pPlayerData->nSwitchRightSkillId;
+        *pSwitchRightSkillFlags = pPlayerData->nSwitchRightSkillFlags;
 
-        ptInfo->nRightSkillId = 0;
-        ptInfo->nRightSkillFlags = -1;
-        ptInfo->nWeaponGUID = -1;
-        ptInfo->unk0x94 = 0;
+        pPlayerData->nRightSkillId = 0;
+        pPlayerData->nRightSkillFlags = -1;
+        pPlayerData->nWeaponGUID = -1;
+        pPlayerData->unk0x94 = 0;
     }
 }
 
@@ -1631,16 +1631,16 @@ void __stdcall UNITS_GetSwitchLeftSkillDataResetLeftSkill(D2UnitStrc* pUnit, int
     }
     else
     {
-        D2PlayerDataStrc* ptInfo = UNITS_GetPlayerData(pUnit);
-        D2_ASSERT(ptInfo, 0x1470);
+        D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pUnit);
+        D2_ASSERT(pPlayerData, 0x1470);
 
-        *pSwitchLeftSkillId = ptInfo->nSwitchLeftSkillId;
-        *pSwitchLeftSkillFlags = ptInfo->nSwitchLeftSkillFlags;
+        *pSwitchLeftSkillId = pPlayerData->nSwitchLeftSkillId;
+        *pSwitchLeftSkillFlags = pPlayerData->nSwitchLeftSkillFlags;
 
-        ptInfo->nLeftSkillId = 0;
-        ptInfo->nLeftSkillFlags = -1;
-        ptInfo->nWeaponGUID = -1;
-        ptInfo->unk0x94 = 0;
+        pPlayerData->nLeftSkillId = 0;
+        pPlayerData->nLeftSkillFlags = -1;
+        pPlayerData->nWeaponGUID = -1;
+        pPlayerData->unk0x94 = 0;
     }
 }
 

@@ -368,13 +368,13 @@ D2WinListStrc* __fastcall LIST_Create(int nX, int nY, int nWidth, int nHeight, D
     for (D2WinListInitStrc* pEntry = pInit; pEntry->nStringId; ++pEntry)
     {
         D2WinListDataStrc* pData = (D2WinListDataStrc*)FOG_Alloc(sizeof(D2WinListDataStrc), ".\\Src\\D2WinList.cpp", 0x56, 0);
-        const Unicode* pszStr = D2LANG_GetStringFromTblIndex((unsigned short)pEntry->nStringId);
-        D2_ASSERT(sub_00526800(pszStr) < 256, 0x58);
-        sub_005267E0(pData->wszText, pszStr);
+        const Unicode* pText = D2LANG_GetStringFromTblIndex((unsigned short)pEntry->nStringId);
+        D2_ASSERT(sub_00526800(pText) < 256, 0x58);
+        sub_005267E0(pData->wszText, pText);
 
         int nTextWidth;
         int nTextHeight;
-        D2Win_10131_GetTextDimensions(pszStr, &nTextWidth, &nTextHeight);
+        D2Win_10131_GetTextDimensions(pText, &nTextWidth, &nTextHeight);
         nTextWidth += 8;
         if (nTextWidth > pList->nWidestEntry)
         {

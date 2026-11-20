@@ -222,10 +222,10 @@ static void __stdcall sub_00574570_ClearPetList(D2UnitStrc* pPlayer, D2PetListSt
 // 0x005746D0
 void __fastcall PLAYERPETS_FreePetsFromPlayerData(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
-    D2PlayerDataStrc* ptInfo = UNITS_GetPlayerData(pUnit);
-    D2_ASSERT(ptInfo, 0x14F);
+    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pUnit);
+    D2_ASSERT(pPlayerData, 0x14F);
 
-    D2PlayerPetStrc* pPlayerPets = ptInfo->pPlayerPets;
+    D2PlayerPetStrc* pPlayerPets = pPlayerData->pPlayerPets;
     if (!pPlayerPets)
     {
         return;
@@ -239,7 +239,7 @@ void __fastcall PLAYERPETS_FreePetsFromPlayerData(D2GameStrc* pGame, D2UnitStrc*
 
     FOG_FreeServerMemory(pGame->pMemoryPool, pPlayerPets->pPetList, gszPlayerPetsSourceFile, 0x161, 0);
     FOG_FreeServerMemory(pGame->pMemoryPool, pPlayerPets, gszPlayerPetsSourceFile, 0x162, 0);
-    ptInfo->pPlayerPets = 0;
+    pPlayerData->pPlayerPets = 0;
 }
 
 // 0x00574850

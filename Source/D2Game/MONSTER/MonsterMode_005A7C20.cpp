@@ -329,34 +329,34 @@ static void __stdcall sub_005A63F0_UpdateModePath(D2GameStrc* pGame, D2UnitStrc*
 // 0x005A7C20
 int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int bClearUsedSkill)
 {
-    D2UnitStrc* hMonster = pModeChange->pUnit;
-    if ((hMonster ? hMonster->dwUnitType : 6) != UNIT_MONSTER)
+    D2UnitStrc* pUnit = pModeChange->pUnit;
+    if ((pUnit ? pUnit->dwUnitType : 6) != UNIT_MONSTER)
     {
         return 0;
     }
 
-    D2DynamicPathStrc* pPath = hMonster->pDynamicPath;
+    D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
     const int nMode = pModeChange->nMode;
 
-    D2_ASSERT(!STATES_CheckState(hMonster, STATE_UNINTERRUPTABLE), 1875);
+    D2_ASSERT(!STATES_CheckState(pUnit, STATE_UNINTERRUPTABLE), 1875);
 
-    if (STATES_CheckState(hMonster, STATE_UNINTERRUPTABLE))
+    if (STATES_CheckState(pUnit, STATE_UNINTERRUPTABLE))
     {
-        SUNIT_SetUninterruptable(hMonster, 0);
-        if (SUNIT_IsDead(hMonster))
+        SUNIT_SetUninterruptable(pUnit, 0);
+        if (SUNIT_IsDead(pUnit))
         {
             return 1;
         }
     }
 
-    if (!SUNIT_IsDead(hMonster))
+    if (!SUNIT_IsDead(pUnit))
     {
-        PATH_AddCollisionFootprintForUnit(hMonster);
+        PATH_AddCollisionFootprintForUnit(pUnit);
     }
 
-    if (hMonster->dwAnimMode != MONMODE_NEUTRAL)
+    if (pUnit->dwAnimMode != MONMODE_NEUTRAL)
     {
-        sub_005A68E0_SetAiStateForMode(hMonster->dwAnimMode, hMonster);
+        sub_005A68E0_SetAiStateForMode(pUnit->dwAnimMode, pUnit);
     }
 
     D2MonVelocityParamStrc* pAiParam = 0;
@@ -373,29 +373,29 @@ int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pM
 
         PATH_SetDistance(pPath, 20);
 
-        pAiParam = (hMonster->dwUnitType == UNIT_MONSTER && hMonster->pMonsterData) ? hMonster->pMonsterData->pAiParam : 0;
-        sub_005A63F0_UpdateModePath(pGame, hMonster, pModeChange->nVelocityPercent, pAiParam, pModeChange->nPathType, pModeChange->nNewDist);
-        MONSTERMODE_UpdateModeAttackStats(hMonster, nMode);
-        MONSTERUNIQUE_ExecuteUModModeStartCallbacks(pGame, hMonster);
+        pAiParam = (pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData) ? pUnit->pMonsterData->pAiParam : 0;
+        sub_005A63F0_UpdateModePath(pGame, pUnit, pModeChange->nVelocityPercent, pAiParam, pModeChange->nPathType, pModeChange->nNewDist);
+        MONSTERMODE_UpdateModeAttackStats(pUnit, nMode);
+        MONSTERUNIQUE_ExecuteUModModeStartCallbacks(pGame, pUnit);
     }
 
-    const D2MonModeCallbackTableStrc* pTargetRecord = MONSTERMODE_GetCallbackTableRecord(hMonster, nMode);
+    const D2MonModeCallbackTableStrc* pTargetRecord = MONSTERMODE_GetCallbackTableRecord(pUnit, nMode);
     if (!pTargetRecord)
     {
-        sub_005A7B30_TryStartNeutral(pGame, nMode, hMonster);
+        sub_005A7B30_TryStartNeutral(pGame, nMode, pUnit);
         return 0;
     }
     if (!pTargetRecord->pfStart)
     {
-        sub_005A7B30_TryStartNeutral(pGame, nMode, hMonster);
+        sub_005A7B30_TryStartNeutral(pGame, nMode, pUnit);
         return 0;
     }
 
     const int nResult = pTargetRecord->pfStart(pGame, pModeChange);
     if (!nResult)
     {
-        UNITS_SetUsedSkill(hMonster, 0);
-        if (nMode != MONMODE_DEATH && nMode != MONMODE_DEAD && SUNIT_IsDead(hMonster))
+        UNITS_SetUsedSkill(pUnit, 0);
+        if (nMode != MONMODE_DEATH && nMode != MONMODE_DEAD && SUNIT_IsDead(pUnit))
         {
             return 1;
         }
@@ -403,40 +403,40 @@ int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pM
         MONSTERMODE_StartNeutral(pGame, pModeChange);
     }
 
-    hMonster->dwFlags |= UNITFLAG_MONMODEISCHANGING;
-    SUNIT_InitializeAnimation(hMonster);
+    pUnit->dwFlags |= UNITFLAG_MONMODEISCHANGING;
+    SUNIT_InitializeAnimation(pUnit);
 
     if (pAiParam)
     {
-        sub_005A6380_SetVelocityPercent(hMonster, pAiParam);
+        sub_005A6380_SetVelocityPercent(pUnit, pAiParam);
     }
 
-    MONSTERUNIQUE_ExecuteUModModeChangeCallbacks(pGame, hMonster);
+    MONSTERUNIQUE_ExecuteUModModeChangeCallbacks(pGame, pUnit);
 
-    const int nCurrentAnimMode = hMonster->dwAnimMode;
+    const int nCurrentAnimMode = pUnit->dwAnimMode;
     if (bClearUsedSkill && nMode == nCurrentAnimMode)
     {
-        UNITS_SetUsedSkill(hMonster, 0);
+        UNITS_SetUsedSkill(pUnit, 0);
     }
 
-    D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(pGame, hMonster);
+    D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(pGame, pUnit);
 
-    const D2MonModeCallbackTableStrc* pCurrentRecord = MONSTERMODE_GetCallbackTableRecord(hMonster, nCurrentAnimMode);
+    const D2MonModeCallbackTableStrc* pCurrentRecord = MONSTERMODE_GetCallbackTableRecord(pUnit, nCurrentAnimMode);
     if (!pCurrentRecord)
     {
-        sub_005A7B30_TryStartNeutral(pGame, nMode, hMonster);
+        sub_005A7B30_TryStartNeutral(pGame, nMode, pUnit);
         return 0;
     }
 
     if (pCurrentRecord->bScheduleEvents)
     {
-        if (sub_005A6B10_IsModeEventEnabled(hMonster, nCurrentAnimMode))
+        if (sub_005A6B10_IsModeEventEnabled(pUnit, nCurrentAnimMode))
         {
-            SUNIT_ResetRecurringModeChangeEvent(pGame, hMonster);
+            SUNIT_ResetRecurringModeChangeEvent(pGame, pUnit);
         }
         else
         {
-            SUNIT_ScheduleAnimationEvents(pGame, hMonster);
+            SUNIT_ScheduleAnimationEvents(pGame, pUnit);
         }
     }
 

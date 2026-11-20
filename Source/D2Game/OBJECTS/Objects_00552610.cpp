@@ -232,8 +232,8 @@ void __fastcall OBJECTS_PopulationHandler(D2GameStrc* pGame, D2ActiveRoomStrc* p
 
         if (nObjGroup && nProbability <= pLevelsTxtRecord->nObjPrb[i])
         {
-            D2ObjGroupTxt* ptObjectGroup = DATATBLS_GetObjGroupTxtRecord(nObjGroup);
-            if (!ptObjectGroup)
+            D2ObjGroupTxt* pObjGroupTxtRecord = DATATBLS_GetObjGroupTxtRecord(nObjGroup);
+            if (!pObjGroupTxtRecord)
             {
                 return;
             }
@@ -242,13 +242,13 @@ void __fastcall OBJECTS_PopulationHandler(D2GameStrc* pGame, D2ActiveRoomStrc* p
             int nAccumulatedProbability = 0;
             for (int j = 0; j < 8; ++j)
             {
-                const unsigned int nObjectId = ptObjectGroup->dwId[j];
+                const unsigned int nObjectId = pObjGroupTxtRecord->dwId[j];
                 if (!nObjectId)
                 {
                     break;
                 }
 
-                nAccumulatedProbability += ptObjectGroup->nProbability[j];
+                nAccumulatedProbability += pObjGroupTxtRecord->nProbability[j];
                 D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(nObjectId);
                 if (nRoll < nAccumulatedProbability && pObjectsTxtRecord->nGore <= gnObjectGoreLevel_00731BBC)
                 {
@@ -256,8 +256,8 @@ void __fastcall OBJECTS_PopulationHandler(D2GameStrc* pGame, D2ActiveRoomStrc* p
                     if (gpfObjectPopulateTable_00731D00[pObjectsTxtRecord->nPopulateFn])
                     {
                         D2_ASSERT(!IsBadCodePtr((FARPROC)gpfObjectPopulateTable_00731D00[pObjectsTxtRecord->nPopulateFn]), 0xC46);
-                        D2_ASSERT(ptObjectGroup->nDensity[j] < 128, 0xC47);
-                        gpfObjectPopulateTable_00731D00[pObjectsTxtRecord->nPopulateFn](pGame, pRoom, ptObjectGroup->nDensity[j], nObjectId, 100);
+                        D2_ASSERT(pObjGroupTxtRecord->nDensity[j] < 128, 0xC47);
+                        gpfObjectPopulateTable_00731D00[pObjectsTxtRecord->nPopulateFn](pGame, pRoom, pObjGroupTxtRecord->nDensity[j], nObjectId, 100);
                     }
                     break;
                 }

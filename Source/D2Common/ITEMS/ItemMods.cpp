@@ -637,13 +637,13 @@ int __fastcall sub_0065D270(int type,Unit* unit,Unit* item,const Property* prope
 }
 
 // 0x0065D950
-int __fastcall sub_0065D950_AddDamagePercent(int nType, D2UnitStrc* pUnit, D2UnitStrc* ptItemStats, const D2PropertyStrc* ptProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+int __fastcall sub_0065D950_AddDamagePercent(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* ptProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
 {
-    if (ITEMS_GetItemFormat(ptItemStats) >= 1)
+    if (ITEMS_GetItemFormat(pItem) >= 1)
     {
         D2_ASSERT(ptProperty, 949);
-        const int nValue = ITEMMODS_RollPropertyValueA(ptItemStats, ptProperty->nMin, ptProperty->nMax);
-        D2ItemsTxt* pItemsTxtRecord = sub_0065E9B0(pUnit, ptItemStats);
+        const int nValue = ITEMMODS_RollPropertyValueA(pItem, ptProperty->nMin, ptProperty->nMax);
+        D2ItemsTxt* pItemsTxtRecord = sub_0065E9B0(pUnit, pItem);
         D2_ASSERT(pItemsTxtRecord, 960);
         unsigned char nMaxDam8 = pItemsTxtRecord->n2HandMaxDam;
         if (nMaxDam8 <= pItemsTxtRecord->nMaxDam)
@@ -651,28 +651,28 @@ int __fastcall sub_0065D950_AddDamagePercent(int nType, D2UnitStrc* pUnit, D2Uni
             nMaxDam8 = pItemsTxtRecord->nMaxDam;
         }
         const int nMaxDam = nMaxDam8;
-        if (ITEMSIsA(ptItemStats, 45) && nMaxDam + (nValue * nMaxDam) / 100 <= nMaxDam)
+        if (ITEMSIsA(pItem, 45) && nMaxDam + (nValue * nMaxDam) / 100 <= nMaxDam)
         {
             if (pItemsTxtRecord->nMinDam)
             {
-                sub_0065D1F0_AddValueStat0(nType, pUnit, ptItemStats, 1, 22, nApplyType, nState, fStatList);
+                sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, 1, 22, nApplyType, nState, fStatList);
             }
             if (pItemsTxtRecord->n2HandMinDam)
             {
-                sub_0065D1F0_AddValueStat0(nType, pUnit, ptItemStats, 1, 24, nApplyType, nState, fStatList);
+                sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, 1, 24, nApplyType, nState, fStatList);
             }
-            if (ITEMS_CheckIfThrowable(ptItemStats))
+            if (ITEMS_CheckIfThrowable(pItem))
             {
-                sub_0065D1F0_AddValueStat0(nType, pUnit, ptItemStats, 1, 160, nApplyType, nState, fStatList);
+                sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, 1, 160, nApplyType, nState, fStatList);
             }
             return nStatId;
         }
-        sub_0065D2E0_AddValueStat1(nType, pUnit, ptItemStats, nValue, 17, nApplyType, nState, fStatList);
-        sub_0065D2E0_AddValueStat1(nType, pUnit, ptItemStats, nValue, 18, nApplyType, nState, fStatList);
+        sub_0065D2E0_AddValueStat1(nType, pUnit, pItem, nValue, 17, nApplyType, nState, fStatList);
+        sub_0065D2E0_AddValueStat1(nType, pUnit, pItem, nValue, 18, nApplyType, nState, fStatList);
         return nStatId;
     }
-    sub_0065CF40_AddRolledStat(nType, pUnit, ptItemStats, ptProperty, 17, nApplyType, 1, nState, fStatList);
-    sub_0065CF40_AddRolledStat(nType, pUnit, ptItemStats, ptProperty, 18, nApplyType, 1, nState, fStatList);
+    sub_0065CF40_AddRolledStat(nType, pUnit, pItem, ptProperty, 17, nApplyType, 1, nState, fStatList);
+    sub_0065CF40_AddRolledStat(nType, pUnit, pItem, ptProperty, 18, nApplyType, 1, nState, fStatList);
     return nStatId;
 }
 

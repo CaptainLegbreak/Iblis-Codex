@@ -2433,11 +2433,11 @@ void __fastcall PLRTRADE_AddGold(D2UnitStrc* pUnit, int nStat, int nValue)
 }
 
 // 0x00540510
-void __fastcall PARTY_IteratePartyMembers(D2GameStrc* ptSystem, unsigned short nPartyId, PartyCallbackFunction pCallback, void* pArgs)
+void __fastcall PARTY_IteratePartyMembers(D2GameStrc* pGame, unsigned short nPartyId, PartyCallbackFunction pCallback, void* pArgs)
 {
-    D2_ASSERT(ptSystem->pPartyControl, 210);
+    D2_ASSERT(pGame->pPartyControl, 210);
 
-    for (D2PartyStrc* pParty = ptSystem->pPartyControl->pParties; pParty; pParty = pParty->pNext)
+    for (D2PartyStrc* pParty = pGame->pPartyControl->pParties; pParty; pParty = pParty->pNext)
     {
         if (pParty->nPartyId == nPartyId)
         {
@@ -2445,10 +2445,10 @@ void __fastcall PARTY_IteratePartyMembers(D2GameStrc* ptSystem, unsigned short n
             {
                 for (D2PartyNodeStrc* pPartyNode = pParty->pPartyNodes; pPartyNode; pPartyNode = pPartyNode->pNext)
                 {
-                    D2UnitStrc* pPartyMember = SUNIT_GetServerUnit(ptSystem, UNIT_PLAYER, pPartyNode->nUnitGUID);
+                    D2UnitStrc* pPartyMember = SUNIT_GetServerUnit(pGame, UNIT_PLAYER, pPartyNode->nUnitGUID);
                     if (pPartyMember)
                     {
-                        pCallback(ptSystem, pPartyMember, pArgs);
+                        pCallback(pGame, pPartyMember, pArgs);
                     }
                 }
             }

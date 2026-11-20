@@ -1814,23 +1814,23 @@ void __fastcall sub_6FC4BA50(D2GameStrc* pGame, D2UnitStrc* pUnit)
     while (pNode)
     {
         D2UnitStrc* pNext = INVENTORY_GetNextItem(pNode);
-        D2UnitStrc* hInvItem = INVENTORY_UnitIsItem(pNode);
-        D2_ASSERT(hInvItem, 0x19FD);
+        D2UnitStrc* pItem = INVENTORY_UnitIsItem(pNode);
+        D2_ASSERT(pItem, 0x19FD);
 
-        if (INVENTORY_GetItemNodePage(pNode) == 3 || INVENTORY_GetItemNodePage(pNode) == 1 && ITEMS_IsCharmUsable(hInvItem, pUnit))
+        if (INVENTORY_GetItemNodePage(pNode) == 3 || INVENTORY_GetItemNodePage(pNode) == 1 && ITEMS_IsCharmUsable(pItem, pUnit))
         {
-            sub_0062A360(pUnit, hInvItem);
-            sub_0063D2B0_DetachItem(pInventory, hInvItem);
-            D2UnitStrc* hRemove = INVENTORY_RemoveItemFromInventory(pInventory, hInvItem);
+            sub_0062A360(pUnit, pItem);
+            sub_0063D2B0_DetachItem(pInventory, pItem);
+            D2UnitStrc* hRemove = INVENTORY_RemoveItemFromInventory(pInventory, pItem);
             D2_ASSERT(hRemove, 0x1A0F);
-            D2_ASSERT(hInvItem == hRemove, 0x1A10);
+            D2_ASSERT(pItem == hRemove, 0x1A10);
 
             if (INVENTORY_GetItemNodePage(pNode) == 3)
             {
-                sub_0063BE30_Return(pInventory, INVENTORY_GetBodyLocFromEquippedItem(pInventory, hInvItem));
+                sub_0063BE30_Return(pInventory, INVENTORY_GetBodyLocFromEquippedItem(pInventory, pItem));
             }
 
-            D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(pGame, hInvItem, pUnit, 0, 1);
+            D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(pGame, pItem, pUnit, 0, 1);
             sub_0055DBC0(pGame, pUnit, 0);
         }
 

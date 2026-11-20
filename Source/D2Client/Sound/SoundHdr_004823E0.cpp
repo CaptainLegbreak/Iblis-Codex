@@ -42,18 +42,18 @@ static D2ClientCacheEntryStrc* __fastcall sub_00481860_GetCacheEntry(int nIndex)
 }
 
 // 0x004823E0
-void __fastcall sub_004823E0_ReleaseCacheEntry(int eSound)
+void __fastcall sub_004823E0_ReleaseCacheEntry(int nIndex)
 {
-    D2ClientCacheEntryStrc* pEntry = sub_00481860_GetCacheEntry(eSound);
+    D2ClientCacheEntryStrc* pEntry = sub_00481860_GetCacheEntry(nIndex);
     if (!pEntry->nState)
         return;
-    if (sub_004DF9D0_CheckCacheEntry(eSound))
+    if (sub_004DF9D0_CheckCacheEntry(nIndex))
     {
         sub_00408A60(&gszEmptyAssertText_006CC837, sub_00408090(), 0x259);
         exit(-1);
     }
     gdwCacheUsed_007BC9D0 -= pEntry->nSize;
-    sub_00516980_RemoveNode(&gpCacheList_007BC9B8, eSound);
+    sub_00516980_RemoveNode(&gpCacheList_007BC9B8, nIndex);
     pEntry->dwLastUse = 0;
     if (pEntry->pAsync)
     {

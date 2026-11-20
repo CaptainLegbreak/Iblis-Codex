@@ -778,66 +778,66 @@ int __fastcall sub_0062EFB0_CalculateTransactionCost(D2UnitStrc* pPlayer, D2Unit
         break;
     }
 
-    D2NpcTxt* ptNpcStats = DATATBLS_GetNpcTxtRecord(nVendorId);
-    D2_ASSERT(ptNpcStats, 3292);
+    D2NpcTxt* pNpcTxtRecord = DATATBLS_GetNpcTxtRecord(nVendorId);
+    D2_ASSERT(pNpcTxtRecord, 3292);
 
-    if (nSellCost > 65535 && ptNpcStats->dwSellMult)
+    if (nSellCost > 65535 && pNpcTxtRecord->dwSellMult)
     {
-        nSellCost = nSellCost / 1024 * ptNpcStats->dwSellMult;
+        nSellCost = nSellCost / 1024 * pNpcTxtRecord->dwSellMult;
     }
     else
     {
-        nSellCost = ptNpcStats->dwSellMult * nSellCost / 1024;
+        nSellCost = pNpcTxtRecord->dwSellMult * nSellCost / 1024;
     }
 
-    if (nBuyCost > 65535 && ptNpcStats->dwSellMult)
+    if (nBuyCost > 65535 && pNpcTxtRecord->dwSellMult)
     {
-        nBuyCost = nBuyCost / 1024 * ptNpcStats->dwBuyMult;
+        nBuyCost = nBuyCost / 1024 * pNpcTxtRecord->dwBuyMult;
     }
     else
     {
-        nBuyCost = ptNpcStats->dwBuyMult * nBuyCost / 1024;
+        nBuyCost = pNpcTxtRecord->dwBuyMult * nBuyCost / 1024;
     }
 
-    if (nRepCost > 65535 && ptNpcStats->dwRepMult)
+    if (nRepCost > 65535 && pNpcTxtRecord->dwRepMult)
     {
-        nRepCost = nRepCost / 1024 * ptNpcStats->dwRepMult;
+        nRepCost = nRepCost / 1024 * pNpcTxtRecord->dwRepMult;
     }
     else
     {
-        nRepCost = ptNpcStats->dwRepMult * nRepCost / 1024;
+        nRepCost = pNpcTxtRecord->dwRepMult * nRepCost / 1024;
     }
 
     for (int i = 0; i < 3; ++i)
     {
-        if (ptNpcStats->dwQuestFlag[i] && (QUESTRECORD_GetQuestState(pQuestFlags, ptNpcStats->dwQuestFlag[i], 0) == 1
-                                              || QUESTRECORD_GetQuestState(pQuestFlags, ptNpcStats->dwQuestFlag[i], 1) == 1))
+        if (pNpcTxtRecord->dwQuestFlag[i] && (QUESTRECORD_GetQuestState(pQuestFlags, pNpcTxtRecord->dwQuestFlag[i], 0) == 1
+                                              || QUESTRECORD_GetQuestState(pQuestFlags, pNpcTxtRecord->dwQuestFlag[i], 1) == 1))
         {
-            if (nSellCost > 65535 && ptNpcStats->dwQuestSellMult[i])
+            if (nSellCost > 65535 && pNpcTxtRecord->dwQuestSellMult[i])
             {
-                nSellCost = nSellCost / 1024 * ptNpcStats->dwQuestSellMult[i];
+                nSellCost = nSellCost / 1024 * pNpcTxtRecord->dwQuestSellMult[i];
             }
             else
             {
-                nSellCost = ptNpcStats->dwQuestSellMult[i] * nSellCost / 1024;
+                nSellCost = pNpcTxtRecord->dwQuestSellMult[i] * nSellCost / 1024;
             }
 
-            if (nBuyCost > 65535 && ptNpcStats->dwQuestBuyMult[i])
+            if (nBuyCost > 65535 && pNpcTxtRecord->dwQuestBuyMult[i])
             {
-                nBuyCost = nBuyCost / 1024 * ptNpcStats->dwQuestBuyMult[i];
+                nBuyCost = nBuyCost / 1024 * pNpcTxtRecord->dwQuestBuyMult[i];
             }
             else
             {
-                nBuyCost = ptNpcStats->dwQuestBuyMult[i] * nBuyCost / 1024;
+                nBuyCost = pNpcTxtRecord->dwQuestBuyMult[i] * nBuyCost / 1024;
             }
 
-            if (nRepCost > 65535 && ptNpcStats->dwQuestRepMult[i])
+            if (nRepCost > 65535 && pNpcTxtRecord->dwQuestRepMult[i])
             {
-                nRepCost = nRepCost / 1024 * ptNpcStats->dwQuestRepMult[i];
+                nRepCost = nRepCost / 1024 * pNpcTxtRecord->dwQuestRepMult[i];
             }
             else
             {
-                nRepCost = ptNpcStats->dwQuestRepMult[i] * nRepCost / 1024;
+                nRepCost = pNpcTxtRecord->dwQuestRepMult[i] * nRepCost / 1024;
             }
         }
     }
@@ -871,7 +871,7 @@ int __fastcall sub_0062EFB0_CalculateTransactionCost(D2UnitStrc* pPlayer, D2Unit
         nRepCost += sub_00628D30_GetChargedSkillsCost(hItem, 10000);
     }
 
-    const int* pMaxBuy = ptNpcStats->nMaxBuy;
+    const int* pMaxBuy = pNpcTxtRecord->nMaxBuy;
     if (nBuyCost > pMaxBuy[nDifficulty])
     {
         nBuyCost = pMaxBuy[nDifficulty];

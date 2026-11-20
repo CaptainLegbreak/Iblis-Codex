@@ -408,7 +408,7 @@ int __fastcall OBJECTS_OperateHandler(D2GameStrc* pGame, D2UnitStrc* pPlayer, un
 
     D2UnitStrc* pObject = SUNIT_GetServerUnit(pGame, nObjectType, nObjectGUID);
     const int nClassId = !pObject ? -1 : pObject->dwClassId;
-    D2ObjectsTxt* ptTypeData = UNITS_GetObjectTxtRecordFromObject(pObject);
+    D2ObjectsTxt* pObjectTxtRecord = UNITS_GetObjectTxtRecordFromObject(pObject);
 
     if (pPlayer && pPlayer->dwUnitType == UNIT_PLAYER)
     {
@@ -425,8 +425,8 @@ int __fastcall OBJECTS_OperateHandler(D2GameStrc* pGame, D2UnitStrc* pPlayer, un
         }
     }
 
-    if (ptTypeData->nOperateFn < 101 && nClassId != OBJECT_JERHYN_PLACEHOLDER1 && nClassId != OBJECT_JERHYN_PLACEHOLDER2 && nClassId != OBJECT_STONETHETA
-        && gpObjOperateFnTable_00732D18[ptTypeData->nOperateFn])
+    if (pObjectTxtRecord->nOperateFn < 101 && nClassId != OBJECT_JERHYN_PLACEHOLDER1 && nClassId != OBJECT_JERHYN_PLACEHOLDER2 && nClassId != OBJECT_STONETHETA
+        && gpObjOperateFnTable_00732D18[pObjectTxtRecord->nOperateFn])
     {
         D2ObjOperateFnStrc pObjOperate;
         pObjOperate.pGame = pGame;
@@ -434,10 +434,10 @@ int __fastcall OBJECTS_OperateHandler(D2GameStrc* pGame, D2UnitStrc* pPlayer, un
         pObjOperate.pPlayer = pPlayer;
         pObjOperate.pObjectregion = OBJRGN_GetObjectControlFromGame(pGame, UNITS_GetRoom(pObject));
         pObjOperate.nObjectIdx = nClassId;
-        return gpObjOperateFnTable_00732D18[ptTypeData->nOperateFn](&pObjOperate);
+        return gpObjOperateFnTable_00732D18[pObjectTxtRecord->nOperateFn](&pObjOperate);
     }
 
-    D2_ASSERT(ptTypeData->nOperateFn < 101, 3320);
+    D2_ASSERT(pObjectTxtRecord->nOperateFn < 101, 3320);
     return 0;
 }
 
@@ -542,17 +542,17 @@ int __fastcall OBJECTS_OperateFunction43_DurielPortal(D2ObjOperateFnStrc* pOp, i
     const unsigned char bAct = DRLG_GetActNoFromLevelId(nLevel);
     D2_ASSERT(bAct < 5, 4043);
 
-    D2ActiveRoomStrc* hRoomDest = DUNGEON_FindActSpawnLocationEx(pOp->pGame->pAct[bAct], nLevel, 0, &nX, &nY, UNITS_GetUnitSizeX(pOp->pPlayer));
-    D2_ASSERT(hRoomDest, 4045);
+    D2ActiveRoomStrc* pRoom = DUNGEON_FindActSpawnLocationEx(pOp->pGame->pAct[bAct], nLevel, 0, &nX, &nY, UNITS_GetUnitSizeX(pOp->pPlayer));
+    D2_ASSERT(pRoom, 4045);
 
     D2CoordStrc pCoord;
     pCoord.nX = nX;
     pCoord.nY = nY;
 
-    hRoomDest = COLLISION_GetFreeCoordinates(hRoomDest, &pCoord, UNITS_GetUnitSizeX(pOp->pPlayer), 0x1C09, 0);
-    if (hRoomDest)
+    pRoom = COLLISION_GetFreeCoordinates(pRoom, &pCoord, UNITS_GetUnitSizeX(pOp->pPlayer), 0x1C09, 0);
+    if (pRoom)
     {
-        D2_ASSERT(sub_6FCBDFE0(pOp->pGame, pOp->pPlayer, hRoomDest, pCoord.nX, pCoord.nY, 0, 0), 4057);
+        D2_ASSERT(sub_6FCBDFE0(pOp->pGame, pOp->pPlayer, pRoom, pCoord.nX, pCoord.nY, 0, 0), 4057);
     }
 
     return 0;

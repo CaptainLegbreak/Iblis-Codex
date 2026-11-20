@@ -1117,16 +1117,16 @@ void __fastcall sub_00579180_ResurrectMerc(D2GameStrc* pGame, D2UnitStrc* pPlaye
         }
     }
 
-    D2HirelingTxt* ptHireStats = DATATBLS_GetNextHirelingTxtRecordFromVendorIdAndDifficulty(pGame->bExpansion, nVendorId, pGame->nDifficulty, 0);
-    if (!ptHireStats)
+    D2HirelingTxt* pHirelingTxt = DATATBLS_GetNextHirelingTxtRecordFromVendorIdAndDifficulty(pGame->bExpansion, nVendorId, pGame->nDifficulty, 0);
+    if (!pHirelingTxt)
     {
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0xFA2);
         exit(-1);
     }
 
-    const int nNameLast = ptHireStats->wNameLast;
-    const int nNameFirst = ptHireStats->wNameFirst;
-    const int nClass = ptHireStats->dwClass;
+    const int nNameLast = pHirelingTxt->wNameLast;
+    const int nNameFirst = pHirelingTxt->wNameFirst;
+    const int nClass = pHirelingTxt->dwClass;
     const int nCount = nNameLast - nNameFirst + 1;
     int nName = nNameFirst;
     while (nName <= nNameLast)

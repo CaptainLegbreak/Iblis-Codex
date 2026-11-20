@@ -591,8 +591,8 @@ void __stdcall sub_6FC631B0(D2GameStrc* pGame, D2UnitStrc* hUnit, int a7, D2Mode
     const int nLevelId = DUNGEON_GetLevelIdFromRoom(hRoom);
     DRLG_GetActNoFromLevelId(nLevelId);
 
-    D2MonStatsTxt* ptMonsterStats = MONSTERMODE_GetMonStatsTxtRecord(hUnit->dwClassId);
-    D2_ASSERT(ptMonsterStats, 410);
+    D2MonStatsTxt* pMonStatsTxtRecord = MONSTERMODE_GetMonStatsTxtRecord(hUnit->dwClassId);
+    D2_ASSERT(pMonStatsTxtRecord, 410);
 
     const int nDifficulty = pGame->nDifficulty;
     int nTCId;
@@ -603,7 +603,7 @@ void __stdcall sub_6FC631B0(D2GameStrc* pGame, D2UnitStrc* hUnit, int a7, D2Mode
         D2SuperUniquesTxt* pSuperUniquesTxtRecord = DATATBLS_GetSuperUniquesTxtRecord(nSuperUniqueId);
         if (!pSuperUniquesTxtRecord)
         {
-            nTCId = ptMonsterStats->wTreasureClass[nDifficulty][2];
+            nTCId = pMonStatsTxtRecord->wTreasureClass[nDifficulty][2];
         }
         else
         {
@@ -614,19 +614,19 @@ void __stdcall sub_6FC631B0(D2GameStrc* pGame, D2UnitStrc* hUnit, int a7, D2Mode
     {
         if (MONSTERUNIQUE_CheckMonTypeFlag(hUnit, 4))
         {
-            nTCId = ptMonsterStats->wTreasureClass[nDifficulty][1];
+            nTCId = pMonStatsTxtRecord->wTreasureClass[nDifficulty][1];
         }
         else if (MONSTERUNIQUE_CheckMonTypeFlag(hUnit, 8))
         {
-            nTCId = ptMonsterStats->wTreasureClass[nDifficulty][2];
+            nTCId = pMonStatsTxtRecord->wTreasureClass[nDifficulty][2];
         }
         else
         {
-            nTCId = ptMonsterStats->wTreasureClass[nDifficulty][0];
+            nTCId = pMonStatsTxtRecord->wTreasureClass[nDifficulty][0];
         }
     }
 
-    if (ptMonsterStats->nTCQuestId > 0 && ptMonsterStats->wTreasureClass[nDifficulty][3] > 0 && pModeChange)
+    if (pMonStatsTxtRecord->nTCQuestId > 0 && pMonStatsTxtRecord->wTreasureClass[nDifficulty][3] > 0 && pModeChange)
     {
         D2UnitStrc* pTarget = pModeChange->pTargetUnit;
         if (pTarget)
@@ -654,11 +654,11 @@ void __stdcall sub_6FC631B0(D2GameStrc* pGame, D2UnitStrc* hUnit, int a7, D2Mode
             if (pTarget && pTarget->dwUnitType == 0)
             {
                 D2BitBufferStrc* pQuestFlags = sub_00543520(pGame, pTarget);
-                if (pQuestFlags && QUESTRECORD_GetQuestState(pQuestFlags, ptMonsterStats->nTCQuestId, 15) != 1
-                    && QUESTRECORD_GetQuestState(pQuestFlags, ptMonsterStats->nTCQuestId, 1) != 1
-                    && QUESTRECORD_GetQuestState(pQuestFlags, ptMonsterStats->nTCQuestId, ptMonsterStats->nTCQuestCP) != 1)
+                if (pQuestFlags && QUESTRECORD_GetQuestState(pQuestFlags, pMonStatsTxtRecord->nTCQuestId, 15) != 1
+                    && QUESTRECORD_GetQuestState(pQuestFlags, pMonStatsTxtRecord->nTCQuestId, 1) != 1
+                    && QUESTRECORD_GetQuestState(pQuestFlags, pMonStatsTxtRecord->nTCQuestId, pMonStatsTxtRecord->nTCQuestCP) != 1)
                 {
-                    nTCId = ptMonsterStats->wTreasureClass[nDifficulty][3];
+                    nTCId = pMonStatsTxtRecord->wTreasureClass[nDifficulty][3];
                 }
             }
         }

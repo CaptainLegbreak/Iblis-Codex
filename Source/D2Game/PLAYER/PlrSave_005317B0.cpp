@@ -577,24 +577,24 @@ void __fastcall PLAYER_CreateStartItemsFromCharStatsTxt(D2UnitStrc* pPlayer, D2G
 }
 
 // 0x00534F80
-void __fastcall PLAYER_SynchronizeItemsToClient(D2UnitStrc* hInventory, D2ClientStrc* pClient)
+void __fastcall PLAYER_SynchronizeItemsToClient(D2UnitStrc* pUnit, D2ClientStrc* pClient)
 {
-    D2_ASSERT(hInventory->pInventory, 391);
+    D2_ASSERT(pUnit->pInventory, 391);
 
-    for (D2UnitStrc* pItem = INVENTORY_GetFirstItem(hInventory->pInventory); pItem; pItem = INVENTORY_GetNextItem(pItem))
+    for (D2UnitStrc* pItem = INVENTORY_GetFirstItem(pUnit->pInventory); pItem; pItem = INVENTORY_GetNextItem(pItem))
     {
         D2UnitStrc* pCheckedItem = INVENTORY_UnitIsItem(pItem);
         if (INVENTORY_GetItemNodePage(pItem) == 3)
         {
-            D2GAME_SendP0x9D_ItemAction_Equip_6FC3EA50(pClient, hInventory, pCheckedItem, 0);
+            D2GAME_SendP0x9D_ItemAction_Equip_6FC3EA50(pClient, pUnit, pCheckedItem, 0);
         }
-        else if (hInventory == CLIENTS_GetPlayerFromClient(pClient, 0) && INVENTORY_GetItemNodePage(pItem) == 1)
+        else if (pUnit == CLIENTS_GetPlayerFromClient(pClient, 0) && INVENTORY_GetItemNodePage(pItem) == 1)
         {
-            D2GAME_SendP0x9C_ItemAction_PutInContainer_6FC3E980(pClient, hInventory, pCheckedItem, 0);
+            D2GAME_SendP0x9C_ItemAction_PutInContainer_6FC3E980(pClient, pUnit, pCheckedItem, 0);
         }
-        else if (hInventory == CLIENTS_GetPlayerFromClient(pClient, 0) && INVENTORY_GetItemNodePage(pItem) == 2)
+        else if (pUnit == CLIENTS_GetPlayerFromClient(pClient, 0) && INVENTORY_GetItemNodePage(pItem) == 2)
         {
-            D2GAME_SendP0x9C_ItemAction_PutInBelt_6FC3EB90(pClient, hInventory, pCheckedItem, 0);
+            D2GAME_SendP0x9C_ItemAction_PutInBelt_6FC3EB90(pClient, pUnit, pCheckedItem, 0);
         }
     }
 }
