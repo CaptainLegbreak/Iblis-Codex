@@ -6,6 +6,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
+#include "D2ClientTypes.h"
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2MonStatsTxt;
 struct D2SeqModeStrc;
@@ -27,16 +28,6 @@ struct D2SeqModeStrc
     int nMode;
 };
 
-struct D2UnitTargetStrc
-{
-    int nParam1;
-    int nParam2;
-    int nParam3;
-    int f_C;
-    int f_10;
-    int f_14;
-    int f_18;
-};
 
 void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget); // 0x004AFF60
 void __stdcall UNITS_StopSequence(D2UnitStrc* pUnit); // 0x00623E00

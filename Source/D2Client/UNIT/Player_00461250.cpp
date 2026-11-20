@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2ClientTypes.h"
 struct D2ActiveRoomStrc;
 struct D2ClientRecordStrc;
 struct D2DrlgActStrc;
@@ -59,11 +60,6 @@ struct D2PlayerCmdStrc
 };
 
 
-struct D2ClientEntryStrc
-{
-    int unk0x00[2];
-    int nValue;
-};
 
 
 
@@ -186,7 +182,6 @@ unsigned short __stdcall COLLISION_CheckMaskWithPattern(D2ActiveRoomStrc* pRoom,
 D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, int nUnitSize, unsigned int nMask, int bAllowNeighboringRooms); // 0x0064E7B0
 void __cdecl sub_004608C0_RefreshAdjacentPlayers(); // 0x004608C0
 
-struct D2UnitTargetStrc { int nX, nY, nParam; };
 
 int __cdecl sub_0044BF00(); // 0x0044BF00
 int __cdecl sub_0044BF10(); // 0x0044BF10
@@ -369,7 +364,7 @@ int __fastcall sub_00461250_QueueMove(int nCommand, D2UnitStrc* pUnit, D2UnitTar
         sub_00460830_SetStateAndSync(1, pUnit, nNeutralMode);
         return 0;
     case 1:
-        if (sub_004804A0_SetPathTargetPos(pUnit, pTarget->nX, pTarget->nY))
+        if (sub_004804A0_SetPathTargetPos(pUnit, pTarget->nParam1, pTarget->nParam2))
         {
             sub_00480E70_SetUnitMode(pUnit, nMoveMode);
             return 1;
@@ -377,7 +372,7 @@ int __fastcall sub_00461250_QueueMove(int nCommand, D2UnitStrc* pUnit, D2UnitTar
         sub_00460830_SetStateAndSync(1, pUnit, nNeutralMode);
         return 0;
     case 0:
-        if (sub_00480780_SetPathTargetUnit(pUnit, pTarget->nX, pTarget->nY))
+        if (sub_00480780_SetPathTargetUnit(pUnit, pTarget->nParam1, pTarget->nParam2))
         {
             sub_00480E70_SetUnitMode(pUnit, nMoveMode);
             return 1;
@@ -385,7 +380,7 @@ int __fastcall sub_00461250_QueueMove(int nCommand, D2UnitStrc* pUnit, D2UnitTar
         sub_00460830_SetStateAndSync(1, pUnit, nNeutralMode);
         return 0;
     case 23:
-        if (sub_004804A0_SetPathTargetPos(pUnit, pTarget->nX, pTarget->nY))
+        if (sub_004804A0_SetPathTargetPos(pUnit, pTarget->nParam1, pTarget->nParam2))
         {
             sub_00480E70_SetUnitMode(pUnit, 3);
             return 1;
@@ -393,7 +388,7 @@ int __fastcall sub_00461250_QueueMove(int nCommand, D2UnitStrc* pUnit, D2UnitTar
         sub_00460830_SetStateAndSync(1, pUnit, nNeutralMode);
         return 0;
     case 24:
-        if (sub_00480780_SetPathTargetUnit(pUnit, pTarget->nX, pTarget->nY))
+        if (sub_00480780_SetPathTargetUnit(pUnit, pTarget->nParam1, pTarget->nParam2))
         {
             sub_00480E70_SetUnitMode(pUnit, 3);
             return 1;
@@ -401,33 +396,33 @@ int __fastcall sub_00461250_QueueMove(int nCommand, D2UnitStrc* pUnit, D2UnitTar
         sub_00460830_SetStateAndSync(1, pUnit, nNeutralMode);
         return 0;
     case 6:
-        pUnit->dwLastHitClass = pTarget->nParam;
+        pUnit->dwLastHitClass = pTarget->nParam3;
         sub_00480E70_SetUnitMode(pUnit, 4);
-        sub_004804E0_SetPosition(pUnit, (unsigned short)pTarget->nX, (unsigned short)pTarget->nY, 1, 0, 0);
+        sub_004804E0_SetPosition(pUnit, (unsigned short)pTarget->nParam1, (unsigned short)pTarget->nParam2, 1, 0, 0);
         return 1;
     case 19:
     {
-        pUnit->dwLastHitClass = pTarget->nParam;
+        pUnit->dwLastHitClass = pTarget->nParam3;
         sub_00480D20_SetModeOverlay(pUnit, 19);
         if (STATES_IsUnitShapeShifted(pUnit))
             sub_004CC5B0_UpdateUnitSound(pUnit, 3, 1);
         else
             sub_004CC5B0_UpdateUnitSound(pUnit, 19, 1);
-        sub_004804E0_SetPosition(pUnit, (unsigned short)pTarget->nX, (unsigned short)pTarget->nY, 1, 0, 0);
+        sub_004804E0_SetPosition(pUnit, (unsigned short)pTarget->nParam1, (unsigned short)pTarget->nParam2, 1, 0, 0);
         return 1;
     }
     case 20:
-        pUnit->dwLastHitClass = pTarget->nParam;
+        pUnit->dwLastHitClass = pTarget->nParam3;
         PATH_RecacheRoomIfNeeded(pPath);
         PATH_SetType(pPath, 11);
         sub_00648E40_SetByte90(pPath, 5);
-        D2COMMON_10170_PathSetTargetPos(pPath, pTarget->nX, pTarget->nY);
+        D2COMMON_10170_PathSetTargetPos(pPath, pTarget->nParam1, pTarget->nParam2);
         D2Common_10142(pPath, pUnit, 0);
         sub_00480E70_SetUnitMode(pUnit, 19);
         return 1;
     case 18:
     {
-        pUnit->dwLastHitClass = pTarget->nParam;
+        pUnit->dwLastHitClass = pTarget->nParam3;
         if (INVENTORY_GetEquippedShield(pUnit->pInventory, 0))
             sub_00480E70_SetUnitMode(pUnit, 9);
         else
@@ -436,12 +431,12 @@ int __fastcall sub_00461250_QueueMove(int nCommand, D2UnitStrc* pUnit, D2UnitTar
             COMPOSIT_GetWeaponClassId(pUnit, pUnit->pInventory, &nWeaponClass, -1, 1);
             if (nWeaponClass == 13) sub_00480E70_SetUnitMode(pUnit, 9);
         }
-        sub_004804E0_SetPosition(pUnit, (unsigned short)pTarget->nX, (unsigned short)pTarget->nY, 1, 0, 0);
+        sub_004804E0_SetPosition(pUnit, (unsigned short)pTarget->nParam1, (unsigned short)pTarget->nParam2, 1, 0, 0);
         return 1;
     }
     case 8:
         if (sub_00463DD0_GetPlayerUnit() == pUnit) sub_00456300_CloseUIVars(1, 0);
-        pUnit->dwLastHitClass = pTarget->nParam;
+        pUnit->dwLastHitClass = pTarget->nParam3;
         if (sub_00467A10() == pUnit)
         {
             if (!(sub_0044BF00() & 8) && !(sub_0044BF10() & 8)) sub_00466FE0();
@@ -451,7 +446,7 @@ int __fastcall sub_00461250_QueueMove(int nCommand, D2UnitStrc* pUnit, D2UnitTar
                 sub_00467A70_RefreshHoverUnit(0);
             }
         }
-        sub_004804E0_SetPosition(pUnit, (unsigned short)pTarget->nX, (unsigned short)pTarget->nY, 0, 0, 0);
+        sub_004804E0_SetPosition(pUnit, (unsigned short)pTarget->nParam1, (unsigned short)pTarget->nParam2, 0, 0, 0);
         sub_00480E70_SetUnitMode(pUnit, 0);
         sub_00461010_ResetPlayerState(pUnit);
         sub_0045C470_ClearPendingAction(pUnit);
@@ -466,15 +461,15 @@ int __fastcall sub_00461250_QueueMove(int nCommand, D2UnitStrc* pUnit, D2UnitTar
         sub_004647D0_UpdateAttackableFlag(pUnit);
         pUnit->dwFlags |= 2;
         sub_00480E70_SetUnitMode(pUnit, nNeutralMode);
-        if (pTarget) sub_00480EF0_MoveToPosition(pUnit, pTarget->nX, pTarget->nY, bDead);
+        if (pTarget) sub_00480EF0_MoveToPosition(pUnit, pTarget->nParam1, pTarget->nParam2, bDead);
         return 1;
     }
     case 2:
-        sub_00480930_InteractWithUnit((unsigned short)pTarget->nX, pTarget->nY);
+        sub_00480930_InteractWithUnit((unsigned short)pTarget->nParam1, pTarget->nParam2);
         return 1;
     case 25:
         sub_00480E70_SetUnitMode(pUnit, 13);
-        sub_004804E0_SetPosition(pUnit, (unsigned short)pTarget->nX, (unsigned short)pTarget->nY, 0, 0, 0);
+        sub_004804E0_SetPosition(pUnit, (unsigned short)pTarget->nParam1, (unsigned short)pTarget->nParam2, 0, 0, 0);
         return 1;
     default:
         D2_ASSERT(0, 0x432);

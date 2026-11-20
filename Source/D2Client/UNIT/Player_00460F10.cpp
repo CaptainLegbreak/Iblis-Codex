@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2ClientTypes.h"
 struct D2SkillStrc;
 struct D2UnitStrc;
 
@@ -44,11 +45,6 @@ struct D2PlayerCmdStrc
 };
 
 
-struct D2ClientEntryStrc
-{
-    int unk0x00[2];
-    int nValue;
-};
 
 
 

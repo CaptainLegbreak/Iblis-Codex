@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2ClientTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2GfxLightStrc;
@@ -55,11 +56,6 @@ struct D2PlayerCmdStrc
 };
 
 
-struct D2ClientEntryStrc
-{
-    int unk0x00[2];
-    int nValue;
-};
 
 
 

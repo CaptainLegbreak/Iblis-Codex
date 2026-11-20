@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2UnitData.h"
+#include "D2ClientTypes.h"
 
 struct D2SkillsTxt
 {
@@ -10,12 +11,6 @@ struct D2SkillsTxt
     char _pad_0x8[0x26];
     short wSrvDoFunc;
     char _pad_0x30[0x20C];
-};
-struct D2UnitTargetStrc
-{
-    int nArg1;
-    int nArg2;
-    int unk[5];
 };
 
 void __fastcall sub_00467A70_RefreshHoverUnit(D2UnitStrc* pUnit); // 0x00467A70
@@ -116,8 +111,8 @@ static __declspec(noinline) void __stdcall sub_004812E0_DoPlayerAction(D2UnitStr
         if (sub_00480BA0_CanUseSkillNow(pPlayer))
         {
             memset0(&tTarget);
-            tTarget.nArg1 = nArg1;
-            tTarget.nArg2 = nArg2;
+            tTarget.nParam1 = nArg1;
+            tTarget.nParam2 = nArg2;
             if (sub_00480C10_DispatchUnitCommand(0x18, pPlayer, &tTarget, 0))
                 sub_004786A0_SendDwords2(4, nArg1, nArg2);
             sub_SetPlayerAction(pPlayer, 0, 0, 0, 0);
@@ -126,8 +121,8 @@ static __declspec(noinline) void __stdcall sub_004812E0_DoPlayerAction(D2UnitStr
     else if (sub_00480BA0_CanUseSkillNow(pPlayer))
     {
         memset0(&tTarget);
-        tTarget.nArg1 = nArg1;
-        tTarget.nArg2 = nArg2;
+        tTarget.nParam1 = nArg1;
+        tTarget.nParam2 = nArg2;
         if (sub_00480C10_DispatchUnitCommand(0, pPlayer, &tTarget, 0))
             sub_004786A0_SendDwords2(2, nArg1, nArg2);
         sub_SetPlayerAction(pPlayer, 0, 0, 0, 0);
