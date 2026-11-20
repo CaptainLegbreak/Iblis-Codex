@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2LevelTxt.h"
 struct D2UnitStrc;
 
 #define PETTYPE_FLAG_PARTY 4
@@ -48,12 +49,6 @@ D2StoredUnitRecordStrc* __fastcall sub_00479BB0_FindRosterUnit(int nUnitId); // 
 unsigned short __fastcall sub_00479BC0_GetEntryIndex(D2StoredUnitRecordStrc* pEntry); // 0x00479BC0
 extern D2RosterPetStrc* gpRosterPets_007BB5BC; // 0x007BB5BC
 
-struct D2PetTypeTxt
-{
-    char unk0x00[0x04];
-    unsigned char nFlags[4];
-    char unk0x08[0xE0 - 0x08];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -150,7 +145,7 @@ int __fastcall sub_00478D90_GetPetRelation(int nUnitId)
                 return 3;
             }
 
-            if (!(pPetTypeTxtRecord->nFlags[PETTYPE_FLAG_PARTY >> 3] & gdwBitMasks[PETTYPE_FLAG_PARTY & 7]))
+            if (!(pPetTypeTxtRecord->nPetFlags[PETTYPE_FLAG_PARTY >> 3] & gdwBitMasks[PETTYPE_FLAG_PARTY & 7]))
             {
                 return 3;
             }

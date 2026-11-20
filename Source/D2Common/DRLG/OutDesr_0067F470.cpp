@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2LevelTxt.h"
 #define LEVEL_ROCKYWASTE 41
 #define LEVEL_DRYHILLS 42
 #define LEVEL_FAROASIS 43
@@ -56,11 +57,6 @@ C07_OFFSET_CHECK(C07_check_nLevelId, D2DrlgLevelStrc, eLevelId, 0x1D0);
 C07_OFFSET_CHECK(C07_check_nGridWidth, D2DrlgOutdoorInfoStrc, nGridWidth, 0x5C);
 C07_OFFSET_CHECK(C07_check_nGridHeight, D2DrlgOutdoorInfoStrc, nGridHeight, 0x60);
 
-struct D2LvlPrestTxt
-{
-    char unk0x00[0x40];
-    unsigned int dwFiles;
-};
 
 C07_OFFSET_CHECK(C07_check_dwFiles, D2LvlPrestTxt, dwFiles, 0x40);
 

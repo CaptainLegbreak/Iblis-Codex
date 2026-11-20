@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2LevelTxt.h"
 
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
 
@@ -54,12 +55,6 @@ struct D2LvlMazeTxt
     int dwMerge;
 };
 
-struct D2LvlPrestTxt
-{
-    int dwDef;
-    char unk0x04[0x3C];
-    int dwFiles;
-};
 
 struct D2DrlgMapStrc
 {

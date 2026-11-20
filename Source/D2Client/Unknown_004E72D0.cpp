@@ -2,6 +2,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2Records.h"
+#include "D2LevelTxt.h"
 struct D2UnitStrc;
 
 typedef wchar_t Unicode;
@@ -9,11 +10,6 @@ typedef wchar_t Unicode;
 
 
 
-struct D2DifficultyLevelsTxt
-{
-    char unk0x00[0x1C];
-    int dwAiCurseDivisor;
-};
 
 
 

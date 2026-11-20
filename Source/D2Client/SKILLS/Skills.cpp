@@ -5,6 +5,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Drlg.h"
+#include "D2LevelTxt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
@@ -373,12 +374,6 @@ int __fastcall sub_00457490_CheckMonStatsFlag(int nMonsterId, int nFlag); // 0x0
 int __fastcall sub_004C5960_CanScanUnit(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nFlags); // 0x004C5960
 static int sub_004C5BD0_IsPointNearRoom(D2ActiveRoomStrc* pRoom, int nX, int nY, int nRadius); // 0x004C5BD0
 
-struct D2StatesTxt
-{
-    char unk0x00[0x34];
-    short wCltActiveFunc;
-    char unk0x36[0x06];
-};
 
 typedef int (__fastcall* CLIENTSKILLDOFN)(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);
 extern CLIENTSKILLDOFN gpfnClientSkillDoFuncs_00727BA8[]; // 0x00727BA8

@@ -2,6 +2,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2Records.h"
+#include "D2LevelTxt.h"
 // build: base-profile
 #define NULL 0
 
@@ -132,13 +133,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern D2TxtLinkStrc* gpSkillsLinker_0096C7CC; // 0x0096C7CC
 extern D2TxtLinkStrc* gpMonTypeLinker_0096C868; // 0x0096C868
 
-struct D2UniqueItemsTxt
-{
-    unsigned short wId;
-    char szName[32];
-    unsigned short wTblIndex;
-    char unk0x24[296];
-};
 
 extern "C" const char gszTxtField_index[]; // 0x006E9CCC
 extern D2TxtLinkStrc* gTxtLink_0096C5E4; // 0x0096C5E4

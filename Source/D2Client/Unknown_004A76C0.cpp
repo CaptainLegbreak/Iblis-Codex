@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2CelContext.h"
 #include "D2Records.h"
+#include "D2LevelTxt.h"
 
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
@@ -109,10 +110,6 @@ struct D2CharStatsTxt
 };
 
 
-struct D2DifficultyLevelsTxt
-{
-    int dwResistPenalty;
-};
 
 
 #pragma pack(push, 2)

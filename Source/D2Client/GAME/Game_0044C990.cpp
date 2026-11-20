@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2LevelTxt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2ActInfoStrc;
@@ -30,11 +31,6 @@ struct D2CommonStringEntryNodeStrc;
 struct D2CommonStormHashTableAStrc;
 struct D2LoadingTimerStrc;
 
-struct D2LevelsTxt
-{
-    char unk0x000[0x218];
-    unsigned int dwBlankScreen;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090

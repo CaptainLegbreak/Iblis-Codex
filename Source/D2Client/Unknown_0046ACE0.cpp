@@ -6,6 +6,7 @@
 #include "D2Txt.h"
 #include "D2GameTypes.h"
 #include "D2Drlg.h"
+#include "D2LevelTxt.h"
 
 #define LEVEL_DENOFEVIL 8
 #define LEVEL_THRONEOFDESTRUCTION 131
@@ -75,13 +76,6 @@ extern D2DrlgActStrc* gpGlobal_007A0634; // 0x007A0634
 extern D2ClientTimedBoxStrc gtTimedBox_007A742C; // 0x007A742C
 
 
-struct D2LevelsTxt
-{
-    char unk0x00[0xCC];
-    short wCMon[4];
-    short wCPct[4];
-    short wCAmt[4];
-};
 
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 D2UnitStrc* __fastcall sub_00466730_SpawnPresetUnit(int nClassId, int nX, int nY, int nUnitType, int nArg); // 0x00466730

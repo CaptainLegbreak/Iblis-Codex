@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2CelContext.h"
+#include "D2LevelTxt.h"
 struct D2UnitStrc;
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
@@ -66,10 +67,6 @@ struct Unicode
     unsigned short wChar;
 };
 
-struct D2DifficultyLevelsTxt
-{
-    int dwResistPenalty;
-};
 int __cdecl sub_0044DCC0(); // 0x0044DCC0
 unsigned char __cdecl sub_0044DCD0_GetDifficulty(); // 0x0044DCD0
 int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50

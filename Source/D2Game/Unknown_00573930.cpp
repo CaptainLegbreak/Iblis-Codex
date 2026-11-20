@@ -1,6 +1,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2LevelTxt.h"
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
 #pragma intrinsic(memset)
 
@@ -13,11 +14,6 @@ struct D2MonsterDataStrc
 };
 
 
-struct D2DifficultyLevelsTxt
-{
-    char unk0x00[0x10];
-    int dwMonsterSkillBonus;
-};
 
 struct D2PlayerCountBonusStrc
 {

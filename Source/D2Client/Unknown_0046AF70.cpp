@@ -6,6 +6,7 @@
 #include "D2Txt.h"
 #include "D2GameTypes.h"
 #include "D2Drlg.h"
+#include "D2LevelTxt.h"
 struct D2UnitStrc;
 
 union D2SeedStrc;
@@ -36,13 +37,6 @@ D2UnitStrc* __stdcall sub_0065A620_FindUnitInAdjacentRooms(D2ActiveRoomStrc* pRo
 
 
 
-struct D2LevelsTxt
-{
-    char unk0x00[0xCC];
-    short wCMon[4];
-    short wCPct[4];
-    short wCAmt[4];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

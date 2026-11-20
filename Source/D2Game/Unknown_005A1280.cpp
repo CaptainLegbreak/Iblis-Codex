@@ -1,14 +1,10 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
+#include "D2LevelTxt.h"
 
 
 
-struct D2DifficultyLevelsTxt
-{
-    int unk0x00[0x0D];
-    int dwChampionDmgBonus;
-};
 
 #define UNIT_MONSTER 1
 

@@ -1,6 +1,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2ItemsWorld.h"
+#include "D2LevelTxt.h"
 struct D2InventoryStrc;
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
 #pragma intrinsic(memcpy)
@@ -18,16 +19,6 @@ struct D2MercSaveDataStrc
 };
 
 
-struct D2HirelingTxt
-{
-    char unk0x000[0x08];
-    int dwClass;
-    char unk0x00C[0x14];
-    int dwExpPerLvl;
-    char unk0x024[0xF0];
-    unsigned short wNameFirst;
-    unsigned short wNameLast;
-};
 
 void __fastcall SUNIT_SetCombatMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode);                       // 0x00553570
 void __fastcall SUNIT_RemoveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit);                                     // 0x00555600

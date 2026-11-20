@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Records.h"
+#include "D2LevelTxt.h"
 struct D2GfxDataStrc;
 struct D2GfxListNodeStrc;
 struct D2UnitStrc;
@@ -75,12 +76,6 @@ struct D2ItemsTxt
 };
 
 
-struct D2UniqueItemsTxt
-{
-    char unk0x00[0x3A];
-    char szFlippyFile[0x20];
-    char szInvFile[0x20];
-};
 
 struct D2MissilesTxt
 {

@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2LevelTxt.h"
 
 #define STATLIST_NEWLENGTH 0x00000002
 #define STATLIST_UNK_0x100 0x00000100
@@ -21,11 +22,6 @@ void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int
 
 
 
-struct D2StatesTxt
-{
-    char unk0x00[0x10];
-    unsigned char nStateFlags[8];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

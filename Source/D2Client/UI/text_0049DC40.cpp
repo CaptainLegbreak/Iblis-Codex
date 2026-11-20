@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2LevelTxt.h"
 struct D2ActiveRoomStrc;
 struct D2StoredUnitRecordStrc;
 struct D2UnitStrc;
@@ -122,11 +123,6 @@ struct D2MonStatsTxt
     unsigned short wNameStr;
 };
 
-struct D2SuperUniquesTxt
-{
-    char unk0x00[0x2];
-    unsigned short wNameStr;
-};
 
 struct D2ObjectsTxt
 {

@@ -2,6 +2,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2UnitData.h"
+#include "D2LevelTxt.h"
 #define NULL 0
 extern "C" char* __cdecl strcpy(char*, const char*);
 #pragma intrinsic(strcpy)
@@ -9,11 +10,6 @@ extern "C" char* __cdecl strcpy(char*, const char*);
 
 
 
-struct D2SuperUniquesTxt
-{
-    unsigned short wSuperUnique;
-    unsigned short wNameStr;
-};
 
 
 

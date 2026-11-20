@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2LevelTxt.h"
 
 struct D2DrlgOrthStrc;
 struct D2DrlgBuildStrc;
@@ -98,12 +99,6 @@ struct D2DrlgRoomStrc
     D2DrlgLevelStrc* ptDrlgLevel;
 };
 
-struct D2LvlPrestTxt
-{
-    int dwDef;
-    char unk0x04[0x3C];
-    int dwFiles;
-};
 
 struct D2DrlgMapStrc
 {

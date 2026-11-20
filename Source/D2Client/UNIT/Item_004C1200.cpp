@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2Records.h"
+#include "D2LevelTxt.h"
 
 struct D2GameStrc;
 
@@ -20,14 +21,6 @@ struct D2ItemSaveStrc
 };
 
 
-struct D2UniqueItemsTxt
-{
-    char unk0x00[0x84];
-    short wDropSound;
-    char unk0x86[2];
-    unsigned char nDropSfxFrame;
-    char unk0x89[0xC3];
-};
 
 
 

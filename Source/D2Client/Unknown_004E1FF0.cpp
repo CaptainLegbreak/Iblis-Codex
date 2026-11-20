@@ -3,6 +3,7 @@
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
 #include "D2Records.h"
+#include "D2LevelTxt.h"
 
 #define UNIT_ITEM 4
 struct D2StaticPathStrc;
@@ -296,12 +297,6 @@ typedef char chkSkillsTxt_M125[sizeof(D2SkillsTxt) == 0x23C ? 1 : -1];
 
 typedef char chkSkillDescTxt_M125[sizeof(D2SkillDescTxt) == 0x120 ? 1 : -1];
 
-struct D2DifficultyLevelsTxt
-{
-    char unk0x00[0x1C];
-    int dwAiCurseDiv;
-    char unk0x20[0x38];
-};
 
 D2DifficultyLevelsTxt* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int nDifficulty); // 0x00611D30
 unsigned char __cdecl sub_0044DCD0_GetDifficulty(); // 0x0044DCD0
@@ -2167,7 +2162,7 @@ unsigned short __stdcall sub_M125_Emit_004E6D90(int nUnused1, int nUnused2, int 
 static __declspec(noinline) int sub_004E6E80_ApplyAiCurseDivisor(int nValue)
 {
     D2DifficultyLevelsTxt* pDifficultyLevelsTxt = DATATBLS_GetDifficultyLevelsTxtRecord(sub_0044DCD0_GetDifficulty());
-    const int nDivisor = pDifficultyLevelsTxt->dwAiCurseDiv;
+    const int nDivisor = pDifficultyLevelsTxt->dwAiCurseDivisor;
     if (nDivisor > 0)
         nValue /= nDivisor;
     return nValue;

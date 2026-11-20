@@ -1,4 +1,5 @@
 #include "D2Path.h"
+#include "D2LevelTxt.h"
 #define LEVEL_ROCKYWASTE 41
 #define LEVEL_DRYHILLS 42
 #define LEVEL_FAROASIS 43
@@ -48,11 +49,6 @@ struct D2DrlgLevelStrc
     int eLevelId;
 };
 
-struct D2LvlPrestTxt
-{
-    char unk0x00[0x40];
-    unsigned int dwFiles;
-};
 
 struct D2DrlgOutDesertInitStrc
 {

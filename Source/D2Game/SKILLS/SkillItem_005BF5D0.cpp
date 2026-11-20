@@ -6,6 +6,7 @@
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
 #include "D2ItemsWorld.h"
+#include "D2LevelTxt.h"
 struct D2GameStrc;
 struct D2UnitStrc;
 struct D2AiControlStrc;
@@ -78,11 +79,6 @@ struct D2UnitEventStrc
 
 
 
-struct D2LevelsTxt
-{
-    char unk0x00[0x04];
-    unsigned char nTeleport;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268

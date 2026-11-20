@@ -5,6 +5,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2ItemsWorld.h"
+#include "D2LevelTxt.h"
 
 #pragma intrinsic(memset)
 
@@ -138,28 +139,6 @@ struct D2DrlgFileStrc
     D2PresetUnitStrc* pPresetUnit;
 };
 
-struct D2LvlPrestTxt
-{
-    int dwDef;
-    int unk0x04;
-    int dwPopulate;
-    int dwLogicals;
-    int dwOutdoors;
-    int dwAnimate;
-    int dwKillEdge;
-    int dwFillBlanks;
-    int unk0x20;
-    int nAnimSpeed;
-    int nSizeX;
-    int nSizeY;
-    unsigned char unk_30[0x4];
-    int dwScan;
-    int dwPops;
-    unsigned char unk_3C[0x4];
-    int dwFiles;
-    char szFile[6][60];
-    unsigned int dwDt1Mask;
-};
 
 union D2C_PackedTileInformation
 {

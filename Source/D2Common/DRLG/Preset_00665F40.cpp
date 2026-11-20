@@ -5,6 +5,7 @@
 #include "D2Txt.h"
 #include "D2GameTypes.h"
 #include "D2ItemsWorld.h"
+#include "D2LevelTxt.h"
 struct D2ActiveRoomStrc;
 struct D2DrlgCoordStrc
 {
@@ -67,28 +68,6 @@ struct D2LevelFileListStrc
 };
 
 
-struct D2LvlPrestTxt
-{
-    int dwDef;
-    int unk0x04;
-    int dwPopulate;
-    int dwLogicals;
-    int dwOutdoors;
-    int dwAnimate;
-    int dwKillEdge;
-    int dwFillBlanks;
-    int unk0x20;
-    int nAnimSpeed;
-    int nSizeX;
-    int nSizeY;
-    int dwAutoMap;
-    int dwScan;
-    int dwPops;
-    int dwPopPad;
-    char unk0x40[0x4];
-    char szFile[6][60];
-    unsigned int dwDt1Mask;
-};
 
 
 union D2C_PackedTileInformation

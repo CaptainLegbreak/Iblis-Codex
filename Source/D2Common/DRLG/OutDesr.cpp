@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Path.h"
+#include "D2LevelTxt.h"
 
 // build: context SEED_RollLimitedRandomNumber_Inline
 #define LEVEL_ROCKYWASTE 41
@@ -53,11 +54,6 @@ struct D2DrlgLevelStrc
     int eLevelId;
 };
 
-struct D2LvlPrestTxt
-{
-    char unk0x00[0x40];
-    unsigned int dwFiles;
-};
 
 struct D2DrlgOutDesertInitStrc
 {

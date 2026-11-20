@@ -3,6 +3,7 @@
 #include "D2Txt.h"
 #include "D2Records.h"
 #include "D2ItemsWorld.h"
+#include "D2LevelTxt.h"
 struct D2UnitStrc;
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -41,12 +42,6 @@ struct D2MagicAffixTxt
     int dwAdd;
 };
 
-struct D2UniqueItemsTxt
-{
-    char unk0x00[0x7C];
-    int dwCostMult;
-    int dwCostAdd;
-};
 
 
 struct D2NpcTxt

@@ -5,6 +5,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
+#include "D2LevelTxt.h"
 struct D2ByteRecordStrc;
 struct D2UnitStrc;
 
@@ -19,14 +20,6 @@ struct D2MissileStrc;
 
 
 
-struct D2StatesTxt
-{
-    char unk0x00[0x20];
-    unsigned char nColorPri;
-    unsigned char nColorShift;
-    unsigned char nLightRGB[3];
-    char unk0x25[0x17];
-};
 
 
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArg);

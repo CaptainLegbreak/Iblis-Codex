@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2UnitData.h"
 #include "D2Drlg.h"
+#include "D2LevelTxt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
@@ -146,11 +147,6 @@ struct D2RosterInfoStrc
     D2RosterInfoStrc* pNext;
 };
 
-struct D2LevelsTxt
-{
-    char unk0x00[0x09];
-    unsigned char nDrawEdges;
-};
 
 struct D2DrawBoundsArgStrc
 {

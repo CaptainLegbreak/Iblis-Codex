@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2DataTbls.h"
 #include "D2Records.h"
+#include "D2LevelTxt.h"
 
 
 struct D2LvlTypesTxt
@@ -11,16 +12,6 @@ struct D2LvlTypesTxt
     int dwExpansion;
 };
 
-struct D2LvlPrestTxt
-{
-    int dwDef;
-    int dwLevelId;
-    char unk0x008[0x018];
-    int dwExpansion;
-    char unk0x024[0x020];
-    char szFile[6][60];
-    int dwDt1Mask;
-};
 
 struct D2LvlSubTxt
 {

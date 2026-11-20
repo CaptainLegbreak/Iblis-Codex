@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2LevelTxt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -326,11 +327,6 @@ extern D2ClientCallbackFn gpfnClientCallback_007A0484; // 0x007A0484
 extern D2ClientCallbackFn gpfnClientCallbacks_0070EF0C[3]; // 0x0070EF0C
 extern int gdwGlobal_007A277C; // 0x007A277C
 
-struct D2LevelsTxt
-{
-    char unk0x000[0x218];
-    unsigned int dwBlankScreen;
-};
 
 extern int gnGlobal_0071146C; // 0x0071146C
 extern int gnGlobal_00711470; // 0x00711470

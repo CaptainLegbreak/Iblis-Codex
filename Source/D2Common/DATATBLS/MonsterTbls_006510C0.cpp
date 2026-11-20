@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2Txt.h"
 #include "D2Records.h"
+#include "D2LevelTxt.h"
 
 #define TC_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2BinFieldStrc;
@@ -15,19 +16,6 @@ typedef unsigned int size_t;
 
 
 
-struct D2HirelingTxt
-{
-    unsigned short wVersion;
-    unsigned short pad0x02;
-    int nId;
-    int dwClass;
-    int dwAct;
-    int dwDifficulty;
-    int dwSeller;
-    char unk0x018[0x114 - 0x018];
-    unsigned short wNameFirst;
-    unsigned short wNameLast;
-};
 
 struct T006510C0
 {
