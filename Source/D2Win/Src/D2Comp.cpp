@@ -1,6 +1,10 @@
 #include "D2WinTypes.h"
 #include "D2WinControls.h"
 #include "D2Win32Types.h"
+#include "D2CmpTypes.h"
+#include "D2Records.h"
+#include "D2StormTypes.h"
+#include "D2TxtTables.h"
 
 struct D2WinEditBoxStrc;
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -27,20 +31,7 @@ struct D2WinAccountListFontStrc;
 struct D2WinProgressBarStrc;
 struct D2WinScrollBarStrc;
 
-struct D2CofNodeStrc
-{
-    int nRefCount;
-    int unk0x04[4];
-    void* pCofData;
-    D2CofNodeStrc* pNext;
-    D2CofNodeStrc* pPrev;
-};
 
-struct D2CofInfoStrc
-{
-    D2CofNodeStrc* pCofNode;
-    D2CofInfoStrc* pNext;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -63,14 +54,6 @@ extern D2TxtLinkStrc* gpCompItemsLinker_0087D824; // 0x0087D824
 extern D2TxtLinkStrc* gpItemTypesLinker_0087D828; // 0x0087D828
 extern D2CofNodeStrc* gpCofNodeList_0087E83C; // 0x0087E83C
 
-struct D2BinFieldStrc
-{
-    const char* szFieldName;
-    int nFieldType;
-    int nFieldLength;
-    int nFieldOffset;
-    void* pLinkField;
-};
 
 extern "C" const char szItemTypesFieldCode_006DCCE0[]; // 0x006DCCE0
 extern "C" const char szItemTypesFieldEquiv1_006DCD14[]; // 0x006DCD14
@@ -82,13 +65,6 @@ extern int gnItemTypesTxtRecordCount_0087D830; // 0x0087D830
 D2TxtLinkStrc* __stdcall sub_006BD040(const char* szFile, int nLine); // 0x006BD040
 void* __stdcall sub_00504430_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pBinField, int* pRecordCount, int nRecordSize); // 0x00504430
 
-struct D2ItemTypesTxt
-{
-    char unk0x00[0x04];
-    short nEquiv1;
-    short nEquiv2;
-    char unk0x08[0xDC];
-};
 
 enum D2ControlTypes
 {
@@ -107,33 +83,6 @@ enum D2ControlTypes
     D2WIN_IMAGE2 = 13,
 };
 
-struct SMSGHANDLER_PARAMS
-{
-    void* hWnd;
-    unsigned int uMessage;
-    union
-    {
-        struct
-        {
-            unsigned short nWParamLo;
-            short nWParamHi;
-        };
-        unsigned int wParam;
-    };
-    union
-    {
-        struct
-        {
-            unsigned short nXpos;
-            unsigned short nYpos;
-        };
-        unsigned int lParam;
-    };
-    unsigned int dwCommandSource;
-    unsigned int dwArg;
-    int bReturn;
-    int lResult;
-};
 
 #include "D2Unicode.h"
 

@@ -1,13 +1,6 @@
+#include "D2Primitives.h"
 struct D2BitBufferStrc;
 
-struct D2BitBufferStrc
-{
-    unsigned char* pBuffer;
-    int nBits;
-    int nPos;
-    int nPosBits;
-    int bFull;
-};
 
 
 extern const unsigned int gdwBitMasks_006CE368[9]; // 0x006CE368

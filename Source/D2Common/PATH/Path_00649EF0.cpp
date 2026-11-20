@@ -1,36 +1,10 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Path.h"
 union D2FP32_16;
 
-union D2FP32_16
-{
-    struct
-    {
-        unsigned short wOffsetX;
-        unsigned short wPosX;
-        unsigned short wOffsetY;
-        unsigned short wPosY;
-    };
 
-    struct
-    {
-        unsigned int dwPrecisionX;
-        unsigned int dwPrecisionY;
-    };
-};
-
-struct D2DynamicPathStrc
-{
-    D2FP32_16 tGameCoords;
-    unsigned char unk_08[0x40];
-    int dwCollisionPattern;
-    int nCollisionMask;
-    unsigned char unk_50[0x14];
-    unsigned char nNewDirection;
-    unsigned char nDirection;
-    unsigned char unk_66[0x2];
-};
 
 int __stdcall PATH_ComputeDirectionFromPreciseCoords_6FDAC760(D2FP32_16 tStart, D2FP32_16 tTarget); // 0x0064FE10
 void __fastcall sub_6FDA9720(D2DynamicPathStrc* pDynamicPath, unsigned char nDirection); // 0x006485F0
@@ -60,8 +34,8 @@ void __stdcall D2Common_10216(D2DynamicPathStrc* pDynamicPath, int nX, int nY, i
         const int nDirection = PATH_ComputeDirectionFromPreciseCoords_6FDAC760(pDynamicPath->tGameCoords, tTarget);
         if (a4)
         {
-            pDynamicPath->nNewDirection = nDirection & 0x3F;
             pDynamicPath->nDirection = nDirection & 0x3F;
+            pDynamicPath->nNewDirection = nDirection & 0x3F;
         }
         else
         {
@@ -78,7 +52,7 @@ int __stdcall PATH_GetFootprintCollisionMask(D2DynamicPathStrc* pDynamicPath)
         return 0xFFFF;
     }
 
-    return pDynamicPath->nCollisionMask;
+    return pDynamicPath->nFootprintCollisionMask;
 }
 
 static __forceinline int sub_00649FF0_GetCollisionPattern(D2UnitStrc* pUnit)

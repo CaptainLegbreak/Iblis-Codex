@@ -9,6 +9,8 @@
 #include "D2Records.h"
 #include "D2Unicode.h"
 #include "D2StormTypes.h"
+#include "D2ClientTypes.h"
+#include "D2ClientUi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
@@ -35,21 +37,7 @@ int __fastcall sub_0046EE80_DrawItemCel(D2UnitStrc* pItem, int nX, int nY); // 0
 int __stdcall sub_004F6480(D2CelContextStrc*, int, int, int, int, int); // 0x004F6480
 extern "C" void* __cdecl memset(void*, int, unsigned int); // 0x00681EF0
 
-struct D2InvRectStrc
-{
-    int nLeft;
-    int nRight;
-    int nTop;
-    int nBottom;
-};
 
-struct D2InvCompGridStrc
-{
-    D2InvRectStrc rect;
-    unsigned char nWidth;
-    unsigned char nHeight;
-    unsigned short pad0x12;
-};
 
 #pragma pack(push, 2)
 struct D2NpcButtonStrc
@@ -217,13 +205,6 @@ static void sub_00487E20_SetButtonA(int nButton); // 0x00487E20
 static void sub_00487E60_SetButtonB(int nButton); // 0x00487E60
 static void sub_00487EA0_ClearButton(int nButton); // 0x00487EA0
 
-struct D2GfxDataStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    D2CelFileStrc* pCellFile;
-    int unk0x38[4];
-};
 void __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 extern D2CelFileStrc* gpTorsoCell_007BCE68; // 0x007BCE68
 extern D2CelFileStrc* gpHeadCell_007BCE74; // 0x007BCE74
