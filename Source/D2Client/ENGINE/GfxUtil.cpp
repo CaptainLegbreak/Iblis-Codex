@@ -5,6 +5,7 @@
 #include "D2Drlg.h"
 #include "D2LevelTxt.h"
 #include "D2CmpTypes.h"
+#include "D2ClientGfx.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
@@ -17,7 +18,6 @@
 struct D2MonsterDataStrc;
 struct D2GfxEntryStrc;
 struct D2GfxListNodeStrc;
-struct D2MotionVectorStrc;
 struct D2CellBlockStrc;
 struct D2OffsetTableStrc;
 struct D2OffsetTableRefStrc;
@@ -52,30 +52,10 @@ struct D2TokRecord;
 struct D2ObjectsTxt;
 struct D2ItemsTxt;
 
-struct D2GfxListNodeStrc
-{
-    int nMode;
-    int nId;
-    char unk0x08[0x8];
-    D2GfxListNodeStrc* pNext;
-};
-
 struct D2GfxDataStrc
 {
     D2GfxEntryStrc tEntries[20];
     D2GfxListNodeStrc* pNodeList;
-};
-
-struct D2GfxMotionStrc
-{
-    unsigned int dwFlags;
-    D2MotionVectorStrc tA;
-    D2MotionVectorStrc tB;
-    D2MotionVectorStrc tD;
-    D2MotionVectorStrc tC;
-    char unk0x34[0xC];
-    int nParam0;
-    int nParam1;
 };
 
 struct D2CellBlockStrc
@@ -267,12 +247,6 @@ struct D2MissilesTxt
 {
     char unk0x00[0x1A0];
     unsigned char nNumDirections;
-};
-
-struct D2MonGfxCacheStrc
-{
-    int nModeFlags[16];
-    char unk0x40[0x60];
 };
 
 extern int gdwGlobal_007A8928; // 0x007A8928

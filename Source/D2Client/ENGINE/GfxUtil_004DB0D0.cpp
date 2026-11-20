@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2TxtTables.h"
+#include "D2ClientGfx.h"
 
 struct D2GfxCodeRecordStrc;
 struct D2GfxCodeTableStrc;
@@ -28,12 +29,6 @@ struct D2GfxCodeTableStrc
 };
 
 #pragma pack(pop)
-
-struct D2MonGfxCacheStrc
-{
-    int nModeFlags[16];
-    char unk0x40[0x60];
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern int gdwGlobal_007A8928; // 0x007A8928

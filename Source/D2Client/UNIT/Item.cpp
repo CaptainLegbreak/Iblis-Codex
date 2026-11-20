@@ -8,6 +8,7 @@
 #include "D2GameRecords.h"
 #include "D2DataTbls.h"
 #include "D2GameObjs.h"
+#include "D2ClientGfx.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define ITEMQUAL_SET 5
@@ -22,7 +23,6 @@ struct D2ObjectDataStrc;
 struct D2GSPacketSrv60;
 struct D2GSPacketSrv9C;
 struct D2SkillsTxt;
-struct D2MotionVectorStrc;
 struct D2UnitEventArgsStrc;
 struct D2HotspotStrc;
 struct D2PanelGfxStrc;
@@ -69,18 +69,6 @@ struct D2GSPacketSrv9C
     unsigned char nComponent;
     int nItemId;
     unsigned char pBitstream[244];
-};
-
-struct D2GfxMotionStrc
-{
-    int unk0x00;
-    D2MotionVectorStrc tA;
-    D2MotionVectorStrc tB;
-    char unk0x1C[0xC];
-    D2MotionVectorStrc tC;
-    int unk0x34;
-    int nUnk0x38;
-    int nUnk0x3C;
 };
 
 struct D2UnitEventArgsStrc
@@ -2400,7 +2388,7 @@ int __stdcall sub_004DA0D0_GetGfxMotionField38(D2UnitStrc* pUnit)
     D2GfxMotionStrc* pMotion = sub_0046F060_GetGfxMotion(pUnit);
     if (pMotion)
     {
-        return pMotion->nUnk0x38;
+        return pMotion->nClientY;
     }
     return 0;
 }
@@ -2411,7 +2399,7 @@ int __stdcall sub_004DA0F0_GetGfxMotionField3C(D2UnitStrc* pUnit)
     D2GfxMotionStrc* pMotion = sub_0046F060_GetGfxMotion(pUnit);
     if (pMotion)
     {
-        return pMotion->nUnk0x3C;
+        return pMotion->nClientZ;
     }
     return 0;
 }

@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Txt.h"
 #include "D2CelContext.h"
+#include "D2ClientGfx.h"
 struct D2GfxListNodeStrc;
 struct D2UnitStrc;
 
@@ -10,28 +11,6 @@ struct D2HashedFileEntryStrc;
 struct D2HashedFileStrc;
 struct D2StateNodeStrc;
 struct D2StateOwnerStrc;
-
-struct D2HashedFileEntryStrc
-{
-    D2HashedFileEntryStrc* pNext;
-    unsigned int nFlags;
-    int nSize;
-    union
-    {
-        char szName[8];
-        unsigned int dwName[2];
-    };
-    unsigned char* pData;
-    int nUnk0x18;
-};
-
-struct D2HashedFileStrc
-{
-    int f_0;
-    unsigned char* pData;
-    unsigned int nSize;
-    D2HashedFileEntryStrc* f_C[0x200];
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -68,22 +47,12 @@ struct D2StateOwnerStrc
     D2StateNodeStrc* pFirst;
 };
 
-
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 D2StateOwnerStrc* __fastcall sub_00463E10_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
 void __fastcall sub_004743D0_ReleaseOverlayResource(void* pResource); // 0x004743D0
 static __declspec(noinline) void __stdcall sub_0046E040_RemoveOverlay(D2UnitStrc* pUnit, D2StateNodeStrc* pOverlay);
-
-
-struct D2GfxLayerHeaderStrc
-{
-    unsigned char nLayers;
-    unsigned char unk0x01;
-    unsigned char nArg;
-};
-
 
 int __cdecl sub_0045AE90(); // 0x0045AE90
 extern "C" int __cdecl sub_0045AFC0(); // 0x0045AFC0
@@ -152,7 +121,7 @@ D2HashedFileEntryStrc* __stdcall sub_0046DC40_FindHashedEntry(D2HashedFileStrc* 
     char szName[0x104] = { 0 };
     sub_0046DBF0_GetBaseName(szPath, szName);
     _strlwr(szName);
-    for (D2HashedFileEntryStrc* pEntry = pTable->f_C[sub_0046DB90_HashName(szName)]; pEntry; pEntry = pEntry->pNext)
+    for (D2HashedFileEntryStrc* pEntry = pTable->pEntries[sub_0046DB90_HashName(szName)]; pEntry; pEntry = pEntry->pNext)
     {
         if (*(unsigned int*)&szName[0] == pEntry->dwName[0] && *(unsigned int*)&szName[4] == pEntry->dwName[1])
         {
@@ -183,8 +152,8 @@ static D2HashedFileEntryStrc* __stdcall sub_0046DCC0_LoadHashedEntry(D2HashedFil
 
         D2_ASSERT(pEntry->pData[2] <= 0x40, 0xEC);
         const unsigned int nBucket = sub_0046DB90_HashName(szName);
-        pEntry->pNext = pTable->f_C[nBucket];
-        pTable->f_C[nBucket] = pEntry;
+        pEntry->pNext = pTable->pEntries[nBucket];
+        pTable->pEntries[nBucket] = pEntry;
         gdwGlobal_007A8918 += pEntry->nSize + sizeof(D2HashedFileEntryStrc);
         return pEntry;
     }

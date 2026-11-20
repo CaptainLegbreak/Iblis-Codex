@@ -1840,13 +1840,6 @@ struct D2MonStatsInitStrc
     int nElDur;
 };
 
-struct D2MotionVectorStrc
-{
-    int nX;
-    int nY;
-    int nZ;
-};
-
 struct D2NpcMenuSlotStrc
 {
     unsigned short wId;

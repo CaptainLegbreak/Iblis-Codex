@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2ClientGfx.h"
 
 #define UNIT_INVALID 6
 struct D2StaticPathStrc;
@@ -16,14 +17,6 @@ struct D2MissilesTxt;
 struct D2SkillsTxt;
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 0x006CC260
-
-
-
-
-struct D2GfxMotionStrc
-{
-    unsigned int dwFlags;
-};
 
 struct D2GfxDataStrc
 {
@@ -86,10 +79,7 @@ struct D2AreaScanStrc
     D2CltMissileSpawnArgStrc* pArg;
 };
 
-
-
 typedef int (__fastcall* AREASCANFN)(void* pArg, D2UnitStrc* pUnit);
-
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

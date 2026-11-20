@@ -2,10 +2,10 @@
 #include "D2CelContext.h"
 #include "D2Unicode.h"
 #include "D2StormTypes.h"
+#include "D2ClientGfx.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct Unicode;
-struct D2MotionVectorStrc;
 struct D2HotkeySlotTableStrc;
 struct D2TextPanelLineStrc;
 struct D2TextPanelStrc;
@@ -17,19 +17,6 @@ extern int gnGlobal_007BEFD0; // 0x007BEFD0
 extern int gnGlobal_007BEFD8; // 0x007BEFD8
 extern int __cdecl sub_0044DA30(); // 0x0044DA30
 extern int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS*); // 0x00420290
-
-struct D2GfxMotionStrc
-{
-    unsigned int dwFlags;
-    D2MotionVectorStrc tA;
-    D2MotionVectorStrc tB;
-    D2MotionVectorStrc tD;
-    D2MotionVectorStrc tC;
-    char unk0x34[0xC];
-    int nParam0;
-    int nParam1;
-    int unk0x48;
-};
 
 struct D2TextPanelLineStrc
 {

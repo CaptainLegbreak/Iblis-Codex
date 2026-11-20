@@ -3,28 +3,12 @@
 #include "D2DataTbls.h"
 #include "D2Drlg.h"
 #include "D2ClientTypes.h"
-#include "D2ClientTypes.h"
+#include "D2ClientGfx.h"
 struct D2UnitStrc;
 
 typedef unsigned long DWORD;
 
-struct D2GfxLayerHeaderStrc
-{
-    unsigned char nCount;
-    unsigned char unk0x01;
-    unsigned char nArg;
-};
-
 struct D2GfxLayerStrc;
-
-struct D2GfxListNodeStrc
-{
-    int nMode;
-    int nId;
-    D2GfxNodeTargetStrc* pTarget;
-    int unk0x0C;
-    D2GfxListNodeStrc* pNext;
-};
 
 struct D2CelContextStrc
 {
@@ -32,12 +16,6 @@ struct D2CelContextStrc
     int nArg34;
     int unk0x38[3];
     int nFlags44;
-};
-
-struct D2MonGfxCacheStrc
-{
-    int f_0[20];
-    int aPending[20];
 };
 
 struct D2MonStatsTxt
@@ -159,7 +137,7 @@ static int __stdcall sub_0046FB60_LoadUnitLayers(int bAsync, int nMode, D2UnitSt
     unsigned char* pOrder = sub_004DB110_GetLayerOrder(pLayer, tArg.nA, 0);
     D2_ASSERT(pOrder, 0x6D6);
     tArg.nIndex = 0;
-    while (tArg.nIndex < pHeader->nCount)
+    while (tArg.nIndex < pHeader->nLayers)
     {
         const int nLayer = pOrder[tArg.nIndex];
         D2_ASSERT(nLayer < 0x10, 0x6DD);
@@ -203,7 +181,7 @@ static void __stdcall sub_0046FDA0_PreloadMonsterMode(int bAsync, D2UnitStrc* pU
     nClass = nClassValue;
     nAnimMode = UNITS_GetAnimOrSeqMode(pUnit);
     D2COMMON_11013_ConvertMode(pUnit, &nType, &nClass, &nAnimMode, ".\\ENGINE\\Gfx.cpp", 0x70A);
-    if (nClass >= sgptDataTables->nMonStatsTxtRecordCount || gpPoolBlock_007A80FC[nClass].f_0[nMode])
+    if (nClass >= sgptDataTables->nMonStatsTxtRecordCount || gpPoolBlock_007A80FC[nClass].nModeFlags[nMode])
     {
         return;
     }
@@ -212,7 +190,7 @@ static void __stdcall sub_0046FDA0_PreloadMonsterMode(int bAsync, D2UnitStrc* pU
         if (sub_0046FB60_LoadUnitLayers(bAsync, nMode, pUnit) != 1)
         {
             gpPoolBlock_007A80FC[nClass].aPending[nMode] = 0;
-            gpPoolBlock_007A80FC[nClass].f_0[nMode] = 0;
+            gpPoolBlock_007A80FC[nClass].nModeFlags[nMode] = 0;
         }
         else
         {
@@ -221,7 +199,7 @@ static void __stdcall sub_0046FDA0_PreloadMonsterMode(int bAsync, D2UnitStrc* pU
     }
     else if (!D2CMPSpriteFindAsynchSiblings(nType, nMode, nClass))
     {
-        gpPoolBlock_007A80FC[nClass].f_0[nMode] = 1;
+        gpPoolBlock_007A80FC[nClass].nModeFlags[nMode] = 1;
     }
 }
 
@@ -269,7 +247,7 @@ static void __stdcall sub_0046FF50_PreloadPlayerMode(int bAsync, D2UnitStrc* pUn
     nClass = nClassValue;
     nAnimMode = UNITS_GetAnimOrSeqMode(pUnit);
     D2COMMON_11013_ConvertMode(pUnit, &nType, &nClass, &nAnimMode, ".\\ENGINE\\Gfx.cpp", 0x751);
-    if (gaPlayerGfxCache_007A7490[nClass].f_0[nMode])
+    if (gaPlayerGfxCache_007A7490[nClass].nModeFlags[nMode])
     {
         return;
     }
@@ -278,7 +256,7 @@ static void __stdcall sub_0046FF50_PreloadPlayerMode(int bAsync, D2UnitStrc* pUn
         if (sub_0046FB60_LoadUnitLayers(bAsync, nMode, pUnit) != 1)
         {
             gaPlayerGfxCache_007A7490[nClass].aPending[nMode] = 0;
-            gaPlayerGfxCache_007A7490[nClass].f_0[nMode] = 0;
+            gaPlayerGfxCache_007A7490[nClass].nModeFlags[nMode] = 0;
         }
         else
         {
@@ -287,7 +265,7 @@ static void __stdcall sub_0046FF50_PreloadPlayerMode(int bAsync, D2UnitStrc* pUn
     }
     else if (!D2CMPSpriteFindAsynchSiblings(nType, nMode, nClass))
     {
-        gaPlayerGfxCache_007A7490[nClass].f_0[nMode] = 1;
+        gaPlayerGfxCache_007A7490[nClass].nModeFlags[nMode] = 1;
     }
 }
 
@@ -314,7 +292,7 @@ void __fastcall sub_00470B70_ResetMonsterModeGfx(D2UnitStrc* pUnit)
     case 1:
         if (nClass < sgptDataTables->nMonStatsTxtRecordCount)
         {
-            gpPoolBlock_007A80FC[nClass].f_0[nAnimMode] = 0;
+            gpPoolBlock_007A80FC[nClass].nModeFlags[nAnimMode] = 0;
             gpPoolBlock_007A80FC[nClass].aPending[nAnimMode] = 0;
 
             int bAsync = 1;
