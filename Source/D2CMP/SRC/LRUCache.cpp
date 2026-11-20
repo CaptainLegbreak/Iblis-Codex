@@ -1,13 +1,5 @@
 #include "D2CMP.h"
-
-struct D2LRUNodeStrc
-{
-    void* pValue;
-    unsigned int nKey;
-    unsigned int nCost;
-    D2LRUNodeStrc* pNext;
-    D2LRUNodeStrc* pPrev;
-};
+#include "D2CmpCache.h"
 
 struct D2LRUCacheStrc
 {
@@ -52,8 +44,8 @@ void __fastcall sub_00609020(D2LRUCacheStrc* pCache, void* pMemPool, unsigned in
         {
             pNode->pPrev = &pCache->pNodes[i - 1];
         }
-        pNode->pValue = 0;
-        pNode->nKey = 0;
+        pNode->pData = 0;
+        pNode->nSize = 0;
         pNode->nCost = 0;
     }
 

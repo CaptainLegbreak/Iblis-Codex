@@ -10,6 +10,7 @@ struct D2CmpGfxHashEntryStrc;
 struct D2FontStrc;
 struct D2WinControlStrc;
 struct D2FontCacheStrc;
+struct D2CmpSpriteEntryStrc;
 struct D2SpriteCacheNodeStrc;
 struct SMSGHANDLER_PARAMS;
 struct D2CofInfoStrc;
@@ -50,9 +51,17 @@ struct D2FontCacheStrc
 
 struct D2SpriteCacheNodeStrc
 {
-    void* pData; // 0x00
+    union
+    {
+        void* pData; // 0x00
+        D2CmpSpriteEntryStrc* pEntry; // 0x00
+    };
     unsigned int nSize; // 0x04
-    D2CmpGfxHashEntryStrc* pRecord; // 0x08
+    union
+    {
+        D2CmpGfxHashEntryStrc* pRecord; // 0x08
+        unsigned int nKey; // 0x08
+    };
     unsigned int dwFlags; // 0x0C
     unsigned int dwTick; // 0x10
     D2SpriteCacheNodeStrc* pNext; // 0x14

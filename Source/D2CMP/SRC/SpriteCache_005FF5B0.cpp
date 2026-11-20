@@ -1,4 +1,5 @@
 #include "D2CMP.h"
+#include "D2WinTypes.h"
 
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
@@ -6,16 +7,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(void* lpCriticalSection);             // 0x006CC218
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(void* lpCriticalSection);             // 0x006CC214
 
-struct D2SpriteCacheNodeStrc
-{
-    void* pData;
-    unsigned int nSize;
-    unsigned int nKey;
-    unsigned int dwFlags;
-    unsigned int dwTick;
-    D2SpriteCacheNodeStrc* pNext;
-    D2SpriteCacheNodeStrc* pPrev;
-};
 
 struct D2SpriteCacheStrc
 {

@@ -1,5 +1,7 @@
 #include "D2CMP.h"
 #include "D2CmpTypes.h"
+#include "D2WinTypes.h"
+#include "D2CmpCache.h"
 
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
@@ -11,18 +13,6 @@ struct D2CmpBlockTableBStrc;
 struct D2SpriteLoadRequestStrc;
 struct D2SpriteCacheNodeStrc;
 struct D2CmpGfxHashEntryStrc;
-
-struct D2SpriteCacheStrc
-{
-    void* pMemPool;
-};
-
-struct D2SpriteCacheNodeStrc
-{
-    D2CmpSpriteEntryStrc* f_0;
-    int unk0x04;
-    D2CmpGfxHashEntryStrc* pRecord;
-};
 
 D2SpriteCacheStrc gCmpTileCache;                                                                            // 0x0089DB60
 extern D2CmpBlockTableBStrc gCmpBlockTableB;                                                                // 0x0088DB58
@@ -100,7 +90,7 @@ static int __stdcall sub_005FFFA0_LoadDC6CacheEntry(D2CmpSpriteFileStrc* pFile, 
     D2SpriteCacheNodeStrc* pHolder = sub_005FFC40_SpriteCacheAlloc(&gCmpTileCache, sizeof(D2CmpSpriteEntryStrc), 0, 1);
     if (pHolder)
     {
-        D2CmpSpriteEntryStrc* pEntry = pHolder->f_0;
+        D2CmpSpriteEntryStrc* pEntry = pHolder->pEntry;
         memset(pEntry, 0, sizeof(D2CmpSpriteEntryStrc));
         pEntry->nArg0C = pContext->dwName[0];
         pEntry->nArg18 = pContext->dwName[3];
@@ -122,7 +112,7 @@ static int __stdcall sub_005FFFA0_LoadDC6CacheEntry(D2CmpSpriteFileStrc* pFile, 
 
         if (nSize != -1)
         {
-            D2CmpGfxHashEntryStrc* pRecord = sub_0060ADC0_GfxHashAdd(gCmpTileCache.pMemPool, &gCmpBlockTableB, pHolder->f_0, pContext, pFile);
+            D2CmpGfxHashEntryStrc* pRecord = sub_0060ADC0_GfxHashAdd(gCmpTileCache.pMemPool, &gCmpBlockTableB, pHolder->pEntry, pContext, pFile);
             D2_ASSERT(pRecord, 0x630);
             pHolder->pRecord = pRecord;
             pRecord->pHolder = pHolder;

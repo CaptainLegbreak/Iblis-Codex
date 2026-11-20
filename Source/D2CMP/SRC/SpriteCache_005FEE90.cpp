@@ -1,5 +1,6 @@
 #include "D2CMP.h"
 #include "D2CmpTypes.h"
+#include "D2WinTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -12,16 +13,6 @@ struct D2CmpCelContextStrc;
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
-struct D2SpriteCacheNodeStrc
-{
-    void* pData;
-    unsigned int nSize;
-    unsigned int nKey;
-    unsigned int dwFlags;
-    unsigned int dwTick;
-    D2SpriteCacheNodeStrc* pNext;
-    D2SpriteCacheNodeStrc* pPrev;
-};
 
 struct D2SpriteCacheStrc
 {

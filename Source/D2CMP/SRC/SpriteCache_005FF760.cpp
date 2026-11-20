@@ -1,4 +1,5 @@
 #include "D2CmpTypes.h"
+#include "D2WinTypes.h"
 // build: context SpriteCache_BuildDccOrDc6Path
 // build: context SpriteCache_IsCompressible
 
@@ -324,12 +325,6 @@ static __declspec(noinline) void __stdcall sub_005FEC90_InitDC6Frames(D2CmpSprit
     pEntry->unk0x28 = 1;
 }
 
-struct D2SpriteCacheNodeStrc
-{
-    D2CmpSpriteEntryStrc* f_0;
-    int unk0x04;
-    D2CmpGfxHashEntryStrc* pRecord;
-};
 
 D2SpriteCacheNodeStrc* __fastcall sub_005FFC40_SpriteCacheAlloc(D2SpriteCacheStrc* pCache, unsigned int nSize, unsigned int nKey, int bLocked); // 0x005FFC40
 
@@ -518,7 +513,7 @@ static int __stdcall sub_005FFE90_LoadDC6Entry(D2CmpSpriteFileStrc* pFile, int n
     if (!pHolder)
         return 0;
 
-    D2CmpSpriteEntryStrc* pEntry = pHolder->f_0;
+    D2CmpSpriteEntryStrc* pEntry = pHolder->pEntry;
     memset(pEntry, 0, sizeof(D2CmpSpriteEntryStrc));
     pEntry->nType = pContext->nType;
     pEntry->nArg0C = pContext->dwName[0];
@@ -534,7 +529,7 @@ static int __stdcall sub_005FFE90_LoadDC6Entry(D2CmpSpriteFileStrc* pFile, int n
         sub_005FF760_LoadDCCFrames(pContext, nArg2, nArg3, szName, pFile, pEntry);
     }
 
-    D2CmpGfxHashEntryStrc* pRecord = sub_0060ADC0_GfxHashAdd(gCmpTileCache.pMemPool, &gCmpBlockTableB, pHolder->f_0, pContext, pFile);
+    D2CmpGfxHashEntryStrc* pRecord = sub_0060ADC0_GfxHashAdd(gCmpTileCache.pMemPool, &gCmpBlockTableB, pHolder->pEntry, pContext, pFile);
     D2_ASSERT(pRecord, 0x5D1);
     pHolder->pRecord = pRecord;
     pRecord->pHolder = pHolder;

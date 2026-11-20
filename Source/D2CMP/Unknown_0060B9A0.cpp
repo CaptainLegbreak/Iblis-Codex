@@ -1,101 +1,11 @@
 #include "D2GameTypes.h"
 #include "D2CmpTypes.h"
-
+#include "D2CmpCache.h"
 
 struct D2CmpByteMapStrc
 {
     unsigned char ab[0x100];
     int nCount;
-};
-
-struct D2CmpByteRunStrc
-{
-    unsigned char* pData;
-    int nCount;
-};
-
-struct D2DccFrameStrc
-{
-    int nVar0;
-    int nWidth;
-    int nHeight;
-    int nXOffset;
-    int nYOffset;
-    int nOptBytes;
-    unsigned char* pOptData;
-    int nCodedBytes;
-    int nCellsX;
-    int nCellsY;
-    int bBottomUp;
-};
-
-struct D2DccHeaderStrc
-{
-    int n04;
-    int n08;
-    int n14;
-    int nFrames;
-    int unk0x10;
-};
-
-struct D2DccDirStrc
-{
-    D2DccHeaderStrc* pHeader;
-    D2DccFrameStrc* pFrames;
-    int nMinX;
-    int nMinY;
-    int nBoxWidth;
-    int nBoxHeight;
-    int nDir;
-    int nFrames;
-    int nCells;
-    int nCellsTotal;
-    int nCellsPerRow;
-};
-
-struct D2DccIterStrc
-{
-    int nFrame;
-    int nWidth;
-    int nHeight;
-    int nX0;
-    int nY0;
-    int nCellsX;
-    int nCellsY;
-    int nCellRow;
-    int nCell;
-    int nX;
-    int nY;
-    int nPixelRow;
-    int nPixel;
-    int nStepX;
-    int nStepY;
-};
-
-struct D2DccCellStrc
-{
-    unsigned char* pColors;
-    unsigned char* pDst;
-    int nPitch;
-    int nWidth;
-    int nHeight;
-};
-
-struct D2DccFileStrc
-{
-    int unk0x00;
-    int n04;
-    int n08;
-    int unk0x0C[2];
-    int n14;
-    int nFrames;
-    int dwDirOffsets[1];
-};
-
-struct D2DccOutTableStrc
-{
-    int unk0x00[3];
-    int dwDirOffsets[1];
 };
 
 struct D2Dc6FrameStrc

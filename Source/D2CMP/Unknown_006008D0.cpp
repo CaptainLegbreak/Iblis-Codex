@@ -1,27 +1,10 @@
 #include "D2CMP.h"
 #include "D2DrlgMaps.h"
+#include "D2CmpCache.h"
 
 struct D2TileLibraryEntryStrc;
 struct D2TileLibraryHeaderStrc;
 struct D2TileRecordStrc;
-
-
-struct D2TileLibraryHeaderStrc
-{
-    int dwVersion;
-    int dwFlags;
-    char szLibraryName[260];
-    int nTiles;
-    D2TileLibraryEntryStrc* pFirst;
-};
-
-struct D2TileRecordStrc
-{
-    char szLibraryName[260];
-    D2TileLibraryHeaderStrc* pLibrary;
-    D2TileLibraryHashStrc* pHashBlock;
-    D2TileRecordStrc* pPrev;
-};
 
 typedef void (__fastcall* TILEFN)(D2TileLibraryEntryStrc* pTile, void* pArg);
 
