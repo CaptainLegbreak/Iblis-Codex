@@ -168,7 +168,7 @@ def unit_env(s, env, rel):
     if not d:
         return env
     env = dict(env)
-    env["INCLUDE"] = env["INCLUDE"] + ";" + _win_path(d, s)
+    env["INCLUDE"] = env["INCLUDE"] + ";" + _win_path(d, s) + ";" + _win_path(SHARED, s)
     return env
 
 
@@ -189,24 +189,45 @@ def module_dir(rel):
     return os.path.join(ROOT, parts[0], parts[1]) if len(parts) > 2 and parts[0] == "Source" else None
 
 
+SHARED = os.path.join(ROOT, "Source", "Include")
+
+
+def find_header(name, rel):
+    """A bare-name header: the unit's module folder first, then the shared Source/Include folder."""
+    for d in (module_dir(rel) if rel else None, SHARED):
+        if d and os.path.exists(os.path.join(d, name)):
+            return os.path.join(d, name)
+    return None
+
+
 def unit_headers(text, rel):
-    """Paths of the module headers a unit includes."""
-    d = module_dir(rel) if rel else None
-    if not d:
-        return []
-    return [os.path.join(d, h) for h in HEADER_INCLUDE.findall(text) if os.path.exists(os.path.join(d, h))]
+    """Paths of the headers a unit includes, directly or through other headers (module and shared)."""
+    out = []
+
+    def walk(t):
+        for h in HEADER_INCLUDE.findall(t):
+            p = find_header(h, rel)
+            if p and p not in out:
+                out.append(p)
+                walk(open(p, encoding="latin-1").read())
+    walk(text)
+    return out
 
 
 def expand_gen_includes(text, rel=None):
-    """The unit's text with its generated data and its module headers written in place (what the checker reads)."""
-    d = module_dir(rel) if rel else None
-    if d:
-        def hdr(m):
-            p = os.path.join(d, m.group(1))
-            if not os.path.exists(p):
-                return m.group(0)
-            return open(p, encoding="latin-1", newline="").read().rstrip("\n")
-        text = HEADER_INCLUDE.sub(hdr, text)
+    """The unit's text with its generated data and its headers written in place, each header once (what the checker
+    reads)."""
+    seen = set()
+
+    def hdr(m):
+        p = find_header(m.group(1), rel)
+        if not p:
+            return m.group(0)
+        if p in seen:
+            return ""
+        seen.add(p)
+        return HEADER_INCLUDE.sub(hdr, open(p, encoding="latin-1", newline="").read().rstrip("\n"))
+    text = HEADER_INCLUDE.sub(hdr, text)
 
     def one(m):
         p = os.path.join(ROOT, m.group(1))

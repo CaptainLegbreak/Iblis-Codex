@@ -7,6 +7,7 @@ struct D2GemsTxt;
 struct D2InvRectStrc;
 struct D2InvCompGridStrc;
 struct D2InventoryGridInfoStrc;
+// build: symbol ??0Unicode@@QAE@XZ 0x0042F530
 struct Unicode;
 struct D2CharStatsTxt;
 struct D2UnitInvView;

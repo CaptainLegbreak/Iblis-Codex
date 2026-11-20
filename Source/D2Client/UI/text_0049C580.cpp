@@ -163,15 +163,15 @@ Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCo
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);
 void __stdcall UNITS_GetClientCoords(D2UnitStrc* pUnit, D2CoordStrc* pClientCoords); // 0x00620900
-void __stdcall CHAT_FreeHoverMsg(void* pMemoryPool, D2HoverTextStrc* pHoverText);
-unsigned int __stdcall CHAT_GetTimeoutFromHoverMsg(D2HoverTextStrc* pHoverMsg);
+void __stdcall CHAT_FreeHoverMsg(void* pMemoryPool, D2HoverTextStrc* pHoverText); // 0x006611A0
+unsigned int __stdcall CHAT_GetTimeoutFromHoverMsg(D2HoverTextStrc* pHoverMsg); // 0x006611D0
 unsigned char __stdcall CHAT_GetLangIdFromHoverMsg(D2HoverTextStrc* pHoverMsg);
 extern int gaHoverDirs_00722654[];
 extern int gnHoverDirCount_00722674;
 extern D2RectStrc gaHoverRects_007BF0A8[16];
-extern int gnGameFrame_007BF20E;
+extern int gnGameFrame_007BF20E; // 0x007BF20E
 extern D2CoordStrc gtHoverOffset_007BF214; // 0x007BF214
-extern int gnHoverRectCount_007BF224;
+extern int gnHoverRectCount_007BF224; // 0x007BF224
 
 #pragma pack(push, 2)
 struct D2TextNodeStrc

@@ -86,7 +86,7 @@ int __stdcall CONTROL_AppendToList(D2WinTextBoxStrc* pControl); // 0x004F9210
 D2WinScrollBarStrc* __fastcall SCROLLBAR_Create(int nX, int nY, int nWidth, int nHeight, D2CellFileStrc* pCellFile, int a6); // 0x005084F0
 int __fastcall SCROLLBAR_SetTextBox(D2WinScrollBarStrc* pScrollBar, D2WinTextBoxStrc* pTextBox); // 0x00507FD0
 extern "C" void __fastcall sub_005080C0_SetScrollBarField50(D2WinScrollBarStrc* pScrollBar, int nValue); // 0x005080C0
-int __stdcall TEXTBOX_Draw(SMSGHANDLER_PARAMS* pMsg);
+int __stdcall TEXTBOX_Draw(SMSGHANDLER_PARAMS* pMsg); // 0x004FBF30
 int __stdcall TEXTBOX_HandleVirtualKeyInput(SMSGHANDLER_PARAMS* pMsg); // 0x004FC3F0
 int __stdcall TEXTBOX_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg);
 

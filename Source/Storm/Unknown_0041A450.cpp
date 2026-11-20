@@ -98,7 +98,7 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalS
 extern "C" __declspec(dllimport) int __stdcall SetEvent(void* hEvent);
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode);
 extern D2CriticalSectionStrc gBasePathLock_00779068; // 0x00779068
-extern void* ghStormEvent_00779054;
+extern void* ghStormEvent_00779054; // 0x00779054
 int __stdcall sub_0041A300_CancelRequests(void* pBuffer, void* pOther);
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 

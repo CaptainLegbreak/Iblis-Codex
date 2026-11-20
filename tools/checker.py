@@ -131,6 +131,8 @@ def _def_lookup(name, defs):
 
 def resolve(name, defs, decls, symbols):
     exact = symbols[name] if name in symbols and not name.endswith("*") else None
+    if exact is not None and exact is not AMBIGUOUS:
+        return exact, {"symbol"}
     by = dict(symbol=exact, def_=_def_lookup(name, defs) if defs else None, decl=_decl_lookup(name, decls))
     va = _one(by.values())
     if va is not None:

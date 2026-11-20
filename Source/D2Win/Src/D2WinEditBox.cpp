@@ -14,6 +14,7 @@ struct Unicode
 {
     unsigned short wChar;
     static Unicode* __fastcall strcat(Unicode* pDest, const Unicode* pSource);                             // 0x00526700
+// build: symbol ?strncpy@Unicode@@SIPAU1@PAU1@PBU1@H@Z 0x00526790
     static Unicode* __fastcall strncpy(Unicode* pDest, const Unicode* pSource, int nCount);                // 0x00526790
     static Unicode* __fastcall win2Unicode(Unicode* pDest, const char* szSource, int nCount);              // 0x00526F20
 };

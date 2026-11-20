@@ -353,18 +353,18 @@ struct D2BooksTxt
     int dwBookSkillId;
 };
 
-extern "C" const char szItemModeCpp[];
+extern "C" const char szItemModeCpp[]; // 0x006E1164
 void __fastcall D2GAME_PACKETS_SendPacket0x22_6FC3DBE0(D2ClientStrc* pClient, unsigned char nUnitType, int nUnitGUID, int nSkillId, int nQuantity);
 int __fastcall ITEMMODE_AddScrollToBook(D2GameStrc* pGame, D2UnitStrc* pUnit, int nScrollGUID, int nBookGUID, int* pItemStatus); // 0x0055EF20
-void __stdcall DUNGEON_AllocDrlgDelete(D2ActiveRoomStrc* pRoom, int nUnitType, int nUnitGUID);
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);
-void __stdcall UNITS_FreeCollisionPath(D2UnitStrc* pUnit);
+void __stdcall DUNGEON_AllocDrlgDelete(D2ActiveRoomStrc* pRoom, int nUnitType, int nUnitGUID); // 0x0061A270
+D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
+void __stdcall UNITS_FreeCollisionPath(D2UnitStrc* pUnit); // 0x00623830
 unsigned short __stdcall ITEMS_GetSuffixId(D2UnitStrc* pItem, int nSuffixNo);
-int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem);
-int __stdcall ITEMS_GetTotalMaxStack(D2UnitStrc* pItem);
-int __stdcall ITEMS_HasDurability(D2UnitStrc* pItem);
-int __stdcall ITEMS_AreStackablesEqual(D2UnitStrc* pItem1, D2UnitStrc* pItem2);
-int __stdcall ITEMS_GetAutoStack(D2UnitStrc* pItem);
+int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
+int __stdcall ITEMS_GetTotalMaxStack(D2UnitStrc* pItem); // 0x006295B0
+int __stdcall ITEMS_HasDurability(D2UnitStrc* pItem); // 0x00629930
+int __stdcall ITEMS_AreStackablesEqual(D2UnitStrc* pItem1, D2UnitStrc* pItem2); // 0x0062C850
+int __stdcall ITEMS_GetAutoStack(D2UnitStrc* pItem); // 0x0062E790
 D2BooksTxt* __stdcall DATATBLS_GetBooksTxtRecord(int nIndex);
 D2UnitStrc* __stdcall INVENTORY_FindBackPackItemForStack(D2InventoryStrc* pInventory, D2UnitStrc* pStackable, D2UnitStrc* pCheckItem);
 D2UnitStrc* __stdcall INVENTORY_FindEquippedItemForStack(D2InventoryStrc* pInventory, D2UnitStrc* pStackable, D2UnitStrc* pCheckItem);
@@ -372,7 +372,7 @@ D2UnitStrc* __stdcall INVENTORY_FindFillableBook(D2InventoryStrc* pInventory, D2
 D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID);
 int __stdcall SKILLS_GetQuantity(D2SkillStrc* pSkill);
 void __stdcall SKILLS_SetQuantity(D2SkillStrc* pSkill, int nQuantity);
-void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit);
+void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit); // 0x0064C370
 static int sub_00560020_PickupStackable(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem);
 
 struct D2RunesTxt { char unk_00[0x81]; unsigned char nServer; };

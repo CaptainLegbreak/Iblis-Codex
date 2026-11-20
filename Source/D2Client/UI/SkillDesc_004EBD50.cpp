@@ -1,3 +1,4 @@
+// build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 #include "D2Client.h"
 
 struct D2UnitStrc

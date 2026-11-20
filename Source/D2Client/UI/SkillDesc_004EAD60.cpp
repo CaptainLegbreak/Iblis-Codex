@@ -63,7 +63,7 @@ int __fastcall sub_00502EF0(int nArg);
 void __fastcall sub_004A7080(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor);
 D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill);
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);
-D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory);
+D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId);
 int __cdecl sub_004E6FF0_SumProgressiveBonus();
 short __stdcall sub_00629860_GetStrengthFactor(D2UnitStrc* pItem);

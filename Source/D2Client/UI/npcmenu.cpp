@@ -1,3 +1,4 @@
+// build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 #include "D2Client.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }

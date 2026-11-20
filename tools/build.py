@@ -108,6 +108,32 @@ class Builder:
                 self._ltcg = dict(G=G, link=lp, runner=runner, crt=crt, iat=self.pe.iat())
             return self._ltcg
 
+    def crt_names(self):
+        """CRT symbol -> its address in the original (None without libcmt.lib); used to check unmarked CRT calls."""
+        with self._lock:
+            if not hasattr(self, "_crt_names"):
+                crt_lib = os.path.join(self.s.get("crt_lib") or "", "libcmt.lib")
+                self._crt_names = None
+                if os.path.exists(crt_lib):
+                    import ltcg as G
+                    self._crt_names = G.crt_table(self.pe, crt_lib, os.path.join(self.out, "cache"))
+            return self._crt_names
+
+    def check_crt_targets(self, res):
+        """An unmarked CRT name is allowed, but it must still be the routine the original calls there."""
+        crt = self.crt_names()
+        if not crt:
+            return res
+        for rl in res.get("relocations") or []:
+            nm = rl.get("symbol")
+            if rl.get("declared") is None and nm in crt and rl.get("original_target"):
+                if int(rl["original_target"], 16) != crt[nm]:
+                    res.setdefault("target_problems", []).append("%s: CRT %s is 0x%08X but original encodes %s"
+                                                                 % (rl.get("offset"), nm, crt[nm], rl["original_target"]))
+                    if res.get("status") in ("RAW_EQUAL", "RELOCATION_RESOLVED_EQUAL"):
+                        res["status"] = "MASKED_EQUAL_BUT_TARGETS_DIFFER"
+        return res
+
     def unit(self, idx, u):
         rel = u["file"]; src_path = os.path.join(ROOT, rel)
         od = os.path.join(self.out, "obj"); os.makedirs(od, exist_ok=True)
@@ -142,12 +168,12 @@ class Builder:
             exp = expand_gen_includes(text, rel); ob = open(obj, "rb").read(); res = {}
             for f in u["functions"]:
                 va = int(f["va"], 16)
-                res[va] = unit_twins(checker.compare(ob, exp, va, f["length"], self.pe.read, self.known_length), exp)
+                res[va] = unit_twins(self.check_crt_targets(checker.compare(ob, exp, va, f["length"], self.pe.read, self.known_length)), exp)
         ok = True
         for f in u["functions"]:
             va = int(f["va"], 16); n = f["length"]; r = res.get(va) or {}
             st = r.get("status", rec.get("status", "NOT_COMPILED"))
-            masked = st in EQUAL or (r.get("compiled_length") == n and r.get("unmasked_diff_bytes") == 0)
+            masked = (st in EQUAL or (r.get("compiled_length") == n and r.get("unmasked_diff_bytes") == 0)) and not r.get("target_problems")
             if u.get("rank", 0) == 0 and not masked and st in ("NO_MARKER", "NO_SYMBOL") and f.get("name") and os.path.exists(obj):
                 masked = body_by_name(open(obj, "rb").read(), f["name"], va, n, self.pe.read)
             rec["functions"].append(dict(va=norm_va(f["va"]), status=st, equal=bool(masked)))

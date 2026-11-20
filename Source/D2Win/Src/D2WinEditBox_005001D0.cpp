@@ -32,6 +32,7 @@ struct Unicode
 {
     unsigned short wChar;
 
+// build: symbol ?strncpy@Unicode@@SIPAU1@PAU1@PBU1@H@Z 0x00526790
     static Unicode* __fastcall strncpy(Unicode* dest, const Unicode* src, int count);                       // 0x00526790
 };
 

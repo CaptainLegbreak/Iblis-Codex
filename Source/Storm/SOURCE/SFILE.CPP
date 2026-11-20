@@ -608,7 +608,7 @@ void __cdecl sub_0041A880_StartThread(); // 0x0041A880
 void __cdecl sub_00419C00_PumpStreams();
 int __stdcall sub_004198D0(void* pArg); // 0x004198D0
 int __stdcall SFileCloseArchive(void* hMpq); // 0x00419A80
-int __stdcall SFileOpenFileEx(void* hMpq, const char* szFileName, int nSearchScope, void** phFile);
+int __stdcall SFileOpenFileEx(void* hMpq, const char* szFileName, int nSearchScope, void** phFile); // 0x004192F0
 int __stdcall SFileOpenArchive(const char* szMpqName, int nPriority, unsigned int dwFlags, void** phMpq);
 int __stdcall sub_00415BB0_CheckAuthentication(void* hArchive, unsigned int* pnResult, int nArg3, int nArg4, int nArg5, int nArg6); // 0x00415BB0
 unsigned int __stdcall sub_00416AD0_ReadBlocks(D2StormFileRecStrc* pFile, unsigned int nOffset, unsigned char* pBuffer, unsigned int nSize);

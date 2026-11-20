@@ -109,7 +109,7 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc*); // 0x0045AE20
 void __fastcall sub_6FC3E200(D2ClientStrc*, D2UnitStrc*); // 0x0053CDF0
 D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc*, const char*, int); // 0x005531C0
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc*, D2UnitStrc*); // 0x00553540
-int __fastcall sub_6FC45060(D2GameStrc*, D2UnitStrc*, int, unsigned char, int, int*); // 0x005606B0
+int __fastcall ITEMMODE_EquipCursorItem(D2GameStrc*, D2UnitStrc*, int, unsigned char, int, int*); // 0x005606B0
 D2UnitStrc* __fastcall D2GAME_SummonPet_6FD14430(D2GameStrc*, D2SummonArgStrc*); // 0x0056D940
 int __fastcall D2GAME_GetSummonIdFromSkill_6FD15580(D2UnitStrc*, int, int, int, int*, int*, int*); // 0x0056E620
 void __fastcall D2GAME_UpdateSummonAI_6FC401F0(D2GameStrc*, D2UnitStrc*, int, int); // 0x005B1900
@@ -272,7 +272,7 @@ int __fastcall sub_005C5250_SummonIronGolem(D2GameStrc* pGame, D2UnitStrc* pUnit
         unsigned char nBodyLoc2;
         ITEMS_GetAllowedBodyLocations(pTarget, &nBodyLoc1, &nBodyLoc2);
         UNITS_ChangeAnimMode(pTarget, 4);
-        sub_6FC45060(pGame, pPet, !pTarget ? -1 : pTarget->dwUnitId, nBodyLoc1, 1, 0);
+        ITEMMODE_EquipCursorItem(pGame, pPet, !pTarget ? -1 : pTarget->dwUnitId, nBodyLoc1, 1, 0);
     }
     sub_005C50C0_SetSummonStats(pGame, pUnit, pPet, nSkillId, nSkillLevel);
     sub_6FC3E200(SUNIT_GetClientFromPlayer(pUnit, ".\\SKILLS\\SkillNec.cpp", 1871), pPet);
