@@ -2,6 +2,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 struct D2SeedStrc;
 struct D2SkillsTxt;
@@ -23,15 +25,6 @@ struct D2SkillsTxt
     char unk_138[0x104];
 };
 
-struct D2DataTablesStrc
-{
-    char unk_000[0xB98];
-    D2SkillsTxt* pSkillsTxt;
-    void* pSkillsLinker;
-    int nSkillsTxtRecordCount;
-    char unk0xBA4[0x4C];
-    int nPetTypeTxtRecordCount;
-};
 
 struct D2DamageStrc
 {
@@ -47,7 +40,6 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern "C" void* __cdecl memset(void*, int, unsigned int); // 0x00681EF0
 int __fastcall PLAYER_IsBusy(D2UnitStrc* pUnit); // 0x00535060
 
-struct D2GameStrc { char unk0x00[0xA8]; int dwGameFrame; };
 
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553540
 int __fastcall sub_00554200(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00554200

@@ -1,6 +1,7 @@
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 struct D2AuraCallbackStrc;
-struct D2GameStrc { char unk_00[0x6A]; unsigned char nGameType; char unk_6B[2]; unsigned char nDifficulty; char unk_6E[6]; int dwGameType; };
 struct D2SkillsTxt
 {
     char unk_00[0x50];
@@ -13,7 +14,6 @@ struct D2SkillsTxt
     unsigned char nEType;
     char unk_1DD[0x5F];
 };
-struct D2DataTablesStrc { char unk_00[0xB98]; D2SkillsTxt* pSkillsTxt; void* pSkillsLinker; int nSkillsTxtRecordCount; };
 struct D2MonStatsInitStrc { int nMinHP, nMaxHP; int unk_08[12]; };
 struct D2DamageStrc
 {

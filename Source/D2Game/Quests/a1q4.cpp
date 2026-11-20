@@ -2,6 +2,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define QUEST_A1Q4_CAIN 4
@@ -30,15 +32,6 @@ struct D2Act3Quest5Strc;
 struct D2Act5Quest2Strc;
 struct D2GSPacketSrv50;
 
-struct D2GameStrc
-{
-    char pad0x00[0x1C];
-    void* pMemoryPool;
-    char pad0x20[0x4D];
-    unsigned char nDifficulty;
-    char unk0x6E[0x3A];
-    int dwGameFrame;
-};
 
 struct D2PlayerDataStrc
 {
@@ -127,13 +120,6 @@ struct D2MissilesTxt
     char unk0x98[0x10C];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xB64];
-    D2MissilesTxt* pMissilesTxt;
-    char unk0xB68[0x04];
-    int nMissilesTxtRecordCount;
-};
 
 struct D2Act1Quest4Strc
 {

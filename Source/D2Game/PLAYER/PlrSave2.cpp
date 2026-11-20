@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define PLRSAVE2_WAYPOINT_HEADER 0x5357
@@ -59,15 +60,6 @@ struct D2GameStrc
     int pGameSeed;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xBA8];
-    int nHighestClassSkillCount;
-    unsigned char unk_BAC[0x20];
-    D2ItemStatCostTxt* pItemStatCostTxt;
-    char unk0xBD0[0x04];
-    int nItemStatCostTxtRecordCount;
-};
 
 struct D2SaveSkillKeyStrc
 {

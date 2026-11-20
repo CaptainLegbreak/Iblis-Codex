@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2DataTbls.h"
 
 struct D2SeedStrc
 {
@@ -152,20 +153,6 @@ struct D2MonStats2Txt
     char unk0x131[3];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0x174];
-    short* pCurseStates;
-    short nCurseStates;
-    char unk0x17A[0xA78 - 0x17A];
-    D2MonStatsTxt* pMonStatsTxt;
-    int unk0xA7C;
-    int nMonStatsTxtRecordCount;
-    int unk0xA84[3];
-    D2MonStats2Txt* pMonStats2Txt;
-    int unk0xA94;
-    int nMonStats2TxtRecordCount;
-};
 
 struct D2GameStrc
 {

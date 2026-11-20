@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define CHECK(p,line) if (!(p)) { sub_00408A60(text_006CC837,sub_00408090(),line); sub_00681E09(-1); }
 struct Unicode;
@@ -34,13 +35,6 @@ struct D2MonStatsTxt
     char unk0xB0[0xF8];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char unk0xA7C[0xA80 - 0xA78 - 4];
-    int nMonStatsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const unsigned int gdwBitMasks[]; // 0x006CE268

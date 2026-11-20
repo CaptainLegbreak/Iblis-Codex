@@ -1,15 +1,11 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2MonsterDataStrc;
 struct D2GSPacketSrvB1;
 
-struct D2GameStrc
-{
-    char unk0x00[0xBC];
-    D2DrlgActStrc* pAct[5];
-};
 
 void __fastcall MONSTER_RemoveAll(D2GameStrc* pGame); // 0x00573640
 void __fastcall OBJECTS_RemoveAll(D2GameStrc* pGame); // 0x00552A40

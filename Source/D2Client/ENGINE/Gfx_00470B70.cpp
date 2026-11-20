@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 typedef unsigned long DWORD;
 
@@ -65,17 +66,6 @@ struct D2MonStats2Txt
     unsigned char aModeFlags[0x44];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char unk0xA7C[4];
-    int nMonStatsTxtRecordCount;
-    char unk0xA84[0xC];
-    D2MonStats2Txt* pMonStats2Txt;
-    char unk0xA94[4];
-    int nMonStats2TxtRecordCount;
-};
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090

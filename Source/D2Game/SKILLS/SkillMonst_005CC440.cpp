@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 enum D2C_J07SkillsConstants
 {
@@ -34,23 +35,6 @@ struct D2MonStats2Txt
     char unk0x10A[0x2A];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    void* pMonStatsLinker;
-    int nMonStatsTxtRecordCount;
-    char unk0xA84[0x0C];
-    D2MonStats2Txt* pMonStats2Txt;
-    void* pMonStats2Linker;
-    int nMonStats2TxtRecordCount;
-    char unk0xA9C[0xD0];
-    int nMissilesTxtRecordCount;
-    char unk0xB70[0x28];
-    D2SkillsTxt* pSkillsTxt;
-    void* pSkillsLinker;
-    int nSkillsTxtRecordCount;
-};
 
 typedef void(__fastcall* MissileInitFunc)(D2UnitStrc*, int);
 

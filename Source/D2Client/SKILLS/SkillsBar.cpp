@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define UNIT_MONSTER 1
 #define UNIT_INVALID 6
@@ -30,17 +31,6 @@ struct D2SkillsTxt
     char unk0x68[0x23C - 0x68];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char unk0xA7C[0x04];
-    int nMonStatsTxtRecordCount;
-    unsigned char unk_A84[0x114];
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[4];
-    int nSkillsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern unsigned int gdwBitMasks[]; // 0x006CE268

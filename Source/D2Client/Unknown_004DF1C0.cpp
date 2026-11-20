@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define SKILLS_GetSkillsTxtRecord_E1120(nSkillId) \
@@ -254,17 +255,6 @@ struct D2SkillsTxt
     char unk0x148[0x23C - 0x148];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xB64];
-    D2MissilesTxt* pMissilesTxt;
-    char unk0xB68[0x04];
-    int nMissilesTxtRecordCount;
-    char unk0xB70[0xB98 - 0xB70];
-    D2SkillsTxt* pSkillsTxt;
-    void* pSkillsLinker;
-    int nSkillsTxtRecordCount;
-};
 
 typedef void(__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nUnused);
 

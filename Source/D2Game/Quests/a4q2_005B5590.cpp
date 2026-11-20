@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 struct D2ActiveRoomStrc
 {
@@ -11,13 +12,6 @@ struct D2ActiveRoomStrc
     D2ActiveRoomStrc* pRoomNext;
 };
 
-struct D2GameStrc
-{
-    char unk0x00[0xA8];
-    unsigned int dwGameFrame;
-    char unk0xAC[0x10];
-    D2DrlgActStrc* pAct[5];
-};
 
 
 struct D2ModeChangeStrc

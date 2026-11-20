@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 #define UNITFLAGEX_HASINV 0x1
 #define UNITFLAGEX_UPDATEINV 0x2
 #define UNITFLAGEX_STORELASTATTACKER 0x20000
@@ -53,16 +54,6 @@ struct D2CharStatsTxt
     char unk0x4A[0x7A];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char unk0xA7C[0x04];
-    int nMonStatsTxtRecordCount;
-    char unk0xA84[0x140];
-    D2CharStatsTxt* pCharStatsTxt;
-    int nCharStatsTxtRecordCount;
-};
 
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837

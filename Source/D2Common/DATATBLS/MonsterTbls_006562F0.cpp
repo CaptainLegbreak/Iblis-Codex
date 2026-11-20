@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2DataTbls.h"
 
 struct D2HirelingTxt;
 struct D2BinFieldStrc;
@@ -24,7 +25,6 @@ struct D2MonStatsTxt { unsigned char unk00[42]; short equipIndex; unsigned char 
 
 struct D2MonEquipTxt { short monster,level; char onInit; char unk05[3]; unsigned int item[3]; char location[3]; char modifier[3]; char unk1A[2]; };
 
-struct D2DataTablesStrc { unsigned char unk00[148]; void* itemsLinker; unsigned char unk98[2536]; int monStatsCount; };
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern D2MonStatsTxt* gpMonStatsTxt_0096C6A8; // 0x0096C6A8
@@ -101,7 +101,7 @@ D2HirelingTxt* __stdcall DATATBLS_GetHirelingTxtRecordFromIdAndLevel(int bExpans
 
 static __forceinline D2MonStatsTxt* GetMonStatsRecord(int monster)
 {
- if(monster>=0 && monster<sgptDataTables->monStatsCount)return &gpMonStatsTxt_0096C6A8[monster];
+ if(monster>=0 && monster<sgptDataTables->nMonStatsTxtRecordCount)return &gpMonStatsTxt_0096C6A8[monster];
  return 0;
 }
 
@@ -126,10 +126,10 @@ void __fastcall DATATBLS_LoadMonEquipTxt(void* archive)
  if(gnMonEquipCount_0096C814>=32767){
   sub_00408A60(gszEmptyAssertText_006CC837,sub_00408090(),3356);exit(-1);
  }
- for(int i=0;i<sgptDataTables->monStatsCount;++i)gpMonStatsTxt_0096C6A8[i].equipIndex=-1;
+ for(int i=0;i<sgptDataTables->nMonStatsTxtRecordCount;++i)gpMonStatsTxt_0096C6A8[i].equipIndex=-1;
  for(int i=0;i<gnMonEquipCount_0096C814;++i){
   D2MonEquipTxt* equip=&gpMonEquipTxt_0096C810[i];
-  if(equip->monster>=0 && equip->monster<sgptDataTables->monStatsCount){
+  if(equip->monster>=0 && equip->monster<sgptDataTables->nMonStatsTxtRecordCount){
    if(gpMonStatsTxt_0096C6A8[equip->monster].equipIndex<0)gpMonStatsTxt_0096C6A8[equip->monster].equipIndex=(short)i;
    char* location=equip->location;
    unsigned int* item=equip->item;
@@ -139,7 +139,7 @@ void __fastcall DATATBLS_LoadMonEquipTxt(void* archive)
     {
         *location=0;
     }
-    else if (*item!=0x20202020 && FOG_GetLinkIndex(sgptDataTables->itemsLinker,*item,1)<0)
+    else if (*item!=0x20202020 && FOG_GetLinkIndex(sgptDataTables->pItemsLinker,*item,1)<0)
     {
         *location=0;
     }

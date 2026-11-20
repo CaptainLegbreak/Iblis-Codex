@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 
 
@@ -13,13 +14,6 @@ struct D2SkillsTxt
     char unk0x68[0x1D4];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xB98];
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[4];
-    int nSkillsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2ActiveRoomStrc* __fastcall sub_00463740_GetRoomBySubTileCoordinates(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740

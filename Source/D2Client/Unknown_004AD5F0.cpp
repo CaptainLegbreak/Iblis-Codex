@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define UNIT_MONSTER 1
 #define FIELD_OFFSET(T,F) ((unsigned long)&(((T*)0)->F))
@@ -71,13 +72,6 @@ struct D2MissilesTxt
     char wCltDoFunc[0x19C];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0[0xB64];
-    D2MissilesTxt* pMissilesTxt;
-    char f_B68[0x4];
-    int nMissilesTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268

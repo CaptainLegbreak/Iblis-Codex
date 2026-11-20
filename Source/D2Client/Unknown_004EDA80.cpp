@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2SkillsTxt;
 struct D2SkillDescTxt;
@@ -47,17 +48,6 @@ int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int b
 extern SKILLDESCFN gpfSkillDescFuncs_0072D7F8[]; // 0x0072D7F8
 
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xC4];
-    int nStatesTxtRecordCount;
-    char unk0x0C8[0xAA4];
-    int nMissilesTxtRecordCount;
-    char unk0xB70[0x28];
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[0x04];
-    int nSkillsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0

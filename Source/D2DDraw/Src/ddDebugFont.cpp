@@ -1,5 +1,6 @@
 #include "D2DDraw.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2PlayerDataStrc;
 struct D2TextHeaderStrc;
@@ -8,18 +9,6 @@ struct D2SetItemsTxt { char unk0x000[0x1B8]; };
 struct D2UniqueItemsTxt { char unk0x000[0x14C]; };
 
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xC0C];
-    D2SetsTxt* pSetsTxt;
-    int nSetsTxtRecordCount;
-    char unk0xC14[0x4];
-    D2SetItemsTxt* pSetItemsTxt;
-    int nSetItemsTxtRecordCount;
-    char unk0xC20[0x4];
-    D2UniqueItemsTxt* pUniqueItemsTxt;
-    int nUniqueItemsTxtRecordCount;
-};
 
 #pragma pack(push, 2)
 struct D2HotkeyStrc

@@ -2,23 +2,13 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 struct D2PlayerDataStrc;
 struct D2Act4Quest2Strc;
 struct D2ModeChangeStrc;
 struct D2ObjOperateFnStrc;
 struct D2QuestSpawnStrc;
 
-struct D2GameStrc
-{
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-    char unk0x6E[0x02];
-    int bExpansion;
-    char unk0x74[0x34];
-    unsigned int dwGameFrame;
-    char unk0xAC[0x10];
-    D2DrlgActStrc* pAct[5];
-};
 
 struct D2PlayerDataStrc
 {

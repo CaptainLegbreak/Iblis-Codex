@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2AutomapRecordStrc;
 struct D2PoolSystemStrc;
@@ -29,13 +30,6 @@ struct D2MonStatsTxt
     char unk0x00[0x1A8];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char unk0xA7C[0x04];
-    int nMonStatsTxtRecordCount;
-};
 
 struct D2WinMsgStrc
 {

@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 #ifdef MOVED_TEST
 #define NPC_SHIFT 4
 #define FLAG_SHIFT 2
@@ -18,16 +19,6 @@ struct D2QuestArgStrc;
 typedef bool(__fastcall* QUESTSEQFILTER)(D2QuestDataStrc* pQuestData);
 typedef void(__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
 typedef bool(__fastcall* QUESTACTIVEFILTER)(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC);
-struct D2GameStrc
-{
-#ifdef MOVED_TEST
-    char movedPrefix[4];
-#endif
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x4D];
-    unsigned char nDifficulty;
-};
 
 
 struct D2PlayerDataStrc

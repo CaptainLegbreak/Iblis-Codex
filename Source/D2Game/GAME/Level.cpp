@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_MONSTER 1
@@ -34,19 +35,6 @@ struct D2ClientStrc
 
 void __fastcall sub_005531E0_FixRoomIfInvalid(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x005531E0
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x4D];
-    unsigned char nDifficulty;
-    char unk0x6E[0x02];
-    int bExpansion;
-    char f_74[0x08];
-    unsigned int dwInitSeed;
-    char unk0x80[0x3C];
-    D2DrlgActStrc* pAct[5];
-};
 
 void __fastcall MONSTER_UpdateAiCallbackEvent(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00573780
 void __fastcall sub_00534AB0_ClearTargetIfMatch(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00534AB0

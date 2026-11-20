@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2GameStrc;
 struct D2DrlgActStrc;
@@ -49,13 +50,6 @@ struct D2CharStatsTxt
     unsigned char nManaPerMagic;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xBCC];
-    D2ItemStatCostTxt* pItemStatCostTxt;
-    char unk0xBD0[0x04];
-    int nItemStatCostTxtRecordCount;
-};
 #define STATLIST_SET 0x2000
 
 extern D2DataTablesStrc* sgptDataTables;

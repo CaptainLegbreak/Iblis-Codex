@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Constants.h"
+#include "D2DataTbls.h"
 
 #define STAT_LEVEL 12
 #define ITEMQUAL_NORMAL 2
@@ -163,13 +164,6 @@ struct D2MonStatsTxt
     char unk0x10[0x198];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    void* pMonStatsLinker;
-    int nMonStatsTxtRecordCount;
-};
 
 #pragma pack(push, 1)
 struct D2GSPacketSrv58

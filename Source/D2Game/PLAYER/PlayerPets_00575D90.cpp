@@ -2,16 +2,11 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x9C];
-    D2DrlgActStrc* pAct[5];
-};
 
 struct D2ModeChangeStrc
 {
@@ -85,17 +80,6 @@ struct D2MonStatsTxt
     char unk0x10[0x198];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char unk0xA7C[0x04];
-    int nMonStatsTxtRecordCount;
-    char unk0xA84[0x164];
-    D2PetTypeTxt* pPetTypeTxt;
-    char unk0xBEC[0x04];
-    int nPetTypeTxtRecordCount;
-};
 
 typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
 

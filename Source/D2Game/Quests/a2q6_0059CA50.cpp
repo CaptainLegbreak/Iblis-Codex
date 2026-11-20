@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 #define QUEST_A2Q6_DURIEL 13
 struct D2Act2Quest6Strc;
@@ -36,11 +37,6 @@ struct D2QuestDataStrc
 
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc*, int, int); // 0x0065C310
 
-struct D2GameStrc
-{
-    char pad0x00[0x6A];
-    unsigned char nGameByte0x6A;
-};
 
 struct D2QuestArgStrc
 {
@@ -136,7 +132,7 @@ void __fastcall sub_0059E060_ACT2Q6_SetPortalState(D2QuestDataStrc* pQuest, unsi
     }
     if (!bClear)
     {
-        if (pQuestData->pGame->nGameByte0x6A == 3)
+        if (pQuestData->pGame->nGameType == 3)
         {
             pQuestDataEx->bStatusOverride = 1;
             pQuestDataEx->nUnk0x14 = 8;

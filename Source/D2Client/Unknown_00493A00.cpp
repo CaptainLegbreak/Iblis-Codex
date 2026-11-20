@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct Unicode
 {
@@ -27,13 +28,6 @@ struct D2PetTypeTxt
     char szBaseicon[0xD1];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xBE8];
-    D2PetTypeTxt* pPetTypeTxt;
-    int unk0xBEC;
-    int nPetTypeTxtRecordCount;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize);
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();

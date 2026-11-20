@@ -1,17 +1,9 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x4A];
-    unsigned char nGameType;
-    char unk0x6B[0x02];
-    unsigned char nDifficulty;
-};
 
 
 struct D2PlayerDataStrc

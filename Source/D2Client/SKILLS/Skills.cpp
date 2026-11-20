@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
@@ -158,30 +159,6 @@ struct D2MonStats2Txt
     char nType;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xBC];
-    D2StatesTxt* pStatesTxt;
-    char f_C0[0x04];
-    int nStatesTxtRecordCount;
-    char unk0xC8[0xBC];
-    short* pActionStates;
-    short nActionStates;
-    unsigned char unk_18A[0x8EE];
-    D2MonStatsTxt* pMonStatsTxt;
-    int unk0xA7C;
-    int nMonStatsTxtRecordCount;
-    unsigned char unk_A84[0xE0];
-    D2MissilesTxt* pMissilesTxt;
-    char unk0xB68[0x04];
-    int nMissilesTxtRecordCount;
-    char unk0xB70[0x28];
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[0x04];
-    int nSkillsTxtRecordCount;
-    char unk0xBA4[0x1C];
-    int nOverlayTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY); // 0x004C52E0

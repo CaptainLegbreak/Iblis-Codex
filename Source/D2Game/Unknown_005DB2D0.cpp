@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define STAT_DAMAGEPERCENT 25
 struct D2SkillsTxt;
@@ -56,13 +57,6 @@ struct D2SkillsTxt
     char unk0x1DD[0x5F];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xB98];
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[0x04];
-    int nSkillsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553540

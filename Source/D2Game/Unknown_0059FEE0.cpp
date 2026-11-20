@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 #define UNIT_MONSTER 1
 struct D2MissilesTxt;
@@ -23,26 +25,6 @@ struct D2SeedStrc;
 
 struct D2MissilesTxt { int unk00; unsigned int dwMissileFlags; char unk08[0x19C]; };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char unk0xA7C[0x04];
-    int nMonStatsTxtRecordCount;
-    unsigned char unk_A84[0xE0];
-    D2MissilesTxt* pMissilesTxt;
-    void* pLinker;
-    int nMissilesTxtRecordCount;
-    unsigned char unk_B70[0x4];
-    int nMonLvlTxtRecordCount;
-    unsigned char unk_B78[0xC8];
-    int nMonTypeTxtRecordCount;
-    unsigned int* pMonTypeNest;
-    int nMonTypeIndex;
-    char unk0xC4C[0x04];
-    D2MonUModTxt* pMonUModTxt;
-    int nMonUModTxtRecordCount;
-};
 
 #pragma pack(push, 1)
 struct D2GSPacketSrv73 { unsigned char nHeader; int unk01; unsigned short nMissileId; int nX; int nY; int nFirstX; int nFirstY; unsigned short nCurrentFrame; unsigned char nUnitType; int nUnitGUID; unsigned char nLevel; unsigned char nPierce; };
@@ -52,11 +34,6 @@ struct D2GSPacketSrv73 { unsigned char nHeader; int unk01; unsigned short nMissi
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const unsigned char gnMissileFlag_006CE27C; // 0x006CE27C
 
-struct D2GameStrc
-{
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-};
 
 D2UnitStrc* __fastcall SUNIT_GetOwner(D2GameStrc*, D2UnitStrc*); // 0x00552FD0
 int __stdcall sub_0064A3E0_GetMissileId(D2UnitStrc*); // 0x0064A3E0

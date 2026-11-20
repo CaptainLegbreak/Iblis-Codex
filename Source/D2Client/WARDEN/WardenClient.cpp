@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define gnGlobal_007BCAA0 (gInvRect_007BCAA0.nLeft)
@@ -98,19 +99,6 @@ struct D2MonStatsTxt
     char unk0x00[0x1A8];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    int unk0xA7C;
-    int nMonStatsTxtRecordCount;
-    char unk0xA84[0xE8];
-    int nMissilesTxtRecordCount;
-    char unk0xB70[0x28];
-    D2SkillsTxt* pSkillsTxt;
-    int unk0xB9C;
-    int nSkillsTxtRecordCount;
-};
 
 struct D2RequestStrc
 {

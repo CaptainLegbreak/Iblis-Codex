@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 struct D2MonStatsTxt
 {
     char unk0x00[0x0C];
@@ -6,13 +7,6 @@ struct D2MonStatsTxt
     char unk0x10[0x198];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    int unk0xA7C;
-    int nMonStatsTxtRecordCount;
-};
 
 struct D2MonsterDataStrc
 {

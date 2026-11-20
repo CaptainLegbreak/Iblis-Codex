@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 
 
@@ -37,12 +38,6 @@ struct D2SetItemsTxt
     char unk0x02[0x1B6];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xC18];
-    D2SetItemsTxt* pSetItemsTxt;
-    int nSetItemsTxtRecordCount;
-};
 
 struct D2InvRectStrc
 {

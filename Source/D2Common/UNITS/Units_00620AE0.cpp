@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 #define STAT_TOHIT 19
 #define STAT_DEXTERITY 2
 struct D2AnimSeqTxt;
@@ -35,12 +36,6 @@ struct D2CharStatsTxt
     char unk0x40[0x84];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xBC4];
-    D2CharStatsTxt* pCharStatsTxt;
-    int nCharStatsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625480

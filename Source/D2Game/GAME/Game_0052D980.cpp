@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -11,23 +12,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 #define CLIENTS_MAX_UPDATES 55u
 
 
-struct D2GameStrc
-{
-    char unk0x000[0x18];
-    D2CriticalSectionStrc* lpCriticalSection;
-    void* pMemoryPool;
-    char unk0x020[0x4A];
-    unsigned char nGameType;
-    char unk0x06B[0x5];
-    int bExpansion;
-    char unk0x074[0x14];
-    struct D2ClientStrc* pClientList;
-    int nClients;
-    char unk0x090[0x18];
-    int dwGameFrame;
-    char unk0x0AC[0x1D14];
-    unsigned int nTickCountSinceNoClients;
-};
 
 struct D2QuestDataStrc
 {

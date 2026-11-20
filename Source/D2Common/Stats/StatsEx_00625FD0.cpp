@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 #ifdef MOVED_TEST
 #define MOVE_ID(x) ((x)+2)
 #define MOVED_PREFIX char movedPrefix[4];
@@ -24,16 +25,6 @@ struct D2ItemStatCostTxt
     char unk0x30[0x144 - 0x30];
 };
 
-struct D2DataTablesStrc
-{
-    MOVED_PREFIX
-    char unk0x000[0xC4];
-    int nStatesTxtRecordCount;
-    char unk0x0C8[0xBCC - 0xC8];
-    D2ItemStatCostTxt* pItemStatCostTxt;
-    char unk0xBD0[0x04];
-    int nItemStatCostTxtRecordCount;
-};
 
 #define STATLIST_EXTENDED 0x80000000
 #define ISC_FLAG_FMIN 10

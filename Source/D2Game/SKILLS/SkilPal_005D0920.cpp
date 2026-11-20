@@ -1,13 +1,10 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 
-struct D2GameStrc
-{
-    char unk0x00[0xA8];
-    unsigned int dwGameFrame;
-};
 
 struct D2AuraCallbackStrc;
 
@@ -82,15 +79,6 @@ struct D2SkillsTxt
     char unk0x138[0x104];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xC4];
-    int nStatesTxtRecordCount;
-    char unk0x0C8[0xAD0];
-    D2SkillsTxt* pSkillsTxt;
-    void* pSkillsLinker;
-    int nSkillsTxtRecordCount;
-};
 
 typedef int (__fastcall* AURACALLBACK)(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit);
 

@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2GameStrc.h"
 
 #pragma intrinsic(memcpy)
 
@@ -19,11 +20,6 @@ struct D2PlrIntroStrc
     D2BitBufferStrc* pNpcIntroFlags;
 };
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 extern D2NpcIndexMapStrc gaPlrIntroNpcIndexMap[]; // 0x00732738

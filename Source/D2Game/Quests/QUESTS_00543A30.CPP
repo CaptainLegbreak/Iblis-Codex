@@ -1,16 +1,13 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 struct D2QuestChainStrc;
 
 typedef int (__stdcall* FARPROC)();
 typedef void (__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuest, D2QuestArgStrc* pArgs);
 
-struct D2GameStrc
-{
-    char unk0x00[0x6A];
-    unsigned char nGameType;
-};
 
 
 struct D2QuestDataStrc
@@ -45,13 +42,6 @@ struct D2SuperUniquesTxt
     char unk0x0C[0x28];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xAD4];
-    D2SuperUniquesTxt* pSuperUniquesTxt;
-    char unk0xAD8[4];
-    int nSuperUniquesTxtRecordCount;
-};
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090

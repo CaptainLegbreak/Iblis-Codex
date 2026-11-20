@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2PlayerDataStrc
 {
@@ -17,11 +18,6 @@ struct D2MonsterDataStrc
 };
 
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA80];
-    int nMonStatsTxtRecordCount;
-};
 
 struct D2NpcMonListPacketStrc
 {

@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 
 struct D2SetItemsTxt
@@ -8,11 +9,6 @@ struct D2SetItemsTxt
     short nSetId;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xC10];
-    int nSetsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 extern const int gnItemSetStates_006EE424[6];                                                               // 0x006EE424

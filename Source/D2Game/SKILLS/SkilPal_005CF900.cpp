@@ -1,9 +1,9 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
-struct D2GameStrc { char pad00[0xA8]; int dwGameFrame; };
 struct D2SkillsTxt { char pad00[0x138]; unsigned int dwCalc[4]; char pad148[0x5D]; unsigned char nSrcDam; char pad1A6[0x36]; unsigned char nEType; char pad1DD[0x5F]; };
-struct D2DataTablesStrc { char pad00[0xB98]; D2SkillsTxt* pSkillsTxt; int unkB9C; int nSkillsTxtRecordCount; };
 struct D2DamageStrc { unsigned int dwHitFlags; unsigned short wResultFlags; unsigned short wExtra; int dwPhysDamage; int dwEnDmgPct; int pad10[20]; unsigned int dwHitClass; unsigned char nHitClassActiveSet; unsigned char nConvType; unsigned short unk66; int dwConvPct; int nOverlay; };
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern "C" void* __cdecl memset(void*, int, unsigned int);

@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2DataTbls.h"
 
 enum D2C_SkillsTxtFlagIndices
 {
@@ -37,16 +38,6 @@ struct D2SkillDescTxt
     char unk0x07[0x120 - 0x07];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xB8C];
-    D2SkillDescTxt* pSkillDescTxt;
-    char unk0xB90[0x4];
-    int nSkillDescTxtRecordCount;
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[0x4];
-    int nSkillsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables;                                                                     // 0x00744304
 extern D2SpellSelSlotsStrc gtHotkeySlots_007C0300;                                                           // 0x007C0300

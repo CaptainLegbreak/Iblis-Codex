@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -8,11 +10,6 @@ struct D2SkillsTxt;
 
 
 
-struct D2GameStrc
-{
-    char unk0x00[0xA8];
-    unsigned int dwGameFrame;
-};
 
 struct D2SkillsTxt
 {
@@ -21,13 +18,6 @@ struct D2SkillsTxt
     char unk0x068[0x23C - 0x64 - 4];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xB98];
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[0xBA0 - 0xB98 - 4];
-    int nSkillsTxtRecordCount;
-};
 
 typedef void(__fastcall* CurseCallbackFunc)(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillLevel);
 

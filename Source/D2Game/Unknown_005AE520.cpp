@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2SeedStrc;
 struct D2StaticPathStrc;
@@ -38,15 +39,6 @@ extern "C" void* __cdecl memset(void*,int,unsigned int);
 
 struct D2SkillsTxt { char unk_00[190]; unsigned char petType; };
 
-struct D2DataTablesStrc
-{
-    char unk000[0xB64];
-    D2MissilesTxt* pMissilesTxt;
-    int unkB68;
-    int nMissilesTxtRecordCount;
-    unsigned char unk_B70[0x80];
-    int petTypeCount;
-};
 
 struct D2SummonArgs { int mode; D2UnitStrc* owner; int monsterId; int unknown; int variant; int x; int y; int petType; int flags; };
 
@@ -117,7 +109,7 @@ int __fastcall sub_005AEDA0_SummonPet(D2GameStrc* game,D2UnitStrc* unit)
   int monsterId=sub_0056E620_GetValidMonsterId(owner,0,skillId,skillLevel,&variant,0,0);
   if(monsterId<0) return 0;
   unsigned char petType=skill->petType;
-  if(petType>=sgptDataTables->petTypeCount) petType=0;
+  if(petType>=sgptDataTables->nPetTypeTxtRecordCount) petType=0;
   D2UnitStrc* target=SUNIT_GetServerUnit(game,1,sub_0064A730_GetUnitId(unit));
   if(target) {
    D2SummonArgs args;

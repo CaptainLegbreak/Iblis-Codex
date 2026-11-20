@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 #define FP16_SHIFT 16
 #define OBJSUBCLASS_SHRINE 0x01
 #define MONSTER_SHADOWWARRIOR 0x1A1
@@ -103,11 +104,6 @@ void __stdcall QUESTRECORD_FreeRecord(void* pMemPool, D2BitBufferStrc* pQuestRec
 void __stdcall WAYPOINTS_FreeWaypointData(void* pMemPool, D2WaypointDataStrc* pData); // 0x00660FD0
 void __fastcall sub_0066A260_PlayerDataFreeHook(D2UnitStrc* pUnit); // 0x0066A260
 
-struct D2DataTablesStrc
-{
-    char unk0x00[2688];
-    int nMonStatsTxtRecordCount;
-};
 
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480

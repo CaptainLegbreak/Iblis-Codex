@@ -2,6 +2,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 #define UNIT_MONSTER 1
 #define MONTYPEFLAG_CHAMPION 4
@@ -42,20 +44,6 @@ struct D2MonUModTxt
     unsigned int dwConstants;
 };
 
-struct D2DataTablesStrc
-{
-    char _pad0000[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char _pad0A7C[4];
-    int nMonStatsTxtRecordCount;
-    char _pad0A84[0x50];
-    D2SuperUniquesTxt* pSuperUniquesTxt;
-    char _pad0AD8[4];
-    int nSuperUniquesTxtRecordCount;
-    char _pad0AE0[0x170];
-    D2MonUModTxt* pMonUModTxt;
-    int nMonUModTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __stdcall sub_O05_EmitArg_AddUMod(D2UnitStrc* pUnit, int nValue);
@@ -67,17 +55,6 @@ struct D2MonsterRegionStrc
     unsigned int dwUniqueCount;
 };
 
-struct D2GameStrc
-{
-    char _pad0000[0x6D];
-    unsigned char nDifficulty;
-    char _pad006E[2];
-    int bExpansion;
-    char _pad0074[0x7C];
-    D2MonsterRegionStrc* pMonReg[1024];
-    char _pad10F0[0xC40];
-    unsigned char nBossFlagList[64];
-};
 
 struct D2MonStatsTxt
 {

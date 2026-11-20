@@ -1,17 +1,11 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);
 
 
-struct D2GameStrc
-{
-    char pad0x00[0x1C];
-    void* pMemoryPool;
-    char pad0x20[0x4D];
-    unsigned char nDifficulty;
-};
 
 struct D2PlayerDataStrc
 {

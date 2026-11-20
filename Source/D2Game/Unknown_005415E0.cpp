@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 struct D2EventTimerSlabListStrc;
 struct D2EventTimerQueueStrc;
@@ -40,13 +41,6 @@ struct D2EventTimerQueueStrc
     D2EventTimerSlabListStrc* pSlabListHead;
 };
 
-struct D2GameStrc
-{
-    char _pad_0x0[0xA8];
-    int dwGameFrame;
-    char _pad_0xAC[0xB8 - 0xAC];
-    D2EventTimerQueueStrc* pTimerQueue;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 D2EventTimerSlabListStrc* __stdcall sub_00540BB0_AllocateSlab(D2GameStrc* pGame); // 0x00540BB0

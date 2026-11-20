@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2OverlayTxt;
 struct D2MonStatsTxt;
@@ -35,21 +36,6 @@ struct D2OverlayTxt
     unsigned short pad0x82;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    void* pMonStatsLinker;
-    int nMonStatsTxtRecordCount;
-    char unk0xA84[0xC];
-    D2MonStats2Txt* pMonStats2Txt;
-    void* pMonStats2Linker;
-    int nMonStats2TxtRecordCount;
-    unsigned char unk_A9C[0x11C];
-    D2TxtLinkStrc* pOverlayLinker;
-    D2OverlayTxt* pOverlayTxt;
-    int nOverlayTxtRecordCount;
-};
 
 extern D2DataTablesStrc gtDataTables_0096BC30; // 0x0096BC30
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

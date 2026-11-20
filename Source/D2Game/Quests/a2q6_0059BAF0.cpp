@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 #define QUEST_A2Q4_HORAZONTOME 11
 #define LEVEL_PALACECELLARLEV3 54
@@ -71,11 +72,6 @@ struct D2Act2Quest4Strc
     unsigned short nPortalModeInCellar;
 };
 
-struct D2GameStrc
-{
-    char pad0x00[0x6D];
-    unsigned char nDifficulty;
-};
 
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0

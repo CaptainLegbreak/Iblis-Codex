@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct T00481920;
@@ -107,20 +108,6 @@ struct D2ItemsTxt
     unsigned char nNoDurability;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xBA0];
-    int nSkillsTxtRecordCount;
-    char unk0xBA4[0x28];
-    D2ItemStatCostTxt* pItemStatCostTxt;
-    char unk0xBD0[0x04];
-    int nItemStatCostTxtRecordCount;
-    short* pStatsWithDescFunc;
-    int nStatsWithDescFunc;
-    char unk0xBE0[0x8C];
-    int nStuff;
-    int nShiftedStuff;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090

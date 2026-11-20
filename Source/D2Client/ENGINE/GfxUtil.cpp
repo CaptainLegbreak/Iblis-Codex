@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
@@ -233,24 +234,6 @@ struct D2SkillsTxt
     char unk0x148[0xF4];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xC4];
-    int nStatesTxtRecordCount;
-    unsigned char unk_C8[0x9B0];
-    D2MonStatsTxt* pMonStatsTxt;
-    int unk0xA7C;
-    int nMonStatsTxtRecordCount;
-    unsigned char unk_A84[0xE8];
-    int nMissilesTxtRecordCount;
-    char unk0xB70[0x28];
-    D2SkillsTxt* pSkillsTxt;
-    void* pSkillsLinker;
-    int nSkillsTxtRecordCount;
-    unsigned char unk_BA4[0x18];
-    D2OverlayTxt* pOverlayTxt;
-    int nOverlayTxtRecordCount;
-};
 extern "C" double __cdecl sqrt(double x); // 0x006879C0
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern int gnGlobal_0071146C; // 0x0071146C

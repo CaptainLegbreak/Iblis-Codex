@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2PetTypeTxt;
@@ -15,20 +16,6 @@ struct D2PetTypeTxt
     char unk0x08[0xD8];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xB8C];
-    D2SkillDescTxt* pSkillDescTxt;
-    int unk0xB90;
-    int nSkillDescTxtRecordCount;
-    D2SkillsTxt* pSkills;
-    int unk_B9C;
-    int nSkillCount;
-    unsigned char unk_BA4[0x44];
-    D2PetTypeTxt* pPetTypeTxt;
-    void* pPetTypeLink;
-    int nPetTypeTxtRecordCount;
-};
 
 enum
 {
@@ -119,8 +106,8 @@ int __fastcall sub_004C5FA0_CheckPetTarget(D2UnitStrc* pUnit, int nSkillId, int 
 
 static __forceinline D2SkillsTxt* GetSkillRecord(int nSkillId)
 {
-    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillCount)
-        return &sgptDataTables->pSkills[nSkillId];
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+        return &sgptDataTables->pSkillsTxt[nSkillId];
     return 0;
 }
 
@@ -156,9 +143,9 @@ void __fastcall sub_004C7890(D2UnitStrc* pUnit, int nState, D2StatListStrc* pSta
 static D2SkillsTxt* SKILLCLT_GetSkillsTxtRecord(int nSkillId)
 {
     D2SkillsTxt* pSkillsTxtRecord = 0;
-    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillCount)
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
     {
-        pSkillsTxtRecord = &sgptDataTables->pSkills[nSkillId];
+        pSkillsTxtRecord = &sgptDataTables->pSkillsTxt[nSkillId];
     }
 
     return pSkillsTxtRecord;

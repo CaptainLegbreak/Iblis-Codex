@@ -3,6 +3,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -43,17 +45,6 @@ struct D2MonsterDataStrc
 };
 
 
-struct D2GameStrc
-{
-    char pad0x00[0x6A];
-    unsigned char nGameType;
-    char pad0x6B[0x02];
-    unsigned char nDifficulty;
-    char pad0x6E[0x06];
-    int dwGameType;
-    char pad0x78[0x30];
-    int dwGameFrame;
-};
 
 struct D2MonStatsTxt
 {
@@ -69,16 +60,6 @@ struct D2MonStats2Txt
     unsigned char nModeFlags[2];
 };
 
-struct D2DataTablesStrc
-{
-    char pad0x000[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char pad0xA7C[0x04];
-    int nMonStatsTxtRecordCount;
-    char pad0xA84[0xEC];
-    D2MonLvlTxt* pMonLvlTxt;
-    int nMonLvlTxtRecordCount;
-};
 
 struct D2ModeChangeStrc
 {

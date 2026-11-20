@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 #define SIZE_PLAYER 2
 #define SIZE_ITEM 1
 #define UNITFLAG_DOUPDATE 0x00000001
@@ -78,17 +79,6 @@ struct D2MonStatsTxt
     char unk0x3A[0x16E];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char unk0xA7C[4];
-    int nMonStatsTxtRecordCount;
-    unsigned char unk_A84[0x13C];
-    int nOverlayTxtRecordCount;
-    D2CharStatsTxt* pCharStatsTxt;
-    int nCharStatsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __stdcall UNITS_GetUnitSizeX(D2UnitStrc* pUnit); // 0x00620510

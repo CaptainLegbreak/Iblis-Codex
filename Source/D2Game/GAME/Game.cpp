@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #pragma intrinsic(_ReadWriteBarrier)
 
@@ -306,13 +307,6 @@ struct D2ObjectsTxt
     char szName[64];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char unk0xA7C[4];
-    int nMonStatsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);

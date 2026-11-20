@@ -89,15 +89,6 @@ struct D2DataTablesStrc
     int nMonStatsTxtRecordCount;
 };
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x88];
-    int dwGameFrame;
-    char unk0xAC[0x2C];
-    D2InactiveUnitListStrc* pInactiveUnitList[5];
-};
 
 struct D2DrlgCoordsStrc
 {
@@ -123,6 +114,7 @@ extern const unsigned int gdwBitMasks[32];                                      
 #include "gen/data/Source/D2Game/UNIT/SUnitInactive_00541FE0/gnInactiveNoXpParam2_007314C4.inc"
 #include "gen/data/Source/D2Game/UNIT/SUnitInactive_00541FE0/gnInactiveNoTcParam2_007314C8.inc"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);    // 0x0040B430
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                                // 0x00620BB0
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState);                                              // 0x00639DF0

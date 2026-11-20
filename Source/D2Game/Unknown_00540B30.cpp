@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2GameStrc.h"
 
 struct D2EventTimerSlabListStrc;
 struct D2EventTimerQueueStrc;
@@ -15,15 +16,6 @@ struct D2EventTimerQueueStrc
     D2EventTimerSlabListStrc* pSlabListHead;
 };
 
-struct D2GameStrc
-{
-    char padding0x00[0x1C];
-    void* pMemoryPool;
-    char padding0x20[0x88];
-    int dwGameFrame;
-    char padding0xAC[0x0C];
-    D2EventTimerQueueStrc* pTimerQueue;
-};
 
 typedef char QueueSizeCheck[(sizeof(D2EventTimerQueueStrc)==0xA20)?1:-1];
 

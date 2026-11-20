@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2TileLibraryEntryStrc;
@@ -129,17 +130,6 @@ struct D2ObjectsTxt
     int dwAutomap;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char unk0xA7C[0x4];
-    int nMonStatsTxtRecordCount;
-    char unk0xA84[0xC];
-    D2MonStats2Txt* pMonStats2Txt;
-    char unk0xA94[0x4];
-    int nMonStats2TxtRecordCount;
-};
 
 int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit); // 0x00620650
 int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit); // 0x006206B0

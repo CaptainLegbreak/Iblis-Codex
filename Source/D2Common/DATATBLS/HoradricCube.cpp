@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2DataTbls.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -15,16 +16,6 @@ struct D2BinFieldStrc
     void* pLinker;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0x004];
-    D2TxtLinkStrc* pPlayerClassLinker;
-    char unk0x008[0x0A0];
-    D2TxtLinkStrc* pPropertiesLinker;
-    char unk0x0AC[0x194C];
-    D2CubeMainTxt* pCubeMainTxt;
-    int nCubeMainTxtRecordCount;
-};
 
 enum
 {

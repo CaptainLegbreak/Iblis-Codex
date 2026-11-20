@@ -1,13 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
-struct D2GameStrc
-{
-    char unk0x00[0x6A];
-    unsigned char nGameType;
-    char pad6B[2];
-    unsigned char nDifficulty;
-};
 
 
 int __fastcall sub_6FC7C260(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnitGUID, unsigned int nValue);      // 0x00535510

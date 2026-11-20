@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2ModeChangeStrc;
 
@@ -38,13 +39,6 @@ struct D2ModeChangeStrc
     D2UnitStrc* pTargetUnit;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA78];
-    void* pMonStatsTxt;
-    void* pMonStatsLinker;
-    int nMonStatsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __fastcall sub_0046C140_CheckMonStats2ModeFlag(int nMonsterId, int nMode); // 0x0046C140

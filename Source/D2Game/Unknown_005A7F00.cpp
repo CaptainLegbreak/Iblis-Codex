@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 #ifdef MOVED_TEST
 #define PREFIX char movedPrefix[4];
 #define HOVER_FLAG 0x200
@@ -10,14 +11,6 @@
 #endif
 struct D2HoverTextStrc;
 
-struct D2GameStrc
-{
-    PREFIX
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x88];
-    unsigned int dwGameFrame;
-};
 
 
 #define UNITFLAG_HASTXTMSG HOVER_FLAG

@@ -3,6 +3,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 #define MONSTER_SUCKERNEST1 334
@@ -22,13 +24,6 @@ struct D2PlayerDataStrc;
 struct D2MonStats2Txt;
 struct D2PetInfoStrc;
 
-struct D2GameStrc
-{
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-    char unk0x6E[0x3A];
-    int dwGameFrame;
-};
 
 struct D2AiControlStrc
 {
@@ -63,13 +58,6 @@ struct D2AiTickParamStrc
     D2MonStats2Txt* pMonstats2Txt;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char unk0xA7C[0x04];
-    int nMonStatsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0

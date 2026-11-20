@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Constants.h"
+#include "D2DataTbls.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define ITEMQUAL_UNIQUE 7
@@ -188,12 +189,6 @@ struct D2UniqueItemsTxt
     char unk0x030[0x11C];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xC24];
-    D2UniqueItemsTxt* pUniqueItemsTxt;
-    int nUniqueItemsTxtRecordCount;
-};
 
 struct D2PlayerDataStrc
 {

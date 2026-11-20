@@ -1,14 +1,10 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 #define QFLAG_PRIMARYGOALDONE 13
 struct D2PlayerDataStrc;
 struct D2Act3Quest5Strc;
 
-struct D2GameStrc
-{
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-};
 
 struct D2PlayerDataStrc
 {

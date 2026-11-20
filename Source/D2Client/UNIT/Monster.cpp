@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Constants.h"
+#include "D2DataTbls.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define STAT_LEVEL 12
@@ -152,21 +153,6 @@ struct D2MonStatsTxt
     unsigned char nByte1A7;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char unk0xA7C[4];
-    int nMonStatsTxtRecordCount;
-    char unk0xA84[0x0C];
-    D2MonStats2Txt* pMonStats2Txt;
-    char unk0xA94[0x04];
-    int nMonStats2TxtRecordCount;
-    unsigned char unk_A9C[0xFC];
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[0x04];
-    int nSkillsTxtRecordCount;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090

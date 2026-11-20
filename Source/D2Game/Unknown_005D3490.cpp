@@ -1,13 +1,8 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x88];
-    int dwGameFrame;
-};
 
 
 struct D2DamageStrc
@@ -31,17 +26,6 @@ struct D2SkillsTxt
     char unk0x1A6[0x96];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xC4];
-    int nStatesTxtRecordCount;
-    char unk0x0C8[0xAD0];
-    D2SkillsTxt* pSkillsTxt;
-    void* pSkillsLinker;
-    int nSkillsTxtRecordCount;
-    char unk0xBA4[0x30];
-    int nItemStatCostTxtRecordCount;
-};
 
 typedef void (__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);
 

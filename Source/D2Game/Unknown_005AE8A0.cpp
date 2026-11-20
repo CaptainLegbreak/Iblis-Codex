@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2MissilesTxt
 {
@@ -16,17 +17,6 @@ struct D2SkillsTxt
     char pad00[0x138];
     unsigned int dwCalc[2];
     char pad140[0xFC];
-};
-struct D2DataTablesStrc
-{
-    char pad00[0xB64];
-    D2MissilesTxt* pMissilesTxt;
-    int unusedB68;
-    int nMissilesTxtRecordCount;
-    char padB70[0x28];
-    D2SkillsTxt* pSkillsTxt;
-    void* pSkillsLinker;
-    int nSkillsTxtRecordCount;
 };
 struct D2MissileStrc
 {

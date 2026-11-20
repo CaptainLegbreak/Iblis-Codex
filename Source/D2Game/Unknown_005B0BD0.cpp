@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 struct D2MonStatsTxt;
 
@@ -17,11 +18,6 @@ struct D2TargetNodeStrc
     D2TargetNodeStrc* pPrevious;
 };
 
-struct D2GameStrc
-{
-    char unk0x0000[0x10F8];
-    D2TargetNodeStrc* pTargetNodes[10];
-};
 
 struct D2AiControlStrc
 {

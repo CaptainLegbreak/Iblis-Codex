@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 
 struct D2SkillsTxt
@@ -18,18 +19,6 @@ struct D2SkillsTxt
     char unk0x1DD[0x5F];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0x16C];
-    short* pProgressiveStates;
-    short nProgressiveStates;
-    char unk0x172[0xA26];
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[0x04];
-    int nSkillsTxtRecordCount;
-    char unk0xBA4[0x30];
-    int nItemStatCostTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 

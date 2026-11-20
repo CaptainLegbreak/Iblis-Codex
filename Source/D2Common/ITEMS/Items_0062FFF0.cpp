@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2InventoryStrc;
 
@@ -48,13 +49,6 @@ struct D2ItemStatCostTxt
     char unk0x28[0x144 - 0x28];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xBCC];
-    D2ItemStatCostTxt* pItemStatCostTxt;
-    char unk0xBD0[4];
-    int nItemStatCostTxtRecordCount;
-};
 
 struct D2RunesTxt
 {
@@ -67,14 +61,6 @@ struct D2MagicAffixTxt
     char unk0x00[0x90];
 };
 
-struct D2MagicAffixDataTbl
-{
-    int nMagicAffixTxtRecordCount;
-    D2MagicAffixTxt* pMagicAffixTxt;
-    D2MagicAffixTxt* pMagicSuffix;
-    D2MagicAffixTxt* pMagicPrefix;
-    D2MagicAffixTxt* pAutoMagic;
-};
 
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837

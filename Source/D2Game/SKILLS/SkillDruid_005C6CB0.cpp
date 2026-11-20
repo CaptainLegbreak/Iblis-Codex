@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define UNIT_OBJECT 2
 #define UNIT_ITEM 4
@@ -106,19 +107,6 @@ struct D2ItemStatCostTxt
     char unk0x000[0x144];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xC4];
-    int nStatesTxtRecordCount;
-    char unk0x0C8[0xB98 - 0xC8];
-    D2SkillsTxt* pSkillsTxt;
-    void* pSkillsLinker;
-    int nSkillsTxtRecordCount;
-    char unk0xBA4[0x28];
-    D2ItemStatCostTxt* pItemStatCostTxt;
-    void* pItemStatCostLinker;
-    int nItemStatCostTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0

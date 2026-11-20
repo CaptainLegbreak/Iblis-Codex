@@ -1,13 +1,9 @@
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 struct D2InventoryStrc;
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
 #pragma intrinsic(memcpy)
 
-struct D2GameStrc
-{
-    char unk0x00[0x70];
-    int bExpansion;
-};
 
 
 struct D2MercSaveDataStrc

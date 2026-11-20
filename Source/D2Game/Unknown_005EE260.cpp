@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 #ifdef MOVED_TEST
 #define ATTACK_MODE 6
 #define IDLE_FRAMES 17
@@ -8,16 +9,6 @@
 #endif
 
 
-struct D2GameStrc
-{
-#ifdef MOVED_TEST
-    int moved_prefix;
-#endif
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-    char unk0x6E[0x3A];
-    int dwGameFrame;
-};
 
 struct D2AiControlStrc
 {

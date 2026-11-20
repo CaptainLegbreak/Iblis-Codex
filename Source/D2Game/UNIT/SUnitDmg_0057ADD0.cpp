@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 #define STAT_HITPOINTS 6
 #define STAT_MANA 8
@@ -44,17 +46,6 @@ struct D2MonsterDataStrc
 };
 
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x4D];
-    unsigned char nDifficulty;
-    unsigned char unk_6E[0x2];
-    int bExpansion;
-    unsigned char unk_74[0x34];
-    int dwGameFrame;
-};
 
 struct D2DifficultyLevelsTxt
 {
@@ -66,17 +57,6 @@ struct D2DifficultyLevelsTxt
     int dwManaStealDiv;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char unk0xA7C[0x04];
-    int nMonStatsTxtRecordCount;
-    char unk0xA84[0x1BC];
-    int nMonTypeTxtRecordCount;
-    unsigned int* pMonTypeNest;
-    int nMonTypeIndex;
-};
 
 struct D2DamageStrc
 {

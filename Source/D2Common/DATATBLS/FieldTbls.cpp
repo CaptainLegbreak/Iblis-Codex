@@ -1,3 +1,4 @@
+#include "D2DataTbls.h"
 #pragma function(memcpy)
 #pragma intrinsic(memset)
 
@@ -18,22 +19,7 @@ struct D2FieldStrc
     int nY;
 };
 
-struct D2CollisionFieldStrc
-{
-    int nWidth;
-    int nHeight;
-    int nArea;
-    int nCenterX;
-    int nCenterY;
-};
 
-struct D2DataTablesStrc
-{
-    char unk0x0000[0x1A00];
-    int ExpFieldI[9];
-    unsigned char* pFieldData;
-    D2CollisionFieldStrc pCollisionField;
-};
 
 extern D2DataTablesStrc gtDataTables_0096BC30; // 0x0096BC30
 extern const int gnFieldXOffsets[9]; // 0x00749780

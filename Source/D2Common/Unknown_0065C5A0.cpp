@@ -1,3 +1,4 @@
+#include "D2DataTbls.h"
 #ifdef MOVED_TEST
 #define TABLE_PREFIX 0xA8
 #else
@@ -12,15 +13,6 @@ struct D2PropertiesTxt
     unsigned char nFunc[7];
     char unk0x1F;
     unsigned short wStat[7];
-};
-struct D2DataTablesStrc
-{
-    char unk0x000[TABLE_PREFIX];
-    D2PropertiesTxt* pPropertiesTxt;
-    char unk0x0A8[0x04];
-    int nPropertiesTxtRecordCount;
-    char unk0x0B0[0xAF0];
-    int nSkillsTxtRecordCount;
 };
 extern D2DataTablesStrc* sgptDataTables;  // 0x00744304
 // 0x0065C5A0

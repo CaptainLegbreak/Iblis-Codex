@@ -1,12 +1,9 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 
-struct D2GameStrc
-{
-    char unk0x000[0xBC];
-    D2DrlgActStrc* pAct[5];
-};
 
 struct D2ActiveRoomStrc
 {
@@ -67,11 +64,6 @@ struct D2ObjectsTxt
     unsigned char nPopulateFn;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xC5C];
-    int nLevelsTxtRecordCount;
-};
 
 typedef int (__fastcall* OBJTHEMEFN)(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pDrlgCoords);
 typedef D2UnitStrc* (__fastcall* OBJECTPOPULATEFN)(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, unsigned char nDensity, unsigned int nObjectId, unsigned short nProbability);

@@ -2,14 +2,9 @@
 #include "D2Constants.h"
 #include "D2Structs.h"
 #include "D2Path.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x88];
-    int dwGameFrame;
-};
 
 struct D2MissilesTxt;
 
@@ -33,13 +28,6 @@ struct D2SkillsTxt
     char unk0x194[0x23C - 0x194];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xB98];
-    D2SkillsTxt* pSkillsTxt;
-    int unk0xB9C;
-    int nSkillsTxtRecordCount;
-};
 
 typedef int (__fastcall* SKILLDOFUNC)(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);
 typedef int (__fastcall* SKILLSTARTFUNC)(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);

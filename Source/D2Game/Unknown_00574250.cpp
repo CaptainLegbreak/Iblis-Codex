@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2GameStrc
 {
@@ -25,13 +26,6 @@ struct D2MonsterDataStrc
 };
 
 
-struct D2DataTablesStrc
-{
-    char unk_000[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char unk_A7C[4];
-    int nMonStatsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 void __fastcall D2GAME_DeleteTimersOnUnit_6FC34A30(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540F30

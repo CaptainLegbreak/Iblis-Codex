@@ -1,3 +1,4 @@
+#include "D2DataTbls.h"
 #pragma function(memset)
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                 // 0x00681EF0
 
@@ -159,20 +160,6 @@ struct D2MonStats2Txt
     char unk0x131[3];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0x174];
-    short* pCurseStates;
-    short nCurseStates;
-    char unk0x17A[0xA78 - 0x17A];
-    D2MonStatsTxt* pMonStatsTxt;
-    int unk0xA7C;
-    int nMonStatsTxtRecordCount;
-    int unk0xA84[3];
-    D2MonStats2Txt* pMonStats2Txt;
-    int unk0xA94;
-    int nMonStats2TxtRecordCount;
-};
 
 struct D2GameStrc
 {

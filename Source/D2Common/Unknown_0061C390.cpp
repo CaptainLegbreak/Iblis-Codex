@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2DataTbls.h"
 
 struct Act;
 struct D2DrlgActStrc;
@@ -61,16 +62,6 @@ extern D2EnvironmentCycleStrc gAct4EnvironmentCycle[]; // 0x00744438
 extern D2EnvironmentCycleStrc gEclipseEnvironmentCycle[]; // 0x00744480
 static void ENVIRONMENT_UpdateLightIntensity(D2DrlgEnvironmentStrc* pEnvironment, int nLevelId, int nAct); // 0x0061BB80
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA7C];
-    D2TxtLinkStrc* pMonStatsLinker;
-    char unk0xA80[0x1D8];
-    D2LevelsTxt* pLevelsTxt;
-    int nLevelsTxtRecordCount;
-    unsigned char unk_C60[0x8];
-    int nLvlPrestTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 

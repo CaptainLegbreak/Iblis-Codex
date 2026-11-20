@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -52,21 +53,6 @@ struct D2SkillDescTxt
     char unk0x3C[0xE4];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0x16C];
-    short* pProgressiveStates;
-    short nProgressiveStates;
-    char unk0x172[0xA1A];
-    D2SkillDescTxt* pSkillDescTxt;
-    char unk0xB90[0x04];
-    int nSkillDescTxtRecordCount;
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[0x04];
-    int nSkillsTxtRecordCount;
-    char unk0xBA4[0x30];
-    int nItemStatCostTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2SkillDescTxt* __fastcall sub_004A89D0_SkillDescRec(int nSkillId); // 0x004A89D0

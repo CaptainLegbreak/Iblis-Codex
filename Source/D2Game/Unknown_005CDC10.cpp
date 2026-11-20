@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define UNIT_MONSTER 1
 #define STAT_HITPOINTS 6
@@ -14,13 +15,6 @@ struct D2SkillsTxt
     unsigned char unk0x148[0x23C - 0x148];
 };
 
-struct D2DataTablesStrc
-{
-    unsigned char unk0x000[0xB98];
-    D2SkillsTxt* pSkillsTxt;
-    int unk0xB9C;
-    int nSkillsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit);                            // 0x00553540

@@ -1,9 +1,5 @@
 #include "D2Structs.h"
-struct D2GameStrc
-{
-    char unk0x00[0xA8];
-    int dwGameFrame;
-};
+#include "D2GameStrc.h"
 struct D2QuestDataStrc
 {
     int nQuestNo;

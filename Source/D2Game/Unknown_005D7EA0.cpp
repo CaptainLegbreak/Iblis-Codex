@@ -1,6 +1,8 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 enum D2C_U04BashConstants
 {
@@ -8,11 +10,6 @@ enum D2C_U04BashConstants
     STATLIST_FILTER_4 = 4,
 };
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-};
 
 
 struct D2SkillsTxt
@@ -31,15 +28,6 @@ struct D2SkillsTxt
     char unk0x1DD[0x5F];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xC4];
-    int nStatesTxtRecordCount;
-    char unk0x0C8[0xAD0];
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[0x04];
-    int nSkillsTxtRecordCount;
-};
 
 struct D2DamageStrc
 {

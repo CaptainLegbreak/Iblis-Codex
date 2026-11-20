@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 #pragma function(memset)
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 
@@ -7,13 +8,6 @@ struct D2TextHeaderStrc;
 struct D2QuestArgStrc;
 struct D2QuestDataStrc;
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x4D];
-    unsigned char nDifficulty;
-};
 
 
 

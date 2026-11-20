@@ -3,6 +3,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 #define MONMODE_NEUTRAL 1
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -41,19 +43,6 @@ struct D2MonsterDataStrc
 };
 
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x4A];
-    unsigned char nGameType;
-    char unk0x6B[0x02];
-    unsigned char nDifficulty;
-    char unk0x6E[0x06];
-    int dwGameType;
-    char unk0x78[0x30];
-    int dwGameFrame;
-};
 
 struct D2ModeChangeStrc
 {
@@ -69,13 +58,6 @@ struct D2ModeChangeStrc
     int unk0x1C;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    void* pMonStatsLinker;
-    int nMonStatsTxtRecordCount;
-};
 
 struct D2MonModeCallbackTableStrc
 {

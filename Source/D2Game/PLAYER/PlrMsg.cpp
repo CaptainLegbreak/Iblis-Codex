@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define UNIT_OBJECT 2
 #define UNIT_MISSILE 3
@@ -119,16 +120,6 @@ struct D2CharStatsTxt
     char unk0x3B[0x89];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xBA0];
-    int nSkillsTxtRecordCount;
-    unsigned char unk_BA4[0x20];
-    D2CharStatsTxt* pCharStatsTxt;
-    int nCharStatsTxtRecordCount;
-    unsigned char unk_BCC[0x90];
-    int nLevelsTxtRecordCount;
-};
 
 struct D2ClientPlayerDataStrc
 {

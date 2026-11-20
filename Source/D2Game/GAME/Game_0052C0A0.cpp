@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 struct D2ServerCallbackFunctions;
 
@@ -32,28 +33,7 @@ struct D2ClientStrc
     D2ClientStrc* pNext;
 };
 
-struct D2GameLinkStrc
-{
-    D2GameLinkStrc* pPrevLink;
-    D2GameStrc* pNext;
-};
 
-struct D2GameStrc
-{
-    unsigned int dwHashValue;
-    D2GameLinkStrc tLinkToSlot;
-    D2GameLinkStrc tLinkToFull;
-    char unk0x14[0x4];
-    D2CriticalSectionStrc* lpCriticalSection;
-    char unk0x1C[0xC];
-    unsigned short nGameId;
-    char szGameName[16];
-    char unk0x3A[0x4E];
-    D2ClientStrc* pClientList;
-    int nClients;
-    char unk0x90[0x2C];
-    D2DrlgActStrc* pAct[5];
-};
 
 struct D2GameListStrc
 {

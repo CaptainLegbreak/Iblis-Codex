@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 #define STAT_HITPOINTS 6
 #define STAT_MANA 8
 #define STAT_STAMINA 10
@@ -52,13 +53,6 @@ struct D2ItemStatCostTxt
     char unk0x13E[0x06];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xBCC];
-    D2ItemStatCostTxt* pItemStatCostTxt;
-    char unk0xBD0[0x04];
-    int nItemStatCostTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern unsigned int gdwBitMasks[]; // 0x006CE268

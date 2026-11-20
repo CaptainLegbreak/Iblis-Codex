@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 #define CUBE_MAX(a,b) ((a)>(b)?(a):(b))
 #define CUBE_MIN(a,b) ((a)<(b)?(a):(b))
@@ -14,17 +15,6 @@ struct D2PlayerDataStrc;
 
 
 
-struct D2GameStrc
-{
-    char unk00[0x70];
-    int bExpansion;
-    int unk74;
-    unsigned short wItemFormat;
-    unsigned char unk_7A[0x2E];
-    int dwGameFrame;
-    unsigned char unk_AC[0x1A78];
-    unsigned dwUniqueFlags[128];
-};
 
 struct D2ItemsTxt
 {

@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
@@ -64,23 +65,6 @@ struct D2ItemStatCostTxt
     char unk0x31[0x144-0x31];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xB98];
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[0x04];
-    int nSkillsTxtRecordCount;
-    char unk0xBA4[0xBCC - 0xBA4];
-    D2ItemStatCostTxt* pItemStatCostTxt;
-    char unk0xBD0[0x04];
-    int nItemStatCostTxtRecordCount;
-    char unk0xBD8[0xBF8 - 0xBD8];
-    D2ItemTypesTxt* pItemTypesTxt;
-    int nItemTypesTxtRecordCount;
-    char unk0xC00[0x6c];
-    int nStuff;
-    int nShiftedStuff;
-};
 
 struct D2MonStatsTxt
 {

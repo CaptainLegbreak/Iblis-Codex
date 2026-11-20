@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2SkillsTxt;
 struct D2SkillListStrc;
@@ -40,20 +41,6 @@ struct D2SkillListStrc
 };
 
 
-struct D2DataTablesStrc
-{
-    char unk0x00[196];
-    int nStatesTxtRecordCount;
-    char unk0xC8[2968 - 196 - 4];
-    D2SkillsTxt* pSkillsTxt;
-    void* pSkillsLinker;
-    int nSkillsTxtRecordCount;
-    unsigned char unk_BA4[0xC];
-    int nPassiveSkills;
-    unsigned short* pPassiveSkills;
-    unsigned char unk_BB8[0x1C];
-    int nItemStatCostTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0

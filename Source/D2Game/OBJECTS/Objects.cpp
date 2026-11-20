@@ -2,6 +2,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_OBJECT 2
@@ -40,13 +42,6 @@ struct D2MonStatsTxt
     char unk0x006[0x1A2];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char unk0xA7C[0x4];
-    int nMonStatsTxtRecordCount;
-};
 
 struct D2TimerArg2Strc
 {
@@ -64,15 +59,6 @@ struct D2TimerArgStrc
     unsigned int dwUnitId;
 };
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    unsigned char unk_20[0x88];
-    int dwGameFrame;
-    unsigned char unk_AC[0x1074];
-    D2UnitStrc* pUnitList[5][128];
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0

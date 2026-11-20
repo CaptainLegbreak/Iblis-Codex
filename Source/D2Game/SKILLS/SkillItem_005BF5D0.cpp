@@ -1,5 +1,7 @@
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 struct D2AiControlStrc;
 struct D2AnimSeqTxt;
 struct D2ActiveRoomStrc;
@@ -39,13 +41,6 @@ enum D2C_G4Constants
     COLLIDE_MASK_PLAYER_FLYING = 0x804,
 };
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x88];
-    unsigned int dwGameFrame;
-};
 
 struct D2MonsterDataStrc
 {
@@ -105,17 +100,6 @@ struct D2SkillsTxt
     char unk0x186[0xB6];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xC4];
-    int nStatesTxtRecordCount;
-    char unk0x0C8[0xAA4];
-    int nMissilesTxtRecordCount;
-    char unk0xB70[0x28];
-    D2SkillsTxt* pSkillsTxt;
-    void* pSkillsLinker;
-    int nSkillsTxtRecordCount;
-};
 
 struct D2ItemDropStrc
 {

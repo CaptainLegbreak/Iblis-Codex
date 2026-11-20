@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 
 struct D2SkillsTxt
@@ -19,16 +20,6 @@ struct D2SkillDescTxt
     char unk0x03[0x11D];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xB8C];
-    D2SkillDescTxt* pSkillDescTxt;
-    char unk0xB90[0x04];
-    int nSkillDescTxtRecordCount;
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[0x04];
-    int nSkillsTxtRecordCount;
-};
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...);
 

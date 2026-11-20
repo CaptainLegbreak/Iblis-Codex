@@ -1,8 +1,8 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2SkillsTxt { char unk_00[0x48]; short nSrvMissile; char unk_4A[0x74]; unsigned char nPetType; char unk_BF; unsigned int dwPetMax; char unk_C4[0x78]; unsigned int dwCalc[4]; char unk_14C[0xF0]; };
-struct D2DataTablesStrc { char unk_00[0xB6C]; int nMissilesTxtRecordCount; char unk_B70[0x28]; D2SkillsTxt* pSkillsTxt; int unk_B9C; int nSkillsTxtRecordCount; char unk_BA4[0x4C]; int nPetTypeTxtRecordCount; };
 struct D2SummonArgStrc { unsigned int dwFlags; D2UnitStrc* pOwner; int nHcIdx; int nAiSpecialState; int nMonMode; int nX; int nY; int nPetType; int nPetMax; };
 struct D2MissileStrc { unsigned int dwFlags; D2UnitStrc* pOwner; D2UnitStrc* pOrigin; D2UnitStrc* pTarget; int nMissile; int nX; int nY; int nTargetX; int nTargetY; int nGfxArg; int nVelocity; int nSkill; int nSkillLevel; int unk_34[10]; };
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

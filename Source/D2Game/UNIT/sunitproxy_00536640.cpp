@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 #define UNIT_MONSTER 1
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -10,13 +11,6 @@ struct D2NpcEventStrc;
 struct D2NpcRecordStrc;
 struct D2NpcControlStrc;
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x1D04];
-    struct D2NpcControlStrc* pNpcControl;
-};
 
 
 struct D2NpcGambleStrc

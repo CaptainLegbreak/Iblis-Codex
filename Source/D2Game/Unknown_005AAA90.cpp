@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 enum D2C_M11MeteorConstants
 {
@@ -24,17 +25,6 @@ struct D2SkillsTxt
     char unk0x00[0x64];
     unsigned int dwAuraRangeCalc;
     char unk0x68[0x1D4];
-};
-struct D2DataTablesStrc
-{
-    char unk0x000[0xB64];
-    D2MissilesTxt* pMissilesTxt;
-    int unk0xB68;
-    int nMissilesTxtRecordCount;
-    char unk0xB70[0x28];
-    D2SkillsTxt* pSkillsTxt;
-    int unk0xB9C;
-    int nSkillsTxtRecordCount;
 };
 struct D2DamageStrc
 {

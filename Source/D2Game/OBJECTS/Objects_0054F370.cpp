@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2DataTbls.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define GAMEV (game)
@@ -129,11 +130,6 @@ struct D2ObjectsTxt
     unsigned char nPopulateFn;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xC5C];
-    int nLevelsTxtRecordCount;
-};
 
 typedef int (__fastcall* OBJTHEMEFN)(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pDrlgCoords);
 

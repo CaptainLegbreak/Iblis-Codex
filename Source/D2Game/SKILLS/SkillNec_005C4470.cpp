@@ -2,10 +2,11 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 struct D2SkillsTxt;
 struct D2SummonArgStrc;
 
-struct D2GameStrc { char unk00[0x1c]; void* pMemoryPool; };
 
 struct D2SkillsTxt
 {
@@ -40,23 +41,6 @@ struct D2SkillsTxt
 
 struct D2ItemStatCostTxt { char unk00[0x48]; short wItemEvent[2]; short wItemEventFunc[2]; char unk50[0xf4]; };
 
-struct D2DataTablesStrc
-{
-    char unk000[0xc4];
-    int nStatesTxtRecordCount;
-    char unk0C8[0xad0];
-    D2SkillsTxt* pSkillsTxt;
-    void* pSkillsLinker;
-    int nSkillsTxtRecordCount;
-    char unkBA4[0x1c];
-    int nOverlayTxtRecordCount;
-    char unkBC4[8];
-    D2ItemStatCostTxt* pItemStatCostTxt;
-    void* pItemStatCostLinker;
-    int nItemStatCostTxtRecordCount;
-    unsigned char unk_BD8[0x18];
-    int nPetTypeTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268

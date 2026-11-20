@@ -1,8 +1,8 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2SkillsTxt { char unk_000[0x140]; unsigned int f_13C; int unk_144; int nAnimFrame; char unk_14C[0xF0]; };
-struct D2DataTablesStrc { char unk_000[0xB98]; D2SkillsTxt* pSkillsTxt; int unk_B9C; int nSkillsTxtRecordCount; };
 struct D2DamageStrc {
     unsigned int dwHitFlags; unsigned short wResultFlags; unsigned short wExtra;
     int dwPhysDamage; int unk_0C; int unk_10; int unk_14; int unk_18; int unk_1C;

@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define QUEST_A5Q5_ANCIENTS 35
@@ -24,18 +25,6 @@ typedef int (__stdcall* FARPROC)();
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x006CC34C
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x4D];
-    union
-    {
-        unsigned char nDifficulty;
-        unsigned char difficulty;
-    };
-    unsigned char unk_6E[0x2];
-};
 
 
 struct D2PlayerDataStrc
@@ -322,7 +311,7 @@ void __fastcall ACT5Q5_Callback11_ScrollMessage(D2QuestDataStrc* q,D2QuestArgStr
   return;
  }else if(msg==20169){
  D2GameStrc* game=q->game;
- D2BitBufferStrc* pQuestFlags=UNITS_GetPlayerData(!a ? 0 : a->player)->flags[game->difficulty];
+ D2BitBufferStrc* pQuestFlags=UNITS_GetPlayerData(!a ? 0 : a->player)->flags[game->nDifficulty];
  QUESTRECORD_SetQuestState(pQuestFlags,39,4);
  return;}
  switch(npc){

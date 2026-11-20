@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Constants.h"
+#include "D2DataTbls.h"
 
 #pragma intrinsic(_ReadWriteBarrier)
 
@@ -321,16 +322,6 @@ struct D2StatStrc
     int nValue;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xB98];
-    D2SkillsTxt* pSkillsTxt;
-    int unk0xB9C;
-    int nSkillsTxtRecordCount;
-    char unk0xBA4[0xC8];
-    int nStuff;
-    int nShiftedStuff;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __stdcall ITEMMODS_UpdateItemWithSkillCharges(D2UnitStrc* pItem, int nSkillId, int nSkillLevel, int nCharges); // 0x0065C940

@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2SkillsTxt;
 struct D2SkillDescTxt;
@@ -27,18 +28,6 @@ struct D2SkillDescTxt
     char unk0x10[0x110];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xB6C];
-    int nMissilesTxtRecordCount;
-    unsigned char unk_B70[0x1C];
-    D2SkillDescTxt* pSkillDescTxt;
-    void* pSkillDescLinker;
-    int nSkillDescTxtRecordCount;
-    D2SkillsTxt* pSkillsTxt;
-    void* pSkillsLinker;
-    int nSkillsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId); // 0x006439F0

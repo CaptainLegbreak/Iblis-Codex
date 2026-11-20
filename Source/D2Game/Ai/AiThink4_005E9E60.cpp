@@ -2,6 +2,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 #define AI_ROLL_PERCENT(pSeed) ((int)((unsigned int)SEED_RollRandomNumber(pSeed) % 100))
@@ -12,13 +14,6 @@ struct D2NihlathakOverseerAiCallbackArgStrc;
 
 
 
-struct D2GameStrc
-{
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-    char unk0x6E[0x3A];
-    int dwGameFrame;
-};
 
 struct D2AiControlStrc
 {
@@ -85,17 +80,6 @@ struct D2SkillsTxt
     char unk_231[0xB];
 };
 
-struct D2DataTablesStrc
-{
-    char unk00[0xA80];
-    int nMonStatsTxtRecordCount;
-    unsigned char unk_A84[0x114];
-    D2SkillsTxt* pSkillsTxt;
-    void* pSkillsLinker;
-    int nSkillsTxtRecordCount;
-    char unk0xBA4[0xBF0 - 0xBA4];
-    int nPetTypeTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __fastcall PLAYERPETS_GetPetTypeFromPetGUID(D2UnitStrc* pPlayer, int nPetGUID); // 0x00574A20

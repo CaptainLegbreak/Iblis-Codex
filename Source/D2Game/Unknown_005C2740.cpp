@@ -1,8 +1,8 @@
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 struct D2ItemsTxt { char unk_00[0x80]; unsigned int dwCode; };
 struct D2SetItemsTxt { short nId; char unk_02[0x26]; unsigned int dwItemCode; };
 struct D2SetsTxt { int unk_00; unsigned short wVersion; char unk_06[6]; int nItemCount; char unk_10[0x100]; D2SetItemsTxt* pSetItems[6]; };
-struct D2DataTablesStrc { char unk_000[0xC0C]; D2SetsTxt* pSetsTxt; int nSetsTxtRecordCount; };
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int); // 0x006335F0
 D2SeedStrc* __stdcall ITEMS_GetItemSeed(D2UnitStrc*); // 0x00627D90

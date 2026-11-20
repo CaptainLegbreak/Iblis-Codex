@@ -1,6 +1,8 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 #define MONMODE_DEATH 0
 #define MONMODE_NEUTRAL 1
 #define EVENTTYPE_MONUMOD 7
@@ -8,11 +10,6 @@ struct D2MonsterDataStrc;
 struct D2SeedStrc;
 struct D2MonStatsTxt;
 
-struct D2GameStrc
-{
-    char unk0x00[0xA8];
-    int dwGameFrame;
-};
 
 struct D2MonsterDataStrc
 {
@@ -41,13 +38,6 @@ struct D2MonStatsTxt
     char unk0x0A7[0x101];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    void* pMonStatsLinker;
-    int nMonStatsTxtRecordCount;
-};
 
 struct D2DamageStrc
 {

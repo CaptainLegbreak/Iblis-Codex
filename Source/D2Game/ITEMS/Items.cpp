@@ -2,6 +2,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
@@ -60,29 +62,7 @@ struct D2UniqueItemsTxt
     char unk0x030[0x11C];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xBF8];
-    D2ItemTypesTxt* pItemTypesTxt;
-    int nItemTypesTxtRecordCount;
-    unsigned char unk_C00[0x24];
-    D2UniqueItemsTxt* pUniqueItemsTxt;
-    int nUniqueItemsTxtRecordCount;
-};
 
-struct D2GameStrc
-{
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-    char unk0x006E[0x2];
-    int bExpansion;
-    char f_74[0x04];
-    unsigned short wItemFormat;
-    unsigned char unk_7A[0x10A6];
-    D2UnitStrc* pUnitList[5][128];
-    unsigned char unk_1B20[0x4];
-    unsigned int dwUniqueFlags[128];
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern unsigned int gdwBitMasks[]; // 0x006CE268

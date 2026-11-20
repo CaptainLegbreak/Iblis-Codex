@@ -3,6 +3,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -21,17 +23,6 @@ struct D2UnitStrc;
 struct D2CoordStrc;
 struct D2MonsterDataStrc;
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    void* pMonStatsLinker;
-    int nMonStatsTxtRecordCount;
-    char unk0xA84[0x11C];
-    int nSkillsTxtRecordCount;
-    unsigned char unk_BA4[0x4];
-    int nHighestClassSkillCount;
-};
 
 struct D2QuestDataStrc
 {
@@ -46,13 +37,6 @@ struct D2QuestDataStrc
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x88];
-    unsigned int dwGameFrame;
-};
 
 
 int __fastcall MISSMODE_HandleMissileCollision(D2GameStrc* pGame, D2UnitStrc* pMissile); // 0x005AE1F0

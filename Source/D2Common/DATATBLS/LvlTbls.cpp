@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2DataTbls.h"
 
 #pragma intrinsic(strcpy)
 #define LVL_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -30,14 +31,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xC58];
-    D2LevelsTxt* pLevelsTxt;
-    int nLevelsTxtRecordCount;
-    char unk0xC60[0x8];
-    int nLvlPrestTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 

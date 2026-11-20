@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define MONSTER_HRATLI 253
@@ -20,17 +21,6 @@ struct D2ActiveRoomStrc
     D2UnitStrc* pUnitFirst;
 };
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x4D];
-    unsigned char nDifficulty;
-    char unk0x6E[0x3A];
-    int dwGameFrame;
-    char unk0xAC[0x10];
-    void* pAct[5];
-};
 
 
 struct D2PlayerDataStrc

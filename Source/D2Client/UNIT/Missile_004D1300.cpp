@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2SeedStrc;
 struct D2StaticPathStrc;
@@ -62,13 +63,6 @@ struct D2MissilesTxt
     char unk0x98[0x10C];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xB64];
-    D2MissilesTxt* pMissilesTxt;
-    char unk0xB68[0x04];
-    int nMissilesTxtRecordCount;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define AI_GetParam(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
@@ -143,17 +144,6 @@ struct D2AiTickParamStrc
     D2MonStatsTxt* pMonstatsTxt;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA80];
-    int nMonStatsTxtRecordCount;
-    unsigned char unk_A84[0xE8];
-    int nMissilesTxtRecordCount;
-    char unk0xB70[0xB98 - 0xB70];
-    D2SkillsTxt* pSkillsTxt;
-    void* pSkillsLinker;
-    int nSkillsTxtRecordCount;
-};
 
 struct D2SiegeBeastTowerAiCallbackArgStrc
 {

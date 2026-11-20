@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 #define QUEST_A5Q5_ANCIENTS 35
 #define STAT_LEVEL 12
@@ -21,13 +22,6 @@ struct D2DataTablesStrc;
 struct D2ObjectsTxt;
 struct D2QuestArgStrc;
 
-struct D2GameStrc
-{
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-    char unk0x6E[0x3A];
-    int dwGameFrame;
-};
 
 
 

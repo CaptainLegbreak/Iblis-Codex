@@ -1,17 +1,11 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define D2_FREE_PANEL_CEL(pCel) if (pCel) { sub_00478A00(pCel); pCel = 0; }
 struct D2PetTypeTxt;
 
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xBE8];
-    D2PetTypeTxt* pPetTypeTxt;
-    char unk0xBEC[0x04];
-    int nPetTypeTxtRecordCount;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10

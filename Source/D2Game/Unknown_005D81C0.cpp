@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 
 
@@ -10,13 +11,6 @@ struct D2SkillsTxt
     char unk_148[0x23C - 0x148];
 };
 
-struct D2DataTablesStrc
-{
-    char unk_000[0xB98];
-    D2SkillsTxt* pSkillsTxt;
-    char unk_B9C[4];
-    int nSkillsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553540

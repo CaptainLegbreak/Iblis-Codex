@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define PETTYPE_FLAG_PARTY 4
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -53,13 +54,6 @@ struct D2PetTypeTxt
     char unk0x08[0xE0 - 0x08];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xBE8];
-    D2PetTypeTxt* pPetTypeTxt;
-    void* pPetTypeLinker;
-    int nPetTypeTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern unsigned int gdwBitMasks[]; // 0x006CE268

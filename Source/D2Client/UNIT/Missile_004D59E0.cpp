@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 #ifdef MOVED_TEST
 #define TEST_OFFSET 8
 #define LIGHT_LIMIT 62
@@ -74,17 +75,6 @@ struct D2SkillsTxt
     char unk0x148[0x23C - 0x138 - 16];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xB64 + TEST_OFFSET];
-    D2MissilesTxt* pMissilesTxt;
-    char unk0xB68[0xB6C - 0xB64 - 4];
-    int nMissilesTxtRecordCount;
-    char unk0xB70[0xB98 - 0xB6C - 4];
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[0xBA0 - 0xB98 - 4];
-    int nSkillsTxtRecordCount;
-};
 extern D2DataTablesStrc* sgptDataTables;  // 0x00744304
 extern "C" void* __cdecl memset(void*,int,unsigned int);
 int __stdcall MISSILE_GetLevel(D2UnitStrc* pMissile);                                                       // 0x0064A210

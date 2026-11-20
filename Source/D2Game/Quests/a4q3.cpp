@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define QUEST_A4Q3_HELLFORGE 24
@@ -27,15 +28,6 @@ typedef int (__stdcall* FARPROC)();
 
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x006CC34C
 
-struct D2GameStrc
-{
-    char pad0x00[0x6A];
-    unsigned char nGameType;
-    char pad0x6B[0x02];
-    unsigned char nDifficulty;
-    char pad0x6E[0x02];
-    int bExpansion;
-};
 
 
 struct D2PlayerDataStrc

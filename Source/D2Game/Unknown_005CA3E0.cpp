@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 #ifdef MOVED_TEST
 #define UNIT_FLAG 0x20
 #else
@@ -50,26 +51,6 @@ struct D2SkillsTxt
     char unk0x1A6[0x36];
     unsigned char nEType;
     char unk0x1DD[0x5F];
-};
-struct D2DataTablesStrc
-{
-#ifdef MOVED_TEST
-    int movedPrefix;
-#endif
-    char unk0x000[0xC4];
-    int nStatesTxtRecordCount;
-    char unk0x0C8[0xA9C];
-    D2MissilesTxt* pMissilesTxt;
-    int unk0xB68;
-    int nMissilesTxtRecordCount;
-    char unk0xB70[0x28];
-    D2SkillsTxt* pSkillsTxt;
-    void* pSkillsLinker;
-    int nSkillsTxtRecordCount;
-    char unk0xBA4[0x1C];
-    int nOverlayTxtRecordCount;
-    char unk0xBC4[0x10];
-    int nItemStatCostTxtRecordCount;
 };
 extern D2DataTablesStrc* sgptDataTables;  // 0x00744304
 int __fastcall sub_6FD15340(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMissileId);                          // 0x0056E450

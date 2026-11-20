@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Constants.h"
+#include "D2DataTbls.h"
 
 #define PLRMODE_DEATH 0
 #define PLRMODE_DEAD 17
@@ -103,17 +104,6 @@ struct D2MonStatsTxt
     char unk0x04F[0x159];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char unk0xA7C[0x04];
-    int nMonStatsTxtRecordCount;
-    char unk0xA84[0x114];
-    D2SkillsTxt* pSkillsTxt;
-    void* pSkillsLinker;
-    int nSkillsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nRangeBonus); // 0x00622C40

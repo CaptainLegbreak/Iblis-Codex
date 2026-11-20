@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 struct D2ObjectControlStrc;
 struct Entry00547390;
@@ -28,12 +30,6 @@ struct D2ObjectControlStrc
     D2ObjectRegionStrc* pObjectRegion[1024];
 };
 
-struct D2GameStrc
-{
-    char unk0x00[0xF0];
-    D2MonsterRegionStrc* pMonReg[1024];
-    D2ObjectControlStrc* pObjectControl;
-};
 
 struct Entry00547390 { unsigned int dwUnknown00[4]; int nCount10; };
 
@@ -62,11 +58,6 @@ struct D2ObjOperateFnStrc
     D2UnitStrc* pObject;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA80];
-    int nMonStatsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2MonsterRegionStrc* __fastcall MONSTERREGION_GetMonsterRegionFromLevelId(D2MonsterRegionStrc** ppMonsterRegion, int nLevelId); // 0x00547BB0

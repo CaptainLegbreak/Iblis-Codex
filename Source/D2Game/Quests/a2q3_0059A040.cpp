@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 struct D2SeedStrc;
 struct D2PlayerDataStrc;
@@ -7,13 +8,6 @@ struct D2Act2Quest3Strc;
 struct D2GSPacketSrv5D;
 struct D2ObjInitFnStrc;
 
-struct D2GameStrc
-{
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-    char unk0x6E[0x4E];
-    D2DrlgActStrc* pAct[5];
-};
 
 
 struct D2PlayerDataStrc

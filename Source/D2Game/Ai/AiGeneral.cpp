@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 #define UNIT_MONSTER 1
 #define UNIT_INVALID 6
@@ -13,11 +14,6 @@ struct Sub0058F000;
 struct Data0058F000;
 struct Unit0058F000;
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-};
 
 struct D2AiControlStrc
 {

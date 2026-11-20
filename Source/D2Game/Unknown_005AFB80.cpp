@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define STAT_HITPOINTS 6
 struct D2SeedStrc;
@@ -27,19 +28,6 @@ struct D2SkillsTxt
     char unk0x148[0xF4];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xB64];
-    D2MissilesTxt* pMissilesTxt;
-    int unk0xB68;
-    int nMissilesTxtRecordCount;
-    char unk0xB70[0x28];
-    D2SkillsTxt* pSkillsTxt;
-    void* pSkillsLinker;
-    int nSkillsTxtRecordCount;
-    char unk0xBA4[0x1C];
-    int nOverlayTxtRecordCount;
-};
 
 struct D2MissileStrc
 {

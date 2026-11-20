@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2GameStrc.h"
 
 typedef int (__stdcall* FARPROC)();
 
@@ -15,11 +16,6 @@ struct D2CriticalSectionStrc
     unsigned long nSpinCount;
 };
 
-struct D2GameStrc
-{
-    char unk0x00[0x20];
-    D2ClientInfoStrc* pClientInfo;
-};
 
 struct D2ClientStrc
 {

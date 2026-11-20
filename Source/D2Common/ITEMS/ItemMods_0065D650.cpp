@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 #define STAT_POISONMAXDAM 58
 #define STAT_POISON_COUNT 326
 struct D2SeedStrc;
@@ -71,15 +72,6 @@ struct D2ItemStatCostTxt
     char unk0x19[0x12B];
 };
 
-struct D2DataTablesStrc
-{
-    char pad0x00[0xAC];
-    int nPropertiesTxtRecordCount;
-    unsigned char unk_B0[0xB1C];
-    D2ItemStatCostTxt* pItemStatCostTxt;
-    int unk0xBD0;
-    int nItemStatCostTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 void __stdcall STATLIST_SetStatIfListIsValid(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer); // 0x00627150

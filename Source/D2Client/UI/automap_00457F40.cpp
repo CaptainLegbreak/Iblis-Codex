@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2AutomapRecordStrc;
@@ -90,17 +91,6 @@ struct D2ObjectsTxt
     int dwAutomap;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char unk0xA7C[0x4];
-    int nMonStatsTxtRecordCount;
-    char unk0xA84[0xC];
-    D2MonStats2Txt* pMonStats2Txt;
-    char unk0xA94[0x4];
-    int nMonStats2TxtRecordCount;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090

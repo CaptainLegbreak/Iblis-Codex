@@ -1,7 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
-struct D2GameStrc { char unk00[0x6D]; unsigned char nDifficulty; };
 struct D2PlayerDataStrc { char unk00[0x10]; D2BitBufferStrc* pQuestData[3]; };
 extern const char gszEmptyAssertText; // 0x006CC837
 extern const char gszNpcSourceFile[]; // 0x006E15F0

@@ -2,19 +2,13 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2SkillsTxt
 {
     char pad00[0x138];
     unsigned int calc1;
     char pad13C[0x100];
-};
-struct D2DataTablesStrc
-{
-    char pad00[0xB98];
-    D2SkillsTxt* pSkillsTxt;
-    void* pSkillsLinker;
-    int nSkillsTxtRecordCount;
 };
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc*); // 0x00620250

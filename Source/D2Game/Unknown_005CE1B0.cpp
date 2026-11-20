@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2MissilesTxt;
 
@@ -14,15 +15,6 @@ struct D2SkillsTxt
 };
 typedef char chk_D2SkillsTxt_size[sizeof(D2SkillsTxt) == 0x23C ? 1 : -1];
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xB6C];
-    int nMissilesTxtRecordCount;
-    char unk0xB70[0x28];
-    D2SkillsTxt* pSkillsTxt;
-    void* pSkillsLinker;
-    int nSkillsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268

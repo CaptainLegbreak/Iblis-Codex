@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2MonStatsTxt;
 struct D2ModeChangeStrc;
@@ -9,7 +10,6 @@ struct D2MissileUnitFindArgStrc;
 
 struct D2MonStatsTxt { short nId; short nBaseId; char unk_04[0x1A2]; unsigned char nSpecialEnd; char unk_1A7; };
 
-struct D2DataTablesStrc { char unk_00[0xA78]; D2MonStatsTxt* pMonStatsTxt; int unk_A7C; int nMonStatsTxtRecordCount; };
 
 struct D2ModeChangeStrc
 {

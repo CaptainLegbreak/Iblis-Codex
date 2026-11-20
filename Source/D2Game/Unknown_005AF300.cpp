@@ -3,6 +3,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 struct D2ObjectControlStrc;
 struct D2SeedStrc;
@@ -13,15 +15,6 @@ struct D2MissilesTxt;
 
 
 
-struct D2GameStrc
-{
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-    char unk6E[2];
-    int bExpansion;
-    char unk74[4];
-    unsigned short wItemFormat;
-};
 
 
 struct D2ObjOperateFnStrc
@@ -75,7 +68,6 @@ struct D2ItemDropStrc
 
 struct D2MissilesTxt { char unk00[0x38]; int dwParam[3]; char unk44[0x52]; short nAnimLen; char unk98[0x10C]; };
 
-struct D2DataTablesStrc { char unk00[0xB64]; D2MissilesTxt* pMissilesTxt; int unkB68; int nMissilesTxtRecordCount; };
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0

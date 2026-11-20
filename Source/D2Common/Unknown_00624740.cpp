@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 struct D2StatStrc;
 struct D2StatsArrayStrc;
 struct D2ItemStatCostTxt;
@@ -41,15 +42,6 @@ struct D2StatesTxt
     unsigned char nStateFlags[8];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xC4];
-    int nStatesTxtRecordCount;
-    char unk0x0C8[0xBCC - 0xC8];
-    D2ItemStatCostTxt* pItemStatCostTxt;
-    char unk0xBD0[0x04];
-    int nItemStatCostTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables;
 extern unsigned int gdwBitMasks[];

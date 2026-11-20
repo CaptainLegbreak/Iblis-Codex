@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2DataTbls.h"
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 struct Skills;
@@ -111,22 +112,6 @@ struct D2SkillsTxt
     char unk0x1DD[0x5F];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xC4];
-    int nStatesTxtRecordCount;
-    unsigned char unk_C8[0xA4];
-    short* pProgressiveStates;
-    short nProgressiveStates;
-    char unk0x172[0xA26];
-    D2SkillsTxt* pSkillsTxt;
-    void* pSkillsLinker;
-    int nSkillsTxtRecordCount;
-    char unk0xBA4[0x1C];
-    int nOverlayTxtRecordCount;
-    char unk0xBC4[0x10];
-    int nItemStatCostTxtRecordCount;
-};
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

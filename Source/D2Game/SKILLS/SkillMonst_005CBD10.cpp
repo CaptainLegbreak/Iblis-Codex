@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Constants.h"
+#include "D2DataTbls.h"
 
 struct D2MonsterRegionStrc;
 struct D2StaticPathStrc;
@@ -282,23 +283,6 @@ struct D2SkillsTxt
     char unk0x1DD[0x5F];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xC4];
-    int nStatesTxtRecordCount;
-    char unk0x0C8[0xA9C];
-    D2MissilesTxt* pMissilesTxt;
-    int unk0xB68;
-    int nMissilesTxtRecordCount;
-    char unk0xB70[0x28];
-    D2SkillsTxt* pSkillsTxt;
-    void* pSkillsLinker;
-    int nSkillsTxtRecordCount;
-    char unk0xBA4[0x1C];
-    int nOverlayTxtRecordCount;
-    char unk0xBC4[0x10];
-    int nItemStatCostTxtRecordCount;
-};
 
 typedef int (__fastcall* AURACALLBACK)(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit);
 

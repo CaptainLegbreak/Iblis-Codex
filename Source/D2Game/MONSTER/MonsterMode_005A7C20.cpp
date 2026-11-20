@@ -1,4 +1,6 @@
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 // build: ob1
 
 struct D2StatListStrc;
@@ -27,12 +29,6 @@ struct D2MonsterDataStrc
 };
 
 
-struct D2GameStrc
-{
-    char unk0x0000[0x1D70];
-    int dwPathTypesCount[17];
-    int nTotalPathTypesCount;
-};
 
 struct D2MonStats2Txt
 {
@@ -77,13 +73,6 @@ struct D2MonStatsTxt
     char unk0x000[0x1A8];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char unk0xA7C[0x4];
-    int nMonStatsTxtRecordCount;
-};
 
 #define UNIT_MONSTER 1
 #define MONMODE_DEATH 0

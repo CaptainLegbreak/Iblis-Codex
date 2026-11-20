@@ -1,9 +1,9 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2DamageStrc { int unk_00; unsigned short wResultFlags; };
 struct D2SkillsTxt { char unk_00[4]; unsigned char nFlags[4]; char f_8[0x28]; short wProgFunc[3]; char unk_36[0x1E]; short wAuraStat[6]; };
-struct D2DataTablesStrc { char unk_00[0x16C]; short* pProgressiveStates; short nProgressiveStates; char unk_172[0xA62]; int nItemStatCostTxtRecordCount; };
 typedef int (__fastcall *SkillDoFunc)(D2GameStrc*, D2UnitStrc*, int, int);
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern unsigned int gdwBitMasks[]; // 0x006CE268

@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define UNIT_MONSTER 1
 struct Unicode;
@@ -42,13 +43,6 @@ struct D2MonStats2Txt
     unsigned char nPixHeight;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char unk0xA7C[0x04];
-    int nMonStatsTxtRecordCount;
-};
 
 #pragma pack(push, 2)
 struct D2ImmunityTextStrc

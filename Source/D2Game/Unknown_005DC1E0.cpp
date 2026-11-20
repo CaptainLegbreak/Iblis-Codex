@@ -1,12 +1,9 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
-struct D2GameStrc
-{
-    char unk0x00[0xA8];
-    int dwGameFrame;
-};
 
 
 struct D2SummonArgStrc
@@ -33,15 +30,6 @@ struct D2SkillsTxt
     char unk0x148[0xF4];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xB98];
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[0x04];
-    int nSkillsTxtRecordCount;
-    char unk0xBA4[0x4C];
-    int nPetTypeTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 

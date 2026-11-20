@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2DynamicPathStrc;
 struct D2StatListStrc;
@@ -25,13 +26,6 @@ struct D2MissilesTxt
     char unk0x18D[0x17];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xB64];
-    D2MissilesTxt* pMissilesTxt;
-    char unk0xB68[0x04];
-    int nMissilesTxtRecordCount;
-};
 
 typedef void (__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);
 typedef int (__fastcall* CLTHITFUNC)(D2UnitStrc* pMissile, D2UnitStrc* pTarget);

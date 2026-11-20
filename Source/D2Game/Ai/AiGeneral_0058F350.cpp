@@ -1,16 +1,12 @@
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 struct D2MinionListStrc
 {
     int dwMinionGUID;
     D2MinionListStrc* pNext;
 };
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-};
 
 struct D2AiControlStrc
 {

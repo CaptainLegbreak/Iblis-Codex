@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 
 struct D2ItemDataStrc
@@ -59,37 +60,12 @@ struct D2SkillsTxt
     char unk0x196[0x23C - 0x196];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xB94];
-    int nSkillDescTxtRecordCount;
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[4];
-    int nSkillsTxtRecordCount;
-    char unk0xBA4[0xBCC - 0xBA4];
-    D2ItemStatCostTxt* pItemStatCostTxt;
-    char unk0xBD0[4];
-    int nItemStatCostTxtRecordCount;
-    char unk0xBD8[0xC28 - 0xBD8];
-    int nUniqueItemsTxtRecordCount;
-    char unk0xC2C[0xC6C - 0xC2C];
-    int nStuff;
-    int nShiftedStuff;
-};
 
 struct D2MagicAffixTxt
 {
     char unk0x00[0x90];
 };
 
-struct D2MagicAffixDataTbl
-{
-    int nMagicAffixTxtRecordCount;
-    D2MagicAffixTxt* pMagicAffixTxt;
-    D2MagicAffixTxt* pMagicSuffix;
-    D2MagicAffixTxt* pMagicPrefix;
-    D2MagicAffixTxt* pAutoMagic;
-};
 
 struct D2SetItemsTxt
 {

@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2NpcRecordStrc;
@@ -26,19 +27,6 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x4D];
-    unsigned char nDifficulty;
-    char unk0x6E[0x1A];
-    D2ClientStrc* pClientList;
-    char unk0x8C[0x2C];
-    D2EventTimerQueueStrc* pTimerQueue;
-    unsigned char unk_BC[0x1C68];
-    struct D2NpcControlStrc* pNpcControl;
-};
 
 extern D2UnitProxyStrc gUnitProxyItemCache_00883D78[17]; // 0x00883D78
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430

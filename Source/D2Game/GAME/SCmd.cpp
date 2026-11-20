@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define ITEMACTION_REMOVEFROMCONTAINER 5
@@ -272,16 +273,6 @@ struct D2GSPacketSrvA1 { unsigned char nHeader; unsigned char nStat; unsigned in
 struct D2GSPacketSrvA2 { unsigned char nHeader; unsigned char nStat; unsigned int dwGUID; unsigned short nValue; };
 
 #pragma pack(pop)
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    unsigned char unk_20[0x4D];
-    unsigned char nDifficulty;
-    char unk0x6E[2];
-    int bExpansion;
-    int dwGameType;
-};
 
 
 unsigned int __fastcall ARENA_GetFlags(D2GameStrc* pGame); // 0x0053FD40

@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2GameStrc.h"
 
 struct D2QuestDataStrc
 {
@@ -9,11 +10,6 @@ struct D2PlayerDataStrc
 {
     unsigned char unk_00[0x10];
     D2BitBufferStrc* pQuestData[3];
-};
-struct D2GameStrc
-{
-    unsigned char unk_00[0x6D];
-    unsigned char nDifficulty;
 };
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0

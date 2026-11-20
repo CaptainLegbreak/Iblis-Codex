@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 struct D2MonStatsTxt;
 struct D2MonStats2Txt;
@@ -10,11 +12,6 @@ struct D2SeedStrc;
 
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
 
-struct D2GameStrc
-{
-    char unk0x00[0xA8];
-    int dwGameFrame;
-};
 
 struct D2MonStatsTxt
 {
@@ -37,23 +34,6 @@ struct D2SkillsTxt
     char unk0x148[0xF4];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    void* pMonStatsLinker;
-    int nMonStatsTxtRecordCount;
-    char unk0xA84[0xC];
-    D2MonStats2Txt* pMonStats2Txt;
-    void* pMonStats2Linker;
-    int nMonStats2TxtRecordCount;
-    char unk0xA9C[0xD0];
-    int nMissilesTxtRecordCount;
-    char unk0xB70[0x28];
-    D2SkillsTxt* pSkillsTxt;
-    void* pSkillsLinker;
-    int nSkillsTxtRecordCount;
-};
 
 struct D2MissileStrc
 {

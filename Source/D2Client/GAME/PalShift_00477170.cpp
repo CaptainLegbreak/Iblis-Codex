@@ -1,3 +1,4 @@
+#include "D2DataTbls.h"
 extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 extern "C" char* __cdecl strcat(char* szDst, const char* szSrc);
 
@@ -17,17 +18,6 @@ struct D2MonStats2Txt
     char unk0x11D[0x134 - 0x11D];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    void* pMonStatsLinker;
-    int nMonStatsTxtRecordCount;
-    char unk0xA84[0xC];
-    D2MonStats2Txt* pMonStats2Txt;
-    void* pMonStats2Linker;
-    int nMonStats2TxtRecordCount;
-};
 
 struct D2ShiftRowsStrc
 {

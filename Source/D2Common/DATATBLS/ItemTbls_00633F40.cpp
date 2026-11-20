@@ -1,3 +1,4 @@
+#include "D2DataTbls.h"
 struct D2TxtLinkStrc;
 
 struct D2BinFieldStrc
@@ -20,16 +21,6 @@ struct D2RareAffixTxt
     char unk0x46[2];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xBF4];
-    D2TxtLinkStrc* pItemTypesLinker;
-    char unk0xBF8[0xE70 - 0xBF8];
-    int nRareAffixTxtRecordCount;
-    D2RareAffixTxt* pRareAffixTxt;
-    D2RareAffixTxt* pRareSuffixTxt;
-    D2RareAffixTxt* pRarePrefixTxt;
-};
 
 extern D2DataTablesStrc gD2DataTables;                                                              // 0x0096BC30
 

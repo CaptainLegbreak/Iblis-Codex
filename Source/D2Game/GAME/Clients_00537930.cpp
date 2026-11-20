@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -23,11 +25,6 @@ struct D2ClientStrc
     D2HotkeySkillStrc HotkeySkills[16];
 };
 
-struct D2GameStrc
-{
-    char unk0x00[0x70];
-    int bExpansion;
-};
 
 struct D2PlayerDataStrc
 {
@@ -38,11 +35,6 @@ struct D2PlayerDataStrc
     unsigned int nLeftSkillFlags;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xBA0];
-    int nSkillsTxtRecordCount;
-};
 
 #define UNIT_INVALID 6
 

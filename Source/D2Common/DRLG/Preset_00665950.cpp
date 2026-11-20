@@ -1,3 +1,4 @@
+#include "D2DataTbls.h"
 struct D2MapAIPathPositionStrc
 {
     int nMapAIAction;
@@ -60,11 +61,6 @@ struct D2MonPresetTxt
     unsigned short wPlace;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA80];
-    int nMonStatsTxtRecordCount;
-};
 
 struct D2PresetCodeStrc
 {

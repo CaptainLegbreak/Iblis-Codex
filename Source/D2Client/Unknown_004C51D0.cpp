@@ -1,10 +1,6 @@
 #include "D2Client.h"
+#include "D2DataTbls.h"
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xC4];
-    int nStatesTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 

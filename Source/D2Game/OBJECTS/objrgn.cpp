@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2GSPacketSrv26;
 struct D2SeedStrc;
@@ -55,7 +56,6 @@ struct D2GameStrc
     void sub_00546FF0_SendQuestText(const char* szText); // 0x00546FF0
 };
 
-struct D2DataTablesStrc { char unk0x00[0xC5C]; int nLevelsTxtRecordCount; };
 
 struct D2LevelsTxt { char unk0x00[3]; unsigned char nAct; };
 

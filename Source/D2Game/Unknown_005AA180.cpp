@@ -3,19 +3,14 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 struct D2StaticPathStrc;
 struct D2MissilesTxt;
 struct D2SkillsTxt;
 
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x88];
-    int dwGameFrame;
-};
 
 D2UnitStrc* __fastcall SUNIT_GetOwner(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00552FD0
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
@@ -55,19 +50,6 @@ struct D2SkillsTxt
     char unk148[0xF4];
 };
 
-struct D2DataTablesStrc
-{
-    char pad0x000[0xC4];
-    int nStatesTxtRecordCount;
-    char pad0x0C8[0xA9C];
-    D2MissilesTxt* pMissilesTxt;
-    int unkB68;
-    int nMissilesTxtRecordCount;
-    char unkB70[0x28];
-    D2SkillsTxt* pSkillsTxt;
-    int unkB9C;
-    int nSkillsTxtRecordCount;
-};
 
 struct D2DamageStrc
 {

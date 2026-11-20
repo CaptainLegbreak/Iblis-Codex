@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 
 
@@ -11,14 +12,6 @@ struct D2SkillsTxt
     char unk0x196[0x23C - 0x196];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xB94];
-    int nSkillDescTxtRecordCount;
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[4];
-    int nSkillsTxtRecordCount;
-};
 
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304

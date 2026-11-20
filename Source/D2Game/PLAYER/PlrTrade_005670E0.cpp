@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 
 struct D2PlayerTradeStrc
@@ -21,20 +23,6 @@ struct D2PlayerDataStrc
     D2PlayerTradeStrc* pTrade;
 };
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x4A];
-    unsigned char nGameType;
-    char unk0x6B[0x02];
-    unsigned char nDifficulty;
-    char unk0x6E[0x02];
-    int bExpansion;
-    int dwGameType;
-    char unk0x78[0x30];
-    unsigned int dwGameFrame;
-};
 
 struct D2CubeMainTxt
 {
@@ -57,11 +45,6 @@ struct D2ItemStatCostTxt
     unsigned char nValShift;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xBD4];
-    int nItemStatCostTxtRecordCount;
-};
 
 struct D2CubeItemStrc
 {

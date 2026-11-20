@@ -3,6 +3,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define STAT_TOHIT 19
@@ -37,13 +39,6 @@ struct D2MonsterDataStrc
     unsigned short nTypeFlag;
 };
 
-struct D2GameStrc
-{
-    char pad0x00[0xA8];
-    unsigned int dwGameFrame;
-    char pad0xAC[0x1074];
-    D2UnitStrc* pUnitList[5][128];
-};
 
 struct D2DamageStrc
 {
@@ -119,21 +114,6 @@ struct D2MissilesTxt
     char pad0x187[0x1D];
 };
 
-struct D2DataTablesStrc
-{
-    char pad0x00[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char pad0xA7C[0x04];
-    int nMonStatsTxtRecordCount;
-    char pad0xA84[0xE0];
-    D2MissilesTxt* pMissilesTxt;
-    char pad0xB68[0x04];
-    int nMissilesTxtRecordCount;
-    char unk0xB70[0xB98 - 0xB6C - 4];
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[0xBA0 - 0xB98 - 4];
-    int nSkillsTxtRecordCount;
-};
 
 struct D2UnkFieldsStrc
 {

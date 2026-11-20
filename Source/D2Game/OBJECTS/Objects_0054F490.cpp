@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define LEVEL_ROGUEENCAMPMENT 1
@@ -41,13 +42,6 @@ typedef D2UnitStrc* (__fastcall* PRESETSPAWNFN)(D2GameStrc* pGame, D2ActiveRoomS
 extern PRESETSPAWNFN sgPresetStuff_00731D28[]; // 0x00731D28
 extern int sgnPresetStuffCount_00731D4C; // 0x00731D4C
 
-struct D2GameStrc
-{
-    char unk0x00[0xA8];
-    int dwGameFrame;
-    char unk0xAC[0x10];
-    D2DrlgActStrc* pAct[5];
-};
 
 
 struct D2ObjectControlStrc

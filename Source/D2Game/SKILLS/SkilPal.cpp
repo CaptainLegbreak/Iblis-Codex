@@ -3,6 +3,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 struct D2MonsterRegionStrc;
 struct D2StaticPathStrc;
@@ -86,19 +88,6 @@ struct D2UnitFindDataStrc
     int nIndex;
 };
 
-struct D2GameStrc
-{
-    char pad00[0x1c];
-    void* pMemoryPool;
-    unsigned char unk_20[0x4D];
-    unsigned char nDifficulty;
-    char unk0x6E[0x02];
-    int bExpansion;
-    char f_74[0x34];
-    int dwGameFrame;
-    char unk0xAC[0x44];
-    D2MonsterRegionStrc* pMonReg;
-};
 
 
 
@@ -255,23 +244,6 @@ struct D2SkillsTxt
     char unk0x1DD[0x5F];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xC4];
-    int nStatesTxtRecordCount;
-    char unk0x0C8[0xA9C];
-    D2MissilesTxt* pMissilesTxt;
-    int unk0xB68;
-    int nMissilesTxtRecordCount;
-    char unk0xB70[0x28];
-    D2SkillsTxt* pSkillsTxt;
-    void* pSkillsLinker;
-    int nSkillsTxtRecordCount;
-    char unk0xBA4[0x1C];
-    int nOverlayTxtRecordCount;
-    char unk0xBC4[0x10];
-    int nItemStatCostTxtRecordCount;
-};
 
 typedef int (__fastcall* AURACALLBACK)(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit);
 

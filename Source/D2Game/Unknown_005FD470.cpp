@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2SkillsTxt;
 
@@ -9,7 +10,6 @@ struct D2SkillsTxt;
 
 struct D2SkillsTxt { char unk_00[8]; unsigned char nFlags[4]; char unk_0C[0x22]; unsigned short wSrvDoFunc; char unk_30[0x20C]; };
 
-struct D2DataTablesStrc { char unk_00[0xB98]; D2SkillsTxt* pSkillsTxt; int unk_B9C; int nSkillsTxtRecordCount; };
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268

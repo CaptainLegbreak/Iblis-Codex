@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 enum D2C_F39Constants
 {
@@ -93,19 +94,6 @@ struct D2UnitFindDataStrc
     int nSize;
 };
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x4D];
-    unsigned char nDifficulty;
-    char unk0x6E[0x02];
-    int bExpansion;
-    char f_74[0x34];
-    unsigned int dwGameFrame;
-    char unk0xAC[0x44];
-    D2MonsterRegionStrc* pMonReg;
-};
 
 
 struct D2DamageStrc

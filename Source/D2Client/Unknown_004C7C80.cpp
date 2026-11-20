@@ -1,16 +1,8 @@
 #include "D2Client.h"
+#include "D2DataTbls.h"
 
 struct D2SkillsTxt;
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xB6C];
-    int nMissilesTxtRecordCount;
-    unsigned char unk_B70[0x28];
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[4];
-    int nSkillsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 

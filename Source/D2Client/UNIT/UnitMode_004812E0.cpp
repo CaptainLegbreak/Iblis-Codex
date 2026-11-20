@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 struct D2SkillStrc;
 struct D2PlayerDataStrc
 {
@@ -15,13 +16,6 @@ struct D2SkillsTxt
     char _pad_0x8[0x26];
     short wSrvDoFunc;
     char _pad_0x30[0x20C];
-};
-struct D2DataTablesStrc
-{
-    char _pad_0x0[0xB98];
-    D2SkillsTxt* pSkillsTxt;
-    char _pad_0xb9c[0x4];
-    int nSkillsTxtRecordCount;
 };
 struct D2UnitTargetStrc
 {

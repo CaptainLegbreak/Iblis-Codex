@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 #define QUEST_A1Q4_CAIN 4
 #define QUEST_A1Q5_COUNTESS 5
@@ -31,17 +32,6 @@ struct D2Act2Quest6Strc;
 
 
 
-struct D2GameStrc
-{
-    char pad0x00[0x1C];
-    void* pMemoryPool;
-    char pad0x20[0x4D];
-    unsigned char nDifficulty;
-    char pad0x6E[0x02];
-    int bExpansion;
-    char pad0x74[0x34];
-    int dwGameFrame;
-};
 
 struct D2PlayerDataStrc
 {

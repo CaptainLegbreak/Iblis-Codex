@@ -2,8 +2,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
-struct D2GameStrc { char unk_00[0xA8]; int dwGameFrame; };
 D2UnitStrc* __fastcall sub_6FCF2110(D2GameStrc*, D2UnitStrc*, D2AiControlStrc*, int*, int*); // 0x005DD7F0
 int __stdcall PATH_GetUnitCollisionPattern(D2UnitStrc*); // 0x00649180
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc*); // 0x006488C0

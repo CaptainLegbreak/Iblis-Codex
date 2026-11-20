@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2SeedStrc;
 struct D2SkillsTxt;
@@ -20,16 +21,6 @@ void __stdcall STATLIST_SetStatIfListIsValid(D2StatListStrc*, int, int, int); //
 
 struct D2SkillsTxt { char pad0[0x18]; short nItemType; char pad1[0x23C-0x1A]; };
 
-struct D2DataTablesStrc
-{
-    char pad0[0xB98];
-    D2SkillsTxt* pSkills;
-    void* pSkillsLinker;
-    int nSkillsCount;
-    unsigned char unk_BA4[0x74];
-    D2SetItemsTxt* pSetItemsTxt;
-    int nSetItemsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 unsigned short __stdcall ITEMS_GetItemFormat(D2UnitStrc*); // 0x0062A670
@@ -91,8 +82,8 @@ static __forceinline unsigned int RollSeed(D2SeedStrc* pSeed)
 
 static __forceinline D2SkillsTxt* GetSkillsRecord(int nSkill)
 {
-    if (nSkill >= 0 && nSkill < sgptDataTables->nSkillsCount)
-        return &sgptDataTables->pSkills[nSkill];
+    if (nSkill >= 0 && nSkill < sgptDataTables->nSkillsTxtRecordCount)
+        return &sgptDataTables->pSkillsTxt[nSkill];
     return 0;
 }
 

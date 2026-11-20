@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define STAT_HITPOINTS 6
 #define STAT_MANA 8
@@ -27,12 +28,6 @@ struct D2CharStatsTxt
     char unk0xAE[0x16];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xBC4];
-    D2CharStatsTxt* pCharStatsTxt;
-    int nCharStatsTxtRecordCount;
-};
 
 struct D2SaveHeaderStrc
 {

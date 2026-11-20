@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2PathPointStrc
 {
@@ -37,19 +38,6 @@ struct D2MissilesTxt
     char unk0xAE[0xF6];
 };
 
-struct D2DataTablesStrc
-{
-    char unk000[0xB64];
-    D2MissilesTxt* pMissilesTxt;
-    int unkB68;
-    int nMissilesTxtRecordCount;
-    char unk0xB70[0x28];
-    D2SkillsTxt* pSkillsTxt;
-    void* pSkillsLinker;
-    int nSkillsTxtRecordCount;
-    char unk0xBA4[0x1C];
-    int nOverlayTxtRecordCount;
-};
 
 struct D2MissileFindArgStrc { D2GameStrc* pGame; D2UnitStrc* pMissile; D2UnitStrc* pOwner; D2MissilesTxt* pMissilesTxtRecord; };
 

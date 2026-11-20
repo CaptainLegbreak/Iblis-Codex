@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define D2_ASSERT(expr,line) if(!(expr)) { sub_00408A60(&gszEmptyAssertText,sub_00408090(),line);exit(-1); }
 struct D2MonsterDataStrc;
@@ -112,7 +113,6 @@ struct Obj005DD230 {
 
 struct D2MonStatsTxt { short nId,nBaseId; char unk04[0x1A4]; };
 
-struct D2DataTablesStrc { char unk00[0xA78]; D2MonStatsTxt* pMonStatsTxt; int unkA7C; int nMonStatsTxtRecordCount; };
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern "C" const char gszEmptyAssertText; // 0x006CC837

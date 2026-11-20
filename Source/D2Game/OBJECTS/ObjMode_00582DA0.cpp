@@ -2,8 +2,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
-struct D2GameStrc { int pad[7]; void* pMemoryPool; };
 struct D2SfxStrc { D2GameStrc* pGame; D2UnitStrc* pObject; D2UnitStrc* pOwner; };
 struct D2SfxArgStrc { int unk, nDamagePct, nRadius; };
 struct D2UnitFindArgStrc

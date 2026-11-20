@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 #define IFLAG_IDENTIFIED 0x10
 #define IFLAG_ETHEREAL 0x400000
 #define STAT_QUANTITY 70
@@ -48,12 +49,6 @@ struct D2ItemTypesTxt
     char unk0x09[0xE4 - 0x09];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xBF8];
-    D2ItemTypesTxt* pItemTypesTxt;
-    int nItemTypesTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480

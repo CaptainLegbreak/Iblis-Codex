@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2GameStrc.h"
 
 typedef int (__stdcall* FARPROC)();
 
@@ -38,13 +39,6 @@ struct D2QuestInfoStrc
     D2BitBufferStrc* pQuestFlags;
 };
 
-struct D2GameStrc
-{
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-    char unk0x6E[0x1086];
-    D2QuestInfoStrc* pQuestControl;
-};
 
 struct D2PlayerDataStrc
 {

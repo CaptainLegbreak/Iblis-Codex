@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2GameStrc.h"
 #define EVENTROW_PLAYER 0
 #define EVENTROW_MONSTER 1
 #define EVENTROW_MISSILE 2
@@ -44,15 +45,6 @@ struct D2EventTimerQueueStrc
     D2EventTimerSlabListStrc* pSlabListHead;
 };
 
-struct D2GameStrc
-{
-    char padding0x00[0x1C];
-    void* pMemoryPool;
-    char padding0x20[0x88];
-    int dwGameFrame;
-    char padding0xAC[0x0C];
-    D2EventTimerQueueStrc* pTimerQueue;
-};
 
 typedef char TimerSizeCheck[(sizeof(D2EventTimerStrc) == 0x30) ? 1 : -1];
 

@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -53,11 +54,6 @@ struct D2PlayerDataStrc
     D2PlayerPetStrc* pPlayerPets;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xBF0];
-    int nPetTypeTxtRecordCount;
-};
 
 typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
 

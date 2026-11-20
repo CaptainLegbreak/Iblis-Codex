@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 struct D2EventTimerSlabListStrc;
 struct D2EventTimerQueueStrc;
@@ -36,15 +37,6 @@ struct D2EventTimerQueueStrc
     D2EventTimerStrc* pInfinite[5];
     D2EventTimerStrc* pCurrent;
     D2EventTimerSlabListStrc* pSlabListHead;
-};
-struct D2GameStrc
-{
-    char padding0x00[0x1C];
-    void* pMemoryPool;
-    char padding0x20[0x88];
-    int dwGameFrame;
-    char padding0xAC[0x0C];
-    D2EventTimerQueueStrc* pTimerQueue;
 };
 typedef char TimerSizeCheck[(sizeof(D2EventTimerStrc)==0x30)?1:-1];
 typedef char SlabSizeCheck[(sizeof(D2EventTimerSlabListStrc)==0x7088)?1:-1];

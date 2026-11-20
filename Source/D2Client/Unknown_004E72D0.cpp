@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2DataTbls.h"
 
 typedef wchar_t Unicode;
 
@@ -65,17 +66,6 @@ struct D2MonStatsTxt
     char unk0xB0[0xF8];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x0[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char unk0xA7C[0x4];
-    int nMonStatsTxtRecordCount;
-    char unk0xA84[0x114];
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[0x4];
-    int nSkillsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables;                                                                     // 0x00744304
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...);             // 0x006CC468

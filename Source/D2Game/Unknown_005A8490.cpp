@@ -1,6 +1,8 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 #define STATE_BLAZE 0x0D
 #define STATE_SPIDERLAY 0x16
@@ -9,11 +11,6 @@ struct D2MonStatsTxt;
 struct D2MissilesTxt;
 struct D2MissileUnitFindArgStrc;
 
-struct D2GameStrc
-{
-    char pad0x00[0xA8];
-    int dwGameFrame;
-};
 
 
 int __fastcall sub_6FCBC930(D2GameStrc* pGame, D2UnitStrc* pMissile); // 0x00554CA0
@@ -52,13 +49,6 @@ struct D2MonStatsTxt
     char pad0x04[0x1A4];
 };
 
-struct D2DataTablesStrc
-{
-    char pad0x00[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char pad0xA7C[0x04];
-    int nMonStatsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __fastcall sub_0046C140_CheckMonStats2ModeFlag(int nMonsterId, int nMode); // 0x0046C140

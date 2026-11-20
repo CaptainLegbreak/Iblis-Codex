@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 #define NOINLINE __declspec(noinline)
 
 struct D2InventoryStrc;
@@ -20,12 +21,6 @@ struct D2CharStatsTxt
     char unk0x40[0x84];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xBC4];
-    D2CharStatsTxt* pCharStatsTxt;
-    int nCharStatsTxtRecordCount;
-};
 
 struct D2GameStrc;
 

@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Constants.h"
+#include "D2DataTbls.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define SKILLSFLAGINDEX_PROGRESSIVE 2
@@ -381,21 +382,6 @@ extern int gdwGlobal_007A0658; // 0x007A0658
 extern void* gxGlobal_007A0708; // 0x007A0708
 extern Unicode gxGlobal_007A2C80[80]; // 0x007A2C80
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA80];
-    int nMonStatsTxtRecordCount;
-    unsigned char unk_A84[0x114];
-    D2SkillsTxt* pSkillsTxt;
-    int unk0xB9C;
-    int nSkillsTxtRecordCount;
-    unsigned char unk_BA4[0x1C];
-    int nOverlayTxtRecordCount;
-    unsigned char unk_BC4[0x8];
-    D2ItemStatCostTxt* pItemStatCostTxt;
-    char unk0xBD0[4];
-    int nItemStatCostTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 

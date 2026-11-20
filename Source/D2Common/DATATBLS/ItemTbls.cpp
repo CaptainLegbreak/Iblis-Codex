@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2DataTbls.h"
 // build: base-profile
 #define NULL 0
 
@@ -109,7 +110,6 @@ struct D2ItemStatCostDescStrc
 
 struct D2ItemDataTbl { int nItemsTxtRecordCount; D2ItemsTxt* pItemsTxt; };
 
-struct D2MagicAffixDataTbl { int nMagicAffixTxtRecordCount; D2MagicAffixTxt* pMagicAffixTxt; };
 
 struct D2RareAffixDataTbl { int nRareAffixTxtRecordCount; D2RareAffixTxt* pRareAffixTxt; };
 
@@ -123,14 +123,7 @@ struct D2LowQualityItemDataTbl { int nLowQualityItemsTxtRecordCount; D2LowQualit
 
 struct D2ItemRatioDataTbl { int nItemRatioTxtRecordCount; D2ItemRatioTxt* pItemRatioTxt; };
 
-struct D2GambleDataTbl
-{
-    int nGambleTxtRecordCount;
-    int* pGambleSelection;
-    int pGambleChooseLimit[100];
-};
 
-struct D2RuneDataTbl { int nRunesTxtRecordCount; D2RunesTxt* pRunesTxt; };
 
 extern D2TxtLinkStrc* gpItemsLinker_0096BCC4; // 0x0096BCC4
 extern D2TxtLinkStrc* gTxtLink_0096BCD8; // 0x0096BCD8
@@ -256,19 +249,6 @@ void __fastcall ARCHIVE_CloseFile(HD2ARCHIVE hArchive, HSFILE hFile); // 0x00516
 short __stdcall sub_00524D30_FindString(const char* szReference, const Unicode** ppUnicode); // 0x00524D30
 void __fastcall DATATBLS_ItemParamLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn); // 0x006336A0
 
-struct D2DataTablesStrc
-{
-    char pad0x000[0x94];
-    D2TxtLinkStrc* pItemsLinker;
-    char pad0x098[0x10];
-    D2TxtLinkStrc* pPropertiesLinker;
-    char pad0x0AC[0x04];
-    D2TxtLinkStrc* pRunesLinker;
-    char pad0x0B4[0xB40];
-    D2TxtLinkStrc* pItemTypesLinker;
-    char pad0xBF8[0x270];
-    D2RuneDataTbl pRuneDataTables;
-};
 
 extern D2DataTablesStrc gD2DataTables; // 0x0096BC30
 

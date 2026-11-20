@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 // build: context CLIENTS_UnlinkId
 // build: context CLIENTS_UnlinkName
@@ -9,10 +10,6 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char*, const char*, int); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 #define D2_ASSERT(expr,line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-struct D2GameStrc {
- char unk00[0x1C]; void* pMemoryPool; char unk20[8]; unsigned short nGameId;
- char unk2A[0x5E]; D2ClientStrc* pClientList; int nClients;
-};
 struct D2PacketDataStrc { char data[0x204]; D2PacketDataStrc* pNext; };
 struct D2ClientStrc {
  int dwClientId; int dwClientState; unsigned char nClassId; unsigned char unk09; unsigned short nSaveFlags;

@@ -1,4 +1,6 @@
 #include "D2Game.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_MONSTER 1
@@ -8,11 +10,6 @@ struct D2PlayerPetStrc;
 struct D2PlayerDataStrc;
 struct D2PetTypeTxt;
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-};
 
 struct D2PetDataStrc
 {
@@ -41,13 +38,6 @@ struct D2PlayerDataStrc
     D2PlayerPetStrc* pPlayerPets;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xBE8];
-    D2PetTypeTxt* pPetTypeTxt;
-    char unk0xBEC[0x04];
-    int nPetTypeTxtRecordCount;
-};
 
 typedef int (__stdcall* FARPROC)();
 

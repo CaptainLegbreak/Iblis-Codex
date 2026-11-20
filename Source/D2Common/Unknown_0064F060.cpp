@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 struct D2InventoryStrc;
 
 
@@ -16,12 +17,6 @@ struct D2CharStatsTxt
     char unk0x50[0x74];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xBC4];
-    D2CharStatsTxt* pCharStatsTxt;
-    int nCharStatsTxtRecordCount;
-};
 
 struct D2CompositStrc
 {

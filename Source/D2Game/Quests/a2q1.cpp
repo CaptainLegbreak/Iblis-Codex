@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 #pragma function(memset)
 
 #define CHECK(p,line) if(!(p)){sub_00408A60(text_006CC837,sub_00408090(),line);sub_00681E09(-1);}
@@ -16,13 +17,6 @@ struct D2Act2Quest1Strc;
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x4D];
-    unsigned char nDifficulty;
-};
 
 
 struct D2PlayerDataStrc

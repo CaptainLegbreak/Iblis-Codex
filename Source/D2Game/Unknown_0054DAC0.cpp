@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2DrlgCoordsStrc;
 struct D2SpawnAreaStrc;
@@ -27,13 +28,6 @@ struct D2MonStatsTxt
     char pad0x31[0x1A8 - 0x31];
 };
 
-struct D2DataTablesStrc
-{
-    char pad0x00[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char pad0xA7C[4];
-    int nMonStatsTxtRecordCount;
-};
 
 struct D2MonsterRegionStrc
 {

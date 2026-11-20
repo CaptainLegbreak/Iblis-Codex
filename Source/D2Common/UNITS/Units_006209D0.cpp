@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 #define COLLIDE_WALL 0x1
 #define COLLIDE_MISSILE_BARRIER 0x4
 #define COLLIDE_ITEM 0x200
@@ -47,12 +48,6 @@ struct D2CharStatsTxt
     char unk0x40[132];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[3012];
-    D2CharStatsTxt* pCharStatsTxt;
-    int nCharStatsTxtRecordCount;
-};
 
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837

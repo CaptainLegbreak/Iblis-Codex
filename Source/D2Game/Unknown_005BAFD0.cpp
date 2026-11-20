@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 struct Bits;
 struct Player;
@@ -28,13 +29,6 @@ int __fastcall sub_005452C0(Quest*,int); // 0x005452C0
 
 enum { QUEST_ID = 21 };
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x4D];
-    unsigned char nDifficulty;
-};
 
 
 struct D2PlayerDataStrc

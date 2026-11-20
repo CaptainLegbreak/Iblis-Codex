@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 extern "C" const char gszEmptyAssertText;
 extern "C" const char* __cdecl sub_00408090();
@@ -425,12 +426,6 @@ void __fastcall sub_004C1C10(D2UnitStrc* pUnit)
     sub_004C1350_RefreshEquippedItems(pUnit);
 }
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xC6C];
-    int nStuff;
-    int nShiftedStuff;
-};
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 struct Unit006280A0;

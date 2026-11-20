@@ -1,16 +1,10 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define STATEMASK_BOSSSTAYDEATH 15
 
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xC4];
-    int nStatesTxtRecordCount;
-    char unk0xC8[0x04];
-    unsigned int* fStateMasks[40];
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 void __stdcall D2Common_STATES_ToggleState_6FDB8900(D2UnitStrc* pUnit, int nState, int bSet); // 0x00625A70

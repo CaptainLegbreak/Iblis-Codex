@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2GameStrc.h"
 
 #define QUESTSTATEFLAG_A5Q6 40
 #define QFLAG_REWARDGRANTED 0
@@ -12,11 +13,6 @@ struct D2PlayerDataStrc;
 struct D2Act5Quest6Strc;
 struct D2GSPacketSrv50;
 
-struct D2GameStrc
-{
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-};
 
 struct D2PlayerDataStrc
 {

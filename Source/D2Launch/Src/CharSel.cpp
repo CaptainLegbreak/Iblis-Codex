@@ -1,5 +1,6 @@
 #include "D2Launch.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #pragma intrinsic(strlen)
 
@@ -99,16 +100,6 @@ struct D2StatesTxt
     short wStat;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0x16C];
-    short* pProgressiveStates;
-    short nProgressiveStates;
-    char unk0x172[0xA4E];
-    int nOverlayTxtRecordCount;
-    char unk0xBC4[0x10];
-    int nItemStatCostTxtRecordCount;
-};
 
 struct D2LaunchCharInfoStrc
 {

@@ -1,12 +1,8 @@
 #include "D2Game.h"
+#include "D2GameStrc.h"
 
 struct D2Act4Quest2Strc;
 
-struct D2GameStrc
-{
-    char unk0x000[0x70];
-    int bExpansion;
-};
 
 struct D2QuestDataStrc
 {

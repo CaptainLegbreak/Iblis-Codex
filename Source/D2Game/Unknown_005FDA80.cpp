@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 #ifdef MOVED_TEST
 #define SHIFT 4
 #define INVALID_UNIT 8
@@ -17,12 +18,6 @@ struct D2SkillsTxt {
     char unk0x121[0x16A-0x121];
     short wItemEffect;
     char unk0x16C[0x23C-0x16C];
-};
-struct D2DataTablesStrc {
-    char unk0x000[0xB98 + SHIFT];
-    D2SkillsTxt* pSkillsTxt;
-    void* pSkillsLinker;
-    int nSkillsTxtRecordCount;
 };
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

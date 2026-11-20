@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2DataTbls.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -89,11 +90,6 @@ struct D2MonStatsTxt
     short wUMonSound;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xA80];
-    int nMonStatsTxtRecordCount;
-};
 
 struct D2SkillsTxt
 {

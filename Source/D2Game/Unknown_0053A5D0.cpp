@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -19,11 +20,6 @@ struct D2DrlgActStrc
     int bHasPendingUnitListUpdates;
 };
 
-struct D2GameStrc
-{
-    char unk0x00[0xBC];
-    D2DrlgActStrc* pAct[5];
-};
 
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1

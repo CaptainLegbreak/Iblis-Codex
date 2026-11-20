@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2DataTbls.h"
 
 struct MissileRecord;
 union D2SeedStrc;
@@ -58,15 +59,6 @@ struct D2SkillsTxt
     char unk0x168[0xD4];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xC4];
-    int nStatesTxtRecordCount;
-    char unk0x0C8[0xAD0];
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[0x04];
-    int nSkillsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
