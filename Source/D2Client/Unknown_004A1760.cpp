@@ -9,7 +9,7 @@ struct D2QuestSlotRectStrc;
 struct Unicode;
 struct D2ButtonLayoutStrc;
 struct D2QuestTableStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 extern D2UiEntry10Strc gaUiEntries_00723F38[41]; // 0x00723F38
 extern int ganPageSelection_007BF280[5]; // 0x007BF280
 extern "C" const char gszEmptyAssertText; // 0x006CC837

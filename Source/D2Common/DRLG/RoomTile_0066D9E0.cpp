@@ -6,7 +6,7 @@
 struct D2DrlgTileDataStrc;
 struct D2TileGrid0066ECE0Strc;
 union D2C_PackedTileInformation;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2DrlgCoordStrc;
 struct D2DrlgStrc;
 struct D2RoomTileStrc;

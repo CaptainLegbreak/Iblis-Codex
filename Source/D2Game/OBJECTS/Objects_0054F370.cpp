@@ -1,10 +1,11 @@
 #include "D2Game.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Path.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define GAMEV (game)
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2ObjectControlStrc;
 struct D2ObjectDataStrc;
 struct D2DrlgCoordsStrc;
@@ -13,21 +14,6 @@ struct D2ObjectPopulateStrc;
 struct ObjectData;
 struct InitContext;
 
-struct D2SeedStrc
-{
-    union
-    {
-        struct
-        {
-            unsigned __int64 lSeed;
-        };
-        struct
-        {
-            unsigned int nLowSeed;
-            unsigned int nHighSeed;
-        };
-    };
-};
 
 struct D2ObjectControlStrc
 {
@@ -40,13 +26,6 @@ struct D2ObjectDataStrc
     unsigned char nType;
 };
 
-struct D2UnitStrc
-{
-    char pad00[0x14];
-    D2ObjectDataStrc* pObjectData;
-    char pad18[0xAC];
-    unsigned int dwFlags;
-};
 
 enum
 {
@@ -86,11 +65,6 @@ struct D2DrlgCoordsStrc
     int nTileHeight;
 };
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 unsigned short __stdcall COLLISION_CheckMaskWithSizeXY(D2ActiveRoomStrc* pRoom, int nX, int nY, int nUnitSizeX, int nUnitSizeY, unsigned short nMask); // 0x0064D800
 static __declspec(noinline) int __stdcall sub_005502F0_CanPlace(D2DrlgCoordsStrc* pDrlgCoords, D2CoordStrc* pCoord, D2ActiveRoomStrc* pRoom, int nSizeX, int nSizeY);

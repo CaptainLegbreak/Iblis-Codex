@@ -16,7 +16,7 @@
 #define QFLAG_ENTERAREA 4
 #define QFLAG_CUSTOM1 5
 #define QFLAG_CUSTOM2 6
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2PlayerDataStrc;
 struct D2Act3Quest2Strc;
 struct D2ObjOperateFnStrc;

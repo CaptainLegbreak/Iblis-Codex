@@ -12,7 +12,7 @@
 #define UNIT_MONSTER 1
 #define UNIT_INVALID 6
 #define STAT_DAMAGE_VS_MONTYPE 180
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2MonStatsTxt;
 struct D2MonsterDataStrc;
 struct D2DifficultyLevelsTxt;

@@ -7,7 +7,7 @@
 
 struct D2DrlgStrc;
 struct D2DrlgOutdoorInfoStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2CoordStrc;
 
 struct D2DrlgGridStrc

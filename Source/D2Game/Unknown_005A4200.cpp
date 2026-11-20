@@ -8,7 +8,7 @@
 #define MONMODE_NEUTRAL 1
 #define EVENTTYPE_MONUMOD 7
 struct D2MonsterDataStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2MonStatsTxt;
 
 

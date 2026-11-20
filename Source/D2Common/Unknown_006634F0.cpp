@@ -2,7 +2,7 @@
 #include "D2Structs.h"
 
 struct D2InventoryStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2Rolled6634F0Strc;
 struct D2Roll8Strc;
 struct D2Roll16Strc;

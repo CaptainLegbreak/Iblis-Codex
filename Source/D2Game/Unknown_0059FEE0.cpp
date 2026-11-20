@@ -20,7 +20,7 @@ struct Data005A01E0;
 struct Unit005A01E0;
 struct Data005A0200;
 struct Unit005A0200;
-struct D2SeedStrc;
+union D2SeedStrc;
 
 
 

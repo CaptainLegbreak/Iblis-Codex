@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Constants.h"
+#include "D2Path.h"
 
 #define EVENTTYPE_CANTDOTHAT 14
 #define STRCOLOR_RED 1
@@ -10,41 +11,8 @@ union D2SeedStrc;
 struct D2GSPacketClt5F;
 struct D2WarpDelayStrc;
 
-struct D2StaticPathStrc
-{
-    char unk0x00[0x0C];
-    int nX;
-    int nY;
-};
 
-union D2SeedStrc
-{
-    struct
-    {
-        unsigned int nLowSeed;
-        unsigned int nHighSeed;
-    };
-    unsigned __int64 lSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    char unk0x14[0x0C];
-    D2SeedStrc pSeed;
-    char unk0x28[0x04];
-    union
-    {
-        D2StaticPathStrc* pStaticPath;
-        D2DynamicPathStrc* pDynamicPath;
-    };
-    unsigned char unk_30[0x94];
-    unsigned int dwFlags;
-};
 
 struct D2GSPacketSrv5A
 {
@@ -169,7 +137,7 @@ __forceinline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nX;
+        return pUnit->pStaticPath->nXPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
     }
@@ -182,7 +150,7 @@ __forceinline int CLIENTS_GetUnitY(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nY;
+        return pUnit->pStaticPath->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
     }

@@ -1,29 +1,8 @@
 #include "D2Common.h"
+#include "D2Path.h"
 
-struct D2SeedStrc
-{
-    union
-    {
-        struct
-        {
-            unsigned int nLowSeed;
-            unsigned int nHighSeed;
-        };
-        unsigned __int64 lSeed;
-    };
-};
 
-struct D2PathPointStrc
-{
-    unsigned short X;
-    unsigned short Y;
-};
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 struct D2DrlgCoordsStrc
 {
@@ -35,19 +14,7 @@ struct D2DrlgCoordsStrc
     int PATH_IdaStar_ComputePathWithRooms(struct D2PathInfoStrc* pPathInfo);
 };
 
-struct D2UnitStrc
-{
-    char unk0x00[0x20];
-    D2SeedStrc pSeed;
-};
 
-struct D2DynamicPathStrc
-{
-    char unk0x00[0x30];
-    D2UnitStrc* pUnit;
-    char unk0x34[0x68];
-    D2PathPointStrc PathPoints[78];
-};
 
 struct D2PathInfoStrc
 {

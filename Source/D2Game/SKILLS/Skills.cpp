@@ -51,7 +51,7 @@ struct D2DataTablesStrc;
 struct D2MissileStrc;
 struct D2UnitFindDataStrc;
 struct D2ItemDropStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 
 struct D2ActiveRoomStrc
 {

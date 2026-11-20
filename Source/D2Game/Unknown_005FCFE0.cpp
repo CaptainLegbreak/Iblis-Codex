@@ -2,6 +2,7 @@
 #include "D2Constants.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Path.h"
 
 enum D2C_M244AiBaalConstants
 {
@@ -18,45 +19,8 @@ enum D2C_M244AiBaalConstants
     STAT_POISONMAXDAM = 0x3A,
     STATE_COLD = 0x0B,
 };
-struct D2StaticPathStrc
-{
-    int unk0x00[3];
-    int nXPos;
-    int nYPos;
-};
 
-struct D2SeedStrc
-{
-    union
-    {
-        struct
-        {
-            unsigned int nLowSeed;
-            unsigned int nHighSeed;
-        };
-        unsigned __int64 lSeed;
-    };
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    void* f_14;
-    unsigned char nAct;
-    char pad0x19[0x07];
-    D2SeedStrc pSeed;
-    int unk0x28;
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-        void* pPath;
-    };
-};
 
 struct D2TargetNodeStrc
 {
@@ -736,15 +700,15 @@ unsigned int __stdcall UNITS_GetDistanceToCoordinates(D2UnitStrc* pUnit, int nX,
 static __forceinline int AIBAAL_GetUnitX_Inline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType) {
-    case 2: case 4: case 5: return ((int*)pUnit->pPath)[3];
-    default: return pUnit->pPath ? PATH_GetX(pUnit->pPath) : 0;
+    case 2: case 4: case 5: return ((int*)pUnit->pDynamicPath)[3];
+    default: return pUnit->pDynamicPath ? PATH_GetX(pUnit->pDynamicPath) : 0;
     }
 }
 static __forceinline int AIBAAL_GetUnitY_Inline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType) {
-    case 2: case 4: case 5: return ((int*)pUnit->pPath)[4];
-    default: return pUnit->pPath ? PATH_GetY(pUnit->pPath) : 0;
+    case 2: case 4: case 5: return ((int*)pUnit->pDynamicPath)[4];
+    default: return pUnit->pDynamicPath ? PATH_GetY(pUnit->pDynamicPath) : 0;
     }
 }
 __declspec(noinline) static int __stdcall AIBAAL_RollRandomAiParam(D2GameStrc*, D2UnitStrc*, D2AiControlStrc*, D2UnitStrc*, int, int, D2AiCmdStrc*);

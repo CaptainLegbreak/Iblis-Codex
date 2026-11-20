@@ -20,7 +20,7 @@ struct D2OblivionKnightAiCallbackArgStrc;
 struct D2AiCmdStrc;
 struct D2SkillsTxt;
 struct D2ModeChangeStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2StaticPathStrc;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837

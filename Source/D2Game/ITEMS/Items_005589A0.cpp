@@ -17,7 +17,7 @@
         nOut = (unsigned int)lSeedRoll; \
     }
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2QualityModsStrc;
 struct D2TCModsStrc;
 struct D2TCExInfoStrc;

@@ -16,7 +16,7 @@
 
 struct Obj00648690;
 struct Obj006487D0;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2PathPointStrc;
 struct D2SkillsTxt;
 struct D2CurseStrc;

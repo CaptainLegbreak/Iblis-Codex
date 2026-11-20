@@ -31,7 +31,7 @@ struct D2StaticPathStrc;
 struct D2NpcGambleStrc;
 struct D2NpcRecordStrc;
 struct D2NpcTradeStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2MercDataStrc;
 struct D2GSPacketSrv50;
 struct D2NpcVendorChainStrc;

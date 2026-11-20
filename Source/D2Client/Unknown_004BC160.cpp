@@ -1,9 +1,10 @@
 #include "D2Client.h"
+#include "D2Path.h"
 
 class UIWidget;
 class SpinnerImplementation;
 struct SpinnerWrapper;
-struct D2SeedStrc;
+union D2SeedStrc;
 
 struct SMSGHANDLER_PARAMS
 {
@@ -69,18 +70,6 @@ struct SpinnerWrapper
 };
 
 #pragma pack(push, 1)
-struct D2SeedStrc
-{
-    union
-    {
-        struct
-        {
-            unsigned int nLowSeed;
-            unsigned int nHighSeed;
-        };
-        unsigned __int64 lSeed;
-    };
-};
 
 #pragma pack(pop)
 

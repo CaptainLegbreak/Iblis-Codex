@@ -1,38 +1,17 @@
 #include "D2Game.h"
 #include "D2Txt.h"
+#include "D2Path.h"
 
 #define MONMODE_ATTACK1 4
 #define MONMODE_ATTACK2 5
 #define AI_PARAM(n) (pMonStatsTxt->wAiParam[n][pGame->nDifficulty])
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2MonStatsTxt;
 struct D2SandRaiderAiCallbackArgStrc;
 struct D2DataTables;
 struct D2GreaterMummyAiCallbackArgStrc;
 
-struct D2SeedStrc
-{
-    union
-    {
-        struct
-        {
-            unsigned __int64 lSeed;
-        };
-        struct
-        {
-            unsigned int nLowSeed;
-            unsigned int nHighSeed;
-        };
-    };
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk08[0x18];
-    D2SeedStrc pSeed;
-};
 
 struct D2GameStrc
 {

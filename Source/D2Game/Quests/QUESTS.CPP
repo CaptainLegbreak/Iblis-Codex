@@ -55,7 +55,7 @@ struct D2SuperUniquesTxt;
 struct D2ObjInitFnStrc;
 struct D2NPCMessageStrc;
 struct D2NPCMessageTableStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2StaticPathStrc;
 struct D2QuestTimerStrc;
 struct D2ItemsTxt;

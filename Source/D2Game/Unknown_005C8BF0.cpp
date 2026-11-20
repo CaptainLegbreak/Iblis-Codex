@@ -7,7 +7,7 @@
 struct D2MonStatsTxt;
 struct D2MonStats2Txt;
 struct D2SkillsTxt;
-struct D2SeedStrc;
+union D2SeedStrc;
 
 
 

@@ -12,7 +12,7 @@ struct D2DrlgOrthStrc;
 struct D2DrlgOutdoorInfoStrc;
 struct D2CoordStrc;
 struct D2DrlgCoordStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2DrlgLinkStrc;
 struct D2DrlgLevelLinkDataStrc;
 struct D2LevelDefBin;

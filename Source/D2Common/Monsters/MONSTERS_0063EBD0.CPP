@@ -8,7 +8,7 @@ struct D2MonsterDataStrc;
 struct D2ItemsTxt;
 struct D2MonStatsTxt;
 struct D2DifficultyStatStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2CoordStrc;
 struct D2StaticPathStrc;
 

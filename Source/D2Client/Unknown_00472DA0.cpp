@@ -10,7 +10,7 @@
         nOut = (unsigned int)lSeed;                                                                         \
     }
 struct D2WeatherLayerStateStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2WeatherSplashStrc;
 struct T00473470;
 struct D2WeatherLineStrc;

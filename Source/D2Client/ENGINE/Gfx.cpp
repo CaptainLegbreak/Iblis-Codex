@@ -13,7 +13,7 @@
 #define MONSTATSFLAGINDEX_INTERACT 9
 
 struct D2GfxLightStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2OverlayStrc;
 struct D2OverlayTxt;
 struct D2StateNodeStrc;

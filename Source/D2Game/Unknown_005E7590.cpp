@@ -6,7 +6,7 @@
 #include "D2GameStrc.h"
 
 struct D2MonStatsTxt;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2AiCmdStrc;
 
 

@@ -29,7 +29,7 @@ struct D2SummonArgStrc;
 struct D2DifficultyLevelsTxt;
 struct D2MonLvlTxt;
 struct D2MonStatsTxt;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2MonStatsInitStrc;
 struct D2ModeChangeStrc;
 struct D2GameStrc;

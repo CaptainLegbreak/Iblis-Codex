@@ -7,7 +7,7 @@
 #define MONMODE_DEATH 0
 #define MONMODE_NEUTRAL 1
 #define EVENTTYPE_MONUMOD 7
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2StaticPathStrc;
 struct D2MonStatsTxt;
 struct D2MonsterDataStrc;

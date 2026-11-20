@@ -7,7 +7,7 @@
 
 #define UNIT_MONSTER 1
 #define FIELD_OFFSET(T,F) ((unsigned long)&(((T*)0)->F))
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2MonsterDataStrc;
 struct D2StaticPathStrc;
 struct D2MissileStrc;

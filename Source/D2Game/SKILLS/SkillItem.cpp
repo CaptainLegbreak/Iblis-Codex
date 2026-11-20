@@ -26,7 +26,7 @@ struct D2CurseStrc;
 struct D2SkillsTxt;
 struct D2MonEquipTxt;
 struct Unit005A0180;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2UnitStrc;
 struct D2GameStrc;
 struct D2DataTablesStrc;

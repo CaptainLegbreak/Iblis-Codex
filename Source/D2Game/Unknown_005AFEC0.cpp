@@ -9,7 +9,7 @@
 #define STAT_MANA 8
 struct D2MissilesTxt;
 struct D2SkillsTxt;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2StaticPathStrc;
 
 

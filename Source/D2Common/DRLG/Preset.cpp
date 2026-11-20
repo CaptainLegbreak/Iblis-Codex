@@ -20,7 +20,7 @@ struct D2DrlgMapStrc;
 struct D2DrlgPresetRoomStrc;
 struct D2DrlgPresetLevelStrc;
 struct D2DrlgStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2CoordStrc;
 struct D2StormLinkStrc;
 struct D2StormListStrc;

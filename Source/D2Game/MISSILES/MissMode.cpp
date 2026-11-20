@@ -29,7 +29,7 @@ struct D2UnkFieldsStrc;
 struct D2StaticPathStrc;
 struct D2HitFunc22ParamStrc;
 struct D2AuraCallbackStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2SkillsTxt;
 
 

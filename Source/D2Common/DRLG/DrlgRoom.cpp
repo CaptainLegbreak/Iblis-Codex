@@ -5,7 +5,7 @@
 #define DRLGROOMFLAG_PRESET_UNITS_SPAWNED 0x4000000
 struct D2PresetUnitStrc;
 struct D2DrlgStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2LvlSubTxt;
 struct D2DrlgCoordStrc;
 struct D2DrlgWarpStrc;

@@ -7,7 +7,7 @@
 
 #define MONMODE_ATTACK1 4
 struct D2MonsterDataStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2MapAIPathPositionStrc;
 struct D2AiCmdStrc;
 

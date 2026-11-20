@@ -6,7 +6,7 @@
 struct D2UnkAiTableStrc;
 struct D2PartyCallbackArgStrc;
 struct D2MonsterDataStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2AiTargetArgsStrc;
 
 

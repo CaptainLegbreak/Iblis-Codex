@@ -4,7 +4,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
-struct D2SeedStrc;
+union D2SeedStrc;
 
 
 

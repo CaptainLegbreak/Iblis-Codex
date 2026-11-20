@@ -19,7 +19,7 @@ struct D2StormExplicitListStrc;
 struct D2MsgFilterStrc;
 struct D2PlayerDataStrc;
 struct D2ClientUnitViewStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2PlayerCmdStrc;
 struct D2SkillsTxt;
 struct D2StringRefStrc;

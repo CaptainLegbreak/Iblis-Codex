@@ -10,7 +10,7 @@ struct D2MissilesTxt;
 struct Unicode;
 struct D2SkillsTxt;
 struct D2MissileStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2MonsterDataStrc;
 struct T00481920;
 struct D2MonTypeTxt;

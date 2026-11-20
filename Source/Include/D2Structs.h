@@ -33,11 +33,17 @@ struct D2UnitEventStrc;
 struct D2UnitPacketListStrc;
 struct D2UnitStrc;
 
-struct D2SeedStrc
+#pragma pack(push, 4)
+union D2SeedStrc
 {
-    unsigned int nLowSeed; // 0x00
-    unsigned int nHighSeed; // 0x04
+    struct
+    {
+        unsigned int nLowSeed; // 0x00
+        unsigned int nHighSeed; // 0x04
+    };
+    unsigned __int64 lSeed; // 0x00
 };
+#pragma pack(pop)
 
 struct D2StatStrc
 {

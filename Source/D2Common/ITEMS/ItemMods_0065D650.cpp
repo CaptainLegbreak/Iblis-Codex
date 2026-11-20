@@ -4,7 +4,7 @@
 #include "D2Txt.h"
 #define STAT_POISONMAXDAM 58
 #define STAT_POISON_COUNT 326
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2PropertyStrc;
 struct D2ItemsTxt;
 struct D2ItemStatCostTxt;

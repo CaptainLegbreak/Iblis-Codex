@@ -13,7 +13,7 @@ struct D2StaticPathStrc;
 struct D2ModeChangeStrc;
 struct D2MapAIHolderStrc;
 struct D2ObjInitFnStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2GSPacketSrv5D;
 struct D2ItemsTxt;
 struct D2QuestRewardItemsStrc;

@@ -8,7 +8,7 @@
 #define LINE_ENGINE_TYPE 242
 #define LINE_ENGINE_CLASS 278
 #define LINE_ENGINE_MODE 260
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2Txt84Strc;
 
 

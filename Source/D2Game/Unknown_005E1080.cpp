@@ -13,7 +13,7 @@
 #define MONSTER_ACT5HIRE1 560
 #define MONSTER_ACT5HIRE2 561
 #define STAT_LEVEL 12
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2MonStatsTxt;
 struct D2PantherAiCallbackArgStrc;
 struct D2SkillsTxt;

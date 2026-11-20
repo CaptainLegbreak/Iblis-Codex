@@ -2,7 +2,7 @@
 #include "D2Structs.h"
 
 struct D2QuestStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2Act4Quest3Strc;
 
 

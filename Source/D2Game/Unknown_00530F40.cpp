@@ -5,7 +5,7 @@ extern "C" char* __cdecl strcpy(char* pDst, const char* pSrc);
 
 struct D2GameStrc;
 struct D2InventoryStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2ActiveRoomStrc;
 
 

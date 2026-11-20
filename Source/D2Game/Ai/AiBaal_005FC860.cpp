@@ -1,27 +1,10 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Path.h"
 struct D2ActiveRoomStrc;
 struct D2DynamicPathStrc;
 #pragma pack(push, 4)
-struct D2SeedStrc
-{
-    union
-    {
-        struct
-        {
-            unsigned int low;
-            unsigned int high;
-        };
-        unsigned __int64 lSeed;
-    };
-};
 #pragma pack(pop)
-struct D2StaticPathStrc { char pad00[12]; int x, y; };
-struct D2UnitStrc {
- int type, classId; void* pool; int id; int mode; void* data;
- char pad18[8]; D2SeedStrc seed; int pad28; void* path;
- char pad30[0x94]; unsigned int flags;
-};
 struct D2GameStrc { char pad00[0x6D]; unsigned char difficulty; };
 struct D2AiControlStrc { char pad00[0x14]; int param[3]; };
 struct D2AiCmdStrc { void* next; void* prev; int param[5]; };
@@ -61,24 +44,24 @@ D2ActiveRoomStrc* __fastcall sub_00463740_GetRoom(D2ActiveRoomStrc*,int,int); //
 D2UnitStrc* __fastcall sub_005B2F20_SpawnMonster(D2GameStrc*,D2ActiveRoomStrc*,int,int,int,int,int,int); // 0x005B2F20
 
 static __forceinline int UnitX(D2UnitStrc* u) {
- switch(u->type) {case 2:case 4:case 5:return ((D2StaticPathStrc*)u->path)->x;}
- if (u->path)
-     return PATH_GetXPosition((D2DynamicPathStrc*)u->path);
+ switch(u->dwUnitType) {case 2:case 4:case 5:return ((D2StaticPathStrc*)u->pDynamicPath)->nXPos;}
+ if (u->pDynamicPath)
+     return PATH_GetXPosition((D2DynamicPathStrc*)u->pDynamicPath);
  return 0;
 }
 static __forceinline int UnitY(D2UnitStrc* u) {
- switch(u->type) {case 2:case 4:case 5:return ((D2StaticPathStrc*)u->path)->y;}
- return u->path?PATH_GetYPosition((D2DynamicPathStrc*)u->path):0;
+ switch(u->dwUnitType) {case 2:case 4:case 5:return ((D2StaticPathStrc*)u->pDynamicPath)->nYPos;}
+ return u->pDynamicPath?PATH_GetYPosition((D2DynamicPathStrc*)u->pDynamicPath):0;
 }
 static __forceinline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed) {
- unsigned __int64 lSeed = pSeed->high + 0x6AC690C5i64 * pSeed->low;
+ unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
  pSeed->lSeed = lSeed;
  return lSeed;
 }
 static __forceinline unsigned __int64 SEED_RollNextHL_Inline(D2SeedStrc* pSeed, unsigned __int64 lPrev) {
  const unsigned __int64 lSeed = (lPrev >> 32) + 0x6AC690C5i64 * (unsigned int)lPrev;
- pSeed->high = (unsigned int)(lSeed >> 32);
- pSeed->low = (unsigned int)lSeed;
+ pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+ pSeed->nLowSeed = (unsigned int)lSeed;
  return lSeed;
 }
 
@@ -107,7 +90,7 @@ static bool __stdcall sub_005FC860_SummonClone(D2GameStrc* game,D2UnitStrc* unit
  int baseX=target?UnitX(target):UnitX(unit);
  int baseY;
  if(target) baseY=UnitY(target); else baseY=UnitY(unit);
- D2SeedStrc* seed=&unit->seed;
+ D2SeedStrc* seed=&unit->pSeed;
  unsigned __int64 lSeed=SEED_RollRandomNumber(seed);
  x=baseX+(unsigned int)lSeed%24-12;
  lSeed=SEED_RollNextHL_Inline(seed,lSeed);
@@ -118,11 +101,11 @@ static bool __stdcall sub_005FC860_SummonClone(D2GameStrc* game,D2UnitStrc* unit
  sub_00463740_GetRoom(UNITS_GetRoom(unit),x,y);
  D2UnitStrc* clone=sub_005B2F20_SpawnMonster(game,room,x,y,monsterId,mode,-1,0);
  if(clone) {
- clone->flags|=0x04020000;
+ clone->dwFlags|=0x04020000;
  AITACTICS_Idle(game,clone,15);
- AIGENERAL_SetOwnerData(game,unit,!unit?-1:unit->id,!unit?6:unit->type,1,0);
+ AIGENERAL_SetOwnerData(game,unit,!unit?-1:unit->dwUnitId,!unit?6:unit->dwUnitType,1,0);
  AIGENERAL_AllocMinionList(game,unit,clone);
- AIGENERAL_SetOwnerData(game,clone,!unit?-1:unit->id,!unit?6:unit->type,1,0);
+ AIGENERAL_SetOwnerData(game,clone,!unit?-1:unit->dwUnitId,!unit?6:unit->dwUnitType,1,0);
  STATLIST_SetUnitStat(clone,7,STATLIST_GetMaxLifeFromUnit(unit)/3,0);
  STATLIST_SetUnitStat(clone,6,STATLIST_UnitGetStatValue(unit,6,0)/3,0);
  STATLIST_SetUnitStat(clone,74,0,0);
@@ -152,7 +135,7 @@ void __fastcall AIBAAL_MainSkillHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
     D2MonStatsTxt* pMonStatsTxtRecord = 0;
     if (pUnit)
     {
-        pMonStatsTxtRecord = MONSTERMODE_GetMonStatsTxtRecord(pUnit->classId);
+        pMonStatsTxtRecord = MONSTERMODE_GetMonStatsTxtRecord(pUnit->dwClassId);
     }
     if (!pMonStatsTxtRecord)
     {
@@ -203,11 +186,11 @@ void __fastcall AIBAAL_MainSkillHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
             return;
         }
 
-        if (pMonStatsTxtRecord->nSkill[5] > 0 && (STATLIST_GetMaxLifeFromUnit(pTarget) > STATLIST_GetMaxManaFromUnit(pTarget) || pTarget->type != 0))
+        if (pMonStatsTxtRecord->nSkill[5] > 0 && (STATLIST_GetMaxLifeFromUnit(pTarget) > STATLIST_GetMaxManaFromUnit(pTarget) || pTarget->dwUnitType != 0))
         {
             AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxtRecord->nSkillMode[5], pMonStatsTxtRecord->nSkill[5], pTarget, 0, 0);
         }
-        else if (pMonStatsTxtRecord->nSkill[6] > 0 && pTarget->type == 0)
+        else if (pMonStatsTxtRecord->nSkill[6] > 0 && pTarget->dwUnitType == 0)
         {
             AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxtRecord->nSkillMode[6], pMonStatsTxtRecord->nSkill[6], pTarget, 0, 0);
         }
@@ -232,13 +215,13 @@ void __fastcall AIBAAL_MainSkillHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
         int nFinalX = nX + 25 * (nX - nTargetX) / nDistance;
         int nFinalY = nY + 25 * (nY - nTargetY) / nDistance;
 
-        if (pUnit->classId == 709)
+        if (pUnit->dwClassId == 709)
         {
             AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxtRecord->nSkillMode[4], pMonStatsTxtRecord->nSkill[4], 0, nTargetX, nTargetY);
             return;
         }
 
-        if (MONSTERREGION_FindSpawnLocation(pGame, UNITS_GetRoom(pUnit), 0, pUnit->classId, &nFinalX, &nFinalY, 0))
+        if (MONSTERREGION_FindSpawnLocation(pGame, UNITS_GetRoom(pUnit), 0, pUnit->dwClassId, &nFinalX, &nFinalY, 0))
         {
             AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxtRecord->nSkillMode[4], pMonStatsTxtRecord->nSkill[4], 0, nFinalX, nFinalY);
         }

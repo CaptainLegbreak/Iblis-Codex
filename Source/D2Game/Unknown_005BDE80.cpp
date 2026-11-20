@@ -6,7 +6,7 @@
 
 #define MONSTATSFLAGINDEX_PLACESPAWN 23
 
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2MonRegDataStrc;
 struct D2MonsterRegionStrc;
 struct D2LevelsTxt;

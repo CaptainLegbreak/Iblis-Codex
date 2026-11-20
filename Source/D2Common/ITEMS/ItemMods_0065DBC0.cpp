@@ -5,7 +5,7 @@
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 #define STAT_ITEM_INDESTRUCTIBLE 152
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2SkillsTxt;
 struct D2PropertyStrc;
 struct D2ItemStatCostTxt;

@@ -24,7 +24,7 @@
 #define MONSTATS2FLAGINDEX_OBJCOL 18
 #define MONSTER_BARRICADEDOOR1 432
 #define MONSTER_BARRICADEDOOR2 433
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2MonStatsTxt;
 struct D2MonsterDataStrc;
 struct D2DifficultyLevelsTxt;

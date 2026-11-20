@@ -1,38 +1,8 @@
 #include "D2Client.h"
+#include "D2Path.h"
 
-union D2SeedStrc
-{
-    struct
-    {
-        unsigned int nLowSeed;
-        unsigned int nHighSeed;
-    };
-    unsigned __int64 lSeed;
-};
 
-struct D2StaticPathStrc
-{
-    char unk0x00[0x0C];
-    int nX;
-    int nY;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x04];
-    int dwUnitId;
-    int dwAnimMode;
-    char unk0x14[0x0C];
-    D2SeedStrc tSeed;
-    char unk0x28[0x04];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-};
 
 struct D2MonCommandStrc
 {
@@ -78,7 +48,7 @@ static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nX;
+        return pUnit->pStaticPath->nXPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
     }
@@ -91,7 +61,7 @@ static __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nY;
+        return pUnit->pStaticPath->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
     }
@@ -244,17 +214,17 @@ static int __stdcall sub_0046C7D0_StepAwayFromUnit(D2UnitStrc* pUnit, unsigned c
 
 static __forceinline unsigned int SEED_RollUnitHL_0046C960(D2UnitStrc* pUnit)
 {
-    const unsigned __int64 lSeed = pUnit->tSeed.nHighSeed + 0x6AC690C5i64 * pUnit->tSeed.nLowSeed;
-    pUnit->tSeed.nHighSeed = (unsigned int)(lSeed >> 32);
-    pUnit->tSeed.nLowSeed = (unsigned int)lSeed;
+    const unsigned __int64 lSeed = pUnit->pSeed.nHighSeed + 0x6AC690C5i64 * pUnit->pSeed.nLowSeed;
+    pUnit->pSeed.nHighSeed = (unsigned int)(lSeed >> 32);
+    pUnit->pSeed.nLowSeed = (unsigned int)lSeed;
     return (unsigned int)lSeed;
 }
 
 static __forceinline unsigned int SEED_RollUnitLH_0046C960(D2UnitStrc* pUnit)
 {
-    const unsigned __int64 lSeed = pUnit->tSeed.nHighSeed + 0x6AC690C5i64 * pUnit->tSeed.nLowSeed;
-    pUnit->tSeed.nLowSeed = (unsigned int)lSeed;
-    pUnit->tSeed.nHighSeed = (unsigned int)(lSeed >> 32);
+    const unsigned __int64 lSeed = pUnit->pSeed.nHighSeed + 0x6AC690C5i64 * pUnit->pSeed.nLowSeed;
+    pUnit->pSeed.nLowSeed = (unsigned int)lSeed;
+    pUnit->pSeed.nHighSeed = (unsigned int)(lSeed >> 32);
     return (unsigned int)lSeed;
 }
 
@@ -365,7 +335,7 @@ static void sub_0046CCD0_AiType1(D2UnitStrc* pUnit)
                 return;
             }
 
-            if (SEED_RollPercentage_Inline(&pUnit->tSeed) < 30)
+            if (SEED_RollPercentage_Inline(&pUnit->pSeed) < 30)
             {
                 sub_0046C960_StepRandom(2, 1, 0, pUnit);
                 return;
@@ -382,7 +352,7 @@ static void __stdcall sub_0046CDC0_AiType2(D2UnitStrc* pTarget, unsigned int nDi
     {
         if (nDistance < 5)
         {
-            if (SEED_RollPercentage_Inline(&pUnit->tSeed) < 66)
+            if (SEED_RollPercentage_Inline(&pUnit->pSeed) < 66)
             {
                 sub_0046C7D0_StepAwayFromUnit(pUnit, 8, 1, 30, pTarget);
             }
@@ -417,23 +387,23 @@ static void sub_0046CE40_AiType3(D2UnitStrc* pUnit)
 
             int nOffsetX;
             int nOffsetY;
-            if (SEED_RollRandomNumber64_Inline(&pUnit->tSeed) & 1)
+            if (SEED_RollRandomNumber64_Inline(&pUnit->pSeed) & 1)
             {
-                nOffsetY = SEED_RollRandomNumber64_Inline(&pUnit->tSeed) % 40;
+                nOffsetY = SEED_RollRandomNumber64_Inline(&pUnit->pSeed) % 40;
                 nOffsetX = 40;
             }
             else
             {
-                nOffsetX = SEED_RollRandomNumber64_Inline(&pUnit->tSeed) % 40;
+                nOffsetX = SEED_RollRandomNumber64_Inline(&pUnit->pSeed) % 40;
                 nOffsetY = 40;
             }
 
-            if (SEED_RollRandomNumber64_Inline(&pUnit->tSeed) & 1)
+            if (SEED_RollRandomNumber64_Inline(&pUnit->pSeed) & 1)
             {
                 nOffsetX = -nOffsetX;
             }
 
-            if (SEED_RollRandomNumber64_Inline(&pUnit->tSeed) & 1)
+            if (SEED_RollRandomNumber64_Inline(&pUnit->pSeed) & 1)
             {
                 nOffsetY = -nOffsetY;
             }
@@ -464,7 +434,7 @@ static void __stdcall sub_0046D070_AiType4(D2UnitStrc* pTarget, D2UnitStrc* pUni
 
     if (nMode == 1)
     {
-        if (SEED_RollPercentage_Inline(&pUnit->tSeed) < 40)
+        if (SEED_RollPercentage_Inline(&pUnit->pSeed) < 40)
         {
             AI_SetTimer_Inline(pUnit, 20);
             sub_0046CB40_CommandMode7(pUnit);
@@ -513,7 +483,7 @@ static void __stdcall sub_0046D110_AiType5(unsigned int nDistance, D2UnitStrc* p
     }
 
     int* pState = sub_004AE170(pUnit);
-    D2SeedStrc* pSeed = &pUnit->tSeed;
+    D2SeedStrc* pSeed = &pUnit->pSeed;
     if (!pState)
     {
         AI_SetTimer_Inline(pUnit, 32);
@@ -573,7 +543,7 @@ static void __stdcall sub_0046D280_AiType6(unsigned int nDistance, D2UnitStrc* p
             return;
         }
 
-        const int nRoll = SEED_RollLimitedRandomNumber(&pUnit->tSeed, 100);
+        const int nRoll = SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100);
         if (nRoll < 75)
         {
             AI_SetTimer_Inline(pUnit, 32);
@@ -612,7 +582,7 @@ static void sub_0046D310_AiType7(D2UnitStrc* pUnit)
                 return;
             }
 
-            const int nRoll = SEED_RollLimitedRandomNumber(&pUnit->tSeed, 100);
+            const int nRoll = SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100);
             if (nRoll < 30)
             {
                 sub_0046C960_StepRandom(2, 1, 0, pUnit);
@@ -632,19 +602,19 @@ static void sub_0046D450_AiType8(D2UnitStrc* pUnit)
         return;
     }
 
-    D2SeedStrc* pSeed = &pUnit->tSeed;
+    D2SeedStrc* pSeed = &pUnit->pSeed;
     unsigned __int64 lSeed = SEED_RollFromHL_Inline(pSeed, pSeed->nLowSeed, pSeed->nHighSeed);
     if ((int)((unsigned int)lSeed % 100) < 5)
     {
         lSeed = SEED_RollFrom_Inline(pSeed, (unsigned int)lSeed, (unsigned int)(lSeed >> 32));
         const int nMissileId = ((unsigned int)lSeed & 3) + 0x23A;
-        const int nX = CLIENTS_GetUnitXInline(pUnit) + SEED_RollRandomNumber_Inline(&pUnit->tSeed) % 60 - 30;
-        const int nY = CLIENTS_GetUnitYInline(pUnit) + SEED_RollRandomNumber_Inline(&pUnit->tSeed) % 60 - 30;
+        const int nX = CLIENTS_GetUnitXInline(pUnit) + SEED_RollRandomNumber_Inline(&pUnit->pSeed) % 60 - 30;
+        const int nY = CLIENTS_GetUnitYInline(pUnit) + SEED_RollRandomNumber_Inline(&pUnit->pSeed) % 60 - 30;
         D2UnitStrc* pMissile = sub_004CDB40_SubmitRequest(pUnit, nMissileId, nX, nY, 0, 1);
         if (pMissile)
         {
             int bFlag;
-            if (SEED_RollRandomNumberHL_Inline(&pUnit->tSeed) & 1)
+            if (SEED_RollRandomNumberHL_Inline(&pUnit->pSeed) & 1)
             {
                 sub_004DA1D0_SetMotionVectorA(pMissile, 0, 0, -100);
                 sub_004DA200_SetMotionVectorB(pMissile, 0, 0, 6, 1);
@@ -684,7 +654,7 @@ static void sub_0046D660_AiFlagged(D2UnitStrc* pTarget, D2UnitStrc* pUnit)
         return;
     }
 
-    const int nRoll = SEED_RollPercentage_Inline(&pUnit->tSeed);
+    const int nRoll = SEED_RollPercentage_Inline(&pUnit->pSeed);
     if (nRoll < 40)
     {
         AI_SetTimer_Inline(pUnit, 20);

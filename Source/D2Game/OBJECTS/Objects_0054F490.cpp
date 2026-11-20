@@ -22,7 +22,7 @@
 #define LEVEL_HELL2 126
 #define LEVEL_HELL3 127
 #define UNITFLAG_TARGETABLE 0x00000002
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2ObjectControlStrc;
 struct D2ObjectDataStrc;
 struct D2ObjInitFnStrc;

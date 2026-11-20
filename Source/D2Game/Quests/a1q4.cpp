@@ -17,7 +17,7 @@
 #define MONSTER_CAIN1 146
 #define LINE_ITEM_PICKED 1222
 struct D2NPCMessageTableStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2PlayerDataStrc;
 struct D2StaticPathStrc;
 struct D2QuestGUIDStrc;

@@ -9,7 +9,7 @@
 #define STATE_DECREPIFY 60
 #define EVENTTYPE_AITHINK 2
 struct D2ModeChangeStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2MonsterDataStrc;
 
 enum D2C_Y10UseSkillConstants

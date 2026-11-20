@@ -9,7 +9,7 @@
 struct D2MonStatsTxt;
 struct D2SeqModeStrc;
 struct D2UnitTargetStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2StaticPathStrc;
 struct D2MonStats2Txt;
 struct D2SkillsTxt;

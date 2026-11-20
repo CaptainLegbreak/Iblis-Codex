@@ -44,7 +44,7 @@ struct Record;
 struct D2DrlgCoordsStrc;
 struct D2CurseStrc;
 struct D2ObjOperateFnStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2DamageStrc;
 struct D2UnitStrc;
 struct D2GameStrc;

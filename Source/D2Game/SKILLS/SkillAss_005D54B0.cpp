@@ -7,7 +7,7 @@
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 struct D2AuraCallbackStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2SkillsTxt;
 struct D2LevelsTxt;
 struct D2CurseStrc;

@@ -14,7 +14,7 @@
 struct D2ItemsTxt;
 struct D2ItemDataStrc;
 struct D2SetItemsTxt;
-struct D2SeedStrc;
+union D2SeedStrc;
 
 
 

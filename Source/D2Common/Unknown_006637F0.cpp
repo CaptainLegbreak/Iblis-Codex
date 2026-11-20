@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Path.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 union D2SeedStrc;
@@ -6,15 +7,6 @@ struct D2HirelingTxt;
 struct D2HirelingInitStrc;
 struct D2SetItemsTxt;
 
-union D2SeedStrc
-{
-    struct
-    {
-        unsigned int nLowSeed;
-        unsigned int nHighSeed;
-    };
-    unsigned __int64 lSeed;
-};
 
 struct D2HirelingTxt
 {
@@ -73,10 +65,6 @@ void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, int nLowSeed); // 0x00650E40
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 D2HirelingTxt* __stdcall DATATBLS_GetNextHirelingTxtRecordFromActAndDifficulty(int bExpansion, int nAct, int nDifficulty, D2HirelingTxt* pOldRecord); // 0x00656580
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-};
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 

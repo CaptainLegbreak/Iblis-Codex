@@ -5,7 +5,7 @@
 
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 #define AI_GetParam(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2MonStatsTxt;
 
 

@@ -35,7 +35,7 @@ struct D2GameStrc;
 struct D2UnitStrc;
 struct D2DataTablesStrc;
 struct D2CoordStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2CorpsePositionStrc;
 struct D2ItemsTxt;
 

@@ -4,7 +4,7 @@
 
 #define D2_MIN(a,b) ((a) < (b) ? (a) : (b))
 struct D2MissilesTxt;
-struct D2SeedStrc;
+union D2SeedStrc;
 
 
 

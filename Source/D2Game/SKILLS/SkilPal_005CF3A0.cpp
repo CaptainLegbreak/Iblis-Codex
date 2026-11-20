@@ -8,7 +8,7 @@ struct D2AuraCallbackStrc;
 struct D2BasicAuraParamStrc;
 struct D2DamageAuraParamStrc;
 struct D2SkillsTxt;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2MonStatsTxt;
 
 

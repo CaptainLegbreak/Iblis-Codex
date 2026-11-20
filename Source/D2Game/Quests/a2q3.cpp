@@ -30,7 +30,7 @@
 #define MONSTER_ANCIENTSTATUE1 539
 #define MONSTER_ANCIENTSTATUE3 541
 
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2ObjInitFnStrc;
 struct D2GSPacketSrv53;
 struct D2GSPacketSrv5D;

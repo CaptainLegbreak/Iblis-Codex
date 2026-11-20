@@ -9,7 +9,7 @@
 #define MONMODE_SKILL1 8
 #define EVENTTYPE_AITHINK 0
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2MonStatsTxt;
 struct D2StaticPathStrc;
 struct D2TargetNodeStrc;

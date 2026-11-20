@@ -1,50 +1,18 @@
 #include "D2Client.h"
 #include "D2DataTbls.h"
+#include "D2Path.h"
 
 struct D2GfxLightStrc;
 struct D2StaticPathStrc;
 struct D2MissileStrc;
 struct D2MissilesTxt;
 struct D2SkillsTxt;
-struct D2SeedStrc;
+union D2SeedStrc;
 
-struct D2StaticPathStrc
-{
-    char unk0x00[0x0C];
-    int nXPos;
-    int nYPos;
-};
 
 #pragma pack(push, 4)
-struct D2SeedStrc
-{
-    union
-    {
-        struct
-        {
-            unsigned int nLowSeed;
-            unsigned int nHighSeed;
-        };
-        unsigned __int64 lSeed;
-    };
-};
 
 #pragma pack(pop)
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    unsigned char unk_08[0x18];
-    D2SeedStrc tSeed;
-    int unk0x28[1];
-    union
-    {
-        D2StaticPathStrc* pStaticPath;
-        D2DynamicPathStrc* pDynamicPath;
-    };
-    char unk0x30[0x34];
-    D2GfxLightStrc* pLight;
-};
 
 struct D2MissileStrc
 {
@@ -336,7 +304,7 @@ static void __stdcall sub_004D2520_SpawnBaalBolt(D2UnitStrc* pMissile, int nX, i
     memset(&tParams, 0, sizeof(tParams));
     tParams.dwFlags = 0x2001;
     tParams.pOwner = sub_004639D0_GetOwnerUnit(pMissile);
-    tParams.nMissile = SEED_RollRandomNumber(&pMissile->tSeed) % 3 + 0x27B;
+    tParams.nMissile = SEED_RollRandomNumber(&pMissile->pSeed) % 3 + 0x27B;
     tParams.nSkill = sub_0064A280(pMissile);
     tParams.nSkillLevel = sub_0064A210(pMissile);
     tParams.nX = nX;
@@ -379,18 +347,18 @@ void __fastcall sub_004D2610_CltDoBaalStorm(D2UnitStrc* pMissile)
     D2Common_10235_PATH_UpdateRiderPath(pMissile, pOwner);
     UNITS_UpdateFrame(pMissile);
 
-    if (!MISSILE_GetTargetX(pMissile) || !(SEED_RollRandomNumber(&pMissile->tSeed) & 0x3F))
+    if (!MISSILE_GetTargetX(pMissile) || !(SEED_RollRandomNumber(&pMissile->pSeed) & 0x3F))
     {
         sub_00476A80_StartTiming(6, 2000, 3000, 2000);
         MISSILE_SetTargetX(pMissile, 1);
     }
 
-    unsigned __int64 lSeed = SEED_RollHL64(&pMissile->tSeed);
+    unsigned __int64 lSeed = SEED_RollHL64(&pMissile->pSeed);
     if (!((unsigned int)lSeed % 10))
     {
-        lSeed = SEED_RollNextHL(&pMissile->tSeed, lSeed);
+        lSeed = SEED_RollNextHL(&pMissile->pSeed, lSeed);
         const unsigned int nRollX = (unsigned int)lSeed;
-        lSeed = SEED_RollNextHL(&pMissile->tSeed, lSeed);
+        lSeed = SEED_RollNextHL(&pMissile->pSeed, lSeed);
         const unsigned int nRollY = (unsigned int)lSeed;
         const int nX = CLIENTS_GetUnitX(pMissile) + nRollX % 60 - 30;
         const int nY = CLIENTS_GetUnitY(pMissile) + nRollY % 60 - 30;

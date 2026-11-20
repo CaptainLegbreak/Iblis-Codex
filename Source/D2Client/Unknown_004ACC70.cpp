@@ -6,7 +6,7 @@
 #define MONTYPEFLAG_CHAMPION 4
 
 struct D2GfxLightStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2MonsterDataStrc;
 struct D2MonStats2Txt;
 

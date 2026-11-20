@@ -4,7 +4,7 @@
 #include "D2Txt.h"
 
 #define GRISWOLD_WALK_FLAGS 7
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2MonStatsTxt;
 struct Control;
 struct MonStats;

@@ -2,7 +2,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 struct D2MonsterRegionStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2MonRegDataStrc;
 struct D2LevelsTxt;
 struct D2MonStatsTxt;

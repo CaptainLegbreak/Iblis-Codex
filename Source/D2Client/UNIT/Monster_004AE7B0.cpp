@@ -1,62 +1,18 @@
 #include "D2Client.h"
 #include "D2DataTbls.h"
+#include "D2Path.h"
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2LightStrc;
 struct D2RoomStrc;
 struct D2MonStatsTxt;
 struct D2MonsterDataStrc;
 struct D2MonStats2Txt;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2StaticPathStrc;
 struct D2DirectionArgStrc;
 struct D2DifficultyLevelsTxt;
 
-struct D2SeedStrc
-{
-    union
-    {
-        struct
-        {
-            unsigned __int64 lSeed;
-        };
-        struct
-        {
-            unsigned int nLowSeed;
-            unsigned int nHighSeed;
-        };
-    };
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-    char unk0x18[0x08];
-    D2SeedStrc pSeed;
-    char unk0x28[0x04];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x14];
-    int nUnk44;
-    int nUnk48;
-    char unk0x4C[0x14];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0x08];
-    int nUnk6C;
-    char f_70[0x38];
-    D2SkillListStrc* pSkills;
-    char unk0xAC[0x18];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-    unsigned char unk_CC[0x4];
-};
 
 struct D2MonStatsTxt
 {
@@ -110,12 +66,6 @@ struct D2MonStats2Txt
     char unk0x008[0x12C];
 };
 
-struct D2StaticPathStrc
-{
-    char unk0x00[0x0C];
-    int nXPos;
-    int nYPos;
-};
 
 typedef char I07_check_unit_a[(I07_OFFSET(D2UnitStrc, pSeed) == 0x20 && I07_OFFSET(D2UnitStrc, pDynamicPath) == 0x2C) ? 1 : -1];
 
@@ -438,7 +388,7 @@ void __fastcall sub_004AE8D0_InitMonster(D2UnitStrc* pUnit, D2RoomStrc* pRoom, i
         sub_00649190_SetPathMode(pUnit,5);
         PATH_SetFootprintCollisionMask(pUnit->pDynamicPath,0x8000);
     }
-    pUnit->nUnk44=ITEMS_RollLimitedRandomNumber(&pUnit->pSeed,pUnit->nUnk48);
+    pUnit->nSeqCurrentFramePrecise=ITEMS_RollLimitedRandomNumber(&pUnit->pSeed,pUnit->dwFrameCountPrecise);
     if(pMonStats2->nFlags[0]&gdwBitMasks[3]) pUnit->dwFlags|=2; else pUnit->dwFlags&=~2;
     if(!(pMonStats2->nFlags[1]&gdwBitMasks[6])) pUnit->dwFlags|=0x20; else pUnit->dwFlags&=~0x20;
     pUnit->dwFlags|=8;
@@ -509,7 +459,7 @@ void __fastcall sub_004AEDD0_ChangeMonsterClass(D2UnitStrc* pUnit, int nClassId)
         }
     }
 
-    pUnit->nUnk6C = 0;
+    pUnit->nPaletteIndex = 0;
     pUnit->dwClassId = nClassId;
     D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
     if (!pPath)
@@ -538,7 +488,7 @@ void __fastcall sub_004AEDD0_ChangeMonsterClass(D2UnitStrc* pUnit, int nClassId)
     STATLIST_SetUnitStat(pUnit, 7, 0x8000, 0);
     STATLIST_SetUnitStat(pUnit, 6, 0x8000, 0);
     UNITS_ChangeAnimMode(pUnit, 1);
-    pUnit->nUnk44 = ITEMS_RollLimitedRandomNumber(&pUnit->pSeed, pUnit->nUnk48);
+    pUnit->nSeqCurrentFramePrecise = ITEMS_RollLimitedRandomNumber(&pUnit->pSeed, pUnit->dwFrameCountPrecise);
 
     if (pMonStats2TxtRecord->nFlags[3 >> 3] & gdwBitMasks[3 & 7])
     {

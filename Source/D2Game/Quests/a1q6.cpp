@@ -17,7 +17,7 @@
 struct D2PlayerDataStrc;
 struct D2QuestGUIDStrc;
 struct D2Act1Quest6Strc;
-struct D2SeedStrc;
+union D2SeedStrc;
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 

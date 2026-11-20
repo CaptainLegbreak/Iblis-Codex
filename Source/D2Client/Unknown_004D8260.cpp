@@ -8,7 +8,7 @@
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
 #define UNIT_INVALID 6
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2StaticPathStrc;
 struct D2MissileStrc;
 struct D2SkillsTxt;

@@ -8,7 +8,7 @@ struct D2DrlgListOwnerStrc;
 struct D2DrlgWarpStrc;
 struct D2LevelDefBin;
 struct D2RoomTileStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2PresetUnitStrc;
 struct D2ObjectsTxt;
 

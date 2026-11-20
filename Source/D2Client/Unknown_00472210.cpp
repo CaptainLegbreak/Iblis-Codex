@@ -3,7 +3,7 @@
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct CellResource;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2WeatherSplashStrc;
 struct D2PeriodLightStrc;
 struct D2B10EmitWeatherStrc;

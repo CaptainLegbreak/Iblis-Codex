@@ -24,7 +24,7 @@ struct D2ObjectControlStrc;
 struct D2PlayerDataStrc;
 struct D2QuestGUIDStrc;
 struct D2Act2Quest4Strc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2ObjInitFnStrc;
 struct D2ObjOperateFnStrc;
 struct D2Act2Quest5Strc;

@@ -37,7 +37,7 @@
 #define ITEMQUAL_NORMAL 2
 
 struct D2ObjectControlStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2MonStatsTxt;
 struct D2ObjOperateFnStrc;
 struct D2ObjectDataStrc;
