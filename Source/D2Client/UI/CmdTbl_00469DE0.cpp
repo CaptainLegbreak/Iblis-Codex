@@ -1,11 +1,7 @@
 #include "D2ClientMenus.h"
+#include "D2Unicode.h"
 struct Unicode;
 struct D2HotkeyStrc;
-
-struct Unicode
-{
-    unsigned short wChar;
-};
 
 #pragma pack(push, 2)
 

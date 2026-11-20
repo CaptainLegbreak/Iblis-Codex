@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2CelContext.h"
+#include "D2Unicode.h"
 
 struct Unicode;
 struct D2ButtonStringStrc;
@@ -39,12 +40,6 @@ struct SMSGHANDLER_PARAMS
     int bReturn;
     int lResult;
 };
-
-struct Unicode
-{
-    unsigned short wChar;
-};
-
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x00412650
 

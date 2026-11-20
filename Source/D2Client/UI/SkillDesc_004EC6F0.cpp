@@ -1,11 +1,5 @@
 #include "D2Txt.h"
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode(unsigned short ch = 0) : wChar(ch) {}
-};
-
+#include "D2Unicode.h"
 struct D2UnitStrc;
 
 

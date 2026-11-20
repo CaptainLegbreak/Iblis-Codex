@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Unicode.h"
 
 struct Unicode;
 class UIWidget;
@@ -31,11 +32,6 @@ struct SMSGHANDLER_PARAMS
     unsigned int dwArg;
     int bReturn;
     int lResult;
-};
-
-struct Unicode
-{
-    unsigned short wChar;
 };
 
 class UIWidget

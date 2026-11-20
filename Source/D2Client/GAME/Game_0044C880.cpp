@@ -2,14 +2,10 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Unicode.h"
 
 struct D2AutomapRecordStrc;
 struct D2PoolSystemStrc;
-
-struct Unicode
-{
-    unsigned short wChar;
-};
 
 #pragma pack(push, 1)
 struct D2ClientInfoStrc

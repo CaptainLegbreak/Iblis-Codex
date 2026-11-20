@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Records.h"
+#include "D2Unicode.h"
 struct D2UnitStrc;
 
 struct D2SkillsTxt;
@@ -35,13 +36,6 @@ struct D2SkillsTxt
     char unk0x1A6[0x36];
     unsigned char nEType;
     char unk0x1DD[0x5F];
-};
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode(unsigned short ch = 0) : wChar(ch) {}
 };
 
 extern "C" const char gszEmptyAssertText;

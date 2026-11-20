@@ -8,6 +8,7 @@
 #include "D2GameTypes.h"
 #include "D2Drlg.h"
 #include "D2TxtTables.h"
+#include "D2Unicode.h"
 
 #define OFFSET(T, M) ((unsigned int)&(((T*)0)->M))
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -371,11 +372,6 @@ enum D2C_F06UiConstants
     PLAYER_MODE_6 = 6,
     BODYLOC_RARM = 4,
     BODYLOC_LARM = 5,
-};
-
-struct Unicode
-{
-    unsigned short wChar;
 };
 
 typedef void (__stdcall* SMSGHANDLER)(SMSGHANDLER_PARAMS* pMsg);
