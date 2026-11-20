@@ -1,16 +1,5 @@
 #include "D2Direct3D.h"
-
-struct D2TLVertexStrc
-{
-    float fX;
-    float fY;
-    float fZ;
-    float fRhw;
-    unsigned int dwColor;
-    unsigned int f_14;
-    float fU;
-    float fV;
-};
+#include "D2D3DTypes.h"
 
 struct D2QuadSpriteStrc
 {
@@ -24,37 +13,6 @@ struct D2QuadSpriteStrc
     float f_24;
     float f_28;
     float f_2C;
-};
-
-struct D2QuadRectStrc
-{
-    int nX;
-    int nY;
-    int nWidth;
-    int nHeight;
-};
-
-struct D2VertexBufferStrc;
-struct D2VertexBufferVtbl
-{
-    void* pfnQueryInterface;
-    void* pfnAddRef;
-    void* pfnRelease;
-    long (__stdcall* Lock)(D2VertexBufferStrc* pThis, unsigned long dwFlags, void** ppData, unsigned long* pSize);
-    long (__stdcall* Unlock)(D2VertexBufferStrc* pThis);
-};
-struct D2VertexBufferStrc
-{
-    D2VertexBufferVtbl* lpVtbl;
-};
-struct D2D3DDeviceVtbl
-{
-    void* pfn00[34];
-    long (__stdcall* DrawPrimitiveVB)(D2D3DDeviceStrc* pThis, int nType, D2VertexBufferStrc* pBuffer, unsigned long dwStart, unsigned long dwCount, unsigned long dwFlags);
-};
-struct D2D3DDeviceStrc
-{
-    D2D3DDeviceVtbl* lpVtbl;
 };
 
 struct D2GlideContextStrc

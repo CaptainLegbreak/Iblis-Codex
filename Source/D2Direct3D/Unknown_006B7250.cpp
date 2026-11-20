@@ -1,4 +1,5 @@
 #include "D2Direct3D.h"
+#include "D2D3DTypes.h"
 #define ASSERT(expr,line) if (!(expr)) { sub_00408A60(gszEmpty_006CC837,sub_00408090(),line); exit(-1); }
 #define MIN(a,b) ((a)<(b)?(a):(b))
 #define MAX(a,b) ((a)>(b)?(a):(b))
@@ -7,7 +8,6 @@
 
 struct D2Unknown006B7250Strc;
 struct D2DDSurfaceStrc;
-struct D2D3DTextureStrc;
 struct D2SurfaceStrc;
 struct D2Device006B77B0Strc;
 struct D2Direct3DDevice006B7F70Strc;
@@ -15,7 +15,6 @@ struct D2Unknown006B7250VtblStrc;
 struct D2RectStrc;
 struct D2SurfaceDescStrc;
 struct D2DDSurfaceVtbl;
-struct D2D3DTextureVtbl;
 struct D2SurfaceVtableStrc;
 struct D2TexturedVertexStrc;
 struct D2GfxSettingsStrc;
@@ -67,21 +66,6 @@ struct D2DDSurfaceVtbl
 struct D2DDSurfaceStrc
 {
     D2DDSurfaceVtbl* lpVtbl;
-};
-
-struct D2D3DTextureVtbl
-{
-    void* pfnQueryInterface;
-    void* pfnAddRef;
-    unsigned long (__stdcall* Release)(D2D3DTextureStrc* pThis);
-    void* pfnGetHandle;
-    void* pfnPaletteChanged;
-    long (__stdcall* Load)(D2D3DTextureStrc* pThis, D2D3DTextureStrc* pSource);
-};
-
-struct D2D3DTextureStrc
-{
-    D2D3DTextureVtbl* lpVtbl;
 };
 
 extern "C" __declspec(dllimport) void* __stdcall CreateCompatibleDC(void* hDC);

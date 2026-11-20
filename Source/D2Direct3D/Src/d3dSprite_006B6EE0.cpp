@@ -1,66 +1,7 @@
+#include "D2D3DTypes.h"
+
 struct D2CelStrc;
 struct D2CelContextStrc { unsigned char pad0[8]; int unitType; int classId; int mode; unsigned char pad1[0x18]; const char* name; unsigned char pad2[12]; D2CelStrc* cel; };
-
-struct D2SpriteInfoStrc
-{
-    D2CelContextStrc* context;
-    int width;
-    int height;
-    int offsetX;
-    int offsetY;
-    int f_14;
-    int f_18;
-    int nTexSize;
-    float f_20;
-    float f_24;
-    float f_28;
-    float f_2C;
-};
-
-struct D2TLVertexStrc
-{
-    float fX;
-    float fY;
-    float fZ;
-    float fRhw;
-    unsigned int dwColor;
-    unsigned int f_14;
-    float fU;
-    float fV;
-};
-
-struct D2QuadRectStrc
-{
-    int nX;
-    int nY;
-    int nWidth;
-    int nHeight;
-};
-
-struct D2VertexBufferStrc;
-struct D2VertexBufferVtbl
-{
-    void* pfnQueryInterface;
-    void* pfnAddRef;
-    void* pfnRelease;
-    long (__stdcall* Lock)(D2VertexBufferStrc* pThis, unsigned long dwFlags, void** ppData, unsigned long* pSize);
-    long (__stdcall* Unlock)(D2VertexBufferStrc* pThis);
-};
-struct D2VertexBufferStrc
-{
-    D2VertexBufferVtbl* lpVtbl;
-};
-
-struct D2D3DDeviceStrc;
-struct D2D3DDeviceVtbl
-{
-    void* pfn00[34];
-    long (__stdcall* DrawPrimitiveVB)(D2D3DDeviceStrc* pThis, int nType, D2VertexBufferStrc* pBuffer, unsigned long dwStart, unsigned long dwCount, unsigned long dwFlags);
-};
-struct D2D3DDeviceStrc
-{
-    D2D3DDeviceVtbl* lpVtbl;
-};
 
 struct D2GlideContextStrc
 {
@@ -130,11 +71,11 @@ int sub_006B5C80_LoadSpriteInfo(D2CelContextStrc* context, D2SpriteInfoStrc* inf
         sub_00410610_WriteLogLine("error loading sprite unit:%d  class:%d  mode:%d  %s", context->unitType, context->classId, context->mode, context->name);
         return 0;
     }
-    info->context = context;
-    info->width = sub_006018C0(context->cel);
-    info->offsetX = sub_00601920(context->cel);
-    info->height = sub_006018F0(context->cel);
-    info->offsetY = sub_00601950(context->cel);
+    info->pContext = context;
+    info->nWidth = sub_006018C0(context->cel);
+    info->nOffsetX = sub_00601920(context->cel);
+    info->nHeight = sub_006018F0(context->cel);
+    info->nOffsetY = sub_00601950(context->cel);
     return 1;
 }
 
@@ -142,38 +83,38 @@ int sub_006B5C80_LoadSpriteInfo(D2CelContextStrc* context, D2SpriteInfoStrc* inf
 void sub_006B5CF0_SetTextureSize(D2SpriteInfoStrc* pInfo)
 {
     int nSize = 32;
-    if (pInfo->width > nSize || pInfo->height > nSize)
+    if (pInfo->nWidth > nSize || pInfo->nHeight > nSize)
     {
         nSize = 128;
-        if (pInfo->width > nSize || pInfo->height > nSize)
+        if (pInfo->nWidth > nSize || pInfo->nHeight > nSize)
         {
             nSize = 256;
-            if (pInfo->width > nSize || pInfo->height > nSize)
+            if (pInfo->nWidth > nSize || pInfo->nHeight > nSize)
             {
                 goto done;
             }
         }
     }
-    pInfo->f_14 = nSize;
-    pInfo->f_18 = nSize;
+    pInfo->nTexWidth = nSize;
+    pInfo->nTexHeight = nSize;
 done:
-    pInfo->nTexSize = pInfo->f_18 * pInfo->f_14;
-    pInfo->f_20 = 0.0f;
-    pInfo->f_24 = 1.0f;
-    pInfo->f_28 = 0.0f;
-    pInfo->f_2C = 1.0f;
+    pInfo->nTexSize = pInfo->nTexHeight * pInfo->nTexWidth;
+    pInfo->fU0 = 0.0f;
+    pInfo->fU1 = 1.0f;
+    pInfo->fV0 = 0.0f;
+    pInfo->fV1 = 1.0f;
 }
 
 // calling-convention shim (not game code)
 int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* pInfo, int nMode, int nArg3, int nArg4)
 {
-    int* pSlots = sub_00601B10_GetCelTextureSlots(pInfo->context->cel);
+    int* pSlots = sub_00601B10_GetCelTextureSlots(pInfo->pContext->cel);
     if (nMode == 4)
     {
         nMode = 1;
     }
     int nSlot = pSlots[nMode * 2];
-    int nWidth = pInfo->width;
+    int nWidth = pInfo->nWidth;
     sub_006BA760_Touch(&nArg3, 0);
     sub_006BA760_Touch(&nArg4, nSlot);
     return nWidth + nSlot;
@@ -186,16 +127,16 @@ void __stdcall sub_006B63F0_DrawQuad(D2SpriteInfoStrc* pSprite, int nX, int nY, 
     sub_006B2030_SetFilterMode(1);
 
     D2QuadRectStrc tRect;
-    tRect.nX = pSprite->offsetX;
-    float fU0 = pSprite->f_20;
-    float fU1 = pSprite->f_24;
-    float fV0 = pSprite->f_28;
-    float fV1 = pSprite->f_2C;
+    tRect.nX = pSprite->nOffsetX;
+    float fU0 = pSprite->fU0;
+    float fU1 = pSprite->fU1;
+    float fV0 = pSprite->fV0;
+    float fV1 = pSprite->fV1;
 
     int bPerspective = sub_006B9830_GetPerspective();
-    tRect.nWidth = pSprite->f_14;
-    tRect.nHeight = pSprite->f_18;
-    tRect.nY = pSprite->offsetY - tRect.nHeight;
+    tRect.nWidth = pSprite->nTexWidth;
+    tRect.nHeight = pSprite->nTexHeight;
+    tRect.nY = pSprite->nOffsetY - tRect.nHeight;
     if (bPerspective && gnScale_00989748 != 256)
     {
         tRect.nX = gnScale_00989748 * tRect.nX / 256;
@@ -300,9 +241,9 @@ unsigned char sub_006B6680_SetBlendAndAlpha(int mode)
 // calling-convention shim (not game code)
 int __stdcall sub_006B6D70_ClipSprite(D2SpriteInfoStrc* pInfo, int nX, int nY, const D2BoundsStrc* pBounds, D2ClipStrc* pClip)
 {
-    nX += pInfo->offsetX;
+    nX += pInfo->nOffsetX;
     pClip->nLeft = nX;
-    pClip->nWidth = pInfo->width;
+    pClip->nWidth = pInfo->nWidth;
     sub_006BA760_Touch(&nY, nX);
     sub_006BA760_Touch((int*)&pBounds, 0);
     return nY;
@@ -331,31 +272,31 @@ void __fastcall sub_006B6EE0_DrawSpriteClipped(D2CelContextStrc* pContext, int n
         return;
     }
 
-    float fScaleV = 1.0f / (float)tInfo.f_18;
-    float fScaleU = 1.0f / (float)tInfo.f_14;
+    float fScaleV = 1.0f / (float)tInfo.nTexHeight;
+    float fScaleU = 1.0f / (float)tInfo.nTexWidth;
     if (tClip.nTop)
     {
-        tInfo.f_28 = (float)(tInfo.f_18 - tClip.nHeight - tClip.nTop) * fScaleV;
+        tInfo.fV0 = (float)(tInfo.nTexHeight - tClip.nHeight - tClip.nTop) * fScaleV;
         nY -= tClip.nTop;
-        tInfo.f_2C = (float)(tInfo.f_18 - tClip.nTop) * fScaleV;
+        tInfo.fV1 = (float)(tInfo.nTexHeight - tClip.nTop) * fScaleV;
     }
     else
     {
-        tInfo.f_28 = (float)(tInfo.f_18 - tClip.nHeight) * fScaleV;
+        tInfo.fV0 = (float)(tInfo.nTexHeight - tClip.nHeight) * fScaleV;
     }
-    tInfo.f_18 = tClip.nHeight;
+    tInfo.nTexHeight = tClip.nHeight;
 
     if (tClip.nLeft)
     {
         nX += tClip.nLeft;
-        tInfo.f_20 = (float)tClip.nLeft * fScaleU;
-        tInfo.f_24 = (float)(tClip.nLeft + tClip.nWidth) * fScaleU;
+        tInfo.fU0 = (float)tClip.nLeft * fScaleU;
+        tInfo.fU1 = (float)(tClip.nLeft + tClip.nWidth) * fScaleU;
     }
     else
     {
-        tInfo.f_24 = (float)tClip.nWidth * fScaleU;
+        tInfo.fU1 = (float)tClip.nWidth * fScaleU;
     }
-    tInfo.f_14 = tClip.nWidth;
+    tInfo.nTexWidth = tClip.nWidth;
 
     sub_006B63F0_DrawQuad(&tInfo, nX, nY, 0xFFFFFFFF, 0, nAlpha, 0);
 }
