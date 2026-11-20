@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2Drlg.h"
 #define D2_ABS(x) ((x) >= 0 ? (x) : -(x))
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define UNIT_ALIGNMENT_EVIL 0
@@ -27,19 +28,7 @@ struct D2Storm416A90Strc;
 
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
 
-struct D2DrlgCoordsStrc
-{
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-};
 
-struct D2ActiveRoomStrc
-{
-    char unk0x00[0x4C];
-    D2DrlgCoordsStrc tCoords;
-};
 
 int __stdcall UNITROOM_AddUnitToRoom(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom); // 0x0064C350
 void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit); // 0x0064C370

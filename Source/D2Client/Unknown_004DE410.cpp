@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2Drlg.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2TileStrc;
@@ -72,17 +73,6 @@ struct D2LevelsTxt
     unsigned int dwFloorFilter;
 };
 
-struct D2DrlgCoordsStrc
-{
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-    int nTileXPos;
-    int nTileYPos;
-    int nTileWidth;
-    int nTileHeight;
-};
 
 struct D2DrlgTileDataStrc
 {

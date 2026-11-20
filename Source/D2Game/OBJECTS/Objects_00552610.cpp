@@ -3,14 +3,10 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2Drlg.h"
 
 
 
-struct D2ActiveRoomStrc
-{
-    char unk0x00[0x6C];
-    D2SeedStrc pSeed;
-};
 
 struct D2ObjectControlStrc
 {
@@ -27,17 +23,6 @@ struct D2ObjectRegionStrc
     int nHealingShrines;
 };
 
-struct D2DrlgCoordsStrc
-{
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-    int nTileXPos;
-    int nTileYPos;
-    int nTileWidth;
-    int nTileHeight;
-};
 
 struct D2LevelsTxt
 {

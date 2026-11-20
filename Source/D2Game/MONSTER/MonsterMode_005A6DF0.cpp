@@ -1,15 +1,11 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Drlg.h"
 struct D2UnitStrc;
 
 struct D2ModeChangeStrc;
 
-struct D2ActiveRoomStrc
-{
-    char unk_00[0x74];
-    D2UnitStrc* pUnitFirst;
-};
 
 
 struct D2DamageStrc

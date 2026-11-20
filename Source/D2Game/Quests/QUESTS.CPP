@@ -6,6 +6,7 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
+#include "D2Drlg.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define QUEST_A2Q3_TAINTEDSUN 10
@@ -409,17 +410,6 @@ void __stdcall UNITS_FreeCollisionPath(D2UnitStrc* pUnit); // 0x00623830
 void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit); // 0x0064C370
 int __fastcall QUESTS_FastRemovePlayerGUID(D2QuestGUIDStrc* pGUIDs, int dwGUID); // 0x00545240
 
-struct D2DrlgCoordsStrc
-{
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-    int nTileXPos;
-    int nTileYPos;
-    int nTileWidth;
-    int nTileHeight;
-};
 
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 unsigned short __stdcall COLLISION_CheckMaskWithSizeXY(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned int nSizeX, unsigned int nSizeY, unsigned short nMask); // 0x0064D800

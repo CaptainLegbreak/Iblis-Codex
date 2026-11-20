@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2Drlg.h"
 
 #define MONSTATSFLAGINDEX_PLACESPAWN 23
 
@@ -14,11 +15,6 @@ struct D2MonStatsTxt;
 struct D2SeedOwnerStrc;
 
 
-struct D2ActiveRoomStrc
-{
-    char unk0x00[0x6C];
-    D2SeedStrc pSeed;
-};
 
 
 struct D2MonRegDataStrc

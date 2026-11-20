@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
+#include "D2Drlg.h"
 
 #define QUEST_A2Q4_HORAZONTOME 11
 #define LEVEL_PALACECELLARLEV3 54
@@ -18,11 +19,6 @@ struct D2QuestGUIDStrc;
 struct D2Act2Quest6Strc;
 
 
-struct D2ActiveRoomStrc
-{
-    char unk0x00[0x74];
-    D2UnitStrc* pUnitFirst;
-};
 
 struct D2ObjOperateFnStrc
 {

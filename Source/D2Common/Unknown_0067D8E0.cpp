@@ -1,12 +1,6 @@
 #include "D2Structs.h"
+#include "D2Drlg.h"
 
-struct D2DrlgCoordStrc
-{
-    int nPosX;
-    int nPosY;
-    int nWidth;
-    int nHeight;
-};
 
 struct D2DrlgLinkStrc
 {

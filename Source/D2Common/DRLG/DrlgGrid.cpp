@@ -1,29 +1,15 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2Path.h"
+#include "D2Drlg.h"
 
 struct D2CoordStrc;
 struct D2DrlgCoordsStrc;
 struct D2DrlgVertexStrc;
 struct D2DrlgCoordStrc;
 
-struct D2DrlgGridStrc
-{
-    int* pCellsFlags;
-    int* pCellsRowOffsets;
-    int nWidth;
-    int nHeight;
-    int unk0x10;
-};
 
 
-struct D2DrlgCoordsStrc
-{
-    int nX;
-    int nY;
-    int nWidth;
-    int nHeight;
-};
 
 struct D2DrlgVertexStrc
 {
@@ -55,13 +41,6 @@ int __fastcall sub_0067C570(D2DrlgGridStrc* pGrid, int nX, int nY);
 void __fastcall DRLGGRID_AssignSubArea(D2DrlgGridStrc* pGrid, int* pCellsFlags, D2DrlgCoordsStrc* pCoords, int nStride, int* pCellsRowOffsets);
 void __fastcall DRLGGRID_FreeGrid(void* pMemPool, D2DrlgGridStrc* pGrid);
 
-struct D2DrlgCoordStrc
-{
-    int nPosX;
-    int nPosY;
-    int nWidth;
-    int nHeight;
-};
 
 // 0x0067C420
 static void __fastcall sub_0067C420(int* pFlag, int nFlag)
@@ -302,8 +281,8 @@ void __fastcall sub_0067C8E0(D2DrlgGridStrc* pGrid, D2DrlgVertexStrc* pVertex, D
         nStepY = 1;
     }
 
-    int nOffsetX = nX - pCoords->nX;
-    int nOffsetY = nY - pCoords->nY;
+    int nOffsetX = nX - pCoords->nSubtileX;
+    int nOffsetY = nY - pCoords->nSubtileY;
     int nError = 0;
 
     if (nDiffX < nDiffY)
@@ -326,8 +305,8 @@ void __fastcall sub_0067C8E0(D2DrlgGridStrc* pGrid, D2DrlgVertexStrc* pVertex, D
                 nError -= nDiffY;
             }
 
-            nOffsetX = nX - pCoords->nX;
-            nOffsetY = nY - pCoords->nY;
+            nOffsetX = nX - pCoords->nSubtileX;
+            nOffsetY = nY - pCoords->nSubtileY;
             for (int i = 0; i < nSize; ++i)
             {
                 if (DRLGROOM_AreXYInsideCoordinates(pCoords, nX + i, nY))
@@ -357,8 +336,8 @@ void __fastcall sub_0067C8E0(D2DrlgGridStrc* pGrid, D2DrlgVertexStrc* pVertex, D
                 nError -= nDiffX;
             }
 
-            nOffsetX = nX - pCoords->nX;
-            nOffsetY = nY - pCoords->nY;
+            nOffsetX = nX - pCoords->nSubtileX;
+            nOffsetY = nY - pCoords->nSubtileY;
             for (int i = 0; i < nSize; ++i)
             {
                 if (DRLGROOM_AreXYInsideCoordinates(pCoords, nX, nY + i))
@@ -394,7 +373,7 @@ void __fastcall DRLGGRID_InitializeGridCells(void* pMemPool, D2DrlgGridStrc* pGr
         nOffset += nWidth;
     }
 
-    pGrid->unk0x10 = 0;
+    pGrid->nFlags = 0;
 }
 
 // 0x0067CBF0
@@ -413,7 +392,7 @@ void __fastcall sub_0067CBF0(D2DrlgGridStrc* pGrid, int nWidth, int nHeight, int
         nOffset += nWidth;
     }
 
-    pGrid->unk0x10 = 0;
+    pGrid->nFlags = 0;
 }
 
 // 0x0067CC60
@@ -431,25 +410,25 @@ void __fastcall sub_0067CC60(void* pMemPool, D2DrlgGridStrc* pGrid, int* pCellsF
         nOffset += nWidth;
     }
 
-    pGrid->unk0x10 = 1;
+    pGrid->nFlags = 1;
 }
 
 // 0x0067CCC0
 void __fastcall sub_0067CCC0(void* pMemPool, D2DrlgGridStrc* pGrid, int* pCellsFlags, D2DrlgCoordsStrc* pCoords, int nStride)
 {
-    pGrid->nWidth = pCoords->nWidth;
-    pGrid->nHeight = pCoords->nHeight;
-    pGrid->pCellsFlags = &pCellsFlags[pCoords->nY * nStride + pCoords->nX];
-    pGrid->pCellsRowOffsets = (int*)sub_0040B430(pMemPool, sizeof(int) * pCoords->nHeight, ".\\DRLG\\DrlgGrid.cpp", 492, 0);
+    pGrid->nWidth = pCoords->nSubtileWidth;
+    pGrid->nHeight = pCoords->nSubtileHeight;
+    pGrid->pCellsFlags = &pCellsFlags[pCoords->nSubtileY * nStride + pCoords->nSubtileX];
+    pGrid->pCellsRowOffsets = (int*)sub_0040B430(pMemPool, sizeof(int) * pCoords->nSubtileHeight, ".\\DRLG\\DrlgGrid.cpp", 492, 0);
 
     int nOffset = 0;
-    for (int i = 0; i < pCoords->nHeight; ++i)
+    for (int i = 0; i < pCoords->nSubtileHeight; ++i)
     {
         pGrid->pCellsRowOffsets[i] = nOffset;
         nOffset += nStride;
     }
 
-    pGrid->unk0x10 = 1;
+    pGrid->nFlags = 1;
 }
 
 // 0x0067CDC0
@@ -492,7 +471,7 @@ void __fastcall DRLGGRID_AssignCellsOffsetsAndFlags(D2DrlgGridStrc* pDrlgGrid, i
         nOffset += nWidth;
     }
 
-    pDrlgGrid->unk0x10 = 1;
+    pDrlgGrid->nFlags = 1;
 }
 
 // 0x0067CD90

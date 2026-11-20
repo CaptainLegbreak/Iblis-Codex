@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2Drlg.h"
 
 #define UF_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -16,11 +17,6 @@ struct D2DrlgCoordsStrc;
 struct UnitFindArgStrc;
 
 
-struct D2ActiveRoomStrc
-{
-    char unk0x00[0x74];
-    D2UnitStrc* pUnitFirst;
-};
 
 typedef int(__fastcall* UNITFINDTEST)(D2UnitStrc* pUnit, D2UnitFindArgStrc* pUnitFindArg);
 
@@ -68,17 +64,6 @@ int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc*); // 0x0061AB00
 int __stdcall D2Common_11098(D2FieldStrc*,int*,int*); // 0x0066A5D0
 unsigned short __stdcall COLLISION_CheckMask(D2ActiveRoomStrc*,int,int,unsigned short); // 0x0064CB30
 
-struct D2DrlgCoordsStrc
-{
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-    int nTileXPos;
-    int nTileYPos;
-    int nTileWidth;
-    int nTileHeight;
-};
 
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 

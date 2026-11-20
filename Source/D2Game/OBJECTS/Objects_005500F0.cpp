@@ -5,6 +5,7 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
+#include "D2Drlg.h"
 
 #define OBJMODE_OPERATING 1
 #define OBJMODE_OPENED 2
@@ -28,17 +29,6 @@ D2ObjectControlStrc* __fastcall OBJRGN_GetObjectControlFromGame(D2GameStrc* pGam
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
 
-struct D2DrlgCoordsStrc
-{
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-    int nTileXPos;
-    int nTileYPos;
-    int nTileWidth;
-    int nTileHeight;
-};
 
 
 

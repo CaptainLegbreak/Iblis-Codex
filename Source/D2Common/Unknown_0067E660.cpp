@@ -1,19 +1,5 @@
-struct D2DrlgOutdoorInfoStrc
-{
-    unsigned int dwFlags;
-};
+#include "D2Drlg.h"
 
-struct D2DrlgLevelStrc
-{
-    int unk0x00;
-    int unk0x04;
-    int unk0x08;
-    int unk0x0C;
-    int unk0x10;
-    D2DrlgOutdoorInfoStrc* pOutdoorInfo;
-    char unk0x18[0x1B8];
-    int eLevelId;
-};
 
 void __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(D2DrlgLevelStrc* pLevel, int nX, int nY, int nPresetId, int nDirection, int a6);  // 0x006743C0
 int __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPreset(D2DrlgLevelStrc* pLevel, int nLevelPrestId, int nRand, int nOffset, char nFlags); // 0x00674730
@@ -37,7 +23,7 @@ static const int gAct4Level108Presets[25] = // 0x006F22C0
 // 0x0067E660
 static void sub_0067E660(D2DrlgLevelStrc* pLevel)
 {
-    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoorInfo;
+    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoors;
     if (pInfo->dwFlags & 0x400000)
     {
         DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, 0, 1, 0x31E, -1, 0);

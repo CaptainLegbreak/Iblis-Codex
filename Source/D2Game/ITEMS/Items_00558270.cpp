@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2Drlg.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_ITEM 4
@@ -30,13 +31,6 @@ struct D2ItemDataStrc
 };
 
 
-struct D2ActiveRoomStrc
-{
-    char unk0x00[0x74];
-    D2UnitStrc* pUnitFirst;
-    char unk0x78[0x04];
-    D2ActiveRoomStrc* pRoomNext;
-};
 
 
 struct D2ItemDropStrc

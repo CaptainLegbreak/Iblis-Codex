@@ -5,6 +5,7 @@
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2Drlg.h"
 struct D2ActiveRoomStrc;
 struct D2CoordStrc;
 struct D2GameStrc;
@@ -15,17 +16,6 @@ struct D2UnitStrc;
 
 
 
-struct D2DrlgCoordsStrc
-{
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-    int nTileX;
-    int nTileY;
-    int nTileWidth;
-    int nTileHeight;
-};
 
 
 

@@ -1,8 +1,4 @@
-struct D2DrlgLevelStrc
-{
-    char unk0x000[0x1D0];
-    int eLevelId;
-};
+#include "D2Drlg.h"
 
 // 0x006801F0
 int __fastcall sub_006801F0_GetCliffPresetId(D2DrlgLevelStrc* pLevel)

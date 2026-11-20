@@ -4,16 +4,10 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
+#include "D2Drlg.h"
 
 
 
-struct D2ActiveRoomStrc
-{
-    char unk0x00[0x74];
-    D2UnitStrc* pUnitFirst;
-    char unk0x78[0x04];
-    D2ActiveRoomStrc* pRoomNext;
-};
 
 
 

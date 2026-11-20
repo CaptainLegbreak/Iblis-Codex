@@ -1,19 +1,5 @@
-struct D2DrlgCoordStrc
-{
-    int nPosX;
-    int nPosY;
-    int nWidth;
-    int nHeight;
-};
+#include "D2Drlg.h"
 
-struct D2DrlgGridStrc
-{
-    int* pCellsFlags;
-    int* pCellsRowOffsets;
-    int nWidth;
-    int nHeight;
-    int dwFlags;
-};
 
 struct D2RoomCoordListStrc
 {
@@ -33,13 +19,6 @@ struct D2DrlgLogicalRoomInfoStrc
     D2RoomCoordListStrc* pCoordList;
 };
 
-struct D2DrlgRoomStrc
-{
-    char unk0x00[0x34];
-    D2DrlgCoordStrc tCoords;
-    char unk0x44[0x20];
-    D2DrlgLogicalRoomInfoStrc* pLogicalRoomInfo;
-};
 
 extern "C" const char gszEmptyAssertText;                                                     // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                        // 0x00408090
@@ -64,8 +43,8 @@ static D2RoomCoordListStrc* sub_0066CDA0(D2DrlgRoomStrc* pDrlgRoom, int nX, int 
         return pDrlgRoom->pLogicalRoomInfo->pCoordList;
     }
 
-    nY -= pDrlgRoom->tCoords.nPosY;
-    nX -= pDrlgRoom->tCoords.nPosX;
+    nY -= pDrlgRoom->pDrlgCoord.nPosY;
+    nX -= pDrlgRoom->pDrlgCoord.nPosX;
     return (D2RoomCoordListStrc*)DRLGGRID_GetGridEntry(&pDrlgRoom->pLogicalRoomInfo->pIndexY, nX, nY);
 }
 

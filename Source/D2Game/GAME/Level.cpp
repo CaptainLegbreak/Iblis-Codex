@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2Drlg.h"
 struct D2DrlgActStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -21,12 +22,6 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 
-struct D2ActiveRoomStrc
-{
-    char unk0x00[0x74];
-    D2UnitStrc* pUnitFirst;
-    unsigned int nNumClients;
-};
 
 struct D2ClientStrc
 {
@@ -41,17 +36,6 @@ void __fastcall MONSTER_UpdateAiCallbackEvent(D2GameStrc* pGame, D2UnitStrc* pUn
 void __fastcall sub_00534AB0_ClearTargetIfMatch(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00534AB0
 void __fastcall sub_00573750_ClearTargetIfMatches(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00573750
 
-struct D2DrlgCoordsStrc
-{
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-    int nTileX;
-    int nTileY;
-    int nTileWidth;
-    int nTileHeight;
-};
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc*, D2DrlgCoordsStrc*); // 0x00619730
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc*); // 0x0061A1B0
 void __fastcall D2GAME_PACKETS_SendPacket0x07_6FC3D120(D2ClientStrc*, int, int, int); // 0x0053BC50
@@ -171,7 +155,7 @@ void __fastcall LEVEL_AddClient(D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, D2Cl
     if (!hRoom) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), 207); exit(-1); }
     D2DrlgCoordsStrc tCoords;
     DUNGEON_GetRoomCoordinates(hRoom, &tCoords);
-    D2GAME_PACKETS_SendPacket0x07_6FC3D120(pClient, DUNGEON_GetLevelIdFromRoom(hRoom), tCoords.nTileX, tCoords.nTileY);
+    D2GAME_PACKETS_SendPacket0x07_6FC3D120(pClient, DUNGEON_GetLevelIdFromRoom(hRoom), tCoords.nTileXPos, tCoords.nTileYPos);
     DUNGEON_AddClientToRoom(hRoom, pClient);
     if (hRoom->nNumClients <= 1)
     {
@@ -221,7 +205,7 @@ void __fastcall LEVEL_RemoveClient(D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, D
 
     D2DrlgCoordsStrc drlgCoords;
     DUNGEON_GetRoomCoordinates(hRoom, &drlgCoords);
-    D2GAME_PACKETS_SendPacket0x08_6FC3D160(pClient, DUNGEON_GetLevelIdFromRoom(hRoom), drlgCoords.nTileX, drlgCoords.nTileY);
+    D2GAME_PACKETS_SendPacket0x08_6FC3D160(pClient, DUNGEON_GetLevelIdFromRoom(hRoom), drlgCoords.nTileXPos, drlgCoords.nTileYPos);
 }
 
 // 0x0053AA70

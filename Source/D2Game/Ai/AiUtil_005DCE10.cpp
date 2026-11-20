@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
+#include "D2Drlg.h"
 
 struct D2MonStatsTxt;
 struct D2MonsterDataStrc;
@@ -25,14 +26,6 @@ enum D2C_F41AiUtilConstants
 
 
 
-struct D2ActiveRoomStrc
-{
-    char unk0x00[0x48];
-    D2ClientStrc** ppClients;
-    unsigned char unk_4C[0x28];
-    D2UnitStrc* pUnitFirst;
-    unsigned int nNumClients;
-};
 
 typedef D2UnitStrc* (__fastcall* AIUTIL_TargetCallback)(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg);
 

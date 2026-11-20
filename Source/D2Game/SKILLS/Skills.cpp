@@ -6,6 +6,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
+#include "D2Drlg.h"
 
 #define MONSTATSFLAGINDEX_NOAURA 27
 #define ITEMTYPE_CROSSBOW 35
@@ -53,27 +54,11 @@ struct D2UnitFindDataStrc;
 struct D2ItemDropStrc;
 union D2SeedStrc;
 
-struct D2ActiveRoomStrc
-{
-    char unk0x00[0x74];
-    D2UnitStrc* pUnitFirst;
-};
 
 
 
 
 
-struct D2DrlgCoordsStrc
-{
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-    int nTileXPos;
-    int nTileYPos;
-    int nTileWidth;
-    int nTileHeight;
-};
 
 struct D2AuraCallbackStrc
 {

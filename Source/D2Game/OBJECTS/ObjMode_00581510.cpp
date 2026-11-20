@@ -5,6 +5,7 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2UnitData.h"
+#include "D2Drlg.h"
 
 struct D2ObjectControlStrc;
 union D2SeedStrc;
@@ -30,11 +31,6 @@ struct D2ObjectDataStrc
 
 
 
-struct D2ActiveRoomStrc
-{
-    char unk0x00[0x74];
-    D2UnitStrc* pUnitFirst;
-};
 
 
 struct D2ObjOperateFnStrc

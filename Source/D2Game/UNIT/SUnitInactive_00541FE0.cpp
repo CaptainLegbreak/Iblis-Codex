@@ -90,17 +90,6 @@ struct D2DataTablesStrc
 };
 
 
-struct D2DrlgCoordsStrc
-{
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-    int nTileXPos;
-    int nTileYPos;
-    int nTileWidth;
-    int nTileHeight;
-};
 
 extern "C" const char gszEmptyAssertText;                                                                    // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                       // 0x00408090
@@ -115,6 +104,7 @@ extern const unsigned int gdwBitMasks[32];                                      
 #include "gen/data/Source/D2Game/UNIT/SUnitInactive_00541FE0/gnInactiveNoTcParam2_007314C8.inc"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2Drlg.h"
 struct D2UnitStrc;
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);    // 0x0040B430
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                                // 0x00620BB0

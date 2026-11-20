@@ -1,23 +1,9 @@
 #include "D2Structs.h"
 #include "D2Path.h"
+#include "D2Drlg.h"
 struct D2DrlgCoordStrc;
-struct D2DrlgGridStrc
-{
-    int* pCellsFlags;
-    int* pCellsRowOffsets;
-    int nWidth;
-    int nHeight;
-    int unk0x10;
-};
 
 
-struct D2DrlgCoordsStrc
-{
-    int nX;
-    int nY;
-    int nWidth;
-    int nHeight;
-};
 
 struct D2DrlgVertexStrc
 {

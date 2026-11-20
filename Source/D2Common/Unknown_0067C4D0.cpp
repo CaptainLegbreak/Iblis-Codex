@@ -1,22 +1,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
-struct D2DrlgGridStrc
-{
-    int* pCellsFlags;
-    int* pCellsRowOffsets;
-    int nWidth;
-    int nHeight;
-    int unk0x10;
-};
+#include "D2Drlg.h"
 
 
-struct D2DrlgCoordsStrc
-{
-    int nX;
-    int nY;
-    int nWidth;
-    int nHeight;
-};
 
 struct D2DrlgVertexStrc
 {
@@ -129,8 +115,8 @@ void __fastcall sub_0067C8E0(D2DrlgGridStrc* pGrid, D2DrlgVertexStrc* pVertex, D
         nStepY = 1;
     }
 
-    int nOffsetX = nX - pCoords->nX;
-    int nOffsetY = nY - pCoords->nY;
+    int nOffsetX = nX - pCoords->nSubtileX;
+    int nOffsetY = nY - pCoords->nSubtileY;
     int nError = 0;
 
     if (nDiffX < nDiffY)
@@ -153,8 +139,8 @@ void __fastcall sub_0067C8E0(D2DrlgGridStrc* pGrid, D2DrlgVertexStrc* pVertex, D
                 nError -= nDiffY;
             }
 
-            nOffsetX = nX - pCoords->nX;
-            nOffsetY = nY - pCoords->nY;
+            nOffsetX = nX - pCoords->nSubtileX;
+            nOffsetY = nY - pCoords->nSubtileY;
             for (int i = 0; i < nSize; ++i)
             {
                 if (DRLGROOM_AreXYInsideCoordinates(pCoords, nX + i, nY))
@@ -184,8 +170,8 @@ void __fastcall sub_0067C8E0(D2DrlgGridStrc* pGrid, D2DrlgVertexStrc* pVertex, D
                 nError -= nDiffX;
             }
 
-            nOffsetX = nX - pCoords->nX;
-            nOffsetY = nY - pCoords->nY;
+            nOffsetX = nX - pCoords->nSubtileX;
+            nOffsetY = nY - pCoords->nSubtileY;
             for (int i = 0; i < nSize; ++i)
             {
                 if (DRLGROOM_AreXYInsideCoordinates(pCoords, nX, nY + i))

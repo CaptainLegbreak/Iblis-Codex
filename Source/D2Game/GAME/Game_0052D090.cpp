@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameTypes.h"
+#include "D2Drlg.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
@@ -20,15 +21,6 @@ struct D2GameHashListStrc;
 struct D2GameDataTableStrc;
 
 
-struct D2ActiveRoomStrc
-{
-    char unk0x0000[0x34];
-    unsigned int dwFlags;
-    unsigned char unk_38[0x3C];
-    D2UnitStrc* pUnitFirst;
-    unsigned char unk_78[0x4];
-    D2ActiveRoomStrc* pRoomNext;
-};
 
 struct D2GameStrc
 {

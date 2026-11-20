@@ -1,15 +1,9 @@
 #include "D2Game.h"
 #include "D2GameStrc.h"
+#include "D2Drlg.h"
 
 struct D2SaveHeaderStrc;
 struct D2ClientInfoStrc;
-struct D2ActiveRoomStrc
-{
-    char unk0x00[72];
-    D2ClientStrc** ppClients;
-    char unk0x4C[0x2C];
-    unsigned int nNumClients;
-};
 struct D2ClientKeySkillStrc
 {
     short nSkill;

@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2Drlg.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 union D2SeedStrc;
@@ -10,23 +11,7 @@ struct D2StaticPathStrc;
 struct D2ObjectControlStrc;
 
 
-struct D2ActiveRoomStrc
-{
-    char unk0x00[0x6C];
-    D2SeedStrc tSeed;
-};
 
-struct D2DrlgCoordsStrc
-{
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-    int nTileXPos;
-    int nTileYPos;
-    int nTileWidth;
-    int nTileHeight;
-};
 
 
 
@@ -122,7 +107,7 @@ D2UnitStrc* __fastcall sub_005516C0_SpawnWell(D2GameStrc* pGame, D2ActiveRoomStr
     D2DrlgCoordsStrc tCoords;
     DUNGEON_GetRoomCoordinates(pRoom, &tCoords);
 
-    D2SeedStrc* pSeed = pRoom ? &pRoom->tSeed : 0;
+    D2SeedStrc* pSeed = pRoom ? &pRoom->pSeed : 0;
     if (SEED_RollRandomNumber(pSeed) % 100 > nChance)
     {
         return 0;

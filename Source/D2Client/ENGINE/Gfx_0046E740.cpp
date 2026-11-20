@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Drlg.h"
 
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
@@ -160,11 +161,6 @@ static int sub_0046EA50_LoadGfxNodeSetByte(D2UnitStrc* pUnit, int nIndex);
 
 typedef unsigned long DWORD;
 
-struct D2ActiveRoomStrc
-{
-    int unk0x00[29];
-    D2UnitStrc* pUnitFirst;
-};
 
 struct D2GfxNodeTargetStrc
 {

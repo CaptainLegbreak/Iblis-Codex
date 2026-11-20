@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2Drlg.h"
 #define LEVEL_BLOODMOOR 2
 #define LEVEL_COLDPLAINS 3
 #define LEVEL_STONYFIELD 4
@@ -9,13 +10,6 @@
 #define LEVEL_MOOMOOFARM 39
 
 
-struct D2DrlgLevelStrc
-{
-    char unk0x000[0x1C4];
-    D2SeedStrc pSeed;
-    char unk0x1CC[0x04];
-    int eLevelId;
-};
 
 #define C07_OFFSET_CHECK(name, type, field, offset) typedef char name[((unsigned int)&((type*)0)->field == (offset)) ? 1 : -1]
 C07_OFFSET_CHECK(C07_check_pSeed, D2DrlgLevelStrc, pSeed, 0x1C4);

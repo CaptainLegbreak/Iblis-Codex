@@ -1,20 +1,8 @@
 #include "D2Common.h"
+#include "D2Drlg.h"
 
 struct D2DrlgActStrc;
 
-struct D2ActiveRoomStrc
-{
-    D2ActiveRoomStrc** ppRoomList;
-    char unk0x04[8];
-    int nTileCount;
-    D2DrlgRoomStrc* pDrlgRoom;
-    char unk0x14[16];
-    int nNumRooms;
-    char unk0x28[12];
-    unsigned int dwFlags;
-    char unk0x38[64];
-    int nNumClients;
-};
 
 struct D2DrlgEnvironmentStrc
 {

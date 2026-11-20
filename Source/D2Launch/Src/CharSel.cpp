@@ -1,6 +1,7 @@
 #include "D2Launch.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Drlg.h"
 
 #pragma intrinsic(strlen)
 
@@ -82,11 +83,6 @@ extern int gbFlag_00779C6C; // 0x00779C6C
 extern char gszBaseName_00779B68[]; // 0x00779B68
 
 
-struct D2ActiveRoomStrc
-{
-    char unk0x00[0x74];
-    D2UnitStrc* pUnitFirst;
-};
 
 struct D2StatesTxt
 {

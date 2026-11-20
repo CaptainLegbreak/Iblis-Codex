@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Drlg.h"
 
 struct D2LvlWarpTxt
 {
@@ -23,11 +24,6 @@ struct D2RoomTileStrc
     D2DrlgTileDataStrc* unk0x14;
 };
 
-struct D2DrlgRoomStrc
-{
-    char unk0x00[0x4C];
-    D2RoomTileStrc* pRoomTiles;
-};
 
 // 0x0066AB70
 void __fastcall DRLGWARP_ToggleRoomTilesEnableFlag(D2DrlgRoomStrc* pDrlgRoom, int bEnabled)

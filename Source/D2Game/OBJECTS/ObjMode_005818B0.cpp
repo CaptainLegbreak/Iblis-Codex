@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Drlg.h"
 struct D2UnitStrc;
 
 #define UNIT_OBJECT 2
@@ -43,11 +44,6 @@ struct D2ObjectDataStrc
 
 
 
-struct D2ActiveRoomStrc
-{
-    char pad00[0x74];
-    D2UnitStrc* pUnitFirst;
-};
 
 
 
@@ -101,17 +97,6 @@ struct D2ObjOperateFnStrc
     int nObjectIdx;
 };
 
-struct D2DrlgCoordsStrc
-{
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-    int nTileXPos;
-    int nTileYPos;
-    int nTileWidth;
-    int nTileHeight;
-};
 
 extern "C" const char gszObjModeSourceFile_006E1970[]; // 0x006E1970
 D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, int nUnitSize, unsigned int nMask, int bAllowNeighboringRooms); // 0x0064E7B0

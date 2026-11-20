@@ -1,9 +1,6 @@
 #include "D2Common.h"
+#include "D2Drlg.h"
 
-struct D2DrlgGridStrc
-{
-    int unk0x00[5];
-};
 
 struct D2DrlgTileDataStrc
 {
@@ -43,29 +40,8 @@ struct D2DrlgTileGridStrc
     int nRoofTiles;
 };
 
-struct D2DrlgStrc
-{
-    char unk0x00[0x478];
-    void* pMempool;
-};
 
-struct D2DrlgLevelStrc
-{
-    char unk0x00[0x1B4];
-    D2DrlgStrc* pDrlg;
-};
 
-struct D2DrlgRoomStrc
-{
-    char unk0x00[0x34];
-    int nPosX;
-    int nPosY;
-    char unk0x3C[0x18];
-    D2DrlgTileGridStrc* ptDrlgTiles;
-    D2DrlgLevelStrc* ptDrlgLevel;
-    char unk0x5C[0x0C];
-    void* pTiles;
-};
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -154,8 +130,8 @@ static void __fastcall DRLGANIM_AllocAnimationTileGrid(D2DrlgRoomStrc* pDrlgRoom
             pCurrentTileData.pTile = pTileLibraryEntries[nEntryIndex];
             pDrlgAnimTileGrid->ppMapTileData[0] = &pCurrentTileData;
 
-            int nX = pDrlgRoom->nPosX + pCurrentTileData.nPosX;
-            int nY = pDrlgRoom->nPosY + pCurrentTileData.nPosY;
+            int nX = pDrlgRoom->pDrlgCoord.nPosX + pCurrentTileData.nPosX;
+            int nY = pDrlgRoom->pDrlgCoord.nPosY + pCurrentTileData.nPosY;
 
             for (unsigned int nRarity = 1; nRarity < nFrames; ++nRarity)
             {

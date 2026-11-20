@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Drlg.h"
 #define GFX_MODE_KEEP 0x11
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2HashedFileEntryStrc;
@@ -203,11 +204,6 @@ extern unsigned int gnWardenBufferSize_007BC98C; // 0x007BC98C
 
 typedef unsigned long DWORD;
 
-struct D2ActiveRoomStrc
-{
-    int unk0x00[29];
-    D2UnitStrc* pUnitFirst;
-};
 
 struct D2GfxLayerHeaderStrc
 {

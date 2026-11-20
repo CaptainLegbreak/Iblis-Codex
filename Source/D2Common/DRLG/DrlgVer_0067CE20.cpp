@@ -1,10 +1,4 @@
-struct D2DrlgCoordStrc
-{
-    int nPosX;
-    int nPosY;
-    int nWidth;
-    int nHeight;
-};
+#include "D2Drlg.h"
 
 struct D2DrlgVertexStrc
 {

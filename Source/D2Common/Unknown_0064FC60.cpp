@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
+#include "D2Drlg.h"
 #define D2_ABS(x) ((x) < 0 ? -(x) : (x))
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 struct D2InventoryStrc;
@@ -20,19 +21,7 @@ extern int gDirectionTable_006EB7E0[128 * 3]; // 0x006EB7E0
 typedef int BOOL;
 
 
-struct D2DrlgCoordsStrc
-{
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-};
 
-struct D2ActiveRoomStrc
-{
-    char unk0x00[0x4C];
-    D2DrlgCoordsStrc tCoords;
-};
 
 
 #pragma pack(push, 1)

@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2Drlg.h"
 
 
 
@@ -31,19 +32,7 @@ struct D2LvlTypesTxt
     unsigned char nAct;
 };
 
-struct D2DrlgLevelStrc
-{
-    char unk0x000[0x1AC];
-    D2DrlgLevelStrc* pNextLevel;
-    char unk0x1B0[0x1D0 - 0x1B0];
-    int eLevelId;
-};
 
-struct D2DrlgStrc
-{
-    char unk0x000[0x47C];
-    D2DrlgLevelStrc* pLevel;
-};
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090

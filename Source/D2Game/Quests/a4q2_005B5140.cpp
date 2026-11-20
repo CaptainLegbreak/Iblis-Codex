@@ -6,6 +6,7 @@
 #include "D2Txt.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2Drlg.h"
 struct D2GameStrc;
 struct D2QuestDataStrc;
 struct D2UnitStrc;
@@ -56,13 +57,6 @@ D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, 
 void __fastcall CLIENTS_UpdateCharacterProgression(D2ClientStrc* pClient, int nAct, int nDifficulty); // 0x00538680
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
 
-struct D2ActiveRoomStrc
-{
-    char unk0x00[0x74];
-    D2UnitStrc* pUnitFirst;
-    char unk0x78[0x04];
-    D2ActiveRoomStrc* pRoomNext;
-};
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640

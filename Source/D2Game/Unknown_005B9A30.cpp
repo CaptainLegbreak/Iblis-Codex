@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameTypes.h"
+#include "D2Drlg.h"
 struct D2RoomCoordListStrc;
 struct D2UnitStrc;
 
@@ -8,11 +9,6 @@ struct D2GameStrc
 {
     char unk0x00[0xC4];
     void* pAct;
-};
-struct D2ActiveRoomStrc
-{
-    char unk0x00[0x74];
-    D2UnitStrc* pUnitFirst;
 };
 struct D2QuestExStrc
 {

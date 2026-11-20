@@ -1,12 +1,6 @@
 #include "D2Structs.h"
+#include "D2Drlg.h"
 
-struct D2DrlgLevelStrc
-{
-    char unk0x000[0x1C4];
-    D2SeedStrc pSeed;
-    char unk0x1CC[0x04];
-    int eLevelId;
-};
 
 int __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPreset(D2DrlgLevelStrc* pLevel, int nLevelPrestId, int nRand, int nOffset, char nFlags); // 0x00674730
 int __fastcall sub_00674920_PlaceRandomPreset(D2DrlgLevelStrc* pLevel, int nLvlPrestId, int nRand);       // 0x00674920

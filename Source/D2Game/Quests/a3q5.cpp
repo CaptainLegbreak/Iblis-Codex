@@ -4,6 +4,7 @@
 #include "D2Txt.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2Drlg.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define QFLAG_PRIMARYGOALDONE 13
@@ -20,11 +21,6 @@ struct D2Act3Quest2Strc;
 
 typedef int (__stdcall* FARPROC)();
 
-struct D2ActiveRoomStrc
-{
-    char unk0x00[0x74];
-    D2UnitStrc* pUnitFirst;
-};
 
 
 

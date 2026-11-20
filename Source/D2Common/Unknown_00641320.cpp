@@ -6,6 +6,7 @@
 #include "D2Txt.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2Drlg.h"
 
 struct D2GfxLightStrc;
 struct D2BinFieldStrc;
@@ -64,7 +65,6 @@ void __fastcall sub_004E2ED0_InitCappedChargedPath(D2UnitStrc* pMissile, int nAr
 int __fastcall sub_004F21B0_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId); // 0x004F21B0
 int __cdecl sub_004F51C0_IsHighVideoMode(); // 0x004F51C0
 
-struct D2ActiveRoomStrc { char unk_00[0x74]; D2UnitStrc* pUnitFirst; };
 
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
@@ -84,17 +84,6 @@ unsigned int __stdcall sub_00620510(D2UnitStrc*); // 0x00620510
 extern int data_006EB180[64]; // 0x006EB180
 int __stdcall UNITS_GetUnitSizeX(D2UnitStrc* pUnit); // 0x00620510
 
-struct D2DrlgCoordsStrc
-{
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-    int nTileX;
-    int nTileY;
-    int nTileWidth;
-    int nTileHeight;
-};
 
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 

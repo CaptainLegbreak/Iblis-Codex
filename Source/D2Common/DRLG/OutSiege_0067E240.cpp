@@ -1,25 +1,7 @@
 #include "D2Structs.h"
+#include "D2Drlg.h"
 
-struct D2DrlgOutdoorInfoStrc
-{
-    char unk0x00[0x5C];
-    int nWidth;
-    int nHeight;
-};
 
-struct D2DrlgLevelStrc
-{
-    int unk0x00;
-    int unk0x04;
-    int unk0x08;
-    int unk0x0C;
-    int unk0x10;
-    D2DrlgOutdoorInfoStrc* pOutdoorInfo;
-    char unk0x18[0x1AC];
-    D2SeedStrc pSeed;
-    int unk0x1CC;
-    int eLevelId;
-};
 
 extern "C" const char gszEmptyAssertText;      // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -66,7 +48,7 @@ static __declspec(noinline) void sub_0067E240(D2DrlgLevelStrc* pLevel)
     if (pLevel->eLevelId != 111)
         return;
 
-    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoorInfo;
+    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoors;
     if (!pInfo)
     {
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 564);
@@ -77,20 +59,20 @@ static __declspec(noinline) void sub_0067E240(D2DrlgLevelStrc* pLevel)
     int i;
     for (i = 0, nPlaced = 0; i < 90 && nPlaced < 3; ++i)
     {
-        const int nX = 2 * SEED_RollLimitedRandomNumber(&pLevel->pSeed, pInfo->nWidth / 2);
-        const int nY = 2 * SEED_RollLimitedRandomNumber(&pLevel->pSeed, pInfo->nHeight / 2);
+        const int nX = 2 * SEED_RollLimitedRandomNumber(&pLevel->pSeed, pInfo->nGridWidth / 2);
+        const int nY = 2 * SEED_RollLimitedRandomNumber(&pLevel->pSeed, pInfo->nGridHeight / 2);
         if (sub_0067E210_PlaceShiftedPreset(pLevel, nX, nY))
             ++nPlaced;
     }
 
-    const int nOffsetX = SEED_RollLimitedRandomNumber_Inline(&pLevel->pSeed, pInfo->nWidth / 2);
-    const int nOffsetY = SEED_RollLimitedRandomNumber_Inline(&pLevel->pSeed, pInfo->nHeight / 2);
-    for (int y = 0; y < pInfo->nHeight && nPlaced < 3; ++y)
+    const int nOffsetX = SEED_RollLimitedRandomNumber_Inline(&pLevel->pSeed, pInfo->nGridWidth / 2);
+    const int nOffsetY = SEED_RollLimitedRandomNumber_Inline(&pLevel->pSeed, pInfo->nGridHeight / 2);
+    for (int y = 0; y < pInfo->nGridHeight && nPlaced < 3; ++y)
     {
-        for (int x = 0; x < pInfo->nWidth && nPlaced < 3; ++x)
+        for (int x = 0; x < pInfo->nGridWidth && nPlaced < 3; ++x)
         {
-            const int nX = (x + 2 * nOffsetX) % pInfo->nWidth;
-            const int nY = (y + 2 * nOffsetY) % pInfo->nHeight;
+            const int nX = (x + 2 * nOffsetX) % pInfo->nGridWidth;
+            const int nY = (y + 2 * nOffsetY) % pInfo->nGridHeight;
             if (sub_0067E210_PlaceShiftedPreset(pLevel, nX, nY))
                 ++nPlaced;
         }

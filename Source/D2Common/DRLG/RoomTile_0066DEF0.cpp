@@ -1,3 +1,4 @@
+#include "D2Drlg.h"
 struct D2CmpTileStrc;
 
 struct D2DrlgTileDataStrc
@@ -15,11 +16,6 @@ struct D2DrlgTileGridStrc
     D2DrlgTileDataStrc* pFloorTiles;
 };
 
-struct D2DrlgRoomStrc
-{
-    char unk0x00[0x54];
-    D2DrlgTileGridStrc* ptDrlgTiles;
-};
 
 void __fastcall DRLGROOMTILE_InitTileData(D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileDataStrc* pTileData, int nX, int nY, unsigned int nPackedTileInformation, D2CmpTileStrc* pTileLibraryEntry); // 0x0066DDE0
 

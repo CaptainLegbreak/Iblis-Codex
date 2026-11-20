@@ -1,14 +1,10 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2Drlg.h"
 
 
 
-struct D2ActiveRoomStrc
-{
-    unsigned char unk_00[0x74];
-    D2UnitStrc* pUnitFirst;
-};
 
 D2ClientStrc* __fastcall sub_00539070_GetFirstClient(D2GameStrc* pGame); // 0x00539070
 D2UnitStrc* __stdcall CLIENTS_GetPlayerFromClient(D2ClientStrc* pClient, int bValidate); // 0x00537860

@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2Drlg.h"
 
 #define DRLGROOMFLAG_NO_LOS_DRAW 0x80000
 #define DRLGROOMFLAG_PRESET_UNITS_SPAWNED 0x4000000
@@ -13,52 +14,8 @@ struct D2LevelDefBin;
 struct D2DrlgOrthStrc;
 
 
-struct D2DrlgStrc
-{
-    char unk0x00[0x90];
-    D2DrlgWarpStrc* pWarp;
-    unsigned char unk_94[0x3E4];
-    void* pMempool;
-};
 
-struct D2DrlgLevelStrc
-{
-    char unk0x000[0x4];
-    unsigned int dwFlags;
-    int nRooms;
-    char unk0x00C[0x4];
-    D2DrlgRoomStrc* ptRoomFirst;
-    char unk0x14[0x1A0];
-    D2DrlgStrc* pDrlg;
-    char unk0x1B8[0xC];
-    D2SeedStrc pSeed;
-    unsigned char unk_1CC[0x4];
-    int eLevelId;
-};
 
-struct D2DrlgRoomStrc
-{
-    D2DrlgOrthStrc* pDrlgOrth;
-    unsigned int dwInitSeed;
-    D2DrlgRoomStrc** ppRoomsNear;
-    unsigned char unk_0C[0x8];
-    D2SeedStrc pSeed;
-    unsigned char unk_1C[0x8];
-    D2DrlgRoomStrc* pDrlgRoomNext;
-    unsigned int dwFlags;
-    int nRoomsNear;
-    D2ActiveRoomStrc* pRoom;
-    unsigned char unk_34[0x10];
-    unsigned char fRoomStatus;
-    char unk0x45[0x3];
-    int nType;
-    char unk0x4C[0x4];
-    unsigned int dwDT1Mask;
-    char unk0x54[0x4];
-    D2DrlgLevelStrc* ptDrlgLevel;
-    D2PresetUnitStrc* pPresetUnits;
-    unsigned char unk_60[0x8C];
-};
 
 struct D2LvlSubTxt
 {
@@ -85,13 +42,6 @@ void __fastcall DRLGPRESET_AllocPresetRoomData(D2DrlgRoomStrc* pDrlgRoom); // 0x
 void __fastcall sub_0067D6D0(D2DrlgRoomStrc* pRoom); // 0x0067D6D0
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-struct D2DrlgCoordStrc
-{
-    int nPosX;
-    int nPosY;
-    int nWidth;
-    int nHeight;
-};
 
 struct D2DrlgWarpStrc
 {

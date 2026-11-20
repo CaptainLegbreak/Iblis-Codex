@@ -1,12 +1,13 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2Path.h"
+#include "D2Drlg.h"
 
 #define RAYTRACE_LOAD_ROOM() \
-    nRoomX = pRoom->nSubtileX; \
-    nRoomY = pRoom->nSubtileY; \
-    nRoomEndX = nRoomX + pRoom->nSubtileWidth; \
-    nRoomEndY = nRoomY + pRoom->nSubtileHeight;
+    nRoomX = pRoom->tCoords.nSubtileX; \
+    nRoomY = pRoom->tCoords.nSubtileY; \
+    nRoomEndX = nRoomX + pRoom->tCoords.nSubtileWidth; \
+    nRoomEndY = nRoomY + pRoom->tCoords.nSubtileHeight;
 #define RAYTRACE_IN_ROOM() (nX >= nRoomX && nX < nRoomEndX && nY >= nRoomY && nY < nRoomEndY)
 #define RAYTRACE_NEXT_ROOM() \
     pRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY); \
@@ -25,14 +26,6 @@ struct D2DrlgCoordsStrc;
 struct D2BoundingBoxStrc;
 
 
-struct D2ActiveRoomStrc
-{
-    char unk0x00[0x4C];
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-};
 
 struct D2RoomCollisionGridStrc
 {
@@ -50,17 +43,6 @@ struct D2RoomCollisionGridStrc
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
 D2RoomCollisionGridStrc* __fastcall DUNGEON_GetCollisionGridFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A010
 
-struct D2DrlgCoordsStrc
-{
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-    int nTileXPos;
-    int nTileYPos;
-    int nTileWidth;
-    int nTileHeight;
-};
 
 struct D2BoundingBoxStrc
 {
@@ -150,7 +132,7 @@ int __stdcall COLLISION_RayTrace(D2ActiveRoomStrc* pRoom, D2CoordStrc* pBegin, D
 
             D2RoomCollisionGridStrc* pGrid = DUNGEON_GetCollisionGridFromRoom(pRoom);
             unsigned short* pMask = &pGrid->pCollisionMask[(nX - nRoomX) + (nY - nRoomY) * pGrid->nSubtileWidth];
-            const int nStride = pRoom->nSubtileWidth * nYDir;
+            const int nStride = pRoom->tCoords.nSubtileWidth * nYDir;
             unsigned short* pMaskEnd = pMask + nStride * nDeltaY;
             while (pMask != pMaskEnd)
             {
@@ -234,7 +216,7 @@ int __stdcall COLLISION_RayTrace(D2ActiveRoomStrc* pRoom, D2CoordStrc* pBegin, D
 
             D2RoomCollisionGridStrc* pGrid = DUNGEON_GetCollisionGridFromRoom(pRoom);
             unsigned short* pMask = &pGrid->pCollisionMask[(nX - nRoomX) + (nY - nRoomY) * pGrid->nSubtileWidth];
-            const int nStride = pRoom->nSubtileWidth * nYDir;
+            const int nStride = pRoom->tCoords.nSubtileWidth * nYDir;
             while (1)
             {
                 if (*pMask & nCollisionMask)
@@ -286,7 +268,7 @@ int __stdcall COLLISION_RayTrace(D2ActiveRoomStrc* pRoom, D2CoordStrc* pBegin, D
 
             D2RoomCollisionGridStrc* pGrid = DUNGEON_GetCollisionGridFromRoom(pRoom);
             unsigned short* pMask = &pGrid->pCollisionMask[(nX - nRoomX) + (nY - nRoomY) * pGrid->nSubtileWidth];
-            const int nStride = pRoom->nSubtileWidth * nYDir;
+            const int nStride = pRoom->tCoords.nSubtileWidth * nYDir;
             while (1)
             {
                 if (*pMask & nCollisionMask)

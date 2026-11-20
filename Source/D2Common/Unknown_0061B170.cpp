@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Drlg.h"
 
 struct D2DrlgStrc;
 struct D2DrlgTableRefStrc;
@@ -6,41 +7,7 @@ struct D2Entry0061B7E0Strc;
 struct D2Owner0061B7E0Strc;
 struct D2ColorRecordStrc;
 
-struct D2DrlgRoomStrc
-{
-    char unk0x00[0x08];
-    D2DrlgRoomStrc** ppRoomsNear;
-    unsigned short wRoomsInList[4];
-    char unk0x14[0x08];
-    D2DrlgRoomStrc* pStatusNext;
-    char unk0x20[0x08];
-    unsigned int dwFlags;
-    int nRoomsNear;
-    D2ActiveRoomStrc* pRoom;
-    char unk0x34[0x10];
-    unsigned char fRoomStatus;
-    char unk0x45[0x13];
-    D2DrlgLevelStrc* ptDrlgLevel;
-    char unk0x5C[0x90];
-};
 
-struct D2DrlgStrc
-{
-    char unk0x000[0x08];
-    int nRoomCount08;
-    char unk0x00C[0x8C];
-    unsigned char nRoomsInitSinceLastUpdate;
-    char unk0x099[0x07];
-    D2DrlgRoomStrc tStatusRoomsLists[4];
-    char unk0x450[0x0C];
-    unsigned char nRoomsInitTimeout;
-    char unk0x45D[0x03];
-    D2DrlgRoomStrc* pDrlgRoom;
-    char unk0x464[0x04];
-    int nRoomCount468;
-    char unk0x46C[0x0C];
-    void* pMempool;
-};
 
 struct D2DrlgTableRefStrc
 {
@@ -53,11 +20,6 @@ int __fastcall DRLG_IsOnClient(D2DrlgStrc* pDrlg); // 0x00642A00
 int __fastcall DRLG_IsTownLevel(int nLevelId); // 0x006426A0
 void __fastcall DRLGACTIVATE_RoomExPropagateUnsetStatus(D2DrlgRoomStrc* pDrlgRoom, unsigned char nStatus); // 0x0061B5B0
 
-struct D2DrlgLevelStrc
-{
-    char unk0x000[0x1B4];
-    D2DrlgStrc* pDrlg;
-};
 
 void __fastcall DRLGROOM_InitNearRooms(void* pContext, D2DrlgRoomStrc* pNode); // 0x0066C370
 void __fastcall DRLGROOMTILE_InitRoomGrids(D2DrlgRoomStrc* pDrlgRoom); // 0x0066EE40
@@ -159,13 +121,13 @@ static __forceinline void sub_0061B8B0_UpdateRoomStats(D2DrlgStrc* pDrlg)
 {
     if (DRLG_IsOnClient(pDrlg))
     {
-        gnRoomStats_0096C8B8 = pDrlg->nRoomCount08;
-        gnRoomStats_0096C8BC = pDrlg->nRoomCount468;
+        gnRoomStats_0096C8B8 = pDrlg->nAllocatedRooms;
+        gnRoomStats_0096C8BC = pDrlg->nFreedRooms;
     }
     else
     {
-        gnRoomStats_0096C8C4 = pDrlg->nRoomCount08;
-        gnRoomStats_0096C8C0 = pDrlg->nRoomCount468;
+        gnRoomStats_0096C8C4 = pDrlg->nAllocatedRooms;
+        gnRoomStats_0096C8C0 = pDrlg->nFreedRooms;
     }
 }
 
@@ -211,7 +173,7 @@ static int DRLGACTIVATE_RoomEx_EnsureHasRoom(void* pMemPool, D2DrlgRoomStrc* pDr
     DRLGROOMTILE_AddRoomMapTiles(pDrlgRoom);
     DRLG_CreateRoomForRoomEx(pDrlg, pDrlgRoom);
     ++pDrlg->nRoomsInitSinceLastUpdate;
-    ++pDrlg->nRoomCount08;
+    ++pDrlg->nAllocatedRooms;
     return 1;
 }
 
@@ -250,13 +212,13 @@ void __stdcall DRLGACTIVATE_Update(D2DrlgStrc* pDrlg)
 {
     if (DRLG_IsOnClient(pDrlg))
     {
-        gnStatsClientAllocatedRooms_0096C8B8 = pDrlg->nRoomCount08;
-        gnStatsClientFreedRooms_0096C8BC = pDrlg->nRoomCount468;
+        gnStatsClientAllocatedRooms_0096C8B8 = pDrlg->nAllocatedRooms;
+        gnStatsClientFreedRooms_0096C8BC = pDrlg->nFreedRooms;
     }
     else
     {
-        gnStatsAllocatedRooms_0096C8C4 = pDrlg->nRoomCount08;
-        gnStatsFreedRooms_0096C8C0 = pDrlg->nRoomCount468;
+        gnStatsAllocatedRooms_0096C8C4 = pDrlg->nAllocatedRooms;
+        gnStatsFreedRooms_0096C8C0 = pDrlg->nFreedRooms;
     }
 
     if (pDrlg->nRoomsInitSinceLastUpdate > 1)

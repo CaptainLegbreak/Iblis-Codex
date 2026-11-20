@@ -10,13 +10,6 @@ struct D2DrlgActStrc
     int bHasPendingRoomsUpdates;
 };
 
-struct D2ActiveRoomStrc
-{
-    char unk0x0000[0x34];
-    unsigned int dwFlags;
-    char unk0x0038[0x44];
-    D2ActiveRoomStrc* pRoomNext;
-};
 
 struct D2ClientStrc
 {
@@ -81,6 +74,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 extern "C" unsigned int __cdecl strlen(const char* szString);
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                   // 0x006CC260
 #include "gen/data/Source/D2Game/GAME/Game_0052D720.static/gnFrameRate_00731010.inc"
+#include "D2Drlg.h"
 static unsigned int gnPeakMemoryUsage_00883D48;                                                                  // 0x00883D48
 extern D2ServerCallbackFunctions* gpD2EventCallbackTable_6FD45830;                                          // 0x00883D50
 static unsigned int gnPreviousMemUsageTick_00883D68;                                                            // 0x00883D68

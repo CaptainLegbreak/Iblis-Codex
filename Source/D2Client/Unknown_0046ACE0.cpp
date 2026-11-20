@@ -5,6 +5,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
+#include "D2Drlg.h"
 
 #define LEVEL_DENOFEVIL 8
 #define LEVEL_THRONEOFDESTRUCTION 131
@@ -31,13 +32,6 @@ extern const unsigned int gdwBitMasks[32]; // 0x006CE268
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
 
-struct D2ActiveRoomStrc
-{
-    char unk0x00[0x6C];
-    D2SeedStrc tSeed;
-    unsigned char unk_74[0x8];
-    D2ActiveRoomStrc* pRoomNext;
-};
 
 D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
 void __fastcall sub_00474550_GetRoomLight(D2ActiveRoomStrc* pRoom, int* pLight, unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue, int nFlag); // 0x00474550
@@ -80,17 +74,6 @@ void __cdecl sub_0046C060_DrawCountdown(); // 0x0046C060
 extern D2DrlgActStrc* gpGlobal_007A0634; // 0x007A0634
 extern D2ClientTimedBoxStrc gtTimedBox_007A742C; // 0x007A742C
 
-struct D2DrlgCoordsStrc
-{
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-    int nTileXPos;
-    int nTileYPos;
-    int nTileWidth;
-    int nTileHeight;
-};
 
 struct D2LevelsTxt
 {
@@ -658,7 +641,7 @@ void __fastcall sub_0046C460_PopulateRoom(D2ActiveRoomStrc* pRoom)
         return;
 
     D2LevelsTxt* pLevel = DATATBLS_GetLevelsTxtRecord(nLevelId);
-    D2SeedStrc* pSeed = pRoom ? &pRoom->tSeed : 0;
+    D2SeedStrc* pSeed = pRoom ? &pRoom->pSeed : 0;
     for (int i = 0; i < 4; ++i)
     {
         if (pLevel->wCMon[i] < 0)

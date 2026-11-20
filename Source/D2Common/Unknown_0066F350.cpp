@@ -1,23 +1,9 @@
 #include "D2Common.h"
+#include "D2Drlg.h"
 
 struct D2PresetUnitStrc;
 
-struct D2DrlgGridStrc
-{
-    int* pCellsFlags;
-    int* pCellsRowOffsets;
-    int nWidth;
-    int nHeight;
-    int nFlags;
-};
 
-struct D2DrlgCoordStrc
-{
-    int nPosX;
-    int nPosY;
-    int nWidth;
-    int nHeight;
-};
 
 struct D2DrlgSubstGroupStrc
 {
@@ -81,21 +67,7 @@ struct D2DrlgDrlgStrc
     void* hArchive;
 };
 
-struct D2DrlgLevelStrc
-{
-    char unk0x000[0x1B4];
-    D2DrlgDrlgStrc* pDrlg;
-};
 
-struct D2DrlgRoomStrc
-{
-    char unk0x00[0x34];
-    int nTileXPos;
-    int nTileYPos;
-    char unk0x3C[0x18];
-    D2DrlgTileGridStrc* ptDrlgTiles;
-    D2DrlgLevelStrc* ptDrlgLevel;
-};
 
 struct D2DrlgOutdoorRoomStrc
 {
@@ -287,7 +259,7 @@ void __stdcall sub_0066FAD0(void* pMemPool, int nX, int nY, D2UnkOutdoorStrc2* p
             nFlags = DRLGGRID_GetGridEntry(&pLvlSubTxtRecord->pShadowGrid, nBaseX + i, nBaseY + j);
             if (nFlags & 0x8000000)
             {
-                DRLGROOMTILE_InitTileShadow(pDrlgRoom, pDrlgRoom->nTileXPos + i + nX, pDrlgRoom->nTileYPos + j + nY, nFlags);
+                DRLGROOMTILE_InitTileShadow(pDrlgRoom, pDrlgRoom->pDrlgCoord.nPosX + i + nX, pDrlgRoom->pDrlgCoord.nPosY + j + nY, nFlags);
             }
         }
     }
