@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2DrlgTiles.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"

@@ -46,7 +46,9 @@ struct D2RunesTxt
 
 struct D2GemsTxt
 {
-    int unk0x00[10]; // 0x00
+    char szName[32]; // 0x00
+    char szLetter[6]; // 0x20
+    unsigned short unk0x26; // 0x26
     union
     {
         unsigned char szItemCode[4]; // 0x28

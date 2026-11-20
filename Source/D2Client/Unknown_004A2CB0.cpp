@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Primitives.h"
 
 struct D2PacketRecord6Strc;
 struct D2QuestTableStrc;
