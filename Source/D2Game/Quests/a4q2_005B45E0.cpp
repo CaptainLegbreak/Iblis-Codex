@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Path.h"
 #include "D2GameStrc.h"
 #include "D2Structs.h"
 
@@ -11,12 +12,6 @@ struct QueueNode;
 struct QueueState;
 struct QuestExtra;
 struct QuestView;
-
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 struct D2PlayerDataStrc
 {

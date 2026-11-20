@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2ItemsWorld.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
@@ -252,21 +253,6 @@ struct D2UnitFindArgStrc
     int unk0x2C;
     int unk0x30;
     int unk0x34;
-};
-
-struct D2UnitFindDataStrc
-{
-    void* pMemPool;
-    D2UnitStrc** pUnitsArray;
-    D2ActiveRoomStrc* pRoom;
-    void* pfnUnitTest;
-    D2UnitFindArgStrc* pUnitFindArg;
-    int nFlags;
-    int nIndex;
-    int nMaxArrayEntries;
-    int nX;
-    int nY;
-    int nSize;
 };
 
 typedef int (__fastcall* DAMAGECALLBACK)(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget);

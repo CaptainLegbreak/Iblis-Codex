@@ -1,4 +1,5 @@
 #include "D2BNClient.h"
+#include "D2Primitives.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -47,12 +48,6 @@ void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); /
 extern int gbStopDownload_00881C54; // 0x00881C54
 extern char gszDownloadArchive_00881C58[]; // 0x00881C58
 extern char gszCheckRevisionValue_00881E60[]; // 0x00881E60
-
-struct D2FileTimeStrc
-{
-    unsigned long dwLowDateTime;
-    unsigned long dwHighDateTime;
-};
 
 struct D2BnExtraWorkPacketStrc
 {

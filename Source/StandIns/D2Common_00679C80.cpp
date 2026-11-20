@@ -1,3 +1,4 @@
+#include "D2Path.h"
 // Functional replacement for the function at 0x00679C80, not the original code: only the ordinary build (tools/link.py) uses it.
 // The other functions in this file are copies that give it its callees and their calling conventions; the build links their verified definitions instead.
 
@@ -9,18 +10,6 @@ enum D2C_PathConstants
 };
 
 struct D2ActiveRoomStrc;
-
-struct D2PathPointStrc
-{
-    unsigned short X;
-    unsigned short Y;
-};
-
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 struct D2StaticPathStrc
 {

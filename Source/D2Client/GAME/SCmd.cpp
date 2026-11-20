@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2GameClient.h"
 #include "D2Primitives.h"
 #include "D2Constants.h"
 #include "D2DataTbls.h"
@@ -488,14 +489,6 @@ struct D2GSPacketSrv0D
     unsigned char nY[2];
     unsigned char nHitType;
     unsigned char nUnitLifePct;
-};
-
-struct D2ClientUnitUpdateStrc
-{
-    unsigned char nUnitType;
-    unsigned char nUnitGUID[4];
-    unsigned char nX[2];
-    unsigned char nY[2];
 };
 
 struct D2GSPacketSrv16
