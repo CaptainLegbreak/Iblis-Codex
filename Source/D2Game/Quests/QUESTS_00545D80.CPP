@@ -65,9 +65,9 @@ struct D2QuestIntroTableStrc
     unsigned char pad0x05[3];
 };
 
-extern D2QuestInitTableStrc gpQuestInitTable_00731510[];                                                    // 0x00731510
+extern D2QuestInitTableStrc sgQuestInit[];                                                    // 0x00731510
 extern int gnQuestInitTableCount_00731888;                                                                  // 0x00731888
-extern D2QuestIntroTableStrc gpQuestIntroTable_0073188C[];                                                  // 0x0073188C
+extern D2QuestIntroTableStrc sgQuestIntro[];                                                  // 0x0073188C
 extern int gnQuestIntroTableCount_007318AC;                                                                 // 0x007318AC
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
@@ -110,14 +110,14 @@ void __fastcall QUESTS_QuestInit(D2GameStrc* pGame)
     for (i = 0; i < gnQuestInitTableCount_00731888; ++i)
     {
         pCurrent = (D2QuestDataStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2QuestDataStrc), gszQuestsSourceFile, 0x195, 0);
-        QUESTS_InitQuestData(pCurrent, pGame, gpQuestInitTable_00731510[i].nChainNo, gpQuestInitTable_00731510[i].nAct);
+        QUESTS_InitQuestData(pCurrent, pGame, sgQuestInit[i].nChainNo, sgQuestInit[i].nAct);
         pCurrent->pPrev = pPrev;
         pPrev = pCurrent;
 
-        if (gpQuestInitTable_00731510[i].pfInit)
+        if (sgQuestInit[i].pfInit)
         {
-            D2_ASSERT(!IsBadCodePtr((FARPROC)gpQuestInitTable_00731510[i].pfInit), 0x19B);
-            gpQuestInitTable_00731510[i].pfInit(pCurrent);
+            D2_ASSERT(!IsBadCodePtr((FARPROC)sgQuestInit[i].pfInit), 0x19B);
+            sgQuestInit[i].pfInit(pCurrent);
         }
     }
 
@@ -131,14 +131,14 @@ void __fastcall QUESTS_QuestInit(D2GameStrc* pGame)
         pCurrent->bActive = 1;
         pCurrent->fLastState = 0;
         pCurrent->bNotIntro = 0;
-        pCurrent->nActNo = gpQuestIntroTable_0073188C[i].nAct;
+        pCurrent->nActNo = sgQuestIntro[i].nAct;
         pCurrent->pPrev = pPrev;
         pPrev = pCurrent;
 
-        if (gpQuestIntroTable_0073188C[i].pfInit)
+        if (sgQuestIntro[i].pfInit)
         {
-            D2_ASSERT(!IsBadCodePtr((FARPROC)gpQuestIntroTable_0073188C[i].pfInit), 0x1AD);
-            gpQuestIntroTable_0073188C[i].pfInit(pCurrent);
+            D2_ASSERT(!IsBadCodePtr((FARPROC)sgQuestIntro[i].pfInit), 0x1AD);
+            sgQuestIntro[i].pfInit(pCurrent);
         }
     }
 

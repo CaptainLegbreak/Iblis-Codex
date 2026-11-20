@@ -143,7 +143,7 @@ typedef int (__stdcall* FARPROC)();
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x006CC34C
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern D2ObjectPopulateStrc gObjectThemeTable_00731E68[7]; // 0x00731E68
-extern OBJECTPOPULATEFN gpfObjectPopulateTable_00731D00[10]; // 0x00731D00
+extern OBJECTPOPULATEFN sgPopulateTable[10]; // 0x00731D00
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 D2LevelsTxt* __stdcall DATATBLS_GetLevelsTxtRecord(int nLevelId); // 0x0061DB70
@@ -424,12 +424,12 @@ void __fastcall OBJECTS_PopulationHandler(D2GameStrc* pGame, D2ActiveRoomStrc* p
                 if (nRoll < nAccumulatedProbability && pObjectsTxtRecord->nGore <= gnObjectGoreLevel_00731BBC)
                 {
                     D2_ASSERT(pObjectsTxtRecord->nPopulateFn < 10, 0xC43);
-                    if (gpfObjectPopulateTable_00731D00[pObjectsTxtRecord->nPopulateFn])
+                    if (sgPopulateTable[pObjectsTxtRecord->nPopulateFn])
                     {
-                        D2_ASSERT(!IsBadCodePtr((FARPROC)gpfObjectPopulateTable_00731D00[pObjectsTxtRecord->nPopulateFn]), 0xC46);
+                        D2_ASSERT(!IsBadCodePtr((FARPROC)sgPopulateTable[pObjectsTxtRecord->nPopulateFn]), 0xC46);
                         const unsigned char nDensity = pObjGroupTxtRecord->nDensity[j];
                         D2_ASSERT(nDensity < 128, 0xC47);
-                        gpfObjectPopulateTable_00731D00[pObjectsTxtRecord->nPopulateFn](pGame, pRoom, nDensity, nObjectId, 100);
+                        sgPopulateTable[pObjectsTxtRecord->nPopulateFn](pGame, pRoom, nDensity, nObjectId, 100);
                     }
                     break;
                 }

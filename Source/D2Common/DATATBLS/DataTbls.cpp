@@ -699,7 +699,7 @@ int __fastcall sub_006119F0_SkillsCalcParamCallback(char* szText, int* pResult, 
 
 D2DifficultyLevelsTxt* gpDifficultylevelsTxt; // 0x0096C8AC
 
-D2RuneDataTbl gRuneDataTables; // 0x0096CA98
+D2RuneDataTbl sgtRuneWordsTblDesc; // 0x0096CA98
 
 inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int nSkillId)
 {
@@ -828,14 +828,14 @@ void __stdcall DATATBLS_AddOrChangeRunesTxtRecord(int nRecordId, D2RunesTxt* pRe
     D2RunesTxt* pTmp = 0;
     int nSize = 0;
 
-    if (gRuneDataTables.nRunesTxtRecordCount <= nRecordId)
+    if (sgtRuneWordsTblDesc.nRunesTxtRecordCount <= nRecordId)
     {
-        pRunesTxt = gRuneDataTables.pRunesTxt;
+        pRunesTxt = sgtRuneWordsTblDesc.pRunesTxt;
         nSize = sizeof(D2RunesTxt) * (nRecordId + 1);
 
         if (DATATBLS_LoadFromBin)
         {
-            pRunesTxt = (D2RunesTxt*)((char*)gRuneDataTables.pRunesTxt - 4);
+            pRunesTxt = (D2RunesTxt*)((char*)sgtRuneWordsTblDesc.pRunesTxt - 4);
             nSize += 4;
         }
 
@@ -846,13 +846,13 @@ void __stdcall DATATBLS_AddOrChangeRunesTxtRecord(int nRecordId, D2RunesTxt* pRe
             *(int*)pTmp = nRecordId + 1;
             pTmp = (D2RunesTxt*)((char*)pTmp + 4);
         }
-        gRuneDataTables.pRunesTxt = pTmp;
+        sgtRuneWordsTblDesc.pRunesTxt = pTmp;
 
-        memset(&pTmp[gRuneDataTables.nRunesTxtRecordCount], 0, sizeof(D2RunesTxt) * (nRecordId - gRuneDataTables.nRunesTxtRecordCount));
-        gRuneDataTables.nRunesTxtRecordCount = nRecordId + 1;
+        memset(&pTmp[sgtRuneWordsTblDesc.nRunesTxtRecordCount], 0, sizeof(D2RunesTxt) * (nRecordId - sgtRuneWordsTblDesc.nRunesTxtRecordCount));
+        sgtRuneWordsTblDesc.nRunesTxtRecordCount = nRecordId + 1;
     }
 
-    gRuneDataTables.pRunesTxt[nRecordId] = *pRecord;
+    sgtRuneWordsTblDesc.pRunesTxt[nRecordId] = *pRecord;
 }
 
 // 0x00640E90

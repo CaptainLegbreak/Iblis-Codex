@@ -38,7 +38,7 @@ struct D2OverlayTxt
 };
 
 
-extern D2DataTablesStrc gtDataTables_0096BC30; // 0x0096BC30
+extern D2DataTablesStrc sgtDataTables; // 0x0096BC30
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 void __stdcall DATATBLS_UnloadBin(void* pBinFile); // 0x006125C0
 
@@ -62,9 +62,9 @@ static D2OverlayTxt* DATATBLS_GetOverlayTxtRecord(int nOverlay)
 // 0x00664530
 void __fastcall DATATBLS_UnloadOverlayTxt()
 {
-    FOG_FreeLinker(gtDataTables_0096BC30.pOverlayLinker);
-    DATATBLS_UnloadBin(gtDataTables_0096BC30.pOverlayTxt);
-    gtDataTables_0096BC30.pOverlayTxt = 0;
+    FOG_FreeLinker(sgtDataTables.pOverlayLinker);
+    DATATBLS_UnloadBin(sgtDataTables.pOverlayTxt);
+    sgtDataTables.pOverlayTxt = 0;
 }
 
 // 0x00664560

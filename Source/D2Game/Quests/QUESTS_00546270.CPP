@@ -75,7 +75,7 @@ void __fastcall D2GAME_SendPacket0x28_6FC3F2F0(D2ClientStrc* pClient, unsigned c
 void __fastcall QUESTS_SendCurrentFlags(D2GameStrc* pGame, D2ClientStrc* pClient);                          // 0x00544520
 void __fastcall sub_0053DFE0_SendPacket0x89(D2ClientStrc* pClient, D2GSPacketSrv89* pPacket);               // 0x0053DFE0
 extern "C" const char gszQuestsSourceFile[];                                                                // 0x006E0BE4
-extern D2QuestInitTableStrc gpQuestInitTable_00731510[];                                                    // 0x00731510
+extern D2QuestInitTableStrc sgQuestInit[];                                                    // 0x00731510
 
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId)
 {
@@ -126,7 +126,7 @@ void __fastcall QUESTS_SequenceCycler(D2GameStrc* pGame, D2UnitStrc* pPlayer, in
             {
                 for (int i = 0; i < gnQuestInitTableCount_00731888; ++i)
                 {
-                    D2QuestInitTableStrc* pQuestInit = &gpQuestInitTable_00731510[i];
+                    D2QuestInitTableStrc* pQuestInit = &sgQuestInit[i];
                     D2_ASSERT(pQuestInit->nAct < 5, 0x637);
                     if (!pQuestInit->bNoSetState
                         && (QUESTRECORD_GetQuestState(pQuestFlags, pQuestInit->nQuestNo, 0)
@@ -134,7 +134,7 @@ void __fastcall QUESTS_SequenceCycler(D2GameStrc* pGame, D2UnitStrc* pPlayer, in
                     {
                         sub_00544410_ClearQuestIntroState(pGame, pQuestInit->nChainNo);
                         ++anActQuests[pQuestInit->nAct];
-                        QUESTRECORD_SetQuestState(pQuestControl->pQuestFlags, gpQuestInitTable_00731510[i].nQuestNo, 15);
+                        QUESTRECORD_SetQuestState(pQuestControl->pQuestFlags, sgQuestInit[i].nQuestNo, 15);
                     }
                 }
             }
@@ -187,7 +187,7 @@ void __fastcall QUESTS_SequenceCycler(D2GameStrc* pGame, D2UnitStrc* pPlayer, in
     packet5E.nHeader = 0x5E;
     for (int i = 0; i < gnQuestInitTableCount_00731888; ++i)
     {
-        D2QuestDataStrc* pQuest = QUESTS_GetQuestData(pGame, gpQuestInitTable_00731510[i].nChainNo);
+        D2QuestDataStrc* pQuest = QUESTS_GetQuestData(pGame, sgQuestInit[i].nChainNo);
         D2_ASSERT(pQuest, 0x67C);
         packet5E.unk0x001[i] = pQuest->bNotIntro;
     }

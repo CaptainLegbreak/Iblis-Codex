@@ -54,7 +54,7 @@ enum
 
 extern "C" const char gszTxtField_version[];                                                                // 0x006DCCF0
 extern "C" const char gszTxtField_end[];                                                                    // 0x006D9060
-extern D2DataTablesStrc gD2DataTables;                                                                      // 0x0096BC30
+extern D2DataTablesStrc sgtDataTables;                                                                      // 0x0096BC30
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);                          // 0x006829C0
 void* __stdcall DATATBLS_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pTbl, int* pRecordCount, int nRecordSize);// 0x006122F0
@@ -87,32 +87,32 @@ void __fastcall DATATBLS_LoadMagicSuffix_Prefix_AutomagicTxt(void* hArchive)
         { "rare", TXTFIELD_BYTE, 0, 100, 0 },
         { "maxlevel", TXTFIELD_DWORD, 0, 96, 0 },
         { "levelreq", TXTFIELD_BYTE, 0, 101, 0 },
-        { "classspecific", TXTFIELD_CODETOBYTE, 0, 102, &gD2DataTables.pPlayerClassLinker },
-        { "class", TXTFIELD_CODETOBYTE, 0, 103, &gD2DataTables.pPlayerClassLinker },
+        { "classspecific", TXTFIELD_CODETOBYTE, 0, 102, &sgtDataTables.pPlayerClassLinker },
+        { "class", TXTFIELD_CODETOBYTE, 0, 103, &sgtDataTables.pPlayerClassLinker },
         { "classlevelreq", TXTFIELD_BYTE, 0, 104, 0 },
-        { "itype1", TXTFIELD_CODETOWORD, 0, 106, &gD2DataTables.pItemTypesLinker },
-        { "itype2", TXTFIELD_CODETOWORD, 0, 108, &gD2DataTables.pItemTypesLinker },
-        { "itype3", TXTFIELD_CODETOWORD, 0, 110, &gD2DataTables.pItemTypesLinker },
-        { "itype4", TXTFIELD_CODETOWORD, 0, 112, &gD2DataTables.pItemTypesLinker },
-        { "itype5", TXTFIELD_CODETOWORD, 0, 114, &gD2DataTables.pItemTypesLinker },
-        { "itype6", TXTFIELD_CODETOWORD, 0, 116, &gD2DataTables.pItemTypesLinker },
-        { "itype7", TXTFIELD_CODETOWORD, 0, 118, &gD2DataTables.pItemTypesLinker },
-        { "etype1", TXTFIELD_CODETOWORD, 0, 120, &gD2DataTables.pItemTypesLinker },
-        { "etype2", TXTFIELD_CODETOWORD, 0, 122, &gD2DataTables.pItemTypesLinker },
-        { "etype3", TXTFIELD_CODETOWORD, 0, 124, &gD2DataTables.pItemTypesLinker },
-        { "etype4", TXTFIELD_CODETOWORD, 0, 126, &gD2DataTables.pItemTypesLinker },
-        { "etype5", TXTFIELD_CODETOWORD, 0, 128, &gD2DataTables.pItemTypesLinker },
-        { "transformcolor", TXTFIELD_CODETOBYTE, 0, 86, &gD2DataTables.pColorsLinker },
+        { "itype1", TXTFIELD_CODETOWORD, 0, 106, &sgtDataTables.pItemTypesLinker },
+        { "itype2", TXTFIELD_CODETOWORD, 0, 108, &sgtDataTables.pItemTypesLinker },
+        { "itype3", TXTFIELD_CODETOWORD, 0, 110, &sgtDataTables.pItemTypesLinker },
+        { "itype4", TXTFIELD_CODETOWORD, 0, 112, &sgtDataTables.pItemTypesLinker },
+        { "itype5", TXTFIELD_CODETOWORD, 0, 114, &sgtDataTables.pItemTypesLinker },
+        { "itype6", TXTFIELD_CODETOWORD, 0, 116, &sgtDataTables.pItemTypesLinker },
+        { "itype7", TXTFIELD_CODETOWORD, 0, 118, &sgtDataTables.pItemTypesLinker },
+        { "etype1", TXTFIELD_CODETOWORD, 0, 120, &sgtDataTables.pItemTypesLinker },
+        { "etype2", TXTFIELD_CODETOWORD, 0, 122, &sgtDataTables.pItemTypesLinker },
+        { "etype3", TXTFIELD_CODETOWORD, 0, 124, &sgtDataTables.pItemTypesLinker },
+        { "etype4", TXTFIELD_CODETOWORD, 0, 126, &sgtDataTables.pItemTypesLinker },
+        { "etype5", TXTFIELD_CODETOWORD, 0, 128, &sgtDataTables.pItemTypesLinker },
+        { "transformcolor", TXTFIELD_CODETOBYTE, 0, 86, &sgtDataTables.pColorsLinker },
         { "frequency", TXTFIELD_BYTE, 0, 130, 0 },
-        { "mod1code", TXTFIELD_NAMETODWORD, 0, 36, &gD2DataTables.pPropertiesLinker },
+        { "mod1code", TXTFIELD_NAMETODWORD, 0, 36, &sgtDataTables.pPropertiesLinker },
         { "mod1param", TXTFIELD_CALCTODWORD, 0, 40, (void*)DATATBLS_ItemParamLinker },
         { "mod1min", TXTFIELD_DWORD, 0, 44, 0 },
         { "mod1max", TXTFIELD_DWORD, 0, 48, 0 },
-        { "mod2code", TXTFIELD_NAMETODWORD, 0, 52, &gD2DataTables.pPropertiesLinker },
+        { "mod2code", TXTFIELD_NAMETODWORD, 0, 52, &sgtDataTables.pPropertiesLinker },
         { "mod2param", TXTFIELD_CALCTODWORD, 0, 56, (void*)DATATBLS_ItemParamLinker },
         { "mod2min", TXTFIELD_DWORD, 0, 60, 0 },
         { "mod2max", TXTFIELD_DWORD, 0, 64, 0 },
-        { "mod3code", TXTFIELD_NAMETODWORD, 0, 68, &gD2DataTables.pPropertiesLinker },
+        { "mod3code", TXTFIELD_NAMETODWORD, 0, 68, &sgtDataTables.pPropertiesLinker },
         { "mod3param", TXTFIELD_CALCTODWORD, 0, 72, (void*)DATATBLS_ItemParamLinker },
         { "mod3min", TXTFIELD_DWORD, 0, 76, 0 },
         { "mod3max", TXTFIELD_DWORD, 0, 80, 0 },
@@ -123,21 +123,21 @@ void __fastcall DATATBLS_LoadMagicSuffix_Prefix_AutomagicTxt(void* hArchive)
     pMagicPrefix = (D2MagicAffixTxt*)DATATBLS_CompileTxt(hArchive, "magicprefix", pTbl, &nPrefixRecords, sizeof(D2MagicAffixTxt));
     pAutoMagic = (D2MagicAffixTxt*)DATATBLS_CompileTxt(hArchive, "automagic", pTbl, &nAutoMagicRecords, sizeof(D2MagicAffixTxt));
 
-    gD2DataTables.pMagicAffixDataTables.nMagicAffixTxtRecordCount = nSuffixRecords + nPrefixRecords + nAutoMagicRecords;
-    gD2DataTables.pMagicAffixDataTables.pMagicAffixTxt = (D2MagicAffixTxt*)FOG_AllocPool(0, sizeof(D2MagicAffixTxt) * gD2DataTables.pMagicAffixDataTables.nMagicAffixTxtRecordCount, ".\\DATATBLS\\ItemTbls.cpp", 663, 0);
+    sgtDataTables.pMagicAffixDataTables.nMagicAffixTxtRecordCount = nSuffixRecords + nPrefixRecords + nAutoMagicRecords;
+    sgtDataTables.pMagicAffixDataTables.pMagicAffixTxt = (D2MagicAffixTxt*)FOG_AllocPool(0, sizeof(D2MagicAffixTxt) * sgtDataTables.pMagicAffixDataTables.nMagicAffixTxtRecordCount, ".\\DATATBLS\\ItemTbls.cpp", 663, 0);
 
-    gD2DataTables.pMagicAffixDataTables.pMagicSuffix = gD2DataTables.pMagicAffixDataTables.pMagicAffixTxt;
-    memcpy(gD2DataTables.pMagicAffixDataTables.pMagicAffixTxt, pMagicSuffix, sizeof(D2MagicAffixTxt) * nSuffixRecords);
-    memcpy(gD2DataTables.pMagicAffixDataTables.pMagicPrefix = &gD2DataTables.pMagicAffixDataTables.pMagicSuffix[nSuffixRecords], pMagicPrefix, sizeof(D2MagicAffixTxt) * nPrefixRecords);
-    memcpy(gD2DataTables.pMagicAffixDataTables.pAutoMagic = &gD2DataTables.pMagicAffixDataTables.pMagicPrefix[nPrefixRecords], pAutoMagic, sizeof(D2MagicAffixTxt) * nAutoMagicRecords);
+    sgtDataTables.pMagicAffixDataTables.pMagicSuffix = sgtDataTables.pMagicAffixDataTables.pMagicAffixTxt;
+    memcpy(sgtDataTables.pMagicAffixDataTables.pMagicAffixTxt, pMagicSuffix, sizeof(D2MagicAffixTxt) * nSuffixRecords);
+    memcpy(sgtDataTables.pMagicAffixDataTables.pMagicPrefix = &sgtDataTables.pMagicAffixDataTables.pMagicSuffix[nSuffixRecords], pMagicPrefix, sizeof(D2MagicAffixTxt) * nPrefixRecords);
+    memcpy(sgtDataTables.pMagicAffixDataTables.pAutoMagic = &sgtDataTables.pMagicAffixDataTables.pMagicPrefix[nPrefixRecords], pAutoMagic, sizeof(D2MagicAffixTxt) * nAutoMagicRecords);
 
     DATATBLS_UnloadBin(pMagicSuffix);
     DATATBLS_UnloadBin(pMagicPrefix);
     DATATBLS_UnloadBin(pAutoMagic);
 
     const wchar_t* pUnicode = 0;
-    for (int i = 0; i < gD2DataTables.pMagicAffixDataTables.nMagicAffixTxtRecordCount; ++i)
+    for (int i = 0; i < sgtDataTables.pMagicAffixDataTables.nMagicAffixTxtRecordCount; ++i)
     {
-        gD2DataTables.pMagicAffixDataTables.pMagicAffixTxt[i].wTblIndex = sub_00524D30_FindString(gD2DataTables.pMagicAffixDataTables.pMagicAffixTxt[i].szName, &pUnicode);
+        sgtDataTables.pMagicAffixDataTables.pMagicAffixTxt[i].wTblIndex = sub_00524D30_FindString(sgtDataTables.pMagicAffixDataTables.pMagicAffixTxt[i].szName, &pUnicode);
     }
 }

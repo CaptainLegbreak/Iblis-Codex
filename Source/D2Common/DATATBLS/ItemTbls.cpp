@@ -125,7 +125,7 @@ extern int gnUniqueitemsTxtRecordCount; // 0x0096C858
 extern D2ItemDataTbl gItemDataTables; // 0x0096CA58
 extern unsigned short* gpIndexOldToCurrent_0096CA78; // 0x0096CA78
 extern D2GemDataTbl gGemDataTables; // 0x0096CA90
-extern D2RuneDataTbl gRuneDataTables; // 0x0096CA98
+extern D2RuneDataTbl sgtRuneWordsTblDesc; // 0x0096CA98
 extern D2ItemRatioDataTbl gItemRatioDataTables; // 0x0096CC48
 extern D2QualityItemDataTbl gQualityItemDataTables; // 0x0096CC50
 extern D2LowQualityItemDataTbl gLowQualityItemDataTables; // 0x0096CC58
@@ -239,7 +239,7 @@ short __stdcall sub_00524D30_FindString(const char* szReference, const Unicode**
 void __fastcall DATATBLS_ItemParamLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn); // 0x006336A0
 
 
-extern D2DataTablesStrc gD2DataTables; // 0x0096BC30
+extern D2DataTablesStrc sgtDataTables; // 0x0096BC30
 
 D2TxtLinkStrc* gpItemsLinker_0096BCC4; // 0x0096BCC4
 
@@ -540,9 +540,9 @@ int gnSetsTxtRecordCount; // 0x0096C840
 
 int gnSetItemsTxtRecordCount; // 0x0096C84C
 
-D2MagicAffixDataTbl gMagicAffixDataTables; // 0x0096CA7C
+D2MagicAffixDataTbl sgtMagicItemModsDataTblDesc; // 0x0096CA7C
 
-D2RareAffixDataTbl gRareAffixDataTables; // 0x0096CAA0
+D2RareAffixDataTbl sgtRareItemModsDataTblDesc; // 0x0096CAA0
 
 D2GambleDataTbl gGambleDataTables; // 0x0096CAB0
 
@@ -670,60 +670,60 @@ void __fastcall DATATBLS_ItemParamLinker(char* pSrc, void* pRecord, int nOffset,
 // 0x00633EA0
 void __fastcall DATATBLS_UnloadMagicSuffix_Prefix_AutomagicTxt()
 {
-    if (gMagicAffixDataTables.pMagicAffixTxt)
+    if (sgtMagicItemModsDataTblDesc.pMagicAffixTxt)
     {
-        sub_0040B480(0, gMagicAffixDataTables.pMagicAffixTxt, ".\\DATATBLS\\ItemTbls.cpp", 695, 0);
+        sub_0040B480(0, sgtMagicItemModsDataTblDesc.pMagicAffixTxt, ".\\DATATBLS\\ItemTbls.cpp", 695, 0);
     }
-    gMagicAffixDataTables.pMagicAffixTxt = 0;
+    sgtMagicItemModsDataTblDesc.pMagicAffixTxt = 0;
 }
 
 // 0x00633ED0
 D2MagicAffixDataTbl* __stdcall DATATBLS_GetMagicAffixDataTables()
 {
-    return &gMagicAffixDataTables;
+    return &sgtMagicItemModsDataTblDesc;
 }
 
 // 0x00633EE0
 D2MagicAffixTxt* __stdcall DATATBLS_GetMagicAffixTxtRecord(int nIndex)
 {
-    ITEM_ASSERT(gMagicAffixDataTables.pMagicAffixTxt, 712);
-    if (nIndex > gMagicAffixDataTables.nMagicAffixTxtRecordCount || nIndex <= 0)
+    ITEM_ASSERT(sgtMagicItemModsDataTblDesc.pMagicAffixTxt, 712);
+    if (nIndex > sgtMagicItemModsDataTblDesc.nMagicAffixTxtRecordCount || nIndex <= 0)
     {
         return 0;
     }
     else
     {
-        return &gMagicAffixDataTables.pMagicAffixTxt[nIndex - 1];
+        return &sgtMagicItemModsDataTblDesc.pMagicAffixTxt[nIndex - 1];
     }
 }
 
 // 0x00634220
 void __fastcall DATATBLS_UnloadRareSuffix_PrefixTxt()
 {
-    if (gRareAffixDataTables.pRareAffixTxt)
+    if (sgtRareItemModsDataTblDesc.pRareAffixTxt)
     {
-        sub_0040B480(0, gRareAffixDataTables.pRareAffixTxt, ".\\DATATBLS\\ItemTbls.cpp", 779, 0);
+        sub_0040B480(0, sgtRareItemModsDataTblDesc.pRareAffixTxt, ".\\DATATBLS\\ItemTbls.cpp", 779, 0);
     }
-    gRareAffixDataTables.pRareAffixTxt = 0;
+    sgtRareItemModsDataTblDesc.pRareAffixTxt = 0;
 }
 
 // 0x00634250
 D2RareAffixDataTbl* __fastcall DATATBLS_GetRareAffixDataTables()
 {
-    return &gRareAffixDataTables;
+    return &sgtRareItemModsDataTblDesc;
 }
 
 // 0x00634260
 D2RareAffixTxt* __stdcall DATATBLS_GetRareAffixTxtRecord(int nId)
 {
-    if (nId > gRareAffixDataTables.nRareAffixTxtRecordCount || nId <= 0)
+    if (nId > sgtRareItemModsDataTblDesc.nRareAffixTxtRecordCount || nId <= 0)
     {
         return 0;
     }
     else
     {
-        ITEM_ASSERT(gRareAffixDataTables.pRareAffixTxt, 799);
-        return &gRareAffixDataTables.pRareAffixTxt[nId - 1];
+        ITEM_ASSERT(sgtRareItemModsDataTblDesc.pRareAffixTxt, 799);
+        return &sgtRareItemModsDataTblDesc.pRareAffixTxt[nId - 1];
     }
 }
 
@@ -1362,84 +1362,84 @@ void __fastcall DATATBLS_LoadRunesTxt(HD2ARCHIVE hArchive)
         { "rune name", TXTFIELD_ASCII, 63, 0x40, NULL },
         { "complete", TXTFIELD_BYTE, 0, 0x80, NULL },
         { "server", TXTFIELD_BYTE, 0, 0x81, NULL },
-        { "itype1", TXTFIELD_CODETOWORD, 0, 0x86, &gD2DataTables.pItemTypesLinker },
-        { "itype2", TXTFIELD_CODETOWORD, 0, 0x88, &gD2DataTables.pItemTypesLinker },
-        { "itype3", TXTFIELD_CODETOWORD, 0, 0x8a, &gD2DataTables.pItemTypesLinker },
-        { "itype4", TXTFIELD_CODETOWORD, 0, 0x8c, &gD2DataTables.pItemTypesLinker },
-        { "itype5", TXTFIELD_CODETOWORD, 0, 0x8e, &gD2DataTables.pItemTypesLinker },
-        { "itype6", TXTFIELD_CODETOWORD, 0, 0x90, &gD2DataTables.pItemTypesLinker },
-        { "etype1", TXTFIELD_CODETOWORD, 0, 0x92, &gD2DataTables.pItemTypesLinker },
-        { "etype2", TXTFIELD_CODETOWORD, 0, 0x94, &gD2DataTables.pItemTypesLinker },
-        { "etype3", TXTFIELD_CODETOWORD, 0, 0x96, &gD2DataTables.pItemTypesLinker },
-        { "rune1", TXTFIELD_UNKNOWN3, 0, 0x98, &gD2DataTables.pItemsLinker },
-        { "rune2", TXTFIELD_UNKNOWN3, 0, 0x9c, &gD2DataTables.pItemsLinker },
-        { "rune3", TXTFIELD_UNKNOWN3, 0, 0xa0, &gD2DataTables.pItemsLinker },
-        { "rune4", TXTFIELD_UNKNOWN3, 0, 0xa4, &gD2DataTables.pItemsLinker },
-        { "rune5", TXTFIELD_UNKNOWN3, 0, 0xa8, &gD2DataTables.pItemsLinker },
-        { "rune6", TXTFIELD_UNKNOWN3, 0, 0xac, &gD2DataTables.pItemsLinker },
-        { "t1code1", TXTFIELD_NAMETODWORD, 0, 0xb0, &gD2DataTables.pPropertiesLinker },
+        { "itype1", TXTFIELD_CODETOWORD, 0, 0x86, &sgtDataTables.pItemTypesLinker },
+        { "itype2", TXTFIELD_CODETOWORD, 0, 0x88, &sgtDataTables.pItemTypesLinker },
+        { "itype3", TXTFIELD_CODETOWORD, 0, 0x8a, &sgtDataTables.pItemTypesLinker },
+        { "itype4", TXTFIELD_CODETOWORD, 0, 0x8c, &sgtDataTables.pItemTypesLinker },
+        { "itype5", TXTFIELD_CODETOWORD, 0, 0x8e, &sgtDataTables.pItemTypesLinker },
+        { "itype6", TXTFIELD_CODETOWORD, 0, 0x90, &sgtDataTables.pItemTypesLinker },
+        { "etype1", TXTFIELD_CODETOWORD, 0, 0x92, &sgtDataTables.pItemTypesLinker },
+        { "etype2", TXTFIELD_CODETOWORD, 0, 0x94, &sgtDataTables.pItemTypesLinker },
+        { "etype3", TXTFIELD_CODETOWORD, 0, 0x96, &sgtDataTables.pItemTypesLinker },
+        { "rune1", TXTFIELD_UNKNOWN3, 0, 0x98, &sgtDataTables.pItemsLinker },
+        { "rune2", TXTFIELD_UNKNOWN3, 0, 0x9c, &sgtDataTables.pItemsLinker },
+        { "rune3", TXTFIELD_UNKNOWN3, 0, 0xa0, &sgtDataTables.pItemsLinker },
+        { "rune4", TXTFIELD_UNKNOWN3, 0, 0xa4, &sgtDataTables.pItemsLinker },
+        { "rune5", TXTFIELD_UNKNOWN3, 0, 0xa8, &sgtDataTables.pItemsLinker },
+        { "rune6", TXTFIELD_UNKNOWN3, 0, 0xac, &sgtDataTables.pItemsLinker },
+        { "t1code1", TXTFIELD_NAMETODWORD, 0, 0xb0, &sgtDataTables.pPropertiesLinker },
         { "t1param1", TXTFIELD_CALCTODWORD, 0, 0xb4, DATATBLS_ItemParamLinker },
         { "t1min1", TXTFIELD_DWORD, 0, 0xb8, NULL },
         { "t1max1", TXTFIELD_DWORD, 0, 0xbc, NULL },
-        { "t1code2", TXTFIELD_NAMETODWORD, 0, 0xc0, &gD2DataTables.pPropertiesLinker },
+        { "t1code2", TXTFIELD_NAMETODWORD, 0, 0xc0, &sgtDataTables.pPropertiesLinker },
         { "t1param2", TXTFIELD_CALCTODWORD, 0, 0xc4, DATATBLS_ItemParamLinker },
         { "t1min2", TXTFIELD_DWORD, 0, 0xc8, NULL },
         { "t1max2", TXTFIELD_DWORD, 0, 0xcc, NULL },
-        { "t1code3", TXTFIELD_NAMETODWORD, 0, 0xd0, &gD2DataTables.pPropertiesLinker },
+        { "t1code3", TXTFIELD_NAMETODWORD, 0, 0xd0, &sgtDataTables.pPropertiesLinker },
         { "t1param3", TXTFIELD_CALCTODWORD, 0, 0xd4, DATATBLS_ItemParamLinker },
         { "t1min3", TXTFIELD_DWORD, 0, 0xd8, NULL },
         { "t1max3", TXTFIELD_DWORD, 0, 0xdc, NULL },
-        { "t1code4", TXTFIELD_NAMETODWORD, 0, 0xe0, &gD2DataTables.pPropertiesLinker },
+        { "t1code4", TXTFIELD_NAMETODWORD, 0, 0xe0, &sgtDataTables.pPropertiesLinker },
         { "t1param4", TXTFIELD_CALCTODWORD, 0, 0xe4, DATATBLS_ItemParamLinker },
         { "t1min4", TXTFIELD_DWORD, 0, 0xe8, NULL },
         { "t1max4", TXTFIELD_DWORD, 0, 0xec, NULL },
-        { "t1code5", TXTFIELD_NAMETODWORD, 0, 0xf0, &gD2DataTables.pPropertiesLinker },
+        { "t1code5", TXTFIELD_NAMETODWORD, 0, 0xf0, &sgtDataTables.pPropertiesLinker },
         { "t1param5", TXTFIELD_CALCTODWORD, 0, 0xf4, DATATBLS_ItemParamLinker },
         { "t1min5", TXTFIELD_DWORD, 0, 0xf8, NULL },
         { "t1max5", TXTFIELD_DWORD, 0, 0xfc, NULL },
-        { "t1code6", TXTFIELD_NAMETODWORD, 0, 0x100, &gD2DataTables.pPropertiesLinker },
+        { "t1code6", TXTFIELD_NAMETODWORD, 0, 0x100, &sgtDataTables.pPropertiesLinker },
         { "t1param6", TXTFIELD_CALCTODWORD, 0, 0x104, DATATBLS_ItemParamLinker },
         { "t1min6", TXTFIELD_DWORD, 0, 0x108, NULL },
         { "t1max6", TXTFIELD_DWORD, 0, 0x10c, NULL },
-        { "t1code7", TXTFIELD_NAMETODWORD, 0, 0x110, &gD2DataTables.pPropertiesLinker },
+        { "t1code7", TXTFIELD_NAMETODWORD, 0, 0x110, &sgtDataTables.pPropertiesLinker },
         { "t1param7", TXTFIELD_CALCTODWORD, 0, 0x114, DATATBLS_ItemParamLinker },
         { "t1min7", TXTFIELD_DWORD, 0, 0x118, NULL },
         { "t1max7", TXTFIELD_DWORD, 0, 0x11c, NULL },
         { "end", TXTFIELD_NONE, 0, 0, NULL },
     };
 
-    gD2DataTables.pRunesLinker = sub_006BD040_AllocBlock(".\\DATATBLS\\ItemTbls.cpp", 2303);
+    sgtDataTables.pRunesLinker = sub_006BD040_AllocBlock(".\\DATATBLS\\ItemTbls.cpp", 2303);
 
     D2_ASSERT(!sub_00639420(hArchive, "runessrv", ".txt"), 2308);
     D2_ASSERT(!sub_00639420(hArchive, "runessrv", ".bin"), 2312);
     D2_ASSERT(!sub_00639420(hArchive, "runessrv", ".xls"), 2316);
 
-    gD2DataTables.pRuneDataTables.pRunesTxt = (D2RunesTxt*)DATATBLS_CompileTxt(hArchive, "runes", pTbl, &gD2DataTables.pRuneDataTables.nRunesTxtRecordCount, sizeof(D2RunesTxt));
+    sgtDataTables.pRuneDataTables.pRunesTxt = (D2RunesTxt*)DATATBLS_CompileTxt(hArchive, "runes", pTbl, &sgtDataTables.pRuneDataTables.nRunesTxtRecordCount, sizeof(D2RunesTxt));
 
     const Unicode* pUnicode = NULL;
     int i = 0;
-    if (i < gD2DataTables.pRuneDataTables.nRunesTxtRecordCount)
+    if (i < sgtDataTables.pRuneDataTables.nRunesTxtRecordCount)
     {
         hArchive = NULL;
         do
         {
-            ((D2RunesTxt*)((char*)gD2DataTables.pRuneDataTables.pRunesTxt + (int)hArchive))->wStringId = sub_00524D30_FindString(((D2RunesTxt*)((char*)gD2DataTables.pRuneDataTables.pRunesTxt + (int)hArchive))->szName, &pUnicode);
+            ((D2RunesTxt*)((char*)sgtDataTables.pRuneDataTables.pRunesTxt + (int)hArchive))->wStringId = sub_00524D30_FindString(((D2RunesTxt*)((char*)sgtDataTables.pRuneDataTables.pRunesTxt + (int)hArchive))->szName, &pUnicode);
             hArchive = (char*)hArchive + sizeof(D2RunesTxt);
             ++i;
         }
-        while (i < gD2DataTables.pRuneDataTables.nRunesTxtRecordCount);
+        while (i < sgtDataTables.pRuneDataTables.nRunesTxtRecordCount);
     }
 }
 
 // 0x00639C90
 void __fastcall DATATBLS_UnloadRunesTxt()
 {
-    DATATBLS_UnloadBin(gRuneDataTables.pRunesTxt);
+    DATATBLS_UnloadBin(sgtRuneWordsTblDesc.pRunesTxt);
     FOG_FreeLinker(gpRunesLinker);
 }
 
 // 0x00639CB0
 D2RuneDataTbl* __fastcall DATATBLS_GetRuneDataTables()
 {
-    return &gRuneDataTables;
+    return &sgtRuneWordsTblDesc;
 }

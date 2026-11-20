@@ -14,7 +14,7 @@ struct D2BeltsTxt
     D2InvRectStrc beltBoxes[16];
 };
 
-extern D2BeltsTxt* gpBeltsTxtTable;                                                                                // 0x0096D4F8
+extern D2BeltsTxt* sgptBeltInitStats;                                                                                // 0x0096D4F8
 void __stdcall DATATBLS_UnloadBin(void* pBinFile);                                                               // 0x006125C0
 extern "C" const char gszEmptyAssertText;                                                                         // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                              // 0x00408090
@@ -26,14 +26,14 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 // @ref 0x00660C60
 void __fastcall DATATBLS_UnloadBeltsTxt()
 {
-    DATATBLS_UnloadBin(gpBeltsTxtTable);
+    DATATBLS_UnloadBin(sgptBeltInitStats);
 }
 
 // 0x00660C70
 static D2BeltsTxt* sub_00660C70(int nIndex)
 {
-    BELTS_ASSERT(gpBeltsTxtTable, 121);
-    D2BeltsTxt* pBeltsTxtRecord = &gpBeltsTxtTable[nIndex];
+    BELTS_ASSERT(sgptBeltInitStats, 121);
+    D2BeltsTxt* pBeltsTxtRecord = &sgptBeltInitStats[nIndex];
     BELTS_ASSERT(pBeltsTxtRecord, 122);
     return pBeltsTxtRecord;
 }
@@ -41,8 +41,8 @@ static D2BeltsTxt* sub_00660C70(int nIndex)
 // @ref 0x00660CB0
 void __stdcall DATATBLS_GetBeltsTxtRecord(int nIndex, int bHigherRes, D2BeltsTxt* pRecord)
 {
-    BELTS_ASSERT(&gpBeltsTxtTable[nIndex], 131);
-    *pRecord = gpBeltsTxtTable[nIndex + 7 * bHigherRes];
+    BELTS_ASSERT(&sgptBeltInitStats[nIndex], 131);
+    *pRecord = sgptBeltInitStats[nIndex + 7 * bHigherRes];
 }
 
 // @ref 0x00660D10

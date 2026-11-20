@@ -116,9 +116,9 @@ static void sub_00481720_FinishCacheLoad(D2ClientCacheEntryStrc* pEntry)
 
 int* gpSongTable_007BC99C; // 0x007BC99C
 
-static D2SoundsTxtStrc* gpSoundsTxt_007BC9A0; // 0x007BC9A0
+static D2SoundsTxtStrc* sgptSoundHeaderTable; // 0x007BC9A0
 
-D2SoundEnvironTxtStrc* gpSoundEnvironTxt_007BC9A8; // 0x007BC9A8
+D2SoundEnvironTxtStrc* sgptSoundEnvironTable; // 0x007BC9A8
 
 int gnSoundEnvironTxtRecordCount_007BC9AC; // 0x007BC9AC
 
@@ -184,8 +184,8 @@ void __cdecl sub_00481950_LoadSoundTables()
         { "end", 0, 0, 0, 0 },
     };
 
-    D2_ASSERT(!gpSoundsTxt_007BC9A0, 0xFC);
-    D2_ASSERT(!gpSoundEnvironTxt_007BC9A8, 0xFD);
+    D2_ASSERT(!sgptSoundHeaderTable, 0xFC);
+    D2_ASSERT(!sgptSoundEnvironTable, 0xFD);
 
     char szPath[260];
     int nSize;
@@ -194,7 +194,7 @@ void __cdecl sub_00481950_LoadSoundTables()
     D2BinFileStrc* pBinFile = FOG_CreateBinFile(pData, nSize);
     gnSoundsTxtRecordCount_007BC9A4 = FOG_GetRecordCountFromBinFile(pBinFile);
     D2SoundsTxtStrc* pSounds = (D2SoundsTxtStrc*)FOG_Alloc(gnSoundsTxtRecordCount_007BC9A4 * sizeof(D2SoundsTxtStrc), ".\\Sound\\SoundHdr.cpp", 0x106, 0);
-    gpSoundsTxt_007BC9A0 = pSounds;
+    sgptSoundHeaderTable = pSounds;
     memset(pSounds, 0, gnSoundsTxtRecordCount_007BC9A4 * sizeof(D2SoundsTxtStrc));
     FOG_10207(pBinFile, pTbl2, pSounds, gnSoundsTxtRecordCount_007BC9A4, sizeof(D2SoundsTxtStrc));
     FOG_FreeBinFile(pBinFile);
@@ -204,7 +204,7 @@ void __cdecl sub_00481950_LoadSoundTables()
     pBinFile = FOG_CreateBinFile(pData, nSize);
     gnSoundEnvironTxtRecordCount_007BC9AC = FOG_GetRecordCountFromBinFile(pBinFile);
     D2SoundEnvironTxtStrc* pSoundEnviron = (D2SoundEnvironTxtStrc*)FOG_Alloc(gnSoundEnvironTxtRecordCount_007BC9AC * sizeof(D2SoundEnvironTxtStrc), ".\\Sound\\SoundHdr.cpp", 0x112, 0);
-    gpSoundEnvironTxt_007BC9A8 = pSoundEnviron;
+    sgptSoundEnvironTable = pSoundEnviron;
     memset(pSoundEnviron, 0, gnSoundEnvironTxtRecordCount_007BC9AC * sizeof(D2SoundEnvironTxtStrc));
     FOG_10207(pBinFile, pTbl, pSoundEnviron, gnSoundEnvironTxtRecordCount_007BC9AC, sizeof(D2SoundEnvironTxtStrc));
     FOG_FreeBinFile(pBinFile);
@@ -213,7 +213,7 @@ void __cdecl sub_00481950_LoadSoundTables()
     int nGroupSize = 1;
     for (int i = 1; i < gnSoundsTxtRecordCount_007BC9A4; ++i)
     {
-        D2SoundsTxtStrc* pSound = &gpSoundsTxt_007BC9A0[i];
+        D2SoundsTxtStrc* pSound = &sgptSoundHeaderTable[i];
         if (nGroupStart && i >= nGroupStart && i < nGroupSize + nGroupStart)
             pSound->f_60 = nGroupStart;
         else
@@ -238,7 +238,7 @@ void __cdecl sub_00481950_LoadSoundTables()
         pSound->f_80 = nBlocks;
     }
 
-    D2SoundEnvironTxtStrc* pEnv = gpSoundEnvironTxt_007BC9A8;
+    D2SoundEnvironTxtStrc* pEnv = sgptSoundEnvironTable;
     gnSongMin_007BC9B0 = gnSoundsTxtRecordCount_007BC9A4;
     gnSongMax_007BC9B4 = 0;
     for (int j = 0; j < gnSoundEnvironTxtRecordCount_007BC9AC; ++j, ++pEnv)

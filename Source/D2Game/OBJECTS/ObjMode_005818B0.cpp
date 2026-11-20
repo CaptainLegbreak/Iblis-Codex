@@ -180,7 +180,7 @@ struct D2ShrineTableStrc
 };
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-extern const D2ShrineTableStrc gpShrineTable_006E1850[]; // 0x006E1850
+extern const D2ShrineTableStrc sgcptShrineChart[]; // 0x006E1850
 D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
 int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem); // 0x0062B400
 int __stdcall SKILLS_GetWeaponMasteryBonus(D2UnitStrc* pUnit, D2UnitStrc* pItem, D2SkillStrc* pSkill, int nType); // 0x00645830
@@ -612,7 +612,7 @@ void __fastcall D2GAME_SHRINES_CombatBoost_6FC77690(D2ObjOperateFnStrc* pOp, D2S
 {
     D2_ASSERT(pShrinesTxtRecord->nCode < gnShrineTableCount_00732EAC, 0x9C1);
 
-    const D2ShrineTableStrc* pShrineRecord = &gpShrineTable_006E1850[pShrinesTxtRecord->nCode];
+    const D2ShrineTableStrc* pShrineRecord = &sgcptShrineChart[pShrinesTxtRecord->nCode];
     const int nValue = OBJMODE_CalculateShrineStatBonus(0x13, pShrinesTxtRecord->dwArg0, pOp->pPlayer);
     D2StatListStrc* pStatList = sub_00582800_ApplyShrineCurse(pOp->pObject, pOp->pPlayer, pShrinesTxtRecord->dwDurationInFrames, pShrinesTxtRecord->dwArg1, 0x19, pShrineRecord->unk0x08, 0);
     sub_006270B0(pStatList, 0x13, nValue, 0);
@@ -622,7 +622,7 @@ void __fastcall D2GAME_SHRINES_Stamina_6FC779C0(D2ObjOperateFnStrc* pOp, D2Shrin
 {
     D2_ASSERT(pShrinesTxtRecord->nCode < gnShrineTableCount_00732EAC, 0x9E7);
 
-    const D2ShrineTableStrc* pShrineRecord = &gpShrineTable_006E1850[pShrinesTxtRecord->nCode];
+    const D2ShrineTableStrc* pShrineRecord = &sgcptShrineChart[pShrinesTxtRecord->nCode];
     const int nMaxStamina = STATLIST_GetMaxStaminaFromUnit(pOp->pPlayer);
     STATLIST_SetUnitStat(pOp->pPlayer, 0x0A, nMaxStamina, 0);
     const int nStatValue = OBJMODE_CalculateShrineStatBonus(pShrineRecord->unk0x04, pShrinesTxtRecord->dwArg0, pOp->pPlayer);
@@ -636,7 +636,7 @@ void __fastcall D2GAME_SHRINES_DefensiveBoost_6FC77AE0(D2ObjOperateFnStrc* pOp, 
 {
     D2_ASSERT(pShrinesTxtRecord->nCode < gnShrineTableCount_00732EAC, 0x9F9);
 
-    const D2ShrineTableStrc* pShrineRecord = &gpShrineTable_006E1850[pShrinesTxtRecord->nCode];
+    const D2ShrineTableStrc* pShrineRecord = &sgcptShrineChart[pShrinesTxtRecord->nCode];
     const int nStatValue = pShrineRecord->unk0x04 != -1 ? OBJMODE_CalculateShrineStatBonus(pShrineRecord->unk0x04, pShrinesTxtRecord->dwArg0, pOp->pPlayer) : 0;
 
     sub_00582800_ApplyShrineCurse(pOp->pObject, pOp->pPlayer, pShrinesTxtRecord->dwDurationInFrames, nStatValue, pShrineRecord->unk0x04, pShrineRecord->unk0x08, 0);

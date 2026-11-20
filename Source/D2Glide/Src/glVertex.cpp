@@ -16,7 +16,7 @@ struct D2GlideSettingsStrc
     int bPerspectiveEnabled;
     int bPerspectiveCapable;
 };
-extern unsigned char* gpGlideSmackBuffer_00880BF0; // 0x00880BF0
+extern unsigned char* sgbSmack8BitBuffer; // 0x00880BF0
 extern D2GlideSettingsStrc* gpGfxSettings_007C9148; // 0x007C9148
 
 // 0x0050DB20
@@ -103,9 +103,9 @@ void __cdecl sub_0050DF70_GlideSmackFree()
         FOG_Free(gpGlideSmackBufferC_00880B74, ".\\Src\\glSmack.cpp", 91, 0);
         gpGlideSmackBufferC_00880B74 = 0;
     }
-    if (gpGlideSmackBuffer_00880BF0)
+    if (sgbSmack8BitBuffer)
     {
-        FOG_Free(gpGlideSmackBuffer_00880BF0, ".\\Src\\glSmack.cpp", 96, 0);
-        gpGlideSmackBuffer_00880BF0 = 0;
+        FOG_Free(sgbSmack8BitBuffer, ".\\Src\\glSmack.cpp", 96, 0);
+        sgbSmack8BitBuffer = 0;
     }
 }

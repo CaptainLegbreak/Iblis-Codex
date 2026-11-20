@@ -76,7 +76,7 @@ extern D2GrTexInfoStrc gGlideFloorTexInfo_0072F6BC; // 0x0072F6BC
 extern unsigned char* gpGlideSmackBufferB_00880B70; // 0x00880B70
 extern unsigned char* gpGlideSmackBufferC_00880B74; // 0x00880B74
 extern T00508FE0 gaGlideSmackVertices_00880B78[4]; // 0x00880B78
-extern unsigned char* gpGlideSmackBuffer_00880BF0; // 0x00880BF0
+extern unsigned char* sgbSmack8BitBuffer; // 0x00880BF0
 extern unsigned char* gpGlideTileDecodeBuffer_00880BFC; // 0x00880BFC
 extern unsigned char* gpGlideFloorDecodeBuffer_00880C00; // 0x00880C00
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
@@ -156,7 +156,7 @@ void __cdecl sub_0050DF10_GlideSmackInit()
     gaGlideSmackVertices_00880B78[3].dwColor = 0xFFFFFFFF;
     gpGlideSmackBufferB_00880B70 = (unsigned char*)FOG_Alloc(0x8000, ".\\Src\\glSmack.cpp", 0x47, 0);
     gpGlideSmackBufferC_00880B74 = (unsigned char*)FOG_Alloc(0x8000, ".\\Src\\glSmack.cpp", 0x48, 0);
-    gpGlideSmackBuffer_00880BF0 = (unsigned char*)FOG_Alloc(0x8000, ".\\Src\\glSmack.cpp", 0x49, 0);
+    sgbSmack8BitBuffer = (unsigned char*)FOG_Alloc(0x8000, ".\\Src\\glSmack.cpp", 0x49, 0);
 }
 
 static D2GlideTexCacheEntryStrc* sub_N19_TexPopHead(D2GlideTexCacheStrc* pCache)
@@ -260,7 +260,7 @@ static unsigned short PackRgb565(int red, int green, int blue)
 // 0x0050E070
 void __fastcall sub_0050E070_GlideSetSmackPalette(D2RgbColorStrc* colors)
 {
- const unsigned char* source=gpGlideSmackBuffer_00880BF0;
+ const unsigned char* source=sgbSmack8BitBuffer;
  unsigned short* left=(unsigned short*)gpGlideSmackBufferB_00880B70;
  unsigned short* right=(unsigned short*)gpGlideSmackBufferC_00880B74;
  for(int y=0;y<64;++y){
@@ -274,13 +274,13 @@ void __fastcall sub_0050E070_GlideSetSmackPalette(D2RgbColorStrc* colors)
  }
 }
 
-unsigned char* gpGlideSmackBuffer_00880BF0; // 0x00880BF0
+unsigned char* sgbSmack8BitBuffer; // 0x00880BF0
 
 // 0x0050E5D0
 void __fastcall sub_0050E5D0_GlideDecodeSmacker(const char* szFile, D2GlideSmackStrc* pSmack, unsigned char nType)
 {
-    D2_ASSERT(gpGlideSmackBuffer_00880BF0, 142);
-    memset(gpGlideSmackBuffer_00880BF0, 0, 0x8000);
+    D2_ASSERT(sgbSmack8BitBuffer, 142);
+    memset(sgbSmack8BitBuffer, 0, 0x8000);
     memset(gpGlideSmackBufferB_00880B70, 0, 0x8000);
     memset(gpGlideSmackBufferC_00880B74, 0, 0x8000);
     if (!gbRenderPaused_007C9144)
@@ -301,7 +301,7 @@ void __fastcall sub_0050E5D0_GlideDecodeSmacker(const char* szFile, D2GlideSmack
         {
             break;
         }
-        SmackToBuffer(pSmack->f_0, 0, 0, 0x200, 0x40, gpGlideSmackBuffer_00880BF0, 0);
+        SmackToBuffer(pSmack->f_0, 0, 0, 0x200, 0x40, sgbSmack8BitBuffer, 0);
         return;
 
     case 'p':
@@ -317,7 +317,7 @@ void __fastcall sub_0050E5D0_GlideDecodeSmacker(const char* szFile, D2GlideSmack
         int nWidth;
         int nHeight;
         int nDepth;
-        const int bDecoded = sub_006C6A80_DecodeImage(2, pBuffer, nSize, aPalette, gpGlideSmackBuffer_00880BF0, 0x6DB0, &nWidth, &nHeight, &nDepth);
+        const int bDecoded = sub_006C6A80_DecodeImage(2, pBuffer, nSize, aPalette, sgbSmack8BitBuffer, 0x6DB0, &nWidth, &nHeight, &nDepth);
         SMemFree(pBuffer, ".\\Src\\glSmack.cpp", 219, 0);
         if (!bDecoded || nWidth != 468 || nHeight != 60 || nDepth != 8)
         {
@@ -334,7 +334,7 @@ void __fastcall sub_0050E5D0_GlideDecodeSmacker(const char* szFile, D2GlideSmack
 
         for (int y = 59; y > 0; --y)
         {
-            memmove(&gpGlideSmackBuffer_00880BF0[y * 0x200], &gpGlideSmackBuffer_00880BF0[y * nWidth], nWidth);
+            memmove(&sgbSmack8BitBuffer[y * 0x200], &sgbSmack8BitBuffer[y * nWidth], nWidth);
         }
 
         sub_0050E070_GlideSetSmackPalette(aColors);

@@ -27,7 +27,7 @@ typedef D2UnitStrc* (__fastcall* OBJECTPOPULATEFN)(D2GameStrc* pGame, D2ActiveRo
 D2SeedStrc* __fastcall OBJRGN_GetObjectControlFromGame(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom);         // 0x00546FA0
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId);                                        // 0x00640E90
 
-extern OBJECTPOPULATEFN gpfObjectPopulateTable_00731D00[10];                                                // 0x00731D00
+extern OBJECTPOPULATEFN sgPopulateTable[10];                                                // 0x00731D00
 
 // 0x005528E0
 void __fastcall sub_005528E0_PopulateObjectGroup(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nObjGroup)
@@ -63,13 +63,13 @@ void __fastcall sub_005528E0_PopulateObjectGroup(D2GameStrc* pGame, D2ActiveRoom
         {
             D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(nObjectId);
             D2_ASSERT(pObjectsTxtRecord->nPopulateFn < 10, 0xCA8);
-            if (!gpfObjectPopulateTable_00731D00[pObjectsTxtRecord->nPopulateFn])
+            if (!sgPopulateTable[pObjectsTxtRecord->nPopulateFn])
             {
                 return;
             }
-            D2_ASSERT(!IsBadCodePtr((FARPROC)gpfObjectPopulateTable_00731D00[pObjectsTxtRecord->nPopulateFn]), 0xCAB);
+            D2_ASSERT(!IsBadCodePtr((FARPROC)sgPopulateTable[pObjectsTxtRecord->nPopulateFn]), 0xCAB);
             D2_ASSERT(pObjGroupTxtRecord->nDensity[i] < 0x80, 0xCAC);
-            gpfObjectPopulateTable_00731D00[pObjectsTxtRecord->nPopulateFn](pGame, pRoom, pObjGroupTxtRecord->nDensity[i], nObjectId, 100);
+            sgPopulateTable[pObjectsTxtRecord->nPopulateFn](pGame, pRoom, pObjGroupTxtRecord->nDensity[i], nObjectId, 100);
             return;
         }
     }

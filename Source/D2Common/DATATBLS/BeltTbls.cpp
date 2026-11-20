@@ -8,7 +8,7 @@ struct D2BinFieldStrc
     int nFieldOffset;
     void* pLinker;
 };
-extern void* gpBeltsTxtTable;                                                                               // 0x0096D4F8
+extern void* sgptBeltInitStats;                                                                               // 0x0096D4F8
 void* __stdcall DATATBLS_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pTbl, int* pRecordCount, int nRecordSize);// 0x006122F0
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -89,6 +89,6 @@ void __fastcall DATATBLS_LoadBeltsTxt(void* hArchive)
         { gszTxtField_end, 0, 0, 0, 0 },
     };
 
-    gpBeltsTxtTable = DATATBLS_CompileTxt(hArchive, "belts", pTbl, &nRecordCount, 0x108);
+    sgptBeltInitStats = DATATBLS_CompileTxt(hArchive, "belts", pTbl, &nRecordCount, 0x108);
     TBL_ASSERT(nRecordCount / 2 == 7, 106);
 }

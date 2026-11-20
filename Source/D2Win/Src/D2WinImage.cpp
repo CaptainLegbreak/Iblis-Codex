@@ -200,7 +200,7 @@ void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor,
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
 void __fastcall WREGISTER_RegisterCommand(void* hWnd, int nType, int nId, D2WinMsgHandler pCallback); // 0x00506C40
 void __fastcall WREGISTER_UnregisterCommand(void* hWnd, int nType, int nId, D2WinMsgHandler pCallback); // 0x00506CF0
-extern void* ghPentagramCellFile; // 0x0087E96C
+extern void* sghPentagram; // 0x0087E96C
 
 struct D2WinImageClickRectStrc
 {
@@ -399,7 +399,7 @@ int __fastcall LIST_Draw(D2WinControlStrc* pControl)
 
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCellFile = ghPentagramCellFile;
+    tContext.pCellFile = sghPentagram;
     tContext.unk0x40 = 0;
     tContext.nFrame = pList->field_5C;
 

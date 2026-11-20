@@ -418,7 +418,7 @@ extern int gnGlobal_007B9534; // 0x007B9534
 extern unsigned char** gppLerpRows_007B953C; // 0x007B953C
 extern int gnGlobal_007BB3AC; // 0x007BB3AC
 void __fastcall sub_004FAAE0_FreeCellFile(D2CelFileStrc* pCellFile); // 0x004FAAE0
-extern D2CelFileStrc* ghPentagramCellFile; // 0x0087E96C
+extern D2CelFileStrc* sghPentagram; // 0x0087E96C
 extern unsigned char gabBeltHotkey_007BEFB0[]; // 0x007BEFB0
 extern int gnBeltHover_007BEF94; // 0x007BEF94
 extern D2UnitStrc* gpBeltItemA_007BEFA8; // 0x007BEFA8
@@ -1666,6 +1666,6 @@ void __fastcall sub_004DC580_DrawUnitClickCross(D2UnitStrc* pUnit)
 // 0x00507140
 void __stdcall LIST_UnloadPentspinCellfile()
 {
-    sub_004FAAE0_FreeCellFile(ghPentagramCellFile);
-    ghPentagramCellFile = 0;
+    sub_004FAAE0_FreeCellFile(sghPentagram);
+    sghPentagram = 0;
 }

@@ -78,7 +78,7 @@ typedef void (__fastcall* ObjTrapHandlerFunction)(D2GameStrc* pGame, D2UnitStrc*
 
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn);                                  // 0x006CC34C
 
-extern ObjTrapHandlerFunction gpObjectTrapHandlerTable_00732CEC[];                                          // 0x00732CEC
+extern ObjTrapHandlerFunction sgObjectTrapHandlers[];                                          // 0x00732CEC
 extern D2MonStatsCountStrc* sgptDataTables;                                                                 // 0x00744304
 
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
@@ -179,11 +179,11 @@ void __fastcall D2GAME_OBJECTS_TrapHandler8_9_6FC75AC0(D2GameStrc* pGame, D2Unit
 // 0x00582510
 static void __stdcall D2GAME_SetTrapCallback_6FC764B0(unsigned char nTrapType, D2ObjOperateFnStrc* pOp)
 {
-    if (nTrapType < gnObjectTrapHandlerCount_00732D14 && gpObjectTrapHandlerTable_00732CEC[nTrapType])
+    if (nTrapType < gnObjectTrapHandlerCount_00732D14 && sgObjectTrapHandlers[nTrapType])
     {
-        D2_ASSERT(!IsBadCodePtr((FARPROC)gpObjectTrapHandlerTable_00732CEC[nTrapType]), 0x56C);
+        D2_ASSERT(!IsBadCodePtr((FARPROC)sgObjectTrapHandlers[nTrapType]), 0x56C);
 
-        if (gpObjectTrapHandlerTable_00732CEC[nTrapType] == D2GAME_OBJECTS_TrapHandler8_9_6FC75AC0
+        if (sgObjectTrapHandlers[nTrapType] == D2GAME_OBJECTS_TrapHandler8_9_6FC75AC0
             && !sub_00582250(UNITS_GetRoom(pOp->pObject), OBJRGN_GetTrapMonsterId(pOp)))
         {
             return;

@@ -14,7 +14,7 @@ struct D2BeltsTxt
     D2InvRectStrc beltBoxes[16];
 };
 
-extern D2BeltsTxt* gpBeltsTxtTable; // 0x0096D4F8
+extern D2BeltsTxt* sgptBeltInitStats; // 0x0096D4F8
 void __stdcall DATATBLS_UnloadBin(void* pBinFile); // 0x006125C0
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -25,8 +25,8 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 static D2BeltsTxt* sub_00660C70(int nIndex)
 {
-    BELTS_ASSERT(gpBeltsTxtTable, 121);
-    D2BeltsTxt* pRecord = &gpBeltsTxtTable[nIndex];
+    BELTS_ASSERT(sgptBeltInitStats, 121);
+    D2BeltsTxt* pRecord = &sgptBeltInitStats[nIndex];
     BELTS_ASSERT(pRecord, 122);
     return pRecord;
 }

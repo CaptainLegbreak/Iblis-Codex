@@ -93,7 +93,7 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-extern D2ObjInitFn gpObjInitFnTable_00731BC0[80]; // 0x00731BC0
+extern D2ObjInitFn sgInitTable[80]; // 0x00731BC0
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 
 struct D2GameStrc
@@ -341,9 +341,9 @@ void __fastcall OBJECTS_InitHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, int nU
 
     D2ObjectControlStrc* pObjectControl = OBJRGN_GetObjectControlFromGame(pGame, pRoom);
 
-    if (pObjectsTxtRecord->nInitFn < 80 && gpObjInitFnTable_00731BC0[pObjectsTxtRecord->nInitFn])
+    if (pObjectsTxtRecord->nInitFn < 80 && sgInitTable[pObjectsTxtRecord->nInitFn])
     {
-        D2_ASSERT(!IsBadCodePtr((D2FarProcFn)gpObjInitFnTable_00731BC0[pObjectsTxtRecord->nInitFn]), 0x26A);
+        D2_ASSERT(!IsBadCodePtr((D2FarProcFn)sgInitTable[pObjectsTxtRecord->nInitFn]), 0x26A);
 
         D2ObjInitFnStrc pOp;
         pOp.pGame = pGame;
@@ -353,7 +353,7 @@ void __fastcall OBJECTS_InitHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, int nU
         pOp.pObjectTxt = pObjectsTxtRecord;
         pOp.nX = nX;
         pOp.nY = nY;
-        gpObjInitFnTable_00731BC0[pObjectsTxtRecord->nInitFn](&pOp);
+        sgInitTable[pObjectsTxtRecord->nInitFn](&pOp);
     }
 
     if (pObjectsTxtRecord->nSelectable[nMode])

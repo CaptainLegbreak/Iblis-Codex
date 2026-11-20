@@ -173,7 +173,7 @@ struct D2DataTablesStrc
     int nSetItemsTxtRecordCount;
 };
 
-extern D2DataTablesStrc gD2DataTables;                                                              // 0x0096BC30
+extern D2DataTablesStrc sgtDataTables;                                                              // 0x0096BC30
 
 unsigned short __fastcall DATATBLS_GetStringIdFromReferenceString(char* szReference);               // 0x006117B0
 void __fastcall DATATBLS_ItemParamLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn);// 0x006336A0
@@ -192,186 +192,186 @@ void __fastcall DATATBLS_LoadSets_SetItemsTxt(void* hArchive)
 {
     D2BinFieldStrc pSetsTbl[] =
     {
-        { "index", 17, 0, 0, &gD2DataTables.pSetsLinker },
+        { "index", 17, 0, 0, &sgtDataTables.pSetsLinker },
         { gszTxtField_name, 22, 0, 2, (void*)DATATBLS_GetStringIdFromReferenceString },
         { "version", 3, 0, 4, 0 },
-        { "pcode2a", 19, 0, 16, &gD2DataTables.pPropertiesLinker },
+        { "pcode2a", 19, 0, 16, &sgtDataTables.pPropertiesLinker },
         { "pparam2a", 25, 0, 20, (void*)DATATBLS_ItemParamLinker },
         { "pmin2a", 2, 0, 24, 0 },
         { "pmax2a", 2, 0, 28, 0 },
-        { "pcode2b", 19, 0, 32, &gD2DataTables.pPropertiesLinker },
+        { "pcode2b", 19, 0, 32, &sgtDataTables.pPropertiesLinker },
         { "pparam2b", 25, 0, 36, (void*)DATATBLS_ItemParamLinker },
         { "pmin2b", 2, 0, 40, 0 },
         { "pmax2b", 2, 0, 44, 0 },
-        { "pcode3a", 19, 0, 48, &gD2DataTables.pPropertiesLinker },
+        { "pcode3a", 19, 0, 48, &sgtDataTables.pPropertiesLinker },
         { "pparam3a", 25, 0, 52, (void*)DATATBLS_ItemParamLinker },
         { "pmin3a", 2, 0, 56, 0 },
         { "pmax3a", 2, 0, 60, 0 },
-        { "pcode3b", 19, 0, 64, &gD2DataTables.pPropertiesLinker },
+        { "pcode3b", 19, 0, 64, &sgtDataTables.pPropertiesLinker },
         { "pparam3b", 25, 0, 68, (void*)DATATBLS_ItemParamLinker },
         { "pmin3b", 2, 0, 72, 0 },
         { "pmax3b", 2, 0, 76, 0 },
-        { "pcode4a", 19, 0, 80, &gD2DataTables.pPropertiesLinker },
+        { "pcode4a", 19, 0, 80, &sgtDataTables.pPropertiesLinker },
         { "pparam4a", 25, 0, 84, (void*)DATATBLS_ItemParamLinker },
         { "pmin4a", 2, 0, 88, 0 },
         { "pmax4a", 2, 0, 92, 0 },
-        { "pcode4b", 19, 0, 96, &gD2DataTables.pPropertiesLinker },
+        { "pcode4b", 19, 0, 96, &sgtDataTables.pPropertiesLinker },
         { "pparam4b", 25, 0, 100, (void*)DATATBLS_ItemParamLinker },
         { "pmin4b", 2, 0, 104, 0 },
         { "pmax4b", 2, 0, 108, 0 },
-        { "pcode5a", 19, 0, 112, &gD2DataTables.pPropertiesLinker },
+        { "pcode5a", 19, 0, 112, &sgtDataTables.pPropertiesLinker },
         { "pparam5a", 25, 0, 116, (void*)DATATBLS_ItemParamLinker },
         { "pmin5a", 2, 0, 120, 0 },
         { "pmax5a", 2, 0, 124, 0 },
-        { "pcode5b", 19, 0, 128, &gD2DataTables.pPropertiesLinker },
+        { "pcode5b", 19, 0, 128, &sgtDataTables.pPropertiesLinker },
         { "pparam5b", 25, 0, 132, (void*)DATATBLS_ItemParamLinker },
         { "pmin5b", 2, 0, 136, 0 },
         { "pmax5b", 2, 0, 140, 0 },
-        { "fcode1", 19, 0, 144, &gD2DataTables.pPropertiesLinker },
+        { "fcode1", 19, 0, 144, &sgtDataTables.pPropertiesLinker },
         { "fparam1", 25, 0, 148, (void*)DATATBLS_ItemParamLinker },
         { "fmin1", 2, 0, 152, 0 },
         { "fmax1", 2, 0, 156, 0 },
-        { "fcode2", 19, 0, 160, &gD2DataTables.pPropertiesLinker },
+        { "fcode2", 19, 0, 160, &sgtDataTables.pPropertiesLinker },
         { "fparam2", 25, 0, 164, (void*)DATATBLS_ItemParamLinker },
         { "fmin2", 2, 0, 168, 0 },
         { "fmax2", 2, 0, 172, 0 },
-        { "fcode3", 19, 0, 176, &gD2DataTables.pPropertiesLinker },
+        { "fcode3", 19, 0, 176, &sgtDataTables.pPropertiesLinker },
         { "fparam3", 25, 0, 180, (void*)DATATBLS_ItemParamLinker },
         { "fmin3", 2, 0, 184, 0 },
         { "fmax3", 2, 0, 188, 0 },
-        { "fcode4", 19, 0, 192, &gD2DataTables.pPropertiesLinker },
+        { "fcode4", 19, 0, 192, &sgtDataTables.pPropertiesLinker },
         { "fparam4", 25, 0, 196, (void*)DATATBLS_ItemParamLinker },
         { "fmin4", 2, 0, 200, 0 },
         { "fmax4", 2, 0, 204, 0 },
-        { "fcode5", 19, 0, 208, &gD2DataTables.pPropertiesLinker },
+        { "fcode5", 19, 0, 208, &sgtDataTables.pPropertiesLinker },
         { "fparam5", 25, 0, 212, (void*)DATATBLS_ItemParamLinker },
         { "fmin5", 2, 0, 216, 0 },
         { "fmax5", 2, 0, 220, 0 },
-        { "fcode6", 19, 0, 224, &gD2DataTables.pPropertiesLinker },
+        { "fcode6", 19, 0, 224, &sgtDataTables.pPropertiesLinker },
         { "fparam6", 25, 0, 228, (void*)DATATBLS_ItemParamLinker },
         { "fmin6", 2, 0, 232, 0 },
         { "fmax6", 2, 0, 236, 0 },
-        { "fcode7", 19, 0, 240, &gD2DataTables.pPropertiesLinker },
+        { "fcode7", 19, 0, 240, &sgtDataTables.pPropertiesLinker },
         { "fparam7", 25, 0, 244, (void*)DATATBLS_ItemParamLinker },
         { "fmin7", 2, 0, 248, 0 },
         { "fmax7", 2, 0, 252, 0 },
-        { "fcode8", 19, 0, 256, &gD2DataTables.pPropertiesLinker },
+        { "fcode8", 19, 0, 256, &sgtDataTables.pPropertiesLinker },
         { "fparam8", 25, 0, 260, (void*)DATATBLS_ItemParamLinker },
         { "fmin8", 2, 0, 264, 0 },
         { "fmax8", 2, 0, 268, 0 },
         { "end", 0, 0, 0, 0 },
     };
 
-    gD2DataTables.pSetsLinker = sub_006BD040_AllocBlock(gszItemTblsSourceFile, 1010);
-    gD2DataTables.pSetsTxt = (D2SetsTxt*)DATATBLS_CompileTxt(hArchive, "sets", pSetsTbl, &gD2DataTables.nSetsTxtRecordCount, sizeof(D2SetsTxt));
-    ITEM_ASSERT(gD2DataTables.nSetsTxtRecordCount < 32767, 1012);
+    sgtDataTables.pSetsLinker = sub_006BD040_AllocBlock(gszItemTblsSourceFile, 1010);
+    sgtDataTables.pSetsTxt = (D2SetsTxt*)DATATBLS_CompileTxt(hArchive, "sets", pSetsTbl, &sgtDataTables.nSetsTxtRecordCount, sizeof(D2SetsTxt));
+    ITEM_ASSERT(sgtDataTables.nSetsTxtRecordCount < 32767, 1012);
 
     D2BinFieldStrc pSetItemsTbl[] =
     {
         { "index", 1, 31, 2, 0 },
         { gszTxtField_item, 9, 0, 40, 0 },
-        { gszTxtField_set, 20, 0, 44, &gD2DataTables.pSetsLinker },
+        { gszTxtField_set, 20, 0, 44, &sgtDataTables.pSetsLinker },
         { gszTxtField_lvl, 3, 0, 48, 0 },
         { gszTxtField_lvl_req, 3, 0, 50, 0 },
         { gszTxtField_rarity, 2, 0, 52, 0 },
         { gszTxtField_cost_mult, 2, 0, 56, 0 },
         { gszTxtField_cost_add, 2, 0, 60, 0 },
-        { gszTxtField_chrtransform, 13, 0, 64, &gD2DataTables.pColorsLinker },
-        { gszTxtField_invtransform, 13, 0, 65, &gD2DataTables.pColorsLinker },
+        { gszTxtField_chrtransform, 13, 0, 64, &sgtDataTables.pColorsLinker },
+        { gszTxtField_invtransform, 13, 0, 65, &sgtDataTables.pColorsLinker },
         { gszTxtField_flippyfile, 1, 31, 66, 0 },
         { gszTxtField_invfile, 1, 31, 98, 0 },
-        { gszTxtField_dropsound, 20, 0, 130, &gD2DataTables.pSoundsLinker },
+        { gszTxtField_dropsound, 20, 0, 130, &sgtDataTables.pSoundsLinker },
         { gszTxtField_dropsfxframe, 4, 0, 134, 0 },
-        { gszTxtField_usesound, 20, 0, 132, &gD2DataTables.pSoundsLinker },
+        { gszTxtField_usesound, 20, 0, 132, &sgtDataTables.pSoundsLinker },
         { gszTxtField_add_func, 4, 0, 135, 0 },
-        { gszTxtField_prop1, 19, 0, 136, &gD2DataTables.pPropertiesLinker },
+        { gszTxtField_prop1, 19, 0, 136, &sgtDataTables.pPropertiesLinker },
         { gszTxtField_par1, 25, 0, 140, (void*)DATATBLS_ItemParamLinker },
         { gszTxtField_min1, 2, 0, 144, 0 },
         { gszTxtField_max1, 2, 0, 148, 0 },
-        { gszTxtField_prop2, 19, 0, 152, &gD2DataTables.pPropertiesLinker },
+        { gszTxtField_prop2, 19, 0, 152, &sgtDataTables.pPropertiesLinker },
         { gszTxtField_par2, 25, 0, 156, (void*)DATATBLS_ItemParamLinker },
         { gszTxtField_min2, 2, 0, 160, 0 },
         { gszTxtField_max2, 2, 0, 164, 0 },
-        { gszTxtField_prop3, 19, 0, 168, &gD2DataTables.pPropertiesLinker },
+        { gszTxtField_prop3, 19, 0, 168, &sgtDataTables.pPropertiesLinker },
         { gszTxtField_par3, 25, 0, 172, (void*)DATATBLS_ItemParamLinker },
         { gszTxtField_min3, 2, 0, 176, 0 },
         { gszTxtField_max3, 2, 0, 180, 0 },
-        { gszTxtField_prop4, 19, 0, 184, &gD2DataTables.pPropertiesLinker },
+        { gszTxtField_prop4, 19, 0, 184, &sgtDataTables.pPropertiesLinker },
         { gszTxtField_par4, 25, 0, 188, (void*)DATATBLS_ItemParamLinker },
         { gszTxtField_min4, 2, 0, 192, 0 },
         { gszTxtField_max4, 2, 0, 196, 0 },
-        { gszTxtField_prop5, 19, 0, 200, &gD2DataTables.pPropertiesLinker },
+        { gszTxtField_prop5, 19, 0, 200, &sgtDataTables.pPropertiesLinker },
         { gszTxtField_par5, 25, 0, 204, (void*)DATATBLS_ItemParamLinker },
         { gszTxtField_min5, 2, 0, 208, 0 },
         { gszTxtField_max5, 2, 0, 212, 0 },
-        { gszTxtField_prop6, 19, 0, 216, &gD2DataTables.pPropertiesLinker },
+        { gszTxtField_prop6, 19, 0, 216, &sgtDataTables.pPropertiesLinker },
         { gszTxtField_par6, 25, 0, 220, (void*)DATATBLS_ItemParamLinker },
         { gszTxtField_min6, 2, 0, 224, 0 },
         { gszTxtField_max6, 2, 0, 228, 0 },
-        { gszTxtField_prop7, 19, 0, 232, &gD2DataTables.pPropertiesLinker },
+        { gszTxtField_prop7, 19, 0, 232, &sgtDataTables.pPropertiesLinker },
         { gszTxtField_par7, 25, 0, 236, (void*)DATATBLS_ItemParamLinker },
         { gszTxtField_min7, 2, 0, 240, 0 },
         { gszTxtField_max7, 2, 0, 244, 0 },
-        { gszTxtField_prop8, 19, 0, 248, &gD2DataTables.pPropertiesLinker },
+        { gszTxtField_prop8, 19, 0, 248, &sgtDataTables.pPropertiesLinker },
         { gszTxtField_par8, 25, 0, 252, (void*)DATATBLS_ItemParamLinker },
         { gszTxtField_min8, 2, 0, 256, 0 },
         { gszTxtField_max8, 2, 0, 260, 0 },
-        { gszTxtField_prop9, 19, 0, 264, &gD2DataTables.pPropertiesLinker },
+        { gszTxtField_prop9, 19, 0, 264, &sgtDataTables.pPropertiesLinker },
         { gszTxtField_par9, 25, 0, 268, (void*)DATATBLS_ItemParamLinker },
         { gszTxtField_min9, 2, 0, 272, 0 },
         { gszTxtField_max9, 2, 0, 276, 0 },
-        { gszTxtField_aprop1a, 19, 0, 280, &gD2DataTables.pPropertiesLinker },
+        { gszTxtField_aprop1a, 19, 0, 280, &sgtDataTables.pPropertiesLinker },
         { gszTxtField_apar1a, 25, 0, 284, (void*)DATATBLS_ItemParamLinker },
         { gszTxtField_amin1a, 2, 0, 288, 0 },
         { gszTxtField_amax1a, 2, 0, 292, 0 },
-        { gszTxtField_aprop1b, 19, 0, 296, &gD2DataTables.pPropertiesLinker },
+        { gszTxtField_aprop1b, 19, 0, 296, &sgtDataTables.pPropertiesLinker },
         { gszTxtField_apar1b, 25, 0, 300, (void*)DATATBLS_ItemParamLinker },
         { gszTxtField_amin1b, 2, 0, 304, 0 },
         { gszTxtField_amax1b, 2, 0, 308, 0 },
-        { gszTxtField_aprop2a, 19, 0, 312, &gD2DataTables.pPropertiesLinker },
+        { gszTxtField_aprop2a, 19, 0, 312, &sgtDataTables.pPropertiesLinker },
         { gszTxtField_apar2a, 25, 0, 316, (void*)DATATBLS_ItemParamLinker },
         { gszTxtField_amin2a, 2, 0, 320, 0 },
         { gszTxtField_amax2a, 2, 0, 324, 0 },
-        { gszTxtField_aprop2b, 19, 0, 328, &gD2DataTables.pPropertiesLinker },
+        { gszTxtField_aprop2b, 19, 0, 328, &sgtDataTables.pPropertiesLinker },
         { gszTxtField_apar2b, 25, 0, 332, (void*)DATATBLS_ItemParamLinker },
         { gszTxtField_amin2b, 2, 0, 336, 0 },
         { gszTxtField_amax2b, 2, 0, 340, 0 },
-        { gszTxtField_aprop3a, 19, 0, 344, &gD2DataTables.pPropertiesLinker },
+        { gszTxtField_aprop3a, 19, 0, 344, &sgtDataTables.pPropertiesLinker },
         { gszTxtField_apar3a, 25, 0, 348, (void*)DATATBLS_ItemParamLinker },
         { gszTxtField_amin3a, 2, 0, 352, 0 },
         { gszTxtField_amax3a, 2, 0, 356, 0 },
-        { gszTxtField_aprop3b, 19, 0, 360, &gD2DataTables.pPropertiesLinker },
+        { gszTxtField_aprop3b, 19, 0, 360, &sgtDataTables.pPropertiesLinker },
         { gszTxtField_apar3b, 25, 0, 364, (void*)DATATBLS_ItemParamLinker },
         { gszTxtField_amin3b, 2, 0, 368, 0 },
         { gszTxtField_amax3b, 2, 0, 372, 0 },
-        { gszTxtField_aprop4a, 19, 0, 376, &gD2DataTables.pPropertiesLinker },
+        { gszTxtField_aprop4a, 19, 0, 376, &sgtDataTables.pPropertiesLinker },
         { gszTxtField_apar4a, 25, 0, 380, (void*)DATATBLS_ItemParamLinker },
         { gszTxtField_amin4a, 2, 0, 384, 0 },
         { gszTxtField_amax4a, 2, 0, 388, 0 },
-        { gszTxtField_aprop4b, 19, 0, 392, &gD2DataTables.pPropertiesLinker },
+        { gszTxtField_aprop4b, 19, 0, 392, &sgtDataTables.pPropertiesLinker },
         { gszTxtField_apar4b, 25, 0, 396, (void*)DATATBLS_ItemParamLinker },
         { gszTxtField_amin4b, 2, 0, 400, 0 },
         { gszTxtField_amax4b, 2, 0, 404, 0 },
-        { gszTxtField_aprop5a, 19, 0, 408, &gD2DataTables.pPropertiesLinker },
+        { gszTxtField_aprop5a, 19, 0, 408, &sgtDataTables.pPropertiesLinker },
         { gszTxtField_apar5a, 25, 0, 412, (void*)DATATBLS_ItemParamLinker },
         { gszTxtField_amin5a, 2, 0, 416, 0 },
         { gszTxtField_amax5a, 2, 0, 420, 0 },
-        { gszTxtField_aprop5b, 19, 0, 424, &gD2DataTables.pPropertiesLinker },
+        { gszTxtField_aprop5b, 19, 0, 424, &sgtDataTables.pPropertiesLinker },
         { gszTxtField_apar5b, 25, 0, 428, (void*)DATATBLS_ItemParamLinker },
         { gszTxtField_amin5b, 2, 0, 432, 0 },
         { gszTxtField_amax5b, 2, 0, 436, 0 },
         { gszTxtField_end, 0, 0, 0, 0 },
     };
 
-    gD2DataTables.pSetItemsLinker = sub_006BD040_AllocBlock(gszItemTblsSourceFile, 1117);
-    gD2DataTables.pSetItemsTxt = (D2SetItemsTxt*)DATATBLS_CompileTxt(hArchive, gszTxtName_setitems, pSetItemsTbl, &gD2DataTables.nSetItemsTxtRecordCount, sizeof(D2SetItemsTxt));
-    ITEM_ASSERT(gD2DataTables.nSetItemsTxtRecordCount < 32767, 1119);
+    sgtDataTables.pSetItemsLinker = sub_006BD040_AllocBlock(gszItemTblsSourceFile, 1117);
+    sgtDataTables.pSetItemsTxt = (D2SetItemsTxt*)DATATBLS_CompileTxt(hArchive, gszTxtName_setitems, pSetItemsTbl, &sgtDataTables.nSetItemsTxtRecordCount, sizeof(D2SetItemsTxt));
+    ITEM_ASSERT(sgtDataTables.nSetItemsTxtRecordCount < 32767, 1119);
 
-    for (int i = 0; i < gD2DataTables.nSetItemsTxtRecordCount; ++i)
+    for (int i = 0; i < sgtDataTables.nSetItemsTxtRecordCount; ++i)
     {
-        D2SetItemsTxt* pSetItemsTxtRecord = &gD2DataTables.pSetItemsTxt[i];
+        D2SetItemsTxt* pSetItemsTxtRecord = &sgtDataTables.pSetItemsTxt[i];
         pSetItemsTxtRecord->wSetItemId = i;
-        FOG_10216_AddRecordToLinkingTable(gD2DataTables.pSetItemsLinker, pSetItemsTxtRecord->szName);
+        FOG_10216_AddRecordToLinkingTable(sgtDataTables.pSetItemsLinker, pSetItemsTxtRecord->szName);
         void* pUnicode = 0;
         pSetItemsTxtRecord->wStringId = sub_00524D30_FindString(pSetItemsTxtRecord->szName, &pUnicode);
         if (!pSetItemsTxtRecord->wStringId)
@@ -379,9 +379,9 @@ void __fastcall DATATBLS_LoadSets_SetItemsTxt(void* hArchive)
             pSetItemsTxtRecord->wStringId = 5383;
         }
 
-        if (pSetItemsTxtRecord->nSetId >= 0 && pSetItemsTxtRecord->nSetId < gD2DataTables.nSetsTxtRecordCount)
+        if (pSetItemsTxtRecord->nSetId >= 0 && pSetItemsTxtRecord->nSetId < sgtDataTables.nSetsTxtRecordCount)
         {
-            D2SetsTxt* pSetsTxtRecord = &gD2DataTables.pSetsTxt[pSetItemsTxtRecord->nSetId];
+            D2SetsTxt* pSetsTxtRecord = &sgtDataTables.pSetsTxt[pSetItemsTxtRecord->nSetId];
             if (pSetsTxtRecord->nSetItems < 6)
             {
                 pSetItemsTxtRecord->wVersion = pSetsTxtRecord->wVersion;

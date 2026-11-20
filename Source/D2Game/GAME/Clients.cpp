@@ -310,7 +310,7 @@ struct D2W11QuestEx5BD040Strc
 
 typedef D2UnitStrc* (__fastcall* OBJECTPOPULATEFN)(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, unsigned char nDensity, unsigned int nObjectId, unsigned short nProbability);
 
-extern OBJECTPOPULATEFN gpfObjectPopulateTable_00731D00[10]; // 0x00731D00
+extern OBJECTPOPULATEFN sgPopulateTable[10]; // 0x00731D00
 void __stdcall BITMANIP_Write(D2BitBufferStrc* pBuffer, int nValue, int nBits); // 0x00410EB0
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
@@ -1476,10 +1476,10 @@ void __fastcall sub_00552840_PopulateObject(D2GameStrc* pGame, D2ActiveRoomStrc*
         return;
     D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(nObjectId);
     D2_ASSERT(pObjectsTxtRecord->nPopulateFn < 10, 0xC7D);
-    if (gpfObjectPopulateTable_00731D00[pObjectsTxtRecord->nPopulateFn])
+    if (sgPopulateTable[pObjectsTxtRecord->nPopulateFn])
     {
-        D2_ASSERT(!IsBadCodePtr((FARPROC)gpfObjectPopulateTable_00731D00[pObjectsTxtRecord->nPopulateFn]), 0xC80);
-        gpfObjectPopulateTable_00731D00[pObjectsTxtRecord->nPopulateFn](pGame, pRoom, gnObjectPopulateDensity_00731BBD, nObjectId, 100);
+        D2_ASSERT(!IsBadCodePtr((FARPROC)sgPopulateTable[pObjectsTxtRecord->nPopulateFn]), 0xC80);
+        sgPopulateTable[pObjectsTxtRecord->nPopulateFn](pGame, pRoom, gnObjectPopulateDensity_00731BBD, nObjectId, 100);
     }
 }
 

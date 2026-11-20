@@ -71,7 +71,7 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 extern D2RecordBlockStrc gFirstRecordBlock_007A0818; // 0x007A0818
-extern D2RecordHeaderStrc gRecordHeader_007A2768; // 0x007A2768
+extern D2RecordHeaderStrc sgtReadFileHeader; // 0x007A2768
 extern int gnRecordPos_007A2784; // 0x007A2784
 extern int gbRecordPlaying_007A2788; // 0x007A2788
 
@@ -147,8 +147,8 @@ void __cdecl sub_00451710_LoadRecord()
     unsigned long nRead;
     void* hFile = CreateFileA("Record.dr1", 0x80000000, 0, 0, 3, 0x80, 0);
     ReadFile(hFile, &nMagic, 4, &nRead, 0);
-    ReadFile(hFile, &gRecordHeader_007A2768, sizeof(D2RecordHeaderStrc), &nRead, 0);
-    if (gRecordHeader_007A2768.nVersion != 1)
+    ReadFile(hFile, &sgtReadFileHeader, sizeof(D2RecordHeaderStrc), &nRead, 0);
+    if (sgtReadFileHeader.nVersion != 1)
     {
         gnRecordPos_007A2784 = 0;
         gbRecordPlaying_007A2788 = 0;
@@ -156,7 +156,7 @@ void __cdecl sub_00451710_LoadRecord()
         return;
     }
 
-    for (int i = 0; i < gRecordHeader_007A2768.nBlocks; ++i)
+    for (int i = 0; i < sgtReadFileHeader.nBlocks; ++i)
     {
         if (i)
         {
@@ -168,10 +168,10 @@ void __cdecl sub_00451710_LoadRecord()
             gpRecordBlock_0070F7A0 = pBlock;
         }
 
-        if (gRecordHeader_007A2768.nLastCount <= 500)
+        if (sgtReadFileHeader.nLastCount <= 500)
         {
-            gnRecordCount_007A2758 = gRecordHeader_007A2768.nLastCount;
-            D2_ASSERT(i + 1 == gRecordHeader_007A2768.nBlocks, 0x100);
+            gnRecordCount_007A2758 = sgtReadFileHeader.nLastCount;
+            D2_ASSERT(i + 1 == sgtReadFileHeader.nBlocks, 0x100);
         }
         else
         {

@@ -54,7 +54,7 @@ extern "C" const char gszEmptyAssertText;                                       
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
-extern D2DataTablesStrc gD2DataTables;                                                                      // 0x0096BC30
+extern D2DataTablesStrc sgtDataTables;                                                                      // 0x0096BC30
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 
 // build: symbol ?sub_0061E4A0@@YAXPBDPAD@Z 0x0061E4A0
@@ -118,10 +118,10 @@ void __fastcall sub_0061E520(void* hArchive)
         { gszTxtField_Expansion, 2, 0, 0x784, 0 },
         { gszTxtField_end, 0, 0, 0, 0 },
     };
-    D2LvlTypesTxt* pLvlTypesTxt = (D2LvlTypesTxt*)DATATBLS_CompileTxt(hArchive, "lvltypes", pTbl, &gD2DataTables.nLvlTypesTxtRecordCount, sizeof(D2LvlTypesTxt));
-    gD2DataTables.pLvlTypesTxt = pLvlTypesTxt;
+    D2LvlTypesTxt* pLvlTypesTxt = (D2LvlTypesTxt*)DATATBLS_CompileTxt(hArchive, "lvltypes", pTbl, &sgtDataTables.nLvlTypesTxtRecordCount, sizeof(D2LvlTypesTxt));
+    sgtDataTables.pLvlTypesTxt = pLvlTypesTxt;
     D2LvlTypesTxt* pRecord = pLvlTypesTxt;
-    for (int i = 0; i < gD2DataTables.nLvlTypesTxtRecordCount; ++i)
+    for (int i = 0; i < sgtDataTables.nLvlTypesTxtRecordCount; ++i)
     {
         for (int j = 0; j < 0x20; ++j)
         {
@@ -161,14 +161,14 @@ void __fastcall DATATBLS_LoadLvlPrestTxt(void* hArchive, int bLoadFiles)
         { gszTxtField_Expansion, 2, 0, 0x20, 0 },
         { gszTxtField_end, 0, 0, 0, 0 },
     };
-    gD2DataTables.pLvlPrestTxt = (D2LvlPrestTxt*)DATATBLS_CompileTxt(hArchive, "lvlprest", pTbl, &gD2DataTables.nLvlPrestTxtRecordCount, sizeof(D2LvlPrestTxt));
+    sgtDataTables.pLvlPrestTxt = (D2LvlPrestTxt*)DATATBLS_CompileTxt(hArchive, "lvlprest", pTbl, &sgtDataTables.nLvlPrestTxtRecordCount, sizeof(D2LvlPrestTxt));
     if (bLoadFiles)
     {
         const int nSize = sizeof(D2DrlgFileStrc*) * 6 * sgptDataTables->nLvlPrestTxtRecordCount;
-        gD2DataTables.ppLvlPrestFiles = (D2DrlgFileStrc**)FOG_Alloc(nSize, ".\\DATATBLS\\LvlTbls.cpp", 0x2A7, 0);
-        memset(gD2DataTables.ppLvlPrestFiles, 0, nSize);
+        sgtDataTables.ppLvlPrestFiles = (D2DrlgFileStrc**)FOG_Alloc(nSize, ".\\DATATBLS\\LvlTbls.cpp", 0x2A7, 0);
+        memset(sgtDataTables.ppLvlPrestFiles, 0, nSize);
     }
-    D2LvlPrestTxt* pRecord = gD2DataTables.pLvlPrestTxt;
+    D2LvlPrestTxt* pRecord = sgtDataTables.pLvlPrestTxt;
     const int bExpansion = sub_00408F20_HasExpansionMpq();
     for (int i = 0; i < sgptDataTables->nLvlPrestTxtRecordCount; ++i, ++pRecord)
     {
@@ -178,7 +178,7 @@ void __fastcall DATATBLS_LoadLvlPrestTxt(void* hArchive, int bLoadFiles)
             {
                 sub_0061E4A0("DATA\\GLOBAL\\TILES", pRecord->szFile[j]);
                 if (bLoadFiles && strlen(pRecord->szFile[j]) > 1)
-                    DRLGPRESET_LoadDrlgFile(&gD2DataTables.ppLvlPrestFiles[j + 6 * i], 0, pRecord->szFile[j]);
+                    DRLGPRESET_LoadDrlgFile(&sgtDataTables.ppLvlPrestFiles[j + 6 * i], 0, pRecord->szFile[j]);
             }
         }
     }

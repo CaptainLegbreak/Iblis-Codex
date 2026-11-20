@@ -385,7 +385,7 @@ void __fastcall sub_0053D830_SendPacket0x5E(D2ClientStrc* pClient, D2GSPacketSrv
 void __fastcall D2GAME_SendPacket0x28_6FC3F2F0(D2ClientStrc* pClient, unsigned char nHeader, unsigned char a3, int a4, D2BitBufferStrc* a5, unsigned char a6); // 0x0053D670
 void __fastcall QUESTS_SendCurrentFlags(D2GameStrc* pGame, D2ClientStrc* pClient); // 0x00544520
 void __fastcall sub_0053DFE0_SendPacket0x89(D2ClientStrc* pClient, D2GSPacketSrv89* pPacket); // 0x0053DFE0
-extern D2QuestInitTableStrc gpQuestInitTable_00731510[]; // 0x00731510
+extern D2QuestInitTableStrc sgQuestInit[]; // 0x00731510
 int __fastcall QUESTS_FXIterate(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg); // 0x005456F0
 int __fastcall ACT2Q6_ActivateTomb(D2GameStrc* pGame, D2CoordStrc* pCoord, D2ActiveRoomStrc** ppRoom); // 0x0059DFD0
 void __fastcall ACT3Q5_SpawnCouncil(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005BB550
@@ -1490,14 +1490,14 @@ void __fastcall QUESTS_SequenceCycler(D2GameStrc* pGame, D2UnitStrc* pPlayer, in
             {
                 for (int i = 0; i < gnQuestInitTableCount_00731888; ++i)
                 {
-                    D2_ASSERT(gpQuestInitTable_00731510[i].nAct < 5, 0x637);
-                    if (!gpQuestInitTable_00731510[i].bNoSetState
-                        && (QUESTRECORD_GetQuestState(pQuestFlags, gpQuestInitTable_00731510[i].nQuestNo, 0)
-                            || QUESTRECORD_GetQuestState(pQuestFlags, gpQuestInitTable_00731510[i].nQuestNo, 15)))
+                    D2_ASSERT(sgQuestInit[i].nAct < 5, 0x637);
+                    if (!sgQuestInit[i].bNoSetState
+                        && (QUESTRECORD_GetQuestState(pQuestFlags, sgQuestInit[i].nQuestNo, 0)
+                            || QUESTRECORD_GetQuestState(pQuestFlags, sgQuestInit[i].nQuestNo, 15)))
                     {
-                        sub_00544410_ClearQuestIntroState(pGame, gpQuestInitTable_00731510[i].nChainNo);
-                        ++anActQuests[gpQuestInitTable_00731510[i].nAct];
-                        QUESTRECORD_SetQuestState(pQuestControl->pQuestFlags, gpQuestInitTable_00731510[i].nQuestNo, 15);
+                        sub_00544410_ClearQuestIntroState(pGame, sgQuestInit[i].nChainNo);
+                        ++anActQuests[sgQuestInit[i].nAct];
+                        QUESTRECORD_SetQuestState(pQuestControl->pQuestFlags, sgQuestInit[i].nQuestNo, 15);
                     }
                 }
             }
@@ -1550,7 +1550,7 @@ void __fastcall QUESTS_SequenceCycler(D2GameStrc* pGame, D2UnitStrc* pPlayer, in
     packet5E.nHeader = 0x5E;
     for (int i = 0; i < gnQuestInitTableCount_00731888; ++i)
     {
-        D2QuestDataStrc* pQuest = QUESTS_GetQuestData(pGame, gpQuestInitTable_00731510[i].nChainNo);
+        D2QuestDataStrc* pQuest = QUESTS_GetQuestData(pGame, sgQuestInit[i].nChainNo);
         D2_ASSERT(pQuest, 0x67C);
         packet5E.unk0x001[i] = pQuest->bNotIntro;
     }
