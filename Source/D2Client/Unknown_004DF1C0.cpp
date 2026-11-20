@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
+#include "D2DrlgMaps.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define SKILLS_GetSkillsTxtRecord_E1120(nSkillId) \
@@ -36,27 +37,7 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-struct D2TileLibraryEntryStrc
-{
-    unsigned int nLightDirection;
-};
 
-struct D2DrlgTileDataStrc
-{
-    int nWidth;
-    int nHeight;
-    int unk0x08[3];
-    unsigned int dwFlags;
-    D2TileLibraryEntryStrc* pTile;
-    int nTileType;
-    int unk0x20;
-    unsigned int dwLightFlags;
-    unsigned char nAlpha;
-    unsigned char nFadeFrom;
-    unsigned char nFadeTo;
-    char unk0x2B;
-    unsigned int dwLightTime;
-};
 
 struct D2TileLightNodeStrc
 {
@@ -296,38 +277,38 @@ void __fastcall sub_004DF1C0_UpdateFadingTileLights(D2TileLightCtxStrc* pCtx)
                 D2DrlgTileDataStrc* pTileData = pNode->pTileData;
                 D2_ASSERT(pTileData->nTileType != 15, 0xF9);
 
-                const unsigned int dwLightFlags = pTileData->dwLightFlags;
+                const unsigned int dwLightFlags = pTileData->dwPopFlags;
                 if (dwLightFlags & 2)
                 {
                     if (bFade)
                     {
-                        if (nTick < pTileData->dwLightTime)
+                        if (nTick < pTileData->nPopTick)
                         {
-                            pTileData->nAlpha = pTileData->nFadeFrom + (pTileData->nFadeTo - pTileData->nFadeFrom) * (int)(nTick - pTileData->dwLightTime + 500) / 500;
+                            pTileData->nRed = pTileData->nGreen + (pTileData->nBlue - pTileData->nGreen) * (int)(nTick - pTileData->nPopTick + 500) / 500;
                         }
                         else
                         {
-                            unsigned char* pAlpha = &pTileData->nAlpha;
-                            *pAlpha = pTileData->nFadeTo;
-                            pTileData->dwLightFlags = dwLightFlags & ~2;
+                            unsigned char* pAlpha = &pTileData->nRed;
+                            *pAlpha = pTileData->nBlue;
+                            pTileData->dwPopFlags = dwLightFlags & ~2;
                         }
                     }
                     else
                     {
-                        unsigned char* pAlpha = &pTileData->nAlpha;
-                        *pAlpha = pTileData->nFadeTo;
-                        pTileData->dwLightFlags = dwLightFlags & ~2;
+                        unsigned char* pAlpha = &pTileData->nRed;
+                        *pAlpha = pTileData->nBlue;
+                        pTileData->dwPopFlags = dwLightFlags & ~2;
                     }
 
-                    if (!pTileData->nAlpha)
+                    if (!pTileData->nRed)
                         pTileData->dwFlags |= 0x400;
                     else
                         pTileData->dwFlags &= ~0x400;
                 }
 
-                if ((pTileData->dwLightFlags & 4) && nTick >= pTileData->dwLightTime)
+                if ((pTileData->dwPopFlags & 4) && nTick >= pTileData->nPopTick)
                 {
-                    pTileData->dwLightFlags &= ~4;
+                    pTileData->dwPopFlags &= ~4;
                     pTileData->dwFlags |= 8;
                 }
 
@@ -338,7 +319,7 @@ void __fastcall sub_004DF1C0_UpdateFadingTileLights(D2TileLightCtxStrc* pCtx)
                     continue;
 
                 unsigned int nLights;
-                D2LightOffsetsStrc* pOffsets = sub_004DEDB0_GetLightOffsets(pTileData->pTile, &nLights, pTileData->dwLightFlags & 1);
+                D2LightOffsetsStrc* pOffsets = sub_004DEDB0_GetLightOffsets(pTileData->pTile, &nLights, pTileData->dwPopFlags & 1);
                 D2GfxLightStrc tLight;
                 for (unsigned int i = 0; i < nLights; ++i)
                 {
@@ -351,7 +332,7 @@ void __fastcall sub_004DF1C0_UpdateFadingTileLights(D2TileLightCtxStrc* pCtx)
                     tLight.aColor[i] = (nValue3 << 24) | (nValue2 << 16) | (nValue1 << 8) | nValue0;
                 }
 
-                const unsigned char nAlpha = pTileData->nAlpha;
+                const unsigned char nAlpha = pTileData->nRed;
                 int nX;
                 int nY;
                 if (bPerspective)

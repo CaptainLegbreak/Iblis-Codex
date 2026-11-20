@@ -1,5 +1,6 @@
 #include "D2Structs.h"
 #include "D2Path.h"
+#include "D2DrlgMaps.h"
 struct T00508FE0;
 struct D2GfxLightStrc
 {
@@ -13,13 +14,6 @@ struct D2GlideTileStrc
     char unk0x04[0x10];
 };
 
-struct D2TileLibraryEntryStrc
-{
-    int nLightDirection;
-    char unk0x04[0x4C];
-    int nBlocks;
-    D2GlideTileStrc* pBlocks;
-};
 
 
 struct tagRECT

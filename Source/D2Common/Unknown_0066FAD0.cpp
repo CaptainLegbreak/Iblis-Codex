@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2Drlg.h"
 #include "D2ItemsWorld.h"
+#include "D2DrlgMaps.h"
 
 struct D2PresetUnitStrc;
 
@@ -14,24 +15,6 @@ struct D2DrlgSubstGroupStrc
 };
 
 
-struct D2DrlgFileStrc
-{
-    int unk0x00;
-    int unk0x04;
-    int unk0x08;
-    int nWidth;
-    int nHeight;
-    int nWallLayers;
-    int nFloorLayers;
-    void* pTileTypeLayer[4];
-    void* pWallLayer[4];
-    void* pFloorLayer[2];
-    void* pShadowLayer;
-    int unk0x48;
-    int nSubstGroups;
-    D2DrlgSubstGroupStrc* pSubstGroups;
-    D2PresetUnitStrc* pPresetUnit;
-};
 
 struct D2LvlSubTxt
 {

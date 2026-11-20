@@ -1,4 +1,5 @@
 #include "D2Glide.h"
+#include "D2DrlgMaps.h"
 
 struct D2TileVertexStrc;
 struct D2GfxSettingsStrc;
@@ -10,13 +11,6 @@ struct D2GlideTileStrc
     char unk0x04[0x10];
 };
 
-struct D2TileLibraryEntryStrc
-{
-    int nLightDirection;
-    char unk0x04[0x4C];
-    int nBlocks;
-    D2GlideTileStrc* pBlocks;
-};
 
 extern int gnScreenWidth_007C9138; // 0x007C9138
 extern D2GlideSpriteVertexStrc gaGlideTileQuad_00880600[4]; // 0x00880600

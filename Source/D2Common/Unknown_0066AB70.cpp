@@ -1,18 +1,12 @@
 #include "D2Common.h"
 #include "D2Drlg.h"
+#include "D2DrlgMaps.h"
 
 struct D2LvlWarpTxt
 {
     int dwLevelId;
 };
 
-struct D2DrlgTileDataStrc
-{
-    char unk0x00[0x14];
-    unsigned int dwFlags;
-    char unk0x18[0x08];
-    D2DrlgTileDataStrc* unk0x20;
-};
 
 struct D2RoomTileStrc
 {
@@ -43,12 +37,12 @@ void __fastcall DRLGWARP_UpdateWarpRoomSelect(D2DrlgRoomStrc* pDrlgRoom, int nLe
         {
             if (pRoomTile->unk0x14)
             {
-                for (D2DrlgTileDataStrc* i = pRoomTile->unk0x14; i; i = i->unk0x20)
+                for (D2DrlgTileDataStrc* i = pRoomTile->unk0x14; i; i = i->pNext)
                 {
                     i->dwFlags &= 0xFFFFFFF7;
                 }
 
-                for (D2DrlgTileDataStrc* i = pRoomTile->unk0x0C; i; i = i->unk0x20)
+                for (D2DrlgTileDataStrc* i = pRoomTile->unk0x0C; i; i = i->pNext)
                 {
                     i->dwFlags |= 8;
                 }
@@ -67,12 +61,12 @@ void __fastcall DRLGWARP_UpdateWarpRoomDeselect(D2DrlgRoomStrc* pDrlgRoom, int n
         {
             if (pRoomTile->unk0x0C)
             {
-                for (D2DrlgTileDataStrc* i = pRoomTile->unk0x0C; i; i = i->unk0x20)
+                for (D2DrlgTileDataStrc* i = pRoomTile->unk0x0C; i; i = i->pNext)
                 {
                     i->dwFlags &= 0xFFFFFFF7;
                 }
 
-                for (D2DrlgTileDataStrc* i = pRoomTile->unk0x14; i; i = i->unk0x20)
+                for (D2DrlgTileDataStrc* i = pRoomTile->unk0x14; i; i = i->pNext)
                 {
                     i->dwFlags |= 8;
                 }

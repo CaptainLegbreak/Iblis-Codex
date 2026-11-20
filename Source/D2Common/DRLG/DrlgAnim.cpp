@@ -1,20 +1,8 @@
 #include "D2Common.h"
 #include "D2Drlg.h"
+#include "D2DrlgMaps.h"
 
 
-struct D2DrlgTileDataStrc
-{
-    int nWidth;
-    int nHeight;
-    int nPosX;
-    int nPosY;
-    int unk0x10;
-    unsigned int dwFlags;
-    D2TileLibraryEntryStrc* pTile;
-    int nTileType;
-    D2DrlgTileDataStrc* pNext;
-    int unk0x24[3];
-};
 
 struct D2DrlgAnimTileGridStrc
 {

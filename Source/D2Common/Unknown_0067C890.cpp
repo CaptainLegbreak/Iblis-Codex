@@ -1,13 +1,6 @@
 #include "D2Drlg.h"
+#include "D2DrlgMaps.h"
 
-struct D2DrlgVertexStrc
-{
-    int nPosX;
-    int nPosY;
-    unsigned char nDirection;
-    unsigned int dwFlags;
-    D2DrlgVertexStrc* pNext;
-};
 
 typedef void (__fastcall* DRLGGRID_FlagOperation)(int* pFlag, int nFlag);
 extern DRLGGRID_FlagOperation gpfnDrlgGridFlagOperations[6]; // 0x00749BAC

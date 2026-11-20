@@ -1,18 +1,10 @@
 #include "D2Drlg.h"
+#include "D2DrlgMaps.h"
 
 
 struct D2DrlgRoomStrc;
 
 
-struct D2DrlgOrthStrc
-{
-    void* pTarget;
-    int nDirection;
-    int bPreset;
-    int bInit;
-    D2DrlgCoordStrc* pBox;
-    D2DrlgOrthStrc* pNext;
-};
 
 struct D2RoomTileStrc
 {
@@ -69,7 +61,7 @@ void __fastcall sub_0066B560(D2DrlgRoomStrc* pDrlgRoom1, D2DrlgRoomStrc* pDrlgRo
 {
     for (D2DrlgOrthStrc* pDrlgOrth = pDrlgRoom1->pDrlgOrth; pDrlgOrth; pDrlgOrth = pDrlgOrth->pNext)
     {
-        if (pDrlgOrth->pTarget == pDrlgRoom2)
+        if (pDrlgOrth->pRoom == pDrlgRoom2)
         {
             return;
         }
@@ -79,7 +71,7 @@ void __fastcall sub_0066B560(D2DrlgRoomStrc* pDrlgRoom1, D2DrlgRoomStrc* pDrlgRo
     memset(pNew, 0, sizeof(D2DrlgOrthStrc));
     pNew->pNext = pDrlgRoom1->pDrlgOrth;
     pDrlgRoom1->pDrlgOrth = pNew;
-    pNew->pTarget = pDrlgRoom2;
+    pNew->pRoom = pDrlgRoom2;
     pNew->nDirection = nDirection;
     pNew->bInit = 1;
     pNew->pBox = &pDrlgRoom2->pDrlgCoord;
@@ -97,7 +89,7 @@ void __fastcall sub_0066B610(void* pMemPool, D2DrlgOrthStrc** ppDrlgOrth, D2Drlg
 {
     D2DrlgOrthStrc* pDrlgOrth = *ppDrlgOrth;
     D2DrlgOrthStrc* pNext = pDrlgOrth->pNext;
-    if (pDrlgOrth->bInit == 1 && pDrlgOrth->pTarget == pDrlgRoom)
+    if (pDrlgOrth->bInit == 1 && pDrlgOrth->pRoom == pDrlgRoom)
     {
         *ppDrlgOrth = pNext;
         pNext = pDrlgOrth;
@@ -109,7 +101,7 @@ void __fastcall sub_0066B610(void* pMemPool, D2DrlgOrthStrc** ppDrlgOrth, D2Drlg
             return;
         }
 
-        while (pNext->bInit != 1 || pNext->pTarget != pDrlgRoom)
+        while (pNext->bInit != 1 || pNext->pRoom != pDrlgRoom)
         {
             pDrlgOrth = pNext;
             pNext = pNext->pNext;

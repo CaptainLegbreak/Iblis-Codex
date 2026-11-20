@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2Drlg.h"
+#include "D2DrlgMaps.h"
 
 struct D2DrlgCoordStrc;
 struct D2DrlgSubstGroupStrc;
@@ -24,19 +25,6 @@ struct D2DrlgSubstGroupStrc
     int field_14;
 };
 
-struct D2DrlgFileStrc
-{
-    int unk0x00;
-    int unk0x04;
-    int unk0x08;
-    int nWidth;
-    int nHeight;
-    int nWallLayers;
-    int nFloorLayers;
-    unsigned char unk_1C[0x30];
-    int nSubstGroups;
-    D2DrlgSubstGroupStrc* pSubstGroups;
-};
 
 struct D2LvlSubTxt
 {

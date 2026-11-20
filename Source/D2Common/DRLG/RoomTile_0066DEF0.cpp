@@ -1,12 +1,7 @@
 #include "D2Drlg.h"
+#include "D2DrlgMaps.h"
 struct D2CmpTileStrc;
 
-struct D2DrlgTileDataStrc
-{
-    char unk0x00[0x20];
-    D2DrlgTileDataStrc* unk0x20;
-    char unk0x24[0x0C];
-};
 
 struct D2DrlgTileGridStrc
 {
@@ -26,12 +21,12 @@ D2DrlgTileDataStrc* __fastcall DRLGROOMTILE_InitFloorTileData(D2DrlgRoomStrc* pD
     D2DrlgTileDataStrc* pTileData = &pTileGrid->pFloorTiles[pTileGrid->nFloors];
     if (ppTileData)
     {
-        pTileData->unk0x20 = *ppTileData;
+        pTileData->pNext = *ppTileData;
         *ppTileData = pTileData;
     }
     else
     {
-        pTileData->unk0x20 = 0;
+        pTileData->pNext = 0;
     }
 
     ++pTileGrid->nFloors;

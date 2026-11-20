@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2DrlgMaps.h"
 
 struct D2SlotObjectStrc;
 struct D2SlotStrc;
@@ -52,24 +53,7 @@ int __fastcall sub_00515740_IsSoundPlaying(D2SoundStrc* pSound); // 0x00515740
 int __fastcall sub_00515C30(D2SoundStrc* pSound); // 0x00515C30
 void __fastcall sub_005160D0_DestroySound(D2SoundStrc* pSound); // 0x005160D0
 
-struct D2TileLibraryEntryStrc
-{
-    unsigned int nLightDirection;
-};
 
-struct D2DrlgTileDataStrc
-{
-    int nWidth;
-    int nHeight;
-    int unk0x08[3];
-    unsigned int dwFlags;
-    D2TileLibraryEntryStrc* pTile;
-    int unk0x1C[2];
-    unsigned int dwLightFlags;
-    unsigned char nAlpha;
-    char unk0x29[3];
-    unsigned int dwLightTime;
-};
 
 struct D2TileLightNodeStrc
 {
@@ -226,9 +210,9 @@ static void __stdcall sub_004DEDF0_UpdateTileLights(D2TileLightEntryStrc* pEntry
     for (D2TileLightNodeStrc* pNode = pEntry->pList; pNode; pNode = pNode->pNext)
     {
         D2DrlgTileDataStrc* pTileData = pNode->pTileData;
-        if ((pTileData->dwLightFlags & 4) && nTick >= pTileData->dwLightTime)
+        if ((pTileData->dwPopFlags & 4) && nTick >= pTileData->nPopTick)
         {
-            pTileData->dwLightFlags &= ~4;
+            pTileData->dwPopFlags &= ~4;
             pTileData->dwFlags |= 8;
         }
 
@@ -239,7 +223,7 @@ static void __stdcall sub_004DEDF0_UpdateTileLights(D2TileLightEntryStrc* pEntry
             continue;
 
         unsigned int nCount;
-        D2LightOffsetsStrc* pOffsets = sub_004DEDB0_GetLightOffsets(pTileData->pTile, &nCount, pTileData->dwLightFlags & 1);
+        D2LightOffsetsStrc* pOffsets = sub_004DEDB0_GetLightOffsets(pTileData->pTile, &nCount, pTileData->dwPopFlags & 1);
         D2GfxLightStrc tLight;
         for (unsigned int i = 0; i < nCount; ++i)
         {
@@ -252,7 +236,7 @@ static void __stdcall sub_004DEDF0_UpdateTileLights(D2TileLightEntryStrc* pEntry
             tLight.aColor[i] = (nValue3 << 24) | (nValue2 << 16) | (nValue1 << 8) | nValue0;
         }
 
-        const unsigned char nAlpha = pTileData->nAlpha;
+        const unsigned char nAlpha = pTileData->nRed;
         int nX;
         int nY;
         if (bPerspective)

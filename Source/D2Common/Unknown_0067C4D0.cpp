@@ -1,17 +1,10 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Drlg.h"
+#include "D2DrlgMaps.h"
 
 
 
-struct D2DrlgVertexStrc
-{
-    int nPosX;
-    int nPosY;
-    unsigned char nDirection;
-    unsigned int dwFlags;
-    D2DrlgVertexStrc* pNext;
-};
 
 enum D2DrlgGridFlagOperation
 {

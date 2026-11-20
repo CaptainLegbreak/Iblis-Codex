@@ -4,6 +4,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2Drlg.h"
+#include "D2DrlgMaps.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2TileLibraryEntryStrc;
@@ -39,24 +40,6 @@ struct D2RoomCoordListStrc
     D2RoomCoordListStrc* pNext;
 };
 
-struct D2DrlgTileDataStrc
-{
-    int nWidth;
-    int nHeight;
-    int nPosX;
-    int nPosY;
-    D2RoomCoordListStrc* pCoordList;
-    unsigned int dwFlags;
-    D2TileLibraryEntryStrc* pTile;
-    int nTileType;
-    D2DrlgTileDataStrc* pNext;
-    int unk0x24;
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-    unsigned char nIntensity;
-    int unk0x2C;
-};
 
 
 D2DrlgTileDataStrc* __stdcall DUNGEON_GetWallTilesFromRoom(D2ActiveRoomStrc* pRoom, int* pWallCount); // 0x006196A0
