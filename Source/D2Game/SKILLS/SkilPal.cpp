@@ -7,6 +7,8 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2UnitData.h"
+#include "D2ItemsWorld.h"
+#include "D2GameAux.h"
 struct D2ActiveRoomStrc;
 struct D2UnkCallRecordStrc;
 
@@ -79,13 +81,6 @@ struct D2ModeChangeStrc
 };
 
 
-struct D2UnitFindDataStrc
-{
-    void* pMemPool;
-    D2UnitStrc** pUnitsArray;
-    int unk0x08[4];
-    int nIndex;
-};
 
 
 
@@ -133,26 +128,7 @@ struct D2MissileStrc
     int nInitArg;
 };
 
-struct D2CurseStrc
-{
-    D2UnitStrc* pUnit;
-    D2UnitStrc* pTarget;
-    int nSkill;
-    int nSkillLevel;
-    int nDuration;
-    int nStat;
-    int nStatValue;
-    int nState;
-    void* pStateRemoveCallback;
-};
 
-struct D2AuraCallbackStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* pOwner;
-    int nCounter;
-    void* pArgs;
-};
 
 struct D2BasicAuraParamStrc
 {

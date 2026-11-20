@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2Path.h"
 #include "D2GameTypes.h"
+#include "D2GameAux.h"
 
 
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -104,17 +105,6 @@ D2UnitStrc* __fastcall sub_0059FA30_CreateMissile(D2GameStrc* pGame, D2MissileSt
 int __stdcall PATH_ComputeSquaredDistance(int nX1, int nY1, int nX2, int nY2); // 0x006492A0
 
 
-struct D2SummonArgStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pOwner;
-    int nHcIdx;
-    int nAiSpecialState;
-    int nMonMode;
-    D2CoordStrc pPosition;
-    int nPetType;
-    int nPetMax;
-};
 
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268

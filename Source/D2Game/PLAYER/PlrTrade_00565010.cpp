@@ -4,6 +4,7 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2UnitData.h"
+#include "D2GameAux.h"
 struct D2ClientStrc;
 struct D2GameStrc;
 struct D2UnitStrc;
@@ -79,15 +80,6 @@ D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
 D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
 int __stdcall FOG_GetLinkIndex(void* pLink, unsigned int dwCode, int bLogError); // 0x006BD130
 
-struct D2PlayerTradeStrc
-{
-    int nSaveLength;
-    unsigned char* pSaveData;
-    void* pItemTrade;
-    int nGoldInTrade;
-    int nGoldInTradeOtherPlayer;
-    int nNextUpdateTick;
-};
 
 
 #pragma pack(push, 1)

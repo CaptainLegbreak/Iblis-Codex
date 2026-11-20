@@ -5,6 +5,7 @@
 #include "D2Txt.h"
 #include "D2ItemsWorld.h"
 #include "D2LevelTxt.h"
+#include "D2GameAux.h"
 struct D2DrlgCoordStrc
 {
     int nPosX;
@@ -23,12 +24,6 @@ struct D2DrlgGridStrc
     int nFlags;
 };
 
-struct D2MapAIPathPositionStrc
-{
-    int nMapAIAction;
-    int nX;
-    int nY;
-};
 
 struct D2MapAIStrc
 {

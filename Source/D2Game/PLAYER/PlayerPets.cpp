@@ -7,6 +7,8 @@
 #include "D2Txt.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2ItemsWorld.h"
+#include "D2GameAux.h"
 
 #define PETTYPE_SINGLE 1
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -37,32 +39,9 @@ D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pUnit, const char* szFile, in
 void __fastcall D2GAME_PACKETS_SendPacket0x7A_6FC3E100(D2ClientStrc* pClient, char a2, int nPetType, int nPetGUID, int nUnitGUID, unsigned short nPetClass); // 0x0053CB30
 extern const char gszPlayerPets_006E15D8[]; // 0x006E15D8
 
-struct D2PetInfoStrc
-{
-    int nSeed;
-    int nName;
-    int nHirelingId;
-};
 
-struct D2PetDataStrc
-{
-    unsigned int nFlags;
-    int nUnitGUID;
-    D2PetInfoStrc petInfo;
-    D2PetDataStrc* pNext;
-};
 
-struct D2PetListStrc
-{
-    D2PetDataStrc* pPetData;
-    int nCurrent;
-    int nPetMax;
-};
 
-struct D2PlayerPetStrc
-{
-    D2PetListStrc* pPetList;
-};
 
 
 
@@ -199,7 +178,7 @@ void __fastcall sub_6FC7D150(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetTyp
         return;
     }
 
-    pPetList->nPetMax = nBaseMax;
+    pPetList->nMax = nBaseMax;
 
     while (pPetList->nCurrent > nBaseMax && pPetList->nCurrent > 0 && nPetType != PETTYPE_HIREABLE)
     {
@@ -217,7 +196,7 @@ int __fastcall sub_00574810_GetPetMaxFromPetType(D2UnitStrc* pPlayer, int nPetTy
         D2PetListStrc* pPetList = &pPlayerData->pPlayerPets->pPetList[nPetType];
         if (pPetList)
         {
-            nMax = pPetList->nPetMax;
+            nMax = pPetList->nMax;
         }
     }
     return nMax;
@@ -404,7 +383,7 @@ static void __stdcall sub_00574570_ClearPetList(D2UnitStrc* pPlayer, D2PetListSt
             if (!bKeepHireling)
             {
                 --pPetList->nCurrent;
-                --pPetList->nPetMax;
+                --pPetList->nMax;
                 FOG_FreeServerMemory(pGame->pMemoryPool, pPetData, gszPlayerPetsSourceFile, 0xE8, 0);
             }
         }
@@ -412,7 +391,7 @@ static void __stdcall sub_00574570_ClearPetList(D2UnitStrc* pPlayer, D2PetListSt
         {
             sub_00574450_KillPet(pGame, pPetData->nUnitGUID);
             --pPetList->nCurrent;
-            --pPetList->nPetMax;
+            --pPetList->nMax;
             FOG_FreeServerMemory(pGame->pMemoryPool, pPetData, gszPlayerPetsSourceFile, 0xE8, 0);
         }
 
@@ -736,22 +715,22 @@ void __fastcall sub_00575BC0(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 
 static int __stdcall sub_00575C70_AppendPet(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2PetListStrc* pPetList, D2UnitStrc* pPet, D2PetInfoStrc* pPetInfo)
 {
-    if (!pPetList->nPetMax)
+    if (!pPetList->nMax)
     {
         sub_6FC7DF40(pGame, pPlayer);
-        if (!pPetList->nPetMax)
+        if (!pPetList->nMax)
         {
             sub_00574450_KillPet(pGame, sub_F05_GetUnitId(pPet));
             return 0;
         }
     }
 
-    if (pPetList->nCurrent == pPetList->nPetMax)
+    if (pPetList->nCurrent == pPetList->nMax)
     {
         D2_ASSERT(pPetList->pPetData, 0x312);
 
         sub_00574850_RemovePetFromList(pPetList, 1, pGame, pPetList->pPetData->nUnitGUID);
-        D2_ASSERT(pPetList->nCurrent != pPetList->nPetMax, 0x316);
+        D2_ASSERT(pPetList->nCurrent != pPetList->nMax, 0x316);
     }
 
     D2PetDataStrc* pPrevious = pPetList->pPetData;
@@ -779,7 +758,7 @@ static int __stdcall sub_00575C70_AppendPet(D2GameStrc* pGame, D2UnitStrc* pPlay
     }
 
     ++pPetList->nCurrent;
-    D2_ASSERT(pPetList->nCurrent <= pPetList->nPetMax, 0x330);
+    D2_ASSERT(pPetList->nCurrent <= pPetList->nMax, 0x330);
     return 1;
 }
 

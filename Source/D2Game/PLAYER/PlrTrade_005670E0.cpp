@@ -4,20 +4,12 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2UnitData.h"
+#include "D2GameAux.h"
 struct D2ClientStrc;
 struct D2GameStrc;
 struct D2UnitStrc;
 
 
-struct D2PlayerTradeStrc
-{
-    int nSaveLength;
-    unsigned char* pSaveData;
-    void* pItemTrade;
-    int nGoldInTrade;
-    int nGoldInTradeOtherPlayer;
-    int nNextUpdateTick;
-};
 
 
 

@@ -4,23 +4,12 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2GameAux.h"
 struct D2GameStrc;
 struct D2UnitStrc;
 
 
 
-struct D2SummonArgStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pOwner;
-    int nHcIdx;
-    int nAiSpecialState;
-    int nMonMode;
-    int nX;
-    int nY;
-    int nPetType;
-    int nPetMax;
-};
 
 
 

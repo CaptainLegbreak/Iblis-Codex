@@ -1,6 +1,14 @@
 #include "D2Game.h"
 #include "D2GameTypes.h"
 
+struct D2MapAIPathPositionStrc
+{
+    int nMapAIAction;
+    int nX;
+    int nY;
+};
+
+
 #define QFLAG_REWARDGRANTED 0
 #define QFLAG_CUSTOM7 11
 #define QFLAG_PRIMARYGOALDONE 13
