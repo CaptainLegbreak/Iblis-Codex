@@ -2,6 +2,8 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2UnitData.h"
+#include "D2ItemsWorld.h"
+#include "D2GameAux.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -22,32 +24,9 @@ struct D2PetArgStrc
     int unk0x18;
 };
 
-struct D2PetInfoStrc
-{
-    int nSeed;
-    int nName;
-    int nHirelingId;
-};
 
-struct D2PetDataStrc
-{
-    unsigned int nFlags;
-    int nUnitGUID;
-    D2PetInfoStrc petInfo;
-    D2PetDataStrc* pNext;
-};
 
-struct D2PetListStrc
-{
-    D2PetDataStrc* pPetData;
-    int nCurrent;
-    int nMax;
-};
 
-struct D2PlayerPetStrc
-{
-    D2PetListStrc* pPetList;
-};
 
 
 

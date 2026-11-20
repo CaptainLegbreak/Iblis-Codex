@@ -1,4 +1,5 @@
 #include "D2GameTypes.h"
+#include "D2GameAux.h"
 #ifdef MOVED_TEST
 #define CMD_ID 6
 #define DURATION 22
@@ -11,15 +12,6 @@
 struct D2GameStrc;
 struct D2UnitStrc;
 struct D2AiTickParamStrc;
-struct D2MapAIPathPositionStrc
-{
-#ifdef MOVED_TEST
-    int movedPrefix;
-#endif
-    int nMapAIAction;
-    int nX;
-    int nY;
-};
 bool __fastcall sub_6FCE61E0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam, D2MapAIPathPositionStrc* pPosition); // 0x005E6DE0
 D2AiCmdStrc* __fastcall AIGENERAL_SetCurrentAiCommand(D2GameStrc* pGame, D2UnitStrc* pUnit, int nCmdParam, int bSet); // 0x0058EFA0
 // 0x005E6E80

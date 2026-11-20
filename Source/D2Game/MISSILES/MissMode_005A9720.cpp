@@ -7,6 +7,7 @@
 #include "D2GameStrc.h"
 #include "D2GameTypes.h"
 #include "D2Txt.h"
+#include "D2GameAux.h"
 
 struct D2StaticPathStrc;
 struct D2MissilesTxt;
@@ -33,13 +34,6 @@ struct D2HitFunc22ParamStrc
     int nHitSubMissile;
 };
 
-struct D2AuraCallbackStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* pOwner;
-    int nCounter;
-    void* pArgs;
-};
 
 typedef int(__fastcall* AURACALLBACK)(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit);
 

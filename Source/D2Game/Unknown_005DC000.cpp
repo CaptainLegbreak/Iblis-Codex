@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2GameAux.h"
 struct D2GameStrc;
 struct D2UnitStrc;
 
@@ -21,17 +22,6 @@ struct D2SkillsTxt
 
 
 
-struct D2SummonArgStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pOwner;
-    int nHcIdx;
-    int nAiSpecialState;
-    int nMonMode;
-    D2CoordStrc pPosition;
-    int nPetType;
-    int nPetMax;
-};
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit);                                               // 0x00625D10

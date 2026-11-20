@@ -5,15 +5,10 @@
 #include "D2ItemsWorld.h"
 #include "D2LevelTxt.h"
 #include "D2DrlgMaps.h"
+#include "D2GameAux.h"
 
 
 
-struct D2MapAIPathPositionStrc
-{
-    int nMapAIAction;
-    int nX;
-    int nY;
-};
 
 struct D2MapAIStrc
 {

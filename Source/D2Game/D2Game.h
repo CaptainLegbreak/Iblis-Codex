@@ -1,4 +1,6 @@
 #pragma once
+struct D2MapAIPathPositionStrc;
+struct D2PresetUnitStrc;
 
 struct D2PathPointStrc;
 
@@ -975,12 +977,6 @@ struct D2LinkStrc
     D2LinkStrc* pNext;
 };
 
-struct D2MapAIPathPositionStrc
-{
-    int nMapAIAction;
-    int nX;
-    int nY;
-};
 
 struct D2MessageStrc
 {
@@ -1123,17 +1119,6 @@ struct D2PlayerListStrc
     D2PlayerListStrc* pNext;
 };
 
-struct D2PresetUnitStrc
-{
-    int nMode;
-    int nIndex;
-    int nXpos;
-    D2PresetUnitStrc* pNext;
-    D2MapAIStrc* pMapAI;
-    int nUnitType;
-    int nYpos;
-    unsigned int bSpawned;
-};
 
 struct D2PropertyStrc { int nProperty,nLayer,nMin,nMax; };
 

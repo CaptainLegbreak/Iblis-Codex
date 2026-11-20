@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2GameAux.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2GameTypes.h"

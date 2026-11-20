@@ -1,11 +1,6 @@
 #include "D2DataTbls.h"
 #include "D2ItemsWorld.h"
-struct D2MapAIPathPositionStrc
-{
-    int nMapAIAction;
-    int nX;
-    int nY;
-};
+#include "D2GameAux.h"
 
 struct D2MapAIStrc
 {

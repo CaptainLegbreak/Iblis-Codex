@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2GameAux.h"
 
 
 
@@ -12,13 +13,6 @@ struct D2SkillsTxt
 };
 
 
-struct D2AuraCallbackStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* pOwner;
-    int nCounter;
-    void* pArgs;
-};
 
 struct D2RedemptionAuraCallbackArgStrc
 {

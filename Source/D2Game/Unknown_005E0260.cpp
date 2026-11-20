@@ -9,6 +9,14 @@
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
 
+struct D2MapAIPathPositionStrc
+{
+    int nMapAIAction;
+    int nX;
+    int nY;
+};
+
+
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 #define MONSTER_SUCKERNEST1 334
 #define MONMODE_ATTACK2 5

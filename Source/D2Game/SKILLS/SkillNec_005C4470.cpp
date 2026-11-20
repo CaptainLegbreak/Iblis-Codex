@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2GameAux.h"
 struct D2SkillsTxt;
 struct D2SummonArgStrc;
 
@@ -67,17 +68,6 @@ void __stdcall STATES_ToggleState(D2UnitStrc*, int, int); // 0x00639DB0
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc*, unsigned int, int, int); // 0x00646CA0
 
 
-struct D2SummonArgStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pOwner;
-    int nHcIdx;
-    int nAiSpecialState;
-    int nMonMode;
-    D2CoordStrc pPosition;
-    int nPetType;
-    int nPetMax;
-};
 
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc*); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc*); // 0x0045AE20

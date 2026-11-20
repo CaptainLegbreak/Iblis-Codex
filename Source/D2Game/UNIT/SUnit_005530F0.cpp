@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2ItemsWorld.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
 #include "D2Path.h"

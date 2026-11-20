@@ -8,6 +8,8 @@
 #include "D2UnitData.h"
 #include "D2Drlg.h"
 #include "D2GameTypes.h"
+#include "D2ItemsWorld.h"
+#include "D2GameAux.h"
 
 #define MONSTATSFLAGINDEX_NOAURA 27
 #define ITEMTYPE_CROSSBOW 35
@@ -61,13 +63,6 @@ union D2SeedStrc;
 
 
 
-struct D2AuraCallbackStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* pOwner;
-    int nCounter;
-    void* pArgs;
-};
 
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
@@ -213,20 +208,6 @@ extern const int gnOffset2_006E14C8[7]; // 0x006E14C8
 extern const int gnXOffsets_006E14A8[8]; // 0x006E14A8
 extern const int gnYOffsets_006E1488[8]; // 0x006E1488
 
-struct D2UnitFindDataStrc
-{
-    void* pMemPool;
-    D2UnitStrc** pUnitsArray;
-    D2ActiveRoomStrc* pRoom;
-    void* pfnUnitTest;
-    D2UnitFindArgStrc* pUnitFindArg;
-    int nFlags;
-    int nIndex;
-    int nMaxArrayEntries;
-    int nX;
-    int nY;
-    int nSize;
-};
 
 void __stdcall UNITFINDS_FreeUnitFindData(D2UnitFindDataStrc* pUnitFindData); // 0x0065AA00
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
@@ -360,24 +341,6 @@ D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUn
 void __fastcall AITHINK_ExecuteAiFn(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int nAiSpecialState); // 0x005B0E00
 void __fastcall sub_6FD10E50(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x0056E900
 
-struct D2ItemDropStrc
-{
-    D2UnitStrc* pUnit;
-    int* pSeed;
-    D2GameStrc* pGame;
-    int nItemLvl;
-    int unk0x10;
-    int nId;
-    int nSpawnType;
-    int nX;
-    int nY;
-    void* pRoom;
-    unsigned short wUnitInitFlags;
-    unsigned short wItemFormat;
-    int unk0x2C;
-    int nQuality;
-    char unk0x34[0x84 - 0x34];
-};
 
 unsigned int __stdcall ITEMS_CheckWeaponIfTwoHanded(D2UnitStrc* pItem); // 0x006289C0
 int __fastcall ITEMS_GetItemLevelForNewItem(D2UnitStrc* pUnit, int a2); // 0x00558200

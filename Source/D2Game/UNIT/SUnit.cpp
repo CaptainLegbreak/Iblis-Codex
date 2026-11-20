@@ -3,6 +3,20 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 
+struct D2MapAIStrc;
+struct D2PresetUnitStrc
+{
+    int nMode;
+    int nIndex;
+    int nXpos;
+    D2PresetUnitStrc* pNext;
+    D2MapAIStrc* pMapAI;
+    int nUnitType;
+    int nYpos;
+    unsigned int bSpawned;
+};
+
+
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define NUM_UNIT_TYPES 6
 #define UNITFLAGEX_STORELASTATTACKER 0x20000

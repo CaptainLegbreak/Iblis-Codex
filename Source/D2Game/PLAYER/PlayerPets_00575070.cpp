@@ -1,26 +1,10 @@
 #include "D2Game.h"
 #include "D2DataTbls.h"
 #include "D2UnitData.h"
+#include "D2GameAux.h"
 
-struct D2PetDataStrc
-{
-    unsigned int nFlags;
-    int nUnitGUID;
-    unsigned char petInfo[0x0C];
-    D2PetDataStrc* pNext;
-};
 
-struct D2PetListStrc
-{
-    D2PetDataStrc* pPetData;
-    int nCurrent;
-    int nMax;
-};
 
-struct D2PlayerPetStrc
-{
-    D2PetListStrc* pPetList;
-};
 
 
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
