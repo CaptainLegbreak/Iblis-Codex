@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Drlg.h"
+#include "D2DrlgMaps.h"
 struct D2ActiveRoomStrc;
 
 
@@ -9,17 +10,6 @@ struct D2RoomCollisionGridStrc
     unsigned short* pCollisionMask;
 };
 
-struct D2DrlgTileDataStrc
-{
-    int nWidth;
-    int nHeight;
-    int nPosX;
-    int nPosY;
-    int unk0x10;
-    unsigned int dwFlags;
-    D2TileLibraryEntryStrc* pTile;
-    char unk0x1C[0x14];
-};
 
 enum
 {

@@ -12,16 +12,6 @@
 #define TEST_FLAGS 15
 #endif
 struct D2DrlgStrc;
-struct D2DrlgVertexStrc
-{
-    int nPosX;
-    int nPosY;
-    unsigned char nDirection;
-    char pad0x09[3];
-    unsigned char nFlags;
-    char pad0x0D[3];
-    D2DrlgVertexStrc* pNext;
-};
 struct D2LvlPrestRecordStrc;
 extern D2LvlPrestRecordStrc* __stdcall sub_0061F0B0(int nPresetId); // 0x0061F0B0
 void __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(D2DrlgLevelStrc* pLevel, int nX, int nY, int nLevelPrestId, int nPickedFile, int a6); // 0x006743C0
@@ -96,3 +86,4 @@ int __fastcall sub_00674920_PlaceRandomPreset(D2DrlgLevelStrc* pLevel, int nLvlP
 }
 
 #include "gen/data/Source/D2Common/DRLG/Outdoors_00674920.inc"
+#include "D2DrlgMaps.h"

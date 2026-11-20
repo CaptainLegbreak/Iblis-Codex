@@ -1,4 +1,5 @@
 #include "D2Glide.h"
+#include "D2DrlgMaps.h"
 struct D2GlideTileCacheStrc;
 struct D2GlideFloorCacheEntryStrc;
 struct D2GlideFloorCacheStrc;
@@ -37,14 +38,6 @@ struct D2GlideTileStrc
     unsigned char* pData;
 };
 
-struct D2TileLibraryEntryStrc
-{
-    char unk0x00[0x42];
-    short nCacheIndex;
-    char unk0x44[0x0C];
-    int nSubtiles;
-    D2GlideTileStrc* pSubtiles;
-};
 
 struct D2GlideTileCacheStrc
 {
@@ -300,11 +293,11 @@ void __fastcall sub_0050FCB0_GlideReleaseTileCache(D2TileLibraryEntryStrc* pTile
         sub_0050F750_FloorCacheRemove(&gGlideFloorCache_0087EB68, (short)(pTile->nCacheIndex - 1));
     }
 
-    for (int i = 0; i < pTile->nSubtiles; ++i)
+    for (int i = 0; i < pTile->nBlocks; ++i)
     {
-        if (pTile->pSubtiles[i].nCacheIndex > 0)
+        if (pTile->pBlocks[i].nCacheIndex > 0)
         {
-            sub_0050F1B0_TileCacheRelease(&gGlideTileCache_0087EB48, (short)(pTile->pSubtiles[i].nCacheIndex - 1));
+            sub_0050F1B0_TileCacheRelease(&gGlideTileCache_0087EB48, (short)(pTile->pBlocks[i].nCacheIndex - 1));
         }
     }
 }

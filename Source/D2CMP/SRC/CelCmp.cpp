@@ -1,5 +1,6 @@
 #include "D2CMP.h"
 #include "D2GameTypes.h"
+#include "D2DrlgMaps.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -180,10 +181,6 @@ struct D2CmpTileCacheStrc
     unsigned char unk0x30[0x20];
 };
 
-struct D2TileLibraryEntryStrc
-{
-    unsigned char unk0x00[0x60];
-};
 
 struct D2TileLibraryHeaderStrc
 {

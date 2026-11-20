@@ -4,6 +4,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2Drlg.h"
+#include "D2DrlgMaps.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2TileLibraryEntryStrc;
@@ -65,24 +66,6 @@ struct D2AutomapRoomStrc
     D2DrlgLevelStrc* pLevel;
 };
 
-struct D2DrlgTileDataStrc
-{
-    int nWidth;
-    int nHeight;
-    int nPosX;
-    int nPosY;
-    int unk0x10;
-    unsigned int dwFlags;
-    D2TileLibraryEntryStrc* pTile;
-    int nTileType;
-    D2DrlgTileDataStrc* unk0x20;
-    int unk0x24;
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-    unsigned char nIntensity;
-    int unk0x2C;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090

@@ -2,6 +2,7 @@
 #include "D2DataTbls.h"
 #include "D2Records.h"
 #include "D2LevelTxt.h"
+#include "D2DrlgMaps.h"
 
 
 struct D2LvlTypesTxt
@@ -21,11 +22,6 @@ struct D2LvlSubTxt
     int dwExpansion;
 };
 
-struct D2DrlgFileStrc
-{
-    char unk0x00[0x4C];
-    int nSubstGroups;
-};
 
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...);             // 0x006CC468

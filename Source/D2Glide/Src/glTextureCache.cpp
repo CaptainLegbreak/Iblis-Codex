@@ -1,4 +1,5 @@
 #include "D2Glide.h"
+#include "D2DrlgMaps.h"
 
 struct D2GlideTexOwnerStrc;
 struct D2GlideTexCacheEntryStrc;
@@ -72,11 +73,6 @@ struct D2GlideTileCacheStrc
     D2GlideTileCacheEntryStrc* pEntries;
 };
 
-struct D2TileLibraryEntryStrc
-{
-    char unk0x00[0x42];
-    short nCacheIndex;
-};
 
 struct D2GlideFloorCacheEntryStrc
 {

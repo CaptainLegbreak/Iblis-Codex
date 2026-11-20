@@ -1,23 +1,7 @@
 #include "D2Drlg.h"
+#include "D2DrlgMaps.h"
 
-struct D2DrlgVertexStrc
-{
-    int nPosX;
-    int nPosY;
-    unsigned char nDirection;
-    unsigned int dwFlags;
-    D2DrlgVertexStrc* pNext;
-};
 
-struct D2DrlgOrthStrc
-{
-    void* pDrlgRoom;
-    int nDirection;
-    int bPreset;
-    int bInit;
-    D2DrlgCoordStrc* pBox;
-    D2DrlgOrthStrc* pNext;
-};
 
 extern "C" const char gszEmptyAssertText;      // 0x006CC837
 

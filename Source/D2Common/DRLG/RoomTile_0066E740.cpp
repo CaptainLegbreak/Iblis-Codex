@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2Drlg.h"
+#include "D2DrlgMaps.h"
 struct D2PresetUnitStrc;
 
 struct D2DrlgTileDataStrc;
@@ -59,24 +60,6 @@ struct D2RoomTileStrc
     D2DrlgTileDataStrc* pSelectedTiles;
 };
 
-struct D2DrlgTileDataStrc
-{
-    int nWidth;
-    int nHeight;
-    int nPosX;
-    int nPosY;
-    int unk0x10;
-    unsigned int dwFlags;
-    D2TileLibraryEntryStrc* pTile;
-    int nTileType;
-    D2DrlgTileDataStrc* pNext;
-    int unk0x24;
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-    unsigned char nIntensity;
-    int unk0x2C;
-};
 
 struct D2DrlgTileLinkStrc
 {
@@ -352,7 +335,7 @@ D2DrlgTileDataStrc* __fastcall DRLGROOMTILE_InitWallTileData(D2DrlgRoomStrc* pDr
     pTileData->pTile = pTileLibraryEntry;
     pTileData->nTileType = nTileType;
     pTileData->dwFlags = 0;
-    pTileData->unk0x24 = 0;
+    pTileData->dwPopFlags = 0;
     pTileData->nGreen = 0xFF;
     pTileData->nBlue = 0xFF;
     pTileData->nRed = 0xFF;

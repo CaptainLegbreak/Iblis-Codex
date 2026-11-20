@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Drlg.h"
+#include "D2DrlgMaps.h"
 struct D2TileLibraryEntryStrc;
 
 struct D2DrlgCoordStrc;
@@ -47,11 +48,6 @@ int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY); // 
 int __stdcall TileLibraryGetTiles(void** ppTiles, int nTileType, int nStyle, int nSequence, D2TileLibraryEntryStrc** ppTileEntries, int nMaxEntries); // 0x00604AE0
 int __stdcall TileGetFlags(D2TileLibraryEntryStrc* hTile); // 0x00604BC0
 
-struct D2DrlgTileDataStrc
-{
-    char unk0x00[0x14];
-    unsigned int dwFlags;
-};
 
 struct D2DrlgAnimTileGridStrc
 {

@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2Drlg.h"
 #include "D2LevelTxt.h"
+#include "D2DrlgMaps.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2TileStrc;
@@ -68,16 +69,6 @@ static __declspec(noinline) void __stdcall sub_004DE190_BuildSmallGrid(int nSubX
 
 
 
-struct D2DrlgTileDataStrc
-{
-    int nWidth;
-    int nHeight;
-    int nPosX;
-    int nPosY;
-    int nCoordList;
-    unsigned int dwFlags;
-    char unk0x18[0x18];
-};
 
 struct D2FloorViewArgStrc
 {

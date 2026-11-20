@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Drlg.h"
 #include "D2ItemsWorld.h"
+#include "D2DrlgMaps.h"
 
 #define DRLGROOMFLAG_NO_LOS_DRAW 0x80000
 #define DRLGROOMFLAG_PRESET_UNITS_SPAWNED 0x4000000
@@ -70,15 +71,6 @@ D2ActiveRoomStrc* __fastcall DRLGWARP_GetDestinationRoom(D2DrlgRoomStrc* pDrlgRo
 unsigned int __fastcall sub_0067D7A0(D2DrlgRoomStrc* pDrlgRoom); // 0x0067D7A0
 int* __fastcall DRLGROOM_GetVisArrayFromLevelId(D2DrlgStrc* pDrlg, int nLevelId); // 0x0066C040
 
-struct D2DrlgOrthStrc
-{
-    D2DrlgRoomStrc* pTarget;
-    int nDirection;
-    int bPreset;
-    int bInit;
-    void* pBox;
-    D2DrlgOrthStrc* pNext;
-};
 
 
 void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
@@ -427,7 +419,7 @@ void __fastcall DRLGROOM_FreeRoomEx(D2DrlgRoomStrc* pDrlgRoom)
         pDrlgOrth = pDrlgOrth->pNext;
         if (pCurrent->bInit == 1)
         {
-            D2DrlgRoomStrc* pTarget = pCurrent->pTarget;
+            D2DrlgRoomStrc* pTarget = pCurrent->pRoom;
             sub_0066B610(pMemPool, &pDrlgRoom->pDrlgOrth, pTarget);
             sub_0066B610(pMemPool, &pTarget->pDrlgOrth, pDrlgRoom);
         }

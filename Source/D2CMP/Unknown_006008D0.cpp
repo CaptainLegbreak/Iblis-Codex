@@ -1,13 +1,10 @@
 #include "D2CMP.h"
+#include "D2DrlgMaps.h"
 
 struct D2TileLibraryEntryStrc;
 struct D2TileLibraryHeaderStrc;
 struct D2TileRecordStrc;
 
-struct D2TileLibraryEntryStrc
-{
-    char unk0x00[0x60];
-};
 
 struct D2TileLibraryHeaderStrc
 {
