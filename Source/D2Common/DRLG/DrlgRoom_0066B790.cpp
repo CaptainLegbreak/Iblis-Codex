@@ -1,29 +1,6 @@
 #include "D2Common.h"
 #include "D2DrlgTiles.h"
-
-struct D2DrlgCoordStrc
-{
-    int nPosX;
-    int nPosY;
-    int nWidth;
-    int nHeight;
-};
-
-struct D2DrlgStrc
-{
-    char unk0x000[0x478];
-    void* pMempool;
-};
-
-struct D2DrlgLevelStrc
-{
-    char unk0x00[0x10];
-    D2DrlgRoomStrc* ptRoomFirst;
-    char unk0x14[0x8];
-    D2DrlgCoordStrc tCoords;
-    char unk0x2C[0x188];
-    D2DrlgStrc* pDrlg;
-};
+#include "D2Drlg.h"
 
 struct D2DrlgOrthStrc
 {
@@ -33,24 +10,6 @@ struct D2DrlgOrthStrc
     int bInit;
     D2DrlgCoordStrc* pBox;
     D2DrlgOrthStrc* pNext;
-};
-
-
-struct D2DrlgRoomStrc
-{
-    D2DrlgOrthStrc* pDrlgOrth;
-    char unk0x04[0x20];
-    D2DrlgRoomStrc* pDrlgRoomNext;
-    unsigned int dwFlags;
-    int unk0x2C;
-    void* pRoom;
-    D2DrlgCoordStrc tCoords;
-    char unk0x44[0x8];
-    D2RoomTileStrc* pRoomTiles;
-    char unk0x50[0x8];
-    D2DrlgLevelStrc* ptDrlgLevel;
-    char unk0x5C[0x4];
-    unsigned int dwOtherFlags;
 };
 
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
@@ -151,6 +110,6 @@ void __fastcall DRLGROOM_AddOrth(D2DrlgOrthStrc** ppDrlgOrth, D2DrlgLevelStrc* p
     pNew->nDirection = nDirection;
     pNew->bPreset = bIsPreset;
     pNew->bInit = 0;
-    pNew->pBox = &pLevel->tCoords;
+    pNew->pBox = &pLevel->pLevelCoords;
     sub_0066B720(ppDrlgOrth, pNew);
 }
