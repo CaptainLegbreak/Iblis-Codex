@@ -6,7 +6,7 @@
 #define D2WIN_SCROLLBAR 5
 #define D2WIN_BUTTON 6
 
-struct D2CellFileStrc;
+struct D2CelFileStrc;
 struct Control;
 struct D2WinControlStrc;
 struct D2WinButtonStrc;
@@ -54,7 +54,7 @@ struct tagPOINT
     long x;
     long y;
 };
-extern D2CellFileStrc* gpCursorCellFile; // 0x007D5594
+extern D2CelFileStrc* gpCursorCellFile; // 0x007D5594
 extern int gnCursorFrame; // 0x007D55A0
 extern tagPOINT gMousePosition_6F8FE234; // 0x007D55A4
 
@@ -135,7 +135,7 @@ tagRECT gSavedWindowRect_007D5580; // 0x007D5580
 
 int gnCursorFrame; // 0x007D55A0
 
-D2CellFileStrc* gpBackgroundCellFile; // 0x007D55B0
+D2CelFileStrc* gpBackgroundCellFile; // 0x007D55B0
 
 int gnResolution_6F8FE248; // 0x007D55B8
 

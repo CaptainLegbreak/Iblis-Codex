@@ -4,7 +4,7 @@
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-struct D2CellFileStrc;
+struct D2CelFileStrc;
 struct D2ScrollPosStrc;
 struct Unicode;
 
@@ -23,7 +23,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
-D2CellFileStrc* __fastcall sub_004788B0(const char* szFile, int nType); // 0x004788B0
+D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType); // 0x004788B0
 void __cdecl sub_0049FA10_DrawPanelFrame(); // 0x0049FA10
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 int __stdcall TEXTURE_CelDraw(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
@@ -36,8 +36,8 @@ extern unsigned int gaScrollThresholds_00722F08[5]; // 0x00722F08
 extern unsigned short gawScrollSlots_007BF098[5]; // 0x007BF098
 extern unsigned int gdwScrollTick_007BF243; // 0x007BF243
 extern unsigned int gnScrollCounter_007BF247; // 0x007BF247
-extern D2CellFileStrc* gpScroin3_007BF26C; // 0x007BF26C
-extern D2CellFileStrc* gpScroin2_007BF270; // 0x007BF270
+extern D2CelFileStrc* gpScroin3_007BF26C; // 0x007BF26C
+extern D2CelFileStrc* gpScroin2_007BF270; // 0x007BF270
 
 struct T0044CB60
 {

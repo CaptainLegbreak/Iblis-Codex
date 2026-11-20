@@ -10,7 +10,7 @@
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
-struct D2CellFileStrc;
+struct D2CelFileStrc;
 struct D2InventoryGridInfoStrc;
 struct D2StaticPathStrc;
 struct Unicode;
@@ -237,13 +237,13 @@ struct D2GfxDataStrc
 {
     int nFrame;
     int unk0x04[12];
-    D2CellFileStrc* pCellFile;
+    D2CelFileStrc* pCellFile;
     int unk0x38[4];
 };
 void __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
-extern D2CellFileStrc* gpTorsoCell_007BCE68; // 0x007BCE68
-extern D2CellFileStrc* gpHeadCell_007BCE74; // 0x007BCE74
-extern D2CellFileStrc* gpArmCell_007BCE7C; // 0x007BCE7C
+extern D2CelFileStrc* gpTorsoCell_007BCE68; // 0x007BCE68
+extern D2CelFileStrc* gpHeadCell_007BCE74; // 0x007BCE74
+extern D2CelFileStrc* gpArmCell_007BCE7C; // 0x007BCE7C
 extern int gnRectHeadLeft_007BCD4C; // 0x007BCD4C
 extern int gnRectHeadBottom_007BCD58; // 0x007BCD58
 extern int gnRectTorsoLeft_007BCD74; // 0x007BCD74

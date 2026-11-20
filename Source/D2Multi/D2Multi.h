@@ -3,7 +3,7 @@
 #include "D2SysTypes.h"
 
 class D2SquelchListStrc;
-struct D2CellFileStrc;
+struct D2CelFileStrc;
 struct D2CompositeStrc;
 struct D2CriticalSectionStrc;
 struct D2FuncTable_0077ABF0Strc;
@@ -14,7 +14,7 @@ struct D2WinControlStrc;
 struct D2WinSmackStrc;
 
 D2SquelchListStrc* __cdecl sub_00611560_GetSquelchList(); // 0x00611560
-D2WinControlStrc* __fastcall BUTTON_Create(int nX, int nY, int nWidth, int nHeight, D2CellFileStrc* pCellFile, int a6, int a7, int a8, int a9, int a10, int a11); // 0x00501290
+D2WinControlStrc* __fastcall BUTTON_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, int a6, int a7, int a8, int a9, int a10, int a11); // 0x00501290
 D2WinControlStrc* __stdcall CONTROL_Create(D2WinControlInitStrc* pControlInit); // 0x004F93C0
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
@@ -53,7 +53,7 @@ extern "C" int __cdecl tolower(int nChar); // 0x0068523E
 extern "C" int __cdecl toupper(int nChar); // 0x00685385
 extern "C" void __cdecl srand(unsigned int nSeed); // 0x00687454
 extern "C" void* __cdecl memmove(void* pDst, const void* pSrc, unsigned int nSize); // 0x00683840
-extern D2CellFileStrc* gpChatBackground_0077BC04; // 0x0077BC04
+extern D2CelFileStrc* gpChatBackground_0077BC04; // 0x0077BC04
 extern D2FuncTable_0077ABF0Strc* gpFuncTable_0077ABF0; // 0x0077ABF0
 extern D2LaunchCharEntryStrc* gpCharList_00779DBC; // 0x00779DBC
 extern D2LaunchCharSelectStrc* gpCharSelect_007795D4; // 0x007795D4
@@ -101,7 +101,7 @@ int __fastcall sub_004F9710_TestFlag(D2WinControlStrc* pControl); // 0x004F9710
 int __fastcall sub_004FB950_GetFirstVisible(D2WinControlStrc* pControl); // 0x004FB950
 int __fastcall sub_004FB990_GetSelection(D2WinControlStrc* pControl); // 0x004FB990
 int __fastcall sub_00500960_IsPressed(D2WinControlStrc* pButton); // 0x00500960
-int __stdcall BACKGROUND_SetCellFile(D2CellFileStrc* pCellFile); // 0x004F9140
+int __stdcall BACKGROUND_SetCellFile(D2CelFileStrc* pCellFile); // 0x004F9140
 int __stdcall D2Win_10169(D2CompositeStrc* pCompositeUnit); // 0x00505230
 int __stdcall SMACK_Decode(D2WinSmackStrc* pSmack, const char* szFileName, int nVersion); // 0x00506910
 int __stdcall SMACK_DeleteFile(D2WinSmackStrc* pSmack); // 0x00506990

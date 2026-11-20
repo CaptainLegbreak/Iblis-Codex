@@ -14,7 +14,7 @@ const char* __fastcall FOG_GetHostIPAddress(); // 0x0040DF60
 void __cdecl sub_0042F6C0_SetDone(); // 0x0042F6C0
 void __cdecl sub_00437B90_FreeCache(); // 0x00437B90
 void __cdecl sub_00438EA0_FreeCharList(); // 0x00438EA0
-int __stdcall BACKGROUND_SetCellFile(D2CellFileStrc* pCellFile); // 0x004F9140
+int __stdcall BACKGROUND_SetCellFile(D2CelFileStrc* pCellFile); // 0x004F9140
 D2WinControlStrc* __stdcall CONTROL_Create(D2LaunchControlTemplateStrc* pTemplate); // 0x004F93C0
 void __stdcall D2Win_10029(int a1); // 0x004FA410
 void __fastcall D2Win_10045(D2WinControlStrc* pControl, const char* szText); // 0x004FCF80

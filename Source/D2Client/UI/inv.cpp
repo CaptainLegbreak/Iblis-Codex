@@ -4,7 +4,7 @@
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
 
-struct D2CellFileStrc;
+struct D2CelFileStrc;
 struct Unicode;
 struct D2MonsterDataStrc;
 struct D2ClientNotifyStrc;
@@ -308,9 +308,9 @@ extern int gdwGlobal_007BCBF8; // 0x007BCBF8
 extern unsigned char gnSelectedTab_007BCC04; // 0x007BCC04
 extern int gnQuestTimerValue_007BCC14; // 0x007BCC14
 extern unsigned long gdwQuestTimerTicks_007BCC18; // 0x007BCC18
-extern D2CellFileStrc* gpCellFile_007BCC24; // 0x007BCC24
-extern D2CellFileStrc* gpCellFile_007BCC28; // 0x007BCC28
-extern D2CellFileStrc* gpCellFile_007BCC38; // 0x007BCC38
+extern D2CelFileStrc* gpCellFile_007BCC24; // 0x007BCC24
+extern D2CelFileStrc* gpCellFile_007BCC28; // 0x007BCC28
+extern D2CelFileStrc* gpCellFile_007BCC38; // 0x007BCC38
 extern int gbWeaponSwitch_007BCC4C; // 0x007BCC4C
 extern int gnGlobal_007BCD34; // 0x007BCD34
 extern int gnGlobal_007BCE14; // 0x007BCE14
@@ -533,7 +533,7 @@ struct D2AuxLevelEntryStrc
 };
 
 int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
-D2CellFileStrc* __fastcall sub_004788B0(const char* szFile, int nType); // 0x004788B0
+D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType); // 0x004788B0
 D2BitBufferStrc* __cdecl sub_004B32D0(); // 0x004B32D0
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestRecord, int nQuest, int nState); // 0x0065C310
@@ -543,7 +543,7 @@ extern "C" int __cdecl sscanf(const char* szSource, const char* szFormat, ...); 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
 extern D2AuxLevelEntryStrc gaAuxLevelEntries_00721D98[]; // 0x00721D98
 extern int gbQuestTimerActive_007BCC10; // 0x007BCC10
-extern D2CellFileStrc* gpHoradricCel_007BCC1C; // 0x007BCC1C
+extern D2CelFileStrc* gpHoradricCel_007BCC1C; // 0x007BCC1C
 static __declspec(noinline) void __stdcall sub_00485240_GetItemDamageRange(D2UnitStrc* pItem, D2UnitStrc* pUnit, int nStatMin, int nStatMax, int* pnMin, int* pnMax, int* pbModified);
 Unicode* __fastcall sub_00526F20(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 void __fastcall sub_004521C0_SetTextColor(Unicode* pText, int nColor); // 0x004521C0
@@ -609,10 +609,10 @@ int __fastcall sub_004A7660_SplitAtNewLine(Unicode* wszText, Unicode** ppSecond)
 unsigned short __fastcall sub_00469AA0(int nA, int nB); // 0x00469AA0
 const Unicode* __fastcall sub_0046A530_GetKeyName(int nA, int nB); // 0x0046A530
 extern int gnGlobal_007BCA48; // 0x007BCA48
-extern D2CellFileStrc* gpCellFile_007BCC2C; // 0x007BCC2C
-extern D2CellFileStrc* gpCellFile_007BCC3C; // 0x007BCC3C
-extern D2CellFileStrc* gpCellFile_007BCC30; // 0x007BCC30
-extern D2CellFileStrc* gpCellFile_007BCB04; // 0x007BCB04
+extern D2CelFileStrc* gpCellFile_007BCC2C; // 0x007BCC2C
+extern D2CelFileStrc* gpCellFile_007BCC3C; // 0x007BCC3C
+extern D2CelFileStrc* gpCellFile_007BCC30; // 0x007BCC30
+extern D2CelFileStrc* gpCellFile_007BCB04; // 0x007BCB04
 extern D2PanelLabelStrc gaPanelLabels_006D9AE8[12]; // 0x006D9AE8
 extern void* gpCellFile_007BEF7C; // 0x007BEF7C
 extern void* gpCellFile_007BEF78; // 0x007BEF78
@@ -1291,13 +1291,13 @@ D2NpcButtonStrc gaNpcButtons_007BC9E0[4]; // 0x007BC9E0
 
 int gnGlobal_007BCA48; // 0x007BCA48
 
-D2CellFileStrc* gpCellFile_007BCB04; // 0x007BCB04
+D2CelFileStrc* gpCellFile_007BCB04; // 0x007BCB04
 
 int gdwGlobal_007BCBF0; // 0x007BCBF0
 
 int gbQuestTimerActive_007BCC10; // 0x007BCC10
 
-D2CellFileStrc* gpHoradricCel_007BCC1C; // 0x007BCC1C
+D2CelFileStrc* gpHoradricCel_007BCC1C; // 0x007BCC1C
 
 void* gpCelGoldCoinBtn_007BCC34; // 0x007BCC34
 
@@ -2129,11 +2129,11 @@ int gnGlobal_007BCE20; // 0x007BCE20
 
 int gnGlobal_007BCE24; // 0x007BCE24
 
-D2CellFileStrc* gpCellFile_007BCC24; // 0x007BCC24
+D2CelFileStrc* gpCellFile_007BCC24; // 0x007BCC24
 
-D2CellFileStrc* gpCellFile_007BCC28; // 0x007BCC28
+D2CelFileStrc* gpCellFile_007BCC28; // 0x007BCC28
 
-D2CellFileStrc* gpCellFile_007BCC38; // 0x007BCC38
+D2CelFileStrc* gpCellFile_007BCC38; // 0x007BCC38
 
 void* gapHirelingIcons_007BEEB0[7]; // 0x007BEEB0
 

@@ -110,113 +110,113 @@ int __fastcall sub_0043CC20_TestBit2(int nValue)
     return nValue & 4;
 }
 
-D2CellFileStrc* gpCellFile_0077BC04; // 0x0077BC04
+D2CelFileStrc* gpCellFile_0077BC04; // 0x0077BC04
 
-D2CellFileStrc* gpCellFile_0077BC08; // 0x0077BC08
+D2CelFileStrc* gpCellFile_0077BC08; // 0x0077BC08
 
-D2CellFileStrc* gpCellFile_0077BC0C; // 0x0077BC0C
+D2CelFileStrc* gpCellFile_0077BC0C; // 0x0077BC0C
 
-D2CellFileStrc* gpCellFile_0077BC10; // 0x0077BC10
+D2CelFileStrc* gpCellFile_0077BC10; // 0x0077BC10
 
-D2CellFileStrc* gpCellFile_0077BC14; // 0x0077BC14
+D2CelFileStrc* gpCellFile_0077BC14; // 0x0077BC14
 
-D2CellFileStrc* gpCellFile_0077BC18; // 0x0077BC18
+D2CelFileStrc* gpCellFile_0077BC18; // 0x0077BC18
 
-D2CellFileStrc* gpCellFile_0077BC1C; // 0x0077BC1C
+D2CelFileStrc* gpCellFile_0077BC1C; // 0x0077BC1C
 
-D2CellFileStrc* gpCellFile_0077BC20; // 0x0077BC20
+D2CelFileStrc* gpCellFile_0077BC20; // 0x0077BC20
 
-D2CellFileStrc* gpCellFile_0077BC24; // 0x0077BC24
+D2CelFileStrc* gpCellFile_0077BC24; // 0x0077BC24
 
-D2CellFileStrc* gpCellFile_0077BC28; // 0x0077BC28
+D2CelFileStrc* gpCellFile_0077BC28; // 0x0077BC28
 
-D2CellFileStrc* gpCellFile_0077BC2C; // 0x0077BC2C
+D2CelFileStrc* gpCellFile_0077BC2C; // 0x0077BC2C
 
-D2CellFileStrc* gpCellFile_0077BC30; // 0x0077BC30
+D2CelFileStrc* gpCellFile_0077BC30; // 0x0077BC30
 
-D2CellFileStrc* gpCellFile_0077BC34; // 0x0077BC34
+D2CelFileStrc* gpCellFile_0077BC34; // 0x0077BC34
 
-D2CellFileStrc* gpCellFile_0077BC38; // 0x0077BC38
+D2CelFileStrc* gpCellFile_0077BC38; // 0x0077BC38
 
-D2CellFileStrc* gpCellFile_0077BC3C; // 0x0077BC3C
+D2CelFileStrc* gpCellFile_0077BC3C; // 0x0077BC3C
 
-D2CellFileStrc* gpCellFile_0077BC50; // 0x0077BC50
+D2CelFileStrc* gpCellFile_0077BC50; // 0x0077BC50
 
-D2CellFileStrc* gpCellFile_0077BC54; // 0x0077BC54
+D2CelFileStrc* gpCellFile_0077BC54; // 0x0077BC54
 
-D2CellFileStrc* gpCellFile_0077BC58; // 0x0077BC58
+D2CelFileStrc* gpCellFile_0077BC58; // 0x0077BC58
 
-D2CellFileStrc* gpCellFile_0077BC5C; // 0x0077BC5C
+D2CelFileStrc* gpCellFile_0077BC5C; // 0x0077BC5C
 
-D2CellFileStrc* gpCellFile_0077BC60; // 0x0077BC60
+D2CelFileStrc* gpCellFile_0077BC60; // 0x0077BC60
 
-D2CellFileStrc* gpCellFile_0077BC64; // 0x0077BC64
+D2CelFileStrc* gpCellFile_0077BC64; // 0x0077BC64
 
-D2CellFileStrc* gpCellFile_0077BC68; // 0x0077BC68
+D2CelFileStrc* gpCellFile_0077BC68; // 0x0077BC68
 
-D2CellFileStrc* gpCellFile_0077BC6C; // 0x0077BC6C
+D2CelFileStrc* gpCellFile_0077BC6C; // 0x0077BC6C
 
-D2CellFileStrc* gpCellFile_0077BC70; // 0x0077BC70
+D2CelFileStrc* gpCellFile_0077BC70; // 0x0077BC70
 
-D2CellFileStrc* gpCellFile_0077BC74; // 0x0077BC74
+D2CelFileStrc* gpCellFile_0077BC74; // 0x0077BC74
 
-D2CellFileStrc* gpCellFile_0077BC78; // 0x0077BC78
+D2CelFileStrc* gpCellFile_0077BC78; // 0x0077BC78
 
-D2CellFileStrc* gpCellFile_0077BC7C; // 0x0077BC7C
+D2CelFileStrc* gpCellFile_0077BC7C; // 0x0077BC7C
 
-D2CellFileStrc* gpCellFile_0077BC80; // 0x0077BC80
+D2CelFileStrc* gpCellFile_0077BC80; // 0x0077BC80
 
-D2CellFileStrc* gpCellFile_0077BC84; // 0x0077BC84
+D2CelFileStrc* gpCellFile_0077BC84; // 0x0077BC84
 
-D2CellFileStrc* gpCellFile_0077BC88; // 0x0077BC88
+D2CelFileStrc* gpCellFile_0077BC88; // 0x0077BC88
 
-D2CellFileStrc* gpCellFile_0077BC8C; // 0x0077BC8C
+D2CelFileStrc* gpCellFile_0077BC8C; // 0x0077BC8C
 
-D2CellFileStrc* gpCellFile_0077BC90; // 0x0077BC90
+D2CelFileStrc* gpCellFile_0077BC90; // 0x0077BC90
 
-D2CellFileStrc* gpCellFile_0077BC94; // 0x0077BC94
+D2CelFileStrc* gpCellFile_0077BC94; // 0x0077BC94
 
-D2CellFileStrc* gpCellFile_0077BCB8; // 0x0077BCB8
+D2CelFileStrc* gpCellFile_0077BCB8; // 0x0077BCB8
 
-D2CellFileStrc* gpCellFile_0077BCBC; // 0x0077BCBC
+D2CelFileStrc* gpCellFile_0077BCBC; // 0x0077BCBC
 
-D2CellFileStrc* gpCellFile_0077BCC0; // 0x0077BCC0
+D2CelFileStrc* gpCellFile_0077BCC0; // 0x0077BCC0
 
-D2CellFileStrc* gpCellFile_0077BCC4; // 0x0077BCC4
+D2CelFileStrc* gpCellFile_0077BCC4; // 0x0077BCC4
 
-D2CellFileStrc* gpCellFile_0077BCC8; // 0x0077BCC8
+D2CelFileStrc* gpCellFile_0077BCC8; // 0x0077BCC8
 
-D2CellFileStrc* gpCellFile_0077BCCC; // 0x0077BCCC
+D2CelFileStrc* gpCellFile_0077BCCC; // 0x0077BCCC
 
-D2CellFileStrc* gpCellFile_0077BCD0; // 0x0077BCD0
+D2CelFileStrc* gpCellFile_0077BCD0; // 0x0077BCD0
 
-D2CellFileStrc* gpCellFile_0077BCD4; // 0x0077BCD4
+D2CelFileStrc* gpCellFile_0077BCD4; // 0x0077BCD4
 
-D2CellFileStrc* gpCellFile_0077BCD8; // 0x0077BCD8
+D2CelFileStrc* gpCellFile_0077BCD8; // 0x0077BCD8
 
-D2CellFileStrc* gpCellFile_0077BD0C; // 0x0077BD0C
+D2CelFileStrc* gpCellFile_0077BD0C; // 0x0077BD0C
 
-D2CellFileStrc* gpCellFile_0077BD10; // 0x0077BD10
+D2CelFileStrc* gpCellFile_0077BD10; // 0x0077BD10
 
-D2CellFileStrc* gpCellFile_0077BD18; // 0x0077BD18
+D2CelFileStrc* gpCellFile_0077BD18; // 0x0077BD18
 
-D2CellFileStrc* gpCellFile_0077BD2C; // 0x0077BD2C
+D2CelFileStrc* gpCellFile_0077BD2C; // 0x0077BD2C
 
-D2CellFileStrc* gpCellFile_0077BD30; // 0x0077BD30
+D2CelFileStrc* gpCellFile_0077BD30; // 0x0077BD30
 
-D2CellFileStrc* gpCellFile_0077BD34; // 0x0077BD34
+D2CelFileStrc* gpCellFile_0077BD34; // 0x0077BD34
 
-D2CellFileStrc* gpCellFile_0077BD38; // 0x0077BD38
+D2CelFileStrc* gpCellFile_0077BD38; // 0x0077BD38
 
-D2CellFileStrc* gpCellFile_0077BD3C; // 0x0077BD3C
+D2CelFileStrc* gpCellFile_0077BD3C; // 0x0077BD3C
 
-D2CellFileStrc* gpCellFile_0077BD40; // 0x0077BD40
+D2CelFileStrc* gpCellFile_0077BD40; // 0x0077BD40
 
-D2CellFileStrc* gpCellFile_0077BD44; // 0x0077BD44
+D2CelFileStrc* gpCellFile_0077BD44; // 0x0077BD44
 
-D2CellFileStrc* gpCellFile_0077BD48; // 0x0077BD48
+D2CelFileStrc* gpCellFile_0077BD48; // 0x0077BD48
 
-D2CellFileStrc* gpCellFile_0077BD4C; // 0x0077BD4C
+D2CelFileStrc* gpCellFile_0077BD4C; // 0x0077BD4C
 
 // 0x0043D510
 void __cdecl sub_0043D510_FreeCellFiles()

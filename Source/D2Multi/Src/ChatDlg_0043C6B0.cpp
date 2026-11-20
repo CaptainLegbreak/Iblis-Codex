@@ -53,9 +53,9 @@ int __fastcall sub_004069B0_ReadFile(void* hFile, void* pBuffer, unsigned long n
 int __fastcall sub_004069D0_WriteFile(void* hFile, const void* pBuffer, unsigned long nSize, unsigned long* pWritten, void* pOverlapped); // 0x004069D0
 unsigned long __fastcall sub_004069F0_SetFilePointer(void* hFile, long nDistance, long* pDistanceHigh, unsigned long dwMethod); // 0x004069F0
 unsigned int __stdcall FOG_ComputeChecksum(const unsigned char* pData, unsigned int nSize); // 0x00411130
-D2CellFileStrc* __fastcall sub_004FA9B0_LoadCellFile(const char* szFile, int nType); // 0x004FA9B0
-void __stdcall sub_00504D30(D2CellFileStrc* pCellFileA, D2CellFileStrc* pCellFileB); // 0x00504D30
-int __stdcall sub_005041B0_Destroy(D2CellFileStrc* pCellFile, int nFlag); // 0x005041B0
+D2CelFileStrc* __fastcall sub_004FA9B0_LoadCellFile(const char* szFile, int nType); // 0x004FA9B0
+void __stdcall sub_00504D30(D2CelFileStrc* pCellFileA, D2CelFileStrc* pCellFileB); // 0x00504D30
+int __stdcall sub_005041B0_Destroy(D2CelFileStrc* pCellFile, int nFlag); // 0x005041B0
 int __stdcall sub_004F91C0(void* pEditBox); // 0x004F91C0
 void __fastcall sub_004FDAD0_SetKeyCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(D2WinControlStrc*, int, const char*)); // 0x004FDAD0
 void __fastcall sub_004FDB00_SetEnterCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(int)); // 0x004FDB00
@@ -74,63 +74,63 @@ extern D2WinControlStrc* gpChatControl_0077B06C; // 0x0077B06C
 extern D2WinControlStrc* gpChatControl_0077B074; // 0x0077B074
 extern D2LaunchCharInfoStrc* gpCharInfo_0077BBD8; // 0x0077BBD8
 extern int gbToggle_0077BBEC; // 0x0077BBEC
-extern D2CellFileStrc* gpChatCellFile_0077BBFC; // 0x0077BBFC
+extern D2CelFileStrc* gpChatCellFile_0077BBFC; // 0x0077BBFC
 extern D2WinControlStrc* gpChatControl_0077BC44; // 0x0077BC44
 extern D2WinControlStrc* gpChatControl_0077BC48; // 0x0077BC48
 extern D2WinControlStrc* gpChatEdit_0077BD94; // 0x0077BD94
-extern D2CellFileStrc* gpCellFile_0077BC04; // 0x0077BC04
-extern D2CellFileStrc* gpCellFile_0077BC08; // 0x0077BC08
-extern D2CellFileStrc* gpCellFile_0077BC0C; // 0x0077BC0C
-extern D2CellFileStrc* gpCellFile_0077BC10; // 0x0077BC10
-extern D2CellFileStrc* gpCellFile_0077BC14; // 0x0077BC14
-extern D2CellFileStrc* gpCellFile_0077BC18; // 0x0077BC18
-extern D2CellFileStrc* gpCellFile_0077BC1C; // 0x0077BC1C
-extern D2CellFileStrc* gpCellFile_0077BC20; // 0x0077BC20
-extern D2CellFileStrc* gpCellFile_0077BC28; // 0x0077BC28
-extern D2CellFileStrc* gpCellFile_0077BC2C; // 0x0077BC2C
-extern D2CellFileStrc* gpCellFile_0077BC30; // 0x0077BC30
-extern D2CellFileStrc* gpCellFile_0077BC34; // 0x0077BC34
-extern D2CellFileStrc* gpCellFile_0077BC38; // 0x0077BC38
-extern D2CellFileStrc* gpCellFile_0077BC3C; // 0x0077BC3C
-extern D2CellFileStrc* gpCellFile_0077BC50; // 0x0077BC50
-extern D2CellFileStrc* gpCellFile_0077BC54; // 0x0077BC54
-extern D2CellFileStrc* gpCellFile_0077BC58; // 0x0077BC58
-extern D2CellFileStrc* gpCellFile_0077BC5C; // 0x0077BC5C
-extern D2CellFileStrc* gpCellFile_0077BC60; // 0x0077BC60
-extern D2CellFileStrc* gpCellFile_0077BC64; // 0x0077BC64
-extern D2CellFileStrc* gpCellFile_0077BC68; // 0x0077BC68
-extern D2CellFileStrc* gpCellFile_0077BC6C; // 0x0077BC6C
-extern D2CellFileStrc* gpCellFile_0077BC70; // 0x0077BC70
-extern D2CellFileStrc* gpCellFile_0077BC74; // 0x0077BC74
-extern D2CellFileStrc* gpCellFile_0077BC78; // 0x0077BC78
-extern D2CellFileStrc* gpCellFile_0077BC7C; // 0x0077BC7C
-extern D2CellFileStrc* gpCellFile_0077BC80; // 0x0077BC80
-extern D2CellFileStrc* gpCellFile_0077BC84; // 0x0077BC84
-extern D2CellFileStrc* gpCellFile_0077BC88; // 0x0077BC88
-extern D2CellFileStrc* gpCellFile_0077BC8C; // 0x0077BC8C
-extern D2CellFileStrc* gpCellFile_0077BC90; // 0x0077BC90
-extern D2CellFileStrc* gpCellFile_0077BC94; // 0x0077BC94
-extern D2CellFileStrc* gpCellFile_0077BCB8; // 0x0077BCB8
-extern D2CellFileStrc* gpCellFile_0077BCBC; // 0x0077BCBC
-extern D2CellFileStrc* gpCellFile_0077BCC0; // 0x0077BCC0
-extern D2CellFileStrc* gpCellFile_0077BCC4; // 0x0077BCC4
-extern D2CellFileStrc* gpCellFile_0077BCC8; // 0x0077BCC8
-extern D2CellFileStrc* gpCellFile_0077BCCC; // 0x0077BCCC
-extern D2CellFileStrc* gpCellFile_0077BCD0; // 0x0077BCD0
-extern D2CellFileStrc* gpCellFile_0077BCD4; // 0x0077BCD4
-extern D2CellFileStrc* gpCellFile_0077BCD8; // 0x0077BCD8
-extern D2CellFileStrc* gpCellFile_0077BD0C; // 0x0077BD0C
-extern D2CellFileStrc* gpCellFile_0077BD10; // 0x0077BD10
-extern D2CellFileStrc* gpCellFile_0077BD18; // 0x0077BD18
-extern D2CellFileStrc* gpCellFile_0077BD2C; // 0x0077BD2C
-extern D2CellFileStrc* gpCellFile_0077BD30; // 0x0077BD30
-extern D2CellFileStrc* gpCellFile_0077BD34; // 0x0077BD34
-extern D2CellFileStrc* gpCellFile_0077BD38; // 0x0077BD38
-extern D2CellFileStrc* gpCellFile_0077BD3C; // 0x0077BD3C
-extern D2CellFileStrc* gpCellFile_0077BD40; // 0x0077BD40
-extern D2CellFileStrc* gpCellFile_0077BD44; // 0x0077BD44
-extern D2CellFileStrc* gpCellFile_0077BD48; // 0x0077BD48
-extern D2CellFileStrc* gpCellFile_0077BD4C; // 0x0077BD4C
+extern D2CelFileStrc* gpCellFile_0077BC04; // 0x0077BC04
+extern D2CelFileStrc* gpCellFile_0077BC08; // 0x0077BC08
+extern D2CelFileStrc* gpCellFile_0077BC0C; // 0x0077BC0C
+extern D2CelFileStrc* gpCellFile_0077BC10; // 0x0077BC10
+extern D2CelFileStrc* gpCellFile_0077BC14; // 0x0077BC14
+extern D2CelFileStrc* gpCellFile_0077BC18; // 0x0077BC18
+extern D2CelFileStrc* gpCellFile_0077BC1C; // 0x0077BC1C
+extern D2CelFileStrc* gpCellFile_0077BC20; // 0x0077BC20
+extern D2CelFileStrc* gpCellFile_0077BC28; // 0x0077BC28
+extern D2CelFileStrc* gpCellFile_0077BC2C; // 0x0077BC2C
+extern D2CelFileStrc* gpCellFile_0077BC30; // 0x0077BC30
+extern D2CelFileStrc* gpCellFile_0077BC34; // 0x0077BC34
+extern D2CelFileStrc* gpCellFile_0077BC38; // 0x0077BC38
+extern D2CelFileStrc* gpCellFile_0077BC3C; // 0x0077BC3C
+extern D2CelFileStrc* gpCellFile_0077BC50; // 0x0077BC50
+extern D2CelFileStrc* gpCellFile_0077BC54; // 0x0077BC54
+extern D2CelFileStrc* gpCellFile_0077BC58; // 0x0077BC58
+extern D2CelFileStrc* gpCellFile_0077BC5C; // 0x0077BC5C
+extern D2CelFileStrc* gpCellFile_0077BC60; // 0x0077BC60
+extern D2CelFileStrc* gpCellFile_0077BC64; // 0x0077BC64
+extern D2CelFileStrc* gpCellFile_0077BC68; // 0x0077BC68
+extern D2CelFileStrc* gpCellFile_0077BC6C; // 0x0077BC6C
+extern D2CelFileStrc* gpCellFile_0077BC70; // 0x0077BC70
+extern D2CelFileStrc* gpCellFile_0077BC74; // 0x0077BC74
+extern D2CelFileStrc* gpCellFile_0077BC78; // 0x0077BC78
+extern D2CelFileStrc* gpCellFile_0077BC7C; // 0x0077BC7C
+extern D2CelFileStrc* gpCellFile_0077BC80; // 0x0077BC80
+extern D2CelFileStrc* gpCellFile_0077BC84; // 0x0077BC84
+extern D2CelFileStrc* gpCellFile_0077BC88; // 0x0077BC88
+extern D2CelFileStrc* gpCellFile_0077BC8C; // 0x0077BC8C
+extern D2CelFileStrc* gpCellFile_0077BC90; // 0x0077BC90
+extern D2CelFileStrc* gpCellFile_0077BC94; // 0x0077BC94
+extern D2CelFileStrc* gpCellFile_0077BCB8; // 0x0077BCB8
+extern D2CelFileStrc* gpCellFile_0077BCBC; // 0x0077BCBC
+extern D2CelFileStrc* gpCellFile_0077BCC0; // 0x0077BCC0
+extern D2CelFileStrc* gpCellFile_0077BCC4; // 0x0077BCC4
+extern D2CelFileStrc* gpCellFile_0077BCC8; // 0x0077BCC8
+extern D2CelFileStrc* gpCellFile_0077BCCC; // 0x0077BCCC
+extern D2CelFileStrc* gpCellFile_0077BCD0; // 0x0077BCD0
+extern D2CelFileStrc* gpCellFile_0077BCD4; // 0x0077BCD4
+extern D2CelFileStrc* gpCellFile_0077BCD8; // 0x0077BCD8
+extern D2CelFileStrc* gpCellFile_0077BD0C; // 0x0077BD0C
+extern D2CelFileStrc* gpCellFile_0077BD10; // 0x0077BD10
+extern D2CelFileStrc* gpCellFile_0077BD18; // 0x0077BD18
+extern D2CelFileStrc* gpCellFile_0077BD2C; // 0x0077BD2C
+extern D2CelFileStrc* gpCellFile_0077BD30; // 0x0077BD30
+extern D2CelFileStrc* gpCellFile_0077BD34; // 0x0077BD34
+extern D2CelFileStrc* gpCellFile_0077BD38; // 0x0077BD38
+extern D2CelFileStrc* gpCellFile_0077BD3C; // 0x0077BD3C
+extern D2CelFileStrc* gpCellFile_0077BD40; // 0x0077BD40
+extern D2CelFileStrc* gpCellFile_0077BD44; // 0x0077BD44
+extern D2CelFileStrc* gpCellFile_0077BD48; // 0x0077BD48
+extern D2CelFileStrc* gpCellFile_0077BD4C; // 0x0077BD4C
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 

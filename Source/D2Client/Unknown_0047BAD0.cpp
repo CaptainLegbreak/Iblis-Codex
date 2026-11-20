@@ -5,7 +5,7 @@
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-struct D2CellFileStrc;
+struct D2CelFileStrc;
 struct D2MenuItemStrc;
 struct T0047BAD0;
 struct Unicode;
@@ -76,8 +76,8 @@ struct D2MenuItemStrc
     unsigned int dwMoveCount;
     unsigned int dwSliderType;
     char szChoices[4][260];
-    D2CellFileStrc* pImage;
-    D2CellFileStrc* pChoices[4];
+    D2CelFileStrc* pImage;
+    D2CelFileStrc* pChoices[4];
 };
 
 int __cdecl sub_00514CC0(); // 0x00514CC0
@@ -93,11 +93,11 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType); // 0x004788B0
 
 extern D2OptionHeaderStrc* gpOptionHeader_007BC93C; // 0x007BC93C
-extern D2CellFileStrc* gpSliderDisabledCell_007BC950; // 0x007BC950
-extern D2CellFileStrc* gpSliderEnabledCell_007BC954; // 0x007BC954
+extern D2CelFileStrc* gpSliderDisabledCell_007BC950; // 0x007BC950
+extern D2CelFileStrc* gpSliderEnabledCell_007BC954; // 0x007BC954
 extern D2CelFileStrc* gpSliderKnob_007BC958; // 0x007BC958
 void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nStyle); // 0x0046EFD0
-void __fastcall sub_00502680_DrawCellFile(D2CellFileStrc* pCellFile, int nX, int nY, int nFrame, int nColor, int nArg6); // 0x00502680
+void __fastcall sub_00502680_DrawCellFile(D2CelFileStrc* pCellFile, int nX, int nY, int nFrame, int nColor, int nArg6); // 0x00502680
 int __stdcall TEXTURE_CelDraw(D2CelContextStrc* pContext, int nX, int nY, int nArg4, int nColor, int nArg6); // 0x004F6480
 extern int gnSlotFrame_007BC918[]; // 0x007BC918
 extern int gnSlotX_007BC898[]; // 0x007BC898

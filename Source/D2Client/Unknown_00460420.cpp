@@ -1,7 +1,7 @@
 #include "D2Client.h"
 #include "D2ClientTypes.h"
 
-struct D2CellFileStrc;
+struct D2CelFileStrc;
 
 
 void __cdecl sub_00477DD0();                                                                                // 0x00477DD0
@@ -12,7 +12,7 @@ void __cdecl sub_0045FD80_DrawCenteredString();                                 
 void __cdecl sub_004684C0(); // 0x004684C0
 void __cdecl sub_00482C20_Tick();                                                                           // 0x00482C20
 void __fastcall sub_00460190_DrawFrame(int nUnused);                                                        // 0x00460190
-D2CellFileStrc* __fastcall sub_004788B0(const char* szFile, int nType);                             // 0x004788B0
+D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType);                             // 0x004788B0
 void __fastcall sub_0044C930_SetClientState(int nState);                                                    // 0x0044C930
 int __cdecl sub_004F59A0();                                                                                // 0x004F59A0
 void __fastcall sub_00451DB0_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
@@ -22,9 +22,9 @@ void __cdecl sub_00460430_FreeCels();                                           
 
 extern D2MsgHandlerEntryStrc gaMsgHandlers_00711D40[];                                                      // 0x00711D40
 extern D2MsgHandlerEntryStrc gaMsgHandlers_00711D70[];                                                      // 0x00711D70
-D2CellFileStrc* gpGlobal_007A523C;                                                                          // 0x007A523C
-D2CellFileStrc* gpGlobal_007A5240;                                                                          // 0x007A5240
-D2CellFileStrc* gpGlobal_007A5244;                                                                          // 0x007A5244
+D2CelFileStrc* gpGlobal_007A523C;                                                                          // 0x007A523C
+D2CelFileStrc* gpGlobal_007A5240;                                                                          // 0x007A5240
+D2CelFileStrc* gpGlobal_007A5244;                                                                          // 0x007A5244
 extern int gnGlobal_007A524C;                                                                               // 0x007A524C
 int gnGlobal_007A5254;                                                                                      // 0x007A5254
 int gnGlobal_007A5258;                                                                                      // 0x007A5258

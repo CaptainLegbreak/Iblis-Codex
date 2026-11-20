@@ -3,7 +3,7 @@
 #include "D2LevelTxt.h"
 
 struct D2TileLibraryHeaderStrc;
-struct D2CellFileStrc;
+struct D2CelFileStrc;
 struct D2PoolSystemStrc;
 struct Unicode;
 struct D2QuestScreenStrc;
@@ -68,7 +68,7 @@ void __cdecl sub_004684C0(); // 0x004684C0
 void __fastcall sub_0044B880_SetValue(int nValue); // 0x0044B880
 void __stdcall D2CMPLoadProjectRecord(D2TileLibraryHeaderStrc** ppLibrary, const char* szFilePath); // 0x00600790
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
-D2CellFileStrc* __fastcall sub_004788B0_LoadCellFile(const char* szPath, int nType); // 0x004788B0
+D2CelFileStrc* __fastcall sub_004788B0_LoadCellFile(const char* szPath, int nType); // 0x004788B0
 int __stdcall D2Win_10028(const char* pszPalDatFilename, const char* pszPalPL2Filename); // 0x004FB500
 void __fastcall sub_004547B0(); // 0x004547B0
 void __fastcall sub_00478130_SetScale(int nValue, int nDivisor); // 0x00478130
@@ -79,7 +79,7 @@ int __stdcall sub_004B92E0_GetTableByte(int nUnused, int nIndex); // 0x004B92E0
 void __fastcall sub_00478A00(void* pCel); // 0x00478A00
 void __fastcall sub_00492F40_SetFade(int nMode); // 0x00492F40
 int __fastcall sub_0044DFF0_TimerExpired(D2LoadingTimerStrc* pTimer); // 0x0044DFF0
-void __fastcall sub_00502680_DrawCellFile(D2CellFileStrc* pCell, int nX, int nY, int nA, int nB, int nC); // 0x00502680
+void __fastcall sub_00502680_DrawCellFile(D2CelFileStrc* pCell, int nX, int nY, int nA, int nB, int nC); // 0x00502680
 extern "C" const char gszFormatD_006D57BC[]; // 0x006D57BC
 extern int gnLineHeight_007111C8; // 0x007111C8
 extern int gdwGlobal_007A04F4; // 0x007A04F4
@@ -87,7 +87,7 @@ extern D2QuestScreenStrc gtQuestScreens_0070F85C[]; // 0x0070F85C
 extern int gnQuestScreens_0070F92C; // 0x0070F92C
 extern int gnGlobal_0071146C; // 0x0071146C
 extern int gnGlobal_00711470; // 0x00711470
-extern D2CellFileStrc* gpLoadingScreen_007A2888; // 0x007A2888
+extern D2CelFileStrc* gpLoadingScreen_007A2888; // 0x007A2888
 extern int gnLoadingFrame_007A2A6C; // 0x007A2A6C
 extern int gdwGlobal_007A2868; // 0x007A2868
 extern int gnValue_007A27B8; // 0x007A27B8
@@ -188,13 +188,13 @@ int gdwGlobal_007A0680; // 0x007A0680
 
 int gdwGlobal_007A0608; // 0x007A0608
 
-D2CellFileStrc* gpLoadingCell_007A2794; // 0x007A2794
+D2CelFileStrc* gpLoadingCell_007A2794; // 0x007A2794
 
-D2CellFileStrc* gpBuySellButton_007A287C; // 0x007A287C
+D2CelFileStrc* gpBuySellButton_007A287C; // 0x007A287C
 
-static D2CellFileStrc* s_pEndGameCell_007A0700; // 0x007A0700
+static D2CelFileStrc* s_pEndGameCell_007A0700; // 0x007A0700
 
-static D2CellFileStrc* s_pEndGameOkCell_007A06FC; // 0x007A06FC
+static D2CelFileStrc* s_pEndGameOkCell_007A06FC; // 0x007A06FC
 
 // build: symbol ?$S1@?7??sub_00455510_DrawLevelLoadingScreen@@YAXXZ@4IA 0x007A314C
 // 0x0044DB60
@@ -412,7 +412,7 @@ void __cdecl sub_00453BB0_DrawEntryList()
 }
 
 // 0x00454600
-D2CellFileStrc* __cdecl sub_00454600_GetBuySellButtonCells()
+D2CelFileStrc* __cdecl sub_00454600_GetBuySellButtonCells()
 {
     if (!gpBuySellButton_007A287C)
     {

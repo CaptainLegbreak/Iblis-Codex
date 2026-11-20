@@ -3,7 +3,7 @@
 struct D2Direct3D006B7110Strc;
 struct D2VertexBufferDescStrc;
 struct D2Direct3DVtbl006B7110Strc;
-struct D2CellFileStrc;
+struct D2CelFileStrc;
 struct D2CelContext006B7090Strc;
 struct D2TextureInfo006B7090Strc;
 
@@ -58,7 +58,7 @@ struct D2CelContext006B7090Strc
     unsigned char unk_14[0x18];
     const char* szName;
     unsigned char unk_30[0x0C];
-    D2CellFileStrc* pCelFile;
+    D2CelFileStrc* pCelFile;
 };
 
 struct D2TextureInfo006B7090Strc
@@ -77,12 +77,12 @@ struct D2TextureInfo006B7090Strc
     float fV1;
 };
 int __stdcall sub_006001F0_Prepare(D2CelContext006B7090Strc* pContext, int a2, int a3); // 0x006001F0
-int __stdcall sub_006018C0_CelGetWidth(D2CellFileStrc* pCelFile); // 0x006018C0
-int __stdcall sub_006018F0_CelGetHeight(D2CellFileStrc* pCelFile); // 0x006018F0
-int __stdcall sub_00601920_CelGetOffsetX(D2CellFileStrc* pCelFile); // 0x00601920
-int __stdcall sub_00601950_CelGetOffsetY(D2CellFileStrc* pCelFile); // 0x00601950
+int __stdcall sub_006018C0_CelGetWidth(D2CelFileStrc* pCelFile); // 0x006018C0
+int __stdcall sub_006018F0_CelGetHeight(D2CelFileStrc* pCelFile); // 0x006018F0
+int __stdcall sub_00601920_CelGetOffsetX(D2CelFileStrc* pCelFile); // 0x00601920
+int __stdcall sub_00601950_CelGetOffsetY(D2CelFileStrc* pCelFile); // 0x00601950
 void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
-int __stdcall shim_7(D2CellFileStrc* pCelFile, int nWidth, int nHeight, int nMode, int* pArg1, int* pArg2);
+int __stdcall shim_7(D2CelFileStrc* pCelFile, int nWidth, int nHeight, int nMode, int* pArg1, int* pArg2);
 int __stdcall shim_6(int nOffsetX, int nOffsetY, int nTextureWidth, int* pX, int* pY, int* pArg3, int* pArg4, int* pArg5, int* pArg6);
 static __declspec(noinline) int __stdcall sub_006B5C80_LoadCelInfo(D2CelContext006B7090Strc* pContext, D2TextureInfo006B7090Strc* pInfo);
 static __declspec(noinline) void __stdcall sub_006B5CF0_SetTextureSize(D2TextureInfo006B7090Strc* pInfo);

@@ -4,7 +4,7 @@
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2MsgHandlerEntryStrc;
-struct D2CellFileStrc;
+struct D2CelFileStrc;
 struct D2UiControlAStrc;
 struct D2UiControlBStrc;
 struct D2UiControlCStrc;
@@ -38,7 +38,7 @@ int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
 void __cdecl sub_0046AC70_EnableHotkeyHandlers(); // 0x0046AC70
-D2CellFileStrc* __fastcall sub_004788B0(const char* szFile, int nType); // 0x004788B0
+D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType); // 0x004788B0
 void __cdecl sub_0047DD70_LoadOptionMenus(); // 0x0047DD70
 void __cdecl sub_0047F0C0_LoadMiniPanel(); // 0x0047F0C0
 void __cdecl sub_004868B0(); // 0x004868B0
@@ -61,14 +61,14 @@ void __cdecl sub_004BF9D0(); // 0x004BF9D0
 int __cdecl sub_004F59A0(); // 0x004F59A0
 extern D2MsgHandlerEntryStrc gtPanelHandlers_006D5F28[]; // 0x006D5F28
 extern D2MsgHandlerEntryStrc gtPanelHandlers_006D6300[]; // 0x006D6300
-extern D2CellFileStrc* gpBoxPiecesCel_007A2798; // 0x007A2798
+extern D2CelFileStrc* gpBoxPiecesCel_007A2798; // 0x007A2798
 extern D2UiControlAStrc* gpGoldControlA_007A27A4; // 0x007A27A4
 extern D2UiControlBStrc* gpGoldControlB_007A27A8; // 0x007A27A8
 extern D2UiControlCStrc* gpGoldControlC_007A27AC; // 0x007A27AC
 extern D2UiControlCStrc* gpGoldControlD_007A27B0; // 0x007A27B0
 extern int gbGoldPanelFlag_007A27B4; // 0x007A27B4
-extern D2CellFileStrc* gpPentspinCel_007A2878; // 0x007A2878
-extern D2CellFileStrc* gpFocus16Cel_007A2880; // 0x007A2880
+extern D2CelFileStrc* gpPentspinCel_007A2878; // 0x007A2878
+extern D2CelFileStrc* gpFocus16Cel_007A2880; // 0x007A2880
 
 // 0x004549F0
 static void __stdcall sub_004549F0_DrawHoverLine(const unsigned short* wszText, int nFont, int nY, int nColor)

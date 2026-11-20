@@ -23146,7 +23146,7 @@
        "fn": false,
        "k": "ptr",
        "size": 4,
-       "spell": "D2CellFileStrc **"
+       "spell": "D2CelFileStrc **"
       }
      ],
      [
@@ -23292,7 +23292,7 @@
        "fn": false,
        "k": "ptr",
        "size": 4,
-       "spell": "D2CellFileStrc **"
+       "spell": "D2CelFileStrc **"
       }
      ],
      [
@@ -23463,7 +23463,7 @@
        "fn": false,
        "k": "ptr",
        "size": 4,
-       "spell": "D2CellFileStrc **"
+       "spell": "D2CelFileStrc **"
       }
      ],
      [
@@ -23626,7 +23626,7 @@
        "fn": false,
        "k": "ptr",
        "size": 4,
-       "spell": "D2CellFileStrc **"
+       "spell": "D2CelFileStrc **"
       }
      ],
      [
@@ -23781,7 +23781,7 @@
        "fn": false,
        "k": "ptr",
        "size": 4,
-       "spell": "D2CellFileStrc **"
+       "spell": "D2CelFileStrc **"
       }
      ],
      [
@@ -23936,7 +23936,7 @@
        "fn": false,
        "k": "ptr",
        "size": 4,
-       "spell": "D2CellFileStrc **"
+       "spell": "D2CelFileStrc **"
       }
      ],
      [
@@ -24091,7 +24091,7 @@
        "fn": false,
        "k": "ptr",
        "size": 4,
-       "spell": "D2CellFileStrc **"
+       "spell": "D2CelFileStrc **"
       }
      ],
      [
@@ -24246,7 +24246,7 @@
        "fn": false,
        "k": "ptr",
        "size": 4,
-       "spell": "D2CellFileStrc **"
+       "spell": "D2CelFileStrc **"
       }
      ],
      [
@@ -24401,7 +24401,7 @@
        "fn": false,
        "k": "ptr",
        "size": 4,
-       "spell": "D2CellFileStrc **"
+       "spell": "D2CelFileStrc **"
       }
      ],
      [
@@ -48077,7 +48077,7 @@
         "fn": false,
         "k": "ptr",
         "size": 4,
-        "spell": "D2CellFileStrc *"
+        "spell": "D2CelFileStrc *"
        }
       ],
       [
@@ -48088,7 +48088,7 @@
          "fn": false,
          "k": "ptr",
          "size": 4,
-         "spell": "D2CellFileStrc *"
+         "spell": "D2CelFileStrc *"
         },
         "k": "arr",
         "n": 4,

@@ -1,5 +1,5 @@
 #include "D2CelContext.h"
-struct D2CellFileStrc;
+struct D2CelFileStrc;
 
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
@@ -7,7 +7,7 @@ int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamm
 int gnValue_007A6AAC;        // 0x007A6AAC
 int gnValue_007A6AB0;        // 0x007A6AB0
 int gnValue_007A6AB4;        // 0x007A6AB4
-D2CellFileStrc* gpCellFile_007A6AD8;        // 0x007A6AD8
+D2CelFileStrc* gpCellFile_007A6AD8;        // 0x007A6AD8
 int gnFrame_007A6AE0;        // 0x007A6AE0
 
 // 0x00468460

@@ -1,6 +1,6 @@
 #include "D2Structs.h"
 #include "D2CelContext.h"
-struct D2CellFileStrc;
+struct D2CelFileStrc;
 struct D2UnitStrc;
 typedef unsigned int size_t;
 struct Unicode;
@@ -38,7 +38,7 @@ int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamm
 int __fastcall sub_004B3230_GetTickPair(int* pUnitId);                                                // 0x004B3230
 D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 void __stdcall sub_00483FF0_DrawUnitInventory(D2UnitStrc* pUnit);                                           // 0x00483FF0
-D2CellFileStrc* __cdecl sub_00454600_GetBuySellButtonCells(); // 0x00454600
+D2CelFileStrc* __cdecl sub_00454600_GetBuySellButtonCells(); // 0x00454600
 int __fastcall sub_00502EF0(int nFont);                                                                     // 0x00502EF0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 int __fastcall sub_00501820(const Unicode* wszText);                                             // 0x00501820

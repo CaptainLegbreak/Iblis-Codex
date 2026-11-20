@@ -5,7 +5,7 @@ struct Unicode;
 struct D2WinTextBoxStrc;
 struct D2WinTimerStrc;
 struct D2WinButtonStrc;
-struct D2CellFileStrc;
+struct D2CelFileStrc;
 struct D2FuncTable_0077ABF0Strc;
 struct D2CharSelCacheStrc;
 class BNGatewayAccess;
@@ -98,14 +98,14 @@ int __cdecl sub_00430B40(); // 0x00430B40
 void __cdecl sub_00434060();
 void __cdecl sub_0043AE30_InitRealmList();
 void __fastcall sub_0043ADB0_UseName(char* szName);
-int __stdcall BACKGROUND_SetCellFile(D2CellFileStrc* pCellFile); // 0x004F9140
+int __stdcall BACKGROUND_SetCellFile(D2CelFileStrc* pCellFile); // 0x004F9140
 void __fastcall sub_004F9740(D2WinControlStrc* pControl, int bSet); // 0x004F9740
 void __fastcall sub_004FB590(int nArg); // 0x004FB590
 int __fastcall D2Win_10051(D2WinControlStrc* pTextBox, const Unicode* wszText, int nColor, char bIsWrapped, int nIndent); // 0x004FC9B0
 void __fastcall sub_004FD830_2(D2WinTimerStrc* pTimer); // 0x004FD830
 void __fastcall sub_004FDA50_2(D2WinTimerStrc* pTimer); // 0x004FDA50
 void __fastcall BUTTON_SetCoordinates(D2WinButtonStrc* pButton, int nX, int nY, int nWidth, int nHeight); // 0x00500A70
-extern D2CellFileStrc* gpCellFile_00779768; // 0x00779768
+extern D2CelFileStrc* gpCellFile_00779768; // 0x00779768
 extern D2WinControlStrc* gpControl_00779D8C; // 0x00779D8C
 extern int gnTopRow_00779DC8; // 0x00779DC8
 extern D2WinControlStrc* gpCharSelectText_00779DD4; // 0x00779DD4
