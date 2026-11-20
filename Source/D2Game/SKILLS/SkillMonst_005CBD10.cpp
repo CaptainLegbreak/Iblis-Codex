@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2Path.h"
 #include "D2GameTypes.h"
+#include "D2UnitData.h"
 struct D2ActiveRoomStrc;
 struct D2UnitStrc;
 struct D2UnkCallRecordStrc;
@@ -65,11 +66,6 @@ enum D2C_F39Constants
 
 
 
-struct D2MonsterDataStrc
-{
-    int unk0x00;
-    unsigned char nComponent[16];
-};
 
 struct D2UnitFindDataStrc
 {

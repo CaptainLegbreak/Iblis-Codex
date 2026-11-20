@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2DataTbls.h"
 #include "D2Path.h"
+#include "D2UnitData.h"
 struct D2UnitStrc;
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2LightStrc;
@@ -54,11 +55,6 @@ unsigned char __stdcall sub_0063E7A0_GetByteTableEntry(unsigned char nIndex); //
 int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
 unsigned char __stdcall PATH_GetDirection(D2DynamicPathStrc* pPath); // 0x006487F0
 
-struct D2MonsterDataStrc
-{
-    char unk0x00[0x2C];
-    void* pUnk2C;
-};
 
 struct D2MonStats2Txt
 {
@@ -452,10 +448,10 @@ void __fastcall sub_004AEDD0_ChangeMonsterClass(D2UnitStrc* pUnit, int nClassId)
     if (nUnitType == 1)
     {
         D2MonsterDataStrc* pMonsterData = pUnit->pMonsterData;
-        if (pMonsterData && pMonsterData->pUnk2C)
+        if (pMonsterData && pMonsterData->pAiParam)
         {
-            FOG_Free(pMonsterData->pUnk2C, ".\\UNIT\\Monster.cpp", 0x66, 0);
-            pMonsterData->pUnk2C = 0;
+            FOG_Free(pMonsterData->pAiParam, ".\\UNIT\\Monster.cpp", 0x66, 0);
+            pMonsterData->pAiParam = 0;
         }
     }
 

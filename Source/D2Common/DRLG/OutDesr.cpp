@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Path.h"
 
 // build: context SEED_RollLimitedRandomNumber_Inline
 #define LEVEL_ROCKYWASTE 41
@@ -18,15 +19,6 @@ struct D2DrlgCoordsStrc;
 struct D2LvlPrestTxt;
 struct D2DrlgOutDesertInitStrc;
 
-union D2SeedStrc
-{
-    struct
-    {
-        unsigned int nLowSeed;
-        unsigned int nHighSeed;
-    };
-    unsigned __int64 lSeed;
-};
 
 struct D2DrlgGridStrc
 {

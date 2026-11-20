@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2Txt.h"
 
 #pragma function(memset)
 #define MONSTATSFLAGINDEX_NORATIO 2
@@ -84,30 +85,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 void __cdecl sub_00651040_ComputeDepths(); // 0x00651040
 void __stdcall sub_00650F00(int nRecordCount); // 0x00650F00
 
-struct D2MonStatsTxt
-{
-    char unk0x000[0x00C];
-    unsigned char nMonStatsFlags[4];
-    char unk0x010[0x0A0];
-    short nMinHP[3];
-    short nMaxHP[3];
-    short nAC[3];
-    short nA1TH[3];
-    short nA2TH[3];
-    short nS1TH[3];
-    short nExp[3];
-    short nA1MinD[3];
-    short nA1MaxD[3];
-    short nA2MinD[3];
-    short nA2MaxD[3];
-    short nS1MinD[3];
-    short nS1MaxD[3];
-    char unk0x0FE[0x010];
-    short nElMinD[3][3];
-    short nElMaxD[3][3];
-    short nElDur[3][3];
-    char unk0x144[0x064];
-};
 
 struct D2MonLvlTxt
 {
@@ -229,20 +206,6 @@ struct TableRow
     char unk0x1F[0xE4 - 0x1F];
 };
 
-struct D2ItemsTxt
-{
-    char unk0x00[0xF6];
-    unsigned short wVersion;
-    char unk0xF8[0xFD - 0xF8];
-    unsigned char nLevel;
-    char unk0xFE[0x11E - 0xFE];
-    short wType[2];
-    char unk0x122[0x12A - 0x122];
-    unsigned char nQuest;
-    char unk0x12B[0x133 - 0x12B];
-    unsigned char nSpawnable;
-    char unk0x134[0x1A8 - 0x134];
-};
 
 struct D2ItemDataTbl { int nItemsTxtRecordCount; D2ItemsTxt* pItemsTxt; };
 

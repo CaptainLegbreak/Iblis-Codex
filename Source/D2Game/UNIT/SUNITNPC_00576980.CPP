@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2Path.h"
+#include "D2UnitData.h"
 struct D2ActiveRoomStrc;
 struct D2CoordStrc;
 struct D2UnitStrc;
@@ -83,16 +84,7 @@ D2UnitStrc* __fastcall D2GAME_NPC_GenerateStoreItem_6FCC6A60(D2UnitStrc* pNpc, u
 int __fastcall sub_00576900_RollStoreItemQuality(D2SeedStrc* pSeed, unsigned int dwCode, int nItemLevel);
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 
-struct D2MonsterDataStrc
-{
-    char unk0x00[0x30];
-    D2MonsterInteractStrc* pMonInteract;
-};
 
-struct D2PlayerDataStrc
-{
-    char szName[16];
-};
 
 
 struct D2ItemDropStrc
