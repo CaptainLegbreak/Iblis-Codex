@@ -1,13 +1,12 @@
 #include "D2Game.h"
 #include "D2GameStrc.h"
 #include "D2GameTypes.h"
+#include "D2GameServer.h"
 
 typedef int (__stdcall* FARPROC)();
 
 struct D2ClientInfoStrc;
 struct D2GameDataTableStrc;
-
-
 
 struct D2ClientStrc
 {
@@ -15,19 +14,6 @@ struct D2ClientStrc
     D2ClientInfoStrc* pClientInfo;
     char unk0x06C[0x140];
     unsigned char bAct;
-};
-
-struct D2ServerCallbackFunctions
-{
-    void* pfCloseGame;
-    void* pfLeaveGame;
-    void (__fastcall* pfGetDatabaseCharacter)(D2ClientInfoStrc** ppClientInfo, const char* szCharName, int dwClientId, const char* szAccountName);
-    void* pfSaveDatabaseCharacter;
-    void* pfServerLogMessage;
-    void* pfEnterGame;
-    void* pfFindPlayerToken;
-    void* pfSaveDatabaseGuild;
-    void (__fastcall* pfUnlockDatabaseCharacter)(D2ClientInfoStrc** ppClientInfo, const char* szCharName, const char* szAccountName);
 };
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837

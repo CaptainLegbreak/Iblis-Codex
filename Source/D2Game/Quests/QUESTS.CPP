@@ -7,6 +7,7 @@
 #include "D2Txt.h"
 #include "D2GameTypes.h"
 #include "D2Drlg.h"
+#include "D2GameServer.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define QUEST_A2Q3_TAINTEDSUN 10
@@ -85,7 +86,6 @@ struct Packet;
 struct D2ObjOperateFnStrc;
 struct D2Unk00545D40Rec;
 
-
 struct D2PlayerDataStrc
 {
     char unk0x00[0x10];
@@ -134,7 +134,6 @@ struct D2QuestChainStrc
     D2QuestChainStrc* pNext;
 };
 
-
 struct D2SuperUniquesTxt
 {
     unsigned short wSuperUnique;
@@ -144,10 +143,8 @@ struct D2SuperUniquesTxt
     char unk0x0C[0x28];
 };
 
-
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
-
 
 struct D2QuestInfoStrc
 {
@@ -161,7 +158,6 @@ struct D2QuestInfoStrc
     unsigned char unk0x20;
     unsigned char unk_21[0x3];
 };
-
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -193,15 +189,12 @@ int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuest
 
 typedef int (__stdcall* FARPROC)();
 
-
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x006CC34C
 D2UnitStrc* __stdcall CLIENTS_GetPlayerFromClient(D2ClientStrc* pClient, int bIgnoreDeath); // 0x00537860
 void __fastcall AIGENERAL_GetOwnerData(D2UnitStrc* pUnit, int* pOwnerGUID, int* pOwnerType); // 0x0058F090
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, int nFlag); // 0x005A0180
 short __fastcall MONSTERUNIQUE_GetBossHcIdx(D2UnitStrc* pUnit); // 0x005A01E0
-
-
 
 typedef void (__fastcall* QUESTUPDATE)(D2QuestDataStrc* pQuest);
 
@@ -213,7 +206,6 @@ struct D2QuestTimerStrc
     unsigned int dwTimeout;
     D2QuestTimerStrc* pNext;
 };
-
 
 struct D2LevelsTxt
 {
@@ -227,21 +219,6 @@ struct D2ObjectRoomCoordStrc
     int nX;
     int nY;
     D2ObjectRoomCoordStrc* pNext;
-};
-
-struct D2ObjectRegionStrc
-{
-    unsigned char nAct;
-    char pad0x01[3];
-    int field_4;
-    int nPopulatedRooms;
-    int unk0x0C;
-    int nHealingShrines;
-    int nShrines;
-    int nWells;
-    int nTrapMonsterId;
-    D2CoordStrc wellCoordinates[4];
-    D2CoordStrc shrineCoordinates[10];
 };
 
 struct D2ObjectControlStrc
@@ -335,7 +312,6 @@ void __fastcall sub_6FC3D830(D2ClientStrc* pClient, unsigned char nHeader, int n
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0
 int __stdcall INVENTORY_CompareWithItemsParentInventory(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063AD50
 
-
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 void __fastcall sub_0059B6C0_JerhynSpawnHook(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY); // 0x0059B6C0
 void __fastcall sub_0059B6D0_Act2Guard2SpawnHook(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY); // 0x0059B6D0
@@ -410,7 +386,6 @@ void __stdcall UNITS_FreeCollisionPath(D2UnitStrc* pUnit); // 0x00623830
 void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit); // 0x0064C370
 int __fastcall QUESTS_FastRemovePlayerGUID(D2QuestGUIDStrc* pGUIDs, int dwGUID); // 0x00545240
 
-
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 unsigned short __stdcall COLLISION_CheckMaskWithSizeXY(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned int nSizeX, unsigned int nSizeY, unsigned short nMask); // 0x0064D800
 void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc* pUpdateUnit); // 0x00553380
@@ -439,7 +414,6 @@ struct D2ObjOperateFnStrc
     D2ObjectControlStrc* pObjectregion;
     int nObjectIdx;
 };
-
 
 void __stdcall UNITS_GetCoords(D2UnitStrc* pUnit, D2CoordStrc* pCoord); // 0x00620870
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E90

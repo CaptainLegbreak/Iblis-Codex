@@ -4,6 +4,7 @@
 #include "D2Txt.h"
 #include "D2GameTypes.h"
 #include "D2Drlg.h"
+#include "D2GameServer.h"
 
 #pragma intrinsic(_ReadWriteBarrier)
 
@@ -78,8 +79,6 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-
-
 struct D2FileTimeStrc { unsigned int dwLowDateTime; unsigned int dwHighDateTime; };
 
 struct D2ClientStrc
@@ -127,7 +126,6 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalS
 void __cdecl FOG_DestroyMemoryPoolSystem(D2PoolSystemStrc* pSystem); // 0x00409C80
 int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0); // 0x0040B480
 
-
 int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
 void __fastcall GAME_ForEachIngameClient(D2GameStrc* pGame, GAME_ForEachIngameClientCallbackPtr pFn, void* pContext); // 0x0052DED0
 void __fastcall GAME_SendUnitRemovalToClient(D2ClientStrc* pClient, void* pUnit); // 0x0052DFB0
@@ -161,25 +159,6 @@ int __fastcall CLIENTS_CheckState(int nClientId, int nState); // 0x00538930
 int __fastcall sub_6FC33EA0(int nClientId, char* szName); // 0x00538B70
 
 typedef int (__stdcall* FARPROC)();
-
-typedef const char* (__stdcall* FnLoadComplete)();
-
-typedef void (__fastcall* FnUpdateCharacterLadder)(const char*, int, int, unsigned __int64, unsigned int, D2FileTimeStrc*);
-
-struct D2ServerCallbackFunctions
-{
-    void (__fastcall* pfCloseGame)(int nGameId, int nProgramId, int nLastUnitGUID, int nSeconds);
-    void* pfLeaveGame;
-    void* pfGetDatabaseCharacter;
-    void* pfSaveDatabaseCharacter;
-    void* pfServerLogMessage;
-    void* pfEnterGame;
-    int (__fastcall* pfFindPlayerToken)(const char* szClientName, int nTokenId, int nGameId, char* pszInOutAccountName, int* pOutCharSaveTransactionToken, int* a6, int* a7, int* a8, int* a9);
-    unsigned char unk_1C[0xC];
-    FnUpdateCharacterLadder pfUpdateCharacterLadder;
-    unsigned char unk_2C[0x10];
-    FnLoadComplete pfLoadComplete;
-};
 
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x006CC34C
 int __fastcall GAME_GetGameGUIDFromGameId(unsigned short nGameId); // 0x0052C060
@@ -275,10 +254,6 @@ struct Unicode
 {
     unsigned short wChar;
 };
-
-
-
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);

@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2GameServer.h"
 
 struct D2GSPacketSrv26;
 union D2SeedStrc;
@@ -19,17 +20,6 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* text, const char* file, int line); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
-
-
-struct D2ObjectRegionStrc
-{
-    unsigned char nAct;
-    char unk0x01[7];
-    int nMinDistance;
-    char unk0x0C[0x10];
-    int nWanderCount;
-    char unk0x20[0x70];
-};
 
 struct D2ObjectControlStrc
 {
@@ -55,7 +45,6 @@ struct D2GameStrc
     D2ObjectControlStrc* pObjectControl;
     void sub_00546FF0_SendQuestText(const char* szText); // 0x00546FF0
 };
-
 
 struct D2LevelsTxt { char unk0x00[3]; unsigned char nAct; };
 
@@ -186,9 +175,9 @@ unsigned int __fastcall sub_00546C60_AllocObjectControl(D2GameStrc* ptGame)
         D2ObjectRegionStrc* pRegion = (D2ObjectRegionStrc*)FOG_AllocPool(ptGame->pMemoryPool, sizeof(D2ObjectRegionStrc), ".\\OBJECTS\\objrgn.cpp", 54, 0);
         D2LevelsTxt* pLevelsTxt = DATATBLS_GetLevelsTxtRecord(i);
         memset(pRegion, 0, sizeof(D2ObjectRegionStrc));
-        pRegion->nWanderCount = -1;
+        pRegion->nTrapMonsterId = -1;
         pRegion->nAct = pLevelsTxt->nAct;
-        pRegion->nMinDistance = 0x7FFFFFFF;
+        pRegion->nPopulatedRooms = 0x7FFFFFFF;
         pControl->pObjectRegion[i] = pRegion;
     }
     const int nShrines = sub_00641500();

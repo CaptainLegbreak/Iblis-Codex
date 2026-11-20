@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2GameServer.h"
 
 #define UNIT_MONSTER 1
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -10,15 +11,6 @@ struct D2NpcVendorChainStrc;
 struct D2NpcEventStrc;
 struct D2NpcRecordStrc;
 struct D2NpcControlStrc;
-
-
-
-struct D2NpcGambleStrc
-{
-    D2InventoryStrc* pInventory;
-    int dwGUID;
-    D2NpcGambleStrc* pNext;
-};
 
 struct D2NpcVendorChainStrc
 {

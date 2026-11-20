@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2GameAux.h"
+#include "D2GameServer.h"
 
 struct D2TargetNodeStrc;
 struct D2MonsterSpawnParamsStrc;
@@ -55,20 +56,6 @@ void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 void __fastcall QUESTS_WarrivSpawn(D2GameStrc* pGame, void* pRoom, int nXpos, int nYpos, int nWarrivId); // 0x005447A0
-
-struct D2UnkMonCreateStrc
-{
-    D2GameStrc* pGame;
-    D2ActiveRoomStrc* pRoom;
-    D2RoomCoordListStrc* pRoomCoordList;
-    int nMonsterId;
-    int nAnimMode;
-    int nUnitGUID;
-    int nX;
-    int nY;
-    int field_20;
-    short nFlags;
-};
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall D2Common_11063(D2ActiveRoomStrc* pRoom, int nMonsterId); // 0x0063EC70

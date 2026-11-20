@@ -1,14 +1,13 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameTypes.h"
+#include "D2GameServer.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-
-
 
 struct D2GameStrc
 {
@@ -60,11 +59,6 @@ struct D2GameDataTableStrc
 
     unsigned int sub_0052E6D0_GenerateHandle();                                                             // 0x0052E6D0
     D2GameStrc* sub_00530820_New(unsigned int nHashVal, HASHKEY_NONE* pKey, int nExtraBytes, int nFlags);   // 0x00530820
-};
-
-struct D2ServerCallbackFunctions
-{
-    void* pfCallbacks[15];
 };
 
 extern D2GameDataTableStrc* gpGameDataTbl_6FD45818;                                                         // 0x00883D38
@@ -218,7 +212,7 @@ void __fastcall sSrvSendGameInit(int nClientId, char* szGameName, unsigned char 
     void* pTask = FOG_Alloc(0x14, ".\\GAME\\Game.cpp", 1371, 0);
     sub_00564A00_QueueGame(pTask, 0, hGame);
 
-    D2_ASSERT(!gpD2EventCallbackTable_6FD45830 || !gpD2EventCallbackTable_6FD45830->pfCallbacks[2], 1378);
+    D2_ASSERT(!gpD2EventCallbackTable_6FD45830 || !gpD2EventCallbackTable_6FD45830->pfGetDatabaseCharacter, 1378);
 
     D2GAME_PACKETS_SendHeaderOnlyPacket(pClient, 2);
 }

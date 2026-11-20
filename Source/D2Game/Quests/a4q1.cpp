@@ -6,6 +6,7 @@
 #include "D2Txt.h"
 #include "D2UnitData.h"
 #include "D2Drlg.h"
+#include "D2GameServer.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2StaticPathStrc;
@@ -30,8 +31,6 @@ struct D2Act3Quest5Strc;
 struct D2Act3Quest6Strc;
 struct D2Act3Quest7Strc;
 
-
-
 struct D2UnkMonCreateStrc2
 {
     int nRecordCount;
@@ -40,8 +39,6 @@ struct D2UnkMonCreateStrc2
     unsigned char pad0x09[3];
     D2UnkMonCreateStrc3 records[4];
 };
-
-
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall D2Common_11063(D2ActiveRoomStrc* pRoom, int nMonsterId); // 0x0063EC70
@@ -62,20 +59,6 @@ void __fastcall AIGENERAL_AllocMinionList(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath); // 0x00648900
 extern D2UnkMonCreateStrc2 gBonePrisonSpawnInfo_0073D4F0; // 0x0073D4F0
-
-struct D2UnkMonCreateStrc
-{
-    D2GameStrc* pGame;
-    D2ActiveRoomStrc* pRoom;
-    D2RoomCoordListStrc* pRoomCoordList;
-    int nMonsterId;
-    int nAnimMode;
-    int nUnitGUID;
-    int nX;
-    int nY;
-    int field_20;
-    short nFlags;
-};
 
 D2UnitStrc* __fastcall sub_005B2A00_SpawnNormalMonster(D2UnkMonCreateStrc*); // 0x005B2A00
 
@@ -104,8 +87,6 @@ struct D2LevelsTxt
     short wNormalMonsters[25];
 };
 
-
-
 enum D2C_SpawnRandomConstants
 {
     MONSTATSFLAGINDEX_ISSPAWN = 0,
@@ -124,8 +105,6 @@ D2LevelsTxt* __stdcall DATATBLS_GetLevelsTxtRecord(int nLevelId); // 0x0061DB70
 typedef int (__stdcall* FARPROC)();
 
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x006CC34C
-
-
 
 struct D2QuestArgStrc
 {
@@ -173,8 +152,6 @@ typedef int(__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 typedef bool(__fastcall* QUESTACTIVEFILTER)(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC);
 
 typedef bool(__fastcall* QUESTSTATUSFILTER)(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus);
-
-
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern char gpAct4Q0NpcMessages[]; // 0x0073D580
@@ -431,7 +408,7 @@ D2UnitStrc* __fastcall sub_005B3040_SpawnInCoordList(D2GameStrc* pGame, D2Active
     monCreate.nMonsterId = nMonsterId;
     monCreate.nAnimMode = nAnimMode;
     monCreate.pRoom = pRoom;
-    monCreate.field_20 = a8;
+    monCreate.unk0x20 = a8;
     monCreate.pGame = pGame;
     monCreate.pRoomCoordList = pCoordList;
     monCreate.nFlags = nFlags;
@@ -450,7 +427,7 @@ D2UnitStrc* __fastcall sub_005B3090_SpawnAtPosition(D2GameStrc* pGame, D2ActiveR
     monCreate.pGame = pGame;
     monCreate.pRoom = pRoom;
     monCreate.pRoomCoordList = 0;
-    monCreate.field_20 = -1;
+    monCreate.unk0x20 = -1;
     monCreate.nFlags = nFlags;
     monCreate.nX = nX;
     monCreate.nY = nY;
@@ -465,7 +442,7 @@ D2UnitStrc* __fastcall sub_005B30E0_SpawnWithUnitId(D2GameStrc* pGame, D2ActiveR
     monCreate.nMonsterId = nMonsterId;
     monCreate.nAnimMode = nAnimMode;
     monCreate.pRoom = pRoom;
-    monCreate.field_20 = a8;
+    monCreate.unk0x20 = a8;
     monCreate.pGame = pGame;
     monCreate.pRoomCoordList = 0;
     monCreate.nFlags = nFlags;
@@ -544,7 +521,7 @@ int __fastcall MONSTERSPAWN_SpawnRandomMonsterForLevel(D2GameStrc* pGame, D2Acti
     monCreate.nAnimMode = 1;
     monCreate.pRoom = pRoom;
     monCreate.pRoomCoordList = 0;
-    monCreate.field_20 = 5;
+    monCreate.unk0x20 = 5;
     monCreate.pGame = pGame;
     monCreate.nFlags = 0;
     monCreate.nX = nX;

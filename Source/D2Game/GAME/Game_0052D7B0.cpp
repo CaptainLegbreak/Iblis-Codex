@@ -11,6 +11,7 @@
 #include "D2Drlg.h"
 #include "D2InactiveUnits.h"
 #include "D2DrlgRooms.h"
+#include "D2GameServer.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define PLRMODE_DEATH 0
@@ -236,13 +237,6 @@ struct D2NpcEventStrc
     D2NpcEventStrc* pNext;
 };
 
-struct D2NpcGambleStrc
-{
-    D2InventoryStrc* pInventory;
-    int dwGUID;
-    D2NpcGambleStrc* pNext;
-};
-
 struct D2NpcRecordStrc
 {
     int nNPC;
@@ -264,15 +258,6 @@ struct D2NpcControlStrc
 {
     int nArraySize;
     D2NpcRecordStrc* pFirstRecord;
-};
-
-struct D2ArenaStrc
-{
-    int nAlternateStartTown;
-    int nType;
-    unsigned int fFlags;
-    unsigned char nTemplate;
-    unsigned char pad0x0D[3];
 };
 
 struct D2RosterIterateStrc
