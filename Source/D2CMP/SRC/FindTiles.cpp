@@ -1,4 +1,5 @@
 #include "D2CMP.h"
+#include "D2CmpTypes.h"
 
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
@@ -8,13 +9,6 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);   
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 unsigned char __fastcall sub_0060CD70_WrapIndex(int a, int b, int c);                                       // 0x0060CD70
 
-struct D2CmpTileBlockStrc
-{
-    char unk0x00[0x14];
-    int nOrientation;
-    int f_18;
-    int nSubIndex;
-};
 
 struct D2FindTileNodeStrc
 {
@@ -55,9 +49,9 @@ static void sub_0060CF00_AddEntry(D2FindTileEntryStrc** ppBucket, D2CmpTileBlock
     D2FindTileEntryStrc* pEntry = (D2FindTileEntryStrc*)FOG_Alloc(sizeof(D2FindTileEntryStrc), ".\\SRC\\FindTiles.cpp", 0x82, 0);
     D2_ASSERT(pEntry, 0x83);
     memset(pEntry, 0, sizeof(D2FindTileEntryStrc));
-    pEntry->nKey3 = pTile->nSubIndex;
-    pEntry->nKey2 = pTile->f_18;
-    pEntry->nKey1 = pTile->nOrientation;
+    pEntry->nKey3 = pTile->nValue2C;
+    pEntry->nKey2 = pTile->nValue28;
+    pEntry->nKey1 = pTile->nValue24;
     pEntry->pNext = *ppBucket;
     *ppBucket = pEntry;
     D2FindTileNodeStrc* pNode = (D2FindTileNodeStrc*)FOG_Alloc(sizeof(D2FindTileNodeStrc), ".\\SRC\\FindTiles.cpp", 0x8E, 0);
@@ -73,11 +67,11 @@ void __fastcall sub_0060CFA0_AddTileToTable(D2FindTileEntryStrc** ppTable, D2Cmp
     int bNew = 1;
     D2_ASSERT(ppTable, 0xA5);
     D2_ASSERT(pTile, 0xA6);
-    D2FindTileEntryStrc** ppBucket = &ppTable[sub_0060CD70_WrapIndex(pTile->nSubIndex, pTile->f_18, pTile->nOrientation)];
+    D2FindTileEntryStrc** ppBucket = &ppTable[sub_0060CD70_WrapIndex(pTile->nValue2C, pTile->nValue28, pTile->nValue24)];
     D2FindTileEntryStrc* pEntry = *ppBucket;
     while (pEntry && bNew)
     {
-        if (pEntry->nKey3 == pTile->nSubIndex && pEntry->nKey2 == pTile->f_18 && pEntry->nKey1 == pTile->nOrientation)
+        if (pEntry->nKey3 == pTile->nValue2C && pEntry->nKey2 == pTile->nValue28 && pEntry->nKey1 == pTile->nValue24)
         {
             bNew = 0;
         }

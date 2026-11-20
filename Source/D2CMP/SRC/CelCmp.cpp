@@ -1,6 +1,7 @@
 #include "D2CMP.h"
 #include "D2GameTypes.h"
 #include "D2DrlgMaps.h"
+#include "D2CmpTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -304,15 +305,6 @@ struct D2CelFileStrc
     D2CelStrc* pCels[1];
 };
 
-struct D2CmpCelContextStrc
-{
-    unsigned int nFrame;
-    char unk0x04[0x30];
-    D2CelFileStrc* pCelFile;
-    char unk0x38[0x04];
-    D2CelStrc* pCel;
-    unsigned int nDirection;
-};
 
 typedef void(__fastcall* CELDRAWFN)(D2CelStrc* pCel, unsigned char* pDst, int nX, int nArg4, int nArg5, int nPitch, int nSkipRows, int nRows, int nArg9, int nArg10, int nArg13);
 

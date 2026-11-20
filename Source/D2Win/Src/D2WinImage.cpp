@@ -1,5 +1,6 @@
 #include "D2Win.h"
 #include "D2CelContext.h"
+#include "D2CmpTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -204,17 +205,6 @@ struct D2WinImageClickRectStrc
     int (__stdcall* pCallback)(SMSGHANDLER_PARAMS* pMsg);
 };
 
-struct D2CofNodeStrc
-{
-    int nRefCount;
-    unsigned int nMode;
-    unsigned int nClass;
-    unsigned int dwWeaponClass;
-    unsigned int dwCofSize;
-    D2CofDataStrc* pCofData;
-    D2CofNodeStrc* pNext;
-    D2CofNodeStrc* pPrev;
-};
 
 extern D2CofNodeStrc* gpCofNodeList_0087E83C; // 0x0087E83C
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
