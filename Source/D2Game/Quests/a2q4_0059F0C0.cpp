@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2GameTypes.h"
 struct D2ActiveRoomStrc;
 struct D2CoordStrc;
 struct D2GameStrc;
@@ -55,16 +56,6 @@ struct D2QuestDataStrc
     D2Act2Quest4Strc* pQuestDataEx;
 };
 
-struct D2QuestArgStrc
-{
-    D2GameStrc* pGame;
-    int nEvent;
-    D2UnitStrc* pTarget;
-    D2UnitStrc* pPlayer;
-    char unk0x10[4];
-    int nOldLevel;
-    int nNewLevel;
-};
 
 typedef int (__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 

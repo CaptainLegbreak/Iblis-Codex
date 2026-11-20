@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
+#include "D2GameTypes.h"
 
 struct D2AiTableStrc;
 struct D2MonStatsTxt;
@@ -8,23 +9,7 @@ struct D2MonsterDataStrc;
 struct D2AiStateStrc;
 
 
-struct D2AiControlStrc
-{
-    int nAiSpecialState;
-    unsigned char unk_04[0x8];
-    int nOwnerGUID;
-    int nOwnerType;
-};
 
-struct D2AiTickParamStrc
-{
-    D2AiControlStrc* pAiControl;
-    int unk_04;
-    D2UnitStrc* pTarget;
-    int unk_0C[2];
-    int nTargetDistance;
-    int bCombat;
-};
 
 int __fastcall sub_0046C140_TestMonModeFlag(int, int); // 0x0046C140
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc*, int, int); // 0x00552F60
@@ -57,28 +42,28 @@ int __fastcall D2GAME_AICORE_MinionLeash_6FCF0D10(D2GameStrc* pGame, D2UnitStrc*
 {
     int nOwnerGUID = 0;
     D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
-    nOwnerGUID = *(volatile int*)&pAiControl->nOwnerGUID;
+    nOwnerGUID = *(volatile int*)&pAiControl->dwOwnerGUID;
     if (nOwnerGUID == -1)
         return 0;
     if (!CanWalk(pMonster))
     {
-        pAiControl->nOwnerGUID = -1;
+        pAiControl->dwOwnerGUID = -1;
         return 0;
     }
-    nOwnerGUID = pAiControl->nOwnerGUID;
-    D2UnitStrc* pOwner = SUNIT_GetServerUnit(pGame, !pAiControl ? 6 : pAiControl->nOwnerType, nOwnerGUID);
+    nOwnerGUID = pAiControl->dwOwnerGUID;
+    D2UnitStrc* pOwner = SUNIT_GetServerUnit(pGame, !pAiControl ? 6 : pAiControl->dwOwnerType, nOwnerGUID);
     if (!pOwner)
     {
-        (*(D2AiControlStrc* volatile*)&pAiControl)->nOwnerGUID = -1;
+        (*(D2AiControlStrc* volatile*)&pAiControl)->dwOwnerGUID = -1;
         return 0;
     }
     if (SUNIT_IsDead(pOwner))
     {
-        (*(D2AiControlStrc* volatile*)&pAiControl)->nOwnerGUID = -1;
+        (*(D2AiControlStrc* volatile*)&pAiControl)->dwOwnerGUID = -1;
         return 0;
     }
     const int nDistance = AIUTIL_GetDistanceToCoordinates_FullUnitSize(pMonster, pOwner);
-    if (nDistance <= 1 && (*(D2AiControlStrc* volatile*)&pAiControl)->nOwnerType == 0)
+    if (nDistance <= 1 && (*(D2AiControlStrc* volatile*)&pAiControl)->dwOwnerType == 0)
     {
         if (sub_005DEFE0_Escape(pGame, pMonster, pOwner, 19, 1))
             return 1;

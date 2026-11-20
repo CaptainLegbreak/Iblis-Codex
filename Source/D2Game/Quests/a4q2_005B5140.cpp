@@ -5,6 +5,7 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2UnitData.h"
+#include "D2GameTypes.h"
 struct D2GameStrc;
 struct D2QuestDataStrc;
 struct D2UnitStrc;
@@ -69,28 +70,8 @@ int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
 
-struct D2ModeChangeStrc
-{
-    int nMode;
-    D2UnitStrc* pUnit;
-    D2UnitStrc* pTargetUnit;
-    int nX;
-    int nY;
-    unsigned char unk0x14;
-    unsigned char nEventFlag;
-    unsigned short unk0x16;
-    int unk0x18;
-    int unk0x1C;
-};
 
 
-struct D2QuestArgStrc
-{
-    D2GameStrc* pGame;
-    int nEvent;
-    D2UnitStrc* pTarget;
-    D2UnitStrc* pPlayer;
-};
 
 struct D2ObjOperateFnStrc
 {

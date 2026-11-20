@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2GameTypes.h"
 
 
 struct D2MonsterDataStrc
@@ -48,17 +49,6 @@ struct D2MonStats2Txt
 };
 
 
-struct D2MissileStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pOwner;
-    D2UnitStrc* pOrigin;
-    D2UnitStrc* pTarget;
-    int nMissile;
-    int unk0x14[7];
-    int nSkillLevel;
-    int unk0x34[10];
-};
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090

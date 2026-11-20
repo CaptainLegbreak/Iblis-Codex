@@ -1,14 +1,6 @@
 #include "D2Common.h"
+#include "D2GameTypes.h"
 
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
 
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock);    // 0x006CC210
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock);        // 0x006CC1FC

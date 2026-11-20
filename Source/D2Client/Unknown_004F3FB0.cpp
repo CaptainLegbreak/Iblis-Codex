@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2GameTypes.h"
 struct D2UnitStrc;
 
 struct D2SkillsTxt;
@@ -18,32 +19,6 @@ void __stdcall SKILLS_SetParam1(D2SkillStrc* pSkill, int nValue); // 0x00644560
 
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArg);
 
-struct D2MissileStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pOwner;
-    D2UnitStrc* pOrigin;
-    D2UnitStrc* pTarget;
-    int nMissile;
-    int nX;
-    int nY;
-    int nTargetX;
-    int nTargetY;
-    int nGfxArg;
-    int nVelocity;
-    int nSkill;
-    int nSkillLevel;
-    int nLoops;
-    int unk0x38;
-    int unk0x3C;
-    int nFrame;
-    int nActivateFrame;
-    int nAttBonus;
-    int nRange;
-    int nLightRadius;
-    MissileInitFunc pInitFunc;
-    int nInitArg;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

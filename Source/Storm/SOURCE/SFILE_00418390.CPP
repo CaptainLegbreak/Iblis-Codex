@@ -1,14 +1,6 @@
 #include "Storm.h"
+#include "D2GameTypes.h"
 
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
 struct D2StormBlockStrc;
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock);
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock);

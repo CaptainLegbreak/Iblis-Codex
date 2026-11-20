@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
+#include "D2GameTypes.h"
 
 struct Bits;
 struct Player;
@@ -46,16 +47,6 @@ typedef void (__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* 
 typedef bool (__fastcall* QUESTUPDATE)(D2GameStrc* pGame, D2QuestDataStrc* pQuestData);
 
 
-struct D2QuestArgStrc
-{
-    D2GameStrc* pGame;
-    int nEvent;
-    D2UnitStrc* pTarget;
-    D2UnitStrc* pPlayer;
-    unsigned int unk0x10;
-    int nOldLevel;
-    int nNewLevel;
-};
 
 struct D2Act3Quest5Strc
 {
@@ -69,15 +60,6 @@ struct D2Act3Quest5Strc
     int nCompellingOrbGUID;
 };
 
-struct D2ObjInitFnStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* pObject;
-    D2ActiveRoomStrc* pRoom;
-    int unk0x0C[2];
-    int nX;
-    int nY;
-};
 
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
 void __fastcall QUESTS_UnitIterate(D2QuestDataStrc* pQuest, int nIterateState, D2UnitStrc* pUnit, QUESTUNITITERATE pfIterate, bool bIterate); // 0x00544300

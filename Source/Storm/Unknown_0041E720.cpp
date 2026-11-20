@@ -22,16 +22,8 @@ void __fastcall sub_0041F9E0_DecompressHuffman(void* pOut, unsigned int* pcbOut,
 
 // build: symbol _gtDecompTable_006CFEC4 0x006CFEC4
 #include "gen/data/Source/Storm/Unknown_0041E720.static/gtDecompTable_006CFEC4.inc"
+#include "D2GameTypes.h"
 
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
 
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);          // 0x00413020
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);                  // 0x00412650

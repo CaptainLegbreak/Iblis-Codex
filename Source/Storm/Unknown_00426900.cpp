@@ -1,4 +1,5 @@
 #include "Storm.h"
+#include "D2GameTypes.h"
 #define BASE 65521U
 #define NMAX 5552
 #define DO1(buf, i) { adler += (buf)[i]; sum2 += adler; }
@@ -54,15 +55,6 @@ struct D2StormLinkStrc { D2StormLinkStrc* m_prevlink;
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);
 extern "C" const char gszIgnoreListSourceFile_006E6290[];
 
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
 
 struct SEvtLinkStrc
 {

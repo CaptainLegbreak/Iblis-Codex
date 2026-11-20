@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
+#include "D2GameTypes.h"
 
 #define QUEST_A1Q4_CAIN 4
 #define ACT_II 1
@@ -166,16 +167,6 @@ int __fastcall ACT2Q3_UnitIterate_SendPacket0x53ToClient(D2GameStrc* pGame, D2Un
 void __fastcall QUESTS_TriggerFX(D2GameStrc* pGame, unsigned char a2); // 0x00545760
 
 
-struct D2QuestArgStrc
-{
-    D2GameStrc* pGame;
-    int nEvent;
-    D2UnitStrc* pTarget;
-    D2UnitStrc* pPlayer;
-    unsigned int unk0x10;
-    int nOldLevel;
-    int nNewLevel;
-};
 
 enum
 {
@@ -198,11 +189,6 @@ void __fastcall ACT2Q3_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
 void __fastcall ACT2Q3_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x0059EBE0
 void __fastcall ACT2Q3_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x0059EE00
 
-struct D2ObjInitFnStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* pObject;
-};
 
 void __fastcall QUESTS_UnitIterate(D2QuestDataStrc* pQuest, int nIterateState, D2UnitStrc* pUnit, QUESTUNITITERATE pfIterate, bool bIterate); // 0x00544300
 void __fastcall QUESTS_StateDebug(D2QuestDataStrc* pQuestData, int nState, const char* szFile, int nLine); // 0x00544350

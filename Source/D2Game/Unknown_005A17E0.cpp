@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2GameTypes.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -105,40 +106,6 @@ struct D2MonStatsInitStrc
     int nElDur;
 };
 
-struct D2DamageStrc
-{
-    unsigned int dwHitFlags;
-    unsigned short wResultFlags;
-    unsigned short wExtra;
-    int dwPhysDamage;
-    int dwEnDmgPct;
-    int dwFireDamage;
-    int dwBurnDamage;
-    int dwBurnLen;
-    int dwLtngDamage;
-    int dwMagDamage;
-    int dwColdDamage;
-    int dwPoisDamage;
-    int dwPoisLen;
-    int dwColdLen;
-    int dwFrzLen;
-    int dwLifeLeech;
-    int dwManaLeech;
-    int dwStamLeech;
-    int dwStunLen;
-    int dwAbsLife;
-    int dwDmgTotal;
-    unsigned int unk0x50;
-    int dwPiercePct;
-    int dwDamageRate;
-    unsigned int unk0x5C;
-    unsigned int dwHitClass;
-    unsigned char nHitClassActiveSet;
-    char nConvType;
-    unsigned short unk0x66;
-    int dwConvPct;
-    int nOverlay;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 D2UnitStrc* __fastcall sub_6FD11420(D2GameStrc* pGame, int nMissileId, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nX, int nY, int nTargetX, int nTargetY, int bCheckItemQuantity); // 0x0056ECB0
@@ -150,17 +117,6 @@ int __fastcall SUNITDMG_SetMissileDamageFlagsForNearbyUnits(D2GameStrc* pGame, D
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); // 0x00483360
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 
-struct D2ModeChangeStrc
-{
-    int nMode;
-    D2UnitStrc* pUnit;
-    D2UnitStrc* pTargetUnit;
-    int nX;
-    int nY;
-    int unk0x14;
-    int unk0x18;
-    int unk0x1C;
-};
 
 D2UnitStrc* __fastcall AIGENERAL_GetMinionOwner(D2UnitStrc* pUnit); // 0x0058F0D0
 void __fastcall AIGENERAL_ExecuteCallbackOnMinions(D2UnitStrc* pUnit, void* a2, void* a3, void(__fastcall* pfnParty)(D2UnitStrc*, void*, void*)); // 0x0058F380

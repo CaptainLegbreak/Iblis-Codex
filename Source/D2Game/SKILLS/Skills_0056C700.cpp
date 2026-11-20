@@ -6,6 +6,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2GameTypes.h"
 
 #define STAT_FIRERESIST 39
 #define STAT_LIGHTRESIST 41
@@ -28,28 +29,6 @@ struct D2MonStats2Txt;
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-struct D2DamageStrc
-{
-    char unk0x00[0x08];
-    int dwPhysDamage;
-    int unk0x0C;
-    int dwFireDamage;
-    int dwBurnDamage;
-    int dwBurnLen;
-    int dwLtngDamage;
-    int dwMagDamage;
-    int dwColdDamage;
-    int dwPoisDamage;
-    int dwPoisLen;
-    int dwColdLen;
-    int dwFrzLen;
-    int dwLifeLeech;
-    int dwManaLeech;
-    int dwStamLeech;
-    int dwStunLen;
-    char unk0x48[0x18];
-    int dwHitClass;
-};
 
 enum D2C_ElemTypes
 {

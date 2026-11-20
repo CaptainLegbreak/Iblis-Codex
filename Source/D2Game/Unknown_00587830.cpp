@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2UnitData.h"
+#include "D2GameTypes.h"
 struct D2ActiveRoomStrc;
 struct D2CoordStrc;
 struct D2GameStrc;
@@ -22,15 +23,6 @@ struct D2MapAIStrc
     void* pPosition;
 };
 
-struct D2ObjInitFnStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* pObject;
-    D2ActiveRoomStrc* pRoom;
-    char pad0x0C[0x8];
-    int nX;
-    int nY;
-};
 
 typedef void (__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
 
@@ -53,13 +45,6 @@ D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveR
 extern "C" unsigned int* __stdcall sub_0058F000(Unit0058F000* pUnit); // 0x0058F000
 D2MapAIStrc* __fastcall DRLGPRESET_ChangeMapAI(D2MapAIStrc** ppMapAI1, D2MapAIStrc* pMapAI2); // 0x00666120
 
-struct D2QuestArgStrc
-{
-    D2GameStrc* pGame;
-    int nEvent;
-    D2UnitStrc* pTarget;
-    D2UnitStrc* pPlayer;
-};
 
 struct D2Act5Quest2Strc
 {

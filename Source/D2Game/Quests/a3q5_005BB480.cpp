@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2GameStrc.h"
+#include "D2GameTypes.h"
 
 
 struct D2PlayerDataStrc
@@ -8,13 +9,6 @@ struct D2PlayerDataStrc
     D2BitBufferStrc* pQuestData[3];
 };
 
-struct D2QuestArgStrc
-{
-    D2GameStrc* pGame;
-    int nEvent;
-    D2UnitStrc* pTarget;
-    D2UnitStrc* pPlayer;
-};
 
 struct D2Act3Quest5Strc
 {

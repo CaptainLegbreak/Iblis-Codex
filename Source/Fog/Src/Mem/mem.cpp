@@ -1,15 +1,7 @@
+#include "D2GameTypes.h"
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
 #pragma intrinsic(memset)
 
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
 
 struct D2MemPoolRecStrc
 {

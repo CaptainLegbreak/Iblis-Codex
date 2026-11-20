@@ -1,16 +1,10 @@
 #include "D2Game.h"
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
+#include "D2GameTypes.h"
 
 
 
-struct D2QuestArgStrc
-{
-    D2GameStrc* pGame;
-    int nEvent;
-    D2UnitStrc* pTarget;
-    D2UnitStrc* pPlayer;
-};
 
 typedef void(__fastcall* QUESTCALLBACK)(D2QuestDataStrc*, D2QuestArgStrc*);
 typedef bool(__fastcall* QUESTSEQFILTER)(D2QuestDataStrc* pQuestData);
@@ -33,11 +27,6 @@ struct D2Act5Quest6Strc
     char unk0xA0[0xA8 - 0xA0];
 };
 
-struct D2ObjInitFnStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* pObject;
-};
 
 struct D2ObjOperateFnStrc
 {

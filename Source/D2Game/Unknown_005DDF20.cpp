@@ -4,6 +4,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2GameTypes.h"
 
 enum D2C_Y10AiTacticsConstants
 {
@@ -16,17 +17,6 @@ enum D2C_Y10AiTacticsConstants
 
 
 
-struct D2ModeChangeStrc
-{
-    int nMode;
-    D2UnitStrc* pUnit;
-    D2UnitStrc* pTargetUnit;
-    int nX;
-    int nY;
-    int unk0x14;
-    int unk0x18;
-    int unk0x1C;
-};
 
 struct UnkAiStrc1
 {

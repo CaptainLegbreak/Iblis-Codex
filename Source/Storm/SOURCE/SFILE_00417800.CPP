@@ -1,4 +1,5 @@
 #include "Storm.h"
+#include "D2GameTypes.h"
 #define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 
 struct D2ChatStormLinkStrc;
@@ -28,15 +29,6 @@ struct D2StormArchiveListStrc;
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);
 extern "C" const char gszIgnoreListSourceFile_006E6290[];
 
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
 
 struct D2StormLinkStrc
 {

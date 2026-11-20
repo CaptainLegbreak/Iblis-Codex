@@ -1,12 +1,4 @@
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
+#include "D2GameTypes.h"
 
 struct D2ImagehlpModule64Strc
 {

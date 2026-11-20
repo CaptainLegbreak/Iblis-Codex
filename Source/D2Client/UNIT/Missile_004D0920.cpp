@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2GameTypes.h"
 
 struct D2StaticPathStrc;
 struct D2MissilesTxt;
@@ -50,28 +51,6 @@ D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath); // 0x00648900
 
-struct D2MissileStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pOwner;
-    D2UnitStrc* pOrigin;
-    D2UnitStrc* pTarget;
-    int nMissile;
-    int nX;
-    int nY;
-    int nTargetX;
-    int nTargetY;
-    int nGfxArg;
-    int nVelocity;
-    int nSkill;
-    int nSkillLevel;
-    int nLoops;
-    int unk0x38[5];
-    int nRange;
-    int nFrames;
-    void* pfCallback;
-    D2UnitStrc* pInitArgs;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0

@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2GameTypes.h"
 
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
@@ -30,32 +31,6 @@ int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsi
 
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArg);
 
-struct D2MissileStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pOwner;
-    D2UnitStrc* pOrigin;
-    D2UnitStrc* pTarget;
-    int nMissile;
-    int nX;
-    int nY;
-    int nTargetX;
-    int nTargetY;
-    int nGfxArg;
-    int nVelocity;
-    int nSkill;
-    int nSkillLevel;
-    int nLoops;
-    int unk0x38;
-    int unk0x3C;
-    int nFrame;
-    int nActivateFrame;
-    int nAttBonus;
-    int nRange;
-    int nLightRadius;
-    MissileInitFunc pInitFunc;
-    int nInitArg;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0

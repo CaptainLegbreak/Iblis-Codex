@@ -1,18 +1,9 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameTypes.h"
 
 
-struct D2AiCmdStrc
-{
-    D2AiCmdStrc* pNextCmd;
-    D2AiCmdStrc* pPrevCmd;
-    int nCmdParam[5];
-};
 
-struct D2AiTickParamStrc
-{
-    D2AiControlStrc* pAiControl;
-};
 
 typedef int (__fastcall* AIBAAL_CullFn)(D2UnitStrc*, D2UnitStrc*);
 

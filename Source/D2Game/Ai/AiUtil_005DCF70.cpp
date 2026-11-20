@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2UnitData.h"
+#include "D2GameTypes.h"
 struct D2GameStrc;
 struct D2UnitStrc;
 
@@ -46,15 +47,6 @@ void __fastcall AIGENERAL_ExecuteCallbackOnMinions(D2UnitStrc* pUnit, void* a2, 
 void __fastcall sub_6FCF20E0(D2UnitStrc* pUnit, void* pArg, void* ppUnit); // 0x005DD020
 D2UnitStrc* __stdcall sub_005DCEE0_FindPlayerTargetInAdjacentRooms(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pCallbackArg, AIUTIL_TargetCallback pfCallback); // 0x005DCEE0
 
-struct D2AiControlStrc
-{
-    int nAiSpecialState;
-    void* pAiParamFn;
-    unsigned short nAiFlags;
-    unsigned char unk_0A[0x2];
-    int nOwnerId;
-    int nOwnerType;
-};
 
 
 struct D2AiTargetArgsStrc
@@ -259,13 +251,13 @@ void __fastcall AIUTIL_SetOwnerGUIDAndType(D2UnitStrc* pUnit, D2UnitStrc* pOwner
     D2AiControlStrc* pAi = GetAiControl(pUnit);
     if (pOwner)
     {
-        pAi->nOwnerId = pOwner->dwUnitId;
-        pAi->nOwnerType = GetUnitType(pOwner);
+        pAi->dwOwnerGUID = pOwner->dwUnitId;
+        pAi->dwOwnerType = GetUnitType(pOwner);
     }
     else
     {
-        pAi->nOwnerId = -1;
-        pAi->nOwnerType = 1;
+        pAi->dwOwnerGUID = -1;
+        pAi->dwOwnerType = 1;
     }
 }
 

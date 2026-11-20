@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2GameTypes.h"
 struct D2UnitStrc;
 
 struct D2SfxStrc { D2GameStrc* pGame; D2UnitStrc* pObject; D2UnitStrc* pOwner; };
@@ -16,32 +17,6 @@ struct D2UnitFindDataStrc
 {
     void* pMemPool; D2UnitStrc** pUnitsArray; D2ActiveRoomStrc* pRoom; void* pfnUnitTest; D2UnitFindArgStrc* pUnitFindArg;
     int nFlags; int nIndex; int nMaxArrayEntries; int nX; int nY; int nSize;
-};
-struct D2MissileStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pOwner;
-    D2UnitStrc* pOrigin;
-    D2UnitStrc* pTarget;
-    int nMissile;
-    int nX;
-    int nY;
-    int nTargetX;
-    int nTargetY;
-    int nGfxArg;
-    int nVelocity;
-    int nSkill;
-    int nSkillLevel;
-    int nLoops;
-    unsigned int unk0x38;
-    unsigned int unk0x3C;
-    int nFrame;
-    int nActivateFrame;
-    int nAttBonus;
-    int nRange;
-    int nLightRadius;
-    void* pInitFunc;
-    int pInitArgs;
 };
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0

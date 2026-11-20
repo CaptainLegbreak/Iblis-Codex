@@ -5,6 +5,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2GameTypes.h"
 
 #define STAT_DAMAGEPERCENT 25
 struct D2SkillsTxt;
@@ -12,40 +13,6 @@ struct D2StaticPathStrc;
 struct Skills;
 
 
-struct D2DamageStrc
-{
-    unsigned int dwHitFlags;
-    unsigned short wResultFlags;
-    unsigned short wExtra;
-    int dwPhysDamage;
-    int dwEnDmgPct;
-    int dwFireDamage;
-    int dwBurnDamage;
-    int dwBurnLen;
-    int dwLtngDamage;
-    int dwMagDamage;
-    int dwColdDamage;
-    int dwPoisDamage;
-    int dwPoisLen;
-    int dwColdLen;
-    int dwFrzLen;
-    int dwLifeLeech;
-    int dwManaLeech;
-    int dwStamLeech;
-    int dwStunLen;
-    int dwAbsLife;
-    int dwDmgTotal;
-    unsigned int unk0x50;
-    int dwPiercePct;
-    int dwDamageRate;
-    unsigned int unk0x5C;
-    unsigned int dwHitClass;
-    unsigned char nHitClassActiveSet;
-    signed char nConvType;
-    unsigned short unk0x66;
-    int dwConvPct;
-    int nOverlay;
-};
 
 
 
@@ -69,32 +36,6 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc*); // 0x00648900
 
 typedef void(__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nUnused);
 
-struct D2MissileStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pOwner;
-    D2UnitStrc* pOrigin;
-    D2UnitStrc* pTarget;
-    int nMissile;
-    int nX;
-    int nY;
-    int nTargetX;
-    int nTargetY;
-    int nGfxArg;
-    int nVelocity;
-    int nSkill;
-    int nSkillLevel;
-    int nLoops;
-    unsigned int unk0x38;
-    unsigned int unk0x3C;
-    int nFrame;
-    int nActivateFrame;
-    int nAttBonus;
-    int nRange;
-    int nLightRadius;
-    MissileInitFunc pInitFunc;
-    int pInitArgs;
-};
 int __stdcall sub_00646CA0(D2UnitStrc*,unsigned,int,int); // 0x00646CA0
 D2UnitStrc* __fastcall sub_6FD107F0(D2GameStrc*,D2UnitStrc*,int,int,int,unsigned,int,int*); // 0x0056BD10
 int __fastcall SKILLS_GetProgressiveSkillMissileId(D2UnitStrc*,int); // 0x005D3CF0

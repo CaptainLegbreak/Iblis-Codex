@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2GameTypes.h"
 
 struct D2SoundPosStrc;
 struct D2SlotObjectStrc;
@@ -86,24 +87,6 @@ struct D2MissilesTxt
 };
 
 
-struct D2MissileStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pOwner;
-    D2UnitStrc* pOrigin;
-    D2UnitStrc* pTarget;
-    int nMissile;
-    int nX;
-    int nY;
-    int nTargetX;
-    int nTargetY;
-    int nGfxArg;
-    int nVelocity;
-    int nSkill;
-    int nSkillLevel;
-    int nLoops;
-    int unk0x38[9];
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const int gnOffsetsX_006DBAF8[16]; // 0x006DBAF8

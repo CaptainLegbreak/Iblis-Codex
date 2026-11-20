@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
+#include "D2GameTypes.h"
 #define QFLAG_REWARDGRANTED 0
 #define QFLAG_REWARDPENDING 1
 #define QFLAG_COMPLETEDBEFORE 15
@@ -30,15 +31,6 @@ struct D2MapAIStrc
     void* pPosition;
 };
 
-struct D2ObjInitFnStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* pObject;
-    D2ActiveRoomStrc* pRoom;
-    char pad0x0C[0x8];
-    int nX;
-    int nY;
-};
 
 typedef void (__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
 
@@ -53,20 +45,6 @@ typedef int (__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit,
 typedef void (__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs);
 
 
-struct D2QuestArgStrc
-{
-    D2GameStrc* pGame;
-    int nEvent;
-    D2UnitStrc* pTarget;
-    D2UnitStrc* pPlayer;
-    char pad0x10[0x4];
-    union
-    {
-        D2TextHeaderStrc* pTextControl;
-        int nOldLevel;
-    };
-    int nNewLevel;
-};
 
 struct D2Act5Quest1Strc
 {

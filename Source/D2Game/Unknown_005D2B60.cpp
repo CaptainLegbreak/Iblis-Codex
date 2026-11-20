@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2GameTypes.h"
 
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
@@ -41,18 +42,6 @@ D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, 
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 int __fastcall SKILLS_SrvDo034_TigerStrike_CobraStrike_RoyalStrike(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x005D3490
 
-struct D2DamageStrc
-{
-    unsigned int dwHitFlags;
-    unsigned short wResultFlags;
-    unsigned short wExtra;
-    int dwPhysDamage;
-    int unk_0C[9];
-    int dwColdLen;
-    int dwFrzLen;
-    int dwLifeLeech;
-    int dwManaLeech;
-};
 
 int __stdcall STATLIST_GetStatValue(D2StatListStrc*, int, unsigned short); // 0x00625D00
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc*, int); // 0x006439F0

@@ -3,18 +3,12 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2UnitData.h"
+#include "D2GameTypes.h"
 
 
 
 
 
-struct D2QuestArgStrc
-{
-    D2GameStrc* pGame;
-    int nEvent;
-    D2UnitStrc* pTarget;
-    D2UnitStrc* pPlayer;
-};
 
 
 #define QUESTSTATEFLAG_A2Q2 10

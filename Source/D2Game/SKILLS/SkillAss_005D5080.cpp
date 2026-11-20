@@ -1,6 +1,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2GameTypes.h"
 #ifdef MOVED_TEST
 #define BURST_CENTER 22
 #define MISSILE_FLAGS 7
@@ -10,35 +11,6 @@
 #endif
 struct D2GameStrc;
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArg);
-struct D2MissileStrc
-{
-#ifdef MOVED_TEST
-    int moved_prefix;
-#endif
-    unsigned int dwFlags;
-    D2UnitStrc* pOwner;
-    D2UnitStrc* pOrigin;
-    D2UnitStrc* pTarget;
-    int nMissile;
-    int nX;
-    int nY;
-    int nTargetX;
-    int nTargetY;
-    int nGfxArg;
-    int nVelocity;
-    int nSkill;
-    int nSkillLevel;
-    int nLoops;
-    int unk0x38;
-    int unk0x3C;
-    int nFrame;
-    int nActivateFrame;
-    int nAttBonus;
-    int nRange;
-    int nLightRadius;
-    MissileInitFunc pInitFunc;
-    int nInitArg;
-};
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed);                                 // 0x00650E40
 unsigned int __fastcall SEED_GetLowSeed(D2SeedStrc* pSeed);                                                 // 0x00650E50

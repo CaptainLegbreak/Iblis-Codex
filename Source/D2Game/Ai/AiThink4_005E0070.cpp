@@ -5,6 +5,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2GameTypes.h"
 struct D2UnitStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -115,28 +116,8 @@ struct D2GameStrc
 
 
 
-struct D2AiControlStrc
-{
-    int nAiSpecialState;
-    void* pAiParamFn;
-    unsigned short nAiFlags;
-    unsigned char unk0x0A[2];
-    int dwOwnerGUID;
-    unsigned int dwOwnerType;
-    int dwAiParam[3];
-};
 
 
-struct D2AiTickParamStrc
-{
-    D2AiControlStrc* pAiControl;
-    unsigned int unk0x04;
-    D2UnitStrc* pTarget;
-    unsigned int unk0x0C[2];
-    int nTargetDistance;
-    int bCombat;
-    D2MonStatsTxt* pMonstatsTxt;
-};
 
 
 struct D2SiegeBeastTowerAiCallbackArgStrc
@@ -234,25 +215,8 @@ void __stdcall SKILLS_AssignSkill(D2UnitStrc* pUnit, int nSkillId, int nSkillLev
 int __fastcall AITHINK_ShadowMasterCheckTargetPetType(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillId); // 0x005EAB20
 int __fastcall sub_005EB420_ShadowMasterSkillLevel(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pOwner, int nParam, int nSkillId); // 0x005EB420
 
-struct D2AiCmdStrc
-{
-    D2AiCmdStrc* pNextCmd;
-    D2AiCmdStrc* pPrevCmd;
-    int nCmdParam[5];
-};
 
 
-struct D2ModeChangeStrc
-{
-    int nMode;
-    D2UnitStrc* pUnit;
-    D2UnitStrc* pTargetUnit;
-    int nX;
-    int nY;
-    int unk0x14;
-    int unk0x18;
-    int unk0x1C;
-};
 
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20

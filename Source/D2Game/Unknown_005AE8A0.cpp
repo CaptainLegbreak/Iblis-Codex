@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2GameTypes.h"
 
 struct D2MissilesTxt
 {
@@ -17,24 +18,6 @@ struct D2SkillsTxt
     char pad00[0x138];
     unsigned int dwCalc[2];
     char pad140[0xFC];
-};
-struct D2MissileStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pOwner;
-    D2UnitStrc* pOrigin;
-    D2UnitStrc* pTarget;
-    int nMissile;
-    int nX;
-    int nY;
-    int nTargetX;
-    int nTargetY;
-    int nGfxArg;
-    int nVelocity;
-    int nSkill;
-    int nSkillLevel;
-    int nLoops;
-    int unknown38[9];
 };
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern "C" void* __cdecl memset(void*, int, unsigned int); // 0x00681EF0

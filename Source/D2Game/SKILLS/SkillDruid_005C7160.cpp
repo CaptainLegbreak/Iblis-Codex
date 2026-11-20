@@ -7,6 +7,7 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2UnitData.h"
+#include "D2GameTypes.h"
 struct D2UnitStrc;
 
 typedef void(__fastcall* StatListRemoveCallback)(D2UnitStrc*, int, D2StatListStrc*);
@@ -18,32 +19,6 @@ typedef void(__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nUnused);
 
 
 
-struct D2MissileStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pOwner;
-    D2UnitStrc* pOrigin;
-    D2UnitStrc* pTarget;
-    int nMissile;
-    int nX;
-    int nY;
-    int nTargetX;
-    int nTargetY;
-    int nGfxArg;
-    int nVelocity;
-    int nSkill;
-    int nSkillLevel;
-    int nLoops;
-    unsigned int unk0x38;
-    unsigned int unk0x3C;
-    int nFrame;
-    int nActivateFrame;
-    int nAttBonus;
-    int nRange;
-    int nLightRadius;
-    MissileInitFunc pInitFunc;
-    int pInitArgs;
-};
 
 struct D2CurseStrc
 {
@@ -225,7 +200,7 @@ static __forceinline int SKILLS_CreateSubMissilesInline(D2GameStrc* pGame, D2Uni
 
     for (int i = 0; i < nSubMissiles; ++i)
     {
-        missileParams.pInitArgs = i;
+        missileParams.nInitArg = i;
         MISSILES_CreateMissileFromParams(pGame, &missileParams);
     }
 
@@ -295,7 +270,7 @@ int __fastcall SKILLS_SrvDo017_ChargedBolt_BoltSentry(D2GameStrc* pGame, D2UnitS
 
     for (int i = 0; i < nMissileCount; ++i)
     {
-        missileParams.pInitArgs = i;
+        missileParams.nInitArg = i;
         if (D2GAME_GetXAndYFromTargetUnit_6FD14020(pGame, pUnit, &missileParams.nTargetX, &missileParams.nTargetY) && missileParams.nTargetX && missileParams.nTargetY)
         {
             MISSILES_CreateMissileFromParams(pGame, &missileParams);
@@ -910,7 +885,7 @@ int __fastcall SKILLS_SrvDo011_ChargedStrike(D2GameStrc* pGame, D2UnitStrc* pUni
 
     for (int i = 0; i < nMissileCount; ++i)
     {
-        missileParams.pInitArgs = i;
+        missileParams.nInitArg = i;
         MISSILES_CreateMissileFromParams(pGame, &missileParams);
     }
 

@@ -1,5 +1,6 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2GameTypes.h"
 struct D2GameStrc;
 struct D2UnitStrc;
 #ifdef MOVED_TEST
@@ -11,30 +12,6 @@ struct D2UnitStrc;
 #define HIT_FLAG 2
 #define SOURCE_DAMAGE 128
 #endif
-struct D2DamageStrc
-{
-#ifdef MOVED_TEST
-    int moved_prefix;
-#endif
-    unsigned int dwHitFlags;
-    unsigned short wResultFlags;
-    unsigned short wExtra;
-    int dwPhysDamage;
-    int dwEnDmgPct;
-    int unk0x10[9];
-    int dwFrzLen;
-    int dwLifeLeech;
-    int dwManaLeech;
-    int unk0x40[3];
-    int dwDmgTotal;
-    int unk0x50[4];
-    unsigned int dwHitClass;
-    unsigned char nHitClassActiveSet;
-    signed char nConvType;
-    unsigned short unk0x66;
-    int dwConvPct;
-    int nOverlay;
-};
 
 
 

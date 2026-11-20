@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2GameTypes.h"
 
 #define IFLAG_TARGETING 4
 #define OBJECT_STASH 267
@@ -116,40 +117,6 @@ int __fastcall SKILLITEM_pSpell09_StaminaPotion(D2GameStrc* pGame, D2UnitStrc* p
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x00681EF0
 
-struct D2DamageStrc
-{
-    unsigned int dwHitFlags;
-    unsigned short wResultFlags;
-    unsigned short wExtra;
-    int dwPhysDamage;
-    int dwEnDmgPct;
-    int dwFireDamage;
-    int dwBurnDamage;
-    int dwBurnLen;
-    int dwLtngDamage;
-    int dwMagDamage;
-    int dwColdDamage;
-    int dwPoisDamage;
-    int dwPoisLen;
-    int dwColdLen;
-    int dwFrzLen;
-    int dwLifeLeech;
-    int dwManaLeech;
-    int dwStamLeech;
-    int dwStunLen;
-    int dwAbsLife;
-    int dwDmgTotal;
-    unsigned int unk0x50;
-    int dwPiercePct;
-    int dwDamageRate;
-    unsigned int unk0x5C;
-    unsigned int dwHitClass;
-    unsigned char nHitClassActiveSet;
-    signed char nConvType;
-    unsigned short unk0x66;
-    int dwConvPct;
-    int nOverlay;
-};
 
 struct D2CurseStrc
 {

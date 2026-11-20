@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2GameTypes.h"
 struct D2UnitStrc;
 
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
@@ -14,16 +15,6 @@ struct D2AiCmdStrc;
 
 
 
-struct D2AiTickParamStrc
-{
-    D2AiControlStrc* pAiControl;
-    unsigned int unk0x04;
-    D2UnitStrc* pTarget;
-    unsigned int unk0x0C[2];
-    int nTargetDistance;
-    int bCombat;
-    D2MonStatsTxt* pMonstatsTxt;
-};
 
 enum D2C_AiThink005F12A0
 {
@@ -52,9 +43,7 @@ void __fastcall sub_005DE190_SetAiParam(D2UnitStrc* pUnit, int nParam, int nValu
 int __fastcall sub_6FCD0410(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nFlags); // 0x005DED40
 int __fastcall sub_005DF7D0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int a4, int bDeleteAiEventCallback); // 0x005DF7D0
 
-struct D2AiControlStrc { int nAiSpecialState; int padding[4]; int dwAiParam[3]; };
 
-struct D2AiCmdStrc { D2AiCmdStrc* pNextCmd; D2AiCmdStrc* pPrevCmd; int nCmdParam[5]; };
 
 D2AiCmdStrc* __fastcall AIGENERAL_GetCurrentAiCommandFromUnit(D2UnitStrc*); // 0x0058EE80
 void __fastcall AIGENERAL_FreeCurrentAiCommand(D2GameStrc*, D2UnitStrc*); // 0x0058ED10

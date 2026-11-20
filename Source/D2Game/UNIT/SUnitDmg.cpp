@@ -5,6 +5,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2GameTypes.h"
 
 #define UNIT_MONSTER 1
 #define MONSTATS2FLAGINDEX_DEADCOL_0057AF00 0x13
@@ -56,29 +57,6 @@ struct D2PetInfoStrc;
 struct D2HirelingTxt;
 struct D2PartyExpStrc;
 
-struct D2DamageStrc
-{
-    unsigned int dwHitFlags;
-    unsigned short wResultFlags;
-    unsigned short wExtra;
-    int dwPhysDamage;
-    int dwEnDmgPct;
-    int dwFireDamage;
-    int dwBurnDamage;
-    int dwBurnLen;
-    int dwLtngDamage;
-    int dwMagDamage;
-    int dwColdDamage;
-    int dwPoisDamage;
-    int dwPoisLen;
-    int dwColdLen;
-    int dwFrzLen;
-    int dwLifeLeech;
-    int dwManaLeech;
-    int dwStamLeech;
-    int dwStunLen;
-    int unk0x48[10];
-};
 
 struct D2CombatStrc
 {

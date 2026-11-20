@@ -4,6 +4,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2UnitData.h"
+#include "D2GameTypes.h"
 
 enum
 {
@@ -26,12 +27,6 @@ enum
 
 
 
-struct D2AiCmdStrc
-{
-    D2AiCmdStrc* pNextCmd;
-    D2AiCmdStrc* pPrevCmd;
-    int nCmdParam[5];
-};
 
 int __fastcall AITACTICS_ChangeModeAndTargetCoordinates(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, int nX, int nY); // 0x005DDFC0
 int __fastcall MONSTERAI_HasInteractUnit(D2MonsterInteractStrc* pMonInteract);                              // 0x00572DC0

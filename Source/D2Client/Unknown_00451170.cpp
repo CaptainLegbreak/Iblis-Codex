@@ -1,10 +1,7 @@
+#include "D2GameTypes.h"
 struct D2SGameDataStrc;
 struct D2StormListAStrc;
 
-struct D2CriticalSectionStrc
-{
-    char unk0x00[0x18];
-};
 
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock);    // 0x006CC210
 

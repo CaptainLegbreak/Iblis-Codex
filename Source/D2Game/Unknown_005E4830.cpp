@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
+#include "D2GameTypes.h"
 struct D2ActiveRoomStrc;
 struct D2GameStrc;
 struct D2UnitStrc;
@@ -12,23 +13,8 @@ struct D2MonStatsTxt;
 
 
 
-struct D2AiControlStrc
-{
-    char unk_00[0x14];
-    int dwAiParam[3];
-};
 
 
-struct D2AiTickParamStrc
-{
-    D2AiControlStrc* pAiControl;
-    int unk_04;
-    D2UnitStrc* pTarget;
-    int unk_0C[2];
-    int nTargetDistance;
-    int bCombat;
-    D2MonStatsTxt* pMonstatsTxt;
-};
 
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc*, int); // 0x0045C390
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc*, int, int); // 0x00552F60

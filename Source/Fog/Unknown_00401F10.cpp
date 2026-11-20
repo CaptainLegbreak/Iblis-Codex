@@ -1,3 +1,4 @@
+#include "D2GameTypes.h"
 struct D2MemoryBasicInfoStrc
 {
     void* BaseAddress;
@@ -152,15 +153,6 @@ static unsigned char __stdcall sub_00401540_GetThreadStack(unsigned long* pStack
     return bResult;
 }
 
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
 
 struct D2ImagehlpModule64Strc
 {

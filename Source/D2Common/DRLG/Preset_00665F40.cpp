@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2GameTypes.h"
 struct D2ActiveRoomStrc;
 struct D2DrlgCoordStrc
 {
@@ -75,10 +76,6 @@ struct D2LevelFileListStrc
     D2LevelFileListStrc* pNext;
 };
 
-struct D2CriticalSectionStrc
-{
-    char unk0x00[0x18];
-};
 
 struct D2LvlPrestTxt
 {

@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
+#include "D2GameTypes.h"
 struct D2ActiveRoomStrc;
 struct D2CoordStrc;
 struct D2GameStrc;
@@ -26,26 +27,6 @@ struct D2DrlgCoordsStrc
     int nTileHeight;
 };
 
-struct D2ObjInitFnStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* pObject;
-    D2ActiveRoomStrc* pRoom;
-    void* pObjectregion;
-    void* pObjectTxt;
-    int nX;
-    int nY;
-};
-struct D2QuestArgStrc
-{
-    D2GameStrc* pGame;
-    int nEvent;
-    D2UnitStrc* pTarget;
-    D2UnitStrc* pPlayer;
-    char unk0x10[0x04];
-    int nOldLevel;
-    int nNewLevel;
-};
 
 
 struct D2Act1Quest4Strc

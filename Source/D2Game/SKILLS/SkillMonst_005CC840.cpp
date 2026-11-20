@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2GameTypes.h"
 
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
@@ -40,19 +41,6 @@ int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); /
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
 
-struct D2ModeChangeStrc
-{
-    int nMode;
-    D2UnitStrc* pUnit;
-    D2UnitStrc* pTargetUnit;
-    int nX;
-    int nY;
-    unsigned char unk0x14;
-    unsigned char nEventFlag;
-    unsigned short unk0x16;
-    int unk0x18;
-    int unk0x1C;
-};
 
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20

@@ -5,6 +5,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2GameTypes.h"
 struct D2GameStrc;
 struct D2UnitStrc;
 
@@ -69,10 +70,6 @@ struct D2MonStatsInitStrc
     int unk0x08[12];
 };
 
-struct D2ModeChangeStrc
-{
-    int unk0x00[8];
-};
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
 int __fastcall sub_6FD15190(D2UnitStrc* pUnit, int nAiSpecialState); // 0x0056E2F0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0

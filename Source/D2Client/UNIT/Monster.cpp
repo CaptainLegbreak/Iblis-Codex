@@ -2,6 +2,7 @@
 #include "D2Constants.h"
 #include "D2DataTbls.h"
 #include "D2Path.h"
+#include "D2GameTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define STAT_LEVEL 12
@@ -205,23 +206,6 @@ struct Data004AE170 { unsigned char bUnknown00[0x34]; unsigned int dwMember34; }
 
 struct Unit004AE170 { int nType; unsigned int dwUnknown04; unsigned int dwUnknown08; unsigned int dwUnknown0C; unsigned int dwUnknown10; Data004AE170* pData; };
 
-struct D2MissileStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pOwner;
-    D2UnitStrc* pOrigin;
-    D2UnitStrc* pTarget;
-    int nMissile;
-    int nX;
-    int nY;
-    int nTargetX;
-    int nTargetY;
-    int nGfxArg;
-    int nVelocity;
-    int nSkill;
-    int nSkillLevel;
-    int unk0x34[10];
-};
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 void __fastcall sub_00470610_Refresh(D2UnitStrc* pUnit, int nArg); // 0x00470610

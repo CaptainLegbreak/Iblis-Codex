@@ -1,3 +1,4 @@
+#include "D2GameTypes.h"
 #ifdef MOVED_TEST
 #define CMD_ID 6
 #define DURATION 22
@@ -10,15 +11,6 @@
 struct D2GameStrc;
 struct D2UnitStrc;
 struct D2AiTickParamStrc;
-struct D2AiCmdStrc
-{
-#ifdef MOVED_TEST
-    int movedPrefix;
-#endif
-    D2AiCmdStrc* pNextCmd;
-    D2AiCmdStrc* pPrevCmd;
-    int nCmdParam[5];
-};
 struct D2MapAIPathPositionStrc
 {
 #ifdef MOVED_TEST

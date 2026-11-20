@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2GameTypes.h"
 struct D2StatListStrc;
 
 
@@ -25,27 +26,6 @@ struct D2DifficultyLevelsTxt
 };
 
 
-struct D2DamageStrc
-{
-    unsigned int dwHitFlags;
-    unsigned short wResultFlags;
-    char unk0x06[0x02];
-    int dwPhysDamage;
-    char unk0x0C[0x08];
-    int dwBurnDamage;
-    int dwBurnLen;
-    char unk0x1C[0x0C];
-    int dwPoisDamage;
-    int dwPoisLen;
-    int dwColdLen;
-    int dwFrzLen;
-    int dwLifeLeech;
-    int dwManaLeech;
-    int dwStamLeech;
-    int dwStunLen;
-    int dwAbsLife;
-    int dwDmgTotal;
-};
 
 typedef void(__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);
 

@@ -1,4 +1,5 @@
 #include "Storm.h"
+#include "D2GameTypes.h"
 
 struct D2BigPairStrc;
 struct D2CriticalSectionStrc;
@@ -51,10 +52,6 @@ extern unsigned int gnListTerminator_0074C49C; // 0x0074C49C
 extern void* gpListHead_0074C4A0; // 0x0074C4A0
 void __cdecl sub_006CB550_DestroyList(); // 0x006CB550
 
-struct D2CriticalSectionStrc
-{
-    char data[0x18];
-};
 
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* lpCriticalSection); // 0x006CC1FC
 extern D2CriticalSectionStrc gCriticalSection_0075E838; // 0x0075E838

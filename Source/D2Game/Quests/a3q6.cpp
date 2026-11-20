@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2GameTypes.h"
 
 #define QFLAG_REWARDGRANTED 0
 #define QFLAG_CUSTOM7 11
@@ -115,16 +116,6 @@ D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
 void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C360
 
-struct D2QuestArgStrc
-{
-    D2GameStrc* pGame;
-    int nEvent;
-    D2UnitStrc* pTarget;
-    D2UnitStrc* pPlayer;
-    unsigned int unk0x10;
-    int nOldLevel;
-    int nNewLevel;
-};
 
 typedef int(__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 
@@ -141,12 +132,6 @@ void __fastcall SUNIT_IterateUnitsOfType(D2GameStrc* pGame, int nType, void* pAr
 short __fastcall SUNIT_GetPartyId(D2UnitStrc* pPlayer); // 0x00554630
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 
-struct D2ObjInitFnStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* pObject;
-    D2ActiveRoomStrc* pRoom;
-};
 
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690

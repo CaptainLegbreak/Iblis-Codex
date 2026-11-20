@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2DataTbls.h"
 #include "D2Path.h"
+#include "D2GameTypes.h"
 struct D2UnitStrc;
 struct D2AiParamStrc;
 union D2SeedStrc;
@@ -13,25 +14,8 @@ struct D2MonsterRegionStrc;
 
 
 
-struct D2AiControlStrc { int nAiSpecialState; int padding[4]; int dwAiParam[3]; };
 
-struct D2AiTickParamStrc
-{
-    D2AiControlStrc* pAiControl;
-    int unk04;
-    D2UnitStrc* pTarget;
-    int unk0C[2];
-    int nTargetDistance;
-    int bCombat;
-    D2MonStatsTxt* pMonstatsTxt;
-};
 
-struct D2AiCmdStrc
-{
-    D2AiCmdStrc* pNextCmd;
-    D2AiCmdStrc* pPrevCmd;
-    int nCmdParam[5];
-};
 
 D2AiCmdStrc* __fastcall AIGENERAL_GetCurrentAiCommandFromUnit(D2UnitStrc* pUnit); // 0x0058EE80
 

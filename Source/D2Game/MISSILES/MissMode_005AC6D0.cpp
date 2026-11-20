@@ -7,6 +7,7 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2UnitData.h"
+#include "D2GameTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2AiParamStrc;
@@ -29,32 +30,6 @@ struct D2GSPacketSrv5D;
 
 typedef void(__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nUnused);
 
-struct D2MissileStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pOwner;
-    D2UnitStrc* pOrigin;
-    D2UnitStrc* pTarget;
-    int nMissile;
-    int nX;
-    int nY;
-    int nTargetX;
-    int nTargetY;
-    int nGfxArg;
-    int nVelocity;
-    int nSkill;
-    int nSkillLevel;
-    int nLoops;
-    unsigned int unk0x38;
-    unsigned int unk0x3C;
-    int nFrame;
-    int nActivateFrame;
-    int nAttBonus;
-    int nRange;
-    int nLightRadius;
-    MissileInitFunc pInitFunc;
-    int pInitArgs;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
@@ -70,40 +45,6 @@ int __stdcall MISSILE_GetLevel(D2UnitStrc* pMissile); // 0x0064A210
 int __stdcall MISSILE_GetSkill(D2UnitStrc* pMissile); // 0x0064A280
 
 
-struct D2DamageStrc
-{
-    unsigned int dwHitFlags;
-    unsigned short wResultFlags;
-    unsigned short wExtra;
-    int dwPhysDamage;
-    int dwEnDmgPct;
-    int dwFireDamage;
-    int dwBurnDamage;
-    int dwBurnLen;
-    int dwLtngDamage;
-    int dwMagDamage;
-    int dwColdDamage;
-    int dwPoisDamage;
-    int dwPoisLen;
-    int dwColdLen;
-    int dwFrzLen;
-    int dwLifeLeech;
-    int dwManaLeech;
-    int dwStamLeech;
-    int dwStunLen;
-    int dwAbsLife;
-    int dwDmgTotal;
-    unsigned int unk0x50;
-    int dwPiercePct;
-    int dwDamageRate;
-    unsigned int unk0x5C;
-    unsigned int dwHitClass;
-    unsigned char nHitClassActiveSet;
-    signed char nConvType;
-    unsigned short unk0x66;
-    int dwConvPct;
-    int nOverlay;
-};
 void __fastcall MISSMODE_FillDamageParams(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pMissile, D2UnitStrc* pUnit, D2DamageStrc* pDamage); // 0x005A89A0
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 int __fastcall sub_6FD10200(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nAuraRange, D2DamageStrc* pDamage, unsigned int nAuraFilter); // 0x0056BAD0
@@ -115,20 +56,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 
 
-struct D2AiControlStrc
-{
-    char unk0x00[0x14];
-    int dwAiParam[3];
-};
 
-struct D2AiTickParamStrc
-{
-    D2AiControlStrc* pAiControl;
-    unsigned int unk0x04;
-    D2UnitStrc* pTarget;
-    unsigned int unk0x0C[2];
-    unsigned int nTargetDistance;
-};
 
 struct D2DoorObjectAiCallbackArgStrc
 {
@@ -151,13 +79,6 @@ struct D2UnkMonCreateStrc
 };
 
 
-struct D2QuestArgStrc
-{
-    D2GameStrc* pGame;
-    int nEvent;
-    D2UnitStrc* pTarget;
-    D2UnitStrc* pPlayer;
-};
 
 struct D2Act3Quest5Strc
 {

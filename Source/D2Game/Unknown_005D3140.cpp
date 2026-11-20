@@ -2,16 +2,10 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2GameTypes.h"
 
 
 
-struct D2DamageStrc
-{
-    int dwHitFlags;
-    unsigned short wResultFlags;
-    unsigned short wExtra;
-    char unk0x08[0x68];
-};
 
 
 

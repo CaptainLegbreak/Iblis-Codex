@@ -4,6 +4,7 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2Path.h"
+#include "D2GameTypes.h"
 
 #define UNITFLAG_SKSRVDOFUNC 0x40
 #define AURAFILTER_DOUBLESWING 0x20003
@@ -93,21 +94,6 @@ D2UnitStrc* __fastcall sub_6FC7C7B0(D2UnitStrc* pUnit); // 0x00535BC0
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
-struct D2DamageStrc
-{
-    unsigned int dwHitFlags;
-    unsigned short wResultFlags;
-    unsigned short wExtra;
-    int dwPhysDamage;
-    int dwEnDmgPct;
-    int unk0x10[20];
-    unsigned int dwHitClass;
-    unsigned char nHitClassActiveSet;
-    signed char nConvType;
-    unsigned short unk0x66;
-    int dwConvPct;
-    int nOverlay;
-};
 
 void __fastcall D2GAME_SKILLS_RewindSkillEx_6FCBD260(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode); // 0x00553DC0
 int __fastcall D2GAME_RollElementalDamage_6FD14DD0(D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel); // 0x0056E0C0

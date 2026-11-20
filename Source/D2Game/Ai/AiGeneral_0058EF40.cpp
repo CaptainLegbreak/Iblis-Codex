@@ -1,19 +1,9 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2UnitData.h"
+#include "D2GameTypes.h"
 
-struct D2AiCmdStrc
-{
-    D2AiCmdStrc* pNextCmd;
-    D2AiCmdStrc* pPrevCmd;
-    int nCmdParam[5];
-};
 
-struct D2AiControlStrc
-{
-    char unk0x00[0x20];
-    D2AiCmdStrc* pCurrentCmd;
-};
 
 
 

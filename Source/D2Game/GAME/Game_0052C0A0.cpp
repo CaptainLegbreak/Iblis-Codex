@@ -1,20 +1,12 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2GameTypes.h"
 
 struct D2ServerCallbackFunctions;
 
 typedef int (__stdcall* FARPROC)();
 
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
 
 
 struct D2ActiveRoomStrc

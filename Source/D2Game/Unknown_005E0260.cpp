@@ -7,6 +7,7 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2UnitData.h"
+#include "D2GameTypes.h"
 
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 #define MONSTER_SUCKERNEST1 334
@@ -27,29 +28,10 @@ struct D2MonStats2Txt;
 struct D2PetInfoStrc;
 
 
-struct D2AiControlStrc
-{
-    int nAiSpecialState;
-    char unk0x04[0x10];
-    int dwAiParam[3];
-    char unk0x20[0x1C];
-    int nMinionSpawnClassId;
-};
 
 
 
 
-struct D2AiTickParamStrc
-{
-    D2AiControlStrc* pAiControl;
-    unsigned int unk0x04;
-    D2UnitStrc* pTarget;
-    unsigned int unk0x0C[2];
-    int nTargetDistance;
-    int bCombat;
-    D2MonStatsTxt* pMonstatsTxt;
-    D2MonStats2Txt* pMonstats2Txt;
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -76,12 +58,6 @@ enum D2C_F41AiThinkConstants
 };
 
 
-struct D2AiCmdStrc
-{
-    D2AiCmdStrc* pNextCmd;
-    D2AiCmdStrc* pPrevCmd;
-    int nCmdParam[5];
-};
 
 struct D2HighPriestAiCallbackArgStrc
 {

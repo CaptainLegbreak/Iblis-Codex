@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2GameTypes.h"
 
 struct D2MissilesTxt;
 union D2SeedStrc;
@@ -12,10 +13,6 @@ union D2SeedStrc;
 
 
 
-struct D2DamageStrc
-{
-    int nData[0x1C];
-};
 
 typedef int (__fastcall* MISSILESRVHITFN)(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit);
 
@@ -56,32 +53,6 @@ static __forceinline int __fastcall MISSMODE_SrvDmgHitHandler(D2GameStrc* pGame,
 
 typedef void(__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nUnused);
 
-struct D2MissileStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pOwner;
-    D2UnitStrc* pOrigin;
-    D2UnitStrc* pTarget;
-    int nMissile;
-    int nX;
-    int nY;
-    int nTargetX;
-    int nTargetY;
-    int nGfxArg;
-    int nVelocity;
-    int nSkill;
-    int nSkillLevel;
-    int nLoops;
-    unsigned int unk0x38;
-    unsigned int unk0x3C;
-    int nFrame;
-    int nActivateFrame;
-    int nAttBonus;
-    int nRange;
-    int nLightRadius;
-    MissileInitFunc pInitFunc;
-    int pInitArgs;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc* pGame, D2MissileStrc* pMissileParams); // 0x0059FA30

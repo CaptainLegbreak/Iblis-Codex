@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2GameTypes.h"
 struct D2StatListStrc;
 struct D2UnitStrc;
 
@@ -17,17 +18,6 @@ struct D2NihlathakOverseerAiCallbackArgStrc;
 
 
 
-struct D2AiControlStrc
-{
-    int nSpecialState;
-    void* pAiFunction;
-    int nAiFlags;
-    int nOwnerGUID;
-    int nOwnerType;
-    int dwAiParam[3];
-    int unk20[7];
-    int nSpawnClass;
-};
 
 struct D2MonStatsTxt
 {
@@ -38,16 +28,6 @@ struct D2MonStatsTxt
     unsigned char nSkillMode[8];
 };
 
-struct D2AiTickParamStrc
-{
-    D2AiControlStrc* pAiControl;
-    unsigned int unk0x04;
-    D2UnitStrc* pTarget;
-    unsigned int unk0x0C[2];
-    int nTargetDistance;
-    int bCombat;
-    D2MonStatsTxt* pMonstatsTxt;
-};
 
 enum D2C_HydraAi
 {
@@ -383,7 +363,7 @@ void __fastcall sub_005EE5D0_ThinkNihlathak(D2GameStrc* pGame, D2UnitStrc* pUnit
             const int nMonsterId = MONSTERS_ValidateMonsterId(528);
             if (sub_6FC68350(nMonsterId, UNITS_GetRoom(pUnit), CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 0))
             {
-                pAiTickParam->pAiControl->nSpawnClass = D2Common_11063(UNITS_GetRoom(pUnit), MONSTERS_ValidateMonsterId(453));
+                pAiTickParam->pAiControl->nMinionSpawnClassId = D2Common_11063(UNITS_GetRoom(pUnit), MONSTERS_ValidateMonsterId(453));
                 AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxt->nSkillMode[4], pMonStatsTxt->nSkill[4], pTarget, 0, 0);
                 return;
             }

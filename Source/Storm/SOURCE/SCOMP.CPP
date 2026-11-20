@@ -1,4 +1,5 @@
 #include "Storm.h"
+#include "D2GameTypes.h"
 
 struct D2StormHashBufferStrc;
 struct D2CriticalSectionStrc;
@@ -32,15 +33,6 @@ struct D2SCompListInitStrc;
 struct D2SCompTermLinkStrc;
 struct D2SCompListStrc;
 
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
 
 struct D2FogBlockStrc
 {

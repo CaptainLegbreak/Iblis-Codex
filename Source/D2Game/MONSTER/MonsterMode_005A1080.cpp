@@ -6,6 +6,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
+#include "D2GameTypes.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -57,20 +58,6 @@ struct D2MonStats2Txt
 };
 
 
-struct D2ModeChangeStrc
-{
-    int nMode;
-    D2UnitStrc* pUnit;
-    D2UnitStrc* pTargetUnit;
-    int nX;
-    int nY;
-    unsigned char unk0x14;
-    unsigned char nFlag;
-    unsigned char unk0x16;
-    unsigned char unk0x17;
-    int unk0x18;
-    int unk0x1C;
-};
 
 typedef void (__fastcall* MonEventFunc)(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);
 
@@ -521,7 +508,7 @@ void __fastcall sub_6FC63940(D2GameStrc* pGame, D2UnitStrc* pUnit)
         }
     }
 
-    modeChange.nFlag = nFlag;
+    modeChange.nEventFlag = nFlag;
     modeChange.pTargetUnit = SUNIT_GetTargetUnit(pGame, pUnit);
 
     D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
@@ -554,7 +541,7 @@ void __fastcall sub_6FC63A30(D2GameStrc* pGame, D2UnitStrc* pUnit)
         }
     }
 
-    modeChange.nFlag = nFlag;
+    modeChange.nEventFlag = nFlag;
     modeChange.pTargetUnit = SUNIT_GetTargetUnit(pGame, pUnit);
 
     D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);

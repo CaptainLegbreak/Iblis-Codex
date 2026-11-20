@@ -1,4 +1,5 @@
 #include "Fog.h"
+#include "D2GameTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -51,15 +52,6 @@ extern int gdwGlobal_00970E50; // 0x00970E50
 extern char gData_007C90C8[]; // 0x007C90C8
 extern int gdwGlobal_00970E8C; // 0x00970E8C
 
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pCriticalSection);
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pCriticalSection);

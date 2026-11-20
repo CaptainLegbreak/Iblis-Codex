@@ -6,6 +6,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
+#include "D2GameTypes.h"
 
 #define STAT_ITEM_MAGICARROW 157
 #define DAMAGERESULTFLAG_SUCCESSFULHIT 1
@@ -86,11 +87,6 @@ struct D2PetTypeTxt
 };
 
 
-struct D2DamageStrc
-{
-    char unk0x00[0x04];
-    unsigned short wResultFlags;
-};
 
 struct D2AuraCallbackStrc
 {
@@ -119,32 +115,6 @@ struct D2_6FD10880_Strc
     int unk0x14;
 };
 
-struct D2MissileStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pOwner;
-    D2UnitStrc* pOrigin;
-    D2UnitStrc* pTarget;
-    int nMissile;
-    int nX;
-    int nY;
-    int nTargetX;
-    int nTargetY;
-    int nGfxArg;
-    int nVelocity;
-    int nSkill;
-    int nSkillLevel;
-    int nLoops;
-    unsigned int unk0x38;
-    unsigned int unk0x3C;
-    int nFrame;
-    int nActivateFrame;
-    int nAttBonus;
-    int nRange;
-    int nLightRadius;
-    void* pInitFunc;
-    int pInitArgs;
-};
 
 struct D2UnitFindArgStrc
 {
@@ -301,19 +271,6 @@ D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit);
 int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc* pDynamicPath); // 0x00648A00
 int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pDynamicPath); // 0x00648A10
 
-struct D2ModeChangeStrc
-{
-    int nMode;
-    D2UnitStrc* pUnit;
-    D2UnitStrc* pTargetUnit;
-    int nX;
-    int nY;
-    unsigned char unk0x14;
-    unsigned char nEventFlag;
-    unsigned short unk0x16;
-    int unk0x18;
-    int unk0x1C;
-};
 
 enum
 {

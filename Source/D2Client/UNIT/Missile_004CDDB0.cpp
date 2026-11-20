@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2GameTypes.h"
 
 #define MAX(a, b) ((a) < (b) ? (b) : (a))
 struct D2StaticPathStrc;
@@ -16,28 +17,6 @@ struct D2SkillsTxt;
 
 
 
-struct D2MissileStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pOwner;
-    D2UnitStrc* pOrigin;
-    D2UnitStrc* pTarget;
-    int nMissile;
-    int nX;
-    int nY;
-    int nTargetX;
-    int nTargetY;
-    int nGfxArg;
-    int nVelocity;
-    int nSkill;
-    int nSkillLevel;
-    int nLoops;
-    int unk0x38[5];
-    int nOffset;
-    int nFrames;
-    void* pfCallback;
-    D2UnitStrc* pInitArgs;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
@@ -185,7 +164,7 @@ void __fastcall sub_004CDDB0(D2UnitStrc* pUnit, const int* pMissiles, int nMissi
 
             if (nOffset)
             {
-                tParams.nOffset = SEED_RollRandomNumber(pSeed) % 25 + nOffset - 12;
+                tParams.nRange = SEED_RollRandomNumber(pSeed) % 25 + nOffset - 12;
             }
             tParams.nX = nX + i;
             tParams.nY = nY + j;

@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2DataTbls.h"
 #include "D2Path.h"
+#include "D2GameTypes.h"
 
 struct D2GfxLightStrc;
 struct D2StaticPathStrc;
@@ -14,26 +15,6 @@ union D2SeedStrc;
 
 #pragma pack(pop)
 
-struct D2MissileStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pOwner;
-    D2UnitStrc* pOrigin;
-    D2UnitStrc* pTarget;
-    int nMissile;
-    int nX;
-    int nY;
-    int nTargetX;
-    int nTargetY;
-    int nGfxArg;
-    int nVelocity;
-    int nSkill;
-    int nSkillLevel;
-    int nLoops;
-    int unk0x38[5];
-    int nParam4C;
-    int unk0x50[3];
-};
 
 struct D2MissilesTxt
 {
@@ -203,7 +184,7 @@ int __fastcall sub_004CF9B0_CltHitRingSubMissiles(D2UnitStrc* pMissile, D2UnitSt
     {
         tMissile.nMissile = pMissilesTxtRecord->wCltHitSubMissile[1];
         tMissile.dwFlags = 0x8001;
-        tMissile.nParam4C = SKILLS_GetLevelBasedParam(nSkill, nLevel);
+        tMissile.nRange = SKILLS_GetLevelBasedParam(nSkill, nLevel);
         tMissile.nX = nX;
         tMissile.nY = nY;
         D2UnitStrc* pNew = sub_004CD540_CreateMissile(&tMissile);

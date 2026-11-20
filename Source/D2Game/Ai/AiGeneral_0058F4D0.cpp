@@ -1,14 +1,10 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2UnitData.h"
+#include "D2GameTypes.h"
 
 struct D2MinionListStrc;
 
-struct D2AiControlStrc
-{
-	char unk_00[0x34];
-	D2MinionListStrc* pMinionList;
-};
 
 
 

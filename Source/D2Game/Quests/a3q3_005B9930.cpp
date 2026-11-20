@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameTypes.h"
 struct D2RoomCoordListStrc;
 struct D2UnitStrc;
 
@@ -37,15 +38,6 @@ struct D2QuestDataStrc
     D2QuestExStrc* pQuestDataEx;
     char unk0x1C[0xA4];
     QUESTCB pCallback;
-};
-struct D2ObjInitFnStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* pObject;
-    D2ActiveRoomStrc* pRoom;
-    int unk0x0C[2];
-    int nX;
-    int nY;
 };
 D2UnitStrc* __fastcall MONSTERUNIQUE_SpawnUniqueGroup(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pRoomCoordList, int nClassId, int bAllowChampion, unsigned short nX, unsigned short nY, int bAvoidWarps); // 0x005A43E0
 D2ActiveRoomStrc* __stdcall sub_00619DA0_ActLookup(void* pAct, int a2, int a3);                              // 0x00619DA0

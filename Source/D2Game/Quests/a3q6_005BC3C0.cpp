@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2GameTypes.h"
 
 struct D2PlayerDataStrc;
 struct D2QuestGUIDStrc;
@@ -41,16 +42,6 @@ struct D2QuestDataStrc
     int eFilter;
 };
 
-struct D2QuestArgStrc
-{
-    D2GameStrc* pGame;
-    int nEvent;
-    D2UnitStrc* pTarget;
-    D2UnitStrc* pPlayer;
-    unsigned int unk0x10;
-    int nOldLevel;
-    int nNewLevel;
-};
 
 typedef int(__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 

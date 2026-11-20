@@ -1,18 +1,8 @@
 #include "D2Game.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2GameTypes.h"
 
-struct D2DamageStrc
-{
-    unsigned int dwHitFlags;
-    unsigned short wResultFlags;
-    unsigned short wExtra;
-    int dwPhysDamage;
-    int dwEnDmgPct;
-    int unk0x10[20];
-    unsigned int dwHitClass;
-    int unk0x64[3];
-};
 
 
 

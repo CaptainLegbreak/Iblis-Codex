@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2GameTypes.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -63,15 +64,6 @@ D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int); // 0x006335F0
 void __stdcall STATES_ToggleState(D2UnitStrc*, int, int); // 0x00639DB0
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize); // 0x00681EF0
 
-struct D2DamageStrc
-{
-    unsigned int dwHitFlags;
-    unsigned short wResultFlags;
-    unsigned short wExtra;
-    int unk0x08[11];
-    int dwFrzLen;
-    int unk0x38[14];
-};
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625500
 void __fastcall SUNITDMG_ExecuteEvents(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int bMissile, D2DamageStrc* pDamage); // 0x0057C6C0
 

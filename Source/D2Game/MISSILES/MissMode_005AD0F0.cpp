@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2GameTypes.h"
 
 #define D2_MIN(a,b) ((a) < (b) ? (a) : (b))
 struct D2MissilesTxt;
@@ -20,19 +21,6 @@ struct D2MissilesTxt
 };
 
 
-struct D2DamageStrc
-{
-    unsigned int dwHitFlags;
-    unsigned short wResultFlags;
-    unsigned short wExtra;
-    int dwPhysDamage;
-    char unk0x0C[0x48];
-    int dwPiercePct;
-    char unk0x58[0x08];
-    unsigned int dwHitClass;
-    unsigned char nHitClassActiveSet;
-    char unk0x65[0x0B];
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2UnitStrc* __fastcall SUNIT_GetOwner(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00552FD0

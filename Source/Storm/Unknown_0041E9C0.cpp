@@ -1,4 +1,5 @@
 #include "Storm.h"
+#include "D2GameTypes.h"
 #define DECODE_LENGTH sub_00420F80_DecodeLength
 #define FROM_BINARY sub_00423380_FromBinary
 #define FROM_LENGTH_PREFIXED sub_004234F0_FromLengthPrefixed
@@ -176,15 +177,6 @@ struct D2StormHuffOutputStrc
     void sub_0041D9A0_Flush();                                                                              // 0x0041D9A0
 };
 
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214

@@ -4,6 +4,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2GameTypes.h"
 struct D2ActiveRoomStrc;
 struct D2GameStrc;
 struct D2UnitStrc;
@@ -17,17 +18,6 @@ union D2SeedStrc;
 
 
 
-struct D2ModeChangeStrc
-{
-    int nMode;
-    D2UnitStrc* pUnit;
-    D2UnitStrc* pTargetUnit;
-    int nX;
-    int nY;
-    int unk0x14;
-    int unk0x18;
-    int unk0x1C;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
@@ -56,12 +46,6 @@ void __stdcall PATH_SetStepNum(D2DynamicPathStrc* pPath, unsigned char nStep); /
 int __stdcall PATH_GetUnitCollisionPattern(D2UnitStrc* pUnit); // 0x00649180
 void __stdcall COLLISION_ResetMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nPattern, int nMask); // 0x0064EC10
 
-struct D2DamageStrc
-{
-    unsigned int dwHitFlags;
-    unsigned short wResultFlags;
-    unsigned short wExtra;
-};
 
 enum D2C_SkillItemConstants
 {

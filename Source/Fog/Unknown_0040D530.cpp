@@ -1,18 +1,5 @@
-struct D2AiControlStrc
-{
-    int nAiSpecialState;
-    void* pAiParamFn;
-    unsigned short nAiFlags;
-    unsigned char unk0x0A[2];
-    int dwOwnerGUID;
-    unsigned int dwOwnerType;
-    int dwAiParam[3];
-};
+#include "D2GameTypes.h"
 
-struct D2AiTickParamStrc
-{
-    D2AiControlStrc* pAiControl;
-};
 
 int __fastcall sub_0040C720_ReleaseReferences(int nArg);                                                                      // 0x0040C720
 void __fastcall sub_00469A60_ResetKeyConfig(int nArg);                                                                     // 0x00469A60

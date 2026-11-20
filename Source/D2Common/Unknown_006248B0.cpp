@@ -1,17 +1,9 @@
 #include "D2Common.h"
+#include "D2GameTypes.h"
 
 #define _INTSIZEOF(n) ((sizeof(n) + sizeof(int) - 1) & ~(sizeof(int) - 1))
 #define va_start(ap, v) (ap = (va_list)&(v) + _INTSIZEOF(v))
 
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
 
 struct D2SystemTimeStrc
 {

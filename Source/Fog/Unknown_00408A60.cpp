@@ -1,4 +1,5 @@
 #include "Fog.h"
+#include "D2GameTypes.h"
 struct D2CrashInputStrc;
 
 #define FOG_ASSERT(expr, line) if (!(expr)) { const char* szAssertFile = sub_00408090(); FOG_SOCKET_WSACleanup(); sub_00408900_RaiseErrorReport(6, &gszEmptyAssertText, line, "Unrecoverable internal error %08x", szAssertFile); sub_0040F960_CloseLogFiles(); exit(-1); }
@@ -20,15 +21,6 @@ extern "C" int __cdecl SStrPrintf(char* szDest, size_t nSize, const char* szForm
 const char* __fastcall sub_00408000_StripSourcePath(const char* szFile); // 0x00408000
 void __cdecl sub_004106B0_LogWritePrefixed0(const char* szPrefix, const char* szFormat, ...); // 0x004106B0
 
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
 
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
 extern "C" int __cdecl atexit(void (__cdecl* pfnExit)()); // 0x00683824

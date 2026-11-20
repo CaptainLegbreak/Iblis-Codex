@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2GameTypes.h"
 #ifdef MOVED_TEST
 #define DIAG_LINE_NUMBER 451
 #define STATE_LINE 452
@@ -44,16 +45,6 @@ struct D2QuestDataStrc
     int eFilter;
 };
 
-struct D2QuestArgStrc
-{
-#ifdef MOVED_TEST
-    int moved_prefix;
-#endif
-    D2GameStrc* pGame;
-    int nEvent;
-    D2UnitStrc* pTarget;
-    D2UnitStrc* pPlayer;
-};
 
 struct D2Act1Quest2Strc
 {

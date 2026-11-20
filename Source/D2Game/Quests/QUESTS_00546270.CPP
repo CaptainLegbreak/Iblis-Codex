@@ -1,18 +1,9 @@
 #include "D2Game.h"
 #include "D2GameStrc.h"
+#include "D2GameTypes.h"
 
 typedef int (__stdcall* FARPROC)();
 
-struct D2QuestArgStrc
-{
-    D2GameStrc* pGame;
-    int nEvent;
-    D2UnitStrc* pTarget;
-    D2UnitStrc* pPlayer;
-    int unk0x10;
-    int unk0x14;
-    int unk0x18;
-};
 
 typedef void (__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuest, D2QuestArgStrc* pArgs);
 typedef void (__fastcall* QUESTSEQFILTER)(D2QuestDataStrc* pQuest);

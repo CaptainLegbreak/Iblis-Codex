@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2GameTypes.h"
 struct D2DynamicPathStrc;
 struct D2GameStrc;
 
@@ -55,20 +56,6 @@ struct D2MonsterDataStrc
 
 
 
-struct D2ModeChangeStrc
-{
-    int nMode;
-    D2UnitStrc* pUnit;
-    D2UnitStrc* pTargetUnit;
-    int nX;
-    int nY;
-    unsigned char nDirection;
-    unsigned char nPathType;
-    unsigned short unk0x16;
-    int nVelocityPercent;
-    unsigned char nNewDist;
-    char unk0x1D[3];
-};
 
 typedef int (__fastcall* MonModeStartFunc)(D2GameStrc*, D2ModeChangeStrc*);
 
@@ -428,7 +415,7 @@ int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pM
         PATH_SetDistance(pPath, 20);
 
         pAiParam = (pUnit->dwUnitType == UNIT_MONSTER && pUnit->pMonsterData) ? pUnit->pMonsterData->pAiParam : 0;
-        sub_005A63F0_UpdateModePath(pGame, pUnit, pModeChange->nVelocityPercent, pAiParam, pModeChange->nPathType, pModeChange->nNewDist);
+        sub_005A63F0_UpdateModePath(pGame, pUnit, pModeChange->nVelocityPercent, pAiParam, pModeChange->nEventFlag, pModeChange->nNewDist);
         MONSTERMODE_UpdateModeAttackStats(pUnit, nMode);
         MONSTERUNIQUE_ExecuteUModModeStartCallbacks(pGame, pUnit);
     }
@@ -822,5 +809,5 @@ void __stdcall MONSTERMODE_GetModeChangeInfo(D2UnitStrc* pUnit, int nMode, D2Mod
         nEventFlag = 101;
     }
 
-    pModeChange->nPathType = nEventFlag;
+    pModeChange->nEventFlag = nEventFlag;
 }

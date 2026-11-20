@@ -4,6 +4,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2GameTypes.h"
 
 enum D2C_M11MeteorConstants
 {
@@ -25,39 +26,6 @@ struct D2SkillsTxt
     char unk0x00[0x64];
     unsigned int dwAuraRangeCalc;
     char unk0x68[0x1D4];
-};
-struct D2DamageStrc
-{
-    unsigned int dwHitFlags;
-    unsigned short wResultFlags;
-    unsigned short wExtra;
-    int unk0x08[26];
-};
-struct D2MissileStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pOwner;
-    D2UnitStrc* pOrigin;
-    D2UnitStrc* pTarget;
-    int nMissile;
-    int nX;
-    int nY;
-    int nTargetX;
-    int nTargetY;
-    int nGfxArg;
-    int nVelocity;
-    int nSkill;
-    int nSkillLevel;
-    int nLoops;
-    unsigned int unk0x38;
-    unsigned int unk0x3C;
-    int nFrame;
-    int nActivateFrame;
-    int nAttBonus;
-    int nRange;
-    int nLightRadius;
-    void* pInitFunc;
-    int pInitArgs;
 };
 extern D2DataTablesStrc* sgptDataTables;                                                                      // 0x00744304
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                  // 0x00681EF0

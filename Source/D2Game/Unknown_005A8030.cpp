@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2GameTypes.h"
 
 struct D2MonStatsTxt;
 struct D2ModeChangeStrc;
@@ -11,17 +12,6 @@ struct D2MissileUnitFindArgStrc;
 
 
 
-struct D2ModeChangeStrc
-{
-    int nMode;
-    D2UnitStrc* pUnit;
-    D2UnitStrc* pTarget;
-    int nX;
-    int nY;
-    union { int nFlags; struct { unsigned char nDirection; unsigned char nVelocity; unsigned char unk_16[2]; }; };
-    int unk_18;
-    int unk_1C;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern unsigned char gbModeReset_0073C6D0[]; // 0x0073C6D0
@@ -137,8 +127,8 @@ void __fastcall MONSTERMODE_HandleEndAnimation(D2GameStrc* pGame, D2UnitStrc* pU
     D2ModeChangeStrc mode = {};
     mode.nMode = 1;
     mode.pUnit = pUnit;
-    mode.nVelocity = 100;
-    mode.pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
+    mode.nEventFlag = 100;
+    mode.pTargetUnit = SUNIT_GetTargetUnit(pGame, pUnit);
     D2GAME_ModeChange_6FC65220(pGame, &mode, 1);
 }
 

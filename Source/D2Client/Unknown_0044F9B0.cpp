@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2GameTypes.h"
 
 struct D2StormSlotListStrc;
 struct D2StormEntry38Strc;
@@ -417,15 +418,6 @@ struct D2Storm603F70Strc
     D2Storm603F70Strc(int nUnused);
 };
 
-struct D2CriticalSectionStrc
-{
-    void* DebugInfo;
-    int LockCount;
-    int RecursionCount;
-    void* OwningThread;
-    void* LockSemaphore;
-    unsigned int SpinCount;
-};
 
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* lpCriticalSection);
 

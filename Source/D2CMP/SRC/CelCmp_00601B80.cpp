@@ -1,3 +1,4 @@
+#include "D2GameTypes.h"
 // build: context ??_GD2StormSlotListStrc@@QAEPAXI@Z
 
 inline void* __cdecl operator new(unsigned int nSize, void* pWhere) throw()
@@ -5,15 +6,6 @@ inline void* __cdecl operator new(unsigned int nSize, void* pWhere) throw()
     return pWhere;
 }
 
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock);         // 0x006CC218
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock);         // 0x006CC214

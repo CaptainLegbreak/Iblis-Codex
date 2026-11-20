@@ -5,6 +5,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2GameTypes.h"
 
 struct D2StaticPathStrc;
 struct D2MissilesTxt;
@@ -52,32 +53,6 @@ struct D2SkillsTxt
 
 typedef void(__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nUnused);
 
-struct D2MissileStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pOwner;
-    D2UnitStrc* pOrigin;
-    D2UnitStrc* pTarget;
-    int nMissile;
-    int nX;
-    int nY;
-    int nTargetX;
-    int nTargetY;
-    int nGfxArg;
-    int nVelocity;
-    int nSkill;
-    int nSkillLevel;
-    int nLoops;
-    unsigned int unk0x38;
-    unsigned int unk0x3C;
-    int nFrame;
-    int nActivateFrame;
-    int nAttBonus;
-    int nRange;
-    int nLightRadius;
-    MissileInitFunc pInitFunc;
-    int pInitArgs;
-};
 
 struct D2HitFunc22ParamStrc
 {
@@ -120,10 +95,6 @@ int __stdcall MISSILE_GetSkill(D2UnitStrc* pMissile); // 0x0064A280
 int __stdcall MISSILE_GetTargetX(D2UnitStrc* pMissile); // 0x0064A730
 int __stdcall sub_006505C0_TestPathFlag8(D2DynamicPathStrc* pPath); // 0x006505C0
 
-struct D2DamageStrc
-{
-    int nData[0x1C];
-};
 
 typedef int (__fastcall* MISSILESRVHITFN)(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit);
 

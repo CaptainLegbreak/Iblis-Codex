@@ -2,6 +2,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2Path.h"
+#include "D2GameTypes.h"
 struct D2ActiveRoomStrc;
 struct D2UnitStrc;
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
@@ -69,18 +70,6 @@ int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsi
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
 
-struct D2DamageStrc
-{
-    unsigned int dwHitFlags;
-    unsigned short wResultFlags;
-    unsigned short wExtra;
-    int dwPhysDamage;
-    int dwEnDmgPct;
-    int unk0x10[8];
-    int dwColdLen;
-    int dwFrzLen;
-    unsigned char unk_38[0x38];
-};
 
 typedef void (__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);
 

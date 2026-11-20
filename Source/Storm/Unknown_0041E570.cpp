@@ -16,16 +16,8 @@ void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize);  
 
 // build: symbol _gtCompTable_006CFE9C 0x006CFE9C
 #include "gen/data/Source/Storm/Unknown_0041E570.static/gtCompTable_006CFE9C.inc"
+#include "D2GameTypes.h"
 
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
 
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);          // 0x00413020
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);                  // 0x00412650

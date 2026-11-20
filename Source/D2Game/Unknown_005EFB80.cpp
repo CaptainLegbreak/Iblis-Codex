@@ -6,6 +6,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2GameTypes.h"
 struct D2ActiveRoomStrc;
 struct D2GameStrc;
 struct D2UnitStrc;
@@ -26,16 +27,6 @@ struct D2AiCmdStrc;
 
 
 
-struct D2AiTickParamStrc
-{
-    D2AiControlStrc* pAiControl;
-    unsigned int unk0x04;
-    D2UnitStrc* pTarget;
-    unsigned int unk0x0C[2];
-    int nTargetDistance;
-    int bCombat;
-    D2MonStatsTxt* pMonstatsTxt;
-};
 
 enum D2C_BruteAIParams
 {
@@ -63,12 +54,6 @@ enum D2C_M80SkeletonAi
 
 int __fastcall AITACTICS_WalkToTargetUnitWithFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit, unsigned char nFlag); // 0x005DEC80
 
-struct D2AiControlStrc
-{
-    int nAiSpecialState;
-    char unk0x04[0x10];
-    int dwAiParam[3];
-};
 
 enum D2C_MosquitoAIParams
 {
@@ -149,12 +134,6 @@ struct D2FetishShamanAiCallbackArgStrc
     int unk0x1C[3];
 };
 
-struct D2AiCmdStrc
-{
-    D2AiCmdStrc* pNextCmd;
-    D2AiCmdStrc* pPrevCmd;
-    int nCmdParam[5];
-};
 
 typedef D2UnitStrc* (__fastcall* AIUTIL_TargetCallback)(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg);
 

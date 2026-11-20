@@ -1,3 +1,4 @@
+#include "D2GameTypes.h"
 #define VALIDATEBEGIN int nValid = -1
 #define VALIDATE(x) nValid &= (x) ? -1 : 0
 #define VALIDATEKEEP(x) nValid = (x) ? nValid : 0
@@ -181,15 +182,6 @@ void __stdcall SMemZero(void*, unsigned int); // 0x0041D300
 
 typedef unsigned int size_t;
 
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
 
 struct T0041FA40
 {

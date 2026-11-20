@@ -1,12 +1,8 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2GameTypes.h"
 
-struct D2ObjInitFnStrc
-{
-    D2GameStrc* pGame; D2UnitStrc* pObject; D2ActiveRoomStrc* pRoom;
-    int unk_0C; int nObjectIdx; int nX; int nY;
-};
 struct D2QuestDataStrc { char unk_00[0x18]; void* pQuestDataEx; };
 struct D2MapAIStrc { int unk_00; int nCount; };
 struct D2Act5Quest3Strc

@@ -4,6 +4,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2GameTypes.h"
 struct D2UnitStrc;
 
 
@@ -24,27 +25,6 @@ struct D2BasicAuraParamStrc
     void* pStateRemoveCallback;
 };
 
-struct D2DamageStrc
-{
-    unsigned int dwHitFlags;
-    unsigned short wResultFlags;
-    unsigned short wExtra;
-    int dwPhysDamage;
-    int dwEnDmgPct;
-    int unk0x10[9];
-    int dwFrzLen;
-    int dwLifeLeech;
-    int dwManaLeech;
-    int unk0x40[3];
-    int dwDmgTotal;
-    int unk0x50[4];
-    unsigned int dwHitClass;
-    unsigned char nHitClassActiveSet;
-    signed char nConvType;
-    unsigned short unk0x66;
-    int dwConvPct;
-    int nOverlay;
-};
 
 struct D2DamageAuraParamStrc
 {

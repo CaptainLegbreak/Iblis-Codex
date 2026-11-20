@@ -1,4 +1,5 @@
 #include "D2Glide.h"
+#include "D2GameTypes.h"
 struct D2GfxSettingsStrc;
 struct D2GlideHwQueryStrc;
 struct D2GlideTexSlotStrc;
@@ -63,10 +64,6 @@ struct D2GfxPaletteViewStrc
 };
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-struct D2CriticalSectionStrc
-{
-    char unk0x00[0x18];
-};
 
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC1FC

@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2Path.h"
+#include "D2GameTypes.h"
 
 enum D2C_M244AiBaalConstants
 {
@@ -38,17 +39,7 @@ struct D2GameStrc
     D2TargetNodeStrc* pTargetNodes[10];
 };
 
-struct D2AiCmdStrc
-{
-    D2AiCmdStrc* pNextCmd;
-    D2AiCmdStrc* pPrevCmd;
-    int nCmdParam[5];
-};
 
-struct D2AiTickParamStrc
-{
-    D2AiControlStrc* pAiControl;
-};
 
 
 
@@ -335,16 +326,6 @@ static D2UnitStrc* __stdcall sub_005FBDD0(D2GameStrc* pGame, int* pMax, int* pCo
 
     return pTarget;
 }
-struct D2AiControlStrc
-{
-    int nAiSpecialState;
-    void* pAiParamFn;
-    unsigned short nAiFlags;
-    unsigned char unk0x0A[2];
-    int dwOwnerGUID;
-    unsigned int dwOwnerType;
-    int dwAiParam[3];
-};
 
 struct D2PlayerCountBonusStrc
 {

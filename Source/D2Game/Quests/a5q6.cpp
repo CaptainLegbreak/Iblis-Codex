@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2GameStrc.h"
+#include "D2GameTypes.h"
 
 #define QUESTSTATEFLAG_A5Q6 40
 #define QFLAG_REWARDGRANTED 0
@@ -71,16 +72,6 @@ struct D2GSPacketSrv50
 };
 
 #pragma pack(pop)
-struct D2QuestArgStrc
-{
-    D2GameStrc* pGame;
-    int nEvent;
-    D2UnitStrc* pTarget;
-    D2UnitStrc* pPlayer;
-    unsigned int unk0x10;
-    int nOldLevel;
-    int nNewLevel;
-};
 
 typedef int(__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 

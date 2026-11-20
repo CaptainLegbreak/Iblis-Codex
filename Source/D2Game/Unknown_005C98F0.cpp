@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2GameTypes.h"
 
 union D2SeedStrc;
 struct D2SkillsTxt;
@@ -26,15 +27,6 @@ struct D2SkillsTxt
 };
 
 
-struct D2DamageStrc
-{
-    unsigned int dwHitFlags;
-    unsigned short wResultFlags;
-    unsigned short wExtra;
-    int dwPhysDamage[22];
-    unsigned int dwHitClass;
-    int unk_64[3];
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern "C" void* __cdecl memset(void*, int, unsigned int); // 0x00681EF0

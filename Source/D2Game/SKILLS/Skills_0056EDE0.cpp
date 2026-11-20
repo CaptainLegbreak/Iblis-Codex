@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2GameTypes.h"
 
 #define UNITFLAG_SKSRVDOFUNC 0x00000040
 #define ITEMTYPE_MISSILE_POTION 38
@@ -26,32 +27,6 @@ struct D2UnitStrc
 
 enum D2C_UnitTypes { UNIT_OBJECT = 2, UNIT_ITEM = 4, UNIT_TILE = 5 };
 
-struct D2MissileStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pOwner;
-    D2UnitStrc* pOrigin;
-    D2UnitStrc* pTarget;
-    int nMissile;
-    int nX;
-    int nY;
-    int nTargetX;
-    int nTargetY;
-    int nGfxArg;
-    int nVelocity;
-    int nSkill;
-    int nSkillLevel;
-    int nLoops;
-    unsigned int unk0x38;
-    unsigned int unk0x3C;
-    int nFrame;
-    int nActivateFrame;
-    int nAttBonus;
-    int nRange;
-    int nLightRadius;
-    void* pInitFunc;
-    int pInitArgs;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x00681EF0
 unsigned int __stdcall sub_006417F0(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
@@ -81,12 +56,6 @@ void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventT
 void __fastcall sub_6FD10E50(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x0056E900
 static __declspec(noinline) void __stdcall D2GAME_SKILLS_SetDelay_6FD11C00(D2GameStrc* pGame, D2UnitStrc* pUnit, int nDelay);
 
-struct D2DamageStrc
-{
-    unsigned int dwHitFlags;
-    unsigned short wResultFlags;
-    char unk0x06[0x6A];
-};
 
 D2UnitStrc* __fastcall sub_6FC7C7B0(D2UnitStrc* pUnit); // 0x00535BC0
 int __fastcall sub_0056C2D0_DrainTargetDurability(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillLevel); // 0x0056C2D0

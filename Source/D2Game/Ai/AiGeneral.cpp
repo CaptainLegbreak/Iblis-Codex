@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
+#include "D2GameTypes.h"
 
 #define UNIT_MONSTER 1
 #define UNIT_INVALID 6
@@ -16,24 +17,6 @@ struct Data0058F000;
 struct Unit0058F000;
 
 
-struct D2AiControlStrc
-{
-    int nAiSpecialState;
-    void* pAiParamFn;
-    unsigned short nAiFlags;
-    unsigned char unk0x0A[2];
-    int dwOwnerGUID;
-    int dwOwnerType;
-    int dwAiParam[3];
-    D2AiCmdStrc* pCurrentCmd;
-    D2AiCmdStrc* pLastCmd;
-    D2GameStrc* pGame;
-    int dwOwnerGUIDEx;
-    int dwOwnerTypeEx;
-    D2MinionListStrc* pMinionList;
-    D2MapAIStrc* pMapAi;
-    unsigned char unk_3C[0x4];
-};
 
 
 
@@ -41,12 +24,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 
-struct D2AiCmdStrc
-{
-    D2AiCmdStrc* pNextCmd;
-    D2AiCmdStrc* pPrevCmd;
-    int nCmdParam[5];
-};
 
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 

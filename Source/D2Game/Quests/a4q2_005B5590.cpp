@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
+#include "D2GameTypes.h"
 
 struct D2ActiveRoomStrc
 {
@@ -15,19 +16,6 @@ struct D2ActiveRoomStrc
 
 
 
-struct D2ModeChangeStrc
-{
-    int nMode;
-    D2UnitStrc* pUnit;
-    D2UnitStrc* pTargetUnit;
-    int nX;
-    int nY;
-    unsigned char unk0x14;
-    unsigned char nEventFlag;
-    unsigned short unk0x16;
-    int unk0x18;
-    int unk0x1C;
-};
 
 
 struct D2Act4Quest2Strc
@@ -61,11 +49,6 @@ struct D2Act4Quest2Strc
 };
 
 
-struct D2ObjInitFnStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* pObject;
-};
 
 typedef void (__fastcall* QUESTUPDATE)(D2QuestDataStrc* pQuest);
 

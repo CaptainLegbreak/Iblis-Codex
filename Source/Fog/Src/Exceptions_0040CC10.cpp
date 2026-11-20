@@ -1,17 +1,9 @@
 #include "Fog.h"
+#include "D2GameTypes.h"
 
 // build: context sub_H13_EmitLineRetry
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
 
 struct D2ModuleInfoStrc
 {
