@@ -6,11 +6,7 @@
 #define gnHandle_009897C0 (gVideoVertices_00989750[3].dwColor)
 #define D2_IMPORT __declspec(dllimport)
 
-struct D2ComObject006B9B30Strc;
-struct D2ComObject006B9BD0Strc;
-struct D2ComObjectVtbl006B9B30Strc;
 struct D2VideoHandleStrc;
-struct D2ComObjectVtbl006B9BD0Strc;
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
@@ -25,36 +21,13 @@ extern void* gpArray_009897E4[2]; // 0x009897E4
 void __fastcall sub_006B3730_Allocate(void** ppFirst, void** ppSecond, int nCount, int nSize); // 0x006B3730
 int __fastcall sub_006B58A0_Allocate(void** ppFirst, void** ppSecond, int nCount, int nSize); // 0x006B58A0
 
-struct D2ComObjectVtbl006B9B30Strc
-{
-    long (__stdcall* QueryInterface)(D2ComObject006B9B30Strc* pThis, const void* riid, void** ppv);
-    unsigned long (__stdcall* AddRef)(D2ComObject006B9B30Strc* pThis);
-    unsigned long (__stdcall* Release)(D2ComObject006B9B30Strc* pThis);
-};
-
-struct D2ComObject006B9B30Strc
-{
-    D2ComObjectVtbl006B9B30Strc* lpVtbl;
-};
-
-extern D2ComObject006B9B30Strc* gapObjectsD4_009897D4[2]; // 0x009897D4
-extern D2ComObject006B9B30Strc* gapObjectsDC_009897DC[2]; // 0x009897DC
-extern D2ComObject006B9B30Strc* gapObjectsE4_009897E4[2]; // 0x009897E4
-extern D2ComObject006B9B30Strc* gapObjectsEC_009897EC[2]; // 0x009897EC
+extern D2D3DObjStrc* gapObjectsD4_009897D4[2]; // 0x009897D4
+extern D2D3DObjStrc* gapObjectsDC_009897DC[2]; // 0x009897DC
+extern D2D3DObjStrc* gapObjectsE4_009897E4[2]; // 0x009897E4
+extern D2D3DObjStrc* gapObjectsEC_009897EC[2]; // 0x009897EC
 extern "C" D2_IMPORT void __stdcall SmackClose(void* handle);
 
 struct D2VideoHandleStrc { void* handle; char type; };
-
-struct D2ComObjectVtbl006B9BD0Strc
-{
-    void* unk_00[5];
-    long (__stdcall* Set)(D2ComObject006B9BD0Strc* pThis, void* pValue);
-};
-
-struct D2ComObject006B9BD0Strc
-{
-    D2ComObjectVtbl006B9BD0Strc* lpVtbl;
-};
 
 extern void* gpBuffer_009897D4; // 0x009897D4
 extern void* gpBuffer_009897D8; // 0x009897D8
@@ -112,17 +85,17 @@ void __fastcall sub_006B9BB0_CloseSmack(D2VideoHandleStrc* video)
     }
 }
 
-void* gpValue_009897DC; // 0x009897DC
+D2D3DTextureStrc* gpValue_009897DC; // 0x009897DC
 
-void* gpValue_009897E0; // 0x009897E0
+D2D3DTextureStrc* gpValue_009897E0; // 0x009897E0
 
 void* gpTarget_009897E4; // 0x009897E4
 
 void* gpTarget_009897E8; // 0x009897E8
 
-D2ComObject006B9BD0Strc* gpObject_009897EC; // 0x009897EC
+D2D3DTextureStrc* gpObject_009897EC; // 0x009897EC
 
-D2ComObject006B9BD0Strc* gpObject_009897F0; // 0x009897F0
+D2D3DTextureStrc* gpObject_009897F0; // 0x009897F0
 
 // 0x006B9BD0
 void __cdecl sub_006B9BD0_Apply()
@@ -136,8 +109,8 @@ void __cdecl sub_006B9BD0_Apply()
         }
         else
         {
-            gpObject_009897EC->lpVtbl->Set(gpObject_009897EC, gpValue_009897DC);
-            gpObject_009897F0->lpVtbl->Set(gpObject_009897F0, gpValue_009897E0);
+            gpObject_009897EC->lpVtbl->Load(gpObject_009897EC, gpValue_009897DC);
+            gpObject_009897F0->lpVtbl->Load(gpObject_009897F0, gpValue_009897E0);
         }
     }
 }

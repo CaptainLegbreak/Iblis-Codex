@@ -144,14 +144,14 @@ struct D2D3DDeviceStrc
 
 struct D2D3DObjVtblStrc
 {
-    void* pQueryInterface; // 0x00
-    void* pAddRef; // 0x04
-    unsigned long (__stdcall* pRelease)(D2D3DObjStrc* pObj); // 0x08
+    void* QueryInterface; // 0x00
+    void* AddRef; // 0x04
+    unsigned long (__stdcall* Release)(D2D3DObjStrc* pThis); // 0x08
 };
 
 struct D2D3DObjStrc
 {
-    D2D3DObjVtblStrc* pVtbl; // 0x00
+    D2D3DObjVtblStrc* lpVtbl; // 0x00
 };
 
 struct D2TexOwnerSlotStrc
