@@ -1,6 +1,9 @@
 #include "D2Client.h"
 #include "D2Txt.h"
 #include "D2Unicode.h"
+#include "D2Structs.h"
+#include "D2Path.h"
+#include "D2ClientMenus.h"
 struct D2BitBufferStrc;
 struct D2GameStrc;
 
@@ -9,24 +12,6 @@ struct Unicode;
 struct D2NpcMenuSlotStrc;
 struct D2StoredMsgPacketStrc;
 struct D2StoredMsgStrc;
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08;
-    int dwUnitId;
-    unsigned short wMode;
-    char unk0x12[0x4E];
-    D2InventoryStrc* pInventory;
-};
-
-
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 struct tagRECT
 {
@@ -37,16 +22,6 @@ struct tagRECT
 };
 
 #pragma pack(push, 2)
-struct D2NpcEntryStrc
-{
-    int nId;
-    char unk0x04[0x0D];
-    char bSelected;
-    char bFlag;
-    char unk0x13;
-    char bFlag14;
-    char bRefreshed;
-};
 
 #pragma pack(pop)
 typedef char check_size_npcentry[(sizeof(D2NpcEntryStrc) == 0x16) ? 1 : -1];
@@ -231,7 +206,7 @@ void __stdcall sub_004B2650_OpenNpcMenu(int bAlternate, int nFlags)
         pUnit = sub_00463990(gnGlobal_007C0DE5, 4);
         if (pUnit)
         {
-            nMode = pUnit->wMode;
+            nMode = (unsigned short)pUnit->dwAnimMode;
             if (gnGlobal_007C0D31 == 2)
             {
                 D2InventoryStrc* const pInventory = gpPlayer_007C0DD4->pInventory;
