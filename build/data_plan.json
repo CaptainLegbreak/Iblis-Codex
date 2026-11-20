@@ -4448,15 +4448,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Game/Ai/AiTatics.cpp": {
-   "bytes": 184,
-   "definitions": 2,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Game/Ai/AiTatics.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Game/PLAYER/PlrSave.cpp": {
    "bytes": 84,
    "definitions": 1,
@@ -8112,6 +8103,15 @@
    "lang": "cpp",
    "state": "included",
    "static_definitions": 1
+  },
+  "Source/D2Game/Ai/AiTatics.cpp": {
+   "bytes": 184,
+   "definitions": 2,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Game/Ai/AiTatics.inc",
+   "lang": "cpp",
+   "state": "included"
   }
  },
  "definitions": [

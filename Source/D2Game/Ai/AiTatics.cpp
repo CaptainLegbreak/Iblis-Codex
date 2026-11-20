@@ -2,7 +2,6 @@
 #include "D2Constants.h"
 #include "D2Structs.h"
 #include "D2Path.h"
-#include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
@@ -12,30 +11,43 @@
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2StaticPathStrc;
+
 struct D2MonStatsTxt;
+
 struct D2ModeChangeStrc;
+
 struct D2PackedGuidStrc;
+
 struct D2MessageStrc;
+
 struct D2GSPacketSrv27;
+
 struct UnkAiStrc1;
+
 struct D2AiParamStrc;
+
 struct D2DataTablesStrc;
+
 struct D2QuestDataStrc;
+
 struct D2GameStrc;
+
 struct D2UnitStrc;
+
 struct D2CoordStrc;
+
 struct D2MonsterDataStrc;
-
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-
-
 int __fastcall MISSMODE_HandleMissileCollision(D2GameStrc* pGame, D2UnitStrc* pMissile); // 0x005AE1F0
+
 void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc* pUpdateUnit); // 0x00553380
+
 int __stdcall sub_0062E880(D2UnitStrc* pItem); // 0x0062E880
+
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x00681CE0
+
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 
 enum D2C_F41AiTacticsConstants
@@ -51,11 +63,7 @@ enum D2C_F41AiTacticsConstants
     COLLIDE_MISSILE = 0x40,
 };
 
-
-
-
 extern unsigned int gdwBitMasks[]; // 0x006CE268
-
 
 struct D2GSPacketSrv27
 {
@@ -74,37 +82,65 @@ struct UnkAiStrc1
 };
 
 int __fastcall AIUTIL_GetDistanceToCoordinates_FullUnitSize(D2UnitStrc* pTarget, D2UnitStrc* pSource); // 0x005DC380
+
 D2UnitStrc* __fastcall sub_6FCF2110(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int* pDistance, int* pCombat); // 0x005DD7F0
+
 int __fastcall sub_6FCF2E70(D2UnitStrc* pUnit); // 0x005DD2B0
+
 int __fastcall sub_00544590_QuestsActiveFilter(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNPC); // 0x00544590
+
 void __stdcall MONSTERMODE_GetModeChangeInfo(D2UnitStrc* pUnit, int nMode, D2ModeChangeStrc* pModeChange); // 0x005A7E60
+
 int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int a3); // 0x005A7C20
+
 D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x006439B0
+
 void __stdcall UNITS_SetUsedSkill(D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill); // 0x00620210
+
 void __stdcall PATH_SetStepNum(D2DynamicPathStrc* pDynamicPath, unsigned char nSteps); // 0x00649070
+
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
+
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
+
 int __stdcall PATH_GetUnitCollisionPattern(D2UnitStrc* pUnit); // 0x00649180
+
 int __fastcall EVENT_GetEventFrame(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEvent); // 0x005415A0
+
 void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nEventCustomId); // 0x00540E60
+
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
+
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
+
 void __fastcall D2GAME_PACKETS_SendPacket0x27_6FC3DF20(D2ClientStrc* pClient, D2GSPacketSrv27* pPacket); // 0x0053C8D0
+
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
+
 int __fastcall AITACTICS_MoveInRadiusToTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nMode, int nMaxDistance, int a6); // 0x005DE4E0
+
 int __fastcall sub_0046C140_TestMonModeFlag(int nMonsterId, int nMode); // 0x0046C140
+
 int __fastcall AITACTICS_WalkCloseToUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nMaxDistance); // 0x005DE200
+
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames); // 0x005DE080
+
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
+
 int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, unsigned short nMask); // 0x0064D910
+
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
+
 void __fastcall D2GAME_MONSTERMODE_ResetVelocityParams_6FC62F90(D2UnitStrc* pUnit); // 0x005A61F0
 
-
 extern "C" const char gszEmptyAssertText; // 0x006CC837
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
+
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
+
 void __fastcall sub_005A6260_SetAiParamFields(D2AiParamStrc* pAiParam, int nParam18, int nParam1C, unsigned char nParam20); // 0x005A6260
 
 // 0x00530F30
@@ -144,8 +180,6 @@ int __fastcall MISSMODE_SrvDo01_BasicMissile(D2GameStrc* pGame, D2UnitStrc* pMis
 {
     return MISSMODE_HandleMissileCollision(pGame, pMissile);
 }
-
-#include "gen/data/Source/D2Game/Ai/AiTatics.inc"
 
 __forceinline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)
 {
@@ -465,3 +499,76 @@ int __fastcall AITACTICS_WalkToTargetCoordinatesNoSteps(D2GameStrc* pGame, D2Uni
     modeChange.nY = nY;
     return D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
 }
+
+unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                         // 0x0045C3E0
+
+int __fastcall AITACTICS_MoveToTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nMode, int nX, int nY, unsigned char bStep, unsigned char nFlags); // 0x005DEB60
+
+inline unsigned int AI_RollSeed(D2SeedStrc* pSeed)
+{
+    const unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
+    return (unsigned int)lSeed;
+}
+
+__forceinline int AI_GetUnitX(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nXPos;
+    default:
+        return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
+    }
+}
+
+__forceinline int AI_GetUnitY(D2UnitStrc* pUnit)
+{
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_OBJECT:
+    case UNIT_ITEM:
+    case UNIT_TILE:
+        return pUnit->pStaticPath->nYPos;
+    default:
+        return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
+    }
+}
+
+// 0x005DE200
+int __fastcall AITACTICS_WalkCloseToUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nMaxDistance)
+{
+    const int nTargetX = AI_GetUnitX(pUnit);
+    const int nTargetY = AI_GetUnitY(pUnit);
+    int nOffsetX;
+    int nOffsetY;
+    D2SeedStrc* pSeed = &pUnit->pSeed;
+
+    if (AI_RollSeed(pSeed) & 1)
+    {
+        nOffsetX = nMaxDistance;
+        nOffsetY = ITEMS_RollLimitedRandomNumber(pSeed, nMaxDistance);
+    }
+    else
+    {
+        nOffsetX = ITEMS_RollLimitedRandomNumber(pSeed, nMaxDistance);
+        nOffsetY = nMaxDistance;
+    }
+
+    if (AI_RollSeed(pSeed) & 1)
+    {
+        nOffsetX = -nOffsetX;
+    }
+
+    if (AI_RollSeed(pSeed) & 1)
+    {
+        nOffsetY = -nOffsetY;
+    }
+
+    return AITACTICS_MoveToTarget(pGame, pUnit, 0, MONMODE_WALK, nOffsetX + nTargetX, nOffsetY + nTargetY, 1, 0);
+}
+
+#include "gen/data/Source/D2Game/Ai/AiTatics.inc"
