@@ -1,4 +1,5 @@
 #include "D2Multi.h"
+#include "D2Unicode.h"
 
 struct D2LaunchCharInfoStrc;
 struct T0043E860;
@@ -28,10 +29,6 @@ struct T0043E860
     char szName[0x32];
 };
 
-struct Unicode
-{
-    unsigned short wChar;
-};
 unsigned int __stdcall sub_00414150_HashPath(const char* szPath); // 0x00414150
 extern "C" int __cdecl isalnum(int c); // 0x006870FB
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);

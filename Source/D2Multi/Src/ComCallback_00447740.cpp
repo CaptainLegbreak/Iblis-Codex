@@ -1,5 +1,6 @@
 #include "D2Multi.h"
 #include "D2MultiTypes.h"
+#include "D2Unicode.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2LaunchMsgStrc;
@@ -35,16 +36,6 @@ extern char gszTempFile_00798E30[]; // 0x00798E30
 extern D2LaunchMsgHandler gpfnMsgHandlers_0070EC20[]; // 0x0070EC20
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode(unsigned short ch = 0) : wChar(ch) {}
-
-    static Unicode* __fastcall strncat(Unicode* dest, const Unicode* src, int count);                       // 0x00526740
-    static Unicode* __fastcall win2Unicode(Unicode* dest, const char* src, int count);                      // 0x00526F20
-};
 
 struct T0043E860
 {

@@ -1,17 +1,11 @@
 #include "D2Multi.h"
 #include "D2MultiTypes.h"
+#include "D2Unicode.h"
 
 struct Unicode;
 struct T0043E860;
 struct D2ChannelEntryStrc;
 struct D2LaunchCharInfoStrc;
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode(unsigned short ch = 0) : wChar(ch) {}
-};
 
 struct T0043E860
 {

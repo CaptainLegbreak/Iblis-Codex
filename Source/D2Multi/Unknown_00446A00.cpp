@@ -1,4 +1,5 @@
 #include "D2MultiTypes.h"
+#include "D2Unicode.h"
 #ifdef MOVED_TEST
 #define BUFFER_SIZE 0x104
 #define COMMAND_DELAY 1004
@@ -10,11 +11,6 @@
 #endif
 struct D2WinEditBoxStrc;
 typedef int (__stdcall* D2LaunchCallback)(int nArg);
-struct Unicode
-{
-    unsigned short wChar;
-};
-
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30

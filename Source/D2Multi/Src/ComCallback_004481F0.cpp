@@ -1,12 +1,6 @@
 #include "D2Multi.h"
 #include "D2MultiTypes.h"
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    static Unicode* __fastcall win2Unicode(Unicode* dest, const char* src, int count);                      // 0x00526F20
-};
+#include "D2Unicode.h"
 
 struct T0043E860
 {

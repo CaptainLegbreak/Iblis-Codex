@@ -1,4 +1,5 @@
 #include "D2Multi.h"
+#include "D2Unicode.h"
 
 struct Unicode;
 struct D2LaunchCharInfoStrc;
@@ -35,15 +36,6 @@ struct D2LaunchFuncsStrc
 };
 
 extern "C" int __cdecl strcmp(const char* szLeft, const char* szRight);
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode(unsigned short ch = 0) : wChar(ch)
-    {
-    }
-};
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 void __fastcall D2Win_10044(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FD060
