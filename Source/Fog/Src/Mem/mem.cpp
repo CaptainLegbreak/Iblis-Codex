@@ -1,42 +1,7 @@
 #include "D2GameTypes.h"
+#include "D2FogTypes.h"
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
 #pragma intrinsic(memset)
-
-
-struct D2MemPoolRecStrc
-{
-    D2CriticalSectionStrc tLock;
-    int nBlockSize;
-    int nBlocksPerChunk;
-    int nChunkSize;
-    int nBlocks;
-    void* pFirstBlock;
-    void* pLastBlock;
-};
-
-struct D2PoolSystemStrc
-{
-    int bFreePoolAlloc;
-    D2CriticalSectionStrc tLock;
-    int nPools;
-    D2MemPoolRecStrc aPools[40];
-    int nLargeOverflow;
-    int nUnk0x7A4;
-    void* pRecords;
-    int* apLargeBlocks[1023];
-    int nCount;
-    char szName[0x20];
-};
-
-struct D2PoolDirectoryStrc
-{
-    int bInit;
-    D2CriticalSectionStrc tLock;
-    D2PoolSystemStrc aSystems[8];
-    int nUsed;
-    unsigned int anFreeIndex[8];
-    int nFreeCount;
-};
 
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock);    // 0x006CC210
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock);         // 0x006CC214

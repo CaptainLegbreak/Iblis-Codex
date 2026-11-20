@@ -1,5 +1,6 @@
 #include "Fog.h"
 #include "D2GameTypes.h"
+#include "D2FogTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -104,21 +105,9 @@ struct sub_00602180;
 struct sub_00602420;
 struct sub_00602750;
 struct D2SystemTimeStrc;
-struct D2ThreadContextStrc;
 struct D2FileTimeStrc;
 struct D2LogMsgLinkStrc;
 struct D2LogMsgNodeStrc;
-
-
-struct D2ThreadContextStrc
-{
-    unsigned long dwContextFlags;
-    char unk0x04[0xB4];
-    unsigned long dwEip;
-    char unk0xBC[0x08];
-    unsigned long dwEsp;
-    char unk0xC8[0x204];
-};
 
 struct D2ExceptionPointersStrc
 {
@@ -1030,12 +1019,12 @@ void __fastcall sub_0040B540_DumpThreadStackAndCode(void* hThread)
 {
     D2ThreadContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.dwContextFlags = 0x10007;
+    tContext.ContextFlags = 0x10007;
     GetThreadContext(hThread, &tContext);
     sub_00410740_LogWritePrefixed00(&gszEmptyAssertText, "Stack bytes:\n");
-    sub_00410040_LogMemoryDump("ERR", &gszEmptyAssertText, tContext.dwEsp, 0x1000, 0, 1, 0);
+    sub_00410040_LogMemoryDump("ERR", &gszEmptyAssertText, tContext.Esp, 0x1000, 0, 1, 0);
     sub_00410740_LogWritePrefixed00(&gszEmptyAssertText, "Code bytes:\n");
-    sub_00410040_LogMemoryDump("ERR", &gszEmptyAssertText, tContext.dwEip, 0x20, 0, 1, 0);
+    sub_00410040_LogMemoryDump("ERR", &gszEmptyAssertText, tContext.Eip, 0x20, 0, 1, 0);
 }
 
 // 0x0040D540

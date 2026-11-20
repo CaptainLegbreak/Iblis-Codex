@@ -1,63 +1,9 @@
 #include "Fog.h"
 #include "D2GameTypes.h"
+#include "D2FogTypes.h"
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-struct T00408A30_2;
 struct D2CriticalSectionStrc;
-struct T00408A30;
-struct D2PoolRecordStrc;
-struct T00408A30_1;
-
-
-struct T00408A30
-{
-    void* pMemory;
-    unsigned int* pUsedBits;
-    int nUsed;
-    T00408A30* pPrev;
-    T00408A30* pNext;
-    T00408A30_2* pPool;
-};
-
-struct T00408A30_2
-{
-    D2CriticalSectionStrc tLock;
-    int f_18;
-    int nElementsPerBlock;
-    int nBlockBytes;
-    int nBlocks;
-    T00408A30* pFirstBlock;
-    T00408A30* pLastBlock;
-};
-
-struct D2PoolRecordStrc
-{
-    T00408A30* pBlock;
-    void* pMemory;
-};
-
-struct D2PoolSystemStrc
-{
-    int bFreePoolAlloc;
-    D2CriticalSectionStrc tLock;
-    int nPools;
-    T00408A30_2 aPools[40];
-    int nLargeOverflow;
-    int nUnk0x7A4;
-    D2PoolRecordStrc* pUnk0x7A8;
-    int* apLargeBlocks[1023];
-    int nCount;
-};
-
-struct T00408A30_1
-{
-    int bInit;
-    D2CriticalSectionStrc tLock;
-    D2PoolSystemStrc aSystems[8];
-    int nUnk0xBE7C;
-    unsigned int anFreeIndex[8];
-    int nFreeCount;
-};
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
@@ -69,7 +15,7 @@ extern "C" void* __cdecl realloc(void* pMemory, size_t nSize); // 0x00683BA5
 extern "C" void* __cdecl malloc(unsigned int nSize); // 0x00683EFD
 void* __fastcall sub_00409770_PoolAllocLarge(D2PoolSystemStrc* pSystem, int nSize, const char* szFile, int nLine); // 0x00409770
 extern const unsigned int gdwLowBitMasks_006CD490[]; // 0x006CD490
-extern T00408A30_1 gtPoolManager_0074F0E8; // 0x0074F0E8
+extern D2PoolDirectoryStrc gtPoolManager_0074F0E8; // 0x0074F0E8
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
@@ -160,25 +106,25 @@ static int sub_00409240_FindFreeSlot(int nCount, const unsigned int* pBits)
 }
 
 // 0x00409370
-static void __stdcall sub_00409370_InsertBlockRecord(T00408A30* pBlock, D2PoolSystemStrc* pSystem)
+static void __stdcall sub_00409370_InsertBlockRecord(D2MemPoolBlockStrc* pBlock, D2PoolSystemStrc* pSystem)
 {
     D2CriticalSectionStrc* pLock = &pSystem->tLock;
     EnterCriticalSection(pLock);
-    if (pSystem->nLargeOverflow >= pSystem->nUnk0x7A4)
+    if (pSystem->nPoolBlocks >= pSystem->nMaxPoolBlocks)
     {
-        pSystem->nUnk0x7A4 += 0x20;
-        pSystem->pUnk0x7A8 = (D2PoolRecordStrc*)realloc(pSystem->pUnk0x7A8, pSystem->nUnk0x7A4 * sizeof(D2PoolRecordStrc));
-        if (!pSystem->pUnk0x7A8)
+        pSystem->nMaxPoolBlocks += 0x20;
+        pSystem->pRecords = (D2PoolRecordStrc*)realloc(pSystem->pRecords, pSystem->nMaxPoolBlocks * sizeof(D2PoolRecordStrc));
+        if (!pSystem->pRecords)
         {
-            sub_00409020_LogPoolError("(1) Pool Blocks overflowed at %d", pSystem->nUnk0x7A4);
+            sub_00409020_LogPoolError("(1) Pool Blocks overflowed at %d", pSystem->nMaxPoolBlocks);
             D2_ASSERT(0, 0x261);
         }
     }
-    pSystem->nCount += pBlock->pPool->nBlockBytes + ((pBlock->pPool->nElementsPerBlock + 0x1F) >> 5) * 4 + sizeof(T00408A30);
-    D2PoolRecordStrc* pRecords = pSystem->pUnk0x7A8;
+    pSystem->nCount += pBlock->pPool->nChunkSize + ((pBlock->pPool->nBlocksPerChunk + 0x1F) >> 5) * 4 + sizeof(D2MemPoolBlockStrc);
+    D2PoolRecordStrc* pRecords = pSystem->pRecords;
     void* pMemory = pBlock->pMemory;
     int nLow = 0;
-    int nHigh = pSystem->nLargeOverflow;
+    int nHigh = pSystem->nPoolBlocks;
     while (nLow < nHigh)
     {
         const int nMid = nLow + ((nHigh - nLow) >> 1);
@@ -191,32 +137,32 @@ static void __stdcall sub_00409370_InsertBlockRecord(T00408A30* pBlock, D2PoolSy
             nHigh = nMid;
         }
     }
-    if (nLow < pSystem->nLargeOverflow)
+    if (nLow < pSystem->nPoolBlocks)
     {
-        memmove(&pRecords[nLow + 1], &pRecords[nLow], (pSystem->nLargeOverflow - nLow) * sizeof(D2PoolRecordStrc));
+        memmove(&pRecords[nLow + 1], &pRecords[nLow], (pSystem->nPoolBlocks - nLow) * sizeof(D2PoolRecordStrc));
     }
     pRecords[nLow].pBlock = pBlock;
     pRecords[nLow].pMemory = pBlock->pMemory;
-    pSystem->nLargeOverflow++;
+    pSystem->nPoolBlocks++;
     LeaveCriticalSection(pLock);
 }
 
 // 0x004095E0
-static T00408A30* __stdcall sub_004095E0_NewBlock(T00408A30_2* pPool, D2PoolSystemStrc* pSystem)
+static D2MemPoolBlockStrc* __stdcall sub_004095E0_NewBlock(D2MemPoolRecStrc* pPool, D2PoolSystemStrc* pSystem)
 {
-    if (pSystem->nLargeOverflow >= pSystem->nUnk0x7A4)
+    if (pSystem->nPoolBlocks >= pSystem->nMaxPoolBlocks)
     {
-        pSystem->nUnk0x7A4 += 0x20;
-        pSystem->pUnk0x7A8 = (D2PoolRecordStrc*)realloc(pSystem->pUnk0x7A8, pSystem->nUnk0x7A4 * sizeof(D2PoolRecordStrc));
-        if (!pSystem->pUnk0x7A8)
+        pSystem->nMaxPoolBlocks += 0x20;
+        pSystem->pRecords = (D2PoolRecordStrc*)realloc(pSystem->pRecords, pSystem->nMaxPoolBlocks * sizeof(D2PoolRecordStrc));
+        if (!pSystem->pRecords)
         {
-            sub_00409020_LogPoolError("(1) Pool Blocks overflowed at %d", pSystem->nUnk0x7A4);
+            sub_00409020_LogPoolError("(1) Pool Blocks overflowed at %d", pSystem->nMaxPoolBlocks);
             D2_ASSERT(0, 0x2FF);
         }
     }
-    const int nBitsSize = ((pPool->nElementsPerBlock + 0x1F) >> 5) * 4;
-    T00408A30* pBlock = (T00408A30*)malloc(nBitsSize + sizeof(T00408A30));
-    void* pMemory = VirtualAlloc(0, pPool->nBlockBytes, 0x1000, 4);
+    const int nBitsSize = ((pPool->nBlocksPerChunk + 0x1F) >> 5) * 4;
+    D2MemPoolBlockStrc* pBlock = (D2MemPoolBlockStrc*)malloc(nBitsSize + sizeof(D2MemPoolBlockStrc));
+    void* pMemory = VirtualAlloc(0, pPool->nChunkSize, 0x1000, 4);
     if (pBlock && pMemory)
     {
         memset(&pBlock->nUsed, 0, sizeof(pBlock->nUsed) + sizeof(pBlock->pPrev) + sizeof(pBlock->pNext));
@@ -228,15 +174,15 @@ static T00408A30* __stdcall sub_004095E0_NewBlock(T00408A30_2* pPool, D2PoolSyst
         sub_00409370_InsertBlockRecord(pBlock, pSystem);
         return pBlock;
     }
-    sub_00409020_LogPoolError("(2) nPoolBlocks = %d/%d  nBlockSize = %d  nUsageTableSize = %d", pSystem->nLargeOverflow, pSystem->nUnk0x7A4, pPool->nBlockBytes, nBitsSize);
+    sub_00409020_LogPoolError("(2) nPoolBlocks = %d/%d  nBlockSize = %d  nUsageTableSize = %d", pSystem->nPoolBlocks, pSystem->nMaxPoolBlocks, pPool->nChunkSize, nBitsSize);
     D2_ASSERT(0, 0x320);
     return 0;
 }
 
 // 0x00409700
-static int __stdcall sub_00409700_GetFreeSlot(T00408A30** ppBlock, T00408A30_2* pPool, D2PoolSystemStrc* pSystem)
+static int __stdcall sub_00409700_GetFreeSlot(D2MemPoolBlockStrc** ppBlock, D2MemPoolRecStrc* pPool, D2PoolSystemStrc* pSystem)
 {
-    T00408A30* pBlock = pPool->pFirstBlock;
+    D2MemPoolBlockStrc* pBlock = pPool->pFirstBlock;
     if (!pBlock)
     {
         pBlock = sub_004095E0_NewBlock(pPool, pSystem);
@@ -248,9 +194,9 @@ static int __stdcall sub_00409700_GetFreeSlot(T00408A30** ppBlock, T00408A30_2* 
         *ppBlock = pBlock;
         return 0;
     }
-    if (pBlock->nUsed < pPool->nElementsPerBlock)
+    if (pBlock->nUsed < pPool->nBlocksPerChunk)
     {
-        const int nSlot = sub_00409240_FindFreeSlot(pPool->nElementsPerBlock, pBlock->pUsedBits);
+        const int nSlot = sub_00409240_FindFreeSlot(pPool->nBlocksPerChunk, pBlock->pUsedBits);
         if (nSlot >= 0)
         {
             *ppBlock = pBlock;
@@ -290,11 +236,11 @@ void* __fastcall sub_0040A080_PoolAlloc(D2PoolSystemStrc* pSystem, int nSize, co
     {
         return sub_00409770_PoolAllocLarge(pSystem, nSize, szFile, nLine);
     }
-    T00408A30_2* pPool = &pSystem->aPools[nIndex];
+    D2MemPoolRecStrc* pPool = &pSystem->aPools[nIndex];
     EnterCriticalSection(&pPool->tLock);
-    T00408A30* pBlock;
+    D2MemPoolBlockStrc* pBlock;
     const int nSlot = sub_00409700_GetFreeSlot(&pBlock, pPool, pSystem);
-    D2_ASSERT(nSlot < pPool->nElementsPerBlock, 0x4F3);
+    D2_ASSERT(nSlot < pPool->nBlocksPerChunk, 0x4F3);
     if (!pBlock)
     {
         LeaveCriticalSection(&pPool->tLock);
@@ -303,7 +249,7 @@ void* __fastcall sub_0040A080_PoolAlloc(D2PoolSystemStrc* pSystem, int nSize, co
     pBlock->nUsed++;
     D2_ASSERT(!(pBlock->pUsedBits[nSlot >> 5] & gdwBitMasks[nSlot & 31]), 0x4FF);
     pBlock->pUsedBits[nSlot >> 5] |= gdwBitMasks[nSlot & 31];
-    if (pBlock->nUsed >= pPool->nElementsPerBlock && pBlock->pNext && pBlock->pNext->nUsed < pPool->nElementsPerBlock)
+    if (pBlock->nUsed >= pPool->nBlocksPerChunk && pBlock->pNext && pBlock->pNext->nUsed < pPool->nBlocksPerChunk)
     {
         if (!pBlock->pPrev)
         {
@@ -323,7 +269,7 @@ void* __fastcall sub_0040A080_PoolAlloc(D2PoolSystemStrc* pSystem, int nSize, co
         pPool->pLastBlock = pBlock;
         pBlock->pNext = 0;
     }
-    void* pResult = (char*)pBlock->pMemory + pPool->f_18 * nSlot;
+    void* pResult = (char*)pBlock->pMemory + pPool->nBlockSize * nSlot;
     LeaveCriticalSection(&pPool->tLock);
     return pResult;
 }

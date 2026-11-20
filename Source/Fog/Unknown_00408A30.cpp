@@ -1,45 +1,7 @@
 #include "Fog.h"
 #include "D2GameTypes.h"
 #include "D2NetTypes.h"
-
-struct T00408A30
-{
-    void* pMemory;
-    char unk0x04[0x0C];
-    T00408A30* pNext;
-};
-
-struct T00408A30_2
-{
-    D2CriticalSectionStrc tLock;
-    char unk0x18[0x10];
-    T00408A30* pFirstBlock;
-    int nUnk0x2C;
-};
-
-struct D2PoolSystemStrc
-{
-    int bFreePoolAlloc;
-    D2CriticalSectionStrc tLock;
-    int nPools;
-    T00408A30_2 aPools[40];
-    int nLargeOverflow;
-    int nUnk0x7A4;
-    void* pUnk0x7A8;
-    int* apLargeBlocks[1023];
-    int nCount;
-    char unk0x17AC[0x20];
-};
-
-struct T00408A30_1
-{
-    int bInit;
-    D2CriticalSectionStrc tLock;
-    D2PoolSystemStrc aSystems[8];
-    int nUnk0xBE7C;
-    unsigned int anFreeIndex[8];
-    int nFreeCount;
-};
+#include "D2FogTypes.h"
 
 struct FSafeSock
 {
@@ -116,7 +78,7 @@ void __fastcall sub_0040F000_GetLogDirectory(char* szDirectory, int nSize);     
 void __fastcall sub_0040F3D0_SweepLogFile(const D2FileTimeStrc* pNow, const char* szFile);                  // 0x0040F3D0
 extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, ...); // 0x00413A40
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x004135D0
-T00408A30_1 gtPoolManager_0074F0E8;                                                                   // 0x0074F0E8
+D2PoolDirectoryStrc gtPoolManager_0074F0E8;                                                                   // 0x0074F0E8
 extern char gszResolvedHostIP_0075D040[];                                                                   // 0x0075D040
 extern D2CriticalSectionStrc gtLogLock_0075E850;                                                            // 0x0075E850
 unsigned long gdwLastLogSweep_0075E874;                                                                     // 0x0075E874
@@ -170,18 +132,18 @@ void __cdecl FOG_DestroyMemoryPoolSystem(D2PoolSystemStrc* pSystem)
     }
     for (int i = 0; i < pSystem->nPools; i++)
     {
-        T00408A30_2* pPool = &pSystem->aPools[i];
-        T00408A30* pBlock = pPool->pFirstBlock;
+        D2MemPoolRecStrc* pPool = &pSystem->aPools[i];
+        D2MemPoolBlockStrc* pBlock = pPool->pFirstBlock;
         while (pBlock)
         {
-            T00408A30* pNext = pBlock->pNext;
+            D2MemPoolBlockStrc* pNext = pBlock->pNext;
             VirtualFree(pBlock->pMemory, 0, 0x8000);
             free(pBlock);
             pBlock = pNext;
         }
         DeleteCriticalSection(&pPool->tLock);
     }
-    free(pSystem->pUnk0x7A8);
+    free(pSystem->pRecords);
     for (int j = 0; j < 1023; j++)
     {
         int* pEntry = pSystem->apLargeBlocks[j];

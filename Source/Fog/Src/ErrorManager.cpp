@@ -1,5 +1,6 @@
 #include "Fog.h"
 #include "D2GameTypes.h"
+#include "D2FogTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -15,12 +16,9 @@ struct AsyncDataLoadFileCallback;
 struct AsyncData;
 struct _SYSTEMTIME;
 struct _iobuf;
-struct D2ThreadContextStrc;
-struct D2PoolSystemStrc;
 struct D2InspectorInfoStrc;
 struct D2CrashSubmitInfoStrc;
 // build: context sub_00406BA0_GetModuleDirectoryAndSave
-
 
 struct D2DbgHelpRequestStrc
 {
@@ -126,18 +124,6 @@ void __cdecl sub_0040F960_CloseLogFiles(); // 0x0040F960
 const char* __fastcall sub_00408000_StripSourcePath(const char* szFile); // 0x00408000
 int __fastcall sub_004088C0_ReportNestedError(const char* szFile, int nLine, const char* szMessage); // 0x004088C0
 bool __cdecl sub_004013A0_IsDebuggerAttached(); // 0x004013A0
-
-struct D2PoolSystemStrc
-{
-    int bFreePoolAlloc;
-    D2CriticalSectionStrc tLock;
-    int nUnk0x1C;
-    char unk0x20[0x780];
-    int nLargeOverflow;
-    char unk0x7A4[0x08];
-    int* apLargeBlocks[1023];
-    int nCount;
-};
 
 struct AsyncData
 {

@@ -1,28 +1,11 @@
 #include "D2GameTypes.h"
-
-struct D2PoolSystemStrc
-{
-    int bFreePoolAlloc;
-    D2CriticalSectionStrc tLock;
-    int nUnk0x1C;
-    char unk0x20[0x1788];
-    int nCount;
-};
+#include "D2FogTypes.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock);         // 0x006CC218
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock);         // 0x006CC214
-struct T00408A30_1
-{
-    int bInit;
-    D2CriticalSectionStrc tLock;
-    D2PoolSystemStrc aSystems[8];
-    int nUnk0xBE7C;
-    unsigned int anFreeIndex[8];
-    int nFreeCount;
-};
 
-extern T00408A30_1 gtPoolManager_0074F0E8;                                                                  // 0x0074F0E8
+extern D2PoolDirectoryStrc gtPoolManager_0074F0E8;                                                                  // 0x0074F0E8
 #define gtDefaultPoolSystem_0074F104 (gtPoolManager_0074F0E8.aSystems[0])
 extern float gfSinTable_00707800[];                                                                         // 0x00707800
 extern int gbUsePools_00708000;                                                                             // 0x00708000
@@ -38,7 +21,7 @@ void __cdecl FOG_SetMemoryPoolSystemMode(D2PoolSystemStrc* pSystem, int bFreePoo
     {
         pSystem = &gtDefaultPoolSystem_0074F104;
     }
-    if (pSystem->nUnk0x1C)
+    if (pSystem->nPools)
     {
         EnterCriticalSection(&pSystem->tLock);
         pSystem->bFreePoolAlloc = bFreePoolAlloc;
