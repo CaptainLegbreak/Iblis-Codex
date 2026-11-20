@@ -7,7 +7,7 @@
 
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 #define AI_ROLL_PERCENT(pSeed) ((int)((unsigned int)SEED_RollRandomNumber(pSeed) % 100))
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2MonStatsTxt;
 struct D2SkillsTxt;
 struct D2NihlathakOverseerAiCallbackArgStrc;

@@ -7,7 +7,7 @@
 
 struct D2MonStats2Txt;
 struct D2ModeChangeStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 
 
 

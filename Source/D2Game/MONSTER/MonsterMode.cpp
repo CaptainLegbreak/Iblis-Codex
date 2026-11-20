@@ -22,7 +22,7 @@ struct D2MonModeInfoTableStrc;
 struct D2MonVelocityParamStrc;
 struct D2MonsterModeDataStrc;
 struct D2StaticPathStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 
 struct D2MonStatsTxt
 {

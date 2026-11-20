@@ -21,7 +21,7 @@ struct D2SiegeBeastTowerAiCallbackArgStrc;
 struct D2MinionSpawnerAiCallbackArgStrc;
 struct D2PetMoveStrc;
 struct D2StaticPathStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2PlayerDataStrc;
 struct D2MonStats2Txt;
 struct D2PetInfoStrc;

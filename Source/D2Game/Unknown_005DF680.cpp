@@ -6,7 +6,7 @@
 #define MONMODE_WALK 2
 #define MONMODE_RUN 15
 #define STATE_DECREPIFY 60
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2StaticPathStrc;
 struct D2ModeChangeStrc;
 

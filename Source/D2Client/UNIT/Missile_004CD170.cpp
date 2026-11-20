@@ -8,7 +8,7 @@
 #define UNIT_INVALID 6
 struct D2StaticPathStrc;
 struct D2GfxEntryStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2MissileStrc;
 struct D2CltMissileSpawnArgStrc;
 struct D2AreaScanStrc;

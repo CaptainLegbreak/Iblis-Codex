@@ -18,7 +18,7 @@
 #define ITEMDROPFLAG_SUPERIOR 0x40
 #define UNITFLAG_TARGETABLE 2
 
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2ItemsTxt;
 struct D2ItemRatioTxt;
 struct D2QualityModsStrc;

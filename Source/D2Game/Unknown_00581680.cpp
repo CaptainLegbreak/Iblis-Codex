@@ -11,7 +11,7 @@
 #define EVENTTYPE_PERIODICSTATS 9
 
 struct D2ObjectDataStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2ObjectControlStrc;
 struct D2ObjOperateFnStrc;
 

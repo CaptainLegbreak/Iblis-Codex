@@ -11,7 +11,7 @@ struct D2MonsterDataStrc;
 struct D2StaticPathStrc;
 struct D2NearestRecord005DC870Strc;
 struct UnkAiStrc5;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2UnkAiCallbackArgStrc2;
 struct D2AiCallback7ArgStrc;
 struct D2AiCallback11ArgStrc;

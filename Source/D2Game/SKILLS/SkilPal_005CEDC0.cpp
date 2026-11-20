@@ -5,7 +5,7 @@
 struct D2CurseStrc;
 struct D2BasicAuraParamStrc;
 struct D2AuraCallbackStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2SkillsTxt;
 
 typedef void (__fastcall* StatListRemoveCallback)(D2UnitStrc*,int,D2StatListStrc*);

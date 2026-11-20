@@ -12,7 +12,7 @@
 #define QFLAG_COMPLETEDNOW 14
 #define QFLAG_COMPLETEDBEFORE 15
 struct D2Act3Quest2Strc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2PlayerDataStrc;
 
 typedef void (__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);

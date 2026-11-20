@@ -9,7 +9,7 @@ struct D2MonStatsTxt;
 struct D2SkillsTxt;
 struct D2ModeChangeStrc;
 struct D2DamageHitClassMappingStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2CurseStrc;
 
 

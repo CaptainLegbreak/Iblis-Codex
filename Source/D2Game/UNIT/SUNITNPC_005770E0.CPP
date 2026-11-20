@@ -1,7 +1,7 @@
 #include "D2Game.h"
 #include "D2Txt.h"
 
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2PlayerDataStrc;
 struct D2MercDataStrc;
 struct D2NpcRecordStrc;

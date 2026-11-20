@@ -9,7 +9,7 @@
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define D2_MIN(a,b) ((a)<(b)?(a):(b))
 #define SEND(stat,value,line) D2GAME_PACKETS_SendPacket0x3E_6FC3EC20(UnitGetClient(pPlayer,".\\ITEMS\\Items.cpp",line),pItem,1,stat,value,0)
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2StatListExStrc;
 struct D2ItemsTxt;
 struct D2UniqueSelection;
@@ -118,8 +118,8 @@ int __stdcall sub_006280A0(D2UnitStrc*,int,int,const char*); // 0x006280A0
 void __fastcall sub_6FC4B580(D2GameStrc*,D2UnitStrc*,D2UnitStrc*); // 0x0055F850
 void __fastcall sub_6FC80A30(D2GameStrc*,D2UnitStrc*); // 0x00580310
 
-// build: symbol ?$S1@?1??ITEMS_SelectRandomDropItemId@@YGHPAUD2GameStrc@@PAUD2SeedStrc@@HHHH@Z@4IA 0x008846F0
-// build: symbol ?s_nGoldItemId@?1??ITEMS_SelectRandomDropItemId@@YGHPAUD2GameStrc@@PAUD2SeedStrc@@HHHH@Z@4HA 0x008846EC
+// build: symbol ?$S1@?1??ITEMS_SelectRandomDropItemId@@YGHPAUD2GameStrc@@PATD2SeedStrc@@HHHH@Z@4IA 0x008846F0
+// build: symbol ?s_nGoldItemId@?1??ITEMS_SelectRandomDropItemId@@YGHPAUD2GameStrc@@PATD2SeedStrc@@HHHH@Z@4HA 0x008846EC
 // 0x00556240
 static int __stdcall ITEMS_SelectRandomDropItemId(D2GameStrc* pGame, D2SeedStrc* pSeed, int nLevelId, int nItemType, int bIgnoreRarity, int bAllowBodyParts)
 {

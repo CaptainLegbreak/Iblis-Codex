@@ -3,7 +3,7 @@
 #include "D2DataTbls.h"
 
 struct D2GSPacketSrv26;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2ObjectControlStrc;
 struct D2LevelsTxt;
 struct Sub00546F90;

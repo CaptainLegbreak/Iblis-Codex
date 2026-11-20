@@ -19,7 +19,7 @@ struct D2LevelDefBin;
 struct D2DrlgOrthStrc;
 struct D2DrlgTableEntryStrc;
 struct D2DrlgEntryTableStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2DrlgCoordsStrc;
 struct D2DrlgTileDataListStrc;
 struct D2RoomTileGridStrc;

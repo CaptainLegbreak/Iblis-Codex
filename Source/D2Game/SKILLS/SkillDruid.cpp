@@ -12,7 +12,7 @@
 #define SKILLDRUID_MIN(a, b) ((a) < (b) ? (a) : (b))
 struct D2SummonArgStrc;
 struct D2SkillsTxt;
-struct D2SeedStrc;
+union D2SeedStrc;
 
 
 

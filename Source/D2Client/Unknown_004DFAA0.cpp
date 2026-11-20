@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Path.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2SlotStrc;
@@ -21,30 +22,7 @@ void __fastcall sub_00514CA0(int nMode); // 0x00514CA0
 int __fastcall sub_00515530(int nType, int nArg); // 0x00515530
 void __cdecl sub_004DFA60(); // 0x004DFA60
 
-union D2SeedStrc
-{
-    struct
-    {
-        unsigned int nLowSeed;
-        unsigned int nHighSeed;
-    };
-    unsigned __int64 lSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int unk0x10[4];
-    D2SeedStrc pSeed;
-    int unk0x28;
-    D2DynamicPathStrc* pDynamicPath;
-    int unk0x30[37];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-};
 
 D2UnitStrc* __fastcall sub_004648F0_GetTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250

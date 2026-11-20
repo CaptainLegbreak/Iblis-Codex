@@ -62,7 +62,7 @@ struct D2CorpseStrc;
 struct D2SaveHeaderStrc;
 struct D2ServerCallbackFunctions;
 struct D2ClientInfoStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2StaticPathStrc;
 struct D2PlayerDataStrc;
 struct D2SkillsTxt;

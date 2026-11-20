@@ -15,7 +15,7 @@
 #define EVENTTYPE_STATREGEN 3
 #define IFLAG_RUNEWORD 0x4000000
 #define STATE_RUNEWORD 171
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2StaticPathStrc;
 struct D2ItemDataStrc;
 struct D2ActiveRoomStrcView;
@@ -332,7 +332,7 @@ void __fastcall ITEMS_DestroyRunewordStatList(D2GameStrc* pGame, D2UnitStrc* pIt
 
 #include "gen/data/Source/D2Game/ITEMS/Items_00558270.inc"
 
-// build: symbol ?ITEMS_SelectRandomDropItemId@@YGHPAUD2GameStrc@@PAUD2SeedStrc@@HHHH@Z 0x00556240
+// build: symbol ?ITEMS_SelectRandomDropItemId@@YGHPAUD2GameStrc@@PATD2SeedStrc@@HHHH@Z 0x00556240
 static int __stdcall ITEMS_SelectRandomDropItemId(D2GameStrc* pGame, D2SeedStrc* pSeed, int nLevelId, int nItemType, int bIgnoreRarity, int bAllowBodyParts)
 {
     static int s_nGoldItemId = DATATBLS_GetItemIdFromItemCode(' dlg');

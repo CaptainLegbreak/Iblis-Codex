@@ -4,7 +4,7 @@
 #include "D2Txt.h"
 
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2MonStatsTxt;
 struct D2PantherAiCallbackArgStrc;
 struct D2AiCmdStrc;

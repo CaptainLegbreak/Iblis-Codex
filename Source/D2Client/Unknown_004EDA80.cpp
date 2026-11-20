@@ -7,7 +7,7 @@
 
 struct D2SkillsTxt;
 struct D2SkillDescTxt;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2StaticPathStrc;
 struct D2MissileStrc;
 

@@ -4,7 +4,7 @@
 #pragma function(memset)
 
 struct D2DrlgTileDataStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 union D2C_PackedTileInformation;
 struct D2DrlgRoomTilesStrc;
 struct Tile;

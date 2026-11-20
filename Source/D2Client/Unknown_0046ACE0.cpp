@@ -17,7 +17,7 @@ struct D2MonStats2Txt;
 struct D2ClientTimedBoxStrc;
 struct D2StaticPathStrc;
 struct D2MissileStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2DrlgCoordsStrc;
 
 

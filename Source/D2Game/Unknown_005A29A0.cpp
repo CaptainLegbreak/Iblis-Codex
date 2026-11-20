@@ -16,7 +16,7 @@ struct D2StaticPathStrc;
 struct D2MonsterDataStrc;
 struct D2MissilesTxt;
 struct D2SkillsTxt;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2MonLvlTxt;
 struct D2MonUModTxt;
 

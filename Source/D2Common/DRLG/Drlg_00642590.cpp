@@ -4,7 +4,7 @@
 struct D2DrlgActStrc;
 struct D2GameStrc;
 struct D2DrlgCoordStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2DrlgStrc;
 
 struct D2DrlgCoordStrc

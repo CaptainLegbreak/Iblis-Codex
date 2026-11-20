@@ -8,7 +8,7 @@
 
 struct D2MonStatsTxt;
 struct D2AiCmdStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2StaticPathStrc;
 
 enum D2C_F42AiBaalConstants

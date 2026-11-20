@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Constants.h"
 #include "D2DataTbls.h"
+#include "D2Path.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define STAT_LEVEL 12
@@ -23,7 +24,7 @@ struct Data004AE170;
 struct Unit004AE170;
 struct D2MonCmdRecordStrc;
 struct D2MissileStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2StaticPathStrc;
 struct D2SkillsTxt;
 struct D2DirectionArgStrc;
@@ -35,11 +36,6 @@ struct D2DataTablesStrc;
 struct D2MonStatsInitStrc;
 struct D2MonAnimRecStrc;
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 struct D2Vector3FStrc
 {
@@ -67,49 +63,7 @@ struct D2HirelingTxt
     char nSLvlPerLvl[6];
 };
 
-struct D2SeedStrc
-{
-    union
-    {
-        struct
-        {
-            unsigned __int64 lSeed;
-        };
-        struct
-        {
-            unsigned int nLowSeed;
-            unsigned int nHighSeed;
-        };
-    };
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x8];
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-    unsigned char unk_18[0x8];
-    D2SeedStrc pSeed;
-    char unk0x28[0x04];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x14];
-    int nSeqCurrentFramePrecise;
-    char unk0x48[0x06];
-    unsigned char nActionFrame;
-    unsigned char unk_4F[0x11];
-    D2InventoryStrc* pInventory;
-    D2GfxLightStrc* pLight;
-    char unk0x68[0x5C];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-    unsigned char unk_CC[0x4];
-};
 
 struct D2MonStats2Txt
 {
@@ -278,12 +232,6 @@ int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 
 typedef unsigned int DWORD;
 
-struct D2StaticPathStrc
-{
-    char unk0x00[0x0C];
-    int nXPos;
-    int nYPos;
-};
 
 struct D2SkillsTxt
 {

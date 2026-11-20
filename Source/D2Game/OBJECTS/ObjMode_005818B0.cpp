@@ -22,7 +22,7 @@ struct D2ObjectDataStrc;
 struct D2ObjOperateFnStrc;
 struct D2DrlgCoordsStrc;
 struct D2ObjOperateStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2ItemsTxt;
 struct D2SkillsTxt;
 struct D2CharStatsTxt;

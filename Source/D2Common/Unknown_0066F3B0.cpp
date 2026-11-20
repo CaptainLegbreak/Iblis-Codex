@@ -7,7 +7,7 @@ struct D2DrlgCoordStrc;
 struct D2DrlgSubstGroupStrc;
 struct D2LvlSubTxt;
 struct D2UnkOutdoorStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2DrlgOutdoorInfoStrc;
 struct D2CoordStrc;
 struct D2DrlgDrlgStrc;

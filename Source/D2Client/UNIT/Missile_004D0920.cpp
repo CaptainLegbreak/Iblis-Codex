@@ -6,7 +6,7 @@
 
 struct D2StaticPathStrc;
 struct D2MissilesTxt;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2MissileStrc;
 
 

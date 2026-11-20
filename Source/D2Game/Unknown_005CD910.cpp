@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Path.h"
 
 struct MissileRecord;
 union D2SeedStrc;
@@ -10,42 +11,8 @@ struct MonsterData;
 struct Skills;
 struct D2UnkNecSkillStrc;
 
-union D2SeedStrc
-{
-    struct
-    {
-        unsigned int nLowSeed;
-        unsigned int nHighSeed;
-    };
-    unsigned __int64 lSeed;
-};
 
-struct D2StaticPathStrc
-{
-    D2ActiveRoomStrc* pRoom;
-    int nTargetX;
-    int nTargetY;
-    int nXPos;
-    int nYPos;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08;
-    int dwUnitId;
-    char unk0x10[0x10];
-    D2SeedStrc pSeed;
-    char unk0x28[0x04];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    unsigned char unk_30[0x94];
-    unsigned int dwFlags;
-};
 
 
 

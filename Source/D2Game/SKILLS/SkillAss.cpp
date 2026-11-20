@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2DataTbls.h"
+#include "D2Path.h"
 
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
 #define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
@@ -20,7 +21,7 @@ struct D2SrvDo06Strc;
 struct D2MonStats2Txt;
 struct D2AiCmdStrc;
 struct D2SkillsTxt;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2MonEquipTxt;
 struct D2MonsterItemCodeStrc;
 
@@ -32,14 +33,6 @@ struct D2GameStrc
     int dwGameFrame;
 };
 
-struct D2StaticPathStrc
-{
-    void* pRoom;
-    int nTargetX;
-    int nTargetY;
-    int nXPos;
-    int nYPos;
-};
 
 struct D2MonsterDataStrc
 {
@@ -47,49 +40,7 @@ struct D2MonsterDataStrc
     D2AiControlStrc* pAiControl;
 };
 
-struct D2SeedStrc
-{
-    union
-    {
-        struct
-        {
-            unsigned __int64 lSeed;
-        };
-        struct
-        {
-            unsigned int nLowSeed;
-            unsigned int nHighSeed;
-        };
-    };
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08;
-    int dwUnitId;
-    int unk0x10;
-    D2MonsterDataStrc* pMonsterData;
-    unsigned char unk_18[0x8];
-    D2SeedStrc pSeed;
-    int unk0x28;
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    unsigned char unk_30[0x8];
-    int nParityField;
-    unsigned char unk_3C[0xC];
-    int dwFrameCountPrecise;
-    unsigned char unk_4C[0x14];
-    D2InventoryStrc* pInventory;
-    unsigned char unk_64[0x60];
-    unsigned int dwFlags;
-    unsigned char unk_C8[0x8];
-    int dwNodeIndex;
-};
 
 struct D2DamageStrc
 {
@@ -256,11 +207,6 @@ struct D2SrvDo06Strc
     int nAuraStatCalcValue;
 };
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 struct D2MonStats2Txt
 {
@@ -1860,7 +1806,7 @@ int __fastcall sub_005D6340_SKILLS_SrvDo_AlternatingStrike(D2GameStrc* pGame, D2
         return 0;
     }
 
-    if ((pUnit->nParityField >> 8) % 2 == 0)
+    if ((pUnit->dwSeqFrame >> 8) % 2 == 0)
     {
         sub_005D6200_SKILLS_StrikeDamage(pGame, pTarget, nSkillLevel, pUnit, nSkillId);
         D2DamageStrc* pDamage = SUNITDMG_GetDamageFromUnits(pUnit, pTarget);

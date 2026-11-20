@@ -13,7 +13,7 @@ struct D2LevelDefRecordStrc;
 struct D2DrlgOutdoorTileCtxStrc;
 struct D2RoomTileTotalStrc;
 struct D2RoomTileInfoStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2DrlgLinkStrc;
 struct D2DrlgLevelLinkDataStrc;
 struct D2DrlgOutdoorInfoStrc;

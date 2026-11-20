@@ -11,7 +11,7 @@ struct D2StaticPathStrc;
 struct D2UnkMonCreateStrc3;
 struct D2UnkMonCreateStrc;
 struct D2SpawnRequest005B3130Strc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2LevelsTxt;
 struct D2MonStatsTxt;
 struct D2PlayerDataStrc;

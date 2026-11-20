@@ -9,7 +9,7 @@
 union D2FP32_16;
 struct D2CoordStrc;
 struct D2DrlgCoordsStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct Pair00650E60;
 struct Pair00650E70;
 struct D2StormLinkStrc;

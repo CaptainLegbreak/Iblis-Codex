@@ -1,4 +1,4 @@
-struct D2SeedStrc;
+union D2SeedStrc;
 
 struct D2AutomapRecordStrc
 {

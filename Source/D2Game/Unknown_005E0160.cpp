@@ -9,7 +9,7 @@
 #define MONMODE_ATTACK1 4
 struct D2CoordListStrc;
 struct D2MonStatsTxt;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2MonsterDataStrc;
 struct D2PlayerDataStrc;
 struct D2PetMoveStrc;

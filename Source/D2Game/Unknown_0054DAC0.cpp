@@ -5,7 +5,7 @@
 
 struct D2DrlgCoordsStrc;
 struct D2SpawnAreaStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2MonStatsTxt;
 struct D2MonsterRegionStrc;
 

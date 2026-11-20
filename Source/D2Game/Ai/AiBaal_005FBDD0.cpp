@@ -2,6 +2,7 @@
 #include "D2Constants.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Path.h"
 
 #define PLRMODE_DEATH 0
 #define PLRMODE_DEAD 17
@@ -12,7 +13,7 @@ struct D2TargetNodeStrc;
 struct D2AiBaalTargetArgsStrc;
 struct D2SkillsTxt;
 struct D2MonStatsTxt;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2PlayerCountBonusStrc;
 struct D2AiCmdStrc;
 
@@ -32,48 +33,8 @@ enum D2C_M244AiBaalConstants
     STATE_COLD = 0x0B,
 };
 
-struct D2StaticPathStrc
-{
-    int unk0x00[3];
-    int nXPos;
-    int nYPos;
-};
 
-struct D2SeedStrc
-{
-    union
-    {
-        struct
-        {
-            unsigned __int64 lSeed;
-        };
-        struct
-        {
-            unsigned int nLowSeed;
-            unsigned int nHighSeed;
-        };
-    };
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    void* f_14;
-    unsigned char nAct;
-    unsigned char unk_19[0x7];
-    D2SeedStrc pSeed;
-    int unk0x28;
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-        void* pPath;
-    };
-};
 
 struct D2TargetNodeStrc
 {
@@ -738,16 +699,16 @@ static __declspec(noinline) int __stdcall sub_005FC1C0_RollBaalMeleeAiParam(D2Ga
 static __forceinline int AIBAAL_GetUnitX_Inline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType) {
-    case 2: case 4: case 5: return ((int*)pUnit->pPath)[3];
-    default: return pUnit->pPath ? PATH_GetX(pUnit->pPath) : 0;
+    case 2: case 4: case 5: return ((int*)pUnit->pDynamicPath)[3];
+    default: return pUnit->pDynamicPath ? PATH_GetX(pUnit->pDynamicPath) : 0;
     }
 }
 
 static __forceinline int AIBAAL_GetUnitY_Inline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType) {
-    case 2: case 4: case 5: return ((int*)pUnit->pPath)[4];
-    default: return pUnit->pPath ? PATH_GetY(pUnit->pPath) : 0;
+    case 2: case 4: case 5: return ((int*)pUnit->pDynamicPath)[4];
+    default: return pUnit->pDynamicPath ? PATH_GetY(pUnit->pDynamicPath) : 0;
     }
 }
 

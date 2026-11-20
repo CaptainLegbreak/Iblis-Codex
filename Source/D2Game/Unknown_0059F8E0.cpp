@@ -2,7 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2MissilesTxt;
 struct D2MissileUnitFindTableStrc;
 

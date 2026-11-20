@@ -8,7 +8,7 @@ struct D2PathInfoStrc;
 struct D2CoordStrc;
 struct D2StaticPathStrc;
 struct D2CollisionTestStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2PathIDAStarNodeStrc;
 struct D2DrlgCoordsStrc;
 struct D2PathFoWallNodeStrc;

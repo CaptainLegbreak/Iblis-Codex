@@ -8,7 +8,7 @@
 #define STAT_MANA 8
 #define STAT_STAMINA 10
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2MonStatsTxt;
 struct D2MonsterDataStrc;
 struct D2DifficultyLevelsTxt;

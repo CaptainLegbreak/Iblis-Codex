@@ -4,7 +4,7 @@
 #include "D2Txt.h"
 #include "D2UnitData.h"
 
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2MonsterDataStrc;
 struct D2MissilesTxt;
 

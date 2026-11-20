@@ -22,7 +22,7 @@ struct D2MapAIPathPositionStrc;
 struct D2AiCmdStrc;
 struct D2BaalToStairsAiCallbackArgStrc;
 struct D2SandRaiderAiCallbackArgStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2Unk005EAD50CounterStrc;
 struct D2Unk005EAD50LimitsStrc;
 struct D2Unk005EAD50ArgStrc;

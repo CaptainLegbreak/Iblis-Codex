@@ -10,7 +10,7 @@
 #define MONMODE_RUN 15
 #define STATE_DECREPIFY 60
 #define EVENTTYPE_AITHINK 2
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2StaticPathStrc;
 struct D2MonsterDataStrc;
 struct D2ModeChangeStrc;

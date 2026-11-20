@@ -10,7 +10,7 @@ struct Obj00648690;
 struct Unit0064A210;
 struct Unit0064A280;
 struct Unit0064A300;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2StaticPathStrc;
 struct D2MissileStrc;
 struct D2MissilesTxt;

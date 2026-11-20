@@ -12,7 +12,7 @@
 #define MONSTERUNIQUE_UMOD_COUNT 9
 struct D2MonsterDataStrc;
 struct D2MonUModTxt;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2MonsterRegionStrc;
 struct D2MonStatsTxt;
 struct D2SuperUniquesTxt;

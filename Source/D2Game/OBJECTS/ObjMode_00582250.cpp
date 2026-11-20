@@ -15,7 +15,7 @@
 #define MONMODE_WALK 2
 #define STAT_LEVEL 12
 struct D2ObjectControlStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2ObjectDataStrc;
 struct D2MonRegDataStrc;
 struct D2MonsterRegionStrc;

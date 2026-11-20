@@ -10,7 +10,7 @@ struct D2GridOwnerStrc;
 struct D2GridUnitStrc;
 struct D2GridLightStrc;
 struct D2GridCoordStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2StaticPathStrc;
 struct D2DrlgCoordsStrc;
 struct D2FloorViewArgStrc;

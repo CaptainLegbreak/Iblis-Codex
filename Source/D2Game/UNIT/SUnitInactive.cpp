@@ -17,7 +17,7 @@ struct D2ItemDataStrc;
 struct D2InactiveUnitListStrc;
 struct D2DrlgCoordsStrc;
 struct D2InactiveItemBufferStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2ObjectDataStrc;
 struct D2StaticPathStrc;
 struct D2MonsterDataStrc;

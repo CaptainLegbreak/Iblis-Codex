@@ -6,7 +6,7 @@
 #define D2_ABS(x) ((x) < 0 ? -(x) : (x))
 
 struct D2DrlgOutdoorInfoStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2OutdoorPresetFileStrc;
 struct D2DrlgDrlgStrc;
 struct D2LvlPrestRecordStrc;

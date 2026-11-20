@@ -22,7 +22,7 @@ struct D2AiCmdStrc;
 struct D2DifficultyLevelsTxt;
 struct D2MissilesTxt;
 struct D2SkillsTxt;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2UnitFindDataStrc;
 struct D2GameStrc;
 struct D2UnitStrc;

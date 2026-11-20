@@ -10,7 +10,7 @@
 #define UNIT_ITEM 4
 #define UNIT_TILE 5
 #define STAT_LEVEL 12
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2StaticPathStrc;
 struct D2MonStatsTxt;
 struct D2MonStatsInitStrc;

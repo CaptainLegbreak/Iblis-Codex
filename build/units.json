@@ -19186,12 +19186,12 @@
     {
      "va": "0x0045C370",
      "length": 28,
-     "name": "?SEED_RollRandomNumber@@YI_KPAUD2SeedStrc@@@Z"
+     "name": "?SEED_RollRandomNumber@@YI_KPATD2SeedStrc@@@Z"
     },
     {
      "va": "0x0045C390",
      "length": 75,
-     "name": "?SEED_RollLimitedRandomNumber@@YIIPAUD2SeedStrc@@H@Z"
+     "name": "?SEED_RollLimitedRandomNumber@@YIIPATD2SeedStrc@@H@Z"
     },
     {
      "va": "0x0045C4B0",
@@ -23006,17 +23006,17 @@
     {
      "va": "0x00472210",
      "length": 39,
-     "name": "?sub_00472210_SeedRollMasked@@YIHPAUD2SeedStrc@@H@Z"
+     "name": "?sub_00472210_SeedRollMasked@@YIHPATD2SeedStrc@@H@Z"
     },
     {
      "va": "0x00472240",
      "length": 50,
-     "name": "?sub_00472240_RollMaskOffset@@YIHPAUD2SeedStrc@@HH@Z"
+     "name": "?sub_00472240_RollMaskOffset@@YIHPATD2SeedStrc@@HH@Z"
     },
     {
      "va": "0x00472280",
      "length": 98,
-     "name": "?sub_00472280@@YIHPAUD2SeedStrc@@HH@Z"
+     "name": "?sub_00472280@@YIHPATD2SeedStrc@@HH@Z"
     },
     {
      "va": "0x004722F0",
@@ -57993,22 +57993,22 @@
     {
      "va": "0x00555E00",
      "length": 112,
-     "name": "?sub_00555E00_CanSelectItem@@YGHPAUD2SeedStrc@@HPAUD2ItemsTxt@@HH@Z"
+     "name": "?sub_00555E00_CanSelectItem@@YGHPATD2SeedStrc@@HPAUD2ItemsTxt@@HH@Z"
     },
     {
      "va": "0x00555E70",
      "length": 311,
-     "name": "?ITEMMODE_SelectRandomArmorItemId@@YIHPAUD2GameStrc@@PAUD2SeedStrc@@HHH@Z"
+     "name": "?ITEMMODE_SelectRandomArmorItemId@@YIHPAUD2GameStrc@@PATD2SeedStrc@@HHH@Z"
     },
     {
      "va": "0x00555FB0",
      "length": 311,
-     "name": "?ITEMMODE_SelectRandomWeaponItemId@@YIHPAUD2GameStrc@@PAUD2SeedStrc@@HHH@Z"
+     "name": "?ITEMMODE_SelectRandomWeaponItemId@@YIHPAUD2GameStrc@@PATD2SeedStrc@@HHH@Z"
     },
     {
      "va": "0x005560F0",
      "length": 332,
-     "name": "?ITEMMODE_SelectRandomMiscItemId@@YIHPAUD2GameStrc@@PAUD2SeedStrc@@HHHH@Z"
+     "name": "?ITEMMODE_SelectRandomMiscItemId@@YIHPAUD2GameStrc@@PATD2SeedStrc@@HHHH@Z"
     }
    ]
   },
@@ -76144,7 +76144,7 @@
     {
      "va": "0x005E4D30",
      "length": 788,
-     "name": "?AITHINK_SelectHirelingAction@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH1PAUD2SeedStrc@@@Z"
+     "name": "?AITHINK_SelectHirelingAction@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@HH1PATD2SeedStrc@@@Z"
     }
    ]
   },
@@ -82890,7 +82890,7 @@
     {
      "va": "0x00650E50",
      "length": 3,
-     "name": "?SEED_GetLowSeed@@YIIPAUD2SeedStrc@@@Z"
+     "name": "?SEED_GetLowSeed@@YIIPATD2SeedStrc@@@Z"
     },
     {
      "va": "0x00653ED0",
@@ -90809,12 +90809,12 @@
     {
      "va": "0x00650E30",
      "length": 14,
-     "name": "?SEED_InitSeed@@YIXPAUD2SeedStrc@@@Z"
+     "name": "?SEED_InitSeed@@YIXPATD2SeedStrc@@@Z"
     },
     {
      "va": "0x00650E40",
      "length": 10,
-     "name": "?SEED_InitLowSeed@@YIXPAUD2SeedStrc@@I@Z"
+     "name": "?SEED_InitLowSeed@@YIXPATD2SeedStrc@@I@Z"
     },
     {
      "va": "0x00650E60",
@@ -92856,7 +92856,7 @@
     {
      "va": "0x00666ED0",
      "length": 246,
-     "name": "?DRLGPRESET_AllocDrlgMap@@YIPAUD2DrlgMapStrc@@PAUD2DrlgLevelStrc@@HPAUD2DrlgCoordStrc@@PAUD2SeedStrc@@@Z"
+     "name": "?DRLGPRESET_AllocDrlgMap@@YIPAUD2DrlgMapStrc@@PAUD2DrlgLevelStrc@@HPAUD2DrlgCoordStrc@@PATD2SeedStrc@@@Z"
     },
     {
      "va": "0x00666FF0",

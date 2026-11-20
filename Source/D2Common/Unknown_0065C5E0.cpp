@@ -1,7 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2InventoryStrc;
 struct sub_M415_EmitArgs;
 struct D2PropertyStrc;

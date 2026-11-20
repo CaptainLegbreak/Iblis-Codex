@@ -8,7 +8,7 @@
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 #define UNIT_MONSTER 1
 #define SKILLSFLAGINDEX_INTOWN 8
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2StaticPathStrc;
 struct D2PathPointStrc;
 struct D2SkillsTxt;

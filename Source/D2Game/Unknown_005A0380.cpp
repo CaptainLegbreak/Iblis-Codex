@@ -9,7 +9,7 @@
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 struct D2MonsterDataStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2MonsterRegionStrc;
 struct D2MonStatsTxt;
 struct D2MonUModTxt;

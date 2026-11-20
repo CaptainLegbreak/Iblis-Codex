@@ -6,7 +6,7 @@
 struct D2DrlgOrthStrc;
 struct D2DrlgBuildStrc;
 struct D2DrlgCoordStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2RoomPresetStrc;
 struct D2LvlPrestTxt;
 struct D2DrlgMapStrc;

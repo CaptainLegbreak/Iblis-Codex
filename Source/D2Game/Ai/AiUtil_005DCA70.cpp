@@ -11,7 +11,7 @@ struct D2MonStats2Txt;
 struct D2AiCmdStrc;
 struct D2MapAIPathPositionStrc;
 struct D2FallenShamanAiCallbackArgStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2AiTargetArgsStrc;
 
 

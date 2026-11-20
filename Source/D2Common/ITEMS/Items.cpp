@@ -34,7 +34,7 @@ struct D2InventoryStrc;
 struct D2ItemDataStrc;
 struct D2ItemsTxt;
 struct D2BooksTxt;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2RunesTxt;
 struct D2RuneDataTbl;
 struct Data00627DF0;

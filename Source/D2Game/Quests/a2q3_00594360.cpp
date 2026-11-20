@@ -17,7 +17,7 @@ struct D2Act2Quest5Strc;
 struct D2Act2Quest6Strc;
 struct D2GSPacketSrv53;
 struct D2GSPacketSrv5D;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2ObjOperateFnStrc;
 struct D2Act2Quest3Strc;
 

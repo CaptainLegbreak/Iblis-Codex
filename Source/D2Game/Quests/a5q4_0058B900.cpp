@@ -9,7 +9,7 @@
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2QuestGUIDStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2Act5Quest4Strc;
 struct D2StaticPathStrc;
 struct D2PlayerDataStrc;

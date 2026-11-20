@@ -9,7 +9,7 @@
 #define UNIT_MONSTER 1
 struct D2MonStatsTxt;
 struct D2DoorObjectAiCallbackArgStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2MonsterDataStrc;
 struct D2MonStats2Txt;
 

@@ -1,8 +1,9 @@
 #include "D2Game.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Path.h"
 
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2MagicAffixTxt;
 struct D2MagicAffixIndexAndPtrStrc;
 struct D2SkillPairStrc;
@@ -23,11 +24,6 @@ struct D2MagicAffixIndexAndPtrStrc
     D2MagicAffixTxt* pMagicAffixRecord;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-};
 unsigned short __stdcall ITEMS_GetSuffixId(D2UnitStrc* pItem, int nSuffixNo); // 0x00627F80
 D2MagicAffixTxt* __stdcall DATATBLS_GetMagicAffixTxtRecord(int nIndex); // 0x00633EE0
 
@@ -37,21 +33,6 @@ struct D2SkillPairStrc
     int nB;
 };
 
-struct D2SeedStrc
-{
-    union
-    {
-        struct
-        {
-            unsigned __int64 lSeed;
-        };
-        struct
-        {
-            unsigned int nLowSeed;
-            unsigned int nHighSeed;
-        };
-    };
-};
 
 D2SeedStrc* __stdcall ITEMS_GetItemSeed(D2UnitStrc*); // 0x00627D90
 int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc*); // 0x00451F50

@@ -9,7 +9,7 @@
 #define UNIT_TYPES 6
 #define MONMODE_SEQUENCE 14
 #define COLLIDE_MASK_PLAYER_PATH 0x1C09
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2SkillsTxt;
 struct D2ModeChangeStrc;
 

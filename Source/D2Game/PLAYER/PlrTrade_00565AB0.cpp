@@ -7,7 +7,7 @@
 #define CUBE_MAX(a,b) ((a)>(b)?(a):(b))
 #define CUBE_MIN(a,b) ((a)<(b)?(a):(b))
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2ItemsTxt;
 struct D2CubeItemStrc;
 struct D2CubeParam;

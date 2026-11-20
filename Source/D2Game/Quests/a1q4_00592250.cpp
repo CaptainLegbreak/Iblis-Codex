@@ -19,7 +19,7 @@
 struct D2PlayerDataStrc;
 struct D2QuestGUIDStrc;
 struct D2Act1Quest4Strc;
-struct D2SeedStrc;
+union D2SeedStrc;
 
 
 struct D2PlayerDataStrc

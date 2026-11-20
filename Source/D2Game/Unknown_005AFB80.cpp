@@ -4,7 +4,7 @@
 #include "D2Txt.h"
 
 #define STAT_HITPOINTS 6
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2MissilesTxt;
 struct D2SkillsTxt;
 

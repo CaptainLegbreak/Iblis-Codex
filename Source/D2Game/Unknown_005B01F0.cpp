@@ -5,7 +5,7 @@
 #include "D2Txt.h"
 
 struct D2MissilesTxt;
-struct D2SeedStrc;
+union D2SeedStrc;
 
 
 

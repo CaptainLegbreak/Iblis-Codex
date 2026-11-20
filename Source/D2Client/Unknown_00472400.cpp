@@ -1,7 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2WeatherSplashStrc;
 struct D2WeatherLayerStateStrc;
 

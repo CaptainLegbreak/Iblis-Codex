@@ -7,7 +7,7 @@
 #include "D2GameStrc.h"
 
 struct D2ObjectControlStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2StaticPathStrc;
 struct D2ObjOperateFnStrc;
 struct D2MissilesTxt;

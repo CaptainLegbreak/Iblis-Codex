@@ -12,7 +12,7 @@
 struct D2BooksTxt;
 struct D2ItemsTxt;
 struct D2pSpellTblStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2MonStats2Txt;
 
 

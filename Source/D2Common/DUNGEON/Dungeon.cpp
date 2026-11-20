@@ -26,7 +26,7 @@ struct Coord;
 struct D2DrlgCoordsStrc;
 struct Obj00619720;
 struct sub_Z16_EmitRoomHolder;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2ActRoom00619DA0Strc;
 struct D2Act00619DA0Strc;
 struct Obj00619EE0;

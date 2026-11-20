@@ -8,7 +8,7 @@
 struct D2StaticPathStrc;
 struct D2GfxLightStrc;
 struct D2SkillsTxt;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2MissilesTxt;
 struct D2MonStats2Txt;
 struct D2MissileStrc;

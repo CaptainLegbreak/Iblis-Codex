@@ -26,7 +26,7 @@ struct D2StatStrc;
 struct D2SkillsTxt;
 struct D2ItemStatCostTxt;
 struct D2TimeModStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2ItemDataStrc;
 struct D2ItemsTxt;
 struct D2RunesTxt;

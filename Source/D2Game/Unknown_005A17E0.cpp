@@ -19,7 +19,7 @@ struct D2DifficultyLevelsTxt;
 struct D2MonStatsTxt;
 struct D2CurseStrc;
 struct D2SkillsTxt;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2StaticPathStrc;
 struct D2MonStatsInitStrc;
 struct D2ModeChangeStrc;

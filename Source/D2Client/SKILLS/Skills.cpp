@@ -20,7 +20,7 @@ struct D2AreaScanContextStrc;
 struct D2AreaScanFindStrc;
 struct D2SkillsTxt;
 struct D2MonStats2Txt;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2MonStatsTxt;
 struct D2ClientSkillArgsStrc;
 struct D2PathDirectionStrc;

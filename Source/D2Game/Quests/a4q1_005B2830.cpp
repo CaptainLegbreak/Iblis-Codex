@@ -5,7 +5,7 @@
 #define MONSTER_TENTACLEHEAD1 261
 #define MONSTATSFLAGINDEX_SETBOSS 4
 #define MONSTATSFLAGINDEX_BOSSXFER 5
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2UnkMonCreateStrc;
 struct D2MonStatsTxt;
 struct D2UnkMonCreateStrc3;

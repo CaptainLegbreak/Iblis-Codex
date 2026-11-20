@@ -1,17 +1,5 @@
 #include "D2Txt.h"
-struct D2UnitStrc { int dwUnitType; int dwClassId; };
-struct D2SeedStrc
-{
-    union
-    {
-        struct
-        {
-            unsigned int nLowSeed;
-            unsigned int nHighSeed;
-        };
-        unsigned __int64 lSeed;
-    };
-};
+#include "D2Path.h"
 
 struct D2MagicAffixTxt
 {

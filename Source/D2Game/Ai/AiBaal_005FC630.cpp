@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Path.h"
 
 // build: context AIBAAL_RollSeed_M282Inline
 // build: context AIBAAL_RollLimited_M282Inline
@@ -16,27 +17,7 @@ struct D2GameStrc
     unsigned char nDifficulty;
 };
 
-struct D2SeedStrc
-{
-    union
-    {
-        struct
-        {
-            unsigned int nLowSeed;
-            unsigned int nHighSeed;
-        };
-        unsigned __int64 lSeed;
-    };
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x1C];
-    D2SeedStrc pSeed;
-    int unk0x28;
-    void* pPath;
-};
 struct D2AiControlStrc
 {
     int nAiSpecialState;
@@ -412,15 +393,15 @@ int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int n
 static __forceinline int AIBAAL_GetUnitX_Inline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType) {
-    case 2: case 4: case 5: return ((int*)pUnit->pPath)[3];
-    default: return pUnit->pPath ? PATH_GetX(pUnit->pPath) : 0;
+    case 2: case 4: case 5: return ((int*)pUnit->pDynamicPath)[3];
+    default: return pUnit->pDynamicPath ? PATH_GetX(pUnit->pDynamicPath) : 0;
     }
 }
 static __forceinline int AIBAAL_GetUnitY_Inline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType) {
-    case 2: case 4: case 5: return ((int*)pUnit->pPath)[4];
-    default: return pUnit->pPath ? PATH_GetY(pUnit->pPath) : 0;
+    case 2: case 4: case 5: return ((int*)pUnit->pDynamicPath)[4];
+    default: return pUnit->pDynamicPath ? PATH_GetY(pUnit->pDynamicPath) : 0;
     }
 }
 __declspec(noinline) static int __stdcall AIBAAL_RollRandomAiParam(D2GameStrc*, D2UnitStrc*, D2AiControlStrc*, D2UnitStrc*, int, int, D2AiCmdStrc*);

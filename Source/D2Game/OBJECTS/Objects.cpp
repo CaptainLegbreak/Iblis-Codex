@@ -19,7 +19,7 @@
 #define WELL_PARAM 2
 struct D2TimerArg2Strc;
 struct D2MonStatsTxt;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2ObjectDataStrc;
 struct D2ObjectControlStrc;
 struct D2ObjInitFnStrc;

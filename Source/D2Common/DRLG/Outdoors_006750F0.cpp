@@ -3,7 +3,7 @@
 
 struct D2DrlgMapStrc;
 struct D2DrlgOrthStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2DrlgCoordStrc;
 struct D2DrlgOutdoorInfoStrc;
 struct D2DrlgVertexStrc;

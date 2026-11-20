@@ -3,7 +3,7 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 
-struct D2SeedStrc;
+union D2SeedStrc;
 
 
 

@@ -16,7 +16,7 @@ struct D2MissileUnitFindTableStrc;
 struct D2MissileFindArgStrc;
 struct D2SkillsTxt;
 struct D2StaticPathStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 
 
 

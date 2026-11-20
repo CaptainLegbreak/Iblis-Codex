@@ -1,7 +1,8 @@
 #include "D2Game.h"
 #include "D2DataTbls.h"
+#include "D2Path.h"
 struct D2AiParamStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2AiCmdStrc;
 struct D2MonsterDataStrc;
 struct D2StaticPathStrc;
@@ -9,39 +10,7 @@ struct D2MonStatsTxt;
 struct D2MonRegDataStrc;
 struct D2MonsterRegionStrc;
 
-struct D2SeedStrc
-{
-    union
-    {
-        struct
-        {
-            unsigned __int64 lSeed;
-        };
-        struct
-        {
-            unsigned int nLowSeed;
-            unsigned int nHighSeed;
-        };
-    };
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pPool;
-    unsigned int dwUnitId;
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-    char pad18[8];
-    D2SeedStrc pSeed;
-    int unk28;
-    union
-    {
-        D2StaticPathStrc* pStaticPath;
-        D2DynamicPathStrc* pDynamicPath;
-    };
-};
 
 struct D2AiControlStrc { int nAiSpecialState; int padding[4]; int dwAiParam[3]; };
 
@@ -91,7 +60,6 @@ int __fastcall sub_00472210_SeedRollMasked(D2SeedStrc* pSeed, int nMax); // 0x00
 
 struct D2MonsterDataStrc { char pad00[0x2C]; D2AiParamStrc* pAiParam; };
 
-struct D2StaticPathStrc { char pad00[0xC]; int nX; int nY; };
 
 struct D2MonStatsTxt
 {
@@ -232,12 +200,12 @@ void __fastcall AITHINK_Formation(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTick
 
 static __forceinline int GetX(D2UnitStrc* pUnit)
 {
-    switch (pUnit->dwUnitType) { case 2: case 4: case 5: return pUnit->pStaticPath->nX; default: return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0; }
+    switch (pUnit->dwUnitType) { case 2: case 4: case 5: return pUnit->pStaticPath->nXPos; default: return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0; }
 }
 
 static __forceinline int GetY(D2UnitStrc* pUnit)
 {
-    switch (pUnit->dwUnitType) { case 2: case 4: case 5: return pUnit->pStaticPath->nY; default: return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0; }
+    switch (pUnit->dwUnitType) { case 2: case 4: case 5: return pUnit->pStaticPath->nYPos; default: return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0; }
 }
 
 static __forceinline D2AiParamStrc* GetAiParam(D2UnitStrc* pUnit)

@@ -7,7 +7,7 @@
 #define LVLPREST_ACT3_JUNGLE_HEAD 573
 #define LVLPREST_ACT3_JUNGLE_TAIL 574
 
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2DrlgStrc;
 struct D2LevelDefBin;
 struct D2DrlgOutdoorInfoStrc;

@@ -18,7 +18,7 @@ struct D2StaticPathStrc;
 struct D2MonStatsTxt;
 struct D2AiCmdStrc;
 struct D2SkillsTxt;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2UnitStrc;
 struct D2AiControlStrc;
 struct D2DataTablesStrc;

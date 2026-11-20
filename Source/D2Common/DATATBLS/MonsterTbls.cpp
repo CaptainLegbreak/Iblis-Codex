@@ -13,7 +13,7 @@ struct D2BinFieldStrc;
 struct D2MonStatsTxt;
 struct D2MonLvlTxt;
 struct D2MonStatsInitStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct Unicode;
 struct D2UniqueNameTxt;
 struct D2TCExInfoStrc;

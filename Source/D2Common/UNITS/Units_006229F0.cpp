@@ -14,7 +14,7 @@ struct D2CharStatsTxt;
 struct D2SkillsTxt;
 struct D2AnimModeModulatorStrc;
 struct D2AnimModeStatBasePercentageStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2ObjectsTxt;
 struct D2MissilesTxt;
 

@@ -5,7 +5,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2SkillsTxt;
 struct D2SummonArgStrc;
 struct D2StaticPathStrc;

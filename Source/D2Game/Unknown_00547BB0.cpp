@@ -8,7 +8,7 @@
 #define UNIT_ALIGNMENT_EVIL 0
 
 struct D2MonsterRegionStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 
 
 
