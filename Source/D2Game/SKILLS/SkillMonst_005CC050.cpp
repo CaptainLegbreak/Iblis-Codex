@@ -2,19 +2,12 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameTypes.h"
+#include "D2Txt.h"
 
 struct D2SkillsTxt;
 struct D2MissilesTxt;
 
 
-struct D2SkillsTxt
-{
-    char unk0x00[0x48];
-    short wSrvMissileA;
-    char unk0x04A[0xEE];
-    int dwCalc[4];
-    char unk0x148[0xF4];
-};
 
 
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc*, int);
@@ -27,10 +20,6 @@ D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit);
 D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc* pGame, D2MissileStrc* pParams); // 0x0059FA30
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-struct D2MissilesTxt
-{
-    char unk0x000[0x1A4];
-};
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc* pDynamicPath); // 0x00648A00
 int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pDynamicPath); // 0x00648A10

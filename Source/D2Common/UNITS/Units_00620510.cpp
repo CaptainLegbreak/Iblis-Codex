@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 #define SIZE_PLAYER 2
 #define SIZE_ITEM 1
 #define UNITFLAG_DOUPDATE 0x00000001
@@ -25,25 +26,8 @@ struct D2AnimModeStatBasePercentageStrc;
 struct D2PlayerDataStrc;
 struct D2StaticPathStrc;
 
-struct D2MonStats2Txt
-{
-    char unk0x00[8];
-    signed char nSizeX;
-    signed char nSizeY;
-};
 
-struct D2MissilesTxt
-{
-    char unk0x00[394];
-    unsigned char nSize;
-};
 
-struct D2ObjectsTxt
-{
-    char unk0x00[208];
-    int dwSizeX;
-    int dwSizeY;
-};
 
 struct D2ObjectDataStrc
 {
@@ -67,17 +51,6 @@ struct D2AnimDataRecordStrc
     unsigned char pFrameFlags[144];
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x0C];
-    unsigned char nMonStatsFlags[4];
-    char unk0x10[0x22];
-    short wVelocity;
-    char unk0x34[0x02];
-    short nWalkAnimSpeed;
-    short nRunAnimSpeed;
-    char unk0x3A[0x16E];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -96,13 +69,6 @@ D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, 
 unsigned int __stdcall ITEMS_CheckWeaponIfTwoHanded(D2UnitStrc* pItem); // 0x006289C0
 unsigned char __stdcall ITEMS_GetComponent(D2UnitStrc* pItem); // 0x00628660
 
-struct D2CharStatsTxt
-{
-    char unk0x00[0x40];
-    unsigned char nWalkSpeed;
-    unsigned char nRunSpeed;
-    char unk0x42[0x82];
-};
 
 D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
 int __stdcall sub_006270B0(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer); // 0x006270B0
@@ -189,11 +155,6 @@ struct D2MonsterDataStrc
     unsigned char nComponent[16];
 };
 
-struct D2ItemsTxt
-{
-    char unk0x000[0x11E];
-    unsigned short wType[2];
-};
 
 struct D2InventoryRecordMapStrc
 {
@@ -215,13 +176,6 @@ int __stdcall DATATBLS_GetSeqFramePointsCount(D2UnitStrc* pUnit); // 0x006633D0
 int __stdcall DATATBLS_GetSeqFrameCount(D2UnitStrc* pUnit); // 0x006633F0
 int __stdcall UNITS_GetFrameBonus(D2UnitStrc* pUnit); // 0x00623B10
 
-struct D2SkillsTxt
-{
-    char unk0x00[0x12];
-    char nSeqTrans;
-    unsigned char unk_13[0x125];
-    unsigned int dwCalc[4];
-};
 
 struct D2AnimModeModulatorStrc
 {
@@ -963,7 +917,7 @@ static int UNITS_GetBaseVelocity(int nUnitType, int nClassId)
     case 0:
         return DATATBLS_GetCharStatsTxtRecord_Inl(nClassId)->nWalkSpeed << 8;
     case 1:
-        return DATATBLS_GetMonStatsTxtRecord_Inl(nClassId)->wVelocity << 8;
+        return DATATBLS_GetMonStatsTxtRecord_Inl(nClassId)->nVelocity << 8;
     }
 
     return 0;

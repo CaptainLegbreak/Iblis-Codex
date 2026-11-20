@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -12,31 +13,6 @@ struct D2ElemDamageStatsStrc;
 struct D2MonStatsTxt;
 
 
-struct D2SkillsTxt
-{
-    short nSkillId;
-    char unk0x2[0x2];
-    unsigned char nFlags[8];
-    char unk0xC[0x48];
-    short wAuraStat[6];
-    char unk0x60[0x8];
-    int dwAuraStatCalc[6];
-    char unk0x80[0x18];
-    short nPassiveStat[5];
-    char unk0xA2[0x2];
-    int dwPassiveCalc[5];
-    char unk0xB8[0x4];
-    short wSummon;
-    unsigned char unk_BE[0x7A];
-    unsigned int dwCalc[3];
-    char unk0x144[0x4];
-    int dwParam[8];
-    char unk0x168[0x3D];
-    unsigned char nSrcDam;
-    char unk0x1A6[0x36];
-    unsigned char nEType;
-    char unk0x1DD[0x5F];
-};
 
 struct D2SkillDescTxt
 {
@@ -118,12 +94,6 @@ unsigned char __stdcall MISSILE_GetElemTypeFromMissileId(int); // 0x0064B0C0
 int __stdcall MISSILE_GetMinElemDamage(D2UnitStrc*,D2UnitStrc*,int,int); // 0x0064B100
 int __stdcall MISSILE_GetMaxElemDamage(D2UnitStrc*,D2UnitStrc*,int,int); // 0x0064B1D0
 
-struct D2MonStatsTxt
-{
-    char unk0x0[0xAA];
-    short nLevel[3];
-    char unk0xB0[0xF8];
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30

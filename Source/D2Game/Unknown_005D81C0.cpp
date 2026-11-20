@@ -1,17 +1,12 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 struct D2GameStrc;
 struct D2UnitStrc;
 
 
 
-struct D2SkillsTxt
-{
-    char unk_000[0x138];
-    int dwCalc[4];
-    char unk_148[0x23C - 0x148];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

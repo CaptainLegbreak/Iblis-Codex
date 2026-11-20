@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 struct D2StatListStrc;
 struct D2UnitStrc;
 
@@ -43,31 +44,8 @@ struct D2AnimDataRecordStrc
     unsigned int dwAnimSpeed;
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x0C];
-    unsigned char nMonStatsFlags[4];
-    char unk0x10[0x22];
-    short wVelocity;
-    char unk0x34[0x02];
-    short nWalkAnimSpeed;
-    short nRunAnimSpeed;
-    char unk0x3A[0x16E];
-};
 
-struct D2CharStatsTxt
-{
-    char unk0x00[0x40];
-    unsigned char nWalkSpeed;
-    unsigned char nRunSpeed;
-    char unk0x42[0x82];
-};
 
-struct D2SkillsTxt
-{
-    char unk0x00[0x12];
-    char nSeqTrans;
-};
 
 
 struct D2AnimModeModulatorStrc
@@ -113,24 +91,7 @@ void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pC
 unsigned int __stdcall D2Common_11043(D2UnitStrc* pUnit); // 0x00646170
 static int __stdcall UNITS_CanAnimModeUseVelocityModifier(int nUnitType, int nAnimMode, D2UnitStrc* pUnit, int nClassId); // 0x006214A0
 
-struct D2ObjectsTxt
-{
-    char unk0x00[0xD8];
-    int dwFrameCnt[8];
-    short nFrameDelta[8];
-    char unk0x108[0x21];
-    unsigned char nStart[8];
-    char unk0x131[0x44];
-    unsigned char nSync;
-};
 
-struct D2MissilesTxt
-{
-    char unk0x00[0xA0];
-    short nAnimLen_2;
-    char unk0xA2[0xD6];
-    unsigned char nAnimLen;
-};
 
 D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
 int __stdcall sub_006270B0(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer); // 0x006270B0
@@ -319,7 +280,7 @@ static int __stdcall UNITS_GetBaseVelocity(int nUnitType, int nClassId)
     case 0:
         return DATATBLS_GetCharStatsTxtRecord_Inl(nClassId)->nWalkSpeed << 8;
     case 1:
-        return DATATBLS_GetMonStatsTxtRecord_Inl(nClassId)->wVelocity << 8;
+        return DATATBLS_GetMonStatsTxtRecord_Inl(nClassId)->nVelocity << 8;
     }
 
     return 0;

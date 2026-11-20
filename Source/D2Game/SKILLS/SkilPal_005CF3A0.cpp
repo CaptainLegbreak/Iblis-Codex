@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 struct D2UnitStrc;
 
 struct D2AuraCallbackStrc;
@@ -65,27 +66,6 @@ struct D2DamageAuraParamStrc
     D2DamageStrc* pDamage;
 };
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x4E];
-    short wSrvOverlay;
-    unsigned int dwAuraFilter;
-    short wAuraStat[6];
-    unsigned int dwAuraLenCalc;
-    unsigned int dwAuraRangeCalc;
-    unsigned int dwAuraStatCalc[6];
-    short nAuraState;
-    short wAuraTargetState;
-    char unk0x084[0x14];
-    short nPassiveStat[5];
-    char unk0x0A2[0x02];
-    unsigned int dwPassiveCalc[5];
-    char unk0x0B8[0x76];
-    unsigned short wResultFlags;
-    unsigned int dwHitFlags;
-    unsigned int dwHitClass;
-    char unk0x138[0x104];
-};
 
 
 typedef int (__fastcall* AURACALLBACK)(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit);
@@ -158,12 +138,6 @@ void __stdcall UNITS_SetOverlay(D2UnitStrc*, int, int); // 0x00621E40
 void __stdcall MISSILE_SetTargetX(D2UnitStrc*, int); // 0x0064A710
 void __stdcall MISSILE_SetTargetY(D2UnitStrc*, int); // 0x0064A760
 
-struct D2MonStatsTxt
-{
-    char unk0x000[0x168];
-    char nColdEffect[3];
-    char unk0x16B[0x1A8 - 0x16B];
-};
 
 void __fastcall SUNITDMG_ExecuteEvents(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int bMissile, D2DamageStrc* pDamage); // 0x0057C6C0
 void __fastcall SUNITDMG_ExecuteMissileDamage(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, D2DamageStrc* pDamage); // 0x0057CEE0
