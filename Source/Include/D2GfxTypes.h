@@ -12,6 +12,7 @@ struct D2GfxSettingsStrc;
 struct D2GfxPaletteViewStrc;
 struct D2SmackStrc;
 struct D2BinkStrc;
+struct D2SmackRecordStrc;
 struct D2BoundsStrc;
 struct D2ClipStrc;
 struct D2TileDrawFunctionsStrc;
@@ -62,6 +63,14 @@ struct D2SmackStrc
     int nFrameNum; // 0x374
 };
 
+struct D2SmackRecordStrc
+{
+    void* hSmack; // 0x00
+    unsigned char nType; // 0x04
+    int nX; // 0x08
+    int nY; // 0x0C
+};
+
 struct D2BinkStrc
 {
     unsigned int nWidth; // 0x00
@@ -101,6 +110,7 @@ D2_CHECK_SIZE(D2RgbColorStrc, 0x3);
 D2_CHECK_SIZE(D2GfxSettingsStrc, 0x18);
 D2_CHECK_SIZE(D2GfxPaletteViewStrc, 0x120);
 D2_CHECK_SIZE(D2SmackStrc, 0x378);
+D2_CHECK_SIZE(D2SmackRecordStrc, 0x10);
 D2_CHECK_SIZE(D2BinkStrc, 0x10);
 D2_CHECK_SIZE(D2BoundsStrc, 0x10);
 D2_CHECK_SIZE(D2ClipStrc, 0x10);

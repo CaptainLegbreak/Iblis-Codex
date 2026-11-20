@@ -1,5 +1,4 @@
 #include "D2Direct3D.h"
-#include "D2D3DTypes.h"
 
 struct D2DeviceStrc;
 struct D2Rect006B7ED0Strc;

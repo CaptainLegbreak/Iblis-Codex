@@ -124,7 +124,7 @@ struct D2D3DDeviceVtbl
     void* SetTransform; // 0x64
     void* GetTransform; // 0x68
     void* MultiplyTransform; // 0x6C
-    long (__stdcall* DrawPrimitive)(D2D3DDeviceStrc* pThis, int nType, unsigned int dwFVF, void* pVertices, unsigned int nCount, unsigned int dwFlags); // 0x70
+    long (__stdcall* DrawPrimitive)(D2D3DDeviceStrc* pThis, unsigned int nType, unsigned int dwFVF, void* pVertices, unsigned int nCount, unsigned int dwFlags); // 0x70
     long (__stdcall* DrawIndexedPrimitive)(D2D3DDeviceStrc* pThis, int nType, unsigned int dwFVF, D2TLVertexStrc* pVertices, unsigned int nVertices, unsigned short* pIndices, unsigned int nIndices, unsigned int dwFlags); // 0x74
     void* SetClipStatus; // 0x78
     void* GetClipStatus; // 0x7C

@@ -86,10 +86,10 @@ void __fastcall sub_00513330_DDrawCloseSmacker(D2SmackRecordStrc* pRecord)
         FOG_Free(gpDDrawSmackBuffer_008816B0, szDDSmackFile_006DE20C, 0xF0, 0);
         gpDDrawSmackBuffer_008816B0 = 0;
     }
-    if (pRecord->nType == 's' && pRecord->f_0)
+    if (pRecord->nType == 's' && pRecord->hSmack)
     {
-        SmackClose(pRecord->f_0);
-        pRecord->f_0 = 0;
+        SmackClose(pRecord->hSmack);
+        pRecord->hSmack = 0;
     }
 }
 

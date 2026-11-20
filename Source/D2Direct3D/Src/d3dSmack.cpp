@@ -1,5 +1,4 @@
 #include "D2Direct3D.h"
-#include "D2D3DTypes.h"
 
 #define gnHandle_00989760 (gVideoVertices_00989750[0].dwColor)
 #define gnHandle_00989780 (gVideoVertices_00989750[1].dwColor)

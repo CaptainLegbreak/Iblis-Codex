@@ -1,42 +1,23 @@
 #include "D2Direct3D.h"
-#include "D2D3DTypes.h"
 
-struct D2VideoHandleStrc
-{
-    D2SmackStrc* handle;
-    char type;
-    unsigned char pad_0005[3];
-    int x;
-    int y;
-};
-void __fastcall sub_006B9BB0_CloseSmack(D2VideoHandleStrc* video); // 0x006B9BB0
+void __fastcall sub_006B9BB0_CloseSmack(D2SmackRecordStrc* video); // 0x006B9BB0
 void __cdecl sub_006B9BD0_Apply(); // 0x006B9BD0
-struct D2VideoBlitDevice;
-struct D2VideoBlitDeviceVtbl
-{
-    void* slots_0000[28];
-    long (__stdcall* DrawPrimitive)(D2VideoBlitDevice*, unsigned int,
-        unsigned int, void*, unsigned int, unsigned int);
-    void* slots_0074[9];
-    long (__stdcall* SetTexture)(D2VideoBlitDevice*, unsigned int, void*);
-};
-struct D2VideoBlitDevice { D2VideoBlitDeviceVtbl* lpVtbl; };
-extern D2VideoBlitDevice* gpDevice_00970E78; // 0x00970E78
+extern D2D3DDeviceStrc* gpDevice_00970E78; // 0x00970E78
 D2TLVertexStrc gVideoVertices_00989750[4];        // 0x00989750
 void __fastcall sub_006B1EA0_SetState(int nState); // 0x006B1EA0
 void __fastcall sub_006B1F40_SetBlendMode(int nState); // 0x006B1F40
 void __fastcall sub_006B2030_SetFilterMode(int nMode); // 0x006B2030
 
 // 0x006B9C40
-static void __stdcall sub_006B9C40_BlitVideo(D2VideoHandleStrc* video, int width, int height)
+static void __stdcall sub_006B9C40_BlitVideo(D2SmackRecordStrc* video, int width, int height)
 {
-    const int top = video->y - height;
-    const int bottom = video->y;
+    const int top = video->nY - height;
+    const int bottom = video->nY;
     sub_006B1EA0_SetState(1);
     sub_006B1F40_SetBlendMode(1);
     sub_006B2030_SetFilterMode(1);
 
-    int x = video->x;
+    int x = video->nX;
     int right = x + 256;
     gVideoVertices_00989750[0].fX = (float)x;
     gVideoVertices_00989750[0].fY = (float)top;
@@ -97,13 +78,13 @@ static void __stdcall sub_006B9C40_BlitVideo(D2VideoHandleStrc* video, int width
 }
 
 // 0x006BA390
-void __fastcall sub_006BA390_PlaySmack(D2VideoHandleStrc* pVideo)
+void __fastcall sub_006BA390_PlaySmack(D2SmackRecordStrc* pVideo)
 {
-    switch (pVideo->type)
+    switch (pVideo->nType)
     {
     case 's':
     {
-        D2SmackStrc* pSmack = pVideo->handle;
+        D2SmackStrc* pSmack = (D2SmackStrc*)pVideo->hSmack;
         if (!pSmack)
         {
             return;

@@ -1,5 +1,4 @@
 #include "D2Direct3D.h"
-#include "D2D3DTypes.h"
 
 #define WRITE_CORNER(i) pVertices[i].dwColor=PackGridColor(pPoints[i],nAlpha); pVertices[i].fX=(float)pPoints[i].nX; pVertices[i].fY=(float)pPoints[i].nY;
 struct D2DrawDeviceStrc;

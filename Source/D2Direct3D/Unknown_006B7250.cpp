@@ -1,7 +1,5 @@
 #include "D2Direct3D.h"
 #include "D2DDrawTypes.h"
-#include "D2D3DTypes.h"
-#include "D2GfxTypes.h"
 
 #define ASSERT(expr,line) if (!(expr)) { sub_00408A60(gszEmpty_006CC837,sub_00408090(),line); exit(-1); }
 #define MIN(a,b) ((a)<(b)?(a):(b))
