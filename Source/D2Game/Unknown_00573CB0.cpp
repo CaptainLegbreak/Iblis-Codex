@@ -40,7 +40,6 @@ void __fastcall MONSTER_GetPlayerCountBonus(D2GameStrc*,D2PlayerCountBonusStrc*,
 void __fastcall sub_005739D0_SetMonsterSeed(int,D2UnitStrc*); // 0x005739D0
 void __fastcall SKILLS_EquipMonsterFromTable(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pPet, int nSkillId, int nSkillLevel, int nItemLevel, int bCheckOnInit); // 0x005D6B60
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc*); // 0x0061A1B0
-int __stdcall DATATBLS_GetMonsterLevelInArea(int nLevelId, unsigned char nDifficulty, int bExpansion); // 0x0061DCA0
 D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
 void __stdcall sub_00626D40_SetStatCallback(D2UnitStrc*,int,void(__fastcall*)(D2UnitStrc*,int,int,int,void*),D2GameStrc*); // 0x00626D40
 void __stdcall sub_00626E10(D2UnitStrc*,D2StatListStrc*,int); // 0x00626E10

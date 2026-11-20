@@ -25,7 +25,6 @@ extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 extern "C" char* __cdecl strcat(char* szDest, const char* szSource);
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
 extern "C" __declspec(dllimport) void* __stdcall CreateFileA(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x006CC19C
-int __cdecl STRTABLE_GetLanguage(); // 0x00525150
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 void __fastcall sub_00478590(char nValue); // 0x00478590
 void __fastcall sub_00482CA0_RaiseAuxLevel(int nIndex); // 0x00482CA0

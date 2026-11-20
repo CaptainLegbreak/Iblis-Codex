@@ -1,7 +1,6 @@
 #include "D2Client.h"
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
-int __cdecl STRTABLE_GetLanguage();                                                                         // 0x00525150
 
 // 0x0042FCE0
 static int sub_0042FCE0_ArchiveFilePresent(const char* szFile)

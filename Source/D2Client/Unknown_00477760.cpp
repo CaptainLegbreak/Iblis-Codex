@@ -59,7 +59,6 @@ struct D2ClientCharRecordStrc
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize);
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 int __cdecl sub_0047AA30_HasClassOverride(); // 0x0047AA30
-int __cdecl STRTABLE_GetLanguage(); // 0x00525150
 extern unsigned char gbGlobal_007A0522; // 0x007A0522
 extern D2ClientCharRecordStrc* gpCharRecord_007A0438; // 0x007A0438
 extern char gszCharName_007A05C4[]; // 0x007A05C4

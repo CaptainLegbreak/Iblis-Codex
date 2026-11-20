@@ -25,7 +25,6 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalS
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
 D2GameStrc* __fastcall GAME_LockGame(int nGameGUID);                                                        // 0x0052E860
 void __fastcall GAME_UpdateProgress(D2GameStrc* pGame);                                                     // 0x0052D870
-long __cdecl sub_00410A80_GetTimeSeconds(); // 0x00410A80
 void __fastcall sub_0053B220_SendHeaderOnly0xB0(int nClientId);                                             // 0x0053B220
 void __fastcall ClientRemoveFromGame(D2GameStrc* pGame, int nClientId, int bTriggerSave);          // 0x00539DA0
 void __fastcall GAME_LeaveGamesCriticalSection(D2GameStrc* pGame);                                          // 0x0052DA90

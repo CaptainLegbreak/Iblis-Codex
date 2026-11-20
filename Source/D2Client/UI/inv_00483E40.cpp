@@ -209,7 +209,6 @@ extern D2InvRectStrc gRect_007BCBB0; // 0x007BCBB0
 extern D2InvCompGridStrc gaCompGrids_007BCC58[11]; // 0x007BCC58
 static __declspec(noinline) void __stdcall sub_004839D0_DrawGridCells(D2InventoryGridInfoStrc* pGrid, int nX, int nY, unsigned char nWidth, unsigned char nHeight, int nColor);
 char* __stdcall ITEMS_GetEarName(D2UnitStrc* pItem); // 0x00628340
-int __cdecl STRTABLE_GetLanguage(); // 0x00525150
 void __fastcall sub_005272B0_FormatText(Unicode* pDst, const Unicode* pText, const Unicode* pFormat, int nMaxLength, int nLanguage); // 0x005272B0
 
 struct UnicodeChar : Unicode

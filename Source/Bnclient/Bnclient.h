@@ -22,12 +22,12 @@ int __cdecl sub_0051BCF0_SendBuffer(); // 0x0051BCF0
 int __cdecl sub_00527AE0_CompareKey(const void* pLeft, const void* pRight); // 0x00527AE0
 int __fastcall sub_0051C5C0_SendPacket(unsigned char nId, const void* pData, unsigned int nSize); // 0x0051C5C0
 int __fastcall sub_0051E370_SetText(const char* szText, int nLength); // 0x0051E370
-int __fastcall sub_0051F910_Report(int nType, int nSubType, unsigned int nArg1, unsigned int nArg2, const D2FileTimeStrc* pFileTime, const char* szText1, const char* szText2); // 0x0051F910
+void __fastcall sub_0051F910_Report(int nType, int nSubType, unsigned int nArg1, unsigned int nArg2, const D2FileTimeStrc* pFileTime, const char* szFile, const char* szLink); // 0x0051F910
 int __fastcall sub_00520520_SetState(int nState); // 0x00520520
 int __fastcall sub_00520550_SetStateArg(void* pArg); // 0x00520550
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 int __fastcall sub_0052A600(void* pArg); // 0x0052A600
-int __stdcall SRegSaveData(const char* szKeyName, const char* szValueName, unsigned int nFlags, const void* pData, unsigned int nSize); // 0x00415000
+int __stdcall SRegSaveData(const char* szKeyName, const char* szValueName, unsigned int nFlags, const void* pData, unsigned long nSize); // 0x00415000
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 void __fastcall sub_00529F50_Sha1Init(D2SrpSha1ContextStrc* pContext); // 0x00529F50
 void __fastcall sub_00529F80_Sha1Update(D2SrpSha1ContextStrc* pContext, const unsigned char* pData, unsigned int nLength); // 0x00529F80

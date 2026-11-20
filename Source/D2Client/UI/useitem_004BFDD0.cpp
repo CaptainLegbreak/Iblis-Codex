@@ -184,7 +184,6 @@ int __stdcall sub_004F6480(D2CelContextStrc*,int,int,int,int,int); // 0x004F6480
 
 int __fastcall sub_00501820(const Unicode*); // 0x00501820
 
-int __stdcall D2Win_10125(); // 0x00501A40
 
 void __fastcall sub_00502320(const Unicode*,int,int,int,int); // 0x00502320
 

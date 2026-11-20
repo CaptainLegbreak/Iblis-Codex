@@ -20,7 +20,6 @@ struct D2GameLogonPacketStrc
 };
 
 D2ClientInterfaceStrc* __cdecl sub_0044D540_GetClientInterface();                                           // 0x0044D540
-int __cdecl STRTABLE_GetLanguage(); // 0x00525150
 int __cdecl sub_0047AA30_HasClassOverride();                                                                // 0x0047AA30
 extern char gszCharName_007A05C4[];                                                                         // 0x007A05C4
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x004135D0

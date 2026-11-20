@@ -10,7 +10,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" char* __cdecl strrchr(const char* szString, int nChar); // 0x00682990
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
-extern "C" void __fastcall FOG_Free(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x0040B3C0
+int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 int __stdcall SFileOpenArchive(const char*,int,unsigned int,void**); // 0x0041BA60
 unsigned int __stdcall SStrCopy(char*,const char*,unsigned int); // 0x004135D0
 unsigned int __stdcall sub_00413800(char*,const char*,unsigned int); // 0x00413800

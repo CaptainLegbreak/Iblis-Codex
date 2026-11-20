@@ -353,7 +353,6 @@ extern int gnGlobal_0072D88C; // 0x0072D88C
 void __fastcall sub_004A7080(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
 void __fastcall sub_004ED570_DrawSkillPanel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int nSlot); // 0x004ED570
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
-int __cdecl STRTABLE_GetLanguage(); // 0x00525150
 D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit); // 0x00620190
 D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
 

@@ -263,7 +263,6 @@ extern int gdwGlobal_00779974; // 0x00779974
 void __fastcall sub_00433380_ShowMessage(const Unicode* pText, D2LaunchDoneFn pfnDone, int nArg); // 0x00433380
 extern "C" void _ReadWriteBarrier(void);
 void* __cdecl sub_00449AC0_GetHandle(); // 0x00449AC0
-int __cdecl sub_00449C00(); // 0x00449C00
 int __cdecl sub_00432350_GetStatus(); // 0x00432350
 extern "C" int __cdecl strcmp(const char* szA, const char* szB);
 

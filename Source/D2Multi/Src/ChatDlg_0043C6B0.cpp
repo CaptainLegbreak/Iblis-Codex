@@ -48,7 +48,6 @@ struct D2LaunchCharInfoStrc
 };
 int __fastcall sub_00407050_GetSavePath(char* szPath, int nSize); // 0x00407050
 void* __fastcall sub_00406960_CreateFile(const char* szPath, unsigned long dwAccess, unsigned long dwShare, void* pSecurity, unsigned long dwCreation, unsigned long dwFlags, void* hTemplate); // 0x00406960
-int __fastcall sub_004069A0_CloseFile(void* hFile); // 0x004069A0
 int __fastcall sub_004069B0_ReadFile(void* hFile, void* pBuffer, unsigned long nSize, unsigned long* pRead, void* pOverlapped); // 0x004069B0
 int __fastcall sub_004069D0_WriteFile(void* hFile, const void* pBuffer, unsigned long nSize, unsigned long* pWritten, void* pOverlapped); // 0x004069D0
 unsigned long __fastcall sub_004069F0_SetFilePointer(void* hFile, long nDistance, long* pDistanceHigh, unsigned long dwMethod); // 0x004069F0

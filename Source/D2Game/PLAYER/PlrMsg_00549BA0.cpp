@@ -96,7 +96,6 @@ int __stdcall sub_00623660_IsInObjectInteractRange(D2UnitStrc* pUnit, D2UnitStrc
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
-int __stdcall ITEMS_CanBeEquipped(D2UnitStrc* pItem); // 0x0062A4E0
 int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem); // 0x0062B400
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 int __stdcall INVENTORY_CompareWithItemsParentInventory(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063AD50
@@ -128,7 +127,6 @@ struct D2PacketTableStrc { PacketCallback pfCallback; int nSize; };
 
 extern D2PacketTableStrc sgcptIncomingMessageChart[]; // 0x006E0D18
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(void*); // 0x006CC34C
-long __cdecl sub_00410A80_GetTimeSeconds(); // 0x00410A80
 int __fastcall sub_0057EEC0(D2GameStrc*,D2UnitStrc*,int,int,D2SkillStrc*); // 0x0057EEC0
 
 inline int PLRMSG_IsBodyLocValid(int nBodyLoc)

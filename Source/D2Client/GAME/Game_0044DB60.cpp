@@ -83,7 +83,6 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 D2CellFileStrc* __fastcall sub_004788B0_LoadCellFile(const char* szPath, int nType); // 0x004788B0
 int __stdcall D2Win_10028(const char* pszPalDatFilename, const char* pszPalPL2Filename); // 0x004FB500
 void __fastcall sub_004547B0(); // 0x004547B0
-int __cdecl STRTABLE_GetLanguage(); // 0x00525150
 void __fastcall sub_00478130_SetScale(int nValue, int nDivisor); // 0x00478130
 D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0

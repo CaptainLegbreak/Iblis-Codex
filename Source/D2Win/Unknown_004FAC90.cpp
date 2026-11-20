@@ -15,7 +15,6 @@ struct D2ConfigStrc { char unk00[0x211]; int (__cdecl* expansion)(); };
 
 #pragma pack(pop)
 
-int __cdecl sub_00408F20_HasExpansionMpq(); // 0x00408F20
 void __cdecl ARCHIVE_UnloadExpansionArchives(); // 0x004FAD70
 void* __fastcall sub_00517332_LoadMpqFile(const char*,void*,DiscCallback,int); // 0x00517332
 extern void* ghXMusic_007D5604; // 0x007D5604

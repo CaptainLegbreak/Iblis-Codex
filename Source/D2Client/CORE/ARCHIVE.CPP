@@ -2,7 +2,6 @@
 
 extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 extern "C" char* __cdecl strcat(char* szDst, const char* szSrc);
-void* __stdcall D2Win_GetArchive();                                                                             // 0x004FAC80
 void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
 void __stdcall CelFileNormalize(D2CelFileStrc* pFile, D2CelFileStrc** ppOutFile, const char* szFile, int nLine, int nSpecVersion, const char* szPath); // 0x00601340
 

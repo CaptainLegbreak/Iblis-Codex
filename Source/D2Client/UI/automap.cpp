@@ -465,7 +465,6 @@ int __fastcall sub_004AE380_IsMinionMonster(D2UnitStrc* pUnit); // 0x004AE380
 void __fastcall sub_004ADEA0_GetMonsterName(D2UnitStrc* pUnit, Unicode* wszName, int nLength, unsigned short nNameId); // 0x004ADEA0
 D2AutomapCellStrc* __cdecl sub_00457C30(); // 0x00457C30
 int __fastcall sub_00457B00(D2AutomapCellStrc* pCell, D2AutomapCellStrc** ppRoot); // 0x00457B00
-void __stdcall DUNGEON_ClientToGameSubtileCoords(int* pX, int* pY); // 0x00643510
 void __stdcall sub_00643260(int* pX, int* pY); // 0x00643260
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
