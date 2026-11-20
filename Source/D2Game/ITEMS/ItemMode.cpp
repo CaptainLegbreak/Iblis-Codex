@@ -2,6 +2,9 @@
 #include "D2Constants.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Structs.h"
+#include "D2GameStrc.h"
+#include "D2LevelTxt.h"
 
 #pragma intrinsic(_ReadWriteBarrier)
 
@@ -22,7 +25,7 @@
 #define ITEMTYPE_GOLD 4
 #define UNITFLAG_ISRESURRECT 0x02000000
 
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2TradeItemStrc;
 struct D2SkillsTxt;
 struct D2ItemsTxt;
@@ -54,53 +57,6 @@ struct D2DynamicPathStrc;
 
 extern unsigned char gaByteTable_007455C0[256]; // 0x007455C0
 extern unsigned char gaByteTable_00745640[256]; // 0x00745640
-
-struct D2GameStrc
-{
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-    char unk0x6E[0x2];
-    int bExpansion;
-    int dwGameType;
-    unsigned short wItemFormat;
-    unsigned char unk_7A[0x2E];
-    unsigned int dwGameFrame;
-    char unk0xAC[0x24];
-    int pGameSeed;
-};
-
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    union
-    {
-        D2ItemDataStrc* pItemData;
-        D2PlayerDataStrc* pPlayerData;
-    };
-    unsigned char unk_18[0x8];
-    D2SeedStrc pSeed;
-    unsigned int dwInitSeed;
-    union
-    {
-        D2StaticPathStrc* pStaticPath;
-        D2DynamicPathStrc* pDynamicPath;
-    };
-    char unk0x30[0x60 - 0x2C - 4];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0x60];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-};
 
 void __fastcall sub_0055DBC0_RecalcEquippedItemStates(D2GameStrc* pGame, D2UnitStrc* pUnit, int nArg); // 0x0055DBC0
 void __fastcall sub_005FE000_StoreTileFreeCallback(void* pfnCallback); // 0x005FE000
@@ -138,19 +94,12 @@ struct D2CoordStrc
     int nY;
 };
 
-
 struct D2PetInfoStrc
 {
     unsigned int nSeed;
     unsigned short wName;
     short unk0x06;
     int nHirelingId;
-};
-
-struct D2HirelingTxt
-{
-    char unk0x00[0x114];
-    unsigned short wNameFirst;
 };
 
 struct D2SaveHeaderStrc
@@ -162,8 +111,6 @@ struct D2SaveHeaderStrc
     unsigned char wMercHirelingId[2];
     unsigned char nMercExperience[4];
 };
-
-typedef int D2CorpseStrc;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -183,7 +130,7 @@ void __fastcall PLRTRADE_AddGold(D2UnitStrc* pUnit, int nStat, int nValue); // 0
 void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nEventCustomId); // 0x00540E60
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
 void __fastcall QUESTS_ItemDropped(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem); // 0x00543DB0
-void __fastcall SUNIT_InitSeed(D2UnitStrc* pUnit, int* pSeed); // 0x00552DF0
+void __fastcall SUNIT_InitSeed(D2UnitStrc* pUnit, D2SeedStrc* pSeed); // 0x00552DF0
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 void __fastcall SUNIT_InitClientInPlayerData(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00553180
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
@@ -248,7 +195,6 @@ void __fastcall sub_00571600(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x005
 int __stdcall ITEMS_CheckIfSocketable(D2UnitStrc* pItem); // 0x00629900
 unsigned int __stdcall INVENTORY_GetItemCount(D2InventoryStrc* pInventory); // 0x0063CD60
 
-
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 unsigned int __stdcall ITEMS_CheckWeaponIfTwoHanded(D2UnitStrc* pItem); // 0x006289C0
@@ -261,23 +207,8 @@ int __stdcall ITEMS_GetAmmoType(D2UnitStrc* pItem); // 0x0062E6F0
 void __stdcall ITEMS_GetAllowedBodyLocations(D2UnitStrc* pItem, unsigned char* pBodyLoc1, unsigned char* pBodyLoc2); // 0x0062EA80
 int __stdcall ITEMS_GetQuiverType(D2UnitStrc* pItem); // 0x0062E740
 
-enum
-{
-};
-
 D2UnitStrc* __fastcall AIGENERAL_GetMinionOwner(D2UnitStrc* pUnit); // 0x0058F0D0
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBeltSlot(D2InventoryStrc*, int); // 0x0063C7F0
-
-
-struct D2DifficultyLevelsTxt
-{
-    char pad00[0x08];
-    int dwUberCodeOddsNorm;
-    int dwUberCodeOddsGood;
-    char pad10[0x20 - 0x10];
-    int dwUltraCodeOddsNorm;
-    int dwUltraCodeOddsGood;
-};
 
 struct D2ItemCodeListStrc
 {
@@ -294,21 +225,6 @@ D2DifficultyLevelsTxt* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int nDiff
 D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId); // 0x00633640
 void __stdcall sub_0055C2C0(D2UnitStrc* pItem, int nArg); // 0x0055C2C0
 void __stdcall sub_0055A2A0(D2UnitStrc* pUnit, int nArg); // 0x0055A2A0
-
-struct D2StatStrc
-{
-    union
-    {
-        struct
-        {
-            unsigned short nLayer;
-            unsigned short nStat;
-        };
-        int nPackedValue;
-    };
-    int nValue;
-};
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __stdcall ITEMMODS_UpdateItemWithSkillCharges(D2UnitStrc* pItem, int nSkillId, int nSkillLevel, int nCharges); // 0x0065C940
@@ -376,7 +292,6 @@ struct D2StaticPathStrc
     int nX;
     int nY;
 };
-
 
 struct D2ItemDropStrc
 {

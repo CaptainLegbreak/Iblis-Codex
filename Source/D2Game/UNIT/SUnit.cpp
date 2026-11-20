@@ -2,20 +2,11 @@
 #include "D2Constants.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Structs.h"
+#include "D2ItemsWorld.h"
+#include "D2GameStrc.h"
 
 struct D2MapAIStrc;
-struct D2PresetUnitStrc
-{
-    int nMode;
-    int nIndex;
-    int nXpos;
-    D2PresetUnitStrc* pNext;
-    D2MapAIStrc* pMapAI;
-    int nUnitType;
-    int nYpos;
-    unsigned int bSpawned;
-};
-
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define NUM_UNIT_TYPES 6
@@ -44,7 +35,7 @@ struct D2PresetUnitStrc
 struct D2MonsterRegionStrc;
 struct D2QuestChainStrc;
 struct D2ItemsTxt;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2PlayerDataStrc;
 struct T00552FD0;
 struct D2ItemDataStrc;
@@ -62,93 +53,10 @@ struct D2MonStatsTxt;
 struct D2AiTableStrc;
 struct D2PresetUnitStrc;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    union
-    {
-        D2PlayerDataStrc* pPlayerData;
-        D2ItemDataStrc* pItemData;
-        D2ObjectDataStrc* pObjectData;
-        D2MonsterDataStrc* pMonsterData;
-        void* f_14;
-    };
-    unsigned char nAct;
-    char unk0x19[0x3];
-    D2DrlgActStrc* pDrlgAct;
-    D2SeedStrc pSeed;
-    unsigned int dwInitSeed;
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    D2AnimSeqTxt* pAnimSeq;
-    int dwSeqFrameCount;
-    int dwSeqFrame;
-    int dwSeqSpeed;
-    int dwSeqMode;
-    int nSeqCurrentFramePrecise;
-    int dwFrameCountPrecise;
-    short wAnimSpeed;
-    char unk0x4E[0x02];
-    T00552FD0* pAnimData;
-    unsigned char unk_54[0xC];
-    D2InventoryStrc* pInventory;
-    int dwInteractGUID;
-    int dwInteractType;
-    unsigned char nInteract;
-    unsigned char unk_6D[0x1];
-    short nUpdateType;
-    D2UnitStrc* pUpdateUnit;
-    D2QuestChainStrc* pQuestEventList;
-    unsigned char bSparkChest;
-    char unk0x79[7];
-    D2GameStrc* pGame;
-    unsigned char unk_84[0x10];
-    int dwOwnerType;
-    int dwOwnerGUID;
-    int dwKillerType;
-    int dwKillerGUID;
-    char unk0xA4[0x20];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-    char unk0xCC[0x18];
-    D2UnitStrc* pListNext;
-};
-
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    unsigned char unk_20[0x50];
-    int bExpansion;
-    unsigned char unk_74[0x1C];
-    int dwLastUsedUnitGUID[6];
-    int dwGameFrame;
-    unsigned char unk_AC[0x10];
-    D2DrlgActStrc* pAct[5];
-    unsigned char unk_D0[0x20];
-    D2MonsterRegionStrc* pMonReg[1024];
-    unsigned char unk_10F0[0x30];
-    D2UnitStrc* pUnitList[5][128];
-    D2UnitStrc* pTileList;
-};
 
 void __fastcall sub_6FCBC7E0(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553490
 void __fastcall SUNITDMG_FreeAttackerCombatList(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0057C980
@@ -197,14 +105,6 @@ struct D2ActiveRoomStrc
     char unk0x4C[0x2C];
     int nNumClients;
 };
-
-struct D2ItemDataStrc
-{
-    char unk0x00[0x24];
-    int dwActionStamp;
-};
-
-
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
@@ -367,8 +267,6 @@ struct Obj00554190 {
     unsigned char nValue6C;
 };
 
-
-
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 void __fastcall AIGENERAL_GetOwnerData(D2UnitStrc* pUnit, int* pOwnerGUID, int* pOwnerType); // 0x0058F090
@@ -401,7 +299,6 @@ D2UnitStrc* __stdcall CLIENTS_GetPlayerFromClient(D2ClientStrc* pClient, int bIg
 void __fastcall sub_00571F90(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00571F90
 void __fastcall sub_00571600(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00571600
 void __stdcall sub_00648B40_roomInvalid(D2DynamicPathStrc* pPath, int bValue); // 0x00648B40
-
 
 struct D2AiTableStrc
 {
@@ -800,7 +697,7 @@ void __fastcall sub_6FCBD120(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3)
     }
 
     {
-        T00552FD0* pAnimData = pUnit->pAnimData;
+        T00552FD0* pAnimData = (T00552FD0*)pUnit->pAnimData;
         int nIndex = nCalc - 1;
         int nAnimFrame = nCalc << 8;
         while (nAnimFrame + nAnimSpeed < nFrameCount)
@@ -872,7 +769,7 @@ void __fastcall D2GAME_SKILLS_RewindSkillEx_6FCBD260(D2GameStrc* pGame, D2UnitSt
     }
 
     {
-        T00552FD0* pAnimData = pUnit->pAnimData;
+        T00552FD0* pAnimData = (T00552FD0*)pUnit->pAnimData;
         int nIndex = a3 - 1;
         int nAnimFrame = a3 << 8;
         while (nAnimFrame + nAnimSpeed < nFrameCount)
@@ -1229,7 +1126,7 @@ void __fastcall sub_00553B10(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3)
     }
 
     {
-        T00552FD0* pAnimData = pUnit->pAnimData;
+        T00552FD0* pAnimData = (T00552FD0*)pUnit->pAnimData;
         int nIndex = nCalc - 1;
         int nAnimFrame = nCalc << 8;
         while (nAnimFrame + nAnimSpeed < nFrameCount)
@@ -1648,7 +1545,7 @@ void __fastcall SUNIT_RemoveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit)
     case UNIT_OBJECT:
         OBJECTS_FreeHoverMessage(pGame, pUnit);
         UNITS_FreeStaticPath(pUnit);
-        FOG_FreePool(pGame->pMemoryPool, pUnit->f_14, ".\\UNIT\\SUnit.cpp", 0xA4, 0);
+        FOG_FreePool(pGame->pMemoryPool, pUnit->pPlayerData, ".\\UNIT\\SUnit.cpp", 0xA4, 0);
         break;
 
     case UNIT_MISSILE:

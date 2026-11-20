@@ -1,4 +1,6 @@
 #include "D2Game.h"
+#include "D2GameStrc.h"
+#include "D2Structs.h"
 
 #define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
 struct D2PlayerDataStrc;
@@ -14,22 +16,6 @@ struct D2CoordStrc
 {
     int nX;
     int nY;
-};
-
-struct D2GameStrc
-{
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-    char unk0x6E[0x02];
-    int bExpansion;
-};
-
-struct D2UnitStrc
-{
-    char unk0x00[0x04];
-    unsigned short dwClassId;
-    char unk0x06[0xBE];
-    unsigned int dwFlags;
 };
 
 struct D2PlayerDataStrc
@@ -264,7 +250,7 @@ void __fastcall ACT4Q2_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
 // 0x005B4F90
 void __fastcall ACT4Q2_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
-    if (!pQuestArg->pTarget || pQuestArg->pTarget->dwClassId != 0x16F)
+    if (!pQuestArg->pTarget || (unsigned short)pQuestArg->pTarget->dwClassId != 0x16F)
     {
         return;
     }

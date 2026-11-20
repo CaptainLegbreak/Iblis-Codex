@@ -3,6 +3,9 @@
 #include "D2DataTbls.h"
 #include "D2Unicode.h"
 #include "D2Win32Types.h"
+#include "D2Structs.h"
+#include "D2Path.h"
+#include "D2ClientMenus.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define CHECK(c,line) if(!(c)) { sub_00408A60(&empty,sub_00408090(),line); exit(-1); }
@@ -32,44 +35,7 @@ struct D2NpcEntryStrc;
 class D2NpcTradeObjStrc;
 struct Unit;
 struct UnicodeChar;
-struct D2SeedStrc;
-
-struct D2StaticPathStrc
-{
-    void* pRoom;
-    int dwClientCoordX;
-    int dwClientCoordY;
-    int nXPos;
-    int nYPos;
-};
-
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-    unsigned char unk_18[0x8];
-    D2SeedStrc tSeed;
-    unsigned char unk_28[0x4];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x30];
-    D2InventoryStrc* pInventory;
-    unsigned char unk_64[0x60];
-    unsigned int dwFlags;
-};
+union D2SeedStrc;
 
 struct D2MonStatsTxt
 {
@@ -209,23 +175,7 @@ struct D2NpcIndexStrc
 extern D2NpcQuestHandlerStrc gaNpcHandlers_007253E0[]; // 0x007253E0
 extern D2NpcIndexStrc gaNpcIndex_00726C48[]; // 0x00726C48
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
-
 #pragma pack(push, 2)
-struct D2NpcEntryStrc
-{
-    int nId;
-    char unk0x04[0x0D];
-    char bSelected;
-    char bFlag;
-    char unk0x13;
-    char bFlag14;
-    char bRefreshed;
-};
 
 #pragma pack(pop)
 typedef char check_size_npcentry[(sizeof(D2NpcEntryStrc) == 0x16) ? 1 : -1];
@@ -393,7 +343,7 @@ int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 extern Unicode gwszCost_007C0DF5[]; // 0x007C0DF5
 
-typedef char sub_I16_AssertUnitSeed[(int)&((D2UnitStrc*)0)->tSeed == 0x20 ? 1 : -1];
+typedef char sub_I16_AssertUnitSeed[(int)&((D2UnitStrc*)0)->pSeed == 0x20 ? 1 : -1];
 
 typedef char sub_I16_AssertUnitInventory[(int)&((D2UnitStrc*)0)->pInventory == 0x60 ? 1 : -1];
 
@@ -1581,7 +1531,7 @@ void __cdecl sub_004B4DB0_OpenGreetingDialog()
     aStrings[nStrings++] = 0xD3D;
     aStrings[nStrings++] = 0xD3E;
     D2UnitStrc* pPlayer = sub_00463DD0();
-    const unsigned int nRoll = NPCDLG_RollSeed_Inline(&pPlayer->tSeed) % nStrings;
+    const unsigned int nRoll = NPCDLG_RollSeed_Inline(&pPlayer->pSeed) % nStrings;
     sub_004B85F0_AddTextLine(gpDialog_007C0D7B, D2LANG_GetStringFromTblIndex(aStrings[nRoll]), 0xF, 0, 0, 1, sub_004B4730_NpcMenuTalk, 1);
     sub_004B85F0_AddTextLine(gpDialog_007C0D7B, D2LANG_GetStringFromTblIndex(0x102E), 0xF, 0, 0, 1, sub_004B4670_NpcMenuCancelText, 1);
     sub_004B82F0_Select(gpDialog_007C0D7B, 1);

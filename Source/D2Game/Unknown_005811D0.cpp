@@ -1,43 +1,16 @@
 #include "D2Game.h"
+#include "D2Structs.h"
+#include "D2GameStrc.h"
 
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2ObjectControlStrc;
 struct D2PortalFlags00581410Strc;
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-};
 
 typedef int (__fastcall* D2ModeCheckFn)(D2GameStrc*, D2UnitStrc*, int, int);
 
 extern D2ModeCheckFn gpModeChecks_00732C10[]; // 0x00732C10
 
-struct D2GameStrc
-{
-    char unk0x00[0xA8];
-    int dwGameFrame;
-    char unk0xAC[0x10];
-    D2DrlgActStrc* pAct;
-};
-
 void __fastcall sub_6FC81250(D2GameStrc*, D2UnitStrc*, int, int); // 0x00581020
-
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
-
-struct D2ObjectControlStrc
-{
-    D2SeedStrc pSeed;
-};
-
 
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
 D2ObjectControlStrc* __fastcall OBJRGN_GetObjectControlFromGame(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom); // 0x00546FA0
@@ -71,6 +44,7 @@ void __fastcall sub_005811D0_CheckPlayerMode(D2GameStrc* pGame, D2UnitStrc* pUni
 
 #include "gen/data/Source/D2Game/Unknown_005811D0.inc"
 #include "D2Txt.h"
+#include "D2ItemsWorld.h"
 
 inline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
@@ -102,7 +76,7 @@ void __fastcall sub_00581250_ObjectTimer_Light(D2GameStrc* pGame, D2UnitStrc* pO
         return;
     }
 
-    switch (ENVIRONMENT_GetPeriodOfDayFromAct(pGame->pAct, 0))
+    switch (ENVIRONMENT_GetPeriodOfDayFromAct(pGame->pAct[0], 0))
     {
     case 0:
         if ((unsigned short)nMode == 2 || (unsigned short)nMode == 1)

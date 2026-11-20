@@ -2,6 +2,8 @@
 #include "D2Constants.h"
 #include "D2DataTbls.h"
 #include "D2GameTypes.h"
+#include "D2Structs.h"
+#include "D2GameStrc.h"
 
 #define D2_MAX(a, b) ((a) < (b) ? (b) : (a))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -15,44 +17,6 @@ union D2SeedStrc;
 struct D2NecroSkeletonComponentStrc;
 struct D2StaticPathStrc;
 struct D2SummonArgStrc;
-
-struct D2GameStrc
-{
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-    unsigned char unk_6E[0x3A];
-    int dwGameFrame;
-};
-
-union D2SeedStrc
-{
-    struct
-    {
-        unsigned int nLowSeed;
-        unsigned int nHighSeed;
-    };
-    unsigned __int64 lSeed;
-};
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    unsigned char unk_10[0x4];
-    D2MonsterDataStrc* pMonsterData;
-    char unk0x18[0x08];
-    D2SeedStrc pSeed;
-    unsigned char unk_28[0x4];
-    union
-    {
-        D2PathRecordStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x94];
-    unsigned int dwFlags;
-};
 
 typedef void (__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);
 
@@ -84,7 +48,6 @@ struct D2UnkNecSkillStrc
     int nAuraEvent[3];
     int nAuraEventFunc[3];
 };
-
 
 enum D2SkillNecConstants
 {
@@ -226,7 +189,6 @@ void __fastcall AIGENERAL_SetOwnerData(D2GameStrc* pGame, D2UnitStrc* pUnit, int
 void __fastcall AIGENERAL_AllocMinionList(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pMinion); // 0x0058F100
 void __stdcall UNITS_StoreOwner(D2UnitStrc* pUnit, D2UnitStrc* pOwner); // 0x00621CE0
 void __stdcall sub_006488A0_SetDirection(D2PathRecordStrc* pPath, int nDirection); // 0x006488A0
-
 
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId); // 0x0045C4B0
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
@@ -701,7 +663,7 @@ static int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
         return pUnit->pStaticPath->nXPos;
     }
 
-    return pUnit->pDynamicPath ? sub_006488C0_PathGetX(pUnit->pDynamicPath) : 0;
+    return pUnit->pDynamicPath ? sub_006488C0_PathGetX((D2PathRecordStrc*)pUnit->pDynamicPath) : 0;
 }
 
 static int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
@@ -714,7 +676,7 @@ static int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
         return pUnit->pStaticPath->nYPos;
     }
 
-    return pUnit->pDynamicPath ? sub_00648900_PathGetY(pUnit->pDynamicPath) : 0;
+    return pUnit->pDynamicPath ? sub_00648900_PathGetY((D2PathRecordStrc*)pUnit->pDynamicPath) : 0;
 }
 
 // 0x005C5BC0
@@ -800,7 +762,7 @@ int __fastcall SKILLS_SrvDo062_BonePrison(D2GameStrc* pGame, D2UnitStrc* pUnit, 
             }
 
             UNITS_StoreOwner(pPet, pUnit);
-            sub_006488A0_SetDirection(pPet->pDynamicPath, PATH_ComputeDirection(UNITS_GetXPositionInline(pPet), UNITS_GetYPositionInline(pPet), nTargetX, nTargetY));
+            sub_006488A0_SetDirection((D2PathRecordStrc*)pPet->pDynamicPath, PATH_ComputeDirection(UNITS_GetXPositionInline(pPet), UNITS_GetYPositionInline(pPet), nTargetX, nTargetY));
         }
     }
 

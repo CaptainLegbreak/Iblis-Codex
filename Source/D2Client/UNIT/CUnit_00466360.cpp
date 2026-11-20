@@ -2,15 +2,10 @@
 #include "D2Constants.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Structs.h"
+#include "D2LevelTxt.h"
+#include "D2ClientTypes.h"
 struct D2InventoryStrc;
-
-struct D2GfxLightStrc;
-
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2ObjectDataStrc
 {
@@ -22,43 +17,6 @@ struct D2ActiveRoomStrc
 {
     char unk0x00[0x6C];
     D2SeedStrc pSeed;
-};
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    unsigned int dwUnitId;
-    int dwAnimMode;
-    union
-    {
-        D2ObjectDataStrc* pObjectData;
-        struct D2MonsterDataLocalStrc* pMonsterData;
-    };
-    unsigned char nAct;
-    char unk0x19[3];
-    D2DrlgActStrc* pDrlgAct;
-    D2SeedStrc pSeed;
-    unsigned int dwInitSeed;
-    D2DynamicPathStrc* pDynamicPath;
-    char unk0x30[0x54 - 0x30];
-    struct D2GfxDataStrc* pGfxData;
-    char unk0x58[0x60 - 0x58];
-    D2InventoryStrc* pInventory;
-    D2GfxLightStrc* pLight;
-    char unk0x68[0x94 - 0x68];
-    int dwOwnerType;
-    unsigned int dwOwnerGUID;
-    char unk0x9C[0xA4 - 0x9C];
-    void* pHoverText;
-    char unk0xA8[0xC4 - 0xA8];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-    char unk0xCC[0xD4 - 0xCC];
-    unsigned int dwLastSoundTick;
-    char unk0xD8[0xE4 - 0xD8];
-    D2UnitStrc* pListNext;
 };
 
 struct D2UnitSpawnExtraStrc
@@ -133,18 +91,6 @@ struct D2MonsterDataLocalStrc
 {
     char unk0x00[0x04];
     D2MonsterInfo16Strc tInfo;
-};
-
-struct D2SuperUniquesTxt
-{
-    char unk0x00[0x28];
-    unsigned char nModes[3];
-};
-
-struct D2ClientEntryStrc
-{
-    unsigned int dwValue;
-    unsigned short wValue;
 };
 
 struct D2HirelingInfoStrc
@@ -615,7 +561,7 @@ static D2UnitStrc* __stdcall sub_00465FD0_InitUnit(unsigned int nUnitId, int nCl
     pUnit->dwUnitType = nUnitType;
     pUnit->dwClassId = nClassId;
     pUnit->dwUnitId = nUnitId;
-    pUnit->dwLastSoundTick = 0;
+    pUnit->dwTickCount = 0;
     pUnit->pMemoryPool = 0;
 
     D2ActiveRoomStrc* pRoom = 0;
@@ -718,7 +664,7 @@ D2UnitStrc* __fastcall sub_00466200_CreatePlayerUnit(unsigned int nUnitId, int n
     pUnit->dwClassId = nClassId;
     pUnit->dwUnitType = 0;
     pUnit->dwUnitId = nUnitId;
-    pUnit->dwLastSoundTick = 0;
+    pUnit->dwTickCount = 0;
     pUnit->pMemoryPool = 0;
 
     D2ActiveRoomStrc* pRoom;
@@ -921,7 +867,7 @@ static __forceinline D2MonStats2Txt* sub_F4B0_GetMonStats2TxtFromMonsterId(int n
 
 static __forceinline D2MonsterInfo16Strc* sub_F4B0_GetMonsterInfo(D2UnitStrc* pUnit)
 {
-    D2MonsterDataLocalStrc* pMonsterData = pUnit->dwUnitType == UNIT_MONSTER ? pUnit->pMonsterData : 0;
+    D2MonsterDataLocalStrc* pMonsterData = pUnit->dwUnitType == UNIT_MONSTER ? (D2MonsterDataLocalStrc*)pUnit->pMonsterData : 0;
     return pMonsterData ? &pMonsterData->tInfo : 0;
 }
 
@@ -981,7 +927,7 @@ D2UnitStrc* __fastcall sub_00466360_AddClientMonster(D2UnitSpawnStrc* pSpawn, vo
     pUnit->dwClassId = pSpawn->nClassId;
     pUnit->dwUnitId = pSpawn->nUnitId;
     pUnit->pMemoryPool = 0;
-    pUnit->dwLastSoundTick = 0;
+    pUnit->dwTickCount = 0;
     D2ActiveRoomStrc* pRoom = sub_00465420_FindRoomBySubtile(nX, nY);
     SEED_InitSeed(&pUnit->pSeed);
     if (pRoom)

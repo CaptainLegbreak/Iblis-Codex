@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2GameStrc.h"
 struct D2QuestDataStrc;
 struct D2UnitStrc;
 
@@ -29,7 +30,7 @@ struct D2UnitStrc;
 #define LINE_STATUS_CLIENT 0x49A
 #define LINE_STATUS_QUESTNO 0x4B3
 #define LINE_STATUS_FILTER 0x4CB
-struct T005438E0;
+struct D2QuestInfoStrc;
 struct D2QuestChainStrc;
 struct D2PlayerDataStrc;
 struct D2MonStatsTxt;
@@ -45,27 +46,12 @@ struct D2QuestChainStrc
     D2QuestChainStrc* pNext;
 };
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    unsigned char unk_20[0x4D];
-    unsigned char nDifficulty;
-    char pad0x6E[0x2];
-    int bExpansion;
-    unsigned char unk_74[0x48];
-    D2DrlgActStrc* pAct[5];
-    char unk0xD0[0x1024];
-    T005438E0* pQuestControl;
-};
-
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 extern "C" const char gszQuestsSourceFile[]; // 0x006E0BE4
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-
 
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
@@ -75,13 +61,12 @@ typedef bool(__fastcall* QUESTSTATUSFILTER)(D2QuestDataStrc* pQuest, D2UnitStrc*
 
 typedef bool (__fastcall* QUESTACTIVEFILTER)(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC);
 
-
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
 void __fastcall ACT1Q4_SetInvisibleObjectGUID(D2GameStrc* pGame, D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit); // 0x00592F80
 void __fastcall sub_005991B0(D2GameStrc* pGame, D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit); // 0x005991B0
 void __fastcall sub_0059C3B0(D2GameStrc* pGame, D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit); // 0x0059C3B0
 
-struct T005438E0
+struct D2QuestInfoStrc
 {
     D2QuestDataStrc* pLastQuest;
     int unk0x04;
@@ -94,14 +79,12 @@ int __fastcall sub_005968C0_IsAndarielKilled(D2QuestDataStrc* pQuestData); // 0x
 
 typedef int (__stdcall* FARPROC)();
 
-
 struct D2MonStatsTxt
 {
     char unk0x00[0x0C];
     unsigned char dwMonStatsFlags[4];
     char unk0x10[0x198];
 };
-
 
 #pragma pack(push, 1)
 struct D2GSPacketSrv8A
@@ -159,7 +142,6 @@ void __fastcall QUESTS_RefreshStatus(D2QuestDataStrc* pQuest, unsigned char* pQu
 int __fastcall ACT5Q2_GetBarbsToBeRescued(D2QuestDataStrc* pQuestData); // 0x00588C50
 unsigned short __fastcall ACT1Q1_GetMonstersToBeKilled(D2QuestDataStrc* pQuestData); // 0x005901E0
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
-
 
 #pragma pack(push, 1)
 struct D2GSPacketSrv5D
@@ -322,7 +304,7 @@ int __fastcall sub_00544590_QuestsActiveFilter(D2GameStrc* pGame, D2UnitStrc* hP
         return 0;
     }
 
-    T005438E0* pQuestControl = pGame->pQuestControl;
+    D2QuestInfoStrc* pQuestControl = pGame->pQuestControl;
     D2_ASSERT(pQuestControl->unk0x08, 2036);
 
     const unsigned char nAct = CLIENTS_GetActNo(UnitGetClient(hPlayer, gszQuestsSourceFile, 2038));
@@ -387,7 +369,7 @@ void __fastcall QUESTS_StatusCallback(D2GameStrc* pGame, D2UnitStrc* pUnit)
     D2ClientStrc* pClient = UnitGetClient(pUnit, gszQuestsSourceFile, LINE_STATUS_CLIENT);
     D2GSPacketSrv52 packet52 = { PACKET_QUESTSTATUS };
 
-    T005438E0* pQuestControl = pGame->pQuestControl;
+    D2QuestInfoStrc* pQuestControl = pGame->pQuestControl;
     if (!pQuestControl)
     {
         return;

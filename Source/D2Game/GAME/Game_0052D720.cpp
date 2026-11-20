@@ -1,28 +1,10 @@
 #include "D2Structs.h"
 #include "D2GameServer.h"
+#include "D2GameStrc.h"
 struct D2ActiveRoomStrc;
 struct D2ClientStrc;
 struct D2PoolSystemStrc;
 struct D2UnitStrc;
-
-struct D2GameStrc
-{
-    char unk0x0000[0x1C];
-    D2PoolSystemStrc* pMemoryPool;
-    char unk0x0020[0x8];
-    unsigned short nGameId;
-    char unk0x002A[0x5E];
-    D2ClientStrc* pClientList;
-    char unk0x008C[0x1C];
-    int dwGameFrame;
-    unsigned int nFrameRate;
-    unsigned int nFramesSinceLastFrameRateUpdate;
-    unsigned int nPreviousUpdateTickCount;
-    char unk0x00B8[0x4];
-    D2DrlgActStrc* pAct[5];
-    char unk0x00D0[0x1CF8];
-    int nDebugBreakTrigger;
-};
 
 #pragma pack(push, 1)
 struct D2GSPacketSrv5A
@@ -253,7 +235,7 @@ static __declspec(noinline) void sub_0052D720_UpdateFrameRate(D2GameStrc* pGame)
         pGame->nPreviousUpdateTickCount = nTickCount;
         gnFrameRate_00731010 = pGame->nFrameRate;
 
-        const unsigned int nMemoryUsage = sub_0040A040_GetPoolSystemCount(pGame->pMemoryPool);
+        const unsigned int nMemoryUsage = sub_0040A040_GetPoolSystemCount((D2PoolSystemStrc*)pGame->pMemoryPool);
         if (nTickCount - gnPreviousMemUsageTick_00883D68 > 10000)
         {
             gnPreviousMemUsageTick_00883D68 = nTickCount;

@@ -7,6 +7,7 @@
 #include "D2GameServer.h"
 #include "D2GameClient.h"
 #include "D2Unicode.h"
+#include "D2GameStrc.h"
 
 #pragma intrinsic(_ReadWriteBarrier)
 
@@ -80,34 +81,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-
-struct D2GameStrc
-{
-    char unk0x00[0x18];
-    D2CriticalSectionStrc* lpCriticalSection;
-    D2PoolSystemStrc* pMemoryPool;
-    unsigned char unk_20[0x8];
-    unsigned short nGameId;
-    char szGameName[16];
-    unsigned char unk_3A[0x36];
-    int bExpansion;
-    int dwGameType;
-    char unk78[0x10];
-    D2ClientStrc* pClientList;
-    unsigned short nClients;
-    unsigned char unk_8E[0x2];
-    int dwLastUsedUnitGUID[6];
-    int dwGameFrame;
-    unsigned char unk_AC[0x10];
-    D2DrlgActStrc* pAct[NUM_ACTS];
-    char unk0xD0[0x20];
-    D2MonsterRegionStrc* pMonReg[1024];
-    unsigned char unk_10F0[0x30];
-    D2UnitStrc* pUnitList[5][128];
-    unsigned char unk_1B20[0x298];
-    unsigned int nLastUpdateSystemTimeMs;
-    unsigned int nCreationTimeMs_Or_CPUTargetRatioFP10;
-};
 
 typedef void (__fastcall* GAME_ForEachIngameClientCallbackPtr)(D2ClientStrc*, void*);
 
@@ -825,7 +798,7 @@ void __fastcall SrvFreeGame(int nGameGUID, D2GameStrc* pGame)
 
     if (pGame->pMemoryPool)
     {
-        FOG_DestroyMemoryPoolSystem(pGame->pMemoryPool);
+        FOG_DestroyMemoryPoolSystem((D2PoolSystemStrc*)pGame->pMemoryPool);
     }
 
     D2CriticalSectionStrc* pCriticalSection = pGame->lpCriticalSection;
@@ -1555,7 +1528,7 @@ void __stdcall sub_0052E8E0(void* pArg)
         {
             if (D2GameStrc* ptGame = GAME_LockGame(nGUID))
             {
-                const unsigned int nClients = ptGame->nClients;
+                const unsigned int nClients = (unsigned short)ptGame->nClients;
                 const unsigned short nGameId = ptGame->nGameId;
                 char szGameName[16];
                 SStrCopy(szGameName, ptGame->szGameName, 0x7FFFFFFF);

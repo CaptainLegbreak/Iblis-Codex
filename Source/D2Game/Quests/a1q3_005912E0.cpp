@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2GameTypes.h"
+#include "D2GameStrc.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define QFLAG_REWARDGRANTED 0
@@ -34,26 +36,10 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x4D];
-    unsigned char nDifficulty;
-};
-
 struct D2PlayerDataStrc
 {
     char unk0x00[0x10];
     D2BitBufferStrc* pQuestData[3];
-};
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    unsigned short dwClassId;
-    char unk0x06[0x6];
-    int dwUnitId;
 };
 
 struct D2QuestGUIDStrc
@@ -120,7 +106,6 @@ struct D2QuestDataStrc
     QUESTSEQFILTER pfSeqFilter;
 };
 
-
 void __fastcall PARTY_IteratePartyMembers(D2GameStrc* pGame, unsigned short nPartyId, PartyCallbackFunction pCallback, void* pArgs); // 0x00540510
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
 void __fastcall QUESTS_DeleteItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, int dwCode); // 0x00544160
@@ -175,7 +160,7 @@ int __fastcall ACT1Q3_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* 
 // 0x005913C0
 void __fastcall ACT1Q3_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
-    if (!pQuestArg->pTarget || pQuestArg->pTarget->dwClassId != MONSTER_CHARSI)
+    if (!pQuestArg->pTarget || (unsigned short)pQuestArg->pTarget->dwClassId != MONSTER_CHARSI)
     {
         return;
     }

@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Txt.h"
+#include "D2GameStrc.h"
+#include "D2Structs.h"
 struct D2ClientStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -15,44 +17,12 @@ struct D2StaticPathStrc
     int nY;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    char unk0x14[0x20 - 0x14];
-    int pSeed[2];
-    unsigned int dwInitSeed;
-    union
-    {
-        D2StaticPathStrc* pStaticPath;
-        D2DynamicPathStrc* pDynamicPath;
-    };
-    char unk0x30[0x60 - 0x2C - 4];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0xC4 - 0x60 - 4];
-    unsigned int dwFlags;
-};
-
-struct D2GameStrc
-{
-    char unk0x00[0x70];
-    int bExpansion;
-    char f_74[0x78 - 0x70 - 4];
-    unsigned short wItemFormat;
-    char unk0x7A[0xA8 - 0x78 - 2];
-    unsigned int dwGameFrame;
-};
-
 struct D2BooksTxt
 {
     char unk0x00[0x08];
     int dwScrollSkillId;
     int dwBookSkillId;
 };
-
 
 struct D2ItemDropStrc
 {
@@ -932,7 +902,7 @@ static void __stdcall sub_0055E8E0_InitItemDrop(int nId, D2GameStrc* pGame, D2Un
     pItemDrop->nSpawnType = 4;
     pItemDrop->nX = sub_E03_ItemGetUnitX(pItem);
     pItemDrop->nY = sub_E03_ItemGetUnitY(pItem);
-    pItemDrop->pSeed = pItem->pSeed;
+    pItemDrop->pSeed = (int*)&pItem->pSeed;
     pItemDrop->wUnitInitFlags = 1;
     pItemDrop->nQuality = 2;
     pItemDrop->dwSeed = pItem->dwInitSeed;

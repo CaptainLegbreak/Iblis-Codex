@@ -3,6 +3,7 @@
 #include "D2Txt.h"
 #include "D2ItemsWorld.h"
 #include "D2LevelTxt.h"
+#include "D2GameStrc.h"
 struct D2InventoryStrc;
 struct D2SkillStrc;
 struct D2UnitStrc;
@@ -13,23 +14,6 @@ struct D2ActiveRoomStrc;
 struct D2SaveHeaderStrc;
 struct D2ServerCallbackFunctions;
 struct _iobuf;
-
-
-struct D2GameStrc
-{
-    char unk0x00[0x6A];
-    unsigned char nGameType;
-    char unk0x6B[2];
-    unsigned char nDifficulty;
-    char unk0x6E[2];
-    int bExpansion;
-    char unk0x74[8];
-    int nMapSeed;
-    int unk80;
-    int unk84;
-    char unk88[0x48];
-    int pGameSeed;
-};
 
 struct D2PlayerDataStrc
 {
@@ -42,8 +26,6 @@ struct D2PlayerDataStrc
     int nRightSkillId;
     int nLeftSkillId;
 };
-
-
 
 #define UNIT_PLAYER 0
 #define ACT_I 0
@@ -66,7 +48,7 @@ void __fastcall CLIENTS_SetPlayerInClient(D2ClientStrc* pClient, D2UnitStrc* pUn
 void __fastcall SUNIT_InitClientInPlayerData(D2UnitStrc* pUnit, D2ClientStrc* pClient);                     // 0x00553180
 char* __fastcall CLIENTS_GetName(D2ClientStrc* pClient);                                                    // 0x00538830
 unsigned int __stdcall UNITS_SetNameInPlayerData(D2UnitStrc* ptUnit, char* szName); // 0x006220F0
-void __fastcall SUNIT_InitSeed(D2UnitStrc* pUnit, int* pSeed);                                              // 0x00552DF0
+void __fastcall SUNIT_InitSeed(D2UnitStrc* pUnit, D2SeedStrc* pSeed);                                              // 0x00552DF0
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode);                                           // 0x00624690
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit);                                         // 0x006221A0
 extern "C" void __fastcall sub_00537970_SetClientFlag1(D2ClientStrc* pClient); // 0x00537970
@@ -398,7 +380,7 @@ int __fastcall PLRSAVE_ReadLegacyHeader(D2GameStrc* pGame,D2ClientStrc* pClient,
  unsigned char nAct=header.nLocation & 15;
  const unsigned char nDifficulty=header.nLocation>>4;
  if(nAct>=5 || nDifficulty>=3) return 9;
- if(pGame->nGameType==3 && !pGame->unk84 && pGame->nDifficulty==nDifficulty) pGame->nMapSeed=header.nMapSeed;
+ if(pGame->nGameType==3 && !pGame->InitSeed && pGame->nDifficulty==nDifficulty) pGame->dwInitSeed=header.nMapSeed;
  if(pGame->nDifficulty!=nDifficulty) nAct=0;
  CLIENTS_SetActNo(pClient,nAct);
  *ppPlayer=SUNIT_AllocUnitData(0,nClass,0,0,pGame,0,0,0,0);

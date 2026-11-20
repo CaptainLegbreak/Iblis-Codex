@@ -7,6 +7,7 @@
 #include "D2Txt.h"
 #include "D2Drlg.h"
 #include "D2AnimData.h"
+#include "D2GameStrc.h"
 struct D2UnitStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -27,20 +28,6 @@ struct D2MonsterDataStrc
 {
     char unk0x00[0x30];
     D2MonsterInteractStrc* pMonInteract;
-};
-
-struct D2GameStrc
-{
-    char unk0x00[0x7C];
-    unsigned int dwInitSeed;
-    unsigned char unk_80[0x28];
-    unsigned int dwGameFrame;
-    unsigned char unk_AC[0x1074];
-    D2UnitStrc* pUnitList[5][128];
-    D2UnitStrc* pTileList;
-    unsigned int dwUniqueFlags[128];
-    unsigned char unk_1D24[0xC0];
-    unsigned int dwUberSandsCounter;
 };
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837

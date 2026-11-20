@@ -9,6 +9,7 @@
 #include "D2DrlgRooms.h"
 #include "D2GameServer.h"
 #include "D2GameClient.h"
+#include "D2GameStrc.h"
 
 #pragma function(memset)
 
@@ -109,30 +110,6 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc*); // 0x0045AE20
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc*,int); // 0x00624690
 unsigned char __stdcall ITEMS_GetBodyLocation(D2UnitStrc*); // 0x00627D40
 void __stdcall INVENTORY_SetCursorItem(D2InventoryStrc*,D2UnitStrc*); // 0x0063C180
-
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x4A];
-    unsigned char nGameType;
-    unsigned char nArenaTemplate;
-    unsigned char nMaxLevelDifference;
-    unsigned char nDifficulty;
-    unsigned char nMaxPlayers;
-    unsigned char unk0x6F;
-    int bExpansion;
-    unsigned int dwGameType;
-    char unk0x78[0x30];
-    int dwGameFrame;
-    char unk0xAC[0x10];
-    D2DrlgActStrc* pAct[5];
-    int pGameSeed;
-    unsigned char unk_D4[0x104C];
-    D2UnitStrc* pUnitList[5][128];
-    unsigned char unk_1B20[0x20C];
-    D2PartyControlStrc* hParty;
-};
 
 int __fastcall D2GAME_PlaceItem_6FC44410(const char*,int,D2GameStrc*,D2UnitStrc*,int,int,int,int,int,D2InventoryStrc*); // 0x00560200
 int __fastcall ITEMMODE_EquipCursorItem(D2GameStrc* ptGame, D2UnitStrc* hUnit, int nItemGUID, unsigned char nBodyLoc, int bSkipRequirementCheck, int* pItemStatus); // 0x005606B0
@@ -523,7 +500,7 @@ void __fastcall CLIENTS_SetPlayerInClient(D2ClientStrc* pClient, D2UnitStrc* pUn
 void __fastcall SUNIT_InitClientInPlayerData(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00553180
 char* __fastcall CLIENTS_GetName(D2ClientStrc* pClient); // 0x00538830
 unsigned int __stdcall UNITS_SetNameInPlayerData(D2UnitStrc* ptUnit, char* szName); // 0x006220F0
-void __fastcall SUNIT_InitSeed(D2UnitStrc* pUnit, int* pSeed); // 0x00552DF0
+void __fastcall SUNIT_InitSeed(D2UnitStrc* pUnit, D2SeedStrc* pSeed); // 0x00552DF0
 int __fastcall CLIENTS_GetClassId(D2ClientStrc* pClient); // 0x005385F0
 D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char a7, int nMode, unsigned int a9); // 0x00555230
 void __fastcall sub_00571F90(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00571F90

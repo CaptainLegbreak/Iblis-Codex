@@ -2,16 +2,11 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2GameStrc.h"
 struct D2MonsterInteractStrc;
 struct D2MonsterModeDataStrc;
 
-struct D2GameStrc
-{
-    char unk_00[0xF0];
-    char tMonReg[4];
-};
 struct D2MonRegDataStrc;
-
 
 struct D2MonsterDataStrc
 {
@@ -23,8 +18,6 @@ struct D2MonsterDataStrc
     char unk_34[0x24];
     int dwTxtLevelNo;
 };
-
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 void __fastcall D2GAME_DeleteTimersOnUnit_6FC34A30(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540F30
@@ -93,7 +86,7 @@ void __fastcall MONSTER_Initialize(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D
     pMonsterData->pMonInteract = MONSTERAI_AllocMonsterInteract(pGame);
     pMonsterData->pMonstatsTxt = MONSTER_GetMonStatsTxtRecord(pMonster);
 
-    sub_00573CB0(pGame, pRoom, pMonster, sub_00547BC0(pGame->tMonReg, pRoom, pMonster));
+    sub_00573CB0(pGame, pRoom, pMonster, sub_00547BC0(pGame->pMonReg, pRoom, pMonster));
     AITHINK_ExecuteAiFn(pGame, pMonster, MONSTER_GetAiControl(pMonster), 0);
 
     const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);

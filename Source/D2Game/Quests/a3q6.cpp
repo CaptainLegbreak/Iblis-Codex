@@ -1,13 +1,9 @@
 #include "D2Game.h"
 #include "D2GameTypes.h"
-
-struct D2MapAIPathPositionStrc
-{
-    int nMapAIAction;
-    int nX;
-    int nY;
-};
-
+#include "D2GameStrc.h"
+#include "D2Structs.h"
+#include "D2GameAux.h"
+#include "D2GameObjs.h"
 
 #define QFLAG_REWARDGRANTED 0
 #define QFLAG_CUSTOM7 11
@@ -34,27 +30,10 @@ struct Player;
 struct QuestEx;
 struct Args;
 
-struct D2GameStrc
-{
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-    char unk0x6E[0x3A];
-    int dwGameFrame;
-};
-
 struct D2PlayerDataStrc
 {
     char unk0x00[0x10];
     D2BitBufferStrc* pQuestData[3];
-};
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    unsigned short dwClassId;
-    unsigned short unk0x06;
-    int unk0x08;
-    int dwUnitId;
 };
 
 struct D2QuestGUIDStrc
@@ -124,7 +103,6 @@ D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
 void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C360
 
-
 typedef int(__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 
 typedef void(__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs);
@@ -139,7 +117,6 @@ void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc
 void __fastcall SUNIT_IterateUnitsOfType(D2GameStrc* pGame, int nType, void* pArg, QUESTUNITITERATE pfIterate); // 0x005537D0
 short __fastcall SUNIT_GetPartyId(D2UnitStrc* pPlayer); // 0x00554630
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
-
 
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
@@ -163,12 +140,6 @@ int __stdcall sub_0065C310(Bits*,int,int); // 0x0065C310
 int __fastcall sub_005452C0(Quest*,int); // 0x005452C0
 
 enum { QUEST_ID = 22 };
-
-struct D2MapAIStrc
-{
-    int nPathNodes;
-    D2MapAIPathPositionStrc* pPosition;
-};
 
 typedef void (__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
 
@@ -221,7 +192,7 @@ int __fastcall ACT3Q6_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* 
 // 0x005BC370
 void __fastcall ACT3Q6_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
-    if (!pQuestArg->pTarget || pQuestArg->pTarget->dwClassId != MONSTER_ORMUS)
+    if (!pQuestArg->pTarget || (unsigned short)pQuestArg->pTarget->dwClassId != MONSTER_ORMUS)
     {
         return;
     }

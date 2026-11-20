@@ -2,52 +2,13 @@
 #include "D2Structs.h"
 #include "D2GameTypes.h"
 #include "D2GameServer.h"
+#include "D2GameStrc.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-
-struct D2GameStrc
-{
-    char unk0x00[0x18];
-    D2CriticalSectionStrc* lpCriticalSection;
-    void* pMemoryPool;
-    char unk0x20[0x04];
-    int unk0x24;
-    unsigned short nGameId;
-    char szGameName[0x10];
-    char szGamePassword[0x10];
-    char szGameDesc[0x20];
-    unsigned char nGameType;
-    unsigned char nArenaTemplate;
-    unsigned char nMaxLevelDifference;
-    unsigned char nDifficulty;
-    unsigned char nMaxPlayers;
-    char unk0x6F;
-    int bExpansion;
-    int dwGameType;
-    unsigned short wItemFormat;
-    char unk0x7A[0x02];
-    unsigned int dwInitSeed;
-    int dwObjSeed;
-    int InitSeed;
-    char unk0x88[0x08];
-    int dwLastUsedUnitGUID[6];
-    char unk0xA8[0x28];
-    D2SeedStrc pGameSeed;
-    char unk0xD8[0x1120 - 0xD8];
-    int pUnitList[5][0x80];
-    char unk0x1B20[0x04];
-    int dwUniqueFlags[0x80];
-    char unk0x1D24[0x1DBC - 0x1D24];
-    unsigned int nCreationTimeMs;
-    char unk0x1DC0[0x04];
-    unsigned int nSyncTimer;
-    char unk0x1DC8[0x0C];
-    int nUberFields[8];
-};
 
 struct D2GameDataTableStrc
 {

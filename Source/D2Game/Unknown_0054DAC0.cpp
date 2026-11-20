@@ -5,6 +5,7 @@
 #include "D2ItemsWorld.h"
 #include "D2Win32Types.h"
 
+#include "D2GameStrc.h"
 struct D2ActiveRoomStrc;
 struct D2RoomCoordListStrc;
 struct D2UnitStrc;
@@ -20,13 +21,6 @@ struct D2DrlgCoordsStrc { int nSubtileX; int nSubtileY; int nSubtileWidth; int n
 struct D2SpawnAreaStrc { char unk0x00[0x10]; tagRECT tRect; };
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 void __stdcall sub_M96_UseBounds_0054DAC0(int nX, int nY, int nWidth, int nHeight);
-
-struct D2GameStrc
-{
-    char pad0x00[0xBC];
-    int nActData[13];
-    D2MonsterRegionStrc* pMonReg[1];
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268
@@ -281,7 +275,7 @@ static __declspec(noinline) int sub_0054EBC0_CanPopulateRoom(D2ActiveRoomStrc* p
         return 0;
 
     if (pRegion->nMonsterRegionLevel < 0)
-        pRegion->nMonsterRegionLevel = sub_0061ABF0(pGame->nActData[pRegion->nAct], nLevelId);
+        pRegion->nMonsterRegionLevel = DUNGEON_GetNumberOfPopulatedRoomsInLevel(pGame->pAct[pRegion->nAct], nLevelId);
 
     if (!pRegion->nMonsterCount)
         return 0;

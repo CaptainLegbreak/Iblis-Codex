@@ -3,6 +3,12 @@
 #include "D2DataTbls.h"
 #include "D2GameTypes.h"
 #include "D2Win32Types.h"
+#include "D2Structs.h"
+#include "D2UnitData.h"
+#include "D2ClientTypes.h"
+#include "D2Drlg.h"
+#include "D2ItemsWorld.h"
+#include "D2ClientGame.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -31,7 +37,7 @@ struct D2TimedHintEntryStrc;
 struct D2TimedHintNodeStrc;
 struct D2HintCursorStrc;
 struct D2PalShiftNodeStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2CelContextStrc;
 struct D2DataTablesStrc;
 struct D2UnitStrc;
@@ -105,15 +111,6 @@ struct D2CelContextStrc
     int unk0x44;
 };
 
-struct D2PlayerDataStrc
-{
-    char unk0x00[0x150];
-    int nState;
-    int nMode;
-    int nArg1;
-    int nArg2;
-};
-
 struct D2ClientUnitViewStrc
 {
     int dwUnitType;
@@ -125,12 +122,6 @@ struct D2ClientRecordStrc
 {
     int unk0x00[3];
     int nKey;
-};
-
-struct D2ClientEntryStrc
-{
-    int unk0x00[2];
-    int nValue;
 };
 
 struct D2ClientViewStrc
@@ -217,81 +208,12 @@ enum D2C_W10Constants
     DRAW_MODE_5 = 5,
 };
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    unsigned char unk_04[0x1C];
-    D2SeedStrc tSeed;
-    unsigned char unk_28[0x4];
-    D2DynamicPathStrc* pDynamicPath;
-    char unk0x30[0x14];
-    int nSeqCurrentFramePrecise;
-    char unk0x48[0x0C];
-    D2ClientUnitPointStrc* pPoints;
-    char unk0x58[0x08];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0x28];
-    unsigned short nLastClickX;
-    unsigned short nLastClickY;
-    char unk0x90[0x58];
-    D2UnitStrc* ptRoomNext;
-};
-
 struct D2ClientUnitPointStrc
 {
     int nX;
     int nY;
     char unk0x08[0x18];
     D2ClientUnitPointStrc* pNext;
-};
-
-struct D2ActiveRoomStrc
-{
-    char unk0x00[0x74];
-    D2UnitStrc* pUnitFirst;
-};
-
-struct D2PresetUnitStrc
-{
-    int nMode;
-    int nIndex;
-    int nXpos;
-    D2PresetUnitStrc* pNext;
-    D2MapAIStrc* pMapAI;
-    int nUnitType;
-    int nYpos;
-    unsigned int bSpawned;
-};
-
-struct D2DrlgCoordsStrc
-{
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-    int nTileXPos;
-    int nTileYPos;
-    int nTileWidth;
-    int nTileHeight;
-};
-
-struct D2RosterPetStrc
-{
-    int nClassId;
-    int nType;
-    int dwUnitId;
-    int dwOwnerId;
-    int nArg10;
-    int unk0x14[2];
-    int nLifePercent;
-    int unk0x20[4];
-    D2RosterPetStrc* pNext;
 };
 
 struct D2TimedHintEntryStrc
@@ -606,7 +528,7 @@ void __fastcall sub_0045B0B0_DrawRoomUnitBoxes(D2ActiveRoomStrc* pRoom)
             D2GFX_DrawBox(nX, nY, nX + 4, nY + 4, 0xFF, DRAW_MODE_5);
             if (pUnit && pUnit->dwUnitType == UNIT_TILE)
             {
-                for (D2ClientUnitPointStrc* pPoint = pUnit->pPoints; pPoint; pPoint = pPoint->pNext)
+                for (D2ClientUnitPointStrc* pPoint = (D2ClientUnitPointStrc*)pUnit->pGfxData; pPoint; pPoint = pPoint->pNext)
                 {
                     D2GFX_DrawLine(UNITS_GetClientCoordX(pUnit) - gdwGlobal_007A520C, UNITS_GetClientCoordY(pUnit) - gdwGlobal_007A5208, pPoint->nX - gdwGlobal_007A520C, pPoint->nY - gdwGlobal_007A5208, 0xFF, 0xFF);
                 }
@@ -995,8 +917,8 @@ void __fastcall sub_00476D40_AdjustViewPos(int* pX, int* pY)
     if (nMagnitude)
     {
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
-        gnGlobal_007B9538 = sub_00472280(&pPlayer->tSeed, -nMagnitude, 2 * nMagnitude);
-        const int nOffsetY = sub_00472280(&pPlayer->tSeed, -nMagnitude, 2 * nMagnitude);
+        gnGlobal_007B9538 = sub_00472280(&pPlayer->pSeed, -nMagnitude, 2 * nMagnitude);
+        const int nOffsetY = sub_00472280(&pPlayer->pSeed, -nMagnitude, 2 * nMagnitude);
         *pX += gnGlobal_007B9538;
         *pY += nOffsetY;
         gnGlobal_007B8D20 = nOffsetY;

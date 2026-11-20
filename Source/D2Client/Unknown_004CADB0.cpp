@@ -2,6 +2,11 @@
 #include "D2Constants.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Drlg.h"
+#include "D2DrlgMaps.h"
+#include "D2LevelTxt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2StaticPathStrc;
@@ -16,71 +21,6 @@ struct D2SuperUniquesTxt;
 struct D2MonStatsTxt;
 struct D2DirRateStrc;
 struct D2SkillsTxt;
-
-struct D2StaticPathStrc
-{
-    int unk0x00[3];
-    int nXPos;
-    int nYPos;
-};
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    unsigned char unk_08[0x24];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    unsigned char unk_30[0x14];
-    int nSeqCurrentFramePrecise;
-    unsigned int dwFrameCountPrecise;
-    short wAnimSpeed;
-    char unk0x4E[0x22];
-    unsigned char bUnitSfx;
-    char unk0x71[3];
-    int dwSfxMode;
-    D2UnitSfxNodeStrc* pUnitSfxList;
-    unsigned int dwSfxTicks;
-    unsigned int dwSfxAsyncTicks;
-    unsigned int dwSfxStepTicks;
-    int bHasActiveSound;
-    char unk0x8C[0x24];
-    int dwLastHitClass;
-};
-
-struct D2DrlgCoordsStrc
-{
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-    int nTileXPos;
-    int nTileYPos;
-    int nTileWidth;
-    int nTileHeight;
-};
-
-struct D2TileLibraryEntryStrc
-{
-    int nLightDirection;
-    unsigned short nRoofHeight;
-    unsigned short nFlags;
-};
-
-struct D2DrlgTileDataStrc
-{
-    int nWidth;
-    int nHeight;
-    int nPosX;
-    int nPosY;
-    int unk0x10;
-    unsigned int dwFlags;
-    D2TileLibraryEntryStrc* pTile;
-    int unk0x1C[5];
-};
 
 struct T00481920
 {
@@ -148,15 +88,6 @@ struct D2MonSoundsTxt
     unsigned short pad0x8E;
     int dwCvtSk3;
 };
-
-struct D2SuperUniquesTxt
-{
-    char unk0x00[0x18];
-    int dwMonSound;
-};
-
-
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern D2UnitSndPlayerStrc* gpUnitSndPlayer_0072A008[]; // 0x0072A008
@@ -603,7 +534,7 @@ void __fastcall sub_004CB190_ReleaseSkillSfx(D2UnitStrc* pUnit)
         return;
 
     D2_ASSERT(pUnit, 0xC2C);
-    D2UnitSfxNodeStrc* pNode = pUnit->pUnitSfxList;
+    D2UnitSfxNodeStrc* pNode = (D2UnitSfxNodeStrc*)pUnit->pUnitSfxData;
     while (pNode)
     {
         void* pEntry = pNode->f_0;
@@ -619,7 +550,7 @@ void __fastcall sub_004CB190_ReleaseSkillSfx(D2UnitStrc* pUnit)
 void __stdcall sub_004CB220_ReleaseNeutralSfx(D2UnitStrc* pUnit, int bArm)
 {
     D2_ASSERT(pUnit, 0xC2C);
-    D2UnitSfxNodeStrc* pNode = pUnit->pUnitSfxList;
+    D2UnitSfxNodeStrc* pNode = (D2UnitSfxNodeStrc*)pUnit->pUnitSfxData;
     while (pNode)
     {
         D2UnitSfxNodeStrc* pNext = pNode->pNext;
@@ -647,7 +578,7 @@ void __stdcall sub_004CB2C0_ReleaseMonsterSfx(D2UnitStrc* pUnit)
         return;
 
     D2_ASSERT(pUnit, 0xC2C);
-    D2UnitSfxNodeStrc* pNode = pUnit->pUnitSfxList;
+    D2UnitSfxNodeStrc* pNode = (D2UnitSfxNodeStrc*)pUnit->pUnitSfxData;
     while (pNode)
     {
         void* pEntry = pNode->f_0;

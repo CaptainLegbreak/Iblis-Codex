@@ -7,6 +7,9 @@
 #include "D2UnitData.h"
 #include "D2Drlg.h"
 #include "D2GameServer.h"
+#include "D2GameStrc.h"
+#include "D2LevelTxt.h"
+#include "D2GameObjs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2StaticPathStrc;
@@ -43,16 +46,6 @@ struct D2UnkMonCreateStrc2
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall D2Common_11063(D2ActiveRoomStrc* pRoom, int nMonsterId); // 0x0063EC70
 
-struct D2GameStrc
-{
-    char pad0x00[0x6D];
-    unsigned char nDifficulty;
-    char pad0x6E[0x02];
-    int bExpansion;
-    unsigned char unk_74[0x48];
-    void* pAct[5];
-};
-
 D2UnitStrc* __fastcall sub_6FC68D70(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int a5, short nFlags); // 0x005B23C0
 void __fastcall AIGENERAL_SetOwnerData(D2GameStrc* pGame, D2UnitStrc* pUnit, int nOwnerGUID, int nOwnerType, int bSetFlag1, int bSetFlag2); // 0x0058F030
 void __fastcall AIGENERAL_AllocMinionList(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pMinion); // 0x0058F100
@@ -77,15 +70,6 @@ struct D2SpawnRequest005B3130Strc
 };
 
 D2UnitStrc* __fastcall sub_005B2A00_Spawn(D2SpawnRequest005B3130Strc* pRequest); // 0x005B2A00
-
-struct D2LevelsTxt
-{
-    char unk0x000[0x33];
-    unsigned char nNumNormalMonsters;
-    unsigned char nNumNightmareHellMonsters;
-    unsigned char nNumUniqueMonsters;
-    short wNormalMonsters[25];
-};
 
 enum D2C_SpawnRandomConstants
 {
@@ -173,13 +157,6 @@ int __fastcall ACT4Q1_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* 
 void __fastcall QUESTS_StatusCyclerEx(D2GameStrc* game,D2UnitStrc* player,unsigned char id); // 0x00544190
 
 typedef bool(__fastcall* QUESTUPDATE)(D2GameStrc*, D2QuestDataStrc*);
-
-struct D2ObjOperateFnStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* hObject;
-    D2UnitStrc* hPlayer;
-};
 
 struct D2GSPacketSrv5D
 {

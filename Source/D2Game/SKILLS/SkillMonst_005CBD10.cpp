@@ -6,6 +6,9 @@
 #include "D2UnitData.h"
 #include "D2ItemsWorld.h"
 #include "D2GameAux.h"
+#include "D2GameStrc.h"
+#include "D2LevelTxt.h"
+#include "D2Txt.h"
 struct D2ActiveRoomStrc;
 struct D2UnitStrc;
 struct D2UnkCallRecordStrc;
@@ -64,73 +67,6 @@ enum D2C_F39Constants
     STATE_NOMANAREGEN = 0x55,
     STATE_CONVERSION_SAVE = 0x6D,
     STATLIST_FLAG_8 = 8,
-};
-
-struct D2GameStrc
-{
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-    char unk0x6E[0x02];
-    int bExpansion;
-    char f_74[0x34];
-    unsigned int dwGameFrame;
-    char unk0xAC[0x44];
-    D2MonsterRegionStrc* pMonReg;
-};
-
-struct D2DifficultyLevelsTxt
-{
-    char unk0x00[0x40];
-    int dwStaticFieldMin;
-};
-
-struct D2MissilesTxt
-{
-    unsigned short wId;
-    unsigned short pad0x02;
-    unsigned char nMissileFlags[4];
-    char unk0x08[0x30];
-    int dwParam[5];
-    char unk0x4C[0x158];
-};
-
-struct D2SkillsTxt
-{
-    char unk0x000[0x04];
-    unsigned char nFlags[8];
-    char unk0x00C[0x3C];
-    short wSrvMissileA;
-    short wSrvMissileB;
-    char unk0x04C[0x02];
-    short wSrvOverlay;
-    unsigned int dwAuraFilter;
-    short wAuraStat[6];
-    unsigned int dwAuraLenCalc;
-    unsigned int dwAuraRangeCalc;
-    unsigned int dwAuraStatCalc[6];
-    short nAuraState;
-    short wAuraTargetState;
-    short wAuraEvent[3];
-    short wAuraEventFunc[3];
-    char unk0x090[0x08];
-    short nPassiveStat[5];
-    char unk0x0A2[0x02];
-    unsigned int dwPassiveCalc[5];
-    char unk0x0B8[0x2E];
-    short wSumOverlay;
-    char unk0x0E8[0x28];
-    short wCltOverlayA;
-    char unk0x112[0x1C];
-    unsigned short wResultFlags;
-    unsigned int dwHitFlags;
-    unsigned int dwHitClass;
-    unsigned int dwCalc[4];
-    int dwParam[4];
-    char unk0x158[0x4D];
-    unsigned char nSrcDam;
-    char unk0x1A6[0x36];
-    unsigned char nEType;
-    char unk0x1DD[0x5F];
 };
 
 typedef int (__fastcall* AURACALLBACK)(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit);
@@ -421,7 +357,7 @@ int __fastcall SKILLS_ResurrectUnit(D2GameStrc* pGame, D2UnitStrc* pUnit)
     {
         pUnit->dwFlags |= UNITFLAG_NOXP | UNITFLAG_NOTC;
         MONSTER_UpdateAiCallbackEvent(pGame, pUnit);
-        sub_6FC68280(&pGame->pMonReg, pUnit);
+        sub_6FC68280(pGame->pMonReg, pUnit);
         QUESTS_AttachLevelChainRecord(pGame, pUnit, pRoom, 0);
         PATH_SetFootprintCollisionMask(pUnit->pDynamicPath, 0x100);
         D2Common_10214(pUnit);

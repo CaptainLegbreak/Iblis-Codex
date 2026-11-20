@@ -1,27 +1,9 @@
 #include "D2Game.h"
+#include "D2Structs.h"
+#include "D2GameStrc.h"
 
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2SkillsTxt;
-
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x18];
-    D2SeedStrc pSeed;
-};
-
-struct D2GameStrc
-{
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-};
 
 extern int gnPotionTableMax_00741B54; // 0x00741B54
 extern int gaPotionTable_00741B58[][3]; // 0x00741B58
@@ -39,7 +21,6 @@ struct D2SkillsTxt
 };
 
 typedef char chk_D2SkillsTxt_size[sizeof(D2SkillsTxt) == 0x23C ? 1 : -1];
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553540

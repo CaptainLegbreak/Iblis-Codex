@@ -3,19 +3,12 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2UnitData.h"
+#include "D2GameStrc.h"
 struct D2UnitStrc;
 
 struct D2StaticPathStrc;
 struct D2PlayerDataStrc;
 struct D2QuestSaveSectionStrc;
-
-
-
-struct D2GameStrc
-{
-    char unk0x00[0xD0];
-    int nGameSeed[2];
-};
 
 void __fastcall QUESTS_ItemPickedUp(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem); // 0x00543D80
 int __fastcall D2GAME_PlaceItem_6FC44410(const char* szFile, int nLine, D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnitId, int nX, int nY, int a8, int a9, D2InventoryStrc* pInventory); // 0x00560200
@@ -32,7 +25,6 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 static int __stdcall sub_00531520_PlaceSavedItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem, D2UnitStrc* pParent); // 0x00531520
 void __fastcall sub_00564CB0_Nop(D2UnitStrc* pItem); // 0x00564CB0
-
 
 #pragma pack(push, 1)
 struct D2QuestSaveSectionStrc
@@ -54,7 +46,7 @@ unsigned int __fastcall ARENA_IsInArenaMode(D2GameStrc*); // 0x0053FCE0
 extern "C" const char gszPlrSaveFile_006E09AC[]; // 0x006E09AC
 char* __fastcall CLIENTS_GetName(D2ClientStrc* pClient); // 0x00538830
 void __fastcall D2GAME_SendPacket0x8E_CorpseAssign_ToAllPlayers_6FC3F9B0(D2GameStrc* pGame, int nUnitId, int nCorpseId, unsigned char bAssign); // 0x0053DF80
-void __fastcall SUNIT_InitSeed(D2UnitStrc* pUnit, int* pSeed); // 0x00552DF0
+void __fastcall SUNIT_InitSeed(D2UnitStrc* pUnit, D2SeedStrc* pSeed); // 0x00552DF0
 void __fastcall SUNIT_InitClientInPlayerData(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00553180
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char a7, int nMode, unsigned int a9); // 0x00555230
@@ -247,7 +239,7 @@ static int __stdcall sub_00533850_ReadCorpse(D2UnitStrc* pUnit, D2GameStrc* pGam
         char* const szName = CLIENTS_GetName(pClient);
         UNITS_SetNameInPlayerData(pUnit, szName);
     }
-    SUNIT_InitSeed(pUnit, pGame->nGameSeed);
+    SUNIT_InitSeed(pUnit, &pGame->pGameSeed);
     STATES_ToggleState(pUnit, 7, 1);
     pUnit->dwFlags &= ~0x10;
     INVENTORY_SetOwnerId(pUnit->pInventory, !pPlayer ? -1 : pPlayer->dwUnitId);

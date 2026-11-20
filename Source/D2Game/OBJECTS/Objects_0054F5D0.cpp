@@ -4,6 +4,9 @@
 #include "D2Txt.h"
 #include "D2GameTypes.h"
 #include "D2Win32Types.h"
+#include "D2Structs.h"
+#include "D2GameStrc.h"
+#include "D2ItemsWorld.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define ROOM_MIN_SUBTILES 2
@@ -17,7 +20,7 @@
 #define D2_PAIR_CAPACITY 0x3FF
 #define D2S_ERROR_WRITE 3
 #define D2S_ERROR_READ_SIZE 0x14
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2ObjectControlStrc;
 struct D2ObjectDataStrc;
 struct D2ObjInitFnStrc;
@@ -36,43 +39,10 @@ struct D2PackedWordStrc;
 struct D2UnkCallRecordStrc;
 struct D2Unk0056DCC0Strc;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
-
-struct D2ObjectControlStrc
-{
-    D2SeedStrc pSeed;
-};
-
 struct D2ObjectDataStrc
 {
     char unk0x00[0x04];
     unsigned char InteractType;
-};
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2ObjectDataStrc* pObjectData;
-    unsigned char unk_18[0x14];
-    union
-    {
-        D2StaticPathStrc* pStaticPath;
-        D2DynamicPathStrc* pDynamicPath;
-    };
-    char unk0x30[0x30];
-    D2InventoryStrc* pInventory;
-    unsigned char unk_64[0x40];
-    int unk0xA4;
-    char unk0xA8[0x1C];
-    unsigned int dwFlags;
 };
 
 typedef void (__fastcall* D2ObjInitFn)(D2ObjInitFnStrc* pOp);
@@ -84,16 +54,6 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern D2ObjInitFn sgInitTable[80]; // 0x00731BC0
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
-
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x88];
-    int dwGameFrame;
-    char unk0xAC[0x10];
-    D2DrlgActStrc* pAct[5];
-};
 
 void __fastcall D2GAME_DeleteTimersOnUnit_6FC34A30(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540F30
 
@@ -269,7 +229,7 @@ void __fastcall OBJECTS_InitHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, int nU
     if (pUnit)
     {
         pUnit->dwFlags &= ~8u;
-        pUnit->unk0xA4 = 0;
+        pUnit->pHoverText = 0;
         nMode = pUnit->dwAnimMode;
     }
     else

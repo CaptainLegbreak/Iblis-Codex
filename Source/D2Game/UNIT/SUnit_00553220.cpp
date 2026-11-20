@@ -1,4 +1,6 @@
 #include "D2Game.h"
+#include "D2Structs.h"
+#include "D2GameStrc.h"
 
 #define UNITFLAG_DOUPDATE           0x00000001
 #define UNITFLAG_INITSEEDSET        0x00000010
@@ -10,32 +12,6 @@
 struct D2ObjectDataStrc;
 struct D2AnimFrameTableStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    unsigned char unk_04[0x10];
-    D2ObjectDataStrc* pObjectData;
-    unsigned char unk_18[0x18];
-    void* pAnimSeq;
-    int dwSeqFrameCount;
-    int dwSeqFrame;
-    int dwSeqSpeed;
-    int dwSeqMode;
-    int nSeqCurrentFramePrecise;
-    int dwFrameCountPrecise;
-    short wAnimSpeed;
-    short nActionFrame;
-    D2AnimFrameTableStrc* pAnimData;
-    unsigned char unk_54[0x2C];
-    D2GameStrc* pGame;
-    unsigned char unk_84[0x10];
-    int dwOwnerType;
-    int dwOwnerGUID;
-    unsigned char unk_9C[0x28];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-};
-
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -44,14 +20,6 @@ void __stdcall STATLIST_FreeModStats(D2UnitStrc* pUnit); // 0x00625960
 void __fastcall D2GAME_SUNITMSG_FreeUnitMessages_6FCC6790(D2UnitStrc* pUnit); // 0x00571F40
 void __stdcall UNITS_SetCurrentRoomInvalid(D2UnitStrc* pUnit, int bInvalid); // 0x00620FA0
 void __stdcall STATES_ClearGfxStateFlags(D2UnitStrc* pUnit); // 0x00639EE0
-
-struct D2GameStrc
-{
-    char unk0x00[0xA8];
-    int dwGameFrame;
-    unsigned char unk_AC[0x10];
-    D2DrlgActStrc* pAct[5];
-};
 
 void __fastcall D2GAME_INVMODE_Last_6FC416D0(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00597B00
 void __stdcall STATLIST_RemoveAllStatsFromOverlay(D2UnitStrc* pUnit); // 0x00627410
@@ -201,7 +169,7 @@ void __fastcall SUNIT_ScheduleAnimationEvents(D2GameStrc* pGame, D2UnitStrc* pUn
         return;
     }
 
-    D2AnimFrameTableStrc* pAnimData = pUnit->pAnimData;
+    D2AnimFrameTableStrc* pAnimData = (D2AnimFrameTableStrc*)pUnit->pAnimData;
     int nIndex = nFrameBonus >> 8;
     int nParam = 0;
     while (nAnimFrame + nAnimSpeed < nFrameCount)

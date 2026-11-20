@@ -1,33 +1,19 @@
 #include "D2Game.h"
 #include "D2Txt.h"
+#include "D2Structs.h"
+#include "D2GameStrc.h"
 struct D2ClientStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define SEND_GOLD(code,line,guid,kind) sub_0053D740_SendPacket0x2A(UnitGetClient(pPlayer,gszNpcSourceFile,line),0x2A,code,STATLIST_UnitGetStatValue(pPlayer,14,0),guid,kind)
 
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2RoomStrc;
 struct D2NpcGambleStrc;
 struct D2NpcRecordStrc;
 struct D2ItemsTxt;
 struct D2PlayerDataStrc;
 struct D2StaticPathStrc;
-
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
-
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    unsigned char unk_20[0x4D];
-    unsigned char nDifficulty;
-    char unk_6E[2];
-    int nGameType;
-};
 
 struct D2HirelingTxt
 {
@@ -64,27 +50,6 @@ void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, in
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 D2SeedStrc* __fastcall sub_00536B40_GetGameSeed(D2GameStrc* pGame); // 0x00536B40
 D2HirelingTxt* __stdcall DATATBLS_GetNextHirelingTxtRecordFromVendorIdAndDifficulty(int bExpansion, int nVendorId, int nDifficulty, D2HirelingTxt* pOldRecord); // 0x006564D0
-
-struct D2UnitStrc
-{
-    int type;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    char unknown10[28];
-    union
-    {
-        D2PathRecordStrc* path;
-        D2StaticPathStrc* staticPath;
-    };
-    unsigned char unk_30[0x30];
-    D2InventoryStrc* pInventory;
-    unsigned char unk_64[0x60];
-    unsigned int flags;
-    unsigned int flagsEx;
-    int unknownCC;
-    int owner;
-};
 
 extern "C" int __cdecl _stricmp(const char*, const char*); // 0x006841E9
 extern const char gszNpcSourceFile[]; // 0x006E15F0
@@ -159,8 +124,8 @@ int __fastcall sub_00574AB0_RevivePet(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2
 void __fastcall sub_005B1900_InitAi(D2GameStrc* game,D2UnitStrc* pet,int flag,int owner); // 0x005B1900
 void __stdcall STATES_ToggleState(D2UnitStrc* unit,int state,int set); // 0x00639DB0
 int __fastcall sub_00577470_RelinkItemStatLists(D2UnitStrc* pUnit); // 0x00577470
-int __stdcall PATH_GetXPosition(D2PathRecordStrc* path); // 0x006488C0
-int __stdcall PATH_GetYPosition(D2PathRecordStrc* path); // 0x00648900
+int __stdcall PATH_GetXPosition(D2DynamicPathStrc* path); // 0x006488C0
+int __stdcall PATH_GetYPosition(D2DynamicPathStrc* path); // 0x00648900
 void __fastcall PLAYERPETS_UpdatePetsForOwnerMove(D2GameStrc* game,D2UnitStrc* player,int x,int y); // 0x005754B0
 void __fastcall MONSTERAI_SendMercStats(D2GameStrc* game,D2UnitStrc* player,int value); // 0x005726C0
 
@@ -175,7 +140,7 @@ static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 // 0x00575FF0
 int __fastcall sub_00575FF0(D2GameStrc* pGame, int nHirelingId, int* pNameFirst, int* pNameLast, int* pClass)
 {
-    D2HirelingTxt* pHirelingTxtRecord = DATATBLS_GetNextHirelingTxtRecordFromVendorIdAndDifficulty(pGame->nGameType, nHirelingId, 0, 0);
+    D2HirelingTxt* pHirelingTxtRecord = DATATBLS_GetNextHirelingTxtRecordFromVendorIdAndDifficulty(pGame->bExpansion, nHirelingId, 0, 0);
     if (!pHirelingTxtRecord)
     {
         *pNameFirst = 0;
@@ -292,7 +257,7 @@ D2UnitStrc* __fastcall D2GAME_NPC_GenerateStoreItem_6FCC6A60(D2UnitStrc* hNPC, u
         else
         {
             unsigned int nChance = ITEMS_RollLimitedRandomNumber(SUNITPROXY_GetSeedFromNpcControl(ptGame), 100000);
-            if (ptGame->nGameType && nChance < (unsigned int)(16 * nItemLevel + 1000) && pRecord->dwUltraCode && pRecord->dwUltraCode != 0x20202020)
+            if (ptGame->bExpansion && nChance < (unsigned int)(16 * nItemLevel + 1000) && pRecord->dwUltraCode && pRecord->dwUltraCode != 0x20202020)
             {
                 DATATBLS_GetItemRecordFromItemCode(pRecord->dwUltraCode, &nItemId);
                 dwNewCode = pRecord->dwUltraCode;
@@ -590,13 +555,13 @@ int __fastcall sub_00579030_RollTraderItems(D2GameStrc* pGame, D2UnitStrc* pNpc,
 static __forceinline int GetId(D2UnitStrc* u){ if(u) return u->dwUnitId; return -1; }
 
 static __forceinline int GetX(D2UnitStrc* unit) {
- switch(unit->type) { case 2:case 4:case 5:return unit->staticPath->x; }
- return unit->path?PATH_GetXPosition(unit->path):0;
+ switch(unit->dwUnitType) { case 2:case 4:case 5:return unit->pStaticPath->x; }
+ return unit->pDynamicPath?PATH_GetXPosition(unit->pDynamicPath):0;
 }
 
 static __forceinline int GetY(D2UnitStrc* unit) {
- switch(unit->type) { case 2:case 4:case 5:return unit->staticPath->y; }
- return unit->path?PATH_GetYPosition(unit->path):0;
+ switch(unit->dwUnitType) { case 2:case 4:case 5:return unit->pStaticPath->y; }
+ return unit->pDynamicPath?PATH_GetYPosition(unit->pDynamicPath):0;
 }
 
 static __forceinline void RemoveExistingPet(D2GameStrc* game,D2UnitStrc* player)
@@ -618,12 +583,12 @@ void __fastcall sub_00579AA0_ReplacePet(D2GameStrc* game,D2UnitStrc* player,D2Un
  UNITS_ChangeAnimMode(pet,1);
  STATLIST_SetUnitStat(pet,6,STATLIST_GetMaxLifeFromUnit(pet),0);
  sub_00574AB0_RevivePet(game,player,pet);
- sub_005B1900_InitAi(game,pet,0,player->owner);
+ sub_005B1900_InitAi(game,pet,0,player->dwNodeIndex);
  STATES_ToggleState(pet,1,0);
  STATES_ToggleState(pet,107,0);
  STATES_ToggleState(pet,154,0);
- pet->flags|=0x402000E;
- pet->flagsEx&=~0x40000;
+ pet->dwFlags|=0x402000E;
+ pet->dwFlagEx&=~0x40000;
  sub_00577470_RelinkItemStatLists(pet);
  PLAYERPETS_UpdatePetsForOwnerMove(game,player,GetX(player),GetY(player));
  MONSTERAI_SendMercStats(game,player,0);
