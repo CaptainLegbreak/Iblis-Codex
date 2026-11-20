@@ -1,4 +1,4 @@
-struct D2CriticalSectionStrc { char data[24]; };
+#include "D2SysTypes.h"
 struct T006BE350 {
  char unknown000[0x854]; D2CriticalSectionStrc lock; char unknown86C[0x36C];
  void* threads[4]; unsigned int ids[4]; int stop[4]; char unknownC08[0x10]; int extraEnabled;

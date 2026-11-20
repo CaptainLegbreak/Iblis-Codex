@@ -1,4 +1,4 @@
-struct D2CriticalSectionStrc { unsigned int fields[6]; };
+#include "D2SysTypes.h"
 struct D2StormFileRecStrc;
 struct D2StormBlockStrc { unsigned int nOffset,nPackedSize,nFileSize,dwFlags,unk10,unk14,nCrc; };
 struct D2StormArchiveRecStrc { char pad00[0x110];int nMode;char pad114[8];D2StormFileRecStrc* pCachedFile;unsigned int nCachedOffset,nBlockSize;unsigned char* pBlockBuffer;unsigned int f_12C; };

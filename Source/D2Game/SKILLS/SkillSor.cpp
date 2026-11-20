@@ -30,8 +30,6 @@ struct D2DifficultyLevelsTxt;
 struct D2MissilesTxt;
 struct D2SkillsTxt;
 
-
-
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
 void __fastcall SKILLS_RefreshPassivesAndPetLimits(D2UnitStrc* pUnit); // 0x0056DE40
@@ -78,51 +76,11 @@ enum D2C_F39Constants
     STATLIST_FLAG_8 = 8,
 };
 
-
-
-
-
-
-
-
-
-struct D2BasicAuraParamStrc
-{
-    int nAuraState;
-    int nSkillId;
-    int nSkillLevel;
-    int nDuration;
-    int nAuraStat[6];
-    int nAuraStatCalcValue[6];
-    int field_40;
-    D2StatListStrc* pStatList;
-    int nPassiveState;
-    void* pStateRemoveCallback;
-};
-
-struct D2DamageAuraParamStrc
-{
-    int nAuraState;
-    int nSkillId;
-    int nSkillLevel;
-    int nDuration;
-    int nAuraStat[6];
-    int nAuraStatCalcValue[6];
-    int field_40;
-    D2StatListStrc* pStatList;
-    int nPassiveState;
-    D2DamageStrc* pDamage;
-};
-
-
 struct D2DifficultyLevelsTxt
 {
     char unk0x00[0x40];
     int dwStaticFieldMin;
 };
-
-
-
 
 typedef int (__fastcall* AURACALLBACK)(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit);
 

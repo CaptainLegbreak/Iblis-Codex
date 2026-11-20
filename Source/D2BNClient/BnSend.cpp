@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2Primitives.h"
 #include "D2ClientMenus.h"
+#include "D2BnCryptTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -248,23 +249,6 @@ struct D2StormArray408Strc
     unsigned int f_4;
     D2Storm408ElemStrc* f_8;
     unsigned int f_C;
-};
-
-struct D2BigPowModStrc
-{
-    void* pUnknown0x00;
-    void* hBase;
-    void* hModulus;
-
-    void sub_00528480_HashThreeBlocks(const unsigned char* pFirst, const unsigned char* pSecond, const unsigned char* pThird, unsigned char* pDigest); // 0x00528480
-};
-
-struct D2BigPairStrc
-{
-    D2BigPowModStrc* pState;
-
-    int sub_00528760_ComputeLoginProof(D2BigLoginRecordStrc* pRecord, const unsigned char* pSalt, const unsigned char* pServerPublic); // 0x00528760
-    int sub_00528890_CompareServerProof(const D2BigLoginRecordStrc* pRecord, const unsigned char* pServerProof);
 };
 
 struct D2BnAdClickStrc

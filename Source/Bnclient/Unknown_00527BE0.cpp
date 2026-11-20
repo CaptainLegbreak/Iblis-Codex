@@ -1,10 +1,7 @@
 #include "Bnclient.h"
 
 struct D2LangCharMapEntryStrc;
-struct D2BigPowModStrc;
-struct D2SrpDigestStrc;
 struct D2SrpSeedRecordStrc;
-struct D2BigPairStrc;
 struct D2BigLoginRecordStrc;
 
 extern unsigned char gnLeadByteRangeCount_00882B22; // 0x00882B22
@@ -15,44 +12,6 @@ extern "C" long __cdecl _time32(long* pTime);
 extern "C" int __cdecl tolower(int nChar);
 extern const char gacCDKeyMap_006DF238[];
 
-struct D2SrpDigestStrc
-{
-    unsigned char ab[20];
-};
-
-struct D2BigPowModStrc
-{
-    int bValid;
-    void* hBase;
-    void* hModulus;
-    D2SrpDigestStrc tDigest;
-    D2SrpDigestStrc tSavedDigest;
-    union
-    {
-        struct
-        {
-            unsigned int aClear[6];
-        };
-        struct
-        {
-            unsigned char abOutput[0x14];
-            unsigned int nRandomBytesLeft;
-        };
-        struct
-        {
-            unsigned char unk_34[0x14];
-            unsigned int f_48;
-        };
-    };
-    D2BigPowModStrc();
-    void sub_00527DD0_InitRandom(unsigned int nSeed);
-    void sub_00527F40_ComputePrivateKey(const unsigned char* pSalt, const char* szName, const char* szPassword, void** phResult);
-    void sub_005282A0_ComputeProof(const char* szName, const unsigned char* pSalt, const unsigned char* pClientPublic, const unsigned char* pServerPublic, const unsigned char* pKey, unsigned char* pProof);
-    void sub_00528010_PowMod(void* const& hExp, void* const& hResult);                                      // 0x00528010
-    void sub_00528030_HashToUInt(void* const& hBig, unsigned int* pValue);                                  // 0x00528030
-    int sub_005280C0_ComputeSessionKey(void* const& hSecret, void* const& hPublic, void* const& hExp, void* const& hKey);
-};
-
 struct D2SrpSeedRecordStrc
 {
     long nTime;
@@ -62,13 +21,6 @@ struct D2SrpSeedRecordStrc
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
-
-struct D2BigPairStrc
-{
-    D2BigPowModStrc* pState;
-    void sub_00527E70_RandomBytes(unsigned char* pBuffer, unsigned int nSize);
-    void sub_005286D0_InitLogin(D2BigLoginRecordStrc* pRecord, const char* szName, const char* szPassword);
-};
 
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
 void* __fastcall sub_0052A240_BigFromUnsigned(unsigned int nValue); // 0x0052A240
@@ -95,7 +47,7 @@ static int sub_005276E0_IsLeadByte(unsigned char nByte)
     }
     for (int i = 0; i < gnLeadByteRangeCount_00882B22; ++i)
     {
-        if (gpLeadByteRanges_00882B28[i].f_0 <= nByte && nByte <= gpLeadByteRanges_00882B28[i].f_1)
+        if (gpLeadByteRanges_00882B28[i].nLow <= nByte && nByte <= gpLeadByteRanges_00882B28[i].nHigh)
         {
             return 0;
         }
@@ -265,25 +217,25 @@ void D2BigPairStrc::sub_00527E70_RandomBytes(unsigned char* pBuffer, unsigned in
     if (!nSize)
         return;
 
-    unsigned int nAvail = pState->f_48;
+    unsigned int nAvail = pState->nRandomBytesLeft;
     while (nSize > nAvail)
     {
         memcpy(pBuffer, &pState->abOutput[sizeof(pState->abOutput) - nAvail], nAvail);
-        pBuffer += pState->f_48;
-        nSize -= pState->f_48;
+        pBuffer += pState->nRandomBytesLeft;
+        nSize -= pState->nRandomBytesLeft;
         sub_00529F50_Sha1Init(&tContext);
         sub_00529F80_Sha1Update(&tContext, pState->tDigest.ab, 0x14);
         sub_00529F80_Sha1Update(&tContext, pState->abOutput, 0x14);
         sub_00529F80_Sha1Update(&tContext, pState->tSavedDigest.ab, 0x14);
         sub_0052A040_Sha1Final(pState->abOutput, &tContext);
-        pState->f_48 = 0x14;
-        nAvail = pState->f_48;
+        pState->nRandomBytesLeft = 0x14;
+        nAvail = pState->nRandomBytesLeft;
     }
 
     if (nSize > 0)
     {
-        memcpy(pBuffer, &pState->abOutput[sizeof(pState->abOutput) - pState->f_48], nSize);
-        pState->f_48 -= nSize;
+        memcpy(pBuffer, &pState->abOutput[sizeof(pState->abOutput) - pState->nRandomBytesLeft], nSize);
+        pState->nRandomBytesLeft -= nSize;
     }
 }
 

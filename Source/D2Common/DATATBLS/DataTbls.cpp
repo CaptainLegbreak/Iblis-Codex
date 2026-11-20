@@ -5,6 +5,7 @@
 #include "D2Txt.h"
 #include "D2Records.h"
 #include "D2TxtItems.h"
+#include "D2Skills.h"
 struct D2SkillListStrc;
 struct D2InventoryStrc;
 struct D2PropertyStrc;
@@ -74,12 +75,6 @@ extern D2TxtLinkStrc* gpSkillsLinker_0096C7CC; // 0x0096C7CC
 extern D2TxtLinkStrc* gpMissilesLinker_0096C798; // 0x0096C798
 extern D2TxtLinkStrc* gpMissileCalcLinker_0096BC8C; // 0x0096BC8C
 int __stdcall FOG_GetLinkIndex(D2TxtLinkStrc* pLinker, unsigned int dwCode, int bLogError); // 0x006BD130
-
-struct D2SkillStrc
-{
-    D2SkillsTxt* pSkillsTxt;
-    D2SkillStrc* pNextSkill;
-};
 
 struct D2DataTablesStrc
 {

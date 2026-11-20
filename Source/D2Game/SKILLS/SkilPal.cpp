@@ -74,16 +74,10 @@ enum D2C_F39Constants
     STATLIST_FLAG_8 = 8,
 };
 
-
 struct D2ModeChangeStrc
 {
     int unk0x00[9];
 };
-
-
-
-
-
 
 struct D2DamageStrc
 {
@@ -128,36 +122,6 @@ struct D2MissileStrc
     int nInitArg;
 };
 
-
-
-struct D2BasicAuraParamStrc
-{
-    int nAuraState;
-    int nSkillId;
-    int nSkillLevel;
-    int nDuration;
-    int nAuraStat[6];
-    int nAuraStatCalcValue[6];
-    int field_40;
-    D2StatListStrc* pStatList;
-    int nPassiveState;
-    void* pStateRemoveCallback;
-};
-
-struct D2DamageAuraParamStrc
-{
-    int nAuraState;
-    int nSkillId;
-    int nSkillLevel;
-    int nDuration;
-    int nAuraStat[6];
-    int nAuraStatCalcValue[6];
-    int field_40;
-    D2StatListStrc* pStatList;
-    int nPassiveState;
-    D2DamageStrc* pDamage;
-};
-
 struct D2AiCmdStrc
 {
     int unk0x00[2];
@@ -169,9 +133,6 @@ struct D2DifficultyLevelsTxt
     char unk0x00[0x40];
     int dwStaticFieldMin;
 };
-
-
-
 
 typedef int (__fastcall* AURACALLBACK)(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit);
 

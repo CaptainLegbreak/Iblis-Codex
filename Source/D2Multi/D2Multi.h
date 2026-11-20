@@ -1,5 +1,7 @@
 #pragma once
 
+#include "D2SysTypes.h"
+
 class D2SquelchListStrc;
 struct D2CellFileStrc;
 struct D2CompositeStrc;
@@ -161,16 +163,6 @@ struct D2ChannelEntryStrc
     char szName[0x32];
     char szAccount[0x12];
     D2ChannelEntryStrc* pNext;
-};
-
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
 };
 
 typedef int (__stdcall* D2LaunchCallback)(int nArg);

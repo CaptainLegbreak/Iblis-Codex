@@ -1,9 +1,9 @@
 #include "D2BNClient.h"
+#include "D2BnCryptTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 struct D2BigPowModStrc;
-struct D2HostentStrc;
 struct D2BnDnsArgsStrc;
 class BNGatewayAccess;
 struct D2BnPacketHeaderStrc;
@@ -16,15 +16,6 @@ extern long volatile gnConnected_00881BF0; // 0x00881BF0
 static __declspec(noinline) long sub_0051BEB0_ExchangeConnected(long nComparand, long nExchange);
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-
-struct D2HostentStrc
-{
-    char* h_name;
-    char** h_aliases;
-    short h_addrtype;
-    short h_length;
-    char** h_addr_list;
-};
 
 extern "C" int __cdecl isdigit(int c); // 0x00686F0F
 extern "C" D2HostentStrc* __stdcall gethostbyname(const char* szName); // 0x006B0192
@@ -75,13 +66,6 @@ extern int gnSlotArrayA_00882128[94]; // 0x00882128
 extern "C" char* __cdecl strchr(const char* s, int c); // 0x00687740
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 extern "C" void __fastcall __security_check_cookie(unsigned int cookie); // 0x00681A48
-
-struct D2BigPairStrc
-{
-    D2BigPowModStrc* pState;
-
-    int sub_00528890_CompareServerProof(const D2BigLoginRecordStrc* pRecord, const unsigned char* pServerProof); // 0x00528890
-};
 
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218

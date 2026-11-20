@@ -1,5 +1,5 @@
 #include "Fog.h"
-struct D2CriticalSectionStrc { unsigned int fields[6]; };
+#include "D2SysTypes.h"
 struct T006BFAD0
 {
     int f_0;

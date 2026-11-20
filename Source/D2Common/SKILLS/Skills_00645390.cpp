@@ -1,34 +1,10 @@
 #include "D2Structs.h"
 #include "D2Txt.h"
+#include "D2Skills.h"
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
 struct D2DynamicPathStrc;
-
-
-struct D2SkillStrc
-{
-    D2SkillsTxt* pSkillsTxt;
-    D2SkillStrc* pNextSkill;
-    unsigned int dwSkillMode;
-    unsigned int dwFlags;
-    unsigned int unk0x10[2];
-    unsigned int nXpos;
-    unsigned int nYpos;
-    unsigned int nPar3;
-    unsigned int nPar4;
-    int nSkillLevel;
-    unsigned int nLevelBonus;
-    int nQuantity;
-    int nOwnerGUID;
-};
-
-struct D2SkillListStrc
-{
-    void* pMemPool;
-    D2SkillStrc* pFirstSkill;
-};
-
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090

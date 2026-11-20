@@ -1,24 +1,12 @@
 #include "D2GameTypes.h"
 #include "D2CmpTypes.h"
 #include "D2CmpCache.h"
+#include "D2CmpTiles.h"
 
 struct D2CmpByteMapStrc
 {
     unsigned char ab[0x100];
     int nCount;
-};
-
-struct D2Dc6FrameStrc
-{
-    int nFlip;
-    int nWidth;
-    int nHeight;
-    int nXOffset;
-    int nYOffset;
-    int nUnk0x14;
-    int nNextBlock;
-    int nLength;
-    unsigned char abData[1];
 };
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
@@ -751,7 +739,7 @@ int __fastcall sub_0060BFF0_LoadSpriteData(unsigned int dwData, void* pMemPool, 
                         pHeader->nXOffset = pDone->nXOffset;
                         pHeader->nYOffset = pDone->nYOffset;
                         pHeader->nLength = pDone->nCodedBytes;
-                        pHeader->nUnk0x14 = 0;
+                        pHeader->unk0x14 = 0;
                         pHeader->nNextBlock = 0;
                         if (!sub_0060BDB0_EncodeFrame(pDone, pHeader, pHeader->abData))
                         {
@@ -761,7 +749,7 @@ int __fastcall sub_0060BFF0_LoadSpriteData(unsigned int dwData, void* pMemPool, 
                             sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x660);
                             exit(-1);
                         }
-                        pOut += pHeader->nLength + pHeader->nUnk0x14 + 0x23;
+                        pOut += pHeader->nLength + pHeader->unk0x14 + 0x23;
                         nPrevFrame = nFrame;
                     }
                 }

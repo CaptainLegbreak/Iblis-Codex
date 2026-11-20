@@ -1,18 +1,9 @@
+#include "D2LangTypes.h"
 extern "C" unsigned int __cdecl strlen(const char* sz);
 
 struct Unicode
 {
     unsigned short wChar;
-};
-
-struct D2UtfConvertSpecStrc
-{
-    unsigned short nMask;
-    short nLeading;
-    short nTrailingBits;
-    short unk0x06;
-    int nLast;
-    int nFirst;
 };
 
 extern D2UtfConvertSpecStrc gaUtf8ConvertTable_007309B8[7];                                                 // 0x007309B8

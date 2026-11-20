@@ -3,32 +3,14 @@
 #include "D2ItemsWorld.h"
 #include "D2DrlgMaps.h"
 #include "D2TxtTables.h"
+#include "D2DrlgRooms.h"
 
 struct D2PresetUnitStrc;
-
-
-
-struct D2DrlgSubstGroupStrc
-{
-    D2DrlgCoordStrc tBox;
-    int field_10;
-    int field_14;
-};
-
-
-
 
 struct D2DrlgDrlgStrc
 {
     char unk0x000[0x464];
     void* hArchive;
-};
-
-
-
-struct D2DrlgOutdoorRoomStrc
-{
-    D2DrlgGridStrc pTileTypeGrid;
 };
 
 struct D2UnkOutdoorStrc

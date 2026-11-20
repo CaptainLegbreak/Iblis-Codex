@@ -1,5 +1,6 @@
 #include "D2CMP.h"
 #include "D2CmpTypes.h"
+#include "D2CmpTiles.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -15,19 +16,6 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
-
-struct D2CmpTileNodeStrc
-{
-    unsigned short nX;
-    unsigned short nY;
-    unsigned char nGridX;
-    unsigned char nGridY;
-    unsigned short nFormat;
-    unsigned short nLength;
-    short unk0x0A;
-    unsigned char* pData;
-    D2CmpTileNodeStrc* pNext;
-};
 
 extern D2CmpSubTilePosStrc gSubTilePositions_00743500[25]; // 0x00743500
 static __declspec(noinline) void __stdcall sub_00609980_ExtractSubTile(D2CmpTileNodeStrc* pSub, const unsigned char* pPixels, D2CmpColorStrc tColor, int nX, int nY);

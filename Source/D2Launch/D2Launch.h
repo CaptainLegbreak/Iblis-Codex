@@ -1,5 +1,7 @@
 #pragma once
 
+#include "D2SysTypes.h"
+
 struct D2CellFileStrc;
 struct D2CriticalSectionStrc;
 struct D2FindDataStrc;
@@ -155,16 +157,6 @@ struct D2CharSelCacheStrc
     void* pData;
     unsigned int dwExpireTick;
     D2CharSelCacheStrc* pNext;
-};
-
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
 };
 
 struct D2FileTimeStrc

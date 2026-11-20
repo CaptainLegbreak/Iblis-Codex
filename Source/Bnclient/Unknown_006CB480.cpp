@@ -1,7 +1,4 @@
-struct D2BigPairStrc
-{
-    ~D2BigPairStrc();
-};
+#include "D2BnCryptTypes.h"
 // build: symbol ??1D2BigPairStrc@@QAE@XZ 0x00528530
 
 extern D2BigPairStrc data_0088273C; // 0x0088273C

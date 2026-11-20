@@ -1,7 +1,7 @@
 inline void* operator new(unsigned int, void* p) throw() { return p; }
 void* __stdcall SMemAlloc(unsigned int, const char*, int, unsigned int); // 0x00413020
 int __stdcall SMemFree(void*, const char*, int, unsigned int); // 0x00412650
-struct D2CriticalSectionStrc { void* debug; long lockCount; long recursion; void* thread; void* semaphore; unsigned long spin; };
+#include "D2SysTypes.h"
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc*);
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc*);
 extern D2CriticalSectionStrc gLock_00779068; // 0x00779068

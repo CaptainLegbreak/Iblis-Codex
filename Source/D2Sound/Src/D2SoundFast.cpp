@@ -1,4 +1,5 @@
 #include "D2Sound.h"
+#include "D2SoundTypes.h"
 
 struct D2SoundStrc;
 struct D2DSoundBufferStrc;
@@ -17,28 +18,6 @@ void __cdecl sub_005147B0_DestroySoundChannel(); // 0x005147B0
 void __cdecl sub_00514860_ClearChannelTable(); // 0x00514860
 void __cdecl sub_00515120_StopSoundThread(); // 0x00515120
 
-struct D2SoundStrc
-{
-    D2DSoundBufferStrc* pBuffer;
-    unsigned int nBufferSize;
-    int unk0x08;
-    D2DSound3DBufferStrc* p3DBuffer;
-    D2KsPropertySetStrc* pPropertySet;
-    void* pData;
-    unsigned int nDataSize;
-    int bStreaming;
-    int unk0x20[2];
-    int bDataSet;
-    int unk0x2C;
-    int nLoopStart;
-    unsigned int dwFlags;
-    int f_38;
-    float f_3C;
-    int bNoLoop;
-    unsigned int nMinDataSize;
-    void* hStreamFile;
-};
-
 D2SoundStrc* __fastcall sub_00515530_CreateSound(unsigned int nFlags, int nValue); // 0x00515530
 int __fastcall sub_00515710_GetSoundPlaying(D2SoundStrc* pSound); // 0x00515710
 int __fastcall sub_00515C30_IsSoundStreaming(D2SoundStrc* pSound); // 0x00515C30
@@ -51,17 +30,6 @@ extern D2ComObjectStrc* gpDirectSound_00881768; // 0x00881768
 extern int gbSoundLockInit_0088177C; // 0x0088177C
 extern D2SoundStrc* gpSoundChannel_00881794; // 0x00881794
 extern D2CriticalSectionStrc gWaveLock_008817C4; // 0x008817C4
-
-struct D2WaveFormatStrc
-{
-    unsigned short wFormatTag;
-    unsigned short nChannels;
-    unsigned int nSamplesPerSec;
-    unsigned int nAvgBytesPerSec;
-    unsigned short nBlockAlign;
-    unsigned short wBitsPerSample;
-    unsigned short cbSize;
-};
 
 struct D2SoundWaveStrc
 {
@@ -82,15 +50,6 @@ void* __fastcall sub_00516760_ParseWave(const void* pFile, unsigned int* pnSize,
 void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
 extern int gbWaveSlotsInit_008817FC; // 0x008817FC
 extern D2SoundWaveStrc* gpSoundWaveList_00881800; // 0x00881800
-
-struct D2WaveStrc
-{
-    char szName[0x50];
-    void* pData;
-    unsigned int nSize;
-    unsigned int nType;
-    D2WaveStrc* pNext;
-};
 
 extern "C" int __cdecl strcmp(const char* szLeft, const char* szRight);
 int __fastcall sub_005155D0_SetSoundData(D2SoundStrc* pSound, const void* pFile, unsigned int nSize); // 0x005155D0
@@ -262,7 +221,7 @@ int __fastcall sub_005155D0_SetSoundData(D2SoundStrc* pSound, const void* pFile,
     pSound->nDataSize = nDataSize;
     pSound->pData = pData;
     sub_00515180_FillBuffer(pSound, 0, 0, pSound->nBufferSize);
-    pSound->bDataSet = 1;
+    pSound->bSecondHalf = 1;
     if (!pSound->bNoLoop && pSound->nDataSize < pSound->nBufferSize)
         pSound->nLoopStart = pSound->nDataSize;
     else
@@ -285,7 +244,7 @@ int __fastcall sub_00515D70_StartStream(D2SoundStrc* pSound, const char* szFileN
         LeaveCriticalSection(&gSoundLock_0088174C);
         return 0;
     }
-    pSound->hStreamFile = hFile;
+    pSound->hStream = hFile;
     pSound->bStreaming = 1;
     pSound->nLoopStart = -1;
     LeaveCriticalSection(&gSoundLock_0088174C);

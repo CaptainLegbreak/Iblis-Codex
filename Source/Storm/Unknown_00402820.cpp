@@ -1,5 +1,7 @@
 #include "Storm.h"
+
 #include "D2GameTypes.h"
+#include "D2FogTypes.h"
 
 struct D2CriticalSectionStrc;
 struct D2DbgHelpRequestStrc;
@@ -26,7 +28,6 @@ struct D2ImageDebugDirStrc;
 struct D2CvNb10Strc;
 struct D2CvRsdsStrc;
 struct D2ModuleStrc;
-
 
 struct D2DbgHelpRequestStrc
 {
@@ -115,35 +116,6 @@ struct D2ModuleInfoStrc
 };
 extern "C" int __stdcall GetModuleInformation(void* hProcess, void* hModule, D2ModuleInfoStrc* pInfo, unsigned long cb); // 0x006B13C8
 void __stdcall sub_M452_EmitSink(D2CrashModuleListStrc* pList);
-
-struct D2ThreadContextStrc
-{
-    unsigned long ContextFlags;
-    unsigned long Dr0;
-    unsigned long Dr1;
-    unsigned long Dr2;
-    unsigned long Dr3;
-    unsigned long Dr6;
-    unsigned long Dr7;
-    D2FloatSaveStrc FloatSave;
-    unsigned long SegGs;
-    unsigned long SegFs;
-    unsigned long SegEs;
-    unsigned long SegDs;
-    unsigned long Edi;
-    unsigned long Esi;
-    unsigned long Ebx;
-    unsigned long Edx;
-    unsigned long Ecx;
-    unsigned long Eax;
-    unsigned long Ebp;
-    unsigned long Eip;
-    unsigned long SegCs;
-    unsigned long EFlags;
-    unsigned long Esp;
-    unsigned long SegSs;
-    unsigned char ExtendedRegisters[512];
-};
 
 #pragma pack(push, 1)
 struct D2FpuRegStrc

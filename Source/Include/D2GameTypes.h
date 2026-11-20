@@ -3,6 +3,7 @@
 // AI control and commands, object and quest event arguments.
 
 #include "D2Check.h"
+#include "D2SysTypes.h"
 
 struct D2UnitStrc;
 struct D2GameStrc;
@@ -15,16 +16,6 @@ struct D2AiCmdStrc;
 struct D2AiControlStrc;
 
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArg);
-
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo; // 0x00
-    long nLockCount; // 0x04
-    long nRecursionCount; // 0x08
-    void* hOwningThread; // 0x0C
-    void* hLockSemaphore; // 0x10
-    unsigned long nSpinCount; // 0x14
-};
 
 struct D2DamageStrc
 {
@@ -165,7 +156,6 @@ struct D2QuestArgStrc
     int nNewLevel; // 0x18
 };
 
-D2_CHECK_SIZE(D2CriticalSectionStrc, 0x18);
 D2_CHECK_SIZE(D2DamageStrc, 0x70);
 D2_CHECK_OFFSET(D2DamageStrc, dwHitClass, 0x60);
 D2_CHECK_SIZE(D2MissileStrc, 0x5C);

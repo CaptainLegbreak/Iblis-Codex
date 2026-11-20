@@ -1,4 +1,5 @@
 #include "D2CmpCache.h"
+#include "D2CmpTiles.h"
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
@@ -21,11 +22,6 @@ struct D2CmpPoolStrc
 struct D2CmpBlockTableAStrc
 {
     unsigned char data[0x1000];
-};
-
-struct D2CmpBlockTableBStrc
-{
-    unsigned char data[0x10000];
 };
 
 struct D2SpriteKeyStrc

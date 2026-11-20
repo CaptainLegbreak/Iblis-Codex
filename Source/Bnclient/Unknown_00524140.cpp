@@ -1,10 +1,4 @@
-struct D2BnHashCtxStrc
-{
-    unsigned int aState[5];
-    int nBitCountLo;
-    int nBitCountHi;
-    unsigned int f_1C[16];
-};
+#include "D2BnCryptTypes.h"
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
 extern D2BnHashCtxStrc gaBnHashCtx_00882760[];                                                              // 0x00882760
@@ -26,7 +20,7 @@ static void __stdcall sub_00524140_UpdateHash(D2BnHashCtxStrc* pCtx, const void*
         unsigned int nBlocks = (unsigned int)nLength >> 6;
         do
         {
-            memcpy(pCtx->f_1C, pData, sizeof(pCtx->f_1C));
+            memcpy(pCtx->unk0x1C, pData, sizeof(pCtx->unk0x1C));
             sub_00523AF0_HashTransform(pCtx);
             pData = (const char*)pData + 64;
         } while (--nBlocks);

@@ -1,6 +1,7 @@
 #include "D2Win.h"
 #include "D2CmpTypes.h"
 #include "D2WinTypes.h"
+#include "D2CmpTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define COF_PAD 0x20
@@ -28,14 +29,6 @@ struct D2CofInfoStrc;
 struct D2GfxInfoStrc;
 struct D2CompositeUnitStrc;
 struct D2CompItemStrc;
-
-struct D2CofDataStrc
-{
-    unsigned char nLayers;
-    unsigned char nFramesPerDirection;
-    unsigned char nDirections;
-    unsigned char nVersion;
-};
 
 struct D2GfxDataStrc
 {

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "D2LangTypes.h"
+
 struct D2LangCharMapEntryStrc;
 struct D2StringTableStrc;
 struct Unicode;
@@ -23,16 +25,6 @@ struct D2LangCharMapEntryStrc
 {
     unsigned short wValue;
     unsigned short f_2;
-};
-
-struct D2UtfConvertSpecStrc
-{
-    unsigned short nMask;
-    short nLeading;
-    short nTrailingBits;
-    short unk0x06;
-    int nLast;
-    int nFirst;
 };
 
 typedef unsigned int size_t;

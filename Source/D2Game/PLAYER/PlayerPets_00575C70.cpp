@@ -11,27 +11,6 @@
 #include "D2GameAux.h"
 struct D2UnitStrc;
 
-
-
-
-
-struct D2PetArgStrc
-{
-    int nPetGUID;
-    int nUnitGUID;
-    unsigned short nPetClass;
-    short unk0x0A;
-    int nPetType;
-    int nSeed;
-    int nName;
-    int unk0x18;
-};
-
-
-
-
-
-
 struct D2PetTypeTxt
 {
     unsigned int dwHcIdx;
@@ -39,8 +18,6 @@ struct D2PetTypeTxt
     short wGroup;
     char unk0x0A[0xD6];
 };
-
-
 
 typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
 

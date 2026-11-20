@@ -2,33 +2,10 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Skills.h"
 
 struct D2SkillsTxt;
 struct D2SkillListStrc;
-
-
-struct D2SkillStrc
-{
-    D2SkillsTxt* pSkillsTxt;
-    D2SkillStrc* pNextSkill;
-    char unk0x08[40 - 4 - 4];
-    int nSkillLevel;
-    char unk0x2C[52 - 40 - 4];
-    int nOwnerGUID;
-    char unk0x38[60 - 52 - 4];
-    int bExcludeFromHighestLevelLookup;
-};
-
-struct D2SkillListStrc
-{
-    void* pMemPool;
-    D2SkillStrc* pFirstSkill;
-    D2SkillStrc* pLeftSkill;
-    D2SkillStrc* pRightSkill;
-    D2SkillStrc* pUsedSkill;
-};
-
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0

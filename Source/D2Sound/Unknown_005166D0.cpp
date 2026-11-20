@@ -1,13 +1,4 @@
-struct D2WaveFormatStrc
-{
-    unsigned short wFormatTag;
-    unsigned short nChannels;
-    unsigned int nSamplesPerSec;
-    unsigned int nAvgBytesPerSec;
-    unsigned short nBlockAlign;
-    unsigned short wBitsPerSample;
-    unsigned short cbSize;
-};
+#include "D2SoundTypes.h"
 
 // 0x005166D0
 static const unsigned char* __stdcall sub_005166D0_FindRiffChunk(const unsigned char* pData, unsigned int* pnSize, unsigned int nChunkId, unsigned int* pnChunkSize)

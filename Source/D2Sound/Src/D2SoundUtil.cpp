@@ -1,4 +1,5 @@
 #include "D2Sound.h"
+#include "D2SoundTypes.h"
 
 struct T00516950;
 struct D2SoundNode00516980Strc;
@@ -31,12 +32,6 @@ struct D2SoundNode00516A10Strc
 {
     int nKey;
     D2SoundNode00516A10Strc* pNext;
-};
-
-struct D2SoundNodeStrc
-{
-    int nKey;
-    D2SoundNodeStrc* pNext;
 };
 
 struct D2FixedFileInfoStrc

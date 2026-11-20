@@ -1,67 +1,11 @@
 #include "D2Sound.h"
+#include "D2SoundTypes.h"
 struct D2DSoundBufferStrc;
 struct D2SoundStrc;
 struct D2SoundNodeStrc;
 struct D2WaveFormatStrc;
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-
-struct D2DSoundBufferStrc
-{
-    virtual long __stdcall QueryInterface(const void* riid, void** ppvObject) = 0;
-    virtual unsigned long __stdcall AddRef() = 0;
-    virtual unsigned long __stdcall Release() = 0;
-    virtual long __stdcall GetCaps(void* pCaps) = 0;
-    virtual long __stdcall GetCurrentPosition(unsigned long* pdwPlay, unsigned long* pdwWrite) = 0;
-    virtual long __stdcall GetFormat(void* pFormat, unsigned long dwSize, unsigned long* pdwWritten) = 0;
-    virtual long __stdcall GetVolume(long* plVolume) = 0;
-    virtual long __stdcall GetPan(long* plPan) = 0;
-    virtual long __stdcall GetFrequency(unsigned long* pdwFrequency) = 0;
-    virtual long __stdcall GetStatus(unsigned long* pdwStatus) = 0;
-    virtual long __stdcall Initialize(void* pDirectSound, const void* pDesc) = 0;
-    virtual long __stdcall Lock(unsigned long dwOffset, unsigned long dwBytes, void** ppv1, unsigned long* pdw1, void** ppv2, unsigned long* pdw2, unsigned long dwFlags) = 0;
-    virtual long __stdcall Play(unsigned long dwReserved, unsigned long dwPriority, unsigned long dwFlags) = 0;
-    virtual long __stdcall SetCurrentPosition(unsigned long dwPosition) = 0;
-    virtual long __stdcall SetFormat(const void* pFormat) = 0;
-    virtual long __stdcall SetVolume(long lVolume) = 0;
-    virtual long __stdcall SetPan(long lPan) = 0;
-    virtual long __stdcall SetFrequency(unsigned long dwFrequency) = 0;
-    virtual long __stdcall Stop() = 0;
-    virtual long __stdcall Unlock(void* pv1, unsigned long dw1, void* pv2, unsigned long dw2) = 0;
-    virtual long __stdcall Restore() = 0;
-};
-
-struct D2SoundStrc
-{
-    D2DSoundBufferStrc* pBuffer;
-    unsigned long nBufferSize;
-    unsigned long nHalfSize;
-    int unk0x0C[3];
-    unsigned long nEndPosition;
-    int bPlaying;
-    unsigned long nPosition;
-    unsigned long nFillPosition;
-    int bSecondHalf;
-    int bStreamed;
-    int nFillState;
-    unsigned int dwFlags;
-    int nVolume;
-    int unk0x3C;
-    int bNoClear;
-    int unk0x44;
-    void* hStream;
-    int bFading;
-    int nFadeFrom;
-    int nFadeTo;
-    int nFadeStart;
-    int nFadeEnd;
-};
-
-struct D2SoundNodeStrc
-{
-    D2SoundStrc* pSound;
-    D2SoundNodeStrc* pNext;
-};
 
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
@@ -81,17 +25,6 @@ void __fastcall sub_005157B0_SetSoundVolume(D2SoundStrc* pSound, int nVolume); /
 void __fastcall sub_00515E40_CloseSoundStream(D2SoundStrc* pSound); // 0x00515E40
 int __fastcall sub_00515FD0_RestoreLostBuffer(D2SoundStrc* pSound); // 0x00515FD0
 
-struct D2WaveFormatStrc
-{
-    unsigned short wFormatTag;
-    unsigned short nChannels;
-    unsigned int nSamplesPerSec;
-    unsigned int nAvgBytesPerSec;
-    unsigned short nBlockAlign;
-    unsigned short wBitsPerSample;
-    unsigned short cbSize;
-};
-
 extern "C" double __cdecl sqrt(double x); // 0x006879C0
 extern const float gfMaxSoundDistance_006DEB10; // 0x006DEB10
 
@@ -104,7 +37,7 @@ static __forceinline void sub_00515EE0_StopSoundInline(D2SoundStrc* pSound)
         sub_00515E40_CloseSoundStream(pSound);
     }
     pSound->pBuffer->Stop();
-    pSound->bPlaying = 0;
+    pSound->bStreaming = 0;
     LeaveCriticalSection(&gSoundLock_0088174C);
 }
 
@@ -172,7 +105,7 @@ unsigned long __stdcall sub_00516250_SoundThread(void* pParameter)
                     sub_00515EE0_StopSoundInline(pSound);
                 }
             }
-            else if (pSound->bPlaying)
+            else if (pSound->bStreaming)
             {
                 unsigned long dwWrite;
                 if (pSound->pBuffer->GetCurrentPosition(&dwPlay, &dwWrite) >= 0)
@@ -183,32 +116,32 @@ unsigned long __stdcall sub_00516250_SoundThread(void* pParameter)
                     if (!pSound->bStreamed)
                     {
                         const unsigned long* const pnPos = &pSound->nPosition;
-                        if (pSound->nFillPosition - *pnPos < pSound->nHalfSize || *pnPos > pSound->nFillPosition)
+                        if (pSound->nFillPosition - *pnPos < pSound->nHalfBufferBytes || *pnPos > pSound->nFillPosition)
                         {
                             const unsigned long nFillOffset = pSound->nFillPosition & nMask;
-                            sub_00515180_FillBuffer(pSound, pSound->nFillPosition, nFillOffset, pSound->nHalfSize);
-                            pSound->nFillState = -1;
+                            sub_00515180_FillBuffer(pSound, pSound->nFillPosition, nFillOffset, pSound->nHalfBufferBytes);
+                            pSound->nLoopStart = -1;
                             pSound->bSecondHalf = nFillOffset != 0;
                         }
                     }
-                    else if (!pSound->bNoClear)
+                    else if (!pSound->bNoLoop)
                     {
-                        if (dwPlay < pSound->nHalfSize && !pSound->bSecondHalf)
+                        if (dwPlay < pSound->nHalfBufferBytes && !pSound->bSecondHalf)
                         {
-                            sub_00515300_ClearSoundBuffer(pSound->pBuffer, pSound->nHalfSize, pSound->nHalfSize);
+                            sub_00515300_ClearSoundBuffer(pSound->pBuffer, pSound->nHalfBufferBytes, pSound->nHalfBufferBytes);
                             pSound->bSecondHalf = 1;
                         }
 
-                        if (dwPlay >= pSound->nHalfSize && pSound->bSecondHalf == 1)
+                        if (dwPlay >= pSound->nHalfBufferBytes && pSound->bSecondHalf == 1)
                         {
-                            sub_00515300_ClearSoundBuffer(pSound->pBuffer, 0, pSound->nHalfSize);
+                            sub_00515300_ClearSoundBuffer(pSound->pBuffer, 0, pSound->nHalfBufferBytes);
                             pSound->bSecondHalf = 0;
                         }
 
-                        if (pSound->nPosition > pSound->nEndPosition)
+                        if (pSound->nPosition > pSound->nDataSize)
                         {
                             pSound->pBuffer->Stop();
-                            pSound->bPlaying = 0;
+                            pSound->bStreaming = 0;
                         }
                     }
                 }

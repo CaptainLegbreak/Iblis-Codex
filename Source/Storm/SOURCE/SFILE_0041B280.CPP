@@ -1,4 +1,4 @@
-struct D2CriticalSectionStrc { void* pDebug; long lockCount, recursionCount; void* owner; void* semaphore; unsigned long spinCount; };
+#include "D2SysTypes.h"
 struct D2StormArchiveRecStrc { char pad[0x110]; int nKind; };
 struct D2StormFileRecStrc { char pad[0x110]; int nKind; D2StormArchiveRecStrc* pArchive; char pad118[0x1c]; int ddaActive; char pad138[0xc]; int refs; };
 #pragma pack(push, 1)

@@ -5,6 +5,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Skills.h"
 
 #define STATEMASK_BLUE 18
 #define INVENTORY_SIGNATURE 0x01020304
@@ -48,8 +49,6 @@ struct D2StaticPathStrc;
 struct D2InvRectStrc;
 struct D2BeltsTxt;
 
-
-
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 unsigned int* __stdcall D2COMMON_STATES_GetStatFlags_6FDB8A90(D2UnitStrc* pUnit); // 0x00625BB0
 
@@ -77,8 +76,6 @@ struct D2InventoryPairStrc
     D2UnitStrc* pLastItem;
 };
 
-
-
 extern "C" int __fastcall sub_0045ADF0_GetX(D2UnitStrc* pItem); // 0x0045ADF0
 extern "C" int __fastcall sub_0045AE20_GetY(D2UnitStrc* pItem); // 0x0045AE20
 extern "C" void __stdcall sub_006286C0_GetSize(D2UnitStrc* pItem, unsigned char* pWidth, unsigned char* pHeight, const char* szSource, int nLine); // 0x006286C0
@@ -87,8 +84,6 @@ extern "C" void __stdcall sub_006277F0_RemoveOwnerStat(D2UnitStrc* pOwner, D2Uni
 extern "C" const char gszInventorySource_006EA918; // 0x006EA918
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
-
-
 
 int __fastcall INVENTORY_RemoveItem(D2UnitStrc* pItem); // 0x0063AAF0
 void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
@@ -100,21 +95,6 @@ struct Obj0063CD20 {
 
 struct Obj0063CD40 {
     unsigned int dwValue00;
-};
-
-
-struct D2SkillStrc
-{
-    D2SkillsTxt* pSkillsTxt;
-    D2SkillStrc* pNextSkill;
-    char unk0x08[0x2C];
-    int nOwnerGUID;
-};
-
-struct D2SkillListStrc
-{
-    void* pMemPool;
-    D2SkillStrc* pFirstSkill;
 };
 
 struct Obj0063D650 { unsigned int dwUnknown00; unsigned int dwUnknown04; unsigned int dwValue08; };
@@ -161,7 +141,6 @@ s32 __stdcall COMPOSIT_IsArmorComponent(s32); // 0x0064F420
 s32 __stdcall sub_0064F500_AppearanceIndex(s32, AppearanceSix*); // 0x0064F500
 AppearanceRecord* __stdcall sub_0065B620_AppearanceRecord(s32); // 0x0065B620
 
-
 struct D2ItemDataTbl
 {
     int nItemsTxtRecordCount;
@@ -199,8 +178,6 @@ extern const signed char gaDirectionDeltaY_006EA978[32]; // 0x006EA978
 static __declspec(noinline) s32 __cdecl sub_0063D900_FindCode(u32 second, u32 first);
 static __declspec(noinline) int sub_0063DBC0_PairIsWieldable(D2UnitStrc* pUnit, D2UnitStrc* pItem1, D2UnitStrc* pItem2);
 static __declspec(noinline) BOOL __stdcall INVENTORY_CanItemBePlacedInInventory(D2UnitStrc* pPlayer, D2UnitStrc* pItem, D2InventoryStrc* pInventory);
-
-
 
 struct D2InvRectStrc
 {

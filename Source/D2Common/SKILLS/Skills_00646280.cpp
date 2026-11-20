@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Records.h"
+#include "D2Skills.h"
 
 struct D2InventoryStrc;
 struct D2ItemsTxt;
@@ -9,7 +10,6 @@ struct D2SkillsTxt;
 struct D2SkillListStrc;
 struct D2MissilesTxt;
 struct D2SkillCalcStrc;
-
 
 struct D2ItemsTxt
 {
@@ -56,32 +56,12 @@ struct D2SkillsTxt
     char unk0x18E[0x23C - 0x18E];
 };
 
-struct D2SkillStrc
-{
-    D2SkillsTxt* pSkillsTxt;
-    D2SkillStrc* pNextSkill;
-    char unk0x08[40 - 4 - 4];
-    int nSkillLevel;
-    char unk0x2C[52 - 40 - 4];
-    int nOwnerGUID;
-    char unk0x38[60 - 52 - 4];
-    int bExcludeFromHighestLevelLookup;
-};
-
-struct D2SkillListStrc
-{
-    char unk0x00[4];
-    D2SkillStrc* pFirstSkill;
-};
-
-
 struct D2MissilesTxt
 {
     char unk0x000[0x96];
     short wRange;
     short wLevRange;
 };
-
 
 struct D2SkillCalcStrc
 {

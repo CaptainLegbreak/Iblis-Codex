@@ -29,12 +29,4 @@ struct D2NetPacketRecStrc
     D2NetPacketRecStrc* pNext;
 };
 
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
+#include "D2SysTypes.h"

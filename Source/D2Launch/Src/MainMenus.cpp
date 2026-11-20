@@ -1,4 +1,5 @@
 #include "D2Launch.h"
+#include "D2FogTypes.h"
 
 #pragma intrinsic(_ReadWriteBarrier)
 #pragma intrinsic(strcmp)
@@ -32,18 +33,6 @@ struct D2ServiceStatusStrc
     unsigned long dwServiceExitCode;
     unsigned long dwCheckPoint;
     unsigned long dwWaitHint;
-};
-
-struct D2PoolSystemStrc
-{
-    int bFreePoolAlloc;
-    D2CriticalSectionStrc tLock;
-    int nUnk0x1C;
-    char unk0x20[0x780];
-    int nLargeOverflow;
-    char unk0x7A4[0x08];
-    int* apLargeBlocks[1023];
-    int nCount;
 };
 
 struct D2MemoryStatusStrc

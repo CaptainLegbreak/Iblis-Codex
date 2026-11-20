@@ -1,5 +1,7 @@
 #include "Storm.h"
+
 #include "D2CrashTypes.h"
+#include "D2FogTypes.h"
 #define CMD_BOOLEAN 0
 #define CMD_INTEGER 1
 #define CMD_STRING 2
@@ -24,47 +26,6 @@ struct D2ImageOptionalHeader32Strc
 };
 
 static __declspec(noinline) void __stdcall sub_00404F60_GetDebugDirectory32(unsigned long* pSize, unsigned long* pRva, const D2ImageOptionalHeader32Strc* pHeader);
-
-struct D2StackFrameStrc
-{
-    unsigned long dwPc;
-    unsigned long dwFrame;
-    unsigned long dwStack;
-    unsigned long dwReturn;
-    unsigned char bHasArgs;
-    void* apArgs[4];
-};
-
-struct D2ThreadContextStrc
-{
-    unsigned long ContextFlags;
-    unsigned long Dr0;
-    unsigned long Dr1;
-    unsigned long Dr2;
-    unsigned long Dr3;
-    unsigned long Dr6;
-    unsigned long Dr7;
-    D2FloatSaveStrc FloatSave;
-    unsigned long SegGs;
-    unsigned long SegFs;
-    unsigned long SegEs;
-    unsigned long SegDs;
-    unsigned long Edi;
-    unsigned long Esi;
-    unsigned long Ebx;
-    unsigned long Edx;
-    unsigned long Ecx;
-    unsigned long Eax;
-    unsigned long Ebp;
-    unsigned long Eip;
-    unsigned long SegCs;
-    unsigned long EFlags;
-    unsigned long Esp;
-    unsigned long SegSs;
-    unsigned char ExtendedRegisters[512];
-
-    int sub_00405060_CaptureFrames(unsigned long dwThreadId, D2StackFrameStrc* pFrames, int nSkipFrames);
-};
 
 extern "C" __declspec(dllimport) unsigned long __stdcall VirtualQuery(const void* pAddress, D2MemoryBasicInfoStrc* pBuffer, unsigned long nLength); // 0x006CC244
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134

@@ -4,6 +4,7 @@
 #include "D2Txt.h"
 #include "D2Path.h"
 #include "D2GameStrc.h"
+#include "D2GameAux.h"
 
 #define PLRMODE_DEATH 0
 #define PLRMODE_DEAD 17
@@ -33,21 +34,6 @@ enum D2C_M244AiBaalConstants
     STAT_POISONMAXDAM = 0x3A,
     STATE_COLD = 0x0B,
 };
-
-
-
-
-struct D2TargetNodeStrc
-{
-    D2UnitStrc* hUnit;
-    int unk0x04;
-    D2TargetNodeStrc* pNext;
-    D2TargetNodeStrc* unk0x0C;
-};
-
-
-
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nRangeBonus); // 0x00622C40

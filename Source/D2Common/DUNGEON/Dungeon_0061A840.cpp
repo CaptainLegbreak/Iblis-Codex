@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2Drlg.h"
+#include "D2DrlgRooms.h"
 #define DRLGROOMFLAG_HAS_ROOM 0x100000
 #define DRLGROOMFLAG_HASPORTAL 0x400000
 #define DRLGROOMFLAG_TILELIB_LOADED 0x1000000
@@ -17,16 +18,6 @@ enum D2C_J07DungeonConstants
     UNITFLAGEX_J07_REMOVED = 0x20,
 };
 
-
-struct D2DrlgActStrc
-{
-    char unk0x00[0x48];
-    D2DrlgStrc* pDrlg;
-    unsigned char unk_4C[0x10];
-    void* pMemPool;
-};
-
-
 void __stdcall UNITROOM_UpdatePath(D2UnitStrc* pUnit); // 0x0064C450
 void __fastcall COLLISION_FreeRoomCollisionGrid(void* pMemPool, D2ActiveRoomStrc* pRoom); // 0x0064CA10
 void __stdcall DUNGEON_FreeDrlgDelete(D2ActiveRoomStrc* pRoom); // 0x0061A2C0
@@ -34,9 +25,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-
-
-
 
 extern const int gnTownLevelIds_006E7D1C[5]; // 0x006E7D1C
 int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0); // 0x0040B480

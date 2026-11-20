@@ -1,4 +1,4 @@
-struct D2CriticalSectionStrc { unsigned int fields[6]; };
+#include "D2SysTypes.h"
 struct D2FileTimeStrc { unsigned int low, high; };
 struct D2SystemTimeStrc { unsigned short year,month,dayOfWeek,day,hour,minute,second,millisecond; };
 struct D2CacheHeaderStrc { unsigned int magic,headerSize,fileSize,unk0C,hashOffset,blockOffset,nHashTableSize,nBlockTableSize,headerCrc,hashCrc,blockCrc; };

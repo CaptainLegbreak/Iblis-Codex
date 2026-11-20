@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Records.h"
+#include "D2Skills.h"
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 
@@ -43,21 +44,6 @@ struct D2SkillsTxt
     short nState[3];
     char unk0x230[0x0C];
 };
-
-
-struct D2SkillStrc
-{
-    D2SkillsTxt* pSkillsTxt;
-    D2SkillStrc* pNextSkill;
-    char unk0x08[0x20];
-    int nSkillLevel;
-    int nLevelBonus;
-    int nQuantity;
-    int nOwnerGUID;
-    int nCharges;
-};
-
-
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090

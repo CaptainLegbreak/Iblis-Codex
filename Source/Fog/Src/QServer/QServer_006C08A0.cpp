@@ -1,4 +1,4 @@
-struct D2CriticalSectionStrc { void* debug; long lockCount, recursionCount; void* owner; void* semaphore; unsigned long spinCount; };
+#include "D2SysTypes.h"
 struct D2ClientNodeStrc { int client; D2ClientNodeStrc* next; unsigned char pad[0x10]; unsigned int address; };
 struct D2MessageStrc { int client; unsigned char data[0x5B0]; int size; unsigned long tick; D2MessageStrc* next; };
 typedef int (__fastcall* D2MessageCallback)(unsigned char*, int, int*, int*, int*, int*, int, int, unsigned int);

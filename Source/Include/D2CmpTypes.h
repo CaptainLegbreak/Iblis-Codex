@@ -27,6 +27,7 @@ struct D2CmpCelContextStrc;
 struct D2CmpBitCursorStrc;
 struct D2CofNodeStrc;
 struct D2CofInfoStrc;
+struct D2CofLayerStrc;
 
 struct D2CmpColorStrc
 {
@@ -335,6 +336,31 @@ struct D2CofInfoStrc
     D2CofInfoStrc* pNext; // 0x04
 };
 
+struct D2CofLayerStrc
+{
+    unsigned char nComponent; // 0x00
+    unsigned char bShadow; // 0x01
+    unsigned char bSelectable; // 0x02
+    unsigned char nOverrideTransLvl; // 0x03
+    unsigned char nNewTransLvl; // 0x04
+    char szWeaponClass[4]; // 0x05
+};
+
+struct D2CofDataStrc
+{
+    unsigned char nLayers; // 0x00
+    unsigned char nFramesPerDirection; // 0x01
+    unsigned char nDirections; // 0x02
+    unsigned char nVersion; // 0x03
+    unsigned int unk0x04; // 0x04
+    unsigned int nBoxLeft; // 0x08
+    unsigned int nBoxRight; // 0x0C
+    unsigned int nBoxTop; // 0x10
+    unsigned int nBoxBottom; // 0x14
+    unsigned int nAnimSpeed; // 0x18
+    D2CofLayerStrc pLayers[1]; // 0x1C
+};
+
 D2_CHECK_SIZE(D2CmpColorStrc, 0x4);
 D2_CHECK_SIZE(D2CmpTileInfoStrc, 0x19);
 D2_CHECK_SIZE(D2CmpSubTileHeaderStrc, 0x10);
@@ -353,3 +379,5 @@ D2_CHECK_SIZE(D2CmpCelContextStrc, 0x44);
 D2_CHECK_SIZE(D2CmpBitCursorStrc, 0x10);
 D2_CHECK_SIZE(D2CofNodeStrc, 0x20);
 D2_CHECK_SIZE(D2CofInfoStrc, 0x8);
+D2_CHECK_SIZE(D2CofLayerStrc, 0x9);
+D2_CHECK_SIZE(D2CofDataStrc, 0x28);

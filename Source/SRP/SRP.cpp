@@ -1,36 +1,10 @@
 #include "SRP.h"
+#include "D2BnCryptTypes.h"
 
 inline void* operator new(unsigned int nSize, void* pWhere) throw()
 {
     return pWhere;
 }
-
-struct D2BigPowModStrc
-{
-    D2BigPowModStrc();                                                                                      // 0x00527DC0
-
-    int bValid;
-    void* hBase;
-    void* hModulus;
-    unsigned char abRandomState[0x3C];
-    unsigned int nRandomBytesLeft;
-
-    void sub_00527F40_ComputePrivateKey(const unsigned char* pSalt, const char* szName, const char* szPassword, void** phResult); // 0x00527F40
-    void sub_00528010_PowMod(void* const& hExp, void* const& hResult);                                      // 0x00528010
-    void sub_00528030_HashToUInt(void* const& hBig, unsigned int* pValue);                                  // 0x00528030
-    int sub_005281D0_ComputeServerKey(void* const& hClientPublic, void* const& hServerPublic, void* const& hSecret, void* const& hVerifier, void* const& hKey);
-};
-
-struct D2BigPairStrc
-{
-    D2BigPairStrc();
-
-    D2BigPowModStrc* pState;
-
-    void sub_00527E70_RandomBytes(unsigned char* pBuffer, unsigned int nSize);                              // 0x00527E70
-    int sub_005285A0_Init(int nSize1, const unsigned char* pData1, int nSize2, const unsigned char* pData2);
-    void sub_00528660_MakeVerifier(const char* szName, const char* szPassword, unsigned char* pSalt, unsigned char* pVerifier);
-};
 
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);         // 0x00413020
 

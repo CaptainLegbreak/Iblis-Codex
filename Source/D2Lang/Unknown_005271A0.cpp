@@ -1,4 +1,5 @@
 #include "D2Lang.h"
+#include "D2LangTypes.h"
 
 struct UnicodeZ;
 struct UnicodeChar;
@@ -25,13 +26,6 @@ struct UnicodeChar
     unsigned short wChar;
 
     UnicodeChar();                                                                                          // 0x0042F530
-};
-
-struct D2LangCharSetStrc
-{
-    char szChars[1];
-
-    bool sub_00527090_ContainsChar(const Unicode* pChar) const;                                             // 0x00527090
 };
 
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700

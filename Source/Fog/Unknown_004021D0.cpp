@@ -1,5 +1,5 @@
 #include "D2CrashTypes.h"
-struct D2CriticalSectionStrc { int a[6]; };
+#include "D2SysTypes.h"
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock);       // 0x006CC218
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock);       // 0x006CC214
 typedef int (__stdcall* EnumerateLoadedModules64Fn)(void* hProcess, void* pfnCallback, void* pContext);

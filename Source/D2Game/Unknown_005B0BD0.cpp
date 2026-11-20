@@ -5,21 +5,9 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2GameTypes.h"
+#include "D2GameAux.h"
 
 struct D2MonStatsTxt;
-
-
-
-
-struct D2TargetNodeStrc
-{
-    D2UnitStrc* hUnit;
-    int nNodeData;
-    D2TargetNodeStrc* pNext;
-    D2TargetNodeStrc* pPrevious;
-};
-
-
 
 enum
 {

@@ -5,6 +5,7 @@
 #include "D2Drlg.h"
 #include "D2DrlgMaps.h"
 #include "D2TxtTables.h"
+#include "D2DrlgRooms.h"
 
 struct D2DrlgCoordStrc;
 struct D2DrlgSubstGroupStrc;
@@ -16,17 +17,6 @@ struct D2CoordStrc;
 struct D2DrlgDrlgStrc;
 struct D2DrlgOutdoorRoomStrc;
 struct D2UnkOutdoorStrc2;
-
-
-
-struct D2DrlgSubstGroupStrc
-{
-    D2DrlgCoordStrc tBox;
-    int field_10;
-    int field_14;
-};
-
-
 
 struct D2UnkOutdoorStrc
 {
@@ -44,10 +34,6 @@ struct D2UnkOutdoorStrc
 
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY); // 0x0067C570
 
-
-
-
-
 void __stdcall DRLGTILESUB_ReplaceSubPreset(int nX, int nY, D2UnkOutdoorStrc* pOutdoor, D2DrlgSubstGroupStrc* pSubstGroup, D2LvlSubTxt* pLvlSubTxtRecord, int nOffset); // 0x0066F520
 static int __stdcall DRLGTILESUB_TestReplaceSubPreset(int nX, int nY, D2DrlgSubstGroupStrc* pSubstGroup, D2LvlSubTxt* pLvlSubTxtRecord, D2UnkOutdoorStrc* pOutdoor); // 0x0066F3B0
 
@@ -61,11 +47,6 @@ extern int __fastcall sub_0045C3E0_RollLimited(D2SeedStrc* pSeed, int nLimit); /
 extern D2LvlSubTxt* __fastcall DATATBLS_GetLvlSubTxtRecord(int nId); // 0x0061FA90
 extern int __stdcall sub_0066F690_ApplySubstGroup(D2UnkOutdoorStrc* pOutdoor, D2LvlSubTxt* pRecord, D2DrlgSubstGroupStrc* pGroup); // 0x0066F690
 extern void __fastcall DRLGTILESUB_InitializeDrlgFile(void* hArchive, D2LvlSubTxt* pRecord); // 0x006704E0
-
-struct D2DrlgOutdoorRoomStrc
-{
-    D2DrlgGridStrc pTileTypeGrid;
-};
 
 struct D2UnkOutdoorStrc2
 {
@@ -216,7 +197,7 @@ int __stdcall sub_0066F690_ApplySubstGroup(D2UnkOutdoorStrc* pOutdoor, D2LvlSubT
             {
                 if (DRLGTILESUB_TestReplaceSubPreset(nX, nY, pSubstGroup, pLvlSubTxtRecord, pOutdoor))
                 {
-                    DRLGTILESUB_ReplaceSubPreset(nX, nY, pOutdoor, pSubstGroup, pLvlSubTxtRecord, (DRLGTILESUB_RollLimitedRandomNumberInline(&pLevel->pSeed, pSubstGroup->field_14) + 1) * (pSubstGroup->tBox.nWidth + 1));
+                    DRLGTILESUB_ReplaceSubPreset(nX, nY, pOutdoor, pSubstGroup, pLvlSubTxtRecord, (DRLGTILESUB_RollLimitedRandomNumberInline(&pLevel->pSeed, pSubstGroup->nSubstGroup) + 1) * (pSubstGroup->tBox.nWidth + 1));
                     if (pLvlSubTxtRecord->dwBordType == 0)
                         return 1;
                     else if (pLvlSubTxtRecord->dwBordType == 1)

@@ -4,6 +4,7 @@
 #include "D2UnitData.h"
 #include "D2Drlg.h"
 #include "D2LevelTxt.h"
+#include "D2CmpTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
@@ -50,9 +51,6 @@ struct D2DataTablesStrc;
 struct D2TokRecord;
 struct D2ObjectsTxt;
 struct D2ItemsTxt;
-
-
-
 
 struct D2GfxListNodeStrc
 {
@@ -146,7 +144,6 @@ struct D2RosterInfoStrc
     unsigned int dwPartyFlags;
     D2RosterInfoStrc* pNext;
 };
-
 
 struct D2DrawBoundsArgStrc
 {
@@ -365,23 +362,6 @@ typedef char check_PartialLookupRecord_first[offsetof(PartialLookupRecord, first
 typedef char check_PartialLookupRecord_second[offsetof(PartialLookupRecord, second) == 2 ? 1 : -1];
 
 typedef char check_PartialLookupHeader_records[offsetof(PartialLookupHeader, records) == 0x1C ? 1 : -1];
-
-struct D2CofLayerStrc
-{
-    unsigned char nComponent;
-    unsigned char bShadow;
-    unsigned char bSelectable;
-    unsigned char nOverrideTransLvl;
-    unsigned char nNewTransLvl;
-    char szWeaponClass[4];
-};
-
-struct D2CofDataStrc
-{
-    unsigned char nLayers;
-    unsigned char unk0x01[0x1B];
-    D2CofLayerStrc pLayers[1];
-};
 
 struct D2ItemsTxt
 {

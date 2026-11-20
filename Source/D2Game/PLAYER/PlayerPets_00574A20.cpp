@@ -24,35 +24,13 @@ struct D2PetArgStrc;
 struct D2PetTypeTxt;
 struct D2MonStatsTxt;
 
-
-
-
-
-
-
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
-
-
-
-
-struct D2PetArgStrc
-{
-    int nPetGUID;
-    int nUnitGUID;
-    unsigned short nPetClass;
-    short unk0x0A;
-    int nPetType;
-    int nSeed;
-    int nName;
-    int unk0x18;
-};
 
 struct D2PetTypeTxt
 {
@@ -61,7 +39,6 @@ struct D2PetTypeTxt
     short wGroup;
     char unk0x0A[0xD6];
 };
-
 
 typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
 

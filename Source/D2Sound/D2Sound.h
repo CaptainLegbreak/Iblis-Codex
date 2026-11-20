@@ -1,5 +1,7 @@
 #pragma once
 
+#include "D2SysTypes.h"
+
 struct D2CriticalSectionStrc;
 
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
@@ -34,16 +36,6 @@ struct D2ComObjectStrc
     virtual long __stdcall QueryInterface(const void* riid, void** ppvObject) = 0;
     virtual unsigned long __stdcall AddRef() = 0;
     virtual unsigned long __stdcall Release() = 0;
-};
-
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
 };
 
 struct D2GuidStrc
