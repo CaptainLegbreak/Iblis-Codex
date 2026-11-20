@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2GameTypes.h"
 struct D2UnitStrc;
 
 #define UNIT_PLAYER 0
@@ -38,11 +39,6 @@ struct D2SkillsTxt
 };
 
 
-struct D2DamageStrc
-{
-    char unk0x00[0x08];
-    int dwPhysDamage;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250

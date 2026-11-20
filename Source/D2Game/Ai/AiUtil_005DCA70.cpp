@@ -4,6 +4,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2GameTypes.h"
 struct D2UnitStrc;
 
 struct D2MonStatsTxt;
@@ -17,16 +18,6 @@ struct D2AiTargetArgsStrc;
 
 
 
-struct D2AiControlStrc
-{
-    int nAiSpecialState;
-    void* pAiParamFn;
-    unsigned short nAiFlags;
-    unsigned char unk0x0A[2];
-    int dwOwnerGUID;
-    unsigned int dwOwnerType;
-    int dwAiParam[3];
-};
 
 struct D2AiTargetSearchArgsStrc
 {
@@ -72,23 +63,7 @@ enum D2C_J07AiConstants
 
 
 
-struct D2AiTickParamStrc
-{
-    D2AiControlStrc* pAiControl;
-    unsigned int unk0x04;
-    D2UnitStrc* pTarget;
-    unsigned int unk0x0C[2];
-    int nTargetDistance;
-    int bCombat;
-    D2MonStatsTxt* pMonstatsTxt;
-};
 
-struct D2AiCmdStrc
-{
-    D2AiCmdStrc* pNextCmd;
-    D2AiCmdStrc* pPrevCmd;
-    int nCmdParam[5];
-};
 
 struct D2FallenShamanAiCallbackArgStrc
 {

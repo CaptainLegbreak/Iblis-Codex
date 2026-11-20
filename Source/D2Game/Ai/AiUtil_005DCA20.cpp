@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2GameTypes.h"
 #ifdef MOVED_TEST
 #define UNIT_PAD 0xC4
 #else
@@ -8,12 +9,6 @@ struct D2GameStrc;
 struct D2ActiveRoomStrc;
 
 
-struct D2AiControlStrc
-{
-    int nAiSpecialState;
-    void* pAiParamFn;
-    unsigned short nAiFlags;
-};
 
 struct D2AiTargetSearchArgsStrc
 {

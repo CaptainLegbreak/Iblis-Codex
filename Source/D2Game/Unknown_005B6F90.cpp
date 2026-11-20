@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2UnitData.h"
+#include "D2GameTypes.h"
 
 struct D2Act3Quest0Strc;
 struct D2Act3Quest1Strc;
@@ -25,11 +26,6 @@ struct D2Act3Quest1Strc
 };
 
 
-struct D2ObjInitFnStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* pObject;
-};
 
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690

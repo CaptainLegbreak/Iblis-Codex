@@ -4,6 +4,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2GameTypes.h"
 
 #define STATE_BLAZE 0x0D
 #define STATE_SPIDERLAY 0x16
@@ -28,20 +29,6 @@ enum D2C_Q05MonsterConstants
     STATE_STUNNED = 21,
 };
 
-struct D2ModeChangeStrc
-{
-    int nMode;
-    D2UnitStrc* pUnit;
-    D2UnitStrc* pTargetUnit;
-    int nX;
-    int nY;
-    unsigned char unk0x14;
-    unsigned char nFlag;
-    unsigned char unk0x16;
-    unsigned char unk0x17;
-    int unk0x18;
-    int unk0x1C;
-};
 
 
 
@@ -146,7 +133,7 @@ void __fastcall sub_6FC64CD0(D2GameStrc* pGame, D2UnitStrc* pUnit)
         D2ModeChangeStrc modeChange = {};
         modeChange.nMode = MONMODE_GETHIT;
         modeChange.pUnit = pUnit;
-        modeChange.nFlag = 100;
+        modeChange.nEventFlag = 100;
         pUnit->dwLastHitClass = 160;
         D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
         return;

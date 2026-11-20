@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameTypes.h"
 struct D2GameStrc;
 struct D2UnitStrc;
 
@@ -53,12 +54,6 @@ struct D2QuestDataStrc
     D2Act5Quest2Strc* pQuestDataEx;
 };
 
-struct D2QuestArgStrc
-{
-    char unk0x00[0x08];
-    D2UnitStrc* pTarget;
-    D2UnitStrc* pPlayer;
-};
 
 typedef int (__fastcall* QUESTUNITITERATEFN)(D2GameStrc*, D2UnitStrc*, void*);
 
@@ -71,16 +66,6 @@ void __stdcall DUNGEON_ToggleHasPortalFlag(D2ActiveRoomStrc* pRoom, int bReset);
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2); // 0x006416D0
 
-struct D2ObjInitFnStrc
-{
-	D2GameStrc* pGame;
-	D2UnitStrc* pObject;
-	D2ActiveRoomStrc* pRoom;
-	void* pObjectregion;
-	void* pObjectTxt;
-	int nX;
-	int nY;
-};
 
 D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int a7, short a8); // 0x005B2F20
 int __fastcall QUESTS_CreateChainRecord(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuest); // 0x005436B0

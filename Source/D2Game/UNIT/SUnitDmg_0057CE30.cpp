@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2GameTypes.h"
 
 #define D2MAX(a, b) (((a) > (b)) ? (a) : (b))
 #define D2MIN(a, b) (((a) < (b)) ? (a) : (b))
@@ -17,29 +18,7 @@ struct D2CurseStrc;
 
 
 
-struct D2DamageStrc
-{
-    unsigned int dwHitFlags;
-    unsigned short wResultFlags;
-    unsigned short wExtra;
-    char unk0x08[0x44];
-    int dwDmgTotal;
-    char unk0x50[0x10];
-    unsigned int dwHitClass;
-    unsigned char nHitClassActiveSet;
-};
 
-struct D2ModeChangeStrc
-{
-    int nMode;
-    D2UnitStrc* pUnit;
-    D2UnitStrc* pTargetUnit   ;
-    int nX                        ;
-    int nY;
-    int unk0x14;
-    int unk0x18;
-    int unk0x1C;
-};
 
 extern "C" const D2DamageHitClassMappingStrc gsDamageHitClassMapping_006E16D8[8]; // 0x006E16D8
 extern unsigned int gdwBitMasks[]; // 0x006CE268

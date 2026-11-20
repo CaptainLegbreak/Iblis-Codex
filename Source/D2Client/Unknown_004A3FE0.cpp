@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2GameTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
@@ -179,21 +180,7 @@ extern int gnGlobal_007C0284;
 int __fastcall sub_00469D90(int nA, int nB); // 0x00469D90
 int __stdcall sub_B05_Sink(int nA, int nB);
 
-struct D2AiControlStrc
-{
-    int nAiSpecialState;
-    void* pAiParamFn;
-    unsigned short nAiFlags;
-    unsigned char unk0x0A[2];
-    int dwOwnerGUID;
-    unsigned int dwOwnerType;
-    int dwAiParam[3];
-};
 
-struct D2AiTickParamStrc
-{
-    D2AiControlStrc* pAiControl;
-};
 
 int __fastcall sub_0040C720_ReleaseReferences(int nArg); // 0x0040C720
 void __fastcall sub_00469A60_ResetKeyConfig(int nArg); // 0x00469A60

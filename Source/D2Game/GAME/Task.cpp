@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2GameTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -9,10 +10,6 @@ struct D2TaskQueueStrc;
 struct D2GameTaskStrc;
 struct D2CriticalSectionStrc;
 
-struct D2CriticalSectionStrc
-{
-    char unk0x00[0x18];
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090

@@ -1,4 +1,5 @@
 #include "D2CMP.h"
+#include "D2GameTypes.h"
 
 struct D2CelListStrc;
 struct D2CriticalSectionStrc;
@@ -26,15 +27,6 @@ struct D2StormListEStrc;
 struct D2StormListFixedArrayStrc;
 struct D2GameHashTableReuseStrc;
 
-struct D2CriticalSectionStrc
-{
-    void* DebugInfo;
-    int LockCount;
-    int RecursionCount;
-    void* OwningThread;
-    void* LockSemaphore;
-    unsigned int SpinCount;
-};
 
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* lpCriticalSection); // 0x006CC1FC
 

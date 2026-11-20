@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
+#include "D2GameTypes.h"
 
 struct D2QuestChainStrc;
 
@@ -18,16 +19,6 @@ struct D2QuestChainStrc
     D2QuestChainStrc* pNext;
 };
 
-struct D2QuestArgStrc
-{
-    D2GameStrc* pGame;
-    int nEvent;
-    D2UnitStrc* pTarget;
-    D2UnitStrc* pPlayer;
-    int unk0x10;
-    int unk0x14;
-    int unk0x18;
-};
 
 struct D2SuperUniquesTxt
 {

@@ -1,4 +1,5 @@
 #include "Storm.h"
+#include "D2GameTypes.h"
 #define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 
 struct D2StormFileRecStrc;
@@ -11,15 +12,6 @@ struct D2StormBlockStrc;
 
 // build: context ArchiveHead
 // build: context D2StormLinkStrc::Next
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
 
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218

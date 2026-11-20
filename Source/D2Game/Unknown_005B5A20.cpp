@@ -1,3 +1,4 @@
+#include "D2GameTypes.h"
 #ifdef MOVED_TEST
 #define PREFIX char movedPrefix[4];
 #define QUEST_ID 26
@@ -39,13 +40,6 @@ struct D2QuestDataStrc
     unsigned char pad0x15[3];
     void* pQuestDataEx;
     D2QuestGUIDStrc tPlayerGUIDs;
-};
-struct D2ObjInitFnStrc
-{
-    PREFIX
-    D2GameStrc* pGame;
-    D2UnitStrc* pObject;
-    D2ActiveRoomStrc* pRoom;
 };
 struct D2Act4Quest3Strc
 {

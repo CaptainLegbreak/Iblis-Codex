@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2GameTypes.h"
 
 #define QUEST_A2Q6_DURIEL 13
 struct D2Act2Quest6Strc;
@@ -38,10 +39,6 @@ struct D2QuestDataStrc
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc*, int, int); // 0x0065C310
 
 
-struct D2QuestArgStrc
-{
-    D2GameStrc* pGame;
-};
 
 
 struct D2ObjOperateFnStrc

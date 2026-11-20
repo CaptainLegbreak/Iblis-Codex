@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2GameTypes.h"
 
 #define UNIT_MONSTER 1
 #define QUEST_A1Q6_ANDARIEL 6
@@ -85,16 +86,6 @@ struct D2QuestDataStrc
     QUESTSEQFILTER pfSeqFilter;
 };
 
-struct D2QuestArgStrc
-{
-    D2GameStrc* pGame;
-    int nEvent;
-    D2UnitStrc* pTarget;
-    D2UnitStrc* pPlayer;
-    int unk10;
-    int oldLevel;
-    int newLevel;
-};
 
 extern int gpAct1Q6NpcMessages[]; // 0x007382E0
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
@@ -152,8 +143,8 @@ static __forceinline D2BitBufferStrc* PLAYER_GetQuestFlags(D2GameStrc* game,D2Un
 // 0x00596010
 void __fastcall sub_00596010(D2QuestDataStrc* q,D2QuestArgStrc* arg)
 {
- const int oldLevel=arg->oldLevel;
- const int newLevel=arg->newLevel;
+ const int oldLevel=arg->nOldLevel;
+ const int newLevel=arg->nNewLevel;
  if((unsigned)(newLevel-34)<=3 && q->bNotIntro) {
   bool changed=false;
   if(q->fState<3) {

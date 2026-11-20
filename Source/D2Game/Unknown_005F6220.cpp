@@ -4,6 +4,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
+#include "D2GameTypes.h"
 
 
 
@@ -23,25 +24,9 @@ struct D2GameStrc
     D2MonsterRegionStrc* pMonReg[1];
 };
 
-struct D2AiControlStrc
-{
-    int nAiSpecialState;
-    char unk0x04[0x10];
-    int dwAiParam[3];
-};
 
 
 
-struct D2AiTickParamStrc
-{
-    D2AiControlStrc* pAiControl;
-    unsigned int unk0x04;
-    D2UnitStrc* pTarget;
-    unsigned int unk0x0C[2];
-    int nTargetDistance;
-    int bCombat;
-    D2MonStatsTxt* pMonstatsTxt;
-};
 
 struct D2MephistoAiCallbackArgStrc
 {

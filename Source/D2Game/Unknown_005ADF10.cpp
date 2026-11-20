@@ -2,14 +2,11 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2GameTypes.h"
 
 
 
 
-struct D2DamageStrc
-{
-    int nData[0x1C];
-};
 
 struct D2StatListStrc;
 struct D2ActiveRoomStrc;

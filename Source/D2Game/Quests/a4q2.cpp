@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2GameTypes.h"
 
 #define QUEST_A4Q2_DIABLO 23
 #define QUESTSTATEFLAG_A4Q2 26
@@ -197,26 +198,11 @@ void __fastcall CLIENTS_UpdateCharacterProgression(D2ClientStrc* pClient, int nA
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 
-struct D2QuestArgStrc
-{
-    D2GameStrc* pGame;
-    int nEvent;
-    D2UnitStrc* pTarget;
-    D2UnitStrc* pPlayer;
-    int unk10;
-    int nOldLevel;
-    int nNewLevel;
-};
 void __fastcall QUESTS_StateDebug(D2QuestDataStrc*, int, const char*, int); // 0x00544350
 int __fastcall ACT4Q2_UnitIterate_UpdateQuestStateFlags(D2GameStrc*, D2UnitStrc*, void*); // 0x005B4560
 int __fastcall ACT4Q2_UnitIterate_StatusCyclerEx(D2GameStrc*, D2UnitStrc*, void*); // 0x005B4E40
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-struct D2ObjInitFnStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* pObject;
-};
 
 extern int gpAct4Q2NpcMessages[]; // 0x0073DBB8
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
@@ -229,19 +215,6 @@ void __fastcall ACT4Q2_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
 void __fastcall ACT4Q2_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x005B52E0
 void __stdcall QUESTRECORD_ClearQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C3A0
 
-struct D2ModeChangeStrc
-{
-    int nMode;
-    D2UnitStrc* pUnit;
-    D2UnitStrc* pTargetUnit;
-    int nX;
-    int nY;
-    unsigned char unk0x14;
-    unsigned char nEventFlag;
-    unsigned short unk0x16;
-    int unk0x18;
-    int unk0x1C;
-};
 
 struct D2ObjOperateFnStrc
 {

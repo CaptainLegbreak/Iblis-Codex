@@ -1,4 +1,5 @@
 #include "Storm.h"
+#include "D2GameTypes.h"
 #define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 
 struct D2CriticalSectionStrc;
@@ -8,15 +9,6 @@ struct D2SMemLargeHeaderStrc;
 struct D2SMemHeapStrc;
 struct D2SMemHeapInfoStrc;
 
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
 
 struct D2SMemBlockSigStrc
 {

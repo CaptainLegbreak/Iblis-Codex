@@ -1,4 +1,5 @@
 #include "Storm.h"
+#include "D2GameTypes.h"
 
 struct T00410B70;
 struct D2BitBufferStrc;
@@ -62,15 +63,6 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 
 extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, ...); // 0x00413A40
 extern "C" void* __cdecl memset(void*, int, unsigned int);
 
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
 
 struct D2SMemBlockSigStrc
 {

@@ -1,4 +1,5 @@
 #include "Storm.h"
+#include "D2GameTypes.h"
 
 struct FSafeSock;
 struct D2CriticalSectionStrc;
@@ -11,15 +12,6 @@ struct D2LogMsgNodeStrc;
 struct D2LogMessageStrc;
 class CCritSect;
 
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
 
 struct FSafeSock
 {

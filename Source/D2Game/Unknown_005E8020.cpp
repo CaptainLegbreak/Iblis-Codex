@@ -1,6 +1,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2GameTypes.h"
 #ifdef MOVED_TEST
 #define MON_FLAG 11
 #define ATTACK_MODE 6
@@ -21,19 +22,6 @@ struct D2MissilesTxt;
 
 
 
-struct D2AiTickParamStrc
-{
-#ifdef MOVED_TEST
-    int moved_prefix;
-#endif
-    D2AiControlStrc* pAiControl;
-    unsigned int unk0x04;
-    D2UnitStrc* pTarget;
-    unsigned int unk0x0C[2];
-    int nTargetDistance;
-    int bCombat;
-    D2MonStatsTxt* pMonstatsTxt;
-};
 
 
 int __fastcall AITACTICS_ChangeModeAndTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, D2UnitStrc* pTargetUnit); // 0x005DDF90

@@ -1,14 +1,6 @@
+#include "D2GameTypes.h"
 #define INVALID_FILE_HANDLE ((void*)-1)
 
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
 
 struct D2StormLinkStrc
 {

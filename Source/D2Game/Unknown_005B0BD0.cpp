@@ -4,6 +4,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2GameTypes.h"
 
 struct D2MonStatsTxt;
 
@@ -19,10 +20,6 @@ struct D2TargetNodeStrc
 };
 
 
-struct D2AiControlStrc
-{
-    int nAiSpecialState;
-};
 
 enum
 {

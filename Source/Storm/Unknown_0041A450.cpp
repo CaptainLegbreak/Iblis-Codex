@@ -1,4 +1,5 @@
 #include "Storm.h"
+#include "D2GameTypes.h"
 #define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 #define STREAM_NEXT(l) ((D2StormAudioStreamStrc*)((((int)(l)->m_next <= 0) - 1) & (int)(l)->m_next))
 
@@ -73,15 +74,6 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00
 extern D2StormListStrc gRequestList_00708360; // 0x00708360
 void __cdecl sub_0041A880_StartThread(); // 0x0041A880
 
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
 
 struct D2StormWindowNodeStrc
 {

@@ -1,4 +1,5 @@
 #include "Storm.h"
+#include "D2GameTypes.h"
 
 #define STORM_LOOKUP2_MIX(a, b, c) \
 { \
@@ -140,15 +141,6 @@ struct T004013C0
     unsigned short wProcessorRevision;
 };
 
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
 
 struct D2StormBufferInfoStrc
 {

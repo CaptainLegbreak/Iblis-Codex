@@ -3,6 +3,7 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2UnitData.h"
+#include "D2GameTypes.h"
 #define UNIT_OBJECT 2
 #define OBJMODE_OPENED 2
 #define EVENTTYPE_ENDANIM 1
@@ -18,13 +19,6 @@ struct D2PlayerDataStrc;
 typedef void (__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
 
 
-struct D2QuestArgStrc
-{
-    D2GameStrc* pGame;
-    int nEvent;
-    D2UnitStrc* pTarget;
-    D2UnitStrc* pPlayer;
-};
 
 struct D2Act3Quest2Strc
 {

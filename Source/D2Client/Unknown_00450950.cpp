@@ -1,3 +1,4 @@
+#include "D2GameTypes.h"
 struct D2SGameDataStrc;
 struct D2StormLinkStrc;
 struct D2StormHashKeyNoneStrc;
@@ -162,10 +163,6 @@ struct D2StormHashTableStrc
     void sub_0044FA00_InternalClear(int bWarn);                                                             // 0x0044FA00
 };
 
-struct D2CriticalSectionStrc
-{
-    char unk0x00[0x18];
-};
 
 
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC1FC

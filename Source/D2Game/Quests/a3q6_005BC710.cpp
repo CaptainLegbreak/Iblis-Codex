@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2GameTypes.h"
 #define QFLAG_PRIMARYGOALDONE 13
 #define UNIT_MONSTER 1
 #define MONSTER_NATALYA 297
@@ -81,15 +82,6 @@ struct D2MapAIStrc
     D2MapAIPathPositionStrc* pPosition;
 };
 
-struct D2ObjInitFnStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* pObject;
-    D2ActiveRoomStrc* pRoom;
-    int unk0x0C[2];
-    int nX;
-    int nY;
-};
 
 struct D2Act3Quest6Strc
 {

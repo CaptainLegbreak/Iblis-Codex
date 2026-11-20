@@ -2,6 +2,7 @@
 #include "D2Constants.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2GameTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define ROOM_MIN_SUBTILES 2
@@ -75,16 +76,6 @@ struct D2UnitStrc
 };
 
 
-struct D2ObjInitFnStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* pObject;
-    D2ActiveRoomStrc* pRoom;
-    D2ObjectControlStrc* pObjectregion;
-    D2ObjectsTxt* pObjectTxt;
-    int nX;
-    int nY;
-};
 
 typedef void (__fastcall* D2ObjInitFn)(D2ObjInitFnStrc* pOp);
 
@@ -170,17 +161,6 @@ struct D2PlayerDataStrc
 
 
 
-struct D2DamageStrc
-{
-    char unk0x00[0x18];
-    int dwBurnLen;
-    char unk0x1C[0x10];
-    int dwPoisLen;
-    int dwColdLen;
-    int dwFrzLen;
-    char unk0x38[0x0C];
-    int dwStunLen;
-};
 
 struct D2UnkPairStrc
 {

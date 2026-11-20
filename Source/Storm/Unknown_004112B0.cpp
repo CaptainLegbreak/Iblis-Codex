@@ -1,3 +1,4 @@
+#include "D2GameTypes.h"
 struct D2CriticalSectionStrc;
 struct D2FogBlockStrc;
 
@@ -5,15 +6,6 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00
 void __cdecl sub_00411CD0_InitHeaps(); // 0x00411CD0
 extern int gbHeapInitialized_007788D0; // 0x007788D0
 
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
 
 struct D2FogBlockStrc
 {

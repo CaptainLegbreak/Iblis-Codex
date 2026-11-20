@@ -2,15 +2,6 @@
 
 struct D2PresetCodeStrc;
 
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
 
 struct D2PresetCodeStrc
 {
@@ -118,3 +109,4 @@ int __stdcall DRLGPRESET_CountPresetObjectsByAct(unsigned char nAct)
 }
 
 #include "gen/data/Source/D2Common/Unknown_00665810.inc"
+#include "D2GameTypes.h"

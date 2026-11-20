@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
+#include "D2GameTypes.h"
 struct D2MinionListStrc
 {
     int dwMinionGUID;
@@ -9,11 +10,6 @@ struct D2MinionListStrc
 };
 
 
-struct D2AiControlStrc
-{
-    char unk0x00[0x3C];
-    int nMinionSpawnClassId;
-};
 
 
 

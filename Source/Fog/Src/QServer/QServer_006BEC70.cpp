@@ -1,4 +1,5 @@
 #include "Fog.h"
+#include "D2GameTypes.h"
 
 struct D2QueueServerStrc;
 struct D2CriticalSectionStrc;
@@ -10,10 +11,6 @@ struct D2QNodeStrc;
 struct D2ClientNodeStrc;
 struct D2ClientTableStrc;
 
-struct D2CriticalSectionStrc
-{
-    char data[24];
-};
 
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pCriticalSection);
 

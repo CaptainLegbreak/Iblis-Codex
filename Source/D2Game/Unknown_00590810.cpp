@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2GameTypes.h"
 
 #define QFLAG_REWARDGRANTED 0
 #define QFLAG_REWARDPENDING 1
@@ -74,13 +75,6 @@ struct D2QuestDataStrc
     int eFilter;
 };
 
-struct D2QuestArgStrc
-{
-    D2GameStrc* pGame;
-    int nEvent;
-    D2UnitStrc* pTarget;
-    D2UnitStrc* pPlayer;
-};
 
 typedef int(__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 

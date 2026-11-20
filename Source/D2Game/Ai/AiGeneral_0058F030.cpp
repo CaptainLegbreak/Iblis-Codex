@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
+#include "D2GameTypes.h"
 
 struct D2AiCmdStrc;
 struct D2MinionListStrc;
@@ -11,22 +12,6 @@ struct D2MonsterDataStrc;
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
 
-struct D2AiControlStrc
-{
-    int nAiSpecialState;
-    void* pAiParamFn;
-    unsigned short nAiFlags;
-    unsigned char unk0x0A[2];
-    int dwOwnerGUID;
-    unsigned int dwOwnerType;
-    int dwAiParam[3];
-    D2AiCmdStrc* pCurrentCmd;
-    D2AiCmdStrc* pLastCmd;
-    D2GameStrc* pGame;
-    int dwOwnerGUIDEx;
-    int dwOwnerTypeEx;
-    D2MinionListStrc* pMinionList;
-};
 
 
 

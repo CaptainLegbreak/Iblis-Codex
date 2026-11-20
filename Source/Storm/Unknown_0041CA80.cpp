@@ -1,4 +1,5 @@
 #include "Storm.h"
+#include "D2GameTypes.h"
 
 struct D2StormLinkStrc;
 struct D2StormList00708420Strc;
@@ -45,15 +46,6 @@ struct D2StormList00708420Strc
     void sub_0041C9C0_DeleteAll();                                                                          // 0x0041C9C0
 };
 
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
 
 struct D2StormInit0041C0C0Strc
 {

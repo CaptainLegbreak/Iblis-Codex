@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2DataTbls.h"
+#include "D2GameTypes.h"
 
 #define D2_MAX(a, b) ((a) < (b) ? (b) : (a))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -226,13 +227,6 @@ void __fastcall AIGENERAL_AllocMinionList(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 void __stdcall UNITS_StoreOwner(D2UnitStrc* pUnit, D2UnitStrc* pOwner); // 0x00621CE0
 void __stdcall sub_006488A0_SetDirection(D2PathRecordStrc* pPath, int nDirection); // 0x006488A0
 
-struct D2DamageStrc
-{
-    unsigned int dwHitFlags;
-    unsigned short wResultFlags;
-    unsigned short wExtra;
-    int dwPhysDamage;
-};
 
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId); // 0x0045C4B0
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0

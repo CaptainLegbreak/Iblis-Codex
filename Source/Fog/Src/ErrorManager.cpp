@@ -1,4 +1,5 @@
 #include "Fog.h"
+#include "D2GameTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -20,15 +21,6 @@ struct D2InspectorInfoStrc;
 struct D2CrashSubmitInfoStrc;
 // build: context sub_00406BA0_GetModuleDirectoryAndSave
 
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
 
 struct D2DbgHelpRequestStrc
 {

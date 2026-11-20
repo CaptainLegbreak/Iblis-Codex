@@ -1,3 +1,4 @@
+#include "D2GameTypes.h"
 struct D2LinkStrc
 {
     D2LinkStrc* pPrev;
@@ -20,10 +21,6 @@ struct D2TaskGameStrc
     D2LinkStrc tLink;
 };
 
-struct D2CriticalSectionStrc
-{
-    char unk0x00[0x18];
-};
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090

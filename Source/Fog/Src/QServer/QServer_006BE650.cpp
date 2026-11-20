@@ -1,3 +1,4 @@
+#include "D2GameTypes.h"
 struct D2CriticalSection006BE650Strc;
 struct D2QMsg006BE650Strc;
 struct D2QClient006BE650Strc;
@@ -58,15 +59,6 @@ struct D2HackEntryStrc
     D2HackEntryStrc* next;
 };
 
-struct D2CriticalSectionStrc
-{
-    void* debugInfo;
-    long lockCount;
-    long recursionCount;
-    void* owningThread;
-    void* lockSemaphore;
-    unsigned long spinCount;
-};
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* section);

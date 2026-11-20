@@ -2,6 +2,7 @@
 #include "D2Constants.h"
 #include "D2Structs.h"
 #include "D2UnitData.h"
+#include "D2GameTypes.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -13,22 +14,6 @@ typedef int (__stdcall* FARPROC)();
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn);                                  // 0x006CC34C
 struct D2AiCmdStrc;
 
-struct D2AiControlStrc
-{
-    int nAiSpecialState;
-    void* pAiParamFn;
-    unsigned short nAiFlags;
-    unsigned char unk0x0A[2];
-    int dwOwnerGUID;
-    unsigned int dwOwnerType;
-    int dwAiParam[3];
-    D2AiCmdStrc* pCurrentCmd;
-    D2AiCmdStrc* pLastCmd;
-    D2GameStrc* pGame;
-    int dwOwnerGUIDEx;
-    int dwOwnerTypeEx;
-    D2MinionListStrc* pMinionList;
-};
 
 
 

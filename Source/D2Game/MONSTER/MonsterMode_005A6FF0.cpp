@@ -2,6 +2,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2GameTypes.h"
 struct D2GameStrc
 {
     char unk0x00[0x1C];
@@ -25,13 +26,6 @@ struct D2MonStatsTxt
     char unk_04[0xA];
     unsigned char nFlags;
     char unk_0F[0x199];
-};
-struct D2ModeChangeStrc
-{
-    int unk0x00;
-    D2UnitStrc* pUnit;
-    int unk0x08[3];
-    unsigned char nDirection;
 };
 extern D2DataTablesStrc* sgptDataTables;                                                                     // 0x00744304
 void __stdcall CHAT_FreeHoverMsg(void* pMemoryPool, D2HoverTextStrc* pHoverText);                            // 0x006611A0
@@ -116,7 +110,6 @@ int __fastcall sub_005A7390_MONSTERMODE_EndDeath(D2GameStrc* pGame, D2ModeChange
 
 struct D2DifficultyLevelsTxt { char unk_00[0x3C]; int nMonsterCorpseExplosionDamage; };
 struct D2MonStatsInitStrc { int nMinHP; int nMaxHP; int unk_08[12]; };
-struct D2DamageStrc { int dwHitFlags; unsigned short wResultFlags; unsigned short unk_06; int dwPhysDamage; int unk_0C[25]; };
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268
 extern "C" void* __cdecl memset(void*, int, unsigned int);
 void __fastcall sub_005A6830(D2GameStrc*, D2ModeChangeStrc*, int); // 0x005A6830

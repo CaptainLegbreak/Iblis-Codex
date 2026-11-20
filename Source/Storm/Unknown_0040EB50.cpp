@@ -1,7 +1,4 @@
-struct D2CriticalSectionStrc
-{
-    char unk0x00[0x18];
-};
+#include "D2GameTypes.h"
 
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock);    // 0x006CC210
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock);        // 0x006CC1FC

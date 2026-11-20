@@ -1,3 +1,4 @@
+#include "D2GameTypes.h"
 typedef unsigned int size_t;
 typedef char* va_list;
 #define _INTSIZEOF(n) ((sizeof(n) + sizeof(int) - 1) & ~(sizeof(int) - 1))
@@ -6,15 +7,6 @@ typedef char* va_list;
 
 struct _iobuf;
 
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
 
 struct D2ThreadEntryStrc
 {

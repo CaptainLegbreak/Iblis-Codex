@@ -1,15 +1,7 @@
 #include "D2Client.h"
+#include "D2GameTypes.h"
 struct T006BC290;
 
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
 
 struct FSafeSock
 {

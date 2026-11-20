@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
@@ -135,15 +136,6 @@ void __fastcall PLAYERLIST_InitializePlayerRelations(D2GameStrc* pGame, D2UnitSt
 int __stdcall D2Common_10073(D2ActiveRoomStrc* pRoom); // 0x0061A460
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 
-struct D2CriticalSectionStrc
-{
-    void* DebugInfo;
-    long LockCount;
-    long RecursionCount;
-    void* OwningThread;
-    void* LockSemaphore;
-    unsigned long SpinCount;
-};
 
 typedef int (__stdcall* FARPROC)();
 

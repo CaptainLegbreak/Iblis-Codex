@@ -1,4 +1,5 @@
 #include "gen/data/Source/D2Game/Unknown_0052C030.inc"
+#include "D2GameTypes.h"
 
 struct _RTL_CRITICAL_SECTION;
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(_RTL_CRITICAL_SECTION* lpCriticalSection); // 0x006CC218
@@ -50,10 +51,6 @@ unsigned short __fastcall sub_0052C170_ReserveGameId()
     return nGameId;
 }
 
-struct D2CriticalSectionStrc
-{
-    char unk0x00[0x18];
-};
 
 struct D2GameDataTableStrc;
 

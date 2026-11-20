@@ -2,6 +2,7 @@
 #include "D2Constants.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2GameTypes.h"
 
 enum D2C_J07SkillsConstants
 {
@@ -38,32 +39,6 @@ struct D2MonStats2Txt
 
 typedef void(__fastcall* MissileInitFunc)(D2UnitStrc*, int);
 
-struct D2MissileStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pOwner;
-    D2UnitStrc* pOrigin;
-    D2UnitStrc* pTarget;
-    int nMissile;
-    int nX;
-    int nY;
-    int nTargetX;
-    int nTargetY;
-    int nGfxArg;
-    int nVelocity;
-    int nSkill;
-    int nSkillLevel;
-    int nLoops;
-    unsigned int unk0x38;
-    unsigned int unk0x3C;
-    int nFrame;
-    int nActivateFrame;
-    int nAttBonus;
-    int nRange;
-    int nLightRadius;
-    MissileInitFunc pInitFunc;
-    int pInitArgs;
-};
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 
@@ -163,7 +138,7 @@ int __fastcall SKILLS_SrvDo102_DiabWall(D2GameStrc* pGame, D2UnitStrc* pUnit, in
 
     for (int i = 0; i < nSubMissiles; ++i)
     {
-        missileParams.pInitArgs = i;
+        missileParams.nInitArg = i;
         MISSILES_CreateMissileFromParams(pGame, &missileParams);
     }
 

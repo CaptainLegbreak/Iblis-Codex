@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2GameTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define QFLAG_REWARDGRANTED 0
@@ -119,25 +120,6 @@ struct D2QuestDataStrc
     QUESTSEQFILTER pfSeqFilter;
 };
 
-struct D2QuestArgStrc
-{
-    D2GameStrc* pGame;
-    int nEvent;
-    D2UnitStrc* pTarget;
-    D2UnitStrc* pPlayer;
-    char pad0x10[0x4];
-    union
-    {
-        int nOldLevel;
-        struct
-        {
-            unsigned short nNPCNo;
-            unsigned short unk0x16;
-            unsigned short nMessageIndex;
-            unsigned short unk0x1A;
-        };
-    };
-};
 
 void __fastcall PARTY_IteratePartyMembers(D2GameStrc* pGame, unsigned short nPartyId, PartyCallbackFunction pCallback, void* pArgs); // 0x00540510
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640

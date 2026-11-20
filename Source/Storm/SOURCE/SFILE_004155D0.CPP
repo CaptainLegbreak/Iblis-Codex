@@ -1,4 +1,5 @@
 #include "Storm.h"
+#include "D2GameTypes.h"
 
 struct D2StormFileRecStrc;
 struct D2CriticalSectionStrc;
@@ -17,15 +18,6 @@ struct D2StormCryptFuncsStrc;
 struct D2StormSignatureKeyStrc;
 struct D2StormArchiveFileStrc;
 
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
 
 struct D2StormLinkStrc
 {

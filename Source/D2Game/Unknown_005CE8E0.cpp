@@ -1,15 +1,7 @@
 #include "D2Game.h"
 #include "D2DataTbls.h"
+#include "D2GameTypes.h"
 
-struct D2DamageStrc
-{
-    unsigned int dwHitFlags;
-    int unk0x04;
-    int dwPhysDamage;
-    int unk0x0C[16];
-    int dwDmgTotal;
-    int unk0x50[8];
-};
 typedef char chk_D2DamageStrc_size[sizeof(D2DamageStrc) == 0x70 ? 1 : -1];
 
 struct D2SkillsTxt
