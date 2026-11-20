@@ -148,14 +148,14 @@ int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 extern int gnListFontHeight_006DD024[]; // 0x006DD024
 
 // 0x00507000
-int __fastcall LIST_GetSelectedDataIndex(D2WinListStrc* pList)
+int __fastcall LIST_GetSelectedDataIndex(D2WinListStrc* ptListData)
 {
-    D2_ASSERT(pList->controlHeader.nType == D2WIN_LIST, 0xD2);
+    D2_ASSERT(ptListData->controlHeader.nType == D2WIN_LIST, 0xD2);
     int nIndex = 0;
-    D2WinListDataStrc* pData = pList->pDataList;
+    D2WinListDataStrc* pData = ptListData->pDataList;
     while (pData)
     {
-        if (pList->pSelectedDataEntry == pData)
+        if (ptListData->pSelectedDataEntry == pData)
         {
             break;
         }
@@ -170,11 +170,11 @@ int __fastcall LIST_GetSelectedDataIndex(D2WinListStrc* pList)
 }
 
 // 0x00507050
-D2WinListDataStrc* __fastcall LIST_GetDataFromIndex(D2WinListStrc* pList, int nIndex)
+D2WinListDataStrc* __fastcall LIST_GetDataFromIndex(D2WinListStrc* ptListData, int nIndex)
 {
-    D2_ASSERT(pList->controlHeader.nType == D2WIN_LIST, 0xE5);
+    D2_ASSERT(ptListData->controlHeader.nType == D2WIN_LIST, 0xE5);
     int nCounter = 0;
-    D2WinListDataStrc* pData = pList->pDataList;
+    D2WinListDataStrc* pData = ptListData->pDataList;
     while (pData)
     {
         if (nCounter == nIndex)
@@ -192,27 +192,27 @@ D2WinListDataStrc* __fastcall LIST_GetDataFromIndex(D2WinListStrc* pList, int nI
 }
 
 // 0x005070A0
-int __fastcall D2Win_10141(D2WinListStrc* pList)
+int __fastcall D2Win_10141(D2WinListStrc* ptListData)
 {
-    D2_ASSERT(pList->controlHeader.nType == D2WIN_LIST, 0xF8);
-    return pList->field_50;
+    D2_ASSERT(ptListData->controlHeader.nType == D2WIN_LIST, 0xF8);
+    return ptListData->field_50;
 }
 
 // 0x005078A0
-void __fastcall ACCOUNTLIST_AllocData(D2WinAccountListStrc* pAccountList, const char* szText)
+void __fastcall ACCOUNTLIST_AllocData(D2WinAccountListStrc* ptListData, const char* szText)
 {
-    D2_ASSERT(pAccountList->controlHeader.nType == D2WIN_ACCOUNTLIST, 0x72);
+    D2_ASSERT(ptListData->controlHeader.nType == D2WIN_ACCOUNTLIST, 0x72);
     D2WinAccountListDataStrc* pData = (D2WinAccountListDataStrc*)FOG_Alloc(sizeof(D2WinAccountListDataStrc), ".\\Src\\D2WinAccountList.cpp", 0x77, 0);
     strncpy(pData->szText, szText, sizeof(pData->szText));
-    pData->pNext = pAccountList->pDataList;
-    pAccountList->pDataList = pData;
+    pData->pNext = ptListData->pDataList;
+    ptListData->pDataList = pData;
 }
 
 // 0x005079C0
-int __fastcall ACCOUNTLIST_GetTextFromSelectedEntry(D2WinAccountListStrc* pAccountList, char* szBuffer)
+int __fastcall ACCOUNTLIST_GetTextFromSelectedEntry(D2WinAccountListStrc* ptListData, char* szBuffer)
 {
-    D2_ASSERT(pAccountList->controlHeader.nType == D2WIN_ACCOUNTLIST, 0xB9);
-    const char* szText = pAccountList->pSelectedDataEntry->szText;
+    D2_ASSERT(ptListData->controlHeader.nType == D2WIN_ACCOUNTLIST, 0xB9);
+    const char* szText = ptListData->pSelectedDataEntry->szText;
     if (szText)
     {
         char c;
@@ -368,13 +368,13 @@ D2WinListStrc* __fastcall LIST_Create(int nX, int nY, int nWidth, int nHeight, D
     for (D2WinListInitStrc* pEntry = pInit; pEntry->nStringId; ++pEntry)
     {
         D2WinListDataStrc* pData = (D2WinListDataStrc*)FOG_Alloc(sizeof(D2WinListDataStrc), ".\\Src\\D2WinList.cpp", 0x56, 0);
-        const Unicode* pText = D2LANG_GetStringFromTblIndex((unsigned short)pEntry->nStringId);
-        D2_ASSERT(sub_00526800(pText) < 256, 0x58);
-        sub_005267E0(pData->wszText, pText);
+        const Unicode* pszStr = D2LANG_GetStringFromTblIndex((unsigned short)pEntry->nStringId);
+        D2_ASSERT(sub_00526800(pszStr) < 256, 0x58);
+        sub_005267E0(pData->wszText, pszStr);
 
         int nTextWidth;
         int nTextHeight;
-        D2Win_10131_GetTextDimensions(pText, &nTextWidth, &nTextHeight);
+        D2Win_10131_GetTextDimensions(pszStr, &nTextWidth, &nTextHeight);
         nTextWidth += 8;
         if (nTextWidth > pList->nWidestEntry)
         {

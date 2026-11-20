@@ -465,16 +465,16 @@ void __fastcall ACT1Q5_InitQuestData(D2QuestDataStrc* pQuestData)
 // 0x00595A00
 void __fastcall OBJECTS_InitFunction04_TowerTome(D2ObjInitFnStrc* pOp)
 {
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pOp->pGame, 5);
-    if (pQuestData)
+    D2QuestDataStrc* pQuestInfo = QUESTS_GetQuestData(pOp->pGame, 5);
+    if (pQuestInfo)
     {
-        if (!pQuestData->bNotIntro)
+        if (!pQuestInfo->bNotIntro)
         {
             UNITS_ChangeAnimMode(pOp->pObject, 3);
         }
         return;
     }
-    D2_ASSERT(pQuestData, 1059);
+    D2_ASSERT(pQuestInfo, 1059);
 }
 
 #include "gen/data/Source/D2Game/Quests/a1q5_00594740.inc"

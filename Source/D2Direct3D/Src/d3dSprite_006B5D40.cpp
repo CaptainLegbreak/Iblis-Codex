@@ -269,10 +269,10 @@ struct D2TexLocationStrc
 };
 
 // 0x006B5D40
-int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* pInfo, int nMode, int nArg3, unsigned char nColor)
+int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* ptInfo, int nMode, int nArg3, unsigned char nColor)
 {
-    D2_ASSERT(pInfo->context->cel, 0x11E);
-    int* pSlots = sub_00601B10_GetCelTextureSlots(pInfo->context->cel);
+    D2_ASSERT(ptInfo->context->cel, 0x11E);
+    int* pSlots = sub_00601B10_GetCelTextureSlots(ptInfo->context->cel);
     const int nOrigMode = nMode;
     if (nMode == 4)
     {
@@ -282,15 +282,15 @@ int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* pInfo, int nMode, int
     D2TexLocationStrc* tLocation = &((D2TexLocationStrc*)pSlots)[nMode];
     if (!tLocation->nCache)
     {
-        if (pInfo->width <= 32 && pInfo->height <= 32)
+        if (ptInfo->width <= 32 && ptInfo->height <= 32)
         {
             tLocation->nCache = 3;
         }
-        else if (pInfo->width <= 128 && pInfo->height <= 128)
+        else if (ptInfo->width <= 128 && ptInfo->height <= 128)
         {
             tLocation->nCache = 2;
         }
-        else if (pInfo->width <= 256 && pInfo->height <= 256)
+        else if (ptInfo->width <= 256 && ptInfo->height <= 256)
         {
             tLocation->nCache = 1;
         }
@@ -333,24 +333,24 @@ int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* pInfo, int nMode, int
     D2_ASSERT(pEntry->pTarget, 0x16D);
     D2_ASSERT(pEntry->pTexture, 0x16E);
     D2_ASSERT(pBuffer, 0x171);
-    D2_ASSERT(pInfo->nTexSize <= 0x10000, 0x172);
-    memset(pBuffer, 0, pInfo->nTexSize);
+    D2_ASSERT(ptInfo->nTexSize <= 0x10000, 0x172);
+    memset(pBuffer, 0, ptInfo->nTexSize);
 
     switch (nMode)
     {
     case 1:
     case 4:
-        CelDraw(pInfo->context, -pInfo->offsetX, pInfo->f_18 - pInfo->offsetY - 1, 0, 0, pBuffer,
-            pInfo->f_18, pInfo->f_14, 0, 0, nArg3);
+        CelDraw(ptInfo->context, -ptInfo->offsetX, ptInfo->f_18 - ptInfo->offsetY - 1, 0, 0, pBuffer,
+            ptInfo->f_18, ptInfo->f_14, 0, 0, nArg3);
         break;
 
     case 2:
     {
-        CelDraw(pInfo->context, -pInfo->offsetX, pInfo->f_18 - pInfo->offsetY - 1, 0, 0, pBuffer,
-            pInfo->f_18, pInfo->f_14, 0, 0, nArg3);
+        CelDraw(ptInfo->context, -ptInfo->offsetX, ptInfo->f_18 - ptInfo->offsetY - 1, 0, 0, pBuffer,
+            ptInfo->f_18, ptInfo->f_14, 0, 0, nArg3);
         unsigned char* pPixel = gpBuffer_00970F34;
         unsigned char* pRemap = gpGlideState_007C9150->pRemap;
-        for (int i = 0; i < pInfo->nTexSize; ++i)
+        for (int i = 0; i < ptInfo->nTexSize; ++i)
         {
             if (*pPixel)
             {
@@ -363,24 +363,24 @@ int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* pInfo, int nMode, int
 
     case 3:
     {
-        CelDraw(pInfo->context, 1 - pInfo->offsetX, pInfo->f_18 - pInfo->offsetY - 2, 0, 0, pBuffer,
-            pInfo->f_18, pInfo->f_14, 0, 0, 0);
+        CelDraw(ptInfo->context, 1 - ptInfo->offsetX, ptInfo->f_18 - ptInfo->offsetY - 2, 0, 0, pBuffer,
+            ptInfo->f_18, ptInfo->f_14, 0, 0, 0);
         unsigned char* pOutline = gpBuffer_00970F38;
         D2_ASSERT(pOutline, 0x19A);
-        D2_ASSERT(pInfo->nTexSize <= 0x10000, 0x19B);
-        memset(pOutline, 0, pInfo->nTexSize);
-        unsigned char* pSrc = gpBuffer_00970F34 + pInfo->f_14;
-        unsigned char* pDst = pOutline + pInfo->f_14;
-        const int nPitch = pInfo->f_14;
-        const int nCount = pInfo->nTexSize - 2 * nPitch;
+        D2_ASSERT(ptInfo->nTexSize <= 0x10000, 0x19B);
+        memset(pOutline, 0, ptInfo->nTexSize);
+        unsigned char* pSrc = gpBuffer_00970F34 + ptInfo->f_14;
+        unsigned char* pDst = pOutline + ptInfo->f_14;
+        const int nPitch = ptInfo->f_14;
+        const int nCount = ptInfo->nTexSize - 2 * nPitch;
         for (int i = 0; i < nCount; ++i)
         {
             if (*pSrc++)
             {
-                pDst[-pInfo->f_14] = nColor;
+                pDst[-ptInfo->f_14] = nColor;
                 pDst[-1] = nColor;
                 pDst[1] = nColor;
-                pDst[pInfo->f_14] = nColor;
+                pDst[ptInfo->f_14] = nColor;
             }
             ++pDst;
         }
@@ -399,8 +399,8 @@ int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* pInfo, int nMode, int
         sub_006B20E0_ReportError(gszLockFailed_006FC2A4, hResult);
     }
     D2_ASSERT(tDesc.dwFlags & 8, 0x1C0);
-    sub_006B1DC0_Blit8To16(pData, (unsigned short*)tDesc.lpSurface, pInfo->f_14, pInfo->f_18, tDesc.lPitch >> 1,
-        pInfo->f_18);
+    sub_006B1DC0_Blit8To16(pData, (unsigned short*)tDesc.lpSurface, ptInfo->f_14, ptInfo->f_18, tDesc.lPitch >> 1,
+        ptInfo->f_18);
     hResult = pSurface->lpVtbl->Unlock(pSurface, 0);
     if (hResult)
     {
@@ -409,7 +409,7 @@ int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* pInfo, int nMode, int
 
     if (gnRenderFlags_0096F3A8 & gnRenderFlag_006CE290)
     {
-        sub_006B38A0_Copy(pEntry->pTarget, pSurface, pInfo->f_18);
+        sub_006B38A0_Copy(pEntry->pTarget, pSurface, ptInfo->f_18);
     }
     else
     {

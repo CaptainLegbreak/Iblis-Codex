@@ -345,30 +345,30 @@ int __stdcall UNITS_GetUnitSizeX(D2UnitStrc* pUnit)
 }
 
 // 0x006205A0
-int __stdcall UNITS_GetUnitSizeY(D2UnitStrc* pUnit)
+int __stdcall UNITS_GetUnitSizeY(D2UnitStrc* ptUnit)
 {
-    D2_ASSERT(pUnit, 1867);
+    D2_ASSERT(ptUnit, 1867);
 
-    switch (pUnit->dwUnitType)
+    switch (ptUnit->dwUnitType)
     {
     case UNIT_PLAYER:
         return SIZE_PLAYER;
 
     case UNIT_MONSTER:
-        if (D2MonStats2Txt* pMonStats2TxtRecord = UNITS_GetMonStats2TxtRecordFromMonsterId(pUnit->dwClassId))
+        if (D2MonStats2Txt* pMonStats2TxtRecord = UNITS_GetMonStats2TxtRecordFromMonsterId(ptUnit->dwClassId))
         {
             return pMonStats2TxtRecord->nSizeY;
         }
         return 0;
 
     case UNIT_OBJECT:
-        return pUnit->pObjectData->pObjectTxt->dwSizeY;
+        return ptUnit->pObjectData->pObjectTxt->dwSizeY;
 
     case UNIT_ITEM:
         return SIZE_ITEM;
 
     case UNIT_MISSILE:
-        if (D2MissilesTxt* pMissilesTxtRecord = DATATBLS_GetMissilesTxtRecord(pUnit->dwClassId))
+        if (D2MissilesTxt* pMissilesTxtRecord = DATATBLS_GetMissilesTxtRecord(ptUnit->dwClassId))
         {
             return pMissilesTxtRecord->nSize;
         }
@@ -383,14 +383,14 @@ int __stdcall UNITS_GetUnitSizeY(D2UnitStrc* pUnit)
 }
 
 // 0x00620A70
-void __stdcall UNITS_BlockCollisionPath(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY)
+void __stdcall UNITS_BlockCollisionPath(D2UnitStrc* hUnit, D2ActiveRoomStrc* pRoom, int nX, int nY)
 {
-    D2_ASSERT(pUnit, 2129);
-    const int nSizeX = UNITS_GetUnitSizeX(pUnit);
-    const int nSizeY = UNITS_GetUnitSizeY(pUnit);
+    D2_ASSERT(hUnit, 2129);
+    const int nSizeX = UNITS_GetUnitSizeX(hUnit);
+    const int nSizeY = UNITS_GetUnitSizeY(hUnit);
     if (nSizeX && nSizeY)
     {
-        COLLISION_SetMaskWithSizeXY(pRoom, nX, nY, nSizeX, nSizeY, UNITS_GetCollisionMask(pUnit));
+        COLLISION_SetMaskWithSizeXY(pRoom, nX, nY, nSizeX, nSizeY, UNITS_GetCollisionMask(hUnit));
     }
 }
 
@@ -549,12 +549,12 @@ int __stdcall sub_K14_EmitCharacterStartRunning(D2UnitStrc* pUnit, int nClass)
 }
 
 // 0x00621050
-int __stdcall UNITS_GetInventoryRecordId(D2UnitStrc* pUnit, int nInvPage, int bLoD)
+int __stdcall UNITS_GetInventoryRecordId(D2UnitStrc* hUnit, int nInvPage, int bLoD)
 {
-    D2_ASSERT(pUnit, 2607);
+    D2_ASSERT(hUnit, 2607);
 
     int nRet = -1;
-    switch (pUnit->dwUnitType)
+    switch (hUnit->dwUnitType)
     {
     case UNIT_PLAYER:
         switch ((unsigned char)nInvPage)
@@ -573,7 +573,7 @@ int __stdcall UNITS_GetInventoryRecordId(D2UnitStrc* pUnit, int nInvPage, int bL
 
         default:
         {
-            const int nClassId = pUnit->dwClassId;
+            const int nClassId = hUnit->dwClassId;
             for (unsigned int i = 0; i < gnInventoryRecordMapCount_0074457C; ++i)
             {
                 if (nClassId == gInventoryRecordMap_00744544[i].nClassId)
@@ -591,7 +591,7 @@ int __stdcall UNITS_GetInventoryRecordId(D2UnitStrc* pUnit, int nInvPage, int bL
         return INVENTORYRECORD_MONSTER;
 
     case UNIT_OBJECT:
-        switch (pUnit->dwClassId)
+        switch (hUnit->dwClassId)
         {
         case OBJECT_GUILD_VAULT:
             return INVENTORYRECORD_GUILD_VAULT_PAGE_1;
@@ -726,17 +726,17 @@ inline int UNITS_GetAnimModeInline(D2UnitStrc* pUnit)
 }
 
 // 0x00622D00
-int __stdcall UNITS_IsInMovingMode(D2UnitStrc* pUnit)
+int __stdcall UNITS_IsInMovingMode(D2UnitStrc* hUnit)
 {
-    if (!pUnit)
+    if (!hUnit)
     {
         return 0;
     }
 
-    switch (pUnit->dwUnitType)
+    switch (hUnit->dwUnitType)
     {
     case UNIT_PLAYER:
-        switch (UNITS_GetAnimOrSeqMode(pUnit))
+        switch (UNITS_GetAnimOrSeqMode(hUnit))
         {
         case PLRMODE_WALK:
         case PLRMODE_RUN:
@@ -748,7 +748,7 @@ int __stdcall UNITS_IsInMovingMode(D2UnitStrc* pUnit)
         }
 
     case UNIT_MONSTER:
-        switch (UNITS_GetAnimModeInline(pUnit))
+        switch (UNITS_GetAnimModeInline(hUnit))
         {
         case MONMODE_WALK:
         case MONMODE_RUN:
@@ -756,14 +756,14 @@ int __stdcall UNITS_IsInMovingMode(D2UnitStrc* pUnit)
 
         case MONMODE_SKILL1:
         case MONMODE_SKILL2:
-            return MONSTERS_GetBaseIdFromMonsterId(sub_00463860(pUnit)) == MONSTER_VULTURE1;
+            return MONSTERS_GetBaseIdFromMonsterId(sub_00463860(hUnit)) == MONSTER_VULTURE1;
 
         default:
             return 0;
         }
 
     case UNIT_MISSILE:
-        D2_ASSERT(pUnit->dwUnitType != UNIT_MISSILE, 4901);
+        D2_ASSERT(hUnit->dwUnitType != UNIT_MISSILE, 4901);
         return 0;
 
     default:
@@ -1489,13 +1489,13 @@ inline D2PlayerDataStrc* UNITS_GetPlayerData(D2UnitStrc* pUnit)
 }
 
 // 0x006220F0
-unsigned int __stdcall UNITS_SetNameInPlayerData(D2UnitStrc* pUnit, char* szName)
+unsigned int __stdcall UNITS_SetNameInPlayerData(D2UnitStrc* ptUnit, char* szName)
 {
-    D2_ASSERT(pUnit, 0xF97);
-    D2_ASSERT(pUnit->pPlayerData, 0xF99);
-    D2_ASSERT(pUnit->dwUnitType == UNIT_PLAYER, 0xF9A);
+    D2_ASSERT(ptUnit, 0xF97);
+    D2_ASSERT(ptUnit->pPlayerData, 0xF99);
+    D2_ASSERT(ptUnit->dwUnitType == UNIT_PLAYER, 0xF9A);
 
-    return SStrCopy(pUnit->pPlayerData->szName, szName, 0x7FFFFFFF);
+    return SStrCopy(ptUnit->pPlayerData->szName, szName, 0x7FFFFFFF);
 }
 
 // 0x00622EA0
@@ -1569,11 +1569,11 @@ void __stdcall UNITS_GetRightSkillData(D2UnitStrc* pUnit, int* pRightSkillId, in
     }
     else
     {
-        D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pUnit);
-        D2_ASSERT(pPlayerData, 0x1438);
+        D2PlayerDataStrc* ptInfo = UNITS_GetPlayerData(pUnit);
+        D2_ASSERT(ptInfo, 0x1438);
 
-        *pRightSkillId = pPlayerData->nRightSkillId;
-        *pRightSkillFlags = pPlayerData->nRightSkillFlags;
+        *pRightSkillId = ptInfo->nRightSkillId;
+        *pRightSkillFlags = ptInfo->nRightSkillFlags;
     }
 }
 
@@ -1588,11 +1588,11 @@ void __stdcall UNITS_GetLeftSkillData(D2UnitStrc* pUnit, int* pLeftSkillId, int*
     }
     else
     {
-        D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pUnit);
-        D2_ASSERT(pPlayerData, 0x1449);
+        D2PlayerDataStrc* ptInfo = UNITS_GetPlayerData(pUnit);
+        D2_ASSERT(ptInfo, 0x1449);
 
-        *pLeftSkillId = pPlayerData->nLeftSkillId;
-        *pLeftSkillFlags = pPlayerData->nLeftSkillFlags;
+        *pLeftSkillId = ptInfo->nLeftSkillId;
+        *pLeftSkillFlags = ptInfo->nLeftSkillFlags;
     }
 }
 
@@ -1607,16 +1607,16 @@ void __stdcall UNITS_GetSwitchRightSkillDataResetRightSkill(D2UnitStrc* pUnit, i
     }
     else
     {
-        D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pUnit);
-        D2_ASSERT(pPlayerData, 0x145A);
+        D2PlayerDataStrc* ptInfo = UNITS_GetPlayerData(pUnit);
+        D2_ASSERT(ptInfo, 0x145A);
 
-        *pSwitchRightSkillId = pPlayerData->nSwitchRightSkillId;
-        *pSwitchRightSkillFlags = pPlayerData->nSwitchRightSkillFlags;
+        *pSwitchRightSkillId = ptInfo->nSwitchRightSkillId;
+        *pSwitchRightSkillFlags = ptInfo->nSwitchRightSkillFlags;
 
-        pPlayerData->nRightSkillId = 0;
-        pPlayerData->nRightSkillFlags = -1;
-        pPlayerData->nWeaponGUID = -1;
-        pPlayerData->unk0x94 = 0;
+        ptInfo->nRightSkillId = 0;
+        ptInfo->nRightSkillFlags = -1;
+        ptInfo->nWeaponGUID = -1;
+        ptInfo->unk0x94 = 0;
     }
 }
 
@@ -1631,16 +1631,16 @@ void __stdcall UNITS_GetSwitchLeftSkillDataResetLeftSkill(D2UnitStrc* pUnit, int
     }
     else
     {
-        D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pUnit);
-        D2_ASSERT(pPlayerData, 0x1470);
+        D2PlayerDataStrc* ptInfo = UNITS_GetPlayerData(pUnit);
+        D2_ASSERT(ptInfo, 0x1470);
 
-        *pSwitchLeftSkillId = pPlayerData->nSwitchLeftSkillId;
-        *pSwitchLeftSkillFlags = pPlayerData->nSwitchLeftSkillFlags;
+        *pSwitchLeftSkillId = ptInfo->nSwitchLeftSkillId;
+        *pSwitchLeftSkillFlags = ptInfo->nSwitchLeftSkillFlags;
 
-        pPlayerData->nLeftSkillId = 0;
-        pPlayerData->nLeftSkillFlags = -1;
-        pPlayerData->nWeaponGUID = -1;
-        pPlayerData->unk0x94 = 0;
+        ptInfo->nLeftSkillId = 0;
+        ptInfo->nLeftSkillFlags = -1;
+        ptInfo->nWeaponGUID = -1;
+        ptInfo->unk0x94 = 0;
     }
 }
 

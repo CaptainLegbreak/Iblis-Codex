@@ -224,14 +224,14 @@ void __fastcall sub_6FC33670(D2GameStrc* pGame, D2ClientStrc* pClient)
 }
 
 // 0x005381F0
-void __fastcall CLIENTS_SetRoomInClient(D2ClientStrc* pClient, D2ActiveRoomStrc* pRoom)
+void __fastcall CLIENTS_SetRoomInClient(D2ClientStrc* ptClient, D2ActiveRoomStrc* pRoom)
 {
-    D2_ASSERT(pClient, 1951);
-    if (pRoom != pClient->pRoom)
+    D2_ASSERT(ptClient, 1951);
+    if (pRoom != ptClient->pRoom)
     {
-        sub_00537B50_ChangeClientRoom(pRoom, pClient);
+        sub_00537B50_ChangeClientRoom(pRoom, ptClient);
     }
-    pClient->pRoom = pRoom;
+    ptClient->pRoom = pRoom;
 }
 
 static void sub_M08_RemoveUnitFromRoom(D2GameStrc* pGame, D2UnitStrc* pUnit)

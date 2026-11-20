@@ -1123,8 +1123,8 @@ inline unsigned int PATH_InlineGetUnitY(D2UnitStrc* pUnit)
 // 0x00648120
 static BOOL PATH_PreparePathTargetForPathUpdate(D2PathInfoStrc* pPathInfo)
 {
-    D2DynamicPathStrc* pPath = pPathInfo->pDynamicPath;
-    D2_ASSERT(!(pPath->dwFlags & PATH_MISSILE_MASK), LINE_PREPARE_MISSILE);
+    D2DynamicPathStrc* ptPath = pPathInfo->pDynamicPath;
+    D2_ASSERT(!(ptPath->dwFlags & PATH_MISSILE_MASK), LINE_PREPARE_MISSILE);
 
     const unsigned short nStartX = pPathInfo->tStartCoord.X;
     const unsigned short nStartY = pPathInfo->tStartCoord.Y;
@@ -1133,7 +1133,7 @@ static BOOL PATH_PreparePathTargetForPathUpdate(D2PathInfoStrc* pPathInfo)
     D2ActiveRoomStrc* pRoom = pPathInfo->pStartRoom;
     const int nCollisionPattern = pPathInfo->nCollisionPattern;
     const int nCollisionMask = pPathInfo->nCollisionMask;
-    const int nUnitType = !pPath->pUnit ? UNIT_NONE : pPath->pUnit->dwUnitType;
+    const int nUnitType = !ptPath->pUnit ? UNIT_NONE : ptPath->pUnit->dwUnitType;
 
     D2PathPointStrc aTestDirPathPoints[3];
     aTestDirPathPoints[0].X = nTargetX;
@@ -1594,13 +1594,13 @@ static int PATH_MissileToTarget(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit)
 static __declspec(noinline) unsigned char PATH_AdvanceToDoor(D2PathInfoStrc* pPathInfo)
 {
     D2DynamicPathStrc* pPath = pPathInfo->pDynamicPath;
-    D2UnitStrc* pTargetUnit = pPath->pTargetUnit;
+    D2UnitStrc* hTarget = pPath->pTargetUnit;
 
-    D2_ASSERT(UnitIsDoor(pTargetUnit), LINE_DOOR);
+    D2_ASSERT(UnitIsDoor(hTarget), LINE_DOOR);
 
-    if (UNITS_CheckIfObjectOrientationIs1(pTargetUnit))
+    if (UNITS_CheckIfObjectOrientationIs1(hTarget))
     {
-        if (pPath->tGameCoords.wPosY < PATH_InlineGetUnitY(pTargetUnit))
+        if (pPath->tGameCoords.wPosY < PATH_InlineGetUnitY(hTarget))
         {
             pPath->tTargetCoord.Y -= 2;
         }
@@ -1611,7 +1611,7 @@ static __declspec(noinline) unsigned char PATH_AdvanceToDoor(D2PathInfoStrc* pPa
     }
     else
     {
-        if (pPath->tGameCoords.wPosX < PATH_InlineGetUnitX(pTargetUnit))
+        if (pPath->tGameCoords.wPosX < PATH_InlineGetUnitX(hTarget))
         {
             pPath->tTargetCoord.X -= 2;
         }

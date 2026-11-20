@@ -246,8 +246,8 @@ void __fastcall QUESTSFX_SpawnRadamentDeathMissile(D2GameStrc* pGame, D2UnitStrc
 // 0x005DFEE0
 void __fastcall QUESTSFX_SpawnCompellingOrbMissile(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
-    D2UnitStrc* pStairs = UNITFINDS_FindUnitInNeighboredRooms(UNITS_GetRoom(pUnit), UNIT_OBJECT, OBJECT_COMPELLINGORB_STAIRS);
-    D2_ASSERT(pStairs, 143);
+    D2UnitStrc* hStairs = UNITFINDS_FindUnitInNeighboredRooms(UNITS_GetRoom(pUnit), UNIT_OBJECT, OBJECT_COMPELLINGORB_STAIRS);
+    D2_ASSERT(hStairs, 143);
 
     D2MissileStrc missileParams;
     memset(&missileParams, 0, sizeof(missileParams));
@@ -255,22 +255,22 @@ void __fastcall QUESTSFX_SpawnCompellingOrbMissile(D2GameStrc* pGame, D2UnitStrc
     missileParams.nMissile = MISSILE_ORBMIST;
     missileParams.pOwner = pUnit;
     missileParams.pOrigin = pUnit;
-    missileParams.nTargetX = CLIENTS_GetUnitX(pStairs);
-    missileParams.nTargetY = CLIENTS_GetUnitY(pStairs);
+    missileParams.nTargetX = CLIENTS_GetUnitX(hStairs);
+    missileParams.nTargetY = CLIENTS_GetUnitY(hStairs);
     missileParams.nSkillLevel = 1;
 
     D2UnitStrc* pMissile = MISSILES_CreateMissileFromParams(pGame, &missileParams);
     if (pMissile)
     {
-        MISSILE_SetTargetX(pMissile, pStairs->dwUnitId);
-        D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pStairs);
+        MISSILE_SetTargetX(pMissile, hStairs->dwUnitId);
+        D2ActiveRoomStrc* pRoom = UNITS_GetRoom(hStairs);
         DUNGEON_ToggleHasPortalFlag(pRoom, 0);
     }
-    else if (pStairs->dwAnimMode == OBJMODE_NEUTRAL)
+    else if (hStairs->dwAnimMode == OBJMODE_NEUTRAL)
     {
-        UNITS_ChangeAnimMode(pStairs, OBJMODE_OPERATING);
+        UNITS_ChangeAnimMode(hStairs, OBJMODE_OPERATING);
         const unsigned int nFrame = pGame->dwGameFrame + (DATATBLS_GetObjectsTxtRecord(OBJECT_COMPELLINGORB_STAIRS)->dwFrameCnt[1] >> 8);
-        EVENT_SetEvent(pGame, pStairs, EVENTTYPE_ENDANIM, nFrame, 0, 0);
+        EVENT_SetEvent(pGame, hStairs, EVENTTYPE_ENDANIM, nFrame, 0, 0);
     }
 }
 

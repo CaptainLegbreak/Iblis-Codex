@@ -995,15 +995,15 @@ static void __stdcall sub_004C2970_PlaceItemAt(unsigned short nY, unsigned char 
     UNITS_SetXForStaticUnit(pItem, nX);
     UNITS_SetYForStaticUnit(pItem, nY);
 
-    D2InventoryStrc* pInventory = pUnit->pInventory;
-    D2_ASSERT(pInventory, 0x413);
+    D2InventoryStrc* hInventory = pUnit->pInventory;
+    D2_ASSERT(hInventory, 0x413);
 
-    if (!INVENTORY_PlaceItemInSocket(pInventory, pItem, 1))
+    if (!INVENTORY_PlaceItemInSocket(hInventory, pItem, 1))
     {
         return;
     }
 
-    if (!sub_0063BCC0_PlaceItem(pInventory, pItem, ITEMPKT_GetUnitX(pItem), ITEMPKT_GetUnitY(pItem), UNITS_GetInventoryRecordId(pUnit, nPage, sub_0044DCC0()), 1, nPage))
+    if (!sub_0063BCC0_PlaceItem(hInventory, pItem, ITEMPKT_GetUnitX(pItem), ITEMPKT_GetUnitY(pItem), UNITS_GetInventoryRecordId(pUnit, nPage, sub_0044DCC0()), 1, nPage))
     {
         return;
     }
@@ -1016,8 +1016,8 @@ static void __stdcall sub_004C2970_PlaceItemAt(unsigned short nY, unsigned char 
         }
         else
         {
-            INVENTORY_SetCursorItem(pInventory, NULL);
-            sub_00468070_SetCursorItemState(INVENTORY_GetCursorItem(pInventory));
+            INVENTORY_SetCursorItem(hInventory, NULL);
+            sub_00468070_SetCursorItemState(INVENTORY_GetCursorItem(hInventory));
         }
     }
 

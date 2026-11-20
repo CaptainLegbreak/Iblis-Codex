@@ -32,23 +32,23 @@ D2WaypointDataStrc* __stdcall WAYPOINTS_AllocWaypointData(void* pMemPool);      
 void __stdcall sub_0066A250(int nUnused);
 
 // 0x00621F90
-void __stdcall UNITS_AllocPlayerData(D2UnitStrc* pUnit)
+void __stdcall UNITS_AllocPlayerData(D2UnitStrc* ptUnit)
 {
-    D2_ASSERT(pUnit, 3919);
-    D2_ASSERT(!pUnit->pPlayerData, 3921);
+    D2_ASSERT(ptUnit, 3919);
+    D2_ASSERT(!ptUnit->pPlayerData, 3921);
 
-    pUnit->pPlayerData = (D2PlayerDataStrc*)FOG_AllocPool(pUnit->pMemoryPool, sizeof(D2PlayerDataStrc), ".\\UNITS\\Units.cpp", 3922, 0);
-    memset(pUnit->pPlayerData, 0x00, sizeof(D2PlayerDataStrc));
-    pUnit->pPlayerData->szName[0] = 0;
+    ptUnit->pPlayerData = (D2PlayerDataStrc*)FOG_AllocPool(ptUnit->pMemoryPool, sizeof(D2PlayerDataStrc), ".\\UNITS\\Units.cpp", 3922, 0);
+    memset(ptUnit->pPlayerData, 0x00, sizeof(D2PlayerDataStrc));
+    ptUnit->pPlayerData->szName[0] = 0;
 
     for (int i = 0; i < 3; ++i)
     {
-        D2BitBufferStrc* const pQuestRecord = QUESTRECORD_AllocRecord(sub_004DC0B0_GetNextRosterInfo((D2RosterInfoStrc*)pUnit));
-        (*(D2PlayerDataStrc* volatile*)&pUnit->pPlayerData)->pQuestData[i] = pQuestRecord;
-        pUnit->pPlayerData->pWaypointData[i] = WAYPOINTS_AllocWaypointData(sub_004DC0B0_GetNextRosterInfo((D2RosterInfoStrc*)pUnit));
+        D2BitBufferStrc* const pQuestRecord = QUESTRECORD_AllocRecord(sub_004DC0B0_GetNextRosterInfo((D2RosterInfoStrc*)ptUnit));
+        (*(D2PlayerDataStrc* volatile*)&ptUnit->pPlayerData)->pQuestData[i] = pQuestRecord;
+        ptUnit->pPlayerData->pWaypointData[i] = WAYPOINTS_AllocWaypointData(sub_004DC0B0_GetNextRosterInfo((D2RosterInfoStrc*)ptUnit));
     }
 
-    pUnit->pPlayerData->nPortalFlags = DUNGEON_GetPortalFlagFromLevelId(1);
-    pUnit->pPlayerData->bBusy = 0;
-    sub_0066A250((int)pUnit);
+    ptUnit->pPlayerData->nPortalFlags = DUNGEON_GetPortalFlagFromLevelId(1);
+    ptUnit->pPlayerData->bBusy = 0;
+    sub_0066A250((int)ptUnit);
 }

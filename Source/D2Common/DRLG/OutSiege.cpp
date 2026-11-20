@@ -363,9 +363,9 @@ static const D2Act5TypeRangeStrc gAct5TypeRanges[10] = // 0x006F2038
 };
 
 // 0x0067E000
-int __fastcall sub_0067E000(D2DrlgLevelStrc* pLevel, int nType, int nIndex)
+int __fastcall sub_0067E000(D2DrlgLevelStrc* pLevel, int nStyle, int nIndex)
 {
-    if (nType != 48 && nType != 49)
+    if (nStyle != 48 && nStyle != 49)
     {
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 388);
         exit(-1);
@@ -375,7 +375,7 @@ int __fastcall sub_0067E000(D2DrlgLevelStrc* pLevel, int nType, int nIndex)
     for (int i = 0; i < 10; ++i)
     {
         const D2Act5TypeRangeStrc* pEntry = &gAct5TypeRanges[i];
-        if (nType == pEntry->nType && nIndex >= pEntry->nMin && nIndex <= pEntry->nMax)
+        if (nStyle == pEntry->nType && nIndex >= pEntry->nMin && nIndex <= pEntry->nMax)
         {
             if (bTundra)
             {
@@ -489,21 +489,21 @@ static int DRLGACT5_ReplaceTransitionPreset(D2DrlgLevelStrc* pLevel, int nX, int
 }
 
 // 0x0067E4B0
-static void sub_0067E4B0(D2DrlgLevelStrc* pLevel)
+static void sub_0067E4B0(D2DrlgLevelStrc* ptLevelData)
 {
-    if (!pLevel)
+    if (!ptLevelData)
     {
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 623);
         exit(-1);
     }
 
-    if (pLevel->nLevelId != 111)
+    if (ptLevelData->nLevelId != 111)
     {
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 624);
         exit(-1);
     }
 
-    D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoorInfo;
+    D2DrlgOutdoorInfoStrc* pInfo = ptLevelData->pOutdoorInfo;
     if (!pInfo)
     {
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 627);
@@ -519,8 +519,8 @@ static void sub_0067E4B0(D2DrlgLevelStrc* pLevel)
 
     int nX = pInfo->nWidth - pRecord->nSizeX / 8;
     int nY = pInfo->nHeight - pRecord->nSizeY / 8;
-    sub_006743C0(pLevel, nX, nY, 0x370, -1, 0);
-    sub_006743C0(pLevel, nX, nY - 2, 0x380, -1, 0);
+    sub_006743C0(ptLevelData, nX, nY, 0x370, -1, 0);
+    sub_006743C0(ptLevelData, nX, nY - 2, 0x380, -1, 0);
 }
 
 // 0x0067E560

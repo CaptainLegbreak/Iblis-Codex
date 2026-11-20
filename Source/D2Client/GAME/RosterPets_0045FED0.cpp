@@ -382,8 +382,8 @@ void __stdcall sub_004A5980_PressMsgHandler(SMSGHANDLER_PARAMS* pMsg)
 // 0x004B76D0
 void __stdcall sub_004B76D0_TimedCallbackMsg(SMSGHANDLER_PARAMS* pMsg)
 {
-    T0045FED0* pTimer = gpTimer_007C0E54;
-    if (pTimer && pTimer->dwTick + 0x50 > GetTickCount())
+    T0045FED0* pDialog = gpTimer_007C0E54;
+    if (pDialog && pDialog->dwTick + 0x50 > GetTickCount())
     {
         pMsg->bUseResult = 1;
         pMsg->lResult = 0;
@@ -393,11 +393,11 @@ void __stdcall sub_004B76D0_TimedCallbackMsg(SMSGHANDLER_PARAMS* pMsg)
     pMsg->bUseResult = 1;
     pMsg->lResult = 0;
     sub_00420290_BreakHandlerChain(pMsg);
-    pTimer = gpTimer_007C0E54;
-    D2_ASSERT(pTimer, 0x1C2);
-    if (pTimer->nVersion >= 5)
+    pDialog = gpTimer_007C0E54;
+    D2_ASSERT(pDialog, 0x1C2);
+    if (pDialog->nVersion >= 5)
     {
-        void (__cdecl* pfnCallback)() = pTimer->pfnCallback;
+        void (__cdecl* pfnCallback)() = pDialog->pfnCallback;
         if (pfnCallback)
         {
             pfnCallback();

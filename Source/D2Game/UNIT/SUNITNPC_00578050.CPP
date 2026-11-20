@@ -36,12 +36,12 @@ unsigned int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwMas
 #define SEND_0x2A(nResult, nLine, bSuccess) sub_0053D740_SendPacket0x2A(UnitGetClient(pUnit, gszNpcSourceFile, nLine), 0x2A, nResult, STATLIST_UnitGetStatValue(pUnit, 14, 0), -1, bSuccess)
 
 // 0x00578050
-int __fastcall D2GAME_NPC_Repair_6FCC95B0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nNpcGUID, int nItemGUID, unsigned short nUnused, int nRepairFlags)
+int __fastcall D2GAME_NPC_Repair_6FCC95B0(D2GameStrc* ptGame, D2UnitStrc* pUnit, int nNpcGUID, int nItemGUID, unsigned short nUnused, int nRepairFlags)
 {
-    D2_ASSERT(pGame, 0x9BC);
+    D2_ASSERT(ptGame, 0x9BC);
 
-    D2UnitStrc* pInteractUnit = SUNIT_GetInteractUnit(pGame, pUnit);
-    D2UnitStrc* pNpc = SUNIT_GetServerUnit(pGame, 1, nNpcGUID);
+    D2UnitStrc* pInteractUnit = SUNIT_GetInteractUnit(ptGame, pUnit);
+    D2UnitStrc* pNpc = SUNIT_GetServerUnit(ptGame, 1, nNpcGUID);
     if (!pNpc || pInteractUnit != pNpc)
     {
         SEND_0x2A(9, 0x9C5, 0);
@@ -56,29 +56,29 @@ int __fastcall D2GAME_NPC_Repair_6FCC95B0(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 
     if (nRepairFlags & 0x80000000)
     {
-        const int nDifficulty = pGame->nDifficulty;
+        const int nDifficulty = ptGame->nDifficulty;
         D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[nDifficulty];
         const int nNpcId = pNpc->dwClassId;
-        const int nRepairCosts = ITEMS_GetAllRepairCosts(pGame, pUnit, nNpcId, nDifficulty, pQuestFlags, 0);
+        const int nRepairCosts = ITEMS_GetAllRepairCosts(ptGame, pUnit, nNpcId, nDifficulty, pQuestFlags, 0);
         if (!nRepairCosts)
         {
             SEND_0x2A(2, 0x9DD, 1);
             return 0;
         }
 
-        if (!sub_00576D90_SpendGold(pGame, pUnit, nRepairCosts))
+        if (!sub_00576D90_SpendGold(ptGame, pUnit, nRepairCosts))
         {
             SEND_0x2A(12, 0x9E4, 0);
             return 1;
         }
 
         const int nNpcClassId = pNpc->dwClassId;
-        ITEMS_GetAllRepairCosts(pGame, pUnit, nNpcClassId, pGame->nDifficulty, sub_00543520(pGame, pUnit), sub_005762B0_RepairItemCallback);
+        ITEMS_GetAllRepairCosts(ptGame, pUnit, nNpcClassId, ptGame->nDifficulty, sub_00543520(ptGame, pUnit), sub_005762B0_RepairItemCallback);
         SEND_0x2A(2, 0x9E8, 1);
         return 0;
     }
 
-    D2UnitStrc* pItem = SUNIT_GetServerUnit(pGame, 4, nItemGUID);
+    D2UnitStrc* pItem = SUNIT_GetServerUnit(ptGame, 4, nItemGUID);
     if (!pItem || !sub_00557FF0_InventoryContainsItem(pUnit, pItem, 0))
     {
         SEND_0x2A(9, 0x9F0, 0);
@@ -116,8 +116,8 @@ lNotRepairable:
     }
 
     const int nVendorId = pNpc->dwClassId;
-    const int nTransactionCosts = sub_0062FDC0_GetRepairCost(pUnit, pItem, pGame->nDifficulty, sub_00543520(pGame, pUnit), nVendorId, 3);
-    if (!sub_00576D90_SpendGold(pGame, pUnit, nTransactionCosts))
+    const int nTransactionCosts = sub_0062FDC0_GetRepairCost(pUnit, pItem, ptGame->nDifficulty, sub_00543520(ptGame, pUnit), nVendorId, 3);
+    if (!sub_00576D90_SpendGold(ptGame, pUnit, nTransactionCosts))
     {
         const int nGold = STATLIST_UnitGetStatValue(pUnit, 14, 0);
         if (nMaxDurability > nDurability)
@@ -128,7 +128,7 @@ lNotRepairable:
                 const int nRepairDurability = (nGold << 10) / nDivisor;
                 if (!ITEMS_CheckItemFlag(pItem, 0x100, 0xA43, gszNpcSourceFile))
                 {
-                    if (sub_00576D90_SpendGold(pGame, pUnit, nGold))
+                    if (sub_00576D90_SpendGold(ptGame, pUnit, nGold))
                     {
                         const int nNewDurability = D2_MIN(nMaxDurability, nDurability + nRepairDurability);
 
@@ -148,7 +148,7 @@ lNotRepairable:
         return 0;
     }
 
-    D2GAME_NPC_RepairItem_6FCC6970(pGame, pItem, pUnit);
+    D2GAME_NPC_RepairItem_6FCC6970(ptGame, pItem, pUnit);
     SEND_0x2A(2, 0xA5C, 1);
     return 0;
 }

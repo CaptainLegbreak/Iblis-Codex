@@ -212,9 +212,9 @@ void __fastcall sub_004BC720_InitObject(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRo
     case 0x3B:
     {
         nMode = DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom));
-        const int nTownLevelId = DUNGEON_GetTownLevelIdFromActNo(nMode);
-        D2_ASSERT(nTownLevelId <= 0xFF, 0x95);
-        pUnit->pObjectData->nInteractType = nTownLevelId;
+        const int eLevelId = DUNGEON_GetTownLevelIdFromActNo(nMode);
+        D2_ASSERT(eLevelId <= 0xFF, 0x95);
+        pUnit->pObjectData->nInteractType = eLevelId;
         break;
     }
     case 0x3C:

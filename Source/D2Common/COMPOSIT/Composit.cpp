@@ -137,11 +137,11 @@ int __stdcall COMPOSIT_IsWeaponBowOrXBow(D2UnitStrc* pUnit)
 }
 
 // 0x0064F500
-unsigned int __stdcall COMPOSIT_GetArmorTypeFromComponent(int nComponent, unsigned char* pArmorComponents)
+unsigned int __stdcall COMPOSIT_GetArmorTypeFromComponent(int eComponent, unsigned char* pArmorComponents)
 {
-    CP_ASSERT(nComponent < 16, 613);
+    CP_ASSERT(eComponent < 16, 613);
 
-    switch (nComponent)
+    switch (eComponent)
     {
     case 1:
         return pArmorComponents[2];

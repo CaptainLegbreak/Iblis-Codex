@@ -383,9 +383,9 @@ void __fastcall sub_0046F070_SetGfxValue(D2UnitStrc* pUnit, int nValue)
 // 0x0046F170
 void __fastcall sub_0046F170_RemoveOverlays(D2UnitStrc* pUnit)
 {
-    D2GfxDataStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
-    D2_ASSERT(pGfxData, 0xCCF);
-    D2UnitOverlayStrc* pOverlay = pGfxData->pOverlays;
+    D2GfxDataStrc* ptGfxInfo = sub_00463E10_GetGfxData(pUnit);
+    D2_ASSERT(ptGfxInfo, 0xCCF);
+    D2UnitOverlayStrc* pOverlay = ptGfxInfo->pOverlays;
     while (pOverlay)
     {
         D2UnitOverlayStrc* pNext = pOverlay->pNext;
@@ -1143,15 +1143,15 @@ int __fastcall sub_00470860_HitTestUnitGfx(D2UnitStrc* pUnit, int nOriginX, int 
         return 0;
     }
 
-    D2GfxBoundsStrc* pBounds = (D2GfxBoundsStrc*)sub_004DB040_identity(pNode->f_8->pData);
-    D2_ASSERT(pBounds, 0xDA4);
+    D2GfxBoundsStrc* ptGfxInfo = (D2GfxBoundsStrc*)sub_004DB040_identity(pNode->f_8->pData);
+    D2_ASSERT(ptGfxInfo, 0xDA4);
 
-    if (nX < pBounds->nLeft + nOriginX - 16 || nX >= pBounds->nRight + nOriginX + 16)
+    if (nX < ptGfxInfo->nLeft + nOriginX - 16 || nX >= ptGfxInfo->nRight + nOriginX + 16)
     {
         return 0;
     }
 
-    if (nY < pBounds->nTop + nOriginY - 16 || nY >= pBounds->nBottom + nOriginY + 16)
+    if (nY < ptGfxInfo->nTop + nOriginY - 16 || nY >= ptGfxInfo->nBottom + nOriginY + 16)
     {
         return 0;
     }

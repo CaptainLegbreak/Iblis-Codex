@@ -47,18 +47,18 @@ void __fastcall DATATBLS_LoadObjType_ModeTxt(void* hArchive)
     D2ObjModeTypeTxt* pModeSrc = (D2ObjModeTypeTxt*)DATATBLS_CompileTxt(hArchive, "objmode", pTbl, &nModeRecords, sizeof(D2ObjModeTypeTxt));
 
     int nTotal = nModeRecords + nTypeRecords;
-    D2ObjModeTypeTxt* pTxt = (D2ObjModeTypeTxt*)FOG_AllocPool(0, sizeof(D2ObjModeTypeTxt) * nTotal, ".\\DATATBLS\\TokTbls.cpp", 148, 0);
-    TBL_ASSERT(pTxt, 149);
+    D2ObjModeTypeTxt* ptTokenStats = (D2ObjModeTypeTxt*)FOG_AllocPool(0, sizeof(D2ObjModeTypeTxt) * nTotal, ".\\DATATBLS\\TokTbls.cpp", 148, 0);
+    TBL_ASSERT(ptTokenStats, 149);
 
-    memcpy(pTxt, pType, sizeof(D2ObjModeTypeTxt) * nTypeRecords);
-    D2ObjModeTypeTxt* pMode = pTxt + nTypeRecords;
+    memcpy(ptTokenStats, pType, sizeof(D2ObjModeTypeTxt) * nTypeRecords);
+    D2ObjModeTypeTxt* pMode = ptTokenStats + nTypeRecords;
     memcpy(pMode, pModeSrc, sizeof(D2ObjModeTypeTxt) * nModeRecords);
 
     DATATBLS_UnloadBin(pType);
     DATATBLS_UnloadBin(pModeSrc);
 
     gpObjMode = pMode;
-    gpObjModeTypeTxt = pTxt;
-    gpObjType = pTxt;
+    gpObjModeTypeTxt = ptTokenStats;
+    gpObjType = ptTokenStats;
     gnObjModeTypeTxtRecordCount = nTotal;
 }

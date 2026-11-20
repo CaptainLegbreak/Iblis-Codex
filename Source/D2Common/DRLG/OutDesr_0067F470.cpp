@@ -458,18 +458,18 @@ static __declspec(noinline) void DRLGOUTWILD_SpawnTownTransitionsAndCaves(D2Drlg
 
     if (!(pOutdoors->dwFlags & 0x40))
     {
-        int bAdded = 0;
+        int fAdded = 0;
         if (pLevel->nLevelId == LEVEL_BLOODMOOR)
         {
             D2DrlgCoordsStrc* pCoords = &DRLG_GetLevel(pLevel->pDrlg, LEVEL_ROGUEENCAMPMENT)->pLevelCoords;
-            bAdded = DRLGOUTDOORS_SpawnPresetFarAway(pLevel, pCoords, 0x34, -1, 1, 15);
+            fAdded = DRLGOUTDOORS_SpawnPresetFarAway(pLevel, pCoords, 0x34, -1, 1, 15);
         }
         else
         {
-            bAdded = DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x33, -1, 1, 15);
+            fAdded = DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x33, -1, 1, 15);
         }
 
-        D2_ASSERT(bAdded, 0x1E5);
+        D2_ASSERT(fAdded, 0x1E5);
         pOutdoors->dwFlags |= 0x40;
     }
 }

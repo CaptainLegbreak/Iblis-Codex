@@ -388,12 +388,12 @@ int __fastcall ACT5Q2_UnitIterate_SetCompletionFlag(D2GameStrc* pGame, D2UnitStr
 // 0x005877C0
 void __fastcall ACT5Q1_SetRewardGranted(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
-    D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
+    D2BitBufferStrc* pQuestInfo = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
 
-    QUESTRECORD_SetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q1, QFLAG_REWARDGRANTED);
-    QUESTRECORD_ClearQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q1, QFLAG_REWARDPENDING);
+    QUESTRECORD_SetQuestState(pQuestInfo, QUESTSTATEFLAG_A5Q1, QFLAG_REWARDGRANTED);
+    QUESTRECORD_ClearQuestState(pQuestInfo, QUESTSTATEFLAG_A5Q1, QFLAG_REWARDPENDING);
 
-    if (!QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A5Q1, QFLAG_COMPLETEDBEFORE))
+    if (!QUESTRECORD_GetQuestState(pQuestInfo, QUESTSTATEFLAG_A5Q1, QFLAG_COMPLETEDBEFORE))
     {
         D2_ASSERT(QUESTS_GetQuestData(pGame, QUEST_A5Q1_SHENK), 750);
     }

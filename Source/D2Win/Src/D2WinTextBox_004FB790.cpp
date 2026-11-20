@@ -69,20 +69,20 @@ int __fastcall sub_004FB790(D2WinTextBoxStrc* pTextBox, const Unicode* pText, in
     Unicode wszText[1024];
     sub_005267E0(wszText, pText);
 
-    D2WinTextBoxLineStrc* pLine = pTextBox->pFirstLine;
+    D2WinTextBoxLineStrc* ptLine = pTextBox->pFirstLine;
     for (int i = 0; i < a3; ++i)
     {
-        if (!pLine)
+        if (!ptLine)
             return 1;
 
-        pLine = pLine->pNext;
+        ptLine = ptLine->pNext;
     }
 
-    if (pLine)
+    if (ptLine)
     {
-        D2_ASSERT(pLine->pColumns[nColumn] == 0, 0x20F);
-        pLine->pColumns[nColumn] = (Unicode*)FOG_Alloc(sizeof(Unicode) * (sub_00526800(wszText) + 1), ".\\Src\\D2WinTextBox.cpp", 0x210, 0);
-        sub_005267E0(pLine->pColumns[nColumn], wszText);
+        D2_ASSERT(ptLine->pColumns[nColumn] == 0, 0x20F);
+        ptLine->pColumns[nColumn] = (Unicode*)FOG_Alloc(sizeof(Unicode) * (sub_00526800(wszText) + 1), ".\\Src\\D2WinTextBox.cpp", 0x210, 0);
+        sub_005267E0(ptLine->pColumns[nColumn], wszText);
     }
 
     return 1;

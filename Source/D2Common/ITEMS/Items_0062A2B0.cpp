@@ -323,21 +323,21 @@ static __forceinline int sub_T03_GetClassId(D2UnitStrc* pUnit)
 }
 
 // 0x0062C6A0
-int __stdcall ITEMS_IsPersonalizable(D2UnitStrc* pItem)
+int __stdcall ITEMS_IsPersonalizable(D2UnitStrc* hItem)
 {
-    D2_ASSERT(pItem, 0x67D);
+    D2_ASSERT(hItem, 0x67D);
 
-    const int nUnitType = pItem ? pItem->dwUnitType : 6;
-    if (!(nUnitType == 4 && ITEMS_GetItemTypeFromItemId(pItem->dwClassId) == 4)
-        && !sub_T03_CheckItemFlag(pItem, 0x1000)
-        && ITEMS_GetItemType(pItem) != 7
-        && ITEMS_GetItemType(pItem) != 5
-        && ITEMS_GetItemType(pItem) != 6
-        && !ITEMS_CheckItemFlag(pItem, 0x100, 0x12F7, ".\\ITEMS\\Items.cpp")
-        && !(ITEMS_GetItemFlags(pItem) & 0x1000000)
-        && !sub_0062A2B0_GetCompactSave(pItem))
+    const int nUnitType = hItem ? hItem->dwUnitType : 6;
+    if (!(nUnitType == 4 && ITEMS_GetItemTypeFromItemId(hItem->dwClassId) == 4)
+        && !sub_T03_CheckItemFlag(hItem, 0x1000)
+        && ITEMS_GetItemType(hItem) != 7
+        && ITEMS_GetItemType(hItem) != 5
+        && ITEMS_GetItemType(hItem) != 6
+        && !ITEMS_CheckItemFlag(hItem, 0x100, 0x12F7, ".\\ITEMS\\Items.cpp")
+        && !(ITEMS_GetItemFlags(hItem) & 0x1000000)
+        && !sub_0062A2B0_GetCompactSave(hItem))
     {
-        return DATATBLS_GetItemsTxtRecord(sub_T03_GetClassId(pItem))->nNameable != 0;
+        return DATATBLS_GetItemsTxtRecord(sub_T03_GetClassId(hItem))->nNameable != 0;
     }
     return 0;
 }

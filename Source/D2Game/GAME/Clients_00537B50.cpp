@@ -611,53 +611,53 @@ void __fastcall OBJRGN_SetShrineCoordinates(D2GameStrc* pGame, int nLevelId, int
 }
 
 // 0x005544B0
-void __fastcall sub_6FCBDE90(D2UnitStrc* pUnit, int bSetUninterruptable)
+void __fastcall sub_6FCBDE90(D2UnitStrc* hUnit, int bSetUninterruptable)
 {
-    STATES_ToggleState(pUnit, STATE_UNINTERRUPTABLE, bSetUninterruptable);
+    STATES_ToggleState(hUnit, STATE_UNINTERRUPTABLE, bSetUninterruptable);
 
-    D2_ASSERT(pUnit, 2601);
-    D2GameStrc* pGame = pUnit->pGame;
+    D2_ASSERT(hUnit, 2601);
+    D2GameStrc* pGame = hUnit->pGame;
     if (!pGame)
     {
         return;
     }
 
-    if (!bSetUninterruptable && STATES_CheckState(pUnit, STATE_DEATH_DELAY))
+    if (!bSetUninterruptable && STATES_CheckState(hUnit, STATE_DEATH_DELAY))
     {
-        STATES_ToggleState(pUnit, STATE_DEATH_DELAY, 0);
+        STATES_ToggleState(hUnit, STATE_DEATH_DELAY, 0);
 
-        D2UnitStrc* pAttacker = SUNIT_GetLastAttacker(pGame, pUnit);
+        D2UnitStrc* pAttacker = SUNIT_GetLastAttacker(pGame, hUnit);
         if (pAttacker)
         {
             D2DamageStrc damage;
             memset(&damage, 0, sizeof(damage));
             damage.wResultFlags |= DAMAGERESULTFLAG_WILLDIE;
-            SUNITDMG_ExecuteMissileDamage(pGame, pAttacker, pUnit, &damage);
+            SUNITDMG_ExecuteMissileDamage(pGame, pAttacker, hUnit, &damage);
         }
         else
         {
-            SUNITDMG_KillMonster(pGame, pUnit, 0, 1);
+            SUNITDMG_KillMonster(pGame, hUnit, 0, 1);
         }
     }
 
-    if (pUnit->dwUnitType == UNIT_MONSTER)
+    if (hUnit->dwUnitType == UNIT_MONSTER)
     {
-        D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_AITHINK, 0);
+        D2GAME_EVENTS_Delete_6FC34840(pGame, hUnit, EVENTTYPE_AITHINK, 0);
     }
 }
 
 // 0x00562DA0
-void __fastcall D2GAME_Items_EventsHandler_6FC4A460(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType)
+void __fastcall D2GAME_Items_EventsHandler_6FC4A460(D2GameStrc* pGame, D2UnitStrc* pUnit, int eEventType)
 {
-    D2_ASSERT(!IsBadCodePtr((FARPROC)scpfnItemEventFunctions_6FD27DDC[nEventType]), 5610);
-    scpfnItemEventFunctions_6FD27DDC[nEventType](pGame, pUnit);
+    D2_ASSERT(!IsBadCodePtr((FARPROC)scpfnItemEventFunctions_6FD27DDC[eEventType]), 5610);
+    scpfnItemEventFunctions_6FD27DDC[eEventType](pGame, pUnit);
 }
 
 // 0x00586AD0
-void __fastcall D2GAME_OBJMODE_InvokeEventFunction_6FC75250(D2GameStrc* pGame, D2UnitStrc* pObject, int nEventType)
+void __fastcall D2GAME_OBJMODE_InvokeEventFunction_6FC75250(D2GameStrc* pGame, D2UnitStrc* pObject, int eEventType)
 {
-    D2_ASSERT(!IsBadCodePtr((FARPROC)gpEventFunctions_6FD28CD8[nEventType]), 576);
-    gpEventFunctions_6FD28CD8[nEventType](pGame, pObject);
+    D2_ASSERT(!IsBadCodePtr((FARPROC)gpEventFunctions_6FD28CD8[eEventType]), 576);
+    gpEventFunctions_6FD28CD8[eEventType](pGame, pObject);
 }
 
 // 0x005A6260

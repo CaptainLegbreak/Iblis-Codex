@@ -102,13 +102,13 @@ static int __stdcall sub_0064BF60_CanAddUnitToRoom(int bAssertIfPresent, D2UnitS
 }
 
 // 0x0064C2C0
-int __stdcall UNITROOM_AddUnitToRoomEx(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nUnused)
+int __stdcall UNITROOM_AddUnitToRoomEx(D2UnitStrc* pUnit, D2ActiveRoomStrc* hRoom, int nUnused)
 {
     D2_ASSERT(pUnit, 72);
-    D2_ASSERT(pRoom, 73);
-    D2_ASSERT(sub_0064BF60_CanAddUnitToRoom(TRUE, pUnit, pRoom), 82);
+    D2_ASSERT(hRoom, 73);
+    D2_ASSERT(sub_0064BF60_CanAddUnitToRoom(TRUE, pUnit, hRoom), 82);
 
-    D2UnitStrc** ppUnitFirst = DUNGEON_GetUnitListFromRoom(pRoom);
+    D2UnitStrc** ppUnitFirst = DUNGEON_GetUnitListFromRoom(hRoom);
     D2_ASSERT(ppUnitFirst, 87);
     pUnit->pRoomNext = *ppUnitFirst;
     *ppUnitFirst = pUnit;
@@ -118,12 +118,12 @@ int __stdcall UNITROOM_AddUnitToRoomEx(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoo
     switch (pUnit->dwUnitType)
     {
     case UNIT_PLAYER:
-        sub_00619EE0(pRoom);
+        sub_00619EE0(hRoom);
         break;
     case UNIT_MONSTER:
         if (STATLIST_GetUnitAlignment(pUnit) == UNIT_ALIGNMENT_GOOD)
         {
-            sub_00619EE0(pRoom);
+            sub_00619EE0(hRoom);
         }
         break;
     }
@@ -218,9 +218,9 @@ void __stdcall UNITROOM_ClearUpdateQueue(D2ActiveRoomStrc* pRoom)
 }
 
 // 0x0064C260
-int __stdcall UNITROOM_IsUnitInRoom(D2ActiveRoomStrc* pRoom, D2UnitStrc* pUnit)
+int __stdcall UNITROOM_IsUnitInRoom(D2ActiveRoomStrc* pRoom, D2UnitStrc* hUnit)
 {
-    D2_ASSERT(pUnit, 340);
+    D2_ASSERT(hUnit, 340);
 
     if (!pRoom)
     {
@@ -228,7 +228,7 @@ int __stdcall UNITROOM_IsUnitInRoom(D2ActiveRoomStrc* pRoom, D2UnitStrc* pUnit)
     }
 
     D2UnitStrc* pRoomUnit = *DUNGEON_GetUnitListFromRoom(pRoom);
-    while (pRoomUnit != pUnit)
+    while (pRoomUnit != hUnit)
     {
         pRoomUnit = pRoomUnit->pRoomNext;
         if (!pRoomUnit)
@@ -267,14 +267,14 @@ void __stdcall UNITROOM_UpdatePath(D2UnitStrc* pUnit)
 }
 
 // 0x0064C1B0
-void __stdcall UNITROOM_RemoveUnitFromUpdateQueue(D2UnitStrc* pUnit)
+void __stdcall UNITROOM_RemoveUnitFromUpdateQueue(D2UnitStrc* hUnit)
 {
-    D2_ASSERT(pUnit, 301);
+    D2_ASSERT(hUnit, 301);
 
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(hUnit);
     if (!pRoom)
     {
-        D2_ASSERT(!pUnit->pChangeNextUnit, 312);
+        D2_ASSERT(!hUnit->pChangeNextUnit, 312);
         return;
     }
 
@@ -283,7 +283,7 @@ void __stdcall UNITROOM_RemoveUnitFromUpdateQueue(D2UnitStrc* pUnit)
     D2UnitStrc* pPreviousChangeUnit = 0;
     for (; pChangeUnit; pChangeUnit = pChangeUnit->pChangeNextUnit)
     {
-        if (pChangeUnit == pUnit)
+        if (pChangeUnit == hUnit)
         {
             break;
         }
@@ -307,16 +307,16 @@ void __stdcall UNITROOM_RemoveUnitFromUpdateQueue(D2UnitStrc* pUnit)
 }
 
 // 0x0064C370
-void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit)
+void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* hUnit)
 {
     int bReset = 0;
 
-    D2_ASSERT(pUnit, 245);
+    D2_ASSERT(hUnit, 245);
 
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(hUnit);
     if (!pRoom)
     {
-        D2_ASSERT(!pUnit->pRoomNext, 253);
+        D2_ASSERT(!hUnit->pRoomNext, 253);
         return;
     }
 
@@ -325,7 +325,7 @@ void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit)
     D2UnitStrc* pPreviousUnit = 0;
     for (; pRoomUnit; pRoomUnit = pRoomUnit->pRoomNext)
     {
-        if (pRoomUnit == pUnit)
+        if (pRoomUnit == hUnit)
         {
             break;
         }
@@ -347,14 +347,14 @@ void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit)
 
         pRoomUnit->pRoomNext = 0;
 
-        switch (pUnit->dwUnitType)
+        switch (hUnit->dwUnitType)
         {
         case 0:
             DUNGEON_DecreaseAlliedCountOfRoom(pRoom);
             break;
 
         case 1:
-            if (STATLIST_GetUnitAlignment(pUnit) == 2)
+            if (STATLIST_GetUnitAlignment(hUnit) == 2)
             {
                 DUNGEON_DecreaseAlliedCountOfRoom(pRoom);
             }
@@ -362,10 +362,10 @@ void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit)
         }
     }
 
-    UNITROOM_RemoveUnitFromUpdateQueue(pUnit);
-    pUnit->dwFlags &= ~0x2000;
+    UNITROOM_RemoveUnitFromUpdateQueue(hUnit);
+    hUnit->dwFlags &= ~0x2000;
     if (bReset)
     {
-        UNITS_ResetRoom(pUnit);
+        UNITS_ResetRoom(hUnit);
     }
 }

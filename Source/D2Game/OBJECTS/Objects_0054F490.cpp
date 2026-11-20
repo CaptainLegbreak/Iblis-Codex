@@ -314,9 +314,9 @@ static int __stdcall sub_00550220_CanPlaceObject(D2ActiveRoomStrc* pRoom, int nS
 }
 
 // 0x00551200
-D2UnitStrc* __fastcall OBJECTS_PopulateFn7_RogueOnStick(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, unsigned char nDensity, unsigned int nObjectId, unsigned short nProbability)
+D2UnitStrc* __fastcall OBJECTS_PopulateFn7_RogueOnStick(D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, unsigned char nDensity, unsigned int nObjectId, unsigned short nProbability)
 {
-    D2ObjectControlStrc* pObjectControl = OBJRGN_GetObjectControlFromGame(pGame, pRoom);
+    D2ObjectControlStrc* pObjectControl = OBJRGN_GetObjectControlFromGame(pGame, hRoom);
     if (OBJECTS_RollSeed_Inline(&pObjectControl->pSeed) % 100 > nProbability)
     {
         return 0;
@@ -327,7 +327,7 @@ D2UnitStrc* __fastcall OBJECTS_PopulateFn7_RogueOnStick(D2GameStrc* pGame, D2Act
     const int nSizeX = pObjectsTxtRecord->dwSizeX;
     const int nSizeY = pObjectsTxtRecord->dwSizeY;
     D2DrlgCoordsStrc drlgCoords;
-    DUNGEON_GetRoomCoordinates(pRoom, &drlgCoords);
+    DUNGEON_GetRoomCoordinates(hRoom, &drlgCoords);
 
     int nTries = 8;
     D2UnitStrc* pObject = 0;
@@ -336,7 +336,7 @@ D2UnitStrc* __fastcall OBJECTS_PopulateFn7_RogueOnStick(D2GameStrc* pGame, D2Act
     {
         base.nX = drlgCoords.nSubtileX + OBJECTS_RollLimited_Inline(&pObjectControl->pSeed, drlgCoords.nSubtileWidth - nSizeX - 1);
         base.nY = drlgCoords.nSubtileY + OBJECTS_RollLimited_Inline(&pObjectControl->pSeed, drlgCoords.nSubtileHeight - nSizeY - 1);
-        if (sub_00550220_CanPlaceObject(pRoom, 5, &drlgCoords, &base, 5) == 1)
+        if (sub_00550220_CanPlaceObject(hRoom, 5, &drlgCoords, &base, 5) == 1)
         {
             break;
         }
@@ -353,12 +353,12 @@ D2UnitStrc* __fastcall OBJECTS_PopulateFn7_RogueOnStick(D2GameStrc* pGame, D2Act
         D2CoordStrc coord;
         coord.nX = base.nX + gaCoordInit_00731EB4[nIndex].pCoords[j].nX;
         coord.nY = base.nY + gaCoordInit_00731EB4[nIndex].pCoords[j].nY;
-        if (sub_00550220_CanPlaceObject(pRoom, nSizeY, &drlgCoords, &coord, nSizeX) == 1)
+        if (sub_00550220_CanPlaceObject(hRoom, nSizeY, &drlgCoords, &coord, nSizeX) == 1)
         {
             const unsigned int nClassId = (OBJECTS_RollSeed_Inline(&pObjectControl->pSeed) & 1) + 0x39;
             D2_ASSERT(nClassId <= 0x3A, 0x7DD);
-            D2_ASSERT(pRoom, 0x7DE);
-            pObject = SUNIT_AllocUnitData(2, nClassId, coord.nX, coord.nY, pGame, pRoom, 1, 0, 0);
+            D2_ASSERT(hRoom, 0x7DE);
+            pObject = SUNIT_AllocUnitData(2, nClassId, coord.nX, coord.nY, pGame, hRoom, 1, 0, 0);
             if (pObject)
             {
                 sub_00551150_SpawnFlies(pGame, pObject);
@@ -517,9 +517,9 @@ static inline int OBJECTS_RollChance_Inline(D2SeedStrc* pSeed, unsigned short nP
 }
 
 // 0x00551470
-D2UnitStrc* __fastcall OBJECTS_PopulateFn3_CommonObjects(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, unsigned char nDensity, unsigned int nObjectId, unsigned short nProbability)
+D2UnitStrc* __fastcall OBJECTS_PopulateFn3_CommonObjects(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, unsigned char bDensity, unsigned int nObjectId, unsigned short nProbability)
 {
-    D2_ASSERT(nDensity <= 128, 0x864);
+    D2_ASSERT(bDensity <= 128, 0x864);
     D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(nObjectId);
     int nSizeY;
     int nSizeX;
@@ -532,7 +532,7 @@ D2UnitStrc* __fastcall OBJECTS_PopulateFn3_CommonObjects(D2GameStrc* pGame, D2Ac
     {
         return 0;
     }
-    int nCount = nDensity * (drlgCoords.nSubtileWidth * drlgCoords.nSubtileHeight >> 7) >> 8;
+    int nCount = bDensity * (drlgCoords.nSubtileWidth * drlgCoords.nSubtileHeight >> 7) >> 8;
     D2UnitStrc* pObject = 0;
     for (; nCount > 0; --nCount)
     {
@@ -553,9 +553,9 @@ D2UnitStrc* __fastcall OBJECTS_PopulateFn3_CommonObjects(D2GameStrc* pGame, D2Ac
 }
 
 // 0x00551580
-D2UnitStrc* __fastcall OBJECTS_PopulateFn9_TrappedSoul(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, unsigned char nDensity, unsigned int nObjectId, unsigned short nProbability)
+D2UnitStrc* __fastcall OBJECTS_PopulateFn9_TrappedSoul(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, unsigned char bDensity, unsigned int nObjectId, unsigned short nProbability)
 {
-    D2_ASSERT(nDensity <= 128, 0x893);
+    D2_ASSERT(bDensity <= 128, 0x893);
     D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(nObjectId);
     int nSizeY;
     int nSizeX;
@@ -576,7 +576,7 @@ D2UnitStrc* __fastcall OBJECTS_PopulateFn9_TrappedSoul(D2GameStrc* pGame, D2Acti
     {
         return 0;
     }
-    const int nMax = nDensity * (drlgCoords.nSubtileWidth * drlgCoords.nSubtileHeight >> 7) >> 8;
+    const int nMax = bDensity * (drlgCoords.nSubtileWidth * drlgCoords.nSubtileHeight >> 7) >> 8;
     for (int i = nMax; i > 0; --i)
     {
         D2UnitStrc* pObject = OBJECTS_CreateObject(pGame, nObjectId, nSizeX, nSizeY, pRoom);

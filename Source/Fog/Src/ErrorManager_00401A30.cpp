@@ -425,14 +425,14 @@ void* __fastcall sub_00409770_PoolAllocLarge(D2PoolSystemStrc* pSystem, int nSiz
 }
 
 // 0x0040AA80
-void __fastcall sub_0040AA80_AsyncDataReplaceBuffer(AsyncData* pAsyncData, int nUnused, void* pBuffer, unsigned int nBufferSize)
+void __fastcall sub_0040AA80_AsyncDataReplaceBuffer(AsyncData* ptAsyncData, int nUnused, void* pBuffer, unsigned int nBufferSize)
 {
-    D2_ASSERT(pAsyncData, 638);
-    D2_ASSERT((pAsyncData->nFlags & 0xFFFFFFF0) == 0x41737960, 639);
-    D2_ASSERT(pAsyncData->nFlags & 1, 641);
-    FOG_FreePool(pAsyncData->pMemPool, pAsyncData->pBuffer, ".\\Src\\AsyncData.cpp", 644, 0);
-    pAsyncData->pBuffer = pBuffer;
-    pAsyncData->nFileSize = nBufferSize;
+    D2_ASSERT(ptAsyncData, 638);
+    D2_ASSERT((ptAsyncData->nFlags & 0xFFFFFFF0) == 0x41737960, 639);
+    D2_ASSERT(ptAsyncData->nFlags & 1, 641);
+    FOG_FreePool(ptAsyncData->pMemPool, ptAsyncData->pBuffer, ".\\Src\\AsyncData.cpp", 644, 0);
+    ptAsyncData->pBuffer = pBuffer;
+    ptAsyncData->nFileSize = nBufferSize;
 }
 
 // 0x0040B1B0

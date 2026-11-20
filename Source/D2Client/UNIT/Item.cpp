@@ -1132,16 +1132,16 @@ int __fastcall sub_004C2150_FindInTable(int nValue)
 }
 
 // 0x004C2180
-void __fastcall sub_004C2180_UpdateCursorItem(D2UnitStrc* pItem)
+void __fastcall sub_004C2180_UpdateCursorItem(D2UnitStrc* hItem)
 {
-    D2_ASSERT(pItem, 0xCC2);
-    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pItem, 0x36);
+    D2_ASSERT(hItem, 0xCC2);
+    D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(hItem, 0x36);
     if (pStatList)
     {
-        STATES_ToggleState(pItem, 0x36, 0);
-        D2Common_10474(pItem, pStatList);
+        STATES_ToggleState(hItem, 0x36, 0);
+        D2Common_10474(hItem, pStatList);
         STATLIST_FreeStatList(pStatList);
-        UnitUpdateAnimRateAndVel(pItem, ".\\UNIT\\Item.cpp", 0xCCA);
+        UnitUpdateAnimRateAndVel(hItem, ".\\UNIT\\Item.cpp", 0xCCA);
     }
 }
 

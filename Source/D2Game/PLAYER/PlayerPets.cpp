@@ -199,15 +199,15 @@ static int sub_6FC7D9D0(D2UnitStrc* pPlayer, int nPetType)
 // 0x00575850
 void __fastcall sub_6FC7D150(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetType, int nBaseMax)
 {
-    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
-    D2_ASSERT(pPlayerData, 512);
+    D2PlayerDataStrc* ptInfo = UNITS_GetPlayerData(pPlayer);
+    D2_ASSERT(ptInfo, 512);
 
-    if (nPetType == PETTYPE_SINGLE && nBaseMax != 1 || !pPlayerData->pPlayerPets)
+    if (nPetType == PETTYPE_SINGLE && nBaseMax != 1 || !ptInfo->pPlayerPets)
     {
         return;
     }
 
-    D2PetListStrc* pPetList = PLAYERPETS_GetPetListFromPetType(pPlayerData->pPlayerPets, nPetType);
+    D2PetListStrc* pPetList = PLAYERPETS_GetPetListFromPetType(ptInfo->pPlayerPets, nPetType);
     if (!pPetList)
     {
         return;
@@ -921,11 +921,11 @@ static __forceinline D2PetListStrc* sub_005752B0_GetPetList(D2PlayerPetStrc* pPl
 // 0x005752B0
 int __fastcall sub_6FC7D5F0(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pPet)
 {
-    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
-    D2_ASSERT(pPlayerData, 723);
+    D2PlayerDataStrc* ptInfo = UNITS_GetPlayerData(pPlayer);
+    D2_ASSERT(ptInfo, 723);
 
     const int nPetGUID = !pPet ? -1 : pPet->dwUnitId;
-    D2PlayerPetStrc* pPlayerPets = pPlayerData->pPlayerPets;
+    D2PlayerPetStrc* pPlayerPets = ptInfo->pPlayerPets;
     if (!pPlayerPets)
     {
         return 0;

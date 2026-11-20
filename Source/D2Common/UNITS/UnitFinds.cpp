@@ -142,12 +142,12 @@ static inline int UNITS_GetClassIdOrInvalid_Inline(D2UnitStrc* pUnit)
 }
 
 // 0x0065A620
-D2UnitStrc* __stdcall sub_0065A620_FindUnitInAdjacentRooms(D2ActiveRoomStrc* pRoom, int nUnitType, int nClassId)
+D2UnitStrc* __stdcall sub_0065A620_FindUnitInAdjacentRooms(D2ActiveRoomStrc* hRoom, int nUnitType, int nClassId)
 {
-    D2_ASSERT(pRoom, 0x31);
+    D2_ASSERT(hRoom, 0x31);
     D2ActiveRoomStrc** ppRoomList;
     int nNumRooms;
-    DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRoomList, &nNumRooms);
+    DUNGEON_GetAdjacentRoomsListFromRoom(hRoom, &ppRoomList, &nNumRooms);
     for (int i = 0; i < nNumRooms; ++i)
     {
         D2UnitStrc* pUnit = ppRoomList[i]->pUnitFirst;

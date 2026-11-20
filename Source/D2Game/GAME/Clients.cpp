@@ -682,55 +682,55 @@ static D2ClientStrc* __fastcall CLIENTS_GetClientFromClientListWithId(D2ClientSt
 }
 
 // 0x00537810
-D2ClientStrc* __fastcall CLIENTS_GetClientFromClientId(D2GameStrc* pGame, int nClientId)
+D2ClientStrc* __fastcall CLIENTS_GetClientFromClientId(D2GameStrc* ptGame, int nClientId)
 {
-    D2_ASSERT(pGame, 0xE9);
-    return CLIENTS_GetClientFromClientListWithId(pGame->pClientList, nClientId);
+    D2_ASSERT(ptGame, 0xE9);
+    return CLIENTS_GetClientFromClientListWithId(ptGame->pClientList, nClientId);
 }
 
 // 0x00537860
-D2UnitStrc* __stdcall CLIENTS_GetPlayerFromClient(D2ClientStrc* pClient, int bIgnoreDeath)
+D2UnitStrc* __stdcall CLIENTS_GetPlayerFromClient(D2ClientStrc* ptClient, int bIgnoreDeath)
 {
-    D2_ASSERT(pClient, 251);
+    D2_ASSERT(ptClient, 251);
 
-    if (pClient->dwFlags & CLIENTFLAGEX_PLAYER_UNIT_ALIVE)
+    if (ptClient->dwFlags & CLIENTFLAGEX_PLAYER_UNIT_ALIVE)
     {
-        return pClient->pPlayer;
+        return ptClient->pPlayer;
     }
 
     if (bIgnoreDeath)
     {
-        return pClient->pPlayer;
+        return ptClient->pPlayer;
     }
 
-    if (!pClient->pPlayer)
+    if (!ptClient->pPlayer)
     {
         return 0;
     }
 
-    D2UnitStrc* pPlayer = SUNIT_GetServerUnit(pClient->pGame, pClient->dwUnitType, pClient->dwUnitGUID);
+    D2UnitStrc* pPlayer = SUNIT_GetServerUnit(ptClient->pGame, ptClient->dwUnitType, ptClient->dwUnitGUID);
     if (!pPlayer)
     {
-        pClient->pPlayer = 0;
+        ptClient->pPlayer = 0;
     }
 
     return pPlayer;
 }
 
 // 0x005378E0
-void __fastcall CLIENTS_SetPlayerInClient(D2ClientStrc* pClient, D2UnitStrc* pUnit)
+void __fastcall CLIENTS_SetPlayerInClient(D2ClientStrc* ptClient, D2UnitStrc* pUnit)
 {
-    D2_ASSERT(pClient, 0x114);
+    D2_ASSERT(ptClient, 0x114);
 
     if (pUnit)
     {
-        pClient->dwUnitType = pUnit->dwUnitType;
-        pClient->dwUnitGUID = pUnit->dwUnitId;
-        pClient->pPlayer = pUnit;
+        ptClient->dwUnitType = pUnit->dwUnitType;
+        ptClient->dwUnitGUID = pUnit->dwUnitId;
+        ptClient->pPlayer = pUnit;
     }
     else
     {
-        pClient->pPlayer = 0;
+        ptClient->pPlayer = 0;
     }
 }
 
@@ -928,14 +928,14 @@ static void __stdcall CLIENTS_SetUnitsUpdateList(D2ClientStrc* pClient, D2Client
 }
 
 // 0x00537FD0
-void __fastcall CLIENTS_RefreshUnitsUpdateList(D2ClientStrc* pClient, unsigned int nUpdateSize)
+void __fastcall CLIENTS_RefreshUnitsUpdateList(D2ClientStrc* ptClient, unsigned int nUpdateSize)
 {
-    D2_ASSERT(pClient->pRoom, 0x70B);
+    D2_ASSERT(ptClient->pRoom, 0x70B);
     D2ActiveRoomStrc** pAdjacentRoomsList;
     unsigned int nNumRooms;
-    DUNGEON_GetAdjacentRoomsListFromRoom(pClient->pRoom, &pAdjacentRoomsList, &nNumRooms);
+    DUNGEON_GetAdjacentRoomsListFromRoom(ptClient->pRoom, &pAdjacentRoomsList, &nNumRooms);
     D2_ASSERT(pAdjacentRoomsList, 0x70D);
-    D2UnitStrc* pPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
+    D2UnitStrc* pPlayer = CLIENTS_GetPlayerFromClient(ptClient, 0);
     if (!pPlayer)
     {
         return;
@@ -944,17 +944,17 @@ void __fastcall CLIENTS_RefreshUnitsUpdateList(D2ClientStrc* pClient, unsigned i
     const int nPlayerY = CLIENTS_GetUnitY(pPlayer);
     unsigned int nCurrentMaxDistance = 0;
     D2ClientUnitUpdateSortStrc tUnitUpdatesSort[55];
-    pClient->nUnitUpdateIndex = 0;
+    ptClient->nUnitUpdateIndex = 0;
     tUnitUpdatesSort[0].nNextIndex = 0;
     tUnitUpdatesSort[0].nDistance = 0;
     for (unsigned int i = 0; i < nNumRooms; ++i)
     {
         for (D2UnitStrc* pRoomUnit = pAdjacentRoomsList[i]->pUnitFirst; pRoomUnit; pRoomUnit = pRoomUnit->pRoomNext)
         {
-            sub_00537D10_InsertUnitUpdate(pRoomUnit, nPlayerX, nPlayerY, &nCurrentMaxDistance, pClient, nUpdateSize, tUnitUpdatesSort);
+            sub_00537D10_InsertUnitUpdate(pRoomUnit, nPlayerX, nPlayerY, &nCurrentMaxDistance, ptClient, nUpdateSize, tUnitUpdatesSort);
         }
     }
-    CLIENTS_SetUnitsUpdateList(pClient, tUnitUpdatesSort);
+    CLIENTS_SetUnitsUpdateList(ptClient, tUnitUpdatesSort);
 }
 
 // 0x005383B0
@@ -1057,10 +1057,10 @@ void __fastcall sub_00538860(D2ClientStrc* pClient, int bSet)
 }
 
 // 0x005388C0
-unsigned int __fastcall sub_6FC33C10(D2ClientStrc* pClient)
+unsigned int __fastcall sub_6FC33C10(D2ClientStrc* ptClient)
 {
-    D2_ASSERT(pClient, 0xA05);
-    return (pClient->nFlags >> 2) & 1;
+    D2_ASSERT(ptClient, 0xA05);
+    return (ptClient->nFlags >> 2) & 1;
 }
 
 // 0x00538900
@@ -1247,7 +1247,7 @@ extern "C" __declspec(dllexport) void __fastcall sub_00539310(Obj00539310* pObj,
 }
 
 // 0x005394A0
-void __fastcall sub_005394A0(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nXArg, int nYArg)
+void __fastcall sub_005394A0(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, int nXArg, int nYArg)
 {
     if (!pGame || !pPlayer || !pClient)
     {
@@ -1257,15 +1257,15 @@ void __fastcall sub_005394A0(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2GameS
     const unsigned char nAct = CLIENTS_GetActNo(pClient);
     int nX;
     int nY;
-    if (!pRoom)
+    if (!hRoom)
     {
         const int nTownLevelId = DUNGEON_GetTownLevelIdFromAct(pGame->pAct[nAct]);
-        pRoom = DUNGEON_FindActSpawnLocationEx(pGame->pAct[nAct], nTownLevelId, 0, &nX, &nY, UNITS_GetUnitSizeX(pPlayer));
-        D2_ASSERT(pRoom, 0x1A1);
+        hRoom = DUNGEON_FindActSpawnLocationEx(pGame->pAct[nAct], nTownLevelId, 0, &nX, &nY, UNITS_GetUnitSizeX(pPlayer));
+        D2_ASSERT(hRoom, 0x1A1);
 
         D2DrlgCoordsStrc tDrlgCoords;
-        DUNGEON_GetRoomCoordinates(pRoom, &tDrlgCoords);
-        D2GAME_PACKETS_SendPacket0x07_6FC3D120(pClient, DUNGEON_GetLevelIdFromRoom(pRoom), tDrlgCoords.nTileXPos, tDrlgCoords.nTileYPos);
+        DUNGEON_GetRoomCoordinates(hRoom, &tDrlgCoords);
+        D2GAME_PACKETS_SendPacket0x07_6FC3D120(pClient, DUNGEON_GetLevelIdFromRoom(hRoom), tDrlgCoords.nTileXPos, tDrlgCoords.nTileYPos);
     }
     else
     {
@@ -1273,8 +1273,8 @@ void __fastcall sub_005394A0(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2GameS
         nY = nYArg;
     }
 
-    CLIENTS_SetRoomInClient(pClient, pRoom);
-    SUNIT_Add(pPlayer, nX, nY, pGame, pRoom, 0);
+    CLIENTS_SetRoomInClient(pClient, hRoom);
+    SUNIT_Add(pPlayer, nX, nY, pGame, hRoom, 0);
     pClient->dwFlags &= ~1;
     const int nUnitGUID = pPlayer->dwUnitId;
     const int nUnitType = (pPlayer ? pPlayer->dwUnitType : 6);

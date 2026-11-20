@@ -59,28 +59,28 @@ static int CLIENTS_IsPlayerUnit_Inlined(D2UnitStrc* pUnit)
 }
 
 // 0x00538F10
-void __fastcall CLIENTS_FreeSaveHeader(D2ClientStrc* pClient)
+void __fastcall CLIENTS_FreeSaveHeader(D2ClientStrc* ptClient)
 {
-    D2_ASSERT(pClient, 0xB7D);
+    D2_ASSERT(ptClient, 0xB7D);
 
-    if (pClient->pSaveHeader)
+    if (ptClient->pSaveHeader)
     {
-        FOG_FreePool(pClient->pGame->pMemoryPool, pClient->pSaveHeader, ".\\GAME\\Clients.cpp", 0xB80, 0);
-        pClient->pSaveHeader = 0;
+        FOG_FreePool(ptClient->pGame->pMemoryPool, ptClient->pSaveHeader, ".\\GAME\\Clients.cpp", 0xB80, 0);
+        ptClient->pSaveHeader = 0;
     }
 
-    pClient->nSaveHeaderSize = 0;
-    pClient->nSaveHeaderDataSentBytes = 0;
-    pClient->nSaveHeaderSendDelay = 0;
-    pClient->dwFlags &= ~CLIENTFLAGEX_SAVE_LOADED;
+    ptClient->nSaveHeaderSize = 0;
+    ptClient->nSaveHeaderDataSentBytes = 0;
+    ptClient->nSaveHeaderSendDelay = 0;
+    ptClient->dwFlags &= ~CLIENTFLAGEX_SAVE_LOADED;
 }
 
 // 0x00539030
-unsigned int __fastcall CLIENT_IsGameOwner(D2ClientStrc* pClient)
+unsigned int __fastcall CLIENT_IsGameOwner(D2ClientStrc* ptClient)
 {
-    D2_ASSERT(pClient, 0xBBA);
+    D2_ASSERT(ptClient, 0xBBA);
 
-    return pClient->bGameOwner;
+    return ptClient->bGameOwner;
 }
 
 // 0x005392A0
@@ -103,30 +103,30 @@ D2PacketDataStrc* __fastcall CLIENTS_PacketDataList_PopHead(D2ClientStrc* pClien
 }
 
 // 0x00539360
-void __fastcall CLIENTS_NotifyWarpAttempt(D2GameStrc* pGame, D2UnitStrc* pUnit)
+void __fastcall CLIENTS_NotifyWarpAttempt(D2GameStrc* pGame, D2UnitStrc* hUnit)
 {
-    D2_ASSERT(CLIENTS_IsPlayerUnit_Inlined(pUnit), 0xD1B);
+    D2_ASSERT(CLIENTS_IsPlayerUnit_Inlined(hUnit), 0xD1B);
 
-    D2ClientStrc* pClient = UnitGetClient(pUnit, ".\\GAME\\Clients.cpp", 0xD1D);
-    D2_ASSERT(pClient, 0xD1E);
+    D2ClientStrc* ptClient = UnitGetClient(hUnit, ".\\GAME\\Clients.cpp", 0xD1D);
+    D2_ASSERT(ptClient, 0xD1E);
 
     for (int i = 0; i < NUM_WARP_ATTEMPT_SLOTS; ++i)
     {
-        const int nLastWarpFrame = pClient->aLastWarpAttemptsFrame[i];
+        const int nLastWarpFrame = ptClient->aLastWarpAttemptsFrame[i];
         if (!nLastWarpFrame || pGame->dwGameFrame - nLastWarpFrame > WARP_ATTEMPT_EXPIRATION_FRAMES)
         {
-            pClient->aLastWarpAttemptsFrame[i] = pGame->dwGameFrame;
+            ptClient->aLastWarpAttemptsFrame[i] = pGame->dwGameFrame;
             return;
         }
     }
 }
 
 // 0x005393F0
-int __fastcall CLIENTS_ShouldDelayWarpAttempt(D2GameStrc* pGame, D2UnitStrc* pUnit)
+int __fastcall CLIENTS_ShouldDelayWarpAttempt(D2GameStrc* pGame, D2UnitStrc* hUnit)
 {
-    D2_ASSERT(CLIENTS_IsPlayerUnit_Inlined(pUnit), 0xD2D);
+    D2_ASSERT(CLIENTS_IsPlayerUnit_Inlined(hUnit), 0xD2D);
 
-    D2ClientStrc* pClient = UnitGetClient(pUnit, ".\\GAME\\Clients.cpp", 0xD2F);
+    D2ClientStrc* pClient = UnitGetClient(hUnit, ".\\GAME\\Clients.cpp", 0xD2F);
     D2_ASSERT(pClient, 0xD30);
 
     for (int i = 0; i < NUM_WARP_ATTEMPT_SLOTS; ++i)

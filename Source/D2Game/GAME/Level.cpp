@@ -165,16 +165,16 @@ inline int sub_0044BE50(D2UnitStrc* pUnit)
 }
 
 // 0x0053A8E0
-void __fastcall LEVEL_AddClient(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2ClientStrc* pClient)
+void __fastcall LEVEL_AddClient(D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, D2ClientStrc* pClient)
 {
-    if (!pRoom) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), 207); exit(-1); }
+    if (!hRoom) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), 207); exit(-1); }
     D2DrlgCoordsStrc tCoords;
-    DUNGEON_GetRoomCoordinates(pRoom, &tCoords);
-    D2GAME_PACKETS_SendPacket0x07_6FC3D120(pClient, DUNGEON_GetLevelIdFromRoom(pRoom), tCoords.nTileX, tCoords.nTileY);
-    DUNGEON_AddClientToRoom(pRoom, pClient);
-    if (pRoom->nNumClients <= 1)
+    DUNGEON_GetRoomCoordinates(hRoom, &tCoords);
+    D2GAME_PACKETS_SendPacket0x07_6FC3D120(pClient, DUNGEON_GetLevelIdFromRoom(hRoom), tCoords.nTileX, tCoords.nTileY);
+    DUNGEON_AddClientToRoom(hRoom, pClient);
+    if (hRoom->nNumClients <= 1)
     {
-        for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pUnit->pRoomNext)
+        for (D2UnitStrc* pUnit = hRoom->pUnitFirst; pUnit; pUnit = pUnit->pRoomNext)
         {
             const int nUnitType = !pUnit ? 6 : pUnit->dwUnitType;
             switch (nUnitType)
@@ -183,7 +183,7 @@ void __fastcall LEVEL_AddClient(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2Cl
             }
         }
     }
-    D2UnitStrc* pUnit = pRoom->pUnitFirst;
+    D2UnitStrc* pUnit = hRoom->pUnitFirst;
     D2UnitStrc* pPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
     while (pUnit)
     {
@@ -193,20 +193,20 @@ void __fastcall LEVEL_AddClient(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2Cl
 }
 
 // 0x0053A9B0
-void __fastcall LEVEL_RemoveClient(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2ClientStrc* pClient)
+void __fastcall LEVEL_RemoveClient(D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, D2ClientStrc* pClient)
 {
-    D2_ASSERT(pRoom, 0x104);
+    D2_ASSERT(hRoom, 0x104);
 
-    for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pUnit->pRoomNext)
+    for (D2UnitStrc* pUnit = hRoom->pUnitFirst; pUnit; pUnit = pUnit->pRoomNext)
     {
         sub_00571600(pUnit, pClient);
     }
 
-    DUNGEON_RemoveClientFromRoom(pRoom, pClient);
+    DUNGEON_RemoveClientFromRoom(hRoom, pClient);
 
-    if (!pRoom->nNumClients)
+    if (!hRoom->nNumClients)
     {
-        for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pUnit->pRoomNext)
+        for (D2UnitStrc* pUnit = hRoom->pUnitFirst; pUnit; pUnit = pUnit->pRoomNext)
         {
             const int nUnitType = !pUnit ? 6 : pUnit->dwUnitType;
             switch (nUnitType)
@@ -219,8 +219,8 @@ void __fastcall LEVEL_RemoveClient(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D
     }
 
     D2DrlgCoordsStrc drlgCoords;
-    DUNGEON_GetRoomCoordinates(pRoom, &drlgCoords);
-    D2GAME_PACKETS_SendPacket0x08_6FC3D160(pClient, DUNGEON_GetLevelIdFromRoom(pRoom), drlgCoords.nTileX, drlgCoords.nTileY);
+    DUNGEON_GetRoomCoordinates(hRoom, &drlgCoords);
+    D2GAME_PACKETS_SendPacket0x08_6FC3D160(pClient, DUNGEON_GetLevelIdFromRoom(hRoom), drlgCoords.nTileX, drlgCoords.nTileY);
 }
 
 // 0x0053AA70
@@ -276,36 +276,36 @@ static void sub_0053AC70_AllocAct(D2GameStrc* pGame, unsigned char nAct)
 }
 
 // 0x0053ACC0
-void __fastcall LEVEL_ChangeAct(D2GameStrc* pGame, D2ClientStrc* pClient, int nDestinationLevelId, int nTileCalc)
+void __fastcall LEVEL_ChangeAct(D2GameStrc* pGame, D2ClientStrc* ptClient, int nDestinationLevelId, int nTileCalc)
 {
     if (ARENA_IsInArenaMode(pGame))
     {
         return;
     }
 
-    const unsigned char nNewAct = DRLG_GetActNoFromLevelId(nDestinationLevelId);
-    D2_ASSERT(nNewAct != pClient->nAct, 0x19F);
+    const unsigned char bNewAct = DRLG_GetActNoFromLevelId(nDestinationLevelId);
+    D2_ASSERT(bNewAct != ptClient->nAct, 0x19F);
 
-    if (!pGame->pAct[nNewAct])
+    if (!pGame->pAct[bNewAct])
     {
-        sub_0053AC70_AllocAct(pGame, nNewAct);
+        sub_0053AC70_AllocAct(pGame, bNewAct);
     }
 
-    CLIENTS_SetClientState(pClient, 5);
+    CLIENTS_SetClientState(ptClient, 5);
 
-    D2UnitStrc* pUnit = CLIENTS_GetPlayerFromClient(pClient, 0);
-    D2_ASSERT(pUnit, 0x1AF);
+    D2UnitStrc* hUnit = CLIENTS_GetPlayerFromClient(ptClient, 0);
+    D2_ASSERT(hUnit, 0x1AF);
 
-    if (!pGame->bExpansion && pUnit->dwUnitType == 0)
+    if (!pGame->bExpansion && hUnit->dwUnitType == 0)
     {
-        sub_00575BC0(pGame, pUnit);
+        sub_00575BC0(pGame, hUnit);
     }
 
-    SKILLS_RemoveTransformStatesFromShapeshiftedUnit(pUnit);
+    SKILLS_RemoveTransformStatesFromShapeshiftedUnit(hUnit);
 
     int nX;
     int nY;
-    D2ActiveRoomStrc* pSpawnRoom = DUNGEON_FindActSpawnLocationEx(pGame->pAct[nNewAct], nDestinationLevelId, nTileCalc, &nX, &nY, UNITS_GetUnitSizeX(pUnit));
+    D2ActiveRoomStrc* pSpawnRoom = DUNGEON_FindActSpawnLocationEx(pGame->pAct[bNewAct], nDestinationLevelId, nTileCalc, &nX, &nY, UNITS_GetUnitSizeX(hUnit));
     if (!pSpawnRoom)
     {
         return;
@@ -315,7 +315,7 @@ void __fastcall LEVEL_ChangeAct(D2GameStrc* pGame, D2ClientStrc* pClient, int nD
     tSpawnPoint.nX = nX;
     tSpawnPoint.nY = nY;
 
-    D2ActiveRoomStrc* pRoom = COLLISION_GetFreeCoordinatesEx(pSpawnRoom, &tSpawnPoint, UNITS_GetUnitSizeX(pUnit), 0x1C89, 5);
+    D2ActiveRoomStrc* pRoom = COLLISION_GetFreeCoordinatesEx(pSpawnRoom, &tSpawnPoint, UNITS_GetUnitSizeX(hUnit), 0x1C89, 5);
     if (!pRoom)
     {
         return;
@@ -324,28 +324,28 @@ void __fastcall LEVEL_ChangeAct(D2GameStrc* pGame, D2ClientStrc* pClient, int nD
     nX = tSpawnPoint.nX;
     nY = tSpawnPoint.nY;
 
-    D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
-    D2ActiveRoomStrc* pOldRoom = UNITS_GetRoom(pUnit);
-    D2_ASSERT(D2Common_10229(pPath, pUnit, 0, 0, 0), 0x1D1);
+    D2DynamicPathStrc* pPath = hUnit->pDynamicPath;
+    D2ActiveRoomStrc* pOldRoom = UNITS_GetRoom(hUnit);
+    D2_ASSERT(D2Common_10229(pPath, hUnit, 0, 0, 0), 0x1D1);
 
-    sub_6FCBB190(pGame, pUnit, pOldRoom);
-    D2_ASSERT(D2Common_10229(pPath, pUnit, pRoom, nX, nY), 0x1D6);
+    sub_6FCBB190(pGame, hUnit, pOldRoom);
+    D2_ASSERT(D2Common_10229(pPath, hUnit, pRoom, nX, nY), 0x1D6);
 
-    CLIENTS_SetRoomInClient(pClient, 0);
-    D2GAME_PACKETS_SendHeaderOnlyPacket(pClient, 5);
-    CLIENTS_SetActNo(pClient, nNewAct);
-    pUnit->nAct = nNewAct;
-    pUnit->pDrlgAct = pGame->pAct[nNewAct];
-    LEVEL_SynchronizeDayNightCycleWithClient(pGame, pClient);
-    CLIENTS_SetRoomInClient(pClient, pRoom);
-    UNITROOM_RefreshUnit(pUnit);
-    pUnit->dwFlagEx |= 0x10000;
-    sub_6FCBB190(pGame, pUnit, 0);
-    UNITROOM_RefreshUnit(pUnit);
+    CLIENTS_SetRoomInClient(ptClient, 0);
+    D2GAME_PACKETS_SendHeaderOnlyPacket(ptClient, 5);
+    CLIENTS_SetActNo(ptClient, bNewAct);
+    hUnit->nAct = bNewAct;
+    hUnit->pDrlgAct = pGame->pAct[bNewAct];
+    LEVEL_SynchronizeDayNightCycleWithClient(pGame, ptClient);
+    CLIENTS_SetRoomInClient(ptClient, pRoom);
+    UNITROOM_RefreshUnit(hUnit);
+    hUnit->dwFlagEx |= 0x10000;
+    sub_6FCBB190(pGame, hUnit, 0);
+    UNITROOM_RefreshUnit(hUnit);
 
-    if (pUnit->dwUnitType == 0)
+    if (hUnit->dwUnitType == 0)
     {
-        PLAYERPETS_UpdatePetsForOwnerMove(pGame, pUnit, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit));
+        PLAYERPETS_UpdatePetsForOwnerMove(pGame, hUnit, CLIENTS_GetUnitX(hUnit), CLIENTS_GetUnitY(hUnit));
     }
 }
 

@@ -345,16 +345,16 @@ int __stdcall sub_00601810_IsGfxFrameValid(D2CmpCelContextStrc* pContext)
 }
 
 // 0x00601840
-D2CelStrc* __stdcall CelGetHandle(D2CmpCelContextStrc* pContext)
+D2CelStrc* __stdcall CelGetHandle(D2CmpCelContextStrc* pCelContext)
 {
-    D2_ASSERT(pContext, 0x566);
-    D2_ASSERT(sub_00601810_IsGfxFrameValid(pContext), 0x567);
+    D2_ASSERT(pCelContext, 0x566);
+    D2_ASSERT(sub_00601810_IsGfxFrameValid(pCelContext), 0x567);
 
-    D2CmpCelFileViewStrc* pCelFile = pContext->pCelFile;
-    const unsigned int nDirection = pContext->nDirection;
+    D2CmpCelFileViewStrc* pCelFile = pCelContext->pCelFile;
+    const unsigned int nDirection = pCelContext->nDirection;
     const unsigned int nDirections = pCelFile->nDirections;
     const int nIndex = gaDirectionIndex64_006E45A0[sub_00517ABB_BitScanForward1(nDirections)][nDirection];
-    return pCelFile->pCels[nIndex * pCelFile->nFrames + pContext->nFrame];
+    return pCelFile->pCels[nIndex * pCelFile->nFrames + pCelContext->nFrame];
 }
 
 inline void* __cdecl operator new(unsigned int nSize, void* pWhere) throw()

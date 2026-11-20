@@ -359,12 +359,12 @@ void __stdcall sub_0052EB50(short* pCount, int nArraySize)
         const int nGameGuid = gnGamesGUIDs_6FD447F8[i];
         if (nGameGuid && nGameGuid != D2GameReservedSlotHandle)
         {
-            D2GameStrc* pGame = GAME_LockGame(nGameGuid);
-            if (pGame)
+            D2GameStrc* ptGame = GAME_LockGame(nGameGuid);
+            if (ptGame)
             {
-                int nIndex = pGame->nClients;
-                D2_ASSERT(pGame->lpCriticalSection, 4196);
-                LeaveCriticalSection(pGame->lpCriticalSection);
+                int nIndex = ptGame->nClients;
+                D2_ASSERT(ptGame->lpCriticalSection, 4196);
+                LeaveCriticalSection(ptGame->lpCriticalSection);
 
                 if (nIndex > nArraySize)
                 {

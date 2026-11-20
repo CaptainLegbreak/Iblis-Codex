@@ -309,15 +309,15 @@ inline unsigned __int64 ITEMS_RollRandomNumberInline(D2SeedStrc* pSeed)
 }
 
 // 0x0054F0D0
-D2UnitStrc* __fastcall OBJECTS_SpawnShrine(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nClassId, int nX, int nY, int nMode)
+D2UnitStrc* __fastcall OBJECTS_SpawnShrine(D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, int nClassId, int nX, int nY, int nMode)
 {
     if (nClassId < 574 || nClassId > 579)
         return 0;
 
     const D2ObjectTableStrc* pObjectTableRecord = &gaShrineObjectTable_006E1080[nClassId - 574];
-    D2_ASSERT(pRoom, 222);
+    D2_ASSERT(hRoom, 222);
 
-    D2UnitStrc* pShrine = SUNIT_AllocUnitData(UNIT_OBJECT, pObjectTableRecord->nObjectId, nX, nY, pGame, pRoom, 1, nMode, 0);
+    D2UnitStrc* pShrine = SUNIT_AllocUnitData(UNIT_OBJECT, pObjectTableRecord->nObjectId, nX, nY, pGame, hRoom, 1, nMode, 0);
 
     int nShrineId = ITEMS_RollLimitedRandomNumber(&pShrine->pSeed, pObjectTableRecord->nMax - pObjectTableRecord->nMin) + pObjectTableRecord->nMin;
     if (nShrineId == 5 || nShrineId == 4)
@@ -382,15 +382,15 @@ void __fastcall OBJECTS_InitFunction27_GooPile(D2ObjInitFnStrc* pOp)
 // 0x00551150
 void __stdcall sub_00551150_SpawnFlies(D2GameStrc* pGame, D2UnitStrc* pObject)
 {
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pObject);
-    D2ObjectControlStrc* pObjectControl = OBJRGN_GetObjectControlFromGame(pGame, pRoom);
+    D2ActiveRoomStrc* hRoom = UNITS_GetRoom(pObject);
+    D2ObjectControlStrc* pObjectControl = OBJRGN_GetObjectControlFromGame(pGame, hRoom);
     if ((unsigned int)ITEMS_RollRandomNumberInline(&pObjectControl->pSeed) % 100 <= 70)
         return;
 
     D2CoordStrc tCoord;
     UNITS_GetCoords(pObject, &tCoord);
-    D2_ASSERT(pRoom, 1946);
-    SUNIT_AllocUnitData(UNIT_OBJECT, OBJECT_FLIES, tCoord.nX, tCoord.nY, pGame, pRoom, 1, 0, 0);
+    D2_ASSERT(hRoom, 1946);
+    SUNIT_AllocUnitData(UNIT_OBJECT, OBJECT_FLIES, tCoord.nX, tCoord.nY, pGame, hRoom, 1, 0, 0);
 }
 
 #include "gen/data/Source/D2Game/OBJECTS/Objects.inc"
@@ -405,11 +405,11 @@ inline unsigned __int64 RollSeedInline(D2SeedStrc* pSeed)
 
 // 0x0054F180
 __declspec(noinline) D2UnitStrc* __fastcall sub_0054F180_SelectAndSpawnObject(
-    D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nClassId, int nX, int nY, int nUnused)
+    D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, int nClassId, int nX, int nY, int nUnused)
 {
-    unsigned char nAct = DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom));
-    D2ObjectControlStrc* pControl = OBJRGN_GetObjectControlFromGame(pGame, pRoom);
-    int nLevel = DUNGEON_GetLevelIdFromRoom(pRoom);
+    unsigned char nAct = DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(hRoom));
+    D2ObjectControlStrc* pControl = OBJRGN_GetObjectControlFromGame(pGame, hRoom);
+    int nLevel = DUNGEON_GetLevelIdFromRoom(hRoom);
     int nObject;
     switch (nAct)
     {
@@ -451,18 +451,18 @@ __declspec(noinline) D2UnitStrc* __fastcall sub_0054F180_SelectAndSpawnObject(
     }
     if (nClassId == 0x173)
         nObject = 0x173;
-    D2_ASSERT(pRoom, 0x157);
-    return SUNIT_AllocUnitData(2, nObject, nX, nY, pGame, pRoom, 1, 0, 0);
+    D2_ASSERT(hRoom, 0x157);
+    return SUNIT_AllocUnitData(2, nObject, nX, nY, pGame, hRoom, 1, 0, 0);
 }
 
 // 0x0054F430
-D2UnitStrc* __fastcall OBJECTS_SpawnArcaneSymbol(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nClassId, int nX, int nY, int nMode)
+D2UnitStrc* __fastcall OBJECTS_SpawnArcaneSymbol(D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, int nClassId, int nX, int nY, int nMode)
 {
     const int nObjectId = ACT2Q6_GetObjectIdForArcaneThing(pGame);
 
-    D2_ASSERT(pRoom, 391);
+    D2_ASSERT(hRoom, 391);
 
-    return SUNIT_AllocUnitData(UNIT_OBJECT, nObjectId, nX, nY, pGame, pRoom, 1, 0, 0);
+    return SUNIT_AllocUnitData(UNIT_OBJECT, nObjectId, nX, nY, pGame, hRoom, 1, 0, 0);
 }
 
 // 0x0054F580
@@ -786,10 +786,10 @@ static __forceinline int sub_E03_GetAnimMode(D2UnitStrc* pUnit)
 void __fastcall sub_00550140_WarpEventCallback(D2WarpEventArgStrc* pArgs)
 {
     const unsigned char nAct = DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pArgs->pRoom));
-    const int nTownLevelId = DUNGEON_GetTownLevelIdFromActNo(nAct);
-    D2_ASSERT(nTownLevelId <= 0xFF, 0x46F);
+    const int eLevelId = DUNGEON_GetTownLevelIdFromActNo(nAct);
+    D2_ASSERT(eLevelId <= 0xFF, 0x46F);
 
-    pArgs->pUnit->pPlayerData->nTownLevelId = nTownLevelId;
+    pArgs->pUnit->pPlayerData->nTownLevelId = eLevelId;
 
     if (sub_E03_GetAnimMode(pArgs->pUnit) == 1)
     {

@@ -28,11 +28,11 @@ void __stdcall COLLISION_ResetMaskWithSize(D2ActiveRoomStrc* pRoom, int nX, int 
 void __stdcall COLLISION_ResetMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, int nMask); // 0x0064EC10
 
 // 0x00648820
-void __stdcall D2COMMON_10160_PathUpdateDirection(D2DynamicPathStrc* pDynamicPath, unsigned char nDirection)
+void __stdcall D2COMMON_10160_PathUpdateDirection(D2DynamicPathStrc* pDynamicPath, unsigned char bDir)
 {
-    D2_ASSERT(nDirection < PATH_NB_DIRECTIONS, 1650);
+    D2_ASSERT(bDir < PATH_NB_DIRECTIONS, 1650);
 
-    const unsigned char nNormalizedDirection = nDirection & (PATH_NB_DIRECTIONS - 1);
+    const unsigned char nNormalizedDirection = bDir & (PATH_NB_DIRECTIONS - 1);
     int nUnitType;
     if (!pDynamicPath->pUnit)
     {
@@ -67,35 +67,35 @@ void __stdcall D2COMMON_10160_PathUpdateDirection(D2DynamicPathStrc* pDynamicPat
 }
 
 // 0x006488C0
-int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath)
+int __stdcall PATH_GetXPosition(D2DynamicPathStrc* hPath)
 {
-    D2_ASSERT(pDynamicPath, 1682);
+    D2_ASSERT(hPath, 1682);
 
-    return pDynamicPath->tGameCoords.wPosX;
+    return hPath->tGameCoords.wPosX;
 }
 
 // 0x00648900
-int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath)
+int __stdcall PATH_GetYPosition(D2DynamicPathStrc* hPath)
 {
-    D2_ASSERT(pDynamicPath, 1693);
+    D2_ASSERT(hPath, 1693);
 
-    return pDynamicPath->tGameCoords.wPosY;
+    return hPath->tGameCoords.wPosY;
 }
 
 // 0x00648940
-int __stdcall PATH_GetPrecisionX(D2DynamicPathStrc* pDynamicPath)
+int __stdcall PATH_GetPrecisionX(D2DynamicPathStrc* hPath)
 {
-    D2_ASSERT(pDynamicPath, 1704);
+    D2_ASSERT(hPath, 1704);
 
-    return pDynamicPath->tGameCoords.dwPrecisionX;
+    return hPath->tGameCoords.dwPrecisionX;
 }
 
 // 0x00648970
-int __stdcall PATH_GetPrecisionY(D2DynamicPathStrc* pDynamicPath)
+int __stdcall PATH_GetPrecisionY(D2DynamicPathStrc* hPath)
 {
-    D2_ASSERT(pDynamicPath, 1715);
+    D2_ASSERT(hPath, 1715);
 
-    return pDynamicPath->tGameCoords.dwPrecisionY;
+    return hPath->tGameCoords.dwPrecisionY;
 }
 
 // 0x006489B0
@@ -136,12 +136,12 @@ int __stdcall PATH_GetUnusedFlag_0x00004(D2DynamicPathStrc* pDynamicPath)
 }
 
 // 0x00648BB0
-void __stdcall PATH_GetTargetTypeAndGUID(D2DynamicPathStrc* pDynamicPath, int* pTargetType, int* pTargetGUID)
+void __stdcall PATH_GetTargetTypeAndGUID(D2DynamicPathStrc* ptPath, int* pTargetType, int* pTargetGUID)
 {
-    D2_ASSERT(pDynamicPath->pTargetUnit, 1984);
+    D2_ASSERT(ptPath->pTargetUnit, 1984);
 
-    *pTargetType = pDynamicPath->dwTargetType;
-    *pTargetGUID = pDynamicPath->dwTargetId;
+    *pTargetType = ptPath->dwTargetType;
+    *pTargetGUID = ptPath->dwTargetId;
 }
 
 // 0x00648C30
@@ -203,43 +203,43 @@ unsigned short __stdcall D2Common_10202(D2DynamicPathStrc* pDynamicPath)
 }
 
 // 0x00648F00
-void __stdcall PATH_SetIDAStarInitFScore(D2DynamicPathStrc* pDynamicPath, int nIDAStarInitFScore)
+void __stdcall PATH_SetIDAStarInitFScore(D2DynamicPathStrc* ptPath, int nIDAStarInitFScore)
 {
-    D2_ASSERT(pDynamicPath->dwPathType == PATHTYPE_IDASTAR, 2280);
+    D2_ASSERT(ptPath->dwPathType == PATHTYPE_IDASTAR, 2280);
 
-    pDynamicPath->nIDAStarInitFScore = nIDAStarInitFScore;
+    ptPath->nIDAStarInitFScore = nIDAStarInitFScore;
 }
 
 // 0x00648F40
-int __stdcall D2COMMON_10198_PathGetSaveStep(D2DynamicPathStrc* pDynamicPath, D2PathPointStrc** ppPathPoints)
+int __stdcall D2COMMON_10198_PathGetSaveStep(D2DynamicPathStrc* ptPath, D2PathPointStrc** ppPathPoints)
 {
-    D2_ASSERT(pDynamicPath->dwFlags & PATH_SAVE_STEPS_MASK, 2292);
+    D2_ASSERT(ptPath->dwFlags & PATH_SAVE_STEPS_MASK, 2292);
 
-    *ppPathPoints = pDynamicPath->SavedSteps;
-    return pDynamicPath->nSavedStepsCount;
+    *ppPathPoints = ptPath->SavedSteps;
+    return ptPath->nSavedStepsCount;
 }
 
 // 0x00648F90
-int __stdcall D2COMMON_10199_PathGetSaveX(D2DynamicPathStrc* pDynamicPath)
+int __stdcall D2COMMON_10199_PathGetSaveX(D2DynamicPathStrc* ptPath)
 {
-    D2_ASSERT(pDynamicPath->dwFlags & PATH_SAVE_STEPS_MASK, 2306);
+    D2_ASSERT(ptPath->dwFlags & PATH_SAVE_STEPS_MASK, 2306);
 
-    if (pDynamicPath->nSavedStepsCount)
+    if (ptPath->nSavedStepsCount)
     {
-        return pDynamicPath->SavedSteps[pDynamicPath->nSavedStepsCount - 1].X;
+        return ptPath->SavedSteps[ptPath->nSavedStepsCount - 1].X;
     }
 
     return 0;
 }
 
 // 0x00648FE0
-int __stdcall D2COMMON_10200_PathGetSaveY(D2DynamicPathStrc* pDynamicPath)
+int __stdcall D2COMMON_10200_PathGetSaveY(D2DynamicPathStrc* ptPath)
 {
-    D2_ASSERT(pDynamicPath->dwFlags & PATH_SAVE_STEPS_MASK, 2321);
+    D2_ASSERT(ptPath->dwFlags & PATH_SAVE_STEPS_MASK, 2321);
 
-    if (pDynamicPath->nSavedStepsCount)
+    if (ptPath->nSavedStepsCount)
     {
-        return pDynamicPath->SavedSteps[pDynamicPath->nSavedStepsCount - 1].Y;
+        return ptPath->SavedSteps[ptPath->nSavedStepsCount - 1].Y;
     }
 
     return 0;
@@ -303,9 +303,9 @@ int __stdcall PATH_GetUnitCollisionPattern(D2UnitStrc* pUnit)
 // 0x006491B0
 void __stdcall D2COMMON_10212_PATH_SetMoveFlags(D2UnitStrc* pUnit, int bSet)
 {
-    D2DynamicPathStrc* pDynamicPath = pUnit->pDynamicPath;
+    D2DynamicPathStrc* ptPath = pUnit->pDynamicPath;
 
-    D2_ASSERT(pDynamicPath, 2466);
+    D2_ASSERT(ptPath, 2466);
 
     if (bSet)
     {
@@ -315,7 +315,7 @@ void __stdcall D2COMMON_10212_PATH_SetMoveFlags(D2UnitStrc* pUnit, int bSet)
     {
         pUnit->dwFlagEx &= ~UNITFLAGEX_UNK_PATH_RELATED;
     }
-    pDynamicPath->unk0x38 = 0;
+    ptPath->unk0x38 = 0;
 }
 
 // 0x006492C0

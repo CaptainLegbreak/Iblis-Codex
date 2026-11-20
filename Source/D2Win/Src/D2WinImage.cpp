@@ -230,10 +230,10 @@ int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nS
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
 
 // 0x004FD110
-int __stdcall sub_004FD110_SetFrame(D2WinControl004FD110Strc* pControl, int nFrame)
+int __stdcall sub_004FD110_SetFrame(D2WinControl004FD110Strc* ptImageData, int nFrame)
 {
-    D2_ASSERT(pControl->nType == 2, 0x8B);
-    const int nFrames = CelFileGetCelsPerDirection(pControl->pCellFile);
+    D2_ASSERT(ptImageData->nType == 2, 0x8B);
+    const int nFrames = CelFileGetCelsPerDirection(ptImageData->pCellFile);
     if (nFrame > nFrames - 1)
     {
         nFrame = nFrames - 1;
@@ -242,7 +242,7 @@ int __stdcall sub_004FD110_SetFrame(D2WinControl004FD110Strc* pControl, int nFra
     {
         nFrame = 0;
     }
-    pControl->nFrame = nFrame;
+    ptImageData->nFrame = nFrame;
     return 1;
 }
 
@@ -451,18 +451,18 @@ int __fastcall LIST_Draw(D2WinControlStrc* pControl)
 }
 
 // 0x00507900
-int __fastcall ACCOUNTLIST_RemoveEntry(D2WinAccountListStrc* pAccountList, const char* szText)
+int __fastcall ACCOUNTLIST_RemoveEntry(D2WinAccountListStrc* ptListData, const char* szText)
 {
-    D2_ASSERT(pAccountList->controlHeader.nType == D2WIN_ACCOUNTLIST, 0x90);
+    D2_ASSERT(ptListData->controlHeader.nType == D2WIN_ACCOUNTLIST, 0x90);
 
     D2WinAccountListDataStrc* pPrevious = 0;
-    for (D2WinAccountListDataStrc* pData = pAccountList->pDataList; pData; pData = pData->pNext)
+    for (D2WinAccountListDataStrc* pData = ptListData->pDataList; pData; pData = pData->pNext)
     {
         if (!strcmp(pData->szText, szText))
         {
-            if (pAccountList->pSelectedDataEntry == pData)
+            if (ptListData->pSelectedDataEntry == pData)
             {
-                pAccountList->pSelectedDataEntry = 0;
+                ptListData->pSelectedDataEntry = 0;
             }
 
             if (pPrevious)
@@ -471,7 +471,7 @@ int __fastcall ACCOUNTLIST_RemoveEntry(D2WinAccountListStrc* pAccountList, const
             }
             else
             {
-                pAccountList->pDataList = pData->pNext;
+                ptListData->pDataList = pData->pNext;
             }
 
             FOG_Free(pData, ".\\Src\\D2WinAccountList.cpp", 0xA7, 0);

@@ -90,60 +90,60 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 0x006CC260
 
 // 0x00500310
-extern "C" int __fastcall sub_00500310_GetAnimImageField50(D2WinAnimImageStrc* pAnimImage)
+extern "C" int __fastcall sub_00500310_GetAnimImageField50(D2WinAnimImageStrc* ptAnim)
 {
-    D2_ASSERT(pAnimImage->controlHeader.nType == D2WIN_IMAGE, 0x50);
-    return pAnimImage->field_50;
+    D2_ASSERT(ptAnim->controlHeader.nType == D2WIN_IMAGE, 0x50);
+    return ptAnim->field_50;
 }
 
 // 0x00507EF0
-extern "C" int __fastcall sub_00507EF0_GetScrollBarField48(D2WinScrollBarStrc* pScrollBar)
+extern "C" int __fastcall sub_00507EF0_GetScrollBarField48(D2WinScrollBarStrc* ptScrollbarData)
 {
-    D2_ASSERT(pScrollBar->controlHeader.nType == D2WIN_TYPE_5, 0x4B);
-    return pScrollBar->field_48;
+    D2_ASSERT(ptScrollbarData->controlHeader.nType == D2WIN_TYPE_5, 0x4B);
+    return ptScrollbarData->field_48;
 }
 
 // 0x00507FA0
-extern "C" int __fastcall sub_00507FA0_GetScrollBarField4C(D2WinScrollBarStrc* pScrollBar)
+extern "C" int __fastcall sub_00507FA0_GetScrollBarField4C(D2WinScrollBarStrc* ptScrollbarData)
 {
-    D2_ASSERT(pScrollBar->controlHeader.nType == D2WIN_TYPE_5, 0x74);
-    return pScrollBar->field_4C;
+    D2_ASSERT(ptScrollbarData->controlHeader.nType == D2WIN_TYPE_5, 0x74);
+    return ptScrollbarData->field_4C;
 }
 
 // 0x005009A0
-extern "C" void __fastcall BUTTON_SetIsPressed(D2WinButtonStrc* pButton, int bIsPressed)
+extern "C" void __fastcall BUTTON_SetIsPressed(D2WinButtonStrc* ptBtnData, int bIsPressed)
 {
-    D2_ASSERT(pButton->controlHeader.nType == D2WIN_TYPE_6, 0x72);
-    pButton->field_44 = bIsPressed;
-    pButton->field_48 = bIsPressed;
+    D2_ASSERT(ptBtnData->controlHeader.nType == D2WIN_TYPE_6, 0x72);
+    ptBtnData->field_44 = bIsPressed;
+    ptBtnData->field_48 = bIsPressed;
 }
 
 // 0x00500B20
-extern "C" void __fastcall sub_00500B20_SetButtonField5C(D2WinButtonStrc* pButton, int nValue)
+extern "C" void __fastcall sub_00500B20_SetButtonField5C(D2WinButtonStrc* ptBtnData, int nValue)
 {
-    D2_ASSERT(pButton->controlHeader.nType == D2WIN_TYPE_6, 0xD6);
-    pButton->field_5C = nValue;
+    D2_ASSERT(ptBtnData->controlHeader.nType == D2WIN_TYPE_6, 0xD6);
+    ptBtnData->field_5C = nValue;
 }
 
 // 0x005080C0
-extern "C" void __fastcall sub_005080C0_SetScrollBarField50(D2WinScrollBarStrc* pScrollBar, int nValue)
+extern "C" void __fastcall sub_005080C0_SetScrollBarField50(D2WinScrollBarStrc* ptScrollbarData, int nValue)
 {
-    D2_ASSERT(pScrollBar->controlHeader.nType == D2WIN_TYPE_5, 0xCA);
-    pScrollBar->field_50 = nValue;
+    D2_ASSERT(ptScrollbarData->controlHeader.nType == D2WIN_TYPE_5, 0xCA);
+    ptScrollbarData->field_50 = nValue;
 }
 
 // 0x00500340
-int __fastcall D2Win_10104(D2WinAnimImageStrc* pAnimImage)
+int __fastcall D2Win_10104(D2WinAnimImageStrc* ptAnim)
 {
-    D2_ASSERT(pAnimImage->controlHeader.nType == 2, 92);
+    D2_ASSERT(ptAnim->controlHeader.nType == 2, 92);
 
-    if (pAnimImage->field_50 == 3)
+    if (ptAnim->field_50 == 3)
     {
-        pAnimImage->field_50 = 4;
-        pAnimImage->nFrame = 0;
-        pAnimImage->dwStartTickCount = GetTickCount();
+        ptAnim->field_50 = 4;
+        ptAnim->nFrame = 0;
+        ptAnim->dwStartTickCount = GetTickCount();
     }
-    else if (pAnimImage->field_50 == 2 || pAnimImage->field_50 == 4)
+    else if (ptAnim->field_50 == 2 || ptAnim->field_50 == 4)
     {
         return 0;
     }

@@ -631,12 +631,12 @@ void __fastcall sub_6FC62DF0(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStr
 }
 
 // 0x005A60E0
-void __fastcall FRIENDLY_OpenHostility(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2)
+void __fastcall FRIENDLY_OpenHostility(D2GameStrc* pGame, D2UnitStrc* hPlayer, D2UnitStrc* pPlayer2)
 {
-    D2_ASSERT((pPlayer1 ? pPlayer1->dwUnitType : UNIT_INVALID) == UNIT_PLAYER, 36);
+    D2_ASSERT((hPlayer ? hPlayer->dwUnitType : UNIT_INVALID) == UNIT_PLAYER, 36);
 
-    PLAYERLIST_AllocPlayerList(pGame, pPlayer1, pPlayer2);
-    PLAYERLIST_ToggleFlag(pGame, pPlayer1, pPlayer2, PLAYERLIST_FLAG_HOSTILE, 1);
+    PLAYERLIST_AllocPlayerList(pGame, hPlayer, pPlayer2);
+    PLAYERLIST_ToggleFlag(pGame, hPlayer, pPlayer2, PLAYERLIST_FLAG_HOSTILE, 1);
 }
 
 // 0x005ABE50

@@ -605,10 +605,10 @@ static __forceinline D2UnitStrc* sub_F05_GetFirstPetInl(D2GameStrc* pGame, D2Uni
 // 0x005750E0
 void __fastcall PLAYERPETS_RemovePet(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetGUID, int bKillPet)
 {
-    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
-    D2_ASSERT(pPlayerData, 0x276);
+    D2PlayerDataStrc* ptInfo = UNITS_GetPlayerData(pPlayer);
+    D2_ASSERT(ptInfo, 0x276);
 
-    D2PlayerPetStrc* pPlayerPets = pPlayerData->pPlayerPets;
+    D2PlayerPetStrc* pPlayerPets = ptInfo->pPlayerPets;
     if (!pPlayerPets)
     {
         return;
@@ -736,10 +736,10 @@ static void __stdcall sub_00575720_RemoveGroupPets(D2GameStrc* pGame, D2UnitStrc
 // 0x00575BC0
 void __fastcall sub_00575BC0(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
-    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
-    D2_ASSERT(pPlayerData, 0x12F);
+    D2PlayerDataStrc* ptInfo = UNITS_GetPlayerData(pPlayer);
+    D2_ASSERT(ptInfo, 0x12F);
 
-    D2PlayerPetStrc* pPlayerPets = pPlayerData->pPlayerPets;
+    D2PlayerPetStrc* pPlayerPets = ptInfo->pPlayerPets;
     if (!pPlayerPets)
     {
         return;

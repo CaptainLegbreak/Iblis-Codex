@@ -73,62 +73,62 @@ static void __stdcall sub_00537930_SendPlayerAssign(D2ClientStrc* pClient, D2Uni
 }
 
 // 0x00539760
-int __fastcall ClientAddPlayerToGame(D2ClientStrc* pClient, D2GameStrc* pGame, int bLoadFromSave, D2ActiveRoomStrc* pRoom, int nX, int nY)
+int __fastcall ClientAddPlayerToGame(D2ClientStrc* ptClient, D2GameStrc* ptGame, int bLoadFromSave, D2ActiveRoomStrc* pRoom, int nX, int nY)
 {
     D2UnitStrc* pPlayer = 0;
-    D2_ASSERT(pGame, 0x23F);
-    D2_ASSERT(pClient, 0x242);
-    pClient->dwFlags |= 1;
-    if (!pGame->bExpansion && pClient->nClassId >= 5)
+    D2_ASSERT(ptGame, 0x23F);
+    D2_ASSERT(ptClient, 0x242);
+    ptClient->dwFlags |= 1;
+    if (!ptGame->bExpansion && ptClient->nClassId >= 5)
     {
-        sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "[PLAYER CREATE]  ClientAddPlayerToGame()  Error Creating:%s  Error:%d=%s", CLIENTS_GetName(pClient), 0x18, "nError");
-        pClient->pPlayer = 0;
+        sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "[PLAYER CREATE]  ClientAddPlayerToGame()  Error Creating:%s  Error:%d=%s", CLIENTS_GetName(ptClient), 0x18, "nError");
+        ptClient->pPlayer = 0;
         return 0x18;
     }
-    const int nError = D2GAME_SAVE_GetUnitDataFromFile_6FC8CB40(pGame, pClient, pClient->szName, bLoadFromSave, &pPlayer, pRoom, nX, nY);
+    const int nError = D2GAME_SAVE_GetUnitDataFromFile_6FC8CB40(ptGame, ptClient, ptClient->szName, bLoadFromSave, &pPlayer, pRoom, nX, nY);
     if (nError)
     {
-        sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "[PLAYER LOAD]  ClientAddPlayerToGame()  Error Loading:%s  Error:%d=%s", CLIENTS_GetName(pClient), nError, "nError");
-        pClient->pPlayer = 0;
+        sub_00410660_LogWritePrefixed(&gszEmptyAssertText, "[PLAYER LOAD]  ClientAddPlayerToGame()  Error Loading:%s  Error:%d=%s", CLIENTS_GetName(ptClient), nError, "nError");
+        ptClient->pPlayer = 0;
         return nError;
     }
-    if (pClient->nSaveFlags & 0x20)
+    if (ptClient->nSaveFlags & 0x20)
     {
-        if (!pGame->bExpansion)
+        if (!ptGame->bExpansion)
         {
-            pClient->pPlayer = 0;
+            ptClient->pPlayer = 0;
             return 0x18;
         }
     }
-    else if (pGame->bExpansion)
+    else if (ptGame->bExpansion)
     {
-        pClient->pPlayer = 0;
+        ptClient->pPlayer = 0;
         return 0x17;
     }
-    if (pClient->nSaveFlags & 4)
+    if (ptClient->nSaveFlags & 4)
     {
-        if (pClient->nSaveFlags & 8)
+        if (ptClient->nSaveFlags & 8)
         {
-            pClient->pPlayer = 0;
+            ptClient->pPlayer = 0;
             return 0x15;
         }
-        if (!(ARENA_GetFlags(pGame) & 0x800))
+        if (!(ARENA_GetFlags(ptGame) & 0x800))
         {
-            pClient->pPlayer = 0;
+            ptClient->pPlayer = 0;
             return 0x14;
         }
     }
-    else if (ARENA_GetFlags(pGame) & 0x800)
+    else if (ARENA_GetFlags(ptGame) & 0x800)
     {
-        pClient->pPlayer = 0;
+        ptClient->pPlayer = 0;
         return 0x13;
     }
-    sub_00537930_SendPlayerAssign(pClient, pPlayer);
-    D2GAME_SendPacketSize05_6FC3C880(pClient, 0x5F, UNITS_GetPlayerPortalFlags(pPlayer));
+    sub_00537930_SendPlayerAssign(ptClient, pPlayer);
+    D2GAME_SendPacketSize05_6FC3C880(ptClient, 0x5F, UNITS_GetPlayerPortalFlags(pPlayer));
     D2Common_10513(pPlayer, pPlayer, (StatListUnitCallback)D2GAME_UpdateAttribute_6FC822D0);
     if (sub_00463720_TestUnitFlagEx(pPlayer, 1))
     {
-        D2GAME_INVMODE_First_6FC40FB0(pGame, pPlayer, pClient, 0);
+        D2GAME_INVMODE_First_6FC40FB0(ptGame, pPlayer, ptClient, 0);
         if (pPlayer)
         {
             pPlayer->dwFlagEx |= 0x200000;
@@ -136,23 +136,23 @@ int __fastcall ClientAddPlayerToGame(D2ClientStrc* pClient, D2GameStrc* pGame, i
     }
     for (int i = 0; i < 16; ++i)
     {
-        if (pClient->HotkeySkills[i].nSkill >= 0 && pClient->HotkeySkills[i].nSkill < sgptDataTables->nSkillsTxtRecordCount)
+        if (ptClient->HotkeySkills[i].nSkill >= 0 && ptClient->HotkeySkills[i].nSkill < sgptDataTables->nSkillsTxtRecordCount)
         {
-            D2GAME_PACKETS_SendPacket0x7B_6FC3F720(pClient, i, pClient->HotkeySkills[i].nSkill, pClient->HotkeySkills[i].nHand, pClient->HotkeySkills[i].nItemGUID);
+            D2GAME_PACKETS_SendPacket0x7B_6FC3F720(ptClient, i, ptClient->HotkeySkills[i].nSkill, ptClient->HotkeySkills[i].nHand, ptClient->HotkeySkills[i].nItemGUID);
         }
     }
     D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
     if (pPlayerData)
     {
-        D2GAME_PACKETS_SendPacket0x23_6FC3DC60(pClient, !pPlayer ? UNIT_INVALID : pPlayer->dwUnitType, !pPlayer ? -1 : pPlayer->dwUnitId, 1, (unsigned short)pPlayerData->nLeftSkillId, pPlayerData->nLeftSkillFlags);
-        D2GAME_PACKETS_SendPacket0x23_6FC3DC60(pClient, !pPlayer ? UNIT_INVALID : pPlayer->dwUnitType, !pPlayer ? 0xFFFFFFFFu : (unsigned int)pPlayer->dwUnitId, 0, (unsigned short)pPlayerData->nRightSkillId, pPlayerData->nRightSkillFlags);
+        D2GAME_PACKETS_SendPacket0x23_6FC3DC60(ptClient, !pPlayer ? UNIT_INVALID : pPlayer->dwUnitType, !pPlayer ? -1 : pPlayer->dwUnitId, 1, (unsigned short)pPlayerData->nLeftSkillId, pPlayerData->nLeftSkillFlags);
+        D2GAME_PACKETS_SendPacket0x23_6FC3DC60(ptClient, !pPlayer ? UNIT_INVALID : pPlayer->dwUnitType, !pPlayer ? 0xFFFFFFFFu : (unsigned int)pPlayer->dwUnitId, 0, (unsigned short)pPlayerData->nRightSkillId, pPlayerData->nRightSkillFlags);
     }
     D2Common_10513(pPlayer, pPlayer, (StatListUnitCallback)D2GAME_UpdateAttribute_6FC822D0);
     sub_6FC82360(pPlayer, pPlayer, 1);
-    D2GAME_INVMODE_Last_6FC416D0(pGame, pPlayer);
-    if (pGame->bExpansion)
+    D2GAME_INVMODE_Last_6FC416D0(ptGame, pPlayer);
+    if (ptGame->bExpansion)
     {
-        ACT5Q3_ApplyResistanceReward(pGame, pPlayer);
+        ACT5Q3_ApplyResistanceReward(ptGame, pPlayer);
     }
     return 0;
 }

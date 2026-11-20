@@ -723,20 +723,20 @@ D2DifficultyLevelsTxt* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int nDiff
 }
 
 // 0x00620BB0
-D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit)
+D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* ptUnit)
 {
-    D2_ASSERT(pUnit, 2198);
+    D2_ASSERT(ptUnit, 2198);
 
-    switch (pUnit->dwUnitType)
+    switch (ptUnit->dwUnitType)
     {
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->pRoom;
+        return ptUnit->pStaticPath->pRoom;
     default:
-        if (pUnit->pDynamicPath)
+        if (ptUnit->pDynamicPath)
         {
-            return PATH_GetRoom(pUnit->pDynamicPath);
+            return PATH_GetRoom(ptUnit->pDynamicPath);
         }
         return 0;
     }
@@ -750,14 +750,14 @@ void __stdcall UNITS_SetAnimationSpeed(D2UnitStrc* pUnit, int nSpeed)
 }
 
 // 0x006219F0
-D2SkillStrc* __stdcall UNITS_GetSkillFromSkillId(D2UnitStrc* pUnit, int nSkillId)
+D2SkillStrc* __stdcall UNITS_GetSkillFromSkillId(D2UnitStrc* hUnit, int nSkillId)
 {
     D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
 
     D2_ASSERT(pSkillsTxtRecord, 3579);
-    D2_ASSERT(pUnit, 1592);
+    D2_ASSERT(hUnit, 1592);
 
-    for (D2SkillStrc* pSkill = SKILLS_GetFirstSkillFromSkillList(pUnit->pSkills); pSkill; pSkill = pSkill->pNextSkill)
+    for (D2SkillStrc* pSkill = SKILLS_GetFirstSkillFromSkillList(hUnit->pSkills); pSkill; pSkill = pSkill->pNextSkill)
     {
         if (pSkill->pSkillsTxt == pSkillsTxtRecord)
         {
@@ -864,26 +864,26 @@ D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId)
 }
 
 // 0x0064FA00
-void __stdcall D2Common_10885_COMPOSIT_unk(D2UnitStrc* pUnit, char* szPath, int* pWeaponClassCode, int bAddPathPrefix, int a5, D2InventoryStrc* pInventory, int nAnimMode)
+void __stdcall D2Common_10885_COMPOSIT_unk(D2UnitStrc* hUnit, char* szPath, int* pWeaponClassCode, int bAddPathPrefix, int a5, D2InventoryStrc* pInventory, int nAnimMode)
 {
     int nClass;
     int nType;
     int nMode;
 
-    D2_ASSERT(pUnit, 262);
+    D2_ASSERT(hUnit, 262);
 
-    nType = pUnit->dwUnitType;
-    nClass = pUnit->dwClassId;
-    nMode = UNITS_GetAnimOrSeqMode(pUnit);
+    nType = hUnit->dwUnitType;
+    nClass = hUnit->dwClassId;
+    nMode = UNITS_GetAnimOrSeqMode(hUnit);
 
-    D2COMMON_11013_ConvertMode(pUnit, &nType, &nClass, &nMode, ".\\COMPOSIT\\Composit.cpp", 268);
+    D2COMMON_11013_ConvertMode(hUnit, &nType, &nClass, &nMode, ".\\COMPOSIT\\Composit.cpp", 268);
 
     if (nAnimMode == -1)
     {
         nAnimMode = nMode;
     }
 
-    D2Common_10884_COMPOSIT_unk(pUnit, nClass, nAnimMode, nType, pInventory, szPath, pWeaponClassCode, bAddPathPrefix, a5);
+    D2Common_10884_COMPOSIT_unk(hUnit, nClass, nAnimMode, nType, pInventory, szPath, pWeaponClassCode, bAddPathPrefix, a5);
 }
 
 // 0x0065FD20

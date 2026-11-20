@@ -108,20 +108,20 @@ static int sub_6FC43280(D2ItemModeArgStrc* pArg1, D2ItemModeArgStrc* pArg2)
 }
 
 // 0x0055D710
-int __fastcall sub_6FC42F20(D2UnitStrc* pUnit, D2UnitStrc* pItem, int* pBodyLoc, int bSkipRequirementCheck)
+int __fastcall sub_6FC42F20(D2UnitStrc* pUnit, D2UnitStrc* hItem, int* pBodyLoc, int bSkipRequirementCheck)
 {
     D2_ASSERT(pUnit, 0x6DC);
-    D2_ASSERT(pItem, 0x6DD);
+    D2_ASSERT(hItem, 0x6DD);
     if (bSkipRequirementCheck)
     {
-        if (!ITEMS_IsBodyItem(pItem) || !sub_006280A0(pItem, 0x10, 0x6E2, ".\\ITEMS\\ItemMode.cpp") || !ITEMS_CanBeEquipped(pItem) || ITEMS_GetItemType(pItem) == 0x26)
+        if (!ITEMS_IsBodyItem(hItem) || !sub_006280A0(hItem, 0x10, 0x6E2, ".\\ITEMS\\ItemMode.cpp") || !ITEMS_CanBeEquipped(hItem) || ITEMS_GetItemType(hItem) == 0x26)
         {
             return 0;
         }
     }
     else
     {
-        if (!ITEMS_CheckRequirements(pItem, pUnit, 0, 0, 0, 0) || !ITEMS_IsBodyItem(pItem) || !sub_006280A0(pItem, 0x10, 0x6EB, ".\\ITEMS\\ItemMode.cpp") || !ITEMS_CanBeEquipped(pItem) || ITEMS_GetItemType(pItem) == 0x26)
+        if (!ITEMS_CheckRequirements(hItem, pUnit, 0, 0, 0, 0) || !ITEMS_IsBodyItem(hItem) || !sub_006280A0(hItem, 0x10, 0x6EB, ".\\ITEMS\\ItemMode.cpp") || !ITEMS_CanBeEquipped(hItem) || ITEMS_GetItemType(hItem) == 0x26)
         {
             return 0;
         }
@@ -129,11 +129,11 @@ int __fastcall sub_6FC42F20(D2UnitStrc* pUnit, D2UnitStrc* pItem, int* pBodyLoc,
     D2InventoryStrc* pInventory = pUnit->pInventory;
     D2UnitStrc* pRightArmItem = INVENTORY_GetItemFromBodyLoc(pInventory, 4);
     D2UnitStrc* pLeftArmItem = INVENTORY_GetItemFromBodyLoc(pInventory, 5);
-    if (ITEMS_GetQuiverTypeFromItemType(ITEMS_GetItemType(pItem)))
+    if (ITEMS_GetQuiverTypeFromItemType(ITEMS_GetItemType(hItem)))
     {
-        if (!pRightArmItem || !ITEMSIsA(pItem, ITEMS_GetAmmoType(pRightArmItem)))
+        if (!pRightArmItem || !ITEMSIsA(hItem, ITEMS_GetAmmoType(pRightArmItem)))
         {
-            if (!pLeftArmItem || !ITEMSIsA(pItem, ITEMS_GetAmmoType(pLeftArmItem)))
+            if (!pLeftArmItem || !ITEMSIsA(hItem, ITEMS_GetAmmoType(pLeftArmItem)))
             {
                 return 0;
             }
@@ -141,7 +141,7 @@ int __fastcall sub_6FC42F20(D2UnitStrc* pUnit, D2UnitStrc* pItem, int* pBodyLoc,
     }
     unsigned char nBodyLoc1;
     unsigned char nBodyLoc2;
-    ITEMS_GetAllowedBodyLocations(pItem, &nBodyLoc1, &nBodyLoc2);
+    ITEMS_GetAllowedBodyLocations(hItem, &nBodyLoc1, &nBodyLoc2);
     if (nBodyLoc1 == nBodyLoc2)
     {
         if (!INVENTORY_GetItemFromBodyLoc(pInventory, nBodyLoc1))
@@ -153,7 +153,7 @@ int __fastcall sub_6FC42F20(D2UnitStrc* pUnit, D2UnitStrc* pItem, int* pBodyLoc,
     }
     D2ItemModeArgStrc itemModeArg1;
     D2ItemModeArgStrc itemModeArg2;
-    sub_6FC43160(pUnit, pItem, &itemModeArg1);
+    sub_6FC43160(pUnit, hItem, &itemModeArg1);
     D2UnitStrc* pItem1 = INVENTORY_GetItemFromBodyLoc(pInventory, nBodyLoc1);
     D2UnitStrc* pItem2 = INVENTORY_GetItemFromBodyLoc(pInventory, nBodyLoc2);
     if (pItem1 && pItem2)

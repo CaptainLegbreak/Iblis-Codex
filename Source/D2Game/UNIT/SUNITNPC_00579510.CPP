@@ -58,19 +58,19 @@ static __forceinline int GetMode(D2UnitStrc* unit) { if (unit) return unit->dwAn
 static __forceinline int GetId(D2UnitStrc* unit) { if (unit) return unit->dwUnitId; return -1; }
 #define SEND_ERROR(code,line) D2GAME_SendPacket0x2A_6FC3F3B0(UnitGetClient(player,gszNpcSource_006E15F0,line),0x2A,code,STATLIST_UnitGetStatValue(player,14,0),-1,0)
 // 0x00579510
-int __fastcall D2GAME_STORES_SellItem_6FCC7680(D2GameStrc* game,D2UnitStrc* player,int npcId,int itemId,unsigned short itemMode,int unused)
+int __fastcall D2GAME_STORES_SellItem_6FCC7680(D2GameStrc* ptGame,D2UnitStrc* player,int npcId,int itemId,unsigned short itemMode,int unused)
 {
-    if (!game) { sub_00408A60(gszNullGame_006CC837,sub_00408090(),0x4AE); exit(-1); }
-    D2UnitStrc* interact=SUNIT_GetInteractUnit(game,player);
-    D2UnitStrc* npc=SUNIT_GetServerUnit(game,1,npcId);
-    D2UnitStrc* item=SUNIT_GetServerUnit(game,4,itemId);
+    if (!ptGame) { sub_00408A60(gszNullGame_006CC837,sub_00408090(),0x4AE); exit(-1); }
+    D2UnitStrc* interact=SUNIT_GetInteractUnit(ptGame,player);
+    D2UnitStrc* npc=SUNIT_GetServerUnit(ptGame,1,npcId);
+    D2UnitStrc* item=SUNIT_GetServerUnit(ptGame,4,itemId);
     if (!item) return 1;
     if (!npc || interact!=npc) { SEND_ERROR(9,0x4B9); return 1; }
     if (!ITEMS_IsInPlayersInventory(player,item,0)) { SEND_ERROR(11,0x4C2); return 3; }
     if (GetMode(item)==itemMode) {
     if (!sub_0062A130(item)) { SEND_ERROR(9,0x4DE); return 3; }
     const int vendorId=npc->dwClassId;
-    int price=ITEMS_GetTransactionCost(player,item,game->nDifficulty,sub_00543520(game,player),vendorId,1);
+    int price=ITEMS_GetTransactionCost(player,item,ptGame->nDifficulty,sub_00543520(ptGame,player),vendorId,1);
     int keep=1;
     if (ITEMS_GetItemQuality(item)==1) { const char* name=DATATBLS_GetLowQualityItemsTxtRecord(ITEMS_GetFileIndex(item))->name; if (!_stricmp(name,"Cracked")) keep=0; }
     if (ITEMS_CheckItemFlag(item,0x100,0x505,gszNpcSource_006E15F0)) keep=0;
@@ -80,44 +80,44 @@ int __fastcall D2GAME_STORES_SellItem_6FCC7680(D2GameStrc* game,D2UnitStrc* play
     if (sub_0055F590_CheckItem(item,gszNpcSource_006E15F0,0x513)) keep=0;
     if (sub_00575FA0_IsUniqueCarryOneItem(item)) keep=0;
     int npcIndex;
-    D2NpcRecordStrc* npcRecord=SUNITPROXY_GetNpcRecordFromUnit(game,npc,&npcIndex);
-    if (SUNITPROXY_GetVendorChain(game,npcRecord,player)->gamble) keep=0;
+    D2NpcRecordStrc* npcRecord=SUNITPROXY_GetNpcRecordFromUnit(ptGame,npc,&npcIndex);
+    if (SUNITPROXY_GetVendorChain(ptGame,npcRecord,player)->gamble) keep=0;
     D2UnitStrc* copy=0;
-    if (keep && !sub_00576ED0(game,npc,item)) {
-        copy=ITEMS_Duplicate(game,item,npc,1);
+    if (keep && !sub_00576ED0(ptGame,npc,item)) {
+        copy=ITEMS_Duplicate(ptGame,item,npc,1);
         if (!copy) { SEND_ERROR(9,0x546); return 3; }
         UNITS_ChangeAnimMode(copy,4);
         unsigned char page=sub_0062E880(copy);
-        if (page==255) { ITEMS_RemoveFromAllPlayers(game,copy); copy=0; }
+        if (page==255) { ITEMS_RemoveFromAllPlayers(ptGame,copy); copy=0; }
         else {
             ITEMS_SetInvPage(copy,page);
             const int copyId=GetId(copy);
-            if (!D2GAME_PlaceItem_6FC44410(gszNpcSource_006E15F0,0x558,game,npc,copyId,UNITS_GetXPosition(copy),CLIENTS_GetUnitY(copy),1,1,0)) {
+            if (!D2GAME_PlaceItem_6FC44410(gszNpcSource_006E15F0,0x558,ptGame,npc,copyId,UNITS_GetXPosition(copy),CLIENTS_GetUnitY(copy),1,1,0)) {
                 if (page==1) {
                     ITEMS_SetInvPage(copy,2);
                     const int copyId=GetId(copy);
-                    if (!D2GAME_PlaceItem_6FC44410(gszNpcSource_006E15F0,0x55E,game,npc,copyId,UNITS_GetXPosition(copy),CLIENTS_GetUnitY(copy),1,1,0)) ITEMS_RemoveFromAllPlayers(game,copy);
+                    if (!D2GAME_PlaceItem_6FC44410(gszNpcSource_006E15F0,0x55E,ptGame,npc,copyId,UNITS_GetXPosition(copy),CLIENTS_GetUnitY(copy),1,1,0)) ITEMS_RemoveFromAllPlayers(ptGame,copy);
                     else {
-                        sub_005762C0_SetItemTradeFlags(npc,copy,game,1,1);
+                        sub_005762C0_SetItemTradeFlags(npc,copy,ptGame,1,1);
                         const int durability=STATLIST_GetMaxDurabilityFromUnit(copy);
                         STATLIST_SetUnitStat(copy,72,durability,0);
                         const int quantity=ITEMS_GetTotalMaxStack(copy);
                         STATLIST_SetUnitStat(copy,70,quantity,0);
                         const int vendorId=npc->dwClassId;
-                        int newPrice=ITEMS_GetTransactionCost(player,copy,game->nDifficulty,sub_00543520(game,player),vendorId,1);
+                        int newPrice=ITEMS_GetTransactionCost(player,copy,ptGame->nDifficulty,sub_00543520(ptGame,player),vendorId,1);
                         if (price>newPrice) price=newPrice;
                     }
                 }
-                else ITEMS_RemoveFromAllPlayers(game,copy);
+                else ITEMS_RemoveFromAllPlayers(ptGame,copy);
             }
             else {
-                sub_005762C0_SetItemTradeFlags(npc,copy,game,1,1);
+                sub_005762C0_SetItemTradeFlags(npc,copy,ptGame,1,1);
                 const int durability=STATLIST_GetMaxDurabilityFromUnit(copy);
                         STATLIST_SetUnitStat(copy,72,durability,0);
                 const int quantity=ITEMS_GetTotalMaxStack(copy);
                         STATLIST_SetUnitStat(copy,70,quantity,0);
                 const int vendorId=npc->dwClassId;
-                        int newPrice=ITEMS_GetTransactionCost(player,copy,game->nDifficulty,sub_00543520(game,player),vendorId,1);
+                        int newPrice=ITEMS_GetTransactionCost(player,copy,ptGame->nDifficulty,sub_00543520(ptGame,player),vendorId,1);
                 if (price>newPrice) price=newPrice;
             }
         }
@@ -133,19 +133,19 @@ int __fastcall D2GAME_STORES_SellItem_6FCC7680(D2GameStrc* game,D2UnitStrc* play
         ITEMS_SetOrRemoveFlag(&flags,0x20,1);
         ITEMS_SetItemCell(item,ITEMS_GetInvPage(item));
         D2GAME_UpdateClientItem_6FC3E9D0(client,player,item,flags);
-        D2GAME_RemoveItem_6FC471F0(game,player,item,0);
+        D2GAME_RemoveItem_6FC471F0(ptGame,player,item,0);
     }
     else if (itemMode==4) {
-        if (!D2GAME_RemoveItemIfOnCursor_6FC49760(game,player,item)) { SEND_ERROR(9,0x59F); return 1; }
+        if (!D2GAME_RemoveItemIfOnCursor_6FC49760(ptGame,player,item)) { SEND_ERROR(9,0x59F); return 1; }
     }
     else {
         int flag;
-        if (!sub_6FC45B30(game,player,ITEMS_GetBodyLocation(item),1,&flag)) {
-            if (copy) ITEMS_RemoveFromAllPlayers(game,copy);
+        if (!sub_6FC45B30(ptGame,player,ITEMS_GetBodyLocation(item),1,&flag)) {
+            if (copy) ITEMS_RemoveFromAllPlayers(ptGame,copy);
             return 1;
         }
     }
-    ITEMS_HandleGoldTransaction(game,player,price);
+    ITEMS_HandleGoldTransaction(ptGame,player,price);
     D2GAME_SendPacket0x2A_6FC3F3B0(UnitGetClient(player,gszNpcSource_006E15F0,0x5BD),0x2A,1,STATLIST_UnitGetStatValue(player,14,0),itemId,3);
     return 0;
     }

@@ -293,9 +293,9 @@ void __fastcall sub_6FCD0150(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames)
 }
 
 // 0x005DE190
-void __fastcall sub_005DE190_SetAiParam(D2UnitStrc* pUnit, int nParam, int nValue, int nArg)
+void __fastcall sub_005DE190_SetAiParam(D2UnitStrc* pUnit, int nParam, int nVel, int nArg)
 {
-	D2_ASSERT(nValue >= -126 && nValue <= 126, 272);
+	D2_ASSERT(nVel >= -126 && nVel <= 126, 272);
 
 	if (nParam == 1)
 	{
@@ -303,7 +303,7 @@ void __fastcall sub_005DE190_SetAiParam(D2UnitStrc* pUnit, int nParam, int nValu
 	}
 
 	D2AiParamStrc* pAiParams = (pUnit && pUnit->dwUnitType == 1 && pUnit->pMonsterData) ? pUnit->pMonsterData->pAiParams : 0;
-	sub_005A6260_SetAiParamFields(pAiParams, nParam, nValue, nArg);
+	sub_005A6260_SetAiParamFields(pAiParams, nParam, nVel, nArg);
 }
 
 // 0x005DE320

@@ -244,15 +244,15 @@ static int sub_6FC410E0(D2UnitStrc* pPlayer, D2UnitStrc* pItem, D2UnitStrc* pUnu
 // 0x00597890
 void __fastcall D2GAME_INVMODE_First_6FC40FB0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, D2InventoryStrc* pInventoryArg)
 {
-    D2InventoryStrc* pInventory = pUnit->pInventory;
-    D2_ASSERT(pInventory, 244);
+    D2InventoryStrc* hInventory = pUnit->pInventory;
+    D2_ASSERT(hInventory, 244);
 
     if (pInventoryArg)
     {
-        pInventory = pInventoryArg;
+        hInventory = pInventoryArg;
     }
 
-    D2InventoryNodeStrc* pNode = INVENTORY_GetTradeInventory(pInventory);
+    D2InventoryNodeStrc* pNode = INVENTORY_GetTradeInventory(hInventory);
     if (!pNode)
     {
         return;

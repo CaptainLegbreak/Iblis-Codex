@@ -87,10 +87,10 @@ D2UnitStrc* __stdcall UNITFINDS_GetNearestTestedUnit(D2UnitStrc* pUnit, int nX, 
     D2ActiveRoomStrc** ppRoomList;
     int nNumRooms;
 
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    D2_ASSERT(pRoom, 144);
+    D2ActiveRoomStrc* hRoom = UNITS_GetRoom(pUnit);
+    D2_ASSERT(hRoom, 144);
 
-    DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRoomList, &nNumRooms);
+    DUNGEON_GetAdjacentRoomsListFromRoom(hRoom, &ppRoomList, &nNumRooms);
 
     D2UnitStrc* pResult = 0;
     int nSmallestDistance = 65535;

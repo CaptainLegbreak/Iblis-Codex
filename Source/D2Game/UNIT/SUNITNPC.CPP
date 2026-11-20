@@ -651,15 +651,15 @@ void __fastcall sub_005762C0_SetItemTradeFlags(D2UnitStrc* pPlayer, D2UnitStrc* 
 }
 
 // 0x00577F30
-int __fastcall D2GAME_NPC_BuyItemHandler_6FCC92A0(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nNpcUnitId, int nItemId, int nItemMode, int nTransactionType, int nCost, int bMultibuy)
+int __fastcall D2GAME_NPC_BuyItemHandler_6FCC92A0(D2GameStrc* ptGame, D2UnitStrc* pPlayer, int nNpcUnitId, int nItemId, int nItemMode, int nTransactionType, int nCost, int bMultibuy)
 {
-    D2_ASSERT(pGame, 2372);
+    D2_ASSERT(ptGame, 2372);
 
-    D2UnitStrc* pInteractUnit = SUNIT_GetInteractUnit(pGame, pPlayer);
-    D2UnitStrc* pNpc = SUNIT_GetServerUnit(pGame, UNIT_MONSTER, nNpcUnitId);
+    D2UnitStrc* pInteractUnit = SUNIT_GetInteractUnit(ptGame, pPlayer);
+    D2UnitStrc* pNpc = SUNIT_GetServerUnit(ptGame, UNIT_MONSTER, nNpcUnitId);
     if (pNpc && pInteractUnit == pNpc)
     {
-        return sub_6FCC88B0(pGame, pPlayer, pNpc, nItemId, nItemMode, nTransactionType, nCost, bMultibuy);
+        return sub_6FCC88B0(ptGame, pPlayer, pNpc, nItemId, nItemMode, nTransactionType, nCost, bMultibuy);
     }
 
     D2GAME_SendPacket0x2A_6FC3F3B0(UnitGetClient(pPlayer, gszNpcSourceFile, 2380), 0x2A, 9, STATLIST_UnitGetStatValue(pPlayer, STAT_GOLD, 0), -1, 0);
@@ -941,21 +941,21 @@ void __fastcall D2GAME_STORES_CreateVendorCache_6FCC74F0(D2GameStrc* pGame, D2Un
 }
 
 // 0x005766D0
-void __fastcall sub_005766D0(Unit* npc,Unit* item,Game* game,int init)
+void __fastcall sub_005766D0(Unit* hNPC,Unit* hItem,Game* ptGame,int init)
 {
-    CHECK(game,423);
-    CHECK(npc,424);
-    CHECK(item,425);
+    CHECK(ptGame,423);
+    CHECK(hNPC,424);
+    CHECK(hItem,425);
     int unused;
-    unsigned id = item ? item->id : -1;
-    sub_00560420(game,npc,id,&unused,0,0,0,0);
+    unsigned id = hItem ? hItem->id : -1;
+    sub_00560420(ptGame,hNPC,id,&unused,0,0,0,0);
     if(init) {
-        item->flags |= 0x10;
-        sub_00621000(npc,1);
-        sub_0063CC70(npc->inventory,item);
-        sub_00628170(item,1,1);
+        hItem->flags |= 0x10;
+        sub_00621000(hNPC,1);
+        sub_0063CC70(hNPC->inventory,hItem);
+        sub_00628170(hItem,1,1);
     } else {
-        sub_00557FD0(game,item);
+        sub_00557FD0(ptGame,hItem);
     }
 }
 
@@ -1117,16 +1117,16 @@ void __fastcall sub_00579180_ResurrectMerc(D2GameStrc* pGame, D2UnitStrc* pPlaye
         }
     }
 
-    D2HirelingTxt* pHirelingTxt = DATATBLS_GetNextHirelingTxtRecordFromVendorIdAndDifficulty(pGame->bExpansion, nVendorId, pGame->nDifficulty, 0);
-    if (!pHirelingTxt)
+    D2HirelingTxt* ptHireStats = DATATBLS_GetNextHirelingTxtRecordFromVendorIdAndDifficulty(pGame->bExpansion, nVendorId, pGame->nDifficulty, 0);
+    if (!ptHireStats)
     {
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0xFA2);
         exit(-1);
     }
 
-    const int nNameLast = pHirelingTxt->wNameLast;
-    const int nNameFirst = pHirelingTxt->wNameFirst;
-    const int nClass = pHirelingTxt->dwClass;
+    const int nNameLast = ptHireStats->wNameLast;
+    const int nNameFirst = ptHireStats->wNameFirst;
+    const int nClass = ptHireStats->dwClass;
     const int nCount = nNameLast - nNameFirst + 1;
     int nName = nNameFirst;
     while (nName <= nNameLast)

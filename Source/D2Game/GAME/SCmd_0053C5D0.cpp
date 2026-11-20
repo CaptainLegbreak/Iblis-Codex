@@ -75,12 +75,12 @@ int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc*, const char*, int); // 0x0
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc*, D2SkillStrc*, int); // 0x006442A0
 void __fastcall FOG_FreePool(void*, void*, const char*, int, int); // 0x0040B480
 // 0x0053C5D0
-void __fastcall sub_0053C5D0(D2ClientStrc* pClient, D2UnitStrc* pUnit)
+void __fastcall sub_0053C5D0(D2ClientStrc* pClient, D2UnitStrc* hUnit)
 {
-    D2_ASSERT(pUnit, 0x55A);
-    D2SkillListStrc* pSkills = pUnit->pSkills;
-    D2_ASSERT(pSkills, 0x55D);
-    D2SkillStrc* pSkill = SKILLS_GetFirstSkillFromSkillList(pSkills);
+    D2_ASSERT(hUnit, 0x55A);
+    D2SkillListStrc* hSkillInfo = hUnit->pSkills;
+    D2_ASSERT(hSkillInfo, 0x55D);
+    D2SkillStrc* pSkill = SKILLS_GetFirstSkillFromSkillList(hSkillInfo);
     int nCount = 0;
     while (pSkill)
     {
@@ -94,10 +94,10 @@ void __fastcall sub_0053C5D0(D2ClientStrc* pClient, D2UnitStrc* pUnit)
     pPacket->nHeader = 0x94;
     D2_ASSERT(nCount < 256, 0x56E);
     pPacket->nCount = nCount;
-    pPacket->nGUID = !pUnit ? -1 : pUnit->dwUnitId;
-    for (pSkill = SKILLS_GetFirstSkillFromSkillList(pSkills); pSkill;)
+    pPacket->nGUID = !hUnit ? -1 : hUnit->dwUnitId;
+    for (pSkill = SKILLS_GetFirstSkillFromSkillList(hSkillInfo); pSkill;)
     {
-        pEntry->nLevel = SKILLS_GetSkillLevel(pUnit, pSkill, 0);
+        pEntry->nLevel = SKILLS_GetSkillLevel(hUnit, pSkill, 0);
         pEntry->nSkill = SKILLS_GetSkillIdFromSkill(pSkill, ".\\GAME\\SCmd.cpp", 0x576);
         pSkill = SKILLS_GetNextSkill(pSkill);
         ++pEntry;

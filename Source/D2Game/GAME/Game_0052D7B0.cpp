@@ -518,10 +518,10 @@ void __fastcall SUNITPROXY_FillGlobalItemCache()
 }
 
 // 0x00540000
-void __fastcall PARTY_FreePartyControl(D2GameStrc* pGame)
+void __fastcall PARTY_FreePartyControl(D2GameStrc* ptGame)
 {
-    D2_ASSERT(pGame, 0x2E);
-    D2PartyControlStrc* pPartyControl = pGame->pPartyControl;
+    D2_ASSERT(ptGame, 0x2E);
+    D2PartyControlStrc* pPartyControl = ptGame->pPartyControl;
     if (!pPartyControl)
         return;
     D2PartyStrc* pParty = pPartyControl->pParties;
@@ -532,14 +532,14 @@ void __fastcall PARTY_FreePartyControl(D2GameStrc* pGame)
         while (pPartyNode)
         {
             D2PartyNodeStrc* pNextPartyNode = pPartyNode->pNext;
-            FOG_FreeServerMemory(pGame->pMemoryPool, pPartyNode, ".\\UNIT\\Party.cpp", 0x3F, 0);
+            FOG_FreeServerMemory(ptGame->pMemoryPool, pPartyNode, ".\\UNIT\\Party.cpp", 0x3F, 0);
             pPartyNode = pNextPartyNode;
         }
-        FOG_FreeServerMemory(pGame->pMemoryPool, pParty, ".\\UNIT\\Party.cpp", 0x43, 0);
+        FOG_FreeServerMemory(ptGame->pMemoryPool, pParty, ".\\UNIT\\Party.cpp", 0x43, 0);
         pParty = pNextParty;
     }
-    FOG_FreeServerMemory(pGame->pMemoryPool, pPartyControl, ".\\UNIT\\Party.cpp", 0x47, 0);
-    pGame->pPartyControl = 0;
+    FOG_FreeServerMemory(ptGame->pMemoryPool, pPartyControl, ".\\UNIT\\Party.cpp", 0x47, 0);
+    ptGame->pPartyControl = 0;
 }
 
 // 0x005404C0
@@ -650,28 +650,28 @@ void __fastcall QUESTS_QuestUpdater(D2GameStrc* pGame)
 }
 
 // 0x00546E90
-void __fastcall OBJRGN_FreeObjectControl(D2GameStrc* pGame)
+void __fastcall OBJRGN_FreeObjectControl(D2GameStrc* ptGame)
 {
-    D2_ASSERT(pGame, 0xB6);
-    D2ObjectControlStrc* pObjectControl = pGame->pObjectControl;
+    D2_ASSERT(ptGame, 0xB6);
+    D2ObjectControlStrc* pObjectControl = ptGame->pObjectControl;
     if (!pObjectControl)
         return;
     D2ObjectRoomCoordStrc* pObjectRoomCoord = pObjectControl->pObjectRoomCoord;
     while (pObjectRoomCoord)
     {
         D2ObjectRoomCoordStrc* pNext = pObjectRoomCoord->pNext;
-        FOG_FreeServerMemory(pGame->pMemoryPool, pObjectRoomCoord, ".\\OBJECTS\\objrgn.cpp", 0xC1, 0);
+        FOG_FreeServerMemory(ptGame->pMemoryPool, pObjectRoomCoord, ".\\OBJECTS\\objrgn.cpp", 0xC1, 0);
         pObjectRoomCoord = pNext;
     }
     pObjectControl->pObjectRoomCoord = 0;
     for (int i = 1; i < sgptDataTables->nLevelsTxtRecordCount; ++i)
-        FOG_FreeServerMemory(pGame->pMemoryPool, pObjectControl->pObjectRegion[i], ".\\OBJECTS\\objrgn.cpp", 0xE2, 0);
+        FOG_FreeServerMemory(ptGame->pMemoryPool, pObjectControl->pObjectRegion[i], ".\\OBJECTS\\objrgn.cpp", 0xE2, 0);
     for (int i = 0; i < 8; ++i)
     {
         if (pObjectControl->pShrineSubTypeIds[i])
-            FOG_FreeServerMemory(pGame->pMemoryPool, pObjectControl->pShrineSubTypeIds[i], ".\\OBJECTS\\objrgn.cpp", 0xE8, 0);
+            FOG_FreeServerMemory(ptGame->pMemoryPool, pObjectControl->pShrineSubTypeIds[i], ".\\OBJECTS\\objrgn.cpp", 0xE8, 0);
     }
-    FOG_FreeServerMemory(pGame->pMemoryPool, pGame->pObjectControl, ".\\OBJECTS\\objrgn.cpp", 0xEC, 0);
+    FOG_FreeServerMemory(ptGame->pMemoryPool, ptGame->pObjectControl, ".\\OBJECTS\\objrgn.cpp", 0xEC, 0);
 }
 
 // 0x00547210
@@ -1060,22 +1060,22 @@ void __fastcall sub_005384E0_RemoveUnitIfNotAdjacent(D2ClientStrc* pClient, D2Un
 }
 
 // 0x00538E60
-void __fastcall CLIENTS_CopySaveDataToClient(D2ClientStrc* pClient, const void* pData, unsigned int nSize)
+void __fastcall CLIENTS_CopySaveDataToClient(D2ClientStrc* ptClient, const void* pData, unsigned int nSize)
 {
-    D2_ASSERT(pClient, 2921);
+    D2_ASSERT(ptClient, 2921);
 
-    if (pClient->nSaveHeaderSize != nSize || pClient->pSaveHeader)
+    if (ptClient->nSaveHeaderSize != nSize || ptClient->pSaveHeader)
     {
-        if (pClient->pSaveHeader)
+        if (ptClient->pSaveHeader)
         {
-            FOG_FreeServerMemory(pClient->pGame->pMemoryPool, pClient->pSaveHeader, ".\\GAME\\Clients.cpp", 2926, 0);
+            FOG_FreeServerMemory(ptClient->pGame->pMemoryPool, ptClient->pSaveHeader, ".\\GAME\\Clients.cpp", 2926, 0);
         }
 
-        pClient->pSaveHeader = (D2SaveHeaderStrc*)sub_0040B430(pClient->pGame->pMemoryPool, nSize, ".\\GAME\\Clients.cpp", 2928, 0);
-        pClient->nSaveHeaderSize = nSize;
+        ptClient->pSaveHeader = (D2SaveHeaderStrc*)sub_0040B430(ptClient->pGame->pMemoryPool, nSize, ".\\GAME\\Clients.cpp", 2928, 0);
+        ptClient->nSaveHeaderSize = nSize;
     }
 
-    memcpy(pClient->pSaveHeader, pData, nSize);
+    memcpy(ptClient->pSaveHeader, pData, nSize);
 }
 
 // 0x0053ABE0

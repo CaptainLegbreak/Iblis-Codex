@@ -272,34 +272,34 @@ void __fastcall MONSTERAI_SendMercStats(D2GameStrc* pGame, D2UnitStrc* pPlayer, 
 }
 
 // 0x00572840
-void __fastcall MONSTERAI_UpdateMercStatsAndSkills(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pMerc, int nLevel)
+void __fastcall MONSTERAI_UpdateMercStatsAndSkills(D2GameStrc* ptGame, D2UnitStrc* hPlayer, D2UnitStrc* pMerc, int nLevel)
 {
-    D2_ASSERT(pGame, 0xE0);
-    D2_ASSERT(pPlayer, 0xE1);
-    D2_ASSERT(pPlayer->dwUnitType == 0, 0xE2);
+    D2_ASSERT(ptGame, 0xE0);
+    D2_ASSERT(hPlayer, 0xE1);
+    D2_ASSERT(hPlayer->dwUnitType == 0, 0xE2);
 
     D2UnitStrc* pHireling = pMerc;
     if (!pHireling)
     {
-        pHireling = sub_6FC7E8B0(pGame, pPlayer, 7, 0);
+        pHireling = sub_6FC7E8B0(ptGame, hPlayer, 7, 0);
         if (!pHireling)
         {
             return;
         }
     }
 
-    STATLIST_UnitGetStatValue(pPlayer, 0xC, 0);
+    STATLIST_UnitGetStatValue(hPlayer, 0xC, 0);
     const int nHirelingLevel = STATLIST_UnitGetStatValue(pHireling, 0xC, 0);
     if (!nLevel)
     {
         nLevel = nHirelingLevel + 1;
     }
 
-    AITACTICS_AddMessage(pGame, pHireling, pPlayer, 0xD7C, 1);
+    AITACTICS_AddMessage(ptGame, pHireling, hPlayer, 0xD7C, 1);
     STATLIST_SetUnitStat(pHireling, 0xC, nLevel, 0);
 
-    D2PetInfoStrc* pPetInfo = PLAYERPETS_GetPetInfoFromPetGUID(pPlayer, pHireling->dwUnitId);
-    D2HirelingTxt* pHirelingTxtRecord = DATATBLS_GetHirelingTxtRecordFromIdAndLevel(pGame->bExpansion, pPetInfo->nHirelingId, nLevel);
+    D2PetInfoStrc* pPetInfo = PLAYERPETS_GetPetInfoFromPetGUID(hPlayer, pHireling->dwUnitId);
+    D2HirelingTxt* pHirelingTxtRecord = DATATBLS_GetHirelingTxtRecordFromIdAndLevel(ptGame->bExpansion, pPetInfo->nHirelingId, nLevel);
     if (!pHirelingTxtRecord)
     {
         return;

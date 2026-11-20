@@ -398,19 +398,19 @@ static int __stdcall PATH_BresenhamLine(D2PathPointStrc tStartPoint, D2PathPoint
 // 0x0067C2D0
 int __fastcall PATH_ComputePathOrSlideAlongObstacles(D2PathInfoStrc* pPathInfo)
 {
-    D2DynamicPathStrc* pDynamicPath = pPathInfo->pDynamicPath;
-    D2_ASSERT(((pDynamicPath->pUnit && pDynamicPath->pUnit->dwUnitType == 0) || (pDynamicPath->pUnit && pDynamicPath->pUnit->dwUnitType == 1)) != 0, 0x2AD);
+    D2DynamicPathStrc* ptPathInfo = pPathInfo->pDynamicPath;
+    D2_ASSERT(((ptPathInfo->pUnit && ptPathInfo->pUnit->dwUnitType == 0) || (ptPathInfo->pUnit && ptPathInfo->pUnit->dwUnitType == 1)) != 0, 0x2AD);
 
     D2ActiveRoomStrc* pRoom = pPathInfo->pStartRoom;
     const int nCollisionPattern = pPathInfo->nCollisionPattern;
     const int nCollisionMask = pPathInfo->nCollisionMask;
-    const unsigned char nDist = pDynamicPath->nDistMax;
+    const unsigned char nDist = ptPathInfo->nDistMax;
     int i = 0;
     const D2PathPointStrc tStart = pPathInfo->tStartCoord;
     const D2PathPointStrc tTarget = pPathInfo->tTargetCoord;
     D2PathPointStrc tPrevious = tStart;
     int nDistMax = nDist;
-    if (pDynamicPath->unk0x58 && nDist < 40)
+    if (ptPathInfo->unk0x58 && nDist < 40)
     {
         nDistMax = 40;
     }
@@ -430,7 +430,7 @@ int __fastcall PATH_ComputePathOrSlideAlongObstacles(D2PathInfoStrc* pPathInfo)
         {
             if (!PATH_FindSubpathWithoutObstacles(pPathInfo, tPrevious, aPathPoints, &i, &nPoints, nDistMax - i, nMajorDirection))
             {
-                return PATH_SimplifyToLines(tStart, pDynamicPath->PathPoints, aPathPoints, i);
+                return PATH_SimplifyToLines(tStart, ptPathInfo->PathPoints, aPathPoints, i);
             }
         }
 
@@ -442,5 +442,5 @@ int __fastcall PATH_ComputePathOrSlideAlongObstacles(D2PathInfoStrc* pPathInfo)
         return 0;
     }
 
-    return PATH_SimplifyToLines(tStart, pDynamicPath->PathPoints, aPathPoints, nPoints);
+    return PATH_SimplifyToLines(tStart, ptPathInfo->PathPoints, aPathPoints, nPoints);
 }

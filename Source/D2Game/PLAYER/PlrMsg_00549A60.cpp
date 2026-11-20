@@ -449,8 +449,8 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x5F_UpdatePlayerPos_6FC88530(D2GameStrc
     const int nX = ((D2GSPacketClt5F*)pPacket)->nX;
     const int nY = ((D2GSPacketClt5F*)pPacket)->nY;
 
-    D2ClientStrc* pClient = UnitGetClient(pUnit, ".\\PLAYER\\PlrMsg.cpp", 5654);
-    D2_ASSERT(pClient, 5655);
+    D2ClientStrc* hClient = UnitGetClient(pUnit, ".\\PLAYER\\PlrMsg.cpp", 5654);
+    D2_ASSERT(hClient, 5655);
 
     if (UNITS_GetUsedSkill(pUnit) || SUNIT_IsDead(pUnit))
     {
@@ -467,7 +467,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x5F_UpdatePlayerPos_6FC88530(D2GameStrc
     {
         if (!sub_0054CB10_TestPathToCoords(pGame, pUnit, nX, nY) || !sub_0054CC40_WarpToCoords(pGame, pUnit, nX, nY))
         {
-            sub_6FC81CA0(pUnit, pClient, 0);
+            sub_6FC81CA0(pUnit, hClient, 0);
         }
 
         return 0;

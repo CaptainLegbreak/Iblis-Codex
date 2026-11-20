@@ -544,10 +544,10 @@ int __stdcall sub_6F8A32B0(int a1, int nItemType)
 unsigned long gdwListLastClickTick_0087E970; // 0x0087E970
 
 // 0x00505360
-void __stdcall D2Win_10156(D2CompositeUnitStrc* pCompositeUnit, int nFlags)
+void __stdcall D2Win_10156(D2CompositeUnitStrc* hCompositeUnit, int nFlags)
 {
-    D2_ASSERT(pCompositeUnit, 0xDA2);
-    pCompositeUnit->dwFlags = nFlags;
+    D2_ASSERT(hCompositeUnit, 0xDA2);
+    hCompositeUnit->dwFlags = nFlags;
 }
 
 // 0x005068A0
@@ -582,35 +582,35 @@ const char* __stdcall D2Win_10161(int nClass, int nLevel, int bExpansion, int bS
 }
 
 // 0x00506910
-int __stdcall SMACK_Decode(D2WinSmackStrc* pSmack, const char* szFileName, int nVersion)
+int __stdcall SMACK_Decode(D2WinSmackStrc* ptData, const char* szFileName, int nVersion)
 {
-    D2_ASSERT(pSmack->controlHeader.nType == D2WIN_SMACK, 0x53);
-    strncpy(pSmack->szFileName, szFileName, 0x100);
-    WINDOW_CloseSmacker(&pSmack->field_140);
-    WINDOW_DecodeSmacker(pSmack->szFileName, (unsigned char*)&pSmack->field_140, nVersion);
+    D2_ASSERT(ptData->controlHeader.nType == D2WIN_SMACK, 0x53);
+    strncpy(ptData->szFileName, szFileName, 0x100);
+    WINDOW_CloseSmacker(&ptData->field_140);
+    WINDOW_DecodeSmacker(ptData->szFileName, (unsigned char*)&ptData->field_140, nVersion);
     strncpy(gszSmackFileName_0087E860, szFileName, 0x104);
     gnSmackVersion_0087E964 = nVersion;
     return 1;
 }
 
 // 0x00506990
-int __stdcall SMACK_DeleteFile(D2WinSmackStrc* pSmack)
+int __stdcall SMACK_DeleteFile(D2WinSmackStrc* ptData)
 {
-    D2_ASSERT(pSmack->controlHeader.nType == D2WIN_SMACK, 0x66);
-    WINDOW_CloseSmacker(&pSmack->field_140);
+    D2_ASSERT(ptData->controlHeader.nType == D2WIN_SMACK, 0x66);
+    WINDOW_CloseSmacker(&ptData->field_140);
     if (!gbSmackKeepFile_0087E968)
-        DeleteFileA(pSmack->szFileName);
+        DeleteFileA(ptData->szFileName);
     return 1;
 }
 
 // 0x005069F0
-int __stdcall SMACK_SetCoordinates(D2WinSmackStrc* pSmack, int nX, int nY)
+int __stdcall SMACK_SetCoordinates(D2WinSmackStrc* ptData, int nX, int nY)
 {
-    D2_ASSERT(pSmack->controlHeader.nType == D2WIN_SMACK, 0x7B);
-    pSmack->controlHeader.nImageX = nX;
-    pSmack->controlHeader.nImageY = nY;
-    pSmack->field_148 = nX;
-    pSmack->field_14C = nY;
+    D2_ASSERT(ptData->controlHeader.nType == D2WIN_SMACK, 0x7B);
+    ptData->controlHeader.nImageX = nX;
+    ptData->controlHeader.nImageY = nY;
+    ptData->field_148 = nX;
+    ptData->field_14C = nY;
     return 1;
 }
 
@@ -818,10 +818,10 @@ D2WinAccountListStrc* __fastcall ACCOUNTLIST_Create(int nX, int nY, int nWidth, 
 }
 
 // 0x00507D70
-int __stdcall PROGRESSBAR_SetProgress(D2WinProgressBarStrc* pProgressBar, float fProgress)
+int __stdcall PROGRESSBAR_SetProgress(D2WinProgressBarStrc* ptData, float fProgress)
 {
-    D2_ASSERT(pProgressBar->controlHeader.nType == D2WIN_PROGRESSBAR, 0x3A);
-    pProgressBar->fProgress = fProgress;
+    D2_ASSERT(ptData->controlHeader.nType == D2WIN_PROGRESSBAR, 0x3A);
+    ptData->fProgress = fProgress;
     return 1;
 }
 

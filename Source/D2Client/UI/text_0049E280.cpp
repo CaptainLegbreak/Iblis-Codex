@@ -417,7 +417,7 @@ void __fastcall sub_0049E5C0_PrintPartyText(const Unicode* wszText, char nColor)
     if (gtTextList_007BF1EA.pFirst)
     {
         D2TextNodeStrc* pLast = gtTextList_007BF1EA.pFirst;
-        unsigned short nNodes = 0;
+        unsigned short wCount = 0;
         D2TextNodeStrc** ppNext = (D2TextNodeStrc**)pLast->pNext;
         if (*ppNext)
         {
@@ -425,10 +425,10 @@ void __fastcall sub_0049E5C0_PrintPartyText(const Unicode* wszText, char nColor)
             {
                 pLast = *ppNext;
                 ppNext = (D2TextNodeStrc**)pLast->pNext;
-                nNodes++;
+                wCount++;
             } while (*ppNext);
         }
-        D2_ASSERT(nNodes == gtTextList_007BF1EA.nCount - 1, 0xDF1);
+        D2_ASSERT(wCount == gtTextList_007BF1EA.nCount - 1, 0xDF1);
         *(D2TextNodeStrc**)pLast->pNext = pNode;
     }
     else

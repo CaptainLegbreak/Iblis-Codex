@@ -263,35 +263,35 @@ unsigned int __fastcall FOG_AsyncDataGetBufferSize(AsyncData* pAsyncData)
 }
 
 // 0x0040AB00
-void __fastcall FOG_AsyncDataFree(AsyncData* pAsyncData)
+void __fastcall FOG_AsyncDataFree(AsyncData* ptAsyncData)
 {
-    D2_ASSERT(pAsyncData, 656);
-    D2_ASSERT((pAsyncData->nFlags & 0xFFFFFFF0) == 0x41737960, 657);
-    if (pAsyncData->nFlags & 8)
+    D2_ASSERT(ptAsyncData, 656);
+    D2_ASSERT((ptAsyncData->nFlags & 0xFFFFFFF0) == 0x41737960, 657);
+    if (ptAsyncData->nFlags & 8)
     {
         for (AsyncData** ppLink = &gpAsyncDataPostponed_0075AF90; ppLink; ppLink = &(*ppLink)->pNextPostponedPriorityChange)
         {
-            if (*ppLink == pAsyncData)
+            if (*ppLink == ptAsyncData)
             {
-                *ppLink = pAsyncData->pNextPostponedPriorityChange;
+                *ppLink = ptAsyncData->pNextPostponedPriorityChange;
                 break;
             }
         }
     }
-    if (!FOG_AsyncDataTestLoaded(pAsyncData))
+    if (!FOG_AsyncDataTestLoaded(ptAsyncData))
     {
-        sub_0041A930_CancelRead(pAsyncData->pBuffer);
-        WaitForSingleObject(pAsyncData->pEventSlot->hEvent, (unsigned long)-1);
-        sub_0040A4C0_AsyncDataFinish(pAsyncData);
+        sub_0041A930_CancelRead(ptAsyncData->pBuffer);
+        WaitForSingleObject(ptAsyncData->pEventSlot->hEvent, (unsigned long)-1);
+        sub_0040A4C0_AsyncDataFinish(ptAsyncData);
     }
-    if (pAsyncData->nFlags & 2)
+    if (ptAsyncData->nFlags & 2)
     {
-        D2_ASSERT(pAsyncData->pBuffer, 707);
-        FOG_FreeServerMemory(pAsyncData->pMemPool, pAsyncData->pBuffer, ".\\Src\\AsyncData.cpp", 710, 0);
-        pAsyncData->nFlags &= 0xF;
-        pAsyncData->pBuffer = 0;
+        D2_ASSERT(ptAsyncData->pBuffer, 707);
+        FOG_FreeServerMemory(ptAsyncData->pMemPool, ptAsyncData->pBuffer, ".\\Src\\AsyncData.cpp", 710, 0);
+        ptAsyncData->nFlags &= 0xF;
+        ptAsyncData->pBuffer = 0;
     }
-    FOG_FreeServerMemory(pAsyncData->pMemPool, pAsyncData, ".\\Src\\AsyncData.cpp", 717, 0);
+    FOG_FreeServerMemory(ptAsyncData->pMemPool, ptAsyncData, ".\\Src\\AsyncData.cpp", 717, 0);
 }
 
 // 0x0040A4C0
@@ -325,21 +325,21 @@ void __fastcall sub_0040A4C0_AsyncDataFinish(AsyncData* pAsyncData)
 }
 
 // 0x0040A7F0
-int __fastcall FOG_AsyncDataTestLoaded(AsyncData* pAsyncData)
+int __fastcall FOG_AsyncDataTestLoaded(AsyncData* ptAsyncData)
 {
-    if (!pAsyncData)
+    if (!ptAsyncData)
     {
         return 0;
     }
-    D2_ASSERT((pAsyncData->nFlags & 0xFFFFFFF0) == 0x41737960, 452);
-    if (!(pAsyncData->nFlags & 1))
+    D2_ASSERT((ptAsyncData->nFlags & 0xFFFFFFF0) == 0x41737960, 452);
+    if (!(ptAsyncData->nFlags & 1))
     {
-        if (!WaitForSingleObject(pAsyncData->pEventSlot->hEvent, 0))
+        if (!WaitForSingleObject(ptAsyncData->pEventSlot->hEvent, 0))
         {
-            sub_0040A4C0_AsyncDataFinish(pAsyncData);
+            sub_0040A4C0_AsyncDataFinish(ptAsyncData);
         }
     }
-    return pAsyncData->nFlags & 1;
+    return ptAsyncData->nFlags & 1;
 }
 
 // 0x0040A960

@@ -156,22 +156,22 @@ void __stdcall INVENTORY_AddItemToTradeInventory(D2InventoryStrc* pInventory, D2
         return;
     }
 
-    D2InventoryNodeStrc* pNode = (D2InventoryNodeStrc*)sub_0040B430(pInventory->pMemPool, sizeof(D2InventoryNodeStrc), gszInventorySourceFile_006EA918, 3337, 0);
-    D2_ASSERT(pNode, 3338);
-    memset(pNode, 0x00, sizeof(D2InventoryNodeStrc));
-    pNode->nItemId = pItem->dwUnitId;
+    D2InventoryNodeStrc* ptNode = (D2InventoryNodeStrc*)sub_0040B430(pInventory->pMemPool, sizeof(D2InventoryNodeStrc), gszInventorySourceFile_006EA918, 3337, 0);
+    D2_ASSERT(ptNode, 3338);
+    memset(ptNode, 0x00, sizeof(D2InventoryNodeStrc));
+    ptNode->nItemId = pItem->dwUnitId;
 
     if (!pInventory->pFirstNode)
     {
-        pInventory->pFirstNode = pNode;
+        pInventory->pFirstNode = ptNode;
     }
     else
     {
-        pInventory->pLastNode->pNext = pNode;
+        pInventory->pLastNode->pNext = ptNode;
     }
 
-    pNode->pNext = 0;
-    pInventory->pLastNode = pNode;
+    ptNode->pNext = 0;
+    pInventory->pLastNode = ptNode;
 }
 
 // 0x0063D4E0

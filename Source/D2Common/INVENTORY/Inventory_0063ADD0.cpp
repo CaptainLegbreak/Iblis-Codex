@@ -1076,17 +1076,17 @@ static __declspec(noinline) s32 __cdecl sub_0063D900_FindCode(u32 second, u32 fi
 }
 
 // 0x0063D930
-static __declspec(noinline) void __stdcall sub_0063D930_WeaponSlots(u8* firstOutput, u8* secondOutput, Unit* item, Unit* unit)
+static __declspec(noinline) void __stdcall sub_0063D930_WeaponSlots(u8* firstOutput, u8* secondOutput, Unit* hItem, Unit* unit)
 {
     D2_ASSERT(unit, 0x13B3);
-    D2_ASSERT(item, 0x13B4);
-    const u8 page = sub_00627D40_Page(item);
+    D2_ASSERT(hItem, 0x13B4);
+    const u8 page = sub_00627D40_Page(hItem);
     if (page == 4 || page == 5)
     {
         Inventory* inventory = FIELD(Inventory*, unit, 0x60);
         s32 mode;
         const u32 weapon = sub_0064F380_WeaponCode(unit, inventory, &mode, -1, 1);
-        const u8 slot = sub_00628660_BodySlot(item);
+        const u8 slot = sub_00628660_BodySlot(hItem);
         if (weapon == 0x20776278)
         {
             if (slot == 5 || slot == 6)

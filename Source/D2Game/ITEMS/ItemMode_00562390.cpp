@@ -70,22 +70,22 @@ static __forceinline D2InventoryStrc* UNITS_GetInventory(D2UnitStrc* pUnit)
 }
 
 // 0x00562390
-int __fastcall ITEMMODE_UseBeltItem(D2GameStrc* pGame, D2UnitStrc* pUnit, int nItemGUID, int nX, int nY, int* pItemStatus, int bUseOnMerc)
+int __fastcall ITEMMODE_UseBeltItem(D2GameStrc* ptGame, D2UnitStrc* hUnit, int nItemGUID, int nX, int nY, int* pItemStatus, int bUseOnMerc)
 {
-    D2_ASSERT(pGame, 0x1325);
-    D2_ASSERT(pUnit, 0x1326);
+    D2_ASSERT(ptGame, 0x1325);
+    D2_ASSERT(hUnit, 0x1326);
 
     *pItemStatus = 0;
-    sub_0055BF50_ClearTargetingFlags(pUnit, szItemModeCpp, 0x132B);
+    sub_0055BF50_ClearTargetingFlags(hUnit, szItemModeCpp, 0x132B);
 
-    D2UnitStrc* pItem = SUNIT_GetServerUnit(pGame, 4, nItemGUID);
+    D2UnitStrc* pItem = SUNIT_GetServerUnit(ptGame, 4, nItemGUID);
     if (!pItem)
     {
         *pItemStatus = 1;
         return 0;
     }
 
-    if ((!pItem ? 6 : pItem->dwUnitType) != 4 || INVENTORY_GetCursorItem(UNITS_GetInventory(pUnit)))
+    if ((!pItem ? 6 : pItem->dwUnitType) != 4 || INVENTORY_GetCursorItem(UNITS_GetInventory(hUnit)))
     {
         return 0;
     }
@@ -96,27 +96,27 @@ int __fastcall ITEMMODE_UseBeltItem(D2GameStrc* pGame, D2UnitStrc* pUnit, int nI
         return 0;
     }
 
-    if (D2GAME_PLRTRADE_IsInteractingWithPlayer(pGame, pUnit, 1))
+    if (D2GAME_PLRTRADE_IsInteractingWithPlayer(ptGame, hUnit, 1))
     {
         return 0;
     }
 
-    D2UnitStrc* pTarget = pUnit;
-    if (bUseOnMerc && pUnit->dwUnitType == 0 && pGame->bExpansion)
+    D2UnitStrc* pTarget = hUnit;
+    if (bUseOnMerc && hUnit->dwUnitType == 0 && ptGame->bExpansion)
     {
         if (!ITEMSIsA(pItem, 0x4C) && !ITEMSIsA(pItem, 0x51) && !ITEMSIsA(pItem, 0x50))
         {
             return 0;
         }
 
-        D2UnitStrc* pPet = sub_6FC7E8B0(pGame, pUnit, 7, 0);
+        D2UnitStrc* pPet = sub_6FC7E8B0(ptGame, hUnit, 7, 0);
         if (pPet)
         {
             pTarget = pPet;
         }
     }
 
-    if (!SKILLITEM_pSpell_Handler(pGame, pTarget, pItem, pItem, nX, nY))
+    if (!SKILLITEM_pSpell_Handler(ptGame, pTarget, pItem, pItem, nX, nY))
     {
         return 0;
     }
@@ -125,28 +125,28 @@ int __fastcall ITEMMODE_UseBeltItem(D2GameStrc* pGame, D2UnitStrc* pUnit, int nI
     const int nSkillId = sub_0055E050_GetBookSkillIdChecked(pItem);
     if (nSkillId != -1)
     {
-        D2SkillStrc* pSkill = SKILLS_GetSkillById(pUnit, nSkillId, -1);
+        D2SkillStrc* pSkill = SKILLS_GetSkillById(hUnit, nSkillId, -1);
         if (pSkill)
         {
             int nQuantity = SKILLS_GetQuantity(pSkill) - 1;
             if (nQuantity <= 0)
             {
-                if (UNITS_GetRightSkill(pUnit) == pSkill)
+                if (UNITS_GetRightSkill(hUnit) == pSkill)
                 {
-                    D2GAME_AssignSkill_6FD13800(pUnit, 0, 0, -1);
+                    D2GAME_AssignSkill_6FD13800(hUnit, 0, 0, -1);
                 }
                 nQuantity = 0;
             }
 
             SKILLS_SetQuantity(pSkill, nQuantity);
-            const int nUnitGUID = pUnit->dwUnitId;
-            const int nUnitType = pUnit->dwUnitType;
-            D2GAME_PACKETS_SendPacket0x22_6FC3DBE0(UnitGetClient(pUnit, szItemModeCpp, 0x136D), nUnitType, nUnitGUID, nSkillId, nQuantity);
+            const int nUnitGUID = hUnit->dwUnitId;
+            const int nUnitType = hUnit->dwUnitType;
+            D2GAME_PACKETS_SendPacket0x22_6FC3DBE0(UnitGetClient(hUnit, szItemModeCpp, 0x136D), nUnitType, nUnitGUID, nSkillId, nQuantity);
         }
     }
 
-    sub_0055BF50_ClearTargetingFlags(pUnit, szItemModeCpp, 0x1370);
-    sub_00561E70_RemoveFromBelt(pGame, pUnit, pItem);
-    sub_0055EDC0(pGame, pUnit, nBeltX);
+    sub_0055BF50_ClearTargetingFlags(hUnit, szItemModeCpp, 0x1370);
+    sub_00561E70_RemoveFromBelt(ptGame, hUnit, pItem);
+    sub_0055EDC0(ptGame, hUnit, nBeltX);
     return 1;
 }

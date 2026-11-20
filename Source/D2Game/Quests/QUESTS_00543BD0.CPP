@@ -179,12 +179,12 @@ void __fastcall QUESTS_PlayerDroppedWithQuestItem(D2GameStrc* pGame, D2UnitStrc*
         D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(QUESTS_GetClassIdInline(pUnit));
         if (pItemsTxtRecord && pItemsTxtRecord->nQuest)
         {
-            D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, pItemsTxtRecord->nQuest - 1);
+            D2QuestDataStrc* pQuestInfo = QUESTS_GetQuestData(pGame, pItemsTxtRecord->nQuest - 1);
             tArgs.pTarget = pUnit;
-            if (pQuestData && pQuestData->pfCallback[QUESTEVENT_PLAYERDROPPEDWITHQUESTITEM])
+            if (pQuestInfo && pQuestInfo->pfCallback[QUESTEVENT_PLAYERDROPPEDWITHQUESTITEM])
             {
-                D2_ASSERT(!IsBadCodePtr((FARPROC)pQuestData->pfCallback[QUESTEVENT_PLAYERDROPPEDWITHQUESTITEM]), 734);
-                pQuestData->pfCallback[QUESTEVENT_PLAYERDROPPEDWITHQUESTITEM](pQuestData, &tArgs);
+                D2_ASSERT(!IsBadCodePtr((FARPROC)pQuestInfo->pfCallback[QUESTEVENT_PLAYERDROPPEDWITHQUESTITEM]), 734);
+                pQuestInfo->pfCallback[QUESTEVENT_PLAYERDROPPEDWITHQUESTITEM](pQuestInfo, &tArgs);
             }
         }
     }

@@ -890,10 +890,10 @@ static int __stdcall sub_0046FB60_LoadUnitLayers(int bAsync, int nMode, D2UnitSt
         return 0;
     }
 
-    D2GfxLayerHeaderStrc* pHeader = sub_004DB040_GetLayerHeader(pLayer);
-    D2_ASSERT(pHeader, 0x6C3);
+    D2GfxLayerHeaderStrc* ptCofHeader = sub_004DB040_GetLayerHeader(pLayer);
+    D2_ASSERT(ptCofHeader, 0x6C3);
     int nA;
-    const int nArg = pHeader->nArg;
+    const int nArg = ptCofHeader->nArg;
     nA = 0;
     int nDirection = UNITS_GetDirection(pUnit);
     int nType = pUnit->dwUnitType;
@@ -904,7 +904,7 @@ static int __stdcall sub_0046FB60_LoadUnitLayers(int bAsync, int nMode, D2UnitSt
     sub_004DB2E0_GetLayerInfo(pUnit, nType, nClass, nMode, &nDirection, &nA, &nB, nArg, 0);
     unsigned char* pOrder = sub_004DB110_GetLayerOrder(pLayer, nA, 0);
     D2_ASSERT(pOrder, 0x6D6);
-    for (int i = 0; i < pHeader->nCount; ++i)
+    for (int i = 0; i < ptCofHeader->nCount; ++i)
     {
         const int nLayer = pOrder[i];
         D2_ASSERT(nLayer < 0x10, 0x6DD);

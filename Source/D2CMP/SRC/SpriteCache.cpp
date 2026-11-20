@@ -841,9 +841,9 @@ void __stdcall D2CMPSpriteCacheInit(void* pMemPool, unsigned int nMaxSize, int n
     sub_0060CD30_InitTileLock();
     if (!nCacheSize)
     {
-        T004013C0* pInfo = sub_00407360_GetSystemInfo();
-        D2_ASSERT(pInfo, 0x10B);
-        nCacheSize = pInfo->nTotalMemory - 0xB00000;
+        T004013C0* pSysInfo = sub_00407360_GetSystemInfo();
+        D2_ASSERT(pSysInfo, 0x10B);
+        nCacheSize = pSysInfo->nTotalMemory - 0xB00000;
     }
     gbCmpSmallCelCache = nCacheSize < 0x4000000;
     sub_0060AEE0_ClearBlockTableA(&gCmpBlockTableA);
@@ -1077,24 +1077,24 @@ void __stdcall sub_F43_EmitPixelDataFreeWriter(PixelDataFreeCallback pfnCallback
 }
 
 // 0x00601A50
-int __stdcall CelFileFreeHardware(D2CelFileStrc* pCelFile)
+int __stdcall CelFileFreeHardware(D2CelFileStrc* ptFile)
 {
-    if (!pCelFile)
+    if (!ptFile)
     {
         return 0;
     }
-    D2_ASSERT(pCelFile->nVersion == 6, 0x5F1);
-    D2CelBlockStrc* pBlocks = pCelFile->pCels[0]->pBlockPixelData;
+    D2_ASSERT(ptFile->nVersion == 6, 0x5F1);
+    D2CelBlockStrc* pBlocks = ptFile->pCels[0]->pBlockPixelData;
     D2_ASSERT(pBlocks, 0x5F5);
-    for (unsigned int i = 0; i < pCelFile->nCelsPerDirection * pCelFile->nDirections; i++)
+    for (unsigned int i = 0; i < ptFile->nCelsPerDirection * ptFile->nDirections; i++)
     {
-        if (pCelFile->pCels[i] && pCelFile->pCels[i]->pBlockPixelData)
+        if (ptFile->pCels[i] && ptFile->pCels[i]->pBlockPixelData)
         {
             if (gpfnPixelDataFree_008E8CB8)
             {
-                gpfnPixelDataFree_008E8CB8(pCelFile->pCels[i]->pBlockPixelData);
+                gpfnPixelDataFree_008E8CB8(ptFile->pCels[i]->pBlockPixelData);
             }
-            pCelFile->pCels[i]->pBlockPixelData = 0;
+            ptFile->pCels[i]->pBlockPixelData = 0;
         }
     }
     FOG_Free(pBlocks, ".\\SRC\\CelCmp.cpp", 0x61D, 0);
@@ -1102,16 +1102,16 @@ int __stdcall CelFileFreeHardware(D2CelFileStrc* pCelFile)
 }
 
 // 0x00604A40
-void __stdcall TileLibraryAddProject(D2TileLibraryHeaderStrc** ppList, const char* szFilePath)
+void __stdcall TileLibraryAddProject(D2TileLibraryHeaderStrc** ptTileLibrary, const char* szFilePath)
 {
-    D2_ASSERT(ppList, 0x1C);
+    D2_ASSERT(ptTileLibrary, 0x1C);
     D2_ASSERT(szFilePath, 0x1D);
     int i;
     for (i = 0; i < 32; ++i)
     {
-        if (!ppList[i])
+        if (!ptTileLibrary[i])
         {
-            D2CMPLoadProjectRecord(&ppList[i], szFilePath);
+            D2CMPLoadProjectRecord(&ptTileLibrary[i], szFilePath);
             break;
         }
     }

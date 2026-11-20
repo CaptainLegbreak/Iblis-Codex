@@ -136,26 +136,26 @@ static __forceinline D2QuestDataStrc* GetQuest(D2GameStrc* game,int id) {
 // 0x00544190
 void __fastcall QUESTS_StatusCyclerEx(D2GameStrc* game,D2UnitStrc* player,unsigned char id)
 {
- D2QuestDataStrc* quest=GetQuest(game,id);
- if(!quest) return;
+ D2QuestDataStrc* pQuestInfo=GetQuest(game,id);
+ if(!pQuestInfo) return;
  D2ClientStrc* client=UnitGetClient(player,gszQuestsSourceFile,1406);
  D2RoomStrc* room=UNITS_GetRoom(player);
  if(!room) return;
  int level=DUNGEON_GetLevelIdFromRoom(room);
- if(level && quest->act==DRLG_GetActNoFromLevelId(level)) {
+ if(level && pQuestInfo->act==DRLG_GetActNoFromLevelId(level)) {
   D2GSPacketSrv5D packet;
   memset(&packet,0,sizeof(packet));
-  packet.header=0x5D;packet.flags=(unsigned char)quest->flags;packet.id=id;packet.state=0;
+  packet.header=0x5D;packet.flags=(unsigned char)pQuestInfo->flags;packet.id=id;packet.state=0;
   D2BitBufferStrc* flags=UNITS_GetPlayerData(player)->questFlags[game->difficulty];
-  if(!quest->statusFilter) QUESTS_RefreshStatus(quest,&packet.state,flags);
+  if(!pQuestInfo->statusFilter) QUESTS_RefreshStatus(pQuestInfo,&packet.state,flags);
   else {
    unsigned char state=0;
-   D2_ASSERT(!IsBadCodePtr((D2FarProc)quest->statusFilter),1429);
-   if(quest->statusFilter(quest,player,game->questControl->flags,flags,&state)==1)
+   D2_ASSERT(!IsBadCodePtr((D2FarProc)pQuestInfo->statusFilter),1429);
+   if(pQuestInfo->statusFilter(pQuestInfo,player,game->questControl->flags,flags,&state)==1)
     packet.state=state;
   }
-  if(quest->nQuestFilter==1) packet.remaining=ACT1Q1_GetMonstersToBeKilled(quest);
-  else if(quest->nQuestFilter==36) packet.remaining=ACT5Q2_GetBarbsToBeRescued(quest);
+  if(pQuestInfo->nQuestFilter==1) packet.remaining=ACT1Q1_GetMonstersToBeKilled(pQuestInfo);
+  else if(pQuestInfo->nQuestFilter==36) packet.remaining=ACT5Q2_GetBarbsToBeRescued(pQuestInfo);
   sub_0053D710_SendQuestStatus(client,&packet);
  }
 }

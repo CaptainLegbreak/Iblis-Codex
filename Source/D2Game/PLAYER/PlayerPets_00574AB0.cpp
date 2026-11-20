@@ -83,9 +83,9 @@ static __forceinline int GetUnitGUID(D2UnitStrc* pUnit)
 // 0x00574AB0
 int __fastcall sub_00574AB0_RevivePet(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pPet)
 {
-    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
-    D2_ASSERT(pPlayerData, 0x402);
-    D2PlayerPetStrc* pPlayerPets = pPlayerData->pPlayerPets;
+    D2PlayerDataStrc* ptInfo = UNITS_GetPlayerData(pPlayer);
+    D2_ASSERT(ptInfo, 0x402);
+    D2PlayerPetStrc* pPlayerPets = ptInfo->pPlayerPets;
     if (!pPlayerPets)
         return 0;
     const int nPetTypes = sgptDataTables->nPetTypeTxtRecordCount;

@@ -503,21 +503,21 @@ D2UnitStrc* __stdcall sub_00534650_GetServerUnitFromFirstGame(int nUnitType, int
 // 0x00534680
 D2DrlgActStrc* __stdcall sub_00534680_GetActFromFirstGame(int nAct)
 {
-    D2GameStrc* pGame = sub_0052F6E0_LockFirstGame();
-    D2_ASSERT(pGame, 105);
+    D2GameStrc* ptGame = sub_0052F6E0_LockFirstGame();
+    D2_ASSERT(ptGame, 105);
 
-    D2DrlgActStrc* pAct = pGame->pAct[nAct];
+    D2DrlgActStrc* pAct = ptGame->pAct[nAct];
     sub_0052DF40_UnlockFirstGame();
     return pAct;
 }
 
 // 0x00534730
-void* __stdcall sub_00534730_ActLookupInFirstGame(unsigned char nAct, int a2, int a3)
+void* __stdcall sub_00534730_ActLookupInFirstGame(unsigned char bAct, int a2, int a3)
 {
     D2GameStrc* pGame = sub_0052F6E0_LockFirstGame();
-    D2_ASSERT(nAct < 5, 141);
+    D2_ASSERT(bAct < 5, 141);
 
-    void* pResult = sub_00619DA0_ActLookup(pGame->pAct[nAct], a2, a3);
+    void* pResult = sub_00619DA0_ActLookup(pGame->pAct[bAct], a2, a3);
     sub_0052DF40_UnlockFirstGame();
     return pResult;
 }
@@ -577,24 +577,24 @@ void __fastcall PLAYER_CreateStartItemsFromCharStatsTxt(D2UnitStrc* pPlayer, D2G
 }
 
 // 0x00534F80
-void __fastcall PLAYER_SynchronizeItemsToClient(D2UnitStrc* pUnit, D2ClientStrc* pClient)
+void __fastcall PLAYER_SynchronizeItemsToClient(D2UnitStrc* hInventory, D2ClientStrc* pClient)
 {
-    D2_ASSERT(pUnit->pInventory, 391);
+    D2_ASSERT(hInventory->pInventory, 391);
 
-    for (D2UnitStrc* pItem = INVENTORY_GetFirstItem(pUnit->pInventory); pItem; pItem = INVENTORY_GetNextItem(pItem))
+    for (D2UnitStrc* pItem = INVENTORY_GetFirstItem(hInventory->pInventory); pItem; pItem = INVENTORY_GetNextItem(pItem))
     {
         D2UnitStrc* pCheckedItem = INVENTORY_UnitIsItem(pItem);
         if (INVENTORY_GetItemNodePage(pItem) == 3)
         {
-            D2GAME_SendP0x9D_ItemAction_Equip_6FC3EA50(pClient, pUnit, pCheckedItem, 0);
+            D2GAME_SendP0x9D_ItemAction_Equip_6FC3EA50(pClient, hInventory, pCheckedItem, 0);
         }
-        else if (pUnit == CLIENTS_GetPlayerFromClient(pClient, 0) && INVENTORY_GetItemNodePage(pItem) == 1)
+        else if (hInventory == CLIENTS_GetPlayerFromClient(pClient, 0) && INVENTORY_GetItemNodePage(pItem) == 1)
         {
-            D2GAME_SendP0x9C_ItemAction_PutInContainer_6FC3E980(pClient, pUnit, pCheckedItem, 0);
+            D2GAME_SendP0x9C_ItemAction_PutInContainer_6FC3E980(pClient, hInventory, pCheckedItem, 0);
         }
-        else if (pUnit == CLIENTS_GetPlayerFromClient(pClient, 0) && INVENTORY_GetItemNodePage(pItem) == 2)
+        else if (hInventory == CLIENTS_GetPlayerFromClient(pClient, 0) && INVENTORY_GetItemNodePage(pItem) == 2)
         {
-            D2GAME_SendP0x9C_ItemAction_PutInBelt_6FC3EB90(pClient, pUnit, pCheckedItem, 0);
+            D2GAME_SendP0x9C_ItemAction_PutInBelt_6FC3EB90(pClient, hInventory, pCheckedItem, 0);
         }
     }
 }
@@ -637,11 +637,11 @@ void __fastcall sub_6FC7BEC0(D2GameStrc* pGame, D2UnitStrc* pUnit)
 }
 
 // 0x005352C0
-void __fastcall sub_6FC7BFC0(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nPlayerGUID, D2CoordStrc* pCoord)
+void __fastcall sub_6FC7BFC0(D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, int nPlayerGUID, D2CoordStrc* pCoord)
 {
-    D2_ASSERT(pRoom, 543);
+    D2_ASSERT(hRoom, 543);
 
-    COLLISION_GetFreeCoordinatesEx(pRoom, pCoord, 2, COLLIDE_MASK_CORPSE, 4);
+    COLLISION_GetFreeCoordinatesEx(hRoom, pCoord, 2, COLLIDE_MASK_CORPSE, 4);
 
     D2UnitStrc* pPlayer = SUNIT_GetServerUnit(pGame, UNIT_PLAYER, nPlayerGUID);
     if (!pPlayer)
@@ -649,7 +649,7 @@ void __fastcall sub_6FC7BFC0(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nPl
         return;
     }
 
-    D2Common_10231(pPlayer->pDynamicPath, pPlayer, pRoom, pCoord->nX, pCoord->nY);
+    D2Common_10231(pPlayer->pDynamicPath, pPlayer, hRoom, pCoord->nX, pCoord->nY);
     pPlayer->dwFlags |= UNITFLAG_TARGETABLE;
 
     UNITS_ChangeAnimMode(pPlayer, PLRMODE_DEAD);
@@ -789,41 +789,41 @@ int __fastcall CLIENTS_AttachSaveFile(int nClientId, const void* pSaveData, int 
 
     EnterCriticalSection(&gClientListLock_008846A8);
 
-    D2ClientStrc* pClient = gpClientList_008842A8[nClientId & 0xFF];
-    while (pClient)
+    D2ClientStrc* ptClient = gpClientList_008842A8[nClientId & 0xFF];
+    while (ptClient)
     {
-        if (pClient->dwClientId == nClientId)
+        if (ptClient->dwClientId == nClientId)
         {
             break;
         }
 
-        pClient = pClient->pNext;
+        ptClient = ptClient->pNext;
     }
 
-    if (pClient)
+    if (ptClient)
     {
         void* pDestination = 0;
-        if (!pClient->nSaveHeaderSize)
+        if (!ptClient->nSaveHeaderSize)
         {
-            pClient->pSaveHeader = (D2SaveHeaderStrc*)sub_0040B430(pClient->pGame->pMemoryPool, nTotalSize, ".\\GAME\\Clients.cpp", 2858, 0);
-            pDestination = pClient->pSaveHeader;
+            ptClient->pSaveHeader = (D2SaveHeaderStrc*)sub_0040B430(ptClient->pGame->pMemoryPool, nTotalSize, ".\\GAME\\Clients.cpp", 2858, 0);
+            pDestination = ptClient->pSaveHeader;
         }
         else
         {
-            pDestination = (char*)pClient->pSaveHeader + pClient->nSaveHeaderSize;
+            pDestination = (char*)ptClient->pSaveHeader + ptClient->nSaveHeaderSize;
         }
 
-        D2_ASSERT(pClient->nSaveHeaderSize + nSize <= nTotalSize, 2863);
+        D2_ASSERT(ptClient->nSaveHeaderSize + nSize <= nTotalSize, 2863);
 
         memcpy(pDestination, pSaveData, nSize);
 
-        pClient->nSaveHeaderSize += nSize;
-        pClient->bUnlockCharacter = bUnlockCharacter;
+        ptClient->nSaveHeaderSize += nSize;
+        ptClient->bUnlockCharacter = bUnlockCharacter;
 
-        if (pClient->nSaveHeaderSize == nTotalSize)
+        if (ptClient->nSaveHeaderSize == nTotalSize)
         {
-            pClient->dwFlags |= CLIENTFLAGEX_HAS_SAVE_CHECKSUM;
-            pClient->nSaveChecksum = D2GAME_SAVE_CalculateChecksum_6FC8A140(pClient->pSaveHeader, pClient->nSaveHeaderSize);
+            ptClient->dwFlags |= CLIENTFLAGEX_HAS_SAVE_CHECKSUM;
+            ptClient->nSaveChecksum = D2GAME_SAVE_CalculateChecksum_6FC8A140(ptClient->pSaveHeader, ptClient->nSaveHeaderSize);
             nResult = 1;
         }
     }
@@ -833,19 +833,19 @@ int __fastcall CLIENTS_AttachSaveFile(int nClientId, const void* pSaveData, int 
 }
 
 // 0x0053A770
-void __fastcall LEVEL_RemoveUnitsExceptClientPlayer(D2ActiveRoomStrc* pRoom, D2ClientStrc* pClient)
+void __fastcall LEVEL_RemoveUnitsExceptClientPlayer(D2ActiveRoomStrc* hRoom, D2ClientStrc* pClient)
 {
-    D2_ASSERT(pRoom, 132);
+    D2_ASSERT(hRoom, 132);
 
     D2ActiveRoomStrc** ppRoomList;
     unsigned int nNumRooms;
-    DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRoomList, &nNumRooms);
+    DUNGEON_GetAdjacentRoomsListFromRoom(hRoom, &ppRoomList, &nNumRooms);
 
-    D2UnitStrc* pUnit = CLIENTS_GetPlayerFromClient(pClient, 0);
-    D2_ASSERT(pUnit, 136);
+    D2UnitStrc* hUnit = CLIENTS_GetPlayerFromClient(pClient, 0);
+    D2_ASSERT(hUnit, 136);
 
-    const int nUnitType = pUnit->dwUnitType;
-    const int nUnitGUID = pUnit->dwUnitId;
+    const int nUnitType = hUnit->dwUnitType;
+    const int nUnitGUID = hUnit->dwUnitId;
     for (unsigned int i = 0; i < nNumRooms; ++i)
     {
         for (D2DrlgDeleteStrc* pDrlgDelete = DUNGEON_GetDrlgDeleteFromRoom(ppRoomList[i]); pDrlgDelete; pDrlgDelete = pDrlgDelete->pNext)

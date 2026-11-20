@@ -108,43 +108,43 @@ void __stdcall UNITS_GetRunAndWalkSpeedForPlayer(int nUnused, int nCharId, int* 
 }
 
 // 0x00620F00
-void __stdcall UNITS_SetAnimData(D2UnitStrc* pUnit, int nUnitType, int nClassId, int nMode)
+void __stdcall UNITS_SetAnimData(D2UnitStrc* ptUnit, int nUnitType, int nClassId, int nMode)
 {
-    D2_ASSERT(pUnit, 2358);
-    pUnit->pAnimData = DATATBLS_GetAnimDataRecord(pUnit, nClassId, nMode, nUnitType, pUnit->pInventory);
+    D2_ASSERT(ptUnit, 2358);
+    ptUnit->pAnimData = DATATBLS_GetAnimDataRecord(ptUnit, nClassId, nMode, nUnitType, ptUnit->pInventory);
 }
 
 // 0x00620F50
-int __stdcall UNITS_IsCurrentRoomInvalid(D2UnitStrc* pUnit)
+int __stdcall UNITS_IsCurrentRoomInvalid(D2UnitStrc* ptUnit)
 {
-    D2_ASSERT(pUnit, 2540);
+    D2_ASSERT(ptUnit, 2540);
 
-    switch (pUnit->dwUnitType)
+    switch (ptUnit->dwUnitType)
     {
     case UNIT_OBJECT:
     case UNIT_ITEM:
-        return pUnit->pStaticPath->bRoomNeedsUpdate;
+        return ptUnit->pStaticPath->bRoomNeedsUpdate;
 
     default:
-        return PATH_IsCurrentRoomInvalid(pUnit->pDynamicPath);
+        return PATH_IsCurrentRoomInvalid(ptUnit->pDynamicPath);
     }
 }
 
 // 0x00620FA0
-void __stdcall UNITS_SetCurrentRoomInvalid(D2UnitStrc* pUnit, int a2)
+void __stdcall UNITS_SetCurrentRoomInvalid(D2UnitStrc* ptUnit, int a2)
 {
-    D2_ASSERT(pUnit, 2558);
+    D2_ASSERT(ptUnit, 2558);
 
-    switch (pUnit->dwUnitType)
+    switch (ptUnit->dwUnitType)
     {
     case UNIT_OBJECT:
     case UNIT_ITEM:
     case UNIT_TILE:
-        pUnit->pStaticPath->bRoomNeedsUpdate = a2 != 0;
+        ptUnit->pStaticPath->bRoomNeedsUpdate = a2 != 0;
         return;
 
     default:
-        PATH_SetCurrentRoomInvalid(pUnit->pDynamicPath, a2);
+        PATH_SetCurrentRoomInvalid(ptUnit->pDynamicPath, a2);
         return;
     }
 }
@@ -177,37 +177,37 @@ void __stdcall UNITS_RefreshInventory(D2UnitStrc* pUnit, int bSetFlag)
 }
 
 // 0x00621150
-D2GfxLightStrc* __stdcall UNITS_ResetLightMap(D2UnitStrc* pUnit)
+D2GfxLightStrc* __stdcall UNITS_ResetLightMap(D2UnitStrc* ptUnit)
 {
-    D2_ASSERT(pUnit, 2669);
+    D2_ASSERT(ptUnit, 2669);
 
-    D2GfxLightStrc* pLight = pUnit->pLight;
-    pUnit->pLight = 0;
+    D2GfxLightStrc* pLight = ptUnit->pLight;
+    ptUnit->pLight = 0;
 
     return pLight;
 }
 
 // 0x006211C0
-void __stdcall UNITS_SetAnimOrSeqMode(D2UnitStrc* pUnit, int nAnimMode)
+void __stdcall UNITS_SetAnimOrSeqMode(D2UnitStrc* ptUnit, int nAnimMode)
 {
-    D2_ASSERT(pUnit, 2706);
+    D2_ASSERT(ptUnit, 2706);
 
-    if (UNITS_GetAnimSeq(pUnit))
+    if (UNITS_GetAnimSeq(ptUnit))
     {
-        pUnit->dwSeqMode = nAnimMode;
+        ptUnit->dwSeqMode = nAnimMode;
     }
     else
     {
-        pUnit->dwAnimMode = nAnimMode;
+        ptUnit->dwAnimMode = nAnimMode;
     }
 }
 
 // 0x006212C0
-void __stdcall UNITS_SetAnimationFrame(D2UnitStrc* pUnit, int nFrame)
+void __stdcall UNITS_SetAnimationFrame(D2UnitStrc* ptUnit, int nFrame)
 {
-    D2_ASSERT(pUnit, 2766);
+    D2_ASSERT(ptUnit, 2766);
 
-    pUnit->dwSeqFrame = (nFrame << 8) + (pUnit->dwSeqFrame & 0xFF);
+    ptUnit->dwSeqFrame = (nFrame << 8) + (ptUnit->dwSeqFrame & 0xFF);
 }
 
 // 0x00621310
@@ -222,41 +222,41 @@ void __stdcall UNITS_UpdateFrame(D2UnitStrc* pUnit)
 }
 
 // 0x00621810
-void __stdcall UNITS_GetShiftedFrameMetrics(D2UnitStrc* pUnit, int* pFrameNo, int* pFrameCount)
+void __stdcall UNITS_GetShiftedFrameMetrics(D2UnitStrc* ptUnit, int* pFrameNo, int* pFrameCount)
 {
-    D2_ASSERT(pUnit, 3471);
+    D2_ASSERT(ptUnit, 3471);
 
-    if (pUnit->dwUnitType == UNIT_OBJECT)
+    if (ptUnit->dwUnitType == UNIT_OBJECT)
     {
-        *pFrameNo = pUnit->nSeqCurrentFramePrecise >> 8;
-        *pFrameCount = pUnit->pObjectData->pObjectTxt->dwFrameCnt[pUnit->dwAnimMode];
+        *pFrameNo = ptUnit->nSeqCurrentFramePrecise >> 8;
+        *pFrameCount = ptUnit->pObjectData->pObjectTxt->dwFrameCnt[ptUnit->dwAnimMode];
     }
     else
     {
-        *pFrameNo = pUnit->nSeqCurrentFramePrecise >> 8;
-        *pFrameCount = pUnit->dwFrameCountPrecise >> 8;
+        *pFrameNo = ptUnit->nSeqCurrentFramePrecise >> 8;
+        *pFrameCount = ptUnit->dwFrameCountPrecise >> 8;
     }
 }
 
 // 0x00621A70
-int __stdcall UnitIsDoor(D2UnitStrc* pUnit)
+int __stdcall UnitIsDoor(D2UnitStrc* ptUnit)
 {
-    D2_ASSERT(pUnit, 3600);
+    D2_ASSERT(ptUnit, 3600);
 
-    if (pUnit->dwUnitType == UNIT_OBJECT)
+    if (ptUnit->dwUnitType == UNIT_OBJECT)
     {
-        return pUnit->pObjectData->pObjectTxt->nIsDoor;
+        return ptUnit->pObjectData->pObjectTxt->nIsDoor;
     }
 
     return FALSE;
 }
 
 // 0x00621AC0
-bool __fastcall UNITS_CheckIfObjectOrientationIs1(D2UnitStrc* pUnit)
+bool __fastcall UNITS_CheckIfObjectOrientationIs1(D2UnitStrc* ptUnit)
 {
-    D2_ASSERT(pUnit->dwUnitType == UNIT_OBJECT, 3614);
+    D2_ASSERT(ptUnit->dwUnitType == UNIT_OBJECT, 3614);
 
-    return pUnit->pObjectData->pObjectTxt->nOrientation == 1;
+    return ptUnit->pObjectData->pObjectTxt->nOrientation == 1;
 }
 
 // 0x00621B30
@@ -312,21 +312,21 @@ void __stdcall UNITS_UpdateDirectionAndSpeed(D2UnitStrc* pUnit, int nX, int nY)
 }
 
 // 0x00621D50
-void __stdcall UNITS_StoreLastAttacker(D2UnitStrc* pUnit, D2UnitStrc* pKiller)
+void __stdcall UNITS_StoreLastAttacker(D2UnitStrc* ptUnit, D2UnitStrc* pKiller)
 {
-    D2_ASSERT(pUnit, 3815);
+    D2_ASSERT(ptUnit, 3815);
 
     if (pKiller)
     {
-        pUnit->dwKillerType = pKiller->dwUnitType;
-        pUnit->dwKillerGUID = pKiller->dwUnitId;
-        pUnit->dwFlagEx |= UNITFLAGEX_STORELASTATTACKER;
+        ptUnit->dwKillerType = pKiller->dwUnitType;
+        ptUnit->dwKillerGUID = pKiller->dwUnitId;
+        ptUnit->dwFlagEx |= UNITFLAGEX_STORELASTATTACKER;
     }
     else
     {
-        pUnit->dwKillerType = 0;
-        pUnit->dwKillerGUID = 0;
-        pUnit->dwFlagEx &= ~UNITFLAGEX_STORELASTATTACKER;
+        ptUnit->dwKillerType = 0;
+        ptUnit->dwKillerGUID = 0;
+        ptUnit->dwFlagEx &= ~UNITFLAGEX_STORELASTATTACKER;
     }
 }
 

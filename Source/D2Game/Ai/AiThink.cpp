@@ -154,16 +154,16 @@ int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 void __stdcall DUNGEON_ToggleHasPortalFlag(D2ActiveRoomStrc* pRoom, int bSet); // 0x0061AED0
 
 // 0x005B0E00
-void __fastcall AITHINK_ExecuteAiFn(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int nAiSpecialState)
+void __fastcall AITHINK_ExecuteAiFn(D2GameStrc* pGame, D2UnitStrc* hUnit, D2AiControlStrc* pAiControl, int nAiSpecialState)
 {
-    ASSERT(!STATES_CheckState(pUnit, 54), 422);
+    ASSERT(!STATES_CheckState(hUnit, 54), 422);
 
-    if (!pGame || !pUnit || !pAiControl || nAiSpecialState >= 18 || (!pUnit ? 6 : pUnit->dwUnitType) != 1)
+    if (!pGame || !hUnit || !pAiControl || nAiSpecialState >= 18 || (!hUnit ? 6 : hUnit->dwUnitType) != 1)
     {
         return;
     }
 
-    const int nClassId = pUnit->dwClassId;
+    const int nClassId = hUnit->dwClassId;
     if (nClassId >= sgptDataTables->nMonStatsTxtRecordCount)
     {
         nAiSpecialState = 1;
@@ -171,7 +171,7 @@ void __fastcall AITHINK_ExecuteAiFn(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiCo
 
     if (pAiControl->function)
     {
-        D2AiTableStrc* pAiTableRecord = sub_005B15D0_GetAiTable(pUnit, pAiControl->state);
+        D2AiTableStrc* pAiTableRecord = sub_005B15D0_GetAiTable(hUnit, pAiControl->state);
         if (pAiControl->function == pAiTableRecord->function && pAiTableRecord->alternate)
         {
             pAiControl->state = nAiSpecialState;
@@ -182,9 +182,9 @@ void __fastcall AITHINK_ExecuteAiFn(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiCo
 
     memset(&pAiControl->unk14, 0, 3 * sizeof(int));
 
-    AIGENERAL_FreeAllAiCommands(pGame, pUnit);
+    AIGENERAL_FreeAllAiCommands(pGame, hUnit);
 
-    D2AiTableStrc* __restrict pAiTableRecord = sub_005B15D0_GetAiTable(pUnit, nAiSpecialState);
+    D2AiTableStrc* __restrict pAiTableRecord = sub_005B15D0_GetAiTable(hUnit, nAiSpecialState);
     if (!pAiTableRecord)
     {
         return;
@@ -201,7 +201,7 @@ void __fastcall AITHINK_ExecuteAiFn(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiCo
             return;
         }
 
-        pAiTableRecord->init(pGame, pUnit, &aiTickParam);
+        pAiTableRecord->init(pGame, hUnit, &aiTickParam);
     }
 
     AiFn pAiParamFn = pAiTableRecord->function;

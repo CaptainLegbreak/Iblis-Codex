@@ -42,20 +42,20 @@ void __fastcall DATATBLS_LoadPlrType_ModeTxt(void* hArchive)
     apBin[0] = DATATBLS_CompileTxt(hArchive, "plrmode", tbl, &anCount[0], 0x34);
 
     int nTotal = anCount[1] + anCount[0];
-    char* pData = (char*)FOG_AllocPool(0, nTotal * 0x34, ".\\DATATBLS\\TokTbls.cpp", 0x37, 0);
-    if (!pData)
+    char* ptTokenStats = (char*)FOG_AllocPool(0, nTotal * 0x34, ".\\DATATBLS\\TokTbls.cpp", 0x37, 0);
+    if (!ptTokenStats)
     {
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x38);
         exit(-1);
     }
-    memcpy(pData, apBin[1], anCount[1] * 0x34);
-    char* pMode = pData + anCount[1] * 0x34;
+    memcpy(ptTokenStats, apBin[1], anCount[1] * 0x34);
+    char* pMode = ptTokenStats + anCount[1] * 0x34;
     memcpy(pMode, apBin[0], anCount[0] * 0x34);
     DATATBLS_UnloadBin(apBin[1]);
     DATATBLS_UnloadBin(apBin[0]);
 
     gPlrModeDataTables.pPlrModeData = pMode;
-    gPlrModeDataTables.pData = pData;
-    gPlrModeDataTables.pData2 = pData;
+    gPlrModeDataTables.pData = ptTokenStats;
+    gPlrModeDataTables.pData2 = ptTokenStats;
     gPlrModeDataTables.nCount = nTotal;
 }

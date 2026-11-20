@@ -57,10 +57,10 @@ int __stdcall DATATBLS_GetSeqFrameCount(D2UnitStrc* pUnit); // 0x006633F0
 int __stdcall UNITS_GetFrameBonus(D2UnitStrc* pUnit); // 0x00623B10
 
 // 0x00620AE0
-void __stdcall UNITS_InitializeStaticPath(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, D2CoordStrc tCoord)
+void __stdcall UNITS_InitializeStaticPath(D2UnitStrc* ptUnit, D2ActiveRoomStrc* pRoom, D2CoordStrc tCoord)
 {
-    D2_ASSERT(pUnit, 0x866);
-    D2StaticPathStrc* pPath = pUnit->pStaticPath;
+    D2_ASSERT(ptUnit, 0x866);
+    D2StaticPathStrc* pPath = ptUnit->pStaticPath;
     pPath->nXPos = tCoord.nX;
     pPath->nYPos = tCoord.nY;
     pPath->nDirection = 0;
@@ -85,9 +85,9 @@ void __stdcall D2COMMON_10375_UNITS_SetFrameNonRate(D2UnitStrc* pUnit, int nRate
 }
 
 // 0x00621920
-int __stdcall sub_00621920_GetEventFrameInfo(D2UnitStrc* pUnit, int nFrame)
+int __stdcall sub_00621920_GetEventFrameInfo(D2UnitStrc* ptUnit, int nFrame)
 {
-    if (!pUnit)
+    if (!ptUnit)
     {
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0xDCC);
         exit(-1);
@@ -96,24 +96,24 @@ int __stdcall sub_00621920_GetEventFrameInfo(D2UnitStrc* pUnit, int nFrame)
         return 0;
 
     int bSequence = 0;
-    switch (pUnit->dwUnitType)
+    switch (ptUnit->dwUnitType)
     {
     case 0:
-        if (pUnit->dwAnimMode == 18)
+        if (ptUnit->dwAnimMode == 18)
             bSequence = 1;
     case 1:
-        if (pUnit->dwAnimMode == 14)
+        if (ptUnit->dwAnimMode == 14)
             break;
         if (bSequence)
             break;
     default:
-        return pUnit->pAnimData->nFrameFlags[nFrame];
+        return ptUnit->pAnimData->nFrameFlags[nFrame];
     }
     int nMode;
     int nSequenceFrame;
     int nDirection;
     int nEvent;
-    D2AnimSeqTxt* pSequence = DATATBLS_GetMonSeqTxtRecordFromUnit(pUnit);
+    D2AnimSeqTxt* pSequence = DATATBLS_GetMonSeqTxtRecordFromUnit(ptUnit);
     DATATBLS_ComputeSequenceAnimation(pSequence, nFrame << 8, nFrame << 8, &nMode, &nSequenceFrame, &nDirection, &nEvent);
     return nEvent;
 }

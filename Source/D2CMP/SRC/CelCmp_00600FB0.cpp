@@ -138,44 +138,44 @@ inline void* __cdecl operator new(unsigned int nSize, void* pWhere) throw();
 // 0x00600FB0
 void __stdcall CelFileConvertOldToNew(unsigned* cell,unsigned** output,unsigned* outputSize)
 {
- unsigned* cellCopy = cell;
- D2_ASSERT(cellCopy[1]&1,0x2cb);
- D2_ASSERT(cellCopy[0]==5,0x2cc);
- cellCopy[1]|=2;
- for(unsigned i=0;i<cellCopy[4]*(cellCopy[5]);++i) {
-  unsigned* frame=(unsigned*)(cellCopy[13+i]+(unsigned)cellCopy);
-  cellCopy[13+i]=(unsigned)frame;
-  if(frame[7])frame[8]+=(unsigned)cellCopy;else frame[8]=0;
+ unsigned* pOldFile = cell;
+ D2_ASSERT(pOldFile[1]&1,0x2cb);
+ D2_ASSERT(pOldFile[0]==5,0x2cc);
+ pOldFile[1]|=2;
+ for(unsigned i=0;i<pOldFile[4]*(pOldFile[5]);++i) {
+  unsigned* frame=(unsigned*)(pOldFile[13+i]+(unsigned)pOldFile);
+  pOldFile[13+i]=(unsigned)frame;
+  if(frame[7])frame[8]+=(unsigned)pOldFile;else frame[8]=0;
  }
- unsigned count=cellCopy[4]*cellCopy[5];
+ unsigned count=pOldFile[4]*pOldFile[5];
  unsigned header=24+4*count;
  unsigned size=header;
  for(unsigned i=0;i<count;++i) {
-  unsigned* frame=(unsigned*)cellCopy[13+i];
+  unsigned* frame=(unsigned*)pOldFile[13+i];
   size+=frame[9]+frame[7]+35;
  }
  unsigned* result=(unsigned*)FOG_Alloc(size,gszCelCmp,0x2e3,0);
  result[0]=6;
- result[1]=((unsigned char)cellCopy[1]&4)|1;
+ result[1]=((unsigned char)pOldFile[1]&4)|1;
  result[2]=0;result[3]=0;
- result[4]=cellCopy[4];result[5]=cellCopy[5];
+ result[4]=pOldFile[4];result[5]=pOldFile[5];
  unsigned char* cursor=(unsigned char*)result+header;
  for(unsigned i=0;i<count;++i) {
   result[6+i]=(unsigned)(cursor-(unsigned char*)result);
   unsigned* out=(unsigned*)cursor;
-  out[0]=((unsigned*)cellCopy[13+i])[1];
-  out[1]=((unsigned*)cellCopy[13+i])[3];
-  out[2]=((unsigned*)cellCopy[13+i])[4];
-  out[3]=((unsigned*)cellCopy[13+i])[5];
-  out[4]=((unsigned*)cellCopy[13+i])[6];
-  out[5]=((unsigned*)cellCopy[13+i])[7];
-  out[7]=((unsigned*)cellCopy[13+i])[9];
-  memcpy(out+8,(unsigned*)cellCopy[13+i]+10,out[7]);
+  out[0]=((unsigned*)pOldFile[13+i])[1];
+  out[1]=((unsigned*)pOldFile[13+i])[3];
+  out[2]=((unsigned*)pOldFile[13+i])[4];
+  out[3]=((unsigned*)pOldFile[13+i])[5];
+  out[4]=((unsigned*)pOldFile[13+i])[6];
+  out[5]=((unsigned*)pOldFile[13+i])[7];
+  out[7]=((unsigned*)pOldFile[13+i])[9];
+  memcpy(out+8,(unsigned*)pOldFile[13+i]+10,out[7]);
   cursor+=out[7]+35;
-  if(((unsigned*)cellCopy[13+i])[8]) {
-   memcpy(cursor,(unsigned*)cellCopy[13+i]+8,((unsigned*)cellCopy[13+i])[7]);
+  if(((unsigned*)pOldFile[13+i])[8]) {
+   memcpy(cursor,(unsigned*)pOldFile[13+i]+8,((unsigned*)pOldFile[13+i])[7]);
    out[6]=(unsigned)(cursor-(unsigned char*)result);
-   cursor+=((unsigned*)cellCopy[13+i])[7];
+   cursor+=((unsigned*)pOldFile[13+i])[7];
   }else out[6]=0;
  }
  *output=result;*outputSize=size;

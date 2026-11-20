@@ -1058,56 +1058,56 @@ void __stdcall SKILLS_FreeSkillList(D2UnitStrc* pUnit)
 }
 
 // 0x00643AD0
-int __stdcall SKILLS_GetOwnerGUIDFromSkill(D2SkillStrc* pSkill)
+int __stdcall SKILLS_GetOwnerGUIDFromSkill(D2SkillStrc* hSkill)
 {
-    D2_ASSERT(pSkill, 1591);
+    D2_ASSERT(hSkill, 1591);
 
-    return pSkill->nOwnerGUID;
+    return hSkill->nOwnerGUID;
 }
 
 // 0x00643B00
-int __stdcall SKILLS_GetSkillInfo(D2SkillStrc* pSkill, int* pOwnerGUID, int* pSkillId, int* pSkillLevel, int* pCharges)
+int __stdcall SKILLS_GetSkillInfo(D2SkillStrc* hSkill, int* pOwnerGUID, int* pSkillId, int* pSkillLevel, int* pCharges)
 {
-    D2_ASSERT(pSkill, 0x641);
+    D2_ASSERT(hSkill, 0x641);
 
-    if (pSkill->nOwnerGUID == -1)
+    if (hSkill->nOwnerGUID == -1)
     {
         return 0;
     }
 
     if (pOwnerGUID)
     {
-        *pOwnerGUID = pSkill->nOwnerGUID;
+        *pOwnerGUID = hSkill->nOwnerGUID;
     }
     if (pSkillId)
     {
-        *pSkillId = pSkill->pSkillsTxt->nSkillId;
+        *pSkillId = hSkill->pSkillsTxt->nSkillId;
     }
     if (pSkillLevel)
     {
-        *pSkillLevel = pSkill->nSkillLevel;
+        *pSkillLevel = hSkill->nSkillLevel;
     }
     if (pCharges)
     {
-        *pCharges = pSkill->nCharges;
+        *pCharges = hSkill->nCharges;
     }
 
     return 1;
 }
 
 // 0x00643B70
-int __stdcall SKILLS_SetCharges(D2SkillStrc* pSkill, int nCharges)
+int __stdcall SKILLS_SetCharges(D2SkillStrc* hSkill, int nCharges)
 {
-    D2_ASSERT(pSkill, 1623);
+    D2_ASSERT(hSkill, 1623);
 
-    if (pSkill->nOwnerGUID == D2UnitInvalidGUID)
+    if (hSkill->nOwnerGUID == D2UnitInvalidGUID)
     {
         return 0;
     }
     else
     {
-        pSkill->bExcludeFromHighestLevelLookup = 1;
-        pSkill->nCharges = nCharges;
+        hSkill->bExcludeFromHighestLevelLookup = 1;
+        hSkill->nCharges = nCharges;
         return 1;
     }
 }
@@ -1115,8 +1115,8 @@ int __stdcall SKILLS_SetCharges(D2SkillStrc* pSkill, int nCharges)
 // 0x00643BC0
 void __stdcall SKILLS_SetLeftActiveSkill(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID)
 {
-    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
-    D2_ASSERT(pSkillsTxtRecord, 0x668);
+    D2SkillsTxt* ptTable = DATATBLS_GetSkillsTxtRecord(nSkillId);
+    D2_ASSERT(ptTable, 0x668);
 
     D2SkillStrc* pSkill = UNITS_GetStartSkill(pUnit);
     int bSkillFound = 0;
@@ -1129,7 +1129,7 @@ void __stdcall SKILLS_SetLeftActiveSkill(D2UnitStrc* pUnit, int nSkillId, int nO
                 break;
             }
 
-            if (pSkill->pSkillsTxt == pSkillsTxtRecord && pSkill->nOwnerGUID == nOwnerGUID)
+            if (pSkill->pSkillsTxt == ptTable && pSkill->nOwnerGUID == nOwnerGUID)
             {
                 bSkillFound = 1;
             }
@@ -1149,8 +1149,8 @@ void __stdcall SKILLS_SetLeftActiveSkill(D2UnitStrc* pUnit, int nSkillId, int nO
 // 0x00643C50
 void __stdcall SKILLS_SetRightActiveSkill(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID)
 {
-    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
-    D2_ASSERT(pSkillsTxtRecord, 0x67F);
+    D2SkillsTxt* ptTable = DATATBLS_GetSkillsTxtRecord(nSkillId);
+    D2_ASSERT(ptTable, 0x67F);
 
     D2SkillStrc* pSkill = UNITS_GetStartSkill(pUnit);
     int bSkillFound = 0;
@@ -1163,7 +1163,7 @@ void __stdcall SKILLS_SetRightActiveSkill(D2UnitStrc* pUnit, int nSkillId, int n
                 break;
             }
 
-            if (pSkill->pSkillsTxt == pSkillsTxtRecord && pSkill->nOwnerGUID == nOwnerGUID)
+            if (pSkill->pSkillsTxt == ptTable && pSkill->nOwnerGUID == nOwnerGUID)
             {
                 bSkillFound = 1;
             }
@@ -1357,116 +1357,116 @@ extern "C" __declspec(dllexport) unsigned int __stdcall sub_00644360(Obj0063D650
 }
 
 // 0x00644380
-int __stdcall D2Common_10969(D2SkillStrc* pSkill)
+int __stdcall D2Common_10969(D2SkillStrc* ptSkill)
 {
-    SKILLS_ASSERT(pSkill, 2595);
+    SKILLS_ASSERT(ptSkill, 2595);
 
-    return pSkill->unk0x10[0];
+    return ptSkill->unk0x10[0];
 }
 
 // 0x006443B0
-void __stdcall D2Common_10970(D2SkillStrc* pSkill, int nValue)
+void __stdcall D2Common_10970(D2SkillStrc* ptSkill, int nValue)
 {
-    SKILLS_ASSERT(pSkill, 2604);
+    SKILLS_ASSERT(ptSkill, 2604);
 
-    pSkill->unk0x10[0] = nValue;
+    ptSkill->unk0x10[0] = nValue;
 }
 
 // 0x006443F0
-int __stdcall D2Common_10971(D2SkillStrc* pSkill)
+int __stdcall D2Common_10971(D2SkillStrc* ptSkill)
 {
-    SKILLS_ASSERT(pSkill, 2613);
+    SKILLS_ASSERT(ptSkill, 2613);
 
-    return pSkill->unk0x10[1];
+    return ptSkill->unk0x10[1];
 }
 
 // 0x00644420
-void __stdcall D2Common_10972(D2SkillStrc* pSkill, int nValue)
+void __stdcall D2Common_10972(D2SkillStrc* ptSkill, int nValue)
 {
-    SKILLS_ASSERT(pSkill, 2622);
+    SKILLS_ASSERT(ptSkill, 2622);
 
-    pSkill->unk0x10[1] = nValue;
+    ptSkill->unk0x10[1] = nValue;
 }
 
 // 0x00644460
-void __stdcall D2Common_10973(D2SkillStrc* pSkill)
+void __stdcall D2Common_10973(D2SkillStrc* ptSkill)
 {
-    SKILLS_ASSERT(pSkill, 2631);
+    SKILLS_ASSERT(ptSkill, 2631);
 
-    pSkill->unk0x10[0] = 0;
-    pSkill->unk0x10[1] = 0;
+    ptSkill->unk0x10[0] = 0;
+    ptSkill->unk0x10[1] = 0;
 }
 
 // 0x006444A0
-int __stdcall SKILLS_GetParam1(D2SkillStrc* pSkill)
+int __stdcall SKILLS_GetParam1(D2SkillStrc* ptSkill)
 {
-    SKILLS_ASSERT(pSkill, 2642);
+    SKILLS_ASSERT(ptSkill, 2642);
 
-    return pSkill->nPar1;
+    return ptSkill->nPar1;
 }
 
 // 0x006444D0
-int __stdcall SKILLS_GetParam2(D2SkillStrc* pSkill)
+int __stdcall SKILLS_GetParam2(D2SkillStrc* ptSkill)
 {
-    SKILLS_ASSERT(pSkill, 2651);
+    SKILLS_ASSERT(ptSkill, 2651);
 
-    return pSkill->nPar2;
+    return ptSkill->nPar2;
 }
 
 // 0x00644500
-int __stdcall SKILLS_GetParam3(D2SkillStrc* pSkill)
+int __stdcall SKILLS_GetParam3(D2SkillStrc* ptSkill)
 {
-    SKILLS_ASSERT(pSkill, 2660);
+    SKILLS_ASSERT(ptSkill, 2660);
 
-    return pSkill->nPar3;
+    return ptSkill->nPar3;
 }
 
 // 0x00644530
-int __stdcall SKILLS_GetParam4(D2SkillStrc* pSkill)
+int __stdcall SKILLS_GetParam4(D2SkillStrc* ptSkill)
 {
-    SKILLS_ASSERT(pSkill, 2669);
+    SKILLS_ASSERT(ptSkill, 2669);
 
-    return pSkill->nPar4;
+    return ptSkill->nPar4;
 }
 
 // 0x00644560
-void __stdcall SKILLS_SetParam1(D2SkillStrc* pSkill, int nValue)
+void __stdcall SKILLS_SetParam1(D2SkillStrc* ptSkill, int nValue)
 {
-    SKILLS_ASSERT(pSkill, 2678);
+    SKILLS_ASSERT(ptSkill, 2678);
 
-    pSkill->nPar1 = nValue;
+    ptSkill->nPar1 = nValue;
 }
 
 // 0x006445A0
-void __stdcall SKILLS_SetParam2(D2SkillStrc* pSkill, int nValue)
+void __stdcall SKILLS_SetParam2(D2SkillStrc* ptSkill, int nValue)
 {
-    SKILLS_ASSERT(pSkill, 2687);
+    SKILLS_ASSERT(ptSkill, 2687);
 
-    pSkill->nPar2 = nValue;
+    ptSkill->nPar2 = nValue;
 }
 
 // 0x006445E0
-void __stdcall SKILLS_SetParam3(D2SkillStrc* pSkill, int nValue)
+void __stdcall SKILLS_SetParam3(D2SkillStrc* ptSkill, int nValue)
 {
-    SKILLS_ASSERT(pSkill, 2696);
+    SKILLS_ASSERT(ptSkill, 2696);
 
-    pSkill->nPar3 = nValue;
+    ptSkill->nPar3 = nValue;
 }
 
 // 0x00644620
-void __stdcall SKILLS_SetParam4(D2SkillStrc* pSkill, int nValue)
+void __stdcall SKILLS_SetParam4(D2SkillStrc* ptSkill, int nValue)
 {
-    SKILLS_ASSERT(pSkill, 2705);
+    SKILLS_ASSERT(ptSkill, 2705);
 
-    pSkill->nPar4 = nValue;
+    ptSkill->nPar4 = nValue;
 }
 
 // 0x00644660
-void __stdcall SKILLS_SetFlags(D2SkillStrc* pSkill, int nValue)
+void __stdcall SKILLS_SetFlags(D2SkillStrc* ptSkill, int nValue)
 {
-    SKILLS_ASSERT(pSkill, 2714);
+    SKILLS_ASSERT(ptSkill, 2714);
 
-    pSkill->dwFlags = nValue;
+    ptSkill->dwFlags = nValue;
 }
 
 static __forceinline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord_ForceInl(int nSkillId)
@@ -1960,19 +1960,19 @@ int __stdcall SKILLS_IsPlayerClassSkill(int nSkillId, int* pPlayerClass)
 }
 
 // 0x006450F0
-int __stdcall SKILLS_GetQuantity(D2SkillStrc* pSkill)
+int __stdcall SKILLS_GetQuantity(D2SkillStrc* ptSkill)
 {
-    SKILLS_ASSERT(pSkill, 3492);
+    SKILLS_ASSERT(ptSkill, 3492);
 
-    return pSkill->nQuantity;
+    return ptSkill->nQuantity;
 }
 
 // 0x00645120
-void __stdcall SKILLS_SetQuantity(D2SkillStrc* pSkill, int nValue)
+void __stdcall SKILLS_SetQuantity(D2SkillStrc* ptSkill, int nValue)
 {
-    SKILLS_ASSERT(pSkill, 3501);
+    SKILLS_ASSERT(ptSkill, 3501);
 
-    pSkill->nQuantity = nValue;
+    ptSkill->nQuantity = nValue;
 }
 
 void __stdcall sub_00646010_Empty(int nUnused1, int nUnused2, int nUnused3)

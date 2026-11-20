@@ -178,16 +178,16 @@ static __forceinline D2BitBufferStrc* sub_00593AF0_GetPlayerQuestFlags(D2GameStr
 // 0x00593AF0
 int __fastcall OBJECTS_OperateFunction12_InifussTree(D2ObjOperateFnStrc* pOp, int nOperate)
 {
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pOp->pGame, 4);
-    D2_ASSERT(pQuestData, 0x828);
+    D2QuestDataStrc* pQuestInfo = QUESTS_GetQuestData(pOp->pGame, 4);
+    D2_ASSERT(pQuestInfo, 0x828);
 
-    if (!pQuestData->bNotIntro)
+    if (!pQuestInfo->bNotIntro)
     {
         UNITS_ChangeAnimMode(pOp->pObject, 1);
         return 0;
     }
 
-    if (pQuestData->fState >= 6)
+    if (pQuestInfo->fState >= 6)
     {
         return 0;
     }
@@ -206,20 +206,20 @@ int __fastcall OBJECTS_OperateFunction12_InifussTree(D2ObjOperateFnStrc* pOp, in
         return 0;
     }
 
-    D2Act1Quest4Strc* pQuestDataEx = (D2Act1Quest4Strc*)pQuestData->pQuestDataEx;
+    D2Act1Quest4Strc* pQuestDataEx = (D2Act1Quest4Strc*)pQuestInfo->pQuestDataEx;
     SUNIT_AttachSound(pOp->pPlayer, 45, 0);
 
     pOp->pObject->dwDropItemCode = ' skb';
-    sub_00592860_DebugStartedQuest(pQuestData);
-    QUESTS_StateDebug(pQuestData, 4, gszA1Q4SourceFile, 0x84B);
+    sub_00592860_DebugStartedQuest(pQuestInfo);
+    QUESTS_StateDebug(pQuestInfo, 4, gszA1Q4SourceFile, 0x84B);
 
     int nItemLevel;
     D2UnitStrc* pItem = D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->pObject, 2, &nItemLevel, 0, -1, 0);
     if (pItem)
     {
-        pQuestData->pfCallback[9] = ACT1Q4_Callback09_PlayerDroppedWithQuestItem;
-        pQuestData->dwFlags &= 0xFFFFFF00;
-        QUESTS_UnitIterate(pQuestData, 2, pOp->pPlayer, ACT1Q4_UnitIterate_StatusCyclerEx, 1);
+        pQuestInfo->pfCallback[9] = ACT1Q4_Callback09_PlayerDroppedWithQuestItem;
+        pQuestInfo->dwFlags &= 0xFFFFFF00;
+        QUESTS_UnitIterate(pQuestInfo, 2, pOp->pPlayer, ACT1Q4_UnitIterate_StatusCyclerEx, 1);
         pQuestDataEx->unk0x4B = 1;
         const int nScrollGUID = (pItem ? pItem->dwUnitId : -1);
         pQuestDataEx->nDecipheredScrollGUID = nScrollGUID;

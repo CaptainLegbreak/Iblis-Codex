@@ -778,11 +778,11 @@ void __fastcall ACT2Q6_DeleteAllHoradricItemsAndOpenTomb(D2GameStrc* pGame, D2Un
 
     UNITS_ChangeAnimMode(pObject, 1);
 
-    D2ActiveRoomStrc* pObjectRoom = UNITS_GetRoom(pObject);
-    D2_ASSERT(pObjectRoom, 1670);
+    D2ActiveRoomStrc* hRoomObject = UNITS_GetRoom(pObject);
+    D2_ASSERT(hRoomObject, 1670);
 
-    D2ActiveRoomStrc* pRoom = D2GAME_GetRoom_6FC52070(pObjectRoom, UNITS_GetUnitXPosition(pObject) - 13, UNITS_GetUnitYPosition(pObject) + 3);
-    DUNGEON_ToggleHasPortalFlag(pObjectRoom, 0);
+    D2ActiveRoomStrc* pRoom = D2GAME_GetRoom_6FC52070(hRoomObject, UNITS_GetUnitXPosition(pObject) - 13, UNITS_GetUnitYPosition(pObject) + 3);
+    DUNGEON_ToggleHasPortalFlag(hRoomObject, 0);
     if (pRoom)
     {
         DUNGEON_ToggleHasPortalFlag(pRoom, 0);

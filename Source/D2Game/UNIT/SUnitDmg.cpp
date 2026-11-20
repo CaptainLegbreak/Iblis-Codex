@@ -1272,27 +1272,27 @@ void __fastcall sub_0057F390_DropCorpseGold(D2GameStrc* pGame, D2UnitStrc* pPlay
 }
 
 // 0x0057FDC0
-void __fastcall PLRMODE_StartXY_Block(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nMode, int nX, int nY)
+void __fastcall PLRMODE_StartXY_Block(D2GameStrc* pGame, D2UnitStrc* hPlayer, int nMode, int nX, int nY)
 {
-    D2_ASSERT(pPlayer, 1095);
+    D2_ASSERT(hPlayer, 1095);
 
-    SUNIT_SetCombatMode(pGame, pPlayer, nMode);
-    sub_6FCBC4D0(pPlayer);
-    UNITS_SetUsedSkill(pPlayer, 0);
-    D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(pGame, pPlayer);
-    sub_6FCBCE70(pGame, pPlayer);
+    SUNIT_SetCombatMode(pGame, hPlayer, nMode);
+    sub_6FCBC4D0(hPlayer);
+    UNITS_SetUsedSkill(hPlayer, 0);
+    D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(pGame, hPlayer);
+    sub_6FCBCE70(pGame, hPlayer);
 }
 
 // 0x0057FE30
-void __fastcall PLRMODE_StartXY_GetHit(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nMode, int nX, int nY)
+void __fastcall PLRMODE_StartXY_GetHit(D2GameStrc* pGame, D2UnitStrc* hPlayer, int nMode, int nX, int nY)
 {
-    D2_ASSERT(pPlayer, 1136);
+    D2_ASSERT(hPlayer, 1136);
 
-    SUNIT_SetCombatMode(pGame, pPlayer, nMode);
-    sub_6FCBC4D0(pPlayer);
-    UNITS_SetUsedSkill(pPlayer, 0);
-    D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(pGame, pPlayer);
-    sub_6FCBCE70(pGame, pPlayer);
+    SUNIT_SetCombatMode(pGame, hPlayer, nMode);
+    sub_6FCBC4D0(hPlayer);
+    UNITS_SetUsedSkill(hPlayer, 0);
+    D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(pGame, hPlayer);
+    sub_6FCBCE70(pGame, hPlayer);
 }
 
 // 0x0057FE90
@@ -1309,13 +1309,13 @@ void __fastcall PLRMODE_StartXY_AttackCastThrowKickSpecialSequence(D2GameStrc* p
 }
 
 // 0x0057FEF0
-void __fastcall PLRMODE_StartID_AttackCastThrowKickSpecialSequence(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nMode, D2UnitStrc* pTarget)
+void __fastcall PLRMODE_StartID_AttackCastThrowKickSpecialSequence(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nMode, D2UnitStrc* hTarget)
 {
     SUNIT_SetCombatMode(pGame, pPlayer, nMode);
 
-    D2_ASSERT(pTarget, 1215);
+    D2_ASSERT(hTarget, 1215);
 
-    UNITS_SetTargetUnitForDynamicUnit(pPlayer, pTarget);
+    UNITS_SetTargetUnitForDynamicUnit(pPlayer, hTarget);
     sub_6FCBC4D0(pPlayer);
     D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(pGame, pPlayer);
     sub_6FCBCE70(pGame, pPlayer);

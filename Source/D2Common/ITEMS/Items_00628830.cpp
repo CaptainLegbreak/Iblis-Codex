@@ -145,14 +145,14 @@ int __fastcall sub_00628830_Shim(D2UnitStrc* item, D2UnitStrc* player)
 }
 
 // 0x00628BA0
-int __stdcall ITEMS_CheckIfAutoBeltable(D2InventoryStrc* pInventory, D2UnitStrc* pItem)
+int __stdcall ITEMS_CheckIfAutoBeltable(D2InventoryStrc* pInventory, D2UnitStrc* hItem)
 {
-    D2_ASSERT(pItem, 0x9A6);
-    D2_ASSERT(pItem->dwUnitType == 4, 0x9A7);
-    int nClassId = pItem->dwClassId;
+    D2_ASSERT(hItem, 0x9A6);
+    D2_ASSERT(hItem->dwUnitType == 4, 0x9A7);
+    int nClassId = hItem->dwClassId;
     D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(nClassId);
     D2_ASSERT(pItemsTxtRecord, 0x9A9);
-    if (pItemsTxtRecord->nAutoBelt || INVENTORY_HasSimilarPotionInBelt(pInventory, pItem) != -1) { return 1; }
+    if (pItemsTxtRecord->nAutoBelt || INVENTORY_HasSimilarPotionInBelt(pInventory, hItem) != -1) { return 1; }
     return 0;
 }
 

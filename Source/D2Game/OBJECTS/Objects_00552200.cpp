@@ -230,14 +230,14 @@ int __fastcall OBJECTS_SpawnRandomItemGrid(D2GameStrc* pGame, D2ActiveRoomStrc* 
 static __declspec(noinline) void __stdcall OBJECTS_SpawnArmorStandOrWeaponRack(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pDrlgCoords, int bWeaponRack);
 
 // 0x00552200
-static void __stdcall OBJECTS_SpawnArmorStandOrWeaponRack(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pDrlgCoords, int bWeaponRack)
+static void __stdcall OBJECTS_SpawnArmorStandOrWeaponRack(D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, D2DrlgCoordsStrc* pDrlgCoords, int bWeaponRack)
 {
     if (bWeaponRack >= gnArmorStandOrRackCount_00731EB0)
     {
         return;
     }
 
-    D2ObjectControlStrc* pObjectControl = OBJRGN_GetObjectControlFromGame(pGame, pRoom);
+    D2ObjectControlStrc* pObjectControl = OBJRGN_GetObjectControlFromGame(pGame, hRoom);
     const int nRand = OBJECTS_RollSeed_Inline(&pObjectControl->pSeed) & 1;
     D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(gnArmorStandOrRackIds_00731EA0[nRand + 2 * bWeaponRack]);
     const unsigned int nXEnd = pDrlgCoords->nSubtileWidth - pObjectsTxtRecord->dwSizeX + pDrlgCoords->nSubtileX;
@@ -252,10 +252,10 @@ static void __stdcall OBJECTS_SpawnArmorStandOrWeaponRack(D2GameStrc* pGame, D2A
         {
             coord.nY = nY;
             coord.nX = nX;
-            if (sub_00550220_CanPlaceObject(pRoom, pObjectsTxtRecord->dwSizeY, pDrlgCoords, &coord, pObjectsTxtRecord->dwSizeX) == 1)
+            if (sub_00550220_CanPlaceObject(hRoom, pObjectsTxtRecord->dwSizeY, pDrlgCoords, &coord, pObjectsTxtRecord->dwSizeX) == 1)
             {
-                D2_ASSERT(pRoom, 2834);
-                SUNIT_AllocUnitData(2, gnArmorStandOrRackIds_00731EA0[nRand + 2 * bWeaponRack], nX, nY, pGame, pRoom, 1, 0, 0);
+                D2_ASSERT(hRoom, 2834);
+                SUNIT_AllocUnitData(2, gnArmorStandOrRackIds_00731EA0[nRand + 2 * bWeaponRack], nX, nY, pGame, hRoom, 1, 0, 0);
             }
         }
     }
@@ -267,10 +267,10 @@ static void __stdcall OBJECTS_SpawnArmorStandOrWeaponRack(D2GameStrc* pGame, D2A
         {
             coord.nX = nX;
             coord.nY = nY;
-            if (sub_00550220_CanPlaceObject(pRoom, pObjectsTxtRecord->dwSizeY, pDrlgCoords, &coord, pObjectsTxtRecord->dwSizeX) == 1)
+            if (sub_00550220_CanPlaceObject(hRoom, pObjectsTxtRecord->dwSizeY, pDrlgCoords, &coord, pObjectsTxtRecord->dwSizeX) == 1)
             {
-                D2_ASSERT(pRoom, 2853);
-                SUNIT_AllocUnitData(2, gnArmorStandOrRackIds_00731EA0[nRand + 2 * bWeaponRack], nX, nY, pGame, pRoom, 1, 0, 0);
+                D2_ASSERT(hRoom, 2853);
+                SUNIT_AllocUnitData(2, gnArmorStandOrRackIds_00731EA0[nRand + 2 * bWeaponRack], nX, nY, pGame, hRoom, 1, 0, 0);
             }
         }
     }

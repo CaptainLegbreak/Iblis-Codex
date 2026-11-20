@@ -202,10 +202,10 @@ unsigned char __stdcall UNITS_GetDirection(D2UnitStrc* pUnit)
 }
 
 // 0x00620150
-D2SkillStrc* __stdcall UNITS_GetStartSkill(D2UnitStrc* pUnit)
+D2SkillStrc* __stdcall UNITS_GetStartSkill(D2UnitStrc* hUnit)
 {
-    D2_ASSERT(pUnit, 1592);
-    return SKILLS_GetFirstSkillFromSkillList(pUnit->pSkills);
+    D2_ASSERT(hUnit, 1592);
+    return SKILLS_GetFirstSkillFromSkillList(hUnit->pSkills);
 }
 
 // 0x00620360
@@ -222,50 +222,50 @@ void __fastcall sub_00620360(D2UnitStrc* pUnit, int nX, int nY, int nUnk0x14, in
 }
 
 // 0x006203B0
-int __stdcall UNITS_GetPrecisionX(D2UnitStrc* pUnit)
+int __stdcall UNITS_GetPrecisionX(D2UnitStrc* ptUnit)
 {
-    D2_ASSERT(pUnit, 1732);
+    D2_ASSERT(ptUnit, 1732);
 
-    switch (pUnit->dwUnitType)
+    switch (ptUnit->dwUnitType)
     {
     case UNIT_OBJECT:
     case UNIT_ITEM:
     case UNIT_TILE:
-        return pUnit->pStaticPath->tGameCoords.nX << FP16_SHIFT;
+        return ptUnit->pStaticPath->tGameCoords.nX << FP16_SHIFT;
 
     default:
-        return PATH_GetPrecisionX(pUnit->pDynamicPath);
+        return PATH_GetPrecisionX(ptUnit->pDynamicPath);
     }
 }
 
 // 0x00620410
-int __stdcall UNITS_GetPrecisionY(D2UnitStrc* pUnit)
+int __stdcall UNITS_GetPrecisionY(D2UnitStrc* ptUnit)
 {
-    D2_ASSERT(pUnit, 1754);
+    D2_ASSERT(ptUnit, 1754);
 
-    switch (pUnit->dwUnitType)
+    switch (ptUnit->dwUnitType)
     {
     case UNIT_OBJECT:
     case UNIT_ITEM:
     case UNIT_TILE:
-        return pUnit->pStaticPath->tGameCoords.nY << FP16_SHIFT;
+        return ptUnit->pStaticPath->tGameCoords.nY << FP16_SHIFT;
 
     default:
-        return PATH_GetPrecisionY(pUnit->pDynamicPath);
+        return PATH_GetPrecisionY(ptUnit->pDynamicPath);
     }
 }
 
 // 0x00620470
-void __stdcall UNITS_SetXForStaticUnit(D2UnitStrc* pUnit, int nX)
+void __stdcall UNITS_SetXForStaticUnit(D2UnitStrc* ptUnit, int nX)
 {
-    D2_ASSERT(pUnit, 1775);
+    D2_ASSERT(ptUnit, 1775);
 
-    switch (pUnit->dwUnitType)
+    switch (ptUnit->dwUnitType)
     {
     case UNIT_OBJECT:
     case UNIT_ITEM:
     case UNIT_TILE:
-        pUnit->pStaticPath->tGameCoords.nX = nX;
+        ptUnit->pStaticPath->tGameCoords.nX = nX;
         break;
 
     default:
@@ -274,16 +274,16 @@ void __stdcall UNITS_SetXForStaticUnit(D2UnitStrc* pUnit, int nX)
 }
 
 // 0x006204C0
-void __stdcall UNITS_SetYForStaticUnit(D2UnitStrc* pUnit, int nY)
+void __stdcall UNITS_SetYForStaticUnit(D2UnitStrc* ptUnit, int nY)
 {
-    D2_ASSERT(pUnit, 1798);
+    D2_ASSERT(ptUnit, 1798);
 
-    switch (pUnit->dwUnitType)
+    switch (ptUnit->dwUnitType)
     {
     case UNIT_OBJECT:
     case UNIT_ITEM:
     case UNIT_TILE:
-        pUnit->pStaticPath->tGameCoords.nY = nY;
+        ptUnit->pStaticPath->tGameCoords.nY = nY;
         break;
 
     default:
@@ -292,36 +292,36 @@ void __stdcall UNITS_SetYForStaticUnit(D2UnitStrc* pUnit, int nY)
 }
 
 // 0x00620650
-int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit)
+int __stdcall UNITS_GetClientCoordX(D2UnitStrc* ptUnit)
 {
-    D2_ASSERT(pUnit, 1909);
+    D2_ASSERT(ptUnit, 1909);
 
-    switch (pUnit->dwUnitType)
+    switch (ptUnit->dwUnitType)
     {
     case UNIT_OBJECT:
     case UNIT_ITEM:
     case UNIT_TILE:
-        return pUnit->pStaticPath->dwClientCoordX;
+        return ptUnit->pStaticPath->dwClientCoordX;
 
     default:
-        return PATH_GetClientCoordX(pUnit->pDynamicPath);
+        return PATH_GetClientCoordX(ptUnit->pDynamicPath);
     }
 }
 
 // 0x006206B0
-int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit)
+int __stdcall UNITS_GetClientCoordY(D2UnitStrc* ptUnit)
 {
-    D2_ASSERT(pUnit, 1930);
+    D2_ASSERT(ptUnit, 1930);
 
-    switch (pUnit->dwUnitType)
+    switch (ptUnit->dwUnitType)
     {
     case UNIT_OBJECT:
     case UNIT_ITEM:
     case UNIT_TILE:
-        return pUnit->pStaticPath->dwClientCoordY;
+        return ptUnit->pStaticPath->dwClientCoordY;
 
     default:
-        return PATH_GetClientCoordY(pUnit->pDynamicPath);
+        return PATH_GetClientCoordY(ptUnit->pDynamicPath);
     }
 }
 
@@ -436,43 +436,43 @@ int __stdcall UNITS_GetAbsoluteYDistance(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2)
 }
 
 // 0x006207F0
-void __stdcall UNITS_SetTargetX(D2UnitStrc* pUnit, int nTargetX)
+void __stdcall UNITS_SetTargetX(D2UnitStrc* ptUnit, int nTargetX)
 {
-    D2_ASSERT(pUnit, 1970);
+    D2_ASSERT(ptUnit, 1970);
 
-    PATH_SetClientCoordX(pUnit->pDynamicPath, nTargetX);
+    PATH_SetClientCoordX(ptUnit->pDynamicPath, nTargetX);
 }
 
 // 0x00620830
-void __stdcall UNITS_SetTargetY(D2UnitStrc* pUnit, int nTargetY)
+void __stdcall UNITS_SetTargetY(D2UnitStrc* ptUnit, int nTargetY)
 {
-    D2_ASSERT(pUnit, 1982);
+    D2_ASSERT(ptUnit, 1982);
 
-    PATH_SetClientCoordY(pUnit->pDynamicPath, nTargetY);
+    PATH_SetClientCoordY(ptUnit->pDynamicPath, nTargetY);
 }
 
 // 0x00620870
-void __stdcall UNITS_GetCoords(D2UnitStrc* pUnit, D2CoordStrc* pCoord)
+void __stdcall UNITS_GetCoords(D2UnitStrc* ptUnit, D2CoordStrc* pCoord)
 {
-    D2_ASSERT(pUnit, 1994);
+    D2_ASSERT(ptUnit, 1994);
 
-    switch (pUnit->dwUnitType)
+    switch (ptUnit->dwUnitType)
     {
     case UNIT_OBJECT:
     case UNIT_ITEM:
     case UNIT_TILE:
         {
-            D2StaticPathStrc* pStaticPath = pUnit->pStaticPath;
+            D2StaticPathStrc* pStaticPath = ptUnit->pStaticPath;
             pCoord->nX = pStaticPath->tGameCoords.nX;
             pCoord->nY = pStaticPath->tGameCoords.nY;
         }
         break;
 
     default:
-        if (pUnit->pDynamicPath)
+        if (ptUnit->pDynamicPath)
         {
-            pCoord->nX = PATH_GetXPosition(pUnit->pDynamicPath);
-            pCoord->nY = PATH_GetYPosition(pUnit->pDynamicPath);
+            pCoord->nX = PATH_GetXPosition(ptUnit->pDynamicPath);
+            pCoord->nY = PATH_GetYPosition(ptUnit->pDynamicPath);
         }
         else
         {
@@ -484,25 +484,25 @@ void __stdcall UNITS_GetCoords(D2UnitStrc* pUnit, D2CoordStrc* pCoord)
 }
 
 // 0x00620900
-void __stdcall UNITS_GetClientCoords(D2UnitStrc* pUnit, D2CoordStrc* pClientCoords)
+void __stdcall UNITS_GetClientCoords(D2UnitStrc* ptUnit, D2CoordStrc* pClientCoords)
 {
-    D2_ASSERT(pUnit, 2023);
+    D2_ASSERT(ptUnit, 2023);
 
-    switch (pUnit->dwUnitType)
+    switch (ptUnit->dwUnitType)
     {
     case UNIT_OBJECT:
     case UNIT_ITEM:
     case UNIT_TILE:
         {
-            D2StaticPathStrc* pStaticPath = pUnit->pStaticPath;
+            D2StaticPathStrc* pStaticPath = ptUnit->pStaticPath;
             pClientCoords->nX = pStaticPath->dwClientCoordX;
             pClientCoords->nY = pStaticPath->dwClientCoordY;
         }
         break;
 
     default:
-        pClientCoords->nX = PATH_GetClientCoordX(pUnit->pDynamicPath);
-        pClientCoords->nY = PATH_GetClientCoordY(pUnit->pDynamicPath);
+        pClientCoords->nX = PATH_GetClientCoordX(ptUnit->pDynamicPath);
+        pClientCoords->nY = PATH_GetClientCoordY(ptUnit->pDynamicPath);
         break;
     }
 }
@@ -519,58 +519,58 @@ void __fastcall sub_00620980(D2UnitStrc* pUnit, int nClientX, int nClientY)
 }
 
 // 0x00620B50
-void __stdcall UNITS_ResetRoom(D2UnitStrc* pUnit)
+void __stdcall UNITS_ResetRoom(D2UnitStrc* hUnit)
 {
-    D2_ASSERT(pUnit, 2173);
+    D2_ASSERT(hUnit, 2173);
 
-    switch (pUnit->dwUnitType)
+    switch (hUnit->dwUnitType)
     {
     case UNIT_OBJECT:
     case UNIT_ITEM:
     case UNIT_TILE:
-        pUnit->pStaticPath->pRoom = 0;
+        hUnit->pStaticPath->pRoom = 0;
         break;
 
     default:
-        if (pUnit->pDynamicPath)
+        if (hUnit->pDynamicPath)
         {
-            PATH_SetRoom(pUnit->pDynamicPath, 0);
+            PATH_SetRoom(hUnit->pDynamicPath, 0);
         }
         break;
     }
 }
 
 // 0x00620C70
-int __stdcall UNITS_GetTargetTypeFromDynamicUnit(D2UnitStrc* pUnit)
+int __stdcall UNITS_GetTargetTypeFromDynamicUnit(D2UnitStrc* ptUnit)
 {
     int nUnitType;
     int nUnitGUID;
-    D2_ASSERT(pUnit, 2233);
-    D2_ASSERT((pUnit->dwUnitType == UNIT_PLAYER) || (pUnit->dwUnitType == UNIT_MONSTER) || (pUnit->dwUnitType == UNIT_MISSILE), 2235);
+    D2_ASSERT(ptUnit, 2233);
+    D2_ASSERT((ptUnit->dwUnitType == UNIT_PLAYER) || (ptUnit->dwUnitType == UNIT_MONSTER) || (ptUnit->dwUnitType == UNIT_MISSILE), 2235);
 
-    PATH_GetTargetTypeAndGUID(pUnit->pDynamicPath, &nUnitType, &nUnitGUID);
+    PATH_GetTargetTypeAndGUID(ptUnit->pDynamicPath, &nUnitType, &nUnitGUID);
     return nUnitType;
 }
 
 // 0x00620CD0
-int __stdcall UNITS_GetTargetGUIDFromDynamicUnit(D2UnitStrc* pUnit)
+int __stdcall UNITS_GetTargetGUIDFromDynamicUnit(D2UnitStrc* ptUnit)
 {
     int nUnitType;
     int nUnitGUID;
-    D2_ASSERT(pUnit, 2250);
-    D2_ASSERT((pUnit->dwUnitType == UNIT_PLAYER) || (pUnit->dwUnitType == UNIT_MONSTER) || (pUnit->dwUnitType == UNIT_MISSILE), 2252);
+    D2_ASSERT(ptUnit, 2250);
+    D2_ASSERT((ptUnit->dwUnitType == UNIT_PLAYER) || (ptUnit->dwUnitType == UNIT_MONSTER) || (ptUnit->dwUnitType == UNIT_MISSILE), 2252);
 
-    PATH_GetTargetTypeAndGUID(pUnit->pDynamicPath, &nUnitType, &nUnitGUID);
+    PATH_GetTargetTypeAndGUID(ptUnit->pDynamicPath, &nUnitType, &nUnitGUID);
     return nUnitGUID;
 }
 
 // 0x00620D30
-void __stdcall UNITS_SetTargetUnitForPlayerOrMonster(D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit)
+void __stdcall UNITS_SetTargetUnitForPlayerOrMonster(D2UnitStrc* ptUnit, D2UnitStrc* pTargetUnit)
 {
-    D2_ASSERT(pUnit, 2268);
-    D2_ASSERT((pUnit->dwUnitType == UNIT_PLAYER) || (pUnit->dwUnitType == UNIT_MONSTER), 2270);
+    D2_ASSERT(ptUnit, 2268);
+    D2_ASSERT((ptUnit->dwUnitType == UNIT_PLAYER) || (ptUnit->dwUnitType == UNIT_MONSTER), 2270);
 
-    PATH_SetTargetUnit(pUnit->pDynamicPath, pTargetUnit);
+    PATH_SetTargetUnit(ptUnit->pDynamicPath, pTargetUnit);
 }
 
 inline D2AnimSeqTxt* UNITS_GetAnimSeq(D2UnitStrc* pUnit)
@@ -610,32 +610,32 @@ inline int UNITS_GetPositionY(D2UnitStrc* pUnit)
 }
 
 // 0x00620190
-D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit)
+D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* hUnit)
 {
-    D2_ASSERT(pUnit, 1601);
-    return SKILLS_GetLeftSkillFromSkillList(pUnit->pSkills);
+    D2_ASSERT(hUnit, 1601);
+    return SKILLS_GetLeftSkillFromSkillList(hUnit->pSkills);
 }
 
 // 0x006201D0
-D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit)
+D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* hUnit)
 {
-    D2_ASSERT(pUnit, 1610);
-    return SKILLS_GetRightSkillFromSkillList(pUnit->pSkills);
+    D2_ASSERT(hUnit, 1610);
+    return SKILLS_GetRightSkillFromSkillList(hUnit->pSkills);
 }
 
 // 0x00620250
-D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit)
+D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* hUnit)
 {
-    D2_ASSERT(pUnit, 1628);
-    return SKILLS_GetUsedSkillFromSkillList(pUnit->pSkills);
+    D2_ASSERT(hUnit, 1628);
+    return SKILLS_GetUsedSkillFromSkillList(hUnit->pSkills);
 }
 
 // 0x00620C10
-void __stdcall UNITS_SetTargetUnitForDynamicUnit(D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit)
+void __stdcall UNITS_SetTargetUnitForDynamicUnit(D2UnitStrc* ptUnit, D2UnitStrc* pTargetUnit)
 {
-    D2_ASSERT(pUnit, 2220);
-    D2_ASSERT((pUnit->dwUnitType == UNIT_PLAYER) || (pUnit->dwUnitType == UNIT_MONSTER) || (pUnit->dwUnitType == UNIT_MISSILE), 2222);
-    PATH_SetTargetUnit(pUnit->pDynamicPath, pTargetUnit);
+    D2_ASSERT(ptUnit, 2220);
+    D2_ASSERT((ptUnit->dwUnitType == UNIT_PLAYER) || (ptUnit->dwUnitType == UNIT_MONSTER) || (ptUnit->dwUnitType == UNIT_MISSILE), 2222);
+    PATH_SetTargetUnit(ptUnit->pDynamicPath, pTargetUnit);
 }
 
 // 0x00621190
@@ -697,38 +697,38 @@ int __stdcall UNITS_GetBeltType(D2UnitStrc* pUnit)
 }
 
 // 0x00622060
-void __stdcall UNITS_FreePlayerData(void* pMemPool, D2UnitStrc* pPlayer)
+void __stdcall UNITS_FreePlayerData(void* pMemPool, D2UnitStrc* ptUnit)
 {
-    D2_ASSERT(pPlayer, 3947);
-    D2_ASSERT(pPlayer->pPlayerData, 3949);
+    D2_ASSERT(ptUnit, 3947);
+    D2_ASSERT(ptUnit->pPlayerData, 3949);
 
     for (int i = 0; i < 3; ++i)
     {
-        QUESTRECORD_FreeRecord(pMemPool, pPlayer->pPlayerData->pQuestData[i]);
-        WAYPOINTS_FreeWaypointData(pMemPool, pPlayer->pPlayerData->pWaypointData[i]);
+        QUESTRECORD_FreeRecord(pMemPool, ptUnit->pPlayerData->pQuestData[i]);
+        WAYPOINTS_FreeWaypointData(pMemPool, ptUnit->pPlayerData->pWaypointData[i]);
     }
 
-    sub_0066A260_PlayerDataFreeHook(pPlayer);
+    sub_0066A260_PlayerDataFreeHook(ptUnit);
 
-    FOG_FreeServerMemory(pMemPool, pPlayer->pPlayerData, ".\\UNITS\\Units.cpp", 3958, 0);
-    pPlayer->pPlayerData = 0;
+    FOG_FreeServerMemory(pMemPool, ptUnit->pPlayerData, ".\\UNITS\\Units.cpp", 3958, 0);
+    ptUnit->pPlayerData = 0;
 }
 
 // 0x00623410
-int __stdcall UNITS_GetWeaponGUID(D2UnitStrc* pUnit)
+int __stdcall UNITS_GetWeaponGUID(D2UnitStrc* ptUnit)
 {
-    D2_ASSERT(pUnit, 4020);
-    D2_ASSERT(pUnit->dwUnitType == UNIT_PLAYER, 4022);
-    D2_ASSERT(pUnit->pPlayerData, 5335);
+    D2_ASSERT(ptUnit, 4020);
+    D2_ASSERT(ptUnit->dwUnitType == UNIT_PLAYER, 4022);
+    D2_ASSERT(ptUnit->pPlayerData, 5335);
 
-    return pUnit->pPlayerData->nWeaponGUID;
+    return ptUnit->pPlayerData->nWeaponGUID;
 }
 
 // 0x00620210
-void __stdcall UNITS_SetUsedSkill(D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill)
+void __stdcall UNITS_SetUsedSkill(D2UnitStrc* hUnit, D2SkillStrc* pUsedSkill)
 {
-    D2_ASSERT(pUnit, 1619);
-    SKILLS_SetUsedSkillInSkillList(pUnit->pSkills, pUsedSkill);
+    D2_ASSERT(hUnit, 1619);
+    SKILLS_SetUsedSkillInSkillList(hUnit->pSkills, pUsedSkill);
 }
 
 // 0x00621F20
@@ -1084,18 +1084,18 @@ int __stdcall UNITS_IsSoftMonster(D2UnitStrc* pUnit)
 }
 
 // 0x00622870
-int __stdcall sub_00622870_GetMeleeRange(D2UnitStrc* unit)
+int __stdcall sub_00622870_GetMeleeRange(D2UnitStrc* hUnit)
 {
-    if (!unit) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x11be); exit(-1); }
+    if (!hUnit) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x11be); exit(-1); }
     int range;
-    switch (unit->dwUnitType) {
+    switch (hUnit->dwUnitType) {
     case 1: {
-        D2MonStats2Txt* record = UNITS_GetMonStats2TxtRecordFromMonsterId(unit->dwClassId);
+        D2MonStats2Txt* record = UNITS_GetMonStats2TxtRecordFromMonsterId(hUnit->dwClassId);
         if (!record) goto fail;
         range = record->meleeRange;
         if (range == 255) {
             int weaponClass;
-            COMPOSIT_GetWeaponClassId(unit, unit->pInventory, &weaponClass, -1, 1);
+            COMPOSIT_GetWeaponClassId(hUnit, hUnit->pInventory, &weaponClass, -1, 1);
             return weaponClass == 6 ? 2 : 0;
         }
         break;
@@ -1103,7 +1103,7 @@ int __stdcall sub_00622870_GetMeleeRange(D2UnitStrc* unit)
     case 0: {
         D2UnitStrc* weapon;
         int type, flags;
-        if (!INVENTORY_GetEquippedWeapon(unit->pInventory, &weapon, &type, &flags)) {
+        if (!INVENTORY_GetEquippedWeapon(hUnit->pInventory, &weapon, &type, &flags)) {
 fail:
             return 0;
         }
@@ -1122,21 +1122,21 @@ extern "C" __declspec(dllexport) int __stdcall sub_00623460(int nUnused) {
 }
 
 // 0x006238C0
-int __stdcall UNITS_GetNewDirection(D2UnitStrc* pUnit)
+int __stdcall UNITS_GetNewDirection(D2UnitStrc* hUnit)
 {
-    D2_ASSERT(pUnit, 3715);
+    D2_ASSERT(hUnit, 3715);
 
-    const int nX = UNITS_GetPositionX(pUnit);
-    if (D2COMMON_10175_PathGetFirstPointX(pUnit->pDynamicPath) == nX)
+    const int nX = UNITS_GetPositionX(hUnit);
+    if (D2COMMON_10175_PathGetFirstPointX(hUnit->pDynamicPath) == nX)
     {
-        const int nY = UNITS_GetPositionY(pUnit);
-        if (D2COMMON_10176_PathGetFirstPointY(pUnit->pDynamicPath) == nY)
+        const int nY = UNITS_GetPositionY(hUnit);
+        if (D2COMMON_10176_PathGetFirstPointY(hUnit->pDynamicPath) == nY)
         {
-            return PATH_GetNewDirection(pUnit->pDynamicPath);
+            return PATH_GetNewDirection(hUnit->pDynamicPath);
         }
     }
 
-    return UNITS_GetDirectionToCoords(pUnit, D2COMMON_10175_PathGetFirstPointX(pUnit->pDynamicPath), D2COMMON_10176_PathGetFirstPointY(pUnit->pDynamicPath));
+    return UNITS_GetDirectionToCoords(hUnit, D2COMMON_10175_PathGetFirstPointX(hUnit->pDynamicPath), D2COMMON_10176_PathGetFirstPointY(hUnit->pDynamicPath));
 }
 
 // 0x00623990

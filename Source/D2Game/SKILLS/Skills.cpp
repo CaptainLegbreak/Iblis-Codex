@@ -1425,10 +1425,10 @@ D2UnitStrc* __fastcall D2GAME_CreateLinkPortal_6FD13B20(D2GameStrc* pGame, int n
         return 0;
     }
 
-    const int nLocalLevelId = DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pPortal));
-    D2_ASSERT(nLocalLevelId <= 255, 0xE2B);
+    const int eLevelIdLocal = DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pPortal));
+    D2_ASSERT(eLevelIdLocal <= 255, 0xE2B);
 
-    pLinkPortal->pObjectData->InteractType = nLocalLevelId;
+    pLinkPortal->pObjectData->InteractType = eLevelIdLocal;
     const unsigned char nPortalFlags = UNITS_GetObjectPortalFlags(pLinkPortal) | 3;
     UNITS_SetObjectPortalFlags(pLinkPortal, nPortalFlags);
     UNITS_ChangeAnimMode(pLinkPortal, 2);

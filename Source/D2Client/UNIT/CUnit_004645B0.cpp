@@ -902,7 +902,7 @@ int __fastcall sub_00466870_IsUnitSelectable(D2UnitStrc* pUnit, int nX, int nY, 
     int nClassId=pUnit->dwClassId;
     int nType=pUnit->dwUnitType;
     D2COMMON_11013_ConvertMode(pUnit,&nType,&nClassId,&nMode,gszCUnitFile_006D6A48,0x6ED);
-    D2ObjectsTxt* pObject=0;
+    D2ObjectsTxt* ptObjectData=0;
     int nUnitX=UNITS_GetClientCoordX(pUnit);
     int nUnitY=UNITS_GetClientCoordY(pUnit);
     switch(nType)
@@ -929,8 +929,8 @@ int __fastcall sub_00466870_IsUnitSelectable(D2UnitStrc* pUnit, int nX, int nY, 
         if(!sub_00470860_HitTestUnitGfx(pUnit,nUnitX,nUnitY,nX,nY)) return 0;
         break;
     case 2:
-        pObject=DATATBLS_GetObjectsTxtRecord(nClassId);
-        if(!sub_00470860_HitTestUnitGfx(pUnit,nUnitX,nUnitY,nX,nY) && !pObject->nIsDoor && !pObject->nSelectBox) return 0;
+        ptObjectData=DATATBLS_GetObjectsTxtRecord(nClassId);
+        if(!sub_00470860_HitTestUnitGfx(pUnit,nUnitX,nUnitY,nX,nY) && !ptObjectData->nIsDoor && !ptObjectData->nSelectBox) return 0;
         break;
     case 4:
         if(pUnit->dwAnimMode!=3 || sub_004538D0(13)) return 0;
@@ -941,14 +941,14 @@ int __fastcall sub_00466870_IsUnitSelectable(D2UnitStrc* pUnit, int nX, int nY, 
     switch(nType)
     {
     case 2:
-        D2_ASSERT(pObject,0x741);
-        if(pObject->nIsDoor)
+        D2_ASSERT(ptObjectData,0x741);
+        if(ptObjectData->nIsDoor)
         {
             if(pUnit->dwAnimMode==2 || pUnit->dwAnimMode==4 || pUnit->dwAnimMode==5)
-                return sub_00463FE0_IsInObjectSelectBox(nY,pObject,pUnit,nX);
+                return sub_00463FE0_IsInObjectSelectBox(nY,ptObjectData,pUnit,nX);
         }
-        else if(pObject->nSelectBox) return sub_00463FE0_IsInObjectSelectBox(nY,pObject,pUnit,nX);
-        if(pObject->nComponents>1) bAllComponents=1;
+        else if(ptObjectData->nSelectBox) return sub_00463FE0_IsInObjectSelectBox(nY,ptObjectData,pUnit,nX);
+        if(ptObjectData->nComponents>1) bAllComponents=1;
         break;
     case 1:
     {

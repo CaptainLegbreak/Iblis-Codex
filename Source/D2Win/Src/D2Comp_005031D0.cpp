@@ -668,26 +668,26 @@ int __fastcall sub_00503BA0_DrawCompositeUnit(D2CompositeUnitStrc* pCompositeUni
 }
 
 // 0x00504040
-static __declspec(noinline) int sub_00504040_LoadUnitCof(D2CompositeUnitStrc* pCompositeUnit)
+static __declspec(noinline) int sub_00504040_LoadUnitCof(D2CompositeUnitStrc* ptCompositeUnit)
 {
-    D2_ASSERT(pCompositeUnit, 0x81A);
+    D2_ASSERT(ptCompositeUnit, 0x81A);
 
-    if (pCompositeUnit->nUnitIndex >= gnUnitTokens_0072E04C || pCompositeUnit->nMode >= gnModeTokens_0072E0B4 || pCompositeUnit->nWClassTokenIndex >= gnWClassTokens_0072E198)
+    if (ptCompositeUnit->nUnitIndex >= gnUnitTokens_0072E04C || ptCompositeUnit->nMode >= gnModeTokens_0072E0B4 || ptCompositeUnit->nWClassTokenIndex >= gnWClassTokens_0072E198)
     {
-        pCompositeUnit->nUnitIndex = 7;
-        pCompositeUnit->nMode = 5;
-        pCompositeUnit->nWClassTokenIndex = 1;
+        ptCompositeUnit->nUnitIndex = 7;
+        ptCompositeUnit->nMode = 5;
+        ptCompositeUnit->nWClassTokenIndex = 1;
     }
 
-    D2GfxInfoStrc* pGfxInfo = pCompositeUnit->pGfxInfo;
-    D2_ASSERT(pGfxInfo, 0x827);
+    D2GfxInfoStrc* ptGfxInfo = ptCompositeUnit->pGfxInfo;
+    D2_ASSERT(ptGfxInfo, 0x827);
 
-    if (!sub_00503640_GetCofData(pGfxInfo, pCompositeUnit->nUnitIndex, pCompositeUnit->nMode, gdwWClassTokens_0072E15C[pCompositeUnit->nWClassTokenIndex]))
+    if (!sub_00503640_GetCofData(ptGfxInfo, ptCompositeUnit->nUnitIndex, ptCompositeUnit->nMode, gdwWClassTokens_0072E15C[ptCompositeUnit->nWClassTokenIndex]))
     {
-        pCompositeUnit->nUnitIndex = 7;
-        pCompositeUnit->nMode = 5;
-        pCompositeUnit->nWClassTokenIndex = 1;
-        D2_ASSERT(sub_00503640_GetCofData(pGfxInfo, 7, 5, gdwWClassTokens_0072E15C[1]), 0x836);
+        ptCompositeUnit->nUnitIndex = 7;
+        ptCompositeUnit->nMode = 5;
+        ptCompositeUnit->nWClassTokenIndex = 1;
+        D2_ASSERT(sub_00503640_GetCofData(ptGfxInfo, 7, 5, gdwWClassTokens_0072E15C[1]), 0x836);
     }
 
     return 1;
@@ -1088,9 +1088,9 @@ void* __stdcall sub_005043E0_LoadExcelFile(void* hArchive, const char* szName, c
 }
 
 // 0x005053A0
-void __stdcall D2Win_10158(D2CompositeUnitStrc* pCompositeUnit, unsigned char a2, unsigned char a3, unsigned char a4)
+void __stdcall D2Win_10158(D2CompositeUnitStrc* hCompositeUnit, unsigned char a2, unsigned char a3, unsigned char a4)
 {
-    D2_ASSERT(pCompositeUnit, 0xDB0);
+    D2_ASSERT(hCompositeUnit, 0xDB0);
 
     if (a2 < 1u || a2 > 32u)
     {
@@ -1099,24 +1099,24 @@ void __stdcall D2Win_10158(D2CompositeUnitStrc* pCompositeUnit, unsigned char a2
 
     char szFile[512];
     wsprintfA(szFile, "%s\\ui\\emblems\\icon%02dc", szDataGlobal_006D4118, a2 - 1);
-    pCompositeUnit->pEmblemCellFile = ARCHIVE_LoadCellFile(szFile, 0);
+    hCompositeUnit->pEmblemCellFile = ARCHIVE_LoadCellFile(szFile, 0);
 
     if (a3 >= 1u && a3 <= 10u)
     {
-        pCompositeUnit->nEmblemColor1 = gabEmblemColor1_0087D810[a3 - 1];
+        hCompositeUnit->nEmblemColor1 = gabEmblemColor1_0087D810[a3 - 1];
     }
     else
     {
-        pCompositeUnit->nEmblemColor1 = 0;
+        hCompositeUnit->nEmblemColor1 = 0;
     }
 
     if (a4 >= 1u && a4 <= 10u)
     {
-        pCompositeUnit->nEmblemColor2 = gabEmblemColor2_0087E82C[a4 - 1];
+        hCompositeUnit->nEmblemColor2 = gabEmblemColor2_0087E82C[a4 - 1];
     }
     else
     {
-        pCompositeUnit->nEmblemColor2 = 0;
+        hCompositeUnit->nEmblemColor2 = 0;
     }
 }
 

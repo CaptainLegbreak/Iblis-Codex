@@ -185,13 +185,13 @@ D2ActiveRoomStrc* __stdcall DUNGEON_GetAdjacentRoomByTileCoordinates(D2ActiveRoo
 }
 
 // 0x00619BD0
-void __stdcall DUNGEON_CallRoomCallback(D2ActiveRoomStrc* pRoom, ROOMCALLBACKFN pfnRoomCallback, void* pArgs)
+void __stdcall DUNGEON_CallRoomCallback(D2ActiveRoomStrc* ptRoom, ROOMCALLBACKFN pfnRoomCallback, void* pArgs)
 {
-    D2_ASSERT(pRoom, 448);
+    D2_ASSERT(ptRoom, 448);
     D2_ASSERT(!IsBadCodePtr((FARPROC)pfnRoomCallback), 450);
-    for (unsigned int i = 0; i < (unsigned int)pRoom->nNumRooms; ++i)
+    for (unsigned int i = 0; i < (unsigned int)ptRoom->nNumRooms; ++i)
     {
-        if (!pfnRoomCallback(pRoom->ppRoomList[i], pArgs))
+        if (!pfnRoomCallback(ptRoom->ppRoomList[i], pArgs))
             break;
     }
 }
@@ -210,21 +210,21 @@ void __stdcall D2Common_10052(D2ActiveRoomStrc* pRoom, RECT* pRect)
 }
 
 // 0x00619DF0
-int __fastcall DUNGEON_AreSubtileCoordinatesInsideRoom(D2DrlgCoordsStrc* pDrlgCoords, int nX, int nY)
+int __fastcall DUNGEON_AreSubtileCoordinatesInsideRoom(D2DrlgCoordsStrc* ptCoords, int nX, int nY)
 {
-    D2_ASSERT(pDrlgCoords, 530);
-    if (nX >= pDrlgCoords->nSubtileX && nX < pDrlgCoords->nSubtileX + pDrlgCoords->nSubtileWidth
-        && nY >= pDrlgCoords->nSubtileY && nY < pDrlgCoords->nSubtileY + pDrlgCoords->nSubtileHeight)
+    D2_ASSERT(ptCoords, 530);
+    if (nX >= ptCoords->nSubtileX && nX < ptCoords->nSubtileX + ptCoords->nSubtileWidth
+        && nY >= ptCoords->nSubtileY && nY < ptCoords->nSubtileY + ptCoords->nSubtileHeight)
         return 1;
     return 0;
 }
 
 // 0x00619EA0
-D2UnitStrc* __stdcall DUNGEON_GetFirstUnitInRoom(D2ActiveRoomStrc* pRoom)
+D2UnitStrc* __stdcall DUNGEON_GetFirstUnitInRoom(D2ActiveRoomStrc* ptRoom)
 {
-    D2_ASSERT(pRoom, 585);
-    UNITROOM_SortUnitListByTargetY(pRoom);
-    return pRoom->pUnitFirst;
+    D2_ASSERT(ptRoom, 585);
+    UNITROOM_SortUnitListByTargetY(ptRoom);
+    return ptRoom->pUnitFirst;
 }
 
 // 0x0061A7E0
@@ -282,12 +282,12 @@ void __stdcall DUNGEON_RemoveRoomFromAct(D2DrlgActStrc* pAct, D2ActiveRoomStrc* 
 void __stdcall DUNGEON_GetPortalLevelArrayFromPortalFlags(void* pMemPool, int nFlags, int** ppLevels, int* pnLevels)
 {
     int pLevels[32];
-    int nPortalLevels;
+    int nMax;
     int nCurrentFlag = 1;
     int nCount = 0;
-    int* pPortalLevels = DATATBLS_GetPortalLevels(&nPortalLevels);
-    D2_ASSERT(nPortalLevels <= 32, 1546);
-    for (int i = 0; i < nPortalLevels; ++i)
+    int* pPortalLevels = DATATBLS_GetPortalLevels(&nMax);
+    D2_ASSERT(nMax <= 32, 1546);
+    for (int i = 0; i < nMax; ++i)
     {
         if (nFlags & nCurrentFlag)
         {
@@ -309,37 +309,37 @@ void __stdcall DUNGEON_GetPortalLevelArrayFromPortalFlags(void* pMemPool, int nF
 }
 
 // 0x0061AFD0
-void __stdcall DUNGEON_FreeAct(D2DrlgActStrc* pAct)
+void __stdcall DUNGEON_FreeAct(D2DrlgActStrc* ptAct)
 {
-    D2_ASSERT(pAct, 58);
-    if (pAct->pDrlg)
+    D2_ASSERT(ptAct, 58);
+    if (ptAct->pDrlg)
     {
-        DRLG_FreeDrlg(pAct->pDrlg);
-        pAct->pDrlg = 0;
+        DRLG_FreeDrlg(ptAct->pDrlg);
+        ptAct->pDrlg = 0;
     }
-    D2ActiveRoomStrc* pRoom = pAct->pRoom;
+    D2ActiveRoomStrc* pRoom = ptAct->pRoom;
     while (pRoom)
     {
         D2ActiveRoomStrc* pNext = pRoom->pRoomNext;
-        DUNGEON_FreeRoom(pAct->pMemPool, pRoom);
+        DUNGEON_FreeRoom(ptAct->pMemPool, pRoom);
         pRoom = pNext;
     }
-    if (pAct->pEnvironment)
+    if (ptAct->pEnvironment)
     {
-        ENVIRONMENT_FreeDrlgEnvironment(pAct->pMemPool, pAct->pEnvironment);
-        pAct->pEnvironment = 0;
+        ENVIRONMENT_FreeDrlgEnvironment(ptAct->pMemPool, ptAct->pEnvironment);
+        ptAct->pEnvironment = 0;
     }
-    FOG_FreePool(pAct->pMemPool, pAct, ".\\DUNGEON\\Dungeon.cpp", 82, 0);
+    FOG_FreePool(ptAct->pMemPool, ptAct, ".\\DUNGEON\\Dungeon.cpp", 82, 0);
 }
 
 // 0x0061B060
-D2ActiveRoomStrc* __stdcall DUNGEON_FindActSpawnLocationEx(D2DrlgActStrc* pAct, int nLevelId, int nTileIndex, int* pX, int* pY, int nUnitSize)
+D2ActiveRoomStrc* __stdcall DUNGEON_FindActSpawnLocationEx(D2DrlgActStrc* ptAct, int nLevelId, int nTileIndex, int* pX, int* pY, int nUnitSize)
 {
     D2CoordStrc tCoord;
-    D2_ASSERT(pAct, 556);
+    D2_ASSERT(ptAct, 556);
     int nX = 0;
     int nY = 0;
-    D2ActiveRoomStrc* pRoom = sub_0066B2B0_FindSpawnRoom(pAct->pDrlg, nLevelId, nTileIndex, &nX, &nY);
+    D2ActiveRoomStrc* pRoom = sub_0066B2B0_FindSpawnRoom(ptAct->pDrlg, nLevelId, nTileIndex, &nX, &nY);
     if (pRoom)
     {
         DUNGEON_GameTileToSubtileCoords(&nX, &nY);

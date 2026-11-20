@@ -96,63 +96,63 @@ __forceinline int UNIT_HasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
 }
 
 // 0x00553220
-void __fastcall SUNIT_ClearUpdateData(D2GameStrc* pGame, D2UnitStrc* pUnit)
+void __fastcall SUNIT_ClearUpdateData(D2GameStrc* pGame, D2UnitStrc* ptUnit)
 {
-    D2_ASSERT(pUnit, 1304);
+    D2_ASSERT(ptUnit, 1304);
 
-    STATLIST_FreeModStats(pUnit);
-    D2GAME_SUNITMSG_FreeUnitMessages_6FCC6790(pUnit);
-    pUnit->dwFlags &= ~(UNITFLAG_DOUPDATE | UNITFLAG_INITSEEDSET);
-    UNITS_SetCurrentRoomInvalid(pUnit, 0);
-    pUnit->dwFlags &= ~(UNITFLAG_HASEVENTSOUND | UNITFLAG_UPGRLIFENHITCLASS);
-    pUnit->dwFlagEx &= 0xFFDEE7FF;
-    STATES_ClearGfxStateFlags(pUnit);
-    D2GAME_INVMODE_Last_6FC416D0(pGame, pUnit);
+    STATLIST_FreeModStats(ptUnit);
+    D2GAME_SUNITMSG_FreeUnitMessages_6FCC6790(ptUnit);
+    ptUnit->dwFlags &= ~(UNITFLAG_DOUPDATE | UNITFLAG_INITSEEDSET);
+    UNITS_SetCurrentRoomInvalid(ptUnit, 0);
+    ptUnit->dwFlags &= ~(UNITFLAG_HASEVENTSOUND | UNITFLAG_UPGRLIFENHITCLASS);
+    ptUnit->dwFlagEx &= 0xFFDEE7FF;
+    STATES_ClearGfxStateFlags(ptUnit);
+    D2GAME_INVMODE_Last_6FC416D0(pGame, ptUnit);
 
-    if (D2COMMON_10530_D2CheckStatlistFlagDMGRed(pUnit))
+    if (D2COMMON_10530_D2CheckStatlistFlagDMGRed(ptUnit))
     {
-        STATLIST_RemoveAllStatsFromOverlay(pUnit);
+        STATLIST_RemoveAllStatsFromOverlay(ptUnit);
     }
 
-    if (D2COMMON_10530_D2CheckStatlistFlagDMGRed(pUnit))
+    if (D2COMMON_10530_D2CheckStatlistFlagDMGRed(ptUnit))
     {
-        STATLIST_RemoveAllStatsFromOverlay(pUnit);
+        STATLIST_RemoveAllStatsFromOverlay(ptUnit);
     }
 
-    switch (pUnit->dwUnitType)
+    switch (ptUnit->dwUnitType)
     {
     case 0:
-        STATLIST_SetUnitStat(pUnit, 29, -1, 0);
-        pUnit->dwFlags &= ~UNITFLAG_HASTXTMSG;
-        sub_0053FA90_ClearArenaUnitUpdate(pGame, pUnit);
+        STATLIST_SetUnitStat(ptUnit, 29, -1, 0);
+        ptUnit->dwFlags &= ~UNITFLAG_HASTXTMSG;
+        sub_0053FA90_ClearArenaUnitUpdate(pGame, ptUnit);
         return;
 
     case 2:
-        pUnit->dwFlags &= ~UNITFLAG_HASTXTMSG;
+        ptUnit->dwFlags &= ~UNITFLAG_HASTXTMSG;
         return;
 
     case 1:
-        pUnit->dwFlags &= ~UNITFLAG_HASTXTMSG;
-        if (UNIT_HasFlag(pUnit, UNITFLAG_SUMMONER))
+        ptUnit->dwFlags &= ~UNITFLAG_HASTXTMSG;
+        if (UNIT_HasFlag(ptUnit, UNITFLAG_SUMMONER))
         {
-            pUnit->dwFlags &= ~UNITFLAG_SUMMONER;
-            MONSTER_ToggleSummonerFlag(pUnit, 1, 0);
+            ptUnit->dwFlags &= ~UNITFLAG_SUMMONER;
+            MONSTER_ToggleSummonerFlag(ptUnit, 1, 0);
         }
-        pUnit->dwFlagEx &= ~UNITFLAGEX_TELEPORTED;
+        ptUnit->dwFlagEx &= ~UNITFLAGEX_TELEPORTED;
         return;
 
     case 3:
         return;
 
     case 4:
-        pUnit->dwFlags &= ~UNITFLAG_SENDREFRESHMSG;
+        ptUnit->dwFlags &= ~UNITFLAG_SENDREFRESHMSG;
         break;
     }
 
-    if (pUnit->dwUnitType == 4)
+    if (ptUnit->dwUnitType == 4)
     {
-        ITEMS_SetItemFlag(pUnit, 0x20, 0);
-        ITEMS_SetItemFlag(pUnit, 0x2000, 0);
+        ITEMS_SetItemFlag(ptUnit, 0x20, 0);
+        ITEMS_SetItemFlag(ptUnit, 0x2000, 0);
     }
 }
 

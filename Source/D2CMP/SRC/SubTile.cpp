@@ -135,7 +135,7 @@ unsigned char* __fastcall sub_0060D430_CompressSubtile(const unsigned char* pDat
 }
 
 // 0x0060D5B0
-void __fastcall sub_0060D5B0_MapSubTileColors(D2CmpSubTileRecordStrc* pDst, const D2CmpSubTileRecordStrc* pSrc, D2CmpColorStrc tTransparent, D2CmpMapColorFn pfnMapColor)
+void __fastcall sub_0060D5B0_MapSubTileColors(D2CmpSubTileRecordStrc* pDst, const D2CmpSubTileRecordStrc* pSrc, D2CmpColorStrc bColor, D2CmpMapColorFn pfnMapColor)
 {
     D2_ASSERT(pDst, 0x82);
     D2_ASSERT(pSrc, 0x83);
@@ -157,7 +157,7 @@ void __fastcall sub_0060D5B0_MapSubTileColors(D2CmpSubTileRecordStrc* pDst, cons
     for (int i = 0; i < nCount; i++)
     {
         unsigned char nIndex = 0;
-        if (pIn[0] != tTransparent.nRed || pIn[1] != tTransparent.nGreen || pIn[2] != tTransparent.nBlue)
+        if (pIn[0] != bColor.nRed || pIn[1] != bColor.nGreen || pIn[2] != bColor.nBlue)
         {
             nIndex = pfnMapColor(pIn[0], pIn[1], pIn[2]);
             D2_ASSERT(nIndex, 0xA1);

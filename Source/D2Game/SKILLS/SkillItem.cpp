@@ -1569,19 +1569,19 @@ int __fastcall SKILLS_GetProgressiveSkillMissileId(D2UnitStrc* pUnit, int nSkill
 }
 
 // 0x005DC5C0
-int __fastcall AIUTIL_GetDistanceToCoordinates(D2UnitStrc* pUnit, int nX, int nY)
+int __fastcall AIUTIL_GetDistanceToCoordinates(D2UnitStrc* hUnit, int nX, int nY)
 {
-    D2_ASSERT(pUnit, 267);
-    D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
-    D2_ASSERT(pPath, 270);
+    D2_ASSERT(hUnit, 267);
+    D2DynamicPathStrc* hPath = hUnit->pDynamicPath;
+    D2_ASSERT(hPath, 270);
 
-    int nXDiff = PATH_GetXPosition(pPath) - nX;
+    int nXDiff = PATH_GetXPosition(hPath) - nX;
     if (nXDiff < 0)
     {
         nXDiff = -nXDiff;
     }
 
-    int nYDiff = PATH_GetYPosition(pPath) - nY;
+    int nYDiff = PATH_GetYPosition(hPath) - nY;
     if (nYDiff < 0)
     {
         nYDiff = -nYDiff;

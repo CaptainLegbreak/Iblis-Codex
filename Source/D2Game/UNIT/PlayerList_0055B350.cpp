@@ -86,10 +86,10 @@ void __fastcall PLAYERLIST_SendPartyState(D2UnitStrc* pPlayer1, D2UnitStrc* pPla
 }
 
 // 0x0055B620
-void __fastcall PLAYERLIST_InitializePlayerRelations(D2GameStrc* pGame, D2UnitStrc* pPlayer)
+void __fastcall PLAYERLIST_InitializePlayerRelations(D2GameStrc* pGame, D2UnitStrc* hPlayer)
 {
-    D2_ASSERT(pPlayer, 0x14F);
-    SUNIT_IterateLivingPlayers(pGame, PLAYERLIST_IterateCallback_InitializePlayerRelation, pPlayer);
+    D2_ASSERT(hPlayer, 0x14F);
+    SUNIT_IterateLivingPlayers(pGame, PLAYERLIST_IterateCallback_InitializePlayerRelation, hPlayer);
 }
 
 // 0x0055B6C0

@@ -88,86 +88,86 @@ static unsigned long gdwLastClickTick_00841B7C; // 0x00841B7C
 // 0x004FFBF0
 int __stdcall sub_004FFBF0_EditBoxMouseDown(SMSGHANDLER_PARAMS* pMsg)
 {
-    D2WinEditBoxStrc* pEditBox = (D2WinEditBoxStrc*)pMsg->hWnd;
+    D2WinEditBoxStrc* ptEditData = (D2WinEditBoxStrc*)pMsg->hWnd;
 
-    D2_ASSERT(pEditBox, 0x6D0);
-    D2_ASSERT(pEditBox->nType == 1, 0x6D1);
+    D2_ASSERT(ptEditData, 0x6D0);
+    D2_ASSERT(ptEditData->nType == 1, 0x6D1);
 
-    if (!(pEditBox->dwFlags & gdwBitMasks[2]) || !(pEditBox->dwFlags & gdwBitMasks[0]))
+    if (!(ptEditData->dwFlags & gdwBitMasks[2]) || !(ptEditData->dwFlags & gdwBitMasks[0]))
     {
         return 0;
     }
 
     int nX = gMousePosition_6F8FE234.x;
     int nY = gMousePosition_6F8FE234.y;
-    sub_004F91C0(pEditBox);
-    nX -= pEditBox->nImageX + pEditBox->nTextInsetX;
-    nY += pEditBox->nHeight - pEditBox->nTextInsetY - pEditBox->nImageY;
-    const int nRight = pEditBox->nWidth - pEditBox->nTextInsetX;
-    const int bInside = nX >= -pEditBox->nTextInsetX && nX < nRight && nY > -pEditBox->nTextInsetY && nY < pEditBox->nHeight - pEditBox->nTextInsetY;
+    sub_004F91C0(ptEditData);
+    nX -= ptEditData->nImageX + ptEditData->nTextInsetX;
+    nY += ptEditData->nHeight - ptEditData->nTextInsetY - ptEditData->nImageY;
+    const int nRight = ptEditData->nWidth - ptEditData->nTextInsetX;
+    const int bInside = nX >= -ptEditData->nTextInsetX && nX < nRight && nY > -ptEditData->nTextInsetY && nY < ptEditData->nHeight - ptEditData->nTextInsetY;
 
     const unsigned long dwTick = GetTickCount();
-    if (bInside && !pEditBox->bDragging && pEditBox == gpLastClickedEditBox_00841B78 && dwTick - gdwLastClickTick_00841B7C < 300)
+    if (bInside && !ptEditData->bDragging && ptEditData == gpLastClickedEditBox_00841B78 && dwTick - gdwLastClickTick_00841B7C < 300)
     {
-        D2Win_10082(pEditBox);
+        D2Win_10082(ptEditData);
     }
     else
     {
-        if (pEditBox->bDragging || bInside)
+        if (ptEditData->bDragging || bInside)
         {
             int nChars = 1;
-            sub_00502EF0(pEditBox->eFont);
-            if (pEditBox->bDragging)
+            sub_00502EF0(ptEditData->eFont);
+            if (ptEditData->bDragging)
             {
-                if (nX < -pEditBox->nTextInsetX)
+                if (nX < -ptEditData->nTextInsetX)
                 {
-                    pEditBox->nCaretPosition = D2WIN_MAX(pEditBox->nCaretPosition - 1, 0);
+                    ptEditData->nCaretPosition = D2WIN_MAX(ptEditData->nCaretPosition - 1, 0);
                     sub_004FE7C0_UpdateVisibleChars();
                 }
                 else if (nX >= nRight)
                 {
-                    const int nLength = sub_00526800(pEditBox->wszText);
-                    pEditBox->nCaretPosition = D2WIN_MIN(pEditBox->nCaretPosition + 1, nLength - 1);
+                    const int nLength = sub_00526800(ptEditData->wszText);
+                    ptEditData->nCaretPosition = D2WIN_MIN(ptEditData->nCaretPosition + 1, nLength - 1);
                     sub_004FE7C0_UpdateVisibleChars();
                 }
             }
 
-            while (nX > D2Win_10122(&pEditBox->wszText[pEditBox->nFirstVisibleChar], nChars))
+            while (nX > D2Win_10122(&ptEditData->wszText[ptEditData->nFirstVisibleChar], nChars))
             {
-                if (nChars > sub_00526800(&pEditBox->wszText[pEditBox->nFirstVisibleChar]))
+                if (nChars > sub_00526800(&ptEditData->wszText[ptEditData->nFirstVisibleChar]))
                 {
                     break;
                 }
                 ++nChars;
             }
 
-            const int nOldCaret = pEditBox->nCaretPosition;
-            pEditBox->nCaretPosition = pEditBox->nFirstVisibleChar + nChars - 1;
-            if (!((unsigned int)GetKeyState(0x10) & 0x8000) && !pEditBox->bDragging)
+            const int nOldCaret = ptEditData->nCaretPosition;
+            ptEditData->nCaretPosition = ptEditData->nFirstVisibleChar + nChars - 1;
+            if (!((unsigned int)GetKeyState(0x10) & 0x8000) && !ptEditData->bDragging)
             {
-                sub_004FDCC0(pEditBox);
+                sub_004FDCC0(ptEditData);
             }
             else
             {
-                if (pEditBox->nSelectionStart == -1)
+                if (ptEditData->nSelectionStart == -1)
                 {
-                    pEditBox->nSelectionStart = nOldCaret;
+                    ptEditData->nSelectionStart = nOldCaret;
                 }
-                pEditBox->nSelectionEnd = pEditBox->nCaretPosition;
+                ptEditData->nSelectionEnd = ptEditData->nCaretPosition;
             }
         }
 
         if (pMsg->uMessage == 0x201)
         {
-            pEditBox->bDragging = 1;
+            ptEditData->bDragging = 1;
         }
     }
 
-    gpLastClickedEditBox_00841B78 = pEditBox;
+    gpLastClickedEditBox_00841B78 = ptEditData;
     gdwLastClickTick_00841B7C = dwTick;
-    if (pEditBox->pfMouseDownHook)
+    if (ptEditData->pfMouseDownHook)
     {
-        return pEditBox->pfMouseDownHook(pMsg);
+        return ptEditData->pfMouseDownHook(pMsg);
     }
 
     return 0;

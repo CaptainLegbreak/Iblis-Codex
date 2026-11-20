@@ -86,10 +86,10 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 // build: symbol ??_FUnicode@@QAEXXZ 0x0042F530
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // 0x004FC9B0
-int __fastcall D2Win_10051(D2WinTextBoxStrc* pTextBox, const Unicode* wszText, int nColor, char bIsWrapped, int nIndent)
+int __fastcall D2Win_10051(D2WinTextBoxStrc* ptTextData, const Unicode* wszText, int nColor, char bIsWrapped, int nIndent)
 {
-    D2_ASSERT(pTextBox, 0x132);
-    D2_ASSERT(pTextBox->nType == 4, 0x133);
+    D2_ASSERT(ptTextData, 0x132);
+    D2_ASSERT(ptTextData->nType == 4, 0x133);
 
     Unicode wszBuffer[0x400];
     sub_005267E0(wszBuffer, wszText);
@@ -103,11 +103,11 @@ int __fastcall D2Win_10051(D2WinTextBoxStrc* pTextBox, const Unicode* wszText, i
         ++pText;
     }
 
-    sub_00502EF0(pTextBox->eFont);
+    sub_00502EF0(ptTextData->eFont);
 
-    if (!(pTextBox->dwTextBoxFlags & 0x20))
+    if (!(ptTextData->dwTextBoxFlags & 0x20))
     {
-        int nMaxWidth = pTextBox->nWidth - 2 * pTextBox->field_40;
+        int nMaxWidth = ptTextData->nWidth - 2 * ptTextData->field_40;
         if (nIndent == 2)
         {
             Unicode wszSpaces[6];
@@ -117,7 +117,7 @@ int __fastcall D2Win_10051(D2WinTextBoxStrc* pTextBox, const Unicode* wszText, i
         }
 
         if (D2Win_10122(pText, 0xFF) >= nMaxWidth)
-            return sub_004FCDA0_AddWrappedText(pTextBox, pText, nColor, nIndent);
+            return sub_004FCDA0_AddWrappedText(ptTextData, pText, nColor, nIndent);
     }
 
     D2WinTextBoxLineStrc* pLine = (D2WinTextBoxLineStrc*)FOG_Alloc(sizeof(D2WinTextBoxLineStrc), szD2WinTextBoxCpp_006DC840, 0x15D, 0);
@@ -146,40 +146,40 @@ int __fastcall D2Win_10051(D2WinTextBoxStrc* pTextBox, const Unicode* wszText, i
     pLine->pNext = 0;
     int bScrolled = 0;
 
-    if (!pTextBox->pFirstLine)
+    if (!ptTextData->pFirstLine)
     {
-        ++pTextBox->nNumLines;
-        pTextBox->pFirstLine = pLine;
-        pTextBox->pLastLine = pLine;
-        pTextBox->pCurrentLine = pLine;
+        ++ptTextData->nNumLines;
+        ptTextData->pFirstLine = pLine;
+        ptTextData->pLastLine = pLine;
+        ptTextData->pCurrentLine = pLine;
     }
     else
     {
-        pTextBox->pLastLine->pNext = pLine;
-        ++pTextBox->nNumLines;
-        pTextBox->pLastLine = pLine;
+        ptTextData->pLastLine->pNext = pLine;
+        ++ptTextData->nNumLines;
+        ptTextData->pLastLine = pLine;
 
-        const int nVisible = D2Win_10055(pTextBox);
-        if (sub_004FBE90_CountLinesFromCurrent(pTextBox) > nVisible)
+        const int nVisible = D2Win_10055(ptTextData);
+        if (sub_004FBE90_CountLinesFromCurrent(ptTextData) > nVisible)
         {
-            D2WinScrollBarStrc* pScrollBar = pTextBox->pScrollBar;
-            if (!pScrollBar || SCROLLBAR_GetCurrentStep(pScrollBar) == SCROLLBAR_GetMaxSteps(pTextBox->pScrollBar))
+            D2WinScrollBarStrc* pScrollBar = ptTextData->pScrollBar;
+            if (!pScrollBar || SCROLLBAR_GetCurrentStep(pScrollBar) == SCROLLBAR_GetMaxSteps(ptTextData->pScrollBar))
             {
                 bScrolled = 1;
-                pTextBox->pCurrentLine = pTextBox->pCurrentLine->pNext;
-                ++pTextBox->nLine;
+                ptTextData->pCurrentLine = ptTextData->pCurrentLine->pNext;
+                ++ptTextData->nLine;
             }
         }
     }
 
-    if (pTextBox->pScrollBar)
+    if (ptTextData->pScrollBar)
     {
-        const int nStep = SCROLLBAR_GetCurrentStep(pTextBox->pScrollBar);
-        SCROLLBAR_SetMaxSteps(pTextBox->pScrollBar, pTextBox->nNumLines - D2Win_10055(pTextBox));
+        const int nStep = SCROLLBAR_GetCurrentStep(ptTextData->pScrollBar);
+        SCROLLBAR_SetMaxSteps(ptTextData->pScrollBar, ptTextData->nNumLines - D2Win_10055(ptTextData));
         if (bScrolled)
-            SCROLLBAR_SetCurrentStep(pTextBox->pScrollBar, pTextBox->nLine);
+            SCROLLBAR_SetCurrentStep(ptTextData->pScrollBar, ptTextData->nLine);
         else
-            SCROLLBAR_SetCurrentStep(pTextBox->pScrollBar, nStep);
+            SCROLLBAR_SetCurrentStep(ptTextData->pScrollBar, nStep);
     }
 
     return 1;

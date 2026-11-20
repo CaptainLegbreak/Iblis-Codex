@@ -42,20 +42,20 @@ unsigned int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x0062
 unsigned int __stdcall STATLIST_GetMaxManaFromUnit(D2UnitStrc* pUnit); // 0x00625D60
 
 // 0x006209D0
-int __fastcall UNITS_GetCollisionMask(D2UnitStrc* pUnit)
+int __fastcall UNITS_GetCollisionMask(D2UnitStrc* ptUnit)
 {
-    D2_ASSERT(pUnit, 2062);
+    D2_ASSERT(ptUnit, 2062);
 
-    switch (pUnit->dwUnitType)
+    switch (ptUnit->dwUnitType)
     {
     case UNIT_OBJECT:
-        if (pUnit->pObjectData->pObjectTxt->nIsDoor)
+        if (ptUnit->pObjectData->pObjectTxt->nIsDoor)
         {
-            if (pUnit->pObjectData->pObjectTxt->nBlocksVis)
+            if (ptUnit->pObjectData->pObjectTxt->nBlocksVis)
             {
                 return COLLIDE_MASK_DOOR_BLOCK_VIS;
             }
-            else if (pUnit->pObjectData->pObjectTxt->nBlockMissile)
+            else if (ptUnit->pObjectData->pObjectTxt->nBlockMissile)
             {
                 return COLLIDE_DOOR | COLLIDE_MISSILE_BARRIER;
             }
@@ -66,11 +66,11 @@ int __fastcall UNITS_GetCollisionMask(D2UnitStrc* pUnit)
         }
         else
         {
-            if (pUnit->pObjectData->pObjectTxt->nSubClass & OBJSUBCLASS_TOWNPORTAL)
+            if (ptUnit->pObjectData->pObjectTxt->nSubClass & OBJSUBCLASS_TOWNPORTAL)
             {
                 return COLLIDE_CORPSE;
             }
-            else if (pUnit->pObjectData->pObjectTxt->nBlockMissile)
+            else if (ptUnit->pObjectData->pObjectTxt->nBlockMissile)
             {
                 return COLLIDE_OBJECT | COLLIDE_MISSILE_BARRIER;
             }
@@ -87,7 +87,7 @@ int __fastcall UNITS_GetCollisionMask(D2UnitStrc* pUnit)
         return COLLIDE_WALL;
 
     default:
-        return PATH_GetFootprintCollisionMask(pUnit->pDynamicPath);
+        return PATH_GetFootprintCollisionMask(ptUnit->pDynamicPath);
     }
 }
 
@@ -144,16 +144,16 @@ unsigned int __stdcall UNITS_GetHealingCost(D2UnitStrc* pUnit)
 }
 
 // 0x006217C0
-int __stdcall UNITS_IsAtEndOfFrameCycle(D2UnitStrc* pUnit)
+int __stdcall UNITS_IsAtEndOfFrameCycle(D2UnitStrc* ptUnit)
 {
-    D2_ASSERT(pUnit, 3457);
+    D2_ASSERT(ptUnit, 3457);
 
-    if (pUnit->pAnimSeq)
+    if (ptUnit->pAnimSeq)
     {
-        return pUnit->dwFrameCountPrecise <= 0;
+        return ptUnit->dwFrameCountPrecise <= 0;
     }
     else
     {
-        return pUnit->nSeqCurrentFramePrecise + pUnit->wAnimSpeed >= pUnit->dwFrameCountPrecise;
+        return ptUnit->nSeqCurrentFramePrecise + ptUnit->wAnimSpeed >= ptUnit->dwFrameCountPrecise;
     }
 }

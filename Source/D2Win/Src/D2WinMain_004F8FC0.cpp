@@ -777,13 +777,13 @@ void __cdecl sub_004FB010_SetPaletteTables()
 }
 
 // 0x004FB740
-int __fastcall D2Win_10062(D2WinTextBoxStrc* pTextBox, int a2, int a3)
+int __fastcall D2Win_10062(D2WinTextBoxStrc* ptTextData, int a2, int a3)
 {
-    D2_ASSERT(pTextBox, 0xFA);
-    D2_ASSERT(pTextBox->controlHeader.nType == D2WIN_TEXTBOX, 0xFB);
+    D2_ASSERT(ptTextData, 0xFA);
+    D2_ASSERT(ptTextData->controlHeader.nType == D2WIN_TEXTBOX, 0xFB);
 
-    pTextBox->field_A0 = a2;
-    pTextBox->field_A4 = a3;
+    ptTextData->field_A0 = a2;
+    ptTextData->field_A4 = a3;
     return 1;
 }
 
@@ -1332,11 +1332,11 @@ void __stdcall sub_00503FA0_AddHoverLine(const Unicode* wszText, D2HoverLineStrc
 }
 
 // 0x00506EC0
-void __fastcall D2Win_10137(D2WinListStrc* pList, const Unicode* wszText, D2WinMsgHandler a3, char a4, int a5, int a6, int a7)
+void __fastcall D2Win_10137(D2WinListStrc* ptListData, const Unicode* wszText, D2WinMsgHandler a3, char a4, int a5, int a6, int a7)
 {
-    D2_ASSERT(pList->controlHeader.nType == D2WIN_LIST, 0xA1);
+    D2_ASSERT(ptListData->controlHeader.nType == D2WIN_LIST, 0xA1);
 
-    sub_00502EF0(pList->eFont);
+    sub_00502EF0(ptListData->eFont);
 
     D2WinListDataStrc* pNewData = (D2WinListDataStrc*)FOG_Alloc(sizeof(D2WinListDataStrc), ".\\Src\\D2WinList.cpp", 0xA5, 0);
     D2_ASSERT(sub_00526800(wszText) < 256, 0xA6);
@@ -1347,9 +1347,9 @@ void __fastcall D2Win_10137(D2WinListStrc* pList, const Unicode* wszText, D2WinM
     int nTextHeight;
     D2Win_10131_GetTextDimensions(wszText, &nTextWidth, &nTextHeight);
     nTextWidth += 8;
-    if (nTextWidth > pList->nWidestEntry)
+    if (nTextWidth > ptListData->nWidestEntry)
     {
-        pList->nWidestEntry = nTextWidth;
+        ptListData->nWidestEntry = nTextWidth;
     }
 
     pNewData->field_200 = nTextWidth;
@@ -1363,7 +1363,7 @@ void __fastcall D2Win_10137(D2WinListStrc* pList, const Unicode* wszText, D2WinM
 
     if (!a6)
     {
-        D2WinListDataStrc* pLast = pList->pDataList;
+        D2WinListDataStrc* pLast = ptListData->pDataList;
         if (pLast)
         {
             while (pLast->pNext)
@@ -1376,23 +1376,23 @@ void __fastcall D2Win_10137(D2WinListStrc* pList, const Unicode* wszText, D2WinM
         }
         else
         {
-            pList->pDataList = pNewData;
+            ptListData->pDataList = pNewData;
             pNewData->pNext = 0;
         }
     }
     else
     {
-        pNewData->pNext = pList->pDataList;
-        pList->pDataList = pNewData;
+        pNewData->pNext = ptListData->pDataList;
+        ptListData->pDataList = pNewData;
     }
 
-    ++pList->field_50;
+    ++ptListData->field_50;
     sub_00502EF0(1);
 
     if (a7)
     {
-        pList->pSelectedDataEntry = pNewData;
-        pList->field_54 = pList->field_50 - 1;
+        ptListData->pSelectedDataEntry = pNewData;
+        ptListData->field_54 = ptListData->field_50 - 1;
     }
 }
 
@@ -1431,40 +1431,40 @@ int __stdcall ACCOUNTLIST_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x00508030
-int __fastcall sub_6F8AF240(SMSGHANDLER_PARAMS* pMsg, D2WinScrollBarStrc* pScrollBar, int a3)
+int __fastcall sub_6F8AF240(SMSGHANDLER_PARAMS* pMsg, D2WinScrollBarStrc* ptScrollbarData, int a3)
 {
-    D2_ASSERT(pScrollBar->controlHeader.nType == D2WIN_SCROLLBAR, 0x99);
+    D2_ASSERT(ptScrollbarData->controlHeader.nType == D2WIN_SCROLLBAR, 0x99);
 
-    if (!pScrollBar->bIsStepIndicatorDragged)
+    if (!ptScrollbarData->bIsStepIndicatorDragged)
     {
         if (a3 > 0)
         {
-            --pScrollBar->nCurrentStep;
-            pScrollBar->bIsUpperArrowPressed = 1;
+            --ptScrollbarData->nCurrentStep;
+            ptScrollbarData->bIsUpperArrowPressed = 1;
         }
         else if (a3 < 0)
         {
-            ++pScrollBar->nCurrentStep;
-            pScrollBar->bIsLowerArrowPressed = 1;
+            ++ptScrollbarData->nCurrentStep;
+            ptScrollbarData->bIsLowerArrowPressed = 1;
         }
 
-        if (pScrollBar->nCurrentStep < 0)
+        if (ptScrollbarData->nCurrentStep < 0)
         {
-            pScrollBar->nCurrentStep = 0;
+            ptScrollbarData->nCurrentStep = 0;
         }
-        else if (pScrollBar->nCurrentStep > pScrollBar->nMaxSteps)
+        else if (ptScrollbarData->nCurrentStep > ptScrollbarData->nMaxSteps)
         {
-            pScrollBar->nCurrentStep = pScrollBar->nMaxSteps;
-        }
-
-        if (pScrollBar->pTextBox)
-        {
-            D2Win_10053(pScrollBar->pTextBox, pScrollBar->nCurrentStep);
+            ptScrollbarData->nCurrentStep = ptScrollbarData->nMaxSteps;
         }
 
-        if (pScrollBar->field_5C)
+        if (ptScrollbarData->pTextBox)
         {
-            pScrollBar->field_5C(pMsg);
+            D2Win_10053(ptScrollbarData->pTextBox, ptScrollbarData->nCurrentStep);
+        }
+
+        if (ptScrollbarData->field_5C)
+        {
+            ptScrollbarData->field_5C(pMsg);
         }
     }
 
@@ -1474,21 +1474,21 @@ int __fastcall sub_6F8AF240(SMSGHANDLER_PARAMS* pMsg, D2WinScrollBarStrc* pScrol
 // 0x00508610
 int __stdcall POPUP_AddLine(D2WinPopUpLineStrc* pPopUpLine)
 {
-    D2WinPopUpStrc* pPopUp = gpPopUp_0087E974;
+    D2WinPopUpStrc* ptData = gpPopUp_0087E974;
 
-    D2_ASSERT(pPopUp->controlHeader.nType == D2WIN_POPUP, 0x74);
+    D2_ASSERT(ptData->controlHeader.nType == D2WIN_POPUP, 0x74);
 
-    if (pPopUp->nLines >= 8)
+    if (ptData->nLines >= 8)
     {
         return 0;
     }
 
-    pPopUp->lines[pPopUp->nLines] = *pPopUpLine;
+    ptData->lines[ptData->nLines] = *pPopUpLine;
     sub_00502EF0(1);
 
     const int nTextWidth = sub_00501820(pPopUpLine->wszText);
-    pPopUp->controlHeader.nWidth = pPopUp->controlHeader.nWidth > nTextWidth ? pPopUp->controlHeader.nWidth : nTextWidth;
-    ++pPopUp->nLines;
-    pPopUp->controlHeader.nHeight = 20 * pPopUp->nLines;
+    ptData->controlHeader.nWidth = ptData->controlHeader.nWidth > nTextWidth ? ptData->controlHeader.nWidth : nTextWidth;
+    ++ptData->nLines;
+    ptData->controlHeader.nHeight = 20 * ptData->nLines;
     return 1;
 }

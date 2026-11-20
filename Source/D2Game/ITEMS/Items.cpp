@@ -714,19 +714,19 @@ int __fastcall ITEMMODE_AssignItemQualityAndProperties(D2GameStrc* pGame, D2Unit
 // 0x00556A60
 static int __stdcall ITEMS_AssignCharmAffixes(D2ItemDropStrc* pItemDrop, D2UnitStrc* pItem)
 {
-    unsigned short nPrefix = 0;
-    unsigned short nSuffix = 0;
+    unsigned short wPrefix = 0;
+    unsigned short wSuffix = 0;
     int nRand = 0;
     if (pItemDrop->nPrefix[0] > 0)
     {
-        nPrefix = ITEMS_RollMagicAffixes(pItem, 1, 1, 1, 1, pItemDrop->nPrefix[0]);
-        ITEMS_AssignPrefix(pItem, nPrefix, 0);
+        wPrefix = ITEMS_RollMagicAffixes(pItem, 1, 1, 1, 1, pItemDrop->nPrefix[0]);
+        ITEMS_AssignPrefix(pItem, wPrefix, 0);
     }
     else if (pItemDrop->nSuffix[0] <= 0)
     {
-        nSuffix = ITEMS_RollMagicAffixes(pItem, 1, 0, 1, 1, pItemDrop->nSuffix[0]);
-        ITEMS_AssignPrefix(pItem, nSuffix, 0);
-        if (!nSuffix)
+        wSuffix = ITEMS_RollMagicAffixes(pItem, 1, 0, 1, 1, pItemDrop->nSuffix[0]);
+        ITEMS_AssignPrefix(pItem, wSuffix, 0);
+        if (!wSuffix)
         {
             nRand = 1;
         }
@@ -734,16 +734,16 @@ static int __stdcall ITEMS_AssignCharmAffixes(D2ItemDropStrc* pItemDrop, D2UnitS
 
     if (pItemDrop->nSuffix[0] > 0)
     {
-        nSuffix = ITEMS_RollMagicAffixes(pItem, 1, 1, 1, 0, pItemDrop->nSuffix[0]);
-        ITEMS_AssignSuffix(pItem, nSuffix, 0);
+        wSuffix = ITEMS_RollMagicAffixes(pItem, 1, 1, 1, 0, pItemDrop->nSuffix[0]);
+        ITEMS_AssignSuffix(pItem, wSuffix, 0);
     }
     else if (pItemDrop->nPrefix[0] <= 0)
     {
-        nPrefix = ITEMS_RollMagicAffixes(pItem, 1, nRand, 1, 0, pItemDrop->nPrefix[0]);
-        ITEMS_AssignSuffix(pItem, nPrefix, 0);
+        wPrefix = ITEMS_RollMagicAffixes(pItem, 1, nRand, 1, 0, pItemDrop->nPrefix[0]);
+        ITEMS_AssignSuffix(pItem, wPrefix, 0);
     }
 
-    if (!nPrefix && !nSuffix)
+    if (!wPrefix && !wSuffix)
     {
         ITEMS_GetBaseCode(pItem);
         D2_ASSERT(0, 0x372);
@@ -1016,11 +1016,11 @@ int __stdcall ITEMS_RollItemQuality(D2UnitStrc* pItem, D2ItemDropStrc* pDrop)
 {
     if (ITEMS_GetItemFormat(pItem) >= 1 && pDrop->nQuality)
         return pDrop->nQuality;
-    D2GameStrc* pGame = SUNIT_GetGameFromUnit(pItem);
-    D2_ASSERT(pGame, 0x482);
+    D2GameStrc* ptGame = SUNIT_GetGameFromUnit(pItem);
+    D2_ASSERT(ptGame, 0x482);
     const unsigned short nVersion = ITEMS_GetItemFormat(pItem) >= 1 ? 100 : 0;
-    D2ItemRatioTxt* pRatio = DATATBLS_GetItemRatioTxtRecord(!pItem ? -1 : pItem->dwClassId, pGame->nDifficulty, nVersion);
-    D2_ASSERT(pRatio, 0x486);
+    D2ItemRatioTxt* ptItemStats = DATATBLS_GetItemRatioTxtRecord(!pItem ? -1 : pItem->dwClassId, ptGame->nDifficulty, nVersion);
+    D2_ASSERT(ptItemStats, 0x486);
     D2ItemsTxt* pRecord = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
     D2_ASSERT(pRecord, 0x489);
     if (pRecord->nQuest)
@@ -1045,12 +1045,12 @@ int __stdcall ITEMS_RollItemQuality(D2UnitStrc* pItem, D2ItemDropStrc* pDrop)
         {
             switch (gnQualityOrder_006E1138[i])
             {
-            case 7: nChance = pRatio->dwUnique - nItemLevel / pRatio->dwUniqueDivisor; nQuality = 7; break;
-            case 6: nChance = pRatio->dwRare - nItemLevel / pRatio->dwRareDivisor; nQuality = 6; break;
-            case 5: nChance = pRatio->dwSet - nItemLevel / pRatio->dwSetDivisor; nQuality = 5; break;
-            case 4: nChance = pRatio->dwMagic - nItemLevel / pRatio->dwMagicDivisor; nQuality = 4; break;
-            case 3: nChance = pRatio->dwHiQuality - nItemLevel / pRatio->dwHiQualityDivisor; nQuality = 3; break;
-            case 2: nChance = pRatio->dwNormal - nItemLevel / pRatio->dwNormalDivisor; nQuality = 2; break;
+            case 7: nChance = ptItemStats->dwUnique - nItemLevel / ptItemStats->dwUniqueDivisor; nQuality = 7; break;
+            case 6: nChance = ptItemStats->dwRare - nItemLevel / ptItemStats->dwRareDivisor; nQuality = 6; break;
+            case 5: nChance = ptItemStats->dwSet - nItemLevel / ptItemStats->dwSetDivisor; nQuality = 5; break;
+            case 4: nChance = ptItemStats->dwMagic - nItemLevel / ptItemStats->dwMagicDivisor; nQuality = 4; break;
+            case 3: nChance = ptItemStats->dwHiQuality - nItemLevel / ptItemStats->dwHiQualityDivisor; nQuality = 3; break;
+            case 2: nChance = ptItemStats->dwNormal - nItemLevel / ptItemStats->dwNormalDivisor; nQuality = 2; break;
             }
             if (nChance <= 0 || !ITEMS_RollLimitedRandomNumber(ITEMS_GetItemSeed(pItem), nChance))
                 return nQuality;
@@ -1062,12 +1062,12 @@ int __stdcall ITEMS_RollItemQuality(D2UnitStrc* pItem, D2ItemDropStrc* pDrop)
         {
             switch (gnQualityOrder_006E1138[i])
             {
-            case 7: nChance = pRatio->dwUnique - nItemLevel; nQuality = 7; break;
-            case 6: nChance = pRatio->dwRare - nItemLevel; nQuality = 6; break;
-            case 5: nChance = pRatio->dwSet - nItemLevel; nQuality = 5; break;
-            case 4: nChance = pRatio->dwMagic - nItemLevel / pRatio->dwMagicDivisor; nQuality = 4; break;
-            case 3: nChance = pRatio->dwHiQuality - nItemLevel / pRatio->dwHiQualityDivisor; nQuality = 3; break;
-            case 2: nChance = pRatio->dwNormal - nItemLevel / pRatio->dwNormalDivisor; nQuality = 2; break;
+            case 7: nChance = ptItemStats->dwUnique - nItemLevel; nQuality = 7; break;
+            case 6: nChance = ptItemStats->dwRare - nItemLevel; nQuality = 6; break;
+            case 5: nChance = ptItemStats->dwSet - nItemLevel; nQuality = 5; break;
+            case 4: nChance = ptItemStats->dwMagic - nItemLevel / ptItemStats->dwMagicDivisor; nQuality = 4; break;
+            case 3: nChance = ptItemStats->dwHiQuality - nItemLevel / ptItemStats->dwHiQualityDivisor; nQuality = 3; break;
+            case 2: nChance = ptItemStats->dwNormal - nItemLevel / ptItemStats->dwNormalDivisor; nQuality = 2; break;
             }
             if (nChance <= 0)
                 nChance = 1;
@@ -1930,16 +1930,16 @@ void __fastcall ITEMS_DropPlayerEar(D2GameStrc* pGame, D2UnitStrc* pUnit)
 }
 
 // 0x0055E9B0
-int __fastcall sub_6FC48940(D2GameStrc* pGame, D2UnitStrc* pUnit, int nItemGUID, int nBeltSlot, int bFindFreeSlot, int* a6)
+int __fastcall sub_6FC48940(D2GameStrc* ptGame, D2UnitStrc* hUnit, int nItemGUID, int nBeltSlot, int bFindFreeSlot, int* a6)
 {
-    D2_ASSERT(pGame, 0x11FB);
-    D2_ASSERT(pUnit, 0x11FC);
+    D2_ASSERT(ptGame, 0x11FB);
+    D2_ASSERT(hUnit, 0x11FC);
 
     *a6 = 0;
 
-    sub_0055BF50_ClearTargetingFlags(pUnit, ".\\ITEMS\\ItemMode.cpp", 0x1201);
+    sub_0055BF50_ClearTargetingFlags(hUnit, ".\\ITEMS\\ItemMode.cpp", 0x1201);
 
-    D2UnitStrc* pItem = SUNIT_GetServerUnit(pGame, UNIT_ITEM, nItemGUID);
+    D2UnitStrc* pItem = SUNIT_GetServerUnit(ptGame, UNIT_ITEM, nItemGUID);
     if (!pItem)
     {
         *a6 = 1;
@@ -1964,7 +1964,7 @@ int __fastcall sub_6FC48940(D2GameStrc* pGame, D2UnitStrc* pUnit, int nItemGUID,
             break;
         }
 
-        D2InventoryStrc* pInventory = pUnit->pInventory;
+        D2InventoryStrc* pInventory = hUnit->pInventory;
         if (bFindFreeSlot)
         {
             if (!INVENTORY_PlaceItemInFreeBeltSlot(pInventory, pItem))
@@ -1989,19 +1989,19 @@ int __fastcall sub_6FC48940(D2GameStrc* pGame, D2UnitStrc* pUnit, int nItemGUID,
         if (INVENTORY_PlaceItemInSocket(pInventory, pItem, 2))
         {
             INVENTORY_SetCursorItem(pInventory, 0);
-            sub_0055C270_OnItemToBelt(pUnit, pItem);
+            sub_0055C270_OnItemToBelt(hUnit, pItem);
 
             pItem->dwFlags &= ~UNITFLAG_TARGETABLE;
 
-            if (ITEMS_IsCharmUsable(pItem, pUnit))
+            if (ITEMS_IsCharmUsable(pItem, hUnit))
             {
-                sITEMSAddStatsList(pGame, pItem, pUnit, 0);
+                sITEMSAddStatsList(ptGame, pItem, hUnit, 0);
             }
 
             UNITS_ChangeAnimMode(pItem, IMODE_INBELT);
             ITEMS_SetInvPage(pItem, INVPAGE_NULL);
             ITEMS_SetItemCMDFlag(pItem, 0x400, 1);
-            UNITS_RefreshInventory(pUnit, 1);
+            UNITS_RefreshInventory(hUnit, 1);
             INVENTORY_AddItemToTradeInventory(pInventory, pItem);
             return 1;
         }

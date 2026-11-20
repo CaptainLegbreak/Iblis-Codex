@@ -2026,10 +2026,10 @@ int __fastcall PLAYER_IsBusy(D2UnitStrc* pUnit)
 // 0x005350B0
 void __fastcall PLAYER_ResetBusyState(D2UnitStrc* pUnit)
 {
-    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pUnit);
-    D2_ASSERT(pPlayerData->bBusy != 0, 0x1C7);
+    D2PlayerDataStrc* ptPlayerInfo = UNITS_GetPlayerData(pUnit);
+    D2_ASSERT(ptPlayerInfo->bBusy != 0, 0x1C7);
 
-    pPlayerData->bBusy = 0;
+    ptPlayerInfo->bBusy = 0;
 }
 
 // 0x005353F0
@@ -2335,13 +2335,13 @@ void __fastcall LEVEL_FreeDrlgDeletes(D2GameStrc* pGame)
 }
 
 // 0x0053AB80
-void __fastcall LEVEL_RemoveClientFromAdjacentRooms(D2ActiveRoomStrc* pRoom, D2ClientStrc* pClient)
+void __fastcall LEVEL_RemoveClientFromAdjacentRooms(D2ActiveRoomStrc* hRoom, D2ClientStrc* pClient)
 {
-    D2_ASSERT(pRoom, 334);
+    D2_ASSERT(hRoom, 334);
 
     D2ActiveRoomStrc** ppRoomList;
     unsigned int nNumRooms;
-    DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRoomList, &nNumRooms);
+    DUNGEON_GetAdjacentRoomsListFromRoom(hRoom, &ppRoomList, &nNumRooms);
 
     for (unsigned int i = 0; i < nNumRooms; ++i)
     {
@@ -2353,8 +2353,8 @@ void __fastcall LEVEL_RemoveClientFromAdjacentRooms(D2ActiveRoomStrc* pRoom, D2C
 void __fastcall LEVEL_WarpUnit(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nDestinationLevelId, int nTileCalc)
 {
     const unsigned char nDestinationAct = DRLG_GetActNoFromLevelId(nDestinationLevelId);
-    D2ClientStrc* pClient = UnitGetClient(pPlayer, ".\\GAME\\Level.cpp", 506);
-    D2_ASSERT(pClient, 507);
+    D2ClientStrc* hClient = UnitGetClient(pPlayer, ".\\GAME\\Level.cpp", 506);
+    D2_ASSERT(hClient, 507);
 
     int nSourceLevelId = 0;
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
@@ -2363,10 +2363,10 @@ void __fastcall LEVEL_WarpUnit(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nDest
         nSourceLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
     }
 
-    if (nDestinationAct != CLIENTS_GetActNo(pClient))
+    if (nDestinationAct != CLIENTS_GetActNo(hClient))
     {
         SUNITPROXY_UpdateNpcsOnActChange(pGame, pPlayer, nSourceLevelId, nDestinationLevelId);
-        LEVEL_ChangeAct(pGame, pClient, nDestinationLevelId, nTileCalc);
+        LEVEL_ChangeAct(pGame, hClient, nDestinationLevelId, nTileCalc);
         return;
     }
 
@@ -2380,16 +2380,16 @@ void __fastcall LEVEL_WarpUnit(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nDest
 }
 
 // 0x0053EC90
-void __fastcall D2GAME_SendP0x9C_ItemAction_DropToGround_6FC3E8E0(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2UnitStrc* pItem, int a4)
+void __fastcall D2GAME_SendP0x9C_ItemAction_DropToGround_6FC3E8E0(D2ClientStrc* hClient, D2UnitStrc* hUnit, D2UnitStrc* pItem, int a4)
 {
-    D2_ASSERT(UnitGetClient(pPlayer, ".\\GAME\\SCmd.cpp", 2013) == pClient, 2013);
-    D2GAME_SendPacket0x9C_6FC3E570(pClient, pItem, ITEMACTION_DROPTOGROUND, a4, 0);
+    D2_ASSERT(UnitGetClient(hUnit, ".\\GAME\\SCmd.cpp", 2013) == hClient, 2013);
+    D2GAME_SendPacket0x9C_6FC3E570(hClient, pItem, ITEMACTION_DROPTOGROUND, a4, 0);
 }
 
 // 0x0053ECF0
-void __fastcall D2GAME_SendP0x9C_ItemAction_OnGround_6FC3E930(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2UnitStrc* pItem, int a4)
+void __fastcall D2GAME_SendP0x9C_ItemAction_OnGround_6FC3E930(D2ClientStrc* pClient, D2UnitStrc* hUnit, D2UnitStrc* pItem, int a4)
 {
-    D2_ASSERT(UnitGetClient(pPlayer, ".\\GAME\\SCmd.cpp", 2022) == pClient, 2022);
+    D2_ASSERT(UnitGetClient(hUnit, ".\\GAME\\SCmd.cpp", 2022) == pClient, 2022);
     D2GAME_SendPacket0x9C_6FC3E570(pClient, pItem, ITEMACTION_ONGROUND, a4, 0);
 }
 
@@ -2433,11 +2433,11 @@ void __fastcall PLRTRADE_AddGold(D2UnitStrc* pUnit, int nStat, int nValue)
 }
 
 // 0x00540510
-void __fastcall PARTY_IteratePartyMembers(D2GameStrc* pGame, unsigned short nPartyId, PartyCallbackFunction pCallback, void* pArgs)
+void __fastcall PARTY_IteratePartyMembers(D2GameStrc* ptSystem, unsigned short nPartyId, PartyCallbackFunction pCallback, void* pArgs)
 {
-    D2_ASSERT(pGame->pPartyControl, 210);
+    D2_ASSERT(ptSystem->pPartyControl, 210);
 
-    for (D2PartyStrc* pParty = pGame->pPartyControl->pParties; pParty; pParty = pParty->pNext)
+    for (D2PartyStrc* pParty = ptSystem->pPartyControl->pParties; pParty; pParty = pParty->pNext)
     {
         if (pParty->nPartyId == nPartyId)
         {
@@ -2445,10 +2445,10 @@ void __fastcall PARTY_IteratePartyMembers(D2GameStrc* pGame, unsigned short nPar
             {
                 for (D2PartyNodeStrc* pPartyNode = pParty->pPartyNodes; pPartyNode; pPartyNode = pPartyNode->pNext)
                 {
-                    D2UnitStrc* pPartyMember = SUNIT_GetServerUnit(pGame, UNIT_PLAYER, pPartyNode->nUnitGUID);
+                    D2UnitStrc* pPartyMember = SUNIT_GetServerUnit(ptSystem, UNIT_PLAYER, pPartyNode->nUnitGUID);
                     if (pPartyMember)
                     {
-                        pCallback(pGame, pPartyMember, pArgs);
+                        pCallback(ptSystem, pPartyMember, pArgs);
                     }
                 }
             }
@@ -2507,22 +2507,22 @@ void __fastcall sub_005531E0_FixRoomIfInvalid(D2UnitStrc* pUnit, D2ClientStrc* p
 }
 
 // 0x005538D0
-void __fastcall SUNIT_IterateLivingPlayers(D2GameStrc* pGame, SUNIT_IterateFn pfIterate, void* pArg)
+void __fastcall SUNIT_IterateLivingPlayers(D2GameStrc* ptGame, SUNIT_IterateFn pfIterate, void* pArg)
 {
-    D2UnitStrc** ppSlot = pGame->pUnitList[0];
+    D2UnitStrc** ppSlot = ptGame->pUnitList[0];
     SUNIT_IterateFn pfCallback = pfIterate;
-    D2_ASSERT(pGame && pfCallback, 2022);
+    D2_ASSERT(ptGame && pfCallback, 2022);
 
     for (int i = 0; i < 128; ++i, ++ppSlot)
     {
-        for (D2UnitStrc* pUnit = *ppSlot; pUnit; pUnit = pUnit->pListNext)
+        for (D2UnitStrc* ptUnit = *ppSlot; ptUnit; ptUnit = ptUnit->pListNext)
         {
-            if (!STATES_CheckState(pUnit, STATE_PLAYERBODY))
+            if (!STATES_CheckState(ptUnit, STATE_PLAYERBODY))
             {
-                pfCallback(pGame, pUnit, pArg);
+                pfCallback(ptGame, ptUnit, pArg);
             }
 
-            D2_ASSERT(pUnit, 222);
+            D2_ASSERT(ptUnit, 222);
         }
     }
 }

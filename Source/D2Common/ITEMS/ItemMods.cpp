@@ -212,33 +212,33 @@ int __stdcall D2Common_10851(int a1, int a2, int a3)
 // 0x0065CBF0
 static __declspec(noinline) D2StatListStrc* __stdcall ITEMMODS_GetOrCreateStatList(D2UnitStrc* pUnit, D2UnitStrc* pItem, int nState, int fFilter)
 {
-    D2StatListStrc* pStatList;
+    D2StatListStrc* hStatsList;
 
     if (pUnit)
     {
-        pStatList = sub_00625790_UnitFindStatList(pUnit, nState, fFilter);
-        if (!pStatList)
+        hStatsList = sub_00625790_UnitFindStatList(pUnit, nState, fFilter);
+        if (!hStatsList)
         {
             int nUnitGUID = pUnit->dwUnitId;
             void* pMemPool = pUnit->pMemoryPool;
-            pStatList = STATLIST_AllocStatList(pMemPool, fFilter, 0, 4, nUnitGUID);
-            D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
-            STATLIST_SetState(pStatList, nState);
+            hStatsList = STATLIST_AllocStatList(pMemPool, fFilter, 0, 4, nUnitGUID);
+            D2COMMON_10475_PostStatToStatList(pUnit, hStatsList, 1);
+            STATLIST_SetState(hStatsList, nState);
         }
     }
     else
     {
-        pStatList = sub_00625790_UnitFindStatList(pItem, nState, fFilter);
-        if (!pStatList)
+        hStatsList = sub_00625790_UnitFindStatList(pItem, nState, fFilter);
+        if (!hStatsList)
         {
-            pStatList = STATLIST_AllocStatList(!pItem ? 0 : pItem->pMemoryPool, fFilter, 0, 4, !pItem ? -1 : pItem->dwUnitId);
-            D2COMMON_10475_PostStatToStatList(pItem, pStatList, 1);
-            STATLIST_SetState(pStatList, nState);
+            hStatsList = STATLIST_AllocStatList(!pItem ? 0 : pItem->pMemoryPool, fFilter, 0, 4, !pItem ? -1 : pItem->dwUnitId);
+            D2COMMON_10475_PostStatToStatList(pItem, hStatsList, 1);
+            STATLIST_SetState(hStatsList, nState);
         }
     }
 
-    D2_ASSERT(pStatList, 513);
-    return pStatList;
+    D2_ASSERT(hStatsList, 513);
+    return hStatsList;
 }
 
 int __fastcall sub_0065E070_AddStatTriple(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
@@ -444,16 +444,16 @@ skip_base:
     }
 
     sub_0065CE40_ShiftStatValue(nStatId, &nValue);
-    D2StatListStrc* pStatList = ITEMMODS_GetOrCreateStatList(pUnit, pItem, nState, fStatList);
-    D2_ASSERT(pStatList, 669);
+    D2StatListStrc* hStatsList = ITEMMODS_GetOrCreateStatList(pUnit, pItem, nState, fStatList);
+    D2_ASSERT(hStatsList, 669);
     if (nApplyType)
     {
-        nValue = -STATLIST_GetStatValue(pStatList, nStatId, 0);
+        nValue = -STATLIST_GetStatValue(hStatsList, nStatId, 0);
     }
-    STATLIST_AddStat(pStatList, nStatId, nValue, 0);
+    STATLIST_AddStat(hStatsList, nStatId, nValue, 0);
     if (nStatId == 58)
     {
-        STATLIST_AddStat(pStatList, 326, 1, 0);
+        STATLIST_AddStat(hStatsList, 326, 1, 0);
     }
     return 1;
 }
@@ -637,13 +637,13 @@ int __fastcall sub_0065D270(int type,Unit* unit,Unit* item,const Property* prope
 }
 
 // 0x0065D950
-int __fastcall sub_0065D950_AddDamagePercent(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+int __fastcall sub_0065D950_AddDamagePercent(int nType, D2UnitStrc* pUnit, D2UnitStrc* ptItemStats, const D2PropertyStrc* ptProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
 {
-    if (ITEMS_GetItemFormat(pItem) >= 1)
+    if (ITEMS_GetItemFormat(ptItemStats) >= 1)
     {
-        D2_ASSERT(pProperty, 949);
-        const int nValue = ITEMMODS_RollPropertyValueA(pItem, pProperty->nMin, pProperty->nMax);
-        D2ItemsTxt* pItemsTxtRecord = sub_0065E9B0(pUnit, pItem);
+        D2_ASSERT(ptProperty, 949);
+        const int nValue = ITEMMODS_RollPropertyValueA(ptItemStats, ptProperty->nMin, ptProperty->nMax);
+        D2ItemsTxt* pItemsTxtRecord = sub_0065E9B0(pUnit, ptItemStats);
         D2_ASSERT(pItemsTxtRecord, 960);
         unsigned char nMaxDam8 = pItemsTxtRecord->n2HandMaxDam;
         if (nMaxDam8 <= pItemsTxtRecord->nMaxDam)
@@ -651,44 +651,44 @@ int __fastcall sub_0065D950_AddDamagePercent(int nType, D2UnitStrc* pUnit, D2Uni
             nMaxDam8 = pItemsTxtRecord->nMaxDam;
         }
         const int nMaxDam = nMaxDam8;
-        if (ITEMSIsA(pItem, 45) && nMaxDam + (nValue * nMaxDam) / 100 <= nMaxDam)
+        if (ITEMSIsA(ptItemStats, 45) && nMaxDam + (nValue * nMaxDam) / 100 <= nMaxDam)
         {
             if (pItemsTxtRecord->nMinDam)
             {
-                sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, 1, 22, nApplyType, nState, fStatList);
+                sub_0065D1F0_AddValueStat0(nType, pUnit, ptItemStats, 1, 22, nApplyType, nState, fStatList);
             }
             if (pItemsTxtRecord->n2HandMinDam)
             {
-                sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, 1, 24, nApplyType, nState, fStatList);
+                sub_0065D1F0_AddValueStat0(nType, pUnit, ptItemStats, 1, 24, nApplyType, nState, fStatList);
             }
-            if (ITEMS_CheckIfThrowable(pItem))
+            if (ITEMS_CheckIfThrowable(ptItemStats))
             {
-                sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, 1, 160, nApplyType, nState, fStatList);
+                sub_0065D1F0_AddValueStat0(nType, pUnit, ptItemStats, 1, 160, nApplyType, nState, fStatList);
             }
             return nStatId;
         }
-        sub_0065D2E0_AddValueStat1(nType, pUnit, pItem, nValue, 17, nApplyType, nState, fStatList);
-        sub_0065D2E0_AddValueStat1(nType, pUnit, pItem, nValue, 18, nApplyType, nState, fStatList);
+        sub_0065D2E0_AddValueStat1(nType, pUnit, ptItemStats, nValue, 17, nApplyType, nState, fStatList);
+        sub_0065D2E0_AddValueStat1(nType, pUnit, ptItemStats, nValue, 18, nApplyType, nState, fStatList);
         return nStatId;
     }
-    sub_0065CF40_AddRolledStat(nType, pUnit, pItem, pProperty, 17, nApplyType, 1, nState, fStatList);
-    sub_0065CF40_AddRolledStat(nType, pUnit, pItem, pProperty, 18, nApplyType, 1, nState, fStatList);
+    sub_0065CF40_AddRolledStat(nType, pUnit, ptItemStats, ptProperty, 17, nApplyType, 1, nState, fStatList);
+    sub_0065CF40_AddRolledStat(nType, pUnit, ptItemStats, ptProperty, 18, nApplyType, 1, nState, fStatList);
     return nStatId;
 }
 
 // 0x0065DD80
-int __fastcall sub_0065DD80_AddByTimeStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+int __fastcall sub_0065DD80_AddByTimeStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* ptProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
 {
-    D2_ASSERT(pProperty->nMin <= pProperty->nMax, 0x444);
-    int nPeriod = pProperty->nLayer;
-    int nMin = pProperty->nMin + 256;
-    int nMax = pProperty->nMax + 256;
-    D2StatListStrc* pStatList = ITEMMODS_GetOrCreateStatList(pUnit, pItem, nState, fStatList);
-    D2_ASSERT(pStatList, 0x44A);
+    D2_ASSERT(ptProperty->nMin <= ptProperty->nMax, 0x444);
+    int nPeriod = ptProperty->nLayer;
+    int nMin = ptProperty->nMin + 256;
+    int nMax = ptProperty->nMax + 256;
+    D2StatListStrc* hStatsList = ITEMMODS_GetOrCreateStatList(pUnit, pItem, nState, fStatList);
+    D2_ASSERT(hStatsList, 0x44A);
     D2_ASSERT(nPeriod >= 0 && nPeriod <= 3, 0x44C);
     D2_ASSERT(nMin >= 0 && nMin < (1 << 10), 0x44D);
     D2_ASSERT(nMax >= 0 && nMax < (1 << 10), 0x44E);
-    STATLIST_SetStat(pStatList, nStatId, nPeriod + 4 * (nMin + (nMax << 10)), 0);
+    STATLIST_SetStat(hStatsList, nStatId, nPeriod + 4 * (nMin + (nMax << 10)), 0);
     return 1;
 }
 
@@ -822,18 +822,18 @@ int __fastcall sub_0065DE40_AddStatPair(int nType, D2UnitStrc* pUnit, D2UnitStrc
     }
     else
     {
-        D2StatListStrc* pStatList = ITEMMODS_GetOrCreateStatList(pUnit, pItem, nState, fStatList);
-        D2_ASSERT(pStatList, 1157);
+        D2StatListStrc* hStatsList = ITEMMODS_GetOrCreateStatList(pUnit, pItem, nState, fStatList);
+        D2_ASSERT(hStatsList, 1157);
         if (nApplyType)
         {
-            nMin = -STATLIST_GetStatValue(pStatList, nStatId, 0);
-            nMax = -STATLIST_GetStatValue(pStatList, nStatId1, 0);
+            nMin = -STATLIST_GetStatValue(hStatsList, nStatId, 0);
+            nMax = -STATLIST_GetStatValue(hStatsList, nStatId1, 0);
         }
-        STATLIST_AddStat(pStatList, nStatId, nMin, 0);
-        STATLIST_AddStat(pStatList, nStatId1, nMax, 0);
+        STATLIST_AddStat(hStatsList, nStatId, nMin, 0);
+        STATLIST_AddStat(hStatsList, nStatId1, nMax, 0);
         if (nStatId == 57)
         {
-            STATLIST_AddStat(pStatList, 326, 1, 0);
+            STATLIST_AddStat(hStatsList, 326, 1, 0);
         }
     }
     return 1;
@@ -855,20 +855,20 @@ int __fastcall sub_6FD94AB0(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, con
     sub_0065CE40_ShiftStatValue(nStatId1, &nMax);
     sub_0065CE40_ShiftStatValue(nStatId2, &nLayer);
 
-    D2StatListStrc* pStatList = ITEMMODS_GetOrCreateStatList(pUnit, pItem, nState, fStatList);
-    D2_ASSERT(pStatList, 1197);
+    D2StatListStrc* hStatsList = ITEMMODS_GetOrCreateStatList(pUnit, pItem, nState, fStatList);
+    D2_ASSERT(hStatsList, 1197);
     if (nApplyType)
     {
-        nMin = -STATLIST_GetStatValue(pStatList, nStatId, 0);
-        nMax = -STATLIST_GetStatValue(pStatList, nStatId1, 0);
-        nLayer = -STATLIST_GetStatValue(pStatList, nStatId2, 0);
+        nMin = -STATLIST_GetStatValue(hStatsList, nStatId, 0);
+        nMax = -STATLIST_GetStatValue(hStatsList, nStatId1, 0);
+        nLayer = -STATLIST_GetStatValue(hStatsList, nStatId2, 0);
     }
-    STATLIST_AddStat(pStatList, nStatId, nMin, 0);
-    STATLIST_AddStat(pStatList, nStatId1, nMax, 0);
-    STATLIST_AddStat(pStatList, nStatId2, nLayer, 0);
+    STATLIST_AddStat(hStatsList, nStatId, nMin, 0);
+    STATLIST_AddStat(hStatsList, nStatId1, nMax, 0);
+    STATLIST_AddStat(hStatsList, nStatId2, nLayer, 0);
     if (nStatId == 57)
     {
-        STATLIST_AddStat(pStatList, 326, 1, 0);
+        STATLIST_AddStat(hStatsList, 326, 1, 0);
     }
     return 1;
 }

@@ -270,11 +270,11 @@ static void __stdcall sub_0046DF40_RecalcStateOverlays(D2StateOwnerStrc* pOwner,
 // 0x0046E040
 static void __stdcall sub_0046E040_RemoveOverlay(D2UnitStrc* pUnit, D2StateNodeStrc* pOverlay)
 {
-    D2StateOwnerStrc* pGfxData = sub_00463E10_GetGfxData(pUnit);
-    D2_ASSERT(pGfxData, 0x1BF);
+    D2StateOwnerStrc* ptGfxInfo = sub_00463E10_GetGfxData(pUnit);
+    D2_ASSERT(ptGfxInfo, 0x1BF);
 
     D2StateNodeStrc* pPrevious = 0;
-    D2StateNodeStrc* pNode = pGfxData->pFirst;
+    D2StateNodeStrc* pNode = ptGfxInfo->pFirst;
 AdvanceToNextNode:
     if (pNode && pNode != pOverlay)
     {
@@ -300,12 +300,12 @@ AdvanceToNextNode:
     }
     else
     {
-        pGfxData->pFirst = pNode->pNext;
+        ptGfxInfo->pFirst = pNode->pNext;
     }
 
     if (pNode->dwType == 8)
     {
-        sub_0046DF40_RecalcStateOverlays(pGfxData, pUnit, pNode);
+        sub_0046DF40_RecalcStateOverlays(ptGfxInfo, pUnit, pNode);
     }
 
     FOG_Free(pNode, gszGfxFile_006D6C1C, 0x1E1, 0);

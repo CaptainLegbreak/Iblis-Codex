@@ -93,18 +93,18 @@ static __forceinline void CLIENTS_UnlinkName(char* szName)
 }
 
 // 0x00539DA0
-void __fastcall ClientRemoveFromGame(D2GameStrc* pGame,void* hClientId,int bTriggerSave)
+void __fastcall ClientRemoveFromGame(D2GameStrc* ptGame,void* hClientId,int bTriggerSave)
 {
- D2_ASSERT(pGame,0x49F);
- D2ClientStrc* pClient=CLIENTS_GetClientFromClientId(pGame,(int)hClientId);
+ D2_ASSERT(ptGame,0x49F);
+ D2ClientStrc* pClient=CLIENTS_GetClientFromClientId(ptGame,(int)hClientId);
  if(pClient) CLIENTS_FillCharacterPreviewInfo(pClient,pClient->szPreview);
- if(bTriggerSave==1) sub_0052C900_SaveClient(CLIENTS_GetClientFromClientId(pGame,(int)hClientId),pGame);
+ if(bTriggerSave==1) sub_0052C900_SaveClient(CLIENTS_GetClientFromClientId(ptGame,(int)hClientId),ptGame);
  char szName[16]; szName[0]=0;
  CLIENTS_UnlinkId((int)hClientId,szName);
  pClient=0;
- D2ClientStrc* pCurrent=pGame->pClientList;
+ D2ClientStrc* pCurrent=ptGame->pClientList;
  if(pCurrent) {
-  if(pCurrent->dwClientId==(int)hClientId) { pClient=pCurrent;pGame->pClientList=pCurrent->pNext; }
+  if(pCurrent->dwClientId==(int)hClientId) { pClient=pCurrent;ptGame->pClientList=pCurrent->pNext; }
   else {
    while(pCurrent->pNext && pCurrent->pNext->dwClientId!=(int)hClientId) pCurrent=pCurrent->pNext;
    if(pCurrent->pNext) { pClient=pCurrent->pNext;pCurrent->pNext=pClient->pNext; }
@@ -112,17 +112,17 @@ void __fastcall ClientRemoveFromGame(D2GameStrc* pGame,void* hClientId,int bTrig
  }
  CLIENTS_UnlinkName(szName);
  if(!pClient) return;
- GAME_SendPacket0x5CToAllConnectedClients(pGame,pClient);
+ GAME_SendPacket0x5CToAllConnectedClients(ptGame,pClient);
  D2UnitStrc* pPlayer=CLIENTS_GetPlayerFromClient(pClient,0);
  if(pPlayer) {
   const __int64 nExperience=STATLIST_GetUnitBaseStat(pPlayer,13,0);
   const int nClassId=pPlayer->dwClassId;
   const int nLevel=(unsigned short)STATLIST_GetUnitBaseStat(pPlayer,12,0);
-  PARTY_LeaveParty(pGame,pPlayer);
-  PLAYERPETS_FreePetsFromPlayerData(pGame,pPlayer);
-  SUNITPROXY_OnClientRemovedFromGame(pGame,pPlayer);
-  sub_00543BD0_PlayerLeftGame(pGame,pPlayer);
-  PLRTRADE_StopAllPlayerInteractions(pGame,pPlayer);
+  PARTY_LeaveParty(ptGame,pPlayer);
+  PLAYERPETS_FreePetsFromPlayerData(ptGame,pPlayer);
+  SUNITPROXY_OnClientRemovedFromGame(ptGame,pPlayer);
+  sub_00543BD0_PlayerLeftGame(ptGame,pPlayer);
+  PLRTRADE_StopAllPlayerInteractions(ptGame,pPlayer);
   D2ActiveRoomStrc* pRoom=UNITS_GetRoom(pPlayer);
   if(pRoom) DUNGEON_AllocDrlgDelete(pRoom,!pPlayer ? 6 : pPlayer->dwUnitType,!pPlayer ? -1 : pPlayer->dwUnitId);
   SUNIT_RemoveUnit(pClient->pGame,pPlayer);
@@ -130,12 +130,12 @@ void __fastcall ClientRemoveFromGame(D2GameStrc* pGame,void* hClientId,int bTrig
   D2Common_10077(pRoom,0);
   if(gpD2EventCallbackTable_6FD45830) {
    D2_ASSERT(!IsBadCodePtr((void*)gpD2EventCallbackTable_6FD45830->pfCloseCharacter),0x5A6);
-   if(gpD2EventCallbackTable_6FD45830->pfCloseCharacter) gpD2EventCallbackTable_6FD45830->pfCloseCharacter(&pClient->pClientInfo,pGame->nGameId,nClassId,nLevel,nExperience,pClient->nSaveFlags,pClient->szName,pClient->szPreview,pClient->unk178,0,0,pClient->szAccount,pClient->nCharSaveTransactionToken,0,0,0,0,0,pClient->nSaveCreationTimestamp);
+   if(gpD2EventCallbackTable_6FD45830->pfCloseCharacter) gpD2EventCallbackTable_6FD45830->pfCloseCharacter(&pClient->pClientInfo,ptGame->nGameId,nClassId,nLevel,nExperience,pClient->nSaveFlags,pClient->szName,pClient->szPreview,pClient->unk178,0,0,pClient->szAccount,pClient->nCharSaveTransactionToken,0,0,0,0,0,pClient->nSaveCreationTimestamp);
   }
  } else if(gpD2EventCallbackTable_6FD45830) {
   pClient->szPreview[0]=0;
   D2_ASSERT(!IsBadCodePtr((void*)gpD2EventCallbackTable_6FD45830->pfCloseCharacter),0x5CE);
-  if(gpD2EventCallbackTable_6FD45830->pfCloseCharacter) gpD2EventCallbackTable_6FD45830->pfCloseCharacter(&pClient->pClientInfo,pGame->nGameId,0,0,0,0,pClient->szName,pClient->szPreview,pClient->unk178,0,0,pClient->szAccount,pClient->nCharSaveTransactionToken,0,0,0,0,0,pClient->nSaveCreationTimestamp);
+  if(gpD2EventCallbackTable_6FD45830->pfCloseCharacter) gpD2EventCallbackTable_6FD45830->pfCloseCharacter(&pClient->pClientInfo,ptGame->nGameId,0,0,0,0,pClient->szName,pClient->szPreview,pClient->unk178,0,0,pClient->szAccount,pClient->nCharSaveTransactionToken,0,0,0,0,0,pClient->nSaveCreationTimestamp);
  }
  if(pClient->pRoom) LEVEL_RemoveClientFromAdjacentRooms(pClient->pRoom,pClient);
  if(pClient->pSaveFile) {
@@ -148,5 +148,5 @@ void __fastcall ClientRemoveFromGame(D2GameStrc* pGame,void* hClientId,int bTrig
   FOG_FreePool(0,pPacket,szClientsCppFile,0x605,0);
  }
  FOG_FreePool(pClient->pGame->pMemoryPool,pClient,szClientsCppFile,0x608,0);
- --pGame->nClients;
+ --ptGame->nClients;
 }

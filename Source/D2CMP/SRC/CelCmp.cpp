@@ -2032,23 +2032,23 @@ int __stdcall sub_00600C70_GetDirectionIndex32(int nDirection, unsigned int nDir
 }
 
 // 0x00600EE0
-void __stdcall CelFileHalve(D2CmpCelFileStrc* pCelFile, int nUnused)
+void __stdcall CelFileHalve(D2CmpCelFileStrc* hFile, int nUnused)
 {
-    D2_ASSERT(pCelFile, 0x29C);
+    D2_ASSERT(hFile, 0x29C);
 }
 
 // 0x00600F10
-int __stdcall CelFileConvert24To8(D2CmpCelFileStrc* pSource, D2CmpCelFileStrc** ppTarget, int nArg1, int nArg2)
+int __stdcall CelFileConvert24To8(D2CmpCelFileStrc* pFile, D2CmpCelFileStrc** ppTarget, int nArg1, int nArg2)
 {
-    D2_ASSERT(pSource->dwFlags & 4, 0x2AD);
-    const int nCells = pSource->nDirections * pSource->nFrames;
+    D2_ASSERT(pFile->dwFlags & 4, 0x2AD);
+    const int nCells = pFile->nDirections * pFile->nFrames;
     D2CmpCelFileStrc* pTarget = (D2CmpCelFileStrc*)FOG_Alloc(0x18 + nCells * sizeof(D2CmpCellStrc*), ".\\SRC\\CelCmp.cpp", 0x2B1, 0);
     pTarget->nVersion = 6;
-    pTarget->dwFlags = pSource->dwFlags & ~7;
-    pTarget->nDirections = pSource->nDirections;
-    pTarget->nFrames = pSource->nFrames;
+    pTarget->dwFlags = pFile->dwFlags & ~7;
+    pTarget->nDirections = pFile->nDirections;
+    pTarget->nFrames = pFile->nFrames;
     pTarget->nFormat = 0;
-    gpfCelFileConvert[pSource->nFormat](pSource, pTarget, nArg1, nArg2);
+    gpfCelFileConvert[pFile->nFormat](pFile, pTarget, nArg1, nArg2);
     *ppTarget = pTarget;
     return 1;
 }
@@ -2103,10 +2103,10 @@ void __stdcall CelFileNormalize(D2CelFileStrc* pFile, D2CelFileStrc** ppOutFile,
 }
 
 // 0x00601410
-void __stdcall sub_00601410_CelFileFree(D2CmpCelFileStrc* pCelFile)
+void __stdcall sub_00601410_CelFileFree(D2CmpCelFileStrc* pSerializedFile)
 {
-    D2_ASSERT(pCelFile, 0x40D);
-    FOG_Free(pCelFile, ".\\SRC\\CelCmp.cpp", 0x40E, 0);
+    D2_ASSERT(pSerializedFile, 0x40D);
+    FOG_Free(pSerializedFile, ".\\SRC\\CelCmp.cpp", 0x40E, 0);
 }
 
 // 0x006014C0
@@ -2189,13 +2189,13 @@ int __stdcall CelGetRawData(CellTable* p, int nDirection, int nIndex, void* pDst
 }
 
 // 0x006019B0
-int __stdcall CelFileGetNumDirections(Unit* unit)
+int __stdcall CelFileGetNumDirections(Unit* pFile)
 {
-    if(unit->type!=REQUIRED_TYPE) {
+    if(pFile->type!=REQUIRED_TYPE) {
         sub_00408A60(&emptyAssert,sub_00408090(),0x5C2);
         exit(-1);
     }
-    return unit->mode;
+    return pFile->mode;
 }
 
 // 0x00601B40

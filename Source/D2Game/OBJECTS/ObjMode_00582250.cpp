@@ -270,13 +270,13 @@ void __fastcall D2GAME_OBJECTS_TrapHandler8_9_6FC75AC0(D2GameStrc* pGame, D2Unit
 }
 
 // 0x00582510
-static void __stdcall D2GAME_SetTrapCallback_6FC764B0(unsigned char nTrapType, D2ObjOperateFnStrc* pOp)
+static void __stdcall D2GAME_SetTrapCallback_6FC764B0(unsigned char bTrapType, D2ObjOperateFnStrc* pOp)
 {
-    if (nTrapType < gnObjectTrapHandlerCount_00732D14 && gpObjectTrapHandlerTable_00732CEC[nTrapType])
+    if (bTrapType < gnObjectTrapHandlerCount_00732D14 && gpObjectTrapHandlerTable_00732CEC[bTrapType])
     {
-        D2_ASSERT(!IsBadCodePtr((FARPROC)gpObjectTrapHandlerTable_00732CEC[nTrapType]), 0x56C);
+        D2_ASSERT(!IsBadCodePtr((FARPROC)gpObjectTrapHandlerTable_00732CEC[bTrapType]), 0x56C);
 
-        if (gpObjectTrapHandlerTable_00732CEC[nTrapType] == D2GAME_OBJECTS_TrapHandler8_9_6FC75AC0
+        if (gpObjectTrapHandlerTable_00732CEC[bTrapType] == D2GAME_OBJECTS_TrapHandler8_9_6FC75AC0
             && !sub_00582250(UNITS_GetRoom(pOp->pObject), OBJRGN_GetTrapMonsterId(pOp)))
         {
             return;

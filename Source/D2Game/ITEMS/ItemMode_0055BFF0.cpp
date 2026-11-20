@@ -289,12 +289,12 @@ static int sub_0055BFF0_GetBookSkillId(D2UnitStrc* pItem)
 }
 
 // 0x0055C070
-static void __stdcall sub_0055C070_AddBookScrollSkillQuantity(int nQuantityBonus, D2UnitStrc* pUnit, D2UnitStrc* pItem)
+static void __stdcall sub_0055C070_AddBookScrollSkillQuantity(int nQuantityBonus, D2UnitStrc* pUnit, D2UnitStrc* hItem)
 {
     D2_ASSERT(pUnit, 0x202);
-    D2_ASSERT(pItem, 0x203);
+    D2_ASSERT(hItem, 0x203);
 
-    const int nSkillId = sub_0055BFF0_GetBookSkillId(pItem);
+    const int nSkillId = sub_0055BFF0_GetBookSkillId(hItem);
     if (nSkillId == -1)
     {
         return;
@@ -1151,9 +1151,9 @@ static int __stdcall sub_0055D0D0_AutoStackPickup(D2GameStrc* pGame, D2UnitStrc*
 }
 
 // 0x0055D370
-int __stdcall sub_0055D370_TryMergeBookQuantity(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem)
+int __stdcall sub_0055D370_TryMergeBookQuantity(D2GameStrc* ptGame, D2UnitStrc* pUnit, D2UnitStrc* pItem)
 {
-    D2_ASSERT(pGame, 0x622);
+    D2_ASSERT(ptGame, 0x622);
 
     D2InventoryStrc* pInventory = pUnit->pInventory;
     D2UnitStrc* pBook = INVENTORY_FindFillableBook(pInventory, pItem, 0);
@@ -1205,7 +1205,7 @@ int __stdcall sub_0055D370_TryMergeBookQuantity(D2GameStrc* pGame, D2UnitStrc* p
         pItem->dwFlags &= ~2;
     }
 
-    ITEMS_RemoveFromAllPlayers(pGame, pItem);
+    ITEMS_RemoveFromAllPlayers(ptGame, pItem);
     INVENTORY_SetCursorItem(pInventory, 0);
     return 1;
 }
@@ -1422,7 +1422,7 @@ void __fastcall ITEMMODE_RebuildBookScrollSkillQuantities(D2GameStrc* pGame, D2U
 }
 
 // 0x005606B0
-int __fastcall ITEMMODE_EquipCursorItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nItemGUID, unsigned char nBodyLoc, int bSkipRequirementCheck, int* pItemStatus)
+int __fastcall ITEMMODE_EquipCursorItem(D2GameStrc* ptGame, D2UnitStrc* hUnit, int nItemGUID, unsigned char nBodyLoc, int bSkipRequirementCheck, int* pItemStatus)
 {
     int bIsSwitchWeapon = 0;
     if (nBodyLoc == 0xB || nBodyLoc == 0xC)
@@ -1430,17 +1430,17 @@ int __fastcall ITEMMODE_EquipCursorItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, 
         bIsSwitchWeapon = 1;
     }
 
-    D2_ASSERT(pGame, 0xAEE);
-    D2_ASSERT(pPlayer, 0xAEF);
+    D2_ASSERT(ptGame, 0xAEE);
+    D2_ASSERT(hUnit, 0xAEF);
 
     if (pItemStatus)
     {
         *pItemStatus = 0;
     }
 
-    sub_0055BF50_ClearTargetingFlags(pPlayer, ".\\ITEMS\\ItemMode.cpp", 0xAF7);
+    sub_0055BF50_ClearTargetingFlags(hUnit, ".\\ITEMS\\ItemMode.cpp", 0xAF7);
 
-    D2UnitStrc* pItem = SUNIT_GetServerUnit(pGame, 4, nItemGUID);
+    D2UnitStrc* pItem = SUNIT_GetServerUnit(ptGame, 4, nItemGUID);
     if (!pItem)
     {
         if (pItemStatus)
@@ -1466,7 +1466,7 @@ int __fastcall ITEMMODE_EquipCursorItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, 
         return 0;
     }
 
-    if (D2Common_10299(pPlayer, nBodyLoc, pItem, bSkipRequirementCheck) != 1)
+    if (D2Common_10299(hUnit, nBodyLoc, pItem, bSkipRequirementCheck) != 1)
     {
         if (pItemStatus)
         {
@@ -1476,7 +1476,7 @@ int __fastcall ITEMMODE_EquipCursorItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, 
         return 0;
     }
 
-    if (!bSkipRequirementCheck && !ITEMS_CheckRequirements(pItem, pPlayer, 0, 0, 0, 0))
+    if (!bSkipRequirementCheck && !ITEMS_CheckRequirements(pItem, hUnit, 0, 0, 0, 0))
     {
         if (pItemStatus)
         {
@@ -1486,13 +1486,13 @@ int __fastcall ITEMMODE_EquipCursorItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, 
         return 0;
     }
 
-    D2InventoryStrc* pInventory = pPlayer->pInventory;
+    D2InventoryStrc* pInventory = hUnit->pInventory;
     if (!bIsSwitchWeapon)
     {
         D2UnitStrc* pMainWeapon = INVENTORY_GetLeftHandWeapon(pInventory);
         if (pMainWeapon)
         {
-            UNITS_SetWeaponGUID(pPlayer, pMainWeapon);
+            UNITS_SetWeaponGUID(hUnit, pMainWeapon);
         }
     }
 
@@ -1511,7 +1511,7 @@ int __fastcall ITEMMODE_EquipCursorItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, 
             if (!bIsSwitchWeapon)
             {
                 sub_0063D1D0_InventoryItemCall(pInventory, pItem);
-                sITEMSAddStatsList(pGame, pItem, pPlayer, 0);
+                sITEMSAddStatsList(ptGame, pItem, hUnit, 0);
             }
 
             INVENTORY_SetCursorItem(pInventory, 0);
@@ -1526,9 +1526,9 @@ int __fastcall ITEMMODE_EquipCursorItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, 
             }
 
             INVENTORY_AddItemToTradeInventory(pInventory, pItem);
-            UNITS_RefreshInventory(pPlayer, 1);
-            sub_0055C5C0_RefreshSkillsForEquippedWeapons(pPlayer);
-            sub_0055DBC0(pGame, pPlayer, 0);
+            UNITS_RefreshInventory(hUnit, 1);
+            sub_0055C5C0_RefreshSkillsForEquippedWeapons(hUnit);
+            sub_0055DBC0(ptGame, hUnit, 0);
         }
         else
         {
@@ -1545,29 +1545,29 @@ int __fastcall ITEMMODE_EquipCursorItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, 
 }
 
 // 0x00560CD0
-int __fastcall ITEMMODE_UnequipBodyItem(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nBodyLoc, int bSetQuantityFlag, int* pItemStatus)
+int __fastcall ITEMMODE_UnequipBodyItem(D2GameStrc* ptGame, D2UnitStrc* pUnit, unsigned char nBodyLoc, int bSetQuantityFlag, int* pItemStatus)
 {
-    D2_ASSERT(pGame, 0xC44);
+    D2_ASSERT(ptGame, 0xC44);
     D2_ASSERT(pUnit, 0xC45);
 
     *pItemStatus = 0;
 
-    D2InventoryStrc* pInventory = pUnit->pInventory;
-    D2_ASSERT(pInventory, 0xC4A);
+    D2InventoryStrc* hInventory = pUnit->pInventory;
+    D2_ASSERT(hInventory, 0xC4A);
 
-    if (INVENTORY_GetCursorItem(pInventory))
+    if (INVENTORY_GetCursorItem(hInventory))
     {
         return 0;
     }
 
-    D2UnitStrc* pItem = INVENTORY_GetItemFromBodyLoc(pInventory, nBodyLoc);
-    if (!pItem)
+    D2UnitStrc* hItem = INVENTORY_GetItemFromBodyLoc(hInventory, nBodyLoc);
+    if (!hItem)
     {
         *pItemStatus = 0;
         return 0;
     }
 
-    const int nItemType = pItem ? pItem->dwUnitType : 6;
+    const int nItemType = hItem ? hItem->dwUnitType : 6;
     if (nItemType != 4)
     {
         return 0;
@@ -1582,60 +1582,60 @@ int __fastcall ITEMMODE_UnequipBodyItem(D2GameStrc* pGame, D2UnitStrc* pUnit, un
         return 0;
     }
 
-    INVENTORY_GetSecondWieldingWeapon(pUnit, pInventory, &pItem, nBodyLoc);
-    if (!pItem)
+    INVENTORY_GetSecondWieldingWeapon(pUnit, hInventory, &hItem, nBodyLoc);
+    if (!hItem)
     {
         *pItemStatus = 1;
         return 0;
     }
 
-    sub_0062A360(pUnit, pItem);
-    sub_0063D2B0_DetachItem(pInventory, pItem);
-    D2UnitStrc* pRemove = INVENTORY_RemoveItemFromInventory(pInventory, pItem);
+    sub_0062A360(pUnit, hItem);
+    sub_0063D2B0_DetachItem(hInventory, hItem);
+    D2UnitStrc* hRemove = INVENTORY_RemoveItemFromInventory(hInventory, hItem);
 
-    D2_ASSERT(pRemove, 0xC76);
-    D2_ASSERT(pItem == pRemove, 0xC77);
+    D2_ASSERT(hRemove, 0xC76);
+    D2_ASSERT(hItem == hRemove, 0xC77);
 
-    sub_0063BE30(pInventory, nBodyLoc);
+    sub_0063BE30(hInventory, nBodyLoc);
 
-    if (ITEMS_GetItemType(pRemove) == 0x13)
+    if (ITEMS_GetItemType(hRemove) == 0x13)
     {
-        sub_6FC45930(pGame, pUnit, 0);
+        sub_6FC45930(ptGame, pUnit, 0);
     }
 
     if (bSetQuantityFlag)
     {
-        ITEMS_SetItemFlag(pItem, 0x20, 1);
+        ITEMS_SetItemFlag(hItem, 0x20, 1);
     }
     else
     {
-        INVENTORY_SetCursorItem(pInventory, pItem);
+        INVENTORY_SetCursorItem(hInventory, hItem);
     }
 
-    D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(pGame, pItem, pUnit, 0, 1);
+    D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(ptGame, hItem, pUnit, 0, 1);
 
-    if (pItem)
+    if (hItem)
     {
-        pItem->dwFlags &= ~2;
+        hItem->dwFlags &= ~2;
     }
 
-    UNITS_ChangeAnimMode(pItem, 4);
-    ITEMS_SetItemCMDFlag(pItem, 0x10, 1);
+    UNITS_ChangeAnimMode(hItem, 4);
+    ITEMS_SetItemCMDFlag(hItem, 0x10, 1);
 
-    if (sub_0055F590_CheckItem(pItem, ".\\ITEMS\\ItemMode.cpp", 0xC8B))
+    if (sub_0055F590_CheckItem(hItem, ".\\ITEMS\\ItemMode.cpp", 0xC8B))
     {
-        ITEMS_SetItemFlag(pItem, 1, 1);
+        ITEMS_SetItemFlag(hItem, 1, 1);
     }
 
-    if (ITEMS_CheckItemFlag(pItem, 0x4000, 0xC8E, ".\\ITEMS\\ItemMode.cpp"))
+    if (ITEMS_CheckItemFlag(hItem, 0x4000, 0xC8E, ".\\ITEMS\\ItemMode.cpp"))
     {
-        ITEMS_SetItemFlag(pItem, 0x4000, 0);
+        ITEMS_SetItemFlag(hItem, 0x4000, 0);
     }
 
-    INVENTORY_AddItemToTradeInventory(pInventory, pItem);
+    INVENTORY_AddItemToTradeInventory(hInventory, hItem);
     UNITS_RefreshInventory(pUnit, 1);
     sub_0055C5C0_RefreshSkillsForEquippedWeapons(pUnit);
-    sub_0055DBC0(pGame, pUnit, 0);
+    sub_0055DBC0(ptGame, pUnit, 0);
     return 1;
 }
 
@@ -1684,59 +1684,59 @@ int __fastcall ITEMMODE_EquipItemAtResolvedBodyLocation(D2GameStrc* pGame, D2Uni
 }
 
 // 0x005600A0
-static int __stdcall sub_005600A0_PlaceItemInInventory(D2GameStrc* pGame, int bRemove, int nPage, const char* szFile, int nLine, D2UnitStrc* pUnit, D2UnitStrc* pItem)
+static int __stdcall sub_005600A0_PlaceItemInInventory(D2GameStrc* ptGame, int bRemove, int nPage, const char* szFile, int nLine, D2UnitStrc* pUnit, D2UnitStrc* hItem)
 {
-    D2_ASSERT(pGame, 0x746);
+    D2_ASSERT(ptGame, 0x746);
 
-    D2InventoryStrc* pInventory = pUnit->pInventory;
-    D2_ASSERT(pInventory, 0x749);
+    D2InventoryStrc* hInventory = pUnit->pInventory;
+    D2_ASSERT(hInventory, 0x749);
 
-    if (INVENTORY_PlaceItemAtFreePosition(pInventory, pItem, UNITS_GetInventoryRecordId(pUnit, nPage, pGame->bExpansion), 0, 0, szFile, nLine))
+    if (INVENTORY_PlaceItemAtFreePosition(hInventory, hItem, UNITS_GetInventoryRecordId(pUnit, nPage, ptGame->bExpansion), 0, 0, szFile, nLine))
     {
         if (bRemove)
         {
-            D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pItem);
+            D2ActiveRoomStrc* pRoom = UNITS_GetRoom(hItem);
             if (pRoom)
             {
-                const int nUnitGUID = !pItem ? -1 : pItem->dwUnitId;
-                const int nUnitType = !pItem ? 6 : pItem->dwUnitType;
+                const int nUnitGUID = !hItem ? -1 : hItem->dwUnitId;
+                const int nUnitType = !hItem ? 6 : hItem->dwUnitType;
                 DUNGEON_AllocDrlgDelete(pRoom, nUnitType, nUnitGUID);
-                UNITS_FreeCollisionPath(pItem);
-                UNITROOM_RemoveUnitFromRoom(pItem);
+                UNITS_FreeCollisionPath(hItem);
+                UNITROOM_RemoveUnitFromRoom(hItem);
             }
         }
 
-        if (INVENTORY_PlaceItemInSocket(pInventory, pItem, 1))
+        if (INVENTORY_PlaceItemInSocket(hInventory, hItem, 1))
         {
-            INVENTORY_SetCursorItem(pInventory, 0);
-            sub_0055C270_OnItemToBelt(pUnit, pItem);
+            INVENTORY_SetCursorItem(hInventory, 0);
+            sub_0055C270_OnItemToBelt(pUnit, hItem);
 
-            if (ITEMS_IsCharmUsable(pItem, pUnit))
+            if (ITEMS_IsCharmUsable(hItem, pUnit))
             {
-                sITEMSAddStatsList(pGame, pItem, pUnit, 0);
+                sITEMSAddStatsList(ptGame, hItem, pUnit, 0);
             }
 
-            if (pItem)
+            if (hItem)
             {
-                pItem->dwFlags &= ~2u;
+                hItem->dwFlags &= ~2u;
             }
 
-            UNITS_ChangeAnimMode(pItem, 0);
-            ITEMS_SetItemCMDFlag(pItem, 0x80, 1);
-            INVENTORY_AddItemToTradeInventory(pInventory, pItem);
+            UNITS_ChangeAnimMode(hItem, 0);
+            ITEMS_SetItemCMDFlag(hItem, 0x80, 1);
+            INVENTORY_AddItemToTradeInventory(hInventory, hItem);
             UNITS_RefreshInventory(pUnit, 1);
 
-            if (pItem)
+            if (hItem)
             {
-                pItem->dwFlags &= ~0x02000000u;
+                hItem->dwFlags &= ~0x02000000u;
             }
 
-            ITEMS_SetInvPage(pItem, nPage);
-            QUESTS_ItemPickedUp(pGame, pUnit, pItem);
+            ITEMS_SetInvPage(hItem, nPage);
+            QUESTS_ItemPickedUp(ptGame, pUnit, hItem);
 
-            if (ITEMS_IsCharmUsable(pItem, pUnit))
+            if (ITEMS_IsCharmUsable(hItem, pUnit))
             {
-                sub_0055DBC0(pGame, pUnit, 0);
+                sub_0055DBC0(ptGame, pUnit, 0);
                 UNITS_RefreshInventory(pUnit, 1);
             }
 

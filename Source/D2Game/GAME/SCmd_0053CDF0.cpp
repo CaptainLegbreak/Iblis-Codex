@@ -107,31 +107,31 @@ static int __stdcall sub_0053CD80_ShouldSendLifeUpdate(D2UnitStrc* pPlayer, D2Un
 }
 
 // 0x0053CDF0
-void __fastcall SCMD_SendUnitLifeAndPositionUpdate(D2ClientStrc* pClient, D2UnitStrc* pUnit)
+void __fastcall SCMD_SendUnitLifeAndPositionUpdate(D2ClientStrc* pClient, D2UnitStrc* hUnit)
 {
-    D2_ASSERT(pUnit, 0x72A);
+    D2_ASSERT(hUnit, 0x72A);
 
-    const int nLifePercentage = UNITS_GetCurrentLifePercentage(pUnit);
+    const int nLifePercentage = UNITS_GetCurrentLifePercentage(hUnit);
     D2GSPacketSrv7F90 tPacket;
     const D2GSPacketSrv7F tZero7F = {};
     tPacket.packet7F = tZero7F;
     tPacket.packet7F.nHeader = 0x7F;
 
-    if (pUnit->dwUnitType == 0)
+    if (hUnit->dwUnitType == 0)
     {
         tPacket.packet7F.bIsPlayer = 1;
     }
 
-    tPacket.packet7F.nUnitGUID = pUnit->dwUnitId;
+    tPacket.packet7F.nUnitGUID = hUnit->dwUnitId;
     tPacket.packet7F.nLifePercentage = nLifePercentage;
     if (nLifePercentage >= 0xFFFF)
     {
         tPacket.packet7F.nLifePercentage = 0xFFFF;
     }
 
-    tPacket.packet7F.nLevelId = DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pUnit));
+    tPacket.packet7F.nLevelId = DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(hUnit));
 
-    if (sub_0053CD80_ShouldSendLifeUpdate(CLIENTS_GetPlayerFromClient(pClient, 0), pUnit, nLifePercentage, tPacket.packet7F.nLevelId))
+    if (sub_0053CD80_ShouldSendLifeUpdate(CLIENTS_GetPlayerFromClient(pClient, 0), hUnit, nLifePercentage, tPacket.packet7F.nLevelId))
     {
         D2GAME_PACKETS_SendPacket_6FC3C710(&tPacket.packet7F, sizeof(tPacket.packet7F), pClient);
     }
@@ -139,14 +139,14 @@ void __fastcall SCMD_SendUnitLifeAndPositionUpdate(D2ClientStrc* pClient, D2Unit
     if (tPacket.packet7F.bIsPlayer)
     {
         D2UnitStrc* pClientPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
-        if (UNITS_GetDistanceToOtherUnit(pClientPlayer, pUnit) > 50)
+        if (UNITS_GetDistanceToOtherUnit(pClientPlayer, hUnit) > 50)
         {
             const D2GSPacketSrv90 tZero90 = {};
             tPacket.packet90 = tZero90;
             tPacket.packet90.nHeader = 0x90;
-            tPacket.packet90.dwGUID = pUnit->dwUnitId;
-            tPacket.packet90.dwPosX = CLIENTS_GetUnitX(pUnit);
-            tPacket.packet90.dwPosY = CLIENTS_GetUnitY(pUnit);
+            tPacket.packet90.dwGUID = hUnit->dwUnitId;
+            tPacket.packet90.dwPosX = CLIENTS_GetUnitX(hUnit);
+            tPacket.packet90.dwPosY = CLIENTS_GetUnitY(hUnit);
             D2GAME_PACKETS_SendPacket_6FC3C710(&tPacket.packet90, sizeof(tPacket.packet90), pClient);
 
         }

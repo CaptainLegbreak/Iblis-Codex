@@ -21,11 +21,11 @@ void __stdcall sub_0052F630(unsigned short gameId,unsigned char* message)
     EnterCriticalSection(&games_lock);
     if (game_guids[gameId-1] && game_guids[gameId-1] != -1) guid = game_guids[gameId-1];
     LeaveCriticalSection(&games_lock);
-    Game* game = sub_0052E860(guid);
-    CHECK(game,0x1564);
+    Game* ptGame = sub_0052E860(guid);
+    CHECK(ptGame,0x1564);
     message[255] = 0;
-    if (!strncmp("<ABEND> ",(const char*)message,8)) game->mode = message[8] & MODE_MASK;
-    sub_0054A9B0(game,(const char*)message,1);
-    CHECK(game->lock,0x1064);
-    LeaveCriticalSection(game->lock);
+    if (!strncmp("<ABEND> ",(const char*)message,8)) ptGame->mode = message[8] & MODE_MASK;
+    sub_0054A9B0(ptGame,(const char*)message,1);
+    CHECK(ptGame->lock,0x1064);
+    LeaveCriticalSection(ptGame->lock);
 }

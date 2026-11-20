@@ -272,22 +272,22 @@ int __fastcall sub_005155D0_SetSoundData(D2SoundStrc* pSound, const void* pFile,
 }
 
 // 0x00515D70
-int __fastcall sub_00515D70_StartStream(D2SoundStrc* pSound, const char* szFileName, int nPosition, int bLoop)
+int __fastcall sub_00515D70_StartStream(D2SoundStrc* ptSample, const char* szFileName, int nPosition, int bLoop)
 {
-    D2_ASSERT(pSound, 0x3DB);
+    D2_ASSERT(ptSample, 0x3DB);
     void* hFile;
     if (!sub_004068E0(szFileName, &hFile))
         return 0;
     EnterCriticalSection(&gSoundLock_0088174C);
-    if (!SFileDdaBeginEx(hFile, pSound->nBufferSize, bLoop ? 0x40000 : 0, nPosition * 4, 0x7FFFFFFF, 0x7FFFFFFF, pSound->pBuffer))
+    if (!SFileDdaBeginEx(hFile, ptSample->nBufferSize, bLoop ? 0x40000 : 0, nPosition * 4, 0x7FFFFFFF, 0x7FFFFFFF, ptSample->pBuffer))
     {
         sub_004068F0(hFile);
         LeaveCriticalSection(&gSoundLock_0088174C);
         return 0;
     }
-    pSound->hStreamFile = hFile;
-    pSound->bStreaming = 1;
-    pSound->nLoopStart = -1;
+    ptSample->hStreamFile = hFile;
+    ptSample->bStreaming = 1;
+    ptSample->nLoopStart = -1;
     LeaveCriticalSection(&gSoundLock_0088174C);
     return 1;
 }

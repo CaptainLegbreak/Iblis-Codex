@@ -585,10 +585,10 @@ void __fastcall OBJECTS_InitFunction20_TaintedAltar(D2ObjInitFnStrc* pOp)
 // 0x00544E30
 void __fastcall OBJECTS_InitFunction23_LamEsenTomeStand(D2ObjInitFnStrc* pOp)
 {
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pOp->pGame, QUEST_A3Q1_LAMESENTOME);
-    D2_ASSERT(pQuestData, 2435);
+    D2QuestDataStrc* pQuestInfo = QUESTS_GetQuestData(pOp->pGame, QUEST_A3Q1_LAMESENTOME);
+    D2_ASSERT(pQuestInfo, 2435);
 
-    sub_005B7310(pQuestData, pOp);
+    sub_005B7310(pQuestInfo, pOp);
 }
 
 // 0x00543790
@@ -637,11 +637,11 @@ int __stdcall QUESTS_CheckFirstPickedSet(D2GameStrc* pGame)
 }
 
 // 0x00544720
-void __fastcall QUESTS_SetGlobalState(D2GameStrc* pGame, int nQuestId, int nState)
+void __fastcall QUESTS_SetGlobalState(D2GameStrc* pQuestHead, int nQuestId, int nState)
 {
-    D2_ASSERT(pGame->pQuestControl->bPickedSet, 2080);
+    D2_ASSERT(pQuestHead->pQuestControl->bPickedSet, 2080);
 
-    QUESTRECORD_SetQuestState(pGame->pQuestControl->pQuestFlags, nQuestId, nState);
+    QUESTRECORD_SetQuestState(pQuestHead->pQuestControl->pQuestFlags, nQuestId, nState);
 }
 
 // 0x00544760
@@ -783,22 +783,22 @@ void __fastcall sub_00543DE0_QuestStatusEvent6(D2GameStrc* pGame, D2UnitStrc* pT
 // 0x00543F10
 void __fastcall QUESTS_CreateTimer(D2QuestDataStrc* pQuest, QUESTUPDATE pfnCallback, int nTicks)
 {
-    D2QuestInfoStrc* pQuestControl = pQuest->pGame->pQuestControl;
-    if (!pQuestControl)
+    D2QuestInfoStrc* pQuestHead = pQuest->pGame->pQuestControl;
+    if (!pQuestHead)
     {
         return;
     }
 
-    D2_ASSERT(!pQuestControl->bExecuting, 1047);
+    D2_ASSERT(!pQuestHead->bExecuting, 1047);
 
-    D2QuestTimerStrc* pPrevious = pQuestControl->pTimer;
+    D2QuestTimerStrc* pPrevious = pQuestHead->pTimer;
     D2QuestTimerStrc* pQuestTimer = (D2QuestTimerStrc*)sub_0040B430(pQuest->pGame->pMemoryPool, sizeof(D2QuestTimerStrc), gszQuestsSourceFile, 1050, 0);
     pQuestTimer->pNext = pPrevious;
     pQuestTimer->pfUpdate = pfnCallback;
     pQuestTimer->pQuest = pQuest;
-    pQuestTimer->dwTicks = nTicks + pQuestControl->dwTick;
+    pQuestTimer->dwTicks = nTicks + pQuestHead->dwTick;
     pQuestTimer->dwTimeout = nTicks;
-    pQuestControl->pTimer = pQuestTimer;
+    pQuestHead->pTimer = pQuestTimer;
 }
 
 // 0x00544300
@@ -1194,16 +1194,16 @@ void __fastcall sub_6FC82270(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc*
 // 0x00548520
 void __fastcall D2GAME_UpdateAttribute_6FC822D0(D2UnitStrc* pUnit, unsigned short nStat, unsigned int nNewValue, D2UnitStrc* pPlayer)
 {
-    D2ClientStrc* pClient = UnitGetClient(pPlayer, ".\\PLAYER\\PlrMsg.cpp", 339);
-    D2_ASSERT(pClient, 340);
+    D2ClientStrc* hClient = UnitGetClient(pPlayer, ".\\PLAYER\\PlrMsg.cpp", 339);
+    D2_ASSERT(hClient, 340);
 
     if (pUnit == pPlayer)
     {
-        D2GAME_PACKETS_SendPacket0x1D_E_F_6FC3D480(pClient, nStat, nNewValue);
+        D2GAME_PACKETS_SendPacket0x1D_E_F_6FC3D480(hClient, nStat, nNewValue);
     }
     else
     {
-        sub_6FC3D830(pClient, 0x20, !pUnit ? -1 : pUnit->dwUnitId, nStat, nNewValue);
+        sub_6FC3D830(hClient, 0x20, !pUnit ? -1 : pUnit->dwUnitId, nStat, nNewValue);
     }
 }
 
@@ -1571,12 +1571,12 @@ void __fastcall QUESTS_SequenceCycler(D2GameStrc* pGame, D2UnitStrc* pPlayer, in
 }
 
 // 0x005444B0
-int __stdcall QUESTS_CheckNotIntroQuest(D2GameStrc* pGame, int nQuestId)
+int __stdcall QUESTS_CheckNotIntroQuest(D2GameStrc* ptGame, int nQuestId)
 {
-    D2_ASSERT(pGame, 1987);
-    D2_ASSERT(pGame->pQuestControl->bPickedSet, 1989);
+    D2_ASSERT(ptGame, 1987);
+    D2_ASSERT(ptGame->pQuestControl->bPickedSet, 1989);
 
-    for (D2QuestDataStrc* pQuestData = pGame->pQuestControl->pLastQuest; pQuestData; pQuestData = pQuestData->pPrev)
+    for (D2QuestDataStrc* pQuestData = ptGame->pQuestControl->pLastQuest; pQuestData; pQuestData = pQuestData->pPrev)
     {
         if (pQuestData->nQuestNo == nQuestId)
         {

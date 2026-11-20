@@ -716,14 +716,14 @@ void __stdcall sub_00608C00_RemapRegion(unsigned char* pBuffer, int nPitch)
 }
 
 // 0x006096D0
-D2CmpTileStrc* __stdcall TileListAddTile(D2CmpTileListStrc* pList, short nValue16, short nValue14, int nValue24, int nValue28, int nValue2C, int nValue30, int nValue10, const D2CmpTileInfoStrc* pInfo)
+D2CmpTileStrc* __stdcall TileListAddTile(D2CmpTileListStrc* ptList, short nValue16, short nValue14, int nValue24, int nValue28, int nValue2C, int nValue30, int nValue10, const D2CmpTileInfoStrc* pInfo)
 {
-    D2_ASSERT(pList, 0xA2);
+    D2_ASSERT(ptList, 0xA2);
     D2CmpTileStrc* pTile = sub_00609550_AllocTile();
     D2_ASSERT(pTile, 0xA6);
-    pTile->pNext = pList->pFirst;
-    pList->nCount++;
-    pList->pFirst = pTile;
+    pTile->pNext = ptList->pFirst;
+    ptList->nCount++;
+    ptList->pFirst = pTile;
     pTile->f_16 = nValue16;
     pTile->nValue14 = nValue14;
     pTile->nValue24 = nValue24;
@@ -731,7 +731,7 @@ D2CmpTileStrc* __stdcall TileListAddTile(D2CmpTileListStrc* pList, short nValue1
     pTile->nValue2C = nValue2C;
     pTile->nValue30 = nValue30;
     pTile->nValue10 = nValue10;
-    pTile->nOwnerId = pList->nId;
+    pTile->nOwnerId = ptList->nId;
     pTile->nType = 2;
     pTile->tInfo = *pInfo;
     return pTile;
@@ -803,18 +803,18 @@ int __fastcall sub_0060D310_ScanRun(unsigned char nValue, const unsigned char* p
 // 0x0060D9C0
 void __stdcall sub_0060D9C0_BuildDiamondBlock(D2CmpSubTileBlockStrc* pBlock, const unsigned char* pSrc)
 {
-    unsigned char* pDst = (unsigned char*)FOG_Alloc(0x100, szSubTileFile, 0x185, 0);
-    D2_ASSERT(pDst, 0x186);
-    unsigned char* pData = pDst;
-    memset(pDst, 0, 0x100);
+    unsigned char* ptSquished = (unsigned char*)FOG_Alloc(0x100, szSubTileFile, 0x185, 0);
+    D2_ASSERT(ptSquished, 0x186);
+    unsigned char* pData = ptSquished;
+    memset(ptSquished, 0, 0x100);
     int i = 0;
     int nOffset = 0xE;
     int nWidth = 4;
     for (; i < 15; i++)
     {
-        memcpy(pDst, pSrc + nOffset, nWidth);
+        memcpy(ptSquished, pSrc + nOffset, nWidth);
         pSrc += 0x20;
-        pDst += nWidth;
+        ptSquished += nWidth;
         if (i < 7)
         {
             nOffset -= 2;
@@ -1051,12 +1051,12 @@ static __declspec(noinline) void __stdcall sub_00606A10_EncodeRleCell(const unsi
 }
 
 // 0x00608EE0
-void __fastcall sub_00608EE0_CompressCellList(D2CmpCellListStrc* pSrcList, D2CellFileStrc* pDstFile)
+void __fastcall sub_00608EE0_CompressCellList(D2CmpCellListStrc* pList, D2CellFileStrc* pDstFile)
 {
-    D2_ASSERT(!(pSrcList->dwFlags & 4), 0x72);
-    const unsigned int nFrames = pSrcList->nCells / pSrcList->nDirections;
+    D2_ASSERT(!(pList->dwFlags & 4), 0x72);
+    const unsigned int nFrames = pList->nCells / pList->nDirections;
     unsigned int i = 0;
-    for (D2CmpCellNodeStrc* pNode = (D2CmpCellNodeStrc*)((((int)pSrcList->pHead <= 0) - 1) & (int)pSrcList->pHead); (int)pNode > 0; pNode = pNode->pNext)
+    for (D2CmpCellNodeStrc* pNode = (D2CmpCellNodeStrc*)((((int)pList->pHead <= 0) - 1) & (int)pList->pHead); (int)pNode > 0; pNode = pNode->pNext)
     {
         unsigned char* pRle;
         unsigned int nRleSize;
@@ -1074,7 +1074,7 @@ void __fastcall sub_00608EE0_CompressCellList(D2CmpCellListStrc* pSrcList, D2Cel
         memcpy(pNew->pPixels, pRle, nRleSize);
         FOG_Free(pRle, ".\\SRC\\FastCmp.cpp", 0x8D, 0);
 
-        const unsigned int nDirections = pSrcList->nDirections;
+        const unsigned int nDirections = pList->nDirections;
         const int nDirection = nDirections > 1 ? ((i / nFrames) << 6) / nDirections : 1;
         pDstFile->pGfxCells[sub_00600C90_GetDirectionIndex64(nDirection, nDirections) * nFrames + i % nFrames] = pNew;
         ++i;

@@ -549,40 +549,40 @@ static int sub_0057F240_DrainRunStamina(D2UnitStrc* pPlayer)
 }
 
 // 0x0057F410
-static void __stdcall sub_6FC802F0(D2GameStrc* pGame, int nBodyloc, D2UnitStrc* pItem, D2UnitStrc* pUnit)
+static void __stdcall sub_6FC802F0(D2GameStrc* pGame, int nBodyloc, D2UnitStrc* hItem, D2UnitStrc* pUnit)
 {
     D2InventoryStrc* pInventory = pUnit->pInventory;
-    const int bUpdateSets = sub_0062A360(pUnit, pItem);
-    sub_0063D2B0_DetachItem(pInventory, pItem);
-    D2UnitStrc* pRemove = INVENTORY_RemoveItemFromInventory(pInventory, pItem);
+    const int bUpdateSets = sub_0062A360(pUnit, hItem);
+    sub_0063D2B0_DetachItem(pInventory, hItem);
+    D2UnitStrc* hRemove = INVENTORY_RemoveItemFromInventory(pInventory, hItem);
 
-    D2_ASSERT(pRemove, 0x25D);
-    D2_ASSERT(pItem == pRemove, 0x25E);
+    D2_ASSERT(hRemove, 0x25D);
+    D2_ASSERT(hItem == hRemove, 0x25E);
 
     sub_0063BE30(pInventory, nBodyloc);
 
-    if (ITEMS_GetItemType(pItem) == 0x13)
+    if (ITEMS_GetItemType(hItem) == 0x13)
     {
         sub_6FC45930(pGame, pUnit, 0);
     }
 
-    if (pItem)
+    if (hItem)
     {
-        pItem->dwFlags &= ~0x02;
+        hItem->dwFlags &= ~0x02;
     }
 
-    D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(pGame, pItem, pUnit, 0, 1);
-    ITEMS_SetItemFlag(pItem, 0x20, 1);
-    ITEMS_SetItemCMDFlag(pItem, 1, 1);
-    ITEMS_SetItemCMDFlag(pItem, 0x10, 1);
-    INVENTORY_AddItemToTradeInventory(pInventory, pItem);
+    D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(pGame, hItem, pUnit, 0, 1);
+    ITEMS_SetItemFlag(hItem, 0x20, 1);
+    ITEMS_SetItemCMDFlag(hItem, 1, 1);
+    ITEMS_SetItemCMDFlag(hItem, 0x10, 1);
+    INVENTORY_AddItemToTradeInventory(pInventory, hItem);
 
     if (bUpdateSets)
     {
-        sub_0055D930(pUnit, pItem, 0);
+        sub_0055D930(pUnit, hItem, 0);
     }
 
-    ITEMS_UpdateSets(pUnit, pItem, 1, 1);
+    ITEMS_UpdateSets(pUnit, hItem, 1, 1);
     UNITS_RefreshInventory(pUnit, 1);
 }
 
@@ -734,17 +734,17 @@ D2UnitStrc* __fastcall sub_0057F700_CreateDeadBody(D2GameStrc* pGame,D2UnitStrc*
  D2_ASSERT((!pCorpse ? -1 : pCorpse->dwUnitId)!=(!pUnit ? -1 : pUnit->dwUnitId),0x31A);
  INVENTORY_SetOwnerId(pCorpseInventory,!pUnit ? -1 : pUnit->dwUnitId);
  for(int nBodyLoc=-1;nBodyLoc<13;++nBodyLoc) {
-  D2UnitStrc* pItem=0;
-  if(nBodyLoc==-1) pItem=INVENTORY_GetCursorItem(pInventory);
-  else pItem=INVENTORY_GetItemFromBodyLoc(pInventory,nBodyLoc);
-  if(!pItem) continue;
-  if(nBodyLoc==-1) sub_6FC803F0(pGame,pItem,pUnit);
+  D2UnitStrc* hItem=0;
+  if(nBodyLoc==-1) hItem=INVENTORY_GetCursorItem(pInventory);
+  else hItem=INVENTORY_GetItemFromBodyLoc(pInventory,nBodyLoc);
+  if(!hItem) continue;
+  if(nBodyLoc==-1) sub_6FC803F0(pGame,hItem,pUnit);
   else {
-   D2_ASSERT(pItem->dwAnimMode==1,0x339);
-   sub_6FC802F0(pGame,nBodyLoc,pItem,pUnit);
+   D2_ASSERT(hItem->dwAnimMode==1,0x339);
+   sub_6FC802F0(pGame,nBodyLoc,hItem,pUnit);
   }
-  ITEMS_SetInvPage(pItem,0);
-  D2UnitStrc* pDupedItem=ITEMS_Duplicate(pGame,pItem,pUnit,1);
+  ITEMS_SetInvPage(hItem,0);
+  D2UnitStrc* pDupedItem=ITEMS_Duplicate(pGame,hItem,pUnit,1);
   if(nBodyLoc==-1) {
    int nRecord=UNITS_GetInventoryRecordId(pCorpse,0,pGame->bExpansion);
    if(INVENTORY_PlaceItemAtFreePosition(pCorpseInventory,pDupedItem,nRecord,0,0,gszPlrModesSourceFile_006E17E0,0x349) && INVENTORY_PlaceItemInSocket(pCorpseInventory,pDupedItem,1)) {
@@ -1391,11 +1391,11 @@ void __fastcall sub_6FC81650(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2ClientStr
 }
 
 // 0x005809D0
-void __fastcall sub_6FC817D0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill, int nMode, int nX, int nY, int a7)
+void __fastcall sub_6FC817D0(D2GameStrc* ptGame, D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill, int nMode, int nX, int nY, int a7)
 {
-    D2_ASSERT(pGame, 0x805);
+    D2_ASSERT(ptGame, 0x805);
 
-    if (sub_6FC81890(pGame, pUnit, nMode) && (a7 || sub_0057EEC0(pGame, pUnit, nMode, 1, pUsedSkill)))
+    if (sub_6FC81890(ptGame, pUnit, nMode) && (a7 || sub_0057EEC0(ptGame, pUnit, nMode, 1, pUsedSkill)))
     {
         D2_ASSERT(!IsBadCodePtr((FARPROC)gsPlayerModeChart_006E1740[nMode].pfnStartXY), 0x812);
 
@@ -1404,23 +1404,23 @@ void __fastcall sub_6FC817D0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillStrc* 
             UNITS_SetUsedSkill(pUnit, pUsedSkill);
         }
 
-        gsPlayerModeChart_006E1740[nMode].pfnStartXY(pGame, pUnit, nMode, nX, nY);
+        gsPlayerModeChart_006E1740[nMode].pfnStartXY(ptGame, pUnit, nMode, nX, nY);
     }
 }
 
 // 0x00580A70
-void __fastcall StartModeID(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2SkillStrc* pSkill, int nMode, int nUnitType, int nTargetGUID, int bAllowReEnter)
+void __fastcall StartModeID(D2GameStrc* ptGame, D2UnitStrc* pPlayer, D2SkillStrc* pSkill, int nMode, int nUnitType, int nTargetGUID, int bAllowReEnter)
 {
-    D2_ASSERT(pGame, 0x835);
+    D2_ASSERT(ptGame, 0x835);
 
-    D2UnitStrc* pTarget = SUNIT_GetServerUnit(pGame, nUnitType, nTargetGUID);
+    D2UnitStrc* pTarget = SUNIT_GetServerUnit(ptGame, nUnitType, nTargetGUID);
     if (!pTarget)
     {
         sub_006248E0_Log(1, 2, 4, 4, ".\\PLAYER\\PlrModes.cpp", 0x83A, "StartModeID: Bad Target");
         return;
     }
 
-    if (sub_6FC81890(pGame, pPlayer, nMode) && (bAllowReEnter || sub_0057EEC0(pGame, pPlayer, nMode, 1, pSkill)))
+    if (sub_6FC81890(ptGame, pPlayer, nMode) && (bAllowReEnter || sub_0057EEC0(ptGame, pPlayer, nMode, 1, pSkill)))
     {
         if (pPlayer && pPlayer->dwUnitType == 0 && pPlayer->pPlayerData)
         {
@@ -1439,7 +1439,7 @@ void __fastcall StartModeID(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2SkillStrc*
             UNITS_SetUsedSkill(pPlayer, pSkill);
         }
 
-        gsPlayerModeChart_006E1740[nMode].pfnStartID(pGame, pPlayer, nMode, pTarget);
+        gsPlayerModeChart_006E1740[nMode].pfnStartID(ptGame, pPlayer, nMode, pTarget);
     }
 }
 

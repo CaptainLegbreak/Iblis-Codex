@@ -327,15 +327,15 @@ static __forceinline unsigned int RollLimited(D2SeedStrc* pSeed, int nMax)
 }
 
 // 0x00550C20
-D2UnitStrc* __fastcall sub_00550C20_PopulateClusters(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, unsigned char nDensity, int nObjectId, unsigned short nProbability)
+D2UnitStrc* __fastcall sub_00550C20_PopulateClusters(D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, unsigned char nDensity, int nObjectId, unsigned short nProbability)
 {
     D2CoordStrc position;
     D2ObjectsTxt* pRecord = DATATBLS_GetObjectsTxtRecord(nObjectId);
     int nSizeX = pRecord->dwSizeX;
     int nSizeY = pRecord->dwSizeY;
     D2DrlgCoordsStrc roomCoords;
-    DUNGEON_GetRoomCoordinates(pRoom, &roomCoords);
-    D2ObjectControlStrc* pControl = OBJRGN_GetObjectControlFromGame(pGame, pRoom);
+    DUNGEON_GetRoomCoordinates(hRoom, &roomCoords);
+    D2ObjectControlStrc* pControl = OBJRGN_GetObjectControlFromGame(pGame, hRoom);
     if (OBJECTS_RollSeed_Inline(&pControl->pSeed) % 100 > nProbability) return 0;
     int nTries = 12;
     bool bSmall = false;
@@ -361,9 +361,9 @@ D2UnitStrc* __fastcall sub_00550C20_PopulateClusters(D2GameStrc* pGame, D2Active
         position.nY = roomCoords.nSubtileY + RollLimited(&pControl->pSeed, roomCoords.nSubtileHeight - nSizeY - 1);
         D2CoordStrc coord;
         coord.nX = position.nX; coord.nY = position.nY;
-        if (sub_00550220_CanPlaceObject(pRoom, pRecord->dwSizeY, &roomCoords, &coord, pRecord->dwSizeX) == 1) {
-            D2_ASSERT(pRoom, 0x714);
-            SUNIT_AllocUnitData(2, nClassId, position.nX, position.nY, pGame, pRoom, 1, 0, 0);
+        if (sub_00550220_CanPlaceObject(hRoom, pRecord->dwSizeY, &roomCoords, &coord, pRecord->dwSizeX) == 1) {
+            D2_ASSERT(hRoom, 0x714);
+            SUNIT_AllocUnitData(2, nClassId, position.nX, position.nY, pGame, hRoom, 1, 0, 0);
             int nClusterTries = 1;
             int bSuccess = 1;
             pResult = 0;
@@ -377,14 +377,14 @@ D2UnitStrc* __fastcall sub_00550C20_PopulateClusters(D2GameStrc* pGame, D2Active
                     position.nX += 2 * gnValues_00731B7C[nClassId] * (nBase + RollLimited(&pControl->pSeed, nRange));
                     position.nY += 2 * gnValues_00731B9C[nClassId] * (nBase + RollLimited(&pControl->pSeed, nRange));
                     coord.nX = position.nX; coord.nY = position.nY;
-                    if (bSmall) bSuccess = sub_005502F0_CanPlaceSmallObject(pRoom, pRecord->dwSizeX, pRecord->dwSizeY, &roomCoords, &coord);
-                    else bSuccess = sub_00550220_CanPlaceObject(pRoom, pRecord->dwSizeY, &roomCoords, &coord, pRecord->dwSizeX);
+                    if (bSmall) bSuccess = sub_005502F0_CanPlaceSmallObject(hRoom, pRecord->dwSizeX, pRecord->dwSizeY, &roomCoords, &coord);
+                    else bSuccess = sub_00550220_CanPlaceObject(hRoom, pRecord->dwSizeY, &roomCoords, &coord, pRecord->dwSizeX);
                     ++i;
 
                 }
                 if (bSuccess) {
                     nClassId = pIds[RollLimited(&pControl->pSeed, nObjectId)];
-                    pResult = SUNIT_AllocUnitData(2, nClassId, position.nX, position.nY, pGame, pRoom, 1, 0, 0);
+                    pResult = SUNIT_AllocUnitData(2, nClassId, position.nX, position.nY, pGame, hRoom, 1, 0, 0);
                     ++nClusterTries;
                 }
             }

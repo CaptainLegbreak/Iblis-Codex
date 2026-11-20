@@ -164,20 +164,20 @@ D2ActiveRoomStrc* __fastcall DRLGACTIVATE_InitializeRoomEx(D2DrlgRoomStrc* pDrlg
 }
 
 // 0x0061BA30
-int __fastcall DRLGACTIVATE_TestRoomCanUnTile(D2DrlgRoomStrc* pDrlgRoom)
+int __fastcall DRLGACTIVATE_TestRoomCanUnTile(D2DrlgRoomStrc* ptRoom)
 {
-    if (pDrlgRoom->dwFlags & DRLGROOMFLAG_HASPORTAL)
+    if (ptRoom->dwFlags & DRLGROOMFLAG_HASPORTAL)
         return 0;
 
-    D2_ASSERT(!DRLG_IsOnClient(DRLGROOM_GetDrlgFromRoomEx(pDrlgRoom)), 0x2E7);
+    D2_ASSERT(!DRLG_IsOnClient(DRLGROOM_GetDrlgFromRoomEx(ptRoom)), 0x2E7);
 
-    if (pDrlgRoom->fRoomStatus <= 1)
+    if (ptRoom->fRoomStatus <= 1)
         return 0;
 
-    int nLevelId = pDrlgRoom->pLevel->nLevelId;
+    int nLevelId = ptRoom->pLevel->nLevelId;
     if (DRLG_IsTownLevel(nLevelId) || nLevelId == LEVEL_ROCKYSUMMIT)
     {
-        for (D2DrlgRoomStrc* pCurrentRoomEx = pDrlgRoom->pLevel->pFirstRoomEx; pCurrentRoomEx; pCurrentRoomEx = pCurrentRoomEx->pDrlgRoomNext)
+        for (D2DrlgRoomStrc* pCurrentRoomEx = ptRoom->pLevel->pFirstRoomEx; pCurrentRoomEx; pCurrentRoomEx = pCurrentRoomEx->pDrlgRoomNext)
         {
             if (pCurrentRoomEx->fRoomStatus <= 1)
                 return 0;
