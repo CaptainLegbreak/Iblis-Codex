@@ -5,6 +5,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2ItemsWorld.h"
+#include "D2GameRecords.h"
 
 struct D2InventoryStrc;
 
@@ -21,10 +22,6 @@ struct D2RunesTxt
     unsigned short wStringId;
 };
 
-struct D2MagicAffixTxt
-{
-    char unk0x00[0x90];
-};
 
 
 

@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2Records.h"
 #include "D2ItemsWorld.h"
+#include "D2GameRecords.h"
 struct D2UnitStrc;
 
 
@@ -44,10 +45,6 @@ struct D2SkillsTxt
 };
 
 
-struct D2MagicAffixTxt
-{
-    char unk0x00[0x90];
-};
 
 
 

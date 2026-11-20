@@ -4,6 +4,7 @@
 #include "D2Records.h"
 #include "D2ItemsWorld.h"
 #include "D2LevelTxt.h"
+#include "D2GameRecords.h"
 struct D2UnitStrc;
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -35,12 +36,6 @@ struct D2BooksTxt
     int dwCostPerCharge;
 };
 
-struct D2MagicAffixTxt
-{
-    char unk0x00[0x88];
-    int dwMultiply;
-    int dwAdd;
-};
 
 
 

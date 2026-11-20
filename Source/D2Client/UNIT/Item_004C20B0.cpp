@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
+#include "D2GameRecords.h"
 struct D2UnitStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -19,20 +20,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 
 
-struct D2ItemSaveStrc
-{
-    int nClassId;
-    unsigned short nX;
-    unsigned short nY;
-    unsigned char bMode;
-    unsigned char nPad09;
-    unsigned short nPad0A;
-    unsigned int dwFlags;
-    unsigned char nStorePage;
-    unsigned char nBodyloc;
-    unsigned short nPad12;
-    int nItemFileIndex;
-};
 
 
 #pragma pack(push, 1)

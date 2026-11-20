@@ -4,6 +4,7 @@
 #include "D2Txt.h"
 #include "D2Records.h"
 #include "D2LevelTxt.h"
+#include "D2GameRecords.h"
 #define STAT_POISONMAXDAM 58
 #define STAT_POISON_COUNT 326
 union D2SeedStrc;
@@ -54,11 +55,6 @@ extern int gnItemFileIndexCount_007463A4; // 0x007463A4
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 void __stdcall STATLIST_SetStatIfListIsValid(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer); // 0x00627150
 
-struct D2MagicAffixTxt
-{
-    char pad0x00[0x24];
-    D2PropertyStrc pProperties[3];
-};
 
 struct D2GradeModsStrc
 {
