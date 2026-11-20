@@ -127,7 +127,7 @@ extern int gnGlobal_007A51C8; // 0x007A51C8
 extern int gnGlobal_007A51CC; // 0x007A51CC
 extern int gnGlobal_007A51D0; // 0x007A51D0
 extern int gnGlobal_007A51D4; // 0x007A51D4
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __fastcall sub_00457490_CheckMonStatsFlag(int nMonsterId, int nFlag); // 0x00457490
 void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pClass, int* pMode, const char* szFile, int nLine); // 0x00645270
@@ -688,14 +688,14 @@ static int sub_00459BC0_GetAutomapUnitColor(unsigned char* pColor, D2UnitStrc* p
             return 1;
         }
 
-        if (pUnit == sub_00463DD0())
+        if (pUnit == sub_00463DD0_GetPlayerUnit())
         {
             *pColor = gnAutomapColors_007A51B0[0];
             return 1;
         }
 
         {
-            const unsigned short nPlayerRoster = sub_00465400_GetPlayerRosterField22(sub_00463DD0());
+            const unsigned short nPlayerRoster = sub_00465400_GetPlayerRosterField22(sub_00463DD0_GetPlayerUnit());
             if (nPlayerRoster != 0xFFFF && nPlayerRoster == (unsigned short)sub_00465400_GetPlayerRosterField22(pUnit))
             {
                 *pColor = gnAutomapColors_007A51B0[3];
@@ -737,7 +737,7 @@ static int sub_00459BC0_GetAutomapUnitColor(unsigned char* pColor, D2UnitStrc* p
         D2COMMON_11013_ConvertMode(pUnit, &nType, &nClass, &nMode, ".\\UI\\automap.cpp", 0x92D);
         if (!nType && STATES_CheckStateMaskOnUnit(pUnit, 0x25) && sub_004639D0_GetOwnerUnit(pUnit))
         {
-            const unsigned short nPlayerRoster = sub_00465400_GetPlayerRosterField22(sub_00463DD0());
+            const unsigned short nPlayerRoster = sub_00465400_GetPlayerRosterField22(sub_00463DD0_GetPlayerUnit());
             if (nPlayerRoster != 0xFFFF && nPlayerRoster == (unsigned short)sub_00465400_GetPlayerRosterField22(pUnit))
             {
                 *pColor = gnAutomapColors_007A51B0[4];
@@ -872,7 +872,7 @@ static void sub_0045A860_DrawAutomapUnit(D2UnitStrc* pUnit)
             sub_0045A7F0_DrawAutomapCross(nColor, nX, nY);
         }
 
-        if (gdwGlobal_007113E8 && gdwGlobal_007113E4 && pUnit != sub_00463DD0())
+        if (gdwGlobal_007113E8 && gdwGlobal_007113E4 && pUnit != sub_00463DD0_GetPlayerUnit())
         {
             if (nColor == gnAutomapColors_007A51B0[3])
             {
@@ -924,7 +924,7 @@ static void sub_0045A860_DrawAutomapUnit(D2UnitStrc* pUnit)
             break;
         }
 
-        const unsigned short nPlayerRoster = sub_00465400_GetPlayerRosterField22(sub_00463DD0());
+        const unsigned short nPlayerRoster = sub_00465400_GetPlayerRosterField22(sub_00463DD0_GetPlayerUnit());
         if (nPlayerRoster != 0xFFFF && nPlayerRoster == (unsigned short)sub_00465400_GetPlayerRosterField22(pUnit))
         {
             break;
@@ -955,7 +955,7 @@ static void sub_0045AB60_DrawAutomapPartyMember(D2StoredUnitRecordStrc* pEntry)
 {
     int nX = 0;
     int nY = 0;
-    const int nLevelId = DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(sub_00463DD0()));
+    const int nLevelId = DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(sub_00463DD0_GetPlayerUnit()));
     const unsigned char nEntryAct = DRLG_GetActNoFromLevelId(sub_0047A1E0(pEntry));
     if (DRLG_GetActNoFromLevelId(nLevelId) != nEntryAct)
     {
@@ -986,7 +986,7 @@ static void sub_0045AB60_DrawAutomapPartyMember(D2StoredUnitRecordStrc* pEntry)
 void __cdecl sub_0045AC90_DrawAutomapUnits()
 {
     D2StoredUnitRecordStrc* pFirst = sub_004795A0_GetNextEntry(0);
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2ActiveRoomStrc** ppRooms = 0;
     int nRooms = 0;
     DUNGEON_GetAdjacentRoomsListFromRoom(UNITS_GetRoom(pPlayer), &ppRooms, &nRooms);

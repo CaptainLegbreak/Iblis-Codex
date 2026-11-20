@@ -97,7 +97,7 @@ D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonster
 int __fastcall sub_00463860(D2UnitStrc* pUnit);                                                             // 0x00463860
 void __stdcall UNITS_SetUsedSkill(D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill);                              // 0x00620210
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit);                                               // 0x00620250
-int __stdcall sub_006217C0(D2UnitStrc* pUnit);                                                              // 0x006217C0
+int __stdcall UNITS_IsAtEndOfFrameCycle(D2UnitStrc* pUnit);                                                              // 0x006217C0
 void __stdcall UNITS_StopSequence(D2UnitStrc* pUnit);                                                       // 0x00623E00
 void __stdcall UnitUpdateAnimRateAndVel(D2UnitStrc* pUnit, const char* szFile, int nLine);           // 0x00623F50
 D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
@@ -120,25 +120,25 @@ void __stdcall PATH_AddCollisionFootprintForUnit(D2UnitStrc* pUnit);            
 int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown);                // 0x00649970
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit);                                                     // 0x0064C040
 void __fastcall SUNIT_InitializeAnimation(D2UnitStrc* pUnit);                                               // 0x005533D0
-void __fastcall SUNIT_ValidateTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit);                             // 0x00553490
+void __fastcall sub_6FCBC7E0(D2GameStrc* pGame, D2UnitStrc* pUnit);                             // 0x00553490
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit);                            // 0x00553540
 void __fastcall SUNIT_SetCombatMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode);                       // 0x00553570
 void __fastcall D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(D2GameStrc* pGame, D2UnitStrc* pUnit);           // 0x00553990
 void __fastcall SUNIT_ScheduleAnimationEvents(D2GameStrc* pGame, D2UnitStrc* pUnit);                        // 0x005539B0
-void __fastcall SUNIT_ResetRecurringModeChangeEvent(D2GameStrc* pGame, D2UnitStrc* pUnit);                  // 0x00553F00
+void __fastcall sub_6FCBD3A0(D2GameStrc* pGame, D2UnitStrc* pUnit);                  // 0x00553F00
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit);                                                             // 0x005541B0
-void __fastcall SUNIT_SetUninterruptable(D2UnitStrc* pUnit, int bUninterruptable);                          // 0x005544B0
-int __fastcall SUNIT_UpdateUnitPath(D2GameStrc* pGame, D2UnitStrc* pUnit);                                  // 0x00554CA0
+void __fastcall sub_6FCBDE90(D2UnitStrc* pUnit, int bUninterruptable);                          // 0x005544B0
+int __fastcall sub_6FCBC930(D2GameStrc* pGame, D2UnitStrc* pUnit);                                  // 0x00554CA0
 void __fastcall sub_0056FAF0(D2GameStrc* pGame, D2UnitStrc* pUnit);                       // 0x0056FAF0
-void __fastcall SKILLS_ExecuteUsedSkill(D2GameStrc* pGame, D2UnitStrc* pUnit);                              // 0x0056FC50
+void __fastcall sub_6FD13410(D2GameStrc* pGame, D2UnitStrc* pUnit);                              // 0x0056FC50
 int __fastcall MONSTER_GetAiState(D2UnitStrc* pMonster);                                                    // 0x005734E0
 void __fastcall MONSTER_SetAiState(D2UnitStrc* pMonster, int nAiState);                                     // 0x005734C0
 void __fastcall SUNITDMG_DrainItemDurability(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int a4); // 0x0057D4F0
 void __fastcall MONSTERUNIQUE_ExecuteUModModeStartCallbacks(D2GameStrc* pGame, D2UnitStrc* pUnit);          // 0x005A4350
 void __fastcall MONSTERUNIQUE_ExecuteUModModeChangeCallbacks(D2GameStrc* pGame, D2UnitStrc* pUnit);         // 0x005A4360
 void __fastcall MONSTERMODE_UpdateModeAttackStats(D2UnitStrc* pUnit, int nMode);                            // 0x005A4F50
-void __fastcall sub_005A5490(D2UnitStrc* pUnit, D2GameStrc* pGame);                                         // 0x005A5490
-int __fastcall sub_005A6D50(D2GameStrc* pGame, D2UnitStrc* pUnit, int bModeEvent);                          // 0x005A6D50
+void __fastcall sub_6FC62D90(D2UnitStrc* pUnit, D2GameStrc* pGame);                                         // 0x005A5490
+int __fastcall sub_005A6D50_CreateMonsterMissile(D2GameStrc* pGame, D2UnitStrc* pUnit, int bModeEvent);                          // 0x005A6D50
 int __fastcall MONSTERMODE_StartNeutral(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange);                  // 0x005A73E0
 const D2MonModeCallbackTableStrc* __fastcall MONSTERMODE_GetCallbackTableRecord(D2UnitStrc* pUnit, int nMode); // 0x005A78A0
 
@@ -342,7 +342,7 @@ int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pM
 
     if (STATES_CheckState(pUnit, STATE_UNINTERRUPTABLE))
     {
-        SUNIT_SetUninterruptable(pUnit, 0);
+        sub_6FCBDE90(pUnit, 0);
         if (SUNIT_IsDead(pUnit))
         {
             return 1;
@@ -432,7 +432,7 @@ int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pM
     {
         if (sub_005A6B10_IsModeEventEnabled(pUnit, nCurrentAnimMode))
         {
-            SUNIT_ResetRecurringModeChangeEvent(pGame, pUnit);
+            sub_6FCBD3A0(pGame, pUnit);
         }
         else
         {

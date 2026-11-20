@@ -56,7 +56,7 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
-D2MissilesTxt* __fastcall DATATBLS_GetMissilesTxtRecord(int nMissileId); // 0x0046ACE0
+D2MissilesTxt* __fastcall sub_0046ACE0(int nMissileId); // 0x0046ACE0
 unsigned int __stdcall UNITS_GetAnimOrSeqMode(D2UnitStrc* pUnit); // 0x00621190
 
 struct D2AnimDataRecordStrc
@@ -88,7 +88,7 @@ int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLay
 int __stdcall UNITS_CanDualWield(D2UnitStrc* pUnit); // 0x006235A0
 D2UnitStrc* __stdcall D2Common_10434(D2UnitStrc* pUnit, int a2); // 0x00623990
 D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
-D2UnitStrc* __stdcall INVENTORY_GetSecondaryWeapon(D2InventoryStrc* pInventory); // 0x0063BF90
+D2UnitStrc* __stdcall sub_0063BF90_GetSecondaryWeapon(D2InventoryStrc* pInventory); // 0x0063BF90
 D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic); // 0x00625820
 void __stdcall STATLIST_MergeStatLists(D2UnitStrc* pTarget, D2UnitStrc* pUnit, int bType); // 0x00627910
 unsigned char __stdcall ITEMS_GetBodyLocation(D2UnitStrc* pItem); // 0x00627D40
@@ -207,7 +207,7 @@ extern unsigned int gdwNoBlockItemCodes_00744580[]; // 0x00744580
 extern unsigned int gnNoBlockItemCodeCount_00744584; // 0x00744584
 unsigned int __stdcall D2Common_11069(D2UnitStrc* pMonster, unsigned int nIndex, unsigned int nComponent); // 0x00664860
 D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId); // 0x00633640
-int __stdcall UNITS_GetMeleeRange(D2UnitStrc* pUnit); // 0x00622870
+int __stdcall sub_00622870_GetMeleeRange(D2UnitStrc* pUnit); // 0x00622870
 int __stdcall UNITS_TestCollisionWithUnit(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int nCollisionMask); // 0x00622AA0
 void __stdcall DATATBLS_ComputeSequenceAnimation(D2AnimSeqTxt* pMonSeqTxt, int nTargetFramePoint, int nCurrentFramePoint, int* pMode, int* pFrame, int* pDirection, int* pEvent); // 0x00663410
 D2AnimSeqTxt* __stdcall DATATBLS_GetMonSeqTxtRecordFromUnit(D2UnitStrc* pUnit); // 0x006633B0
@@ -293,7 +293,7 @@ int __stdcall SKILLS_GetOwnerGUIDFromSkill(D2SkillStrc* pSkill); // 0x00643AD0
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 
 
-int __fastcall sub_0046C140_CheckMonStats2ModeFlag(int nMonsterId, int nMode); // 0x0046C140
+int __fastcall sub_0046C140_TestMonModeFlag(int nMonsterId, int nMode); // 0x0046C140
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
@@ -327,7 +327,7 @@ int __stdcall UNITS_GetUnitSizeX(D2UnitStrc* pUnit)
             return SIZE_ITEM;
 
         case UNIT_MISSILE:
-            if (D2MissilesTxt* pMissilesTxtRecord = DATATBLS_GetMissilesTxtRecord(pUnit->dwClassId))
+            if (D2MissilesTxt* pMissilesTxtRecord = sub_0046ACE0(pUnit->dwClassId))
             {
                 return pMissilesTxtRecord->nSize;
             }
@@ -368,7 +368,7 @@ int __stdcall UNITS_GetUnitSizeY(D2UnitStrc* ptUnit)
         return SIZE_ITEM;
 
     case UNIT_MISSILE:
-        if (D2MissilesTxt* pMissilesTxtRecord = DATATBLS_GetMissilesTxtRecord(ptUnit->dwClassId))
+        if (D2MissilesTxt* pMissilesTxtRecord = sub_0046ACE0(ptUnit->dwClassId))
         {
             return pMissilesTxtRecord->nSize;
         }
@@ -476,7 +476,7 @@ void __stdcall UNITS_MergeDualWieldWeaponStatLists(D2UnitStrc* pUnit, int a2)
     }
     else if (pWeapon == pPrimaryWeapon)
     {
-        D2UnitStrc* pSecondaryWeapon = INVENTORY_GetSecondaryWeapon(pUnit->pInventory);
+        D2UnitStrc* pSecondaryWeapon = sub_0063BF90_GetSecondaryWeapon(pUnit->pInventory);
         if (pPrimaryWeapon && STATLIST_GetOwner(pPrimaryWeapon, 0))
         {
             STATLIST_MergeStatLists(pUnit, pPrimaryWeapon, 1);
@@ -689,7 +689,7 @@ int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int n
             case MONSTER_TENTACLEHEAD1:
             {
                 const int nDistance = D2Common_10399(pUnit1, pUnit2);
-                if (UNITS_GetMeleeRange(pUnit1) + 8 > nDistance)
+                if (sub_00622870_GetMeleeRange(pUnit1) + 8 > nDistance)
                 {
                     return 1;
                 }
@@ -698,7 +698,7 @@ int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int n
             }
         }
 
-        const int nRange = UNITS_GetMeleeRange(pUnit1) + nRangeBonus + 1;
+        const int nRange = sub_00622870_GetMeleeRange(pUnit1) + nRangeBonus + 1;
         const int nDistance = D2Common_10399(pUnit1, pUnit2);
         if (nDistance > 0 && nRange < nDistance)
         {
@@ -1725,7 +1725,7 @@ int __fastcall UNITS_CanSwitchAI(int nMonsterId)
     D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(nMonsterId);
     if (!pMonStatsTxtRecord)
         return 0;
-    if (!sub_0046C140_CheckMonStats2ModeFlag(nMonsterId, MONMODE_WALK))
+    if (!sub_0046C140_TestMonModeFlag(nMonsterId, MONMODE_WALK))
         return 0;
     if (pMonStatsTxtRecord->nMonStatsFlags[MONSTATSFLAGINDEX_BOSS >> 3] & gdwBitMasks[MONSTATSFLAGINDEX_BOSS & 7])
         return 0;

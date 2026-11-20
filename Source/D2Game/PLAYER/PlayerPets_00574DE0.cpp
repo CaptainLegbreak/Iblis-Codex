@@ -61,7 +61,7 @@ struct D2PetTypeTxt
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
-void __fastcall sub_6FC7D260(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetGUID, int a4); // 0x005750E0
+void __fastcall PLAYERPETS_RemovePet(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetGUID, int a4); // 0x005750E0
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 void __fastcall sub_6FC3E200(D2ClientStrc* pClient, D2UnitStrc* pUnit); // 0x0053CDF0
 
@@ -142,7 +142,7 @@ static void __stdcall sub_00575590_RemoveDeadPets(D2GameStrc* pGame, D2UnitStrc*
                 D2UnitStrc* pPet = SUNIT_GetServerUnit(pGame, UNIT_MONSTER, pPetData->nUnitGUID);
                 if (!pPet || SUNIT_IsDead(pPet))
                 {
-                    sub_6FC7D260(pGame, pPlayer, pPetData->nUnitGUID, 0);
+                    PLAYERPETS_RemovePet(pGame, pPlayer, pPetData->nUnitGUID, 0);
                 }
                 pPetData = pNext;
             }

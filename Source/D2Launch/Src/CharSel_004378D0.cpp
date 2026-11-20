@@ -85,7 +85,7 @@ const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); /
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 int __cdecl sub_005269D0_Sprintf(int nCount, Unicode* pDest, const Unicode* pFormat, ...); // 0x005269D0
-void __fastcall sub_004FCF80_SetTextA(D2WinControlStrc* pControl, const char* szText); // 0x004FCF80
+void __fastcall D2Win_10045(D2WinControlStrc* pControl, const char* szText); // 0x004FCF80
 int __fastcall sub_004FBD20_GetLastRow(D2WinControlStrc* pControl); // 0x004FBD20
 void __fastcall sub_004FCD40_SetCell(D2WinControlStrc* pControl, const char* szText, int nRow, int nColumn); // 0x004FCD40
 void __fastcall sub_004FB9D0_Select(D2WinControlStrc* pControl, int nLine); // 0x004FB9D0
@@ -98,9 +98,9 @@ void __fastcall sub_00433450_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDo
 void __fastcall sub_00434A00_Join(D2LaunchCharEntryStrc* pEntry, unsigned short wFlags, int nType, char* szName); // 0x00434A00
 int __fastcall sub_00434960_Validate(D2LaunchCharEntryStrc* pEntry, const char* szName); // 0x00434960
 int __fastcall sub_004349B0_Validate(D2LaunchCharEntryStrc* pEntry, const char* szName); // 0x004349B0
-void __fastcall sub_00435180_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone, int nArg); // 0x00435180
-int __stdcall sub_004370B0(int nArg); // 0x004370B0
-void __cdecl sub_0043B080(); // 0x0043B080
+void __fastcall sub_00435180_ShowMessage2(const Unicode* pText, D2LaunchDoneFn pfnDone, int nArg); // 0x00435180
+int __stdcall sub_004370B0_ShowLoginScreen(int nArg); // 0x004370B0
+void __cdecl sub_0043B080_InitCharSelectScreen(); // 0x0043B080
 void __fastcall sub_0043C750_JoinEntry(D2LaunchCharEntryStrc* pEntry, const char* szName); // 0x0043C750
 int __fastcall sub_0043CAA0_UpdateSaveFlags(const char* szName); // 0x0043CAA0
 int __stdcall sub_0043E6C0_OnError(int nArg); // 0x0043E6C0
@@ -109,7 +109,7 @@ int __fastcall sub_0043F5F0_CallTable74(int nA, int nB, int nC, int nD); // 0x00
 void __cdecl sub_0043FC20(); // 0x0043FC20
 int __fastcall sub_0043FFA0_SetupCharacter(unsigned short wValue, const char* szText0x1F, const char* szText0x245, const char* szText0x37); // 0x0043FFA0
 void __fastcall sub_00440140_ShowError(const Unicode* pText, D2LaunchCallback pfnDone); // 0x00440140
-void __fastcall sub_004401C0_ShowText(const Unicode* pText, D2LaunchCallback pfnDone); // 0x004401C0
+void __fastcall sub_004401C0_ShowTimedMessage(const Unicode* pText, D2LaunchCallback pfnDone); // 0x004401C0
 void __fastcall sub_004411E0_Use(const char* szText); // 0x004411E0
 int __fastcall sub_004428D0_SendChatText(const char* szText, int bFlag); // 0x004428D0
 int __fastcall sub_004438E0_Lookup(const char* szName, const char* szPassword, D2LaunchGameRecStrc* pRecord); // 0x004438E0
@@ -180,7 +180,7 @@ int __stdcall sub_004378D0_SubmitTexts(int nArg)
 
     if (gpFuncTable_0077ABF0->pfnSlot68() && gpFuncTable_0077ABF0->pfnSlotBC(szA, szB))
     {
-        sub_0042F540_ShowMessageBox(0, D2LANG_GetStringFromTblIndex(0x2B60), 0x13EE, 0, sub_004370B0, 0, 1, 0);
+        sub_0042F540_ShowMessageBox(0, D2LANG_GetStringFromTblIndex(0x2B60), 0x13EE, 0, sub_004370B0_ShowLoginScreen, 0, 1, 0);
         return 1;
     }
 
@@ -241,7 +241,7 @@ int __stdcall sub_0043B520_OnCharSelect(int nArg)
                 {
                     if (sub_00449C00() != 0x7B)
                     {
-                        sub_00433450_ShowText(D2LANG_GetStringFromTblIndex(0x145B), sub_0043B080);
+                        sub_00433450_ShowText(D2LANG_GetStringFromTblIndex(0x145B), sub_0043B080_InitCharSelectScreen);
                     }
                     else
                     {
@@ -249,7 +249,7 @@ int __stdcall sub_0043B520_OnCharSelect(int nArg)
                         Unicode wszArg[0x100];
                         sub_00526F20_ToUnicode(wszArg, pEntry->szName, 0x100);
                         sub_005269D0_Sprintf(0x100, wszText, D2LANG_GetStringFromTblIndex(0x2B89), wszArg);
-                        sub_00433450_ShowText(wszText, sub_0043B080);
+                        sub_00433450_ShowText(wszText, sub_0043B080_InitCharSelectScreen);
                     }
                     gbBusy_00779DA0 = 0;
                     return 1;
@@ -268,7 +268,7 @@ int __stdcall sub_0043B520_OnCharSelect(int nArg)
             }
             else
             {
-                sub_00435180_ShowText(D2LANG_GetStringFromTblIndex(0x5570), sub_0043B080, 1);
+                sub_00435180_ShowMessage2(D2LANG_GetStringFromTblIndex(0x5570), sub_0043B080_InitCharSelectScreen, 1);
             }
         }
 
@@ -305,7 +305,7 @@ int __stdcall sub_0043B6B0_JoinSelected(int nArg)
             }
             else
             {
-                sub_00433450_ShowText(D2LANG_GetStringFromTblIndex(0x145B), sub_0043B080);
+                sub_00433450_ShowText(D2LANG_GetStringFromTblIndex(0x145B), sub_0043B080_InitCharSelectScreen);
                 gbBusy_00779DA0 = 0;
                 return 1;
             }
@@ -315,7 +315,7 @@ int __stdcall sub_0043B6B0_JoinSelected(int nArg)
             sub_0043C750_JoinEntry(pEntry, &gszEmptyAssertText);
         }
 
-        sub_0043B080();
+        sub_0043B080_InitCharSelectScreen();
         gbBusy_00779DA0 = 0;
         return 1;
     }
@@ -427,7 +427,7 @@ void __cdecl sub_00442C20_HandleList()
     memcpy(gaGames_0078A440, gaNewGames_0077BDC8, gnValue_00798CCC * sizeof(D2LaunchGameRecStrc));
     for (int i = 0; i < gnGameCount_00798CC8; ++i)
     {
-        sub_004FCF80_SetTextA(gpGameList_00798BC0, gaGames_0078A440[i].szName);
+        D2Win_10045(gpGameList_00798BC0, gaGames_0078A440[i].szName);
         int nRow = sub_004FBD20_GetLastRow(gpGameList_00798BC0);
         if (!bNoNumbers)
         {
@@ -627,7 +627,7 @@ int __stdcall sub_004439F0_JoinByName(int nArg)
         {
             sub_0043FFA0_SetupCharacter(0, szName, szPassword, 0);
             sub_00443130_Reset();
-            sub_004401C0_ShowText(D2LANG_GetStringFromTblIndex(0x147B), 0);
+            sub_004401C0_ShowTimedMessage(D2LANG_GetStringFromTblIndex(0x147B), 0);
             return 1;
         }
 
@@ -637,7 +637,7 @@ int __stdcall sub_004439F0_JoinByName(int nArg)
             {
                 sub_0043FFA0_SetupCharacter(*(unsigned short*)gaGames_0078A440[i].wValue0x33, szName, szPassword, sub_0040E080_AddressToString(*(int*)gaGames_0078A440[i].nAddress0x37));
                 sub_00443130_Reset();
-                sub_004401C0_ShowText(D2LANG_GetStringFromTblIndex(0x147B), 0);
+                sub_004401C0_ShowTimedMessage(D2LANG_GetStringFromTblIndex(0x147B), 0);
                 return 1;
             }
         }
@@ -648,7 +648,7 @@ int __stdcall sub_004439F0_JoinByName(int nArg)
             {
                 sub_0043FFA0_SetupCharacter(*(unsigned short*)tRecord.wValue0x33, szName, szPassword, sub_0040E080_AddressToString(*(int*)tRecord.nAddress0x37));
                 sub_00443130_Reset();
-                sub_004401C0_ShowText(D2LANG_GetStringFromTblIndex(0x147B), 0);
+                sub_004401C0_ShowTimedMessage(D2LANG_GetStringFromTblIndex(0x147B), 0);
                 return 1;
             }
         }

@@ -150,12 +150,12 @@ void __fastcall QUESTS_SendLogUpdateEx(D2UnitStrc* pPlayer, int nQuestId, unsign
 void __fastcall SUNIT_IterateUnitsOfType(D2GameStrc* pGame, int nType, void* pArg, QUESTUNITITERATE pfIterate); // 0x005537D0
 short __fastcall SUNIT_GetPartyId(D2UnitStrc* pPlayer);                                                     // 0x00554630
 int __fastcall ACT5Q4_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);        // 0x0058AEA0
-bool __fastcall ACT5Q4_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus); // 0x0058AF00
+bool __fastcall sub_0058AF00_GetQuestStatus(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus); // 0x0058AF00
 void __fastcall ACT5Q4_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);    // 0x0058B050
 void __fastcall ACT5Q4_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);      // 0x0058B2C0
 int __fastcall ACT5Q4_UnitIterate_SetRewardPending(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);      // 0x0058B4A0
 void __fastcall sub_0058B5B0(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs);  // 0x0058B5B0
-int __fastcall ACT5Q4_UnitIterate_AttachCompletionSound(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x0058B730
+int __fastcall sub_0058B730_AttachCompletionSound(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x0058B730
 bool __fastcall ACT5Q4_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC); // 0x0058B870
 void __fastcall ACT5Q4_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x0058B990
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
@@ -351,7 +351,7 @@ void __fastcall ACT5Q4_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
     SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT5Q4_UnitIterate_SetRewardPending);
     SUNIT_IterateUnitsOfType(pQuestArg->pGame, 0, pQuestArg->pTarget, ACT5Q4_UnitIterate_SetPrimaryGoalDoneForPartyMembers);
     SUNIT_IterateUnitsOfType(pQuestArg->pGame, 0, pQuestArg->pTarget, ACT5Q4_UnitIterate_SetCompletionFlag);
-    SUNIT_IterateUnitsOfType(pQuestArg->pGame, 0, pQuestArg->pTarget, ACT5Q4_UnitIterate_AttachCompletionSound);
+    SUNIT_IterateUnitsOfType(pQuestArg->pGame, 0, pQuestArg->pTarget, sub_0058B730_AttachCompletionSound);
 
     QUESTS_SetGlobalState(pQuestData->pGame, QUESTSTATEFLAG_A5Q4, QFLAG_PRIMARYGOALDONE);
     QUESTS_TriggerFX(pQuestData->pGame, QUESTFX_A5Q4);
@@ -402,7 +402,7 @@ void __fastcall ACT5Q4_InitQuestData(D2QuestDataStrc* pQuestData)
     D2Act5Quest4Strc* pQuestDataEx = (D2Act5Quest4Strc*)sub_0040B430(pQuestData->pGame->pMemoryPool, sizeof(D2Act5Quest4Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q4.cpp", LINE_INIT_ALLOC, 0);
     pQuestData->pQuestDataEx = pQuestDataEx;
     pQuestData->eFilter = QUESTSTATEFLAG_A5Q4;
-    pQuestData->pfStatusFilter = ACT5Q4_StatusFilterCallback;
+    pQuestData->pfStatusFilter = sub_0058AF00_GetQuestStatus;
     pQuestData->nInitNo = INITNO_A5Q4;
     pQuestData->pfActiveFilter = ACT5Q4_ActiveFilterCallback;
     pQuestData->pfSeqFilter = ACT5Q4_SeqCallback;

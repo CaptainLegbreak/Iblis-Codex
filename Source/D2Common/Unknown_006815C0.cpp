@@ -114,7 +114,7 @@ static const unsigned char* __stdcall sub_00681540(unsigned char nDirection, uns
     return gPathTurns[(unsigned char)(nDirection - nBase) & 3];
 }
 
-int __fastcall sub_0067C570(D2DrlgGridStrc* pGrid, int nX, int nY); // 0x0067C570
+int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY); // 0x0067C570
 int __fastcall DRLGROOM_AreXYInsideCoordinates(D2DrlgCoordsStrc* pCoords, int nX, int nY); // 0x0066B980
 
 static __declspec(noinline) int __stdcall sub_006815C0(D2DrlgVertexStrc* pGoal, int nX, int nY, D2DrlgLevelStrc* pLevel, T00681490* pNode);
@@ -128,7 +128,7 @@ static int __stdcall sub_006815C0(D2DrlgVertexStrc* pGoal, int nX, int nY, D2Drl
     }
 
     D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoorInfo;
-    if (!DRLGROOM_AreXYInsideCoordinates(&pInfo->tCoords, nX, nY) || (sub_0067C570(&pInfo->tGrid2C, nX, nY) & 0x200))
+    if (!DRLGROOM_AreXYInsideCoordinates(&pInfo->tCoords, nX, nY) || (DRLGGRID_GetGridEntry(&pInfo->tGrid2C, nX, nY) & 0x200))
     {
         return 0;
     }

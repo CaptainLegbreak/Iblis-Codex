@@ -37,7 +37,7 @@ extern D2DataTablesStrc* sgptDataTables;                                        
 void __stdcall CHAT_FreeHoverMsg(void* pMemoryPool, D2HoverTextStrc* pHoverText);                            // 0x006611A0
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit);                                                      // 0x0064C040
 void __fastcall AIGENERAL_UpdateMinionList(D2UnitStrc* pUnit);                                               // 0x0058F6C0
-void __fastcall sub_005B1A90(D2GameStrc* pGame, D2UnitStrc* pUnit);                          // 0x005B1A90
+void __fastcall TARGETS_RemoveUnitNode(D2GameStrc* pGame, D2UnitStrc* pUnit);                          // 0x005B1A90
 void __stdcall D2Common_10469(D2UnitStrc* pUnit);                                                            // 0x00627540
 int __stdcall MONSTERS_IsBoss(void* pMonStatsTxtRecord, D2UnitStrc* pMonster);                               // 0x0063E9F0
 void __stdcall STATES_UpdateStayDeathFlags(D2UnitStrc* pUnit, int bIsBoss);                                  // 0x00639FB0
@@ -45,7 +45,7 @@ int __stdcall STATES_CheckStateMaskHideOnUnit(D2UnitStrc* pUnit);               
 int __fastcall sub_004638A0_CheckMonStats2Flag(int nMonsterId, int nFlag);                                   // 0x004638A0
 void __stdcall PATH_SetUnitDeadCollision(D2UnitStrc* pUnit, int bForGameLogic);                              // 0x00649F70
 void __stdcall sub_006488A0_SetDirection(D2DynamicPathStrc* pPath, int nDirection);                          // 0x006488A0
-void __fastcall MONSTER_DeleteEvents(D2GameStrc* pGame, D2UnitStrc* pMonster);                               // 0x005738D0
+void __fastcall sub_005738D0(D2GameStrc* pGame, D2UnitStrc* pMonster);                               // 0x005738D0
 void __fastcall SUNIT_SetCombatMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode);                        // 0x00553570
 void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nEventCustomId); // 0x00540E60
 
@@ -76,7 +76,7 @@ static void __stdcall sub_6FC63E80(int nDirection, D2GameStrc* pGame, D2UnitStrc
 
     AIGENERAL_UpdateMinionList(pUnit);
     D2MonStatsTxt* pMonStatsTxtRecord = GetMonStatsTxtRecord(pUnit);
-    sub_005B1A90(pGame, pUnit);
+    TARGETS_RemoveUnitNode(pGame, pUnit);
     if (pUnit)
     {
         pUnit->dwFlags &= 0xFFFF7FF3;
@@ -96,7 +96,7 @@ static void __stdcall sub_6FC63E80(int nDirection, D2GameStrc* pGame, D2UnitStrc
     }
 
     sub_006488A0_SetDirection(pPath, nDirection);
-    MONSTER_DeleteEvents(pGame, pUnit);
+    sub_005738D0(pGame, pUnit);
 }
 
 // 0x005A7390
@@ -123,17 +123,17 @@ void __fastcall sub_005A6830(D2GameStrc*, D2ModeChangeStrc*, int); // 0x005A6830
 void __fastcall sub_00547E50_RemoveMonster(void*, D2UnitStrc*); // 0x00547E50
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc*); // 0x00620BB0
 void __stdcall sub_0061AFA0_RemoveRoomUnit(D2ActiveRoomStrc*, int); // 0x0061AFA0
-int __stdcall sub_006416D0_GetDistance(D2UnitStrc*, D2UnitStrc*); // 0x006416D0
+int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc*, D2UnitStrc*); // 0x006416D0
 int __stdcall sub_00622B50_CheckCollision(D2UnitStrc*, D2UnitStrc*, int); // 0x00622B50
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc*, int, int); // 0x00625480
 int __stdcall STATES_CheckState(D2UnitStrc*, int); // 0x00639DF0
 void __fastcall sub_0057C1E0_CalculateDamage(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, D2DamageStrc*); // 0x0057C1E0
-void __fastcall sub_0057C6C0_FillDamage(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, int, D2DamageStrc*); // 0x0057C6C0
+void __fastcall SUNITDMG_ExecuteEvents(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, int, D2DamageStrc*); // 0x0057C6C0
 void __fastcall sub_0057CEE0_ApplyDamage(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, D2DamageStrc*); // 0x0057CEE0
 void __stdcall sub_6FC64090(D2GameStrc*, D2UnitStrc*); // 0x005A6EB0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc*); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc*); // 0x00648900
-D2UnitStrc* __fastcall sub_0056ECB0_CreateMissile(D2GameStrc*, int, D2UnitStrc*, int, int, int, int, int, int, int); // 0x0056ECB0
+D2UnitStrc* __fastcall sub_6FD11420(D2GameStrc*, int, D2UnitStrc*, int, int, int, int, int, int, int); // 0x0056ECB0
 D2DifficultyLevelsTxt* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int); // 0x00611D30
 int __stdcall DATATBLS_CalculateMonsterStatsByLevel(int, int, int, int, short, D2MonStatsInitStrc*); // 0x006538A0
 int __fastcall DATATBLS_ApplyRatio(int, int, int); // 0x00483360
@@ -148,7 +148,7 @@ static void __stdcall sub_6FC63FD0(D2GameStrc* pGame, D2UnitStrc* pUnit)
     D2UnitStrc* pTarget = UNITS_GetRoom(pUnit)->pUnitFirst;
     while (pTarget)
     {
-        if (pTarget->dwUnitType == 0 && pTarget->dwAnimMode != 17 && sub_006416D0_GetDistance(pUnit, pTarget) <= 2 && !sub_00622B50_CheckCollision(pTarget, pUnit, 0x3C01))
+        if (pTarget->dwUnitType == 0 && pTarget->dwAnimMode != 17 && sub_006416D0_UnitEdgeDistance(pUnit, pTarget) <= 2 && !sub_00622B50_CheckCollision(pTarget, pUnit, 0x3C01))
         {
             D2DamageStrc damage;
             memset(&damage, 0, sizeof(damage));
@@ -156,7 +156,7 @@ static void __stdcall sub_6FC63FD0(D2GameStrc* pGame, D2UnitStrc* pUnit)
             damage.wResultFlags = 1;
             if (!STATES_CheckState(pTarget, 54)) damage.wResultFlags |= 4;
             sub_0057C1E0_CalculateDamage(pGame, pUnit, pTarget, &damage);
-            sub_0057C6C0_FillDamage(pGame, pUnit, pTarget, 1, &damage);
+            SUNITDMG_ExecuteEvents(pGame, pUnit, pTarget, 1, &damage);
             sub_0057CEE0_ApplyDamage(pGame, pUnit, pTarget, &damage);
         }
         pTarget = pTarget->ptRoomNext;
@@ -235,7 +235,7 @@ int __fastcall sub_005A6FF0_MonsterDeath(D2GameStrc* pGame, D2ModeChangeStrc* pM
     {
         int nX = GetX(pUnit);
         int nY = GetY(pUnit);
-        D2UnitStrc* pMissile = sub_0056ECB0_CreateMissile(pGame, 117, pUnit, 0, 1, 0, 0, nX, nY, 1);
+        D2UnitStrc* pMissile = sub_6FD11420(pGame, 117, pUnit, 0, 1, 0, 0, nX, nY, 1);
         if (!pMissile) return 1;
         D2DifficultyLevelsTxt* pDifficulty = DATATBLS_GetDifficultyLevelsTxtRecord(pGame->nDifficulty);
         if (!pDifficulty) return 1;

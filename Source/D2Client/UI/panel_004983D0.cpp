@@ -101,7 +101,7 @@ int __cdecl sub_0044DA30(); // 0x0044DA30
 int __cdecl sub_00463DF0(); // 0x00463DF0
 int __cdecl sub_0044BFE0(); // 0x0044BFE0
 void __cdecl sub_00453EC0(); // 0x00453EC0
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
 int __fastcall sub_00453A90_GetUIVarUnchecked(int nUIVar); // 0x00453A90
 int __stdcall UNITS_GetInventoryRecordId(D2UnitStrc* pUnit, int nArg, int nMode); // 0x00621050
@@ -296,7 +296,7 @@ void __stdcall sub_A11_Emit_00498870(SMSGHANDLER_PARAMS* pMsg)
 {
     const int nX = pMsg->nX;
     const int nY = pMsg->nY;
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     sub_00498870_ClickBeltBox(pPlayer->pInventory, nX, nY);
 }
 
@@ -443,7 +443,7 @@ static void sub_00498C10_BeltHotkey(int nSlot)
         return;
     }
 
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     sub_00498A90_UseBeltSlot(nSlot, pPlayer, pPlayer->pInventory, GetKeyState(0x10) & 0x8000);
 }
 
@@ -478,7 +478,7 @@ void __stdcall sub_00499BB0_BeltMouseMove(SMSGHANDLER_PARAMS* pMsg)
 
     const int nY = pMsg->nY;
     const int nX = pMsg->nX;
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (sub_0044BFE0())
     {
         return;
@@ -539,7 +539,7 @@ void __stdcall sub_00499D10_BeltClick(SMSGHANDLER_PARAMS* pMsg)
 
     const int nX = pMsg->nX;
     const int nY = pMsg->nY;
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (sub_00498DC0_MouseMoveMsg(pMsg))
     {
         pMsg->bUseResult = 1;

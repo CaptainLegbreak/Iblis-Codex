@@ -84,7 +84,7 @@ static int __stdcall sub_006BC150_SplitPackets(unsigned char* pBuffer, int nLeng
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(Lock*);
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(Lock*);
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned);
-int __fastcall sub_0040D880_Close(unsigned); // 0x0040D880
+int __fastcall sub_0040D880(unsigned); // 0x0040D880
 int __fastcall FOG_SOCKET_Select(NetData* net); // 0x0040DDF0
 unsigned __fastcall FOG_SOCKET_Receive(NetData* net,unsigned char* data,unsigned length); // 0x0040DC60
 void __fastcall sub_0040E0B0_GetStatus(NetData* net,int* error,int* status); // 0x0040E0B0
@@ -97,7 +97,7 @@ static void __stdcall sub_006BC310_CloseSocket(D2NetConnectionStrc* socket)
  NetData* net=socket->net;
  if(!(net && net->connected && net->socket))return;
  EnterCriticalSection(&net->lock);
- sub_0040D880_Close(socket->net->socket);
+ sub_0040D880(socket->net->socket);
  socket->net->socket=(unsigned)-1;
  socket->net->connected=0;
  LeaveCriticalSection(&socket->net->lock);
@@ -123,7 +123,7 @@ unsigned __stdcall sub_006BC3A0_ReceiveLoop(D2NetConnectionStrc* socket)
      NetData* n=socket->net;
      if(n && n->connected && n->socket) {
       EnterCriticalSection(&n->lock);
-      sub_0040D880_Close(socket->net->socket);
+      sub_0040D880(socket->net->socket);
       socket->net->socket=(unsigned)-1;
       socket->net->connected=0;
       LeaveCriticalSection(&socket->net->lock);

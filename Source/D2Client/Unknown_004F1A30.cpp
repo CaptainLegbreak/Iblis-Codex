@@ -93,7 +93,7 @@ int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg
 extern const unsigned char gbSkillFlagMask_006CE270; // 0x006CE270
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState); // 0x006256B0
 int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625D00
-D2ActiveRoomStrc* __fastcall D2GAME_GetRoom_6FC52070(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
 
 
 extern int gnChargedBoltTurnEvery_0072D98C; // 0x0072D98C
@@ -347,7 +347,7 @@ void __fastcall sub_004F28A0_MissileScatter(D2UnitStrc* pUnit, int nSeed, int nM
         {
             tMissile.nX = nX + nOffsetX;
             tMissile.nY = nY + nOffsetY;
-            if (D2GAME_GetRoom_6FC52070(pRoom, tMissile.nX, tMissile.nY))
+            if (sub_00463740_FindRoomAtPoint(pRoom, tMissile.nX, tMissile.nY))
             {
                 sub_004CD540_CreateMissile(&tMissile);
             }

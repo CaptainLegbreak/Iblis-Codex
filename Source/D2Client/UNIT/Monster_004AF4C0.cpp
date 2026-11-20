@@ -63,23 +63,23 @@ unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax
 int __fastcall sub_00463720_TestUnitFlagEx(D2UnitStrc* pUnit, int nFlag);                                   // 0x00463720
 int __fastcall sub_004638A0_CheckMonStats2Flag(int nMonsterId, int nFlag);                                  // 0x004638A0
 D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType);                             // 0x00463990
-D2UnitStrc* __cdecl sub_00463DD0();                                                               // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit);                                               // 0x00464820
-D2UnitStrc* __fastcall sub_004648F0_GetTargetUnit(D2UnitStrc* pUnit);                                       // 0x004648F0
+D2UnitStrc* __fastcall sub_004648F0_GetPathTargetUnit(D2UnitStrc* pUnit);                                       // 0x004648F0
 void __fastcall sub_00466730_SpawnPresetUnit(int nIndex, int nX, int nY, int nUnitType, int nMode);         // 0x00466730
-void __fastcall sub_00480E70_SetState(D2UnitStrc* pUnit, int nArg);                                         // 0x00480E70
+void __fastcall sub_00480E70_SetUnitMode(D2UnitStrc* pUnit, int nArg);                                         // 0x00480E70
 void __fastcall sub_004ADE60(D2UnitStrc* pUnit);                                                            // 0x004ADE60
 void __stdcall sub_004AF1B0(D2UnitStrc* pUnit, int nMissile, int nX, int nY);                               // 0x004AF1B0
 void __fastcall sub_004C68F0(D2UnitStrc* pUnit);                                                            // 0x004C68F0
 void __fastcall sub_004C72F0(D2UnitStrc* pUnit);                                                            // 0x004C72F0
-void __fastcall sub_004CB460(D2UnitStrc* pUnit);                                                            // 0x004CB460
+void __fastcall sub_004CB460_UpdateModeSound(D2UnitStrc* pUnit);                                                            // 0x004CB460
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams);                           // 0x004CD540
 D2UnitStrc* __fastcall sub_004CDB40_SubmitRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
 D2UnitStrc* __fastcall sub_004CDC30(D2UnitStrc* pUnit, int nArg0, int nOffsetX, int nOffsetY, int nTargetX, int nTargetY, int nArg3, int nArg4, int nRange); // 0x004CDC30
 void __stdcall sub_004DA000_ResetGfxMotion(D2UnitStrc* pUnit);                                              // 0x004DA000
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit);                                               // 0x00620250
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState);                                             // 0x00639DF0
-int __stdcall D2Common_10399(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2);                                       // 0x00641530
+int __stdcall sub_00641530(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2);                                       // 0x00641530
 int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine);               // 0x00643CE0
 void __stdcall SKILLS_SetFlags(D2SkillStrc* pSkill, int nValue);                                           // 0x00644660
 int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill);                                                         // 0x006446A0
@@ -211,7 +211,7 @@ static void sub_004AF2E0_MonsterSkillEvent(D2UnitStrc* pUnit)
     tMissile.nMissile = nMissile;
     tMissile.nSkillLevel = 1;
 
-    D2UnitStrc* pTarget = sub_004648F0_GetTargetUnit(pUnit);
+    D2UnitStrc* pTarget = sub_004648F0_GetPathTargetUnit(pUnit);
     if (!pTarget)
     {
         D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
@@ -458,8 +458,8 @@ void __fastcall sub_004B13A0_UpdateMonsterClient(D2UnitStrc* pUnit)
         && pUnit->dwAnimMode == 1 && !sub_00451F30_TestUnitFlag(pUnit, 0x200)
         && nClassId != 0x219 && nClassId != 0x21A && nClassId != 0x21B)
     {
-        D2UnitStrc* pPlayer = sub_00463DD0();
-        if (pPlayer && (unsigned int)D2Common_10399(pUnit, pPlayer) < 7)
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
+        if (pPlayer && (unsigned int)sub_00641530(pUnit, pPlayer) < 7)
         {
             D2SeedStrc* pSeed = &pUnit->pSeed;
             if (pSeed && (int)SEED_RollLimitedRandomNumber(pSeed, 0x64) < 0xA)
@@ -517,6 +517,6 @@ void __fastcall sub_004B13A0_UpdateMonsterClient(D2UnitStrc* pUnit)
         sub_004C72F0(pUnit);
     }
 
-    sub_004CB460(pUnit);
+    sub_004CB460_UpdateModeSound(pUnit);
     sub_004CAF60(pUnit);
 }

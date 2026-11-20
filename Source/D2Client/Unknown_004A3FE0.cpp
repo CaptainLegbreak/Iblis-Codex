@@ -169,7 +169,7 @@ void __cdecl sub_0044DCE0(); // 0x0044DCE0
 extern "C" void __cdecl sub_0044DD20_MouseExtTables_451DB0(); // 0x0044DD20
 void __cdecl sub_00466FE0(); // 0x00466FE0
 void __fastcall sub_00467A70(int nArg); // 0x00467A70
-void __cdecl sub_00469D20(); // 0x00469D20
+void __cdecl sub_00469D20_SaveHotkeys(); // 0x00469D20
 void __cdecl sub_004A43E0(); // 0x004A43E0
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 extern int gnGlobal_007C0280; // 0x007C0280
@@ -195,8 +195,8 @@ struct D2AiTickParamStrc
     D2AiControlStrc* pAiControl;
 };
 
-int __fastcall sub_0040C720(int nArg); // 0x0040C720
-void __fastcall sub_00469A60(int nArg); // 0x00469A60
+int __fastcall sub_0040C720_ReleaseReferences(int nArg); // 0x0040C720
+void __fastcall sub_00469A60_ResetKeyConfig(int nArg); // 0x00469A60
 void __fastcall sub_00478A00(void* pCel); // 0x00478A00
 extern "C" void __cdecl sub_00517ABB(void* pMemory); // 0x00517ABB
 
@@ -234,7 +234,7 @@ extern D2MsgHandlerEntryStrc gaMsgHandlers_0072478C[]; // 0x0072478C
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 unsigned char __cdecl sub_0044DCD0_GetDifficulty(); // 0x0044DCD0
 int __cdecl sub_00466DC0(); // 0x00466DC0
@@ -631,7 +631,7 @@ void __fastcall sub_004A5200(int nArg)
     {
         if (gnGlobal_007C02B8 == 0)
         {
-            sub_00469D20();
+            sub_00469D20_SaveHotkeys();
             sub_0046AA20(0, 0);
             sub_0044DCE0();
             sub_00467A70(0);
@@ -725,13 +725,13 @@ void* gpCelFile_007C02BC; // 0x007C02BC
 // 0x0040D530
 int __cdecl sub_0040D530_Call0040C720()
 {
-    return sub_0040C720(1);
+    return sub_0040C720_ReleaseReferences(1);
 }
 
 // 0x004A5010
 void __cdecl sub_004A5010_Call00469A60()
 {
-    sub_00469A60(0);
+    sub_00469A60_ResetKeyConfig(0);
 }
 
 // 0x004A51E0
@@ -850,7 +850,7 @@ int __stdcall sub_004A7340_GetPercentA(int nAttackRate)
         return 0;
     }
 
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     int nPercent = 100;
     const int nDifficulty = sub_0044DCD0_GetDifficulty();
     D2_ASSERT(nDifficulty < 3, 398);

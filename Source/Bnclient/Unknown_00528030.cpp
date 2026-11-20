@@ -18,7 +18,7 @@ struct D2BigPairStrc
 
     int sub_00528760_ComputeLoginProof(D2BigLoginRecordStrc* pRecord, const unsigned char* pSalt, const unsigned char* pServerPublic);
 };
-unsigned char* __fastcall sub_0052A120_HashInterleave(unsigned char* pDest, const unsigned char* pData, unsigned int nSize); // 0x0052A120
+unsigned char* __fastcall sub_0052A120_ShaInterleave(unsigned char* pDest, const unsigned char* pData, unsigned int nSize); // 0x0052A120
 void* __fastcall sub_0052A240_BigFromUnsigned(unsigned int nValue);                                         // 0x0052A240
 void* __fastcall sub_0052A270_BigFromBinary(const void* pData, unsigned int nSize);                         // 0x0052A270
 unsigned int __fastcall sub_0052A2A0_BigToBinary(void* hBig, void* pBuffer, unsigned int nSize);            // 0x0052A2A0
@@ -74,7 +74,7 @@ int D2BigPairStrc::sub_00528760_ComputeLoginProof(D2BigLoginRecordStrc* pRecord,
         return 0;
     }
     const unsigned int nSize = sub_0052A2A0_BigToBinary(hKey, abKey, 0x20);
-    sub_0052A120_HashInterleave(pRecord->abKey, abKey, nSize);
+    sub_0052A120_ShaInterleave(pRecord->abKey, abKey, nSize);
     sub_0052A600(hKeyRef);
     pState->sub_005282A0_ComputeProof(pRecord->szName, pSalt, pRecord->abPublic, pServerPublic, pRecord->abKey, pRecord->abProof);
     return 1;

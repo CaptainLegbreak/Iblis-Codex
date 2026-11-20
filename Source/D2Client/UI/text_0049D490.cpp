@@ -77,7 +77,7 @@ void __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLengt
 Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526790
 int __fastcall sub_00526D30(const Unicode* pText, int nCount); // 0x00526D30
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
-int __fastcall sub_00501730_GetTextWidthN(const Unicode* wszText, int nLength); // 0x00501730
+int __fastcall D2Win_10123(const Unicode* wszText, int nLength); // 0x00501730
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 int __fastcall sub_004538D0(int nUIVar); // 0x004538D0
 D2TextNodeStrc* __fastcall sub_0049DB10_CloneStringList(D2TextNodeStrc* pSource); // 0x0049DB10
@@ -115,7 +115,7 @@ int __cdecl sub_0045AE90(); // 0x0045AE90
 void __fastcall sub_0049D8E0_DrawTextList(T00479230* pTextBox, int nX, int nY); // 0x0049D8E0
 int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
-int __cdecl sub_00525150(); // 0x00525150
+int __cdecl STRTABLE_GetLanguage(); // 0x00525150
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 void __stdcall UNITS_GetClientCoords(D2UnitStrc* pUnit, D2CoordStrc* pClientCoords); // 0x00620900
 void __stdcall CHAT_FreeHoverMsg(void* pMemoryPool, D2HoverTextStrc* pHoverText); // 0x006611A0
@@ -185,7 +185,7 @@ void __fastcall sub_0049E5C0_PrintWrappedLine(const Unicode* wszText, char nColo
     pNode->nLines = 0;
     while (nCount > 0)
     {
-        while (sub_00501730_GetTextWidthN(&wszText[nStart], nCount) > gnGlobal_0071146C - 0x46)
+        while (D2Win_10123(&wszText[nStart], nCount) > gnGlobal_0071146C - 0x46)
         {
             nCount--;
             if (nCount <= 0)
@@ -387,7 +387,7 @@ static bool sub_0049E280_ConvertHoverText(int nLangId, Unicode* wszText, const c
     }
 
     MultiByteToWideChar(0, 1, szText, 0x100, wszText, 0x100);
-    const int nCurrentLangId = sub_00525150();
+    const int nCurrentLangId = STRTABLE_GetLanguage();
     if (nCurrentLangId == nLangId)
         return true;
     if (nCurrentLangId == 7)

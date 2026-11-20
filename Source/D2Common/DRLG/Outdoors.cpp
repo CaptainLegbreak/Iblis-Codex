@@ -89,8 +89,8 @@ struct D2LvlPrestRecordStrc
 extern D2LvlPrestRecordStrc* __stdcall sub_0061F0B0(int nPresetId); // 0x0061F0B0
 extern void* __fastcall sub_0040B430(void* pPool, int nSize, const char* szFile, int nLine, int nZero); // 0x0040B430
 extern int __fastcall sub_0045C3E0_RollLimited(D2SeedStrc* pSeed, int nLimit); // 0x0045C3E0
-extern int __fastcall sub_00666FD0_PresetWidth(int nPresetId); // 0x00666FD0
-extern int __fastcall sub_00666FE0_PresetHeight(int nPresetId); // 0x00666FE0
+extern int __fastcall DRLGPRESET_GetSizeX(int nPresetId); // 0x00666FD0
+extern int __fastcall DRLGPRESET_GetSizeY(int nPresetId); // 0x00666FE0
 extern void __fastcall DRLGGRID_AlterGridFlag(D2DrlgGridStrc* pGrid, int nX, int nY, int nFlag, int nOperation); // 0x0067C4F0
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
@@ -151,8 +151,8 @@ static __declspec(noinline) int __cdecl sub_00674320_PickFile(D2DrlgLevelStrc* p
 void __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(D2DrlgLevelStrc* pLevel, int nX, int nY, int nPresetId, int nPickedFile, int bFlag)
 {
     D2DrlgOutdoorInfoStrc* pOutdoor = pLevel->pOutdoor;
-    const int nWidth = sub_00666FD0_PresetWidth(nPresetId) / 8;
-    const int nHeight = sub_00666FE0_PresetHeight(nPresetId) / 8;
+    const int nWidth = DRLGPRESET_GetSizeX(nPresetId) / 8;
+    const int nHeight = DRLGPRESET_GetSizeY(nPresetId) / 8;
     if (nPickedFile == -1)
         nPickedFile = sub_00674320_PickFile(pLevel, nPresetId);
     for (int y = nY; y < nY + nHeight; ++y)

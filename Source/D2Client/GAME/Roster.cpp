@@ -88,7 +88,7 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 short __fastcall sub_00465400_GetPlayerRosterField22(D2UnitStrc* pUnit); // 0x00465400
 void __fastcall sub_00478780_SendPartyCommand(unsigned char nCommand, int nUnitId); // 0x00478780
 void __cdecl sub_00479AB0(); // 0x00479AB0
@@ -346,7 +346,7 @@ int __fastcall sub_00479C20(D2StoredUnitRecordStrc* pEntry)
 {
     if (pEntry)
     {
-        D2UnitStrc* pPlayer = sub_00463DD0();
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         return sub_004DC440(!pPlayer ? -1 : pPlayer->dwUnitId, pEntry->dwUnitId, 1);
     }
     return 0;
@@ -357,7 +357,7 @@ int __fastcall sub_00479C60(D2StoredUnitRecordStrc* pEntry)
 {
     if (pEntry)
     {
-        D2UnitStrc* pPlayer = sub_00463DD0();
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         return sub_004DC440(!pPlayer ? -1 : pPlayer->dwUnitId, pEntry->dwUnitId, 2);
     }
     return 0;
@@ -368,7 +368,7 @@ int __fastcall sub_00479CA0(D2StoredUnitRecordStrc* pEntry)
 {
     if (pEntry)
     {
-        D2UnitStrc* pPlayer = sub_00463DD0();
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         return sub_004DC440(!pPlayer ? -1 : pPlayer->dwUnitId, pEntry->dwUnitId, 4);
     }
     return 0;
@@ -379,7 +379,7 @@ int __fastcall sub_00479CE0(D2StoredUnitRecordStrc* pEntry)
 {
     if (pEntry)
     {
-        D2UnitStrc* pPlayer = sub_00463DD0();
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         if (sub_004DC440(!pPlayer ? -1 : pPlayer->dwUnitId, pEntry->dwUnitId, 8))
             return 1;
     }
@@ -440,7 +440,7 @@ int __fastcall sub_0047A2C0_HasPartyMate(D2UnitStrc* pUnit)
 int __cdecl sub_0047A560()
 {
     D2StoredUnitRecordStrc* pRoster = gpStoredUnits_007BB5C0;
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     const int nPlayerId = !pPlayer ? -1 : pPlayer->dwUnitId;
     for (; pRoster; pRoster = pRoster->pNext)
     {
@@ -453,7 +453,7 @@ int __cdecl sub_0047A560()
 // 0x0047A5B0
 int __fastcall sub_0047A5B0(D2StoredUnitRecordStrc* pEntry)
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (pEntry && pPlayer && sub_004DC440(pEntry->dwUnitId, !pPlayer ? -1 : pPlayer->dwUnitId, 8))
         return 1;
     return 0;
@@ -462,7 +462,7 @@ int __fastcall sub_0047A5B0(D2StoredUnitRecordStrc* pEntry)
 // 0x0047A5E0
 int __fastcall sub_0047A5E0(D2StoredUnitRecordStrc* pEntry)
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (pEntry && pPlayer && sub_004DC440(!pPlayer ? -1 : pPlayer->dwUnitId, pEntry->dwUnitId, 8))
         return 1;
     return 0;
@@ -471,7 +471,7 @@ int __fastcall sub_0047A5E0(D2StoredUnitRecordStrc* pEntry)
 // 0x0047A610
 int __fastcall sub_0047A610(D2StoredUnitRecordStrc* pEntry)
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (pEntry && pPlayer && sub_004DC440(pEntry->dwUnitId, !pPlayer ? -1 : pPlayer->dwUnitId, 1))
         return 1;
     return 0;
@@ -480,7 +480,7 @@ int __fastcall sub_0047A610(D2StoredUnitRecordStrc* pEntry)
 // 0x0047A640
 int __fastcall sub_0047A640(D2StoredUnitRecordStrc* pEntry)
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (pEntry && pPlayer && sub_004DC440(!pPlayer ? -1 : pPlayer->dwUnitId, pEntry->dwUnitId, 1))
         return 1;
     return 0;
@@ -555,7 +555,7 @@ inline int ROSTER_TestPvpFlag4Inl(D2StoredUnitRecordStrc* pEntry)
 {
     if (pEntry)
     {
-        D2UnitStrc* pPlayer = sub_00463DD0();
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         return sub_004DC440(!pPlayer ? -1 : pPlayer->dwUnitId, pEntry->dwUnitId, 4);
     }
     return 0;

@@ -62,7 +62,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 void __cdecl FOG_DestroyMemoryPoolSystem(D2PoolSystemStrc* pSystem);                                        // 0x00409C80
 void __cdecl sub_00409DD0_InitPoolSystem(void* pReserved, const char* szName, int nSize, int nBlockSize);   // 0x00409DD0
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);                               // 0x0040B380
-int __fastcall sub_0040B3C0(void* pMemory, const char* szFile, int nLine, int n0);                        // 0x0040B3C0
+int __fastcall FOG_Free(void* pMemory, const char* szFile, int nLine, int n0);                        // 0x0040B3C0
 int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
 int __stdcall sub_0041C2F0_RegisterMsgSource(unsigned short wFacility, void* hModule, void* pReserved);     // 0x0041C2F0
 int __cdecl sub_0044BBA0();                                                                                 // 0x0044BBA0
@@ -72,25 +72,25 @@ void __cdecl sub_0044DBE0_ReadColorFlag();                                      
 int __stdcall sub_004512C0_LoadString(int nId, char* szBuffer, unsigned int nSize);                         // 0x004512C0
 void __stdcall sub_00451920_RecordHandler(int nArg1, int nArg2, int nArg3);                                 // 0x00451920
 void __cdecl sub_00456550_LoadLoadingScreen();                                                              // 0x00456550
-void __cdecl sub_00456D80();                                                                                // 0x00456D80
+void __cdecl sub_00456D80_ShutdownUI();                                                                                // 0x00456D80
 void __fastcall sub_00457300_InitGfxCaches(void* pMemPool, int bCelPool);                                   // 0x00457300
-void __fastcall sub_00457420(int nArg);                                                                     // 0x00457420
+void __fastcall sub_00457420_FreeCaches(int nArg);                                                                     // 0x00457420
 void __fastcall sub_0045AEA0_SetPanelSlide(int nMode);                                                      // 0x0045AEA0
 void __cdecl sub_00463C70();                                                                                // 0x00463C70
 void __fastcall sub_00463D90(int nArg);                                                                     // 0x00463D90
-void __cdecl sub_004659C0();                                                                                // 0x004659C0
+void __cdecl sub_004659C0_FreeAllUnits();                                                                                // 0x004659C0
 void __cdecl sub_00466FE0();                                                                                // 0x00466FE0
 unsigned short __fastcall sub_00469AA0(int nA, int nB);                                                     // 0x00469AA0
 int __fastcall sub_00469D90(int nA, int nB);                                                                // 0x00469D90
-void __cdecl sub_0046BF90();                                                                                // 0x0046BF90
+void __cdecl sub_0046BF90_ResetLevelEffects();                                                                                // 0x0046BF90
 void __cdecl sub_0046D750();                                                                                // 0x0046D750
 void __cdecl sub_00472320();                                                                                // 0x00472320
 void __cdecl sub_004723C0();                                                                                // 0x004723C0
 void __cdecl sub_00472BD0();                                                                                // 0x00472BD0
-void __cdecl sub_00473CE0();                                                                                // 0x00473CE0
-void __cdecl sub_00473CF0();                                                                                // 0x00473CF0
-void __cdecl sub_00474790();                                                                                // 0x00474790
-void __cdecl sub_004758D0();                                                                                // 0x004758D0
+void __cdecl sub_00473CE0_Nop();                                                                                // 0x00473CE0
+void __cdecl sub_00473CF0_Nop();                                                                                // 0x00473CF0
+void __cdecl sub_00474790_ClearLightGrid();                                                                                // 0x00474790
+void __cdecl sub_004758D0_FreeAllLights();                                                                                // 0x004758D0
 void __fastcall sub_00475FD0(D2ViewStrc* pView);                                                            // 0x00475FD0
 void __fastcall sub_004760A0_SetViewPos(D2ViewStrc* pView, int nX, int nY);                                 // 0x004760A0
 D2ViewStrc* __cdecl sub_00476B10();                                                                         // 0x00476B10
@@ -98,10 +98,10 @@ void __cdecl sub_00476EA0_LoadPalShift();                                       
 void __cdecl sub_00476FB0();                                                                                // 0x00476FB0
 void __cdecl sub_00477DD0();                                                                                // 0x00477DD0
 void __fastcall sub_004781D0(int bAnimate);                                                    // 0x004781D0
-void __cdecl sub_0047BD30();                                                                                // 0x0047BD30
+void __cdecl sub_0047BD30_ResetChatHistory();                                                                                // 0x0047BD30
 void __cdecl sub_0047F1D0_LoadResolution();                                                                 // 0x0047F1D0
 void __cdecl sub_00483960();                                                                                // 0x00483960
-void __cdecl sub_00499E30();                                                                                // 0x00499E30
+void __cdecl sub_00499E30_SetBlackColour();                                                                                // 0x00499E30
 int __cdecl sub_004F59A0();                                                                                // 0x004F59A0
 int __fastcall sub_00501820(const Unicode* wszText);                                             // 0x00501820
 void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);         // 0x00502320
@@ -179,22 +179,22 @@ void __cdecl sub_0044C890_ReleaseGameState()
 {
     sub_00472BD0();
     sub_00476FB0();
-    sub_004659C0();
+    sub_004659C0_FreeAllUnits();
     if (gpAct_007A0634)
         DUNGEON_FreeAct(gpAct_007A0634);
     gpAct_007A0634 = 0;
     D2CMPSpriteFreeAsyncLoads();
     sub_005FE070();
-    sub_00457420(0);
+    sub_00457420_FreeCaches(0);
     sub_00475FD0(gpView_007A0640);
     gpView_007A0640 = 0;
-    sub_00456D80();
-    sub_00473CF0();
-    sub_004758D0();
+    sub_00456D80_ShutdownUI();
+    sub_00473CF0_Nop();
+    sub_004758D0_FreeAllLights();
     sub_004723C0();
     FOG_DestroyMemoryPoolSystem(gpMemPool_007A0488);
     memset(gaClientState_007A0480, 0, sizeof(gaClientState_007A0480));
-    sub_0040B3C0(gpAutomapRecord_007A0638, ".\\GAME\\Game.cpp", 0x599, 0);
+    FOG_Free(gpAutomapRecord_007A0638, ".\\GAME\\Game.cpp", 0x599, 0);
 }
 
 // 0x0044CCE0
@@ -414,13 +414,13 @@ void __cdecl sub_0044E200_InitGameState()
     sub_0045AEA0_SetPanelSlide(0);
     gdwGlobal_007A04FC = 0;
     sub_0046D750();
-    sub_00473CE0();
-    sub_0046BF90();
+    sub_00473CE0_Nop();
+    sub_0046BF90_ResetLevelEffects();
     gpAutomapRecord_007A0638 = (D2AutomapRecordStrc*)FOG_Alloc(8, ".\\GAME\\Game.cpp", 0x546, 0);
     sub_00463C70();
-    sub_00474790();
+    sub_00474790_ClearLightGrid();
     sub_00472320();
-    sub_0047BD30();
+    sub_0047BD30_ResetChatHistory();
     gdwGlobal_007A0674 = 0;
     gdwGlobal_007A061C = 0;
 }
@@ -524,7 +524,7 @@ void __cdecl sub_00452130_InitColors()
 {
     sub_00483960();
     sub_00499E10();
-    sub_00499E30();
+    sub_00499E30_SetBlackColour();
     sub_004AB2F0();
     sub_00497250();
     sub_00497270();

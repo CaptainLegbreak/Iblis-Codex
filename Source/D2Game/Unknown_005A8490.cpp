@@ -15,7 +15,7 @@ struct D2MissileUnitFindArgStrc;
 
 
 int __fastcall sub_6FCBC930(D2GameStrc* pGame, D2UnitStrc* pMissile); // 0x00554CA0
-void __fastcall sub_005A8030(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005A8030
+void __fastcall MONSTERMODE_HandleEndAnimation(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005A8030
 void __fastcall SKILLS_CreateBlazeMissile(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005C9D90
 void __fastcall SKILLS_CreateSpiderLayMissile(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005CE4F0
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
@@ -46,7 +46,7 @@ struct D2ModeChangeStrc
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-int __fastcall sub_0046C140_CheckMonStats2ModeFlag(int nMonsterId, int nMode); // 0x0046C140
+int __fastcall sub_0046C140_TestMonModeFlag(int nMonsterId, int nMode); // 0x0046C140
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
 void __stdcall UNITS_SetUsedSkill(D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill); // 0x00620210
 int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int a3); // 0x005A7C20
@@ -60,7 +60,7 @@ struct D2MissileUnitFindArgStrc
     D2UnitStrc* pOwner;
     D2MissilesTxt* pMissilesTxtRecord;
 };
-int __fastcall sub_00554200(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00554200
+int __fastcall SUNIT_AreUnitsHostile(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00554200
 int __stdcall STATLIST_GetUnitAlignment(D2UnitStrc* pUnit); // 0x006259B0
 
 // 0x005A8490
@@ -78,7 +78,7 @@ int __fastcall sub_6FC64480(D2GameStrc* pGame, D2UnitStrc* pUnit)
 
     if (sub_6FCBC930(pGame, pUnit) == 2)
     {
-        sub_005A8030(pGame, pUnit);
+        MONSTERMODE_HandleEndAnimation(pGame, pUnit);
         return 2;
     }
 
@@ -90,7 +90,7 @@ int __fastcall sub_6FC64510(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     if (sub_6FCBC930(pGame, pUnit) == 2)
     {
-        sub_005A8030(pGame, pUnit);
+        MONSTERMODE_HandleEndAnimation(pGame, pUnit);
         return 2;
     }
 
@@ -122,7 +122,7 @@ void __fastcall sub_6FC64CD0(D2GameStrc* pGame, D2UnitStrc* pUnit)
     PATH_ResetToPreviousType(pUnit->pDynamicPath);
 
     const int nClassId = pUnit->dwClassId;
-    if (!sub_0046C140_CheckMonStats2ModeFlag(nClassId, MONMODE_GETHIT))
+    if (!sub_0046C140_TestMonModeFlag(nClassId, MONMODE_GETHIT))
     {
         EVENT_SetEvent(pGame, pUnit, EVENTTYPE_AITHINK, pGame->dwGameFrame + 1, 0, 0);
         return;
@@ -213,7 +213,7 @@ static int __stdcall sub_005A8730_MISSMODE_CanCollideWithUnit(D2GameStrc* pGame,
         return 0;
     }
 
-    if (MISSILE_CheckUnitIfOwner(pMissile, pUnit) || (pOwner && !sub_00554200(pGame, pOwner, pUnit) && !pMissilesTxtRecord->nCollideFriend))
+    if (MISSILE_CheckUnitIfOwner(pMissile, pUnit) || (pOwner && !SUNIT_AreUnitsHostile(pGame, pOwner, pUnit) && !pMissilesTxtRecord->nCollideFriend))
     {
         return 0;
     }

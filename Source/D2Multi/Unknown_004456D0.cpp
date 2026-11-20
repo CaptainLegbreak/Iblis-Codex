@@ -48,7 +48,7 @@ const char* __cdecl sub_0040DF60_GetLocalIp(); // 0x0040DF60
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
 int __fastcall sub_0043FE40_SetupLogin(D2LaunchLoginStrc* pLogin, const char* szText0x37); // 0x0043FE40
-void __fastcall sub_004401C0_ShowText(const Unicode* pText, D2LaunchCallback pfnDone); // 0x004401C0
+void __fastcall sub_004401C0_ShowTimedMessage(const Unicode* pText, D2LaunchCallback pfnDone); // 0x004401C0
 void __cdecl sub_00443220_DestroyControls(); // 0x00443220
 int __stdcall sub_00443840_CallTable8C(int nUnused); // 0x00443840
 int __stdcall sub_00443870_SetCancel(int nArg); // 0x00443870
@@ -148,7 +148,7 @@ int __stdcall sub_004456D0_SubmitCreateGame(int nArg)
                 nFlags |= 8;
 
             gpLaunchFuncs_0077B09C->pfnCreateGame(tLogin.szText0x00, tLogin.szText0x10, szDesc, nFlags);
-            sub_004401C0_ShowText(D2LANG_GetStringFromTblIndex(0x147B), 0);
+            sub_004401C0_ShowTimedMessage(D2LANG_GetStringFromTblIndex(0x147B), 0);
             sub_004FA590_RunLoop(sub_00443840_CallTable8C);
             sub_0043EA20_Wait();
 
@@ -156,7 +156,7 @@ int __stdcall sub_004456D0_SubmitCreateGame(int nArg)
             gpLaunchFuncs_0077B09C->pfnGetResult(&tResult);
             if (!tResult.nResult)
             {
-                sub_004401C0_ShowText(D2LANG_GetStringFromTblIndex(0x1412), 0);
+                sub_004401C0_ShowTimedMessage(D2LANG_GetStringFromTblIndex(0x1412), 0);
                 return 1;
             }
         }
@@ -182,13 +182,13 @@ int __stdcall sub_004456D0_SubmitCreateGame(int nArg)
         sub_0043FE40_SetupLogin(&tLogin, sub_0040DF60_GetLocalIp());
         if (!sub_00449B30_QueryAddress())
         {
-            sub_004401C0_ShowText(D2LANG_GetStringFromTblIndex(0x147B), 0);
+            sub_004401C0_ShowTimedMessage(D2LANG_GetStringFromTblIndex(0x147B), 0);
             sub_00443220_DestroyControls();
             return 1;
         }
 
         gdwGlobal_00798CC4 = 0;
-        sub_004401C0_ShowText(D2LANG_GetStringFromTblIndex(0x147B), sub_00443870_SetCancel);
+        sub_004401C0_ShowTimedMessage(D2LANG_GetStringFromTblIndex(0x147B), sub_00443870_SetCancel);
         sub_004FA590_RunLoop(sub_00443880_PollMcp);
         sub_0043EA20_Wait();
         if (gdwGlobal_00798CC4)

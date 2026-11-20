@@ -17,17 +17,17 @@ extern "C" void __cdecl sub_00408A60(const char*, const char*, int); // 0x00408A
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc*); // 0x00620BB0
 D2UnitStrc* __stdcall DUNGEON_GetWarpTileFromRoomAndSourceLevelId(D2ActiveRoomStrc*,int,D2LvlWarpTxt**); // 0x006195A0
-int __fastcall sub_0045ADF0(D2UnitStrc*); // 0x0045ADF0
-int __fastcall sub_0045AE20(D2UnitStrc*); // 0x0045AE20
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc*); // 0x0045ADF0
+int __fastcall CLIENTS_GetUnitY(D2UnitStrc*); // 0x0045AE20
 int __stdcall UNITS_GetUnitSizeX(D2UnitStrc*); // 0x00620510
 D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc*,D2CoordStrc*,int,unsigned int,int); // 0x0064E7B0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc*); // 0x0061A1B0
 int __fastcall QUESTS_LevelWarpCheck(D2GameStrc*,D2UnitStrc*,int,int); // 0x00545B80
-int __fastcall sub_00554EA0_WarpUnit(D2GameStrc*,D2UnitStrc*,D2ActiveRoomStrc*,int,int,int,int); // 0x00554EA0
+int __fastcall sub_6FCBDFE0(D2GameStrc*,D2UnitStrc*,D2ActiveRoomStrc*,int,int,int,int); // 0x00554EA0
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc*,const char*,int); // 0x005531C0
-void __fastcall sub_005809D0_ChangeMode(D2GameStrc*,D2UnitStrc*,D2SkillStrc*,int,int,int,int); // 0x005809D0
+void __fastcall sub_6FC817D0(D2GameStrc*,D2UnitStrc*,D2SkillStrc*,int,int,int,int); // 0x005809D0
 int __stdcall UNITS_GetCurrentLifePercentage(D2UnitStrc*); // 0x00621F20
-void __fastcall sub_0053B4B0(D2ClientStrc*,unsigned char,unsigned char,int,unsigned char,unsigned short,unsigned short,unsigned char,unsigned char); // 0x0053B4B0
+void __fastcall D2GAME_PACKETS_SendPacket0x0D_6FC3C920(D2ClientStrc*,unsigned char,unsigned char,int,unsigned char,unsigned short,unsigned short,unsigned char,unsigned char); // 0x0053B4B0
 
 struct D2ItemDropStrc
 {
@@ -61,8 +61,8 @@ struct D2ItemDropStrc
 };
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-D2UnitStrc* __fastcall sub_0054E600_SpawnPresetMonster(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nClassId, int nX, int nY, int nMode); // 0x0054E600
-D2UnitStrc* __fastcall sub_0054F490_SpawnPresetObject(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nClassId, int nX, int nY, int nMode); // 0x0054F490
+D2UnitStrc* __fastcall D2GAME_SpawnPresetMonster_6FC66560(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nClassId, int nX, int nY, int nMode); // 0x0054E600
+D2UnitStrc* __fastcall OBJECTS_SpawnPresetObject(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nClassId, int nX, int nY, int nMode); // 0x0054F490
 D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char a7, int nMode, unsigned int a9); // 0x00555230
 void __fastcall SUNIT_RemoveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00555600
 int __fastcall D2GAME_InitItemStats_6FC4E520(D2GameStrc* pGame, D2UnitStrc** ppItem, D2ItemDropStrc* pItemDrop, int a4); // 0x00557AB0
@@ -85,8 +85,8 @@ void __fastcall sub_005550B0_WarpPlayer(D2GameStrc* ptGame,D2UnitStrc* hUnit,D2U
     if (!pDestination) return;
     D2ActiveRoomStrc* pTargetRoom = UNITS_GetRoom(pDestination);
     D2CoordStrc point;
-    point.nX = sub_0045ADF0(pDestination);
-    point.nY = sub_0045AE20(pDestination);
+    point.nX = CLIENTS_GetUnitX(pDestination);
+    point.nY = CLIENTS_GetUnitY(pDestination);
     D2_ASSERT(hUnit->dwUnitType == 0,348);
     D2ActiveRoomStrc* pFreeRoom = COLLISION_GetFreeCoordinates(pTargetRoom,&point,UNITS_GetUnitSizeX(hUnit),0x1C09,1);
     if (!pFreeRoom) return;
@@ -96,14 +96,14 @@ void __fastcall sub_005550B0_WarpPlayer(D2GameStrc* ptGame,D2UnitStrc* hUnit,D2U
         if (QUESTS_LevelWarpCheck(ptGame,hUnit,nOldLevel,nNewLevel)) return;
     int nX = point.nX;
     int nY = point.nY;
-    if (sub_00554EA0_WarpUnit(ptGame,hUnit,pTargetRoom,nX,nY,0,0))
+    if (sub_6FCBDFE0(ptGame,hUnit,pTargetRoom,nX,nY,0,0))
     {
         D2ClientStrc* pClient = UnitGetClient(hUnit,".\\UNIT\\SUnit.cpp",376);
         int nDestX = pWarp->nOffsetX + nX;
         int nDestY = pWarp->nOffsetY + nY;
-        sub_005809D0_ChangeMode(ptGame,hUnit,0,2,nDestX,nDestY,0);
+        sub_6FC817D0(ptGame,hUnit,0,2,nDestX,nDestY,0);
         unsigned char nLife = UNITS_GetCurrentLifePercentage(hUnit);
-        sub_0053B4B0(pClient,0x0D,!hUnit ? 6 : hUnit->dwUnitType,!hUnit ? -1 : hUnit->dwUnitId,1,nDestX,nDestY,0,nLife);
+        D2GAME_PACKETS_SendPacket0x0D_6FC3C920(pClient,0x0D,!hUnit ? 6 : hUnit->dwUnitType,!hUnit ? -1 : hUnit->dwUnitId,1,nDestX,nDestY,0,nLife);
     }
 }
 
@@ -117,7 +117,7 @@ D2UnitStrc* __fastcall SUNIT_CreatePresetUnit(D2GameStrc* pGame, D2ActiveRoomStr
     case 2:
         if (nClassId > 573)
         {
-            pUnit = sub_0054F490_SpawnPresetObject(pGame, pRoom, nClassId, nX, nY, nMode);
+            pUnit = OBJECTS_SpawnPresetObject(pGame, pRoom, nClassId, nX, nY, nMode);
             break;
         }
         if (nClassId == 573)
@@ -146,7 +146,7 @@ D2UnitStrc* __fastcall SUNIT_CreatePresetUnit(D2GameStrc* pGame, D2ActiveRoomStr
         return pUnit;
 
     case 1:
-        pUnit = sub_0054E600_SpawnPresetMonster(pGame, pRoom, nClassId, nX, nY, nMode);
+        pUnit = D2GAME_SpawnPresetMonster_6FC66560(pGame, pRoom, nClassId, nX, nY, nMode);
         break;
     }
 

@@ -22,7 +22,7 @@ struct D2BoundingBoxStrc
     int nTop;
 };
 
-D2ActiveRoomStrc* __fastcall COLLISION_GetRoomBySubTileCoordinates(D2ActiveRoomStrc* pRoom, int nX, int nY);// 0x00463740
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY);// 0x00463740
 D2RoomCollisionGridStrc* __fastcall DUNGEON_GetCollisionGridFromRoom(D2ActiveRoomStrc* pRoom);              // 0x0061A010
 
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
@@ -77,7 +77,7 @@ void __fastcall COLLISION_FreeRoomCollisionGrid(void* pMemPool, D2ActiveRoomStrc
 // @ref 0x0064CA50
 static __inline unsigned short __fastcall COLLISION_CheckCollisionMask(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask)
 {
-    pRoom = COLLISION_GetRoomBySubTileCoordinates(pRoom, nX, nY);
+    pRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
     if (pRoom)
     {
         D2RoomCollisionGridStrc* pCollisionGrid = DUNGEON_GetCollisionGridFromRoom(pRoom);
@@ -93,7 +93,7 @@ static __inline unsigned short __fastcall COLLISION_CheckCollisionMask(D2ActiveR
 // @ref 0x0064CAA0
 static void __fastcall COLLISION_ResetCollisionMask(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask)
 {
-    pRoom = COLLISION_GetRoomBySubTileCoordinates(pRoom, nX, nY);
+    pRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
     if (pRoom)
     {
         D2RoomCollisionGridStrc* pCollisionGrid = DUNGEON_GetCollisionGridFromRoom(pRoom);
@@ -111,7 +111,7 @@ static void __fastcall COLLISION_ResetCollisionMask(D2ActiveRoomStrc* pRoom, int
 // @ref 0x0064CAF0
 static void __fastcall COLLISION_SetCollisionMask(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask)
 {
-    pRoom = COLLISION_GetRoomBySubTileCoordinates(pRoom, nX, nY);
+    pRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
     if (pRoom)
     {
         D2RoomCollisionGridStrc* pCollisionGrid = DUNGEON_GetCollisionGridFromRoom(pRoom);
@@ -134,7 +134,7 @@ unsigned short __stdcall COLLISION_CheckMask(D2ActiveRoomStrc* pRoom, int nX, in
 
 void __stdcall COLLISION_SetMask(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask)
 {
-    pRoom = COLLISION_GetRoomBySubTileCoordinates(pRoom, nX, nY);
+    pRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
     if (pRoom)
     {
         D2RoomCollisionGridStrc* pCollisionGrid = DUNGEON_GetCollisionGridFromRoom(pRoom);
@@ -151,7 +151,7 @@ void __stdcall COLLISION_SetMask(D2ActiveRoomStrc* pRoom, int nX, int nY, unsign
 
 void __stdcall COLLISION_ResetMask(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask)
 {
-    pRoom = COLLISION_GetRoomBySubTileCoordinates(pRoom, nX, nY);
+    pRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
     if (pRoom)
     {
         D2RoomCollisionGridStrc* pCollisionGrid = DUNGEON_GetCollisionGridFromRoom(pRoom);
@@ -292,7 +292,7 @@ static int __fastcall COLLISION_AdaptBoundingBoxToGrid(D2ActiveRoomStrc* pRoom, 
 // @ref 0x0064CEB0
 static unsigned short __fastcall COLLISION_CheckCollisionMaskForBoundingBoxRecursively(D2ActiveRoomStrc* pRoom, D2BoundingBoxStrc* pBoundingBox, unsigned short nMask)
 {
-    pRoom = COLLISION_GetRoomBySubTileCoordinates(pRoom, pBoundingBox->nLeft, pBoundingBox->nBottom);
+    pRoom = sub_00463740_FindRoomAtPoint(pRoom, pBoundingBox->nLeft, pBoundingBox->nBottom);
     if (pRoom)
     {
         if (D2RoomCollisionGridStrc* pCollisionGrid = DUNGEON_GetCollisionGridFromRoom(pRoom))
@@ -320,7 +320,7 @@ static unsigned short __fastcall COLLISION_CheckCollisionMaskForBoundingBoxRecur
 // @ref 0x0064CF50
 static int __fastcall COLLISION_CheckAnyCollisionForBoundingBoxRecursively(D2ActiveRoomStrc* pRoom, D2BoundingBoxStrc* pBoundingBox, unsigned short nMask)
 {
-    pRoom = COLLISION_GetRoomBySubTileCoordinates(pRoom, pBoundingBox->nLeft, pBoundingBox->nBottom);
+    pRoom = sub_00463740_FindRoomAtPoint(pRoom, pBoundingBox->nLeft, pBoundingBox->nBottom);
     if (pRoom)
     {
         if (D2RoomCollisionGridStrc* pCollisionGrid = DUNGEON_GetCollisionGridFromRoom(pRoom))
@@ -349,7 +349,7 @@ static int __fastcall COLLISION_CheckAnyCollisionForBoundingBoxRecursively(D2Act
 // @ref 0x0064CFF0
 static void __fastcall COLLISION_ResetCollisionMaskForBoundingBoxRecursively(D2ActiveRoomStrc* pRoom, D2BoundingBoxStrc* pBoundingBox, unsigned short nMask)
 {
-    pRoom = COLLISION_GetRoomBySubTileCoordinates(pRoom, pBoundingBox->nLeft, pBoundingBox->nBottom);
+    pRoom = sub_00463740_FindRoomAtPoint(pRoom, pBoundingBox->nLeft, pBoundingBox->nBottom);
     if (pRoom)
     {
         if (D2RoomCollisionGridStrc* pCollisionGrid = DUNGEON_GetCollisionGridFromRoom(pRoom))
@@ -373,7 +373,7 @@ static void __fastcall COLLISION_ResetCollisionMaskForBoundingBoxRecursively(D2A
 // @ref 0x0064D060
 static void __fastcall COLLISION_SetCollisionMaskForBoundingBoxRecursively(D2ActiveRoomStrc* pRoom, D2BoundingBoxStrc* pBoundingBox, unsigned short nMask)
 {
-    pRoom = COLLISION_GetRoomBySubTileCoordinates(pRoom, pBoundingBox->nLeft, pBoundingBox->nBottom);
+    pRoom = sub_00463740_FindRoomAtPoint(pRoom, pBoundingBox->nLeft, pBoundingBox->nBottom);
     if (pRoom)
     {
         if (D2RoomCollisionGridStrc* pCollisionGrid = DUNGEON_GetCollisionGridFromRoom(pRoom))
@@ -405,7 +405,7 @@ static __inline void __fastcall COLLISION_CreateBoundingBox(D2BoundingBoxStrc* p
 // @ref 0x0064D100
 static unsigned short __fastcall COLLISION_CheckCollisionMaskWithAdjacentCells(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask)
 {
-    D2ActiveRoomStrc* pAdjRoom = COLLISION_GetRoomBySubTileCoordinates(pRoom, nX, nY);
+    D2ActiveRoomStrc* pAdjRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
     if (!pAdjRoom)
     {
         return nMask;
@@ -472,7 +472,7 @@ static unsigned short __fastcall sub_0064D450(D2ActiveRoomStrc* pRoom, int nX, i
 }
 #if 0
 {
-    pRoom = COLLISION_GetRoomBySubTileCoordinates(pRoom, nX, nY);
+    pRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
     if (pRoom)
     {
         D2RoomCollisionGridStrc* pCollisionGrid = DUNGEON_GetCollisionGridFromRoom(pRoom);
@@ -497,7 +497,7 @@ static unsigned short __fastcall sub_0064D4A0(D2ActiveRoomStrc* pRoom, int nX, i
 // @ref 0x0064D4E0
 static int __fastcall COLLISION_CheckAnyCollisionWithAdjacentCells(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask)
 {
-    pRoom = COLLISION_GetRoomBySubTileCoordinates(pRoom, nX, nY);
+    pRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
     if (!pRoom)
     {
         return 1;
@@ -757,7 +757,7 @@ static void __fastcall sub_0064DA40(D2ActiveRoomStrc* pRoom, int nX, int nY, uns
 // @ref 0x0064DB70
 static __inline void __fastcall sub_0064DB70(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask)
 {
-    pRoom = COLLISION_GetRoomBySubTileCoordinates(pRoom, nX, nY);
+    pRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
     if (pRoom)
     {
         D2RoomCollisionGridStrc* pCollisionGrid = DUNGEON_GetCollisionGridFromRoom(pRoom);
@@ -813,7 +813,7 @@ static void __fastcall sub_0064DC80(D2ActiveRoomStrc* pRoom, int nX, int nY, uns
 // @ref 0x0064DDB0
 static __inline void __fastcall sub_0064DDB0(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask)
 {
-    pRoom = COLLISION_GetRoomBySubTileCoordinates(pRoom, nX, nY);
+    pRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
     if (pRoom)
     {
         D2RoomCollisionGridStrc* pCollisionGrid = DUNGEON_GetCollisionGridFromRoom(pRoom);

@@ -64,7 +64,7 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char*, const char*, int); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-unsigned char __stdcall sub_00623D60_GetItemComponent(D2UnitStrc*, D2UnitStrc*); // 0x00623D60
+unsigned char __stdcall UNITS_GetItemComponentId(D2UnitStrc*, D2UnitStrc*); // 0x00623D60
 unsigned int __stdcall ITEMS_GetItemFlags(D2UnitStrc*); // 0x00628110
 void __stdcall ITEMS_SetItemFlag(D2UnitStrc*, unsigned int, int); // 0x006280D0
 int __stdcall ITEMS_SerializeItemToBitstream(D2UnitStrc*, unsigned char*, int, int, int, int); // 0x006313E0
@@ -81,7 +81,7 @@ void __fastcall D2GAME_SendPacket0x9D_6FC3E6F0(D2ClientStrc* pClient, D2UnitStrc
     D2GSPacketSrv9D packet;
     packet.nHeader = 0x9D;
     packet.nAction = nAction;
-    packet.nComponent = sub_00623D60_GetItemComponent(pUnit, pItem);
+    packet.nComponent = UNITS_GetItemComponentId(pUnit, pItem);
     packet.nItemId = SCMD_GetUnitGUID(pItem);
     int nUnitType = 6;
     if (pUnit)

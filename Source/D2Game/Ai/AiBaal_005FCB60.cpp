@@ -15,7 +15,7 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc*); // 0x0045AE20
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc*); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc*); // 0x00648900
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc*); // 0x00620BB0
-int __stdcall UNITS_GetDistanceToOtherUnit(D2UnitStrc*,D2UnitStrc*); // 0x006416D0
+int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc*,D2UnitStrc*); // 0x006416D0
 void __stdcall UNITS_StoreOwner(D2UnitStrc*,D2UnitStrc*); // 0x00621CE0
 int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc*); // 0x00625D10
 int __stdcall STATLIST_GetMaxManaFromUnit(D2UnitStrc*); // 0x00625D60
@@ -40,7 +40,7 @@ void __fastcall AIGENERAL_ExecuteCallbackOnMinions(D2UnitStrc*,void*,void*,void(
 void __fastcall AIGENERAL_SetOwnerData(D2GameStrc*,D2UnitStrc*,int,int,int,int); // 0x0058F030
 void __fastcall AIGENERAL_AllocMinionList(D2GameStrc*,D2UnitStrc*,D2UnitStrc*); // 0x0058F100
 void __stdcall MONSTERS_GetMinionSpawnInfo(D2UnitStrc*,int*,int*,int*,int*,int,int(__fastcall*)(D2UnitStrc*)); // 0x0063EFA0
-D2ActiveRoomStrc* __fastcall sub_00463740_GetRoom(D2ActiveRoomStrc*,int,int); // 0x00463740
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc*,int,int); // 0x00463740
 D2UnitStrc* __fastcall sub_005B2F20_SpawnMonster(D2GameStrc*,D2ActiveRoomStrc*,int,int,int,int,int,int); // 0x005B2F20
 
 static __forceinline int UnitX(D2UnitStrc* u) {
@@ -75,10 +75,10 @@ static bool __stdcall sub_005FC860_SummonClone(D2GameStrc* game,D2UnitStrc* unit
  int y=target?UnitY(target):UnitY(unit);
  x+=RollSeed(&unit->pSeed)%24-12;
  y+=RollSeed(&unit->pSeed)%24-12;
- D2ActiveRoomStrc* room=sub_00463740_GetRoom(UNITS_GetRoom(unit),x,y);
+ D2ActiveRoomStrc* room=sub_00463740_FindRoomAtPoint(UNITS_GetRoom(unit),x,y);
  if(!room)return false;
 
- sub_00463740_GetRoom(UNITS_GetRoom(unit),x,y);
+ sub_00463740_FindRoomAtPoint(UNITS_GetRoom(unit),x,y);
  D2UnitStrc* clone=sub_005B2F20_SpawnMonster(game,room,x,y,monsterId,mode,-1,0);
  if(!clone)return false;
  clone->dwFlags|=0x04020000;
@@ -182,7 +182,7 @@ void __fastcall AIBAAL_MainSkillHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
         const int nY = CLIENTS_GetUnitY(pUnit);
         const int nTargetX = CLIENTS_GetUnitX(pTarget);
         const int nTargetY = CLIENTS_GetUnitY(pTarget);
-        int nDistance = UNITS_GetDistanceToOtherUnit(pUnit, pTarget);
+        int nDistance = sub_006416D0_UnitEdgeDistance(pUnit, pTarget);
         if (!nDistance)
         {
             nDistance = 1;

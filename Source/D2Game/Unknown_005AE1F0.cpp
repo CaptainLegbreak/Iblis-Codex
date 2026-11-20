@@ -27,7 +27,7 @@ struct D2MissileFindArgStrc { D2GameStrc* pGame; D2UnitStrc* pMissile; D2UnitStr
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern D2MissileUnitFindTableStrc gtMissileCollisionModes[]; // 0x0073C720
 D2UnitStrc* __fastcall SUNIT_GetOwner(D2GameStrc*, D2UnitStrc*); // 0x00552FD0
-int __fastcall SUNIT_UpdateUnitPath(D2GameStrc*, D2UnitStrc*); // 0x00554CA0
+int __fastcall sub_6FCBC930(D2GameStrc*, D2UnitStrc*); // 0x00554CA0
 int __fastcall MISSMODE_SrvDmgHitHandler(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, int); // 0x005ADF10
 int __stdcall PATH_GetVelocity(D2DynamicPathStrc*); // 0x006486C0
 int __stdcall MISSILE_GetCurrentFrame(D2UnitStrc*); // 0x0064A380
@@ -114,7 +114,7 @@ int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 void __fastcall sub_6FCBC7E0(D2GameStrc* pGame, D2UnitStrc* pMissile); // 0x00553490
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553540
-int __fastcall sub_00554200(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00554200
+int __fastcall SUNIT_AreUnitsHostile(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00554200
 int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
 void __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int a3); // 0x00649970
 void __stdcall D2COMMON_10170_PathSetTargetPos(D2DynamicPathStrc* pPath, int nX, int nY); // 0x00648AD0
@@ -159,7 +159,7 @@ int __fastcall MISSMODE_HandleMissileCollision(D2GameStrc* pGame, D2UnitStrc* pM
 {
     D2MissilesTxt* pMissilesTxtRecord = GetMissilesTxt(pMissile);
     if (!pMissilesTxtRecord) return MISSMODE_SrvDmgHitHandler(pGame, pMissile, 0, 1);
-    if (PATH_GetVelocity(pMissile->pDynamicPath) && SUNIT_UpdateUnitPath(pGame, pMissile) == 2)
+    if (PATH_GetVelocity(pMissile->pDynamicPath) && sub_6FCBC930(pGame, pMissile) == 2)
         return MISSMODE_SrvDmgHitHandler(pGame, pMissile, 0, 1);
     const int nFrame = MISSILE_GetCurrentFrame(pMissile) - 1;
     MISSILE_SetCurrentFrame(pMissile, nFrame);
@@ -306,7 +306,7 @@ int __fastcall MISSMODE_SrvDo07_GuidedArrow_BoneSpirit(D2GameStrc* pGame, D2Unit
 
         D2DynamicPathStrc* pPath = pMissile->pDynamicPath;
         D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pMissile);
-        if (pTarget && (SUNIT_IsDead(pTarget) || !sub_00554200(pGame, pOwner, pTarget)))
+        if (pTarget && (SUNIT_IsDead(pTarget) || !SUNIT_AreUnitsHostile(pGame, pOwner, pTarget)))
         {
             pTarget = 0;
         }

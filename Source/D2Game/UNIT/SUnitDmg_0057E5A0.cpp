@@ -15,8 +15,8 @@ extern const char gszEmptyAssertText; // 0x006CC837
 int __fastcall SUNIT_IsDead(D2UnitStrc* unit); // 0x005541B0
 int __stdcall PATH_GetX(D2PathRecordStrc* path); // 0x006488C0
 int __stdcall PATH_GetY(D2PathRecordStrc* path); // 0x00648900
-int __fastcall UNITS_GetXPosition(D2UnitStrc* unit); // 0x0045ADF0
-int __fastcall UNITS_GetYPosition(D2UnitStrc* unit); // 0x0045AE20
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc* unit); // 0x0045ADF0
+int __fastcall CLIENTS_GetUnitY(D2UnitStrc* unit); // 0x0045AE20
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* unit, int stat, int layer); // 0x00625480
 const char* __cdecl sub_00408090(); // 0x00408090
 void __cdecl sub_00408A60(const char* text, const char* file, int line); // 0x00408A60
@@ -57,8 +57,8 @@ void __fastcall SUNITDMG_PartyCallback_ComputePartyExperience(D2GameStrc* game, 
         int y = GetReferenceY(reference);
         if (!x)
             return;
-        int unitX = UNITS_GetXPosition(unit);
-        int unitY = UNITS_GetYPosition(unit);
+        int unitX = CLIENTS_GetUnitX(unit);
+        int unitY = CLIENTS_GetUnitY(unit);
         if (!unitX)
             return;
         int dx = x - unitX;

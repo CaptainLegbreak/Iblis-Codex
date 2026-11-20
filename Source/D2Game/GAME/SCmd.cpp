@@ -283,7 +283,7 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 int __stdcall sub_00648A40_GetTargetX(D2DynamicPathStrc* pPath); // 0x00648A40
 int __stdcall sub_00648A60_GetTargetY(D2DynamicPathStrc* pPath); // 0x00648A60
-unsigned char __stdcall sub_00648EA0_GetPathByte(D2DynamicPathStrc* pPath); // 0x00648EA0
+unsigned char __stdcall PATH_GetMaxDistance(D2DynamicPathStrc* pPath); // 0x00648EA0
 
 #pragma pack(push, 1)
 struct D2GSPacketSrv03Strc
@@ -1017,7 +1017,7 @@ struct D2GSPacketSrv9C { unsigned char nHeader; unsigned char nAction; unsigned 
 #pragma pack(pop)
 
 void __fastcall SCMD_Send0x75_PartyRosterUpdate(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2); // 0x0053DA90
-unsigned char __stdcall sub_00623D60_GetItemComponent(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x00623D60
+unsigned char __stdcall UNITS_GetItemComponentId(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x00623D60
 unsigned int __stdcall ITEMS_GetItemFlags(D2UnitStrc* pItem); // 0x00628110
 void __stdcall ITEMS_SetItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int bSet); // 0x006280D0
 int __stdcall ITEMS_SerializeItemToBitstream(D2UnitStrc* pItem, unsigned char* pBitstream, int nSize, int bServer, int bSaveItemInv, int bGamble); // 0x006313E0
@@ -1273,7 +1273,7 @@ void __fastcall D2GAME_PACKETS_SendPacket0x68_6FC3CA90(D2ClientStrc* pClient, un
     int nVelocity = STATLIST_UnitGetStatValue(pMonster, STAT_VELOCITYPERCENT, 0);
     nVelocity = D2_MIN(D2_MAX(nVelocity, -32768), 32767);
     packet68.nVelocity = nVelocity;
-    packet68.unk0x14 = sub_00648EA0_GetPathByte(pPath);
+    packet68.unk0x14 = PATH_GetMaxDistance(pPath);
     D2GAME_PACKETS_SendPacket_6FC3C710(&packet68, sizeof(packet68), pClient);
 }
 
@@ -1317,7 +1317,7 @@ void __fastcall D2GAME_PACKETS_SendPacket0x67_6FC3CBC0(D2ClientStrc* pClient, un
     int nVelocity = STATLIST_UnitGetStatValue(pMonster, STAT_VELOCITYPERCENT, 0);
     nVelocity = D2_MIN(D2_MAX(nVelocity, -32768), 32767);
     packet67.nVelocity = nVelocity;
-    packet67.unk0x0F = sub_00648EA0_GetPathByte(pPath);
+    packet67.unk0x0F = PATH_GetMaxDistance(pPath);
     D2GAME_PACKETS_SendPacket_6FC3C710(&packet67, sizeof(packet67), pClient);
 }
 
@@ -2986,7 +2986,7 @@ void __fastcall D2GAME_SendPacket0x9C_6FC3E570(D2ClientStrc* pClient, D2UnitStrc
     packet9C.nHeader = 0x9C;
     packet9C.nAction = nAction;
     packet9C.nItemId = SCMD_GetUnitGUID(pItem);
-    packet9C.nComponent = sub_00623D60_GetItemComponent(hUnit, pItem);
+    packet9C.nComponent = UNITS_GetItemComponentId(hUnit, pItem);
 
     const unsigned int nOldItemFlags = ITEMS_GetItemFlags(pItem);
     ITEMS_SetItemFlag(pItem, dwFlag, 1);

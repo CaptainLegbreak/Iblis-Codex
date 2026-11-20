@@ -43,15 +43,15 @@ void __fastcall sub_00478600_SendShorts(char nHeader, short nArg1, short nArg2, 
 void __fastcall sub_00478A00(void* pCel);                                                                   // 0x00478A00
 const char* __fastcall sub_0047A210_GetUnitName(D2UnitStrc* pUnit);                                         // 0x0047A210
 void __cdecl sub_004835B0_LoadUiRecords();                                                                  // 0x004835B0
-void __stdcall sub_00483FF0_DrawPageItems(D2UnitStrc* pPlayer);                                             // 0x00483FF0
-void __cdecl sub_004845A0();                                                                                // 0x004845A0
+void __stdcall sub_00483FF0_DrawUnitInventory(D2UnitStrc* pPlayer);                                             // 0x00483FF0
+void __cdecl sub_004845A0_DrawEquippedItems();                                                                                // 0x004845A0
 int __stdcall sub_00486AE0_GetPanelX();                                                                     // 0x00486AE0
 int __stdcall sub_00486B00_GetPanelY();                                                                     // 0x00486B00
 void __stdcall sub_00487A10_SelectItemPageTab(unsigned char nTab);                                          // 0x00487A10
 void __fastcall sub_00488100(int nArg);                                                                     // 0x00488100
-void __cdecl sub_00488400();                                                                                // 0x00488400
+void __cdecl sub_00488400_DrawPanel();                                                                                // 0x00488400
 void __cdecl sub_004886C0_DrawButtonHoverText();                                                            // 0x004886C0
-void __stdcall sub_0048DD90_DrawUnitPanel(D2UnitStrc* pUnit, int bOther);                                   // 0x0048DD90
+void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int bOther);                                   // 0x0048DD90
 int __fastcall sub_004B3230_GetTickPair(int* pLow);                                                         // 0x004B3230
 const Unicode* __cdecl sub_004B9060();                                                                      // 0x004B9060
 int __cdecl sub_004B90F0();                                                                                 // 0x004B90F0
@@ -209,7 +209,7 @@ void __cdecl sub_0048EDF0_DrawInventoryPanel()
             sub_00487A10_SelectItemPageTab(gnSelectedTab_007BCC04);
             gnGlobal_007BCC0C = 0;
         }
-        sub_00488400();
+        sub_00488400_DrawPanel();
         sub_00488100(2);
     }
 
@@ -239,7 +239,7 @@ void __cdecl sub_0048EDF0_DrawInventoryPanel()
             if (!gbQuestTimerActive_007BCC10 || gnQuestTimerValue_007BCC14 >= 14)
             {
                 gnSelectedTab_007BCC04 = 3;
-                sub_00483FF0_DrawPageItems(sub_00463DD0_GetPlayerUnit());
+                sub_00483FF0_DrawUnitInventory(sub_00463DD0_GetPlayerUnit());
                 gnSelectedTab_007BCC04 = nOldTab;
             }
 
@@ -333,7 +333,7 @@ timer_done:
 
         const unsigned char nOldTab = gnSelectedTab_007BCC04;
         gnSelectedTab_007BCC04 = 4;
-        sub_00483FF0_DrawPageItems(sub_00463DD0_GetPlayerUnit());
+        sub_00483FF0_DrawUnitInventory(sub_00463DD0_GetPlayerUnit());
         gnSelectedTab_007BCC04 = nOldTab;
 
         tContext.pCellFile = sub_00454600_GetBuySellButtonCells();
@@ -554,9 +554,9 @@ timer_done:
 
         const unsigned char nOldTab = gnSelectedTab_007BCC04;
         gnSelectedTab_007BCC04 = 1;
-        sub_00483FF0_DrawPageItems(sub_00463DD0_GetPlayerUnit());
+        sub_00483FF0_DrawUnitInventory(sub_00463DD0_GetPlayerUnit());
         gnSelectedTab_007BCC04 = 2;
-        sub_00483FF0_DrawPageItems(sub_00463DD0_GetPlayerUnit());
+        sub_00483FF0_DrawUnitInventory(sub_00463DD0_GetPlayerUnit());
         gnSelectedTab_007BCC04 = nOldTab;
         sub_00502EF0(1);
 
@@ -614,10 +614,10 @@ timer_done:
 
     const unsigned char nOldTab = gnSelectedTab_007BCC04;
     gnSelectedTab_007BCC04 = 0;
-    sub_00483FF0_DrawPageItems(sub_00463DD0_GetPlayerUnit());
+    sub_00483FF0_DrawUnitInventory(sub_00463DD0_GetPlayerUnit());
     gnSelectedTab_007BCC04 = nOldTab;
 
-    sub_004845A0();
+    sub_004845A0_DrawEquippedItems();
     if (gdwGlobal_007BCBF0 >= 1 && gdwGlobal_007BCBF0 <= 9)
     {
         sub_004886C0_DrawButtonHoverText();
@@ -643,7 +643,7 @@ timer_done:
             }
         }
     }
-    sub_0048DD90_DrawUnitPanel(pPanelUnit, bOther);
+    sub_0048DD90_DrawItemTooltip(pPanelUnit, bOther);
 }
 
 #include "gen/data/Source/D2Client/Unknown_0048EDF0.inc"

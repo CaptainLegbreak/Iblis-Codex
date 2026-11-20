@@ -14,13 +14,13 @@ struct D2StormList007088E8Strc;
 
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(void* section); // 0x006CC210
 extern unsigned char gCriticalSection_00881860[]; // 0x00881860
-void __cdecl sub_006CB420_Cleanup(); // 0x006CB420
+void __cdecl sub_006CB420_DestroyLock(); // 0x006CB420
 int __cdecl sub_00683824_RegisterExit(void (__cdecl* callback)()); // 0x00683824
 extern unsigned char gCriticalSection_00881894[]; // 0x00881894
-void __cdecl sub_006CB440_Cleanup(); // 0x006CB440
-void __cdecl sub_006CB450_Cleanup(); // 0x006CB450
+void __cdecl sub_006CB440_DestroyLock(); // 0x006CB440
+void __cdecl sub_006CB450_StaticFiniNewsCache(); // 0x006CB450
 extern unsigned char gCriticalSection_00881F64[24]; // 0x00881F64
-void __cdecl sub_006CB470_Cleanup(); // 0x006CB470
+void __cdecl sub_006CB470_DestroyLock(); // 0x006CB470
 
 struct D2BigPairStrc {
     void* pState;
@@ -42,8 +42,8 @@ extern int gnCopy_00731ED0; // 0x00731ED0
 extern "C" __declspec(dllimport) unsigned int __stdcall GetTickCount(); // 0x006CC260
 extern unsigned int gdwStartTick_008846E8; // 0x008846E8
 extern unsigned char gCriticalSection_0088CAA8[]; // 0x0088CAA8
-void __cdecl sub_006CB490_Cleanup(); // 0x006CB490
-void __cdecl sub_006CB4E0_Cleanup(); // 0x006CB4E0
+void __cdecl sub_006CB490_DestroyLock(); // 0x006CB490
+void __cdecl sub_006CB4E0_DestroyLock(); // 0x006CB4E0
 extern unsigned int gnListTerminator_0074C490; // 0x0074C490
 extern void* gpListHead_0074C494; // 0x0074C494
 void __cdecl sub_006CB4F0_DestroyList(); // 0x006CB4F0
@@ -212,27 +212,27 @@ inline void* __cdecl operator new(unsigned int, void* location);
 void __cdecl sub_006CAE80_InitializeLock()
 {
     InitializeCriticalSection(gCriticalSection_00881860);
-    sub_00683824_RegisterExit(sub_006CB420_Cleanup);
+    sub_00683824_RegisterExit(sub_006CB420_DestroyLock);
 }
 
 // 0x006CAEA0
 void __cdecl sub_006CAEA0_InitializeLock()
 {
     InitializeCriticalSection(gCriticalSection_00881894);
-    sub_00683824_RegisterExit(sub_006CB440_Cleanup);
+    sub_00683824_RegisterExit(sub_006CB440_DestroyLock);
 }
 
 // 0x006CAEC0
 void __cdecl sub_006CAEC0_RegisterCleanup()
 {
-    sub_00683824_RegisterExit(sub_006CB450_Cleanup);
+    sub_00683824_RegisterExit(sub_006CB450_StaticFiniNewsCache);
 }
 
 // 0x006CAED0
 void __cdecl sub_006CAED0_InitializeLock()
 {
     InitializeCriticalSection(gCriticalSection_00881F64);
-    sub_00683824_RegisterExit(sub_006CB470_Cleanup);
+    sub_00683824_RegisterExit(sub_006CB470_DestroyLock);
 }
 
 inline void* __cdecl operator new(unsigned int, void* location) { return location; }
@@ -271,14 +271,14 @@ void __cdecl sub_006CAF60_InitStartTick()
 void __cdecl sub_006CAF70_InitializeLock()
 {
     InitializeCriticalSection(gCriticalSection_0088CAA8);
-    sub_00683824_RegisterExit(sub_006CB490_Cleanup);
+    sub_00683824_RegisterExit(sub_006CB490_DestroyLock);
 }
 
 // 0x006CB010
 void __cdecl sub_006CB010_InitializeLock()
 {
     InitializeCriticalSection(gCriticalSection_0096D610);
-    sub_00683824_RegisterExit(sub_006CB4E0_Cleanup);
+    sub_00683824_RegisterExit(sub_006CB4E0_DestroyLock);
 }
 
 // 0x006CB030

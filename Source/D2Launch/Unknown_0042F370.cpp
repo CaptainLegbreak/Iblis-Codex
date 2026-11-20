@@ -12,12 +12,12 @@ extern "C" const char gszPalFeCharDat_006D39E8[]; // 0x006D39E8
 extern "C" int __cdecl strcmp(const char* szString1, const char* szString2);
 const char* __cdecl sub_0040DF60_GetLocalIp(); // 0x0040DF60
 void __cdecl sub_0042F6C0_SetDone(); // 0x0042F6C0
-void __cdecl sub_00437B90(); // 0x00437B90
-void __cdecl sub_00438EA0(); // 0x00438EA0
+void __cdecl sub_00437B90_FreeCache(); // 0x00437B90
+void __cdecl sub_00438EA0_FreeCharList(); // 0x00438EA0
 int __stdcall BACKGROUND_SetCellFile(D2CellFileStrc* pCellFile); // 0x004F9140
 D2WinControlStrc* __stdcall CONTROL_Create(D2LaunchControlTemplateStrc* pTemplate); // 0x004F93C0
 void __stdcall D2Win_10029(int a1); // 0x004FA410
-void __fastcall sub_004FCF80_SetTextA(D2WinControlStrc* pControl, const char* szText); // 0x004FCF80
+void __fastcall D2Win_10045(D2WinControlStrc* pControl, const char* szText); // 0x004FCF80
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(short nIndex); // 0x00524A30
 extern D2LaunchControlTemplateStrc gtControlTemplates_00708D10[]; // 0x00708D10
 extern int gdwGlobal_0077932C; // 0x0077932C
@@ -114,8 +114,8 @@ void __cdecl sub_0042F480_Reset()
         sub_0042F2E0_ReadPaletteFiles(gszPalFeCharDat_006D39E8, "palette\\fechar\\pal.pl2");
         gbPaletteBusy_00779970 = 0;
     }
-    sub_00438EA0();
-    sub_00437B90();
+    sub_00438EA0_FreeCharList();
+    sub_00437B90_FreeCache();
     D2Win_10029(1);
 }
 
@@ -192,7 +192,7 @@ void __cdecl sub_0042FF20_ShowLocalAddress()
     }
     else
     {
-        sub_004FCF80_SetTextA(gpControl_00779588, szAddress);
+        D2Win_10045(gpControl_00779588, szAddress);
         sub_004F96F0_ControlClearState(gpControl_007795A4, 1);
         sub_004F96F0_ControlClearState(gpControl_007795A0, 1);
         sub_004F96F0_ControlClearState(gpControl_00779338, 1);

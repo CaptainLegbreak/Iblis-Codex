@@ -36,7 +36,7 @@ int __stdcall sub_00451B30_WindowProc(void* hWnd, unsigned int uMessage, unsigne
 void* __stdcall sub_004FAC80(int nArg); // 0x004FAC80
 void __stdcall sub_00619300(void* pArg, int bArg); // 0x00619300
 void __cdecl sub_00619140(); // 0x00619140
-void __cdecl sub_00451290(); // 0x00451290
+void __cdecl sub_00451290_FreeLngModule(); // 0x00451290
 void __cdecl sub_006116B0_WriteProfileCounters(); // 0x006116B0
 void __cdecl sub_0044BB80(); // 0x0044BB80
 extern D2ClientCharRecordStrc* gpCharRecord_007A0438; // 0x007A0438
@@ -137,7 +137,7 @@ int __stdcall sub_0044B8A0_LauncherRun(void* hInstance, D2ClientCharRecordStrc* 
     sub_004FA550();
     sub_00619140();
     sub_00524E40();
-    sub_00451290();
+    sub_00451290_FreeLngModule();
     sub_006116B0_WriteProfileCounters();
     sub_0044BB80();
     int nResult;

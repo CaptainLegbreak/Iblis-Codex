@@ -79,7 +79,7 @@ int __fastcall sub_00534330(D2GameStrc* pGame, D2ClientStrc* pClient, D2SaveHead
 D2SaveHeaderStrc* __fastcall CLIENTS_GetSaveHeader(D2ClientStrc* pClient);                                  // 0x00538E00
 int __fastcall CLIENTS_GetSaveHeaderSize(D2ClientStrc* pClient);                                            // 0x00538E30
 void __fastcall CLIENTS_FreeSaveHeader(D2ClientStrc* pClient);                                              // 0x00538F10
-void __fastcall sub_6FD14C30(D2UnitStrc* pUnit);                                                            // 0x0056DE40
+void __fastcall SKILLS_RefreshPassivesAndPetLimits(D2UnitStrc* pUnit);                                                            // 0x0056DE40
 
 // build: context PLRSAVE_GetCharStatsTxtRecordInline
 static __forceinline D2CharStatsTxt* PLRSAVE_GetCharStatsTxtRecordInline(int nClass)
@@ -184,7 +184,7 @@ void __fastcall D2GAME_MERCS_SendStat_6FCC61D0(D2UnitStrc*, unsigned short, int)
 int __stdcall MONSTERS_GetHirelingExpForNextLevel(int, int); // 0x00663790
 void __fastcall MONSTERAI_UpdateMercStatsAndSkills(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, int); // 0x00572840
 void* __stdcall INVENTORY_AllocInventory(void*, D2UnitStrc*); // 0x0063ABD0
-void __fastcall PLAYERPETS_HandlePetDeath(D2GameStrc*, D2UnitStrc*, D2UnitStrc*); // 0x005751A0
+void __fastcall sub_6FC7D470(D2GameStrc*, D2UnitStrc*, D2UnitStrc*); // 0x005751A0
 void __fastcall SUNIT_SetCombatMode(D2GameStrc*, D2UnitStrc*, int); // 0x00553570
 void __fastcall sub_005738D0(D2GameStrc*, D2UnitStrc*); // 0x005738D0
 int __fastcall sub_005337F0_ReadItems(D2GameStrc*, D2UnitStrc*, unsigned char*, int, int, int, int*); // 0x005337F0
@@ -195,8 +195,8 @@ void __fastcall MONSTERAI_SendMercStats(D2GameStrc*, D2UnitStrc*, int); // 0x005
 int __fastcall sub_00532BE0_ReadQuestData(D2UnitStrc*, unsigned char*, int, int*); // 0x00532BE0
 int __fastcall D2GAME_SAVE_ReadWaypointData_6FC8AD50(D2UnitStrc*, unsigned char*, int, int*); // 0x00532C70
 int __fastcall sub_00532D00_ReadPlayerIntro(D2UnitStrc*, unsigned char*, int, int*); // 0x00532D00
-int __fastcall PLRSAVE_ReadLegacyStats(D2GameStrc*, D2UnitStrc*, unsigned char*, int, int, int*); // 0x00532DA0
-int __fastcall PLRSAVE_ReadLegacySkills(D2GameStrc*, D2ClientStrc*, D2UnitStrc*, unsigned char*, int, int, int*); // 0x00532E90
+int __fastcall sub_00532DA0_ReadPlayerStats(D2GameStrc*, D2UnitStrc*, unsigned char*, int, int, int*); // 0x00532DA0
+int __fastcall sub_6FC8AEC0(D2GameStrc*, D2ClientStrc*, D2UnitStrc*, unsigned char*, int, int, int*); // 0x00532E90
 int __stdcall UNITS_GetInventoryGoldLimit(D2UnitStrc*); // 0x00622E70
 int __stdcall UNITS_GetStashGoldLimit(D2UnitStrc*); // 0x00623460
 void __fastcall sub_00568DB0(D2GameStrc*, D2UnitStrc*); // 0x00568DB0
@@ -297,7 +297,7 @@ static int __stdcall sub_00533C70_ReadLegacyMerc(D2GameStrc* pGame, D2UnitStrc* 
                 INVENTORY_AllocInventory(0, pMerc);
             if (bDead)
             {
-                PLAYERPETS_HandlePetDeath(pGame, pPlayer, pMerc);
+                sub_6FC7D470(pGame, pPlayer, pMerc);
                 pMerc->dwFlags |= 0x10000;
                 SUNIT_SetCombatMode(pGame, pMerc, 12);
                 sub_005738D0(pGame, pMerc);
@@ -480,7 +480,7 @@ int __fastcall D2GAME_SAVE_ProcessSaveFile_6FC8C0C0(D2GameStrc* pGame, D2ClientS
         return nResult;
     pSection += nRead;
     nSize -= nRead;
-    nResult = PLRSAVE_ReadLegacyStats(pGame, pPlayer, pSection, 16, nVersion, &nRead);
+    nResult = sub_00532DA0_ReadPlayerStats(pGame, pPlayer, pSection, 16, nVersion, &nRead);
     if (nResult)
         return nResult;
     int nHitpoints = STATLIST_UnitGetStatValue(pPlayer, 6, 0);
@@ -507,7 +507,7 @@ int __fastcall D2GAME_SAVE_ProcessSaveFile_6FC8C0C0(D2GameStrc* pGame, D2ClientS
     }
     pSection += nRead;
     nSize -= nRead;
-    nResult = PLRSAVE_ReadLegacySkills(pGame, pClient, pPlayer, pSection, nSkillCount, nVersion, &nRead);
+    nResult = sub_6FC8AEC0(pGame, pClient, pPlayer, pSection, nSkillCount, nVersion, &nRead);
     if (nResult)
         return nResult;
     sub_00568DB0(pGame, pPlayer);

@@ -66,21 +66,21 @@ int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                             
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                          // 0x0045C390
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId);                                      // 0x0045C4B0
-D2MissilesTxt* __fastcall DATATBLS_GetMissilesTxtRecord(int nMissileId);                                    // 0x0046ACE0
+D2MissilesTxt* __fastcall sub_0046ACE0(int nMissileId);                                    // 0x0046ACE0
 void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nSkillId); // 0x00540E60
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit);                           // 0x00553540
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit);                                                             // 0x005541B0
-int __fastcall sub_6FCBD900(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget);                     // 0x00554200
+int __fastcall SUNIT_AreUnitsHostile(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget);                     // 0x00554200
 D2MonStatsTxt* __fastcall sub_0055B7E0_GetMonStatsTxtFromUnit(D2UnitStrc* pUnit);                           // 0x0055B7E0
 D2UnitStrc* __fastcall AIGENERAL_GetMinionOwner(D2UnitStrc* pUnit);                                         // 0x0058F0D0
 int __fastcall AITHINK_GetSquaredDistance(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2);                         // 0x005B0BD0
-D2UnitStrc* __fastcall sub_6FCF1E80(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg, AITARGETCALLBACK pfnCallback, int nCallbackId); // 0x005DD0B0
+D2UnitStrc* __fastcall AIUTIL_FindTargetWithCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg, AITARGETCALLBACK pfnCallback, int nCallbackId); // 0x005DD0B0
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames);            // 0x005DE080
 int __fastcall AITACTICS_UseSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nMode, int nSkillId, D2UnitStrc* pTarget, int nX, int nY); // 0x005DEAD0
 int __fastcall AITACTICS_RunToTargetUnitWithFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nFlags); // 0x005DED00
 int __fastcall AITACTICS_RunToTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit);   // 0x005DED20
-int __fastcall sub_6FCD06D0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance, int bDeleteAiEventCallback); // 0x005DF140
-int __fastcall sub_6FCE34E0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2UnitStrc* pOwner, int a5, D2AiTickParamStrc* pAiTickParam, int a7, int a8); // 0x005E45D0
+int __fastcall sub_005DF140_Escape(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance, int bDeleteAiEventCallback); // 0x005DF140
+int __fastcall sub_005E45D0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2UnitStrc* pOwner, int a5, D2AiTickParamStrc* pAiTickParam, int a7, int a8); // 0x005E45D0
 int __fastcall AITHINK_IsTargetKillableByShadowMaster(D2UnitStrc* pUnit, D2UnitStrc* pTarget);             // 0x005EB650
 D2UnitStrc* __fastcall AITHINK_TargetCallback_ShadowMaster(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg); // 0x005EB6D0
 int __fastcall sub_005EB7F0_IsStateGroupActive(D2UnitStrc* pUnit, int nState);                              // 0x005EB7F0
@@ -150,7 +150,7 @@ static __forceinline D2MissilesTxt* SKILLS_GetMissilesTxtRecord(int nMissileId)
         return 0;
     }
 
-    return DATATBLS_GetMissilesTxtRecord(nMissileId);
+    return sub_0046ACE0(nMissileId);
 }
 
 static __forceinline D2StatListStrc* GetAuraStateStatList(D2UnitStrc* pUnit, D2SkillsTxt* pSkillsTxtRecord)
@@ -207,7 +207,7 @@ void __fastcall AITHINK_Fn106_143_ShadowMaster(D2GameStrc* pGame, D2UnitStrc* pU
     {
         const int nOwnerDistance = AITHINK_GetSquaredDistance(pUnit, pOwner);
         if (nOwnerDistance > pMonStatsTxt->wAiParam[1][2] * pMonStatsTxt->wAiParam[1][2]
-            && sub_6FCE34E0(pGame, pUnit, 0, pOwner, bCombat, pAiTickParam, 0, 6))
+            && sub_005E45D0(pGame, pUnit, 0, pOwner, bCombat, pAiTickParam, 0, 6))
         {
             return;
         }
@@ -305,7 +305,7 @@ void __fastcall AITHINK_Fn106_143_ShadowMaster(D2GameStrc* pGame, D2UnitStrc* pU
         pOwnerTarget = SUNIT_GetTargetUnit(pGame, pOwner);
         if (pOwnerTarget)
         {
-            if (!SUNIT_IsDead(pOwnerTarget) && sub_6FCBD900(pGame, pUnit, pOwnerTarget))
+            if (!SUNIT_IsDead(pOwnerTarget) && SUNIT_AreUnitsHostile(pGame, pUnit, pOwnerTarget))
             {
                 pTarget = pOwnerTarget;
             }
@@ -315,7 +315,7 @@ void __fastcall AITHINK_Fn106_143_ShadowMaster(D2GameStrc* pGame, D2UnitStrc* pU
             }
         }
 
-        if (AITHINK_GetSquaredDistance(pUnit, pOwner) <= 144 && sub_6FCE34E0(pGame, pUnit, pTarget, pOwner, bCombat, pAiTickParam, 0, 6))
+        if (AITHINK_GetSquaredDistance(pUnit, pOwner) <= 144 && sub_005E45D0(pGame, pUnit, pTarget, pOwner, bCombat, pAiTickParam, 0, 6))
         {
             return;
         }
@@ -344,7 +344,7 @@ void __fastcall AITHINK_Fn106_143_ShadowMaster(D2GameStrc* pGame, D2UnitStrc* pU
         arg.unk0x00 = pOwner;
         arg.unk0x08 = 0x7FFFFFFF;
         arg.unk0x14 = 0x7FFFFFFF;
-        sub_6FCF1E80(pGame, pUnit, &arg, AITHINK_TargetCallback_ShadowMaster, 1);
+        AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, AITHINK_TargetCallback_ShadowMaster, 1);
 
         if (!bCombat)
         {
@@ -408,7 +408,7 @@ void __fastcall AITHINK_Fn106_143_ShadowMaster(D2GameStrc* pGame, D2UnitStrc* pU
                     return;
                 }
 
-                if (sub_6FCD06D0(pGame, pUnit, pTarget, 8, 1))
+                if (sub_005DF140_Escape(pGame, pUnit, pTarget, 8, 1))
                 {
                     return;
                 }

@@ -3,8 +3,8 @@
 void __fastcall sub_0046B3C0_UnitRequest25A(D2UnitStrc* pUnit);                                             // 0x0046B3C0
 void __fastcall sub_0046B530_SpawnMissileAtObject(D2UnitStrc* pUnit);                                       // 0x0046B530
 void __fastcall sub_0046B680_SpawnMissileTrio(D2UnitStrc* pUnit);                                           // 0x0046B680
-void __fastcall sub_0046B710(D2UnitStrc* pUnit);                                                            // 0x0046B710
-void __fastcall sub_0046B850(D2UnitStrc* pUnit);                                                            // 0x0046B850
+void __fastcall sub_0046B710_SpawnMissileAtObject173(D2UnitStrc* pUnit);                                                            // 0x0046B710
+void __fastcall sub_0046B850_SpawnMissileAtObject182(D2UnitStrc* pUnit);                                                            // 0x0046B850
 void __fastcall sub_0046B9A0_SpawnMissileTrio2(D2UnitStrc* pUnit);                                          // 0x0046B9A0
 void __fastcall sub_0046BA50_SpawnMissile(D2UnitStrc* pUnit);                                               // 0x0046BA50
 void __fastcall sub_0046BA90_PlayerRequestAtUnit15B(D2UnitStrc* pUnit);                                     // 0x0046BA90
@@ -34,7 +34,7 @@ void __fastcall sub_004AD2F0_UnitClassEvent(D2UnitStrc* pUnit, int nUnused, int 
     case 0x2D:
         if (pUnit->dwAnimMode == 0)
         {
-            sub_0046B710(pUnit);
+            sub_0046B710_SpawnMissileAtObject173(pUnit);
         }
         break;
 
@@ -76,7 +76,7 @@ void __fastcall sub_004AD2F0_UnitClassEvent(D2UnitStrc* pUnit, int nUnused, int 
     case 0x16E:
         if (pUnit->dwAnimMode == 0)
         {
-            sub_0046B850(pUnit);
+            sub_0046B850_SpawnMissileAtObject182(pUnit);
         }
         break;
 

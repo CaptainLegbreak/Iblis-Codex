@@ -25,7 +25,7 @@ D2AiCmdStrc* __fastcall AIGENERAL_GetAiCommandFromParam(D2UnitStrc* pUnit, int n
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 D2AiCmdStrc* __fastcall sub_0058EF40(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiCmdStrc* pAiCmd); // 0x0058EF40
-void __fastcall sub_005FCB60(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, D2UnitStrc* pTarget, int nParam, D2AiCmdStrc* pAiCmd); // 0x005FCB60
+void __fastcall AIBAAL_MainSkillHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, D2UnitStrc* pTarget, int nParam, D2AiCmdStrc* pAiCmd); // 0x005FCB60
 void __fastcall AITACTICS_Idle(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames); // 0x005DE0F0
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames); // 0x005DE080
 int __stdcall shim_1(void* p1, void* p2);
@@ -95,7 +95,7 @@ void __fastcall AITHINK_Fn140_BaalCrabClone(D2GameStrc* pGame, D2UnitStrc* pUnit
 
     if (pTarget)
     {
-        sub_005FCB60(pGame, pUnit, pAiControl, pTarget, nParam, pAiCmd);
+        AIBAAL_MainSkillHandler(pGame, pUnit, pAiControl, pTarget, nParam, pAiCmd);
         AITACTICS_Idle(pGame, pUnit, 25);
     }
     else

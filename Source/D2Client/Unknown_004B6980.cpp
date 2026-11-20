@@ -45,7 +45,7 @@ int __fastcall sub_00455F20(int nUIVar, int nState, int nArg);                  
 void __fastcall sub_00456300(int nArg1, int nArg2);                                                         // 0x00456300
 int __fastcall sub_00457490_CheckMonStatsFlag(int nMonsterId, int nFlag);                                   // 0x00457490
 D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType);                             // 0x00463990
-D2UnitStrc* __cdecl sub_00463DD0();                                                               // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 void __fastcall sub_00464420_TurnTowardPlayer(D2UnitStrc* pUnit);                                                 // 0x00464420
 void __fastcall sub_004644E0_PlayerFaceUnit(D2UnitStrc* pUnit);                                             // 0x004644E0
 void __fastcall sub_00464990(UNITFN pfnCallback);                                                           // 0x00464990
@@ -232,7 +232,7 @@ static void __stdcall sub_004B66B0_OpenNpcInteract(D2UnitStrc* pUnit, int bReope
 
     gnGlobal_007C0C6B = 1;
     gnGlobal_007C0D31 = 0;
-    gnGlobal_007C0C73 = STATLIST_UnitGetStatValue(sub_00463DD0(), 0xE, 0);
+    gnGlobal_007C0C73 = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), 0xE, 0);
     sub_00456300(0, 0);
 
     if (!bReopen)
@@ -273,7 +273,7 @@ static void __stdcall sub_004B66B0_OpenNpcInteract(D2UnitStrc* pUnit, int bReope
     switch (pUnit->dwClassId)
     {
     case 0x96:
-        if (STATLIST_UnitGetStatValue(sub_00463DD0(), 0xC, 0) >= 8)
+        if (STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), 0xC, 0) >= 8)
         {
             sub_004B6410_InitHandler();
         }
@@ -339,7 +339,7 @@ static void __stdcall sub_004B66B0_OpenNpcInteract(D2UnitStrc* pUnit, int bReope
     }
 
     sub_004CB190_ReleaseSkillSfx(pUnit);
-    gnNpcSoundHandle_007C0DB8 = sub_004B9A00(nSound, sub_00463DD0(), 0, 1, 0);
+    gnNpcSoundHandle_007C0DB8 = sub_004B9A00(nSound, sub_00463DD0_GetPlayerUnit(), 0, 1, 0);
     if (nType == 2)
     {
         sub_004785B0_SendPacket3(0x4D, nNpcId);
@@ -432,7 +432,7 @@ void __fastcall sub_004B6DD0_NpcInteractPacket(unsigned char nUnitType, int nUni
     D2UnitStrc* pUnit = sub_00463990(nUnitId, nUnitType);
     if (!pUnit)
     {
-        D2UnitStrc* pPlayer = sub_00463DD0();
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         if (pPlayer && pPlayer->dwUnitType == 0 && pPlayer->pPlayerData)
         {
             pPlayer->pPlayerData->nState = 0;
@@ -471,7 +471,7 @@ void __fastcall sub_004B6DD0_NpcInteractPacket(unsigned char nUnitType, int nUni
         sub_00464420_TurnTowardPlayer(pUnit);
     }
 
-    if (INVENTORY_GetCursorItem(sub_00463DD0()->pInventory))
+    if (INVENTORY_GetCursorItem(sub_00463DD0_GetPlayerUnit()->pInventory))
     {
         gnGlobal_007C0D29 = 1;
         gnGlobal_007C0D25 = pUnit->dwUnitId;

@@ -70,7 +70,7 @@ int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);      
 int __fastcall sub_0044BE50_GetUnitTypeOrInvalid(D2UnitStrc* pUnit);                                        // 0x0044BE50
 int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc* pUnit);                                                 // 0x00451F50
 D2UnitStrc* __fastcall sub_6FC7C7B0(D2UnitStrc* pUnit);                                                     // 0x00535BC0
-void __fastcall sub_00559E30_DamageItem(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem);           // 0x00559E30
+void __fastcall sub_00559E30_DecreaseDurability(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem);           // 0x00559E30
 void __fastcall SUNITDMG_ExecuteEvents(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int bMissile, D2DamageStrc* pDamage); // 0x0057C6C0
 void __fastcall SUNITDMG_FreeAttackerDefenderCombatList(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender); // 0x0057C9F0
 void __fastcall SUNITDMG_ExecuteMissileDamage(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, D2DamageStrc* pDamage); // 0x0057CEE0
@@ -113,7 +113,7 @@ static void __stdcall sub_0057D3D0_DamageItems(D2UnitStrc* pAttacker, D2GameStrc
         D2UnitStrc* pItem = sub_6FC7C7B0(pAttacker);
         if (pItem)
         {
-            sub_00559E30_DamageItem(pGame, pAttacker, pItem);
+            sub_00559E30_DecreaseDurability(pGame, pAttacker, pItem);
         }
     }
 
@@ -142,7 +142,7 @@ static void __stdcall sub_0057D3D0_DamageItems(D2UnitStrc* pAttacker, D2GameStrc
                 {
                     if (nWeight < gaBodyLocWeights_00732B90[nIndex].nWeight)
                     {
-                        sub_00559E30_DamageItem(pGame, pDefender, pItems[nIndex]);
+                        sub_00559E30_DecreaseDurability(pGame, pDefender, pItems[nIndex]);
                         break;
                     }
                     nWeight -= gaBodyLocWeights_00732B90[nIndex].nWeight;

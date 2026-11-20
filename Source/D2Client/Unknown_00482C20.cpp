@@ -34,12 +34,12 @@ struct Unicode
 };
 
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds); // 0x006CC258
-void __fastcall sub_00482B40(unsigned int nTick); // 0x00482B40
+void __fastcall sub_00482B40_UpdateCache(unsigned int nTick); // 0x00482B40
 void __fastcall sub_004BA020(unsigned int nTick); // 0x004BA020
-void __fastcall sub_004DCAA0(unsigned int nTick); // 0x004DCAA0
+void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int nTick); // 0x004DCAA0
 int __cdecl sub_004DF870(); // 0x004DF870
 void __cdecl sub_004DF890(); // 0x004DF890
-void __fastcall sub_004E42E0(unsigned int nTick); // 0x004E42E0
+void __fastcall sub_004E42E0_UpdateEnvironSounds(unsigned int nTick); // 0x004E42E0
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 extern char gbCinematicStop_007BC9D4; // 0x007BC9D4
 extern char gbCinematicWide_007BC9D6; // 0x007BC9D6
@@ -73,9 +73,9 @@ void __cdecl sub_00482C20_Tick()
 {
     if (sub_004DF870())
     {
-        sub_004E42E0(gdwGlobal_007BC9BC);
-        sub_004DCAA0(gdwGlobal_007BC9BC);
-        sub_00482B40(gdwGlobal_007BC9BC);
+        sub_004E42E0_UpdateEnvironSounds(gdwGlobal_007BC9BC);
+        sub_004DCAA0_UpdateLevelSong(gdwGlobal_007BC9BC);
+        sub_00482B40_UpdateCache(gdwGlobal_007BC9BC);
         sub_004BA020(gdwGlobal_007BC9BC);
         sub_004DF890();
         ++gdwGlobal_007BC9BC;

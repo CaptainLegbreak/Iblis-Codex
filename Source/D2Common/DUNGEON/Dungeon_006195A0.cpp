@@ -112,7 +112,7 @@ extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x
 extern const LEVELNODEFN gpfnLevelNodeHandlers_00744384[]; // 0x00744384
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
-D2ActiveRoomStrc* __fastcall COLLISION_GetRoomBySubTileCoordinates(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
 void __fastcall DUNGEON_FreeRoom(void* pMemPool, D2ActiveRoomStrc* pRoom); // 0x0061A840
 void __fastcall ENVIRONMENT_FreeDrlgEnvironment(void* pMemPool, D2DrlgEnvironmentStrc* pEnvironment); // 0x0061BEC0
 void __fastcall DRLG_FreeDrlg(D2DrlgStrc* pDrlg); // 0x00642190
@@ -120,8 +120,8 @@ void __stdcall DUNGEON_GameToClientTileDrawPositionCoords(int nX, int nY, int* p
 void __stdcall UNITROOM_SortUnitListByTargetY(D2ActiveRoomStrc* pRoom); // 0x0064C0C0
 D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, int nUnitSize, unsigned int nMask, int bAllowNeighboringRooms); // 0x0064E7B0
 D2ActiveRoomStrc* __fastcall DRLGWARP_GetDestinationRoom(D2DrlgRoomStrc* pDrlgRoom, int nSourceLevel, int* pDestinationLevel, D2LvlWarpTxt** ppLvlWarpTxtRecord); // 0x0066AB00
-D2ActiveRoomStrc* __fastcall sub_0066B2B0_FindSpawnRoom(D2DrlgStrc* pDrlg, int nLevelId, int nTileIndex, int* pX, int* pY); // 0x0066B2B0
-void __fastcall sub_0066B4C0_DetachDrlgRoom(D2DrlgRoomStrc* pDrlgRoom, int bClient, unsigned int nFlags); // 0x0066B4C0
+D2ActiveRoomStrc* __fastcall sub_0066B2B0_GetLevelEntryRoom(D2DrlgStrc* pDrlg, int nLevelId, int nTileIndex, int* pX, int* pY); // 0x0066B2B0
+void __fastcall sub_0066B4C0(D2DrlgRoomStrc* pDrlgRoom, int bClient, unsigned int nFlags); // 0x0066B4C0
 void __fastcall sub_0066C370_OnChildlessNode(void* pContext, D2CommonLevelNodeStrc* pNode); // 0x0066C370
 int __fastcall DRLGLOGIC_GetRoomCoordListIndex(D2DrlgRoomStrc* pDrlgRoom, int nX, int nY); // 0x0066CE30
 
@@ -274,7 +274,7 @@ void __stdcall DUNGEON_RemoveRoomFromAct(D2DrlgActStrc* pAct, D2ActiveRoomStrc* 
             }
         }
     }
-    sub_0066B4C0_DetachDrlgRoom(pRoom->pDrlgRoom, pAct->bClient, pRoom->dwFlags);
+    sub_0066B4C0(pRoom->pDrlgRoom, pAct->bClient, pRoom->dwFlags);
     DUNGEON_FreeRoom(pAct->pMemPool, pRoom);
 }
 
@@ -339,7 +339,7 @@ D2ActiveRoomStrc* __stdcall DUNGEON_FindActSpawnLocationEx(D2DrlgActStrc* ptAct,
     D2_ASSERT(ptAct, 556);
     int nX = 0;
     int nY = 0;
-    D2ActiveRoomStrc* pRoom = sub_0066B2B0_FindSpawnRoom(ptAct->pDrlg, nLevelId, nTileIndex, &nX, &nY);
+    D2ActiveRoomStrc* pRoom = sub_0066B2B0_GetLevelEntryRoom(ptAct->pDrlg, nLevelId, nTileIndex, &nX, &nY);
     if (pRoom)
     {
         DUNGEON_GameTileToSubtileCoords(&nX, &nY);
@@ -348,7 +348,7 @@ D2ActiveRoomStrc* __stdcall DUNGEON_FindActSpawnLocationEx(D2DrlgActStrc* ptAct,
         D2_ASSERT(COLLISION_GetFreeCoordinates(pRoom, &tCoord, nUnitSize, 0x1C09, 0), 568);
         *pX = tCoord.nX;
         *pY = tCoord.nY;
-        return COLLISION_GetRoomBySubTileCoordinates(pRoom, *pX, *pY);
+        return sub_00463740_FindRoomAtPoint(pRoom, *pX, *pY);
     }
     return 0;
 }
@@ -356,7 +356,7 @@ D2ActiveRoomStrc* __stdcall DUNGEON_FindActSpawnLocationEx(D2DrlgActStrc* ptAct,
 // 0x0061B130
 int __stdcall D2Common_10095(D2ActiveRoomStrc* pRoom, int nX, int nY)
 {
-    D2ActiveRoomStrc* pFoundRoom = COLLISION_GetRoomBySubTileCoordinates(pRoom, nX, nY);
+    D2ActiveRoomStrc* pFoundRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
     if (!pFoundRoom)
         return 0;
     return DRLGLOGIC_GetRoomCoordListIndex(pFoundRoom->pDrlgRoom, nX, nY);

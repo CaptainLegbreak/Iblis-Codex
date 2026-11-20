@@ -25,7 +25,7 @@ extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 extern "C" char* __cdecl strcat(char* szDest, const char* szSource);
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
 extern "C" __declspec(dllimport) void* __stdcall CreateFileA(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x006CC19C
-int __cdecl sub_00525150(); // 0x00525150
+int __cdecl STRTABLE_GetLanguage(); // 0x00525150
 void __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
 void __fastcall sub_00478590(char nValue); // 0x00478590
 void __fastcall sub_00482CA0_RaiseAuxLevel(int nIndex); // 0x00482CA0
@@ -33,9 +33,9 @@ int __fastcall ARCHIVE_LoadVideoArchives(void* pfShowMessage, void* hFile, int b
 int __cdecl D2GFX_GetResolutionMode(); // 0x004F5160
 int __fastcall D2Win_10177(unsigned char nAct); // 0x004FB480
 void __fastcall sub_00460480(int bExpansion); // 0x00460480
-int __cdecl sub_00460500(); // 0x00460500
-int __cdecl sub_00460680(); // 0x00460680
-int __cdecl sub_004605A0(); // 0x004605A0
+int __cdecl sub_00460500_RunPopup(); // 0x00460500
+int __cdecl sub_00460680_RunOkCancel(); // 0x00460680
+int __cdecl sub_004605A0_RunPopup(); // 0x004605A0
 void __cdecl sub_00477DD0(); // 0x00477DD0
 void __cdecl sub_00481830(); // 0x00481830
 void __cdecl sub_004DC0A0(); // 0x004DC0A0
@@ -89,7 +89,7 @@ static void sub_00482E30_BuildLocalizedVideoPath(char* szOut, const char* szForm
     sprintf(szOut, szFormat, gszDataLocal_006D41A8, szLang, szFile);
     if (sub_00482E00_ArchiveFilePresent(szOut))
         return;
-    if (sub_00525150())
+    if (STRTABLE_GetLanguage())
     {
         sprintf(szOut, szFormat, gszDataLocal_006D41A8, "ENG", szFile);
         sub_00482E00_ArchiveFilePresent(szOut);
@@ -181,7 +181,7 @@ void __fastcall sub_00482EF0_PlayCinematic(int nIndex)
     }
 
     sub_00460480(bExpansion);
-    if (ARCHIVE_LoadVideoArchives(bExpansion ? (void*)sub_00460500 : (void*)sub_00460680, 0, bExpansion))
+    if (ARCHIVE_LoadVideoArchives(bExpansion ? (void*)sub_00460500_RunPopup : (void*)sub_00460680_RunOkCancel, 0, bExpansion))
     {
         bLoaded = 1;
         if (gaAuxLevelEntries_00721D98[nIndex].bLocalized)
@@ -217,7 +217,7 @@ void __fastcall sub_00482EF0_PlayCinematic(int nIndex)
             D2Win_10004(D2GFX_GetResolutionMode());
 
         sub_00460480(1);
-        if (ARCHIVE_LoadVideoArchives((void*)sub_00460500, 0, 1))
+        if (ARCHIVE_LoadVideoArchives((void*)sub_00460500_RunPopup, 0, 1))
         {
             nIndex = 6;
             if (gbCinematicWide_007BC9D6)
@@ -265,7 +265,7 @@ lMissing:
     }
 
     sub_004FAD70();
-    ARCHIVE_LoadExpansionArchives(sub_00460500, sub_004605A0, 0, gpConfig_007A0438);
+    ARCHIVE_LoadExpansionArchives(sub_00460500_RunPopup, sub_004605A0_RunPopup, 0, gpConfig_007A0438);
     gbCinematicBusy_007BC9D7 = 0;
 }
 

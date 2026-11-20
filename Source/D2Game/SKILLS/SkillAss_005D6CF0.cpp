@@ -63,7 +63,7 @@ int __fastcall D2GAME_GetSummonIdFromSkill_6FD15580(D2UnitStrc* pUnit, int bFrom
 D2UnitStrc* __fastcall D2GAME_SummonPet_6FD14430(D2GameStrc* pGame, D2SummonArgStrc* pSummonArg); // 0x0056D940
 int __fastcall sub_004EFCB0_GetSummonLevel(int nSkillId, int nSkillLevel); // 0x004EFCB0
 int __stdcall DATATBLS_GetMaxLevel(int nClass); // 0x00611830
-void __fastcall sub_005D6B60_SetSummonPassives(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pPet, int nSkillId, int nSkillLevel, int nLevel, int a7); // 0x005D6B60
+void __fastcall SKILLS_EquipMonsterFromTable(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pPet, int nSkillId, int nSkillLevel, int nLevel, int a7); // 0x005D6B60
 void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nEventCustomId); // 0x00540E60
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
@@ -178,7 +178,7 @@ int __fastcall sub_005D6E70_SrvDoSummonPet(D2GameStrc* pGame, D2UnitStrc* pUnit,
 
     int nLevel = sub_004EFCB0_GetSummonLevel(nSkillId, nSkillLevel);
     nLevel = D2_MAX(nLevel, 1) < DATATBLS_GetMaxLevel(0) ? D2_MAX(nLevel, 1) : DATATBLS_GetMaxLevel(0);
-    sub_005D6B60_SetSummonPassives(pGame, pUnit, pPet, nSkillId, nSkillLevel, nLevel, 0);
+    SKILLS_EquipMonsterFromTable(pGame, pUnit, pPet, nSkillId, nSkillLevel, nLevel, 0);
     D2GAME_EVENTS_Delete_6FC34840(pGame, pPet, 2, 0);
     EVENT_SetEvent(pGame, pPet, 2, pGame->dwGameFrame + 20, 0, 0);
 

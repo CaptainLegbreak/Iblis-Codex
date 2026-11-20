@@ -61,14 +61,14 @@ public:
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 extern "C" __declspec(dllimport) int __stdcall SetRect(tagRECT* lprc, int xLeft, int yTop, int xRight, int yBottom); // 0x006CC498
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 void __stdcall UNITS_GetClientCoords(D2UnitStrc* pUnit, D2CoordStrc* pClientCoords); // 0x00620900
 void __fastcall sub_00476070_GetViewRect(D2ViewStrc* pView, int* pLeft, int* pTop, int* pRight, int* pBottom); // 0x00476070
 void __fastcall sub_004760C0_GetViewOffset(D2ViewStrc* pView, int* pX, int* pY); // 0x004760C0
 void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg); // 0x00478680
 void __fastcall sub_004786A0_SendIntInt(char nHeader, int nArg1, int nArg2); // 0x004786A0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
-const Unicode* __fastcall sub_0049F910_GetString(unsigned short nStringId); // 0x0049F910
+const Unicode* __fastcall sub_0049F910_GetTextString(unsigned short nStringId); // 0x0049F910
 D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x0063B2C0
 D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
 D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
@@ -313,7 +313,7 @@ void __stdcall sub_004B5890_OpenNpcPanel(int nStringIndex, int nEntryIndex)
     for (int i = 0; i < nCount; ++i)
     {
         const unsigned short nStringId = TEXT_GetStringIdOfMenuType2Node(pTextHeader, i);
-        sub_004B85F0_AddTextLine(gpDialog_007C0D6F, sub_0049F910_GetString(nStringId), 0xF, 0, 0, 1, sub_004B1A80, 1);
+        sub_004B85F0_AddTextLine(gpDialog_007C0D6F, sub_0049F910_GetTextString(nStringId), 0xF, 0, 0, 1, sub_004B1A80, 1);
     }
 
     if (gdwGlobal_007C0D2D == 0xC9)
@@ -323,7 +323,7 @@ void __stdcall sub_004B5890_OpenNpcPanel(int nStringIndex, int nEntryIndex)
 
     if (gdwGlobal_007C0D2D == 0x109 || gdwGlobal_007C0D2D == 0xF4 || gdwGlobal_007C0D2D == 0xF5 || gdwGlobal_007C0D2D == 0x208 || gdwGlobal_007C0D2D == 0xF6)
     {
-        D2UnitStrc* pPlayer = sub_00463DD0();
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         if (pPlayer && pPlayer->pInventory)
         {
             for (D2UnitStrc* pItem = INVENTORY_GetFirstItem(pPlayer->pInventory); pItem; pItem = INVENTORY_GetNextItem(pItem))

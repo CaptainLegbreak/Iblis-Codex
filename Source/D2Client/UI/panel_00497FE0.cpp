@@ -17,7 +17,7 @@ int __fastcall sub_004538D0(int nUIVar);                                        
 int __cdecl sub_0047A560();                                                                                 // 0x0047A560
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 extern int gnGlobal_0071146C;                                                                               // 0x0071146C
-D2UnitStrc* __cdecl sub_00463DD0();                                                               // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc);              // 0x0063BDE0
 int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem);                                                    // 0x006289F0
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType);                                      // 0x00629BB0
@@ -80,7 +80,7 @@ static void __stdcall sub_00497CF0_DrawDurabilityIcon(int nState, int bType, int
 // 0x00497FE0
 void __cdecl sub_00497FE0_DrawDurabilityIcons()
 {
-    D2InventoryStrc* pInventory = sub_00463DD0()->pInventory;
+    D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
     for (int j = 0; j < 7; ++j)
     {
         const int nLoc = gnBodyLocs_007223E8[j];

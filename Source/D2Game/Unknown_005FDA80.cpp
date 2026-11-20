@@ -20,8 +20,8 @@ int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pDynamicPath)
 void __stdcall D2COMMON_10170_PathSetTargetPos(D2DynamicPathStrc* pPath, int nX, int nY); // 0x00648AD0
 int __fastcall SKILLITEM_FindTargetPosition(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x005FD850
 int __fastcall sub_005FD9C0_SelectSkillTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int* pUnitType, int* pUnitGUID); // 0x005FD9C0
-int __fastcall sub_005FDA10_SelectOtherTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int* pUnitType, int* pUnitGUID); // 0x005FDA10
-int __fastcall sub_6FD12950(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a5); // 0x0056F640
+int __fastcall sub_005FDA10_TargetLastAttacker(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int* pUnitType, int* pUnitGUID); // 0x005FDA10
+int __fastcall sub_0056F640_StartSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a5); // 0x0056F640
 int __fastcall sub_0056F7F0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a5, int a6, int a7); // 0x0056F7F0
 inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int nSkillId)
 {
@@ -61,10 +61,10 @@ int __fastcall sub_005FDA80_HandleItemEffectSkill(D2GameStrc* pGame, D2UnitStrc*
         if (!sub_005FD9C0_SelectSkillTarget(pGame, pUnit, nSkillId, nSkillLevel, pUnitType, pUnitGUID)) goto restore;
         break;
     case 4:
-        if (!sub_005FDA10_SelectOtherTarget(pGame, pUnit, nSkillId, nSkillLevel, pUnitType, pUnitGUID)) goto restore;
+        if (!sub_005FDA10_TargetLastAttacker(pGame, pUnit, nSkillId, nSkillLevel, pUnitType, pUnitGUID)) goto restore;
         break;
     }
-    if ((pSkillsTxtRecord->nFlags[4] & gdwBitMasks[1]) && !sub_6FD12950(pGame, pUnit, nSkillId, nSkillLevel, 1)) goto restore;
+    if ((pSkillsTxtRecord->nFlags[4] & gdwBitMasks[1]) && !sub_0056F640_StartSkill(pGame, pUnit, nSkillId, nSkillLevel, 1)) goto restore;
     nResult = sub_0056F7F0(pGame, pUnit, nSkillId, nSkillLevel, 0, 1, a7);
 restore:
     if (pOldTarget) UNITS_SetTargetUnitForDynamicUnit(pUnit, pOldTarget);

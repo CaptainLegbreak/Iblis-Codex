@@ -35,7 +35,7 @@ int __fastcall sub_004538D0(int nUIVar); // 0x004538D0
 void __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
 
 
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
 void __fastcall sub_004786A0_SendIntInt(char nHeader, int nArg1, int nArg2); // 0x004786A0
@@ -98,7 +98,7 @@ int __stdcall SKILLS_GetPlayerSkillCount(int nClassId); // 0x00646140
 // 0x004A9BD0
 void __stdcall sub_004A9BD0_SkillSelectClickHandler(SMSGHANDLER_PARAMS* pMsg)
 {
-    D2_ASSERT(sub_00463DD0(), 954);
+    D2_ASSERT(sub_00463DD0_GetPlayerUnit(), 954);
 
     const int nStartY = sub_00468740();
     int bHandled = 0;
@@ -110,7 +110,7 @@ void __stdcall sub_004A9BD0_SkillSelectClickHandler(SMSGHANDLER_PARAMS* pMsg)
         const int nMouseY = sub_00468740();
         if (nMouseX >= nX && nMouseX <= nX + 48 && nMouseY >= nY - 48 && nMouseY <= nY)
         {
-            D2SkillStrc* pSkill = SKILLS_GetSkillById(sub_00463DD0(), gtHotkeySlots_007C0300.nSkill[i], gtHotkeySlots_007C0300.f_2D0[i]);
+            D2SkillStrc* pSkill = SKILLS_GetSkillById(sub_00463DD0_GetPlayerUnit(), gtHotkeySlots_007C0300.nSkill[i], gtHotkeySlots_007C0300.f_2D0[i]);
             if (pSkill)
             {
                 int nCharges;
@@ -153,7 +153,7 @@ static int sub_004A9FC0_IsHotkeyUsable(int nSlot)
 {
     if (gnHotkeySkill_007C06C8[nSlot] == -1)
         return 0;
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (!pPlayer)
         return 0;
     D2SkillStrc* pSkill = SKILLS_GetSkillById(pPlayer, gnHotkeySkill_007C06C8[nSlot], gnHotkeyOwner_007C0768[nSlot]);
@@ -175,7 +175,7 @@ void __fastcall sub_004AA030_SelectHotkey(int nSlot)
         return;
     if (!sub_004A9FC0_IsHotkeyUsable(nSlot))
         return;
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     gnSelectedHotkey_007C0708 = nSlot;
     sub_004786A0_SendIntInt(0x3C, (gbHotkeyLeft_007C07B8[nSlot] ? 0x80000000 : 0) + gnHotkeySkill_007C06C8[nSlot], gnHotkeyOwner_007C0768[nSlot]);
     if (gbHotkeyLeft_007C07B8[nSlot])
@@ -233,7 +233,7 @@ static void sub_004AA0F0_AssignFreeHotkey(int nSlot, int nIndex)
 // 0x004AA160
 void __cdecl sub_004AA160_FillHotkeys()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2_ASSERT(UNITS_GetStartSkill(pPlayer), 0x524);
     int nSlot = 0;
     for (int i = 0; i < 60; ++i)
@@ -259,7 +259,7 @@ void __cdecl sub_004AA680_BuildRightRows()
     if (gbGlobal_007C07FC)
     {
         gtSkillIconState_007C0300.bFlag = 0;
-        sub_004AA3A0_BuildSkillRows(sub_00463DD0(), 0x50, 1, 0, 0);
+        sub_004AA3A0_BuildSkillRows(sub_00463DD0_GetPlayerUnit(), 0x50, 1, 0, 0);
     }
 }
 
@@ -360,7 +360,7 @@ int __cdecl sub_004AB7B0_CheckTickElapsed()
 // 0x004ABF10
 void __cdecl sub_004ABF10_ClearSkillStates()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (pPlayer)
     {
         for (int i = 0; i < SKILLS_GetPlayerSkillCount(sub_00451F60_UnitClassId(pPlayer)); ++i)

@@ -109,9 +109,9 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 
 void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
 void* __stdcall sub_004FAC80(int nArg); // 0x004FAC80
 int __fastcall sub_005259C0(void* pArg, int nArg); // 0x005259C0
-void __cdecl sub_00524E40(); // 0x00524E40
-void __cdecl sub_0043CC30(); // 0x0043CC30
-void __cdecl sub_0043DDD0(); // 0x0043DDD0
+void __cdecl sub_00524E40_UnloadStringTables(); // 0x00524E40
+void __cdecl sub_0043CC30_LoadFrontEndCels(); // 0x0043CC30
+void __cdecl sub_0043DDD0_CreateCharControls(); // 0x0043DDD0
 void __fastcall sub_004FDAD0_SetKeyCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(D2WinControlStrc*, int, const char*)); // 0x004FDAD0
 void __fastcall sub_004FDB00_SetEnterCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(int)); // 0x004FDB00
 int __stdcall sub_004F91C0(void* pEditBox); // 0x004F91C0
@@ -119,22 +119,22 @@ void __cdecl sub_004477A0_Refresh(); // 0x004477A0
 void __cdecl sub_0043F4D0(); // 0x0043F4D0
 void __fastcall BUTTON_SetIsPressed(D2WinControlStrc* pButton, int bIsPressed); // 0x005009A0
 void __fastcall sub_0044B220_SetCallback(void (__fastcall* pfnCallback)(void* pArg)); // 0x0044B220
-void __cdecl sub_0044AA50(); // 0x0044AA50
+void __cdecl sub_0044AA50_SendPacket12(); // 0x0044AA50
 void __cdecl sub_0043F730(); // 0x0043F730
-void __cdecl sub_00514DB0(); // 0x00514DB0
-void __fastcall sub_00514E10(const char* szFile); // 0x00514E10
+void __cdecl sub_00514DB0_InitWaveSlots(); // 0x00514DB0
+void __fastcall sub_00514E10_LoadWave(const char* szFile); // 0x00514E10
 int __cdecl sub_00514D80(); // 0x00514D80
-void __fastcall D2SOUND_10034(int nArg); // 0x005148F0
+void __fastcall sub_005148F0_SetChannelValue(int nArg); // 0x005148F0
 int __cdecl sub_00441A90(); // 0x00441A90
-void __stdcall sub_00449E50(int nValue); // 0x00449E50
+void __stdcall sub_00449E50_SetValue(int nValue); // 0x00449E50
 void __stdcall sub_004FA590_RunLoop(D2LaunchCallback pfnCallback); // 0x004FA590
-void __cdecl sub_0044AA80(); // 0x0044AA80
+void __cdecl sub_0044AA80_SendPacket13(); // 0x0044AA80
 void __cdecl D2MCPClientCloseMCP(); // 0x00449AD0
 void __cdecl sub_00515070(); // 0x00515070
-void __cdecl sub_004495A0(); // 0x004495A0
+void __cdecl sub_004495A0_ClearChannel(); // 0x004495A0
 void __cdecl sub_00505100(); // 0x00505100
-void __cdecl sub_0043F800(); // 0x0043F800
-void __cdecl sub_0043D510(); // 0x0043D510
+void __cdecl sub_0043F800_FreeNameList(); // 0x0043F800
+void __cdecl sub_0043D510_FreeCellFiles(); // 0x0043D510
 void* __stdcall sub_005066C0(int nA, int nMode, char* szA, char* szB); // 0x005066C0
 void __stdcall sub_005052B0(void* pObject, int nValue); // 0x005052B0
 int __stdcall sub_00448C70_ButtonCallback(void* pMsg); // 0x00448C70
@@ -305,7 +305,7 @@ int __fastcall sub_00441B70_RunChat(D2LaunchCharInfoStrc* pInfo)
         gbDone_0077BDA0 = 4;
     else
     {
-    sub_0043CC30();
+    sub_0043CC30_LoadFrontEndCels();
     sub_004F9160_SetLoopValue(gnLoopValueOut_0077BC14);
     gpChatTextBox_0077BD8C = 0;
     if (gpCharInfo_0077BBD8->szText0x361[0])
@@ -320,7 +320,7 @@ int __fastcall sub_00441B70_RunChat(D2LaunchCharInfoStrc* pInfo)
     }
     else
     {
-        sub_0043DDD0();
+        sub_0043DDD0_CreateCharControls();
         CREATE_CELL_FILE(pInfo);
     }
     gpChatTextBox_0077BD8C = CONTROL_Create(&gtControlInit_0070D240);
@@ -356,7 +356,7 @@ int __fastcall sub_00441B70_RunChat(D2LaunchCharInfoStrc* pInfo)
     gpNamesButton_0077BD08 = CONTROL_Create(&gtControlInit_0070D300);
     gpControlMain_0077BC4C = CONTROL_Create(&gtControlInit_0070D330);
     sub_0044B220_SetCallback(sub_00440D10);
-    sub_0044AA50();
+    sub_0044AA50_SendPacket12();
     sub_0043F730();
     pControl4 = CONTROL_Create(&gtControlInit_0070D360);
     const unsigned short wFlags = *(unsigned short*)gpCharInfo_0077BBD8->wFlags;
@@ -368,10 +368,10 @@ int __fastcall sub_00441B70_RunChat(D2LaunchCharInfoStrc* pInfo)
     sub_004FA450_SetActive(gpControl_0077B080);
     gszText_0077B1D0[0] = 0;
     gszText_0077B0B4[0] = 0;
-    sub_00514DB0();
-    sub_00514E10("data\\global\\sfx\\cursor\\button.wav");
+    sub_00514DB0_InitWaveSlots();
+    sub_00514E10_LoadWave("data\\global\\sfx\\cursor\\button.wav");
     if (sub_00514D80())
-        D2SOUND_10034(1);
+        sub_005148F0_SetChannelValue(1);
     gbCheck_0077BD58 = gpCharInfo_0077BBD8->nType0x35E == 4;
     sub_004F96F0_ControlClearState(gpControlC_0077B07C, gbCheck_0077BD58 == 0);
     if (sub_00441A90())
@@ -391,15 +391,15 @@ int __fastcall sub_00441B70_RunChat(D2LaunchCharInfoStrc* pInfo)
     }
     if (gpLaunchFuncs_0077B09C->pfn0x68())
     {
-        sub_00449E50(0);
+        sub_00449E50_SetValue(0);
         InitializeCriticalSection(&gtChatLock_0077AE28);
         if (!gpCharInfo_0077BBD8->szText0x361[0])
             gpLaunchFuncs_0077B09C->pfn0xA8(sub_0043E4C0, sub_0043E570);
         sub_004FA590_RunLoop(sub_00441500);
         if (sub_00449E40())
         {
-            sub_0044AA80();
-            sub_00449E50(0);
+            sub_0044AA80_SendPacket13();
+            sub_00449E50_SetValue(0);
         }
         if (!gpCharInfo_0077BBD8->szText0x361[0])
             gpLaunchFuncs_0077B09C->pfn0xAC();
@@ -413,10 +413,10 @@ int __fastcall sub_00441B70_RunChat(D2LaunchCharInfoStrc* pInfo)
 
     GetTickCount();
     sub_00515070();
-    sub_004495A0();
+    sub_004495A0_ClearChannel();
     sub_00505100();
     sub_0043F8C0_ResetLaunchState();
-    sub_0043F800();
+    sub_0043F800_FreeNameList();
     sub_004F95C0_ControlDestroy(&gpChatTextBox_0077BD8C);
     if (gpControl_0077BD98)
         sub_004F95C0_ControlDestroy(&gpControl_0077BD98);
@@ -459,9 +459,9 @@ int __fastcall sub_00441B70_RunChat(D2LaunchCharInfoStrc* pInfo)
     }
     BACKGROUND_SetCellFile(0);
     sub_004F9160_SetLoopValue(0);
-    sub_0043D510();
+    sub_0043D510_FreeCellFiles();
     }
-    sub_00524E40();
+    sub_00524E40_UnloadStringTables();
     return 1;
 }
 

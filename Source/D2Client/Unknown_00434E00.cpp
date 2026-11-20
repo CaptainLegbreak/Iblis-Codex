@@ -37,13 +37,13 @@ void __fastcall sub_00407050_GetSavePath(char* szPath, int nSize); // 0x00407050
 unsigned int __stdcall sub_00414150_HashPath(const char* szPath); // 0x00414150
 int __stdcall SStrLen(const char* szString); // 0x00413750
 int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
-void __cdecl sub_00432100(); // 0x00432100
+void __cdecl sub_00432100_CreateLoginScreen(); // 0x00432100
 void __cdecl sub_004325B0_CreateScreen(); // 0x004325B0
-int __cdecl sub_00433810(); // 0x00433810
+int __cdecl sub_00433810_ShowTerms(); // 0x00433810
 void __cdecl sub_00435330_ShowLoginScreen(); // 0x00435330
 int __fastcall sub_0043C180_Connect(D2LaunchRecordStrc* pRecord, int bFlag, int nMode); // 0x0043C180
 D2WinControlStrc* __stdcall CONTROL_Create(D2LaunchControlTemplateStrc* pTemplate); // 0x004F93C0
-int __stdcall sub_004F95C0_ControlDestroy(D2WinControlStrc** ppControl); // 0x004F95C0
+int __stdcall CONTROL_Destroy(D2WinControlStrc** ppControl); // 0x004F95C0
 int __stdcall D2Win_10033(D2WinControlStrc* pControl, int nArg); // 0x004FA470
 int __fastcall D2Win_10051(D2WinControlStrc* pTextBox, const Unicode* wszText, int nColor, char bIsWrapped, int nIndent); // 0x004FC9B0
 const Unicode* __fastcall sub_004FDD90_GetEditText(D2WinControlStrc* pControl); // 0x004FDD90
@@ -93,7 +93,7 @@ D2WinControlStrc* __fastcall sub_0042F3A0_CreateFromTemplate(int nTemplateId)
 void __cdecl sub_0042F3F0_DestroyControls()
 {
     for (int i = 0; i < gnControlCountA_00779948; ++i)
-        sub_004F95C0_ControlDestroy(&gapControlsA_00779450[i]);
+        CONTROL_Destroy(&gapControlsA_00779450[i]);
     gnControlCountA_00779948 = 0;
 }
 
@@ -187,7 +187,7 @@ int __stdcall sub_00434E00_CheckFreeSpace(int nUnused)
         sub_00433380_ShowMessage(D2LANG_GetStringFromTblIndex(0x141D), sub_0042FDD0, 1);
         return 1;
     }
-    return sub_00433810();
+    return sub_00433810_ShowTerms();
 }
 
 int __stdcall sub_00435030_ChangePasswordOk(int nArg)
@@ -207,32 +207,32 @@ int __stdcall sub_00435030_ChangePasswordOk(int nArg)
     if (nLength < 2)
     {
         const Unicode* pMessage = D2LANG_GetStringFromTblIndex(0x1460);
-        sub_00433380_ShowMessage(pMessage, sub_00432100, 1);
+        sub_00433380_ShowMessage(pMessage, sub_00432100_CreateLoginScreen, 1);
         return 1;
     }
     if (nLength > 0xF)
     {
         const Unicode* pMessage = D2LANG_GetStringFromTblIndex(0x1461);
-        sub_00433380_ShowMessage(pMessage, sub_00432100, 1);
+        sub_00433380_ShowMessage(pMessage, sub_00432100_CreateLoginScreen, 1);
         return 1;
     }
     if (sub_00526590_Compare(pPassword, pConfirm))
     {
         const Unicode* pMessage = D2LANG_GetStringFromTblIndex(0x1462);
-        sub_00433380_ShowMessage(pMessage, sub_00432100, 1);
+        sub_00433380_ShowMessage(pMessage, sub_00432100_CreateLoginScreen, 1);
         return 1;
     }
     nLength = sub_00526800(pPassword);
     if (nLength < 2)
     {
         const Unicode* pMessage = D2LANG_GetStringFromTblIndex(0x1463);
-        sub_00433380_ShowMessage(pMessage, sub_00432100, 1);
+        sub_00433380_ShowMessage(pMessage, sub_00432100_CreateLoginScreen, 1);
         return 1;
     }
     if (nLength > 0x14)
     {
         const Unicode* pMessage = D2LANG_GetStringFromTblIndex(0x1464);
-        sub_00433380_ShowMessage(pMessage, sub_00432100, 1);
+        sub_00433380_ShowMessage(pMessage, sub_00432100_CreateLoginScreen, 1);
         return 1;
     }
     gdwGlobal_007795F4 = 0;
@@ -240,7 +240,7 @@ int __stdcall sub_00435030_ChangePasswordOk(int nArg)
     {
         if (gdwGlobal_007795F4)
         {
-            sub_00432100();
+            sub_00432100_CreateLoginScreen();
             return 1;
         }
     }

@@ -39,15 +39,15 @@ int __cdecl D2GFX_GetResolutionMode(); // 0x004F5160
 int __cdecl sub_0045AE90(); // 0x0045AE90
 void __fastcall sub_0045AEA0_SetPanelSlide(int nMode); // 0x0045AEA0
 void __fastcall sub_00457640(int nValue); // 0x00457640
-void __fastcall sub_00457440(int nResolution); // 0x00457440
+void __fastcall sub_00457440_Nop(int nResolution); // 0x00457440
 void __fastcall sub_004549B0(int nResolution); // 0x004549B0
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
 void __cdecl sub_00466FF0(); // 0x00466FF0
-void __fastcall sub_0046C460(D2ActiveRoomStrc* pRoom); // 0x0046C460
-void __fastcall sub_00466820(D2ActiveRoomStrc* pRoom); // 0x00466820
-void __fastcall sub_0046BE60(D2ActiveRoomStrc* pRoom); // 0x0046BE60
+void __fastcall sub_0046C460_PopulateRoom(D2ActiveRoomStrc* pRoom); // 0x0046C460
+void __fastcall sub_00466820_SpawnRoomPresets(D2ActiveRoomStrc* pRoom); // 0x00466820
+void __fastcall sub_0046BE60_ApplyDenOfEvilRoom(D2ActiveRoomStrc* pRoom); // 0x0046BE60
 extern D2McpPacketHandler gpfnMcpHandlers_0070ED00[]; // 0x0070ED00
 extern int gnGlobal_0071146C; // 0x0071146C
 extern int gnGlobal_00711470; // 0x00711470
@@ -190,7 +190,7 @@ void __fastcall sub_0044BA20(int nResolution)
     sub_004F90A0(nResolution);
     sub_0045AEA0_SetPanelSlide(sub_0045AE90());
     sub_00457640(1);
-    sub_00457440(nResolution);
+    sub_00457440_Nop(nResolution);
     sub_004549B0(nResolution);
 }
 
@@ -253,7 +253,7 @@ void __cdecl sub_0044C060_Refresh()
     sub_00466FF0();
     if (gdwGlobal_007A061C)
     {
-        D2UnitStrc* pPlayer = sub_00463DD0();
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         if (pPlayer && pPlayer->dwUnitType == 0)
             sub_00462D00(2, sub_00468730(), sub_00468740(), CLIENT_GetClickFlags_inl());
     }
@@ -266,7 +266,7 @@ void __cdecl sub_0044C2C0()
     if (gdwGlobal_007A061C && gdwGlobal_007A0654)
     {
         gdwGlobal_007A0670 = 1;
-        D2UnitStrc* pPlayer = sub_00463DD0();
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         const int nFlags = CLIENT_GetClickFlags_inl();
         if (pPlayer && pPlayer->dwUnitType == 0)
             sub_00462D00(4, sub_00468730(), sub_00468740(), nFlags);
@@ -280,9 +280,9 @@ void __cdecl sub_0044C750_InitRooms()
     {
         if (!(pRoom->dwFlags & 1))
         {
-            sub_0046C460(pRoom);
-            sub_00466820(pRoom);
-            sub_0046BE60(pRoom);
+            sub_0046C460_PopulateRoom(pRoom);
+            sub_00466820_SpawnRoomPresets(pRoom);
+            sub_0046BE60_ApplyDenOfEvilRoom(pRoom);
             pRoom->dwFlags |= 1;
         }
     }

@@ -56,7 +56,7 @@ enum D2C_VileMotherAIParams
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 
 int __fastcall SKILLS_GetMonsterClassFromChain(int nMonsterId, int nNoInChain);                             // 0x0054DA60
-D2UnitStrc* __fastcall sub_6FCF1E80(D2GameStrc* pGame, D2UnitStrc* pUnit, void* a3, AIUTIL_TargetCallback a4, int nCallbackId); // 0x005DD0B0
+D2UnitStrc* __fastcall AIUTIL_FindTargetWithCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* a3, AIUTIL_TargetCallback a4, int nCallbackId); // 0x005DD0B0
 int __fastcall AITACTICS_ChangeModeAndTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, D2UnitStrc* pTargetUnit); // 0x005DDF90
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames);            // 0x005DE080
 int __fastcall AITACTICS_WalkToTargetUnitWithFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit, unsigned char nFlag); // 0x005DEC80
@@ -94,7 +94,7 @@ void __fastcall AITHINK_Fn068_VileMother(D2GameStrc* pGame, D2UnitStrc* pUnit, D
         arg.nLastInClass = nLastInClass;
         arg.nMaxDistance = 25;
         arg.nCounter = 0;
-        sub_6FCF1E80(pGame, pUnit, &arg, 0, 12);
+        AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, 0, 12);
 
         if (arg.nCounter < AI_PARAM(pGame, pMonStatsTxt, VILEMOTHER_AI_PARAM_MAX_AT_ONCE) && sub_005F9E30_VileMotherSpawnDirection(pGame, pUnit, pTarget, pMonStatsTxt))
         {

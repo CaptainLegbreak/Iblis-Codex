@@ -596,7 +596,7 @@ static int __stdcall DecodeTgaFile(void* hFile, D2PaletteColorStrc* pPalette, un
 }
 
 int __stdcall sub_00419980(const char*,void**); // 0x00419980
-int __stdcall sub_004198D0_CloseFile(void*); // 0x004198D0
+int __stdcall sub_004198D0(void*); // 0x004198D0
 void __stdcall sub_0041C340_SetLastError(unsigned int); // 0x0041C340
 
 // 0x006C6B70
@@ -625,6 +625,6 @@ int __stdcall sub_006C6B70_LoadImage(const char* filename,unsigned char* palette
  case 2:result=DecodePcxFile(hFile,palette,pixels,capacity,width,height,bits);break;
  case 3:result=DecodeTgaFile(hFile,(D2PaletteColorStrc*)palette,pixels,(unsigned int*)width,capacity,(unsigned int*)height,(unsigned int*)bits);break;
  }
- sub_004198D0_CloseFile(hFile);
+ sub_004198D0(hFile);
  return result;
 }

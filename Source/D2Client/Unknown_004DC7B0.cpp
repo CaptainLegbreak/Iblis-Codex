@@ -5,7 +5,7 @@
 
 
 
-D2UnitStrc* __cdecl sub_00463DE0_GetStoredUnit();                                                           // 0x00463DE0
+D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit();                                                           // 0x00463DE0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);                                          // 0x0061A1B0
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState);                                             // 0x00639DF0
@@ -17,7 +17,7 @@ extern "C" int __cdecl sub_0045AFC0();                                          
 extern "C" int __cdecl sub_0045AFD0_GetMouseYOffset();                                                      // 0x0045AFD0
 int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit);                                                     // 0x00620650
 int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit);                                                     // 0x006206B0
-D2MissilesTxt* __fastcall DATATBLS_GetMissilesTxtRecord(int nMissileId);                                    // 0x0046ACE0
+D2MissilesTxt* __fastcall sub_0046ACE0(int nMissileId);                                    // 0x0046ACE0
 int __fastcall sub_00471EC0(D2UnitStrc* pUnit, int nArg, int nX, int nY, int bPlayer, int nFlags); // 0x00471EC0
 void __fastcall sub_004D85B0_SkillSeqDo1Thunk(D2UnitStrc* pUnit, int nArg);                                 // 0x004D85B0
 void __fastcall sub_004D8650(D2UnitStrc* pUnit, int nArg);                                                  // 0x004D8650
@@ -40,18 +40,18 @@ static int sub_004DC710_UpdateUnitSightFlag(D2UnitStrc* pUnit)
         switch (pUnit->dwUnitType)
         {
         case 0:
-            pPlayer = sub_00463DE0_GetStoredUnit();
+            pPlayer = sub_00463DE0_GetPlayerUnit();
             if (pPlayer == pUnit || !pUnit->dwAnimMode || pUnit->dwAnimMode == 0x11)
                 goto set_flag;
             break;
         case 1:
             if (!pUnit->dwAnimMode || pUnit->dwAnimMode == 0xC)
                 goto set_flag;
-            pPlayer = sub_00463DE0_GetStoredUnit();
+            pPlayer = sub_00463DE0_GetPlayerUnit();
             break;
         case 3:
         case 4:
-            pPlayer = sub_00463DE0_GetStoredUnit();
+            pPlayer = sub_00463DE0_GetPlayerUnit();
             break;
         default:
             goto set_flag;
@@ -138,7 +138,7 @@ void __fastcall sub_004DC7B0_DrawUnitByType(D2UnitStrc* pUnit, int nColor, int b
         break;
     case 3:
     {
-        D2MissilesTxt* pMisTxt = DATATBLS_GetMissilesTxtRecord(!pUnit ? -1 : pUnit->dwClassId);
+        D2MissilesTxt* pMisTxt = sub_0046ACE0(!pUnit ? -1 : pUnit->dwClassId);
         if (!pMisTxt)
             break;
         if (sub_00471EC0(pUnit, nColor, nX + pMisTxt->nOffsetX, nY + pMisTxt->nOffsetY + pMisTxt->wYoffset, 0, 1) && pUnit)

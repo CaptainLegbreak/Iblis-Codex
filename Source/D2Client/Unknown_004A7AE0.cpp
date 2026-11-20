@@ -44,7 +44,7 @@ extern int gnGlobal_00711470; // 0x00711470
 extern unsigned char gnTextColor_007C02F8; // 0x007C02F8
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const D2HoverBoxStrc gaHoverBoxes_006DA430[2]; // 0x006DA430
-void __cdecl sub_00499E30(); // 0x00499E30
+void __cdecl sub_00499E30_SetBlackColour(); // 0x00499E30
 int __cdecl sub_00466DC0(); // 0x00466DC0
 void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
@@ -103,7 +103,7 @@ inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecordInl(int nMonsterId)
 static __declspec(noinline) void __stdcall sub_004A7AE0_DrawHoverValueBox(int nValueA, int nValueB, int nX, int nY)
 {
     D2TextCellStrc aText[0x40];
-    sub_00499E30();
+    sub_00499E30_SetBlackColour();
 
     int bHoverA = 0;
     int bHoverB = 0;

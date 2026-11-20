@@ -58,7 +58,7 @@ void __fastcall sub_00470390(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nAr
 void __fastcall sub_00470610_Refresh(D2UnitStrc* pUnit, int nArg); // 0x00470610
 void __fastcall sub_004E4020(D2UnitStrc* pUnit); // 0x004E4020
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 void __cdecl sub_004DF800(); // 0x004DF800
@@ -82,7 +82,7 @@ struct D2ClientSkillCmdStrc
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
 int __fastcall sub_004538D0(int nUIVar); // 0x004538D0
-int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit); // 0x0045ADF0
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 void __fastcall sub_004786A0_SendIntInt(char nHeader, int nArg1, int nArg2); // 0x004786A0
 void __fastcall sub_004786D0_SendPacket(char nHeader, int nArg1, int nArg2, int nArg3); // 0x004786D0
@@ -121,7 +121,7 @@ D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 int __stdcall sub_00622B50_TestInteractCollision(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nMask); // 0x00622B50
 int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nRangeBonus); // 0x00622C40
 int __stdcall UNITS_IsInMovingModeEx(D2UnitStrc* pUnit); // 0x00622DC0
-int __stdcall UNITS_IsObjectInInteractRange(D2UnitStrc* pUnit, D2UnitStrc* pObject); // 0x00623660
+int __stdcall sub_00623660_IsInObjectInteractRange(D2UnitStrc* pUnit, D2UnitStrc* pObject); // 0x00623660
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStat, int nValue, int nLayer); // 0x00627260
 int __stdcall SKILLS_GetOwnerGUIDFromSkill(D2SkillStrc* pSkill); // 0x00643AD0
@@ -251,7 +251,7 @@ void __fastcall sub_00480EC0_SetUnitModeNoOverlay(D2UnitStrc* pUnit, int nMode)
 // 0x00481780
 int __cdecl sub_00481780_GetPlayerLevelId()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (!pPlayer)
         return 0;
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
@@ -264,7 +264,7 @@ int __cdecl sub_00481780_GetPlayerLevelId()
 int __cdecl sub_004817A0_GetPlayerSoundEnv()
 {
     int nLevelId = 0;
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (pPlayer)
     {
         D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
@@ -286,7 +286,7 @@ void __cdecl sub_00481830()
 // 0x00480930
 void __fastcall sub_00480930_InteractWithUnit(unsigned short nType, int nUnitId)
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2UnitStrc* pUnit = sub_00463990(nUnitId, nType);
     if (!pUnit)
     {
@@ -306,7 +306,7 @@ void __fastcall sub_00480930_InteractWithUnit(unsigned short nType, int nUnitId)
 
         if (bSelectable)
         {
-            UNITS_UpdateDirectionAndSpeed(pPlayer, UNITS_GetXPosition(pUnit), CLIENTS_GetUnitY(pUnit));
+            UNITS_UpdateDirectionAndSpeed(pPlayer, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit));
 
             D2ClientSkillCmdStrc tCmd;
             memset(&tCmd, 0, sizeof(tCmd));
@@ -367,7 +367,7 @@ void __fastcall sub_00480930_InteractWithUnit(unsigned short nType, int nUnitId)
     }
 
     case 0:
-        UNITS_UpdateDirectionAndSpeed(pPlayer, UNITS_GetXPosition(pUnit), CLIENTS_GetUnitY(pUnit));
+        UNITS_UpdateDirectionAndSpeed(pPlayer, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit));
         break;
 
     case 4:
@@ -502,7 +502,7 @@ static int sub_00480C80_IsTargetInRange(D2UnitStrc* pPlayer, D2UnitStrc* pUnit, 
 
     if (pUnit && pUnit->dwUnitType == 2)
     {
-        if (UNITS_IsObjectInInteractRange(pPlayer, pUnit) && !sub_00622B50_TestInteractCollision(pPlayer, pUnit, 0x804))
+        if (sub_00623660_IsInObjectInteractRange(pPlayer, pUnit) && !sub_00622B50_TestInteractCollision(pPlayer, pUnit, 0x804))
         {
             return 0;
         }

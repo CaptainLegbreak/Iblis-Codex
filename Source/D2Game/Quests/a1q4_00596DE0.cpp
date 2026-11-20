@@ -113,8 +113,8 @@ void __fastcall SUNITINACTIVE_DeleteSingleListNode(D2GameStrc* pGame, unsigned s
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID);              // 0x00552F60
 void __fastcall SUNIT_IterateUnitsOfType(D2GameStrc* pGame, int nType, void* pArg, QUESTUNITITERATE pfIterate); // 0x005537D0
 D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int a7, int a8); // 0x005B2F20
-D2ActiveRoomStrc* __fastcall D2GAME_GetRoom_6FC52070(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
-int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit);                                                       // 0x0045ADF0
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                                                       // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords);              // 0x00619730
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
@@ -189,7 +189,7 @@ static void __stdcall ACT1Q4_SpawnCainInTown(D2GameStrc* pGame, D2ActiveRoomStrc
         {
             ++pCoord.nX;
             ++pCoord.nY;
-            pFreeRoom = D2GAME_GetRoom_6FC52070(pFreeRoom, pCoord.nX, pCoord.nY);
+            pFreeRoom = sub_00463740_FindRoomAtPoint(pFreeRoom, pCoord.nX, pCoord.nY);
             if (!pFreeRoom)
             {
                 pFreeRoom = pRoom;
@@ -390,7 +390,7 @@ void __fastcall ACT1Q4_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
             D2UnitStrc* pCain = SUNIT_GetServerUnit(pQuestArg->pGame, 2, pQuestDataEx2->nCainObjectGUID);
             if (pCain && pQuestDataEx2->bCainInTownSpawnPending == 1 && !pQuestDataEx2->bCainInTownSpawned)
             {
-                ACT1Q4_SpawnCainInTown(pQuestArg->pGame, UNITS_GetRoom(pCain), UNITS_GetXPosition(pCain), CLIENTS_GetUnitY(pCain));
+                ACT1Q4_SpawnCainInTown(pQuestArg->pGame, UNITS_GetRoom(pCain), CLIENTS_GetUnitX(pCain), CLIENTS_GetUnitY(pCain));
             }
         }
     }

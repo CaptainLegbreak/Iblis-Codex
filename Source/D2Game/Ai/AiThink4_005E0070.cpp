@@ -212,13 +212,13 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2UnitStrc* __fastcall D2GAME_DropItemAtUnit_6FC4FEC0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuality, int* pItemLevel, D2ItemDropStrc* pItemDrop, int a6, int a7); // 0x00559A30
 int __fastcall D2GAME_RechargeItem_6FC4BD50(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x0055FE80
 int __fastcall sub_00463860(D2UnitStrc* pUnit); // 0x00463860
-int __fastcall MONSTERS_GetBaseIdFromMonsterId(int nMonsterId); // 0x00463900
+int __fastcall sub_00463900_GetValidMonsterId(int nMonsterId); // 0x00463900
 int __stdcall MONSTERS_IsDead(D2UnitStrc* pUnit); // 0x0063EA40
 int __stdcall STATLIST_GetUnitAlignment(D2UnitStrc* pUnit); // 0x006259B0
 D2UnitStrc* __fastcall SUNIT_GetOwner(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00552FD0
 D2AiControlStrc* __fastcall AIGENERAL_GetAiControlFromUnit(D2UnitStrc* pUnit); // 0x00541860
 int __fastcall AITHINK_GetSquaredDistance(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2); // 0x005B0BD0
-int __fastcall sub_00554200(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00554200
+int __fastcall SUNIT_AreUnitsHostile(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00554200
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 int __stdcall UNITS_GetCurrentLifePercentage(D2UnitStrc* pUnit); // 0x00621F20
 int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, int nFlag); // 0x005A0180
@@ -426,7 +426,7 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_Overseer_Nihlathak(D2GameStrc* pGa
         return 0;
     }
 
-    if (MONSTERS_ValidateMonsterIdInline(sub_00463860(pTarget)) != MONSTER_MINION1 || MONSTERS_IsDead(pTarget) || sub_00554200(pGame, pUnit, pTarget) || STATES_CheckState(pTarget, STATE_BLOODLUST))
+    if (MONSTERS_ValidateMonsterIdInline(sub_00463860(pTarget)) != MONSTER_MINION1 || MONSTERS_IsDead(pTarget) || SUNIT_AreUnitsHostile(pGame, pUnit, pTarget) || STATES_CheckState(pTarget, STATE_BLOODLUST))
     {
         return 0;
     }
@@ -549,7 +549,7 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_ShadowMaster(D2GameStrc* pGame, D2
         }
     }
 
-    if (!UNIT_HasFlag(pTarget, UNITFLAG_CANBEATTACKED) || !sub_00554200(pGame, pUnit, pTarget))
+    if (!UNIT_HasFlag(pTarget, UNITFLAG_CANBEATTACKED) || !SUNIT_AreUnitsHostile(pGame, pUnit, pTarget))
     {
         return 0;
     }
@@ -654,7 +654,7 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_ZakarumPriest(D2GameStrc* pGame, D
         return 0;
     }
 
-    switch (MONSTERS_GetBaseIdFromMonsterId(sub_00463860(pTarget)))
+    switch (sub_00463900_GetValidMonsterId(sub_00463860(pTarget)))
     {
     case MONSTER_ZEALOT1:
     case MONSTER_CANTOR1:
@@ -711,7 +711,7 @@ D2UnitStrc* __fastcall AITHINK_TargetCallback_FetishShaman(D2GameStrc* pGame, D2
         return 0;
     }
 
-    const int nClassId = MONSTERS_GetBaseIdFromMonsterId(sub_00463860(pTarget));
+    const int nClassId = sub_00463900_GetValidMonsterId(sub_00463860(pTarget));
     if ((nClassId == MONSTER_FETISH1 || nClassId == MONSTER_FETISHBLOW1 && pArg->nHealCapability != 1)
         && STATLIST_GetUnitAlignment(pTarget) == UNIT_ALIGNMENT_EVIL
         && (pArg->nHealCapability >= 3 || !MONSTERUNIQUE_CheckMonTypeFlag(pTarget, MONTYPEFLAG_UNIQUE | MONTYPEFLAG_CHAMPION)))

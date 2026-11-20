@@ -8,8 +8,8 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 
 bool __stdcall sub_004067D0_GetKnownFolderPathA(char* szPath, int nSize);                                   // 0x004067D0
-int __fastcall sub_00406B20_AppendPathSeparator(char* szPath, size_t nSize);                                // 0x00406B20
-int __fastcall sub_00406DE0_ComparePaths(const char* szPathA, const char* szPathB);                         // 0x00406DE0
+int __fastcall sub_00406B20_AppendBackslash(char* szPath, size_t nSize);                                // 0x00406B20
+int __fastcall sub_00406DE0_MoveDirectoryTree(const char* szPathA, const char* szPathB);                         // 0x00406DE0
 int __stdcall SStrNCat(char* szBase, const char* szAppend, int nMaxLength);                                 // 0x00413800
 size_t __stdcall SStrLen(const char* szString);                                                             // 0x00413750
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x004135D0
@@ -49,7 +49,7 @@ static bool sub_00406D30(char* szOutPath, unsigned int nMaxLen)
     D2_ASSERT(szOutPath, 68);
     if (sub_004067D0_GetKnownFolderPathA(szOutPath, nMaxLen))
     {
-        sub_00406B20_AppendPathSeparator(szOutPath, nMaxLen);
+        sub_00406B20_AppendBackslash(szOutPath, nMaxLen);
         SStrNCat(szOutPath, "Diablo II", nMaxLen);
     }
     else
@@ -58,7 +58,7 @@ static bool sub_00406D30(char* szOutPath, unsigned int nMaxLen)
         {
             return false;
         }
-        sub_00406B20_AppendPathSeparator(szOutPath, nMaxLen);
+        sub_00406B20_AppendBackslash(szOutPath, nMaxLen);
         SStrNCat(szOutPath, "Diablo II\\Save", nMaxLen);
     }
     return true;
@@ -83,7 +83,7 @@ int __fastcall sub_00407050_GetSavePath(char* szPath, int nSize)
         {
             if (sub_00406D30(szNewPath, 0x104))
             {
-                if (sub_00406DE0_ComparePaths(szSavePath, szNewPath) == 1)
+                if (sub_00406DE0_MoveDirectoryTree(szSavePath, szNewPath) == 1)
                 {
                     SStrCopy(szPath, szSavePath, nSize);
                 }

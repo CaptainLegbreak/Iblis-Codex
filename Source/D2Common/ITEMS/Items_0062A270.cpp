@@ -32,7 +32,7 @@ unsigned int __stdcall ITEMS_GetItemTypeFromItemId(unsigned int dwItemId); // 0x
 unsigned char __stdcall ITEMS_GetSockets(D2UnitStrc* pItem); // 0x006299B0
 int __stdcall ITEMS_CheckBitField1Flag1(int nItemId); // 0x00629C80
 int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc* pItem); // 0x0062BA80
-unsigned char __stdcall ITEMS_GetMaxSockets(D2UnitStrc* pItem); // 0x0062BC20
+unsigned char __stdcall sub_0062BC20(D2UnitStrc* pItem); // 0x0062BC20
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x0063B2C0
 D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
@@ -158,7 +158,7 @@ int __stdcall ITEMS_IsSocketable(D2UnitStrc* pItem)
         {
             if (!ITEMS_CheckItemFlag_Inl(pItem, 0x100) && !sub_0062A270_HasSocketedItem(pItem) && !ITEMS_CheckItemFlag(pItem, 0x800, 4907, ".\\ITEMS\\Items.cpp"))
             {
-                if (ITEMS_GetMaxSockets(pItem))
+                if (sub_0062BC20(pItem))
                 {
                     return !ITEMS_GetSockets(pItem);
                 }

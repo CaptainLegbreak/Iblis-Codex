@@ -53,7 +53,7 @@ int __fastcall sub_004F21B0_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId); //
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId); // 0x006439F0
 void __stdcall SKILLS_SetParam1(D2SkillStrc* pSkill, int nValue); // 0x00644560
-D2UnitStrc* __fastcall sub_004648F0_GetTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
+D2UnitStrc* __fastcall sub_004648F0_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 void __fastcall sub_004F28A0_MissileScatter(D2UnitStrc* pUnit, int nSeed, int nMissile, int nX, int nY, int nCount, int nSkillId, int nSkillLevel); // 0x004F28A0
@@ -61,7 +61,7 @@ int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc,
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath); // 0x00648900
 void __stdcall D2COMMON_10160_PathUpdateDirection(D2DynamicPathStrc* pDynamicPath, unsigned char nDirection); // 0x00648820
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 void __stdcall SKILLS_SetParam2(D2SkillStrc* pSkill, int nValue); // 0x006445A0
 void __stdcall SKILLS_SetParam3(D2SkillStrc* pSkill, int nValue); // 0x006445E0
@@ -173,7 +173,7 @@ int __fastcall sub_004F29F0_MissileScatterAtTarget(D2UnitStrc* pUnit, int nSkill
 
     int nX;
     int nY;
-    D2UnitStrc* pTarget = sub_004648F0_GetTargetUnit(pUnit);
+    D2UnitStrc* pTarget = sub_004648F0_GetPathTargetUnit(pUnit);
     if (pTarget)
     {
         nX = CLIENTS_GetUnitX(pTarget);
@@ -277,13 +277,13 @@ int __fastcall sub_004F39A0_SetTargetParams(D2UnitStrc* pUnit, int nSkillId, int
         return 0;
     }
 
-    D2UnitStrc* pTarget = sub_004648F0_GetTargetUnit(pUnit);
+    D2UnitStrc* pTarget = sub_004648F0_GetPathTargetUnit(pUnit);
     if (!pTarget)
     {
         return 0;
     }
 
-    if (pUnit == sub_00463DD0() && !sub_00645680_CanUnitCorpseBeSelected(pTarget))
+    if (pUnit == sub_00463DD0_GetPlayerUnit() && !sub_00645680_CanUnitCorpseBeSelected(pTarget))
     {
         return 0;
     }

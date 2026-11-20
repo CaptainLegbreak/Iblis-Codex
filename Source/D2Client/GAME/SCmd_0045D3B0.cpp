@@ -117,9 +117,9 @@ struct D2SkillPacketStrc
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-void __fastcall sub_004CA000_EndSkill(D2UnitStrc* pUnit, int nSkillId); // 0x004CA000
-void __fastcall sub_004C8B80_EndSkill(D2UnitStrc* pUnit); // 0x004C8B80
-void __fastcall sub_004C9420_EndSkill(D2UnitStrc* pUnit, int nSkillId); // 0x004C9420
+void __fastcall sub_004CA000(D2UnitStrc* pUnit, int nSkillId); // 0x004CA000
+void __fastcall sub_004C8B80_ResetLeapCollision(D2UnitStrc* pUnit); // 0x004C8B80
+void __fastcall sub_004C9420(D2UnitStrc* pUnit, int nSkillId); // 0x004C9420
 void __stdcall sub_00639DB0_ToggleState(D2UnitStrc* pUnit, int nState, int nEnable); // 0x00639DB0
 
 struct D2GSPacketSrv26
@@ -187,27 +187,27 @@ struct D2GSPacketSrv9D
     unsigned char pBitstream[0xF4];
 };
 
-void __fastcall sub_004C20B0(D2GSPacketSrv9C* pPacket); // 0x004C20B0
-void __fastcall sub_004C2340(D2GSPacketSrv9D* pPacket); // 0x004C2340
+void __fastcall sub_004C20B0_ItemToCursor9C(D2GSPacketSrv9C* pPacket); // 0x004C20B0
+void __fastcall sub_004C2340_ItemToCursor9D(D2GSPacketSrv9D* pPacket); // 0x004C2340
 void __fastcall sub_004C25B0(D2GSPacketSrv9C* pPacket); // 0x004C25B0
-void __fastcall sub_004C2650(D2GSPacketSrv9C* pPacket); // 0x004C2650
-void __fastcall sub_004C26F0(D2GSPacketSrv9C* pPacket); // 0x004C26F0
+void __fastcall sub_004C2650_ItemOnCursor9C(D2GSPacketSrv9C* pPacket); // 0x004C2650
+void __fastcall sub_004C26F0_ItemDropped9C(D2GSPacketSrv9C* pPacket); // 0x004C26F0
 void __fastcall sub_004C2810(D2GSPacketSrv9C* pPacket); // 0x004C2810
-void __fastcall sub_004C2AD0(D2GSPacketSrv9C* pPacket); // 0x004C2AD0
+void __fastcall sub_004C2AD0_ItemToStorage9C(D2GSPacketSrv9C* pPacket); // 0x004C2AD0
 void __fastcall sub_004C2C80(D2GSPacketSrv9D* pPacket); // 0x004C2C80
 void __fastcall sub_004C2E90(D2GSPacketSrv9D* pPacket); // 0x004C2E90
 void __fastcall sub_004C3070(D2GSPacketSrv9D* pPacket); // 0x004C3070
-void __fastcall sub_004C3380(D2GSPacketSrv9D* pPacket); // 0x004C3380
-void __fastcall sub_004C3920(D2GSPacketSrv9D* pPacket); // 0x004C3920
+void __fastcall sub_004C3380_RemoveBodyItem9D(D2GSPacketSrv9D* pPacket); // 0x004C3380
+void __fastcall sub_004C3920_BodyPacket9D(D2GSPacketSrv9D* pPacket); // 0x004C3920
 void __fastcall sub_004C3B00(D2GSPacketSrv9D* pPacket); // 0x004C3B00
 void __fastcall sub_004C3B30_UpdateItemFromPacket9C(D2GSPacketSrv9C* pPacket); // 0x004C3B30
-void __fastcall sub_004C3C00(D2GSPacketSrv9C* pPacket); // 0x004C3C00
-void __fastcall sub_004C40D0(D2GSPacketSrv9C* pPacket); // 0x004C40D0
-void __fastcall sub_004C4130(D2GSPacketSrv9C* pPacket); // 0x004C4130
-void __fastcall sub_004C42A0(D2GSPacketSrv9C* pPacket); // 0x004C42A0
-void __fastcall sub_004C45C0(D2GSPacketSrv9C* pPacket); // 0x004C45C0
+void __fastcall sub_004C3C00_ItemToMerc9C(D2GSPacketSrv9C* pPacket); // 0x004C3C00
+void __fastcall sub_004C40D0_BeltPacket2_9C(D2GSPacketSrv9C* pPacket); // 0x004C40D0
+void __fastcall sub_004C4130_ItemToBelt9C(D2GSPacketSrv9C* pPacket); // 0x004C4130
+void __fastcall sub_004C42A0_ItemFromBelt9C(D2GSPacketSrv9C* pPacket); // 0x004C42A0
+void __fastcall sub_004C45C0_BeltPacket9C(D2GSPacketSrv9C* pPacket); // 0x004C45C0
 void __fastcall sub_004C4740(D2GSPacketSrv9D* pPacket); // 0x004C4740
-void __fastcall sub_004C4990(D2GSPacketSrv9D* pPacket); // 0x004C4990
+void __fastcall sub_004C4990_ItemToSocket9D(D2GSPacketSrv9D* pPacket); // 0x004C4990
 void __fastcall sub_004C4AA0(D2GSPacketSrv9D* pPacket); // 0x004C4AA0
 void __fastcall sub_004C4C70(D2GSPacketSrv9D* pPacket); // 0x004C4C70
 
@@ -235,7 +235,7 @@ int __stdcall BITMANIP_ReadSigned(D2BitBufferStrc*, int); // 0x00411030
 int __fastcall sub_0044BE50_GetUnitTypeOrInvalid(D2UnitStrc*); // 0x0044BE50
 int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc*); // 0x00451F50
 D2UnitStrc* __fastcall sub_00466360_AddClientMonster(D2UnitSpawnStrc*, unsigned char*, unsigned char*, unsigned short, int, int); // 0x00466360
-void __fastcall sub_00470B70_ResetMonsterMode(D2UnitStrc*); // 0x00470B70
+void __fastcall sub_00470B70_ResetMonsterModeGfx(D2UnitStrc*); // 0x00470B70
 void __fastcall sub_00477170_LoadPalShift(int); // 0x00477170
 int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc*, int, int); // 0x00478F20
 void __stdcall UNITS_StoreOwnerTypeAndGUID(D2UnitStrc*, int, int); // 0x00621CC0
@@ -481,14 +481,14 @@ void __fastcall sub_0045D6A0_EndPacketSkill(D2SkillPacketStrc* pPacket)
     switch (pSkill->wSrvDoFunc)
     {
     case 67:
-        sub_004CA000_EndSkill(pUnit, nSkillId);
+        sub_004CA000(pUnit, nSkillId);
         break;
     case 77:
     case 78:
-        sub_004C8B80_EndSkill(pUnit);
+        sub_004C8B80_ResetLeapCollision(pUnit);
         break;
     case 76:
-        sub_004C9420_EndSkill(pUnit, nSkillId);
+        sub_004C9420(pUnit, nSkillId);
         break;
     }
     sub_00639DB0_ToggleState(pUnit, 18, 0);
@@ -559,38 +559,38 @@ void __fastcall sub_0045EB10_Packet9C_ItemActionWorld(const D2GSPacketSrv9C* pPa
         sub_004C25B0(pCopy);
         break;
     case 1:
-        sub_004C2650(pCopy);
+        sub_004C2650_ItemOnCursor9C(pCopy);
         break;
     case 2:
-        sub_004C26F0(pCopy);
+        sub_004C26F0_ItemDropped9C(pCopy);
         break;
     case 3:
         sub_004C2810(pCopy);
         break;
     case 4:
-        sub_004C2AD0(pCopy);
+        sub_004C2AD0_ItemToStorage9C(pCopy);
         break;
     case 0xA:
         sub_004C3B30_UpdateItemFromPacket9C(pCopy);
         break;
     case 0xD:
-        sub_004C40D0(pCopy);
+        sub_004C40D0_BeltPacket2_9C(pCopy);
         break;
     case 0xE:
-        sub_004C4130(pCopy);
+        sub_004C4130_ItemToBelt9C(pCopy);
         break;
     case 0xF:
-        sub_004C42A0(pCopy);
+        sub_004C42A0_ItemFromBelt9C(pCopy);
         break;
     case 0x10:
-        sub_004C45C0(pCopy);
+        sub_004C45C0_BeltPacket9C(pCopy);
         break;
     case 0x12:
-        sub_004C20B0(pCopy);
+        sub_004C20B0_ItemToCursor9C(pCopy);
         break;
     case 0xB:
     case 0xC:
-        sub_004C3C00(pCopy);
+        sub_004C3C00_ItemToMerc9C(pCopy);
         break;
     }
 }
@@ -627,10 +627,10 @@ void __fastcall sub_0045EC70_Packet9D_ItemActionOwned(const D2GSPacketSrv9D* pPa
         sub_004C3070(pCopy);
         break;
     case 8:
-        sub_004C3380(pCopy);
+        sub_004C3380_RemoveBodyItem9D(pCopy);
         break;
     case 9:
-        sub_004C3920(pCopy);
+        sub_004C3920_BodyPacket9D(pCopy);
         break;
     case 0x17:
         sub_004C3B00(pCopy);
@@ -639,7 +639,7 @@ void __fastcall sub_0045EC70_Packet9D_ItemActionOwned(const D2GSPacketSrv9D* pPa
         sub_004C4740(pCopy);
         break;
     case 0x13:
-        sub_004C4990(pCopy);
+        sub_004C4990_ItemToSocket9D(pCopy);
         break;
     case 0x14:
         sub_004C4AA0(pCopy);
@@ -648,7 +648,7 @@ void __fastcall sub_0045EC70_Packet9D_ItemActionOwned(const D2GSPacketSrv9D* pPa
         sub_004C4C70(pCopy);
         break;
     case 0x16:
-        sub_004C2340(pCopy);
+        sub_004C2340_ItemToCursor9D(pCopy);
         break;
     }
 }
@@ -751,7 +751,7 @@ void __fastcall sub_0045F190_SpawnMonsterPacket(D2PacketSpawnStrc* pPacket)
     sub_00477170_LoadPalShift(nClassId);
     D2UnitStrc* pUnit = sub_00466360_AddClientMonster(&tSpawn, pComponents, pMods, nPalette, nSpecial, 0);
     if (!pUnit) return;
-    sub_00470B70_ResetMonsterMode(pUnit);
+    sub_00470B70_ResetMonsterModeGfx(pUnit);
     if (!MONSTERS_GetHirelingTypeId(pUnit) || nUnitId != sub_00478F20_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 1))
     {
         STATLIST_SetUnitStat(pUnit, 7, 0x8000, 0);

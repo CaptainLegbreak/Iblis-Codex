@@ -223,7 +223,7 @@ D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId);            
 int __fastcall EVENT_GetEventFrame(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEvent);                       // 0x005415A0
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit);                                                             // 0x005541B0
 int __fastcall D2GAME_CheckIfSparklyChest_6FCBD7F0(D2UnitStrc* pUnit);                                      // 0x005540D0
-void __fastcall sub_6FCBDD30(D2UnitStrc* pUnit, unsigned char nAlignNew, int a3);                           // 0x005543B0
+void __fastcall sub_005543B0_AssignAlignment(D2UnitStrc* pUnit, unsigned char nAlignNew, int a3);                           // 0x005543B0
 D2UnitStrc* __fastcall AIGENERAL_GetMinionOwner(D2UnitStrc* pUnit);                                         // 0x0058F0D0
 int __fastcall sub_6FC7D5F0(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pUnit);                      // 0x005752B0
 
@@ -832,7 +832,7 @@ static void __stdcall sub_005431F0_CompressMonsterIfNeeded(D2GameStrc* pGame, D2
         if (!bIsDead)
         {
             bCompress = 1;
-            sub_6FCBDD30(pUnit, 0, 1);
+            sub_005543B0_AssignAlignment(pUnit, 0, 1);
             sub_005B1A90(pGame, pUnit);
         }
         else

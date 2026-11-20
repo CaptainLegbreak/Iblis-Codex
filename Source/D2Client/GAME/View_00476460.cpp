@@ -206,7 +206,7 @@ void __cdecl sub_00473C00_DrawWeatherLayers();                                  
 void __fastcall sub_004DF1C0(D2ViewStrc* pView);                                                             // 0x004DF1C0
 void __fastcall sub_004DEA70(D2ViewStrc* pView);                                                             // 0x004DEA70
 void __cdecl sub_00475B20_DebugDrawLights();                                                                 // 0x00475B20
-void __cdecl sub_00473910();                                                                                 // 0x00473910
+void __cdecl sub_00473910_UpdateWeather();                                                                                 // 0x00473910
 void __cdecl sub_004DC000_DrawFadeBox();                                                                     // 0x004DC000
 extern int gnGlobal_007B9534;                                                                                // 0x007B9534
 extern int gnGlobal_007B9538;                                                                                // 0x007B9538
@@ -295,7 +295,7 @@ void __fastcall sub_00476BC0(D2ViewStrc* pView)
         sub_00475B20_DebugDrawLights();
     }
     SCALE_SetDefaultFactor();
-    sub_00473910();
+    sub_00473910_UpdateWeather();
     sub_004DC000_DrawFadeBox();
 }
 

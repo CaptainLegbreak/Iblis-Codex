@@ -105,10 +105,10 @@ bool __fastcall ACT4Q3_SeqCallback(D2QuestDataStrc* pQuestData);                
 void __fastcall ACT4Q3_Callback04_ItemPickedUp(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);    // 0x005B5A90
 void __fastcall ACT4Q3_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);   // 0x005B6100
 void __fastcall ACT4Q3_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);     // 0x005B62D0
-void __fastcall ACT4Q3_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);   // 0x005B6440
+void __fastcall sub_005B6440_ACT4Q3_Callback(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);   // 0x005B6440
 void __fastcall ACT4Q3_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x005B64E0
 void __fastcall ACT4Q3_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);   // 0x005B65D0
-bool __fastcall ACT4Q4_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus); // 0x005B69E0
+bool __fastcall ACT3Q7_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus); // 0x005B69E0
 bool __fastcall ACT4Q4_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC); // 0x005B69F0
 void __fastcall ACT3Intro_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x005B6C60
 void __fastcall ACT3Intro_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);  // 0x005B6D30
@@ -190,7 +190,7 @@ void __fastcall ACT4Q3_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->pCallback[10] = ACT4Q3_Callback10_PlayerLeavesGame;
     pQuestData->pCallback[3] = ACT4Q3_Callback03_ChangedLevel;
     pQuestData->pCallback[0] = ACT4Q3_Callback00_NpcActivate;
-    pQuestData->pCallback[2] = ACT4Q3_Callback02_NpcDeactivate;
+    pQuestData->pCallback[2] = sub_005B6440_ACT4Q3_Callback;
     pQuestData->pCallback[11] = ACT4Q3_Callback11_ScrollMessage;
     pQuestData->pCallback[13] = ACT4Q3_Callback13_PlayerStartedGame;
     pQuestData->pCallback[14] = ACT4Q3_Callback14_PlayerJoinedGame;
@@ -239,7 +239,7 @@ void __fastcall ACT4Q4_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->fLastState = 0;
     pQuestData->pQuestDataEx = 0;
     pQuestData->eFilter = 33;
-    pQuestData->pfStatusFilter = ACT4Q4_StatusFilterCallback;
+    pQuestData->pfStatusFilter = ACT3Q7_StatusFilterCallback;
     pQuestData->pfActiveFilter = ACT4Q4_ActiveFilterCallback;
 }
 

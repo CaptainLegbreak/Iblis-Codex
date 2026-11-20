@@ -67,7 +67,7 @@ int __fastcall ACT5Q2_UnitIterate_SetCompletionFlag(D2GameStrc* pGame, D2UnitStr
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, int* pnNumRooms); // 0x00619790
 void __stdcall DUNGEON_ToggleHasPortalFlag(D2ActiveRoomStrc* pRoom, int bReset); // 0x0061AED0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
-int __stdcall sub_006416D0_GetDistance(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2); // 0x006416D0
+int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2); // 0x006416D0
 
 struct D2ObjInitFnStrc
 {
@@ -80,7 +80,7 @@ struct D2ObjInitFnStrc
 	int nY;
 };
 
-D2UnitStrc* __fastcall sub_005B2F20(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int a7, short a8); // 0x005B2F20
+D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int a7, short a8); // 0x005B2F20
 void __fastcall QUESTS_CreateChainRecord(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nQuestId); // 0x005436B0
 
 // 0x00587FC0
@@ -126,7 +126,7 @@ void __fastcall ACT5Q2_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
                 for (D2UnitStrc* pUnit = ((D2ActiveRoomUnitsStrc*)ppRooms[i])->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
                 {
                     if ((!pUnit ? 6 : pUnit->dwUnitType) == 1 && pUnit->dwClassId == 0x216 && pUnit->dwAnimMode != 12 && pUnit->dwAnimMode != 0
-                        && sub_006416D0_GetDistance(pUnit, pQuestArg->pTarget) < 15)
+                        && sub_006416D0_UnitEdgeDistance(pUnit, pQuestArg->pTarget) < 15)
                     {
                         pQuestDataEx->nWussieGuids[pQuestDataEx->nWussieGuidCount] = !pUnit ? -1 : pUnit->dwUnitId;
                         ++pQuestDataEx->nWussieGuidCount;
@@ -187,7 +187,7 @@ int __fastcall ACT5Q2_SpawnCagedWussies(D2QuestDataStrc* pQuestData, D2ObjInitFn
 	{
 		for (int i = 0; i < 25; ++i)
 		{
-			D2UnitStrc* pWussies = sub_005B2F20(pQuestData->pGame, pOp->pRoom, pOp->nX, pOp->nY, 534, 1, 5, 0);
+			D2UnitStrc* pWussies = D2GAME_SpawnMonster_6FC69F10(pQuestData->pGame, pOp->pRoom, pOp->nX, pOp->nY, 534, 1, 5, 0);
 			if (pWussies)
 			{
 				pWussies->dwFlags |= 0x3000000;

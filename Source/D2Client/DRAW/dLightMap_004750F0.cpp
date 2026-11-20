@@ -63,8 +63,8 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-D2UnitStrc* __cdecl sub_00463DE0_GetStoredUnit();                                                           // 0x00463DE0
-D2UnitStrc* __cdecl sub_00463DD0();                                                               // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit();                                                           // 0x00463DE0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 D2UnitStrc* __fastcall sub_004639B0_FindServerSideUnit(unsigned int nUnitId, int nUnitType);                 // 0x004639B0
 D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType);                              // 0x00463990
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
@@ -77,7 +77,7 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath);                      
 unsigned short __stdcall COLLISION_CheckMask(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask); // 0x0064CB30
 int __fastcall sub_00474080_GetDistance(int nDX, int nDY);                                                  // 0x00474080
 void __fastcall sub_004743D0_ReleaseOverlayResource(void* pResource);                                       // 0x004743D0
-void __stdcall sub_00474610(int nArg);                                                                      // 0x00474610
+void __stdcall sub_00474610_UpdateLightGrid(int nArg);                                                                      // 0x00474610
 void __cdecl sub_004756D0_ScanGridCollision();                                                              // 0x004756D0
 int __cdecl sub_00475780_GetIndicatorLevel();                                                               // 0x00475780
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);                               // 0x0040B380
@@ -175,7 +175,7 @@ static __declspec(noinline) void __stdcall sub_004748D0_AddAreaLight(D2R01LightS
         {
         case 0:
         {
-            D2UnitStrc* pPlayer = sub_00463DE0_GetStoredUnit();
+            D2UnitStrc* pPlayer = sub_00463DE0_GetPlayerUnit();
             if (pLight->nUnitId != (!pPlayer ? -1 : pPlayer->dwUnitId) && nRadius >= 0x10)
             {
                 nRadius = 0x10;
@@ -670,14 +670,14 @@ __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
 // 0x00475800
 void __cdecl sub_00475800_RunLightPass()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     const int nX = CLIENTS_GetUnitXInline(pPlayer);
     const int nY = CLIENTS_GetUnitYInline(pPlayer);
     gnGlobal_007B0A54 = nX - 0x18;
     gnGlobal_007B0A58 = nY - 0x18;
     gnGlobal_007B0A5C = gnGlobal_007B0A54 + 0x30;
     gnGlobal_007B0A60 = gnGlobal_007B0A58 + 0x30;
-    sub_00474610(0);
+    sub_00474610_UpdateLightGrid(0);
     sub_004756D0_ScanGridCollision();
     const int nLevel = sub_00475780_GetIndicatorLevel();
     gnLightCount_007B5674 = 0;

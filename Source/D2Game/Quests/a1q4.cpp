@@ -266,7 +266,7 @@ int __fastcall AITACTICS_ChangeModeAndTargetCoordinates(D2GameStrc* pGame, D2Uni
 void __fastcall QUESTSFX_SpawnCompellingOrbMissile(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005DFEE0
 int __stdcall ITEMS_GetBaseCode(D2UnitStrc* pItem); // 0x00628590
 D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
-D2ActiveRoomStrc* __fastcall D2GAME_GetRoom_6FC52070(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
 void __stdcall DUNGEON_ToggleHasPortalFlag(D2ActiveRoomStrc* pRoom, int bSet); // 0x0061AED0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
@@ -311,7 +311,7 @@ struct D2GSPacketSrv50
 #pragma pack(pop)
 
 extern const char gszAct1Q4SourceFile[]; // 0x006E1C48
-void __fastcall sub_00592E90_InitializeStoneOrder(D2QuestDataStrc* pQuestData); // 0x00592E90
+void __fastcall sub_00592E90_OrderStones(D2QuestDataStrc* pQuestData); // 0x00592E90
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 void __fastcall D2GAME_SendPacket0x50_6FC3F440(D2ClientStrc* pClient, D2GSPacketSrv50* pPacket); // 0x0053D7E0
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
@@ -781,7 +781,7 @@ void __fastcall ACT2Q6_DeleteAllHoradricItemsAndOpenTomb(D2GameStrc* pGame, D2Un
     D2ActiveRoomStrc* hRoomObject = UNITS_GetRoom(pObject);
     D2_ASSERT(hRoomObject, 1670);
 
-    D2ActiveRoomStrc* pRoom = D2GAME_GetRoom_6FC52070(hRoomObject, UNITS_GetUnitXPosition(pObject) - 13, UNITS_GetUnitYPosition(pObject) + 3);
+    D2ActiveRoomStrc* pRoom = sub_00463740_FindRoomAtPoint(hRoomObject, UNITS_GetUnitXPosition(pObject) - 13, UNITS_GetUnitYPosition(pObject) + 3);
     DUNGEON_ToggleHasPortalFlag(hRoomObject, 0);
     if (pRoom)
     {
@@ -1271,7 +1271,7 @@ void __fastcall ACT1Q4_SendStoneOrderToClient(D2GameStrc* pGame, D2UnitStrc* pUn
         if (!pQuestDataEx->bStoneOrderInitialized)
         {
             pQuestDataEx->bStoneOrderInitialized = 1;
-            sub_00592E90_InitializeStoneOrder(pQuestData);
+            sub_00592E90_OrderStones(pQuestData);
         }
         D2GSPacketSrv50 packet;
         packet.nHeader = 0x50;

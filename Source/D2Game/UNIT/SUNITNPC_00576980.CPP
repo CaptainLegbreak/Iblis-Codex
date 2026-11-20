@@ -158,7 +158,7 @@ int __fastcall D2GAME_PlaceItem_6FC44410(const char* szFile, int nLine, D2GameSt
 void __fastcall ITEMMODE_DropCursorItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nItemGUID); // 0x00563C00
 void __fastcall sub_00570360(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00570360
 void __fastcall sub_00570C80_PLAYERSTATS_ResetToBaseStats(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00570C80
-void __fastcall D2GAME_NPCS_SetInteractTrading_6FC61AF0(D2UnitStrc* pNpc, D2UnitStrc* pPlayer); // 0x00572EA0
+void __fastcall sub_00572EA0_AdvanceInteraction(D2UnitStrc* pNpc, D2UnitStrc* pPlayer); // 0x00572EA0
 void __fastcall D2GAME_NPC_RepairItem_6FCC6970(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pPlayer); // 0x005761C0
 void __fastcall D2GAME_NPC_BuildHirelingList_6FCC6FF0(D2GameStrc* pGame, D2ClientStrc* pClient, D2UnitStrc* pNpc, int bSingle); // 0x00576770
 static int __stdcall sub_00578610_IsCursorItem(unsigned int nItemGUID, D2UnitStrc* pUnit); // 0x00578610
@@ -178,9 +178,9 @@ void __stdcall ITEMS_SetItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int bSe
 unsigned int __stdcall ITEMS_GetItemFlags(D2UnitStrc* pItem); // 0x00628110
 void __stdcall ITEMS_SetInvPage(D2UnitStrc* pItem, unsigned char nPage); // 0x00628280
 int __stdcall ITEMS_CheckIfFlagIsSet(unsigned int dwFlags, unsigned int dwMask); // 0x006287A0
-unsigned char __stdcall ITEMS_GetMaxSockets(D2UnitStrc* pItem); // 0x0062BC20
+unsigned char __stdcall sub_0062BC20(D2UnitStrc* pItem); // 0x0062BC20
 void __stdcall ITEMS_AddSockets(D2UnitStrc* pItem, int nSockets); // 0x0062BCB0
-int __stdcall ITEMS_IsImbueable(D2UnitStrc* pItem); // 0x0062C590
+int __stdcall sub_0062C590(D2UnitStrc* pItem); // 0x0062C590
 int __stdcall ITEMS_IsPersonalizable(D2UnitStrc* pItem); // 0x0062C6A0
 int __stdcall ITEMS_IsSocketable(D2UnitStrc* pItem); // 0x0062C770
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuest, int nState); // 0x0065C310
@@ -407,7 +407,7 @@ int __fastcall NPC_HandleDialogMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
         case 0x1FF:
         case 0x200:
         case 0x201:
-            D2GAME_NPCS_SetInteractTrading_6FC61AF0(pMonster, pPlayer);
+            sub_00572EA0_AdvanceInteraction(pMonster, pPlayer);
             D2GAME_STORES_CreateVendorCache_6FCC74F0(pGame, pPlayer, pMonster, bRefreshInventory, 0);
             break;
         }
@@ -424,7 +424,7 @@ int __fastcall NPC_HandleDialogMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
         case 0x195:
         case 0x200:
         case 0x202:
-            D2GAME_NPCS_SetInteractTrading_6FC61AF0(pMonster, pPlayer);
+            sub_00572EA0_AdvanceInteraction(pMonster, pPlayer);
             D2GAME_STORES_CreateVendorCache_6FCC74F0(pGame, pPlayer, pMonster, bRefreshInventory, 1);
             break;
         }
@@ -464,7 +464,7 @@ int __fastcall NPC_HandleDialogMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
             return 0;
         }
 
-        if (!ITEMS_IsImbueable(pInput))
+        if (!sub_0062C590(pInput))
         {
             packet58.nAction = 7;
             sub_0053D8D0_SendPacket0x58(pClient, &packet58);
@@ -603,7 +603,7 @@ int __fastcall NPC_HandleDialogMessage(D2GameStrc* pGame, D2UnitStrc* pPlayer, i
         {
             ITEMS_SetItemFlag(pOutput, IFLAG_SOCKETED, 1);
 
-            int nSockets = ITEMS_GetMaxSockets(pOutput);
+            int nSockets = sub_0062BC20(pOutput);
             switch (ITEMS_GetItemQuality(pOutput))
             {
             case 4:

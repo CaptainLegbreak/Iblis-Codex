@@ -32,15 +32,15 @@ void __fastcall sub_00451DB0_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
 void __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
 void __cdecl sub_004567F0_ToggleMiniPanel(); // 0x004567F0
-void __cdecl sub_0045A4C0(); // 0x0045A4C0
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+void __cdecl sub_0045A4C0_InitAutomap(); // 0x0045A4C0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
-void __cdecl sub_0046AC70(); // 0x0046AC70
+void __cdecl sub_0046AC70_EnableHotkeyHandlers(); // 0x0046AC70
 D2CellFileStrc* __fastcall sub_004788B0(const char* szFile, int nType); // 0x004788B0
 void __cdecl sub_0047DD70_LoadOptionMenus(); // 0x0047DD70
-void __cdecl sub_0047F0C0(); // 0x0047F0C0
+void __cdecl sub_0047F0C0_LoadMiniPanel(); // 0x0047F0C0
 void __cdecl sub_004868B0(); // 0x004868B0
 void __cdecl sub_00489220_LoadShopPanelCels(); // 0x00489220
 void __cdecl sub_00492C20_LoadHirelingIcons(); // 0x00492C20
@@ -48,9 +48,9 @@ void __cdecl sub_004967F0_LoadPanelCels(); // 0x004967F0
 void __cdecl sub_0049C6A0(); // 0x0049C6A0
 void __cdecl sub_0049D440_LoadTextSettings(); // 0x0049D440
 int __cdecl sub_004A0000(); // 0x004A0000
-void __cdecl sub_004A3410(); // 0x004A3410
+void __cdecl sub_004A3410_ResetQuestPanel(); // 0x004A3410
 void __cdecl sub_004A5190_InitTextSlider(); // 0x004A5190
-void __cdecl sub_004A6460(); // 0x004A6460
+void __cdecl sub_004A6460_LoadLevelCels(); // 0x004A6460
 void __cdecl sub_004B23E0_InitPartyPanel(); // 0x004B23E0
 int __fastcall sub_004B3230_GetTickPair(int* pLow); // 0x004B3230
 void __fastcall sub_004B3C20(int nValue); // 0x004B3C20
@@ -107,12 +107,12 @@ void __cdecl sub_00456970_InitUI()
 {
     char szPath[0x104];
     sub_004967F0_LoadPanelCels();
-    sub_0047F0C0();
+    sub_0047F0C0_LoadMiniPanel();
     sub_0049D440_LoadTextSettings();
-    sub_004A6460();
+    sub_004A6460_LoadLevelCels();
     sub_00492C20_LoadHirelingIcons();
     sub_004B23E0_InitPartyPanel();
-    sub_0045A4C0();
+    sub_0045A4C0_InitAutomap();
     sub_0049C6A0();
     sub_004B8720();
     gpGlobal_007A27A0 = 0;
@@ -157,7 +157,7 @@ void __cdecl sub_00456970_InitUI()
                 }
             }
         }
-        D2UnitStrc* pPlayer = sub_00463DD0();
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         if (!pPlayer || (pPlayer->dwUnitType == 0 && !sub_00464820_IsDeadOrDying(pPlayer)))
             gaUIVarStates_007A27C0[0] = 1;
         if (!bWasOn)
@@ -213,7 +213,7 @@ mini_panel:
                     goto load_cels;
             }
         }
-        D2UnitStrc* pPlayer = sub_00463DD0();
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         if (!pPlayer || (pPlayer->dwUnitType == 0 && !sub_00464820_IsDeadOrDying(pPlayer)))
             gaUIVarStates_007A27C0[0x22] = 1;
         if (!bWasOn)
@@ -241,8 +241,8 @@ load_cels:
     sub_004B7B40();
     sub_00489220_LoadShopPanelCels();
     sub_004BE020_LoadTextSliderCel();
-    sub_004A3410();
-    sub_0046AC70();
+    sub_004A3410_ResetQuestPanel();
+    sub_0046AC70_EnableHotkeyHandlers();
     sub_0047DD70_LoadOptionMenus();
     sub_004A5190_InitTextSlider();
 }

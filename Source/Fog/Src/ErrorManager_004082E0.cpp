@@ -87,7 +87,7 @@ void __fastcall sub_00402EE0_DumpModules(D2CrashPrintFn pfnPrint,void* pContext)
 unsigned long __cdecl sub_00401690_GetCurrentThreadId(); // 0x00401690
 void __fastcall sub_004013C0_TerminateCurrentProcess(unsigned int nCode); // 0x004013C0
 bool __fastcall sub_00402820_WriteMiniDump(const char* szPath,const char* szComment,void* pExceptionPointers,unsigned long dwThreadId); // 0x00402820
-unsigned int __stdcall sub_004135D0(char* szDest,const char* szSource,unsigned int nDestSize); // 0x004135D0
+unsigned int __stdcall SStrCopy(char* szDest,const char* szSource,unsigned int nDestSize); // 0x004135D0
 unsigned int __stdcall sub_00413800(char* szDest,const char* szSource,unsigned int nDestSize); // 0x00413800
 extern char gszProcessPath_0074E8C8[0x800]; // 0x0074E8C8
 extern const char gszEmptyAssertText; // 0x006CC837
@@ -147,7 +147,7 @@ int __fastcall sub_004082E0_CrashHandler(D2CrashInputStrc* pInput)
             else
                 sub_00403070_DumpThread(pInput->dwThreadId,pThread,sub_00407980_ReportPrint,&report,0,0,nSkip);
             report.sub_00401380(gszMore4_006CD0C4);
-            sub_004135D0(gszProcessPath_0074E8C8,report.m_szText408,0x800);
+            SStrCopy(gszProcessPath_0074E8C8,report.m_szText408,0x800);
             sub_00413800(gszProcessPath_0074E8C8,gszMinidump_006CD0B4,0x800);
             if (sub_00402820_WriteMiniDump(gszProcessPath_0074E8C8,&gszEmptyAssertText,pInput->pException,0))
                 report.sub_00401220_AddFile(gszProcessPath_0074E8C8,false);

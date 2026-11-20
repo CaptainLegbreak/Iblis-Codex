@@ -18,7 +18,7 @@ struct D2StrHashEntry00524C60Strc;
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 D2ArchiveHandleStrc* __fastcall sub_00517332_LoadMpqFile(const char* szFileName, void* hFile, void* pfShowMessage, int nPriority); // 0x00517332
-void __fastcall ARCHIVE_UnloadMPQFile(D2ArchiveHandleStrc* pMPQHandle); // 0x005173AC
+void __fastcall sub_005173AC_Unload(D2ArchiveHandleStrc* pMPQHandle); // 0x005173AC
 extern "C" const char gszExpansionMpq_006CD3A0[]; // 0x006CD3A0
 extern "C" const char szPatchD2Mpq_006DC728[]; // 0x006DC728
 extern "C" const char szD2DataMpq_006DC770[]; // 0x006DC770
@@ -55,7 +55,7 @@ struct Unicode
 };
 
 void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
-int __fastcall sub_00527D50_GetUnicodeLength(const char* szSource, int nLength); // 0x00527D50
+int __fastcall sub_00527D50_GetCodePageCharCount(const char* szSource, int nLength); // 0x00527D50
 extern const unsigned short gaCrc16Table_007301D8[256]; // 0x007301D8
 extern "C" const char szNotTranslated_00730520[]; // 0x00730520
 
@@ -70,7 +70,7 @@ struct D2LanguageInfoStrc
 };
 
 extern "C" int __cdecl _stricmp(const char* szString1, const char* szString2); // 0x006841E9
-void* __fastcall sub_00517079_LoadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
+void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
 
 #pragma pack(push, 1)
 struct D2StringTableStrc
@@ -110,7 +110,7 @@ struct D2StringHashNodeStrc
 
 unsigned int __stdcall sub_005249E0(const char* szKey, unsigned int nTableSize); // 0x005249E0
 wchar_t* __fastcall sub_00524AC0_GetUntranslatedString(const char* szKey); // 0x00524AC0
-void __cdecl sub_00527720(); // 0x00527720
+void __cdecl sub_00527720_FreeCodePageTables(); // 0x00527720
 
 struct D2GameStrc
 {
@@ -205,16 +205,16 @@ int __cdecl sub_00524810_OpenArchives()
     ghArchive_008829E0 = sub_00517332_LoadMpqFile(szPatchD2Mpq_006DC728, 0, 0, 1000);
     if (!ghArchive_008829E0)
     {
-        ARCHIVE_UnloadMPQFile((D2ArchiveHandleStrc*)ghArchive_008829DC);
+        sub_005173AC_Unload((D2ArchiveHandleStrc*)ghArchive_008829DC);
         ghArchive_008829DC = 0;
         return 0;
     }
     ghArchive_008829E4 = sub_00517332_LoadMpqFile(gszExpansionMpq_006CD3A0, 0, 0, 1000);
     if (!ghArchive_008829E4)
     {
-        ARCHIVE_UnloadMPQFile((D2ArchiveHandleStrc*)ghArchive_008829DC);
+        sub_005173AC_Unload((D2ArchiveHandleStrc*)ghArchive_008829DC);
         ghArchive_008829DC = 0;
-        ARCHIVE_UnloadMPQFile((D2ArchiveHandleStrc*)ghArchive_008829E0);
+        sub_005173AC_Unload((D2ArchiveHandleStrc*)ghArchive_008829E0);
         ghArchive_008829E0 = 0;
         return 0;
     }
@@ -226,17 +226,17 @@ void __cdecl sub_005248E0_CloseArchives()
 {
     if (ghArchive_008829DC)
     {
-        ARCHIVE_UnloadMPQFile((D2ArchiveHandleStrc*)ghArchive_008829DC);
+        sub_005173AC_Unload((D2ArchiveHandleStrc*)ghArchive_008829DC);
         ghArchive_008829DC = 0;
     }
     if (ghArchive_008829E0)
     {
-        ARCHIVE_UnloadMPQFile((D2ArchiveHandleStrc*)ghArchive_008829E0);
+        sub_005173AC_Unload((D2ArchiveHandleStrc*)ghArchive_008829E0);
         ghArchive_008829E0 = 0;
     }
     if (ghArchive_008829E4)
     {
-        ARCHIVE_UnloadMPQFile((D2ArchiveHandleStrc*)ghArchive_008829E4);
+        sub_005173AC_Unload((D2ArchiveHandleStrc*)ghArchive_008829E4);
         ghArchive_008829E4 = 0;
     }
 }
@@ -319,7 +319,7 @@ wchar_t* __fastcall sub_00524AC0_GetUntranslatedString(const char* szKey)
     char* szText = (char*)FOG_Alloc(nLength + 1, ".\\StrTable\\strtable.cpp", 0x26C, 0);
     strcpy(szText, szKey);
     strcat(szText, szNotTranslated_00730520);
-    const int nChars = sub_00527D50_GetUnicodeLength(szText, nLength);
+    const int nChars = sub_00527D50_GetCodePageCharCount(szText, nLength);
     pNode->pText = (wchar_t*)FOG_Alloc(nChars * 2 + 2, ".\\StrTable\\strtable.cpp", 0x271, 0);
     sub_00526320_ToUnicode((Unicode*)pNode->pText, szText, nChars);
     FOG_Free(szText, ".\\StrTable\\strtable.cpp", 0x277, 0);
@@ -479,7 +479,7 @@ void __cdecl sub_00524E40_UnloadStringTables()
             pNode = pNext;
         }
         gpStringCache_008829B0 = 0;
-        sub_00527720();
+        sub_00527720_FreeCodePageTables();
     }
 }
 
@@ -534,7 +534,7 @@ int __cdecl STRTABLE_GetLanguage()
     if (!gbTableLanguageInitialized_008829F0)
     {
         gbTableLanguageInitialized_008829F0 = true;
-        unsigned char* pBuffer = (unsigned char*)sub_00517079_LoadFile(ghArchive_008829DC, "data\\local\\use", 0, ".\\StrTable\\strtable.cpp", 0x44B);
+        unsigned char* pBuffer = (unsigned char*)ARCHIVE_AllocateBufferAndReadFile(ghArchive_008829DC, "data\\local\\use", 0, ".\\StrTable\\strtable.cpp", 0x44B);
         if (pBuffer)
         {
             gnTableLanguage_008829EC = *pBuffer;

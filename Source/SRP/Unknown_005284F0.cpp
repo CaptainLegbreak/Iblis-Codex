@@ -80,7 +80,7 @@ struct D2BigServerHandlesStrc
     void* hPrivate;
 };
 
-unsigned char* __fastcall sub_0052A120_HashInterleave(unsigned char* pDest, const unsigned char* pData, unsigned int nSize); // 0x0052A120
+unsigned char* __fastcall sub_0052A120_ShaInterleave(unsigned char* pDest, const unsigned char* pData, unsigned int nSize); // 0x0052A120
 
 struct T0041D340
 {
@@ -212,7 +212,7 @@ int D2BigPairStrc::sub_00528AC0_VerifyClientProof(D2BigServerRecordStrc* pRecord
     sub_0052A600(tHandles.hVerifier);
     const unsigned int nSize = sub_0052A2A0_BigToBinary(hKey, abKey, 0x20);
     sub_0052A600(hKey);
-    sub_0052A120_HashInterleave(pRecord->abKey, abKey, nSize);
+    sub_0052A120_ShaInterleave(pRecord->abKey, abKey, nSize);
     pState->sub_005282A0_ComputeProof(pRecord->szName, pRecord->abSalt, pRecord->abClientPublic, pRecord->abServerPublic, pRecord->abKey, pRecord->abClientProof);
     return memcmp(pRecord->abClientProof, pClientProof, sizeof(pRecord->abClientProof)) == 0;
 }

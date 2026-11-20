@@ -135,7 +135,7 @@ extern int gnGlobal_007C5474; // 0x007C5474
 void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 void __fastcall sub_00502280_SetPopUpText(const unsigned short* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 void __fastcall sub_00498DC0_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00498DC0
-int __stdcall sub_00489060_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00489060
+int __stdcall sub_00489060_ClickMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00489060
 
 struct D2HotspotStrc
 {
@@ -177,7 +177,7 @@ int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int n
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 int __stdcall sub_004922A0_ClickMsg(SMSGHANDLER_PARAMS* pMsg); // 0x004922A0
 void __fastcall sub_004BFBC0_HitTestHotspots(int nX, int nY); // 0x004BFBC0
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
@@ -402,7 +402,7 @@ void __stdcall sub_004BFA30_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg)
     sub_00498DC0_MouseMoveMsg(pMsg);
     if (gnGlobal_007C5474 == 1)
     {
-        sub_00489060_MouseMoveMsg(pMsg);
+        sub_00489060_ClickMsg(pMsg);
     }
 }
 
@@ -481,7 +481,7 @@ static void sub_004BFA70_ToggleUseMode(D2UnitStrc* pItem)
 
 static D2UnitStrc* GetCursorItem_Inline()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (!pPlayer)
         return 0;
     D2InventoryStrc* pInventory = pPlayer->pInventory;
@@ -589,14 +589,14 @@ void __stdcall sub_004C0150_OnPanelClose(SMSGHANDLER_PARAMS* pMsg)
             return;
         }
 
-        D2UnitStrc* pPlayer = sub_00463DD0();
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         D2InventoryStrc* pInventory = pPlayer ? pPlayer->pInventory : 0;
         sub_00468070_SetCursorItemState(pPlayer ? INVENTORY_GetCursorItem(pInventory) : 0);
     }
 
     if (!gnGlobal_007C5470)
     {
-        D2UnitStrc* pPlayer = sub_00463DD0();
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         const int nUnitId = !pPlayer ? -1 : pPlayer->dwUnitId;
         const int nValue = gnGlobal_007C547C;
         sub_00478700_SendCommand(0x44, nUnitId, nValue, 0, 2);

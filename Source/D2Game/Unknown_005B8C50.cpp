@@ -30,8 +30,8 @@ struct D2QuestArgStrc
 };
 void __fastcall QUESTS_UnitIterate(D2QuestDataStrc* pQuest, int nIterateState, D2UnitStrc* pUnit, QUESTUNITITERATE pfIterate, bool bIterate); // 0x00544300
 D2UnitStrc* __fastcall SUNIT_IterateUnitsOfType(D2GameStrc* pGame, int nType, void* pArg, QUESTUNITITERATE pfIterate); // 0x005537D0
-int __fastcall sub_005B8BF0_UnitIterate(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg); // 0x005B8BF0
-int __fastcall sub_005B8B20_UnitIterate(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg); // 0x005B8B20
+int __fastcall ACT3Q3_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg); // 0x005B8BF0
+int __fastcall ACT3Q3_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg); // 0x005B8B20
 
 // 0x005B8C50
 void __fastcall sub_005B8C50_QuestCallback(D2QuestDataStrc* pQuest, D2QuestArgStrc* pArg)
@@ -43,9 +43,9 @@ void __fastcall sub_005B8C50_QuestCallback(D2QuestDataStrc* pQuest, D2QuestArgSt
         if (pQuestDataEx->nState1 == 1)
         {
             pQuest->bFlag14 = 0;
-            QUESTS_UnitIterate(pQuest, 2, 0, sub_005B8BF0_UnitIterate, 1);
+            QUESTS_UnitIterate(pQuest, 2, 0, ACT3Q3_UnitIterate_StatusCyclerEx, 1);
             pQuestDataEx->nState1 = 0;
-            SUNIT_IterateUnitsOfType(pQuest->pGame, 0, 0, sub_005B8B20_UnitIterate);
+            SUNIT_IterateUnitsOfType(pQuest->pGame, 0, 0, ACT3Q3_UnitIterate_UpdateQuestStateFlags);
         }
     }
     else if ((unsigned short)nClassId == 0xFF && pQuestDataEx->bFlag7)

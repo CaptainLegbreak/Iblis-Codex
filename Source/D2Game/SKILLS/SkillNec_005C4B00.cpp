@@ -82,14 +82,14 @@ D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom
 void __fastcall MONSTER_UpdateAiCallbackEvent(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00573780
 void __stdcall MONSTERMODE_GetModeChangeInfo(D2UnitStrc* pUnit, int nMode, D2ModeChangeStrc* pModeChange); // 0x005A7E60
 int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int a3); // 0x005A7C20
-void __fastcall sub_6FD154D0(D2UnitStrc* pUnit); // 0x0056E580
+void __fastcall SKILLS_ClearMonsterMinionOwnership(D2UnitStrc* pUnit); // 0x0056E580
 void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nEventCustomId); // 0x00540E60
 D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
 int __fastcall sub_6FCBDFE0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int a6, int a7); // 0x00554EA0
 void __fastcall AIGENERAL_SetOwnerData(D2GameStrc* pGame, D2UnitStrc* pUnit, int nOwnerGUID, int nOwnerType, int bSetFlag1, int bSetFlag2); // 0x0058F030
 void __fastcall AIUTIL_SetOwnerGUIDAndType(D2UnitStrc* pUnit, D2UnitStrc* pOwner); // 0x005DD330
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
-void __fastcall sub_6FCBDD30(D2UnitStrc* pUnit, unsigned char nAlignNew, int a3); // 0x005543B0
+void __fastcall sub_005543B0_AssignAlignment(D2UnitStrc* pUnit, unsigned char nAlignNew, int a3); // 0x005543B0
 void __fastcall sub_00573120_ClearMonsterPair(D2UnitStrc* pUnit); // 0x00573120
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
 void __fastcall D2GAME_BOSSES_AssignUMod_6FC6FF10(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique); // 0x005A4850
@@ -249,7 +249,7 @@ static int __stdcall sub_005C5430_MoveRevivedTarget(D2GameStrc* pGame, D2UnitStr
     D2ModeChangeStrc tModeChange = {};
     MONSTERMODE_GetModeChangeInfo(pTarget, 1, &tModeChange);
     D2GAME_ModeChange_6FC65220(pGame, &tModeChange, 1);
-    sub_6FD154D0(pTarget);
+    SKILLS_ClearMonsterMinionOwnership(pTarget);
     D2GAME_EVENTS_Delete_6FC34840(pGame, pTarget, 8, 0);
     if (UNITS_GetRightSkill(pTarget))
     {
@@ -268,7 +268,7 @@ static void __stdcall sub_005C55C0_InitializeRevivedMonster(D2GameStrc* pGame, D
         AIUTIL_SetOwnerGUIDAndType(pMonster, (pUnit));
         D2GAME_EVENTS_Delete_6FC34840(pGame, pMonster, 2, 0);
         EVENT_SetEvent(pGame, pMonster, 2, pGame->dwGameFrame + 15, 0, 0);
-        sub_6FCBDD30(pMonster, 2, 0);
+        sub_005543B0_AssignAlignment(pMonster, 2, 0);
         sub_00573120_ClearMonsterPair(pMonster);
 
         if (pMonster)

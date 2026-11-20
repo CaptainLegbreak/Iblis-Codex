@@ -24,7 +24,7 @@ int __fastcall D2Win_10053(D2WinTextBoxStrc* pTextBox, int nLine);              
 void __cdecl sub_004301A0();                                                                                // 0x004301A0
 void __cdecl sub_00515020_FadeOutWaves();                                                                   // 0x00515020
 void __cdecl sub_0042F480_Reset();                                                                          // 0x0042F480
-void __cdecl sub_0043B080();                                                                                // 0x0043B080
+void __cdecl sub_0043B080_InitCharSelectScreen();                                                                                // 0x0043B080
 void __cdecl sub_0043C4F0();                                                                                // 0x0043C4F0
 D2WinControlStrc* __fastcall sub_0042F430_CreateControl(int nId);                                           // 0x0042F430
 
@@ -122,7 +122,7 @@ int __stdcall sub_00430C30_OnCancel(int nArg)
 {
     sub_00515020_FadeOutWaves();
     sub_0042F480_Reset();
-    sub_0043B080();
+    sub_0043B080_InitCharSelectScreen();
     return 1;
 }
 

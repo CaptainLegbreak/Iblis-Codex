@@ -208,8 +208,8 @@ extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize
 void __stdcall sub_006BD230_AddLinkCode(D2TxtLinkStrc* pLinker, unsigned int dwCode); // 0x006BD230
 void* __stdcall sub_00504430_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pBinField, int* pRecordCount, int nRecordSize); // 0x00504430
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
-int __fastcall ARCHIVE_OpenFile(void* hArchive, const char* szFilePath, void** phFile, int bFileNotFoundLogSkipped); // 0x00516E46
-void __fastcall ARCHIVE_CloseFile(void* hArchive, void* hFile); // 0x00516E84
+int __fastcall sub_00516E46_OpenFile(void* hArchive, const char* szFilePath, void** phFile, int bFileNotFoundLogSkipped); // 0x00516E46
+void __fastcall sub_00516E84_CloseFile(void* hArchive, void* hFile); // 0x00516E84
 void __fastcall ARCHIVE_ReadFileToBuffer(void* hArchive, void* hFile, void* pBuffer, unsigned int dwBytesToRead); // 0x00516F85
 extern unsigned char gabItemPalettes_00842710[9][0x6900]; // 0x00842710
 extern const char gszGuildPrefix[]; // 0x006DCE68
@@ -221,7 +221,7 @@ Unicode* __fastcall sub_00526F20(Unicode*,const char*,int); // 0x00526F20
 void __fastcall sub_00526320(Unicode*,const char*,int); // 0x00526320
 int __fastcall sub_00502EF0(int); // 0x00502EF0
 int __stdcall sub_00503EC0_TruncateText(Unicode*,int); // 0x00503EC0
-void __fastcall sub_00502520(const Unicode*,int*,int*); // 0x00502520
+void __fastcall D2Win_10131_GetTextDimensions(const Unicode*,int*,int*); // 0x00502520
 void __fastcall sub_00502320(const Unicode*,int,int,int,int); // 0x00502320
 
 int gnItems_0087D834; // 0x0087D834
@@ -1273,9 +1273,9 @@ static void sub_00505470_LoadItemPalette(const char* szName, int nIndex)
     strcat(szPath, szName);
     strcat(szPath, ".dat");
     void* hFile;
-    D2_ASSERT(ARCHIVE_OpenFile(0, szPath, &hFile, 1), 0xDD8);
+    D2_ASSERT(sub_00516E46_OpenFile(0, szPath, &hFile, 1), 0xDD8);
     ARCHIVE_ReadFileToBuffer(0, hFile, gabItemPalettes_00842710[nIndex], 0x1500);
-    ARCHIVE_CloseFile(0, hFile);
+    sub_00516E84_CloseFile(0, hFile);
 }
 
 // 0x00505550
@@ -1401,7 +1401,7 @@ int __fastcall sub_00505810_DrawCompositeLabel(D2CompositeUnitStrc* unit)
  sub_00502EF0(12);
  sub_00503EC0_TruncateText(text,120);
  int width,height;
- sub_00502520(text,&width,&height);
+ D2Win_10131_GetTextDimensions(text,&width,&height);
  if(shadow)sub_00502320(text,unit->nX-(width>>1)-1,y-1,6,0);
  sub_00502320(text,unit->nX-(width>>1),y,color,0);
  return 1;

@@ -81,7 +81,7 @@ void __fastcall sub_00457460(D2UnitStrc* pUnit, int nArg, int nValue);          
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                                                         // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
 int __fastcall sub_00463860(D2UnitStrc* pUnit);                                                             // 0x00463860
-D2UnitStrc* __cdecl sub_00463DD0();                                                               // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 void __fastcall sub_004643F0_SetTargetByGUID(D2UnitStrc* pUnit, int nUnitType, int nUnitGUID);              // 0x004643F0
 void __fastcall sub_004647D0_UpdateAttackableFlag(D2UnitStrc* pUnit);                                       // 0x004647D0
 void __fastcall sub_00464810_SetUnitFlag16(D2UnitStrc* pUnit);                                                // 0x00464810
@@ -899,7 +899,7 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
     case 9:
     {
         D2COMMON_10212_PATH_SetMoveFlags(pUnit, 0);
-        D2UnitStrc* pPlayer = sub_00463DD0();
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         if (!(pMonStats2Txt->nFlags[2] & gdwBitMasks[3]))
             PATH_SetUnitDeadCollision(pUnit, 0);
 

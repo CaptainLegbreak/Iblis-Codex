@@ -81,7 +81,7 @@ int __fastcall sub_00569D80(D2GameStrc*, unsigned short, D2ClientStrc*); // 0x00
 void __fastcall CLIENTS_SetCreateTime(D2ClientStrc*, unsigned int); // 0x00538760
 void __fastcall CLIENTS_SetActNo(D2ClientStrc*, unsigned char); // 0x005382E0
 D2UnitStrc* __fastcall SUNIT_AllocUnitData(int, int, int, int, D2GameStrc*, D2ActiveRoomStrc*, char, int, unsigned int); // 0x00555230
-void __fastcall sub_00569F20(D2GameStrc*, D2UnitStrc*, D2ClientStrc*); // 0x00569F20
+void __fastcall sub_00569F20_InitPlayerFromClient(D2GameStrc*, D2UnitStrc*, D2ClientStrc*); // 0x00569F20
 D2GameStrc* __fastcall CLIENTS_GetGame(D2ClientStrc*); // 0x005387C0
 void __fastcall sub_00571F90(D2GameStrc*, D2UnitStrc*, D2ClientStrc*); // 0x00571F90
 
@@ -305,7 +305,7 @@ int __fastcall PLRSAVE2_ReadSaveHeader(D2GameStrc* pGame, D2ClientStrc* pClient,
     if (pGame->nGameType == 3 && !pGame->InitSeed && bUseSeed)
         pGame->dwInitSeed = pHeader->dwMapSeed;
     *ppPlayer = SUNIT_AllocUnitData(0, nClass, 0, 0, pGame, 0, 0, 0, 0);
-    sub_00569F20(pGame, *ppPlayer, pClient);
+    sub_00569F20_InitPlayerFromClient(pGame, *ppPlayer, pClient);
     sub_00571F90(CLIENTS_GetGame(pClient), *ppPlayer, pClient);
     for (int i = 0; i < 16; ++i)
     {

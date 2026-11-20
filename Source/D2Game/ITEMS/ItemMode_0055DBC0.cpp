@@ -81,7 +81,7 @@ void __fastcall ITEMS_RemoveFromAllPlayers(D2GameStrc* pGame, D2UnitStrc* pUnit)
 void __fastcall ITEMS_DropGoldPile(D2GameStrc* pGame, D2UnitStrc* pUnit, int nAmount);                      // 0x0055B030
 void __fastcall sub_0055BF50_ClearTargetingFlags(D2UnitStrc* pUnit, const char* szFile, int nLine);         // 0x0055BF50
 void __fastcall sITEMSAddStatsList(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pUnit, int a4); // 0x0055C2C0
-int __fastcall ITEMMODE_CanPickUpItem(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem);             // 0x0055CC90
+int __fastcall sub_6FC425F0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem);             // 0x0055CC90
 void __fastcall sub_0055DBC0_RecalcEquippedItemStates(D2GameStrc* pGame, D2UnitStrc* pUnit, int nArg);
 static __forceinline int sub_0055DBC0_GetUnitType(D2UnitStrc* pUnit)
 {
@@ -138,7 +138,7 @@ D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); 
 void __stdcall INVENTORY_SetCursorItem(D2InventoryStrc* pInventory, D2UnitStrc* pItem);                     // 0x0063C180
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory);                                 // 0x0063C1E0
 void __stdcall INVENTORY_AddItemToTradeInventory(D2InventoryStrc* pInventory, D2UnitStrc* pItem);           // 0x0063CC70
-void __stdcall sub_0063D1D0_InventoryItemCall(D2InventoryStrc* pInventory, D2UnitStrc* pItem);              // 0x0063D1D0
+void __stdcall INVENTORY_UpdateWeaponGUIDOnInsert(D2InventoryStrc* pInventory, D2UnitStrc* pItem);              // 0x0063D1D0
 D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem);                                             // 0x0063DFA0
 D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem);                                              // 0x0063DFD0
 D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID);              // 0x006439B0
@@ -157,7 +157,7 @@ int __stdcall ITEMS_GetItemLevel(D2UnitStrc* pItem);                            
 unsigned int __stdcall ITEMS_GetItemStartSeed(D2UnitStrc* pItem);                                           // 0x00627DF0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath);                                                  // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath);                                                  // 0x00648900
-D2UnitStrc* __fastcall sub_00558D90_SpawnItem(D2GameStrc* pGame, D2ItemDropStrc* pItemDrop, int a3);        // 0x00558D90
+D2UnitStrc* __fastcall D2GAME_CreateItemEx_6FC4ED80(D2GameStrc* pGame, D2ItemDropStrc* pItemDrop, int a3);        // 0x00558D90
 int __stdcall ITEMS_AreStackablesEqual(D2UnitStrc* pItem1, D2UnitStrc* pItem2);                              // 0x0062C850
 int __stdcall ITEMS_GetTotalMaxStack(D2UnitStrc* pItem);                                                    // 0x006295B0
 int __stdcall ITEMS_HasDurability(D2UnitStrc* pItem);                                                       // 0x00629930
@@ -181,7 +181,7 @@ static void __stdcall sub_0055D970_UpdateEquippedItemStats(D2GameStrc* pGame, D2
         return;
     }
 
-    sub_0063D1D0_InventoryItemCall(pUnit->pInventory, pItem);
+    INVENTORY_UpdateWeaponGUIDOnInsert(pUnit->pInventory, pItem);
 
     if (UNITS_GetAnimOrSeqMode(pItem) == 1 || !UNITS_GetAnimOrSeqMode(pItem) && ITEMS_IsCharmUsable(pItem, pUnit))
     {
@@ -265,7 +265,7 @@ int __stdcall INVENTORY_GetItemNodePage(D2UnitStrc* pItem); // 0x0063E020
 int __fastcall sub_0055DB00_CheckEquipRequirements(D2UnitStrc* pUnit,D2UnitStrc* pItem); // 0x0055DB00
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem,unsigned int dwFlag,int nLine,const char* szFile); // 0x006280A0
 void __stdcall INVENTORY_UpdateWeaponGUIDOnRemoval(D2InventoryStrc* pInventory,D2UnitStrc* pItem); // 0x0063D2B0
-void __fastcall sub_0055C730_UpdateTransferredProperties(D2GameStrc* pGame,D2UnitStrc* pItem,D2UnitStrc* pUnit,int nArg1,int nArg2); // 0x0055C730
+void __fastcall D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(D2GameStrc* pGame,D2UnitStrc* pItem,D2UnitStrc* pUnit,int nArg1,int nArg2); // 0x0055C730
 int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem); // 0x00627E70
 D2UnitStrc* __fastcall AIGENERAL_GetMinionOwner(D2UnitStrc* pUnit); // 0x0058F0D0
 void __fastcall D2GAME_SendPacket0x48_6FC3EF40(D2ClientStrc* pClient,D2UnitStrc* pUnit,int nArg); // 0x0053D3C0
@@ -311,7 +311,7 @@ void __fastcall sub_0055DBC0_RecalcEquippedItemStates(D2GameStrc* pGame,D2UnitSt
         INVENTORY_UpdateWeaponGUIDOnRemoval(pUnit->pInventory, pItem);
         const int nMode = UNITS_GetAnimOrSeqMode(pItem);
         if (nMode == 1)
-            sub_0055C730_UpdateTransferredProperties(pGame, pItem, pUnit, nMode, nMode);
+            D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(pGame, pItem, pUnit, nMode, nMode);
     }
     int bContinue;
     do
@@ -340,7 +340,7 @@ void __fastcall sub_0055DBC0_RecalcEquippedItemStates(D2GameStrc* pGame,D2UnitSt
                     unsigned char nBodyLoc=ITEMS_GetBodyLocation(pItem);
                     if(nBodyLoc!=0xb && nBodyLoc!=0xc)
                     {
-                        sub_0063D1D0_InventoryItemCall(pCurrentInventory,pItem);
+                        INVENTORY_UpdateWeaponGUIDOnInsert(pCurrentInventory,pItem);
                         if (UNITS_GetAnimOrSeqMode(pItem)==1)
                         {
                             sITEMSAddStatsList(pGame,pItem,pUnit,1);
@@ -360,7 +360,7 @@ void __fastcall sub_0055DBC0_RecalcEquippedItemStates(D2GameStrc* pGame,D2UnitSt
         D2UnitStrc* pItem=INVENTORY_GetItemFromBodyLoc(pInventory,i);
         if(pItem && ITEMS_GetItemQuality(pItem)==5 && !ITEMS_CheckItemFlag(pItem,0x100,0xac2,szItemModeCpp) && !ITEMS_CheckItemFlag(pItem,0x4000,0xac3,szItemModeCpp))
         {
-            sub_0055C730_UpdateTransferredProperties(*(D2GameStrc* *)&pGame,pItem,pUnit,1,1);
+            D2GAME_ITEMS_UpdateTransferredProperties_6FC424E0(*(D2GameStrc* *)&pGame,pItem,pUnit,1,1);
             sITEMSAddStatsList(pGame,pItem,pUnit,1);
         }
     }

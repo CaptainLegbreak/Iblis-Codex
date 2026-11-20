@@ -96,11 +96,11 @@ struct D2MissileStrc
     int pInitArgs;
 };
 int __stdcall sub_00646CA0(D2UnitStrc*,unsigned,int,int); // 0x00646CA0
-D2UnitStrc* __fastcall sub_0056BD10(D2GameStrc*,D2UnitStrc*,int,int,int,unsigned,int,int*); // 0x0056BD10
-int __fastcall sub_005D3CF0(D2UnitStrc*,int); // 0x005D3CF0
+D2UnitStrc* __fastcall sub_6FD107F0(D2GameStrc*,D2UnitStrc*,int,int,int,unsigned,int,int*); // 0x0056BD10
+int __fastcall SKILLS_GetProgressiveSkillMissileId(D2UnitStrc*,int); // 0x005D3CF0
 extern "C" void* __cdecl memset(void*,int,unsigned);
-int __fastcall sub_0045ADF0(D2UnitStrc*); // 0x0045ADF0
-int __fastcall sub_0045AE20(D2UnitStrc*); // 0x0045AE20
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc*); // 0x0045ADF0
+int __fastcall CLIENTS_GetUnitY(D2UnitStrc*); // 0x0045AE20
 D2UnitStrc* __fastcall sub_0059FA30(D2GameStrc*,D2MissileStrc*); // 0x0059FA30
 void __stdcall sub_0064A710(D2UnitStrc*,int); // 0x0064A710
 
@@ -227,9 +227,9 @@ int __fastcall sub_005DBE50(D2GameStrc* game,D2UnitStrc* unit,int skillId,int le
     SUNITDMG_DrainItemDurability(game,unit,target,0);
     int range=sub_00646CA0(unit,record->rangeCalc,skillId,level);
     const int targetId=target->dwUnitId;
-    D2UnitStrc* other=sub_0056BD10(game,unit,UNITS_GetUnitXPosition(target),UNITS_GetUnitYPosition(target),range,3,targetId,0);
+    D2UnitStrc* other=sub_6FD107F0(game,unit,UNITS_GetUnitXPosition(target),UNITS_GetUnitYPosition(target),range,3,targetId,0);
     if(!other) return 0;
-    int missileId=sub_005D3CF0(unit,skillId);
+    int missileId=SKILLS_GetProgressiveSkillMissileId(unit,skillId);
     if(missileId<0 || missileId>=tables->missileCount) return 0;
     int duration=sub_00646CA0(unit,record->durationCalc,skillId,level);
     D2MissileStrc params;
@@ -240,8 +240,8 @@ int __fastcall sub_005DBE50(D2GameStrc* game,D2UnitStrc* unit,int skillId,int le
     params.nSkill=skillId;
     params.nSkillLevel=level;
     params.nMissile=missileId;
-    params.nTargetX=sub_0045ADF0(other);
-    params.nTargetY=sub_0045AE20(other);
+    params.nTargetX=CLIENTS_GetUnitX(other);
+    params.nTargetY=CLIENTS_GetUnitY(other);
     D2UnitStrc* missile=sub_0059FA30(game,&params);
     if(missile) sub_0064A710(missile,duration);
     return 1;

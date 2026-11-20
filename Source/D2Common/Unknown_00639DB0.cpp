@@ -7,7 +7,7 @@
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-void __stdcall D2Common_STATES_ToggleState_6FDB8900(D2UnitStrc* pUnit, int nState, int bSet); // 0x00625A70
+void __stdcall sub_00625A70_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00625A70
 unsigned int* __stdcall D2COMMON_STATES_GetStatFlags_6FDB8A90(D2UnitStrc* pUnit); // 0x00625BB0
 unsigned int* __stdcall D2COMMON_STATES_GetListGfxFlags_6FDB8AC0(D2UnitStrc* pUnit); // 0x00625BE0
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
@@ -19,7 +19,7 @@ void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet)
 {
     if (nState >= 0 && nState < sgptDataTables->nStatesTxtRecordCount)
     {
-        D2Common_STATES_ToggleState_6FDB8900(pUnit, nState, bSet);
+        sub_00625A70_ToggleState(pUnit, nState, bSet);
         UNITROOM_RefreshUnit(pUnit);
     }
 }

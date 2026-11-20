@@ -95,7 +95,7 @@ void __stdcall sub_0052D240(D2GameStrc* pGame);                                 
 void __stdcall sub_0052D350_CheckClientHeartbeats(D2GameStrc* pGame, int* pbDisconnected);                  // 0x0052D350
 void __fastcall GAME_UpdateEnvironment(D2GameStrc* pGame);                                                  // 0x0052D7B0
 D2UnitStrc* __stdcall CLIENTS_GetPlayerFromClient(D2ClientStrc* pClient, int bIgnoreDeath);                // 0x00537860
-void __fastcall CLIENTS_SynchronizePlayer(D2GameStrc* pGame, D2ClientStrc* pClient);                       // 0x005380D0
+void __fastcall sub_6FC33670(D2GameStrc* pGame, D2ClientStrc* pClient);                       // 0x005380D0
 void __fastcall CLIENTS_SetClientState(D2ClientStrc* pClient, int nClientState);                           // 0x005386D0
 void __fastcall CLIENTS_CopyAccountNameToBuffer(D2ClientStrc* pClient, char* szBuffer);                    // 0x005392F0
 void __fastcall LEVEL_FreeDrlgDeletes(D2GameStrc* pGame);                                                   // 0x0053A820
@@ -113,12 +113,12 @@ void __fastcall OBJECTS_PopulationHandler(D2GameStrc* pGame, D2ActiveRoomStrc* p
 void __fastcall SUNIT_SpawnPresetUnitsInRoom(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom);                  // 0x005559A0
 void __fastcall ITEMS_DeleteInactiveItems(D2GameStrc* pGame, int nAct);                                     // 0x00558B90
 void __fastcall PLAYERLIST_InitializePlayerRelations(D2GameStrc* pGame, D2UnitStrc* pPlayer);              // 0x0055B620
-void __fastcall D2GAME_ITEMS_UpdateInventoryItems_6FC45050(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int bRefresh); // 0x0055DF00
+void __fastcall sub_0055DF00_RecalcItemStates(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int bRefresh); // 0x0055DF00
 D2ActiveRoomStrc* __stdcall DUNGEON_GetRoomFromAct(D2DrlgActStrc* pAct);                                   // 0x0061A180
 int __stdcall D2Common_10073(D2ActiveRoomStrc* pRoom);                                                      // 0x0061A460
 int __stdcall D2Common_10074(D2ActiveRoomStrc* pRoom);                                                      // 0x0061A4D0
 void __stdcall D2Common_10075(D2ActiveRoomStrc* pRoom, int bSet);                                           // 0x0061A510
-void __stdcall sub_0061AA20(D2DrlgActStrc* pAct);                                                           // 0x0061AA20
+void __stdcall DUNGEON_UpdateAndFreeInactiveRooms(D2DrlgActStrc* pAct);                                                           // 0x0061AA20
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);                       // 0x00625480
 
 // 0x0052D160
@@ -199,7 +199,7 @@ static __declspec(noinline) void sub_0052D440_UpdateAllClients(D2GameStrc* pGame
         {
         case 3:
         {
-            CLIENTS_SynchronizePlayer(pGame, pClient);
+            sub_6FC33670(pGame, pClient);
 
             if (D2Common_10073(pClient->hRoom) && CLIENTS_GetPlayerFromClient(pClient, 0))
             {
@@ -210,7 +210,7 @@ static __declspec(noinline) void sub_0052D440_UpdateAllClients(D2GameStrc* pGame
                 D2UnitStrc* pPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
                 if (pPlayer)
                 {
-                    D2GAME_ITEMS_UpdateInventoryItems_6FC45050(pGame, pPlayer, 0, 1);
+                    sub_0055DF00_RecalcItemStates(pGame, pPlayer, 0, 1);
                 }
 
                 GAME_SynchronizePlayerWithClients(pGame, pClient);
@@ -248,12 +248,12 @@ static __declspec(noinline) void sub_0052D440_UpdateAllClients(D2GameStrc* pGame
         }
         case 4:
         {
-            CLIENTS_SynchronizePlayer(pGame, pClient);
+            sub_6FC33670(pGame, pClient);
             break;
         }
         case 5:
         {
-            CLIENTS_SynchronizePlayer(pGame, pClient);
+            sub_6FC33670(pGame, pClient);
 
             if (D2Common_10073(pClient->hRoom))
             {
@@ -263,7 +263,7 @@ static __declspec(noinline) void sub_0052D440_UpdateAllClients(D2GameStrc* pGame
                 D2UnitStrc* pPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
                 if (pPlayer)
                 {
-                    D2GAME_ITEMS_UpdateInventoryItems_6FC45050(pGame, pPlayer, 0, 1);
+                    sub_0055DF00_RecalcItemStates(pGame, pPlayer, 0, 1);
                 }
             }
             break;
@@ -348,7 +348,7 @@ void __fastcall GAME_UpdateProgress(D2GameStrc* pGame)
         {
             if (pGame->pAct[i])
             {
-                sub_0061AA20(pGame->pAct[i]);
+                DUNGEON_UpdateAndFreeInactiveRooms(pGame->pAct[i]);
             }
         }
     }

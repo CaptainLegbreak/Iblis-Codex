@@ -47,7 +47,7 @@ extern Tile* __stdcall sub_006196A0_WallTiles(Room*,u32*); // 0x006196A0
 extern Tile* __stdcall sub_006196E0_FloorTiles(Room*,u32*); // 0x006196E0
 extern s32 __stdcall sub_00620650_PixelX(Unit*); // 0x00620650
 extern s32 __stdcall sub_006206B0_PixelY(Unit*); // 0x006206B0
-extern void __stdcall sub_00643340_Grid(s32,s32,s32*,s32*); // 0x00643340
+extern void __stdcall DUNGEON_ClientTileDrawPositionToGameCoords(s32,s32,s32*,s32*); // 0x00643340
 extern s32 __stdcall sub_006488C0_PathX(Path*); // 0x006488C0
 extern s32 __stdcall sub_00648900_PathY(Path*); // 0x00648900
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
@@ -324,7 +324,7 @@ s32 __stdcall sub_004DD7C0_VisitRoom(Room* room,View* view)
         TileRecord* record=FIELD(TileRecord*,tile,24);
         s32 height=sub_00604CB0_Height(record);
         s32 x,y;
-        sub_00643340_Grid(FIELD(s32,tile,0),FIELD(s32,tile,4),&x,&y);
+        DUNGEON_ClientTileDrawPositionToGameCoords(FIELD(s32,tile,0),FIELD(s32,tile,4),&x,&y);
         --y;
         if(FIELD(s32,tile,0)>FIELD(s32,view,12)) continue;
         if(FIELD(s32,tile,0)+160<FIELD(s32,view,4)) continue;
@@ -352,7 +352,7 @@ s32 __stdcall sub_004DD7C0_VisitRoom(Room* room,View* view)
     {
         s32 height=sub_00604CB0_Height(FIELD(TileRecord*,tile,24));
         s32 x,y;
-        sub_00643340_Grid(FIELD(s32,tile,0),FIELD(s32,tile,4),&x,&y);
+        DUNGEON_ClientTileDrawPositionToGameCoords(FIELD(s32,tile,0),FIELD(s32,tile,4),&x,&y);
         --y;
         if(FIELD(s32,tile,0)>FIELD(s32,view,12)) continue;
         if(FIELD(s32,tile,0)+160<FIELD(s32,view,4)) continue;
@@ -369,7 +369,7 @@ s32 __stdcall sub_004DD7C0_VisitRoom(Room* room,View* view)
     {
         s32 x=sub_00620650_PixelX(unit);
         s32 y=sub_006206B0_PixelY(unit);
-        sub_00643340_Grid(x,y,&x,&y);
+        DUNGEON_ClientTileDrawPositionToGameCoords(x,y,&x,&y);
         x-=FIELD(s32,context,0xEA68);
         y-=FIELD(s32,context,0xEA6C);
         if(x<0 || y<0 || x>=FIELD(s32,context,0xEA78) || y>=FIELD(s32,context,0xEA78)) continue;

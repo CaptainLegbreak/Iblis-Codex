@@ -184,7 +184,7 @@ extern int gnLvlmazeTxtRecordCount; // 0x0096CA0C
 void __fastcall sub_0040B3C0(void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B3C0
 void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 void __fastcall DRLGPRESET_FreeDrlgFile(D2DrlgFileStrc** ppDrlgFile); // 0x00668300
-void __fastcall sub_00670630(D2LvlSubTxt* pLvlSubTxtRecord); // 0x00670630
+void __fastcall DRLGTILESUB_FreeDrlgFile(D2LvlSubTxt* pLvlSubTxtRecord); // 0x00670630
 
 D2LevelDefBin* gpLevelDefBin; // 0x0096C890
 
@@ -646,7 +646,7 @@ void __fastcall DATATBLS_UnloadLvlSubTxt()
     {
         for (int i = 0; i < gnLvlSubTxtRecordCount; ++i)
         {
-            sub_00670630(&gpLvlSubTxt[i]);
+            DRLGTILESUB_FreeDrlgFile(&gpLvlSubTxt[i]);
         }
 
         DATATBLS_UnloadBin(gpLvlSubTxt);

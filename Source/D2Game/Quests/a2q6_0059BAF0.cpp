@@ -49,7 +49,7 @@ struct D2Act2Quest4Strc
 
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
-void __fastcall SUNIT_WarpPlayer(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pTile); // 0x005550B0
+void __fastcall sub_005550B0_WarpPlayer(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pTile); // 0x005550B0
 
 
 typedef int (__fastcall* SUNIT_ITERATEFN)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
@@ -142,7 +142,7 @@ void __fastcall D2GAME_WarpPlayerToTile_6FCA5B20(D2ObjOperateFnStrc* pOp)
     {
         if (i->dwUnitType == UNIT_TILE)
         {
-            SUNIT_WarpPlayer(pOp->pGame, pOp->hPlayer, i);
+            sub_005550B0_WarpPlayer(pOp->pGame, pOp->hPlayer, i);
         }
     }
 }

@@ -84,7 +84,7 @@ void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, 
 void __stdcall STATLIST_AddUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer);                // 0x006272B0
 int __fastcall sub_005A00F0_GetMonUModConstant(int nIndex);                                                 // 0x005A00F0
 D2MonLvlTxt* __fastcall sub_005A0000_GetMonLvlTxtRecord(int nLevel);                                        // 0x005A0000
-void __fastcall MONSTERUNIQUE_UMod16_Champion(D2UnitStrc* pUnit, int nUMod, int bUnique);                   // 0x005A0E80
+void __fastcall sub_005A0E80_ApplyMonsterPenalty(D2UnitStrc* pUnit, int nUMod, int bUnique);                   // 0x005A0E80
 void __fastcall MONSTERUNIQUE_UMod8_Resistant(D2UnitStrc* pUnit, int nUMod, int bUnique);                   // 0x005A1370
 D2UnitStrc* __fastcall AIGENERAL_GetMinionOwner(D2UnitStrc* pUnit);                                         // 0x0058F0D0
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId);         // 0x006439F0
@@ -185,7 +185,7 @@ void __fastcall MONSTERUNIQUE_UMod36_Ghostly(D2UnitStrc* pUnit, int nUMod, int b
     }
 
     STATLIST_SetUnitStat(pUnit, STAT_DAMAGERESIST, 80, 0);
-    MONSTERUNIQUE_UMod16_Champion(pUnit, nUMod, bUnique);
+    sub_005A0E80_ApplyMonsterPenalty(pUnit, nUMod, bUnique);
 
     bUnique = D2_MIN(D2_MAX(pGame->nDifficulty, 0), 2);
     const int nGameType = pGame->nGameType || pGame->dwGameType;

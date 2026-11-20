@@ -17,7 +17,7 @@ void __fastcall sub_004576F0(int nFade); // 0x004576F0
 int __cdecl sub_004577B0(); // 0x004577B0
 int __cdecl sub_004577E0(); // 0x004577E0
 int __cdecl sub_00457770(); // 0x00457770
-int __fastcall sub_00457780_SetValue(int nValue); // 0x00457780
+int __fastcall sub_00457780_SaveAutomapLeft(int nValue); // 0x00457780
 void __fastcall sub_004A8CE0_SetValue(int nValue); // 0x004A8CE0
 void __fastcall sub_004A9E60_AssignHotkey(int nHotkey); // 0x004A9E60
 void __fastcall sub_004AA030_SelectHotkey(int nSlot); // 0x004AA030
@@ -30,7 +30,7 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(void* lpfn); // 0x006CC34C
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 void __fastcall sub_0044BE60_SetFlag(int nValue); // 0x0044BE60
@@ -42,7 +42,7 @@ void __fastcall sub_00478590(char nValue); // 0x00478590
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 int __cdecl sub_004B34A0(); // 0x004B34A0
 int __cdecl sub_004A0000(); // 0x004A0000
-void __fastcall sub_0047E200(int nArg); // 0x0047E200
+void __fastcall sub_0047E200_CloseMenus(int nArg); // 0x0047E200
 int __fastcall sub_00456300_CloseUIVars(int bArg1, int nArg2); // 0x00456300
 void __fastcall sub_0047E090(int bSaveState, int nMenu); // 0x0047E090
 void __fastcall sub_004AA740_CycleHotkey(int nDelta); // 0x004AA740
@@ -124,7 +124,7 @@ void __cdecl sub_00468AB0_ToggleSetting()
 // 0x00468AD0
 void __cdecl sub_00468AD0_ToggleSetting()
 {
-    sub_00457780_SetValue(!sub_00457770());
+    sub_00457780_SaveAutomapLeft(!sub_00457770());
 }
 
 // 0x00468AF0
@@ -393,7 +393,7 @@ void (__cdecl* gpfnCallback_007A7410)(); // 0x007A7410
 // 0x00468F00
 void __cdecl sub_00468F00()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (pPlayer)
     {
         D2UnitStrc* pItem = INVENTORY_GetItemFromBodyLoc(pPlayer->pInventory, BODYLOC_BELT);
@@ -458,7 +458,7 @@ void __cdecl sub_00469330()
 void __cdecl sub_00469000_HotkeyRunOn()
 {
     sub_0044BE60_SetFlag(1);
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (!pPlayer)
         return;
     if (sub_0044DA30())
@@ -502,7 +502,7 @@ void __cdecl sub_004690B0_HotkeyEscape()
         return;
     if (sub_004538D0(9))
     {
-        sub_0047E200(1);
+        sub_0047E200_CloseMenus(1);
         return;
     }
     if (sub_00456300_CloseUIVars(0, 1))
@@ -547,7 +547,7 @@ void __cdecl sub_00469170_HotkeyPetUi()
 {
     if (!sub_0044DCC0())
         return;
-    if (sub_00478F20_FindPetIdByOwner(sub_00463DD0(), 7, 0) == -1)
+    if (sub_00478F20_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0) == -1)
         return;
     if (!sub_00408F20_HasExpansionMpq())
         return;
@@ -558,7 +558,7 @@ void __cdecl sub_00469170_HotkeyPetUi()
 void __cdecl sub_004691C0_HotkeyRunOff()
 {
     sub_0044BE60_SetFlag(0);
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (!pPlayer)
         return;
     if (sub_0044BE90())

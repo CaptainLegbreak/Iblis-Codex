@@ -49,12 +49,12 @@ extern "C" unsigned int __cdecl strlen(const char* szString);
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0
 D2CelFileStrc* __fastcall ARCHIVE_LoadCellFile(const char* szFile, int nType);                              // 0x004FA9B0
-void __fastcall sub_004FAAE0_FreeCellFile(D2CelFileStrc* pCellFile);                                        // 0x004FAAE0
+void __fastcall ARCHIVE_FreeCellFile(D2CelFileStrc* pCellFile);                                        // 0x004FAAE0
 void* __cdecl sub_004FAC80_GetArchive();                                                                    // 0x004FAC80
 D2CharStrc* __fastcall sub_6F8AA100(unsigned short wChar);                                                  // 0x00501650
 D2CharStrc* __fastcall sub_6F8AA140(unsigned short wChar);                                                  // 0x00501690
 void* __fastcall sub_00517079_ReadFileToBuffer(void* pArchive, const char* szFile, int* pSize, const char* szSrcFile, int nLine); // 0x00517079
-int __cdecl sub_00525150();                                                                         // 0x00525150
+int __cdecl STRTABLE_GetLanguage();                                                                         // 0x00525150
 void __fastcall sub_00526320_ToUnicode(wchar_t* pDest, const char* szSource, int nLength);                  // 0x00526320
 
 extern "C" const char gszDataGlobal_006D4118[];                                                             // 0x006D4118
@@ -124,7 +124,7 @@ static void sub_6F8A9E90(int nFont)
 void __fastcall D2Win_10115_FONT()
 {
     char szFile[0x50];
-    const int nLanguage = sub_00525150();
+    const int nLanguage = STRTABLE_GetLanguage();
     gbKoreanFonts_00841EC6 = false;
     gnFontMetric1_0072E000 = 16;
     gnFontMetric2_0072E004 = 17;
@@ -238,7 +238,7 @@ int __fastcall sub_00502EF0(int nFontSize)
                 D2FontCacheStrc* pFont = &gFontCache_00841DA8[i];
                 if (i != nFontSize && dwShiftedTickCount - pFont->dwShiftedTickCount > 240 && pFont->pCellFile)
                 {
-                    sub_004FAAE0_FreeCellFile(pFont->pCellFile);
+                    ARCHIVE_FreeCellFile(pFont->pCellFile);
                     pFont->pCellFile = 0;
                 }
             }

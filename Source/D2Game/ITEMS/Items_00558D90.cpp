@@ -76,7 +76,7 @@ int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType);                       
 unsigned short __stdcall ITEMS_GetItemFormat(D2UnitStrc* pItem);                                            // 0x0062A670
 void __stdcall ITEMS_SetItemFormat(D2UnitStrc* pItem, unsigned short nItemFormat);                          // 0x0062A6C0
 int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem);                                                         // 0x0062B400
-unsigned char __stdcall ITEMS_GetMaxSockets(D2UnitStrc* pItem);                                             // 0x0062BC20
+unsigned char __stdcall sub_0062BC20(D2UnitStrc* pItem);                                             // 0x0062BC20
 void __stdcall ITEMS_AddSockets(D2UnitStrc* pItem, int nSockets);                                           // 0x0062BCB0
 
 // 0x00558D90
@@ -146,9 +146,9 @@ D2UnitStrc* __fastcall D2GAME_CreateItemEx_6FC4ED80(D2GameStrc* pGame, D2ItemDro
 
         if (!ITEMS_GetItemFormat(pItem) && !ITEMSIsA(pItem, 3) && sub_006287A0_TestFlags(pItemDrop->dwFlags1, 0x800) && !sub_006287A0_TestFlags(ITEMS_GetItemFlags(pItem), 0x800))
         {
-            if (ITEMS_GetMaxSockets(pItem))
+            if (sub_0062BC20(pItem))
             {
-                ITEMS_AddSockets(pItem, ITEMS_GetItemStartSeed(pItem) % ITEMS_GetMaxSockets(pItem) + 1);
+                ITEMS_AddSockets(pItem, ITEMS_GetItemStartSeed(pItem) % sub_0062BC20(pItem) + 1);
             }
             else
             {

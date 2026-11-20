@@ -96,9 +96,9 @@ void __fastcall SUNITDMG_DrainItemDurability(D2GameStrc* pGame, D2UnitStrc* pUni
 D2DamageStrc* __fastcall SUNITDMG_GetDamageFromUnits(D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x0057D690
 void __fastcall SUNITDMG_AllocCombat(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2DamageStrc* pDamage, int a5); // 0x0057DBF0
 unsigned short __fastcall SUNITDMG_GetResultFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nToHit, int a5); // 0x0057EC10
-void __fastcall SKILLS_ApplyProgressivePhysicalDamageBonus(D2UnitStrc* pUnit, D2DamageStrc* pDamage); // 0x005D3AC0
+void __fastcall sub_005D3AC0(D2UnitStrc* pUnit, D2DamageStrc* pDamage); // 0x005D3AC0
 void __fastcall SKILLS_ApplyProgressiveLeechAndElementalDamage(D2UnitStrc* pUnit, D2DamageStrc* pDamage); // 0x005D3BA0
-void __fastcall SKILLS_ReleaseProgressiveCharges(D2GameStrc* pGame, D2UnitStrc* pUnit, D2DamageStrc* pDamage); // 0x005D5220
+void __fastcall sub_005D5220_DischargeProgressiveSkills(D2GameStrc* pGame, D2UnitStrc* pUnit, D2DamageStrc* pDamage); // 0x005D5220
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStat, int nLayer); // 0x00625480
 unsigned int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem); // 0x0062B400
 
@@ -260,7 +260,7 @@ int __fastcall SKILLS_SrvDo001_Attack_LeftHandSwing(D2GameStrc* pGame, D2UnitStr
     D2DamageStrc damage = {};
     damage.wResultFlags = SUNITDMG_GetResultFlags(pGame, pUnit, pTarget, STATLIST_UnitGetStatValue(pUnit, STAT_PROGRESSIVE_TOHIT, 0), 0);
     damage.dwHitFlags |= 2;
-    SKILLS_ApplyProgressivePhysicalDamageBonus(pUnit, &damage);
+    sub_005D3AC0(pUnit, &damage);
     SUNITDMG_FillDamageValues(pGame, pUnit, pTarget, &damage, 0, 128);
     SKILLS_ApplyProgressiveLeechAndElementalDamage(pUnit, &damage);
     SUNITDMG_AllocCombat(pGame, pUnit, pTarget, &damage, 128);
@@ -273,7 +273,7 @@ int __fastcall SKILLS_SrvDo001_Attack_LeftHandSwing(D2GameStrc* pGame, D2UnitStr
     D2DamageStrc* pDamage = SUNITDMG_GetDamageFromUnits(pUnit, pTarget);
     if (pDamage)
     {
-        SKILLS_ReleaseProgressiveCharges(pGame, pUnit, pDamage);
+        sub_005D5220_DischargeProgressiveSkills(pGame, pUnit, pDamage);
     }
 
     SUNITDMG_DrainItemDurability(pGame, pUnit, pTarget, 0);

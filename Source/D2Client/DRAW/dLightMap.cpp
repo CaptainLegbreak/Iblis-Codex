@@ -139,7 +139,7 @@ extern "C" int __cdecl abs(int nValue);
 extern int gnPathStepSignX_007B0A50; // 0x007B0A50
 extern int gnPathStepSignY_007A8A48; // 0x007A8A48
 static __forceinline unsigned char sub_00474A30_IsCellBlocked(int nX, int nY);
-D2UnitStrc* __cdecl sub_00463DE0_GetStoredUnit(); // 0x00463DE0
+D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 extern int gnGlobal_007B0A5C; // 0x007B0A5C
 extern int gnGlobal_007B0A60; // 0x007B0A60
 extern int gnPathStepMode_007B0A64; // 0x007B0A64
@@ -513,7 +513,7 @@ static __declspec(noinline) void __stdcall sub_004748D0_AddAreaLight(D2R01LightS
         {
         case 0:
         {
-            D2UnitStrc* pPlayer = sub_00463DE0_GetStoredUnit();
+            D2UnitStrc* pPlayer = sub_00463DE0_GetPlayerUnit();
             if (pLight->nUnitId != (!pPlayer ? -1 : pPlayer->dwUnitId) && nRadius >= 0x10)
             {
                 nRadius = 0x10;

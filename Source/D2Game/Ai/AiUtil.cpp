@@ -44,7 +44,7 @@ struct D2NearestRecord005DC870Strc
     int nMaxDistance;
 };
 
-int __fastcall sub_00554200_CheckTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00554200
+int __fastcall SUNIT_AreUnitsHostile(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00554200
 
 enum D2C_P11AiUtilConstants
 {
@@ -119,7 +119,7 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char*,const char*,int); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
-D2ActiveRoomStrc* __fastcall D2GAME_GetRoom_6FC52070(D2ActiveRoomStrc*,int,int); // 0x00463740
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc*,int,int); // 0x00463740
 
 // 0x005DC360
 int __fastcall sub_005DC360_GetMonsterVision(D2UnitStrc* pUnit)
@@ -256,7 +256,7 @@ int __fastcall sub_005DC870_FindNearestMonster(D2GameStrc* pGame, D2UnitStrc* pU
     {
         return 0;
     }
-    if (sub_00554200_CheckTarget(pGame, pUnit, pTarget))
+    if (SUNIT_AreUnitsHostile(pGame, pUnit, pTarget))
     {
         return 0;
     }
@@ -548,7 +548,7 @@ static __forceinline int CLIENTS_GetUnitYForceInline(D2UnitStrc* pUnit)
 D2UnitStrc* __fastcall sub_005DD370_FindMonsterAtCoords(D2GameStrc* game,D2ActiveRoomStrc* room,int x,int y,int baseId)
 {
  D2_ASSERT(room,1954);
- room=D2GAME_GetRoom_6FC52070(room,x,y);
+ room=sub_00463740_FindRoomAtPoint(room,x,y);
  D2_ASSERT(room,1956);
  for(D2UnitStrc* unit=room->pUnitFirst;unit;unit=unit->ptRoomNext) {
   if((!unit ? 6 : unit->dwUnitType)!=1) continue;

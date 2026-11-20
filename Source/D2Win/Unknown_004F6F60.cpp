@@ -59,7 +59,7 @@ extern int gnDisplayType; // 0x007C8CB0
 extern D2GfxSettingsStrc gGfxSettings; // 0x0072DA48
 int __stdcall D2GFX_SetGamma(int nGamma); // 0x004F5230
 int __fastcall D2GFX_SetOption(int nOption, int nValue); // 0x004F52B0
-void __fastcall sub_004F7DA0(int nPitch, int nHeight); // 0x004F7DA0
+void __fastcall sub_004F7DA0_SetPanelCoords(int nPitch, int nHeight); // 0x004F7DA0
 void __cdecl sub_004F7E70_InitRowOffsets(); // 0x004F7E70
 
 // 0x004F6F60
@@ -283,7 +283,7 @@ void __fastcall sub_004F8DE0(unsigned char* a1, int a2, int a3, int a4)
 
     if (gnViewMatrixAdjust_007C8CC4 != gnViewMatrixAdjustDefault_0072DBFC)
     {
-        sub_004F7DA0(a2, a3);
+        sub_004F7DA0_SetPanelCoords(a2, a3);
     }
 }
 

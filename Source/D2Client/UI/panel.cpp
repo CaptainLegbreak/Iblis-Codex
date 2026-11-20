@@ -42,7 +42,7 @@ struct D2OrbSmoothStrc
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern int gnGlobal_0071146C; // 0x0071146C
 extern int gnGlobal_00711470; // 0x00711470
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 unsigned int __cdecl sub_0044DA90(); // 0x0044DA90
 int __cdecl sub_004F5140(); // 0x004F5140
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
@@ -182,7 +182,7 @@ unsigned int __stdcall ITEMS_CheckIfBeltable(D2UnitStrc* pItem); // 0x0062BAD0
 int __fastcall sub_004C2240(D2UnitStrc* pItem); // 0x004C2240
 void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg); // 0x00478680
 void __fastcall sub_004786D0_SendPacket(char nHeader, int nArg1, int nArg2, int nArg3); // 0x004786D0
-void __fastcall sub_004C21F0(D2UnitStrc* pItem); // 0x004C21F0
+void __fastcall sub_004C21F0_SetState36(D2UnitStrc* pItem); // 0x004C21F0
 int __fastcall sub_004C1D60(D2UnitStrc* pItem); // 0x004C1D60
 int __fastcall sub_004C1E20_GetItemUseSound(D2UnitStrc* pItem); // 0x004C1E20
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
@@ -219,11 +219,11 @@ void __cdecl sub_00499E50_DrawPanelQuad(); // 0x00499E50
 void __cdecl sub_0049C270_DrawPartyRows(); // 0x0049C270
 void __cdecl sub_0049A510_DrawPartyButtons(); // 0x0049A510
 void __cdecl sub_0049A950_DrawPanelCel(); // 0x0049A950
-void __cdecl sub_0049ABD0_DrawPartyBoxes(); // 0x0049ABD0
-void __cdecl sub_0049B330_DrawPartyBar(); // 0x0049B330
+void __cdecl sub_0049ABD0_DrawRosterHoverHints(); // 0x0049ABD0
+void __cdecl sub_0049B330_DrawRosterButtonHints(); // 0x0049B330
 void __cdecl sub_0049A9B0_RefreshRosterIndices(); // 0x0049A9B0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
-void __fastcall sub_00502280_SetPopUpText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
+void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 extern int gdwGlobal_007BEFA8; // 0x007BEFA8
 extern int gdwGlobal_007BEFAC; // 0x007BEFAC
 extern void* gpCelFile_007BF020; // 0x007BF020
@@ -256,7 +256,7 @@ static int ORB_AbsValue(int nValue)
 static int sub_00496DD0_GetSmoothedOrbValue(int nStatId)
 {
     int bCheckDrop = 1;
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     int nValue = STATLIST_UnitGetStatValue(pPlayer, nStatId, 0);
     int nIndex;
     int nMax = 0;
@@ -345,7 +345,7 @@ static int sub_00496DD0_GetSmoothedOrbValue(int nStatId)
 // 0x00496F80
 void __cdecl sub_00496F80_DrawLifeOrb()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     const int nLife = sub_00496DD0_GetSmoothedOrbValue(6);
     const int nMaxLife = STATLIST_GetMaxLifeFromUnit(pPlayer);
     if (!nMaxLife)
@@ -354,7 +354,7 @@ void __cdecl sub_00496F80_DrawLifeOrb()
     int nHeight = 80 * nLife / nMaxLife;
     if (nHeight >= 1 && nHeight <= 2)
     {
-        D2UnitStrc* pUnit = sub_00463DD0();
+        D2UnitStrc* pUnit = sub_00463DD0_GetPlayerUnit();
         if (pUnit && pUnit->dwUnitType == 0 && pUnit->dwAnimMode != 0x11)
             nHeight = 2;
     }
@@ -364,9 +364,9 @@ void __cdecl sub_00496F80_DrawLifeOrb()
     tContext.unk0x40 = 0;
     tContext.pCellFile = gpCellFile_007BEF68;
     tContext.nFrame = 0;
-    if (STATES_CheckState(sub_00463DD0(), 0x64))
+    if (STATES_CheckState(sub_00463DD0_GetPlayerUnit(), 0x64))
     {
-        int nPoison = 80 * STATLIST_UnitGetStatValue(sub_00463DD0(), 0x4A, 0) / 100;
+        int nPoison = 80 * STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), 0x4A, 0) / 100;
         if (nPoison > 80)
             nPoison = 80;
         if (nPoison > nHeight)
@@ -378,7 +378,7 @@ void __cdecl sub_00496F80_DrawLifeOrb()
         }
     }
 
-    tContext.nFrame = STATES_CheckState(sub_00463DD0(), 2) ? 2 : 0;
+    tContext.nFrame = STATES_CheckState(sub_00463DD0_GetPlayerUnit(), 2) ? 2 : 0;
     if (nHeight)
     {
         switch (sub_004F5140())
@@ -401,7 +401,7 @@ void __cdecl sub_00496F80_DrawLifeOrb()
 // 0x00497110
 void __cdecl sub_00497110_DrawManaOrb()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     int nMana = sub_00496DD0_GetSmoothedOrbValue(8);
     const int nMaxMana = STATLIST_GetMaxManaFromUnit(pPlayer);
     if (!nMaxMana)
@@ -416,9 +416,9 @@ void __cdecl sub_00497110_DrawManaOrb()
     tContext.unk0x40 = 0;
     tContext.pCellFile = gpCellFile_007BEF68;
     tContext.nFrame = 1;
-    if (STATES_CheckState(sub_00463DD0(), 0x6A))
+    if (STATES_CheckState(sub_00463DD0_GetPlayerUnit(), 0x6A))
     {
-        int nShield = 80 * STATLIST_UnitGetStatValue(sub_00463DD0(), 0x1A, 0) / 100;
+        int nShield = 80 * STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), 0x1A, 0) / 100;
         if (nShield > 80)
             nShield = 80;
         if (nShield > nHeight)
@@ -465,7 +465,7 @@ unsigned char gnTextColorB_007BEFE4; // 0x007BEFE4
 // 0x004975B0
 void __cdecl sub_004975B0_DrawStaminaBar()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     const int nStamina = sub_00496DD0_GetSmoothedOrbValue(10);
     int nMaxStamina = STATLIST_GetMaxStaminaFromUnit(pPlayer);
     if (!gnTextColorRed_007BEFBA)
@@ -508,7 +508,7 @@ void __cdecl sub_004975B0_DrawStaminaBar()
         && nMouseY >= gnGlobal_00711470 - 0x1B && nMouseY <= gnGlobal_00711470 - 9)
     {
         sub_005269D0(100, wszText, D2LANG_GetStringFromTblIndex(0x1044), nCur, nMax);
-        sub_00502280_SetPopUpText(wszText, gnGlobal_0071146C / 2 - 0x4C, gnGlobal_00711470 - 0x34, nTextColor, 1);
+        D2Win_10129_DrawFramedText(wszText, gnGlobal_0071146C / 2 - 0x4C, gnGlobal_00711470 - 0x34, nTextColor, 1);
     }
 }
 
@@ -679,7 +679,7 @@ static void __stdcall sub_00497CF0_DrawDurabilityIcon(int nState, int nQuiverTyp
 // 0x00498120
 void __cdecl sub_00498120()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     const int nMouseX = sub_00468730();
     const int nMouseY = sub_00468740();
     Unicode wszLife[100];
@@ -692,7 +692,7 @@ void __cdecl sub_00498120()
     {
         int nLife = sub_00496DD0_GetSmoothedOrbValue(6) >> 8;
         const int nMaxLife = STATLIST_GetMaxLifeFromUnit(pPlayer) >> 8;
-        D2UnitStrc* pUnit = sub_00463DD0();
+        D2UnitStrc* pUnit = sub_00463DD0_GetPlayerUnit();
         if (pUnit && pUnit->dwUnitType == 0 && pUnit->dwAnimMode != 0x11 && nLife >= 0 && nLife <= 1)
             nLife = 1;
 
@@ -715,7 +715,7 @@ void __cdecl sub_00498120()
 
 void __cdecl sub_00497FE0_DrawDurabilityIcons()
 {
-    D2InventoryStrc* pInventory = sub_00463DD0()->pInventory;
+    D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
     for (int j = 0; j < 7; ++j)
     {
         D2UnitStrc* pItem = INVENTORY_GetItemFromBodyLoc(pInventory, gnBodyLocs_007223E8[j]);
@@ -907,13 +907,13 @@ static void __stdcall sub_00498870_ClickBeltBox(D2InventoryStrc* pInventory, int
             if (!bBusy)
             {
                 sub_004786A0_SendIntInt(0x25, pCursorItem->dwUnitId, !pBeltItem ? -1 : pBeltItem->dwUnitId);
-                sub_004C21F0(pCursorItem);
+                sub_004C21F0_SetState36(pCursorItem);
             }
         }
         else if (!bBusy)
         {
             sub_004786A0_SendIntInt(0x23, pCursorItem->dwUnitId, (unsigned short)nBox);
-            sub_004C21F0(pCursorItem);
+            sub_004C21F0_SetState36(pCursorItem);
         }
         sub_004B9A00(sub_004C1D60(pCursorItem), 0, 0, 0, 0);
         return;
@@ -922,7 +922,7 @@ static void __stdcall sub_00498870_ClickBeltBox(D2InventoryStrc* pInventory, int
     if (pBeltItem && !pCursorItem && !sub_004C2240(pBeltItem))
     {
         sub_00478680_SendPacket5(0x24, pBeltItem->dwUnitId);
-        sub_004C21F0(pBeltItem);
+        sub_004C21F0_SetState36(pBeltItem);
     }
 }
 
@@ -967,7 +967,7 @@ static void __stdcall sub_00498A90_UseBeltSlot(int nSlot, D2UnitStrc* pPlayer, D
     }
 
     sub_004786D0_SendDwords3(0x26, pItem->dwUnitId, bShift, 0);
-    sub_004C21F0(pItem);
+    sub_004C21F0_SetState36(pItem);
     if (bShift)
     {
         const int nPetId = sub_00478F20_FindPetIdByOwner(pPlayer, 7, 0);
@@ -1004,7 +1004,7 @@ void __stdcall sub_A11_Emit_00498870(SMSGHANDLER_PARAMS* pMsg)
 {
     const int nX = pMsg->nX;
     const int nY = pMsg->nY;
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     sub_00498870_ClickBeltBox(pPlayer->pInventory, nX, nY);
 }
 
@@ -1084,7 +1084,7 @@ static void sub_00498C10_BeltHotkey(int nSlot)
         return;
     }
 
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     sub_00498A90_UseBeltSlot(nSlot, pPlayer, pPlayer->pInventory, GetKeyState(0x10) & 0x8000);
 }
 
@@ -1155,7 +1155,7 @@ void __stdcall sub_00499BB0_BeltMouseMove(SMSGHANDLER_PARAMS* pMsg)
 
     const int nY = pMsg->nY;
     const int nX = pMsg->nX;
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (sub_0044BFE0())
     {
         return;
@@ -1217,7 +1217,7 @@ void __stdcall sub_00499D10_BeltClick(SMSGHANDLER_PARAMS* pMsg)
 
     const int nX = pMsg->nX;
     const int nY = pMsg->nY;
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (sub_00498DC0_MouseMoveMsg(pMsg))
     {
         pMsg->bReturn = 1;
@@ -1262,7 +1262,7 @@ void __cdecl sub_00499E30_SetBlackColour()
 // 0x0049A580
 void __cdecl sub_0049A580_DrawPlayerName()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (!pPlayer)
         return;
     const char* szName = sub_0047A210(pPlayer);
@@ -1331,13 +1331,13 @@ void __cdecl sub_0049C3D0_DrawPartyPanel()
     sub_0049C270_DrawPartyRows();
     sub_0049A510_DrawPartyButtons();
     sub_0049A950_DrawPanelCel();
-    sub_0049ABD0_DrawPartyBoxes();
-    sub_0049B330_DrawPartyBar();
+    sub_0049ABD0_DrawRosterHoverHints();
+    sub_0049B330_DrawRosterButtonHints();
     sub_0049A9B0_RefreshRosterIndices();
     int nX = sub_00468730();
     int nY = sub_00468740();
     if (nX >= gnGlobal_007A2858 + 0x116 && nX <= gnGlobal_007A2858 + 0x136 && nY >= 0x185 - gnGlobal_007A285C && nY <= 0x1A5 - gnGlobal_007A285C)
-        sub_00502280_SetPopUpText(D2LANG_GetStringFromTblIndex(0x102F), gnGlobal_007A2858 + 0x125, 0x182 - gnGlobal_007A285C, 0, 1);
+        D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0x102F), gnGlobal_007A2858 + 0x125, 0x182 - gnGlobal_007A285C, 0, 1);
 }
 
 // build: context sub_00499E50_DrawPanelQuad

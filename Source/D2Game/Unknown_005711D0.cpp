@@ -13,7 +13,7 @@ extern const unsigned int gdwBitMasks[32]; // 0x006CE268
 extern const unsigned int gdwInvBitMasks[32]; // 0x006CE2E8
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 unsigned int* __stdcall STATES_GetGfxStateFlags(D2UnitStrc* pUnit); // 0x00639F70
-int __stdcall FOG_LeadingZeroesCount(unsigned int nValue); // 0x004111A0
+int __stdcall sub_004111A0_GetLowestSetBit(unsigned int nValue); // 0x004111A0
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState); // 0x006256B0
 int __stdcall STATLIST_GetBaseStatsData(D2StatListStrc* pStatList, D2StatStrc* pOutStatBuffer, int nBufferSize); // 0x00625C90
@@ -49,7 +49,7 @@ void __fastcall D2GAME_STATES_SendUnitStateUpdates_6FCC5BE0(D2UnitStrc* pUnit, D
     int nStateBase = 0;
     for (; i < nWords; ++i, nStateBase += 32)
     {
-        int nBit = FOG_LeadingZeroesCount(dwFlags[i]);
+        int nBit = sub_004111A0_GetLowestSetBit(dwFlags[i]);
         while (nBit >= 0)
         {
             dwFlags[i + (nBit >> 5)] &= gdwInvBitMasks[nBit & 31];
@@ -59,7 +59,7 @@ void __fastcall D2GAME_STATES_SendUnitStateUpdates_6FCC5BE0(D2UnitStrc* pUnit, D
             {
                 if (pStates->nFlags & gdwBitMasks[0])
                 {
-                    nBit = FOG_LeadingZeroesCount(dwFlags[i]);
+                    nBit = sub_004111A0_GetLowestSetBit(dwFlags[i]);
                     continue;
                 }
                 if (STATES_CheckState(pUnit, nState))
@@ -115,7 +115,7 @@ void __fastcall D2GAME_STATES_SendUnitStateUpdates_6FCC5BE0(D2UnitStrc* pUnit, D
                 }
                 else D2GAME_PACKETS_SendPacket0xA9_StateOff_6FC3FC50(pClient, (unsigned char)nUnitType, nUnitId, (unsigned char)nState);
             }
-            nBit = FOG_LeadingZeroesCount(dwFlags[i]);
+            nBit = sub_004111A0_GetLowestSetBit(dwFlags[i]);
         }
     }
 }

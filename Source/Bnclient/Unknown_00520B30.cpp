@@ -45,13 +45,13 @@ void __cdecl sub_005224F0_ClearPassword(); // 0x005224F0
 int __fastcall sub_005223F0_SendUpgradeProof(unsigned int nServerToken); // 0x005223F0
 int __cdecl sub_005224E0(); // 0x005224E0
 int __fastcall sub_005223A0(int bFlag); // 0x005223A0
-int __fastcall sub_00522310(const unsigned char* pSalt, const unsigned char* pServerKey); // 0x00522310
+int __fastcall sub_00522310_SendChangeProof(const unsigned char* pSalt, const unsigned char* pServerKey); // 0x00522310
 int __cdecl sub_00522050(); // 0x00522050
 void __fastcall sub_0051AB30_SetAdUrlReply(const void* pData, unsigned int nSize); // 0x0051AB30
 void __fastcall sub_0051B3E0_SetSizedReply(const void* pData, unsigned int nSize); // 0x0051B3E0
 void __fastcall sub_0051B820_SetReply(const void* pData, unsigned int nSize); // 0x0051B820
 void __fastcall sub_0051CA80_SetFlag(int nValue); // 0x0051CA80
-int __fastcall sub_0051E3D0_PostMessage(const char* szText, int nCode); // 0x0051E3D0
+int __fastcall sub_0051E3D0_SendPacket33(const char* szText, int nCode); // 0x0051E3D0
 int __fastcall sub_0051D860_ParseNewsInfo(const void* pData); // 0x0051D860
 
 struct D2BnAuthInfoStrc
@@ -337,7 +337,7 @@ int __fastcall sub_00521800_AuthAccountChange(const void* pData, unsigned int nS
     {
     case 0:
         sub_0051A480_DebugLog("Change requires proof");
-        return sub_00522310((const unsigned char*)pData + 4, (const unsigned char*)pData + 0x24);
+        return sub_00522310_SendChangeProof((const unsigned char*)pData + 4, (const unsigned char*)pData + 0x24);
     case 1:
         sub_0051A480_DebugLog("Change failed: Account unknown");
         sub_005204A0_SetError(0x0D);
@@ -461,7 +461,7 @@ int __fastcall sub_00521AB0_SetEmail(const void* pData, unsigned int nSize)
 int __fastcall sub_00521AC0_OptionalWork(const void* pData, unsigned int nSize)
 {
     if (pData && *(const char*)pData && nSize)
-        sub_0051E3D0_PostMessage((const char*)pData, 0x80000005);
+        sub_0051E3D0_SendPacket33((const char*)pData, 0x80000005);
     return 1;
 }
 
@@ -469,7 +469,7 @@ int __fastcall sub_00521AC0_OptionalWork(const void* pData, unsigned int nSize)
 int __fastcall sub_00521AE0_RequiredWork(const void* pData, unsigned int nSize)
 {
     if (pData && *(const char*)pData && nSize)
-        sub_0051E3D0_PostMessage((const char*)pData, 0x80000006);
+        sub_0051E3D0_SendPacket33((const char*)pData, 0x80000006);
     return 1;
 }
 

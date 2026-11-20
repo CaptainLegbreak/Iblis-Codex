@@ -28,11 +28,11 @@ D2BooksTxt* __stdcall DATATBLS_GetBooksTxtRecord(int nIndex);                   
 void __fastcall sub_0055BF50_ClearTargetingFlags(D2UnitStrc* pUnit, const char* szFile, int nLine);         // 0x0055BF50
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID);                // 0x00552F60
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory);                                 // 0x0063C1E0
-int __stdcall sub_00628C20(D2UnitStrc* pItem);                                                              // 0x00628C20
+int __stdcall ITEMS_CheckIfUseable(D2UnitStrc* pItem);                                                              // 0x00628C20
 int __fastcall D2GAME_PLRTRADE_IsInteractingWithPlayer(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3);       // 0x005678A0
 D2UnitStrc* __fastcall sub_6FC7E8B0(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetType, int a4);          // 0x00574EC0
 int __fastcall SKILLITEM_pSpell_Handler(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2UnitStrc* pTarget, int nX, int nY); // 0x005BF240
-int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit);                                                       // 0x0045ADF0
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                                                       // 0x0045ADF0
 D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID);              // 0x006439B0
 int __stdcall SKILLS_GetQuantity(D2SkillStrc* pSkill);                                                      // 0x006450F0
 D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit);                                              // 0x006201D0
@@ -90,7 +90,7 @@ int __fastcall ITEMMODE_UseBeltItem(D2GameStrc* ptGame, D2UnitStrc* hUnit, int n
         return 0;
     }
 
-    if (pItem->dwAnimMode != 2 || !sub_00628C20(pItem))
+    if (pItem->dwAnimMode != 2 || !ITEMS_CheckIfUseable(pItem))
     {
         *pItemStatus = 1;
         return 0;
@@ -121,7 +121,7 @@ int __fastcall ITEMMODE_UseBeltItem(D2GameStrc* ptGame, D2UnitStrc* hUnit, int n
         return 0;
     }
 
-    const int nBeltX = UNITS_GetXPosition(pItem);
+    const int nBeltX = CLIENTS_GetUnitX(pItem);
     const int nSkillId = sub_0055E050_GetBookSkillIdChecked(pItem);
     if (nSkillId != -1)
     {

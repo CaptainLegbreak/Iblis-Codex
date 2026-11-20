@@ -30,7 +30,7 @@ D2AiControlStrc* __fastcall AIGENERAL_AllocAiControl(D2GameStrc* pGame); // 0x00
 void* __fastcall sub_005A6490_AllocateMonsterModeData(D2GameStrc* pGame); // 0x005A6490
 void* __fastcall MONSTERAI_AllocMonsterInteract(D2GameStrc* pGame); // 0x00572BA0
 D2MonRegDataStrc* __fastcall sub_00547BC0(void* pMonReg, D2ActiveRoomStrc* pRoom, D2UnitStrc* pUnit); // 0x00547BC0
-void __fastcall sub_005B0E00(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int nSpecialState); // 0x005B0E00
+void __fastcall AITHINK_ExecuteAiFn(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int nSpecialState); // 0x005B0E00
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 void __fastcall QUESTS_AttachLevelChainRecord(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int bQuestMonster); // 0x00545CD0
 void __fastcall SUNIT_InitializeAnimation(D2UnitStrc* pUnit); // 0x005533D0
@@ -92,7 +92,7 @@ void __fastcall MONSTER_Initialize(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D
     pMonsterData->pMonstatsTxt = MONSTER_GetMonStatsTxtRecord(pMonster);
 
     sub_00573CB0(pGame, pRoom, pMonster, sub_00547BC0(pGame->tMonReg, pRoom, pMonster));
-    sub_005B0E00(pGame, pMonster, MONSTER_GetAiControl(pMonster), 0);
+    AITHINK_ExecuteAiFn(pGame, pMonster, MONSTER_GetAiControl(pMonster), 0);
 
     const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
     int nAnimMode;

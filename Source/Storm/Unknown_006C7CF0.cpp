@@ -15,7 +15,7 @@ struct D2Callbacks006C7CF0Strc
     void (__fastcall* pfnCallback00)(int a, int b, int c, int d);
 };
 
-void __cdecl sub_006C8960_Shutdown(); // 0x006C8960
+void __cdecl sub_006C8960_DeleteGraphicObject(); // 0x006C8960
 extern void* ghObject_0098A164; // 0x0098A164
 extern D2Callbacks006C7CF0Strc* gpCallbacks_007C914C; // 0x007C914C
 
@@ -77,7 +77,7 @@ extern D2GfxPaletteViewStrc* gpGfxPaletteView_007C9150; // 0x007C9150
 // 0x006C7CF0
 int __cdecl sub_006C7CF0_Close()
 {
-    sub_006C8960_Shutdown();
+    sub_006C8960_DeleteGraphicObject();
     DeleteObject(ghObject_0098A164);
     gnValue_007C9154 = 0;
     gpCallbacks_007C914C->pfnCallback00(0, 0, 0, 0);

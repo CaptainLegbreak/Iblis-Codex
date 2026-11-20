@@ -95,7 +95,7 @@ int __stdcall INVENTORY_GetItemNodePage(D2UnitStrc* pItem); // 0x0063E020
 extern "C" const char gszItemsSourceFile_006E1150[]; // 0x006E1150
 
 static __declspec(noinline) int sub_0062A900_CountSocketedItems(D2UnitStrc* pItem);
-unsigned char __stdcall ITEMS_GetMaxSockets(D2UnitStrc*); // 0x0062BC20
+unsigned char __stdcall sub_0062BC20(D2UnitStrc*); // 0x0062BC20
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc*, int, int, int); // 0x00627260
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); // 0x00483360
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625500
@@ -424,7 +424,7 @@ void __stdcall ITEMS_AddSockets(D2UnitStrc* item, int sockets) {
     case 4: maximum = Min(maximum, 4); break;
     case 8: case 9: maximum = Min(maximum, 3); break;
     }
-    maximum = Min(maximum, ITEMS_GetMaxSockets(item));
+    maximum = Min(maximum, sub_0062BC20(item));
     sockets = Min(Max(sockets, 1), maximum);
     if (sockets > 0) {
         if (D2ItemDataStrc* data = GetData(item)) data->dwItemFlags |= 0x800;

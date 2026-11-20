@@ -33,7 +33,7 @@ void* __stdcall sub_00413020_Alloc(unsigned int, const char*, int, unsigned int)
 void __stdcall SMemFree(void*, const char*, int, unsigned int); // 0x00412650
 extern "C" __declspec(dllimport) int __stdcall WriteFile(void*, const void*, unsigned int, unsigned int*, void*); // 0x006CC1A8
 extern const char gszSBmpSource[]; // 0x006FCC58
-int __fastcall sub_006C6470_CompressGif(int nCount, const unsigned char* pPixels, unsigned char* pOut); // 0x006C6470
+int __fastcall CompressGifImage(int nCount, const unsigned char* pPixels, unsigned char* pOut); // 0x006C6470
 
 static __declspec(noinline) const char* sub_006C5EE0_FindExtension(const char* szPath);
 // 0x006C5EE0
@@ -96,7 +96,7 @@ static int __stdcall EncodeGif256File(void* hFile, const RGBQuad* pPalette, cons
     SBmpWrite(hFile, header, 10);
 
     unsigned char* pData = (unsigned char*)sub_00413020_Alloc(nWidth * nHeight * 2, gszSBmpSource, 1000, 0);
-    int nLength = sub_006C6470_CompressGif(nWidth * nHeight, pPixels, pData);
+    int nLength = CompressGifImage(nWidth * nHeight, pPixels, pData);
     WriteFile(hFile, pData, nLength, &written, 0);
     SMemFree(pData, gszSBmpSource, 1006, 0);
 

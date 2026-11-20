@@ -99,7 +99,7 @@ extern "C" __declspec(dllimport) int __stdcall VirtualFree(void* pAddress, unsig
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
-D2UnitStrc* __fastcall sub_004648F0_GetTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
+D2UnitStrc* __fastcall sub_004648F0_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 void __stdcall PATH_SetNewDistance(D2DynamicPathStrc* pDynamicPath, unsigned char nNewDistance); // 0x00648E70
 void __stdcall PATH_SetType(D2DynamicPathStrc* pDynamicPath, int nPathType); // 0x00648CF0
@@ -517,7 +517,7 @@ int __fastcall sub_004E0BD0_CltStartClearCollision(D2UnitStrc* pUnit, int nSkill
 // 0x004E0EB0
 int __fastcall sub_004E0EB0_CltStartPathToTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
-    if (!sub_004648F0_GetTargetUnit(pUnit))
+    if (!sub_004648F0_GetPathTargetUnit(pUnit))
     {
         return 0;
     }
@@ -554,7 +554,7 @@ int __fastcall sub_004E0EB0_CltStartPathToTarget(D2UnitStrc* pUnit, int nSkillId
 // 0x004E0C90
 int __fastcall sub_004E0C90(D2UnitStrc* unit, int skillId, int skillLevel)
 {
-    D2UnitStrc* target = sub_004648F0_GetTargetUnit(unit);
+    D2UnitStrc* target = sub_004648F0_GetPathTargetUnit(unit);
     if (!target) return 0;
     D2SkillStrc* skill = UNITS_GetUsedSkill(unit);
     if (!skill) return 0;

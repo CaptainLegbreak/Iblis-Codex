@@ -48,10 +48,10 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);                               // 0x0040B380
-void __cdecl sub_004584C0_ResetA();                                                                         // 0x004584C0
-void __cdecl sub_00458680_ResetB();                                                                         // 0x00458680
-void __cdecl sub_00458750_Rebuild();                                                                        // 0x00458750
-D2UnitStrc* __cdecl sub_00463DD0();                                                               // 0x00463DD0
+void __cdecl sub_004584C0();                                                                         // 0x004584C0
+void __cdecl sub_00458680_ResetAutomapCells();                                                                         // 0x00458680
+void __cdecl sub_00458750();                                                                        // 0x00458750
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit);                                                     // 0x00620650
 int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit);                                                     // 0x006206B0
 D2ActiveRoomStrc* __fastcall sub_004646A0_GetPlayerRoom();                                                  // 0x004646A0
@@ -59,7 +59,7 @@ void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2A
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);                                          // 0x0061A1B0
 D2LevelDefBin* __fastcall DATATBLS_GetLevelDefRecord(int nLevelId);                                         // 0x0061E470
 void __stdcall sub_00458F40_RevealRoomTiles(D2ActiveRoomStrc* pActiveRoom, int bRevealAll, D2AutomapLayerStrc* pLayer); // 0x00458F40
-void __stdcall sub_00643310_MapToAutomapPos(int* pX, int* pY);                                              // 0x00643310
+void __stdcall DUNGEON_GameTileToClientCoords(int* pX, int* pY);                                              // 0x00643310
 D2AutomapCellStrc* __cdecl sub_00457C30();                                                       // 0x00457C30
 void __fastcall sub_00457B00(D2AutomapCellStrc* pCell, D2AutomapCellStrc** ppRoot);              // 0x00457B00
 
@@ -100,10 +100,10 @@ static D2AutomapLayerStrc* sub_00458D40_InitAutomapLayer(int nLayerNo)
 
     if (pLayer != gpAutomapContext_007A5164)
     {
-        sub_004584C0_ResetA();
-        sub_00458680_ResetB();
+        sub_004584C0();
+        sub_00458680_ResetAutomapCells();
         gpAutomapContext_007A5164 = pLayer;
-        sub_00458750_Rebuild();
+        sub_00458750();
     }
 
     return pLayer;
@@ -191,7 +191,7 @@ void __stdcall sub_004591A0_AddTownCelsCallback(int nLevelId, int nPickedFile, i
         D2_ASSERT(0, 0x751);
     }
 
-    sub_00643310_MapToAutomapPos(&nX, &nY);
+    DUNGEON_GameTileToClientCoords(&nX, &nY);
     nX /= 10;
     nY /= 10;
     const int nHalfWidth = nStepX * nColumns / 2 + nOffsetX;

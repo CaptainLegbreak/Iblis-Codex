@@ -129,7 +129,7 @@ void __stdcall UNITS_SetXForStaticUnit(D2UnitStrc* pUnit, int nX); // 0x00620470
 void __stdcall UNITS_SetYForStaticUnit(D2UnitStrc* pUnit, int nY); // 0x006204C0
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
 D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
-D2StatListStrc* __stdcall sub_00625790_UnitFindStatList(D2UnitStrc* pUnit, int nState, int nFlag); // 0x00625790
+D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitStateOrFlag(D2UnitStrc* pUnit, int nState, int nFlag); // 0x00625790
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
 void __stdcall STATLIST_SetStat(D2StatListStrc* pStatList, int nStatId, int nValue, int nLayer); // 0x00627150
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
@@ -205,9 +205,9 @@ struct D2GemsTxt
 
 int __fastcall sub_00451F60_UnitClassId(D2UnitStrc* pUnit); // 0x00451F60
 D2SetItemsTxt* __fastcall sub_00483440_GetSetItemsTxtRecord(int nIndex); // 0x00483440
-D2UniqueItemsTxt* __fastcall sub_00483470(int nIndex); // 0x00483470
+D2UniqueItemsTxt* __fastcall sub_00483470_GetUniqueItemsTxtRecord(int nIndex); // 0x00483470
 int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem); // 0x00629DA0
-unsigned char __stdcall ITEMS_GetMaxSockets(D2UnitStrc* pItem); // 0x0062BC20
+unsigned char __stdcall sub_0062BC20(D2UnitStrc* pItem); // 0x0062BC20
 D2MagicAffixTxt* __stdcall DATATBLS_GetMagicAffixTxtRecord(int nIndex); // 0x00633EE0
 D2GemsTxt* __stdcall DATATBLS_GetGemsTxtRecord(int nGemId); // 0x006372C0
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
@@ -503,7 +503,7 @@ static int __stdcall ITEMS_DecodeItemBitstreamCompact(D2UnitStrc* pItem, D2BitBu
                 exit(-1);
             }
             const int nValue = ITEMS_ReadQuestItemDifficultyForceInl(pBuffer, pRecord);
-            D2StatListStrc* pStatList = sub_00625790_UnitFindStatList(pItem, 0, 0x40);
+            D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitStateOrFlag(pItem, 0, 0x40);
             if (!pStatList)
             {
                 pStatList = STATLIST_AllocStatList(!pItem ? 0 : pItem->pMemoryPool, 0x40, 0, 4, !pItem ? -1 : pItem->dwUnitId);
@@ -844,7 +844,7 @@ unsigned char* __stdcall ITEMS_GetColor(D2UnitStrc* pPlayer, D2UnitStrc* pItem, 
                 return 0;
             }
 
-            D2UniqueItemsTxt* pUniqueItemsTxtRecord = sub_00483470(ITEMS_GetFileIndex(pItem));
+            D2UniqueItemsTxt* pUniqueItemsTxtRecord = sub_00483470_GetUniqueItemsTxtRecord(ITEMS_GetFileIndex(pItem));
             if (!pUniqueItemsTxtRecord)
             {
                 return 0;
@@ -907,7 +907,7 @@ unsigned char* __stdcall ITEMS_GetColor(D2UnitStrc* pPlayer, D2UnitStrc* pItem, 
             return sub_00600C20(pItemsTxtRecord->nTransform, pSetItemsTxtRecord->nChrTransform);
         }
         default:
-            if (ITEMS_CheckIfSocketable_Inl(pItem) && ITEMS_GetMaxSockets(pItem) > 0 && ITEMS_CheckItemFlag_Inl(pItem, 0x800))
+            if (ITEMS_CheckIfSocketable_Inl(pItem) && sub_0062BC20(pItem) > 0 && ITEMS_CheckItemFlag_Inl(pItem, 0x800))
             {
                 D2InventoryStrc* pInventory = pItem->pInventory;
                 D2UnitStrc* pInventoryItem = INVENTORY_GetFirstItem(pInventory);

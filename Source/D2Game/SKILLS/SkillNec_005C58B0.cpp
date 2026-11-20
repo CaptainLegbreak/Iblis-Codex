@@ -9,7 +9,7 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern "C" void* __cdecl memset(void*, int, unsigned int); // 0x00681EF0
 int __fastcall D2GAME_GetXAndYFromTargetUnit_6FD14020(D2GameStrc*, D2UnitStrc*, int*, int*); // 0x0056D2C0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc*); // 0x00620BB0
-D2ActiveRoomStrc* __fastcall D2GAME_GetRoom_6FC52070(D2ActiveRoomStrc*, int, int); // 0x00463740
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc*, int, int); // 0x00463740
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc*); // 0x0061AB00
 int __fastcall D2GAME_GetSummonIdFromSkill_6FD15580(D2UnitStrc*, int, int, int, int*, int*, int*); // 0x0056E620
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc*, unsigned int, int, int); // 0x00646CA0
@@ -18,7 +18,7 @@ void __fastcall AIGENERAL_SetOwnerData(D2GameStrc*, D2UnitStrc*, int, int, int, 
 void __fastcall D2GAME_BOSSES_AssignUMod_6FC6FF10(D2GameStrc*, D2UnitStrc*, int, int); // 0x005A4850
 void __fastcall D2GAME_SetSummonPassiveStats_6FD0C530(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, int, int, int); // 0x005C4470
 void __fastcall sub_6FC40280(D2GameStrc*, D2UnitStrc*, int, int); // 0x005B1990
-int __fastcall UNITS_GetXPosition(D2UnitStrc*); // 0x0045ADF0
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc*); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc*); // 0x0045AE20
 D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc*, D2MissileStrc*); // 0x0059FA30
 void __stdcall MISSILE_SetTargetX(D2UnitStrc*, int); // 0x0064A710
@@ -44,7 +44,7 @@ int __fastcall sub_005C58B0_SummonBoneWall(D2GameStrc* pGame, D2UnitStrc* pUnit,
     int nLength;
     D2MissileStrc missile;
     if (!D2GAME_GetXAndYFromTargetUnit_6FD14020(pGame, pUnit, &nX, &nY)) return 0;
-    D2ActiveRoomStrc* pRoom = D2GAME_GetRoom_6FC52070(UNITS_GetRoom(pUnit), nX, nY);
+    D2ActiveRoomStrc* pRoom = sub_00463740_FindRoomAtPoint(UNITS_GetRoom(pUnit), nX, nY);
     if (!pRoom || DUNGEON_IsRoomInTown(pRoom)) return 0;
     if (pUnit) pUnit->dwFlags |= 0x40;
     D2SkillsTxt* pSkills = SKILLS_GetSkillsTxtRecord(nSkillId);
@@ -70,7 +70,7 @@ int __fastcall sub_005C58B0_SummonBoneWall(D2GameStrc* pGame, D2UnitStrc* pUnit,
     D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pPet, 15, 0);
     D2GAME_SetSummonPassiveStats_6FD0C530(pGame, pUnit, pPet, nSkillId, nSkillLevel, 0);
     sub_6FC40280(pGame, pPet, 0, 9);
-    nX = UNITS_GetXPosition(pPet);
+    nX = CLIENTS_GetUnitX(pPet);
     nY = CLIENTS_GetUnitY(pPet);
     if (!DUNGEON_IsRoomInTown(pRoom))
     {
@@ -85,7 +85,7 @@ int __fastcall sub_005C58B0_SummonBoneWall(D2GameStrc* pGame, D2UnitStrc* pUnit,
             missile.nSkill = nSkillId;
             missile.nSkillLevel = nSkillLevel;
             missile.nMissile = pSkills->nSrvMissile;
-            int nDeltaX = UNITS_GetXPosition(pUnit) - nX;
+            int nDeltaX = CLIENTS_GetUnitX(pUnit) - nX;
             int nDeltaY = CLIENTS_GetUnitY(pUnit) - nY;
             if (!nDeltaX && !nDeltaY) nDeltaX = 1;
             missile.nTargetX = nX - nDeltaY;

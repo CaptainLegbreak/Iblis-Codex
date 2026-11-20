@@ -87,7 +87,7 @@ void __fastcall D2GAME_RemoveItem_6FC471F0(D2GameStrc* pGame, D2UnitStrc* pUnit,
 int __fastcall sub_0055F590_CheckItem(D2UnitStrc* pItem, const char* szFile, int nLine);                    // 0x0055F590
 void __fastcall ITEMMODE_ResetBookScrollSkillQuantity(D2UnitStrc* pUnit, D2UnitStrc* pItem);                // 0x0055F9C0
 int __fastcall D2GAME_PlaceItem_6FC44410(const char* szFile, int nLine, D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnitId, int nX, int nY, int a8, int a9, D2InventoryStrc* pInventory); // 0x00560200
-int __fastcall ITEMMODE_DuplicateSocketFillers(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2UnitStrc* pSocketable, int bRefresh); // 0x00563350
+int __fastcall sub_6FC4B310(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2UnitStrc* pSocketable, int bRefresh); // 0x00563350
 void __fastcall PLRTRADE_CreateCubeOutputs(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2CubeMainTxt* pCubeMainTxtRecord, D2CubeItemStrc* pCubeItem, int nArg5); // 0x00565AB0
 int __fastcall PLRTRADE_CheckCubeInput(D2GameStrc* pGame, D2InventoryStrc* pInventory, D2CubeMainTxt* pCubeMainTxtRecord, int nInputIndex, D2CubeItemStrc* pCubeItem, int* pUsedItems); // 0x00565010
 void __fastcall PLRTRADE_Free(D2GameStrc* pGame, D2UnitStrc* pUnit);                                        // 0x00566BF0
@@ -588,7 +588,7 @@ static bool __stdcall PLRTRADE_TransferItems(D2GameStrc* pGame, D2UnitStrc* pPla
                         return false;
                     }
 
-                    if (sub_0055F590_CheckItem(pCheckedItem, szPlrTradeCpp, 0x9D5) && !ITEMMODE_DuplicateSocketFillers(pGame, pPlayer2, pCheckedItem, pDupeItem, 1))
+                    if (sub_0055F590_CheckItem(pCheckedItem, szPlrTradeCpp, 0x9D5) && !sub_6FC4B310(pGame, pPlayer2, pCheckedItem, pDupeItem, 1))
                     {
                         D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer1, szPlrTradeCpp, 0x9D9), 0xA);
                         D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer2, szPlrTradeCpp, 0x9DA), 9);

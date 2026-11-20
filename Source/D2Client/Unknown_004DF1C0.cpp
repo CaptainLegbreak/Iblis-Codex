@@ -166,9 +166,9 @@ extern D2SlotStrc gaSlots_007C8A78[16]; // 0x007C8A78
 int __fastcall sub_004B9DA0_CompareItems(D2SlotObjectStrc* pA, D2SlotObjectStrc* pB, int bCompareFloat, int bCompareValue); // 0x004B9DA0
 D2SoundRecordStrc* __fastcall sub_00481860(int nId); // 0x00481860
 int __fastcall sub_00482680_PickVariant(int nId); // 0x00482680
-void __fastcall sub_00482970(int nId, int bFlag, int nArg); // 0x00482970
-D2SlotStrc* __fastcall sub_004DF9D0_CheckCacheEntry(int nId); // 0x004DF9D0
-void __fastcall sub_004DFC20(D2SlotStrc* pSlot); // 0x004DFC20
+void __fastcall sub_00482970_LoadCacheEntry(int nId, int bFlag, int nArg); // 0x00482970
+D2SlotStrc* __fastcall SoundChannelFind(int nId); // 0x004DF9D0
+void __fastcall sub_004DFC20_UpdateSoundSlot(D2SlotStrc* pSlot); // 0x004DFC20
 int __fastcall sub_005155D0(D2SoundStrc* pSound, int nA, int nB); // 0x005155D0
 int __fastcall sub_005156A0(D2SoundStrc* pSound); // 0x005156A0
 int __fastcall sub_00515710(D2SoundStrc* pSound); // 0x00515710
@@ -176,7 +176,7 @@ void __fastcall sub_00515A30(D2SoundStrc* pSound, int nValue); // 0x00515A30
 void __fastcall sub_00515A60(D2SoundStrc* pSound, int nValue); // 0x00515A60
 void __fastcall sub_00515B40(D2SoundStrc* pSound, float fValue); // 0x00515B40
 int __fastcall sub_00515D70(D2SoundStrc* pSound, char* szPath, int nA, int nB); // 0x00515D70
-void __fastcall sub_00516140(D2SoundStrc* pSound); // 0x00516140
+void __fastcall sub_00516140_ResetSound(D2SoundStrc* pSound); // 0x00516140
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
 
@@ -456,7 +456,7 @@ D2SlotStrc* __fastcall sub_004E01B0_PlaySlotSound(D2SlotObjectStrc* pObject)
     D2SoundRecordStrc* pFirst = sub_00481860(pObject->f_4);
     if (!(pObject->nFlags & 1))
         pObject->f_4 = sub_00482680_PickVariant(pObject->f_4);
-    D2SlotStrc* pOld = sub_004DF9D0_CheckCacheEntry(pObject->f_4);
+    D2SlotStrc* pOld = SoundChannelFind(pObject->f_4);
     if (pOld && !pOld->pObject->nField0x3D && pObject->nKey - pOld->pObject->nKey < 2 && pOld->pObject->nPriority >= pObject->nPriority)
         return 0;
     D2SoundRecordStrc* pRecord = sub_00481860(pObject->f_4);
@@ -464,7 +464,7 @@ D2SlotStrc* __fastcall sub_004E01B0_PlaySlotSound(D2SlotObjectStrc* pObject)
     pFirst->nField0x64 = pObject->f_4;
     if (!pRecord->bStream && pRecord->nState != 2)
     {
-        sub_00482970(pObject->f_4, pRecord->nField0x4D == 0, 0);
+        sub_00482970_LoadCacheEntry(pObject->f_4, pRecord->nField0x4D == 0, 0);
         if (pRecord->nState != 2)
             return 0;
     }
@@ -483,7 +483,7 @@ D2SlotStrc* __fastcall sub_004E01B0_PlaySlotSound(D2SlotObjectStrc* pObject)
     D2SlotStrc* pSlot = sub_004DFB50_GetFreeSlot(pObject, nType);
     if (!pSlot)
         return 0;
-    sub_00516140(pSlot->f_0);
+    sub_00516140_ResetSound(pSlot->f_0);
     if (!pRecord->bStream)
     {
         sub_00515A30(pSlot->f_0, pRecord->nField0x3E);
@@ -501,7 +501,7 @@ D2SlotStrc* __fastcall sub_004E01B0_PlaySlotSound(D2SlotObjectStrc* pObject)
     pSlot->fField0x1C = 0.0f;
     pSlot->nField0x18 = -1;
     memset(&pSlot->nField0x0C, 0, 3 * sizeof(int));
-    sub_004DFC20(pSlot);
+    sub_004DFC20_UpdateSoundSlot(pSlot);
     int bOk;
     if (!pRecord->bStream)
     {

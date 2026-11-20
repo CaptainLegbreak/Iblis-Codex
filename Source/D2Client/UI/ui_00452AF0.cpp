@@ -63,7 +63,7 @@ const Unicode* __fastcall sub_00453E70_GetLevelName(int nLevelId);              
 int __fastcall sub_00451F30_TestUnitFlag(D2UnitStrc* pUnit, int nFlag);                                     // 0x00451F30
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId);                                    // 0x00451F80
 void __fastcall sub_00454AD0_DrawUnitHoverName(D2UnitStrc* pUnit);                                          // 0x00454AD0
-D2UnitStrc* __cdecl sub_00463DD0();                                                               // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType);                             // 0x00463990
 const Unicode* __fastcall sub_00464A60_GetUnitName(D2UnitStrc* pUnit);                                      // 0x00464A60
 void __fastcall sub_00476070_GetViewRect(D2ViewStrc* pView, int* pLeft, int* pTop, int* pRight, int* pBottom); // 0x00476070
@@ -75,11 +75,11 @@ const char* __fastcall sub_0047A290_GetOwnerName(int nUnitId);                  
 int __fastcall sub_004B3230_GetTickPair(int* pLow);                                                         // 0x004B3230
 int __stdcall sub_004B92E0_GetTableByte(int nUnused, int nIndex);                                           // 0x004B92E0
 int __cdecl sub_004A0000();                                                                                 // 0x004A0000
-void __fastcall sub_00502280_SetPopUpText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5);    // 0x00502280
-void __fastcall sub_005022F0_ShowPopUpText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5, int nArg6); // 0x005022F0
+void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5);    // 0x00502280
+void __fastcall D2Win_10130_DrawFramedTextEx(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5, int nArg6); // 0x005022F0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 const Unicode* __fastcall D2LANG_GetStringByReferenceString(const char* szKey);                                       // 0x00524E20
-int __cdecl sub_00525150();                                                                         // 0x00525150
+int __cdecl STRTABLE_GetLanguage();                                                                         // 0x00525150
 void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength);                  // 0x00526320
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);                                 // 0x00526700
 Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCount);                    // 0x00526790
@@ -120,14 +120,14 @@ static void __stdcall sub_00452AF0_GetPartyText(D2UnitStrc* pUnit, Unicode* pDst
         for (int i = 0; i < 0x80; i++)
             wszName[i] = 0;
         sub_00526F20_ToUnicode((Unicode*)wszName, szName, 0x80);
-        sub_005272B0_FormatText(pDst, (Unicode*)wszName, D2LANG_GetStringFromTblIndex(0x90B), nMaxLength, sub_00525150());
+        sub_005272B0_FormatText(pDst, (Unicode*)wszName, D2LANG_GetStringFromTblIndex(0x90B), nMaxLength, STRTABLE_GetLanguage());
         *pFlag = 1;
         return;
     }
     *pValue = sub_0047A6B0_GetLifeValue(!pUnit ? -1 : pUnit->dwUnitId) * 128 / 100;
     *pFlag = 0;
     const int nUnitId = !pUnit ? -1 : pUnit->dwUnitId;
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (sub_0047A070_IsPartyRelation(!pPlayer ? -1 : pPlayer->dwUnitId, nUnitId))
     {
         *pFlag = 1;
@@ -160,7 +160,7 @@ static void __stdcall sub_00452BE0_ShowUnitHoverName(D2UnitStrc* pUnit, int bSet
     }
     else
     {
-        sub_005022F0_ShowPopUpText(pName, nX, nY, 0, 1, nValues[1]);
+        D2Win_10130_DrawFramedTextEx(pName, nX, nY, 0, 1, nValues[1]);
     }
 }
 
@@ -184,7 +184,7 @@ static int __stdcall sub_00452C70_GetRosterText(D2UnitStrc* pUnit, Unicode* pDst
     sub_00526320_ToUnicode(pDst, szName, 0x80);
     *pValue = sub_0047A6B0_GetLifeValue(nIndex) * 128 / 100;
     *pFlag = 0;
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (sub_0047A070_IsPartyRelation(!pPlayer ? -1 : pPlayer->dwUnitId, nIndex))
     {
         *pFlag = 1;
@@ -232,7 +232,7 @@ void __cdecl sub_00452D20_DrawPetHover()
     {
         return;
     }
-    const int nPetId = sub_00478F20_FindPetIdByOwner(sub_00463DD0(), 7, 0);
+    const int nPetId = sub_00478F20_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0);
     if (nPetId == -1)
     {
         return;
@@ -261,7 +261,7 @@ void __fastcall sub_00453330_DrawPartyMemberText(D2UnitStrc* pUnit)
     {
         return;
     }
-    if (pUnit == sub_00463DD0())
+    if (pUnit == sub_00463DD0_GetPlayerUnit())
     {
         return;
     }
@@ -314,7 +314,7 @@ void __fastcall sub_00454F30_DrawUnitHover(D2UnitStrc* pUnit)
         return;
     }
     const int nUnitType = pUnit ? pUnit->dwUnitType : 6;
-    if (nUnitType == 5 && sub_006416D0_UnitEdgeDistance(pUnit, sub_00463DD0()) > 100)
+    if (nUnitType == 5 && sub_006416D0_UnitEdgeDistance(pUnit, sub_00463DD0_GetPlayerUnit()) > 100)
     {
         return;
     }
@@ -331,7 +331,7 @@ void __fastcall sub_00454F30_DrawUnitHover(D2UnitStrc* pUnit)
         int nPercent;
         int bFlag;
         sub_00452AF0_GetPartyText(pUnit, wszName, 0x80, &nPercent, &bFlag);
-        sub_005022F0_ShowPopUpText(wszName, gnHoverX_0070F854, gnHoverY_0070F858 - 0x48, bFlag, 1, nPercent);
+        D2Win_10130_DrawFramedTextEx(wszName, gnHoverX_0070F854, gnHoverY_0070F858 - 0x48, bFlag, 1, nPercent);
         return;
     }
     case 4:
@@ -359,7 +359,7 @@ void __fastcall sub_00454F30_DrawUnitHover(D2UnitStrc* pUnit)
                         {
                             return;
                         }
-                        sub_005022F0_ShowPopUpText(wszName, gnHoverX_0070F854, gnHoverY_0070F858 - 0x48, bFlag, 1, nPercent);
+                        D2Win_10130_DrawFramedTextEx(wszName, gnHoverX_0070F854, gnHoverY_0070F858 - 0x48, bFlag, 1, nPercent);
                         return;
                     }
                 }
@@ -421,7 +421,7 @@ void __fastcall sub_00454F30_DrawUnitHover(D2UnitStrc* pUnit)
                     sub_00526700(wszText, wszOwner);
                 }
             }
-            sub_00502280_SetPopUpText(wszText, gnHoverX_0070F854, gnHoverY_0070F858 + nOffset, 0, 1);
+            D2Win_10129_DrawFramedText(wszText, gnHoverX_0070F854, gnHoverY_0070F858 + nOffset, 0, 1);
             return;
         }
         if (nFlags & 0x80)
@@ -441,10 +441,10 @@ void __fastcall sub_00454F30_DrawUnitHover(D2UnitStrc* pUnit)
             sub_00526700(wszLine, D2LANG_GetStringFromTblIndex(0xF9B));
             sub_00526700(wszLine, D2LANG_GetStringFromTblIndex(0xF9E));
             sub_00526700(wszLine, D2LANG_GetStringByReferenceString(pLevelsTxt->szLevelName));
-            sub_00502280_SetPopUpText(wszLine, gnHoverX_0070F854, gnHoverY_0070F858 + nOffset, 0, 1);
+            D2Win_10129_DrawFramedText(wszLine, gnHoverX_0070F854, gnHoverY_0070F858 + nOffset, 0, 1);
             return;
         }
-        sub_00502280_SetPopUpText(pName, gnHoverX_0070F854, gnHoverY_0070F858 + nOffset, 0, 1);
+        D2Win_10129_DrawFramedText(pName, gnHoverX_0070F854, gnHoverY_0070F858 + nOffset, 0, 1);
         return;
     }
     case 5:
@@ -477,7 +477,7 @@ void __fastcall sub_00454F30_DrawUnitHover(D2UnitStrc* pUnit)
             }
         }
         sub_00526790(wszText, pText, 0xC7);
-        sub_00502280_SetPopUpText(wszText, nX, nY, 0, 1);
+        D2Win_10129_DrawFramedText(wszText, nX, nY, 0, 1);
         return;
     }
     }

@@ -30,7 +30,7 @@ struct D2Block006CAD10Strc
 
 extern D2Block006CAD10Strc gBlock_007C0DF5; // 0x007C0DF5
 extern int gnValue_007C0E84; // 0x007C0E84
-void __cdecl sub_006CB400_Cleanup(); // 0x006CB400
+void __cdecl sub_006CB400_Nop(); // 0x006CB400
 int __cdecl sub_00683824_RegisterExit(void (__cdecl* callback)()); // 0x00683824
 extern const char* gszDefaultClass_0072DAA0; // 0x0072DAA0
 extern const char* gszWindowClassName_007C9158; // 0x007C9158
@@ -109,7 +109,7 @@ void __cdecl sub_006CAD80_ClearValues()
 // 0x006CADE0
 void __cdecl sub_006CADE0_RegisterCleanup()
 {
-    sub_00683824_RegisterExit(sub_006CB400_Cleanup);
+    sub_00683824_RegisterExit(sub_006CB400_Nop);
 }
 
 // 0x006CADF0

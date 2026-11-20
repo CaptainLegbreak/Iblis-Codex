@@ -23,13 +23,13 @@ const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);  
 void __fastcall sub_00433380_ShowMessage(const Unicode* pText, D2LaunchDoneFn pfnDone, int nArg);           // 0x00433380
 int __fastcall sub_0043C180_Connect(D2LaunchRecordStrc* pRecord, int bFlag, int nMode);                    // 0x0043C180
 void __cdecl sub_0042F480_Reset();                                                                          // 0x0042F480
-void __cdecl sub_0043B080();                                                                                // 0x0043B080
+void __cdecl sub_0043B080_InitCharSelectScreen();                                                                                // 0x0043B080
 int __cdecl sub_00430BC0_HasSaveFiles();                                                                    // 0x00430BC0
 void __cdecl sub_0042FDD0();                                                                                // 0x0042FDD0
 void __cdecl sub_00435330_ShowLoginScreen();                                                                // 0x00435330
 void __cdecl sub_004325B0_CreateScreen();                                                                   // 0x004325B0
 void __cdecl sub_004301A0();                                                                                // 0x004301A0
-void __cdecl sub_00432100();                                                                                // 0x00432100
+void __cdecl sub_00432100_CreateLoginScreen();                                                                                // 0x00432100
 void __cdecl sub_0042F3F0_DestroyControls();                                                                // 0x0042F3F0
 
 extern D2LaunchRecordStrc* gpLaunchRecord_007795D4;                                                         // 0x007795D4
@@ -73,32 +73,32 @@ int __stdcall sub_00435030_ChangePasswordOk(int nArg)
     if (nLength < 2)
     {
         const Unicode* pMessage = D2LANG_GetStringFromTblIndex(0x1460);
-        sub_00433380_ShowMessage(pMessage, sub_00432100, 1);
+        sub_00433380_ShowMessage(pMessage, sub_00432100_CreateLoginScreen, 1);
         return 1;
     }
     if (nLength > 0xF)
     {
         const Unicode* pMessage = D2LANG_GetStringFromTblIndex(0x1461);
-        sub_00433380_ShowMessage(pMessage, sub_00432100, 1);
+        sub_00433380_ShowMessage(pMessage, sub_00432100_CreateLoginScreen, 1);
         return 1;
     }
     if (sub_00526590_Compare(pPassword, pConfirm))
     {
         const Unicode* pMessage = D2LANG_GetStringFromTblIndex(0x1462);
-        sub_00433380_ShowMessage(pMessage, sub_00432100, 1);
+        sub_00433380_ShowMessage(pMessage, sub_00432100_CreateLoginScreen, 1);
         return 1;
     }
     nLength = sub_00526800(pPassword);
     if (nLength < 2)
     {
         const Unicode* pMessage = D2LANG_GetStringFromTblIndex(0x1463);
-        sub_00433380_ShowMessage(pMessage, sub_00432100, 1);
+        sub_00433380_ShowMessage(pMessage, sub_00432100_CreateLoginScreen, 1);
         return 1;
     }
     if (nLength > 0x14)
     {
         const Unicode* pMessage = D2LANG_GetStringFromTblIndex(0x1464);
-        sub_00433380_ShowMessage(pMessage, sub_00432100, 1);
+        sub_00433380_ShowMessage(pMessage, sub_00432100_CreateLoginScreen, 1);
         return 1;
     }
     gdwGlobal_007795F4 = 0;
@@ -106,7 +106,7 @@ int __stdcall sub_00435030_ChangePasswordOk(int nArg)
     {
         if (gdwGlobal_007795F4)
         {
-            sub_00432100();
+            sub_00432100_CreateLoginScreen();
             return 1;
         }
     }
@@ -137,7 +137,7 @@ int __stdcall sub_004361B0_LoginOk(int nArg)
         {
             sub_00515020();
             sub_0042F480_Reset();
-            sub_0043B080();
+            sub_0043B080_InitCharSelectScreen();
             return 1;
         }
         if (sub_00430BC0_HasSaveFiles())

@@ -93,11 +93,11 @@ void __fastcall sub_0052E9B0(int nClientId); // 0x0052E9B0
 int __fastcall GAME_VerifyJoinAct(int nClientId); // 0x0052C550
 void __fastcall SrvJoinAct(int nClientId); // 0x00530190
 int __fastcall sub_0052DB00_Return1(int nClientId); // 0x0052DB00
-int __fastcall sub_6FC399A0(int nClientId, D2GSPacketClt6B* pPacket); // 0x0052DB10
+int __fastcall GAME_ReceiveSaveFilePart(int nClientId, D2GSPacketClt6B* pPacket); // 0x0052DB10
 int __fastcall GAME_VerifyDisconnect(int nClientId); // 0x0052CBE0
 void __fastcall SrvDisconnectClientById(int nClientId, int nEventType); // 0x00530270
 D2ClientStrc* __fastcall sub_00537760_GetClientFromId(int nClientId); // 0x00537760
-void __fastcall sub_005377A0_RemoveClient(int nClientId); // 0x005377A0
+void __fastcall sub_005377A0_UnlockClientList(int nClientId); // 0x005377A0
 
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
@@ -235,7 +235,7 @@ void __fastcall CCMD_ProcessClientSystemMessage(void* pData, int nSize)
         D2_ASSERT(p6B->dwTotalSize < 0x2000, 0x1A8);
         if (sub_0052DB00_Return1(nClientId))
         {
-            sub_6FC399A0(nClientId, p6B);
+            GAME_ReceiveSaveFilePart(nClientId, p6B);
         }
         break;
     }
@@ -251,7 +251,7 @@ void __fastcall CCMD_ProcessClientSystemMessage(void* pData, int nSize)
         if (pClient)
         {
             pClient->dw504 = 1;
-            sub_005377A0_RemoveClient(nClientId);
+            sub_005377A0_UnlockClientList(nClientId);
         }
         break;
     }

@@ -90,7 +90,7 @@ struct D2CurseStrc
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
-int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit);                                                       // 0x0045ADF0
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                                                       // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
 D2UnitStrc* __fastcall SUNIT_GetOwner(D2GameStrc* pGame, D2UnitStrc* pUnit);                                // 0x00552FD0
 int __fastcall SUNIT_AreUnitsAligned(D2GameStrc* pGame, D2UnitStrc* pUnit1, D2UnitStrc* pUnit);             // 0x00554DE0
@@ -332,7 +332,7 @@ int __fastcall MISSMODE_SrvHit15_SpiderGooLay(D2GameStrc* pGame, D2UnitStrc* pMi
     D2MissileStrc missileParams = {};
     missileParams.dwFlags = 1;
     missileParams.pOwner = pOwner;
-    missileParams.nX = UNITS_GetXPosition(pMissile);
+    missileParams.nX = CLIENTS_GetUnitX(pMissile);
     missileParams.nY = CLIENTS_GetUnitY(pMissile);
     missileParams.nSkill = MISSILE_GetSkill(pMissile);
     missileParams.nSkillLevel = MISSILE_GetLevel(pMissile);
@@ -704,7 +704,7 @@ int __fastcall MISSMODE_SrvHit36_MissileInAir(D2GameStrc* pGame, D2UnitStrc* pMi
         return 0;
     }
 
-    D2UnitStrc* pHitSubMissile = D2GAME_CreateMissile_6FD115E0(pGame, SUNIT_GetOwner(pGame, pMissile), MISSILE_GetSkill(pMissile), MISSILE_GetLevel(pMissile), pMissilesTxtRecord->wHitSubMissile[0], UNITS_GetXPosition(pMissile), CLIENTS_GetUnitY(pMissile));
+    D2UnitStrc* pHitSubMissile = D2GAME_CreateMissile_6FD115E0(pGame, SUNIT_GetOwner(pGame, pMissile), MISSILE_GetSkill(pMissile), MISSILE_GetLevel(pMissile), pMissilesTxtRecord->wHitSubMissile[0], CLIENTS_GetUnitX(pMissile), CLIENTS_GetUnitY(pMissile));
     if (pHitSubMissile)
     {
         MISSILE_SetTargetX(pHitSubMissile, MISSILE_GetTargetX(pMissile));

@@ -58,11 +58,11 @@ struct D2UnitStatPacket2Strc
 
 void __fastcall sub_004C1BC0(D2PacketRecord11Strc* pPacket, int nArg);                                      // 0x004C1BC0
 D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType);                             // 0x00463990
-D2UnitStrc* __cdecl sub_00463DD0();                                                               // 0x00463DD0
-D2UnitStrc* __cdecl sub_00463DE0_GetStoredUnit();                                                           // 0x00463DE0
-void __fastcall sub_00480E70_SetState(D2UnitStrc* pUnit, int nArg);                                        // 0x00480E70
-void __fastcall sub_004647D0(D2UnitStrc* pUnit);                                                            // 0x004647D0
-void __fastcall sub_0045D3E0(D2UnitStrc* pUnit);                                                            // 0x0045D3E0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit();                                                           // 0x00463DE0
+void __fastcall sub_00480E70_SetUnitMode(D2UnitStrc* pUnit, int nArg);                                        // 0x00480E70
+void __fastcall sub_004647D0_UpdateAttackableFlag(D2UnitStrc* pUnit);                                                            // 0x004647D0
+void __fastcall sub_0045D3E0_RefreshItemStats(D2UnitStrc* pUnit);                                                            // 0x0045D3E0
 void __fastcall sub_004C1C10(D2UnitStrc* pUnit);                                                            // 0x004C1C10
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer);                // 0x00627260
 void __stdcall STATLIST_AddUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer);                // 0x006272B0

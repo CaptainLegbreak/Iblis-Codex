@@ -121,7 +121,7 @@ void __fastcall ACT5Q1_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2Que
 int __fastcall ACT5Q1_UnitIterate_SetRewardPending(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x00587100
 int __fastcall ACT5Q1_UnitIterate_AttachCompletionSound(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x005872F0
 bool __fastcall ACT5Q1_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC); // 0x005874E0
-bool __fastcall ACT5Q1_SeqCallback(D2QuestDataStrc* pQuestData); // 0x00587560
+bool __fastcall sub_00587560_SeqCallback(D2QuestDataStrc* pQuestData); // 0x00587560
 D2MapAIStrc* __stdcall AIGENERAL_GetMapAiFromUnit(D2UnitStrc* pUnit); // 0x0058F000
 D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int a7, int a8); // 0x005B2F20
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
@@ -131,7 +131,7 @@ unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
 void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C360
 D2MapAIStrc* __fastcall DRLGPRESET_ChangeMapAI(D2MapAIStrc** ppMapAI1, D2MapAIStrc* pMapAI2); // 0x00666120
-void __fastcall ACT5Q1_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x005870D0
+void __fastcall ACT4Q3_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x005870D0
 void __fastcall ACT5Q1_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x005873E0
 
 typedef int(__stdcall* FARPROC)();
@@ -276,7 +276,7 @@ void __fastcall ACT5Q1_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
 void __fastcall ACT5Q1_InitQuestData(D2QuestDataStrc* pQuestData)
 {
     memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
-    pQuestData->pCallback[10] = ACT5Q1_Callback10_PlayerLeavesGame;
+    pQuestData->pCallback[10] = ACT4Q3_Callback10_PlayerLeavesGame;
     pQuestData->pCallback[3] = ACT5Q1_Callback03_ChangedLevel;
     pQuestData->pCallback[8] = ACT5Q1_Callback08_MonsterKilled;
     pQuestData->pCallback[0] = ACT5Q1_Callback00_NpcActivate;
@@ -293,7 +293,7 @@ void __fastcall ACT5Q1_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->pfStatusFilter = ACT5Q1_StatusFilterCallback;
     pQuestData->nInitNo = 4;
     pQuestData->pfActiveFilter = ACT5Q1_ActiveFilterCallback;
-    pQuestData->pfSeqFilter = ACT5Q1_SeqCallback;
+    pQuestData->pfSeqFilter = sub_00587560_SeqCallback;
     pQuestData->nSeqId = 0x20;
     memset(pQuestDataEx, 0x00, sizeof(D2Act5Quest1Strc));
 }

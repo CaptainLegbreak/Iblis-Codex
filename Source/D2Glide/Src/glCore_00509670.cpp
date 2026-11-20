@@ -67,10 +67,10 @@ struct D2GlideCache00509AA0Strc
 
 void __fastcall sub_0050F7C0(D2GlideCache00509AA0Strc* pCache, int bFree); // 0x0050F7C0
 void __fastcall sub_0050F210(D2GlideCache00509AA0Strc* pCache, int bFree); // 0x0050F210
-void __cdecl sub_0050E030(); // 0x0050E030
+void __cdecl sub_0050E030_GlideNoOp(); // 0x0050E030
 void __fastcall sub_0050ECB0(D2GlideCache00509AA0Strc* pCache, int bFree); // 0x0050ECB0
-void __cdecl sub_0050A0C0(); // 0x0050A0C0
-void __cdecl sub_0050BB70(); // 0x0050BB70
+void __cdecl sub_0050A0C0_FreeSpriteBuffers(); // 0x0050A0C0
+void __cdecl sub_0050BB70_GlideFreeDebugFont(); // 0x0050BB70
 
 typedef void (__stdcall* D2GlideFinishFn)();
 
@@ -232,12 +232,12 @@ int __cdecl sub_00509AA0_GlideShutdown()
         }
         else
         {
-            sub_0050E030();
+            sub_0050E030_GlideNoOp();
         }
         sub_0050ECB0(&gCacheA_0087F068, 1);
         sub_0050ECB0(&gCacheB_0087F088, 1);
         sub_0050ECB0(&gCacheC_0087F0A8, 1);
-        sub_0050A0C0();
+        sub_0050A0C0_FreeSpriteBuffers();
         for (int i = 0; ; ++i)
         {
             int nIdle = i < 100 ? gpfnGlideIdle_0087EFA4(gnGlideHandle_0087EB94) : 1;
@@ -246,7 +246,7 @@ int __cdecl sub_00509AA0_GlideShutdown()
                 break;
             }
         }
-        sub_0050BB70();
+        sub_0050BB70_GlideFreeDebugFont();
         gnGlideState_007C9140 = 0;
     }
     return 1;

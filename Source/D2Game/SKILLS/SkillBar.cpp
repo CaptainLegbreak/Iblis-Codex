@@ -134,15 +134,15 @@ void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListSt
 
 
 
-D2ActiveRoomStrc* __fastcall D2GAME_GetRoom_6FC52070(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
-int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit); // 0x0045ADF0
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 void __fastcall sub_6FC62D90(D2UnitStrc* pUnit, D2GameStrc* pGame); // 0x005A5490
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 void __stdcall UNITS_SetUsedSkill(D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill); // 0x00620210
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 int __stdcall UNITS_GetUnitSizeX(D2UnitStrc* pUnit); // 0x00620510
-int __stdcall UNITS_GetDistanceToCoordinates(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
+int __stdcall sub_006417F0_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, unsigned short nMask); // 0x0064D910
@@ -732,7 +732,7 @@ static int __stdcall sub_005D9A10_FindLeapTargetPosition(D2UnitStrc* pUnit, int 
     const int nUnitY = CLIENTS_GetUnitYInline(pUnit);
     const int nAuraRange = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraRangeCalc, nSkillId, nSkillLevel);
 
-    int nDistance = UNITS_GetDistanceToCoordinates(pUnit, *pX, *pY);
+    int nDistance = sub_006417F0_GetDistanceToXY(pUnit, *pX, *pY);
     if (nDistance <= 1)
     {
         nDistance = 1;
@@ -761,11 +761,11 @@ static int __stdcall sub_005D9A10_FindLeapTargetPosition(D2UnitStrc* pUnit, int 
     nCounter = 3;
     while (nCounter)
     {
-        D2ActiveRoomStrc* pRoom = D2GAME_GetRoom_6FC52070(UNITS_GetRoom(pUnit), coords.nX, coords.nY);
+        D2ActiveRoomStrc* pRoom = sub_00463740_FindRoomAtPoint(UNITS_GetRoom(pUnit), coords.nX, coords.nY);
         pRoom = COLLISION_GetFreeCoordinates(pRoom, &coords, UNITS_GetUnitSizeX(pUnit), 0x1C09, 1);
         nX = coords.nX;
         nY = coords.nY;
-        if (pRoom && !COLLISION_CheckAnyCollisionWithPattern(pRoom, nX, nY, PATH_GetUnitCollisionPattern(pUnit), 0x1C09) && sub_00645910_TestLine(nUnitX, nUnitY, nX, nY, pRoom, 0x804) && UNITS_GetDistanceToCoordinates(pUnit, nX, nY) <= nAuraRange)
+        if (pRoom && !COLLISION_CheckAnyCollisionWithPattern(pRoom, nX, nY, PATH_GetUnitCollisionPattern(pUnit), 0x1C09) && sub_00645910_TestLine(nUnitX, nUnitY, nX, nY, pRoom, 0x804) && sub_006417F0_GetDistanceToXY(pUnit, nX, nY) <= nAuraRange)
         {
             *pX = nX;
             *pY = nY;
@@ -846,7 +846,7 @@ static int __stdcall sub_005D9CE0_CheckLeapRoom(D2UnitStrc* pUnit, int nX, int n
         return 0;
     }
 
-    pRoom = D2GAME_GetRoom_6FC52070(pRoom, nX, nY);
+    pRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
     if (!pRoom)
     {
         return 0;
@@ -907,9 +907,9 @@ int __fastcall SKILLS_SrvSt40_Leap(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSk
                 return 0;
             }
 
-            nX = UNITS_GetXPosition(pTarget);
+            nX = CLIENTS_GetUnitX(pTarget);
             nY = CLIENTS_GetUnitY(pTarget);
-            nX = 2 * nX - UNITS_GetXPosition(pUnit);
+            nX = 2 * nX - CLIENTS_GetUnitX(pUnit);
             nY = 2 * nY - CLIENTS_GetUnitY(pUnit);
         }
 
@@ -942,7 +942,7 @@ int __fastcall SKILLS_SrvSt40_Leap(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSk
         }
     }
 
-    D2ActiveRoomStrc* pRoom = D2GAME_GetRoom_6FC52070(UNITS_GetRoom(pUnit), nX, nY);
+    D2ActiveRoomStrc* pRoom = sub_00463740_FindRoomAtPoint(UNITS_GetRoom(pUnit), nX, nY);
     COLLISION_SetMaskWithPattern(pRoom, nX, nY, PATH_GetUnitCollisionPattern(pUnit), 0x80);
     sub_6FCBDE90(pUnit, 1);
     STATES_ToggleState(pUnit, 0x12, 1);

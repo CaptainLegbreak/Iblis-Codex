@@ -241,13 +241,13 @@ D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E
 int __fastcall EVENT_GetEventFrame(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEvent); // 0x005415A0
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
 int __fastcall D2GAME_CheckIfSparklyChest_6FCBD7F0(D2UnitStrc* pUnit); // 0x005540D0
-void __fastcall sub_6FCBDD30(D2UnitStrc* pUnit, unsigned char nAlignNew, int a3); // 0x005543B0
+void __fastcall sub_005543B0_AssignAlignment(D2UnitStrc* pUnit, unsigned char nAlignNew, int a3); // 0x005543B0
 D2UnitStrc* __fastcall AIGENERAL_GetMinionOwner(D2UnitStrc* pUnit); // 0x0058F0D0
 int __fastcall sub_6FC7D5F0(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pUnit); // 0x005752B0
 void __fastcall sub_M402_EmitOther(D2GameStrc* pGame, D2UnitStrc* pUnit);
 void __fastcall AIGENERAL_SetAiControlParam(D2UnitStrc* pMonster, int nIndex, int nParamValue); // 0x0058EC00
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, unsigned short nLayer); // 0x00627260
-D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomBySubtile(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
 D2ActiveRoomStrc* __stdcall sub_00619DA0_ActLookup(D2DrlgActStrc* pAct, int nX, int nY); // 0x00619DA0
 __declspec(noinline) static D2InactiveUnitListStrc* __stdcall sub_00541D20_GetListNodeFromActAndCoordinates(D2GameStrc* pGame, int nAct, int nX, int nY, int bAllocNewNode);
 
@@ -1001,7 +1001,7 @@ int __fastcall sub_005429B0_IsDeadMonsterAt(D2GameStrc* ptGame, D2ActiveRoomStrc
     D2_ASSERT(pRoom, 0x6DB);
     D2_ASSERT(nX && nY, 0x6DC);
 
-    D2ActiveRoomStrc* pTargetRoom = sub_00463740_FindRoomBySubtile(pRoom, nX, nY);
+    D2ActiveRoomStrc* pTargetRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
     const int nAct = DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom));
     if (!pTargetRoom)
     {

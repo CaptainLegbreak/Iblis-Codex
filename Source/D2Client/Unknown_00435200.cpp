@@ -26,18 +26,18 @@ extern int gdwGlobal_0077932C;                                                  
 const char* __cdecl sub_0040DF60_GetLocalIp();                                                              // 0x0040DF60
 void __cdecl sub_0042F480_Reset();                                                                          // 0x0042F480
 int __cdecl sub_00430BC0_HasSaveFiles();                                                                    // 0x00430BC0
-void __cdecl sub_004336C0();                                                                                // 0x004336C0
+void __cdecl sub_004336C0_ShowMainMenu();                                                                                // 0x004336C0
 void __cdecl sub_00435330_ShowLoginScreen();                                                                // 0x00435330
-void __cdecl sub_00435580();                                                                                // 0x00435580
-void __cdecl sub_0043B080();                                                                                // 0x0043B080
-void __cdecl sub_00515020();                                                                                // 0x00515020
+void __cdecl sub_00435580_CreateCharCreateScreen();                                                                                // 0x00435580
+void __cdecl sub_0043B080_InitCharSelectScreen();                                                                                // 0x0043B080
+void __cdecl sub_00515020_FadeOutWaves();                                                                                // 0x00515020
 
 // 0x00435200
 int __stdcall sub_00435200_RunSlot70(int nArg)
 {
     gpFuncTable_0077ABF0->pfnSlot70();
     gdwGlobal_0077932C = 1;
-    sub_004336C0();
+    sub_004336C0_ShowMainMenu();
     return 1;
 }
 
@@ -47,13 +47,13 @@ int __stdcall sub_00435CD0_SelectMode0(int nArg)
     gnLaunchMode_007795EC = 0;
     if (sub_00430BC0_HasSaveFiles() == 1)
     {
-        sub_00515020();
+        sub_00515020_FadeOutWaves();
         sub_0042F480_Reset();
-        sub_0043B080();
+        sub_0043B080_InitCharSelectScreen();
         return 1;
     }
 
-    sub_00435580();
+    sub_00435580_CreateCharCreateScreen();
     return 1;
 }
 
@@ -82,12 +82,12 @@ int __stdcall sub_00435D80_SelectMode2(int nArg)
     gpLaunchRecord_007795D4->nValue209 = 4;
     if (!sub_00430BC0_HasSaveFiles())
     {
-        sub_00435580();
+        sub_00435580_CreateCharCreateScreen();
         return 1;
     }
 
-    sub_00515020();
+    sub_00515020_FadeOutWaves();
     sub_0042F480_Reset();
-    sub_0043B080();
+    sub_0043B080_InitCharSelectScreen();
     return 1;
 }

@@ -101,7 +101,7 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 int __fastcall sub_004638A0_CheckMonStats2Flag(int nMonsterId, int nFlag); // 0x004638A0
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2GfxDataStrc* __fastcall sub_00463E10_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
 void __fastcall sub_0046F0C0(D2UnitStrc* pUnit, int nArg, int nValue); // 0x0046F0C0
 D2GfxLightStrc* __fastcall sub_00474160_MakeLightEntry(D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6); // 0x00474160
@@ -173,7 +173,7 @@ int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit); // 0x006206B0
 int __cdecl sub_0045AE90(); // 0x0045AE90
 int __fastcall sub_004709A0_IsOnScreen(D2UnitStrc* pUnit, int nX, int nY, int nArg1, int nArg2); // 0x004709A0
 void __stdcall sub_004F6570_DrawCelColored(D2CelContextStrc* pContext, int nX, int nY, unsigned char nColor); // 0x004F6570
-int __stdcall sub_004DA0D0_GetUnitGfxOffsetY(D2UnitStrc* pUnit); // 0x004DA0D0
+int __stdcall sub_004DA0D0_GetGfxMotionField38(D2UnitStrc* pUnit); // 0x004DA0D0
 int __stdcall UNITS_GetPrecisionX(D2UnitStrc* pUnit); // 0x006203B0
 int __stdcall UNITS_GetPrecisionY(D2UnitStrc* pUnit); // 0x00620410
 int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc* pUnit, int nStateMask); // 0x0063A7B0
@@ -184,7 +184,7 @@ void* __fastcall sub_0046FA80_LoadGfxNode(D2UnitStrc* pUnit, int nWeaponClassId,
 void* __fastcall sub_0046E570_GetGfxEntry(D2UnitStrc* pUnit, int nMode); // 0x0046E570
 D2GfxLayerHeaderStrc* __fastcall sub_004DB040_GetLayerHeader(void* pGfx); // 0x004DB040
 void __fastcall sub_004DB2E0_GetLayerInfo(D2UnitStrc* pUnit, int nType, int nClass, int nMode, int* pDirection, int* pA, int* pB, int nArg, int nFlag); // 0x004DB2E0
-int __fastcall sub_004DB670_IsLayerVisible(D2UnitStrc* pUnit, int nLayer); // 0x004DB670
+int __fastcall sub_004DB670_UpdateUnitGfx(D2UnitStrc* pUnit, int nLayer); // 0x004DB670
 int __fastcall sub_004DBB50_GetItemCelContext(D2CelContextStrc* pContext, D2UnitStrc* pItem, int nArg3, int nArg4, int nArg5, int* pOut, int nArg7, int nArg8); // 0x004DBB50
 int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3); // 0x006001F0
 int __stdcall sub_006018F0(D2CelStrc* pCel); // 0x006018F0
@@ -232,8 +232,8 @@ struct D2HashedFileStrc
 };
 
 int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0); // 0x0040B480
-int __stdcall sub_004DA110_GetUnitGfxShiftX(D2UnitStrc* pUnit); // 0x004DA110
-int __stdcall sub_004DA130_GetUnitGfxShiftY(D2UnitStrc* pUnit); // 0x004DA130
+int __stdcall sub_004DA110_GetMotionAX(D2UnitStrc* pUnit); // 0x004DA110
+int __stdcall sub_004DA130_GetMotionAY(D2UnitStrc* pUnit); // 0x004DA130
 void __stdcall sub_004F6540(D2CelContextStrc* pContext, int nX, int nY); // 0x004F6540
 
 static __forceinline int UNIT_HasFlagEx(D2UnitStrc* pUnit, unsigned int nFlag)
@@ -594,12 +594,12 @@ int __fastcall sub_00471BD0(D2UnitStrc* pUnit)
             }
             nY += 0x10;
             nX += sub_004DA0B0_GetUnitGfxOffsetX(pUnit);
-            nY += sub_004DA0D0_GetUnitGfxOffsetY(pUnit);
+            nY += sub_004DA0D0_GetGfxMotionField38(pUnit);
         }
         else
         {
             nX = UNITS_GetClientCoordX(pUnit) - sub_0045AFC0() + sub_004DA0B0_GetUnitGfxOffsetX(pUnit);
-            nY = UNITS_GetClientCoordY(pUnit) - sub_0045AFD0_GetMouseYOffset() + sub_004DA0D0_GetUnitGfxOffsetY(pUnit);
+            nY = UNITS_GetClientCoordY(pUnit) - sub_0045AFD0_GetMouseYOffset() + sub_004DA0D0_GetGfxMotionField38(pUnit);
             nY += sub_004DA0F0_GetUnitGfxOffsetZ(pUnit);
         }
         if (!sub_004709A0_IsOnScreen(pUnit, nX, nY, 0, 0))
@@ -648,7 +648,7 @@ int __fastcall sub_00471BD0(D2UnitStrc* pUnit)
             for (unsigned int i = 0; i < pHeader->nLayers; ++i)
             {
                 int nLayer = pLayers[i];
-                if (sub_004DB670_IsLayerVisible(pUnit, nLayer))
+                if (sub_004DB670_UpdateUnitGfx(pUnit, nLayer))
                 {
                     D2CelContextStrc tContext;
                     memset(&tContext, 0, sizeof(tContext));
@@ -906,7 +906,7 @@ void __fastcall sub_00470390(D2UnitStrc* pUnit, int nOverlay, int nType, int nAr
     if (!sub_00408F20_HasExpansionMpq() && pTxt->wPreDraw >= 0x64)
         return;
 
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (pUnit)
     {
         if (UNIT_HasFlagEx(pUnit, 0x40000))
@@ -1037,8 +1037,8 @@ int __fastcall sub_00471450_DrawUnitShadow(D2UnitStrc* pUnit)
         nOffsetX = pObjectsTxtRecord->nXOffset;
         nOffsetY = pObjectsTxtRecord->nYOffset;
     }
-    int nX = nOffsetX - sub_0045AFC0() + UNITS_GetClientCoordX(pUnit) + sub_004DA110_GetUnitGfxShiftX(pUnit);
-    int nY = nOffsetY - sub_0045AFD0_GetMouseYOffset() + UNITS_GetClientCoordY(pUnit) + sub_004DA130_GetUnitGfxShiftY(pUnit);
+    int nX = nOffsetX - sub_0045AFC0() + UNITS_GetClientCoordX(pUnit) + sub_004DA110_GetMotionAX(pUnit);
+    int nY = nOffsetY - sub_0045AFD0_GetMouseYOffset() + UNITS_GetClientCoordY(pUnit) + sub_004DA130_GetMotionAY(pUnit);
     if (bPerspective)
     {
         switch (sub_0045AE90())

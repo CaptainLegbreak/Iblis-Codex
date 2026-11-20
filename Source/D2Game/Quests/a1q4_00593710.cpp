@@ -114,12 +114,12 @@ void __stdcall UNITS_GetCoords(D2UnitStrc*,D2CoordStrc*); // 0x00620870
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc*); // 0x00620BB0
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc*,D2ActiveRoomStrc***,unsigned int*); // 0x00619790
 D2UnitStrc* __fastcall sub_0056EDE0_CreatePortal(D2GameStrc*,D2UnitStrc*,int,int,int,int,int); // 0x0056EDE0
-void __stdcall sub_0061AED0(D2ActiveRoomStrc*,int); // 0x0061AED0
+void __stdcall DUNGEON_ToggleHasPortalFlag(D2ActiveRoomStrc*,int); // 0x0061AED0
 unsigned short __fastcall SUNIT_GetPartyId(D2UnitStrc*); // 0x00554630
 int __fastcall sub_005936B0_UpdateParty(D2GameStrc*,D2UnitStrc*,void*); // 0x005936B0
 void __fastcall sub_00540510(D2GameStrc*,unsigned short,QUESTUNITITERATE,void*); // 0x00540510
 void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc*,int,int); // 0x0065C360
-void __fastcall sub_00545760_QuestProgress(D2GameStrc*,unsigned char); // 0x00545760
+void __fastcall QUESTS_TriggerFX(D2GameStrc*,unsigned char); // 0x00545760
 static __forceinline int GetGUID(D2UnitStrc* pUnit) { return !pUnit ? -1 : pUnit->dwUnitId; }
 static __forceinline D2BitBufferStrc* GetPlayerQuestFlags(D2GameStrc* pGame,D2UnitStrc* pPlayer)
 {
@@ -203,7 +203,7 @@ int __fastcall sub_00593710(D2ObjOperateFnStrc* pOp,int nOperate)
   const int nPortalX=coords.nX+6;
   const int nPortalY=coords.nY-3;
   D2UnitStrc* pPortal=sub_0056EDE0_CreatePortal(pOp->pGame,pOp->hPlayer,0,1,0x120,nPortalX,nPortalY);
-  if(pPortal) { D2ActiveRoomStrc* pRoom=UNITS_GetRoom(pPortal);sub_0061AED0(pRoom,0); }
+  if(pPortal) { D2ActiveRoomStrc* pRoom=UNITS_GetRoom(pPortal);DUNGEON_ToggleHasPortalFlag(pRoom,0); }
  }
  if(pQuestInfo->fLastState<4) {
   pQuestInfo->dwFlags&=0xFFFFFF00;
@@ -212,7 +212,7 @@ int __fastcall sub_00593710(D2ObjOperateFnStrc* pOp,int nOperate)
   if(nParty!=0xFFFF) sub_00540510(pOp->pGame,nParty,sub_005936B0_UpdateParty,0);
   QUESTRECORD_SetQuestState(pFlags,4,4);
  }
- sub_00545760_QuestProgress(pQuestInfo->pGame,1);
+ QUESTS_TriggerFX(pQuestInfo->pGame,1);
  return 0;
  }
  case 0:case 1:case 2:case 3:case 4:

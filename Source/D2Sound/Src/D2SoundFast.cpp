@@ -79,7 +79,7 @@ int __fastcall sub_004068E0(const char* szFileName, void** phFile); // 0x004068E
 int __stdcall SFileDdaBeginEx(void* hFile, int nBufferSize, unsigned int nFlags, unsigned int nOffset, int nVolume, int nPan, D2DSoundBufferStrc* pBuffer); // 0x0041B280
 void __fastcall sub_00515180_FillBuffer(D2SoundStrc* pSound, int nArg2, int nArg3, unsigned int nSize); // 0x00515180
 void* __fastcall sub_00516760_ParseWave(const void* pFile, unsigned int* pnSize, D2WaveFormatStrc* pFormat); // 0x00516760
-void* __fastcall sub_00517079_LoadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
+void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
 extern int gbWaveSlotsInit_008817FC; // 0x008817FC
 extern D2SoundWaveStrc* gpSoundWaveList_00881800; // 0x00881800
 
@@ -233,7 +233,7 @@ void __fastcall sub_00514E10_LoadWave(const char* szName)
     if (!gbWaveSlotsInit_008817FC)
         return;
     unsigned int nFileSize;
-    void* pFile = sub_00517079_LoadFile(0, szName, &nFileSize, ".\\Src\\D2SoundFast.cpp", 0x77);
+    void* pFile = ARCHIVE_AllocateBufferAndReadFile(0, szName, &nFileSize, ".\\Src\\D2SoundFast.cpp", 0x77);
     if (!pFile)
         return;
     unsigned int nWaveSize = nFileSize;

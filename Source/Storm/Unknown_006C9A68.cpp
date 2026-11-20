@@ -7,10 +7,10 @@ extern "C" __declspec(dllimport) char* __stdcall CharNextA(const char*); // 0x00
 extern unsigned long gdwThreadId_00992B1C; // 0x00992B1C
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(void* section); // 0x006CC210
 extern unsigned char gCriticalSection_0075E838[]; // 0x0075E838
-void __cdecl sub_006CB070_Cleanup(); // 0x006CB070
+void __cdecl sub_006CB070_DeleteCriticalSection(); // 0x006CB070
 int __cdecl sub_00683824_RegisterExit(void (__cdecl* callback)()); // 0x00683824
 extern unsigned char gCriticalSection_0075E850[]; // 0x0075E850
-void __cdecl sub_006CB080_Cleanup(); // 0x006CB080
+void __cdecl sub_006CB080_DeleteCriticalSection(); // 0x006CB080
 extern unsigned int gnListTerminator_00708358; // 0x00708358
 extern void* gpListHead_0070835C; // 0x0070835C
 void __cdecl sub_006CB0C0_DestroyList(); // 0x006CB0C0
@@ -18,7 +18,7 @@ extern unsigned int gnListTerminator_00708364; // 0x00708364
 extern void* gpListHead_00708368; // 0x00708368
 void __cdecl sub_006CB120_DestroyList(); // 0x006CB120
 extern unsigned char gCriticalSection_00779068[]; // 0x00779068
-void __cdecl sub_006CB0A0_Cleanup(); // 0x006CB0A0
+void __cdecl sub_006CB0A0_DeleteCriticalSection(); // 0x006CB0A0
 extern unsigned int gnListTerminator_00708370; // 0x00708370
 extern void* gpListHead_00708374; // 0x00708374
 void __cdecl sub_006CB180_DestroyList(); // 0x006CB180
@@ -29,11 +29,11 @@ extern unsigned int gnListTerminator_00708388; // 0x00708388
 extern void* gpListHead_0070838C; // 0x0070838C
 void __cdecl sub_006CB240_DestroyList(); // 0x006CB240
 extern unsigned char gCriticalSection_00779080[]; // 0x00779080
-void __cdecl sub_006CB0B0_Cleanup(); // 0x006CB0B0
+void __cdecl sub_006CB0B0_DeleteCriticalSection(); // 0x006CB0B0
 extern unsigned int gnListTerminator_00708424; // 0x00708424
 extern void* gpListHead_00708428; // 0x00708428
 void __cdecl sub_006CB2A0_DestroyList(); // 0x006CB2A0
-void __cdecl sub_006CB300_Cleanup(); // 0x006CB300
+void __cdecl sub_006CB300_DeleteCriticalSection(); // 0x006CB300
 extern unsigned int gnListTerminator_00708864; // 0x00708864
 extern void* gpListHead_00708868; // 0x00708868
 void __cdecl sub_006CB310_DestroyList(); // 0x006CB310
@@ -41,7 +41,7 @@ extern unsigned int gnListTerminator_007088EC; // 0x007088EC
 extern void* gpListHead_007088F0; // 0x007088F0
 void __cdecl sub_006CB380_DestroyList(); // 0x006CB380
 extern unsigned char gCriticalSection_0077930C[]; // 0x0077930C
-void __cdecl sub_006CB370_Cleanup(); // 0x006CB370
+void __cdecl sub_006CB370_DeleteCriticalSection(); // 0x006CB370
 extern unsigned short gwszRealmNames_00779DF0[7 * 0x100]; // 0x00779DF0
 unsigned int __stdcall SStrHash(const char* text, unsigned int flags, unsigned int hashSeed); // 0x00413CE0
 extern const char* gpszDefaultCaption_0070EE50; // 0x0070EE50
@@ -133,14 +133,14 @@ void __cdecl sub_006CA6F0_RecordThreadId()
 void __cdecl sub_006CA700_InitializeLock()
 {
     InitializeCriticalSection(gCriticalSection_0075E838);
-    sub_00683824_RegisterExit(sub_006CB070_Cleanup);
+    sub_00683824_RegisterExit(sub_006CB070_DeleteCriticalSection);
 }
 
 // 0x006CA720
 void __cdecl sub_006CA720_InitializeLock()
 {
     InitializeCriticalSection(gCriticalSection_0075E850);
-    sub_00683824_RegisterExit(sub_006CB080_Cleanup);
+    sub_00683824_RegisterExit(sub_006CB080_DeleteCriticalSection);
 }
 
 // 0x006CA7B0
@@ -161,7 +161,7 @@ void __cdecl sub_006CA7D0_InitializeList()
 void __cdecl sub_006CA7F0_InitializeLock()
 {
     InitializeCriticalSection(gCriticalSection_00779068);
-    sub_00683824_RegisterExit(sub_006CB0A0_Cleanup);
+    sub_00683824_RegisterExit(sub_006CB0A0_DeleteCriticalSection);
 }
 
 // 0x006CA810
@@ -189,7 +189,7 @@ void __cdecl sub_006CA850_InitializeList()
 void __cdecl sub_006CA870_InitializeLock()
 {
     InitializeCriticalSection(gCriticalSection_00779080);
-    sub_00683824_RegisterExit(sub_006CB0B0_Cleanup);
+    sub_00683824_RegisterExit(sub_006CB0B0_DeleteCriticalSection);
 }
 
 // 0x006CA8A0
@@ -205,7 +205,7 @@ unsigned char gCriticalSection_00779214[24]; // 0x00779214
 void __cdecl sub_006CA8C0_InitializeLock()
 {
     InitializeCriticalSection(gCriticalSection_00779214);
-    sub_00683824_RegisterExit(sub_006CB300_Cleanup);
+    sub_00683824_RegisterExit(sub_006CB300_DeleteCriticalSection);
 }
 
 // 0x006CA8E0
@@ -226,7 +226,7 @@ void __cdecl sub_006CA900_InitializeList()
 void __cdecl sub_006CA920_InitializeLock()
 {
     InitializeCriticalSection(gCriticalSection_0077930C);
-    sub_00683824_RegisterExit(sub_006CB370_Cleanup);
+    sub_00683824_RegisterExit(sub_006CB370_DeleteCriticalSection);
 }
 
 // 0x006CA940

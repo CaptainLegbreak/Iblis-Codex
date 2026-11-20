@@ -19,7 +19,7 @@ extern "C" __declspec(dllimport) int __stdcall PtInRect(const D2RectStrc*,D2Coor
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc*,D2DrlgCoordsStrc*); // 0x00619730
 void __stdcall sub_00643560_GameTileToSubtileCoords(int*,int*); // 0x00643560
 void __stdcall sub_005B2700_FindPosition(D2ActiveRoomStrc*,int*,int*); // 0x005B2700
-D2ActiveRoomStrc* __fastcall sub_00463740_GetRoomAtPosition(D2ActiveRoomStrc*,int,int); // 0x00463740
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc*,int,int); // 0x00463740
 int __fastcall sub_0045C3E0_RollLimited(D2SeedStrc*,int); // 0x0045C3E0
 int __stdcall D2Common_10095(D2ActiveRoomStrc*,int,int); // 0x0061B130
 int __fastcall sub_005FD350_CanSpawn(int,D2ActiveRoomStrc*,int,int,int); // 0x005FD350
@@ -30,13 +30,13 @@ D2RoomCoordListStrc* __stdcall D2Common_10096(D2ActiveRoomStrc*,int,int); // 0x0
 void __fastcall sub_00552D60_SetVision(D2UnitStrc*,D2RoomCoordListStrc*); // 0x00552D60
 void __fastcall sub_005543B0_AssignAlignment(D2UnitStrc*,unsigned char,int); // 0x005543B0
 void __stdcall DATATBLS_GetMonsterChainInfo(int,int*,int*); // 0x006510C0
-int __fastcall sub_00463830_GetBaseId(int); // 0x00463830
+int __fastcall sub_00463830_GetBaseIdFromMonsterId(int); // 0x00463830
 int __fastcall sub_004CC790_RollRange(D2SeedStrc*,int,int); // 0x004CC790
 void __fastcall AIGENERAL_SetOwnerData(D2GameStrc*,D2UnitStrc*,int,int,int,int); // 0x0058F030
 void __fastcall AIGENERAL_AllocMinionList(D2GameStrc*,D2UnitStrc*,D2UnitStrc*); // 0x0058F100
-int __fastcall sub_005B2570_SpawnTentacles(D2GameStrc*,D2UnitStrc*,int,int,int,int,short); // 0x005B2570
-D2UnitStrc* __fastcall sub_005B23C0_SpawnAtUnit(D2GameStrc*,D2UnitStrc*,int,int,int,short); // 0x005B23C0
-int __fastcall sub_00451F50_GetUnitId(D2UnitStrc*); // 0x00451F50
+int __fastcall sub_005B2570_SpawnMinionsAround(D2GameStrc*,D2UnitStrc*,int,int,int,int,short); // 0x005B2570
+D2UnitStrc* __fastcall sub_6FC68D70(D2GameStrc*,D2UnitStrc*,int,int,int,short); // 0x005B23C0
+int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc*); // 0x00451F50
 static void MONSTERSPAWN_SetupNormalMods(D2UnkMonCreateStrc*,D2UnitStrc*); // 0x005B21B0
 static void MONSTERSPAWN_SetupBossMods(D2MonsterSpawnParamsStrc*,D2UnitStrc*); // 0x005B1CF0
 static void MONSTERSPAWN_SpawnMinionParty(D2MonsterSpawnParamsStrc*,D2UnitStrc*); // 0x005B2830
@@ -365,12 +365,12 @@ static void MONSTERSPAWN_SpawnMinionParty(D2MonsterSpawnParamsStrc* pCreate,D2Un
     D2GameStrc* pGame=pCreate->pGame;
     const unsigned short nFlags=pCreate->nFlags;
     if(pRecord->wMinion[0]<0 || pRecord->wMinion[0]>=sgptDataTables->nMonStatsTxtRecordCount) return;
-    const int nBase=sub_00463830_GetBaseId(nMonsterId);
+    const int nBase=sub_00463830_GetBaseIdFromMonsterId(nMonsterId);
     if(nBase>=0 && nBase<sgptDataTables->nMonStatsTxtRecordCount && nBase==0x105)
     {
         AIGENERAL_SetOwnerData(pGame,pUnit,pUnit?pUnit->dwUnitId:-1,1,1,pRecord->nMonStatsFlags[0]&gdwBossTransfer_006CE27C);
         const int nCount=sub_004CC790_RollRange(&pUnit->pSeed,pRecord->nPartyMin,pRecord->nPartyMax);
-        sub_005B2570_SpawnTentacles(pGame,pUnit,pRecord->wMinion[0],1,nCount,(~(nFlags>>2))&1,0x40);
+        sub_005B2570_SpawnMinionsAround(pGame,pUnit,pRecord->wMinion[0],1,nCount,(~(nFlags>>2))&1,0x40);
         return;
     }
     if(pRecord->nMonStatsFlags[0]&gdwSetBoss_006CE278)
@@ -380,10 +380,10 @@ static void MONSTERSPAWN_SpawnMinionParty(D2MonsterSpawnParamsStrc* pCreate,D2Un
     int nCount=sub_004CC790_RollRange(&pUnit->pSeed,pRecord->nPartyMin,pRecord->nPartyMax);
     while(nCount>0)
     {
-        D2UnitStrc* pMinion=sub_005B23C0_SpawnAtUnit(pGame,pUnit,pRecord->wMinion[nIndex],1,4,0x40);
+        D2UnitStrc* pMinion=sub_6FC68D70(pGame,pUnit,pRecord->wMinion[nIndex],1,4,0x40);
         if(pMinion && (pRecord->nMonStatsFlags[0]&(unsigned char)gdwSetBoss_006CE278))
         {
-            AIGENERAL_SetOwnerData(pGame,pMinion,sub_00451F50_GetUnitId(pUnit),1,0,0);
+            AIGENERAL_SetOwnerData(pGame,pMinion,sub_00451F50_GetUnitGUID(pUnit),1,0,0);
             AIGENERAL_AllocMinionList(pGame,pUnit,pMinion);
         }
         if(++nIndex>nThreshold) nIndex=0;
@@ -457,7 +457,7 @@ D2UnitStrc* __fastcall sub_005B2A00_SpawnNormalMonster(D2MonsterSpawnParamsStrc*
     if(pRecord2->nSpawnCol==1 && !(pCreate->nMonsterId>=0x102 && pCreate->nMonsterId<=0x107) && pCreate->nMonsterId!=0x99)
     {
         sub_005B2700_FindPosition(pRoom,&nSpawnX,&nSpawnY);
-        pRoom=sub_00463740_GetRoomAtPosition(pRoom,nSpawnX,nSpawnY);
+        pRoom=sub_00463740_FindRoomAtPoint(pRoom,nSpawnX,nSpawnY);
     }
     else
     {

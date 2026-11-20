@@ -24,8 +24,8 @@ struct D2PlrIntroStrc
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 extern D2NpcIndexMapStrc gaPlrIntroNpcIndexMap[]; // 0x00732738
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
-void __stdcall BITMANIP_SetBitState(unsigned char* pBitBuffer, int nBit); // 0x00410B10
-int __stdcall BITMANIP_GetBitState(unsigned char* pBitBuffer, int nBit); // 0x00410B30
+void __stdcall sub_00410B10(unsigned char* pBitBuffer, int nBit); // 0x00410B10
+int __stdcall sub_00410B30(unsigned char* pBitBuffer, int nBit); // 0x00410B30
 void __stdcall BITMANIP_Initialize(D2BitBufferStrc* pBuffer, unsigned char* pBitStream, int nSize); // 0x00410E40
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
@@ -46,13 +46,13 @@ static int PLRINTRO_GetNpcIndex(int nNpcId)
 // 0x00572420
 void __fastcall PLRINTRO_SetNpcIntroFlag(D2PlrIntroStrc* pPlayerIntro, int nNpcId)
 {
-    BITMANIP_SetBitState(pPlayerIntro->pNpcIntroFlags->pBuffer, PLRINTRO_GetNpcIndex(nNpcId));
+    sub_00410B10(pPlayerIntro->pNpcIntroFlags->pBuffer, PLRINTRO_GetNpcIndex(nNpcId));
 }
 
 // 0x00572470
 int __fastcall PLRINTRO_GetNpcIntroFlag(D2PlrIntroStrc* pPlayerIntro, int nNpcId)
 {
-    return BITMANIP_GetBitState(pPlayerIntro->pNpcIntroFlags->pBuffer, PLRINTRO_GetNpcIndex(nNpcId));
+    return sub_00410B30(pPlayerIntro->pNpcIntroFlags->pBuffer, PLRINTRO_GetNpcIndex(nNpcId));
 }
 
 // 0x00572530

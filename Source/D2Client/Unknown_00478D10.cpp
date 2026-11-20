@@ -42,7 +42,7 @@ struct D2RosterPetStrc
     D2RosterPetStrc* pNext;
 };
 
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2StoredUnitRecordStrc* __fastcall sub_00479BB0_FindRosterUnit(int nUnitId); // 0x00479BB0
 unsigned short __fastcall sub_00479BC0_GetEntryIndex(D2StoredUnitRecordStrc* pEntry); // 0x00479BC0
 extern D2RosterPetStrc* gpRosterPets_007BB5BC; // 0x007BB5BC
@@ -85,7 +85,7 @@ struct D2InvCompGridStrc
 void __stdcall sub_0065C180_2(int nInventoryTxtId, int bHigherRes, D2InvRectStrc* pInvRect); // 0x0065C180
 void __stdcall sub_0065C1F0_2(int nInventoryTxtId, int bHigherRes, D2InventoryGridInfoStrc* pInventoryGridInfo); // 0x0065C1F0
 void __stdcall sub_0065C270_2(int nInventoryTxtId, int bHigherRes, D2InvCompGridStrc* pInvCompGrid, int nComponent); // 0x0065C270
-int __fastcall sub_004B3230_GetSelectedUnitId(int* pUnitId); // 0x004B3230
+int __fastcall sub_004B3230_GetTickPair(int* pUnitId); // 0x004B3230
 D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType); // 0x00463990
 extern int gdwGlobal_007BCBF0; // 0x007BCBF0
 extern D2InventoryGridInfoStrc gGrid_007BCA30; // 0x007BCA30
@@ -109,7 +109,7 @@ int __fastcall sub_00478D10_GetPetOwnerRelation(int nUnitId)
     {
         if (pPet->dwUnitId == nUnitId)
         {
-            D2UnitStrc* pPlayer = sub_00463DD0();
+            D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
             const int nPlayerId = !pPlayer ? -1 : pPlayer->dwUnitId;
             if (pPet->dwOwnerId == nPlayerId)
             {
@@ -154,7 +154,7 @@ int __fastcall sub_00478D90_GetPetRelation(int nUnitId)
                 return 3;
             }
 
-            D2UnitStrc* pPlayer = sub_00463DD0();
+            D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
             const int nPlayerId = !pPlayer ? -1 : pPlayer->dwUnitId;
             if (pPet->dwOwnerId == nPlayerId)
             {
@@ -238,7 +238,7 @@ int __fastcall sub_00479150_FindRosterIndex(int nUnitId)
 int __fastcall sub_004791B0_IsOwnedByPlayer(D2UnitStrc* pUnit)
 {
     const int nOwnerId = sub_00479150_FindRosterIndex(!pUnit ? -1 : pUnit->dwUnitId);
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     const int nPlayerId = pPlayer ? pPlayer->dwUnitId : -1;
     D2_ASSERT(nPlayerId != -1, 0x225);
     if (nOwnerId != -1)
@@ -344,7 +344,7 @@ void __cdecl sub_004835B0_LoadUiRecords()
 
     if (!gnGlobal_007BCBDC)
     {
-        const int nClass = sub_00621050(sub_00463DD0(), 0, sub_0044DCC0());
+        const int nClass = sub_00621050(sub_00463DD0_GetPlayerUnit(), 0, sub_0044DCC0());
         sub_0065C180_2(nClass, gnUiRecordRow_007A5218, &gInvRect_007BCAA0);
         sub_0065C1F0_2(nClass, gnUiRecordRow_007A5218, &gGrid_007BCB88);
         sub_0065C270_2(nClass, gnUiRecordRow_007A5218, &gaCompGrids_007BCC58[4], 0);
@@ -387,7 +387,7 @@ void __cdecl sub_004835B0_LoadUiRecords()
     }
 
     int nUnitId;
-    if (!gnGlobal_007BCBE0 && gdwGlobal_007BCBF0 && sub_004B3230_GetSelectedUnitId(&nUnitId))
+    if (!gnGlobal_007BCBE0 && gdwGlobal_007BCBF0 && sub_004B3230_GetTickPair(&nUnitId))
     {
         D2UnitStrc* pUnit = sub_00463990(nUnitId, 1);
         if (pUnit)

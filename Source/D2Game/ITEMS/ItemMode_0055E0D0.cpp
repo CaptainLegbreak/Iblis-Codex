@@ -11,7 +11,7 @@ struct D2ClientStrc;
 
 void __fastcall sub_0053C520_SendToClient(D2ClientStrc* pClient, char nUnitType);                           // 0x0053C520
 D2ClientStrc* __fastcall sub_005531C0_MakeQuantityPacket(D2UnitStrc* pUnit, const char* szFile, int nLine, int nUnitId, int nSkillId, int nQuantity); // 0x005531C0
-void __fastcall sub_005701B0_ResetRightSkill(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID, int nArg);   // 0x005701B0
+void __fastcall D2GAME_AssignSkill_6FD13800(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID, int nArg);   // 0x005701B0
 D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit);                                              // 0x006201D0
 D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID);               // 0x006439B0
 int __stdcall SKILLS_GetQuantity(D2SkillStrc* pSkill);                                                      // 0x006450F0
@@ -41,7 +41,7 @@ static void __stdcall sub_0055E0D0_UseSkillQuantity(D2UnitStrc* pUnit, int nSkil
         {
             if (UNITS_GetRightSkill(pUnit) == pSkill)
             {
-                sub_005701B0_ResetRightSkill(pUnit, 0, 0, -1);
+                D2GAME_AssignSkill_6FD13800(pUnit, 0, 0, -1);
             }
             nQuantity = 0;
         }

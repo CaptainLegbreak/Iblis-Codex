@@ -23,7 +23,7 @@ enum
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268
-D2UnitStrc* __fastcall sub_004648F0_GetTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
+D2UnitStrc* __fastcall sub_004648F0_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 int __fastcall sub_00479150_GetOwnerId(int nUnitId); // 0x00479150
 int __fastcall sub_00479180_GetPetType(int nUnitId); // 0x00479180
 
@@ -60,11 +60,11 @@ struct D2SkillDescTxt
 
 extern "C" const char szSkillsCppFile_006DAB88[]; // 0x006DAB88
 D2SkillStrc* __stdcall SKILLS_GetFirstSkillFromSkillList(D2SkillListStrc* pSkillList); // 0x00643910
-D2SkillStrc* __fastcall SKILLS_GetSkill(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x006439B0
+D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x006439B0
 int __stdcall SKILLS_GetOwnerGUIDFromSkill(D2SkillStrc* pSkill); // 0x00643AD0
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus); // 0x006442A0
 int __stdcall SKILLS_IsEnhanceable(int nSkillId); // 0x00645FB0
-void __stdcall sub_00647B20_AddSkillBonusLevel(D2UnitStrc* pUnit, int nSkillId, int nBonus); // 0x00647B20
+void __stdcall D2Common_11031(D2UnitStrc* pUnit, int nSkillId, int nBonus); // 0x00647B20
 
 static __forceinline D2PetTypeTxt* DATATBLS_GetPetTypeTxtRecord(int nPetType)
 {
@@ -78,7 +78,7 @@ static __forceinline D2PetTypeTxt* DATATBLS_GetPetTypeTxtRecord(int nPetType)
 // 0x004C5FA0
 int __fastcall sub_004C5FA0_CheckPetTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
-    D2UnitStrc* pTarget = sub_004648F0_GetTargetUnit(pUnit);
+    D2UnitStrc* pTarget = sub_004648F0_GetPathTargetUnit(pUnit);
     if (!pTarget)
     {
         return 0;
@@ -201,9 +201,9 @@ void __fastcall sub_004C7990(D2UnitStrc* pUnit, int nA, int nB, unsigned char nC
             && (nC == 4 || pSkillDescTxtRecord->nSkillColumn == nC + 1)
             && SKILLS_GetOwnerGUIDFromSkill(pSkill) == -1)
         {
-            sub_00647B20_AddSkillBonusLevel(pUnit, nSkillId, nA);
+            D2Common_11031(pUnit, nSkillId, nA);
 
-            D2SkillStrc* pUnitSkill = SKILLS_GetSkill(pUnit, nSkillId, -1);
+            D2SkillStrc* pUnitSkill = SKILLS_GetSkillById(pUnit, nSkillId, -1);
             if (pUnitSkill && !SKILLS_GetSkillLevel(pUnit, pUnitSkill, 1))
             {
                 SKILLS_RemoveSkill(pUnit, nSkillId, szSkillsCppFile_006DAB88, 2465);

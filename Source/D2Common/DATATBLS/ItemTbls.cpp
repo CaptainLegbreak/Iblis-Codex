@@ -233,8 +233,8 @@ struct D2RunesTxt
 extern "C" unsigned int __security_cookie; // 0x00749DE0
 extern "C" void __fastcall __security_check_cookie(unsigned int nCookie); // 0x00681A48
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szBuffer, const char* szFormat, ...); // 0x006CC468
-int __fastcall ARCHIVE_OpenFile(HD2ARCHIVE hArchive, const char* szFilePath, HSFILE* phFile, int bQuiet); // 0x00516E46
-void __fastcall ARCHIVE_CloseFile(HD2ARCHIVE hArchive, HSFILE hFile); // 0x00516E84
+int __fastcall sub_00516E46_OpenFile(HD2ARCHIVE hArchive, const char* szFilePath, HSFILE* phFile, int bQuiet); // 0x00516E46
+void __fastcall sub_00516E84_CloseFile(HD2ARCHIVE hArchive, HSFILE hFile); // 0x00516E84
 short __stdcall sub_00524D30_FindString(const char* szReference, const Unicode** ppUnicode); // 0x00524D30
 void __fastcall DATATBLS_ItemParamLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn); // 0x006336A0
 
@@ -1344,12 +1344,12 @@ static int __stdcall sub_00639420(HD2ARCHIVE hArchive, const char* szFileName, c
     HSFILE hFile;
 
     wsprintfA(szPath, "%s\\%s%s", "DATA\\GLOBAL\\EXCEL", szFileName, szExtension);
-    if (!ARCHIVE_OpenFile(hArchive, szPath, &hFile, 1))
+    if (!sub_00516E46_OpenFile(hArchive, szPath, &hFile, 1))
     {
         return 0;
     }
 
-    ARCHIVE_CloseFile(hArchive, hFile);
+    sub_00516E84_CloseFile(hArchive, hFile);
     return 1;
 }
 

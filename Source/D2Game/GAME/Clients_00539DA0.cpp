@@ -38,14 +38,14 @@ int __stdcall SStrCmpI(const char*,const char*,int); // 0x00413590
 void __fastcall FOG_FreePool(void*,void*,const char*,int,int); // 0x0040B480
 D2ClientStrc* __fastcall CLIENTS_GetClientFromClientId(D2GameStrc*, int); // 0x00537810
 void __fastcall CLIENTS_FillCharacterPreviewInfo(D2ClientStrc*, char*); // 0x00539BE0
-void __fastcall sub_0052C900_SaveClient(D2ClientStrc*,D2GameStrc*); // 0x0052C900
+void __fastcall sub_0052C900_SaveClientAndGamePlayers(D2ClientStrc*,D2GameStrc*); // 0x0052C900
 void __fastcall GAME_SendPacket0x5CToAllConnectedClients(D2GameStrc*,D2ClientStrc*); // 0x0052C500
 D2UnitStrc* __stdcall CLIENTS_GetPlayerFromClient(D2ClientStrc*,int); // 0x00537860
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc*,int,int); // 0x006253B0
 void __fastcall PARTY_LeaveParty(D2GameStrc*,D2UnitStrc*); // 0x005407A0
 void __fastcall PLAYERPETS_FreePetsFromPlayerData(D2GameStrc*,D2UnitStrc*); // 0x005746D0
 void __fastcall SUNITPROXY_OnClientRemovedFromGame(D2GameStrc*,D2UnitStrc*); // 0x00537580
-void __fastcall sub_00543BD0_PlayerLeftGame(D2GameStrc*,D2UnitStrc*); // 0x00543BD0
+void __fastcall QUESTS_PlayerDroppedWithQuestItem(D2GameStrc*,D2UnitStrc*); // 0x00543BD0
 void __fastcall PLRTRADE_StopAllPlayerInteractions(D2GameStrc*,D2UnitStrc*); // 0x00568640
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc*); // 0x00620BB0
 void __stdcall DUNGEON_AllocDrlgDelete(D2ActiveRoomStrc*,int,int); // 0x0061A270
@@ -98,7 +98,7 @@ void __fastcall ClientRemoveFromGame(D2GameStrc* ptGame,void* hClientId,int bTri
  D2_ASSERT(ptGame,0x49F);
  D2ClientStrc* pClient=CLIENTS_GetClientFromClientId(ptGame,(int)hClientId);
  if(pClient) CLIENTS_FillCharacterPreviewInfo(pClient,pClient->szPreview);
- if(bTriggerSave==1) sub_0052C900_SaveClient(CLIENTS_GetClientFromClientId(ptGame,(int)hClientId),ptGame);
+ if(bTriggerSave==1) sub_0052C900_SaveClientAndGamePlayers(CLIENTS_GetClientFromClientId(ptGame,(int)hClientId),ptGame);
  char szName[16]; szName[0]=0;
  CLIENTS_UnlinkId((int)hClientId,szName);
  pClient=0;
@@ -121,7 +121,7 @@ void __fastcall ClientRemoveFromGame(D2GameStrc* ptGame,void* hClientId,int bTri
   PARTY_LeaveParty(ptGame,pPlayer);
   PLAYERPETS_FreePetsFromPlayerData(ptGame,pPlayer);
   SUNITPROXY_OnClientRemovedFromGame(ptGame,pPlayer);
-  sub_00543BD0_PlayerLeftGame(ptGame,pPlayer);
+  QUESTS_PlayerDroppedWithQuestItem(ptGame,pPlayer);
   PLRTRADE_StopAllPlayerInteractions(ptGame,pPlayer);
   D2ActiveRoomStrc* pRoom=UNITS_GetRoom(pPlayer);
   if(pRoom) DUNGEON_AllocDrlgDelete(pRoom,!pPlayer ? 6 : pPlayer->dwUnitType,!pPlayer ? -1 : pPlayer->dwUnitId);

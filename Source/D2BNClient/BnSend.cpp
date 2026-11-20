@@ -193,7 +193,7 @@ void __cdecl sub_0049F960_ResetTextBox(); // 0x0049F960
 void __stdcall TEXT_FreeTextHeader(D2TextHeaderStrc* pTextHeader); // 0x006612A0
 void __stdcall sub_00416710_Unlock(void* pHandle); // 0x00416710
 void __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
-unsigned char __stdcall D2Win_10034_MixRGB(unsigned char nRed, unsigned char nGreen, unsigned char nBlue); // 0x004FB180
+unsigned char __stdcall sub_004FB180_FindPaletteIndex(unsigned char nRed, unsigned char nGreen, unsigned char nBlue); // 0x004FB180
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern D2WheelCallbackFn gpfnWheelUp_007A7404; // 0x007A7404
 extern D2WheelCallbackFn gpfnWheelDown_007A7408; // 0x007A7408
@@ -300,10 +300,10 @@ struct D2PacketBufferStrc
 extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* pThreadAttributes, unsigned long nStackSize, unsigned long (__stdcall* pStartAddress)(void*), void* pParameter, unsigned long nCreationFlags, unsigned long* pThreadId); // 0x006CC250
 extern "C" int __cdecl memcmp(const void* pBuffer1, const void* pBuffer2, unsigned int nSize);
 void __cdecl sub_00518D40_Log(const char* szFormat, ...); // 0x00518D40
-int __cdecl sub_005193E0_OpenLog(); // 0x005193E0
+int __cdecl sub_005193E0_LoadCache(); // 0x005193E0
 void __cdecl sub_0051A480_DebugLog(const char* szFormat, ...); // 0x0051A480
 int __fastcall sub_0051A7D0_ChangePasswordLegacy(const char* szAccountName, const char* szOldPassword, const char* szNewPassword); // 0x0051A7D0
-int __cdecl sub_0051C470_Startup(); // 0x0051C470
+int __cdecl sub_0051C470_CloseBNetConnection(); // 0x0051C470
 unsigned long __stdcall BattleConnectFastest(void* pParameter); // 0x0051D0A0
 void __cdecl sub_0051D510_ReportNews(); // 0x0051D510
 int __cdecl sub_0051DA30_LoadNews(); // 0x0051DA30
@@ -493,11 +493,11 @@ D2UniqueItemsTxt* __fastcall sub_00483470_GetUniqueItemsTxtRecord(int nIndex)
 // 0x00483960
 void __cdecl sub_00483960()
 {
-    gabColors_007BCAD8[0] = D2Win_10034_MixRGB(0x80, 0, 0);
-    gabColors_007BCAD8[1] = D2Win_10034_MixRGB(0, 0x80, 0);
-    gabColors_007BCAD8[2] = D2Win_10034_MixRGB(0, 0, 0x80);
-    gabColors_007BCAD8[3] = D2Win_10034_MixRGB(0x80, 0x80, 0);
-    gabColors_007BCAD8[4] = D2Win_10034_MixRGB(0x80, 0x40, 0x40);
+    gabColors_007BCAD8[0] = sub_004FB180_FindPaletteIndex(0x80, 0, 0);
+    gabColors_007BCAD8[1] = sub_004FB180_FindPaletteIndex(0, 0x80, 0);
+    gabColors_007BCAD8[2] = sub_004FB180_FindPaletteIndex(0, 0, 0x80);
+    gabColors_007BCAD8[3] = sub_004FB180_FindPaletteIndex(0x80, 0x80, 0);
+    gabColors_007BCAD8[4] = sub_004FB180_FindPaletteIndex(0x80, 0x40, 0x40);
 }
 
 // 0x00489840
@@ -1068,12 +1068,12 @@ void* __cdecl sub_0051D1C0_OpenBNetConnection()
         sub_0051A480_DebugLog("   already connected");
         return 0;
     }
-    if (!sub_0051C470_Startup())
+    if (!sub_0051C470_CloseBNetConnection())
         return 0;
     InterlockedExchange(&gnDnsDone_00881BFC, 0);
     gbDnsPending_008818E0 = 0;
     Sleep(10);
-    sub_005193E0_OpenLog();
+    sub_005193E0_LoadCache();
     sub_00520B30_ResetReplies();
     sub_00521B50_ReseedLogin();
     gdwGlobal_00881C04 = 0;

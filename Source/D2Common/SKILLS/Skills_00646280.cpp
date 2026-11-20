@@ -22,8 +22,8 @@ int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLay
 D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic); // 0x00625820
 void __stdcall STATLIST_MergeStatLists(D2UnitStrc* pTarget, D2UnitStrc* pUnit, int bType); // 0x00627910
 unsigned char __stdcall ITEMS_GetBodyLocation(D2UnitStrc* pItem); // 0x00627D40
-short __stdcall sub_00629860_GetStrengthFactor(D2UnitStrc* pItem); // 0x00629860
-short __stdcall sub_006298A0_GetDexterityFactor(D2UnitStrc* pItem); // 0x006298A0
+short __stdcall ITEMS_GetStrengthBonus(D2UnitStrc* pItem); // 0x00629860
+short __stdcall ITEMS_GetDexBonus(D2UnitStrc* pItem); // 0x006298A0
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 int __stdcall ITEMS_CanBeEquipped(D2UnitStrc* pItem); // 0x0062A4E0
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
@@ -172,13 +172,13 @@ void __stdcall SKILLS_CalculateKickDamage(D2UnitStrc* pUnit, int* pMinDamage, in
             int nMin = nKickDamage + pItemsTxtRecord->nMinDam;
             int nMax = nKickDamage + pItemsTxtRecord->nMaxDam;
             int nBonus = 0;
-            nValue = sub_00629860_GetStrengthFactor(pBoots);
+            nValue = ITEMS_GetStrengthBonus(pBoots);
             if (nValue)
             {
                 nBonus = DATATBLS_ApplyRatio(STATLIST_UnitGetStatValue(pUnit, 0, 0), nValue, 100);
             }
 
-            nValue = sub_006298A0_GetDexterityFactor(pBoots);
+            nValue = ITEMS_GetDexBonus(pBoots);
             if (nValue)
             {
                 nBonus += DATATBLS_ApplyRatio(STATLIST_UnitGetStatValue(pUnit, 2, 0), nValue, 100);

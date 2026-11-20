@@ -123,7 +123,7 @@ struct D2MissileStrc
     MissileInitFunc pInitFunc;
     int pInitArgs;
 };
-D2ActiveRoomStrc* __fastcall COLLISION_GetRoomBySubTileCoordinates(D2ActiveRoomStrc*, int, int); // 0x00463740
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc*, int, int); // 0x00463740
 D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc*, D2MissileStrc*); // 0x0059FA30
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc*); // 0x00620BB0
 unsigned char __stdcall sub_0063E7A0_GetByteTableEntry(unsigned char); // 0x0063E7A0
@@ -365,7 +365,7 @@ D2UnitStrc* __fastcall SKILLS_CreateSpiderLayMissile(D2GameStrc* pGame, D2UnitSt
         const int nX = nUnitX + nXOffset;
         const int nY = nUnitY + nYOffset;
         D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-        COLLISION_GetRoomBySubTileCoordinates(pRoom, nX, nY);
+        sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
         D2MissileStrc missileParams;
         memset(&missileParams, 0, sizeof(missileParams));
         missileParams.dwFlags = 0x21;

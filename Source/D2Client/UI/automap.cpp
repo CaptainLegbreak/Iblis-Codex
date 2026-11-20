@@ -214,7 +214,7 @@ int __fastcall Release(void* allocation, const char* file, int line, U32 flags);
 void __fastcall sub_004823E0(int index);
 void* __cdecl sub_004646A0();
 int __stdcall DUNGEON_GetLevelIdFromRoom(void* room); // 0x0061A1B0
-const U16* __fastcall sub_00453E70(int levelId); // 0x00453E70
+const U16* __fastcall sub_00453E70_GetLevelName(int levelId); // 0x00453E70
 int __fastcall sub_00501820(const U16* text); // 0x00501820
 void __fastcall sub_00502320(const U16* text, int x, int y, int color, int mode); // 0x00502320
 void __fastcall sub_00478A00(void* pCel); // 0x00478A00
@@ -333,7 +333,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 void __cdecl sub_0045A2B0_ReloadAutomapCels(); // 0x0045A2B0
 int __fastcall sub_00461250_QueueMove(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget, int nArg); // 0x00461250
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2GfxDataStrc* __fastcall sub_00463E10_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
 void __stdcall sub_0046E040_RemoveOverlay(D2UnitStrc* pUnit, D2UnitOverlayStrc* pOverlay); // 0x0046E040
 void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget); // 0x004AFF60
@@ -460,12 +460,12 @@ int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x004
 void __cdecl sub_0044DA70(); // 0x0044DA70
 int __cdecl sub_0045AE90(); // 0x0045AE90
 int __fastcall sub_004B3230_GetTickPair(int* pLow); // 0x004B3230
-int __fastcall sub_004AE360_IsMonsterFlag8(D2UnitStrc* pUnit); // 0x004AE360
-int __fastcall sub_004AE380_IsMonsterFlag10(D2UnitStrc* pUnit); // 0x004AE380
+int __fastcall sub_004AE360_IsUniqueMonster(D2UnitStrc* pUnit); // 0x004AE360
+int __fastcall sub_004AE380_IsMinionMonster(D2UnitStrc* pUnit); // 0x004AE380
 void __fastcall sub_004ADEA0_GetMonsterName(D2UnitStrc* pUnit, Unicode* wszName, int nLength, int nArg); // 0x004ADEA0
 D2AutomapCellStrc* __cdecl sub_00457C30(); // 0x00457C30
 int __fastcall sub_00457B00(D2AutomapCellStrc* pCell, D2AutomapCellStrc** ppRoot); // 0x00457B00
-void __stdcall sub_00643510(int* pX, int* pY); // 0x00643510
+void __stdcall DUNGEON_ClientToGameSubtileCoords(int* pX, int* pY); // 0x00643510
 void __stdcall sub_00643260(int* pX, int* pY); // 0x00643260
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
@@ -496,7 +496,7 @@ unsigned char __stdcall ITEMS_GetBodyLocation(D2UnitStrc* pItem); // 0x00627D40
 unsigned char __stdcall ITEMS_GetComponent(D2UnitStrc* pItem); // 0x00628660
 unsigned int __stdcall ITEMS_CheckWeaponIfTwoHanded(D2UnitStrc* pItem); // 0x006289C0
 D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
-D2UnitStrc* __fastcall sub_004648F0_GetTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
+D2UnitStrc* __fastcall sub_004648F0_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 void __stdcall sub_00650C60_UpdatePath(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3); // 0x00650C60
 extern Unicode gwszHoverName_007A2F38[]; // 0x007A2F38
 extern int gdwGlobal_007A5210; // 0x007A5210
@@ -751,7 +751,7 @@ int __fastcall sub_00452580_GetHoverMonsterName(D2UnitStrc* pUnit, int nArg)
         return 0;
     }
     gwszHoverName_007A2F38[0].wChar = 0;
-    if (!sub_004AE360_IsMonsterFlag8(pUnit) && !sub_004AE380_IsMonsterFlag10(pUnit))
+    if (!sub_004AE360_IsUniqueMonster(pUnit) && !sub_004AE380_IsMinionMonster(pUnit))
     {
         return 0;
     }
@@ -940,7 +940,7 @@ void __cdecl sub_0045A050_DrawLevelName()
     void* room = sub_004646A0();
     if (room)
     {
-        const U16* text = sub_00453E70(DUNGEON_GetLevelIdFromRoom(room));
+        const U16* text = sub_00453E70_GetLevelName(DUNGEON_GetLevelIdFromRoom(room));
         sub_00502320(text, gTextRight - sub_00501820(text) - 16, gTextY, 4, 0);
         gTextY += 16;
     }
@@ -1046,7 +1046,7 @@ void __fastcall sub_0045AFF0_ScreenToMap(int* pX, int* pY)
     }
     nY += gdwGlobal_007A5208;
     nX += gdwGlobal_007A520C - gnGlobal_007A5214;
-    sub_00643510(&nX, &nY);
+    DUNGEON_ClientToGameSubtileCoords(&nX, &nY);
     *pX = nX;
     *pY = nY;
 }
@@ -1127,7 +1127,7 @@ void __cdecl sub_0045B440_UpdateAutomapOrigin()
     {
         gnGlobal_007A5204 = 0;
     }
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     int nX = UNITS_GetClientCoordX(pPlayer);
     int nY = UNITS_GetClientCoordY(pPlayer);
     gdwGlobal_007A520C = nX - gnGlobal_0071146C / 2;
@@ -1380,7 +1380,7 @@ void __fastcall sub_004609A0_SetUnitLightColor(D2UnitStrc* pUnit, int nColor)
 // 0x00461AC0
 int __fastcall sub_00461AC0_IsInAuraRange(D2SkillStrc* pSkill, D2UnitStrc* pTarget, int* pRange, int* pDistance)
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (!pPlayer || !pSkill || !pTarget)
     {
         return 0;
@@ -1426,7 +1426,7 @@ void __fastcall sub_00463180_UpdatePathAndMove(D2UnitStrc* pUnit, int nArg1, int
     if (nMode >= PLAYER_MODE_WALK && (nMode <= PLAYER_MODE_RUN || nMode == PLAYER_MODE_6))
     {
         bMove = 1;
-        pTargetUnit = sub_004648F0_GetTargetUnit(pUnit);
+        pTargetUnit = sub_004648F0_GetPathTargetUnit(pUnit);
         if (!pTargetUnit)
         {
             sub_004C52E0_GetTargetPosition(pUnit, &nX, &nY);

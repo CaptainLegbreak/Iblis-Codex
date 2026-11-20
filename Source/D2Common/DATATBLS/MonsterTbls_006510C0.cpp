@@ -57,7 +57,7 @@ void __fastcall DATATBLS_LoadMonStatsTxt(void* hArchive); // 0x00651210
 void __fastcall DATATBLS_LoadMonUModTxt(void* hArchive); // 0x00655030
 void __fastcall DATATBLS_LoadSuperUniquesTxt(void* hArchive); // 0x006552E0
 void __fastcall DATATBLS_LoadMonPresetTxt(void* hArchive); // 0x00659A10
-void __fastcall DATATBLS_LoadHirelingTxt(void* hArchive); // 0x00655720
+void __fastcall sub_00655720_LoadHirelingTxt(void* hArchive); // 0x00655720
 void __fastcall DATATBLS_LoadNpcTxt(void* hArchive); // 0x00656620
 void __fastcall DATATBLS_LoadMonEquipTxt(void* hArchive); // 0x00659E60
 
@@ -90,7 +90,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 extern "C" int __cdecl SStrPrintf(char* szBuffer, unsigned int nSize, const char* szFormat, ...); // 0x00413A40
 void __stdcall sub_006BD500_LinkerInsertKey(D2TxtLinkStrc* pLinker, const char* szKey); // 0x006BD500
 int __stdcall FOG_GetLinkIndex(D2TxtLinkStrc* pLinker, const char* szKey, int bLogError); // 0x006BD3C0
-void* __fastcall sub_0040B4B0(void* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0); // 0x0040B4B0
+void* __fastcall FOG_ReallocPool(void* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0); // 0x0040B4B0
 void __stdcall DATATBLS_UnloadBin(void* pBinFile); // 0x006125C0
 int __fastcall sub_006117B0(const char* szKey); // 0x006117B0
 void __cdecl DATATBLS_CreateItemTypeTreasureClasses(); // 0x006541C0
@@ -246,7 +246,7 @@ void __fastcall DATATBLS_LoadSomeMonsterTxts(void* hArchive)
     DATATBLS_LoadMonUModTxt(hArchive);
     DATATBLS_LoadSuperUniquesTxt(hArchive);
     DATATBLS_LoadMonPresetTxt(hArchive);
-    DATATBLS_LoadHirelingTxt(hArchive);
+    sub_00655720_LoadHirelingTxt(hArchive);
     DATATBLS_LoadNpcTxt(hArchive);
     DATATBLS_LoadMonEquipTxt(hArchive);
 }
@@ -289,7 +289,7 @@ D2TCExShortStrc* __fastcall DATATBLS_NewTreasureClassEx(const char* szTreasureCl
 
     if (!(gnTreasureClassEx % 16))
     {
-        gpTreasureClassEx = (D2TCExShortStrc*)sub_0040B4B0(0, gpTreasureClassEx, sizeof(D2TCExShortStrc) * (gnTreasureClassEx + 16), ".\\DATATBLS\\MonsterTbls.cpp", 930, 0);
+        gpTreasureClassEx = (D2TCExShortStrc*)FOG_ReallocPool(0, gpTreasureClassEx, sizeof(D2TCExShortStrc) * (gnTreasureClassEx + 16), ".\\DATATBLS\\MonsterTbls.cpp", 930, 0);
     }
 
     memset(&gpTreasureClassEx[gnTreasureClassEx], 0, sizeof(D2TCExShortStrc));
@@ -299,7 +299,7 @@ D2TCExShortStrc* __fastcall DATATBLS_NewTreasureClassEx(const char* szTreasureCl
 // 0x00654010
 void __fastcall DATATBLS_ReallocTCExInfo(D2TCExShortStrc* pTCExShort, int nNewRecordCount)
 {
-    pTCExShort->pInfo = (D2TCExInfoStrc*)sub_0040B4B0(0, pTCExShort->pInfo, sizeof(D2TCExInfoStrc) * nNewRecordCount, ".\\DATATBLS\\MonsterTbls.cpp", 954, 0);
+    pTCExShort->pInfo = (D2TCExInfoStrc*)FOG_ReallocPool(0, pTCExShort->pInfo, sizeof(D2TCExInfoStrc) * nNewRecordCount, ".\\DATATBLS\\MonsterTbls.cpp", 954, 0);
     memset(&pTCExShort->pInfo[pTCExShort->nTypes], 0, sizeof(D2TCExInfoStrc) * (nNewRecordCount - pTCExShort->nTypes));
     pTCExShort->nTypes = nNewRecordCount;
 }

@@ -11,22 +11,22 @@ struct D2ItemsTxt;
 
 
 
-int __fastcall sub_0045ADF0(D2UnitStrc* unit); // 0x0045ADF0
-int __fastcall sub_0045AE20(D2UnitStrc* unit); // 0x0045AE20
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc* unit); // 0x0045ADF0
+int __fastcall CLIENTS_GetUnitY(D2UnitStrc* unit); // 0x0045AE20
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* unit); // 0x00620BB0
-int __stdcall sub_0061A1B0(D2ActiveRoomStrc* room); // 0x0061A1B0
+int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* room); // 0x0061A1B0
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int level); // 0x006427F0
 int __stdcall DUNGEON_GetTownLevelIdFromActNo(unsigned char act); // 0x0061AB70
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* room); // 0x0061AB00
 
 
-void __fastcall sub_00535430_ClearPortal(D2GameStrc* game,D2UnitStrc* unit); // 0x00535430
-int __fastcall sub_0056D130(D2GameStrc* game,D2UnitStrc* unit,D2ActiveRoomStrc* room,int x,int y,int level,D2UnitStrc** out,int object,int permanent); // 0x0056D130
+void __fastcall PLAYER_RemoveTownPortal(D2GameStrc* game,D2UnitStrc* unit); // 0x00535430
+int __fastcall D2GAME_CreatePortalObject_6FD13DF0(D2GameStrc* game,D2UnitStrc* unit,D2ActiveRoomStrc* room,int x,int y,int level,D2UnitStrc** out,int object,int permanent); // 0x0056D130
 void __fastcall sub_00553380_SendEvent(D2UnitStrc* unit,int event,D2UnitStrc* other); // 0x00553380
 void __fastcall PLAYER_SetUniqueIdInPlayerData(D2UnitStrc* unit,int id); // 0x005353B0
-void __fastcall sub_00552AF0_SetOwnerId(D2UnitStrc* unit,int id); // 0x00552AF0
-D2UnitStrc* __fastcall sub_00553720_GetPortalPair(D2GameStrc* game,D2UnitStrc* unit); // 0x00553720
-void __fastcall sub_0058CF00_UpdatePortal(D2GameStrc* game,D2UnitStrc* unit); // 0x0058CF00
+void __fastcall OBJECTS_SetUnitIdInTimerArg(D2UnitStrc* unit,int id); // 0x00552AF0
+D2UnitStrc* __fastcall sub_00553720_ResolveObjectOwner(D2GameStrc* game,D2UnitStrc* unit); // 0x00553720
+void __fastcall ACT5Q5_OnPortalOpened(D2GameStrc* game,D2UnitStrc* unit); // 0x0058CF00
 D2ClientStrc* __fastcall sub_005531C0_GetClient(D2UnitStrc* unit,const char* file,int line,int type,int id); // 0x005531C0
 void __fastcall sub_0053B3D0_SendByte(D2ClientStrc* client,unsigned char code); // 0x0053B3D0
 
@@ -42,8 +42,8 @@ void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc*, D2UnitStrc*, int, int
 void __fastcall EVENT_SetEvent(D2GameStrc*, D2UnitStrc*, int, int, int, int); // 0x005417D0
 void __fastcall sub_6FD10E50(D2UnitStrc*, int, D2StatListStrc*); // 0x0056E900
 void __fastcall SUNITMSG_QueueLifeUpdate(D2UnitStrc*, unsigned char); // 0x00571A10
-unsigned char __fastcall sub_005805D0_GetLifePercent(D2UnitStrc*); // 0x005805D0
-int __fastcall sub_005C6870_FeedBloodGolem(D2GameStrc*, D2UnitStrc*, int); // 0x005C6870
+unsigned char __fastcall MONSTERMODE_GetHpPercent128(D2UnitStrc*); // 0x005805D0
+int __fastcall SKILLS_SharePotionLifeWithBloodGolem(D2GameStrc*, D2UnitStrc*, int); // 0x005C6870
 D2StatListStrc* __stdcall STATLIST_AllocStatList(void*, unsigned int, unsigned int, int, int); // 0x006251F0
 void __stdcall STATLIST_SetState(D2StatListStrc*, int); // 0x006252D0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc*, int, int); // 0x00625480
@@ -93,25 +93,25 @@ int __fastcall sub_005BE290_CreateTownPortal(D2GameStrc* game,D2UnitStrc* unit,D
  if(GetUnitType(unit)!=0) return 0;
  unit->dwFlags|=0x40;
  D2ActiveRoomStrc* room=UNITS_GetRoom(unit);
- unsigned char act=DRLG_GetActNoFromLevelId(sub_0061A1B0(room));
+ unsigned char act=DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(room));
  int town=DUNGEON_GetTownLevelIdFromActNo(act);
- if(DUNGEON_IsRoomInTown(room) || sub_0061A1B0(room)==136) {
+ if(DUNGEON_IsRoomInTown(room) || DUNGEON_GetLevelIdFromRoom(room)==136) {
   sub_00553380_SendEvent(unit,24,unit);return 0;
  }
- sub_00535430_ClearPortal(game,unit);
+ PLAYER_RemoveTownPortal(game,unit);
  D2UnitStrc* portal=0;
- int result=sub_0056D130(game,unit,room,sub_0045ADF0(unit),sub_0045AE20(unit),town,&portal,59,0);
+ int result=D2GAME_CreatePortalObject_6FD13DF0(game,unit,room,CLIENTS_GetUnitX(unit),CLIENTS_GetUnitY(unit),town,&portal,59,0);
  sub_00553380_SendEvent(unit,7,0);
  if(result) {
   PLAYER_SetUniqueIdInPlayerData(unit,!portal?-1:portal->dwUnitId);
   if(portal) {
-   sub_00552AF0_SetOwnerId(portal,unit->dwUnitId);
-   D2UnitStrc* other=sub_00553720_GetPortalPair(game,portal);
+   OBJECTS_SetUnitIdInTimerArg(portal,unit->dwUnitId);
+   D2UnitStrc* other=sub_00553720_ResolveObjectOwner(game,portal);
    if(other) {
-    sub_00552AF0_SetOwnerId(other,unit->dwUnitId);
-    sub_0058CF00_UpdatePortal(game,other);
+    OBJECTS_SetUnitIdInTimerArg(other,unit->dwUnitId);
+    ACT5Q5_OnPortalOpened(game,other);
    }
-   sub_0058CF00_UpdatePortal(game,portal);
+   ACT5Q5_OnPortalOpened(game,portal);
   }
  }
  if(item) {
@@ -190,7 +190,7 @@ int __fastcall sub_005BE3F0_ApplyPotion(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
         case 6: bUpdateLife = 1;
         case 74:
             if (!sub_0044BE50_GetUnitTypeOrInvalid(pUnit))
-                nValue = sub_005C6870_FeedBloodGolem(pGame, pUnit, nValue);
+                nValue = SKILLS_SharePotionLifeWithBloodGolem(pGame, pUnit, nValue);
             break;
         }
         if (nLength <= 0)
@@ -234,7 +234,7 @@ int __fastcall sub_005BE3F0_ApplyPotion(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
     if (bUpdateLife && pUnit && pUnit->dwUnitType == 0)
     {
         const unsigned char nOldLife = STATLIST_UnitGetStatValue(pUnit, 352, 0);
-        const unsigned char nNewLife = sub_005805D0_GetLifePercent(pUnit);
+        const unsigned char nNewLife = MONSTERMODE_GetHpPercent128(pUnit);
         int nDifference = nOldLife - nNewLife;
         if (nDifference < 0) nDifference = -nDifference;
         if (nDifference > 4)

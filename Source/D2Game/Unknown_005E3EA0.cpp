@@ -13,17 +13,17 @@ struct D2PlayerDataStrc { char unk00[0xa0]; unsigned char nPathIndex; char unkA1
 struct D2PetMoveStrc { D2UnitStrc* pUnit; D2UnitStrc* pTarget; int nCounter; };
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const unsigned char gnPetDirections[8]; // 0x006E34F8
-int __fastcall UNITS_GetXPosition(D2UnitStrc*); // 0x0045ADF0
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc*); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc*); // 0x0045AE20
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc*, int); // 0x0045C390
-D2ActiveRoomStrc* __fastcall sub_00463740_GetRoomAtCoords(D2ActiveRoomStrc*, int, int); // 0x00463740
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc*, int, int); // 0x00463740
 void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc*, D2UnitStrc*, int, int); // 0x00540E60
 int __fastcall MONSTERREGION_FindSpawnLocation(D2GameStrc*, D2ActiveRoomStrc*, D2RoomCoordListStrc*, int, int*, int*, int); // 0x0054DC40
 int __fastcall sub_6FCBDFE0(D2GameStrc*, D2UnitStrc*, D2ActiveRoomStrc*, int, int, int, int); // 0x00554EA0
 typedef void (__fastcall* PetIterateCallback)(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, void*);
 void __fastcall PLAYERPETS_IteratePets(D2GameStrc*, D2UnitStrc*, PetIterateCallback, void*); // 0x00574DE0
 D2AiParamStrc* __fastcall sub_005A6190_GetAiParam(D2UnitStrc*); // 0x005A6190
-void __fastcall D2GAME_MONSTERMODE_SetVelocityParams_6FC62FC0(D2AiParamStrc*, int, int, unsigned char); // 0x005A6260
+void __fastcall sub_005A6260_SetAiParamFields(D2AiParamStrc*, int, int, unsigned char); // 0x005A6260
 unsigned int __fastcall AIUTIL_GetDistanceToCoordinates_FullUnitSize(D2UnitStrc*, D2UnitStrc*); // 0x005DC380
 unsigned int __fastcall AIUTIL_GetDistanceToCoordinates(D2UnitStrc*, int, int); // 0x005DC5C0
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc*, D2UnitStrc*, int); // 0x005DE080
@@ -32,12 +32,12 @@ int __fastcall AITACTICS_WalkToTargetCoordinates(D2GameStrc*, D2UnitStrc*, int, 
 int __fastcall AITACTICS_RunToTargetCoordinates(D2GameStrc*, D2UnitStrc*, int, int); // 0x005DEDE0
 int __fastcall AITACTICS_WalkToTargetCoordinatesDeleteAiEvent(D2GameStrc*, D2UnitStrc*, int, int); // 0x005DEE50
 int __fastcall AITACTICS_RunToTargetCoordinatesDeleteAiEvent(D2GameStrc*, D2UnitStrc*, int, int); // 0x005DEEB0
-int __fastcall D2GAME_AICORE_Escape_6FCD0560(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, unsigned char, int); // 0x005DEFE0
-int __fastcall sub_005DF400_MoveAroundOwner(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, unsigned char); // 0x005DF400
+int __fastcall sub_005DEFE0_Escape(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, unsigned char, int); // 0x005DEFE0
+int __fastcall AITACTICS_WanderToTarget(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, unsigned char); // 0x005DF400
 int __fastcall D2GAME_AICORE_WalkToOwner_6FCD0B60(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, unsigned char); // 0x005DF530
 void __fastcall sub_6FCE34B0(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, void*); // 0x005E3900
 D2RoomCoordListStrc* __stdcall D2Common_10096(D2ActiveRoomStrc*, int, int); // 0x0061AD30
-int __stdcall sub_0061B130_GetCollision(D2ActiveRoomStrc*, int, int); // 0x0061B130
+int __stdcall D2Common_10095(D2ActiveRoomStrc*, int, int); // 0x0061B130
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc*); // 0x00620BB0
 unsigned char __stdcall UNITS_GetDirectionToCoords(D2UnitStrc*, int, int); // 0x00621DC0
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc*); // 0x006221A0
@@ -81,14 +81,14 @@ int __fastcall D2GAME_AI_PetMove_6FCE2BA0(D2GameStrc* pGame, D2UnitStrc* pOwner,
         {
             unsigned char nDirection = UNITS_GetDirectionToCoords(pOwner, nLastX, nLastY);
             nDirection = sub_0063E7A0_GetByteTableEntry(nDirection);
-            int nCollision = sub_0061B130_GetCollision(UNITS_GetRoom(pOwner), UNITS_GetXPosition(pOwner), CLIENTS_GetUnitY(pOwner));
+            int nCollision = D2Common_10095(UNITS_GetRoom(pOwner), CLIENTS_GetUnitX(pOwner), CLIENTS_GetUnitY(pOwner));
             for (int i = 0; i < 8; ++i) {
                 unsigned int nOffsetX;
                 unsigned int nOffsetY;
                 sub_0063E7E0_GetDirectionDelta(gnPetDirections[nDirection], &nOffsetX, &nOffsetY);
                 nTargetX = nLastX + 8 * nOffsetX;
                 nTargetY = nLastY + 8 * nOffsetY;
-                if (sub_0061B130_GetCollision(UNITS_GetRoom(pOwner), nTargetX, nTargetY) == nCollision) {
+                if (D2Common_10095(UNITS_GetRoom(pOwner), nTargetX, nTargetY) == nCollision) {
                     AITACTICS_SetVelocity(pUnit, 0, nVelocity, 40);
                     if (bRun) {
                         if (AITACTICS_RunToTargetCoordinatesDeleteAiEvent(pGame, pUnit, nTargetX, nTargetY)) return 1;
@@ -101,7 +101,7 @@ int __fastcall D2GAME_AI_PetMove_6FCE2BA0(D2GameStrc* pGame, D2UnitStrc* pOwner,
                 nDirection = (nDirection + 1) & 7;
             }
             D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 2, 0);
-            if (sub_005DF400_MoveAroundOwner(pGame, pUnit, pOwner, 4)) return 1;
+            if (AITACTICS_WanderToTarget(pGame, pUnit, pOwner, 4)) return 1;
             if (bRun && AITACTICS_RunToTargetCoordinatesDeleteAiEvent(pGame, pUnit, (nX + nOwnerX) / 2, (nY + nOwnerY) / 2)) return 1;
             if (AITACTICS_WalkToTargetCoordinatesDeleteAiEvent(pGame, pUnit, (nX + nOwnerX) / 2, (nY + nOwnerY) / 2)) return 1;
             return AITACTICS_WalkToTargetCoordinates(pGame, pUnit, nOwnerX, nOwnerY);
@@ -141,7 +141,7 @@ int __fastcall D2GAME_AI_PetMove_6FCE2BA0(D2GameStrc* pGame, D2UnitStrc* pOwner,
                 }
                 if (!bChanged) {
                     bChanged = 1;
-                    D2GAME_MONSTERMODE_SetVelocityParams_6FC62FC0(pAiParam, 1, nSpeed, 100);
+                    sub_005A6260_SetAiParamFields(pAiParam, 1, nSpeed, 100);
                     if (bRun) {
                         if (AITACTICS_RunToTargetCoordinatesDeleteAiEvent(pGame, pUnit, nTargetX, nTargetY)) return 1;
                     } else {
@@ -152,12 +152,12 @@ int __fastcall D2GAME_AI_PetMove_6FCE2BA0(D2GameStrc* pGame, D2UnitStrc* pOwner,
             int nDistance = AIUTIL_GetDistanceToCoordinates_FullUnitSize(pUnit, pOwner) / 4;
             if (nDistance < 4) nDistance = 4;
             AITACTICS_SetVelocity(pUnit, 0, 15, 0);
-            if (sub_005DF400_MoveAroundOwner(pGame, pUnit, pOwner, nDistance)) return 1;
+            if (AITACTICS_WanderToTarget(pGame, pUnit, pOwner, nDistance)) return 1;
             break;
         }
     case 2:
         if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < 10) {
-            if (sub_005DF400_MoveAroundOwner(pGame, pUnit, pOwner, SEED_RollLimitedRandomNumber(pSeed, 3) + 3)) return 1;
+            if (AITACTICS_WanderToTarget(pGame, pUnit, pOwner, SEED_RollLimitedRandomNumber(pSeed, 3) + 3)) return 1;
             D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 2, 0);
             AITACTICS_SetVelocity(pUnit, 0, 0, 40);
             if (AITACTICS_WalkToTargetCoordinatesDeleteAiEvent(pGame, pUnit, nLastX, nLastY)) return 1;
@@ -167,11 +167,11 @@ int __fastcall D2GAME_AI_PetMove_6FCE2BA0(D2GameStrc* pGame, D2UnitStrc* pOwner,
     case 3:
         {
             D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pOwner);
-            D2RoomCoordListStrc* pCoords = D2Common_10096(pRoom, UNITS_GetXPosition(pOwner), CLIENTS_GetUnitY(pOwner));
+            D2RoomCoordListStrc* pCoords = D2Common_10096(pRoom, CLIENTS_GetUnitX(pOwner), CLIENTS_GetUnitY(pOwner));
             int nSpawnX;
             int nSpawnY;
             if (!MONSTERREGION_FindSpawnLocation(pGame, pRoom, pCoords, GetMonsterId(363), &nSpawnX, &nSpawnY, 0)) break;
-            pRoom = sub_00463740_GetRoomAtCoords(pRoom, nSpawnX, nSpawnY);
+            pRoom = sub_00463740_FindRoomAtPoint(pRoom, nSpawnX, nSpawnY);
             if (!pRoom) break;
             if (!sub_6FCBDFE0(pGame, pUnit, pRoom, nSpawnX, nSpawnY, 0, 0)) break;
             UNITROOM_RefreshUnit(pUnit);
@@ -187,9 +187,9 @@ int __fastcall D2GAME_AI_PetMove_6FCE2BA0(D2GameStrc* pGame, D2UnitStrc* pOwner,
             PLAYERPETS_IteratePets(pGame, pOwner, sub_6FCE34B0, &args);
             if (args.nCounter >= 1) {
                 D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 2, 0);
-                if (D2GAME_AICORE_Escape_6FCD0560(pGame, pUnit, pOwner, nRange, 1)) return 1;
+                if (sub_005DEFE0_Escape(pGame, pUnit, pOwner, nRange, 1)) return 1;
                 D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 2, 0);
-                if (sub_005DF400_MoveAroundOwner(pGame, pUnit, pOwner, nRange)) return 1;
+                if (AITACTICS_WanderToTarget(pGame, pUnit, pOwner, nRange)) return 1;
             }
             AITACTICS_IdleInNeutralMode(pGame, pUnit, 15);
             return 1;
@@ -198,7 +198,7 @@ int __fastcall D2GAME_AI_PetMove_6FCE2BA0(D2GameStrc* pGame, D2UnitStrc* pOwner,
         AITACTICS_SetVelocity(pUnit, 7, 0, 0);
         if (D2GAME_AICORE_WalkToOwner_6FCD0B60(pGame, pUnit, pOwner, nRange)) return 1;
         D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 2, 0);
-        if (D2GAME_AICORE_Escape_6FCD0560(pGame, pUnit, pOwner, nRange, 1)) return 1;
+        if (sub_005DEFE0_Escape(pGame, pUnit, pOwner, nRange, 1)) return 1;
         AITACTICS_SetVelocity(pUnit, 0, 0, 40);
         if (AITACTICS_WalkToTargetCoordinatesDeleteAiEvent(pGame, pUnit, nLastX, nLastY)) return 1;
         break;

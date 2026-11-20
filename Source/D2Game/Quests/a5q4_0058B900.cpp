@@ -236,7 +236,7 @@ extern "C" const unsigned int gnAct1Quest2NpcIndices[]; // 0x00737180
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 int __fastcall OBJECTS_RollRandomNumber(D2SeedStrc* pSeed, int nMin, int nMax); // 0x004BC500
-void __fastcall sub_6FC37B10(D2GameStrc* pGame); // 0x0052E2A0
+void __fastcall GAME_SaveAndSendClientSaves(D2GameStrc* pGame); // 0x0052E2A0
 void __fastcall LEVEL_WarpUnit(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nDestinationLevelId, int nTileCalc); // 0x0053AEC0
 int __fastcall PLAYER_IsBusy(D2UnitStrc* pUnit); // 0x00535060
 void __fastcall sub_0053D940_SendPacket0x61(D2ClientStrc* pClient, unsigned char nValue); // 0x0053D940
@@ -557,7 +557,7 @@ int __fastcall OBJECTS_OperateFunction72_LastPortal(D2ObjOperateFnStrc* pOp, int
         LEVEL_WarpUnit(pOp->pGame, pOp->hPlayer, LEVEL_HARROGATH, 0);
         D2ClientStrc* pClient = UnitGetClient(pOp->hPlayer, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q6.cpp", 923);
         D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pOp->hPlayer);
-        sub_6FC37B10(pQuestData->pGame);
+        GAME_SaveAndSendClientSaves(pQuestData->pGame);
         if (pClient && !PLAYER_IsBusy(pOp->hPlayer))
         {
             SUNIT_ResetInteractInfo(pOp->hPlayer);

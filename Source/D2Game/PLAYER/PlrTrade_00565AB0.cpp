@@ -73,7 +73,7 @@ void __stdcall ITEMS_SetOrRemoveFlag(int*,int,int); // 0x006287B0
 int __stdcall ITEMS_CheckIfStackable(D2UnitStrc*); // 0x006289F0
 int __stdcall ITEMS_GetTotalMaxStack(D2UnitStrc*); // 0x006295B0
 int __stdcall ITEMS_GetFileIndex(D2UnitStrc*); // 0x00629DA0
-unsigned char __stdcall ITEMS_GetMaxSockets(D2UnitStrc*); // 0x0062BC20
+unsigned char __stdcall sub_0062BC20(D2UnitStrc*); // 0x0062BC20
 void __stdcall ITEMS_AddSockets(D2UnitStrc*,int); // 0x0062BCB0
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int); // 0x006335F0
 D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc*); // 0x0063B2C0
@@ -256,7 +256,7 @@ D2UnitStrc* __fastcall PLRTRADE_CreateCubeOutputs(D2GameStrc* game,D2UnitStrc* p
   if(out->wItemFlags&0x400)D2GAME_RechargeItem_6FC4BD50(game,player,current);
   if(out->wItemFlags&2) {
    if(out->nQuantity && !STATLIST_UnitGetStatValue(current,194,0) && !(ITEMS_GetItemFlags(current)&0x800)) {
-    int n=ITEMS_GetMaxSockets(current);if(n>=out->nQuantity)n=out->nQuantity;
+    int n=sub_0062BC20(current);if(n>=out->nQuantity)n=out->nQuantity;
     switch(ITEMS_GetItemQuality(current)) {
      case 4:case 9:if(n>3)n=3;break;
      case 5:case 6:case 7:case 8:if(n>1)n=1;break;

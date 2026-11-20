@@ -144,33 +144,33 @@ D2MonSoundsTxt* __stdcall DATATBLS_GetMonSoundsTxtRecordFromMonsterId(int nMonst
 D2SuperUniquesTxt* __stdcall DATATBLS_GetSuperUniquesTxtRecord(int nSuperUniqueId);                         // 0x006556E0
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId);                                    // 0x00451F80
 short __fastcall sub_004AC7C0_GetSuperUniqueId(D2UnitStrc* pUnit);                                          // 0x004AC7C0
-int __fastcall sub_004AE360_IsMonsterFlag8(D2UnitStrc* pUnit);                                              // 0x004AE360
-int __fastcall sub_004AE380_IsMonsterFlag10(D2UnitStrc* pUnit);                                             // 0x004AE380
-int __fastcall sub_004AE3A0_IsMonsterFlag2(D2UnitStrc* pUnit);                                              // 0x004AE3A0
+int __fastcall sub_004AE360_IsUniqueMonster(D2UnitStrc* pUnit);                                              // 0x004AE360
+int __fastcall sub_004AE380_IsMinionMonster(D2UnitStrc* pUnit);                                             // 0x004AE380
+int __fastcall sub_004AE3A0_IsSuperUniqueMonster(D2UnitStrc* pUnit);                                              // 0x004AE3A0
 int __fastcall sub_004638A0_CheckMonStats2Flag(int nMonsterId, int nFlag);                                  // 0x004638A0
 int __fastcall sub_00463860(D2UnitStrc* pUnit);                                                             // 0x00463860
-D2UnitStrc* __cdecl sub_00463DD0();                                                               // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit);                                               // 0x00464820
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4);           // 0x004B9A00
-void __fastcall sub_004B9B50_SetHintValue(int nKey, int nValue);                                            // 0x004B9B50
+void __fastcall sub_004B9B50_SetValue(int nKey, int nValue);                                            // 0x004B9B50
 int __fastcall sub_004B9BE0_HasActiveHint(void* pEntry);                                                    // 0x004B9BE0
 int __fastcall sub_004B9CA0_GetHintIdByKey(void* pKey);                                                     // 0x004B9CA0
 int __fastcall sub_004B9E10_IsNearPlayer(D2UnitStrc* pUnit);                                                // 0x004B9E10
 int __fastcall sub_004B9E90_HasUnitSound(D2UnitStrc* pUnit);                                                // 0x004B9E90
 void __fastcall sub_004B9EF0_ArmHint(void* pEntry, int nGroup, int nOffset, unsigned int nCount);           // 0x004B9EF0
 void __fastcall sub_004BA790_ReleaseUnitSfx(void* pUnitSfx, D2UnitStrc* pUnit, int bForce);                 // 0x004BA790
-int __fastcall sub_00481890_GetHintGroup(int nId);                                                          // 0x00481890
+int __fastcall sub_00481890_GetCacheFirst(int nId);                                                          // 0x00481890
 void __fastcall sub_004822B0_AddVariantRefs(int nIndex, int nDelta);                                        // 0x004822B0
 unsigned int __cdecl sub_0044DB00();                                                                        // 0x0044DB00
 int __fastcall sub_004E40A0(int nRange);                                                                    // 0x004E40A0
 int __fastcall sub_004E4100(int nMin, int nMax);                                                            // 0x004E4100
-int __fastcall sub_004E4180_GetStepDistance(int nFrame, int nOffset, int nStepLength);                     // 0x004E4180
+int __fastcall sub_004E4180(int nFrame, int nOffset, int nStepLength);                     // 0x004E4180
 int __fastcall sub_004CA810_GetModeSound(D2UnitStrc* pUnit, int nMode);                                     // 0x004CA810
 int __fastcall sub_004CADB0_GetUnitFloorMaterial(D2UnitStrc* pUnit);                                        // 0x004CADB0
 unsigned int __fastcall sub_004CA500_GetAnimRate(D2UnitStrc* pUnit, unsigned int nDirection);               // 0x004CA500
 void* __fastcall sub_004CA900_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId);                               // 0x004CA900
 void __fastcall sub_004CAA10_PurgeUnitHints(D2UnitStrc* pUnit);                                             // 0x004CAA10
-int __fastcall sub_00623C20(D2UnitStrc* pUnit);                                                             // 0x00623C20
+int __fastcall UNITS_GetHitClass(D2UnitStrc* pUnit);                                                             // 0x00623C20
 int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther);                         // 0x006416D0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom);                                                // 0x0061AB00

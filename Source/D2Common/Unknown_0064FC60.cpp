@@ -44,7 +44,7 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern const D2CoordStrc gtPathZeroVelocity_006EB7D4; // 0x006EB7D4
-D2ActiveRoomStrc* __fastcall COLLISION_GetRoomBySubTileCoordinates(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
 void __stdcall DUNGEON_GameToClientCoords(int* pX, int* pY); // 0x00643290
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
 int __stdcall UNITROOM_AddUnitToRoom(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom); // 0x0064C350
@@ -249,10 +249,10 @@ static __declspec(noinline) void __stdcall PATH_RecacheRoom(D2ActiveRoomStrc* pH
         return;
     }
 
-    D2ActiveRoomStrc* pRoomAtLocation = COLLISION_GetRoomBySubTileCoordinates(pPath->pRoom, nX, nY);
+    D2ActiveRoomStrc* pRoomAtLocation = sub_00463740_FindRoomAtPoint(pPath->pRoom, nX, nY);
     if (!pRoomAtLocation && pHintRoom)
     {
-        pRoomAtLocation = COLLISION_GetRoomBySubTileCoordinates(pHintRoom, nX, nY);
+        pRoomAtLocation = sub_00463740_FindRoomAtPoint(pHintRoom, nX, nY);
     }
 
     if (pRoomAtLocation || !(pPath->dwFlags & 0x40000))
@@ -268,7 +268,7 @@ static __declspec(noinline) void __stdcall PATH_RecacheRoom(D2ActiveRoomStrc* pH
 // 0x0064FB90
 static __declspec(noinline) void __stdcall PATH_RecacheRoomAtCoordIfNeeded(D2FP32_16 tCoord, D2ActiveRoomStrc* pHintRoom, D2DynamicPathStrc* pPath)
 {
-    if ((pPath->dwFlags & 0x40000) && !COLLISION_GetRoomBySubTileCoordinates(pPath->pRoom, tCoord.dwPrecisionX >> 16, tCoord.dwPrecisionY >> 16))
+    if ((pPath->dwFlags & 0x40000) && !sub_00463740_FindRoomAtPoint(pPath->pRoom, tCoord.dwPrecisionX >> 16, tCoord.dwPrecisionY >> 16))
     {
         pPath->dwPathPoints = 0;
         return;
@@ -741,7 +741,7 @@ static __declspec(noinline) BOOL __stdcall sub_6FDAD5E0(D2ActiveRoomStrc* pDestR
     }
 
     PATH_RecacheRoomAtCoordIfNeeded(PATH_MakeCoord(PATH_ToFP16Center(tDest.X), PATH_ToFP16Center(tDest.Y)), pDestRoom, pPath);
-    D2_ASSERT((!tDest.X && !tDest.Y) || COLLISION_GetRoomBySubTileCoordinates(pDestRoom, tDest.X, tDest.Y), 0x489);
+    D2_ASSERT((!tDest.X && !tDest.Y) || sub_00463740_FindRoomAtPoint(pDestRoom, tDest.X, tDest.Y), 0x489);
     PATH_ResetMovement(pPath);
     return 1;
 }
@@ -781,7 +781,7 @@ static __declspec(noinline) BOOL __stdcall D2Common_10231_Impl(D2ActiveRoomStrc*
     }
 
     PATH_RecacheRoomAtCoordIfNeeded(PATH_MakeCoord(PATH_ToFP16Center(tDest.X), PATH_ToFP16Center(tDest.Y)), pRoomDest, pPath);
-    D2_ASSERT((!tDest.X && !tDest.Y) || COLLISION_GetRoomBySubTileCoordinates(pRoomDest, tDest.X, tDest.Y), 0x4CC);
+    D2_ASSERT((!tDest.X && !tDest.Y) || sub_00463740_FindRoomAtPoint(pRoomDest, tDest.X, tDest.Y), 0x4CC);
     PATH_ResetMovement(pPath);
     return 1;
 }
@@ -846,7 +846,7 @@ BOOL __stdcall D2Common_10232(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, D2Act
     }
 
     PATH_RecacheRoomAtCoordIfNeeded(PATH_MakeCoord(PATH_ToFP16Center(nTargetX), PATH_ToFP16Center(nTargetY)), pDestRoom, pPath);
-    D2_ASSERT(COLLISION_GetRoomBySubTileCoordinates(pDestRoom, nTargetX, nTargetY), 0x524);
+    D2_ASSERT(sub_00463740_FindRoomAtPoint(pDestRoom, nTargetX, nTargetY), 0x524);
     PATH_ResetMovement(pPath);
     return 1;
 }

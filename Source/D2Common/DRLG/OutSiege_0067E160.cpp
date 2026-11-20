@@ -118,7 +118,7 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
-int __fastcall sub_0067C570(D2DrlgGridStrc* pGrid, int nX, int nY);                                     // 0x0067C570
+int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY);                                     // 0x0067C570
 void __fastcall DRLGGRID_AlterGridFlag(D2DrlgGridStrc* pGrid, int nX, int nY, int nFlag, int eOperation);       // 0x0067C4F0
 void __fastcall sub_0067D280(D2DrlgVertexStrc* pVertex, int* pDirectionX, int* pDirectionY);    // 0x0067D280
 D2LvlPrestRecordStrc* __stdcall sub_0061F0B0(int nPresetId);                                      // 0x0061F0B0

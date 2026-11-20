@@ -110,7 +110,7 @@ int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 void __stdcall ITEMS_SetFileIndex(D2UnitStrc* pItem, unsigned int dwFileIndex); // 0x00629DF0
 unsigned short __stdcall ITEMS_GetItemFormat(D2UnitStrc* pItem); // 0x0062A670
 int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem); // 0x0062B400
-unsigned char __stdcall ITEMS_GetMaxSockets(D2UnitStrc* pItem); // 0x0062BC20
+unsigned char __stdcall sub_0062BC20(D2UnitStrc* pItem); // 0x0062BC20
 void __stdcall ITEMS_AddSockets(D2UnitStrc* pItem, int nSockets); // 0x0062BCB0
 void* __stdcall DATATBLS_GetMagicAffixTxtRecord(int nIndex); // 0x00633EE0
 unsigned int __fastcall SEED_GetLowSeed(D2SeedStrc* pSeed); // 0x00650E50
@@ -122,7 +122,7 @@ D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc*); // 0x00554010
 D2ItemRatioTxt* __stdcall DATATBLS_GetItemRatioTxtRecord(int, unsigned char, unsigned short); // 0x00637910
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc*, int); // 0x0045C3E0
 extern const int gnQualityOrder_006E1138[6]; // 0x006E1138
-unsigned char __stdcall sub_0062E8D0_HasAltInvGfx(D2UnitStrc* pItem); // 0x0062E8D0
+unsigned char __stdcall ITEMS_GetVarInvGfxCount(D2UnitStrc* pItem); // 0x0062E8D0
 void __fastcall SUNIT_RemoveAllItemsFromInventory(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00555AE0
 void __fastcall sub_6FC349F0(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540EE0
 D2UnitStrc* __fastcall SUNIT_GetNextUnitFromList(D2UnitStrc* pUnit); // 0x00552DB0
@@ -197,7 +197,7 @@ void __fastcall SUNITDMG_DrainItemDurability(D2GameStrc* pGame, D2UnitStrc* pAtt
 
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-D2ActiveRoomStrc* __fastcall D2GAME_GetRoom_6FC52070(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
 int __fastcall ITEMMODE_SelectRandomArmorItemId(D2GameStrc* pGame, D2SeedStrc* pSeed, int nLevelId, int nItemType, int bIgnoreRarity); // 0x00555E70
 int __fastcall ITEMMODE_SelectRandomWeaponItemId(D2GameStrc* pGame, D2SeedStrc* pSeed, int nLevelId, int nItemType, int bIgnoreRarity); // 0x00555FB0
 int __fastcall ITEMMODE_SelectRandomMiscItemId(D2GameStrc* pGame, D2SeedStrc* pSeed, int nLevelId, int nItemType, int bIgnoreRarity, int bAllowBodyParts); // 0x005560F0
@@ -767,12 +767,12 @@ static void __stdcall ITEMS_RollDropSockets(D2GameStrc* pGame, D2ItemDropStrc* p
         return;
     }
 
-    if (!ITEMS_GetMaxSockets(pItem))
+    if (!sub_0062BC20(pItem))
     {
         return;
     }
 
-    int nMaxSockets = ITEMS_GetMaxSockets(pItem);
+    int nMaxSockets = sub_0062BC20(pItem);
     switch (pGame->nDifficulty)
     {
     case 0:
@@ -1079,9 +1079,9 @@ int __stdcall ITEMS_RollItemQuality(D2UnitStrc* pItem, D2ItemDropStrc* pDrop)
 // 0x00557A70
 static void sub_00557A70_RollVarInvGfx(D2UnitStrc* pItem)
 {
-    if (sub_0062E8D0_HasAltInvGfx(pItem))
+    if (ITEMS_GetVarInvGfxCount(pItem))
     {
-        const unsigned char nIndex = sub_00472280(&pItem->pSeed, 0, sub_0062E8D0_HasAltInvGfx(pItem));
+        const unsigned char nIndex = sub_00472280(&pItem->pSeed, 0, ITEMS_GetVarInvGfxCount(pItem));
         ITEMS_SetVarGfxIndex(pItem, nIndex);
     }
 }
@@ -1670,7 +1670,7 @@ D2UnitStrc* __fastcall sub_00559130_DropRandomItem(D2GameStrc* pGame, D2ActiveRo
 
     const int nX = coords2.nX + 2;
     const int nY = coords2.nY + 3;
-    if (D2GAME_GetRoom_6FC52070(pRoom, nX, nY))
+    if (sub_00463740_FindRoomAtPoint(pRoom, nX, nY))
     {
         coords1.nX = nX;
         coords1.nY = nY;
@@ -1737,7 +1737,7 @@ D2UnitStrc* __fastcall sub_6FC4F640(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, 
 
     const int nX = coords2.nX + 2;
     const int nY = coords2.nY + 3;
-    if (D2GAME_GetRoom_6FC52070(pRoom, nX, nY))
+    if (sub_00463740_FindRoomAtPoint(pRoom, nX, nY))
     {
         coords1.nX = nX;
         coords1.nY = nY;
@@ -1859,7 +1859,7 @@ D2UnitStrc* __fastcall D2GAME_DropWeapon_6FC4FA50(D2GameStrc* pGame, D2ActiveRoo
 
         const int nX = coords2.nX + 2;
         const int nY = coords2.nY + 3;
-        if (D2GAME_GetRoom_6FC52070(pRoom, nX, nY))
+        if (sub_00463740_FindRoomAtPoint(pRoom, nX, nY))
         {
             coords1.nX = nX;
             coords1.nY = nY;
@@ -2044,7 +2044,7 @@ D2UnitStrc* __fastcall sub_6FC4FCA0(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, 
 
     const int nX = coords2.nX + 2;
     const int nY = coords2.nY + 3;
-    if (D2GAME_GetRoom_6FC52070(pRoom, nX, nY))
+    if (sub_00463740_FindRoomAtPoint(pRoom, nX, nY))
     {
         coords1.nX = nX;
         coords1.nY = nY;

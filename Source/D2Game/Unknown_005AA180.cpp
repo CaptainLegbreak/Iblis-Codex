@@ -66,7 +66,7 @@ int __stdcall MISSILE_GetLevel(D2UnitStrc*); // 0x0064A210
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc*, int, int, int); // 0x00627260
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc*, unsigned int, int, int); // 0x00646CA0
 int __stdcall MISSILE_EvaluateMissileFormula(D2UnitStrc*, D2UnitStrc*, unsigned int, int, int); // 0x0064B7C0
-void __fastcall sub_005A9530_CreateHitSubmissiles(D2GameStrc*, D2UnitStrc*, int, int, int); // 0x005A9530
+void __fastcall sub_005A9530_CreateMissilesInRadius(D2GameStrc*, D2UnitStrc*, int, int, int); // 0x005A9530
 int __fastcall MISSMODE_GetDamageValue(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, D2DamageStrc*); // 0x005A8C70
 int __fastcall sub_0056BAD0_ApplyAreaDamage(D2GameStrc*, D2UnitStrc*, int, int, int, D2DamageStrc*, unsigned int); // 0x0056BAD0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc*); // 0x006488C0
@@ -79,7 +79,7 @@ void __stdcall MISSILE_SetTargetX(D2UnitStrc* pMissile, int nTargetX); // 0x0064
 int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
 int __stdcall MISSILE_GetTargetY(D2UnitStrc* pMissile); // 0x0064A780
 void __stdcall D2COMMON_10170_PathSetTargetPos(D2DynamicPathStrc* pPath, int nX, int nY); // 0x00648AD0
-int __stdcall UNITS_GetDistanceToCoordinates(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
+int __stdcall sub_006417F0_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
 int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown); // 0x00649970
 int __stdcall MISSILE_GetTargetX(D2UnitStrc* pMissile); // 0x0064A730
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
@@ -193,7 +193,7 @@ int __fastcall sub_005AA250_ApplyHitExplosion(D2GameStrc* pGame, D2UnitStrc* pMi
             if (nCount < 1) nCount = 1;
         }
         const int nValue = MISSILE_EvaluateMissileFormula(pMissile, pOwner, pMissilesTxtRecord->dwHitCalc, !pMissile ? -1 : pMissile->dwClassId, nLevel);
-        sub_005A9530_CreateHitSubmissiles(pGame, pMissile, nCount, pMissilesTxtRecord->wHitSubMissile[0], nValue);
+        sub_005A9530_CreateMissilesInRadius(pGame, pMissile, nCount, pMissilesTxtRecord->wHitSubMissile[0], nValue);
     }
     int nRange = pMissilesTxtRecord->dwHitPar[1];
     if (nRange <= 0)
@@ -283,7 +283,7 @@ static void __stdcall sub_005AA460_MISSMODE_GuidedRetarget(D2UnitStrc* pTarget, 
         const int nY = CLIENTS_GetUnitYInline(pMissile) + (short)nParamHigh;
         D2COMMON_10170_PathSetTargetPos(pPath, nX, nY);
         MISSILE_SetTargetX(pMissile, 6);
-        nDistance = UNITS_GetDistanceToCoordinates(pMissile, nX, nY);
+        nDistance = sub_006417F0_GetDistanceToXY(pMissile, nX, nY);
     }
 
     if (nDistance < 25)

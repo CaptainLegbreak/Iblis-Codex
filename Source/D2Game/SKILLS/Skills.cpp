@@ -95,7 +95,7 @@ int __stdcall PATH_ComputeSquaredDistance(int nX1, int nY1, int nX2, int nY2); /
 
 
 int __fastcall D2GAME_GetXAndYFromTargetUnit_6FD14020(D2GameStrc* pGame, D2UnitStrc* pUnit, int* pX, int* pY); // 0x0056D2C0
-D2ActiveRoomStrc* __fastcall D2GAME_GetRoom_6FC52070(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
 
 struct D2DamageStrc
 {
@@ -312,7 +312,7 @@ D2SkillStrc* __stdcall SKILLS_GetNextSkill(D2SkillStrc* pSkill); // 0x006438F0
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
 void __stdcall SKILLS_RefreshSkill(D2UnitStrc* pUnit, int nSkillId); // 0x00646D60
 void __fastcall sub_00553B10(D2GameStrc* pGame, D2UnitStrc* pUnit, int nArg); // 0x00553B10
-int __fastcall sub_005DD480(D2UnitStrc* pUnit, int nArg); // 0x005DD480
+int __fastcall sub_005DD480_CanSwitchAiMode(D2UnitStrc* pUnit, int nArg); // 0x005DD480
 D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
 void __stdcall STATLIST_SetStat(D2StatListStrc* pStatList, int nStatId, int nValue, int nLayer); // 0x00627150
@@ -373,7 +373,7 @@ void __stdcall UNITFINDS_FindAllMatchingUnitsInNeighboredRooms(D2UnitFindDataStr
 typedef void (__fastcall* SKILLS_AREAEFFECTFN)(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillLevel, int nParam);
 
 int __stdcall SKILLS_GetParam1(D2SkillStrc* pSkill); // 0x006444A0
-void __fastcall sub_6FC7D260(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetGUID, int a4); // 0x005750E0
+void __fastcall PLAYERPETS_RemovePet(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetGUID, int a4); // 0x005750E0
 
 struct D2PetTypeTxt { unsigned int type; unsigned char flags; };
 int __fastcall PLAYERPETS_GetPetTypeFromPetGUID(D2UnitStrc* player, int petId); // 0x00574A20
@@ -399,7 +399,7 @@ enum
 };
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
-int __fastcall sub_00554200(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00554200
+int __fastcall SUNIT_AreUnitsHostile(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00554200
 int __fastcall SUNIT_CanPetBeTargetedBySkill(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pPet, int nSkillId); // 0x005542C0
 int __fastcall SUNIT_CanAllyBeTargetedBySkill(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pUnit, int nSkillId); // 0x00554D20
 void __stdcall UNITS_SetTargetUnitForDynamicUnit(D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit); // 0x00620C10
@@ -1151,7 +1151,7 @@ int __fastcall SKILLS_SrvDo004_Unsummon(D2GameStrc* pGame, D2UnitStrc* pUnit, in
     if (!pSkill)
         return 0;
 
-    sub_6FC7D260(pGame, pUnit, SKILLS_GetParam1(pSkill), 1);
+    PLAYERPETS_RemovePet(pGame, pUnit, SKILLS_GetParam1(pSkill), 1);
     return 1;
 }
 
@@ -1190,7 +1190,7 @@ static int __stdcall sub_0056CC60_CheckUsedSkillTarget(D2GameStrc* pGame, D2Unit
 
     if (pSkillsTxtRecord->nFlags[SKILLSFLAGINDEX_TARGETABLEONLY >> 3] & gdwBitMasks[SKILLSFLAGINDEX_TARGETABLEONLY & 7])
     {
-        if (!sub_00554200(pGame, pUnit, pTarget) && !SUNIT_CanPetBeTargetedBySkill(pGame, pUnit, pTarget, nSkillId) && !SUNIT_CanAllyBeTargetedBySkill(pGame, pUnit, pTarget, nSkillId))
+        if (!SUNIT_AreUnitsHostile(pGame, pUnit, pTarget) && !SUNIT_CanPetBeTargetedBySkill(pGame, pUnit, pTarget, nSkillId) && !SUNIT_CanAllyBeTargetedBySkill(pGame, pUnit, pTarget, nSkillId))
         {
             return 0;
         }
@@ -1389,7 +1389,7 @@ D2UnitStrc* __fastcall D2GAME_CreateLinkPortal_6FD13B20(D2GameStrc* pGame, int n
 
     if (QUESTS_PortalCheck(pGame, &coords, nSourceLevel, &pRoom))
     {
-        pRoom = D2GAME_GetRoom_6FC52070(pRoom, coords.nX, coords.nY);
+        pRoom = sub_00463740_FindRoomAtPoint(pRoom, coords.nX, coords.nY);
     }
 
     if (!pRoom)
@@ -1581,7 +1581,7 @@ void __fastcall sub_6FD149B0(D2GameStrc* pGame, D2EffectStrc* pEffect)
     unitFindArg.nY = pEffect->nY;
     unitFindArg.nSize = nParam;
 
-    D2ActiveRoomStrc* pRoom = D2GAME_GetRoom_6FC52070(UNITS_GetRoom(pEffect->pUnit), pEffect->nX, pEffect->nY);
+    D2ActiveRoomStrc* pRoom = sub_00463740_FindRoomAtPoint(UNITS_GetRoom(pEffect->pUnit), pEffect->nX, pEffect->nY);
     if (pRoom)
     {
         D2UnitFindDataStrc unitFindData;
@@ -1772,7 +1772,7 @@ int __fastcall sub_6FD15190(D2UnitStrc* pUnit, int nAiSpecialState)
         }
     }
 
-    return sub_005DD480(pUnit, nAiSpecialState) != 0;
+    return sub_005DD480_CanSwitchAiMode(pUnit, nAiSpecialState) != 0;
 }
 
 // 0x0056E370
@@ -1882,7 +1882,7 @@ int __fastcall sub_6FD10360(D2GameStrc* pGame, unsigned int nFlags, D2UnitStrc* 
         return 0;
     }
 
-    D2ActiveRoomStrc* pRoom = D2GAME_GetRoom_6FC52070(UNITS_GetRoom(pUnit), nX, nY);
+    D2ActiveRoomStrc* pRoom = sub_00463740_FindRoomAtPoint(UNITS_GetRoom(pUnit), nX, nY);
     if (!pRoom)
     {
         return 0;

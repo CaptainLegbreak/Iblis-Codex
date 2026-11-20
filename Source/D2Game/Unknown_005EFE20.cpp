@@ -56,14 +56,14 @@ struct D2SandRaiderAiCallbackArgStrc
 };
 
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc*,int); // 0x0045C390
-D2UnitStrc* __fastcall sub_005DD0B0_IterateUnits(D2GameStrc*,D2UnitStrc*,void*,D2UnitStrc* (__fastcall *)(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,void*),int); // 0x005DD0B0
-int __fastcall sub_005DD280_GetValue(D2UnitStrc*); // 0x005DD280
+D2UnitStrc* __fastcall AIUTIL_FindTargetWithCallback(D2GameStrc*,D2UnitStrc*,void*,D2UnitStrc* (__fastcall *)(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,void*),int); // 0x005DD0B0
+int __fastcall sub_005DD280(D2UnitStrc*); // 0x005DD280
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc*,D2UnitStrc*,int); // 0x005DE080
 int __fastcall AITACTICS_UseSkill(D2GameStrc*,D2UnitStrc*,unsigned char,int,D2UnitStrc*,int,int); // 0x005DEAD0
 int __fastcall AITACTICS_WalkToTargetUnitWithFlags(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,unsigned char); // 0x005DEC80
 int __fastcall sub_005DF7D0_Maneuver(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,int,int); // 0x005DF7D0
 D2UnitStrc* __fastcall AITHINK_TargetCallback_SandRaider(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,void*); // 0x005F06B0
-void __stdcall sub_00621E40_ApplyOverlay(D2UnitStrc*,int,int); // 0x00621E40
+void __stdcall UNITS_SetOverlay(D2UnitStrc*,int,int); // 0x00621E40
 void __stdcall STATES_ToggleState(D2UnitStrc*,int,int); // 0x00639DB0
 
 struct D2DataTables { char unk00[0xA80]; int nMonStatsTxtRecordCount; };
@@ -71,12 +71,12 @@ struct D2DataTables { char unk00[0xA80]; int nMonStatsTxtRecordCount; };
 struct D2GreaterMummyAiCallbackArgStrc { D2UnitStrc* pReviveTarget; D2UnitStrc* pHealTarget; int nHealReviveCounter,nCounter,nMaxDistance,bRadament,bNormal; int unk_1C[3]; };
 
 extern D2DataTables* sgptDataTables; // 0x00744304
-void __fastcall sub_00599420_RadamentUpdate(D2GameStrc*,D2UnitStrc*); // 0x00599420
-D2UnitStrc* __fastcall sub_005DDC30_GetTarget(D2GameStrc*,D2UnitStrc*,int*,int*); // 0x005DDC30
-int __fastcall sub_005DE000_UseSkill(D2GameStrc*,D2UnitStrc*,int,D2UnitStrc*,int,int); // 0x005DE000
+void __fastcall ACT2Q1_OnRadamentActivated(D2GameStrc*,D2UnitStrc*); // 0x00599420
+D2UnitStrc* __fastcall AIUTIL_SelectAiTargetWithCollisionCheck(D2GameStrc*,D2UnitStrc*,int*,int*); // 0x005DDC30
+int __fastcall AITACTICS_UseSequenceSkill(D2GameStrc*,D2UnitStrc*,int,D2UnitStrc*,int,int); // 0x005DE000
 int __fastcall AITACTICS_WalkToTargetUnitWithSteps(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,unsigned char); // 0x005DEF80
 D2UnitStrc* __fastcall AITHINK_TargetCallback_GreaterMummy(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,void*); // 0x005F2A00
-int __fastcall sub_005FD470_CanUseSkill(D2GameStrc*,D2UnitStrc*,int,D2UnitStrc*,int,int); // 0x005FD470
+int __fastcall sub_005FD470(D2GameStrc*,D2UnitStrc*,int,D2UnitStrc*,int,int); // 0x005FD470
 void __stdcall UNITS_SetTargetUnitForDynamicUnit(D2UnitStrc*,D2UnitStrc*); // 0x00620C10
 
 static int AI_RollPercentage(D2UnitStrc* pUnit)
@@ -159,8 +159,8 @@ void __fastcall sub_005F0700_SandRaiderThink(D2GameStrc* pGame,D2UnitStrc* pUnit
     {
         switch(AI_PARAM(5))
         {
-        default: sub_00621E40_ApplyOverlay(pUnit,46,0); break;
-        case 1: sub_00621E40_ApplyOverlay(pUnit,150,0); break;
+        default: UNITS_SetOverlay(pUnit,46,0); break;
+        case 1: UNITS_SetOverlay(pUnit,150,0); break;
         }
         AITACTICS_IdleInNeutralMode(pGame,pUnit,pMonStatsTxt->nAIdel[pGame->nDifficulty]+1);
         return;
@@ -174,12 +174,12 @@ void __fastcall sub_005F0700_SandRaiderThink(D2GameStrc* pGame,D2UnitStrc* pUnit
         }
         pAiControl->dwAiParam[1] = 1;
     }
-    if (pAiControl->dwAiParam[2] < 7 && sub_005DD280_GetValue(pUnit) < AI_PARAM(0))
+    if (pAiControl->dwAiParam[2] < 7 && sub_005DD280(pUnit) < AI_PARAM(0))
     {
         D2SandRaiderAiCallbackArgStrc args;
         args.pTarget = 0;
         args.nDistance = 0x7FFFFFFF;
-        sub_005DD0B0_IterateUnits(pGame,pUnit,&args,AITHINK_TargetCallback_SandRaider,1);
+        AIUTIL_FindTargetWithCallback(pGame,pUnit,&args,AITHINK_TargetCallback_SandRaider,1);
         if(args.pTarget)
         {
             AITACTICS_WalkToTargetUnitWithFlags(pGame,pUnit,args.pTarget,0);
@@ -255,11 +255,11 @@ void __fastcall sub_005F2B10_GreaterMummyThink(D2GameStrc* pGame,D2UnitStrc* pUn
  int nRange=AI_PARAM(4);args.nMaxDistance=nRange*nRange;args.bRadament=0;args.bNormal=0;
  if(UnitClassId(pUnit)==MonsterId(229))
  {
-  sub_00599420_RadamentUpdate(pGame,pUnit);
+  ACT2Q1_OnRadamentActivated(pGame,pUnit);
   args.nMaxDistance=(AI_PARAM(4)+10)*(AI_PARAM(4)+10);args.bRadament=1;
   if(!pGame->nDifficulty) args.bNormal=1;
  }
- sub_005DD0B0_IterateUnits(pGame,pUnit,&args,AITHINK_TargetCallback_GreaterMummy,1);
+ AIUTIL_FindTargetWithCallback(pGame,pUnit,&args,AITHINK_TargetCallback_GreaterMummy,1);
  D2UnitStrc* pActionTarget=args.pHealTarget;
  if(pMonStatsTxt->nSkill[1]>=0 && pActionTarget && (int)((unsigned int)RollSeed(pUnit)%100)<AI_PARAM(2))
  {
@@ -267,14 +267,14 @@ void __fastcall sub_005F2B10_GreaterMummyThink(D2GameStrc* pGame,D2UnitStrc* pUn
   AITACTICS_UseSkill(pGame,pUnit,pMonStatsTxt->nSkillMode[1],pMonStatsTxt->nSkill[1],pActionTarget,0,0); return;
  }
  pActionTarget=args.pReviveTarget;
- if(pActionTarget && (int)((unsigned int)RollSeed(pUnit)%100)<AI_PARAM(1) && sub_005FD470_CanUseSkill(pGame,pUnit,pMonStatsTxt->nSkill[0],args.pReviveTarget,0,0))
+ if(pActionTarget && (int)((unsigned int)RollSeed(pUnit)%100)<AI_PARAM(1) && sub_005FD470(pGame,pUnit,pMonStatsTxt->nSkill[0],args.pReviveTarget,0,0))
  {
   UNITS_SetTargetUnitForDynamicUnit(pUnit,pActionTarget);
-  sub_005DE000_UseSkill(pGame,pUnit,pMonStatsTxt->nSkill[0],pActionTarget,0,0); return;
+  AITACTICS_UseSequenceSkill(pGame,pUnit,pMonStatsTxt->nSkill[0],pActionTarget,0,0); return;
  }
  if(pMonStatsTxt->nSkill[2]>=0 && (int)((unsigned int)RollSeed(pUnit)%100)<AI_PARAM(3))
  {
-  pActionTarget=sub_005DDC30_GetTarget(pGame,pUnit,&nDistance,0);
+  pActionTarget=AIUTIL_SelectAiTargetWithCollisionCheck(pGame,pUnit,&nDistance,0);
   if(pActionTarget)
   {
    AITACTICS_UseSkill(pGame,pUnit,pMonStatsTxt->nSkillMode[2],pMonStatsTxt->nSkill[2],pActionTarget,0,0); return;

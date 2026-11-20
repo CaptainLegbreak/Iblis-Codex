@@ -95,18 +95,18 @@ struct D2DamageStrc
 };
 
 extern "C" void* __cdecl memset(void*,int,unsigned int); // 0x00681EF0
-extern D2UnitStrc* __fastcall sub_00535BC0_SecondaryWeapon(D2UnitStrc*); // 0x00535BC0
-extern int __stdcall sub_0063D340_WeaponClass(D2UnitStrc*,D2InventoryStrc*); // 0x0063D340
+extern D2UnitStrc* __fastcall sub_6FC7C7B0(D2UnitStrc*); // 0x00535BC0
+extern int __stdcall INVENTORY_GetWieldType(D2UnitStrc*,D2InventoryStrc*); // 0x0063D340
 extern int __stdcall sub_00625480_GetStat(D2UnitStrc*,int,int); // 0x00625480
-extern D2SkillStrc* __stdcall sub_00620250_UsedSkill(D2UnitStrc*); // 0x00620250
-extern D2UnitStrc* __stdcall sub_00553540_TargetUnit(D2GameStrc*,D2UnitStrc*); // 0x00553540
+extern D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc*); // 0x00620250
+extern D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc*,D2UnitStrc*); // 0x00553540
 extern int __stdcall sub_006449F0_ToHit(D2UnitStrc*,int,int); // 0x006449F0
-extern unsigned short __fastcall sub_0057EC10_ResultFlags(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,int,int); // 0x0057EC10
+extern unsigned short __fastcall SUNITDMG_GetResultFlags(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,int,int); // 0x0057EC10
 extern int __fastcall sub_0057B420_PhysicalDamage(D2UnitStrc*,int,int,int,int,int,int,unsigned char); // 0x0057B420
 extern int __stdcall sub_00646CA0_EvaluateFormula(D2UnitStrc*,unsigned int,int,int); // 0x00646CA0
 extern int __fastcall sub_00483360_ApplyRatio(int,int,int); // 0x00483360
-extern int __stdcall sub_00644F20(D2UnitStrc*,int,int,int); // 0x00644F20
-extern int __stdcall sub_006444A0_GetParameter(D2SkillStrc*); // 0x006444A0
+extern int __stdcall SKILLS_GetElementalLength(D2UnitStrc*,int,int,int); // 0x00644F20
+extern int __stdcall SKILLS_GetParam1(D2SkillStrc*); // 0x006444A0
 extern void __stdcall sub_00644560_SetParameter(D2SkillStrc*,int); // 0x00644560
 extern void __fastcall sub_0057DBF0_AllocateCombat(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,D2DamageStrc*,int); // 0x0057DBF0
 
@@ -218,9 +218,9 @@ static __declspec(noinline) int __cdecl sub_005CFD20_RangeRoll(D2UnitStrc* pUnit
 {
     int nMinimum;
     int nMaximum;
-    if (sub_00535BC0_SecondaryWeapon(pUnit))
+    if (sub_6FC7C7B0(pUnit))
     {
-        if (sub_0063D340_WeaponClass(pUnit,pUnit->pInventory)==2)
+        if (INVENTORY_GetWieldType(pUnit,pUnit->pInventory)==2)
         {
             nMinimum=sub_00625480_GetStat(pUnit,23,0);
             nMaximum=sub_00625480_GetStat(pUnit,24,0);
@@ -254,13 +254,13 @@ int __fastcall sub_005CFE10_ElementalStrike(D2GameStrc* pGame,D2UnitStrc* pUnit,
     else
         pRecord=0;
     if (!pRecord) return 0;
-    D2SkillStrc* pSkill=sub_00620250_UsedSkill(pUnit);
+    D2SkillStrc* pSkill=UNITS_GetUsedSkill(pUnit);
     if (!pSkill) return 0;
-    D2UnitStrc* pTarget=sub_00553540_TargetUnit(pGame,pUnit);
+    D2UnitStrc* pTarget=SUNIT_GetTargetUnit(pGame,pUnit);
     if (!pTarget) return 0;
     D2DamageStrc damage;
     memset(&damage,0,sizeof(damage));
-    damage.wResultFlags=sub_0057EC10_ResultFlags(pGame,pUnit,pTarget,sub_006449F0_ToHit(pUnit,nSkillId,nSkillLevel),0);
+    damage.wResultFlags=SUNITDMG_GetResultFlags(pGame,pUnit,pTarget,sub_006449F0_ToHit(pUnit,nSkillId,nSkillLevel),0);
     if (damage.wResultFlags & 1)
     {
         damage.nPhysical=sub_0057B420_PhysicalDamage(pUnit,1,0,0,0,0,0,pRecord->nSrcDam);
@@ -289,8 +289,8 @@ int __fastcall sub_005CFE10_ElementalStrike(D2GameStrc* pGame,D2UnitStrc* pUnit,
             if (nMastery) nPercent+=sub_00483360_ApplyRatio(nPercent,nMastery,100);
         }
         damage.nLightning+=sub_00483360_ApplyRatio(nDamage,nPercent,100);
-        damage.nColdLength+=sub_00644F20(pUnit,nSkillId,nSkillLevel,1);
-        const int nParameter=sub_006444A0_GetParameter(pSkill);
+        damage.nColdLength+=SKILLS_GetElementalLength(pUnit,nSkillId,nSkillLevel,1);
+        const int nParameter=SKILLS_GetParam1(pSkill);
         switch(nParameter)
         {
         case 0: damage.nOverlay=32; break;

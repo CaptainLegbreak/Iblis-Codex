@@ -100,7 +100,7 @@ void __fastcall ACT2Intro_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, 
 bool __fastcall sub_005985B0_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus); // 0x005985B0
 bool __fastcall ACT2Intro_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC); // 0x005985C0
 void __fastcall ACT2Q0_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x005986B0
-bool __fastcall ACT2Q0_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus); // 0x00598770
+bool __fastcall ACT3Q7_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus); // 0x00598770
 bool __fastcall ACT2Q0_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC); // 0x00598780
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 void __fastcall QUESTS_ResetPlayerGUIDCount(D2QuestGUIDStrc* pQuestGUID); // 0x00545300
@@ -127,11 +127,11 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char*,const char*,int); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl sub_00681E09(int); // 0x00681E09
 void __fastcall sub_00544350(D2QuestDataStrc*,int,const char*,int); // 0x00544350
-D2UnitStrc* __fastcall sub_005537D0(D2GameStrc*,int,void*,QUESTUNITITERATE); // 0x005537D0
+D2UnitStrc* __fastcall SUNIT_IterateUnitsOfType(D2GameStrc*,int,void*,QUESTUNITITERATE); // 0x005537D0
 int __fastcall sub_005989E0(D2GameStrc*,D2UnitStrc*,void*); // 0x005989E0
 int __fastcall sub_005988B0(D2GameStrc*,D2UnitStrc*,void*); // 0x005988B0
-void __stdcall sub_0065C3A0(D2BitBufferStrc*,int,int); // 0x0065C3A0
-void __fastcall sub_00545780(D2GameStrc*,D2UnitStrc*,D2UnitStrc*); // 0x00545780
+void __stdcall QUESTRECORD_ClearQuestState(D2BitBufferStrc*,int,int); // 0x0065C3A0
+void __fastcall QUESTS_NPCActivateSpeeches(D2GameStrc*,D2UnitStrc*,D2UnitStrc*); // 0x00545780
 
 static __forceinline D2BitBufferStrc* PLAYER_GetQuestFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
@@ -215,7 +215,7 @@ void __fastcall ACT2Q0_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->fLastState = 0;
     pQuestData->pQuestDataEx = 0;
     pQuestData->eFilter = 8;
-    pQuestData->pfStatusFilter = ACT2Q0_StatusFilterCallback;
+    pQuestData->pfStatusFilter = ACT3Q7_StatusFilterCallback;
     pQuestData->pfActiveFilter = ACT2Q0_ActiveFilterCallback;
 
     D2Act2Quest0Strc* pQuestDataEx = (D2Act2Quest0Strc*)sub_0040B430(pQuestData->pGame->pMemoryPool, sizeof(D2Act2Quest0Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q0.cpp", 172, 0);
@@ -304,7 +304,7 @@ void __fastcall sub_00598A70(D2QuestDataStrc* q,D2QuestArgStrc* arg)
  if(message==304) {
   ex->bAtmaActivated=1;
   sub_00544350(q,2,text_006E1F60,239);
-  sub_005537D0(q->pGame,0,0,sub_005989E0);
+  SUNIT_IterateUnitsOfType(q->pGame,0,0,sub_005989E0);
  } else {
   if(message!=334) return;
   const int filter=q->eFilter;
@@ -327,10 +327,10 @@ void __fastcall sub_00598A70(D2QuestDataStrc* q,D2QuestArgStrc* arg)
    }
   }
   QUESTRECORD_SetQuestState(flags,q->eFilter,0);
-  sub_0065C3A0(flags,q->eFilter,1);
+  QUESTRECORD_ClearQuestState(flags,q->eFilter,1);
   QUESTS_AddPlayerGUID(&q->tPlayerGUIDs,UNITS_GetUnitId(arg->pPlayer));
  }
- sub_00545780(arg->pGame,arg->pPlayer,arg->pTarget);
+ QUESTS_NPCActivateSpeeches(arg->pGame,arg->pPlayer,arg->pTarget);
 }
 
 // 0x00598D40

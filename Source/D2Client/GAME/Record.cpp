@@ -20,7 +20,7 @@ struct D2MsgRecordChunkStrc
 };
 
 int __stdcall SCmdRegisterArgument(unsigned int dwFlags, unsigned int dwId, const char* szName, void* pVariable, unsigned int nBytes, int bSet, void* pfnCallback, void* pParam); // 0x006C4580
-int __fastcall sub_0040B3C0(void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B3C0
+int __fastcall FOG_Free(void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B3C0
 extern char gszLngPath_007A0710[0x104]; // 0x007A0710
 extern D2MsgRecordChunkStrc gtMsgRecordChunkFirst_007A0818; // 0x007A0818
 
@@ -193,6 +193,6 @@ void __cdecl sub_00451850_FreeMsgRecordChunks()
     {
         D2MsgRecordChunkStrc* pFree = pChunk;
         pChunk = pChunk->pNext;
-        sub_0040B3C0(pFree, ".\\GAME\\Record.cpp", 0x120, 0);
+        FOG_Free(pFree, ".\\GAME\\Record.cpp", 0x120, 0);
     }
 }

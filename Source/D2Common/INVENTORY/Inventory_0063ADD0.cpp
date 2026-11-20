@@ -23,7 +23,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
-void* __fastcall sub_0040B4B0(void* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0); // 0x0040B4B0
+void* __fastcall FOG_ReallocPool(void* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0); // 0x0040B4B0
 __declspec(noinline) static D2InventoryGridStrc* __stdcall INVENTORY_GetGrid(D2InventoryStrc*, int, D2InventoryGridInfoStrc*);
 void __stdcall DATATBLS_GetInventoryGridInfo(int, int, D2InventoryGridInfoStrc*); // 0x0065C1F0
 
@@ -107,13 +107,13 @@ extern CodeEntry gTable_0096CC68[]; // 0x0096CC68
 s32 __fastcall sub_00451F60_ClassId(Unit*); // 0x00451F60
 u8 __stdcall sub_00627D40_Page(Unit*); // 0x00627D40
 u8 __stdcall sub_00628660_BodySlot(Unit*); // 0x00628660
-s32 __stdcall sub_00629B50_IsType(s32, s32); // 0x00629B50
+s32 __stdcall ITEMS_CheckType(s32, s32); // 0x00629B50
 s32 __stdcall sub_0062C100_Transform(Unit*, Unit*, u8*, s32); // 0x0062C100
 ItemRecord* __stdcall sub_006335F0_ItemRecord(s32); // 0x006335F0
 ItemRecord* __stdcall sub_00633640_RecordByCode(u32, s32*); // 0x00633640
 Unit* __stdcall sub_0063C050_BodyItem(Inventory*, s32); // 0x0063C050
 u32 __stdcall sub_0064F380_WeaponCode(Unit*, Inventory*, s32*, s32, s32); // 0x0064F380
-s32 __stdcall sub_0064F420_UsesAppearance(s32); // 0x0064F420
+s32 __stdcall COMPOSIT_IsArmorComponent(s32); // 0x0064F420
 s32 __stdcall sub_0064F500_AppearanceIndex(s32, AppearanceSix*); // 0x0064F500
 AppearanceRecord* __stdcall sub_0065B620_AppearanceRecord(s32); // 0x0065B620
 
@@ -158,7 +158,7 @@ D2InventoryGridStrc* __stdcall INVENTORY_GetGrid(D2InventoryStrc* pInventory, in
             return 0;
         }
 
-        pInventory->pGrids = (D2InventoryGridStrc*)sub_0040B4B0(*pInventoryMemPool, pInventory->pGrids, sizeof(D2InventoryGridStrc) * (nInventoryGrid + 1), gszInventorySourceFile_006EA918, LINE_GRID_REALLOC, 0);
+        pInventory->pGrids = (D2InventoryGridStrc*)FOG_ReallocPool(*pInventoryMemPool, pInventory->pGrids, sizeof(D2InventoryGridStrc) * (nInventoryGrid + 1), gszInventorySourceFile_006EA918, LINE_GRID_REALLOC, 0);
         memset(&pInventory->pGrids[pInventory->nGridCount], 0, sizeof(D2InventoryGridStrc) * (nInventoryGrid - pInventory->nGridCount + 1));
         pInventory->nGridCount = nInventoryGrid + 1;
 
@@ -1213,7 +1213,7 @@ void __stdcall sub_0063E510_InventoryAppearance(Unit* unit, u8* firstOutput, u8*
                         sub_0063D690_CopySix(&appearance, item);
                         for (u32 slot = 0; slot < 0x10; ++slot)
                         {
-                            if (sub_0064F420_UsesAppearance(slot))
+                            if (COMPOSIT_IsArmorComponent(slot))
                             {
                                 AppearanceRecord* appearanceRecord = sub_0065B620_AppearanceRecord(sub_0064F500_AppearanceIndex(slot, &appearance));
                                 if (sub_00451F60_ClassId(item) > 0)
@@ -1248,7 +1248,7 @@ void __stdcall sub_0063E510_InventoryAppearance(Unit* unit, u8* firstOutput, u8*
                 }
                 else
                 {
-                    if (!sub_00629B50_IsType(FIELD(short, record, 0x11E), 0x4B))
+                    if (!ITEMS_CheckType(FIELD(short, record, 0x11E), 0x4B))
                     {
                         sub_0063DA70_ItemSlots(unit, firstOutput, secondOutput, item);
                     }

@@ -104,11 +104,11 @@ void __fastcall ACT3Q4_ResetAlkor(D2GameStrc* pGame); // 0x005BAD40
 int __fastcall ACT1Q4_GetCainPortalInTownCoordinates(D2GameStrc* pGame, D2UnitStrc* pUnit, D2CoordStrc* pCoord); // 0x00594360
 void __fastcall ACT1Q4_OnCainInTownActivated(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005945F0
 void __fastcall ACT5Q4_AnyaOpenPortal(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0058BC80
-void __fastcall sub_0059C750_Fn(D2GameStrc* pGame); // 0x0059C750
-int __fastcall sub_0059DF50_Check(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0059DF50
-int __fastcall sub_005B43F0_Check(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005B43F0
-void __fastcall sub_005B4440_Fn(D2GameStrc* pGame); // 0x005B4440
-int __fastcall sub_005E7350_Check(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005E7350
+void __fastcall ACT2Q6_AttachCompletionSoundToPlayers(D2GameStrc* pGame); // 0x0059C750
+int __fastcall ACT2Q6_IsInRangeOfTyrael(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0059DF50
+int __fastcall ACT4Q1_IsAnyPlayerInRangeOfIzualGhost(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005B43F0
+void __fastcall ACT4Q1_AttachCompletionSoundToPlayers(D2GameStrc* pGame); // 0x005B4440
+int __fastcall sub_005E7350_StopUnlessInteracting(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005E7350
 
 // 0x005E68F0
 bool __fastcall sub_005E68F0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
@@ -471,19 +471,19 @@ void __fastcall sub_005E73A0_AiThinkTownNpc(D2GameStrc* pGame, D2UnitStrc* pUnit
     {
         if (pUnit->dwClassId == 0xFB)
         {
-            if (sub_0059DF50_Check(pGame, pUnit) && sub_005E7350_Check(pGame, pUnit))
+            if (ACT2Q6_IsInRangeOfTyrael(pGame, pUnit) && sub_005E7350_StopUnlessInteracting(pGame, pUnit))
             {
                 AITACTICS_ChangeModeAndTargetCoordinates(pGame, pUnit, 0, 0, 0);
-                sub_0059C750_Fn(pGame);
+                ACT2Q6_AttachCompletionSoundToPlayers(pGame);
                 return;
             }
         }
         else if (pUnit->dwClassId == 0x196)
         {
-            if (sub_005B43F0_Check(pGame, pUnit) && sub_005E7350_Check(pGame, pUnit))
+            if (ACT4Q1_IsAnyPlayerInRangeOfIzualGhost(pGame, pUnit) && sub_005E7350_StopUnlessInteracting(pGame, pUnit))
             {
                 AITACTICS_ChangeModeAndTargetCoordinates(pGame, pUnit, 0, 0, 0);
-                sub_005B4440_Fn(pGame);
+                ACT4Q1_AttachCompletionSoundToPlayers(pGame);
                 return;
             }
         }

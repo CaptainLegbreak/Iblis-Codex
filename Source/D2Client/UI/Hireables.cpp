@@ -13,12 +13,12 @@ void* __fastcall sub_004520C0_LoadUiCelFile(const char* szPath); // 0x004520C0
 int __fastcall sub_004538D0(int nUIVar); // 0x004538D0
 void __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
 D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType); // 0x00463990
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
 void __fastcall sub_00478A00(void* pCel); // 0x00478A00
 int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pUnit, int nType, int bAny); // 0x00478F20
-int __fastcall sub_00478F70(D2UnitStrc* pUnit); // 0x00478F70
-int __fastcall sub_0047A2C0(D2UnitStrc* pUnit); // 0x0047A2C0
+int __fastcall sub_00478F70_HasPets(D2UnitStrc* pUnit); // 0x00478F70
+int __fastcall sub_0047A2C0_HasPartyMate(D2UnitStrc* pUnit); // 0x0047A2C0
 void __fastcall sub_00496BE0_DrawSkillInfo(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int nX, int nY, int nArg); // 0x00496BE0
 int __cdecl D2GFX_GetResolutionMode(); // 0x004F5160
 D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit); // 0x00620190
@@ -175,13 +175,13 @@ void __cdecl sub_00493340_UpdateHirelingPanel()
         gnGlobal_007BEEDC = 0;
         return;
     }
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     int bHasPet = 0;
-    if (sub_00478F70(pPlayer))
+    if (sub_00478F70_HasPets(pPlayer))
     {
         bHasPet = 1;
     }
-    if ((sub_0047A2C0(pPlayer) && gnGlobal_007BEECC != 1) || bHasPet)
+    if ((sub_0047A2C0_HasPartyMate(pPlayer) && gnGlobal_007BEECC != 1) || bHasPet)
     {
         const int nPetId = sub_00478F20_FindPetIdByOwner(pPlayer, 7, 0);
         D2UnitStrc* pPet;
@@ -304,7 +304,7 @@ void __cdecl sub_00496990_FreePanelCels()
 // 0x00496CF0
 void __cdecl sub_00496CF0_ValidateActiveSkills()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (!pPlayer)
     {
         return;
@@ -383,7 +383,7 @@ static __forceinline void sub_00493220_ToggleAmount(int* pTotal, int* pAmount)
 // 0x004934B0
 D2UnitStrc* __cdecl sub_004934B0_GetPlayerCursorItem()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (!pPlayer)
         return 0;
     return INVENTORY_GetCursorItem(pPlayer->pInventory);
@@ -458,7 +458,7 @@ void __stdcall sub_00493430_PetIconClickMsg(SMSGHANDLER_PARAMS* pMsg)
         sub_00420290_HandleMsg(pMsg);
     }
 
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     const int nUnitId = sub_00478F20_FindPetIdByOwner(pPlayer, 7, 0);
     if (nUnitId != -1)
     {
@@ -484,9 +484,9 @@ int __stdcall sub_004934D0_CheckBoxAction(int playSound)
 {
  if(!sub_0044DCC0()) return 0;
  int result=0;
- D2UnitStrc* player=sub_00463DD0();
+ D2UnitStrc* player=sub_00463DD0_GetPlayerUnit();
  if(!player) return 0;
- D2UnitStrc* current=sub_00463DD0();
+ D2UnitStrc* current=sub_00463DD0_GetPlayerUnit();
  D2UnitStrc* item=current ? INVENTORY_GetCursorItem(current->pInventory):0;
  if(!item) return 0;
  int petId=sub_00478F20_FindPetIdByOwner(player,7,0);

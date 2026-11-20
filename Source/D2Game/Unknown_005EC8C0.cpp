@@ -9,15 +9,15 @@ struct D2AiTickParamStrc { D2AiControlStrc* pAiControl; int unk_04; D2UnitStrc* 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 D2UnitStrc* __fastcall AIGENERAL_GetMinionOwner(D2UnitStrc* pUnit); // 0x0058F0D0
-int __stdcall sub_006416D0_GetDistance(D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x006416D0
+int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x006416D0
 int __fastcall sub_005541B0_IsDead(D2UnitStrc* pUnit); // 0x005541B0
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkill); // 0x006439F0
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus); // 0x006442A0
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkill, int nLevel); // 0x00646CA0
-D2UnitStrc* __fastcall sub_005D2F80_FindTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pOwner, int nRange); // 0x005D2F80
-int __stdcall sub_00622C40_CanReach(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int a3); // 0x00622C40
+D2UnitStrc* __fastcall SKILLS_FindUseableCorpse(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pOwner, int nRange); // 0x005D2F80
+int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int a3); // 0x00622C40
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStat, int nLayer); // 0x00625480
-int __stdcall sub_00625D10(D2UnitStrc* pUnit); // 0x00625D10
+int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
 int __stdcall sub_00625D60(D2UnitStrc* pUnit); // 0x00625D60
 void __fastcall sub_005DEAD0_UseSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, int nSkill, D2UnitStrc* pTarget, int nX, int nY); // 0x005DEAD0
 void __fastcall sub_005DEFE0_Attack(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nMode, int a5); // 0x005DEFE0
@@ -46,7 +46,7 @@ void __fastcall sub_005EC8C0_ThinkPet(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Ai
     D2UnitStrc* pCombatTarget = pTick->pTarget;
     int bCombat = pTick->bCombat;
     bUseSkill = 1;
-    if (sub_006416D0_GetDistance(pUnit, pOwner) >= AI_PARAM(4))
+    if (sub_006416D0_UnitEdgeDistance(pUnit, pOwner) >= AI_PARAM(4))
     {
         if (sub_005E3EA0(pGame, pOwner, pUnit, 3, 0, 0, 6)) return;
     }
@@ -63,14 +63,14 @@ void __fastcall sub_005EC8C0_ThinkPet(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Ai
         {
             nRange = SKILLS_EvaluateSkillFormula(pUnit, pSkills->dwAuraRangeCalc, pMonStats->nSkill[0], SKILLS_GetSkillLevel(pUnit, pSkill, 1));
             nRange = D2_MIN(D2_MAX(nRange, 5), 50);
-            pTarget = sub_005D2F80_FindTarget(pGame, pUnit, pOwner, nRange);
-            if (pTarget) nDistance = sub_006416D0_GetDistance(pUnit, pTarget);
+            pTarget = SKILLS_FindUseableCorpse(pGame, pUnit, pOwner, nRange);
+            if (pTarget) nDistance = sub_006416D0_UnitEdgeDistance(pUnit, pTarget);
         }
     }
     if (nDistance >= AI_PARAM(1))
         pTarget = 0;
     else if (pTarget)
-        bReachable = sub_00622C40_CanReach(pUnit, pTarget, 0);
+        bReachable = UNITS_IsInMeleeRange(pUnit, pTarget, 0);
     if (sub_005E45D0_PetFollow(pGame, pUnit, pTarget, pOwner, bReachable, pTick, 0, 6)) return;
     int nClass;
     if (!pUnit) nClass = -1;
@@ -81,7 +81,7 @@ void __fastcall sub_005EC8C0_ThinkPet(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Ai
     {
     case 426:
         nCurrent = STATLIST_UnitGetStatValue(pOwner, 6, 0);
-        nMaximum = sub_00625D10(pOwner);
+        nMaximum = STATLIST_GetMaxLifeFromUnit(pOwner);
         if (nCurrent >= nMaximum) bUseSkill = 0;
         break;
     case 427:

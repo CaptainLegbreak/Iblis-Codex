@@ -71,8 +71,8 @@ extern wchar_t gwszColorCode_008426E0[2];                                       
 
 int __stdcall WINDOW_GetDimensions(int* pWidth, int* pHeight);                                              // 0x004F59B0
 void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned char nColor, int eDrawMode); // 0x004F6300
-unsigned char __stdcall D2Win_10034_MixRGB(unsigned char nRed, unsigned char nGreen, unsigned char nBlue);  // 0x004FB180
-int __fastcall D2Win_10127_SetFont(int nFontId);                                                            // 0x00502EF0
+unsigned char __stdcall sub_004FB180_FindPaletteIndex(unsigned char nRed, unsigned char nGreen, unsigned char nBlue);  // 0x004FB180
+int __fastcall sub_00502EF0(int nFontId);                                                            // 0x00502EF0
 void* __fastcall FOG_AllocPool(void* pPool, int nSize, const char* szFile, int nLine, int n0);              // 0x0040B430
 
 extern int gnFontMetric2_0072E004;                                                                          // 0x0072E004
@@ -300,7 +300,7 @@ void __stdcall D2Win_10124()
 
         if (nFont == 1)
         {
-            D2Win_10127_SetFont(0);
+            sub_00502EF0(0);
             nFont = 0;
         }
         else
@@ -310,7 +310,7 @@ void __stdcall D2Win_10124()
                 break;
             }
 
-            D2Win_10127_SetFont(6);
+            sub_00502EF0(6);
             nFont = 6;
         }
     }
@@ -322,7 +322,7 @@ void __stdcall D2Win_10124()
     {
         if (!gnFramedTextBoxColor_00841EC4)
         {
-            gnFramedTextBoxColor_00841EC4 = D2Win_10034_MixRGB(0x50, 0, 0);
+            gnFramedTextBoxColor_00841EC4 = sub_004FB180_FindPaletteIndex(0x50, 0, 0);
         }
 
         const int nFill = nWidth * gnFramedTextRectColor_008426D8 >> 7;
@@ -345,6 +345,6 @@ void __stdcall D2Win_10124()
 
     if (nFont != nSavedFont)
     {
-        D2Win_10127_SetFont(nSavedFont);
+        sub_00502EF0(nSavedFont);
     }
 }

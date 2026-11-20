@@ -4,9 +4,9 @@ struct D2BitBufferStrc
     char unk0x04[0x10];
 };
 
-int __stdcall BITMANIP_GetBitState(unsigned char* pBitBuffer, int nBit);                                    // 0x00410B30
-void __stdcall BITMANIP_SetBitState(unsigned char* pBitBuffer, int nBit);                                   // 0x00410B10
-void __stdcall BITMANIP_MaskBitstate(unsigned char* pBitBuffer, int nBit);                                  // 0x00410B50
+int __stdcall sub_00410B30(unsigned char* pBitBuffer, int nBit);                                    // 0x00410B30
+void __stdcall sub_00410B10(unsigned char* pBitBuffer, int nBit);                                   // 0x00410B10
+void __stdcall sub_00410B50(unsigned char* pBitBuffer, int nBit);                                  // 0x00410B50
 void __stdcall BITMANIP_Initialize(D2BitBufferStrc* pBitBuffer, unsigned char* pBuffer, int nBufferSize);   // 0x00410E40
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);   // 0x0040B430
 void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
@@ -25,7 +25,7 @@ int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* hQuestRecord, int nQues
 {
     QR_ASSERT(hQuestRecord, 31);
 
-    return BITMANIP_GetBitState(hQuestRecord->pBuffer, nState + 16 * nQuest) != 0;
+    return sub_00410B30(hQuestRecord->pBuffer, nState + 16 * nQuest) != 0;
 }
 
 // 0x0065C360
@@ -33,7 +33,7 @@ void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* hQuestRecord, int nQue
 {
     QR_ASSERT(hQuestRecord, 41);
 
-    BITMANIP_SetBitState(hQuestRecord->pBuffer, nState + 16 * nQuest);
+    sub_00410B10(hQuestRecord->pBuffer, nState + 16 * nQuest);
 }
 
 // 0x0065C3A0
@@ -41,7 +41,7 @@ void __stdcall QUESTRECORD_ClearQuestState(D2BitBufferStrc* hQuestRecord, int nQ
 {
     QR_ASSERT(hQuestRecord, 52);
 
-    BITMANIP_MaskBitstate(hQuestRecord->pBuffer, nState + 16 * nQuest);
+    sub_00410B50(hQuestRecord->pBuffer, nState + 16 * nQuest);
 }
 
 // 0x0065C3E0
@@ -51,7 +51,7 @@ void __stdcall QUESTRECORD_ResetIntermediateStateFlags(D2BitBufferStrc* hQuestRe
 
     for (int i = 2; i <= 11; ++i)
     {
-        BITMANIP_MaskBitstate(hQuestRecord->pBuffer, 16 * nQuest + i);
+        sub_00410B50(hQuestRecord->pBuffer, 16 * nQuest + i);
     }
 }
 
@@ -88,12 +88,12 @@ void __stdcall QUESTRECORD_CopyBufferToRecord(D2BitBufferStrc* pQuestRecord, uns
     {
         for (int i = 0; i < 42; ++i)
         {
-            BITMANIP_MaskBitstate(pQuestRecord->pBuffer, 16 * i + 13);
-            BITMANIP_MaskBitstate(pQuestRecord->pBuffer, 16 * i + 14);
+            sub_00410B50(pQuestRecord->pBuffer, 16 * i + 13);
+            sub_00410B50(pQuestRecord->pBuffer, 16 * i + 14);
 
-            if (BITMANIP_GetBitState(pQuestRecord->pBuffer, 16 * i + 1))
+            if (sub_00410B30(pQuestRecord->pBuffer, 16 * i + 1))
             {
-                BITMANIP_SetBitState(pQuestRecord->pBuffer, 16 * i + 15);
+                sub_00410B10(pQuestRecord->pBuffer, 16 * i + 15);
             }
         }
     }

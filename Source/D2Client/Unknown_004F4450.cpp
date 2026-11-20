@@ -13,7 +13,7 @@ struct D2SkillsTxt
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc*); // 0x00620250
 int __fastcall sub_004C7BD0_GetMeleeRangePlus4(D2UnitStrc*); // 0x004C7BD0
-D2UnitStrc* __fastcall sub_004648F0_GetTargetUnit(D2UnitStrc*); // 0x004648F0
+D2UnitStrc* __fastcall sub_004648F0_GetPathTargetUnit(D2UnitStrc*); // 0x004648F0
 D2UnitStrc* __fastcall sub_004C5EB0_FindDestination(D2UnitStrc*, int, int, int, int, int, int); // 0x004C5EB0
 void __stdcall SKILLS_SetParam1(D2SkillStrc*, int); // 0x00644560
 void __stdcall SKILLS_SetParam2(D2SkillStrc*, int); // 0x006445A0
@@ -58,7 +58,7 @@ int __fastcall sub_004F4450_InitializeSkillTarget(D2UnitStrc* unit, int skillId,
     D2SkillStrc* skill = UNITS_GetUsedSkill(unit);
     if (!skill) return 0;
     int range = sub_004C7BD0_GetMeleeRangePlus4(unit);
-    D2UnitStrc* target = sub_004648F0_GetTargetUnit(unit);
+    D2UnitStrc* target = sub_004648F0_GetPathTargetUnit(unit);
     if (!target)
     {
         target = sub_004C5EB0_FindDestination(unit, 0, 0, range, 0x20003, -1, 0);

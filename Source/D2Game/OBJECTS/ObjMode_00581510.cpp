@@ -110,7 +110,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 extern const D2ShrineTableStrc sgcptShrineChart[];                                                    // 0x006E1850
 extern ObjOperateFunction gpObjOperateFnTable_00732D18[];                                                   // 0x00732D18
 
-int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit);                                                       // 0x0045ADF0
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                                                       // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
 void __fastcall LEVEL_WarpUnit(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nDestinationLevelId, int nTileCalc); // 0x0053AEC0
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
@@ -133,10 +133,10 @@ unsigned int __fastcall ITEMS_GetHealthPotionDropCode(D2UnitStrc* pUnit);       
 unsigned int __fastcall ITEMS_GetManaPotionDropCode(D2UnitStrc* pUnit);                                     // 0x005584C0
 D2UnitStrc* __fastcall D2GAME_CreateItemEx_6FC4ED80(D2GameStrc* pGame, D2ItemDropStrc* pItemDrop, int a3);  // 0x00558D90
 D2UnitStrc* __fastcall D2GAME_DropItemAtUnit_6FC4FEC0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuality, int* pItemLevel, D2ItemDropStrc* pItemDrop, int a6, int a7); // 0x00559A30
-void __fastcall SUNIT_WarpPlayer(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pTile);                // 0x005550B0
+void __fastcall sub_005550B0_WarpPlayer(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pTile);                // 0x005550B0
 int __fastcall D2GAME_DoKeyCheck_6FC4A4B0(D2GameStrc* pGame, D2UnitStrc* pPlayer);                          // 0x0055F140
 void __fastcall D2GAME_SHRINES_Refill_6FC76730(D2ObjOperateFnStrc* pOp, D2ShrinesTxt* pShrinesTxtRecord);   // 0x005828E0
-void __fastcall sub_00584820_ResetSteegStoneUser(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pObject); // 0x00584820
+void __fastcall sub_00584820_ClearSteegStoneGUID(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pObject); // 0x00584820
 int __fastcall OBJMODE_MainObeliskHandler(D2GameStrc* pGame, int nPlayerGUID, int nObjectGUID, int nItemGUID, short nState); // 0x005852E0
 D2UnitStrc* __fastcall OBJMODE_DropFromChestTCWithQuality(D2ObjOperateFnStrc* pOp, int nItemQuality);       // 0x00585B90
 int __fastcall D2GAME_NPC_RemoveStates_6FCCAF30(D2UnitStrc* pUnit);                                         // 0x00578C20
@@ -313,7 +313,7 @@ int __fastcall OBJECTS_OperateFunction16_TrapDoor(D2ObjOperateFnStrc* pOp, int n
 
         D2_ASSERT(hUnit, 1038);
 
-        SUNIT_WarpPlayer(pOp->pGame, pOp->hPlayer, hUnit);
+        sub_005550B0_WarpPlayer(pOp->pGame, pOp->hPlayer, hUnit);
         return 1;
     }
     }
@@ -622,7 +622,7 @@ void __fastcall sub_6FC79B50(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* p
         }
         else if ((unsigned short)nClassId == OBJECT_STEEG_STONE)
         {
-            sub_00584820_ResetSteegStoneUser(pGame, pUnit, pObject);
+            sub_00584820_ClearSteegStoneGUID(pGame, pUnit, pObject);
         }
         else if ((unsigned short)nClassId == OBJECT_ORIFICE)
         {

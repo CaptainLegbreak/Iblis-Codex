@@ -72,7 +72,7 @@ void __fastcall MazeLevelGenerate(D2DrlgLevelStrc* pLevel);                     
 void __fastcall DRLGPRESET_GenerateLevel(D2DrlgLevelStrc* pLevel);                                          // 0x00668100
 void __fastcall DRLGOUTDOORS_GenerateLevel(D2DrlgLevelStrc* pLevel);                                        // 0x00675360
 int __fastcall DRLGWARP_GetWarpDestinationFromArray(D2DrlgLevelStrc* pLevel, unsigned char nWarpId);         // 0x0066AF30
-void __stdcall DUNGEON_GameTileToSubtileCoords(int* pX, int* pY);                                           // 0x00643560
+void __stdcall sub_00643560_GameTileToSubtileCoords(int* pX, int* pY);                                           // 0x00643560
 
 // 0x00642390
 static __declspec(noinline) void sub_00642390_MarkPresetRooms(D2DrlgLevelStrc* pLevel)
@@ -122,7 +122,7 @@ static __declspec(noinline) void DRLG_ComputeLevelWarpInfo(D2DrlgLevelStrc* pLev
             *pX = pDrlgRoom->nTileXPos + pDrlgRoom->nTileWidth / 2;
             bHasWarp = 0;
             *pY = pDrlgRoom->nTileYPos + pDrlgRoom->nTileHeight / 2;
-            DUNGEON_GameTileToSubtileCoords(pX, pY);
+            sub_00643560_GameTileToSubtileCoords(pX, pY);
             ++pLevel->nRoomCoords;
         }
     }

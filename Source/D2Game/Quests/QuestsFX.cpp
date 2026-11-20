@@ -113,7 +113,7 @@ enum D2C_P11QuestsFxConstants
 };
 
 
-D2UnitStrc* __stdcall UNITFINDS_FindUnitInNeighboredRooms(D2ActiveRoomStrc* pRoom, int nUnitType, int nClassId); // 0x0065A620
+D2UnitStrc* __stdcall sub_0065A620_FindUnitInAdjacentRooms(D2ActiveRoomStrc* pRoom, int nUnitType, int nClassId); // 0x0065A620
 void __stdcall MISSILE_SetTargetX(D2UnitStrc* pMissile, int nTargetX); // 0x0064A710
 void __stdcall DUNGEON_ToggleHasPortalFlag(D2ActiveRoomStrc* pRoom, int bSet); // 0x0061AED0
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
@@ -246,7 +246,7 @@ void __fastcall QUESTSFX_SpawnRadamentDeathMissile(D2GameStrc* pGame, D2UnitStrc
 // 0x005DFEE0
 void __fastcall QUESTSFX_SpawnCompellingOrbMissile(D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
-    D2UnitStrc* hStairs = UNITFINDS_FindUnitInNeighboredRooms(UNITS_GetRoom(pUnit), UNIT_OBJECT, OBJECT_COMPELLINGORB_STAIRS);
+    D2UnitStrc* hStairs = sub_0065A620_FindUnitInAdjacentRooms(UNITS_GetRoom(pUnit), UNIT_OBJECT, OBJECT_COMPELLINGORB_STAIRS);
     D2_ASSERT(hStairs, 143);
 
     D2MissileStrc missileParams;

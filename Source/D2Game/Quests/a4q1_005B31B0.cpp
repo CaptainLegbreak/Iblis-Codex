@@ -114,7 +114,7 @@ void __fastcall PARTY_IteratePartyMembers(D2GameStrc* pGame, unsigned short nPar
 void __fastcall QUESTS_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nQuestId); // 0x00544190
 int __fastcall ACT4Q1_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x005B3860
 int __fastcall ACT4Q1_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pPlayer, void* pData); // 0x005B3940
-void __fastcall ACT4Q1_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x005B3E30
+void __fastcall ACT4Q3_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x005B3E30
 void __fastcall ACT4Q1_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x005B4020
 void __fastcall ACT4Q1_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x005B3BB0
 void __fastcall ACT4Q1_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x005B39A0
@@ -314,7 +314,7 @@ void __fastcall ACT4Q1_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->bActive = 1;
     pQuestData->fState = 1;
     pQuestData->pNPCMessages = gpAct4Q1NpcMessages;
-    pQuestData->pCallback[10] = ACT4Q1_Callback10_PlayerLeavesGame;
+    pQuestData->pCallback[10] = ACT4Q3_Callback10_PlayerLeavesGame;
     pQuestData->pCallback[3] = ACT4Q1_Callback03_ChangedLevel;
     pQuestData->pCallback[8] = ACT4Q1_Callback08_MonsterKilled;
     pQuestData->pCallback[0] = ACT4Q1_Callback00_NpcActivate;

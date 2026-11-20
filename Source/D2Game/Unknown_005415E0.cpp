@@ -51,7 +51,7 @@ __declspec(noinline) static D2EventTimerStrc* __stdcall EVENT_AllocateUnitTimer(
 typedef void(__fastcall* EventTimerCallback)(D2GameStrc*, D2UnitStrc*, int, int, int);
 __declspec(noinline) static void __stdcall sub_005415E0_InsertInfinite(EventTimerCallback pCallback, int nCustomId, int nCustomParam, D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType);
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
-void __fastcall sub_005544B0_SetUninterruptable(D2UnitStrc* pUnit, int bUninterruptable); // 0x005544B0
+void __fastcall sub_6FCBDE90(D2UnitStrc* pUnit, int bUninterruptable); // 0x005544B0
 __declspec(noinline) static void __stdcall sub_005416B0_InsertDated(D2UnitStrc* pUnit, EventTimerCallback pCallback, int nCustomId, int nCustomParam, D2GameStrc* pGame, int nEventType, int nExpireFrame);
 
 // build: context sub_00540C30_AllocateTimer
@@ -177,7 +177,7 @@ static void __stdcall sub_005416B0_InsertDated(D2UnitStrc* pUnit, EventTimerCall
     {
         if (STATES_CheckState(pUnit, 54))
         {
-            sub_005544B0_SetUninterruptable(pUnit, 0);
+            sub_6FCBDE90(pUnit, 0);
         }
     }
 

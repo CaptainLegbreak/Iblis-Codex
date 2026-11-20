@@ -35,7 +35,7 @@ void __cdecl sub_0049F960_ResetTextBox();                                       
 void __stdcall TEXT_FreeTextHeader(D2TextHeaderStrc* pTextHeader);                                          // 0x006612A0
 void __stdcall sub_00416710_Unlock(void* pHandle);                                                          // 0x00416710
 void __fastcall sub_00455F20(int nUIVar, int nState, int nArg);                                        // 0x00455F20
-unsigned char __stdcall D2Win_10034_MixRGB(unsigned char nRed, unsigned char nGreen, unsigned char nBlue);  // 0x004FB180
+unsigned char __stdcall sub_004FB180_FindPaletteIndex(unsigned char nRed, unsigned char nGreen, unsigned char nBlue);  // 0x004FB180
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 extern D2WheelCallbackFn gpfnWheelUp_007A7404;                                                              // 0x007A7404
@@ -210,11 +210,11 @@ D2UniqueItemsTxt* __fastcall sub_00483470_GetUniqueItemsTxtRecord(int nIndex)
 // 0x00483960
 void __cdecl sub_00483960()
 {
-    gabColors_007BCAD8[0] = D2Win_10034_MixRGB(0x80, 0, 0);
-    gabColors_007BCAD8[1] = D2Win_10034_MixRGB(0, 0x80, 0);
-    gabColors_007BCAD8[2] = D2Win_10034_MixRGB(0, 0, 0x80);
-    gabColors_007BCAD8[3] = D2Win_10034_MixRGB(0x80, 0x80, 0);
-    gabColors_007BCAD8[4] = D2Win_10034_MixRGB(0x80, 0x40, 0x40);
+    gabColors_007BCAD8[0] = sub_004FB180_FindPaletteIndex(0x80, 0, 0);
+    gabColors_007BCAD8[1] = sub_004FB180_FindPaletteIndex(0, 0x80, 0);
+    gabColors_007BCAD8[2] = sub_004FB180_FindPaletteIndex(0, 0, 0x80);
+    gabColors_007BCAD8[3] = sub_004FB180_FindPaletteIndex(0x80, 0x80, 0);
+    gabColors_007BCAD8[4] = sub_004FB180_FindPaletteIndex(0x80, 0x40, 0x40);
 }
 
 // 0x00489840

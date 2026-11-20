@@ -36,7 +36,7 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 D2UnitStrc* __fastcall sub_004CDB40_SubmitRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
-D2UnitStrc* __fastcall sub_004648F0_GetTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
+D2UnitStrc* __fastcall sub_004648F0_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 void __stdcall sub_004DA000_ResetGfxMotion(D2UnitStrc* pUnit); // 0x004DA000
 void __fastcall sub_004706E0_GetUnitCelOffsets(D2UnitStrc* pUnit, int nComponent, int* pOffsetX, int* pOffsetY); // 0x004706E0
 void __stdcall sub_004DA1D0_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ); // 0x004DA1D0
@@ -73,15 +73,15 @@ struct D2MissileStrc
 typedef int (__fastcall* D2UnitFindCallback)(D2UnitStrc* pUnit, void* pArg);
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-void __fastcall sub_004E2ED0_VolleyCallback(D2UnitStrc* pMissile, int nArg); // 0x004E2ED0
+void __fastcall sub_004E2ED0_InitCappedChargedPath(D2UnitStrc* pMissile, int nArg); // 0x004E2ED0
 int __fastcall sub_004F0F10_IsTargetObject(D2UnitStrc* pUnit, void* pArg); // 0x004F0F10
 int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY); // 0x004C52E0
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 void __stdcall PATH_SetDirection(D2DynamicPathStrc* pPath, unsigned char nDirection); // 0x006488A0
-void __stdcall sub_00649030_SetPathFlag40(D2DynamicPathStrc* pPath, int bClear); // 0x00649030
-void __fastcall sub_00464810(D2UnitStrc* pUnit); // 0x00464810
+void __stdcall D2COMMON_10203_PATH_SetRotateFlag(D2DynamicPathStrc* pPath, int bClear); // 0x00649030
+void __fastcall sub_00464810_SetUnitFlag16(D2UnitStrc* pUnit); // 0x00464810
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId); // 0x006439F0
 D2SkillStrc* __stdcall SKILLS_AssignSkill(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove, const char* szFile, int nLine); // 0x00647280
@@ -200,7 +200,7 @@ int __fastcall sub_004F0430_CreateTargetMissile(D2UnitStrc* pUnit, int nSkill, i
         D2UnitStrc* pMissile = sub_004C5470_CreateMissileToTarget(pUnit, nMissile, nSkill, 1);
         if (!pMissile)
             return 0;
-        D2UnitStrc* pTarget = sub_004648F0_GetTargetUnit(pUnit);
+        D2UnitStrc* pTarget = sub_004648F0_GetPathTargetUnit(pUnit);
         if (pTarget)
         {
             sub_004DA000_ResetGfxMotion(pMissile);
@@ -243,7 +243,7 @@ static void MISSILE_SetPathDirectionInline(D2UnitStrc* pMissile, unsigned char n
 {
     D2DynamicPathStrc* pPath = pMissile->pDynamicPath;
     PATH_SetDirection(pPath, nDirection);
-    sub_00649030_SetPathFlag40(pPath, 0);
+    D2COMMON_10203_PATH_SetRotateFlag(pPath, 0);
 }
 
 // 0x004F04F0
@@ -256,7 +256,7 @@ static int __stdcall sub_004F04F0_CreateMissileFan(int nMissile, int nSkillId, i
     tMissileParams.dwFlags = 3;
     tMissileParams.pOwner = pUnit;
     tMissileParams.nMissile = nMissile;
-    tMissileParams.pInitFunc = sub_004E2ED0_VolleyCallback;
+    tMissileParams.pInitFunc = sub_004E2ED0_InitCappedChargedPath;
     if (!sub_004C52E0_GetTargetPosition(pUnit, &tMissileParams.nX, &tMissileParams.nY))
     {
         return 0;
@@ -284,7 +284,7 @@ static int __stdcall sub_004F0590_CreateCltMissileRequest(int nMissile, int nSki
     MISSILE_SetPathDirectionInline(pMissile, UNITS_GetDirection(pUnit));
     if (bNotify)
     {
-        sub_00464810(pMissile);
+        sub_00464810_SetUnitFlag16(pMissile);
     }
     return 1;
 }
@@ -449,7 +449,7 @@ int __fastcall sub_004F0C20_StoreTargetPos(D2UnitStrc* pUnit, int nSkillId, int 
         return 0;
     }
 
-    D2UnitStrc* pTarget = sub_004648F0_GetTargetUnit(pUnit);
+    D2UnitStrc* pTarget = sub_004648F0_GetPathTargetUnit(pUnit);
     if (!pTarget)
     {
         return 0;
@@ -466,7 +466,7 @@ int __fastcall sub_004F0DD0_StoreTargetInfo(D2UnitStrc* pUnit, int nSkillId, int
     D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
     if (pSkill)
     {
-        D2UnitStrc* pTarget = sub_004648F0_GetTargetUnit(pUnit);
+        D2UnitStrc* pTarget = sub_004648F0_GetPathTargetUnit(pUnit);
         if (pTarget && D2COMMON_11018(pTarget))
         {
             SKILLS_SetParam1(pSkill, CLIENTS_GetUnitX(pTarget));
@@ -495,7 +495,7 @@ int __fastcall sub_004F0EF0_UpdateRiderPath(D2UnitStrc* pUnit, int nSkillId, int
 // 0x004F2010
 int __fastcall sub_004F2010_CheckTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
-    D2UnitStrc* pTarget = sub_004648F0_GetTargetUnit(pUnit);
+    D2UnitStrc* pTarget = sub_004648F0_GetPathTargetUnit(pUnit);
     if (pTarget && !DUNGEON_IsRoomInTown(UNITS_GetRoom(pUnit)) && !DUNGEON_IsRoomInTown(UNITS_GetRoom(pTarget))
         && (unsigned int)pTarget->dwUnitType <= 1)
     {
@@ -514,7 +514,7 @@ int __fastcall sub_004F2160_DecrementParam(D2UnitStrc* pUnit, int nSkillId, int 
         return 0;
     }
 
-    if (!sub_004648F0_GetTargetUnit(pUnit))
+    if (!sub_004648F0_GetPathTargetUnit(pUnit))
     {
         return 0;
     }
@@ -558,7 +558,7 @@ int __fastcall sub_004F26D0_ApplyCltCalc(D2UnitStrc* pUnit, int nSkillId, int nS
 // 0x004F2870
 int __fastcall sub_004F2870_TargetIsPlayerOrMonster(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
-    D2UnitStrc* pTarget = sub_004648F0_GetTargetUnit(pUnit);
+    D2UnitStrc* pTarget = sub_004648F0_GetPathTargetUnit(pUnit);
     if (!pTarget)
     {
         return 0;

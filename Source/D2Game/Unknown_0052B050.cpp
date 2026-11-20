@@ -15,7 +15,7 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalS
 extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(void* hHandle, unsigned long dwMilliseconds); // 0x006CC230
 extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* pAttributes, unsigned long nStackSize, unsigned long (__stdcall* pfnStart)(void*), void* pParameter, unsigned long nFlags, unsigned long* pThreadId); // 0x006CC250
 extern "C" __declspec(dllimport) int __stdcall SetThreadPriority(void* hThread, int nPriority);             // 0x006CC264
-unsigned long __stdcall CLIENT_ReceiveThreadProc(void* pParameter);                                         // 0x0052AB00
+unsigned long __stdcall sub_0052AB00(void* pParameter);                                         // 0x0052AB00
 
 extern int gClientSocket;                                                                                   // 0x00730AE0
 extern unsigned long gdwThreadId;                                                                           // 0x00882B30
@@ -43,7 +43,7 @@ int __cdecl CLIENT_GetConnectionStatus()
                 LeaveCriticalSection(&gCriticalSection);
             }
 
-            ghReceiveThread_00882CD8 = CreateThread(0, 0, CLIENT_ReceiveThreadProc, 0, 0, &gdwThreadId);
+            ghReceiveThread_00882CD8 = CreateThread(0, 0, sub_0052AB00, 0, 0, &gdwThreadId);
             SetThreadPriority(ghReceiveThread_00882CD8, 1);
             return 2;
         }

@@ -26,7 +26,7 @@ int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
 void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 D2UnitStrc* __cdecl sub_00467A10(); // 0x00467A10
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
-int __fastcall sub_004AE360_IsMonsterFlag8(D2UnitStrc* pUnit); // 0x004AE360
+int __fastcall sub_004AE360_IsUniqueMonster(D2UnitStrc* pUnit); // 0x004AE360
 
 
 
@@ -51,14 +51,14 @@ D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00
 const Unicode* __fastcall sub_00464A60_GetUnitName(D2UnitStrc* pUnit); // 0x00464A60
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
-int __cdecl sub_00525150(); // 0x00525150
+int __cdecl STRTABLE_GetLanguage(); // 0x00525150
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
-void __fastcall sub_005022F0_ShowPopUpText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5, int nArg6); // 0x005022F0
+void __fastcall D2Win_10130_DrawFramedTextEx(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5, int nArg6); // 0x005022F0
 int __fastcall sub_00452580_GetHoverMonsterName(D2UnitStrc* pUnit, unsigned short nArg); // 0x00452580
 void __fastcall sub_00452520_SetHoverLine(const Unicode* pText, int nColor); // 0x00452520
 int __fastcall sub_004B3230_GetTickPair(int* pLow); // 0x004B3230
 int __cdecl sub_004A0000(); // 0x004A0000
-void __fastcall sub_00502280_SetPopUpText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
+void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const D2ImmunityTextStrc gaImmunityTexts_006D6418[6]; // 0x006D6418
 extern Unicode gwszHoverName_007A2F38[]; // 0x007A2F38
@@ -119,7 +119,7 @@ void __cdecl sub_004554B0_DrawHoverName()
         return;
     }
     int nColor = 0;
-    if (sub_004AE360_IsMonsterFlag8(pUnit))
+    if (sub_004AE360_IsUniqueMonster(pUnit))
     {
         nColor = 4;
     }
@@ -195,7 +195,7 @@ void __fastcall sub_00454AD0_DrawUnitHoverName(D2UnitStrc* pUnit)
                 return;
             }
             bDead = 1;
-            if (!sub_00525150())
+            if (!STRTABLE_GetLanguage())
             {
                 sub_00526700((Unicode*)wszText, D2LANG_GetStringFromTblIndex(0x90B));
             }
@@ -215,7 +215,7 @@ void __fastcall sub_00454AD0_DrawUnitHoverName(D2UnitStrc* pUnit)
         sub_00526700((Unicode*)wszText, D2LANG_GetStringFromTblIndex(0xF9B));
         const int nY = sub_004525F0_GetHoverTextY(pUnit);
         int nColor = 0;
-        if (sub_004AE360_IsMonsterFlag8(pUnit))
+        if (sub_004AE360_IsUniqueMonster(pUnit))
         {
             nColor = 4;
         }
@@ -237,7 +237,7 @@ void __fastcall sub_00454AD0_DrawUnitHoverName(D2UnitStrc* pUnit)
         if (sub_00454880_GetHoverRect(&tRect))
         {
             const int nX = ((tRect.nRight + tRect.nLeft) >> 1) - (sub_00501820((Unicode*)wszText) >> 1);
-            sub_005022F0_ShowPopUpText((Unicode*)wszText, nX, 0x20, nColor, 0, nY);
+            D2Win_10130_DrawFramedTextEx((Unicode*)wszText, nX, 0x20, nColor, 0, nY);
             if (!bDead)
             {
                 D2MonStatsTxt* pRecord = DATATBLS_GetMonStatsTxtRecord(!pUnit ? -1 : pUnit->dwClassId);
@@ -287,7 +287,7 @@ void __fastcall sub_00454AD0_DrawUnitHoverName(D2UnitStrc* pUnit)
             {
                 gnHoverY_0070F858 -= pMonStats2Txt->nPixHeight;
             }
-            sub_00502280_SetPopUpText(sub_00464A60_GetUnitName(pUnit), gnHoverX_0070F854, gnHoverY_0070F858, 0, 1);
+            D2Win_10129_DrawFramedText(sub_00464A60_GetUnitName(pUnit), gnHoverX_0070F854, gnHoverY_0070F858, 0, 1);
         }
     }
     sub_00502EF0(nOld);

@@ -133,7 +133,7 @@ void __stdcall MISSILE_AllocMissileData(D2UnitStrc* pMissile); // 0x0064A100
 void __fastcall D2GAME_DeleteTimersOnUnit_6FC34A30(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540F30
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStat, int nValue, int nLayer); // 0x00627260
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStat, int nLayer); // 0x00625480
-void __fastcall MONSTERUNIQUE_UMod16_Champion(D2UnitStrc* pUnit, int nUMod, int bUnique); // 0x005A0E80
+void __fastcall sub_005A0E80_ApplyMonsterPenalty(D2UnitStrc* pUnit, int nUMod, int bUnique); // 0x005A0E80
 void __fastcall MONSTERUNIQUE_CastLightUniqueMissile(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique); // 0x005A29A0
 void __fastcall MONSTERUNIQUE_ApplyElementalDamage(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique); // 0x005A3040
 void __fastcall sub_6FD14170(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pOrigin, int nMissileId, int nSkillId, int nSkillLevel, int nVelocity); // 0x0056D400
@@ -201,7 +201,7 @@ extern PartyCommandFunc gpfPartyCommands_6FD28E60[10]; // 0x006E2218
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 int __fastcall PLAYERLIST_CheckFlag(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, unsigned int nFlags); // 0x0055B300
-void __fastcall sub_6FC7D260(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetGUID, int a4); // 0x005750E0
+void __fastcall PLAYERPETS_RemovePet(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetGUID, int a4); // 0x005750E0
 void __fastcall SUNITDMG_AllocCombat(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, D2DamageStrc* pDamage, int nFlags); // 0x0057DBF0
 void __fastcall SUNITDMG_DistributeExperience(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender); // 0x0057E990
 unsigned short __fastcall SUNITDMG_GetResultFlags(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int nStatValue, int nRangeOffset); // 0x0057EC10
@@ -282,7 +282,7 @@ void __fastcall MONSTERUNIQUE_UMod37_Fanatic(D2UnitStrc* pUnit, int nUMod, int b
     if (pUnit && pUnit->dwUnitType == UNIT_MONSTER && bUnique)
     {
         STATLIST_SetUnitStat(pUnit, STAT_ITEM_ARMOR_PERCENT, -70, 0);
-        MONSTERUNIQUE_UMod16_Champion(pUnit, nUMod, bUnique);
+        sub_005A0E80_ApplyMonsterPenalty(pUnit, nUMod, bUnique);
     }
 }
 
@@ -631,7 +631,7 @@ void __fastcall sub_6FC6DFC0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, in
     D2UnitStrc* pOwner = AIGENERAL_GetMinionOwner(pUnit);
     if (pOwner && pOwner->dwUnitType == UNIT_PLAYER)
     {
-        sub_6FC7D260(pGame, pOwner, !pUnit ? -1 : pUnit->dwUnitId, 1);
+        PLAYERPETS_RemovePet(pGame, pOwner, !pUnit ? -1 : pUnit->dwUnitId, 1);
         return;
     }
 

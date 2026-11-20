@@ -121,7 +121,7 @@ int __fastcall CLIENTS_GetClassId(D2ClientStrc* pClient); // 0x005385F0
 int __fastcall CLIENTS_GetFlags(D2ClientStrc* pClient); // 0x00538640
 int __fastcall CLIENTS_GetCreateTime(D2ClientStrc* pClient); // 0x00538790
 char* __fastcall CLIENTS_GetName(D2ClientStrc* pClient); // 0x00538830
-void __fastcall CLIENTS_GetSkillHotKey(D2ClientStrc* pClient, int nId, int* pSkillId, int* pHand, int* pItemGUID); // 0x005390D0
+void __fastcall sub_005390D0(D2ClientStrc* pClient, int nId, int* pSkillId, int* pHand, int* pItemGUID); // 0x005390D0
 unsigned char __fastcall CLIENTS_GetWeaponSwitch(D2ClientStrc* pClient); // 0x00539220
 
 
@@ -170,7 +170,7 @@ D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus); // 0x006442A0
 unsigned int __stdcall FOG_ComputeChecksum(const unsigned char* pData, unsigned int nSize); // 0x00411130
 int __fastcall PLRSAVE2_WriteSaveHeader(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char** ppSection, const unsigned char* pEnd); // 0x00568F20
-int __fastcall sub_00569320_WriteQuestSection(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char** ppSection, const unsigned char* pEnd); // 0x00569320
+int __fastcall sub_00569320(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char** ppSection, const unsigned char* pEnd); // 0x00569320
 int __fastcall PLRSAVE2_WriteWaypointData(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char** ppSection, const unsigned char* pEnd); // 0x005693E0
 int __fastcall PLRSAVE2_WritePlrIntroSection(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char** ppSection, const unsigned char* pEnd); // 0x00569490
 int __fastcall PLRSAVE2_WritePlayerStats(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char** ppSection, const unsigned char* pEnd); // 0x00569540
@@ -245,7 +245,7 @@ void __stdcall SKILLS_SetFlags(D2SkillStrc* pSkill, int nValue); // 0x00644660
 void __fastcall sub_6FCBC7E0(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553490
 int __fastcall sub_6FCBC930(D2GameStrc* pGame, D2UnitStrc* pMissile); // 0x00554CA0
 void __fastcall sub_6FD13410(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0056FC50
-void __fastcall sub_6FC752A0(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00581A20
+void __fastcall OBJMODE_SendObjectModeAndShrineUpdate(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00581A20
 void __fastcall D2GAME_UpdateUnit_6FCC6080(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00571740
 void __fastcall sub_00571620(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00571620
 void __fastcall D2GAME_INVMODE_First_6FC40FB0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient, int a4); // 0x00597890
@@ -370,7 +370,7 @@ int __fastcall PLRSAVE2_WriteSaveHeader(D2GameStrc* pGame, D2UnitStrc* pPlayer, 
     for (int i = 0; i < 16; ++i)
     {
         int nParam;
-        CLIENTS_GetSkillHotKey(pClient, i, &nSkill, &nParam, &nGUID);
+        sub_005390D0(pClient, i, &nSkill, &nParam, &nGUID);
         D2_ASSERT(nSkill < 0x8000, 0x1EB);
         saveHeader.SkillKeys[i].nSkill = (unsigned short)nSkill | (nParam != 0 ? 0x8000 : 0);
         saveHeader.SkillKeys[i].nKey = PLRSAVE2_GetItemIndex(pGame, pPlayer, nGUID);
@@ -521,7 +521,7 @@ int __fastcall PLRSAVE2_CreateSaveFile(D2GameStrc* pGame, D2UnitStrc* pPlayer, u
 
     nResult = PLRSAVE2_WriteSaveHeader(pGame, pPlayer, &pSection, pEnd);
     if (nResult) goto LABEL_FAIL;
-    nResult = sub_00569320_WriteQuestSection(pGame, pPlayer, &pSection, pEnd);
+    nResult = sub_00569320(pGame, pPlayer, &pSection, pEnd);
     if (nResult) goto LABEL_FAIL;
     nResult = PLRSAVE2_WriteWaypointData(pGame, pPlayer, &pSection, pEnd);
     if (nResult) goto LABEL_FAIL;
@@ -1097,7 +1097,7 @@ void __fastcall PLRSAVE2_InitializeStats(D2GameStrc* pGame, D2UnitStrc* pUnit, i
         int nSkillId;
         int nHand;
         int nItemIndex;
-        CLIENTS_GetSkillHotKey(pClient, i, &nSkillId, &nHand, &nItemIndex);
+        sub_005390D0(pClient, i, &nSkillId, &nHand, &nItemIndex);
         if (nItemIndex)
         {
             nItemIndex = sub_0056AF20_GetItemGUIDFromIndex(pGame, pUnit, nItemIndex);
@@ -1218,7 +1218,7 @@ void __fastcall sub_6FC75350(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc*
     {
         if (UNIT_HasFlag(pUnit, UNITFLAG_DOUPDATE))
         {
-            sub_6FC752A0(pUnit, pClient);
+            OBJMODE_SendObjectModeAndShrineUpdate(pUnit, pClient);
         }
 
         if (UNIT_HasFlag(pUnit, UNITFLAG_HASEVENTSOUND))

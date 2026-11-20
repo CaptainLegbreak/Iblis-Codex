@@ -37,11 +37,11 @@ struct D2PanelTabStrc
 #pragma pack(pop)
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize);                                     // 0x00681EF0
-D2UnitStrc* __cdecl sub_00463DD0();                                                               // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory);                                 // 0x0063C1E0
 void __fastcall sub_00468070_SetCursorItemState(D2UnitStrc* pItem);                                         // 0x00468070
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
-int __fastcall sub_004B3230_GetSelectedUnitId(int* pUnitId);                                                // 0x004B3230
+int __fastcall sub_004B3230_GetTickPair(int* pUnitId);                                                // 0x004B3230
 D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType);                             // 0x00463990
 void __stdcall sub_00483FF0_DrawUnitInventory(D2UnitStrc* pUnit);                                           // 0x00483FF0
 void* __cdecl sub_00454600();                                                                               // 0x00454600
@@ -99,7 +99,7 @@ void __cdecl sub_00488400_DrawPanel()
         gaPanelButtons_007BC9E0[2].nFrame = 0;
         gaPanelButtons_007BC9E0[3].nFrame = 0;
         gdwGlobal_007BCBF0 = 1;
-        D2InventoryStrc* pInventory = sub_00463DD0()->pInventory;
+        D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
         sub_00468070_SetCursorItemState(INVENTORY_GetCursorItem(pInventory));
         gnGlobal_007BCBEC = 0;
     }
@@ -118,7 +118,7 @@ void __cdecl sub_00488400_DrawPanel()
     sub_004F6480(&tContext, gnGlobal_007A2858 + 0x100, gnGlobal_00711470 + gnGlobal_007A285C - 0x30, -1, 5, 0);
 
     int nUnitId;
-    if (sub_004B3230_GetSelectedUnitId(&nUnitId))
+    if (sub_004B3230_GetTickPair(&nUnitId))
     {
         D2UnitStrc* pUnit = sub_00463990(nUnitId, 1);
         if (pUnit)

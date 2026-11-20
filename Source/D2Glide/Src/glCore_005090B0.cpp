@@ -45,7 +45,7 @@ void __fastcall sub_005094B0_GlideSetState(int nState);                         
 void __fastcall sub_00509500_GlideSetCombine(int nMode);                                                     // 0x00509500
 void __fastcall sub_005095D0_GlideSetDepth(int nMode);                                                       // 0x005095D0
 void __fastcall sub_00509E90_GlideResume(void* hWnd, int nResolutionMode);                                   // 0x00509E90
-int __cdecl sub_0050BF40_GlideHasAlpha();                                                                    // 0x0050BF40
+int __cdecl sub_0050BF40_GlideGetBlendedShadows();                                                                    // 0x0050BF40
 void __fastcall sub_0050BF50_GlideDrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int nDrawMode); // 0x0050BF50
 void __fastcall sub_0050C270_GlideDrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, int nColor, int nAlpha); // 0x0050C270
 int __fastcall sub_0050C890_GlideShadowTileDrawFlat(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, int eDrawMode, int nScreenPanels); // 0x0050C890
@@ -261,7 +261,7 @@ int __fastcall sub_0050CD40_GlideShadowTileDraw(D2TileLibraryEntryStrc* pTile, i
     if (sub_005FDEA0(pTile, 1, 0))
     {
         sub_005094B0_GlideSetState(1);
-        if (sub_0050BF40_GlideHasAlpha())
+        if (sub_0050BF40_GlideGetBlendedShadows())
         {
             sub_00509500_GlideSetCombine(4);
             gpfGlideConstantColor_0087EFA0(0xC0);

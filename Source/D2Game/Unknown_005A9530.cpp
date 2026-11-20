@@ -36,7 +36,7 @@ struct D2MissileStrc
 };
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
-D2ActiveRoomStrc* __fastcall COLLISION_GetRoomBySubTileCoordinates(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
 D2UnitStrc* __fastcall SUNIT_GetOwner(D2GameStrc* pGame, D2UnitStrc* pUnit);                                // 0x00552FD0
 D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc* pGame, D2MissileStrc* pMissileParams);  // 0x0059FA30
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom);                                                // 0x0061AB00
@@ -128,7 +128,7 @@ void __fastcall sub_005A9530_CreateMissilesInRadius(D2GameStrc* pGame, D2UnitStr
             const int nY = nUnitY + y;
             if (sub_005A94C0_CheckDistanceAndLineOfSight(nMaxDistanceSq, nUnitX + x, nY, UNITS_GetRoom(pMissile), x, y))
             {
-                D2ActiveRoomStrc* pTargetRoom = COLLISION_GetRoomBySubTileCoordinates(UNITS_GetRoom(pMissile), nUnitX + x, nY);
+                D2ActiveRoomStrc* pTargetRoom = sub_00463740_FindRoomAtPoint(UNITS_GetRoom(pMissile), nUnitX + x, nY);
                 if (pTargetRoom && !DUNGEON_IsRoomInTown(pTargetRoom))
                 {
                     if (nRange)

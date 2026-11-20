@@ -133,7 +133,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 void __fastcall DRLGGRID_FreeGrid(void* pMemPool, D2DrlgGridStrc* pGrid);
 void __fastcall DRLGVER_FreeVertices(void* pMemPool, D2DrlgVertexStrc** ppVertex);
 
-void __fastcall sub_0066EEA0(D2DrlgRoomStrc* pRoom);                                                // 0x0066EEA0
+void __fastcall DRLGROOMTILE_AllocTileGrid(D2DrlgRoomStrc* pRoom);                                                // 0x0066EEA0
 void __fastcall sub_0066EDB0(D2DrlgRoomStrc* pRoom, D2DrlgGridStrc* pGrid, D2DrlgGridStrc* pGrid2, int a4, int a5);
 void __fastcall sub_0066ECE0(D2DrlgRoomStrc* pRoom, D2DrlgGridStrc* pGrid, int a3, int a4, int a5);
 void __fastcall sub_0066EEE0(D2DrlgRoomStrc* pRoom);
@@ -142,7 +142,7 @@ void __fastcall sub_0066CCB0(D2DrlgRoomStrc* pRoom);
 
 void __fastcall DRLGGRID_InitializeGridCells(void* pMemPool, D2DrlgGridStrc* pGrid, int nWidth, int nHeight);         // 0x0067CB80
 void __fastcall DRLGGRID_AlterGridFlag(D2DrlgGridStrc* pGrid, int nX, int nY, int nFlag, int eOperation);            // 0x0067C4F0
-int __fastcall sub_0067C570(D2DrlgGridStrc* pGrid, int nX, int nY);                                          // 0x0067C570
+int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY);                                          // 0x0067C570
 void __fastcall DRLGGRID_AlterEdgeGridFlags(D2DrlgGridStrc* pGrid, int nFlag, int eOperation);                       // 0x0067C600
 unsigned char __stdcall sub_006427F0(int nLevelId);                                                            // 0x006427F0
 D2LevelDefRecordStrc* __fastcall DATATBLS_GetLevelDefRecord(int nLevelId);                                          // 0x0061E470
@@ -184,7 +184,7 @@ void __fastcall DRLGOUTROOM_InitOutdoorRoomGrids(D2DrlgRoomStrc* pRoom)
         sub_00680C80(pLevel, pRoom);
     }
 
-    sub_0066EEA0(pRoom);
+    DRLGROOMTILE_AllocTileGrid(pRoom);
 
     D2DrlgOutdoorTileCtxStrc tCtx;
     memset(&tCtx, 0, sizeof(tCtx));
@@ -242,7 +242,7 @@ void __fastcall DRLGOUTROOM_InitOutdoorRoomGrids(D2DrlgRoomStrc* pRoom)
     {
         for (int nX = 0; nX < nWidth; ++nX)
         {
-            if (!(sub_0067C570(&pOutdoor->tGrid28, nX, nY) & 0x3F0FF80))
+            if (!(DRLGGRID_GetGridEntry(&pOutdoor->tGrid28, nX, nY) & 0x3F0FF80))
             {
                 DRLGGRID_AlterGridFlag(&pOutdoor->tGrid28, nX, nY, nMask, 0);
             }

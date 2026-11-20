@@ -50,7 +50,7 @@ struct D2DrlgLevelStrc
     int eLevelId;
 };
 
-void __fastcall sub_006743C0(D2DrlgLevelStrc* pLevel, int nX, int nY, int nPresetId, int nDirection, int a6); // 0x006743C0
+void __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(D2DrlgLevelStrc* pLevel, int nX, int nY, int nPresetId, int nDirection, int a6); // 0x006743C0
 int __fastcall sub_006755C0_LookupTable(int nA, int nB, int nC);                                             // 0x006755C0
 int __fastcall sub_00675600_LookupTable(int nA, int nB, int nC, int nD, int nE);                             // 0x00675600
 void __fastcall DRLGGRID_AlterGridFlag(D2DrlgGridStrc* pGrid, int nX, int nY, int nFlag, int eOperation);    // 0x0067C4F0
@@ -104,7 +104,7 @@ void __stdcall sub_0067DCF0(D2DrlgLevelStrc* pLevel)
             {
                 nX += 2 * nDirX;
                 nY += 2 * nDirY;
-                sub_006743C0(pLevel, nX, nY, nPresetId, -1, 0);
+                DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, nX, nY, nPresetId, -1, 0);
                 DRLGGRID_AlterGridFlag(&pInfo->tGrid2C, nX, nY, 1, 0);
             }
         }
@@ -122,7 +122,7 @@ void __stdcall sub_0067DCF0(D2DrlgLevelStrc* pLevel)
         int nCornerPresetId = sub_00675600_LookupTable(2 * nDirX, 2 * nDirY, 2 * nNextDirX, 2 * nNextDirY, nSize);
         if (nCornerPresetId)
         {
-            sub_006743C0(pLevel, nNextX, nNextY, nCornerPresetId, -1, 0);
+            DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, nNextX, nNextY, nCornerPresetId, -1, 0);
             DRLGGRID_AlterGridFlag(&pInfo->tGrid2C, nNextX, nNextY, 1, 0);
         }
 

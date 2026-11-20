@@ -60,7 +60,7 @@ void __cdecl sub_00453B00_SendMouseMove();                                      
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                                                         // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
 D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType);                             // 0x00463990
-D2UnitStrc* __cdecl sub_00463DD0();                                                               // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 void __fastcall sub_00465EE0_RemoveClientSideUnit(int nUnitId, int nUnitType);                              // 0x00465EE0
 void __fastcall sub_00468070_SetCursorItemState(D2UnitStrc* pItem);                                         // 0x00468070
 void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg);                                           // 0x00478680
@@ -79,7 +79,7 @@ int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nL
 void __stdcall ITEMS_SetItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int bSet);                         // 0x006280D0
 unsigned char __stdcall ITEMS_GetInvPage(D2UnitStrc* pItem);                                                // 0x00628250
 int __stdcall sub_006287A0_TestFlags(unsigned int dwFlags, unsigned int dwMask);                            // 0x006287A0
-int __stdcall sub_00629A40(D2UnitStrc* pItem);                                                              // 0x00629A40
+int __stdcall ITEMS_GetGemApplyType(D2UnitStrc* pItem);                                                              // 0x00629A40
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType);                                      // 0x00629BB0
 int __stdcall sub_0062E410(unsigned char* pBitstream, unsigned int nSize, int bCheckForHeader, void* pItemSave); // 0x0062E410
 int __stdcall ITEMS_DecodeItemFromBitstream(D2UnitStrc* pItem, unsigned char* pBitstream, int nSize, int bCheckForHeader, int* pSocketedItemCount, unsigned int dwVersion, int* pFail); // 0x0062E430
@@ -91,9 +91,9 @@ D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory);     
 int __stdcall UNITS_CanDualWield(D2UnitStrc* pUnit);                                                        // 0x006235A0
 void __stdcall sub_0065FEC0_ItemApplyProps(int nPass, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2GemsTxt* pGemsTxt, int nArg2, int nArg5); // 0x0065FEC0
 void __fastcall sub_0046F950(D2UnitStrc* pUnit);                                                            // 0x0046F950
-void __fastcall sub_0046F280(D2UnitStrc* pUnit, int nComponent);                               // 0x0046F280
+void __fastcall sub_0046F280_ClearGfxBytes(D2UnitStrc* pUnit, int nComponent);                               // 0x0046F280
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc);              // 0x0063BDE0
-void __stdcall sub_0063D2B0_DetachItem(D2InventoryStrc* pInventory, D2UnitStrc* pItem);                     // 0x0063D2B0
+void __stdcall INVENTORY_UpdateWeaponGUIDOnRemoval(D2InventoryStrc* pInventory, D2UnitStrc* pItem);                     // 0x0063D2B0
 int __stdcall ITEMS_UpdateSets(D2UnitStrc* pUnit, D2UnitStrc* pItem, int a3, int a4);                       // 0x00663CC0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath);                                                  // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath);                                                  // 0x00648900
@@ -114,19 +114,19 @@ void __fastcall sub_00470610_Refresh(D2UnitStrc* pUnit, int nArg);              
 void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget);   // 0x004AFF60
 void __fastcall sub_004B2A20(int nUnitId);                                                                  // 0x004B2A20
 void __fastcall sub_004B3C00(int nUnitId);                                                                  // 0x004B3C00
-int __fastcall sub_004C10E0_CanUseItem(D2UnitStrc* pUnit, D2UnitStrc* pItem);                               // 0x004C10E0
+int __fastcall sub_0055DB00_CheckEquipRequirements(D2UnitStrc* pUnit, D2UnitStrc* pItem);                               // 0x004C10E0
 int __fastcall sub_004C1C50_PlaceBodyItem(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nBodyLoc);    // 0x004C1C50
 int __fastcall sub_004D9FC0_GetSkillUseState(D2UnitStrc* pUnit, D2SkillStrc* pSkill);                       // 0x004D9FC0
 D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit);                                               // 0x00620190
 D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit);                                              // 0x006201D0
-unsigned char __stdcall sub_00623D60_GetItemComponent(D2UnitStrc* pUnit, D2UnitStrc* pItem);                // 0x00623D60
+unsigned char __stdcall UNITS_GetItemComponentId(D2UnitStrc* pUnit, D2UnitStrc* pItem);                // 0x00623D60
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);                        // 0x00625480
 D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic);                           // 0x00625820
 unsigned char __stdcall ITEMS_GetBodyLocation(D2UnitStrc* pItem);                                           // 0x00627D40
 int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem);                                                      // 0x00627E70
 unsigned short __stdcall ITEMS_GetWeaponClassId(D2UnitStrc* pItem);                                         // 0x00629FE0
 D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory);                                  // 0x0063B2C0
-void __stdcall sub_0063D1D0_InventoryItemCall(D2InventoryStrc* pInventory, D2UnitStrc* pItem);              // 0x0063D1D0
+void __stdcall INVENTORY_UpdateWeaponGUIDOnInsert(D2InventoryStrc* pInventory, D2UnitStrc* pItem);              // 0x0063D1D0
 D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem);                                             // 0x0063DFA0
 D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem);                                              // 0x0063DFD0
 int __stdcall INVENTORY_GetItemNodePage(D2UnitStrc* pItem);                                                 // 0x0063E020
@@ -188,14 +188,14 @@ static void __stdcall sub_004C0D20_ApplyItemStats(D2UnitStrc* pUnit, D2UnitStrc*
         D2_ASSERT(pUnit->dwUnitType == 4, 0x30);
         pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
         pGemsTxtRecord = DATATBLS_GetGemsTxtRecord(pItemsTxtRecord->dwGemOffset);
-        sub_0065FEC0_ItemApplyProps(2, NULL, pItem, pGemsTxtRecord, sub_00629A40(pUnit), 0);
+        sub_0065FEC0_ItemApplyProps(2, NULL, pItem, pGemsTxtRecord, ITEMS_GetGemApplyType(pUnit), 0);
     }
     else if (ITEMSIsA(pItem, 0x4A))
     {
         D2_ASSERT(pUnit->dwUnitType == 4, 0x3A);
         pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
         pGemsTxtRecord = DATATBLS_GetGemsTxtRecord(pItemsTxtRecord->dwGemOffset);
-        sub_0065FEC0_ItemApplyProps(5, pUnit, pItem, pGemsTxtRecord, sub_00629A40(pUnit), 0);
+        sub_0065FEC0_ItemApplyProps(5, pUnit, pItem, pGemsTxtRecord, ITEMS_GetGemApplyType(pUnit), 0);
     }
     else
     {
@@ -375,13 +375,13 @@ static __declspec(noinline) void __stdcall sub_004C1290_AttachItem(int nComponen
     if (!pUnit || !pItem || !pUnit->pInventory)
         return;
 
-    sub_0063D2B0_DetachItem(pUnit->pInventory, pItem);
+    INVENTORY_UpdateWeaponGUIDOnRemoval(pUnit->pInventory, pItem);
     if (pUnit->dwUnitType == 0)
         INVENTORY_GetLeftHandWeapon(pUnit->pInventory);
 
     ITEMS_CheckItemFlag(pItem, 0x100, 0x96, ".\\UNIT\\Item.cpp");
     STATLIST_ExpireUnitStatlist(pUnit, pItem);
-    sub_0046F280(pUnit, nComponent);
+    sub_0046F280_ClearGfxBytes(pUnit, nComponent);
 }
 
 static __forceinline int ITEMPKT_UnitFlag9(D2UnitStrc* pUnit)
@@ -414,7 +414,7 @@ static void sub_004C1350_RefreshEquippedItems(D2UnitStrc* pUnit)
     {
         D2UnitStrc* pItem = INVENTORY_UnitIsItem(pNode);
         if (pItem && INVENTORY_GetItemNodePage(pNode) == 1 && ITEMS_IsCharmUsable(pItem, pUnit)
-            && !STATLIST_GetOwner(pItem, NULL) && sub_004C10E0_CanUseItem(pUnit, pItem))
+            && !STATLIST_GetOwner(pItem, NULL) && sub_0055DB00_CheckEquipRequirements(pUnit, pItem))
         {
             ITEMS_SetItemFlag(pItem, 0x4000, 0);
             sub_004C0D20_ApplyItemStats(pUnit, pItem, 0);
@@ -433,11 +433,11 @@ static void sub_004C1350_RefreshEquippedItems(D2UnitStrc* pUnit)
         if (ITEMS_CheckItemFlag(pItem, 0x4000, 0x208, ".\\UNIT\\Item.cpp") && !STATLIST_GetOwner(pItem, NULL))
             continue;
 
-        if (sub_004C10E0_CanUseItem(pUnit, pItem))
+        if (sub_0055DB00_CheckEquipRequirements(pUnit, pItem))
             continue;
 
         ITEMS_SetItemFlag(pItem, 0x4000, 1);
-        sub_004C1290_AttachItem(sub_00623D60_GetItemComponent(pUnit, pItem), pUnit, pItem);
+        sub_004C1290_AttachItem(UNITS_GetItemComponentId(pUnit, pItem), pUnit, pItem);
         bChanged = 1;
     }
 
@@ -458,11 +458,11 @@ static void sub_004C1350_RefreshEquippedItems(D2UnitStrc* pUnit)
             if (!ITEMS_CheckItemFlag(pItem, 0x4000, 0x22A, ".\\UNIT\\Item.cpp") && STATLIST_GetOwner(pItem, NULL))
                 continue;
 
-            if (!sub_004C10E0_CanUseItem(pUnit, pItem))
+            if (!sub_0055DB00_CheckEquipRequirements(pUnit, pItem))
                 continue;
 
             ITEMS_SetItemFlag(pItem, 0x4000, 0);
-            const int nComponent = sub_00623D60_GetItemComponent(pUnit, pItem);
+            const int nComponent = UNITS_GetItemComponentId(pUnit, pItem);
             const int nMode = pItem->dwAnimMode;
             D2InventoryStrc* pBodyInventory = pUnit->pInventory;
             if (pBodyInventory)
@@ -470,12 +470,12 @@ static void sub_004C1350_RefreshEquippedItems(D2UnitStrc* pUnit)
                 const unsigned char nBodyLoc = ITEMS_GetBodyLocation(pItem);
                 if (nBodyLoc != 0x0B && nBodyLoc != 0x0C)
                 {
-                    sub_0063D2B0_DetachItem(pBodyInventory, pItem);
-                    sub_0046F280(pUnit, nComponent);
+                    INVENTORY_UpdateWeaponGUIDOnRemoval(pBodyInventory, pItem);
+                    sub_0046F280_ClearGfxBytes(pUnit, nComponent);
                     if (nMode == 1 && !STATLIST_GetOwner(pItem, NULL))
                         sub_004C0D20_ApplyItemStats(pUnit, pItem, 1);
 
-                    sub_0063D1D0_InventoryItemCall(pBodyInventory, pItem);
+                    INVENTORY_UpdateWeaponGUIDOnInsert(pBodyInventory, pItem);
                 }
             }
             bMore = 1;
@@ -556,7 +556,7 @@ static void __stdcall sub_004C2970_PlaceItemAt(unsigned short nY, unsigned char 
         return;
     }
 
-    if (pUnit == sub_00463DD0())
+    if (pUnit == sub_00463DD0_GetPlayerUnit())
     {
         if (nPage == 1)
         {
@@ -569,7 +569,7 @@ static void __stdcall sub_004C2970_PlaceItemAt(unsigned short nY, unsigned char 
         }
     }
 
-    if (pUnit == sub_00463DD0() && nPage == 3)
+    if (pUnit == sub_00463DD0_GetPlayerUnit() && nPage == 3)
     {
         const int nClassId = pItem->dwClassId;
         const unsigned int dwCode = DATATBLS_GetItemsTxtRecord(nClassId)->dwCode;
@@ -587,8 +587,8 @@ static void __stdcall sub_004C1C90_RemoveBodyItem(D2UnitStrc* pItem, D2UnitStrc*
     const int nBodyLoc = ITEMS_GetBodyLocation(pItem);
     if (nBodyLoc == 4 || nBodyLoc == 5)
     {
-        sub_0063D2B0_DetachItem(pInventory, pItem);
-        sub_0046F280(pUnit, sub_00623D60_GetItemComponent(pUnit, pItem));
+        INVENTORY_UpdateWeaponGUIDOnRemoval(pInventory, pItem);
+        sub_0046F280_ClearGfxBytes(pUnit, UNITS_GetItemComponentId(pUnit, pItem));
         INVENTORY_GetSecondWieldingWeapon(pUnit, pInventory, &pItem, nBodyLoc);
     }
 
@@ -628,13 +628,13 @@ void __fastcall sub_004C2810(D2GSPacketSrv9C* pPacket)
 
         case 1:
         {
-            D2UnitStrc* pPlayer = sub_00463DD0();
+            D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
             D2_ASSERT(pPlayer, 0x3E9);
 
             D2InventoryStrc* pInventory = pPlayer->pInventory;
             sub_0046F950(pPlayer);
-            sub_0063D2B0_DetachItem(pInventory, pItem);
-            sub_0046F280(pPlayer, sub_00623D60_GetItemComponent(pPlayer, pItem));
+            INVENTORY_UpdateWeaponGUIDOnRemoval(pInventory, pItem);
+            sub_0046F280_ClearGfxBytes(pPlayer, UNITS_GetItemComponentId(pPlayer, pItem));
 
             const int nBodyLoc = ITEMS_GetBodyLocation(pItem);
             INVENTORY_GetSecondWieldingWeapon(pPlayer, pInventory, &pItem, nBodyLoc);
@@ -674,7 +674,7 @@ void __fastcall sub_004C2E90(D2GSPacketSrv9D* pPacket)
     D2ItemSaveStrc tItemSave;
     sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x0D, 0, &tItemSave);
 
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (!pPlayer)
     {
         return;
@@ -734,7 +734,7 @@ void __fastcall sub_004C2E90(D2GSPacketSrv9D* pPacket)
     sub_0046F950(pUnit);
     if (nPage == 3)
     {
-        sub_0063D1D0_InventoryItemCall(pInventory, pItem);
+        INVENTORY_UpdateWeaponGUIDOnInsert(pInventory, pItem);
     }
 
     sub_0046F020_FillGfxEntries(pUnit, 0);
@@ -751,7 +751,7 @@ void __fastcall sub_004C2E90(D2GSPacketSrv9D* pPacket)
     const unsigned char nComponent = pPacket->nComponent;
     if (nComponent == 0 || nComponent == 1)
     {
-        sub_0046F280(pUnit, nComponent);
+        sub_0046F280_ClearGfxBytes(pUnit, nComponent);
     }
 
     sub_00470610_Refresh(pUnit, 0);
@@ -822,7 +822,7 @@ void __stdcall sub_004C35F0_ItemToBody9D(D2GSPacketSrv9D* pPacket, D2ItemSaveStr
     }
 
     sub_0046F950(pUnit);
-    sub_0063D1D0_InventoryItemCall(pInventory, pItem);
+    INVENTORY_UpdateWeaponGUIDOnInsert(pInventory, pItem);
     sub_0046F020_FillGfxEntries(pUnit, 0);
     sub_004C0D20_ApplyItemStats(pUnit, pItem, 0);
     sub_004C1350_RefreshEquippedItems(pUnit);
@@ -890,7 +890,7 @@ static void __stdcall sub_004C3980_SwapBodyItem9D(D2ItemSaveStrc* pItemSave, D2G
     }
     else
     {
-        sub_0063D1D0_InventoryItemCall(pInventory, pItem);
+        INVENTORY_UpdateWeaponGUIDOnInsert(pInventory, pItem);
         sub_0046F020_FillGfxEntries(pUnit, 0);
         sub_004C0D20_ApplyItemStats(pUnit, pItem, 0);
         sub_004C1350_RefreshEquippedItems(pUnit);
@@ -917,7 +917,7 @@ void __fastcall sub_004C3070(D2GSPacketSrv9D* pPacket)
     D2ItemSaveStrc tItemSave;
     sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x0D, 0, &tItemSave);
 
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2UnitStrc* pUnit = sub_00463990(pPacket->nUnitId, pPacket->nUnitType);
     if (!pUnit)
     {
@@ -953,8 +953,8 @@ void __fastcall sub_004C3070(D2GSPacketSrv9D* pPacket)
     D2UnitStrc* pItem = INVENTORY_GetItemFromBodyLoc(pInventory, nOtherLoc);
     D2_ASSERT(pItem, 0x5EF);
 
-    sub_0063D2B0_DetachItem(pInventory, pItem);
-    sub_0046F280(pUnit, sub_00623D60_GetItemComponent(pUnit, pItem));
+    INVENTORY_UpdateWeaponGUIDOnRemoval(pInventory, pItem);
+    sub_0046F280_ClearGfxBytes(pUnit, UNITS_GetItemComponentId(pUnit, pItem));
     INVENTORY_GetSecondWieldingWeapon(pUnit, pInventory, &pItem, nOtherLoc);
 
     int bRemoved = 0;
@@ -1036,7 +1036,7 @@ void __fastcall sub_004C3070(D2GSPacketSrv9D* pPacket)
         return;
     }
 
-    sub_0063D1D0_InventoryItemCall(pInventory, pNewItem);
+    INVENTORY_UpdateWeaponGUIDOnInsert(pInventory, pNewItem);
     sub_0046F020_FillGfxEntries(pUnit, 0);
 
     switch (pUnit->dwUnitType)
@@ -1053,7 +1053,7 @@ void __fastcall sub_004C3070(D2GSPacketSrv9D* pPacket)
     const unsigned char nComponent = pPacket->nComponent;
     if (nComponent == 0 || nComponent == 1)
     {
-        sub_0046F280(pUnit, nComponent);
+        sub_0046F280_ClearGfxBytes(pUnit, nComponent);
     }
 
     sub_00470610_Refresh(pUnit, 0);
@@ -1071,7 +1071,7 @@ void __fastcall sub_004C3380(D2GSPacketSrv9D* pPacket)
     D2ItemSaveStrc tItemSave;
     sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x0D, 0, &tItemSave);
 
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2UnitStrc* pUnit = sub_00463990(pPacket->nUnitId, pPacket->nUnitType);
     if (!pUnit)
     {
@@ -1088,8 +1088,8 @@ void __fastcall sub_004C3380(D2GSPacketSrv9D* pPacket)
     }
 
     sub_0046F950(pUnit);
-    sub_0063D2B0_DetachItem(pInventory, pItem);
-    sub_0046F280(pUnit, pPacket->nComponent);
+    INVENTORY_UpdateWeaponGUIDOnRemoval(pInventory, pItem);
+    sub_0046F280_ClearGfxBytes(pUnit, pPacket->nComponent);
     INVENTORY_GetSecondWieldingWeapon(pUnit, pInventory, &pItem, tItemSave.nBodyloc);
 
     D2UnitStrc* pRemoved = INVENTORY_RemoveItemFromInventory(pInventory, pItem);
@@ -1180,8 +1180,8 @@ void __fastcall sub_004C4740(D2GSPacketSrv9D* pPacket)
     D2_ASSERT(pItem, 0xAA9);
 
     sub_0046F950(pUnit);
-    sub_0063D2B0_DetachItem(pInventory, pItem);
-    sub_0046F280(pUnit, pPacket->nComponent);
+    INVENTORY_UpdateWeaponGUIDOnRemoval(pInventory, pItem);
+    sub_0046F280_ClearGfxBytes(pUnit, pPacket->nComponent);
     INVENTORY_GetSecondWieldingWeapon(pUnit, pInventory, &pItem, tItemSave.nBodyloc);
 
     D2UnitStrc* pRemoved = INVENTORY_RemoveItemFromInventory(pInventory, pItem);
@@ -1206,7 +1206,7 @@ void __fastcall sub_004C4740(D2GSPacketSrv9D* pPacket)
     if (sub_006287A0_TestFlags(tItemSave.dwFlags, 1))
     {
         sub_00465EE0_RemoveClientSideUnit(pPacket->nItemId, 4);
-        if (pUnit == sub_00463DD0())
+        if (pUnit == sub_00463DD0_GetPlayerUnit())
         {
             pItem = sub_004C0FF0_CreateItem9D(0, 0, 0, pPacket, &tItemSave);
             D2_ASSERT(pItem, 0xABD);
@@ -1217,7 +1217,7 @@ void __fastcall sub_004C4740(D2GSPacketSrv9D* pPacket)
         sub_004C2540_PlaceItem(pItem, 0, 0, tItemSave.bMode, 0, tItemSave.nStorePage);
     }
 
-    if (pUnit != sub_00463DD0())
+    if (pUnit != sub_00463DD0_GetPlayerUnit())
     {
         return;
     }
@@ -1258,7 +1258,7 @@ void __fastcall sub_004C4AA0(D2GSPacketSrv9D* pPacket)
     D2ItemSaveStrc tItemSave;
     sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x0D, 0, &tItemSave);
 
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2UnitStrc* pUnit = sub_00463990(pPacket->nUnitId, pPacket->nUnitType);
     if (!pUnit)
     {
@@ -1320,7 +1320,7 @@ void __fastcall sub_004C4AA0(D2GSPacketSrv9D* pPacket)
     }
 
     sub_0046F950(pUnit);
-    sub_0063D1D0_InventoryItemCall(pInventory, pItem);
+    INVENTORY_UpdateWeaponGUIDOnInsert(pInventory, pItem);
     sub_00470610_Refresh(pUnit, 0);
     sub_004C0D20_ApplyItemStats(pUnit, pItem, 0);
     sub_004C1350_RefreshEquippedItems(pUnit);
@@ -1334,7 +1334,7 @@ D2UnitStrc* __fastcall sub_004C4C70(D2GSPacketSrv9D* pPacket)
     D2ItemSaveStrc tItemSave;
     sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x0D, 0, &tItemSave);
 
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2UnitStrc* pUnit = sub_00463990(pPacket->nUnitId, pPacket->nUnitType);
     if (!pUnit)
     {
@@ -1401,8 +1401,8 @@ D2UnitStrc* __fastcall sub_004C4C70(D2GSPacketSrv9D* pPacket)
             return NULL;
         }
 
-        sub_0063D2B0_DetachItem(pInventory, pBodyItem);
-        sub_0046F280(pUnit, pPacket->nComponent);
+        INVENTORY_UpdateWeaponGUIDOnRemoval(pInventory, pBodyItem);
+        sub_0046F280_ClearGfxBytes(pUnit, pPacket->nComponent);
         INVENTORY_GetSecondWieldingWeapon(pUnit, pInventory, &pBodyItem, tItemSave.nBodyloc);
 
         D2UnitStrc* pRemoved = INVENTORY_RemoveItemFromInventory(pInventory, pBodyItem);
@@ -1456,13 +1456,13 @@ D2UnitStrc* __fastcall sub_004C4C70(D2GSPacketSrv9D* pPacket)
             return NULL;
         }
 
-        sub_0063D1D0_InventoryItemCall(pInventory, pItem);
+        INVENTORY_UpdateWeaponGUIDOnInsert(pInventory, pItem);
         sub_0046F020_FillGfxEntries(pUnit, 0);
 
         const unsigned char nComponent = pPacket->nComponent;
         if (nComponent == 0 || nComponent == 1)
         {
-            sub_0046F280(pUnit, nComponent);
+            sub_0046F280_ClearGfxBytes(pUnit, nComponent);
         }
 
         sub_00470610_Refresh(pUnit, 0);

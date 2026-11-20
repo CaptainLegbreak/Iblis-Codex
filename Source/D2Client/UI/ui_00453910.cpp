@@ -19,18 +19,18 @@ void __cdecl sub_0044B860();                                                    
 void __fastcall sub_0044B880_SetValue(int nValue);                                                          // 0x0044B880
 void __cdecl sub_0044D520();                                                                                // 0x0044D520
 int __cdecl sub_0044DCC0();                                                                                 // 0x0044DCC0
-void __fastcall sub_00455720_OpenUIVar(int nUIVar);                                                         // 0x00455720
+void __fastcall sub_00455720_SetPanelHandlers(int nUIVar);                                                         // 0x00455720
 void __fastcall sub_0045AEA0_SetPanelSlide(int nMode);                                                      // 0x0045AEA0
-D2UnitStrc* __cdecl sub_00463DD0();                                                               // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit);                                               // 0x00464820
 int __cdecl sub_00468730();                                                                                 // 0x00468730
 int __cdecl sub_00468740();                                                                                 // 0x00468740
-void __fastcall sub_00468770(int nA, int nB);                                                               // 0x00468770
+void __fastcall sub_00468770_SetCursorPosition(int nA, int nB);                                                               // 0x00468770
 void __fastcall sub_00478590(char nValue);                                                                  // 0x00478590
-void __cdecl sub_0047BDC0();                                                                                // 0x0047BDC0
+void __cdecl sub_0047BDC0_ClearChatLine();                                                                                // 0x0047BDC0
 void __cdecl sub_00487990_ResetHover();                                                                     // 0x00487990
 int __cdecl sub_004A0000();                                                                                 // 0x004A0000
-void __cdecl sub_004A5DE0();                                                                                // 0x004A5DE0
+void __cdecl sub_004A5DE0_CloseSliderHandlers();                                                                                // 0x004A5DE0
 int __fastcall sub_004B3230_GetTickPair(int* pLow);                                                         // 0x004B3230
 void __fastcall sub_004B3C20(int nValue);                                                                   // 0x004B3C20
 int __cdecl sub_004B85E0();                                                                                 // 0x004B85E0
@@ -62,7 +62,7 @@ static int sub_00453910_CanSetUIVar(int nUIVar, int nState)
             }
             if (nUIVar == 0x09)
             {
-                D2UnitStrc* pPlayer = sub_00463DD0();
+                D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
                 if (!pPlayer)
                 {
                     return 0;
@@ -137,7 +137,7 @@ int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg)
     {
         return 0;
     }
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     switch (nState)
     {
     case 0:
@@ -173,10 +173,10 @@ int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg)
     {
         if (nNewState)
         {
-            sub_00455720_OpenUIVar(nUIVar);
+            sub_00455720_SetPanelHandlers(nUIVar);
             if (nUIVar == 0x05)
             {
-                sub_0047BDC0();
+                sub_0047BDC0_ClearChatLine();
             }
         }
     }
@@ -218,7 +218,7 @@ int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg)
     case 11:
         if (!nNewState)
         {
-            sub_004A5DE0();
+            sub_004A5DE0_CloseSliderHandlers();
         }
         break;
     case 1:
@@ -233,7 +233,7 @@ int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg)
                 sub_0045AEA0_SetPanelSlide(1);
                 if (nArg && nA > gnGlobal_0071146C / 4)
                 {
-                    sub_00468770(nA - gnGlobal_0071146C / 4, nB);
+                    sub_00468770_SetCursorPosition(nA - gnGlobal_0071146C / 4, nB);
                 }
             }
             else
@@ -241,7 +241,7 @@ int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg)
                 sub_0045AEA0_SetPanelSlide(0);
                 if (nArg && nA < gnGlobal_0071146C / 2)
                 {
-                    sub_00468770(gnGlobal_0071146C / 4 + nA, nB);
+                    sub_00468770_SetCursorPosition(gnGlobal_0071146C / 4 + nA, nB);
                 }
             }
         }
@@ -268,7 +268,7 @@ int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg)
                 sub_0045AEA0_SetPanelSlide(2);
                 if (nArg && nA < gnGlobal_0071146C - gnGlobal_0071146C / 4)
                 {
-                    sub_00468770(gnGlobal_0071146C / 4 + nA, nB);
+                    sub_00468770_SetCursorPosition(gnGlobal_0071146C / 4 + nA, nB);
                 }
             }
             else
@@ -276,7 +276,7 @@ int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg)
                 sub_0045AEA0_SetPanelSlide(0);
                 if (nArg && nA > gnGlobal_0071146C / 2)
                 {
-                    sub_00468770(nA - gnGlobal_0071146C / 4, nB);
+                    sub_00468770_SetCursorPosition(nA - gnGlobal_0071146C / 4, nB);
                 }
             }
         }

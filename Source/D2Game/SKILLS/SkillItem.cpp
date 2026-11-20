@@ -275,7 +275,7 @@ int __fastcall SKILLS_SharePotionLifeWithBloodGolem(D2GameStrc*,D2UnitStrc*,int)
 unsigned char __fastcall MONSTERMODE_GetHpPercent128(D2UnitStrc*); // 0x005805D0
 void __fastcall SUNITMSG_QueueLifeUpdate(D2UnitStrc*,unsigned char); // 0x00571A10
 int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
-void __fastcall SKILLS_ApplyDimVisionToTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillLevel); // 0x005C39C0
+void __fastcall sub_6FD0B9F0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillLevel); // 0x005C39C0
 void __stdcall STATLIST_SetStatIfListIsValid(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer); // 0x00627150
 
 // 0x005BE130
@@ -1083,7 +1083,7 @@ ReturnZero:
     int nLevel = (nChance - nRoll) / 5 + 1;
     nLevel = D2_MIN(D2_MAX(nLevel, 1), 20);
 
-    SKILLS_ApplyDimVisionToTarget(pGame, pAttacker, pUnit, nLevel);
+    sub_6FD0B9F0(pGame, pAttacker, pUnit, nLevel);
     return 1;
 }
 

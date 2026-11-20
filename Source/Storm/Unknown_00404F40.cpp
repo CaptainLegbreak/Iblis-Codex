@@ -190,14 +190,14 @@ int __cdecl sub_004F59A0(); // 0x004F59A0
 int __stdcall D2Win_InitializeSpriteCache(int bWindowed, int nResolution); // 0x004F8F10
 void __cdecl D2Win_CloseSpriteCache(); // 0x004F9030
 int __stdcall D2Win_CreateWindow(void* hInstance, int nRenderMode, int bWindowed, int bCompress); // 0x004FA520
-int __cdecl ARCHIVE_ShowInsertExpansionDiscMessage(); // 0x004FAB00
-int __cdecl ARCHIVE_ShowInsertPlayDiscMessage(); // 0x004FAB30
+int __cdecl sub_004FAB00_ShowInsertExpansionDisc(); // 0x004FAB00
+int __cdecl sub_004FAB30_ShowInsertPlayDisc(); // 0x004FAB30
 int __cdecl ARCHIVE_LoadArchives(); // 0x004FAB90
 void __cdecl ARCHIVE_FreeArchives(); // 0x004FAE00
 int __fastcall ARCHIVE_LoadExpansionArchives(int (__cdecl* pfnPlayDisc)(), int (__cdecl* pfnExpansionDisc)(), int nUnused, D2ConfigStrc* pCfg); // 0x004FAEC0
-void __cdecl D2SOUND_CloseSoundSystem(); // 0x00514060
-void __fastcall D2SOUND_OpenSoundSystem(int bExpansion, int bSoundBackground); // 0x00514530
-int __cdecl sub_00525150(); // 0x00525150
+void __cdecl sub_00514060_ShutdownSound(); // 0x00514060
+void __fastcall sub_00514530_InitSound(int bExpansion, int bSoundBackground); // 0x00514530
+int __cdecl STRTABLE_GetLanguage(); // 0x00525150
 void __cdecl sub_0060DDB0(); // 0x0060DDB0
 extern "C" __declspec(dllimport) unsigned long __stdcall GetVersion(); // 0x006CC138
 extern "C" __declspec(dllimport) void* __stdcall OpenSCManagerA(const char* szMachineName, const char* szDatabaseName, unsigned long dwDesiredAccess); // 0x006CC028
@@ -710,7 +710,7 @@ int __fastcall GameStart(void* hInstance, D2ConfigStrc* pCfg, int nModType)
 
     if (gnMode_0074C704 != 2)
     {
-        if (!ARCHIVE_LoadArchives() || !ARCHIVE_LoadExpansionArchives(ARCHIVE_ShowInsertPlayDiscMessage, ARCHIVE_ShowInsertExpansionDiscMessage, 0, pCfg))
+        if (!ARCHIVE_LoadArchives() || !ARCHIVE_LoadExpansionArchives(sub_004FAB30_ShowInsertPlayDisc, sub_004FAB00_ShowInsertExpansionDisc, 0, pCfg))
         {
             ARCHIVE_FreeArchives();
             return 0;
@@ -719,7 +719,7 @@ int __fastcall GameStart(void* hInstance, D2ConfigStrc* pCfg, int nModType)
         sub_00405A70();
     }
 
-    sub_00525150();
+    STRTABLE_GetLanguage();
 
     if (pCfg->b3DFX)
     {
@@ -801,7 +801,7 @@ int __fastcall GameStart(void* hInstance, D2ConfigStrc* pCfg, int nModType)
 
     if (!pCfg->bNoSound && gnMode_0074C704 != 2)
     {
-        D2SOUND_OpenSoundSystem(pCfg->bIsExpansion, pCfg->bSoundBackground);
+        sub_00514530_InitSound(pCfg->bIsExpansion, pCfg->bSoundBackground);
         bSoundStarted = 1;
     }
 
@@ -811,7 +811,7 @@ int __fastcall GameStart(void* hInstance, D2ConfigStrc* pCfg, int nModType)
         {
             if (bSoundStarted)
             {
-                D2SOUND_CloseSoundSystem();
+                sub_00514060_ShutdownSound();
                 bSoundStarted = 0;
             }
 
@@ -828,7 +828,7 @@ int __fastcall GameStart(void* hInstance, D2ConfigStrc* pCfg, int nModType)
 
     if (bSoundStarted)
     {
-        D2SOUND_CloseSoundSystem();
+        sub_00514060_ShutdownSound();
     }
 
     if (bGfxStarted)

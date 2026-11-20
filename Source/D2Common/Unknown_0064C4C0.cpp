@@ -44,14 +44,14 @@ enum
 unsigned char* __stdcall sub_00604CE0(D2TileLibraryEntryStrc* pTile); // 0x00604CE0
 D2RoomCollisionGridStrc* __fastcall DUNGEON_GetCollisionGridFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A010
 void __fastcall DUNGEON_SetCollisionGridInRoom(D2ActiveRoomStrc* pRoom, D2RoomCollisionGridStrc* pGrid); // 0x0061A040
-D2ActiveRoomStrc* __fastcall COLLISION_GetRoomBySubTileCoordinates(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
 int __fastcall DUNGEON_AreSubtileCoordinatesInsideRoom(D2DrlgCoordsStrc* pDrlgCoords, int nX, int nY); // 0x00619DF0
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, int* pnNumRooms); // 0x00619790
-D2DrlgTileDataStrc* __stdcall sub_00619660_GetFloorTiles(D2ActiveRoomStrc* pRoom, int* pCount); // 0x00619660
-D2DrlgTileDataStrc* __stdcall sub_006196A0_GetWallTiles(D2ActiveRoomStrc* pRoom, int* pCount); // 0x006196A0
+D2DrlgTileDataStrc* __stdcall DUNGEON_GetFloorTilesFromRoom(D2ActiveRoomStrc* pRoom, int* pCount); // 0x00619660
+D2DrlgTileDataStrc* __stdcall DUNGEON_GetWallTilesFromRoom(D2ActiveRoomStrc* pRoom, int* pCount); // 0x006196A0
 D2DrlgTileDataStrc* __stdcall DUNGEON_GetRoofTilesFromRoom(D2ActiveRoomStrc* pRoom, int* pRoofCount); // 0x006196E0
 
 static void __stdcall sub_0064C700_SetCollisionMaskRect(D2RoomCollisionGridStrc* pCollisionGrid, int nX, int nY, unsigned short nFlags);
@@ -168,7 +168,7 @@ void __fastcall sub_0064C860(D2ActiveRoomStrc* pRoom, D2DrlgTileDataStrc* pTileD
     int nX = pTileData->nPosX + pCollisionGrid->pRoomCoords.nTileXPos;
     int nY = pTileData->nPosY + pCollisionGrid->pRoomCoords.nTileYPos;
     DUNGEON_GameTileToSubtileCoords(&nX, &nY);
-    pRoom = COLLISION_GetRoomBySubTileCoordinates(pRoom, nX, nY);
+    pRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
     if (!pRoom)
         return;
     pCollisionGrid = DUNGEON_GetCollisionGridFromRoom(pRoom);
@@ -201,9 +201,9 @@ void __fastcall COLLISION_AllocRoomCollisionGrid(void* pMemPool, D2ActiveRoomStr
     for (int i = 0; i < nAdjacentRooms; ++i)
     {
         D2RoomCollisionGridStrc* pAdjacentCollisionGrid = DUNGEON_GetCollisionGridFromRoom(ppRoomList[i]);
-        D2DrlgTileDataStrc* pTileData = sub_00619660_GetFloorTiles(ppRoomList[i], &nTiles);
+        D2DrlgTileDataStrc* pTileData = DUNGEON_GetFloorTilesFromRoom(ppRoomList[i], &nTiles);
         sub_6FD413E0(pCollisionGrid, pAdjacentCollisionGrid, pTileData, nTiles, 0);
-        pTileData = sub_006196A0_GetWallTiles(ppRoomList[i], &nTiles);
+        pTileData = DUNGEON_GetWallTilesFromRoom(ppRoomList[i], &nTiles);
         sub_6FD413E0(pCollisionGrid, pAdjacentCollisionGrid, pTileData, nTiles, 0);
         pTileData = DUNGEON_GetRoofTilesFromRoom(ppRoomList[i], &nTiles);
         sub_6FD413E0(pCollisionGrid, pAdjacentCollisionGrid, pTileData, nTiles, 0);

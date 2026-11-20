@@ -26,7 +26,7 @@ unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID);                      // 0x00552F60
 D2UnitStrc* __fastcall AIGENERAL_GetMinionOwner(D2UnitStrc* pUnit);                                               // 0x0058F0D0
 int __fastcall AIUTIL_GetDistanceToCoordinates_FullUnitSize(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2);               // 0x005DC380
-int __fastcall sub_6FCF14D0(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2);                                               // 0x005DC640
+int __fastcall sub_005DC640_HasFreeSpotNearTarget(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2);                                               // 0x005DC640
 D2UnitStrc* __fastcall sub_6FCF2110(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int* pDistance, int* pCombat); // 0x005DD7F0
 D2UnitStrc* __fastcall sub_6FCCFD40(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int* pDistance, int* pCombat, int nMaxDistance); // 0x005DDE50
 int __fastcall AITACTICS_ChangeModeAndTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, D2UnitStrc* pTarget); // 0x005DDF90
@@ -107,7 +107,7 @@ void __fastcall AITHINK_Fn112_DruidBear(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
     int bCombat;
     D2UnitStrc* pPotentialTarget = sub_6FCF2110(pGame, pOwner, pAiControl, &nTemp1, &nTemp2);
     D2UnitStrc* pTarget = sub_6FCCFD40(pGame, pUnit, pAiControl, &nTargetDistance, &bCombat, 28);
-    if (pTarget && !sub_6FCF14D0(pUnit, pTarget))
+    if (pTarget && !sub_005DC640_HasFreeSpotNearTarget(pUnit, pTarget))
     {
         pTarget = 0;
     }
@@ -115,7 +115,7 @@ void __fastcall AITHINK_Fn112_DruidBear(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
     if (!pTarget && pPotentialTarget)
     {
         nTargetDistance = AIUTIL_GetDistanceToCoordinates_FullUnitSize(pUnit, pPotentialTarget);
-        if (nTargetDistance < 28 && sub_6FCF14D0(pUnit, pPotentialTarget))
+        if (nTargetDistance < 28 && sub_005DC640_HasFreeSpotNearTarget(pUnit, pPotentialTarget))
         {
             pTarget = pPotentialTarget;
         }

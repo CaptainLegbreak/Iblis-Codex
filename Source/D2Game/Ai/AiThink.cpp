@@ -114,7 +114,7 @@ int __fastcall AITACTICS_WalkToTargetCoordinates(D2GameStrc*, D2UnitStrc*, int, 
 int __fastcall AITACTICS_WalkToTargetCoordinatesDeleteAiEvent(D2GameStrc*, D2UnitStrc*, int, int); // 0x005DEE50
 int __fastcall sub_005DF7D0(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, int, int); // 0x005DF7D0
 int __fastcall sub_005E8810_SelectAction(D2AiControlStrc*, D2UnitStrc*, D2UnitStrc*, int, int, D2AiCmdStrc*); // 0x005E8810
-int __fastcall sub_005E8EB0_CullTarget(D2UnitStrc*, D2UnitStrc*); // 0x005E8EB0
+int __fastcall AITHINK_CullPotentialTargetsForDiablo(D2UnitStrc*, D2UnitStrc*); // 0x005E8EB0
 D2UnitStrc* __fastcall AIBAAL_GetTarget(D2GameStrc*, D2UnitStrc*, int*, int*, D2AiCmdStrc*, int (__fastcall*)(D2UnitStrc*,D2UnitStrc*)); // 0x005E8F20
 void __stdcall STATES_ToggleState(D2UnitStrc*, int, int); // 0x00639DB0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc*); // 0x006488C0
@@ -135,7 +135,7 @@ extern const int gnBaalThroneSuperUniqueIds[]; // 0x006E3528
 D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecord(int nSkill); // 0x0045C4B0
 D2AiControlStrc* __fastcall AIGENERAL_GetAiControlFromUnit(D2UnitStrc* pUnit); // 0x00541860
 void __fastcall sub_00553380_SetUnitFlag(D2UnitStrc* pUnit, int nFlag, int bSet); // 0x00553380
-void __fastcall sub_00571C00_RemoveMonsterCorpses(D2UnitStrc* pUnit, int nClass); // 0x00571C00
+void __fastcall SUNITMSG_QueueMonsterPrecache(D2UnitStrc* pUnit, int nClass); // 0x00571C00
 int __fastcall MONSTER_Reinitialize(D2GameStrc* pGame, D2UnitStrc* pUnit, int nClass, int nMode); // 0x00574370
 int __fastcall sub_00586B30_GetSuperUniqueId(int nIndex); // 0x00586B30
 void __fastcall AITHINK_ExecuteAiFn(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int nState); // 0x005B0E00
@@ -304,7 +304,7 @@ void __fastcall sub_005E9170_Think(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTic
     {
         int nMax;
         int nCount;
-        pTarget = AIBAAL_GetTarget(pGame, pUnit, &nMax, &nCount, pCmd, sub_005E8EB0_CullTarget);
+        pTarget = AIBAAL_GetTarget(pGame, pUnit, &nMax, &nCount, pCmd, AITHINK_CullPotentialTargetsForDiablo);
         pAi = pTick->pAiControl;
         nAction = sub_005E8810_SelectAction(pAi, pUnit, pTarget, nMax, nCount, pCmd);
     }
@@ -529,11 +529,11 @@ void __fastcall sub_005EF320_ThinkBaalThrone(D2GameStrc* pGame, D2UnitStrc* pUni
             {
                 nWave = BAALTHRONE_GetSuperUniqueClass(sub_00586B30_GetSuperUniqueId(gnBaalThroneSuperUniqueIds[nWave]));
                 if (nWave < 0) return;
-                sub_00571C00_RemoveMonsterCorpses(pUnit, nWave);
+                SUNITMSG_QueueMonsterPrecache(pUnit, nWave);
                 switch (nWave)
                 {
-                case 62: sub_00571C00_RemoveMonsterCorpses(pUnit, 23); break;
-                case 105: sub_00571C00_RemoveMonsterCorpses(pUnit, 381); break;
+                case 62: SUNITMSG_QueueMonsterPrecache(pUnit, 23); break;
+                case 105: SUNITMSG_QueueMonsterPrecache(pUnit, 381); break;
                 }
             }
             AITACTICS_UseSkill(pGame, pUnit, 10, 285, pUnit, 0, 0);

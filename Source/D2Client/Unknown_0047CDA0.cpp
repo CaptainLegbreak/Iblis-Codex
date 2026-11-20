@@ -61,7 +61,7 @@ int __cdecl sub_004DF9B0_IsSoundMode2(); // 0x004DF9B0
 void __fastcall sub_004E0690_SetSoundTableFlag(int nValue); // 0x004E0690
 void __fastcall sub_0049D570_SetTextDisplayBeta(int nValue); // 0x0049D570
 void __stdcall D2GFX_SetLowQuality(int bLowQuality); // 0x004F5220
-void __fastcall sub_004CCF20_SetLightFlag(int nValue); // 0x004CCF20
+void __fastcall sub_004CCF20_SetValue(int nValue); // 0x004CCF20
 void __fastcall sub_004776C0(void* pArg); // 0x004776C0
 int __cdecl sub_004F5140(); // 0x004F5140
 
@@ -126,7 +126,7 @@ extern int gnOptionLastX_007BC980; // 0x007BC980
 extern int gnOptionLastY_007BC984; // 0x007BC984
 
 
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0
 int __cdecl sub_004979E0(); // 0x004979E0
 int __cdecl sub_004979F0(); // 0x004979F0
@@ -238,15 +238,15 @@ void __fastcall sub_0047CF80_LightQualitySelect(D2MenuItemStrc* pItem, SMSGHANDL
     {
     case 0:
         D2GFX_SetLowQuality(1);
-        sub_004CCF20_SetLightFlag(0);
+        sub_004CCF20_SetValue(0);
         break;
     case 1:
         D2GFX_SetLowQuality(0);
-        sub_004CCF20_SetLightFlag(0);
+        sub_004CCF20_SetValue(0);
         break;
     case 2:
         D2GFX_SetLowQuality(0);
-        sub_004CCF20_SetLightFlag(1);
+        sub_004CCF20_SetValue(1);
         break;
     }
 }
@@ -259,15 +259,15 @@ void __fastcall sub_0047CFE0_LightQualityOption(D2MenuItemStrc* pItem, int nArg)
     {
     case 0:
         D2GFX_SetLowQuality(1);
-        sub_004CCF20_SetLightFlag(0);
+        sub_004CCF20_SetValue(0);
         break;
     case 1:
         D2GFX_SetLowQuality(0);
-        sub_004CCF20_SetLightFlag(0);
+        sub_004CCF20_SetValue(0);
         break;
     case 2:
         D2GFX_SetLowQuality(0);
-        sub_004CCF20_SetLightFlag(1);
+        sub_004CCF20_SetValue(1);
         break;
     }
 }
@@ -598,12 +598,12 @@ void __stdcall sub_0047EF30_SlotsClick(SMSGHANDLER_PARAMS* pMsg)
     {
         nSlots = 7;
     }
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (!pPlayer || !pPlayer->pInventory || INVENTORY_GetCursorItem(pPlayer->pInventory) || gdwGlobal_007BC970)
     {
         return;
     }
-    D2UnitStrc* pUnit = sub_00463DD0();
+    D2UnitStrc* pUnit = sub_00463DD0_GetPlayerUnit();
     if (!pUnit)
     {
         return;

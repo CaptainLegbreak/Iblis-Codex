@@ -128,7 +128,7 @@ struct D2ObjOperateStrc { D2GameStrc* game; D2UnitStrc* object; D2UnitStrc* play
 unsigned int __stdcall sub_00620510(D2UnitStrc*); // 0x00620510
 unsigned int __stdcall sub_006205A0(D2UnitStrc*); // 0x006205A0
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
-int __fastcall sub_0055F140(D2GameStrc*,D2UnitStrc*); // 0x0055F140
+int __fastcall D2GAME_DoKeyCheck_6FC4A4B0(D2GameStrc*,D2UnitStrc*); // 0x0055F140
 void __stdcall UNITS_FreeCollisionPath(D2UnitStrc*); // 0x00623830
 void __stdcall UNITS_BlockCollisionPath(D2UnitStrc*,D2ActiveRoomStrc*,int,int); // 0x00620A70
 unsigned short __stdcall COLLISION_CheckMaskWithSizeXY(D2ActiveRoomStrc*,int,int,unsigned int,unsigned int,unsigned short); // 0x0064D800
@@ -416,7 +416,7 @@ int __fastcall sub_00581D40_OperateDoor(D2ObjOperateStrc* context,int unused)
  if(tick<context->object->dwTickCount+500) return 1;
  switch(mode) {
  case 6:
-  if(!sub_0055F140(context->game,context->player)) {
+  if(!D2GAME_DoKeyCheck_6FC4A4B0(context->game,context->player)) {
    SUNIT_AttachSound(context->player,22,context->player);
    return 1;
   }

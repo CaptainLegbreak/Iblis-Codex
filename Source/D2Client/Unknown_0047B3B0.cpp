@@ -126,10 +126,10 @@ struct D2OptionEntryStrc
 void __stdcall D2GFX_SetPerspective(int bPerspective); // 0x004F51E0
 void __stdcall D2GFX_SetBlendShadows(int bBlendedShadows); // 0x004F5200
 void __fastcall sub_0044BA20(int nResolution); // 0x0044BA20
-void __fastcall sub_0045A720(int nMode); // 0x0045A720
+void __fastcall sub_0045A720_SetAutomapMode(int nMode); // 0x0045A720
 void __fastcall sub_004576F0(int nFade); // 0x004576F0
 int __cdecl sub_00457740(); // 0x00457740
-int __fastcall sub_00457750_SetValue(int nValue); // 0x00457750
+int __fastcall sub_00457750_SaveAutomapCenters(int nValue); // 0x00457750
 int __cdecl sub_004577B0(); // 0x004577B0
 int __cdecl sub_004577E0(); // 0x004577E0
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
@@ -191,7 +191,7 @@ void __cdecl sub_00453AC0(); // 0x00453AC0
 void __fastcall sub_0047E090(int bSaveState, int nMenu); // 0x0047E090
 void __cdecl sub_00453AD0(); // 0x00453AD0
 void __cdecl sub_00453AE0(); // 0x00453AE0
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0
 int __cdecl sub_00468830(); // 0x00468830
 void __fastcall sub_00468070_SetCursorItemState(D2UnitStrc* pItem); // 0x00468070
@@ -665,7 +665,7 @@ void __fastcall sub_0047D370_AutoMapModeChanged(D2OptionEntryStrc* pEntry, SMSGH
     {
         pEntry->nValue = 0;
     }
-    sub_0045A720(pEntry->nValue);
+    sub_0045A720_SetAutomapMode(pEntry->nValue);
     SRegSaveValue("Diablo II", "AutoMapMode", 0, pEntry->nValue);
 }
 
@@ -683,7 +683,7 @@ void __fastcall sub_0047D3F0_AutoMapFadeChanged(D2OptionEntryStrc* pEntry, SMSGH
 // 0x0047D470
 void __fastcall sub_0047D470_AutoMapCentersChanged(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg)
 {
-    sub_00457750_SetValue(pEntry->nValue);
+    sub_00457750_SaveAutomapCenters(pEntry->nValue);
 }
 
 // 0x0047D480
@@ -819,7 +819,7 @@ void __fastcall sub_0047D3B0_LoadAutoMapMode(D2OptionEntryStrc* pEntry, int nArg
     {
         dwValue = 0;
     }
-    sub_0045A720(dwValue);
+    sub_0045A720_SetAutomapMode(dwValue);
     pEntry->nValue = sub_0045A710();
 }
 
@@ -1022,7 +1022,7 @@ int gbSlotClicked_007BC97C; // 0x007BC97C
 // 0x0047ED90
 void __stdcall sub_0047ED90_SlotsClickMsg(SMSGHANDLER_PARAMS* pMsg)
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (!gbSlotClicked_007BC97C)
         return;
     gbSlotClicked_007BC97C = 0;
@@ -1040,7 +1040,7 @@ void __stdcall sub_0047ED90_SlotsClickMsg(SMSGHANDLER_PARAMS* pMsg)
         nCount = 7;
     if (!gdwGlobal_007BC970)
     {
-        D2UnitStrc* pUnit = sub_00463DD0();
+        D2UnitStrc* pUnit = sub_00463DD0_GetPlayerUnit();
         const int nX = pMsg->nXPos;
         const int nY = pMsg->nYPos;
         int nOffset = 0;

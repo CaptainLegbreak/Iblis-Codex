@@ -117,7 +117,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 
 extern const D2CoordStrc gtPathZeroVelocity_006EB7D4;                                                              // 0x006EB7D4
 
-D2ActiveRoomStrc* __fastcall COLLISION_GetRoomBySubTileCoordinates(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
 void __stdcall DUNGEON_GameToClientCoords(int* pX, int* pY);                                                // 0x00643290
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit);                                                     // 0x0064C040
 int __stdcall UNITROOM_AddUnitToRoom(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom);                           // 0x0064C350
@@ -199,10 +199,10 @@ static __declspec(noinline) void __stdcall PATH_RecacheRoom(D2ActiveRoomStrc* pH
         return;
     }
 
-    D2ActiveRoomStrc* pRoomAtLocation = COLLISION_GetRoomBySubTileCoordinates(pPath->pRoom, nX, nY);
+    D2ActiveRoomStrc* pRoomAtLocation = sub_00463740_FindRoomAtPoint(pPath->pRoom, nX, nY);
     if (!pRoomAtLocation && pHintRoom)
     {
-        pRoomAtLocation = COLLISION_GetRoomBySubTileCoordinates(pHintRoom, nX, nY);
+        pRoomAtLocation = sub_00463740_FindRoomAtPoint(pHintRoom, nX, nY);
     }
 
     if (pRoomAtLocation || !(pPath->dwFlags & 0x40000))
@@ -220,7 +220,7 @@ static __declspec(noinline) void __stdcall PATH_RecacheRoomAtCoordIfNeeded(D2FP3
 // build: context PATH_RecacheRoomAtCoordIfNeeded
 static __declspec(noinline) void __stdcall PATH_RecacheRoomAtCoordIfNeeded(D2FP32_16 tCoord, D2ActiveRoomStrc* pHintRoom, D2DynamicPathStrc* pPath)
 {
-    if ((pPath->dwFlags & 0x40000) && !COLLISION_GetRoomBySubTileCoordinates(pPath->pRoom, tCoord.dwPrecisionX >> 16, tCoord.dwPrecisionY >> 16))
+    if ((pPath->dwFlags & 0x40000) && !sub_00463740_FindRoomAtPoint(pPath->pRoom, tCoord.dwPrecisionX >> 16, tCoord.dwPrecisionY >> 16))
     {
         pPath->dwPathPoints = 0;
         return;

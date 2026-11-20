@@ -53,7 +53,7 @@ extern int gnGlobal_007A285C; // 0x007A285C
 extern int gnGlobal_007C02F4; // 0x007C02F4
 extern D2BeltSlotStrc gtSlots_00724A48[4]; // 0x00724A48
 int __cdecl D2GFX_GetResolutionMode(); // 0x004F5160
-int __fastcall sub_00498DC0(SMSGHANDLER_PARAMS* pMsg); // 0x00498DC0
+int __fastcall sub_00498DC0_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00498DC0
 int __cdecl sub_00468830(); // 0x00468830
 void __cdecl sub_00453EC0(); // 0x00453EC0
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
@@ -208,7 +208,7 @@ int __cdecl sub_00468740(); // 0x00468740
 void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 char* __fastcall sub_0047A210_GetUnitName(D2UnitStrc* pUnit); // 0x0047A210
 void __cdecl sub_00499E30_SetBlackColour(); // 0x00499E30
-int __stdcall sub_004A7340_GetChanceToHit(int nAttackRating); // 0x004A7340
+int __stdcall sub_004A7340_GetPercentA(int nAttackRating); // 0x004A7340
 int __cdecl sub_004A74A0_GetPercentB(); // 0x004A74A0
 void __fastcall sub_004EDA20_RefreshSkills(D2UnitStrc* pUnit); // 0x004EDA20
 int __fastcall sub_004EDA80_CallSkillDescFunc(D2UnitStrc* pUnit, int bLeft); // 0x004EDA80
@@ -269,15 +269,15 @@ extern int gbHotkeyLeft_007C07B8[16]; // 0x007C07B8
 extern "C" int gnValue_007C0C3C; // 0x007C0C3C
 void* __fastcall sub_004520C0_LoadUiCelFile(const char* szPath); // 0x004520C0
 void __fastcall sub_00478A00(void* pCel); // 0x00478A00
-void __stdcall sub_004A9D70(D2SkillsTxt* pSkillsTxt, int nQuantity); // 0x004A9D70
-void __fastcall sub_004AA3A0(D2UnitStrc* pUnit, int nX, int nArg3, int nArg4, int nArg5); // 0x004AA3A0
+void __stdcall sub_004A9D70_ClearSkillHotkeys(D2SkillsTxt* pSkillsTxt, int nQuantity); // 0x004A9D70
+void __fastcall sub_004AA3A0_BuildSkillRows(D2UnitStrc* pUnit, int nX, int nArg3, int nArg4, int nArg5); // 0x004AA3A0
 void __stdcall sub_004AAAE0_DrawPagedPanel(void* pCellFile, int nPage); // 0x004AAAE0
-void __cdecl sub_004AACE0(); // 0x004AACE0
-void __stdcall sub_004AB310(int nValue); // 0x004AB310
+void __cdecl sub_004AACE0_DrawSkillTreeTexts(); // 0x004AACE0
+void __stdcall sub_004AB310_DrawTabHoverText(int nValue); // 0x004AB310
 void __cdecl sub_004AB530_DrawTabCel(); // 0x004AB530
-void __cdecl sub_004AB630(); // 0x004AB630
-void __cdecl sub_004AC200(); // 0x004AC200
-void __cdecl sub_004AC4D0(); // 0x004AC4D0
+void __cdecl sub_004AB630_DrawTabHint(); // 0x004AB630
+void __cdecl sub_004AC200_RefreshSkillTree(); // 0x004AC200
+void __cdecl sub_004AC4D0_DrawSkillTree(); // 0x004AC4D0
 int __fastcall sub_004D9FC0_GetSkillUseState(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x004D9FC0
 D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill); // 0x00644140
 int __stdcall SKILLS_GetClassIdFromSkillId(int nSkillId); // 0x00645040
@@ -286,7 +286,7 @@ void __stdcall sub_K05_EmitUse(int nValue);
 // 0x004A76C0
 static int sub_004A76C0_ClaimLeftPanelClick(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (D2GFX_GetResolutionMode() == 2 && !sub_00498DC0(pMsg) && pMsg->nXPos <= gnGlobal_0071146C / 2 && pMsg->nYPos < gnGlobal_00711470 - 0x2F)
+    if (D2GFX_GetResolutionMode() == 2 && !sub_00498DC0_MouseMoveMsg(pMsg) && pMsg->nXPos <= gnGlobal_0071146C / 2 && pMsg->nYPos < gnGlobal_00711470 - 0x2F)
     {
         if (sub_00468830() == 6)
             sub_00453EC0();
@@ -690,8 +690,8 @@ NEXT_TEXT:;
 
     sub_004EDA20_RefreshSkills(pPlayer);
     sub_00502EF0(0);
-    const int nLeftChance = sub_004A7340_GetChanceToHit(sub_004EDA80_CallSkillDescFunc(pPlayer, 1));
-    const int nRightChance = sub_004A7340_GetChanceToHit(sub_004EDA80_CallSkillDescFunc(pPlayer, 0));
+    const int nLeftChance = sub_004A7340_GetPercentA(sub_004EDA80_CallSkillDescFunc(pPlayer, 1));
+    const int nRightChance = sub_004A7340_GetPercentA(sub_004EDA80_CallSkillDescFunc(pPlayer, 0));
     const int nPercent = sub_004A74A0_GetPercentB();
     sub_004A7AE0_DrawHoverToHit(nMouseX, nMouseY, nLeftChance, nRightChance);
     sub_004A7180_DrawHoverLevelText(nMouseX, nMouseY, nPercent);
@@ -1232,7 +1232,7 @@ void __cdecl sub_004A9DF0_UpdateSkillIcons()
         D2SkillsTxt* pSkillsTxt = sub_00644140_GetSkillsTxtFromSkill(pSkill);
         if (BITARRAY_CHECK(pSkillsTxt->nFlags, 36))
         {
-            sub_004A9D70(pSkillsTxt, SKILLS_GetQuantity(pSkill));
+            sub_004A9D70_ClearSkillHotkeys(pSkillsTxt, SKILLS_GetQuantity(pSkill));
         }
         pSkill = SKILLS_GetNextSkill(pSkill);
     }
@@ -1251,20 +1251,20 @@ void __cdecl sub_004AA7E0_ResetSkillIcons()
     if (gbGlobal_007C07FC)
     {
         gtSkillIconState_007C0300.bFlag = 0;
-        sub_004AA3A0(sub_00463DD0_GetPlayerUnit(), 0x50, 1, 0, 0);
+        sub_004AA3A0_BuildSkillRows(sub_00463DD0_GetPlayerUnit(), 0x50, 1, 0, 0);
     }
     if (!gbGlobal_007C07FC)
     {
         gtSkillIconState_007C0300.bFlag = 0;
-        sub_004AA3A0(sub_00463DD0_GetPlayerUnit(), gnGlobal_0071146C - 0x80, 0, 0, 0);
+        sub_004AA3A0_BuildSkillRows(sub_00463DD0_GetPlayerUnit(), gnGlobal_0071146C - 0x80, 0, 0, 0);
     }
     if (gbGlobal_007C07FC)
     {
-        sub_004AA3A0(sub_00463DD0_GetPlayerUnit(), 0x50, 1, 1, 0);
+        sub_004AA3A0_BuildSkillRows(sub_00463DD0_GetPlayerUnit(), 0x50, 1, 1, 0);
     }
     if (!gbGlobal_007C07FC)
     {
-        sub_004AA3A0(sub_00463DD0_GetPlayerUnit(), gnGlobal_0071146C - 0x80, 0, 1, 0);
+        sub_004AA3A0_BuildSkillRows(sub_00463DD0_GetPlayerUnit(), gnGlobal_0071146C - 0x80, 0, 1, 0);
     }
 }
 
@@ -1300,22 +1300,22 @@ void __cdecl sub_004AC690_DrawSkillPanel()
     sub_00502EF0(1);
     gnGlobal_007C0C4C = 1;
     sub_004AAAE0_DrawPagedPanel(gaPanelCels_00724BF0[gbGlobal_007A0522].pCelFile, gnGlobal_00724BEC);
-    sub_004AACE0();
+    sub_004AACE0_DrawSkillTreeTexts();
     if (STATLIST_GetUnitBaseStat(pPlayer, 5, 0) > 0)
     {
         gnGlobal_007C0C40 = 1;
         gnGlobal_007C0C44 = 1;
-        sub_004AC200();
+        sub_004AC200_RefreshSkillTree();
     }
     else
     {
         gnGlobal_007C0C40 = 0;
         gnGlobal_007C0C44 = 0;
-        sub_004AC4D0();
+        sub_004AC4D0_DrawSkillTree();
     }
     sub_004AB530_DrawTabCel();
-    sub_004AB630();
-    sub_004AB310(gnGlobal_00724BEC);
+    sub_004AB630_DrawTabHint();
+    sub_004AB310_DrawTabHoverText(gnGlobal_00724BEC);
 }
 
 // 0x004A8CF0

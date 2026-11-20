@@ -61,7 +61,7 @@ extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
-Unicode* __fastcall sub_00526940_UnicodeStrStr(const Unicode* pString, const Unicode* pPattern); // 0x00526940
+Unicode* __fastcall sub_00526940_FindSubstring(const Unicode* pString, const Unicode* pPattern); // 0x00526940
 void __cdecl sub_004F9190(); // 0x004F9190
 void __cdecl sub_0043FBD0_Refresh(); // 0x0043FBD0
 int __fastcall sub_0044AAE0_SendSelect(const char* szName, int nB, int nC); // 0x0044AAE0
@@ -334,11 +334,11 @@ void __stdcall sub_00446A90_RemoveTableString(Unicode* pText)
     D2_ASSERT(sub_00526800(pText) < 500, 0x300);
     const Unicode* pPattern = D2LANG_GetStringFromTblIndex(0xF9A);
     const int nPatternLength = sub_00526800(pPattern);
-    Unicode* pFound = sub_00526940_UnicodeStrStr(pText, pPattern);
+    Unicode* pFound = sub_00526940_FindSubstring(pText, pPattern);
     while (pFound && pFound[nPatternLength].wChar)
     {
         memmove(pFound, &pFound[nPatternLength + 1], (sub_00526800(pFound) - nPatternLength) * sizeof(Unicode));
-        pFound = sub_00526940_UnicodeStrStr(pText, pPattern);
+        pFound = sub_00526940_FindSubstring(pText, pPattern);
     }
 }
 

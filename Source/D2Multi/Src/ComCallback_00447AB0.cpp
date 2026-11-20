@@ -25,7 +25,7 @@ struct T0043E860
 };
 extern "C" unsigned int __cdecl strlen(const char* szString);
 extern "C" int __cdecl strcmp(const char* szA, const char* szB);
-int __fastcall sub_0043E610_AddChatText(Unicode* pText, int nColor); // 0x0043E610
+int __fastcall sub_0043E610_PrintText(Unicode* pText, int nColor); // 0x0043E610
 int __fastcall sub_0043E630_ShowChannelText(Unicode* pText); // 0x0043E630
 void __stdcall sub_00446A90_RemoveTableString(Unicode* pText); // 0x00446A90
 void __cdecl sub_00448050_ClearSelectedUser(); // 0x00448050
@@ -60,7 +60,7 @@ static __declspec(noinline) int __stdcall sub_00447AB0_AddChatLine(const char* s
     Unicode wszText[0x240];
     sub_00526E40_Utf8ToUnicode(wszText, szText, 0x240);
     sub_00446A90_RemoveTableString(wszText);
-    sub_0043E610_AddChatText(wszText, nColor);
+    sub_0043E610_PrintText(wszText, nColor);
     return 1;
 }
 
@@ -220,7 +220,7 @@ int __fastcall sub_004496B0_OnJoinChannel(int nA, int nB, int nC, const char* sz
     Unicode wszText[0x240];
     sub_00526E40_Utf8ToUnicode(wszText, szText, 0x240);
     sub_00446A90_RemoveTableString(wszText);
-    sub_0043E610_AddChatText(wszText, 5);
+    sub_0043E610_PrintText(wszText, 5);
     strcpy(gData_00798D30, szChannel);
     strcpy(gpCharInfo_0077BBD8->szChannel0x361, gData_00798D30);
     if (!gpCharInfo_0077BBD8->szChannel0x381[0])

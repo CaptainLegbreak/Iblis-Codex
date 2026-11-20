@@ -94,10 +94,10 @@ int __fastcall AIUTIL_GetDistanceToCoordinates_FullUnitSize(D2UnitStrc* pTarget,
 int __stdcall UNITS_TestCollisionWithUnit(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int nCollisionMask); // 0x00622AA0
 int __stdcall STATLIST_GetUnitAlignment(D2UnitStrc* pUnit); // 0x006259B0
 int __fastcall sub_00472210_SeedRollMasked(D2SeedStrc* pSeed, int nMax); // 0x00472210
-void __fastcall sub_6FCBDD30(D2UnitStrc* pUnit, unsigned char nAlignNew, int a3); // 0x005543B0
+void __fastcall sub_005543B0_AssignAlignment(D2UnitStrc* pUnit, unsigned char nAlignNew, int a3); // 0x005543B0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
-int __stdcall sub_0061B130_GetCollision(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x0061B130
+int __stdcall D2Common_10095(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x0061B130
 int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nRangeBonus); // 0x00622C40
 
 // 0x005DCE60
@@ -414,22 +414,22 @@ static int __stdcall AIUTIL_ResolveTargetOverride(int bCheckCollision, int bUseE
         {
             if (sub_00472210_SeedRollMasked(&pUnit->pSeed, 2))
             {
-                sub_6FCBDD30(pUnit, 2, 1);
+                sub_005543B0_AssignAlignment(pUnit, 2, 1);
             }
             else
             {
-                sub_6FCBDD30(pUnit, 0, 1);
+                sub_005543B0_AssignAlignment(pUnit, 0, 1);
             }
         }
         else if (sub_00472210_SeedRollMasked(&pUnit->pSeed, 2))
         {
             if (nAlignment == 0)
             {
-                sub_6FCBDD30(pUnit, 2, 1);
+                sub_005543B0_AssignAlignment(pUnit, 2, 1);
             }
             else if (nAlignment == 2)
             {
-                sub_6FCBDD30(pUnit, 0, 1);
+                sub_005543B0_AssignAlignment(pUnit, 0, 1);
             }
         }
 
@@ -438,7 +438,7 @@ static int __stdcall AIUTIL_ResolveTargetOverride(int bCheckCollision, int bUseE
         {
             arg.pTarget = 0;
             arg.nDistance = 0x7FFFFFFF;
-            const int nUnk = sub_0061B130_GetCollision(UNITS_GetRoom(pUnit), CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit));
+            const int nUnk = D2Common_10095(UNITS_GetRoom(pUnit), CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit));
             arg.tSearch.bCheckTargetCollision = bCheckCollision;
             arg.tSearch.nMaxDistance = 35;
             arg.tSearch.unk0x10 = nUnk;
@@ -457,7 +457,7 @@ static int __stdcall AIUTIL_ResolveTargetOverride(int bCheckCollision, int bUseE
 
         pTarget = arg.pTarget;
         nDistance = arg.nDistance;
-        sub_6FCBDD30(pUnit, nAlignment, 1);
+        sub_005543B0_AssignAlignment(pUnit, nAlignment, 1);
         break;
     }
 

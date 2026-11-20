@@ -256,7 +256,7 @@ typedef bool(__fastcall* QUESTUPDATE)(D2GameStrc* pGame, D2QuestDataStrc* pQuest
 
 extern unsigned int gnA5Q1NpcIndices_00733928[]; // 0x00733928
 extern unsigned int gnA5Q4NpcIndices_007350E8[]; // 0x007350E8
-int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit); // 0x0045ADF0
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 void __fastcall QUESTS_CreateTimer(D2QuestDataStrc* pQuest, QUESTUPDATE pfnCallback, int nTicks); // 0x00543F10
 void __fastcall QUESTS_DeleteItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, int dwCode); // 0x00544160
@@ -738,7 +738,7 @@ int __fastcall OBJECTS_OperateFunction67_FrozenAnya(D2ObjOperateFnStrc* pOp, int
         if (!pQuestDataEx->bTimerActive)
         {
             pQuestDataEx->bTimerActive = 1;
-            pQuestDataEx->pDrehyaObjectOutsideTownCoords.nX = UNITS_GetXPosition(pOp->hObject);
+            pQuestDataEx->pDrehyaObjectOutsideTownCoords.nX = CLIENTS_GetUnitX(pOp->hObject);
             pQuestDataEx->pDrehyaObjectOutsideTownCoords.nY = CLIENTS_GetUnitY(pOp->hObject);
 
             QUESTS_CreateTimer(pQuestData, ACT5Q3_SpawnDrehyaIcedMonsterOutsideTown, 1);

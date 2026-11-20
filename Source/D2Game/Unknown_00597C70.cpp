@@ -35,7 +35,7 @@ void __fastcall D2GAME_PACKETS_SendPacket0x15_6FC3D0D0(D2ClientStrc* pClient, un
 void __fastcall sub_6FC3F4D0(D2ClientStrc* pClient, int a2, unsigned char a3, unsigned short a4, unsigned short a5, unsigned short a6, unsigned short a7); // 0x0053D880
 void __fastcall SUNITPROXY_UpdateGambleInventory(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pPlayer, D2ClientStrc* pClient); // 0x00537680
 D2UnitStrc* __stdcall CLIENTS_GetPlayerFromClient(D2ClientStrc* pClient, int bIgnoreDeath); // 0x00537860
-void __fastcall sub_6FCBB190(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom); // 0x00554670
+void __fastcall sub_00554670_UpdateClientsOnRoomChange(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom); // 0x00554670
 void __fastcall D2GAME_STATES_SendStates_6FCC5F00(D2UnitStrc* pUnit, D2ClientStrc* pClient, int bPlayer); // 0x00571580
 void __fastcall sub_6FCC5F20(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x005715A0
 void __fastcall sub_00571620(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00571620
@@ -47,7 +47,7 @@ void __fastcall MONSTERMSG_SendMonsterModeUpdate(D2GameStrc* pGame, D2UnitStrc* 
 unsigned char* __fastcall MONSTERUNIQUE_GetUMods(D2UnitStrc* pUnit); // 0x005A0120
 int __fastcall MONSTERUNIQUE_GetNameSeed(D2UnitStrc* pUnit); // 0x005A0140
 int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, int nFlag); // 0x005A0180
-unsigned char __fastcall sub_6FC62F50(D2UnitStrc* pUnit); // 0x005A5650
+unsigned char __fastcall MONSTERMODE_GetHpPercent128(D2UnitStrc* pUnit); // 0x005A5650
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
 int __stdcall MONSTERS_GetHirelingTypeId(D2UnitStrc* pUnit); // 0x0063EE90
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
@@ -144,7 +144,7 @@ void __fastcall MONSTERMSG_SendMonsterUpdates(D2GameStrc* pGame, D2UnitStrc* pUn
         if (sub_F05_UnitFlagExBit(pUnit, 16))
         {
             D2GAME_PACKETS_SendPacket0x15_6FC3D0D0(pClient, 0x15, pUnit->dwUnitType, pUnit->dwUnitId, sub_F05_MsgGetUnitX(pUnit), sub_F05_MsgGetUnitY(pUnit), 1);
-            sub_6FCBB190(pGame, pUnit, 0);
+            sub_00554670_UpdateClientsOnRoomChange(pGame, pUnit, 0);
         }
 
         if (sub_F05_UnitFlagBit(pUnit, 0))
@@ -208,7 +208,7 @@ void __fastcall MONSTERMSG_SendMonsterUpdates(D2GameStrc* pGame, D2UnitStrc* pUn
 static void __stdcall sub_00597CF0_SendLifeUpdate(D2UnitStrc* pUnit, D2ClientStrc* pClient)
 {
     const unsigned char nHitClass = pUnit->dwLastHitClass;
-    unsigned char nHpPct = sub_6FC62F50(pUnit);
+    unsigned char nHpPct = MONSTERMODE_GetHpPercent128(pUnit);
     STATLIST_SetUnitStat(pUnit, 0x160, nHpPct, 0);
     if (nHpPct > 1)
     {

@@ -47,10 +47,10 @@ struct D2MonGfxCacheStrc
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern int gdwGlobal_007A8928; // 0x007A8928
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
 D2MonGfxCacheStrc* __fastcall sub_0046F9D0_GetMonGfxCache(int nMonsterId); // 0x0046F9D0
-D2MissilesTxt* __fastcall DATATBLS_GetMissilesTxtRecord(int nMissileId); // 0x0046ACE0
+D2MissilesTxt* __fastcall sub_0046ACE0(int nMissileId); // 0x0046ACE0
 int __stdcall UNITS_GetAnimOrSeqMode(D2UnitStrc* pUnit); // 0x00621190
 void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pClass, int* pMode, const char* szFile, int nLine); // 0x00645270
 void __stdcall sub_006488A0_SetDirection(D2DynamicPathStrc* pPath, int nDirection); // 0x006488A0
@@ -111,7 +111,7 @@ static int __stdcall sub_004DAF70_GetUnitModeDirections(D2UnitStrc* pUnit, int n
     switch (nUnitType)
     {
     case 0:
-        if (!gdwGlobal_007A8928 && pUnit == sub_00463DD0())
+        if (!gdwGlobal_007A8928 && pUnit == sub_00463DD0_GetPlayerUnit())
         {
             nDirections = 16;
         }
@@ -141,7 +141,7 @@ static int __stdcall sub_004DAF70_GetUnitModeDirections(D2UnitStrc* pUnit, int n
 
     case 3:
     {
-        D2MissilesTxt* pMissilesTxtRecord = DATATBLS_GetMissilesTxtRecord(nClassId);
+        D2MissilesTxt* pMissilesTxtRecord = sub_0046ACE0(nClassId);
         if (pMissilesTxtRecord)
         {
             nDirections = pMissilesTxtRecord->nNumDirections;

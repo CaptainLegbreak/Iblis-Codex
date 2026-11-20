@@ -83,7 +83,7 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 D2CellFileStrc* __fastcall sub_004788B0_LoadCellFile(const char* szPath, int nType); // 0x004788B0
 void __stdcall sub_004FB500(const char* szPalette, const char* szPl2); // 0x004FB500
 void __fastcall sub_004547B0(); // 0x004547B0
-int __cdecl sub_00525150(); // 0x00525150
+int __cdecl STRTABLE_GetLanguage(); // 0x00525150
 void __fastcall sub_00478130_SetScale(int nValue, int nDivisor); // 0x00478130
 D2ActiveRoomStrc* __fastcall sub_004646A0_GetPlayerRoom(); // 0x004646A0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
@@ -161,7 +161,7 @@ extern int gnThreadReady_007A064C; // 0x007A064C
 extern D2LoadingTimerStrc gtLoadingTimer_007A0684; // 0x007A0684
 void __cdecl FOG_SetMemoryPoolSystemMode(D2PoolSystemStrc*,int); // 0x00409FF0
 void __fastcall sub_0044B440_PushValue(int); // 0x0044B440
-void __fastcall sub_0044BA20_SetResolution(int); // 0x0044BA20
+void __fastcall sub_0044BA20(int); // 0x0044BA20
 void __cdecl sub_0044C890_ReleaseGameState(); // 0x0044C890
 unsigned long __stdcall sub_0044CF20(void*); // 0x0044CF20
 int __stdcall sub_0044D100_ShowBetaScreens(int); // 0x0044D100
@@ -170,12 +170,12 @@ int __fastcall sub_0044E040_TimerRunning(D2LoadingTimerStrc*); // 0x0044E040
 void __cdecl sub_0044E200_InitGameState(); // 0x0044E200
 int __stdcall sub_0044E400_LoadingTimerCallback(int); // 0x0044E400
 int __stdcall sub_0044E770_DrawEndGameScreen(int); // 0x0044E770
-int __stdcall sub_0044EFA0_GameLoop(int); // 0x0044EFA0
+int __stdcall sub_0044EFA0_GameFrame(int); // 0x0044EFA0
 void __cdecl sub_00451620_WriteRecordFile(); // 0x00451620
-int __cdecl sub_00451910_IsRecording(); // 0x00451910
+int __cdecl sub_00451910(); // 0x00451910
 void __cdecl sub_00451940_InstallRecordHandler(); // 0x00451940
 void __cdecl sub_00451970(); // 0x00451970
-int __cdecl sub_00451980_IsReplaying(); // 0x00451980
+int __cdecl sub_00451980(); // 0x00451980
 int __fastcall sub_00451BB0_MessageLoop(D2IdleHandler); // 0x00451BB0
 void __fastcall sub_00451DB0_RegisterMsgHandlers(int,D2MsgHandlerEntryStrc*,unsigned int); // 0x00451DB0
 void __fastcall sub_00451E10_UnregisterMsgHandlers(int,D2MsgHandlerEntryStrc*,int); // 0x00451E10
@@ -552,7 +552,7 @@ void __cdecl sub_00456550_LoadLoadingScreen()
     char szPath[0x104];
     sub_004547B0();
     sub_00454740_LoadLoadingPalette();
-    if (sub_00525150())
+    if (STRTABLE_GetLanguage())
     {
         sprintf(szPath, "%s\\UI\\LoadingScreen", gszDataLocal_006D41A8);
     }
@@ -620,12 +620,12 @@ int __cdecl sub_0044F360_RunGameSession()
     }
     sub_00482260_UpdateSoundSystem(gpClientInfo_007A0438->nSoundArg);
     sub_0044E200_InitGameState();
-    if(sub_00451910_IsRecording() || sub_00451980_IsReplaying())
+    if(sub_00451910() || sub_00451980())
     {
         D2MessageStrc tMessage;
         while(PeekMessageA(&tMessage,0,0,0,1)){}
-        if(sub_00451980_IsReplaying())sub_00451970();
-        else if(sub_00451910_IsRecording())sub_00451940_InstallRecordHandler();
+        if(sub_00451980())sub_00451970();
+        else if(sub_00451910())sub_00451940_InstallRecordHandler();
     }
     FOG_SetMemoryPoolSystemMode(0,0);
     if(gnMode_007A0610==6 || gnMode_007A0610==8)
@@ -634,12 +634,12 @@ int __cdecl sub_0044F360_RunGameSession()
         gnThreadReady_007A064C=1;
         LeaveCriticalSection(&gtCriticalSection_007A0468);
     }
-    sub_00451BB0_MessageLoop(sub_0044EFA0_GameLoop);
+    sub_00451BB0_MessageLoop(sub_0044EFA0_GameFrame);
     GetTickCount();
     sub_00515F50_FadeOutMaster(180);
     sub_00481830();
     if(sub_0044E040_TimerRunning(&gtLoadingTimer_007A0684) && !gnDifficultyDirty_007A0604 && !gnCinematicPlayed_007A062C)sub_00451BB0_MessageLoop(sub_0044E400_LoadingTimerCallback);
-    if(sub_00451910_IsRecording())sub_00451620_WriteRecordFile();
+    if(sub_00451910())sub_00451620_WriteRecordFile();
     if(gnBetaScreens_007A0600)
     {
         sub_00451E10_UnregisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F2D0,10);
@@ -654,7 +654,7 @@ int __cdecl sub_0044F360_RunGameSession()
         sub_00482EF0_PlayCinematic(5);
         sub_00451E10_UnregisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F2D0,10);
         sub_0044DCE0_MouseExtTables();
-        sub_0044BA20_SetResolution(0);
+        sub_0044BA20(0);
         sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F418,9);
         sub_00451BB0_MessageLoop(sub_0044E770_DrawEndGameScreen);
     }
@@ -684,7 +684,7 @@ int __cdecl sub_0044F360_RunGameSession()
         {
             sub_00451E10_UnregisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F2D0,10);
             sub_0044DCE0_MouseExtTables();
-            sub_0044BA20_SetResolution(2);
+            sub_0044BA20(2);
             sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(),gtHandlers_0070F418,9);
             sub_00451BB0_MessageLoop(sub_0044E770_DrawEndGameScreen);
         }

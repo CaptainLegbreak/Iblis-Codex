@@ -86,7 +86,7 @@ extern UModInitFunc gpUModInitFunctions_0073C008[]; // 0x0073C008
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
-int __fastcall sub_0046C140_CheckMonStats2ModeFlag(int nMonsterId, int nMode); // 0x0046C140
+int __fastcall sub_0046C140_TestMonModeFlag(int nMonsterId, int nMode); // 0x0046C140
 int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50
 int __fastcall QUESTS_CreateChainRecord(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuestId); // 0x005436B0
 void __fastcall QUESTS_SetJadeFigurineBoss(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00544E80
@@ -104,8 +104,8 @@ int __fastcall MONSTERUNIQUE_GetUModCount(unsigned char* pUMods); // 0x005A0260
 void __fastcall MONSTERUNIQUE_UMod30_AuraEnchanted(D2UnitStrc* pUnit, int nUMod, int bUnique); // 0x005A1650
 void __fastcall AITHINK_ExecuteAiFn(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int nAiSpecialState); // 0x005B0E00
 D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int a7, int a8); // 0x005B2F20
-D2UnitStrc* __fastcall MONSTERSPAWN_SpawnAtUnitInCoordList(D2GameStrc* pGame, D2RoomCoordListStrc* pRoomCoordList, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int a6, short nFlags); // 0x005B2F70
-D2UnitStrc* __fastcall MONSTERSPAWN_SpawnInCoordList(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pRoomCoordList, int nX, int nY, int nMonsterId, int nAnimMode, int a8, short nFlags); // 0x005B3040
+D2UnitStrc* __fastcall sub_6FC69F70(D2GameStrc* pGame, D2RoomCoordListStrc* pRoomCoordList, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int a6, short nFlags); // 0x005B2F70
+D2UnitStrc* __fastcall sub_005B3040_SpawnInCoordList(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pRoomCoordList, int nX, int nY, int nMonsterId, int nAnimMode, int a8, short nFlags); // 0x005B3040
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
 int __stdcall D2Common_11063(D2ActiveRoomStrc* pRoom, int nMonsterId); // 0x0063EC70
@@ -123,7 +123,7 @@ unsigned int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, 
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
 void __stdcall STATLIST_AddUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x006272B0
 D2DifficultyLevelsTxt* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int nDifficulty); // 0x00611D30
-int __fastcall MONSTERS_GetBaseIdFromMonsterId(int nMonsterId); // 0x00463900
+int __fastcall sub_00463900_GetValidMonsterId(int nMonsterId); // 0x00463900
 
 static __forceinline int GetUnitType(D2UnitStrc* pUnit)
 {
@@ -392,7 +392,7 @@ static int __stdcall MONSTERUNIQUE_CanAssignUMod(D2UnitStrc* pUnit, D2MonUModTxt
     switch (pMonUModTxtRecord->nFPick)
     {
     case 1:
-        if (!sub_0046C140_CheckMonStats2ModeFlag(!pUnit ? -1 : pUnit->dwClassId, 4))
+        if (!sub_0046C140_TestMonModeFlag(!pUnit ? -1 : pUnit->dwClassId, 4))
         {
             return 0;
         }
@@ -414,7 +414,7 @@ static int __stdcall MONSTERUNIQUE_CanAssignUMod(D2UnitStrc* pUnit, D2MonUModTxt
         break;
 
     case 3:
-        if (!sub_0046C140_CheckMonStats2ModeFlag(!pUnit ? -1 : pUnit->dwClassId, 2))
+        if (!sub_0046C140_TestMonModeFlag(!pUnit ? -1 : pUnit->dwClassId, 2))
         {
             return 0;
         }
@@ -659,7 +659,7 @@ static D2UnitStrc* __stdcall MONSTERUNIQUE_SpawnUniqueMonster(D2GameStrc* pGame,
     D2UnitStrc* pMonster = 0;
     if (pRoomCoordList)
     {
-        pMonster = MONSTERSPAWN_SpawnInCoordList(pGame, pRoom, pRoomCoordList, nX, nY, nClassId, 1, -1, 64);
+        pMonster = sub_005B3040_SpawnInCoordList(pGame, pRoom, pRoomCoordList, nX, nY, nClassId, 1, -1, 64);
     }
     else if (nUnitGUID == -1)
     {
@@ -745,7 +745,7 @@ static void __stdcall sub_005A0C00_SpawnMinionGroup(D2GameStrc* pGame, D2RoomCoo
         D2UnitStrc* pMinion;
         if (pRoomCoordList)
         {
-            pMinion = MONSTERSPAWN_SpawnAtUnitInCoordList(pGame, pRoomCoordList, pUnit, nMinionId, 1, 3, 64);
+            pMinion = sub_6FC69F70(pGame, pRoomCoordList, pUnit, nMinionId, 1, 3, 64);
         }
         else
         {
@@ -1226,7 +1226,7 @@ void __fastcall sub_005A0E80_ApplyMonsterPenalty(D2UnitStrc* pUnit, int nMode, i
     {
         nDamage = nDamage * pDifficultyLevelsTxtRecord->nDamageBonusPercent / 100;
         nToHit = nToHit * pDifficultyLevelsTxtRecord->nDamageBonusPercent / 100;
-        if (MONSTERS_GetBaseIdFromMonsterId(sub_00463860_GetMonsterId(pUnit)) == 118)
+        if (sub_00463900_GetValidMonsterId(sub_00463860_GetMonsterId(pUnit)) == 118)
         {
             nDamage /= 2;
         }

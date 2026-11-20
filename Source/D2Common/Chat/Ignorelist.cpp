@@ -591,7 +591,7 @@ typedef void(__stdcall* PROFHOOKFN)(int nA, char* pBuffer, int nC);
 extern D2ProfileCounterStrc gaProfEntries[23]; // 0x00743800
 extern D2CompCodeTxt* gpCompCodeTxt; // 0x0096BCAC
 extern int gbCompileTxt; // 0x0096C8B4
-void __cdecl sub_006248E0_Log(int nA, int nB, int nC, int nFlags, const char* szFile, int nLine, const char* szFormat, ...); // 0x006248E0
+void __cdecl LOG_11100(int nA, int nB, int nC, int nFlags, const char* szFile, int nLine, const char* szFormat, ...); // 0x006248E0
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 int __fastcall DRLGROOM_GetWarpDestinationLevel(D2DrlgRoomStrc* pDrlgRoom, int nSourceLevel); // 0x0066BAC0
@@ -1005,9 +1005,9 @@ void __cdecl sub_006116B0_WriteProfileCounters()
 {
     __int64 nFrequency;
     QueryPerformanceFrequency(&nFrequency);
-    sub_006248E0_Log(1, 2, 1, 0x80000, ".\\Logging\\ProfCore.cpp", 0x4E, "PROFILING DUMP FREQUENCY %d:\n", nFrequency);
+    LOG_11100(1, 2, 1, 0x80000, ".\\Logging\\ProfCore.cpp", 0x4E, "PROFILING DUMP FREQUENCY %d:\n", nFrequency);
     for (int i = 0; i < 23; i++)
-        sub_006248E0_Log(1, 2, 1, 0x80000, ".\\Logging\\ProfCore.cpp", 0x54, "FUNCTION: %30s, TIME %12d, COUNT %5d", gaProfEntries[i].szName,
+        LOG_11100(1, 2, 1, 0x80000, ".\\Logging\\ProfCore.cpp", 0x54, "FUNCTION: %30s, TIME %12d, COUNT %5d", gaProfEntries[i].szName,
             (int)gaProfEntries[i].nTotal, gaProfEntries[i].nCount);
 }
 

@@ -86,7 +86,7 @@ void __cdecl sub_0044DA40(); // 0x0044DA40
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
 void __cdecl sub_00454980(); // 0x00454980
 void __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 void __cdecl sub_00466FE0(); // 0x00466FE0
 void __fastcall sub_00467430(D2RectStrc* pRect); // 0x00467430
 int __cdecl sub_00468730(); // 0x00468730
@@ -98,10 +98,10 @@ void __fastcall sub_004786A0_SendIntInt(char nHeader, int nArg1, int nArg2); // 
 void __cdecl sub_0049FE10(); // 0x0049FE10
 bool __stdcall sub_004A2970(int nX, int nY); // 0x004A2970
 void __fastcall sub_004A3FE0(int nMode); // 0x004A3FE0
-void __fastcall sub_004A45C0(int nStep); // 0x004A45C0
+void __fastcall sub_004A45C0_MoveSelection(int nStep); // 0x004A45C0
 void __fastcall sub_004A6260(int nId); // 0x004A6260
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
-void __fastcall sub_004EF990(D2UnitStrc* pUnit, int nId, int nA, int nB, int nState, int nX, int nY); // 0x004EF990
+void __fastcall sub_004EF990_SetSkillPopUpText(D2UnitStrc* pUnit, int nId, int nA, int nB, int nState, int nX, int nY); // 0x004EF990
 int __cdecl sub_004F59A0(); // 0x004F59A0
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
@@ -180,7 +180,7 @@ void __stdcall sub_0049CEC0_KeyMsgHandler(SMSGHANDLER_PARAMS* pMsg)
         return;
     }
 
-    if (!gbGlobal_007BF085 && sub_00463DD0() && UNITS_GetRoom(sub_00463DD0()))
+    if (!gbGlobal_007BF085 && sub_00463DD0_GetPlayerUnit() && UNITS_GetRoom(sub_00463DD0_GetPlayerUnit()))
     {
         sub_004786A0_SendIntInt(0x49, gnGlobal_007BF07D, 0);
         gbGlobal_007BF085 = 1;
@@ -386,7 +386,7 @@ void __stdcall sub_004A5A40_PrevEntryMsgHandler(SMSGHANDLER_PARAMS* pMsg)
     int nOldIndex = gnGlobal_007C02B0;
     do
     {
-        sub_004A45C0(-1);
+        sub_004A45C0_MoveSelection(-1);
     }
     while (*(int*)pEntries[gnGlobal_007C02B0].nId == 0x39);
 
@@ -413,7 +413,7 @@ void __stdcall sub_004A5AB0_NextEntryMsgHandler(SMSGHANDLER_PARAMS* pMsg)
     int nOldIndex = gnGlobal_007C02B0;
     do
     {
-        sub_004A45C0(1);
+        sub_004A45C0_MoveSelection(1);
     }
     while (*(int*)pEntries[gnGlobal_007C02B0].nId == 0x39);
 
@@ -630,7 +630,7 @@ void __fastcall sub_004A8D50_UpdateButton(short* pId, int nState, int nA, int nB
     nMouseY = sub_00468740();
     if (nMouseX >= nX && nMouseX <= nX + 48 && nMouseY >= nY - 48 && nMouseY <= nY)
     {
-        sub_004EF990(sub_00463DD0(), *pId, nA, nB, nState, nX, nY);
+        sub_004EF990_SetSkillPopUpText(sub_00463DD0_GetPlayerUnit(), *pId, nA, nB, nState, nX, nY);
     }
 }
 

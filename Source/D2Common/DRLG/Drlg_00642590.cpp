@@ -81,7 +81,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 void* __fastcall DUNGEON_GetMemPoolFromAct(D2DrlgActStrc* pAct); // 0x00619550
 void __fastcall DRLGACTIVATE_InitializeRoomExStatusLists(D2DrlgStrc* pDrlg); // 0x0061B7E0
-void __fastcall sub_00641F60(D2DrlgStrc* pDrlg); // 0x00641F60
+void __fastcall sub_00641F60_LoadTownTiles(D2DrlgStrc* pDrlg); // 0x00641F60
 D2DrlgLevelStrc* __fastcall DRLG_AllocLevel(D2DrlgStrc* pDrlg, int nLevelId); // 0x00642AE0
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, int nSeed); // 0x00650E40
 void __fastcall DRLGOUTPLACE_CreateLevelConnections(D2DrlgStrc* pDrlg, unsigned char nAct); // 0x00678AD0
@@ -199,7 +199,7 @@ D2DrlgStrc* __fastcall DRLG_AllocDrlg(D2DrlgActStrc* pAct, unsigned char nActNo,
         pDrlg->bJungleInterlink = SEED_RollRandomNumber(&pDrlg->pSeed) & 1;
     }
 
-    sub_00641F60(pDrlg);
+    sub_00641F60_LoadTownTiles(pDrlg);
     DRLGACTIVATE_InitializeRoomExStatusLists(pDrlg);
     DRLGOUTPLACE_CreateLevelConnections(pDrlg, nActNo);
 

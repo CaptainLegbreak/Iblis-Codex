@@ -77,9 +77,9 @@ void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeig
 
 
 void __fastcall sub_004E6410_BuildPropText(D2UnitStrc* pItem, Unicode* wszText, int nArg, int bFlag, int nArg2); // 0x004E6410
-int __fastcall sub_00501730_GetTextWidthN(const Unicode* wszText, int nLength); // 0x00501730
+int __fastcall D2Win_10123(const Unicode* wszText, int nLength); // 0x00501730
 int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
-void __fastcall sub_00502280_SetPopUpText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
+void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 T0044CB60* __fastcall sub_00502970_SplitText(Unicode* pText, int* pLineCount, int nWidth); // 0x00502970
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
@@ -140,7 +140,7 @@ extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);
 extern "C" unsigned int __cdecl strlen(const char* sz);
 const char* __fastcall sub_004795C0_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
 int __fastcall sub_0047A0C0_GetRecordUnitId(D2StoredUnitRecordStrc* pRecord); // 0x0047A0C0
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2ActiveRoomStrc* __fastcall sub_004646A0_GetPlayerRoom(); // 0x004646A0
 unsigned int __fastcall sub_004DC440(int nUnitId1, int nUnitId2, unsigned int nFlags); // 0x004DC440
 int __cdecl sub_005269D0_Sprintf(int nCount, Unicode* pDest, const Unicode* pFormat, ...); // 0x005269D0
@@ -316,7 +316,7 @@ void __cdecl sub_0049DC40_DrawTextList()
                     do
                     {
                         pNextLine = pTextLine->pNext;
-                        nWidth = sub_00501730_GetTextWidthN(pTextLine->pText, sub_00526800(pTextLine->pText));
+                        nWidth = D2Win_10123(pTextLine->pText, sub_00526800(pTextLine->pText));
                         if (nWidth)
                         {
                             sub_0046EFD0_DrawFramedBox(nX - 5, nY - 0xE, nWidth + 0xA, 0x10, 0, 1);
@@ -333,7 +333,7 @@ void __cdecl sub_0049DC40_DrawTextList()
             }
             else
             {
-                nWidth = sub_00501730_GetTextWidthN(pNode->pLines[i], sub_00526800(pNode->pLines[i]));
+                nWidth = D2Win_10123(pNode->pLines[i], sub_00526800(pNode->pLines[i]));
                 if (nWidth)
                 {
                     sub_0046EFD0_DrawFramedBox(nX - 4, 15 * nLine + nBaseY - 0xE, nWidth + 8, 0x10, 0, 1);
@@ -396,13 +396,13 @@ void ListBoxImplementation::sub_004BE410_DrawClippedText(const Unicode* wszSourc
 {
     Unicode wszText[1024];
     sub_005267E0(wszText, wszSource);
-    if (sub_00501730_GetTextWidthN(wszText, sub_00526800(wszText)) < nTextWidth - 0x32)
+    if (D2Win_10123(wszText, sub_00526800(wszText)) < nTextWidth - 0x32)
     {
         sub_00502320(wszText, nX, nY, nColor, 0);
         return;
     }
 
-    while (sub_00501730_GetTextWidthN(wszText, sub_00526800(wszText)) > nTextWidth - 0x32)
+    while (D2Win_10123(wszText, sub_00526800(wszText)) > nTextWidth - 0x32)
     {
         wszText[sub_00526800(wszText) - 1].wChar = 0;
     }
@@ -459,7 +459,7 @@ void __stdcall sub_004ED3F0_DrawHintText(int nArg1, int nStringIndex)
     sub_005269D0(100, wszText, D2LANG_GetStringFromTblIndex(0x1058), nArg1);
     sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0xF9E));
     sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nStringIndex));
-    sub_00502280_SetPopUpText(wszText, gnGlobal_0071146C - 0x80, gnGlobal_00711470 - 0x34, 0, 1);
+    D2Win_10129_DrawFramedText(wszText, gnGlobal_0071146C - 0x80, gnGlobal_00711470 - 0x34, 0, 1);
 }
 
 // 0x0049E8F0
@@ -467,7 +467,7 @@ static int sub_0049E8F0_FormatPartyEvent(Unicode* pOut, D2GSPacketSrv5A* pPacket
 {
     D2StoredUnitRecordStrc* pRecord = sub_00479BB0_FindRecord(pPacket->dwParam);
     Unicode wszName[16];
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     char szName[16];
     if (pRecord)
         strcpy(szName, sub_004795C0_GetEntryName(pRecord));
@@ -573,7 +573,7 @@ void __fastcall sub_0049EB10_HandleEventMessage(D2GSPacketSrv5A* pPacket)
         sub_00526700(wszBuffer, D2LANG_GetStringFromTblIndex(0xE38));
         break;
     case 2:
-        if (sub_00463DD0() && !strcmp(pPacket->szTextData[0], sub_0047A210(sub_00463DD0())))
+        if (sub_00463DD0_GetPlayerUnit() && !strcmp(pPacket->szTextData[0], sub_0047A210(sub_00463DD0_GetPlayerUnit())))
             break;
         D2_ASSERT(sub_00526800(D2LANG_GetStringFromTblIndex(0xE39)) < 0x104, 0x115C);
         sub_00526F20_ToUnicode(wszName, pPacket->szTextData[0], 16);

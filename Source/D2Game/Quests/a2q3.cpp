@@ -124,7 +124,7 @@ D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
 int __fastcall QUESTS_FastRemovePlayerGUID(D2QuestGUIDStrc* pGUIDs, int dwGUID); // 0x00545240
 void __fastcall QUESTS_CreateTimer(D2QuestDataStrc* pQuest, QUESTUPDATE pfnCallback, int nTicks); // 0x00543F10
-bool __fastcall ACT3Q7_SpawnVileDogs(D2GameStrc* pGame, D2QuestDataStrc* pQuestData); // 0x005BD390
+bool __fastcall sub_005BD390(D2GameStrc* pGame, D2QuestDataStrc* pQuestData); // 0x005BD390
 D2SeedStrc* __fastcall QUESTS_GetGlobalSeed(D2GameStrc* pGame); // 0x005438B0
 int __fastcall OBJECTS_RollRandomNumber(D2SeedStrc* pSeed, int nMin, int nMax); // 0x004BC500
 D2UnitStrc* __fastcall D2GAME_DropItemAtUnit_6FC4FEC0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuality, int* pItemLevel, void* pItemDrop, int a6, int a7); // 0x00559A30
@@ -193,7 +193,7 @@ void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQues
 void __fastcall ACT2Q3_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x00599FB0
 bool __fastcall ACT2Q3_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC); // 0x0059A1C0
 void __fastcall ACT2Q3_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x0059A270
-bool __fastcall ACT2Q3_SeqCallback(D2QuestDataStrc* pQuestData); // 0x0059A480
+bool __fastcall sub_0059A480_SeqCallback(D2QuestDataStrc* pQuestData); // 0x0059A480
 void __fastcall ACT2Q3_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x0059A5D0
 void __fastcall ACT2Q3_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x0059EBE0
 void __fastcall ACT2Q3_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x0059EE00
@@ -401,7 +401,7 @@ void __fastcall ACT3Q7_CreateVileDogSpawnTimer(D2GameStrc* pGame, D2UnitStrc* pU
 
     pQuestDataEx->bVileDogSpawnTimerCreated = 1;
     pQuestDataEx->nDarkWandererGUID = !pUnit ? -1 : pUnit->dwUnitId;
-    QUESTS_CreateTimer(pQuestData, ACT3Q7_SpawnVileDogs, 2);
+    QUESTS_CreateTimer(pQuestData, sub_005BD390, 2);
 }
 
 // 0x005994F0
@@ -554,7 +554,7 @@ void __fastcall ACT2Q3_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->pfStatusFilter = 0;
     pQuestData->nInitNo = 4;
     pQuestData->pfActiveFilter = ACT2Q3_ActiveFilterCallback;
-    pQuestData->pfSeqFilter = ACT2Q3_SeqCallback;
+    pQuestData->pfSeqFilter = sub_0059A480_SeqCallback;
     pQuestData->nSeqId = QUESTSTATEFLAG_A2Q3;
     memset(pQuestDataEx, 0x00, sizeof(D2Act2Quest3Strc));
     pQuestDataEx->nAltarMode = 0;

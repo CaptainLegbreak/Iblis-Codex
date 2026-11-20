@@ -46,7 +46,7 @@ struct D2PantherAiCallbackArgStrc
 typedef D2UnitStrc* (__fastcall* AIUTIL_TargetCallback)(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg);
 
 D2UnitStrc* __fastcall AITHINK_TargetCallback_Panther(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg); // 0x005B0D00
-D2UnitStrc* __fastcall sub_6FCF1E80(D2GameStrc* pGame, D2UnitStrc* pUnit, void* a3, AIUTIL_TargetCallback a4, int nCallbackId); // 0x005DD0B0
+D2UnitStrc* __fastcall AIUTIL_FindTargetWithCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* a3, AIUTIL_TargetCallback a4, int nCallbackId); // 0x005DD0B0
 void __fastcall AITACTICS_SetVelocity(D2UnitStrc* pUnit, int a2, int nVel, unsigned char a4); // 0x005DE190
 int __fastcall sub_6FCD0410(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nFlags); // 0x005DED40
 int __fastcall sub_005DF7D0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int a4, int bDeleteAiEventCallback); // 0x005DF7D0
@@ -59,7 +59,7 @@ D2AiCmdStrc* __fastcall AIGENERAL_GetCurrentAiCommandFromUnit(D2UnitStrc*); // 0
 void __fastcall AIGENERAL_FreeCurrentAiCommand(D2GameStrc*, D2UnitStrc*); // 0x0058ED10
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc*, int, int); // 0x00552F60
 int __stdcall UNITS_GetCurrentLifePercentage(D2UnitStrc*); // 0x00621F20
-int __fastcall D2GAME_AICORE_Escape_6FCD0560(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, unsigned char, int); // 0x005DEFE0
+int __fastcall sub_005DEFE0_Escape(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, unsigned char, int); // 0x005DEFE0
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc*, int); // 0x0045C390
 
 static __forceinline unsigned int AI_RollUnitSeed(D2UnitStrc* pUnit)
@@ -125,7 +125,7 @@ void __fastcall sub_005F22B0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParam
     D2PantherAiCallbackArgStrc arg;
     arg.pTarget = 0;
     arg.nDistance = 0x7FFFFFFF;
-    sub_6FCF1E80(pGame, pUnit, &arg, AITHINK_TargetCallback_Panther, 1);
+    AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, AITHINK_TargetCallback_Panther, 1);
 
     D2UnitStrc* pPanther = arg.pTarget;
     if (pPanther && arg.nDistance > AI_PARAM(pGame, pMonStatsTxt, 2) * AI_PARAM(pGame, pMonStatsTxt, 2))
@@ -216,7 +216,7 @@ void __fastcall sub_005F53E0_ThinkMonster(D2GameStrc* pGame, D2UnitStrc* pUnit, 
             return;
         }
         AITACTICS_SetVelocity(pUnit, 2, 50, 0);
-        if (D2GAME_AICORE_Escape_6FCD0560(pGame, pUnit, pTarget, 14, 1))
+        if (sub_005DEFE0_Escape(pGame, pUnit, pTarget, 14, 1))
             return;
         pAi->dwAiParam[0] = 0;
         pAi->dwAiParam[1] = 0;
@@ -228,7 +228,7 @@ void __fastcall sub_005F53E0_ThinkMonster(D2GameStrc* pGame, D2UnitStrc* pUnit, 
             pAi->dwAiParam[0] = 2;
             pAi->dwAiParam[1] = 0;
             AITACTICS_SetVelocity(pUnit, 2, 50, 0);
-            D2GAME_AICORE_Escape_6FCD0560(pGame, pUnit, pTarget, 14, 1);
+            sub_005DEFE0_Escape(pGame, pUnit, pTarget, 14, 1);
             return;
         }
         if (bCombat)

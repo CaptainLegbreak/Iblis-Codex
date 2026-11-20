@@ -21,10 +21,10 @@ int __cdecl sub_0043EBA0_ResetControls();                                       
 void __cdecl sub_00443220_DestroyControls();                                                                // 0x00443220
 void __fastcall BUTTON_SetIsPressed(D2WinControlStrc* pButton, int bIsPressed);                             // 0x005009A0
 void __cdecl sub_00443E10();                                                                                // 0x00443E10
-void __cdecl sub_004408B0();                                                                                // 0x004408B0
-void __cdecl sub_00440980();                                                                                // 0x00440980
-void __cdecl sub_00440A50();                                                                                // 0x00440A50
-void __cdecl sub_00440B30();                                                                                // 0x00440B30
+void __cdecl sub_004408B0_OpenClassSelectA();                                                                                // 0x004408B0
+void __cdecl sub_00440980_OpenClassSelectB();                                                                                // 0x00440980
+void __cdecl sub_00440A50_OpenClassSelectC();                                                                                // 0x00440A50
+void __cdecl sub_00440B30_OpenClassSelectD();                                                                                // 0x00440B30
 void __fastcall sub_0043EC60_SelectEntry(const char* szName, int nValueA, int nValueB);                    // 0x0043EC60
 
 // 0x00443870
@@ -92,16 +92,16 @@ int __stdcall sub_00443EF0_OnSelect(int nArg)
     if (gnPendingValueB_00798CE8)
     {
         if (gnPendingValueA_00798CE4)
-            sub_00440B30();
+            sub_00440B30_OpenClassSelectD();
         else
-            sub_00440A50();
+            sub_00440A50_OpenClassSelectC();
     }
     else
     {
         if (gnPendingValueA_00798CE4)
-            sub_00440980();
+            sub_00440980_OpenClassSelectB();
         else
-            sub_004408B0();
+            sub_004408B0_OpenClassSelectA();
     }
     sub_0043EC60_SelectEntry(gszName_00798CD4, gnPendingValueA_00798CE4, gnPendingValueB_00798CE8);
     return 1;

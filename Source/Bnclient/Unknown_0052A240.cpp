@@ -13,7 +13,7 @@ int __stdcall sub_00424F10(void* hResult, void* hLeft, void* hRight); // 0x00424
 int __stdcall sub_00424E70(void* hResult, void* hLeft, void* hRight); // 0x00424E70
 int __stdcall sub_00424ED0(void* hResult, void* hLeft, void* hRight); // 0x00424ED0
 void __stdcall sub_00425330(void* hResult, void* hArg1, void* hArg2, void* hArg3); // 0x00425330
-void __stdcall sub_0041D300_ZeroMemory(void* pDest, unsigned int nSize); // 0x0041D300
+void __stdcall SMemZero(void* pDest, unsigned int nSize); // 0x0041D300
 int __stdcall SBigIsPrime(D2StormBigStrc* pBig); // 0x004255C0
 
 // 0x0052A240
@@ -40,7 +40,7 @@ unsigned int __fastcall sub_0052A2A0_BigToBinary(void* hBig, void* pBuffer, unsi
     unsigned int nRead;
     SBigToBinaryBuffer(hBig, pBuffer, nSize, &nRead);
     if (nRead < nSize)
-        sub_0041D300_ZeroMemory((char*)pBuffer + nRead, nSize - nRead);
+        SMemZero((char*)pBuffer + nRead, nSize - nRead);
     return nRead;
 }
 

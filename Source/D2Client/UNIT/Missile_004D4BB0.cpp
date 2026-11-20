@@ -45,7 +45,7 @@ struct D2MissileStrc
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
-int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit);                                                       // 0x0045ADF0
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                                                       // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                          // 0x0045C390
 D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType);                             // 0x00463990
@@ -106,7 +106,7 @@ void __fastcall sub_004D4BB0_CltDoObjectSpawn(D2UnitStrc* pMissile)
                 if (pMissilesTxtRecord->wCltSubMissile[0] > 0)
                 {
                     const int nLevel = MISSILE_GetLevel(pMissile);
-                    D2UnitStrc* pNew = (D2UnitStrc*)sub_004CDB40_SubmitRequest(pOwner, pMissilesTxtRecord->wCltSubMissile[0], UNITS_GetXPosition(pUnit), CLIENTS_GetUnitY(pUnit), MISSILE_GetSkill(pMissile), nLevel);
+                    D2UnitStrc* pNew = (D2UnitStrc*)sub_004CDB40_SubmitRequest(pOwner, pMissilesTxtRecord->wCltSubMissile[0], CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), MISSILE_GetSkill(pMissile), nLevel);
                     if (pNew)
                     {
                         sub_004CE4B0_InitMotion(pNew);
@@ -127,12 +127,12 @@ void __fastcall sub_004D4BB0_CltDoObjectSpawn(D2UnitStrc* pMissile)
                         memset(&tMissile, 0, sizeof(tMissile));
                         tMissile.dwFlags = 0x421;
                         tMissile.pOwner = pOwner;
-                        tMissile.nX = UNITS_GetXPosition(pUnit);
+                        tMissile.nX = CLIENTS_GetUnitX(pUnit);
                         tMissile.nY = CLIENTS_GetUnitY(pUnit);
                         tMissile.nSkill = MISSILE_GetSkill(pMissile);
                         tMissile.nSkillLevel = MISSILE_GetLevel(pMissile);
                         tMissile.nMissile = pMissilesTxtRecord->wCltSubMissile[1];
-                        tMissile.nTargetX = UNITS_GetXPosition(pTarget);
+                        tMissile.nTargetX = CLIENTS_GetUnitX(pTarget);
                         tMissile.nTargetY = CLIENTS_GetUnitY(pTarget);
                         sub_004CD540_CreateMissile(&tMissile);
                         if (!SEED_RollLimitedRandomNumber(&pTarget->pSeed, 4))

@@ -37,7 +37,7 @@ int __fastcall sub_005697B0(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char*
 }
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit);                                         // 0x006221A0
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType);                                      // 0x00629BB0
-int __stdcall sub_0062FDC0(D2UnitStrc* pPlayer, D2UnitStrc* pItem, int nDifficulty, D2BitBufferStrc* pQuestFlags, int nVendorId, int a6); // 0x0062FDC0
+int __stdcall sub_0062FDC0_GetRepairCost(D2UnitStrc* pPlayer, D2UnitStrc* pItem, int nDifficulty, D2BitBufferStrc* pQuestFlags, int nVendorId, int a6); // 0x0062FDC0
 D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory);                                  // 0x0063B2C0
 unsigned int __stdcall INVENTORY_GetItemCount(D2InventoryStrc* pInventory);                                 // 0x0063CD60
 D2CorpseStrc* __stdcall INVENTORY_GetFirstCorpse(D2InventoryStrc* pInventory);                              // 0x0063D570
@@ -73,7 +73,7 @@ int __fastcall PLRSAVE2_WriteCorpsesSection(D2GameStrc* pGame, D2UnitStrc* pPlay
                 if (!ITEMSIsA(pInvItem, 4))
                 {
                     D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
-                    nValue += sub_0062FDC0(pPlayer, pInvItem, 3, pQuestFlags, 0x201, 0);
+                    nValue += sub_0062FDC0_GetRepairCost(pPlayer, pInvItem, 3, pQuestFlags, 0x201, 0);
                 }
             }
 

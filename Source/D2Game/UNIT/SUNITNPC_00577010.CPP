@@ -45,7 +45,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 extern "C" const char gszNpcSourceFile[]; // 0x006E15F0
 D2HirelingTxt* __stdcall sub_006564D0_GetHirelingTxtRecord(int, int, int, int); // 0x006564D0
 void __fastcall FOG_FreeServerMemory(void*, void*, const char*, int, int); // 0x0040B480
-void __fastcall sub_00576070(D2GameStrc*, int, D2NpcRecordStrc*); // 0x00576070
+void __fastcall sub_00576070_InitGamble(D2GameStrc*, int, D2NpcRecordStrc*); // 0x00576070
 
 struct D2SeedStrc { unsigned int nLowSeed,nHighSeed; };
 
@@ -69,7 +69,7 @@ D2InventoryStrc* __stdcall INVENTORY_AllocInventory(void*,D2UnitStrc*); // 0x006
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc*,int,int); // 0x00625480
 D2SeedStrc* __fastcall SUNITPROXY_GetSeedFromNpcControl(D2GameStrc*); // 0x00536B40
 int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc*,int); // 0x0045C3E0
-D2UnitStrc* __fastcall sub_00559CE0_CreateItem(D2UnitStrc*,int,D2GameStrc*,int,int,int,int,int,int,int,int); // 0x00559CE0
+D2UnitStrc* __fastcall D2GAME_CreateItemUnit_6FC501A0(D2UnitStrc*,int,D2GameStrc*,int,int,int,int,int,int,int,int); // 0x00559CE0
 void __stdcall sub_00628280(D2UnitStrc*,int); // 0x00628280
 void __fastcall sub_005761C0_UpdateItem(D2GameStrc*,D2UnitStrc*,int); // 0x005761C0
 void __stdcall ITEMS_SetItemFlag(D2UnitStrc*,int,int); // 0x006280D0
@@ -106,7 +106,7 @@ void __fastcall sub_00577010_VendorRefresh(D2GameStrc* pGame, int nVendorId, D2N
         FOG_FreeServerMemory(pGame->pMemoryPool, pNpcRecord->pMercData, gszNpcSourceFile, 0x63D, 0);
         pNpcRecord->pMercData = 0;
         pNpcRecord->bInitialized = 0;
-        sub_00576070(pGame, nVendorId, pNpcRecord);
+        sub_00576070_InitGamble(pGame, nVendorId, pNpcRecord);
     }
 }
 
@@ -234,7 +234,7 @@ void __fastcall D2GAME_STORES_FillGamble_6FCCA9F0(D2GameStrc* pGame,D2UnitStrc* 
    }
   }
   ++nItems;
-  D2UnitStrc* pItem = sub_00559CE0_CreateItem(pNpc,nItemId,pGame,4,nQuality,0,1,nItemLevel,0,0,0);
+  D2UnitStrc* pItem = D2GAME_CreateItemUnit_6FC501A0(pNpc,nItemId,pGame,4,nQuality,0,1,nItemLevel,0,0,0);
   if(!pItem) continue;
   {
    sub_00628280(pItem,0);

@@ -56,7 +56,7 @@ struct D2ItemDropStrc
 };
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-D2ActiveRoomStrc* __fastcall D2GAME_GetRoom_6FC52070(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -91,7 +91,7 @@ void __stdcall ITEMS_SetFileIndex(D2UnitStrc*,int); // 0x00629DF0
 void __stdcall ITEMS_SetItemFlag(D2UnitStrc*,int,int); // 0x006280D0
 void __stdcall sub_0065FEC0_ApplyProperties(int,void*,D2UnitStrc*,int,int,int); // 0x0065FEC0
 int __stdcall ITEMS_GetItemLevel(D2UnitStrc*); // 0x006281E0
-int __stdcall sub_00628C70_IsSpecial(D2UnitStrc*); // 0x00628C70
+int __stdcall ITEMS_GetUniqueColumnFromItemsTxt(D2UnitStrc*); // 0x00628C70
 D2SeedStrc* __stdcall ITEMS_GetItemSeed(D2UnitStrc*); // 0x00627D90
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
@@ -108,7 +108,7 @@ int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem); // 0x0062B400
 int __stdcall ITEMS_GetQuiverType(D2UnitStrc* pItem); // 0x0062E740
 unsigned char __stdcall ITEMS_GetVarInvGfxCount(D2UnitStrc* pItem); // 0x0062E8D0
-void __stdcall ITEMMODS_SetRandomElixirFileIndex(D2UnitStrc* pItem); // 0x0065E8E0
+void __stdcall sub_0065E8E0_InitItemFileIndex(D2UnitStrc* pItem); // 0x0065E8E0
 int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc*); // 0x0062BA80
 int __stdcall STATLIST_GetMaxDurabilityFromUnit(D2UnitStrc*); // 0x00625E00
 void __fastcall ITEMS_ScheduleDurabilityReplenishment(D2GameStrc*,D2UnitStrc*); // 0x00558530
@@ -190,7 +190,7 @@ D2UnitStrc* __fastcall sub_00559130_DropRandomItem(D2GameStrc* pGame, D2ActiveRo
 
     const int nX = coords2.nX + 2;
     const int nY = coords2.nY + 3;
-    if (D2GAME_GetRoom_6FC52070(pRoom, nX, nY))
+    if (sub_00463740_FindRoomAtPoint(pRoom, nX, nY))
     {
         coords1.nX = nX;
         coords1.nY = nY;
@@ -357,7 +357,7 @@ int __stdcall sub_005566B0_RollUniqueItem(D2GameStrc* pGame,D2UnitStrc* pItem,D2
  }
  if(nCount<=0)
  {
-  if(sub_00628C70_IsSpecial(pItem)) return 1;
+  if(ITEMS_GetUniqueColumnFromItemsTxt(pItem)) return 1;
   ITEMS_SetFileIndex(pItem,-1);
   return 0;
  }
@@ -590,7 +590,7 @@ int __fastcall D2GAME_InitItemStats_6FC4E520(D2GameStrc* pGame, D2UnitStrc** ppI
 
             if (ITEMS_GetItemType(*ppItem) == 11)
             {
-                ITEMMODS_SetRandomElixirFileIndex(*ppItem);
+                sub_0065E8E0_InitItemFileIndex(*ppItem);
             }
         }
     }

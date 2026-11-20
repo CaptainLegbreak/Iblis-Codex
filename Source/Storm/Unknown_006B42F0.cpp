@@ -66,7 +66,7 @@ extern "C" char* __cdecl sub_00687330_Strncpy(char*,const char*,unsigned int); /
 extern "C" void __cdecl sub_00410610_WriteLogLine(const char*,...); // 0x00410610
 void __cdecl sub_00407360_GetSystemInfo(); // 0x00407360
 extern "C" HRESULT __stdcall sub_006B1350_DirectDrawCreate(GUID*,IDirectDraw**,void*); // 0x006B1350
-void __fastcall sub_006B20E0(const char*,HRESULT) throw(); // 0x006B20E0
+void __fastcall sub_006B20E0_DDrawLogError(const char*,HRESULT) throw(); // 0x006B20E0
 void __fastcall sub_006B39B0(const char*,HRESULT) throw(); // 0x006B39B0
 int __stdcall sub_006B3FD0(DDSURFACEDESC2*,void*); // 0x006B3FD0
 int __stdcall sub_006B1B60_EnumTextureFormat(void*,void*); // 0x006B1B60
@@ -158,9 +158,9 @@ int __stdcall sub_006B42F0_EnumerateD3DDevices(GUID* guid,char* description,char
   if(!guid) display->flags|=gFlag_006CE268;
   else { display->flags&=gFlag_006CE2E8; display->guid=*guid; }
   HRESULT hr=sub_006B1350_DirectDrawCreate(guid,&dd,0);
-  if(hr) { sub_006B20E0(gsz_006FBED8,hr); goto Cleanup; }
+  if(hr) { sub_006B20E0_DDrawLogError(gsz_006FBED8,hr); goto Cleanup; }
   hr=dd->vtbl->QueryInterface(dd,&gIIDDirectDraw4,(void**)&gpDirectDraw4);
-  if(hr) { sub_006B20E0(gsz_006FBEA8,hr); goto Cleanup; }
+  if(hr) { sub_006B20E0_DDrawLogError(gsz_006FBEA8,hr); goto Cleanup; }
   dd->vtbl->Release(dd); dd=0;
 
   DDDEVICEIDENTIFIER aIdentifier[2];
@@ -173,11 +173,11 @@ int __stdcall sub_006B42F0_EnumerateD3DDevices(GUID* guid,char* description,char
    sub_00410610_WriteLogLine(gsz_006FBE60,display->vendor,display->device);
   }
   hr=gpDirectDraw4->vtbl->QueryInterface(gpDirectDraw4,&gIIDDirect3D3,(void**)&gpDirect3D3);
-  if(hr) { sub_006B20E0(gsz_006FBE44,hr); goto Cleanup; }
+  if(hr) { sub_006B20E0_DDrawLogError(gsz_006FBE44,hr); goto Cleanup; }
   hr=gpDirectDraw4->vtbl->SetCooperativeLevel(gpDirectDraw4,ghEnumerationWindow,0x11);
-  if(hr) { sub_006B20E0(gsz_006FBE28,hr); goto Cleanup; }
+  if(hr) { sub_006B20E0_DDrawLogError(gsz_006FBE28,hr); goto Cleanup; }
   hr=gpDirectDraw4->vtbl->EnumDisplayModes(gpDirectDraw4,0,0,display,sub_006B3FD0);
-  if(hr) { sub_006B20E0(gsz_006FBE08,hr); goto Cleanup; }
+  if(hr) { sub_006B20E0_DDrawLogError(gsz_006FBE08,hr); goto Cleanup; }
   if(!display->modeCount) { sub_00410610_WriteLogLine(gsz_006FBDDC); goto Cleanup; }
   int hasUI=0,hasGame=0,has32=0,has24=0;
   int invalid=0;
@@ -194,16 +194,16 @@ int __stdcall sub_006B42F0_EnumerateD3DDevices(GUID* guid,char* description,char
   if(invalid) goto Cleanup;
   D2DisplayModeStrc* mode=&display->modes[display->modeCount-1];
   hr=gpDirectDraw4->vtbl->SetDisplayMode(gpDirectDraw4,mode->width,mode->height,mode->bpp,mode->refresh,0);
-  if(hr) { sub_006B20E0(gsz_006FBD08,hr); goto Cleanup; }
+  if(hr) { sub_006B20E0_DDrawLogError(gsz_006FBD08,hr); goto Cleanup; }
   DDSURFACEDESC2 surface={sizeof(surface)};
   surface.flags=0x21;surface.caps.caps=0x6218;surface.backCount=1;
   hr=gpDirectDraw4->vtbl->CreateSurface(gpDirectDraw4,&surface,&primary,0);
-  if(hr) { sub_006B20E0(gsz_006FBCE4,hr); goto Cleanup; }
+  if(hr) { sub_006B20E0_DDrawLogError(gsz_006FBCE4,hr); goto Cleanup; }
   DDSCAPS2 attachCaps;memset(&attachCaps,0,sizeof(attachCaps));attachCaps.caps=4;
   hr=primary->vtbl->GetAttachedSurface(primary,&attachCaps,&back);
-  if(hr) { sub_006B20E0(gsz_006FBCC0,hr); goto Cleanup; }
+  if(hr) { sub_006B20E0_DDrawLogError(gsz_006FBCC0,hr); goto Cleanup; }
   hr=gpDirectDraw4->vtbl->GetCaps(gpDirectDraw4,&caps,0);
-  if(hr) { sub_006B20E0(gsz_006FBCA8,hr); goto Cleanup; }
+  if(hr) { sub_006B20E0_DDrawLogError(gsz_006FBCA8,hr); goto Cleanup; }
   if(!(caps.caps&1)) { sub_00410610_WriteLogLine(gsz_006FBC88); goto Cleanup; }
   if(caps.caps2&0x20000) display->flags|=gFlag_006CE278;
   else sub_00410610_WriteLogLine(gsz_006FBC64);
@@ -225,17 +225,17 @@ int __stdcall sub_006B42F0_EnumerateD3DDevices(GUID* guid,char* description,char
   sub_00410610_WriteLogLine(gsz_006FBB00,display->videoTotal/1048576.0f,display->videoFree/1048576.0f);
   DDSCAPS2 memoryCaps;memset(&memoryCaps,0,sizeof(memoryCaps));memoryCaps.caps=0x5000;
   hr=gpDirectDraw4->vtbl->GetAvailableVidMem(gpDirectDraw4,&memoryCaps,&display->textureTotal,&display->textureFree);
-  if(hr) { sub_006B20E0(gsz_006FBAD8,hr); goto Cleanup; }
+  if(hr) { sub_006B20E0_DDrawLogError(gsz_006FBAD8,hr); goto Cleanup; }
   sub_00410610_WriteLogLine(gsz_006FBAA4,display->textureTotal/1048576.0f,display->textureFree/1048576.0f);
   memset(&memoryCaps,0,sizeof(memoryCaps));memoryCaps.caps=0x10005000;
   hr=gpDirectDraw4->vtbl->GetAvailableVidMem(gpDirectDraw4,&memoryCaps,&display->localTotal,&display->localFree);
-  if(hr) { sub_006B20E0(gsz_006FBA74,hr); goto Cleanup; }
+  if(hr) { sub_006B20E0_DDrawLogError(gsz_006FBA74,hr); goto Cleanup; }
   sub_00410610_WriteLogLine(gsz_006FBA48,display->localTotal/1048576.0f,display->localFree/1048576.0f);
   if((caps.caps2&0x200)&&(hardware.devCaps&0x1000)) {
    display->flags|=gFlag_006CE26C;
    memset(&memoryCaps,0,sizeof(memoryCaps));memoryCaps.caps=0x20005000;
    hr=gpDirectDraw4->vtbl->GetAvailableVidMem(gpDirectDraw4,&memoryCaps,&display->agpTotal,&display->agpFree);
-   if(hr) sub_006B20E0(gsz_006FBA1C,hr);
+   if(hr) sub_006B20E0_DDrawLogError(gsz_006FBA1C,hr);
    else sub_00410610_WriteLogLine(gsz_006FB9F4,display->agpTotal/1048576.0f,display->agpFree/1048576.0f);
   } else sub_00410610_WriteLogLine(gsz_006FB9C4);
   hr=device->vtbl->EnumTextureFormats(device,sub_006B1B60_EnumTextureFormat,display);

@@ -59,11 +59,11 @@ int __fastcall sub_0044B190_DispatchPacket(const char* pPacket, unsigned int nSi
 int __fastcall sub_0044D9F0_RunInitHandlers(void* pArg); // 0x0044D9F0
 int __stdcall sub_0044B5C0_OnExtraArgument(const char* szArgument); // 0x0044B5C0
 int __stdcall sub_0044B5D0_OnArgumentError(const char* szArgument); // 0x0044B5D0
-void __fastcall sub_0044E380_SetConnectionError(int nError); // 0x0044E380
+void __fastcall sub_0044E380_ShowLoadingMessage(int nError); // 0x0044E380
 int __stdcall CLIENT_DequeueGamePacket(unsigned char* pBuffer, unsigned int nBufferSize); // 0x0052A890
 int __stdcall CLIENT_DequeueSystemPacket(unsigned char* pBuffer, unsigned int nBufferSize); // 0x0052A8B0
 void __fastcall sub_0045C850_HandleSystemPacket(unsigned char* pPacket, int nLength); // 0x0045C850
-void __fastcall sub_0045F7B0_HandleGamePacket(unsigned char* pPacket, int nLength); // 0x0045F7B0
+void __fastcall sub_0045F7B0_ProcessPackets(unsigned char* pPacket, int nLength); // 0x0045F7B0
 extern void* gpConnection_00798FB4; // 0x00798FB4
 extern const char* gpszLaunchModeNames_0070EE70[7]; // 0x0070EE70
 extern const D2CmdArgStrc gtCommandLineArgs_006D5BE8[8]; // 0x006D5BE8
@@ -227,7 +227,7 @@ struct Unicode
 void __stdcall sub_00449DD0_SetValue(int nValue); // 0x00449DD0
 int __stdcall SStrLen(const char* szString); // 0x00413750
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
-void __stdcall sub_0044B230_FilterText(Unicode* pText); // 0x0044B230
+void __stdcall sub_0044B230_StripStringAndNextChar(Unicode* pText); // 0x0044B230
 char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70
 extern int gdwGlobal_00798FB0; // 0x00798FB0
 extern int gdwGlobal_00798F88; // 0x00798F88
@@ -403,7 +403,7 @@ int __stdcall sub_0044BAD0_PollSystemPackets(int nUnused)
     {
         if (GetTickCount() - gdwTick_007A0464 > 10000)
         {
-            sub_0044E380_SetConnectionError(6);
+            sub_0044E380_ShowLoadingMessage(6);
             gdwGlobal_007A0460 = 1;
             gdwGlobal_007A0618 = 0;
             return 1;
@@ -455,7 +455,7 @@ void __cdecl sub_0044C6E0_DrainPacketQueues()
     do
     {
         nLength = CLIENT_DequeueGamePacket(pBuffer, sizeof(pBuffer));
-        sub_0045F7B0_HandleGamePacket(pBuffer, nLength);
+        sub_0045F7B0_ProcessPackets(pBuffer, nLength);
         Sleep(0);
     }
     while (nLength != -1);
@@ -699,7 +699,7 @@ int __fastcall sub_0044B2D0_McpIncoming05(D2McpPacket05Strc* pPacket, int nSize)
     const unsigned int nSecondLength = strlen(pString);
     Unicode wszText[0x240];
     sub_00526F20_ToUnicode(wszText, szFirst, 0x240);
-    sub_0044B230_FilterText(wszText);
+    sub_0044B230_StripStringAndNextChar(wszText);
     char szText[0x400];
     sub_00526F70(szText, wszText, 0x400);
     SStrCopy(gMcpInfo_0079910C.unk0x18, szText, 0x10);

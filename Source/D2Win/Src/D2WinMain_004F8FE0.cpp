@@ -61,7 +61,7 @@ int __fastcall BUTTON_Destroy(D2WinControlStrc* pControl);                      
 void __cdecl sub_005015F0();                                                                                // 0x005015F0
 void __fastcall D2Win_10115_FONT();                                                                         // 0x00502C60
 int __fastcall sub_00502EF0(int nArg);                                                                      // 0x00502EF0
-void __fastcall sub_00503A50(D2CompositeUnitStrc* pCompositeUnit);                                          // 0x00503A50
+void __fastcall sub_00503A50_DrawCompositeShadow(D2CompositeUnitStrc* pCompositeUnit);                                          // 0x00503A50
 void __fastcall sub_00503BA0(D2CompositeUnitStrc* pCompositeUnit, int nValue);                              // 0x00503BA0
 D2CompositeUnitStrc* __cdecl sub_00505150();                                                                // 0x00505150
 D2CompositeUnitStrc* __stdcall D2Win_10148(D2CompositeUnitStrc* pCompositeUnit);                            // 0x00505160
@@ -267,7 +267,7 @@ void __cdecl sub_004F9870_DrawFontCaches()
 {
     for (D2CompositeUnitStrc* p = sub_00505150(); p; p = D2Win_10148(p))
     {
-        sub_00503A50(p);
+        sub_00503A50_DrawCompositeShadow(p);
     }
 
     for (D2CompositeUnitStrc* p = sub_00505150(); p; p = D2Win_10148(p))

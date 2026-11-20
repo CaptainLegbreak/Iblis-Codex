@@ -73,7 +73,7 @@ extern int gnDiffSelect_00798CD0;                                               
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 void __fastcall sub_0043FB50_ShowWait(const Unicode* pText, int (__stdcall* pfnDone)(int));                 // 0x0043FB50
 void __cdecl sub_004453B0_BuildPanel();                                                                     // 0x004453B0
-void __fastcall sub_004FD060_SetText(D2WinControlStrc* pControl, const Unicode* pText);                     // 0x004FD060
+void __fastcall D2Win_10044(D2WinControlStrc* pControl, const Unicode* pText);                     // 0x004FD060
 void __stdcall sub_004FA450(D2WinControlStrc* pControl);                                                     // 0x004FA450
 void __fastcall sub_004FDAD0_SetKeyCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(D2WinControlStrc*, int, const char*));// 0x004FDAD0
 void __fastcall sub_004FDB00_SetEnterCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(int));// 0x004FDB00
@@ -109,17 +109,17 @@ void __cdecl sub_00445FF0_BuildCreateScreen()
     gpCharInfo_0077BBD8->nByte210 = 0;
     gpPanelControl_00798BEC = CONTROL_Create(&gtControlInit_0070DA50);
     gpControl_00798BF0 = CONTROL_Create(&gtControlInit_0070DA80);
-    sub_004FD060_SetText(gpControl_00798BF0, D2LANG_GetStringFromTblIndex(0x141E));
+    D2Win_10044(gpControl_00798BF0, D2LANG_GetStringFromTblIndex(0x141E));
     gpControl_00798BF4 = CONTROL_Create(&gtControlInit_0070DAB0);
-    sub_004FD060_SetText(gpControl_00798BF4, D2LANG_GetStringFromTblIndex(0x149A));
+    D2Win_10044(gpControl_00798BF4, D2LANG_GetStringFromTblIndex(0x149A));
     gpControl_00798BF8 = CONTROL_Create(&gtControlInit_0070DAE0);
-    sub_004FD060_SetText(gpControl_00798BF8, D2LANG_GetStringFromTblIndex(0x1488));
+    D2Win_10044(gpControl_00798BF8, D2LANG_GetStringFromTblIndex(0x1488));
     gpControl_00798BFC = CONTROL_Create(&gtControlInit_0070DB10);
-    sub_004FD060_SetText(gpControl_00798BFC, D2LANG_GetStringFromTblIndex(0x1489));
+    D2Win_10044(gpControl_00798BFC, D2LANG_GetStringFromTblIndex(0x1489));
     if (sub_00449B30_QueryAddress())
     {
         gpControl_00798C00 = CONTROL_Create(&gtControlInit_0070DB40);
-        sub_004FD060_SetText(gpControl_00798C00, D2LANG_GetStringFromTblIndex(0x148A));
+        D2Win_10044(gpControl_00798C00, D2LANG_GetStringFromTblIndex(0x148A));
     }
     gpControl_00798C28 = CONTROL_Create(&gtControlInit_0070DCC0);
     gpControl_00798C48 = CONTROL_Create(&gtControlInit_0070E110);

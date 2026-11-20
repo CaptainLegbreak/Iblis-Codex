@@ -98,8 +98,8 @@ D2GfxDataStrc* __fastcall sub_00463E10_GetGfxData(D2UnitStrc* pUnit); // 0x00463
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 void __stdcall sub_0046E040_RemoveOverlay(D2UnitStrc* pUnit, D2UnitOverlayStrc* pOverlay); // 0x0046E040
-int __cdecl sub_004FAC90(); // 0x004FAC90
-void __cdecl sub_004DA790(); // 0x004DA790
+int __cdecl sub_004FAC90_CheckCharArchive(); // 0x004FAC90
+void __cdecl sub_004DA790_InitModeTokens(); // 0x004DA790
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern D2MonGfxCacheStrc* gpPoolBlock_007A80FC; // 0x007A80FC
 extern D2HashedFileStrc gtHashedFile_007A8100; // 0x007A8100
@@ -171,7 +171,7 @@ extern "C" int __stdcall ImmReleaseContext(int hWnd, T0046E1B0* hImc); // 0x006B
 extern "C" int __stdcall ImmGetConversionStatus(T0046E1B0* hImc, unsigned long* pConversion, unsigned long* pSentence); // 0x006B00DE
 void* __stdcall SMemAlloc(int nSize, const char* szFile, int nLine, int nFlags); // 0x00413020
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x00412650
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType); // 0x00463990
 int __fastcall sub_00472280(D2SeedStrc* pSeed, int nOffset, int nRange); // 0x00472280
 void __cdecl sub_00472400_ResetPhaseState(); // 0x00472400
@@ -458,8 +458,8 @@ void __fastcall sub_00470200_InitGfxTables(int nValue)
     const int nSize = sgptDataTables->nMonStatsTxtRecordCount * sizeof(D2MonGfxCacheStrc);
     gpPoolBlock_007A80FC = (D2MonGfxCacheStrc*)sub_0040B430(0, nSize, ".\\ENGINE\\Gfx.cpp", 0x7E1, 0);
     memset(gpPoolBlock_007A80FC, 0, nSize);
-    gdwGlobal_007A8928 = sub_004FAC90();
-    sub_004DA790();
+    gdwGlobal_007A8928 = sub_004FAC90_CheckCharArchive();
+    sub_004DA790_InitModeTokens();
 }
 
 int gnPhase_007A8A24; // 0x007A8A24
@@ -547,7 +547,7 @@ void __stdcall sub_00473E50_StepPhase(D2SeedStrc* pSeed)
         if (!gbPhaseBusy_007A8A20)
         {
             gnPhase_007A8A24 = 2;
-            D2_ASSERT(sub_00463DD0(), 0x137);
+            D2_ASSERT(sub_00463DD0_GetPlayerUnit(), 0x137);
             sub_00472400_ResetPhaseState();
         }
         return;
@@ -624,7 +624,7 @@ unsigned char** __stdcall sub_00475C40_BuildLerpRowTable(unsigned int nCount, in
 void __cdecl sub_00478FA0_UpdatePetFlags()
 {
     D2RosterPetStrc* pPet = gpRosterPets_007BB5BC;
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     for (; pPet; pPet = pPet->pNext)
     {
         if (pPet->nType == 4)

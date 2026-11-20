@@ -27,7 +27,7 @@ struct D2FloorEntryStrc { char unknown[8]; D2SurfaceStrc* surface; char tail[12]
 
 struct D2FloorSetStrc { int count; char unknown[20]; D2FloorEntryStrc* entries; };
 
-void __fastcall sub_006B20E0(const char*, int); // 0x006B20E0
+void __fastcall sub_006B20E0_DDrawLogError(const char*, int); // 0x006B20E0
 
 struct D2Owner006BB390Strc
 {
@@ -109,7 +109,7 @@ void __fastcall sub_006BB0E0_SetFloorPalette(D2FloorSetStrc* textures, void* pal
         D2FloorEntryStrc* entry=&textures->entries[i];
         if (entry->surface) {
             int result=entry->surface->vtable->SetPalette(entry->surface,palette);
-            if (result) { sub_006B20E0("SetPalette (floor surface)",result); return; }
+            if (result) { sub_006B20E0_DDrawLogError("SetPalette (floor surface)",result); return; }
         }
     }
 }

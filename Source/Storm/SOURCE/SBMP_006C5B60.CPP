@@ -14,7 +14,7 @@ struct D2PaletteStrc {unsigned char red,green,blue,flags;};
 struct D2PcxRgbStrc {unsigned char red,green,blue;};
 struct D2PcxPaletteBlockStrc {unsigned char marker; D2PcxRgbStrc colors[256];};
 #pragma pack(pop)
-void __stdcall sub_0041D300_Zero(void*,unsigned); // 0x0041D300
+void __stdcall SMemZero(void*,unsigned); // 0x0041D300
 void* __stdcall sub_00413020_Alloc(unsigned,const char*,int,unsigned); // 0x00413020
 int __stdcall sub_00412650_Free(void*,const char*,int,unsigned); // 0x00412650
 extern const char gszSource_006FCC58[]; // 0x006FCC58
@@ -43,7 +43,7 @@ static int __fastcall EncodePcx256File(int width,int height,void* file,D2Palette
 {
  const int nWidth=width;
  T006C5B10 header;
- sub_0041D300_Zero(&header,sizeof(header));
+ SMemZero(&header,sizeof(header));
  header.xmax=(unsigned short)(nWidth-1);
  header.ymax=(unsigned short)(height-1);
  header.id=0x050a;

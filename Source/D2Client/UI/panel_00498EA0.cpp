@@ -7,11 +7,11 @@ struct Unicode
     unsigned short wChar;
 };
 
-D2UnitStrc* __cdecl sub_00463DD0();                                                               // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 int __cdecl sub_00468730();                                                                                 // 0x00468730
 int __cdecl sub_00468740();                                                                                 // 0x00468740
 void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned char nColor, unsigned char nAlpha); // 0x004F6380
-void __fastcall sub_00502280_SetPopUpText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5);    // 0x00502280
+void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5);    // 0x00502280
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...);               // 0x005269D0
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer);                         // 0x006253B0
@@ -25,7 +25,7 @@ void __cdecl sub_00498EA0_DrawExperienceBar()
 {
     Unicode wszText[100];
 
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     const int nClass = !pPlayer ? -1 : pPlayer->dwClassId;
     const unsigned int nLevel = STATLIST_UnitGetStatValue(pPlayer, 0xC, 0);
     const unsigned int nExperience = STATLIST_UnitGetStatValue(pPlayer, 0xD, 0);
@@ -52,7 +52,7 @@ void __cdecl sub_00498EA0_DrawExperienceBar()
     if (nMouseX >= gnGlobal_0071146C / 2 - 0x92 && nMouseX <= gnGlobal_0071146C / 2 - 0x17 && nMouseY >= gnGlobal_00711470 - 0x2B && nMouseY <= gnGlobal_00711470 - 0x22)
     {
         sub_005269D0(100, wszText, D2LANG_GetStringFromTblIndex(0x1043), nExperience, nNextExperience);
-        sub_00502280_SetPopUpText(wszText, gnGlobal_0071146C / 2 - 0x92, gnGlobal_00711470 - 0x33, 0, 1);
+        D2Win_10129_DrawFramedText(wszText, gnGlobal_0071146C / 2 - 0x92, gnGlobal_00711470 - 0x33, 0, 1);
     }
 
     if (nRange)

@@ -90,13 +90,13 @@ int __stdcall DATATBLS_GetCurrentLevelFromExp(int, int); // 0x00611860
 int __stdcall DATATBLS_GetLevelThreshold(int, int); // 0x00611800
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc*, int, int, int); // 0x00627260
 void __stdcall STATLIST_AddUnitStat(D2UnitStrc*, int, int, int); // 0x006272B0
-int __stdcall sub_00625D10(D2UnitStrc*); // 0x00625D10
+int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc*); // 0x00625D10
 int __stdcall sub_00625D60(D2UnitStrc*); // 0x00625D60
-int __stdcall sub_00625DB0(D2UnitStrc*); // 0x00625DB0
+int __stdcall STATLIST_GetMaxStaminaFromUnit(D2UnitStrc*); // 0x00625DB0
 void __fastcall sub_00536850_UpdateLevel(D2GameStrc*,D2UnitStrc*,int); // 0x00536850
 void __fastcall SUNIT_AttachSound(D2UnitStrc*,int,D2UnitStrc*); // 0x00553380
-void __fastcall sub_0055F500_Update(D2GameStrc*,D2UnitStrc*); // 0x0055F500
-void __fastcall sub_0055FDE0(D2GameStrc*,D2UnitStrc*,int); // 0x0055FDE0
+void __fastcall sub_0055F500_RefreshItemStatLists(D2GameStrc*,D2UnitStrc*); // 0x0055F500
+void __fastcall D2GAME_UpdatePlayerItems_6FC4BB90(D2GameStrc*,D2UnitStrc*,int); // 0x0055FDE0
 int __stdcall sub_00622150_GetLevelInfo(D2UnitStrc*,int,int); // 0x00622150
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
 static __declspec(noinline) void sub_00570A50_SpendStatPointsOnStrength(D2UnitStrc* pUnit, int nValue);
@@ -120,7 +120,7 @@ extern "C" void* __cdecl memcpy(void*, const void*, unsigned int);
 void __stdcall BITMANIP_Initialize(D2BitBufferStrc*, unsigned char*, unsigned int); // 0x00410E40
 int __stdcall BITMANIP_GetSize(D2BitBufferStrc*); // 0x00410E90
 void __stdcall BITMANIP_Write(D2BitBufferStrc*, unsigned int, int); // 0x00410EB0
-int __stdcall FOG_LeadingZeroesCount(unsigned int); // 0x004111A0
+int __stdcall sub_004111A0_GetLowestSetBit(unsigned int); // 0x004111A0
 unsigned int* __stdcall D2COMMON_10494_STATES_GetStatFlags(D2UnitStrc*); // 0x0063A100
 int __stdcall STATLIST_GetBaseStatsData(D2StatListStrc*, D2StatStrc*, int); // 0x00625C90
 void __fastcall sub_0053E8D0_SendPacket(D2ClientStrc*, const void*, int); // 0x0053E8D0
@@ -255,7 +255,7 @@ void __fastcall PLAYERSTATS_LevelUp(D2GameStrc* game,D2UnitStrc* unit)
   D2CharStatsTxt* record=(classId>=0 && classId<sgptDataTables->nCharStatsTxtRecordCount)?&sgptDataTables->pCharStatsTxt[classId]:0;
   int life=STATLIST_GetUnitBaseStat(unit,7,0)+((record->lifePerLevel*gained)<<6);
   STATLIST_SetUnitStat(unit,7,life,0);
-  int maxLife=sub_00625D10(unit);
+  int maxLife=STATLIST_GetMaxLifeFromUnit(unit);
   if(STATLIST_UnitGetStatValue(unit,6,0)>0) STATLIST_SetUnitStat(unit,6,maxLife,0);
   int mana=STATLIST_GetUnitBaseStat(unit,9,0)+((record->manaPerLevel*gained)<<6);
   STATLIST_SetUnitStat(unit,9,mana,0);
@@ -263,15 +263,15 @@ void __fastcall PLAYERSTATS_LevelUp(D2GameStrc* game,D2UnitStrc* unit)
   STATLIST_SetUnitStat(unit,8,maxMana,0);
   int stamina=STATLIST_GetUnitBaseStat(unit,11,0)+((record->staminaPerLevel*gained)<<6);
   STATLIST_SetUnitStat(unit,11,stamina,0);
-  int maxStamina=sub_00625DB0(unit);
+  int maxStamina=STATLIST_GetMaxStaminaFromUnit(unit);
   STATLIST_SetUnitStat(unit,10,maxStamina,0);
   STATLIST_AddUnitStat(unit,4,record->statPerLevel*gained,0);
   STATLIST_AddUnitStat(unit,5,gained,0);
   sub_00536850_UpdateLevel(game,unit,level);
   SUNIT_AttachSound(unit,2,unit);
   SUNIT_IterateLivingPlayers(game,(SUNIT_IterateFn)sub_00570850_Forward,unit);
-  sub_0055F500_Update(game,unit);
-  sub_0055FDE0(game,unit,1);
+  sub_0055F500_RefreshItemStatLists(game,unit);
+  D2GAME_UpdatePlayerItems_6FC4BB90(game,unit,1);
   if(gpServerCallbacks && gpServerCallbacks->levelUp) gpServerCallbacks->levelUp(game->gameId,sub_00622150_GetLevelInfo(unit,classId,level));
  }
 }
@@ -463,14 +463,14 @@ void __fastcall D2GAME_STATES_SendUnitStates_6FCC58E0(D2UnitStrc* pUnit, D2Clien
     int nStateOffset = 0;
     for (; i < nTotalStatFlagCount; ++i, nStateOffset += 32)
     {
-        int nBit = FOG_LeadingZeroesCount(nFlags[i]);
+        int nBit = sub_004111A0_GetLowestSetBit(nFlags[i]);
         while (nBit >= 0)
         {
             nFlags[i + (nBit >> 5)] &= gdwInvBitMasks[nBit & 31];
             const int nStateId = nBit + nStateOffset;
             D2StatesTxt* pStatesTxtRecord = SKILLS_GetStatesTxtRecord(nStateId);
-            if (!pStatesTxtRecord) { nBit = FOG_LeadingZeroesCount(nFlags[i]); continue; }
-            if (pStatesTxtRecord->nStateFlags[0] & gdwBitMasks[0]) { nBit = FOG_LeadingZeroesCount(nFlags[i]); continue; }
+            if (!pStatesTxtRecord) { nBit = sub_004111A0_GetLowestSetBit(nFlags[i]); continue; }
+            if (pStatesTxtRecord->nStateFlags[0] & gdwBitMasks[0]) { nBit = sub_004111A0_GetLowestSetBit(nFlags[i]); continue; }
             {
                 if (BITMANIP_GetSize(&bitBuffer) + 7 >= 219) break;
                 BITMANIP_Write(&bitBuffer, nStateId, 8);
@@ -513,7 +513,7 @@ void __fastcall D2GAME_STATES_SendUnitStates_6FCC58E0(D2UnitStrc* pUnit, D2Clien
                 }
                 else BITMANIP_Write(&bitBuffer, 0, 1);
             }
-            nBit = FOG_LeadingZeroesCount(nFlags[i]);
+            nBit = sub_004111A0_GetLowestSetBit(nFlags[i]);
         }
     }
     BITMANIP_Write(&bitBuffer, 0xFF, 8);

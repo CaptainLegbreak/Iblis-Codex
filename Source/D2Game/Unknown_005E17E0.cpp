@@ -69,13 +69,13 @@ void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventT
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames);            // 0x005DE080
 void __fastcall sub_00573120_ClearMonsterPair(D2UnitStrc* pUnit);                                           // 0x00573120
 void __fastcall AITACTICS_SetVelocity(D2UnitStrc* pUnit, int a2, int nVel, unsigned char a4);             // 0x005DE190
-int __fastcall sub_0046C140_CheckMonStats2ModeFlag(int nMonsterId, int nMode);                              // 0x0046C140
-int __fastcall sub_6FCD06D0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance, int bDeleteAiEventCallback); // 0x005DF140
-int __fastcall D2GAME_AICORE_Escape_6FCD0560(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance, int bDeleteAiEventCallback); // 0x005DEFE0
+int __fastcall sub_0046C140_TestMonModeFlag(int nMonsterId, int nMode);                              // 0x0046C140
+int __fastcall sub_005DF140_Escape(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance, int bDeleteAiEventCallback); // 0x005DF140
+int __fastcall sub_005DEFE0_Escape(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance, int bDeleteAiEventCallback); // 0x005DEFE0
 int __fastcall AITACTICS_ChangeModeAndTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, D2UnitStrc* pTargetUnit); // 0x005DDF90
 int __fastcall AITACTICS_WalkCloseToUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMaxDistance);         // 0x005DE200
 int __fastcall AITACTICS_UseSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nMode, int nSkillId, D2UnitStrc* pTarget, int nX, int nY); // 0x005DEAD0
-D2UnitStrc* __fastcall sub_6FCF1E80(D2GameStrc* pGame, D2UnitStrc* pUnit, void* a3, AIUTIL_TargetCallback a4, int nCallbackId); // 0x005DD0B0
+D2UnitStrc* __fastcall AIUTIL_FindTargetWithCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* a3, AIUTIL_TargetCallback a4, int nCallbackId); // 0x005DD0B0
 D2UnitStrc* __fastcall AITHINK_TargetCallback_MinionSpawner(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg); // 0x005E2B70
 D2UnitStrc* __fastcall AITHINK_TargetCallback_PutridDefiler(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg); // 0x005EFA50
 int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nRangeBonus);                // 0x00622C40
@@ -193,7 +193,7 @@ void __fastcall AITHINK_Fn121_MinionSpawner(D2GameStrc* pGame, D2UnitStrc* pUnit
 
     D2MinionSpawnerAiCallbackArgStrc arg;
     arg.nMinions = 0;
-    sub_6FCF1E80(pGame, pUnit, &arg, AITHINK_TargetCallback_MinionSpawner, 1);
+    AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, AITHINK_TargetCallback_MinionSpawner, 1);
     if (pMonStatsTxt->nSkill[0] >= 0 && arg.nMinions < pMonStatsTxt->wAiParam[1][pGame->nDifficulty])
     {
         pAiControl->dwAiParam[0] = pGame->dwGameFrame + pMonStatsTxt->wAiParam[2][pGame->nDifficulty];
@@ -258,17 +258,17 @@ void __fastcall D2GAME_AI_SpecialState11_6FCE7E80(D2GameStrc* pGame, D2UnitStrc*
         sub_00573120_ClearMonsterPair(pUnit);
         D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, EVENTTYPE_AITHINK, 0);
         AITACTICS_SetVelocity(pUnit, 2, nVel, 0);
-        if (sub_0046C140_CheckMonStats2ModeFlag(!pUnit ? -1 : pUnit->dwClassId, MONMODE_RUN))
+        if (sub_0046C140_TestMonModeFlag(!pUnit ? -1 : pUnit->dwClassId, MONMODE_RUN))
         {
-            sub_6FCD06D0(pGame, pUnit, pTarget, 30, 0);
+            sub_005DF140_Escape(pGame, pUnit, pTarget, 30, 0);
             return;
         }
 
-        D2GAME_AICORE_Escape_6FCD0560(pGame, pUnit, pTarget, 30, 0);
+        sub_005DEFE0_Escape(pGame, pUnit, pTarget, 30, 0);
         return;
     }
 
-    if (bCombat && !sub_00457490_CheckMonStatsFlag(!pUnit ? -1 : pUnit->dwClassId, MONSTATSFLAGINDEX_INTERACT) && sub_0046C140_CheckMonStats2ModeFlag(!pUnit ? -1 : pUnit->dwClassId, MONMODE_ATTACK1))
+    if (bCombat && !sub_00457490_CheckMonStatsFlag(!pUnit ? -1 : pUnit->dwClassId, MONSTATSFLAGINDEX_INTERACT) && sub_0046C140_TestMonModeFlag(!pUnit ? -1 : pUnit->dwClassId, MONMODE_ATTACK1))
     {
         AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
         return;
@@ -276,13 +276,13 @@ void __fastcall D2GAME_AI_SpecialState11_6FCE7E80(D2GameStrc* pGame, D2UnitStrc*
 
     AITACTICS_SetVelocity(pUnit, 2, nVel, 0);
     int bResult;
-    if (sub_0046C140_CheckMonStats2ModeFlag(!pUnit ? -1 : pUnit->dwClassId, MONMODE_RUN))
+    if (sub_0046C140_TestMonModeFlag(!pUnit ? -1 : pUnit->dwClassId, MONMODE_RUN))
     {
-        bResult = sub_6FCD06D0(pGame, pUnit, pTarget, 30, 1);
+        bResult = sub_005DF140_Escape(pGame, pUnit, pTarget, 30, 1);
     }
     else
     {
-        bResult = D2GAME_AICORE_Escape_6FCD0560(pGame, pUnit, pTarget, 30, 1);
+        bResult = sub_005DEFE0_Escape(pGame, pUnit, pTarget, 30, 1);
     }
 
     if (!bResult)
@@ -334,7 +334,7 @@ void __fastcall AITHINK_Fn110_Vines(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTi
     {
         if (STATES_CheckState(pTarget, STATE_POISON) || STATLIST_UnitGetStatValue(pTarget, STAT_POISONRESIST, 0) == 100)
         {
-            D2GAME_AICORE_Escape_6FCD0560(pGame, pUnit, pTarget, AI_PARAM(pGame, pMonStatsTxt, 3), 0);
+            sub_005DEFE0_Escape(pGame, pUnit, pTarget, AI_PARAM(pGame, pMonStatsTxt, 3), 0);
             return;
         }
 
@@ -372,7 +372,7 @@ void __fastcall AITHINK_Fn137_PutridDefiler(D2GameStrc* pGame, D2UnitStrc* pUnit
     D2PutridDefilerAiCallbackArgStrc arg;
     arg.unk0x00 = 0;
     arg.nMaxDistance = 25;
-    D2UnitStrc* pVictim = sub_6FCF1E80(pGame, pUnit, &arg, AITHINK_TargetCallback_PutridDefiler, 1);
+    D2UnitStrc* pVictim = AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, AITHINK_TargetCallback_PutridDefiler, 1);
     if (pVictim)
     {
         if (UNITS_IsInMeleeRange(pUnit, pVictim, 0))
@@ -388,7 +388,7 @@ void __fastcall AITHINK_Fn137_PutridDefiler(D2GameStrc* pGame, D2UnitStrc* pUnit
 
     if (nDistance < AI_GetParamValue(pGame, pMonStatsTxt, 0))
     {
-        D2GAME_AICORE_Escape_6FCD0560(pGame, pUnit, pTarget, AI_GetParamValue(pGame, pMonStatsTxt, 1), 0);
+        sub_005DEFE0_Escape(pGame, pUnit, pTarget, AI_GetParamValue(pGame, pMonStatsTxt, 1), 0);
         return;
     }
 

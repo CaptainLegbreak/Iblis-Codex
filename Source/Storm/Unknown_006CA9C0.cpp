@@ -73,7 +73,7 @@ inline void* __cdecl operator new(unsigned int nSize, void* pWhere)
 }
 
 extern D2StormExportTableSyncStrc gGameDataTable_007A0690;                                                  // 0x007A0690
-void __cdecl sub_006CB3E0_DestroyGameDataTable();                                                           // 0x006CB3E0
+void __cdecl sub_006CB3E0_DestroyHashTable();                                                           // 0x006CB3E0
 extern "C" int __cdecl atexit(void (__cdecl* callback)());                                                  // 0x00683824
 
 // build: symbol ??_7?$TSExportTableSync@USGAMEDATA@@PAUHSGAMEDATA__@@PAUHSGAMEDATALOCK__@@VCCritSect@@$0A@@@6B@ 0x006D5E98
@@ -81,5 +81,5 @@ extern "C" int __cdecl atexit(void (__cdecl* callback)());                      
 void __cdecl sub_006CA9C0_InitGameDataTable()
 {
     new (&gGameDataTable_007A0690) D2StormExportTableSyncStrc;
-    atexit(sub_006CB3E0_DestroyGameDataTable);
+    atexit(sub_006CB3E0_DestroyHashTable);
 }

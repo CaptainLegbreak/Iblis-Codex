@@ -73,9 +73,9 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 
-int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit);                                                       // 0x0045ADF0
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                                                       // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
-D2UnitStrc* __cdecl sub_00463DD0();                                                               // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit);                                        // 0x004639D0
 int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit);                                               // 0x00464820
 int __fastcall sub_00465C60_CheckUnitPair(D2UnitStrc* pUnit, D2UnitStrc* pOther);                           // 0x00465C60
@@ -86,7 +86,7 @@ void __fastcall sub_004C70D0_StartUnitEffect(D2UnitStrc* pUnit, D2UnitStrc* pTar
 void __fastcall sub_004CD390_CltDoDefault(D2UnitStrc* pMissile);                                            // 0x004CD390
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams);                          // 0x004CD540
 void __fastcall sub_004D30C0_CltDoCommon(D2UnitStrc* pMissile);                                             // 0x004D30C0
-void __fastcall sub_004E2ED0_VolleyCallback(D2UnitStrc* pMissile, int nArg);                                // 0x004E2ED0
+void __fastcall sub_004E2ED0_InitCappedChargedPath(D2UnitStrc* pMissile, int nArg);                                // 0x004E2ED0
 int __fastcall sub_004F21B0_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId);                               // 0x004F21B0
 int __cdecl sub_004F51C0_IsHighVideoMode();                                                                 // 0x004F51C0
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom);                                                // 0x0061AB00
@@ -172,7 +172,7 @@ int __fastcall sub_005CCD10(D2GameStrc* game,D2UnitStrc* unit,int skill,int leve
   params.pOwner=unit;
   params.pOrigin=unit;
   params.nMissile=missileId;
-  params.nX=UNITS_GetXPosition(unit);
+  params.nX=CLIENTS_GetUnitX(unit);
   params.nY=CLIENTS_GetUnitY(unit);
   params.nSkillLevel=level;
   params.nLoops=SKILLS_EvaluateSkillFormula(unit,record->dwCalc[0],skill,level);

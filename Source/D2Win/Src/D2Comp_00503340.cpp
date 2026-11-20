@@ -180,7 +180,7 @@ struct D2CompPairStrc
 typedef char check_size_itemstxt[(sizeof(D2ItemsTxt) == 0x1A8) ? 1 : -1];
 void* __stdcall sub_00504430_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pBinField, int* pRecordCount,
     int nRecordSize); // 0x00504430
-void __fastcall sub_00504570(void* hArchive); // 0x00504570
+void __fastcall sub_00504570_LoadItems(void* hArchive); // 0x00504570
 extern int gaWClassTokens_0072EF30[]; // 0x0072EF30
 extern D2CompPairStrc gaCompPairs_0072EF68[]; // 0x0072EF68
 extern unsigned int gnCompPairs_0072EFD0; // 0x0072EFD0
@@ -666,7 +666,7 @@ void __stdcall sub_00506000_InitCompItems()
     gpHitClassLinker_0087D820 = sub_006BD040(".\\Src\\D2Comp.cpp", 0xAD7);
     gpHitClassTxt_0087D81C = sub_00504430_CompileTxt(sub_004FAC80(), "hitclass", aHitClassFields, 0, 4);
 
-    sub_00504570(sub_004FAC80());
+    sub_00504570_LoadItems(sub_004FAC80());
 
     gaItems_0087D838[1].dwCode = ' til';
     gaItems_0087D838[1].nItemType = 3;

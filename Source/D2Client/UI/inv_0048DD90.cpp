@@ -121,8 +121,8 @@ int __cdecl sub_0044DCC0();                                                     
 Unicode* __fastcall sub_00452170(Unicode* pText);                                                           // 0x00452170
 Unicode* __fastcall sub_004521C0_PrefixLevelText(Unicode* pText, int nDigit);                               // 0x004521C0
 int __fastcall sub_004538D0(int nUIVar);                                                             // 0x004538D0
-D2UnitStrc* __cdecl sub_00463DD0();                                                               // 0x00463DD0
-D2UnitStrc* __cdecl sub_00463DE0_GetStoredUnit();                                                           // 0x00463DE0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit();                                                           // 0x00463DE0
 int __cdecl sub_00468730();                                                                                 // 0x00468730
 int __cdecl sub_00468740();                                                                                 // 0x00468740
 int __cdecl sub_00468830();                                                                                 // 0x00468830
@@ -131,17 +131,17 @@ const Unicode* __fastcall sub_0046A530_GetKeyName(int nA, int nB);              
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor);                              // 0x00483360
 void __stdcall sub_00485410_AppendDamage(D2UnitStrc* pItem, Unicode* pText);                                // 0x00485410
 void __stdcall sub_00485EE0_AppendDefense(D2UnitStrc* pUnit, D2UnitStrc* pItem, Unicode* pText);            // 0x00485EE0
-void __fastcall sub_0048C060(D2UnitStrc* pItem, Unicode* pText, int nMaxLength);                            // 0x0048C060
+void __fastcall sub_0048C060_BuildItemName(D2UnitStrc* pItem, Unicode* pText, int nMaxLength);                            // 0x0048C060
 void __cdecl sub_0048CFF0_DrawStackTooltip();                                                               // 0x0048CFF0
 void __fastcall sub_0048D1D0_DrawSetItemTooltip(D2UnitStrc* pUnit);                                         // 0x0048D1D0
 void __cdecl sub_0048DB80_DrawBaseItemTooltip();                                                            // 0x0048DB80
 int __cdecl sub_004979E0();                                                                                 // 0x004979E0
 int __cdecl sub_004B34A0();                                                                                 // 0x004B34A0
 int __cdecl sub_004B3500();                                                                                 // 0x004B3500
-int __fastcall sub_004B2AD0(D2UnitStrc* pItem, int nArg, int* pOut, Unicode* pName, int nMaxLength);        // 0x004B2AD0
+int __fastcall sub_004B2AD0_GetTradeCostText(D2UnitStrc* pItem, int nArg, int* pOut, Unicode* pName, int nMaxLength);        // 0x004B2AD0
 void __fastcall sub_004E6410_BuildPropText(D2UnitStrc* pItem, Unicode* wszText, int nArg, int bFlag, int nArg2); // 0x004E6410
-void __fastcall sub_004E6850(D2UnitStrc* pItem, Unicode* pText, int nMaxLength);                            // 0x004E6850
-void __fastcall sub_00502280_SetPopUpText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5);    // 0x00502280
+void __fastcall sub_004E6850_BuildSocketFillerText(D2UnitStrc* pItem, Unicode* pText, int nMaxLength);                            // 0x004E6850
+void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5);    // 0x00502280
 void __fastcall D2Win_10131_GetTextDimensions(const Unicode* pText, int* pWidth, int* pHeight);             // 0x00502520
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength);                  // 0x00526320
@@ -155,8 +155,8 @@ int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nS
 int __stdcall sub_00625560(D2UnitStrc* pUnit, int nStatId, int nLayer);                                     // 0x00625560
 int __stdcall STATLIST_GetMaxDurabilityFromUnit(D2UnitStrc* pUnit);                                         // 0x00625E00
 int __stdcall STATLIST_GetMaxDamageFromUnit(D2UnitStrc* pItem, int a2);                                     // 0x00625E60
-int __stdcall STATLIST_GetMinDamageFromUnit(D2UnitStrc* pItem, int a2);                                     // 0x00625EF0
-int __stdcall sub_00626020_GetUnitDefense(D2UnitStrc* pUnit);                                               // 0x00626020
+int __stdcall sub_00625EF0_MinDamage(D2UnitStrc* pItem, int a2);                                     // 0x00625EF0
+int __stdcall sub_00626020_ArmorValue(D2UnitStrc* pUnit);                                               // 0x00626020
 int __stdcall ITEMMODS_EvaluateItemFormula(D2UnitStrc* pUnit, D2UnitStrc* pItem, unsigned int nCalc);       // 0x00627C20
 int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem);                                                      // 0x00627E70
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile);   // 0x006280A0
@@ -170,10 +170,10 @@ int __stdcall ITEMS_GetBonusLifeBasedOnClass(D2UnitStrc* pPlayer, int nValue);  
 int __stdcall ITEMS_GetBonusManaBasedOnClass(D2UnitStrc* pPlayer, int nValue);                              // 0x0062A620
 int __stdcall ITEMS_GetWeaponAttackSpeed(D2UnitStrc* pUnit, D2UnitStrc* pItem);                             // 0x0062A710
 int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem);                                                         // 0x0062B400
-int __stdcall sub_0062BA60_GetLevelRequirement(D2UnitStrc* pItem, D2UnitStrc* pUnit);                       // 0x0062BA60
+int __stdcall ITEMS_GetLevelRequirement(D2UnitStrc* pItem, D2UnitStrc* pUnit);                       // 0x0062BA60
 int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc* pItem);                                                    // 0x0062BA80
-int __stdcall sub_0062C060_IsClassItem(D2UnitStrc* pItem);                                                  // 0x0062C060
-int __stdcall sub_0062C0B0_GetItemTypeClass(D2UnitStrc* pItem);                                             // 0x0062C0B0
+int __stdcall ITEMS_IsClassValid(D2UnitStrc* pItem);                                                  // 0x0062C060
+int __stdcall ITEMS_GetClassOfClassSpecificItem(D2UnitStrc* pItem);                                             // 0x0062C0B0
 int __stdcall ITEMS_GetQuiverType(D2UnitStrc* pItem);                                                       // 0x0062E740
 int __stdcall ITEMS_CheckRequirements(D2UnitStrc* pItem, D2UnitStrc* pUnit, int bEquipping, int* bStrength, int* bDexterity, int* bLevel); // 0x0062EAF0
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId);                                              // 0x006335F0
@@ -390,7 +390,7 @@ static __declspec(noinline) void __stdcall sub_00485D40_AppendThrowDamage(D2Unit
     if (ITEMSIsA(pItem, 0x33))
     {
         nStringId = 0xD8C;
-        D2UnitStrc* pUnit = sub_00463DE0_GetStoredUnit();
+        D2UnitStrc* pUnit = sub_00463DE0_GetPlayerUnit();
         void* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, 0x75);
         if (pSkill && STATES_CheckState(pUnit, 0x65))
         {
@@ -443,7 +443,7 @@ static __declspec(noinline) void __stdcall sub_00486100_AppendStackQuantity(D2Un
 static __declspec(noinline) void __stdcall sub_00485BE0_AppendBlockChance(Unicode* pText, D2ItemsTxt* pItemsTxt, D2UnitStrc* pItem)
 {
     int nBlock = STATLIST_UnitGetStatValue(pItem, 0x14, 0);
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (pPlayer)
     {
         const int nClass = pPlayer->dwClassId;
@@ -485,7 +485,7 @@ static __declspec(noinline) void __stdcall sub_004861D0_AppendAttackSpeed(Unicod
     const Unicode* pColorStart = D2LANG_GetStringFromTblIndex(0xF9B);
     const Unicode* pColorEnd = D2LANG_GetStringFromTblIndex(0xF9E);
     const Unicode* pColorAlt = D2LANG_GetStringFromTblIndex(0xF9C);
-    D2UnitStrc* pStoredUnit = sub_00463DE0_GetStoredUnit();
+    D2UnitStrc* pStoredUnit = sub_00463DE0_GetPlayerUnit();
     const int nAttackSpeed = ITEMS_GetWeaponAttackSpeed(pStoredUnit, pItem);
     int bBonus = 0;
     if (sub_00625560(pItem, 0x5D, 0))
@@ -503,7 +503,7 @@ static __declspec(noinline) void __stdcall sub_004861D0_AppendAttackSpeed(Unicod
     }
     else
     {
-        D2UnitStrc* pUnit = sub_00463DE0_GetStoredUnit();
+        D2UnitStrc* pUnit = sub_00463DE0_GetPlayerUnit();
         const int bMissile = (ITEMSIsA(pItem, 0x23) || ITEMSIsA(pItem, 0x1B)) ? 1 : 0;
         const int nClass = !pUnit ? -1 : pUnit->dwClassId;
         nSpeed = gaSpeedTable_00721F10[nAttackSpeed - 10][gaClassSpeedOffsets_00722078[nClass][bMissile]];
@@ -542,7 +542,7 @@ static __declspec(noinline) void __stdcall sub_00486370_AppendItemFormulaText(D2
         return;
     }
 
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (!pPlayer || pRecord->wStringId == 0x1506)
     {
         return;
@@ -613,7 +613,7 @@ static __declspec(noinline) void sub_004865D0_AppendBookCharges(Unicode* pText)
 {
     const Unicode* pColorEnd = D2LANG_GetStringFromTblIndex(0xF9E);
     D2_ASSERT(ITEMSIsA(gdwGlobal_007BCBF4, 0x35), 0xC43);
-    sub_004E6850(gdwGlobal_007BCBF4, pText, 0x200);
+    sub_004E6850_BuildSocketFillerText(gdwGlobal_007BCBF4, pText, 0x200);
     sub_00526700(pText, D2LANG_GetStringFromTblIndex(0x2B48));
     sub_00526700(pText, pColorEnd);
 }
@@ -705,7 +705,7 @@ static __declspec(noinline) void __stdcall sub_0048CEA0_AppendItemSetName(const 
     }
 
     int nSetIndex;
-    if (sub_004B2AD0(gdwGlobal_007BCBF4, gnGlobal_00721E38, &nSetIndex, W(wszName), 0x40))
+    if (sub_004B2AD0_GetTradeCostText(gdwGlobal_007BCBF4, gnGlobal_00721E38, &nSetIndex, W(wszName), 0x40))
     {
         if (W(wszName)[0].wChar)
         {
@@ -760,9 +760,9 @@ void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
     int bRedClass = 0;
     const Unicode* pColorEnd = D2LANG_GetStringFromTblIndex(0xF9E);
     D2UnitStrc* pPlayer = pUnit;
-    if (nFlag && sub_00463DD0())
+    if (nFlag && sub_00463DD0_GetPlayerUnit())
     {
-        pPlayer = sub_00463DD0();
+        pPlayer = sub_00463DD0_GetPlayerUnit();
     }
 
     const int bHoverBlocked = sub_004979E0();
@@ -772,7 +772,7 @@ void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
         {
             if (sub_00486820_IsMouseInBox(gnGlobal_007A2858 + 0x110, gnGlobal_00711470 + gnGlobal_007A285C - 0x3F, 0x20, 0x20))
             {
-                sub_00502280_SetPopUpText(D2LANG_GetStringFromTblIndex(0x1030), gnGlobal_007A2858 + 0x11F, gnGlobal_007A285C + gnGlobal_00711470 - 0x62, 0, 1);
+                D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0x1030), gnGlobal_007A2858 + 0x11F, gnGlobal_007A285C + gnGlobal_00711470 - 0x62, 0, 1);
             }
         }
 
@@ -780,7 +780,7 @@ void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
         {
             if (sub_00486820_IsMouseInBox(gnGlobal_0071146C - gnGlobal_007A2858 - 0x12E, gnGlobal_00711470 + gnGlobal_007A285C - 0x40, 0x20, 0x20))
             {
-                sub_00502280_SetPopUpText(D2LANG_GetStringFromTblIndex(0x1030), gnGlobal_0071146C - gnGlobal_007A2858 - 0x11F, gnGlobal_00711470 + (gnGlobal_007A285C - 0x63), 0, 1);
+                D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0x1030), gnGlobal_0071146C - gnGlobal_007A2858 - 0x11F, gnGlobal_00711470 + (gnGlobal_007A285C - 0x63), 0, 1);
             }
 
             if (sub_00486820_IsMouseInBox(gnGlobal_0071146C - gnGlobal_007A2858 - 0xED, gnGlobal_007A285C + gnGlobal_00711470 - 0x45, 0x14, 0x12) && !sub_004B34A0())
@@ -800,7 +800,7 @@ void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
                     nStr = 0x1021;
                     break;
                 }
-                sub_00502280_SetPopUpText(D2LANG_GetStringFromTblIndex(nStr), gnGlobal_0071146C - gnGlobal_007A2858 - 0xDE, gnGlobal_00711470 + (gnGlobal_007A285C - 0x59), 0, 1);
+                D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(nStr), gnGlobal_0071146C - gnGlobal_007A2858 - 0xDE, gnGlobal_00711470 + (gnGlobal_007A285C - 0x59), 0, 1);
             }
 
             if (sub_00408F20_HasExpansionMpq() && sub_0044DCC0() && sub_00486860_IsOverWeaponSwapTab(sub_00468730(), sub_00468740()))
@@ -823,7 +823,7 @@ void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
                 {
                     nOffset = 0x258;
                 }
-                sub_00502280_SetPopUpText(W(wszSwap), nOffset + gnGlobal_007A2858, 0x15 - gnGlobal_007A285C, 0, 1);
+                D2Win_10129_DrawFramedText(W(wszSwap), nOffset + gnGlobal_007A2858, 0x15 - gnGlobal_007A285C, 0, 1);
             }
         }
     }
@@ -842,7 +842,7 @@ void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
             int nHeight;
             if (gdwGlobal_007BCBE4 && !gnGlobal_00721E38 && sub_004B3500() && (unsigned int)(gdwGlobal_007BCBF0 - 1) <= 8)
             {
-                sub_0048C060(gdwGlobal_007BCBF4, W(wszName), 0x80);
+                sub_0048C060_BuildItemName(gdwGlobal_007BCBF4, W(wszName), 0x80);
                 sub_005267E0(W(wszUnidentified), D2LANG_GetStringFromTblIndex(0xD7F));
                 sub_00526700(W(wszUnidentified), pColorEnd);
                 sub_00526700(W(wszText), W(wszUnidentified));
@@ -894,11 +894,11 @@ void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
                 D2Win_10131_GetTextDimensions(W(wszTooltip), &nWidth, &nHeight);
                 if (gnGlobal_00721E40 - nHeight > 0)
                 {
-                    sub_00502280_SetPopUpText(W(wszTooltip), gnGlobal_00721E3C, gnGlobal_00721E40, 0, 1);
+                    D2Win_10129_DrawFramedText(W(wszTooltip), gnGlobal_00721E3C, gnGlobal_00721E40, 0, 1);
                 }
                 else
                 {
-                    sub_00502280_SetPopUpText(W(wszTooltip), gnGlobal_00721E44, gnGlobal_00721E48 + nHeight, 0, 1);
+                    D2Win_10129_DrawFramedText(W(wszTooltip), gnGlobal_00721E44, gnGlobal_00721E48 + nHeight, 0, 1);
                 }
                 return;
             }
@@ -920,7 +920,7 @@ void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
                 return;
             }
 
-            const int nClass = sub_0062C0B0_GetItemTypeClass(gdwGlobal_007BCBF4);
+            const int nClass = ITEMS_GetClassOfClassSpecificItem(gdwGlobal_007BCBF4);
             if (nClass != 7)
             {
                 sub_00526700(W(wszClassReq), D2LANG_GetStringFromTblIndex(nClass + 0x2AA5));
@@ -948,7 +948,7 @@ void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
             ITEMS_CheckRequirements(gdwGlobal_007BCBF4, pPlayer, 0, &bStr, &bDex, &nFlag);
             if (ITEMS_CheckItemFlag(gdwGlobal_007BCBF4, 0x10, 0xFD6, ".\\UI\\inv.cpp"))
             {
-                const int nLevelReq = sub_0062BA60_GetLevelRequirement(gdwGlobal_007BCBF4, pPlayer);
+                const int nLevelReq = ITEMS_GetLevelRequirement(gdwGlobal_007BCBF4, pPlayer);
                 if (nLevelReq > 1)
                 {
                     if (!nFlag)
@@ -1007,7 +1007,7 @@ void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
                 }
                 if (ITEMSIsA(gdwGlobal_007BCBF4, 0x2D))
                 {
-                    if (STATLIST_GetMinDamageFromUnit(gdwGlobal_007BCBF4, 0) >= 0 && STATLIST_GetMaxDamageFromUnit(gdwGlobal_007BCBF4, 0) >= 0)
+                    if (sub_00625EF0_MinDamage(gdwGlobal_007BCBF4, 0) >= 0 && STATLIST_GetMaxDamageFromUnit(gdwGlobal_007BCBF4, 0) >= 0)
                     {
                         sub_00485410_AppendDamage(gdwGlobal_007BCBF4, W(wszDamage));
                     }
@@ -1015,7 +1015,7 @@ void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
                 }
                 if (ITEMSIsA(gdwGlobal_007BCBF4, 0x33))
                 {
-                    if (pPlayer && pPlayer->dwClassId == 3 && (!sub_0062C060_IsClassItem(gdwGlobal_007BCBF4) || sub_0062C0B0_GetItemTypeClass(gdwGlobal_007BCBF4) == 3))
+                    if (pPlayer && pPlayer->dwClassId == 3 && (!ITEMS_IsClassValid(gdwGlobal_007BCBF4) || ITEMS_GetClassOfClassSpecificItem(gdwGlobal_007BCBF4) == 3))
                     {
                         sub_00485D40_AppendThrowDamage(gdwGlobal_007BCBF4, pItemsTxt, W(wszThrowDamage));
                     }
@@ -1025,7 +1025,7 @@ void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
                 {
                     sub_00485D40_AppendThrowDamage(gdwGlobal_007BCBF4, pItemsTxt, W(wszThrowDamage));
                 }
-                if (ITEMSIsA(gdwGlobal_007BCBF4, 0x32) && sub_00626020_GetUnitDefense(gdwGlobal_007BCBF4) > 0)
+                if (ITEMSIsA(gdwGlobal_007BCBF4, 0x32) && sub_00626020_ArmorValue(gdwGlobal_007BCBF4) > 0)
                 {
                     sub_00485EE0_AppendDefense(pPlayer, gdwGlobal_007BCBF4, W(wszDefense));
                 }
@@ -1082,7 +1082,7 @@ void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
                 sub_00526700(W(wszUnidentified), pColorEnd);
             }
             sub_00486370_AppendItemFormulaText(gdwGlobal_007BCBF4, pItemsTxt, W(wszFormula));
-            sub_0048C060(gdwGlobal_007BCBF4, W(wszName), 0x100);
+            sub_0048C060_BuildItemName(gdwGlobal_007BCBF4, W(wszName), 0x100);
             sub_005267E0(W(wszText), sub_004521C0_PrefixLevelText(W(wszEthSock), 3));
 
             const unsigned int dwCode = pItemsTxt->dwCode;
@@ -1155,11 +1155,11 @@ void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int nFlag)
             D2Win_10131_GetTextDimensions(W(wszTooltip), &nWidth, &nHeight);
             if (gnGlobal_00721E40 - nHeight > 0)
             {
-                sub_00502280_SetPopUpText(W(wszTooltip), gnGlobal_00721E3C, gnGlobal_00721E40, nPopupArg, 1);
+                D2Win_10129_DrawFramedText(W(wszTooltip), gnGlobal_00721E3C, gnGlobal_00721E40, nPopupArg, 1);
             }
             else
             {
-                sub_00502280_SetPopUpText(W(wszTooltip), gnGlobal_00721E44, gnGlobal_00721E48 + nHeight, nPopupArg, 1);
+                D2Win_10129_DrawFramedText(W(wszTooltip), gnGlobal_00721E44, gnGlobal_00721E48 + nHeight, nPopupArg, 1);
             }
         }
     }

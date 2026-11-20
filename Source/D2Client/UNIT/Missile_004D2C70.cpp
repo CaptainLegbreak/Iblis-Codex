@@ -22,7 +22,7 @@ void __fastcall sub_00474290(D2GfxLightStrc* pLight, int nRadius);              
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                         // 0x0045C3E0
 void __fastcall sub_004CD390_CltDoDefault(D2UnitStrc* pMissile);                                            // 0x004CD390
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
-D2ActiveRoomStrc* __fastcall D2GAME_GetRoom_6FC52070(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom);                                                // 0x0061AB00
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath);                                                  // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath);                                                  // 0x00648900
@@ -87,7 +87,7 @@ void __fastcall sub_004D2C70_CltDoMissile(D2UnitStrc* pMissile)
         sub_004CD1C0_FlickerLight(pMissile);
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pMissile);
     if (!pRoom)
-        pRoom = D2GAME_GetRoom_6FC52070(0, UNITS_GetUnitXPosition(pMissile), UNITS_GetUnitYPosition(pMissile));
+        pRoom = sub_00463740_FindRoomAtPoint(0, UNITS_GetUnitXPosition(pMissile), UNITS_GetUnitYPosition(pMissile));
     if (!(pMissilesTxtRecord->nMissileFlags[10 >> 3] & gdwBitMasks[10 & 7]) && DUNGEON_IsRoomInTown(pRoom))
     {
         sub_004CD390_CltDoDefault(pMissile);

@@ -139,7 +139,7 @@ int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuest
 void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C360
 int __fastcall ACT3Q3_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x005B8B20
 int __fastcall ACT3Q3_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x005B8BF0
-void __fastcall ACT3Q3_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x005B8C50
+void __fastcall sub_005B8C50_QuestCallback(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x005B8C50
 bool __fastcall ACT3Q3_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus); // 0x005B8CC0
 bool __fastcall ACT3Q3_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC); // 0x005B8E10
 void __fastcall ACT3Q3_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x005B8EC0
@@ -339,7 +339,7 @@ void __fastcall ACT3Q3_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->pCallback[0] = ACT3Q3_Callback00_NpcActivate;
     pQuestData->pCallback[11] = ACT3Q3_Callback11_ScrollMessage;
     pQuestData->pCallback[3] = ACT3Q3_Callback03_ChangedLevel;
-    pQuestData->pCallback[2] = ACT3Q3_Callback02_NpcDeactivate;
+    pQuestData->pCallback[2] = sub_005B8C50_QuestCallback;
     pQuestData->pCallback[13] = ACT3Q3_Callback13_PlayerStartedGame;
     pQuestData->pCallback[14] = ACT3Q3_Callback14_PlayerJoinedGame;
     pQuestData->pCallback[9] = ACT3Q3_Callback09_PlayerDroppedWithQuestItem;

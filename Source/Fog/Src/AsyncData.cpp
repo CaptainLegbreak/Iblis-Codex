@@ -41,7 +41,7 @@ extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 void __stdcall sub_004164A0_SetValue(int nValue); // 0x004164A0
-void __stdcall sub_00416570_SetPowerOfTwoValue(int nValue); // 0x00416570
+void __stdcall SFileSetDataChunkSize(int nValue); // 0x00416570
 int __stdcall sub_0041A930_CancelRead(void* pBuffer); // 0x0041A930
 void __fastcall sub_0040A4C0_AsyncDataFinish(AsyncData* pAsyncData); // 0x0040A4C0
 int __fastcall FOG_AsyncDataTestLoaded(AsyncData* pAsyncData); // 0x0040A7F0
@@ -169,7 +169,7 @@ void __fastcall FOG_AsyncDataInitialize(int bEnable, int nUnused)
 {
     D2_ASSERT(!sgfAsyncDataEnabled, 123);
     sub_004164A0_SetValue(0x40000);
-    sub_00416570_SetPowerOfTwoValue(0x4000);
+    SFileSetDataChunkSize(0x4000);
     if (bEnable)
     {
         sgptAsyncEventArray = (AsyncDataEventSlot*)FOG_Alloc(0x3000, ".\\Src\\AsyncData.cpp", 136, 0);

@@ -60,8 +60,8 @@ D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveR
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtCoords(D2ActiveRoomStrc*, int, int); // 0x00463740
-unsigned short __stdcall sub_0064D9B0_CheckSize(D2ActiveRoomStrc*, int, int, int, unsigned short); // 0x0064D9B0
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc*, int, int); // 0x00463740
+unsigned short __stdcall COLLISION_CheckMaskWithSize(D2ActiveRoomStrc*, int, int, int, unsigned short); // 0x0064D9B0
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553540
 D2UnitStrc* __fastcall sub_6FD15210(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillId, int nSkillLevel); // 0x0056E390
 void __stdcall UNITS_SetTargetUnitForDynamicUnit(D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit); // 0x00620C10
@@ -74,7 +74,7 @@ enum D2C_Y11SkillItemConstants
 
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
 void __fastcall sub_6FCC60D0(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nUnitType, int nUnitGUID, int a6); // 0x005717C0
-int __fastcall SKILLITEM_HandleItemEffectSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, D2UnitStrc* pTargetUnit, int nX, int nY, int* pUnitType, int* pUnitGUID, int* pX, int* pY, int a7); // 0x005FDA80
+int __fastcall sub_005FDA80_HandleItemEffectSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, D2UnitStrc* pTargetUnit, int nX, int nY, int* pUnitType, int* pUnitGUID, int* pX, int* pY, int a7); // 0x005FDA80
 
 // 0x005FCF30
 void __fastcall sub_005FCF30(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)
@@ -199,28 +199,28 @@ int __fastcall sub_005FD350_CheckMonsterCollision(int nMonsterId, D2ActiveRoomSt
     {
     case 206:
     {
-        D2ActiveRoomStrc* pTargetRoom = sub_00463740_FindRoomAtCoords(pRoom, nX, nY + 3);
+        D2ActiveRoomStrc* pTargetRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY + 3);
         if (!pTargetRoom)
             return 0;
-        if (sub_0064D9B0_CheckSize(pTargetRoom, nX, nY + 3, 2, 0x3C01))
+        if (COLLISION_CheckMaskWithSize(pTargetRoom, nX, nY + 3, 2, 0x3C01))
             return 0;
         break;
     }
     case 228:
         nY += 2;
-        pRoom = sub_00463740_FindRoomAtCoords(pRoom, nX, nY);
+        pRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
         if (!pRoom)
             return 0;
-        if (sub_0064D9B0_CheckSize(pRoom, nX, nY, 2, 0x3C01))
+        if (COLLISION_CheckMaskWithSize(pRoom, nX, nY, 2, 0x3C01))
             return 0;
         break;
     case 298:
         if (!nFlag)
         {
-            pRoom = sub_00463740_FindRoomAtCoords(pRoom, nX, nY);
+            pRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
             if (!pRoom)
                 return 0;
-            if (sub_0064D9B0_CheckSize(pRoom, nX, nY, 2, 0x3C01))
+            if (COLLISION_CheckMaskWithSize(pRoom, nX, nY, 2, 0x3C01))
                 return 0;
         }
         break;
@@ -228,10 +228,10 @@ int __fastcall sub_005FD350_CheckMonsterCollision(int nMonsterId, D2ActiveRoomSt
     {
         int nAdjustedX = nX - 2;
         int nAdjustedY = nY - 2;
-        D2ActiveRoomStrc* pTargetRoom = sub_00463740_FindRoomAtCoords(pRoom, nAdjustedX, nAdjustedY);
+        D2ActiveRoomStrc* pTargetRoom = sub_00463740_FindRoomAtPoint(pRoom, nAdjustedX, nAdjustedY);
         if (!pTargetRoom)
             return 0;
-        if (sub_0064D9B0_CheckSize(pTargetRoom, nAdjustedX, nAdjustedY, 2, 0x1C0))
+        if (COLLISION_CheckMaskWithSize(pTargetRoom, nAdjustedX, nAdjustedY, 2, 0x1C0))
             return 0;
         break;
     }
@@ -239,10 +239,10 @@ int __fastcall sub_005FD350_CheckMonsterCollision(int nMonsterId, D2ActiveRoomSt
     {
         nX += 2;
         nY += 4;
-        D2ActiveRoomStrc* pTargetRoom = sub_00463740_FindRoomAtCoords(pRoom, nX, nY);
+        D2ActiveRoomStrc* pTargetRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
         if (!pTargetRoom)
             return 0;
-        if (sub_0064D9B0_CheckSize(pTargetRoom, nX, nY, 2, 0x3C01))
+        if (COLLISION_CheckMaskWithSize(pTargetRoom, nX, nY, 2, 0x3C01))
             return 0;
         break;
     }
@@ -322,7 +322,7 @@ int __fastcall SKILLITEM_CastSkillOnTarget(D2UnitStrc* pUnit, int nSkillId, int 
     int nTargetUnitGUID = -1;
     int nTargetX;
     int nTargetY;
-    if (!SKILLITEM_HandleItemEffectSkill(pGame, pUnit, nSkillId, nSkillLevel, pTargetUnit, 0, 0, &nTargetUnitType, &nTargetUnitGUID, &nTargetX, &nTargetY, a5))
+    if (!sub_005FDA80_HandleItemEffectSkill(pGame, pUnit, nSkillId, nSkillLevel, pTargetUnit, 0, 0, &nTargetUnitType, &nTargetUnitGUID, &nTargetX, &nTargetY, a5))
     {
         return 0;
     }

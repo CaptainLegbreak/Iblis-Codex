@@ -6,7 +6,7 @@ struct D2Palette256Strc;
 int __cdecl sub_004F59A0(); // 0x004F59A0
 extern "C" __declspec(dllimport) int __stdcall MessageBoxA(void* hWnd, const char* szText, const char* szCaption, unsigned int nType); // 0x006CC464
 D2ArchiveHandleStrc* __fastcall sub_00517332_LoadMpqFile(const char* szFileName, void* hFile, void* pfShowMessage, int nPriority); // 0x00517332
-void __fastcall ARCHIVE_UnloadMPQFile(D2ArchiveHandleStrc* pMPQHandle); // 0x005173AC
+void __fastcall sub_005173AC_Unload(D2ArchiveHandleStrc* pMPQHandle); // 0x005173AC
 extern "C" const char gszExpansionMpq_006CD3A0[]; // 0x006CD3A0
 extern "C" const char szPatchD2Mpq_006DC728[]; // 0x006DC728
 extern "C" const char szD2SfxMpq_006DC764[]; // 0x006DC764
@@ -97,37 +97,37 @@ void __cdecl ARCHIVE_UnloadExpansionArchives()
 {
     if (gpD2MusicMPQ)
     {
-        ARCHIVE_UnloadMPQFile(gpD2MusicMPQ);
+        sub_005173AC_Unload(gpD2MusicMPQ);
         gpD2MusicMPQ = 0;
     }
 
     if (gpD2CharMPQ)
     {
-        ARCHIVE_UnloadMPQFile(gpD2CharMPQ);
+        sub_005173AC_Unload(gpD2CharMPQ);
         gpD2CharMPQ = 0;
     }
 
     if (gpD2VideoMPQ)
     {
-        ARCHIVE_UnloadMPQFile(gpD2VideoMPQ);
+        sub_005173AC_Unload(gpD2VideoMPQ);
         gpD2VideoMPQ = 0;
     }
 
     if (gpD2XMusicMPQ)
     {
-        ARCHIVE_UnloadMPQFile(gpD2XMusicMPQ);
+        sub_005173AC_Unload(gpD2XMusicMPQ);
         gpD2XMusicMPQ = 0;
     }
 
     if (gpD2XTalkMPQ)
     {
-        ARCHIVE_UnloadMPQFile(gpD2XTalkMPQ);
+        sub_005173AC_Unload(gpD2XTalkMPQ);
         gpD2XTalkMPQ = 0;
     }
 
     if (gpD2XVideoMPQ)
     {
-        ARCHIVE_UnloadMPQFile(gpD2XVideoMPQ);
+        sub_005173AC_Unload(gpD2XVideoMPQ);
         gpD2XVideoMPQ = 0;
     }
 }
@@ -137,49 +137,49 @@ void __cdecl ARCHIVE_FreeArchives()
 {
     if (gpD2DataMPQ)
     {
-        ARCHIVE_UnloadMPQFile(gpD2DataMPQ);
+        sub_005173AC_Unload(gpD2DataMPQ);
         gpD2DataMPQ = 0;
     }
 
     if (gpD2SpeechMPQ)
     {
-        ARCHIVE_UnloadMPQFile(gpD2SpeechMPQ);
+        sub_005173AC_Unload(gpD2SpeechMPQ);
         gpD2SpeechMPQ = 0;
     }
 
     if (gpD2SfxMPQ)
     {
-        ARCHIVE_UnloadMPQFile(gpD2SfxMPQ);
+        sub_005173AC_Unload(gpD2SfxMPQ);
         gpD2SfxMPQ = 0;
     }
 
     if (gpD2DeltaMPQ)
     {
-        ARCHIVE_UnloadMPQFile(gpD2DeltaMPQ);
+        sub_005173AC_Unload(gpD2DeltaMPQ);
         gpD2DeltaMPQ = 0;
     }
 
     if (gpD2kfixupMPQ)
     {
-        ARCHIVE_UnloadMPQFile(gpD2kfixupMPQ);
+        sub_005173AC_Unload(gpD2kfixupMPQ);
         gpD2kfixupMPQ = 0;
     }
 
     if (gpD2ExpMPQ)
     {
-        ARCHIVE_UnloadMPQFile(gpD2ExpMPQ);
+        sub_005173AC_Unload(gpD2ExpMPQ);
         gpD2ExpMPQ = 0;
     }
 
     if (gpD2XMusicMPQ)
     {
-        ARCHIVE_UnloadMPQFile(gpD2XMusicMPQ);
+        sub_005173AC_Unload(gpD2XMusicMPQ);
         gpD2XMusicMPQ = 0;
     }
 
     if (gpD2PatchMPQ)
     {
-        ARCHIVE_UnloadMPQFile(gpD2PatchMPQ);
+        sub_005173AC_Unload(gpD2PatchMPQ);
         gpD2PatchMPQ = 0;
     }
 

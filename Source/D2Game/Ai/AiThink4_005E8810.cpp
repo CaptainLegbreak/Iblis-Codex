@@ -11,14 +11,14 @@ struct D2AiControlStrc { char unk00[0x14];int nAction; };
 struct D2BaalTargetInfoStrc {char unk00[12];int nX,nY;};
 struct D2PlayerCountBonusStrc {int nHp,nExperience,nSkillBonus,nDifficulty,nPlayerCount;};
 extern const char gszAiThink4Source[]; // 0x006E3500
-int __fastcall sub_005353F0_GetPortalGuid(D2UnitStrc*); // 0x005353F0
+int __fastcall PLAYER_GetUniqueIdFromPlayerData(D2UnitStrc*); // 0x005353F0
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc*,int,int); // 0x00552F60
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc*); // 0x00554010
 void __fastcall MONSTER_GetPlayerCountBonus(D2GameStrc*,D2PlayerCountBonusStrc*,D2ActiveRoomStrc*,D2UnitStrc*); // 0x00573930
 unsigned int __fastcall AIUTIL_GetDistanceToCoordinates_FullUnitSize(D2UnitStrc*,D2UnitStrc*); // 0x005DC380
 int __fastcall sub_005DC480_GetDistance(D2UnitStrc*,int,int); // 0x005DC480
 int __fastcall sub_005DD290_CheckAttack(D2UnitStrc*,D2UnitStrc*); // 0x005DD290
-int __fastcall sub_005FD470_CheckMissilePath(D2GameStrc*,D2UnitStrc*,int,D2UnitStrc*,int,int); // 0x005FD470
+int __fastcall sub_005FD470(D2GameStrc*,D2UnitStrc*,int,D2UnitStrc*,int,int); // 0x005FD470
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc*); // 0x0061A1B0
 D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc*); // 0x00620190
 D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc*); // 0x006201D0
@@ -30,14 +30,14 @@ int __stdcall STATES_CheckState(D2UnitStrc*,int); // 0x00639DF0
 unsigned int __stdcall sub_006417F0_GetDistance(D2UnitStrc*,int,int); // 0x006417F0
 int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc*,const char*,int); // 0x00643CE0
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc*,D2SkillStrc*,int); // 0x006442A0
-int __stdcall PATH_GetX(D2DynamicPathStrc*); // 0x006488C0
+int __stdcall PATH_GetXPosition(D2DynamicPathStrc*); // 0x006488C0
 int __stdcall PATH_GetY(D2DynamicPathStrc*); // 0x00648900
 int __stdcall sub_0064D910_CheckCollision(D2ActiveRoomStrc*,int,int,int,int); // 0x0064D910
 static __forceinline int sub_0045ADF0(D2UnitStrc* pUnit)
 {
     switch(pUnit->dwUnitType)
     {case 2:case 4:case 5:return pUnit->pStaticPath->nXPos;}
-    return pUnit->pDynamicPath ? PATH_GetX(pUnit->pDynamicPath):0;
+    return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath):0;
 }
 static __forceinline int sub_0045AE20(D2UnitStrc* pUnit)
 {
@@ -75,7 +75,7 @@ int __fastcall sub_005E8810_SelectBaalAction(D2AiControlStrc* pAi,D2UnitStrc* pU
     int bPortal=0;
     if((!pTarget ? 6:pTarget->dwUnitType)==0)
     {
-        pPortal=SUNIT_GetServerUnit(pGame,2,sub_005353F0_GetPortalGuid(pTarget));
+        pPortal=SUNIT_GetServerUnit(pGame,2,PLAYER_GetUniqueIdFromPlayerData(pTarget));
         if(pPortal && DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pPortal))==108)
             if(sub_006417F0_GetDistance(pPortal,pInfo->nX,pInfo->nY)<85)bPortal=1;
     }
@@ -162,8 +162,8 @@ int __fastcall sub_005E8810_SelectBaalAction(D2AiControlStrc* pAi,D2UnitStrc* pU
         if(bVeryFar){nWeights[9]=20;nWeights[14]=60;}
         if(bPortal)nWeights[15]=15;
     }
-    if(sub_005FD470_CheckMissilePath(pGame,pUnit,199,pTarget,0,0))nWeights[9]=0;
-    if(nWeights[15] && pPortal && !sub_005FD470_CheckMissilePath(pGame,pUnit,199,pPortal,0,0))nWeights[15]=0;
+    if(sub_005FD470(pGame,pUnit,199,pTarget,0,0))nWeights[9]=0;
+    if(nWeights[15] && pPortal && !sub_005FD470(pGame,pUnit,199,pPortal,0,0))nWeights[15]=0;
     int* pWeight=nWeights;
     int nTotal=0;
     for(int n=17;n;--n)nTotal+=*pWeight++;

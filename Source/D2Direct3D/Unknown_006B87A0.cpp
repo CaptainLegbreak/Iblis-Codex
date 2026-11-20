@@ -42,8 +42,8 @@ void __fastcall sub_006B9780_SetColor(D2TileVertexStrc* pVertex, unsigned int nP
 
 int __stdcall sub_005FDEA0_CheckTile(D2TileStrc*,int,int); // 0x005FDEA0
 void __fastcall sub_006B1EA0_SetState(int); // 0x006B1EA0
-void __fastcall sub_006B1F40_SetBlend(int); // 0x006B1F40
-void __fastcall sub_006B2030_SetMode(int); // 0x006B2030
+void __fastcall sub_006B1F40_SetBlendMode(int); // 0x006B1F40
+void __fastcall sub_006B2030_SetFilterMode(int); // 0x006B2030
 int __cdecl sub_006B9830_GetPerspective(); // 0x006B9830
 int __stdcall sub_006B8950_Lit(int,D2TileStrc*,int,int,const unsigned int*,unsigned char); // 0x006B8950
 __declspec(noinline) static int __stdcall sub_006B87A0_DrawNoPerspective(D2TileStrc*,int,int,const unsigned int*,int,unsigned char);
@@ -110,7 +110,7 @@ static int __stdcall sub_006B8DF0_AlphaWall(D2TileStrc*,int,int,const unsigned i
 static int __stdcall sub_006B8DF0_AlphaWall(D2TileStrc* t,int x,int y,const unsigned int* l,int panels,unsigned char alpha)
 {
  if(!sub_005FDEA0_CheckTile(t,1,0))return 0;
- sub_006B1EA0_SetState(1);sub_006B1F40_SetBlend(alpha==255?1:4);sub_006B2030_SetMode(1);
+ sub_006B1EA0_SetState(1);sub_006B1F40_SetBlendMode(alpha==255?1:4);sub_006B2030_SetFilterMode(1);
  if(sub_006B9830_GetPerspective())return sub_006B8950_Lit(panels,t,x,y,l,alpha);
  return sub_006B87A0_DrawNoPerspective(t,x,y,l,panels,alpha);
 }
@@ -123,7 +123,7 @@ int __fastcall sub_006B8E60_DrawAlphaWall(D2TileStrc* t,int x,int y,const unsign
 int __fastcall sub_006B8E90_DrawWall(D2TileStrc* t,int x,int y,const unsigned int* l,int panels)
 {
  if(!sub_005FDEA0_CheckTile(t,1,0))return 0;
- sub_006B1EA0_SetState(1);sub_006B1F40_SetBlend(1);sub_006B2030_SetMode(1);
+ sub_006B1EA0_SetState(1);sub_006B1F40_SetBlendMode(1);sub_006B2030_SetFilterMode(1);
  if(sub_006B9830_GetPerspective())return sub_006B8950_Lit(panels,t,x,y,l,255);
  return sub_006B87A0_DrawNoPerspective(t,x,y,l,panels,255);
 }

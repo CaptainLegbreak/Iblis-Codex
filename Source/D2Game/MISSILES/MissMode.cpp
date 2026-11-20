@@ -167,7 +167,7 @@ int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 unsigned short __stdcall COLLISION_CheckMask(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask); // 0x0064CB30
 void* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
-void __stdcall sub_005A6600(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFlag, D2ModeChangeStrc* pModeChange); // 0x005A6600
+void __stdcall sub_6FC631B0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFlag, D2ModeChangeStrc* pModeChange); // 0x005A6600
 unsigned char __stdcall MISSILE_GetElemTypeFromMissileId(int nMissileId); // 0x0064B0C0
 D2UnitStrc* __fastcall SUNIT_GetOwner(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00552FD0
 int __stdcall MISSILE_GetTargetX(D2UnitStrc* pMissile); // 0x0064A730
@@ -286,7 +286,7 @@ int __stdcall SKILLS_GetElementalLength(D2UnitStrc* pUnit, int nSkillId, int nSk
 void __fastcall MISSMODE_SrvDmg05_BlessedHammer(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit, D2DamageStrc* pDamage); // 0x005AD2F0
 int __fastcall MISSMODE_GetDamageValue(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, D2DamageStrc* pDamage); // 0x005A8C70
 int __stdcall MONSTERS_IsDemon(D2UnitStrc* pMonster); // 0x0063E940
-int __fastcall sub_004638A0(int nMonsterId, int nFlag); // 0x004638A0
+int __fastcall sub_004638A0_CheckMonStats2Flag(int nMonsterId, int nFlag); // 0x004638A0
 
 typedef int(__fastcall* MISSILESRVHITFN)(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pUnit);
 extern MISSILESRVHITFN gpfMissileSrvHitFn[]; // 0x0073C840
@@ -303,7 +303,7 @@ typedef int(__fastcall* MISSMODE_SRVDO)(D2GameStrc* pGame, D2UnitStrc* pMissile)
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 extern MISSMODE_SRVDO gMissileSrvDoFuncTable_0073C768[]; // 0x0073C768
 extern int gnMissileSrvDoFuncCount_0073C71C; // 0x0073C71C
-D2ActiveRoomStrc* __fastcall COLLISION_GetRoomBySubTileCoordinates(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 
 // 0x0059F840
@@ -426,7 +426,7 @@ void __fastcall sub_005A8000_ModeChangeTarget(D2GameStrc* pGame, D2UnitStrc* pUn
     D2ModeChangeStrc modeChange;
     modeChange.pUnit = pUnit;
     modeChange.pTargetUnit = pTarget;
-    sub_005A6600(pGame, pUnit, 1, &modeChange);
+    sub_6FC631B0(pGame, pUnit, 1, &modeChange);
 }
 
 // 0x005A91C0
@@ -1617,7 +1617,7 @@ void __fastcall MISSMODE_SrvDmg14_MoltenBoulder(D2GameStrc* pGame, D2UnitStrc* p
         const int nParam = pMissilesTxtRecord->dwDmgParam[0];
         if (nParam < 1)
         {
-            if (!sub_004638A0(pUnit->dwClassId, 10))
+            if (!sub_004638A0_CheckMonStats2Flag(pUnit->dwClassId, 10))
             {
                 return;
             }
@@ -1626,11 +1626,11 @@ void __fastcall MISSMODE_SrvDmg14_MoltenBoulder(D2GameStrc* pGame, D2UnitStrc* p
         else if (nParam == 1)
         {
             const int nClassId = pUnit->dwClassId;
-            if (sub_004638A0(nClassId, 10))
+            if (sub_004638A0_CheckMonStats2Flag(nClassId, 10))
             {
                 nChance = 2 * pMissilesTxtRecord->dwDmgParam[1];
             }
-            else if (!sub_004638A0(nClassId, 11))
+            else if (!sub_004638A0_CheckMonStats2Flag(nClassId, 11))
             {
                 nChance = pMissilesTxtRecord->dwDmgParam[1];
             }
@@ -1642,11 +1642,11 @@ void __fastcall MISSMODE_SrvDmg14_MoltenBoulder(D2GameStrc* pGame, D2UnitStrc* p
         else if (nParam > 1)
         {
             const int nClassId = pUnit->dwClassId;
-            if (sub_004638A0(nClassId, 10))
+            if (sub_004638A0_CheckMonStats2Flag(nClassId, 10))
             {
                 nChance = 3 * pMissilesTxtRecord->dwDmgParam[1];
             }
-            else if (!sub_004638A0(nClassId, 11))
+            else if (!sub_004638A0_CheckMonStats2Flag(nClassId, 11))
             {
                 nChance = 2 * pMissilesTxtRecord->dwDmgParam[1];
             }
@@ -1752,7 +1752,7 @@ static __declspec(noinline) void __stdcall sub_005ADBB0_MISSMODE_SrvDo(D2GameStr
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pMissile);
     if (!pRoom)
     {
-        pRoom = COLLISION_GetRoomBySubTileCoordinates(0, CLIENTS_GetUnitX(pMissile), CLIENTS_GetUnitY(pMissile));
+        pRoom = sub_00463740_FindRoomAtPoint(0, CLIENTS_GetUnitX(pMissile), CLIENTS_GetUnitY(pMissile));
     }
 
     D2UnitStrc* pOwner = SUNIT_GetOwner(pGame, pMissile);

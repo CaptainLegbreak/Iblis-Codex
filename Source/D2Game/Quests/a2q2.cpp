@@ -82,7 +82,7 @@ bool __fastcall ACT2Q2_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId,
 void __fastcall ACT2Q2_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);    // 0x005997F0
 void __fastcall ACT2Q2_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);      // 0x00599910
 void __fastcall ACT2Q2_Callback04_ItemPickedUp(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);     // 0x00599A30
-void __fastcall ACT2Q2_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x0059E850
+void __fastcall sub_0059E850(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x0059E850
 bool __fastcall ACT2Q2_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus); // 0x0059E630
 
 int __fastcall ACT2Q2_UnitIterate_DetermineStaffDropCount(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
@@ -292,7 +292,7 @@ void __fastcall ACT2Q2_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->pCallback[4] = ACT2Q2_Callback04_ItemPickedUp;
     pQuestData->pCallback[5] = ACT2Q2_Callback05_ItemDropped;
     pQuestData->pCallback[8] = sub_00599A20_ACT2Q2_Callback08_Empty;
-    pQuestData->pCallback[13] = ACT2Q2_Callback13_PlayerStartedGame;
+    pQuestData->pCallback[13] = sub_0059E850;
     pQuestData->pCallback[14] = ACT2Q2_Callback14_PlayerJoinedGame;
     pQuestData->pCallback[9] = ACT2Q2_Callback09_PlayerDroppedWithQuestItem;
     memset(pQuestDataEx, 0x00, sizeof(D2Act2Quest2Strc));

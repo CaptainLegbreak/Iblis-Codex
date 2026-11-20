@@ -46,7 +46,7 @@ struct D2DrlgStrc
     void* pMempool;
 };
 
-void __fastcall sub_0066C370_OnChildlessNode(void* pContext, D2DrlgRoomStrc* pNode); // 0x0066C370
+void __fastcall DRLGROOM_InitNearRooms(void* pContext, D2DrlgRoomStrc* pNode); // 0x0066C370
 void __fastcall DRLGROOMTILE_InitRoomGrids(D2DrlgRoomStrc* pDrlgRoom); // 0x0066EE40
 void __fastcall DRLG_CreateRoomForRoomEx(D2DrlgStrc* pDrlg, D2DrlgRoomStrc* pDrlgRoom); // 0x006422A0
 int __fastcall DRLG_IsOnClient(D2DrlgStrc* pDrlg); // 0x00642A00
@@ -66,7 +66,7 @@ static int DRLGACTIVATE_RoomEx_EnsureHasRoom(void* pMemPool, D2DrlgRoomStrc* pDr
 {
     D2DrlgStrc* pDrlg = pDrlgRoom->ptDrlgLevel->pDrlg;
     if (!pDrlgRoom->nRoomsNear)
-        sub_0066C370_OnChildlessNode(pMemPool, pDrlgRoom);
+        DRLGROOM_InitNearRooms(pMemPool, pDrlgRoom);
     DRLGROOMTILE_InitRoomGrids(pDrlgRoom);
     DRLGROOMTILE_AddRoomMapTiles(pDrlgRoom);
     DRLG_CreateRoomForRoomEx(pDrlg, pDrlgRoom);

@@ -34,7 +34,7 @@ extern const unsigned int gdwBitMasks[32];                                      
 
 int __fastcall sub_0054DC40_FindSpawnPosition(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pCoordList, int nMonsterId, int* pX, int* pY, int a7); // 0x0054DC40
 D2UnitStrc* __fastcall MONSTERSPAWN_SpawnInCoordList(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pCoordList, int nX, int nY, int nMonsterId, int nMode, int a8, int a9); // 0x005B3040
-int __fastcall MONSTERS_GetBaseIdFromMonsterId(int nMonsterId);                                             // 0x00463900
+int __fastcall sub_00463900_GetValidMonsterId(int nMonsterId);                                             // 0x00463900
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                                                         // 0x0045ADF0
 D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char a7, int nMode, unsigned int a9); // 0x00555230
@@ -211,7 +211,7 @@ static __declspec(noinline) D2UnitStrc* __stdcall sub_0054E490_SpawnRegularPrese
     {
         if (nClassId < sgptDataTables->nMonStatsTxtRecordCount && nClassId == 0x1B0)
             SUNIT_AllocUnitData(2, 0x23B, CLIENTS_GetUnitX(pMonster), CLIENTS_GetUnitY(pMonster), pGame, pRoom, 1, 0, 0);
-        else if (MONSTERS_GetBaseIdFromMonsterId(nClassId) == 0x1B1)
+        else if (sub_00463900_GetValidMonsterId(nClassId) == 0x1B1)
             SUNIT_AllocUnitData(2, 0x23C, CLIENTS_GetUnitX(pMonster), CLIENTS_GetUnitY(pMonster), pGame, pRoom, 1, 0, 0);
     }
 
@@ -408,7 +408,7 @@ D2UnitStrc* __fastcall D2GAME_SpawnPresetMonster_6FC66560(D2GameStrc* pGame, D2A
                 break;
         }
 
-        if (MONSTERS_GetBaseIdFromMonsterId(nMonsterId) == 0x1B6)
+        if (sub_00463900_GetValidMonsterId(nMonsterId) == 0x1B6)
         {
             const int nExpireFrame = SEED_RollLimitedRandomNumber(&pMonster->pSeed, 50) + pGame->dwGameFrame + 250;
             EVENT_SetEvent(pGame, pMonster, 7, nExpireFrame, 0, 0);

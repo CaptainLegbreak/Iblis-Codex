@@ -9,7 +9,7 @@ struct D2PlayerDataStrc { char unk00[0x10]; D2BitBufferStrc* pQuestData[3]; };
 struct D2Act5Quest2Strc { char unk00[0x84]; unsigned char bQualKehkActivated,unk85,bGroupFreed[3]; char unk89[3]; D2CoordStrc tCageCoords[3]; int nTotalWussies,nKilledWussies,nFreedWussies; int nWussieGUIDs[3][5]; int nPortalGUIDs[3]; unsigned char bPortalSpawned[3]; char unkFB[0x13]; unsigned char bPortalAttempted[3]; };
 struct D2QuestDataStrc { int nQuestNo; D2GameStrc* pGame; char unk08[0xC]; unsigned int dwFlags; D2Act5Quest2Strc* pQuestDataEx; };
 typedef int (__fastcall* QUESTUNITITERATE)(D2GameStrc*,D2UnitStrc*,void*);
-D2ActiveRoomStrc* __fastcall sub_00463740_FindRoom(D2ActiveRoomStrc*,int,int); // 0x00463740
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc*,int,int); // 0x00463740
 void __fastcall EVENT_SetEvent(D2GameStrc*,D2UnitStrc*,int,int,int,int); // 0x005417D0
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc*,int); // 0x00543640
 void __fastcall QUESTS_UnitIterate(D2QuestDataStrc*,int,D2UnitStrc*,QUESTUNITITERATE,bool); // 0x00544300
@@ -70,7 +70,7 @@ void __fastcall sub_005888D0_SpawnRescuePortal(D2GameStrc* pGame,D2UnitStrc* pPl
      }
      if(!bFound) return;
      pQuestDataEx->bPortalAttempted[nIndex]=1;
-     pRoom=sub_00463740_FindRoom(pTargetRoom,tCoords.nX,tCoords.nY);
+     pRoom=sub_00463740_FindRoomAtPoint(pTargetRoom,tCoords.nX,tCoords.nY);
      D2UnitStrc* pPortal=SUNIT_AllocUnitData(2,189,tCoords.nX,tCoords.nY,pQuestData->pGame,pRoom,1,1,0);
      if(!pPortal)
      {

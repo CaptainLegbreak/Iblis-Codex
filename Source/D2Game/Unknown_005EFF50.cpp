@@ -35,7 +35,7 @@ struct D2AiTickParamStrc
 };
 
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
-int __fastcall UNITS_GetCurrentLifePercentage(D2UnitStrc* pUnit); // 0x005DD280
+int __fastcall sub_005DD280(D2UnitStrc* pUnit); // 0x005DD280
 int __fastcall sub_6FCF2E70(D2UnitStrc* pUnit); // 0x005DD2B0
 D2UnitStrc* __fastcall AIUTIL_SelectAiTargetWithCollisionCheck(D2GameStrc* pGame, D2UnitStrc* pUnit, int* pDistance, int* pInMeleeRange); // 0x005DDC30
 int __fastcall AITACTICS_ChangeModeAndTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, D2UnitStrc* pTargetUnit); // 0x005DDF90
@@ -65,7 +65,7 @@ void __fastcall AITHINK_Fn004_Bighead(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Ai
         return;
     }
 
-    if (UNITS_GetCurrentLifePercentage(pUnit) >= AI_PARAM(pGame, pMonStatsTxt, 0))
+    if (sub_005DD280(pUnit) >= AI_PARAM(pGame, pMonStatsTxt, 0))
     {
         if (bCombat)
         {

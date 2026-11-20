@@ -315,10 +315,10 @@ extern "C" const char gszQuestsSourceFile[]; // 0x006E0BE4
 extern int dword_6FD4DC34; // 0x008846DC
 extern const D2UnkPlrMsgStrc stru_6FD30708[]; // 0x007319E8
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
-void __fastcall sub_6FC84C70(D2GameStrc* pGame, const char* szMessage, unsigned char nColor); // 0x0054A930
+void __fastcall sub_0054A930_BroadcastMessage(D2GameStrc* pGame, const char* szMessage, unsigned char nColor); // 0x0054A930
 void __fastcall SUNIT_IterateUnitsOfType(D2GameStrc* pGame, int nType, void* pArg, int(__fastcall* pfIterate)(D2GameStrc*, D2UnitStrc*, void*)); // 0x005537D0
 void __fastcall D2GAME_PACKETS_SendPacket0x29_6FC3F370(D2ClientStrc* pClient, D2GSPacketSrv29* pPacket); // 0x0053D700
-int __fastcall ITEMS_IsInPlayersInventory(D2UnitStrc* pPlayer, D2UnitStrc* pItem, D2InventoryStrc* pInventory); // 0x00557FF0
+int __fastcall sub_00557FF0_InventoryContainsItem(D2UnitStrc* pPlayer, D2UnitStrc* pItem, D2InventoryStrc* pInventory); // 0x00557FF0
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 void __fastcall ACT1Q4_SendStoneOrderToClient(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00593CB0
 void __fastcall ACT2Q6_SendTombIdToClient(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0059D6A0
@@ -332,7 +332,7 @@ int __fastcall ACT2Q6_IsDurielsLairClosed(D2GameStrc* pGame, D2UnitStrc* pUnit);
 int __fastcall ACT3Q5_IsDuranceOfHateClosed(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005BBFA0
 int __fastcall ACT5Q5_IsArreatSummitClosed(D2GameStrc* pGame, D2UnitStrc* pUnit, int nTargetLevel); // 0x0058D090
 int __fastcall ACT5Q6_IsWorldStoneChamberClosed(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0058E640
-D2ActiveRoomStrc* __fastcall D2GAME_GetRoom_6FC52070(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
 D2UnitStrc* __fastcall D2GAME_SpawnPresetMonster_6FC66560(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nClassId, int nX, int nY, int nMode); // 0x0054E600
 void __fastcall ACT5Q3_ChangeDrehyaMapAI(D2GameStrc* pGame, D2UnitStrc* pUnit, D2MapAIStrc* pMapAi); // 0x0058AD80
 void __fastcall ACT5Q3_ChangeNihlathakMapAI(D2GameStrc* pGame, D2UnitStrc* pUnit, D2MapAIStrc* pMapAi); // 0x0058AE10
@@ -404,10 +404,10 @@ void __fastcall sub_00594630_QuestGoldDrop(D2QuestDataStrc* pQuestData, D2UnitSt
 void __fastcall sub_005956C0_ACT1Q5_SpawnChestMissilesAndEvent(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit); // 0x005956C0
 void __fastcall ACT2Q4_InitializeHaremBlockerObject(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit); // 0x0059B710
 D2UnitStrc* __fastcall sub_6FC68D70(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int a5, short nFlags); // 0x005B23C0
-void __fastcall sub_005B5750(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005B5750
-void __fastcall sub_005B6710(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit); // 0x005B6710
+void __fastcall sub_005B5750_SpawnQuestMonster(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005B5750
+void __fastcall sub_005B6710_DropHellforgeReward(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit); // 0x005B6710
 void __fastcall sub_005B85E0_OpenSewerStairs(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit); // 0x005B85E0
-void __fastcall sub_005BCAC0(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit); // 0x005BCAC0
+void __fastcall sub_005BCAC0_UpdateQuestObject(D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit); // 0x005BCAC0
 void __fastcall PLRINTRO_SetNpcIntroFlag(D2PlrIntroStrc* pPlayerIntro, int nNpcId); // 0x00572420
 
 int __fastcall PLRINTRO_GetNpcIntroFlag(D2PlrIntroStrc* pPlayerIntro, int nNpcId); // 0x00572470
@@ -826,7 +826,7 @@ void __fastcall QUESTS_StateDebug(D2QuestDataStrc* pQuestData, int nState, const
     wsprintfA(szMsg, "changing state to %d\n", nState);
     if (dword_6FD4DC34)
     {
-        sub_6FC84C70(pQuestData->pGame, szMsg, STRCOLOR_DARK_GOLD);
+        sub_0054A930_BroadcastMessage(pQuestData->pGame, szMsg, STRCOLOR_DARK_GOLD);
     }
 }
 
@@ -846,7 +846,7 @@ void __fastcall QUESTS_SendCurrentFlags(D2GameStrc* pGame, D2ClientStrc* pClient
 void __fastcall QUESTS_UseClueItem(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUnitId)
 {
     D2UnitStrc* pItem = SUNIT_GetServerUnit(pGame, UNIT_ITEM, nUnitId);
-    if (!pItem || !ITEMS_IsInPlayersInventory(pUnit, pItem, 0))
+    if (!pItem || !sub_00557FF0_InventoryContainsItem(pUnit, pItem, 0))
     {
         return;
     }
@@ -937,7 +937,7 @@ int __fastcall QUESTS_LevelWarpCheck(D2GameStrc* pGame, D2UnitStrc* pPlayer, int
 D2UnitStrc* __fastcall QUESTS_SpawnMonster(D2GameStrc* pGame, D2UnitStrc* pUnit, D2CoordStrc* pPosition, int nType, int nIndex)
 {
     int nClassId = DATATBLS_MapSuperUniqueId(nType, nIndex);
-    D2ActiveRoomStrc* pRoom = D2GAME_GetRoom_6FC52070(UNITS_GetRoom(pUnit), pPosition->nX, pPosition->nY);
+    D2ActiveRoomStrc* pRoom = sub_00463740_FindRoomAtPoint(UNITS_GetRoom(pUnit), pPosition->nX, pPosition->nY);
     if (pRoom)
     {
         return D2GAME_SpawnPresetMonster_6FC66560(pGame, pRoom, nClassId, pPosition->nX, pPosition->nY, 1);
@@ -1006,7 +1006,7 @@ void __fastcall QUESTS_AttachLevelChainRecord(D2GameStrc* pGame, D2UnitStrc* pUn
 
     if (dword_6FD4DC34)
     {
-        sub_6FC84C70(pGame, "Error attaching to unit", STRCOLOR_DARK_GOLD);
+        sub_0054A930_BroadcastMessage(pGame, "Error attaching to unit", STRCOLOR_DARK_GOLD);
     }
 }
 
@@ -1320,7 +1320,7 @@ void __fastcall QUESTS_DebugOutput(D2GameStrc* pGame, const char* szMessage, con
 {
     if (dword_6FD4DC34)
     {
-        sub_6FC84C70(pGame, szMessage, STRCOLOR_DARK_GOLD);
+        sub_0054A930_BroadcastMessage(pGame, szMessage, STRCOLOR_DARK_GOLD);
     }
 }
 
@@ -1720,7 +1720,7 @@ void __fastcall QUESTS_ObjectEvents(D2GameStrc* pGame, D2UnitStrc* pUnit)
             switch (DUNGEON_GetLevelIdFromRoom(pRoom))
             {
             case 108:
-                sub_005B5750(pGame, pUnit);
+                sub_005B5750_SpawnQuestMonster(pGame, pUnit);
                 break;
 
             case 76:
@@ -1778,7 +1778,7 @@ void __fastcall QUESTS_ObjectEvents(D2GameStrc* pGame, D2UnitStrc* pUnit)
         D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 20);
         if (pQuestData)
         {
-            sub_005BCAC0(pQuestData, pUnit);
+            sub_005BCAC0_UpdateQuestObject(pQuestData, pUnit);
         }
         break;
     }
@@ -1805,7 +1805,7 @@ void __fastcall QUESTS_ObjectEvents(D2GameStrc* pGame, D2UnitStrc* pUnit)
         D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 24);
         if (pQuestData)
         {
-            sub_005B6710(pQuestData, pUnit);
+            sub_005B6710_DropHellforgeReward(pQuestData, pUnit);
         }
         break;
     }
@@ -2019,7 +2019,7 @@ void __fastcall sub_00545FA0_RemoveTimer(D2QuestDataStrc* pQuest, QUESTUPDATE pf
     }
 
     if (dword_6FD4DC34)
-        sub_6FC84C70(pGame, "Error in timer usage", 4);
+        sub_0054A930_BroadcastMessage(pGame, "Error in timer usage", 4);
 }
 
 // 0x00545310
@@ -2054,7 +2054,7 @@ void __fastcall QUESTS_GetFreePosition(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCo
             D2ActiveRoomStrc* pRoom1 = pRoom;
             if (tPos.nY < drlgCoords.nSubtileY || tPos.nY >= drlgCoords.nSubtileY + drlgCoords.nSubtileHeight)
             {
-                pRoom1 = D2GAME_GetRoom_6FC52070(pRoom, tPos.nX, tPos.nY);
+                pRoom1 = sub_00463740_FindRoomAtPoint(pRoom, tPos.nX, tPos.nY);
             }
 
             if (pRoom1)
@@ -2068,7 +2068,7 @@ void __fastcall QUESTS_GetFreePosition(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCo
 
                     if (tPos.nX < drlgCoords.nSubtileX || tPos.nY >= drlgCoords.nSubtileX + drlgCoords.nSubtileWidth)
                     {
-                        pRoom2 = D2GAME_GetRoom_6FC52070(pRoom1, tPos.nX, tPos.nY);
+                        pRoom2 = sub_00463740_FindRoomAtPoint(pRoom1, tPos.nX, tPos.nY);
                     }
 
                     if (pRoom2 && !COLLISION_CheckMaskWithSizeXY(pRoom2, tPos.nX, tPos.nY, 2 * nSize + 1, 2 * nSize + 1, fCollision)
@@ -2077,7 +2077,7 @@ void __fastcall QUESTS_GetFreePosition(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCo
                     {
                         pCoord->nX = (nSize >> 1) + tPos.nX;
                         pCoord->nY = (nSize >> 1) + tPos.nY;
-                        *ppRoom = D2GAME_GetRoom_6FC52070(pRoom, pCoord->nX, pCoord->nY);
+                        *ppRoom = sub_00463740_FindRoomAtPoint(pRoom, pCoord->nX, pCoord->nY);
                         return;
                     }
                 }

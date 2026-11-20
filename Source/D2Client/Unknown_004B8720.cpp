@@ -75,7 +75,7 @@ struct D2TimedHintNodeStrc
 
 int __cdecl sub_00481820(); // 0x00481820
 D2HintCursorStrc* __fastcall sub_00481860(int nId); // 0x00481860
-void __fastcall sub_004B9B50_SetHintValue(int nKey, int nValue); // 0x004B9B50
+void __fastcall sub_004B9B50_SetValue(int nKey, int nValue); // 0x004B9B50
 extern D2TimedHintNodeStrc* gpTimedHintList_007C5458; // 0x007C5458
 
 D2ClientDialogStrc* gpDialog_007C0E64; // 0x007C0E64
@@ -276,7 +276,7 @@ void __fastcall sub_004B9EF0_ArmHint(int nKey, int nGroup, int nOffset, unsigned
     if (!nCount)
     {
         D2_ASSERT(!nOffset, 0x25C);
-        sub_004B9B50_SetHintValue(nKey, nGroup);
+        sub_004B9B50_SetValue(nKey, nGroup);
         return;
     }
 

@@ -20,10 +20,10 @@ int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc*,int); // 0x0045C390
 void __fastcall AITACTICS_WalkToTargetUnitWithFlags(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,int); // 0x005DEC80
 void __fastcall AITACTICS_WalkCloseToUnit(D2GameStrc*,D2UnitStrc*,int); // 0x005DE200
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc*,D2UnitStrc*,int); // 0x005DE080
-D2UnitStrc* __fastcall AITACTICS_FindNearbyPlayerOrSelf(D2GameStrc*,D2UnitStrc*,int*); // 0x005DDF20
-int __fastcall ACT5Q2_IsPrisonDoorDead(D2GameStrc*,D2UnitStrc*,D2UnitStrc*); // 0x00588E10
-void __fastcall ACT5Q2_UpdateQuestState(D2GameStrc*,D2UnitStrc*,D2UnitStrc*); // 0x005888D0
-void __fastcall TARGETS_InsertUnitNode(D2GameStrc*,D2UnitStrc*,int,int); // 0x005B1990
+D2UnitStrc* __fastcall sub_6FCCFD70(D2GameStrc*,D2UnitStrc*,int*); // 0x005DDF20
+int __fastcall sub_00588E10_IsMonsterNearby(D2GameStrc*,D2UnitStrc*,D2UnitStrc*); // 0x00588E10
+void __fastcall sub_005888D0_SpawnRescuePortal(D2GameStrc*,D2UnitStrc*,D2UnitStrc*); // 0x005888D0
+void __fastcall sub_6FC40280(D2GameStrc*,D2UnitStrc*,int,int); // 0x005B1990
 void __fastcall ACT5Q2_OnWussieActivated(D2GameStrc*,D2UnitStrc*,D2UnitStrc*); // 0x00588DD0
 extern const char gszAiThink4[]; // 0x006E3500
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc*,const char*,int); // 0x005531C0
@@ -70,15 +70,15 @@ void __fastcall AITHINK_Fn131_Wussie(D2GameStrc* pGame,D2UnitStrc* pUnit,D2AiTic
     else
     {
         int bCloseToTarget = 0;
-        D2UnitStrc* pPlayer = AITACTICS_FindNearbyPlayerOrSelf(pGame,pUnit,&bCloseToTarget);
+        D2UnitStrc* pPlayer = sub_6FCCFD70(pGame,pUnit,&bCloseToTarget);
         if (pPlayer && pPlayer->dwUnitType == 0)
         {
-            if (ACT5Q2_IsPrisonDoorDead(pGame,pPlayer,pUnit))
+            if (sub_00588E10_IsMonsterNearby(pGame,pPlayer,pUnit))
             {
-                ACT5Q2_UpdateQuestState(pGame,pPlayer,pUnit);
+                sub_005888D0_SpawnRescuePortal(pGame,pPlayer,pUnit);
                 if (pUnit->dwNodeIndex == 11)
                 {
-                    TARGETS_InsertUnitNode(pGame,pUnit,0,8);
+                    sub_6FC40280(pGame,pUnit,0,8);
                     AITACTICS_IdleInNeutralMode(pGame,pUnit,25);
                     return;
                 }

@@ -63,7 +63,7 @@ int __fastcall D2Win_10076(D2WinEditBoxStrc* pEditBox, const char* szText); // 0
 void __fastcall BUTTON_SetIsPressed(D2WinButtonStrc* pButton, int bIsPressed); // 0x005009A0
 unsigned int __stdcall sub_00505330_GetCompositeFlags(D2CompositeStrc* pComposite); // 0x00505330
 const char* __stdcall D2Win_10160_GetPlayerTitle(int nClass, int nRank, int bSoftCore); // 0x00505640
-void __cdecl sub_004451C0_UpdateControls(); // 0x004451C0
+void __cdecl sub_004451C0_UpdateLevelControls(); // 0x004451C0
 void __stdcall sub_004493E0_RemoveChannelUser(const char* szName); // 0x004493E0
 int __stdcall sub_0041C430_LoadString(int nId, char* szBuffer, unsigned int nSize); // 0x0041C430
 void __cdecl sub_00451400_AddRecordChunk(); // 0x00451400
@@ -115,13 +115,13 @@ void __cdecl sub_00445300_LoadLvlRest()
     if (nValue == 666)
     {
         BUTTON_SetIsPressed(gpButton_00798C40, 0);
-        sub_004451C0_UpdateControls();
+        sub_004451C0_UpdateLevelControls();
         return;
     }
     SStrPrintf(szText, 4, gszFormatInt_006D57BC, nValue);
     D2Win_10076(gpEditBox_00798C3C, szText);
     BUTTON_SetIsPressed(gpButton_00798C40, 1);
-    sub_004451C0_UpdateControls();
+    sub_004451C0_UpdateLevelControls();
 }
 
 // 0x00447560

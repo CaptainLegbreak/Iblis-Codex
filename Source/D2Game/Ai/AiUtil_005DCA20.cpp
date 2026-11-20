@@ -27,7 +27,7 @@ struct D2AiTargetSearchArgsStrc
 };
 
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit);                                                             // 0x005541B0
-int __fastcall sub_6FCBD900(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget);                     // 0x00554200
+int __fastcall SUNIT_AreUnitsHostile(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget);                     // 0x00554200
 int __fastcall AIUTIL_GetDistanceToCoordinates_FullUnitSize(D2UnitStrc* pTarget, D2UnitStrc* pSource);      // 0x005DC380
 int __fastcall sub_005DC920_GetThreat(D2UnitStrc* pUnit);                                                   // 0x005DC920
 int __stdcall UNITS_TestCollisionWithUnit(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, int nCollisionMask);
@@ -52,7 +52,7 @@ static __declspec(noinline) int __stdcall sub_005DCA20_IsHostile(D2GameStrc* pGa
 {
  if (!pTarget) return 0;
  if (pTarget->dwUnitType < 0 || pTarget->dwUnitType > 1 || SUNIT_IsDead(pTarget) || !UNITS_CanBeAttackedInline(pTarget)) return 0;
- return sub_6FCBD900(pGame,pUnit,pTarget);
+ return SUNIT_AreUnitsHostile(pGame,pUnit,pTarget);
 }
 // @ref 0x005DCA70
 D2UnitStrc* __fastcall AIUTIL_TargetCallback_SelectHostileTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg)

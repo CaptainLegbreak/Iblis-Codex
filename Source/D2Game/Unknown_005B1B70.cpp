@@ -57,7 +57,7 @@ extern D2MonsterItemCodeStrc gaAncientBarbItems_006E1BB0[4][3]; // 0x006E1BB0
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId); // 0x00633640
-void __fastcall sub_00573B20_GiveItem(D2GameStrc* pGame, D2UnitStrc* pUnit, D2MonsterItemCodeStrc* pCode, int nLevel, int nFlags); // 0x00573B20
+void __fastcall sub_6FC61190(D2GameStrc* pGame, D2UnitStrc* pUnit, D2MonsterItemCodeStrc* pCode, int nLevel, int nFlags); // 0x00573B20
 int __fastcall QUESTS_CreateChainRecord(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuestId); // 0x005436B0
 void __fastcall D2GAME_BOSSES_AssignUMod_6FC6FF10(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique); // 0x005A4850
 void __fastcall MONSTER_ToggleSummonerFlag(D2UnitStrc* pUnit, int nFlag, int bSet); // 0x00573570
@@ -161,7 +161,7 @@ static __declspec(noinline) void MONSTERSPAWN_EquipAncientBarbarians(D2UnitStrc*
             tCode.dwCode = pItemsTxt->dwUberCode;
             break;
         }
-        sub_00573B20_GiveItem(pGame, pUnit, &tCode, nLevel, 4);
+        sub_6FC61190(pGame, pUnit, &tCode, nLevel, 4);
     }
 }
 

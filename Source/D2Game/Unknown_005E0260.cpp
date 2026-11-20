@@ -120,7 +120,7 @@ int __fastcall AITACTICS_ChangeModeAndTargetUnit(D2GameStrc* pGame, D2UnitStrc* 
 int __fastcall AITACTICS_UseSequenceSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, D2UnitStrc* pTargetUnit, int nX, int nY); // 0x005DE000
 D2UnitStrc* __fastcall SUNIT_GetOwner(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00552FD0
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
-D2UnitStrc* __fastcall sub_6FCF1E80(D2GameStrc* pGame, D2UnitStrc* pUnit, void* a3, AIUTIL_TargetCallback a4, int nCallbackId); // 0x005DD0B0
+D2UnitStrc* __fastcall AIUTIL_FindTargetWithCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* a3, AIUTIL_TargetCallback a4, int nCallbackId); // 0x005DD0B0
 D2UnitStrc* __fastcall AITHINK_TargetCallback_SiegeBeast(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg); // 0x005E1720
 void __fastcall sub_005E17E0_SiegeBeastSetTower(D2UnitStrc* pUnit, D2UnitStrc* pTower); // 0x005E17E0
 D2UnitStrc* __fastcall AITHINK_TargetCallback_MinionSpawner(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg); // 0x005E2B70
@@ -134,7 +134,7 @@ void __fastcall AITHINK_ExecuteAiFn(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiCo
 bool __fastcall sub_005E6020_SelectGenericSpawnClass(D2GameStrc* pGame, D2UnitStrc* pUnit, int* pClassId); // 0x005E6020
 bool __fastcall sub_6FCE61E0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam, D2MapAIPathPositionStrc* pPosition); // 0x005E6DE0
 D2AiCmdStrc* __fastcall AIGENERAL_SetCurrentAiCommand(D2GameStrc* pGame, D2UnitStrc* pUnit, int nCmdParam, int bSet); // 0x0058EFA0
-int __fastcall sub_0046C140_CheckMonStats2ModeFlag(int nMonsterId, int nMode); // 0x0046C140
+int __fastcall sub_0046C140_TestMonModeFlag(int nMonsterId, int nMode); // 0x0046C140
 
 
 
@@ -159,7 +159,7 @@ int __fastcall PLAYERPETS_GetTotalPetCount(D2UnitStrc*); // 0x00574F40
 unsigned int __fastcall AIUTIL_GetDistanceToCoordinates(D2UnitStrc*, int, int); // 0x005DC5C0
 int __fastcall D2GAME_AI_PetMove_6FCE2BA0(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, int, int, int, int); // 0x005E3EA0
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc*); // 0x0061AB00
-int __stdcall sub_0061B130_GetCollision(D2ActiveRoomStrc*, int, int); // 0x0061B130
+int __stdcall D2Common_10095(D2ActiveRoomStrc*, int, int); // 0x0061B130
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc*); // 0x006221A0
 int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc*); // 0x00648A00
 int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc*); // 0x00648A10
@@ -172,7 +172,7 @@ struct D2PetInfoStrc { int unk_00[2]; int nHirelingId; };
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc*, int, int); // 0x00625480
 D2PetInfoStrc* __fastcall PLAYERPETS_GetPetInfoFromPetGUID(D2UnitStrc*, int); // 0x00574BD0
 int __fastcall D2GAME_AICORE_WalkToOwner_6FCD0B60(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, int); // 0x005DF530
-int __fastcall D2GAME_AICORE_Escape_6FCD0560(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, unsigned char, int); // 0x005DEFE0
+int __fastcall sub_005DEFE0_Escape(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, unsigned char, int); // 0x005DEFE0
 void __fastcall AITHINK_SelectHirelingAction(D2GameStrc*, D2UnitStrc*, int, int, D2UnitStrc*, D2SeedStrc*); // 0x005E4D30
 void __stdcall PATH_SetStepNum(D2DynamicPathStrc*, unsigned char); // 0x00649070
 int __fastcall AITACTICS_RunToTargetUnitWithFlags(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, unsigned char); // 0x005DED00
@@ -305,7 +305,7 @@ void __fastcall AITHINK_Fn113_SiegeTower(D2GameStrc* pGame, D2UnitStrc* pUnit, D
             D2SiegeBeastTowerAiCallbackArgStrc arg;
             arg.nMaxDistance = 400;
             arg.unk0x04 = 0;
-            D2UnitStrc* pBeast = sub_6FCF1E80(pGame, pUnit, &arg, AITHINK_TargetCallback_SiegeBeast, 1);
+            D2UnitStrc* pBeast = AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, AITHINK_TargetCallback_SiegeBeast, 1);
             if (pBeast)
             {
                 sub_005E17E0_SiegeBeastSetTower(pBeast, pUnit);
@@ -342,7 +342,7 @@ void __fastcall AITHINK_Fn121_MinionSpawner(D2GameStrc* pGame, D2UnitStrc* pUnit
 
     D2MinionSpawnerAiCallbackArgStrc arg;
     arg.nMinions = 0;
-    sub_6FCF1E80(pGame, pUnit, &arg, AITHINK_TargetCallback_MinionSpawner, 1);
+    AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, AITHINK_TargetCallback_MinionSpawner, 1);
     if (pMonStatsTxt->nSkill[0] >= 0 && arg.nMinions < pMonStatsTxt->wAiParam[1][pGame->nDifficulty])
     {
         pAiControl->dwAiParam[0] = pGame->dwGameFrame + pMonStatsTxt->wAiParam[2][pGame->nDifficulty];
@@ -477,7 +477,7 @@ bool __fastcall sub_6FCE6340(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParam
         D2AiCmdStrc* pAiCmd = AIGENERAL_SetCurrentAiCommand(pGame, pUnit, 7, 0);
         if (pAiCmd)
         {
-            pAiCmd->nCmdParam[1] = sub_0046C140_CheckMonStats2ModeFlag(pUnit->dwClassId, MONMODE_SKILL1) ? MONMODE_SKILL1 : MONMODE_NEUTRAL;
+            pAiCmd->nCmdParam[1] = sub_0046C140_TestMonModeFlag(pUnit->dwClassId, MONMODE_SKILL1) ? MONMODE_SKILL1 : MONMODE_NEUTRAL;
             pAiCmd->nCmdParam[2] = pPosition->nX;
             pAiCmd->nCmdParam[3] = pPosition->nY;
             pAiCmd->nCmdParam[4] = 4;
@@ -506,7 +506,7 @@ bool __fastcall sub_6FCE64D0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParam
         D2AiCmdStrc* pAiCmd = AIGENERAL_SetCurrentAiCommand(pGame, pUnit, 7, 0);
         if (pAiCmd)
         {
-            pAiCmd->nCmdParam[1] = sub_0046C140_CheckMonStats2ModeFlag(pUnit->dwClassId, MONMODE_SKILL2) ? MONMODE_SKILL2 : MONMODE_NEUTRAL;
+            pAiCmd->nCmdParam[1] = sub_0046C140_TestMonModeFlag(pUnit->dwClassId, MONMODE_SKILL2) ? MONMODE_SKILL2 : MONMODE_NEUTRAL;
             pAiCmd->nCmdParam[2] = pPosition->nX;
             pAiCmd->nCmdParam[3] = pPosition->nY;
             pAiCmd->nCmdParam[4] = 4;
@@ -744,8 +744,8 @@ int __fastcall sub_005E45D0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pT
             return D2GAME_AI_PetMove_6FCE2BA0(pGame, pOwner, pUnit, 3, 0, 0, nRange);
         goto ReturnZero;
     }
-    nOwnerCollision = sub_0061B130_GetCollision(UNITS_GetRoom(pOwner), GetUnitX(pOwner), GetUnitY(pOwner));
-    nUnitCollision = sub_0061B130_GetCollision(UNITS_GetRoom(pUnit), GetUnitX(pUnit), GetUnitY(pUnit));
+    nOwnerCollision = D2Common_10095(UNITS_GetRoom(pOwner), GetUnitX(pOwner), GetUnitY(pOwner));
+    nUnitCollision = D2Common_10095(UNITS_GetRoom(pUnit), GetUnitX(pUnit), GetUnitY(pUnit));
     nFirstX = D2COMMON_10175_PathGetFirstPointX(pPath);
     nFirstY = D2COMMON_10176_PathGetFirstPointY(pPath);
     nLastX = sub_00648A20_GetLastPointX(pPath);
@@ -812,7 +812,7 @@ void __fastcall sub_005E5050_RunHirelingAction(D2GameStrc* pGame, D2UnitStrc* pU
         {
             if (D2GAME_AICORE_WalkToOwner_6FCD0B60(pGame, pUnit, pOwner, 4)) return;
             D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 2, 0);
-            if (D2GAME_AICORE_Escape_6FCD0560(pGame, pUnit, pTarget, 4, 1)) return;
+            if (sub_005DEFE0_Escape(pGame, pUnit, pTarget, 4, 1)) return;
         }
         else if (!bAction)
         {

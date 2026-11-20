@@ -83,7 +83,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 #pragma intrinsic(memset)
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);    // 0x0040B430
-void* __fastcall sub_0040B4B0(void* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0);   // 0x0040B4B0
+void* __fastcall FOG_ReallocPool(void* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0);   // 0x0040B4B0
 D2LevelDefBin* __fastcall DATATBLS_GetLevelDefRecord(int nLevelId);                                             // 0x0061E470
 void __stdcall DRLG_InitLevel(D2DrlgLevelStrc* pLevel);                                         // 0x006424A0
 int __fastcall DRLG_IsTownLevel(int nLevelId);                                                       // 0x006426A0
@@ -217,7 +217,7 @@ static void sub_0066BD50(D2DrlgRoomStrc* pDrlgRoom)
 static void __stdcall sub_0066BDA0(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom1, D2DrlgRoomStrc* pDrlgRoom2)
 {
     ++pDrlgRoom1->nRoomsNear;
-    pDrlgRoom1->ppRoomsNear = (D2DrlgRoomStrc**)sub_0040B4B0(pMemPool, pDrlgRoom1->ppRoomsNear, sizeof(D2DrlgRoomStrc*) * pDrlgRoom1->nRoomsNear, ".\\DRLG\\DrlgRoom.cpp", 788, 0);
+    pDrlgRoom1->ppRoomsNear = (D2DrlgRoomStrc**)FOG_ReallocPool(pMemPool, pDrlgRoom1->ppRoomsNear, sizeof(D2DrlgRoomStrc*) * pDrlgRoom1->nRoomsNear, ".\\DRLG\\DrlgRoom.cpp", 788, 0);
     if (!pDrlgRoom1->ppRoomsNear)
     {
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 789);

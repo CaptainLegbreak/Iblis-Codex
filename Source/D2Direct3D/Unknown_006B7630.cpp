@@ -50,7 +50,7 @@ typedef char* va_list;
 extern "C" __declspec(dllimport) int __stdcall wvsprintfA(char* szOut, const char* szFormat, va_list args);
 
 void __fastcall sub_006B1EA0_SetState(int nState); // 0x006B1EA0
-void __fastcall sub_006B1F40_SetMode(int nMode); // 0x006B1F40
+void __fastcall sub_006B1F40_SetBlendMode(int nMode); // 0x006B1F40
 void __fastcall sub_006B2030_SetFilterMode(int nMode); // 0x006B2030
 
 // 0x006B7630
@@ -60,7 +60,7 @@ void __fastcall sub_006B7630_DrawTextV(int nX, int nY, const char* szFormat, va_
     const int nLength = wvsprintfA(szBuffer, szFormat, args);
     const int nStartX = nX;
     sub_006B1EA0_SetState(1);
-    sub_006B1F40_SetMode(1);
+    sub_006B1F40_SetBlendMode(1);
     sub_006B2030_SetFilterMode(1);
     for (int i = 0; i < nLength; ++i)
     {

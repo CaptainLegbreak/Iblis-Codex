@@ -15,11 +15,11 @@ struct D2DrlgLevelStrc
     int eLevelId;
 };
 
-void __fastcall sub_006743C0(D2DrlgLevelStrc* pLevel, int nX, int nY, int nPresetId, int nDirection, int a6);  // 0x006743C0
+void __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(D2DrlgLevelStrc* pLevel, int nX, int nY, int nPresetId, int nDirection, int a6);  // 0x006743C0
 int __fastcall sub_00674730(D2DrlgLevelStrc* pLevel, int nPresetId, int nArg, int a4, int a5);          // 0x00674730
-void __fastcall sub_006752A0(D2DrlgLevelStrc* pLevel, int nIndex, int nPresetId);                     // 0x006752A0
-void __fastcall sub_00675770(D2DrlgLevelStrc* pLevel);                                                  // 0x00675770
-void __fastcall sub_00675850(D2DrlgLevelStrc* pLevel);                                                  // 0x00675850
+void __fastcall DRLGOUTDOORS_AddAct124SecondaryBorder(D2DrlgLevelStrc* pLevel, int nIndex, int nPresetId);                     // 0x006752A0
+void __fastcall DRLGOUTPLACE_SetOutGridLinkFlags(D2DrlgLevelStrc* pLevel);                                                  // 0x00675770
+void __fastcall DRLGOUTPLACE_PlaceAct1245OutdoorBorders(D2DrlgLevelStrc* pLevel);                                                  // 0x00675850
 
 static const int gAct4SecondPresetBase[3] = { 828, 832, 832 }; // 0x006F22A4
 
@@ -40,11 +40,11 @@ static void sub_0067E660(D2DrlgLevelStrc* pLevel)
     D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoorInfo;
     if (pInfo->dwFlags & 0x400000)
     {
-        sub_006743C0(pLevel, 0, 1, 0x31E, -1, 0);
+        DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, 0, 1, 0x31E, -1, 0);
     }
     if (pInfo->dwFlags & 0x800000)
     {
-        sub_006743C0(pLevel, 0, 4, 0x31E, -1, 0);
+        DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, 0, 4, 0x31E, -1, 0);
     }
 }
 
@@ -93,7 +93,7 @@ static void sub_0067E840(D2DrlgLevelStrc* pLevel)
 {
     for (int i = 0; i < 25; ++i)
     {
-        sub_006743C0(pLevel, (i % 5) * 3, (i / 5) * 3, gAct4Level108Presets[i], -1, 0);
+        DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, (i % 5) * 3, (i / 5) * 3, gAct4Level108Presets[i], -1, 0);
     }
 }
 
@@ -102,12 +102,12 @@ void __fastcall sub_0067E890(D2DrlgLevelStrc* pLevel)
 {
     if (pLevel->eLevelId == 108)
     {
-        sub_00675770(pLevel);
+        DRLGOUTPLACE_SetOutGridLinkFlags(pLevel);
     }
     else
     {
-        sub_00675770(pLevel);
-        sub_00675850(pLevel);
+        DRLGOUTPLACE_SetOutGridLinkFlags(pLevel);
+        DRLGOUTPLACE_PlaceAct1245OutdoorBorders(pLevel);
     }
 
     switch (pLevel->eLevelId)
@@ -116,9 +116,9 @@ void __fastcall sub_0067E890(D2DrlgLevelStrc* pLevel)
     case 105:
     case 106:
         sub_0067E660(pLevel);
-        sub_006752A0(pLevel, 1, 0x31F);
-        sub_006752A0(pLevel, 2, 0x31F);
-        sub_006752A0(pLevel, 3, 0x31F);
+        DRLGOUTDOORS_AddAct124SecondaryBorder(pLevel, 1, 0x31F);
+        DRLGOUTDOORS_AddAct124SecondaryBorder(pLevel, 2, 0x31F);
+        DRLGOUTDOORS_AddAct124SecondaryBorder(pLevel, 3, 0x31F);
         sub_0067E6A0(pLevel);
         break;
 

@@ -29,7 +29,7 @@ struct D2WinControlStrc
 };
 
 void __stdcall D2GFX_SetPalette(T004F51E0* pPalette); // 0x004F63D0
-void __fastcall sub_004F9740_SetControlState(D2WinControlStrc* pControl, int bSet); // 0x004F9740
+void __fastcall sub_004F9740(D2WinControlStrc* pControl, int bSet); // 0x004F9740
 
 struct SMSGHANDLER_PARAMS
 {
@@ -120,12 +120,12 @@ void __cdecl sub_004FB1B0_ApplyPalette()
 // 0x004FBD70
 void __fastcall sub_004FBD70_SetControlStateWithChild(D2WinControlStrc* pControl, int bSet)
 {
-    sub_004F9740_SetControlState(pControl, bSet);
+    sub_004F9740(pControl, bSet);
     D2_ASSERT(pControl, 0x320);
     D2_ASSERT(pControl->eType == 4, 0x321);
     if (pControl->pChild)
     {
-        sub_004F9740_SetControlState(pControl->pChild, bSet);
+        sub_004F9740(pControl->pChild, bSet);
     }
 }
 

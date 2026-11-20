@@ -127,7 +127,7 @@ typedef char check_line_size[(sizeof(D2ListBoxLineStrc) == 0x300E) ? 1 : -1];
 typedef char check_ctx_size[(sizeof(D2CelContextStrc) == 0x48) ? 1 : -1];
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-void __fastcall sub_00452E50_SetClipRect(D2RectStrc* pRect); // 0x00452E50
+void __fastcall sub_00452E50_DrawRectangleBorder(D2RectStrc* pRect); // 0x00452E50
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
 int __fastcall sub_004BE340_CountLinesInView(ListBoxImplementation* pListBox); // 0x004BE340
@@ -192,7 +192,7 @@ void ListBoxImplementation::Slot01()
     tRect.nLeft = f_180708;
     tRect.nRight = f_180708 + nRectWidth - 1;
     tRect.nBottom = f_18070C + nRectHeight - 1;
-    sub_00452E50_SetClipRect(&tRect);
+    sub_00452E50_DrawRectangleBorder(&tRect);
 
     const int nOldFont = sub_00502EF0(nArg18);
 

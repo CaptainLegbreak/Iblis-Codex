@@ -42,7 +42,7 @@ struct D2SkillDescTxt
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __fastcall sub_004EDEA0_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2SkillsTxt* pSkillsTxt, int nSkillId, int nArg3, int nArg4, int nLine, int nArg5); // 0x004EDEA0
-void __fastcall sub_00502280_SetPopUpText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
+void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 void __fastcall D2Win_10131_GetTextDimensions(const Unicode* pText, int* pWidth, int* pHeight); // 0x00502520
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 
@@ -506,5 +506,5 @@ void __fastcall sub_004EF990_SetSkillPopUpText(D2UnitStrc* pUnit, int nSkillId, 
     sub_00526700(wszText, D2LANG_GetStringFromTblIndex(!pSkillDescTxt ? 0x1506 : pSkillDescTxt->wStrName));
 
     D2Win_10131_GetTextDimensions(wszText, &nWidth, &nHeight);
-    sub_00502280_SetPopUpText(wszText, nX, nHeight + nY + 3, nArg5, 0);
+    D2Win_10129_DrawFramedText(wszText, nX, nHeight + nY + 3, nArg5, 0);
 }

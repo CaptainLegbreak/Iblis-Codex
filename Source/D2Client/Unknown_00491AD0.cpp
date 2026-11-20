@@ -21,16 +21,16 @@ void __fastcall sub_004786D0_SendPacket(char nHeader, int nArg1, int nArg2, int 
 int __cdecl sub_00486D10_CheckTick();                                                                      // 0x00486D10
 void __fastcall sub_0049FF90_OpenTextData(D2UnitStrc* pUnit, D2ItemsTxt* pTxt);                            // 0x0049FF90
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4);                  // 0x004B9A00
-int __fastcall sub_004C1E20(D2UnitStrc* pItem);                                                            // 0x004C1E20
-void __fastcall sub_004C21F0(D2UnitStrc* pItem);                                                           // 0x004C21F0
+int __fastcall sub_004C1E20_GetItemUseSound(D2UnitStrc* pItem);                                                            // 0x004C1E20
+void __fastcall sub_004C21F0_SetState36(D2UnitStrc* pItem);                                                           // 0x004C21F0
 int __fastcall sub_004C2240(D2UnitStrc* pItem);                                                            // 0x004C2240
 int __stdcall UNITS_GetInventoryRecordId(D2UnitStrc* pUnit, unsigned char nInvPage, int bLoD);             // 0x00621050
 int __stdcall ITEMS_GetBaseCode(D2UnitStrc* pItem);                                                        // 0x00628590
-int __stdcall sub_00628C20(D2UnitStrc* pItem);                                                             // 0x00628C20
-int __stdcall sub_00628C70(D2UnitStrc* pItem);                                                             // 0x00628C70
+int __stdcall ITEMS_CheckIfUseable(D2UnitStrc* pItem);                                                             // 0x00628C20
+int __stdcall ITEMS_GetUniqueColumnFromItemsTxt(D2UnitStrc* pItem);                                                             // 0x00628C70
 int __stdcall sub_0062A0A0(D2UnitStrc* pItem);                                                             // 0x0062A0A0
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId);                                             // 0x006335F0
-D2UnitStrc* __stdcall sub_0063BD10(D2InventoryStrc* pInventory, int nX, int nY, int* pOutX, int* pOutY, int nRecord, unsigned char nPage); // 0x0063BD10
+D2UnitStrc* __stdcall INVENTORY_GetItemFromInventoryPage(D2InventoryStrc* pInventory, int nX, int nY, int* pOutX, int* pOutY, int nRecord, unsigned char nPage); // 0x0063BD10
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory);                                // 0x0063C1E0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath);                                                 // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath);                                                 // 0x00648900
@@ -66,10 +66,10 @@ extern int gdwGlobal_007BCBF0;                                                  
 void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS* pMsg);                                            // 0x00420290
 int __cdecl sub_0044DA30();                                                                                 // 0x0044DA30
 void __cdecl sub_00453EC0();                                                                                // 0x00453EC0
-D2UnitStrc* __cdecl sub_00463DD0();                                                               // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 int __cdecl sub_00463DF0();                                                                                 // 0x00463DF0
 int __cdecl sub_00468830();                                                                                 // 0x00468830
-void __cdecl sub_004835B0();                                                                                // 0x004835B0
+void __cdecl sub_004835B0_LoadUiRecords();                                                                                // 0x004835B0
 int __cdecl sub_00487BE0_ResetButtons();                                                                    // 0x00487BE0
 int __fastcall sub_00498DC0_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg);                                         // 0x00498DC0
 
@@ -152,7 +152,7 @@ static __declspec(noinline) int __stdcall sub_00487740_ClickGridItem(D2UnitStrc*
         nGridY = (nY - gGrid_007BCB40.nGridTop) / gGrid_007BCB40.nGridBoxHeight;
     }
 
-    D2UnitStrc* pItem = sub_0063BD10(pInventory, nGridX, nGridY, &nOutX, &nOutY, nRecord, nPage);
+    D2UnitStrc* pItem = INVENTORY_GetItemFromInventoryPage(pInventory, nGridX, nGridY, &nOutX, &nOutY, nRecord, nPage);
     if (pItem)
     {
         if (!INVENTORY_GetCursorItem(pInventory) && sub_0062A0A0(pItem))
@@ -160,11 +160,11 @@ static __declspec(noinline) int __stdcall sub_00487740_ClickGridItem(D2UnitStrc*
             if (!sub_004C2240(pItem))
             {
                 sub_00478680_SendPacket5(0x4C, pItem->dwUnitId);
-                sub_004C21F0(pItem);
+                sub_004C21F0_SetState36(pItem);
                 return 1;
             }
         }
-        else if (sub_00628C20(pItem))
+        else if (ITEMS_CheckIfUseable(pItem))
         {
             const int nUnitX = UNITS_GetXPositionInline(pPlayer);
             const int nUnitY = UNITS_GetYPositionInline(pPlayer);
@@ -176,13 +176,13 @@ static __declspec(noinline) int __stdcall sub_00487740_ClickGridItem(D2UnitStrc*
                 }
 
                 sub_004786D0_SendPacket(0x20, pItem->dwUnitId, nUnitX, nUnitY);
-                sub_004C21F0(pItem);
-                sub_004B9A00(sub_004C1E20(pItem), 0, 0, 0, 0);
+                sub_004C21F0_SetState36(pItem);
+                sub_004B9A00(sub_004C1E20_GetItemUseSound(pItem), 0, 0, 0, 0);
                 gdwGlobal_007BCBE4 = 0;
                 return 1;
             }
         }
-        else if (sub_00628C70(pItem))
+        else if (ITEMS_GetUniqueColumnFromItemsTxt(pItem))
         {
             D2ItemsTxt* pTxt = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
             const int nCode = pTxt->dwCode;
@@ -242,7 +242,7 @@ static __forceinline int INV_IsModeInRange(int nMode)
 // 0x00491AD0
 void __stdcall sub_00491AD0_OnInventoryClickMsg(SMSGHANDLER_PARAMS* pMsg)
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (sub_0044DA30() || !pPlayer || sub_00463DF0())
     {
         return;

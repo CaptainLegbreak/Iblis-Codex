@@ -30,7 +30,7 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const int dwErrorCodesRemap_006E1208[PLRSAVE2ERROR_COUNT]; // 0x006E1208
 int __fastcall CLIENTS_GetClassId(D2ClientStrc* pClient); // 0x005385F0
 D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char a7, int nMode, unsigned int a9); // 0x00555230
-void __fastcall sub_00569F20(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2ClientStrc* pClient); // 0x00569F20
+void __fastcall sub_00569F20_InitPlayerFromClient(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2ClientStrc* pClient); // 0x00569F20
 void __fastcall sub_005385D0(D2ClientStrc* pClient, int a2, int a3); // 0x005385D0
 void __fastcall sub_00571F90(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00571F90
 unsigned char __fastcall CLIENTS_GetActNo(D2ClientStrc* pClient); // 0x005382B0
@@ -76,7 +76,7 @@ static int __stdcall sub_00569F80_CreateNewbiePlayer(D2GameStrc* pGame, D2Client
     sub_6FC32220(pClient);
     const int nClassId = CLIENTS_GetClassId(pClient);
     D2UnitStrc* pPlayer = SUNIT_AllocUnitData(UNIT_PLAYER, nClassId, 0, 0, pGame, 0, 0, 0, 0);
-    sub_00569F20(pGame, pPlayer, pClient);
+    sub_00569F20_InitPlayerFromClient(pGame, pPlayer, pClient);
     sub_005385D0(pClient, 0, 1);
     sub_00571F90(pGame, pPlayer, pClient);
 
