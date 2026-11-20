@@ -1,17 +1,14 @@
 #include "D2DDraw.h"
+#include "D2DDrawTypes.h"
+#include "D2GfxTypes.h"
+#include "D2GlideTypes.h"
 
 struct D2CriticalSectionStrc;
 struct D2TileLibraryEntryStrc;
 struct D2GfxLightExStrc;
-struct D2DDrawSurfaceStrc;
-struct D2DDrawObjectStrc;
 struct T004F51E0;
 struct T00508FE0;
-struct D2GrLfbInfoStrc;
 struct D2BinkStrc;
-struct D2DDSurfaceDescStrc;
-struct D2DDrawSurfaceVtblStrc;
-struct D2DDrawObjectVtblStrc;
 struct tagRECT;
 
 struct T00508FE0
@@ -25,15 +22,6 @@ struct T00508FE0
     float unk0x18;
 };
 
-struct D2GrLfbInfoStrc
-{
-    int size;
-    void* f_4;
-    unsigned int strideInBytes;
-    int f_C;
-    int origin;
-};
-
 struct D2BinkStrc
 {
     unsigned int Width;
@@ -42,51 +30,6 @@ struct D2BinkStrc
     unsigned int f_C;
 };
 
-struct D2DDSurfaceDescStrc
-{
-    unsigned int dwSize;
-    unsigned int dwFlags;
-    unsigned int dwHeight;
-    unsigned int dwWidth;
-    int lPitch;
-    unsigned int dwBackBufferCount;
-    unsigned int dwRefreshRate;
-    unsigned int dwAlphaBitDepth;
-    unsigned int dwReserved;
-    void* lpSurface;
-    unsigned int unk0x28[17];
-};
-
-struct D2DDrawSurfaceVtblStrc
-{
-    void* unk0x00[25];
-    long (__stdcall* Lock)(D2DDrawSurfaceStrc* pThis, void* pDestRect, D2DDSurfaceDescStrc* pSurfaceDesc, unsigned long dwFlags, void* hEvent);
-    void* unk0x68[6];
-    long (__stdcall* Unlock)(D2DDrawSurfaceStrc* pThis, void* pRect);
-};
-
-struct D2DDrawSurfaceStrc
-{
-    D2DDrawSurfaceVtblStrc* lpVtbl;
-};
-
-struct D2DDrawObjectVtblStrc
-{
-    void* QueryInterface;
-    void* AddRef;
-    unsigned long (__stdcall* Release)(D2DDrawObjectStrc* pThis);
-};
-
-struct D2DDrawObjectStrc
-{
-    D2DDrawObjectVtblStrc* lpVtbl;
-};
-
-struct D2TileDrawFunctionsStrc
-{
-    void* unk0x00[3];
-    int (__fastcall* pfDrawFloorTile)(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, D2GfxLightExStrc* pLight);
-};
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(dllimport) void* __stdcall CreateFontA(int cHeight, int cWidth, int cEscapement, int cOrientation, int cWeight, unsigned long bItalic, unsigned long bUnderline, unsigned long bStrikeOut, unsigned long iCharSet, unsigned long iOutPrecision, unsigned long iClipPrecision, unsigned long iQuality, unsigned long iPitchAndFamily, const char* pszFaceName); // 0x006CC0E0
@@ -314,7 +257,7 @@ void __cdecl sub_0050FD10_GlideDrawVideoFrame()
     D2GrLfbInfoStrc info = { sizeof(D2GrLfbInfoStrc) };
     if (gpfGlideLfbLock_0087EADC(1, 0, 5, 0, 0, &info))
     {
-        BinkCopyToBuffer(gpGlideBink_00880C0C, info.f_4, info.strideInBytes, gpGlideBink_00880C0C->Height, gnGlideBinkX_00880C08, gnGlideBinkY_00880C04, gnGlideBinkFlags_00880C14);
+        BinkCopyToBuffer(gpGlideBink_00880C0C, info.lfbPtr, info.strideInBytes, gpGlideBink_00880C0C->Height, gnGlideBinkX_00880C08, gnGlideBinkY_00880C04, gnGlideBinkFlags_00880C14);
         gpfGlideLfbUnlock_0087EAD8(1, 0);
     }
     LeaveCriticalSection(gpRenderCriticalSection_007C9134);

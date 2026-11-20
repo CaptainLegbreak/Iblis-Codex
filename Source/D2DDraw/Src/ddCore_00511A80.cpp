@@ -1,11 +1,6 @@
 #include "D2DDraw.h"
 #include "D2GfxTypes.h"
 
-struct D2TileDrawFunctionsStrc
-{
-    void (__fastcall* pfFillYBufferTable)(unsigned char* pBits, int nWidth, int nHeight, int a4);
-};
-
 struct D2IDirectDrawSurface
 {
     virtual long __stdcall QueryInterface(void* riid, void** ppObject) = 0;
@@ -13,20 +8,10 @@ struct D2IDirectDrawSurface
     virtual unsigned long __stdcall Release() = 0;
 };
 
-struct D2DDrawCapsStrc
-{
-    int nValue00;
-    int nValue04;
-    int nValue08;
-    int unk0x0C[0x3E];
-    int nValue104;
-    int nValue108;
-    int nValue10C;
-};
 int __fastcall sub_00511870_EndScene();                                                                     // 0x00511870
 void __fastcall sub_00512ED0_ClearScreen(int bPartial);                                                     // 0x00512ED0
 extern int gaDDrawCapsTypes_0072F7D0[7];                                                                    // 0x0072F7D0
-D2DDrawCapsStrc* gpDDrawCaps_007C9150;                                                                      // 0x007C9150
+D2GfxPaletteViewStrc* gpDDrawCaps_007C9150;                                                                      // 0x007C9150
 extern int gbDDrawReady_00881264;                                                                           // 0x00881264
 extern int gbDDrawReady2_00881268;                                                                          // 0x00881268
 extern D2IDirectDrawSurface* gpDDrawSurface_00881278;                                                       // 0x00881278
@@ -109,3 +94,4 @@ void __fastcall sub_00513330_DDrawCloseSmacker(D2SmackRecordStrc* pRecord)
 }
 
 #include "gen/data/Source/D2DDraw/Src/ddCore_00511A80.inc"
+#include "D2GfxTypes.h"

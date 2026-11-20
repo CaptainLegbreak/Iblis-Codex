@@ -4,10 +4,14 @@
 #include "D2Check.h"
 #include "D2Structs.h"
 
+struct D2TileLibraryEntryStrc;
+struct D2GfxLightExStrc;
+struct D2TileLightStrc;
 struct D2RgbColorStrc;
 struct D2GfxSettingsStrc;
 struct D2GfxPaletteViewStrc;
 struct D2SmackStrc;
+struct D2TileDrawFunctionsStrc;
 
 struct D2RgbColorStrc
 {
@@ -28,7 +32,15 @@ struct D2GfxSettingsStrc
 
 struct D2GfxPaletteViewStrc
 {
-    int unk0x00[0x45]; // 0x00
+    int nValue00; // 0x00
+    int nValue04; // 0x04
+    int nValue08; // 0x08
+    unsigned char* pGammaTables[0x31]; // 0x0C
+    unsigned char* pPaletteTables[0x0D]; // 0xD0
+    int nValue104; // 0x104
+    int nValue108; // 0x108
+    int nValue10C; // 0x10C
+    int unk0x110; // 0x110
     unsigned char* pRgbTable; // 0x114
     unsigned char* pRemap; // 0x118
     int unk0x11C; // 0x11C
@@ -47,7 +59,19 @@ struct D2SmackStrc
     int nFrameNum; // 0x374
 };
 
+struct D2TileDrawFunctionsStrc
+{
+    void (__fastcall* pfFillYBufferTable)(unsigned char* pBits, int nWidth, int nHeight, int a4); // 0x00
+    void (__fastcall* pfDrawWallBlock)(void* pData, int nX, int nY); // 0x04
+    void* unk0x08; // 0x08
+    int (__fastcall* pfDrawFloorTile)(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, D2GfxLightExStrc* pLight); // 0x0C
+    void (__fastcall* pfDrawBlock)(unsigned char* pData, int nX, int nY, D2TileLightStrc* pLight); // 0x10
+    void (__fastcall* pfDrawShadowBlock)(void* pData, int nX, int nY, int nAlpha); // 0x14
+    void (__fastcall* pfDrawLitBlock)(unsigned char* pData, int nX, int nY, D2TileLightStrc* pLight, int nArg); // 0x18
+};
+
 D2_CHECK_SIZE(D2RgbColorStrc, 0x3);
 D2_CHECK_SIZE(D2GfxSettingsStrc, 0x18);
 D2_CHECK_SIZE(D2GfxPaletteViewStrc, 0x120);
 D2_CHECK_SIZE(D2SmackStrc, 0x378);
+D2_CHECK_SIZE(D2TileDrawFunctionsStrc, 0x1C);

@@ -1,14 +1,13 @@
 #pragma once
 
+#include "D2DDrawTypes.h"
 #include "D2GlideTypes.h"
 
 struct D2CelContextStrc;
 struct D2CelStrc;
 struct D2CriticalSectionStrc;
-struct D2DDrawSurfaceStrc;
 struct D2GfxPaletteViewStrc;
 struct D2GlideTileStrc;
-struct D2GrLfbInfoStrc;
 struct D2TileDrawFunctionsStrc;
 struct D2TileLibraryEntryStrc;
 struct T00508FE0;
@@ -86,21 +85,6 @@ struct D2ClipStrc
     int nHeight;
 };
 
-struct D2DDSurfaceDescStrc
-{
-    unsigned int dwSize;
-    unsigned int dwFlags;
-    unsigned int dwHeight;
-    unsigned int dwWidth;
-    int lPitch;
-    unsigned int dwBackBufferCount;
-    unsigned int dwRefreshRate;
-    unsigned int dwAlphaBitDepth;
-    unsigned int dwReserved;
-    void* lpSurface;
-    unsigned int unk0x28[17];
-};
-
 struct D2GfxLightStrc
 {
     unsigned int aColor[8];
@@ -119,15 +103,6 @@ struct D2GlideTexDimsStrc
 {
     int nWidth;
     int nHeight;
-};
-
-struct D2GrLfbInfoStrc
-{
-    int size;
-    void* f_4;
-    unsigned int strideInBytes;
-    int f_C;
-    int origin;
 };
 
 struct T004F51E0

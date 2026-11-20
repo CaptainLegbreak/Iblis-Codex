@@ -1,12 +1,10 @@
 #include "D2Direct3D.h"
+#include "D2DDrawTypes.h"
 
 struct D2VideoBlitDevice;
-struct D2DDSurfaceStrc;
 struct D2VideoHandleStrc;
 struct D2VideoBlitVertex;
 struct D2VideoBlitDeviceVtbl;
-struct D2DDSurfaceDesc2Strc;
-struct D2DDSurfaceVtbl;
 struct T004F51E0;
 struct D2SmackRecordStrc;
 
@@ -41,34 +39,6 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-
-struct D2DDSurfaceDesc2Strc
-{
-    unsigned long dwSize;
-    unsigned long dwFlags;
-    unsigned long dwHeight;
-    unsigned long dwWidth;
-    long lPitch;
-    unsigned long dwBackBufferCount;
-    unsigned long dwMipMapCount;
-    unsigned long dwAlphaBitDepth;
-    unsigned long dwReserved;
-    void* lpSurface;
-    unsigned char unk0x28[0x54];
-};
-
-struct D2DDSurfaceVtbl
-{
-    void* pfn00[25];
-    long (__stdcall* Lock)(D2DDSurfaceStrc* pThis, void* pRect, D2DDSurfaceDesc2Strc* pDesc, unsigned long dwFlags, void* hEvent);
-    void* pfn68[6];
-    long (__stdcall* Unlock)(D2DDSurfaceStrc* pThis, void* pRect);
-};
-
-struct D2DDSurfaceStrc
-{
-    D2DDSurfaceVtbl* lpVtbl;
-};
 
 extern "C" const char gszUnlockFailed_006FC284[]; // 0x006FC284
 extern "C" const char gszLockFailed_006FC2A4[]; // 0x006FC2A4

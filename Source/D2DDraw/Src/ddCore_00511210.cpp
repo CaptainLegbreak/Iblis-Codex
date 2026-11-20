@@ -1,19 +1,6 @@
 #include "D2DDraw.h"
-struct D2DDSurfaceDescStrc
-{
-    unsigned int dwSize;
-    unsigned int dwFlags;
-    unsigned int dwHeight;
-    unsigned int dwWidth;
-    int lPitch;
-    unsigned int dwBackBufferCount;
-    unsigned int dwRefreshRate;
-    unsigned int dwAlphaBitDepth;
-    unsigned int dwReserved;
-    void* lpSurface;
-    unsigned int unk0x28[16];
-    unsigned int dwCaps;
-};
+#include "D2DDrawTypes.h"
+
 class D2DDrawPaletteClass;
 class D2DDrawSurfaceClass
 {

@@ -1,4 +1,5 @@
 #include "D2DDraw.h"
+#include "D2GfxTypes.h"
 
 struct D2TileBlockStrc
 {
@@ -13,14 +14,6 @@ struct D2TileLibraryEntryStrc
     char unk0x00[0x50];
     int nBlocks;
     D2TileBlockStrc* pBlocks;
-};
-
-struct D2TileDrawFunctionsStrc
-{
-    void* unk0x00;
-    void (__fastcall* pfDrawWallBlock)(void* pData, int nX, int nY);
-    void* unk0x08[3];
-    void (__fastcall* pfDrawShadowBlock)(void* pData, int nX, int nY, int nAlpha);
 };
 
 int __stdcall sub_005FDEA0(D2TileLibraryEntryStrc* pTile, int a2, int a3); // 0x005FDEA0

@@ -1,9 +1,8 @@
 #include "D2DDraw.h"
+#include "D2DDrawTypes.h"
+#include "D2GfxTypes.h"
 
-struct D2DDrawSurfaceStrc;
 struct D2CoordPairStrc;
-struct D2DDBltFxStrc;
-struct D2DDrawSurfaceVtblStrc;
 struct D2SubTileBlockStrc;
 struct D2TileStrc;
 struct D2TileLightStrc;
@@ -17,25 +16,6 @@ struct D2CoordPairStrc
 {
     int nX;
     int nY;
-};
-
-struct D2DDBltFxStrc
-{
-    unsigned int dwSize;
-    unsigned int unk0x04[19];
-    unsigned int dwFillColor;
-    unsigned int unk0x54[4];
-};
-
-struct D2DDrawSurfaceVtblStrc
-{
-    void* unk0x00[5];
-    long (__stdcall* Blt)(D2DDrawSurfaceStrc* pThis, void* pDestRect, D2DDrawSurfaceStrc* pSrcSurface, void* pSrcRect, unsigned long dwFlags, D2DDBltFxStrc* pBltFx);
-};
-
-struct D2DDrawSurfaceStrc
-{
-    D2DDrawSurfaceVtblStrc* lpVtbl;
 };
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
@@ -62,14 +42,6 @@ struct D2TileStrc
 struct D2TileLightStrc
 {
     int nCorner[4];
-};
-
-struct D2TileDrawFunctionsStrc
-{
-    void* unk0x00[4];
-    void (__fastcall* pfDrawBlock)(unsigned char* pData, int nX, int nY, D2TileLightStrc* pLight);
-    unsigned char unk_14[0x4];
-    void (__fastcall* pfDrawLitBlock)(unsigned char* pData, int nX, int nY, D2TileLightStrc* pLight, int nArg);
 };
 
 int __stdcall sub_005FDEA0(D2TileStrc* pTile, int a2, int a3); // 0x005FDEA0

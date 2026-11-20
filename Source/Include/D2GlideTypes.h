@@ -8,6 +8,7 @@ struct D2CelContextStrc;
 struct D2TileLibraryEntryStrc;
 struct D2GlideTexSlotStrc;
 struct D2GrTexInfoStrc;
+struct D2GrLfbInfoStrc;
 struct D2GlideSpriteVertexStrc;
 struct D2GlideTexInfoStrc;
 struct D2GlideTexCacheEntryStrc;
@@ -31,6 +32,15 @@ struct D2GrTexInfoStrc
     int nAspectRatioLog2; // 0x08
     int nFormat; // 0x0C
     void* pData; // 0x10
+};
+
+struct D2GrLfbInfoStrc
+{
+    int size; // 0x00
+    void* lfbPtr; // 0x04
+    unsigned int strideInBytes; // 0x08
+    int writeMode; // 0x0C
+    int origin; // 0x10
 };
 
 struct D2GlideSpriteVertexStrc
@@ -140,6 +150,7 @@ struct D2GlideFloorCacheStrc
 
 D2_CHECK_SIZE(D2GlideTexSlotStrc, 0x8);
 D2_CHECK_SIZE(D2GrTexInfoStrc, 0x14);
+D2_CHECK_SIZE(D2GrLfbInfoStrc, 0x14);
 D2_CHECK_SIZE(D2GlideSpriteVertexStrc, 0x1C);
 D2_CHECK_SIZE(D2GlideTexInfoStrc, 0x38);
 D2_CHECK_SIZE(D2GlideTexCacheEntryStrc, 0x1C);

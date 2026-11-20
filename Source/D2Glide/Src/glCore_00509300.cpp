@@ -1,4 +1,5 @@
 #include "D2Glide.h"
+#include "D2GfxTypes.h"
 
 struct D2GfxLightExStrc;
 
@@ -21,38 +22,6 @@ struct D2BinkStrc
     unsigned int f_C;
 };
 
-struct D2DDrawSurfaceVtblStrc
-{
-    void* unk0x00[25];
-    long (__stdcall* Lock)(D2DDrawSurfaceStrc* pThis, void* pDestRect, D2DDSurfaceDescStrc* pSurfaceDesc, unsigned long dwFlags, void* hEvent);
-    void* unk0x68[6];
-    long (__stdcall* Unlock)(D2DDrawSurfaceStrc* pThis, void* pRect);
-};
-
-struct D2DDrawSurfaceStrc
-{
-    D2DDrawSurfaceVtblStrc* lpVtbl;
-};
-
-struct D2DDrawObjectStrc;
-
-struct D2DDrawObjectVtblStrc
-{
-    void* QueryInterface;
-    void* AddRef;
-    unsigned long (__stdcall* Release)(D2DDrawObjectStrc* pThis);
-};
-
-struct D2DDrawObjectStrc
-{
-    D2DDrawObjectVtblStrc* lpVtbl;
-};
-
-struct D2TileDrawFunctionsStrc
-{
-    void* unk0x00[3];
-    int (__fastcall* pfDrawFloorTile)(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, D2GfxLightExStrc* pLight);
-};
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))

@@ -1,11 +1,11 @@
 #include "D2DDraw.h"
+#include "D2GfxTypes.h"
 #include "D2CelContext.h"
 
 struct D2CelStrc;
 struct D2CelContextStrc;
 struct D2DDrawClipRectStrc;
 struct D2DDrawCelClipStrc;
-struct D2DDrawCapsStrc;
 
 extern int gnDDrawOriginX_0088129C; // 0x0088129C
 int __stdcall sub_006018C0(D2CelStrc* pCel); // 0x006018C0
@@ -14,7 +14,6 @@ int __stdcall sub_00601920(D2CelStrc* pCel); // 0x00601920
 int __stdcall sub_00601950(D2CelStrc* pCel); // 0x00601950
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
-
 
 struct D2DDrawClipRectStrc
 {
@@ -36,19 +35,7 @@ int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3);
 void __stdcall CelDrawEx(D2CmpCelContextStrc* pContext, int nX, int nY, int nArg4, int nArg5, unsigned char* pBuffer, int nHeight, int nPitch, int nArg9, int nArg10, int nClipTop, int nClipRows, int nArg13); // 0x00601650
 int __fastcall sub_00511D70_GetCapsValue(int nIndex, int* pType); // 0x00511D70
 
-struct D2DDrawCapsStrc
-{
-    int nValue00;
-    int nValue04;
-    int nValue08;
-    unsigned char* pGammaTables[0x3E];
-    int nValue104;
-    int nValue108;
-    int nValue10C;
-    int unk0x110[2];
-    unsigned char* pMode7Table;
-};
-extern D2DDrawCapsStrc* gpDDrawCaps_007C9150; // 0x007C9150
+extern D2GfxPaletteViewStrc* gpDDrawCaps_007C9150; // 0x007C9150
 extern int gnDDrawModeWidth_008812A0; // 0x008812A0
 void __stdcall sub_00608C00_RemapRegion(unsigned char* pBuffer, int nPitch); // 0x00608C00
 
@@ -171,7 +158,7 @@ int __fastcall sub_00511FB0_DrawImage(void* pData, int nX, int nY, unsigned int 
     if (nGamma != 0xFF)
         pGammaTable = gpDDrawCaps_007C9150->pGammaTables[nGamma >> 3];
     if (nDrawMode == 7)
-        pGammaTable = gpDDrawCaps_007C9150->pMode7Table;
+        pGammaTable = gpDDrawCaps_007C9150->pRemap;
 
     CelDraw((D2CmpCelContextStrc*)pContext, nX, nY, gnDDrawOriginX_0088129C, gnDDrawModeWidth_008812A0,
         gpScreenBuffer_007C9154, gnScreenHeight_007C913C, gnScreenWidth_007C9138, (int)pGammaTable, nCaps, (int)pPalette);

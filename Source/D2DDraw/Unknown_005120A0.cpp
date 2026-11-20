@@ -1,22 +1,8 @@
 #include "D2DDraw.h"
+#include "D2GfxTypes.h"
 #include "D2CelContext.h"
 
 struct D2CelStrc;
-
-
-struct D2DDrawCapsStrc
-{
-    int nValue00;
-    int nValue04;
-    int nValue08;
-    unsigned char* pGammaTables[0x31];
-    unsigned char* pPaletteTables[0x0D];
-    int nValue104;
-    int nValue108;
-    int nValue10C;
-    int unk0x110[2];
-    unsigned char* pMode7Table;
-};
 
 int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3);
 int __stdcall sub_006018C0(D2CelStrc* pCel);                                                                 // 0x006018C0
@@ -24,7 +10,7 @@ int __stdcall sub_006018F0(D2CelStrc* pCel);                                    
 int __stdcall sub_00601920(D2CelStrc* pCel);                                                               // 0x00601920
 int __stdcall sub_00601950(D2CelStrc* pCel);                                                               // 0x00601950
 int __fastcall sub_00511D70_GetCapsValue(int nIndex, int* pType);                                           // 0x00511D70
-extern D2DDrawCapsStrc* gpDDrawCaps_007C9150;                                                               // 0x007C9150
+extern D2GfxPaletteViewStrc* gpDDrawCaps_007C9150;                                                               // 0x007C9150
 int gnDDrawOriginX_0088129C;                                                                                // 0x0088129C
 extern int gnDDrawModeWidth_008812A0;                                                                       // 0x008812A0
 
@@ -69,7 +55,7 @@ int __fastcall sub_005120A0_DrawImagePalette(void* pData, int nX, int nY, unsign
         if (nGamma != 0xFF)
             pGammaTable = gpDDrawCaps_007C9150->pGammaTables[nGamma >> 3];
         if (nDrawMode == 7)
-            pGammaTable = gpDDrawCaps_007C9150->pMode7Table;
+            pGammaTable = gpDDrawCaps_007C9150->pRemap;
         if (nPalette)
             pPaletteTable = gpDDrawCaps_007C9150->pPaletteTables[nPalette];
 

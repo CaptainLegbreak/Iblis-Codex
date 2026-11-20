@@ -1,9 +1,5 @@
 #include "D2DDraw.h"
-
-struct D2TileDrawFunctionsStrc
-{
-    void (__fastcall* pfFillYBufferTable)(unsigned char* pBits, int nWidth, int nHeight, int a4);
-};
+#include "D2GfxTypes.h"
 
 class D2DDrawSurfaceClass
 {

@@ -1,4 +1,5 @@
 #include "D2Direct3D.h"
+#include "D2DDrawTypes.h"
 #include "D2D3DTypes.h"
 #include "D2GfxTypes.h"
 #define ASSERT(expr,line) if (!(expr)) { sub_00408A60(gszEmpty_006CC837,sub_00408090(),line); exit(-1); }
@@ -8,14 +9,11 @@
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 
 struct D2Unknown006B7250Strc;
-struct D2DDSurfaceStrc;
 struct D2SurfaceStrc;
 struct D2Device006B77B0Strc;
 struct D2Direct3DDevice006B7F70Strc;
 struct D2Unknown006B7250VtblStrc;
 struct D2RectStrc;
-struct D2SurfaceDescStrc;
-struct D2DDSurfaceVtbl;
 struct D2SurfaceVtableStrc;
 struct D2TexturedVertexStrc;
 struct D2TLVertex006B77B0Strc;
@@ -43,30 +41,6 @@ struct D2Unknown006B7250Strc
 };
 
 extern D2Unknown006B7250Strc* gpTextures_00971150[0x60]; // 0x00971150
-
-struct D2SurfaceDescStrc
-{
-    unsigned int dwSize;
-    unsigned int unk0x04[8];
-    void* lpSurface;
-    unsigned int unk0x28[21];
-};
-
-struct D2DDSurfaceVtbl
-{
-    void* pfnQueryInterface;
-    void* pfnAddRef;
-    unsigned long (__stdcall* Release)(D2DDSurfaceStrc* pThis);
-    void* pfn0x0C[22];
-    long (__stdcall* Lock)(D2DDSurfaceStrc* pThis, D2RectStrc* pRect, D2SurfaceDescStrc* pDesc, unsigned int dwFlags, void* hEvent);
-    void* pfn0x68[6];
-    long (__stdcall* Unlock)(D2DDSurfaceStrc* pThis, D2RectStrc* pRect);
-};
-
-struct D2DDSurfaceStrc
-{
-    D2DDSurfaceVtbl* lpVtbl;
-};
 
 extern "C" __declspec(dllimport) void* __stdcall CreateCompatibleDC(void* hDC);
 extern "C" __declspec(dllimport) void* __stdcall CreateFontA(int cHeight, int cWidth, int cEscapement, int cOrientation, int cWeight, unsigned long bItalic, unsigned long bUnderline, unsigned long bStrikeOut, unsigned long iCharSet, unsigned long iOutPrecision, unsigned long iClipPrecision, unsigned long iQuality, unsigned long iPitchAndFamily, const char* pszFaceName);
@@ -242,7 +216,7 @@ void __cdecl sub_006B72A0_CreateFontTextures()
         char szChar = (char)nChar;
         DrawTextA(hDC, &szChar, 1, &tRect, 0);
 
-        D2SurfaceDescStrc tDesc = { sizeof(D2SurfaceDescStrc) };
+        D2DDSurfaceDesc2Strc tDesc = { sizeof(D2DDSurfaceDesc2Strc) };
         long hResult = pSurface->lpVtbl->Lock(pSurface, 0, &tDesc, 0x21, 0);
         if (hResult)
         {

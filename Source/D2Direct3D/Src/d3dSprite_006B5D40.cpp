@@ -1,39 +1,12 @@
 #include "D2D3DTypes.h"
 #include "D2GfxTypes.h"
+#include "D2DDrawTypes.h"
 
 struct D2CelStrc;
 
 struct D2CelContextStrc { unsigned char pad0[8]; int unitType; int classId; int mode; unsigned char pad1[0x18]; const char* name; unsigned char pad2[12]; D2CelStrc* cel; };
 
 extern D2GfxPaletteViewStrc* gpGlideState_007C9150; // 0x007C9150
-
-struct D2DDSurfaceDesc2Strc
-{
-    unsigned long dwSize;
-    unsigned long dwFlags;
-    unsigned long dwHeight;
-    unsigned long dwWidth;
-    long lPitch;
-    unsigned long dwBackBufferCount;
-    unsigned long dwMipMapCount;
-    unsigned long dwAlphaBitDepth;
-    unsigned long dwReserved;
-    void* lpSurface;
-    unsigned char unk0x28[0x54];
-};
-
-struct D2DDSurfaceStrc;
-struct D2DDSurfaceVtbl
-{
-    void* pfn00[25];
-    long (__stdcall* Lock)(D2DDSurfaceStrc* pThis, void* pRect, D2DDSurfaceDesc2Strc* pDesc, unsigned long dwFlags, void* hEvent);
-    void* pfn68[6];
-    long (__stdcall* Unlock)(D2DDSurfaceStrc* pThis, void* pRect);
-};
-struct D2DDSurfaceStrc
-{
-    D2DDSurfaceVtbl* lpVtbl;
-};
 
 struct D2TexturePoolEntryStrc
 {
