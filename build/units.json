@@ -75063,38 +75063,18 @@
      "length": 398
     },
     {
-     "va": "0x005DB020",
-     "length": 295,
-     "name": "?SKILLS_SrvSt10_LightningStrike@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/SKILLS/SkillAma_005DACD0.cpp",
-   "rank": 1,
-   "functions": [
-    {
      "va": "0x005DACD0",
      "length": 352
     },
     {
      "va": "0x005DAE30",
      "length": 259
+    },
+    {
+     "va": "0x005DB020",
+     "length": 295,
+     "name": "?SKILLS_SrvSt10_LightningStrike@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@HH@Z"
     }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
@@ -95981,6 +95961,16 @@
      "name": "sub_0067D540"
     },
     {
+     "va": "0x0067D5D0",
+     "length": 49,
+     "name": "sub_0067D5D0"
+    },
+    {
+     "va": "0x0067D610",
+     "length": 108,
+     "name": "sub_0067D610"
+    },
+    {
      "va": "0x0067D680",
      "length": 77,
      "name": "sub_0067D680"
@@ -95994,22 +95984,6 @@
      "va": "0x0067D7A0",
      "length": 12,
      "name": "sub_0067D7A0"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DRLG/OutRoom_0067D5D0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0067D5D0",
-     "length": 49,
-     "name": "sub_0067D5D0"
-    },
-    {
-     "va": "0x0067D610",
-     "length": 108,
-     "name": "sub_0067D610"
     }
    ]
   },

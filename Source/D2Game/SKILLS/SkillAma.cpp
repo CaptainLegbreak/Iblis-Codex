@@ -4,22 +4,33 @@
 #include "D2Txt.h"
 
 struct D2SeedStrc;
+
 struct D2SkillsTxt;
+
 struct D2UnitStrc;
+
 struct D2DamageStrc;
+
 struct D2DataTablesStrc;
 
-
-
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
+
 unsigned int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
+
 int __stdcall ITEMS_HasDurability(D2UnitStrc* pItem); // 0x00629930
+
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625480
+
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, unsigned short nLayer); // 0x00627260
+
 int __fastcall sub_6FD118C0(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0056C3F0
+
 void __fastcall sub_6FC4B580(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x0055F850
+
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
+
 void __fastcall D2GAME_PACKETS_SendPacket0x3E_6FC3EC20(D2ClientStrc* pClient, D2UnitStrc* pItem, unsigned char a3, int nStatId, unsigned int nValue, unsigned short a6); // 0x0053D130
+
 D2UnitStrc* __fastcall sub_6FC7C7B0(D2UnitStrc* pUnit); // 0x00535BC0
 
 struct D2DamageStrc
@@ -52,20 +63,30 @@ struct D2DamageStrc
     int nOverlay;
 };
 
-
-
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
+
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
+
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553540
+
 int __fastcall sub_00554200(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00554200
+
 void __fastcall D2GAME_RollElementalDamage_6FD14DD0(D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel); // 0x0056E0C0
+
 int __fastcall SUNITDMG_ApplyDamageBonuses(D2UnitStrc* pUnit, int bGetStats, D2UnitStrc* pItem, int nMinDmg, int nMaxDmg, int nDamagePercent, int nDamage, unsigned char nSrcDam); // 0x0057B420
+
 void __fastcall SUNITDMG_AllocCombat(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, D2DamageStrc* pDamage, unsigned char nSrcDam); // 0x0057DBF0
+
 unsigned short __fastcall SUNITDMG_GetResultFlags(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int nStatValue, int nRangeOffset); // 0x0057EC10
+
 int __stdcall SKILLS_GetToHitFactor(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x006449F0
+
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
+
 static void __stdcall sub_005DAA40_ImpaleWearItem(D2GameStrc* pGame, int nChance, int nAmount, D2UnitStrc* pItem, D2UnitStrc* pUnit); // 0x005DAA40
+
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
+
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 
 static __forceinline unsigned int sub_M401_RollUnitSeed(D2UnitStrc* pUnit)
@@ -226,5 +247,148 @@ int __fastcall SKILLS_SrvSt10_LightningStrike(D2GameStrc* pGame, D2UnitStrc* pUn
     }
 
     SUNITDMG_AllocCombat(pGame, pUnit, pTarget, &damage, nSrcDam);
+    return 1;
+}
+
+#define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
+
+#define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
+
+int __fastcall SKILLS_CanUseWeaponAmmo(D2UnitStrc* pUnit); // 0x0056C4E0
+
+void __fastcall PLRMODE_HandleDepletedWeapons(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00580310
+
+void __fastcall PLRMODE_BreakDepletedWeapons(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00580380
+
+int __fastcall sub_6FD10790(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nAuraRange, unsigned int nAuraFilter); // 0x0056BC80
+
+D2UnitStrc* __fastcall sub_6FD107F0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nAuraRange, unsigned int nAuraFilter, int nPrevious, int* pCount); // 0x0056BD10
+
+void __stdcall SKILLS_SetParam1(D2SkillStrc* pSkill, int nValue); // 0x00644560
+
+void __stdcall SKILLS_SetParam2(D2SkillStrc* pSkill, int nValue); // 0x006445A0
+
+void __stdcall SKILLS_SetParam3(D2SkillStrc* pSkill, int nValue); // 0x006445E0
+
+int __fastcall SKILLS_ConsumeWeaponOrAmmoQuantity(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0056C3F0
+
+static __forceinline int sub_0044BE50(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return 6;
+    }
+
+    return pUnit->dwUnitType;
+}
+
+static __forceinline int UNITS_GetUnitId(D2UnitStrc* pUnit)
+{
+    if (!pUnit)
+    {
+        return -1;
+    }
+
+    return pUnit->dwUnitId;
+}
+
+// 0x005DACD0
+int __fastcall SKILLS_SrvSt08_Strafe(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxtRecord)
+    {
+        return 0;
+    }
+
+    D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
+    if (!pSkill)
+    {
+        return 0;
+    }
+
+    if (!SKILLS_CanUseWeaponAmmo(pUnit))
+    {
+        PLRMODE_HandleDepletedWeapons(pGame, pUnit);
+        PLRMODE_BreakDepletedWeapons(pGame, pUnit);
+        return 0;
+    }
+
+    const int nAuraRange = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraRangeCalc, nSkillId, nSkillLevel);
+    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
+
+    int nTargetCount = 0;
+    if (!pTarget)
+    {
+        pTarget = sub_6FD107F0(pGame, pUnit, 0, 0, nAuraRange, 3, -1, &nTargetCount);
+    }
+    else
+    {
+        nTargetCount = sub_6FD10790(pGame, pUnit, 0, 0, nAuraRange, 3);
+    }
+
+    int nDesiredShots = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[2], nSkillId, nSkillLevel);
+    int nShotsRemaining = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
+    if (nDesiredShots > nShotsRemaining)
+    {
+        nDesiredShots = nShotsRemaining;
+    }
+
+    nTargetCount = D2_MIN(D2_MAX(nTargetCount, nDesiredShots), nShotsRemaining);
+    SKILLS_SetParam1(pSkill, nTargetCount);
+
+    if (pTarget)
+    {
+        SKILLS_SetParam2(pSkill, sub_0044BE50(pTarget));
+        SKILLS_SetParam3(pSkill, UNITS_GetUnitId(pTarget));
+    }
+    else
+    {
+        SKILLS_SetParam2(pSkill, 1);
+        SKILLS_SetParam3(pSkill, -1);
+    }
+
+    SKILLS_ConsumeWeaponOrAmmoQuantity(pGame, pUnit);
+    return 1;
+}
+
+static __forceinline D2SkillsTxt* GetSkillsTxtRecord(int nId)
+{
+    if (nId >= 0 && nId < sgptDataTables->nSkillsTxtRecordCount)
+        return &sgptDataTables->pSkillsTxt[nId];
+    return 0;
+}
+
+// 0x005DAE30
+int __fastcall sub_005DAE30_InitializeMeleeTargets(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
+{
+    D2SkillsTxt* pSkillsTxt = GetSkillsTxtRecord(nSkillId);
+    if (!pSkillsTxt)
+        return 0;
+    D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
+    if (!pSkill)
+        return 0;
+    int nRange = sub_6FD15460(pUnit);
+    D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
+    int nTargets = 0;
+    if (!pTarget)
+    {
+        pTarget = sub_6FD107F0(pGame, pUnit, 0, 0, nRange, 0x20003, -1, &nTargets);
+        if (!pTarget)
+        {
+            SKILLS_SetParam1(pSkill, 0);
+            return 1;
+        }
+    }
+    else
+        nTargets = sub_6FD10790(pGame, pUnit, 0, 0, nRange, 0x20003);
+    int nMaxTargets = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxt->dwCalc[0], nSkillId, nSkillLevel);
+    if (nTargets >= nMaxTargets)
+        nTargets = nMaxTargets;
+    SKILLS_SetParam1(pSkill, nTargets);
+    int nTargetType = pTarget ? pTarget->dwUnitType : 6;
+    SKILLS_SetParam2(pSkill, nTargetType);
+    nRange = pTarget ? pTarget->dwUnitId : -1;
+    SKILLS_SetParam3(pSkill, nRange);
     return 1;
 }
