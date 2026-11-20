@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2DrlgPresets.h"
+#include "D2Primitives.h"
 
 #define MASK_NO_PATH 0x1000
 #define MASK_PET 0x2000
@@ -8,15 +9,6 @@ struct D2RoomCollisionGridStrc;
 struct D2BoundingBoxStrc;
 
 D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinatesImpl(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, D2CoordStrc* pFieldCoord, int nUnitSize, unsigned int nMask, unsigned int nFieldMask, int bAllowNeighborRooms, int nMaxDistance, int nPosIncrementValue); // 0x0064DEA0
-
-
-struct D2BoundingBoxStrc
-{
-    int nLeft;
-    int nBottom;
-    int nRight;
-    int nTop;
-};
 
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
 D2RoomCollisionGridStrc* __fastcall DUNGEON_GetCollisionGridFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A010

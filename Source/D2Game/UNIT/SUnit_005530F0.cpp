@@ -6,6 +6,7 @@
 #include "D2Structs.h"
 #include "D2Txt.h"
 #include "D2Drlg.h"
+#include "D2AnimData.h"
 struct D2UnitStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -27,7 +28,6 @@ struct D2MonsterDataStrc
     char unk0x00[0x30];
     D2MonsterInteractStrc* pMonInteract;
 };
-
 
 struct D2GameStrc
 {
@@ -53,13 +53,6 @@ void __fastcall SUNITPROXY_FreeVendorChain(D2GameStrc* pGame, D2UnitStrc* pPlaye
 void __fastcall sub_00585550_ResetObject(D2GameStrc* pGame, D2UnitStrc* pObject); // 0x00585550
 void __stdcall D2Common_10228(D2UnitStrc* pUnit); // 0x00649F50
 void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit); // 0x0064C370
-
-struct D2AnimDataRecordStrc
-{
-    char unk0x00[0x08];
-    int dwFrames;
-};
-
 
 struct D2PlayerDataStrc
 {
@@ -97,12 +90,9 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem); // 0x00627E70
 int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem); // 0x00629DA0
 
-
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId); // 0x0045C4B0
 void __fastcall AIGENERAL_GetOwnerData(D2UnitStrc* pUnit, int* pOwnerGUID, int* pOwnerType); // 0x0058F090
 unsigned short __fastcall SUNIT_GetPartyId(D2UnitStrc* pPlayer); // 0x00554630
-
-
 
 typedef int (__fastcall* EventTimerCallback)(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int a4, int a5);
 

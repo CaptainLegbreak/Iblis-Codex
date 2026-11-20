@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2AnimData.h"
 struct D2StatListStrc;
 struct D2UnitStrc;
 
@@ -21,10 +22,6 @@ union D2SeedStrc;
 struct D2ObjectsTxt;
 struct D2MissilesTxt;
 
-
-
-
-
 int __stdcall UNITS_GetUnitSizeX(D2UnitStrc* pUnit); // 0x00620510
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
@@ -36,17 +33,6 @@ void __stdcall PATH_AddCollisionFootprintForUnit(D2UnitStrc* pUnit); // 0x006494
 int __stdcall PATH_RemoveCollisionFootprintForUnit(D2UnitStrc* pUnit, int bForce); // 0x00649560
 int __stdcall COLLISION_RayTrace(D2ActiveRoomStrc* pRoom, D2CoordStrc* pBegin, D2CoordStrc* pEnd, int nCollisionMask); // 0x0064E260
 static __declspec(noinline) int __stdcall sub_00622920_RayTraceBetweenBoxes(int nX1, int nY1, int nSize1, int nX2, int nY2, int nSize2, D2ActiveRoomStrc* pRoom, int nCollisionMask);
-
-struct D2AnimDataRecordStrc
-{
-    char unk0x00[0x08];
-    int dwFramesPerDirection;
-    unsigned int dwAnimSpeed;
-};
-
-
-
-
 
 struct D2AnimModeModulatorStrc
 {
@@ -90,8 +76,6 @@ int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
 void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pClass, int* pMode, const char* szFile, int nLine); // 0x00645270
 unsigned int __stdcall D2Common_11043(D2UnitStrc* pUnit); // 0x00646170
 static int __stdcall UNITS_CanAnimModeUseVelocityModifier(int nUnitType, int nAnimMode, D2UnitStrc* pUnit, int nClassId); // 0x006214A0
-
-
 
 D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
 int __stdcall sub_006270B0(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer); // 0x006270B0
@@ -693,7 +677,7 @@ int __stdcall sub_00624390_AnimInit(D2UnitStrc* ptUnit)
 
         ptUnit->pAnimSeq = 0;
         UnitUpdateAnimRateAndVel(ptUnit, ".\\UNITS\\Units.cpp", 0x96A);
-        ptUnit->dwFrameCountPrecise = ptUnit->pAnimData->dwFramesPerDirection << 8;
+        ptUnit->dwFrameCountPrecise = ptUnit->pAnimData->dwFrames << 8;
         return 1;
 
     case 1:
@@ -717,7 +701,7 @@ int __stdcall sub_00624390_AnimInit(D2UnitStrc* ptUnit)
 
         UnitUpdateAnimRateAndVel(ptUnit, ".\\UNITS\\Units.cpp", 0x980);
         ptUnit->pAnimSeq = 0;
-        ptUnit->dwFrameCountPrecise = ptUnit->pAnimData->dwFramesPerDirection << 8;
+        ptUnit->dwFrameCountPrecise = ptUnit->pAnimData->dwFrames << 8;
         return 1;
 
     case 2:

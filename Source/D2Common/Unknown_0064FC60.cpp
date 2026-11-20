@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2Txt.h"
 #include "D2Drlg.h"
+#include "D2AnimData.h"
 #define D2_ABS(x) ((x) < 0 ? -(x) : (x))
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 struct D2InventoryStrc;
@@ -14,15 +15,9 @@ struct D2AnimDataRecordStrc;
 struct D2MonStatsTxt;
 struct D2ChainRecordStrc;
 
-
-
 extern int gDirectionTable_006EB7E0[128 * 3]; // 0x006EB7E0
 
 typedef int BOOL;
-
-
-
-
 
 #pragma pack(push, 1)
 
@@ -56,14 +51,6 @@ static __declspec(noinline) BOOL __stdcall sub_00650150_TraceSteps(D2CoordStrc t
 static __declspec(noinline) BOOL sub_6FD5DB70(D2DynamicPathStrc* pPath); // 0x006503F0
 __declspec(noinline) static BOOL __stdcall sub_00650660_AdvanceOnPath(D2FP32_16* pOutCoord, int* pSteps, D2DynamicPathStrc* pPath);
 BOOL __stdcall D2Common_10226(D2UnitStrc* pUnit, int nBaseVelocity); // 0x00650840
-
-struct D2AnimDataRecordStrc
-{
-    char name[8];
-    unsigned int frames;
-    unsigned int animSpeed;
-};
-
 
 extern D2MonStatsTxt* gpMonStatsTxt; // 0x0096C6A8
 const D2AnimDataRecordStrc* __fastcall DATATBLS_GetAnimDataRecord(D2UnitStrc* pUnit, int nClassId, int nMode, int nUnitType, void* pInventory); // 0x0066A9B0
@@ -855,14 +842,14 @@ void __stdcall sub_00650F00(int nRecordCount)
         }
 
         const D2AnimDataRecordStrc* pAnimDataRecord = DATATBLS_GetAnimDataRecord(0, base, 2, 1, 0);
-        unsigned int speed = pAnimDataRecord->animSpeed;
+        unsigned int speed = pAnimDataRecord->dwAnimSpeed;
         if (base != i && gpMonStatsTxt[base].nVelocity > 0)
             speed = gpMonStatsTxt[i].nVelocity * speed / gpMonStatsTxt[base].nVelocity;
         speed = speed > 0 ? speed : 0;
         gpMonStatsTxt[i].nWalkAnimSpeed = speed < 0x7FFF ? speed : 0x7FFF;
 
         if (i >= 410)
-            speed = DATATBLS_GetAnimDataRecord(0, base, 15, 1, 0)->animSpeed;
+            speed = DATATBLS_GetAnimDataRecord(0, base, 15, 1, 0)->dwAnimSpeed;
         else
             speed = gpMonStatsTxt[base].nWalkAnimSpeed / 2;
         if (base != i && gpMonStatsTxt[base].nRun > 0)
