@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DrlgTiles.h"
 
 #define DRLGTYPE_OUTDOOR 3
 #define DRLGTYPE_PRESET 2
@@ -105,14 +106,6 @@ struct D2DrlgLevelLinkDataStrc
     int nCurrentLevel;
 };
 
-struct D2LevelDefBin
-{
-    char unk0x00[0x0C];
-    int dwSizeX[3];
-    int dwSizeY[3];
-    int dwOffsetX;
-    int dwOffsetY;
-};
 
 D2LevelDefBin* __fastcall DATATBLS_GetLevelDefRecord(int nLevelId); // 0x0061E470
 extern D2DrlgLinkStrc gAct1MonasteryDrlgLink[]; // 0x006F0840

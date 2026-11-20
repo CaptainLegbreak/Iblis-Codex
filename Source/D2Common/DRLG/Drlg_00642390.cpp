@@ -1,5 +1,6 @@
 #include "D2Structs.h"
 #include "D2Drlg.h"
+#include "D2DrlgTiles.h"
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                  // 0x00681EF0
 #pragma function(memset)
 
@@ -8,12 +9,6 @@ struct D2DrlgLevelStrc;
 
 
 
-struct D2LevelDefBin
-{
-    char unk0x00[0x30];
-    int dwDrlgType;
-    int dwLevelType;
-};
 
 
 typedef char D2DrlgLevelStrc_size_check[(sizeof(D2DrlgLevelStrc) == 0x230) ? 1 : -1];

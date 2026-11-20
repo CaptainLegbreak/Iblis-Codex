@@ -1,6 +1,7 @@
 #include "D2Structs.h"
 #include "D2Txt.h"
 #include "D2ItemsWorld.h"
+#include "D2DrlgTiles.h"
 struct D2ActiveRoomStrc;
 
 
@@ -55,13 +56,6 @@ struct D2DrlgLevelStrc
     D2DrlgRoomStrc* sub_0066AC40_GetTileRoom(int nTileIndex, int* pX, int* pY);    // 0x0066AC40
 };
 
-struct D2LevelDefBin
-{
-    char unk0x00[0x68];
-    int dwWarp[8];
-    char unk0x88[0x08];
-    int dwPosition;
-};
 
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837

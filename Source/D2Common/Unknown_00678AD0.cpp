@@ -1,4 +1,5 @@
 #include "D2Path.h"
+#include "D2DrlgTiles.h"
 
 struct D2DrlgStrc
 {
@@ -49,14 +50,6 @@ struct D2DrlgLevelStrc
     int eLevelId;
 };
 
-struct D2LevelDefBin
-{
-    char unk0x00[0x0C];
-    int dwSizeX[3];
-    int dwSizeY[3];
-    int dwOffsetX;
-    int dwOffsetY;
-};
 
 struct D2DrlgLevelLinkDataStrc;
 

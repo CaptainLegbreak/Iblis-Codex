@@ -1,16 +1,12 @@
 #include "D2Drlg.h"
 #include "D2DrlgMaps.h"
+#include "D2DrlgTiles.h"
 
 
 struct D2DrlgRoomStrc;
 
 
 
-struct D2RoomTileStrc
-{
-    void* pUnused;
-    D2RoomTileStrc* pNext;
-};
 
 
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);    // 0x0040B430

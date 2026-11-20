@@ -3,6 +3,7 @@
 #include "D2Drlg.h"
 #include "D2ItemsWorld.h"
 #include "D2DrlgMaps.h"
+#include "D2DrlgTiles.h"
 
 #define DRLGROOMFLAG_NO_LOS_DRAW 0x80000
 #define DRLGROOMFLAG_PRESET_UNITS_SPAWNED 0x4000000
@@ -52,13 +53,6 @@ struct D2DrlgWarpStrc
     D2DrlgWarpStrc* pNext;
 };
 
-struct D2LevelDefBin
-{
-    char unk0x00[0x30];
-    int dwDrlgType;
-    unsigned char unk_34[0x14];
-    int dwVis[8];
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090

@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2DrlgTiles.h"
 
 #define ACT_I 0
 #define ACT_II 1
@@ -163,19 +164,6 @@ struct D2DrlgWarpStrc
     D2DrlgWarpStrc* pNext;
 };
 
-struct D2LevelDefBin
-{
-    char pad0[12];
-    int dwSizeX[3];
-    int dwSizeY[3];
-    int dwOffsetX;
-    int dwOffsetY;
-    int dwDepend;
-    unsigned int dwDrlgType;
-    unsigned char unk_34[0x14];
-    int dwVis[8];
-    int dwWarp[8];
-};
 
 
 struct D2DrlgRoomStrc
