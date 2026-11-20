@@ -3,15 +3,9 @@
 #include "D2CelContext.h"
 #include "D2ClientTypes.h"
 #include "D2ClientUi.h"
+#include "D2Unicode.h"
 
 struct D2CellFileStrc;
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    static Unicode* __fastcall win2Unicode(Unicode* pDest, const char* szSource, int nCount);           // 0x00526F20
-};
 
 struct UnicodeChar : Unicode
 {

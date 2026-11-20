@@ -2,6 +2,7 @@
 #include "D2Txt.h"
 #include "D2LevelTxt.h"
 #include "D2TxtTables.h"
+#include "D2Unicode.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2MsgHandlerEntryStrc;
@@ -109,11 +110,6 @@ struct D2DataTablesStrc
 };
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-
-struct Unicode
-{
-    unsigned short wChar;
-};
 
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 

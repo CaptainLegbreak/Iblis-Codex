@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2CelContext.h"
 #include "D2ClientUi.h"
+#include "D2Unicode.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -15,11 +16,6 @@ extern "C" unsigned int __cdecl strlen(const char* szString);
 extern const char gszM134CmdA[];
 extern const char gszM134CmdB[];
 void __stdcall sub_M134_Use(const char* szText);
-
-struct Unicode
-{
-    unsigned short wChar;
-};
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320

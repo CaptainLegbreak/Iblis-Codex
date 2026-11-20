@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Unicode.h"
 
 #define UNIT_MONSTER 1
 struct Unicode;
@@ -9,13 +10,6 @@ struct D2RectStrc;
 struct D2MonStatsTxt;
 struct D2MonStats2Txt;
 struct D2ImmunityTextStrc;
-
-struct Unicode
-{
-    unsigned short wChar;
-    Unicode();                                                                                              // 0x0042F530
-};
-
 
 extern Unicode gwszText_007A2A78[]; // 0x007A2A78
 extern int gnHoverTextState_007A2C78; // 0x007A2C78

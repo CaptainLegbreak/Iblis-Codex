@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2ClientTypes.h"
+#include "D2Unicode.h"
 
 #define gnGlobal_007BCA34 (gGrid_007BCA30.nGridLeft)
 #define gnGlobal_007BCA38 (gGrid_007BCA30.nGridRight)
@@ -28,11 +29,6 @@
 struct Unicode;
 struct D2InvRectStrc;
 struct D2InventoryGridInfoStrc;
-
-struct Unicode
-{
-    unsigned short wChar;
-};
 
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMilliseconds); // 0x006CC258
 void __fastcall sub_00482B40_UpdateCache(unsigned int nTick); // 0x00482B40

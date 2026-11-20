@@ -3,19 +3,9 @@
 #include "D2DataTbls.h"
 #include "D2CelContext.h"
 #include "D2LevelTxt.h"
+#include "D2Unicode.h"
 struct D2StoredUnitRecordStrc;
 struct D2UnitStrc;
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode();                                                                                              // 0x0042F530
-};
-
-
-
-
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize);                                      // 0x00681EF0
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260

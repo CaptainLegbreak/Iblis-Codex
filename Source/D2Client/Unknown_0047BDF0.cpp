@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2CelContext.h"
+#include "D2Unicode.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2CellFileStrc;
@@ -17,13 +18,6 @@ extern "C" int __cdecl strcmp(const char* a, const char* b);
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode();                                                                                              // 0x0042F530
-};
-
 struct D2ClientNotifyStrc
 {
     char unk0x00[0x24];

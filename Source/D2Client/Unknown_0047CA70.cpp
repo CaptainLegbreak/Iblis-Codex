@@ -1,18 +1,7 @@
 #include "D2Client.h"
 #include "D2ClientUi.h"
+#include "D2Unicode.h"
 struct D2StoredUnitRecordStrc;
-
-struct Unicode
-{
-    unsigned short wChar;
-    Unicode();                                                                                              // 0x0042F530
-    int isWhitespace() const
-    {
-        if (wChar < 0x100)
-            return isspace(wChar);
-        return 0;
-    }
-};
 
 struct SMSGHANDLER_PARAMS
 {

@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2Unicode.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2AuxLevelEntryStrc;
@@ -51,13 +52,6 @@ extern char gbCinematicPlaying_007BC9D5; // 0x007BC9D5
 extern char gbCinematicWide_007BC9D6; // 0x007BC9D6
 extern char gbCinematicBusy_007BC9D7; // 0x007BC9D7
 extern char gbCinematicChain_007BC9D8; // 0x007BC9D8
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode(unsigned short wValue = 0) : wChar(wValue) {}
-};
 
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800

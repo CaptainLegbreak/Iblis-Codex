@@ -1,8 +1,4 @@
-struct Unicode
-{
-    unsigned short wChar;
-};
-
+#include "D2Unicode.h"
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 void __stdcall sub_L04_EmitUse(const Unicode* pText);
 

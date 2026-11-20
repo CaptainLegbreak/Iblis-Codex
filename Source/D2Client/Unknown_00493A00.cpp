@@ -3,17 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2CelContext.h"
 #include "D2LevelTxt.h"
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode();
-};
-
-
-
-
+#include "D2Unicode.h"
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize);
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();

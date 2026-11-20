@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Unicode.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -215,13 +216,6 @@ struct D2McpInfoStrc
     int nToken;
     char unk0x18[0x10];
     char szName[0x20];
-};
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode();                                                                                              // 0x0042F530
 };
 
 void __stdcall sub_00449DD0_SetValue(int nValue); // 0x00449DD0

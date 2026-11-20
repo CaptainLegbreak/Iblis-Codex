@@ -1,11 +1,5 @@
 #include "D2Client.h"
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode(unsigned short wValue = 0) : wChar(wValue) {}
-};
+#include "D2Unicode.h"
 
 #pragma pack(push, 1)
 struct D2RosterUnitStrc

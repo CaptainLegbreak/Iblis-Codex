@@ -4,17 +4,7 @@
 #include "D2Txt.h"
 #include "D2CelContext.h"
 #include "D2Records.h"
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode(unsigned short wValue = 0) : wChar(wValue) {}
-};
-
-
-
-
+#include "D2Unicode.h"
 
 struct SMSGHANDLER_PARAMS
 {

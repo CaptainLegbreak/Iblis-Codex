@@ -1,11 +1,7 @@
 #include "D2Client.h"
+#include "D2Unicode.h"
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
-
-struct Unicode
-{
-    unsigned short wChar;
-};
 
 struct T0044CB60
 {
