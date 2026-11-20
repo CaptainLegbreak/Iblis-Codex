@@ -1708,19 +1708,6 @@
    "lang": "cpp",
    "state": "included"
   },
-  "Source/D2Client/GAME/RosterPets_0045FED0.cpp": {
-   "bytes": 184,
-   "definitions": 3,
-   "externs": [
-    "extern \"C\" void __cdecl sub_004683C0_DrawDefaultCursor(); // 0x004683C0",
-    "extern \"C\" void __cdecl sub_00468460_DrawCel(); // 0x00468460"
-   ],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Client/GAME/RosterPets_0045FED0.inc",
-   "lang": "cpp",
-   "state": "included",
-   "static_definitions": 1
-  },
   "Source/D2Client/Unknown_00460420.cpp": {
    "bytes": 156,
    "definitions": 2,
@@ -8112,6 +8099,19 @@
    "include": "gen/data/Source/D2Client/UNIT/Object.inc",
    "lang": "cpp",
    "state": "included"
+  },
+  "Source/D2Client/GAME/RosterPets.cpp": {
+   "bytes": 184,
+   "definitions": 3,
+   "externs": [
+    "extern \"C\" void __cdecl sub_004683C0_DrawDefaultCursor(); // 0x004683C0",
+    "extern \"C\" void __cdecl sub_00468460_DrawCel(); // 0x00468460"
+   ],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Client/GAME/RosterPets_0045FED0.inc",
+   "lang": "cpp",
+   "state": "included",
+   "static_definitions": 1
   }
  },
  "definitions": [
@@ -42607,7 +42607,7 @@
    "cname": "gData_00712020",
    "declared": true,
    "decorated": "?gaPanelAnim_00712020@@3PAUD2PanelAnimEntryStrc@@A",
-   "file": "Source/D2Client/GAME/RosterPets_0045FED0.cpp",
+   "file": "Source/D2Client/GAME/RosterPets.cpp",
    "fill": 6,
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_00712020_t gData_00712020; // 0x00712020",
@@ -42724,7 +42724,7 @@
    "cname": "gData_007120C8",
    "declared": false,
    "decorated": null,
-   "file": "Source/D2Client/GAME/RosterPets_0045FED0.cpp",
+   "file": "Source/D2Client/GAME/RosterPets.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" struct d2data_007120C8_t gData_007120C8; // 0x007120C8",
    "head": "extern \"C\" struct d2data_007120C8_t gData_007120C8 = ",
@@ -42759,12 +42759,12 @@
    "declared": true,
    "decorated": null,
    "externs": [],
-   "file": "Source/D2Client/GAME/RosterPets_0045FED0.cpp",
+   "file": "Source/D2Client/GAME/RosterPets.cpp",
    "fn_types": {},
    "form": "declared",
    "fwd": null,
    "head": "static int gnGlobal_007129CC = ",
-   "include": "gen/data/Source/D2Client/GAME/RosterPets_0045FED0/gnGlobal_007129CC.inc",
+   "include": "gen/data/Source/D2Client/GAME/RosterPets/gnGlobal_007129CC.inc",
    "linkage": "static",
    "model": {
     "k": "prim",

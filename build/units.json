@@ -19716,7 +19716,7 @@
    ]
   },
   {
-   "file": "Source/D2Client/GAME/RosterPets_0045FED0.cpp",
+   "file": "Source/D2Client/GAME/RosterPets.cpp",
    "rank": 0,
    "functions": [
     {
@@ -19740,9 +19740,24 @@
      "name": "sub_0046BD50_GetPulseColor"
     },
     {
+     "va": "0x00478A90",
+     "length": 31,
+     "name": "?sub_00478A90_FindRosterPet@@YIPAUD2RosterPetNodeStrc@@H@Z"
+    },
+    {
      "va": "0x00478B10",
      "length": 151,
      "name": "sub_00478B10_SetRosterEntry"
+    },
+    {
+     "va": "0x00478BB0",
+     "length": 219,
+     "name": "?sub_00478BB0@@YIXHHHHPAUD2Packet81ArgsStrc@@@Z"
+    },
+    {
+     "va": "0x00478C90",
+     "length": 114,
+     "name": "?sub_00478C90_DropPetEntry@@YIXH@Z"
     },
     {
      "va": "0x0047ACA0",
@@ -24345,27 +24360,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/GAME/RosterPets.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00478A90",
-     "length": 31,
-     "name": "?sub_00478A90_FindRosterPet@@YIPAUD2RosterPetNodeStrc@@H@Z"
-    },
-    {
-     "va": "0x00478BB0",
-     "length": 219,
-     "name": "?sub_00478BB0@@YIXHHHHPAUD2Packet81ArgsStrc@@@Z"
-    },
-    {
-     "va": "0x00478C90",
-     "length": 114,
-     "name": "?sub_00478C90_DropPetEntry@@YIXH@Z"
-    }
    ]
   },
   {
