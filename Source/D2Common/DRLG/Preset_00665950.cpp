@@ -2,12 +2,8 @@
 #include "D2ItemsWorld.h"
 #include "D2GameAux.h"
 #include "D2DrlgRooms.h"
+#include "D2GameObjs.h"
 
-struct D2MapAIStrc
-{
-    int nPathNodes;
-    D2MapAIPathPositionStrc* pPosition;
-};
 
 struct D2DrlgFileStrc
 {

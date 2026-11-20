@@ -1,3 +1,4 @@
+#include "D2DrlgRooms.h"
 #ifdef MOVED_TEST
 #define RANGE_COUNT 39
 #define STYLE_SHIFT 18
@@ -15,16 +16,6 @@ struct D2UnkDrlgRoomTileStrc
     int nArrayEndId;
 };
 
-struct D2UnkDrlgRoomTileStrc2
-{
-    int nTileStyle;
-    int nTileSequence;
-    int bIsRightWallWithDoor;
-    int nUnitId;
-    int nUnitType;
-    int nX;
-    int nY;
-};
 
 extern const D2UnkDrlgRoomTileStrc gDrlgRoomTileLevelRanges_006EEFC8[RANGE_COUNT];                                  // 0x006EEFC8
 extern const D2UnkDrlgRoomTileStrc2 gDrlgRoomTilePresetUnits_006EF188[];                                   // 0x006EF188
