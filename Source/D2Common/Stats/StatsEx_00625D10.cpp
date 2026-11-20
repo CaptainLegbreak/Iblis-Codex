@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 #define MOVED_PREFIX
 #define UNIT_PLAYER 0
@@ -7,49 +8,9 @@ struct D2StatStrc;
 struct D2StatsArrayStrc;
 struct D2ItemStatCostTxt;
 
-struct D2StatStrc
-{
-    union
-    {
-        struct
-        {
-            unsigned short nLayer;
-            unsigned short nStat;
-        };
-        int nPackedValue;
-    };
-    int nValue;
-};
 
-struct D2StatsArrayStrc
-{
-    D2StatStrc* pStat;
-    short nStatCount;
-    short nCapacity;
-};
 
-struct D2StatListStrc
-{
-    char unk0x00[0x10];
-    unsigned int dwFlags;
-    char unk0x14[0x10];
-    D2StatsArrayStrc Stats;
-    char unk0x2C[0x18];
-    D2UnitStrc* pOwner;
-    D2StatsArrayStrc FullStats;
-    char unk0x50[0x08];
-    unsigned int* StatFlags;
-};
 
-struct D2UnitStrc
-{
-    MOVED_PREFIX
-    unsigned int dwUnitType;
-    char unk0x04[0x58];
-    D2StatListStrc* pStatListEx;
-    char unk0x60[0x68];
-    unsigned int dwFlagEx;
-};
 
 struct D2ItemStatCostTxt
 {
@@ -122,7 +83,8 @@ static D2StatStrc* sub_00624C60_FindStat(D2StatsArrayStrc* pStatsArray, int nLay
 
 static int __stdcall sub_00624F60_GetTotalStat(D2StatListStrc* pStatList, int nLayer_StatId, D2ItemStatCostTxt* pItemStatCostTxtRecord) // 0x00624F60
 {
-    D2StatStrc* pStat = sub_00624C60_FindStat((pStatList->dwFlags & STATLIST_EXTENDED) ? &pStatList->FullStats : &pStatList->Stats, nLayer_StatId);
+    D2StatListExStrc* pStatListEx = (D2StatListExStrc*)pStatList;
+    D2StatStrc* pStat = sub_00624C60_FindStat((pStatList->dwFlags & STATLIST_EXTENDED) ? &pStatListEx->FullStats : &pStatList->Stats, nLayer_StatId);
     if (!pStat)
     {
         return 0;
@@ -130,7 +92,7 @@ static int __stdcall sub_00624F60_GetTotalStat(D2StatListStrc* pStatList, int nL
 
     int nValue = pStat->nValue;
     if (pItemStatCostTxtRecord && ITEMSTATCOST_HASFLAG(pItemStatCostTxtRecord, ISC_FLAG_FMIN) && (pStatList->dwFlags & STATLIST_EXTENDED)
-        && pStatList->pOwner && (UNITS_IsType(pStatList->pOwner, UNIT_PLAYER) || UNITS_IsType(pStatList->pOwner, UNIT_MONSTER)))
+        && pStatListEx->pOwner && (UNITS_IsType(pStatListEx->pOwner, UNIT_PLAYER) || UNITS_IsType(pStatListEx->pOwner, UNIT_MONSTER)))
     {
         if (nValue < pItemStatCostTxtRecord->dwMinAccr)
         {

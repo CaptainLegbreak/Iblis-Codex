@@ -1,39 +1,8 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
-struct D2StatsArrayStrc
-{
-    void* pStat;
-    unsigned short nStatCount;
-    unsigned short nBitSize;
-};
 
-struct D2StatListStrc
-{
-    void* pMemPool;
-    D2UnitStrc* pUnit;
-    unsigned int dwOwnerType;
-    unsigned int dwOwnerId;
-    unsigned int dwFlags;
-    unsigned int dwStateNo;
-    int dwExpireFrame;
-    unsigned int dwSkillNo;
-    unsigned int dwSLvl;
-    D2StatsArrayStrc Stats;
-    D2StatListStrc* pPrevLink;
-    D2StatListStrc* pNextLink;
-    D2StatListStrc* pParent;
-    void* fpStatRemove;
-};
 
-struct D2StatListExStrc : D2StatListStrc
-{
-    D2StatListStrc* pMyLastList;
-    D2StatListStrc* pMyStats;
-    D2UnitStrc* pOwner;
-    D2StatsArrayStrc FullStats;
-    D2StatsArrayStrc ModStats;
-    unsigned int* StatFlags;
-};
 
 struct D2SkillsTxt
 {
@@ -77,8 +46,8 @@ void __fastcall D2Common_STATLIST_FreeStatListImpl_6FDB7050(D2StatListStrc* pSta
 {
     D2Common_ExpireStatList_6FDB6E30(pStatList);
 
-    if (pStatList->Stats.pStat)
-        FOG_FreePool(pStatList->pMemPool, pStatList->Stats.pStat, ".\\Stats\\StatsEx.cpp", 0x4D8, 0);
+    if (((void*)pStatList->Stats.pStat))
+        FOG_FreePool(pStatList->pMemPool, ((void*)pStatList->Stats.pStat), ".\\Stats\\StatsEx.cpp", 0x4D8, 0);
 
     if (pStatList->dwFlags & STATLIST_NEWLENGTH)
     {
@@ -100,11 +69,11 @@ void __fastcall D2Common_STATLIST_FreeStatListImpl_6FDB7050(D2StatListStrc* pSta
             pPrevious = pStatListEx->pMyLastList;
         }
 
-        if (pStatListEx->FullStats.pStat)
-            FOG_FreePool(pStatListEx->pMemPool, pStatListEx->FullStats.pStat, ".\\Stats\\StatsEx.cpp", 0x4F3, 0);
+        if (((void*)pStatListEx->FullStats.pStat))
+            FOG_FreePool(pStatListEx->pMemPool, ((void*)pStatListEx->FullStats.pStat), ".\\Stats\\StatsEx.cpp", 0x4F3, 0);
 
-        if (pStatListEx->ModStats.pStat)
-            FOG_FreePool(pStatListEx->pMemPool, pStatListEx->ModStats.pStat, ".\\Stats\\StatsEx.cpp", 0x4F7, 0);
+        if (((void*)pStatListEx->ModStats.pStat))
+            FOG_FreePool(pStatListEx->pMemPool, ((void*)pStatListEx->ModStats.pStat), ".\\Stats\\StatsEx.cpp", 0x4F7, 0);
 
         FOG_FreePool(pStatListEx->pMemPool, pStatListEx->StatFlags, ".\\Stats\\StatsEx.cpp", 0x4FA, 0);
     }

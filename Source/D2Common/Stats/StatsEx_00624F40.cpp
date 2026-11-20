@@ -1,40 +1,14 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 struct D2StatStrc;
 struct D2StatsArrayStrc;
 struct D2StatListExStrc;
 struct D2ItemStatCostTxt;
 
-struct D2StatStrc
-{
-    int nPackedValue;
-    int nValue;
-};
 
-struct D2StatsArrayStrc
-{
-    D2StatStrc* pStat;
-    short nStatCount;
-    short nCapacity;
-};
 
-struct D2StatListExStrc
-{
-    void* pMemPool;
-    D2UnitStrc* pUnit;
-    char unk0x08[0x08];
-    unsigned int dwFlags;
-    char unk0x14[0x10];
-    D2StatsArrayStrc Stats;
-    char unk0x2C[0x1C];
-    D2StatsArrayStrc FullStats;
-};
 
-struct D2UnitStrc
-{
-    char unk0x00[0x5C];
-    D2StatListExStrc* pStatListEx;
-};
 
 struct D2ItemStatCostTxt
 {
@@ -45,11 +19,6 @@ void __stdcall STATLIST_MergeStatLists(D2UnitStrc* pTarget, D2UnitStrc* pUnit, i
 D2ItemStatCostTxt* __fastcall sub_0045C4F0_GetItemStatCostTxtRecord(int nStatId); // 0x0045C4F0
 void __fastcall sub_00626920_UpdateStatValue(D2StatListExStrc* pStatListEx, int nLayer_StatId, int nValue, D2UnitStrc* pUnit); // 0x00626920
 
-struct D2StatListStrc
-{
-    char unk0x00[36];
-    D2StatsArrayStrc Stats;
-};
 
 struct D2DataTablesStrc
 {

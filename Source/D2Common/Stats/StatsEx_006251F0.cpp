@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 #define STATLIST_NEWLENGTH 0x00000002
 #define STATLIST_UNK_0x100 0x00000100
@@ -11,83 +12,13 @@ struct D2StatsArrayStrc;
 struct D2ItemStatCostTxt;
 struct D2StatesTxt;
 
-struct D2ModStatsArrayStrc
-{
-    void* pStat;
-    unsigned short nStatCount;
-    unsigned short nCapacity;
-};
 
-struct D2StatsArrayStrc
-{
-    D2StatStrc* pStat;
-    short nStatCount;
-    short nCapacity;
-};
 
-struct D2StatListStrc
-{
-    void* pMemPool;
-    D2UnitStrc* pUnit;
-    unsigned int dwOwnerType;
-    unsigned int dwOwnerId;
-    unsigned int dwFlags;
-    unsigned int dwStateNo;
-    int dwExpireFrame;
-    int dwSkillNo;
-    int dwSLvl;
-    union
-    {
-        struct
-        {
-            D2StatsArrayStrc Stats;
-        };
-        struct
-        {
-            D2StatStrc* pStat;
-            short nStatCount;
-        };
-    };
-    D2StatListStrc* pPrevLink;
-    D2StatListStrc* pNextLink;
-    D2StatListStrc* pParent;
-    void* fpStatRemove;
-    D2StatListStrc* pMyLastList;
-    D2StatListStrc* pMyStats;
-    D2UnitStrc* pOwner;
-    D2StatsArrayStrc FullStats;
-    D2ModStatsArrayStrc ModStats;
-    unsigned int* StatFlags;
-};
 
-struct D2UnitStrc
-{
-    unsigned int dwUnitType;
-    char unk0x04[0x58];
-    D2StatListStrc* pStatListEx;
-    char unk0x60[0x68];
-    unsigned int dwFlagEx;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
-struct D2StatStrc
-{
-    union
-    {
-        struct
-        {
-            int nPackedValue;
-        };
-        struct
-        {
-            unsigned short nLayer;
-            unsigned short nStat;
-        };
-    };
-    int nValue;
-};
 
 struct D2ItemStatCostTxt
 {
@@ -169,11 +100,12 @@ void __stdcall STATLIST_SetExpireFrame(D2StatListStrc* pStatList, int nExpireFra
 // 0x006256E0
 D2StatListStrc* __stdcall sub_006256E0_StatListFindByFlags(D2StatListStrc* pStatList, int nFlag)
 {
+    D2StatListExStrc* pStatListEx = (D2StatListExStrc*)pStatList;
     if (pStatList)
     {
         if (pStatList->dwFlags & STATLIST_EXTENDED)
         {
-            pStatList = nFlag & STATLIST_SET ? pStatList->pMyStats : pStatList->pMyLastList;
+            pStatList = nFlag & STATLIST_SET ? pStatListEx->pMyStats : pStatListEx->pMyLastList;
         }
         nFlag &= ~STATLIST_SET;
 
@@ -210,7 +142,7 @@ D2StatListStrc* __stdcall STATLIST_GetStatListFromFlag(D2StatListStrc* pStatList
 // 0x006257D0
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitStateAndFlag(D2UnitStrc* pUnit, int nState, int nFlag)
 {
-    D2StatListStrc* pStatListEx = pUnit->pStatListEx;
+    D2StatListExStrc* pStatListEx = pUnit->pStatListEx;
     if (pStatListEx && pStatListEx->dwFlags & STATLIST_EXTENDED)
     {
         D2StatListStrc* pStatList = pStatListEx->pMyLastList;
@@ -236,7 +168,7 @@ D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitStateAndFlag(D2UnitStrc* p
 // 0x00625960
 void __stdcall STATLIST_FreeModStats(D2UnitStrc* pUnit)
 {
-    D2StatListStrc* pStatListEx = pUnit ? pUnit->pStatListEx : 0;
+    D2StatListExStrc* pStatListEx = pUnit ? pUnit->pStatListEx : 0;
     if (pStatListEx && pStatListEx->dwFlags & STATLIST_EXTENDED)
     {
         if (pStatListEx->ModStats.pStat)
@@ -253,7 +185,7 @@ void __stdcall STATLIST_FreeModStats(D2UnitStrc* pUnit)
 // 0x00625A00
 void __stdcall D2Common_10534(D2UnitStrc* pUnit)
 {
-    D2StatListStrc* pStatListEx = pUnit ? pUnit->pStatListEx : 0;
+    D2StatListExStrc* pStatListEx = pUnit ? pUnit->pStatListEx : 0;
     if (pStatListEx)
     {
         pStatListEx->dwFlags |= STATLIST_UNK_0x100;
@@ -268,7 +200,7 @@ int __stdcall D2COMMON_10530_D2CheckStatlistFlagDMGRed(D2UnitStrc* pUnit)
         return 0;
     }
 
-    D2StatListStrc* pStatListEx = pUnit->pStatListEx;
+    D2StatListExStrc* pStatListEx = pUnit->pStatListEx;
     if (!pStatListEx)
     {
         return 0;
@@ -323,7 +255,8 @@ static D2StatStrc* sub_00624C60_FindStat(D2StatsArrayStrc* pStatsArray, int nLay
 
 static int __stdcall sub_00624F60_GetTotalStat(D2StatListStrc* pStatList, int nLayer_StatId, D2ItemStatCostTxt* pItemStatCostTxtRecord)
 {
-    D2StatStrc* pStat = sub_00624C60_FindStat((pStatList->dwFlags & STATLIST_EXTENDED) ? &pStatList->FullStats : &pStatList->Stats, nLayer_StatId);
+    D2StatListExStrc* pStatListEx = (D2StatListExStrc*)pStatList;
+    D2StatStrc* pStat = sub_00624C60_FindStat((pStatList->dwFlags & STATLIST_EXTENDED) ? &pStatListEx->FullStats : &pStatList->Stats, nLayer_StatId);
     if (!pStat)
     {
         return 0;
@@ -331,7 +264,7 @@ static int __stdcall sub_00624F60_GetTotalStat(D2StatListStrc* pStatList, int nL
 
     int nValue = pStat->nValue;
     if (pItemStatCostTxtRecord && ITEMSTATCOST_HASFLAG(pItemStatCostTxtRecord, ISC_FLAG_FMIN) && (pStatList->dwFlags & STATLIST_EXTENDED)
-        && pStatList->pOwner && (UNITS_IsType(pStatList->pOwner, UNIT_PLAYER) || UNITS_IsType(pStatList->pOwner, UNIT_MONSTER)))
+        && pStatListEx->pOwner && (UNITS_IsType(pStatListEx->pOwner, UNIT_PLAYER) || UNITS_IsType(pStatListEx->pOwner, UNIT_MONSTER)))
     {
         if (nValue < pItemStatCostTxtRecord->dwMinAccr)
         {
@@ -386,7 +319,7 @@ void __stdcall sub_00625A70_ToggleState(D2UnitStrc* pUnit, int nState, int bSet)
 {
     if (pUnit)
     {
-        D2StatListStrc* pStatListEx = pUnit->pStatListEx;
+        D2StatListExStrc* pStatListEx = pUnit->pStatListEx;
         if (pStatListEx && (pStatListEx->dwFlags & STATLIST_EXTENDED))
         {
             const unsigned int bWasSet = pStatListEx->StatFlags[nState >> 5] & gdwBitMasks[nState & 31];
@@ -445,7 +378,7 @@ int __stdcall sub_006255A0_GetStatValueWithPercent(D2StatListStrc* pStatList, in
 // 0x006256B0
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState)
 {
-    D2StatListStrc* pStatListEx = pUnit->pStatListEx;
+    D2StatListExStrc* pStatListEx = pUnit->pStatListEx;
     if (!pStatListEx)
     {
         return 0;
@@ -460,7 +393,7 @@ D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit
 // 0x00625790
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitStateOrFlag(D2UnitStrc* pUnit, int nState, int nFlag)
 {
-    D2StatListStrc* pStatListEx = pUnit->pStatListEx;
+    D2StatListExStrc* pStatListEx = pUnit->pStatListEx;
     if (!pStatListEx)
     {
         return 0;
@@ -483,12 +416,12 @@ int __stdcall STATLIST_GetBaseStatsData(D2StatListStrc* pStatList, D2StatStrc* p
     {
         return 0;
     }
-    int nStatCount = pStatList->nStatCount;
+    int nStatCount = pStatList->Stats.nStatCount;
     if (nStatCount >= nBufferSize)
     {
         nStatCount = nBufferSize;
     }
-    D2StatStrc* pStat = pStatList->pStat;
+    D2StatStrc* pStat = pStatList->Stats.pStat;
     D2StatStrc* pEnd = &pStat[nStatCount];
     for (; pStat < pEnd; ++pStat)
     {
@@ -501,7 +434,7 @@ int __stdcall STATLIST_GetBaseStatsData(D2StatListStrc* pStatList, D2StatStrc* p
 // 0x006272E0
 void __stdcall STATLIST_DeactivateTemporaryStates(D2UnitStrc* pUnit)
 {
-    D2StatListStrc* pStatListEx = pUnit->pStatListEx;
+    D2StatListExStrc* pStatListEx = pUnit->pStatListEx;
     if (!pStatListEx || !(pStatListEx->dwFlags & 2))
     {
         return;
@@ -533,7 +466,7 @@ void __stdcall STATLIST_RemoveAllStatsFromOverlay(D2UnitStrc* pUnit)
 {
     if (pUnit)
     {
-        D2StatListStrc* pStatListEx = pUnit->pStatListEx;
+        D2StatListExStrc* pStatListEx = pUnit->pStatListEx;
         if (pStatListEx)
         {
             pStatListEx->dwFlags &= ~0x100;
@@ -555,7 +488,7 @@ void __stdcall STATLIST_UpdateStatListsExpiration(D2UnitStrc* pUnit, int nFrame)
     {
         return;
     }
-    D2StatListStrc* pStatListEx = pUnit->pStatListEx;
+    D2StatListExStrc* pStatListEx = pUnit->pStatListEx;
     if (!pStatListEx || !(pStatListEx->dwFlags & 0x80000000))
     {
         return;
@@ -604,8 +537,8 @@ void __stdcall STATLIST_MergeBaseStats(D2StatListStrc* pTargetStatList, D2StatLi
 {
     if (pTargetStatList && pSourceStatlist)
     {
-        D2StatStrc* pStat = pSourceStatlist->pStat;
-        D2StatStrc* pEnd = &pStat[pSourceStatlist->nStatCount];
+        D2StatStrc* pStat = pSourceStatlist->Stats.pStat;
+        D2StatStrc* pEnd = &pStat[pSourceStatlist->Stats.nStatCount];
         for (; pStat < pEnd; ++pStat)
         {
             STATLIST_AddStat(pTargetStatList, pStat->nStat, pStat->nValue, pStat->nLayer);
@@ -620,7 +553,7 @@ void __stdcall D2Common_10469(D2UnitStrc* pUnit)
     {
         return;
     }
-    D2StatListStrc* pStatListEx = pUnit->pStatListEx;
+    D2StatListExStrc* pStatListEx = pUnit->pStatListEx;
     if (!pStatListEx || !(pStatListEx->dwFlags & 0x80000000))
     {
         return;
@@ -654,7 +587,7 @@ void __stdcall STATLIST_MergeStatLists(D2UnitStrc* pTarget, D2UnitStrc* pUnit, i
     {
         return;
     }
-    D2StatListStrc* pStatListEx = pUnit->pStatListEx;
+    D2StatListExStrc* pStatListEx = pUnit->pStatListEx;
     if (!pStatListEx)
     {
         return;
@@ -696,7 +629,7 @@ int __stdcall D2Common_10574(D2UnitStrc* pUnit, int nStateId, int bSet)
     {
         return 0;
     }
-    D2StatListStrc* pStatListEx = pUnit->pStatListEx;
+    D2StatListExStrc* pStatListEx = pUnit->pStatListEx;
     if (pStatListEx && (pStatListEx->dwFlags & 0x80000000))
     {
         if (D2StatListStrc* pStatList = D2Common_GetStateFromStatListEx_6FDB8190(pStatListEx, nStateId))

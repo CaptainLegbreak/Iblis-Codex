@@ -23,6 +23,7 @@ struct D2PacketListStrc;
 struct D2PlayerDataStrc;
 struct D2QuestChainStrc;
 struct D2SkillListStrc;
+struct D2SkillStrc;
 struct D2StaticPathStrc;
 struct D2StatListExStrc;
 struct D2UnitEventStrc;
@@ -31,15 +32,8 @@ struct D2UnitStrc;
 
 struct D2SeedStrc
 {
-    union
-    {
-        struct
-        {
-            unsigned int nLowSeed; // 0x00
-            unsigned int nHighSeed; // 0x04
-        };
-        unsigned __int64 lSeed; // 0x00
-    };
+    unsigned int nLowSeed; // 0x00
+    unsigned int nHighSeed; // 0x04
 };
 
 struct D2StatStrc
@@ -70,6 +64,10 @@ struct D2ModStatsArrayStrc
     short nCapacity; // 0x06
 };
 
+struct D2StatListStrc;
+typedef void (__fastcall* StatListRemoveFunc)(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);
+typedef void (__fastcall* StatListValueChangeFunc)(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pUnit, int nLayer_StatId, int nPreviousValue, int nNewValue);
+
 struct D2StatListStrc
 {
     void* pMemPool; // 0x00
@@ -79,13 +77,17 @@ struct D2StatListStrc
     unsigned int dwFlags; // 0x10
     unsigned int dwStateNo; // 0x14
     int dwExpireFrame; // 0x18
-    int dwSkillNo; // 0x1C
+    union // 0x1C
+    {
+        int dwSkillNo;
+        D2SkillStrc* pSkill;
+    };
     int dwSLvl; // 0x20
     D2StatsArrayStrc Stats; // 0x24
     D2StatListStrc* pPrevLink; // 0x2C
     D2StatListStrc* pNextLink; // 0x30
-    D2StatListStrc* pParent; // 0x34
-    void* fpStatRemove; // 0x38
+    D2StatListExStrc* pParent; // 0x34
+    StatListRemoveFunc fpStatRemove; // 0x38
 };
 
 struct D2StatListExStrc : public D2StatListStrc
@@ -96,13 +98,13 @@ struct D2StatListExStrc : public D2StatListStrc
     D2StatsArrayStrc FullStats; // 0x48
     D2ModStatsArrayStrc ModStats; // 0x50
     unsigned int* StatFlags; // 0x58
-    void* pfOnValueChanged; // 0x5C
+    StatListValueChangeFunc pfOnValueChanged; // 0x5C
     D2GameStrc* pGame; // 0x60
 };
 
 struct D2UnitStrc
 {
-    int dwUnitType; // 0x00
+    unsigned int dwUnitType; // 0x00
     int dwClassId; // 0x04
     void* pMemoryPool; // 0x08
     int dwUnitId; // 0x0C
@@ -207,3 +209,29 @@ struct D2UnitStrc
     D2UnitPacketListStrc* pMsgFirst; // 0xEC
     D2UnitPacketListStrc* pMsgLast; // 0xF0
 };
+
+// Layout checks: a wrong size or offset makes the array size negative and stops the compile.
+#define D2_CHECK_SIZE(T, n) typedef char D2SizeCheck_##T[(sizeof(T) == (n)) ? 1 : -1]
+#define D2_CHECK_OFFSET(T, m, n) typedef char D2OffsetCheck_##T##_##m[((unsigned int)&((T*)0)->m == (n)) ? 1 : -1]
+
+D2_CHECK_SIZE(D2SeedStrc, 0x08);
+D2_CHECK_SIZE(D2StatStrc, 0x08);
+D2_CHECK_SIZE(D2StatsArrayStrc, 0x08);
+D2_CHECK_SIZE(D2ModStatsArrayStrc, 0x08);
+D2_CHECK_SIZE(D2StatListStrc, 0x3C);
+D2_CHECK_OFFSET(D2StatListStrc, dwSkillNo, 0x1C);
+D2_CHECK_OFFSET(D2StatListStrc, Stats, 0x24);
+D2_CHECK_OFFSET(D2StatListStrc, fpStatRemove, 0x38);
+D2_CHECK_SIZE(D2StatListExStrc, 0x64);
+D2_CHECK_OFFSET(D2StatListExStrc, pMyLastList, 0x3C);
+D2_CHECK_OFFSET(D2StatListExStrc, FullStats, 0x48);
+D2_CHECK_OFFSET(D2StatListExStrc, ModStats, 0x50);
+D2_CHECK_OFFSET(D2StatListExStrc, pfOnValueChanged, 0x5C);
+D2_CHECK_OFFSET(D2StatListExStrc, pGame, 0x60);
+D2_CHECK_SIZE(D2UnitStrc, 0xF4);
+D2_CHECK_OFFSET(D2UnitStrc, pSeed, 0x20);
+D2_CHECK_OFFSET(D2UnitStrc, pStatListEx, 0x5C);
+D2_CHECK_OFFSET(D2UnitStrc, pInventory, 0x60);
+D2_CHECK_OFFSET(D2UnitStrc, dwOwnerType, 0x94);
+D2_CHECK_OFFSET(D2UnitStrc, dwFlags, 0xC4);
+D2_CHECK_OFFSET(D2UnitStrc, pMsgLast, 0xF0);
