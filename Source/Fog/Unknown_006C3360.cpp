@@ -1,20 +1,8 @@
-struct D2WSADataStrc;
+#include "D2NetTypes.h"
 struct D2Server006C3360Strc;
 struct D2CriticalSectionStrc;
 struct D2Worker006C33D0Strc;
 struct D2Connection006C3410Strc;
-
-struct D2WSADataStrc
-{
-    unsigned short wVersion;
-    unsigned short wHighVersion;
-    char szDescription[0x101];
-    char szSystemStatus[0x81];
-    unsigned short iMaxSockets;
-    unsigned short iMaxUdpDg;
-    char pad0x18A[2];
-    char* lpVendorInfo;
-};
 
 struct D2Server006C3360Strc
 {
@@ -22,12 +10,10 @@ struct D2Server006C3360Strc
     int bStarted884;
 };
 
-
 extern "C" int __stdcall WSAStartup(unsigned short wVersionRequested, D2WSADataStrc* pData); // 0x006B0132
 int __fastcall sub_006C3120_Start(D2Server006C3360Strc* pServer, int nValue); // 0x006C3120
 
 struct D2CriticalSectionStrc { void* pDebugInfo; long nLockCount; long nRecursionCount; void* hOwningThread; void* hLockSemaphore; unsigned long nSpinCount; };
-
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pCriticalSection);
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pCriticalSection);
@@ -48,7 +34,6 @@ struct D2Connection006C3410Strc
     unsigned char unk_00[0x10];
     int nSocket10;
 };
-
 
 int __stdcall sub_006B017A_Send(int nSocket, const void* pBuffer, int nLength, int nFlags); // 0x006B017A
 int __stdcall sub_006B0168_GetLastError(); // 0x006B0168

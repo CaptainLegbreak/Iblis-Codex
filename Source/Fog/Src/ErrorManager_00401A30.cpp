@@ -1,4 +1,5 @@
 #include "D2GameTypes.h"
+#include "D2NetTypes.h"
 typedef unsigned int size_t;
 typedef char* va_list;
 #define _INTSIZEOF(n) ((sizeof(n) + sizeof(int) - 1) & ~(sizeof(int) - 1))
@@ -6,7 +7,6 @@ typedef char* va_list;
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
 
 struct _iobuf;
-
 
 struct D2ThreadEntryStrc
 {
@@ -63,17 +63,6 @@ struct AsyncData
     unsigned int dwFlags;
 };
 
-struct D2WSADataStrc
-{
-    unsigned short wVersion;
-    unsigned short wHighVersion;
-    char szDescription[0x101];
-    char szSystemStatus[0x81];
-    unsigned short iMaxSockets;
-    unsigned short iMaxUdpDg;
-    char* lpVendorInfo;
-};
-
 struct FSafeSock
 {
     int bConnected;
@@ -92,12 +81,6 @@ struct D2FdSetStrc
 {
     unsigned int fd_count;
     unsigned int fd_array[64];
-};
-
-struct D2TimevalStrc
-{
-    long tv_sec;
-    long tv_usec;
 };
 
 union D2LargeIntegerStrc

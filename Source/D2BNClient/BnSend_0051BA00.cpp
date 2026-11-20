@@ -1,18 +1,10 @@
 #include "D2BNClient.h"
 #include "D2Primitives.h"
+#include "D2NetTypes.h"
 
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-
-
-struct D2SockAddrInStrc
-{
-    short sin_family;
-    unsigned short sin_port;
-    unsigned long sin_addr;
-    char sin_zero[8];
-};
 
 class BNGatewayAccess
 {
@@ -206,7 +198,7 @@ int __stdcall sub_00521BF0()
 
     D2SockAddrInStrc tAddress;
     int nLength = 0x10;
-    tPacket.f_14 = sub_0051C9E0_GetSockName(&tAddress, &nLength) ? tAddress.sin_addr : 0;
+    tPacket.f_14 = sub_0051C9E0_GetSockName(&tAddress, &nLength) ? tAddress.sin_addr.s_addr : 0;
 
     D2FileTimeStrc tLocalFileTime;
     D2FileTimeStrc tSystemFileTime;

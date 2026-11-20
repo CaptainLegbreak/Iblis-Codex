@@ -11,7 +11,6 @@ struct D2BnAdInfoStrc;
 class BNGatewayAccess;
 struct D2BnDownloadRecordStrc;
 struct D2BnDownloadReplyStrc;
-struct D2SockAddrInStrc;
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
@@ -160,14 +159,6 @@ struct D2BnDownloadReplyStrc
     unsigned int nArg2;
     D2FileTimeStrc tFileTime;
     char szFile[1];
-};
-
-struct D2SockAddrInStrc
-{
-    short sin_family;
-    unsigned short sin_port;
-    D2InAddrStrc sin_addr;
-    char sin_zero[8];
 };
 
 extern "C" __declspec(dllimport) int __stdcall SetFileTime(void* hFile, const D2FileTimeStrc* pCreation, const D2FileTimeStrc* pAccess, const D2FileTimeStrc* pWrite); // 0x006CC3A8

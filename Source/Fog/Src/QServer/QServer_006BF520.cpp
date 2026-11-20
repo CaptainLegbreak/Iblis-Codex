@@ -1,14 +1,4 @@
-struct D2WSADataStrc
-{
-    unsigned short wVersion;
-    unsigned short wHighVersion;
-    char szDescription[0x101];
-    char szSystemStatus[0x81];
-    unsigned short iMaxSockets;
-    unsigned short iMaxUdpDg;
-    char pad0x18A[2];
-    char* lpVendorInfo;
-};
+#include "D2NetTypes.h"
 
 struct D2StormServerStrc
 {

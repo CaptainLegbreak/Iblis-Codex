@@ -1,4 +1,5 @@
 #include "D2GameTypes.h"
+#include "D2NetTypes.h"
 struct D2CriticalSection006BE650Strc;
 struct D2QMsg006BE650Strc;
 struct D2QClient006BE650Strc;
@@ -7,7 +8,6 @@ struct D2CriticalSectionStrc;
 struct D2HackListStrc;
 struct D2HackNode006BE890Strc;
 struct D2Server006BE890Strc;
-struct D2InAddrStrc;
 struct D2QServerIpNodeStrc;
 struct D2QueueServerStrc;
 struct D2QNode006BF1F0Strc;
@@ -59,7 +59,6 @@ struct D2HackEntryStrc
     D2HackEntryStrc* next;
 };
 
-
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* section);
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* section);
@@ -97,11 +96,6 @@ struct D2Server006BE890Strc
     unsigned int f_8B0;
     unsigned char unk_8B4[0xBD0 - 0x8B4];
     int bHackList;
-};
-
-struct D2InAddrStrc
-{
-    unsigned long s_addr;
 };
 
 struct D2QServerIpNodeStrc

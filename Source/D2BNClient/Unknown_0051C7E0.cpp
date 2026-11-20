@@ -9,11 +9,8 @@
 struct D2BnCheckAdReplyStrc;
 struct D2CriticalSectionStrc;
 struct D2FdSetStrc;
-struct D2TimevalStrc;
-struct D2SockAddrInStrc;
 struct D2BnStateStrc;
 struct D2BnServerEntryStrc;
-
 
 struct D2BnCheckAdReplyStrc
 {
@@ -36,20 +33,6 @@ struct D2FdSetStrc
 {
     unsigned int fd_count;
     unsigned int fd_array[64];
-};
-
-struct D2TimevalStrc
-{
-    long tv_sec;
-    long tv_usec;
-};
-
-struct D2SockAddrInStrc
-{
-    short sin_family;
-    unsigned short sin_port;
-    D2InAddrStrc sin_addr;
-    char sin_zero[8];
 };
 
 struct D2BnServerEntryStrc

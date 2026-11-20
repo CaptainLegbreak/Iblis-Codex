@@ -1,7 +1,7 @@
 #include "Fog.h"
+#include "D2NetTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-struct D2WSADataStrc;
 struct D2HostentStrc;
 struct D2ThreadNameInfoStrc;
 struct D2StackFrameStrc;
@@ -20,11 +20,6 @@ struct D2SidAuthorityStrc;
 struct D2ProcessEntryStrc;
 
 void __cdecl sub_00402980_StartDbgHelpWorker(); // 0x00402980
-
-struct D2WSADataStrc
-{
-    char data[0x190];
-};
 
 struct D2ThreadNameInfoStrc
 {
