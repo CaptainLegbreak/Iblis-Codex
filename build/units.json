@@ -41339,6 +41339,10 @@
      "name": "sub_004F69B0_DrawSubtileRows"
     },
     {
+     "va": "0x0050B860",
+     "length": 371
+    },
+    {
      "va": "0x0050B9E0",
      "length": 397,
      "name": "sub_0050B9E0_GlideCreateDebugFont"
@@ -44520,30 +44524,6 @@
      "length": 53,
      "name": "?sub_0050E330_GlideRefresh@@YAXXZ"
     }
-   ]
-  },
-  {
-   "file": "Source/D2Glide/Src/glDebugFont_0050B860.cpp",
-   "rank": 1,
-   "functions": [
-    {
-     "va": "0x0050B860",
-     "length": 371
-    }
-   ],
-   "flags": [
-    "/nologo",
-    "/c",
-    "/TP",
-    "/Zl",
-    "/Z7",
-    "/Gy",
-    "/MT",
-    "/O2",
-    "/Oy-",
-    "/Ob2",
-    "/Gd",
-    "/GS-"
    ]
   },
   {
