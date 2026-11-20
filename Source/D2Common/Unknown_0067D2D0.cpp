@@ -1,24 +1,10 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2Path.h"
-
-struct D2DrlgGridStrc
-{
-    int* pCellsFlags;
-    int* pCellsRowOffsets;
-    int nWidth;
-    int nHeight;
-    int unk0x10;
-};
+#include "D2Drlg.h"
 
 
-struct D2DrlgCoordsStrc
-{
-    int nX;
-    int nY;
-    int nWidth;
-    int nHeight;
-};
+
 
 struct D2DrlgVertexStrc
 {
@@ -45,24 +31,7 @@ struct D2DrlgOutdoorRoomStrc
     int nTileInfo6C;
 };
 
-struct D2DrlgStrc
-{
-    char unk0x000[0x478];
-    void* pMemPool;
-};
 
-struct D2DrlgLevelStrc
-{
-    char unk0x000[0x1B4];
-    D2DrlgStrc* pDrlg;
-    int unk0x1B8;
-    int unk0x1BC;
-    int nLevelType;
-    int unk0x1C4;
-    int unk0x1C8;
-    int unk0x1CC;
-    int eLevelId;
-};
 
 struct D2LevelDefRecordStrc
 {
@@ -107,25 +76,6 @@ struct D2RoomTileInfoStrc
     int nTotal28;
 };
 
-struct D2DrlgRoomStrc
-{
-    char unk0x00[0x20];
-    D2DrlgOutdoorRoomStrc* pOutdoor;
-    D2DrlgRoomStrc* pNext;
-    unsigned int dwFlags;
-    int unk0x2C;
-    int unk0x30;
-    int nTileXPos;
-    int nTileYPos;
-    int nTileWidth;
-    int nTileHeight;
-    int unk0x44;
-    int unk0x48;
-    int unk0x4C;
-    int unk0x50;
-    D2RoomTileInfoStrc* pTileInfo;
-    D2DrlgLevelStrc* ptDrlgLevel;
-};
 
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);    // 0x0040B430
 void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);  // 0x0040B480
@@ -156,13 +106,13 @@ int __fastcall sub_006706A0(D2DrlgRoomStrc* pRoom, int a2, int a3);
 void __fastcall DRLGOUTROOM_InitOutdoorRoomGrids(D2DrlgRoomStrc* pRoom)
 {
     D2DrlgLevelStrc* pLevel = pRoom->ptDrlgLevel;
-    void* pMemPool = pLevel->pDrlg->pMemPool;
+    void* pMemPool = pLevel->pDrlg->pMempool;
     int nLevelId = pLevel->eLevelId;
     unsigned char bSkip = sub_006427F0(nLevelId);
     D2DrlgOutdoorRoomStrc* pOutdoor = pRoom->pOutdoor;
     D2LevelDefRecordStrc* pLevelDef = DATATBLS_GetLevelDefRecord(nLevelId);
-    int nWidth = pRoom->nTileWidth + 1;
-    int nHeight = pRoom->nTileHeight + 1;
+    int nWidth = pRoom->pDrlgCoord.nWidth + 1;
+    int nHeight = pRoom->pDrlgCoord.nHeight + 1;
     int nSubType1 = (pRoom->dwFlags >> 16) & 3;
     int nSubType2 = (pRoom->dwFlags >> 12) & 0xF;
     int nMask = 0;

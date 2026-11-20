@@ -1,23 +1,9 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Drlg.h"
 
-struct D2DrlgCoordStrc
-{
-    int nPosX;
-    int nPosY;
-    int nWidth;
-    int nHeight;
-};
 
-struct D2DrlgGridStrc
-{
-    int* pCellsFlags;
-    int* pCellsRowOffsets;
-    int nWidth;
-    int nHeight;
-    int nFlags;
-};
 
 struct D2MapAIPathPositionStrc
 {
@@ -135,42 +121,9 @@ struct D2DrlgPresetLevelStrc
     D2DrlgMapStrc* pDrlgMap;
 };
 
-struct D2DrlgStrc
-{
-    char unk0x000[0x464];
-    void* hArchive;
-    char unk0x468[0x10];
-    void* pMempool;
-};
-
-struct D2DrlgLevelStrc
-{
-    char unk0x000[0x14];
-    D2DrlgPresetLevelStrc* pPreset;
-    char unk0x018[0x19C];
-    D2DrlgStrc* pDrlg;
-    char unk0x1B8[0x18];
-    int eLevelId;
-};
 
 
-struct D2DrlgRoomStrc
-{
-    char unk0x00[0x14];
-    D2SeedStrc pSeed;
-    char unk0x1C[0x4];
-    D2DrlgPresetRoomStrc* pMaze;
-    char unk0x24[0x4];
-    unsigned int dwFlags;
-    char unk0x2C[0x8];
-    D2DrlgCoordStrc pDrlgCoord;
-    char unk0x44[0x4];
-    int nType;
-    char unk0x4C[0x4];
-    unsigned int dwDT1Mask;
-    char unk0x54[0x4];
-    D2DrlgLevelStrc* ptDrlgLevel;
-};
+
 struct D2PresetUnitStrc* __fastcall DRLGROOM_AllocPresetUnit(D2DrlgRoomStrc* pDrlgRoom, void* pMemPool, int nUnitType, int nIndex, int nMode, int nX, int nY); // 0x0066BF30
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY);                                // 0x0067C570
 void __fastcall DRLGGRID_AssignCellsOffsetsAndFlags(D2DrlgGridStrc* pGrid, int* pCellFlags, D2DrlgCoordStrc* pCoord, int nWidth, int* pBuffer); // 0x0067CD30

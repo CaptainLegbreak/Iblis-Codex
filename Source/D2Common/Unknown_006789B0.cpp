@@ -1,4 +1,5 @@
 #include "D2Path.h"
+#include "D2Drlg.h"
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
@@ -40,44 +41,10 @@ struct D2JungleStrc
     int nJungleDefs;
 };
 
-struct D2DrlgStrc
-{
-    D2SeedStrc tSeed;
-    char unk0x008[0x450 - 0x008];
-    unsigned char nDifficulty;
-    char unk0x451[0x478 - 0x451];
-    void* pMempool;
-    char unk0x47C[4];
-    unsigned char nAct;
-};
 
-struct D2DrlgCoordStrc { int nPosX, nPosY, nWidth, nHeight; };
 struct D2DrlgOrthStrc;
-struct D2DrlgOutdoorInfoStrc
-{
-    unsigned int dwFlags;
-    char unk0x004[0x260];
-    D2DrlgOrthStrc* pRoomData;
-};
 struct D2DrlgPresetInfoStrc { int unk0x00; int nDirection; };
 
-struct D2DrlgLevelStrc
-{
-    int nDrlgType;
-    char unk0x004[0x10];
-    union { D2DrlgOutdoorInfoStrc* pOutdoors; D2DrlgPresetInfoStrc* pPreset; };
-    char unk0x018[4];
-    int nPosX;
-    int nPosY;
-    int nWidth;
-    int nHeight;
-    char unk0x02C[0x1B4 - 0x02C];
-    D2DrlgStrc* pDrlg;
-    int nJungleDefs;
-    int* pnJungleDefs;
-    char unk0x1C0[0x10];
-    int eLevelId;
-};
 
 struct D2LevelDefBin
 {
@@ -207,8 +174,8 @@ static D2DrlgLevelStrc* DRLG_GenerateJungles(D2DrlgLevelStrc* pLevel)
     while (nIdx < 3)
     {
         unsigned int nBaseOn;
-        SEED_ROLL_LIMITED(&pDrlg->tSeed, nIdx, nBaseOn);
-        sub_006777D0_OffsetByDirection((const D2PosStrc*)&tJungles[nBaseOn].tCoord, SEED_RollLimitedRandomNumber(&pDrlg->tSeed, 5), nSizeX, nSizeY, &tJungles[nIdx].tCoord);
+        SEED_ROLL_LIMITED(&pDrlg->pSeed, nIdx, nBaseOn);
+        sub_006777D0_OffsetByDirection((const D2PosStrc*)&tJungles[nBaseOn].tCoord, SEED_RollLimitedRandomNumber(&pDrlg->pSeed, 5), nSizeX, nSizeY, &tJungles[nIdx].tCoord);
 
         for (nJ = 0; nJ < nIdx; nJ++)
         {
@@ -277,7 +244,7 @@ RESTART:
         int bOffset;
         if (nJ == 0)
         {
-            bOffset = SEED_RollLimitedRandomNumber(&pDrlg->tSeed, 2);
+            bOffset = SEED_RollLimitedRandomNumber(&pDrlg->pSeed, 2);
         }
         else
         {
@@ -337,7 +304,7 @@ RESTART:
                 pPreset1[x + nRow] = (nJ + 1) * 100 + nStep;
                 ++nStep;
 
-                if (nColumnSize == 0 || y == nBY || SEED_RollLimitedRandomNumber(&pDrlg->tSeed, 3))
+                if (nColumnSize == 0 || y == nBY || SEED_RollLimitedRandomNumber(&pDrlg->pSeed, 3))
                 {
                     ++nColumnSize;
                     if (nColumnSize >= 2 && y > 1)
@@ -372,7 +339,7 @@ RESTART:
         while (nCount > 3)
         {
             unsigned int nRemove;
-            SEED_ROLL_LIMITED(&pDrlg->tSeed, nCount, nRemove);
+            SEED_ROLL_LIMITED(&pDrlg->pSeed, nCount, nRemove);
             int bFinished = 0;
             nColumnSize = 0;
             for (int y = 0; y < nBlocksY && !bFinished; y++)
@@ -492,7 +459,7 @@ RESTART:
 
             const int nP0 = pPreset0[y * nW + x];
             int nLevelPreset = pLevelPresetId[y * nW + x];
-            nColumnSize = SEED_RollLimitedRandomNumber(&pDrlg->tSeed, 4);
+            nColumnSize = SEED_RollLimitedRandomNumber(&pDrlg->pSeed, 4);
             const int bHadNoPreset = nLevelPreset == 0;
             if (pPreset2[y * nW + x] == 2)
             {
@@ -577,8 +544,8 @@ RESTART:
                         }
                     }
 
-                    bLook = SEED_RollLimitedRandomNumber(&pDrlg->tSeed, 2) != 0 && bLook;
-                    nColumnSize = SEED_RollLimitedRandomNumber(&pDrlg->tSeed, 4);
+                    bLook = SEED_RollLimitedRandomNumber(&pDrlg->pSeed, 2) != 0 && bLook;
+                    nColumnSize = SEED_RollLimitedRandomNumber(&pDrlg->pSeed, 4);
 
                     for (nJ = 0; nJ < 4 && bLook; nJ++)
                     {
@@ -822,7 +789,7 @@ static void __stdcall sub_006772C0_InitLevelLinks(D2DrlgLinkStrc* pDrlgLink, LIN
         pLevelLinkData.nRand[1][i] = -1;
     }
 
-    pLevelLinkData.pSeed = pDrlg->tSeed;
+    pLevelLinkData.pSeed = pDrlg->pSeed;
     pLevelLinkData.pLink = pDrlgLink;
 
     for (int i = 0; pDrlgLink[i].nLevel; ++i)
@@ -902,10 +869,10 @@ static void __stdcall sub_006772C0_InitLevelLinks(D2DrlgLinkStrc* pDrlgLink, LIN
             switch (pLevelLinkData.nRand[0][i])
             {
             case 1:
-                pPresetInfo->nDirection = ((unsigned char)SEED_RollRandomNumber_Links(&pDrlg->tSeed) & 1) ? 1 : 2;
+                pPresetInfo->nDirection = ((unsigned char)SEED_RollRandomNumber_Links(&pDrlg->pSeed) & 1) ? 1 : 2;
                 break;
             case 3:
-                pPresetInfo->nDirection = ~(unsigned char)SEED_RollRandomNumber_Links(&pDrlg->tSeed) & 1;
+                pPresetInfo->nDirection = ~(unsigned char)SEED_RollRandomNumber_Links(&pDrlg->pSeed) & 1;
                 break;
             }
         }
