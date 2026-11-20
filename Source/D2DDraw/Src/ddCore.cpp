@@ -7,19 +7,7 @@ struct D2CriticalSectionStrc;
 struct D2TileLibraryEntryStrc;
 struct D2GfxLightExStrc;
 struct T004F51E0;
-struct T00508FE0;
 struct tagRECT;
-
-struct T00508FE0
-{
-    float x;
-    float y;
-    float unk0x08;
-    float oow;
-    float sow;
-    float tow;
-    float unk0x18;
-};
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -142,7 +130,7 @@ void __fastcall sub_0050BEF0_GlideDebugDraw(const unsigned int* pLight, const un
 // build: context sub_0050BF50_GlideDrawBox
 void __fastcall sub_0050BF50_GlideDrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int nDrawMode)
 {
-    T00508FE0 vertices[4];
+    D2GlideSpriteVertexStrc vertices[4];
     const int nX1 = D2_MIN(D2_MAX(nXStart, 0), gnScreenWidth_007C9138);
     const int nX2 = D2_MIN(D2_MAX(nXEnd, 0), gnScreenWidth_007C9138);
     if (nX1 == nX2)
@@ -192,14 +180,14 @@ void __fastcall sub_0050BF50_GlideDrawBox(int nXStart, int nYStart, int nXEnd, i
         break;
     }
     gpfGlideConstantColor_0087EFA0(dwRGBA);
-    gpfGlideDrawVertexArrayContiguous_0087EAC4(5, 4, vertices, sizeof(T00508FE0));
+    gpfGlideDrawVertexArrayContiguous_0087EAC4(5, 4, vertices, sizeof(D2GlideSpriteVertexStrc));
     gpfGlideMask_0087EB8C(1);
 }
 
 // build: context sub_0050C0F0_GlideDrawBoxAlpha
 void __fastcall sub_0050C0F0_GlideDrawBoxAlpha(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha)
 {
-    T00508FE0 vertices[4];
+    D2GlideSpriteVertexStrc vertices[4];
     const int nX1 = D2_MIN(D2_MAX(nXStart, 0), gnScreenWidth_007C9138);
     const int nX2 = D2_MIN(D2_MAX(nXEnd, 0), gnScreenWidth_007C9138);
     if (nX1 == nX2)
@@ -233,7 +221,7 @@ void __fastcall sub_0050C0F0_GlideDrawBoxAlpha(int nXStart, int nYStart, int nXE
     vertices[3].sow = 0.0f;
     vertices[3].tow = 0.0f;
     gpfGlideConstantColor_0087EFA0(sub_005093F0_GlidePaletteColor((unsigned char)dwColor) & 0xFFFFFF00 | nAlpha);
-    gpfGlideDrawVertexArrayContiguous_0087EAC4(5, 4, vertices, sizeof(T00508FE0));
+    gpfGlideDrawVertexArrayContiguous_0087EAC4(5, 4, vertices, sizeof(D2GlideSpriteVertexStrc));
     gpfGlideMask_0087EB8C(1);
 }
 

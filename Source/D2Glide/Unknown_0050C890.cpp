@@ -9,14 +9,6 @@ typedef void (__stdcall* GLIDEDRAWVERTEXARRAYCONTIGUOUS)(int nMode, int nCount, 
 extern GLIDEDRAWVERTEXARRAYCONTIGUOUS gpfGlideDrawVertexArrayContiguous_0087EAC4; // 0x0087EAC4
 void __fastcall sub_0050DBE0_GlideSetVertexAmbientColor(D2GlideSpriteVertexStrc* pVertex, unsigned char nIntensity); // 0x0050DBE0
 
-struct T00508FE0
-{
-    float fX;
-    float fY;
-    unsigned int dwColor;
-    char unk0x0C[0x10];
-};
-
 struct D2TileVertexStrc
 {
     unsigned char aColor[4];
@@ -36,7 +28,7 @@ extern GlideConstantColorFn gpfGlideConstantColor_0087EFA0; // 0x0087EFA0
 extern GlideDrawVertexArrayFn gpfGlideDrawVertexArray_0087EB18; // 0x0087EB18
 extern unsigned char* gpBlendTable_00880B5C; // 0x00880B5C
 extern D2GfxSettingsStrc* gpGfxSettings_007C9148; // 0x007C9148
-extern T00508FE0 gaGlideTileVertices_00880678[36]; // 0x00880678
+extern D2GlideSpriteVertexStrc gaGlideTileVertices_00880678[36]; // 0x00880678
 extern void* gapGlideTileFan_0072F670[4]; // 0x0072F670
 extern void* gapGlideTileStrips_00880A68[5][12]; // 0x00880A68
 
@@ -91,12 +83,12 @@ int __fastcall sub_0050C890_GlideTileDrawShaded(D2TileLibraryEntryStrc* pTile, i
     return bDrawn;
 }
 
-static __forceinline void GLIDE_SetTileVertex(const D2TileVertexStrc* pSource, T00508FE0* pVertex)
+static __forceinline void GLIDE_SetTileVertex(const D2TileVertexStrc* pSource, D2GlideSpriteVertexStrc* pVertex)
 {
     const unsigned char* pRow = &gpBlendTable_00880B5C[pSource->aColor[0] << 8];
     pVertex->dwColor = (((-1 << 8 | pRow[pSource->aColor[1]]) << 8 | pRow[pSource->aColor[2]]) << 8) | pRow[pSource->aColor[3]];
-    pVertex->fX = (float)pSource->nX;
-    pVertex->fY = (float)pSource->nY;
+    pVertex->x = (float)pSource->nX;
+    pVertex->y = (float)pSource->nY;
 }
 
 // 0x0050D6A0
@@ -131,7 +123,7 @@ void __fastcall sub_0050D6A0_GlideDrawFloorTile(void* pTile, const D2TileVertexS
     }
 
     const D2TileVertexStrc* pSrc = pVertices;
-    T00508FE0* pDst = gaGlideTileVertices_00880678;
+    D2GlideSpriteVertexStrc* pDst = gaGlideTileVertices_00880678;
     for (unsigned int i = 0; i < 36; i++, pSrc++, pDst++)
         GLIDE_SetTileVertex(pSrc, pDst);
 

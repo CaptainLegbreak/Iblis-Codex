@@ -11,7 +11,6 @@ struct D2GfxPaletteViewStrc;
 struct D2GlideTileStrc;
 struct D2TileDrawFunctionsStrc;
 struct D2TileLibraryEntryStrc;
-struct T00508FE0;
 struct tagRECT;
 
 extern "C" __declspec(dllimport) int __stdcall DeleteDC(void* hdc); // 0x006CC0D8
@@ -50,7 +49,7 @@ extern int gnRenderWidth_007C9138; // 0x007C9138
 extern int gnScreenHeight_007C913C; // 0x007C913C
 extern unsigned int gaGlideDebugLight_0087F0D0[0x400]; // 0x0087F0D0
 extern unsigned int gaGlideLightPalette_0072F308[]; // 0x0072F308
-extern void (__stdcall* gpfGlideDrawPoint_0087EAA0)(const T00508FE0* pVertex); // 0x0087EAA0
+extern void (__stdcall* gpfGlideDrawPoint_0087EAA0)(const D2GlideSpriteVertexStrc* pVertex); // 0x0087EAA0
 extern void* gapGlideTileStripA_0072F350[10]; // 0x0072F350
 extern void* gapGlideTileStripB_0072F378[10]; // 0x0072F378
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0

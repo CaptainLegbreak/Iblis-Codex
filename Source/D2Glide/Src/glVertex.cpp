@@ -4,13 +4,6 @@ struct D2GlideSettingsStrc;
 extern unsigned char* gpBlendTable_00880B5C; // 0x00880B5C
 extern int* gpnPerspectiveTable_00880B6C; // 0x00880B6C
 
-struct T00508FE0
-{
-    float fX;
-    float fY;
-    unsigned int dwColor;
-};
-
 struct D2GlideSettingsStrc
 {
     int bPerspectiveEnabled;
@@ -56,14 +49,14 @@ void __cdecl sub_0050DB40_FreeBlendTable()
 }
 
 // 0x0050DBE0
-void __fastcall sub_0050DBE0_GlideSetVertexAmbientColor(T00508FE0* pVertex, unsigned char nIntensity)
+void __fastcall sub_0050DBE0_GlideSetVertexAmbientColor(D2GlideSpriteVertexStrc* pVertex, unsigned char nIntensity)
 {
     const unsigned char* pRow = &gpBlendTable_00880B5C[nIntensity << 8];
     pVertex->dwColor = 0xFF000000 | (pRow[gnGlideAmbient_00880B5A] << 16) | (pRow[gnGlideAmbient_00880B58] << 8) | pRow[gnGlideAmbient_00880B59];
 }
 
 // 0x0050DC30
-void __fastcall sub_0050DC30_GlideSetVertexColor(T00508FE0* pVertex, unsigned int dwColor)
+void __fastcall sub_0050DC30_GlideSetVertexColor(D2GlideSpriteVertexStrc* pVertex, unsigned int dwColor)
 {
     const unsigned char* pRow = &gpBlendTable_00880B5C[(unsigned char)dwColor << 8];
     pVertex->dwColor = (((-1 << 8 | pRow[(unsigned char)(dwColor >> 8)]) << 8 | pRow[(unsigned char)(dwColor >> 16)]) << 8) | pRow[dwColor >> 24];

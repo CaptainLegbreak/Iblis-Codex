@@ -5,21 +5,10 @@ struct D2GlideDebugCellStrc;
 struct D2GfxLightStrc;
 struct D2GlideVtxStrc;
 
-struct T00508FE0
-{
-    float x;
-    float y;
-    float unk0x08;
-    float oow;
-    float sow;
-    float tow;
-    float unk0x18;
-};
-
 extern "C" __declspec(dllimport) int __stdcall wvsprintfA(char* szDest, const char* szFormat, char* args); // 0x006CC4AC
 extern void (__stdcall* gpfGlideTexSource_0087EB98)(int nTmu, int nStartAddress, int nEvenOdd, D2GrTexInfoStrc* pInfo); // 0x0087EB98
 extern void (__stdcall* gpfGlideDrawVertexArrayContiguous_0087EAC4)(int nMode, int nCount, void* pVertices, int nStride); // 0x0087EAC4
-extern T00508FE0 gaGlideDebugFontVertices_00880258[4]; // 0x00880258
+extern D2GlideSpriteVertexStrc gaGlideDebugFontVertices_00880258[4]; // 0x00880258
 extern int gaGlideDebugFontTexAddr_008800D8[96]; // 0x008800D8
 extern D2GrTexInfoStrc gGlideDebugFontTexInfo_0072F2B4; // 0x0072F2B4
 void __fastcall sub_005094B0_GlideSetState(int nState); // 0x005094B0
@@ -73,7 +62,7 @@ static int __stdcall sub_0050BBA0_GlideDebugDrawChar(char ch, int nX, int nY)
 
         ch -= 0x20;
         gpfGlideTexSource_0087EB98(gnGlideDebugFontTmu_00880450, gaGlideDebugFontTexAddr_008800D8[ch], 3, &gGlideDebugFontTexInfo_0072F2B4);
-        gpfGlideDrawVertexArrayContiguous_0087EAC4(5, 4, gaGlideDebugFontVertices_00880258, sizeof(T00508FE0));
+        gpfGlideDrawVertexArrayContiguous_0087EAC4(5, 4, gaGlideDebugFontVertices_00880258, sizeof(D2GlideSpriteVertexStrc));
         return gaGlideDebugFontCharWidths_008802C8[ch];
     }
 
@@ -109,7 +98,7 @@ static void sub_0050BD30_GlideDrawPointCross(unsigned int dwColor, int nX, int n
     gpfGlideConstantColor_0087EFA0(dwColor);
     for (int i = 0; i < 8; ++i)
     {
-        T00508FE0 tVertex;
+        D2GlideSpriteVertexStrc tVertex;
         tVertex.x = (float)(gaGlideCrossOffsetX_0072F2C8[i] + nX);
         tVertex.y = (float)(gaGlideCrossOffsetY_0072F2E8[i] + nY);
         gpfGlideDrawPoint_0087EAA0(&tVertex);

@@ -3,19 +3,7 @@
 
 struct D2GlideSmackStrc;
 struct T004F51E0;
-struct T00508FE0;
 struct D2TileLibraryEntryStrc;
-
-struct T00508FE0
-{
-    float x;
-    float y;
-    unsigned int dwColor;
-    float oow;
-    float sow;
-    float tow;
-    float unk0x18;
-};
 
 struct D2GlideSmackStrc
 {
@@ -30,7 +18,7 @@ extern D2GrTexInfoStrc gGlideTileTexInfo_0072F6A8; // 0x0072F6A8
 extern D2GrTexInfoStrc gGlideFloorTexInfo_0072F6BC; // 0x0072F6BC
 extern unsigned char* gpGlideSmackBufferB_00880B70; // 0x00880B70
 extern unsigned char* gpGlideSmackBufferC_00880B74; // 0x00880B74
-extern T00508FE0 gaGlideSmackVertices_00880B78[4]; // 0x00880B78
+extern D2GlideSpriteVertexStrc gaGlideSmackVertices_00880B78[4]; // 0x00880B78
 extern unsigned char* sgbSmack8BitBuffer; // 0x00880BF0
 extern unsigned char* gpGlideTileDecodeBuffer_00880BFC; // 0x00880BFC
 extern unsigned char* gpGlideFloorDecodeBuffer_00880C00; // 0x00880C00
