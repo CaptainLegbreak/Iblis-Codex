@@ -1,36 +1,8 @@
 #include "Storm.h"
+#include "D2CrashTypes.h"
 
-struct D2CrashGuidStrc;
-struct D2CrashModuleStrc;
-struct D2CrashModuleListStrc;
 struct D2ModuleStrc;
 
-struct D2CrashGuidStrc
-{
-    unsigned long Data1;
-    unsigned short Data2;
-    unsigned short Data3;
-    unsigned char Data4[8];
-};
-
-struct D2CrashModuleStrc
-{
-    void* f_0;
-    unsigned long nSize;
-    char szName[0x100];
-    char szPath[0x100];
-    unsigned long nTimeStamp;
-    D2CrashGuidStrc tGuid;
-    unsigned long nAge;
-    unsigned long nUnknown220;
-    unsigned long nVersion;
-};
-
-struct D2CrashModuleListStrc
-{
-    unsigned int nCount;
-    D2CrashModuleStrc aModules[0x100];
-};
 extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x006CC134
 bool __stdcall sub_00404C60_EnumModulesPsapi(void* pContext); // 0x00404C60
 
@@ -55,7 +27,7 @@ static void sub_00402C60_FormatModule(char* szOut, const D2CrashModuleStrc* pMod
     _snprintf_s(szGuid, 0x28, -1, "{%08x-%04x-%04x-%02x%02x%02x%02x%02x%02x%02x%02x}", pModule->tGuid.Data1, pModule->tGuid.Data2, pModule->tGuid.Data3,
         pModule->tGuid.Data4[0], pModule->tGuid.Data4[1], pModule->tGuid.Data4[2], pModule->tGuid.Data4[3],
         pModule->tGuid.Data4[4], pModule->tGuid.Data4[5], pModule->tGuid.Data4[6], pModule->tGuid.Data4[7]);
-    _snprintf_s(szOut, 0x400, -1, "DBG-MODULE<%p %08x \"%s\" \"%s\" %u %s %u %u%s>", pModule->f_0, pModule->nSize, pModule->szName, pModule->szPath,
+    _snprintf_s(szOut, 0x400, -1, "DBG-MODULE<%p %08x \"%s\" \"%s\" %u %s %u %u%s>", pModule->pBase, pModule->nSize, pModule->szName, pModule->szPath,
         pModule->nTimeStamp, szGuid, pModule->nAge, pModule->nUnknown220, szVersion);
 }
 
@@ -140,7 +112,7 @@ static void sub_00402FE0_InitModuleList(D2CrashModuleListStrc* pList)
     D2CrashModuleStrc* pModule = pList->aModules;
     for (int i = 0xFF; i >= 0; i--)
     {
-        pModule->f_0 = 0;
+        pModule->pBase = 0;
         pModule->nSize = 0;
         pModule->nTimeStamp = 0;
         pModule->tGuid.Data1 = 0;

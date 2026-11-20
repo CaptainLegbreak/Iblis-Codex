@@ -1,4 +1,5 @@
 #include "Storm.h"
+#include "D2CrashTypes.h"
 #define CMD_BOOLEAN 0
 #define CMD_INTEGER 1
 #define CMD_STRING 2
@@ -7,7 +8,6 @@ struct D2PoolSystemStrc;
 struct D2ImageDataDirStrc;
 struct D2ImageOptionalHeader64Strc;
 struct D2ImageOptionalHeader32Strc;
-struct D2MemoryBasicInfoStrc;
 struct D2FloatSaveStrc;
 struct D2StackFrameStrc;
 struct D2IniEntryStrc;
@@ -24,17 +24,6 @@ struct D2ImageOptionalHeader32Strc
 };
 
 static __declspec(noinline) void __stdcall sub_00404F60_GetDebugDirectory32(unsigned long* pSize, unsigned long* pRva, const D2ImageOptionalHeader32Strc* pHeader);
-
-struct D2MemoryBasicInfoStrc
-{
-    void* BaseAddress;
-    void* AllocationBase;
-    unsigned long AllocationProtect;
-    unsigned long RegionSize;
-    unsigned long State;
-    unsigned long Protect;
-    unsigned long Type;
-};
 
 struct D2StackFrameStrc
 {

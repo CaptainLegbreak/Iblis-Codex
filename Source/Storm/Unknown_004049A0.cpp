@@ -1,39 +1,6 @@
 #include "Storm.h"
+#include "D2CrashTypes.h"
 
-struct D2CrashGuidStrc
-{
-    unsigned long Data1;
-    unsigned short Data2;
-    unsigned short Data3;
-    unsigned char Data4[8];
-};
-
-struct D2CvRsdsStrc
-{
-    unsigned long dwCvSignature;
-    D2CrashGuidStrc tGuid;
-    unsigned long dwAge;
-    char szPdbName[4];
-};
-
-struct D2CrashModuleStrc
-{
-    void* f_0;
-    unsigned long nSize;
-    char szName[0x100];
-    char szPath[0x100];
-    unsigned long nTimeStamp;
-    D2CrashGuidStrc tGuid;
-    unsigned long nAge;
-    unsigned long nUnknown220;
-    unsigned long nVersion;
-};
-
-struct D2CrashModuleListStrc
-{
-    unsigned int nCount;
-    D2CrashModuleStrc aModules[0x100];
-};
 extern "C" int __cdecl strncpy_s(char* szDest, size_t nDestSize, const char* szSource, size_t nCount);      // 0x006859D2
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize);
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize);
@@ -184,7 +151,7 @@ static bool __stdcall sub_00404900_FindCodeView(const D2ImageDosHeaderStrc* pIma
 // 0x004049A0
 static bool __stdcall sub_004049A0_ReadImageInfo(D2CrashModuleStrc* pModule, const D2ImageDosHeaderStrc* pImage)
 {
-    pModule->f_0 = (void*)pImage;
+    pModule->pBase = (void*)pImage;
     if (!sub_00404760_IsDosHeaderValid(pImage))
     {
         return false;
@@ -220,7 +187,7 @@ static bool __stdcall sub_004049A0_ReadImageInfo(D2CrashModuleStrc* pModule, con
 bool D2ModuleStrc::sub_00404AB0_VisitModule(void* pContext, const wchar_t* wszName, int nNameLength)
 {
     D2CrashModuleStrc tModule;
-    tModule.f_0 = 0;
+    tModule.pBase = 0;
     tModule.nSize = 0;
     tModule.nTimeStamp = 0;
     memset(&tModule.tGuid, 0, sizeof(tModule.tGuid));

@@ -1,13 +1,5 @@
 #include "D2GameTypes.h"
-
-struct D2ImagehlpLine64Strc
-{
-    unsigned long SizeOfStruct;
-    void* Key;
-    unsigned long LineNumber;
-    char* FileName;
-    unsigned __int64 Address;
-};
+#include "D2CrashTypes.h"
 
 typedef int (__stdcall* SymGetLineFromAddr64Fn)(void* hProcess, unsigned __int64 qwAddr, unsigned long* pdwDisplacement, D2ImagehlpLine64Strc* pLine);
 

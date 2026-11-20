@@ -1,15 +1,6 @@
 #include "D2GameTypes.h"
 #include "D2FogTypes.h"
-struct D2MemoryBasicInfoStrc
-{
-    void* BaseAddress;
-    void* AllocationBase;
-    unsigned long AllocationProtect;
-    unsigned long RegionSize;
-    unsigned long State;
-    unsigned long Protect;
-    unsigned long Type;
-};
+#include "D2CrashTypes.h"
 
 extern "C" __declspec(dllimport) unsigned long __stdcall VirtualQuery(const void* pAddress, D2MemoryBasicInfoStrc* pBuffer, unsigned long nLength); // 0x006CC244
 extern "C" __declspec(dllimport) unsigned long __stdcall GetCurrentThreadId();                               // 0x006CC20C
@@ -100,48 +91,6 @@ static unsigned char __stdcall sub_00401540_GetThreadStack(unsigned long* pStack
     }
     return bResult;
 }
-
-struct D2ImagehlpModule64Strc
-{
-    unsigned long SizeOfStruct;
-    unsigned long unk_004;
-    unsigned __int64 BaseOfImage;
-    unsigned long ImageSize;
-    unsigned long TimeDateStamp;
-    unsigned long CheckSum;
-    unsigned long NumSyms;
-    unsigned long SymType;
-    char ModuleName[32];
-    char ImageName[256];
-    char LoadedImageName[256];
-    char unk_244[0x680 - 0x244];
-};
-
-struct D2ImagehlpSymbol64Strc
-{
-    unsigned long SizeOfStruct;
-    unsigned long unk_04;
-    unsigned __int64 Address;
-    unsigned long Size;
-    unsigned long Flags;
-    unsigned long MaxNameLength;
-    char Name[1];
-};
-
-struct D2SymbolBufferStrc
-{
-    D2ImagehlpSymbol64Strc tSymbol;
-    char szName[0x420 - 0x20];
-};
-
-struct D2ImagehlpLine64Strc
-{
-    unsigned long SizeOfStruct;
-    void* Key;
-    unsigned long LineNumber;
-    char* FileName;
-    unsigned __int64 Address;
-};
 
 typedef int (__stdcall* SymGetModuleInfo64Fn)(void* hProcess, unsigned __int64 qwAddr, D2ImagehlpModule64Strc* pModuleInfo);
 typedef int (__stdcall* SymGetSymFromAddr64Fn)(void* hProcess, unsigned __int64 qwAddr, unsigned __int64* pqwDisplacement, D2ImagehlpSymbol64Strc* pSymbol);
@@ -288,15 +237,6 @@ static bool __stdcall sub_004020D0_GetLineFromAddr(unsigned long dwAddress, char
     }
     return false;
 }
-
-struct D2SymbolInfoStrc
-{
-    char szName[512];
-    unsigned long nOffset;
-    char szModule[64];
-    char szSource[256];
-    unsigned long nLine;
-};
 
 // build: context CRASH_GetFileName
 static __forceinline const char* CRASH_GetFileName(const char* szPath)

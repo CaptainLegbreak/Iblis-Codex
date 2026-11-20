@@ -1,20 +1,5 @@
 #include "D2GameTypes.h"
-
-struct D2ImagehlpModule64Strc
-{
-    unsigned long SizeOfStruct;
-    unsigned long unk_004;
-    unsigned __int64 BaseOfImage;
-    unsigned long ImageSize;
-    unsigned long TimeDateStamp;
-    unsigned long CheckSum;
-    unsigned long NumSyms;
-    unsigned long SymType;
-    char ModuleName[32];
-    char ImageName[256];
-    char LoadedImageName[256];
-    char unk_244[0x680 - 0x244];
-};
+#include "D2CrashTypes.h"
 
 typedef int (__stdcall* SymGetModuleInfo64Fn)(void* hProcess, unsigned __int64 qwAddr, D2ImagehlpModule64Strc* pModuleInfo);
 
