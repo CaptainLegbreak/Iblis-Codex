@@ -1,12 +1,8 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 struct D2ActiveRoomStrc { char unk_00[0x74]; D2UnitStrc* pUnitFirst; };
 struct D2StaticPathStrc { char unk_00[12]; int nX; int nY; };
-struct D2UnitStrc {
- int dwUnitType; int dwClassId; char unk_08[8]; int dwAnimMode;
- char unk_14[0x18]; union { D2DynamicPathStrc* pDynamicPath; D2StaticPathStrc* pStaticPath; };
- char unk_30[0xB8]; D2UnitStrc* pRoomNext;
-};
 struct D2DrlgCoordsStrc { int nSubtileX,nSubtileY,nSubtileWidth,nSubtileHeight,nTileX,nTileY,nTileWidth,nTileHeight; };
 typedef int (__fastcall* D2UnitFindCallback)(D2UnitStrc*,void*);
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc*,D2DrlgCoordsStrc*); // 0x00619730

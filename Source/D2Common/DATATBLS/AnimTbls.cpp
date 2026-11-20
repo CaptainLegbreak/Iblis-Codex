@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 struct D2AnimDataRecordStrc
 {
     char szAnimDataName[8];
@@ -19,11 +20,6 @@ struct D2AnimDataTableStrc
     D2AnimDataRecordStrc tDefaultRecord;
 };
 
-struct D2UnitStrc
-{
-    char unk0x00[0x60];
-    void* pInventory;
-};
 
 extern "C" const char gszDataGlobalPath[];                                                                      // 0x006D4118
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szBuffer, const char* szFormat, ...);           // 0x006CC468

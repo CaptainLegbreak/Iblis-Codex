@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 #define UNIT_PLAYER 0
 #define UNIT_INVALID 6
@@ -30,29 +31,6 @@ struct D2StaticPathStrc
     int nY;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2PlayerDataStrc* pPlayerData;
-    unsigned char unk_18[0x14];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x34];
-    D2GfxLightStrc* pLight;
-    int dwStartLight;
-    int nPaletteIndex;
-    char f_70[0x54];
-    unsigned int dwFlags;
-    unsigned char unk_C8[0x20];
-    D2UnitStrc* pRoomNext;
-};
 
 struct D2SkillsTxt
 {

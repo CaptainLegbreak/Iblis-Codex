@@ -1,14 +1,10 @@
+#include "D2Structs.h"
 #ifdef MOVED_TEST
 #define ITEM_GAP 20
 #else
 #define ITEM_GAP 16
 #endif
 #define UNIT_ITEM 4
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 struct D2ItemDataStrc
 {
     unsigned int dwQualityNo;
@@ -33,12 +29,6 @@ struct D2ItemDataStrc
     unsigned char nInvGfxIdx;
     char szPlayerName[16];
     char unk0x5A[26];
-};
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[16];
-    D2ItemDataStrc* pItemData;
 };
 inline D2ItemDataStrc* ITEMS_GetItemData(D2UnitStrc* pItem)
 {

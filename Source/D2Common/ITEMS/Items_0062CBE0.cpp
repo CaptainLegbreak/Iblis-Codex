@@ -1,10 +1,6 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2ItemDataStrc
 {
@@ -27,16 +23,6 @@ struct D2ItemDataStrc
     char szPlayerName[16];
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x14 - 0x08];
-    D2ItemDataStrc* pItemData;
-    char unk0x18[0x20 - 0x18];
-    D2SeedStrc pSeed;
-    unsigned int dwInitSeed;
-};
 
 struct D2ItemsTxt
 {

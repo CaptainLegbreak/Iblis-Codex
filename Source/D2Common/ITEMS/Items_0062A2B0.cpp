@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
 #define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
 #define UNIT_OBJECT 2
@@ -29,22 +30,6 @@ struct D2ItemDataStrc
     unsigned char unk_5A[0x2];
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x10 - 0x08];
-    int dwAnimMode;
-    D2ItemDataStrc* pItemData;
-    char unk0x18[0x2C - 0x18];
-    union
-    {
-        D2StaticPathStrc* pStaticPath;
-        D2DynamicPathStrc* pDynamicPath;
-    };
-    char unk0x30[0x60 - 0x30];
-    D2InventoryStrc* pInventory;
-};
 
 struct D2ItemsTxt
 {

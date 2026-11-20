@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 #define D2_ABS(x) ((x) < 0 ? -(x) : (x))
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 struct D2CoordStrc;
@@ -35,16 +36,6 @@ struct D2StaticPathStrc
     int nYPos;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x28];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-};
 
 struct D2DynamicPathStrc
 {

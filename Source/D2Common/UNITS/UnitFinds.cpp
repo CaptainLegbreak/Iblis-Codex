@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 #define UF_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -12,21 +13,6 @@ struct D2ActiveRoomStrc;
 struct D2DrlgCoordsStrc;
 struct UnitFindArgStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char pMemoryPool[8];
-    int mode;
-    char unk_14[24];
-    union
-    {
-        D2DynamicPathStrc* dynamicPath;
-        D2StaticPathStrc* staticPath;
-    };
-    unsigned char unk_30[0xB8];
-    D2UnitStrc* pRoomNext;
-};
 
 struct D2ActiveRoomStrc
 {
@@ -249,11 +235,11 @@ void __stdcall UNITFINDS_FreeUnitFindData(D2UnitFindDataStrc* pUnitFindData)
 }
 
 static __forceinline int GetX(D2UnitStrc* unit) {
- switch(unit->dwUnitType) {case 2:case 4:case 5:return unit->staticPath->x;default:return unit->dynamicPath ? PATH_GetXPosition(unit->dynamicPath):0;}
+ switch(unit->dwUnitType) {case 2:case 4:case 5:return unit->pStaticPath->x;default:return unit->pDynamicPath ? PATH_GetXPosition(unit->pDynamicPath):0;}
 }
 
 static __forceinline int GetY(D2UnitStrc* unit) {
- switch(unit->dwUnitType) {case 2:case 4:case 5:return unit->staticPath->y;default:return unit->dynamicPath ? PATH_GetYPosition(unit->dynamicPath):0;}
+ switch(unit->dwUnitType) {case 2:case 4:case 5:return unit->pStaticPath->y;default:return unit->pDynamicPath ? PATH_GetYPosition(unit->pDynamicPath):0;}
 }
 
 // 0x0065AA40
@@ -267,13 +253,13 @@ int __stdcall UNITFINDS_TestUnit(D2UnitStrc* unit,D2UnitFindArgStrc* args)
  switch(unit->dwUnitType) {
   case 0: {
    if(!(args->flags&1))return 0;
-   int mode=unit->mode;
+   int mode=unit->dwAnimMode;
    if(args->flags&4096) {if(mode!=17)return 0;} else if(mode==17 || mode==0)return 0;
    if(unit==args->ignored)return 0;
    } break;
   case 1: {
    if(!(args->flags&2))return 0;
-   int mode=unit->mode;
+   int mode=unit->dwAnimMode;
    if(args->flags&4096) {if(mode!=12)return 0;} else if(mode==12 || mode==0)return 0;
    if((args->flags&4) && !MONSTERS_IsUndead(unit))return 0;
    } break;

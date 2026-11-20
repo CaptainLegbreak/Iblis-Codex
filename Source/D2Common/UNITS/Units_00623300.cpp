@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 struct D2PlayerDataStrc
 {
     char unk0x00[128];
@@ -8,15 +9,6 @@ struct D2PlayerDataStrc
     int nWeaponGUID;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2PlayerDataStrc* pPlayerData;
-};
 
 struct D2MonStats2Txt
 {

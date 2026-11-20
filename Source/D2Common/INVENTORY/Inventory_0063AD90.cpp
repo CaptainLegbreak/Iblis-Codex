@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 struct D2InventoryStrc;
 
@@ -15,15 +16,6 @@ struct D2ItemDataStrc
     D2ItemExtraDataStrc pExtraData;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2ItemDataStrc* pItemData;
-};
 
 struct D2InventoryNodeStrc
 {

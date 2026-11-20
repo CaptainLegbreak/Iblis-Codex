@@ -1,11 +1,13 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 #define INVENTORY_SIGNATURE 0x1020304
 struct D2InventoryGridStrc;
 struct D2InventoryGridInfoStrc;
 struct D2InventoryStrc;
 struct D2ItemExtraDataStrc;
 struct D2ItemDataStrc;
-struct D2PathRecordStrc;
+struct D2DynamicPathStrc;
+struct D2StaticPathStrc;
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
@@ -46,7 +48,6 @@ void* __fastcall sub_0040B4B0(void* pMemPool, void* pMemory, int nSize, const ch
 __declspec(noinline) static D2InventoryGridStrc* __stdcall INVENTORY_GetGrid(D2InventoryStrc*, int, D2InventoryGridInfoStrc*);
 void __stdcall DATATBLS_GetInventoryGridInfo(int, int, D2InventoryGridInfoStrc*); // 0x0065C1F0
 
-struct D2UnitStrc { int type; char unknown[16]; D2ItemDataStrc* itemData; char unknown18[20]; D2PathRecordStrc* path; };
 
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc*); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc*); // 0x0045AE20
@@ -56,11 +57,12 @@ struct D2ItemExtraDataStrc { char unknown[0x14]; D2UnitStrc* nextGridItem; };
 
 struct D2ItemDataStrc { char unknown[0x5c]; D2ItemExtraDataStrc extra; };
 
-struct D2PathRecordStrc { char unknown[12]; unsigned int x; };
+struct D2CoordStrc { int nX; int nY; };
+struct D2StaticPathStrc { char unk0x00[0xC]; D2CoordStrc tGameCoords; };
 
 int __stdcall ITEMS_GetItemQuality(D2UnitStrc*); // 0x00627E70
 int __stdcall ITEMS_GetFileIndex(D2UnitStrc*); // 0x00629DA0
-unsigned int __stdcall PATH_GetXPosition(D2PathRecordStrc*); // 0x006488C0
+unsigned int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
 
 typedef int BOOL;
 
@@ -172,12 +174,12 @@ int __stdcall INVENTORY_GetSetItemEquipCountByFileIndex(D2InventoryStrc* invento
  for (D2UnitStrc* item=grid->pItem;item;) {
   if (ITEMS_GetItemQuality(item)==5 && ITEMS_GetFileIndex(item)==fileIndex) {
    unsigned int x;
-   if (item->type==2 || (item->type>3 && item->type<=5)) x=item->path->x;
-   else x=item->path ? PATH_GetXPosition(item->path):0;
+   if (item->dwUnitType==2 || (item->dwUnitType>3 && item->dwUnitType<=5)) x=item->pStaticPath->tGameCoords.nX;
+   else x=item->pDynamicPath ? PATH_GetXPosition(item->pDynamicPath):0;
    if (x<11) ++count;
   }
-  if (item->type!=4) return count;
-  D2ItemDataStrc* data=item->itemData;
+  if (item->dwUnitType!=4) return count;
+  D2ItemDataStrc* data=item->pItemData;
   if (!data) return count;
   D2ItemExtraDataStrc* extra=&data->extra;
   if (!extra) return count;

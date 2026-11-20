@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
 #define UNIT_OBJECT 2
@@ -16,7 +17,6 @@
 #define SKILLSFLAGINDEX_USEATTACKRATE 3
 #define MONSTATS2FLAGINDEX_SOFT 0xC
 struct D2SkillListStrc;
-struct T00620190;
 struct D2WaypointDataStrc;
 struct D2PlayerDataStrc;
 struct D2MonsterDataStrc;
@@ -49,55 +49,6 @@ struct D2StaticPathStrc
     unsigned char unk_1D[0x3];
 };
 
-struct D2UnitStrc
-{
-    union
-    {
-        int dwUnitType;
-        int type;
-    };
-    union
-    {
-        int dwClassId;
-        int classId;
-    };
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    union
-    {
-        D2PlayerDataStrc* pPlayerData;
-        D2ObjectDataStrc* pObjectData;
-        D2MonsterDataStrc* pMonsterData;
-    };
-    char unk0x18[20];
-    union
-    {
-        D2StaticPathStrc* pStaticPath;
-        D2DynamicPathStrc* pDynamicPath;
-    };
-    T00620190* pAnimSeq;
-    unsigned char unk_34[0x4];
-    int dwSeqFrame;
-    unsigned char unk_3C[0x4];
-    int dwSeqMode;
-    int dwFrameNo;
-    int dwFrameCount;
-    unsigned char unk_4C[0x10];
-    void* pStatListEx;
-    union
-    {
-        D2InventoryStrc* inventory;
-        D2InventoryStrc* pInventory;
-    };
-    unsigned char unk_64[0x30];
-    int dwOwnerType;
-    int dwOwnerGUID;
-    unsigned char unk_9C[0xC];
-    D2SkillListStrc* pSkills;
-    unsigned char unk_AC[0x1C];
-    unsigned int dwFlagEx;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -165,13 +116,6 @@ struct D2DataTablesStrc
     int nMonStatsTxtRecordCount;
 };
 
-struct D2StatListStrc
-{
-    char unk0x00[16];
-    unsigned int dwFlags;
-    char unk0x14[8];
-    D2SkillStrc* pSkill;
-};
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
@@ -640,7 +584,7 @@ void __stdcall UNITS_SetTargetUnitForPlayerOrMonster(D2UnitStrc* pUnit, D2UnitSt
     PATH_SetTargetUnit(pUnit->pDynamicPath, pTargetUnit);
 }
 
-inline T00620190* UNITS_GetAnimSeq(D2UnitStrc* pUnit)
+inline D2AnimSeqTxt* UNITS_GetAnimSeq(D2UnitStrc* pUnit)
 {
     if (pUnit->dwUnitType == UNIT_PLAYER || pUnit->dwUnitType == UNIT_MONSTER)
     {
@@ -1039,13 +983,13 @@ void __stdcall UNITS_GetFrameMetrics(D2UnitStrc* pUnit, int* pFrame, int* pFrame
 
     if (pUnit->dwUnitType == 2)
     {
-        *pFrame = pUnit->dwFrameNo;
+        *pFrame = pUnit->nSeqCurrentFramePrecise;
         *pFrameCount = pUnit->pObjectData->pObjectTxt->dwFrameCnt[pUnit->dwAnimMode];
         return;
     }
 
-    *pFrame = pUnit->dwFrameNo;
-    *pFrameCount = pUnit->dwFrameCount;
+    *pFrame = pUnit->nSeqCurrentFramePrecise;
+    *pFrameCount = pUnit->dwFrameCountPrecise;
 }
 
 static __forceinline int sub_T03_GetUnitType(D2UnitStrc* pUnit)
@@ -1155,14 +1099,14 @@ int __stdcall sub_00622870_GetMeleeRange(D2UnitStrc* unit)
 {
     if (!unit) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x11be); exit(-1); }
     int range;
-    switch (unit->type) {
+    switch (unit->dwUnitType) {
     case 1: {
-        D2MonStats2Txt* record = UNITS_GetMonStats2TxtRecordFromMonsterId(unit->classId);
+        D2MonStats2Txt* record = UNITS_GetMonStats2TxtRecordFromMonsterId(unit->dwClassId);
         if (!record) goto fail;
         range = record->meleeRange;
         if (range == 255) {
             int weaponClass;
-            COMPOSIT_GetWeaponClassId(unit, unit->inventory, &weaponClass, -1, 1);
+            COMPOSIT_GetWeaponClassId(unit, unit->pInventory, &weaponClass, -1, 1);
             return weaponClass == 6 ? 2 : 0;
         }
         break;
@@ -1170,7 +1114,7 @@ int __stdcall sub_00622870_GetMeleeRange(D2UnitStrc* unit)
     case 0: {
         D2UnitStrc* weapon;
         int type, flags;
-        if (!INVENTORY_GetEquippedWeapon(unit->inventory, &weapon, &type, &flags)) {
+        if (!INVENTORY_GetEquippedWeapon(unit->pInventory, &weapon, &type, &flags)) {
 fail:
             return 0;
         }

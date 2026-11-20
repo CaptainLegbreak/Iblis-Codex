@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 #ifdef MOVED_TEST
 #define UNIT_ITEM 6
 #define LEVEL_LOW 27
@@ -7,11 +8,6 @@
 #define LEVEL_LOW 25
 #define LEVEL_HIGH 40
 #endif
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2ItemDataStrc
 {
@@ -37,20 +33,6 @@ struct D2ItemDataStrc
     unsigned char nInvPage;
 };
 
-struct D2UnitStrc
-{
-#ifdef MOVED_TEST
-    char movedPrefix[4];
-#endif
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    char unk0x10[0x04];
-    D2ItemDataStrc* pItemData;
-    char unk0x18[0xB0];
-    unsigned int dwFlagEx;
-};
 
 struct D2ItemsTxt
 {

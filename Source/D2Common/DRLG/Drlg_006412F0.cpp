@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 struct D2CoordStrc
 {
@@ -12,16 +13,6 @@ struct D2StaticPathStrc
     D2CoordStrc tGameCoords;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x28];
-    union
-    {
-        D2StaticPathStrc* pStaticPath;
-        D2DynamicPathStrc* pDynamicPath;
-    };
-};
 
 struct D2ObjGroupTxt
 {

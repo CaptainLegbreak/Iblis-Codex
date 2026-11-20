@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 typedef int BOOL;
@@ -27,13 +28,6 @@ struct D2ItemDataStrc
     D2ItemExtraDataStrc pExtraData;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0xC];
-    D2ItemDataStrc* pItemData;
-};
 
 struct D2InventoryGridStrc
 {

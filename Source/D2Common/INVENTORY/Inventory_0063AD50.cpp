@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 #define INVENTORY_SIGNATURE 0x1020304
 #define UNIT_ITEM 4
@@ -29,15 +30,6 @@ struct D2ItemDataStrc
     D2ItemExtraDataStrc pExtraData;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2ItemDataStrc* pItemData;
-};
 
 struct D2InventoryNodeStrc
 {

@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
 #define UNIT_OBJECT 2
@@ -59,21 +60,6 @@ struct D2DataTablesStrc
     int nCharStatsTxtRecordCount;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[12];
-    D2ObjectDataStrc* pObjectData;
-    char unk0x18[20];
-    D2DynamicPathStrc* pDynamicPath;
-    void* pAnimSeq;
-    char unk0x34[16];
-    int nSeqCurrentFramePrecise;
-    int dwFrameCountPrecise;
-    short wAnimSpeed;
-    unsigned char unk_4E[0x2];
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090

@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 struct D2InventoryStrc;
 struct D2SkillsTxt;
 struct D2SkillCalcStrc;
@@ -54,12 +55,6 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); // 0x00483360
 int __fastcall sub_00646BE0(int nParamId, void* pUserData); // 0x00646BE0
 
-struct D2UnitStrc
-{
-    unsigned int dwUnitType;
-    char unk0x04[96 - 4];
-    D2InventoryStrc* pInventory;
-};
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625480
 extern unsigned int gdwBitMasks[]; // 0x006CE268

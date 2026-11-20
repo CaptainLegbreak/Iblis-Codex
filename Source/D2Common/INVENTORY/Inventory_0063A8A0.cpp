@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 #define INVENTORY_SIGNATURE 0x1020304
 #define UNIT_PLAYER 0
 #define UNIT_ITEM 4
@@ -45,21 +46,6 @@ struct D2ItemDataStrc
     D2ItemExtraDataStrc pExtraData;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2ItemDataStrc* pItemData;
-    char unk0x18[0x2C - 0x14 - 4];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-};
 
 struct D2InventoryGridStrc
 {

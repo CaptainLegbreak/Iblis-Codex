@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 #define D2_ABS(x) ((x) >= 0 ? (x) : -(x))
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 struct D2CoordStrc;
@@ -52,12 +53,6 @@ struct D2ActiveRoomStrc
     D2DrlgCoordsStrc tCoords;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x28];
-    D2DynamicPathStrc* pDynamicPath;
-};
 
 #pragma pack(push, 1)
 struct D2DynamicPathStrc

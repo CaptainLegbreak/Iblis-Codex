@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
 #define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
@@ -23,18 +24,6 @@ struct D2MissileDataStrc
     int dwOwnerGUID;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    unsigned int dwUnitId;
-    int dwAnimMode;
-    D2MissileDataStrc* pMissileData;
-    unsigned char unk_18[0x34];
-    short wAnimSpeed;
-    unsigned char unk_4E[0x2];
-};
 
 struct D2MissilesTxt
 {

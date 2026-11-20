@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 #define STATEMASK_ACTIVE 5
 #define STATEMASK_REMHIT 6
 #define STATEMASK_DAMBLUE 7
@@ -41,15 +42,6 @@ struct D2DataTablesStrc
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2ItemDataStrc* pItemData;
-};
 
 unsigned int* __stdcall D2COMMON_STATES_GetStatFlags_6FDB8A90(D2UnitStrc* pUnit); // 0x00625BB0
 void __stdcall sub_0063A180_UpdateGfxFlagsWithMask(D2UnitStrc* pUnit, unsigned int* pMask); // 0x0063A180

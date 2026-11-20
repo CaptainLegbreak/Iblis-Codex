@@ -1,11 +1,11 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 #define UNIT_ITEM 4
 #define UNIT_TILE 5
 #define SIZE_PLAYER 2
 #define SIZE_ITEM 1
 #define UNITFLAG_DOUPDATE 0x00000001
 #define MONSTATSFLAGINDEX_SWITCHAI 16
-struct T00620190;
 struct D2InventoryStrc;
 struct D2AnimSeqTxt;
 struct D2MonStats2Txt;
@@ -49,46 +49,6 @@ struct D2ObjectDataStrc
     D2ObjectsTxt* pObjectTxt;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    union
-    {
-        D2ObjectDataStrc* pObjectData;
-        D2MonsterDataStrc* pMonsterData;
-        D2PlayerDataStrc* pPlayerData;
-    };
-    unsigned char unk_18[0x14];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    D2AnimSeqTxt* pAnimSeq;
-    int dwSeqFrameCount;
-    int dwSeqFrame;
-    int dwSeqSpeed;
-    int dwSeqMode;
-    int nSeqCurrentFramePrecise;
-    int dwFrameCountPrecise;
-    short wAnimSpeed;
-    unsigned char nActionFrame;
-    unsigned char unk0x4F;
-    D2AnimDataRecordStrc* pAnimData;
-    char unk0x54[8];
-    void* pStatListEx;
-    D2InventoryStrc* pInventory;
-    unsigned char unk_64[0x30];
-    int dwOwnerType;
-    int dwOwnerGUID;
-    unsigned char unk_9C[0x28];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090

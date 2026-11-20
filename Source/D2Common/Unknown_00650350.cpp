@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 struct D2DynamicPathStrc
 {
@@ -14,14 +15,6 @@ struct D2DynamicPathStrc
     int dwPathType;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x2C - 0x04];
-    D2DynamicPathStrc* pDynamicPath;
-    char unk0x30[0xC4 - 0x30];
-    unsigned int dwFlags;
-};
 
 int __stdcall PATH_GetDistance(D2DynamicPathStrc* pDynamicPath); // 0x00649120
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040

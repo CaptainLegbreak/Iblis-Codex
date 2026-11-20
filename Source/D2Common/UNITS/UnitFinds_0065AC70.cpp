@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
@@ -8,11 +9,6 @@ extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(void* lpfn);        
 
 struct D2UnitFindArgStrc;
 
-struct D2UnitStrc
-{
-    char unk0x00[0xE8];
-    D2UnitStrc* pRoomNext;
-};
 
 struct D2ActiveRoomStrc
 {

@@ -1,10 +1,10 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 #define D2_ABS(x) ((x) < 0 ? -(x) : (x))
 struct D2CoordStrc;
 struct D2StaticPathStrc;
 struct D2CollisionTestStrc;
 struct D2PathInfoStrc;
-union D2SeedStrc;
 union D2FP32_16;
 struct D2PathFoWallNodeStrc;
 struct D2PathFoWallContextStrc;
@@ -36,16 +36,6 @@ struct D2StaticPathStrc
     int nYPos;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x28];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-};
 
 union D2FP32_16
 {
@@ -144,15 +134,6 @@ int __fastcall sub_6FDAA720(D2PathInfoStrc* pPathInfo); // 0x00679B30
 int __fastcall PATH_Toward_6FDAA9F0(D2PathInfoStrc* pPathInfo); // 0x00679C80
 int __fastcall PATH_AStar_ComputePath(D2PathInfoStrc* pPathInfo); // 0x0067B850
 
-union D2SeedStrc
-{
-    struct
-    {
-        unsigned int nLowSeed;
-        unsigned int nHighSeed;
-    };
-    unsigned __int64 lSeed;
-};
 void __fastcall sub_6FDAB810(int* a1, int* a2); // 0x00678F00
 void __fastcall sub_0067A390_GetScaledDirectionVector(int nVelocity, D2CoordStrc* pDirectionVector, D2PathPointStrc tPoint1, D2PathPointStrc tPoint2); // 0x0067A390
 

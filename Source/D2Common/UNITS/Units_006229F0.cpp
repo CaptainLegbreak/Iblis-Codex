@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 #define UNIT_OBJECT 2
 #define UNIT_ITEM 4
@@ -29,40 +30,7 @@ struct D2StaticPathStrc
     D2CoordStrc tGameCoords;
 };
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    char unk0x14[0x0C];
-    D2SeedStrc pSeed;
-    unsigned char unk_28[0x4];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    void* pAnimSeq;
-    unsigned char unk_34[0x8];
-    int dwSeqSpeed;
-    unsigned char unk_40[0x4];
-    int dwGFXcurrentFrame;
-    int dwFrameCountPrecise;
-    short wAnimSpeed;
-    unsigned char nActionFrame;
-    unsigned char unk0x4F;
-    D2AnimDataRecordStrc* pAnimData;
-    char unk0x54[0x0C];
-    D2InventoryStrc* pInventory;
-};
 
 int __stdcall UNITS_GetUnitSizeX(D2UnitStrc* pUnit); // 0x00620510
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
@@ -758,7 +726,7 @@ int __stdcall sub_00624390_AnimInit(D2UnitStrc* pUnit)
     D2_ASSERT(pUnit, 0x951);
 
     pUnit->nActionFrame = 0;
-    pUnit->dwGFXcurrentFrame = sub_00623B10_GetStartFrame(pUnit) << 8;
+    pUnit->nSeqCurrentFramePrecise = sub_00623B10_GetStartFrame(pUnit) << 8;
 
     int nUnitType = pUnit->dwUnitType;
     int nMode = pUnit->dwAnimMode;
@@ -817,7 +785,7 @@ int __stdcall sub_00624390_AnimInit(D2UnitStrc* pUnit)
         pUnit->dwFrameCountPrecise = pObjectsTxtRecord->dwFrameCnt[nObjectMode];
         const int nStartFrame = pObjectsTxtRecord->nStart[nObjectMode] << 8;
         short nAnimSpeed = pObjectsTxtRecord->nFrameDelta[nObjectMode];
-        pUnit->dwGFXcurrentFrame = nStartFrame;
+        pUnit->nSeqCurrentFramePrecise = nStartFrame;
         if (pObjectsTxtRecord->nSync)
         {
             pUnit->wAnimSpeed = nAnimSpeed;
@@ -845,7 +813,7 @@ int __stdcall sub_00624390_AnimInit(D2UnitStrc* pUnit)
         case 3:
             pUnit->wAnimSpeed = 0;
             pUnit->dwFrameCountPrecise = 0x1100;
-            pUnit->dwGFXcurrentFrame = 0x1000;
+            pUnit->nSeqCurrentFramePrecise = 0x1000;
             return 1;
         }
         break;

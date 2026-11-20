@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 #pragma function(memset)
 #define MONSTATSFLAGINDEX_NORATIO 2
@@ -170,18 +171,7 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); // 0x00483360
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x1C];
-    D2SeedStrc pSeed;
-};
 
 struct Unicode
 {

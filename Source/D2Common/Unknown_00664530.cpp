@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 struct D2OverlayTxt;
 struct D2MonStatsTxt;
@@ -75,11 +76,6 @@ struct D2MonStats2Txt
     char unk0xE6[0x4E];
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-};
 
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
 int __stdcall DATATBLS_GetCodeFromCompCodeTxt(int nIndex); // 0x006117D0

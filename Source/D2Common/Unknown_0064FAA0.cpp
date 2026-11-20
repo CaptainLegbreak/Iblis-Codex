@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 #define D2_ABS(x) ((x) >= 0 ? (x) : -(x))
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define UNIT_ALIGNMENT_EVIL 0
@@ -99,12 +100,6 @@ struct D2DynamicPathStrc
 };
 
 #pragma pack(pop)
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x28];
-    D2DynamicPathStrc* pDynamicPath;
-};
 
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
 
@@ -151,11 +146,6 @@ extern "C" int __cdecl tolower(int nChar);
 extern const char gacCDKeyMap_006DF238[];
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 0x006CC260
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct Pair00650E60 { unsigned int dwFirst; unsigned int dwSecond; };
 

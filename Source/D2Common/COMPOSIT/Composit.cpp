@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 #define CP_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define COF_PAD 0x20
@@ -11,15 +12,6 @@ struct D2ModeTypeTxt;
 struct D2MonStatsTxt;
 struct D2DataTablesStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x60 - 8];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0xC8 - 0x64];
-    unsigned int dwFlagEx;
-};
 
 struct D2CompositStrc
 {

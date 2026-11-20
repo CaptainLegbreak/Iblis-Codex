@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 #define STAT_ITEM_INDESTRUCTIBLE 152
@@ -8,13 +9,6 @@ struct D2SkillsTxt;
 struct D2PropertyStrc;
 struct D2ItemStatCostTxt;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-};
 
 struct D2SkillsTxt
 {

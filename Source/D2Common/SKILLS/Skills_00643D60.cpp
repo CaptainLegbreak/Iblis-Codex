@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 
@@ -59,15 +60,6 @@ struct D2SkillStrc
     int nCharges;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    char unk0x10[0x50];
-    D2InventoryStrc* pInventory;
-};
 
 struct D2DataTablesStrc
 {

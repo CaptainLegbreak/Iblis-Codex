@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 struct D2SkillsTxt;
 struct D2SkillListStrc;
@@ -38,15 +39,6 @@ struct D2SkillListStrc
     D2SkillStrc* pUsedSkill;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[4];
-    void* pMemoryPool;
-    int dwUnitId;
-    char unk0x10[152];
-    D2SkillListStrc* pSkills;
-};
 
 struct D2DataTablesStrc
 {

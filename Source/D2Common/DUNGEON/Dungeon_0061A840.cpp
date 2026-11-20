@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 #define DRLGROOMFLAG_HAS_ROOM 0x100000
 #define DRLGROOMFLAG_HASPORTAL 0x400000
 #define DRLGROOMFLAG_TILELIB_LOADED 0x1000000
@@ -15,12 +16,6 @@ enum D2C_J07DungeonConstants
     UNITFLAGEX_J07_REMOVED = 0x20,
 };
 
-struct D2UnitStrc
-{
-    char unk0x00[0xC4];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-};
 
 struct D2DrlgActStrc
 {

@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 struct D2PathPointStrc
 {
@@ -35,13 +36,6 @@ struct D2DynamicPathStrc
     int nSavedStepsCount;
     D2PathPointStrc SavedSteps[7];
     char unk0x1F4[0x200 - 0x1F4];
-};
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x2C - 0x08];
-    D2DynamicPathStrc* pDynamicPath;
 };
 struct D2MonStatsTxt
 {
