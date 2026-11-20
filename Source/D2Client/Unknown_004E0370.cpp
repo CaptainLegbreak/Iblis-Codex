@@ -1,10 +1,5 @@
 #include "D2Client.h"
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    unsigned int dwClassId;
-};
+#include "D2Structs.h"
 
 extern D2NpcSoundStrc gaNpcSounds_0072AE28[];                                                               // 0x0072AE28
 extern D2DrlgActStrc* gpAct_007A0634;                                                                       // 0x007A0634
@@ -21,7 +16,7 @@ static D2NpcSoundStrc* sub_004E0370_GetNpcSoundRecord(D2UnitStrc* pUnit)
         return 0;
     }
 
-    switch (pUnit->dwClassId)
+    switch ((unsigned int)pUnit->dwClassId)
     {
     case 0x94:
         return &gaNpcSounds_0072AE28[0];

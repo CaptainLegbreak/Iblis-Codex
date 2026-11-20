@@ -1,9 +1,10 @@
 #include "D2Client.h"
 #include "D2DataTbls.h"
+#include "D2Structs.h"
 #define BITARRAY_CHECK(pBytes, nBit) ((pBytes)[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
 #define SKILLSFLAGINDEX_LOB 1
 #define SKILLSFLAGINDEX_PRGSTACK 7
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2MonStats2Txt;
 struct D2SkillsTxt;
 struct D2MonStatsTxt;
@@ -13,43 +14,10 @@ struct D2StaticPathStrc;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
-
 struct D2MonStats2Txt
 {
     char unk0x00[0x0B];
     char nType;
-};
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08;
-    int dwUnitId;
-    int dwAnimMode;
-    char unk0x14[0x0C];
-    D2SeedStrc tSeed;
-    int dwUnk0x28;
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char pad30[0x8];
-    unsigned int frame;
-    unsigned char unk_3C[0x24];
-    D2InventoryStrc* pInventory;
-    unsigned char unk_64[0x60];
-    union
-    {
-        unsigned int flags;
-        unsigned int dwFlags;
-    };
 };
 
 struct D2SkillsTxt
@@ -115,7 +83,6 @@ struct D2MonStatsTxt
     char unk0x014[0x1A8 - 0x14];
 };
 
-
 typedef int (__fastcall* CLIENTSKILLSTARTFN)(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -157,8 +124,6 @@ void __stdcall D2COMMON_10170_PathSetTargetPos(D2DynamicPathStrc* pPath, int nX,
 struct D2CoordStrc { int nX; int nY; };
 
 struct D2StaticPathStrc { void* pRoom; int dwClientCoordX; int dwClientCoordY; D2CoordStrc tGameCoords; };
-
-enum D2C_UnitTypes { UNIT_OBJECT = 2, UNIT_ITEM = 4, UNIT_TILE = 5 };
 
 typedef int (__fastcall* ClientSkillDo)(D2UnitStrc*,int,int);
 
@@ -273,7 +238,7 @@ static __declspec(noinline) int sub_004C5710_GetAttackMode(D2UnitStrc* pUnit)
 
     if (bRandom)
     {
-        const char nRoll = SKILLCLT_RollSeed(&pUnit->tSeed) & 0x3F;
+        const char nRoll = SKILLCLT_RollSeed(&pUnit->pSeed) & 0x3F;
         if (nRoll < 0x20)
         {
             return 8;
@@ -786,14 +751,14 @@ int __fastcall sub_004C6680_SkillDo(D2UnitStrc* unit,int skillId,int skillLevel,
    missile=sub_004CDC30(unit,skill->clientMissile,x,y,targetX,targetY,skillId,skillLevel,0);
   else missile=sub_004C57B0_FireMissileAtTarget(skill->clientMissile,unit,skillId,skillLevel,x,y,targetX,targetY);
   if(missile)result=1;
-  if(unit)unit->flags|=0x40;
+  if(unit)unit->dwFlags|=0x40;
  }
  int index=skill->clientDo;
  if(mode && skill->clientDoSecondary>1)index=skill->clientDoSecondary;
  if(index>=0 && index<gnClientDoCount && gaClientDo[index]){
   if(gaClientDo[index](unit,skillId,skillLevel))result=1;
  }else{
-  if(unit)unit->flags|=0x40;
+  if(unit)unit->dwFlags|=0x40;
   result=1;
  }
  void* resource=D2Common_10958(unit,0);
@@ -811,7 +776,7 @@ int __fastcall sub_004C6680_SkillDo(D2UnitStrc* unit,int skillId,int skillLevel,
  int delay=SKILLS_EvaluateSkillFormula(unit,skill->delay,skillId,skillLevel);
  if(delay>0 && sub_00463DD0_GetPlayerUnit()==unit){
   if(delay>12)delay=12;
-  if(skill->animation!=18 || !(unit->frame & 0xffffff00))
+  if(skill->animation!=18 || !(unit->dwSeqFrame & 0xffffff00))
    sub_0044CE40(sub_0044DA90()+delay);
  }
  return 1;
@@ -878,10 +843,10 @@ void __fastcall sub_004C6AC0_DoSkill(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int
         D2COMMON_10170_PathSetTargetPos(pUnit->pDynamicPath, nX, nY);
     }
 
-    const int nOldValue = pUnit->dwUnk0x28;
+    const int nOldValue = pUnit->dwInitSeed;
     if (nX && !nY)
     {
-        pUnit->dwUnk0x28 = nX;
+        pUnit->dwInitSeed = nX;
     }
 
     --nCharges;
@@ -961,7 +926,7 @@ void __fastcall sub_004C6AC0_DoSkill(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int
 
     if (nX && !nY)
     {
-        pUnit->dwUnk0x28 = nOldValue;
+        pUnit->dwInitSeed = nOldValue;
     }
 }
 

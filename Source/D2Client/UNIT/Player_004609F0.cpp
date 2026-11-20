@@ -1,22 +1,11 @@
 #include "D2Client.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Structs.h"
 
 struct D2GameStrc;
 struct D2SkillsTxt;
 struct D2PlayerDataStrc;
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08;
-    int dwUnitId;
-    unsigned char unk_10[0x4];
-    D2PlayerDataStrc* pPlayerData;
-};
-
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId); // 0x0045C4B0
@@ -36,8 +25,6 @@ struct D2PlayerDataStrc
     int nValue1;
     int nValue2;
 };
-
-enum { UNIT_PLAYER = 0 };
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 

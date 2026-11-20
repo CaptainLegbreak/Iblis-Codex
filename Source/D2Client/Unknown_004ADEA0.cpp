@@ -1,16 +1,9 @@
 #include "D2Unicode.h"
+#include "D2Structs.h"
 struct D2MonsterDataStrc
 {
     char unk0[0x1C];
     unsigned char nUniqueMods[10];
-};
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0[0xC];
-    D2MonsterDataStrc* pMonsterData;
 };
 
 extern "C" const unsigned short gwUniqueModNameIds[];                                                       // 0x00725188

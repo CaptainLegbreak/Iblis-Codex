@@ -1,27 +1,9 @@
 #include "D2Client.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
-
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08[6];
-    D2SeedStrc tSeed;
-    int unk0x28;
-    D2DynamicPathStrc* pDynamicPath;
-};
-
-
+#include "D2Structs.h"
 
 typedef char cc_M338_D2MissilesTxt_size[sizeof(D2MissilesTxt) == 0x1A4 ? 1 : -1];
-typedef char cc_M338_D2UnitStrc_path[sizeof(D2UnitStrc) == 0x30 ? 1 : -1];
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 

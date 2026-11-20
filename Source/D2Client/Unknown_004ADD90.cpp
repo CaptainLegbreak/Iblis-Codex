@@ -1,22 +1,5 @@
-struct D2MonsterDataStrc
-{
-    void* pMonstatsTxt;
-    unsigned char nComponent[16];
-    unsigned short wNameSeed;
-    unsigned short nTypeFlag;
-    unsigned int dwDurielFlag;
-    unsigned char nMonUmod[10];
-};
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-};
+#include "D2Structs.h"
+#include "D2UnitData.h"
 
 typedef void (__fastcall* UMODCALLBACK)(void* pTarget, int nUMod, int bUnique);
 
