@@ -1,22 +1,12 @@
 #include "D2DataTbls.h"
 #include "D2ItemsWorld.h"
 #include "D2GameAux.h"
+#include "D2DrlgRooms.h"
 
 struct D2MapAIStrc
 {
     int nPathNodes;
     D2MapAIPathPositionStrc* pPosition;
-};
-
-
-struct D2DrlgSubstGroupStrc
-{
-    int nX;
-    int nY;
-    int nWidth;
-    int nHeight;
-    int unk0x10;
-    int nSubstGroup;
 };
 
 struct D2DrlgFileStrc
@@ -45,7 +35,6 @@ struct D2MonPresetTxt
     unsigned char nPlace;
     unsigned short wPlace;
 };
-
 
 struct D2PresetCodeStrc
 {
@@ -368,10 +357,10 @@ void __fastcall DRLGPRESET_ParseDS1File(D2DrlgFileStrc* pDrlgFile, void* hArchiv
         pDrlgFile->pSubstGroups = (D2DrlgSubstGroupStrc*)FOG_AllocPool(0, sizeof(D2DrlgSubstGroupStrc) * pDrlgFile->nSubstGroups, ".\\DRLG\\Preset.cpp", 1142, 0);
         for (int i = 0; i < pDrlgFile->nSubstGroups; ++i)
         {
-            pDrlgFile->pSubstGroups[i].nX = *pData++;
-            pDrlgFile->pSubstGroups[i].nY = *pData++;
-            pDrlgFile->pSubstGroups[i].nWidth = *pData++;
-            pDrlgFile->pSubstGroups[i].nHeight = *pData++;
+            pDrlgFile->pSubstGroups[i].tBox.nPosX = *pData++;
+            pDrlgFile->pSubstGroups[i].tBox.nPosY = *pData++;
+            pDrlgFile->pSubstGroups[i].tBox.nWidth = *pData++;
+            pDrlgFile->pSubstGroups[i].tBox.nHeight = *pData++;
             if (nVersion >= 13)
             {
                 pDrlgFile->pSubstGroups[i].nSubstGroup = *pData++;

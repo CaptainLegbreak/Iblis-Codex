@@ -10,6 +10,7 @@
 #include "D2GameTypes.h"
 #include "D2Drlg.h"
 #include "D2InactiveUnits.h"
+#include "D2DrlgRooms.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define PLRMODE_DEATH 0
@@ -190,11 +191,6 @@ D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit);
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
 void __fastcall D2GAME_UpdatePlayerItems_6FC4BB90(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3); // 0x0055FDE0
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
-
-struct D2DrlgActStrc
-{
-    int bHasPendingUnitListUpdates;
-};
 
 int __stdcall ENVIRONMENT_UpdateCycleIndex(D2DrlgActStrc* pAct, int nActNo); // 0x0061C040
 void __stdcall ENVIRONMENT_GetCycleIndex_Ticks_EclipseFromAct(D2DrlgActStrc* pAct, int* pCycleIndex, int* pTicks, int* pEclipse); // 0x0061C330

@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2GameTypes.h"
 #include "D2Drlg.h"
+#include "D2DrlgRooms.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
@@ -19,8 +20,6 @@ struct HASHKEY_NONE;
 struct D2GameHashLinkStrc;
 struct D2GameHashListStrc;
 struct D2GameDataTableStrc;
-
-
 
 struct D2GameStrc
 {
@@ -58,11 +57,6 @@ void __fastcall OBJECTS_PopulationHandler(D2GameStrc* pGame, D2ActiveRoomStrc* p
 void __fastcall SUNIT_SpawnPresetUnitsInRoom(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom); // 0x005559A0
 int __cdecl sub_005377B0_CountFlaggedClients(); // 0x005377B0
 
-struct D2DrlgActStrc
-{
-    char unk0x0000[0x54];
-    int bHasPendingRoomsUpdates;
-};
 void __stdcall DUNGEON_UpdateAndFreeInactiveRooms(D2DrlgActStrc* pAct); // 0x0061AA20
 
 struct D2ClientStrc
@@ -127,7 +121,6 @@ void __fastcall ITEMS_DeleteInactiveItems(D2GameStrc* pGame, int nAct); // 0x005
 void __fastcall PLAYERLIST_InitializePlayerRelations(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x0055B620
 int __stdcall D2Common_10073(D2ActiveRoomStrc* pRoom); // 0x0061A460
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
-
 
 typedef int (__stdcall* FARPROC)();
 

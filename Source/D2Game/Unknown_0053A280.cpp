@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2Drlg.h"
+#include "D2DrlgRooms.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
@@ -24,16 +25,8 @@ struct D2ClientStrc
     unsigned int dwFlags;
 };
 
-
-
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 int __fastcall CLIENTS_IsInUnitsRoom(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x005387F0
-
-
-struct D2DrlgActStrc
-{
-    int bHasPendingUnitListUpdates;
-};
 
 D2UnitStrc* __stdcall CLIENTS_GetPlayerFromClient(D2ClientStrc* pClient, int bIgnoreDeath); // 0x00537860
 void __fastcall sub_00571F90(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00571F90

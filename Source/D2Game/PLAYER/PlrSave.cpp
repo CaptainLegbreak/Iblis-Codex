@@ -7,6 +7,7 @@
 #include "D2GameTypes.h"
 #include "D2Drlg.h"
 #include "D2Primitives.h"
+#include "D2DrlgRooms.h"
 
 #pragma function(memset)
 
@@ -102,7 +103,6 @@ struct D2CharStatsTxt;
 struct D2BitBufferStrc;
 struct D2ItemsTxt;
 
-
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc*); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc*); // 0x0045AE20
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc*,int); // 0x00624690
@@ -139,8 +139,6 @@ int __fastcall sub_6FC48940(D2GameStrc*,D2UnitStrc*,int,int,int,int*); // 0x0055
 int __fastcall sub_6FC4B9D0(D2GameStrc*,D2UnitStrc*,D2UnitStrc*); // 0x0055FB10
 int __fastcall D2GAME_ITEMSOCKET_PlaceItem_6FC497E0(D2GameStrc*,D2UnitStrc*,int,int,int*,int,int,int,int); // 0x00562660
 
-
-
 struct D2PlayerDataStrc
 {
     char szName[16];
@@ -157,7 +155,6 @@ struct D2PlayerDataStrc
     int nRightSkillId;
     int nLeftSkillId;
 };
-
 
 struct D2ClientStrc
 {
@@ -183,7 +180,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 D2UnitStrc* __stdcall CLIENTS_GetPlayerFromClient(D2ClientStrc* pClient, int bIgnoreDeath); // 0x00537860
 void __fastcall sub_00538410_RemoveUnitIfNotAdjacent2(D2ClientStrc* pClient, D2UnitStrc* pUnit); // 0x00538410
 
-
 void __fastcall sub_005394A0(D2ClientStrc* pClient, D2UnitStrc* pPlayer, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x005394A0
 int __fastcall ClientAddPlayerToGame(D2ClientStrc* ptClient, D2GameStrc* ptGame, int bLoadFromSave, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00539760
 void __fastcall D2GAME_UpdateAttribute_6FC822D0(D2UnitStrc* pUnit, unsigned short nStat, unsigned int nNewValue, D2UnitStrc* pPlayer); // 0x00548520
@@ -204,7 +200,6 @@ D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x
 D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
 D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
 void __fastcall sub_M93_UseCount_00531750(int nCount);
-
 
 struct D2PartyStrc
 {
@@ -234,12 +229,6 @@ int __fastcall sub_6FCBDFE0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomSt
 int __fastcall PLRTRADE_CopyTradeSaveDataToBuffer(D2UnitStrc* pUnit, unsigned char* pBuffer, int nBufferSize); // 0x005675E0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 
-struct D2DrlgActStrc
-{
-    char unk0x00[0x58];
-    int bHasPendingRoomDeletions;
-};
-
 D2ActiveRoomStrc* __stdcall DUNGEON_FindActSpawnLocationEx(D2DrlgActStrc* pAct, int nLevelId, int a3, int* pX, int* pY, int nUnitSize); // 0x0061B060
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 int __stdcall UNITS_GetUnitSizeX(D2UnitStrc* pUnit); // 0x00620510
@@ -264,7 +253,6 @@ extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize
 D2CorpseStrc* __stdcall INVENTORY_GetFirstCorpse(D2InventoryStrc* pInventory); // 0x0063D570
 int __stdcall INVENTORY_GetUnitGUIDFromCorpse(D2CorpseStrc* pCorpse); // 0x0063D630
 int __fastcall PLRSAVE2_CreateSaveFile(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char* pData, unsigned int* pSize, unsigned int nMaxSize, int a6, int a7); // 0x00569AD0
-
 
 struct D2SaveHeaderStrc
 {
@@ -341,7 +329,6 @@ struct D2StatesTxt
     char unk0x20[0x1C];
 };
 
-
 typedef void (__fastcall* RealmSaveCallback)(unsigned int*, const char*, char*, void*, int, unsigned int);
 
 typedef void (__fastcall* RealmUpdateCallback)(unsigned int*, const char*, char*);
@@ -384,7 +371,6 @@ void __stdcall UNITFINDS_InitializeUnitFindData(void* pMemPool, D2UnitFindDataSt
 int __stdcall UNITFINDS_FindAllMatchingUnitsInNeighboredRooms(D2UnitFindDataStrc* pUnitFindData); // 0x0065AC70
 unsigned int __fastcall ARENA_GetFlags(D2GameStrc* pGame); // 0x0053FD40
 D2UnitStrc* __fastcall SUNIT_GetNextUnitFromList(D2UnitStrc* pUnit); // 0x00552DB0
-
 
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
 void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C360
@@ -561,7 +547,6 @@ int __fastcall ITEMMODE_EquipCursorItem(D2GameStrc* ptGame, D2UnitStrc* hUnit, i
 static int sub_00532D90_ClearValue(int* pValue);
 static __declspec(noinline) D2UnitStrc* PLRSAVE_CreateItemFromSavedData(D2GameStrc* pGame, D2SavedItemStrc* pSavedItem); // 0x00530F40
 
-
 void __fastcall CLIENTS_SetPlayerInClient(D2ClientStrc* pClient, D2UnitStrc* pUnit); // 0x005378E0
 void __fastcall SUNIT_InitClientInPlayerData(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00553180
 char* __fastcall CLIENTS_GetName(D2ClientStrc* pClient); // 0x00538830
@@ -576,7 +561,6 @@ D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUn
 void __fastcall D2GAME_AssignSkill_6FD13800(D2UnitStrc* pUnit, int a2, int nSkillId, int nFlags); // 0x005701B0
 void __fastcall QUESTS_SequenceCycler(D2GameStrc* pGame, D2UnitStrc* pPlayer, int a3); // 0x00546270
 int __fastcall sub_00534330(D2GameStrc* pGame, D2ClientStrc* pClient, D2SaveHeaderStrc* pSave, unsigned int nSize, D2UnitStrc** ppPlayer, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00534330
-
 
 void __stdcall BITMANIP_Initialize(D2BitBufferStrc* pBuffer, unsigned char* pBitStream, int nSize); // 0x00410E40
 unsigned int __stdcall sub_00411020_ReadBits(D2BitBufferStrc* pBuffer, int nBits);

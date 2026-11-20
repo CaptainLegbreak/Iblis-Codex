@@ -4,13 +4,6 @@ struct D2ClientStrc;
 struct D2PoolSystemStrc;
 struct D2UnitStrc;
 
-struct D2DrlgActStrc
-{
-    char unk0x0000[0x54];
-    int bHasPendingRoomsUpdates;
-};
-
-
 struct D2ClientStrc
 {
     unsigned int dwClientId;
@@ -24,7 +17,6 @@ struct D2ClientStrc
     char unk0x01B8[0x2F0];
     D2ClientStrc* pNext;
 };
-
 
 struct D2GameStrc
 {
@@ -75,6 +67,7 @@ extern "C" unsigned int __cdecl strlen(const char* szString);
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                   // 0x006CC260
 #include "gen/data/Source/D2Game/GAME/Game_0052D720.static/gnFrameRate_00731010.inc"
 #include "D2Drlg.h"
+#include "D2DrlgRooms.h"
 static unsigned int gnPeakMemoryUsage_00883D48;                                                                  // 0x00883D48
 extern D2ServerCallbackFunctions* gpD2EventCallbackTable_6FD45830;                                          // 0x00883D50
 static unsigned int gnPreviousMemUsageTick_00883D68;                                                            // 0x00883D68

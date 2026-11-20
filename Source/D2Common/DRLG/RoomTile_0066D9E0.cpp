@@ -7,6 +7,7 @@
 #include "D2DrlgMaps.h"
 #include "D2TxtTables.h"
 #include "D2DrlgPresets.h"
+#include "D2DrlgRooms.h"
 struct D2DrlgTileDataStrc;
 struct D2TileGrid0066ECE0Strc;
 union D2C_PackedTileInformation;
@@ -50,11 +51,6 @@ union D2C_PackedTileInformation
     };
 };
 
-
-
-
-
-
 struct D2RoomTileStrc
 {
     void* pUnused;
@@ -65,9 +61,6 @@ struct D2RoomTileStrc
     D2DrlgTileDataStrc* pSelectedTiles;
 };
 
-
-
-
 struct D2DrlgTileGridStrc
 {
     D2DrlgTileLinkStrc* pMapLinks;
@@ -76,19 +69,6 @@ struct D2DrlgTileGridStrc
     int nFloors;
     int nShadows;
     D2DrlgRoomTilesStrc pTiles;
-};
-
-
-
-struct D2UnkDrlgRoomTileStrc2
-{
-    int nTileStyle;
-    int nTileSequence;
-    int bIsRightWallWithDoor;
-    int nUnitId;
-    int nUnitType;
-    int nX;
-    int nY;
 };
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -111,7 +91,6 @@ D2DrlgTileDataStrc* __fastcall DRLGROOMTILE_InitFloorTileData(D2DrlgRoomStrc* pD
 D2DrlgTileDataStrc* __fastcall DRLGROOMTILE_InitShadowTileData(D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileDataStrc** ppTileData, int nX, int nY, unsigned int nPackedTileInformation, D2TileLibraryEntryStrc* pTileLibraryEntry); // 0x0066DF40
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY); // 0x0067C570
 D2DrlgTileDataStrc* __fastcall DRLGROOMTILE_InitWallTileData(D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileDataStrc** ppTileData, int nX, int nY, unsigned int nPackedTileInformation, D2TileLibraryEntryStrc* pTileLibraryEntry, int nTileType);
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 __declspec(noinline) static void __stdcall DRLGROOMTILE_AddTilePresetUnits(D2DrlgTileDataStrc* pTileData, int nX, int nTileType, D2DrlgRoomStrc* pDrlgRoom, unsigned int nPackedTileInformation, int nY);

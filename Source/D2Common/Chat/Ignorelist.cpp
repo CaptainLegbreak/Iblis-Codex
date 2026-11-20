@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Drlg.h"
+#include "D2DrlgRooms.h"
 
 struct D2CommonStormNodeStrc;
 struct D2CommonStormSlotListBStrc;
@@ -539,16 +540,6 @@ struct D2ExperienceDataTbl
 {
     D2ExperienceTxt tMax;
     D2ExperienceTxt aLevels[1];
-};
-
-
-struct D2DrlgActStrc
-{
-    char unk0x00[0x10];
-    D2ActiveRoomStrc* pRoom;
-    char unk0x14[0x44];
-    int bHasPendingRoomDeletions;
-    void* pMemPool;
 };
 
 struct D2DrlgDeleteStrc

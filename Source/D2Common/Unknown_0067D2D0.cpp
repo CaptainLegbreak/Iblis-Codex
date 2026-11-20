@@ -3,28 +3,7 @@
 #include "D2Path.h"
 #include "D2Drlg.h"
 #include "D2DrlgMaps.h"
-
-
-
-
-
-struct D2DrlgOutdoorRoomStrc
-{
-    D2DrlgGridStrc tGrid00;
-    D2DrlgGridStrc tGrid14;
-    D2DrlgGridStrc tGrid28;
-    D2DrlgGridStrc tGrid3C;
-    D2DrlgVertexStrc* pVertex;
-    unsigned int dwFlags;
-    int unk0x58;
-    int unk0x5C;
-    int unk0x60;
-    int nTileInfo64;
-    int nTileInfo68;
-    int nTileInfo6C;
-};
-
-
+#include "D2DrlgRooms.h"
 
 struct D2LevelDefRecordStrc
 {
@@ -69,7 +48,6 @@ struct D2RoomTileInfoStrc
     int nTotal28;
 };
 
-
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);    // 0x0040B430
 void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);  // 0x0040B480
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
@@ -110,7 +88,7 @@ void __fastcall DRLGOUTROOM_InitOutdoorRoomGrids(D2DrlgRoomStrc* pRoom)
     int nSubType2 = (pRoom->dwFlags >> 12) & 0xF;
     int nMask = 0;
 
-    DRLGGRID_InitializeGridCells(pMemPool, &pOutdoor->tGrid00, nWidth, nHeight);
+    DRLGGRID_InitializeGridCells(pMemPool, &pOutdoor->pTileTypeGrid, nWidth, nHeight);
     DRLGGRID_InitializeGridCells(pMemPool, &pOutdoor->tGrid14, nWidth, nHeight);
     DRLGGRID_InitializeGridCells(pMemPool, &pOutdoor->tGrid28, nWidth, nHeight);
 
@@ -132,7 +110,7 @@ void __fastcall DRLGOUTROOM_InitOutdoorRoomGrids(D2DrlgRoomStrc* pRoom)
     D2DrlgOutdoorTileCtxStrc tCtx;
     memset(&tCtx, 0, sizeof(tCtx));
     tCtx.pRoom = pRoom;
-    tCtx.pGrid00 = &pOutdoor->tGrid00;
+    tCtx.pGrid00 = &pOutdoor->pTileTypeGrid;
     tCtx.pGrid14 = &pOutdoor->tGrid14;
     tCtx.pGrid28 = &pOutdoor->tGrid28;
     tCtx.n28 = 0;
