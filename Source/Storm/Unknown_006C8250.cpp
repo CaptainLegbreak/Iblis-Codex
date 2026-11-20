@@ -5,7 +5,6 @@
 struct D2CelStrc;
 struct D2ClipRectStrc;
 struct D2ClipResultStrc;
-struct D2GfxPaletteView006C85A0Strc;
 extern int gnWideWidth_0098A16C; // 0x0098A16C
 int __stdcall sub_006018C0(D2CelStrc* pCel); // 0x006018C0
 int __stdcall sub_006018F0(D2CelStrc* pCel); // 0x006018F0
@@ -22,17 +21,8 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 __declspec(noreturn) void __cdecl exit(int code); // 0x00681E09
 
-struct D2GfxPaletteView006C85A0Strc
-{
-    int nValue00;
-    int nValue04;
-    int nValue08;
-    unsigned char* pGammaTables[0x31];
-    unsigned char* pPalettes[0x12];
-    unsigned char* pMode7Table;
-};
 int __fastcall sub_006C8250_GetSetting(unsigned int nSelector, int* pValue); // 0x006C8250
-extern D2GfxPaletteView006C85A0Strc* gpGfxPaletteView_007C9150; // 0x007C9150
+extern D2PaletteTableStrc* gpGfxPaletteView_007C9150; // 0x007C9150
 int __stdcall sub_00608C00_Draw(unsigned char* pPixel, int nStride); // 0x00608C00
 int __fastcall sub_006C84B0_Draw(void* context, int second, int third, int fourth, int fifth, int last); // 0x006C84B0
 extern "C" __declspec(dllimport) void* __stdcall CreateFontA(int height, int width, int escapement, int orientation, int weight, unsigned long italic, unsigned long underline, unsigned long strikeout, unsigned long charset, unsigned long outPrecision, unsigned long clipPrecision, unsigned long quality, unsigned long pitchAndFamily, const char* face); // 0x006CC0E0
@@ -64,17 +54,17 @@ int __fastcall sub_006C8250_GetSetting(unsigned int nSelector, int* pValue)
     switch (nSelector)
     {
     case 0:
-        return gpConfig_007C9150->n008;
+        return (int)gpGfxPaletteView_007C9150->pTransPalettes[2];
     case 1:
-        return gpConfig_007C9150->n004;
+        return (int)gpGfxPaletteView_007C9150->pTransPalettes[1];
     case 2:
-        return gpConfig_007C9150->n000;
+        return (int)gpGfxPaletteView_007C9150->pTransPalettes[0];
     case 3:
-        return gpConfig_007C9150->n104;
+        return (int)gpGfxPaletteView_007C9150->pScreenPalette;
     case 4:
-        return gpConfig_007C9150->n108;
+        return (int)gpGfxPaletteView_007C9150->pLuminancePalette;
     case 6:
-        return gpConfig_007C9150->n10C;
+        return (int)gpGfxPaletteView_007C9150->pDarkBlendPalette;
     }
     return 0;
 }
@@ -213,11 +203,11 @@ int __fastcall sub_006C85A0_DrawImage(void* pData, int nX, int nY, unsigned int 
         const int nCaps = sub_006C8250_GetSetting(nDrawMode, &nType);
         const int nGamma = (unsigned char)dwGamma;
         if (nGamma != 0xFF)
-            pGammaTable = gpGfxPaletteView_007C9150->pGammaTables[nGamma >> 3];
+            pGammaTable = gpGfxPaletteView_007C9150->pShadowLightGammaPalettes[nGamma >> 3];
         if (nDrawMode == 7)
-            pGammaTable = gpGfxPaletteView_007C9150->pMode7Table;
+            pGammaTable = gpGfxPaletteView_007C9150->pRemap;
         if (nPalette)
-            pPaletteTable = gpGfxPaletteView_007C9150->pPalettes[nPalette];
+            pPaletteTable = gpGfxPaletteView_007C9150->pStandardShiftPalettes[nPalette];
 
         CelDraw((D2CmpCelContextStrc*)pContext, nX, nY, gnOriginX_0098A168, gnModeWidth_0098A16C,
             gpScreenBuffer_007C9154, gnScreenHeight_007C913C, gnScreenWidth_007C9138, (int)pGammaTable, nCaps, (int)pPaletteTable);

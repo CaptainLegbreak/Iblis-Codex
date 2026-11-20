@@ -1,8 +1,8 @@
 #include "Storm.h"
 #include "D2CelContext.h"
+#include "D2GfxTypes.h"
 
 struct D2CelStrc;
-struct D2GfxPaletteView006C85A0Strc;
 
 int __stdcall sub_006018C0(D2CelStrc* pCel); // 0x006018C0
 int __stdcall sub_006018F0(D2CelStrc* pCel); // 0x006018F0
@@ -11,19 +11,9 @@ int __stdcall sub_00601950(D2CelStrc* pCel); // 0x00601950
 void __stdcall CelDrawEx(D2CelContextStrc* pContext, int nX, int nY, int nOriginX, int nModeWidth, unsigned char* pBuffer, int nHeight, int nWidth, int nArg9, unsigned char* pCaps, int nSkipTop, int nDrawHeight, int nArg13); // 0x00601650
 extern int gnScreenHeight_007C913C; // 0x007C913C
 
-struct D2GfxPaletteView006C85A0Strc
-{
-    unsigned char* pShadowTable;
-    int nValue04;
-    int nValue08;
-    unsigned char* pGammaTables[0x31];
-    unsigned char* pPalettes[0x12];
-    unsigned char* pMode7Table;
-};
-
 void __stdcall CelDrawShadow(D2CelContextStrc* pContext, int nX, int nY, int nArg4, int nArg5, unsigned char* pBuffer, int nHeight, int nPitch, unsigned char* pShadowTable, int nArg10); // 0x00601730
 int __cdecl sub_006C8A50_GetBlendedShadows(); // 0x006C8A50
-extern D2GfxPaletteView006C85A0Strc* gpGfxPaletteView_007C9150; // 0x007C9150
+extern D2PaletteTableStrc* gpGfxPaletteView_007C9150; // 0x007C9150
 
 int __fastcall sub_006C8250_GetSetting(unsigned int nSelector, int* pValue)
 {
@@ -31,17 +21,17 @@ int __fastcall sub_006C8250_GetSetting(unsigned int nSelector, int* pValue)
     switch (nSelector)
     {
     case 0:
-        return gpConfig_007C9150->n008;
+        return (int)gpGfxPaletteView_007C9150->pTransPalettes[2];
     case 1:
-        return gpConfig_007C9150->n004;
+        return (int)gpGfxPaletteView_007C9150->pTransPalettes[1];
     case 2:
-        return gpConfig_007C9150->n000;
+        return (int)gpGfxPaletteView_007C9150->pTransPalettes[0];
     case 3:
-        return gpConfig_007C9150->n104;
+        return (int)gpGfxPaletteView_007C9150->pScreenPalette;
     case 4:
-        return gpConfig_007C9150->n108;
+        return (int)gpGfxPaletteView_007C9150->pLuminancePalette;
     case 6:
-        return gpConfig_007C9150->n10C;
+        return (int)gpGfxPaletteView_007C9150->pDarkBlendPalette;
     }
     return 0;
 }
@@ -116,7 +106,7 @@ void __fastcall sub_006C87E0_DrawShadow(void* pData, int nX, int nY)
 
     unsigned char* pShadowTable = 0;
     if (sub_006C8A50_GetBlendedShadows())
-        pShadowTable = gpGfxPaletteView_007C9150->pShadowTable;
+        pShadowTable = gpGfxPaletteView_007C9150->pTransPalettes[0];
 
     CelDrawShadow(pContext, nX, nY, gnOriginX_0098A168, gnModeWidth_0098A16C,
         gpScreenBuffer_007C9154, gnScreenHeight_007C913C, gnScreenWidth_007C9138, pShadowTable, 0);

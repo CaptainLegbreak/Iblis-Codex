@@ -72,7 +72,7 @@ extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize
 extern D2RgbQuad006C7FA0Strc gaColors_00989C40[256]; // 0x00989C40
 extern D2PaletteEntry006C7FA0Strc gaPalette_007C8CC8[256]; // 0x007C8CC8
 
-extern D2GfxPaletteViewStrc* gpGfxPaletteView_007C9150; // 0x007C9150
+extern D2PaletteTableStrc* gpGfxPaletteView_007C9150; // 0x007C9150
 
 // 0x006C7CF0
 int __cdecl sub_006C7CF0_Close()
@@ -158,10 +158,10 @@ void __fastcall sub_006C7FA0_SetPalette(D2PaletteEntry006C7FA0Strc* pEntries)
     memcpy(gaPalette_007C8CC8, pEntries, sizeof(gaPalette_007C8CC8));
 }
 
-D2GfxPaletteViewStrc gPaletteView_0098A040; // 0x0098A040
+D2PaletteTableStrc gPaletteView_0098A040; // 0x0098A040
 
 // 0x006C8000
-void __fastcall sub_006C8000_SetPaletteView(const D2GfxPaletteViewStrc* source)
+void __fastcall sub_006C8000_SetPaletteView(const D2PaletteTableStrc* source)
 {
     gPaletteView_0098A040 = *source;
     gpGfxPaletteView_007C9150 = &gPaletteView_0098A040;

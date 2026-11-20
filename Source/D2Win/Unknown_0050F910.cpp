@@ -37,7 +37,7 @@ extern unsigned int gnDDrawBinkY_008816B8; // 0x008816B8
 extern unsigned int gnDDrawBinkFlags_008816C8; // 0x008816C8
 
 void __fastcall sub_00510160_DDrawSetPalette(tagPALETTEENTRY* pPalette); // 0x00510160
-extern D2GfxPaletteViewStrc* gpGfxPaletteView_007C9150; // 0x007C9150
+extern D2PaletteTableStrc* gpGfxPaletteView_007C9150; // 0x007C9150
 extern tagPALETTEENTRY gaDDrawSavedPalette_00880D40[256]; // 0x00880D40
 
 // 0x0050F910
@@ -403,7 +403,7 @@ void __fastcall sub_00510360_DDrawNop()
 {
 }
 
-D2GfxPaletteViewStrc gtDDrawPaletteView_00880C20; // 0x00880C20
+D2PaletteTableStrc gtDDrawPaletteView_00880C20; // 0x00880C20
 
 // 0x00510150
 void __fastcall sub_00510150_DDrawGetScreenSize(int* pWidth, int* pHeight)
@@ -413,7 +413,7 @@ void __fastcall sub_00510150_DDrawGetScreenSize(int* pWidth, int* pHeight)
 }
 
 // 0x005102D0
-void __fastcall sub_005102D0_DDrawSetPaletteView(D2GfxPaletteViewStrc* pSource)
+void __fastcall sub_005102D0_DDrawSetPaletteView(D2PaletteTableStrc* pSource)
 {
     gtDDrawPaletteView_00880C20 = *pSource;
     gpGfxPaletteView_007C9150 = &gtDDrawPaletteView_00880C20;

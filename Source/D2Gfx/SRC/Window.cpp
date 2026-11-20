@@ -1,7 +1,6 @@
 #include "D2Gfx.h"
 
 struct D2GraphicsInterfaceStrc;
-struct D2PaletteTableStrc;
 struct D2GfxSettingsStrc;
 struct D2PaletteStrc;
 struct _AppBarData;
@@ -16,11 +15,6 @@ extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize
 void __cdecl sub_004F5510_HideCursor(); // 0x004F5510
 void __cdecl sub_004F5540_ShowCursor(); // 0x004F5540
 double __cdecl sub_004F6130_GetElapsedMs(); // 0x004F6130
-
-struct D2PaletteTableStrc
-{
-    D2PaletteStrc* pPalettes[72];
-};
 
 void __fastcall sub_004F8E40_CopyPaletteTables(D2PaletteTableStrc* pPaletteTables); // 0x004F8E40
 extern int gbPaused_6FA8D84C; // 0x007C933C
@@ -878,6 +872,6 @@ void __fastcall sub_004F8E40_CopyPaletteTables(D2PaletteTableStrc* pPaletteTable
     gpPaletteTables_007D5578 = &gPaletteTables_007D5458;
     for (int i = 0; i < 49; ++i)
     {
-        gLightPalettes_007D2348[i] = *gPaletteTables_007D5458.pPalettes[i + 3];
+        gLightPalettes_007D2348[i] = *(D2PaletteStrc*)gPaletteTables_007D5458.pShadowLightGammaPalettes[i];
     }
 }

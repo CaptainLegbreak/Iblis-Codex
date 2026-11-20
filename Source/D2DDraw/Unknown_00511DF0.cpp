@@ -33,7 +33,7 @@ int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3);
 void __stdcall CelDrawEx(D2CmpCelContextStrc* pContext, int nX, int nY, int nArg4, int nArg5, unsigned char* pBuffer, int nHeight, int nPitch, int nArg9, int nArg10, int nClipTop, int nClipRows, int nArg13); // 0x00601650
 int __fastcall sub_00511D70_GetCapsValue(int nIndex, int* pType); // 0x00511D70
 
-extern D2GfxPaletteViewStrc* gpDDrawCaps_007C9150; // 0x007C9150
+extern D2PaletteTableStrc* gpDDrawCaps_007C9150; // 0x007C9150
 extern int gnDDrawModeWidth_008812A0; // 0x008812A0
 void __stdcall sub_00608C00_RemapRegion(unsigned char* pBuffer, int nPitch); // 0x00608C00
 
@@ -154,7 +154,7 @@ int __fastcall sub_00511FB0_DrawImage(void* pData, int nX, int nY, unsigned int 
     unsigned char* pGammaTable = 0;
     const int nCaps = sub_00511D70_GetCapsValue(nDrawMode, (int*)&dwGamma);
     if (nGamma != 0xFF)
-        pGammaTable = gpDDrawCaps_007C9150->pGammaTables[nGamma >> 3];
+        pGammaTable = gpDDrawCaps_007C9150->pShadowLightGammaPalettes[nGamma >> 3];
     if (nDrawMode == 7)
         pGammaTable = gpDDrawCaps_007C9150->pRemap;
 

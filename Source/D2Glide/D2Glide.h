@@ -7,7 +7,7 @@
 struct D2CelContextStrc;
 struct D2CelStrc;
 struct D2CriticalSectionStrc;
-struct D2GfxPaletteViewStrc;
+struct D2PaletteTableStrc;
 struct D2GlideTileStrc;
 struct D2TileDrawFunctionsStrc;
 struct D2TileLibraryEntryStrc;
@@ -32,7 +32,7 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 extern D2CriticalSectionStrc* gpRenderCriticalSection_007C9134; // 0x007C9134
 extern D2DDrawSurfaceStrc* gpDDrawSurface_00881278; // 0x00881278
-extern D2GfxPaletteViewStrc* gpGfxPaletteView_007C9150; // 0x007C9150
+extern D2PaletteTableStrc* gpGfxPaletteView_007C9150; // 0x007C9150
 extern D2TileDrawFunctionsStrc* gpTileDrawFunctions_007C914C; // 0x007C914C
 extern const char gszEmpty_006CC837[]; // 0x006CC837
 extern int (__stdcall* gpfGlideLfbLock_0087EADC)(int nType, int nBuffer, int nWriteMode, int nOrigin, int bPixelPipeline, D2GrLfbInfoStrc* pInfo); // 0x0087EADC

@@ -9,7 +9,7 @@ int __stdcall sub_006018F0(D2CelStrc* pCel);                                    
 int __stdcall sub_00601920(D2CelStrc* pCel);                                                               // 0x00601920
 int __stdcall sub_00601950(D2CelStrc* pCel);                                                               // 0x00601950
 int __fastcall sub_00511D70_GetCapsValue(int nIndex, int* pType);                                           // 0x00511D70
-extern D2GfxPaletteViewStrc* gpDDrawCaps_007C9150;                                                               // 0x007C9150
+extern D2PaletteTableStrc* gpDDrawCaps_007C9150;                                                               // 0x007C9150
 int gnDDrawOriginX_0088129C;                                                                                // 0x0088129C
 extern int gnDDrawModeWidth_008812A0;                                                                       // 0x008812A0
 
@@ -52,11 +52,11 @@ int __fastcall sub_005120A0_DrawImagePalette(void* pData, int nX, int nY, unsign
         const int nCaps = sub_00511D70_GetCapsValue(nDrawMode, &nType);
         const int nGamma = (unsigned char)dwGamma;
         if (nGamma != 0xFF)
-            pGammaTable = gpDDrawCaps_007C9150->pGammaTables[nGamma >> 3];
+            pGammaTable = gpDDrawCaps_007C9150->pShadowLightGammaPalettes[nGamma >> 3];
         if (nDrawMode == 7)
             pGammaTable = gpDDrawCaps_007C9150->pRemap;
         if (nPalette)
-            pPaletteTable = gpDDrawCaps_007C9150->pPaletteTables[nPalette];
+            pPaletteTable = gpDDrawCaps_007C9150->pStandardShiftPalettes[nPalette];
 
         CelDraw((D2CmpCelContextStrc*)pContext, nX, nY, gnDDrawOriginX_0088129C, gnDDrawModeWidth_008812A0,
             gpScreenBuffer_007C9154, gnScreenHeight_007C913C, gnScreenWidth_007C9138, (int)pGammaTable, nCaps, (int)pPaletteTable);

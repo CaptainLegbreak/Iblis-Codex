@@ -33,7 +33,7 @@ extern D2Interface006B1C30Strc* gpInterface_00970E68; // 0x00970E68
 extern int gnScreenHeight_007C913C; // 0x007C913C
 extern unsigned int gdwColors_009702C0[]; // 0x009702C0
 
-extern D2GfxPaletteViewStrc* gpGfxPaletteView_007C9150; // 0x007C9150
+extern D2PaletteTableStrc* gpGfxPaletteView_007C9150; // 0x007C9150
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 
 struct D2GraphicsVTableStrc
@@ -86,10 +86,10 @@ unsigned int __fastcall sub_006B1D50_GetColor(unsigned int index)
     return gdwColors_009702C0[index];
 }
 
-D2GfxPaletteViewStrc gPaletteView_0096F280; // 0x0096F280
+D2PaletteTableStrc gPaletteView_0096F280; // 0x0096F280
 
 // 0x006B1D60
-void __fastcall sub_006B1D60_SetPaletteView(const D2GfxPaletteViewStrc* source)
+void __fastcall sub_006B1D60_SetPaletteView(const D2PaletteTableStrc* source)
 {
     gPaletteView_0096F280 = *source;
     gpGfxPaletteView_007C9150 = &gPaletteView_0096F280;
