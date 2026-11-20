@@ -19716,7 +19716,7 @@
    ]
   },
   {
-   "file": "Source/D2Client/GAME/RosterPets_0045FED0.cpp",
+   "file": "Source/D2Client/GAME/RosterPets.cpp",
    "rank": 0,
    "functions": [
     {
@@ -19740,9 +19740,24 @@
      "name": "sub_0046BD50_GetPulseColor"
     },
     {
+     "va": "0x00478A90",
+     "length": 31,
+     "name": "?sub_00478A90_FindRosterPet@@YIPAUD2RosterPetNodeStrc@@H@Z"
+    },
+    {
      "va": "0x00478B10",
      "length": 151,
      "name": "sub_00478B10_SetRosterEntry"
+    },
+    {
+     "va": "0x00478BB0",
+     "length": 219,
+     "name": "?sub_00478BB0@@YIXHHHHPAUD2Packet81ArgsStrc@@@Z"
+    },
+    {
+     "va": "0x00478C90",
+     "length": 114,
+     "name": "?sub_00478C90_DropPetEntry@@YIXH@Z"
     },
     {
      "va": "0x0047ACA0",
@@ -24345,27 +24360,6 @@
     "/Ob2",
     "/Gd",
     "/GS-"
-   ]
-  },
-  {
-   "file": "Source/D2Client/GAME/RosterPets.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x00478A90",
-     "length": 31,
-     "name": "?sub_00478A90_FindRosterPet@@YIPAUD2RosterPetNodeStrc@@H@Z"
-    },
-    {
-     "va": "0x00478BB0",
-     "length": 219,
-     "name": "?sub_00478BB0@@YIXHHHHPAUD2Packet81ArgsStrc@@@Z"
-    },
-    {
-     "va": "0x00478C90",
-     "length": 114,
-     "name": "?sub_00478C90_DropPetEntry@@YIXH@Z"
-    }
    ]
   },
   {
@@ -33580,6 +33574,16 @@
      "name": "?sub_004BC720_InitObject@@YIXPAUD2UnitStrc@@PAUD2ActiveRoomStrc@@HHHE@Z"
     },
     {
+     "va": "0x004BC8D0",
+     "length": 384,
+     "name": "?sub_004BC8D0_UpdateObjectOverlay@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x004BCA50",
+     "length": 58,
+     "name": "?sub_004BCA50_ReleaseUnit@@YIXPAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x004BD550",
      "length": 101,
      "name": "?sub_004BD550_PlayShrineSound@@YGXPAUD2UnitStrc@@0@Z"
@@ -33605,27 +33609,6 @@
      "name": "?sub_004BD6D0_ObjectCommand@@YIXHPAUD2UnitStrc@@PAUD2UnitTargetStrc@@@Z"
     },
     {
-     "va": "0x004BDFF0",
-     "length": 45,
-     "name": "?sub_004BDFF0_UpdateObject@@YIXPAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Client/UNIT/Object_004BC8D0.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x004BC8D0",
-     "length": 384,
-     "name": "?sub_004BC8D0_UpdateObjectOverlay@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x004BCA50",
-     "length": 58,
-     "name": "?sub_004BCA50_ReleaseUnit@@YIXPAUD2UnitStrc@@@Z"
-    },
-    {
      "va": "0x004BDEE0",
      "length": 76,
      "name": "?sub_004BDEE0@@YIDPAUD2UnitStrc@@@Z"
@@ -33634,6 +33617,11 @@
      "va": "0x004BDFE0",
      "length": 16,
      "name": "?sub_004BDFE0_SetObjectName@@YIXPAUD2UnitStrc@@PBD@Z"
+    },
+    {
+     "va": "0x004BDFF0",
+     "length": 45,
+     "name": "?sub_004BDFF0_UpdateObject@@YIXPAUD2UnitStrc@@@Z"
     },
     {
      "va": "0x004C1A70",
@@ -52100,6 +52088,11 @@
      "length": 111
     },
     {
+     "va": "0x005DE200",
+     "length": 284,
+     "name": "?AITACTICS_WalkCloseToUnit@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@E@Z"
+    },
+    {
      "va": "0x005DE320",
      "length": 8,
      "name": "?sub_005DE320_AttachSoundNoOrigin@@YIXPAUD2UnitStrc@@H@Z"
@@ -54815,7 +54808,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/GAME/Arena_0053F500.cpp",
+   "file": "Source/D2Game/GAME/Arena.cpp",
    "rank": 0,
    "functions": [
     {
@@ -54834,45 +54827,14 @@
      "name": "?ARENA_FreeArenaUnit@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
-     "va": "0x0053FA90",
-     "length": 68,
-     "name": "?sub_0053FA90_ClearArenaUnitUpdate@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0053FAE0",
-     "length": 18,
-     "name": "?sub_0053FAE0@@YIXPAUD2GameStrc@@@Z"
-    },
-    {
-     "va": "0x0053FCA0",
-     "length": 49,
-     "name": "?ARENA_NeedsClientUpdate@@YIIPAUD2GameStrc@@@Z"
-    },
-    {
-     "va": "0x0053FCE0",
-     "length": 48,
-     "name": "?ARENA_IsInArenaMode@@YIIPAUD2GameStrc@@@Z"
-    },
-    {
-     "va": "0x0053FE70",
-     "length": 48,
-     "name": "?ARENA_ShouldTreatClassIdAsTemplateId@@YIIPAUD2GameStrc@@@Z"
-    },
-    {
-     "va": "0x0053FEA0",
-     "length": 46,
-     "name": "?ARENA_GetTemplateType@@YIHPAUD2GameStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/GAME/Arena.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x0053F5D0",
      "length": 41,
      "name": "ARENA_GetAlternateStartTown"
+    },
+    {
+     "va": "0x0053F600",
+     "length": 42,
+     "name": "?sub_0053F600_GetArenaType@@YAHPAUD2GameStrc@@@Z"
     },
     {
      "va": "0x0053F630",
@@ -54882,6 +54844,16 @@
     {
      "va": "0x0053F720",
      "length": 867
+    },
+    {
+     "va": "0x0053FA90",
+     "length": 68,
+     "name": "?sub_0053FA90_ClearArenaUnitUpdate@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0053FAE0",
+     "length": 18,
+     "name": "?sub_0053FAE0@@YIXPAUD2GameStrc@@@Z"
     },
     {
      "va": "0x0053FB00",
@@ -54909,6 +54881,21 @@
      "name": "?ARENA_SendScoresToClient@@YIXPAUD2GameStrc@@PAUD2ClientStrc@@@Z"
     },
     {
+     "va": "0x0053FCA0",
+     "length": 49,
+     "name": "?ARENA_NeedsClientUpdate@@YIIPAUD2GameStrc@@@Z"
+    },
+    {
+     "va": "0x0053FCE0",
+     "length": 48,
+     "name": "?ARENA_IsInArenaMode@@YIIPAUD2GameStrc@@@Z"
+    },
+    {
+     "va": "0x0053FD10",
+     "length": 48,
+     "name": "?ARENA_IsActive@@YIHPAUD2GameStrc@@@Z"
+    },
+    {
      "va": "0x0053FD40",
      "length": 45,
      "name": "ARENA_GetFlags"
@@ -54922,17 +54909,6 @@
      "va": "0x0053FDA0",
      "length": 66,
      "name": "sub_0053FDA0"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/GAME/Arena_0053F600.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0053F600",
-     "length": 42,
-     "name": "?sub_0053F600_GetArenaType@@YAHPAUD2GameStrc@@@Z"
     },
     {
      "va": "0x0053FE00",
@@ -54945,20 +54921,19 @@
      "name": "?sub_0053FE40_TestArenaFlag80@@YIIPAUD2GameStrc@@@Z"
     },
     {
+     "va": "0x0053FE70",
+     "length": 48,
+     "name": "?ARENA_ShouldTreatClassIdAsTemplateId@@YIIPAUD2GameStrc@@@Z"
+    },
+    {
+     "va": "0x0053FEA0",
+     "length": 46,
+     "name": "?ARENA_GetTemplateType@@YIHPAUD2GameStrc@@@Z"
+    },
+    {
      "va": "0x0053FED0",
      "length": 48,
      "name": "?sub_0053FED0_TestArenaFlag200@@YIIPAUD2GameStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/GAME/Arena_0053FD10.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0053FD10",
-     "length": 48,
-     "name": "?ARENA_IsActive@@YIHPAUD2GameStrc@@@Z"
     }
    ]
   },
@@ -58388,37 +58363,10 @@
      "name": "?PLAYERLIST_AllocPlayerList@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     },
     {
-     "va": "0x0055B780",
-     "length": 9,
-     "name": "?sub_0055B780_FreePlayerListCallback@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/UNIT/PlayerList_0055B1E0.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x0055B1E0",
      "length": 113,
      "name": "?PLAYERLIST_IterateCallback_FreePlayerList@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
-    {
-     "va": "0x0055B540",
-     "length": 210,
-     "name": "?sub_0055B540_UpdatePlayerRelations@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x0055B650",
-     "length": 101,
-     "name": "?sub_0055B650_RefreshPendingRelations@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/UNIT/PlayerList_0055B350.cpp",
-   "rank": 0,
-   "functions": [
     {
      "va": "0x0055B350",
      "length": 67,
@@ -58435,14 +58383,29 @@
      "name": "?PLAYERLIST_SendPartyState@@YIXPAUD2UnitStrc@@0@Z"
     },
     {
+     "va": "0x0055B540",
+     "length": 210,
+     "name": "?sub_0055B540_UpdatePlayerRelations@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
      "va": "0x0055B620",
      "length": 47,
      "name": "?PLAYERLIST_InitializePlayerRelations@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x0055B650",
+     "length": 101,
+     "name": "?sub_0055B650_RefreshPendingRelations@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x0055B6C0",
      "length": 86,
      "name": "?PLAYERLIST_GetHostileDelay@@YIHPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x0055B780",
+     "length": 9,
+     "name": "?sub_0055B780_FreePlayerListCallback@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
     {
      "va": "0x0055B790",
@@ -75445,17 +75408,6 @@
    ]
   },
   {
-   "file": "Source/D2Game/Ai/AiTatics_005DE200.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x005DE200",
-     "length": 284,
-     "name": "?AITACTICS_WalkCloseToUnit@@YIHPAUD2GameStrc@@PAUD2UnitStrc@@E@Z"
-    }
-   ]
-  },
-  {
    "file": "Source/D2Game/Unknown_005DE6F0.cpp",
    "rank": 1,
    "functions": [
@@ -79119,13 +79071,7 @@
      "va": "0x006006B0",
      "length": 89,
      "name": "?D2CMPDestroyTileHeaders@@YAXXZ"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2CMP/SRC/TileProjects_00600710.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x00600710",
      "length": 75,

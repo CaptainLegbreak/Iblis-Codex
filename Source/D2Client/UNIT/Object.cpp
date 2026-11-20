@@ -2,48 +2,11 @@
 #include "D2TxtItems.h"
 #include "D2Structs.h"
 #include "D2ClientTypes.h"
+#include "D2Txt.h"
+#include "D2Path.h"
+#include "D2GameObjs.h"
 
 struct D2GfxLightStrc;
-
-struct D2ObjectDataStrc
-{
-    D2ObjectsTxt* pObjectTxt;
-    unsigned char nInteractType;
-    char unk0x05[0x0B];
-    int bPermanent;
-    int unk0x14;
-    char unk0x18[0x20];
-};
-
-
-struct D2ObjectsTxt
-{
-    char unk0x000[0xC4];
-    unsigned char nSelectable[8];
-    char unk0x0CC[0xD8 - 0xCC];
-    int dwFrameCnt[8];
-    char unk0x0F8[0x108 - 0xF8];
-    unsigned char nCycleAnim[8];
-    unsigned char nLit[8];
-    unsigned char nBlocksLight[8];
-    unsigned char nHasCollision[8];
-    unsigned char nIsAttackable0;
-    unsigned char nStart[8];
-    unsigned char nOrderFlag[8];
-    unsigned char nEnvEffect;
-    unsigned char nIsDoor;
-    char unk0x13B[0x164 - 0x13B];
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-    char unk0x167[0x16F - 0x167];
-    unsigned char nShrineFunction;
-    char unk0x170[0x194 - 0x170];
-    int n194;
-    char unk0x198[0x1B4 - 0x198];
-    unsigned char nClientFn;
-    unsigned char nOverlay;
-};
 
 
 struct D2ShrineHandlerStrc
@@ -55,44 +18,81 @@ struct D2ShrineHandlerStrc
 };
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
+
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
+
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
+
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
+
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                               // 0x00681EF0
+
 extern D2DrlgActStrc* gpAct_007A0634;                                                                       // 0x007A0634
+
 extern D2ShrineHandlerStrc gShrineHandlers_006DA8C0[];                                                      // 0x006DA8C0
+
 extern int gnShrineHandlerCount_0072779C;                                                                   // 0x0072779C
+
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);                               // 0x0040B380
+
 void __fastcall sub_00457460(D2UnitStrc* pUnit, int nArg, int nValue);                                      // 0x00457460
+
 void __fastcall sub_0046C320_SpawnAroundUnit(D2UnitStrc* pUnit, int nMonsterId, int nCount);               // 0x0046C320
+
 void __fastcall sub_0046F0C0(D2UnitStrc* pUnit, int nArg, int nValue);                                      // 0x0046F0C0
+
 char __fastcall sub_004BDEE0(D2UnitStrc* pUnit); // 0x004BDEE0
+
 D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
+
 void __fastcall sub_00464930_FreeLight(D2UnitStrc* pUnit);                                                  // 0x00464930
+
 void __fastcall sub_00470390(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
+
 void __fastcall sub_00470610_Refresh(D2UnitStrc* pUnit, int nArg);                                          // 0x00470610
+
 D2GfxLightStrc* __fastcall sub_00474160_MakeLightEntry(D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6); // 0x00474160
+
 void __fastcall sub_00474290(D2GfxLightStrc* pLight, int nRadius);                           // 0x00474290
+
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4);           // 0x004B9A00
+
 void __fastcall sub_004CB460_UpdateModeSound(D2UnitStrc* pUnit);                                                            // 0x004CB460
+
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);                                          // 0x0061A1B0
+
 int __stdcall DUNGEON_GetTownLevelIdFromActNo(unsigned char nAct);                                          // 0x0061AB70
+
 int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseTime);                       // 0x0061C100
+
 void __stdcall UNITS_BlockCollisionPath(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY);        // 0x00620A70
+
 void __stdcall UNITS_InitializeStaticPath(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY);      // 0x00620AE0
+
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
+
 D2ShrinesTxt* __stdcall UNITS_GetShrineTxtRecordFromObject(D2UnitStrc* pUnit);                              // 0x00621B70
+
 void __stdcall UNITS_SetShrineTxtRecordInObjectData(D2UnitStrc* pUnit, D2ShrinesTxt* pShrinesTxtRecord);    // 0x00621BB0
+
 void __stdcall UNITS_FreeCollisionPath(D2UnitStrc* pUnit);                                                  // 0x00623830
+
 int __stdcall sub_00624390_AnimInit(D2UnitStrc* ptUnit); // 0x00624390
+
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode);                                           // 0x00624690
+
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId);                                        // 0x00640E90
+
 D2ShrinesTxt* __stdcall DATATBLS_GetShrinesTxtRecord(int nShrineId);                                        // 0x006414B0
+
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId);                                             // 0x006427F0
+
 int __stdcall UNITROOM_AddUnitToRoom(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom);                           // 0x0064C350
+
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                                                         // 0x0045ADF0
+
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
 
 // 0x004BC580
@@ -209,16 +209,16 @@ void __fastcall sub_004BC720_InitObject(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRo
         nMode = DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom));
         const int eLevelId = DUNGEON_GetTownLevelIdFromActNo(nMode);
         D2_ASSERT(eLevelId <= 0xFF, 0x95);
-        pUnit->pObjectData->nInteractType = eLevelId;
+        pUnit->pObjectData->InteractType = eLevelId;
         break;
     }
     case 0x3C:
     {
         const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
         if (nLevelId == 0x26)
-            pUnit->pObjectData->nInteractType = 4;
+            pUnit->pObjectData->InteractType = 4;
         else if (nLevelId == 4)
-            pUnit->pObjectData->nInteractType = 0x26;
+            pUnit->pObjectData->InteractType = 0x26;
         break;
     }
     }
@@ -330,9 +330,9 @@ static void sub_004BCBB0_UpdateObjectFrame(D2UnitStrc* pUnit)
             if (pTxt->nOrderFlag[2] == 1)
                 pUnit->dwFlags |= 0x100000;
 
-            if (pTxt->n194)
+            if (pTxt->dwParm[7])
             {
-                if (pTxt->n194 == 0xFF)
+                if (pTxt->dwParm[7] == 0xFF)
                     sub_0046C320_SpawnAroundUnit(pUnit, 0x153, 4);
                 else
                     sub_0046C320_SpawnAroundUnit(pUnit, 0x97, 4);
@@ -536,7 +536,7 @@ static void sub_004BD650_InitShrine(D2UnitStrc* pUnit)
 // 0x004BD6B0
 void __fastcall sub_004BD6B0_SetShrine(D2UnitStrc* pUnit)
 {
-    UNITS_SetShrineTxtRecordInObjectData(pUnit, DATATBLS_GetShrinesTxtRecord(pUnit->pObjectData->nInteractType));
+    UNITS_SetShrineTxtRecordInObjectData(pUnit, DATATBLS_GetShrinesTxtRecord(pUnit->pObjectData->InteractType));
     sub_004BD650_InitShrine(pUnit);
 }
 
@@ -568,5 +568,160 @@ void __fastcall sub_004BDFF0_UpdateObject(D2UnitStrc* pUnit)
         sub_004CB460_UpdateModeSound(pUnit);
 }
 
-#include "gen/data/Source/D2Client/UNIT/Object.inc"
 struct D2UnitStrc;
+
+typedef char (__fastcall* D2ObjectClientFn)(D2UnitStrc* pUnit);
+
+void __fastcall sub_0046EC10_FreeGfxData(D2UnitStrc* pUnit);                                                // 0x0046EC10
+
+void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit);                                              // 0x0064C370
+
+int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
+
+unsigned int __stdcall SStrCopy(char* dest,const char* source,unsigned int limit); // 0x004135D0
+
+int __stdcall ITEMS_CheckIfSocketable(D2UnitStrc* pItem);                                                   // 0x00629900
+
+void __fastcall sub_00466CB0_RemoveInventoryUnits(D2UnitStrc* pUnit, int nArg);                             // 0x00466CB0
+
+void __stdcall INVENTORY_FreeInventory(D2InventoryStrc* pInventory);                                        // 0x0063AC40
+
+int __stdcall UNITROOM_IsUnitInRoom(D2ActiveRoomStrc* pRoom, D2UnitStrc* pUnit);                            // 0x0064C260
+
+extern void* gpGlobal_007A0634;                                                                             // 0x007A0634
+
+extern D2ObjectClientFn gapfnObjectClientFn_007277F0[];                                                     // 0x007277F0
+
+// 0x004BC8D0
+void __fastcall sub_004BC8D0_UpdateObjectOverlay(D2UnitStrc* pUnit)
+{
+    if (!pUnit->pObjectData->pObjectTxt->nOverlay)
+    {
+        return;
+    }
+
+    switch ((unsigned int)pUnit->dwClassId)
+    {
+    case 0x98:
+        sub_00470390(pUnit, 0xB6, 3, 0, 0, 0, 0, 0);
+        return;
+
+    case 0x95:
+        if (pUnit->dwAnimMode == 1)
+        {
+            sub_00470390(pUnit, 0xB6, 3, 0, 0, 0, 0, 0);
+        }
+        return;
+
+    case 0x162:
+    case 0x163:
+    case 0x164:
+    case 0x18D:
+    case 0x195:
+    case 0x196:
+    case 0x197:
+    case 0x1C7:
+        if (pUnit->dwAnimMode == 0)
+        {
+            sub_00470390(pUnit, 0x47, 3, 0, 0, 0, 0, 0);
+        }
+        return;
+    }
+}
+
+// 0x004BCA50
+void __fastcall sub_004BCA50_ReleaseUnit(D2UnitStrc* pUnit)
+{
+    sub_0046EC10_FreeGfxData(pUnit);
+    if (gpGlobal_007A0634)
+    {
+        UNITS_FreeCollisionPath(pUnit);
+        UNITROOM_RemoveUnitFromRoom(pUnit);
+        sub_00464930_FreeLight(pUnit);
+    }
+
+    FOG_Free(pUnit->pPlayerData, ".\\UNIT\\Object.cpp", 0xFE, 0);
+}
+
+// 0x004BDEE0
+char __fastcall sub_004BDEE0(D2UnitStrc* pUnit)
+{
+    D2ObjectsTxt* pTxt = DATATBLS_GetObjectsTxtRecord(pUnit->dwClassId);
+    unsigned char nClientFn = pTxt->nClientFn;
+    D2_ASSERT(nClientFn < 0x13, 0x546);
+    if (nClientFn)
+    {
+        return gapfnObjectClientFn_007277F0[nClientFn](pUnit);
+    }
+
+    return 1;
+}
+
+// 0x004BDFE0
+void __fastcall sub_004BDFE0_SetObjectName(D2UnitStrc* pUnit, const char* szName)
+{
+    SStrCopy(pUnit->pObjectData->szOwner, szName, 0x10);
+}
+
+// 0x004C1A70
+void __fastcall sub_004C1A70_ReleaseItemUnit(D2UnitStrc* pUnit)
+{
+    sub_0046EC10_FreeGfxData(pUnit);
+    if (ITEMS_CheckIfSocketable(pUnit))
+    {
+        sub_00466CB0_RemoveInventoryUnits(pUnit, 0);
+        INVENTORY_FreeInventory(pUnit->pInventory);
+        pUnit->pInventory = 0;
+    }
+
+    if (gpGlobal_007A0634)
+    {
+        UNITS_FreeCollisionPath(pUnit);
+        D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
+        if (UNITROOM_IsUnitInRoom(pRoom, pUnit))
+        {
+            UNITROOM_RemoveUnitFromRoom(pUnit);
+        }
+    }
+}
+
+// 0x004C1AD0
+void __fastcall sub_004C1AD0_UpdateAnim(D2UnitStrc* pUnit)
+{
+    D2_ASSERT(pUnit, 0x348);
+    switch (pUnit->dwAnimMode)
+    {
+    case 5:
+        if (UNITS_IsAtEndOfFrameCycle(pUnit))
+        {
+            pUnit->dwAnimMode = 3;
+            break;
+        }
+
+        UNITS_UpdateFrame(pUnit);
+        return;
+
+    case 3:
+        pUnit->dwFlags |= 2;
+        if (sub_0046E100(pUnit, 0x46))
+        {
+            return;
+        }
+        break;
+
+    case 0:
+    case 1:
+    case 2:
+    case 4:
+    case 6:
+        pUnit->dwFlags &= ~2;
+        return;
+
+    default:
+        D2_ASSERT(0, 0x362);
+    }
+
+    sub_00470390(pUnit, 0x46, 6, 8, 0, 0, 8, 0);
+}
+
+#include "gen/data/Source/D2Client/UNIT/Object.inc"
