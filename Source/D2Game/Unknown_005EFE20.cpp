@@ -2,6 +2,7 @@
 #include "D2Txt.h"
 #include "D2Path.h"
 #include "D2GameTypes.h"
+#include "D2GameStrc.h"
 
 #define MONMODE_ATTACK1 4
 #define MONMODE_ATTACK2 5
@@ -14,13 +15,6 @@ struct D2GreaterMummyAiCallbackArgStrc;
 
 
 
-struct D2GameStrc
-{
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-    char unk0x6E[0x3A];
-    int dwGameFrame;
-};
 
 
 

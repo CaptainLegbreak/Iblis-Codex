@@ -4,6 +4,7 @@
 #include "D2Txt.h"
 #include "D2Path.h"
 #include "D2GameTypes.h"
+#include "D2GameStrc.h"
 
 enum D2C_M244AiBaalConstants
 {
@@ -31,13 +32,6 @@ struct D2TargetNodeStrc
     D2TargetNodeStrc* unk0x0C;
 };
 
-struct D2GameStrc
-{
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-    char pad0x6E[0x10F8 - 0x6E];
-    D2TargetNodeStrc* pTargetNodes[10];
-};
 
 
 

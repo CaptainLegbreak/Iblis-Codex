@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2Path.h"
+#include "D2GameStrc.h"
 
 #define PLRMODE_DEATH 0
 #define PLRMODE_DEAD 17
@@ -44,13 +45,6 @@ struct D2TargetNodeStrc
     D2TargetNodeStrc* unk0x0C;
 };
 
-struct D2GameStrc
-{
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-    unsigned char unk_6E[0x108A];
-    D2TargetNodeStrc* pTargetNodes[10];
-};
 
 
 
