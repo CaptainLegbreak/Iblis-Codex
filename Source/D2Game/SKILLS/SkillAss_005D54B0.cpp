@@ -5,6 +5,7 @@
 #include "D2GameStrc.h"
 #include "D2GameTypes.h"
 #include "D2Txt.h"
+#include "D2LevelTxt.h"
 struct D2MonStatsTxt;
 struct D2UnitStrc;
 
@@ -16,12 +17,6 @@ struct D2SkillsTxt;
 struct D2LevelsTxt;
 struct D2CurseStrc;
 struct D2SrvDo47Strc;
-
-struct D2LevelsTxt
-{
-    char unk0x00[0x4];
-    unsigned char nTeleport;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0

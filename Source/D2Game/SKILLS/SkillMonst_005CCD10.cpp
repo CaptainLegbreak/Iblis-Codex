@@ -5,25 +5,11 @@
 #include "D2DataTbls.h"
 #include "D2GameTypes.h"
 #include "D2Txt.h"
+#include "D2LevelTxt.h"
 
 struct D2GfxLightStrc;
 
-
-
-
-
-struct D2StatesTxt
-{
-    char unk0x00[0x20];
-    unsigned char nColorPri;
-    unsigned char nColorShift;
-    unsigned char nLightRGB[3];
-    char unk0x25[0x17];
-};
-
-
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArg);
-
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 

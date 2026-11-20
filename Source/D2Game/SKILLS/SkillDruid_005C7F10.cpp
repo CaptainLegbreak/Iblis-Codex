@@ -7,6 +7,8 @@
 #include "D2Txt.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2GameRecords.h"
+#include "D2LevelTxt.h"
 
 enum D2C_F39Constants
 {
@@ -49,24 +51,6 @@ enum D2C_F39Constants
 };
 
 struct D2MonsterRegionStrc;
-
-struct D2UnitFindArgStrc
-{
-    int nFlags;
-    int unk0x04;
-    D2UnitStrc* pUnit;
-    int nX;
-    int nY;
-    int nSize;
-    int nMaxArrayEntries;
-    int nIndex;
-    void* pField;
-    void* pfnUnitTest;
-    int unk0x28;
-    int unk0x2C;
-    int unk0x30;
-    int unk0x34;
-};
 
 struct D2UnitFindDataStrc
 {
@@ -157,17 +141,6 @@ struct D2DamageAuraParamStrc
     D2StatListStrc* pStatList;
     int nPassiveState;
     D2DamageStrc* pDamage;
-};
-
-struct D2DifficultyLevelsTxt
-{
-    char unk0x00[0x40];
-    int dwStaticFieldMin;
-};
-
-struct D2StatesTxt
-{
-    char unk0x00[0x3C];
 };
 
 struct D2DataTablesStrc

@@ -7,28 +7,11 @@
 #include "D2UnitData.h"
 #include "D2Drlg.h"
 #include "D2TxtItems.h"
+#include "D2GameObjs.h"
+#include "D2ItemsWorld.h"
 
 struct D2ObjectControlStrc;
 union D2SeedStrc;
-
-struct D2ObjectDataStrc
-{
-    D2ObjectsTxt* pObjectTxt;
-    unsigned char InteractType;
-    unsigned char nPortalFlags;
-    unsigned short unk0x06;
-    D2ShrinesTxt* pShrineTxt;
-    int dwOperateGUID;
-};
-
-struct D2ObjOperateFnStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* hObject;
-    D2UnitStrc* hPlayer;
-    D2ObjectControlStrc* pObjectregion;
-    int nObjectIdx;
-};
 
 typedef void(__fastcall* ObjShrineFunction)(D2ObjOperateFnStrc* pOp, D2ShrinesTxt* pShrinesTxtRecord);
 
@@ -37,37 +20,6 @@ struct D2ShrineTableStrc
     ObjShrineFunction pfShrineCallback;
     int unk0x04;
     int unk0x08;
-};
-
-struct D2ItemDropStrc
-{
-    D2UnitStrc* pUnit;
-    D2SeedStrc* pSeed;
-    D2GameStrc* pGame;
-    int nItemLvl;
-    unsigned int unk0x10;
-    int nId;
-    int nSpawnType;
-    int nX;
-    int nY;
-    D2ActiveRoomStrc* pRoom;
-    unsigned short wUnitInitFlags;
-    unsigned short wItemFormat;
-    int bForce;
-    int nQuality;
-    int nQuantity;
-    int nMinDur;
-    int nMaxDur;
-    int nItemIndex;
-    unsigned int dwFlags1;
-    unsigned int dwSeed;
-    unsigned int dwItemSeed;
-    int eEarLvl;
-    int nQtyOverride;
-    char szName[16];
-    int nPrefix[3];
-    int nSuffix[3];
-    unsigned int dwFlags2;
 };
 
 struct D2GSPacketSrv63

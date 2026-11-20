@@ -8,6 +8,7 @@
 #include "D2Txt.h"
 #include "D2GameTypes.h"
 #include "D2ItemsWorld.h"
+#include "D2GameRecords.h"
 struct D2ActiveRoomStrc;
 struct D2GameStrc;
 struct D2UnitStrc;
@@ -69,12 +70,6 @@ int __fastcall sub_00463860(D2UnitStrc* pUnit); // 0x00463860
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
 typedef int(__fastcall* UNITFINDTEST)(D2UnitStrc* pUnit);
-
-struct D2UnitFindArgStrc
-{
-    int nFlags; int unk0x04; D2UnitStrc* pUnit; int nX; int nY; int nSize; int nMaxArrayEntries; int nIndex;
-    void* pField; void* pfnUnitTest; int unk0x28; int unk0x2C; int unk0x30; int unk0x34;
-};
 
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20

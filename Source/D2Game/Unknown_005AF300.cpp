@@ -6,52 +6,14 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2TxtItems.h"
+#include "D2GameObjs.h"
+#include "D2ItemsWorld.h"
 
 struct D2ObjectControlStrc;
 union D2SeedStrc;
 struct D2StaticPathStrc;
 struct D2ObjOperateFnStrc;
 struct D2MissilesTxt;
-
-struct D2ObjOperateFnStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* hObject;
-    D2UnitStrc* hPlayer;
-    D2ObjectControlStrc* pObjectregion;
-    int nObjectIdx;
-};
-
-struct D2ItemDropStrc
-{
-    D2UnitStrc* pUnit;
-    D2SeedStrc* pSeed;
-    D2GameStrc* pGame;
-    int nItemLvl;
-    unsigned int unk0x10;
-    int nId;
-    int nSpawnType;
-    int nX;
-    int nY;
-    D2ActiveRoomStrc* pRoom;
-    unsigned short wUnitInitFlags;
-    unsigned short wItemFormat;
-    int bForce;
-    int nQuality;
-    int nQuantity;
-    int nMinDur;
-    int nMaxDur;
-    int nItemIndex;
-    unsigned int dwFlags1;
-    unsigned int dwSeed;
-    unsigned int dwItemSeed;
-    int eEarLvl;
-    int nQtyOverride;
-    char szName[16];
-    int nPrefix[3];
-    int nSuffix[3];
-    unsigned int dwFlags2;
-};
 
 struct D2MissilesTxt { char unk00[0x38]; int dwParam[3]; char unk44[0x52]; short nAnimLen; char unk98[0x10C]; };
 

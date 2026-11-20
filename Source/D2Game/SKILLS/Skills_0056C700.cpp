@@ -7,6 +7,7 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
+#include "D2GameRecords.h"
 
 #define STAT_FIRERESIST 39
 #define STAT_LIGHTRESIST 41
@@ -23,12 +24,7 @@ struct D2StatesTxt;
 struct D2MonStatsTxt;
 struct D2MonStats2Txt;
 
-
-
-
-
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-
 
 enum D2C_ElemTypes
 {
@@ -48,15 +44,6 @@ enum D2C_ElemTypes
 };
 
 extern const int gnRandomElemTypes_006E1278[4]; // 0x006E1278
-
-
-
-
-struct D2UnitFindArgStrc
-{
-    int nFlags; int unk_04; D2UnitStrc* pUnit; int nX; int nY; int nSize; int nMaxArrayEntries; int nIndex;
-    void* pField; void* pfnUnitTest; int unk_28; int unk_2C; int unk_30; int unk_34;
-};
 
 struct D2UnitFindDataStrc
 {
@@ -99,8 +86,6 @@ struct D2CurseStrc
 };
 
 struct D2StatesTxt { char unk_00[0x10]; unsigned char nFlags[4]; char unk_14[0x28]; };
-
-
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0

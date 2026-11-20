@@ -2,15 +2,10 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2ItemsWorld.h"
+#include "D2LevelTxt.h"
 struct D2DamageStrc;
 struct D2GameStrc;
 struct D2UnitStrc;
-
-struct D2HirelingTxt
-{
-    char unk0x00[0x20];
-    int dwExpPerLvl;
-};
 
 struct D2PartyExpStrc
 {

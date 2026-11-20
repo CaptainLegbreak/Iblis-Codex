@@ -4,6 +4,7 @@
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2LevelTxt.h"
 struct D2UnitStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -19,9 +20,6 @@ struct D2PlayerDataStrc;
 struct D2MonStatsTxt;
 struct D2SkillsTxt;
 struct D2PetTypeTxt;
-
-
-
 
 struct D2PetArgStrc
 {
@@ -56,14 +54,12 @@ struct D2PlayerPetStrc
     D2PetListStrc* pPetList;
 };
 
-
 struct D2MonStatsTxt
 {
     char unk0x00[0x0C];
     unsigned char dwMonStatsFlags[4];
     char unk0x10[0x1A8 - 0x0C - 4];
 };
-
 
 typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
 
@@ -99,14 +95,6 @@ struct D2SkillsTxt
     char unk0x0BF;
     unsigned int dwPetMax;
     char unk0x0C4[0x178];
-};
-
-struct D2PetTypeTxt
-{
-    unsigned int dwHcIdx;
-    unsigned char nPetFlags[4];
-    short wGroup;
-    short wBaseMax;
 };
 
 extern "C" D2PetTypeTxt* __fastcall sub_00478A20_GetPetTypeTxtRecord(int nPetType);

@@ -5,6 +5,9 @@
 #include "D2GameTypes.h"
 #include "D2Txt.h"
 #include "D2TxtItems.h"
+#include "D2ItemsWorld.h"
+#include "D2GameObjs.h"
+#include "D2GameStrc.h"
 struct D2ActiveRoomStrc;
 struct D2RoomCoordListStrc;
 struct D2UnitStrc;
@@ -36,50 +39,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 typedef int (__stdcall* FARPROC)();
 
-struct D2ObjectControlStrc
-{
-    D2SeedStrc pSeed;
-};
-
-struct D2ObjectDataStrc
-{
-    D2ObjectsTxt* pObjectTxt;
-    unsigned char InteractType;
-};
-
-struct D2MonRegDataStrc
-{
-    short nMonHcIdx;
-    char unk0x002[0x32];
-};
-
-struct D2MonsterRegionStrc
-{
-    char unk0x000[0x10];
-    unsigned char nMonCount;
-    char unk0x011[0x3];
-    D2MonRegDataStrc pMonData[1];
-};
-
-struct D2GameStrc
-{
-    char unk0x00[0x78];
-    unsigned short wItemFormat;
-    unsigned char unk_7A[0x2E];
-    int dwGameFrame;
-    char unk0x0AC[0x44];
-    D2MonsterRegionStrc* pMonReg[1];
-};
-
-struct D2ObjOperateFnStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* hObject;
-    D2UnitStrc* hPlayer;
-    D2ObjectControlStrc* pObjectregion;
-    int nObjectIdx;
-};
-
 typedef void (__fastcall* ObjTrapHandlerFunction)(D2GameStrc* pGame, D2UnitStrc* pUnit);
 
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x006CC34C
@@ -105,37 +64,6 @@ D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x006439B0
 int __stdcall SKILLS_GetSkillMode(D2SkillStrc* pSkill); // 0x00644360
-
-struct D2ItemDropStrc
-{
-    D2UnitStrc* pUnit;
-    D2SeedStrc* pSeed;
-    D2GameStrc* pGame;
-    int nItemLvl;
-    unsigned int unk0x10;
-    int nId;
-    int nSpawnType;
-    int nX;
-    int nY;
-    D2ActiveRoomStrc* pRoom;
-    unsigned short wUnitInitFlags;
-    unsigned short wItemFormat;
-    int bForce;
-    int nQuality;
-    int nQuantity;
-    int nMinDur;
-    int nMaxDur;
-    int nItemIndex;
-    unsigned int dwFlags1;
-    unsigned int dwSeed;
-    unsigned int dwItemSeed;
-    int eEarLvl;
-    int nQtyOverride;
-    char szName[16];
-    int nPrefix[3];
-    int nSuffix[3];
-    unsigned int dwFlags2;
-};
 
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc*, int);
 

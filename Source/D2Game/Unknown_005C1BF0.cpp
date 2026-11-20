@@ -2,6 +2,7 @@
 #include "D2Txt.h"
 #include "D2Path.h"
 #include "D2ItemsWorld.h"
+#include "D2GameRecords.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2LowQualityItemsTxt;
@@ -10,12 +11,6 @@ struct D2MagicAffixTxt;
 struct D2RareAffixIndexAndPtrStrc;
 struct D2ItemsTxt;
 struct D2LowQualityItemDataTbl;
-
-struct D2MagicAffixTxt
-{
-    char unk0x00[0x5C];
-    unsigned int dwGroup;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090

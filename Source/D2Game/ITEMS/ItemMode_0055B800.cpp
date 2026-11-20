@@ -8,6 +8,7 @@
 #include "D2UnitData.h"
 #include "D2TxtTables.h"
 #include "D2ItemsWorld.h"
+#include "D2LevelTxt.h"
 struct D2ClientStrc;
 struct D2GameStrc;
 struct D2InventoryStrc;
@@ -87,14 +88,6 @@ void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc*, D2UnitStrc*, int, int
 void __stdcall STATLIST_ExpireUnitStatlist(D2UnitStrc*, D2UnitStrc*); // 0x006277F0
 void __fastcall sub_0055C6E0_OnItemToCursor(D2UnitStrc*, D2UnitStrc*); // 0x0055C6E0
 void __stdcall sub_006275B0(D2UnitStrc*); // 0x006275B0
-
-struct D2UniqueItemsTxt
-{
-    short wId;
-    char unk0x002[0x2A];
-    unsigned char nUniqueItemFlags[4];
-    char unk0x030[0x11C];
-};
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 extern D2QuestItemPairStrc gQuestItemPairs_00731FEC[4]; // 0x00731FEC

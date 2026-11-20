@@ -12,6 +12,7 @@
 #include "D2GameAux.h"
 #include "D2Txt.h"
 #include "D2GameObjs.h"
+#include "D2GameRecords.h"
 
 #define MONSTATSFLAGINDEX_NOAURA 27
 #define ITEMTYPE_CROSSBOW 35
@@ -191,24 +192,6 @@ struct D2EffectStrc
     int nSkillLevel;
     int unk0x1C;
     void* pfAreaEffect;
-};
-
-struct D2UnitFindArgStrc
-{
-    int nFlags;
-    int unk0x04;
-    D2UnitStrc* pUnit;
-    int nX;
-    int nY;
-    int nSize;
-    int nMaxArrayEntries;
-    int nIndex;
-    void* pField;
-    void* pfnUnitTest;
-    int unk0x28;
-    int unk0x2C;
-    int unk0x30;
-    int unk0x34;
 };
 
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x006CC34C

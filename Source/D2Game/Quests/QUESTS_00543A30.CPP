@@ -4,29 +4,18 @@
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2LevelTxt.h"
 
 struct D2QuestChainStrc;
 
 typedef int (__stdcall* FARPROC)();
 typedef void (__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuest, D2QuestArgStrc* pArgs);
 
-
-
-
 struct D2QuestChainStrc
 {
     D2QuestDataStrc* pQuestData;
     D2QuestChainStrc* pNext;
 };
-
-
-struct D2SuperUniquesTxt
-{
-    char unk0x00[0x08];
-    int dwHcIdx;
-    char unk0x0C[0x28];
-};
-
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090

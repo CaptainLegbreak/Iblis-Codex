@@ -3,6 +3,7 @@
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
 #include "D2QuestData.h"
+#include "D2GameRecords.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -13,17 +14,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 #define UNIT_PLAYER 0x00
 #define CLIENTS_MAX_UPDATES 55u
 
-
-
-
 typedef int (__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
-
-struct D2PacketDataStrc
-{
-    int nPacketSize;
-    unsigned char packetData[0x200];
-    D2PacketDataStrc* pNext;
-};
 
 struct D2ClientStrc
 {
