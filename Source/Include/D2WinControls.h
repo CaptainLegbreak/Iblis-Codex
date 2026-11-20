@@ -1,6 +1,6 @@
 #pragma once
 // D2Win: the window control types built on the control header (text boxes and their lines, edit boxes, buttons,
-// account lists).
+// account lists, scroll bars, lists, images, animated images, movies).
 
 #include "D2Check.h"
 #include "D2Structs.h"
@@ -14,6 +14,13 @@ struct D2WinTextBoxStrc;
 struct D2WinEditBoxStrc;
 struct D2WinButtonStrc;
 struct D2WinAccountListStrc;
+struct D2WinListDataStrc;
+struct D2WinListStrc;
+struct D2WinImageClickRectStrc;
+struct D2WinImageStrc;
+struct D2AnimatedImageDescriptor;
+struct D2WinAnimImageStrc;
+struct D2WinSmackStrc;
 
 struct D2WinTextBoxLineStrc
 {
@@ -103,8 +110,75 @@ struct D2WinAccountListStrc
     int unk0x54; // 0x54
 };
 
+struct D2WinScrollBarStrc
+{
+    D2WinControlStrc controlHeader; // 0x00
+    int bIsUpperArrowPressed; // 0x40
+    int bIsLowerArrowPressed; // 0x44
+    int nMaxSteps; // 0x48
+    int nCurrentStep; // 0x4C
+    int field_50; // 0x50
+    D2WinTextBoxStrc* pTextBox; // 0x54
+    int bIsStepIndicatorDragged; // 0x58
+    D2WinMsgHandler field_5C; // 0x5C
+};
+
+struct D2WinListStrc
+{
+    D2WinControlStrc controlHeader; // 0x00
+    int eFont; // 0x40
+    int field_44; // 0x44
+    int field_48; // 0x48
+    int field_4C; // 0x4C
+    int field_50; // 0x50
+    int field_54; // 0x54
+    int field_58; // 0x58
+    int field_5C; // 0x5C
+    int nWidestEntry; // 0x60
+    D2WinListDataStrc* pDataList; // 0x64
+    D2WinListDataStrc* pSelectedDataEntry; // 0x68
+};
+
+struct D2WinImageStrc
+{
+    D2WinControlStrc controlHeader; // 0x00
+    int nFrame; // 0x40
+    int eDrawMode; // 0x44
+    D2WinImageClickRectStrc* pClickRect; // 0x48
+    int field_4C; // 0x4C
+    int field_50; // 0x50
+};
+
+struct D2WinAnimImageStrc
+{
+    D2WinControlStrc controlHeader; // 0x00
+    D2AnimatedImageDescriptor* pAnimatedImageDescriptor; // 0x40
+    int nAnimSpeed; // 0x44
+    unsigned long dwStartTickCount; // 0x48
+    int nFrame; // 0x4C
+    int nAnimType; // 0x50
+    int eDrawMode; // 0x54
+    D2WinMsgHandler field_58; // 0x58
+    int bIsRunning; // 0x5C
+};
+
+struct D2WinSmackStrc
+{
+    D2WinControlStrc controlHeader; // 0x00
+    char szFileName[256]; // 0x40
+    int field_140; // 0x140
+    int field_144; // 0x144
+    int nMovieX; // 0x148
+    int nMovieY; // 0x14C
+};
+
 D2_CHECK_SIZE(D2WinTextBoxLineStrc, 0x20);
 D2_CHECK_SIZE(D2WinTextBoxStrc, 0xAC);
 D2_CHECK_SIZE(D2WinEditBoxStrc, 0x284);
 D2_CHECK_SIZE(D2WinButtonStrc, 0x274);
 D2_CHECK_SIZE(D2WinAccountListStrc, 0x58);
+D2_CHECK_SIZE(D2WinScrollBarStrc, 0x60);
+D2_CHECK_SIZE(D2WinListStrc, 0x6C);
+D2_CHECK_SIZE(D2WinImageStrc, 0x54);
+D2_CHECK_SIZE(D2WinAnimImageStrc, 0x60);
+D2_CHECK_SIZE(D2WinSmackStrc, 0x150);

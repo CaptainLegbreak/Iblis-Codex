@@ -2,6 +2,7 @@
 #include "D2CelContext.h"
 #include "D2WinTypes.h"
 #include "D2Unicode.h"
+#include "D2WinControls.h"
 
 #define WM_LBUTTONDOWN 0x201
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -31,19 +32,6 @@ struct SMSGHANDLER_PARAMS
 typedef int (__stdcall* D2WinMsgHandler)(SMSGHANDLER_PARAMS* pMsg);
 
 typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
-
-struct D2WinScrollBarStrc
-{
-    D2WinControlStrc controlHeader;
-    int bIsUpperArrowPressed;
-    int bIsLowerArrowPressed;
-    int nMaxSteps;
-    int nCurrentStep;
-    int field_50;
-    D2WinTextBoxStrc* pTextBox;
-    int bIsStepIndicatorDragged;
-    D2WinMsgHandler field_5C;
-};
 
 struct tagPOINT
 {

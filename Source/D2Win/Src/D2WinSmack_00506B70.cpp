@@ -1,5 +1,6 @@
 #include "D2Win.h"
 #include "D2WinTypes.h"
+#include "D2WinControls.h"
 
 struct D2WinControlStrc;
 
@@ -7,16 +8,6 @@ typedef int (__stdcall* D2WinMsgHandler)(SMSGHANDLER_PARAMS* pMsg);
 typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
 
 #pragma pack(push, 1)
-
-struct D2WinSmackStrc
-{
-    D2WinControlStrc controlHeader;
-    char szFile[0x100];
-    int unk0x140;
-    int unk0x144;
-    int nMovieX;
-    int nMovieY;
-};
 
 #pragma pack(pop)
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
@@ -41,8 +32,8 @@ D2WinSmackStrc* __fastcall sub_00506B70_SmackCreate(int nX, int nY, int nWidth, 
     pSmack->controlHeader.field_34 = pfHandler;
     pSmack->controlHeader.pfDraw = SMACK_Draw;
     pSmack->controlHeader.pfHandleMouseDown = SMACK_HandleMouseDown;
-    pSmack->szFile[0] = 0;
-    memset(&pSmack->unk0x140, 0, 2 * sizeof(int));
+    pSmack->szFileName[0] = 0;
+    memset(&pSmack->field_140, 0, 2 * sizeof(int));
     pSmack->nMovieX = (nWidth - 468) / 2 + nX;
     pSmack->nMovieY = (nHeight - 60) / 2 + nY;
     CONTROL_AppendToList(&pSmack->controlHeader);

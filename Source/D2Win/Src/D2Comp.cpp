@@ -1,6 +1,7 @@
 #include "D2WinTypes.h"
 #include "D2WinTypes.h"
 #include "D2WinControls.h"
+#include "D2WinControls.h"
 struct D2WinEditBoxStrc;
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -147,16 +148,6 @@ typedef int (__stdcall* D2WinMsgHandler)(SMSGHANDLER_PARAMS* pMsg);
 
 typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
 
-struct D2WinSmackStrc
-{
-    D2WinControlStrc controlHeader;
-    char szFileName[256];
-    int field_140;
-    int field_144;
-    int field_148;
-    int field_14C;
-};
-
 struct D2WinListDataStrc
 {
     Unicode wszText[256];
@@ -175,22 +166,6 @@ struct D2WinListDataStrc
     D2WinListDataStrc* pNext;
 };
 
-struct D2WinListStrc
-{
-    D2WinControlStrc controlHeader;
-    int eFont;
-    int field_44;
-    int field_48;
-    int field_4C;
-    int field_50;
-    int field_54;
-    int field_58;
-    int field_5C;
-    int nWidestEntry;
-    D2WinListDataStrc* pDataList;
-    D2WinListDataStrc* pSelectedDataEntry;
-};
-
 struct D2WinAccountListFontStrc
 {
     int eFont;
@@ -201,19 +176,6 @@ struct D2WinProgressBarStrc
 {
     D2WinControlStrc controlHeader;
     float fProgress;
-};
-
-struct D2WinScrollBarStrc
-{
-    D2WinControlStrc controlHeader;
-    int bIsUpperArrowPressed;
-    int bIsLowerArrowPressed;
-    int nMaxSteps;
-    int nCurrentStep;
-    int field_50;
-    D2WinTextBoxStrc* pTextBox;
-    int bIsStepIndicatorDragged;
-    D2WinMsgHandler field_5C;
 };
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 0x006CC260
@@ -563,8 +525,8 @@ int __stdcall SMACK_SetCoordinates(D2WinSmackStrc* pSmack, int nX, int nY)
     D2_ASSERT(pSmack->controlHeader.eType == D2WIN_SMACK, 0x7B);
     pSmack->controlHeader.nImageX = nX;
     pSmack->controlHeader.nImageY = nY;
-    pSmack->field_148 = nX;
-    pSmack->field_14C = nY;
+    pSmack->nMovieX = nX;
+    pSmack->nMovieY = nY;
     return 1;
 }
 

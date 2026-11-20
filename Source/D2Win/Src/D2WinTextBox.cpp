@@ -6,6 +6,7 @@
 #include "D2WinTypes.h"
 #include "D2WinControls.h"
 #include "D2Unicode.h"
+#include "D2WinControls.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -50,16 +51,6 @@ extern "C" int __fastcall sub_005080F0_GetScrollBarField50(D2WinScrollBarStrc* p
 typedef int (__stdcall* D2WinMsgHandler)(struct SMSGHANDLER_PARAMS* pMsg);
 
 typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
-
-struct D2WinImageStrc
-{
-    D2WinControlStrc controlHeader;
-    int nFrame;
-    int eDrawMode;
-    D2WinImageClickRectStrc* pClickRect;
-    int field_4C;
-    int field_50;
-};
 
 enum D2ControlTypes
 {

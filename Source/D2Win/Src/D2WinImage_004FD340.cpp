@@ -1,6 +1,7 @@
 #include "D2Win.h"
 #include "D2ClientTypes.h"
 #include "D2WinTypes.h"
+#include "D2WinControls.h"
 
 struct D2WinControlStrc;
 struct Unicode;
@@ -8,19 +9,7 @@ struct Unicode;
 typedef int (__stdcall* D2WinMsgHandler)(struct SMSGHANDLER_PARAMS* pMsg);
 typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
 
-
 struct D2WinImageClickRectStrc;
-
-struct D2WinImageStrc
-{
-    D2WinControlStrc controlHeader;
-    int nFrame;
-    int eDrawMode;
-    D2WinImageClickRectStrc* pClickRect;
-    int field_4C;
-    int field_50;
-};
-
 
 enum D2ControlTypes
 {

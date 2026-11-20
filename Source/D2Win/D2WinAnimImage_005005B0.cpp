@@ -1,6 +1,7 @@
 #include "D2Win.h"
 #include "D2CelContext.h"
 #include "D2WinTypes.h"
+#include "D2WinControls.h"
 
 struct D2WinControlStrc;
 
@@ -25,19 +26,6 @@ struct D2AnimatedImageDescriptor
     D2CelFileStrc** ppCellFile2;
     int eDrawMode;
     int nAnimSpeed;
-};
-
-struct D2WinAnimImageStrc
-{
-    D2WinControlStrc controlHeader;
-    D2AnimatedImageDescriptor* pAnimatedImageDescriptor;
-    int nAnimSpeed;
-    unsigned long dwStartTickCount;
-    int nFrame;
-    int nAnimType;
-    int eDrawMode;
-    D2WinMsgHandler field_58;
-    int bIsRunning;
 };
 
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
