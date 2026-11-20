@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2CelContext.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -165,15 +166,6 @@ int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 extern D2EscMenuUIStateStrc gaEscMenuUIState_00713058[38]; // 0x00713058
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    void* pCellFile;
-    int unk0x38[2];
-    int unk0x40;
-    int unk0x44;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x00681EF0
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480

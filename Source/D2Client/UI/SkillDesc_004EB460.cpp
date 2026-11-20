@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Records.h"
 
 struct Unicode;
 struct D2SkillsTxt;
@@ -60,12 +61,6 @@ int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLay
 int __stdcall sub_0063A380(D2UnitStrc* pUnit); // 0x0063A380
 int __stdcall sub_0063A3A0(D2UnitStrc* pUnit); // 0x0063A3A0
 
-struct D2SkillDescTxt
-{
-    char unk0x00[0x18];
-    unsigned int dwDamCalc[2];
-    char unk0x20[0x100];
-};
 
 
 struct UnicodeChar : Unicode

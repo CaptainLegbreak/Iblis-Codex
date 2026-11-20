@@ -1,3 +1,4 @@
+#include "D2CelContext.h"
 struct D2CelFileStrc;
 struct D2CelStrc;
 
@@ -38,15 +39,6 @@ struct D2FontCacheStrc
     unsigned int dwShiftedTickCount;
 };
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    D2CelFileStrc* pCellFile;
-    int unk0x38[2];
-    int nDirection;
-    int unk0x44;
-};
 
 int __cdecl sub_004F5140(); // 0x004F5140
 extern "C" int __fastcall sub_00526800(const unsigned short* pText); // 0x00526800

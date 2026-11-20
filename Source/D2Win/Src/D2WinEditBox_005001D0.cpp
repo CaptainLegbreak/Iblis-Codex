@@ -1,4 +1,5 @@
 #include "D2Win.h"
+#include "D2CelContext.h"
 
 struct SMSGHANDLER_PARAMS
 {
@@ -135,15 +136,6 @@ struct D2WinButtonStrc
     int nStringId;
 };
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    void* pCellFile;
-    int unk0x38[2];
-    int unk0x40;
-    int unk0x44;
-};
 
 struct D2SplittedTextStrc
 {
@@ -232,7 +224,7 @@ int __fastcall ANIMIMAGE_ShouldMouseInputBeHandled(D2WinControlStrc* pControl)
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = pCellFile;
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     tContext.nFrame = 0;
 
     D2CelStrc* pCel = CelGetHandle(&tContext);

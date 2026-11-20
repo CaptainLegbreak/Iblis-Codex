@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2CelContext.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -127,17 +128,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType); // 0x004788B0
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    union
-    {
-        D2CelFileStrc* pCelFile;
-        void* pCellFile;
-    };
-    int unk0x38[4];
-};
 extern D2OptionHeaderStrc* gpOptionHeader_007BC93C; // 0x007BC93C
 extern D2CellFileStrc* gpSliderDisabledCell_007BC950; // 0x007BC950
 extern D2CellFileStrc* gpSliderEnabledCell_007BC954; // 0x007BC954
@@ -397,7 +387,7 @@ void __stdcall sub_0047E260_DrawOptionSlider(D2OptionEntryStrc* pEntry, int nY, 
 
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.pCelFile = gpSliderKnob_007BC958;
+    tContext.pCellFile = gpSliderKnob_007BC958;
     TEXTURE_CelDraw(&tContext, nKnobX, nKnobY, -1, nColor, 0);
 }
 

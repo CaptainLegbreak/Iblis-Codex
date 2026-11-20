@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Records.h"
 
 struct Unicode;
 struct D2SkillsTxt;
@@ -31,13 +32,6 @@ unsigned char __stdcall MISSILE_GetElemTypeFromMissileId(int nMissileId); // 0x0
 int __stdcall MISSILE_GetMinElemDamage(D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nLevel); // 0x0064B100
 int __stdcall MISSILE_GetMaxElemDamage(D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nLevel); // 0x0064B1D0
 
-struct D2SkillDescTxt
-{
-    char unk0x00[0x08];
-    unsigned short wStrName;
-    unsigned short wStrShort;
-    char unk0x0C[0x114];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

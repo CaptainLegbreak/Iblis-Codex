@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2CelContext.h"
 
 struct D2CellFileStrc;
 
@@ -16,15 +17,6 @@ struct UnicodeChar : Unicode
 };
 
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    void* pCellFile;
-    int unk0x38[2];
-    int unk0x40;
-    int unk0x44;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
@@ -215,7 +207,7 @@ void __cdecl sub_0048EDF0_DrawInventoryPanel()
 
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
 
     switch (gdwGlobal_007BCBF0)
     {

@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Records.h"
 struct D2SkillStrc;
 struct D2UnitStrc;
 
@@ -30,14 +31,6 @@ struct D2UniqueItemsTxt
     char unk0x89[0xC3];
 };
 
-struct D2SetItemsTxt
-{
-    char unk0x00[0x82];
-    short wDropSound;
-    char unk0x84[2];
-    unsigned char nDropSfxFrame;
-    char unk0x87[0x131];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304

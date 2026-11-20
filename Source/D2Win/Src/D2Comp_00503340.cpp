@@ -1,5 +1,6 @@
 #include "D2Win.h"
 #include "D2Txt.h"
+#include "D2Records.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define COF_PAD 0x20
@@ -161,14 +162,6 @@ __declspec(noinline) void __stdcall sub_00503FA0_AddHoverLine(const Unicode* wsz
 
 typedef unsigned int size_t;
 
-struct D2BinFieldStrc
-{
-    const char* szFieldName;
-    int nFieldType;
-    int nFieldLength;
-    int nFieldOffset;
-    void* pLinkField;
-};
 
 struct D2CompPairStrc
 {

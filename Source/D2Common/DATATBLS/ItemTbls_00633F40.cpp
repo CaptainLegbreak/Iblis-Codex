@@ -1,14 +1,7 @@
 #include "D2DataTbls.h"
+#include "D2Records.h"
 struct D2TxtLinkStrc;
 
-struct D2BinFieldStrc
-{
-    const char* szFieldName;
-    int nFieldType;
-    int nFieldLength;
-    int nFieldOffset;
-    void* pLinker;
-};
 
 struct D2RareAffixTxt
 {

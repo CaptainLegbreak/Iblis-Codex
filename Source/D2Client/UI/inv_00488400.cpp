@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2CelContext.h"
 struct D2CellFileStrc;
 struct D2UnitStrc;
 typedef unsigned int size_t;
@@ -6,15 +7,6 @@ struct Unicode;
 struct D2InventoryStrc;
 
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    void* pCellFile;
-    int unk0x38[2];
-    int unk0x40;
-    int unk0x44;
-};
 
 struct D2PanelButtonStrc
 {
@@ -109,7 +101,7 @@ void __cdecl sub_00488400_DrawPanel()
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = gpCelFile_007C0DC8;
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     tContext.nFrame = 0;
     sub_004F6480(&tContext, gnGlobal_007A2858, gnGlobal_00711470 + gnGlobal_007A285C - 0xE0, -1, 5, 0);
     tContext.nFrame = 1;

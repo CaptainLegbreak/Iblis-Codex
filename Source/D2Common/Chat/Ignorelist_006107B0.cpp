@@ -1,12 +1,8 @@
+#include "D2StormLink.h"
 struct D2CommonStormSlotListAStrc;
 struct D2CommonStormSlotListBStrc;
 struct D2CommonStormNodeStrc;
 
-struct D2StormLinkStrc
-{
-    D2StormLinkStrc* m_prevlink;
-    char* m_next;
-};
 struct D2CommonStormSlotListAStrc
 {
     int m_linkoffset;

@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2CelContext.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -6,15 +7,6 @@ struct D2CellFileStrc;
 struct D2ScrollPosStrc;
 struct Unicode;
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    D2CellFileStrc* pCellFile;
-    int unk0x38[2];
-    int unk0x40;
-    int unk0x44;
-};
 
 struct D2ScrollPosStrc
 {

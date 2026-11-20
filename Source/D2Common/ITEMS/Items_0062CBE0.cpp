@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Records.h"
 struct D2UnitStrc;
 
 
@@ -68,12 +69,6 @@ struct D2MagicAffixTxt
 };
 
 
-struct D2SetItemsTxt
-{
-    short wSetItemId;
-    char unk0x02[0x28 - 0x02];
-    unsigned int dwItemCode;
-};
 
 struct D2SetsTxt
 {

@@ -1,15 +1,12 @@
 #include "D2Constants.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
+#include "D2CelContext.h"
 struct D2UnitStrc;
 struct D2InventoryStrc;
 
 
 
-struct D2CelContextStrc
-{
-    int unk0x00[0x12];
-};
 
 enum
 {

@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2CelContext.h"
 
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
 struct Unicode;
@@ -36,15 +37,6 @@ struct Unicode
     unsigned short wChar;
 };
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    void* pCellFile;
-    int unk0x38[2];
-    int unk0x40;
-    int unk0x44;
-};
 
 #pragma pack(push, 2)
 struct D2ListScrollStrc
@@ -200,7 +192,7 @@ void ListBoxImplementation::Slot01()
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = gpCelFile_007C546C;
     tContext.nFrame = bTopPressed ? 11 : 9;
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     sub_004F6480(&tContext, tBar.nX, tBar.nY, -1, 5, 0);
 
     const int i = tBar.DrawRows(&tContext);

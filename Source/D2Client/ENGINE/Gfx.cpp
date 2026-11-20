@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2UnitData.h"
+#include "D2CelContext.h"
 struct D2UnitStrc;
 struct D2UnitTargetStrc;
 
@@ -143,16 +144,6 @@ void __fastcall sub_004743D0_ReleaseOverlayResource(void* pResource); // 0x00474
 
 
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    void* pCellFile;
-    int unk0x38;
-    D2CelStrc* pCel;
-    int unk0x40;
-    int unk0x44;
-};
 
 struct D2GfxLayerHeaderStrc
 {

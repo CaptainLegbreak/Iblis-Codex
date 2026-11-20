@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2CelContext.h"
 
 
 struct SMSGHANDLER_PARAMS
@@ -30,15 +31,6 @@ struct SMSGHANDLER_PARAMS
     int lResult;
 };
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    void* pCellFile;
-    int unk0x38[2];
-    int unk0x40;
-    int unk0x44;
-};
 
 struct D2ClientCacheEntryStrc
 {
@@ -415,7 +407,7 @@ void __stdcall sub_00497C50_DrawSlotIcon(int nFrame)
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = gpCellFile_007BEF24;
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     tContext.nFrame = nFrame;
     if (sub_004538D0(0xA))
     {

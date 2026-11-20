@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2CelContext.h"
 
 struct Unicode
 {
@@ -27,15 +28,6 @@ struct D2UiRecordStrc
     D2UiRectStrc aRects[16];
 };
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    D2CelFileStrc* pCellFile;
-    int unk0x38[2];
-    int unk0x40;
-    int unk0x44[1];
-};
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -195,7 +187,7 @@ void __cdecl sub_00499040_DrawBelt()
 
         D2CelContextStrc tContext;
         memset(&tContext, 0, sizeof(tContext));
-        tContext.unk0x40 = 0;
+        tContext.nDirection = 0;
         tContext.nFrame = 0;
         tContext.pCellFile = gpCellFile_007BEF10;
         int nOffset = 0;

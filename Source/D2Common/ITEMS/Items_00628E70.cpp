@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Records.h"
 struct D2UnitStrc;
 
 #define ITEMS_ADD_BONUS_COSTS(nMult, nAdd, nValue, nBuyDiv)                                        \
@@ -191,12 +192,6 @@ struct D2UniqueItemsTxt
     char nInvTransform;
 };
 
-struct D2SetItemsTxt
-{
-    char unk0x00[0x40];
-    char nChrTransform;
-    char nInvTransform;
-};
 
 struct D2GemsTxt
 {

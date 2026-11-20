@@ -1,19 +1,11 @@
 #include "D2Client.h"
+#include "D2CelContext.h"
 
 struct Unicode
 {
     unsigned short wChar;
 };
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    void* pCellFile;
-    int unk0x38[2];
-    int unk0x40;
-    int unk0x44;
-};
 
 void* __stdcall SMemAlloc(size_t nSize, const char* szFile, int nLine, int nFlags);                         // 0x00413020
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
@@ -260,7 +252,7 @@ ButtonImplementation::ButtonImplementation(int nX, int nY, int nStringSlot, int 
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = sub_00454600();
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     tContext.nFrame = nBaseFrame;
     D2CelStrc* pCel = CelGetHandle(&tContext);
     this->nX = nX;

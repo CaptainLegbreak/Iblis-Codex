@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2CelContext.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2MessageListStrc;
@@ -101,15 +102,6 @@ extern unsigned char gabQuestFlagsA_007BF356[]; // 0x007BF356
 void __stdcall sub_004A3220_LoadQuestPage(int nPage, int bReset); // 0x004A3220
 static void sub_004A1950_BuildQuestText(D2QuestTextMsgStrc* pMsg); // 0x004A1950
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    void* pCellFile;
-    int unk0x38[2];
-    int nDirection;
-    int unk0x44;
-};
 
 struct T0044CB60
 {

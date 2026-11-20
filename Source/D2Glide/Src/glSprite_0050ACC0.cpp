@@ -1,10 +1,6 @@
 #include "D2Glide.h"
+#include "D2CelContext.h"
 
-struct D2CelContextStrc
-{
-	char unk0x00[0x3C];
-	D2CelStrc* pCel;
-};
 
 struct D2GlideTexInfoStrc
 {

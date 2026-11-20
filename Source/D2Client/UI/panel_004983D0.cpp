@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
+#include "D2CelContext.h"
 struct D2UnitStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -8,15 +9,6 @@ struct D2UiRectStrc;
 struct D2UiRecordStrc;
 struct D2Block1;
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    void* pCellFile;
-    int unk0x38[2];
-    int unk0x40;
-    int unk0x44;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 void* __fastcall sub_004520C0_LoadUiCelFile(const char* szPath); // 0x004520C0
@@ -149,7 +141,7 @@ static __declspec(noinline) void sub_004983D0_DrawControlPanelFrame(int nOffset)
             gpBorderFrameCel_007BEF18 = 0;
         }
         tContext.pCellFile = gpCel_007BEF1C;
-        tContext.unk0x40 = 0;
+        tContext.nDirection = 0;
         tContext.nFrame = 0;
         sub_004F6480(&tContext, 0, gnGlobal_00711470 - nOffset, -1, 5, 0);
         tContext.nFrame = 1;
@@ -173,7 +165,7 @@ static __declspec(noinline) void sub_004983D0_DrawControlPanelFrame(int nOffset)
             gpCel_007BEF74 = sub_004520C0_LoadUiCelFile("Panel\\800CtrlPnl7");
         }
         tContext.pCellFile = gpCel_007BEF74;
-        tContext.unk0x40 = 0;
+        tContext.nDirection = 0;
         tContext.nFrame = 0;
         sub_004F6480(&tContext, 0, gnGlobal_00711470 - nOffset, -1, 5, 0);
         tContext.nFrame = 1;

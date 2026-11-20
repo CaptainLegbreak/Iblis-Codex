@@ -3,6 +3,8 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2CelContext.h"
+#include "D2Records.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define gnGlobal_007BCAA0 (gInvRect_007BCAA0.nLeft)
@@ -37,15 +39,6 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    void* pCellFile;
-    int unk0x38[2];
-    int unk0x40;
-    int unk0x44;
-};
 
 struct T00479230
 {
@@ -75,11 +68,6 @@ struct D2AreaScanFindStrc
 
 typedef int (__fastcall* AREASCANFN)(void* pArg, D2UnitStrc* pUnit);
 
-struct D2SetItemsTxt
-{
-    char unk0x00[0x87];
-    unsigned char nAddFunc;
-};
 
 
 
@@ -538,7 +526,7 @@ void __cdecl sub_00496B10()
         return;
     }
     tContext.pCellFile = gpCellFile_007BEF28;
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     tContext.nFrame = 0;
     if (sub_004538D0(0x0A))
     {

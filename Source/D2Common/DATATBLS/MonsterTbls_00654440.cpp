@@ -1,14 +1,7 @@
 #include "D2Txt.h"
+#include "D2Records.h"
 struct D2TxtLinkStrc;
 
-struct D2BinFieldStrc
-{
-    const char* szFieldName;
-    int nFieldType;
-    int nFieldLength;
-    int nFieldOffset;
-    int (__fastcall* pfnLink)(const char* szKey);
-};
 
 struct D2TCExInfoStrc
 {
@@ -56,7 +49,6 @@ struct D2TreasureClassExTxt
 
 
 struct D2UniqueItemsTxt { char unk0x00[0x28]; unsigned int dwBaseItemCode; char unk0x2C[0x14C - 0x2C]; };
-struct D2SetItemsTxt { char unk0x00[0x28]; unsigned int dwItemCode; char unk0x2C[0x1B8 - 0x2C]; };
 
 typedef char check_D2TCExInfoStrc_size[sizeof(D2TCExInfoStrc) == 0x1C ? 1 : -1];
 typedef char check_D2TCExShortStrc_size[sizeof(D2TCExShortStrc) == 0x2C ? 1 : -1];

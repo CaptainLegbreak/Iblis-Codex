@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Records.h"
 struct D2PropertyStrc;
 struct D2PropertiesTxt;
 struct D2MagicAffixTxt;
@@ -14,13 +15,6 @@ struct D2UniqueItemsTxt;
 struct D2SetItemsTxt;
 struct D2PropertyAssignStrc;
 
-struct D2PropertyStrc
-{
-    int nProperty;
-    int nLayer;
-    int nMin;
-    int nMax;
-};
 
 struct D2PropertiesTxt
 {
@@ -125,15 +119,6 @@ struct D2UniqueItemsTxt
     D2PropertyStrc pProperties[12];
 };
 
-struct D2SetItemsTxt
-{
-    char pad0x00[0x2C];
-    short nSetId;
-    char pad0x2E[0x59];
-    unsigned char nAddFunc;
-    D2PropertyStrc pProperties[9];
-    D2PropertyStrc pPartialBoni[10];
-};
 
 struct D2SetsTxt
 {

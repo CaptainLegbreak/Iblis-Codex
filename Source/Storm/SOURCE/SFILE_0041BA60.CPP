@@ -1,12 +1,8 @@
 #include "Storm.h"
 #include "D2GameTypes.h"
+#include "D2StormLink.h"
 
 
-struct D2StormLinkStrc
-{
-    D2StormLinkStrc* m_prevlink;
-    char* m_next;
-};
 
 struct D2StormMpqHeaderStrc
 {

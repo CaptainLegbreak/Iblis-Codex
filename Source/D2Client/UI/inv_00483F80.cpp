@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Records.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2StaticPathStrc;
@@ -35,11 +36,6 @@ struct Unicode
 };
 
 
-struct D2SetItemsTxt
-{
-    short wSetItemId;
-    char unk0x02[0x1B6];
-};
 
 
 struct D2InvRectStrc

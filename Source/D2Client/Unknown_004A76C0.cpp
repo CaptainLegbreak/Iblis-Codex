@@ -1,6 +1,8 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2CelContext.h"
+#include "D2Records.h"
 
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
@@ -112,15 +114,6 @@ struct D2DifficultyLevelsTxt
     int dwResistPenalty;
 };
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    void* pCellFile;
-    int unk0x38[2];
-    int unk0x40;
-    int unk0x44;
-};
 
 #pragma pack(push, 2)
 struct D2CharTextStrc
@@ -245,10 +238,6 @@ struct D2SkillsTxt
     char unk0x196[0xA6];
 };
 
-struct D2SkillDescTxt
-{
-    char unk0x00[0x120];
-};
 
 #pragma pack(push, 2)
 struct D2UiCelFileStrc
@@ -602,7 +591,7 @@ void __cdecl sub_004A7D00_DrawCharStats()
     int nHeight;
     memset(&tCel, 0, sizeof(tCel));
     tCel.pCellFile = gpCel_007BEF64;
-    tCel.unk0x40 = 0;
+    tCel.nDirection = 0;
     tCel.nFrame = 0;
     TEXTURE_CelDraw(&tCel, gnGlobal_007A2858, gnGlobal_00711470 + gnGlobal_007A285C - 0xE0, -1, 5, 0);
     tCel.nFrame = 1;

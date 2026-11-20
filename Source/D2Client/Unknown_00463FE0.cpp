@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
+#include "D2CelContext.h"
 struct D2UnitStrc;
 
 
@@ -82,17 +83,6 @@ int __fastcall sub_Q03_Emit_ObjectSelectBox(D2UnitStrc* pUnit, int nX, int nY)
     return 0;
 }
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[11];
-    unsigned int nFrameCount;
-    void* pCellFile;
-    int unk0x38;
-    D2CelStrc* f_3C;
-    int unk0x40;
-    int unk0x44;
-};
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -121,10 +111,10 @@ static int __stdcall sub_004640A0_GetUnitSelectRect(unsigned int nFrame, D2RectS
         int nOut;
         if (sub_004DBB50_GetItemCelContext(&tContext, pUnit, 0, UNITS_GetDirection(pUnit), nFrame, &nOut, nMode, -1) && sub_006001F0(&tContext, 0, 1))
         {
-            D2CelStrc* pCell = tContext.f_3C;
+            D2CelStrc* pCell = tContext.pCel;
             if (pCell)
             {
-                D2_ASSERT(nFrame <= tContext.nFrameCount, 0x5DF);
+                D2_ASSERT(nFrame <= tContext.nFrames, 0x5DF);
 
                 const int nOffsetX = sub_00601920(pCell) - 12;
                 pRect->nLeft = nOffsetX + UNITS_GetClientCoordX(pUnit);

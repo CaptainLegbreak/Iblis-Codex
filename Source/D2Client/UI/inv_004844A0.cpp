@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Records.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -160,15 +161,6 @@ extern int gnGlobal_007A2858; // 0x007A2858
 extern int gnGlobal_007A285C; // 0x007A285C
 static void sub_0048A990_DrawMercStats(D2UnitStrc* pUnit); // 0x0048A990
 
-struct D2SetItemsTxt
-{
-    short wSetItemId;
-    char unk0x02[0x22];
-    unsigned short wStrName;
-    char unk0x26[0x06];
-    short nSetId;
-    char unk0x2E[0x18A];
-};
 
 struct D2SetsTxt
 {
@@ -1246,9 +1238,9 @@ void __fastcall sub_0048D1D0_DrawSetItemTooltip(D2UnitStrc* pUnit)
             break;
 
         D2UnitStrc* pFound = sub_00486770_FindSetItem(pInventory, pSetItem->wSetItemId);
-        if (pSetItem->wStrName)
+        if (pSetItem->wTblIndex)
         {
-            sub_0048BE80_FormatArgs(wszText, D2LANG_GetStringFromTblIndex(0x2769), D2LANG_GetStringFromTblIndex(pSetItem->wStrName), 0);
+            sub_0048BE80_FormatArgs(wszText, D2LANG_GetStringFromTblIndex(0x2769), D2LANG_GetStringFromTblIndex(pSetItem->wTblIndex), 0);
             sub_00526700(wszText, pNewline);
         }
 

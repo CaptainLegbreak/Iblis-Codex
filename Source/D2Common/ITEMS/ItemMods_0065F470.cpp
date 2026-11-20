@@ -1,13 +1,7 @@
 #include "D2DataTbls.h"
+#include "D2Records.h"
 struct D2UnitStrc;
 
-struct D2PropertyStrc
-{
-    int nProperty;
-    int nLayer;
-    int nMin;
-    int nMax;
-};
 
 
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))

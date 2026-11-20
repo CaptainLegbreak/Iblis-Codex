@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Records.h"
 #define STAT_ITEM_INDESCTRUCTIBLE 152
 #define IFLAG_IDENTIFIED 0x00000010
 #define NODEPAGE_STORAGE 1
@@ -345,15 +346,6 @@ struct D2UniqueItemsTxt
     char nInvTransform;
 };
 
-struct D2SetItemsTxt
-{
-    char unk0x00[0x2E];
-    short nSetItems;
-    unsigned char unk_30[0x10];
-    char nChrTransform;
-    char nInvTransform;
-    unsigned char unk_42[0x176];
-};
 
 struct D2GemsTxt
 {

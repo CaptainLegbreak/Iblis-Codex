@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2CelContext.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2MsgHandlerEntryStrc;
@@ -12,15 +13,6 @@ struct D2TextNodeStrc;
 struct D2TextListStrc;
 struct D2StringSoundStrc;
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    void* pCellFile;
-    int unk0x38[2];
-    int unk0x40;
-    int unk0x44;
-};
 
 struct D2MsgHandlerEntryStrc
 {
@@ -258,7 +250,7 @@ void __cdecl sub_0049FA10_DrawPanelFrame()
 
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = pCelFile;
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     tContext.nFrame = 0;
     sub_004F6480(&tContext, gnGlobal_007A2858, gnGlobal_00711470 + gnGlobal_007A285C - 0x6D, -1, 5, 0);
     tContext.nFrame = 1;
@@ -400,7 +392,7 @@ D2ClientDialogStrc* __fastcall sub_004B7CD0_CreateDialogFromFile(int nArg1, int 
 
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = pDialog->pCelFile;
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     tContext.nFrame = 0;
     D2CelStrc* hCel = CelGetHandle(&tContext);
     D2_ASSERT(hCel, 0x3B3);

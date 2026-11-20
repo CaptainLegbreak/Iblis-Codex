@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Records.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -14,22 +15,6 @@ struct D2MonStatsTxt;
 
 
 
-struct D2SkillDescTxt
-{
-    char unk0x0[0x18];
-    unsigned int dwDamCalc[2];
-    unsigned char nPrgDamElem[3];
-    char unk0x23[0x1];
-    int dwProgDmgMin[3];
-    int dwProgDmgMax[3];
-    short wDescMissile[3];
-    unsigned char nDescLine[17];
-    char unk0x53[0x1];
-    unsigned short wDescTextA[17];
-    unsigned short wDescTextB[17];
-    int dwDescCalcA[17];
-    int dwDescCalcB[17];
-};
 
 
 struct Unicode

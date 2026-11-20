@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2CelContext.h"
 struct D2UnitStrc;
 
 enum D2C_F06CursorConstants
@@ -9,16 +10,6 @@ enum D2C_F06CursorConstants
 };
 
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    void* pCellFile;
-    int unk0x38;
-    D2CelStrc* f_3C;
-    int unk0x40;
-    int unk0x44;
-};
 
 struct D2PanelAnimEntryStrc
 {
@@ -81,7 +72,7 @@ void __cdecl sub_004683C0_DrawDefaultCursor()
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = gpCursorCells_007A6AC0[gnGlobal_007A6ADC];
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     tContext.nFrame = gnGlobal_007A6AE0 >> 8;
     sub_004F6480(&tContext, nX, nY, -1, 5, 0);
     sub_00468310_UpdateCursor();
@@ -102,9 +93,9 @@ void __cdecl sub_004684C0()
         memset(&tContext, 0, sizeof(tContext));
         if (sub_004DBB50_GetItemCelContext(&tContext, pItem, 0, 0, 0, &nOut, 1, -1) && sub_006001F0(&tContext, 0, 1))
         {
-            D2_ASSERT(tContext.f_3C, 0x27D);
-            sub_0046EE80_DrawItemCel(gpCursorItem_007A6ABC, gnGlobal_007A6AB0 - sub_006018C0(tContext.f_3C) / 2 + gnGlobal_007A6AB4,
-                gnGlobal_007A6AAC - sub_006018F0(tContext.f_3C) / 2);
+            D2_ASSERT(tContext.pCel, 0x27D);
+            sub_0046EE80_DrawItemCel(gpCursorItem_007A6ABC, gnGlobal_007A6AB0 - sub_006018C0(tContext.pCel) / 2 + gnGlobal_007A6AB4,
+                gnGlobal_007A6AAC - sub_006018F0(tContext.pCel) / 2);
         }
     }
     else
@@ -128,9 +119,9 @@ void __cdecl sub_004685C0_PaintCursorItem()
         memset(&tContext, 0, sizeof(tContext));
         if (sub_004DBB50_GetItemCelContext(&tContext, pItem, 0, 0, 0, &nOut, 1, -1) && sub_006001F0(&tContext, 0, 1))
         {
-            D2_ASSERT(tContext.f_3C, 0x2BB);
-            sub_0046EE80_DrawItemCel(gpCursorItem_007A6ABC, gnGlobal_007A6AB0 - sub_006018C0(tContext.f_3C) / 2 + gnGlobal_007A6AB4,
-                gnGlobal_007A6AAC - sub_006018F0(tContext.f_3C) / 2);
+            D2_ASSERT(tContext.pCel, 0x2BB);
+            sub_0046EE80_DrawItemCel(gpCursorItem_007A6ABC, gnGlobal_007A6AB0 - sub_006018C0(tContext.pCel) / 2 + gnGlobal_007A6AB4,
+                gnGlobal_007A6AAC - sub_006018F0(tContext.pCel) / 2);
         }
     }
     else
@@ -158,7 +149,7 @@ void __cdecl sub_004685C0_PaintCursorItem()
             }
             memset(&tContext, 0, sizeof(tContext));
             tContext.pCellFile = gpCursorCells_007A6AC0[nType];
-            tContext.unk0x40 = 0;
+            tContext.nDirection = 0;
             tContext.nFrame = gnGlobal_007A6AE0 >> 8;
             sub_004F6480(&tContext, nX, nY, -1, 5, 0);
             sub_00468310_UpdateCursor();

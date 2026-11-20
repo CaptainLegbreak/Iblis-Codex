@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Records.h"
 struct D2GfxDataStrc;
 struct D2GfxListNodeStrc;
 struct D2UnitStrc;
@@ -73,12 +74,6 @@ struct D2ItemsTxt
     unsigned int dwAltCode2;
 };
 
-struct D2SetItemsTxt
-{
-    char unk0x00[0x42];
-    char szFlippyFile[0x20];
-    char szInvFile[0x20];
-};
 
 struct D2UniqueItemsTxt
 {

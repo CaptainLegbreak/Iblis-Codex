@@ -1,4 +1,5 @@
 #include "D2Win.h"
+#include "D2CelContext.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define EDITBOX_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -20,15 +21,6 @@ struct UnicodeChar : Unicode
     UnicodeChar();                                                                                          // 0x0042F530
 };
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    D2CelFileStrc* pCellFile;
-    int unk0x38[2];
-    int unk0x40;
-    int unk0x44;
-};
 
 struct SMSGHANDLER_PARAMS
 {
@@ -296,7 +288,7 @@ int __fastcall sub_004FFE50_EditBoxDraw(D2WinEditBoxStrc* pEditBox)
             D2CelContextStrc tContext;
             memset(&tContext, 0, sizeof(tContext));
             tContext.pCellFile = pEditBox->pCellFile;
-            tContext.unk0x40 = 0;
+            tContext.nDirection = 0;
             tContext.nFrame = 0;
             sub_004F6480(&tContext, pEditBox->nImageX, pEditBox->nImageY - 1, -1, 5, 0);
         }

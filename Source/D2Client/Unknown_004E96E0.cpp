@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2Records.h"
 
 struct Unicode
 {
@@ -26,12 +27,6 @@ struct D2SkillsTxt
     char unk0x1DD[0x5F];
 };
 
-struct D2SkillDescTxt
-{
-    char unk0x00[0x18];
-    unsigned int dwDamCalc[2];
-    char unk0x20[0x100];
-};
 
 typedef int (__fastcall* SKILLWEAPONFN)(D2UnitStrc* pUnit, int* pValue1, int* pValue2, int* pColor, int nBonus, int nAdd, D2SkillStrc* pSkill, int nSrcDam, D2UnitStrc* pItem);
 

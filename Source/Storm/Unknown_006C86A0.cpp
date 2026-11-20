@@ -1,15 +1,9 @@
 #include "Storm.h"
+#include "D2CelContext.h"
 
 struct D2CelStrc;
 struct D2GfxPaletteView006C85A0Strc;
 
-struct D2CelContextStrc
-{
-    int unk0x00[0x0F];
-    D2CelStrc* pCel;
-    int nArg40;
-    int unk0x44;
-};
 int __stdcall sub_006018C0(D2CelStrc* pCel); // 0x006018C0
 int __stdcall sub_006018F0(D2CelStrc* pCel); // 0x006018F0
 int __stdcall sub_00601920(D2CelStrc* pCel); // 0x00601920

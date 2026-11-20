@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Records.h"
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 #define STAT_ITEM_INDESTRUCTIBLE 152
@@ -13,13 +14,6 @@ struct D2ItemStatCostTxt;
 
 
 
-struct D2PropertyStrc
-{
-    int nProperty;
-    int nLayer;
-    int nMin;
-    int nMax;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090

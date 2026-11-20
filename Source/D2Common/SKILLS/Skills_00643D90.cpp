@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Records.h"
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 
@@ -43,11 +44,6 @@ struct D2SkillsTxt
     char unk0x230[0x0C];
 };
 
-struct D2SkillDescTxt
-{
-    char unk0x00[2];
-    char nSkillPage;
-};
 
 struct D2SkillStrc
 {

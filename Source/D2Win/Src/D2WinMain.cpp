@@ -1,4 +1,5 @@
 #include "D2Win.h"
+#include "D2CelContext.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define D2WIN_SCROLLBAR 5
@@ -31,15 +32,6 @@ struct D2WinControlStrc
     D2WinControlStrc* pNext;
 };
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    D2CellFileStrc* pCellFile;
-    int unk0x38[2];
-    int unk0x40;
-    int unk0x44;
-};
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
@@ -328,7 +320,7 @@ void __stdcall sub_004F98E0()
             D2CelContextStrc tContext;
             memset(&tContext, 0, sizeof(tContext));
             tContext.pCellFile = gpBackgroundCellFile;
-            tContext.unk0x40 = 0;
+            tContext.nDirection = 0;
             tContext.nFrame = 0;
 
             for (int y = 256; y < 768; y += 256)
@@ -459,7 +451,7 @@ void __cdecl sub_004F97E0_PaintCursor()
         memset(&tContext, 0, sizeof(tContext));
         tContext.nFrame = gnCursorFrame;
         tContext.pCellFile = gpCursorCellFile;
-        tContext.unk0x40 = 0;
+        tContext.nDirection = 0;
         sub_004F6480(&tContext, nX <= 0 ? 0 : nX, (nY <= 0 ? 0 : nY) - 1, -1, 5, 0);
     }
 }

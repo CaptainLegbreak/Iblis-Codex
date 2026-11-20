@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2DataTbls.h"
+#include "D2CelContext.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -29,23 +30,6 @@ struct D2OverlayTxt
 };
 
 
-struct D2CelContextStrc
-{
-    int nArg0;
-    unsigned char nFlags;
-    unsigned char nComponent;
-    short unk0x06;
-    int nType;
-    int nClass;
-    int nMode;
-    int nOverlay;
-    int nArg18;
-    int nArg1C;
-    unsigned int dwToken;
-    unsigned int dwModeToken;
-    unsigned int dwCode;
-    const char* szName;
-};
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 unsigned int gaPlrModeTokens_007C88D0[20];                                                                  // 0x007C88D0

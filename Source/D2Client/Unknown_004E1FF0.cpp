@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2Records.h"
 
 #define UNIT_ITEM 4
 struct D2StaticPathStrc;
@@ -290,14 +291,6 @@ struct D2MonSoundsTxt
 extern unsigned int gdwBitMasks_006CE268[]; // 0x006CE268
 D2MonSoundsTxt* __stdcall DATATBLS_GetMonSoundsTxtRecordFromSoundId(int nSoundId); // 0x00656F90
 
-struct D2SkillDescTxt
-{
-    char unk0x00[0x08];
-    unsigned short wStrName;
-    unsigned short wStrShort;
-    unsigned short wStrLong;
-    char unk0x0E[0x112];
-};
 
 typedef char chkSkillsTxt_M125[sizeof(D2SkillsTxt) == 0x23C ? 1 : -1];
 

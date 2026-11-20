@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Records.h"
 #define STAT_POISONMAXDAM 58
 #define STAT_POISON_COUNT 326
 union D2SeedStrc;
@@ -16,13 +17,6 @@ struct D2SetItemsTxt;
 struct D2PropertyAssignStrc;
 
 
-struct D2PropertyStrc
-{
-    int nProperty;
-    int nLayer;
-    int nMin;
-    int nMax;
-};
 
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -83,15 +77,6 @@ struct D2UniqueItemsTxt
     D2PropertyStrc pProperties[12];
 };
 
-struct D2SetItemsTxt
-{
-    char pad0x00[0x2C];
-    short nSetId;
-    char pad0x2E[0x59];
-    unsigned char nAddFunc;
-    D2PropertyStrc pProperties[9];
-    D2PropertyStrc pPartialBoni[10];
-};
 
 struct D2SetsTxt
 {

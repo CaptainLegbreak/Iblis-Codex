@@ -1,17 +1,9 @@
+#include "D2CelContext.h"
 struct Unicode
 {
     unsigned short wChar;
 };
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    void* pCellFile;
-    int unk0x38[2];
-    int unk0x40;
-    int unk0x44;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
@@ -155,7 +147,7 @@ void ListBoxImplementation::sub_004BE110_UpdateScrollBar()
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = gpCelFile_007C546C;
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     tContext.nFrame = 16;
     sub_004F6480(&tContext, nLeft, nTop + 12 * nStart, -1, 5, 0);
     tContext.nFrame = 14;

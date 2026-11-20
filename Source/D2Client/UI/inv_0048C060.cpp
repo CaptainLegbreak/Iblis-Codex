@@ -1,5 +1,6 @@
 #include "D2Structs.h"
 #include "D2Txt.h"
+#include "D2Records.h"
 struct Unicode
 {
     unsigned short wChar;
@@ -44,11 +45,6 @@ struct D2UniqueItemsTxt
     unsigned short wTblIndex;
 };
 
-struct D2SetItemsTxt
-{
-    char unk0x00[0x24];
-    unsigned short wTblIndex;
-};
 
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);

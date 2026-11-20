@@ -1,24 +1,12 @@
 #include "D2Client.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Records.h"
 struct D2UnitStrc;
 
 typedef wchar_t Unicode;
 
 
-struct D2SkillDescTxt
-{
-    char unk0x00[0x10];
-    unsigned short wStrMana;
-    char unk0x12[0x2A];
-    short wDescMissile[3];
-    unsigned char nDescLine[17];
-    char unk0x53[0x1];
-    unsigned short wDescTextA[17];
-    unsigned short wDescTextB[17];
-    int dwDescCalcA[17];
-    int dwDescCalcB[17];
-};
 
 
 struct D2DifficultyLevelsTxt

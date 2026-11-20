@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Txt.h"
+#include "D2Records.h"
 struct D2BinFieldStrc;
 struct D2OpStatDataStrc;
 struct D2ItemStatCostTxt;
@@ -8,14 +9,6 @@ struct D2GambleTxt;
 struct D2ItemsTxt;
 struct D2GambleDataTbl;
 
-struct D2BinFieldStrc
-{
-    const char* szFieldName;
-    int nFieldType;
-    int nFieldLength;
-    int nFieldOffset;
-    void* pLinker;
-};
 
 
 

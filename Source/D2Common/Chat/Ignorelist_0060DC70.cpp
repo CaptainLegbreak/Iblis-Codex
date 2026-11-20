@@ -1,3 +1,4 @@
+#include "D2StormLink.h"
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);                  // 0x00412650
 char* __stdcall sub_00414310(const char* szString);                                                             // 0x00414310
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
@@ -51,17 +52,6 @@ D2StormHashKeyStrIBStrc& D2StormHashKeyStrIBStrc::operator=(const D2StormHashKey
     return *this;
 }
 
-struct D2StormLinkStrc
-{
-    D2StormLinkStrc* m_prevlink;
-    char* m_next;
-
-    D2StormLinkStrc()
-    {
-        m_prevlink = 0;
-        m_next = 0;
-    }
-};
 
 struct D2CommonStormSlotLinkStrc
 {

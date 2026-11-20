@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
+#include "D2CelContext.h"
 struct D2ActiveRoomStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -22,15 +23,6 @@ struct D2GfxMotionStrc;
 struct D2ItemsTxt;
 
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    void* pCellFile;
-    int unk0x38[2];
-    int unk0x40;
-    int unk0x44;
-};
 
 struct D2OrbSmoothStrc
 {
@@ -362,7 +354,7 @@ void __cdecl sub_00496F80_DrawLifeOrb()
 
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     tContext.pCellFile = gpCellFile_007BEF68;
     tContext.nFrame = 0;
     if (STATES_CheckState(sub_00463DD0_GetPlayerUnit(), 0x64))
@@ -414,7 +406,7 @@ void __cdecl sub_00497110_DrawManaOrb()
 
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     tContext.pCellFile = gpCellFile_007BEF68;
     tContext.nFrame = 1;
     if (STATES_CheckState(sub_00463DD0_GetPlayerUnit(), 0x6A))
@@ -597,7 +589,7 @@ void __cdecl sub_004977C0_DrawStateButton()
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = gpStateButtonCel_007BEF70;
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     if (sub_004538D0(21))
     {
         if (gbGlobal_007BEFD0 && sub_004977C0_IsInButtonRect(sub_00468730(), sub_00468740()))
@@ -665,7 +657,7 @@ static void __stdcall sub_00497CF0_DrawDurabilityIcon(int nState, int nQuiverTyp
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = gpCellFile_007BEF60;
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     tContext.nFrame = nFrame;
     if (sub_004538D0(10))
     {
@@ -804,7 +796,7 @@ void __cdecl sub_00498630_DrawBorderFrameLeft()
         gpBorderFrameCel_007BEF18 = sub_004520C0_LoadUiCelFile("Panel\\800BorderFrame");
     }
     tContext.pCellFile = gpBorderFrameCel_007BEF18;
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     tContext.nFrame = 0;
     sub_004F6480(&tContext, 0, 253, -1, 5, 0);
     tContext.nFrame = 1;
@@ -827,7 +819,7 @@ void __cdecl sub_00498700_DrawBorderFrameRight()
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = gpBorderFrameCel_007BEF18;
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     tContext.nFrame = 5;
     sub_004F6480(&tContext, 400, 63, -1, 5, 0);
     tContext.nFrame = 6;
@@ -1347,7 +1339,7 @@ void __cdecl sub_00499E50_DrawPanelQuad()
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = gpPanelQuadCel_007BF018;
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     tContext.nFrame = 0;
     sub_004F6480(&tContext, gnGlobal_007A2858, gnGlobal_007A285C + gnGlobal_00711470 - 224, -1, 5, 0);
     tContext.nFrame = 1;
@@ -1406,7 +1398,7 @@ void __stdcall sub_004AAAE0_DrawPagedPanel(void* pCellFile, int nPage)
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = pCellFile;
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     tContext.nFrame = 0;
     sub_004F6480(&tContext, gnGlobal_0071146C - gnGlobal_007A2858 - 320, gnGlobal_007A285C + gnGlobal_00711470 - 224, -1, 5, 0);
     tContext.nFrame = 1;
@@ -1447,7 +1439,7 @@ void __cdecl sub_004AB530_DrawTabCel()
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = sub_00454600();
     tContext.nFrame = (gbGlobal_007C0C38 != 0) + 10;
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     sub_004F6480(&tContext, nX, gnGlobal_007A285C + gnGlobal_00711470 - 63, -1, 5, 0);
 }
 

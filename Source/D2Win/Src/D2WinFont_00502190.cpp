@@ -1,3 +1,4 @@
+#include "D2CelContext.h"
 struct D2CelFileStrc;
 
 struct Unicode
@@ -35,15 +36,6 @@ struct D2FontCacheStrc
     unsigned int dwShiftedTickCount;
 };
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    D2CelFileStrc* pCellFile;
-    int unk0x38[2];
-    int nDirection;
-    int unk0x44;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480

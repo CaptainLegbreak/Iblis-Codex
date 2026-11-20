@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2CelContext.h"
 
 struct Unicode;
 struct D2ButtonStringStrc;
@@ -44,15 +45,6 @@ struct Unicode
     unsigned short wChar;
 };
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    void* pCellFile;
-    int unk0x38[2];
-    int unk0x40;
-    int unk0x44;
-};
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x00412650
 
@@ -285,7 +277,7 @@ void ButtonImplementation::Slot01()
     memset(&tCelContext, 0, sizeof(tCelContext));
     tCelContext.pCellFile = sub_00454600();
     tCelContext.nFrame = f_20 + nBaseFrame;
-    tCelContext.unk0x40 = 0;
+    tCelContext.nDirection = 0;
     sub_004F6480(&tCelContext, nX, nY, -1, 5, 0);
 
     const int nMouseX = sub_00468730();

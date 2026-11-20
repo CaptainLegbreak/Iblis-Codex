@@ -4,6 +4,8 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2CelContext.h"
+#include "D2Records.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
@@ -22,15 +24,6 @@ struct D2PanelButtonStrc;
 
 
 
-struct D2CelContextStrc
-{
-    int frame;
-    int pad04[12];
-    void* cell;
-    int pad38[2];
-    int direction;
-    int pad44;
-};
 
 extern const D2CoordStrc gSocketLayouts[][6]; // 0x006D91E8
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc*, unsigned int, int, const char*); // 0x006280A0
@@ -66,11 +59,6 @@ struct Unicode
 };
 
 
-struct D2SetItemsTxt
-{
-    short wSetItemId;
-    char unk0x02[0x1B6];
-};
 
 
 struct D2InvRectStrc
@@ -300,9 +288,9 @@ void __stdcall sub_00483E40_DrawItemSockets(D2UnitStrc* item, D2InventoryGridInf
         int drawY = (offsets[i].nY + 1) * grid->nGridBoxHeight / 2 + y;
         D2CelContextStrc context;
         memset(&context, 0, sizeof(context));
-        context.cell = gpCellFile_007BEF14;
-        context.direction = 0;
-        context.frame = 0;
+        context.pCellFile = gpCellFile_007BEF14;
+        context.nDirection = 0;
+        context.nFrame = 0;
         sub_004F6480(&context, drawX - 1, drawY, -1, 0, 0);
         if (socketItem)
         {

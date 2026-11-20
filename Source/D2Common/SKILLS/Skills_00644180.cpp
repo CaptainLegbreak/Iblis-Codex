@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Records.h"
 struct D2UnitStrc;
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -18,11 +19,6 @@ struct D2SkillListStrc;
 typedef int BOOL;
 
 
-struct D2SkillDescTxt
-{
-    char unk0x00[2];
-    char nSkillPage;
-};
 
 struct D2SkillStrc
 {

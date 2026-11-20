@@ -1,16 +1,8 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2CelContext.h"
 
 
-struct D2CelContextStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    void* pCellFile;
-    int unk0x38[2];
-    int unk0x40;
-    int unk0x44;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize);                                     // 0x00681EF0
 int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
@@ -65,7 +57,7 @@ static void __stdcall sub_00497CF0_DrawDurabilityIcon(int nState, int bType, int
     D2CelContextStrc tContext;
     memset(&tContext, 0, sizeof(tContext));
     tContext.pCellFile = gpCellFile_007BEF60;
-    tContext.unk0x40 = 0;
+    tContext.nDirection = 0;
     tContext.nFrame = nFrame;
     if (sub_004538D0(10))
     {
