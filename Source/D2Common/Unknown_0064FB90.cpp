@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 // build: context sub_6FD5DB70
 
@@ -47,12 +48,6 @@ struct D2ActiveRoomStrc
     D2DrlgCoordsStrc tCoords;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x28];
-    D2DynamicPathStrc* pDynamicPath;
-};
 
 #pragma pack(push, 1)
 struct D2DynamicPathStrc

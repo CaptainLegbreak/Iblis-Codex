@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 struct D2InventoryStrc;
 
@@ -36,23 +37,6 @@ struct D2ItemDataStrc
     char szPlayerName[16];
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x10 - 0x08];
-    int dwAnimMode;
-    D2ItemDataStrc* pItemData;
-    char unk0x18[0x28 - 0x18];
-    unsigned int dwInitSeed;
-    union
-    {
-        D2StaticPathStrc* pStaticPath;
-        D2DynamicPathStrc* pDynamicPath;
-    };
-    char unk0x30[0x60 - 0x30];
-    D2InventoryStrc* pInventory;
-};
 
 struct D2ItemsTxt
 {
@@ -100,19 +84,6 @@ struct D2MagicAffixDataTbl
     D2MagicAffixTxt* pAutoMagic;
 };
 
-struct D2StatStrc
-{
-    union
-    {
-        struct
-        {
-            unsigned short nLayer;
-            unsigned short nStat;
-        };
-        unsigned int dwLayerStatId;
-    };
-    int nValue;
-};
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -851,8 +822,8 @@ static void __stdcall ITEMS_SerializeItemComplete(D2UnitStrc* pItem, D2BitBuffer
             const int nStats = STATLIST_GetBaseStatsData(pStatList, aStats, 511);
             for (int i = 0; i < nStats; ++i)
             {
-                const int nStatId = aStats[i].dwLayerStatId >> 16;
-                const unsigned short nLayer = (unsigned short)aStats[i].dwLayerStatId;
+                const int nStatId = (unsigned int)aStats[i].nPackedValue >> 16;
+                const unsigned short nLayer = (unsigned short)aStats[i].nPackedValue;
                 D2ItemStatCostTxt* pItemStatCostTxtRecord;
                 if (nStats > 1)
                 {

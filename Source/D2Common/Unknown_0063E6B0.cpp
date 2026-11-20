@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 enum
 {
@@ -23,17 +24,6 @@ enum
     MONSTER_SK_ARCHER1 = 170,
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    char unk0x14[0x38];
-    short wAnimSpeed;
-    unsigned char nActionFrame;
-};
 
 struct D2MonStatsTxt
 {

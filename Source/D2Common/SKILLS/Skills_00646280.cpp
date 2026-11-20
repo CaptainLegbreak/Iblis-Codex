@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 struct D2InventoryStrc;
 struct D2ItemsTxt;
@@ -7,15 +8,6 @@ struct D2SkillListStrc;
 struct D2MissilesTxt;
 struct D2SkillCalcStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x58];
-    D2InventoryStrc* pInventory;
-    unsigned char unk_64[0x44];
-    D2SkillListStrc* pSkills;
-};
 
 struct D2ItemsTxt
 {

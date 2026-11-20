@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 #define UNIT_OBJECT 2
 #define UNIT_MISSILE 3
 #define UNIT_ITEM 4
@@ -10,9 +11,7 @@
 #define STAT_TOHIT 19
 struct D2SkillListStrc;
 struct D2InventoryStrc;
-struct T00552FD0;
 struct D2GfxLightStrc;
-struct T00620190;
 struct D2ShrinesTxt;
 struct D2StaticPathStrc;
 struct D2ObjectsTxt;
@@ -72,47 +71,13 @@ struct D2DataTablesStrc
     int nCharStatsTxtRecordCount;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2ObjectDataStrc* pObjectData;
-    char unk0x18[20];
-    union
-    {
-        D2StaticPathStrc* pStaticPath;
-        D2DynamicPathStrc* pDynamicPath;
-    };
-    T00620190* pAnimSeq;
-    int dwSeqFrameCount;
-    int dwSeqFrame;
-    char unk0x3C[4];
-    int dwSeqMode;
-    int nSeqCurrentFramePrecise;
-    int dwFrameCountPrecise;
-    short wAnimSpeed;
-    unsigned char nActionFrame;
-    char unk0x4F[1];
-    T00552FD0* pAnimData;
-    char unk0x54[12];
-    D2InventoryStrc* pInventory;
-    D2GfxLightStrc* pLight;
-    char unk0x68[52];
-    int dwKillerType;
-    int dwKillerGUID;
-    char unk0xA4[36];
-    unsigned int dwFlagEx;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-T00552FD0* __fastcall DATATBLS_GetAnimDataRecord(D2UnitStrc* pUnit, int nClassId, int nMode, int nUnitType, D2InventoryStrc* pInventory); // 0x0066A9B0
+D2AnimDataRecordStrc* __fastcall DATATBLS_GetAnimDataRecord(D2UnitStrc* pUnit, int nClassId, int nMode, int nUnitType, D2InventoryStrc* pInventory); // 0x0066A9B0
 int __stdcall PATH_IsCurrentRoomInvalid(D2DynamicPathStrc* pPath); // 0x00648B30
 void __stdcall PATH_SetCurrentRoomInvalid(D2DynamicPathStrc* pPath, int a2); // 0x00648B40
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
@@ -142,7 +107,7 @@ extern const unsigned int gdwBitMasks[32]; // 0x006CE268
 int __fastcall sub_006225F0_MonsterCanBlock(D2UnitStrc* pUnit); // 0x006225F0
 int __stdcall INVENTORY_GetEquippedShield(D2InventoryStrc* pInventory, D2UnitStrc** ppItem); // 0x0063C8F0
 
-inline T00620190* UNITS_GetAnimSeq(D2UnitStrc* pUnit)
+inline D2AnimSeqTxt* UNITS_GetAnimSeq(D2UnitStrc* pUnit)
 {
     if (pUnit->dwUnitType == UNIT_PLAYER || pUnit->dwUnitType == UNIT_MONSTER)
     {

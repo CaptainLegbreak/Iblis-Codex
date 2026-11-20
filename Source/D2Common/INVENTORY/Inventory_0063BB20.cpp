@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 struct D2InventoryGridStrc
 {
@@ -37,11 +38,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);   // 0x0040B430
 void* __fastcall sub_0040B4B0(void* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0); // 0x0040B4B0
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-};
 
 struct D2ItemsTxt
 {

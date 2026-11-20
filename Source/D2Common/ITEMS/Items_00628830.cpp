@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 #define D2_NORETURN __declspec(noreturn)
 #define Min(a,b) ((a) < (b) ? (a) : (b))
@@ -36,15 +37,6 @@ struct D2ItemDataStrc
     unsigned short suffix[3];
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int classId;
-    unsigned char pad08[12];
-    D2ItemDataStrc* pItemData;
-    unsigned char pad18[0x48];
-    D2InventoryStrc* pInventory;
-};
 
 struct D2MagicAffixTxt
 {
@@ -85,12 +77,6 @@ struct D2ItemsTxt
     unsigned char levelReq;
 };
 
-struct D2StatStrc
-{
-    unsigned short nLayer;
-    unsigned short nStatId;
-    int nValue;
-};
 
 struct D2SkillsTxt
 {
@@ -162,7 +148,7 @@ static __forceinline int sub_00623C60(D2UnitStrc* pUnit)
 {
     if (pUnit)
     {
-        return pUnit->classId;
+        return pUnit->dwClassId;
     }
     return -1;
 }
@@ -203,7 +189,7 @@ int __stdcall ITEMS_CheckIfAutoBeltable(D2InventoryStrc* pInventory, D2UnitStrc*
 {
     D2_ASSERT(pItem, 0x9A6);
     D2_ASSERT(pItem->dwUnitType == 4, 0x9A7);
-    int nClassId = pItem->classId;
+    int nClassId = pItem->dwClassId;
     D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(nClassId);
     D2_ASSERT(pItemsTxtRecord, 0x9A9);
     if (pItemsTxtRecord->nAutoBelt || INVENTORY_HasSimilarPotionInBelt(pInventory, pItem) != -1) { return 1; }
@@ -279,7 +265,7 @@ static void __stdcall sub_006292F0_AddSocketablesCost(D2UnitStrc* pItem, int* pS
             pSocketable = INVENTORY_GetNextItem(pSocketable);
             if (pSocketItem)
             {
-                const int nClassId = pSocketItem->classId;
+                const int nClassId = pSocketItem->dwClassId;
                 D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(nClassId);
                 const int nSocketableCost = pItemsTxtRecord->dwCost / 2;
                 nSellCost += nSocketableCost;
@@ -396,7 +382,7 @@ static __forceinline int ITEMS_CheckIfSocketable(D2UnitStrc* pItem)
 {
     if (pItem && pItem->dwUnitType == UNIT_ITEM)
     {
-        return ITEMS_CheckIfSocketableByItemId(pItem->classId);
+        return ITEMS_CheckIfSocketableByItemId(pItem->dwClassId);
     }
 
     return 0;
@@ -442,7 +428,7 @@ static __forceinline void GetDimensions(D2UnitStrc* item, unsigned char* width, 
     *width = 0;
     *height = 0;
     if (item && item->dwUnitType == 4) {
-        D2ItemsTxt* txt = DATATBLS_GetItemsTxtRecord(!item ? -1 : item->classId);
+        D2ItemsTxt* txt = DATATBLS_GetItemsTxtRecord(!item ? -1 : item->dwClassId);
         if (txt) { *width = txt->invWidth; *height = txt->invHeight; }
     }
 }
@@ -517,7 +503,7 @@ inline int ITEMS_CheckItemFlagInl(D2UnitStrc* pItem, unsigned int nFlag)
 
 inline D2ItemsTxt* ITEMS_GetItemsTxtRecordInl(D2UnitStrc* pItem)
 {
-    return DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->classId);
+    return DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
 }
 
 // 0x0062B450
@@ -526,7 +512,7 @@ static void __stdcall sub_0062B450_GetSocketedStatBonus(int nStatId, int* pValue
     *pValue = 0;
     if (pItem && pItem->dwUnitType == UNIT_ITEM)
     {
-        if (ITEMS_CheckIfSocketableByItemIdInl(pItem->classId))
+        if (ITEMS_CheckIfSocketableByItemIdInl(pItem->dwClassId))
         {
                 D2InventoryStrc* pInventory = pItem->pInventory;
             for (D2UnitStrc* i = INVENTORY_GetFirstItem(pInventory); i; i = INVENTORY_GetNextItem(i))
@@ -700,14 +686,14 @@ int __stdcall ITEMS_CheckRequirements(D2UnitStrc* pItem, D2UnitStrc* pUnit, int 
         const int nUnitType = pUnit->dwUnitType;
         if (pUnit->dwUnitType == UNIT_MONSTER && nClass == PCLASS_BARBARIAN)
         {
-            const int nMonsterId = MONSTERS_GetBaseIdFromMonsterId(pUnit->classId);
+            const int nMonsterId = MONSTERS_GetBaseIdFromMonsterId(pUnit->dwClassId);
             if (nMonsterId >= MONSTER_ACT5HIRE1 && nMonsterId <= MONSTER_ACT5HIRE2)
             {
                 return 1;
             }
         }
 
-        if (nUnitType == UNIT_PLAYER && nClass == pUnit->classId)
+        if (nUnitType == UNIT_PLAYER && nClass == pUnit->dwClassId)
         {
             return 1;
         }

@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 #define UNIT_MISSILE 3
 #define PLRMODE_THROW 11
@@ -270,29 +271,6 @@ struct D2DynamicPathStrc
     unsigned char nStepNum;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2MissileDataStrc* pMissileData;
-    char unk0x18[0x2C - 0x18];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    unsigned char unk_30[0x18];
-    int dwFrameCountPrecise;
-    unsigned char unk_4C[0x14];
-    D2InventoryStrc* pInventory;
-    unsigned char unk_64[0x44];
-    D2SkillListStrc* pSkills;
-    unsigned char unk_AC[0x1C];
-    unsigned int dwFlagEx;
-};
 
 struct D2MissilesTxt
 {
@@ -579,12 +557,6 @@ D2UnitStrc* __stdcall D2Common_10434(D2UnitStrc* pUnit, int a2); // 0x00623990
 int __stdcall ITEMS_GetWeaponAttackSpeed(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x0062A710
 int __stdcall STATES_IsUnitShapeShifted(D2UnitStrc* pUnit); // 0x0063A400
 
-struct D2StatStrc
-{
-    unsigned short nLayer;
-    unsigned short nStat;
-    int nValue;
-};
 
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc* pItem); // 0x0062BA80

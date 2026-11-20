@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 struct D2SkillStrc;
 struct D2TimerArgStrc;
 struct D2PlayerDataStrc
@@ -31,23 +32,6 @@ struct D2ObjectDataStrc
 struct D2StaticPathStrc
 {
     int dwData[8];
-};
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    char unk0x10[4];
-    union
-    {
-        D2PlayerDataStrc* pPlayerData;
-        D2ObjectDataStrc* pObjectData;
-    };
-    char unk0x18[20];
-    D2StaticPathStrc* pStaticPath;
-    char unk0x30[76];
-    D2TimerArgStrc* pTimerArg;
 };
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837

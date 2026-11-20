@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 
+#define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
 
 
@@ -14,12 +15,17 @@ int __stdcall sub_006259B0_GetStateStat(D2UnitStrc* pUnit)
         return 0;
     if (!pUnit->pStatListEx)
         return 0;
-    if (pUnit->dwUnitType <= UNIT_MONSTER)
+    switch (pUnit->dwUnitType)
+    {
+    case UNIT_PLAYER:
+    case UNIT_MONSTER:
     {
         D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, 0x69);
         if (!pStatList)
             return 0;
         return STATLIST_GetTotalStatValue(pStatList, 0xAC, 0);
     }
-    return 2;
+    default:
+        return 2;
+    }
 }

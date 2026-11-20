@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 struct Data0064A190;
 struct Unit0064A190;
 struct D2MissileDataStrc;
@@ -83,18 +84,6 @@ struct D2MissileDataStrc
     int nTargetY;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2MissileDataStrc* pMissileData;
-    char unk0x18[0x34];
-    short wAnimSpeed;
-    unsigned char unk_4E[0x2];
-};
 
 struct D2MissilesTxt
 {
@@ -675,12 +664,6 @@ extern "C" int __stdcall sub_0064B2A0_GetMissileElementLength(Unit*, Unit*, int,
 extern "C" void* __cdecl memset(void*, int, unsigned int); // 0x00681EF0
 extern "C" DataTables* gVar_00744304; // 0x00744304
 
-struct D2StatStrc
-{
-    unsigned short nLayer;
-    unsigned short nStat;
-    int nValue;
-};
 
 struct D2MissileDamageDataStrc
 {

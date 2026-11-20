@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 struct D2DrlgStrc;
 struct D2DrlgEnvironmentStrc;
 struct D2DrlgActStrc;
@@ -7,13 +8,6 @@ struct D2CoordStrc;
 struct tagRECT;
 struct D2CommonLevelNodeStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0xE0];
-    D2UnitStrc* pRoomNext;
-};
 
 struct D2ActiveRoomStrc
 {

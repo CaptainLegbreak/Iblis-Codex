@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 typedef int BOOL;
 #define INVENTORY_SIGNATURE 0x1020304
@@ -38,19 +39,6 @@ struct D2StaticPathStrc
     D2CoordStrc tGameCoords;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x14 - 0x08];
-    D2ItemDataStrc* pItemData;
-    char unk0x18[0x2C - 0x14 - 4];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-};
 
 struct D2InventoryGridStrc
 {

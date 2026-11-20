@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 typedef int BOOL;
 
@@ -24,15 +25,6 @@ struct D2CoordStrc
     int nY;
 };
 
-union D2SeedStrc
-{
-    struct
-    {
-        unsigned int nLowSeed;
-        unsigned int nHighSeed;
-    };
-    unsigned __int64 lSeed;
-};
 
 union D2FP32_16
 {
@@ -72,18 +64,6 @@ struct D2StaticPathStrc
     D2CoordStrc tGameCoords;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x1C];
-    D2SeedStrc tSeed;
-    char unk0x28[0x04];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-};
 
 struct D2PathInfoStrc
 {
@@ -339,11 +319,11 @@ static __declspec(noinline) int PATH_MissileToTarget(D2DynamicPathStrc* pPath, D
         break;
 
     case PATHTYPE_CHARGEDBOLT:
-        PATH_ComputePathChargedBolt_6FDAB4A0(pPath, &pUnit->tSeed);
+        PATH_ComputePathChargedBolt_6FDAB4A0(pPath, &pUnit->pSeed);
         break;
 
     case PATHTYPE_BLESSEDHAMMER:
-        PATH_ComputePathBlessedHammer_6FDAB3C0(pPath, &pUnit->tSeed);
+        PATH_ComputePathBlessedHammer_6FDAB3C0(pPath, &pUnit->pSeed);
         break;
 
     default:

@@ -25,6 +25,7 @@ struct D2QuestChainStrc;
 struct D2SkillListStrc;
 struct D2SkillStrc;
 struct D2StaticPathStrc;
+struct D2TimerArgStrc;
 struct D2StatListExStrc;
 struct D2UnitEventStrc;
 struct D2UnitPacketListStrc;
@@ -104,7 +105,7 @@ struct D2StatListExStrc : public D2StatListStrc
 
 struct D2UnitStrc
 {
-    unsigned int dwUnitType; // 0x00
+    int dwUnitType; // 0x00
     int dwClassId; // 0x04
     void* pMemoryPool; // 0x08
     int dwUnitId; // 0x0C
@@ -159,7 +160,7 @@ struct D2UnitStrc
             D2UnitStrc* pUpdateUnit; // 0x70
             D2QuestChainStrc* pQuestEventList; // 0x74
             int bSparkChest; // 0x78
-            void* pTimerArg; // 0x7C
+            D2TimerArgStrc* pTimerArg; // 0x7C
             D2GameStrc* pGame; // 0x80
             unsigned char unk0x84[0xC];
             D2UnitEventStrc* pSrvUnitEventsList; // 0x90

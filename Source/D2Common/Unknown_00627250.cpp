@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
 #define STAT_HITPOINTS 6
@@ -12,73 +13,17 @@ struct D2ModStatsArrayStrc;
 struct D2OpStatDataStrc;
 struct D2ItemStatCostTxt;
 
-struct D2StatsArrayStrc
-{
-    D2StatStrc* pStat;
-    short nStatCount;
-    short nCapacity;
-};
 
-struct D2ModStatsArrayStrc
-{
-    int* pStat;
-    short nStatCount;
-    short nCapacity;
-};
 
 typedef void (__fastcall* StatListValueChangeFunc)(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pUnit, int nLayer_StatId, int nPreviousValue, int nNewValue);
 
-struct D2StatListStrc
-{
-    void* pMemPool;
-    D2UnitStrc* pUnit;
-    int dwOwnerType;
-    int dwOwnerId;
-    unsigned int dwFlags;
-    char unk0x14[0x10];
-    D2StatsArrayStrc Stats;
-    D2StatListStrc* pPrevLink;
-    D2StatListStrc* pNextLink;
-    D2StatListStrc* pParent;
-    void* fpStatRemove;
-    D2StatListStrc* pMyLastList;
-    D2StatListStrc* pMyStats;
-    D2UnitStrc* pOwner;
-    D2StatsArrayStrc FullStats;
-    D2ModStatsArrayStrc ModStats;
-    unsigned int* StatFlags;
-    StatListValueChangeFunc pfOnValueChanged;
-    D2GameStrc* pGame;
-};
 
 int __stdcall sub_006270B0(D2StatListStrc* pStatList, int nStatId, int nValue, int nLayer); // 0x006270B0
 void __stdcall STATLIST_AddStat(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer); // 0x00627030
 
-struct D2StatStrc
-{
-    union
-    {
-        struct
-        {
-            unsigned short nLayer;
-            unsigned short nStat;
-        };
-        int nPackedValue;
-    };
-    int nValue;
-};
 
 typedef void (__fastcall* StatListUnitCallback)(D2UnitStrc* pUnit1, int nStatId, int nValue, D2UnitStrc* pUnit2);
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x14];
-    D2DrlgActStrc* pDrlgAct;
-    char unk0x20[0x3C];
-    D2StatListStrc* pStatListEx;
-};
 
 struct D2OpStatDataStrc
 {
@@ -181,7 +126,8 @@ static D2StatStrc* sub_00624C60_FindStat(D2StatsArrayStrc* pStatsArray, int nLay
 
 static int __stdcall sub_00624F60_GetTotalStat(D2StatListStrc* pStatList, int nLayer_StatId, D2ItemStatCostTxt* pItemStatCostTxtRecord)
 {
-    D2StatStrc* pStat = sub_00624C60_FindStat((pStatList->dwFlags & STATLIST_EXTENDED) ? &pStatList->FullStats : &pStatList->Stats, nLayer_StatId);
+    D2StatListExStrc* pStatListEx = (D2StatListExStrc*)pStatList;
+    D2StatStrc* pStat = sub_00624C60_FindStat((pStatList->dwFlags & STATLIST_EXTENDED) ? &pStatListEx->FullStats : &pStatList->Stats, nLayer_StatId);
     if (!pStat)
     {
         return 0;
@@ -189,7 +135,7 @@ static int __stdcall sub_00624F60_GetTotalStat(D2StatListStrc* pStatList, int nL
 
     int nValue = pStat->nValue;
     if (pItemStatCostTxtRecord && ITEMSTATCOST_HASFLAG(pItemStatCostTxtRecord, ISC_FLAG_FMIN) && (pStatList->dwFlags & STATLIST_EXTENDED)
-        && pStatList->pOwner && (UNITS_IsType(pStatList->pOwner, UNIT_PLAYER) || UNITS_IsType(pStatList->pOwner, UNIT_MONSTER)))
+        && pStatListEx->pOwner && (UNITS_IsType(pStatListEx->pOwner, UNIT_PLAYER) || UNITS_IsType(pStatListEx->pOwner, UNIT_MONSTER)))
     {
         if (nValue < pItemStatCostTxtRecord->dwMinAccr)
         {

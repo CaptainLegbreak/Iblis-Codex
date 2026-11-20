@@ -1459,7 +1459,7 @@ void __stdcall D2Common_ExpireStatList_6FDB6E30(D2StatListStrc* pStatList)
         D2StatStrc* pStatEnd = &pStat[((D2StatListExStrc*)pStatList)->FullStats.nStatCount];
         for (; pStat < pStatEnd; ++pStat)
         {
-            D2ItemStatCostTxt* pItemStatCostTxtRecord = ITEMS_GetItemStatCostTxtRecord((pStat->nPackedValue >> 16) & 0xFFFF);
+            D2ItemStatCostTxt* pItemStatCostTxtRecord = ITEMS_GetItemStatCostTxtRecord(STAT_GETID(pStat->nPackedValue));
             if (pItemStatCostTxtRecord && pItemStatCostTxtRecord->bHasOpApplyingToItem)
             {
                 anStats[nCount] = pStat->nPackedValue;
@@ -1488,7 +1488,7 @@ void __stdcall D2Common_ExpireStatList_6FDB6E30(D2StatListStrc* pStatList)
         {
             for (; pStat < pEnd; ++pStat)
             {
-                D2ItemStatCostTxt* pItemStatCostTxtRecord = ITEMS_GetItemStatCostTxtRecord((pStat->nPackedValue >> 16) & 0xFFFF);
+                D2ItemStatCostTxt* pItemStatCostTxtRecord = ITEMS_GetItemStatCostTxtRecord(STAT_GETID(pStat->nPackedValue));
                 if (pItemStatCostTxtRecord && !(pItemStatCostTxtRecord->nItemStatFlags[0] & gdwBitMasks[2]))
                 {
                     sub_00626920_UpdateStatValue(pParent, pStat->nPackedValue, -pStat->nValue, pOwner);

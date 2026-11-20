@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 struct D2MissileDataStrc
 {
@@ -7,15 +8,6 @@ struct D2MissileDataStrc
     unsigned int dwOwnerGUID;
 };
 
-struct D2UnitStrc
-{
-    unsigned int dwUnitType;
-    unsigned int dwClassId;
-    unsigned char unk_08[0x04];
-    unsigned int dwUnitId;
-    unsigned char unk_10[0x04];
-    D2MissileDataStrc* pMissileData;
-};
 
 struct D2MissilesTxt
 {

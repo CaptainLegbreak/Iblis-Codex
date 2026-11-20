@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 #define MS_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -6,14 +7,6 @@ struct D2UnitStrc;
 struct D2PathPointStrc;
 struct D2MissileStreamStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    char unk0x0C[0x20];
-    D2DynamicPathStrc* pDynamicPath;
-};
 
 struct D2PathPointStrc
 {

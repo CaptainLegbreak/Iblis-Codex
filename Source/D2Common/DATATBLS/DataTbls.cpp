@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 struct D2SkillListStrc;
 struct D2InventoryStrc;
 struct D2PropertyStrc;
@@ -85,36 +86,7 @@ struct D2SkillStrc
     D2SkillStrc* pNextSkill;
 };
 
-struct D2StatListStrc
-{
-    void* pMemPool;
-    void* pUnit;
-    unsigned int dwOwnerType;
-    unsigned int dwOwnerId;
-    unsigned int dwFlags;
-    unsigned int dwStateNo;
-    int dwExpireFrame;
-    unsigned int dwSkillNo;
-    unsigned int dwSLvl;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x24];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x1C];
-    short wAnimSpeed;
-    char unk0x4E[0x0E];
-    D2StatListStrc* pStatListEx;
-    char unk0x60[0x48];
-    D2SkillListStrc* pSkills;
-};
 
 struct D2DataTablesStrc
 {

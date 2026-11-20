@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
 #define UNIT_MISSILE 3
@@ -62,22 +63,6 @@ struct D2DynamicPathStrc
     char unk0x1DC[0x200 - 0x1DC];
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    unsigned char unk_08[0x8];
-    int dwAnimMode;
-    char unk0x14[0x2C - 0x14];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x94];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-};
 
 struct D2MonStatsTxt
 {

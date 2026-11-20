@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 struct PathOwner;
 struct D2DynamicPathStrc;
@@ -50,16 +51,6 @@ struct D2StaticPathStrc
     int nYPos;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x28];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-};
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath); // 0x00648900
 

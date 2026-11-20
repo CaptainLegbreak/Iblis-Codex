@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 #define UNIT_ITEM 4
 #define UNIT_INVALID 6
 #define STAT_ITEM_INDESCTRUCTIBLE 152
@@ -80,11 +81,6 @@ struct D2ItemTypesTxt;
 struct D2WeaponClassCodeStrc;
 struct D2StatStrc;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2ItemDataStrc
 {
@@ -114,19 +110,6 @@ struct D2ItemDataStrc
     char unk0x5A[26];
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2ItemDataStrc* pItemData;
-    char unk0x18[0x48];
-    D2InventoryStrc* pInventory;
-    unsigned char unk_64[0x64];
-    unsigned int dwFlagEx;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -461,11 +444,6 @@ extern unsigned int gnWeaponClassTableCount; // 0x007446E0
 int __stdcall ITEMS_IsNotQuestItemByItemId(int nItemId); // 0x00629D40
 int __stdcall INVENTORY_HasSimilarPotionInBelt(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063C560
 
-struct D2StatStrc
-{
-    int nLayer_StatId;
-    int nValue;
-};
 
 int __stdcall STATLIST_CopyStats(D2UnitStrc* pUnit, int nStatId, D2StatStrc* pBuffer, int nBufferSize); // 0x006261D0
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); // 0x00483360

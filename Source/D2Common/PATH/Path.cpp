@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
 #define UNIT_OBJECT 2
@@ -14,7 +15,6 @@
 struct ActiveRoom;
 struct Room;
 struct D2CoordStrc;
-union D2SeedStrc;
 union D2FP32_16;
 struct D2DrlgCoordsStrc;
 struct D2StaticPathStrc;
@@ -92,15 +92,6 @@ struct D2CoordStrc
     int nY;
 };
 
-union D2SeedStrc
-{
-    struct
-    {
-        unsigned int nLowSeed;
-        unsigned int nHighSeed;
-    };
-    unsigned __int64 lSeed;
-};
 
 union D2FP32_16
 {
@@ -140,18 +131,6 @@ struct D2StaticPathStrc
     D2CoordStrc tGameCoords;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x1C];
-    D2SeedStrc tSeed;
-    char unk0x28[0x04];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-};
 
 struct D2PathInfoStrc
 {
@@ -1699,11 +1678,11 @@ static int PATH_MissileToTarget(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit)
         pPath->dwFlags &= ~0x20;
         return 0;
     case 10:
-        PATH_ComputePathChargedBolt_6FDAB4A0(pPath, &pUnit->tSeed);
+        PATH_ComputePathChargedBolt_6FDAB4A0(pPath, &pUnit->pSeed);
         pPath->dwFlags |= 0x20;
         return pPath->dwPathPoints;
     case 14:
-        PATH_ComputePathBlessedHammer_6FDAB3C0(pPath, &pUnit->tSeed);
+        PATH_ComputePathBlessedHammer_6FDAB3C0(pPath, &pUnit->pSeed);
         pPath->dwFlags |= 0x20;
         return pPath->dwPathPoints;
     default:

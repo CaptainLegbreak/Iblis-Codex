@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 #define UNIT_PLAYER 0
 #define STAT_TOHIT 19
 #define STAT_DEXTERITY 2
@@ -40,33 +41,6 @@ struct D2StaticPathStrc
     unsigned char unk_1D[0x3];
 };
 
-struct D2UnitStrc
-{
-    int nUnitType;
-    int dwClassId;
-    int unk0x08[2];
-    int nAnimMode;
-    unsigned char unk_14[0x18];
-    union
-    {
-        D2StaticPathStrc* pPath;
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    D2AnimSeqTxt* pAnimSeq;
-    int dwSeqFrameCount;
-    int dwSeqFrame;
-    int dwSeqSpeed;
-    int dwSeqMode;
-    int nSeqCurrentFramePrecise;
-    int dwFrameCountPrecise;
-    short wAnimSpeed;
-    unsigned char nActionFrame;
-    char unk0x4F[0x01];
-    D2AnimDataRecordStrc* pAnimData;
-    char unk0x54[0x70];
-    unsigned int dwFlags;
-};
 
 void __stdcall sub_00643260(int* pX, int* pY); // 0x00643260
 
@@ -120,7 +94,7 @@ int __stdcall UNITS_GetFrameBonus(D2UnitStrc* pUnit); // 0x00623B10
 void __stdcall UNITS_InitializeStaticPath(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, D2CoordStrc tCoord)
 {
     D2_ASSERT(pUnit, 0x866);
-    D2StaticPathStrc* pPath = pUnit->pPath;
+    D2StaticPathStrc* pPath = pUnit->pStaticPath;
     pPath->nX = tCoord.nX;
     pPath->nY = tCoord.nY;
     pPath->bFlag1C = 0;
@@ -156,13 +130,13 @@ int __stdcall sub_00621920_GetEventFrameInfo(D2UnitStrc* pUnit, int nFrame)
         return 0;
 
     int bSequence = 0;
-    switch (pUnit->nUnitType)
+    switch (pUnit->dwUnitType)
     {
     case 0:
-        if (pUnit->nAnimMode == 18)
+        if (pUnit->dwAnimMode == 18)
             bSequence = 1;
     case 1:
-        if (pUnit->nAnimMode == 14)
+        if (pUnit->dwAnimMode == 14)
             break;
         if (bSequence)
             break;
@@ -189,7 +163,7 @@ static __forceinline D2CharStatsTxt* UNITS_GetCharStatsTxtRecord(int nClassId)
 // build: context UNITS_GetToHitFactor
 static __forceinline int UNITS_GetToHitFactor(D2UnitStrc* pUnit)
 {
-    if (pUnit->nUnitType != UNIT_PLAYER)
+    if (pUnit->dwUnitType != UNIT_PLAYER)
     {
         return 0;
     }
@@ -206,7 +180,7 @@ static __forceinline int UNITS_GetToHitFactor(D2UnitStrc* pUnit)
 // 0x00622560
 int __stdcall UNITS_GetAttackRate(D2UnitStrc* pAttacker)
 {
-    const int bValid = pAttacker && pAttacker->nUnitType == UNIT_PLAYER;
+    const int bValid = pAttacker && pAttacker->dwUnitType == UNIT_PLAYER;
     D2_ASSERT(bValid, 0x107F);
 
     int nAttackRate = STATLIST_UnitGetStatValue(pAttacker, STAT_TOHIT, 0);
@@ -219,7 +193,7 @@ int __stdcall UNITS_GetAttackRate(D2UnitStrc* pAttacker)
 
 static __forceinline int UNITS_GetXPositionForceInl(D2UnitStrc* pUnit)
 {
-    switch (pUnit->nUnitType)
+    switch (pUnit->dwUnitType)
     {
     case UNIT_OBJECT:
     case UNIT_ITEM:
@@ -231,7 +205,7 @@ static __forceinline int UNITS_GetXPositionForceInl(D2UnitStrc* pUnit)
 
 static __forceinline int UNITS_GetYPositionForceInl(D2UnitStrc* pUnit)
 {
-    switch (pUnit->nUnitType)
+    switch (pUnit->dwUnitType)
     {
     case UNIT_OBJECT:
     case UNIT_ITEM:
@@ -412,7 +386,7 @@ int __stdcall UNITS_TestCollisionWithUnit(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2
 
 __forceinline int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
 {
-    switch (pUnit->nUnitType)
+    switch (pUnit->dwUnitType)
     {
     case 2:
     case 4:
@@ -425,7 +399,7 @@ __forceinline int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
 
 __forceinline int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
 {
-    switch (pUnit->nUnitType)
+    switch (pUnit->dwUnitType)
     {
     case 2:
     case 4:
@@ -448,7 +422,7 @@ int __stdcall sub_00623660_IsInObjectInteractRange(D2UnitStrc* pUnit, D2UnitStrc
     int nSizeX2 = 0;
     int nSizeY2 = 0;
 
-    const int nObjectType = pObject ? pObject->nUnitType : 6;
+    const int nObjectType = pObject ? pObject->dwUnitType : 6;
     if (nObjectType != 2)
     {
         return 0;
@@ -498,7 +472,7 @@ static inline int UNITS_GetUnitTypeInline(D2UnitStrc* pUnit)
 {
     if (!pUnit)
         return 6;
-    return pUnit->nUnitType;
+    return pUnit->dwUnitType;
 }
 
 static inline int UNITS_GetClassIdInline(D2UnitStrc* pUnit)
@@ -512,7 +486,7 @@ static inline int UNITS_GetAnimModeInline(D2UnitStrc* pUnit)
 {
     if (!pUnit)
         return 0;
-    return pUnit->nAnimMode;
+    return pUnit->dwAnimMode;
 }
 
 // 0x00623B10

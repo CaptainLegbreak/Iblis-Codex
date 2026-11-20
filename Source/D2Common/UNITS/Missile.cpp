@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 struct D2MissileDataStrc
 {
@@ -21,15 +22,6 @@ struct D2MissileDataStrc
     void* pStream;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2MissileDataStrc* pMissileData;
-};
 
 struct D2MissilesTxt
 {

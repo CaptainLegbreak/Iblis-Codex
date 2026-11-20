@@ -1,12 +1,9 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 #define UNIT_PLAYER 0
 #define STATEMASK_BOSSSTAYDEATH 15
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-};
 
 struct D2DataTablesStrc
 {

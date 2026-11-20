@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 #define UNIT_ITEM 4
 #define UNIT_INVALID 6
 #define IFLAG_IDENTIFIED 0x10
@@ -18,17 +19,6 @@ struct D2ItemDataStrc
     unsigned int dwItemFlags;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x0C];
-    D2ItemDataStrc* pItemData;
-    char unk0x18[0x48];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0x64];
-    unsigned int dwFlagEx;
-};
 
 struct D2ItemsTxt
 {

@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 #define UNIT_MONSTER 1
 #define CHECK(p,line) if (!(p)) { sub_00408A60(text_006CC837,sub_00408090(),line); sub_00681E09(-1); }
@@ -19,17 +20,6 @@ struct D2MonsterDataStrc
     Unicode* wszMonName;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-    unsigned char unk_18[0xAC];
-    unsigned int dwFlagEx;
-};
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 
@@ -97,7 +87,7 @@ void __fastcall MONSTERS_SetMonsterNameInMonsterData(D2UnitStrc* pMonster, const
 
 static __forceinline void MONSTERS_GetFlagEx31(D2UnitStrc* pUnit, int* pResult)
 {
-    *pResult = pUnit ? (pUnit->dwFlagEx >> 31) & 1 : 0;
+    *pResult = pUnit ? (pUnit->dwFlags >> 31) & 1 : 0;
 }
 
 // 0x0063E860

@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
 #define UNIT_OBJECT 2
@@ -21,22 +22,6 @@ struct D2StaticPathStrc
     D2CoordStrc tGameCoords;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x2C - 0x04];
-    union
-    {
-        D2StaticPathStrc* pStaticPath;
-        D2DynamicPathStrc* pDynamicPath;
-    };
-    char unk0x30[0xC4 - 0x30];
-    unsigned int dwFlags;
-    char unk0xC8[0x18];
-    D2UnitStrc* pChangeNextUnit;
-    char unk0xE4[0xE8 - 0xE4];
-    D2UnitStrc* pRoomNext;
-};
 
 struct D2DrlgCoordsStrc
 {

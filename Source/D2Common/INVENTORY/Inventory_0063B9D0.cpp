@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 #define UNIT_INVALID 6
 
 struct D2InventoryStrc;
@@ -23,17 +24,6 @@ struct D2ItemDataStrc
     D2ItemExtraDataStrc pExtraData;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2ItemDataStrc* pItemData;
-    char unk0x18[0x48];
-    D2InventoryStrc* pInventory;
-};
 
 struct D2InventoryGridStrc
 {

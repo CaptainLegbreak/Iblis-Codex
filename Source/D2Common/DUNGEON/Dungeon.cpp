@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 #pragma function(memset)
 #define ROOMFLAG_2 0x00000002
@@ -90,11 +91,6 @@ struct D2DrlgRoomTilesStrc
     int nRoofs;
 };
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2ActiveRoomStrc
 {
@@ -127,12 +123,6 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 void __fastcall DRLGWARP_ToggleRoomTilesEnableFlag(D2DrlgRoomStrc* pDrlgRoom, int bEnabled); // 0x0066AB70
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x1C];
-    D2SeedStrc pSeed;
-};
 
 D2LvlWarpTxt* __fastcall DRLGWARP_GetLvlWarpTxtRecordFromUnit(D2DrlgRoomStrc* pDrlgRoom, D2UnitStrc* pUnit); // 0x0066AF80
 void __fastcall DRLGROOM_GetRGB_IntensityFromRoomEx(D2DrlgRoomStrc* pDrlgRoom, unsigned char* pIntensity, unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue); // 0x0066BFD0

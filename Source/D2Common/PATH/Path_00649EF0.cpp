@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 #define UNIT_MONSTER 1
 #define UNIT_INVALID 6
 union D2FP32_16;
@@ -35,13 +36,6 @@ struct D2DynamicPathStrc
 int __stdcall PATH_ComputeDirectionFromPreciseCoords_6FDAC760(D2FP32_16 tStart, D2FP32_16 tTarget); // 0x0064FE10
 void __fastcall sub_6FDA9720(D2DynamicPathStrc* pDynamicPath, unsigned char nDirection); // 0x006485F0
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x24];
-    D2DynamicPathStrc* pDynamicPath;
-};
 
 struct D2DataTablesStrc
 {

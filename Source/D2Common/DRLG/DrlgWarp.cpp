@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 struct D2DrlgStrc;
 struct D2DrlgListEntryStrc;
@@ -36,11 +37,6 @@ struct D2DrlgRoomStrc
     D2PresetUnitStrc* pPresetUnits;
 };
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2DrlgLevelStrc
 {
@@ -117,11 +113,6 @@ struct D2RoomTileStrc
     D2LvlWarpTxt* pLvlWarpTxtRecord;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-};
 
 D2LevelDefBin* __fastcall DATATBLS_GetLevelDefRecord(int nLevelId); // 0x0061E470
 

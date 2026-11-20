@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 #define ITEMS_ADD_BONUS_COSTS(nMult, nAdd, nValue, nBuyDiv)                                        \
     if (*pSellCost * (nValue) > 0xFFFF && (nMult))                                          \
@@ -37,12 +38,6 @@ struct D2UniqueItemsTxt;
 struct D2SetItemsTxt;
 struct D2GemsTxt;
 
-struct D2StatStrc
-{
-    unsigned short nLayer;
-    unsigned short nStat;
-    int nValue;
-};
 
 struct D2SkillsTxt
 {
@@ -96,26 +91,7 @@ struct D2TimeModStrc
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    char unk0x10[0x14 - 0x10];
-    D2ItemDataStrc* pItemData;
-    char unk0x18[0x20 - 0x18];
-    D2SeedStrc pSeed;
-    unsigned int dwInitSeed;
-    unsigned char unk_2C[0x34];
-    D2InventoryStrc* pInventory;
-};
 
 int __stdcall STATLIST_GetFullStatsDataFromUnit(D2UnitStrc* pUnit, D2StatStrc* pStatBuffer, int nBufferSize); // 0x00625C30
 int __stdcall STATLIST_GetUnitStatBonus(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625560

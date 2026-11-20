@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 #define UNIT_MONSTER 1
 struct D2MonsterDataStrc;
 struct D2ItemsTxt;
@@ -14,27 +15,7 @@ struct D2MonsterDataStrc
     unsigned char nComponent[16];
 };
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    unsigned char unk_08[0xC];
-    D2MonsterDataStrc* pMonsterData;
-    unsigned char unk_18[0x8];
-    D2SeedStrc pSeed;
-    char unk0x28[4];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-};
 
 struct D2ItemsTxt
 {

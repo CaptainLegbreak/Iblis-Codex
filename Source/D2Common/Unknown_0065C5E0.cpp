@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 struct D2SeedStrc;
 struct D2InventoryStrc;
 struct sub_M415_EmitArgs;
@@ -7,12 +8,6 @@ struct D2MagicAffixTxt;
 struct D2GradeModsStrc;
 struct D2GemsTxt;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x60 - 0x04];
-    D2InventoryStrc* pInventory;
-};
 
 D2SeedStrc* __stdcall ITEMS_GetItemSeed(D2UnitStrc* pItem); // 0x00627D90
 unsigned short __stdcall ITEMS_GetItemFormat(D2UnitStrc* pItem); // 0x0062A670

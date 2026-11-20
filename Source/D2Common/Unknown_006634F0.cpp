@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 struct D2InventoryStrc;
 struct D2SeedStrc;
@@ -10,11 +11,6 @@ struct D2Roll20Strc;
 struct D2Roll28Strc;
 struct D2HirelingTxt;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
@@ -77,12 +73,6 @@ const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); /
 D2HirelingTxt* __stdcall DATATBLS_GetNextHirelingTxtRecordFromClassId(int bExpansion, int nClassId, D2HirelingTxt* pOldRecord); // 0x00656440
 D2HirelingTxt* __stdcall DATATBLS_GetNextHirelingTxtRecordFromNameId(int bExpansion, int nNameId, D2HirelingTxt* pOldRecord); // 0x00656390
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x5C];
-    D2InventoryStrc* pInventory;
-};
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625480
 extern const int gnSetMaskToBonusMappingTable[0x40]; // 0x006EE440

@@ -1,14 +1,8 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 struct D2SeedStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-};
 
 struct D2PropertyStrc
 {

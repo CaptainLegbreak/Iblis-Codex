@@ -1,11 +1,4 @@
-struct D2UnitStrc
-{
-    unsigned int dwUnitType;
-    unsigned int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-};
+#include "D2Structs.h"
 
 struct D2MonStatsTxt
 {
@@ -113,7 +106,8 @@ int __stdcall MONSTERS_GetHirelingTypeId(D2UnitStrc* pHireling)
     const unsigned int nUnitType = pHireling ? pHireling->dwUnitType : UNIT_INVALID;
     if (nUnitType == UNIT_MONSTER)
     {
-        switch (pHireling->dwClassId)
+        const unsigned int nClassId = pHireling->dwClassId;
+        switch (nClassId)
         {
         case MONSTER_ROGUEHIRE:
             return 1;
