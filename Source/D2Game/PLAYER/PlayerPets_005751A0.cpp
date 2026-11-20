@@ -11,25 +11,6 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-
-struct D2PetArgStrc
-{
-    int nPetGUID;
-    int nUnitGUID;
-    unsigned short nPetClass;
-    short unk0x0A;
-    int nPetType;
-    int nSeed;
-    int nName;
-    int unk0x18;
-};
-
-
-
-
-
-
-
 typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
 
 extern D2DataTablesStrc* sgptDataTables;                                                                     // 0x00744304

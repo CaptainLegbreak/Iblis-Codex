@@ -3,19 +3,9 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2GameAux.h"
 
 struct D2AiBaalTargetArgsStrc;
-
-
-
-struct D2TargetNodeStrc
-{
-    D2UnitStrc* hUnit;
-    int unk0x04;
-    D2TargetNodeStrc* pNext;
-    D2TargetNodeStrc* unk0x0C;
-};
-
 
 #define UNIT_PLAYER 0
 #define PLRMODE_DEATH 0

@@ -4,27 +4,10 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2GameAux.h"
 struct D2UnitStrc;
 
-
-
 struct D2AuraCallbackStrc;
-
-struct D2BasicAuraParamStrc
-{
-    int nAuraState;
-    int nSkillId;
-    int nSkillLevel;
-    int nDuration;
-    int nAuraStat[6];
-    int nAuraStatCalcValue[6];
-    int field_40;
-    D2StatListStrc* pStatList;
-    int nPassiveState;
-    void* pStateRemoveCallback;
-};
-
-
 
 typedef int (__fastcall* AURACALLBACK)(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit);
 

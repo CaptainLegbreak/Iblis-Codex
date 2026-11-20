@@ -5,42 +5,10 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
+#include "D2GameAux.h"
 struct D2UnitStrc;
 
-
-
 struct D2AuraCallbackStrc;
-
-struct D2BasicAuraParamStrc
-{
-    int nAuraState;
-    int nSkillId;
-    int nSkillLevel;
-    int nDuration;
-    int nAuraStat[6];
-    int nAuraStatCalcValue[6];
-    int field_40;
-    D2StatListStrc* pStatList;
-    int nPassiveState;
-    void* pStateRemoveCallback;
-};
-
-
-struct D2DamageAuraParamStrc
-{
-    int nAuraState;
-    int nSkillId;
-    int nSkillLevel;
-    int nDuration;
-    int nAuraStat[6];
-    int nAuraStatCalcValue[6];
-    int field_40;
-    D2StatListStrc* pStatList;
-    int nPassiveState;
-    D2DamageStrc* pDamage;
-};
-
-
 
 typedef int (__fastcall* AURACALLBACK)(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit);
 
@@ -158,7 +126,7 @@ int __fastcall SKILLS_SrvDo081_HolyFreeze(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 
     if (nManaCost > 0 && pUnit && pUnit->dwUnitType == UNIT_PLAYER)
     {
-        if (args2.field_40 > 0)
+        if (args2.unk0x40 > 0)
         {
             STATES_ToggleState(pUnit, STATE_NOMANAREGEN, 1);
             D2GAME_SKILLMANA_AuraConsume_6FD10C90(pUnit, nManaCost);

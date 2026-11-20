@@ -66,10 +66,6 @@ enum D2C_F39Constants
     STATLIST_FLAG_8 = 8,
 };
 
-
-
-
-
 struct D2GameStrc
 {
     char unk0x00[0x6D];
@@ -81,41 +77,6 @@ struct D2GameStrc
     char unk0xAC[0x44];
     D2MonsterRegionStrc* pMonReg;
 };
-
-
-
-
-
-
-
-struct D2BasicAuraParamStrc
-{
-    int nAuraState;
-    int nSkillId;
-    int nSkillLevel;
-    int nDuration;
-    int nAuraStat[6];
-    int nAuraStatCalcValue[6];
-    int field_40;
-    D2StatListStrc* pStatList;
-    int nPassiveState;
-    void* pStateRemoveCallback;
-};
-
-struct D2DamageAuraParamStrc
-{
-    int nAuraState;
-    int nSkillId;
-    int nSkillLevel;
-    int nDuration;
-    int nAuraStat[6];
-    int nAuraStatCalcValue[6];
-    int field_40;
-    D2StatListStrc* pStatList;
-    int nPassiveState;
-    D2DamageStrc* pDamage;
-};
-
 
 struct D2DifficultyLevelsTxt
 {
@@ -171,7 +132,6 @@ struct D2SkillsTxt
     unsigned char nEType;
     char unk0x1DD[0x5F];
 };
-
 
 typedef int (__fastcall* AURACALLBACK)(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit);
 

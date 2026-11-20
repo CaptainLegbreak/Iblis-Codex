@@ -34,16 +34,9 @@ struct D2PetUpdateStrc
     int nParam;
 };
 
-
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pUnit, const char* szFile, int nLine); // 0x005531C0
 void __fastcall D2GAME_PACKETS_SendPacket0x7A_6FC3E100(D2ClientStrc* pClient, char a2, int nPetType, int nPetGUID, int nUnitGUID, unsigned short nPetClass); // 0x0053CB30
 extern const char gszPlayerPets_006E15D8[]; // 0x006E15D8
-
-
-
-
-
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -52,25 +45,11 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
 
-
 void __fastcall PLAYERPETS_RemovePet(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetGUID, int bKillPet); // 0x005750E0
 static __declspec(noinline) int sub_6FC7D9D0(D2UnitStrc* pPlayer, int nPetType);
 
-struct D2PetArgStrc
-{
-    int nPetGUID;
-    int nUnitGUID;
-    unsigned short nPetClass;
-    char unk0x0A[2];
-    int nPetType;
-    int nSeed;
-    int nName;
-    int unk0x18;
-};
 void __fastcall D2GAME_PACKETS_SendPacket0x7A_6FC3E100(D2ClientStrc* pClient, char a2, int nPetType, int nPetGUID, int nUnitGUID, unsigned short nPetClass); // 0x0053CB30
 void __fastcall D2GAME_PACKETS_SendPacket0x81_6FC3E160(D2ClientStrc* pClient, char a2, int nPetType, int nPetGUID, int nUnitGUID, unsigned short nPetClass, int nSeed, int nName); // 0x0053CB80
-
-
 
 struct D2PetTypeTxt
 {
@@ -80,7 +59,6 @@ struct D2PetTypeTxt
     short wBaseMax;
     char unk0x0C[0xD4];
 };
-
 
 typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
 

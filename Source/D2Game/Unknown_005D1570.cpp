@@ -53,53 +53,11 @@ enum D2C_F39Constants
 
 struct D2MonsterRegionStrc;
 
-
-
-
-
-
-
-
-
-
-
-struct D2BasicAuraParamStrc
-{
-    int nAuraState;
-    int nSkillId;
-    int nSkillLevel;
-    int nDuration;
-    int nAuraStat[6];
-    int nAuraStatCalcValue[6];
-    int field_40;
-    D2StatListStrc* pStatList;
-    int nPassiveState;
-    void* pStateRemoveCallback;
-};
-
-struct D2DamageAuraParamStrc
-{
-    int nAuraState;
-    int nSkillId;
-    int nSkillLevel;
-    int nDuration;
-    int nAuraStat[6];
-    int nAuraStatCalcValue[6];
-    int field_40;
-    D2StatListStrc* pStatList;
-    int nPassiveState;
-    D2DamageStrc* pDamage;
-};
-
-
 struct D2DifficultyLevelsTxt
 {
     char unk0x00[0x40];
     int dwStaticFieldMin;
 };
-
-
-
 
 typedef int (__fastcall* AURACALLBACK)(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit);
 

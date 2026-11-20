@@ -4,27 +4,10 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2GameAux.h"
 struct D2UnitStrc;
 
-
-
 struct D2AuraCallbackStrc;
-
-struct D2BasicAuraParamStrc
-{
-    int nAuraState;
-    int nSkillId;
-    int nSkillLevel;
-    int nDuration;
-    int nAuraStat[6];
-    int nAuraStatCalcValue[6];
-    int field_40;
-    D2StatListStrc* pStatList;
-    int nPassiveState;
-    void* pStateRemoveCallback;
-};
-
-
 
 typedef int (__fastcall* AURACALLBACK)(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit);
 
@@ -126,7 +109,7 @@ int __fastcall SKILLS_SrvDo065_BasicAura(D2GameStrc* pGame, D2UnitStrc* pUnit, i
         {
             if (pUnit && pUnit->dwUnitType == UNIT_PLAYER)
             {
-                if (args.field_40 > 0)
+                if (args.unk0x40 > 0)
                 {
                     STATES_ToggleState(pUnit, STATE_NOMANAREGEN, 1);
                     D2GAME_SKILLMANA_AuraConsume_6FD10C90(pUnit, nManaCost);
