@@ -1,5 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
@@ -17,7 +19,6 @@ struct D2PanelButtonStrc;
 
 
 
-struct D2CoordStrc { int x, y; };
 
 struct D2CelContextStrc
 {
@@ -40,12 +41,6 @@ void __fastcall sub_0046EE80_DrawCursorItem(D2UnitStrc*, int, int); // 0x0046EE8
 int __stdcall sub_004F6480(D2CelContextStrc*, int, int, int, int, int); // 0x004F6480
 extern "C" void* __cdecl memset(void*, int, unsigned int); // 0x00681EF0
 
-struct D2StaticPathStrc
-{
-    char unk0x00[0x0C];
-    int nXPos;
-    int nYPos;
-};
 
 struct SMSGHANDLER_PARAMS
 {
@@ -313,8 +308,8 @@ void __stdcall sub_00483E40_DrawItemSockets(D2UnitStrc* item, D2InventoryGridInf
     const D2CoordStrc* offsets = gSocketLayouts[(2 * socketCount + width) * 4 + height - 13];
     for (unsigned int i = 0; i < ITEMS_GetSockets(item); ++i)
     {
-        int drawX = (offsets[i].x - 1) * grid->nGridBoxWidth / 2 + x;
-        int drawY = (offsets[i].y + 1) * grid->nGridBoxHeight / 2 + y;
+        int drawX = (offsets[i].nX - 1) * grid->nGridBoxWidth / 2 + x;
+        int drawY = (offsets[i].nY + 1) * grid->nGridBoxHeight / 2 + y;
         D2CelContextStrc context;
         memset(&context, 0, sizeof(context));
         context.cell = gpCellFile_007BEF14;

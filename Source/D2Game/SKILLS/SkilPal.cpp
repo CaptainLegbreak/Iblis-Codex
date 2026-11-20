@@ -1,6 +1,8 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 struct D2MonsterRegionStrc;
 struct D2StaticPathStrc;
@@ -64,12 +66,6 @@ enum D2C_F39Constants
     STATLIST_FLAG_8 = 8,
 };
 
-struct D2StaticPathStrc
-{
-    int unk0x00[3];
-    int nXPos;
-    int nYPos;
-};
 
 struct D2ModeChangeStrc
 {

@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Constants.h"
 
 struct D2MonsterRegionStrc;
 struct D2StaticPathStrc;
@@ -18,8 +19,6 @@ union D2SeedStrc;
 
 enum D2C_F39Constants
 {
-    UNIT_PLAYER = 0,
-    UNIT_MONSTER = 1,
     STAT_HITPOINTS = 6,
     STAT_MODIFIERLIST_SKILL = 350,
     STAT_MODIFIERLIST_LEVEL = 351,
@@ -56,9 +55,6 @@ enum D2C_F39Constants
     STATE_NOMANAREGEN = 0x55,
     STATE_CONVERSION_SAVE = 0x6D,
     STATLIST_FLAG_8 = 8,
-    UNIT_OBJECT = 2,
-    UNIT_ITEM = 4,
-    UNIT_TILE = 5,
 };
 
 struct D2StaticPathStrc

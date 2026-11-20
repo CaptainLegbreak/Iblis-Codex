@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 struct D2SeedStrc;
 struct D2StaticPathStrc;
@@ -9,7 +11,6 @@ struct D2SkillsTxt;
 struct D2SummonArgs;
 
 
-struct D2StaticPathStrc { char pad[12]; int x,y; };
 
 
 struct D2MissilesTxt
@@ -74,9 +75,9 @@ void __stdcall MISSILE_SetTargetX(D2UnitStrc*, int); // 0x0064A710
 void __stdcall D2COMMON_10170_PathSetTargetPos(D2DynamicPathStrc*, int, int); // 0x00648AD0
 int __stdcall D2Common_10142(D2DynamicPathStrc*, D2UnitStrc*, int); // 0x00649970
 
-static __forceinline int GetX(D2UnitStrc* p) { switch(p->dwUnitType) {case 2:case 4:case 5:return p->pStaticPath->x;} return p->pDynamicPath?PATH_GetXPosition(p->pDynamicPath):0; }
+static __forceinline int GetX(D2UnitStrc* p) { switch(p->dwUnitType) {case 2:case 4:case 5:return p->pStaticPath->nXPos;} return p->pDynamicPath?PATH_GetXPosition(p->pDynamicPath):0; }
 
-static __forceinline int GetY(D2UnitStrc* p) { switch(p->dwUnitType) {case 2:case 4:case 5:return p->pStaticPath->y;} return p->pDynamicPath?PATH_GetYPosition(p->pDynamicPath):0; }
+static __forceinline int GetY(D2UnitStrc* p) { switch(p->dwUnitType) {case 2:case 4:case 5:return p->pStaticPath->nYPos;} return p->pDynamicPath?PATH_GetYPosition(p->pDynamicPath):0; }
 
 // 0x005AE520
 int __fastcall sub_005AE520_UpdateMissileFrames(D2GameStrc* game,D2UnitStrc* unit)

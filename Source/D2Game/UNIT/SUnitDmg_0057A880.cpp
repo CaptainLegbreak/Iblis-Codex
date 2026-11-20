@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 #define STAT_ITEM_UNDEADDAMAGE_PERCENT 122
 #define STAT_HITPOINTS 6
 #define STAT_MANA 8
@@ -213,11 +215,6 @@ static unsigned int SUNITDMG_GetHitClass(D2DamageStrc* pDamage, unsigned int nBa
 // 0x0057CEC0
 static void sub_0057CEC0_SetHitClassIfUnset(D2DamageStrc* pDamage); // 0x0057CEC0
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 void __stdcall UNITS_GetCoords(D2UnitStrc* pUnit, D2CoordStrc* pCoord); // 0x00620870
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690

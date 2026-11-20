@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 struct D2UiRectStrc { int nLeft,nRight,nTop,nBottom; };
 struct D2UiRecordStrc { int unknown00; unsigned char nBoxes,unknown05; unsigned short unknown06; D2UiRectStrc aRects[16]; };
@@ -30,7 +31,6 @@ extern int gnUiRecordRow_007A5218; // 0x007A5218
 extern int gnGlobal_0071146C; // 0x0071146C
 extern int gnGlobal_00711470; // 0x00711470
 #include "gen/data/Source/D2Client/Unknown_004996A0/gnGlobal_00722358.inc"
-#include "D2Structs.h"
 extern int gnGlobal_007BEF84; // 0x007BEF84
 extern int gnGlobal_007BEF88; // 0x007BEF88
 extern int gbUiRecordMode_007BEF98; // 0x007BEF98

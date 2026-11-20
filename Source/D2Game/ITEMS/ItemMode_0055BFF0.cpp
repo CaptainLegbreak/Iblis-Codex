@@ -1,8 +1,7 @@
 #include "D2Game.h"
+#include "D2Constants.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define UNIT_PLAYER 0
-#define UNIT_ITEM 4
 #define ITEMQUAL_UNIQUE 7
 #define QUESTSTATEFLAG_A1Q4 4
 #define QUESTSTATEFLAG_A2Q1 9
@@ -14,8 +13,6 @@
 #define ITEMACTION_FLAG_BELT 0x20
 #define IFLAG_NEWITEM 0x1
 #define IFLAG_IDENTIFIED 0x10
-#define UNIT_OBJECT 2
-#define UNIT_TILE 5
 struct D2CorpseStrc;
 struct D2StaticPathStrc;
 struct D2BooksTxt;

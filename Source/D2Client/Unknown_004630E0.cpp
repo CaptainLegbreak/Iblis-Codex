@@ -1,5 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 struct D2RoomStrc;
 struct D2StaticPathStrc;
@@ -10,7 +12,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
 void __stdcall sub_0063E510_FillInventoryTables(D2UnitStrc* pUnit, unsigned char* pTableA, unsigned char* pTableB); // 0x0063E510
 
-struct D2StaticPathStrc { unsigned char pad[0xC]; int nX, nY; };
 
 D2UnitStrc* __fastcall sub_00463DE0_GetStoredUnit(); // 0x00463DE0
 D2UnitStrc* __fastcall sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
@@ -70,12 +71,12 @@ static void __stdcall sub_00460830_SetStateAndSync(int bSync, int nState, D2Unit
     int nX, nY;
     switch (pUnit->dwUnitType)
     {
-    case 2: case 4: case 5: nX = pUnit->pStaticPath->nX; break;
+    case 2: case 4: case 5: nX = pUnit->pStaticPath->nXPos; break;
     default: nX = pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0; break;
     }
     switch (pUnit->dwUnitType)
     {
-    case 2: case 4: case 5: nY = pUnit->pStaticPath->nY; break;
+    case 2: case 4: case 5: nY = pUnit->pStaticPath->nYPos; break;
     default: nY = pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0; break;
     }
     if (nX && nY) sub_004804E0_SetPosition(pUnit, nX, nY, 0, 0, 0);

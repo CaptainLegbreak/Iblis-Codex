@@ -1,4 +1,6 @@
 #include "D2Game.h"
+#include "D2Structs.h"
+#include "D2Path.h"
 
 struct D2Act3Quest0Strc;
 struct D2Act3Quest1Strc;
@@ -28,11 +30,6 @@ struct D2Act3Quest1Strc
     int nTomeObjectMode;
 };
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 struct D2ObjInitFnStrc
 {

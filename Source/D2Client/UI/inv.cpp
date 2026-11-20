@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Constants.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
@@ -317,13 +318,6 @@ extern "C" int gnFlag_007BCE28; // 0x007BCE28
 extern int gnGlobal_007BCE30; // 0x007BCE30
 extern void* gpCel_007BCE8C; // 0x007BCE8C
 extern int gnGlobal_007BCE9C; // 0x007BCE9C
-
-enum D2C_H19GridClickConstants
-{
-    UNIT_OBJECT = 2,
-    UNIT_ITEM = 4,
-    UNIT_TILE = 5,
-};
 
 struct D2StaticPathStrc
 {

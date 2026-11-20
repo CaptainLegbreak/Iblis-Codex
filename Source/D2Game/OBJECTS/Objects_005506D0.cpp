@@ -1,4 +1,6 @@
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 struct D2GameStrc;
 struct D2ActiveRoomStrc;
 struct D2UnitStrc;
@@ -22,11 +24,6 @@ struct D2DrlgCoordsStrc
     int nTileHeight;
 };
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 struct D2ObjectsTxt
 {

@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 #define MONMODE_ATTACK1 4
@@ -10,11 +12,6 @@ struct D2MonsterDataStrc;
 struct D2PlayerDataStrc;
 struct D2PetMoveStrc;
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 struct D2GameStrc
 {

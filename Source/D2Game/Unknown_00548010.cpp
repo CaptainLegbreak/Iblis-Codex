@@ -1,12 +1,8 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
-struct D2StaticPathStrc
-{
-    unsigned char unk_00[0x0C];
-    int nXPos;
-    int nYPos;
-};
 int __stdcall PATH_GetXPosition(D2PathRecordStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2PathRecordStrc* pPath); // 0x00648900
 void __fastcall D2GAME_PACKETS_SendPacket0x15_6FC3D0D0(D2ClientStrc* pClient, unsigned char nHeader, int nUnitType, int nUnitGUID, int nPosX, int nPosY, unsigned char a7); // 0x0053BC10

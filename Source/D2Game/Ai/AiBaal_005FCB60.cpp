@@ -1,7 +1,8 @@
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 struct D2ActiveRoomStrc;
 struct D2DynamicPathStrc;
-struct D2StaticPathStrc { char pad00[12]; int x, y; };
 struct D2GameStrc { char pad00[0x6D]; unsigned char difficulty; };
 struct D2AiControlStrc { char pad00[0x14]; int param[3]; };
 struct D2AiCmdStrc { void* next; void* prev; int param[5]; };
@@ -43,11 +44,11 @@ D2ActiveRoomStrc* __fastcall sub_00463740_GetRoom(D2ActiveRoomStrc*,int,int); //
 D2UnitStrc* __fastcall sub_005B2F20_SpawnMonster(D2GameStrc*,D2ActiveRoomStrc*,int,int,int,int,int,int); // 0x005B2F20
 
 static __forceinline int UnitX(D2UnitStrc* u) {
- switch(u->dwUnitType) {case 2:case 4:case 5:return ((D2StaticPathStrc*)u->pDynamicPath)->x;}
+ switch(u->dwUnitType) {case 2:case 4:case 5:return ((D2StaticPathStrc*)u->pDynamicPath)->nXPos;}
  return u->pDynamicPath?PATH_GetXPosition((D2DynamicPathStrc*)u->pDynamicPath):0;
 }
 static __forceinline int UnitY(D2UnitStrc* u) {
- switch(u->dwUnitType) {case 2:case 4:case 5:return ((D2StaticPathStrc*)u->pDynamicPath)->y;}
+ switch(u->dwUnitType) {case 2:case 4:case 5:return ((D2StaticPathStrc*)u->pDynamicPath)->nYPos;}
  return u->pDynamicPath?PATH_GetYPosition((D2DynamicPathStrc*)u->pDynamicPath):0;
 }
 static __forceinline unsigned int RollSeed(D2SeedStrc* s) {

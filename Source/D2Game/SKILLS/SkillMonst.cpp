@@ -1,6 +1,8 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 #define STAT_HITPOINTS 6
 #define DAMAGERESULTFLAG_SUCCESSFULHIT 1
@@ -18,12 +20,6 @@ struct D2DataTablesStrc;
 struct D2MissileStrc;
 struct D2DamageStrc;
 
-struct D2StaticPathStrc
-{
-    int unk0x00[3];
-    int nXPos;
-    int nYPos;
-};
 
 
 enum D2C_M54SkillMonstConstants

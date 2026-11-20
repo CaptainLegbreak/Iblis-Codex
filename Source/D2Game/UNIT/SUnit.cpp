@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Constants.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define NUM_UNIT_TYPES 6
@@ -12,7 +13,6 @@
 #define COLLISION_PATTERN_SMALL_NO_PRESENCE 5
 #define COLLIDE_CORPSE 0x8000
 #define UNITFLAGEX_HASBEENDELETED 0x100
-#define UNIT_INVALID 6
 #define MONMODE_DEATH 0
 #define MONMODE_DEAD 12
 #define SKILLSFLAGINDEX_TARGETPET 25
@@ -194,16 +194,6 @@ struct D2ObjectsTxt
     unsigned char nHasCollision[8];
 };
 
-enum D2C_UnitTypes
-{
-    UNIT_PLAYER = 0,
-    UNIT_MONSTER = 1,
-    UNIT_OBJECT = 2,
-    UNIT_MISSILE = 3,
-    UNIT_ITEM = 4,
-    UNIT_TILE = 5,
-    UNIT_TYPES = 6,
-};
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
@@ -1820,7 +1810,7 @@ void __fastcall SUNIT_RemoveAllItemsFromInventory(D2GameStrc* pGame, D2UnitStrc*
 
         D2_ASSERT(INVENTORY_RemoveItemFromInventory(pInventory, pItem), 0xA07);
 
-        if (pItem->dwUnitType < UNIT_TYPES)
+        if (pItem->dwUnitType < UNIT_TYPES_COUNT)
         {
             SUNIT_RemoveUnit(pGame, pItem);
         }
@@ -1829,7 +1819,7 @@ void __fastcall SUNIT_RemoveAllItemsFromInventory(D2GameStrc* pGame, D2UnitStrc*
     }
 
     D2UnitStrc* pCursorItem = INVENTORY_GetCursorItem(pInventory);
-    if (pCursorItem && pCursorItem->dwUnitType < UNIT_TYPES)
+    if (pCursorItem && pCursorItem->dwUnitType < UNIT_TYPES_COUNT)
     {
         SUNIT_RemoveUnit(pGame, pCursorItem);
     }

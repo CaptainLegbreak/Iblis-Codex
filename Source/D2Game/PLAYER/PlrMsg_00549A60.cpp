@@ -1,8 +1,8 @@
 #include "D2Game.h"
+#include "D2Constants.h"
 
 #define EVENTTYPE_CANTDOTHAT 14
 #define STRCOLOR_RED 1
-#define UNIT_PLAYER 0
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2StaticPathStrc;
 struct D2GSPacketSrv26;

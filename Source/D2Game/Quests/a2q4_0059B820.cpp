@@ -1,11 +1,8 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 struct D2GameStrc
 {
     char unk0x00[0x6D];

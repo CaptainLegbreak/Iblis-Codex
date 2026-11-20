@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 struct D2SkillsTxt;
 struct D2SummonArgStrc;
 
@@ -80,7 +82,6 @@ void __stdcall STATLIST_AddUnitStat(D2UnitStrc*, int, int, int); // 0x006272B0
 void __stdcall STATES_ToggleState(D2UnitStrc*, int, int); // 0x00639DB0
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc*, unsigned int, int, int); // 0x00646CA0
 
-struct D2CoordStrc { int nX; int nY; };
 
 struct D2SummonArgStrc
 {

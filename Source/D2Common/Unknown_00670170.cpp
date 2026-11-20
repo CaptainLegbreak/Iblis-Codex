@@ -1,4 +1,6 @@
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 struct D2DrlgGridStrc
 {
@@ -130,7 +132,6 @@ static __forceinline int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, unsigne
     return SEED_RollRandomNumberHighFirst(pSeed) & (nMax - 1);
 }
 
-struct D2CoordStrc { int nX; int nY; };
 static __declspec(noinline) void __stdcall DRLGTILESUB_DoSubstitutions(D2UnkOutdoorStrc2* pOutdoor, D2LvlSubTxt* pRecord);
 
 // 0x00670170

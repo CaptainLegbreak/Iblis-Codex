@@ -1,6 +1,8 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 #define UNITFLAG_TARGETABLE 0x00000002
 #define UNITFLAG_ISVALIDTARGET 0x00000008
@@ -43,14 +45,6 @@ struct D2CoordStrc;
 struct D2DataTablesStrc;
 struct D2ClientStrc;
 
-struct D2StaticPathStrc
-{
-    D2ActiveRoomStrc* pRoom;
-    int dwClientCoordX;
-    int dwClientCoordY;
-    int nX;
-    int nY;
-};
 
 
 
@@ -162,11 +156,6 @@ D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc* pGame, D2Mis
 extern const int gnBugLightningXOffsets_006E21A8[]; // 0x006E21A8
 extern const int gnBugLightningYOffsets_006E2198[]; // 0x006E2198
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 struct D2MonsterDataStrc
 {
@@ -272,7 +261,7 @@ inline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
     case UNIT_OBJECT:
     case UNIT_ITEM:
     case UNIT_TILE:
-        return pUnit->pStaticPath->nX;
+        return pUnit->pStaticPath->nXPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
     }
@@ -285,7 +274,7 @@ inline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
     case UNIT_OBJECT:
     case UNIT_ITEM:
     case UNIT_TILE:
-        return pUnit->pStaticPath->nY;
+        return pUnit->pStaticPath->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
     }

@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 #define UNIT_PLAYER 0
 #define PLRMODE_DEATH 0
@@ -19,12 +21,6 @@ struct D2MonStatsTxt;
 struct D2ModeChangeStrc;
 
 
-struct D2StaticPathStrc
-{
-    int unk0x00[3];
-    int nXPos;
-    int nYPos;
-};
 
 
 struct D2TargetNodeStrc

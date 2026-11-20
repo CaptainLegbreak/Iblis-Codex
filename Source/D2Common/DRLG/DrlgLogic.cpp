@@ -1,3 +1,5 @@
+#include "D2Structs.h"
+#include "D2Path.h"
 #pragma function(memset)
 
 struct D2DrlgCoordStrc;
@@ -24,11 +26,6 @@ struct D2DrlgCoordStrc
     int nHeight;
 };
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 struct D2DrlgStrc
 {

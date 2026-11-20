@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 struct D2SelectionRectStrc;
 
@@ -88,7 +89,6 @@ D2UnitStrc* __cdecl sub_00467A10()
 }
 
 #include "gen/data/Source/D2Client/Unknown_00466DC0.inc"
-#include "D2Structs.h"
 
 static __forceinline int UNITS_GetClassIdInline(D2UnitStrc* pUnit)
 {

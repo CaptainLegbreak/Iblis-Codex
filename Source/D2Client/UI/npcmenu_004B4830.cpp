@@ -1,12 +1,13 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 struct Unicode { unsigned short wChar; Unicode(unsigned short ch=0):wChar(ch){} };
 struct UnicodeChar:Unicode
 {
     UnicodeChar(); // 0x0042F530
 };
-struct D2CoordStrc { int nX,nY; };
 struct tagRECT { int left,top,right,bottom; };
 typedef int (__cdecl* D2MenuHandler)();
 #pragma pack(push,1)

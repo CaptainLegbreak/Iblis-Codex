@@ -1,7 +1,7 @@
 #include "D2Game.h"
+#include "D2Structs.h"
+#include "D2Path.h"
 
-struct D2SeedStrc { unsigned int nLowSeed; unsigned int nHighSeed; };
-struct D2CoordStrc { int nX; int nY; };
 
 struct D2QuestDataStrc
 {

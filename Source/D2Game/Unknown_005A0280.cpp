@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 #define UNIT_MONSTER 1
 #define MONTYPEFLAG_CHAMPION 4
@@ -58,11 +60,6 @@ struct D2DataTablesStrc
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __stdcall sub_O05_EmitArg_AddUMod(D2UnitStrc* pUnit, int nValue);
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 struct D2MonsterRegionStrc
 {

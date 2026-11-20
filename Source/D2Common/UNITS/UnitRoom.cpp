@@ -1,21 +1,12 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 struct D2CoordStrc;
 struct D2StaticPathStrc;
 struct D2DrlgCoordsStrc;
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
-struct D2StaticPathStrc
-{
-    D2ActiveRoomStrc* pRoom;
-    unsigned char unk_04[0x8];
-    D2CoordStrc tGameCoords;
-};
 
 
 struct D2DrlgCoordsStrc

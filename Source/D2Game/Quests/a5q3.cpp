@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 struct D2PlayerDataStrc;
 struct D2QuestGUIDStrc;
@@ -44,11 +46,6 @@ struct D2QuestGUIDStrc
     unsigned short unk0x82;
 };
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 struct D2Act5Quest3Strc
 {
@@ -159,22 +156,6 @@ struct D2MonsterDataStrc
     D2MonsterInteractStrc* pMonInteract;
 };
 
-struct D2StaticPathStrc
-{
-    char unk0x00[0x0C];
-    union
-    {
-        struct
-        {
-            D2CoordStrc tGameCoords;
-        };
-        struct
-        {
-            int nXPos;
-            int nYPos;
-        };
-    };
-};
 
 struct D2ModeChangeStrc
 {

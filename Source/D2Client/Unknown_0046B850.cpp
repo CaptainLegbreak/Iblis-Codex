@@ -1,5 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 struct D2StaticPathStrc;
 struct D2MissileStrc;
@@ -7,12 +9,6 @@ struct D2SeedStrc;
 struct D2MonStatsTxt;
 struct D2MonStats2Txt;
 
-struct D2StaticPathStrc
-{
-    char unk0x00[0x0C];
-    int nXPos;
-    int nYPos;
-};
 
 
 
@@ -44,7 +40,6 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 void __stdcall MISSILE_SetTargetX(D2UnitStrc* pMissile, int nTargetX); // 0x0064A710
 D2UnitStrc* __stdcall UNITFINDS_FindUnitInNeighboredRooms(D2ActiveRoomStrc* pRoom, int nUnitType, int nClassId); // 0x0065A620
 
-struct D2CoordStrc { int nX; int nY; };
 
 struct D2MonStatsTxt { char pad[0x18]; short wMonStatsEx; char pad2[0x1a8 - 0x1a]; };
 

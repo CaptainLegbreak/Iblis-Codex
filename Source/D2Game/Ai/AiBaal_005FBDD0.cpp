@@ -1,6 +1,6 @@
 #include "D2Game.h"
+#include "D2Constants.h"
 
-#define UNIT_PLAYER 0
 #define PLRMODE_DEATH 0
 #define PLRMODE_DEAD 17
 #define PATHTYPE_TOWARD 2
@@ -16,7 +16,6 @@ struct D2AiCmdStrc;
 
 enum D2C_M244AiBaalConstants
 {
-    UNIT_MONSTER = 1,
     STAT_DAMAGERESIST = 0x24,
     STAT_MAGICRESIST = 0x25,
     STAT_FIRERESIST = 0x27,

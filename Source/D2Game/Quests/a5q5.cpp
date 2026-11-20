@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 #define QUEST_A5Q5_ANCIENTS 35
 #define STAT_LEVEL 12
@@ -27,11 +29,6 @@ struct D2GameStrc
     int dwGameFrame;
 };
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 
 struct D2ModeChangeStrc

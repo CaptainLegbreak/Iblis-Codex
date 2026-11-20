@@ -1,4 +1,6 @@
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 struct D2SkillStrc;
 struct D2TimerArgStrc;
 struct D2PlayerDataStrc
@@ -28,10 +30,6 @@ struct D2ObjectDataStrc
     D2ObjectsTxt* pObjectTxt;
     char unk0x04;
     unsigned char nPortalFlags;
-};
-struct D2StaticPathStrc
-{
-    int dwData[8];
 };
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837

@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 #define ASSERT(expr,line) if (!(expr)) { sub_00408A60(gszEmpty_006CC837,sub_00408090(),line); exit(-1); }
 #define AI_PARAM(n) (pMonStatsTxt->wAiParam[n][pGame->nDifficulty])
@@ -82,12 +84,6 @@ void* __fastcall DATATBLS_GetMonStatsTxtRecord(int); // 0x00451F80
 void* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int); // 0x00451FE0
 void __fastcall AITHINK_Fn001_100_Idle_Buffy(D2GameStrc*,D2UnitStrc*,D2AiTickStrc*); // 0x005B0CD0
 
-struct D2StaticPathStrc
-{
-    int unk00[3];
-    int nXPos;
-    int nYPos;
-};
 
 struct D2MonStatsTxt
 {
@@ -142,7 +138,6 @@ void __stdcall STATES_ToggleState(D2UnitStrc*, int, int); // 0x00639DB0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc*); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc*); // 0x00648900
 
-struct D2CoordStrc { int nX; int nY; };
 
 extern const int gnSkillTable_006E3514[5]; // 0x006E3514
 int __fastcall sub_005EDF70_TryRoomSteps(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005EDF70

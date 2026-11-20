@@ -1,5 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 #include "D2Structs.h"
 #define INVENTORY_SIGNATURE 0x1020304
 struct D2InventoryGridStrc;
@@ -28,8 +30,6 @@ struct D2ItemExtraDataStrc { char unknown[0x14]; D2UnitStrc* nextGridItem; };
 
 struct D2ItemDataStrc { char unknown[0x5c]; D2ItemExtraDataStrc extra; };
 
-struct D2CoordStrc { int nX; int nY; };
-struct D2StaticPathStrc { char unk0x00[0xC]; D2CoordStrc tGameCoords; };
 
 int __stdcall ITEMS_GetItemQuality(D2UnitStrc*); // 0x00627E70
 int __stdcall ITEMS_GetFileIndex(D2UnitStrc*); // 0x00629DA0

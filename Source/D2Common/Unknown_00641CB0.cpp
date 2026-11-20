@@ -1,8 +1,9 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 struct D2ActiveRoomStrc { char unk_00[0x74]; D2UnitStrc* pUnitFirst; };
-struct D2StaticPathStrc { char unk_00[12]; int nX; int nY; };
 struct D2DrlgCoordsStrc { int nSubtileX,nSubtileY,nSubtileWidth,nSubtileHeight,nTileX,nTileY,nTileWidth,nTileHeight; };
 typedef int (__fastcall* D2UnitFindCallback)(D2UnitStrc*,void*);
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc*,D2DrlgCoordsStrc*); // 0x00619730
@@ -25,12 +26,12 @@ static int sub_00641930_IsPointNearRoom(D2ActiveRoomStrc* pRoom,int nX,int nY,in
 }
 // build: context GetX
 inline int GetX(D2UnitStrc* pUnit) {
- switch(pUnit->dwUnitType) {case 2:case 4:case 5:return pUnit->pStaticPath->nX;}
+ switch(pUnit->dwUnitType) {case 2:case 4:case 5:return pUnit->pStaticPath->nXPos;}
  return pUnit->pDynamicPath?PATH_GetXPosition(pUnit->pDynamicPath):0;
 }
 // build: context GetY
 inline int GetY(D2UnitStrc* pUnit) {
- switch(pUnit->dwUnitType) {case 2:case 4:case 5:return pUnit->pStaticPath->nY;}
+ switch(pUnit->dwUnitType) {case 2:case 4:case 5:return pUnit->pStaticPath->nYPos;}
  return pUnit->pDynamicPath?PATH_GetYPosition(pUnit->pDynamicPath):0;
 }
 // build: context D2_ABS

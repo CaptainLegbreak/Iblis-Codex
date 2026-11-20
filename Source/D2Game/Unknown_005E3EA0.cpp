@@ -1,4 +1,6 @@
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 // build: ob1
 
 struct D2GameStrc;
@@ -6,8 +8,6 @@ struct D2ActiveRoomStrc;
 struct D2DynamicPathStrc;
 struct D2RoomCoordListStrc;
 struct D2AiParamStrc;
-struct D2StaticPathStrc { char unk00[0xc]; int nXPos; int nYPos; };
-struct D2CoordStrc { int nX; int nY; };
 struct D2PlayerDataStrc { char unk00[0xa0]; unsigned char nPathIndex; char unkA1[7]; D2CoordStrc pPath[20]; };
 struct D2PetMoveStrc { D2UnitStrc* pUnit; D2UnitStrc* pTarget; int nCounter; };
 struct D2DataTablesStrc { char unk00[0xa80]; int nMonStatsTxtRecordCount; };

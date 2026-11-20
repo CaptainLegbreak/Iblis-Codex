@@ -1,5 +1,7 @@
 #pragma once
 
+struct D2PathPointStrc;
+
 struct AiState;
 struct AuraRequest;
 struct D2ActiveRoomStrc;
@@ -1111,11 +1113,6 @@ struct D2PartyNodeStrc
     D2PartyNodeStrc* pNext;
 };
 
-struct D2PathPointStrc
-{
-    unsigned short X;
-    unsigned short Y;
-};
 
 struct D2PlayerListStrc
 {

@@ -1,4 +1,6 @@
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 // build: ob1
 
 struct D2ClientStrc;
@@ -8,12 +10,6 @@ struct D2SkillStrc;
 
 struct D2DynamicPathStrc;
 
-struct D2StaticPathStrc
-{
-    char unk0x00[0x0C];
-    int nX;
-    int nY;
-};
 
 
 struct D2GameStrc

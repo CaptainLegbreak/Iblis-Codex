@@ -1,5 +1,11 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+
+struct D2PathPointStrc
+{
+    unsigned short X;
+    unsigned short Y;
+};
 #define UNITFLAG_SKSRVDOFUNC 0x40
 #define AURAFILTER_DOUBLESWING 0x20003
 #define TIMERQUEUE_CURSESTATE 1

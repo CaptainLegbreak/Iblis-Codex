@@ -1,5 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 struct D2DrlgStrc;
 struct D2DrlgEnvironmentStrc;
 struct D2DrlgActStrc;
@@ -74,11 +76,6 @@ struct D2DrlgCoordsStrc
     };
 };
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 struct tagRECT
 {

@@ -1,4 +1,6 @@
 #include "D2Common.h"
+#include "D2Structs.h"
+#include "D2Path.h"
 
 struct D2CoordStrc;
 struct D2DrlgCoordsStrc;
@@ -14,11 +16,6 @@ struct D2DrlgGridStrc
     int unk0x10;
 };
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 struct D2DrlgCoordsStrc
 {

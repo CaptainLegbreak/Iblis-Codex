@@ -1,4 +1,6 @@
 #include "D2Common.h"
+#include "D2Structs.h"
+#include "D2Path.h"
 
 #define RAYTRACE_LOAD_ROOM() \
     nRoomX = pRoom->nSubtileX; \
@@ -22,11 +24,6 @@ struct D2RoomCollisionGridStrc;
 struct D2DrlgCoordsStrc;
 struct D2BoundingBoxStrc;
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 struct D2ActiveRoomStrc
 {

@@ -1,38 +1,14 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 // build: context sub_6FD5DB70
 
 typedef int BOOL;
 
-struct D2PathPointStrc
-{
-    unsigned short X;
-    unsigned short Y;
-};
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
-union D2FP32_16
-{
-    struct
-    {
-        unsigned short wOffsetX;
-        unsigned short wPosX;
-        unsigned short wOffsetY;
-        unsigned short wPosY;
-    };
-
-    struct
-    {
-        unsigned int dwPrecisionX;
-        unsigned int dwPrecisionY;
-    };
-};
 
 struct D2DrlgCoordsStrc
 {
@@ -50,58 +26,6 @@ struct D2ActiveRoomStrc
 
 
 #pragma pack(push, 1)
-struct D2DynamicPathStrc
-{
-    D2FP32_16 tGameCoords;
-    int dwClientCoordX;
-    int dwClientCoordY;
-    D2PathPointStrc tTargetCoord;
-    D2PathPointStrc tPrevTargetCoord;
-    D2PathPointStrc tFinalTargetCoord;
-    D2ActiveRoomStrc* pRoom;
-    D2ActiveRoomStrc* pPreviousRoom;
-    int dwCurrentPointIdx;
-    int dwPathPoints;
-    void* unk0x2C;
-    D2UnitStrc* pUnit;
-    unsigned int dwFlags;
-    unsigned int unk0x38;
-    unsigned int dwPathType;
-    unsigned int dwPrevPathType;
-    unsigned int dwUnitSize;
-    unsigned int dwCollisionPattern;
-    unsigned int nFootprintCollisionMask;
-    unsigned int nMoveTestCollisionMask;
-    unsigned short nCollidedWithMask;
-    unsigned short padding0x56;
-    D2UnitStrc* pTargetUnit;
-    unsigned int dwTargetType;
-    unsigned int dwTargetId;
-    unsigned char nDirection;
-    unsigned char nNewDirection;
-    unsigned char nDiffDirection;
-    unsigned char unk0x67;
-    unsigned char dwSpeed;
-    unsigned char unk0x69;
-    D2CoordStrc tDirectionVector;
-    D2CoordStrc tVelocityVector;
-    char padding0x7A[2];
-    int dwVelocity;
-    unsigned int nPreviousVelocity;
-    int dwMaxVelocity;
-    int dwAcceleration;
-    int dwAccelerationsCounter;
-    unsigned char nDist;
-    unsigned char nDistMax;
-    unsigned char nIDAStarInitFScore;
-    unsigned char nStepNum;
-    unsigned char nDistance;
-    char padding0x95[3];
-    int nDirOffset;
-    D2PathPointStrc PathPoints[78];
-    int nSavedStepsCount;
-    D2PathPointStrc SavedSteps[10];
-};
 #pragma pack(pop)
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837

@@ -1,5 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2WallCellStrc;
@@ -26,12 +28,6 @@ struct D2WallPointStrc
     int nY;
 };
 
-struct D2StaticPathStrc
-{
-    char unk0x00[0xC];
-    unsigned int nXPos;
-    unsigned int nYPos;
-};
 
 
 struct D2WallRoomArgStrc

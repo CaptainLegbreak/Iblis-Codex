@@ -1,4 +1,6 @@
 #include "D2Common.h"
+#include "D2Structs.h"
+#include "D2Path.h"
 #define COLLISION_ABS(a) ((a) < 0 ? -(a) : (a))
 struct D2CoordStrc;
 struct D2FieldStrc;
@@ -78,11 +80,6 @@ int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, in
 void __stdcall COLLISION_SetMaskWithSize(D2ActiveRoomStrc* pRoom, int nX, int nY, int nUnitSize, unsigned short nMask); // 0x0064EA00
 void __stdcall COLLISION_SetMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, unsigned short nMask); // 0x0064EA90
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinatesImpl(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, D2CoordStrc* pFieldCoord, int nUnitSize, unsigned int nMask, unsigned int nFieldMask, int bAllowNeighborRooms, int nMaxDistance, int nPosIncrementValue); // 0x0064DEA0
 

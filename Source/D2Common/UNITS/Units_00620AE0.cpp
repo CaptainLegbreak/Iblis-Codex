@@ -1,5 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 #define STAT_TOHIT 19
 #define STAT_DEXTERITY 2
 struct D2AnimSeqTxt;
@@ -13,29 +15,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-struct D2CoordStrc { int nX; int nY; };
 
-struct D2StaticPathStrc
-{
-    D2ActiveRoomStrc* pRoom;
-    int nConvX;
-    int nConvY;
-    union
-    {
-        struct
-        {
-            D2CoordStrc tGameCoords;
-        };
-        struct
-        {
-            int nX;
-            int nY;
-        };
-    };
-    unsigned char unk_14[8];
-    unsigned char bFlag1C;
-    unsigned char unk_1D[0x3];
-};
 
 
 void __stdcall sub_00643260(int* pX, int* pY); // 0x00643260
@@ -91,15 +71,15 @@ void __stdcall UNITS_InitializeStaticPath(D2UnitStrc* pUnit, D2ActiveRoomStrc* p
 {
     D2_ASSERT(pUnit, 0x866);
     D2StaticPathStrc* pPath = pUnit->pStaticPath;
-    pPath->nX = tCoord.nX;
-    pPath->nY = tCoord.nY;
-    pPath->bFlag1C = 0;
+    pPath->nXPos = tCoord.nX;
+    pPath->nYPos = tCoord.nY;
+    pPath->nDirection = 0;
     pPath->pRoom = pRoom;
     int nConvX = tCoord.nX;
     int nConvY = tCoord.nY;
     sub_00643260(&nConvX, &nConvY);
-    pPath->nConvX = nConvX;
-    pPath->nConvY = nConvY;
+    pPath->nTargetX = nConvX;
+    pPath->nTargetY = nConvY;
 }
 
 // 0x00621330
@@ -387,7 +367,7 @@ __forceinline int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nX;
+        return pUnit->pStaticPath->nXPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
     }
@@ -400,7 +380,7 @@ __forceinline int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nY;
+        return pUnit->pStaticPath->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
     }

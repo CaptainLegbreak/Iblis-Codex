@@ -1,5 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 #define MAX(a, b) ((a) < (b) ? (b) : (a))
 struct D2StaticPathStrc;
@@ -8,18 +10,7 @@ struct D2MissileStrc;
 struct D2MissilesTxt;
 struct D2SkillsTxt;
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
-struct D2StaticPathStrc
-{
-    int unk0x00[3];
-    int nXPos;
-    int nYPos;
-};
 
 
 

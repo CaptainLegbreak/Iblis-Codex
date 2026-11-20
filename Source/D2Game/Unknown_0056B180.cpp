@@ -1,6 +1,8 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 #define STAT_HITPOINTS 6
 #define STAT_MANA 8
@@ -88,11 +90,6 @@ struct D2MissilesTxt
     char unk0x008[0x1A4 - 0x08];
 };
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 typedef char M195_CheckUnitFlags[(int)&((D2UnitStrc*)0)->dwFlags == 0xC4 ? 1 : -1];
 

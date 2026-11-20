@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 #define UNIT_PLAYER 0
 #define PLRMODE_DEAD 17
@@ -11,11 +13,6 @@ struct D2SeedStrc;
 struct D2ObjectControlStrc;
 struct D2ObjOperateFnStrc;
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 
 struct D2ObjectControlStrc

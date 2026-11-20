@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 #define MONSTER_QUALKEHK 515
 struct Unit0058F000;
@@ -7,11 +9,6 @@ struct D2ObjInitFnStrc;
 struct D2Act5Quest1Strc;
 struct D2Act5Quest2Strc;
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 
 struct D2MapAIStrc

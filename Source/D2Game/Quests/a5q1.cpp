@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 #define MONSTER_AKARA 148
 #define MONSTER_KASHYA 150
@@ -46,11 +48,6 @@ struct D2QuestGUIDStrc;
 struct D2Act4Quest2Strc;
 struct D2Act4Quest3Strc;
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 struct D2GameStrc
 {

@@ -1,5 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct Unicode;
@@ -85,11 +87,6 @@ extern D2TextListStrc gtTextList_007BF1E4; // 0x007BF1E4
 extern D2TextListStrc gtTextList_007BF1EA; // 0x007BF1EA
 extern D2TextListStrc gtTextList_007BF1F0; // 0x007BF1F0
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 #pragma pack(push, 2)
 struct T00479230

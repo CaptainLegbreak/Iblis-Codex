@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 #define UNIT_OBJECT 2
 #define UNITFLAGEX_TELEPORTED 0x10000
@@ -50,11 +52,6 @@ struct D2GameStrc
     int dwGameFrame;
 };
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 struct D2ObjectsTxt
 {
