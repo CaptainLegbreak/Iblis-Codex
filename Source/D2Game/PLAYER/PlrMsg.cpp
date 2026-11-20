@@ -226,7 +226,7 @@ struct D2SkillsTxt
     unsigned char nFlags[8];
 };
 
-extern "C" const char gszEmptyAssertText;
+extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);
@@ -234,22 +234,22 @@ extern "C" const char gszPlrMsgSourceFile[];
 extern unsigned int gdwBitMasks[];
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void);
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId);
-int __fastcall PLAYER_IsBusy(D2UnitStrc* pUnit);
+int __fastcall PLAYER_IsBusy(D2UnitStrc* pUnit); // 0x00535060
 D2MonsterInteractStrc* __fastcall sub_00535E80_GetMonInteract(D2UnitStrc* pUnit);
 void __fastcall D2GAME_PACKETS_SendPacket0x15_6FC3D0D0(D2ClientStrc* pClient, unsigned char nHeader, unsigned char nUnitType, int nUnitGUID, unsigned short nPosX, unsigned short nPosY, unsigned char a7);
 void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nEventCustomId); // 0x00540E60
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
-void __fastcall QUESTS_UseClueItem(D2GameStrc* pGame, D2UnitStrc* pUnit, int nItemGUID);
+void __fastcall QUESTS_UseClueItem(D2GameStrc* pGame, D2UnitStrc* pUnit, int nItemGUID); // 0x00544840
 D2WaypointDataStrc* __fastcall sub_00547F50(D2GameStrc* pGame, D2UnitStrc* pPlayer);
 D2UnitStrc* __fastcall SUNIT_GetOwner(D2GameStrc* pGame, D2UnitStrc* pUnit);
-void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc* pUpdateUnit);
+void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc* pUpdateUnit); // 0x00553380
 void __stdcall SUNIT_ResetInteractInfo(D2UnitStrc* pUnit);
 D2UnitStrc* __fastcall SUNIT_GetInteractUnit(D2GameStrc* pGame, D2UnitStrc* pUnit);
 void __fastcall SUNIT_WarpPlayer(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pTile);
-int __fastcall ITEMS_IsInPlayersInventory(D2UnitStrc* pPlayer, D2UnitStrc* pItem, D2InventoryStrc* pInventory);
+int __fastcall ITEMS_IsInPlayersInventory(D2UnitStrc* pPlayer, D2UnitStrc* pItem, D2InventoryStrc* pInventory); // 0x00557FF0
 unsigned int __fastcall PLAYERLIST_GetHostileDelay(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2);
 void __fastcall D2GAME_PickupItemEx_6FC42B80(D2GameStrc* pGame, D2UnitStrc* pUnit, int nItemGUID, int* pItemStatus);
-int __fastcall ITEMMODE_UseStoredItemAtCoordinates(D2GameStrc* pGame, D2UnitStrc* pUnit, int nItemGUID, int nX, int nY, int* pItemStatus);
+int __fastcall ITEMMODE_UseStoredItemAtCoordinates(D2GameStrc* pGame, D2UnitStrc* pUnit, int nItemGUID, int nX, int nY, int* pItemStatus); // 0x0055E170
 int __fastcall ITEMMODE_MergeItemStacks(D2GameStrc* pGame, D2UnitStrc* pUnit, int nItemGUID1, int nItemGUID2, int* pItemStatus);
 int __fastcall D2GAME_Return0_6FC48930(D2GameStrc* pGame, D2UnitStrc* pUnit, int nItemGUID, int* pItemStatus);
 int __fastcall ITEMMODE_AddScrollToBook(D2GameStrc* pGame, D2UnitStrc* pUnit, int nScrollGUID, int nBookGUID, int* pItemStatus);
@@ -259,7 +259,7 @@ int __fastcall ITEMMODE_UseBeltItem(D2GameStrc* pGame, D2UnitStrc* pUnit, int nI
 int __fastcall ITEMMODE_PlaceItemInCube(D2GameStrc* pGame, D2UnitStrc* pUnit, int nItemGUID, int nCubeGUID, int* pItemStatus);
 int __fastcall D2GAME_PickupItem_6FC43340(D2GameStrc* pGame, D2UnitStrc* pUnit, int nItemGUID, int* pItemStatus);
 void __fastcall PLRTRADE_TryToTrade(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2);
-int __fastcall D2GAME_PLRTRADE_IsInteractingWithPlayer(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3);
+int __fastcall D2GAME_PLRTRADE_IsInteractingWithPlayer(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3); // 0x005678A0
 void __fastcall MONSTERAI_ActivateNpcInteraction(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pNpc, D2MonsterInteractStrc* pMonInteract);
 void __fastcall MONSTERAI_EndNpcInteraction(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc, D2MonsterInteractStrc* pMonInteract);
 void __fastcall MONSTERAI_StartNpcInteraction(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2MonsterInteractStrc* pMonInteract, char nQuestFlags);
@@ -362,7 +362,7 @@ struct D2GSPacketSrv26Args
     int nUnitId;
 };
 
-D2GameStrc* __fastcall CLIENTS_GetGame(D2ClientStrc* pClient);
+D2GameStrc* __fastcall CLIENTS_GetGame(D2ClientStrc* pClient); // 0x005387C0
 
 struct D2GSPacketSrv26 {
     unsigned char header, messageType, language, unitType;
@@ -374,7 +374,7 @@ struct D2GSPacketSrv26 {
 
 void __fastcall D2GAME_PACKETS_SendPacket0x26_ServerMessage_6FC3DDF0(D2ClientStrc* pClient, D2GSPacketSrv26* pPacket); // 0x0053C750
 int __stdcall SUNIT_GetInteractInfo(D2UnitStrc* pUnit, int* pInteractUnitType, int* pInteractUnitGUID); // 0x00554100
-int __fastcall PLAYERLIST_CheckFlag(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, int nFlag);
+int __fastcall PLAYERLIST_CheckFlag(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, int nFlag); // 0x0055B300
 
 typedef void (__fastcall *ClientCallback)(D2ClientStrc*, void*);
 
@@ -547,6 +547,7 @@ void __fastcall sub_6FC821C0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc*
     }
 }
 
+// build: context sub_005485B0_GetPotionLifePercent
 static unsigned char sub_005485B0_GetPotionLifePercent(D2UnitStrc* pUnit)
 {
     D2StatListStrc* pHealthPotStatList;
@@ -968,6 +969,7 @@ int __fastcall sub_6FC828D0(D2UnitStrc* pPlayer, int nUnitType, int nUnitGUID, i
     return 1;
 }
 
+// 0x00549220
 static __declspec(noinline) int __stdcall sub_00549220_CheckOwnedItem(int nItemGUID, D2GameStrc* pGame, D2UnitStrc* pUnit)
 {
     D2_ASSERT(pGame, 1192);
@@ -1051,6 +1053,7 @@ static __declspec(noinline) int __stdcall sub_00549520_CheckOrificeObject(int nI
     }
 }
 
+// build: context sub_00549570_CheckWaypointObject
 static __declspec(noinline) int __stdcall sub_00549570_CheckWaypointObject(D2UnitStrc* pUnit, D2GameStrc* pGame, int nObjectGUID, unsigned short nLevelId)
 {
     D2UnitStrc* pObject = SUNIT_GetServerUnit(pGame, 2, nObjectGUID);
@@ -1100,6 +1103,7 @@ static __declspec(noinline) int __stdcall sub_00549570_CheckWaypointObject(D2Uni
     return WAYPOINTS_IsActivated(sub_00547F50(pGame, pUnit), nWaypointNo) ? 0 : 2;
 }
 
+// 0x005496F0
 static __declspec(noinline) int __stdcall sub_6FC82D10(D2GameStrc* pGame, int nPacketSize, unsigned short* pX, unsigned short* pY, D2UnitStrc* pUnit, void* pPacket)
 {
     *pX = 0;
@@ -1228,6 +1232,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x04_RunToEntity_6FC830F0(D2GameStrc* pG
     return 0;
 }
 
+// 0x00549960
 static __declspec(noinline) D2SkillStrc* __stdcall sub_6FC83450(D2SkillStrc* pSkill, D2UnitStrc* pUnit)
 {
     D2SkillStrc* pUsedSkill = pSkill;
@@ -1310,6 +1315,7 @@ static __declspec(noinline) int __stdcall sub_6FC83340(D2GameStrc* pGame, D2Unit
     return 0;
 }
 
+// build: context PLRMSG_UseSkillOnUnit
 static __declspec(noinline) int __stdcall PLRMSG_UseSkillOnUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2SkillStrc* pSkill, int nUnitType, int nUnitGUID, int bCheckRange)
 {
     if (UNITS_CanDualWield(pUnit))
@@ -1383,6 +1389,7 @@ static __declspec(noinline) int __stdcall PLRMSG_UseSkillOnUnit(D2GameStrc* pGam
     return 0;
 }
 
+// 0x00549D00
 int __fastcall D2GAME_PACKETCALLBACK_Rcv0x05_ShiftLeftClickSkill_6FC832B0(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
 {
     unsigned short nX;
@@ -1404,6 +1411,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x05_ShiftLeftClickSkill_6FC832B0(D2Game
     return 0;
 }
 
+// 0x00549D80
 int __fastcall D2GAME_PACKETCALLBACK_Rcv0x06_LeftSkillOnUnit_6FC83550(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
 {
     int nUnitType;
@@ -1425,6 +1433,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x06_LeftSkillOnUnit_6FC83550(D2GameStrc
     return 0;
 }
 
+// 0x00549E00
 int __fastcall D2GAME_PACKETCALLBACK_Rcv0x07_ShiftLeftSkillOnUnit_6FC83890(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
 {
     int nUnitType;
@@ -1506,6 +1515,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x0A_ShiftLeftSkillOnUnitHold_6FC83D40(D
     return 0;
 }
 
+// 0x00549FC0
 int __fastcall D2GAME_PACKETCALLBACK_Rcv0x0C_RightSkill_6FC83EF0(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
 {
     unsigned short nX;
@@ -1527,6 +1537,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x0C_RightSkill_6FC83EF0(D2GameStrc* pGa
     return 0;
 }
 
+// 0x0054A040
 int __fastcall D2GAME_PACKETCALLBACK_Rcv0x0D_RightSkillOnUnit_6FC83F80(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
 {
     int nUnitType;
@@ -1548,6 +1559,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x0D_RightSkillOnUnit_6FC83F80(D2GameStr
     return 0;
 }
 
+// 0x0054A0C0
 int __fastcall D2GAME_PACKETCALLBACK_Rcv0x0E_ShiftRightSkillOnUnit_6FC84100(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
 {
     int nUnitType;
@@ -1659,6 +1671,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x1A_EquipItem_6FC85280(D2GameStrc* pGam
     return 3;
 }
 
+// 0x0054B280
 int __fastcall D2GAME_PACKETCALLBACK_Rcv0x27_UseItemAction_6FC85B50(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
 {
     if (nSize != 9)
@@ -1689,6 +1702,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x27_UseItemAction_6FC85B50(D2GameStrc* 
     return 3;
 }
 
+// 0x0054B300
 int __fastcall D2GAME_PACKETCALLBACK_Rcv0x21_StackItems_6FC85C80(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
 {
     if (nSize != 9)
@@ -1747,6 +1761,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x22_UnstackItems_6FC85DA0(D2GameStrc* p
     return 3;
 }
 
+// 0x0054B560
 int __fastcall D2GAME_PACKETCALLBACK_Rcv0x26_UseBeltItem_6FC86150(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
 {
     if (nSize != 13)
@@ -1779,6 +1794,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x26_UseBeltItem_6FC86150(D2GameStrc* pG
     return 3;
 }
 
+// 0x0054B710
 int __fastcall D2GAME_PACKETCALLBACK_Rcv0x29_ScrollToBook_6FC86450(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
 {
     if (nSize != 9)
@@ -1809,6 +1825,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x29_ScrollToBook_6FC86450(D2GameStrc* p
     return 3;
 }
 
+// 0x0054B790
 int __fastcall D2GAME_PACKETCALLBACK_Rcv0x2A_ItemToCubeIndirect_6FC866E0(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
 {
     if (nSize != 9)
@@ -1839,6 +1856,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x2A_ItemToCubeIndirect_6FC866E0(D2GameS
     return 3;
 }
 
+// build: context sub_00549410_GetInteractNpc
 static int __stdcall sub_00549410_GetInteractNpc(int bCheckRange, D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc** ppNpc, int nNpcGUID)
 {
     *ppNpc = SUNIT_GetServerUnit(pGame, 1, nNpcGUID);
@@ -1885,6 +1903,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x2F_InitEntityChat_6FC868C0(D2GameStrc*
     return 0;
 }
 
+// 0x0054B9F0
 int __fastcall D2GAME_PACKETCALLBACK_Rcv0x30_TerminateEntityChat_6FC869F0(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
 {
     if (nSize != 9)
@@ -1940,6 +1959,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x3D_HighlightADoor_6FC870F0(D2GameStrc*
     return 0;
 }
 
+// 0x0054C380
 int __fastcall D2GAME_PACKETCALLBACK_Rcv0x44_StaffInOrifice_6FC87780(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
 {
     if (nSize != 17)
@@ -2140,6 +2160,7 @@ static __forceinline int sub_005492A0_CheckBodyLocFree(D2UnitStrc* pUnit, int nB
     return INVENTORY_GetItemFromBodyLoc(pUnit->pInventory, nBodyLoc) ? 0 : 1;
 }
 
+// build: context sub_M114_Emit_00549080
 int __stdcall sub_M114_Emit_00549080(D2UnitStrc* pUnit, const char* szName, int a, int b)
 {
     return sub_00549080_CheckLeftSkill(pUnit) + sub_005490A0_CheckRightSkill(pUnit) + sub_005490C0_CheckName(szName)
@@ -2998,6 +3019,7 @@ static int __stdcall sub_0054D130_UnequipMercItem(D2UnitStrc* pPlayer, int nBody
     }
 }
 
+// build: context sub_0054D230_TryEquipMercItem
 static int __stdcall sub_0054D230_TryEquipMercItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pMerc, D2UnitStrc* pItem)
 {
     D2InventoryStrc* pInventory = pPlayer->pInventory;

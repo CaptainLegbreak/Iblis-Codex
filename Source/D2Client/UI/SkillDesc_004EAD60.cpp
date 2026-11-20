@@ -50,7 +50,7 @@ struct Unicode
 extern "C" const char gszEmptyAssertText;
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...);
 extern "C" const char szFmtD_006D57BC[];
-extern "C" const char szFmtRange_006D9D70[];
+extern "C" const char szFmtRange_006D9D70[]; // 0x006D9D70
 extern "C" const char szFmtRangeKK_006DBEAC[];
 extern "C" const char szFmtRangeK_006DBEB8[];
 extern int gnGlobal_00711470;
@@ -279,6 +279,7 @@ static void __stdcall sub_004E9660_AddScaledWeaponDamage(D2UnitStrc* pUnit, int*
     *pMaxDamage += nMax * nRatio / 128;
 }
 
+// 0x004E96E0
 static __declspec(noinline) void __stdcall sub_004E96E0_DrawDamageRange(int nColor, int nY, int nMin, int nMax, int nLeft, int nRight)
 {
     if (nMin >= nMax)
