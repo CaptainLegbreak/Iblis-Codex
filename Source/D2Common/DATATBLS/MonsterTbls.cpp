@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Txt.h"
 #include "D2Records.h"
+#include "D2Unicode.h"
 
 #pragma function(memset)
 #define MONSTATSFLAGINDEX_NORATIO 2
@@ -142,11 +143,6 @@ extern unsigned int gdwBitMasks[]; // 0x006CE268
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); // 0x00483360
 
 
-
-struct Unicode
-{
-    unsigned short wChar;
-};
 
 struct D2UniqueNameTxt
 {

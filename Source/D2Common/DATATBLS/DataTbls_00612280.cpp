@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2TxtTables.h"
 #include "D2Records.h"
+#include "D2Unicode.h"
 struct D2AnimDataTableStrc;
 struct Unicode;
 struct D2BinFieldStrc;
@@ -9,11 +10,6 @@ struct D2PetTypeTxt;
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
 void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
-
-struct Unicode
-{
-    unsigned short wChar;
-};
 
 extern "C" const char gszOpenBracket_006E6438[]; // 0x006E6438
 extern "C" const char gszCloseBracket_006E6434[]; // 0x006E6434

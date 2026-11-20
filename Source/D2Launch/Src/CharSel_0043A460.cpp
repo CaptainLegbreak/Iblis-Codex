@@ -1,10 +1,6 @@
+#include "D2Unicode.h"
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 #pragma intrinsic(memset)
-
-struct Unicode
-{
-    unsigned short wChar;
-};
 
 struct D2CompositeUnitStrc;
 

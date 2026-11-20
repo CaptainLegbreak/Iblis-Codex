@@ -1,9 +1,5 @@
 #include "D2Launch.h"
-
-struct Unicode
-{
-    unsigned short wChar;
-};
+#include "D2Unicode.h"
 
 struct D2FuncTable_0077ABF0Strc
 {

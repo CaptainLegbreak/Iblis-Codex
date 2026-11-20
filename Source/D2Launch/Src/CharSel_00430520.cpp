@@ -1,10 +1,7 @@
 #include "D2Launch.h"
 #include "D2MultiTypes.h"
+#include "D2Unicode.h"
 
-struct Unicode
-{
-    unsigned short wChar;
-};
 struct SMSGHANDLER_PARAMS;
 
 #pragma pack(push, 1)

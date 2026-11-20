@@ -1,10 +1,6 @@
 #include "D2Launch.h"
+#include "D2Unicode.h"
 struct D2LaunchControlTemplateStrc;
-
-struct Unicode
-{
-    unsigned short wChar;
-};
 
 int __fastcall sub_0042F2E0_ReadPaletteFiles(const char* szFile1, const char* szFile2); // 0x0042F2E0
 void __cdecl sub_0042F3F0_DestroyControls(); // 0x0042F3F0

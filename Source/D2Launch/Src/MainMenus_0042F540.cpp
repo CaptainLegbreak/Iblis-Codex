@@ -1,15 +1,11 @@
 #include "D2Launch.h"
 #include "D2MultiTypes.h"
 #include "D2StormTypes.h"
+#include "D2Unicode.h"
 struct SMSGHANDLER_PARAMS;
 struct D2LaunchControlTemplateStrc;
 struct D2LaunchRecord3Strc;
 struct D2LaunchRecordStrc;
-
-struct Unicode
-{
-    unsigned short wChar;
-};
 
 struct D2LaunchRecord3Strc
 {

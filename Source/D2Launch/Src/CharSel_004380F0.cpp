@@ -1,8 +1,4 @@
-struct Unicode
-{
-    unsigned short wChar;
-};
-
+#include "D2Unicode.h"
 struct D2WinControlStrc;
 struct D2CompositeUnitStrc;
 

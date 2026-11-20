@@ -1,6 +1,7 @@
 #include "D2Launch.h"
 #include "D2FogTypes.h"
 #include "D2StormTypes.h"
+#include "D2Unicode.h"
 
 #pragma intrinsic(_ReadWriteBarrier)
 #pragma intrinsic(strcmp)
@@ -143,11 +144,6 @@ extern "C" __declspec(dllimport) int __stdcall GetCursorPos(D2CoordPairStrc* pPo
 extern int gnLastClickX_00779998; // 0x00779998
 extern int gnLastClickY_0077999C; // 0x0077999C
 extern int gnLastClickTick_007799A0; // 0x007799A0
-
-struct Unicode
-{
-    unsigned short wChar;
-};
 
 void __cdecl sub_0042F3F0_DestroyControls(); // 0x0042F3F0
 void __cdecl sub_0042FFE0_CreateScreen(); // 0x0042FFE0

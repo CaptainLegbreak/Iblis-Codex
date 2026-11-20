@@ -6,6 +6,7 @@
 #include "D2Drlg.h"
 #include "D2GameServer.h"
 #include "D2GameClient.h"
+#include "D2Unicode.h"
 
 #pragma intrinsic(_ReadWriteBarrier)
 
@@ -238,11 +239,6 @@ typedef void(__fastcall* UnitDescriptionFunction)(char* szDescription, int nClas
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize); // 0x00681EF0
 extern UnitDescriptionFunction gpfGetDescription_6FD2CA64[5]; // 0x0073107C
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
-
-struct Unicode
-{
-    unsigned short wChar;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);

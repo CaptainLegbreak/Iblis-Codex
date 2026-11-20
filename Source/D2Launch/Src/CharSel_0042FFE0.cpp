@@ -1,9 +1,5 @@
 #include "D2Launch.h"
-
-struct Unicode
-{
-    unsigned short wChar;
-};
+#include "D2Unicode.h"
 
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int dwFlags);                  // 0x00412650
 int __fastcall sub_0042F2E0_ReadPaletteFiles(const char* szFile1, const char* szFile2); // 0x0042F2E0
