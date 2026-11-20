@@ -2,7 +2,7 @@
 // Fog: the memory pool system, and the thread context and stack frame records of the crash handler.
 
 #include "D2Check.h"
-#include "D2GameTypes.h"
+#include "D2SysTypes.h"
 
 struct D2MemPoolBlockStrc;
 struct D2MemPoolRecStrc;
@@ -104,6 +104,8 @@ struct D2ThreadContextStrc
     unsigned long Esp; // 0xC4
     unsigned long SegSs; // 0xC8
     unsigned char ExtendedRegisters[512]; // 0xCC
+
+    int sub_00405060_CaptureFrames(unsigned long dwThreadId, D2StackFrameStrc* pFrames, int nSkipFrames);
 };
 
 struct D2StackFrameStrc

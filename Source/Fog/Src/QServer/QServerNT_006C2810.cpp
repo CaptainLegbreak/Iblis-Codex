@@ -14,7 +14,7 @@ struct D2TimevalStrc;
 union D2QTickStrc;
 struct D2HackListStrc;
 
-struct D2CriticalSectionStrc { void* pDebugInfo; long nLockCount; long nRecursionCount; void* hOwningThread; void* hLockSemaphore; unsigned long nSpinCount; };
+#include "D2SysTypes.h"
 
 struct D2SockAddrInStrc
 {

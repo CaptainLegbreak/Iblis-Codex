@@ -89,7 +89,7 @@ extern "C" int __cdecl isalnum(int); // 0x006870FB
 static __declspec(noinline) const char* __stdcall DATATABLS_ParseExpressionToken(FOGExpressionParserContextStrc* pCalc, const char* szExpression, FOGCalcExpressionParserTokenType* pOutTokenType, int* pTokenAssociatedValue, CalcGetKeyWordToNumber_t pfnFunctionNameToId, CalcGetLinkerIndex_t pfnLinkParse);
 static __declspec(noinline) FOGASTNodeStrc* __stdcall DATATBLS_Evaluate_HandleNewOp(FOGASTNodeStrc* pASTBufferPos, FOGASTNodeStrc* pASTBufferStart, int nASTBufferSize, FOGExpressionParserContextStrc* pContext, unsigned char nNewASTType, CalcGetFunctionParameterCount_t pfnGetFunctionParametersCount, int nTokenAssociatedValue);
 
-struct D2CriticalSectionStrc { void* pDebugInfo; long nLockCount; long nRecursionCount; void* hOwningThread; void* hLockSemaphore; unsigned long nSpinCount; };
+#include "D2SysTypes.h"
 
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pCriticalSection);
 

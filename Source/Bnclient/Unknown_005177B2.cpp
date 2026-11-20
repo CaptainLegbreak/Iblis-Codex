@@ -1,6 +1,6 @@
 #include "Bnclient.h"
 
-struct D2CriticalSectionStrc { int unk[6]; };
+#include "D2SysTypes.h"
 
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
 extern "C" int __cdecl atexit(void (__cdecl* callback)()); // 0x00683824

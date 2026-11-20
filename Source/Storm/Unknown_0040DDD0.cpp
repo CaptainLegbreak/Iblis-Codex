@@ -5,7 +5,6 @@
 struct FSafeSock;
 struct D2CriticalSectionStrc;
 struct Obj0040E0B0;
-struct D2HostentStrc;
 struct D2LogMsgLinkStrc;
 struct D2LogMsgListStrc;
 struct D2LogMsgNodeStrc;
@@ -30,15 +29,6 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalS
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
 
 struct Obj0040E0B0 { unsigned char bUnknown00[0x30]; unsigned int dwValue30; unsigned int dwValue34; };
-
-struct D2HostentStrc
-{
-    char* h_name;
-    char** h_aliases;
-    short h_addrtype;
-    short h_length;
-    char** h_addr_list;
-};
 
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 extern "C" int __cdecl sscanf(const char* szSource, const char* szFormat, ...); // 0x00684BD5

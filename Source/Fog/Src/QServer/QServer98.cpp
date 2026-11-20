@@ -30,7 +30,7 @@ struct D2QAddressArg
 
 static __declspec(noinline) void __stdcall sub_006C3440_AddClient(T006BE350* pServer, unsigned int s, D2QAddressArg tAddress);
 
-struct D2CriticalSectionStrc { unsigned int opaque[6]; };
+#include "D2SysTypes.h"
 
 struct D2SocketNodeStrc {
     int id; D2SocketNodeStrc* next; int unknown8[2]; int socket;

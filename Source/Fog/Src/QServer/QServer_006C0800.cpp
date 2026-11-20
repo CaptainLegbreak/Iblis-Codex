@@ -1,6 +1,6 @@
 #include "Fog.h"
 
-struct D2CriticalSectionStrc { void* debug; long lockCount, recursionCount; void* owner; void* semaphore; unsigned long spinCount; };
+#include "D2SysTypes.h"
 struct D2ClientNodeStrc
 {
     int nClient;

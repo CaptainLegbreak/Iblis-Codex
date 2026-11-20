@@ -1,5 +1,7 @@
 #pragma once
 
+#include "D2SysTypes.h"
+
 struct D2BnMessageStrc;
 struct D2FileTimeStrc;
 struct D2InAddrStrc;
@@ -131,16 +133,6 @@ struct D2CacheHashEntryStrc
     unsigned int dwNameB;
     unsigned int dwLocale;
     unsigned int dwBlockIndex;
-};
-
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
 };
 
 #include "D2NetTypes.h"

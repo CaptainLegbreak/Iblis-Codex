@@ -513,19 +513,6 @@ struct D2Field14Strc
     int nField14;
 };
 
-struct D2FloatSaveStrc
-{
-    unsigned long ControlWord;
-    unsigned long StatusWord;
-    unsigned long TagWord;
-    unsigned long ErrorOffset;
-    unsigned long ErrorSelector;
-    unsigned long DataOffset;
-    unsigned long DataSelector;
-    unsigned char RegisterArea[80];
-    unsigned long Cr0NpxState;
-};
-
 struct D2GfxBufferFuncsStrc
 {
     void (__fastcall* pfnSetBuffer)(void* pBits, int nWidth, int nHeight, int a4);

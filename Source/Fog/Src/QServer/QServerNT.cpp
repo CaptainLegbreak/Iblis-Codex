@@ -15,7 +15,7 @@ struct T006BE350;
 struct D2QueueServerStrc;
 struct D2QServerReqStrc;
 
-struct D2CriticalSectionStrc { void* pDebugInfo; long nLockCount; long nRecursionCount; void* hOwningThread; void* hLockSemaphore; unsigned long nSpinCount; };
+#include "D2SysTypes.h"
 
 struct D2SockAddrInStrc
 {

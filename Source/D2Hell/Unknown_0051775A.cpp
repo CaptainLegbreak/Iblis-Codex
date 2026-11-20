@@ -1,8 +1,7 @@
 struct D2CriticalSectionStrc;
 struct TMESSAGESOURCE;
 
-struct D2CriticalSectionStrc { int unk[6]; };
-
+#include "D2SysTypes.h"
 
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
@@ -14,7 +13,6 @@ struct TMESSAGESOURCE
 
     void Clear(); // 0x005176F8
 };
-
 
 extern TMESSAGESOURCE gFaultHandlerList_0072FA14; // 0x0072FA14
 extern D2CriticalSectionStrc gErrorHandlerLock_00881818; // 0x00881818

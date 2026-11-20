@@ -1,6 +1,7 @@
 #pragma once
 
 #include "D2GfxTypes.h"
+#include "D2SysTypes.h"
 
 struct D2CmpCelContextStrc;
 struct D2GfxSettingsStrc;
@@ -30,16 +31,6 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
-
-struct D2CriticalSectionStrc
-{
-    void* pDebugInfo;
-    long nLockCount;
-    long nRecursionCount;
-    void* hOwningThread;
-    void* hLockSemaphore;
-    unsigned long nSpinCount;
-};
 
 struct T004F51E0
 {

@@ -3,7 +3,6 @@
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 struct D2BigPowModStrc;
-struct D2HostentStrc;
 struct D2BnDnsArgsStrc;
 class BNGatewayAccess;
 struct D2BnPacketHeaderStrc;
@@ -16,15 +15,6 @@ extern long volatile gnConnected_00881BF0; // 0x00881BF0
 static __declspec(noinline) long sub_0051BEB0_ExchangeConnected(long nComparand, long nExchange);
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-
-struct D2HostentStrc
-{
-    char* h_name;
-    char** h_aliases;
-    short h_addrtype;
-    short h_length;
-    char** h_addr_list;
-};
 
 extern "C" int __cdecl isdigit(int c); // 0x00686F0F
 extern "C" D2HostentStrc* __stdcall gethostbyname(const char* szName); // 0x006B0192
