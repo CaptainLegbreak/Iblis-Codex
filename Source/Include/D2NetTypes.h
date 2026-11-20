@@ -7,6 +7,7 @@ struct D2InAddrStrc;
 struct D2SockAddrInStrc;
 struct D2WSADataStrc;
 struct D2TimevalStrc;
+struct D2FdSetStrc;
 
 struct D2InAddrStrc
 {
@@ -39,7 +40,14 @@ struct D2TimevalStrc
     long tv_usec; // 0x04
 };
 
+struct D2FdSetStrc
+{
+    unsigned int fd_count; // 0x00
+    unsigned int fd_array[64]; // 0x04
+};
+
 D2_CHECK_SIZE(D2InAddrStrc, 0x4);
 D2_CHECK_SIZE(D2SockAddrInStrc, 0x10);
 D2_CHECK_SIZE(D2WSADataStrc, 0x190);
 D2_CHECK_SIZE(D2TimevalStrc, 0x8);
+D2_CHECK_SIZE(D2FdSetStrc, 0x104);

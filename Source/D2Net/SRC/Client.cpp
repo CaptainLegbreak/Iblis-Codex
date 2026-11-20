@@ -1,10 +1,10 @@
 #include "D2Net.h"
 #include "D2NetTypes.h"
+#include "D2NetTypes.h"
 
 struct D2NetPacketRecStrc;
 struct D2PacketBufferStrc;
 struct D2CriticalSectionStrc;
-struct D2FdSetStrc;
 
 unsigned long __stdcall CLIENT_ConnectToHost(void* szIpAddress); // 0x0052A680
 int __fastcall NET_IsLocalConnection(); // 0x0052B7E0
@@ -65,12 +65,6 @@ extern "C" void* __cdecl memmove(void* pDest, const void* pSource, size_t nSize)
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 0x006CC260
 void __fastcall FOG_10219(unsigned char* pData); // 0x0040ADB0
 int __fastcall SERVER_GetServerPacketSize(D2PacketBufferStrc* pBuffer, int nBufferSize, int* pSize); // 0x0052B920
-
-struct D2FdSetStrc
-{
-    unsigned int fd_count;
-    unsigned int fd_array[64];
-};
 
 extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char* szText); // 0x006CC200
 extern "C" int __stdcall recv(unsigned int nSocket, char* pBuffer, int nLength, int nFlags); // 0x006B0174
