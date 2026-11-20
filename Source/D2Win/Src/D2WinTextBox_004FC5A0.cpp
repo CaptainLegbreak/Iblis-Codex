@@ -50,9 +50,9 @@ int __fastcall SCROLLBAR_GetMaxSteps(D2WinScrollBarStrc* pScrollBar);  // 0x0050
 #define TEXTBOX_TYPE 4
 #endif
 // 0x004FC5A0
-extern "C" int __fastcall sub_004FC5A0_GetMaxSteps(D2WinTextBoxStrc* pTextBox)
+extern "C" int __fastcall sub_004FC5A0_GetMaxSteps(D2WinTextBoxStrc* ptTextData)
 {
-    D2_ASSERT(pTextBox, ASSERT_LINE(0x578));
-    D2_ASSERT(pTextBox->nType == TEXTBOX_TYPE, ASSERT_LINE(0x579));
-    return SCROLLBAR_GetMaxSteps(pTextBox->pScrollBar);
+    D2_ASSERT(ptTextData, ASSERT_LINE(0x578));
+    D2_ASSERT(ptTextData->nType == TEXTBOX_TYPE, ASSERT_LINE(0x579));
+    return SCROLLBAR_GetMaxSteps(ptTextData->pScrollBar);
 }

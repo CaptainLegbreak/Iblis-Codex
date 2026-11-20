@@ -64,7 +64,7 @@ void __stdcall UNITS_SetSwitchRightSkill(D2UnitStrc* pUnit, int nSwitchRightSkil
 }
 
 // 0x006233A0
-void __stdcall UNITS_SetWeaponGUID(D2UnitStrc* pUnit, D2UnitStrc* pWeapon)
+void __stdcall UNITS_SetWeaponGUID(D2UnitStrc* pUnit, D2UnitStrc* hWeapon)
 {
     const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
     if (nUnitType == UNIT_PLAYER)
@@ -72,11 +72,11 @@ void __stdcall UNITS_SetWeaponGUID(D2UnitStrc* pUnit, D2UnitStrc* pWeapon)
         D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pUnit);
         D2_ASSERT(pPlayerData, 5317);
 
-        if (pWeapon)
+        if (hWeapon)
         {
-            D2_ASSERT(pWeapon->dwUnitType == UNIT_ITEM, 5321);
+            D2_ASSERT(hWeapon->dwUnitType == UNIT_ITEM, 5321);
 
-            pPlayerData->nWeaponGUID = pWeapon->dwUnitId;
+            pPlayerData->nWeaponGUID = hWeapon->dwUnitId;
         }
         else
         {

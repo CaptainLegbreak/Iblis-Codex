@@ -33,30 +33,30 @@ long __fastcall sub_006BE640_AddReference(T006BE350* pServer, T006BFAD0* pClient
 static __declspec(noinline) int sQSNTWriteFromQueue(T006BE350* pServer, T006BFAD0* pClient);
 
 // 0x006C2760
-static int sQSNTWriteFromQueue(T006BE350* pServer, T006BFAD0* pClient)
+static int sQSNTWriteFromQueue(T006BE350* pServer, T006BFAD0* ptClient)
 {
-    if (!pClient->f_74)
+    if (!ptClient->f_74)
     {
         return 1;
     }
 
-    sub_006BE640_AddReference(pServer, pClient);
-    T006C23B0* pPacket = pClient->f_74;
-    D2_ASSERT(pClient->socket != -1, 0x518);
+    sub_006BE640_AddReference(pServer, ptClient);
+    T006C23B0* pPacket = ptClient->f_74;
+    D2_ASSERT(ptClient->socket != -1, 0x518);
 
     unsigned long nWritten;
-    const int bWritten = WriteFile((void*)pClient->socket, pPacket + 1, pPacket->nPacketSize, &nWritten, pClient->overlapped5C);
+    const int bWritten = WriteFile((void*)ptClient->socket, pPacket + 1, pPacket->nPacketSize, &nWritten, ptClient->overlapped5C);
     const unsigned long nError = GetLastError();
     if (!bWritten && nError != 0x3E5)
     {
-        sub_006C0360_RemoveClient(pServer, pClient);
-        sub_006C0420_CloseRemote(pServer, pClient->f_0, gszQServerNT_006FC8A0, 0x527);
+        sub_006C0360_RemoveClient(pServer, ptClient);
+        sub_006C0420_CloseRemote(pServer, ptClient->f_0, gszQServerNT_006FC8A0, 0x527);
         return 0;
     }
 
     if (nError == 0x3E5)
     {
-        pClient->f_70 |= 4;
+        ptClient->f_70 |= 4;
     }
     return 1;
 }

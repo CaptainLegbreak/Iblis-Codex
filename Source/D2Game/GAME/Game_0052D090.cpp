@@ -704,9 +704,9 @@ int __stdcall sub_0052F2C0(unsigned short nGameId, int nMaxCount, D2UnitInfoStrc
     }
     LeaveCriticalSection(&gCriticalSection_6FD45800);
 
-    D2GameStrc* pGame = GAME_LockGame(nGUID);
+    D2GameStrc* ptGame = GAME_LockGame(nGUID);
     int nUnitInfoCount = 0;
-    if (!pGame)
+    if (!ptGame)
     {
         return 0;
     }
@@ -714,7 +714,7 @@ int __stdcall sub_0052F2C0(unsigned short nGameId, int nMaxCount, D2UnitInfoStrc
     {
         for (int i = 0; i < nMaxCount; ++i)
         {
-            D2UnitStrc* pUnit = SUNIT_GetServerUnit(pGame, pUnitType[i], pUnitGUID[i]);
+            D2UnitStrc* pUnit = SUNIT_GetServerUnit(ptGame, pUnitType[i], pUnitGUID[i]);
             if (pUnit)
             {
                 SUNIT_FillUnitInfo(pUnit, &pUnitInfo[nUnitInfoCount]);
@@ -729,8 +729,8 @@ int __stdcall sub_0052F2C0(unsigned short nGameId, int nMaxCount, D2UnitInfoStrc
             }
         }
 
-        D2_ASSERT(pGame->lpCriticalSection, 4196);
-        LeaveCriticalSection(pGame->lpCriticalSection);
+        D2_ASSERT(ptGame->lpCriticalSection, 4196);
+        LeaveCriticalSection(ptGame->lpCriticalSection);
     }
 
     return nUnitInfoCount;
@@ -748,23 +748,23 @@ void __stdcall GAME_GetStatistics(D2GameStatisticsStrc* pStats)
     {
         if (gnGamesGUIDs_6FD447F8[i] && gnGamesGUIDs_6FD447F8[i] != D2GameReservedSlotHandle)
         {
-            if (D2GameStrc* pGame = GAME_LockGame(gnGamesGUIDs_6FD447F8[i]))
+            if (D2GameStrc* ptGame = GAME_LockGame(gnGamesGUIDs_6FD447F8[i]))
             {
                 for (int j = 0; j < 128; ++j)
                 {
-                    for (D2UnitStrc* k = pGame->pUnitList[UNIT_MONSTER][j]; k; k = SUNIT_GetNextUnitFromList(k))
+                    for (D2UnitStrc* k = ptGame->pUnitList[UNIT_MONSTER][j]; k; k = SUNIT_GetNextUnitFromList(k))
                     {
                         ++pStats->nActiveMonsters;
                     }
 
-                    for (D2UnitStrc* k = pGame->pUnitList[UNIT_PLAYER][j]; k; k = SUNIT_GetNextUnitFromList(k))
+                    for (D2UnitStrc* k = ptGame->pUnitList[UNIT_PLAYER][j]; k; k = SUNIT_GetNextUnitFromList(k))
                     {
                         ++pStats->nPlayersCount;
                     }
                 }
 
-                D2_ASSERT(pGame->lpCriticalSection, 4196);
-                LeaveCriticalSection(pGame->lpCriticalSection);
+                D2_ASSERT(ptGame->lpCriticalSection, 4196);
+                LeaveCriticalSection(ptGame->lpCriticalSection);
 
                 ++pStats->nGamesCount;
             }
@@ -852,26 +852,26 @@ void __stdcall GAME_GetUnitsDescriptions(unsigned short nGameId, D2UnitDescripti
     }
     LeaveCriticalSection(&gCriticalSection_6FD45800);
 
-    D2GameStrc* pGame = GAME_LockGame(nGUID);
+    D2GameStrc* ptGame = GAME_LockGame(nGUID);
     D2UnitStrc** pUnitList = 0;
-    if (pGame)
+    if (ptGame)
     {
         switch (eType)
         {
         case 0:
-            pUnitList = pGame->pUnitList[0];
+            pUnitList = ptGame->pUnitList[0];
             break;
         case 1:
-            pUnitList = pGame->pUnitList[1];
+            pUnitList = ptGame->pUnitList[1];
             break;
         case 2:
-            pUnitList = pGame->pUnitList[2];
+            pUnitList = ptGame->pUnitList[2];
             break;
         case 3:
-            pUnitList = pGame->pUnitList[3];
+            pUnitList = ptGame->pUnitList[3];
             break;
         case 4:
-            pUnitList = pGame->pUnitList[4];
+            pUnitList = ptGame->pUnitList[4];
             break;
         }
 
@@ -885,8 +885,8 @@ void __stdcall GAME_GetUnitsDescriptions(unsigned short nGameId, D2UnitDescripti
             }
         }
 
-        D2_ASSERT(pGame->lpCriticalSection, 4196);
-        LeaveCriticalSection(pGame->lpCriticalSection);
+        D2_ASSERT(ptGame->lpCriticalSection, 4196);
+        LeaveCriticalSection(ptGame->lpCriticalSection);
 
         const unsigned int nType = eType;
         D2_ASSERT(!IsBadCodePtr((FARPROC)gpfGetDescription_6FD2CA64[nType]), 0x1450);

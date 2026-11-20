@@ -659,15 +659,15 @@ static __declspec(noinline) bool PLRTRADE_AllocPlayerTrade(D2GameStrc* pGame, D2
     D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
     if (!pPlayerData->pTrade)
     {
-    D2PlayerTradeStrc* pTrade = (D2PlayerTradeStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2PlayerTradeStrc), ".\\PLAYER\\PlrTrade.cpp", 0x806, 0);
-    pTrade->pSaveData = (unsigned char*)FOG_AllocPool(pGame->pMemoryPool, 0x2000, ".\\PLAYER\\PlrTrade.cpp", 0x807, 0);
-    pTrade->nSaveLength = sub_00531BB0_WriteItemList(pGame, pPlayer, pTrade->pSaveData, 0x2000, 0, 0, 0);
-    D2_ASSERT(pTrade->nSaveLength > 0, 0x809);
-    pTrade->pItemTrade = 0;
-    pTrade->nGoldInTrade = 0;
-    pTrade->nNextUpdateTick = 0;
-    pTrade->nGoldInTradeOtherPlayer = STATLIST_UnitGetStatValue(pPlayer, 0xE, 0);
-    pPlayerData->pTrade = pTrade;
+    D2PlayerTradeStrc* ptTradeRecord = (D2PlayerTradeStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2PlayerTradeStrc), ".\\PLAYER\\PlrTrade.cpp", 0x806, 0);
+    ptTradeRecord->pSaveData = (unsigned char*)FOG_AllocPool(pGame->pMemoryPool, 0x2000, ".\\PLAYER\\PlrTrade.cpp", 0x807, 0);
+    ptTradeRecord->nSaveLength = sub_00531BB0_WriteItemList(pGame, pPlayer, ptTradeRecord->pSaveData, 0x2000, 0, 0, 0);
+    D2_ASSERT(ptTradeRecord->nSaveLength > 0, 0x809);
+    ptTradeRecord->pItemTrade = 0;
+    ptTradeRecord->nGoldInTrade = 0;
+    ptTradeRecord->nNextUpdateTick = 0;
+    ptTradeRecord->nGoldInTradeOtherPlayer = STATLIST_UnitGetStatValue(pPlayer, 0xE, 0);
+    pPlayerData->pTrade = ptTradeRecord;
     return true;
     }
 

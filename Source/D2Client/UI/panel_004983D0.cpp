@@ -391,9 +391,9 @@ static void __stdcall sub_00498A90_UseBeltSlot(int nSlot, D2UnitStrc* pPlayer, D
     }
 
     const int nClassId = pItem->dwClassId;
-    D2ItemsTxt* pItemsTxt = DATATBLS_GetItemsTxtRecord(nClassId);
-    D2_ASSERT(pItemsTxt, 0xA64);
-    if (sub_00498A20_CheckState(pPlayer, pItem, pItemsTxt) != 1)
+    D2ItemsTxt* ptItemStats = DATATBLS_GetItemsTxtRecord(nClassId);
+    D2_ASSERT(ptItemStats, 0xA64);
+    if (sub_00498A20_CheckState(pPlayer, pItem, ptItemStats) != 1)
     {
         return;
     }

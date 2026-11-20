@@ -182,9 +182,9 @@ static __forceinline D2CharStatsTxt* sub_F05_GetCharStatsTxtRecord(int nClass)
 }
 
 // 0x0057F090
-static void __stdcall sub_0057F090_StartMovement(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nMode)
+static void __stdcall sub_0057F090_StartMovement(D2GameStrc* ptGame, D2UnitStrc* pPlayer, int nMode)
 {
-    D2_ASSERT(pGame, 0x138);
+    D2_ASSERT(ptGame, 0x138);
 
     D2DynamicPathStrc* pPath = pPlayer->pDynamicPath;
     PATH_ResetToPreviousType(pPath);
@@ -212,23 +212,23 @@ static void __stdcall sub_0057F090_StartMovement(D2GameStrc* pGame, D2UnitStrc* 
 
     if (!PATH_GetNumberOfPathPoints(pPath))
     {
-        PLRMODE_StartXY_Neutral(pGame, pPlayer, 1, 0, 0);
+        PLRMODE_StartXY_Neutral(ptGame, pPlayer, 1, 0, 0);
     }
     else
     {
-        SUNIT_SetCombatMode(pGame, pPlayer, nMode);
-        D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(pGame, pPlayer);
-        SUNIT_ResetRecurringModeChangeEvent(pGame, pPlayer);
+        SUNIT_SetCombatMode(ptGame, pPlayer, nMode);
+        D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(ptGame, pPlayer);
+        SUNIT_ResetRecurringModeChangeEvent(ptGame, pPlayer);
     }
 }
 
 // 0x0057F1F0
-void __fastcall PLRMODE_StartXY_WalkRunKnockback(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nMode, int nX, int nY)
+void __fastcall PLRMODE_StartXY_WalkRunKnockback(D2GameStrc* ptGame, D2UnitStrc* pPlayer, int nMode, int nX, int nY)
 {
-    D2_ASSERT(pGame, 0x17C);
+    D2_ASSERT(ptGame, 0x17C);
 
     D2COMMON_10170_PathSetTargetPos(pPlayer->pDynamicPath, nX, nY);
-    sub_0057F090_StartMovement(pGame, pPlayer, nMode);
+    sub_0057F090_StartMovement(ptGame, pPlayer, nMode);
 }
 
 // build: context sub_0057F240_DrainRunStamina
@@ -370,16 +370,16 @@ int __fastcall PLRMODE_UpdateMovement(D2GameStrc* pGame, D2UnitStrc* pPlayer, in
 }
 
 // 0x0057F190
-void __fastcall PLRMODE_StartID_WalkRunKnockback(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nMode, D2UnitStrc* pTargetUnit)
+void __fastcall PLRMODE_StartID_WalkRunKnockback(D2GameStrc* ptGame, D2UnitStrc* pPlayer, int nMode, D2UnitStrc* pTargetUnit)
 {
-    D2_ASSERT(pGame, 0x16E);
+    D2_ASSERT(ptGame, 0x16E);
 
     const int nCurMode = nMode;
     D2DynamicPathStrc* pPath = pPlayer->pDynamicPath;
     if (nCurMode != 19 || pPlayer->dwAnimMode != nCurMode)
     {
         sub_00648B90_SetPathTarget(pPath, pTargetUnit);
-        sub_0057F090_StartMovement(pGame, pPlayer, nCurMode);
+        sub_0057F090_StartMovement(ptGame, pPlayer, nCurMode);
     }
 }
 

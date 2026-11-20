@@ -141,84 +141,84 @@ int __stdcall SrvCreateNewEmptyGame(char* szGameName, const char* szPassword, co
     D2GameDataTableStrc* pGameDataTbl = gpGameDataTbl_6FD45818;
     EnterCriticalSection(&pGameDataTbl->f_50);
     const unsigned int hGame = pGameDataTbl->sub_0052E6D0_GenerateHandle();
-    D2GameStrc* pGame = pGameDataTbl->sub_00530820_New(hGame, &pGameDataTbl->f_44, 0, 0);
+    D2GameStrc* hGameArray = pGameDataTbl->sub_00530820_New(hGame, &pGameDataTbl->f_44, 0, 0);
     LeaveCriticalSection(&gpGameDataTbl_6FD45818->f_50);
 
-    D2_ASSERT(pGame, 793);
-    pGame->lpCriticalSection = (D2CriticalSectionStrc*)FOG_AllocPool(0, sizeof(D2CriticalSectionStrc), ".\\GAME\\Game.cpp", 796, 0);
-    InitializeCriticalSection(pGame->lpCriticalSection);
+    D2_ASSERT(hGameArray, 793);
+    hGameArray->lpCriticalSection = (D2CriticalSectionStrc*)FOG_AllocPool(0, sizeof(D2CriticalSectionStrc), ".\\GAME\\Game.cpp", 796, 0);
+    InitializeCriticalSection(hGameArray->lpCriticalSection);
 
-    sub_00409DD0_InitPoolSystem(&pGame->pMemoryPool, szGameName, 0x8000, 0x1000);
+    sub_00409DD0_InitPoolSystem(&hGameArray->pMemoryPool, szGameName, 0x8000, 0x1000);
 
-    memset(pGame->pUnitList[0], 0, sizeof(pGame->pUnitList[0]));
-    memset(pGame->pUnitList[1], 0, sizeof(pGame->pUnitList[1]));
-    memset(pGame->pUnitList[2], 0, sizeof(pGame->pUnitList[2]));
-    memset(pGame->pUnitList[3], 0, sizeof(pGame->pUnitList[3]));
-    memset(pGame->pUnitList[4], 0, sizeof(pGame->pUnitList[4]));
-    memset(pGame->dwUniqueFlags, 0, sizeof(pGame->dwUniqueFlags));
+    memset(hGameArray->pUnitList[0], 0, sizeof(hGameArray->pUnitList[0]));
+    memset(hGameArray->pUnitList[1], 0, sizeof(hGameArray->pUnitList[1]));
+    memset(hGameArray->pUnitList[2], 0, sizeof(hGameArray->pUnitList[2]));
+    memset(hGameArray->pUnitList[3], 0, sizeof(hGameArray->pUnitList[3]));
+    memset(hGameArray->pUnitList[4], 0, sizeof(hGameArray->pUnitList[4]));
+    memset(hGameArray->dwUniqueFlags, 0, sizeof(hGameArray->dwUniqueFlags));
 
-    pGame->nGameId = nGameId;
-    pGame->unk0x24 = 1;
+    hGameArray->nGameId = nGameId;
+    hGameArray->unk0x24 = 1;
 
-    GAME_ResolveGameNameConflict(pGame, szGameName, 0);
-    SStrCopy(pGame->szGamePassword, szPassword, 16);
-    SStrCopy(pGame->szGameDesc, szGameDescription, 32);
+    GAME_ResolveGameNameConflict(hGameArray, szGameName, 0);
+    SStrCopy(hGameArray->szGamePassword, szPassword, 16);
+    SStrCopy(hGameArray->szGameDesc, szGameDescription, 32);
 
-    pGame->nArenaTemplate = nArenaTemplate;
-    pGame->nMaxLevelDifference = nMaxLevelDifference;
-    pGame->nMaxPlayers = nMaxPlayers;
+    hGameArray->nArenaTemplate = nArenaTemplate;
+    hGameArray->nMaxLevelDifference = nMaxLevelDifference;
+    hGameArray->nMaxPlayers = nMaxPlayers;
 
     if (nFlags & 0x100000)
     {
-        pGame->bExpansion = 1;
+        hGameArray->bExpansion = 1;
     }
     else
     {
-        pGame->bExpansion = 0;
+        hGameArray->bExpansion = 0;
     }
 
-    pGame->wItemFormat = pGame->bExpansion != 0 ? 101 : 2;
-    pGame->dwGameType = (nFlags & 0x200000) != 0;
+    hGameArray->wItemFormat = hGameArray->bExpansion != 0 ? 101 : 2;
+    hGameArray->dwGameType = (nFlags & 0x200000) != 0;
 
-    pGame->dwLastUsedUnitGUID[0] = 0;
-    pGame->dwLastUsedUnitGUID[1] = 0;
-    pGame->dwLastUsedUnitGUID[2] = 0;
-    pGame->dwLastUsedUnitGUID[3] = 0;
-    pGame->dwLastUsedUnitGUID[4] = 0;
-    pGame->dwLastUsedUnitGUID[5] = 0;
-    pGame->nUberFields[0] = 0;
-    pGame->nUberFields[1] = 0;
-    pGame->nUberFields[2] = 0;
-    pGame->nUberFields[3] = 0;
-    pGame->nUberFields[4] = 0;
-    pGame->nUberFields[5] = 0;
-    pGame->nUberFields[6] = 0;
-    pGame->nUberFields[7] = 0;
+    hGameArray->dwLastUsedUnitGUID[0] = 0;
+    hGameArray->dwLastUsedUnitGUID[1] = 0;
+    hGameArray->dwLastUsedUnitGUID[2] = 0;
+    hGameArray->dwLastUsedUnitGUID[3] = 0;
+    hGameArray->dwLastUsedUnitGUID[4] = 0;
+    hGameArray->dwLastUsedUnitGUID[5] = 0;
+    hGameArray->nUberFields[0] = 0;
+    hGameArray->nUberFields[1] = 0;
+    hGameArray->nUberFields[2] = 0;
+    hGameArray->nUberFields[3] = 0;
+    hGameArray->nUberFields[4] = 0;
+    hGameArray->nUberFields[5] = 0;
+    hGameArray->nUberFields[6] = 0;
+    hGameArray->nUberFields[7] = 0;
 
-    pGame->nDifficulty = (nFlags >> 12) & 7;
+    hGameArray->nDifficulty = (nFlags >> 12) & 7;
 
-    sub_0052C280_InitGameSeed(pGame);
-    sub_00541470_InitializeQueue(pGame);
-    ARENA_AllocArena(pGame, 0, nFlags, 0);
-    sub_005379A0_ResetClient((D2ClientStrc*)pGame);
-    PARTY_AllocPartyControl(pGame);
-    MONSTERREGION_InitializeForGame(pGame);
-    pGame->dwObjSeed = sub_00546C60_AllocObjectControl(pGame);
-    sub_00536070_InitNpcControl(pGame);
-    sub_00545D80_QuestInit(pGame);
+    sub_0052C280_InitGameSeed(hGameArray);
+    sub_00541470_InitializeQueue(hGameArray);
+    ARENA_AllocArena(hGameArray, 0, nFlags, 0);
+    sub_005379A0_ResetClient((D2ClientStrc*)hGameArray);
+    PARTY_AllocPartyControl(hGameArray);
+    MONSTERREGION_InitializeForGame(hGameArray);
+    hGameArray->dwObjSeed = sub_00546C60_AllocObjectControl(hGameArray);
+    sub_00536070_InitNpcControl(hGameArray);
+    sub_00545D80_QuestInit(hGameArray);
 
     sub_0052C110(hGame, nGameId);
 
-    pGame->nSyncTimer = sub_00410A80_GetTimeSeconds();
-    if (pGame->nSyncTimer <= 1)
+    hGameArray->nSyncTimer = sub_00410A80_GetTimeSeconds();
+    if (hGameArray->nSyncTimer <= 1)
     {
-        pGame->nSyncTimer = 2;
+        hGameArray->nSyncTimer = 2;
     }
 
     void* pTask = FOG_Alloc(0x14, ".\\GAME\\Game.cpp", 922, 0);
     sub_00564A00_QueueGame(pTask, 0, hGame);
-    pGame->nCreationTimeMs = GetTickCount();
-    *pGameId = pGame->nGameId;
+    hGameArray->nCreationTimeMs = GetTickCount();
+    *pGameId = hGameArray->nGameId;
     return 1;
 }
 

@@ -855,20 +855,20 @@ void __cdecl sub_00525770_InitUnitSuffixes()
 // 0x00525920
 static D2TblHeaderStrc* sub_00525920_LoadTblFile(const char* szPath)
 {
-    D2TblHeaderStrc* pTbl = (D2TblHeaderStrc*)sub_00517079(ghArchive_008829DC, szPath, 0, ".\\StrTable\\strtable.cpp", 0xC0);
+    D2TblHeaderStrc* pHeader = (D2TblHeaderStrc*)sub_00517079(ghArchive_008829DC, szPath, 0, ".\\StrTable\\strtable.cpp", 0xC0);
 
     unsigned short nCRC;
-    CRC16_CalculateChecksum(&nCRC, (const unsigned char*)pTbl, pTbl->dwIndexStart, pTbl->dwFileSize);
-    D2_ASSERT(nCRC == pTbl->nCRC, 0xCE);
+    CRC16_CalculateChecksum(&nCRC, (const unsigned char*)pHeader, pHeader->dwIndexStart, pHeader->dwFileSize);
+    D2_ASSERT(nCRC == pHeader->nCRC, 0xCE);
 
-    D2TblNodeStrc* pNodes = (D2TblNodeStrc*)((char*)pTbl + sizeof(D2TblHeaderStrc) + pTbl->nNumElements * sizeof(unsigned short));
-    for (int i = 0; i < pTbl->nHashTableSize; ++i)
+    D2TblNodeStrc* pNode = (D2TblNodeStrc*)((char*)pHeader + sizeof(D2TblHeaderStrc) + pHeader->nNumElements * sizeof(unsigned short));
+    for (int i = 0; i < pHeader->nHashTableSize; ++i)
     {
-        D2_ASSERT(pNodes[i].dwStringOffset < pTbl->dwFileSize, 0xE0);
-        D2_ASSERT(pNodes[i].dwKeyOffset < pTbl->dwFileSize, 0xE1);
+        D2_ASSERT(pNode[i].dwStringOffset < pHeader->dwFileSize, 0xE0);
+        D2_ASSERT(pNode[i].dwKeyOffset < pHeader->dwFileSize, 0xE1);
     }
 
-    return pTbl;
+    return pHeader;
 }
 
 // build: context Unicode::strncat

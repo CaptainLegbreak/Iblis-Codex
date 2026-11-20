@@ -75,13 +75,13 @@ int __stdcall UNITS_GetPlayerPortalFlags(D2UnitStrc* pUnit)
 }
 
 // 0x00622270
-unsigned int __stdcall UNITS_GetNameOffsetFromObject(D2UnitStrc* pUnit)
+unsigned int __stdcall UNITS_GetNameOffsetFromObject(D2UnitStrc* ptUnit)
 {
-    D2_ASSERT(pUnit, 4051);
+    D2_ASSERT(ptUnit, 4051);
 
-    if (pUnit->dwUnitType == UNIT_OBJECT)
+    if (ptUnit->dwUnitType == UNIT_OBJECT)
     {
-        return pUnit->pObjectData->pObjectTxt->dwNameOffset;
+        return ptUnit->pObjectData->pObjectTxt->dwNameOffset;
     }
 
     return 0;

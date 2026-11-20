@@ -573,23 +573,23 @@ static inline D2CelEntryStrc* __cdecl sub_F43_NewCelEntry(D2StormNodeListStrc* p
 }
 
 // 0x00603860
-void __stdcall sub_00603860_AddCelListEntry(unsigned int hCelList, void* pSrc, unsigned int nSrcSize, unsigned int nWidth, unsigned int nHeight, int nArg6, int nArg7, int nArg8)
+void __stdcall sub_00603860_AddCelListEntry(unsigned int hCelList, void* pSrc, unsigned int nSrcSize, unsigned int dwPixelWidth, unsigned int dwPixelHeight, int nArg6, int nArg7, int nArg8)
 {
-    D2_ASSERT(nWidth && nHeight, 0x229);
-    D2_ASSERT(nSrcSize >= nHeight, 0x22A);
+    D2_ASSERT(dwPixelWidth && dwPixelHeight, 0x229);
+    D2_ASSERT(nSrcSize >= dwPixelHeight, 0x22A);
     int hLock;
     D2StormEntry38Strc* pList = gCelListTable.sub_00603400_Lock(hCelList, &hLock, 0);
     D2CelEntryStrc* pEntry = sub_F43_NewCelEntry(&pList->tList, 2, 0, 0);
     ++pList->nCount;
-    pEntry->nSize = nWidth * nHeight;
+    pEntry->nSize = dwPixelWidth * dwPixelHeight;
     pEntry->nArg6 = nArg6;
-    pEntry->nWidth = nWidth;
-    pEntry->nHeight = nHeight;
+    pEntry->nWidth = dwPixelWidth;
+    pEntry->nHeight = dwPixelHeight;
     pEntry->nArg7 = nArg7;
     pEntry->nArg8 = nArg8;
-    const int nRows = pList->dwFlags & 4 ? 3 * nHeight : nHeight;
-    pEntry->pData = FOG_Alloc(nRows * nWidth, ".\\SRC\\CelCmp.cpp", 0x239, 0);
-    sub_005179B3_ConvertCelPixels(pEntry->pData, pSrc, nRows, nSrcSize, nWidth, nRows);
+    const int nRows = pList->dwFlags & 4 ? 3 * dwPixelHeight : dwPixelHeight;
+    pEntry->pData = FOG_Alloc(nRows * dwPixelWidth, ".\\SRC\\CelCmp.cpp", 0x239, 0);
+    sub_005179B3_ConvertCelPixels(pEntry->pData, pSrc, nRows, nSrcSize, dwPixelWidth, nRows);
     gCelListTable.SyncLeaveLock(hLock);
 }
 
@@ -668,17 +668,17 @@ inline void D2GameDataTableStrc::operator delete(void* pMemory)
 #define D2CMP_BITCOUNT(x) (((D2CMP_BITCOUNT_BX(x) + (D2CMP_BITCOUNT_BX(x) >> 4)) & 0x0F0F0F0F) % 255)
 
 // 0x00604940
-unsigned int __stdcall CelCompressCreate(int nType, unsigned int nDirections, int* pData, int bHasData)
+unsigned int __stdcall CelCompressCreate(int nType, unsigned int dwNumDirections, int* pData, int bHasData)
 {
-    D2_ASSERT(D2CMP_BITCOUNT(nDirections) == 1, 0x1FF);
-    D2_ASSERT(nDirections <= 32, 0x200);
+    D2_ASSERT(D2CMP_BITCOUNT(dwNumDirections) == 1, 0x1FF);
+    D2_ASSERT(dwNumDirections <= 32, 0x200);
     D2_ASSERT(nType < 2, 0x201);
     unsigned int hHandle;
     int hLock;
     D2StormEntry38Strc* pList = (D2StormEntry38Strc*)gCelListTable.sub_006048C0_NewLock(&hHandle, &hLock);
     pList->tList.sub_00602BF0_DeleteAll();
     pList->nType = nType;
-    pList->nDirections = nDirections;
+    pList->nDirections = dwNumDirections;
     pList->nCount = 0;
     pList->dwFlags = 0;
     if (bHasData)

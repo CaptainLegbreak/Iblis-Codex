@@ -246,28 +246,28 @@ int __fastcall ANIMIMAGE_ShouldMouseInputBeHandled(D2WinControlStrc* pControl)
 }
 
 // 0x00500B50
-int __fastcall BUTTON_OnMouseWheelScrolled(D2WinButtonStrc* pButton, int nMouseWheelIncrement)
+int __fastcall BUTTON_OnMouseWheelScrolled(D2WinButtonStrc* ptBtnData, int nMouseWheelIncrement)
 {
-    D2_ASSERT(pButton->controlHeader.nType == 6, 0xE2);
+    D2_ASSERT(ptBtnData->controlHeader.nType == 6, 0xE2);
 
-    if (!(pButton->controlHeader.dwFlags & gdwBitMasks[0]) || !(pButton->controlHeader.dwFlags & gdwBitMasks[2]) || pButton->bIsPressed || pButton->bIsCallbackPending)
+    if (!(ptBtnData->controlHeader.dwFlags & gdwBitMasks[0]) || !(ptBtnData->controlHeader.dwFlags & gdwBitMasks[2]) || ptBtnData->bIsPressed || ptBtnData->bIsCallbackPending)
     {
         return 0;
     }
 
-    if ((nMouseWheelIncrement <= 0 || !(pButton->dwButtonFlags & 8)) && (nMouseWheelIncrement >= 0 || !(pButton->dwButtonFlags & 0x10)))
+    if ((nMouseWheelIncrement <= 0 || !(ptBtnData->dwButtonFlags & 8)) && (nMouseWheelIncrement >= 0 || !(ptBtnData->dwButtonFlags & 0x10)))
     {
         return 0;
     }
 
     SMSGHANDLER_PARAMS msg;
     memset(&msg.uMessage, 0, sizeof(msg) - sizeof(msg.hWnd));
-    msg.hWnd = pButton;
+    msg.hWnd = ptBtnData;
 
-    if (pButton->controlHeader.field_34)
+    if (ptBtnData->controlHeader.field_34)
     {
         ++gnWinCallbackDepth_007D55C4;
-        pButton->controlHeader.field_34(&msg);
+        ptBtnData->controlHeader.field_34(&msg);
         --gnWinCallbackDepth_007D55C4;
     }
 

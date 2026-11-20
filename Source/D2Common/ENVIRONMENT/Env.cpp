@@ -344,19 +344,19 @@ void __stdcall ENVIRONMENT_NextEnvCycle(D2DrlgActStrc* pAct, D2ActiveRoomStrc* p
 }
 
 // 0x0061C240
-void __stdcall ENVIRONMENT_InitializeEnvironment(D2DrlgActStrc* pAct, D2ActiveRoomStrc* pRoom, int nIndex, int nTicks, int bEclipse)
+void __stdcall ENVIRONMENT_InitializeEnvironment(D2DrlgActStrc* pAct, D2ActiveRoomStrc* pRoom, int nIndex, int nAngle, int bEclipse)
 {
     D2DrlgEnvironmentStrc* pEnvironment = DUNGEON_GetEnvironmentFromAct(pAct);
     D2_ASSERT(nIndex >= 0, 528);
     D2_ASSERT(nIndex < NUM_ENVIRONMENT_CYCLES, 529);
-    D2_ASSERT(nTicks >= 0, 530);
-    if (nTicks > ENV_FULL_CIRCLE_DEGREES * pEnvironment->nTimeRate)
+    D2_ASSERT(nAngle >= 0, 530);
+    if (nAngle > ENV_FULL_CIRCLE_DEGREES * pEnvironment->nTimeRate)
     {
-        nTicks = 0;
+        nAngle = 0;
     }
 
     pEnvironment->nCycleIndex = nIndex;
-    pEnvironment->nTicks = nTicks;
+    pEnvironment->nTicks = nAngle;
     const D2EnvironmentCycleStrc* pEnvironmentCycle = !bEclipse ? &gNormalEnvironmentCycle[nIndex] : &gEclipseEnvironmentCycle[nIndex];
     pEnvironment->nPeriodOfDay = pEnvironmentCycle->nPeriodOfDay;
     int nLevelId = 0;

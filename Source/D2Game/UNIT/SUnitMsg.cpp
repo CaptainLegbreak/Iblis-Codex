@@ -348,15 +348,15 @@ void __fastcall sub_6FCC6150(D2UnitStrc* pUnit, int nSkillId, unsigned char nSki
 }
 
 // 0x005718C0
-void __fastcall D2GAME_MERCS_SendStat_6FCC61D0(D2UnitStrc* pUnit, unsigned short nStatId, int nValue)
+void __fastcall D2GAME_MERCS_SendStat_6FCC61D0(D2UnitStrc* pUnit, unsigned short wStat, int nValue)
 {
-    D2_ASSERT(nStatId < ((unsigned char)-1), 685);
+    D2_ASSERT(wStat < ((unsigned char)-1), 685);
 
     D2UnitPacketListStrc* pMsg = (D2UnitPacketListStrc*)FOG_AllocPool(!pUnit ? 0 : pUnit->pMemoryPool, 20, ".\\UNIT\\SUnitMsg.cpp", 687, 0);
     pMsg->nHeader = 0x9E;
     pMsg->pNext = 0;
     *((int*)pMsg + 2) = !pUnit ? -1 : pUnit->dwUnitId;
-    *((unsigned char*)pMsg + 12) = (unsigned char)nStatId;
+    *((unsigned char*)pMsg + 12) = (unsigned char)wStat;
     *((int*)pMsg + 4) = nValue;
 
     if (!pUnit->pMsgFirst)
@@ -554,48 +554,48 @@ static __forceinline D2InventoryStrc* UnitInventory(D2UnitStrc* pUnit)
 }
 
 // 0x00571F90
-void __fastcall sub_00571F90(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient)
+void __fastcall sub_00571F90(D2GameStrc* pGame, D2UnitStrc* hPlayer, D2ClientStrc* pClient)
 {
-    const int nClassId = !pUnit ? -1 : pUnit->dwClassId;
+    const int nClassId = !hPlayer ? -1 : hPlayer->dwClassId;
     D2CoordStrc tCoords;
-    UNITS_GetCoords(pUnit, &tCoords);
+    UNITS_GetCoords(hPlayer, &tCoords);
     D2UnitStrc* pPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
-    switch (pUnit->dwUnitType)
+    switch (hPlayer->dwUnitType)
     {
     case 0:
-        sub_6FC3D1F0(pClient, pUnit->dwUnitId, pUnit->dwClassId, pUnit->szName, tCoords.nX, tCoords.nY);
+        sub_6FC3D1F0(pClient, hPlayer->dwUnitId, hPlayer->dwClassId, hPlayer->szName, tCoords.nX, tCoords.nY);
         break;
     case 4:
-        if (UnitHasFlag(pUnit, 0x10))
+        if (UnitHasFlag(hPlayer, 0x10))
         {
-            if (pUnit->dwAnimMode == 3 && sub_00451F30_TestUnitFlag(pUnit, 0x1000))
-                D2GAME_SendP0x9C_ItemAction_DropToGround_6FC3E8E0(pClient, pPlayer, pUnit, 0);
-            else D2GAME_SendP0x9C_ItemAction_AddToGround_6FC3E850(pClient, pUnit, 0);
+            if (hPlayer->dwAnimMode == 3 && sub_00451F30_TestUnitFlag(hPlayer, 0x1000))
+                D2GAME_SendP0x9C_ItemAction_DropToGround_6FC3E8E0(pClient, pPlayer, hPlayer, 0);
+            else D2GAME_SendP0x9C_ItemAction_AddToGround_6FC3E850(pClient, hPlayer, 0);
         }
         break;
     case 2:
-        D2GAME_PACKETS_SendPacket0x51_6FC3D300(pClient, 0x51, 2, pUnit->dwUnitId, pUnit->dwClassId, tCoords.nX, tCoords.nY, pUnit->dwAnimMode, pUnit->pObjectData->nInteractType);
-        if (pUnit->pObjectData->pObjectsTxt->nSubClass & 4)
+        D2GAME_PACKETS_SendPacket0x51_6FC3D300(pClient, 0x51, 2, hPlayer->dwUnitId, hPlayer->dwClassId, tCoords.nX, tCoords.nY, hPlayer->dwAnimMode, hPlayer->pObjectData->nInteractType);
+        if (hPlayer->pObjectData->pObjectsTxt->nSubClass & 4)
         {
-            sub_6FC3F550(pClient, pUnit);
+            sub_6FC3F550(pClient, hPlayer);
             if ((short)nClassId == 59)
             {
-                D2UnitStrc* pOwner = sub_00553720_GetPortalOwner(pGame, pUnit);
+                D2UnitStrc* pOwner = sub_00553720_GetPortalOwner(pGame, hPlayer);
                 int nOwnerId = -1;
                 if (pOwner) nOwnerId = pOwner->dwUnitId;
-                const int nPortalId = UnitGUID(pUnit);
+                const int nPortalId = UnitGUID(hPlayer);
                 D2GAME_PACKETS_SendPacket0x82_6FC3F790(pGame, pClient, nPortalId, nOwnerId);
             }
         }
         break;
     case 1:
-        if (!SUNIT_IsDead(pUnit) || !STATES_CheckStateMaskHideOnUnit(pUnit))
+        if (!SUNIT_IsDead(hPlayer) || !STATES_CheckStateMaskHideOnUnit(hPlayer))
         {
-            sub_0053E2E0_SendMonster(pClient, pUnit);
-            STATLIST_SetUnitStat(pUnit, 328, (unsigned short)(tCoords.nX + tCoords.nY), 0);
-            if (pUnit->dwClassId == 528)
-                sub_6FC3FAF0(pClient, pUnit->dwUnitId, sub_0058F710(pUnit));
-            D2MonStatsTxt* pMonStatsTxt = DATATBLS_GetMonStatsTxtRecord(pUnit->dwClassId);
+            sub_0053E2E0_SendMonster(pClient, hPlayer);
+            STATLIST_SetUnitStat(hPlayer, 328, (unsigned short)(tCoords.nX + tCoords.nY), 0);
+            if (hPlayer->dwClassId == 528)
+                sub_6FC3FAF0(pClient, hPlayer->dwUnitId, sub_0058F710(hPlayer));
+            D2MonStatsTxt* pMonStatsTxt = DATATBLS_GetMonStatsTxtRecord(hPlayer->dwClassId);
             if (pMonStatsTxt)
             {
                 int i = 0;
@@ -607,47 +607,47 @@ void __fastcall sub_00571F90(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc*
                         const unsigned short nSkillId = *pSkillId;
                         if ((short)nSkillId >= 0 && (short)nSkillId < sgptDataTables->nSkillsTxtRecordCount)
                         {
-                            D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, (short)nSkillId);
+                            D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(hPlayer, (short)nSkillId);
                             if (pSkill)
-                                D2GAME_PACKETS_SendPacket0x21_UpdateSkills_6FC3DB50(pClient, pUnit, nSkillId, SKILLS_GetSkillLevel(pUnit, pSkill, 0), 0);
+                                D2GAME_PACKETS_SendPacket0x21_UpdateSkills_6FC3DB50(pClient, hPlayer, nSkillId, SKILLS_GetSkillLevel(hPlayer, pSkill, 0), 0);
                         }
                     }
                 }
             }
-            D2GAME_STATES_SendUnitStates_6FCC58E0(pUnit, pClient);
-            sub_6FCC6540(pUnit, pClient);
+            D2GAME_STATES_SendUnitStates_6FCC58E0(hPlayer, pClient);
+            sub_6FCC6540(hPlayer, pClient);
         }
         break;
     case 3:
-        sub_0059FEE0_SendMissile(pClient, pGame, pUnit, sub_006486C0(UnitPath(pUnit)));
+        sub_0059FEE0_SendMissile(pClient, pGame, hPlayer, sub_006486C0(UnitPath(hPlayer)));
         break;
     default:
-        D2GAME_PACKETS_SendPacket0x09_6FC3D1A0(pClient, 9, pUnit->dwUnitType, pUnit->dwUnitId, pUnit->dwClassId, tCoords.nX, tCoords.nY);
+        D2GAME_PACKETS_SendPacket0x09_6FC3D1A0(pClient, 9, hPlayer->dwUnitType, hPlayer->dwUnitId, hPlayer->dwClassId, tCoords.nX, tCoords.nY);
         break;
     }
-    switch (pUnit->dwUnitType)
+    switch (hPlayer->dwUnitType)
     {
     case 0:
-        sub_6FC82830(pUnit, pClient);
-        if (SUNIT_IsDead(pUnit) && STATES_CheckState(pUnit, 7))
+        sub_6FC82830(hPlayer, pClient);
+        if (SUNIT_IsDead(hPlayer) && STATES_CheckState(hPlayer, 7))
         {
-            D2UnitStrc* pOwner = SUNIT_GetServerUnit(pGame, 0, INVENTORY_GetOwnerId(UnitInventory(pUnit)));
+            D2UnitStrc* pOwner = SUNIT_GetServerUnit(pGame, 0, INVENTORY_GetOwnerId(UnitInventory(hPlayer)));
             D2_ASSERT(pOwner, 184);
-            D2GAME_PACKETS_SendPacket0x74_6FC3F640(pClient, pOwner, pUnit, sub_00463720_TestUnitFlagEx(pUnit, 0x1000));
+            D2GAME_PACKETS_SendPacket0x74_6FC3F640(pClient, pOwner, hPlayer, sub_00463720_TestUnitFlagEx(hPlayer, 0x1000));
         }
-        else PLAYER_SynchronizeItemsToClient(pUnit, pClient);
-        D2GAME_STATES_SendUnitStates_6FCC58E0(pUnit, pClient);
-        sub_6FC82270(pGame, pUnit, pClient);
-        sub_6FCC6540(pUnit, pClient);
-        sub_00571620(pUnit, pClient);
+        else PLAYER_SynchronizeItemsToClient(hPlayer, pClient);
+        D2GAME_STATES_SendUnitStates_6FCC58E0(hPlayer, pClient);
+        sub_6FC82270(pGame, hPlayer, pClient);
+        sub_6FCC6540(hPlayer, pClient);
+        sub_00571620(hPlayer, pClient);
         break;
     case 1:
-        MONSTERMSG_SendMonsterModeUpdate(pGame, pUnit, pClient);
-        if (STATES_CheckState(pUnit, 93) || pUnit->dwClassId == 291 || pUnit->dwClassId == 417 || pUnit->dwClassId == 418)
-            PLAYER_SynchronizeItemsToClient(pUnit, pClient);
+        MONSTERMSG_SendMonsterModeUpdate(pGame, hPlayer, pClient);
+        if (STATES_CheckState(hPlayer, 93) || hPlayer->dwClassId == 291 || hPlayer->dwClassId == 417 || hPlayer->dwClassId == 418)
+            PLAYER_SynchronizeItemsToClient(hPlayer, pClient);
         break;
     case 4:
-        sub_6FC42050(pUnit, pClient);
+        sub_6FC42050(hPlayer, pClient);
         break;
     case 2:
     case 3:

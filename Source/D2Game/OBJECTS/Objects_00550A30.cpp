@@ -156,13 +156,13 @@ static __declspec(noinline) int __stdcall sub_005502F0_CanPlaceSmallObject(D2Act
 }
 
 // 0x00552000
-int __fastcall OBJECTS_SpawnBarrel(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pDrlgCoords)
+int __fastcall OBJECTS_SpawnBarrel(D2GameStrc* pGame, D2ActiveRoomStrc* hRoom, D2DrlgCoordsStrc* pDrlgCoords)
 {
     const unsigned int nXEnd = pDrlgCoords->nSubtileWidth + pDrlgCoords->nSubtileX + 1;
     const unsigned int nYEnd = pDrlgCoords->nSubtileHeight + pDrlgCoords->nSubtileY + 1;
     int nCounter = 0;
     D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(7);
-    D2ObjectControlStrc* pObjectControl = OBJRGN_GetObjectControlFromGame(pGame, pRoom);
+    D2ObjectControlStrc* pObjectControl = OBJRGN_GetObjectControlFromGame(pGame, hRoom);
     D2CoordStrc coord;
 
     int nClassId;
@@ -187,10 +187,10 @@ int __fastcall OBJECTS_SpawnBarrel(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D
                     nClassId = 11;
                 }
                 coord.nY = nY;
-                if (sub_005502F0_CanPlaceSmallObject(pRoom, pObjectsTxtRecord->dwSizeX, pObjectsTxtRecord->dwSizeY, &coord, pDrlgCoords) == 1)
+                if (sub_005502F0_CanPlaceSmallObject(hRoom, pObjectsTxtRecord->dwSizeX, pObjectsTxtRecord->dwSizeY, &coord, pDrlgCoords) == 1)
                 {
-                    D2_ASSERT(pRoom, 2696);
-                    SUNIT_AllocUnitData(2, nClassId, nX, nY, pGame, pRoom, 1, 0, 0);
+                    D2_ASSERT(hRoom, 2696);
+                    SUNIT_AllocUnitData(2, nClassId, nX, nY, pGame, hRoom, 1, 0, 0);
                     ++nCounter;
                     if (nCounter >= 32)
                     {

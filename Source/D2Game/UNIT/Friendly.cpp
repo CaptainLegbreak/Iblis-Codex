@@ -15,11 +15,11 @@ void __fastcall PLAYERLIST_ToggleFlag(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D
 #define UNIT_INVALID 6
 
 // 0x005A6080
-int __fastcall FRIENDLY_RemoveHostility(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2)
+int __fastcall FRIENDLY_RemoveHostility(D2GameStrc* pGame, D2UnitStrc* hPlayer, D2UnitStrc* pPlayer2)
 {
-    D2_ASSERT((pPlayer1 ? pPlayer1->dwUnitType : UNIT_INVALID) == UNIT_PLAYER, 21);
+    D2_ASSERT((hPlayer ? hPlayer->dwUnitType : UNIT_INVALID) == UNIT_PLAYER, 21);
 
-    PLAYERLIST_AllocPlayerList(pGame, pPlayer1, pPlayer2);
-    PLAYERLIST_ToggleFlag(pGame, pPlayer1, pPlayer2, PLAYERLIST_FLAG_HOSTILE, 0);
+    PLAYERLIST_AllocPlayerList(pGame, hPlayer, pPlayer2);
+    PLAYERLIST_ToggleFlag(pGame, hPlayer, pPlayer2, PLAYERLIST_FLAG_HOSTILE, 0);
     return 1;
 }

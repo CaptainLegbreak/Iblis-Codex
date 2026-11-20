@@ -528,11 +528,11 @@ int __stdcall sub_006018C0(D2CelStrc* pCel)
 }
 
 // 0x006019F0
-int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pCelFile)
+int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pFile)
 {
-    D2_ASSERT(pCelFile->nVersion == 6, 1489);
+    D2_ASSERT(pFile->nVersion == 6, 1489);
 
-    return pCelFile->nCelsPerDirection;
+    return pFile->nCelsPerDirection;
 }
 
 // 0x00601A30

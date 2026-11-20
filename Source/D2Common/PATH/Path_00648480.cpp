@@ -285,13 +285,13 @@ void __stdcall D2Common_10213(D2UnitStrc* pUnit)
 {
     if (pUnit && !UNIT_HasFlag(pUnit, UNITFLAG_ISASYNC) && UNIT_HasFlagEx(pUnit, UNITFLAGEX_UNK_PATH_RELATED))
     {
-        D2DynamicPathStrc* pDynamicPath = pUnit->pDynamicPath;
-        D2_ASSERT(pDynamicPath, 2485);
+        D2DynamicPathStrc* ptPath = pUnit->pDynamicPath;
+        D2_ASSERT(ptPath, 2485);
 
-        ++pDynamicPath->unk0x38;
-        if (pDynamicPath->unk0x38 > 1)
+        ++ptPath->unk0x38;
+        if (ptPath->unk0x38 > 1)
         {
-            pDynamicPath->unk0x38 = 0;
+            ptPath->unk0x38 = 0;
             if (!D2Common_10227(pUnit))
             {
                 if (D2Common_10236(pUnit, PATH_GetTargetUnit(pUnit->pDynamicPath) != 0))
@@ -353,28 +353,28 @@ void __fastcall PATH_SetClientCoordY(D2DynamicPathStrc* pPath, int nY)
 }
 
 // 0x00648CF0
-void __stdcall PATH_SetType(D2DynamicPathStrc* pDynamicPath, int nPathType)
+void __stdcall PATH_SetType(D2DynamicPathStrc* ptPath, int eType)
 {
-    D2_ASSERT(!(pDynamicPath->pUnit && pDynamicPath->pUnit->dwUnitType == 0 && nPathType == 2), 0x861);
+    D2_ASSERT(!(ptPath->pUnit && ptPath->pUnit->dwUnitType == 0 && eType == 2), 0x861);
 
-    int nFlag = gaPathTypeFlags_006EB690[nPathType];
-    if ((nFlag & 0x2000) && !(pDynamicPath->dwFlags & 0x4000))
+    int nFlag = gaPathTypeFlags_006EB690[eType];
+    if ((nFlag & 0x2000) && !(ptPath->dwFlags & 0x4000))
     {
-        pDynamicPath->dwPrevPathType = pDynamicPath->dwPathType;
+        ptPath->dwPrevPathType = ptPath->dwPathType;
     }
 
-    if ((nFlag & 0x8000) && !(pDynamicPath->dwFlags & 0x10000))
+    if ((nFlag & 0x8000) && !(ptPath->dwFlags & 0x10000))
     {
-        pDynamicPath->nPreviousVelocity = pDynamicPath->dwVelocity;
+        ptPath->nPreviousVelocity = ptPath->dwVelocity;
     }
 
-    pDynamicPath->dwPathType = nPathType;
-    pDynamicPath->dwFlags = nFlag | pDynamicPath->dwFlags & 0xFFF800FF;
-    pDynamicPath->nDirOffset = gaOffsetForPathType_006EB648[nPathType];
+    ptPath->dwPathType = eType;
+    ptPath->dwFlags = nFlag | ptPath->dwFlags & 0xFFF800FF;
+    ptPath->nDirOffset = gaOffsetForPathType_006EB648[eType];
 
-    D2_ASSERT(pDynamicPath->dwPrevPathType != 0xB, 0x871);
-    D2_ASSERT(pDynamicPath->dwPrevPathType != 8, 0x872);
-    D2_ASSERT((nPathType != 4) || (pDynamicPath->nDistMax < 78), 0x873);
+    D2_ASSERT(ptPath->dwPrevPathType != 0xB, 0x871);
+    D2_ASSERT(ptPath->dwPrevPathType != 8, 0x872);
+    D2_ASSERT((eType != 4) || (ptPath->nDistMax < 78), 0x873);
 }
 
 // 0x006505C0
@@ -474,22 +474,22 @@ int __stdcall PATH_ComputeDirection(int nX1, int nY1, int nX2, int nY2)
 }
 
 // 0x00648DC0
-void __stdcall PATH_ResetToPreviousType(D2DynamicPathStrc* pDynamicPath)
+void __stdcall PATH_ResetToPreviousType(D2DynamicPathStrc* hUnit)
 {
-    D2_ASSERT(pDynamicPath->pUnit, 2174);
+    D2_ASSERT(hUnit->pUnit, 2174);
 
-    if (pDynamicPath->dwFlags & PATH_WITH_PREVIOUS_VELOCITY)
+    if (hUnit->dwFlags & PATH_WITH_PREVIOUS_VELOCITY)
     {
-        pDynamicPath->dwVelocity = pDynamicPath->nPreviousVelocity;
+        hUnit->dwVelocity = hUnit->nPreviousVelocity;
     }
 
-    if (pDynamicPath->pUnit->dwUnitType == UNIT_PLAYER)
+    if (hUnit->pUnit->dwUnitType == UNIT_PLAYER)
     {
-        PATH_SetType(pDynamicPath, PATHTYPE_STRAIGHT);
+        PATH_SetType(hUnit, PATHTYPE_STRAIGHT);
     }
-    else if (pDynamicPath->dwFlags & PATH_UNKNOWN_FLAG_0x02000)
+    else if (hUnit->dwFlags & PATH_UNKNOWN_FLAG_0x02000)
     {
-        PATH_SetType(pDynamicPath, pDynamicPath->dwPrevPathType);
+        PATH_SetType(hUnit, hUnit->dwPrevPathType);
     }
 }
 

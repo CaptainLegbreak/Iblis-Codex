@@ -1182,39 +1182,39 @@ static __declspec(noinline) int __stdcall OBJMODE_CalculateShrineStatBonus(int n
 }
 
 // 0x005839B0
-void __fastcall D2GAME_SHRINES_CombatBoost_6FC77690(D2ObjOperateFnStrc* pOp, D2ShrinesTxt* pShrinesTxtRecord)
+void __fastcall D2GAME_SHRINES_CombatBoost_6FC77690(D2ObjOperateFnStrc* pOp, D2ShrinesTxt* ptShrineData)
 {
-    D2_ASSERT(pShrinesTxtRecord->nCode < gnShrineTableCount_00732EAC, 0x9C1);
+    D2_ASSERT(ptShrineData->nCode < gnShrineTableCount_00732EAC, 0x9C1);
 
-    const D2ShrineTableStrc* pShrineRecord = &gpShrineTable_006E1850[pShrinesTxtRecord->nCode];
-    const int nValue = OBJMODE_CalculateShrineStatBonus(0x13, pShrinesTxtRecord->dwArg0, pOp->pPlayer);
-    D2StatListStrc* pStatList = sub_00582800_ApplyShrineCurse(pOp->pObject, pOp->pPlayer, pShrinesTxtRecord->dwDurationInFrames, pShrinesTxtRecord->dwArg1, 0x19, pShrineRecord->unk0x08, 0);
+    const D2ShrineTableStrc* pShrineRecord = &gpShrineTable_006E1850[ptShrineData->nCode];
+    const int nValue = OBJMODE_CalculateShrineStatBonus(0x13, ptShrineData->dwArg0, pOp->pPlayer);
+    D2StatListStrc* pStatList = sub_00582800_ApplyShrineCurse(pOp->pObject, pOp->pPlayer, ptShrineData->dwDurationInFrames, ptShrineData->dwArg1, 0x19, pShrineRecord->unk0x08, 0);
     sub_006270B0(pStatList, 0x13, nValue, 0);
 }
 
 // 0x00583A70
-void __fastcall D2GAME_SHRINES_Stamina_6FC779C0(D2ObjOperateFnStrc* pOp, D2ShrinesTxt* pShrinesTxtRecord)
+void __fastcall D2GAME_SHRINES_Stamina_6FC779C0(D2ObjOperateFnStrc* pOp, D2ShrinesTxt* ptShrineData)
 {
-    D2_ASSERT(pShrinesTxtRecord->nCode < gnShrineTableCount_00732EAC, 0x9E7);
+    D2_ASSERT(ptShrineData->nCode < gnShrineTableCount_00732EAC, 0x9E7);
 
-    const D2ShrineTableStrc* pShrineRecord = &gpShrineTable_006E1850[pShrinesTxtRecord->nCode];
+    const D2ShrineTableStrc* pShrineRecord = &gpShrineTable_006E1850[ptShrineData->nCode];
     const int nMaxStamina = STATLIST_GetMaxStaminaFromUnit(pOp->pPlayer);
     STATLIST_SetUnitStat(pOp->pPlayer, 0x0A, nMaxStamina, 0);
-    const int nStatValue = OBJMODE_CalculateShrineStatBonus(pShrineRecord->unk0x04, pShrinesTxtRecord->dwArg0, pOp->pPlayer);
-    D2StatListStrc* pStatList = sub_00582800_ApplyShrineCurse(pOp->pObject, pOp->pPlayer, pShrinesTxtRecord->dwDurationInFrames, nStatValue, pShrineRecord->unk0x04, pShrineRecord->unk0x08, sub_6FC77AB0);
+    const int nStatValue = OBJMODE_CalculateShrineStatBonus(pShrineRecord->unk0x04, ptShrineData->dwArg0, pOp->pPlayer);
+    D2StatListStrc* pStatList = sub_00582800_ApplyShrineCurse(pOp->pObject, pOp->pPlayer, ptShrineData->dwDurationInFrames, nStatValue, pShrineRecord->unk0x04, pShrineRecord->unk0x08, sub_6FC77AB0);
     sub_006270B0(pStatList, 0x0A, 2 * nStatValue, 0);
     sub_006270B0(pStatList, 0x1C, 1000, 0);
 }
 
 // 0x00583B30
-void __fastcall D2GAME_SHRINES_DefensiveBoost_6FC77AE0(D2ObjOperateFnStrc* pOp, D2ShrinesTxt* pShrinesTxtRecord)
+void __fastcall D2GAME_SHRINES_DefensiveBoost_6FC77AE0(D2ObjOperateFnStrc* pOp, D2ShrinesTxt* ptShrineData)
 {
-    D2_ASSERT(pShrinesTxtRecord->nCode < gnShrineTableCount_00732EAC, 0x9F9);
+    D2_ASSERT(ptShrineData->nCode < gnShrineTableCount_00732EAC, 0x9F9);
 
-    const D2ShrineTableStrc* pShrineRecord = &gpShrineTable_006E1850[pShrinesTxtRecord->nCode];
-    const int nStatValue = pShrineRecord->unk0x04 != -1 ? OBJMODE_CalculateShrineStatBonus(pShrineRecord->unk0x04, pShrinesTxtRecord->dwArg0, pOp->pPlayer) : 0;
+    const D2ShrineTableStrc* pShrineRecord = &gpShrineTable_006E1850[ptShrineData->nCode];
+    const int nStatValue = pShrineRecord->unk0x04 != -1 ? OBJMODE_CalculateShrineStatBonus(pShrineRecord->unk0x04, ptShrineData->dwArg0, pOp->pPlayer) : 0;
 
-    sub_00582800_ApplyShrineCurse(pOp->pObject, pOp->pPlayer, pShrinesTxtRecord->dwDurationInFrames, nStatValue, pShrineRecord->unk0x04, pShrineRecord->unk0x08, 0);
+    sub_00582800_ApplyShrineCurse(pOp->pObject, pOp->pPlayer, ptShrineData->dwDurationInFrames, nStatValue, pShrineRecord->unk0x04, pShrineRecord->unk0x08, 0);
 }
 
 // 0x00583BC0
@@ -1554,17 +1554,17 @@ int __fastcall sub_M98_Emit_00585240(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2I
 }
 
 // 0x00585580
-void __fastcall sub_00585580_RetargetTownPortal(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPortalGUID, int nDestLevel)
+void __fastcall sub_00585580_RetargetTownPortal(D2GameStrc* ptGame, D2UnitStrc* pPlayer, int nPortalGUID, int nDestLevel)
 {
-    D2_ASSERT(pGame, 0x11DD);
+    D2_ASSERT(ptGame, 0x11DD);
 
-    D2UnitStrc* pPortal = SUNIT_GetServerUnit(pGame, 2, nPortalGUID);
+    D2UnitStrc* pPortal = SUNIT_GetServerUnit(ptGame, 2, nPortalGUID);
     if ((pPortal ? pPortal->dwClassId : -1) != 0x3B || UNITS_CheckObjectPortalFlag(pPortal, 1))
     {
         return;
     }
 
-    D2UnitStrc* pPair = sub_00553720_GetPortalPair(pGame, pPortal);
+    D2UnitStrc* pPair = sub_00553720_GetPortalPair(ptGame, pPortal);
     if (!pPair)
     {
         return;
@@ -1580,13 +1580,13 @@ void __fastcall sub_00585580_RetargetTownPortal(D2GameStrc* pGame, D2UnitStrc* p
     UNITS_ChangeAnimMode(pPortal, 3);
 
     DUNGEON_AllocDrlgDelete(UNITS_GetRoom(pPair), 2, !pPair ? -1 : pPair->dwUnitId);
-    SUNIT_RemoveUnit(pGame, pPair);
+    SUNIT_RemoveUnit(ptGame, pPair);
 
-    D2UnitStrc* pLinkPortal = D2GAME_CreateLinkPortal_6FD13B20(pGame, pPlayer, pPortal, nDestLevel, DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pPortal)));
-    D2_ASSERT(pLinkPortal, 0x11FB);
+    D2UnitStrc* hDstPortal = D2GAME_CreateLinkPortal_6FD13B20(ptGame, pPlayer, pPortal, nDestLevel, DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pPortal)));
+    D2_ASSERT(hDstPortal, 0x11FB);
 
-    tFlags.nFlags = UNITS_GetObjectPortalFlags(pLinkPortal) | 3;
-    UNITS_SetObjectPortalFlags(pLinkPortal, tFlags);
+    tFlags.nFlags = UNITS_GetObjectPortalFlags(hDstPortal) | 3;
+    UNITS_SetObjectPortalFlags(hDstPortal, tFlags);
 }
 
 // 0x00585720
@@ -1726,9 +1726,9 @@ D2UnitStrc* __fastcall OBJMODE_DropFromChestTCWithQuality(D2ObjOperateFnStrc* pO
 {
     D2_ASSERT(pOp->pObject, 0x1313);
 
-    D2GameStrc* pGame = SUNIT_GetGameFromUnit(pOp->pObject);
+    D2GameStrc* ptGame = SUNIT_GetGameFromUnit(pOp->pObject);
 
-    D2_ASSERT(pGame, 0x1315);
+    D2_ASSERT(ptGame, 0x1315);
     D2_ASSERT(UNITS_GetObjectTxtRecordFromObject(pOp->pObject), 0x1317);
 
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pOp->pObject);
@@ -1738,9 +1738,9 @@ D2UnitStrc* __fastcall OBJMODE_DropFromChestTCWithQuality(D2ObjOperateFnStrc* pO
     const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
     const unsigned char nAct = DRLG_GetActNoFromLevelId(nLevelId);
 
-    const int nCurrentMonsterLevel = DATATBLS_GetMonsterLevelInArea(nLevelId, pGame->nDifficulty, pGame->bExpansion);
-    const int nMinMonsterLevel = DATATBLS_GetMonsterLevelInArea(gnChestActLevelIds_006E1988[2 * nAct], pGame->nDifficulty, pGame->bExpansion);
-    const int nMaxMonsterLevel = DATATBLS_GetMonsterLevelInArea(gnChestActLevelIds_006E1988[2 * nAct + 1], pGame->nDifficulty, pGame->bExpansion);
+    const int nCurrentMonsterLevel = DATATBLS_GetMonsterLevelInArea(nLevelId, ptGame->nDifficulty, ptGame->bExpansion);
+    const int nMinMonsterLevel = DATATBLS_GetMonsterLevelInArea(gnChestActLevelIds_006E1988[2 * nAct], ptGame->nDifficulty, ptGame->bExpansion);
+    const int nMaxMonsterLevel = DATATBLS_GetMonsterLevelInArea(gnChestActLevelIds_006E1988[2 * nAct + 1], ptGame->nDifficulty, ptGame->bExpansion);
 
     int nMonsterLevelDiff = nMaxMonsterLevel - nMinMonsterLevel;
     if (nMonsterLevelDiff < 0)
@@ -1753,13 +1753,13 @@ D2UnitStrc* __fastcall OBJMODE_DropFromChestTCWithQuality(D2ObjOperateFnStrc* pO
     else
         nTCIndex = (nCurrentMonsterLevel >= nMinMonsterLevel + 2 * nOffset) + 1;
 
-    D2TCExShortStrc* pTCExRecord = DATATBLS_GetTreasureClassExRecordFromActAndDifficulty(pGame->nDifficulty, nAct, nTCIndex);
+    D2TCExShortStrc* pTCExRecord = DATATBLS_GetTreasureClassExRecordFromActAndDifficulty(ptGame->nDifficulty, nAct, nTCIndex);
     if (!pTCExRecord)
         return 0;
 
     int nItemDropCount = 0;
     D2UnitStrc* ppDroppableItems[6] = {};
-    D2GAME_DropTC_6FC51360(pGame, pOp->pObject, pOp->pPlayer, pTCExRecord, nItemQuality, nTCIndex, 0, ppDroppableItems, &nItemDropCount, 6);
+    D2GAME_DropTC_6FC51360(ptGame, pOp->pObject, pOp->pPlayer, pTCExRecord, nItemQuality, nTCIndex, 0, ppDroppableItems, &nItemDropCount, 6);
     return ppDroppableItems[0];
 }
 

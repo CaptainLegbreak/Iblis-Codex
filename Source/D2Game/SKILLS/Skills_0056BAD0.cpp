@@ -847,16 +847,16 @@ void __fastcall D2GAME_STATES_SendStates_6FCC5F00(D2UnitStrc* pUnit, D2ClientStr
 #include "gen/data/Source/D2Game/SKILLS/Skills_0056BAD0.inc"
 
 // 0x0056D130
-int __fastcall D2GAME_CreatePortalObject_6FD13DF0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int nDestLevel, D2UnitStrc** ppSourceUnit, int nObjectId, int bPerm)
+int __fastcall D2GAME_CreatePortalObject_6FD13DF0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* hRoom, int nX, int nY, int nDestLevel, D2UnitStrc** ppSourceUnit, int nObjectId, int bPerm)
 {
-    D2_ASSERT(pRoom, 0xE42);
+    D2_ASSERT(hRoom, 0xE42);
 
     if (ppSourceUnit)
     {
         *ppSourceUnit = 0;
     }
 
-    if (pUnit && DUNGEON_IsRoomInTown(pRoom))
+    if (pUnit && DUNGEON_IsRoomInTown(hRoom))
     {
         if ((nDestLevel != 0x27 && nDestLevel != 0x88 && nDestLevel != 0x85 && nDestLevel != 0x86 && nDestLevel != 0x87) || nObjectId != 0x3C)
         {
@@ -865,10 +865,10 @@ int __fastcall D2GAME_CreatePortalObject_6FD13DF0(D2GameStrc* pGame, D2UnitStrc*
         }
     }
 
-    const unsigned char nAct = DRLG_GetActNoFromLevelId(nDestLevel);
-    const int nSourceLevel = DUNGEON_GetLevelIdFromRoom(pRoom);
+    const unsigned char bAct = DRLG_GetActNoFromLevelId(nDestLevel);
+    const int eLevelIdLocal = DUNGEON_GetLevelIdFromRoom(hRoom);
 
-    D2_ASSERT(nAct == DRLG_GetActNoFromLevelId(nSourceLevel), 0xE5C);
+    D2_ASSERT(bAct == DRLG_GetActNoFromLevelId(eLevelIdLocal), 0xE5C);
 
     D2CoordStrc coords;
     coords.nX = nX;
@@ -876,7 +876,7 @@ int __fastcall D2GAME_CreatePortalObject_6FD13DF0(D2GameStrc* pGame, D2UnitStrc*
 
     if (!bPerm)
     {
-        if (!COLLISION_GetFreeCoordinatesWithField(pRoom, &coords, &coords, 3, 0x3E01, 0xC01, 0))
+        if (!COLLISION_GetFreeCoordinatesWithField(hRoom, &coords, &coords, 3, 0x3E01, 0xC01, 0))
         {
             return 0;
         }
@@ -885,7 +885,7 @@ int __fastcall D2GAME_CreatePortalObject_6FD13DF0(D2GameStrc* pGame, D2UnitStrc*
     const int nTargetX = coords.nX;
     const int nTargetY = coords.nY;
 
-    D2ActiveRoomStrc* pTargetRoom = D2GAME_GetRoom_6FC52070(pRoom, nTargetX, nTargetY);
+    D2ActiveRoomStrc* pTargetRoom = D2GAME_GetRoom_6FC52070(hRoom, nTargetX, nTargetY);
     if (!pTargetRoom)
     {
         return 0;
@@ -899,7 +899,7 @@ int __fastcall D2GAME_CreatePortalObject_6FD13DF0(D2GameStrc* pGame, D2UnitStrc*
 
     UNITS_ChangeAnimMode(pPortal, 1);
 
-    D2UnitStrc* pLinkPortal = D2GAME_CreateLinkPortal_6FD13B20(pGame, pUnit, pPortal, nDestLevel, nSourceLevel);
+    D2UnitStrc* pLinkPortal = D2GAME_CreateLinkPortal_6FD13B20(pGame, pUnit, pPortal, nDestLevel, eLevelIdLocal);
     if (!pLinkPortal)
     {
         return 0;
@@ -932,26 +932,26 @@ static __forceinline D2AiControlStrc* AIGENERAL_GetAiControlFromUnit(D2UnitStrc*
 }
 
 // 0x0056D840
-static void sub_6FD146D0(D2GameStrc* pGame, D2UnitStrc* pUnit)
+static void sub_6FD146D0(D2GameStrc* pGame, D2UnitStrc* hUnit)
 {
-    D2_ASSERT(pUnit, 4008);
+    D2_ASSERT(hUnit, 4008);
 
-    D2UnitStrc* pPet = SUNIT_GetServerUnit(pGame, UNIT_MONSTER, sub_00554070(pUnit));
+    D2UnitStrc* pPet = SUNIT_GetServerUnit(pGame, UNIT_MONSTER, sub_00554070(hUnit));
     if (pPet)
     {
         if (UNITS_HasBeenDeletedInline(pPet))
         {
             SUNIT_RemoveUnit(pGame, pPet);
-            sub_00554040(pUnit, -1);
+            sub_00554040(hUnit, -1);
             return;
         }
 
         pPet->dwFlags |= 0x4000000u;
 
-        SUNITDMG_KillMonster(pGame, pPet, pUnit, 1);
+        SUNITDMG_KillMonster(pGame, pPet, hUnit, 1);
     }
 
-    sub_00554040(pUnit, -1);
+    sub_00554040(hUnit, -1);
 }
 
 // 0x0056D8D0
@@ -1053,26 +1053,26 @@ D2UnitStrc* __fastcall D2GAME_SummonPet_6FD14430(D2GameStrc* pGame, D2SummonArgS
         return 0;
     }
 
-    D2UnitStrc* pPet = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, pSummonArg->nHcIdx, pSummonArg->nMonMode, -1, 66);
-    if (!pPet)
+    D2UnitStrc* hPet = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, pSummonArg->nHcIdx, pSummonArg->nMonMode, -1, 66);
+    if (!hPet)
     {
         if (pSummonArg->dwFlags & 4)
         {
             return 0;
         }
 
-        pPet = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, pSummonArg->nHcIdx, pSummonArg->nMonMode, 4, 66);
-        if (!pPet)
+        hPet = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nX, nY, pSummonArg->nHcIdx, pSummonArg->nMonMode, 4, 66);
+        if (!hPet)
         {
             return 0;
         }
     }
 
-    sub_0056D8D0_SetPetFlagsAndCount(pGame, pSummonArg, pPet);
+    sub_0056D8D0_SetPetFlagsAndCount(pGame, pSummonArg, hPet);
 
-    if (pPet)
+    if (hPet)
     {
-        pPet->dwFlags |= UNITFLAG_NOTC;
+        hPet->dwFlags |= UNITFLAG_NOTC;
     }
 
     D2UnitStrc* pOwner = pSummonArg->pOwner;
@@ -1081,41 +1081,41 @@ D2UnitStrc* __fastcall D2GAME_SummonPet_6FD14430(D2GameStrc* pGame, D2SummonArgS
     {
         nOwnerType = pOwner->dwUnitType;
     }
-    AIGENERAL_SetOwnerData(pGame, pPet, !pOwner ? -1 : pOwner->dwUnitId, nOwnerType, 0, 0);
+    AIGENERAL_SetOwnerData(pGame, hPet, !pOwner ? -1 : pOwner->dwUnitId, nOwnerType, 0, 0);
 
-    D2_ASSERT(!STATES_CheckState(pPet, STATE_UNINTERRUPTABLE), 4108);
+    D2_ASSERT(!STATES_CheckState(hPet, STATE_UNINTERRUPTABLE), 4108);
 
-    AITHINK_ExecuteAiFn(pGame, pPet, AIGENERAL_GetAiControlFromUnit(pPet), pSummonArg->nAiSpecialState);
-    MONSTER_UpdateAiCallbackEvent(pGame, pPet);
-    D2GAME_EVENTS_Delete_6FC34840(pGame, pPet, EVENTTYPE_AITHINK, 0);
-    EVENT_SetEvent(pGame, pPet, EVENTTYPE_AITHINK, pGame->dwGameFrame + 25, 0, 0);
+    AITHINK_ExecuteAiFn(pGame, hPet, AIGENERAL_GetAiControlFromUnit(hPet), pSummonArg->nAiSpecialState);
+    MONSTER_UpdateAiCallbackEvent(pGame, hPet);
+    D2GAME_EVENTS_Delete_6FC34840(pGame, hPet, EVENTTYPE_AITHINK, 0);
+    EVENT_SetEvent(pGame, hPet, EVENTTYPE_AITHINK, pGame->dwGameFrame + 25, 0, 0);
 
-    return pPet;
+    return hPet;
 }
 
 // 0x0056E230
-int __fastcall sub_6FD150A0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget)
+int __fastcall sub_6FD150A0(D2GameStrc* ptGame, D2UnitStrc* pUnit, D2UnitStrc* hTarget)
 {
     D2_ASSERT(pUnit, 4625);
-    D2_ASSERT(pTarget, 4626);
-    D2_ASSERT(pGame, 4627);
+    D2_ASSERT(hTarget, 4626);
+    D2_ASSERT(ptGame, 4627);
 
-    SUNIT_SetCombatMode(pGame, pUnit, 1);
+    SUNIT_SetCombatMode(ptGame, pUnit, 1);
     UNITS_SetUsedSkill(pUnit, 0);
 
     D2SkillStrc* pSkill = SKILLS_GetSkillById(pUnit, 0, -1);
     switch (pUnit->dwUnitType)
     {
     case UNIT_PLAYER:
-        StartModeID(pGame, pUnit, pSkill, PLRMODE_ATTACK1, !pTarget ? UNIT_INVALID : pTarget->dwUnitType, !pTarget ? -1 : pTarget->dwUnitId, 1);
+        StartModeID(ptGame, pUnit, pSkill, PLRMODE_ATTACK1, !hTarget ? UNIT_INVALID : hTarget->dwUnitType, !hTarget ? -1 : hTarget->dwUnitId, 1);
         break;
 
     case UNIT_MONSTER:
     {
         D2ModeChangeStrc tModeChange;
         MONSTERMODE_GetModeChangeInfo(pUnit, MONMODE_ATTACK1, &tModeChange);
-        tModeChange.pTargetUnit = pTarget;
-        D2GAME_ModeChange_6FC65220(pGame, &tModeChange, 1);
+        tModeChange.pTargetUnit = hTarget;
+        D2GAME_ModeChange_6FC65220(ptGame, &tModeChange, 1);
         break;
     }
     }

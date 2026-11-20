@@ -434,17 +434,17 @@ int __stdcall SKILLS_CheckIfCanLeapTo(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, in
     int nX = tX2.n + 2 * (tX2.n - nX1) / nDivisor;
     int nY = tY2.n + 2 * (tY2.n - nY1) / nDivisor;
 
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit1);
-    D2_ASSERT(pRoom, 4286);
+    D2ActiveRoomStrc* hRoom = UNITS_GetRoom(pUnit1);
+    D2_ASSERT(hRoom, 4286);
 
     const int nPattern = PATH_GetUnitCollisionPattern(pUnit1);
-    if (COLLISION_CheckAnyCollisionWithPattern(pRoom, nX, nY, nPattern, COLLIDE_MASK_PLAYER_PATH))
+    if (COLLISION_CheckAnyCollisionWithPattern(hRoom, nX, nY, nPattern, COLLIDE_MASK_PLAYER_PATH))
     {
         D2CoordStrc tCoord;
         tCoord.nX = tX2.n;
         tCoord.nY = tY2.n;
-        pRoom = COLLISION_GetFreeCoordinates(pRoom, &tCoord, UNITS_GetUnitSizeX(pUnit1), COLLIDE_MASK_PLAYER_PATH, 0);
-        if (!pRoom)
+        hRoom = COLLISION_GetFreeCoordinates(hRoom, &tCoord, UNITS_GetUnitSizeX(pUnit1), COLLIDE_MASK_PLAYER_PATH, 0);
+        if (!hRoom)
         {
             return 0;
         }
@@ -452,7 +452,7 @@ int __stdcall SKILLS_CheckIfCanLeapTo(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, in
         nY = tCoord.nY;
     }
 
-    if (!sub_00645910_TestLine(UNITS_GetXPositionForceInl(pUnit1), UNITS_GetYPositionForceInl(pUnit1), nX, nY, pRoom, COLLIDE_MASK_LINE))
+    if (!sub_00645910_TestLine(UNITS_GetXPositionForceInl(pUnit1), UNITS_GetYPositionForceInl(pUnit1), nX, nY, hRoom, COLLIDE_MASK_LINE))
     {
         return 0;
     }

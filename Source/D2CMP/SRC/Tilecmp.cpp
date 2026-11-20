@@ -172,13 +172,13 @@ void __stdcall sub_00609810_AddTileBlock(D2CmpTileStrc* pTile, unsigned char* pP
     D2_ASSERT(nX < 0x10000 && nY < 0x10000, 0x112);
     pNode->nX = nX;
     pNode->nY = nY;
-    unsigned char* pData = (unsigned char*)FOG_Alloc(0xC00, ".\\SRC\\Tilecmp.cpp", 0x119, 0);
-    D2_ASSERT(pData, 0x11A);
-    memset(pData, 0, 0xC00);
+    unsigned char* ptData = (unsigned char*)FOG_Alloc(0xC00, ".\\SRC\\Tilecmp.cpp", 0x119, 0);
+    D2_ASSERT(ptData, 0x11A);
+    memset(ptData, 0, 0xC00);
     pNode->nLength = 0xC00;
-    pNode->pData = pData;
+    pNode->pData = ptData;
     pNode->nFormat = 0x1001;
-    sub_005179B3_ConvertCelPixels(pData, pPixels, 0x60, nPitch, 0x20, 0x60);
+    sub_005179B3_ConvertCelPixels(ptData, pPixels, 0x60, nPitch, 0x20, 0x60);
     if (nX < pTile->nMinX)
         pTile->nMinX = nX;
     if (nX + 0x20 > pTile->nMaxX)
@@ -305,35 +305,35 @@ void __fastcall sub_M289_Emit_00609BF0(D2CmpTileSubStrc* pSub, D2CmpTileNodeStrc
 }
 
 // 0x00609C30
-static void __stdcall sub_00609C30_ConvertTileToBlock(D2CmpTileStrc* pSrc, D2CmpTileBlockStrc* pDst)
+static void __stdcall sub_00609C30_ConvertTileToBlock(D2CmpTileStrc* pSrc, D2CmpTileBlockStrc* ptTile)
 {
-    pDst->nValue10 = pSrc->nValue10;
-    pDst->nValue14 = pSrc->nValue14;
-    pDst->f_6 = pSrc->f_16;
-    pDst->nWidth = pSrc->nMaxX - pSrc->nMinX;
-    pDst->nHeight = pSrc->nMinY - pSrc->nMaxY;
-    pDst->nValue24 = pSrc->nValue24;
-    pDst->nValue28 = pSrc->nValue28;
-    pDst->nValue2C = pSrc->nValue2C;
-    pDst->nValue30 = pSrc->nValue30;
-    pDst->nOwnerId = pSrc->nOwnerId;
-    pDst->nSubs = pSrc->nCount;
-    pDst->tInfo = pSrc->tInfo;
-    const int nSize = pDst->nSubs * sizeof(D2CmpTileSubStrc);
+    ptTile->nValue10 = pSrc->nValue10;
+    ptTile->nValue14 = pSrc->nValue14;
+    ptTile->f_6 = pSrc->f_16;
+    ptTile->nWidth = pSrc->nMaxX - pSrc->nMinX;
+    ptTile->nHeight = pSrc->nMinY - pSrc->nMaxY;
+    ptTile->nValue24 = pSrc->nValue24;
+    ptTile->nValue28 = pSrc->nValue28;
+    ptTile->nValue2C = pSrc->nValue2C;
+    ptTile->nValue30 = pSrc->nValue30;
+    ptTile->nOwnerId = pSrc->nOwnerId;
+    ptTile->nSubs = pSrc->nCount;
+    ptTile->tInfo = pSrc->tInfo;
+    const int nSize = ptTile->nSubs * sizeof(D2CmpTileSubStrc);
     if (nSize)
     {
-        pDst->pSubs = (D2CmpTileSubStrc*)FOG_Alloc(nSize, ".\\SRC\\Tilecmp.cpp", 0x201, 0);
-        D2_ASSERT(pDst->pSubs, 0x202);
-        memset(pDst->pSubs, 0, nSize);
+        ptTile->pSubs = (D2CmpTileSubStrc*)FOG_Alloc(nSize, ".\\SRC\\Tilecmp.cpp", 0x201, 0);
+        D2_ASSERT(ptTile->pSubs, 0x202);
+        memset(ptTile->pSubs, 0, nSize);
     }
     else
     {
-        pDst->pSubs = 0;
+        ptTile->pSubs = 0;
     }
     int i = 0;
     for (D2CmpTileNodeStrc* pNode = pSrc->pNodes; pNode; pNode = pNode->pNext)
     {
-        D2CmpTileSubStrc* pSub = &pDst->pSubs[i];
+        D2CmpTileSubStrc* pSub = &ptTile->pSubs[i];
         pSub->nX = pNode->nX;
         pSub->nY = pNode->nY;
         pSub->nGridX = pNode->nGridX;
@@ -344,7 +344,7 @@ static void __stdcall sub_00609C30_ConvertTileToBlock(D2CmpTileStrc* pSrc, D2Cmp
         pNode->pData = 0;
         i++;
     }
-    D2_ASSERT(i == pDst->nSubs, 0x213);
+    D2_ASSERT(i == ptTile->nSubs, 0x213);
 }
 
 // 0x00609D60
@@ -392,13 +392,13 @@ static void sub_0060A520_ForEachDataColor(D2CmpColorCallback pfnColor, const uns
 }
 
 // 0x0060A570
-void __stdcall TileProjectIteratePixels(D2CmpTileLibraryStrc* pLibrary, D2CmpColorCallback pfnColor)
+void __stdcall TileProjectIteratePixels(D2CmpTileLibraryStrc* ptProject, D2CmpColorCallback pfnColor)
 {
-    D2_ASSERT(pLibrary, 0x3EA);
-    D2_ASSERT(pLibrary->dwFlags & 1, 0x3EB);
-    for (int i = 0; i < pLibrary->nBlocks; i++)
+    D2_ASSERT(ptProject, 0x3EA);
+    D2_ASSERT(ptProject->dwFlags & 1, 0x3EB);
+    for (int i = 0; i < ptProject->nBlocks; i++)
     {
-        D2CmpTileBlockStrc* pBlock = &pLibrary->pBlocks[i];
+        D2CmpTileBlockStrc* pBlock = &ptProject->pBlocks[i];
         for (int j = 0; j < pBlock->nSubs; j++)
         {
             D2CmpTileSubStrc* pSub = &pBlock->pSubs[j];

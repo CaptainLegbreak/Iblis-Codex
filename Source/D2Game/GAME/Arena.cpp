@@ -58,10 +58,10 @@ void __fastcall D2GAME_PACKETS_SendPacket0x65_6FC3F5E0(D2ClientStrc* pClient, un
 // 0x0053F5D0
 int __fastcall ARENA_GetAlternateStartTown(D2GameStrc* pGame)
 {
-    D2ArenaStrc* pArena = pGame->pArenaCtrl;
-    D2_ASSERT(pArena, 99);
+    D2ArenaStrc* ptArena = pGame->pArenaCtrl;
+    D2_ASSERT(ptArena, 99);
 
-    return pArena->nAlternateStartTown;
+    return ptArena->nAlternateStartTown;
 }
 
 static D2ArenaStrc* ARENA_GetArenaCtrl_Inlined(D2GameStrc* pGame)
@@ -221,10 +221,10 @@ void __fastcall ARENA_SendScoresToClient(D2GameStrc* pGame, D2ClientStrc* pClien
 // 0x0053FD40
 unsigned int __fastcall ARENA_GetFlags(D2GameStrc* pGame)
 {
-    D2ArenaStrc* pArena = pGame->pArenaCtrl;
-    D2_ASSERT(pArena, 313);
+    D2ArenaStrc* ptArena = pGame->pArenaCtrl;
+    D2_ASSERT(ptArena, 313);
 
-    return pArena->fFlags;
+    return ptArena->fFlags;
 }
 
 // 0x0053FD70

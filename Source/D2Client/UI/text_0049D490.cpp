@@ -536,7 +536,7 @@ void __fastcall sub_0049E3A0_PrintChatLine(const Unicode* wszText, char nColor)
     if (gtTextList_007BF1E4.pFirst)
     {
         D2TextNodeStrc* pLast = gtTextList_007BF1E4.pFirst;
-        unsigned short nCount = 0;
+        unsigned short wCount = 0;
         D2TextNodeStrc** ppNext = &pLast->pNext;
         if (pLast->pNext)
         {
@@ -544,11 +544,11 @@ void __fastcall sub_0049E3A0_PrintChatLine(const Unicode* wszText, char nColor)
             {
                 pLast = *ppNext;
                 ppNext = &pLast->pNext;
-                nCount++;
+                wCount++;
             }
             while (*ppNext);
         }
-        D2_ASSERT(nCount == gtTextList_007BF1E4.nCount - 1, 0xD6C);
+        D2_ASSERT(wCount == gtTextList_007BF1E4.nCount - 1, 0xD6C);
         pLast->pNext = pNode;
     }
     else

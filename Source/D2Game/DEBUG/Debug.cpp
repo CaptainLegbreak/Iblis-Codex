@@ -19,14 +19,14 @@ void __cdecl sub_005449D0_ClearByte();                                          
 // 0x005346C0
 int __stdcall sub_005346C0()
 {
-    D2GameStrc* pGame = sub_0052F6E0_LockFirstGame();
+    D2GameStrc* ptGame = sub_0052F6E0_LockFirstGame();
 
-    D2_ASSERT(pGame, 0x7B);
+    D2_ASSERT(ptGame, 0x7B);
 
     int nIndex = 0;
     for (int i = 0; i < 128; ++i)
     {
-        for (D2UnitStrc* pUnit = pGame->pUnitList[1][i]; pUnit; pUnit = SUNIT_GetNextUnitFromList(pUnit))
+        for (D2UnitStrc* pUnit = ptGame->pUnitList[1][i]; pUnit; pUnit = SUNIT_GetNextUnitFromList(pUnit))
         {
             ++nIndex;
         }

@@ -113,13 +113,13 @@ static __declspec(noinline) int sub_004FDC70_HasSelection(D2WinEditBoxStrc* pEdi
 // build: symbol ??0UnicodeChar@@QAE@XZ 0x0042F530
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // 0x004FDE30
-static int __stdcall sub_004FDE30_GetEditTextHeight(const Unicode* wszText, D2WinEditBoxStrc* pEditBox)
+static int __stdcall sub_004FDE30_GetEditTextHeight(const Unicode* wszText, D2WinEditBoxStrc* ptEditData)
 {
-    D2_ASSERT(pEditBox, 0x5EA);
-    D2_ASSERT(pEditBox->nType == 1, 0x5EC);
+    D2_ASSERT(ptEditData, 0x5EA);
+    D2_ASSERT(ptEditData->nType == 1, 0x5EC);
     Unicode wszDash[2];
-    sub_00502EF0(pEditBox->eFont);
-    const int nStartY = D2Win_10125() + (pEditBox->nTextInsetY - pEditBox->nHeight) + pEditBox->nImageY;
+    sub_00502EF0(ptEditData->eFont);
+    const int nStartY = D2Win_10125() + (ptEditData->nTextInsetY - ptEditData->nHeight) + ptEditData->nImageY;
     char szDash[] = "_";
     wszDash[0].wChar = 0;
     wszDash[1].wChar = 0;
@@ -136,7 +136,7 @@ static int __stdcall sub_004FDE30_GetEditTextHeight(const Unicode* wszText, D2Wi
     const char* pChar = szText;
     int nY = nStartY;
     const int nLineHeight = D2Win_10125();
-    const int nMaxWidth = pEditBox->nWidth - 2 * pEditBox->nTextInsetX;
+    const int nMaxWidth = ptEditData->nWidth - 2 * ptEditData->nTextInsetX;
     while (*pChar)
     {
         int nPos = pChar - pLine;
@@ -207,38 +207,38 @@ int __fastcall sub_A23_Emit_004FE9F0(D2WinEditBoxStrc* pEditBox, int nKey)
 // 0x004FE3B0
 int __stdcall sub_004FE3B0_EditBoxClick(SMSGHANDLER_PARAMS* pMsg, int nX, int nY)
 {
-    D2WinEditBoxStrc* pEditBox = (D2WinEditBoxStrc*)pMsg->hWnd;
+    D2WinEditBoxStrc* ptEditData = (D2WinEditBoxStrc*)pMsg->hWnd;
 
-    D2_ASSERT(pEditBox, 0x74E);
-    D2_ASSERT(pEditBox->nType == 1, 0x74F);
+    D2_ASSERT(ptEditData, 0x74E);
+    D2_ASSERT(ptEditData->nType == 1, 0x74F);
 
-    if (!(pEditBox->dwFlags & gdwBitMasks[2]) || !(pEditBox->dwFlags & gdwBitMasks[0]))
+    if (!(ptEditData->dwFlags & gdwBitMasks[2]) || !(ptEditData->dwFlags & gdwBitMasks[0]))
     {
         return 0;
     }
 
-    sub_004F91C0(pEditBox);
-    if (pEditBox->bDragging)
+    sub_004F91C0(ptEditData);
+    if (ptEditData->bDragging)
     {
-        nX = D2WIN_MIN(D2WIN_MAX(nX, pEditBox->nTextInsetX), pEditBox->nWidth - pEditBox->nTextInsetX - 1);
-        nY = D2WIN_MIN(D2WIN_MAX(nY, pEditBox->nTextInsetY), pEditBox->nHeight - pEditBox->nTextInsetY - 1);
+        nX = D2WIN_MIN(D2WIN_MAX(nX, ptEditData->nTextInsetX), ptEditData->nWidth - ptEditData->nTextInsetX - 1);
+        nY = D2WIN_MIN(D2WIN_MAX(nY, ptEditData->nTextInsetY), ptEditData->nHeight - ptEditData->nTextInsetY - 1);
     }
 
-    if (nX >= -pEditBox->nTextInsetX && nX < pEditBox->nWidth - pEditBox->nTextInsetX
-        && nY >= -pEditBox->nTextInsetY && nY < pEditBox->nHeight - pEditBox->nTextInsetY)
+    if (nX >= -ptEditData->nTextInsetX && nX < ptEditData->nWidth - ptEditData->nTextInsetX
+        && nY >= -ptEditData->nTextInsetY && nY < ptEditData->nHeight - ptEditData->nTextInsetY)
     {
-        sub_00502EF0(pEditBox->eFont);
+        sub_00502EF0(ptEditData->eFont);
         char szDash[] = "_";
         UnicodeChar wszDash[2];
         sub_00526F20_ToUnicode(wszDash, szDash, 2);
         const int nDashWidth = sub_00501820(wszDash);
         char szText[256];
-        sub_00526F70(szText, pEditBox->wszText, 256);
+        sub_00526F70(szText, ptEditData->wszText, 256);
         const char* pLine = szText;
         const char* pChar = szText;
         int nLineY = 0;
         int nLineHeight = D2Win_10125();
-        const int nMaxWidth = pEditBox->nWidth - 2 * pEditBox->nTextInsetX;
+        const int nMaxWidth = ptEditData->nWidth - 2 * ptEditData->nTextInsetX;
         int bFound = 0;
         int nOldCaret = -1;
         while (*pChar)
@@ -274,8 +274,8 @@ int __stdcall sub_004FE3B0_EditBoxClick(SMSGHANDLER_PARAMS* pMsg, int nX, int nY
                     }
                     ++nChars;
                 }
-                nOldCaret = pEditBox->nCaretPosition;
-                pEditBox->nCaretPosition = pLine - szText + nChars - 1;
+                nOldCaret = ptEditData->nCaretPosition;
+                ptEditData->nCaretPosition = pLine - szText + nChars - 1;
                 bFound = 1;
             }
 
@@ -304,32 +304,32 @@ int __stdcall sub_004FE3B0_EditBoxClick(SMSGHANDLER_PARAMS* pMsg, int nX, int nY
 
         if (!bFound)
         {
-            nOldCaret = pEditBox->nCaretPosition;
-            pEditBox->nCaretPosition = sub_00526800(pEditBox->wszText);
+            nOldCaret = ptEditData->nCaretPosition;
+            ptEditData->nCaretPosition = sub_00526800(ptEditData->wszText);
         }
 
-        if ((((unsigned int)GetKeyState(0x10) & 0x8000) || pEditBox->bDragging) && nOldCaret != -1)
+        if ((((unsigned int)GetKeyState(0x10) & 0x8000) || ptEditData->bDragging) && nOldCaret != -1)
         {
-            if (pEditBox->nSelectionStart == -1)
+            if (ptEditData->nSelectionStart == -1)
             {
-                pEditBox->nSelectionStart = nOldCaret;
+                ptEditData->nSelectionStart = nOldCaret;
             }
-            pEditBox->nSelectionEnd = pEditBox->nCaretPosition;
+            ptEditData->nSelectionEnd = ptEditData->nCaretPosition;
         }
         else
         {
-            sub_004FDCC0(pEditBox);
+            sub_004FDCC0(ptEditData);
         }
     }
 
     if (pMsg->uMessage == 0x201)
     {
-        pEditBox->bDragging = 1;
+        ptEditData->bDragging = 1;
     }
 
-    if (pEditBox->pfMouseDownHook)
+    if (ptEditData->pfMouseDownHook)
     {
-        return pEditBox->pfMouseDownHook(pMsg);
+        return ptEditData->pfMouseDownHook(pMsg);
     }
 
     return 0;

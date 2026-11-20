@@ -402,10 +402,10 @@ D2ClientDialogStrc* __fastcall sub_004B7CD0_CreateDialogFromFile(int nArg1, int 
     tContext.pCellFile = pDialog->pCelFile;
     tContext.unk0x40 = 0;
     tContext.nFrame = 0;
-    D2CelStrc* pCel = CelGetHandle(&tContext);
-    D2_ASSERT(pCel, 0x3B3);
-    pDialog->unk0x34 = sub_006018C0(pCel);
-    pDialog->unk0x38 = sub_006018F0(pCel);
+    D2CelStrc* hCel = CelGetHandle(&tContext);
+    D2_ASSERT(hCel, 0x3B3);
+    pDialog->unk0x34 = sub_006018C0(hCel);
+    pDialog->unk0x38 = sub_006018F0(hCel);
     pDialog->unk0x24 = nArg1;
     pDialog->unk0x28 = nArg2;
     pDialog->unk0x2C = nArg1;

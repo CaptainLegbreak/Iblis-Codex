@@ -75,25 +75,25 @@ void __fastcall ARENA_AllocArenaUnit(D2GameStrc* pGame, D2UnitStrc* pUnit)
     D2ArenaUnitStrc* pArenaUnit = (D2ArenaUnitStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2ArenaUnitStrc), ".\\GAME\\Arena.cpp", 0x47, 0);
     memset(pArenaUnit, 0, sizeof(D2ArenaUnitStrc));
 
-    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pUnit);
-    D2_ASSERT(pPlayerData, 0x4A);
+    D2PlayerDataStrc* ptPlayerInfo = UNITS_GetPlayerData(pUnit);
+    D2_ASSERT(ptPlayerInfo, 0x4A);
 
-    pPlayerData->pArenaUnit = pArenaUnit;
+    ptPlayerInfo->pArenaUnit = pArenaUnit;
 }
 
 // 0x0053F580
 void __fastcall ARENA_FreeArenaUnit(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
-    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
-    D2_ASSERT(pPlayerData, 0x52);
+    D2PlayerDataStrc* ptPlayerInfo = UNITS_GetPlayerData(pPlayer);
+    D2_ASSERT(ptPlayerInfo, 0x52);
 
-    if (!pPlayerData->pArenaUnit)
+    if (!ptPlayerInfo->pArenaUnit)
     {
         return;
     }
 
-    FOG_FreePool(pGame->pMemoryPool, pPlayerData->pArenaUnit, ".\\GAME\\Arena.cpp", 0x57, 0);
-    pPlayerData->pArenaUnit = 0;
+    FOG_FreePool(pGame->pMemoryPool, ptPlayerInfo->pArenaUnit, ".\\GAME\\Arena.cpp", 0x57, 0);
+    ptPlayerInfo->pArenaUnit = 0;
 }
 
 // 0x0053FA90
@@ -120,17 +120,17 @@ void __fastcall sub_0053FAE0(D2GameStrc* pGame)
 // 0x0053FCA0
 unsigned int __fastcall ARENA_NeedsClientUpdate(D2GameStrc* pGame)
 {
-    D2ArenaStrc* pArena = pGame->pArenaCtrl;
-    D2_ASSERT(pArena, 39);
-    return pArena->bUpdateClients;
+    D2ArenaStrc* ptArena = pGame->pArenaCtrl;
+    D2_ASSERT(ptArena, 39);
+    return ptArena->bUpdateClients;
 }
 
 // 0x0053FCE0
 unsigned int __fastcall ARENA_IsInArenaMode(D2GameStrc* pGame)
 {
-    D2ArenaStrc* pArena = pGame->pArenaCtrl;
-    D2_ASSERT(pArena, 39);
-    return pArena->bArenaMode;
+    D2ArenaStrc* ptArena = pGame->pArenaCtrl;
+    D2_ASSERT(ptArena, 39);
+    return ptArena->bArenaMode;
 }
 
 // 0x0053FE70
@@ -142,7 +142,7 @@ unsigned int __fastcall ARENA_ShouldTreatClassIdAsTemplateId(D2GameStrc* pGame)
 // 0x0053FEA0
 int __fastcall ARENA_GetTemplateType(D2GameStrc* pGame)
 {
-    D2ArenaStrc* pArena = pGame->pArenaCtrl;
-    D2_ASSERT(pArena, 0x172);
-    return pArena->nTemplate;
+    D2ArenaStrc* ptArena = pGame->pArenaCtrl;
+    D2_ASSERT(ptArena, 0x172);
+    return ptArena->nTemplate;
 }

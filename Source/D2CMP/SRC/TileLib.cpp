@@ -137,16 +137,16 @@ struct D2TileLibraryEntryStrc
 };
 
 // 0x00604AE0
-int __stdcall TileLibraryGetTiles(D2CmpTileProjectStrc** ppProjects, int nOrientation, int nMainIndex, int nSubIndex, D2CmpTileStrc** ppTiles, int nMaxTiles)
+int __stdcall TileLibraryGetTiles(D2CmpTileProjectStrc** ptTileLibrary, int nOrientation, int nMainIndex, int nSubIndex, D2CmpTileStrc** ppTiles, int nMaxTiles)
 {
-    D2_ASSERT(ppProjects, 0x5D);
+    D2_ASSERT(ptTileLibrary, 0x5D);
     int nFound = 0;
     int nLeft = nMaxTiles;
     for (int i = 0; i < 0x20; i++)
     {
-        if (!ppProjects[i])
+        if (!ptTileLibrary[i])
             break;
-        int n = sub_0060D040_LookupTilesInProject(ppProjects[i], &ppTiles[nFound], nLeft, nOrientation, nMainIndex, nSubIndex);
+        int n = sub_0060D040_LookupTilesInProject(ptTileLibrary[i], &ppTiles[nFound], nLeft, nOrientation, nMainIndex, nSubIndex);
         nLeft -= n;
         nFound += n;
         if (!nLeft)
@@ -163,21 +163,21 @@ void* __stdcall CreateD2PaletteByteStream(void* pSource, int* pSize)
 }
 
 // 0x00609E90
-void __stdcall TileProjectDestroy(D2CmpTileLibraryStrc* pLibrary, int bKeep)
+void __stdcall TileProjectDestroy(D2CmpTileLibraryStrc* ptProject, int bKeep)
 {
     if (bKeep)
         return;
-    D2_ASSERT(pLibrary, 0x25A);
-    sub_005FE080_ReleaseBlockCaches(pLibrary);
-    if (pLibrary->dwFlags & 4)
+    D2_ASSERT(ptProject, 0x25A);
+    sub_005FE080_ReleaseBlockCaches(ptProject);
+    if (ptProject->dwFlags & 4)
     {
-        FOG_Free(pLibrary, ".\\SRC\\Tilecmp.cpp", 0x262, 0);
+        FOG_Free(ptProject, ".\\SRC\\Tilecmp.cpp", 0x262, 0);
         return;
     }
-    D2_ASSERT(!(pLibrary->dwFlags & 8), 0x267);
-    for (int i = 0; i < pLibrary->nBlocks; i++)
+    D2_ASSERT(!(ptProject->dwFlags & 8), 0x267);
+    for (int i = 0; i < ptProject->nBlocks; i++)
     {
-        D2CmpTileBlockStrc* pBlock = &pLibrary->pBlocks[i];
+        D2CmpTileBlockStrc* pBlock = &ptProject->pBlocks[i];
         for (int j = 0; j < pBlock->nSubs; j++)
         {
             D2CmpTileSubStrc* pSub = &pBlock->pSubs[j];
@@ -191,27 +191,27 @@ void __stdcall TileProjectDestroy(D2CmpTileLibraryStrc* pLibrary, int bKeep)
         pBlock->pSubs = 0;
         pBlock->nSubs = 0;
     }
-    FOG_Free(pLibrary->pBlocks, ".\\SRC\\Tilecmp.cpp", 0x281, 0);
-    pLibrary->pBlocks = 0;
-    pLibrary->nBlocks = 0;
-    FOG_Free(pLibrary, ".\\SRC\\Tilecmp.cpp", 0x285, 0);
+    FOG_Free(ptProject->pBlocks, ".\\SRC\\Tilecmp.cpp", 0x281, 0);
+    ptProject->pBlocks = 0;
+    ptProject->nBlocks = 0;
+    FOG_Free(ptProject, ".\\SRC\\Tilecmp.cpp", 0x285, 0);
 }
 
 // 0x0060A290
-void __stdcall TileProjectNormalize(D2CmpTileLibraryStrc* pLibrary, D2CmpTileLibraryStrc** ppLibrary, const char* szName)
+void __stdcall TileProjectNormalize(D2CmpTileLibraryStrc* ptProject, D2CmpTileLibraryStrc** ppLibrary, const char* szName)
 {
-    D2_ASSERT(pLibrary->nVersion == 7, 0x348);
-    if (pLibrary->dwFlags & 3)
+    D2_ASSERT(ptProject->nVersion == 7, 0x348);
+    if (ptProject->dwFlags & 3)
     {
-        pLibrary->pBlocks = (D2CmpTileBlockStrc*)((char*)pLibrary + (int)pLibrary->pBlocks);
+        ptProject->pBlocks = (D2CmpTileBlockStrc*)((char*)ptProject + (int)ptProject->pBlocks);
         if (szName)
-            strcpy(pLibrary->szName, szName);
-        char* pData = (char*)pLibrary + sizeof(D2CmpTileLibraryStrc) + pLibrary->nBlocks * sizeof(D2CmpTileBlockStrc);
-        for (int i = 0; i < pLibrary->nBlocks; i++)
+            strcpy(ptProject->szName, szName);
+        char* pData = (char*)ptProject + sizeof(D2CmpTileLibraryStrc) + ptProject->nBlocks * sizeof(D2CmpTileBlockStrc);
+        for (int i = 0; i < ptProject->nBlocks; i++)
         {
-            D2CmpTileBlockStrc* pBlock = &pLibrary->pBlocks[i];
-            pBlock->pName = pLibrary->szName;
-            pBlock->pSubs = (D2CmpTileSubStrc*)((char*)pLibrary + pBlock->f_48);
+            D2CmpTileBlockStrc* pBlock = &ptProject->pBlocks[i];
+            pBlock->pName = ptProject->szName;
+            pBlock->pSubs = (D2CmpTileSubStrc*)((char*)ptProject + pBlock->f_48);
             int nSize = pBlock->nSubs * sizeof(D2CmpTileSubStrc);
             for (int j = 0; j < pBlock->nSubs; j++)
             {
@@ -221,8 +221,8 @@ void __stdcall TileProjectNormalize(D2CmpTileLibraryStrc* pLibrary, D2CmpTileLib
             }
             pData += nSize;
         }
-        pLibrary->dwFlags = (pLibrary->dwFlags & ~2) | 4;
-        *ppLibrary = pLibrary;
+        ptProject->dwFlags = (ptProject->dwFlags & ~2) | 4;
+        *ppLibrary = ptProject;
     }
 }
 
@@ -287,16 +287,16 @@ T00604AE0* __fastcall sub_0060B010_CelDataHashAdd(void* pMemPool, D2CelDataHashS
 }
 
 // 0x0060B0B0
-void __fastcall sub_0060B0B0_CelDataHashRemove(void* pMemPool, D2CelDataHashStrc* pHash, T00604AE0* pEntry)
+void __fastcall sub_0060B0B0_CelDataHashRemove(void* pMemPool, D2CelDataHashStrc* pHash, T00604AE0* ptElement)
 {
-    D2_ASSERT(pEntry, 0xB2);
-    if (pEntry->pPrev)
-        pEntry->pPrev->pNext = pEntry->pNext;
-    if (pEntry->pNext)
-        pEntry->pNext->pPrev = pEntry->pPrev;
-    if (pHash->pBuckets[pEntry->nKey] == pEntry)
-        pHash->pBuckets[pEntry->nKey] = pEntry->pNext;
-    FOG_FreePool(pMemPool, pEntry, ".\\SRC\\CelDataHash.cpp", 0x3A, 0);
+    D2_ASSERT(ptElement, 0xB2);
+    if (ptElement->pPrev)
+        ptElement->pPrev->pNext = ptElement->pNext;
+    if (ptElement->pNext)
+        ptElement->pNext->pPrev = ptElement->pPrev;
+    if (pHash->pBuckets[ptElement->nKey] == ptElement)
+        pHash->pBuckets[ptElement->nKey] = ptElement->pNext;
+    FOG_FreePool(pMemPool, ptElement, ".\\SRC\\CelDataHash.cpp", 0x3A, 0);
 }
 
 // 0x0060CE00
@@ -366,37 +366,37 @@ D2CmpSubTileRecordStrc* __fastcall sub_0060D510_CreateSubTileRecord(const void* 
 }
 
 // 0x00604B60
-int __stdcall TileGetType(D2TileLibraryEntryStrc* pTile) { D2_ASSERT(pTile, 121); return pTile->nOrientation; }
+int __stdcall TileGetType(D2TileLibraryEntryStrc* hTile) { D2_ASSERT(hTile, 121); return hTile->nOrientation; }
 
 // 0x00604B90
 int __stdcall TileGetStyle(D2TileLibraryEntryStrc* pTile) { D2_ASSERT(pTile, 122); return pTile->f_18; }
 
 // 0x00604BC0
-int __stdcall TileGetFlags(D2TileLibraryEntryStrc* pTile) { D2_ASSERT(pTile, 123); return pTile->wFlags16; }
+int __stdcall TileGetFlags(D2TileLibraryEntryStrc* hTile) { D2_ASSERT(hTile, 123); return hTile->wFlags16; }
 
 // 0x00604BF0
-int __stdcall TileGetWidth(D2TileLibraryEntryStrc* pTile) { D2_ASSERT(pTile, 124); return pTile->nWidth; }
+int __stdcall TileGetWidth(D2TileLibraryEntryStrc* hTile) { D2_ASSERT(hTile, 124); return hTile->nWidth; }
 
 // 0x00604C20
-int __stdcall TileGetRarity(D2TileLibraryEntryStrc* pTile) { D2_ASSERT(pTile, 125); return pTile->nRarity; }
+int __stdcall TileGetRarity(D2TileLibraryEntryStrc* hTile) { D2_ASSERT(hTile, 125); return hTile->nRarity; }
 
 // 0x00604C50
-int __stdcall TileGetSequence(D2TileLibraryEntryStrc* pTile) { D2_ASSERT(pTile, 126); return pTile->nSubIndex; }
+int __stdcall TileGetSequence(D2TileLibraryEntryStrc* hTile) { D2_ASSERT(hTile, 126); return hTile->nSubIndex; }
 
 // 0x00604C80
-int __stdcall TileGetTileLight(D2TileLibraryEntryStrc* pTile) { D2_ASSERT(pTile, 127); return pTile->nDirection; }
+int __stdcall TileGetTileLight(D2TileLibraryEntryStrc* hTile) { D2_ASSERT(hTile, 127); return hTile->nDirection; }
 
 // 0x00604CB0
-int __stdcall TileGetTotalHeight(D2TileLibraryEntryStrc* pTile) { D2_ASSERT(pTile, 128); return pTile->nHeight; }
+int __stdcall TileGetTotalHeight(D2TileLibraryEntryStrc* hTile) { D2_ASSERT(hTile, 128); return hTile->nHeight; }
 
 // 0x00604CE0
 unsigned char* __stdcall sub_00604CE0(D2TileLibraryEntryStrc* pTile) { D2_ASSERT(pTile, 129); return pTile->aSubtileFlags; }
 
 // 0x00604D10
-int __stdcall TileGetHeightToBottom(D2TileLibraryEntryStrc* pTile) { D2_ASSERT(pTile, 130); return pTile->unk0x10; }
+int __stdcall TileGetHeightToBottom(D2TileLibraryEntryStrc* hTile) { D2_ASSERT(hTile, 130); return hTile->unk0x10; }
 
 // 0x00604D40
-short __stdcall TileGetRoofHeight(D2TileLibraryEntryStrc* pTile) { D2_ASSERT(pTile, 131); return pTile->nRoofHeight; }
+short __stdcall TileGetRoofHeight(D2TileLibraryEntryStrc* hTile) { D2_ASSERT(hTile, 131); return hTile->nRoofHeight; }
 
 // 0x00604D80
-int __stdcall TileGetFilename(D2TileLibraryEntryStrc* pTile) { D2_ASSERT(pTile, 132); return pTile->unk0x58; }
+int __stdcall TileGetFilename(D2TileLibraryEntryStrc* hTile) { D2_ASSERT(hTile, 132); return hTile->unk0x58; }

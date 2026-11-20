@@ -1480,172 +1480,172 @@ static void DRLGMAZE_RollBasicPresets(D2DrlgLevelStrc* pLevel)
 }
 
 // 0x00673B30
-void __fastcall MazeLevelGenerate(D2DrlgLevelStrc* pLevel)
+void __fastcall MazeLevelGenerate(D2DrlgLevelStrc* ptDrlgLevel)
 {
-    D2DrlgRoomStrc* pDrlgRoom = DRLGROOM_AllocRoomEx(pLevel, 2);
+    D2DrlgRoomStrc* pDrlgRoom = DRLGROOM_AllocRoomEx(ptDrlgLevel, 2);
     MAZE_SetRoomSizeFromMaze(pDrlgRoom);
-    pDrlgRoom->pDrlgCoord.nPosX = pLevel->nPosX + (pLevel->nWidth - pDrlgRoom->pDrlgCoord.nWidth) / 2;
-    pDrlgRoom->pDrlgCoord.nPosY = pLevel->nPosY + (pLevel->nHeight - pDrlgRoom->pDrlgCoord.nHeight) / 2;
-    DRLGROOM_AddRoomExToLevel(pLevel, pDrlgRoom);
+    pDrlgRoom->pDrlgCoord.nPosX = ptDrlgLevel->nPosX + (ptDrlgLevel->nWidth - pDrlgRoom->pDrlgCoord.nWidth) / 2;
+    pDrlgRoom->pDrlgCoord.nPosY = ptDrlgLevel->nPosY + (ptDrlgLevel->nHeight - pDrlgRoom->pDrlgCoord.nHeight) / 2;
+    DRLGROOM_AddRoomExToLevel(ptDrlgLevel, pDrlgRoom);
 
-    switch (pLevel->nLevelType)
+    switch (ptDrlgLevel->nLevelType)
     {
     case 3:
-        DRLGMAZE_BuildBasicMaze(pLevel);
-        sub_00672550(pLevel);
+        DRLGMAZE_BuildBasicMaze(ptDrlgLevel);
+        sub_00672550(ptDrlgLevel);
         break;
 
     case 4:
-        DRLGMAZE_BuildBasicMaze(pLevel);
-        sub_00672610(pLevel);
+        DRLGMAZE_BuildBasicMaze(ptDrlgLevel);
+        sub_00672610(ptDrlgLevel);
         break;
 
     case 7:
-        DRLGMAZE_InitBasicMazeLayout(pLevel, 2);
-        DRLGMAZE_BuildBasicMaze(pLevel);
+        DRLGMAZE_InitBasicMazeLayout(ptDrlgLevel, 2);
+        DRLGMAZE_BuildBasicMaze(ptDrlgLevel);
         break;
 
     case 8:
-        DRLGMAZE_InitBasicMazeLayout(pLevel, 2);
-        DRLGMAZE_BuildBasicMaze(pLevel);
-        sub_006726D0(pLevel);
+        DRLGMAZE_InitBasicMazeLayout(ptDrlgLevel, 2);
+        DRLGMAZE_BuildBasicMaze(ptDrlgLevel);
+        sub_006726D0(ptDrlgLevel);
         break;
 
     case 10:
-        sub_006714D0(pLevel, pLevel->nLevelId == 34);
-        DRLGMAZE_BuildBasicMaze(pLevel);
-        sub_006727A0(pLevel);
+        sub_006714D0(ptDrlgLevel, ptDrlgLevel->nLevelId == 34);
+        DRLGMAZE_BuildBasicMaze(ptDrlgLevel);
+        sub_006727A0(ptDrlgLevel);
         break;
 
     case 13:
-        DRLGMAZE_InitBasicMazeLayout(pLevel, 2);
-        DRLGMAZE_BuildBasicMaze(pLevel);
-        DRLGMAZE_ScanReplaceSpecialAct2SewersPresets(pLevel);
+        DRLGMAZE_InitBasicMazeLayout(ptDrlgLevel, 2);
+        DRLGMAZE_BuildBasicMaze(ptDrlgLevel);
+        DRLGMAZE_ScanReplaceSpecialAct2SewersPresets(ptDrlgLevel);
         break;
 
     case 14:
     case 15:
     case 23:
-        DRLGMAZE_InitBasicMazeLayout(pLevel, 2);
+        DRLGMAZE_InitBasicMazeLayout(ptDrlgLevel, 2);
         break;
 
     case 17:
-        if (pLevel->nLevelId == 61)
+        if (ptDrlgLevel->nLevelId == 61)
         {
             MAZE_SetPreset(pDrlgRoom, 480, -1);
         }
         else
         {
-            DRLGMAZE_PlaceAct2TombPrev_Act5BaalPrev(pLevel);
-            DRLGMAZE_BuildBasicMaze(pLevel);
-            DRLGMAZE_PlaceAct2TombStuff(pLevel);
+            DRLGMAZE_PlaceAct2TombPrev_Act5BaalPrev(ptDrlgLevel);
+            DRLGMAZE_BuildBasicMaze(ptDrlgLevel);
+            DRLGMAZE_PlaceAct2TombStuff(ptDrlgLevel);
         }
         break;
 
     case 18:
-        DRLGMAZE_InitBasicMazeLayout(pLevel, 2);
-        DRLGMAZE_BuildBasicMaze(pLevel);
-        DRLGMAZE_PlaceAct2LairStuff(pLevel);
+        DRLGMAZE_InitBasicMazeLayout(ptDrlgLevel, 2);
+        DRLGMAZE_BuildBasicMaze(ptDrlgLevel);
+        DRLGMAZE_PlaceAct2LairStuff(ptDrlgLevel);
         break;
 
     case 19:
-        DRLGMAZE_PlaceArcaneSanctuary(pLevel);
-        sub_00672E50(pLevel);
+        DRLGMAZE_PlaceArcaneSanctuary(ptDrlgLevel);
+        sub_00672E50(ptDrlgLevel);
         break;
 
     case 22:
-        DRLGMAZE_InitBasicMazeLayout(pLevel, 2);
-        DRLGMAZE_BuildBasicMaze(pLevel);
-        DRLGMAZE_PlaceAct3MephistoStuff(pLevel);
+        DRLGMAZE_InitBasicMazeLayout(ptDrlgLevel, 2);
+        DRLGMAZE_BuildBasicMaze(ptDrlgLevel);
+        DRLGMAZE_PlaceAct3MephistoStuff(ptDrlgLevel);
         break;
 
     case 24:
-        DRLGMAZE_InitBasicMazeLayout(pLevel, 2);
-        DRLGMAZE_BuildBasicMaze(pLevel);
-        DRLGMAZE_PlaceAct3DungeonStuff(pLevel);
+        DRLGMAZE_InitBasicMazeLayout(ptDrlgLevel, 2);
+        DRLGMAZE_BuildBasicMaze(ptDrlgLevel);
+        DRLGMAZE_PlaceAct3DungeonStuff(ptDrlgLevel);
         break;
 
     case 25:
-        if (pLevel->nLevelId == 92)
+        if (ptDrlgLevel->nLevelId == 92)
         {
-            DRLGMAZE_InitBasicMazeLayout(pLevel, 5);
-            D2_ASSERT(MAZE_ReplaceRoomPreset(pLevel, 709, 735, -1), 2121);
-            D2_ASSERT(MAZE_ReplaceRoomPreset(pLevel, 710, 736, -1), 2122);
-            D2_ASSERT(MAZE_ReplaceRoomPreset(pLevel, 713, 737, -1), 2123);
-            D2_ASSERT(MAZE_ReplaceRoomPreset(pLevel, 714, 738, -1), 2124);
-            DRLGMAZE_BuildBasicMaze(pLevel);
-            DRLGMAZE_PlaceAct3SewerStuff(pLevel);
+            DRLGMAZE_InitBasicMazeLayout(ptDrlgLevel, 5);
+            D2_ASSERT(MAZE_ReplaceRoomPreset(ptDrlgLevel, 709, 735, -1), 2121);
+            D2_ASSERT(MAZE_ReplaceRoomPreset(ptDrlgLevel, 710, 736, -1), 2122);
+            D2_ASSERT(MAZE_ReplaceRoomPreset(ptDrlgLevel, 713, 737, -1), 2123);
+            D2_ASSERT(MAZE_ReplaceRoomPreset(ptDrlgLevel, 714, 738, -1), 2124);
+            DRLGMAZE_BuildBasicMaze(ptDrlgLevel);
+            DRLGMAZE_PlaceAct3SewerStuff(ptDrlgLevel);
         }
         else
         {
-            DRLGMAZE_InitBasicMazeLayout(pLevel, 2);
-            DRLGMAZE_BuildBasicMaze(pLevel);
-            DRLGMAZE_PlaceAct3SewerStuff(pLevel);
+            DRLGMAZE_InitBasicMazeLayout(ptDrlgLevel, 2);
+            DRLGMAZE_BuildBasicMaze(ptDrlgLevel);
+            DRLGMAZE_PlaceAct3SewerStuff(ptDrlgLevel);
         }
         break;
 
     case 28:
-        DRLGMAZE_BuildBasicMaze(pLevel);
+        DRLGMAZE_BuildBasicMaze(ptDrlgLevel);
         break;
 
     case 33:
-        switch (pLevel->nLevelId)
+        switch (ptDrlgLevel->nLevelId)
         {
         case 114:
-            D2_ASSERT(pLevel->pFirstRoomEx, 2142);
-            MAZE_SetPreset(pLevel->pFirstRoomEx, SEED_RollLimitedRandomNumber(&pDrlgRoom->pLevel->pSeed, 2) ? 1038 : 1039, -1);
+            D2_ASSERT(ptDrlgLevel->pFirstRoomEx, 2142);
+            MAZE_SetPreset(ptDrlgLevel->pFirstRoomEx, SEED_RollLimitedRandomNumber(&pDrlgRoom->pLevel->pSeed, 2) ? 1038 : 1039, -1);
             break;
 
         case 116:
-            MAZE_SetPreset(pLevel->pFirstRoomEx, 1040, -1);
+            MAZE_SetPreset(ptDrlgLevel->pFirstRoomEx, 1040, -1);
             break;
 
         case 119:
-            MAZE_SetPreset(pLevel->pFirstRoomEx, 1041, -1);
+            MAZE_SetPreset(ptDrlgLevel->pFirstRoomEx, 1041, -1);
             break;
 
         default:
-            DRLGMAZE_InitBasicMazeLayout(pLevel, 2);
-            DRLGMAZE_BuildBasicMaze(pLevel);
-            DRLGMAZE_PlaceAct5IceStuff(pLevel);
+            DRLGMAZE_InitBasicMazeLayout(ptDrlgLevel, 2);
+            DRLGMAZE_BuildBasicMaze(ptDrlgLevel);
+            DRLGMAZE_PlaceAct5IceStuff(ptDrlgLevel);
             break;
         }
         break;
 
     case 32:
-        DRLGMAZE_InitBasicMazeLayout(pLevel, 2);
-        DRLGMAZE_PlaceAct5TempleStuff(pLevel);
+        DRLGMAZE_InitBasicMazeLayout(ptDrlgLevel, 2);
+        DRLGMAZE_PlaceAct5TempleStuff(ptDrlgLevel);
         break;
 
     case 34:
-        DRLGMAZE_PlaceAct2TombPrev_Act5BaalPrev(pLevel);
-        DRLGMAZE_BuildBasicMaze(pLevel);
-        DRLGMAZE_PlaceAct5BaalStuff(pLevel);
+        DRLGMAZE_PlaceAct2TombPrev_Act5BaalPrev(ptDrlgLevel);
+        DRLGMAZE_BuildBasicMaze(ptDrlgLevel);
+        DRLGMAZE_PlaceAct5BaalStuff(ptDrlgLevel);
         break;
 
     case 35:
-        DRLGMAZE_PlaceAct5LavaPresets(pLevel);
+        DRLGMAZE_PlaceAct5LavaPresets(ptDrlgLevel);
         break;
 
     default:
         D2_ASSERT(0, 2179);
     }
 
-    switch (pLevel->nLevelId)
+    switch (ptDrlgLevel->nLevelId)
     {
     case 28:
-        DRLGMAZE_PlaceAct1Barracks(pLevel);
+        DRLGMAZE_PlaceAct1Barracks(ptDrlgLevel);
         break;
 
     case 107:
-        DRLGMAZE_PlaceAct4Lava(pLevel);
+        DRLGMAZE_PlaceAct4Lava(ptDrlgLevel);
         break;
 
     default:
-        DRLG_UpdateRoomExCoordinates(pLevel);
+        DRLG_UpdateRoomExCoordinates(ptDrlgLevel);
         break;
     }
 
-    DRLGMAZE_RollAct_1_2_3_BasicPresets(pLevel);
-    DRLGMAZE_RollBasicPresets(pLevel);
+    DRLGMAZE_RollAct_1_2_3_BasicPresets(ptDrlgLevel);
+    DRLGMAZE_RollBasicPresets(ptDrlgLevel);
 }

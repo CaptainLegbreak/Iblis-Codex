@@ -60,7 +60,7 @@ static __forceinline D2SkillStrc* SKILLS_GetSkill(D2UnitStrc* pUnit, int nSkillI
 // 0x00645390
 void __stdcall D2Common_11015(D2UnitStrc* pUnit, int a2, int nSkillId)
 {
-    D2SkillStrc* pSkill = SKILLS_GetSkill(pUnit, nSkillId, -1);
+    D2SkillStrc* ptSkill = SKILLS_GetSkill(pUnit, nSkillId, -1);
     int nPosition;
     if (a2)
     {
@@ -76,21 +76,21 @@ void __stdcall D2Common_11015(D2UnitStrc* pUnit, int a2, int nSkillId)
         nPosition = nX + 3 * nY;
     }
 
-    D2_ASSERT(pSkill, 0xA52);
+    D2_ASSERT(ptSkill, 0xA52);
 
-    if (pSkill->nXpos == nPosition)
+    if (ptSkill->nXpos == nPosition)
     {
-        const unsigned int nYpos = pSkill->nYpos + 7;
-        pSkill->nXpos = nPosition;
+        const unsigned int nYpos = ptSkill->nYpos + 7;
+        ptSkill->nXpos = nPosition;
         _ReadWriteBarrier();
-        pSkill->nYpos = nYpos;
+        ptSkill->nYpos = nYpos;
     }
     else
     {
         _ReadWriteBarrier();
-        pSkill->nYpos = nPosition;
-        pSkill->nXpos = nPosition;
+        ptSkill->nYpos = nPosition;
+        ptSkill->nXpos = nPosition;
     }
 
-    SEED_InitLowSeed(&pUnit->pSeed, pSkill->nYpos);
+    SEED_InitLowSeed(&pUnit->pSeed, ptSkill->nYpos);
 }

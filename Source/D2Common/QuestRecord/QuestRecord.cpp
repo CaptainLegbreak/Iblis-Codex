@@ -21,37 +21,37 @@ extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize
 #define QR_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 // 0x0065C310
-int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestRecord, int nQuest, int nState)
+int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* hQuestRecord, int nQuest, int nState)
 {
-    QR_ASSERT(pQuestRecord, 31);
+    QR_ASSERT(hQuestRecord, 31);
 
-    return BITMANIP_GetBitState(pQuestRecord->pBuffer, nState + 16 * nQuest) != 0;
+    return BITMANIP_GetBitState(hQuestRecord->pBuffer, nState + 16 * nQuest) != 0;
 }
 
 // 0x0065C360
-void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestRecord, int nQuest, int nState)
+void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* hQuestRecord, int nQuest, int nState)
 {
-    QR_ASSERT(pQuestRecord, 41);
+    QR_ASSERT(hQuestRecord, 41);
 
-    BITMANIP_SetBitState(pQuestRecord->pBuffer, nState + 16 * nQuest);
+    BITMANIP_SetBitState(hQuestRecord->pBuffer, nState + 16 * nQuest);
 }
 
 // 0x0065C3A0
-void __stdcall QUESTRECORD_ClearQuestState(D2BitBufferStrc* pQuestRecord, int nQuest, int nState)
+void __stdcall QUESTRECORD_ClearQuestState(D2BitBufferStrc* hQuestRecord, int nQuest, int nState)
 {
-    QR_ASSERT(pQuestRecord, 52);
+    QR_ASSERT(hQuestRecord, 52);
 
-    BITMANIP_MaskBitstate(pQuestRecord->pBuffer, nState + 16 * nQuest);
+    BITMANIP_MaskBitstate(hQuestRecord->pBuffer, nState + 16 * nQuest);
 }
 
 // 0x0065C3E0
-void __stdcall QUESTRECORD_ResetIntermediateStateFlags(D2BitBufferStrc* pQuestRecord, int nQuest)
+void __stdcall QUESTRECORD_ResetIntermediateStateFlags(D2BitBufferStrc* hQuestRecord, int nQuest)
 {
-    QR_ASSERT(pQuestRecord, 62);
+    QR_ASSERT(hQuestRecord, 62);
 
     for (int i = 2; i <= 11; ++i)
     {
-        BITMANIP_MaskBitstate(pQuestRecord->pBuffer, 16 * nQuest + i);
+        BITMANIP_MaskBitstate(hQuestRecord->pBuffer, 16 * nQuest + i);
     }
 }
 
@@ -78,9 +78,9 @@ void __stdcall QUESTRECORD_FreeRecord(void* pMemPool, D2BitBufferStrc* pQuestRec
 }
 
 // 0x0065C4D0
-void __stdcall QUESTRECORD_CopyBufferToRecord(D2BitBufferStrc* pQuestRecord, unsigned char* pBuffer, unsigned short nBufferSize, int bResetStates)
+void __stdcall QUESTRECORD_CopyBufferToRecord(D2BitBufferStrc* pQuestRecord, unsigned char* pBuffer, unsigned short wBufSize, int bResetStates)
 {
-    QR_ASSERT(nBufferSize == (sizeof(unsigned short) * 48), 110);
+    QR_ASSERT(wBufSize == (sizeof(unsigned short) * 48), 110);
 
     memcpy(pQuestRecord->pBuffer, pBuffer, sizeof(unsigned short) * 48);
 
@@ -100,9 +100,9 @@ void __stdcall QUESTRECORD_CopyBufferToRecord(D2BitBufferStrc* pQuestRecord, uns
 }
 
 // 0x0065C560
-void __stdcall QUESTRECORD_CopyRecordToBuffer(D2BitBufferStrc* pQuestRecord, unsigned char* pBuffer, unsigned short nBufferSize, int nUnused)
+void __stdcall QUESTRECORD_CopyRecordToBuffer(D2BitBufferStrc* pQuestRecord, unsigned char* pBuffer, unsigned short wBufSize, int nUnused)
 {
-    QR_ASSERT(nBufferSize == (sizeof(unsigned short) * 48), 132);
+    QR_ASSERT(wBufSize == (sizeof(unsigned short) * 48), 132);
 
     memcpy(pBuffer, pQuestRecord->pBuffer, sizeof(unsigned short) * 48);
 }

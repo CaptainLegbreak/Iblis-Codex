@@ -101,80 +101,80 @@ void __fastcall sub_00597D70_EmitCaller(D2GameStrc* pGame, D2UnitStrc* pMonster,
 static __forceinline int GetUnitGUID(D2UnitStrc* pUnit) { return !pUnit ? -1 : pUnit->dwUnitId; }
 
 // 0x00597E20
-void __fastcall MONSTERMSG_SendMonsterModeUpdate(D2GameStrc* pGame,D2UnitStrc* pUnit,D2ClientStrc* pClient)
+void __fastcall MONSTERMSG_SendMonsterModeUpdate(D2GameStrc* pGame,D2UnitStrc* pUnit,D2ClientStrc* hClient)
 {
  unsigned char nDirection=0,nHitClass=0,nExtra=0,nStep=0;
  D2_ASSERT(pUnit,0xD4);
- D2_ASSERT(pClient,0xD5);
+ D2_ASSERT(hClient,0xD5);
  int nMode=pUnit->dwAnimMode;
  D2MonsterModeInfo* pInfo=&gMonsterModeInfo[nMode];
  D2UnitStrc* pTarget=SUNIT_GetTargetUnit(pGame,pUnit);
- if((pTarget && !CLIENTS_IsInUnitsRoom(pTarget,pClient)) || !pInfo->bTarget) pTarget=0;
- if(nMode==14 || UNITS_GetUsedSkill(pUnit)) { sub_00597D70_SendUsedSkill(pUnit,pTarget,pClient); return; }
- D2DynamicPathStrc* pPath=pUnit->pDynamicPath;
- D2_ASSERT(pPath,0xE6);
+ if((pTarget && !CLIENTS_IsInUnitsRoom(pTarget,hClient)) || !pInfo->bTarget) pTarget=0;
+ if(nMode==14 || UNITS_GetUsedSkill(pUnit)) { sub_00597D70_SendUsedSkill(pUnit,pTarget,hClient); return; }
+ D2DynamicPathStrc* hPath=pUnit->pDynamicPath;
+ D2_ASSERT(hPath,0xE6);
  int nX,nY,nSendMode,nHeader;
  if(pTarget) {
   nSendMode=pInfo->nTargetMode;
   nX=pTarget->dwUnitType;nY=pTarget->dwUnitId;
   nHeader=0x68;
   switch(nMode) { case 2:case 15: {
-   int nPathType=PATH_GetType(pPath);
+   int nPathType=PATH_GetType(hPath);
    switch(nPathType) { case 5:case 6: {
     nSendMode=pInfo->nCoordMode;nHeader=0x67;
-    nX=sub_00648A40(pPath);nY=sub_00648A60(pPath);
+    nX=sub_00648A40(hPath);nY=sub_00648A60(hPath);
    } }
   } }
  } else {
   nHeader=0x67;nSendMode=pInfo->nCoordMode;
-  if(pInfo->bTargetCoords) {nX=sub_00648A40(pPath);nY=sub_00648A60(pPath);}
-  else {nX=PATH_GetXPosition(pPath);nY=PATH_GetYPosition(pPath);}
+  if(pInfo->bTargetCoords) {nX=sub_00648A40(hPath);nY=sub_00648A60(hPath);}
+  else {nX=PATH_GetXPosition(hPath);nY=PATH_GetYPosition(hPath);}
  }
  switch(nMode) {
  case 6: if(!pTarget) {nX=0;nY=-1;} break;
- case 0: nDirection=PATH_GetDirection(pPath);nHitClass=pUnit->dwLastHitClass;break;
- case 12: nDirection=PATH_GetDirection(pPath);break;
- case 13: nDirection=sub_00648E60_GetPathFlag(pPath);nHitClass=sub_6FC62F50(pUnit);nExtra=pUnit->dwLastHitClass;break;
+ case 0: nDirection=PATH_GetDirection(hPath);nHitClass=pUnit->dwLastHitClass;break;
+ case 12: nDirection=PATH_GetDirection(hPath);break;
+ case 13: nDirection=sub_00648E60_GetPathFlag(hPath);nHitClass=sub_6FC62F50(pUnit);nExtra=pUnit->dwLastHitClass;break;
  case 3:
   nDirection=sub_6FC62F50(pUnit);
   if(nDirection>1) --nDirection;
   if(MONSTERUNIQUE_CheckMonTypeFlag(pUnit,0x100)) nDirection|=0x80;
   nHitClass=pUnit->dwLastHitClass;break;
- default: nStep=sub_006490A0_GetPathStep(pPath);break;
+ default: nStep=sub_006490A0_GetPathStep(hPath);break;
  }
  if(nMode==1) {
   nDirection=sub_6FC62F50(pUnit);
   int nGUID=pUnit->dwUnitId;
-  sub_0053BB70_SendNeutral(pClient,nGUID,UNITS_GetXPosition(pUnit),CLIENTS_GetUnitY(pUnit),nDirection);
+  sub_0053BB70_SendNeutral(hClient,nGUID,UNITS_GetXPosition(pUnit),CLIENTS_GetUnitY(pUnit),nDirection);
   STATLIST_SetUnitStat(pUnit,0x148,sub_006253B0_GetBaseStat(pUnit,0x148,0)+1,0);
   return;
  }
  if(nMode==13) {
   int nGUID=pUnit->dwUnitId;
-  if(nHeader==0x68) sub_0053B7F0_SendHitTarget(pClient,0x68,nGUID,nSendMode,nX,nY,nDirection,nHitClass,nExtra);
-  else sub_0053B910_SendHitCoords(pClient,(unsigned char)nHeader,nGUID,nSendMode,nX,nY,nDirection,nHitClass,nExtra);
+  if(nHeader==0x68) sub_0053B7F0_SendHitTarget(hClient,0x68,nGUID,nSendMode,nX,nY,nDirection,nHitClass,nExtra);
+  else sub_0053B910_SendHitCoords(hClient,(unsigned char)nHeader,nGUID,nSendMode,nX,nY,nDirection,nHitClass,nExtra);
   return;
  }
  if(!pInfo->bSimple) {
  if(pInfo->bIncludeCoords) {
   if(nHeader==0x68) {
    int nGUID=pUnit->dwUnitId;
-   sub_0053BAA0_SendFullTarget(pClient,0x6C,nGUID,nSendMode,nX,nY,nDirection,UNITS_GetXPosition(pUnit),CLIENTS_GetUnitY(pUnit));
+   sub_0053BAA0_SendFullTarget(hClient,0x6C,nGUID,nSendMode,nX,nY,nDirection,UNITS_GetXPosition(pUnit),CLIENTS_GetUnitY(pUnit));
   } else {
    int nGUID=pUnit->dwUnitId;
-   sub_0053BB00_SendFullCoords(pClient,0x6B,nGUID,nSendMode,nX,nY,nDirection,nHitClass,UNITS_GetXPosition(pUnit),CLIENTS_GetUnitY(pUnit));
+   sub_0053BB00_SendFullCoords(hClient,0x6B,nGUID,nSendMode,nX,nY,nDirection,nHitClass,UNITS_GetXPosition(pUnit),CLIENTS_GetUnitY(pUnit));
   }
   return;
  }
  int nGUID=pUnit->dwUnitId;
- if(nHeader==0x68) sub_0053B9F0_SendModeTarget(pClient,0x6A,nGUID,nSendMode,nX,nY,nDirection);
- else sub_0053BA40_SendModeCoords(pClient,0x69,nGUID,nSendMode,nX,nY,nDirection,nHitClass);
+ if(nHeader==0x68) sub_0053B9F0_SendModeTarget(hClient,0x6A,nGUID,nSendMode,nX,nY,nDirection);
+ else sub_0053BA40_SendModeCoords(hClient,0x69,nGUID,nSendMode,nX,nY,nDirection,nHitClass);
  return;
  }
  if(pInfo->bSimple) {
   int nGUID=pUnit->dwUnitId;
-  if(nHeader==0x68) sub_0053B5F0_SendTarget(pClient,0x68,nGUID,nSendMode,nX,nY,nStep);
-  else sub_0053B710_SendCoords(pClient,(unsigned char)nHeader,nGUID,nSendMode,nX,nY,nStep);
+  if(nHeader==0x68) sub_0053B5F0_SendTarget(hClient,0x68,nGUID,nSendMode,nX,nY,nStep);
+  else sub_0053B710_SendCoords(hClient,(unsigned char)nHeader,nGUID,nSendMode,nX,nY,nStep);
   return;
  }
 

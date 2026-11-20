@@ -242,12 +242,12 @@ void __fastcall D2Win_10059(D2WinTextBoxStrc* pTextBox, int nColumn, int a3)
 }
 
 // 0x004FBCD0
-void __fastcall D2Win_10060(D2WinTextBoxStrc* pTextBox, int nColumn, int a3)
+void __fastcall D2Win_10060(D2WinTextBoxStrc* ptTextData, int nColumn, int a3)
 {
-    D2_ASSERT(pTextBox, 0x2FC);
-    D2_ASSERT(pTextBox->controlHeader.nType == 4, 0x2FD);
+    D2_ASSERT(ptTextData, 0x2FC);
+    D2_ASSERT(ptTextData->controlHeader.nType == 4, 0x2FD);
     D2_ASSERT(nColumn >= 0, 0x2FF);
-    pTextBox->unk0x7C[nColumn] = a3;
+    ptTextData->unk0x7C[nColumn] = a3;
 }
 
 // 0x004FD070
@@ -260,27 +260,27 @@ int __stdcall IMAGE_SetCellFile(D2WinImageStrc* pImage, D2CelFileStrc* pCellFile
 }
 
 // 0x004FD0B0
-int __stdcall IMAGE_SetCoordinates(D2WinImageStrc* pImage, int nX, int nY)
+int __stdcall IMAGE_SetCoordinates(D2WinImageStrc* ptImageData, int nX, int nY)
 {
-    D2_ASSERT(pImage->controlHeader.nType == 2, 0x6C);
-    pImage->controlHeader.nImageX = nX;
-    pImage->controlHeader.nImageY = nY;
+    D2_ASSERT(ptImageData->controlHeader.nType == 2, 0x6C);
+    ptImageData->controlHeader.nImageX = nX;
+    ptImageData->controlHeader.nImageY = nY;
     return 1;
 }
 
 // 0x004FD170
-int __stdcall IMAGE_ForceNormalDrawMode(D2WinImageStrc* pImage, int nUnused)
+int __stdcall IMAGE_ForceNormalDrawMode(D2WinImageStrc* ptImageData, int nUnused)
 {
-    D2_ASSERT(pImage->controlHeader.nType == 2, 0x9D);
-    pImage->eDrawMode = 5;
+    D2_ASSERT(ptImageData->controlHeader.nType == 2, 0x9D);
+    ptImageData->eDrawMode = 5;
     return 1;
 }
 
 // 0x004FD1B0
-int __stdcall IMAGE_GetFrameCount(D2WinImageStrc* pImage)
+int __stdcall IMAGE_GetFrameCount(D2WinImageStrc* ptImageData)
 {
-    D2_ASSERT(pImage->controlHeader.nType == 2, 0xA9);
-    return CelFileGetCelsPerDirection(pImage->controlHeader.pCellFile);
+    D2_ASSERT(ptImageData->controlHeader.nType == 2, 0xA9);
+    return CelFileGetCelsPerDirection(ptImageData->controlHeader.pCellFile);
 }
 
 // 0x004FD6C0
@@ -400,10 +400,10 @@ int __stdcall ANIMIMAGE_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
 }
 
 // 0x00500810
-int __stdcall ANIMIMAGE_SetIsRunning(D2WinAnimImageStrc* pAnimImage, int bIsRunning)
+int __stdcall ANIMIMAGE_SetIsRunning(D2WinAnimImageStrc* ptAnim, int bIsRunning)
 {
-    D2_ASSERT(pAnimImage->controlHeader.nType == 2, 0x183);
-    pAnimImage->bIsRunning = bIsRunning;
+    D2_ASSERT(ptAnim->controlHeader.nType == 2, 0x183);
+    ptAnim->bIsRunning = bIsRunning;
     return 1;
 }
 
@@ -454,22 +454,22 @@ void __fastcall BUTTON_SetText(D2WinButtonStrc* pButton, int eFont, const Unicod
 }
 
 // 0x00500A20
-void __fastcall BUTTON_SetTextWithStringId(D2WinButtonStrc* pButton, int eFont, unsigned short nStringId, int nTextColor)
+void __fastcall BUTTON_SetTextWithStringId(D2WinButtonStrc* ptBtnData, int eFont, unsigned short nStringId, int nTextColor)
 {
-    D2_ASSERT(pButton->controlHeader.nType == 6, 0x96);
-    pButton->eFont = eFont;
-    pButton->nTextColor = nTextColor;
-    sub_005267E0(pButton->wszText, D2LANG_GetStringFromTblIndex(nStringId));
+    D2_ASSERT(ptBtnData->controlHeader.nType == 6, 0x96);
+    ptBtnData->eFont = eFont;
+    ptBtnData->nTextColor = nTextColor;
+    sub_005267E0(ptBtnData->wszText, D2LANG_GetStringFromTblIndex(nStringId));
 }
 
 // 0x00500A70
-void __fastcall BUTTON_SetCoordinates(D2WinButtonStrc* pButton, int nX, int nY, int nWidth, int nHeight)
+void __fastcall BUTTON_SetCoordinates(D2WinButtonStrc* ptBtnData, int nX, int nY, int nWidth, int nHeight)
 {
-    D2_ASSERT(pButton->controlHeader.nType == 6, 0xAB);
-    pButton->controlHeader.nImageX = nX;
-    pButton->controlHeader.nImageY = nY;
-    pButton->controlHeader.nWidth = nWidth;
-    pButton->controlHeader.nHeight = nHeight;
+    D2_ASSERT(ptBtnData->controlHeader.nType == 6, 0xAB);
+    ptBtnData->controlHeader.nImageX = nX;
+    ptBtnData->controlHeader.nImageY = nY;
+    ptBtnData->controlHeader.nWidth = nWidth;
+    ptBtnData->controlHeader.nHeight = nHeight;
 }
 
 // 0x00501090
@@ -589,15 +589,15 @@ void __fastcall D2Win_10130_DrawFramedTextEx(const Unicode* wszText, int nX, int
 }
 
 // 0x00504270
-void __stdcall D2Win_10154(D2CompositeUnitStrc* pCompositeUnit, const Unicode* a2, const Unicode* a3, const Unicode* a4, const Unicode* a5, int a6, int a7)
+void __stdcall D2Win_10154(D2CompositeUnitStrc* hCompositeUnit, const Unicode* a2, const Unicode* a3, const Unicode* a4, const Unicode* a5, int a6, int a7)
 {
-    D2_ASSERT(pCompositeUnit, 0x8A8);
-    sub_005267E0(pCompositeUnit->unk0xCC, a2);
-    sub_005267E0(pCompositeUnit->unk0x14C, a3);
-    sub_005267E0(pCompositeUnit->unk0x1CC, a4);
-    sub_005267E0(pCompositeUnit->unk0x1EC, a5);
-    pCompositeUnit->unk0x22C = a6;
-    pCompositeUnit->unk0x230 = a7;
+    D2_ASSERT(hCompositeUnit, 0x8A8);
+    sub_005267E0(hCompositeUnit->unk0xCC, a2);
+    sub_005267E0(hCompositeUnit->unk0x14C, a3);
+    sub_005267E0(hCompositeUnit->unk0x1CC, a4);
+    sub_005267E0(hCompositeUnit->unk0x1EC, a5);
+    hCompositeUnit->unk0x22C = a6;
+    hCompositeUnit->unk0x230 = a7;
 }
 
 // 0x00504370
@@ -627,46 +627,46 @@ void __stdcall D2Win_10159(D2CelFileStrc* pSquelchCelFile, D2CelFileStrc* pSelec
 }
 
 // 0x00505160
-D2CompositeUnitStrc* __stdcall D2Win_10148(D2CompositeUnitStrc* pCompositeUnit)
+D2CompositeUnitStrc* __stdcall D2Win_10148(D2CompositeUnitStrc* ptUnit)
 {
-    D2_ASSERT(pCompositeUnit, 0xD4C);
-    return pCompositeUnit->pNext;
+    D2_ASSERT(ptUnit, 0xD4C);
+    return ptUnit->pNext;
 }
 
 // 0x005051A0
-void __stdcall D2Win_10149(D2CompositeUnitStrc* pCompositeUnit, unsigned char nValue)
+void __stdcall D2Win_10149(D2CompositeUnitStrc* ptUnit, unsigned char nValue)
 {
-    D2_ASSERT(pCompositeUnit, 0xD57);
+    D2_ASSERT(ptUnit, 0xD57);
     const int nLow = nValue > 0 ? nValue : 0;
-    pCompositeUnit->unk0x04 = nLow < pCompositeUnit->unk0x05 ? (nValue > 0 ? nValue : 0) : pCompositeUnit->unk0x05;
+    ptUnit->unk0x04 = nLow < ptUnit->unk0x05 ? (nValue > 0 ? nValue : 0) : ptUnit->unk0x05;
 }
 
 // 0x00505200
-unsigned char __stdcall D2Win_10150(D2CompositeUnitStrc* pCompositeUnit)
+unsigned char __stdcall D2Win_10150(D2CompositeUnitStrc* ptUnit)
 {
-    D2_ASSERT(pCompositeUnit, 0xD61);
-    return pCompositeUnit->unk0x05;
+    D2_ASSERT(ptUnit, 0xD61);
+    return ptUnit->unk0x05;
 }
 
 // 0x005052B0
-void __stdcall D2Win_10152(D2CompositeUnitStrc* pCompositeUnit, int nX)
+void __stdcall D2Win_10152(D2CompositeUnitStrc* ptUnit, int nX)
 {
-    D2_ASSERT(pCompositeUnit, 0xD81);
-    pCompositeUnit->nX = nX;
+    D2_ASSERT(ptUnit, 0xD81);
+    ptUnit->nX = nX;
 }
 
 // 0x005052F0
-void __stdcall D2Win_10153(D2CompositeUnitStrc* pCompositeUnit, int nY)
+void __stdcall D2Win_10153(D2CompositeUnitStrc* ptUnit, int nY)
 {
-    D2_ASSERT(pCompositeUnit, 0xD8C);
-    pCompositeUnit->nY = nY;
+    D2_ASSERT(ptUnit, 0xD8C);
+    ptUnit->nY = nY;
 }
 
 // 0x00505330
-unsigned int __stdcall D2Win_10155(D2CompositeUnitStrc* pCompositeUnit)
+unsigned int __stdcall D2Win_10155(D2CompositeUnitStrc* hCompositeUnit)
 {
-    D2_ASSERT(pCompositeUnit, 0xD95);
-    return pCompositeUnit->dwFlags;
+    D2_ASSERT(hCompositeUnit, 0xD95);
+    return hCompositeUnit->dwFlags;
 }
 
 #include "gen/data/Source/D2Win/Src/D2WinTextBox_004FBC80.inc"

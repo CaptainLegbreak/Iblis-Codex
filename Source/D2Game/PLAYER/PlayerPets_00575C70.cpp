@@ -660,27 +660,27 @@ void __fastcall sub_00575BC0(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 }
 
 // 0x00575C70
-static int __stdcall sub_00575C70_AppendPet(D2UnitStrc* pPet, D2PetInfoStrc* pPetInfo, D2UnitStrc* pPlayer, D2PetListStrc* pPetList, D2GameStrc* pGame)
+static int __stdcall sub_00575C70_AppendPet(D2UnitStrc* pPet, D2PetInfoStrc* pPetInfo, D2UnitStrc* pPlayer, D2PetListStrc* ptPet, D2GameStrc* pGame)
 {
-    if (!pPetList->nMax)
+    if (!ptPet->nMax)
     {
         sub_6FC7DF40(pGame, pPlayer);
-        if (!pPetList->nMax)
+        if (!ptPet->nMax)
         {
             sub_00574450_KillPet(pGame, sub_F05_GetUnitId(pPet));
             return 0;
         }
     }
 
-    if (pPetList->nCurrent == pPetList->nMax)
+    if (ptPet->nCurrent == ptPet->nMax)
     {
-        D2_ASSERT(pPetList->pPetData, 0x312);
+        D2_ASSERT(ptPet->pPetData, 0x312);
 
-        sub_00574850_RemovePetFromList(pPetList, 1, pGame, pPetList->pPetData->nUnitGUID);
-        D2_ASSERT(pPetList->nCurrent != pPetList->nMax, 0x316);
+        sub_00574850_RemovePetFromList(ptPet, 1, pGame, ptPet->pPetData->nUnitGUID);
+        D2_ASSERT(ptPet->nCurrent != ptPet->nMax, 0x316);
     }
 
-    D2PetDataStrc* pPrevious = pPetList->pPetData;
+    D2PetDataStrc* pPrevious = ptPet->pPetData;
     if (pPrevious)
     {
         while (pPrevious->pNext)
@@ -702,11 +702,11 @@ static int __stdcall sub_00575C70_AppendPet(D2UnitStrc* pPet, D2PetInfoStrc* pPe
     }
     else
     {
-        pPetList->pPetData = pPetData;
+        ptPet->pPetData = pPetData;
     }
 
-    ++pPetList->nCurrent;
-    D2_ASSERT(pPetList->nCurrent <= pPetList->nMax, 0x330);
+    ++ptPet->nCurrent;
+    D2_ASSERT(ptPet->nCurrent <= ptPet->nMax, 0x330);
     return 1;
 }
 
@@ -756,10 +756,10 @@ void __fastcall PLAYERPETS_AddSummonedPet(D2GameStrc* pGame, D2UnitStrc* pPlayer
 // 0x00575E90
 void __fastcall PLAYERPETS_AddPetWithInfo(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pPet, int nPetType, D2PetInfoStrc* pPetInfo)
 {
-    D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
-    D2_ASSERT(pPlayerData, 0x3B5);
+    D2PlayerDataStrc* ptInfo = UNITS_GetPlayerData(pPlayer);
+    D2_ASSERT(ptInfo, 0x3B5);
 
-    D2PlayerPetStrc* pPlayerPets = pPlayerData->pPlayerPets;
+    D2PlayerPetStrc* pPlayerPets = ptInfo->pPlayerPets;
     if (!pPlayerPets)
     {
         return;

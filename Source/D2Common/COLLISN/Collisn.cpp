@@ -843,11 +843,11 @@ unsigned short __stdcall COLLISION_CheckMaskWithSize(D2ActiveRoomStrc* pRoom, in
 }
 
 // 0x0064DEA0
-D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinatesImpl(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, D2CoordStrc* pFieldCoord, int nUnitSize, unsigned int nMask, unsigned int nFieldMask, int bAllowNeighborRooms, int nMaxDistance, int nPosIncrementValue)
+D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinatesImpl(D2ActiveRoomStrc* pRoom, D2CoordStrc* ptSpawnPoint, D2CoordStrc* pFieldCoord, int nUnitSize, unsigned int nMask, unsigned int nFieldMask, int bAllowNeighborRooms, int nMaxDistance, int nPosIncrementValue)
 {
-    D2_ASSERT(pSpawnPoint, 0x726);
+    D2_ASSERT(ptSpawnPoint, 0x726);
 
-    const D2CoordStrc tSpawn = *pSpawnPoint;
+    const D2CoordStrc tSpawn = *ptSpawnPoint;
     D2FieldStrc* pField = 0;
 
     if (pFieldCoord)
@@ -858,11 +858,11 @@ D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinatesImpl(D2ActiveRoomStrc* p
         DATATBLS_SetFieldCoordinates(pField, pFieldCoord->nX, pFieldCoord->nY);
     }
 
-    pRoom = COLLISION_GetRoomBySubTileCoordinates(pRoom, pSpawnPoint->nX, pSpawnPoint->nY);
+    pRoom = COLLISION_GetRoomBySubTileCoordinates(pRoom, ptSpawnPoint->nX, ptSpawnPoint->nY);
 
-    if (pRoom && !COLLISION_CheckMaskWithSize(pRoom, pSpawnPoint->nX, pSpawnPoint->nY, nUnitSize, nMask))
+    if (pRoom && !COLLISION_CheckMaskWithSize(pRoom, ptSpawnPoint->nX, ptSpawnPoint->nY, nUnitSize, nMask))
     {
-        if (!pFieldCoord || !D2Common_11099(pField, pRoom, pSpawnPoint->nX, pSpawnPoint->nY, nFieldMask))
+        if (!pFieldCoord || !D2Common_11099(pField, pRoom, ptSpawnPoint->nX, ptSpawnPoint->nY, nFieldMask))
         {
             if (pField)
             {
@@ -898,8 +898,8 @@ D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinatesImpl(D2ActiveRoomStrc* p
                         const int nDistance = nAbsX + nDY;
                         if (nBestDistance == -1 || nDistance < nBestDistance)
                         {
-                            pSpawnPoint->nX = nX;
-                            pSpawnPoint->nY = nY;
+                            ptSpawnPoint->nX = nX;
+                            ptSpawnPoint->nY = nY;
                             nBestDistance = nDistance;
                         }
                     }
@@ -926,8 +926,8 @@ D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinatesImpl(D2ActiveRoomStrc* p
                         const int nDistance = nDX + COLLISION_ABS(nY - tSpawn.nY);
                         if (nBestDistance == -1 || nDistance < nBestDistance)
                         {
-                            pSpawnPoint->nX = nX;
-                            pSpawnPoint->nY = nY;
+                            ptSpawnPoint->nX = nX;
+                            ptSpawnPoint->nY = nY;
                             nBestDistance = nDistance;
                         }
                     }
@@ -948,12 +948,12 @@ D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinatesImpl(D2ActiveRoomStrc* p
 
     if (nBestDistance != -1)
     {
-        return COLLISION_GetRoomBySubTileCoordinates(pRoom, pSpawnPoint->nX, pSpawnPoint->nY);
+        return COLLISION_GetRoomBySubTileCoordinates(pRoom, ptSpawnPoint->nX, ptSpawnPoint->nY);
     }
 
     if (bAllowNeighborRooms)
     {
-        return COLLISION_GetRoomBySubTileCoordinates(pRoom, pSpawnPoint->nX, pSpawnPoint->nY);
+        return COLLISION_GetRoomBySubTileCoordinates(pRoom, ptSpawnPoint->nX, ptSpawnPoint->nY);
     }
 
     return 0;

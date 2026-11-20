@@ -286,58 +286,58 @@ void __fastcall GAME_SaveAndSendClientSaves(D2GameStrc* pGame)
 }
 
 // 0x0052E320
-static void __stdcall GAME_SendClientPackets(D2GameStrc* pGame, int bSyncPlayer, D2ClientStrc* pClient)
+static void __stdcall GAME_SendClientPackets(D2GameStrc* ptGame, int bSyncPlayer, D2ClientStrc* ptClient)
 {
-    D2_ASSERT(pGame, 0xF37);
-    D2_ASSERT(pClient, 0xF38);
+    D2_ASSERT(ptGame, 0xF37);
+    D2_ASSERT(ptClient, 0xF38);
 
-    if (bSyncPlayer && pClient->dwClientState == CLIENTSTATE_INGAME)
+    if (bSyncPlayer && ptClient->dwClientState == CLIENTSTATE_INGAME)
     {
         if (gdwPlayerPos_00883D4C)
         {
-            sub_0052DA00_RefreshUnitsUpdate(pClient);
+            sub_0052DA00_RefreshUnitsUpdate(ptClient);
         }
 
-        sub_0052D980_SyncPlayerStats(pClient);
+        sub_0052D980_SyncPlayerStats(ptClient);
     }
 
-    if (pGame->nGameType == 1 || pGame->nGameType == 2)
+    if (ptGame->nGameType == 1 || ptGame->nGameType == 2)
     {
-        GAME_SendSaveFilePart(pGame, pClient);
+        GAME_SendSaveFilePart(ptGame, ptClient);
     }
 
     int nCounter = 0;
     int bError = 0;
     do
     {
-        D2PacketDataStrc* pPacketData = CLIENTS_PacketDataList_PopHead(pClient);
+        D2PacketDataStrc* pPacketData = CLIENTS_PacketDataList_PopHead(ptClient);
         if (!pPacketData || !pPacketData->nPacketSize)
         {
             break;
         }
 
-        if (sub_0052B330(1, pClient->dwClientId, pPacketData->packetData, pPacketData->nPacketSize) > 0)
+        if (sub_0052B330(1, ptClient->dwClientId, pPacketData->packetData, pPacketData->nPacketSize) > 0)
         {
             ++nCounter;
             pPacketData->nPacketSize = 0;
-            pPacketData->pNext = pClient->pPacketDataPool;
-            pClient->pPacketDataPool = pPacketData;
-            pClient->nSaveHeaderSendFailures = 0;
+            pPacketData->pNext = ptClient->pPacketDataPool;
+            ptClient->pPacketDataPool = pPacketData;
+            ptClient->nSaveHeaderSendFailures = 0;
         }
         else
         {
             sub_0052B910();
             bError = 1;
-            ++pClient->nSaveHeaderSendFailures;
-            CLIENTS_PacketDataList_Reset(pClient, pPacketData);
-            if (pClient->nSaveHeaderSendFailures >= 3)
+            ++ptClient->nSaveHeaderSendFailures;
+            CLIENTS_PacketDataList_Reset(ptClient, pPacketData);
+            if (ptClient->nSaveHeaderSendFailures >= 3)
             {
-                SrvDisconnectClient(pGame, pClient, 0);
+                SrvDisconnectClient(ptGame, ptClient, 0);
                 return;
             }
         }
     }
-    while ((pGame->nGameType != 1 && pGame->nGameType != 2 || nCounter < 3) && !bError);
+    while ((ptGame->nGameType != 1 && ptGame->nGameType != 2 || nCounter < 3) && !bError);
 }
 
 // 0x0052E440
@@ -362,26 +362,26 @@ void __stdcall GAME_CloseAllGames()
         const int nGUID = gnGamesGUIDs_6FD447F8[i];
         if (nGUID && nGUID != D2GameReservedSlotHandle)
         {
-            D2GameStrc* pGame = GAME_LockGame(nGUID);
-            D2_ASSERT(pGame, 0x1206);
+            D2GameStrc* ptGame = GAME_LockGame(nGUID);
+            D2_ASSERT(ptGame, 0x1206);
 
-            D2ClientStrc* pClient = pGame->pClientList;
+            D2ClientStrc* pClient = ptGame->pClientList;
             while (pClient)
             {
                 D2ClientStrc* pNextClient = pClient->pNext;
 
                 sub_0053B220_SendHeaderOnly0xB0(pClient->dwClientId);
                 D2UnitStrc* pPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
-                D2GAME_SAVE_WriteFile_6FC8A500(pGame, pPlayer, CLIENTS_GetName(pClient), 1);
-                sub_0052E260_SendRemainingSaveParts(pGame, pClient);
+                D2GAME_SAVE_WriteFile_6FC8A500(ptGame, pPlayer, CLIENTS_GetName(pClient), 1);
+                sub_0052E260_SendRemainingSaveParts(ptGame, pClient);
                 sub_0053B240_SendHeaderOnly0x06(pClient->dwClientId);
-                ClientRemoveFromGame(pGame, pClient->dwClientId, 0);
+                ClientRemoveFromGame(ptGame, pClient->dwClientId, 0);
 
                 pClient = pNextClient;
             }
 
-            D2_ASSERT(pGame->lpCriticalSection, 0x1064);
-            LeaveCriticalSection(pGame->lpCriticalSection);
+            D2_ASSERT(ptGame->lpCriticalSection, 0x1064);
+            LeaveCriticalSection(ptGame->lpCriticalSection);
 
             GAME_CloseGame(nGUID);
         }

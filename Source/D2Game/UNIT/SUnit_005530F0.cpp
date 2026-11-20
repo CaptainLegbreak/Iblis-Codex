@@ -301,63 +301,63 @@ static unsigned int ITEMS_HasUniqueBeenDroppedAlready_Inlined(D2GameStrc* pGame,
 }
 
 // 0x005533D0
-void __fastcall SUNIT_InitializeAnimation(D2UnitStrc* pUnit)
+void __fastcall SUNIT_InitializeAnimation(D2UnitStrc* ptUnit)
 {
-    D2_ASSERT(pUnit, 0x561);
+    D2_ASSERT(ptUnit, 0x561);
 
-    pUnit->nActionFrame = 0;
+    ptUnit->nActionFrame = 0;
 
     int bPlayerSequence = 0;
-    if (pUnit->dwUnitType == UNIT_PLAYER && pUnit->dwAnimMode == PLRMODE_SEQUENCE)
+    if (ptUnit->dwUnitType == UNIT_PLAYER && ptUnit->dwAnimMode == PLRMODE_SEQUENCE)
     {
         bPlayerSequence = 1;
     }
 
-    if ((pUnit->dwUnitType == UNIT_MONSTER && pUnit->dwAnimMode == MONMODE_SEQUENCE || bPlayerSequence) && DATATBLS_GetMonSeqTxtRecordFromUnit(pUnit))
+    if ((ptUnit->dwUnitType == UNIT_MONSTER && ptUnit->dwAnimMode == MONMODE_SEQUENCE || bPlayerSequence) && DATATBLS_GetMonSeqTxtRecordFromUnit(ptUnit))
     {
-        UNITS_InitializeSequence(pUnit);
-        UnitUpdateAnimRateAndVel(pUnit, ".\\UNIT\\SUnit.cpp", 0x570);
+        UNITS_InitializeSequence(ptUnit);
+        UnitUpdateAnimRateAndVel(ptUnit, ".\\UNIT\\SUnit.cpp", 0x570);
         return;
     }
 
-    pUnit->pAnimSeq = 0;
-    pUnit->nSeqCurrentFramePrecise = 0;
-    if (pUnit->pDynamicPath)
+    ptUnit->pAnimSeq = 0;
+    ptUnit->nSeqCurrentFramePrecise = 0;
+    if (ptUnit->pDynamicPath)
     {
-        UnitUpdateAnimRateAndVel(pUnit, ".\\UNIT\\SUnit.cpp", 0x578);
+        UnitUpdateAnimRateAndVel(ptUnit, ".\\UNIT\\SUnit.cpp", 0x578);
     }
     else
     {
-        sub_00620F00(pUnit, pUnit->dwUnitType, pUnit->dwClassId, pUnit->dwAnimMode);
+        sub_00620F00(ptUnit, ptUnit->dwUnitType, ptUnit->dwClassId, ptUnit->dwAnimMode);
     }
 
-    pUnit->dwFrameCountPrecise = pUnit->pAnimData->dwFrames << 8;
+    ptUnit->dwFrameCountPrecise = ptUnit->pAnimData->dwFrames << 8;
 }
 
 // 0x00553F30
-void __fastcall SUNIT_FillUnitInfo(D2UnitStrc* pUnit, D2UnitInfoStrc* pInfo)
+void __fastcall SUNIT_FillUnitInfo(D2UnitStrc* pUnit, D2UnitInfoStrc* ptInfo)
 {
-    D2_ASSERT(pInfo, 0x9AA);
+    D2_ASSERT(ptInfo, 0x9AA);
     D2_ASSERT(pUnit, 0x9AB);
 
     D2PlayerDataStrc* pPlayerData;
     if (pUnit->dwUnitType == UNIT_PLAYER && (pPlayerData = UNITS_GetPlayerData(pUnit)) != 0)
     {
-        strcpy(pInfo->szDescription, pPlayerData->szName);
+        strcpy(ptInfo->szDescription, pPlayerData->szName);
     }
     else
     {
-        pInfo->szDescription[0] = 0;
+        ptInfo->szDescription[0] = 0;
     }
 
-    pInfo->nUnitType = pUnit->dwUnitType;
-    pInfo->nClassId = pUnit->dwClassId;
-    pInfo->nUnitGUID = pUnit->dwUnitId;
-    pInfo->nAnimMode = pUnit->dwAnimMode;
-    pInfo->nX = SUNIT_GetUnitX_Inlined(pUnit);
-    pInfo->nY = SUNIT_GetUnitY_Inlined(pUnit);
-    pInfo->nOwnerType = pUnit->dwOwnerType;
-    pInfo->nOwnerGUID = pUnit->dwOwnerGUID;
+    ptInfo->nUnitType = pUnit->dwUnitType;
+    ptInfo->nClassId = pUnit->dwClassId;
+    ptInfo->nUnitGUID = pUnit->dwUnitId;
+    ptInfo->nAnimMode = pUnit->dwAnimMode;
+    ptInfo->nX = SUNIT_GetUnitX_Inlined(pUnit);
+    ptInfo->nY = SUNIT_GetUnitY_Inlined(pUnit);
+    ptInfo->nOwnerType = pUnit->dwOwnerType;
+    ptInfo->nOwnerGUID = pUnit->dwOwnerGUID;
 }
 
 // 0x005564D0
@@ -424,12 +424,12 @@ int __fastcall SUNIT_CanAllyBeTargetedBySkill(D2GameStrc* pGame, D2UnitStrc* pOw
 }
 
 // 0x00554EA0
-int __fastcall sub_6FCBDFE0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pInputRoom, int nX, int nY, int a6, int a7)
+int __fastcall sub_6FCBDFE0(D2GameStrc* pGame, D2UnitStrc* hUnit, D2ActiveRoomStrc* pInputRoom, int nX, int nY, int a6, int a7)
 {
-    D2_ASSERT(pUnit, 0xC21);
-    D2ActiveRoomStrc* pUnitRoom = UNITS_GetRoom(pUnit);
-    D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
-    D2_ASSERT(pPath, 0xC25);
+    D2_ASSERT(hUnit, 0xC21);
+    D2ActiveRoomStrc* pUnitRoom = UNITS_GetRoom(hUnit);
+    D2DynamicPathStrc* hPath = hUnit->pDynamicPath;
+    D2_ASSERT(hPath, 0xC25);
 
     D2ActiveRoomStrc* pRoom = pInputRoom;
     D2CoordStrc tCoords;
@@ -451,7 +451,7 @@ int __fastcall sub_6FCBDFE0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomSt
 
     if (!a6)
     {
-        pRoom = COLLISION_GetFreeCoordinates(pRoom, &tCoords, UNITS_GetUnitSizeX(pUnit), 0x1C09, 0);
+        pRoom = COLLISION_GetFreeCoordinates(pRoom, &tCoords, UNITS_GetUnitSizeX(hUnit), 0x1C09, 0);
     }
 
     if (!pRoom)
@@ -459,31 +459,31 @@ int __fastcall sub_6FCBDFE0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomSt
         return 0;
     }
 
-    if (!sub_00650BE0_PlaceUnit(pPath, pUnit, pRoom, tCoords.nX, tCoords.nY))
+    if (!sub_00650BE0_PlaceUnit(hPath, hUnit, pRoom, tCoords.nX, tCoords.nY))
     {
         return 0;
     }
 
-    if (pUnit->dwUnitType == 0)
+    if (hUnit->dwUnitType == 0)
     {
-        D2ClientStrc* pClient = UnitGetClient(pUnit, ".\\UNIT\\SUnit.cpp", 0xC3C);
+        D2ClientStrc* pClient = UnitGetClient(hUnit, ".\\UNIT\\SUnit.cpp", 0xC3C);
         D2DrlgCoordsStrc tDrlgCoords;
         DUNGEON_GetRoomCoordinates(pRoom, &tDrlgCoords);
         D2GAME_PACKETS_SendPacket0x07_6FC3D120(pClient, DUNGEON_GetLevelIdFromRoom(pRoom), (unsigned short)tDrlgCoords.nTileXPos, (unsigned short)tDrlgCoords.nTileYPos);
 
-        UNITROOM_RefreshUnit(pUnit);
+        UNITROOM_RefreshUnit(hUnit);
         if (a7)
         {
-            pUnit->dwFlagEx |= 0x800;
+            hUnit->dwFlagEx |= 0x800;
         }
         else
         {
-            pUnit->dwFlagEx |= 0x10000;
+            hUnit->dwFlagEx |= 0x10000;
         }
 
-        sub_6FCBB190(pGame, pUnit, 0);
+        sub_6FCBB190(pGame, hUnit, 0);
 
-        D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pUnit);
+        D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(hUnit);
         const unsigned char nIndex = pPlayerData->unk0xA0;
         pPlayerData->unk0x148 = tCoords.nX;
         pPlayerData->unk0x14C = tCoords.nY;
@@ -496,22 +496,22 @@ int __fastcall sub_6FCBDFE0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomSt
             pPlayerData->unk0xA0 = 0;
         }
 
-        sub_00541800(pGame, pUnit, 14, pGame->dwGameFrame + 50, sub_6FCBDF90, 0, 0);
-        sub_6FC7E310(pGame, pUnit, tCoords.nX, tCoords.nY);
+        sub_00541800(pGame, hUnit, 14, pGame->dwGameFrame + 50, sub_6FCBDF90, 0, 0);
+        sub_6FC7E310(pGame, hUnit, tCoords.nX, tCoords.nY);
     }
     else
     {
-        UNITROOM_RefreshUnit(pUnit);
+        UNITROOM_RefreshUnit(hUnit);
         if (a7)
         {
-            pUnit->dwFlagEx |= 0x800;
+            hUnit->dwFlagEx |= 0x800;
         }
         else
         {
-            pUnit->dwFlagEx |= 0x10000;
+            hUnit->dwFlagEx |= 0x10000;
         }
 
-        sub_6FCBB190(pGame, pUnit, 0);
+        sub_6FCBB190(pGame, hUnit, 0);
     }
 
     return 1;

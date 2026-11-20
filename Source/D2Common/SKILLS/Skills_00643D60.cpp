@@ -425,17 +425,17 @@ static __declspec(noinline) BOOL D2Common_SKILLMANA_CheckStartStat_6FDB1400(D2Un
 }
 
 // 0x00647540
-static __declspec(noinline) BOOL D2Common_SKILLMANA_CheckStat_6FDB0F50(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
+static __declspec(noinline) BOOL D2Common_SKILLMANA_CheckStat_6FDB0F50(D2UnitStrc* pUnit, D2SkillStrc* hSkill)
 {
-    D2_ASSERT(pSkill, 0x637);
+    D2_ASSERT(hSkill, 0x637);
 
-    if (pSkill->nOwnerGUID != -1)
+    if (hSkill->nOwnerGUID != -1)
     {
-        return pSkill->nCharges > 0;
+        return hSkill->nCharges > 0;
     }
 
-    D2SkillsTxt* pSkillsTxt = pSkill->pSkillsTxt;
-    int nSkillLevel = SKILLS_GetSkillLevel(pUnit, pSkill, 1) - 1;
+    D2SkillsTxt* pSkillsTxt = hSkill->pSkillsTxt;
+    int nSkillLevel = SKILLS_GetSkillLevel(pUnit, hSkill, 1) - 1;
     D2_ASSERT(pSkillsTxt, 0x6EE);
     if (nSkillLevel < 0)
     {
@@ -643,61 +643,61 @@ static __declspec(noinline) BOOL __stdcall SKILLS_CheckSkillDelay(D2SkillStrc* p
 }
 
 // 0x00647960
-int __stdcall SKILLS_GetUseState(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
+int __stdcall SKILLS_GetUseState(D2UnitStrc* pUnit, D2SkillStrc* ptSkill)
 {
-    D2_ASSERT(pSkill, 0x8E9);
+    D2_ASSERT(ptSkill, 0x8E9);
 
-    if (!pSkill->pSkillsTxt || !SKILLS_HasFlag(pSkill->pSkillsTxt, 10))
+    if (!ptSkill->pSkillsTxt || !SKILLS_HasFlag(ptSkill->pSkillsTxt, 10))
     {
         return 3;
     }
 
-    if (!SKILLS_GetSkillLevel(pUnit, pSkill, 1))
+    if (!SKILLS_GetSkillLevel(pUnit, ptSkill, 1))
     {
         return 7;
     }
 
-    if (SKILLS_HasFlag(pSkill->pSkillsTxt, 5))
+    if (SKILLS_HasFlag(ptSkill->pSkillsTxt, 5))
     {
         return 6;
     }
 
-    if (SKILLS_HasFlag(pSkill->pSkillsTxt, 4))
+    if (SKILLS_HasFlag(ptSkill->pSkillsTxt, 4))
     {
         return 5;
     }
 
-    if (!sub_00647640_CheckSkillQuantity(pUnit, pSkill))
+    if (!sub_00647640_CheckSkillQuantity(pUnit, ptSkill))
     {
         return 2;
     }
 
-    if (!sub_00643F80_CheckWeaponTypes(pUnit, pSkill))
+    if (!sub_00643F80_CheckWeaponTypes(pUnit, ptSkill))
     {
         return 2;
     }
 
-    if (!D2Common_SKILLMANA_CheckStat_6FDB0F50(pUnit, pSkill))
+    if (!D2Common_SKILLMANA_CheckStat_6FDB0F50(pUnit, ptSkill))
     {
         return 1;
     }
 
-    if (!D2Common_SKILLS_CheckShapeRestriction_6FDB1380(pUnit, pSkill))
+    if (!D2Common_SKILLS_CheckShapeRestriction_6FDB1380(pUnit, ptSkill))
     {
         return 4;
     }
 
-    if (!D2Common_SKILLMANA_CheckStartStat_6FDB1400(pUnit, pSkill))
+    if (!D2Common_SKILLMANA_CheckStartStat_6FDB1400(pUnit, ptSkill))
     {
         return 1;
     }
 
-    if (!sub_6FDB1070(pUnit, pSkill))
+    if (!sub_6FDB1070(pUnit, ptSkill))
     {
         return 2;
     }
 
-    return SKILLS_CheckSkillDelay(pSkill, pUnit) ? 0 : 8;
+    return SKILLS_CheckSkillDelay(ptSkill, pUnit) ? 0 : 8;
 }
 
 inline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int nSkillId)
@@ -741,10 +741,10 @@ int __stdcall D2Common_11016(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
 // 0x006459F0
 int __stdcall sub_006459F0(int nSkillId, int nSkillLevel)
 {
-    D2SkillsTxt* pSkillsTxtRecord = DATATBLS_GetSkillsTxtRecord(nSkillId);
-    SKILLS_ASSERT(pSkillsTxtRecord, 4108);
+    D2SkillsTxt* ptSkill = DATATBLS_GetSkillsTxtRecord(nSkillId);
+    SKILLS_ASSERT(ptSkill, 4108);
 
-    int nMana = ((pSkillsTxtRecord->wMana + (nSkillLevel - 1) * pSkillsTxtRecord->wLevelMana) << pSkillsTxtRecord->nManaShift) >> 8;
+    int nMana = ((ptSkill->wMana + (nSkillLevel - 1) * ptSkill->wLevelMana) << ptSkill->nManaShift) >> 8;
     if (nMana < 0)
     {
         nMana = 0;

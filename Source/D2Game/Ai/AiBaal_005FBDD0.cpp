@@ -297,17 +297,17 @@ static D2UnitStrc* __stdcall sub_005FBDD0(D2GameStrc* pGame, int* pMax, int* pCo
     int nMax = 0;
     int nCount = 0;
     D2TargetNodeStrc** ppTargetNode = pGame->pTargetNodes;
-    D2TargetNodeStrc* pTargetNode = *ppTargetNode;
+    D2TargetNodeStrc* ptTargetNode = *ppTargetNode;
     const int nX = CLIENTS_GetUnitXInline(pUnit);
     const int nY = CLIENTS_GetUnitYInline(pUnit);
     const unsigned char nAct = pUnit->nAct;
 
     for (int i = 0; i < 8; ++i)
     {
-        if (pTargetNode)
+        if (ptTargetNode)
         {
-            D2_ASSERT(pTargetNode->pUnit && pTargetNode->pUnit->dwUnitType == UNIT_PLAYER, 0xB3);
-            D2UnitStrc* pTargetUnit = pTargetNode->pUnit;
+            D2_ASSERT(ptTargetNode->pUnit && ptTargetNode->pUnit->dwUnitType == UNIT_PLAYER, 0xB3);
+            D2UnitStrc* pTargetUnit = ptTargetNode->pUnit;
 
             if (pfCull(pUnit, pTargetUnit))
             {
@@ -329,26 +329,26 @@ static D2UnitStrc* __stdcall sub_005FBDD0(D2GameStrc* pGame, int* pMax, int* pCo
                         pTarget = pTargetUnit;
                     }
 
-                    pTargetNode = pTargetNode->pNext;
+                    ptTargetNode = ptTargetNode->pNext;
                     ++nCount;
 
-                    if (!pTargetNode)
+                    if (!ptTargetNode)
                     {
                         break;
                     }
 
-                    pTargetUnit = pTargetNode->pUnit;
+                    pTargetUnit = ptTargetNode->pUnit;
                     nCurrent = sub_005FBB00_GetUberTargetScore(pUnit, pTargetUnit, pArgs);
                 }
             }
         }
 
-        pTargetNode = *++ppTargetNode;
+        ptTargetNode = *++ppTargetNode;
     }
 
-    while (pTargetNode)
+    while (ptTargetNode)
     {
-        D2UnitStrc* pTargetUnit = pTargetNode->pUnit;
+        D2UnitStrc* pTargetUnit = ptTargetNode->pUnit;
         if (nAct == pTargetUnit->nAct)
         {
             const int nCurrent = sub_005FBB00_GetUberTargetScore(pUnit, pTargetUnit, pArgs);
@@ -360,18 +360,18 @@ static D2UnitStrc* __stdcall sub_005FBDD0(D2GameStrc* pGame, int* pMax, int* pCo
             ++nCount;
         }
 
-        pTargetNode = pTargetNode->pNext;
+        ptTargetNode = ptTargetNode->pNext;
     }
 
-    pTargetNode = ppTargetNode[1];
+    ptTargetNode = ppTargetNode[1];
 
     D2UnitStrc* pTemp = 0;
     int nTemp = 0;
-    if (pTargetNode)
+    if (ptTargetNode)
     {
         do
         {
-            D2UnitStrc* pTargetUnit = pTargetNode->pUnit;
+            D2UnitStrc* pTargetUnit = ptTargetNode->pUnit;
             if (nAct == pTargetUnit->nAct)
             {
                 const int nCurrent = sub_005FBB00_GetUberTargetScore(pUnit, pTargetUnit, pArgs);
@@ -382,9 +382,9 @@ static D2UnitStrc* __stdcall sub_005FBDD0(D2GameStrc* pGame, int* pMax, int* pCo
                 }
             }
 
-            pTargetNode = pTargetNode->pNext;
+            ptTargetNode = ptTargetNode->pNext;
         }
-        while (pTargetNode);
+        while (ptTargetNode);
 
         if (pTemp && AIUTIL_GetDistanceToCoordinates_NoUnitSize(pTemp, nX, nY) < 5 && !UNITS_IsInMeleeRange(pUnit, pTarget, 0))
         {

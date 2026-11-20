@@ -3112,7 +3112,7 @@ int __fastcall sub_0054D430(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket,
 }
 
 // 0x0054D520
-int __fastcall D2GAME_PACKETCALLBACK_Rcv0x63_ShiftLeftClickItemToBelt_6FC88F80(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
+int __fastcall D2GAME_PACKETCALLBACK_Rcv0x63_ShiftLeftClickItemToBelt_6FC88F80(D2GameStrc* ptGame, D2UnitStrc* pUnit, void* pPacket, int nSize)
 {
     if (nSize != 5)
     {
@@ -3121,7 +3121,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x63_ShiftLeftClickItemToBelt_6FC88F80(D
 
     const int nItemGUID = *(int*)((char*)pPacket + 1);
 
-    const int nResult = pGame->sub_00549150_CheckStoredItem(pUnit, nItemGUID);
+    const int nResult = ptGame->sub_00549150_CheckStoredItem(pUnit, nItemGUID);
     if (nResult)
     {
         return nResult;
@@ -3133,62 +3133,62 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x63_ShiftLeftClickItemToBelt_6FC88F80(D
         return 2;
     }
 
-    D2UnitStrc* pItem = SUNIT_GetServerUnit(pGame, 4, nItemGUID);
-    if (!pItem)
+    D2UnitStrc* hItem = SUNIT_GetServerUnit(ptGame, 4, nItemGUID);
+    if (!hItem)
     {
         return 2;
     }
 
-    if (!ITEMS_CheckIfBeltable(pItem))
+    if (!ITEMS_CheckIfBeltable(hItem))
     {
         return 2;
     }
 
-    if (ITEMS_GetInvPage(pItem))
+    if (ITEMS_GetInvPage(hItem))
     {
         return 3;
     }
 
     unsigned char nPage;
     int nFreeSlotId = 0;
-    if (INVENTORY_GetFreeBeltSlot(pUnit->pInventory, pItem, &nFreeSlotId) && nFreeSlotId >= 0 && sub_6FC7C3A0(pGame, pUnit, pItem))
+    if (INVENTORY_GetFreeBeltSlot(pUnit->pInventory, hItem, &nFreeSlotId) && nFreeSlotId >= 0 && sub_6FC7C3A0(ptGame, pUnit, hItem))
     {
-        D2InventoryStrc* pInventory = pUnit->pInventory;
-        D2_ASSERT(pInventory, 0x1821);
+        D2InventoryStrc* hInventory = pUnit->pInventory;
+        D2_ASSERT(hInventory, 0x1821);
 
-        if (ITEMS_GetInvPage(pItem) || pItem->dwAnimMode != 0)
+        if (ITEMS_GetInvPage(hItem) || hItem->dwAnimMode != 0)
         {
             return 2;
         }
 
-        D2UnitStrc* pRemove = INVENTORY_RemoveItemFromInventory(pInventory, pItem);
-        D2_ASSERT(pRemove, 0x182A);
-        D2_ASSERT(pItem == pRemove, 0x182B);
+        D2UnitStrc* hRemove = INVENTORY_RemoveItemFromInventory(hInventory, hItem);
+        D2_ASSERT(hRemove, 0x182A);
+        D2_ASSERT(hItem == hRemove, 0x182B);
 
-        nPage = ITEMS_GetInvPage(pItem);
-        const int nInventoryRecordId = UNITS_GetInventoryRecordId(pUnit, nPage, pGame->bExpansion);
-        INVENTORY_Return(".\\PLAYER\\PlrMsg.cpp", 0x1830, pInventory, CLIENTS_GetUnitX(pItem), CLIENTS_GetUnitY(pItem), nInventoryRecordId, 0, nPage);
-        ITEMS_SetItemCell(pItem, nPage);
-        ITEMS_SetInvPage(pItem, 0xFF);
+        nPage = ITEMS_GetInvPage(hItem);
+        const int nInventoryRecordId = UNITS_GetInventoryRecordId(pUnit, nPage, ptGame->bExpansion);
+        INVENTORY_Return(".\\PLAYER\\PlrMsg.cpp", 0x1830, hInventory, CLIENTS_GetUnitX(hItem), CLIENTS_GetUnitY(hItem), nInventoryRecordId, 0, nPage);
+        ITEMS_SetItemCell(hItem, nPage);
+        ITEMS_SetInvPage(hItem, 0xFF);
 
-        D2GAME_UpdateClientItem_6FC3E9D0(UnitGetClient(pUnit, ".\\PLAYER\\PlrMsg.cpp", 0x1834), pUnit, pItem, 0);
+        D2GAME_UpdateClientItem_6FC3E9D0(UnitGetClient(pUnit, ".\\PLAYER\\PlrMsg.cpp", 0x1834), pUnit, hItem, 0);
 
-        UNITS_ChangeAnimMode(pItem, 4);
+        UNITS_ChangeAnimMode(hItem, 4);
 
-        pItem->dwFlags &= ~2u;
+        hItem->dwFlags &= ~2u;
 
         unsigned char nWidth;
         unsigned char nHeight;
-        ITEMS_GetDimensions(pItem, &nWidth, &nHeight, ".\\PLAYER\\PlrMsg.cpp", 0x183B);
+        ITEMS_GetDimensions(hItem, &nWidth, &nHeight, ".\\PLAYER\\PlrMsg.cpp", 0x183B);
 
-        if (INVENTORY_PlaceItemInBeltSlot(pInventory, pItem, nFreeSlotId))
+        if (INVENTORY_PlaceItemInBeltSlot(hInventory, hItem, nFreeSlotId))
         {
-            ITEMS_SetInvPage(pItem, 0xFF);
+            ITEMS_SetInvPage(hItem, 0xFF);
 
-            if (INVENTORY_PlaceItemInSocket(pInventory, pItem, 2))
+            if (INVENTORY_PlaceItemInSocket(hInventory, hItem, 2))
             {
-                UNITS_ChangeAnimMode(pItem, 2);
-                D2GAME_SendP0x9C_ItemAction_PutInBelt_6FC3EB90(UnitGetClient(pUnit, ".\\PLAYER\\PlrMsg.cpp", 0x1842), pUnit, pItem, 0);
+                UNITS_ChangeAnimMode(hItem, 2);
+                D2GAME_SendP0x9C_ItemAction_PutInBelt_6FC3EB90(UnitGetClient(pUnit, ".\\PLAYER\\PlrMsg.cpp", 0x1842), pUnit, hItem, 0);
             }
         }
 

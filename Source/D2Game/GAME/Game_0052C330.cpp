@@ -238,12 +238,12 @@ void __stdcall sub_0052EBE0(unsigned short* pCount, int nMaxCount)
     {
         if (gnGamesGUIDs_6FD447F8[i] && gnGamesGUIDs_6FD447F8[i] != -1)
         {
-            if (D2GameStrc* pGame = GAME_LockGame(gnGamesGUIDs_6FD447F8[i]))
+            if (D2GameStrc* ptGame = GAME_LockGame(gnGamesGUIDs_6FD447F8[i]))
             {
-                const int nSecondsPassed = pGame->dwGameFrame / 25;
+                const int nSecondsPassed = ptGame->dwGameFrame / 25;
 
-                D2_ASSERT(pGame->lpCriticalSection, 0x1064);
-                LeaveCriticalSection(pGame->lpCriticalSection);
+                D2_ASSERT(ptGame->lpCriticalSection, 0x1064);
+                LeaveCriticalSection(ptGame->lpCriticalSection);
 
                 int nIndex = nSecondsPassed / 300;
                 if (nIndex >= nMaxCount)
@@ -264,8 +264,8 @@ void __stdcall GAME_SendMessageToAllClients(int a1, int nPacketParam, const char
     {
         if (gnGamesGUIDs_6FD447F8[i] && gnGamesGUIDs_6FD447F8[i] != -1)
         {
-            D2GameStrc* pGame = GAME_LockGame(gnGamesGUIDs_6FD447F8[i]);
-            D2_ASSERT(pGame, 0x1063);
+            D2GameStrc* ptGame = GAME_LockGame(gnGamesGUIDs_6FD447F8[i]);
+            D2_ASSERT(ptGame, 0x1063);
             switch (a1)
             {
             case 1:
@@ -276,7 +276,7 @@ void __stdcall GAME_SendMessageToAllClients(int a1, int nPacketParam, const char
                 packet5A.nColor = 4;
                 *(int*)packet5A.abParam = nPacketParam;
                 packet5A.szText[16] = 0;
-                sub_6FC84D40(pGame, &packet5A);
+                sub_6FC84D40(ptGame, &packet5A);
                 break;
             }
             default:
@@ -285,17 +285,17 @@ void __stdcall GAME_SendMessageToAllClients(int a1, int nPacketParam, const char
                     char szCopy[256];
                     strncpy(szCopy, szMessage, 255);
                     szCopy[255] = '\0';
-                    sub_6FC84CD0(pGame, szCopy, 1);
+                    sub_6FC84CD0(ptGame, szCopy, 1);
                 }
                 else
                 {
-                    sub_6FC84CD0(pGame, szMessage, 1);
+                    sub_6FC84CD0(ptGame, szMessage, 1);
                 }
                 break;
             }
 
-            D2_ASSERT(pGame->lpCriticalSection, 0x1064);
-            LeaveCriticalSection(pGame->lpCriticalSection);
+            D2_ASSERT(ptGame->lpCriticalSection, 0x1064);
+            LeaveCriticalSection(ptGame->lpCriticalSection);
         }
     }
 }

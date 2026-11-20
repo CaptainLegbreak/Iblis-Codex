@@ -199,13 +199,13 @@ inline int M08_UNITS_GetXPositionInline(D2UnitStrc* pUnit)
 }
 
 // 0x00534B30
-static int __stdcall PLAYER_PlaceItemInInventory(D2GameStrc* pGame, int a8, D2UnitStrc* pItem, D2UnitStrc* pPlayer)
+static int __stdcall PLAYER_PlaceItemInInventory(D2GameStrc* pGame, int a8, D2UnitStrc* hItem, D2UnitStrc* hPlayer)
 {
-    D2_ASSERT(pItem, 180);
-    D2_ASSERT(pPlayer, 181);
-    ITEMS_SetInvPage(pItem, INVPAGE_INVENTORY);
-    const int nItemGUID = pItem->dwUnitId;
-    return D2GAME_PlaceItem_6FC44410(".\\PLAYER\\Player.cpp", 186, pGame, pPlayer, nItemGUID, UNITS_GetXPosition(pItem), CLIENTS_GetUnitY(pItem), a8, 1, 0) != 0;
+    D2_ASSERT(hItem, 180);
+    D2_ASSERT(hPlayer, 181);
+    ITEMS_SetInvPage(hItem, INVPAGE_INVENTORY);
+    const int nItemGUID = hItem->dwUnitId;
+    return D2GAME_PlaceItem_6FC44410(".\\PLAYER\\Player.cpp", 186, pGame, hPlayer, nItemGUID, UNITS_GetXPosition(hItem), CLIENTS_GetUnitY(hItem), a8, 1, 0) != 0;
 }
 
 // 0x00534BB0

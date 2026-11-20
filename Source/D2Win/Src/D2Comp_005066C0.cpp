@@ -875,48 +875,48 @@ void __stdcall sub_00504F80_InitCompositeUnit(D2CompositeUnitStrc* pCompositeUni
 // 0x005066C0
 D2CompositeUnitStrc* __stdcall sub_005066C0_CreateCompositeUnit(unsigned int nUnitIndex, unsigned int nMode, unsigned char* pComponents, const unsigned char* pComponentColors)
 {
-    D2CompositeUnitStrc* pCompositeUnit = (D2CompositeUnitStrc*)FOG_Alloc(sizeof(D2CompositeUnitStrc), gszD2CompSourceFile, 0xC70, 0);
-    D2_ASSERT(pCompositeUnit, 0xC71);
-    memset(pCompositeUnit, 0, sizeof(D2CompositeUnitStrc));
+    D2CompositeUnitStrc* ptNewUnit = (D2CompositeUnitStrc*)FOG_Alloc(sizeof(D2CompositeUnitStrc), gszD2CompSourceFile, 0xC70, 0);
+    D2_ASSERT(ptNewUnit, 0xC71);
+    memset(ptNewUnit, 0, sizeof(D2CompositeUnitStrc));
 
-    D2GfxInfoStrc* pGfxInfo = (D2GfxInfoStrc*)FOG_Alloc(sizeof(D2GfxInfoStrc), gszD2CompSourceFile, 0x866, 0);
-    D2_ASSERT(pGfxInfo, 0x867);
-    pGfxInfo->pCofInfo = 0;
-    pCompositeUnit->pGfxInfo = pGfxInfo;
+    D2GfxInfoStrc* ptGfxInfo = (D2GfxInfoStrc*)FOG_Alloc(sizeof(D2GfxInfoStrc), gszD2CompSourceFile, 0x866, 0);
+    D2_ASSERT(ptGfxInfo, 0x867);
+    ptGfxInfo->pCofInfo = 0;
+    ptNewUnit->pGfxInfo = ptGfxInfo;
     sub_00506000_InitCompItems();
     unsigned char* pComponent = pComponents;
-    pCompositeUnit->nUnitIndex = nUnitIndex;
+    ptNewUnit->nUnitIndex = nUnitIndex;
     if (nUnitIndex >= 7)
     {
-        pCompositeUnit->nWClassTokenIndex = 1;
+        ptNewUnit->nWClassTokenIndex = 1;
     }
     else
     {
-        pCompositeUnit->nWClassTokenIndex = sub_00504AF0_GetWeaponClass(nUnitIndex, pComponent);
-        if (!pCompositeUnit->nWClassTokenIndex)
+        ptNewUnit->nWClassTokenIndex = sub_00504AF0_GetWeaponClass(nUnitIndex, pComponent);
+        if (!ptNewUnit->nWClassTokenIndex)
         {
             return 0;
         }
     }
 
-    pCompositeUnit->nMode = nMode;
-    pCompositeUnit->dwFlags |= gdwBitMasks[0];
-    pCompositeUnit->dwFlags |= gdwBitMasks[1];
-    pCompositeUnit->dwFlags |= gdwBitMasks[2];
+    ptNewUnit->nMode = nMode;
+    ptNewUnit->dwFlags |= gdwBitMasks[0];
+    ptNewUnit->dwFlags |= gdwBitMasks[1];
+    ptNewUnit->dwFlags |= gdwBitMasks[2];
 
     unsigned int i = 0;
     do
     {
-        pCompositeUnit->nItemTypes[i] = 1;
+        ptNewUnit->nItemTypes[i] = 1;
         if (*pComponent > 0 && *pComponent < gnItems_0087D834 && *pComponent != 0xFF)
         {
             sub_00504D60_FixComponent(i, pComponent);
-            pCompositeUnit->dwArmorType[i] = gaItems_0087D838[*pComponent].dwCode;
-            pCompositeUnit->nItemTypes[i] = gaItems_0087D838[*pComponent].nItemType;
+            ptNewUnit->dwArmorType[i] = gaItems_0087D838[*pComponent].dwCode;
+            ptNewUnit->nItemTypes[i] = gaItems_0087D838[*pComponent].nItemType;
         }
         else
         {
-            pCompositeUnit->dwArmorType[i] = 0;
+            ptNewUnit->dwArmorType[i] = 0;
         }
         ++pComponent;
         ++i;
@@ -926,25 +926,25 @@ D2CompositeUnitStrc* __stdcall sub_005066C0_CreateCompositeUnit(unsigned int nUn
     for (int j = 0; j < 16; ++j)
     {
         const unsigned char nColor = *pComponentColors++;
-        pCompositeUnit->nComponentColors[j] = nColor;
+        ptNewUnit->nComponentColors[j] = nColor;
         if (nColor != 0xFF)
         {
-            pCompositeUnit->nComponentColors[j] = nColor - 1;
+            ptNewUnit->nComponentColors[j] = nColor - 1;
         }
     }
 
-    if (sub_00504040_LoadUnitCof(pCompositeUnit) && !D2Win_10143(pCompositeUnit, nMode))
+    if (sub_00504040_LoadUnitCof(ptNewUnit) && !D2Win_10143(ptNewUnit, nMode))
     {
         return 0;
     }
 
     D2CompositeUnitStrc* pHead = gpCompositeUnitList_0087E838;
-    pCompositeUnit->pPrev = 0;
-    pCompositeUnit->pNext = pHead;
+    ptNewUnit->pPrev = 0;
+    ptNewUnit->pNext = pHead;
     if (pHead)
     {
-        pHead->pPrev = pCompositeUnit;
+        pHead->pPrev = ptNewUnit;
     }
-    gpCompositeUnitList_0087E838 = pCompositeUnit;
-    return pCompositeUnit;
+    gpCompositeUnitList_0087E838 = ptNewUnit;
+    return ptNewUnit;
 }

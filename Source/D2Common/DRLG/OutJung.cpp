@@ -79,54 +79,54 @@ int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int
 int __fastcall DRLGOUTDOORS_TestOutdoorLevelPreset(D2DrlgLevelStrc* pLevel, int nX, int nY, int nId, int nOffset, char nFlags); // 0x00674230
 
 // 0x0067E910
-void __fastcall DRLGOUTJUNG_BuildJungle(D2DrlgLevelStrc* pLevel)
+void __fastcall DRLGOUTJUNG_BuildJungle(D2DrlgLevelStrc* ptDrlgLevel)
 {
-    switch (pLevel->nLevelId)
+    switch (ptDrlgLevel->nLevelId)
     {
     case LEVEL_SPIDERFOREST:
     case LEVEL_GREATMARSH:
     case LEVEL_FLAYERJUNGLE:
     {
         D2LevelDefBin* pLevelDefBin = DATATBLS_GetLevelDefRecord(LEVEL_SPIDERFOREST);
-        const int nSizeX = pLevelDefBin->dwSizeX[pLevel->pDrlg->nDifficulty] / 32;
-        const int nSizeY = pLevelDefBin->dwSizeY[pLevel->pDrlg->nDifficulty] / 32;
+        const int nSizeX = pLevelDefBin->dwSizeX[ptDrlgLevel->pDrlg->nDifficulty] / 32;
+        const int nSizeY = pLevelDefBin->dwSizeY[ptDrlgLevel->pDrlg->nDifficulty] / 32;
         int nDefId = 0;
 
-        const int nRand = SEED_RollLimitedRandomNumber(&pLevel->pSeed, 4 * (pLevel->nJungleDefs == 3) + 2);
+        const int nRand = SEED_RollLimitedRandomNumber(&ptDrlgLevel->pSeed, 4 * (ptDrlgLevel->nJungleDefs == 3) + 2);
         int nFileIndex = 0;
 
-        D2_ASSERT(pLevel->pJungleDefs, 0x27);
+        D2_ASSERT(ptDrlgLevel->pJungleDefs, 0x27);
 
         for (int i = 0; i < nSizeY; ++i)
         {
-            if (pLevel->nLevelId == LEVEL_SPIDERFOREST && i == nSizeY - 1)
+            if (ptDrlgLevel->nLevelId == LEVEL_SPIDERFOREST && i == nSizeY - 1)
             {
-                DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, 0, 4 * i, LVLPREST_ACT3_JUNGLE_HEAD, pLevel->pJungleDefs[nSizeX * nSizeY - 1] == 0, 0);
+                DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(ptDrlgLevel, 0, 4 * i, LVLPREST_ACT3_JUNGLE_HEAD, ptDrlgLevel->pJungleDefs[nSizeX * nSizeY - 1] == 0, 0);
                 nDefId += 2;
             }
-            else if (pLevel->nLevelId == LEVEL_FLAYERJUNGLE && i == 0)
+            else if (ptDrlgLevel->nLevelId == LEVEL_FLAYERJUNGLE && i == 0)
             {
-                DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, 0, 0, LVLPREST_ACT3_JUNGLE_TAIL, pLevel->pJungleDefs[1] == 0, 0);
+                DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(ptDrlgLevel, 0, 0, LVLPREST_ACT3_JUNGLE_TAIL, ptDrlgLevel->pJungleDefs[1] == 0, 0);
                 nDefId += 2;
             }
             else
             {
                 for (int j = 0; j < nSizeX; ++j)
                 {
-                    int nJungleDef = pLevel->pJungleDefs[nDefId++];
+                    int nJungleDef = ptDrlgLevel->pJungleDefs[nDefId++];
                     int nPickedFile = -1;
                     if (nJungleDef > LVLPREST_ACT3_JUNGLE_TAIL)
                     {
                         D2_ASSERT(nFileIndex < 3, 0x47);
 
-                        nJungleDef += gnJungleDefOffsets_006F2370[pLevel->nLevelId - LEVEL_SPIDERFOREST];
+                        nJungleDef += gnJungleDefOffsets_006F2370[ptDrlgLevel->nLevelId - LEVEL_SPIDERFOREST];
                         nPickedFile = gnJungleFiles_006F2328[nFileIndex + 3 * nRand];
                         ++nFileIndex;
                     }
 
                     if (nJungleDef)
                     {
-                        DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, 4 * j, 4 * i, nJungleDef, nPickedFile, 0);
+                        DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(ptDrlgLevel, 4 * j, 4 * i, nJungleDef, nPickedFile, 0);
                     }
                 }
             }

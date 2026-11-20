@@ -74,10 +74,10 @@ static __forceinline int GetClassId(D2UnitStrc* pUnit)
 }
 
 // 0x005550B0
-void __fastcall sub_005550B0_WarpPlayer(D2GameStrc* pGame,D2UnitStrc* pPlayer,D2UnitStrc* pTile)
+void __fastcall sub_005550B0_WarpPlayer(D2GameStrc* ptGame,D2UnitStrc* hUnit,D2UnitStrc* pTile)
 {
-    D2_ASSERT(pGame,329);
-    D2_ASSERT(pPlayer,330);
+    D2_ASSERT(ptGame,329);
+    D2_ASSERT(hUnit,330);
     D2ActiveRoomStrc* pOldRoom = UNITS_GetRoom(pTile);
     int nLevel = GetClassId(pTile);
     D2LvlWarpTxt* pWarp;
@@ -87,23 +87,23 @@ void __fastcall sub_005550B0_WarpPlayer(D2GameStrc* pGame,D2UnitStrc* pPlayer,D2
     D2CoordStrc point;
     point.nX = sub_0045ADF0(pDestination);
     point.nY = sub_0045AE20(pDestination);
-    D2_ASSERT(pPlayer->dwUnitType == 0,348);
-    D2ActiveRoomStrc* pFreeRoom = COLLISION_GetFreeCoordinates(pTargetRoom,&point,UNITS_GetUnitSizeX(pPlayer),0x1C09,1);
+    D2_ASSERT(hUnit->dwUnitType == 0,348);
+    D2ActiveRoomStrc* pFreeRoom = COLLISION_GetFreeCoordinates(pTargetRoom,&point,UNITS_GetUnitSizeX(hUnit),0x1C09,1);
     if (!pFreeRoom) return;
     int nOldLevel = DUNGEON_GetLevelIdFromRoom(pOldRoom);
     int nNewLevel = DUNGEON_GetLevelIdFromRoom(pFreeRoom);
     if (nNewLevel == 73 || nNewLevel == 128 || nNewLevel == 132 || nNewLevel == 118 || nNewLevel == 100)
-        if (QUESTS_LevelWarpCheck(pGame,pPlayer,nOldLevel,nNewLevel)) return;
+        if (QUESTS_LevelWarpCheck(ptGame,hUnit,nOldLevel,nNewLevel)) return;
     int nX = point.nX;
     int nY = point.nY;
-    if (sub_00554EA0_WarpUnit(pGame,pPlayer,pTargetRoom,nX,nY,0,0))
+    if (sub_00554EA0_WarpUnit(ptGame,hUnit,pTargetRoom,nX,nY,0,0))
     {
-        D2ClientStrc* pClient = UnitGetClient(pPlayer,".\\UNIT\\SUnit.cpp",376);
+        D2ClientStrc* pClient = UnitGetClient(hUnit,".\\UNIT\\SUnit.cpp",376);
         int nDestX = pWarp->nOffsetX + nX;
         int nDestY = pWarp->nOffsetY + nY;
-        sub_005809D0_ChangeMode(pGame,pPlayer,0,2,nDestX,nDestY,0);
-        unsigned char nLife = UNITS_GetCurrentLifePercentage(pPlayer);
-        sub_0053B4B0(pClient,0x0D,!pPlayer ? 6 : pPlayer->dwUnitType,!pPlayer ? -1 : pPlayer->dwUnitId,1,nDestX,nDestY,0,nLife);
+        sub_005809D0_ChangeMode(ptGame,hUnit,0,2,nDestX,nDestY,0);
+        unsigned char nLife = UNITS_GetCurrentLifePercentage(hUnit);
+        sub_0053B4B0(pClient,0x0D,!hUnit ? 6 : hUnit->dwUnitType,!hUnit ? -1 : hUnit->dwUnitId,1,nDestX,nDestY,0,nLife);
     }
 }
 

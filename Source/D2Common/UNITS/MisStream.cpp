@@ -117,22 +117,22 @@ void __stdcall MISSTREAM_Update(D2UnitStrc* pUnit, D2UnitStrc* pMissile, int nAm
     D2Common_10142(pPath, pMissile, 0);
     int nPathPoints = sub_006487D0(pPath, &pPathPoints);
     if (nPathPoints != 0 && nPathPoints != 1) {
-        D2MissileStreamStrc* pStream = MISSILE_GetStream(pMissile);
-        if (!pStream) { sub_00408A60(gszAssertExpression_006CC837, sub_00408090(), 138); exit(-1); }
+        D2MissileStreamStrc* ptStream = MISSILE_GetStream(pMissile);
+        if (!ptStream) { sub_00408A60(gszAssertExpression_006CC837, sub_00408090(), 138); exit(-1); }
         int nRatio = nAmount / nStep;
         int bCreate = 0;
         int nTemp = nPathPoints - 1;
         int nPoints = nTemp;
         if (nTemp < nRatio) { nPoints = nRatio; bCreate = 1; }
-        if (!pStream->nCapacity) {
+        if (!ptStream->nCapacity) {
             unsigned int nSize = sizeof(int) * nPoints;
-            pStream->nCapacity = nPoints;
+            ptStream->nCapacity = nPoints;
             void* const pPool = pMissile->pMemoryPool;
-            pStream->pData = (int*)FOG_AllocPool(pPool, nSize, gszMisStream_006EE540, 151, 0);
-            memset(pStream->pData, 0, nSize);
-        } else if (pStream->nCapacity < nPoints) {
+            ptStream->pData = (int*)FOG_AllocPool(pPool, nSize, gszMisStream_006EE540, 151, 0);
+            memset(ptStream->pData, 0, nSize);
+        } else if (ptStream->nCapacity < nPoints) {
             void* const pPool = pMissile->pMemoryPool;
-            pStream->pData = (int*)FOG_ReallocPool(pPool, pStream->pData, sizeof(int) * nPoints, gszMisStream_006EE540, 154, 0);
+            ptStream->pData = (int*)FOG_ReallocPool(pPool, ptStream->pData, sizeof(int) * nPoints, gszMisStream_006EE540, 154, 0);
         }
         int nMax = nTemp / nRatio;
         int nExtra = 0;
@@ -148,7 +148,7 @@ void __stdcall MISSTREAM_Update(D2UnitStrc* pUnit, D2UnitStrc* pMissile, int nAm
             char nDirection = (char)PATH_ComputeDirection(pPathPoints[nIndex + 1].X, pPathPoints[nIndex + 1].Y, nX, nY);
             if (nCounter >= nMax && nAmount) {
                 nCounter = 1;
-                pStream->pData[nIndex] = pfCreate(pMissile, pStream->pData[nIndex], nX, nY, nCurrent, 1, nDirection);
+                ptStream->pData[nIndex] = pfCreate(pMissile, ptStream->pData[nIndex], nX, nY, nCurrent, 1, nDirection);
                 nCurrent -= nStep;
                 if (bCreate) {
                     int nRepeat = nExtra / 4;
@@ -156,19 +156,19 @@ void __stdcall MISSTREAM_Update(D2UnitStrc* pUnit, D2UnitStrc* pMissile, int nAm
                     --nCycle;
                     if (nCycle <= 0) nCycle = 4;
                     for (int i = 0; i < nRepeat; ++i) {
-                        pStream->pData[nIndex] = pfCreate(pUnit, pStream->pData[nIndex], nX, nY, nCurrent, 2, nDirection);
+                        ptStream->pData[nIndex] = pfCreate(pUnit, ptStream->pData[nIndex], nX, nY, nCurrent, 2, nDirection);
                         nCurrent -= nStep;
                     }
                 }
             } else {
                 ++nCounter;
-                pStream->pData[nIndex] = pfCreate(pUnit, pStream->pData[nIndex], nX, nY, nCurrent, 0, nDirection);
+                ptStream->pData[nIndex] = pfCreate(pUnit, ptStream->pData[nIndex], nX, nY, nCurrent, 0, nDirection);
             }
             ++nIndex;
         }
-        while (nIndex < pStream->nCapacity) {
-            pfFree(pStream->pData[nIndex]);
-            pStream->pData[nIndex] = 0;
+        while (nIndex < ptStream->nCapacity) {
+            pfFree(ptStream->pData[nIndex]);
+            ptStream->pData[nIndex] = 0;
             ++nIndex;
         }
     }

@@ -99,14 +99,14 @@ static void __stdcall sub_0055E000_RemoveItemAndNotify(D2GameStrc* pGame, D2Unit
 }
 
 // 0x0055F140
-int __fastcall D2GAME_DoKeyCheck_6FC4A4B0(D2GameStrc* pGame, D2UnitStrc* pUnit)
+int __fastcall D2GAME_DoKeyCheck_6FC4A4B0(D2GameStrc* ptGame, D2UnitStrc* hUnit)
 {
-    D2_ASSERT(pGame, 0x15F3);
-    D2_ASSERT(pUnit, 0x15F4);
+    D2_ASSERT(ptGame, 0x15F3);
+    D2_ASSERT(hUnit, 0x15F4);
 
-    sub_0055BF50_ClearTargetingFlags(pUnit, ".\\ITEMS\\ItemMode.cpp", 0x15F7);
+    sub_0055BF50_ClearTargetingFlags(hUnit, ".\\ITEMS\\ItemMode.cpp", 0x15F7);
 
-    D2InventoryStrc* pInventory = pUnit->pInventory;
+    D2InventoryStrc* pInventory = hUnit->pInventory;
     for (D2UnitStrc* i = INVENTORY_GetFirstItem(pInventory); i; i = INVENTORY_GetNextItem(i))
     {
         D2UnitStrc* pItem = INVENTORY_UnitIsItem(i);
@@ -115,11 +115,11 @@ int __fastcall D2GAME_DoKeyCheck_6FC4A4B0(D2GameStrc* pGame, D2UnitStrc* pUnit)
             if (STATLIST_UnitGetStatValue(pItem, 0x46, 0) - 1 > 0)
             {
                 STATLIST_AddUnitStat(pItem, 0x46, -1, 0);
-                D2GAME_PACKETS_SendPacket0x3E_6FC3EC20(UnitGetClient(pUnit, ".\\ITEMS\\ItemMode.cpp", 0x1605), pItem, 1, 0x46, STATLIST_UnitGetStatValue(pItem, 0x46, 0), 0);
+                D2GAME_PACKETS_SendPacket0x3E_6FC3EC20(UnitGetClient(hUnit, ".\\ITEMS\\ItemMode.cpp", 0x1605), pItem, 1, 0x46, STATLIST_UnitGetStatValue(pItem, 0x46, 0), 0);
             }
             else
             {
-                sub_0055E000_RemoveItemAndNotify(pGame, pUnit, pItem);
+                sub_0055E000_RemoveItemAndNotify(ptGame, hUnit, pItem);
             }
 
             return 1;
@@ -249,38 +249,38 @@ static __forceinline int PlaceIntoInventory(Game* game, Unit* player, int itemId
 // 0x005608C0
 void __fastcall sub_005608C0_DowngradeBelt(Game* game, Unit* player, Unit* belt)
 {
-    void* inventory = player->inventory;
-    D2_ASSERT(inventory, 0xC0C);
+    void* hInventory = player->inventory;
+    D2_ASSERT(hInventory, 0xC0C);
     BeltRecord record;
     if (belt) sub_00660CB0_Record(UNITS_GetBeltType(belt), 0, &record);
     else sub_00660CB0_Record(2, 0, &record);
     for (int index = 0; index < 16; ++index) {
-        Unit* item = sub_0063C7F0_Belt(inventory, index);
-        if (index < record.nBoxes || !item) continue;
+        Unit* hItem = sub_0063C7F0_Belt(hInventory, index);
+        if (index < record.nBoxes || !hItem) continue;
         U32 flags = 0;
         sub_006287B0_Flags(&flags, 32, 1);
-        sub_0053EED0_RemoveBelt(sub_005531C0_Client(player, ".\\ITEMS\\ItemMode.cpp", 0xC1F), player, item, flags);
-        Unit* removed = sub_0063AD90_Remove(inventory, item);
+        sub_0053EED0_RemoveBelt(sub_005531C0_Client(player, ".\\ITEMS\\ItemMode.cpp", 0xC1F), player, hItem, flags);
+        Unit* removed = sub_0063AD90_Remove(hInventory, hItem);
         D2_ASSERT(removed, 0xC22);
-        D2_ASSERT(item == removed, 0xC23);
+        D2_ASSERT(hItem == removed, 0xC23);
         int x;
-        switch (item->type) {
-        case 2: case 4: case 5: x = item->path->x; break;
-        default: x = item->path ? sub_006488C0_X(item->path) : 0; break;
+        switch (hItem->type) {
+        case 2: case 4: case 5: x = hItem->path->x; break;
+        default: x = hItem->path ? sub_006488C0_X(hItem->path) : 0; break;
         }
-        sub_0063C550_Return(inventory, x);
+        sub_0063C550_Return(hInventory, x);
         sub_00624690_Mode(removed, 4);
-        sub_0055C6E0_OnItemToCursor(player, item);
-        sub_00628280_SetPage(item, 0);
-        if (PlaceIntoInventory(game, player, item->id, 0xC29)) continue;
+        sub_0055C6E0_OnItemToCursor(player, hItem);
+        sub_00628280_SetPage(hItem, 0);
+        if (PlaceIntoInventory(game, player, hItem->id, 0xC29)) continue;
         {
             Point playerPosition;
             Point dropPosition;
             sub_00620870_Position(player, &playerPosition);
             void* room = sub_00555DA0_FreeSpot(sub_00620BB0_Room(player), &playerPosition, &dropPosition, 1, 1);
             if (room) {
-                sub_0055C730_UpdateProperties(game, item, player, 0, 1);
-                sub_00558AA0_Drop(game, player, item, room, dropPosition.x, dropPosition.y);
+                sub_0055C730_UpdateProperties(game, hItem, player, 0, 1);
+                sub_00558AA0_Drop(game, player, hItem, room, dropPosition.x, dropPosition.y);
             }
         }
     }

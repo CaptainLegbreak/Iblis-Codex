@@ -269,21 +269,21 @@ static __declspec(noinline) int __stdcall sub_0065D070_AddValueStat(int nType, D
         return 0;
     }
     sub_0065CE40_ShiftStatValue(nStatId, &nValue);
-    D2StatListStrc* pStatList = ITEMMODS_GetOrCreateStatList(pUnit, pItem, nState, fStatList);
-    D2_ASSERT(pStatList, 709);
+    D2StatListStrc* hStatsList = ITEMMODS_GetOrCreateStatList(pUnit, pItem, nState, fStatList);
+    D2_ASSERT(hStatsList, 709);
     if (nApplyType)
     {
-        nValue = -STATLIST_GetStatValue(pStatList, nStatId, 0);
+        nValue = -STATLIST_GetStatValue(hStatsList, nStatId, 0);
     }
-    STATLIST_AddStat(pStatList, nStatId, nValue, 0);
+    STATLIST_AddStat(hStatsList, nStatId, nValue, 0);
     return 1;
 }
 
 // 0x0065D110
-int __fastcall sub_0065D110_AddLayerStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+int __fastcall sub_0065D110_AddLayerStat(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* ptProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
 {
-    D2_ASSERT(pProperty, 738);
-    int nValue = pProperty->nLayer;
+    D2_ASSERT(ptProperty, 738);
+    int nValue = ptProperty->nLayer;
     if (!nValue)
     {
         return 0;
@@ -293,13 +293,13 @@ int __fastcall sub_0065D110_AddLayerStat(int nType, D2UnitStrc* pUnit, D2UnitStr
         sub_0065CCC0_SetItemBaseStats(pItem, nStatId);
     }
     sub_0065CE40_ShiftStatValue(nStatId, &nValue);
-    D2StatListStrc* pStatList = ITEMMODS_GetOrCreateStatList(pUnit, pItem, nState, fStatList);
-    D2_ASSERT(pStatList, 752);
+    D2StatListStrc* hStatsList = ITEMMODS_GetOrCreateStatList(pUnit, pItem, nState, fStatList);
+    D2_ASSERT(hStatsList, 752);
     if (nApplyType)
     {
-        nValue = -STATLIST_GetStatValue(pStatList, nStatId, 0);
+        nValue = -STATLIST_GetStatValue(hStatsList, nStatId, 0);
     }
-    STATLIST_AddStat(pStatList, nStatId, nValue, 0);
+    STATLIST_AddStat(hStatsList, nStatId, nValue, 0);
     return 1;
 }
 
@@ -316,12 +316,12 @@ static int __stdcall sub_0065D2E0_AddValueStat1(int nType, D2UnitStrc* pUnit, D2
 }
 
 // 0x0065D310
-int __fastcall sub_0065D310_AddAllResist(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+int __fastcall sub_0065D310_AddAllResist(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* ptProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
 {
     if (ITEMS_GetItemFormat(pItem) >= 1)
     {
-        D2_ASSERT(pProperty, 841);
-        const int nValue = ITEMMODS_RollPropertyValueA(pItem, pProperty->nMin, pProperty->nMax);
+        D2_ASSERT(ptProperty, 841);
+        const int nValue = ITEMMODS_RollPropertyValueA(pItem, ptProperty->nMin, ptProperty->nMax);
         sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, nValue, 39, nApplyType, nState, fStatList);
         sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, nValue, 41, nApplyType, nState, fStatList);
         sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, nValue, 43, nApplyType, nState, fStatList);
@@ -329,21 +329,21 @@ int __fastcall sub_0065D310_AddAllResist(int nType, D2UnitStrc* pUnit, D2UnitStr
     }
     else
     {
-        sub_0065CF40_AddRolledStat(nType, pUnit, pItem, pProperty, 39, nApplyType, 0, nState, fStatList);
-        sub_0065CF40_AddRolledStat(nType, pUnit, pItem, pProperty, 41, nApplyType, 0, nState, fStatList);
-        sub_0065CF40_AddRolledStat(nType, pUnit, pItem, pProperty, 43, nApplyType, 0, nState, fStatList);
-        sub_0065CF40_AddRolledStat(nType, pUnit, pItem, pProperty, 45, nApplyType, 0, nState, fStatList);
+        sub_0065CF40_AddRolledStat(nType, pUnit, pItem, ptProperty, 39, nApplyType, 0, nState, fStatList);
+        sub_0065CF40_AddRolledStat(nType, pUnit, pItem, ptProperty, 41, nApplyType, 0, nState, fStatList);
+        sub_0065CF40_AddRolledStat(nType, pUnit, pItem, ptProperty, 43, nApplyType, 0, nState, fStatList);
+        sub_0065CF40_AddRolledStat(nType, pUnit, pItem, ptProperty, 45, nApplyType, 0, nState, fStatList);
     }
     return nStatId;
 }
 
 // 0x0065D4B0
-int __fastcall sub_0065D4B0_AddAllMaxResist(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+int __fastcall sub_0065D4B0_AddAllMaxResist(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* ptProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
 {
     if (ITEMS_GetItemFormat(pItem) >= 1)
     {
-        D2_ASSERT(pProperty, 868);
-        const int nValue = ITEMMODS_RollPropertyValueA(pItem, pProperty->nMin, pProperty->nMax);
+        D2_ASSERT(ptProperty, 868);
+        const int nValue = ITEMMODS_RollPropertyValueA(pItem, ptProperty->nMin, ptProperty->nMax);
         sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, nValue, 40, nApplyType, nState, fStatList);
         sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, nValue, 42, nApplyType, nState, fStatList);
         sub_0065D1F0_AddValueStat0(nType, pUnit, pItem, nValue, 44, nApplyType, nState, fStatList);
@@ -351,10 +351,10 @@ int __fastcall sub_0065D4B0_AddAllMaxResist(int nType, D2UnitStrc* pUnit, D2Unit
     }
     else
     {
-        sub_0065CF40_AddRolledStat(nType, pUnit, pItem, pProperty, 40, nApplyType, 0, nState, fStatList);
-        sub_0065CF40_AddRolledStat(nType, pUnit, pItem, pProperty, 42, nApplyType, 0, nState, fStatList);
-        sub_0065CF40_AddRolledStat(nType, pUnit, pItem, pProperty, 44, nApplyType, 0, nState, fStatList);
-        sub_0065CF40_AddRolledStat(nType, pUnit, pItem, pProperty, 46, nApplyType, 0, nState, fStatList);
+        sub_0065CF40_AddRolledStat(nType, pUnit, pItem, ptProperty, 40, nApplyType, 0, nState, fStatList);
+        sub_0065CF40_AddRolledStat(nType, pUnit, pItem, ptProperty, 42, nApplyType, 0, nState, fStatList);
+        sub_0065CF40_AddRolledStat(nType, pUnit, pItem, ptProperty, 44, nApplyType, 0, nState, fStatList);
+        sub_0065CF40_AddRolledStat(nType, pUnit, pItem, ptProperty, 46, nApplyType, 0, nState, fStatList);
     }
     return nStatId;
 }

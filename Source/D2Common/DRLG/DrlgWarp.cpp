@@ -262,17 +262,17 @@ D2ActiveRoomStrc* __fastcall DRLGWARP_GetDestinationRoom(D2DrlgRoomStrc* pDrlgRo
 // 0x0066AEC0
 int* __fastcall DRLGWARP_GetWarpIdArrayFromLevelId(D2DrlgStrc* pDrlg, int nLevelId)
 {
-    for (D2DrlgWarpStrc* pDrlgWarp = pDrlg->pWarp; pDrlgWarp; pDrlgWarp = pDrlgWarp->pNext)
+    for (D2DrlgWarpStrc* ptVisInfo = pDrlg->pWarp; ptVisInfo; ptVisInfo = ptVisInfo->pNext)
     {
-        if (!pDrlgWarp->nLevel)
+        if (!ptVisInfo->nLevel)
         {
             sub_00408A60(&gszEmptyAssertText, sub_00408090(), 418);
             exit(-1);
         }
 
-        if (nLevelId == pDrlgWarp->nLevel)
+        if (nLevelId == ptVisInfo->nLevel)
         {
-            return pDrlgWarp->nWarp;
+            return ptVisInfo->nWarp;
         }
     }
 

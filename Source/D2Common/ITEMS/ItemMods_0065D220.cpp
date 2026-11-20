@@ -183,35 +183,35 @@ inline const D2PropertiesTxt* DATATBLS_GetPropertiesTxtRecord(int nProperty)
 }
 
 // 0x0065D220
-int __fastcall sub_6FD93170(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+int __fastcall sub_6FD93170(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* ptProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
 {
-    D2_ASSERT(pProperty, 786);
+    D2_ASSERT(ptProperty, 786);
 
     ITEMS_SetItemFlag(pItem, 0x800, 1);
-    ITEMS_SetSockets(pItem, pProperty->nLayer);
+    ITEMS_SetSockets(pItem, ptProperty->nLayer);
 
     return 1;
 }
 
 // 0x0065E4D0
-void __stdcall ITEMMODS_ApplyEthereality(D2UnitStrc* pItem)
+void __stdcall ITEMMODS_ApplyEthereality(D2UnitStrc* hItem)
 {
-    D2_ASSERT(pItem, 1798);
+    D2_ASSERT(hItem, 1798);
 
-    ITEMS_SetItemFlag(pItem, 0x400000, 1);
+    ITEMS_SetItemFlag(hItem, 0x400000, 1);
 
-    if (ITEMSIsA(pItem, 45))
+    if (ITEMSIsA(hItem, 45))
     {
-        STATLIST_SetUnitStat(pItem, 21, 3 * STATLIST_GetUnitBaseStat(pItem, 21, 0) / 2, 0);
-        STATLIST_SetUnitStat(pItem, 22, 3 * STATLIST_GetUnitBaseStat(pItem, 22, 0) / 2, 0);
-        STATLIST_SetUnitStat(pItem, 23, 3 * STATLIST_GetUnitBaseStat(pItem, 23, 0) / 2, 0);
-        STATLIST_SetUnitStat(pItem, 24, 3 * STATLIST_GetUnitBaseStat(pItem, 24, 0) / 2, 0);
-        STATLIST_SetUnitStat(pItem, 159, 3 * STATLIST_GetUnitBaseStat(pItem, 159, 0) / 2, 0);
-        STATLIST_SetUnitStat(pItem, 160, 3 * STATLIST_GetUnitBaseStat(pItem, 160, 0) / 2, 0);
+        STATLIST_SetUnitStat(hItem, 21, 3 * STATLIST_GetUnitBaseStat(hItem, 21, 0) / 2, 0);
+        STATLIST_SetUnitStat(hItem, 22, 3 * STATLIST_GetUnitBaseStat(hItem, 22, 0) / 2, 0);
+        STATLIST_SetUnitStat(hItem, 23, 3 * STATLIST_GetUnitBaseStat(hItem, 23, 0) / 2, 0);
+        STATLIST_SetUnitStat(hItem, 24, 3 * STATLIST_GetUnitBaseStat(hItem, 24, 0) / 2, 0);
+        STATLIST_SetUnitStat(hItem, 159, 3 * STATLIST_GetUnitBaseStat(hItem, 159, 0) / 2, 0);
+        STATLIST_SetUnitStat(hItem, 160, 3 * STATLIST_GetUnitBaseStat(hItem, 160, 0) / 2, 0);
     }
     else
     {
-        STATLIST_SetUnitStat(pItem, 31, 3 * STATLIST_GetUnitBaseStat(pItem, 31, 0) / 2, 0);
+        STATLIST_SetUnitStat(hItem, 31, 3 * STATLIST_GetUnitBaseStat(hItem, 31, 0) / 2, 0);
     }
 }
 
@@ -630,23 +630,23 @@ static const D2PropertyStrc* sub_0065C730_GetModsProperty(int nType, const void*
 }
 
 // 0x0065FE10
-static void __stdcall sub_0065FE10(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const void* pMods, int nIndex, int nPropSet, int nApplyType, const D2PropertyStrc* pProperty, int nState, int fStatlist, D2UnitStrc* a11)
+static void __stdcall sub_0065FE10(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const void* pMods, int nIndex, int nPropSet, int nApplyType, const D2PropertyStrc* ptProperty, int nState, int fStatlist, D2UnitStrc* a11)
 {
     if (ITEMS_GetItemFormat(pItem) >= 1)
     {
-        D2COMMON_11292_ItemAssignProperty(nType, pUnit, pItem, pMods, nIndex, nPropSet, pProperty, nState, fStatlist, a11);
+        D2COMMON_11292_ItemAssignProperty(nType, pUnit, pItem, pMods, nIndex, nPropSet, ptProperty, nState, fStatlist, a11);
     }
     else
     {
-        D2_ASSERT(pProperty, 0x66D);
+        D2_ASSERT(ptProperty, 0x66D);
 
-        const int nProperty = pProperty->nProperty;
+        const int nProperty = ptProperty->nProperty;
         if (nProperty != -1 && nProperty >= 0 && nProperty < sgptDataTables->nPropertiesTxtRecordCount)
         {
             ITEMMODS_PROPERTYFN pfAssign = gtPropertyAssignTable_00745B58[nProperty].pfAssign;
             if (pfAssign)
             {
-                pfAssign(nType, pUnit, pItem, pProperty, gtPropertyAssignTable_00745B58[nProperty].nStatId, nApplyType, nState, fStatlist, a11);
+                pfAssign(nType, pUnit, pItem, ptProperty, gtPropertyAssignTable_00745B58[nProperty].nStatId, nApplyType, nState, fStatlist, a11);
             }
         }
     }

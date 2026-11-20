@@ -231,11 +231,11 @@ void __fastcall CCMD_ProcessClientSystemMessage(void* pData, int nSize)
         break;
     case 0x6C:
     {
-        D2GSPacketClt6B* p6B = (D2GSPacketClt6B*)pData;
-        D2_ASSERT(p6B->nTotalSize < 0x2000, 0x1A8);
+        D2GSPacketClt6B* ptPkt = (D2GSPacketClt6B*)pData;
+        D2_ASSERT(ptPkt->nTotalSize < 0x2000, 0x1A8);
         if (sub_0052DB00_Return1(nClientId))
         {
-            sub_6FC399A0(nClientId, p6B);
+            sub_6FC399A0(nClientId, ptPkt);
         }
         break;
     }
@@ -272,10 +272,10 @@ void __fastcall ProcessClientMessage(void* pData, int nPacketSize)
         return;
     }
 
-    D2ClientStrc* pClient = CLIENTS_GetClientFromClientId(pGame, nClientId);
-    D2_ASSERT(pClient, 0x1F9);
-    pClient->dwLastPacketTick = GetTickCount();
-    D2UnitStrc* pPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
+    D2ClientStrc* ptClient = CLIENTS_GetClientFromClientId(pGame, nClientId);
+    D2_ASSERT(ptClient, 0x1F9);
+    ptClient->dwLastPacketTick = GetTickCount();
+    D2UnitStrc* pPlayer = CLIENTS_GetPlayerFromClient(ptClient, 0);
     if (pPlayer && (pPlayer ? pPlayer->dwUnitType : 6) == 0)
     {
         sub_0054D750_HandleClientPacket(pGame, pPlayer, pPacket, nPacketSize);

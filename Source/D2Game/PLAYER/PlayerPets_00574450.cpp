@@ -114,25 +114,25 @@ static __forceinline int sub_E09_CheckMonStatsFlag(int nMonsterId, int nFlag)
 // 0x00574450
 static void sub_00574450_KillPet(D2GameStrc* pGame, int nPetGUID)
 {
-    D2UnitStrc* pPet = SUNIT_GetServerUnit(pGame, 1, nPetGUID);
-    if (!pPet)
+    D2UnitStrc* hPet = SUNIT_GetServerUnit(pGame, 1, nPetGUID);
+    if (!hPet)
     {
         return;
     }
 
-    D2_ASSERT(!sub_E09_UnitHasBeenDeleted(pPet), 0x5A);
+    D2_ASSERT(!sub_E09_UnitHasBeenDeleted(hPet), 0x5A);
 
-    pPet->dwFlags |= 0x4000000;
+    hPet->dwFlags |= 0x4000000;
 
-    if (sub_E09_CheckMonStatsFlag(pPet->dwClassId, 15))
+    if (sub_E09_CheckMonStatsFlag(hPet->dwClassId, 15))
     {
-        SUNITDMG_KillMonster(pGame, pPet, 0, 0);
+        SUNITDMG_KillMonster(pGame, hPet, 0, 0);
     }
     else
     {
         D2ModeChangeStrc modeChange;
-        MONSTERMODE_GetModeChangeInfo(pPet, 0, &modeChange);
-        modeChange.pTargetUnit = SUNIT_GetOwner(pGame, pPet);
+        MONSTERMODE_GetModeChangeInfo(hPet, 0, &modeChange);
+        modeChange.pTargetUnit = SUNIT_GetOwner(pGame, hPet);
         D2GAME_ModeChange_6FC65220(pGame, &modeChange, 1);
     }
 

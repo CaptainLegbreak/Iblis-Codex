@@ -57,22 +57,22 @@ int __stdcall sub_0052F080_GetPlayerUnitInfo(unsigned short nGameId, D2UnitInfoS
     if (gnGamesGUIDs_6FD447F8[nGameId - GAME_ID_BIAS] && gnGamesGUIDs_6FD447F8[nGameId - GAME_ID_BIAS] != -1)
         nGUID = gnGamesGUIDs_6FD447F8[nGameId - GAME_ID_BIAS];
     LeaveCriticalSection(&gCriticalSection_6FD45800);
-    D2GameStrc* pGame = GAME_LockGame(nGUID);
+    D2GameStrc* ptGame = GAME_LockGame(nGUID);
     int nCount = 0;
-    if (pGame)
+    if (ptGame)
     {
         for (int i = 0; i < BUCKETS; ++i)
         {
             if (nCount >= nMaxCount) break;
-            for (D2UnitStrc* pUnit = pGame->pUnitList[0][i]; pUnit; pUnit = SUNIT_GetNextUnitFromList(pUnit))
+            for (D2UnitStrc* pUnit = ptGame->pUnitList[0][i]; pUnit; pUnit = SUNIT_GetNextUnitFromList(pUnit))
             {
                 if (nCount >= nMaxCount) break;
                 SUNIT_FillUnitInfo(pUnit, &pUnitInfo[nCount]);
                 ++nCount;
             }
         }
-        D2_ASSERT(pGame->lpCriticalSection, UNLOCK_LINE);
-        LeaveCriticalSection(pGame->lpCriticalSection);
+        D2_ASSERT(ptGame->lpCriticalSection, UNLOCK_LINE);
+        LeaveCriticalSection(ptGame->lpCriticalSection);
     }
     return nCount;
 }

@@ -109,15 +109,15 @@ void __fastcall sub_00470C30_UpdateStateOverlays(D2UnitStrc* pUnit)
 {
     D2StateNodeStrc* pNode;
     int nNextOverlay;
-    D2StateOwnerStrc* pOwner = sub_00463E10_GetGfxData(pUnit);
-    D2_ASSERT(pOwner, 0x2FE);
+    D2StateOwnerStrc* ptGfxInfo = sub_00463E10_GetGfxData(pUnit);
+    D2_ASSERT(ptGfxInfo, 0x2FE);
 
     const unsigned int dwTick = GetTickCount();
     int nOverlay;
     int nState;
     for (;;)
     {
-        for (pNode = pOwner->pFirst; pNode; pNode = pNode->pNext)
+        for (pNode = ptGfxInfo->pFirst; pNode; pNode = pNode->pNext)
         {
             if (pNode->dwStamp != dwTick)
             {
@@ -175,7 +175,7 @@ void __fastcall sub_00470C30_UpdateStateOverlays(D2UnitStrc* pUnit)
             {
                 if (pNode->nCurrent >= 50)
                 {
-                    sub_0046DF40_RecalcStateOverlays(pOwner, pUnit, pNode);
+                    sub_0046DF40_RecalcStateOverlays(ptGfxInfo, pUnit, pNode);
                 }
                 else
                 {

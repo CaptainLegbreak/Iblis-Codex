@@ -483,25 +483,25 @@ inline int UNIT_HasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
 // 0x005A6830
 void __fastcall sub_005A6830(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int a3)
 {
-    D2UnitStrc* pUnit = pModeChange->pUnit;
-    D2_ASSERT(pUnit, 493);
+    D2UnitStrc* hUnit = pModeChange->pUnit;
+    D2_ASSERT(hUnit, 493);
 
-    if (UNIT_HasFlag(pUnit, UNITFLAG_NOTC))
+    if (UNIT_HasFlag(hUnit, UNITFLAG_NOTC))
     {
         return;
     }
 
-    D2_ASSERT(pUnit->dwClassId != MONSTER_BONEWALL, 504);
+    D2_ASSERT(hUnit->dwClassId != MONSTER_BONEWALL, 504);
 
-    if (!COLLISION_CheckMask(UNITS_GetRoom(pUnit), CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 0x801))
+    if (!COLLISION_CheckMask(UNITS_GetRoom(hUnit), CLIENTS_GetUnitX(hUnit), CLIENTS_GetUnitY(hUnit), 0x801))
     {
-        D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-        D2_ASSERT(pRoom, 511);
+        D2ActiveRoomStrc* hRoom = UNITS_GetRoom(hUnit);
+        D2_ASSERT(hRoom, 511);
 
-        D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(pUnit->dwClassId);
-        D2_ASSERT(pMonStatsTxtRecord, 516);
+        D2MonStatsTxt* ptMonsterStats = DATATBLS_GetMonStatsTxtRecord(hUnit->dwClassId);
+        D2_ASSERT(ptMonsterStats, 516);
 
-        sub_6FC631B0(pGame, pUnit, 0, pModeChange);
+        sub_6FC631B0(pGame, hUnit, 0, pModeChange);
     }
 }
 

@@ -581,29 +581,29 @@ inline int UNIT_HasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
 }
 
 // 0x005A6600
-void __stdcall sub_6FC631B0(D2GameStrc* pGame, D2UnitStrc* pUnit, int a7, D2ModeChangeStrc* pModeChange)
+void __stdcall sub_6FC631B0(D2GameStrc* pGame, D2UnitStrc* hUnit, int a7, D2ModeChangeStrc* pModeChange)
 {
-    D2_ASSERT(pUnit, 404);
+    D2_ASSERT(hUnit, 404);
 
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pUnit);
-    D2_ASSERT(pRoom, 406);
+    D2ActiveRoomStrc* hRoom = UNITS_GetRoom(hUnit);
+    D2_ASSERT(hRoom, 406);
 
-    const int nLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
+    const int nLevelId = DUNGEON_GetLevelIdFromRoom(hRoom);
     DRLG_GetActNoFromLevelId(nLevelId);
 
-    D2MonStatsTxt* pMonStatsTxtRecord = MONSTERMODE_GetMonStatsTxtRecord(pUnit->dwClassId);
-    D2_ASSERT(pMonStatsTxtRecord, 410);
+    D2MonStatsTxt* ptMonsterStats = MONSTERMODE_GetMonStatsTxtRecord(hUnit->dwClassId);
+    D2_ASSERT(ptMonsterStats, 410);
 
     const int nDifficulty = pGame->nDifficulty;
     int nTCId;
-    const int nItemLevel = ITEMS_GetItemLevelForNewItem(pUnit, nLevelId);
-    const int nSuperUniqueId = MONSTERUNIQUE_GetSuperUniqueBossHcIdx(pGame, pUnit);
+    const int nItemLevel = ITEMS_GetItemLevelForNewItem(hUnit, nLevelId);
+    const int nSuperUniqueId = MONSTERUNIQUE_GetSuperUniqueBossHcIdx(pGame, hUnit);
     if (nSuperUniqueId != -1)
     {
         D2SuperUniquesTxt* pSuperUniquesTxtRecord = DATATBLS_GetSuperUniquesTxtRecord(nSuperUniqueId);
         if (!pSuperUniquesTxtRecord)
         {
-            nTCId = pMonStatsTxtRecord->wTreasureClass[nDifficulty][2];
+            nTCId = ptMonsterStats->wTreasureClass[nDifficulty][2];
         }
         else
         {
@@ -612,21 +612,21 @@ void __stdcall sub_6FC631B0(D2GameStrc* pGame, D2UnitStrc* pUnit, int a7, D2Mode
     }
     else
     {
-        if (MONSTERUNIQUE_CheckMonTypeFlag(pUnit, 4))
+        if (MONSTERUNIQUE_CheckMonTypeFlag(hUnit, 4))
         {
-            nTCId = pMonStatsTxtRecord->wTreasureClass[nDifficulty][1];
+            nTCId = ptMonsterStats->wTreasureClass[nDifficulty][1];
         }
-        else if (MONSTERUNIQUE_CheckMonTypeFlag(pUnit, 8))
+        else if (MONSTERUNIQUE_CheckMonTypeFlag(hUnit, 8))
         {
-            nTCId = pMonStatsTxtRecord->wTreasureClass[nDifficulty][2];
+            nTCId = ptMonsterStats->wTreasureClass[nDifficulty][2];
         }
         else
         {
-            nTCId = pMonStatsTxtRecord->wTreasureClass[nDifficulty][0];
+            nTCId = ptMonsterStats->wTreasureClass[nDifficulty][0];
         }
     }
 
-    if (pMonStatsTxtRecord->nTCQuestId > 0 && pMonStatsTxtRecord->wTreasureClass[nDifficulty][3] > 0 && pModeChange)
+    if (ptMonsterStats->nTCQuestId > 0 && ptMonsterStats->wTreasureClass[nDifficulty][3] > 0 && pModeChange)
     {
         D2UnitStrc* pTarget = pModeChange->pTargetUnit;
         if (pTarget)
@@ -654,17 +654,17 @@ void __stdcall sub_6FC631B0(D2GameStrc* pGame, D2UnitStrc* pUnit, int a7, D2Mode
             if (pTarget && pTarget->dwUnitType == 0)
             {
                 D2BitBufferStrc* pQuestFlags = sub_00543520(pGame, pTarget);
-                if (pQuestFlags && QUESTRECORD_GetQuestState(pQuestFlags, pMonStatsTxtRecord->nTCQuestId, 15) != 1
-                    && QUESTRECORD_GetQuestState(pQuestFlags, pMonStatsTxtRecord->nTCQuestId, 1) != 1
-                    && QUESTRECORD_GetQuestState(pQuestFlags, pMonStatsTxtRecord->nTCQuestId, pMonStatsTxtRecord->nTCQuestCP) != 1)
+                if (pQuestFlags && QUESTRECORD_GetQuestState(pQuestFlags, ptMonsterStats->nTCQuestId, 15) != 1
+                    && QUESTRECORD_GetQuestState(pQuestFlags, ptMonsterStats->nTCQuestId, 1) != 1
+                    && QUESTRECORD_GetQuestState(pQuestFlags, ptMonsterStats->nTCQuestId, ptMonsterStats->nTCQuestCP) != 1)
                 {
-                    nTCId = pMonStatsTxtRecord->wTreasureClass[nDifficulty][3];
+                    nTCId = ptMonsterStats->wTreasureClass[nDifficulty][3];
                 }
             }
         }
     }
 
-    sub_6FC52110(pGame, pUnit, pModeChange->pTargetUnit, nTCId, 0, nItemLevel, a7, 0, 0, 0);
+    sub_6FC52110(pGame, hUnit, pModeChange->pTargetUnit, nTCId, 0, nItemLevel, a7, 0, 0, 0);
 }
 
 // 0x005A6D50

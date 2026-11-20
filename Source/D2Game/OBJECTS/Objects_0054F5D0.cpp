@@ -303,19 +303,19 @@ void __fastcall OBJECTS_InitHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, int nU
 
     D2GAME_SetSparkChest_6FCBD7C0(pUnit, 0);
 
-    int nAnimMode;
+    int nMode;
     if (pUnit)
     {
         pUnit->dwFlags &= ~8u;
         pUnit->unk0xA4 = 0;
-        nAnimMode = pUnit->dwAnimMode;
+        nMode = pUnit->dwAnimMode;
     }
     else
     {
-        nAnimMode = 0;
+        nMode = 0;
     }
 
-    D2_ASSERT(nAnimMode < 8, 0x240);
+    D2_ASSERT(nMode < 8, 0x240);
 
     if (pObjectsTxtRecord->nIsAttackable0)
     {
@@ -334,9 +334,9 @@ void __fastcall OBJECTS_InitHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, int nU
 
     pUnit->pObjectData->InteractType = 0;
 
-    const int nClassId = pUnit->dwClassId;
+    const int wClass = pUnit->dwClassId;
     D2GAME_DeleteTimersOnUnit_6FC34A30(pGame, pUnit);
-    D2_ASSERT((unsigned short)nClassId < 0x23D, 0x260);
+    D2_ASSERT((unsigned short)wClass < 0x23D, 0x260);
     D2_ASSERT(pObjectsTxtRecord->nInitFn < 80, 0x262);
 
     D2ObjectControlStrc* pObjectControl = OBJRGN_GetObjectControlFromGame(pGame, pRoom);
@@ -356,7 +356,7 @@ void __fastcall OBJECTS_InitHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, int nU
         gpObjInitFnTable_00731BC0[pObjectsTxtRecord->nInitFn](&pOp);
     }
 
-    if (pObjectsTxtRecord->nSelectable[nAnimMode])
+    if (pObjectsTxtRecord->nSelectable[nMode])
     {
         pUnit->dwFlags |= 2u;
     }
@@ -403,17 +403,17 @@ static __forceinline unsigned int OBJECTS_RollLimited_Inline(D2SeedStrc* pSeed, 
 }
 
 // 0x00550380
-D2UnitStrc* __stdcall OBJECTS_CreateObject(D2GameStrc* pGame, int nClassId, int nSizeX, int nSizeY, D2ActiveRoomStrc* pRoom)
+D2UnitStrc* __stdcall OBJECTS_CreateObject(D2GameStrc* pGame, int nClassId, int nSizeX, int nSizeY, D2ActiveRoomStrc* hRoom)
 {
     D2DrlgCoordsStrc drlgCoords;
-    DUNGEON_GetRoomCoordinates(pRoom, &drlgCoords);
+    DUNGEON_GetRoomCoordinates(hRoom, &drlgCoords);
 
     if (drlgCoords.nSubtileWidth < ROOM_MIN_SUBTILES || drlgCoords.nSubtileHeight < ROOM_MIN_SUBTILES)
     {
         return 0;
     }
 
-    D2ObjectControlStrc* pObjectControl = OBJRGN_GetObjectControlFromGame(pGame, pRoom);
+    D2ObjectControlStrc* pObjectControl = OBJRGN_GetObjectControlFromGame(pGame, hRoom);
     int nX;
     int nY;
     int i;
@@ -423,7 +423,7 @@ D2UnitStrc* __stdcall OBJECTS_CreateObject(D2GameStrc* pGame, int nClassId, int 
         nY = OBJECTS_RollLimited_Inline(&pObjectControl->pSeed, drlgCoords.nSubtileHeight - nSizeY - 1) + drlgCoords.nSubtileY;
         if (nX && nY && (unsigned short)nX >= drlgCoords.nSubtileX + 1 && (unsigned short)nY >= drlgCoords.nSubtileY + 1
             && (unsigned short)nX < drlgCoords.nSubtileX + drlgCoords.nSubtileWidth - 1 && (unsigned short)nY < drlgCoords.nSubtileY + drlgCoords.nSubtileHeight - 1
-            && !COLLISION_CheckMaskWithSizeXY(pRoom, nX, nY, nSizeX + CREATE_SIZE_GROW, nSizeY + CREATE_SIZE_GROW, COLLIDE_MASK_PLACEMENT))
+            && !COLLISION_CheckMaskWithSizeXY(hRoom, nX, nY, nSizeX + CREATE_SIZE_GROW, nSizeY + CREATE_SIZE_GROW, COLLIDE_MASK_PLACEMENT))
         {
             break;
         }
@@ -434,8 +434,8 @@ D2UnitStrc* __stdcall OBJECTS_CreateObject(D2GameStrc* pGame, int nClassId, int 
         return 0;
     }
 
-    D2_ASSERT(pRoom, LINE_CREATE_ROOM);
-    return SUNIT_AllocUnitData(UNIT_OBJECT, nClassId, nX, nY, pGame, pRoom, 1, 0, 0);
+    D2_ASSERT(hRoom, LINE_CREATE_ROOM);
+    return SUNIT_AllocUnitData(UNIT_OBJECT, nClassId, nX, nY, pGame, hRoom, 1, 0, 0);
 }
 
 inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
@@ -571,20 +571,20 @@ void __fastcall sub_6FC4BE80(D2UnitStrc* pUnit, D2GameStrc* pGame, int nUnitGUID
 // 0x00557FF0
 int __fastcall sub_00557FF0_InventoryContainsItem(D2UnitStrc* pUnit, D2UnitStrc* pItem, D2InventoryStrc* pOtherInventory)
 {
-    D2InventoryStrc* pInventory = pUnit->pInventory;
-    D2_ASSERT(pInventory, 2740);
+    D2InventoryStrc* hInventory = pUnit->pInventory;
+    D2_ASSERT(hInventory, 2740);
 
     if (pOtherInventory)
     {
-        pInventory = pOtherInventory;
+        hInventory = pOtherInventory;
     }
 
-    if (pItem == INVENTORY_GetCursorItem(pInventory))
+    if (pItem == INVENTORY_GetCursorItem(hInventory))
     {
         return 1;
     }
 
-    for (D2UnitStrc* pNode = INVENTORY_GetFirstItem(pInventory); pNode; pNode = INVENTORY_GetNextItem(pNode))
+    for (D2UnitStrc* pNode = INVENTORY_GetFirstItem(hInventory); pNode; pNode = INVENTORY_GetNextItem(pNode))
     {
         if (pItem == INVENTORY_UnitIsItem(pNode))
         {
@@ -685,31 +685,31 @@ int __fastcall sub_0055CA00_MatchFieldPair(D2UnkFieldPairStrc* pRecord1, D2UnkFi
 }
 
 // 0x0055ED30
-void __fastcall sub_6FC49090(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem)
+void __fastcall sub_6FC49090(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* hItem)
 {
-    if (pItem)
+    if (hItem)
     {
-        pItem->dwFlags &= ~UNITFLAG_TARGETABLE;
+        hItem->dwFlags &= ~UNITFLAG_TARGETABLE;
     }
 
     D2InventoryStrc* pInventory = pUnit->pInventory;
-    D2UnitStrc* pRemove = INVENTORY_RemoveItemFromInventory(pInventory, pItem);
-    D2_ASSERT(pRemove, 4841);
-    D2_ASSERT(pItem == pRemove, 4842);
+    D2UnitStrc* hRemove = INVENTORY_RemoveItemFromInventory(pInventory, hItem);
+    D2_ASSERT(hRemove, 4841);
+    D2_ASSERT(hItem == hRemove, 4842);
 
     int nX;
-    switch (pItem->dwUnitType)
+    switch (hItem->dwUnitType)
     {
     case UNIT_OBJECT:
     case UNIT_ITEM:
     case UNIT_TILE:
-        nX = pItem->pStaticPath->tGameCoords.nX;
+        nX = hItem->pStaticPath->tGameCoords.nX;
         break;
 
     default:
-        if (pItem->pDynamicPath)
+        if (hItem->pDynamicPath)
         {
-            nX = PATH_GetXPosition(pItem->pDynamicPath);
+            nX = PATH_GetXPosition(hItem->pDynamicPath);
         }
         else
         {
@@ -719,7 +719,7 @@ void __fastcall sub_6FC49090(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* p
     }
 
     sub_0063C550_Return(pInventory, nX);
-    ITEMS_RemoveFromAllPlayers(pGame, pItem);
+    ITEMS_RemoveFromAllPlayers(pGame, hItem);
 }
 
 // 0x00564F00

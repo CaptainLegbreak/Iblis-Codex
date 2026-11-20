@@ -434,34 +434,34 @@ static void __stdcall sub_0062EDD0_AddItemSkillCost(D2UnitStrc* pItem, int* pSel
 }
 
 // 0x0062EFB0
-int __fastcall sub_0062EFB0_CalculateTransactionCost(D2UnitStrc* pPlayer, D2UnitStrc* pItem, int nDifficulty, D2BitBufferStrc* pQuestFlags, int nVendorId, int nTransactionType)
+int __fastcall sub_0062EFB0_CalculateTransactionCost(D2UnitStrc* pPlayer, D2UnitStrc* hItem, int nDifficulty, D2BitBufferStrc* pQuestFlags, int nVendorId, int nTransactionType)
 {
     int nSellCost;
     int nBuyCost;
     int nRepCost;
     int nDivisor;
 
-    if (!pPlayer || (pItem ? pItem->dwUnitType : 6) != UNIT_ITEM)
+    if (!pPlayer || (hItem ? hItem->dwUnitType : 6) != UNIT_ITEM)
     {
         return 0x7FFFFFFF;
     }
 
     const int nLevel = STATLIST_UnitGetStatValue(pPlayer, 12, 0);
 
-    if (nTransactionType == 3 && !ITEMS_IsRepairable(pItem))
+    if (nTransactionType == 3 && !ITEMS_IsRepairable(hItem))
     {
         return 0;
     }
 
-    if (ITEMS_CheckItemFlagInl(pItem, 0x20000))
+    if (ITEMS_CheckItemFlagInl(hItem, 0x20000))
     {
         return 1;
     }
 
-    const int nClassId = pItem->dwClassId;
+    const int nClassId = hItem->dwClassId;
     D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(nClassId);
 
-    int nQuantity = STATLIST_UnitGetStatValue(pItem, 70, 0);
+    int nQuantity = STATLIST_UnitGetStatValue(hItem, 70, 0);
     if (nQuantity <= 0)
     {
         nQuantity = 1;
@@ -475,9 +475,9 @@ int __fastcall sub_0062EFB0_CalculateTransactionCost(D2UnitStrc* pPlayer, D2Unit
 
     if (nTransactionType == 2)
     {
-        if (ITEMS_GetItemFormat(pItem) >= 1)
+        if (ITEMS_GetItemFormat(hItem) >= 1)
         {
-            int nCost = sub_00629370_GetGambleCost(pItem, nLevel);
+            int nCost = sub_00629370_GetGambleCost(hItem, nLevel);
             if (nReducePricePct)
             {
                 nCost -= DATATBLS_ApplyRatio(nCost, nReducePricePct, 100);
@@ -485,45 +485,45 @@ int __fastcall sub_0062EFB0_CalculateTransactionCost(D2UnitStrc* pPlayer, D2Unit
             return nCost;
         }
 
-        const unsigned int dwNormalCode = ITEMS_GetNormalCode(pItem);
+        const unsigned int dwNormalCode = ITEMS_GetNormalCode(hItem);
         return DATATBLS_GetItemsTxtRecord(DATATBLS_GetItemIdFromItemCode(dwNormalCode))->dwGambleCost;
     }
 
     nRepCost = 0;
     nDivisor = 1;
 
-    if (ITEMS_GetItemFlags(pItem) & 0x10000)
+    if (ITEMS_GetItemFlags(hItem) & 0x10000)
     {
-        nSellCost = ITEMS_GetEarLevel(pItem) * pItemsTxtRecord->dwCost;
+        nSellCost = ITEMS_GetEarLevel(hItem) * pItemsTxtRecord->dwCost;
         nBuyCost = nSellCost;
     }
-    else if (ITEMSIsA(pItem, 40))
+    else if (ITEMSIsA(hItem, 40))
     {
-        D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(ITEMS_GetFileIndex(pItem));
+        D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(ITEMS_GetFileIndex(hItem));
         nSellCost = pItemsTxtRecord->dwCost + (pMonStatsTxtRecord ? 8 * pMonStatsTxtRecord->nLevel[nDifficulty] : 0);
         nBuyCost = nSellCost;
     }
-    else if (ITEMSIsA(pItem, 18))
+    else if (ITEMSIsA(hItem, 18))
     {
-        D2BooksTxt* pBooksTxtRecord = DATATBLS_GetBooksTxtRecord(ITEMS_GetSuffixId(pItem, 0));
+        D2BooksTxt* pBooksTxtRecord = DATATBLS_GetBooksTxtRecord(ITEMS_GetSuffixId(hItem, 0));
         D2_ASSERT(pBooksTxtRecord, 3002);
 
         nSellCost = pBooksTxtRecord->dwCostPerCharge * nQuantity + pItemsTxtRecord->dwCost;
         nBuyCost = nSellCost;
     }
-    else if (ITEMS_GetQuiverType(pItem))
+    else if (ITEMS_GetQuiverType(hItem))
     {
         nSellCost = pItemsTxtRecord->dwCost * nQuantity / 1024;
         nBuyCost = nSellCost;
-        nRepCost = ITEMS_GetTotalMaxStack(pItem) * pItemsTxtRecord->dwCost / 1024;
+        nRepCost = ITEMS_GetTotalMaxStack(hItem) * pItemsTxtRecord->dwCost / 1024;
     }
-    else if (ITEMS_CheckIfStackable(pItem))
+    else if (ITEMS_CheckIfStackable(hItem))
     {
         nSellCost = pItemsTxtRecord->dwCost;
         nBuyCost = nSellCost;
         nRepCost = nSellCost;
 
-        nDivisor = ITEMS_GetTotalMaxStack(pItem) > 1 ? ITEMS_GetTotalMaxStack(pItem) : 1;
+        nDivisor = ITEMS_GetTotalMaxStack(hItem) > 1 ? ITEMS_GetTotalMaxStack(hItem) : 1;
     }
     else
     {
@@ -532,9 +532,9 @@ int __fastcall sub_0062EFB0_CalculateTransactionCost(D2UnitStrc* pPlayer, D2Unit
         nBuyCost = nSellCost;
     }
 
-    if (ITEMSIsA(pItem, 50))
+    if (ITEMSIsA(hItem, 50))
     {
-        const int nArmorClass = STATLIST_GetUnitBaseStat(pItem, 31, 0);
+        const int nArmorClass = STATLIST_GetUnitBaseStat(hItem, 31, 0);
         if (pItemsTxtRecord->dwMaxAc - pItemsTxtRecord->dwMinAc + 1 != 0 && pItemsTxtRecord->dwMaxAc)
         {
             nSellCost = pItemsTxtRecord->dwCost * nArmorClass / pItemsTxtRecord->dwMaxAc;
@@ -543,13 +543,13 @@ int __fastcall sub_0062EFB0_CalculateTransactionCost(D2UnitStrc* pPlayer, D2Unit
         }
     }
 
-    const int bIdentified = ITEMS_CheckItemFlag(pItem, 0x10, 3044, ".\\ITEMS\\Items.cpp");
-    const int bMagic = ITEMS_IsMagSetRarUniCrfOrTmp(pItem);
-    const int nQuality = ITEMS_GetItemQuality(pItem);
+    const int bIdentified = ITEMS_CheckItemFlag(hItem, 0x10, 3044, ".\\ITEMS\\Items.cpp");
+    const int bMagic = ITEMS_IsMagSetRarUniCrfOrTmp(hItem);
+    const int nQuality = ITEMS_GetItemQuality(hItem);
 
     if (!bMagic)
     {
-        sub_0062EDD0_AddItemSkillCost(pItem, &nSellCost, &nBuyCost, &nRepCost, nDivisor);
+        sub_0062EDD0_AddItemSkillCost(hItem, &nSellCost, &nBuyCost, &nRepCost, nDivisor);
     }
 
     if (bIdentified)
@@ -557,7 +557,7 @@ int __fastcall sub_0062EFB0_CalculateTransactionCost(D2UnitStrc* pPlayer, D2Unit
         int nSell = 0;
         int nBuy = 0;
         int nRep = 0;
-        D2MagicAffixTxt* pMagicAffixTxtRecord = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetAutoAffix(pItem));
+        D2MagicAffixTxt* pMagicAffixTxtRecord = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetAutoAffix(hItem));
         if (pMagicAffixTxtRecord)
         {
             if (nSellCost > 65535 && pMagicAffixTxtRecord->dwMultiply)
@@ -580,7 +580,7 @@ int __fastcall sub_0062EFB0_CalculateTransactionCost(D2UnitStrc* pPlayer, D2Unit
         case 8:
             for (int i = 0; i < 3; ++i)
             {
-                pMagicAffixTxtRecord = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetPrefixId(pItem, i));
+                pMagicAffixTxtRecord = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetPrefixId(hItem, i));
                 if (pMagicAffixTxtRecord)
                 {
                     if (nSellCost > 65535 && pMagicAffixTxtRecord->dwMultiply)
@@ -597,7 +597,7 @@ int __fastcall sub_0062EFB0_CalculateTransactionCost(D2UnitStrc* pPlayer, D2Unit
                     }
                 }
 
-                pMagicAffixTxtRecord = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetSuffixId(pItem, i));
+                pMagicAffixTxtRecord = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetSuffixId(hItem, i));
                 if (pMagicAffixTxtRecord)
                 {
                     if (nSellCost > 65535 && pMagicAffixTxtRecord->dwMultiply)
@@ -615,13 +615,13 @@ int __fastcall sub_0062EFB0_CalculateTransactionCost(D2UnitStrc* pPlayer, D2Unit
                 }
             }
 
-            ITEMS_CalculateAdditionalCostsForBonusStats(pItem, &nSellCost, &nBuyCost, &nRepCost, nDivisor);
+            ITEMS_CalculateAdditionalCostsForBonusStats(hItem, &nSellCost, &nBuyCost, &nRepCost, nDivisor);
             break;
 
         case 7:
-            if (ITEMS_GetFileIndex(pItem) >= 0)
+            if (ITEMS_GetFileIndex(hItem) >= 0)
             {
-                D2UniqueItemsTxt* pUniqueItemsTxtRecord = sub_00483470_GetUniqueItemsTxtRecord(ITEMS_GetFileIndex(pItem));
+                D2UniqueItemsTxt* pUniqueItemsTxtRecord = sub_00483470_GetUniqueItemsTxtRecord(ITEMS_GetFileIndex(hItem));
                 if (pUniqueItemsTxtRecord)
                 {
                     if (nSellCost > 65535 && pUniqueItemsTxtRecord->dwCostMult)
@@ -641,7 +641,7 @@ int __fastcall sub_0062EFB0_CalculateTransactionCost(D2UnitStrc* pPlayer, D2Unit
             }
 
         case 4:
-            pMagicAffixTxtRecord = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetPrefixId(pItem, 0));
+            pMagicAffixTxtRecord = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetPrefixId(hItem, 0));
             if (pMagicAffixTxtRecord)
             {
                 if (nSellCost > 65535 && pMagicAffixTxtRecord->dwMultiply)
@@ -658,7 +658,7 @@ int __fastcall sub_0062EFB0_CalculateTransactionCost(D2UnitStrc* pPlayer, D2Unit
                 }
             }
 
-            pMagicAffixTxtRecord = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetSuffixId(pItem, 0));
+            pMagicAffixTxtRecord = DATATBLS_GetMagicAffixTxtRecord(ITEMS_GetSuffixId(hItem, 0));
             if (pMagicAffixTxtRecord)
             {
                 if (nSellCost > 65535 && pMagicAffixTxtRecord->dwMultiply)
@@ -674,12 +674,12 @@ int __fastcall sub_0062EFB0_CalculateTransactionCost(D2UnitStrc* pPlayer, D2Unit
                     nRep += pMagicAffixTxtRecord->dwAdd + pMagicAffixTxtRecord->dwMultiply * nRepCost / 1024;
                 }
             }
-            ITEMS_CalculateAdditionalCostsForBonusStats(pItem, &nSellCost, &nBuyCost, &nRepCost, nDivisor);
+            ITEMS_CalculateAdditionalCostsForBonusStats(hItem, &nSellCost, &nBuyCost, &nRepCost, nDivisor);
             break;
 
         case 5:
         {
-            D2SetItemsTxt* pSetItemsTxtRecord = sub_00483440_GetSetItemsTxtRecord(ITEMS_GetFileIndex(pItem));
+            D2SetItemsTxt* pSetItemsTxtRecord = sub_00483440_GetSetItemsTxtRecord(ITEMS_GetFileIndex(hItem));
             if (pSetItemsTxtRecord)
             {
                 if (nSellCost > 65535 && pSetItemsTxtRecord->dwCostMult)
@@ -706,7 +706,7 @@ int __fastcall sub_0062EFB0_CalculateTransactionCost(D2UnitStrc* pPlayer, D2Unit
 
         case 3:
         case 9:
-            ITEMS_CalculateAdditionalCostsForBonusStats(pItem, &nSellCost, &nBuyCost, &nRepCost, nDivisor);
+            ITEMS_CalculateAdditionalCostsForBonusStats(hItem, &nSellCost, &nBuyCost, &nRepCost, nDivisor);
             break;
 
         }
@@ -717,18 +717,18 @@ int __fastcall sub_0062EFB0_CalculateTransactionCost(D2UnitStrc* pPlayer, D2Unit
 
         if (bMagic)
         {
-            sub_0062EDD0_AddItemSkillCost(pItem, &nSellCost, &nBuyCost, &nRepCost, nDivisor);
+            sub_0062EDD0_AddItemSkillCost(hItem, &nSellCost, &nBuyCost, &nRepCost, nDivisor);
         }
     }
 
-    sub_006292F0_AddSocketablesCost(pItem, &nSellCost, &nBuyCost, &nRepCost);
+    sub_006292F0_AddSocketablesCost(hItem, &nSellCost, &nBuyCost, &nRepCost);
 
-    if (ITEMS_CheckItemFlag(pItem, 0x400000, 3235, ".\\ITEMS\\Items.cpp"))
+    if (ITEMS_CheckItemFlag(hItem, 0x400000, 3235, ".\\ITEMS\\Items.cpp"))
     {
         nBuyCost /= 4;
     }
 
-    if (ITEMS_IsClassValid(pItem))
+    if (ITEMS_IsClassValid(hItem))
     {
         nBuyCost /= 4;
     }
@@ -736,10 +736,10 @@ int __fastcall sub_0062EFB0_CalculateTransactionCost(D2UnitStrc* pPlayer, D2Unit
     switch (nTransactionType)
     {
     case 1:
-        if (ITEMS_IsEthereal(pItem) && ITEMS_HasDurability(pItem))
+        if (ITEMS_IsEthereal(hItem) && ITEMS_HasDurability(hItem))
         {
-            const int nMaxDurability = STATLIST_GetMaxDurabilityFromUnit(pItem);
-            const int nDurability = STATLIST_UnitGetStatValue(pItem, 72, 0);
+            const int nMaxDurability = STATLIST_GetMaxDurabilityFromUnit(hItem);
+            const int nDurability = STATLIST_UnitGetStatValue(hItem, 72, 0);
             if (nMaxDurability && nDurability <= 0)
             {
                 nBuyCost = 0;
@@ -748,13 +748,13 @@ int __fastcall sub_0062EFB0_CalculateTransactionCost(D2UnitStrc* pPlayer, D2Unit
         break;
 
     case 3:
-        if (!ITEMS_GetQuiverType(pItem) && !ITEMS_CheckIfThrowable(pItem) && ITEMS_HasDurability(pItem))
+        if (!ITEMS_GetQuiverType(hItem) && !ITEMS_CheckIfThrowable(hItem) && ITEMS_HasDurability(hItem))
         {
-            const int nDurability = STATLIST_UnitGetStatValue(pItem, 72, 0);
-            const int nMaxDurability = STATLIST_GetMaxDurabilityFromUnit(pItem);
+            const int nDurability = STATLIST_UnitGetStatValue(hItem, 72, 0);
+            const int nMaxDurability = STATLIST_GetMaxDurabilityFromUnit(hItem);
             if (nMaxDurability && nDurability < nMaxDurability)
             {
-                if (STATLIST_UnitGetStatValue(pItem, 252, 0))
+                if (STATLIST_UnitGetStatValue(hItem, 252, 0))
                 {
                     if (nDurability >= nMaxDurability - 1)
                     {
@@ -778,78 +778,78 @@ int __fastcall sub_0062EFB0_CalculateTransactionCost(D2UnitStrc* pPlayer, D2Unit
         break;
     }
 
-    D2NpcTxt* pNpcTxtRecord = DATATBLS_GetNpcTxtRecord(nVendorId);
-    D2_ASSERT(pNpcTxtRecord, 3292);
+    D2NpcTxt* ptNpcStats = DATATBLS_GetNpcTxtRecord(nVendorId);
+    D2_ASSERT(ptNpcStats, 3292);
 
-    if (nSellCost > 65535 && pNpcTxtRecord->dwSellMult)
+    if (nSellCost > 65535 && ptNpcStats->dwSellMult)
     {
-        nSellCost = nSellCost / 1024 * pNpcTxtRecord->dwSellMult;
+        nSellCost = nSellCost / 1024 * ptNpcStats->dwSellMult;
     }
     else
     {
-        nSellCost = pNpcTxtRecord->dwSellMult * nSellCost / 1024;
+        nSellCost = ptNpcStats->dwSellMult * nSellCost / 1024;
     }
 
-    if (nBuyCost > 65535 && pNpcTxtRecord->dwSellMult)
+    if (nBuyCost > 65535 && ptNpcStats->dwSellMult)
     {
-        nBuyCost = nBuyCost / 1024 * pNpcTxtRecord->dwBuyMult;
+        nBuyCost = nBuyCost / 1024 * ptNpcStats->dwBuyMult;
     }
     else
     {
-        nBuyCost = pNpcTxtRecord->dwBuyMult * nBuyCost / 1024;
+        nBuyCost = ptNpcStats->dwBuyMult * nBuyCost / 1024;
     }
 
-    if (nRepCost > 65535 && pNpcTxtRecord->dwRepMult)
+    if (nRepCost > 65535 && ptNpcStats->dwRepMult)
     {
-        nRepCost = nRepCost / 1024 * pNpcTxtRecord->dwRepMult;
+        nRepCost = nRepCost / 1024 * ptNpcStats->dwRepMult;
     }
     else
     {
-        nRepCost = pNpcTxtRecord->dwRepMult * nRepCost / 1024;
+        nRepCost = ptNpcStats->dwRepMult * nRepCost / 1024;
     }
 
     for (int i = 0; i < 3; ++i)
     {
-        if (pNpcTxtRecord->dwQuestFlag[i] && (QUESTRECORD_GetQuestState(pQuestFlags, pNpcTxtRecord->dwQuestFlag[i], 0) == 1
-                                              || QUESTRECORD_GetQuestState(pQuestFlags, pNpcTxtRecord->dwQuestFlag[i], 1) == 1))
+        if (ptNpcStats->dwQuestFlag[i] && (QUESTRECORD_GetQuestState(pQuestFlags, ptNpcStats->dwQuestFlag[i], 0) == 1
+                                              || QUESTRECORD_GetQuestState(pQuestFlags, ptNpcStats->dwQuestFlag[i], 1) == 1))
         {
-            if (nSellCost > 65535 && pNpcTxtRecord->dwQuestSellMult[i])
+            if (nSellCost > 65535 && ptNpcStats->dwQuestSellMult[i])
             {
-                nSellCost = nSellCost / 1024 * pNpcTxtRecord->dwQuestSellMult[i];
+                nSellCost = nSellCost / 1024 * ptNpcStats->dwQuestSellMult[i];
             }
             else
             {
-                nSellCost = pNpcTxtRecord->dwQuestSellMult[i] * nSellCost / 1024;
+                nSellCost = ptNpcStats->dwQuestSellMult[i] * nSellCost / 1024;
             }
 
-            if (nBuyCost > 65535 && pNpcTxtRecord->dwQuestBuyMult[i])
+            if (nBuyCost > 65535 && ptNpcStats->dwQuestBuyMult[i])
             {
-                nBuyCost = nBuyCost / 1024 * pNpcTxtRecord->dwQuestBuyMult[i];
+                nBuyCost = nBuyCost / 1024 * ptNpcStats->dwQuestBuyMult[i];
             }
             else
             {
-                nBuyCost = pNpcTxtRecord->dwQuestBuyMult[i] * nBuyCost / 1024;
+                nBuyCost = ptNpcStats->dwQuestBuyMult[i] * nBuyCost / 1024;
             }
 
-            if (nRepCost > 65535 && pNpcTxtRecord->dwQuestRepMult[i])
+            if (nRepCost > 65535 && ptNpcStats->dwQuestRepMult[i])
             {
-                nRepCost = nRepCost / 1024 * pNpcTxtRecord->dwQuestRepMult[i];
+                nRepCost = nRepCost / 1024 * ptNpcStats->dwQuestRepMult[i];
             }
             else
             {
-                nRepCost = pNpcTxtRecord->dwQuestRepMult[i] * nRepCost / 1024;
+                nRepCost = ptNpcStats->dwQuestRepMult[i] * nRepCost / 1024;
             }
         }
     }
 
-    if (!ITEMSIsA(pItem, 18) && !ITEMS_GetQuiverType(pItem))
+    if (!ITEMSIsA(hItem, 18) && !ITEMS_GetQuiverType(hItem))
     {
         nSellCost = nSellCost * nQuantity;
 
-        if (ITEMS_CheckIfStackable(pItem) && ITEMS_IsRepairable(pItem))
+        if (ITEMS_CheckIfStackable(hItem) && ITEMS_IsRepairable(hItem))
         {
-            const int nMaxStack = ITEMS_GetTotalMaxStack(pItem);
-            if (nQuantity <= nMaxStack && nQuantity < nMaxStack && !STATLIST_UnitGetStatValue(pItem, 253, 0))
+            const int nMaxStack = ITEMS_GetTotalMaxStack(hItem);
+            if (nQuantity <= nMaxStack && nQuantity < nMaxStack && !STATLIST_UnitGetStatValue(hItem, 253, 0))
             {
                 nRepCost *= nMaxStack - nQuantity;
             }
@@ -866,12 +866,12 @@ int __fastcall sub_0062EFB0_CalculateTransactionCost(D2UnitStrc* pPlayer, D2Unit
         }
     }
 
-    if (nTransactionType == 3 && !ITEMS_IsEthereal(pItem))
+    if (nTransactionType == 3 && !ITEMS_IsEthereal(hItem))
     {
-        nRepCost += sub_00628D30_GetChargedSkillsCost(pItem, 10000);
+        nRepCost += sub_00628D30_GetChargedSkillsCost(hItem, 10000);
     }
 
-    const int* pMaxBuy = pNpcTxtRecord->nMaxBuy;
+    const int* pMaxBuy = ptNpcStats->nMaxBuy;
     if (nBuyCost > pMaxBuy[nDifficulty])
     {
         nBuyCost = pMaxBuy[nDifficulty];

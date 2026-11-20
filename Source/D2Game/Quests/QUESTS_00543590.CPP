@@ -259,10 +259,10 @@ static int __stdcall sub_005435C0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2QuestD
 }
 
 // 0x005436B0
-int __fastcall QUESTS_CreateChainRecord(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuestId)
+int __fastcall QUESTS_CreateChainRecord(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuest)
 {
-    D2_ASSERT(nQuestId >= 0, 224);
-    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, nQuestId);
+    D2_ASSERT(nQuest >= 0, 224);
+    D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, nQuest);
     if (pQuestData)
     {
         int nUnitType = UNIT_INVALID;
@@ -270,21 +270,21 @@ int __fastcall QUESTS_CreateChainRecord(D2GameStrc* pGame, D2UnitStrc* pUnit, in
         {
             nUnitType = pUnit->dwUnitType;
         }
-        if (nQuestId == QUEST_A1Q4_CAIN)
+        if (nQuest == QUEST_A1Q4_CAIN)
         {
             if (nUnitType == UNIT_OBJECT && pUnit && pUnit->dwClassId == OBJECT_INVISIBLE_OBJECT)
             {
                 ACT1Q4_SetInvisibleObjectGUID(pGame, pQuestData, pUnit);
             }
         }
-        else if (nQuestId == QUEST_A2Q1_RADAMENT)
+        else if (nQuest == QUEST_A2Q1_RADAMENT)
         {
             if (nUnitType == UNIT_MONSTER && pUnit && pUnit->dwClassId == MONSTER_RADAMENT)
             {
                 sub_005991B0(pGame, pQuestData, pUnit);
             }
         }
-        else if (nQuestId == QUEST_A2Q5_SUMMONER)
+        else if (nQuest == QUEST_A2Q5_SUMMONER)
         {
             if (nUnitType == UNIT_MONSTER && pUnit && pUnit->dwClassId == MONSTER_SUMMONER)
             {
@@ -341,9 +341,9 @@ static __forceinline int sub_00544590_CheckMonStatsFlag(int nMonsterId, int nFla
 }
 
 // 0x00544590
-int __fastcall sub_00544590_QuestsActiveFilter(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNPC)
+int __fastcall sub_00544590_QuestsActiveFilter(D2GameStrc* pGame, D2UnitStrc* hPlayer, D2UnitStrc* pNPC)
 {
-    const bool bIsPlayer = pPlayer && pPlayer->dwUnitType == 0;
+    const bool bIsPlayer = hPlayer && hPlayer->dwUnitType == 0;
     D2_ASSERT(bIsPlayer, 2028);
 
     const int nNPCType = pNPC ? pNPC->dwUnitType : 6;
@@ -358,7 +358,7 @@ int __fastcall sub_00544590_QuestsActiveFilter(D2GameStrc* pGame, D2UnitStrc* pP
     T005438E0* pQuestControl = pGame->pQuestControl;
     D2_ASSERT(pQuestControl->unk0x08, 2036);
 
-    const unsigned char nAct = CLIENTS_GetActNo(UnitGetClient(pPlayer, gszQuestsSourceFile, 2038));
+    const unsigned char nAct = CLIENTS_GetActNo(UnitGetClient(hPlayer, gszQuestsSourceFile, 2038));
 
     for (D2QuestDataStrc* pQuestData = pQuestControl->pLastQuest; pQuestData; pQuestData = pQuestData->pPrev)
     {
@@ -367,17 +367,17 @@ int __fastcall sub_00544590_QuestsActiveFilter(D2GameStrc* pGame, D2UnitStrc* pP
             if (pQuestData->pfActiveFilter)
             {
                 D2_ASSERT(!IsBadCodePtr((FARPROC)pQuestData->pfActiveFilter), 2050);
-                D2_ASSERT(UNITS_GetPlayerData(pPlayer), 2051);
-                D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
+                D2_ASSERT(UNITS_GetPlayerData(hPlayer), 2051);
+                D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(hPlayer)->pQuestData[pGame->nDifficulty];
                 D2_ASSERT(pQuestFlags, 2053);
 
-                if (pQuestData->pfActiveFilter(pQuestData, nNpcId, pPlayer, pQuestFlags, pNPC))
+                if (pQuestData->pfActiveFilter(pQuestData, nNpcId, hPlayer, pQuestFlags, pNPC))
                 {
                     D2GSPacketSrv8A tPacket8A;
                     tPacket8A.nHeader = 0x8A;
                     tPacket8A.nUnitType = 1;
                     tPacket8A.dwUnitGUID = pNPC->dwUnitId;
-                    D2GAME_SendPacket0x8A_6FC3FA60(UnitGetClient(pPlayer, gszQuestsSourceFile, 2061), &tPacket8A);
+                    D2GAME_SendPacket0x8A_6FC3FA60(UnitGetClient(hPlayer, gszQuestsSourceFile, 2061), &tPacket8A);
                     return 1;
                 }
             }

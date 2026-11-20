@@ -697,8 +697,8 @@ int __fastcall GAME_GetGameGUIDFromGameId(unsigned short nGameId)
 // 0x0052C410
 void __fastcall GAME_SynchronizePlayerWithClients(D2GameStrc* pGame, D2ClientStrc* pClient)
 {
-    D2UnitStrc* pPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
-    if (!pPlayer)
+    D2UnitStrc* hNewUnit = CLIENTS_GetPlayerFromClient(pClient, 0);
+    if (!hNewUnit)
     {
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 0x5A1);
         exit(-1);
@@ -711,7 +711,7 @@ void __fastcall GAME_SynchronizePlayerWithClients(D2GameStrc* pGame, D2ClientStr
             if (pOtherPlayer)
             {
                 SCMD_SendPlayerJoinAndPets(pClient, pOtherPlayer, pOtherClient);
-                SCMD_SendPlayerJoinAndPets(pOtherClient, pPlayer, pClient);
+                SCMD_SendPlayerJoinAndPets(pOtherClient, hNewUnit, pClient);
                 if (pOtherPlayer->pInventory)
                 {
                     for (D2CorpseStrc* pCorpse = INVENTORY_GetFirstCorpse(pOtherPlayer->pInventory); pCorpse; pCorpse = INVENTORY_GetNextCorpse(pCorpse))
@@ -724,7 +724,7 @@ void __fastcall GAME_SynchronizePlayerWithClients(D2GameStrc* pGame, D2ClientStr
             }
         }
     }
-    SCMD_SendPlayerJoinAndPets(pClient, pPlayer, pClient);
+    SCMD_SendPlayerJoinAndPets(pClient, hNewUnit, pClient);
     ARENA_SendScoresToClient(pGame, pClient);
 }
 
@@ -1605,15 +1605,15 @@ void __stdcall sub_0052E8E0(void* pArg)
         const int nGUID = gnGamesGUIDs_6FD447F8[i];
         if (nGUID && nGUID != -1)
         {
-            if (D2GameStrc* pGame = GAME_LockGame(nGUID))
+            if (D2GameStrc* ptGame = GAME_LockGame(nGUID))
             {
-                const unsigned int nClients = pGame->nClients;
-                const unsigned short nGameId = pGame->nGameId;
+                const unsigned int nClients = ptGame->nClients;
+                const unsigned short nGameId = ptGame->nGameId;
                 char szGameName[16];
-                SStrCopy(szGameName, pGame->szGameName, 0x7FFFFFFF);
+                SStrCopy(szGameName, ptGame->szGameName, 0x7FFFFFFF);
 
-                D2_ASSERT(pGame->lpCriticalSection, 0x1064);
-                LeaveCriticalSection(pGame->lpCriticalSection);
+                D2_ASSERT(ptGame->lpCriticalSection, 0x1064);
+                LeaveCriticalSection(ptGame->lpCriticalSection);
 
                 sub_0053B1B0_SendGameInfo(pArg, nGameId, nClients, szGameName);
             }
@@ -1756,36 +1756,36 @@ int __stdcall GAME_UpdateGamesProgress(int a1)
         const int nGUID = gnGamesGUIDs_6FD447F8[i];
         if (nGUID && nGUID != -1)
         {
-            if (D2GameStrc* pGame = GAME_LockGame(nGUID))
+            if (D2GameStrc* ptGame = GAME_LockGame(nGUID))
             {
                 bQueryPerformance = 1;
 
                 if (!dword_6FD2CA10)
                 {
-                    if (pGame->nLastUpdateSystemTimeMs)
+                    if (ptGame->nLastUpdateSystemTimeMs)
                     {
-                        pGame->nCreationTimeMs_Or_CPUTargetRatioFP10 = ((nSysTimeMs - pGame->nLastUpdateSystemTimeMs) << 10) / gnTargetMsPerFrame_6FD457F8;
-                        if (pGame->nCreationTimeMs_Or_CPUTargetRatioFP10 < 10)
+                        ptGame->nCreationTimeMs_Or_CPUTargetRatioFP10 = ((nSysTimeMs - ptGame->nLastUpdateSystemTimeMs) << 10) / gnTargetMsPerFrame_6FD457F8;
+                        if (ptGame->nCreationTimeMs_Or_CPUTargetRatioFP10 < 10)
                         {
-                            pGame->nCreationTimeMs_Or_CPUTargetRatioFP10 = 10;
+                            ptGame->nCreationTimeMs_Or_CPUTargetRatioFP10 = 10;
                         }
-                        else if (pGame->nCreationTimeMs_Or_CPUTargetRatioFP10 > 0x800)
+                        else if (ptGame->nCreationTimeMs_Or_CPUTargetRatioFP10 > 0x800)
                         {
-                            pGame->nCreationTimeMs_Or_CPUTargetRatioFP10 = 0x800;
+                            ptGame->nCreationTimeMs_Or_CPUTargetRatioFP10 = 0x800;
                         }
                     }
 
-                    pGame->nLastUpdateSystemTimeMs = nSysTimeMs;
+                    ptGame->nLastUpdateSystemTimeMs = nSysTimeMs;
                 }
                 else
                 {
-                    pGame->nCreationTimeMs_Or_CPUTargetRatioFP10 = 0x400;
+                    ptGame->nCreationTimeMs_Or_CPUTargetRatioFP10 = 0x400;
                 }
 
-                GAME_UpdateProgress(pGame);
+                GAME_UpdateProgress(ptGame);
 
-                D2_ASSERT(pGame->lpCriticalSection, 0x1064);
-                LeaveCriticalSection(pGame->lpCriticalSection);
+                D2_ASSERT(ptGame->lpCriticalSection, 0x1064);
+                LeaveCriticalSection(ptGame->lpCriticalSection);
             }
         }
     }

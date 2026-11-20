@@ -146,31 +146,31 @@ extern const char gszQServerFile[]; // 0x006FC8A0
 static unsigned int __stdcall sQSNTAccept(int nSlot, int* pAddrLen, T006BE350* pServer, D2SockAddrInStrc* pAddr);
 
 // 0x006C2280
-static int sub_006C2280_PostRead(T006BE350* pServer, D2QClientStrc* pClient)
+static int sub_006C2280_PostRead(T006BE350* pServer, D2QClientStrc* ptClient)
 {
-    D2CriticalSectionStrc* pLock = &pClient->tLock;
+    D2CriticalSectionStrc* pLock = &ptClient->tLock;
     EnterCriticalSection(pLock);
-    unsigned char* pBuffer = &pClient->pBuffer[pClient->nReadBytes];
-    unsigned long nRoom = sizeof(pClient->pBuffer) - pClient->nReadBytes;
+    unsigned char* pBuffer = &ptClient->pBuffer[ptClient->nReadBytes];
+    unsigned long nRoom = sizeof(ptClient->pBuffer) - ptClient->nReadBytes;
     if (!nRoom)
     {
-        sub_006C0420_Disconnect(pServer, pClient->nId, gszQServerNTFile_006FC8A0, 0x3ED);
+        sub_006C0420_Disconnect(pServer, ptClient->nId, gszQServerNTFile_006FC8A0, 0x3ED);
         LeaveCriticalSection(pLock);
         return 0;
     }
-    D2_ASSERT(!(pClient->tRead.nFlags & 4), 0x3F5);
-    pClient->tRead.nFlags |= 4;
-    D2_ASSERT(!pClient->tRead.hEvent, 0x3F8);
-    if (pClient->hSocket == (void*)-1)
+    D2_ASSERT(!(ptClient->tRead.nFlags & 4), 0x3F5);
+    ptClient->tRead.nFlags |= 4;
+    D2_ASSERT(!ptClient->tRead.hEvent, 0x3F8);
+    if (ptClient->hSocket == (void*)-1)
     {
-        unsigned int nId = pClient->nId;
+        unsigned int nId = ptClient->nId;
         LeaveCriticalSection(pLock);
         sub_006C0420_Disconnect(pServer, nId, gszQServerNTFile_006FC8A0, 0x408);
-        sub_006C0360_Release(pServer, pClient);
+        sub_006C0360_Release(pServer, ptClient);
         return 0;
     }
-    sub_006BE640_AddReference(pServer, pClient);
-    int bOk = ReadFile(pClient->hSocket, pBuffer, nRoom, &pClient->nBytesRead, &pClient->tRead);
+    sub_006BE640_AddReference(pServer, ptClient);
+    int bOk = ReadFile(ptClient->hSocket, pBuffer, nRoom, &ptClient->nBytesRead, &ptClient->tRead);
     if (!bOk)
     {
         if (GetLastError() == 0x3E5)
@@ -179,8 +179,8 @@ static int sub_006C2280_PostRead(T006BE350* pServer, D2QClientStrc* pClient)
         }
         else
         {
-            sub_006C0360_Release(pServer, pClient);
-            sub_006C0420_Disconnect(pServer, pClient->nId, gszQServerNTFile_006FC8A0, 0x430);
+            sub_006C0360_Release(pServer, ptClient);
+            sub_006C0420_Disconnect(pServer, ptClient->nId, gszQServerNTFile_006FC8A0, 0x430);
             return 0;
         }
     }
@@ -269,23 +269,23 @@ static unsigned int __stdcall sQSNTAccept(int nSlot, int* pAddrLen, T006BE350* p
         return (unsigned int)-1;
     }
 
-    D2QClientStrc* pClient = QSrvAddClient(pServer, (unsigned int)pAddrLen, pAddr->f_4);
-    pClient->nSlot = nSlot;
+    D2QClientStrc* ptClient = QSrvAddClient(pServer, (unsigned int)pAddrLen, pAddr->f_4);
+    ptClient->nSlot = nSlot;
     QueryPerformanceCounter(&pServer->aStats[nSlot].aTimes[5]);
 
     unsigned long nNonBlocking = 1;
     ioctlsocket((unsigned int)pAddrLen, 0x8004667E, &nNonBlocking);
     nReason = 0x10;
-    sub_006B018C_GetSockAddr((unsigned int)pAddrLen, &pClient->tPeerAddr, &nReason);
-    SMemZero(pClient->tPeerAddr.aZero, 8);
+    sub_006B018C_GetSockAddr((unsigned int)pAddrLen, &ptClient->tPeerAddr, &nReason);
+    SMemZero(ptClient->tPeerAddr.aZero, 8);
     nReason = 0x10;
-    sub_006B0144_GetSockAddr((unsigned int)pAddrLen, &pClient->tLocalAddr, &nReason);
-    SMemZero(pClient->tLocalAddr.aZero, 8);
-    D2_ASSERT((unsigned int)pClient->hSocket == (unsigned int)pAddrLen, 0x4E4);
-    CreateIoCompletionPort((unsigned int)pAddrLen, pServer->hPorts[nSlot], pClient->nId, 0);
+    sub_006B0144_GetSockAddr((unsigned int)pAddrLen, &ptClient->tLocalAddr, &nReason);
+    SMemZero(ptClient->tLocalAddr.aZero, 8);
+    D2_ASSERT((unsigned int)ptClient->hSocket == (unsigned int)pAddrLen, 0x4E4);
+    CreateIoCompletionPort((unsigned int)pAddrLen, pServer->hPorts[nSlot], ptClient->nId, 0);
     QueryPerformanceCounter(&pServer->aStats[nSlot].aTimes[6]);
 
-    if (!sub_006C2280_PostRead(pServer, pClient))
+    if (!sub_006C2280_PostRead(pServer, ptClient))
     {
         EnterCriticalSection(pLock);
         ++pServer->aStats[nSlot].nPostErrors;
@@ -295,7 +295,7 @@ static unsigned int __stdcall sQSNTAccept(int nSlot, int* pAddrLen, T006BE350* p
     QueryPerformanceCounter(&pServer->aStats[nSlot].aTimes[7]);
 
     if (pServer->pfnOnAccept)
-        pServer->pfnOnAccept(pServer, pClient->nId, gszQServerNTFile_006FC8A0, 0x4F9);
+        pServer->pfnOnAccept(pServer, ptClient->nId, gszQServerNTFile_006FC8A0, 0x4F9);
     QueryPerformanceCounter(&pServer->aStats[nSlot].aTimes[8]);
 
     EnterCriticalSection(pLock);

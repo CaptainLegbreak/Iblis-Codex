@@ -375,15 +375,15 @@ int __fastcall DRLGROOM_GetLevelIdFromPopulatedRoom(D2DrlgRoomStrc* pDrlgRoom)
 }
 
 // 0x0066BB60
-int __fastcall DRLGROOM_HasWaypoint(D2DrlgRoomStrc* pDrlgRoom)
+int __fastcall DRLGROOM_HasWaypoint(D2DrlgRoomStrc* ptRoom)
 {
-    if (!pDrlgRoom)
+    if (!ptRoom)
     {
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 630);
         exit(-1);
     }
 
-    return DRLGROOM_CheckWaypointFlags(pDrlgRoom) != 0;
+    return DRLGROOM_CheckWaypointFlags(ptRoom) != 0;
 }
 
 // 0x0066BBA0
@@ -412,17 +412,17 @@ void __fastcall DRLGROOM_SetRoom(D2DrlgRoomStrc* pDrlgRoom, D2ActiveRoomStrc* pR
 // 0x0066C040
 int* __fastcall DRLGROOM_GetVisArrayFromLevelId(D2DrlgStrc* pDrlg, int nLevelId)
 {
-    for (D2DrlgWarpStrc* pDrlgWarp = pDrlg->pWarp; pDrlgWarp; pDrlgWarp = pDrlgWarp->pNext)
+    for (D2DrlgWarpStrc* ptVisInfo = pDrlg->pWarp; ptVisInfo; ptVisInfo = ptVisInfo->pNext)
     {
-        if (!pDrlgWarp->nLevel)
+        if (!ptVisInfo->nLevel)
         {
             sub_00408A60(&gszEmptyAssertText, sub_00408090(), 1040);
             exit(-1);
         }
 
-        if (nLevelId == pDrlgWarp->nLevel)
+        if (nLevelId == ptVisInfo->nLevel)
         {
-            return pDrlgWarp->nVis;
+            return ptVisInfo->nVis;
         }
     }
 

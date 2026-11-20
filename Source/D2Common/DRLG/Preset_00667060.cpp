@@ -913,9 +913,9 @@ static int DRLGPRESET_IsTileInsideCoord(D2DrlgCoordStrc* pDrlgCoord, D2DrlgRoomS
 }
 
 // 0x00667060
-static void __stdcall DRLGPRESET_TogglePopsVisibility(D2DrlgRoomStrc* pDrlgRoom, int nPopSubIndex, D2DrlgCoordStrc* pDrlgCoord, int nTick, int bClose)
+static void __stdcall DRLGPRESET_TogglePopsVisibility(D2DrlgRoomStrc* ptRoom, int nPopSubIndex, D2DrlgCoordStrc* pDrlgCoord, int nTick, int bClose)
 {
-    if (!pDrlgRoom->pTileGrid)
+    if (!ptRoom->pTileGrid)
     {
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 2619);
         exit(-1);
@@ -927,12 +927,12 @@ static void __stdcall DRLGPRESET_TogglePopsVisibility(D2DrlgRoomStrc* pDrlgRoom,
     tDrlgCoord.nWidth = pDrlgCoord->nWidth + 2;
     tDrlgCoord.nHeight = pDrlgCoord->nHeight + 2;
 
-    const int nWalls = pDrlgRoom->pTileGrid->nTileWalls;
-    D2DrlgTileDataStrc* pWallTiles = pDrlgRoom->pTileGrid->pWallTiles;
+    const int nWalls = ptRoom->pTileGrid->nTileWalls;
+    D2DrlgTileDataStrc* pWallTiles = ptRoom->pTileGrid->pWallTiles;
     for (int i = 0; i < nWalls; ++i)
     {
         D2DrlgTileDataStrc* pTileData = &pWallTiles[i];
-        if (pTileData->dwFlags & 0x200 && DRLGPRESET_IsTileInsideCoord(&tDrlgCoord, pDrlgRoom, pTileData))
+        if (pTileData->dwFlags & 0x200 && DRLGPRESET_IsTileInsideCoord(&tDrlgCoord, ptRoom, pTileData))
         {
             if (bClose)
             {
@@ -945,7 +945,7 @@ static void __stdcall DRLGPRESET_TogglePopsVisibility(D2DrlgRoomStrc* pDrlgRoom,
                 pTileData->dwFlags &= ~8;
             }
         }
-        else if (!(pTileData->dwFlags & 0x100) && sub_00604B90(pTileData->pTile) == nPopSubIndex && DRLGPRESET_IsTileInsideCoord(&tDrlgCoord, pDrlgRoom, pTileData))
+        else if (!(pTileData->dwFlags & 0x100) && sub_00604B90(pTileData->pTile) == nPopSubIndex && DRLGPRESET_IsTileInsideCoord(&tDrlgCoord, ptRoom, pTileData))
         {
             pTileData->dwPopFlags |= 2;
             if (bClose)

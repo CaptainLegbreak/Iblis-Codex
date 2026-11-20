@@ -61,22 +61,22 @@ D2CmpTileLibraryStrc* __stdcall D2CMPLoadProjectRecord(D2TileLibraryHashStrc** p
         return pRecord->pLibrary;
     }
     const int nSize = sub_005FDF80_GetTileLibrarySize(szName);
-    void* pData = FOG_Alloc(nSize, ".\\SRC\\TileProjects.cpp", 0x6B, 0);
-    D2_ASSERT(pData, 0x6C);
-    memset(pData, 0, nSize);
+    void* ptData = FOG_Alloc(nSize, ".\\SRC\\TileProjects.cpp", 0x6B, 0);
+    D2_ASSERT(ptData, 0x6C);
+    memset(ptData, 0, nSize);
     ARCHIVE_OpenFile(0, szName, &hFile, 0);
-    ARCHIVE_ReadFileToBuffer(0, hFile, pData, nSize);
+    ARCHIVE_ReadFileToBuffer(0, hFile, ptData, nSize);
     ARCHIVE_CloseFile(0, hFile);
-    sub_0060A390((D2CmpTileLibraryStrc*)pData, &pLibrary, szName);
+    sub_0060A390((D2CmpTileLibraryStrc*)ptData, &pLibrary, szName);
     D2TileLibraryHashStrc* pHashBlock = sub_0060A440_CreateTileHashBlock(pLibrary);
-    D2TileRecordStrc* pNew = (D2TileRecordStrc*)FOG_Alloc(sizeof(D2TileRecordStrc), ".\\SRC\\TileProjects.cpp", 0x7B, 0);
-    D2_ASSERT(pNew, 0x7C);
-    memset(pNew, 0, sizeof(D2TileRecordStrc));
-    pNew->pPrev = gpTileRecords_008ADBB4;
-    pNew->pLibrary = pLibrary;
-    pNew->pHashBlock = pHashBlock;
-    gpTileRecords_008ADBB4 = pNew;
-    strcpy(pNew->szLibraryName, szName);
-    *ppHashBlock = pNew->pHashBlock;
+    D2TileRecordStrc* ptRecord = (D2TileRecordStrc*)FOG_Alloc(sizeof(D2TileRecordStrc), ".\\SRC\\TileProjects.cpp", 0x7B, 0);
+    D2_ASSERT(ptRecord, 0x7C);
+    memset(ptRecord, 0, sizeof(D2TileRecordStrc));
+    ptRecord->pPrev = gpTileRecords_008ADBB4;
+    ptRecord->pLibrary = pLibrary;
+    ptRecord->pHashBlock = pHashBlock;
+    gpTileRecords_008ADBB4 = ptRecord;
+    strcpy(ptRecord->szLibraryName, szName);
+    *ppHashBlock = ptRecord->pHashBlock;
     return pLibrary;
 }

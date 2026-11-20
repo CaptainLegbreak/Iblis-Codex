@@ -167,23 +167,23 @@ inline unsigned __int64 OBJECTS_RollGameSeed(D2SeedStrc* pSeed)
 }
 
 // 0x00546C60
-unsigned int __fastcall sub_00546C60_AllocObjectControl(D2GameStrc* pGame)
+unsigned int __fastcall sub_00546C60_AllocObjectControl(D2GameStrc* ptGame)
 {
-    if (!pGame)
+    if (!ptGame)
     {
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 41);
         exit(-1);
     }
-    D2ObjectControlStrc* pControl = (D2ObjectControlStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2ObjectControlStrc), ".\\OBJECTS\\objrgn.cpp", 42, 0);
-    pGame->pObjectControl = pControl;
+    D2ObjectControlStrc* pControl = (D2ObjectControlStrc*)FOG_AllocPool(ptGame->pMemoryPool, sizeof(D2ObjectControlStrc), ".\\OBJECTS\\objrgn.cpp", 42, 0);
+    ptGame->pObjectControl = pControl;
     SEED_InitSeed(&pControl->pSeed);
-    const unsigned int nSeed = (unsigned int)OBJECTS_RollGameSeed(&pGame->pGameSeed);
+    const unsigned int nSeed = (unsigned int)OBJECTS_RollGameSeed(&ptGame->pGameSeed);
     SEED_InitLowSeed(&pControl->pSeed, nSeed);
     pControl->pObjectRegion[0] = 0;
     pControl->unk0x1110 = 0;
     for (int i = 1; i < sgptDataTables->nLevelsTxtRecordCount; i += 1)
     {
-        D2ObjectRegionStrc* pRegion = (D2ObjectRegionStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2ObjectRegionStrc), ".\\OBJECTS\\objrgn.cpp", 54, 0);
+        D2ObjectRegionStrc* pRegion = (D2ObjectRegionStrc*)FOG_AllocPool(ptGame->pMemoryPool, sizeof(D2ObjectRegionStrc), ".\\OBJECTS\\objrgn.cpp", 54, 0);
         D2LevelsTxt* pLevelsTxt = DATATBLS_GetLevelsTxtRecord(i);
         memset(pRegion, 0, sizeof(D2ObjectRegionStrc));
         pRegion->nWanderCount = -1;
@@ -205,7 +205,7 @@ unsigned int __fastcall sub_00546C60_AllocObjectControl(D2GameStrc* pGame)
     {
         if (nClassCounts[i] > 0)
         {
-            pControl->pShrineIds[i] = (int*)FOG_AllocPool(pGame->pMemoryPool, 4 * nClassCounts[i], ".\\OBJECTS\\objrgn.cpp", 84, 0);
+            pControl->pShrineIds[i] = (int*)FOG_AllocPool(ptGame->pMemoryPool, 4 * nClassCounts[i], ".\\OBJECTS\\objrgn.cpp", 84, 0);
             memset(pControl->pShrineIds[i], 0, 4 * nClassCounts[i]);
         }
         pControl->nShrineCounts[i] = 0;

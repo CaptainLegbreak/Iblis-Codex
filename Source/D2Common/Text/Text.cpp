@@ -202,14 +202,14 @@ short __stdcall sub_00661440(D2TextHeaderStrc* pTextHeader, int nNodeId)
 }
 
 // 0x00661480
-void __stdcall TEXT_CreateMessageListFromTextHeader(D2TextHeaderStrc* pTextHeader, D2MessageListStrc* pMsgList)
+void __stdcall TEXT_CreateMessageListFromTextHeader(D2TextHeaderStrc* pTextHead, D2MessageListStrc* pMsgList)
 {
-    TEXT_ASSERT(pTextHeader, 237);
+    TEXT_ASSERT(pTextHead, 237);
     TEXT_ASSERT(pMsgList, 238);
 
     memset(pMsgList, 0, sizeof(D2MessageListStrc));
-    D2TextNodeStrc* pNode = pTextHeader->pNode;
-    pMsgList->nCount = (unsigned char)pTextHeader->nCount;
+    D2TextNodeStrc* pNode = pTextHead->pNode;
+    pMsgList->nCount = (unsigned char)pTextHead->nCount;
 
     for (int i = 0; pNode; pNode = pNode->pNext)
     {
@@ -222,18 +222,18 @@ void __stdcall TEXT_CreateMessageListFromTextHeader(D2TextHeaderStrc* pTextHeade
 }
 
 // 0x00661510
-void __stdcall TEXT_CreateTextHeaderFromMessageList(D2TextHeaderStrc* pTextHeader, D2MessageListStrc* pMsgList)
+void __stdcall TEXT_CreateTextHeaderFromMessageList(D2TextHeaderStrc* pTextHead, D2MessageListStrc* pMsgList)
 {
-    TEXT_ASSERT(pTextHeader, 267);
+    TEXT_ASSERT(pTextHead, 267);
     TEXT_ASSERT(pMsgList, 268);
 
-    sub_00661270(pTextHeader);
+    sub_00661270(pTextHead);
 
     TEXT_ASSERT(pMsgList->nCount < 8, 274);
 
     for (int i = 0; i < pMsgList->nCount; ++i)
     {
-        TEXT_AddNodeToTextList(pTextHeader, pMsgList->pMessages[i].nStringId, pMsgList->pMessages[i].nMenu);
+        TEXT_AddNodeToTextList(pTextHead, pMsgList->pMessages[i].nStringId, pMsgList->pMessages[i].nMenu);
     }
 }
 
@@ -299,17 +299,17 @@ static void __stdcall sub_006615F0(unsigned short nCount, D2TextNodeStrc* pList,
 }
 
 // 0x006616E0
-void __stdcall TEXT_SortTextNodeListByStringId(D2TextHeaderStrc* pTextHeader)
+void __stdcall TEXT_SortTextNodeListByStringId(D2TextHeaderStrc* pTextHead)
 {
-    TEXT_ASSERT(pTextHeader, 357);
+    TEXT_ASSERT(pTextHead, 357);
 
-    if (pTextHeader->nCount <= 1)
+    if (pTextHead->nCount <= 1)
     {
         return;
     }
 
-    D2TextNodeStrc* pNode = pTextHeader->pNode;
-    D2TextNodeStrc* pNodeList = (D2TextNodeStrc*)sub_0040B430(pTextHeader->pMemPool, sizeof(D2TextNodeStrc) * pTextHeader->nCount, ".\\Text\\Text.cpp", 364, 0);
+    D2TextNodeStrc* pNode = pTextHead->pNode;
+    D2TextNodeStrc* pNodeList = (D2TextNodeStrc*)sub_0040B430(pTextHead->pMemPool, sizeof(D2TextNodeStrc) * pTextHead->nCount, ".\\Text\\Text.cpp", 364, 0);
 
     D2TextNodeStrc* pCopy = pNodeList;
     for (; pNode; pNode = pNode->pNext)
@@ -319,15 +319,15 @@ void __stdcall TEXT_SortTextNodeListByStringId(D2TextHeaderStrc* pTextHeader)
         ++pCopy;
     }
 
-    sub_006615F0(pTextHeader->nCount, pNodeList, sub_006615D0);
+    sub_006615F0(pTextHead->nCount, pNodeList, sub_006615D0);
 
-    pNode = pTextHeader->pNode;
-    for (int i = 0; i < pTextHeader->nCount; ++i)
+    pNode = pTextHead->pNode;
+    for (int i = 0; i < pTextHead->nCount; ++i)
     {
         pNode->nStringId = pNodeList[i].nStringId;
         pNode->nMenu = pNodeList[i].nMenu;
         pNode = pNode->pNext;
     }
 
-    sub_0040B480(pTextHeader->pMemPool, pNodeList, ".\\Text\\Text.cpp", 382, 0);
+    sub_0040B480(pTextHead->pMemPool, pNodeList, ".\\Text\\Text.cpp", 382, 0);
 }

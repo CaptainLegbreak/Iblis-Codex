@@ -123,56 +123,56 @@ int __stdcall GAME_GetGameInformation(unsigned short nGameId, D2GameInfoStrc* pG
     }
     LeaveCriticalSection(&gCriticalSection_6FD45800);
 
-    D2GameStrc* pGame = GAME_LockGame(nGUID);
-    if (!pGame)
+    D2GameStrc* ptGame = GAME_LockGame(nGUID);
+    if (!ptGame)
     {
         return 0;
     }
 
-    pGameInfo->nGameId = pGame->nGameId;
-    pGameInfo->nInitSeed = pGame->dwInitSeed;
-    pGameInfo->nClients = pGame->nClients;
-    pGameInfo->dwLastUsedUnitGUID[0] = pGame->dwLastUsedUnitGUID[0];
-    pGameInfo->dwLastUsedUnitGUID[1] = pGame->dwLastUsedUnitGUID[1];
-    pGameInfo->dwLastUsedUnitGUID[2] = pGame->dwLastUsedUnitGUID[2];
-    pGameInfo->dwLastUsedUnitGUID[3] = pGame->dwLastUsedUnitGUID[3];
-    pGameInfo->dwLastUsedUnitGUID[4] = pGame->dwLastUsedUnitGUID[4];
-    pGameInfo->dwLastUsedUnitGUID[5] = pGame->dwLastUsedUnitGUID[5];
+    pGameInfo->nGameId = ptGame->nGameId;
+    pGameInfo->nInitSeed = ptGame->dwInitSeed;
+    pGameInfo->nClients = ptGame->nClients;
+    pGameInfo->dwLastUsedUnitGUID[0] = ptGame->dwLastUsedUnitGUID[0];
+    pGameInfo->dwLastUsedUnitGUID[1] = ptGame->dwLastUsedUnitGUID[1];
+    pGameInfo->dwLastUsedUnitGUID[2] = ptGame->dwLastUsedUnitGUID[2];
+    pGameInfo->dwLastUsedUnitGUID[3] = ptGame->dwLastUsedUnitGUID[3];
+    pGameInfo->dwLastUsedUnitGUID[4] = ptGame->dwLastUsedUnitGUID[4];
+    pGameInfo->dwLastUsedUnitGUID[5] = ptGame->dwLastUsedUnitGUID[5];
 
-    pGameInfo->nPlayers = sub_0052DBC0_CountUnitsInLists(pGame->pUnitList[0]);
-    pGameInfo->nMonsters = sub_0052DBC0_CountUnitsInLists(pGame->pUnitList[1]);
-    pGameInfo->nObjects = sub_0052DBC0_CountUnitsInLists(pGame->pUnitList[2]);
-    pGameInfo->nItems = sub_0052DBC0_CountUnitsInLists(pGame->pUnitList[3]);
-    pGameInfo->nMissiles = sub_0052DBC0_CountUnitsInLists(pGame->pUnitList[4]);
+    pGameInfo->nPlayers = sub_0052DBC0_CountUnitsInLists(ptGame->pUnitList[0]);
+    pGameInfo->nMonsters = sub_0052DBC0_CountUnitsInLists(ptGame->pUnitList[1]);
+    pGameInfo->nObjects = sub_0052DBC0_CountUnitsInLists(ptGame->pUnitList[2]);
+    pGameInfo->nItems = sub_0052DBC0_CountUnitsInLists(ptGame->pUnitList[3]);
+    pGameInfo->nMissiles = sub_0052DBC0_CountUnitsInLists(ptGame->pUnitList[4]);
 
-    if (pGame->nTotalPathTypesCount)
+    if (ptGame->nTotalPathTypesCount)
     {
-        pGameInfo->nPathTowardPct = 100 * pGame->dwPathTypesCount[PATHTYPE_TOWARD] / pGame->nTotalPathTypesCount;
-        pGameInfo->nPathClockPct = 100 * pGame->dwPathTypesCount[PATHTYPE_MON_CIRCLE_CW] / pGame->nTotalPathTypesCount;
-        pGameInfo->nPathCounterPct = 100 * pGame->dwPathTypesCount[PATHTYPE_MON_CIRCLE_CCW] / pGame->nTotalPathTypesCount;
-        pGameInfo->nPathAStarPct = 100 * pGame->dwPathTypesCount[PATHTYPE_ASTAR] / pGame->nTotalPathTypesCount;
-        pGameInfo->nPathFoWallPct = 100 * pGame->dwPathTypesCount[PATHTYPE_WALL_FOLLOW] / pGame->nTotalPathTypesCount;
-        pGameInfo->nPathTotalCalls = pGame->nTotalPathTypesCount;
-        if (pGame->nTotalPathTypesCount > 200 && pGameInfo->nPathTotalCalls)
+        pGameInfo->nPathTowardPct = 100 * ptGame->dwPathTypesCount[PATHTYPE_TOWARD] / ptGame->nTotalPathTypesCount;
+        pGameInfo->nPathClockPct = 100 * ptGame->dwPathTypesCount[PATHTYPE_MON_CIRCLE_CW] / ptGame->nTotalPathTypesCount;
+        pGameInfo->nPathCounterPct = 100 * ptGame->dwPathTypesCount[PATHTYPE_MON_CIRCLE_CCW] / ptGame->nTotalPathTypesCount;
+        pGameInfo->nPathAStarPct = 100 * ptGame->dwPathTypesCount[PATHTYPE_ASTAR] / ptGame->nTotalPathTypesCount;
+        pGameInfo->nPathFoWallPct = 100 * ptGame->dwPathTypesCount[PATHTYPE_WALL_FOLLOW] / ptGame->nTotalPathTypesCount;
+        pGameInfo->nPathTotalCalls = ptGame->nTotalPathTypesCount;
+        if (ptGame->nTotalPathTypesCount > 200 && pGameInfo->nPathTotalCalls)
         {
-            memset(pGame->dwPathTypesCount, 0, sizeof(pGame->dwPathTypesCount) + sizeof(pGame->nTotalPathTypesCount));
+            memset(ptGame->dwPathTypesCount, 0, sizeof(ptGame->dwPathTypesCount) + sizeof(ptGame->nTotalPathTypesCount));
         }
     }
 
-    SStrCopy(pGameInfo->szGameName, pGame->szGameName, 16);
-    pGameInfo->nTime = (GetTickCount() - pGame->nCreationTimeMs_Or_CPUTargetRatioFP10) / 1000 / 60;
-    pGameInfo->nFrames = pGame->dwGameFrame / 100;
-    pGameInfo->nFrameRate = pGame->nFrameRate;
-    pGameInfo->nArenaTemplate = pGame->nArenaTemplate;
-    pGameInfo->nMaxLevelDifference = pGame->nMaxLevelDifference;
-    pGameInfo->nMaxPlayers = pGame->nMaxPlayers;
-    SStrCopy(pGameInfo->szGamePassword, pGame->szGamePassword, 16);
-    SStrCopy(pGameInfo->szGameDescription, pGame->szGameDesc, 32);
-    pGameInfo->nArenaFlags = ARENA_GetFlags(pGame);
-    pGameInfo->pMemoryPool = pGame->pMemoryPool;
+    SStrCopy(pGameInfo->szGameName, ptGame->szGameName, 16);
+    pGameInfo->nTime = (GetTickCount() - ptGame->nCreationTimeMs_Or_CPUTargetRatioFP10) / 1000 / 60;
+    pGameInfo->nFrames = ptGame->dwGameFrame / 100;
+    pGameInfo->nFrameRate = ptGame->nFrameRate;
+    pGameInfo->nArenaTemplate = ptGame->nArenaTemplate;
+    pGameInfo->nMaxLevelDifference = ptGame->nMaxLevelDifference;
+    pGameInfo->nMaxPlayers = ptGame->nMaxPlayers;
+    SStrCopy(pGameInfo->szGamePassword, ptGame->szGamePassword, 16);
+    SStrCopy(pGameInfo->szGameDescription, ptGame->szGameDesc, 32);
+    pGameInfo->nArenaFlags = ARENA_GetFlags(ptGame);
+    pGameInfo->pMemoryPool = ptGame->pMemoryPool;
 
-    D2_ASSERT(pGame->lpCriticalSection, 4196);
-    LeaveCriticalSection(pGame->lpCriticalSection);
+    D2_ASSERT(ptGame->lpCriticalSection, 4196);
+    LeaveCriticalSection(ptGame->lpCriticalSection);
     return 1;
 }
 

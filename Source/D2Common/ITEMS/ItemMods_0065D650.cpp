@@ -412,10 +412,10 @@ int __fastcall sub_0065D4B0_AddAllMaxResist(int nType, D2UnitStrc* pUnit, D2Unit
 }
 
 // 0x0065D650
-int __fastcall sub_0065D650_AddMinDamage(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+int __fastcall sub_0065D650_AddMinDamage(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* ptProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
 {
-    D2_ASSERT(pProperty, 891);
-    const int nValue = ITEMMODS_RollPropertyValueB(pItem, pProperty->nMin, pProperty->nMax);
+    D2_ASSERT(ptProperty, 891);
+    const int nValue = ITEMMODS_RollPropertyValueB(pItem, ptProperty->nMin, ptProperty->nMax);
     D2ItemsTxt* pItemsTxtRecord = sub_0065E9B0(pUnit, pItem);
     if (!ITEMSIsA(pItem, 45) || pItemsTxtRecord->nMinDam || !pItemsTxtRecord->n2HandMinDam)
     {
@@ -433,10 +433,10 @@ int __fastcall sub_0065D650_AddMinDamage(int nType, D2UnitStrc* pUnit, D2UnitStr
 }
 
 // 0x0065D7D0
-int __fastcall sub_0065D7D0_AddMaxDamage(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* pProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
+int __fastcall sub_0065D7D0_AddMaxDamage(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const D2PropertyStrc* ptProperty, int nStatId, int nApplyType, int nState, int fStatList, D2UnitStrc* a9)
 {
-    D2_ASSERT(pProperty, 919);
-    const int nValue = ITEMMODS_RollPropertyValueB(pItem, pProperty->nMin, pProperty->nMax);
+    D2_ASSERT(ptProperty, 919);
+    const int nValue = ITEMMODS_RollPropertyValueB(pItem, ptProperty->nMin, ptProperty->nMax);
     D2ItemsTxt* pItemsTxtRecord = sub_0065E9B0(pUnit, pItem);
     if (!ITEMSIsA(pItem, 45) || pItemsTxtRecord->nMaxDam || !pItemsTxtRecord->n2HandMaxDam)
     {

@@ -732,12 +732,12 @@ static __declspec(noinline) int __stdcall sub_00585240_ApplyObeliskPowerUp(D2Gam
 int __fastcall OBJMODE_MainObeliskHandler(D2GameStrc* pGame, int nPlayerGUID, int nObjectGUID, int nItemGUID, unsigned short nState)
 {
     D2GSPacketSrv58 packet58;
-    D2UnitStrc* pObject = SUNIT_GetServerUnit(pGame, 2, nObjectGUID);
+    D2UnitStrc* hObject = SUNIT_GetServerUnit(pGame, 2, nObjectGUID);
     D2UnitStrc* pPlayer = SUNIT_GetServerUnit(pGame, 0, nPlayerGUID);
     D2UnitStrc* pItem = SUNIT_GetServerUnit(pGame, 4, nItemGUID);
     if (pPlayer)
     {
-        if (!pObject)
+        if (!hObject)
         {
             return 1;
         }
@@ -745,7 +745,7 @@ int __fastcall OBJMODE_MainObeliskHandler(D2GameStrc* pGame, int nPlayerGUID, in
         D2ClientStrc* pClient = UnitGetClient(pPlayer, gszObjModeSourceFile_006E1970, 0x1135);
         packet58.nHeader = 0x58;
         packet58.nUnitId = nObjectGUID;
-        const int nAnimMode = pObject->dwAnimMode;
+        const int nAnimMode = hObject->dwAnimMode;
         switch (nState)
         {
         case 2:
@@ -754,14 +754,14 @@ int __fastcall OBJMODE_MainObeliskHandler(D2GameStrc* pGame, int nPlayerGUID, in
             {
                 packet58.nAction = 1;
                 sub_0053D8D0_SendPacket0x58(pClient, &packet58);
-                UNITS_ChangeAnimMode(pObject, 0);
+                UNITS_ChangeAnimMode(hObject, 0);
                 SUNIT_ResetInteractInfo(pPlayer);
             }
             else
             {
                 packet58.nAction = 1;
                 sub_0053D8D0_SendPacket0x58(pClient, &packet58);
-                UNITS_ChangeAnimMode(pObject, 0);
+                UNITS_ChangeAnimMode(hObject, 0);
                 SUNIT_ResetInteractInfo(pPlayer);
             }
             break;
@@ -769,7 +769,7 @@ int __fastcall OBJMODE_MainObeliskHandler(D2GameStrc* pGame, int nPlayerGUID, in
         case 3:
         {
             D2ItemsTxt* pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
-            if ((!pObject ? -1 : pObject->dwClassId) == 0x98)
+            if ((!hObject ? -1 : hObject->dwClassId) == 0x98)
             {
                 if (pItemsTxtRecord->dwCode != 0x20747368)
                 {
@@ -787,7 +787,7 @@ int __fastcall OBJMODE_MainObeliskHandler(D2GameStrc* pGame, int nPlayerGUID, in
 
             packet58.nAction = 5;
             SUNIT_ResetInteractInfo(pPlayer);
-            if (pObject->dwClassId == 0x98)
+            if (hObject->dwClassId == 0x98)
             {
                 packet58.nResult = 1;
             }
@@ -799,20 +799,20 @@ int __fastcall OBJMODE_MainObeliskHandler(D2GameStrc* pGame, int nPlayerGUID, in
             sub_0053D8D0_SendPacket0x58(pClient, &packet58);
             if (packet58.nResult == 1)
             {
-                UNITS_ChangeAnimMode(pObject, 1);
-                D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(!pObject ? -1 : pObject->dwClassId);
-                if (pObject->dwClassId == 0x98)
+                UNITS_ChangeAnimMode(hObject, 1);
+                D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(!hObject ? -1 : hObject->dwClassId);
+                if (hObject->dwClassId == 0x98)
                 {
-                    UNITS_ChangeAnimMode(pObject, 2);
-                    ACT2Q6_DeleteAllHoradricItemsAndOpenTomb(pGame, pPlayer, pObject);
+                    UNITS_ChangeAnimMode(hObject, 2);
+                    ACT2Q6_DeleteAllHoradricItemsAndOpenTomb(pGame, pPlayer, hObject);
                     break;
                 }
 
-                EVENT_SetEvent(pGame, pObject, 1, pGame->dwGameFrame + (pObjectsTxtRecord->dwFrameCnt1 >> 8) + 1, 0, 0);
+                EVENT_SetEvent(pGame, hObject, 1, pGame->dwGameFrame + (pObjectsTxtRecord->dwFrameCnt1 >> 8) + 1, 0, 0);
                 break;
             }
 
-            UNITS_ChangeAnimMode(pObject, 0);
+            UNITS_ChangeAnimMode(hObject, 0);
             break;
         }
         }
@@ -820,6 +820,6 @@ int __fastcall OBJMODE_MainObeliskHandler(D2GameStrc* pGame, int nPlayerGUID, in
         return 1;
     }
 
-    D2_ASSERT(pObject, 0x1109);
+    D2_ASSERT(hObject, 0x1109);
     return 1;
 }

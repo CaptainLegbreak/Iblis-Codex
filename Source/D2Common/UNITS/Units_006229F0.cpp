@@ -701,84 +701,84 @@ static __forceinline int UNITS_ApplyRatio_Inline(int nValue, int nMultiplier, in
 }
 
 // 0x00624390
-int __stdcall sub_00624390_AnimInit(D2UnitStrc* pUnit)
+int __stdcall sub_00624390_AnimInit(D2UnitStrc* ptUnit)
 {
-    D2_ASSERT(pUnit, 0x951);
+    D2_ASSERT(ptUnit, 0x951);
 
-    pUnit->nActionFrame = 0;
-    pUnit->nSeqCurrentFramePrecise = sub_00623B10_GetStartFrame(pUnit) << 8;
+    ptUnit->nActionFrame = 0;
+    ptUnit->nSeqCurrentFramePrecise = sub_00623B10_GetStartFrame(ptUnit) << 8;
 
-    int nUnitType = pUnit->dwUnitType;
-    int nMode = pUnit->dwAnimMode;
-    int nClassId = pUnit->dwClassId;
-    D2COMMON_11013_ConvertMode(pUnit, &nUnitType, &nClassId, &nMode, ".\\UNITS\\Units.cpp", 0x958);
+    int nUnitType = ptUnit->dwUnitType;
+    int nMode = ptUnit->dwAnimMode;
+    int nClassId = ptUnit->dwClassId;
+    D2COMMON_11013_ConvertMode(ptUnit, &nUnitType, &nClassId, &nMode, ".\\UNITS\\Units.cpp", 0x958);
 
     switch (nUnitType)
     {
     case 0:
         if (nMode == 3 || nMode == 0x13)
         {
-            UNITS_CharacterStartRunningOrKnockback(pUnit, nClassId);
+            UNITS_CharacterStartRunningOrKnockback(ptUnit, nClassId);
         }
 
         if (nMode == 0x12)
         {
-            UNITS_InitializeSequence(pUnit);
-            UnitUpdateAnimRateAndVel(pUnit, ".\\UNITS\\Units.cpp", 0x967);
+            UNITS_InitializeSequence(ptUnit);
+            UnitUpdateAnimRateAndVel(ptUnit, ".\\UNITS\\Units.cpp", 0x967);
             return 1;
         }
 
-        pUnit->pAnimSeq = 0;
-        UnitUpdateAnimRateAndVel(pUnit, ".\\UNITS\\Units.cpp", 0x96A);
-        pUnit->dwFrameCountPrecise = pUnit->pAnimData->dwFramesPerDirection << 8;
+        ptUnit->pAnimSeq = 0;
+        UnitUpdateAnimRateAndVel(ptUnit, ".\\UNITS\\Units.cpp", 0x96A);
+        ptUnit->dwFrameCountPrecise = ptUnit->pAnimData->dwFramesPerDirection << 8;
         return 1;
 
     case 1:
-        if (pUnit->dwUnitType == 0 && STATES_IsUnitShapeShifted(pUnit))
+        if (ptUnit->dwUnitType == 0 && STATES_IsUnitShapeShifted(ptUnit))
         {
             switch (nMode)
             {
             case 0xD:
             case 0xF:
-                UNITS_CharacterStartRunningOrKnockback(pUnit, pUnit->dwClassId);
+                UNITS_CharacterStartRunningOrKnockback(ptUnit, ptUnit->dwClassId);
                 break;
             }
         }
 
         if (nMode == 0xE)
         {
-            UNITS_InitializeSequence(pUnit);
-            UnitUpdateAnimRateAndVel(pUnit, ".\\UNITS\\Units.cpp", 0x97E);
+            UNITS_InitializeSequence(ptUnit);
+            UnitUpdateAnimRateAndVel(ptUnit, ".\\UNITS\\Units.cpp", 0x97E);
             return 1;
         }
 
-        UnitUpdateAnimRateAndVel(pUnit, ".\\UNITS\\Units.cpp", 0x980);
-        pUnit->pAnimSeq = 0;
-        pUnit->dwFrameCountPrecise = pUnit->pAnimData->dwFramesPerDirection << 8;
+        UnitUpdateAnimRateAndVel(ptUnit, ".\\UNITS\\Units.cpp", 0x980);
+        ptUnit->pAnimSeq = 0;
+        ptUnit->dwFrameCountPrecise = ptUnit->pAnimData->dwFramesPerDirection << 8;
         return 1;
 
     case 2:
     {
-        const int nObjectMode = nMode;
-        D2_ASSERT(nObjectMode < 8, 0x98A);
-        D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(pUnit->dwClassId);
-        pUnit->dwFrameCountPrecise = pObjectsTxtRecord->dwFrameCnt[nObjectMode];
-        const int nStartFrame = pObjectsTxtRecord->nStart[nObjectMode] << 8;
-        short nAnimSpeed = pObjectsTxtRecord->nFrameDelta[nObjectMode];
-        pUnit->nSeqCurrentFramePrecise = nStartFrame;
+        const int nNewMode = nMode;
+        D2_ASSERT(nNewMode < 8, 0x98A);
+        D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(ptUnit->dwClassId);
+        ptUnit->dwFrameCountPrecise = pObjectsTxtRecord->dwFrameCnt[nNewMode];
+        const int nStartFrame = pObjectsTxtRecord->nStart[nNewMode] << 8;
+        short nAnimSpeed = pObjectsTxtRecord->nFrameDelta[nNewMode];
+        ptUnit->nSeqCurrentFramePrecise = nStartFrame;
         if (pObjectsTxtRecord->nSync)
         {
-            pUnit->wAnimSpeed = nAnimSpeed;
+            ptUnit->wAnimSpeed = nAnimSpeed;
             return 1;
         }
 
-        int nSpeed = ITEMS_RollLimitedRandomNumber(&pUnit->pSeed, nAnimSpeed >> 3) + nAnimSpeed - (short)(nAnimSpeed >> 4);
+        int nSpeed = ITEMS_RollLimitedRandomNumber(&ptUnit->pSeed, nAnimSpeed >> 3) + nAnimSpeed - (short)(nAnimSpeed >> 4);
         nSpeed = nSpeed <= 0 ? 0 : nSpeed;
         if (nSpeed >= 0x7FFF)
         {
             nSpeed = 0x7FFF;
         }
-        pUnit->wAnimSpeed = nSpeed;
+        ptUnit->wAnimSpeed = nSpeed;
         return 1;
     }
 
@@ -786,28 +786,28 @@ int __stdcall sub_00624390_AnimInit(D2UnitStrc* pUnit)
         switch (nMode)
         {
         case 5:
-            pUnit->wAnimSpeed = 0x100;
-            pUnit->dwFrameCountPrecise = 0x1100;
+            ptUnit->wAnimSpeed = 0x100;
+            ptUnit->dwFrameCountPrecise = 0x1100;
             return 1;
 
         case 3:
-            pUnit->wAnimSpeed = 0;
-            pUnit->dwFrameCountPrecise = 0x1100;
-            pUnit->nSeqCurrentFramePrecise = 0x1000;
+            ptUnit->wAnimSpeed = 0;
+            ptUnit->dwFrameCountPrecise = 0x1100;
+            ptUnit->nSeqCurrentFramePrecise = 0x1000;
             return 1;
         }
         break;
 
     case 3:
     {
-        D2MissilesTxt* pMissilesTxtRecord = DATATBLS_GetMissilesTxtRecord(pUnit->dwClassId);
+        D2MissilesTxt* pMissilesTxtRecord = DATATBLS_GetMissilesTxtRecord(ptUnit->dwClassId);
         if (!pMissilesTxtRecord)
         {
             return 0;
         }
 
-        pUnit->wAnimSpeed = UNITS_ApplyRatio_Inline(256, pMissilesTxtRecord->nAnimLen_2, 1024);
-        pUnit->dwFrameCountPrecise = pMissilesTxtRecord->nAnimLen << 8;
+        ptUnit->wAnimSpeed = UNITS_ApplyRatio_Inline(256, pMissilesTxtRecord->nAnimLen_2, 1024);
+        ptUnit->dwFrameCountPrecise = pMissilesTxtRecord->nAnimLen << 8;
         break;
     }
     }

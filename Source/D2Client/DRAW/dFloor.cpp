@@ -191,9 +191,9 @@ void __fastcall sub_004DEA70(D2ViewStrc* pView)
                 D2GridInfoStrc* pInfo = pObj->pInfo;
                 const int nX = pObj->nX + nOffX;
                 const int nY = pObj->nY - pInfo->wZ + nOffY;
-                D2GridRectStrc* pRect = &pView->tRect;
-                D2_ASSERT(pRect, 0x76);
-                if (nX < pRect->nLeft || nX >= pRect->nRight || nY < pRect->nTop || nY >= pRect->nBottom)
+                D2GridRectStrc* ptRect = &pView->tRect;
+                D2_ASSERT(ptRect, 0x76);
+                if (nX < ptRect->nLeft || nX >= ptRect->nRight || nY < ptRect->nTop || nY >= ptRect->nBottom)
                 {
                     continue;
                 }

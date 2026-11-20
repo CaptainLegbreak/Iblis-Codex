@@ -769,14 +769,14 @@ int __fastcall sub_004709A0_IsOnScreen(D2UnitStrc* unit,int x,int y,int unused,i
  D2COMMON_11013_ConvertMode(unit,&type,&classId,&mode,".\\ENGINE\\Gfx.cpp",3522);
  void* gfx=GetModeGfx(unit,mode);
  if(!gfx) return 0;
- D2GfxHeaderStrc* header=sub_004DB040_GetLayerHeader(gfx);
- if(!header) { sub_00408A60(&gszEmptyAssertText,sub_00408090(),3539); exit(-1); }
+ D2GfxHeaderStrc* ptCofHeader=sub_004DB040_GetLayerHeader(gfx);
+ if(!ptCofHeader) { sub_00408A60(&gszEmptyAssertText,sub_00408090(),3539); exit(-1); }
  int width=gnScreenWidth;
  int height=gnScreenHeight;
- int left=header->left+x;
- if(centered) left-=(header->bottom-header->top)/2;
+ int left=ptCofHeader->left+x;
+ if(centered) left-=(ptCofHeader->bottom-ptCofHeader->top)/2;
  if(left>=width-1) return 0;
- if(header->right+x<0) return 0;
- if(header->bottom+y<0) return 0;
- return header->top+y<height-1;
+ if(ptCofHeader->right+x<0) return 0;
+ if(ptCofHeader->bottom+y<0) return 0;
+ return ptCofHeader->top+y<height-1;
 }

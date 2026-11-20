@@ -510,24 +510,24 @@ void __fastcall DRLGLOGIC_AllocCoordLists(D2DrlgRoomStrc* pDrlgRoom)
 }
 
 // 0x0066CE30
-int __fastcall DRLGLOGIC_GetRoomCoordListIndex(D2DrlgRoomStrc* pDrlgRoom, int nX, int nY)
+int __fastcall DRLGLOGIC_GetRoomCoordListIndex(D2DrlgRoomStrc* ptLogicalRoomInfo, int nX, int nY)
 {
-    if (!pDrlgRoom->pLogicalRoomInfo)
+    if (!ptLogicalRoomInfo->pLogicalRoomInfo)
     {
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 668);
         exit(-1);
     }
 
     D2RoomCoordListStrc* pRoomCoordList;
-    if (pDrlgRoom->pLogicalRoomInfo->dwFlags & 1)
+    if (ptLogicalRoomInfo->pLogicalRoomInfo->dwFlags & 1)
     {
-        pRoomCoordList = pDrlgRoom->pLogicalRoomInfo->pCoordList;
+        pRoomCoordList = ptLogicalRoomInfo->pLogicalRoomInfo->pCoordList;
     }
     else
     {
-        int nTileX = nX / 5 - pDrlgRoom->nTileXPos;
-        int nTileY = nY / 5 - pDrlgRoom->nTileYPos;
-        pRoomCoordList = (D2RoomCoordListStrc*)DRLGGRID_GetGridEntry(&pDrlgRoom->pLogicalRoomInfo->pIndexY, nTileX, nTileY);
+        int nTileX = nX / 5 - ptLogicalRoomInfo->nTileXPos;
+        int nTileY = nY / 5 - ptLogicalRoomInfo->nTileYPos;
+        pRoomCoordList = (D2RoomCoordListStrc*)DRLGGRID_GetGridEntry(&ptLogicalRoomInfo->pLogicalRoomInfo->pIndexY, nTileX, nTileY);
     }
 
     if (pRoomCoordList)
@@ -539,22 +539,22 @@ int __fastcall DRLGLOGIC_GetRoomCoordListIndex(D2DrlgRoomStrc* pDrlgRoom, int nX
 }
 
 // 0x0066CEB0
-D2RoomCoordListStrc* __fastcall sub_0066CEB0(D2DrlgRoomStrc* pDrlgRoom, int nX, int nY)
+D2RoomCoordListStrc* __fastcall sub_0066CEB0(D2DrlgRoomStrc* ptLogicalRoomInfo, int nX, int nY)
 {
-    if (!pDrlgRoom->pLogicalRoomInfo)
+    if (!ptLogicalRoomInfo->pLogicalRoomInfo)
     {
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 668);
         exit(-1);
     }
 
-    if (pDrlgRoom->pLogicalRoomInfo->dwFlags & 1)
+    if (ptLogicalRoomInfo->pLogicalRoomInfo->dwFlags & 1)
     {
-        return pDrlgRoom->pLogicalRoomInfo->pCoordList;
+        return ptLogicalRoomInfo->pLogicalRoomInfo->pCoordList;
     }
 
-    int nTileX = nX / 5 - pDrlgRoom->nTileXPos;
-    int nTileY = nY / 5 - pDrlgRoom->nTileYPos;
-    return (D2RoomCoordListStrc*)DRLGGRID_GetGridEntry(&pDrlgRoom->pLogicalRoomInfo->pIndexY, nTileX, nTileY);
+    int nTileX = nX / 5 - ptLogicalRoomInfo->nTileXPos;
+    int nTileY = nY / 5 - ptLogicalRoomInfo->nTileYPos;
+    return (D2RoomCoordListStrc*)DRLGGRID_GetGridEntry(&ptLogicalRoomInfo->pLogicalRoomInfo->pIndexY, nTileX, nTileY);
 }
 
 // 0x0066CF30

@@ -93,27 +93,27 @@ D2ActiveRoomStrc* __fastcall sub_00538230(D2ClientStrc* pClient)
 }
 
 // 0x00538260
-void __fastcall D2GAME_SetClientDead_6FC33830(D2ClientStrc* pClient, const int* pDeathInfo)
+void __fastcall D2GAME_SetClientDead_6FC33830(D2ClientStrc* ptClient, const int* pDeathInfo)
 {
-    D2_ASSERT(pClient, 1998);
+    D2_ASSERT(ptClient, 1998);
 
     if (!pDeathInfo)
     {
-        pClient->dwFlags &= ~CLIENTFLAGEX_DEAD;
+        ptClient->dwFlags &= ~CLIENTFLAGEX_DEAD;
         return;
     }
 
-    pClient->unk0x198[0] = pDeathInfo[0];
-    pClient->unk0x198[1] = pDeathInfo[3];
-    pClient->dwFlags |= CLIENTFLAGEX_DEAD;
+    ptClient->unk0x198[0] = pDeathInfo[0];
+    ptClient->unk0x198[1] = pDeathInfo[3];
+    ptClient->dwFlags |= CLIENTFLAGEX_DEAD;
 }
 
 // 0x005382B0
-unsigned char __fastcall CLIENTS_GetActNo(D2ClientStrc* pClient)
+unsigned char __fastcall CLIENTS_GetActNo(D2ClientStrc* ptClient)
 {
-    D2_ASSERT(pClient, 2015);
+    D2_ASSERT(ptClient, 2015);
 
-    return pClient->nAct;
+    return ptClient->nAct;
 }
 
 // 0x005382E0
@@ -126,27 +126,27 @@ void __fastcall CLIENTS_SetActNo(D2ClientStrc* pClient, unsigned char nAct)
 }
 
 // 0x00538320
-void __fastcall sub_6FC33910(D2ClientStrc* pClient)
+void __fastcall sub_6FC33910(D2ClientStrc* ptClient)
 {
-    D2_ASSERT(pClient, 2037);
+    D2_ASSERT(ptClient, 2037);
 
-    pClient->bUnlockCharacter = 1;
+    ptClient->bUnlockCharacter = 1;
 }
 
 // 0x00538350
-unsigned int __fastcall D2GAME_GetSaveChecksumFromClient_6FC33940(D2ClientStrc* pClient)
+unsigned int __fastcall D2GAME_GetSaveChecksumFromClient_6FC33940(D2ClientStrc* ptClient)
 {
-    D2_ASSERT(pClient, 2047);
+    D2_ASSERT(ptClient, 2047);
 
-    return pClient->nSaveChecksum;
+    return ptClient->nSaveChecksum;
 }
 
 // 0x00538380
-void __fastcall D2GAME_SetSaveFileChecksum_6FC33970(D2ClientStrc* pClient, unsigned int nChecksum)
+void __fastcall D2GAME_SetSaveFileChecksum_6FC33970(D2ClientStrc* ptClient, unsigned int nChecksum)
 {
-    D2_ASSERT(pClient, 2058);
+    D2_ASSERT(ptClient, 2058);
 
-    pClient->nSaveChecksum = nChecksum;
+    ptClient->nSaveChecksum = nChecksum;
 }
 
 // 0x00538590
@@ -169,11 +169,11 @@ void __stdcall sub_005385D0(int nUnused)
 }
 
 // 0x005385F0
-int __fastcall CLIENTS_GetClassId(D2ClientStrc* pClient)
+int __fastcall CLIENTS_GetClassId(D2ClientStrc* ptClient)
 {
-    D2_ASSERT(pClient, 2232);
+    D2_ASSERT(ptClient, 2232);
 
-    return pClient->nClassId;
+    return ptClient->nClassId;
 }
 
 // 0x00538620
@@ -203,35 +203,35 @@ void __fastcall CLIENTS_SetClientState(D2ClientStrc* pClient, int nClientState)
 }
 
 // 0x00538700
-void __fastcall CLIENTS_SetIronGolemItemGUID(D2ClientStrc* pClient, int nIronGolemItemGUID)
+void __fastcall CLIENTS_SetIronGolemItemGUID(D2ClientStrc* ptClient, int nIronGolemItemGUID)
 {
-    D2_ASSERT(pClient, 2430);
+    D2_ASSERT(ptClient, 2430);
 
-    pClient->nIronGolemItemGUID = nIronGolemItemGUID;
+    ptClient->nIronGolemItemGUID = nIronGolemItemGUID;
 }
 
 // 0x00538760
-void __fastcall CLIENTS_SetCreateTime(D2ClientStrc* pClient, unsigned int nCreateTime)
+void __fastcall CLIENTS_SetCreateTime(D2ClientStrc* ptClient, unsigned int nCreateTime)
 {
-    D2_ASSERT(pClient, 2452);
+    D2_ASSERT(ptClient, 2452);
 
-    pClient->nCreateTime = nCreateTime;
+    ptClient->nCreateTime = nCreateTime;
 }
 
 // 0x00538790
-int __fastcall CLIENTS_GetCreateTime(D2ClientStrc* pClient)
+int __fastcall CLIENTS_GetCreateTime(D2ClientStrc* ptClient)
 {
-    D2_ASSERT(pClient, 2463);
+    D2_ASSERT(ptClient, 2463);
 
-    return pClient->nCreateTime;
+    return ptClient->nCreateTime;
 }
 
 // 0x005387C0
-D2GameStrc* __fastcall CLIENTS_GetGame(D2ClientStrc* pClient)
+D2GameStrc* __fastcall CLIENTS_GetGame(D2ClientStrc* ptClient)
 {
-    D2_ASSERT(pClient, 2474);
+    D2_ASSERT(ptClient, 2474);
 
-    return pClient->pGame;
+    return ptClient->pGame;
 }
 
 // 0x005387F0
@@ -271,37 +271,37 @@ D2SaveHeaderStrc* __fastcall CLIENTS_GetSaveHeader(D2ClientStrc* pClient)
 }
 
 // 0x00538E30
-int __fastcall CLIENTS_GetSaveHeaderSize(D2ClientStrc* pClient)
+int __fastcall CLIENTS_GetSaveHeaderSize(D2ClientStrc* ptClient)
 {
-    D2_ASSERT(pClient, 2911);
+    D2_ASSERT(ptClient, 2911);
 
-    return pClient->nSaveHeaderSize;
+    return ptClient->nSaveHeaderSize;
 }
 
 // 0x00538F80
-void __fastcall D2GAME_SetSaveLoadComplete_6FC34300(D2ClientStrc* pClient)
+void __fastcall D2GAME_SetSaveLoadComplete_6FC34300(D2ClientStrc* ptClient)
 {
-    D2_ASSERT(pClient, 2961);
+    D2_ASSERT(ptClient, 2961);
 
-    pClient->unk0x184 = CLIENT_SAVE_STEP;
-    pClient->nSaveHeaderDataSentBytes = 0;
-    pClient->dwFlags |= CLIENTFLAGEX_SAVE_LOADED;
+    ptClient->unk0x184 = CLIENT_SAVE_STEP;
+    ptClient->nSaveHeaderDataSentBytes = 0;
+    ptClient->dwFlags |= CLIENTFLAGEX_SAVE_LOADED;
 }
 
 // 0x00538FC0
-int __fastcall sub_00538FC0(D2ClientStrc* pClient)
+int __fastcall sub_00538FC0(D2ClientStrc* ptClient)
 {
-    D2_ASSERT(pClient, 2974);
+    D2_ASSERT(ptClient, 2974);
 
-    return (pClient->dwFlags & CLIENTFLAGEX_SAVE_LOADED) && pClient->pSaveHeader;
+    return (ptClient->dwFlags & CLIENTFLAGEX_SAVE_LOADED) && ptClient->pSaveHeader;
 }
 
 // 0x00539000
-void __fastcall sub_00539000(D2ClientStrc* pClient)
+void __fastcall sub_00539000(D2ClientStrc* ptClient)
 {
-    D2_ASSERT(pClient, 2991);
+    D2_ASSERT(ptClient, 2991);
 
-    pClient->dwFlags |= CLIENTFLAGEX_0x20;
+    ptClient->dwFlags |= CLIENTFLAGEX_0x20;
 }
 
 // 0x005390D0
@@ -336,11 +336,11 @@ void __fastcall sub_00539320(D2ClientStrc* pClient, D2ClientInfoStrc* pClientInf
 }
 
 // 0x00539330
-void* __fastcall CLIENTS_GetClientPlayerData(D2ClientStrc* pClient)
+void* __fastcall CLIENTS_GetClientPlayerData(D2ClientStrc* hClient)
 {
-    D2_ASSERT(pClient, 3344);
+    D2_ASSERT(hClient, 3344);
 
-    return pClient->clientPlayerData;
+    return hClient->clientPlayerData;
 }
 
 // 0x00539470

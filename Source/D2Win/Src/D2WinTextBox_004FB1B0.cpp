@@ -185,16 +185,16 @@ static void sub_004FB5A0_SetTextBoxLineGap(int nFont)
 }
 
 // 0x004FBAB0
-int __fastcall D2Win_10055(D2WinTextBoxStrc* pTextBox)
+int __fastcall D2Win_10055(D2WinTextBoxStrc* ptTextData)
 {
-    D2_ASSERT(pTextBox, 0x290);
-    D2_ASSERT(pTextBox->nType == 4, 0x291);
+    D2_ASSERT(ptTextData, 0x290);
+    D2_ASSERT(ptTextData->nType == 4, 0x291);
 
-    sub_00502EF0(pTextBox->eFont);
-    const int nHeight = pTextBox->nHeight - 2 * pTextBox->field_44;
-    sub_004FB5A0_SetTextBoxLineGap(pTextBox->eFont);
-    const int nLineHeight = D2Win_10125() + pTextBox->field_A8;
-    return (nHeight - nLineHeight) / (nLineHeight + pTextBox->field_A4) + 1;
+    sub_00502EF0(ptTextData->eFont);
+    const int nHeight = ptTextData->nHeight - 2 * ptTextData->field_44;
+    sub_004FB5A0_SetTextBoxLineGap(ptTextData->eFont);
+    const int nLineHeight = D2Win_10125() + ptTextData->field_A8;
+    return (nHeight - nLineHeight) / (nLineHeight + ptTextData->field_A4) + 1;
 }
 
 // 0x004FC2F0

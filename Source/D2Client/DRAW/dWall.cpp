@@ -97,48 +97,48 @@ void __stdcall sub_004DEF80_DrawCellTiles(D2GridCellStrc* pCell, int nPass, D2Ce
 
     for (D2CellTileNodeStrc* pNode = pCell->pTiles; pNode; pNode = pNode->pNext)
     {
-        D2CellTileStrc* pTile = pNode->pTile;
-        D2_ASSERT(pTile->nType != 0xF, 0xF9);
+        D2CellTileStrc* ptTile = pNode->pTile;
+        D2_ASSERT(ptTile->nType != 0xF, 0xF9);
 
-        const unsigned int dwFade = pTile->dwFadeFlags;
+        const unsigned int dwFade = ptTile->dwFadeFlags;
         if (dwFade & 2)
         {
             if (bFade)
             {
-                if (dwTick < pTile->dwEndTick)
+                if (dwTick < ptTile->dwEndTick)
                 {
-                    pTile->nAlpha = pTile->nAlphaFrom + (pTile->nAlphaTo - pTile->nAlphaFrom) * (int)(dwTick - pTile->dwEndTick + 500) / 500;
+                    ptTile->nAlpha = ptTile->nAlphaFrom + (ptTile->nAlphaTo - ptTile->nAlphaFrom) * (int)(dwTick - ptTile->dwEndTick + 500) / 500;
                 }
                 else
                 {
-                    unsigned char* pAlpha = &pTile->nAlpha;
-                    *pAlpha = pTile->nAlphaTo;
-                    pTile->dwFadeFlags = dwFade & ~2;
+                    unsigned char* pAlpha = &ptTile->nAlpha;
+                    *pAlpha = ptTile->nAlphaTo;
+                    ptTile->dwFadeFlags = dwFade & ~2;
                 }
             }
             else
             {
-                unsigned char* pAlpha = &pTile->nAlpha;
-                *pAlpha = pTile->nAlphaTo;
-                pTile->dwFadeFlags = dwFade & ~2;
+                unsigned char* pAlpha = &ptTile->nAlpha;
+                *pAlpha = ptTile->nAlphaTo;
+                ptTile->dwFadeFlags = dwFade & ~2;
             }
 
-            if (!pTile->nAlpha)
-                pTile->dwFlags |= 0x400;
+            if (!ptTile->nAlpha)
+                ptTile->dwFlags |= 0x400;
             else
-                pTile->dwFlags &= ~0x400;
+                ptTile->dwFlags &= ~0x400;
         }
 
-        if ((pTile->dwFadeFlags & 4) && dwTick >= pTile->dwEndTick)
+        if ((ptTile->dwFadeFlags & 4) && dwTick >= ptTile->dwEndTick)
         {
-            pTile->dwFadeFlags &= ~4;
-            pTile->dwFlags |= 8;
+            ptTile->dwFadeFlags &= ~4;
+            ptTile->dwFlags |= 8;
         }
 
-        if (!(pTile->dwFlags & 0x408) && nPass != ((pTile->dwFlags & 0x1C000) != 0))
+        if (!(ptTile->dwFlags & 0x408) && nPass != ((ptTile->dwFlags & 0x1C000) != 0))
         {
             unsigned int nCount;
-            const D2LightPairStrc* pPairs = sub_004DEDB0_GetLightOffsets(pTile->pTile, &nCount, pTile->dwFadeFlags & 1);
+            const D2LightPairStrc* pPairs = sub_004DEDB0_GetLightOffsets(ptTile->pTile, &nCount, ptTile->dwFadeFlags & 1);
             unsigned int aLight[8];
             for (unsigned int i = 0; i < nCount; ++i)
             {
@@ -148,7 +148,7 @@ void __stdcall sub_004DEF80_DrawCellTiles(D2GridCellStrc* pCell, int nPass, D2Ce
                 aLight[i] = (((((nC3 << 8) | nC2) << 8) | nC1) << 8) | nC0;
             }
 
-            const unsigned char nAlpha = pTile->nAlpha;
+            const unsigned char nAlpha = ptTile->nAlpha;
             int nX;
             int nY;
             if (bPerspective)
@@ -158,18 +158,18 @@ void __stdcall sub_004DEF80_DrawCellTiles(D2GridCellStrc* pCell, int nPass, D2Ce
             }
             else
             {
-                nX = pView->nOffsetX - pView->nScrollX + pTile->nX;
-                nY = pTile->nY - pView->nScrollY + pView->nOffsetY;
+                nX = pView->nOffsetX - pView->nScrollX + ptTile->nX;
+                nY = ptTile->nY - pView->nScrollY + pView->nOffsetY;
             }
 
             int bDrawn;
             if (nAlpha != 0xFF)
-                bDrawn = TILE_TileDrawTrans(pTile->pTile, nX, nY, aLight, nGamma, nAlpha);
+                bDrawn = TILE_TileDrawTrans(ptTile->pTile, nX, nY, aLight, nGamma, nAlpha);
             else
-                bDrawn = TILE_TileDrawLit(pTile->pTile, nX, nY, aLight, nGamma);
+                bDrawn = TILE_TileDrawLit(ptTile->pTile, nX, nY, aLight, nGamma);
 
             if (bDrawn)
-                pTile->dwFlags |= 0x20000;
+                ptTile->dwFlags |= 0x20000;
         }
     }
 }
