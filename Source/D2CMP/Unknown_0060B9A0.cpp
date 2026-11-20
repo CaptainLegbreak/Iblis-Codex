@@ -1,24 +1,12 @@
 #include "D2GameTypes.h"
 #include "D2CmpTypes.h"
 #include "D2CmpCache.h"
+#include "D2CmpTiles.h"
 
 struct D2CmpByteMapStrc
 {
     unsigned char ab[0x100];
     int nCount;
-};
-
-struct D2Dc6FrameStrc
-{
-    int nFlip;
-    int nWidth;
-    int nHeight;
-    int nXOffset;
-    int nYOffset;
-    int nUnk0x14;
-    int nNextBlock;
-    int nLength;
-    unsigned char abData[1];
 };
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837

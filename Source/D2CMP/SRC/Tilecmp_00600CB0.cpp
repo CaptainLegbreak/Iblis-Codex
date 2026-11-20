@@ -32,23 +32,6 @@ struct D2TileRecordStrc
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
-struct D2CmpTileNodeStrc
-{
-    int unk0x00;
-    int unk0x04;
-    int unk0x08;
-    void* pData;
-    D2CmpTileNodeStrc* pNext;
-};
-
-struct D2CmpTileListStrc
-{
-    int unk0x00;
-    int nId;
-    int nCount;
-    D2CmpTileStrc* pFirst;
-};
-
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 
 struct D2TileLibraryEntryStrc
@@ -127,6 +110,7 @@ D2TileRecordStrc* __stdcall TileListCreate(int nFirst, int nSecond)
 }
 
 #include "gen/data/Source/D2CMP/SRC/Tilecmp_00600CB0.inc"
+#include "D2CmpTiles.h"
 
 // 0x00609500
 static __forceinline void sub_00609500_ReleaseTileNode(D2CmpTileNodeStrc* pNode)

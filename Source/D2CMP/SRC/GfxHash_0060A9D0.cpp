@@ -1,5 +1,6 @@
 #include "D2CMP.h"
 #include "D2CmpTypes.h"
+#include "D2CmpTiles.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -19,12 +20,6 @@ typedef void(__fastcall* PixelDataFreeCallback)(void* pData);
 void* __fastcall FOG_AsyncDataGetBuffer(D2AsyncLoadStrc* pAsync); // 0x0040A9E0
 void __fastcall sub_0040AB00_FreeAsyncData(D2AsyncLoadStrc* pAsync); // 0x0040AB00
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
-
-struct D2CmpGfxHashStrc
-{
-    char unk0x0000[0x8000];
-    D2CmpGfxHashEntryStrc* pBuckets[0x2000];
-};
 
 PixelDataFreeCallback __fastcall sub_00601A40(struct D2CmpGfxHashStrc* pHash); // 0x00601A40
 

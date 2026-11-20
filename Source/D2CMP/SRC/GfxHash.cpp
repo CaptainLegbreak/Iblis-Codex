@@ -1,5 +1,6 @@
 #include "D2CMP.h"
 #include "D2CmpTypes.h"
+#include "D2CmpTiles.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -23,11 +24,6 @@ extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(void* lpCr
 struct D2CmpBlockTableAStrc
 {
     unsigned char data[0x1000];
-};
-
-struct D2CmpBlockTableBStrc
-{
-    unsigned char data[0x10000];
 };
 
 struct T00604AE0
@@ -59,13 +55,6 @@ struct D2CmpGfxKeyStrc
     int nKey4;
     int nKey5;
     const char* szName;
-};
-
-
-struct D2CmpGfxHashStrc
-{
-    char unk0x0000[0x8000];
-    D2CmpGfxHashEntryStrc* pBuckets[0x2000];
 };
 
 unsigned int __fastcall sub_0060AB80_GetGfxKeyValue(D2CmpGfxKeyStrc* pKey, int* pAux, void* pCel); // 0x0060AB80

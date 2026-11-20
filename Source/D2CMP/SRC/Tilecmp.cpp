@@ -1,5 +1,6 @@
 #include "D2CMP.h"
 #include "D2CmpTypes.h"
+#include "D2CmpTiles.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -20,35 +21,10 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 D2TileListHeaderStrc* __cdecl sub_006094B0_AllocTileListHeader(); // 0x006094B0
 void __fastcall sub_005179B3_ConvertCelPixels(void* pDst, void* pSrc, int nRows, unsigned int nSrcSize, unsigned int nWidth, int nRows2);
 
-struct D2CmpTileNodeStrc
-{
-    unsigned short nX;
-    unsigned short nY;
-    unsigned char nGridX;
-    unsigned char nGridY;
-    unsigned short nFormat;
-    union
-    {
-        unsigned short nLength;
-        unsigned short nSize;
-    };
-    short unk0x0A;
-    unsigned char* pData;
-    D2CmpTileNodeStrc* pNext;
-};
-
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 
 extern D2CmpSubTilePosStrc gSubTilePositions_00743500[25]; // 0x00743500
-
-struct D2CmpTileListStrc
-{
-    int bFlag;
-    int nId;
-    int nCount;
-    D2CmpTileStrc* pFirst;
-};
 
 // 0x00609770
 static __declspec(noinline) int __stdcall sub_00609770_IsUniformBlock(D2CmpTileStrc* pTile, const unsigned char* pPixels, int nPitch)
@@ -223,7 +199,7 @@ static __declspec(noinline) void sub_00609BF0_CopyTileNode(D2CmpSubTileRecordStr
     pSub->nGridX = pNode->nGridX;
     pSub->nGridY = pNode->nGridY;
     pSub->nFlags = pNode->nFormat;
-    pSub->nLength = pNode->nSize;
+    pSub->nLength = pNode->nLength;
     pSub->ptData = pNode->pData;
     pNode->pData = 0;
 }
@@ -268,7 +244,7 @@ static void __stdcall sub_00609C30_ConvertTileToBlock(D2CmpTileStrc* pSrc, D2Cmp
         pSub->nGridX = pNode->nGridX;
         pSub->nGridY = pNode->nGridY;
         pSub->nFlags = pNode->nFormat;
-        pSub->nLength = pNode->nSize;
+        pSub->nLength = pNode->nLength;
         pSub->ptData = pNode->pData;
         pNode->pData = 0;
         i++;

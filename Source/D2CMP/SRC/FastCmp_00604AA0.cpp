@@ -1,5 +1,6 @@
 #include "D2CMP.h"
 #include "D2CmpTypes.h"
+#include "D2CmpTiles.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
@@ -34,14 +35,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
-
-struct D2CmpTileListStrc
-{
-    int unk0x00;
-    int nId;
-    int nCount;
-    D2CmpTileStrc* pFirst;
-};
 
 D2CmpTileStrc* __cdecl sub_00609550_AllocTile(); // 0x00609550
 
