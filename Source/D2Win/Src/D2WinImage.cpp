@@ -1,6 +1,8 @@
 #include "D2Win.h"
 #include "D2CelContext.h"
 #include "D2CmpTypes.h"
+#include "D2WinTypes.h"
+#include "D2WinControls.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -75,26 +77,6 @@ typedef int (__stdcall* D2WinMsgHandler)(SMSGHANDLER_PARAMS* pMsg);
 
 typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
 
-struct D2WinControlStrc
-{
-    int eType;
-    D2CelFileStrc* pCellFile;
-    unsigned int dwFlags;
-    int nImageX;
-    int nImageY;
-    int nWidth;
-    int nHeight;
-    D2WinControlFn pfDraw;
-    D2WinControlFn pfInitialize;
-    D2WinMsgHandler pfHandleMouseDown;
-    D2WinMsgHandler pfHandleMouseUp;
-    D2WinMsgHandler pfHandleCharInput;
-    D2WinMsgHandler pfHandleVirtualKeyInput;
-    D2WinMsgHandler field_34;
-    D2WinControlFn pfShouldMouseInputBeHandled;
-    D2WinControlStrc* pNext;
-};
-
 struct D2WinImage2Strc
 {
     D2WinControlStrc controlHeader;
@@ -150,17 +132,6 @@ struct D2WinListStrc
     D2WinListDataStrc* pSelectedDataEntry;
 };
 
-struct D2WinAccountListStrc
-{
-    D2WinControlStrc controlHeader;
-    D2WinAccountListDataStrc* pDataList;
-    D2WinAccountListDataStrc* pSelectedDataEntry;
-    int field_48;
-    int field_4C;
-    int eFont;
-    int field_54;
-};
-
 struct D2WinProgressBarStrc
 {
     D2WinControlStrc controlHeader;
@@ -180,7 +151,6 @@ struct D2WinPopUpStrc
     D2WinPopUpLineStrc lines[8];
     int nCurrentLine;
 };
-
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
@@ -204,7 +174,6 @@ struct D2WinImageClickRectStrc
     int unk0x10;
     int (__stdcall* pCallback)(SMSGHANDLER_PARAMS* pMsg);
 };
-
 
 extern D2CofNodeStrc* gpCofNodeList_0087E83C; // 0x0087E83C
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480

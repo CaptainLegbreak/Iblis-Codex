@@ -2,18 +2,9 @@
 #include "D2Structs.h"
 #include "D2Txt.h"
 #include "D2ClientTypes.h"
-
-struct D2CharStrc
-{
-    unsigned short wChar;
-    unsigned char unk0x02;
-    unsigned char nWidth;
-    unsigned char nHeight;
-    unsigned char unk0x05;
-    unsigned short unk0x06;
-    unsigned short nImageIndex;
-    unsigned short unk0x0A[2];
-};
+#include "D2WinTypes.h"
+#include "D2WinTypes.h"
+#include "D2WinControls.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -37,68 +28,6 @@ struct Unicode
 {
     unsigned short wChar;
     Unicode(unsigned short ch = 0) : wChar(ch) {}
-};
-
-struct D2WinControlStrc
-{
-    int eType;
-    D2CelFileStrc* pCellFile;
-    unsigned int dwFlags;
-    int nImageX;
-    int nImageY;
-    int nWidth;
-    int nHeight;
-    void* pfDraw;
-    void* pfInitialize;
-    void* pfHandleMouseDown;
-    void* pfHandleMouseUp;
-    void* pfHandleCharInput;
-    void* pfHandleVirtualKeyInput;
-    void* field_34;
-    void* pfShouldMouseInputBeHandled;
-    D2WinControlStrc* pNext;
-};
-
-struct D2WinTextBoxLineStrc
-{
-    Unicode* pColumns[5];
-    int field_14;
-    char field_18;
-    char field_19;
-    char field_1A;
-    char field_1B;
-    D2WinTextBoxLineStrc* pNext;
-};
-
-struct D2WinTextBoxStrc
-{
-    union
-    {
-        struct
-        {
-            D2WinControlStrc controlHeader;
-        };
-        struct
-        {
-            int eType;
-            unsigned char unk_04[0x10];
-            int nWidth;
-        };
-    };
-    int field_40;
-    int field_44;
-    D2WinTextBoxLineStrc* pFirstLine;
-    D2WinTextBoxLineStrc* pLastLine;
-    D2WinTextBoxLineStrc* pCurrentLine;
-    int nNumLines;
-    int nLine;
-    int dwTextBoxFlags;
-    int nCurrentLine;
-    int nNumColumns;
-    int unk0x68[5];
-    int unk0x7C[5];
-    D2WinScrollBarStrc* pScrollBar;
-    int eFont;
 };
 
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -137,7 +66,6 @@ struct D2WinImageStrc
     int field_50;
 };
 
-
 enum D2ControlTypes
 {
     D2WIN_IMAGE = 2,
@@ -152,28 +80,10 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 void __stdcall TEXTURE_CelDrawClipped(D2GfxDataStrc* pData, int nXPos, int nYPos, void* pCropRect, int eDrawMode); // 0x004F6510
 int __fastcall D2Win_10058_0(D2WinControlStrc* pControl, const Unicode* pText, int a3, int nColumn); // 0x004FB790
 
-struct D2FontStrc
-{
-    unsigned int dwHeader;
-    unsigned short unk0x04;
-    unsigned short unk0x06;
-    unsigned short unk0x08;
-};
-
-struct D2FontCacheStrc
-{
-    D2CelFileStrc* pCellFile;
-    D2FontStrc* pFontInfo[2];
-    D2CharStrc* pCharInfo;
-    unsigned int dwShiftedTickCount;
-};
-
 int __fastcall D2Win_10055(D2WinTextBoxStrc* pTextBox); // 0x004FBAB0
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 extern D2FontCacheStrc gFontCache_00841DA8[]; // 0x00841DA8
-
-
 
 void __fastcall sub_004E6720_BuildItemPropTextB(D2UnitStrc* pItem, int nArg, int nArg2, Unicode* wszText, int nArg3, int nArg4); // 0x004E6720
 void __fastcall sub_004E67D0_BuildItemPropText(D2UnitStrc* pItem, int nArg, int nArg2, Unicode* wszText, int nArg3, int nArg4); // 0x004E67D0
@@ -528,8 +438,8 @@ int __fastcall D2Win_10198(D2WinTextBoxStrc* ptTextData, const Unicode* pText, i
             pLine->pColumns[j] = 0;
         }
 
-        pLine->field_14 = nValue;
-        pLine->field_18 = nFlag;
+        pLine->unk0x14 = nValue;
+        pLine->unk0x18 = nFlag;
         pLine->pNext = 0;
 
         if (!ptTextData->pFirstLine)
@@ -573,9 +483,9 @@ int __fastcall sub_004FCD90_D2Win_10058(D2WinControlStrc* pControl, const Unicod
 int __fastcall sub_004FCDA0_AddWrappedText(D2WinTextBoxStrc* pTextBox, const Unicode* wszText, int nColor, int nIndent)
 {
     D2_ASSERT(pTextBox, 0x482);
-    D2_ASSERT(pTextBox->eType == 4, 0x483);
+    D2_ASSERT(pTextBox->controlHeader.eType == 4, 0x483);
 
-    int nMaxWidth = pTextBox->nWidth - 2 * pTextBox->field_40;
+    int nMaxWidth = pTextBox->controlHeader.nWidth - 2 * pTextBox->unk0x40;
     if (nIndent == 2)
     {
         Unicode wszSpaces[6];
@@ -753,7 +663,7 @@ D2CharStrc* __fastcall sub_6F8AA140(unsigned short wChar)
     int nIterations = 0;
     int nMin = 0;
     D2FontCacheStrc* pFontCache = &gFontCache_00841DA8[gnCurrentFont_0072DFFC];
-    int nMax = pFontCache->pFontInfo[1]->unk0x08 - 1;
+    int nMax = pFontCache->pFontInfo[1]->nCharCount - 1;
     if (nMax >= 0)
     {
         D2CharStrc* pCharInfo = pFontCache->pCharInfo;

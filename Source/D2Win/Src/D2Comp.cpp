@@ -1,3 +1,6 @@
+#include "D2WinTypes.h"
+#include "D2WinTypes.h"
+#include "D2WinControls.h"
 struct D2WinEditBoxStrc;
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -37,22 +40,6 @@ struct D2CofInfoStrc
 {
     D2CofNodeStrc* pCofNode;
     D2CofInfoStrc* pNext;
-};
-
-struct D2GfxInfoStrc
-{
-    D2CofInfoStrc* pCofInfo;
-};
-
-struct D2CompositeUnitStrc
-{
-    unsigned int dwFlags;
-    unsigned char unk_04[0xB4];
-    D2GfxInfoStrc* pGfxInfo;
-    D2CelFileStrc* pEmblemCellFile;
-    unsigned char unk_C0[0x4];
-    D2CompositeUnitStrc* pNext;
-    D2CompositeUnitStrc* pPrev;
 };
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -163,26 +150,6 @@ typedef int (__stdcall* D2WinMsgHandler)(SMSGHANDLER_PARAMS* pMsg);
 
 typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
 
-struct D2WinControlStrc
-{
-    int eType;
-    D2CelFileStrc* pCellFile;
-    unsigned int dwFlags;
-    int nImageX;
-    int nImageY;
-    int nWidth;
-    int nHeight;
-    D2WinControlFn pfDraw;
-    D2WinControlFn pfInitialize;
-    D2WinMsgHandler pfHandleMouseDown;
-    D2WinMsgHandler pfHandleMouseUp;
-    D2WinMsgHandler pfHandleCharInput;
-    D2WinMsgHandler pfHandleVirtualKeyInput;
-    D2WinMsgHandler field_34;
-    D2WinControlFn pfShouldMouseInputBeHandled;
-    D2WinControlStrc* pNext;
-};
-
 struct D2WinSmackStrc
 {
     D2WinControlStrc controlHeader;
@@ -225,17 +192,6 @@ struct D2WinListStrc
     int nWidestEntry;
     D2WinListDataStrc* pDataList;
     D2WinListDataStrc* pSelectedDataEntry;
-};
-
-struct D2WinAccountListStrc
-{
-    D2WinControlStrc controlHeader;
-    D2WinAccountListDataStrc* pDataList;
-    D2WinAccountListDataStrc* pSelectedDataEntry;
-    int field_48;
-    int field_4C;
-    int eFont;
-    int field_54;
 };
 
 struct D2WinAccountListFontStrc
@@ -789,7 +745,7 @@ D2WinAccountListStrc* __fastcall ACCOUNTLIST_Create(int nX, int nY, int nWidth, 
     pAccountList->controlHeader.eType = D2WIN_ACCOUNTLIST;
     pAccountList->controlHeader.dwFlags |= gdwBitMasks[0];
     pAccountList->controlHeader.dwFlags |= gdwBitMasks[2];
-    pAccountList->field_4C = a5;
+    pAccountList->unk0x4C = a5;
     pAccountList->controlHeader.nImageX = nX;
     pAccountList->controlHeader.nImageY = nY;
     pAccountList->controlHeader.nWidth = nWidth;
@@ -802,17 +758,17 @@ D2WinAccountListStrc* __fastcall ACCOUNTLIST_Create(int nX, int nY, int nWidth, 
     pAccountList->controlHeader.field_34 = 0;
     pAccountList->pDataList = 0;
     pAccountList->pSelectedDataEntry = 0;
-    pAccountList->field_48 = 0;
+    pAccountList->unk0x48 = 0;
     pAccountList->controlHeader.pNext = 0;
     if (pFont)
     {
         pAccountList->eFont = pFont->eFont;
-        pAccountList->field_54 = pFont->field_04;
+        pAccountList->unk0x54 = pFont->field_04;
     }
     else
     {
         pAccountList->eFont = 1;
-        pAccountList->field_54 = 0;
+        pAccountList->unk0x54 = 0;
     }
     CONTROL_AppendToList(&pAccountList->controlHeader);
     return pAccountList;

@@ -1,4 +1,6 @@
 #include "D2Win.h"
+#include "D2WinTypes.h"
+#include "D2WinControls.h"
 
 struct Unicode
 {
@@ -7,51 +9,6 @@ struct Unicode
     Unicode();                                                                                              // 0x0042F530
 };
 
-struct D2WinControlStrc
-{
-    int eType;
-    D2CelFileStrc* pCellFile;
-    unsigned int dwFlags;
-    int nImageX;
-    int nImageY;
-    int nWidth;
-    int nHeight;
-    void* pfDraw;
-    void* pfInitialize;
-    void* pfHandleMouseDown;
-    void* pfHandleMouseUp;
-    void* pfHandleCharInput;
-    void* pfHandleVirtualKeyInput;
-    void* field_34;
-    void* pfShouldMouseInputBeHandled;
-    D2WinControlStrc* pNext;
-};
-
-struct D2WinTextBoxLineStrc
-{
-    Unicode* pColumns[5];
-    int field_14;
-    char field_18;
-    char field_19;
-    char field_1A;
-    char field_1B;
-    D2WinTextBoxLineStrc* pNext;
-};
-
-struct D2WinTextBoxStrc
-{
-    D2WinControlStrc controlHeader;
-    int field_40;
-    int field_44;
-    D2WinTextBoxLineStrc* pFirstLine;
-    D2WinTextBoxLineStrc* pLastLine;
-    D2WinTextBoxLineStrc* pCurrentLine;
-    int nNumLines;
-    int nLine;
-    int dwTextBoxFlags;
-    int nCurrentLine;
-    int nNumColumns;
-};
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }

@@ -1,5 +1,6 @@
 #include "D2Win.h"
 #include "D2CelContext.h"
+#include "D2WinTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define D2WIN_SCROLLBAR 5
@@ -16,22 +17,6 @@ struct tagWINDOWPLACEMENT;
 struct tagMONITORINFO;
 struct Point;
 struct Obj004FA490;
-
-struct D2WinControlStrc
-{
-    int eType;
-    D2CellFileStrc* pCellFile;
-    unsigned int dwFlags;
-    int nImageX;
-    int nImageY;
-    int nWidth;
-    int nHeight;
-    int (__fastcall* pfDraw)(D2WinControlStrc*);
-    int (__fastcall* pfInitialize)(D2WinControlStrc*);
-    void* unk0x24[6];
-    D2WinControlStrc* pNext;
-};
-
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0

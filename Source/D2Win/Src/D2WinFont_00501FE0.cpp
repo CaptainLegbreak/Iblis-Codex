@@ -1,18 +1,7 @@
 #include "D2Win.h"
 #include "D2CelContext.h"
 #include "D2WinTypes.h"
-
-struct D2CharStrc
-{
-    unsigned short wChar;
-    unsigned char unk0x02;
-    unsigned char nWidth;
-    unsigned char nHeight;
-    unsigned char unk0x05;
-    unsigned short unk0x06;
-    unsigned short nImageIndex;
-    unsigned short unk0x0A[2];
-};
+#include "D2WinTypes.h"
 
 struct Unicode;
 struct D2CharStrc;
@@ -39,18 +28,6 @@ struct Unicode
 // build: symbol ?strncpy@Unicode@@SIPAU1@PAU1@PBU1@H@Z 0x00526790
     static Unicode* __fastcall strncpy(Unicode* dest, const Unicode* src, int count);                       // 0x00526790
 };
-
-struct D2FontStrc
-{
-    unsigned int dwHeader;
-    unsigned short unk0x04;
-    unsigned short unk0x06;
-    unsigned short nCharCount;
-    unsigned char nHeight;
-    unsigned char unk0x0B;
-};
-
-
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 void __stdcall TEXTURE_CelDrawColor(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, int nGlobalPaletteShift); // 0x004F64B0

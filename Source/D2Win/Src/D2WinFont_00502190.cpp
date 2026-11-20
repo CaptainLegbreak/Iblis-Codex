@@ -1,35 +1,12 @@
 #include "D2CelContext.h"
 #include "D2WinTypes.h"
+#include "D2WinTypes.h"
 struct D2CelFileStrc;
 
 struct Unicode
 {
     unsigned short wChar;
 };
-
-struct D2CharStrc
-{
-    unsigned short wChar;
-    unsigned char unk0x02;
-    unsigned char nWidth;
-    unsigned char nHeight;
-    unsigned char unk0x05;
-    unsigned short unk0x06;
-    unsigned short nImageIndex;
-    unsigned short unk0x0A[2];
-};
-
-struct D2FontStrc
-{
-    unsigned int dwHeader;
-    unsigned short unk0x04;
-    unsigned short unk0x06;
-    unsigned short unk0x08;
-    unsigned char nHeight;
-    unsigned char unk0x0B;
-};
-
-
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480

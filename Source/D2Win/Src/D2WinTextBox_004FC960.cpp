@@ -1,17 +1,7 @@
 #include "D2Win.h"
 #include "D2CmpTypes.h"
-
-struct D2CharStrc
-{
-    unsigned short wChar;
-    unsigned char unk0x02;
-    unsigned char nWidth;
-    unsigned char nHeight;
-    unsigned char unk0x05;
-    unsigned short unk0x06;
-    unsigned short nImageIndex;
-    unsigned short unk0x0A[2];
-};
+#include "D2WinTypes.h"
+#include "D2WinTypes.h"
 
 enum D2ControlTypes
 {
@@ -52,26 +42,6 @@ struct D2WinControlStrc;
 
 typedef int (__stdcall* D2WinMsgHandler)(SMSGHANDLER_PARAMS* pMsg);
 typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
-
-struct D2WinControlStrc
-{
-    int eType;
-    D2CelFileStrc* pCellFile;
-    unsigned int dwFlags;
-    int nImageX;
-    int nImageY;
-    int nWidth;
-    int nHeight;
-    D2WinControlFn pfDraw;
-    D2WinControlFn pfInitialize;
-    D2WinMsgHandler pfHandleMouseDown;
-    D2WinMsgHandler pfHandleMouseUp;
-    D2WinMsgHandler pfHandleCharInput;
-    D2WinMsgHandler pfHandleVirtualKeyInput;
-    D2WinMsgHandler field_34;
-    D2WinControlFn pfShouldMouseInputBeHandled;
-    D2WinControlStrc* pNext;
-};
 
 struct D2WinTextBoxStrc
 {
@@ -179,14 +149,6 @@ struct D2WinPopUpStrc
     int nCurrentLine;
 };
 
-struct D2FontCacheStrc
-{
-    D2CelFileStrc* pCellFile;
-    D2FontStrc* pFontInfo[2];
-    D2CharStrc* pCharInfo;
-    unsigned int dwShiftedTickCount;
-};
-
 struct D2CofDataStrc
 {
     unsigned char nLayers;
@@ -199,37 +161,6 @@ struct D2CofDataStrc
     unsigned int nBoxTop;
     unsigned int nBoxBottom;
     unsigned int nAnimSpeed;
-};
-
-
-
-struct D2GfxInfoStrc
-{
-    D2CofInfoStrc* pCofInfo;
-};
-
-struct D2CompositeUnitStrc
-{
-    unsigned int dwFlags;
-    unsigned char nDirection;
-    unsigned char nDirections;
-    unsigned char unk0x06;
-    unsigned char unk0x07;
-    int nFrame;
-    int nFrameCount;
-    unsigned int nAnimSpeed;
-    int nX;
-    int nY;
-    int nUnitIndex;
-    int nMode;
-    char unk0x24[0x94];
-    D2GfxInfoStrc* pGfxInfo;
-    D2CelFileStrc* pEmblemCellFile;
-    unsigned char nEmblemColor1;
-    unsigned char nEmblemColor2;
-    unsigned char unk0xC2;
-    unsigned char unk0xC3;
-    D2CompositeUnitStrc* pNext;
 };
 
 struct D2EmblemColorStrc

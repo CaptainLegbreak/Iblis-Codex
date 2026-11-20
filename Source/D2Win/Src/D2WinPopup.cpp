@@ -1,4 +1,5 @@
 #include "D2Win.h"
+#include "D2WinTypes.h"
 
 enum D2C_WinControlTypes
 {
@@ -19,26 +20,6 @@ struct D2WinControlStrc;
 
 typedef int (__stdcall* D2WinMsgHandler)(SMSGHANDLER_PARAMS* pMsg);
 typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
-
-struct D2WinControlStrc
-{
-    int eType;
-    D2CelFileStrc* pCellFile;
-    unsigned int dwFlags;
-    int nImageX;
-    int nImageY;
-    int nWidth;
-    int nHeight;
-    D2WinControlFn pfDraw;
-    D2WinControlFn pfInitialize;
-    D2WinMsgHandler pfHandleMouseDown;
-    D2WinMsgHandler pfHandleMouseUp;
-    D2WinMsgHandler pfHandleCharInput;
-    D2WinMsgHandler pfHandleVirtualKeyInput;
-    D2WinMsgHandler field_34;
-    D2WinControlFn pfShouldMouseInputBeHandled;
-    D2WinControlStrc* pNext;
-};
 
 struct D2WinPopUpLineStrc
 {
