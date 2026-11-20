@@ -2,11 +2,8 @@
 #include "D2Drlg.h"
 #include "D2DrlgMaps.h"
 #include "D2DrlgTiles.h"
+#include "D2TxtTables.h"
 
-struct D2LvlWarpTxt
-{
-    int dwLevelId;
-};
 
 
 

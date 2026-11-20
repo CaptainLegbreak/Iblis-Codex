@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Txt.h"
 #include "D2LevelTxt.h"
+#include "D2TxtTables.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2MsgHandlerEntryStrc;
@@ -129,23 +130,6 @@ struct D2MonLvlTxt
 
 
 
-struct D2ItemTypesTxt
-{
-    char szCode[4];
-    short nEquiv1;
-    short nEquiv2;
-    unsigned char nRepair;
-    unsigned char nBody;
-    unsigned char nBodyLoc1;
-    unsigned char nBodyLoc2;
-    short wShoots;
-    short wQuiver;
-    unsigned char nThrowable;
-    unsigned char nReload;
-    unsigned char nReEquip;
-    unsigned char nAutoStack;
-    char unk0x14[0xD0];
-};
 
 typedef char check_states_size[(sizeof(D2StatesTxt) == 0x3C) ? 1 : -1];
 

@@ -5,6 +5,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2TxtTables.h"
 struct D2ActiveRoomStrc;
 struct D2GameStrc;
 struct D2UnitStrc;
@@ -46,20 +47,6 @@ struct D2MonsterRegionStrc
 
 
 
-struct D2MonUModTxt
-{
-    unsigned int dwUniqueMod;
-    unsigned short wVersion;
-    unsigned char nEnabled;
-    unsigned char nXfer;
-    unsigned char nChampion;
-    unsigned char nFPick;
-    short wExclude[2];
-    unsigned short wCPick[3];
-    unsigned short wUPick[3];
-    unsigned short pad1A;
-    unsigned int dwConstants;
-};
 
 struct D2SuperUniquesTxt
 {

@@ -1,14 +1,8 @@
 #include "D2Common.h"
 #include "D2Records.h"
+#include "D2TxtTables.h"
 
 
-struct D2ItemTypesTxt
-{
-    char szCode[4];
-    short nEquiv1;
-    short nEquiv2;
-    char unk0x08[0xDC];
-};
 
 enum
 {

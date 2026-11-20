@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
+#include "D2TxtTables.h"
 
 #define UNIT_MONSTER 1
 struct D2MissilesTxt;
@@ -47,11 +48,6 @@ int __stdcall MISSILE_GetLevel(D2UnitStrc*); // 0x0064A210
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc*, int, int); // 0x00625480
 void __fastcall sub_6FC3F610(D2ClientStrc*, D2GSPacketSrv73*); // 0x0053DA10
 
-struct D2MonUModTxt
-{
-    char unk0x00[0x1C];
-    int dwConstants;
-};
 
 
 struct D2MonStatsTxt

@@ -48,11 +48,6 @@ enum D2C_H16ElemConstants
 
 
 
-struct D2MonUModTxt
-{
-    char pad0x00[0x1C];
-    int dwConstants;
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -137,6 +132,7 @@ void __fastcall MONSTERUNIQUE_UMod30_AuraEnchanted(D2UnitStrc* pUnit, int nUMod,
 
 #include "gen/data/Source/D2Game/Unknown_005A1650.inc"
 #include "D2Txt.h"
+#include "D2TxtTables.h"
 
 static __forceinline D2MissilesTxt* MONUNIQUE_GetMissilesTxtRecord_Inline(int nMissileId)
 {

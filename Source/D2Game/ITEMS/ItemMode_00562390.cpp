@@ -1,17 +1,12 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2TxtTables.h"
 struct D2ClientStrc;
 struct D2InventoryStrc;
 struct D2SkillStrc;
 
 
 
-struct D2BooksTxt
-{
-    char unk0x00[0x08];
-    int dwScrollSkillId;
-    int dwBookSkillId;
-};
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60

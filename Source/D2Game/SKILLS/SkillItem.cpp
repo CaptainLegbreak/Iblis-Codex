@@ -4,6 +4,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2GameTypes.h"
+#include "D2TxtTables.h"
 
 #define IFLAG_TARGETING 4
 #define OBJECT_STASH 267
@@ -49,13 +50,6 @@ int __fastcall D2GAME_PLRTRADE_IsInteractingWithPlayer(D2GameStrc* pGame, D2Unit
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
 void __fastcall D2GAME_ITEMS_Identify_6FC49670(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem); // 0x00562590
 
-struct D2BooksTxt
-{
-    char unk0x00[0x04];
-    int dwPSpell;
-    int dwScrollSkillId;
-    int dwBookSkillId;
-};
 
 struct D2ItemsTxt
 {

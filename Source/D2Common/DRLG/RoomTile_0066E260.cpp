@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2Drlg.h"
 #include "D2DrlgMaps.h"
+#include "D2TxtTables.h"
 
 struct D2DrlgTileDataStrc;
 
@@ -38,16 +39,6 @@ union D2C_PackedTileInformation
 
 
 
-struct D2LvlWarpTxt
-{
-    int dwLevelId;
-    char unk0x04[0x18];
-    int dwOffsetX;
-    int dwOffsetY;
-    int dwLitVersion;
-    int dwTiles;
-    char szDirection[4];
-};
 
 struct D2RoomTileStrc
 {

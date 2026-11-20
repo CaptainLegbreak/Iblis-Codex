@@ -3,6 +3,7 @@
 #include "D2Records.h"
 #include "D2LevelTxt.h"
 #include "D2DrlgMaps.h"
+#include "D2TxtTables.h"
 
 
 struct D2LvlTypesTxt
@@ -14,13 +15,6 @@ struct D2LvlTypesTxt
 };
 
 
-struct D2LvlSubTxt
-{
-    int dwType;
-    char szFile[60];
-    char unk0x040[0x118];
-    int dwExpansion;
-};
 
 
 

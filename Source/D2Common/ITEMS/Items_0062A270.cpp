@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2ItemsWorld.h"
+#include "D2TxtTables.h"
 struct D2UnitStrc;
 #define IFLAG_IDENTIFIED 0x10
 #define IFLAG_ETHEREAL 0x400000
@@ -35,12 +36,6 @@ D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x
 D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
 D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
 
-struct D2ItemTypesTxt
-{
-    char unk0x00[8];
-    unsigned char nRepair;
-    char unk0x09[0xE4 - 0x09];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2Drlg.h"
 #include "D2DrlgMaps.h"
+#include "D2TxtTables.h"
 
 struct D2DrlgCoordStrc;
 struct D2DrlgSubstGroupStrc;
@@ -26,20 +27,6 @@ struct D2DrlgSubstGroupStrc
 };
 
 
-struct D2LvlSubTxt
-{
-    int dwType;
-    char szFile[60];
-    int dwCheckAll;
-    int dwBordType;
-    int dwDt1Mask;
-    int dwGridSize;
-    D2DrlgFileStrc* pDrlgFile;
-    D2DrlgGridStrc pTileTypeGrid[4];
-    D2DrlgGridStrc pWallGrid[4];
-    D2DrlgGridStrc pFloorGrid;
-    unsigned char unk_108[0x54];
-};
 
 struct D2UnkOutdoorStrc
 {

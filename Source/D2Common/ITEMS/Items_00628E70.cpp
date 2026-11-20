@@ -5,6 +5,7 @@
 #include "D2ItemsWorld.h"
 #include "D2LevelTxt.h"
 #include "D2GameRecords.h"
+#include "D2TxtTables.h"
 struct D2UnitStrc;
 
 #define ITEMS_ADD_BONUS_COSTS(nMult, nAdd, nValue, nBuyDiv)                                        \
@@ -173,11 +174,6 @@ D2GemsTxt* __stdcall DATATBLS_GetGemsTxtRecord(int nGemId); // 0x006372C0
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 void __stdcall ITEMS_SetOwnerId(D2UnitStrc* pItem, int nOwnerId); // 0x00629EA0
 
-struct D2ItemTypesTxt
-{
-    char unk0x00[8];
-    unsigned char nRepair;
-};
 unsigned int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
 int __stdcall ITEMS_HasDurability(D2UnitStrc* pItem); // 0x00629930
 int __stdcall ITEMS_HasUsedCharges(D2UnitStrc* pItem, int* pHasChargedSkills); // 0x0062A840

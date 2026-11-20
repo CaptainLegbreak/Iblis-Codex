@@ -5,6 +5,7 @@
 #include "D2ItemsWorld.h"
 #include "D2LevelTxt.h"
 #include "D2GameRecords.h"
+#include "D2TxtTables.h"
 #define STAT_ITEM_INDESCTRUCTIBLE 152
 #define IFLAG_IDENTIFIED 0x00000010
 #define NODEPAGE_STORAGE 1
@@ -160,11 +161,6 @@ struct D2ItemsTxt
     unsigned char unk_143[0x65];
 };
 
-struct D2BooksTxt
-{
-    unsigned short wStr;
-    unsigned char nSpellIcon;
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -191,34 +187,6 @@ D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
 D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
 int __stdcall INVENTORY_GetItemNodePage(D2UnitStrc* pItem); // 0x0063E020
 
-struct D2ItemTypesTxt
-{
-    char szCode[4];
-    short nEquiv1;
-    short nEquiv2;
-    unsigned char nRepair;
-    unsigned char nBody;
-    unsigned char nBodyLoc1;
-    unsigned char nBodyLoc2;
-    short wShoots;
-    short wQuiver;
-    unsigned char nThrowable;
-    unsigned char nReload;
-    unsigned char nReEquip;
-    unsigned char nAutoStack;
-    unsigned char nMagic;
-    unsigned char nRare;
-    unsigned char nNormal;
-    char unk0x17[2];
-    unsigned char nBeltable;
-    char unk0x1A[5];
-    unsigned char nStaffMods;
-    char unk0x20[1];
-    unsigned char nClass;
-    unsigned char nStorePage;
-    unsigned char nVarInvGfx;
-    char szInvGfx[6][32];
-};
 
 struct D2RunesTxt
 {

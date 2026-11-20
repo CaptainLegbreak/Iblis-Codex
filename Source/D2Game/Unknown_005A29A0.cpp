@@ -8,6 +8,7 @@
 #include "D2Txt.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2TxtTables.h"
 
 #define MISSILE_LIGHTUNIQUE 195
 #define MONTYPEFLAG_LIGHTNINGUNIQUE 0x100
@@ -52,11 +53,6 @@ enum D2C_H16ElemConstants
     STAT_LEVEL = 12,
 };
 
-struct D2MonUModTxt
-{
-    char pad0x00[0x1C];
-    int dwConstants;
-};
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndFlag(D2UnitStrc* pUnit, int nFlag); // 0x00625760

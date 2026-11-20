@@ -5,6 +5,7 @@
 #include "D2ItemsWorld.h"
 #include "D2LevelTxt.h"
 #include "D2GameRecords.h"
+#include "D2TxtTables.h"
 struct D2UnitStrc;
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -19,22 +20,11 @@ struct D2BitBufferStrc;
 
 
 
-struct D2ItemTypesTxt
-{
-    char unk0x00[0x1F];
-    unsigned char nStaffMods;
-    char unk0x20[0xE4 - 0x20];
-};
 
 
 
 
 
-struct D2BooksTxt
-{
-    char unk0x00[0x14];
-    int dwCostPerCharge;
-};
 
 
 
