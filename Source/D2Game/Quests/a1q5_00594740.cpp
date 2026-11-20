@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 #define UNIT_PLAYER 0
 #define LEVEL_ROGUEENCAMPMENT 1
@@ -36,11 +38,6 @@ struct D2QuestGUIDStrc
     unsigned short unk_82;
 };
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 struct D2Act1Quest5Strc
 {

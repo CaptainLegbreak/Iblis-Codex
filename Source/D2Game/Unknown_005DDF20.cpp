@@ -1,6 +1,8 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 enum D2C_Y10AiTacticsConstants
 {
@@ -15,17 +17,7 @@ struct D2GameStrc
     unsigned int dwGameFrame;
 };
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
-struct D2StaticPathStrc
-{
-    char unk0x00[0x0C];
-    D2CoordStrc tGameCoords;
-};
 
 
 struct D2ModeChangeStrc

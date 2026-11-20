@@ -1,4 +1,6 @@
 #include "D2Client.h"
+#include "D2Structs.h"
+#include "D2Path.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2SoundUnitNodeStrc;
@@ -66,11 +68,6 @@ int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
 Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526790
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 #pragma pack(push, 1)
 struct D2ClientSoundStrc

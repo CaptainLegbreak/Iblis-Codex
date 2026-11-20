@@ -1,10 +1,11 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 struct D2StaticPathStrc;
 struct D2SkillsTxt;
 
-struct D2StaticPathStrc { char unk_00[0xC]; int nXPos; int nYPos; };
 
 
 struct D2SkillsTxt

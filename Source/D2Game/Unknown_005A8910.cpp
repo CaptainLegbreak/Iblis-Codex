@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 struct D2SeedStrc;
 struct D2MonStatsTxt;
@@ -144,11 +146,6 @@ struct Damage {
 
 enum { ZERO_DAMAGE=0 };
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 static __forceinline D2MonStatsTxt* GetMonStatsTxtRecord(int nMonsterId)
 {

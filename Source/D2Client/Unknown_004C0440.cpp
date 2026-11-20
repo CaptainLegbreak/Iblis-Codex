@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2HotspotStrc;
@@ -113,7 +114,6 @@ static int sub_004C0450_ClickHotspots(int nX, int nY)
 }
 
 #include "gen/data/Source/D2Client/Unknown_004C0440.inc"
-#include "D2Structs.h"
 
 static int gnFlag_007C5470; // 0x007C5470
 

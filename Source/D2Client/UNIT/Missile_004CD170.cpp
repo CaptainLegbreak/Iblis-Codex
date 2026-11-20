@@ -1,5 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 #define UNIT_INVALID 6
 struct D2StaticPathStrc;
@@ -13,12 +15,6 @@ struct D2SkillsTxt;
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 0x006CC260
 
-struct D2StaticPathStrc
-{
-    char unk0x00[0x0C];
-    int nXPos;
-    int nYPos;
-};
 
 
 

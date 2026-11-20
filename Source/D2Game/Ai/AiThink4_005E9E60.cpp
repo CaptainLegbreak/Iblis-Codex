@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 #define AI_ROLL_PERCENT(pSeed) ((int)((unsigned int)SEED_RollRandomNumber(pSeed) % 100))
@@ -59,7 +61,6 @@ int __fastcall AITACTICS_ChangeModeAndTargetCoordinates(D2GameStrc* pGame, D2Uni
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames); // 0x005DE080
 int __fastcall AITACTICS_UseSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nMode, int nSkillId, D2UnitStrc* pTarget, int nX, int nY); // 0x005DEAD0
 
-struct D2CoordStrc { int x; int y; };
 
 int __fastcall ACT3Q7_GetWandererCoordinates(D2GameStrc* game,D2UnitStrc* unit,D2CoordStrc* coords); // 0x005BD0D0
 void __fastcall ACT3Q7_CreateVileDogSpawnTimer(D2GameStrc* game,D2UnitStrc* unit); // 0x005BD4A0
@@ -218,11 +219,11 @@ void __fastcall sub_005EA130_UpdateWanderer(D2GameStrc* game,D2UnitStrc* unit,D2
   int nState=control->dwAiParam[0];
   {
   if(nState==1) {
-   AITACTICS_WalkToTargetCoordinates(game,unit,coords.x,coords.y);
+   AITACTICS_WalkToTargetCoordinates(game,unit,coords.nX,coords.nY);
    control->dwAiParam[0]=2;return;
   }
   else if(nState==2) {
-   if(AIUTIL_GetDistanceToCoordinates(unit,coords.x,coords.y)<2) {
+   if(AIUTIL_GetDistanceToCoordinates(unit,coords.nX,coords.nY)<2) {
     if(unit) unit->dwFlags|=0x20000;
     AITACTICS_ChangeModeAndTargetCoordinates(game,unit,0,0,0);
     ACT3Q7_CreateVileDogSpawnTimer(game,unit);return;
@@ -230,7 +231,7 @@ void __fastcall sub_005EA130_UpdateWanderer(D2GameStrc* game,D2UnitStrc* unit,D2
    if(control->dwAiParam[1]<3) {
     ++control->dwAiParam[1];
     AITACTICS_SetVelocity(unit,1,0,0);
-    AITACTICS_WalkToTargetCoordinates(game,unit,coords.x,coords.y);return;
+    AITACTICS_WalkToTargetCoordinates(game,unit,coords.nX,coords.nY);return;
    }
    if(unit) unit->dwFlags|=0x20000;
    AITACTICS_ChangeModeAndTargetCoordinates(game,unit,0,0,0);

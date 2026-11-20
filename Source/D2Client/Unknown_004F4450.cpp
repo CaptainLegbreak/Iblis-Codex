@@ -1,7 +1,8 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
-struct D2StaticPathStrc { char pad[0xC]; int x, y; };
 struct D2SkillsTxt
 {
     char pad00[0x138];
@@ -38,7 +39,7 @@ static __forceinline int UNITS_GetXPosition(D2UnitStrc* unit)
 {
     switch (unit->dwUnitType)
     {
-    case 2: case 4: case 5: return unit->pStaticPath->x;
+    case 2: case 4: case 5: return unit->pStaticPath->nXPos;
     }
     return unit->pDynamicPath ? PATH_GetXPosition(unit->pDynamicPath) : 0;
 }
@@ -46,7 +47,7 @@ static __forceinline int UNITS_GetYPosition(D2UnitStrc* unit)
 {
     switch (unit->dwUnitType)
     {
-    case 2: case 4: case 5: return unit->pStaticPath->y;
+    case 2: case 4: case 5: return unit->pStaticPath->nYPos;
     }
     return unit->pDynamicPath ? PATH_GetYPosition(unit->pDynamicPath) : 0;
 }

@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Constants.h"
 
 #define D2_MAX(a, b) ((a) < (b) ? (b) : (a))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -100,7 +101,6 @@ struct D2DataTablesStrc
 
 enum D2SkillNecConstants
 {
-    UNIT_MONSTER = 1,
     STATE_DIMVISION = 23,
     STATE_TAUNT = 27,
     STATE_TERROR = 56,

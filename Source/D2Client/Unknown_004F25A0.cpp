@@ -1,5 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 struct D2SeedStrc;
 struct D2StaticPathStrc;
@@ -7,12 +9,6 @@ struct D2SkillsTxt;
 struct D2MissileStrc;
 
 
-struct D2StaticPathStrc
-{
-    char unk0x00[0x0C];
-    int nX;
-    int nY;
-};
 
 
 struct D2SkillsTxt
@@ -222,7 +218,7 @@ static int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nX;
+        return pUnit->pStaticPath->nXPos;
     }
 
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -235,7 +231,7 @@ static int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nY;
+        return pUnit->pStaticPath->nYPos;
     }
 
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;

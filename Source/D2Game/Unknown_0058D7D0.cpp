@@ -1,13 +1,10 @@
 #include "D2Game.h"
+#include "D2Structs.h"
+#include "D2Path.h"
 
 struct Flags;
 struct PlayerData;
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0

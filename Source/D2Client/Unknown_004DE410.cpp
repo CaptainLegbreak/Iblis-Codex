@@ -1,5 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2TileStrc;
@@ -60,12 +62,6 @@ static __declspec(noinline) void __stdcall sub_004DDFD0_BuildSmallFlatGrid(D2Gri
 static __declspec(noinline) void __stdcall sub_004DE190_BuildSmallGrid(int nSubX, int nSubY, int nZ, int bCorners, D2GridCellStrc* pCells, int nMode);
 
 
-struct D2StaticPathStrc
-{
-    char unk0x00[0x0C];
-    int nXPos;
-    int nYPos;
-};
 
 
 struct D2LevelsTxt

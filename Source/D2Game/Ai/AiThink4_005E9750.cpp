@@ -1,11 +1,12 @@
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 extern "C" void* __cdecl memcpy(void*,const void*,unsigned int);
 #pragma intrinsic(memcpy)
 struct D2GameStrc;
 struct D2ActiveRoomStrc;
 struct D2SkillStrc;
 struct D2DynamicPathStrc;
-struct D2StaticPathStrc { char unk00[12];int nX,nY; };
 struct D2AiControlStrc { char unk00[0x14];int nAction; };
 struct D2BaalTargetInfoStrc {char unk00[12];int nX,nY;};
 struct D2PlayerCountBonusStrc {int nHp,nExperience,nSkillBonus,nDifficulty,nPlayerCount;};
@@ -34,13 +35,13 @@ int __stdcall sub_0064D910_CheckCollision(D2ActiveRoomStrc*,int,int,int,int); //
 static __forceinline int sub_0045ADF0(D2UnitStrc* pUnit)
 {
     switch(pUnit->dwUnitType)
-    {case 2:case 4:case 5:return pUnit->pStaticPath->nX;}
+    {case 2:case 4:case 5:return pUnit->pStaticPath->nXPos;}
     return pUnit->pDynamicPath ? PATH_GetX(pUnit->pDynamicPath):0;
 }
 static __forceinline int sub_0045AE20(D2UnitStrc* pUnit)
 {
     switch(pUnit->dwUnitType)
-    {case 2:case 4:case 5:return pUnit->pStaticPath->nY;}
+    {case 2:case 4:case 5:return pUnit->pStaticPath->nYPos;}
     return pUnit->pDynamicPath ? PATH_GetY(pUnit->pDynamicPath):0;
 }
 static __forceinline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)

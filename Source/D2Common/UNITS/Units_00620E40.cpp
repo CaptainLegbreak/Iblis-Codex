@@ -1,5 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 #define UNITFLAGEX_HASINV 0x1
 #define UNITFLAGEX_UPDATEINV 0x2
 #define UNITFLAGEX_STORELASTATTACKER 0x20000
@@ -16,11 +18,6 @@ struct D2ItemsTxt;
 struct D2CharStatsTxt;
 struct D2MonStatsTxt;
 
-struct D2StaticPathStrc
-{
-    char unk0x00[29];
-    unsigned char bRoomNeedsUpdate;
-};
 
 struct D2ObjectsTxt
 {

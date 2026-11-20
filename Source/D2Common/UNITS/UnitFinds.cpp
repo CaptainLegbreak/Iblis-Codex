@@ -1,5 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 #define UF_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -49,7 +51,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0); // 0x0040B480
 
-struct D2StaticPathStrc { char unk_00[12]; int x; int y; };
 
 typedef int (__fastcall* UnitFilter)(D2UnitStrc*,D2UnitFindArgStrc*);
 
@@ -235,11 +236,11 @@ void __stdcall UNITFINDS_FreeUnitFindData(D2UnitFindDataStrc* pUnitFindData)
 }
 
 static __forceinline int GetX(D2UnitStrc* unit) {
- switch(unit->dwUnitType) {case 2:case 4:case 5:return unit->pStaticPath->x;default:return unit->pDynamicPath ? PATH_GetXPosition(unit->pDynamicPath):0;}
+ switch(unit->dwUnitType) {case 2:case 4:case 5:return unit->pStaticPath->nXPos;default:return unit->pDynamicPath ? PATH_GetXPosition(unit->pDynamicPath):0;}
 }
 
 static __forceinline int GetY(D2UnitStrc* unit) {
- switch(unit->dwUnitType) {case 2:case 4:case 5:return unit->pStaticPath->y;default:return unit->pDynamicPath ? PATH_GetYPosition(unit->pDynamicPath):0;}
+ switch(unit->dwUnitType) {case 2:case 4:case 5:return unit->pStaticPath->nYPos;default:return unit->pDynamicPath ? PATH_GetYPosition(unit->pDynamicPath):0;}
 }
 
 // 0x0065AA40

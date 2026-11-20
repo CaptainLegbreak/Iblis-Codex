@@ -1,16 +1,12 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 struct D2StaticPathStrc;
 struct D2PlayerDataStrc;
 struct D2QuestSaveSectionStrc;
 
-struct D2StaticPathStrc
-{
-    char unk00[12];
-    int nX;
-    int nY;
-};
 
 
 struct D2GameStrc
@@ -123,7 +119,7 @@ static int __stdcall sub_00531520_PlaceSavedItem(D2GameStrc* pGame, D2UnitStrc* 
             case 2:
             case 4:
             case 5:
-                nY = pItem->pStaticPath->nY;
+                nY = pItem->pStaticPath->nYPos;
                 break;
             default:
                 nY = pItem->pDynamicPath ? PATH_GetYPosition(pItem->pDynamicPath) : 0;
@@ -135,7 +131,7 @@ static int __stdcall sub_00531520_PlaceSavedItem(D2GameStrc* pGame, D2UnitStrc* 
             case 2:
             case 4:
             case 5:
-                nX = pItem->pStaticPath->nX;
+                nX = pItem->pStaticPath->nXPos;
                 break;
             default:
                 nX = pItem->pDynamicPath ? PATH_GetXPosition(pItem->pDynamicPath) : 0;

@@ -1,4 +1,6 @@
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 struct D2GameStrc
 {
     char unk0x00[0x1C];
@@ -14,7 +16,6 @@ struct D2DynamicPathStrc;
 struct D2HoverTextStrc;
 struct D2UnitStrc;
 struct D2ActiveRoomStrc;
-struct D2StaticPathStrc { int unk_00[3]; int nX; int nY; };
 struct D2ActiveRoomStrc { char unk_00[0x74]; D2UnitStrc* pUnitFirst; };
 struct D2MonStatsTxt
 {
@@ -185,12 +186,12 @@ static __forceinline int GetUnitType(D2UnitStrc* pUnit)
 }
 __forceinline int GetX(D2UnitStrc* pUnit)
 {
-    switch(GetUnitType(pUnit)) { case 2: case 4: case 5: return pUnit->pStaticPath->nX; }
+    switch(GetUnitType(pUnit)) { case 2: case 4: case 5: return pUnit->pStaticPath->nXPos; }
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
 __forceinline int GetY(D2UnitStrc* pUnit)
 {
-    switch(GetUnitType(pUnit)) { case 2: case 4: case 5: return pUnit->pStaticPath->nY; }
+    switch(GetUnitType(pUnit)) { case 2: case 4: case 5: return pUnit->pStaticPath->nYPos; }
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
 static __forceinline int HasCorpseExplosion(D2MonStatsTxt* pRecord)

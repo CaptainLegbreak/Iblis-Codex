@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 struct D2SeedStrc;
 
 struct D2GameStrc
@@ -132,7 +134,6 @@ static NOINLINE void sub_00592860_DebugStartedQuest(D2QuestDataStrc* pQuestData)
     QUESTS_DebugOutput(pQuestData->pGame, szStartedQuest_006E1C7C, gszA1Q4SourceFile, 599);
 }
 
-struct D2CoordStrc { int nX,nY; };
 struct D2ActiveRoomStrc { char unk00[0x74]; D2UnitStrc* pUnitFirst; };
 void __fastcall sub_00592E90_OrderStones(D2QuestDataStrc*); // 0x00592E90
 void __fastcall QUESTS_DeleteItem(D2GameStrc*,D2UnitStrc*,unsigned int); // 0x00544160

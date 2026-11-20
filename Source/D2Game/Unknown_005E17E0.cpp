@@ -1,14 +1,10 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 #define UNIT_MONSTER 1
 
-struct D2StaticPathStrc
-{
-    char unk0x00[0x0C];
-    int nXPos;
-    int nYPos;
-};
 
 struct D2GameStrc
 {
@@ -70,11 +66,6 @@ struct D2MinionSpawnerAiCallbackArgStrc
     int unk0x04[9];
 };
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 typedef D2UnitStrc* (__fastcall* AIUTIL_TargetCallback)(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg);
 

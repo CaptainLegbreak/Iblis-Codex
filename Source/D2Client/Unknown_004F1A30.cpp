@@ -1,6 +1,8 @@
 #include "D2Client.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -10,20 +12,6 @@ struct D2SkillsTxt;
 struct D2MissileStrc;
 
 
-struct D2StaticPathStrc
-{
-    char unk0x00[0xC];
-    union
-    {
-        int nXPos;
-        int nX;
-    };
-    union
-    {
-        int nYPos;
-        int nY;
-    };
-};
 
 
 struct D2SkillsTxt
@@ -117,11 +105,6 @@ D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit
 int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625D00
 D2ActiveRoomStrc* __fastcall D2GAME_GetRoom_6FC52070(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
 
-struct D2PathPointStrc
-{
-    unsigned short X;
-    unsigned short Y;
-};
 
 extern int gnChargedBoltTurnEvery_0072D98C; // 0x0072D98C
 extern int gnChargedBoltTurnBase_0072D990; // 0x0072D990
@@ -406,7 +389,7 @@ static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        nX = pUnit->pStaticPath->nX;
+        nX = pUnit->pStaticPath->nXPos;
         break;
     default:
         nX = pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -423,7 +406,7 @@ static __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        nY = pUnit->pStaticPath->nY;
+        nY = pUnit->pStaticPath->nYPos;
         break;
     default:
         nY = pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;

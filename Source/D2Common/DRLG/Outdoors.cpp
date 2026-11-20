@@ -1,5 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 #define D2_ABS(x) ((x) < 0 ? -(x) : (x))
 
@@ -115,11 +117,6 @@ struct D2DrlgVertexStrc
 
 int __fastcall sub_0067DCE0(D2DrlgLevelStrc* pLevel); // 0x0067DCE0
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 extern "C" const int gdwAct12ShrineFlags_006F061C[4]; // 0x006F061C
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pDrlgGrid, int nX, int nY); // 0x0067C570

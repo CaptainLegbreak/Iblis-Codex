@@ -1,4 +1,6 @@
 #include "D2Common.h"
+#include "D2Structs.h"
+#include "D2Path.h"
 
 struct D2DrlgOutdoorInfoStrc;
 struct D2CoordStrc;
@@ -34,11 +36,6 @@ struct D2DrlgLevelStrc
 void __fastcall DRLGGRID_AlterGridFlag(D2DrlgGridStrc* pGrid, int nX, int nY, int nFlag, int nOperation); // 0x0067C4F0
 static __declspec(noinline) void sub_0067DCA0(D2DrlgLevelStrc* pLevel);
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 int __fastcall sub_0067C570(D2DrlgGridStrc* pGrid, int nX, int nY); // 0x0067C570
 void __fastcall sub_006743C0(D2DrlgLevelStrc* pLevel, int nX, int nY, int nPresetId, int nDirection, int a6); // 0x006743C0

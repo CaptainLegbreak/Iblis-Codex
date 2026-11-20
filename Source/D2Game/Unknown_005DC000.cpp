@@ -1,4 +1,6 @@
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 struct D2GameStrc
 {
     char unk0x00[0xA8];
@@ -28,11 +30,6 @@ struct D2DataTablesStrc
     int nPetTypeTxtRecordCount;
 };
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 struct D2SummonArgStrc
 {

@@ -1,5 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 struct Unicode
 {
@@ -8,11 +10,6 @@ struct Unicode
     Unicode();
 };
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 struct T0044CB60
 {

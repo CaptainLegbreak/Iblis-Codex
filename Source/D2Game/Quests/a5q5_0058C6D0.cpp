@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -17,12 +19,6 @@ struct D2GameStrc
     unsigned char nDifficulty;
 };
 
-struct D2StaticPathStrc
-{
-    char unk0x00[0x0C];
-    int nX;
-    int nY;
-};
 
 
 struct D2PlayerDataStrc
@@ -169,7 +165,7 @@ inline int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
     case UNIT_OBJECT:
     case UNIT_ITEM:
     case UNIT_TILE:
-        return pUnit->pStaticPath->nX;
+        return pUnit->pStaticPath->nXPos;
     }
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
@@ -181,7 +177,7 @@ inline int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
     case UNIT_OBJECT:
     case UNIT_ITEM:
     case UNIT_TILE:
-        return pUnit->pStaticPath->nY;
+        return pUnit->pStaticPath->nYPos;
     }
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }

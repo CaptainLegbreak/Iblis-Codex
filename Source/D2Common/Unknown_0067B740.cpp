@@ -1,16 +1,8 @@
 #include "D2Common.h"
+#include "D2Structs.h"
+#include "D2Path.h"
 
-struct D2PathPointStrc
-{
-    unsigned short X;
-    unsigned short Y;
-};
 
-struct D2DynamicPathStrc
-{
-    char unk_00[0x58];
-    D2UnitStrc* pTargetUnit;
-};
 
 struct D2PathInfoStrc
 {

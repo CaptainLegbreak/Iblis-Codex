@@ -1,23 +1,15 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 struct D2StaticPathStrc;
 struct SynCoord;
 struct SynStatic;
 struct SynUnit;
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
-struct D2StaticPathStrc
-{
-    char unk0x00[0x0C];
-    D2CoordStrc tGameCoords;
-};
 
 
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0

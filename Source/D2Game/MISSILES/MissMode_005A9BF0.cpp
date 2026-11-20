@@ -1,6 +1,8 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 enum D2C_Q05MissModeConstants
 {
@@ -15,14 +17,6 @@ struct D2GameStrc
     int dwGameFrame;
 };
 
-struct D2StaticPathStrc
-{
-    void* pRoom;
-    int nTargetX;
-    int nTargetY;
-    int nXPos;
-    int nYPos;
-};
 
 
 struct D2MissilesTxt

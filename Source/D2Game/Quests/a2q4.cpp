@@ -1,6 +1,8 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 #define QFLAG_REWARDGRANTED 0
 #define QFLAG_COMPLETEDNOW 14
@@ -26,11 +28,6 @@ struct D2ObjOperateFnStrc;
 struct D2Act2Quest5Strc;
 struct D2Act2Quest2Strc;
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 struct D2GameStrc
 {

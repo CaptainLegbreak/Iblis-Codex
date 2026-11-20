@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Constants.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define ROOM_MIN_SUBTILES 2
@@ -263,16 +264,6 @@ struct D2Unk0056DCC0Strc
     int nUnk0x18;
     int nUnk0x1C;
     void* pUnk0x20;
-};
-
-enum D2C_UnitTypes
-{
-    UNIT_PLAYER = 0,
-    UNIT_MONSTER = 1,
-    UNIT_OBJECT = 2,
-    UNIT_MISSILE = 3,
-    UNIT_ITEM = 4,
-    UNIT_TILE = 5,
 };
 
 enum D2C_UnitFlags

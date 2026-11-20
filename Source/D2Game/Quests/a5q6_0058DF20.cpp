@@ -1,4 +1,6 @@
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 struct D2UnitStrc;
 struct D2BitBufferStrc;
 struct D2ActiveRoomStrc;
@@ -129,7 +131,6 @@ bool __fastcall ACT5Q6_SeqCallback(D2QuestDataStrc* pQuestData);
 
 struct D2ActiveRoomStrc;
 struct D2DynamicPathStrc;
-struct D2StaticPathStrc { char unk0x00[0x0C]; int nX; int nY; };
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath);                                                  // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath);                                                  // 0x00648900
 D2UnitStrc* __fastcall D2GAME_CreateMissile_6FD115E0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nMissileId, int nX, int nY); // 0x0056EDE0
@@ -140,7 +141,7 @@ __forceinline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nX;
+        return pUnit->pStaticPath->nXPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
     }
@@ -153,7 +154,7 @@ __forceinline int CLIENTS_GetUnitY(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nY;
+        return pUnit->pStaticPath->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
     }

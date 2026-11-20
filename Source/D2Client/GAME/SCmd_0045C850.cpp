@@ -1,6 +1,8 @@
 #include "D2Client.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define gnGlobal_007A7430 (gtTimedBox_007A742C.nValue)
@@ -97,17 +99,7 @@ struct SMSGHANDLER_PARAMS
     int lResult;
 };
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
-struct D2StaticPathStrc
-{
-    char unk0x00[0x0C];
-    D2CoordStrc tGameCoords;
-};
 
 struct D2MonsterDataStrc
 {

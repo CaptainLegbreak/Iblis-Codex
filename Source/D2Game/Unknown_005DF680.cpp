@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 #define MONMODE_WALK 2
 #define MONMODE_RUN 15
@@ -9,12 +11,6 @@ struct D2StaticPathStrc;
 struct D2ModeChangeStrc;
 
 
-struct D2StaticPathStrc
-{
-    char unk0x00[0x0C];
-    int nXPos;
-    int nYPos;
-};
 
 
 struct D2ModeChangeStrc

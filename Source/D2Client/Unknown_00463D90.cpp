@@ -1,5 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 #define UNIT_OBJECT 2
 #define UNIT_ITEM 4
@@ -16,17 +18,7 @@ void __stdcall sub_006488A0_SetDirection(D2DynamicPathStrc* pPath, int nDirectio
 void __fastcall sub_0044BEA0_SetValue(int nValue); // 0x0044BEA0
 void __cdecl sub_00453D90_RunSequenceA(); // 0x00453D90
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
-struct D2StaticPathStrc
-{
-    char unk0x000[0x0C];
-    D2CoordStrc tGameCoords;
-};
 
 struct D2ObjectsTxt
 {

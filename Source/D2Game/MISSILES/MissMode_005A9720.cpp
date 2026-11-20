@@ -1,6 +1,8 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 struct D2StaticPathStrc;
 struct D2MissilesTxt;
@@ -16,14 +18,6 @@ struct D2GameStrc
     int dwGameFrame;
 };
 
-struct D2StaticPathStrc
-{
-    void* pRoom;
-    int nTargetX;
-    int nTargetY;
-    int nXPos;
-    int nYPos;
-};
 
 
 struct D2MissilesTxt

@@ -1,5 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 struct D2SkillsTxt;
 struct D2SkillDescTxt;
@@ -44,12 +46,6 @@ D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill);
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus); // 0x006442A0
 extern SKILLDESCFN gpfSkillDescFuncs_0072D7F8[]; // 0x0072D7F8
 
-struct D2StaticPathStrc
-{
-    char unk0x00[0x0C];
-    int nX;
-    int nY;
-};
 
 struct D2DataTablesStrc
 {
@@ -256,7 +252,7 @@ static int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
 {
     if (pUnit->dwUnitType == 2 || (pUnit->dwUnitType > 3 && pUnit->dwUnitType <= 5))
     {
-        return pUnit->pStaticPath->nX;
+        return pUnit->pStaticPath->nXPos;
     }
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
@@ -265,7 +261,7 @@ static int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
 {
     if (pUnit->dwUnitType == 2 || (pUnit->dwUnitType > 3 && pUnit->dwUnitType <= 5))
     {
-        return pUnit->pStaticPath->nY;
+        return pUnit->pStaticPath->nYPos;
     }
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
@@ -432,7 +428,7 @@ static inline int __fastcall UNITS_GetXPositionInl(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nX;
+        return pUnit->pStaticPath->nXPos;
 
     default:
         if (pUnit->pDynamicPath)
@@ -450,7 +446,7 @@ static inline int __fastcall UNITS_GetYPositionInl(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nY;
+        return pUnit->pStaticPath->nYPos;
 
     default:
         if (pUnit->pDynamicPath)

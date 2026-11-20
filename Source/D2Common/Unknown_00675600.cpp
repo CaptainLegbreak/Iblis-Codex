@@ -1,5 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 #define DRLGTYPE_OUTDOOR 3
 #define DRLGTYPE_PRESET 2
@@ -78,11 +80,6 @@ struct D2DrlgLevelStrc
     int nLevelId;
 };
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 void __fastcall DRLGGRID_AlterGridFlag(D2DrlgGridStrc* pGrid, int nX, int nY, int nFlag, int eOperation); // 0x0067C4F0
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pDrlgGrid, int nX, int nY); // 0x0067C570
@@ -182,11 +179,6 @@ struct D2UnkPathStrc2
 extern const D2UnkPathStrc stru_6FDD2158[25]; // 0x006F1518
 extern const D2UnkPathStrc2 byte_6FDD2288[25]; // 0x006F1648
 
-struct D2PathPointStrc
-{
-    unsigned short X;
-    unsigned short Y;
-};
 
 int __stdcall sub_00678C10(D2PathPointStrc pPoint1, D2PathPointStrc pPoint2); // 0x00678C10
 

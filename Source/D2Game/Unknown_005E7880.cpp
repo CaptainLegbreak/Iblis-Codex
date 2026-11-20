@@ -1,6 +1,8 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 enum
 {
@@ -42,7 +44,6 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                             
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames);            // 0x005DE080
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStat, int nValue, unsigned short nLayer);                  // 0x00627260
 void __fastcall sub_6FCB53D0(D2GameStrc* pGame, D2UnitStrc* pUnit);                                        // 0x0058A980
-struct D2CoordStrc { int nX; int nY; };
 int __fastcall AITHINK_SpawnNpcPortal(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pTick); // 0x005E77A0
 void __fastcall sub_0058AA10_ACT5Q3_UpdateStatusOnActivate(D2GameStrc* pGame); // 0x0058AA10
 D2AiCmdStrc* __fastcall AIGENERAL_GetAiCommandFromParam(D2UnitStrc* pUnit, int nCmdParam, int bSet); // 0x0058EEF0

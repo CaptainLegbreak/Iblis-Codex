@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 struct D2ActiveRoomStrc
 {
@@ -32,11 +34,6 @@ struct D2ModeChangeStrc
     int unk0x1C;
 };
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 struct D2Act4Quest2Strc
 {

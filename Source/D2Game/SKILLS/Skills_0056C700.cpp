@@ -1,6 +1,8 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 #define STAT_FIRERESIST 39
 #define STAT_LIGHTRESIST 41
@@ -91,9 +93,7 @@ enum D2C_ElemTypes
 
 extern const int gnRandomElemTypes_006E1278[4]; // 0x006E1278
 
-struct D2CoordStrc { int nX; int nY; };
 
-struct D2StaticPathStrc { char unk0x00[0x0C]; D2CoordStrc tGameCoords; };
 
 struct D2GameStrc
 {

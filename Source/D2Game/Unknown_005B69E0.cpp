@@ -1,14 +1,11 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 struct D2ObjOperateFnStrc;
 struct D2Act4Quest2Strc;
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 
 struct D2ObjOperateFnStrc

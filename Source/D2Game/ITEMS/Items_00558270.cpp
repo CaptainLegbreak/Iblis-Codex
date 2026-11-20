@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_ITEM 4
@@ -18,12 +20,6 @@ struct D2ActiveRoomStrcView;
 struct D2ItemsTxt;
 
 
-struct D2StaticPathStrc
-{
-    char unk0x00[0x0C];
-    int nX;
-    int nY;
-};
 
 struct D2ItemDataStrc
 {
@@ -128,11 +124,6 @@ extern unsigned int gnHealthPotionCodes_00731F5C; // 0x00731F5C
 extern int gdwManaPotionCodes_00731F60[4]; // 0x00731F60
 extern unsigned int gnManaPotionCodes_00731F70; // 0x00731F70
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 struct D2ActiveRoomStrcView
 {
@@ -163,7 +154,7 @@ __forceinline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nX;
+        return pUnit->pStaticPath->nXPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
     }
@@ -176,7 +167,7 @@ __forceinline int CLIENTS_GetUnitY(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nY;
+        return pUnit->pStaticPath->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
     }

@@ -1,5 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 #define D2_ABS(x) ((x) < 0 ? -(x) : (x))
 struct D2CoordStrc;
 struct D2StaticPathStrc;
@@ -10,82 +12,11 @@ struct D2PathFoWallNodeStrc;
 struct D2PathFoWallContextStrc;
 struct D2PathMovStrc;
 
-struct D2PathPointStrc
-{
-    unsigned short X;
-    unsigned short Y;
-};
-
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
-
-struct D2StaticPathStrc
-{
-    char unk0x00[0x0C];
-    int nXPos;
-    int nYPos;
-};
 
 
-union D2FP32_16
-{
-    struct
-    {
-        unsigned short wOffsetX;
-        unsigned short wPosX;
-        unsigned short wOffsetY;
-        unsigned short wPosY;
-    };
 
-    struct
-    {
-        unsigned int dwPrecisionX;
-        unsigned int dwPrecisionY;
-    };
-};
 
-struct D2DynamicPathStrc
-{
-    union
-    {
-        struct
-        {
-            D2FP32_16 tGameCoords;
-        };
-        struct
-        {
-            unsigned char unk_00[0x2];
-            unsigned short wPosX;
-            unsigned char unk_04[0x2];
-            unsigned short wPosY;
-        };
-    };
-    char unk0x08[0x14];
-    D2ActiveRoomStrc* pRoom;
-    char unk0x20[0x4];
-    int dwCurrentPointIdx;
-    int dwPathPoints;
-    char unk0x2C[0x4];
-    D2UnitStrc* pUnit;
-    char unk0x34[0x8];
-    unsigned int dwPathType;
-    char unk0x40[0x8];
-    unsigned int dwCollisionPattern;
-    char unk0x4C[0x4];
-    unsigned int nMoveTestCollisionMask;
-    char unk0x54[0x4];
-    D2UnitStrc* pTargetUnit;
-    char unk0x5C[0x20];
-    int dwVelocity;
-    char unk0x80[0x10];
-    unsigned char nDist;
-    char unk0x91[0x7];
-    int nDirOffset;
-    D2PathPointStrc PathPoints[78];
-};
+
 
 struct D2CollisionTestStrc
 {

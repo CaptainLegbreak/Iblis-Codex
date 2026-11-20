@@ -1,6 +1,12 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 
+struct D2PathPointStrc
+{
+    unsigned short X;
+    unsigned short Y;
+};
+
 #define STAT_HITPOINTS 6
 #define STAT_MANA 8
 #define UNIT_OBJECT 2

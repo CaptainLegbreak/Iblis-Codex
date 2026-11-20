@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Constants.h"
 
 #define STAT_LEVEL 12
 #define ITEMQUAL_NORMAL 2
@@ -11,8 +12,6 @@
 #define ITEMCODE_ARROWS ' vqa'
 #define FILLSTORE_ASSERT_LINE 713
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define UNIT_MONSTER 1
-#define UNIT_ITEM 4
 #define IFLAG_SOCKETED 0x800
 struct D2SeedStrc;
 struct Obj00536B40;

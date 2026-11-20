@@ -1,10 +1,6 @@
 #include "D2Client.h"
+#include "D2Constants.h"
 
-#define UNIT_PLAYER 0
-#define UNIT_OBJECT 2
-#define UNIT_MISSILE 3
-#define UNIT_ITEM 4
-#define UNIT_TILE 5
 #define PLRMODE_NEUTRAL 1
 #define PLRMODE_TOWNNEUTRAL 5
 #define MONSTATS2FLAGINDEX_ISATT 9
@@ -221,8 +217,6 @@ void __fastcall sub_00470390(D2UnitStrc* pUnit, int nOverlay, int nType, int nAr
 
 enum
 {
-    UNIT_MONSTER = 1,
-    UNIT_INVALID = 6,
 };
 
 typedef int (__fastcall* SKILLSELECTPROC)(D2UnitStrc* pPlayer, D2UnitStrc* pTarget);

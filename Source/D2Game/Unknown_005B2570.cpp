@@ -1,14 +1,10 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 
-struct D2StaticPathStrc
-{
-    int unk0x00[3];
-    int nXPos;
-    int nYPos;
-};
 
 
 struct D2UnkMonCreateStrc
@@ -25,11 +21,6 @@ struct D2UnkMonCreateStrc
     short nFlags;
 };
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 enum
 {

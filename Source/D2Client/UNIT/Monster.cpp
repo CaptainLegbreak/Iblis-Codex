@@ -1,8 +1,7 @@
 #include "D2Client.h"
+#include "D2Constants.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define UNIT_MONSTER 1
-#define UNIT_INVALID 6
 #define STAT_LEVEL 12
 #define STAT_ARMORCLASS_VS_HTH 33
 #define H12_OFFSET(s, m) ((unsigned int)&((s*)0)->m)

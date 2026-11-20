@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr,line) if(!(expr)){sub_00408A60(&gszEmptyAssertText,sub_00408090(),line);exit(-1);}
 struct D2RoomStrc;
@@ -61,11 +63,6 @@ typedef int (__stdcall* D2FarProc)();
 
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(D2FarProc);
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 struct D2DrlgCoordsStrc
 {

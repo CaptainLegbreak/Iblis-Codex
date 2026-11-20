@@ -1,6 +1,8 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 enum D2C_F39Constants
 {
@@ -44,12 +46,6 @@ enum D2C_F39Constants
 
 struct D2MonsterRegionStrc;
 
-struct D2StaticPathStrc
-{
-    int unk0x00[3];
-    int nXPos;
-    int nYPos;
-};
 
 struct D2ModeChangeStrc
 {

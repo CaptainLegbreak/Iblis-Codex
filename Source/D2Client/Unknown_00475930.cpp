@@ -1,14 +1,8 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
-struct D2StaticPathStrc
-{
-    D2ActiveRoomStrc* pRoom;
-    int nTargetX;
-    int nTargetY;
-    int nXPos;
-    int nYPos;
-};
 
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837

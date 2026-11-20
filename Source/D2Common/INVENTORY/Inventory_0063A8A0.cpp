@@ -1,5 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 #include "D2Structs.h"
 #define INVENTORY_SIGNATURE 0x1020304
 #define NUM_BODYLOC 13
@@ -80,17 +82,7 @@ unsigned short __stdcall ITEMS_GetWeaponClassId(D2UnitStrc* pUnit); // 0x00629FE
 unsigned char __stdcall ITEMS_GetComponent(D2UnitStrc* pUnit); // 0x00628660
 D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
-struct D2StaticPathStrc
-{
-    char unk0x00[0xC];
-    D2CoordStrc tGameCoords;
-};
 
 struct D2InvRectStrc
 {

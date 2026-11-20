@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define ITEMQUAL_NORMAL 2
@@ -17,11 +19,6 @@ struct D2SeedStrc;
 struct D2ObjOperateFnStrc;
 struct D2Act2Quest3Strc;
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 struct D2GameStrc
 {

@@ -1,5 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
@@ -10,12 +12,6 @@ struct D2MissileStrc;
 struct D2SkillsTxt;
 
 
-struct D2StaticPathStrc
-{
-    int unk0x00[3];
-    int nXPos;
-    int nYPos;
-};
 
 
 struct D2MissileStrc

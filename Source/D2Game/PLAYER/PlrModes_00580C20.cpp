@@ -1,22 +1,11 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 struct D2ItemsTxt;
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
-struct D2StaticPathStrc
-{
-    D2ActiveRoomStrc* pRoom;
-    int nTargetX;
-    int nTargetY;
-    int nX;
-    int nY;
-};
 
 struct D2PlayerDataStrc
 {
@@ -92,7 +81,7 @@ static __forceinline int sub_F05_PlrGetUnitX(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nX;
+        return pUnit->pStaticPath->nXPos;
 
     default:
         if (pUnit->pDynamicPath)
@@ -111,7 +100,7 @@ static __forceinline int sub_F05_PlrGetUnitY(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nY;
+        return pUnit->pStaticPath->nYPos;
 
     default:
         if (pUnit->pDynamicPath)

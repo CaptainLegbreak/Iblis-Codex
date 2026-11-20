@@ -1,5 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 struct D2MonsterDataStrc;
 struct D2ItemsTxt;
 struct D2MonStatsTxt;
@@ -44,19 +46,7 @@ int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* unit, int stat, int layer); 
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* unit, int stat, int value, int layer); // 0x00627260
 extern const D2DifficultyStatStrc gaDifficultyStats_006EA9F0[3]; // 0x006EA9F0
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
-struct D2StaticPathStrc
-{
-    D2ActiveRoomStrc* pRoom;
-    int nTargetX;
-    int nTargetY;
-    D2CoordStrc tGameCoords;
-};
 
 struct D2DataTablesStrc
 {

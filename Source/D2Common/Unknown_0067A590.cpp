@@ -1,11 +1,8 @@
+#include "D2Structs.h"
+#include "D2Path.h"
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                               // 0x00681EF0
 #pragma intrinsic(memset)
 
-struct D2PathPointStrc
-{
-    unsigned short X;
-    unsigned short Y;
-};
 
 struct D2PathIDAStarNodeStrc
 {

@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Constants.h"
+#include "D2Structs.h"
+#include "D2Path.h"
 
 struct D2GameStrc
 {
@@ -9,23 +11,6 @@ struct D2GameStrc
     int dwGameFrame;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    char unk0x10[0x1C];
-    union
-    {
-        struct D2StaticPathStrc* pStaticPath;
-        struct D2DynamicPathStrc* pDynamicPath;
-    };
-    char unk0x30[0x08];
-    unsigned int dwSeqFrame;
-    char unk0x3C[0x88];
-    unsigned int dwFlags;
-};
 struct D2MissilesTxt;
 
 struct D2SkillsTxt
@@ -70,8 +55,6 @@ void __fastcall sub_005417D0_DirectDated(D2GameStrc* pGame, D2UnitStrc* pUnit, i
 void __fastcall sub_0056BFE0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x0056BFE0
 int __fastcall SKILLS_HasManaOrChargesForUsedSkill(D2UnitStrc* pUnit);                                      // 0x0056C160
 int __fastcall sub_6FD118C0(D2GameStrc* pGame, D2UnitStrc* pUnit);                                          // 0x0056C3F0
-struct D2CoordStrc { int nX; int nY; };
-struct D2StaticPathStrc { char unk0x00[0x0C]; D2CoordStrc tGameCoords; };
 void __fastcall sub_6FD10E50(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);                   // 0x0056E900
 D2UnitStrc* __fastcall sub_6FD11420(D2GameStrc* pGame, int nMissileId, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nX, int nY, int nTargetX, int nTargetY, int bCheckItemQuantity); // 0x0056ECB0
 D2UnitStrc* __fastcall sub_6FD11710(D2GameStrc* pGame, int nMissileId, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nX, int nY, int nTargetX, int nTargetY, int bCheckItemQuantity); // 0x0056EE90

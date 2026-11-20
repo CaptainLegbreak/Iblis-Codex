@@ -1,6 +1,8 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 #define MONMODE_ATTACK1 4
 struct D2MonsterDataStrc;
@@ -80,11 +82,6 @@ enum D2C_Y10AiThinkConstants
     MONMODE_SKILL1 = 8,
 };
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 struct D2AiCmdStrc
 {

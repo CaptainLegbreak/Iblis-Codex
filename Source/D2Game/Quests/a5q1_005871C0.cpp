@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 #define QFLAG_REWARDGRANTED 0
 #define QFLAG_REWARDPENDING 1
 #define QFLAG_COMPLETEDBEFORE 15
@@ -16,11 +18,6 @@ struct D2ObjInitFnStrc;
 struct D2Act5Quest1Strc;
 struct D2Act5Quest2Strc;
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 struct D2GameStrc
 {

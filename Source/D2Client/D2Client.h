@@ -1028,7 +1028,7 @@ void* __stdcall SMemReAlloc(void* pLocation, unsigned int nAmount, const char* s
     case 2: \
     case 4: \
     case 5: \
-        outX = (pUnit)->pStaticPath->nX; \
+        outX = (pUnit)->pStaticPath->nXPos; \
         break; \
     default: \
         if ((pUnit)->pDynamicPath) \
@@ -1043,7 +1043,7 @@ void* __stdcall SMemReAlloc(void* pLocation, unsigned int nAmount, const char* s
     case 2: \
     case 4: \
     case 5: \
-        outX = (pUnit)->pStaticPath->nX; \
+        outX = (pUnit)->pStaticPath->nXPos; \
         break; \
     default: \
         if ((pUnit)->pDynamicPath) \
@@ -1058,7 +1058,7 @@ void* __stdcall SMemReAlloc(void* pLocation, unsigned int nAmount, const char* s
     case 2: \
     case 4: \
     case 5: \
-        outY = (pUnit)->pStaticPath->nY; \
+        outY = (pUnit)->pStaticPath->nYPos; \
         break; \
     default: \
         if ((pUnit)->pDynamicPath) \
@@ -1073,7 +1073,7 @@ void* __stdcall SMemReAlloc(void* pLocation, unsigned int nAmount, const char* s
     case 2: \
     case 4: \
     case 5: \
-        outY = (pUnit)->pStaticPath->nY; \
+        outY = (pUnit)->pStaticPath->nYPos; \
         break; \
     default: \
         if ((pUnit)->pDynamicPath) \

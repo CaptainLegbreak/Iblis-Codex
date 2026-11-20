@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 #pragma function(memset)
 
@@ -132,28 +134,7 @@ int __fastcall sub_6FC48940(D2GameStrc*,D2UnitStrc*,int,int,int,int*); // 0x0055
 int __fastcall sub_6FC4B9D0(D2GameStrc*,D2UnitStrc*,D2UnitStrc*); // 0x0055FB10
 int __fastcall D2GAME_ITEMSOCKET_PlaceItem_6FC497E0(D2GameStrc*,D2UnitStrc*,int,int,int*,int,int,int,int); // 0x00562660
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
-struct D2StaticPathStrc
-{
-    char unk0x00[0x0C];
-    union
-    {
-        struct
-        {
-            D2CoordStrc tGameCoords;
-        };
-        struct
-        {
-            int nX;
-            int nY;
-        };
-    };
-};
 
 struct D2PlayerDataStrc
 {
@@ -1013,7 +994,7 @@ static __forceinline int sub_00531C10_GetUnitX(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nX;
+        return pUnit->pStaticPath->nXPos;
     }
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
@@ -1025,7 +1006,7 @@ static __forceinline int sub_00531C10_GetUnitY(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nY;
+        return pUnit->pStaticPath->nYPos;
     }
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
@@ -1695,7 +1676,7 @@ static int __stdcall sub_00531520_PlaceSavedItem(D2GameStrc* pGame, D2UnitStrc* 
             case 2:
             case 4:
             case 5:
-                nY = pItem->pStaticPath->nY;
+                nY = pItem->pStaticPath->nYPos;
                 break;
             default:
                 nY = pItem->pDynamicPath ? PATH_GetYPosition(pItem->pDynamicPath) : 0;
@@ -1707,7 +1688,7 @@ static int __stdcall sub_00531520_PlaceSavedItem(D2GameStrc* pGame, D2UnitStrc* 
             case 2:
             case 4:
             case 5:
-                nX = pItem->pStaticPath->nX;
+                nX = pItem->pStaticPath->nXPos;
                 break;
             default:
                 nX = pItem->pDynamicPath ? PATH_GetXPosition(pItem->pDynamicPath) : 0;

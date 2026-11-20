@@ -1,7 +1,8 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
-struct D2StaticPathStrc { char unk_00[0x0C]; int nX; int nY; };
 struct D2GameStrc { char unk_00[0xA8]; int dwGameFrame; };
 D2UnitStrc* __fastcall sub_6FCF2110(D2GameStrc*, D2UnitStrc*, D2AiControlStrc*, int*, int*); // 0x005DD7F0
 int __stdcall PATH_GetUnitCollisionPattern(D2UnitStrc*); // 0x00649180
@@ -28,7 +29,7 @@ __forceinline int CLIENTS_GetUnitX(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nX;
+        return pUnit->pStaticPath->nXPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
     }
@@ -42,7 +43,7 @@ __forceinline int CLIENTS_GetUnitY(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nY;
+        return pUnit->pStaticPath->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
     }

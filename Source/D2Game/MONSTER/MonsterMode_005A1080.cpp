@@ -1,6 +1,8 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -32,20 +34,7 @@ enum D2C_P08MonsterConstants
     EVENTTYPE_MONUMOD = 7,
 };
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
-struct D2StaticPathStrc
-{
-    void* pRoom;
-    int dwClientCoordX;
-    int dwClientCoordY;
-    int nX;
-    int nY;
-};
 
 struct D2MonsterDataStrc
 {
@@ -180,7 +169,7 @@ static int UNITS_GetXPosition_Static(D2UnitStrc* pUnit)
     case UNIT_OBJECT:
     case UNIT_ITEM:
     case UNIT_TILE:
-        return pUnit->pStaticPath->nX;
+        return pUnit->pStaticPath->nXPos;
     }
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
@@ -192,7 +181,7 @@ static int UNITS_GetYPosition_Static(D2UnitStrc* pUnit)
     case UNIT_OBJECT:
     case UNIT_ITEM:
     case UNIT_TILE:
-        return pUnit->pStaticPath->nY;
+        return pUnit->pStaticPath->nYPos;
     }
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }

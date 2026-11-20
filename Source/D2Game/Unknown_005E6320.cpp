@@ -1,9 +1,10 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 struct D2AiParamStrc;
 struct D2MonsterDataStrc { char pad00[0x2C]; D2AiParamStrc* pAiParam; };
-struct D2StaticPathStrc { char pad00[0xC]; int nX; int nY; };
 struct D2GameStrc { char pad00[0x6D]; unsigned char nDifficulty; };
 struct D2MonStatsTxt { char pad00[0x170]; short nSkill[8]; unsigned char nSkillMode[8]; };
 struct D2AiControlStrc { char pad00[0x14]; int dwAiParam[3]; };
@@ -29,11 +30,11 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 static __forceinline int GetX(D2UnitStrc* pUnit)
 {
-    switch (pUnit->dwUnitType) { case 2: case 4: case 5: return pUnit->pStaticPath->nX; default: return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0; }
+    switch (pUnit->dwUnitType) { case 2: case 4: case 5: return pUnit->pStaticPath->nXPos; default: return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0; }
 }
 static __forceinline int GetY(D2UnitStrc* pUnit)
 {
-    switch (pUnit->dwUnitType) { case 2: case 4: case 5: return pUnit->pStaticPath->nY; default: return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0; }
+    switch (pUnit->dwUnitType) { case 2: case 4: case 5: return pUnit->pStaticPath->nYPos; default: return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0; }
 }
 
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc*, int); // 0x0045C3E0

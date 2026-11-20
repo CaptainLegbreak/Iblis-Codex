@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Constants.h"
 
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
 #define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
@@ -319,17 +320,6 @@ struct D2DataTablesStrc
     int nSkillsTxtRecordCount;
     char unk0xBA4[0x30];
     int nItemStatCostTxtRecordCount;
-};
-
-enum D2C_UnitTypes
-{
-    UNIT_PLAYER = 0,
-    UNIT_MONSTER = 1,
-    UNIT_OBJECT = 2,
-    UNIT_MISSILE = 3,
-    UNIT_ITEM = 4,
-    UNIT_TILE = 5,
-    UNIT_INVALID = 6,
 };
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

@@ -1,5 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 #define LEVEL_COLDPLAINS 3
 #define FLAG_OPERATION_OR 0
 
@@ -39,11 +41,6 @@ struct D2DrlgLevelStrc
     int nLevelId;
 };
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 int __fastcall DRLGOUTDOORS_TestOutdoorLevelPreset(D2DrlgLevelStrc* pLevel, int nX, int nY, int nLevelPrestId, int nOffset, char nFlags); // 0x00674230
 void __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(D2DrlgLevelStrc* pLevel, int nX, int nY, int nLevelPrestId, int nPickedFile, int bBorder); // 0x006743C0

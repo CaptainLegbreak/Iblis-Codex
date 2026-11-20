@@ -1,6 +1,8 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 #define STAT_ITEM_MAGICARROW 157
 #define DAMAGERESULTFLAG_SUCCESSFULHIT 1
@@ -34,11 +36,6 @@ struct D2GameStrc
     int dwGameFrame;
 };
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 struct D2ItemDropStrc
 {
@@ -71,22 +68,6 @@ struct D2ItemDropStrc
     unsigned int dwFlags2;
 };
 
-struct D2StaticPathStrc
-{
-    char unk0x00[0x0C];
-    union
-    {
-        struct
-        {
-            D2CoordStrc tGameCoords;
-        };
-        struct
-        {
-            int nXPos;
-            int nYPos;
-        };
-    };
-};
 
 
 struct D2SkillsTxt

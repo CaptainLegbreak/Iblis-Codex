@@ -1,3 +1,5 @@
+#include "D2Structs.h"
+#include "D2Path.h"
 struct D2GfxLightStrc
 {
     unsigned int aColor[8];
@@ -18,11 +20,6 @@ struct D2TileLibraryEntryStrc
     D2GlideTileStrc* pBlocks;
 };
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 struct tagRECT
 {

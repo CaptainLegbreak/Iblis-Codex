@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 #pragma intrinsic(strcpy)
 
@@ -328,12 +330,6 @@ void __stdcall D2Common_10077(D2ActiveRoomStrc* pOldRoom, D2ActiveRoomStrc* pNew
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 void __stdcall UNITS_SetPlayerPortalFlags(D2UnitStrc* pUnit, int nFlags); // 0x006221E0
 
-struct D2StaticPathStrc
-{
-    int unk0x00[3];
-    int nX;
-    int nY;
-};
 
 struct D2ClientUnitUpdateSortStrc
 {
@@ -562,11 +558,6 @@ struct Obj00539300 { unsigned char bUnknown00[0x60]; unsigned int dwValue60; };
 
 struct Obj00539310 { unsigned char bUnknown00[0x68]; unsigned int dwValue68; };
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 unsigned char __fastcall CLIENTS_GetActNo(D2ClientStrc* pClient); // 0x005382B0
 void __fastcall CLIENTS_SetRoomInClient(D2ClientStrc* pClient, D2ActiveRoomStrc* pRoom); // 0x005381F0
@@ -904,7 +895,7 @@ static int CLIENTS_GetUnitX_Inlined(D2UnitStrc* pUnit)
     case UNIT_OBJECT:
     case UNIT_ITEM:
     case UNIT_TILE:
-        return pUnit->pStaticPath->nX;
+        return pUnit->pStaticPath->nXPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
     }
@@ -917,7 +908,7 @@ static int CLIENTS_GetUnitY_Inlined(D2UnitStrc* pUnit)
     case UNIT_OBJECT:
     case UNIT_ITEM:
     case UNIT_TILE:
-        return pUnit->pStaticPath->nY;
+        return pUnit->pStaticPath->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
     }

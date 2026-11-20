@@ -1,4 +1,6 @@
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 #pragma function(memset)
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                 // 0x00681EF0
 
@@ -46,12 +48,6 @@ struct D2MapAIStrc
     int nPathNodes;
 };
 
-struct D2StaticPathStrc
-{
-    char unk0x00[0x0C];
-    int nXPos;
-    int nYPos;
-};
 
 struct D2MonsterDataStrc
 {

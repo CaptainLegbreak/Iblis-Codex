@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 struct D2GameStrc
 {
@@ -7,13 +9,6 @@ struct D2GameStrc
     unsigned int dwGameFrame;
 };
 
-struct D2StaticPathStrc
-{
-    D2ActiveRoomStrc* pRoom;
-    int nTargetX;
-    int nTargetY;
-    int nX;
-};
 
 
 struct D2SkillsTxt

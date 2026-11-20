@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 #define UNITFLAG_SKSRVDOFUNC 0x40
 #define AISPECIALSTATE_NONE 0
@@ -20,11 +22,6 @@ struct D2GameStrc
 
 
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 struct D2SummonArgStrc
 {

@@ -1,7 +1,8 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
-struct D2CoordStrc { int x; int y; };
 struct D2MonsterDataStrc { int unk00[12]; void* interact; };
 struct D2QuestExStrc {
     char unk00[12]; unsigned char oldSpawned; unsigned char spawned;
@@ -44,21 +45,21 @@ void __stdcall sub_0059EF70_SpawnQuestNpc(D2QuestDataStrc* quest,D2CoordStrc* co
     D2QuestDataStrc* other=QUESTS_GetQuestData(quest->game,13);
     int bDone=1;
     if (other && other->notIntro && other->state < 2) bDone=0;
-    if (bDone) coords->x+=15;
-    else coords->x-=10;
-    coords->y-=3;
-    D2ActiveRoomStrc* found=sub_00463740(room,coords->x,coords->y);
+    if (bDone) coords->nX+=15;
+    else coords->nX-=10;
+    coords->nY-=3;
+    D2ActiveRoomStrc* found=sub_00463740(room,coords->nX,coords->nY);
     QUESTS_GetFreePosition(room,coords,3,0x100,&found,9,100);
-    D2UnitStrc* npc=sub_005B2F20(quest->game,found,coords->x,coords->y,201,1,-1,0);
-    if (!npc) npc=sub_005B2F20(quest->game,found,coords->x,coords->y,201,1,2,0);
+    D2UnitStrc* npc=sub_005B2F20(quest->game,found,coords->nX,coords->nY,201,1,-1,0);
+    if (!npc) npc=sub_005B2F20(quest->game,found,coords->nX,coords->nY,201,1,2,0);
     if (npc) {
         npc->dwFlags|=0x03000000;
         ex=quest->ex;
         ex->spawned=1;
         if (!ex->coordinatesSet) {
             ex->coordinatesSet=1;
-            ex->x=coords->x;
-            ex->y=coords->y;
+            ex->x=coords->nX;
+            ex->y=coords->nY;
         }
     }
 }

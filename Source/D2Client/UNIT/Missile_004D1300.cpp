@@ -1,5 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 struct D2SeedStrc;
 struct D2StaticPathStrc;
@@ -7,12 +9,6 @@ struct D2MissileStrc;
 struct D2MissilesTxt;
 
 
-struct D2StaticPathStrc
-{
-    int unk0x00[3];
-    int nXPos;
-    int nYPos;
-};
 
 
 struct D2MissileStrc

@@ -1,4 +1,6 @@
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 #pragma intrinsic(memset)
 
@@ -7,12 +9,6 @@ struct D2DynamicPathStrc;
 struct D2SkillStrc;
 struct D2InventoryStrc;
 
-struct D2StaticPathStrc
-{
-    char unk0x00[0x0C];
-    int nX;
-    int nY;
-};
 
 struct D2PlayerDataStrc
 {
@@ -22,11 +18,6 @@ struct D2PlayerDataStrc
 };
 
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 struct D2PlayerModeInfoStrc
 {
@@ -107,7 +98,7 @@ static void __declspec(noinline) sub_00463260_UpdateStoredUnit(D2UnitStrc* pUnit
     case 2: \
     case 4: \
     case 5: \
-        outX = (pUnit)->pStaticPath->nX; \
+        outX = (pUnit)->pStaticPath->nXPos; \
         break; \
     default: \
         if ((pUnit)->pDynamicPath) \
@@ -123,7 +114,7 @@ static void __declspec(noinline) sub_00463260_UpdateStoredUnit(D2UnitStrc* pUnit
     case 2: \
     case 4: \
     case 5: \
-        outY = (pUnit)->pStaticPath->nY; \
+        outY = (pUnit)->pStaticPath->nYPos; \
         break; \
     default: \
         if ((pUnit)->pDynamicPath) \
@@ -186,7 +177,7 @@ static inline int PLAYER_GetUnitXInline(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nX;
+        return pUnit->pStaticPath->nXPos;
     }
 
     if (pUnit->pDynamicPath)
@@ -201,7 +192,7 @@ static inline int PLAYER_GetUnitYInline(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nY;
+        return pUnit->pStaticPath->nYPos;
     }
 
     if (pUnit->pDynamicPath)

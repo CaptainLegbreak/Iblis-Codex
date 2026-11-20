@@ -1,12 +1,9 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 struct D2MonsterDataStrc
 {

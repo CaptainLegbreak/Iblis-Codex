@@ -1,6 +1,8 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2Path.h"
+#include "D2Structs.h"
 
 #define LEVEL_ROGUEENCAMPMENT 1
 #define LEVEL_SEWERSLEV3 49
@@ -57,11 +59,6 @@ enum D2C_P08QuestConstants
     EVENTTYPE_QUESTFN = 7,
 };
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 
 struct D2GameStrc
