@@ -45021,6 +45021,11 @@
      "name": "?sub_0050F0F0_TileCacheTouch@@YIXPAUD2GlideTileCacheStrc@@H@Z"
     },
     {
+     "va": "0x0050F150",
+     "length": 91,
+     "name": "?sub_0050F150_TileCacheEvict@@YAXPAUD2GlideTileCacheStrc@@@Z"
+    },
+    {
      "va": "0x0050F1B0",
      "length": 81,
      "name": "?sub_0050F1B0_TileCacheRelease@@YIXPAUD2GlideTileCacheStrc@@H@Z"
@@ -45029,17 +45034,6 @@
      "va": "0x0050F2B0",
      "length": 110,
      "name": "?sub_0050F2B0_TileCacheAdd@@YIFPAUD2GlideTileCacheStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Glide/Src/glSubtileCache_0050F150.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0050F150",
-     "length": 91,
-     "name": "?sub_0050F150_TileCacheEvict@@YAXPAUD2GlideTileCacheStrc@@@Z"
     },
     {
      "va": "0x0050F4F0",
@@ -92103,33 +92097,21 @@
      "va": "0x00660290",
      "length": 2505,
      "name": "DATATBLS_LoadBeltsTxt"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DATATBLS/BeltTbls_00660C60.cpp",
-   "rank": 0,
-   "functions": [
+    },
     {
      "va": "0x00660C60",
      "length": 12,
      "name": "DATATBLS_UnloadBeltsTxt"
     },
     {
-     "va": "0x00660CB0",
-     "length": 95,
-     "name": "DATATBLS_GetBeltsTxtRecord"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Common/DATATBLS/BeltTbls_00660C70.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x00660C70",
      "length": 53,
      "name": "sub_00660C70"
+    },
+    {
+     "va": "0x00660CB0",
+     "length": 95,
+     "name": "DATATBLS_GetBeltsTxtRecord"
     }
    ]
   },
