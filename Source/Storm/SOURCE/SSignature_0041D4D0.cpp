@@ -6,7 +6,7 @@ void __stdcall SBigNew(D2StormBigStrc** ppBig);                                 
 void __stdcall SBigDel(D2StormBigStrc* pBig);                                                               // 0x00424E40
 int __stdcall sub_00423850(void* hBig, const void* pData, unsigned int nSize);                              // 0x00423850
 void __stdcall SBigToBinaryBuffer(void* hBig, void* pBuffer, unsigned int nSize, unsigned int* pRead);            // 0x00423B30
-void __stdcall sub_00425330(void* hResult, void* hArg1, void* hArg2, void* hArg3);                          // 0x00425330
+void __stdcall SBigPowMod(D2StormBigStrc* pResult, D2StormBigStrc* pBase, D2StormBigStrc* pExponent, D2StormBigStrc* pModulus); // 0x00425330
 
 struct D2StormHandleStrc
 {
@@ -57,6 +57,6 @@ void D2StormHandlePairStrc::sub_004260A0_PowModBuffer(void* pBuffer, unsigned in
     D2StormHandleStrc tInput;
     sub_00423850(tInput.hHandle, pBuffer, nSize);
     D2StormHandleStrc tOutput;
-    sub_00425330(tOutput.hHandle, tInput.hHandle, hSecond.hHandle, hFirst.hHandle);
+    SBigPowMod(tOutput.hHandle, tInput.hHandle, hSecond.hHandle, hFirst.hHandle);
     tOutput.ReadFill(pBuffer, nSize);
 }

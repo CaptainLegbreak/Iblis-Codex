@@ -28,7 +28,7 @@ extern "C" void __cdecl sub_00408A60(const char*,const char*,int); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 extern "C" __declspec(dllimport) unsigned int __stdcall GetTickCount();
 extern "C" int __cdecl strcmp(const char*,const char*);
-const char* __stdcall SStrChr(const char*,int); // 0x00413490
+const char* __stdcall SStrChr(const char* szString, char nChar); // 0x00413490
 void __cdecl sub_00443E10(); // 0x00443E10
 void __fastcall sub_00445A80_ShowProfileDialog(const char*,int,int); // 0x00445A80
 void __fastcall sub_00445C70_ShowUserInfoDialog(const char*,const char*,int,int); // 0x00445C70

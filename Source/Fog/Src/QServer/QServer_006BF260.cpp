@@ -19,7 +19,7 @@ struct D2QueueServerStrc
     D2CriticalSectionStrc tLock;
 };
 
-void __fastcall FOG_Free(void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B3C0
+int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
 __declspec(noinline) static int sub_006BF260_ExpireNodes(D2QueueServerStrc* pServer);
 static int sub_006BF260_ExpireNodes(D2QueueServerStrc* pServer); // 0x006BF260

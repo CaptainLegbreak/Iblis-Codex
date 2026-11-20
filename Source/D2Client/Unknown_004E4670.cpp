@@ -9,9 +9,9 @@
 typedef unsigned short Unicode;
 unsigned short __fastcall sub_004E6CE0_GetStringId(int skillId, int stringIndex); // 0x004E6CE0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
-void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
+Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
-Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
+extern "C" __declspec(dllexport) unsigned short* __fastcall sub_005267E0(unsigned short* pDst, const unsigned short* pSrc); // 0x005267E0
 int __stdcall SKILLS_IsPlayerClassSkill(int nSkillId, int* pPlayerClass); // 0x00645080
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 

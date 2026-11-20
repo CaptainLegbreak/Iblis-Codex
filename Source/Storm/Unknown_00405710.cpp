@@ -31,7 +31,7 @@ extern "C" char* __cdecl strtok(char* szText, const char* szDelim); // 0x0068264
 extern "C" int __cdecl strncmp(const char* szLeft, const char* szRight, size_t nCount); // 0x00682591
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, ...); // 0x00413A40
-int __fastcall FOG_SetLogPrefix(const char* szLogPrefix); // 0x00407960
+void __fastcall FOG_SetLogPrefix(const char* szLogPrefix); // 0x00407960
 void __fastcall FOG_InitErrorMgr(const char* szProgramName, const char* szVersion, int bLogToFile); // 0x00408CE0
 void __fastcall SaveCmdLine(const char** argv); // 0x00405F00
 void __cdecl MoveBetaSettingsToRelease(); // 0x00406040
@@ -47,7 +47,7 @@ extern void* ghCurrentProcess_0074C718; // 0x0074C718
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize); // 0x006829C0
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
-int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned int nBufferSize); // 0x00414E50
+int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned long nBufferSize); // 0x00414E50
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
 extern int gbD2ServerStopEvent_0074C720; // 0x0074C720
 extern char szSRegReadBuf[]; // 0x0074C728

@@ -40,12 +40,12 @@ int __fastcall sub_6FCF2E70(D2UnitStrc* pUnit); // 0x005DD2B0
 D2UnitStrc* __fastcall AIUTIL_SelectAiTargetWithCollisionCheck(D2GameStrc* pGame, D2UnitStrc* pUnit, int* pDistance, int* pInMeleeRange); // 0x005DDC30
 int __fastcall AITACTICS_ChangeModeAndTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, D2UnitStrc* pTargetUnit); // 0x005DDF90
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames); // 0x005DE080
-void __fastcall AITACTICS_SetVelocity(D2UnitStrc* pUnit, int nVelocity, short nMaxVelocity, int nAcceleration); // 0x005DE190
+void __fastcall sub_005DE190_SetAiParam(D2UnitStrc* pUnit, int nParam, int nValue, int nArg); // 0x005DE190
 int __fastcall AITACTICS_WalkToTargetUnitWithFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nFlags); // 0x005DEC80
 int __fastcall AITACTICS_WalkToTargetUnitWithSteps(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nSteps); // 0x005DEF80
-int __fastcall D2GAME_AICORE_Escape_6FCD0560(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned int nDistance, int bUnk); // 0x005DEFE0
+int __fastcall sub_005DEFE0_Escape(D2GameStrc* game,D2UnitStrc* unit,D2UnitStrc* target,unsigned char maxDistance,int deleteEvent); // 0x005DEFE0
 int __fastcall AITACTICS_WalkToTargetWithRandomPathType(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned int nSteps, int a5); // 0x005DF7D0
-D2UnitStrc* __fastcall sub_005DDC30_FindTarget(D2GameStrc*, D2UnitStrc*, int*, int); // 0x005DDC30
+D2UnitStrc* __fastcall AIUTIL_SelectAiTargetWithCollisionCheck(D2GameStrc* pGame, D2UnitStrc* pUnit, int* pDistance, int* pInMeleeRange); // 0x005DDC30
 void __fastcall AITACTICS_Idle(D2GameStrc*, D2UnitStrc*, int); // 0x005DE0F0
 int __fastcall AITACTICS_UseSkill(D2GameStrc*, D2UnitStrc*, unsigned char, int, D2UnitStrc*, int, int); // 0x005DEAD0
 
@@ -86,8 +86,8 @@ void __fastcall AITHINK_Fn004_Bighead(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Ai
     {
         if (nTargetDistance < 3)
         {
-            AITACTICS_SetVelocity(pUnit, 0, 50, 0);
-            if (!D2GAME_AICORE_Escape_6FCD0560(pGame, pUnit, pTarget, 5, 1))
+            sub_005DE190_SetAiParam(pUnit, 0, 50, 0);
+            if (!sub_005DEFE0_Escape(pGame, pUnit, pTarget, 5, 1))
             {
                 AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, 5, pTarget);
             }
@@ -172,7 +172,7 @@ void __fastcall sub_005F9270_ThinkSkillModes(D2GameStrc* pGame, D2UnitStrc* pUni
         return;
     }
 
-    D2UnitStrc* pNewTarget = sub_005DDC30_FindTarget(pGame, pUnit, &nDistance, 0);
+    D2UnitStrc* pNewTarget = AIUTIL_SelectAiTargetWithCollisionCheck(pGame, pUnit, &nDistance, 0);
     if (AI_RollPercentage(pUnit) < AI_GetParam(pGame, pMonStatsTxt, 0))
     {
         AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, 4, pNewTarget);

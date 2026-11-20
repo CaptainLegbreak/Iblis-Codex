@@ -26,7 +26,7 @@ struct AsyncData
     AsyncData* pNextPostponedPriorityChange;
 };
 
-int __stdcall sub_0041AA80(void* pHandle, int nValue); // 0x0041AA80
+void __stdcall sub_0041AA80_SetWindowFlag(void* hWnd, int nValue); // 0x0041AA80
 
 struct AsyncDataEventSlot
 {
@@ -42,14 +42,14 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 void __stdcall sub_004164A0_SetValue(int nValue); // 0x004164A0
 void __stdcall SFileSetDataChunkSize(int nValue); // 0x00416570
-int __stdcall sub_0041A930_CancelRead(void* pBuffer); // 0x0041A930
+void __stdcall sub_0041A930_CancelRead(void* pBuffer); // 0x0041A930
 void __fastcall sub_0040A4C0_AsyncDataFinish(AsyncData* pAsyncData); // 0x0040A4C0
 int __fastcall FOG_AsyncDataTestLoaded(AsyncData* pAsyncData); // 0x0040A7F0
 void __fastcall FOG_AsyncDataWaitAndGetBuffer(AsyncData* pAsyncData); // 0x0040A960
 extern AsyncData* gpAsyncDataPostponed_0075AF90; // 0x0075AF90
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 extern "C" __declspec(dllimport) int __stdcall ResetEvent(void* hEvent); // 0x006CC22C
-void __fastcall sub_004068F0(void* hFile); // 0x004068F0
+int __fastcall sub_004068F0(void* pArg); // 0x004068F0
 
 int gnAsyncDataPostponeCount_0075AF8C; // 0x0075AF8C
 
@@ -87,7 +87,7 @@ void __fastcall FOG_AsyncDataSetPriority(AsyncData* pAsyncData, int nPriority)
     else if (nPriority != pAsyncData->nPriority)
     {
         pAsyncData->nPriority = nPriority;
-        sub_0041AA80(pAsyncData->ptBuffer, nPriority);
+        sub_0041AA80_SetWindowFlag(pAsyncData->ptBuffer, nPriority);
     }
 }
 
@@ -108,7 +108,7 @@ void __fastcall FOG_AsyncDataHandlePriorityChanges(int bPostpone)
             pNext = p->pNextPostponedPriorityChange;
             if (p->nPriority != p->nPreviousPriority)
             {
-                sub_0041AA80(p->ptBuffer, p->nPriority);
+                sub_0041AA80_SetWindowFlag(p->ptBuffer, p->nPriority);
             }
             p->dwFlags &= ~8;
             p->nPreviousPriority = 0;
@@ -350,7 +350,7 @@ void __fastcall FOG_AsyncDataWaitAndGetBuffer(AsyncData* pAsyncData)
 
     if (!FOG_AsyncDataTestLoaded(pAsyncData))
     {
-        sub_0041AA80(pAsyncData->ptBuffer, 1);
+        sub_0041AA80_SetWindowFlag(pAsyncData->ptBuffer, 1);
         D2_ASSERT(!WaitForSingleObject(pAsyncData->pEventSlot->hEvent, 0xFFFFFFFF), 584);
         sub_0040A4C0_AsyncDataFinish(pAsyncData);
     }

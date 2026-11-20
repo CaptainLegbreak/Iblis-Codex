@@ -25,7 +25,7 @@ struct D2PathInfoStrc
     D2DynamicPathStrc* pDynamicPath;
 };
 
-int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nPattern, int nMask); // 0x0064D910
+int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, unsigned short nMask); // 0x0064D910
 
 static __declspec(noinline) int PATH_AStar_TargetLocationHasEnoughRoom(D2PathInfoStrc* pPathInfo);
 

@@ -1,4 +1,4 @@
-int __cdecl D2GFX_GetResolutionMode();                                                                      // 0x004F5160
+int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 
 struct Unicode
 {

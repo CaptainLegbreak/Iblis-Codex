@@ -46,7 +46,7 @@ struct Unicode
 void __stdcall CRC16_CalculateChecksum(unsigned short* crc16_checksum_out, const unsigned char* data, unsigned int start_index, unsigned int end_index); // 0x00525020
 void __stdcall sub_00525260(void* pOut, int nField);                                                 // 0x00525260
 void __cdecl sub_00525770_InitUnitSuffixes();                                                               // 0x00525770
-void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength);                  // 0x00526320
+Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 int __fastcall sub_00527790_LoadCodePageMap(void* hArchive, const char* szPath);                            // 0x00527790
 int __fastcall sub_00527D50_GetCodePageCharCount(const char* szText, int nLength);                          // 0x00527D50
 

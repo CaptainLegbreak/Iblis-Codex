@@ -2,7 +2,7 @@ struct SMSGHANDLER_PARAMS;
 
 void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize);                             // 0x0041D2A0
 void __stdcall SMemMove(void* pDest, const void* pSource, unsigned int nSize);                             // 0x0041D2E0
-int __stdcall sub_00426E80_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg);                                     // 0x00426E80
+int __stdcall SEvtBreakHandlerChain(void* pData); // 0x00426E80
 
 extern int gdwGlobal_007792F4;                                                                              // 0x007792F4
 
@@ -329,7 +329,7 @@ void D2StormNodeListAStrc::sub_0041ED90_LinkNode(char* pNode, unsigned int nLink
 // 0x00420290
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg)
 {
-    return sub_00426E80_BreakHandlerChain(pMsg);
+    return SEvtBreakHandlerChain(pMsg);
 }
 
 // 0x004203A0

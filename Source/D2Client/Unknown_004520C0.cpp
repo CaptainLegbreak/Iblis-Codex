@@ -3,8 +3,8 @@
 struct D2CellFileStrc;
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...);           // 0x006CC468
-int __stdcall SStrLen(const char* szString);                                                                // 0x00413750
-D2CellFileStrc* __fastcall sub_004788B0(const char* szFile, int nType);                            // 0x004788B0
+unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
+D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType); // 0x004788B0
 
 // 0x004520C0
 void* __fastcall sub_004520C0_LoadUiCelFile(const char* szFile)

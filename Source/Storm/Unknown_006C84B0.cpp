@@ -42,7 +42,7 @@ int __stdcall sub_006018C0(D2CelStrc* pCel);                                    
 int __stdcall sub_006018F0(D2CelStrc* pCel);                                                                // 0x006018F0
 int __stdcall sub_00601920(D2CelStrc* pCel);                                                               // 0x00601920
 int __stdcall sub_00601950(D2CelStrc* pCel);                                                               // 0x00601950
-int __fastcall sub_006C8250_GetSetting(int nIndex, int* pType); // 0x006C8250
+int __fastcall sub_006C8250_GetSetting(unsigned int nSelector, int* pValue); // 0x006C8250
 extern int gnScreenHeight_007C913C;                                                                         // 0x007C913C
 extern D2DDrawCapsStrc* gpDDrawCaps_007C9150;                                                               // 0x007C9150
 

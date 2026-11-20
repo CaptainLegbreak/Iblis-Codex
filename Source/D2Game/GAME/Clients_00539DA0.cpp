@@ -34,7 +34,7 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalS
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(void*); // 0x006CC34C
 extern "C" char* __cdecl strcpy(char*, const char*);
 unsigned short __stdcall FOG_ComputeStringCRC16(const char*); // 0x004112C0
-int __stdcall SStrCmpI(const char*,const char*,int); // 0x00413590
+int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
 void __fastcall FOG_FreePool(void*,void*,const char*,int,int); // 0x0040B480
 D2ClientStrc* __fastcall CLIENTS_GetClientFromClientId(D2GameStrc*, int); // 0x00537810
 void __fastcall CLIENTS_FillCharacterPreviewInfo(D2ClientStrc*, char*); // 0x00539BE0

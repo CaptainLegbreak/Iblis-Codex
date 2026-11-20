@@ -94,7 +94,7 @@ extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volati
 int __fastcall FOG_SOCKET_WSAStartup(); // 0x0040D890
 void __fastcall sub_0051C0E0_ResolveHost(char* szResult, const char* szHost); // 0x0051C0E0
 void __fastcall sub_0051C190(char* szText, int nSize); // 0x0051C190
-void __stdcall sFastestConnect(const char* szAddress); // 0x0051CA90
+int __stdcall sFastestConnect(char* szServerList); // 0x0051CA90
 void __fastcall sub_0051EA40_SetStatus(int nStatus); // 0x0051EA40
 int __fastcall sub_00520520_SetState(int nState); // 0x00520520
 

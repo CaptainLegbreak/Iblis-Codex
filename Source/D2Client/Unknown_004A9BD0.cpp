@@ -31,17 +31,17 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 void __cdecl sub_0044DA40(); // 0x0044DA40
-int __fastcall sub_004538D0(int nUIVar); // 0x004538D0
-void __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
+int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
-void __fastcall sub_004786A0_SendIntInt(char nHeader, int nArg1, int nArg2); // 0x004786A0
+void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x006439B0
 int __stdcall SKILLS_GetOwnerGUIDFromSkill(D2SkillStrc* pSkill); // 0x00643AD0
-int __stdcall sub_00643B00(D2SkillStrc* pSkill, int a2, int a3, int a4, int* pCharges); // 0x00643B00
+int __stdcall SKILLS_GetSkillInfo(D2SkillStrc* hSkill, int* pOwnerGUID, int* pSkillId, int* pSkillLevel, int* pCharges); // 0x00643B00
 extern int gnGlobal_00711470; // 0x00711470
 extern D2HotkeySlotTableStrc gtHotkeySlots_007C0300; // 0x007C0300
 extern int gbGlobal_007C07FC; // 0x007C07FC
@@ -114,7 +114,7 @@ void __stdcall sub_004A9BD0_SkillSelectClickHandler(SMSGHANDLER_PARAMS* pMsg)
             if (pSkill)
             {
                 int nCharges;
-                if (SKILLS_GetOwnerGUIDFromSkill(pSkill) != -1 && sub_00643B00(pSkill, 0, 0, 0, &nCharges) && nCharges <= 0)
+                if (SKILLS_GetOwnerGUIDFromSkill(pSkill) != -1 && SKILLS_GetSkillInfo(pSkill, 0, 0, 0, &nCharges) && nCharges <= 0)
                 {
                     if (sub_004538D0(3))
                     {
@@ -127,7 +127,7 @@ void __stdcall sub_004A9BD0_SkillSelectClickHandler(SMSGHANDLER_PARAMS* pMsg)
                     return;
                 }
 
-                sub_004786A0_SendIntInt(0x3C, (gbGlobal_007C07FC ? 0x80000000 : 0) + gtHotkeySlots_007C0300.nSkill[i], gtHotkeySlots_007C0300.f_2D0[i]);
+                sub_004786A0_SendDwords2(0x3C, (gbGlobal_007C07FC ? 0x80000000 : 0) + gtHotkeySlots_007C0300.nSkill[i], gtHotkeySlots_007C0300.f_2D0[i]);
                 sub_00455F20(3, 1, 0);
                 gbGlobal_007C07FC = 0;
                 bHandled = 1;
@@ -162,7 +162,7 @@ static int sub_004A9FC0_IsHotkeyUsable(int nSlot)
     if (SKILLS_GetOwnerGUIDFromSkill(pSkill) != -1)
     {
         int nCharges;
-        if (sub_00643B00(pSkill, 0, 0, 0, &nCharges) && nCharges <= 0)
+        if (SKILLS_GetSkillInfo(pSkill, 0, 0, 0, &nCharges) && nCharges <= 0)
             return 0;
     }
     return 1;
@@ -177,7 +177,7 @@ void __fastcall sub_004AA030_SelectHotkey(int nSlot)
         return;
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     gnSelectedHotkey_007C0708 = nSlot;
-    sub_004786A0_SendIntInt(0x3C, (gbHotkeyLeft_007C07B8[nSlot] ? 0x80000000 : 0) + gnHotkeySkill_007C06C8[nSlot], gnHotkeyOwner_007C0768[nSlot]);
+    sub_004786A0_SendDwords2(0x3C, (gbHotkeyLeft_007C07B8[nSlot] ? 0x80000000 : 0) + gnHotkeySkill_007C06C8[nSlot], gnHotkeyOwner_007C0768[nSlot]);
     if (gbHotkeyLeft_007C07B8[nSlot])
         SKILLS_SetLeftActiveSkill(pPlayer, gnHotkeySkill_007C06C8[nSlot], gnHotkeyOwner_007C0768[nSlot]);
     else
@@ -227,7 +227,7 @@ static void sub_004AA0F0_AssignFreeHotkey(int nSlot, int nIndex)
     else
         gbHotkeyLeft_007C07B8[nSlot] = 1;
     gnHotkeyOwner_007C0768[nSlot] = gtHotkeySlots_007C0300.f_2D0[nIndex];
-    sub_004786A0_SendIntInt(0x51, (nSlot << 16) + (gbHotkeyLeft_007C07B8[nSlot] ? 0x8000 : 0) + gnHotkeySkill_007C06C8[nSlot], gnHotkeyOwner_007C0768[nSlot]);
+    sub_004786A0_SendDwords2(0x51, (nSlot << 16) + (gbHotkeyLeft_007C07B8[nSlot] ? 0x8000 : 0) + gnHotkeySkill_007C06C8[nSlot], gnHotkeyOwner_007C0768[nSlot]);
 }
 
 // 0x004AA160

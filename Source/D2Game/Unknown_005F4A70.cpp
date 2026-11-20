@@ -63,7 +63,7 @@ inline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
 #define AI_ROLL_PERCENT(pSeed) ((int)((unsigned int)SEED_RollRandomNumber(pSeed) % 100))
 
 int __fastcall sub_6FCF2E70(D2UnitStrc* pUnit); // 0x005DD2B0
-void __fastcall AITACTICS_SetVelocity(D2UnitStrc* pUnit, int nFlags, int nVelocity, unsigned char nUnused); // 0x005DE190
+void __fastcall sub_005DE190_SetAiParam(D2UnitStrc* pUnit, int nParam, int nValue, int nArg); // 0x005DE190
 
 // 0x005F4A70
 void __fastcall sub_005F4A70_Think(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pTick)
@@ -106,7 +106,7 @@ void __fastcall sub_005F4A70_Think(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTic
             if (pStats->nVelocity > 0) nVelocity = 100 * pStats->nRun / pStats->nVelocity - 100;
             nVelocity = nVelocity <= 0 ? 0 : nVelocity;
             nVelocity = nVelocity >= 120 ? 120 : nVelocity;
-            AITACTICS_SetVelocity(pUnit, 0, nVelocity, 0);
+            sub_005DE190_SetAiParam(pUnit, 0, nVelocity, 0);
             if (sub_005DEFE0_Escape(pGame, pUnit, pTarget, 8, 1)) return;
         }
         if (nDistance < AI_PARAM(pGame, pStats, 2) && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pStats, 1)) {

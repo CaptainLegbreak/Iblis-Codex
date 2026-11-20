@@ -14,10 +14,10 @@ struct D2SCompDecompStrc
 
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode);                                         // 0x0041C340
 void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize);                              // 0x0041D2A0
-void __fastcall sub_0041E000_DecompressExplode(void* pOut, unsigned int* pcbOut, void* pIn, unsigned int cbIn, int nExtra); // 0x0041E000
-void __fastcall sub_0041E340_SCompZlibDecompress(void* pOut, unsigned int* pcbOut, void* pIn, unsigned int cbIn, int nExtra); // 0x0041E340
-void __fastcall sub_0041E3A0_SCompADPCMDecompressMono(void* pOut, unsigned int* pcbOut, void* pIn, unsigned int cbIn, int nExtra); // 0x0041E3A0
-void __fastcall sub_0041E400_SCompADPCMDecompressStereo(void* pOut, unsigned int* pcbOut, void* pIn, unsigned int cbIn, int nExtra); // 0x0041E400
+void __fastcall sub_0041E000_DecompressExplode(char* pDst, unsigned int* pDstLen, char* pSrc, unsigned int nSrcLen, int nUnused); // 0x0041E000
+int __fastcall sub_0041E340_SCompZlibDecompress(unsigned char* pOut, unsigned long* pOutSize, const unsigned char* pIn, unsigned long nInSize, int nUnused); // 0x0041E340
+void __fastcall sub_0041E3A0_SCompADPCMDecompressMono(short* pOut, unsigned int* pOutSize, unsigned char* pIn, int nInLength, int nUnused); // 0x0041E3A0
+void __fastcall sub_0041E400_SCompADPCMDecompressStereo(short* pOut, unsigned int* pOutSize, unsigned char* pIn, int nInLength, int nUnused); // 0x0041E400
 void __fastcall sub_0041F9E0_DecompressHuffman(void* pOut, unsigned int* pcbOut, void* pIn, unsigned int cbIn, int nExtra); // 0x0041F9E0
 
 // build: symbol _gtDecompTable_006CFEC4 0x006CFEC4

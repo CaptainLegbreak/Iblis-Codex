@@ -689,19 +689,19 @@ static __declspec(noinline) int __stdcall sub_005FC1C0_RollBaalMeleeAiParam(D2Ga
     return AIBAAL_GetRandomArrayIndex_M282Inline(aiParams, 16, pUnit, 1);
 }
 
-int __stdcall PATH_GetX(void* pPath); // 0x006488C0
+int __stdcall PATH_GetXPosition(D2DynamicPathStrc* hPath); // 0x006488C0
 int __stdcall PATH_GetY(void* pPath); // 0x00648900
-int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nPattern, int nMask); // 0x0064D910
+int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, unsigned short nMask); // 0x0064D910
 int __fastcall PLAYER_GetUniqueIdFromPlayerData(D2UnitStrc* pUnit); // 0x005353F0
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nType, int nId); // 0x00552F60
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
-unsigned int __stdcall UNITS_GetDistanceToCoordinates(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
+int __stdcall sub_006417F0_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
 
 static __forceinline int AIBAAL_GetUnitX_Inline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType) {
     case 2: case 4: case 5: return ((int*)pUnit->pDynamicPath)[3];
-    default: return pUnit->pDynamicPath ? PATH_GetX(pUnit->pDynamicPath) : 0;
+    default: return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
     }
 }
 static __forceinline int AIBAAL_GetUnitY_Inline(D2UnitStrc* pUnit)
@@ -729,7 +729,7 @@ static int __stdcall AIBAAL_RollRandomAiParam(D2GameStrc* pGame, D2UnitStrc* pUn
         D2UnitStrc* pObject = SUNIT_GetServerUnit(pGame, 2, PLAYER_GetUniqueIdFromPlayerData(pTarget));
         if (pObject && DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pObject)) == 132)
         {
-            if (!pAiCmd || UNITS_GetDistanceToCoordinates(pObject, pAiCmd->nCmdParam[1], pAiCmd->nCmdParam[2]) < 75)
+            if (!pAiCmd || sub_006417F0_GetDistanceToXY(pObject, pAiCmd->nCmdParam[1], pAiCmd->nCmdParam[2]) < 75)
                 bInCloseRange = 1;
         }
     }
@@ -759,7 +759,7 @@ int __stdcall sub_005FC450_Shim(D2GameStrc* pGame, D2AiControlStrc* pAiControl, 
 
 typedef int(__fastcall* CULLFN)(D2UnitStrc*, D2UnitStrc*);
 D2AiCmdStrc* __fastcall AIGENERAL_GetAiCommandFromParam(D2UnitStrc* pUnit, int nCmdParam, int bSet); // 0x0058EEF0
-D2AiCmdStrc* __fastcall sub_0058EF40_CopyAiCommand(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiCmdStrc* pAiCmd); // 0x0058EF40
+void __fastcall AIGENERAL_CopyAiCommand(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiCmdStrc* pAiCmd); // 0x0058EF40
 int __fastcall AIBAAL_CullPotentialTargets(D2UnitStrc* pBaal, D2UnitStrc* pTarget); // 0x005FC000
 void __fastcall AIBAAL_MainSkillHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, D2UnitStrc* pTarget, int nParam, D2AiCmdStrc* pAiCmd); // 0x005FCB60
 void __fastcall AITACTICS_Idle(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames); // 0x005DE0F0
@@ -814,7 +814,7 @@ void __fastcall AITHINK_Fn135_BaalCrab(D2GameStrc* pGame, D2UnitStrc* pUnit, D2A
         aiCmd.nCmdParam[0] = 10;
         aiCmd.nCmdParam[1] = UNITS_GetXPos(pUnit);
         aiCmd.nCmdParam[2] = UNITS_GetYPos(pUnit);
-        sub_0058EF40_CopyAiCommand(pGame, pUnit, &aiCmd);
+        AIGENERAL_CopyAiCommand(pGame, pUnit, &aiCmd);
         pAiCmd = AIGENERAL_GetAiCommandFromParam(pUnit, 10, 0);
     }
 

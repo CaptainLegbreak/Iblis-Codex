@@ -62,7 +62,7 @@ public:
     int unk0x38;
 };
 
-void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
+int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 
 // 0x004BC050
 int SpinnerImplementation::MsgSlot02(SMSGHANDLER_PARAMS* pMsg)
@@ -82,7 +82,7 @@ int SpinnerImplementation::MsgSlot02(SMSGHANDLER_PARAMS* pMsg)
 
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_HandleMsg(pMsg);
+    sub_00420290_BreakHandlerChain(pMsg);
     return 1;
 }
 

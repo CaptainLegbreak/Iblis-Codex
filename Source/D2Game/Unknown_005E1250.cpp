@@ -44,9 +44,9 @@ D2UnitStrc* __fastcall AIUTIL_SelectAiTargetWithCollisionCheck(D2GameStrc* pGame
 int __fastcall AITACTICS_ChangeModeAndTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, D2UnitStrc* pTargetUnit); // 0x005DDF90
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames);            // 0x005DE080
 int __fastcall AITACTICS_WalkToTargetUnitWithFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit, unsigned char nFlag); // 0x005DEC80
-void __fastcall AITACTICS_SetVelocity(D2UnitStrc* pUnit, int a2, int nVel, unsigned char a4);             // 0x005DE190
+void __fastcall sub_005DE190_SetAiParam(D2UnitStrc* pUnit, int nParam, int nValue, int nArg); // 0x005DE190
 int __fastcall sub_005DEFE0_Escape(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance, int bDeleteAiEventCallback); // 0x005DEFE0
-int __fastcall D2GAME_AICORE_WalkToOwner_6FCD0B60(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pOwner, int nMaxDistance); // 0x005DF530
+int __fastcall D2GAME_AICORE_WalkToOwner_6FCD0B60(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pOwner, unsigned char nMaxDistance); // 0x005DF530
 int __fastcall sub_005DF7D0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int a4, int bDeleteAiEventCallback);
 
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
@@ -92,7 +92,7 @@ void __fastcall AITHINK_Fn096_FetishBlowgun(D2GameStrc* pGame, D2UnitStrc* pUnit
             {
                 pAiControl->dwAiParam[0] = 0;
                 pAiControl->dwAiParam[1] = 0;
-                AITACTICS_SetVelocity(pUnit, 13, 50, 0);
+                sub_005DE190_SetAiParam(pUnit, 13, 50, 0);
                 AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pCmdTarget, 0);
                 AIGENERAL_FreeCurrentAiCommand(pGame, pUnit);
                 return;
@@ -106,7 +106,7 @@ void __fastcall AITHINK_Fn096_FetishBlowgun(D2GameStrc* pGame, D2UnitStrc* pUnit
     {
         if (nTargetDistance > AI_PARAM(pGame, pMonStatsTxt, FETISHBLOWGUN_AI_PARAM_STAY_IN_RANGE))
         {
-            AITACTICS_SetVelocity(pUnit, 0, 50, 0);
+            sub_005DE190_SetAiParam(pUnit, 0, 50, 0);
             D2GAME_AICORE_WalkToOwner_6FCD0B60(pGame, pUnit, pTarget, 6);
             return;
         }
@@ -149,7 +149,7 @@ LSelectTarget:
     case 1:
         pAiControl->dwAiParam[0] = 0;
         pAiControl->dwAiParam[1] = 0;
-        AITACTICS_SetVelocity(pUnit, 0, 50, 0);
+        sub_005DE190_SetAiParam(pUnit, 0, 50, 0);
         if (!sub_005DF7D0(pGame, pUnit, pTarget, 6, 1))
         {
             AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
@@ -168,7 +168,7 @@ LSelectTarget:
         }
         else
         {
-            AITACTICS_SetVelocity(pUnit, 2, 50, 0);
+            sub_005DE190_SetAiParam(pUnit, 2, 50, 0);
             if (!sub_005DEFE0_Escape(pGame, pUnit, pTarget, 14, 1))
             {
                 AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pSelected);

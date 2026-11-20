@@ -43,7 +43,7 @@ struct D2DamageStrc
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);                                          // 0x0061A1B0
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom);                                                // 0x0061AB00
-int __stdcall sub_00622B50_TestInteractCollision(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nMask);        // 0x00622B50
+int __stdcall sub_00622B50_IsRayFreeBetweenUnits(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, unsigned int nCollisionMask); // 0x00622B50
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);                        // 0x00625480
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                         // 0x0045C3E0
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId);                                        // 0x00640E90
@@ -76,7 +76,7 @@ void __fastcall OBJEVAL_ApplyTrapObjectDamage(D2GameStrc* pGame, D2UnitStrc* pSr
 {
     D2ActiveRoomStrc* pTargetRoom = UNITS_GetRoom(pTargetUnit);
     DUNGEON_GetLevelIdFromRoom(pTargetRoom);
-    if (DUNGEON_IsRoomInTown(pTargetRoom) || sub_00622B50_TestInteractCollision(pTargetUnit, pSrcUnit, COLLIDE_MASK_PLAYER_FLYING))
+    if (DUNGEON_IsRoomInTown(pTargetRoom) || sub_00622B50_IsRayFreeBetweenUnits(pTargetUnit, pSrcUnit, COLLIDE_MASK_PLAYER_FLYING))
     {
         return;
     }

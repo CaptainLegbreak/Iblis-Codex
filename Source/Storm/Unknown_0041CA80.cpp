@@ -66,7 +66,7 @@ extern D2StormList00708420Strc gHandlerList_00708420; // 0x00708420
 extern D2CriticalSectionStrc gErrorStateLock_007790CC; // 0x007790CC
 extern D2StormMsgSourceStrc* gpStormMsgSources_007790E8; // 0x007790E8
 extern "C" int __cdecl vsprintf(char* buffer, const char* format, char* args); // 0x00682DA1
-int __stdcall sub_0041CAF0_DisplayError(int code, const char* file, int line, const char* text, int recoverable, int exitCode); // 0x0041CAF0
+int __stdcall SErrDisplayError(unsigned int nErrorCode,const char* szFile,int nLine,const char* szDescription,int bRecoverable,unsigned int nExitCode); // 0x0041CAF0
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
 extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char* szText); // 0x006CC200
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
@@ -117,7 +117,7 @@ int __cdecl sub_0041CFB0_DisplayErrorFmt(int code, const char* file, int line, i
     char buffer[0x400];
     char* args = (char*)(&format + 1);
     vsprintf(buffer, format, args);
-    return sub_0041CAF0_DisplayError(code, file, line, buffer, recoverable, exitCode);
+    return SErrDisplayError(code, file, line, buffer, recoverable, exitCode);
 }
 
 int gbDebugMemoryLoaded_00779204; // 0x00779204

@@ -14,7 +14,7 @@ int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc*, int, unsigned short); // 0x0
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc*, int, int, unsigned short); // 0x00627260
 void __stdcall ITEMS_SetFileIndex(D2UnitStrc*, unsigned int); // 0x00629DF0
 void __stdcall ITEMS_SetItemFlag(D2UnitStrc*, unsigned int, int); // 0x006280D0
-void __stdcall sub_0065FEC0_ItemApplyProps(int, int, D2UnitStrc*, void*, int, int); // 0x0065FEC0
+void __stdcall ITEMMODS_AssignProperty(int nType, D2UnitStrc* a2, D2UnitStrc* pItem, const void* pMods, int nPropSet, int nApplyType); // 0x0065FEC0
 
 // build: context SEED_RollRandomNumberInline
 static __forceinline unsigned __int64 SEED_RollRandomNumberInline(D2SeedStrc* pSeed)
@@ -82,7 +82,7 @@ int __stdcall sub_005C2740_RollLegacySetItem(D2UnitStrc* pItem)
     {
         ITEMS_SetFileIndex(pItem, nFileIndex);
         ITEMS_SetItemFlag(pItem, 0x10, 0);
-        sub_0065FEC0_ItemApplyProps(4, 0, pItem, 0, 0, 0);
+        ITEMMODS_AssignProperty(4, 0, pItem, 0, 0, 0);
         return 1;
     }
     SEED_InitLowSeed(ITEMS_GetItemSeed(pItem), nSavedSeed);

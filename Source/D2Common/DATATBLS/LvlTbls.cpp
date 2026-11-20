@@ -181,7 +181,7 @@ struct D2LvlSubTxt
 
 extern int gnLvlwarpTxtRecordCount; // 0x0096CA04
 extern int gnLvlmazeTxtRecordCount; // 0x0096CA0C
-void __fastcall sub_0040B3C0(void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B3C0
+int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 void __fastcall DRLGPRESET_FreeDrlgFile(D2DrlgFileStrc** ppDrlgFile); // 0x00668300
 void __fastcall DRLGTILESUB_FreeDrlgFile(D2LvlSubTxt* pLvlSubTxtRecord); // 0x00670630
@@ -482,7 +482,7 @@ void __fastcall DATATBLS_UnloadLvlPrestTxt()
             }
         }
 
-        sub_0040B3C0(ppLvlPrestFiles, ".\\DATATBLS\\LvlTbls.cpp", 722, 0);
+        FOG_Free(ppLvlPrestFiles, ".\\DATATBLS\\LvlTbls.cpp", 722, 0);
         gppLvlPrestDrlgFiles = 0;
     }
 
@@ -638,7 +638,7 @@ void __fastcall DATATBLS_UnloadLvlSubTxt()
             }
         }
 
-        sub_0040B3C0(ppFiles, ".\\DATATBLS\\LvlTbls.cpp", 984, 0);
+        FOG_Free(ppFiles, ".\\DATATBLS\\LvlTbls.cpp", 984, 0);
         gppLvlSubDrlgFiles = 0;
     }
 

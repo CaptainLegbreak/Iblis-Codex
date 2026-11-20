@@ -195,7 +195,7 @@ struct D2StormBigStrc
 unsigned int __stdcall sub_004213B0_FindLastSetBit(D2StormQueueStrc* pQueue);                              // 0x004213B0
 int __stdcall sub_004212F0_Compare(D2StormQueueStrc* pLeft, D2StormQueueStrc* pRight);                      // 0x004212F0
 int __stdcall sub_004242C0_BigOp(D2StormQueueStrc* pResult, D2StormQueueStrc* pA, D2StormQueueStrc* pB, D2StormBigStackStrc* pStack); // 0x004242C0
-int __stdcall sub_00424B00_Square(D2StormQueueStrc* pResult, D2StormQueueStrc* pA, D2StormBigStackStrc* pStack);   // 0x00424B00
+void __stdcall sub_00424B00_BigSquare(D2StormQueueStrc* pResult, D2StormQueueStrc* pA, D2StormBigStackStrc* pStack); // 0x00424B00
 unsigned int __stdcall sub_00421470_FindLowestSetBit(D2StormQueueStrc* pQueue);                            // 0x00421470
 extern const unsigned int gaSBigFermatBases[1];                                                         // 0x006CFF70
 extern const unsigned int gaSBigSmallPrimes[171];                                                        // 0x006CFF78
@@ -551,9 +551,9 @@ static void __stdcall sub_00425150_PowMod(D2StormQueueStrc& a, D2StormQueueStrc&
             }
             for (; nBits > 0; nBits -= 2)
             {
-                sub_00424B00_Square(&tWork, &tWork, &tStack);
+                sub_00424B00_BigSquare(&tWork, &tWork, &tStack);
                 sub_00423DC0_Div(tQuot, tWork, tWork, d, tStack);
-                sub_00424B00_Square(&tWork, &tWork, &tStack);
+                sub_00424B00_BigSquare(&tWork, &tWork, &tStack);
                 sub_00423DC0_Div(tQuot, tWork, tWork, d, tStack);
                 if (nDigit >> 30)
                     sub_004245F0_MulMod(tWork, tWork, *aPowers[(nDigit >> 30) - 1], d, tStack);

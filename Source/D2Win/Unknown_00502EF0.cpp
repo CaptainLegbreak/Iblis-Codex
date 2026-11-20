@@ -50,12 +50,12 @@ extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0
 D2CelFileStrc* __fastcall ARCHIVE_LoadCellFile(const char* szFile, int nType);                              // 0x004FA9B0
 void __fastcall ARCHIVE_FreeCellFile(D2CelFileStrc* pCellFile);                                        // 0x004FAAE0
-void* __cdecl sub_004FAC80_GetArchive();                                                                    // 0x004FAC80
+void* __stdcall D2Win_GetArchive(); // 0x004FAC80
 D2CharStrc* __fastcall sub_6F8AA100(unsigned short wChar);                                                  // 0x00501650
 D2CharStrc* __fastcall sub_6F8AA140(unsigned short wChar);                                                  // 0x00501690
-void* __fastcall sub_00517079_ReadFileToBuffer(void* pArchive, const char* szFile, int* pSize, const char* szSrcFile, int nLine); // 0x00517079
+void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFilePath, unsigned int* pdwBytesWritten, const char* szSrcPath, int nLine); // 0x00517079
 int __cdecl STRTABLE_GetLanguage();                                                                         // 0x00525150
-void __fastcall sub_00526320_ToUnicode(wchar_t* pDest, const char* szSource, int nLength);                  // 0x00526320
+Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 
 extern "C" const char gszDataGlobal_006D4118[];                                                             // 0x006D4118
 extern "C" const char gszDataLocal_006D41A8[];                                                              // 0x006D41A8
@@ -114,7 +114,7 @@ static void sub_6F8A9E90(int nFont)
     if (gFontCache_00841DA8[nFont].pFontInfo[0])
         FOG_Free(gFontCache_00841DA8[nFont].pFontInfo[0], ".\\Src\\D2WinFont.cpp", 0xB3, 0);
 
-    D2FontStrc* pFont = (D2FontStrc*)sub_00517079_ReadFileToBuffer(sub_004FAC80_GetArchive(), szFile, 0, ".\\Src\\D2WinFont.cpp", 0xB5);
+    D2FontStrc* pFont = (D2FontStrc*)ARCHIVE_AllocateBufferAndReadFile(D2Win_GetArchive(), szFile, 0, ".\\Src\\D2WinFont.cpp", 0xB5);
     gFontCache_00841DA8[nFont].pFontInfo[0] = pFont;
     gFontCache_00841DA8[nFont].pFontInfo[1] = pFont;
     gFontCache_00841DA8[nFont].pCharInfo = pFont->aChars;

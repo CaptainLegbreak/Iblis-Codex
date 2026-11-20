@@ -5,7 +5,7 @@ struct D2CompositeUnitStrc;
 
 void __fastcall sub_00448BD0_UpdateScroll(int nDelta); // 0x00448BD0
 extern D2WinControlStrc* gpControlMain_0077BC4C; // 0x0077BC4C
-int __stdcall sub_005041B0_Destroy(D2CompositeUnitStrc* pComposite, int nFlag); // 0x005041B0
+void __stdcall D2Win_10142_CompUnitDestroy(D2CompositeUnitStrc* pCompositeUnit, int bUnlink); // 0x005041B0
 extern D2CellFileStrc* gpChatCellFile_0077BBFC; // 0x0077BBFC
 
 // 0x0043DA30
@@ -26,6 +26,6 @@ int __fastcall sub_0043DAD0_SetMainState(int bSet)
 void __cdecl sub_0043DCE0_FreeChatCellFile()
 {
     if (gpChatCellFile_0077BBFC)
-        sub_005041B0_Destroy((D2CompositeUnitStrc*)gpChatCellFile_0077BBFC, 1);
+        D2Win_10142_CompUnitDestroy((D2CompositeUnitStrc*)gpChatCellFile_0077BBFC, 1);
     gpChatCellFile_0077BBFC = 0;
 }

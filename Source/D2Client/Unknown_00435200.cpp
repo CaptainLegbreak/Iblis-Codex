@@ -23,7 +23,7 @@ extern D2LaunchRecordStrc* gpLaunchRecord_007795D4;                             
 extern int gnLaunchMode_007795EC;                                                                           // 0x007795EC
 extern int gdwGlobal_0077932C;                                                                              // 0x0077932C
 
-const char* __cdecl sub_0040DF60_GetLocalIp();                                                              // 0x0040DF60
+const char* __fastcall FOG_GetHostIPAddress(); // 0x0040DF60
 void __cdecl sub_0042F480_Reset();                                                                          // 0x0042F480
 int __cdecl sub_00430BC0_HasSaveFiles();                                                                    // 0x00430BC0
 void __cdecl sub_004336C0_ShowMainMenu();                                                                                // 0x004336C0
@@ -77,7 +77,7 @@ int __stdcall sub_00435D30_SelectMode1(int nArg)
 int __stdcall sub_00435D80_SelectMode2(int nArg)
 {
     gpLaunchRecord_007795D4->nValue019 = 8;
-    strcpy(gpLaunchRecord_007795D4->szLocalIp037, sub_0040DF60_GetLocalIp());
+    strcpy(gpLaunchRecord_007795D4->szLocalIp037, FOG_GetHostIPAddress());
     gnLaunchMode_007795EC = 2;
     gpLaunchRecord_007795D4->nValue209 = 4;
     if (!sub_00430BC0_HasSaveFiles())

@@ -19,7 +19,7 @@ void* __stdcall SMemAlloc(size_t nSize, const char* szFile, int nLine, int nFlag
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);                               // 0x0040B380
-void* __fastcall sub_004788B0_LoadCellFile(const char* szPath, int nFlags);                                 // 0x004788B0
+D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType); // 0x004788B0
 int __fastcall sub_00501820(const Unicode* wszText);                                             // 0x00501820
 int __fastcall sub_00502EF0(int nArg);                                                                      // 0x00502EF0
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);                  // 0x00526F20
@@ -103,7 +103,7 @@ SpinnerImplementation::SpinnerImplementation(int nX, int nY, int bHorizontal, in
 {
     char szPath[260];
     sprintf(szPath, "%s\\ui\\menu\\spinner", szDataGlobal_006D4118);
-    void* pFile = sub_004788B0_LoadCellFile(szPath, 0);
+    void* pFile = sub_004788B0(szPath, 0);
     pCellFile = pFile;
     this->nX = nX;
     this->nY = nY;

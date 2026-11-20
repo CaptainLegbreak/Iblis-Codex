@@ -19,7 +19,7 @@ extern "C" __int64 __stdcall _alldiv(__int64 a, __int64 b); // 0x00684240
 
 enum { UNIT_MONSTER = 1, STAT_HITPOINTS = 6, STAT_MAXHP = 7, MONTYPEFLAG_POSSESSED = 0x20 };
 
-int __fastcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
+int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, unsigned short nLayer); // 0x00627260
 void __fastcall sub_005A0E80_ApplyMonsterPenalty(D2UnitStrc* pUnit, int nUMod, int bUnique); // 0x005A0E80
 static __declspec(noinline) void sub_005A0D20_AddLifePercent(D2UnitStrc* pUnit, int nPercent);

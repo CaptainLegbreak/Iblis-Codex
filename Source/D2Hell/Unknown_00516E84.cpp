@@ -2,7 +2,7 @@
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-void __fastcall sub_004068F0(void* hFile); // 0x004068F0
+int __fastcall sub_004068F0(void* pArg); // 0x004068F0
 
 // 0x00516E84
 void __fastcall sub_00516E84_CloseFile(void* pUnused, void* hFile)

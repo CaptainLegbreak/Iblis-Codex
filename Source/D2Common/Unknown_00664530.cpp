@@ -47,7 +47,7 @@ void __stdcall DATATBLS_UnloadBin(void* pBinFile); // 0x006125C0
 
 
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
-int __stdcall DATATBLS_GetCodeFromCompCodeTxt(int nIndex); // 0x006117D0
+unsigned int __stdcall DATATBLS_GetCodeFromCompCodeTxt(int nCompCode); // 0x006117D0
 
 static D2OverlayTxt* DATATBLS_GetOverlayTxtRecord(int nOverlay)
 {

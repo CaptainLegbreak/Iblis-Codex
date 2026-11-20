@@ -9,7 +9,7 @@ extern "C" __declspec(dllimport) int __stdcall DeleteFileA(const char* szFileNam
 extern "C" __declspec(dllimport) int __stdcall CreateDirectoryA(const char* szPathName, void* pSecurityAttributes); // 0x006CC1B8
 extern "C" __declspec(dllimport) long __stdcall SHGetFolderPathA(void* hWnd, int nFolder, void* hToken, unsigned long dwFlags, char* szPath); // 0x006CC43C
 void __cdecl sub_00519300_FreeCache(); // 0x00519300
-void __cdecl sub_005193E0_LoadCache(); // 0x005193E0
+int __cdecl sub_005193E0_LoadCache(); // 0x005193E0
 extern void* ghCacheFile_0072FB78; // 0x0072FB78
 
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214

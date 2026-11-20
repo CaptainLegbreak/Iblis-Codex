@@ -50,7 +50,7 @@ struct D2WeatherLineStrc
 };
 int __cdecl sub_0045AE90(); // 0x0045AE90
 int __cdecl sub_004F5210(); // 0x004F5210
-void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned char nColor, unsigned char nAlpha); // 0x004F6380
+void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha); // 0x004F6380
 extern D2WeatherLineStrc gaWeatherLines_006D6E78[]; // 0x006D6E78
 extern int gnGlobal_0071146C; // 0x0071146C
 extern int gnGlobal_00711470; // 0x00711470
@@ -73,10 +73,10 @@ extern unsigned int gdwGlobal_007BB390; // 0x007BB390
 
 extern "C" double __cdecl fabs(double x);
 int __cdecl sub_004F5140(); // 0x004F5140
-D2ActiveRoomStrc* __fastcall sub_004646A0_GetPlayerRoom(); // 0x004646A0
+D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
 int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseTime); // 0x0061C100
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
-unsigned int __cdecl sub_0044DB00(); // 0x0044DB00
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
+int __cdecl sub_0044DB00(); // 0x0044DB00
 void __fastcall sub_00472C80_StepSplashes(int nUnused); // 0x00472C80
 void __fastcall sub_00472D10_StepBubbles(int nUnused); // 0x00472D10
 void __stdcall sub_00473E50_StepPhase(D2SeedStrc* pSeed); // 0x00473E50
@@ -653,7 +653,7 @@ void __cdecl sub_00473F50_UpdateWeather()
     gbMudActive_007A8A40 = bMud;
 
     const unsigned int nTick = sub_0044DB00();
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2_ASSERT(pPlayer, 0x547);
 
     D2SeedStrc* pSeed = &pPlayer->pSeed;

@@ -39,7 +39,7 @@ public:
 extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 extern "C" int __cdecl strcmp(const char* szLeft, const char* szRight);
 extern "C" size_t __cdecl strlen(const char* szString);
-char* __stdcall SStrChr(const char* szString, char nChar); // 0x00413490
+const char* __stdcall SStrChr(const char* szString, char nChar); // 0x00413490
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
 void __stdcall sub_00446A90_RemoveTableString(Unicode* pText); // 0x00446A90
 void __fastcall sub_00447940_PrependNumberText(Unicode* pText, int nValue); // 0x00447940
@@ -49,7 +49,7 @@ int __fastcall sub_0043E610_PrintText(Unicode* pText, int nColor); // 0x0043E610
 void __fastcall sub_00447560_SplitName(const char* szName, char* szTitle, char* szOut); // 0x00447560
 extern D2LaunchFuncsStrc* gpLaunchFuncs_0077B09C; // 0x0077B09C
 extern T0043E860* gpChannelUsers_00798F34; // 0x00798F34
-void __fastcall sub_00526E40_Utf8ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526E40
+Unicode* __fastcall sub_00526E40_Utf8ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526E40
 
 static const char* SkipStarPrefix_Inl(const char* szName)
 {

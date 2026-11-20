@@ -82,7 +82,7 @@ struct D2CrashInputStrc
     unsigned long dwThreadId;
     D2ExceptionPointersStrc* pException;
 };
-void __fastcall sub_00403100_PrintFrames(unsigned long dwThreadId,D2StackFrameStrc* pFrames,int nFrames,D2CrashPrintFn pfnPrint,void* pContext,int nArg5,int nArg6); // 0x00403100
+void __fastcall sub_00403100_PrintFrames(unsigned long dwThreadId, D2StackFrameStrc* pFrames, unsigned int nFrames, D2CrashPrintFn pfnPrint, void* pContext, bool bSymbols, bool bHeader); // 0x00403100
 void __fastcall sub_00402EE0_DumpModules(D2CrashPrintFn pfnPrint,void* pContext); // 0x00402EE0
 unsigned long __cdecl sub_00401690_GetCurrentThreadId(); // 0x00401690
 void __fastcall sub_004013C0_TerminateCurrentProcess(unsigned int nCode); // 0x004013C0

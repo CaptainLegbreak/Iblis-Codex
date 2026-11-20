@@ -9,7 +9,7 @@ struct D2WinMsgStrc;
 
 void __cdecl sub_0043F060_ReleaseClassButtons();                                                            // 0x0043F060
 void __cdecl sub_0043F0E0();                                                                                // 0x0043F0E0
-void __fastcall BUTTON_SetIsPressed(D2WinButtonStrc* pButton, int bIsPressed);                              // 0x005009A0
+extern "C" void __fastcall BUTTON_SetIsPressed(D2WinButtonStrc* ptBtnData, int bIsPressed); // 0x005009A0
 
 extern unsigned char gnSelectModeA_0070CD62;                                                                // 0x0070CD62
 int gnColor_0077AD74;                                                                                       // 0x0077AD74

@@ -6,15 +6,15 @@ extern "C" int gnBufferBase_007D5448;
 extern "C" int gnSoundFlag_007C545C;
 extern "C" int gnSoundSerial_007C5460;
 extern "C" int gnSubsystemActive_007A0458;
-extern "C" void __cdecl sub_004142A0(); // 0x004142A0
+void __cdecl sub_004142A0_InitPowTable(); // 0x004142A0
 extern "C" void __cdecl sub_004F7CC0(); // 0x004F7CC0
 extern "C" void __cdecl sub_004E4280(); // 0x004E4280
-extern "C" int __cdecl sub_0052C030(); // 0x0052C030
+int __stdcall GAME_Shutdown(); // 0x0052C030
 extern "C" __declspec(dllimport) long __stdcall RegOpenKeyExA(void* hKey, const char* szSubKey, unsigned long ulOptions, unsigned long samDesired, void** phkResult); // 0x006CC010
 extern "C" __declspec(dllimport) long __stdcall RegDeleteValueA(void* hKey, const char* szValueName); // 0x006CC018
 extern "C" __declspec(dllimport) long __stdcall RegCloseKey(void* hKey); // 0x006CC030
 extern "C" __declspec(dllimport) void __stdcall SetLastError(unsigned long dwErrCode); // 0x006CC2E4
-void __stdcall sub_00414930_GetRegBasePath(unsigned int nFlags, char* szBuffer, unsigned int nSize); // 0x00414930
+int __stdcall sub_00414930_GetRegistryRoot(unsigned int nFlags, char* szDest, unsigned int nMaxLength); // 0x00414930
 unsigned int __stdcall sub_00413800(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
 extern "C" __declspec(dllimport) long __stdcall RegQueryValueExA(void* hKey, const char* szValueName, unsigned long* lpReserved, unsigned long* lpType, unsigned char* lpData, unsigned long* lpcbData); // 0x006CC00C
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
@@ -38,7 +38,7 @@ struct D2StormQuadStrc {
 // 0x00414360
 extern "C" void __cdecl sub_00414360_CallThenSetFlag()
 {
-    sub_004142A0();
+    sub_004142A0_InitPowTable();
     gnFlag_007788DC = 1;
 }
 
@@ -63,7 +63,7 @@ extern "C" int __cdecl sub_0044BB80_ShutdownIfActive()
     if (gnSubsystemActive_007A0458 == 0)
         return 0;
     gnSubsystemActive_007A0458 = 0;
-    return sub_0052C030();
+    return GAME_Shutdown();
 }
 
 // 0x00414990
@@ -76,7 +76,7 @@ int __fastcall sub_00414990_SRegDeleteEntry(unsigned int nFlags, const char* szK
     szKey[0] = 0;
     if (!(nFlags & 0x10))
     {
-        sub_00414930_GetRegBasePath(nFlags, szKey, 0x104);
+        sub_00414930_GetRegistryRoot(nFlags, szKey, 0x104);
     }
     sub_00413800(szKey, szKeyName, 0x104);
 
@@ -152,7 +152,7 @@ static int __stdcall sub_00414B00_SRegLoadEntry(const char* szKeyName, const cha
     szKey[0] = 0;
     if (!(nFlags & 0x10))
     {
-        sub_00414930_GetRegBasePath(nFlags, szKey, 0x104);
+        sub_00414930_GetRegistryRoot(nFlags, szKey, 0x104);
     }
     sub_00413800(szKey, szKeyName, 0x104);
     if (!(nFlags & 4))
@@ -270,7 +270,7 @@ static int __stdcall sub_00414C70_SRegSaveEntry(const char* szKeyName, const cha
     szKey[0] = 0;
     if (!(nFlags & 0x10))
     {
-        sub_00414930_GetRegBasePath(nFlags, szKey, 0x104);
+        sub_00414930_GetRegistryRoot(nFlags, szKey, 0x104);
     }
     sub_00413800(szKey, szKeyName, 0x104);
     void* hKey;

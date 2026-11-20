@@ -22,9 +22,9 @@ D2WaypointDataStrc* __stdcall WAYPOINTS_AllocWaypointData(void* pMemPool); // 0x
 extern char gbGlobal_007BF085; // 0x007BF085
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
-void __fastcall sub_004786A0_SendIntInt(char nHeader, int nArg1, int nArg2); // 0x004786A0
+void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 void __stdcall WAYPOINTS_FreeWaypointData(void* pMemPool, D2WaypointDataStrc* pData); // 0x00660FD0
-void __cdecl sub_0049C650_FreeWaypointCels(); // 0x0049C650
+extern "C" void __cdecl sub_0049C650_CloseArchives(); // 0x0049C650
 
 // 0x0049C650
 extern "C" void __cdecl sub_0049C650_CloseArchives()
@@ -88,7 +88,7 @@ void __cdecl sub_0049C6C0_SendWaypointClose()
 {
     if (!gbGlobal_007BF085 && sub_00463DD0_GetPlayerUnit() && UNITS_GetRoom(sub_00463DD0_GetPlayerUnit()))
     {
-        sub_004786A0_SendIntInt(0x49, gnGlobal_007BF07D, 0);
+        sub_004786A0_SendDwords2(0x49, gnGlobal_007BF07D, 0);
         gbGlobal_007BF085 = 1;
     }
 }
@@ -100,7 +100,7 @@ void __cdecl sub_0049C700_CloseWaypointPanel()
     if (gpWaypointData_007BF081)
         WAYPOINTS_FreeWaypointData(0, gpWaypointData_007BF081);
     gpWaypointData_007BF081 = 0;
-    sub_0049C650_FreeWaypointCels();
+    sub_0049C650_CloseArchives();
 }
 
 // 0x0049CF50
@@ -108,7 +108,7 @@ void __cdecl sub_0049CF50_SendWaypointClose()
 {
     if (!gbGlobal_007BF085 && sub_00463DD0_GetPlayerUnit() && UNITS_GetRoom(sub_00463DD0_GetPlayerUnit()))
     {
-        sub_004786A0_SendIntInt(0x49, gnGlobal_007BF07D, 0);
+        sub_004786A0_SendDwords2(0x49, gnGlobal_007BF07D, 0);
         gbGlobal_007BF085 = 1;
     }
 }

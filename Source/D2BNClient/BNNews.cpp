@@ -70,7 +70,7 @@ struct D2FileTimeStrc
 };
 
 extern "C" __declspec(dllimport) int __stdcall SystemTimeToFileTime(const D2SystemTimeStrc* pSystemTime, D2FileTimeStrc* pFileTime); // 0x006CC26C
-int __fastcall sub_00519DB0_HandOnDownload(const char* szFile, const void* pData, unsigned int nSize, const D2FileTimeStrc* pFileTime, int nArg5, int nArg6); // 0x00519DB0
+int __fastcall sub_00519DB0_WriteCacheFile(const char* szName, const void* pData, unsigned int nSize, const D2FileTimeStrc* pFileTime, unsigned int nSeconds1, unsigned int nSeconds2); // 0x00519DB0
 extern "C" const char gszBNNewsFile_006DF228[]; // 0x006DF228
 extern unsigned int gnNewsCookie_00881C44; // 0x00881C44
 
@@ -221,7 +221,7 @@ int __cdecl sub_0051D370_SaveNews()
         D2FileTimeStrc tFileTime;
         GetSystemTime(&tSystemTime);
         SystemTimeToFileTime(&tSystemTime, &tFileTime);
-        int nResult = sub_00519DB0_HandOnDownload(gpszNewsName_0072FF80, pBuffer, nSize, &tFileTime, -1, -1);
+        int nResult = sub_00519DB0_WriteCacheFile(gpszNewsName_0072FF80, pBuffer, nSize, &tFileTime, -1, -1);
         FOG_Free(pBuffer, gszBNNewsFile_006DF228, 0x17B, 0);
         return nResult;
     }

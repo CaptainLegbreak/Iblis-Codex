@@ -26,7 +26,7 @@ extern "C" long __cdecl ftell(_iobuf* pFile); // 0x00684935
 extern "C" size_t __cdecl fread(void* pBuffer, size_t nSize, size_t nCount, _iobuf* pFile); // 0x00684782
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
-void __fastcall sub_00407050_GetSavePath(char* szPath, int nSize); // 0x00407050
+int __fastcall sub_00407050_GetSavePath(char* szPath, int nSize); // 0x00407050
 void __fastcall sub_00478160_ShowProgressSteps(int nDone, int nTotal); // 0x00478160
 extern char gszCharName_007A05C4[]; // 0x007A05C4
 extern "C" const char gszSavePathFormat_006D4230[]; // 0x006D4230

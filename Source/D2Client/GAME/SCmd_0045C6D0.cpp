@@ -47,7 +47,7 @@ extern "C" void* gpAct_007A0634; // 0x007A0634
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-extern "C" void* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 extern "C" void* __stdcall UNITS_GetRoom(void* pUnit); // 0x00620BB0
 extern "C" void __stdcall DUNGEON_SetClientIsInSight(void* pAct, int nLevelId, int nX, int nY, void* pRoom); // 0x0061A070
 extern "C" void __stdcall DUNGEON_UnsetClientIsInSight(void* pAct, int nLevelId, int nX, int nY, void* pRoom); // 0x0061A0C0
@@ -165,7 +165,7 @@ void __fastcall sub_0045CAB0_SetClientSight(D2ClientSightPacketStrc* pPacket)
         sub_00408A60(&gszEmptyAssertText_006CC837, sub_00408090(), 0x58A);
         exit(-1);
     }
-    void* pPlayer = sub_00463DD0();
+    void* pPlayer = sub_00463DD0_GetPlayerUnit();
     void* pRoom = pPlayer ? UNITS_GetRoom(pPlayer) : 0;
     DUNGEON_SetClientIsInSight(gpAct_007A0634, pPacket->nLevelId, nX, nY, pRoom);
 }
@@ -180,7 +180,7 @@ void __fastcall sub_0045CB20_ClearClientSight(D2ClientSightPacketStrc* pPacket)
         sub_00408A60(&gszEmptyAssertText_006CC837, sub_00408090(), 0x59E);
         exit(-1);
     }
-    void* pPlayer = sub_00463DD0();
+    void* pPlayer = sub_00463DD0_GetPlayerUnit();
     void* pRoom = pPlayer ? UNITS_GetRoom(pPlayer) : 0;
     DUNGEON_UnsetClientIsInSight(gpAct_007A0634, pPacket->nLevelId, nX, nY, pRoom);
 }

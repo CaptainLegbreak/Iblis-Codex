@@ -102,7 +102,7 @@ extern D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc*); // 0x00620250
 extern D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc*,D2UnitStrc*); // 0x00553540
 extern int __stdcall sub_006449F0_ToHit(D2UnitStrc*,int,int); // 0x006449F0
 extern unsigned short __fastcall SUNITDMG_GetResultFlags(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,int,int); // 0x0057EC10
-extern int __fastcall sub_0057B420_PhysicalDamage(D2UnitStrc*,int,int,int,int,int,int,unsigned char); // 0x0057B420
+int __fastcall SUNITDMG_ApplyDamageBonuses(D2UnitStrc* pUnit, int bGetStats, D2UnitStrc* pItem, int nMinDmg, int nMaxDmg, int nDamagePercent, int nDamage, unsigned char nSrcDam); // 0x0057B420
 extern int __stdcall sub_00646CA0_EvaluateFormula(D2UnitStrc*,unsigned int,int,int); // 0x00646CA0
 extern int __fastcall sub_00483360_ApplyRatio(int,int,int); // 0x00483360
 extern int __stdcall SKILLS_GetElementalLength(D2UnitStrc*,int,int,int); // 0x00644F20
@@ -263,7 +263,7 @@ int __fastcall sub_005CFE10_ElementalStrike(D2GameStrc* pGame,D2UnitStrc* pUnit,
     damage.wResultFlags=SUNITDMG_GetResultFlags(pGame,pUnit,pTarget,sub_006449F0_ToHit(pUnit,nSkillId,nSkillLevel),0);
     if (damage.wResultFlags & 1)
     {
-        damage.nPhysical=sub_0057B420_PhysicalDamage(pUnit,1,0,0,0,0,0,pRecord->nSrcDam);
+        damage.nPhysical=SUNITDMG_ApplyDamageBonuses(pUnit,1,0,0,0,0,0,pRecord->nSrcDam);
         damage.dwHitFlags=1;
         damage.wResultFlags|=pRecord->wResultFlags;
         damage.dwHitFlags=pRecord->dwHitFlags|1;

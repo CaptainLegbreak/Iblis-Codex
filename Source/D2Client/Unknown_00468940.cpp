@@ -5,15 +5,15 @@
 #define ITEMTYPE_BELT 19
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-void __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
-int __fastcall sub_004538D0(int nUIVar); // 0x004538D0
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
 int __cdecl sub_0044DB30(); // 0x0044DB30
 int __cdecl sub_0044DA30(); // 0x0044DA30
 int __cdecl sub_00463DF0(); // 0x00463DF0
 void __fastcall sub_004A3FE0(int nMode); // 0x004A3FE0
 void __fastcall sub_00457640(int bForce); // 0x00457640
 int __cdecl sub_004576C0(); // 0x004576C0
-void __fastcall sub_004576F0(int nFade); // 0x004576F0
+int __fastcall sub_004576F0(int nFade); // 0x004576F0
 int __cdecl sub_004577B0(); // 0x004577B0
 int __cdecl sub_004577E0(); // 0x004577E0
 int __cdecl sub_00457770(); // 0x00457770

@@ -69,19 +69,19 @@ struct D2BinFieldStrc
     void* pLinker;
 };
 
-void __fastcall sub_006117B0(); // 0x006117B0
+unsigned short __fastcall DATATBLS_GetStringIdFromReferenceString(char* szReference); // 0x006117B0
 extern D2TxtLinkStrc* gTxtLink_0096C6C4; // 0x0096C6C4
 extern D2TxtLinkStrc* gTxtLink_0096C868; // 0x0096C868
 extern D2TxtLinkStrc* gTxtLink_0096BCBC; // 0x0096BCBC
 extern D2TxtLinkStrc* gTxtLink_0096C798; // 0x0096C798
 extern D2TxtLinkStrc* gTxtLink_0096BC4C; // 0x0096BC4C
-void __fastcall sub_00651150(); // 0x00651150
+void __fastcall sub_00651150(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn); // 0x00651150
 void* __stdcall DATATBLS_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pTbl, int* pRecordCount, int nRecordSize); // 0x006122F0
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-void __stdcall sub_00651040(); // 0x00651040
+void __cdecl sub_00651040_ComputeDepths(); // 0x00651040
 void __stdcall sub_00650F00(int nRecordCount); // 0x00650F00
 
 struct D2MonStatsTxt
@@ -455,7 +455,7 @@ extern "C" const char gszTxtField_InfernoRollback[]; // 0x006ECEA0
 extern "C" const char gszTxtField_ResurrectMode[]; // 0x006ECE90
 extern "C" const char gszTxtField_ResurrectSkill[]; // 0x006ECE80
 extern "C" const char gszMonStats2TxtName[]; // 0x006ECE74
-void __fastcall sub_00657010(); // 0x00657010
+void __fastcall DATATBLS_MonStats2CompositLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn); // 0x00657010
 extern D2TxtLinkStrc* gTxtLink_0096BCD8; // 0x0096BCD8
 extern void* gpMonpropTxt; // 0x0096C860
 extern int gnMonpropTxtRecordCount; // 0x0096C864
@@ -471,7 +471,7 @@ struct D2MonPresetTxt
 
 extern D2MonPresetTxt* gpMonPresetTxtActSections[5]; // 0x0096C6DC
 extern int gnMonPresetTxtActRecordCounts[5]; // 0x0096C6F0
-void __fastcall DATATBLS_MonPresetPlaceLinker(char* pSrc, void* pRecord, int nOffset, int nValue, int nTxtRow, int nTxtColumn); // 0x00659990
+void __fastcall DATATBLS_MonPresetPlaceLinker(char* pSrc, D2MonPresetTxt* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn); // 0x00659990
 extern D2TxtLinkStrc* gpSoundsLinker; // 0x0096BDC8
 extern int gnSoundsGuard; // 0x0096C8B4
 
@@ -562,8 +562,8 @@ void __fastcall DATATBLS_LoadMonStatsTxt(void* hArchive)
         { "Id", 17, 0, 0, &gTxtLink_0096C6AC },
         { "BaseId", 20, 0, 2, &gTxtLink_0096C6AC },
         { "NextInClass", 20, 0, 4, &gTxtLink_0096C6AC },
-        { "NameStr", 22, 0, 6, (void*)sub_006117B0 },
-        { "DescStr", 22, 0, 8, (void*)sub_006117B0 },
+        { "NameStr", 22, 0, 6, (void*)DATATBLS_GetStringIdFromReferenceString },
+        { "DescStr", 22, 0, 8, (void*)DATATBLS_GetStringIdFromReferenceString },
         { "Code", 9, 0, 16, 0 },
         { "TransLvl", 4, 0, 77, 0 },
         { "MonSound", 20, 0, 20, &gTxtLink_0096C6B8 },
@@ -818,7 +818,7 @@ void __fastcall DATATBLS_LoadMonStatsTxt(void* hArchive)
     gTxtLink_0096C6AC = FOG_AllocLinker(".\\DATATBLS\\MonsterTbls.cpp", 521);
     gpMonstatsTxt = DATATBLS_CompileTxt(hArchive, "monstats", pTbl, &gnMonstatsTxtRecordCount, 424);
     TBL_ASSERT(gnMonstatsTxtRecordCount < 32767, 540);
-    sub_00651040();
+    sub_00651040_ComputeDepths();
     sub_00650F00(gnMonstatsTxtRecordCount);
 }
 
@@ -1566,7 +1566,7 @@ void __fastcall DATATBLS_LoadSuperUniquesTxt(void* hArchive)
     D2BinFieldStrc pTbl[] =
     {
         { "Superunique", 17, 0, 0, &sgtDataTables.pSuperUniquesLinker },
-        { "Name", 22, 0, 2, (void*)sub_006117B0 },
+        { "Name", 22, 0, 2, (void*)DATATBLS_GetStringIdFromReferenceString },
         { "Class", 19, 0, 4, &sgtDataTables.pMonStatsLinker },
         { "hcIdx", 2, 0, 8, 0 },
         { "MonSound", 19, 0, 24, &sgtDataTables.pMonSoundsLinker },
@@ -1769,22 +1769,22 @@ D2MonStats2Txt* __fastcall DATATBLS_LoadMonStats2Txt(void* hArchive)
         { gszTxtField_MeleeRng, TXTFIELD_BYTE, 0, 14, 0 },
         { gszTxtField_BaseW, TXTFIELD_ASCIITOCODE, 0, 16, 0 },
         { gszTxtField_HitClass, TXTFIELD_BYTE, 0, 20, 0 },
-        { gszTxtField_HDv, TXTFIELD_CUSTOMLINK, 0, 0, (void*)sub_00657010 },
-        { gszTxtField_TRv, TXTFIELD_CUSTOMLINK, 0, 1, (void*)sub_00657010 },
-        { gszTxtField_LGv, TXTFIELD_CUSTOMLINK, 0, 2, (void*)sub_00657010 },
-        { gszTxtField_Rav, TXTFIELD_CUSTOMLINK, 0, 3, (void*)sub_00657010 },
-        { gszTxtField_Lav, TXTFIELD_CUSTOMLINK, 0, 4, (void*)sub_00657010 },
-        { gszTxtField_RHv, TXTFIELD_CUSTOMLINK, 0, 5, (void*)sub_00657010 },
-        { gszTxtField_LHv, TXTFIELD_CUSTOMLINK, 0, 6, (void*)sub_00657010 },
-        { gszTxtField_SHv, TXTFIELD_CUSTOMLINK, 0, 7, (void*)sub_00657010 },
-        { gszTxtField_S1v, TXTFIELD_CUSTOMLINK, 0, 8, (void*)sub_00657010 },
-        { gszTxtField_S2v, TXTFIELD_CUSTOMLINK, 0, 9, (void*)sub_00657010 },
-        { gszTxtField_S3v, TXTFIELD_CUSTOMLINK, 0, 10, (void*)sub_00657010 },
-        { gszTxtField_S4v, TXTFIELD_CUSTOMLINK, 0, 11, (void*)sub_00657010 },
-        { gszTxtField_S5v, TXTFIELD_CUSTOMLINK, 0, 12, (void*)sub_00657010 },
-        { gszTxtField_S6v, TXTFIELD_CUSTOMLINK, 0, 13, (void*)sub_00657010 },
-        { gszTxtField_S7v, TXTFIELD_CUSTOMLINK, 0, 14, (void*)sub_00657010 },
-        { gszTxtField_S8v, TXTFIELD_CUSTOMLINK, 0, 15, (void*)sub_00657010 },
+        { gszTxtField_HDv, TXTFIELD_CUSTOMLINK, 0, 0, (void*)DATATBLS_MonStats2CompositLinker },
+        { gszTxtField_TRv, TXTFIELD_CUSTOMLINK, 0, 1, (void*)DATATBLS_MonStats2CompositLinker },
+        { gszTxtField_LGv, TXTFIELD_CUSTOMLINK, 0, 2, (void*)DATATBLS_MonStats2CompositLinker },
+        { gszTxtField_Rav, TXTFIELD_CUSTOMLINK, 0, 3, (void*)DATATBLS_MonStats2CompositLinker },
+        { gszTxtField_Lav, TXTFIELD_CUSTOMLINK, 0, 4, (void*)DATATBLS_MonStats2CompositLinker },
+        { gszTxtField_RHv, TXTFIELD_CUSTOMLINK, 0, 5, (void*)DATATBLS_MonStats2CompositLinker },
+        { gszTxtField_LHv, TXTFIELD_CUSTOMLINK, 0, 6, (void*)DATATBLS_MonStats2CompositLinker },
+        { gszTxtField_SHv, TXTFIELD_CUSTOMLINK, 0, 7, (void*)DATATBLS_MonStats2CompositLinker },
+        { gszTxtField_S1v, TXTFIELD_CUSTOMLINK, 0, 8, (void*)DATATBLS_MonStats2CompositLinker },
+        { gszTxtField_S2v, TXTFIELD_CUSTOMLINK, 0, 9, (void*)DATATBLS_MonStats2CompositLinker },
+        { gszTxtField_S3v, TXTFIELD_CUSTOMLINK, 0, 10, (void*)DATATBLS_MonStats2CompositLinker },
+        { gszTxtField_S4v, TXTFIELD_CUSTOMLINK, 0, 11, (void*)DATATBLS_MonStats2CompositLinker },
+        { gszTxtField_S5v, TXTFIELD_CUSTOMLINK, 0, 12, (void*)DATATBLS_MonStats2CompositLinker },
+        { gszTxtField_S6v, TXTFIELD_CUSTOMLINK, 0, 13, (void*)DATATBLS_MonStats2CompositLinker },
+        { gszTxtField_S7v, TXTFIELD_CUSTOMLINK, 0, 14, (void*)DATATBLS_MonStats2CompositLinker },
+        { gszTxtField_S8v, TXTFIELD_CUSTOMLINK, 0, 15, (void*)DATATBLS_MonStats2CompositLinker },
         { gszTxtField_HD, TXTFIELD_BIT, 0, 232, 0 },
         { gszTxtField_TR, TXTFIELD_BIT, 1, 232, 0 },
         { gszTxtField_LG, TXTFIELD_BIT, 2, 232, 0 },

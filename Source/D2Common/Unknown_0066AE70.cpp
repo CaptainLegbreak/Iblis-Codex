@@ -80,7 +80,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);
 extern "C" void __cdecl exit(int nCode);                                                                    // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-void __fastcall DRLGACTIVATE_InitializeRoomEx(D2DrlgRoomStrc* pDrlgRoom);                                  // 0x0061B730
+D2ActiveRoomStrc* __fastcall DRLGACTIVATE_InitializeRoomEx(D2DrlgRoomStrc* pDrlgRoom); // 0x0061B730
 D2LevelDefBin* __fastcall DATATBLS_GetLevelDefRecord(int nLevelId);                                        // 0x0061E470
 unsigned int __fastcall DRLGROOM_CheckWaypointFlags(D2DrlgRoomStrc* pDrlgRoom);                            // 0x0066BAA0
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId);                                       // 0x00640E90
