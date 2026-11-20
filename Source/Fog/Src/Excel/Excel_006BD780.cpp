@@ -174,7 +174,7 @@ void __stdcall sub_006BE310_SetServerConfig(D2QServerConfigStrc* pConfig)
     gnGlobal_00989C28 = pConfig->nValue0C;
 }
 
-#include "gen/data/Source/Fog/Unknown_006BD780.inc"
+#include "gen/data/Source/Fog/Src/Excel/Excel_006BD780.inc"
 
 // 0x006BE350
 void __stdcall sub_006BE350_StartListening(D2QueueServerStrc* pServer, unsigned int nValue)

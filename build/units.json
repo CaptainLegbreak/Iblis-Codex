@@ -37396,7 +37396,7 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004DBB80.cpp",
+   "file": "Source/D2Client/ENGINE/GfxUtil_004DBB80.cpp",
    "rank": 1,
    "functions": [
     {
@@ -37420,7 +37420,7 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004DBCF0.cpp",
+   "file": "Source/D2Client/ENGINE/GfxUtil_004DBCF0.cpp",
    "rank": 1,
    "functions": [
     {
@@ -37444,7 +37444,7 @@
    ]
   },
   {
-   "file": "Source/D2Client/Unknown_004DBE20.cpp",
+   "file": "Source/D2Client/ENGINE/GfxUtil_004DBE20.cpp",
    "rank": 0,
    "functions": [
     {
@@ -99028,7 +99028,7 @@
    ]
   },
   {
-   "file": "Source/Fog/Unknown_006BD780.cpp",
+   "file": "Source/Fog/Src/Excel/Excel_006BD780.cpp",
    "rank": 0,
    "functions": [
     {
