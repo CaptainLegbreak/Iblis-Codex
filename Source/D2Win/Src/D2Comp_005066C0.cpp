@@ -1,14 +1,7 @@
 #include "D2Win.h"
 #include "D2CmpTypes.h"
 #include "D2WinTypes.h"
-
-struct D2CofDataStrc
-{
-    unsigned char nLayers;
-    unsigned char nFramesPerDirection;
-    unsigned char nDirections;
-    unsigned char nVersion;
-};
+#include "D2CmpTypes.h"
 
 struct D2GfxDataStrc
 {

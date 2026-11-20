@@ -2,6 +2,7 @@
 #include "D2CmpTypes.h"
 #include "D2WinTypes.h"
 #include "D2WinTypes.h"
+#include "D2CmpTypes.h"
 
 enum D2ControlTypes
 {
@@ -147,20 +148,6 @@ struct D2WinPopUpStrc
     int nLines;
     D2WinPopUpLineStrc lines[8];
     int nCurrentLine;
-};
-
-struct D2CofDataStrc
-{
-    unsigned char nLayers;
-    unsigned char nFramesPerDirection;
-    unsigned char nDirections;
-    unsigned char nVersion;
-    unsigned int unk0x04;
-    unsigned int nBoxLeft;
-    unsigned int nBoxRight;
-    unsigned int nBoxTop;
-    unsigned int nBoxBottom;
-    unsigned int nAnimSpeed;
 };
 
 struct D2EmblemColorStrc

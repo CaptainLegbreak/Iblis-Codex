@@ -2,6 +2,7 @@
 #include "D2Txt.h"
 #include "D2Records.h"
 #include "D2CmpTypes.h"
+#include "D2CmpTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define COF_PAD 0x20
@@ -18,16 +19,6 @@ struct tagRECT;
 struct D2BinFieldStrc;
 struct D2CompPairStrc;
 struct D2ItemsTxt;
-
-struct D2CofDataStrc
-{
-    unsigned char nLayers;
-    unsigned char nFramesPerDirection;
-    unsigned char nDirections;
-    unsigned char nVersion;
-};
-
-
 
 struct D2GfxInfoStrc
 {
@@ -147,13 +138,11 @@ __declspec(noinline) void __stdcall sub_00503FA0_AddHoverLine(const Unicode* wsz
 
 typedef unsigned int size_t;
 
-
 struct D2CompPairStrc
 {
     unsigned int nKey;
     int nValue;
 };
-
 
 typedef char check_size_itemstxt[(sizeof(D2ItemsTxt) == 0x1A8) ? 1 : -1];
 void* __stdcall sub_00504430_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pBinField, int* pRecordCount,
