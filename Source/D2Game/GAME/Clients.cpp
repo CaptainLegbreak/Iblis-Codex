@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #pragma intrinsic(strcpy)
 
@@ -90,24 +91,6 @@ struct D2CriticalSectionStrc
     unsigned long nSpinCount;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    unsigned int dwClassId;
-    unsigned char unk_08[0x4];
-    int dwUnitId;
-    unsigned int dwAnimMode;
-    unsigned char unk_14[0x18];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    unsigned char unk_30[0x30];
-    D2InventoryStrc* pInventory;
-    unsigned char unk_64[0x84];
-    D2UnitStrc* pRoomNext;
-};
 
 #pragma pack(push, 1)
 struct D2ClientUnitUpdateStrc

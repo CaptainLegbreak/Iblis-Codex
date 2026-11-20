@@ -1,20 +1,10 @@
+#include "D2Structs.h"
 struct D2GameStrc
 {
     char unk0x00[0xA8];
     int dwGameFrame;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    char unk0x10[0xB4];
-    unsigned int dwFlags;
-    char unk0xC8[0x8];
-    int dwNodeIndex;
-};
 
 struct D2SkillsTxt
 {

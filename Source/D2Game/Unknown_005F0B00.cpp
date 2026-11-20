@@ -1,4 +1,6 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 struct D2SeedStrc;
@@ -8,20 +10,7 @@ struct D2MonsterDataStrc;
 struct D2SkillsTxt;
 struct D2OblivionKnightAiCallbackArgStrc;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x10];
-    D2MonsterDataStrc* pMonsterData;
-    char unk0x18[0x8];
-    D2SeedStrc pSeed;
-};
 
 struct D2GameStrc
 {
@@ -123,7 +112,6 @@ struct D2OblivionKnightAiCallbackArgStrc
 
 enum D2C_M408OblivionKnightAi
 {
-    UNIT_MONSTER = 1,
     OBLIVIONKNIGHT_AI_PARAM_FLEE_RANGE = 0,
     OBLIVIONKNIGHT_AI_PARAM_ENGAGE_RANGE = 1,
     OBLIVIONKNIGHT_AI_PARAM_CURSE_TIMER = 2,

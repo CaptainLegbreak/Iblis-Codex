@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 // build: ob1
 
 struct D2StatListStrc;
@@ -25,21 +26,6 @@ struct D2MonsterDataStrc
     D2MonVelocityParamStrc* pAiParam;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-    char unk0x18[0x14];
-    D2DynamicPathStrc* pDynamicPath;
-    char unk0x30[0x1E];
-    unsigned char nActionFrame;
-    char unk0x4F[0x75];
-    unsigned int dwFlags;
-};
 
 struct D2GameStrc
 {

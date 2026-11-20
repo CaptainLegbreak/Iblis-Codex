@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2MissilesTxt;
 struct D2SeedStrc;
@@ -11,24 +12,7 @@ struct D2GameStrc
     int dwGameFrame;
 };
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x04];
-    int dwUnitId;
-    int dwMissileMode;
-    unsigned char unk_14[0xC];
-    D2SeedStrc pSeed;
-    char unk0x28[0x04];
-    D2DynamicPathStrc* pDynamicPath;
-};
 
 struct D2MissilesTxt
 {

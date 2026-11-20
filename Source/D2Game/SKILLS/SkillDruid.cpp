@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define UNITFLAG_SKSRVDOFUNC 0x40
 #define AISPECIALSTATE_NONE 0
@@ -17,24 +18,7 @@ struct D2GameStrc
     int dwGameFrame;
 };
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x08];
-    int dwUnitId;
-    char unk0x10[0x10];
-    D2SeedStrc pSeed;
-    char unk28[0xC4 - 0x28];
-    unsigned int dwFlags;
-    char unk0xC8[0x08];
-    int dwNodeIndex;
-};
 
 struct D2CoordStrc
 {

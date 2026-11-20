@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 // build: context SEED_RollRandomNumber_Wild
 typedef int BOOL;
 
@@ -11,11 +12,6 @@ typedef int BOOL;
 #define LEVEL_BURIALGROUNDS 17
 #define LEVEL_MOOMOOFARM 39
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2DrlgStrc;
 

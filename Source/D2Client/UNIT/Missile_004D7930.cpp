@@ -1,10 +1,6 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2StaticPathStrc
 {
@@ -13,18 +9,6 @@ struct D2StaticPathStrc
     int nYPos;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int unk0x04[2]; int dwUnitId; int unk0x10[4];
-    D2SeedStrc tSeed;
-    int unk0x28[1];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-};
 
 struct D2MissileStrc
 {
@@ -125,7 +109,7 @@ static void __stdcall sub_004D2520_SpawnBaalBolt(int nX, int nY, D2UnitStrc* pMi
     memset(&tParams, 0, sizeof(tParams));
     tParams.dwFlags = 0x2001;
     tParams.pOwner = sub_004639D0_GetOwnerUnit(pMissile);
-    tParams.nMissile = SEED_RollRandomNumber(&pMissile->tSeed) % 3 + 0x27B;
+    tParams.nMissile = SEED_RollRandomNumber(&pMissile->pSeed) % 3 + 0x27B;
     tParams.nSkill = MISSILE_GetSkill(pMissile);
     tParams.nSkillLevel = MISSILE_GetLevel(pMissile);
     tParams.nX = nX;
@@ -164,12 +148,12 @@ void __fastcall sub_004D7930_CltDoBaalStormMissile(D2UnitStrc* pMissile)
     }
     if(!(nFrames%gtStormPhase_006DB908[nPhase].nPeriod) && gtStormPhase_006DB908[nPhase].bSpawn)
     {
-        SEED_RollRandomNumber(&pMissile->tSeed);
+        SEED_RollRandomNumber(&pMissile->pSeed);
         D2MissileStrc tParams;
         memset(&tParams,0,sizeof(tParams));
         tParams.pOwner=pOwner;
-        tParams.nTargetX=SEED_RollRandomNumber(&pMissile->tSeed)%40-20;
-        int nTargetY=SEED_RollRandomNumber(&pMissile->tSeed)%40-20;
+        tParams.nTargetX=SEED_RollRandomNumber(&pMissile->pSeed)%40-20;
+        int nTargetY=SEED_RollRandomNumber(&pMissile->pSeed)%40-20;
         tParams.dwFlags=2;
         tParams.pOrigin=pMissile;
         tParams.nTargetY=nTargetY;
@@ -217,11 +201,11 @@ void __fastcall sub_004D7930_CltDoBaalStormMissile(D2UnitStrc* pMissile)
         D2UnitStrc* pTarget=UNITFINDS_FindUnitInNeighboredRooms(UNITS_GetRoom(pMissile),1,521);
         if(pTarget)
         {
-            const unsigned __int64 lSeed1=(unsigned __int64)pMissile->tSeed.nHighSeed+(unsigned __int64)pMissile->tSeed.nLowSeed*0x6AC690C5;
+            const unsigned __int64 lSeed1=(unsigned __int64)pMissile->pSeed.nHighSeed+(unsigned __int64)pMissile->pSeed.nLowSeed*0x6AC690C5;
             int nOffsetX=(unsigned int)lSeed1%10-5;
             const unsigned __int64 lSeed2=(lSeed1>>32)+(unsigned __int64)(unsigned int)lSeed1*0x6AC690C5;
-            pMissile->tSeed.nHighSeed=(unsigned int)(lSeed2>>32);
-            pMissile->tSeed.nLowSeed=(unsigned int)lSeed2;
+            pMissile->pSeed.nHighSeed=(unsigned int)(lSeed2>>32);
+            pMissile->pSeed.nLowSeed=(unsigned int)lSeed2;
             int nOffsetY=(unsigned int)lSeed2%10-5;
             int nX=UNITS_GetUnitXPosition(pTarget)+nOffsetX;
             int nY=UNITS_GetUnitYPosition(pTarget)+nOffsetY;

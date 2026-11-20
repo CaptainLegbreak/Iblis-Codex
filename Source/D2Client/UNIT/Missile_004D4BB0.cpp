@@ -1,24 +1,7 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    unsigned int dwClassId;
-    int unk0x08;
-    int dwUnitId;
-    int unk0x10[4];
-    D2SeedStrc tSeed;
-    int unk0x28;
-    D2DynamicPathStrc* pDynamicPath;
-    char unk0x30[0xE8 - 0x30];
-    D2UnitStrc* pRoomNext;
-};
 
 struct D2ActiveRoomStrc
 {
@@ -150,7 +133,7 @@ void __fastcall sub_004D4BB0_CltDoObjectSpawn(D2UnitStrc* pMissile)
         {
             if (!pUnit)
                 break;
-            if (pUnit->dwUnitType == 2 && pUnit->dwClassId >= 0x11 && pUnit->dwClassId < 0x16)
+            if (pUnit->dwUnitType == 2 && (unsigned int)pUnit->dwClassId >= 0x11 && (unsigned int)pUnit->dwClassId < 0x16)
             {
                 if (pMissilesTxtRecord->wCltSubMissile[0] > 0)
                 {
@@ -184,7 +167,7 @@ void __fastcall sub_004D4BB0_CltDoObjectSpawn(D2UnitStrc* pMissile)
                         tMissile.nTargetX = UNITS_GetXPosition(pTarget);
                         tMissile.nTargetY = CLIENTS_GetUnitY(pTarget);
                         sub_004CD540_CreateMissile(&tMissile);
-                        if (!SEED_RollLimitedRandomNumber(&pTarget->tSeed, 4))
+                        if (!SEED_RollLimitedRandomNumber(&pTarget->pSeed, 4))
                         {
                             MISSILE_SetTargetX(pMissile, !pUnit ? -1 : pUnit->dwUnitId);
                         }

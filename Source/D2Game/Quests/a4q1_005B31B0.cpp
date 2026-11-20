@@ -1,16 +1,10 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2UnkMonCreateStrc;
 struct D2PlayerDataStrc;
 struct D2Act4Quest1Strc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-};
 
 struct D2UnkMonCreateStrc
 {

@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 #define AI_GetParam(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
@@ -6,7 +7,6 @@ struct D2SeedStrc;
 struct D2MonStatsTxt;
 struct D2StaticPathStrc;
 
-struct D2SeedStrc { unsigned int nLowSeed; unsigned int nHighSeed; };
 
 struct D2GameStrc
 {
@@ -36,24 +36,6 @@ struct D2MonStatsTxt
     unsigned char nSkillMode[8];
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    unsigned char unk_14[0xC];
-    D2SeedStrc pSeed;
-    char unk0x28[4];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    unsigned char unk_30[0x94];
-    unsigned int dwFlags;
-};
 
 struct D2AiTickParamStrc
 {

@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2GfxLightStrc;
@@ -40,31 +41,6 @@ struct D2MonsterDataStrc
     unsigned short nClientFlags;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08;
-    int dwUnitId;
-    int dwAnimMode;
-    union
-    {
-        D2PlayerDataStrc* pPlayerData;
-        D2MonsterDataStrc* pMonsterData;
-    };
-    char unk0x18[0x14];
-    union
-    {
-        D2StaticPathStrc* pStaticPath;
-        D2DynamicPathStrc* pDynamicPath;
-    };
-    char unk0x30[0x30];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0xB0-0x64];
-    int nTargetParam;
-    char unk0xB4[0xC4-0xB4];
-    unsigned int dwFlags;
-};
 
 struct D2PlayerCmdStrc
 {
@@ -454,13 +430,13 @@ int __fastcall sub_00461250_QueueMove(int nCommand, D2UnitStrc* pUnit, D2UnitTar
         sub_00460830_SetStateAndSync(1, pUnit, nNeutralMode);
         return 0;
     case 6:
-        pUnit->nTargetParam = pTarget->nParam;
+        pUnit->dwLastHitClass = pTarget->nParam;
         sub_00480E70_SetUnitMode(pUnit, 4);
         sub_004804E0_SetPosition(pUnit, (unsigned short)pTarget->nX, (unsigned short)pTarget->nY, 1, 0, 0);
         return 1;
     case 19:
     {
-        pUnit->nTargetParam = pTarget->nParam;
+        pUnit->dwLastHitClass = pTarget->nParam;
         sub_00480D20_SetModeOverlay(pUnit, 19);
         if (STATES_IsUnitShapeShifted(pUnit))
             sub_004CC5B0_UpdateUnitSound(pUnit, 3, 1);
@@ -470,7 +446,7 @@ int __fastcall sub_00461250_QueueMove(int nCommand, D2UnitStrc* pUnit, D2UnitTar
         return 1;
     }
     case 20:
-        pUnit->nTargetParam = pTarget->nParam;
+        pUnit->dwLastHitClass = pTarget->nParam;
         PATH_RecacheRoomIfNeeded(pPath);
         PATH_SetType(pPath, 11);
         sub_00648E40_SetByte90(pPath, 5);
@@ -480,7 +456,7 @@ int __fastcall sub_00461250_QueueMove(int nCommand, D2UnitStrc* pUnit, D2UnitTar
         return 1;
     case 18:
     {
-        pUnit->nTargetParam = pTarget->nParam;
+        pUnit->dwLastHitClass = pTarget->nParam;
         if (INVENTORY_GetEquippedShield(pUnit->pInventory, 0))
             sub_00480E70_SetUnitMode(pUnit, 9);
         else
@@ -494,7 +470,7 @@ int __fastcall sub_00461250_QueueMove(int nCommand, D2UnitStrc* pUnit, D2UnitTar
     }
     case 8:
         if (sub_00463DD0_GetPlayerUnit() == pUnit) sub_00456300_CloseUIVars(1, 0);
-        pUnit->nTargetParam = pTarget->nParam;
+        pUnit->dwLastHitClass = pTarget->nParam;
         if (sub_00467A10() == pUnit)
         {
             if (!(sub_0044BF00() & 8) && !(sub_0044BF10() & 8)) sub_00466FE0();

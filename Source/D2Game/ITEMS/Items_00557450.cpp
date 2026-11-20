@@ -1,12 +1,8 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2SeedStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-};
 
 struct D2GameStrc
 {

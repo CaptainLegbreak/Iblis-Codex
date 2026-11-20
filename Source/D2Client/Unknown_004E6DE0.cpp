@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 struct D2SkillsTxt;
 struct D2SkillDescTxt;
@@ -63,13 +64,6 @@ void __cdecl sub_005269D0(int nBufferSize, wchar_t* pBuffer, const wchar_t* pFor
 extern "C" const char szFmtD_006D57BC[]; // 0x006D57BC
 extern "C" const char szFmtRange_006D9D70[]; // 0x006D9D70
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x58];
-    D2InventoryStrc* pInventory;
-};
 
 D2SkillDescTxt* __fastcall sub_004A89D0_SkillDescRec(int nSkillId); // 0x004A89D0
 D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0

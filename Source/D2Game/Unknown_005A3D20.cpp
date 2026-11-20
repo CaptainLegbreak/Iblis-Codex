@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 #define MONMODE_DEATH 0
 #define MONMODE_NEUTRAL 1
 #define EVENTTYPE_MONUMOD 7
@@ -7,11 +8,6 @@ struct D2StaticPathStrc;
 struct D2MonStatsTxt;
 struct D2MonsterDataStrc;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2CoordStrc
 {
@@ -25,22 +21,6 @@ struct D2StaticPathStrc
     D2CoordStrc tGameCoords;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    unsigned char unk_08[0x8];
-    unsigned int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-    unsigned char unk_18[0x8];
-    D2SeedStrc pSeed;
-    char unk0x28[0x04];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-};
 
 struct D2GameStrc
 {

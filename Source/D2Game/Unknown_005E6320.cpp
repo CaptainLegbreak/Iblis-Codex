@@ -1,10 +1,9 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
-struct D2SeedStrc { unsigned int nLowSeed; unsigned int nHighSeed; };
 struct D2AiParamStrc;
 struct D2MonsterDataStrc { char pad00[0x2C]; D2AiParamStrc* pAiParam; };
 struct D2StaticPathStrc { char pad00[0xC]; int nX; int nY; };
-struct D2UnitStrc { int dwUnitType; int dwClassId; void* pMem; int dwUnitId; int dwAnimMode; D2MonsterDataStrc* pMonsterData; char pad18[8]; D2SeedStrc pSeed; int unk28; union { D2StaticPathStrc* pStaticPath; D2DynamicPathStrc* pDynamicPath; }; };
 struct D2GameStrc { char pad00[0x6D]; unsigned char nDifficulty; };
 struct D2MonStatsTxt { char pad00[0x170]; short nSkill[8]; unsigned char nSkillMode[8]; };
 struct D2AiControlStrc { char pad00[0x14]; int dwAiParam[3]; };

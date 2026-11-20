@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define STARS_ROLL(pSeed, lSeed) ((lSeed) = (pSeed)->nHighSeed + 0x6AC690C5i64 * (pSeed)->nLowSeed, \
     (pSeed)->nHighSeed = (unsigned int)((lSeed) >> 32), (pSeed)->nLowSeed = (unsigned int)(lSeed), (unsigned int)(lSeed))
@@ -9,11 +10,6 @@ struct D2QuestLookupEntryStrc;
 struct D2QuestPanelValuesStrc;
 struct D2WardenClientM114Strc;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
@@ -29,12 +25,6 @@ struct D2PlayerDataStrc
     int nField0x150;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x10];
-    D2PlayerDataStrc* pPlayerData;
-};
 
 struct D2DataTablesStrc
 {

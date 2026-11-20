@@ -1,6 +1,6 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
-struct D2SeedStrc { unsigned int nLowSeed; unsigned int nHighSeed; };
 struct D2GfxDataStrc
 {
     int nFrame;

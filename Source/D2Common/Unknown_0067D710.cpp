@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 struct D2LvlPrestTxt;
 struct D2CoordStrc;
@@ -183,11 +184,6 @@ void sub_0067D7B0(D2DrlgCoordsStrc* pCoords, int nType);
 void __stdcall DRLGOUTROOM_GetOrthCoords(D2DrlgCoordsStrc* pCoords, int nType, int nDirection, D2DrlgCoordsStrc* pBase);
 
 // build: context DRLGOUTROOM_LinkLevelsByOffsetCoords
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2DrlgLinkStrc
 {

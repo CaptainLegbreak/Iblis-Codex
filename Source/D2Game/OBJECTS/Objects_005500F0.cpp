@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define OBJMODE_OPERATING 1
 #define OBJMODE_OPENED 2
@@ -15,22 +16,12 @@ struct D2GameStrc
     int dwGameFrame;
 };
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2ObjectControlStrc
 {
     D2SeedStrc pSeed;
 };
 
-struct D2UnitStrc
-{
-    char unk0x00[0x10];
-    int dwAnimMode;
-};
 
 struct D2ObjInitFnStrc
 {

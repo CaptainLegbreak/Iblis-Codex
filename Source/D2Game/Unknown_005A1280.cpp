@@ -1,17 +1,9 @@
+#include "D2Structs.h"
 struct D2MonsterDataStrc
 {
     void* pMonstatsTxt;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-};
 
 struct D2GameStrc
 {

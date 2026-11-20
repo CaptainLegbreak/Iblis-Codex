@@ -1,4 +1,6 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 struct D2MonStatsTxt;
 struct D2AiTargetSearchArgsStrc;
@@ -9,26 +11,7 @@ struct D2FallenShamanAiCallbackArgStrc;
 struct D2SeedStrc;
 struct D2AiTargetArgsStrc;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    unsigned char unk_14[0xC];
-    D2SeedStrc pSeed;
-    char unk0x28[0x04];
-    D2DynamicPathStrc* pDynamicPath;
-    unsigned char unk_30[0x94];
-    unsigned int dwFlags;
-};
 
 struct D2AiControlStrc
 {
@@ -74,9 +57,6 @@ int __stdcall D2Common_10095(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x0061
 
 enum D2C_J07AiConstants
 {
-    UNIT_PLAYER = 0,
-    UNIT_MONSTER = 1,
-    UNIT_INVALID = 6,
     MONMODE_DEATH = 0,
     MONMODE_NEUTRAL = 1,
     MONMODE_ATTACK1 = 4,

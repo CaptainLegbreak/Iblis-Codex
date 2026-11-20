@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2SliderButtonStrc;
@@ -55,11 +56,6 @@ extern int gnPressed_007C02E4; // 0x007C02E4
 int __fastcall sub_004A6630_IsInPanelButton(int, int, int); // 0x004A6630
 int __cdecl sub_004A6690_IsMouseOnRightButton(); // 0x004A6690
 
-struct D2UnitStrc
-{
-    char unk0x00[0x60];
-    D2InventoryStrc* pInventory;
-};
 
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 extern int gnPressed_007C02E8; // 0x007C02E8
@@ -71,12 +67,6 @@ struct Unicode
     Unicode(unsigned short ch = 0) : wChar(ch) {}
 };
 
-struct D2StatStrc
-{
-    unsigned short nLayer;
-    unsigned short nStat;
-    int nValue;
-};
 
 struct D2MonStatsTxt
 {

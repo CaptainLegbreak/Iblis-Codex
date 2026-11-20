@@ -1,19 +1,8 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 struct D2GameStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x0C - 0x08];
-    int dwUnitId;
-    int dwAnimMode;
-    char unk0x14[0x60 - 0x14];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0xC4 - 0x64];
-    unsigned int dwFlags;
-};
 
 struct D2ItemSaveStrc
 {

@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2ObjectControlStrc;
 struct D2SeedStrc;
@@ -49,28 +50,6 @@ struct D2PlayerDataStrc
     int bBusy;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2ObjectDataStrc* pObjectData;
-    char unk0x18[0x48];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0x40];
-    D2HoverTextStrc* pHoverText;
-    char unk0xA8[0x10];
-    unsigned int dwDropItemCode;
-    char unk0xBC[0x08];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-    char unk0xCC[0x08];
-    unsigned int dwTickCount;
-    char unk0xD8[0x10];
-    D2UnitStrc* pRoomNext;
-};
 
 struct D2ActiveRoomStrc
 {

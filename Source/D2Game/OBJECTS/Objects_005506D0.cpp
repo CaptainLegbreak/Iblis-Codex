@@ -1,13 +1,9 @@
+#include "D2Structs.h"
 struct D2GameStrc;
 struct D2ActiveRoomStrc;
 struct D2UnitStrc;
 struct D2ItemDropStrc;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2ObjectControlStrc
 {
@@ -134,7 +130,6 @@ static int __stdcall sub_00550220_CanPlaceObject(D2ActiveRoomStrc* pRoom, int nS
     return 0;
 }
 
-struct D2UnitStrc { char pad0[0x10]; int nMode; };
 struct D2ObjOperateFnStrc { D2GameStrc* game;D2UnitStrc* object;D2ActiveRoomStrc* room;D2SeedStrc* seed;int unk10,x,y; };
 extern int gaDirectionX_00731B7C[]; // 0x00731B7C
 extern int gaDirectionY_00731B9C[]; // 0x00731B9C
@@ -144,7 +139,7 @@ int __stdcall UNITS_ChangeAnimMode(D2UnitStrc*,int); // 0x00624690
 // 0x005506D0
 void __fastcall sub_005506D0_Populate(D2ObjOperateFnStrc* op)
 {
-    if(op->object && op->object->nMode) return;
+    if(op->object && op->object->dwAnimMode) return;
     D2DrlgCoordsStrc room;
     DUNGEON_GetRoomCoordinates(op->room,&room);
     D2ObjectControlStrc* control=OBJRGN_GetObjectControlFromGame(op->game,op->room);

@@ -1,15 +1,11 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2MonStatsTxt;
 struct D2LevelsTxt;
 struct D2PantherAiCallbackArgStrc;
 struct D2AiCallback11ArgStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-};
 
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames); // 0x005DE080
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0

@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define SEED_STEP_HIFIRST(pSeed, nOut) { const unsigned __int64 lSeed_ = (unsigned __int64)(pSeed)->nHighSeed + (unsigned __int64)(pSeed)->nLowSeed * 0x6AC690C5; (pSeed)->nHighSeed = (unsigned int)(lSeed_ >> 32); (pSeed)->nLowSeed = (unsigned int)lSeed_; nOut = (unsigned int)lSeed_; }
@@ -23,40 +24,7 @@ struct D2ObjectDataStrc
     char unk0x18[0x20];
 };
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2ObjectDataStrc* pObjectData;
-    char unk0x18[0x20 - 0x18];
-    D2SeedStrc pSeed;
-    char unk0x28[0x2C - 0x28];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x44 - 0x30];
-    int nFrame;
-    char unk0x48[0x4C - 0x48];
-    short wAnimSpeed;
-    char unk0x4E[0x64 - 0x4E];
-    D2GfxLightStrc* pLight;
-    char unk0x68[0xC4 - 0x68];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-    char unk0xCC[0xD4 - 0xCC];
-    unsigned int dwTickCount;
-};
 
 struct D2ObjectsTxt
 {
@@ -353,13 +321,13 @@ static void sub_004BCA90_FinishDoorMode(D2UnitStrc* pUnit)
     if (nMode == 3)
     {
         pUnit->dwAnimMode = 0;
-        pUnit->nFrame = pUnit->pObjectData->pObjectTxt->nStart[0];
+        pUnit->nSeqCurrentFramePrecise = pUnit->pObjectData->pObjectTxt->nStart[0];
     }
     else if (nMode == 1)
     {
         UNITS_FreeCollisionPath(pUnit);
         pUnit->dwAnimMode = 2;
-        pUnit->nFrame = pUnit->pObjectData->pObjectTxt->nStart[2];
+        pUnit->nSeqCurrentFramePrecise = pUnit->pObjectData->pObjectTxt->nStart[2];
     }
     else
     {
@@ -391,13 +359,13 @@ static void sub_004BCBB0_UpdateObjectFrame(D2UnitStrc* pUnit)
             return;
         }
 
-        if (pUnit->nFrame >= nFrameCnt - 0x100)
+        if (pUnit->nSeqCurrentFramePrecise >= nFrameCnt - 0x100)
         {
             if (pUnit->dwClassId == 0xBD && (nMode == 2 || nMode == 3))
             {
                 ++nMode;
                 pUnit->dwAnimMode = nMode;
-                pUnit->nFrame = pTxt->nStart[nMode] << 8;
+                pUnit->nSeqCurrentFramePrecise = pTxt->nStart[nMode] << 8;
                 sub_00470610_Refresh(pUnit, 0);
                 sub_00624390_AnimInit(pUnit);
                 return;
@@ -418,7 +386,7 @@ static void sub_004BCBB0_UpdateObjectFrame(D2UnitStrc* pUnit)
                     sub_0046C320_SpawnAroundUnit(pUnit, 0x97, 4);
             }
 
-            pUnit->nFrame = pTxt->nStart[2] << 8;
+            pUnit->nSeqCurrentFramePrecise = pTxt->nStart[2] << 8;
             sub_00470610_Refresh(pUnit, 0);
             sub_00624390_AnimInit(pUnit);
             if (pTxt->nOverlay)
@@ -439,33 +407,33 @@ static void sub_004BCBB0_UpdateObjectFrame(D2UnitStrc* pUnit)
 
     if (pUnit->dwClassId == 0x0C)
     {
-        pUnit->nFrame -= pUnit->wAnimSpeed;
-        if (pUnit->nFrame < 0)
-            pUnit->nFrame += nFrameCnt;
+        pUnit->nSeqCurrentFramePrecise -= pUnit->wAnimSpeed;
+        if (pUnit->nSeqCurrentFramePrecise < 0)
+            pUnit->nSeqCurrentFramePrecise += nFrameCnt;
         return;
     }
 
     if (pUnit->dwClassId == 0xBD && nMode == 3)
     {
-        pUnit->nFrame -= pUnit->wAnimSpeed;
-        if (pUnit->nFrame >= 0)
+        pUnit->nSeqCurrentFramePrecise -= pUnit->wAnimSpeed;
+        if (pUnit->nSeqCurrentFramePrecise >= 0)
             return;
 
         pUnit->dwAnimMode = 4;
-        pUnit->nFrame = pTxt->nStart[4] << 8;
+        pUnit->nSeqCurrentFramePrecise = pTxt->nStart[4] << 8;
         sub_00470610_Refresh(pUnit, 0);
         sub_00624390_AnimInit(pUnit);
         return;
     }
 
-    pUnit->nFrame += pUnit->wAnimSpeed;
-    const int nFrame = pUnit->nFrame;
+    pUnit->nSeqCurrentFramePrecise += pUnit->wAnimSpeed;
+    const int nFrame = pUnit->nSeqCurrentFramePrecise;
     if (nFrame >= nFrameCnt)
     {
         if (!nCycle)
-            pUnit->nFrame = nFrameCnt - 0x100;
+            pUnit->nSeqCurrentFramePrecise = nFrameCnt - 0x100;
         else
-            pUnit->nFrame = (pTxt->nStart[nMode] << 8) - nFrameCnt + nFrame;
+            pUnit->nSeqCurrentFramePrecise = (pTxt->nStart[nMode] << 8) - nFrameCnt + nFrame;
     }
 }
 
@@ -477,7 +445,7 @@ static void __stdcall sub_004BCDE0_SetDoorMode(int bSelectable, D2UnitStrc* pUni
     const unsigned int nOpenFrames = pTxt->dwFrameCnt[1];
     if (nMode == 0 && pUnit->dwAnimMode == 2 && pTxt->dwFrameCnt[3] != 0x100)
     {
-        pUnit->nFrame = pTxt->nStart[0];
+        pUnit->nSeqCurrentFramePrecise = pTxt->nStart[0];
         UNITS_ChangeAnimMode(pUnit, 3);
         sub_00470610_Refresh(pUnit, 0);
         pUnit->dwFlags &= ~2;
@@ -488,7 +456,7 @@ static void __stdcall sub_004BCDE0_SetDoorMode(int bSelectable, D2UnitStrc* pUni
         UNITS_ChangeAnimMode(pUnit, 1);
         sub_00470610_Refresh(pUnit, 0);
         pUnit->dwFlags &= ~2;
-        pUnit->nFrame = pUnit->pObjectData->pObjectTxt->nStart[2];
+        pUnit->nSeqCurrentFramePrecise = pUnit->pObjectData->pObjectTxt->nStart[2];
     }
     else
     {
@@ -513,7 +481,7 @@ static void __stdcall sub_004BCDE0_SetDoorMode(int bSelectable, D2UnitStrc* pUni
             UNITS_ChangeAnimMode(pUnit, nMode);
             sub_00470610_Refresh(pUnit, 0);
         }
-        pUnit->nFrame = pUnit->pObjectData->pObjectTxt->nStart[nMode];
+        pUnit->nSeqCurrentFramePrecise = pUnit->pObjectData->pObjectTxt->nStart[nMode];
     }
 
     if (!pTxt->nBlocksLight[pUnit->dwAnimMode])
@@ -649,29 +617,29 @@ static __declspec(noinline) void sub_004BCB20_StepDoorFrame(D2UnitStrc* pUnit)
     const int nFrameCnt = pUnit->pObjectData->pObjectTxt->dwFrameCnt[nMode];
     if (nMode == 1)
     {
-        if (pUnit->nFrame == nFrameCnt - 0x100)
+        if (pUnit->nSeqCurrentFramePrecise == nFrameCnt - 0x100)
         {
             sub_004BCA90_FinishDoorMode(pUnit);
             return;
         }
-        pUnit->nFrame += pUnit->wAnimSpeed;
-        if (pUnit->nFrame > nFrameCnt - 0x100)
-            pUnit->nFrame = nFrameCnt - 0x100;
+        pUnit->nSeqCurrentFramePrecise += pUnit->wAnimSpeed;
+        if (pUnit->nSeqCurrentFramePrecise > nFrameCnt - 0x100)
+            pUnit->nSeqCurrentFramePrecise = nFrameCnt - 0x100;
         return;
     }
 
     if (nMode == 3)
     {
-        const int nFrame = pUnit->nFrame;
+        const int nFrame = pUnit->nSeqCurrentFramePrecise;
         if (nFrame <= 0)
         {
             sub_004BCA90_FinishDoorMode(pUnit);
             return;
         }
         if (pUnit->wAnimSpeed > nFrame)
-            pUnit->nFrame = 0;
+            pUnit->nSeqCurrentFramePrecise = 0;
         else
-            pUnit->nFrame = nFrame - pUnit->wAnimSpeed;
+            pUnit->nSeqCurrentFramePrecise = nFrame - pUnit->wAnimSpeed;
         return;
     }
 
@@ -788,14 +756,14 @@ char __fastcall sub_004BD860_TimedSpecial(D2UnitStrc* pUnit)
     if (pUnit->dwTickCount < dwTick)
     {
         pUnit->dwTickCount = OBJECTS_RollRandomNumber(&pUnit->pSeed, 7000, 12000) + dwTick;
-        pUnit->nFrame = pUnit->pObjectData->pObjectTxt->nStart[5];
+        pUnit->nSeqCurrentFramePrecise = pUnit->pObjectData->pObjectTxt->nStart[5];
         UNITS_ChangeAnimMode(pUnit, 3);
         sub_00470610_Refresh(pUnit, 0);
     }
 
-    if (pUnit->dwAnimMode == 3 && pUnit->nFrame >= pUnit->pObjectData->pObjectTxt->dwFrameCnt[3] - 0x100)
+    if (pUnit->dwAnimMode == 3 && pUnit->nSeqCurrentFramePrecise >= pUnit->pObjectData->pObjectTxt->dwFrameCnt[3] - 0x100)
     {
-        pUnit->nFrame = pUnit->pObjectData->pObjectTxt->nStart[0];
+        pUnit->nSeqCurrentFramePrecise = pUnit->pObjectData->pObjectTxt->nStart[0];
         UNITS_ChangeAnimMode(pUnit, 0);
         sub_00470610_Refresh(pUnit, 0);
     }
@@ -812,7 +780,7 @@ char __fastcall sub_004BD900_TimedSpecialRandom(D2UnitStrc* pUnit)
     {
         D2SeedStrc* pSeed = &pUnit->pSeed;
         pUnit->dwTickCount = OBJECTS_RollRandomNumber(pSeed, 23000, 33000) + dwTick;
-        pUnit->nFrame = pUnit->pObjectData->pObjectTxt->nStart[5];
+        pUnit->nSeqCurrentFramePrecise = pUnit->pObjectData->pObjectTxt->nStart[5];
         unsigned int nRoll;
         SEED_STEP_HIFIRST(pSeed, nRoll);
         if (nRoll & 1)
@@ -827,9 +795,9 @@ char __fastcall sub_004BD900_TimedSpecialRandom(D2UnitStrc* pUnit)
     }
 
     const unsigned int nMode = pUnit->dwAnimMode;
-    if ((nMode == 3 || nMode == 4) && pUnit->nFrame >= pUnit->pObjectData->pObjectTxt->dwFrameCnt[nMode] - 0x100)
+    if ((nMode == 3 || nMode == 4) && pUnit->nSeqCurrentFramePrecise >= pUnit->pObjectData->pObjectTxt->dwFrameCnt[nMode] - 0x100)
     {
-        pUnit->nFrame = pUnit->pObjectData->pObjectTxt->nStart[0];
+        pUnit->nSeqCurrentFramePrecise = pUnit->pObjectData->pObjectTxt->nStart[0];
         UNITS_ChangeAnimMode(pUnit, 0);
         sub_00470610_Refresh(pUnit, 0);
     }
@@ -845,15 +813,15 @@ char __fastcall sub_004BD9C0_TimedSpecialExact(D2UnitStrc* pUnit)
     if (pUnit->dwTickCount < dwTick)
     {
         pUnit->dwTickCount = OBJECTS_RollRandomNumber(&pUnit->pSeed, 20000, 30000) + dwTick;
-        pUnit->nFrame = pUnit->pObjectData->pObjectTxt->nStart[5];
+        pUnit->nSeqCurrentFramePrecise = pUnit->pObjectData->pObjectTxt->nStart[5];
         UNITS_ChangeAnimMode(pUnit, 3);
         sub_00470610_Refresh(pUnit, 0);
     }
 
     const unsigned int nMode = pUnit->dwAnimMode;
-    if (nMode >= 3 && pUnit->nFrame == pUnit->pObjectData->pObjectTxt->dwFrameCnt[nMode] - 0x100)
+    if (nMode >= 3 && pUnit->nSeqCurrentFramePrecise == pUnit->pObjectData->pObjectTxt->dwFrameCnt[nMode] - 0x100)
     {
-        pUnit->nFrame = pUnit->pObjectData->pObjectTxt->nStart[0];
+        pUnit->nSeqCurrentFramePrecise = pUnit->pObjectData->pObjectTxt->nStart[0];
         UNITS_ChangeAnimMode(pUnit, 0);
         sub_00470610_Refresh(pUnit, 0);
     }
@@ -872,7 +840,7 @@ char __fastcall sub_004BDA60_TimedOperate(D2UnitStrc* pUnit)
         if (pUnit->dwTickCount < dwTick)
         {
             pUnit->dwTickCount = dwTick + 10000;
-            pUnit->nFrame = pUnit->pObjectData->pObjectTxt->nStart[1];
+            pUnit->nSeqCurrentFramePrecise = pUnit->pObjectData->pObjectTxt->nStart[1];
             UNITS_ChangeAnimMode(pUnit, 1);
             sub_00470610_Refresh(pUnit, 0);
         }
@@ -897,7 +865,7 @@ char __fastcall sub_004BDB00_TimedOperateShort(D2UnitStrc* pUnit)
         if (pUnit->dwTickCount < dwTick)
         {
             pUnit->dwTickCount = dwTick + 3000;
-            pUnit->nFrame = pUnit->pObjectData->pObjectTxt->nStart[1];
+            pUnit->nSeqCurrentFramePrecise = pUnit->pObjectData->pObjectTxt->nStart[1];
             UNITS_ChangeAnimMode(pUnit, 1);
             sub_00470610_Refresh(pUnit, 0);
         }
@@ -1197,10 +1165,10 @@ char __fastcall sub_004BDD50_RandomSound(D2UnitStrc* pUnit)
 // 0x004BDE00
 char __fastcall sub_004BDE00_FinishOperate(D2UnitStrc* pUnit)
 {
-    if (pUnit->dwAnimMode == 1 && pUnit->nFrame == pUnit->pObjectData->pObjectTxt->nStart[1] << 8)
+    if (pUnit->dwAnimMode == 1 && pUnit->nSeqCurrentFramePrecise == pUnit->pObjectData->pObjectTxt->nStart[1] << 8)
     {
         pUnit->dwAnimMode = 2;
-        pUnit->nFrame = 0;
+        pUnit->nSeqCurrentFramePrecise = 0;
         sub_00470610_Refresh(pUnit, 0);
         sub_00624390_AnimInit(pUnit);
     }

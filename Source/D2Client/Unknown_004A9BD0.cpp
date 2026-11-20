@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define BITARRAY_CHECK(pBytes, nBit) ((pBytes)[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
@@ -31,12 +32,6 @@ void __cdecl sub_0044DA40(); // 0x0044DA40
 int __fastcall sub_004538D0(int nUIVar); // 0x004538D0
 void __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x10];
-    D2MonsterDataStrc* pMonsterData;
-};
 
 D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
 int __cdecl sub_00468730(); // 0x00468730

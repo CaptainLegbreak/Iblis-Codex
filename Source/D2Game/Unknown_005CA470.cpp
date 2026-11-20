@@ -1,16 +1,11 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 struct D2SkillsTxt;
 struct D2CurseStrc;
 struct D2EnergyShieldDataStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-};
 
 struct D2SkillsTxt
 {
@@ -83,7 +78,6 @@ extern "C" int __fastcall sub_005C8BC0_GetSkillsTxtParam7(int nSkillId); // 0x00
 
 enum D2C_V04SorConstants
 {
-    UNIT_MONSTER = 1,
     STAT_MANA = 8,
 };
 

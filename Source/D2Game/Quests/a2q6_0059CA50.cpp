@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define QUEST_A2Q6_DURIEL 13
 struct D2Act2Quest6Strc;
@@ -46,14 +47,6 @@ struct D2QuestArgStrc
     D2GameStrc* pGame;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char pad0x08[0x4];
-    int dwUnitId;
-    int dwAnimMode;
-};
 
 struct D2ObjOperateFnStrc
 {

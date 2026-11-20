@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define UNIT_MONSTER 1
 #define MONMODE_DEATH 0
@@ -46,23 +47,6 @@ struct D2MonsterDataStrc
     D2MonVelocityParamStrc* pAiParam;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-    char unk0x18[0x14];
-    D2DynamicPathStrc* pDynamicPath;
-    char unk0x30[0x1E];
-    unsigned char nActionFrame;
-    unsigned char unk_4F[0x55];
-    D2HoverTextStrc* pHoverText;
-    int unk0xA8[7];
-    unsigned int dwFlags;
-};
 
 struct D2GameStrc
 {

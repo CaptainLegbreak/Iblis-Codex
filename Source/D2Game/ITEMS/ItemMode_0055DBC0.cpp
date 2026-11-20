@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 // build: ob1
 
 struct D2ClientStrc;
@@ -14,26 +15,6 @@ struct D2StaticPathStrc
     int nY;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    char unk0x14[0x20 - 0x14];
-    int pSeed[2];
-    unsigned int dwInitSeed;
-    union
-    {
-        D2StaticPathStrc* pStaticPath;
-        D2DynamicPathStrc* pDynamicPath;
-    };
-    char unk0x30[0x60 - 0x2C - 4];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0xC4 - 0x60 - 4];
-    unsigned int dwFlags;
-};
 
 struct D2GameStrc
 {

@@ -1,8 +1,4 @@
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-};
+#include "D2Structs.h"
 
 struct D2MissilesTxt
 {

@@ -1,17 +1,8 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x1C];
-    D2SeedStrc pSeed;
-};
 
 struct D2GameStrc
 {
@@ -50,7 +41,6 @@ struct D2AiTickParamStrc
 
 enum D2C_M236SuccubusWitchAi
 {
-    UNIT_PLAYER = 0,
     MONMODE_ATTACK1 = 4,
     MONMODE_SKILL2 = 9,
     SUCCUBUSWITCH_AI_PARAM_ATTACK_CHANCE_PCT = 0,

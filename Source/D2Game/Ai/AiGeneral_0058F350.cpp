@@ -1,9 +1,5 @@
-enum D2C_M90AiConstants
-{
-    UNIT_MONSTER = 1,
-    UNIT_INVALID = 6,
-};
-
+#include "D2Constants.h"
+#include "D2Structs.h"
 struct D2MinionListStrc
 {
     int dwMinionGUID;
@@ -28,12 +24,6 @@ struct D2MonsterDataStrc
     D2AiControlStrc* pAiControl;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x10];
-    D2MonsterDataStrc* pMonsterData;
-};
 
 void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);         // 0x0040B480
 

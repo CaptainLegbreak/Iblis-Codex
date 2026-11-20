@@ -1,8 +1,7 @@
 #include "D2Client.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
-#define UNIT_MONSTER 1
-#define UNIT_OBJECT 2
-#define UNIT_INVALID 6
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2AutomapRecordStrc;
 struct D2AutomapFileHeaderStrc;
@@ -70,20 +69,6 @@ struct D2ActiveRoomStrc
     struct D2UnitStrc* pUnitFirst;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    unsigned int dwUnitId;
-    int dwAnimMode;
-    char unk0x14[0x60 - 0x14];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0xC4 - 0x64];
-    unsigned int dwFlagEx;
-    char unk0xC8[0x20];
-    D2UnitStrc* pRoomNext;
-};
 
 struct D2MonStatsTxt
 {
@@ -436,7 +421,7 @@ static __forceinline int AUTOMAP_CheckFlagEx(D2UnitStrc* pUnit, int nBit)
     {
         return 0;
     }
-    return (pUnit->dwFlagEx >> nBit) & 1;
+    return (pUnit->dwFlags >> nBit) & 1;
 }
 
 static __forceinline D2MonStats2Txt* AUTOMAP_GetMonStats2TxtRecord(int nMonStatsEx)
@@ -465,7 +450,7 @@ void __stdcall sub_00458DC0_RevealRoomObjects(D2ActiveRoomStrc* pRoom, D2Automap
         }
 
         if (pUnit)
-            pUnit->dwFlagEx |= 0x20000000;
+            pUnit->dwFlags |= 0x20000000;
 
         switch (nUnitType)
         {
@@ -707,7 +692,7 @@ static inline int AUTOMAP_UnitHasFlag(D2UnitStrc* pUnit, unsigned int nFlag)
 {
     if (pUnit)
     {
-        return (pUnit->dwFlagEx & nFlag) != 0;
+        return (pUnit->dwFlags & nFlag) != 0;
     }
     return 0;
 }

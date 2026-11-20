@@ -1,16 +1,10 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define STATE_PLAYERBODY 7
 struct D2PlayerListStrc;
 struct D2PlayerDataStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-};
 
 struct D2GameStrc
 {

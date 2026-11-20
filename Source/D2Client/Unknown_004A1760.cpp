@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2QuestTextsStrc;
@@ -47,23 +48,7 @@ struct D2QuestPanelEntryStrc
 D2BitBufferStrc* __cdecl sub_004B32D0(); // 0x004B32D0
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int unk0x10[4];
-    D2SeedStrc tSeed;
-    unsigned char unk_28[0x9C];
-    unsigned int dwFlags;
-};
 
 D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
@@ -966,7 +951,7 @@ void __fastcall sub_004A3150_SpawnQuestUnits(int nX, int nY)
     if (gbGlobal_007C025F)
     {
         D2UnitStrc* pPlayer = sub_00463DD0();
-        int nCount = SEED_RollLimitedRandomNumber(&pPlayer->tSeed, 3) + 2;
+        int nCount = SEED_RollLimitedRandomNumber(&pPlayer->pSeed, 3) + 2;
         for (int i = 0; i < nCount; ++i)
         {
             D2UnitStrc* pUnit = sub_00466730_SpawnPresetUnit(0x95, nX + i % 2, nY + i % 2, 1, 1);

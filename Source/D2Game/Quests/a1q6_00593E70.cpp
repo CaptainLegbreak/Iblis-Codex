@@ -1,4 +1,6 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 #define LEVEL_ROGUEENCAMPMENT 1
 #define LEVEL_SEWERSLEV3 49
@@ -22,9 +24,6 @@ struct D2Act2Quest1Strc;
 
 enum D2C_P08QuestConstants
 {
-    UNIT_PLAYER = 0,
-    UNIT_MONSTER = 1,
-    UNIT_OBJECT = 2,
     ACT_II = 1,
     LEVEL_LUTGHOLEIN = 40,
     LEVEL_CANYONOFTHEMAGI = 46,
@@ -64,15 +63,6 @@ struct D2CoordStrc
     int nY;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char pad0x08[0x04];
-    int dwUnitId;
-    char pad0x10[0xA8];
-    unsigned int dwDropItemCode;
-};
 
 struct D2GameStrc
 {

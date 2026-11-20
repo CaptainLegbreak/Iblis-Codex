@@ -1,19 +1,12 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 struct D2StaticPathStrc;
 struct D2MissilesTxt;
 struct D2SkillsTxt;
 struct D2HitFunc22ParamStrc;
 struct D2AuraCallbackStrc;
-
-enum D2C_P08MissHitConstants
-{
-    UNIT_MONSTER = 1,
-    UNIT_OBJECT = 2,
-    UNIT_MISSILE = 3,
-    UNIT_ITEM = 4,
-    UNIT_TILE = 5,
-};
 
 struct D2GameStrc
 {
@@ -32,20 +25,6 @@ struct D2StaticPathStrc
     int nYPos;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwMissileMode;
-    unsigned char unk_14[0x18];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-};
 
 struct D2MissilesTxt
 {

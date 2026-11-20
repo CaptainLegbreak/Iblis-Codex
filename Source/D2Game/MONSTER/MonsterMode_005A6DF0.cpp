@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2ModeChangeStrc;
 
@@ -8,18 +9,6 @@ struct D2ActiveRoomStrc
     D2UnitStrc* pUnitFirst;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    char unk0x14[0x2C - 0x14];
-    D2DynamicPathStrc* pDynamicPath;
-    unsigned char unk_30[0xB8];
-    D2UnitStrc* pRoomNext;
-};
 
 struct D2DamageStrc
 {

@@ -1,8 +1,9 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 enum
 {
-    UNIT_MONSTER = 1,
 };
 
 enum
@@ -26,15 +27,6 @@ struct D2MonsterDataStrc
     D2MonsterInteractStrc* pMonInteract;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-};
 
 struct D2AiCmdStrc
 {

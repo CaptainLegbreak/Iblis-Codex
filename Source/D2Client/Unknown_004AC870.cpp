@@ -1,12 +1,8 @@
+#include "D2Structs.h"
 #define NULL 0
 extern "C" char* __cdecl strcpy(char*, const char*);
 #pragma intrinsic(strcpy)
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2MonsterDataStrc
 {
@@ -17,15 +13,6 @@ struct D2MonsterDataStrc
     unsigned short wBossHcIdx;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x0C];
-    D2MonsterDataStrc* pMonsterData;
-    char unk0x18[0x08];
-    D2SeedStrc tSeed;
-};
 
 struct D2SuperUniquesTxt
 {
@@ -137,7 +124,7 @@ void __fastcall sub_004AC870_SetMonsterHoverName(D2UnitStrc* pUnit, int nMode, i
     strcpy(szSpace, " ");
     sub_00526320_ToUnicode(gwszSpace_007C0C58, szSpace, 2);
 
-    D2SeedStrc* pSeed = &pUnit->tSeed;
+    D2SeedStrc* pSeed = &pUnit->pSeed;
     unsigned short nNameSeed = sub_004AC760_GetNameSeed(pUnit);
     D2MonsterDataStrc* pMonsterData = (pUnit && sub_0044BE50(pUnit) == 1) ? pUnit->pMonsterData : NULL;
     if (pMonsterData && (pMonsterData->nTypeFlag & 2))

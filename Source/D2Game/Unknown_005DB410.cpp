@@ -1,25 +1,11 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2StaticPathStrc;
 struct D2SkillsTxt;
 
 struct D2StaticPathStrc { char unk_00[0xC]; int nXPos; int nYPos; };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    unsigned char unk_10[0x1C];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk_30[0x94];
-    unsigned int dwFlags;
-};
 
 struct D2SkillsTxt
 {

@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 struct D2SkillStrc;
 struct D2PlayerDataStrc
 {
@@ -6,16 +7,6 @@ struct D2PlayerDataStrc
     int nAction;
     int nArg1;
     int nArg2;
-};
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char _pad_0x4[0x8];
-    int dwUnitId;
-    int dwAnimMode;
-    D2PlayerDataStrc* pPlayerData;
-    char _pad_0x18[0xAC];
-    unsigned int dwFlags;
 };
 struct D2SkillsTxt
 {

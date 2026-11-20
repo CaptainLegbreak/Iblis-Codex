@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2CompRecordStrc;
@@ -14,15 +15,6 @@ struct D2MissilesTxt;
 struct D2OverlayTxt;
 union D2CompCodeStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08[22];
-    D2InventoryStrc* pInventory;
-    int unk0x64[25];
-    unsigned int dwFlagEx;
-};
 
 struct D2CelContextStrc
 {

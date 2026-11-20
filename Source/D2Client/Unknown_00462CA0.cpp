@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2GfxLightStrc;
@@ -42,32 +43,6 @@ struct D2MonsterDataStrc
     const Unicode* wszName;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08;
-    int dwUnitId;
-    int dwAnimMode;
-    union
-    {
-        D2PlayerDataStrc* pPlayerData;
-        D2MonsterDataStrc* pMonsterData;
-    };
-    char unk0x18[0x14];
-    union
-    {
-        D2StaticPathStrc* pStaticPath;
-        D2DynamicPathStrc* pDynamicPath;
-    };
-    unsigned char unk_30[0x24];
-    D2GfxDataStrc* pGfxData;
-    unsigned char unk_58[0x8];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0x60];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-};
 
 struct D2PlayerCmdStrc
 {

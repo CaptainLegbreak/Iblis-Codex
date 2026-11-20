@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
@@ -10,26 +11,7 @@
 struct D2SeedStrc;
 struct D2Txt84Strc;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    char unk0x14[0x0C];
-    D2SeedStrc pSeed;
-    unsigned char unk_28[0x38];
-    D2InventoryStrc* pInventory;
-    char pad0x64[0x64];
-    unsigned int dwFlagEx;
-};
 
 int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
 D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0

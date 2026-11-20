@@ -1,6 +1,6 @@
 #include "D2Game.h"
+#include "D2Constants.h"
 
-#define UNIT_MONSTER 1
 #define MONTYPEFLAG_UNIQUE 8
 #define STATE_STUNNED 0x15
 #define STATE_UNINTERRUPTABLE 0x36
@@ -165,7 +165,6 @@ unsigned int* __stdcall D2COMMON_10494_STATES_GetStatFlags(D2UnitStrc*); // 0x00
 int __stdcall STATLIST_GetBaseStatsData(D2StatListStrc*, D2StatStrc*, int); // 0x00625C90
 void __fastcall sub_0053E8D0_SendPacket(D2ClientStrc*, const void*, int); // 0x0053E8D0
 
-enum { UNIT_INVALID = 6 };
 
 // 0x00570420
 void __fastcall sub_6FD14F70(D2GameStrc* pGame, D2UnitStrc* pUnused, D2UnitStrc* pUnit, int nDelay)

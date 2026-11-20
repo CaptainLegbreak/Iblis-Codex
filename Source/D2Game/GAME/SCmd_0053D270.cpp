@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);                               // 0x00681EF0
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);                          // 0x006829C0
@@ -58,7 +59,6 @@ static void __stdcall D2GAME_PACKETS_SendPacket_6FC3C710(const void* pPacket, in
     pPacketData->nPacketSize += nPacketSize;
 }
 
-struct D2UnitStrc { char pad0[0xC]; int dwUnitId; };
 #pragma pack(push, 1)
 struct Packet40 { unsigned char header; int guid; int x; int y; };
 #pragma pack(pop)

@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 #pragma function(memset)
 
 #define CHECK(p,line) if(!(p)){sub_00408A60(text_006CC837,sub_00408090(),line);sub_00681E09(-1);}
@@ -23,13 +24,6 @@ struct D2GameStrc
     unsigned char nDifficulty;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08;
-    int dwUnitId;
-};
 
 struct D2PlayerDataStrc
 {

@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 struct Unicode
 {
     unsigned short wChar;
@@ -13,13 +14,6 @@ struct UnicodeChar : Unicode
 
 struct D2InventoryStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x58];
-    D2InventoryStrc* pInventory;
-};
 
 struct D2ItemsTxt
 {

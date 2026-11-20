@@ -1,12 +1,11 @@
+#include "D2Structs.h"
 struct D2UnitStrc;
-struct D2SeedStrc { unsigned int nLow,nHigh; };
 struct D2ActiveRoomStrc { char unknown00[0x6c]; D2SeedStrc pSeed; };
 struct D2RectStrc { int left,top,right,bottom; };
 struct D2CoordPairStrc { int x,y; };
 struct D2DrlgCoordsStrc { int nX,nY,nWidth,nHeight,nTileX,nTileY,nTileWidth,nTileHeight; };
 struct D2RoomCoordListStrc { D2RectStrc box[2]; char unknown20[8]; int nIndex; };
 struct D2GameStrc { char unknown00[0x6d]; unsigned char nDifficulty; char unknown6e[0x82]; void* pMonReg[1]; };
-struct D2UnitStrc { int dwUnitType,dwClassId; void* pMemoryPool; int dwUnitId; char unknown10[0x10]; D2SeedStrc pSeed; char unknown28[0x9c]; unsigned int dwFlags; };
 struct D2MonsterSpawnParamsStrc { D2GameStrc* pGame; D2ActiveRoomStrc* pRoom; D2RoomCoordListStrc* pRoomCoordList; int nMonsterId,nAnimMode,nUnitGUID,nX,nY,nMaxSearchRings; short nFlags; };
 typedef D2MonsterSpawnParamsStrc D2UnkMonCreateStrc;
 struct D2MonStatsTxt { short nId,nBaseId; char unknown04[8]; unsigned char nFlags[4]; char unknown10[8]; short wMonStatsEx; char unknown1a[0xc]; short wMinion[2]; short nEquip; unsigned char nPartyMin,nPartyMax; char unknown2e[0x1e]; unsigned char nAlign; char unknown4d[0x15b]; };
@@ -409,9 +408,9 @@ static __forceinline D2MonStats2Txt* GetMonStats2(int nId)
 // build: context SEED_RollRandomNumber
 static __forceinline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
-    unsigned __int64 lSeed = pSeed->nHigh + 0x6AC690C5i64 * pSeed->nLow;
-    pSeed->nHigh = (unsigned int)(lSeed >> 32);
-    pSeed->nLow = (unsigned int)lSeed;
+    unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
     return lSeed;
 }
 // build: context ITEMS_RollRandomNumber

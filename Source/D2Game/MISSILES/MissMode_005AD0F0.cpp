@@ -1,22 +1,11 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define D2_MIN(a,b) ((a) < (b) ? (a) : (b))
 struct D2MissilesTxt;
 struct D2SeedStrc;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x18];
-    D2SeedStrc pSeed;
-};
 
 struct D2MissilesTxt
 {

@@ -1,4 +1,6 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 #define QUEST_A1Q4_CAIN 4
 #define QUEST_A1Q5_COUNTESS 5
@@ -32,20 +34,6 @@ struct D2StaticPathStrc
     int nY;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char pad0x08[0x04];
-    int dwUnitId;
-    int dwAnimMode;
-    char pad0x14[0x18];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-};
 
 struct D2GameStrc
 {
@@ -231,8 +219,6 @@ enum D2C_Q05QuestConstants
     QUESTSTATEFLAG_A1Q4 = 4,
     QUESTSTATEFLAG_A4Q2 = 26,
     QUESTSTATEFLAG_A5Q6 = 40,
-    UNIT_PLAYER = 0,
-    UNIT_OBJECT = 2,
     OBJECT_PORTAL_TO_DURIELS_LAIR = 100,
     OBJMODE_OPERATING = 1,
     OBJMODE_OPENED = 2,

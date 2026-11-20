@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define QUEST_A4Q3_HELLFORGE 24
@@ -36,16 +37,6 @@ struct D2GameStrc
     int bExpansion;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    char pad0x14[0xA4];
-    unsigned int dwDropItemCode;
-};
 
 struct D2PlayerDataStrc
 {

@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 struct D2GameStrc
 {
     char unk0x00[0x1C];
@@ -6,14 +7,6 @@ struct D2GameStrc
     int dwGameFrame;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x04];
-    int dwUnitId;
-    int dwMissileMode;
-};
 
 struct D2MissilesTxt
 {

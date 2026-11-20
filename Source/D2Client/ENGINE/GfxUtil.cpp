@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
@@ -54,30 +55,6 @@ struct D2MonsterDataStrc
     unsigned short nTypeFlag;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-    unsigned char unk_18[0x14];
-    D2DynamicPathStrc* pDynamicPath;
-    unsigned char unk_30[0xC];
-    unsigned int dwSeqSpeed;
-    char unk0x40[0xE];
-    unsigned char nActionFrame;
-    unsigned char unk0x4F;
-    unsigned char unk_50[0x10];
-    D2InventoryStrc* pInventory;
-    unsigned char unk_64[0x2C];
-    D2CltUnitEventStrc* pCltTimerList;
-    unsigned char unk_94[0x34];
-    unsigned int dwFlagEx;
-    unsigned char unk_CC[0x1C];
-    D2UnitStrc* pRoomNext;
-};
 
 struct D2ActiveRoomStrc
 {

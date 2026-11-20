@@ -1,8 +1,4 @@
-struct D2UnitStrc
-{
-    char unk_00[0xC4];
-    unsigned int dwFlags;
-};
+#include "D2Structs.h"
 
 struct D2SkillsTxt
 {

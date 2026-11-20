@@ -1,14 +1,13 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2QuestStrc;
 struct D2SeedStrc;
 struct D2Act4Quest3Strc;
 
-struct D2SeedStrc { unsigned int nLowSeed; unsigned int nHighSeed; };
 
 struct D2GameStrc { char unk_00[0x6D]; unsigned char nDifficulty; char unk_6E[2]; int bExpansion; char unk_74[0x34]; int dwGameFrame; };
 
-struct D2UnitStrc { char unk_00[0xB8]; unsigned int dwDropItemCode; };
 
 struct D2Act4Quest3Strc { char unk_00[3]; unsigned char bDropActive; unsigned char bChangeMode; char unk_05[3]; int nDropStage; char unk_0C[8]; int nDropCount; };
 

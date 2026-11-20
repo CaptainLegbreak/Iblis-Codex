@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2CoordStrc
 {
@@ -16,16 +17,6 @@ struct D2PlayerDataStrc
 {
     char unk0x00[0x10];
     D2BitBufferStrc* pQuestData[3];
-};
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08;
-    unsigned int dwUnitId;
-    int dwAnimMode;
-    char unk0x14[0xB0];
-    unsigned int dwFlags;
 };
 struct D2QuestGUIDStrc
 {

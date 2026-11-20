@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2GameStrc
 {
@@ -6,15 +7,6 @@ struct D2GameStrc
     unsigned char nGameType;
 };
 
-struct D2UnitStrc
-{
-    unsigned int dwUnitType;
-    unsigned int dwClassId;
-    unsigned char unk_08[0x08];
-    unsigned int dwAnimMode;
-    unsigned char unk_14[0xD4];
-    D2UnitStrc* pRoomNext;
-};
 
 struct D2ActiveRoomStrc
 {

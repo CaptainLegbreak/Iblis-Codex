@@ -1,10 +1,6 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2StaticPathStrc
 {
@@ -13,19 +9,6 @@ struct D2StaticPathStrc
     int nYPos;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08[6];
-    D2SeedStrc tSeed;
-    int unk0x28;
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-};
 
 struct D2MissileStrc
 {
@@ -160,8 +143,8 @@ static void __stdcall sub_004D0B90_SpawnHitBurst(int nCount, int nVelocity, int 
         const int nSpread = 2 * nCount;
         for (int i = 0; i < nCount; ++i)
         {
-            const int nTargetX = SEED_RollLimitedRandomNumber(&pMissile->tSeed, 2 * nSpread + 1) - nSpread + nX;
-            const int nTargetY = SEED_RollLimitedRandomNumber(&pMissile->tSeed, 2 * nSpread + 1) - nSpread + nY;
+            const int nTargetX = SEED_RollLimitedRandomNumber(&pMissile->pSeed, 2 * nSpread + 1) - nSpread + nX;
+            const int nTargetY = SEED_RollLimitedRandomNumber(&pMissile->pSeed, 2 * nSpread + 1) - nSpread + nY;
             if (UNITS_GetDistanceToCoordinates(pMissile, nTargetX, nTargetY) > 3)
             {
                 tParams.nTargetX = nTargetX;

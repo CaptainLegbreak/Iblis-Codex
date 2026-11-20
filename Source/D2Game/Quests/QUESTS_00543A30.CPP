@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2QuestChainStrc;
 
@@ -11,13 +12,6 @@ struct D2GameStrc
     unsigned char nGameType;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    unsigned int dwClassId;
-    char unk0x08[0x6C];
-    D2QuestChainStrc* pQuestEventList;
-};
 
 struct D2QuestDataStrc
 {
@@ -153,7 +147,7 @@ void __fastcall QUESTS_ParseKill(D2GameStrc* pGame, D2UnitStrc* pDefender, D2Uni
             break;
         }
     }
-    switch (pDefender->dwClassId)
+    switch ((unsigned int)pDefender->dwClassId)
     {
     case 0xF2:
     case 0xF3:

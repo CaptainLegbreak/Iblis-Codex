@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 #define BITARRAY_CHECK(pBytes, nBit) ((pBytes)[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
 struct D2SeedStrc;
 struct D2MonStats2Txt;
@@ -11,30 +12,7 @@ struct D2MissileStrc;
 
 typedef int (__fastcall* AREASCANFN)(void* pArg, D2UnitStrc* pUnit);
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08;
-    int dwUnitId;
-    int dwAnimMode;
-    char unk0x14[0x0C];
-    D2SeedStrc tSeed;
-    int dwUnk0x28;
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x30];
-    D2InventoryStrc* pInventory;
-};
 
 int __fastcall sub_004C5C40_ScanArea(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nFlags, AREASCANFN pfCallback, void* pArg, int bCheckType); // 0x004C5C40
 int __fastcall sub_004C5E20_CountCallback(void* pArg, D2UnitStrc* pUnit); // 0x004C5E20
@@ -258,7 +236,7 @@ static __declspec(noinline) int sub_004C5710_GetAttackMode(D2UnitStrc* pUnit)
 
     if (bRandom)
     {
-        const char nRoll = SKILLCLT_RollSeed(&pUnit->tSeed) & 0x3F;
+        const char nRoll = SKILLCLT_RollSeed(&pUnit->pSeed) & 0x3F;
         if (nRoll < 0x20)
         {
             return 8;
@@ -629,7 +607,7 @@ void __fastcall sub_004C6930_DoSkillPrgFunc(D2UnitStrc* pUnit, D2UnitStrc* pTarg
         return;
     }
 
-    const int nOldValue = pUnit->dwUnk0x28;
+    const int nOldValue = pUnit->dwInitSeed;
     int nTargetX;
     int nTargetY;
     const int bHasTargetPos = sub_004C52E0_GetTargetPosition(pUnit, &nTargetX, &nTargetY);
@@ -638,17 +616,17 @@ void __fastcall sub_004C6930_DoSkillPrgFunc(D2UnitStrc* pUnit, D2UnitStrc* pTarg
     if (pTarget)
     {
         UNITS_SetTargetUnitForDynamicUnit(pUnit, pTarget);
-        pUnit->dwUnk0x28 = nMode;
+        pUnit->dwInitSeed = nMode;
     }
     else if (nX && nY)
     {
         D2COMMON_10170_PathSetTargetPos(pUnit->pDynamicPath, nX, nY);
-        pUnit->dwUnk0x28 = nMode;
+        pUnit->dwInitSeed = nMode;
     }
 
     if (nX && !nY)
     {
-        pUnit->dwUnk0x28 = nX;
+        pUnit->dwInitSeed = nX;
     }
 
     const short nFunc = pSkillsTxtRecord->wCltPrgFunc[0];
@@ -685,7 +663,7 @@ void __fastcall sub_004C6930_DoSkillPrgFunc(D2UnitStrc* pUnit, D2UnitStrc* pTarg
         D2COMMON_10170_PathSetTargetPos(pUnit->pDynamicPath, nTargetX, nTargetY);
     }
 
-    pUnit->dwUnk0x28 = nOldValue;
+    pUnit->dwInitSeed = nOldValue;
 }
 
 inline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
@@ -729,7 +707,7 @@ static void __stdcall sub_004C7000_SpawnRing(D2MissileStrc* pAltParams, D2Missil
     {
         for (int i = 0; i < 64; ++i)
         {
-            if (SEED_RollRandomNumber(&pParams->pOwner->tSeed) % 6)
+            if (SEED_RollRandomNumber(&pParams->pOwner->pSeed) % 6)
             {
                 pParams->nTargetX = gaRingTargetX_006DACC0[i];
                 pParams->nTargetY = gaRingTargetY_006DABC0[i];

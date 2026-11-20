@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
 #define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
@@ -12,11 +13,6 @@ struct D2MissileStrc;
 struct D2MissilesTxt;
 struct D2SkillsTxt;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2StaticPathStrc
 {
@@ -25,21 +21,6 @@ struct D2StaticPathStrc
     int nYPos;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08[6];
-    D2SeedStrc tSeed;
-    int unk0x28;
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    unsigned char unk_30[0x34];
-    void* pLight;
-};
 
 struct D2MissileStrc
 {
@@ -230,8 +211,8 @@ static void __stdcall sub_004D0B90_SpawnHitBurst(int nCount, int nVelocity, int 
         const int nSpread = 2 * nCount;
         for (int i = 0; i < nCount; ++i)
         {
-            const int nTargetX = SEED_RollLimitedRandomNumber(&pMissile->tSeed, 2 * nSpread + 1) - nSpread + nX;
-            const int nTargetY = SEED_RollLimitedRandomNumber(&pMissile->tSeed, 2 * nSpread + 1) - nSpread + nY;
+            const int nTargetX = SEED_RollLimitedRandomNumber(&pMissile->pSeed, 2 * nSpread + 1) - nSpread + nX;
+            const int nTargetY = SEED_RollLimitedRandomNumber(&pMissile->pSeed, 2 * nSpread + 1) - nSpread + nY;
             if (UNITS_GetDistanceToCoordinates(pMissile, nTargetX, nTargetY) > 3)
             {
                 tParams.nTargetX = nTargetX;
@@ -291,8 +272,8 @@ static void __stdcall sub_004D2190_SpawnRandomBolt(D2UnitStrc* pOwner, D2UnitStr
     int aOffsetX[4] = { 1, 0, -1, 0 };
     int aOffsetY[4] = { 0, 1, 0, -1 };
 
-    const unsigned int nZ = SEED_RollRandomNumber(&pMissile->tSeed) % 125;
-    const int nDirection = SEED_RollRandomNumber(&pMissile->tSeed) & 3;
+    const unsigned int nZ = SEED_RollRandomNumber(&pMissile->pSeed) % 125;
+    const int nDirection = SEED_RollRandomNumber(&pMissile->pSeed) & 3;
     const int nUnitX = UNITS_GetUnitXPosition(pMissile);
     const int nUnitY = UNITS_GetUnitYPosition(pMissile);
     const int nX = nUnitX + aOffsetX[nDirection];
@@ -301,7 +282,7 @@ static void __stdcall sub_004D2190_SpawnRandomBolt(D2UnitStrc* pOwner, D2UnitStr
     const int nDiffX = nX - nUnitX;
 
     int nMissile;
-    switch (SEED_RollRandomNumber(&pMissile->tSeed) % 30)
+    switch (SEED_RollRandomNumber(&pMissile->pSeed) % 30)
     {
     case 0:
         nMissile = 0x260;
@@ -348,11 +329,11 @@ static void __stdcall sub_004D2400_SpawnRandomShard(D2UnitStrc* pOwner, D2UnitSt
     memset(&tParams, 0, sizeof(tParams));
     tParams.pOwner = pOwner;
 
-    int nTargetX = 20 - SEED_RollRandomNumber(&pMissile->tSeed) % 40;
+    int nTargetX = 20 - SEED_RollRandomNumber(&pMissile->pSeed) % 40;
     tParams.dwFlags = 2;
     tParams.pOrigin = pMissile;
     tParams.nTargetX = nTargetX;
-    const int nTargetY = 20 - SEED_RollRandomNumber(&pMissile->tSeed) % 40;
+    const int nTargetY = 20 - SEED_RollRandomNumber(&pMissile->pSeed) % 40;
     tParams.nTargetY = nTargetY;
     tParams.nMissile = 0x11D;
     tParams.nSkill = MISSILE_GetSkill(pMissile);
@@ -360,7 +341,7 @@ static void __stdcall sub_004D2400_SpawnRandomShard(D2UnitStrc* pOwner, D2UnitSt
 
     if (!nTargetX && !nTargetY)
     {
-        nTargetX = SEED_RollRandomNumber(&pMissile->tSeed) % 19 + 1;
+        nTargetX = SEED_RollRandomNumber(&pMissile->pSeed) % 19 + 1;
         tParams.nTargetX = nTargetX;
     }
 
@@ -414,7 +395,7 @@ static void __stdcall sub_004D2520_SpawnBaalBolt(int nX, int nY, D2UnitStrc* pMi
     memset(&tParams, 0, sizeof(tParams));
     tParams.dwFlags = 0x2001;
     tParams.pOwner = sub_004639D0_GetOwnerUnit(pMissile);
-    tParams.nMissile = SEED_RollRandomNumber(&pMissile->tSeed) % 3 + 0x27B;
+    tParams.nMissile = SEED_RollRandomNumber(&pMissile->pSeed) % 3 + 0x27B;
     tParams.nSkill = MISSILE_GetSkill(pMissile);
     tParams.nSkillLevel = MISSILE_GetLevel(pMissile);
     tParams.nX = nX;
@@ -456,16 +437,16 @@ void __fastcall sub_004D2610_CltDoBaalStorm(D2UnitStrc* pMissile)
     D2Common_10235_PATH_UpdateRiderPath(pMissile, pOwner);
     UNITS_UpdateFrame(pMissile);
 
-    if (!MISSILE_GetTargetX(pMissile) || !(SEED_RollRandomNumber(&pMissile->tSeed) & 0x3F))
+    if (!MISSILE_GetTargetX(pMissile) || !(SEED_RollRandomNumber(&pMissile->pSeed) & 0x3F))
     {
         sub_00476A80_StartTiming(6, 2000, 3000, 2000);
         MISSILE_SetTargetX(pMissile, 1);
     }
 
-    if (!(SEED_RollRandomNumber(&pMissile->tSeed) % 10))
+    if (!(SEED_RollRandomNumber(&pMissile->pSeed) % 10))
     {
-        const unsigned int nRollX = SEED_RollRandomNumber(&pMissile->tSeed);
-        const unsigned int nRollY = SEED_RollRandomNumber(&pMissile->tSeed);
+        const unsigned int nRollX = SEED_RollRandomNumber(&pMissile->pSeed);
+        const unsigned int nRollY = SEED_RollRandomNumber(&pMissile->pSeed);
         const int nX = UNITS_GetUnitXPosition(pMissile) + nRollX % 60 - 30;
         const int nY = UNITS_GetUnitYPosition(pMissile) + nRollY % 60 - 30;
         sub_004D2520_SpawnBaalBolt(nX, nY, pMissile);
@@ -496,10 +477,10 @@ int __fastcall sub_004D2760_CltDoEightWaySpawn(D2UnitStrc* pMissile)
         if (pNew)
         {
             int nFrames = sub_0064A300((Unit0064A300*)pNew);
-            nFrames -= SEED_RollLimitedRandomNumber(&pMissile->tSeed, nFrames / 2);
+            nFrames -= SEED_RollLimitedRandomNumber(&pMissile->pSeed, nFrames / 2);
             MISSILE_SetTotalFrames(pNew, nFrames);
             D2DynamicPathStrc* pPath = pNew->pDynamicPath;
-            sub_00648690((Obj00648690*)pPath, SEED_RollLimitedRandomNumber(&pMissile->tSeed, PATH_GetVelocity(pPath)), (int)gszMissileSourceFile_006DAEF4, 0x1A6B);
+            sub_00648690((Obj00648690*)pPath, SEED_RollLimitedRandomNumber(&pMissile->pSeed, PATH_GetVelocity(pPath)), (int)gszMissileSourceFile_006DAEF4, 0x1A6B);
             sub_004DA5B0_SetBallistic(pNew, 0x1E, nFrames);
         }
     }
@@ -519,8 +500,8 @@ static void __stdcall sub_004D2990_SpawnAtFreeSpot(D2UnitStrc* pOwner, int nX, i
         return;
     while (bRetry && nTries < 4)
     {
-        const int nOffsetX = 17 - SEED_RollRandomNumber(&pMissile->tSeed) % 34;
-        const int nOffsetY = 17 - SEED_RollRandomNumber(&pMissile->tSeed) % 34;
+        const int nOffsetX = 17 - SEED_RollRandomNumber(&pMissile->pSeed) % 34;
+        const int nOffsetY = 17 - SEED_RollRandomNumber(&pMissile->pSeed) % 34;
         if (nOffsetX < -1 || nOffsetX > 1 || nOffsetY < -1)
         {
             if (!COLLISION_CheckMask(pRoom, nX + nOffsetX, nY + nOffsetY, 4))
@@ -589,9 +570,9 @@ void __fastcall sub_004D8000_CltDoEruption(D2UnitStrc* pMissile)
                 D2UnitStrc* pNew = sub_004CD540_CreateMissile(&tParams);
                 if (pNew)
                 {
-                    const unsigned int nRoll1 = SEED_RollRandomNumber(&pMissile->tSeed);
-                    const unsigned int nRoll2 = SEED_RollRandomNumber(&pMissile->tSeed);
-                    const unsigned int nRoll3 = SEED_RollRandomNumber(&pMissile->tSeed);
+                    const unsigned int nRoll1 = SEED_RollRandomNumber(&pMissile->pSeed);
+                    const unsigned int nRoll2 = SEED_RollRandomNumber(&pMissile->pSeed);
+                    const unsigned int nRoll3 = SEED_RollRandomNumber(&pMissile->pSeed);
                     sub_004DA1D0_SetMotionVectorA(pNew, 50 - nRoll1 % 100, 50 - nRoll2 % 100, 0);
                     sub_004DA200_SetMotionVectorB(pNew, 0, 0, (nRoll3 & 7) + 2, 1);
                 }
@@ -756,7 +737,7 @@ void __fastcall sub_004D49F0_CltDoWeave(D2UnitStrc* pMissile)
             const int nB = MISSILE_GetTargetY(pMissile);
             int nOffsetX;
             int nOffsetY;
-            if (SEED_RollRandomNumber(&pMissile->tSeed) & 1)
+            if (SEED_RollRandomNumber(&pMissile->pSeed) & 1)
             {
                 nOffsetX = nA - nB;
                 nOffsetY = nB + nA;
@@ -815,7 +796,7 @@ void __fastcall sub_004D5090_CltDoTurn(D2UnitStrc* pMissile)
             const int nB = MISSILE_GetTargetY(pMissile);
             int nOffsetX;
             int nOffsetY;
-            switch (SEED_RollRandomNumber(&pMissile->tSeed) & 3)
+            switch (SEED_RollRandomNumber(&pMissile->pSeed) & 3)
             {
             case 0:
                 nOffsetX = nA - nB;
@@ -860,8 +841,8 @@ void __fastcall sub_004D72C0_CltDoPeriodicSpawn(D2UnitStrc* pMissile)
         tParams.nX = nX;
         const int nY = UNITS_GetUnitYPosition(pMissile);
         tParams.nY = nY;
-        tParams.nTargetX = nX - SEED_RollRandomNumber(&pMissile->tSeed) % 12;
-        tParams.nTargetY = SEED_RollRandomNumber(&pMissile->tSeed) % 13 + nY - 6;
+        tParams.nTargetX = nX - SEED_RollRandomNumber(&pMissile->pSeed) % 12;
+        tParams.nTargetY = SEED_RollRandomNumber(&pMissile->pSeed) % 13 + nY - 6;
         sub_004CD540_CreateMissile(&tParams);
     }
 

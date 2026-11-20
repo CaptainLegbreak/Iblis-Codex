@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2UiRectStrc;
@@ -51,15 +52,6 @@ struct D2ItemsTxt
     unsigned char bFlag0x12A;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08;
-    int dwUnitId;
-    char unk0x10[0x60 - 0x10];
-    D2InventoryStrc* pInventory;
-};
 
 struct D2UiRectStrc
 {

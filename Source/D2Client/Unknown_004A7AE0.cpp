@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define SPELLSEL_HOTKEY_LABEL(i, key, flag) \
@@ -100,7 +101,6 @@ void* __fastcall sub_004520C0_LoadUiCelFile(const char*); // 0x004520C0
 void __stdcall TEXTURE_CelDrawColor(D2CelContext*,int,int,int,int,int); // 0x004F64B0
 extern "C" void* __cdecl memset(void*,int,unsigned int); // 0x00681EF0
 
-struct D2UnitStrc { char pad[0x60]; D2InventoryStrc* inventory; };
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2UnitStrc* __stdcall sub_0063BEF0_GetMainHand(D2InventoryStrc*); // 0x0063BEF0
@@ -299,8 +299,8 @@ void __fastcall sub_004A9690_DrawSkillInfoBase(void* cell,D2SkillsTxt* skills,in
  else sub_004A9300_DrawHotkeyLabelsB(skills,owner,x,y);
  D2UnitStrc* player=sub_00463DD0_GetPlayerUnit();
  int quantity;
- if(player && player->inventory) {
-  D2InventoryStrc* inv=player->inventory;
+ if(player && player->pInventory) {
+  D2InventoryStrc* inv=player->pInventory;
   switch(skills->nSkillId) {
   case 4: {
    D2UnitStrc* hand=sub_0063BEF0_GetMainHand(inv);

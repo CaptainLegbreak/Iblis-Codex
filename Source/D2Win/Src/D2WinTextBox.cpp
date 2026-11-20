@@ -1,4 +1,5 @@
 #include "D2Win.h"
+#include "D2Structs.h"
 
 struct D2CharStrc
 {
@@ -179,11 +180,6 @@ Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x00526
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 extern D2FontCacheStrc gFontCache_00841DA8[]; // 0x00841DA8
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-};
 
 struct D2ItemsTxt
 {

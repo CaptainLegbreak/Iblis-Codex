@@ -1,20 +1,11 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define MIN(a,b) ((a)<(b)?(a):(b))
 #define MAX(a,b) ((a)<(b)?(b):(a))
 struct D2SkillsTxt;
 struct Monster;
 
-struct D2UnitStrc
-{
-    int type;
-    char unk04[0xC0];
-    union
-    {
-        unsigned int flags;
-        unsigned int dwFlags;
-    };
-};
 
 struct D2DamageStrc { int unk00; unsigned short resultFlags; unsigned short unk06; int physical; };
 
@@ -138,7 +129,7 @@ extern "C" int __stdcall sub_00646CA0_Evaluate(Unit*, U32, int, int); // 0x00646
 static inline int sub_0044BE50(D2UnitStrc* unit)
 {
  if(!unit)return 6;
- return unit->type;
+ return unit->dwUnitType;
 }
 
 // 0x005D16A0
@@ -148,7 +139,7 @@ int __fastcall sub_005D16A0_TransferLifeFromDamage(D2GameStrc* game,D2UnitStrc* 
  if(!skill)return 0;
  D2UnitStrc* target=SUNIT_GetTargetUnit(game,unit);
  if(!target)return 0;
- if(unit)unit->flags|=0x40;
+ if(unit)unit->dwFlags|=0x40;
  D2DamageStrc* damage=SUNITDMG_GetDamageFromUnits(unit,target);
  if(!damage)return 0;
  if(damage->resultFlags&1) {

@@ -1,12 +1,8 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2MonStats2Txt
 {
@@ -14,20 +10,6 @@ struct D2MonStats2Txt
     char nType;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08;
-    int dwUnitId;
-    int dwAnimMode;
-    char unk0x14[0x0C];
-    D2SeedStrc tSeed;
-    int unk0x28;
-    D2DynamicPathStrc* pDynamicPath;
-    char unk0x30[0x30];
-    D2InventoryStrc* pInventory;
-};
 
 struct D2SkillsTxt
 {
@@ -193,7 +175,7 @@ static __declspec(noinline) int sub_004C5710_GetAttackMode(D2UnitStrc* pUnit)
 
     if (bRandom)
     {
-        const char nRoll = SKILLCLT_RollSeed(&pUnit->tSeed) & 0x3F;
+        const char nRoll = SKILLCLT_RollSeed(&pUnit->pSeed) & 0x3F;
         if (nRoll < 0x20)
         {
             return 8;

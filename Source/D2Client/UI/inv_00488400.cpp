@@ -1,12 +1,8 @@
+#include "D2Structs.h"
 typedef unsigned int size_t;
 struct Unicode;
 struct D2InventoryStrc;
 
-struct D2UnitStrc
-{
-    char unk0x00[0x60];
-    D2InventoryStrc* pInventory;
-};
 
 struct D2CelContextStrc
 {

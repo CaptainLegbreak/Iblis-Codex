@@ -1,8 +1,4 @@
-struct D2UnitStrc
-{
-    int dwUnitType;
-    unsigned int dwClassId;
-};
+#include "D2Structs.h"
 
 struct D2UnitSndPlayerStrc
 {

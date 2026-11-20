@@ -1,8 +1,9 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 enum D2C_U04BashConstants
 {
-    UNIT_INVALID = 6,
     DAMAGERESULTFLAG_SUCCESSFULHIT = 1,
     STATLIST_FILTER_4 = 4,
 };
@@ -13,13 +14,6 @@ struct D2GameStrc
     void* pMemoryPool;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    unsigned int dwClassId;
-    char unk0x08[0x04];
-    int dwUnitId;
-};
 
 struct D2SkillsTxt
 {

@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2PartyScreenCallbackStrc;
 struct Client;
@@ -7,13 +8,6 @@ struct D2UnitStrc;
 struct D2ClientStrc;
 struct Unit;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    unsigned int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-};
 
 struct D2ClientStrc
 {
@@ -82,7 +76,7 @@ static void __stdcall sub_005A5750_SetPlayerListFlag(D2GameStrc* pGame, D2UnitSt
 
 static bool IsFemaleClass(D2UnitStrc* pUnit)
 {
-    switch (pUnit->dwClassId)
+    switch ((unsigned int)pUnit->dwClassId)
     {
     case 0:
     case 1:

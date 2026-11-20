@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 // build: base-profile
 
 struct D2ClientStrc;
@@ -6,17 +7,6 @@ struct D2SaveHeaderStrc;
 struct D2ServerCallbackFunctions;
 struct _iobuf;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    char pad10[0x50];
-    void* pInventory;
-    char pad64[0x60];
-    unsigned int dwFlags;
-};
 
 struct D2GameStrc
 {

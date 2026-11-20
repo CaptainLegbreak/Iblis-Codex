@@ -1,6 +1,5 @@
+#include "D2Structs.h"
 struct D2AuraCallbackStrc;
-struct D2SeedStrc { unsigned int nLowSeed, nHighSeed; };
-struct D2UnitStrc { int dwUnitType, dwClassId; char unk_08[0x18]; D2SeedStrc pSeed; };
 struct D2GameStrc { char unk_00[0x6A]; unsigned char nGameType; char unk_6B[2]; unsigned char nDifficulty; char unk_6E[6]; int dwGameType; };
 struct D2SkillsTxt
 {

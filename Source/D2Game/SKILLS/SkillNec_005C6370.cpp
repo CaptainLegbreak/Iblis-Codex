@@ -1,13 +1,6 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0xC0];
-    unsigned int dwFlags;
-    char unk0xC8[0x08];
-    int dwNodeIndex;
-};
 
 struct D2CoordStrc
 {

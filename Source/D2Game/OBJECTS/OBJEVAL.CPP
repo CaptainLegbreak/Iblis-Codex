@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -20,14 +21,6 @@ enum D2C_M96ObjEvalConstants
     DAMAGERESULTFLAG_GETHIT = 4,
 };
 
-struct D2SeedStrc { unsigned int nLowSeed; unsigned int nHighSeed; };
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x20 - 0x08];
-    D2SeedStrc pSeed;
-};
 struct D2ObjectsTxt { char unk0x00[0x19C]; unsigned char nDamage; };
 struct D2DamageStrc
 {

@@ -1,18 +1,10 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2CltUnitEventStrc;
 struct D2RosterInfoStrc;
 
-struct D2UnitStrc
-{
-    unsigned int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x4C];
-    D2GfxDataStrc* pGfxData;
-    char unk0x58[0x38];
-    D2CltUnitEventStrc* pCltTimerList;
-};
 
 struct D2RosterInfoStrc
 {

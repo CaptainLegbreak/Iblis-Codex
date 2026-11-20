@@ -1,15 +1,6 @@
+#include "D2Constants.h"
+#include "D2Structs.h"
 struct D2InventoryStrc;
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x58];
-    D2InventoryStrc* pInventory;
-    int unk0x64[2];
-    int nPaletteShift;
-    char unk0x70[0x58];
-    unsigned int dwFlagEx;
-};
 
 struct D2ObjectsTxt
 {
@@ -36,11 +27,6 @@ struct D2CelContextStrc
 
 enum
 {
-    UNIT_OBJECT = 2,
-    UNIT_MISSILE = 3,
-    UNIT_ITEM = 4,
-    UNIT_TILE = 5,
-    UNIT_INVALID = 6,
 };
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
@@ -142,7 +128,7 @@ int __fastcall sub_00471EC0(D2UnitStrc* pUnit, unsigned int dwColor, int nX, int
     UNITS_GetShiftedFrameMetrics(pUnit, &nFrame, &nFrameCount);
 
     unsigned char* pPalShift = 0;
-    const int nPaletteShift = pUnit->nPaletteShift;
+    const int nPaletteShift = pUnit->nPaletteIndex;
     if (nPaletteShift && pUnit != sub_00463DD0())
     {
         pPalShift = D2Win_10175_GetPL2Shift(nPaletteShift - 1);
@@ -361,7 +347,7 @@ static int __stdcall sub_00470EC0_DrawGfxUnit(unsigned int dwColor, int nArg, in
     int nFrame, nFrameCount;
     UNITS_GetShiftedFrameMetrics(pUnit, &nFrame, &nFrameCount);
     unsigned char* pPalShift = 0;
-    if (pUnit->nPaletteShift) pPalShift = D2Win_10175_GetPL2Shift(pUnit->nPaletteShift - 1);
+    if (pUnit->nPaletteIndex) pPalShift = D2Win_10175_GetPL2Shift(pUnit->nPaletteIndex - 1);
     D2InventoryStrc* pInventory;
     D2UnitStrc* pOwner;
     if (IsShapeShifted(pUnit) && STATES_CheckStateMaskOnUnit(pUnit, 0x25) && (pOwner = sub_004639D0_GetOwnerUnit(pUnit)) != 0)
@@ -427,7 +413,7 @@ static int __stdcall sub_00470EC0_DrawGfxUnit(unsigned int dwColor, int nArg, in
         if (!sub_004DBB50_GetItemCelContext(&tCel, pUnit, 0, nDirection, nFrame, &nItemId, nComponent, -1)) continue;
         nDrawMode = 5;
         int bCompTrans = sub_004DB360_GetCompTransparency(pUnit, nComponent, &nDrawMode, nItemId);
-        if (bUseItemShift && (nUnitType != 0 || pUnit->nPaletteShift != 0x6C))
+        if (bUseItemShift && (nUnitType != 0 || pUnit->nPaletteIndex != 0x6C))
             pPalette = sub_004DB570_GetBodyLocItemShift(pUnit, nComponent, pPalette);
         if (sub_004DB050_GetCofLayerOverrideTransLvl(pLayer, nComponent))
         {

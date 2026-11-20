@@ -1,9 +1,7 @@
 #include "D2Client.h"
+#include "D2Constants.h"
 
 #define D2_ABS(x) ((x) < 0 ? -(x) : (x))
-#define UNIT_OBJECT 2
-#define UNIT_ITEM 4
-#define UNIT_TILE 5
 struct D2SeedStrc;
 struct D2MissilesTxt;
 struct D2MissileStrc;

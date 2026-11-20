@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 #ifdef MOVED_TEST
 #define NPC_SHIFT 4
 #define FLAG_SHIFT 2
@@ -28,16 +29,6 @@ struct D2GameStrc
     unsigned char nDifficulty;
 };
 
-struct D2UnitStrc
-{
-#ifdef MOVED_TEST
-    char movedPrefix[4];
-#endif
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-};
 
 struct D2PlayerDataStrc
 {

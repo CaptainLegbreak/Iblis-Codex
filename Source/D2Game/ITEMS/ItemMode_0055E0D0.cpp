@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
@@ -7,13 +8,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 struct D2SkillStrc;
 struct D2ClientStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-};
 
 void __fastcall sub_0053C520_SendToClient(D2ClientStrc* pClient, char nUnitType);                           // 0x0053C520
 D2ClientStrc* __fastcall sub_005531C0_MakeQuantityPacket(D2UnitStrc* pUnit, const char* szFile, int nLine, int nUnitId, int nSkillId, int nQuantity); // 0x005531C0

@@ -1,7 +1,7 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2StaticPathStrc { int pad[3]; int nX, nY; };
-struct D2UnitStrc { int dwUnitType, dwClassId; int pad[9]; union { D2DynamicPathStrc* pDynamicPath; D2StaticPathStrc* pStaticPath; }; };
 struct D2GameStrc { int pad[7]; void* pMemoryPool; };
 struct D2SfxStrc { D2GameStrc* pGame; D2UnitStrc* pObject; D2UnitStrc* pOwner; };
 struct D2SfxArgStrc { int unk, nDamagePct, nRadius; };

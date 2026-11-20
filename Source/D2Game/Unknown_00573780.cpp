@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define UNIT_MONSTER 1
 struct D2SeedStrc;
@@ -8,23 +9,7 @@ struct D2MonRegDataStrc;
 
 struct D2GameStrc { char unk00[0xA8]; unsigned int dwGameFrame; };
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-    char unk0x18[0x08];
-    D2SeedStrc pSeed;
-};
 
 struct D2DataTablesStrc { char unk00[0xA80]; int nMonStatsTxtRecordCount; };
 

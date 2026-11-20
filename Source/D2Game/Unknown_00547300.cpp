@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2ObjectControlStrc;
 struct Entry00547390;
@@ -40,11 +41,6 @@ struct Sub00547390 { unsigned char bUnknown00[0x48]; Entry00547390* pEntries48[1
 
 struct Obj00547390 { unsigned char bUnknown00[0x10F0]; Sub00547390* pSub10F0; };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-};
 
 struct D2MonRegDataStrc
 {

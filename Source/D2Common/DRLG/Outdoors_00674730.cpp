@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 #define LEVEL_COLDPLAINS 3
 #define FLAG_OPERATION_OR 0
 
@@ -25,11 +26,6 @@ struct D2DrlgOutdoorInfoStrc
     int nGridHeight;
 };
 
-struct D2SeedStrc
-{
-    unsigned int dwLow;
-    unsigned int dwHigh;
-};
 
 struct D2DrlgLevelStrc
 {
@@ -57,9 +53,9 @@ int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pDrlgGrid, int nX, int nY);
 
 static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
-    unsigned __int64 lSeed = (unsigned __int64)pSeed->dwHigh + (unsigned __int64)pSeed->dwLow * 0x6AC690C5;
-    pSeed->dwHigh = (unsigned int)(lSeed >> 32);
-    pSeed->dwLow = (unsigned int)lSeed;
+    unsigned __int64 lSeed = (unsigned __int64)pSeed->nHighSeed + (unsigned __int64)pSeed->nLowSeed * 0x6AC690C5;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
     return (unsigned int)lSeed;
 }
 
@@ -122,9 +118,9 @@ int __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPreset(D2DrlgLevelStrc* pLevel, int
 
 static __forceinline unsigned int SEED_RollRandomNumber_Inline(D2SeedStrc* pSeed)
 {
-    unsigned __int64 lSeed = pSeed->dwHigh + 0x6AC690C5i64 * pSeed->dwLow;
-    pSeed->dwHigh = (unsigned int)(lSeed >> 32);
-    pSeed->dwLow = (unsigned int)lSeed;
+    unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
+    pSeed->nHighSeed = (unsigned int)(lSeed >> 32);
+    pSeed->nLowSeed = (unsigned int)lSeed;
     return (unsigned int)lSeed;
 }
 

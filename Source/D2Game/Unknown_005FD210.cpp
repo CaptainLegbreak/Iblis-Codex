@@ -1,9 +1,6 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-};
 
 struct D2AiCmdStrc
 {

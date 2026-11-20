@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 #define LEVEL_BLOODMOOR 2
 #define LEVEL_COLDPLAINS 3
 #define LEVEL_STONYFIELD 4
@@ -7,11 +8,6 @@
 #define LEVEL_BURIALGROUNDS 17
 #define LEVEL_MOOMOOFARM 39
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2DrlgLevelStrc
 {

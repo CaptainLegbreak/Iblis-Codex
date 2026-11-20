@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2StaticPathStrc;
@@ -6,20 +7,6 @@ struct D2MonStatsTxt;
 struct D2MonStats2Txt;
 struct D2HoverCoordStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    unsigned int dwUnitId;
-    int dwAnimMode;
-    char unk0x14[0x2C - 0x14];
-    D2DynamicPathStrc* pDynamicPath;
-    char unk0x30[0xC4 - 0x30];
-    unsigned int dwFlags;
-    char unk0xC8[0xD4 - 0xC8];
-    unsigned int dwLastSoundTick;
-};
 
 struct D2MonStatsTxt
 {
@@ -152,14 +139,14 @@ static void sub_00466DE0_SetHoverUnit(D2UnitStrc* pUnit)
 
     {
         const unsigned int dwTick = GetTickCount();
-        if (dwTick - pUnit->dwLastSoundTick <= 0x1F4)
+        if (dwTick - pUnit->dwTickCount <= 0x1F4)
         {
             break;
         }
 
         sprintf(szBuffer, "msg at %d\n", dwTick);
         OutputDebugStringA(szBuffer);
-        pUnit->dwLastSoundTick = dwTick;
+        pUnit->dwTickCount = dwTick;
         sub_00478680_SendPacket5(0x3D, gnSelectedUnitId_007A6A78);
         break;
     }

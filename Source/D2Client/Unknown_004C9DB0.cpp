@@ -1,23 +1,6 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    char unk0x14[0x2C - 0x14];
-    D2DynamicPathStrc* pDynamicPath;
-    char unk0x30[0x38 - 0x30];
-    int nSeqFrame;
-    char unk0x3C[0x48 - 0x3C];
-    int nSeqValue;
-    char unk0x4C[0x4E - 0x4C];
-    unsigned char nSeqState;
-    char unk0x4F[0xC4 - 0x4F];
-    unsigned int dwFlags;
-};
 
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
@@ -71,7 +54,7 @@ int __fastcall sub_004C9DB0_SkillCltDo(D2UnitStrc* pUnit, int nSkillId, int nSki
     }
 
     const int nEventFrame = sub_004C9D70(pUnit);
-    if (pUnit && (pUnit->dwUnitType == 0 || pUnit->dwUnitType == 1) && pUnit->nSeqState == 3)
+    if (pUnit && (pUnit->dwUnitType == 0 || pUnit->dwUnitType == 1) && pUnit->nActionFrame == 3)
     {
         sub_004CB6A0(pUnit, pUnit->dwAnimMode, 0);
         return 0;
@@ -91,7 +74,7 @@ int __fastcall sub_004C9DB0_SkillCltDo(D2UnitStrc* pUnit, int nSkillId, int nSki
         {
             SKILLS_SetFlags(pSkill, 0);
             UNITS_SetAnimationFrame(pUnit, nEventFrame + 1);
-            pUnit->nSeqValue = nFrameCount << 8;
+            pUnit->dwFrameCountPrecise = nFrameCount << 8;
             return 1;
         }
 
@@ -117,14 +100,14 @@ int __fastcall sub_004C9DB0_SkillCltDo(D2UnitStrc* pUnit, int nSkillId, int nSki
                 }
             }
 
-            pUnit->nSeqValue = 0x100;
+            pUnit->dwFrameCountPrecise = 0x100;
             return 1;
         }
 
-        if ((pUnit->nSeqFrame >> 8) >= nEventFrame)
+        if ((pUnit->dwSeqFrame >> 8) >= nEventFrame)
         {
             UNITS_SetAnimationFrame(pUnit, 0);
-            pUnit->nSeqValue = nFrameCount << 8;
+            pUnit->dwFrameCountPrecise = nFrameCount << 8;
             SKILLS_SetFlags(pSkill, 1);
         }
 
@@ -141,7 +124,7 @@ int __fastcall sub_004C9DB0_SkillCltDo(D2UnitStrc* pUnit, int nSkillId, int nSki
     SKILLS_SetFlags(pSkill, 0);
     SKILLS_SetParam1(pSkill, 0);
     SKILLS_SetParam2(pSkill, 0);
-    pUnit->nSeqValue = (nFrameCount - (pUnit->nSeqFrame >> 8)) << 8;
+    pUnit->dwFrameCountPrecise = (nFrameCount - (pUnit->dwSeqFrame >> 8)) << 8;
     if (!pTarget)
     {
         pTarget = sub_004C5EB0_ScanFind(pUnit, 0, 0, 3, 3, -1, 0);

@@ -1,10 +1,7 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2StaticPathStrc
 {
@@ -36,20 +33,6 @@ struct D2AiControlStrc
     int dwAiParam[3];
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x1C];
-    D2SeedStrc pSeed;
-    char unk0x28[0x4];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x94];
-    unsigned int dwFlags;
-};
 
 struct D2MonStatsTxt
 {
@@ -84,9 +67,6 @@ struct D2MephistoAiCallbackArgStrc
 
 enum D2C_J11AiConstants
 {
-    UNIT_OBJECT = 2,
-    UNIT_ITEM = 4,
-    UNIT_TILE = 5,
     MONMODE_ATTACK1 = 4,
     MONMODE_SKILL1 = 8,
     LEVEL_AI_TRAPARROW_RANDOM = 40,

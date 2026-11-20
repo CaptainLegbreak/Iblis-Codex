@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2GSPacketSrv26;
 struct D2SeedStrc;
@@ -18,7 +19,6 @@ extern "C" void __cdecl sub_00408A60(const char* text, const char* file, int lin
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
 
-struct D2SeedStrc { unsigned int nLowSeed; unsigned int nHighSeed; };
 
 struct D2ObjectRegionStrc
 {

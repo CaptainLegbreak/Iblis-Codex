@@ -1,4 +1,6 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -9,11 +11,6 @@ struct D2MissilesTxt;
 struct D2MonLvlTxt;
 struct D2MonUModTxt;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2MonsterDataStrc
 {
@@ -23,15 +20,6 @@ struct D2MonsterDataStrc
     unsigned short wBossHcIdx;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x0C];
-    D2MonsterDataStrc* pMonsterData;
-    unsigned char unk_18[0x8];
-    D2SeedStrc pSeed;
-};
 
 struct D2AuraEnchantStrc
 {
@@ -52,8 +40,6 @@ void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0
 
 enum D2C_H16ElemConstants
 {
-    UNIT_MONSTER = 1,
-    UNIT_MISSILE = 3,
     MONLVL_DM = 6,
     STAT_LEVEL = 12,
 };

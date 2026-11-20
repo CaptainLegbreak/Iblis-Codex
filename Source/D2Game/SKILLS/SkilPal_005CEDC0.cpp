@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2CurseStrc;
 struct D2BasicAuraParamStrc;
@@ -39,19 +40,7 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268
 D2StatListStrc* __fastcall sub_0056E970(D2CurseStrc* pCurse); // 0x0056E970
 
-struct D2SeedStrc
-{
-    unsigned int dwLow;
-    unsigned int dwHigh;
-};
 
-struct D2UnitStrc
-{
-    char pad_00[32];
-    D2SeedStrc tSeed;
-    char pad_afterSeed[56];
-    D2InventoryStrc* pInventory;
-};
 
 void __fastcall SKILLS_CurseStateCallback_BasicAura(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x005CEC50
 int __stdcall sub_005CEC90_ShortenPoisonAndCurses(D2GameStrc* pGame, D2UnitStrc* pUnit, int nPercent); // 0x005CEC90
@@ -221,14 +210,14 @@ static __forceinline unsigned int RollLimited(D2SeedStrc* pSeed,int nRange)
     if (nRange<=0) return 0;
     if (nRange & (nRange-1))
     {
-        const unsigned __int64 nSeed=pSeed->dwHigh+0x6ac690c5i64*pSeed->dwLow;
-        pSeed->dwHigh=(unsigned int)(nSeed>>32);
-        pSeed->dwLow=(unsigned int)nSeed;
+        const unsigned __int64 nSeed=pSeed->nHighSeed+0x6ac690c5i64*pSeed->nLowSeed;
+        pSeed->nHighSeed=(unsigned int)(nSeed>>32);
+        pSeed->nLowSeed=(unsigned int)nSeed;
         return (unsigned int)nSeed % nRange;
     }
-    const unsigned __int64 nSeed=pSeed->dwHigh+0x6ac690c5i64*pSeed->dwLow;
-    pSeed->dwLow=(unsigned int)nSeed;
-    pSeed->dwHigh=(unsigned int)(nSeed>>32);
+    const unsigned __int64 nSeed=pSeed->nHighSeed+0x6ac690c5i64*pSeed->nLowSeed;
+    pSeed->nLowSeed=(unsigned int)nSeed;
+    pSeed->nHighSeed=(unsigned int)(nSeed>>32);
     return (unsigned int)nSeed & (nRange-1);
 }
 
@@ -261,7 +250,7 @@ static __declspec(noinline) int __cdecl sub_005CFD20_RangeRoll(D2UnitStrc* pUnit
     nMaximum<<=8;
     if (nMinimum<1) nMinimum=256;
     if (nMaximum<=nMinimum) nMaximum=nMinimum+256;
-    return RollLimited(&pUnit->tSeed,nMaximum-nMinimum)+nMinimum;
+    return RollLimited(&pUnit->pSeed,nMaximum-nMinimum)+nMinimum;
 }
 
 // 0x005CFE10

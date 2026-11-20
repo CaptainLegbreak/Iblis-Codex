@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Constants.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define SKILLSFLAGINDEX_PROGRESSIVE 2
@@ -523,9 +524,6 @@ void __cdecl sub_0046F360(); // 0x0046F360
 
 enum D2C_F23Constants
 {
-    UNIT_PLAYER = 0,
-    UNIT_MONSTER = 1,
-    UNIT_OBJECT = 2,
     ITEMSTATCOSTFLAGINDEX_SIGNED = 1,
     STAT_ID_END = 0x1FF,
     STATE_ID_END = 0xFF,

@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define UNIT_OBJECT 2
 #define UNIT_ITEM 4
@@ -31,32 +32,6 @@ struct D2MercDataStrc;
 struct D2GSPacketSrv50;
 struct D2NpcVendorChainStrc;
 
-struct D2UnitStrc
-{
-    union
-    {
-        int dwUnitType;
-        int type;
-    };
-    unsigned int dwClassId;
-    void* pMemoryPool;
-    union
-    {
-        int dwUnitId;
-        int id;
-    };
-    unsigned char unk_10[0x1C];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x30];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0x60];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-};
 
 struct D2PlayerDataStrc
 {
@@ -246,11 +221,6 @@ void __stdcall sub_0063CC70(Inventory*,Unit*); // 0x0063CC70
 void __stdcall sub_00628170(Unit*,int,int); // 0x00628170
 void __fastcall sub_00557FD0(Game*,Unit*); // 0x00557FD0
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 enum
 {
@@ -734,7 +704,7 @@ void __fastcall D2GAME_NPC_IdentifyAllItems_6FCC9C90(D2GameStrc* pGame, D2UnitSt
         return;
     }
 
-    switch (pNpc->dwClassId)
+    switch ((unsigned int)pNpc->dwClassId)
     {
     case 244:
     case 245:
@@ -856,7 +826,7 @@ void __fastcall D2GAME_NPC_ResurrectMerc_6FCC9350(D2GameStrc* pGame, D2UnitStrc*
         return;
     }
 
-    switch (pNpc->dwClassId)
+    switch ((unsigned int)pNpc->dwClassId)
     {
     case 150:
     case 198:
@@ -1051,7 +1021,7 @@ void __fastcall sub_00576E40_DecreaseSkillQuantity(D2UnitStrc* unit, int skillId
     SKILLS_SetQuantity(skill, quantity);
     int id, type;
     if (!unit) { id = -1; type = 6; }
-    else { id = unit->id; type = unit->type; }
+    else { id = unit->dwUnitId; type = unit->dwUnitType; }
     D2GAME_PACKETS_SendPacket0x22_6FC3DBE0(SUNIT_GetClientFromPlayer(unit, gszUnitNpcSource_006E15F0, 0x40b), (unsigned char)type, id, skillId, quantity);
 }
 

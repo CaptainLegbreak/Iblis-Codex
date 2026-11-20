@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
 #pragma intrinsic(memset)
 
@@ -19,12 +20,6 @@ struct D2MonsterDataStrc
     unsigned char nComponent[16];
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x10];
-    D2MonsterDataStrc* pMonsterData;
-};
 
 struct D2DifficultyLevelsTxt
 {

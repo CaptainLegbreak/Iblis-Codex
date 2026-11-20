@@ -1,4 +1,6 @@
 #include "D2Client.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2MonStatsTxt;
 struct D2SeqModeStrc;
@@ -9,11 +11,6 @@ struct D2MonStats2Txt;
 struct D2SkillsTxt;
 struct D2MissileStrc;
 struct Unicode;
-
-enum D2C_UnitTypes
-{
-    UNIT_MONSTER = 1,
-};
 
 struct D2MonStatsTxt
 {
@@ -37,35 +34,7 @@ struct D2DataTablesStrc
     int nSkillsTxtRecordCount;
 };
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08[2];
-    int dwAnimMode;
-    char unk0x14[0x0C];
-    D2SeedStrc pSeed;
-    char unk0x28[0x04];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x14];
-    int nSeqCurrentFramePrecise;
-    int dwFrameCountPrecise;
-    short wAnimSpeed;
-    unsigned char nActionFrame;
-    char unk0x4F[0x75];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-};
 
 struct D2SeqModeStrc
 {

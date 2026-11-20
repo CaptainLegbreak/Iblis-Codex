@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define D2_MAX(a,b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a,b) ((a) < (b) ? (a) : (b))
@@ -26,22 +27,6 @@ struct D2StaticPathStrc;
 struct D2EquipmentRefreshStateStrc;
 struct SwapEntry;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    char unk0x14[0x20 - 0x14];
-    int pSeed[2];
-    unsigned int dwInitSeed;
-    D2DynamicPathStrc* pDynamicPath;
-    char unk0x30[0x30];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0xC4 - 0x60 - 4];
-    unsigned int dwFlags;
-};
 
 struct D2MonStatsTxt { char unk00[0x1a0]; int nDamageRegen; };
 

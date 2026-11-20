@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 struct D2StaticPathStrc
 {
@@ -13,27 +14,6 @@ struct D2MonsterDataStrc
     unsigned char nTypeFlags;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x8];
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-    char unk0x18[0x14];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x14];
-    int dwUnk0x44;
-    char unk0x48[0x68];
-    unsigned int dwUnk0xB0;
-    char unk0xB4[0x10];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-};
 
 struct D2MonCommandStrc
 {
@@ -635,7 +615,7 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
         }
 
         D2COMMON_10212_PATH_SetMoveFlags(pUnit, 0);
-        pUnit->dwUnk0xB0 = pCommand->nParam18;
+        pUnit->dwLastHitClass = pCommand->nParam18;
         PATH_RecacheRoomIfNeeded(pPath);
         sub_00480E70_SetUnitMode(pUnit, 3);
         if (bBlood)
@@ -656,7 +636,7 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
         if (pCommand->nParam04)
             STATLIST_SetUnitStat(pUnit, 6, pCommand->nParam04 << 8, 0);
 
-        pUnit->dwUnk0xB0 = pCommand->nParam00;
+        pUnit->dwLastHitClass = pCommand->nParam00;
         sub_004AF890_SpawnBloodMissiles(pUnit, 1, 1);
         sub_00464C90_SetCounter58(pUnit);
         sub_00480D20_SetModeOverlay(pUnit, 0xD);
@@ -669,7 +649,7 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
         if (pCommand->nParam14)
             STATLIST_SetUnitStat(pUnit, 6, pCommand->nParam14 << 8, 0);
 
-        pUnit->dwUnk0xB0 = pCommand->nParam18;
+        pUnit->dwLastHitClass = pCommand->nParam18;
         D2COMMON_10212_PATH_SetMoveFlags(pUnit, 0);
         PATH_RecacheRoomIfNeeded(pPath);
         PATH_SetType(pPath, 0xB);
@@ -691,7 +671,7 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
     case 8:
     {
         D2COMMON_10212_PATH_SetMoveFlags(pUnit, 0);
-        pUnit->dwUnk0xB0 = pCommand->nParam18;
+        pUnit->dwLastHitClass = pCommand->nParam18;
         if (sub_00467A10() == pUnit)
         {
             if (!(sub_0044BF00() & 8) && !(sub_0044BF10() & 8))
@@ -716,7 +696,7 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
         if (STATES_CheckStateMaskShatterOnUnit(pUnit))
         {
             sub_004AFC10_CreateDeathMissiles(pUnit);
-            pUnit->dwUnk0xB0 = (pUnit->dwUnk0xB0 & 0xF) | 0xA0;
+            pUnit->dwLastHitClass = (pUnit->dwLastHitClass & 0xF) | 0xA0;
         }
 
         if (!(pMonStats2Txt->nFlags[2] & gdwBitMasks[3]))
@@ -736,7 +716,7 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
                 if (pSpawned)
                     pSpawned->dwFlags &= ~2;
 
-                pSpawned->dwUnk0xB0 = pUnit->dwUnk0xB0;
+                pSpawned->dwLastHitClass = pUnit->dwLastHitClass;
                 sub_00480E70_SetUnitMode(pSpawned, 0);
                 sub_004AEDD0(pUnit, pDeadMonStatsTxt->wSpawnId);
             }
@@ -759,7 +739,7 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
             {
                 sub_00480EC0_SetUnitModeNoOverlay(pUnit, 0);
                 pUnit->dwFlags &= ~2;
-                pUnit->dwUnk0x44 = 0xE00;
+                pUnit->nSeqCurrentFramePrecise = 0xE00;
                 sub_00464930_FreeLight(pUnit);
             }
             else

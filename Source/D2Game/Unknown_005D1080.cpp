@@ -1,17 +1,10 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2MissilesTxt;
 struct D2SkillsTxt;
 struct Monster;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk_04[0x28];
-    D2DynamicPathStrc* pDynamicPath;
-    char unk_30[0x94];
-    unsigned int dwFlags;
-};
 
 struct D2GameStrc
 {

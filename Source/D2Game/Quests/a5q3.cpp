@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2PlayerDataStrc;
 struct D2QuestGUIDStrc;
@@ -29,23 +30,6 @@ struct D2GameStrc
     int dwGameFrame;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-    char unk0x18[0x14];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x94];
-    unsigned int dwFlags;
-};
 
 struct D2PlayerDataStrc
 {
@@ -265,7 +249,6 @@ static void __stdcall sub_005891D0_SpawnDrehyaInTown(D2QuestDataStrc* pQuestData
 // 0x00589340
 static void sub_00589340_RemoveNihlathakInTown(D2QuestDataStrc* pQuestData, D2UnitStrc* pNihlathak); // 0x00589340
 
-struct D2SeedStrc { unsigned int nLowSeed; unsigned int nHighSeed; };
 
 struct D2GSPacketSrv5D { unsigned char nHeader, nQuestId, nFlags, nState; unsigned short field_4; };
 

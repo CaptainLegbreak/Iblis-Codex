@@ -1,11 +1,4 @@
-struct D2UnitStrc
-{
-    unsigned int dwUnitType;
-    unsigned int dwClassId;
-    void* pMemoryPool;
-    unsigned int dwUnitId;
-    unsigned int dwAnimMode;
-};
+#include "D2Structs.h"
 
 void __fastcall sub_0046B3C0_UnitRequest25A(D2UnitStrc* pUnit);                                             // 0x0046B3C0
 void __fastcall sub_0046B530_SpawnMissileAtObject(D2UnitStrc* pUnit);                                       // 0x0046B530
@@ -29,7 +22,7 @@ void __fastcall sub_004AD2F0_UnitClassEvent(D2UnitStrc* pUnit, int nUnused, int 
         return;
     }
 
-    switch (pUnit->dwClassId)
+    switch ((unsigned int)pUnit->dwClassId)
     {
     case 0x9C:
         if (pUnit->dwAnimMode == 0)

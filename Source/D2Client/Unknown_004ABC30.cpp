@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 struct Unicode
 {
     unsigned short wChar;
@@ -7,11 +8,6 @@ struct Unicode
 
 struct D2SkillStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-};
 
 struct D2SkillsTxt
 {

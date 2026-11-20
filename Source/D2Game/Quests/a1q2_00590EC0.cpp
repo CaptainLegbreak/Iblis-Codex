@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 #ifdef MOVED_TEST
 #define DIAG_LINE_NUMBER 451
 #define STATE_LINE 452
@@ -12,17 +13,6 @@
 #define GLOBAL_STATE 13
 #endif
 struct D2GameStrc;
-struct D2UnitStrc
-{
-#ifdef MOVED_TEST
-    int moved_prefix;
-#endif
-    int dwUnitType;
-    unsigned short dwClassId;
-    unsigned short unk0x06;
-    int unk0x08;
-    int dwUnitId;
-};
 
 struct D2QuestGUIDStrc
 {

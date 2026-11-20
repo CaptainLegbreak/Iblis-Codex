@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 struct Sub004BDFD0;
 struct Obj004BDFD0;
@@ -38,11 +39,6 @@ struct Unicode
     unsigned short wChar;
 };
 
-struct D2UnitStrc
-{
-    char unk0x00[0x60];
-    D2InventoryStrc* pInventory;
-};
 
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 

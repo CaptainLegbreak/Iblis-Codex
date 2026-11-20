@@ -1,23 +1,10 @@
+#include "D2Structs.h"
 #ifdef MOVED_TEST
 #define SKILL_FLAG 0x20
 #else
 #define SKILL_FLAG 0x40
 #endif
 struct D2MissilesTxt;
-struct D2UnitStrc
-{
-#ifdef MOVED_TEST
-    char movedPrefix[4];
-#endif
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x04];
-    int dwUnitId;
-    char unk0x10[0x38];
-    int dwFrameCountPrecise;
-    char unk0x4C[0x78];
-    unsigned int dwFlags;
-};
 
 struct D2SkillsTxt
 {

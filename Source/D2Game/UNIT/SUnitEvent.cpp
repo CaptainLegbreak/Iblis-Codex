@@ -1,14 +1,10 @@
+#include "D2Structs.h"
 struct D2UnitEventStrc
 {
     char unk0x00[0x1C];
     D2UnitEventStrc* pNext;
 };
 
-struct D2UnitStrc
-{
-    char unk0x00[0x90];
-    D2UnitEventStrc* pSrvUnitEventsList;
-};
 
 struct D2GameStrc
 {

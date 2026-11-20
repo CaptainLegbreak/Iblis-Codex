@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 struct Unicode
 {
@@ -38,11 +39,6 @@ struct T00479230
 };
 #pragma pack(pop)
 
-struct D2UnitStrc
-{
-    char unk0x00[0xA4];
-    D2HoverTextStrc* pHoverText;
-};
 
 extern "C" __declspec(dllimport) int __stdcall MultiByteToWideChar(unsigned int nCodePage, unsigned long dwFlags, const char* szSource, int nSource, Unicode* wszDest, int nDest);
 extern "C" __declspec(dllimport) int __stdcall IntersectRect(D2RectStrc* pDest, const D2RectStrc* pSrc1, const D2RectStrc* pSrc2);

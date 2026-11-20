@@ -1,25 +1,11 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define UNIT_INVALID 6
 struct D2GSPacketSrv26;
 struct D2GSPacketSrv2C;
 struct D2UnitPacketListStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    unsigned int dwUnitId;
-    char unk0x10[0x5E];
-    unsigned short nUpdateType;
-    D2UnitStrc* pUpdateUnit;
-    unsigned char unk_74[0x30];
-    D2HoverTextStrc* pHoverText;
-    unsigned char unk_A8[0x44];
-    D2UnitPacketListStrc* pMsgFirst;
-    D2UnitPacketListStrc* pMsgLast;
-};
 
 #pragma pack(push, 1)
 struct D2GSPacketSrv26

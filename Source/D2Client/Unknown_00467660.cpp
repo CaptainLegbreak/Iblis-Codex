@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 struct D2DynamicPathStrc;
 struct D2ActiveRoomStrc;
 
@@ -8,32 +9,6 @@ struct D2StaticPathStrc
     int nYPos;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    unsigned int dwUnitId;
-    int dwAnimMode;
-    char unk0x14[0x2C - 0x14];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0xC4 - 0x30];
-    union
-    {
-        unsigned int dwFlags;
-        struct
-        {
-            unsigned int bFlag0 : 1;
-            unsigned int bFlag1 : 1;
-            unsigned int bSelectable : 1;
-            unsigned int bFlagsRest : 29;
-        };
-    };
-};
 
 struct D2SkillsTxt
 {

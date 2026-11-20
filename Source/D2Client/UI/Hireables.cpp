@@ -1,14 +1,9 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2_FREE_PANEL_CEL(pCel) if (pCel) { sub_00478A00(pCel); pCel = 0; }
 struct D2PetTypeTxt;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    unsigned char unk_04[0x5C];
-    D2InventoryStrc* pInventory;
-};
 
 struct D2DataTablesStrc
 {

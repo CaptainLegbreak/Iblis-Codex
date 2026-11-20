@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define QUEST_A1Q4_CAIN 4
 #define ACT_II 1
@@ -72,15 +73,6 @@ struct D2GameStrc
     D2DrlgActStrc* pAct[5];
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    char unk0x10[0xA8];
-    unsigned int dwDropItemCode;
-};
 
 struct D2QuestGUIDStrc
 {

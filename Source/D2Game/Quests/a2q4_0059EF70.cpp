@@ -1,8 +1,8 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2CoordStrc { int x; int y; };
 struct D2MonsterDataStrc { int unk00[12]; void* interact; };
-struct D2UnitStrc { int type; int classId; int pool; int id; int mode; D2MonsterDataStrc* monster; int unk18[43]; unsigned int flags; };
 struct D2QuestExStrc {
     char unk00[12]; unsigned char oldSpawned; unsigned char spawned;
     char unk0E[7]; unsigned char coordinatesSet; char unk16[18];
@@ -21,7 +21,7 @@ D2ActiveRoomStrc* __fastcall sub_00463740(D2ActiveRoomStrc*,int,int); // 0x00463
 void __fastcall QUESTS_GetFreePosition(D2ActiveRoomStrc*,D2CoordStrc*,unsigned int,unsigned int,D2ActiveRoomStrc**,int,int); // 0x00545340
 D2UnitStrc* __fastcall sub_005B2F20(D2GameStrc*,D2ActiveRoomStrc*,int,int,int,int,int,int); // 0x005B2F20
 static __forceinline void* GetMonsterInteract(D2UnitStrc* unit) {
-    if (unit && unit->type==1 && unit->monster) return unit->monster->interact;
+    if (unit && unit->dwUnitType==1 && unit->pMonsterData) return unit->pMonsterData->interact;
     return 0;
 }
 static __declspec(noinline)
@@ -52,7 +52,7 @@ void __stdcall sub_0059EF70_SpawnQuestNpc(D2QuestDataStrc* quest,D2CoordStrc* co
     D2UnitStrc* npc=sub_005B2F20(quest->game,found,coords->x,coords->y,201,1,-1,0);
     if (!npc) npc=sub_005B2F20(quest->game,found,coords->x,coords->y,201,1,2,0);
     if (npc) {
-        npc->flags|=0x03000000;
+        npc->dwFlags|=0x03000000;
         ex=quest->ex;
         ex->spawned=1;
         if (!ex->coordinatesSet) {

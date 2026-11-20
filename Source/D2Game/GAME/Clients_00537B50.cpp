@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_OBJECT 2
@@ -47,37 +48,6 @@ struct D2StaticPathStrc
     D2CoordStrc tGameCoords;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    unsigned char unk_10[0x4];
-    D2MonsterDataStrc* pMonsterData;
-    union
-    {
-        struct
-        {
-            char unk0x18[0x68];
-        };
-        struct
-        {
-            unsigned char unk_18[0x14];
-            D2DynamicPathStrc* pDynamicPath;
-        };
-        struct
-        {
-            unsigned char unk_18_2[0x14];
-            D2StaticPathStrc* pStaticPath;
-        };
-    };
-    D2GameStrc* pGame;
-    char unk0x84[0x0C];
-    D2UnitEventStrc* pSrvUnitEventsList;
-    unsigned char unk_94[0x34];
-    unsigned int dwFlagEx;
-};
 
 struct D2ClientKeySkillStrc
 {

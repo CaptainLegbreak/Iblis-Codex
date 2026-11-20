@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define LEVEL_ROGUEENCAMPMENT 1
@@ -46,11 +47,6 @@ struct D2GameStrc
     D2DrlgActStrc* pAct[5];
 };
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2ObjectControlStrc
 {
@@ -63,14 +59,6 @@ struct D2ObjectDataStrc
     unsigned char InteractType;
 };
 
-struct D2UnitStrc
-{
-    char unk0x00[0x10];
-    int dwAnimMode;
-    D2ObjectDataStrc* pObjectData;
-    unsigned char unk_18[0xAC];
-    unsigned int dwFlags;
-};
 
 struct D2ObjectsTxt
 {

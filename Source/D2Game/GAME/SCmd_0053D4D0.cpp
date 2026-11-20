@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
@@ -28,27 +29,6 @@ extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize); //
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-    char unk0x18[0x14];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x64];
-    int dwOwnerType;
-    int dwOwnerGUID;
-    char unk0x9C[0x28];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-};
 
 struct D2PacketDataStrc
 {
@@ -129,12 +109,6 @@ struct D2BitBufferStrc
     int bFull;
 };
 
-struct D2StatStrc
-{
-    unsigned short nLayer;
-    unsigned short nStat;
-    int nValue;
-};
 
 struct D2ItemStatCostTxt
 {

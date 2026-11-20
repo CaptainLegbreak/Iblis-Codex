@@ -1,18 +1,11 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2StaticPathStrc
 {
     unsigned char unk_00[0x0C];
     int nXPos;
     int nYPos;
-};
-struct D2UnitStrc
-{
-    int dwUnitType;
-    unsigned char dwClassId[8];
-    unsigned int dwUnitId;
-    unsigned char unk_10[0x1C];
-    void* pPath;
 };
 int __stdcall PATH_GetXPosition(D2PathRecordStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2PathRecordStrc* pPath); // 0x00648900
@@ -25,9 +18,9 @@ static __forceinline int UNITS_GetXPosition(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return ((D2StaticPathStrc*)pUnit->pPath)->nXPos;
+        return ((D2StaticPathStrc*)pUnit->pDynamicPath)->nXPos;
     default:
-        return pUnit->pPath ? PATH_GetXPosition((D2PathRecordStrc*)pUnit->pPath) : 0;
+        return pUnit->pDynamicPath ? PATH_GetXPosition((D2PathRecordStrc*)pUnit->pDynamicPath) : 0;
     }
 }
 
@@ -38,9 +31,9 @@ static __forceinline int UNITS_GetYPosition(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return ((D2StaticPathStrc*)pUnit->pPath)->nYPos;
+        return ((D2StaticPathStrc*)pUnit->pDynamicPath)->nYPos;
     default:
-        return pUnit->pPath ? PATH_GetYPosition((D2PathRecordStrc*)pUnit->pPath) : 0;
+        return pUnit->pDynamicPath ? PATH_GetYPosition((D2PathRecordStrc*)pUnit->pDynamicPath) : 0;
     }
 }
 

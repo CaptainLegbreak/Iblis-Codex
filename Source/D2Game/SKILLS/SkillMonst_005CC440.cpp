@@ -1,23 +1,13 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 enum D2C_J07SkillsConstants
 {
-    UNIT_MONSTER = 1,
-    UNIT_INVALID = 6,
     MONMODE_SEQUENCE = 14,
     UNITFLAG_SKSRVDOFUNC = 0x40,
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x3C];
-    int nSeqCurrentFramePrecise;
-    int dwFrameCountPrecise;
-    char unk0x4C[0x78];
-    unsigned int dwFlags;
-};
 
 struct D2SkillsTxt
 {

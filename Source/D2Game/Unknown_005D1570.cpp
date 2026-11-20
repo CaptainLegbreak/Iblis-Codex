@@ -1,9 +1,9 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 enum D2C_F39Constants
 {
-    UNIT_PLAYER = 0,
-    UNIT_MONSTER = 1,
     STAT_HITPOINTS = 6,
     STAT_MODIFIERLIST_SKILL = 350,
     STAT_MODIFIERLIST_LEVEL = 351,
@@ -40,9 +40,6 @@ enum D2C_F39Constants
     STATE_NOMANAREGEN = 0x55,
     STATE_CONVERSION_SAVE = 0x6D,
     STATLIST_FLAG_8 = 8,
-    UNIT_OBJECT = 2,
-    UNIT_ITEM = 4,
-    UNIT_TILE = 5,
 };
 
 struct D2MonsterRegionStrc;
@@ -85,27 +82,6 @@ struct D2GameStrc
     D2MonsterRegionStrc* pMonReg;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    unsigned int dwClassId;
-    char unk0x08[0x04];
-    int dwUnitId;
-    char unk0x10[0x04];
-    D2MonsterDataStrc* pMonsterData;
-    char unk0x18[0x14];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x0C];
-    unsigned int dwSeqSpeed;
-    char unk0x40[0x0E];
-    unsigned char nActionFrame;
-    char unk0x4F[0x75];
-    unsigned int dwFlags;
-};
 
 struct D2DamageStrc
 {

@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 #ifdef MOVED_TEST
 #define SHIFT 4
 #define INVALID_UNIT 8
@@ -8,22 +9,6 @@
 struct D2GameStrc;
 struct D2DynamicPathStrc;
 struct D2InventoryStrc;
-struct D2UnitStrc
-{
-#ifdef MOVED_TEST
-    int moved_prefix;
-#endif
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x04];
-    unsigned int dwUnitId;
-    char unk0x10[0x1C];
-    D2DynamicPathStrc* pDynamicPath;
-    char unk0x30[0x30];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0x60];
-    unsigned int dwFlags;
-};
 struct D2SkillsTxt {
     char unk0x000[4 + SHIFT];
     unsigned char nFlags[8];

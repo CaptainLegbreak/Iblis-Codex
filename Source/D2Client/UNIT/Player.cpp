@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2LightStrc;
@@ -25,34 +26,7 @@ struct D2StaticPathStrc
     int nYPos;
 };
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x0C];
-    int dwAnimMode;
-    D2PlayerDataStrc* pPlayerData;
-    unsigned char unk_18[0x8];
-    D2SeedStrc tSeed;
-    unsigned int dwInitSeed;
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x30];
-    D2InventoryStrc* pInventory;
-    D2GfxLightStrc* pLight;
-    char unk0x68[0x40];
-    D2SkillListStrc* pSkills;
-    char unk0xAC[0x18];
-    unsigned int dwFlags;
-};
 
 struct D2MonStatsTxt
 {
@@ -592,7 +566,7 @@ void __fastcall sub_00460BF0_InitClientPlayer(D2UnitStrc* pUnit, D2ActiveRoomStr
     if (pUnit != pPlayer)
     {
         D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
-        D2SeedStrc* pSeed = &pUnit->tSeed;
+        D2SeedStrc* pSeed = &pUnit->pSeed;
         unsigned __int64 lSeed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
         pSeed->nLowSeed = (unsigned int)lSeed;
         pSeed->nHighSeed = (unsigned int)(lSeed >> 32);

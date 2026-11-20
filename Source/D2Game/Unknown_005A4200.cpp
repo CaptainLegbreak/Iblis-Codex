@@ -1,4 +1,6 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 #define MONMODE_DEATH 0
 #define MONMODE_NEUTRAL 1
 #define EVENTTYPE_MONUMOD 7
@@ -20,22 +22,7 @@ struct D2MonsterDataStrc
     unsigned char nUMods[9];
 };
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    unsigned char unk_08[0x8];
-    unsigned int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-    unsigned char unk_18[0x8];
-    D2SeedStrc pSeed;
-};
 
 typedef void(__fastcall* MONUMODFUNC)(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique);
 
@@ -80,7 +67,6 @@ struct D2DamageStrc
 
 enum D2C_J10MonModeConstants
 {
-    UNIT_MONSTER = 1,
     HITCLASS_CRITICAL = 0x10,
     OVERLAY_CRITICAL = 54,
 };

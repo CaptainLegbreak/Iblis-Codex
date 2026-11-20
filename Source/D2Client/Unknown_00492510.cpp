@@ -1,12 +1,7 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 struct D2InvRectStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x5C];
-    D2InventoryStrc* pInventory;
-};
 
 struct SMSGHANDLER_PARAMS
 {

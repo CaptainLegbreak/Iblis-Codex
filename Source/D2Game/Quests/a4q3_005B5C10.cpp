@@ -1,7 +1,7 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2GameStrc { char pad00[0x6d];unsigned char difficulty;char pad6e[0x3a];int frame; };
-struct D2UnitStrc { int type,classId;void* pool;int id,mode;char pad14[0x4c];D2InventoryStrc* inventory; };
 struct D2PlayerDataStrc { char pad00[0x10];D2BitBufferStrc* quest[3]; };
 struct D2Act4Quest3Strc { unsigned short forgeMode;unsigned char unused02,completionStarted,rewardPending;char pad05[3];int rewardState,hammerHits;int unused10,playersInAct; };
 struct D2QuestDataStrc { int number;D2GameStrc* game;unsigned char act,notIntro,active,lastState,state,init;unsigned short unused0e;int sequence;unsigned char flagsLow;char flagsHigh[3];D2Act4Quest3Strc* data;char pad1c[0xc4];int filter; };
@@ -33,8 +33,8 @@ void __fastcall QUESTS_TriggerFX(D2GameStrc*,unsigned char); // 0x00545760
 int __fastcall sub_005B59C0(D2GameStrc*,D2UnitStrc*,void*); // 0x005B59C0
 void __fastcall sub_005B5B00(D2GameStrc*,D2UnitStrc*,void*); // 0x005B5B00
 int __fastcall sub_005B5BB0(D2GameStrc*,D2UnitStrc*,void*); // 0x005B5BB0
-static __forceinline int UNITS_GetClassIdInline(D2UnitStrc* unit){ if(!unit)return -1; return unit->classId; }
-static __forceinline int UNITS_GetAnimModeInline(D2UnitStrc* unit){ if(!unit)return 0; return unit->mode; }
+static __forceinline int UNITS_GetClassIdInline(D2UnitStrc* unit){ if(!unit)return -1; return unit->dwClassId; }
+static __forceinline int UNITS_GetAnimModeInline(D2UnitStrc* unit){ if(!unit)return 0; return unit->dwAnimMode; }
 
 // 0x005B5C10
 int __fastcall sub_005B5C10(D2ObjectOperateStrc* operation)
@@ -64,7 +64,7 @@ int __fastcall sub_005B5C10(D2ObjectOperateStrc* operation)
    case 2: {
     D2UnitStrc* item=ITEMS_FindQuestItem(operation->game,operation->player,0x20686668);
     if(!item)goto playSound;
-    D2InventoryStrc* inventory=operation->player->inventory;
+    D2InventoryStrc* inventory=operation->player->pInventory;
     if(!inventory){SUNIT_AttachSound(operation->player,19,operation->player);return 0;}
     item=INVENTORY_GetLeftHandWeapon(inventory);
     if(!item || DATATBLS_GetItemsTxtRecord(UNITS_GetClassIdInline(item))->code!=0x20686668)goto playSound;

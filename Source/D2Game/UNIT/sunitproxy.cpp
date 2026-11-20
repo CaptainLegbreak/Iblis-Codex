@@ -1,4 +1,6 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2NpcRecordStrc;
@@ -51,19 +53,6 @@ struct M08EmitRecStrc
     D2UnitProxyStrc tProxy;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    char unk0x10[0x50];
-    D2InventoryStrc* pInventory;
-    unsigned char unk_64[0x60];
-    unsigned int dwFlags;
-    char unk0xC8[0x14];
-    D2EventTimerStrc* pTimer;
-};
 
 struct D2NpcGambleStrc
 {
@@ -279,8 +268,6 @@ struct D2RegurgitatorAiCallbackArgStrc
 enum
 {
     MAX_NPC_INVENTORY = 17,
-    UNIT_MONSTER = 1,
-    UNIT_INVALID = 6,
     UNIT_ALIGNMENT_EVIL = 0,
     UNITFLAG_TARGETABLE = 0x00000002,
     UNITFLAG_ISMERC = 0x00000200,

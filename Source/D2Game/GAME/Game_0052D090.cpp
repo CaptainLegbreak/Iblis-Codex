@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
@@ -17,13 +18,6 @@ struct D2GameHashLinkStrc;
 struct D2GameHashListStrc;
 struct D2GameDataTableStrc;
 
-struct D2UnitStrc
-{
-    char unk0x0000[0x4];
-    int dwClassId;
-    unsigned char unk_08[0xE0];
-    D2UnitStrc* pRoomNext;
-};
 
 struct D2ActiveRoomStrc
 {

@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 struct D2SeedStrc;
 struct D2DrlgCoordsStrc;
@@ -7,21 +8,7 @@ struct D2StaticPathStrc;
 struct D2MonStatsTxt;
 struct D2MonStats2Txt;
 
-struct D2SeedStrc { unsigned int nLowSeed; unsigned int nHighSeed; };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x18];
-    D2SeedStrc pSeed;
-    unsigned char unk_28[0x4];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-};
 
 struct D2DrlgCoordsStrc
 {

@@ -1,11 +1,12 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define INVPAGE_CUBE 3
 #define STRCOLOR_WHITE 0
 #define EVENTTYPE_PLAYERISBUSY 8
 #define EVENTTYPE_PLEASEWAIT 9
-#define UNIT_PLAYER 0
 struct D2ObjectControlStrc;
 struct D2PlayerTradeStrc;
 struct D2ObjOperateFnStrc;
@@ -16,18 +17,6 @@ struct D2GSPacketSrv78;
 struct Item;
 struct ItemRecordTable;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x0C - 8];
-    int dwUnitId;
-    int dwAnimMode;
-    char unk0x14[0x60 - 0x14];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0x64];
-    unsigned int dwFlagEx;
-};
 
 void __stdcall SUNIT_ResetInteractInfo(D2UnitStrc* pUnit); // 0x00554190
 
@@ -58,7 +47,6 @@ struct D2ObjOperateFnStrc
 
 enum
 {
-    UNIT_OBJECT = 2,
     OBJECT_STASH = 0x10B,
     UPDATEUI_OPENSTASH = 0x10,
 };

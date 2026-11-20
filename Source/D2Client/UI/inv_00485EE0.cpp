@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 struct Unicode
 {
@@ -11,12 +12,6 @@ struct Unicode
     static Unicode* __fastcall win2Unicode(Unicode* dest, const char* src, int count);   // 0x00526F20
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x18];
-    D2DrlgActStrc* pDrlgAct;
-};
 
 struct D2ItemStatCostTxt
 {

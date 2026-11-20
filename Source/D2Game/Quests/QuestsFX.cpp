@@ -1,4 +1,6 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define MAX(a, b) ((a) < (b) ? (b) : (a))
@@ -22,14 +24,12 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 
 enum D2C_M96QuestsFxConstants
 {
-    UNIT_MONSTER = 1,
     MONSTER_DIABLOCLONE = 333,
     MISSILE_RADAMENTDEATH = 347,
     EVENTTYPE_MONUMOD = 7,
     MONUMOD_TEMPSUMMON = 21,
 };
 
-struct D2SeedStrc { unsigned int nLowSeed; unsigned int nHighSeed; };
 
 struct D2StaticPathStrc { char unk0x00[0x0C]; int nX; int nY; };
 
@@ -41,22 +41,6 @@ struct D2GameStrc
     unsigned int dwGameFrame;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    unsigned char unk_14[0xC];
-    D2SeedStrc pSeed;
-    char unk0x28[4];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-};
 
 struct D2UnitFindArgStrc
 {
@@ -126,7 +110,6 @@ D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc* pGame, D2Mis
 
 enum D2C_P11QuestsFxConstants
 {
-    UNIT_OBJECT = 2,
     OBJECT_COMPELLINGORB_STAIRS = 386,
     MISSILE_ORBMIST = 0x170,
     OBJMODE_NEUTRAL = 0,

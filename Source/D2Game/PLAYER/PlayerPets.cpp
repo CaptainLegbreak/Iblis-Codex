@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define PETTYPE_SINGLE 1
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -24,26 +25,6 @@ struct D2PetUpdateStrc
     int nParam;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    char unk0x10[0x08];
-    unsigned char nAct;
-    char unk0x19[0x03];
-    D2DrlgActStrc* pDrlgAct;
-    char unk0x20[0x0C];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x94];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-};
 
 D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc* pUnit, const char* szFile, int nLine); // 0x005531C0
 void __fastcall sub_0053CB30_SendPetUpdate(D2ClientStrc* pClient, unsigned char nFlag, int nParam, int nUnitId, int nClassId, unsigned short nPetType); // 0x0053CB30

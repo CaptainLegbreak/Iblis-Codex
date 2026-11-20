@@ -37,7 +37,6 @@ extern const D2AiTableStrc gpSpecialAiStateTable_6FD40290[18];                  
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof((a)[0]))
-#define UNIT_MONSTER 1
 #define AISPECIALSTATE_DIMVISION 10
 #define AISPECIALSTATE_TERROR 11
 #define AISPECIALSTATE_TAUNT 12
@@ -58,3 +57,4 @@ int __fastcall AITHINK_CullPotentialTargetsForDiablo(D2UnitStrc* pUnit, D2UnitSt
 }
 
 #include "gen/data/Source/D2Game/Unknown_005E8EB0.inc"
+#include "D2Constants.h"

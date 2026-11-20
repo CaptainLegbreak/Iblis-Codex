@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -181,11 +182,6 @@ extern int gnGlobal_00711470; // 0x00711470
 extern int gdwGlobal_007BC978; // 0x007BC978
 void __cdecl sub_K04_EmitUse(int nValue);
 
-struct D2UnitStrc
-{
-    char unk0x00[0x60];
-    D2InventoryStrc* pInventory;
-};
 
 int __cdecl sub_0044DB30(); // 0x0044DB30
 extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char* szText); // 0x006CC200

@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -17,11 +18,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 #define MONMODE_WALK 2
 typedef int (__stdcall* FARPROC)();
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2ObjectControlStrc
 {
@@ -44,16 +40,6 @@ struct D2ObjectDataStrc
     unsigned char InteractType;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId; int unk0x008;
-    int dwUnitId;
-    int dwAnimMode;
-    D2ObjectDataStrc* pObjectData;
-    char unk0x018[0xA0]; unsigned int dwDropItemCode; char unk0x0BC[8];
-    unsigned int dwFlags;
-};
 
 struct D2MonRegDataStrc
 {

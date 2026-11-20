@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 #ifdef MOVED_TEST
 #define BURST_CENTER 22
 #define MISSILE_FLAGS 7
@@ -6,20 +7,6 @@
 #define MISSILE_FLAGS 3
 #endif
 struct D2GameStrc;
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
-struct D2UnitStrc
-{
-#ifdef MOVED_TEST
-    int moved_prefix;
-#endif
-    int dwUnitType;
-    int unk0x04[7];
-    D2SeedStrc pSeed;
-};
 struct D2SkillsTxt
 {
     char unk0x000[0x23C];

@@ -1,11 +1,6 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
-struct D2StatStrc
-{
-    unsigned short nLayer;
-    unsigned short nStat;
-    int nValue;
-};
 
 struct D2CharStatsTxt
 {

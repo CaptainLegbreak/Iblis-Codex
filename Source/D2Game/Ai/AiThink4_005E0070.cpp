@@ -1,4 +1,6 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define AI_GetParam(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
@@ -24,9 +26,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 enum
 {
-    UNIT_PLAYER = 0,
-    UNIT_MONSTER = 1,
-    UNIT_INVALID = 6,
 };
 
 enum
@@ -109,42 +108,7 @@ struct D2GameStrc
     int bUberMephistoKilled;
 };
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    union
-    {
-        struct
-        {
-            char unk0x14[0xA4];
-        };
-        struct
-        {
-            unsigned char unk_14[0xC];
-            D2SeedStrc pSeed;
-            unsigned char unk_28[0x4];
-            D2DynamicPathStrc* pDynamicPath;
-        };
-        struct
-        {
-            unsigned char unk_14_2[0x18];
-            D2StaticPathStrc* pStaticPath;
-        };
-    };
-    unsigned int dwDropItemCode;
-    char unk0xBC[0x08];
-    unsigned int dwFlags;
-};
 
 struct D2AiControlStrc
 {

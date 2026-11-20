@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 struct D2DrlgTileDataStrc;
 struct D2TileGrid0066ECE0Strc;
 union D2C_PackedTileInformation;
@@ -42,11 +43,6 @@ union D2C_PackedTileInformation
     };
 };
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2DrlgCoordStrc
 {

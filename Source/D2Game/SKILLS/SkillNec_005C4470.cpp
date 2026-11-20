@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 struct D2SkillsTxt;
 struct D2SummonArgStrc;
 
@@ -58,17 +59,6 @@ struct D2DataTablesStrc
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk08;
-    int dwUnitId;
-    char unk10[0xB4];
-    unsigned int dwFlags;
-    char unkC8[8];
-    int dwNodeIndex;
-};
 
 int __fastcall sub_0044BE50_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
 int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50

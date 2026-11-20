@@ -1,25 +1,12 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 struct D2SeedStrc;
 struct D2SkillsTxt;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x10 - 0x04 - 4];
-    int dwAnimMode;
-    char unk0x14[0x20 - 0x10 - 4];
-    D2SeedStrc pSeed;
-};
 
 struct D2GameStrc
 {

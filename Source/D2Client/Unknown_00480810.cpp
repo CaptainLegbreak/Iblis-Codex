@@ -1,7 +1,4 @@
-struct D2UnitStrc {
-    int dwUnitType; unsigned char pad04[8]; int dwUnitId;
-    unsigned char pad10[0xB4]; unsigned int dwFlags, dwFlagsEx;
-};
+#include "D2Structs.h"
 D2UnitStrc* __fastcall sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 void __fastcall sub_004786A0_SendUnitPacket(unsigned char header, int type, int id); // 0x004786A0
 void __fastcall sub_00465F00_RemoveUnit(int id, int type); // 0x00465F00
@@ -33,7 +30,7 @@ inline int IsDeferredUnit(D2UnitStrc* unit)
 inline int HasQueuedUnitPacket(D2UnitStrc* unit)
 {
     if (!unit) return 0;
-    return (unit->dwFlagsEx >> 5) & 1;
+    return (unit->dwFlagEx >> 5) & 1;
 }
 inline int IsServerUnit(D2UnitStrc* unit)
 {
@@ -52,7 +49,7 @@ void __fastcall sub_00480810_OnUnitA(D2UnitStrc* unit)
             const int packetType = GetUnitType(unit);
             sub_004786A0_SendUnitPacket(0x4B, packetType, packetId);
             unit->dwFlags &= 0xFF7FFFFF;
-            unit->dwFlagsEx &= 0xFFFFFFDF;
+            unit->dwFlagEx &= 0xFFFFFFDF;
         }
         if (IsServerUnit(unit))
             sub_00465F00_RemoveUnit(GetUnitId(unit), GetUnitType(unit));

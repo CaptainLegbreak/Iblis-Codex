@@ -1,4 +1,6 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 struct D2AuraCallbackStrc;
 struct D2BasicAuraParamStrc;
@@ -7,23 +9,7 @@ struct D2SkillsTxt;
 struct D2SeedStrc;
 struct D2MonStatsTxt;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08;
-    int dwUnitId;
-    unsigned char unk_10[0x10];
-    D2SeedStrc pSeed;
-    unsigned char unk_28[0x38];
-    D2InventoryStrc* pInventory;
-};
 
 struct D2GameStrc
 {
@@ -125,7 +111,6 @@ typedef int (__fastcall* AURACALLBACK)(D2AuraCallbackStrc* pAuraCallback, D2Unit
 
 enum D2C_Y09HolyFreezeConstants
 {
-    UNIT_PLAYER = 0,
     STAT_MANA = 8,
     STATE_NOMANAREGEN = 85,
 };

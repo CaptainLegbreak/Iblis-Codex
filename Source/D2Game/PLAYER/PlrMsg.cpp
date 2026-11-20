@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define UNIT_OBJECT 2
 #define UNIT_MISSILE 3
@@ -66,30 +67,6 @@ struct D2StaticPathStrc
     };
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-    char unk0x18[0x2C - 0x18];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x30];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0x40];
-    D2HoverTextStrc* pHoverText;
-    unsigned char unk_A8[0x8];
-    unsigned int dwLastHitClass;
-    unsigned char unk_B4[0x10];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-};
 
 typedef void (__fastcall* PlrMsgFunc)(D2GameStrc*, D2UnitStrc*, D2ClientStrc*, int);
 

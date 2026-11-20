@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 struct D2DrlgOrthStrc;
 struct D2DrlgBuildStrc;
@@ -59,11 +60,6 @@ struct D2DrlgStrc
     int nBossTombLevel;
 };
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2DrlgLevelStrc
 {

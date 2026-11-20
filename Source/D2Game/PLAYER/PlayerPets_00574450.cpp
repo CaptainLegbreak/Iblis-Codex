@@ -1,17 +1,8 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2ModeChangeStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    char unk0x10[0xC4 - 0x10];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-};
 
 struct D2GameStrc
 {

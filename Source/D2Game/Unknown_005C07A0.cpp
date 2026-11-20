@@ -1,4 +1,6 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 struct D2MonStats2Txt;
 struct D2ModeChangeStrc;
@@ -6,27 +8,7 @@ struct D2SeedStrc;
 
 struct D2GameStrc { char unk0x00[0xA8]; int dwGameFrame; };
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08;
-    int dwUnitId;
-    char unk0x10[0x10];
-    D2SeedStrc pSeed;
-    unsigned char unk_28[0x4];
-    D2DynamicPathStrc* pDynamicPath;
-    char unk0x30[0x94];
-    unsigned int dwFlags;
-    char unk0xC8[8];
-    int dwNodeIndex;
-};
 
 struct D2MonStats2Txt { char unk0x00[0x10B]; unsigned char nResurrectMode; };
 
@@ -80,9 +62,6 @@ struct D2DamageStrc
 
 enum D2C_SkillItemConstants
 {
-    UNIT_PLAYER = 0,
-    UNIT_MONSTER = 1,
-    UNIT_INVALID = 6,
     MONTYPEFLAG_UNIQUE_CHAMPION = 12,
     UNITEVENT_13 = 13,
 };

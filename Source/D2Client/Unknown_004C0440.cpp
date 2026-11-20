@@ -47,11 +47,6 @@ struct D2PacketRecord7Strc
 };
 
 #pragma pack(pop)
-struct D2UnitStrc
-{
-    char unk0x00[0x60];
-    D2InventoryStrc* pInventory;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -118,6 +113,7 @@ static int sub_004C0450_ClickHotspots(int nX, int nY)
 }
 
 #include "gen/data/Source/D2Client/Unknown_004C0440.inc"
+#include "D2Structs.h"
 
 static int gnFlag_007C5470; // 0x007C5470
 

@@ -1,4 +1,6 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define MONSTER_DEMONHOLE 711
@@ -27,12 +29,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 enum
 {
-    UNIT_PLAYER = 0,
-    UNIT_MONSTER = 1,
-    UNIT_OBJECT = 2,
-    UNIT_MISSILE = 3,
-    UNIT_ITEM = 4,
-    UNIT_TILE = 5,
 };
 
 enum
@@ -113,29 +109,7 @@ struct D2MonsterDataStrc
     D2AiParamStrc* pAiParam;
 };
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-    unsigned char unk_18[0x8];
-    D2SeedStrc tSeed;
-    unsigned char unk_28[0x4];
-    union
-    {
-        D2StaticPathStrc* pStaticPath;
-        D2DynamicPathStrc* pDynamicPath;
-    };
-};
 
 struct D2MapAIStrc
 {
@@ -699,7 +673,7 @@ void __fastcall AITHINK_Fn101_AssassinSentry(D2GameStrc* pGame, D2UnitStrc* pUni
     }
 
     const int nDifficulty = pGame->nDifficulty;
-    if (sub_0045C390_SeedRollLimited(&pUnit->tSeed, 100) < pMonStatsTxt->wAiParam[0][nDifficulty])
+    if (sub_0045C390_SeedRollLimited(&pUnit->pSeed, 100) < pMonStatsTxt->wAiParam[0][nDifficulty])
     {
         if (AITHINK_AssasinSentryHasLostTarget(pGame, pUnit, pAiTickParam, 1))
         {
@@ -743,7 +717,7 @@ inline unsigned __int64 SEED_RollRandomNumber(D2SeedStrc* pSeed)
 
 static int AI_RollPercentage(D2UnitStrc* pUnit)
 {
-    return (unsigned int)SEED_RollRandomNumber(&pUnit->tSeed) % 100;
+    return (unsigned int)SEED_RollRandomNumber(&pUnit->pSeed) % 100;
 }
 
 // 0x005E9E00
@@ -824,7 +798,7 @@ int __fastcall sub_005EAD50(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pT
             }
 
             const int nValue = sub_006459F0(nSkillId, nSkillLevel);
-            D2SeedStrc* pSeed = &pUnit->tSeed;
+            D2SeedStrc* pSeed = &pUnit->pSeed;
             if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) > 100 - nValue * 160 / 100)
             {
                 return 0;

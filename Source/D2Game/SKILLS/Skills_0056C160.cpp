@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define UNIT_PLAYER 0
 #define UNIT_INVALID 6
@@ -11,13 +12,6 @@
 #define SKILLSFLAGINDEX_IMMEDIATE 15
 struct D2SkillsTxt;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-};
 
 struct D2SkillStrc
 {

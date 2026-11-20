@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
@@ -29,26 +30,7 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    unsigned char unk_08[0xC];
-    D2PlayerDataStrc* pPlayerData;
-    unsigned char unk_18[0x8];
-    D2SeedStrc tSeed;
-    unsigned char unk_28[0x38];
-    D2InventoryStrc* pInventory;
-    unsigned char unk_64[0x60];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-};
 
 struct D2OverlayStrc
 {
@@ -982,7 +964,7 @@ void __fastcall sub_00470390(D2UnitStrc* pUnit, int nOverlay, int nType, int nAr
         pNew->n08 = 1;
         break;
     case 6:
-        pNew->n18 = ITEMS_RollLimitedRandomNumber(&pPlayer->tSeed, pNew->n1C);
+        pNew->n18 = ITEMS_RollLimitedRandomNumber(&pPlayer->pSeed, pNew->n1C);
         break;
     default:
         pNew->n08 = nArg5;
@@ -1031,11 +1013,11 @@ void __fastcall sub_00470390(D2UnitStrc* pUnit, int nOverlay, int nType, int nAr
     }
 
     if (nArg4)
-        pNew->n18 = ITEMS_RollLimitedRandomNumber(&pPlayer->tSeed, nArg4 << 8);
+        pNew->n18 = ITEMS_RollLimitedRandomNumber(&pPlayer->pSeed, nArg4 << 8);
 
     pNew->n14 = pTxt->n6C << 4;
     if (nArg8)
-        pNew->n14 += ITEMS_RollLimitedRandomNumber(&pPlayer->tSeed, nArg8 << 4);
+        pNew->n14 += ITEMS_RollLimitedRandomNumber(&pPlayer->pSeed, nArg8 << 4);
 
     pNew->n28 = pTxt->n78;
 }

@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define UNIT_MONSTER 1
 #define MONSTATS2FLAGINDEX_DEADCOL_0057AF00 0x13
@@ -85,31 +86,7 @@ struct D2CombatStrc
     D2CombatStrc* pNext;
 };
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    unsigned int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-    unsigned char unk_18[0x8];
-    D2SeedStrc pSeed;
-    unsigned char unk_28[0x4];
-    D2DynamicPathStrc* pDynamicPath;
-    char unk0x30[0x7C];
-    D2CombatStrc* pCombat;
-    char unk0xB0[0x8];
-    unsigned int dwDropItemCode;
-    char unk0xBC[0x8];
-    unsigned int dwFlags;
-};
 
 struct D2GameStrc
 {

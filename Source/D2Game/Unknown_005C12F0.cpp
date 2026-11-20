@@ -1,6 +1,6 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
-union D2SeedStrc { struct { unsigned int nLowSeed; unsigned int nHighSeed; }; unsigned __int64 lSeed; };
 struct D2MagicAffixTxt { char unk00[0x22]; unsigned short wVersion; char unk24[0x30]; unsigned char bSpawnable; char unk55[3]; int nLevel; char unk5C[0x34]; };
 struct D2MagicAffixDataTbl { int nCount; D2MagicAffixTxt* pMagicAffix; D2MagicAffixTxt* pSuffix; D2MagicAffixTxt* pPrefix; D2MagicAffixTxt* pAutoMagic; };
 struct D2AffixIndexAndPtrStrc { int nIndex; D2MagicAffixTxt* pAffix; };

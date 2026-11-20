@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
 
@@ -25,11 +26,6 @@ struct D2DrlgCoordStrc
     int nHeight;
 };
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2DrlgOrthStrc
 {

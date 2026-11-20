@@ -1,17 +1,9 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 struct D2SkillsTxt;
 struct D2MissileStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int unk0x10[7];
-    D2DynamicPathStrc* pDynamicPath;
-};
 
 D2UnitStrc* __fastcall sub_004648F0_GetTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 int __fastcall sub_004638A0_CheckMonStats2Flag(int nMonsterId, int nFlag); // 0x004638A0

@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_MONSTER 1
@@ -15,20 +16,6 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int unk0x04[5];
-    unsigned char nAct;
-    unsigned char unk0x19[3];
-    D2DrlgActStrc* pDrlgAct;
-    int unk0x20[3];
-    D2DynamicPathStrc* pDynamicPath;
-    char unk0x30[0xC8 - 0x30];
-    unsigned int dwFlagEx;
-    unsigned char unk_CC[0x1C];
-    D2UnitStrc* pRoomNext;
-};
 
 struct D2ActiveRoomStrc
 {

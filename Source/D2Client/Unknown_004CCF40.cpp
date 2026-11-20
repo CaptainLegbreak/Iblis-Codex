@@ -1,17 +1,11 @@
 #include "D2Client.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
-#define UNIT_INVALID 6
 #define UNIT_ALIGNMENT_GOOD 2
 struct D2MissilesTxt;
 struct D2CltMissileFindArgStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    unsigned char unk_08[0xBC];
-    unsigned int dwFlags;
-};
 
 struct D2MissilesTxt
 {
@@ -42,14 +36,6 @@ int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 int __stdcall MISSILE_CheckUnitIfOwner(D2UnitStrc* pMissile, D2UnitStrc* pUnit); // 0x0064A470
 int __fastcall sub_00465C60_CheckUnitPair(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x00465C60
 int __stdcall STATLIST_GetUnitAlignment(D2UnitStrc* pUnit); // 0x006259B0
-
-enum D2C_UnitTypes
-{
-    UNIT_PLAYER = 0,
-    UNIT_MONSTER = 1,
-    UNIT_OBJECT = 2,
-    UNIT_MISSILE = 3,
-};
 
 struct D2DataTablesStrc
 {

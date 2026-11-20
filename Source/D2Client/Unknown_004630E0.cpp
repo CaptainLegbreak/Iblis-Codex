@@ -1,16 +1,11 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 struct D2RoomStrc;
 struct D2StaticPathStrc;
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-struct D2UnitStrc {
-    int dwUnitType; unsigned char pad04[8]; int dwUnitId, dwAnimMode;
-    unsigned char pad14[0x18];
-    union { D2DynamicPathStrc* pDynamicPath; D2StaticPathStrc* pStaticPath; };
-    unsigned char pad30[0x94]; unsigned int dwFlags;
-};
 
 D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
 void __stdcall sub_0063E510_FillInventoryTables(D2UnitStrc* pUnit, unsigned char* pTableA, unsigned char* pTableB); // 0x0063E510

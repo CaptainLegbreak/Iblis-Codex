@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #pragma function(memset)
 
@@ -94,42 +95,6 @@ struct D2CharStatsTxt;
 struct D2BitBufferStrc;
 struct D2ItemsTxt;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    union
-    {
-        struct
-        {
-            char unk0x04[0x5C];
-        };
-        struct
-        {
-            int dwClassId;
-            unsigned char unk_08[0x4];
-            int dwUnitId;
-            int dwAnimMode;
-            unsigned char unk_14[0x18];
-            D2StaticPathStrc* pStaticPath;
-            unsigned char unk_30[0x8];
-            int dwSeqFrame;
-        };
-        struct
-        {
-            unsigned char unk_04[0x28];
-            D2DynamicPathStrc* pDynamicPath;
-        };
-    };
-    D2InventoryStrc* pInventory;
-    int dwInteractGUID;
-    int dwInteractType;
-    unsigned char nInteract;
-    unsigned char unk_6D[0x57];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-    char unk0xCC[0x18];
-    D2UnitStrc* pListNext;
-};
 
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc*); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc*); // 0x0045AE20

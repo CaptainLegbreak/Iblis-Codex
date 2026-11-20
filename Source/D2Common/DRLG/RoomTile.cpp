@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 #pragma function(memset)
 
@@ -23,11 +24,6 @@ struct D2DrlgStrc;
 struct D2DrlgLevelStrc;
 struct D2DrlgAnimTileGridStrc;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2DrlgCoordStrc
 {

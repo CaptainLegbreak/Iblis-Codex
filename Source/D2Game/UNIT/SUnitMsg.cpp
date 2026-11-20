@@ -1,9 +1,8 @@
 #include "D2Game.h"
+#include "D2Constants.h"
 
-#define UNIT_INVALID 6
 #define STAT_UNIT_DOOVERLAY 178
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define UNIT_MONSTER 1
 #define NPC_LEVEL_COUNT 5
 
 struct D2NpcRecordStrc;

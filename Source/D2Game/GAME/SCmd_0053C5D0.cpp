@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2PacketDataStrc
 {
@@ -58,7 +59,6 @@ static void __stdcall D2GAME_PACKETS_SendPacket_6FC3C710(const void* pPacket, in
 }
 struct D2SkillListStrc;
 struct D2GameStrc { char unk00[0x1C]; void* pMemoryPool; };
-struct D2UnitStrc { char unk00[0xC]; int dwUnitId; char unk10[0x98]; D2SkillListStrc* pSkills; };
 #pragma pack(push, 1)
 struct D2SkillPacketEntryStrc { unsigned short nSkill; unsigned char nLevel; };
 struct D2GSPacketSrv94 { unsigned char nHeader; unsigned char nCount; int nGUID; };

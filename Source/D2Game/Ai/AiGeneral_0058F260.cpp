@@ -1,11 +1,7 @@
+#include "D2Constants.h"
+#include "D2Structs.h"
 struct D2GameStrc { char unk0x00[0x1C]; void* pMemoryPool; };
 struct D2AiCmdStrc;
-
-enum D2C_F33Ai2Constants
-{
-    UNIT_MONSTER = 1,
-    UNIT_INVALID = 6,
-};
 
 struct D2MinionListStrc
 {
@@ -36,15 +32,6 @@ struct D2MonsterDataStrc
     D2AiControlStrc* pAiControl;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-};
 
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID);                // 0x00552F60
 

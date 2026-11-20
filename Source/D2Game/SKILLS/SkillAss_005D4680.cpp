@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
@@ -12,11 +13,6 @@ struct D2LevelsTxt;
 struct D2SummonArgStrc;
 struct D2ModeChangeStrc;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2StaticPathStrc
 {
@@ -25,24 +21,6 @@ struct D2StaticPathStrc
     int nY;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int unk0x04[7];
-    D2SeedStrc tSeed;
-    int unk0x28;
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    unsigned char unk_30[0x8];
-    int dwSeqFrame;
-    char unk0x3C[0x24];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0x60];
-    unsigned int dwFlags;
-};
 
 extern int gnChargedBoltTurnEvery_00741B0C; // 0x00741B0C
 extern int gnChargedBoltTurnBase_00741B10; // 0x00741B10
@@ -294,7 +272,7 @@ void __fastcall SKILLS_MissileInit_CurvingPath(D2UnitStrc* pMissile, int nInitSe
     }
 
     D2DynamicPathStrc* pPath = pMissile->pDynamicPath;
-    D2SeedStrc* const pSeed = &pMissile->tSeed;
+    D2SeedStrc* const pSeed = &pMissile->pSeed;
     SEED_InitLowSeed(pSeed, nInitSeed);
     PATH_SetType(pPath, 10);
     sub_00648E70_SetDistance(pPath, nFrames);
@@ -411,7 +389,7 @@ static void __stdcall sub_005D54B0_KickDamage(D2GameStrc* pGame, D2DamageStrc* p
     nMaxKickDamage += nMaxDamage;
     const int nRange = nMaxKickDamage - nMinKickDamage;
     unsigned int nRoll;
-    SEED_ROLL_LIMITED_INLINE(&pUnit->tSeed, nRange, nRoll);
+    SEED_ROLL_LIMITED_INLINE(&pUnit->pSeed, nRange, nRoll);
     pDamage->dwPhysDamage += nRoll + nMinKickDamage;
 
     D2GAME_RollElementalDamage_6FD14DD0(pUnit, pDamage, nSkillId, nSkillLevel);
@@ -571,7 +549,7 @@ int __fastcall SKILLS_SrvDo042_DragonTalon(D2GameStrc* pGame, D2UnitStrc* pUnit,
             nChance = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[1], nSkillId, nLevel);
         }
 
-        if (nChance > 0 && (int)SEED_RollLimitedRandomNumber(&pUnit->tSeed, 100) < nChance)
+        if (nChance > 0 && (int)SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100) < nChance)
         {
             bKnockback = 1;
         }
@@ -719,7 +697,7 @@ int __fastcall SKILLS_CreateMissilesAroundTarget(D2GameStrc* pGame, D2UnitStrc* 
         return 0;
     }
 
-    SEED_InitLowSeed(&pUnit->tSeed, nX);
+    SEED_InitLowSeed(&pUnit->pSeed, nX);
 
     D2MissileStrc tMissile;
     memset(&tMissile, 0, sizeof(tMissile));
@@ -740,8 +718,8 @@ int __fastcall SKILLS_CreateMissilesAroundTarget(D2GameStrc* pGame, D2UnitStrc* 
 
     for (int i = 0; i < nCount; ++i)
     {
-        tMissile.nTargetX = ITEMS_RollLimitedRandomNumber(&pUnit->tSeed, 2 * nRange) + nX - nRange;
-        tMissile.nTargetY = ITEMS_RollLimitedRandomNumber(&pUnit->tSeed, 2 * nRange) + nY - nRange;
+        tMissile.nTargetX = ITEMS_RollLimitedRandomNumber(&pUnit->pSeed, 2 * nRange) + nX - nRange;
+        tMissile.nTargetY = ITEMS_RollLimitedRandomNumber(&pUnit->pSeed, 2 * nRange) + nY - nRange;
         if (PATH_ComputeSquaredDistance(UNITS_GetUnitXPosition(pUnit), UNITS_GetUnitYPosition(pUnit), tMissile.nTargetX, tMissile.nTargetY) >= 4)
         {
             sub_0059FA30_CreateMissile(pGame, &tMissile);

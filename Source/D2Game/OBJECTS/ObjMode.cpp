@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define OBJMODE_OPENED 2
@@ -88,54 +89,7 @@ struct D2ObjectDataStrc
     int dwOperateGUID;
 };
 
-struct D2SeedStrc { unsigned int nLowSeed; unsigned int nHighSeed; };
 
-struct D2UnitStrc
-{
-    union
-    {
-        int dwUnitType;
-        unsigned int type;
-    };
-    int dwClassId;
-    union
-    {
-        struct
-        {
-            char unk0x08[0x58];
-        };
-        struct
-        {
-            void* pMemoryPool;
-            int dwUnitId;
-            int dwAnimMode;
-            D2ObjectDataStrc* pObjectData;
-            unsigned char unk_18[0x8];
-            D2SeedStrc pSeed;
-            unsigned char unk_28[0x4];
-            D2DynamicPathStrc* pDynamicPath;
-        };
-        struct
-        {
-            unsigned char unk_08[0x8];
-            unsigned int mode;
-            unsigned char unk_14[0x18];
-            D2StaticPathStrc* pStaticPath;
-        };
-    };
-    D2InventoryStrc* pInventory;
-    unsigned char unk_64[0x40];
-    D2HoverTextStrc* pHoverText;
-    unsigned char unk_A8[0x10];
-    unsigned int dwDropItemCode;
-    char unk0xBC[0x8];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-    unsigned char unk_CC[0x8];
-    unsigned int dwTickCount;
-    unsigned char unk_D8[0x10];
-    D2UnitStrc* pRoomNext;
-};
 
 struct D2GameStrc
 {
@@ -938,12 +892,12 @@ int __fastcall sub_00582710_IsLivingUnit(D2UnitStrc* unit, void* unused)
     int result = 1;
     if (!unit)
         result = 0;
-    else if (unit->type == 1)
+    else if (unit->dwUnitType == 1)
     {
         if (MONSTERS_IsDead(unit))
             result = 0;
     }
-    else if (unit->type != 0 || !unit->mode || unit->mode == 17)
+    else if (unit->dwUnitType != 0 || !unit->dwAnimMode || unit->dwAnimMode == 17)
         result = 0;
     return result;
 }

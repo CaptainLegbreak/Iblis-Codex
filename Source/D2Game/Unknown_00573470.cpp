@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define UNIT_MONSTER 1
 #define BONUS_TABLE_SIZE 9
@@ -51,12 +52,6 @@ struct D2MonsterDataStrc
     unsigned char nComponent[16];
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x10];
-    D2MonsterDataStrc* pMonsterData;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const int gnHpBonusTable[9]; // 0x006E1590

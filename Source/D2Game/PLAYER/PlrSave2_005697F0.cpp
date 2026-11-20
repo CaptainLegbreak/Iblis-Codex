@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 // build: ob1
 
 struct D2GameStrc
@@ -10,12 +11,6 @@ struct D2InventoryStrc;
 struct D2CorpseStrc;
 struct D2BitBufferStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x5C];
-    D2InventoryStrc* pInventory;
-};
 
 struct D2PlayerDataStrc
 {

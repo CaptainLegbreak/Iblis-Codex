@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 #pragma pack(push, 1)
 struct D2MonsterEquipmentStrc
 {
@@ -9,11 +10,6 @@ struct D2MonsterEquipmentStrc
 };
 #pragma pack(pop)
 
-struct D2UnitStrc
-{
-	int dwUnitType;
-	int dwClassId;
-};
 
 struct D2GameStrc
 {

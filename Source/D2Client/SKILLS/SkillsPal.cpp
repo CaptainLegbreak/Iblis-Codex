@@ -1,11 +1,7 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 struct D2GameStrc;
-struct D2UnitStrc {
-    int dwUnitType, dwClassId, unk08, dwUnitId;
-    char unk10[0x1C];
-    D2DynamicPathStrc* pDynamicPath;
-};
 struct D2SkillsTxt { char unk[0x102]; short sound; char tail[0x138]; };
 struct D2DataTablesStrc {
     char unk[0xB98]; D2SkillsTxt* pSkillsTxt; int unkB9C; int nSkillsTxtRecordCount;

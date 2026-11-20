@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 struct D2AutomapRecordStrc;
 struct D2PoolSystemStrc;
@@ -22,13 +23,6 @@ struct D2LoadingTimerStrc
     unsigned long dwLength;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x04];
-    int dwUnitId;
-};
 
 struct D2MonStatsTxt
 {

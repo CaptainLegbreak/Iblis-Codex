@@ -1,9 +1,8 @@
 #include "D2Client.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define UNIT_MONSTER 1
-#define UNIT_OBJECT 2
-#define UNIT_INVALID 6
 struct D2TileLibraryEntryStrc;
 struct D2AutomapCellStrc;
 struct D2AutomapLayerStrc;
@@ -109,17 +108,6 @@ D2AutomapRoomStrc* __fastcall sub_0061AAE0_GetAutomapRoom(D2ActiveRoomStrc* pRoo
 D2DrlgTileDataStrc* __stdcall sub_006196A0_GetWallTiles(D2ActiveRoomStrc* pRoom, unsigned int* pCount); // 0x006196A0
 void __stdcall sub_00458DC0_RevealRoomObjects(D2ActiveRoomStrc* pRoom, D2AutomapCellStrc** ppRoot); // 0x00458DC0
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x08];
-    int dwAnimMode;
-    char unk0x14[0xB0];
-    unsigned int dwFlagEx;
-    char unk0xC8[0x20];
-    D2UnitStrc* pRoomNext;
-};
 
 struct D2MonStatsTxt
 {
@@ -451,19 +439,19 @@ void __stdcall sub_00458DC0_RevealRoomObjects(D2ActiveRoomStrc* pRoom, D2Automap
 {
     for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pUnit->pRoomNext)
     {
-        const int nFlag = pUnit ? (pUnit->dwFlagEx >> 28) & 1 : 0;
+        const int nFlag = pUnit ? (pUnit->dwFlags >> 28) & 1 : 0;
         const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
         if (!gbRevealAutomap_007A51A0)
         {
             if (!nFlag)
                 continue;
 
-            if (pUnit ? (pUnit->dwFlagEx >> 29) & 1 : 0)
+            if (pUnit ? (pUnit->dwFlags >> 29) & 1 : 0)
                 continue;
         }
 
         if (pUnit)
-            pUnit->dwFlagEx |= 0x20000000;
+            pUnit->dwFlags |= 0x20000000;
 
         switch (nUnitType)
         {

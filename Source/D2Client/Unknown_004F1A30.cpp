@@ -1,4 +1,6 @@
 #include "D2Client.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -7,11 +9,6 @@ struct D2StaticPathStrc;
 struct D2SkillsTxt;
 struct D2MissileStrc;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2StaticPathStrc
 {
@@ -28,23 +25,6 @@ struct D2StaticPathStrc
     };
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x18];
-    union
-    {
-        D2SeedStrc pSeed;
-        D2SeedStrc tSeed;
-    };
-    char unk0x28[0x4];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-};
 
 struct D2SkillsTxt
 {
@@ -115,14 +95,6 @@ struct D2MissileStrc
     int nLightRadius;
     MissileInitFunc pInitFunc;
     int pInitArgs;
-};
-
-enum D2C_UnitTypes
-{
-    UNIT_OBJECT = 2,
-    UNIT_MISSILE = 3,
-    UNIT_ITEM = 4,
-    UNIT_TILE = 5,
 };
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -477,7 +449,7 @@ void __fastcall sub_004F2BE0_MissileInit_CurvingPath(D2UnitStrc* pMissile, int n
     }
 
     D2DynamicPathStrc* pPath = pMissile->pDynamicPath;
-    D2SeedStrc* const pSeed = &pMissile->tSeed;
+    D2SeedStrc* const pSeed = &pMissile->pSeed;
     SEED_InitLowSeed(pSeed, nInitSeed);
     PATH_SetType(pPath, 10);
     sub_00648E70_SetDistance(pPath, nFrames);

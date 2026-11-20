@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2SeedStrc;
 struct D2StaticPathStrc;
@@ -7,29 +8,9 @@ struct D2DataTables;
 struct D2SkillsTxt;
 struct D2SummonArgs;
 
-struct D2SeedStrc { unsigned int low, high; };
 
 struct D2StaticPathStrc { char pad[12]; int x,y; };
 
-struct D2UnitStrc
-{
-    int type;
-    int id;
-    unsigned char unk_08[0x4];
-    int dwUnitId;
-    unsigned char unk_10[0x10];
-    D2SeedStrc seed;
-    char pad28[4];
-    union
-    {
-        D2DynamicPathStrc* dynamicPath;
-        D2StaticPathStrc* staticPath;
-        void* path;
-        D2DynamicPathStrc* pDynamicPath;
-    };
-    char pad30[20];
-    int frame;
-};
 
 struct D2MissilesTxt
 {
@@ -93,27 +74,27 @@ void __stdcall MISSILE_SetTargetX(D2UnitStrc*, int); // 0x0064A710
 void __stdcall D2COMMON_10170_PathSetTargetPos(D2DynamicPathStrc*, int, int); // 0x00648AD0
 int __stdcall D2Common_10142(D2DynamicPathStrc*, D2UnitStrc*, int); // 0x00649970
 
-static __forceinline int GetX(D2UnitStrc* p) { switch(p->type) {case 2:case 4:case 5:return p->staticPath->x;} return p->dynamicPath?PATH_GetXPosition(p->dynamicPath):0; }
+static __forceinline int GetX(D2UnitStrc* p) { switch(p->dwUnitType) {case 2:case 4:case 5:return p->pStaticPath->x;} return p->pDynamicPath?PATH_GetXPosition(p->pDynamicPath):0; }
 
-static __forceinline int GetY(D2UnitStrc* p) { switch(p->type) {case 2:case 4:case 5:return p->staticPath->y;} return p->dynamicPath?PATH_GetYPosition(p->dynamicPath):0; }
+static __forceinline int GetY(D2UnitStrc* p) { switch(p->dwUnitType) {case 2:case 4:case 5:return p->pStaticPath->y;} return p->pDynamicPath?PATH_GetYPosition(p->pDynamicPath):0; }
 
 // 0x005AE520
 int __fastcall sub_005AE520_UpdateMissileFrames(D2GameStrc* game,D2UnitStrc* unit)
 {
  D2MissilesTxt* rec;
- if(unit && unit->id>=0 && unit->id<gpDataTables->count) rec=&gpDataTables->missiles[unit->id];
+ if(unit && unit->dwClassId>=0 && unit->dwClassId<gpDataTables->count) rec=&gpDataTables->missiles[unit->dwClassId];
  else rec=0;
  if(!rec) return MISSMODE_HandleMissileCollision(game,unit);
- int frame=unit->frame>>8;
+ int frame=unit->nSeqCurrentFramePrecise>>8;
  COLLISION_SetMaskWithSize(UNITS_GetRoom(unit),GetX(unit),GetY(unit),UNITS_GetUnitSizeX(unit),0x40);
  if(frame==rec->startFrame-1) {
-  unit->frame=(frame+sub_0045C3E0_RollLimited(&unit->seed,rec->endFrame-rec->startFrame))<<8;
+  unit->nSeqCurrentFramePrecise=(frame+sub_0045C3E0_RollLimited(&unit->pSeed,rec->endFrame-rec->startFrame))<<8;
  }
  else if(sub_0064A380_GetRemainingFrames(unit)==rec->startFrame) {
-  unit->frame=(rec->startFrame-3)<<8;
+  unit->nSeqCurrentFramePrecise=(rec->startFrame-3)<<8;
  }
  else if(sub_0064A380_GetRemainingFrames(unit)<rec->startFrame) {
-  frame-=2; if(frame<0)frame=0; unit->frame=frame<<8;
+  frame-=2; if(frame<0)frame=0; unit->nSeqCurrentFramePrecise=frame<<8;
  }
  return MISSMODE_HandleMissileCollision(game,unit);
 }
@@ -122,7 +103,7 @@ int __fastcall sub_005AE520_UpdateMissileFrames(D2GameStrc* game,D2UnitStrc* uni
 int __fastcall sub_005AEDA0_SummonPet(D2GameStrc* game,D2UnitStrc* unit)
 {
  if(!SUNIT_GetOwner(game,unit) || !sub_0064A780_GetCount(unit)) return 2;
- if(sub_006505C0_CheckPath(unit->path)) {
+ if(sub_006505C0_CheckPath(unit->pDynamicPath)) {
   D2UnitStrc* owner=SUNIT_GetOwner(game,unit);
   int skillId,skillLevel;
   D2SkillsTxt* skill;
@@ -159,8 +140,8 @@ int __fastcall sub_005AEDA0_SummonPet(D2GameStrc* game,D2UnitStrc* unit)
 
 static D2MissilesTxt* SKILLS_GetMissilesTxtRecordFromUnit(D2UnitStrc* pMissile)
 {
-    if (pMissile && pMissile->id >= 0 && pMissile->id < sgptDataTables->nMissilesTxtRecordCount)
-        return &sgptDataTables->pMissilesTxt[pMissile->id];
+    if (pMissile && pMissile->dwClassId >= 0 && pMissile->dwClassId < sgptDataTables->nMissilesTxtRecordCount)
+        return &sgptDataTables->pMissilesTxt[pMissile->dwClassId];
     return 0;
 }
 

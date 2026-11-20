@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define BITARRAY_CHECK(pBytes, nBit) ((pBytes)[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
@@ -16,42 +17,6 @@ struct D2SkillsTxt;
 struct D2StaticPathStrc;
 struct D2UnitTargetStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    union
-    {
-        struct
-        {
-            char unk0x04[0x28];
-        };
-        struct
-        {
-            int dwClassId;
-            char unk0x08[0x24];
-        };
-        struct
-        {
-            unsigned char unk_04[0x8];
-            int dwUnitId;
-            int dwAnimMode;
-            D2PlayerDataStrc* pPlayerData;
-        };
-    };
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x30];
-    D2InventoryStrc* pInventory;
-    unsigned char unk_64[0x4C];
-    unsigned int dwOverlayFlags;
-    char unk0xB4[0x10];
-    unsigned int dwFlags;
-    char unk0xC8[0x0C];
-    unsigned int dwLastInteractTick;
-};
 
 struct D2LevelsTxt
 {
@@ -264,7 +229,7 @@ void __fastcall sub_00480D20_SetModeOverlay(D2UnitStrc* pUnit, int nMode)
         return;
     }
 
-    const unsigned int dwFlags = pUnit->dwOverlayFlags;
+    const unsigned int dwFlags = pUnit->dwLastHitClass;
     const unsigned int dwKind = dwFlags & 0xF0;
     if (!dwKind || !(dwFlags & 0xF))
         return;
@@ -418,12 +383,12 @@ void __fastcall sub_00480930_InteractWithUnit(unsigned short nType, int nUnitId)
     case 1:
     {
         const unsigned int nTick = GetTickCount();
-        if (nTick - pUnit->dwLastInteractTick < 200)
+        if (nTick - pUnit->dwTickCount < 200)
         {
             return;
         }
 
-        pUnit->dwLastInteractTick = nTick;
+        pUnit->dwTickCount = nTick;
         break;
     }
 

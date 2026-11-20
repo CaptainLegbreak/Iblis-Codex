@@ -1,8 +1,5 @@
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 struct D2MonsterDataStrc
 {
@@ -10,14 +7,6 @@ struct D2MonsterDataStrc
     unsigned char nComponent[16];
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x10];
-    D2MonsterDataStrc* pMonsterData;
-    char unk0x18[0x8];
-    D2SeedStrc pSeed;
-};
 
 struct D2GameStrc
 {
@@ -69,7 +58,6 @@ struct D2DataTablesStrc
 
 enum D2C_M81AbyssKnightAi
 {
-    UNIT_MONSTER = 1,
     MONMODE_ATTACK1 = 4,
     ABYSSKNIGHT_AI_PARAM_BONE_ARMOR_HP_PCT = 0,
     ABYSSKNIGHT_AI_PARAM_BONE_ARMOR_CHANCE_PCT = 1,

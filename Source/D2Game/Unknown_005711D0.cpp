@@ -1,6 +1,6 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
-struct D2UnitStrc { int dwUnitType; char pad04[8]; int dwUnitId; };
 struct D2StatesTxt { char pad00[0x10]; unsigned char nFlags; char pad11[0x2B]; };
 struct D2ItemStatCostTxt { char pad00[4]; unsigned char nFlags; char pad05[3]; unsigned char nSendBits; unsigned char nSendParamBits; char pad0A[0x13A]; };
 struct D2DataTablesStrc
@@ -14,7 +14,6 @@ struct D2DataTablesStrc
     int unkBD0;
     int nItemStatCostTxtRecordCount;
 };
-struct D2StatStrc { union { struct { unsigned short nLayer; unsigned short nStat; }; int nPackedValue; }; int nValue; };
 struct D2BitBufferStrc { unsigned char* pBuffer; int nBits; int nPos; int nPosBits; int bFull; };
 #pragma pack(push, 1)
 struct D2GSPacketSrvA8 { unsigned char nHeader; unsigned char nUnitType; int nUnitId; unsigned char nSize; unsigned char nState; unsigned char pData[244]; };

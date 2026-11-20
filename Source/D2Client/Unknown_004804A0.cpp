@@ -1,20 +1,8 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2ABS(x) ((x) < 0 ? -(x) : (x))
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x0C];
-    int dwAnimMode;
-    char unk0x14[0x18];
-    D2DynamicPathStrc* pDynamicPath;
-    char unk0x30[0x5C];
-    unsigned short nLastClickX;
-    unsigned short nLastClickY;
-    unsigned char unk_90[0x34];
-    unsigned int dwFlags;
-};
 
 void __stdcall D2COMMON_10170_PathSetTargetPos(D2DynamicPathStrc* pPath, int nX, int nY); // 0x00648AD0
 int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown); // 0x00649970

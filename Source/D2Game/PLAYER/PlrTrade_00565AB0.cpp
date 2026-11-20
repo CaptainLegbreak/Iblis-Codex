@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define CUBE_MAX(a,b) ((a)>(b)?(a):(b))
 #define CUBE_MIN(a,b) ((a)<(b)?(a):(b))
@@ -11,21 +12,7 @@ struct D2CubeOutputItem;
 struct D2PropertyStrc;
 struct D2PlayerDataStrc;
 
-struct D2SeedStrc { unsigned nLowSeed,nHighSeed; };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    char unk10[0x10];
-    D2SeedStrc pSeed;
-    char unk28[0x38];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0x64];
-    unsigned int dwFlagEx;
-};
 
 struct D2GameStrc
 {

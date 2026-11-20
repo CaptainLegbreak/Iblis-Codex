@@ -1,15 +1,6 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemPool;
-    int dwUnitId;
-    int dwAnimMode;
-    void* pPlayerData;
-    unsigned char nAct;
-};
 
 struct D2AutomapCellStrc
 {

@@ -1,4 +1,6 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 struct D2MonStatsTxt;
 struct D2MonsterDataStrc;
@@ -9,9 +11,6 @@ struct D2UnkAiTableStrc;
 
 enum D2C_F41AiUtilConstants
 {
-    UNIT_PLAYER = 0,
-    UNIT_MONSTER = 1,
-    UNIT_INVALID = 6,
     UNITFLAG_CANBEATTACKED = 4,
     MONTYPEFLAG_UNIQUE_SUPERUNIQUE = 10,
     STATE_UNINTERRUPTABLE = 54,
@@ -33,17 +32,6 @@ struct D2MonsterDataStrc
     D2AiControlStrc* pAiControl;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-    unsigned char unk_18[0xD0];
-    D2UnitStrc* pRoomNext;
-};
 
 struct D2ActiveRoomStrc
 {

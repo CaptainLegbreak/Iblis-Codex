@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define UNIT_MONSTER 1
 #define MONTYPEFLAG_CHAMPION 4
@@ -22,25 +23,7 @@ struct D2MonsterDataStrc
     D2AiControlStrc* pAiControl;
 };
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    unsigned int dwUnitType;
-    int dwClassId;
-    char _pad08[4];
-    unsigned int dwUnitId;
-    char _pad10[4];
-    D2MonsterDataStrc* pMonsterData;
-    char _pad18[8];
-    D2SeedStrc pSeed;
-    char _pad28[0x9C];
-    unsigned int dwFlags;
-};
 
 struct D2MonUModTxt
 {

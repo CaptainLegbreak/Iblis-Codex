@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 #pragma function(memset)
 
@@ -16,11 +17,6 @@ struct Unicode
 
 struct D2InventoryStrc;
 
-struct D2UnitStrc
-{
-    char unk0x00[0x60];
-    D2InventoryStrc* pInventory;
-};
 
 struct T0044CB60
 {

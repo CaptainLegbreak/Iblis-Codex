@@ -1,11 +1,7 @@
+#include "D2Structs.h"
 struct D2BitBufferStrc;
 struct D2QuestInfoStrc;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2GameStrc
 {

@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define UNIT_MONSTER 1
 #define QUEST_A1Q6_ANDARIEL 6
@@ -19,15 +20,6 @@ struct D2SeedStrc;
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    char unk0x10[0xA8];
-    unsigned int dwDropItemCode;
-};
 
 struct D2GameStrc
 {
@@ -148,11 +140,6 @@ int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 extern "C" const unsigned int gdwA1Q6ChippedGemCodes[7]; // 0x007361DC
 extern "C" const unsigned int gdwA1Q6NormalGemCodes[7]; // 0x00736444

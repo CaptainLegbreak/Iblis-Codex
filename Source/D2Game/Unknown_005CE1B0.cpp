@@ -1,12 +1,8 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2MissilesTxt;
 
-struct D2UnitStrc
-{
-    char unk0x00[0xC4];
-    unsigned int dwFlags;
-};
 
 struct D2SkillsTxt
 {

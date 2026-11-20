@@ -1,4 +1,6 @@
 #include "D2Client.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define gnGlobal_007A7430 (gtTimedBox_007A742C.nValue)
@@ -56,10 +58,6 @@ extern int gdwGlobal_007A0618; // 0x007A0618
 
 enum D2C_CA2Constants
 {
-    UNIT_MONSTER = 1,
-    UNIT_OBJECT = 2,
-    UNIT_ITEM = 4,
-    UNIT_TILE = 5,
     LEVEL_8 = 8,
     LEVEL_107 = 107,
     LEVEL_108 = 108,
@@ -118,21 +116,6 @@ struct D2MonsterDataStrc
     unsigned short nClientFlags;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-    char unk0x18[0x14];
-    union
-    {
-        D2StaticPathStrc* pStaticPath;
-        D2DynamicPathStrc* pDynamicPath;
-    };
-};
 
 struct D2GfxNodeStrc
 {

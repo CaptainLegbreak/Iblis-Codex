@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2GfxLightStrc;
 
@@ -9,25 +10,6 @@ struct D2StaticPathStrc
     int nY;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    char unk0x10[0x1C];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x34];
-    D2GfxLightStrc* pLight;
-    int dwStartLight;
-    int nPaletteIndex;
-    char f_70[0x54];
-    unsigned int dwFlags;
-};
 
 struct D2SkillsTxt
 {

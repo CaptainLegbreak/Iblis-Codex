@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 #define QFLAG_REWARDGRANTED 0
 #define QFLAG_REWARDPENDING 1
 #define QFLAG_COMPLETEDBEFORE 15
@@ -30,15 +31,6 @@ struct D2GameStrc
     char pad0x6E[0x2];
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    char pad0x10[0xB4];
-    unsigned int dwFlags;
-};
 
 struct D2PlayerDataStrc
 {

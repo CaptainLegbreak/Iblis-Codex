@@ -1,13 +1,9 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 struct D2SeedStrc;
 struct D2SkillsTxt;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2SkillsTxt
 {

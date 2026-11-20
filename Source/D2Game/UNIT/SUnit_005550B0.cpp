@@ -1,18 +1,10 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr,line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(),line); exit(-1); }
 struct D2SeedStrc;
 struct D2LvlWarpTxt;
 
-struct D2UnitStrc
-{
-    unsigned int dwUnitType;
-    int dwClassId;
-    unsigned int dwMemoryPool;
-    int dwUnitId;
-    unsigned char unk_10[0xB4];
-    unsigned int dwFlagEx;
-};
 
 struct D2CoordStrc { int nX; int nY; };
 
@@ -148,7 +140,7 @@ D2UnitStrc* __fastcall SUNIT_CreatePresetUnit(D2GameStrc* pGame, D2ActiveRoomStr
         }
         if (pUnit)
         {
-            pUnit->dwFlagEx |= 0x3000000;
+            pUnit->dwFlags |= 0x3000000;
         }
         return pUnit;
 
@@ -159,7 +151,7 @@ D2UnitStrc* __fastcall SUNIT_CreatePresetUnit(D2GameStrc* pGame, D2ActiveRoomStr
 
     if (pUnit)
     {
-        pUnit->dwFlagEx |= 0x3000000;
+        pUnit->dwFlags |= 0x3000000;
     }
 
     return pUnit;

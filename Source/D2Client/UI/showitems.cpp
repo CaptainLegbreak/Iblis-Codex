@@ -1,7 +1,7 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 struct Unicode { unsigned short wChar; };
-struct D2UnitStrc { int dwUnitType,dwClassId; char unknown08[0xC0]; unsigned int dwFlags; char unknownCC[0x1C]; D2UnitStrc* pRoomNext; };
 struct D2ActiveRoomStrc { char unknown00[0x74]; D2UnitStrc* pUnitFirst; };
 struct D2ItemsTxt { char unknown00[0x80]; unsigned int dwCode; char unknown84[0xA6]; unsigned char nQuest; };
 struct D2ItemLabelStrc { int nLeft,nTop,nRight,nBottom; D2UnitStrc* pItem; Unicode wszText[128]; int nFillColor,nDrawMode,nTextColor; };
@@ -45,7 +45,7 @@ static __forceinline int GetUnitType(D2UnitStrc* pUnit)
 static __forceinline unsigned int UnitIsSelectable(D2UnitStrc* pUnit)
 {
     if(!pUnit)return 0;
-    return (pUnit->dwFlags>>7)&1;
+    return (pUnit->dwFlagEx>>7)&1;
 }
 // build: context sub_004C0640_ClampToScreen
 static __forceinline void sub_004C0640_ClampToScreen(int* pLeft, int* pTop, int* pRight, int* pBottom, int nMaxX, int nMinX, int nMaxY)

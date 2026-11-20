@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 #ifdef MOVED_TEST
 #define ATTACK_MODE 6
 #define IDLE_FRAMES 17
@@ -5,21 +6,7 @@
 #define ATTACK_MODE 4
 #define IDLE_FRAMES 15
 #endif
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-#ifdef MOVED_TEST
-    int moved_prefix;
-#endif
-    int dwUnitType;
-    char unk0x04[0x1C];
-    D2SeedStrc pSeed;
-};
 
 struct D2GameStrc
 {

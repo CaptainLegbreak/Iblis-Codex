@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 struct Unicode
 {
@@ -7,11 +8,6 @@ struct Unicode
     Unicode();                                                                                              // 0x0042F530
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-};
 
 struct D2PanelButtonStrc
 {

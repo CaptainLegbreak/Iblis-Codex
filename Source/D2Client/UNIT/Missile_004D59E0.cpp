@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 #ifdef MOVED_TEST
 #define TEST_OFFSET 8
 #define LIGHT_LIMIT 62
@@ -5,38 +6,11 @@
 #define TEST_OFFSET 0
 #define LIGHT_LIMIT 60
 #endif
-struct D2SeedStrc { unsigned int nLowSeed; unsigned int nHighSeed; };
 struct D2ActiveRoomStrc;
 struct D2DynamicPathStrc;
 struct D2StaticPathStrc;
 struct D2GfxLightStrc;
 struct D2UnitSfxNodeStrc;
-struct D2UnitStrc
-{
-    int dwUnitType;
-#ifdef MOVED_TEST
-    int moved_class_padding;
-#endif
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int unk0x10[4];
-    D2SeedStrc pSeed;
-    int unk0x28;
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    int unk0x30[13];
-    D2GfxLightStrc* pLight;
-    int unk0x68[4];
-    D2UnitSfxNodeStrc* pUnitSfxData;
-    unsigned int dwSfxTicks;
-    int unk0x80[17];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-};
 
 struct D2MissileStrc
 {

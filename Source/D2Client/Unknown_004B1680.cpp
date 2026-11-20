@@ -1,18 +1,7 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x18];
-    D2SeedStrc tSeed;
-};
 
 #pragma pack(push, 1)
 struct D2NpcChoiceStrc
@@ -71,7 +60,7 @@ void __stdcall sub_004B1680(D2NpcEntryStrc* pEntry)
     do
     {
         --nTries;
-        *pnSelected = SEED_RollLimitedRandomNumber(&pPlayer->tSeed, pEntry->nChoices);
+        *pnSelected = SEED_RollLimitedRandomNumber(&pPlayer->pSeed, pEntry->nChoices);
         if (*pnSelected >= 2)
         {
             if (pEntry->pChoices[*pnSelected].nClass == nClass || pEntry->pChoices[*pnSelected].nClass == 7)

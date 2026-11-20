@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 #ifdef MOVED_TEST
 #define UNIT_PAD 0xC4
 #else
@@ -6,12 +7,6 @@
 struct D2GameStrc;
 struct D2ActiveRoomStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[UNIT_PAD];
-    unsigned int dwFlags;
-};
 
 struct D2AiControlStrc
 {

@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 #pragma function(memset)
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 extern "C" char* __cdecl strcpy(char* pDst, const char* pSrc);
@@ -7,18 +8,6 @@ struct D2InventoryStrc;
 struct D2SeedStrc;
 struct D2ActiveRoomStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    unsigned int dwUnitId;
-    int dwAnimMode;
-    char unk0x14[0x4C];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0x60];
-    unsigned int dwFlags;
-};
 
 #pragma pack(push, 1)
 struct D2SavedItemStrc

@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define EVENTTYPE_ENDANIM 1
 #define STAT_HITPOINTS 6
@@ -33,11 +34,6 @@ struct D2SeedStrc;
 struct D2CorpsePositionStrc;
 struct D2ItemsTxt;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2GameStrc
 {
@@ -55,24 +51,6 @@ typedef void(__fastcall* EventCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* p
 
 extern const EventCallbackFunction gpPlayerEventCallbacks_006E1810[15]; // 0x006E1810
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[4];
-    int dwUnitId;
-    int dwAnimMode;
-    D2PlayerDataStrc* pPlayerData;
-    unsigned char unk_18[0x8];
-    D2SeedStrc pSeed;
-    unsigned char unk_28[0x38];
-    D2InventoryStrc* pInventory;
-    unsigned char unk_64[0x40];
-    D2HoverTextStrc* pHoverText;
-    char unk0xA8[0x1C];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-};
 
 int __fastcall EVENT_GetEventFrame(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEvent); // 0x005415A0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480

@@ -1,29 +1,12 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 struct D2SeedStrc;
 struct D2ItemsTxt;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int type;
-    int dwClassId;
-    unsigned char unk_08[0x4];
-    int id;
-    unsigned char unk_10[0x10];
-    D2SeedStrc pSeed;
-    char unk0x28[0x04];
-    D2DynamicPathStrc* pDynamicPath;
-    unsigned char unk_30[0x94];
-    unsigned int flags;
-};
 
 int __fastcall sub_0045ADF0(D2UnitStrc* unit); // 0x0045ADF0
 int __fastcall sub_0045AE20(D2UnitStrc* unit); // 0x0045AE20
@@ -93,14 +76,14 @@ struct D2DamageStrc
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625500
 void __fastcall SUNITDMG_ExecuteEvents(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int bMissile, D2DamageStrc* pDamage); // 0x0057C6C0
 
-static __forceinline int GetUnitType(D2UnitStrc* unit) { return unit?unit->type:6; }
+static __forceinline int GetUnitType(D2UnitStrc* unit) { return unit?unit->dwUnitType:6; }
 
 static __forceinline int GetItemType(D2UnitStrc* pItem)
 {
     int nType = 6;
     if (pItem)
     {
-        nType = pItem->type;
+        nType = pItem->dwUnitType;
     }
     return nType;
 }
@@ -109,7 +92,7 @@ static __forceinline int GetItemType(D2UnitStrc* pItem)
 int __fastcall sub_005BE290_CreateTownPortal(D2GameStrc* game,D2UnitStrc* unit,D2UnitStrc* item,int unused1,int unused2,int unused3,int unused4)
 {
  if(GetUnitType(unit)!=0) return 0;
- unit->flags|=0x40;
+ unit->dwFlags|=0x40;
  D2ActiveRoomStrc* room=UNITS_GetRoom(unit);
  unsigned char act=DRLG_GetActNoFromLevelId(sub_0061A1B0(room));
  int town=DUNGEON_GetTownLevelIdFromActNo(act);
@@ -121,19 +104,19 @@ int __fastcall sub_005BE290_CreateTownPortal(D2GameStrc* game,D2UnitStrc* unit,D
  int result=sub_0056D130(game,unit,room,sub_0045ADF0(unit),sub_0045AE20(unit),town,&portal,59,0);
  sub_00553380_SendEvent(unit,7,0);
  if(result) {
-  PLAYER_SetUniqueIdInPlayerData(unit,!portal?-1:portal->id);
+  PLAYER_SetUniqueIdInPlayerData(unit,!portal?-1:portal->dwUnitId);
   if(portal) {
-   sub_00552AF0_SetOwnerId(portal,unit->id);
+   sub_00552AF0_SetOwnerId(portal,unit->dwUnitId);
    D2UnitStrc* other=sub_00553720_GetPortalPair(game,portal);
    if(other) {
-    sub_00552AF0_SetOwnerId(other,unit->id);
+    sub_00552AF0_SetOwnerId(other,unit->dwUnitId);
     sub_0058CF00_UpdatePortal(game,other);
    }
    sub_0058CF00_UpdatePortal(game,portal);
   }
  }
  if(item) {
-  const int nItemId = item->id;
+  const int nItemId = item->dwUnitId;
   const int nItemType = GetItemType(item);
   D2ClientStrc* client=sub_005531C0_GetClient(unit,".\\SKILLS\\SkillItem.cpp",218,nItemType,nItemId);
   sub_0053B3D0_SendByte(client,124);
@@ -249,7 +232,7 @@ int __fastcall sub_005BE3F0_ApplyPotion(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
             nResult = 1;
         }
     }
-    if (bUpdateLife && pUnit && pUnit->type == 0)
+    if (bUpdateLife && pUnit && pUnit->dwUnitType == 0)
     {
         const unsigned char nOldLife = STATLIST_UnitGetStatValue(pUnit, 352, 0);
         const unsigned char nNewLife = sub_005805D0_GetLifePercent(pUnit);

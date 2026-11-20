@@ -1,21 +1,10 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2ActiveRoomUnitsStrc;
 struct D2Act5Quest2Strc;
 struct D2ObjInitFnStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    unsigned char unk_14[0xB0];
-    unsigned int dwFlags;
-    unsigned char unk_C8[0x20];
-    D2UnitStrc* pRoomNext;
-};
 
 struct D2ActiveRoomUnitsStrc
 {

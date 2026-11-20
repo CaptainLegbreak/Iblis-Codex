@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Constants.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -223,8 +224,6 @@ extern int gnGlobal_00711470; // 0x00711470
 
 enum D2C_W10Constants
 {
-    UNIT_MONSTER = 1,
-    UNIT_TILE = 5,
     STAT_HITPOINTS = 6,
     PET_TYPE_LIFE = 7,
     WEAPON_CLASS_7 = 7,

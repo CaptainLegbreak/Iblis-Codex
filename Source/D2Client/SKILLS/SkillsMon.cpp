@@ -1,32 +1,10 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 struct D2StaticPathStrc;
 struct D2GfxLightStrc;
 struct D2SkillDescTxt;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    void* f_14;
-    char unk0x18[0x10];
-    int dwInitSeed;
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x18];
-    int dwFrameCountPrecise;
-    char unk0x4C[0x14];
-    D2InventoryStrc* pInventory;
-    D2GfxLightStrc* pLight;
-    char unk0x68[0x5C];
-    unsigned int dwFlags;
-};
 
 struct D2SkillsTxt
 {

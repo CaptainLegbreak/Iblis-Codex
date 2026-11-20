@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 struct D2GameStrc
 {
     char unk0x00[0x1C];
@@ -30,12 +31,6 @@ struct D2MonsterDataStrc
     D2AiControlStrc* pAiControl;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x10];
-    D2MonsterDataStrc* pMonsterData;
-};
 
 #define UNIT_MONSTER 1
 #define UNIT_INVALID 6

@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Structs.h"
 
 #define LEVEL_SPIDERFOREST 76
 #define LEVEL_GREATMARSH 77
@@ -12,11 +13,6 @@ struct D2LevelDefBin;
 struct D2DrlgOutdoorInfoStrc;
 struct D2DrlgCoordStrc;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2DrlgStrc
 {

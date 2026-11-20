@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 struct D2SeedStrc;
 struct D2SkillsTxt;
@@ -7,13 +8,7 @@ struct D2BooksTxt;
 struct D2BookDataTbl;
 struct D2SetItemsTxt;
 
-struct D2SeedStrc { unsigned int nLowSeed; unsigned int nHighSeed; };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-};
 
 D2SeedStrc* __stdcall ITEMS_GetItemSeed(D2UnitStrc*); // 0x00627D90
 int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc*); // 0x00451F50

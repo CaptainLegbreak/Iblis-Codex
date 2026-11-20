@@ -1,3 +1,4 @@
+#include "D2Structs.h"
 #define D2_MIN(a,b) ((a) < (b) ? (a) : (b))
 #define D2_MAX(a,b) ((a) > (b) ? (a) : (b))
 
@@ -6,10 +7,6 @@ struct D2SkillStrc;
 struct D2StatListStrc;
 struct D2ClientStrc;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-};
 
 struct D2SkillsTxt
 {

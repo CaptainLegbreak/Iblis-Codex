@@ -1,4 +1,6 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 #define MONMODE_ATTACK1 4
 struct D2MonsterDataStrc;
@@ -8,8 +10,6 @@ struct D2AiCmdStrc;
 
 enum
 {
-    UNIT_PLAYER = 0,
-    UNIT_MONSTER = 1,
 };
 
 struct D2MonsterDataStrc
@@ -18,25 +18,7 @@ struct D2MonsterDataStrc
     D2MonsterInteractStrc* pMonInteract;
 };
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-    char unk0x18[0x08];
-    D2SeedStrc pSeed;
-    unsigned char unk_28[0x4];
-    D2DynamicPathStrc* pDynamicPath;
-};
 
 struct D2AiControlStrc
 {

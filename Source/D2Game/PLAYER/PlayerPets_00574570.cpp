@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
@@ -14,18 +15,6 @@ struct D2MonStatsTxt;
 struct D2SkillsTxt;
 struct D2PetTypeTxt;
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    unsigned char unk_10[0x98];
-    D2SkillListStrc* pSkills;
-    unsigned char unk_AC[0x18];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-};
 
 struct D2GameStrc
 {

@@ -1,12 +1,8 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 struct D2GfxLightStrc;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 struct D2StaticPathStrc
 {
@@ -15,23 +11,6 @@ struct D2StaticPathStrc
     int nYPos;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08[6];
-    D2SeedStrc tSeed;
-    int unk0x28;
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    int unk0x30[5];
-    unsigned int dwFlags0x44;
-    int unk0x48[7];
-    D2GfxLightStrc* pLight;
-};
 
 struct D2MissilesTxt
 {
@@ -105,14 +84,14 @@ static int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
 static void sub_004CD1C0_FlickerLight(D2UnitStrc* pMissile)
 {
     D2MissilesTxt* pMissilesTxtRecord = SKILLS_GetMissilesTxtRecord(pMissile ? pMissile->dwClassId : -1);
-    if (pMissile->dwFlags0x44 & 0x300)
+    if (pMissile->nSeqCurrentFramePrecise & 0x300)
         return;
     D2GfxLightStrc* pLight = pMissile->pLight;
     if (!pLight)
         return;
     if (sub_00474350_GetLightSize(pLight) < pMissilesTxtRecord->nLightMin)
         return;
-    sub_00474290(pLight, ITEMS_RollLimitedRandomNumber(&pMissile->tSeed, pMissilesTxtRecord->nLightRnd) + pMissilesTxtRecord->nLightMin);
+    sub_00474290(pLight, ITEMS_RollLimitedRandomNumber(&pMissile->pSeed, pMissilesTxtRecord->nLightRnd) + pMissilesTxtRecord->nLightMin);
 }
 
 // 0x004D2C70

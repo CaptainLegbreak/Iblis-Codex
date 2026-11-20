@@ -1,17 +1,7 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 typedef unsigned long DWORD;
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    int unk0x08[22];
-    D2InventoryStrc* pInventory;
-    int unk0x64[25];
-    unsigned int dwFlagEx;
-    int unk0xCC[7];
-    D2UnitStrc* pRoomNext;
-};
 
 struct D2ActiveRoomStrc
 {

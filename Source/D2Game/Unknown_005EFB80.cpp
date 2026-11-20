@@ -1,4 +1,6 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 #define AI_GetParam(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
@@ -12,27 +14,7 @@ struct D2Record5F6E20Strc;
 struct D2FetishShamanAiCallbackArgStrc;
 struct D2AiCmdStrc;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    char unk0x10[0x10];
-    D2SeedStrc pSeed;
-    char unk0x28[4];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-};
 
 struct D2GameStrc
 {
@@ -199,7 +181,6 @@ typedef D2UnitStrc* (__fastcall* AIUTIL_TargetCallback)(D2GameStrc* pGame, D2Uni
 enum D2C_M172FetishShamanAi
 {
     STATE_INFERNO = 12,
-    UNIT_TYPES_COUNT = 6,
     FETISHSHAMAN_AI_PARAM_HEAL_CHANCE_PCT = 0,
     FETISHSHAMAN_AI_PARAM_HEAL_CAPABILITY = 1,
     FETISHSHAMAN_AI_PARAM_HEAL_RANGE = 2,

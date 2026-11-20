@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
@@ -21,14 +22,6 @@ struct D2ClientStrc
     unsigned int dwFlags;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0xC0];
-    unsigned int dwFlags;
-    char unk0xC8[0x18];
-    D2UnitStrc* pChangeNextUnit;
-};
 
 struct D2GameStrc
 {

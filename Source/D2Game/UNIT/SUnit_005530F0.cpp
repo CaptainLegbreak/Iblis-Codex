@@ -1,11 +1,8 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
-#define UNIT_PLAYER 0
-#define UNIT_MISSILE 3
-#define UNIT_TILE 5
-#define UNIT_INVALID 6
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-#define UNIT_ITEM 4
 #define PLRMODE_SEQUENCE 0x12
 #define MONMODE_SEQUENCE 0xE
 #define ITEMQUAL_UNIQUE 7
@@ -25,40 +22,6 @@ struct D2MonsterDataStrc
     D2MonsterInteractStrc* pMonInteract;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    D2MonsterDataStrc* pMonsterData;
-    unsigned char unk_18[0x14];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    D2AnimSeqTxt* pAnimSeq;
-    char unk0x34[0x10];
-    int nSeqCurrentFramePrecise;
-    int dwFrameCountPrecise;
-    short wAnimSpeed;
-    unsigned char nActionFrame;
-    unsigned char unk0x4F;
-    const D2AnimDataRecordStrc* pAnimData;
-    unsigned char unk_54[0x10];
-    int dwInteractGUID;
-    int dwInteractType;
-    unsigned char nInteract;
-    unsigned char unk_6D[0x27];
-    int dwOwnerType;
-    int dwOwnerGUID;
-    unsigned char unk_9C[0x2C];
-    unsigned int dwFlagEx;
-    unsigned char unk_CC[0x18];
-    D2UnitStrc* pListNext;
-};
 
 struct D2GameStrc
 {
@@ -181,8 +144,6 @@ int __stdcall sub_00650BE0_PlaceUnit(D2DynamicPathStrc* pDynamicPath, D2UnitStrc
 
 enum D2C_M108SUnitConstants
 {
-    UNIT_MONSTER = 1,
-    UNIT_OBJECT = 2,
     LEVEL_PANDEMONIUMRUN1 = 133,
     LEVEL_PANDEMONIUMRUN2 = 134,
     LEVEL_PANDEMONIUMRUN3 = 135,

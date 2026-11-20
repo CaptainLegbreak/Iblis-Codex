@@ -1,4 +1,6 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
@@ -9,27 +11,7 @@ struct D2LevelsTxt;
 struct D2CurseStrc;
 struct D2SrvDo47Strc;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    unsigned int dwClassId;
-    char unk0x08[0x04];
-    int dwUnitId;
-    unsigned char unk_10[0x10];
-    D2SeedStrc pSeed;
-    char unk0x28[0x10];
-    int dwSeqFrame;
-    char unk0x3C[0x24];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0x60];
-    unsigned int dwFlags;
-};
 
 struct D2DamageStrc
 {
@@ -165,7 +147,6 @@ enum D2C_Z09St26Constants
     STATE_INFERNO = 0x0C,
     EVENTTYPE_REMOVESTATE = 0x0C,
     STAT_MANA = 8,
-    UNIT_INVALID = 6,
 };
 
 int __fastcall SKILLS_GetProgressiveSkillMissileId(D2UnitStrc* pUnit, int nSkillId); // 0x005D3CF0

@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2ClientTextBoxStrc;
@@ -16,13 +17,6 @@ struct Unicode
     unsigned short wChar;
 };
 
-struct D2UnitStrc
-{
-    char unk0x00[0x0C];
-    int dwUnitId;
-    char unk0x10[0xA4 - 0x10];
-    D2HoverTextStrc* pHoverText;
-};
 
 #pragma pack(push, 2)
 struct D2TextNodeStrc

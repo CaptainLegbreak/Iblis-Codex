@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Structs.h"
 
 #define UNIT_MONSTER 1
 struct Unicode;
@@ -13,13 +14,6 @@ struct Unicode
     Unicode();                                                                                              // 0x0042F530
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x08];
-    int dwAnimMode;
-};
 
 extern Unicode gwszText_007A2A78[]; // 0x007A2A78
 extern int gnHoverTextState_007A2C78; // 0x007A2C78

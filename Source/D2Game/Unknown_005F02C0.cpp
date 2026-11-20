@@ -1,4 +1,6 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 #define AI_GetParam(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
@@ -8,26 +10,7 @@ struct D2AiCmdStrc;
 struct D2ZakarumPriestAiCallbackArgStrc;
 struct D2StaticPathStrc;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char unk0x04[0x0C];
-    int dwAnimMode;
-    char unk0x14[0x0C];
-    D2SeedStrc pSeed;
-    char unk0x28[0x04];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-};
 
 struct D2GameStrc
 {
@@ -83,7 +66,6 @@ struct D2AiCmdStrc
 
 enum D2C_M230FallenAi
 {
-    UNIT_MONSTER = 1,
     EVENTTYPE_AITHINK = 2,
     MONMODE_DEATH = 0,
     MONMODE_NEUTRAL = 1,

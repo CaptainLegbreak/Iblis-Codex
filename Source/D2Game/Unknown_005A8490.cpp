@@ -1,4 +1,6 @@
 #include "D2Game.h"
+#include "D2Constants.h"
+#include "D2Structs.h"
 
 #define STATE_BLAZE 0x0D
 #define STATE_SPIDERLAY 0x16
@@ -13,17 +15,6 @@ struct D2GameStrc
     int dwGameFrame;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char pad0x08[0x24];
-    D2DynamicPathStrc* pDynamicPath;
-    char pad0x30[0x80];
-    int dwLastHitClass;
-    unsigned char unk_B4[0x10];
-    unsigned int dwFlags;
-};
 
 int __fastcall sub_6FCBC930(D2GameStrc* pGame, D2UnitStrc* pMissile); // 0x00554CA0
 void __fastcall sub_005A8030(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005A8030
@@ -33,8 +24,6 @@ int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 
 enum D2C_Q05MonsterConstants
 {
-    UNIT_MONSTER = 1,
-    UNIT_INVALID = 6,
     MONMODE_GETHIT = 3,
     EVENTTYPE_AITHINK = 2,
     MONSTER_SANDLEAPER1 = 78,
