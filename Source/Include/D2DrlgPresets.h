@@ -11,7 +11,6 @@ struct D2DrlgTileDataStrc;
 struct D2DrlgPresetInfoStrc;
 struct D2DrlgPresetRoomStrc;
 struct D2DrlgPresetLevelStrc;
-struct D2RoomPresetStrc;
 struct D2DrlgRoomTilesStrc;
 struct D2DrlgTileLinkStrc;
 struct D2DrlgLevelLinkDataStrc;
@@ -46,14 +45,6 @@ struct D2DrlgPresetLevelStrc
 {
     D2DrlgMapStrc* pDrlgMap; // 0x00
     int nDirection; // 0x04
-};
-
-struct D2RoomPresetStrc
-{
-    int nLevelPrest; // 0x00
-    int nPickedFile; // 0x04
-    int unk0x08; // 0x08
-    unsigned int dwFlags; // 0x0C
 };
 
 struct D2DrlgRoomTilesStrc
@@ -140,7 +131,6 @@ struct D2PathInfoStrc
 D2_CHECK_SIZE(D2DrlgPresetInfoStrc, 0x8);
 D2_CHECK_SIZE(D2DrlgPresetRoomStrc, 0xF8);
 D2_CHECK_SIZE(D2DrlgPresetLevelStrc, 0x8);
-D2_CHECK_SIZE(D2RoomPresetStrc, 0x10);
 D2_CHECK_SIZE(D2DrlgRoomTilesStrc, 0x18);
 D2_CHECK_SIZE(D2DrlgTileLinkStrc, 0xC);
 D2_CHECK_SIZE(D2DrlgLevelLinkDataStrc, 0x1F4);

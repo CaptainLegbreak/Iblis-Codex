@@ -1,69 +1,9 @@
 #include "D2Common.h"
-
-struct D2DrlgCoordStrc
-{
-    int nPosX;
-    int nPosY;
-    int nWidth;
-    int nHeight;
-};
-
-struct D2DrlgOrthStrc
-{
-    void* pTarget;
-    int nDirection;
-    int bPreset;
-    int bInit;
-    D2DrlgCoordStrc* pBox;
-    D2DrlgOrthStrc* pNext;
-};
-
-struct D2RoomPresetStrc
-{
-    int nLevelPrest;
-    int nPickedFile;
-    int unk0x08;
-    unsigned int dwFlags;
-};
-
-struct D2LvlMazeTxt
-{
-    int dwLevelId;
-    int dwRooms[3];
-    int dwSizeX;
-    int dwSizeY;
-};
-
-struct D2DrlgStrc
-{
-    char unk0x000[0x450];
-    unsigned char nDifficulty;
-};
-
-struct D2DrlgLevelStrc
-{
-    char unk0x000[0x10];
-    D2DrlgRoomStrc* ptRoomFirst;
-    D2LvlMazeTxt* pMaze;
-    char unk0x018[0x19C];
-    D2DrlgStrc* pDrlg;
-    char unk0x1B8[0x8];
-    int nLevelType;
-    char unk0x1C4[0xC];
-    int eLevelId;
-};
-
-struct D2DrlgRoomStrc
-{
-    D2DrlgOrthStrc* pDrlgOrth;
-    char unk0x04[0x1C];
-    D2RoomPresetStrc* pMaze;
-    D2DrlgRoomStrc* pDrlgRoomNext;
-    char unk0x28[0xC];
-    D2DrlgCoordStrc pDrlgCoord;
-    char unk0x44[0x14];
-    D2DrlgLevelStrc* ptDrlgLevel;
-};
+#include "D2Drlg.h"
+#include "D2DrlgMaps.h"
+#include "D2DrlgPresets.h"
+#include "D2TxtTables.h"
+#include "D2DrlgRooms.h"
 
 extern "C" const char gszEmptyAssertText;                                                     // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                        // 0x00408090
@@ -160,7 +100,7 @@ static int __stdcall sub_00670880(D2DrlgRoomStrc* pDrlgRoom, int nDirection, D2D
 // @ref 0x00670970
 static D2DrlgRoomStrc* __stdcall DRLGMAZE_SetPickedFileAndPresetId(D2DrlgRoomStrc* pDrlgRoom, int nLevelPrest, int nPickedFile, int bResetFlag)
 {
-    D2RoomPresetStrc* pMaze = pDrlgRoom->pMaze;
+    D2DrlgPresetRoomStrc* pMaze = pDrlgRoom->pMaze;
     pMaze->nLevelPrest = nLevelPrest;
     pMaze->nPickedFile = nPickedFile;
 
