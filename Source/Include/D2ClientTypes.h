@@ -12,6 +12,8 @@ struct D2UnitOverlayStrc;
 struct D2GfxDataStrc;
 struct D2InvRectStrc;
 struct D2MsgHandlerEntryStrc;
+struct D2GfxLayerStrc;
+struct D2GfxNodeTargetStrc;
 
 struct D2GfxDataStrc
 {
@@ -52,9 +54,20 @@ struct D2MsgHandlerEntryStrc
     void* pfnHandler; // 0x08
 };
 
+struct D2GfxNodeTargetStrc
+{
+    int unk0x00[5]; // 0x00
+    union
+    {
+        int nValue;
+        D2GfxLayerStrc* pLayer;
+    }; // 0x14
+};
+
 D2_CHECK_SIZE(D2GfxDataStrc, 0x48);
 D2_CHECK_SIZE(D2InvRectStrc, 0x10);
 D2_CHECK_SIZE(D2MsgHandlerEntryStrc, 0xC);
+D2_CHECK_SIZE(D2GfxNodeTargetStrc, 0x18);
 
 struct D2UnitTargetStrc
 {

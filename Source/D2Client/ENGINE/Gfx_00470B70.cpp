@@ -3,10 +3,10 @@
 #include "D2DataTbls.h"
 #include "D2Drlg.h"
 #include "D2ClientTypes.h"
+#include "D2ClientTypes.h"
 struct D2UnitStrc;
 
 typedef unsigned long DWORD;
-
 
 struct D2GfxLayerHeaderStrc
 {
@@ -16,11 +16,6 @@ struct D2GfxLayerHeaderStrc
 };
 
 struct D2GfxLayerStrc;
-struct D2GfxNodeTargetStrc
-{
-    int unk0x00[5];
-    D2GfxLayerStrc* pLayer;
-};
 
 struct D2GfxListNodeStrc
 {
@@ -30,7 +25,6 @@ struct D2GfxListNodeStrc
     int unk0x0C;
     D2GfxListNodeStrc* pNext;
 };
-
 
 struct D2CelContextStrc
 {
@@ -58,7 +52,6 @@ struct D2MonStats2Txt
     char unk0x000[0xF0];
     unsigned char aModeFlags[0x44];
 };
-
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
