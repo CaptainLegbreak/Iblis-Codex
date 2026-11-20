@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameTypes.h"
+#include "D2Skills.h"
 struct D2UnitStrc;
 
 #define UNIT_PLAYER 0
@@ -14,13 +15,6 @@ struct D2UnitStrc;
 #define SKILLSFLAGINDEX_AURA 5
 #define SKILLSFLAGINDEX_IMMEDIATE 15
 struct D2SkillsTxt;
-
-
-struct D2SkillStrc
-{
-    char unk0x00[0x38];
-    int nCharges;
-};
 
 struct D2SkillsTxt
 {
@@ -37,8 +31,6 @@ struct D2SkillsTxt
     short wLevelMana;
     char unk0x18E[0xAE];
 };
-
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250

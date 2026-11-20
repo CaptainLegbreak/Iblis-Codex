@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Records.h"
+#include "D2Skills.h"
 #include "D2LevelTxt.h"
 
 #define PLRMODE_THROW 11
@@ -152,35 +153,6 @@ struct D2SkillsTxt
     char unk0x230[0x0C];
 };
 
-struct D2SkillStrc
-{
-    D2SkillsTxt* pSkillsTxt;
-    D2SkillStrc* pNextSkill;
-    int dwSkillMode;
-    unsigned int dwFlags;
-    unsigned int unk0x10[2];
-    unsigned int nPar1;
-    unsigned int nPar2;
-    unsigned int nPar3;
-    unsigned int nPar4;
-    int nSkillLevel;
-    int nLevelBonus;
-    int nQuantity;
-    int nOwnerGUID;
-    int nCharges;
-    int bExcludeFromHighestLevelLookup;
-};
-
-struct D2SkillListStrc
-{
-    void* pMemPool;
-    D2SkillStrc* pFirstSkill;
-    D2SkillStrc* pLeftSkill;
-    D2SkillStrc* pRightSkill;
-    D2SkillStrc* pUsedSkill;
-    void* unk014;
-};
-
 struct D2MissileDataStrc
 {
     unsigned int unk0x00;
@@ -267,7 +239,6 @@ struct D2DynamicPathStrc
     unsigned char nStepNum;
 };
 
-
 struct D2MissilesTxt
 {
     unsigned short wId;
@@ -275,7 +246,6 @@ struct D2MissilesTxt
     unsigned char nMissileFlags[4];
     char unk0x08[0x19C];
 };
-
 
 struct D2Unk00667030InnerStrc
 {
@@ -498,12 +468,10 @@ int __stdcall SKILLS_GetPassiveState(int nSkillId); // 0x00643690
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
 extern const int gnShapeshiftMonModes_006EB308[]; // 0x006EB308
 
-
 int __stdcall D2Common_11014_ConvertShapeShiftedMode(int nArrayIndex, int nMonsterId); // 0x00645190
 D2UnitStrc* __stdcall D2Common_10434(D2UnitStrc* pUnit, int a2); // 0x00623990
 int __stdcall ITEMS_GetWeaponAttackSpeed(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x0062A710
 int __stdcall STATES_IsUnitShapeShifted(D2UnitStrc* pUnit); // 0x0063A400
-
 
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc* pItem); // 0x0062BA80
@@ -563,7 +531,6 @@ struct D2CharStatsTxt
 
 D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit); // 0x00620190
 D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
-
 
 int __stdcall SKILLS_GetShrineSkillLevelBonus(D2UnitStrc* pUnit); // 0x00644150
 int __stdcall DATATBLS_GetMaxLevel(int nClass); // 0x00611830
@@ -1004,8 +971,8 @@ void* __stdcall D2Common_10958(D2UnitStrc* pUnit, void* a2)
         return 0;
     }
 
-    void* pResult = pSkillList->unk014;
-    pSkillList->unk014 = a2;
+    void* pResult = pSkillList->unk0x14;
+    pSkillList->unk0x14 = a2;
     return pResult;
 }
 
@@ -1022,7 +989,7 @@ void* __stdcall D2Common_10959(D2UnitStrc* pUnit)
         return 0;
     }
 
-    return pUnit->pSkills->unk014;
+    return pUnit->pSkills->unk0x14;
 }
 
 // 0x00643A60
@@ -1392,7 +1359,7 @@ int __stdcall SKILLS_GetParam1(D2SkillStrc* ptSkill)
 {
     SKILLS_ASSERT(ptSkill, 2642);
 
-    return ptSkill->nPar1;
+    return ptSkill->nXpos;
 }
 
 // 0x006444D0
@@ -1400,7 +1367,7 @@ int __stdcall SKILLS_GetParam2(D2SkillStrc* ptSkill)
 {
     SKILLS_ASSERT(ptSkill, 2651);
 
-    return ptSkill->nPar2;
+    return ptSkill->nYpos;
 }
 
 // 0x00644500
@@ -1424,7 +1391,7 @@ void __stdcall SKILLS_SetParam1(D2SkillStrc* ptSkill, int nValue)
 {
     SKILLS_ASSERT(ptSkill, 2678);
 
-    ptSkill->nPar1 = nValue;
+    ptSkill->nXpos = nValue;
 }
 
 // 0x006445A0
@@ -1432,7 +1399,7 @@ void __stdcall SKILLS_SetParam2(D2SkillStrc* ptSkill, int nValue)
 {
     SKILLS_ASSERT(ptSkill, 2687);
 
-    ptSkill->nPar2 = nValue;
+    ptSkill->nYpos = nValue;
 }
 
 // 0x006445E0

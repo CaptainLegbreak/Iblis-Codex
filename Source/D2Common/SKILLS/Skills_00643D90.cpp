@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Records.h"
+#include "D2Skills.h"
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 
@@ -44,23 +45,6 @@ struct D2SkillsTxt
     char unk0x230[0x0C];
 };
 
-
-struct D2SkillStrc
-{
-    D2SkillsTxt* pSkillsTxt;
-    D2SkillStrc* pNextSkill;
-    int dwSkillMode;
-    char unk0x0C[0x28 - 0x0C];
-    int nSkillLevel;
-    int nLevelBonus;
-    int nQuantity;
-    int nOwnerGUID;
-    int nCharges;
-    int dwFlags;
-};
-
-
-
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -91,15 +75,6 @@ int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc,
 typedef unsigned int size_t;
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x00681EF0
-
-struct D2SkillListStrc
-{
-    void* pMemPool;
-    D2SkillStrc* pFirstSkill;
-    D2SkillStrc* pLeftSkill;
-    D2SkillStrc* pRightSkill;
-    D2SkillStrc* pUsedSkill;
-};
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
@@ -813,7 +788,7 @@ void __stdcall sub_00647320_UpdateChargedSkill(D2UnitStrc* pUnit, int nOwnerGUID
     if (pFoundSkill)
     {
         pFoundSkill->nSkillLevel = nSkillLevel;
-        pFoundSkill->dwFlags = 1;
+        pFoundSkill->bExcludeFromHighestLevelLookup = 1;
         pFoundSkill->nCharges = nCharges;
         return;
     }
@@ -849,7 +824,7 @@ void __stdcall sub_00647320_UpdateChargedSkill(D2UnitStrc* pUnit, int nOwnerGUID
     }
 
     pSkill->nSkillLevel = nSkillLevel;
-    pSkill->dwFlags = 1;
+    pSkill->bExcludeFromHighestLevelLookup = 1;
     pSkill->nCharges = nCharges;
     pSkill->nOwnerGUID = nOwnerGUID;
     pSkill->pNextSkill = 0;
