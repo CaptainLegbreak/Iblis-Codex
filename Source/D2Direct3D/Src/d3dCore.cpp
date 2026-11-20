@@ -219,7 +219,6 @@ extern "C" __declspec(dllimport) int __stdcall MoveWindow(void*,int,int,int,int,
 void __fastcall sub_006B20E0_DDrawLogError(const char* szWhere, int hResult); // 0x006B20E0
 void __fastcall sub_006B39B0_ShowD3DError(const char*,long); // 0x006B39B0
 void __cdecl sub_006B3320_ReleaseResources(); // 0x006B3320
-void __cdecl sub_006B3800_Flush(); // 0x006B3800
 void __cdecl sub_006B3080(); // 0x006B3080
 void __cdecl sub_006BB5E0_CreateSurfaces(); // 0x006BB5E0
 void __cdecl sub_006B8F10(); // 0x006B8F10

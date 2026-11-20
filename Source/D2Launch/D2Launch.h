@@ -91,11 +91,11 @@ int __fastcall sub_004F9710_TestFlags(D2WinControlStrc* pControl); // 0x004F9710
 int __fastcall sub_004FB950_GetFirstVisible(D2WinControlStrc* pControl); // 0x004FB950
 int __fastcall sub_004FC620_GetValue(D2WinControlStrc* pControl); // 0x004FC620
 int __stdcall D2Win_10033(D2WinControlStrc* pControl, int nArg); // 0x004FA470
-int __stdcall SFileOpenFileEx(void* hMpq, const char* szFileName, int nSearchScope, void** phFile); // 0x004192F0
-int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned int nBufferSize); // 0x00414E50
+int __stdcall SFileOpenFileEx(unsigned int hMpq, const char* szFileName, unsigned int dwFlags, void** phFile); // 0x004192F0
+int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned long nBufferSize); // 0x00414E50
 int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
-int __stdcall SStrCmpI(const char* szString1, const char* szString2, int nMaxChars); // 0x00413590
-int __stdcall SStrLen(const char* szString); // 0x00413750
+int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
+unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 int __stdcall sub_004198D0(void* pArg); // 0x004198D0
 int __stdcall sub_0042FF00_FilterChar(D2WinControlStrc* pControl, int nUnused, const char* pChar); // 0x0042FF00
 int __stdcall sub_0042FFE0(int nArg); // 0x0042FFE0
@@ -112,14 +112,14 @@ void __cdecl sub_00435580(); // 0x00435580
 void __cdecl sub_00435E10(); // 0x00435E10
 void __cdecl sub_004370C0(); // 0x004370C0
 void __cdecl sub_00438560_Refresh(); // 0x00438560
-void __cdecl sub_00439210_Redraw(); // 0x00439210
+int __cdecl sub_00439210_Redraw(); // 0x00439210
 void __cdecl sub_00443130_Reset(); // 0x00443130
 void __cdecl sub_00443E10(); // 0x00443E10
 void __cdecl sub_00514930(); // 0x00514930
 void __cdecl sub_00515020(); // 0x00515020
 void __cdecl sub_0052A7E0(); // 0x0052A7E0
 void __fastcall D2SOUND_10034(int nArg); // 0x005148F0
-void __fastcall sub_00407050_GetSavePath(char* szPath, int nSize); // 0x00407050
+int __fastcall sub_00407050_GetSavePath(char* szPath, int nSize); // 0x00407050
 void __fastcall sub_0040B3C0(void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B3C0
 void __fastcall sub_00433460_ShowMessage(const Unicode* pText, void (__cdecl* pfnDone)()); // 0x00433460
 void __fastcall sub_0043C540(char* szName, char nClass, char* pData, int nFlags); // 0x0043C540
@@ -139,7 +139,7 @@ void __fastcall sub_004FDDD0_LinkTab(D2WinControlStrc* pControl, D2WinControlStr
 void __fastcall sub_004FFE10_SetTextA(D2WinControlStrc* pControl, const char* szText); // 0x004FFE10
 void __fastcall sub_00515CE0_SetMasterVolume(int nVolume); // 0x00515CE0
 void __fastcall sub_00515F50(int nArg); // 0x00515F50
-void __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
+char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
 void __stdcall D2Win_10030_CONTROL_ToggleFourthFlag(D2WinControlStrc* pControl, int bSet); // 0x004FA420
 void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
 void __stdcall sub_00449E70_SetMcpPacket(const char* pData, int nSize); // 0x00449E70

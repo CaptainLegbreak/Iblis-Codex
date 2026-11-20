@@ -237,7 +237,6 @@ void __fastcall SUNIT_InitSeed(D2UnitStrc* ptUnit, D2SeedStrc* pSeed); // 0x0055
 void __stdcall STATES_ToggleState(D2UnitStrc*,int,int); // 0x00639DB0
 int __fastcall CLIENTS_GetExperienceLoss(D2ClientStrc*); // 0x00539210
 void __fastcall CLIENTS_SetExperienceLoss(D2ClientStrc*,int); // 0x005391E0
-void __stdcall INVENTORY_CreateCorpseForPlayer(D2InventoryStrc*,int,int,int); // 0x0063D470
 void __stdcall INVENTORY_SetOwnerId(D2InventoryStrc*,int); // 0x0063D430
 void __stdcall ITEMS_SetInvPage(D2UnitStrc*,unsigned char); // 0x00628280
 int __stdcall UNITS_GetInventoryRecordId(D2UnitStrc* hUnit, int nInvPage, int bLoD); // 0x00621050

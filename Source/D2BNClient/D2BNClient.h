@@ -46,7 +46,7 @@ extern char gszEmptyStateText_00881F80[]; // 0x00881F80
 extern const char* gpszNewsName_0072FF80; // 0x0072FF80
 extern int gnCacheValue_00881890; // 0x00881890
 extern unsigned int gdwCacheCrcTable_0072FB80[]; // 0x0072FB80
-int __cdecl SLogWrite(void* hLog, const char* szFormat, ...); // 0x00420190
+void __cdecl SLogWrite(void* hLog, const char* szFormat, ...); // 0x00420190
 int __cdecl sub_00408F20_HasExpansionMpq(); // 0x00408F20
 int __cdecl sub_0051A570_GetMode(); // 0x0051A570
 int __cdecl sub_00520AE0(); // 0x00520AE0
@@ -55,7 +55,7 @@ int __fastcall FOG_SOCKET_GetPeerName(FSafeSock* pSafeSock, void* pAddress, int*
 int __fastcall FOG_SOCKET_Receive(FSafeSock* pSafeSock, char* pBuffer, int nBufferLength); // 0x0040DC60
 int __fastcall FOG_SOCKET_Select(FSafeSock* pSafeSock); // 0x0040DDF0
 int __fastcall sub_0051E3D0_PostMessage(const char* szText, int nCode); // 0x0051E3D0
-int __fastcall sub_0051F910_Report(int nType, int nSubType, unsigned int nArg1, unsigned int nArg2, const D2FileTimeStrc* pFileTime, const char* szText1, const char* szText2); // 0x0051F910
+void __fastcall sub_0051F910_Report(int nType, int nSubType, unsigned int nArg1, unsigned int nArg2, const D2FileTimeStrc* pFileTime, const char* szFile, const char* szLink); // 0x0051F910
 int __fastcall sub_00520B70_WaitForReply(unsigned char nReply); // 0x00520B70
 int __fastcall sub_00520BF0_IsReplyReceived(unsigned char nReply); // 0x00520BF0
 int __fastcall sub_00522AE0_DecodeCDKey(const char* szKey, void* pArg2, void* pArg3, void* pArg4); // 0x00522AE0
@@ -64,7 +64,7 @@ int __stdcall SFileCloseArchive(void* hMpq); // 0x00419A80
 int __stdcall SFileLoadFile(const char* szFileName, void** ppBuffer, unsigned int* pSize, unsigned int nExtraSize, void* pOverlapped); // 0x0041B650
 int __stdcall SFileOpenArchive(const char* szMpqName, int nPriority, unsigned int dwFlags, void** phMpq); // 0x0041BA60
 int __stdcall SFileOpenFileEx(void* hMpq, const char* szFileName, int nSearchScope, void** phFile); // 0x004192F0
-int __stdcall SLogCreate(const char* szFileName, unsigned int nFlags, void** phLog); // 0x0041FD40
+int __stdcall SLogCreate(const char* szFileName, unsigned long dwFlags, void** phLog); // 0x0041FD40
 int __stdcall SRegLoadData(const char* szKeyName, const char* szValueName, unsigned int nFlags, void* pBuffer, unsigned int nBufferSize, unsigned int* pnBytesRead); // 0x00414DE0
 unsigned int __stdcall sub_00413800(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
 void __cdecl sub_00518C70_LogIndent(int nChannel, int nDelta); // 0x00518C70
