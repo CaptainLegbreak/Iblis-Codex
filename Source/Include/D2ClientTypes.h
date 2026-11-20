@@ -55,3 +55,22 @@ struct D2MsgHandlerEntryStrc
 D2_CHECK_SIZE(D2GfxDataStrc, 0x48);
 D2_CHECK_SIZE(D2InvRectStrc, 0x10);
 D2_CHECK_SIZE(D2MsgHandlerEntryStrc, 0xC);
+
+struct D2UnitTargetStrc
+{
+    int nParam1; // 0x00
+    int nParam2; // 0x04
+    int nParam3; // 0x08
+    int unk0x0C[4]; // 0x0C
+};
+
+struct D2ClientEntryStrc
+{
+    unsigned int dwValue; // 0x00
+    unsigned short wValue; // 0x04
+    unsigned short unk0x06; // 0x06
+    int nValue; // 0x08
+};
+
+D2_CHECK_SIZE(D2UnitTargetStrc, 0x1C);
+D2_CHECK_SIZE(D2ClientEntryStrc, 0xC);

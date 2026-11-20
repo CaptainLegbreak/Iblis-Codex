@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2ClientTypes.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -42,11 +43,6 @@ struct D2PlayerCmdStrc
 };
 
 
-struct D2ClientEntryStrc
-{
-    int unk0x00[2];
-    int nValue;
-};
 
 
 

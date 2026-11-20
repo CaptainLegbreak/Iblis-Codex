@@ -141,11 +141,6 @@ extern const D2PanelHotkeysStrc gtPanelHotkeys_006D627C; // 0x006D627C
 extern const D2PanelHotkeysStrc gtPanelHotkeys_006D62A0; // 0x006D62A0
 extern int gnPanelState_007A27E8; // 0x007A27E8
 
-struct D2ClientEntryStrc
-{
-    char unk0x00[0x08];
-    int nState;
-};
 
 struct D2RosterPetStrc
 {

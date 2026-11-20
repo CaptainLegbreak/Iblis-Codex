@@ -15,11 +15,6 @@ struct D2InventoryGridInfoStrc;
 struct D2InvCompGridStrc;
 
 
-struct D2ClientEntryStrc
-{
-    char unk0x00[0x08];
-    int nState;
-};
 
 struct D2RosterPetStrc
 {

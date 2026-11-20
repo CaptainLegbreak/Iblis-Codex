@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2ClientTypes.h"
 
 struct D2GfxLightStrc;
 
@@ -43,12 +44,6 @@ struct D2ObjectsTxt
     unsigned char nOverlay;
 };
 
-struct D2UnitTargetStrc
-{
-    int nParam1;
-    int nParam2;
-    int unk0x08[5];
-};
 
 struct D2ShrineHandlerStrc
 {

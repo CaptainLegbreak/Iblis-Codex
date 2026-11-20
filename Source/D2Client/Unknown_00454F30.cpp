@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
+#include "D2ClientTypes.h"
 
 struct Unicode
 {
@@ -38,11 +39,6 @@ struct D2TileRectStrc
     unsigned int nHeight;
 };
 
-struct D2ClientEntryStrc
-{
-    char unk0x00[0x08];
-    int nState;
-};
 
 
 struct tagRECT
@@ -231,7 +227,7 @@ void __cdecl sub_00452D20_DrawPetHover()
     {
         return;
     }
-    if (sub_00478E40_FindEntry(nPetId)->nState != 1)
+    if (sub_00478E40_FindEntry(nPetId)->nValue != 1)
     {
         return;
     }
