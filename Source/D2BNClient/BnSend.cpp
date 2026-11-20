@@ -1,6 +1,7 @@
 #include "D2BNClient.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Primitives.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -41,11 +42,6 @@ struct D2SystemTimeStrc;
 struct D2FileTimeStrc;
 struct D2TimeZoneInformationStrc;
 
-struct D2FileTimeStrc
-{
-    unsigned long dwLowDateTime;
-    unsigned long dwHighDateTime;
-};
 
 struct T0041D340
 {

@@ -6,6 +6,7 @@
 #include "D2Txt.h"
 #include "D2GameTypes.h"
 #include "D2Drlg.h"
+#include "D2Primitives.h"
 
 #pragma function(memset)
 
@@ -157,11 +158,6 @@ struct D2PlayerDataStrc
     int nLeftSkillId;
 };
 
-struct D2FileTimeStrc
-{
-    unsigned long dwLowDateTime;
-    unsigned long dwHighDateTime;
-};
 
 struct D2ClientStrc
 {
@@ -389,14 +385,6 @@ int __stdcall UNITFINDS_FindAllMatchingUnitsInNeighboredRooms(D2UnitFindDataStrc
 unsigned int __fastcall ARENA_GetFlags(D2GameStrc* pGame); // 0x0053FD40
 D2UnitStrc* __fastcall SUNIT_GetNextUnitFromList(D2UnitStrc* pUnit); // 0x00552DB0
 
-struct D2BitBufferStrc
-{
-    unsigned char* pBuffer;
-    int nBits;
-    int nPos;
-    int nPosBits;
-    int bFull;
-};
 
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
 void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C360

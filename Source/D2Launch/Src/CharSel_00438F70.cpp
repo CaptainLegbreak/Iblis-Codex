@@ -1,11 +1,7 @@
+#include "D2Primitives.h"
 extern "C" unsigned int __cdecl strlen(const char* sz);
 #pragma intrinsic(strlen)
 
-struct D2FileTimeStrc
-{
-    unsigned int dwLowDateTime;
-    unsigned int dwHighDateTime;
-};
 
 struct D2FindDataStrc
 {

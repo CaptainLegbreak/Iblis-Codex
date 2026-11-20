@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2GameStrc.h"
+#include "D2Primitives.h"
 
 #pragma intrinsic(memcpy)
 
@@ -8,11 +9,6 @@ struct D2PlrIntroStrc;
 struct D2NpcIndexMapStrc;
 struct D2GameStrc;
 
-struct D2BitBufferStrc
-{
-    unsigned char* pBuffer;
-    char unk0x04[0x10];
-};
 
 struct D2PlrIntroStrc
 {

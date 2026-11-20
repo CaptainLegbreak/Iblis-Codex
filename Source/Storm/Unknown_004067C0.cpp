@@ -1,4 +1,5 @@
 #include "Storm.h"
+#include "D2Primitives.h"
 
 struct D2FileTimeStrc;
 struct D2FindDataStrc;
@@ -11,11 +12,6 @@ int __stdcall sub_00419980(const char* szFileName, void** phFile); // 0x00419980
 int __stdcall sub_0041AAD0_StormReadFile(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped, int nArg6, int nArg7); // 0x0041AAD0
 int __stdcall sub_00416370_StormGetFileSize(void* hFile, unsigned int* pnSizeHigh); // 0x00416370
 
-struct D2FileTimeStrc
-{
-    unsigned long dwLowDateTime;
-    unsigned long dwHighDateTime;
-};
 
 struct D2FindDataStrc
 {
