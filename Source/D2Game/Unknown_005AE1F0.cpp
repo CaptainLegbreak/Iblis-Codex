@@ -2,12 +2,8 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Path.h"
 
-struct D2PathPointStrc
-{
-    unsigned short X;
-    unsigned short Y;
-};
 
 #define STAT_HITPOINTS 6
 #define STAT_MANA 8
@@ -135,30 +131,7 @@ int __stdcall STATLIST_GetMaxManaFromUnit(D2UnitStrc* pUnit); // 0x00625D60
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); // 0x00483360
 void __stdcall UNITS_SetOverlay(D2UnitStrc* pUnit, int nOverlay, int a3); // 0x00621E40
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
-struct D2StaticPathStrc
-{
-    void* pRoom;
-    int nTargetX;
-    int nTargetY;
-    union
-    {
-        struct
-        {
-            D2CoordStrc tGameCoords;
-        };
-        struct
-        {
-            int nXPos;
-            int nYPos;
-        };
-    };
-};
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath); // 0x00648900
 void __stdcall COLLISION_SetMask(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask); // 0x0064CB90

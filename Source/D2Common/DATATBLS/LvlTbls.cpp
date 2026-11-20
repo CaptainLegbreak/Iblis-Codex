@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2DataTbls.h"
+#include "D2Path.h"
 
 #pragma intrinsic(strcpy)
 #define LVL_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -103,11 +104,6 @@ struct D2AutomapRandStrc
     int nEnd;
 };
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
 
 void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
