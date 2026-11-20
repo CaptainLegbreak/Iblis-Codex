@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2UnitData.h"
 
 #define UNIT_MONSTER 1
 #define UNIT_INVALID 6
@@ -34,11 +35,6 @@ struct D2AiControlStrc
     unsigned char unk_3C[0x4];
 };
 
-struct D2MonsterDataStrc
-{
-    char unk0x00[0x28];
-    D2AiControlStrc* pAiControl;
-};
 
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0

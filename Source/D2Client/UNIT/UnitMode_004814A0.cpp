@@ -1,15 +1,8 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2UnitData.h"
 
-struct D2PlayerDataStrc
-{
-    char _pad_0x0[0x150];
-    int nState;
-    int nAction;
-    int nArg1;
-    int nArg2;
-};
 struct D2SkillsTxt
 {
     char _pad_0x0[0x7];
@@ -106,7 +99,7 @@ static __forceinline void sub_SetPlayerAction(D2UnitStrc* pPlayer, int nState, i
     if (pPlayer && pPlayer->dwUnitType == 0 && pPlayer->pPlayerData)
     {
         pPlayer->pPlayerData->nState = nState;
-        pPlayer->pPlayerData->nAction = nAction;
+        pPlayer->pPlayerData->nMode = nAction;
         pPlayer->pPlayerData->nArg1 = nArg1;
         pPlayer->pPlayerData->nArg2 = nArg2;
     }

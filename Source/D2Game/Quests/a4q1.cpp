@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2StaticPathStrc;
@@ -129,13 +130,6 @@ typedef int (__stdcall* FARPROC)();
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x006CC34C
 
 
-struct D2PlayerDataStrc
-{
-    char pad0x00[0x10];
-    D2BitBufferStrc* pQuestData[3];
-    char pad0x1C[0x30];
-    int bBusy;
-};
 
 struct D2QuestArgStrc
 {
@@ -184,36 +178,7 @@ typedef bool(__fastcall* QUESTACTIVEFILTER)(D2QuestDataStrc* pQuest, int nNpcId,
 
 typedef bool(__fastcall* QUESTSTATUSFILTER)(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus);
 
-struct D2QuestGUIDStrc
-{
-    unsigned int nPlayerGUIDs[32];
-    unsigned short nPlayerCount;
-    unsigned char pad0x82[2];
-};
 
-struct D2QuestDataStrc
-{
-    int nQuestNo;
-    D2GameStrc* pGame;
-    unsigned char nActNo;
-    unsigned char bNotIntro;
-    unsigned char bActive;
-    unsigned char fLastState;
-    unsigned char fState;
-    char nInitNo;
-    unsigned short dw0E;
-    int nSeqId;
-    unsigned int dwFlags;
-    void* pQuestDataEx;
-    D2QuestGUIDStrc tPlayerGUIDs;
-    QUESTCALLBACK pCallback[15];
-    void* pNPCMessages;
-    int eFilter;
-    int unk0xE4;
-    QUESTSTATUSFILTER pfStatusFilter;
-    QUESTACTIVEFILTER pfActiveFilter;
-    QUESTSEQFILTER pfSeqFilter;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern char gpAct4Q0NpcMessages[]; // 0x0073D580

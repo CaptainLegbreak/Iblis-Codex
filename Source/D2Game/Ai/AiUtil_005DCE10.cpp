@@ -2,6 +2,7 @@
 #include "D2Constants.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2UnitData.h"
 
 struct D2MonStatsTxt;
 struct D2MonsterDataStrc;
@@ -22,11 +23,6 @@ enum D2C_F41AiUtilConstants
 };
 
 
-struct D2MonsterDataStrc
-{
-    char unk0x00[0x28];
-    D2AiControlStrc* pAiControl;
-};
 
 
 struct D2ActiveRoomStrc

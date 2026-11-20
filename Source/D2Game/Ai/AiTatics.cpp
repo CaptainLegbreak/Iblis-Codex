@@ -6,6 +6,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -25,16 +26,6 @@ struct D2CoordStrc;
 struct D2MonsterDataStrc;
 
 
-struct D2QuestDataStrc
-{
-    int nQuestNo;
-    D2GameStrc* pGame;
-    unsigned char nActNo;
-    unsigned char bNotIntro;
-    unsigned char bActive;
-    unsigned char fLastState;
-    unsigned char fState;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
@@ -119,11 +110,6 @@ int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, in
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 void __fastcall D2GAME_MONSTERMODE_ResetVelocityParams_6FC62F90(D2UnitStrc* pUnit); // 0x005A61F0
 
-struct D2MonsterDataStrc
-{
-	char unk_00[0x2C];
-	D2AiParamStrc* pAiParams;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -302,7 +288,7 @@ void __fastcall sub_005DE190_SetAiParam(D2UnitStrc* pUnit, int nParam, int nValu
 		nParam = 7;
 	}
 
-	D2AiParamStrc* pAiParams = (pUnit && pUnit->dwUnitType == 1 && pUnit->pMonsterData) ? pUnit->pMonsterData->pAiParams : 0;
+	D2AiParamStrc* pAiParams = (pUnit && pUnit->dwUnitType == 1 && pUnit->pMonsterData) ? pUnit->pMonsterData->pAiParam : 0;
 	sub_005A6260_SetAiParamFields(pAiParams, nParam, nValue, nArg);
 }
 

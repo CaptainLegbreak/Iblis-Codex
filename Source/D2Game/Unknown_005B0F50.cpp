@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 #define MONSTATSFLAGINDEX_OPENDOORS 3
 #define STATE_STUNNED 21
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -83,11 +84,6 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(int (__stdcall* lpfn)()); // 0x006CC34C
 
-struct D2MonsterDataStrc
-{
-    char unk0x00[0x28];
-    D2AiControlStrc* pAiControl;
-};
 
 
 int __fastcall sub_005B10E0_AiTickPreChecks(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam); // 0x005B10E0

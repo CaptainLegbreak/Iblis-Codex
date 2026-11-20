@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
@@ -88,11 +89,6 @@ struct D2GSPacketSrv8D
 #pragma pack(pop)
 
 
-struct D2MonsterDataStrc
-{
-    char unk0x00[0x04];
-    unsigned char nComponent[16];
-};
 
 struct D2BitBufferStrc
 {

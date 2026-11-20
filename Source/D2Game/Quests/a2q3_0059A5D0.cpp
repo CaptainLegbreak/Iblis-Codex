@@ -1,21 +1,9 @@
 #include "D2Game.h"
 #include "D2GameStrc.h"
+#include "D2UnitData.h"
 
 
-struct D2PlayerDataStrc
-{
-    char unk_00[0x10];
-    D2BitBufferStrc* pQuestData[3];
-};
 
-struct D2QuestDataStrc
-{
-    int unk_00;
-    D2GameStrc* pGame;
-    char unk_08[3];
-    char fLastState;
-    char fState;
-};
 
 struct D2QuestArgStrc
 {

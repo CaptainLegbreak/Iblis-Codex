@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2UnitData.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -13,13 +14,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 
 
 
-struct D2QuestDataStrc
-{
-    char unk0x000[0x4];
-    D2GameStrc* pGame;
-    char unk0x008[0x10];
-    struct D2Act4Quest2Strc* pQuestDataEx;
-};
 
 struct D2Act4Quest2Strc
 {

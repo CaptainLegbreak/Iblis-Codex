@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2ItemsTxt;
@@ -16,19 +17,6 @@ struct D2PlayerModeChartStrc;
 
 
 
-struct D2PlayerDataStrc
-{
-    char unk0x00[0xA0];
-    unsigned char nPositionHistoryIndex;
-    char unk0xA1[0x03];
-    unsigned int dwPositionHistoryTick;
-    D2CoordStrc pPositionHistory[20];
-    char unk0x148[0x08];
-    int bInteract;
-    int nInteractAction;
-    int nInteractUnitType;
-    int nInteractUnitGUID;
-};
 
 
 
@@ -140,17 +128,17 @@ static __forceinline int sub_F05_PlrGetUnitY(D2UnitStrc* pUnit)
 
 static __forceinline int sub_F05_GetInteractAction(D2UnitStrc* pPlayer)
 {
-    return pPlayer->dwUnitType == 0 ? pPlayer->pPlayerData->nInteractAction : 0;
+    return pPlayer->dwUnitType == 0 ? pPlayer->pPlayerData->nMode : 0;
 }
 
 static __forceinline int sub_F05_GetInteractUnitType(D2UnitStrc* pPlayer)
 {
-    return pPlayer->dwUnitType == 0 && pPlayer->pPlayerData ? pPlayer->pPlayerData->nInteractUnitType : 0;
+    return pPlayer->dwUnitType == 0 && pPlayer->pPlayerData ? pPlayer->pPlayerData->nArg1 : 0;
 }
 
 static __forceinline int sub_F05_GetInteractUnitGUID(D2UnitStrc* pPlayer)
 {
-    return pPlayer->dwUnitType == 0 && pPlayer->pPlayerData ? pPlayer->pPlayerData->nInteractUnitGUID : 0;
+    return pPlayer->dwUnitType == 0 && pPlayer->pPlayerData ? pPlayer->pPlayerData->nArg2 : 0;
 }
 
 static __forceinline int sub_F05_IsInteracting(D2UnitStrc* pPlayer)
@@ -160,14 +148,14 @@ static __forceinline int sub_F05_IsInteracting(D2UnitStrc* pPlayer)
         return 0;
     }
 
-    return pPlayer->pPlayerData->bInteract;
+    return pPlayer->pPlayerData->nState;
 }
 
 static __forceinline void sub_F05_SetInteractFlag(D2UnitStrc* pPlayer, int nFlag)
 {
     if (pPlayer->dwUnitType == 0 && pPlayer->pPlayerData)
     {
-        pPlayer->pPlayerData->bInteract = nFlag;
+        pPlayer->pPlayerData->nState = nFlag;
     }
 }
 
@@ -336,7 +324,7 @@ int __fastcall PLRMODE_UpdateMovement(D2GameStrc* pGame, D2UnitStrc* pPlayer, in
 
     if (nPathResult == 2)
     {
-        if (pPlayer && pPlayer->dwUnitType == 0 && pPlayer->pPlayerData && pPlayer->pPlayerData->bInteract)
+        if (pPlayer && pPlayer->dwUnitType == 0 && pPlayer->pPlayerData && pPlayer->pPlayerData->nState)
         {
             const int nAction = sub_F05_GetInteractAction(pPlayer);
             if (nAction >= 0)

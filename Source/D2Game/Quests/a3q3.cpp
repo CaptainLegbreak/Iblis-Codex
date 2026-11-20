@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define MONSTER_HRATLI 253
@@ -24,11 +25,6 @@ struct D2ActiveRoomStrc
 
 
 
-struct D2PlayerDataStrc
-{
-    char unk0x00[0x10];
-    D2BitBufferStrc* pQuestData[3];
-};
 
 typedef void (__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
 
@@ -42,36 +38,7 @@ typedef int (__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit,
 
 typedef bool (__fastcall* QUESTUPDATE)(D2GameStrc* pGame, D2QuestDataStrc* pQuestData);
 
-struct D2QuestGUIDStrc
-{
-    unsigned int nPlayerGUIDs[32];
-    unsigned short nPlayerCount;
-    unsigned char pad0x82[2];
-};
 
-struct D2QuestDataStrc
-{
-    int nQuestNo;
-    D2GameStrc* pGame;
-    unsigned char nActNo;
-    unsigned char bNotIntro;
-    unsigned char bActive;
-    unsigned char fLastState;
-    unsigned char fState;
-    char nInitNo;
-    unsigned short dw0E;
-    int nSeqId;
-    unsigned int dwFlags;
-    void* pQuestDataEx;
-    D2QuestGUIDStrc tPlayerGUIDs;
-    QUESTCALLBACK pCallback[15];
-    void* pNPCMessages;
-    int eFilter;
-    int unk0xE4;
-    QUESTSTATUSFILTER pfStatusFilter;
-    QUESTACTIVEFILTER pfActiveFilter;
-    QUESTSEQFILTER pfSeqFilter;
-};
 
 struct D2QuestArgStrc
 {

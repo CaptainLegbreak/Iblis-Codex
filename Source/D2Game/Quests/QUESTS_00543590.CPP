@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2UnitData.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_MONSTER 1
@@ -71,24 +72,6 @@ typedef bool(__fastcall* QUESTSTATUSFILTER)(D2QuestDataStrc* pQuest, D2UnitStrc*
 
 typedef bool (__fastcall* QUESTACTIVEFILTER)(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC);
 
-struct D2QuestDataStrc
-{
-    int nQuestNo;
-    void* pGame;
-    unsigned char nActNo;
-    unsigned char bNotIntro;
-    unsigned char unk_0A[0x1];
-    unsigned char fLastState;
-    unsigned char unk_0C[0x94];
-    QUESTCALLBACK pCallback[15];
-    unsigned char unk_DC[0x4];
-    int eFilter;
-    char pad0xE4[0x4];
-    QUESTSTATUSFILTER pfStatusFilter;
-    QUESTACTIVEFILTER pfActiveFilter;
-    char unk0xF0[0x04];
-    D2QuestDataStrc* pPrev;
-};
 
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
 void __fastcall ACT1Q4_SetInvisibleObjectGUID(D2GameStrc* pGame, D2QuestDataStrc* pQuestData, D2UnitStrc* pUnit); // 0x00592F80
@@ -108,15 +91,6 @@ int __fastcall sub_005968C0_IsAndarielKilled(D2QuestDataStrc* pQuestData); // 0x
 
 typedef int (__stdcall* FARPROC)();
 
-struct D2PlayerDataStrc
-{
-    char unk0x00[0x10];
-    D2BitBufferStrc* pQuestData[3];
-    char pad0x1C[0x30];
-    int bBusy;
-    char pad0x50[0x10];
-    D2PlrIntroStrc* pPlayerIntro[3];
-};
 
 struct D2MonStatsTxt
 {

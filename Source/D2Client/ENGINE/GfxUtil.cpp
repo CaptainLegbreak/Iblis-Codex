@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2UnitData.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
@@ -48,13 +49,6 @@ struct D2TokRecord;
 struct D2ObjectsTxt;
 struct D2ItemsTxt;
 
-struct D2MonsterDataStrc
-{
-    void* pMonstatsTxt;
-    unsigned char nComponent[16];
-    unsigned short wNameSeed;
-    unsigned short nTypeFlag;
-};
 
 
 struct D2ActiveRoomStrc

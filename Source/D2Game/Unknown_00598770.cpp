@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2UnitData.h"
 #define QFLAG_PRIMARYGOALDONE 13
 struct Flags;
 struct D2Act3Quest5Strc;
@@ -11,21 +12,6 @@ int __stdcall sub_0065C310(Flags*,int,int); // 0x0065C310
 enum { NPC_ID = 176 };
 
 
-struct D2QuestDataStrc
-{
-    int nQuestNo;
-    D2GameStrc* pGame;
-    unsigned char nActNo;
-    unsigned char bNotIntro;
-    unsigned char bActive;
-    unsigned char fLastState;
-    unsigned char fState;
-    char nInitNo;
-    unsigned short dw0E;
-    int nSeqId;
-    unsigned int dwFlags;
-    void* pQuestDataEx;
-};
 
 struct D2Act3Quest5Strc
 {

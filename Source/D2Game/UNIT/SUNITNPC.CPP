@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2UnitData.h"
 
 #define UNIT_OBJECT 2
 #define UNIT_ITEM 4
@@ -36,13 +37,6 @@ struct D2GSPacketSrv50;
 struct D2NpcVendorChainStrc;
 
 
-struct D2PlayerDataStrc
-{
-    char unk0x00[0x10];
-    D2BitBufferStrc* pQuestData[3];
-    unsigned char unk_1C[0x50];
-    int dwBoughtItemId;
-};
 
 struct D2MonsterItemCodeStrc
 {

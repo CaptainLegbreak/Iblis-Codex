@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2UnitData.h"
 
 struct Bits;
 struct Player;
@@ -31,11 +32,6 @@ enum { QUEST_ID = 21 };
 
 
 
-struct D2PlayerDataStrc
-{
-    char unk0x00[0x10];
-    D2BitBufferStrc* pQuestData[3];
-};
 
 typedef void (__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
 
@@ -49,28 +45,6 @@ typedef void (__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* 
 
 typedef bool (__fastcall* QUESTUPDATE)(D2GameStrc* pGame, D2QuestDataStrc* pQuestData);
 
-struct D2QuestDataStrc
-{
-    int nQuestNo;
-    D2GameStrc* pGame;
-    unsigned char nActNo;
-    unsigned char bNotIntro;
-    unsigned char bActive;
-    unsigned char fLastState;
-    unsigned char fState;
-    char nInitNo;
-    unsigned short dw0E;
-    int nSeqId;
-    unsigned int dwFlags;
-    void* pQuestDataEx;
-    char tPlayerGUIDs[0x84];
-    QUESTCALLBACK pCallback[15];
-    void* pNPCMessages;
-    int eFilter;
-    int unk0xE4;
-    QUESTSTATUSFILTER pfStatusFilter;
-    QUESTACTIVEFILTER pfActiveFilter;
-};
 
 struct D2QuestArgStrc
 {

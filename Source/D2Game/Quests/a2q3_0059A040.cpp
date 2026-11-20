@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2UnitData.h"
 
 struct D2SeedStrc;
 struct D2PlayerDataStrc;
@@ -10,25 +11,7 @@ struct D2ObjInitFnStrc;
 
 
 
-struct D2PlayerDataStrc
-{
-    char szName[0x10];
-    D2BitBufferStrc* pQuestData[3];
-};
 
-struct D2QuestDataStrc
-{
-    int nQuestNo;
-    D2GameStrc* pGame;
-    unsigned char nActNo;
-    unsigned char bNotIntro;
-    unsigned char bActive;
-    unsigned char fLastState;
-    unsigned char fState;
-    char unk0x0D[0x07];
-    unsigned int dwFlags;
-    void* pQuestDataEx;
-};
 
 struct D2Act2Quest3Strc
 {

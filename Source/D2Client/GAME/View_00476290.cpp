@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2UnitData.h"
 
 #define STARS_ROLL(pSeed, lSeed) ((lSeed) = (pSeed)->nHighSeed + 0x6AC690C5i64 * (pSeed)->nLowSeed, \
     (pSeed)->nHighSeed = (unsigned int)((lSeed) >> 32), (pSeed)->nLowSeed = (unsigned int)(lSeed), (unsigned int)(lSeed))
@@ -20,11 +21,6 @@ void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, un
 void __stdcall sub_00476190_ResetStar(int nStar, int bRespawn);
 extern D2SeedStrc* gpClientSeed_00712C4C; // 0x00712C4C
 
-struct D2PlayerDataStrc
-{
-    char unk0x000[0x150];
-    int nField0x150;
-};
 
 
 
@@ -163,7 +159,7 @@ int __fastcall sub_00480400_GetPlayerField150(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == 0 && pUnit->pPlayerData)
     {
-        return pUnit->pPlayerData->nField0x150;
+        return pUnit->pPlayerData->nState;
     }
     return 0;
 }

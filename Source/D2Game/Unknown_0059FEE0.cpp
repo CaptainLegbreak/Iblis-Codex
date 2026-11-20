@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2UnitData.h"
 
 #define UNIT_MONSTER 1
 struct D2MissilesTxt;
@@ -52,16 +53,6 @@ struct D2MonUModTxt
     int dwConstants;
 };
 
-struct D2MonsterDataStrc
-{
-    void* pMonstatsTxt;
-    unsigned char nComponent[16];
-    unsigned short wNameSeed;
-    unsigned short nTypeFlag;
-    int dwDurielFlag;
-    unsigned char unk_1C[0xA];
-    short wBossHcIdx;
-};
 
 struct D2MonStatsTxt
 {

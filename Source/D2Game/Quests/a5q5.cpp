@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 
 #define QUEST_A5Q5_ANCIENTS 35
 #define STAT_LEVEL 12
@@ -38,31 +39,7 @@ struct D2ModeChangeStrc
     int unk0x1C;
 };
 
-struct D2QuestGUIDStrc
-{
-    unsigned int nPlayerGUIDs[32];
-    unsigned short nPlayerCount;
-    unsigned char pad0x82[2];
-};
 
-struct D2QuestDataStrc
-{
-    int nQuestNo;
-    D2GameStrc* pGame;
-    char nActNo;
-    unsigned char bNotIntro;
-    unsigned char bActive;
-    unsigned char fLastState;
-    unsigned char fState;
-    char nInitNo;
-    unsigned short dw0E;
-    int nSeqId;
-    unsigned int dwFlags;
-    void* pQuestDataEx;
-    D2QuestGUIDStrc tPlayerGUIDs;
-    char unk0xA0[0x40];
-    int eFilter;
-};
 
 struct D2Act5Quest5Strc
 {
@@ -136,11 +113,6 @@ struct D2ObjOperateFnStrc
 void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc* pUpdateUnit); // 0x00553380
 int __fastcall ACT5Q5_UnitIterate_ClosePortals(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x0058D2C0
 
-struct D2PlayerDataStrc
-{
-    char szName[0x10];
-    D2BitBufferStrc* pQuestData[3];
-};
 
 struct D2ObjInitFnStrc
 {

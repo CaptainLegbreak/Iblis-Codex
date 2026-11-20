@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -49,18 +50,6 @@ struct D2QuestArgStrc
 };
 typedef void(__fastcall* QUESTCALLBACK)(D2QuestDataStrc*, D2QuestArgStrc*);
 
-struct D2QuestDataStrc
-{
-    int nQuestNo;
-    D2GameStrc* pGame;
-    unsigned char nActNo;
-    unsigned char bNotIntro;
-    unsigned char bActive;
-    char unk0x0B[0x95];
-    QUESTCALLBACK pCallback[15];
-    char unk0xDC[0x18];
-    D2QuestDataStrc* pPrev;
-};
 
 struct T005438E0
 {

@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2UnitData.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -29,11 +30,6 @@ struct D2AiControlStrc
     D2MinionListStrc* pMinionList;
 };
 
-struct D2MonsterDataStrc
-{
-    char unk0x00[0x28];
-    D2AiControlStrc* pAiControl;
-};
 
 
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID);                // 0x00552F60

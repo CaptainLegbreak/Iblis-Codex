@@ -1,15 +1,10 @@
 #include "D2Game.h"
 #include "D2GameStrc.h"
+#include "D2UnitData.h"
 
 struct D2PlayerDataStrc;
 
 
-struct D2PlayerDataStrc
-{
-    char szName[0x10];
-    D2BitBufferStrc* pQuestData[3];
-    D2WaypointDataStrc* pWaypointData[3];
-};
 
 enum D2C_M54A5Q4Constants
 {
@@ -25,7 +20,6 @@ D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
 void __fastcall QUESTS_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nQuestId); // 0x00544190
 
-struct D2QuestDataStrc { char unknown0[9]; unsigned char notIntro, active, lastState, state; };
 
 // 0x0058AEA0
 int __fastcall ACT5Q4_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData)
@@ -49,9 +43,9 @@ bool __fastcall sub_0058AF00_GetQuestStatus(D2QuestDataStrc* quest, D2UnitStrc* 
     if (QUESTRECORD_GetQuestState(flags, 38, 0)) return true;
     if (QUESTRECORD_GetQuestState(flags, 38, 1) || QUESTRECORD_GetQuestState(flags, 38, 13)) {
         *status = QUESTRECORD_GetQuestState(flags, 38, 4) != 0 ? 5 : 4;
-    } else if (quest->notIntro) {
+    } else if (quest->bNotIntro) {
         if (QUESTRECORD_GetQuestState(flags, 38, 14)) { *status = 12; return true; }
-        if (quest->state < 4) { *status = quest->lastState; return true; }
+        if (quest->fState < 4) { *status = quest->fLastState; return true; }
     }
     return true;
 }

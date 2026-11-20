@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 struct D2AiControlStrc;
 struct D2AnimSeqTxt;
 struct D2ActiveRoomStrc;
@@ -43,11 +44,6 @@ enum D2C_G4Constants
 };
 
 
-struct D2MonsterDataStrc
-{
-    char unk0x00[0x28];
-    D2AiControlStrc* pAiControl;
-};
 
 struct D2AnimDataRecordStrc
 {

@@ -1,14 +1,10 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2UnitData.h"
 
 
 
-struct D2PlayerDataStrc
-{
-    char szName[0x10];
-    D2BitBufferStrc* pQuestData[3];
-};
 
 struct D2QuestArgStrc
 {
@@ -21,16 +17,6 @@ struct D2QuestArgStrc
 typedef void (__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
 typedef int (__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 
-struct D2QuestDataStrc
-{
-    int nQuestNo;
-    D2GameStrc* pGame;
-    char unk0x08[0x0C];
-    unsigned int dwFlags;
-    void* pQuestDataEx;
-    char tPlayerGUIDs[0x84];
-    QUESTCALLBACK pCallback[15];
-};
 
 struct D2Act2Quest4Strc
 {

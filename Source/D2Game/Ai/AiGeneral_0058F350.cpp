@@ -1,6 +1,7 @@
 #include "D2Constants.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2UnitData.h"
 struct D2MinionListStrc
 {
     int dwMinionGUID;
@@ -14,11 +15,6 @@ struct D2AiControlStrc
     int nMinionSpawnClassId;
 };
 
-struct D2MonsterDataStrc
-{
-    char unk0x00[0x28];
-    D2AiControlStrc* pAiControl;
-};
 
 
 void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);         // 0x0040B480

@@ -5,6 +5,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2UnitData.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define MONSTER_DEMONHOLE 711
@@ -77,11 +78,6 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 
 
-struct D2MonsterDataStrc
-{
-    char unk0x00[0x2C];
-    D2AiParamStrc* pAiParam;
-};
 
 
 

@@ -1,16 +1,9 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 struct D2SkillStrc;
 
-struct D2PlayerDataStrc
-{
-    char unk0x00[0x150];
-    int dwPendingFlag;
-    int dwPendingAction;
-    int dwPendingType;
-    int dwPendingId;
-};
 
 
 
@@ -70,7 +63,7 @@ static __forceinline int UMODE_GetPendingFlag(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == 0 && pUnit->pPlayerData)
     {
-        return pUnit->pPlayerData->dwPendingFlag;
+        return pUnit->pPlayerData->nState;
     }
     return 0;
 }
@@ -79,7 +72,7 @@ static __forceinline int UMODE_GetPendingAction(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == 0 && pUnit->pPlayerData)
     {
-        return pUnit->pPlayerData->dwPendingAction;
+        return pUnit->pPlayerData->nMode;
     }
     return 0;
 }
@@ -88,7 +81,7 @@ static __forceinline int UMODE_GetPendingType(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == 0 && pUnit->pPlayerData)
     {
-        return pUnit->pPlayerData->dwPendingType;
+        return pUnit->pPlayerData->nArg1;
     }
     return 0;
 }
@@ -97,7 +90,7 @@ static __forceinline int UMODE_GetPendingId(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == 0 && pUnit->pPlayerData)
     {
-        return pUnit->pPlayerData->dwPendingId;
+        return pUnit->pPlayerData->nArg2;
     }
     return 0;
 }
@@ -106,10 +99,10 @@ static __forceinline void UMODE_SetPendingAction(D2UnitStrc* pUnit, int bFlag, i
 {
     if (pUnit && pUnit->dwUnitType == 0 && pUnit->pPlayerData)
     {
-        pUnit->pPlayerData->dwPendingFlag = bFlag;
-        pUnit->pPlayerData->dwPendingAction = nAction;
-        pUnit->pPlayerData->dwPendingType = nType;
-        pUnit->pPlayerData->dwPendingId = nId;
+        pUnit->pPlayerData->nState = bFlag;
+        pUnit->pPlayerData->nMode = nAction;
+        pUnit->pPlayerData->nArg1 = nType;
+        pUnit->pPlayerData->nArg2 = nId;
     }
 }
 

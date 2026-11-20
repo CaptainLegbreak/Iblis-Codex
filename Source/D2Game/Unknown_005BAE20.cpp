@@ -1,26 +1,9 @@
 #include "D2GameStrc.h"
+#include "D2UnitData.h"
 struct D2UnitStrc;
 struct D2BitBufferStrc;
 struct D2ActiveRoomStrc;
 struct D2GameStrc;
-struct D2QuestDataStrc
-{
-#ifdef MOVED_TEST
-    int movedQuestPadding;
-#endif
-    int nQuestNo;
-    D2GameStrc* pGame;
-    unsigned char nActNo;
-    unsigned char bNotIntro;
-    unsigned char bActive;
-    unsigned char fLastState;
-    unsigned char fState;
-    char nInitNo;
-    unsigned short dw0E;
-    int nSeqId;
-    unsigned int dwFlags;
-    void* pQuestDataEx;
-};
 struct D2Act3Quest5Strc
 {
     int nLastKilledMonsterGUID;
@@ -36,11 +19,6 @@ struct D2Act3Quest5Strc
     int nHoradricCubesMissing;
 };
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
-struct D2PlayerDataStrc
-{
-    char szName[0x10];
-    D2BitBufferStrc* pQuestData[3];
-};
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit);                                         // 0x006221A0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);                                          // 0x0061A1B0

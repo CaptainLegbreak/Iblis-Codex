@@ -1,19 +1,12 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 #define NULL 0
 extern "C" char* __cdecl strcpy(char*, const char*);
 #pragma intrinsic(strcpy)
 
 
-struct D2MonsterDataStrc
-{
-    char unk0x00[0x14];
-    unsigned short wNameSeed;
-    unsigned short nTypeFlag;
-    char unk0x18[0x26 - 0x18];
-    unsigned short wBossHcIdx;
-};
 
 
 struct D2SuperUniquesTxt

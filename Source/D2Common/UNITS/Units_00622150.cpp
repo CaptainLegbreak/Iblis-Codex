@@ -2,25 +2,9 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 struct D2SkillStrc;
 struct D2TimerArgStrc;
-struct D2PlayerDataStrc
-{
-    char szName[16];
-    char unk0x10[28];
-    int nPortalFlags;
-    char unk0x30[64];
-    int nRightSkillId;
-    int nLeftSkillId;
-    int nRightSkillFlags;
-    int nLeftSkillFlags;
-    int nSwitchRightSkillId;
-    int nSwitchLeftSkillId;
-    int nSwitchRightSkillFlags;
-    int nSwitchLeftSkillFlags;
-    int nWeaponGUID;
-    int unk0x94;
-};
 struct D2ObjectDataStrc
 {
     D2ObjectsTxt* pObjectTxt;

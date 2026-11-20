@@ -1,9 +1,5 @@
 #include "D2Structs.h"
-struct D2MonsterDataStrc
-{
-    void* pMonstatsTxt;
-    unsigned char nComponent[16];
-};
+#include "D2UnitData.h"
 
 
 extern D2UnitStrc* gpUnitHashTable_007A5E70[6 * 0x80];                                                    // 0x007A5E70

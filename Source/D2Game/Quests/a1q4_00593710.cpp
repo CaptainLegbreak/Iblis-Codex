@@ -3,15 +3,11 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2UnitData.h"
 struct D2SeedStrc;
 
 
 
-struct D2PlayerDataStrc
-{
-    char unk0x00[0x10];
-    D2BitBufferStrc* pQuestData[3];
-};
 
 struct D2ObjOperateFnStrc
 {
@@ -23,25 +19,6 @@ struct D2ObjOperateFnStrc
 };
 typedef void (__fastcall* QUESTCALLBACK)(D2QuestDataStrc*, D2QuestArgStrc*);
 
-struct D2QuestDataStrc
-{
-    int nQuestNo;
-    D2GameStrc* pGame;
-    unsigned char nActNo;
-    unsigned char bNotIntro;
-    unsigned char bActive;
-    unsigned char fLastState;
-    unsigned char fState;
-    char nInitNo;
-    unsigned short dw0E;
-    int nSeqId;
-    unsigned int dwFlags;
-    void* pQuestDataEx;
-    char tPlayerGUIDs[0x84];
-    QUESTCALLBACK pCallback[15];
-    void* pNPCMessages;
-    int eFilter;
-};
 
 struct D2Act1Quest4Strc
 {

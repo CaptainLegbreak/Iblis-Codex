@@ -2,6 +2,7 @@
 #include "D2Constants.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2UnitData.h"
 
 struct D2AiCmdStrc;
 struct D2MinionListStrc;
@@ -27,11 +28,6 @@ struct D2AiControlStrc
     D2MinionListStrc* pMinionList;
 };
 
-struct D2MonsterDataStrc
-{
-    char unk0x00[0x28];
-    D2AiControlStrc* pAiControl;
-};
 
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430

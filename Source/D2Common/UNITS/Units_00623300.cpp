@@ -1,14 +1,6 @@
 #include "D2Structs.h"
 #include "D2Txt.h"
-struct D2PlayerDataStrc
-{
-    char unk0x00[128];
-    int nSwitchRightSkillId;
-    int nSwitchLeftSkillId;
-    int nSwitchRightSkillFlags;
-    int nSwitchLeftSkillFlags;
-    int nWeaponGUID;
-};
+#include "D2UnitData.h"
 
 
 

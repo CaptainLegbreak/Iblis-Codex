@@ -1,15 +1,9 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2UnitData.h"
 
 
-struct D2PlayerDataStrc
-{
-    char unk0x00[0x38];
-    D2PlayerListStrc* pPlayerList;
-    char unk0x3C[0x124];
-    int dwHostileDelay;
-};
 
 
 typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);

@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2UnitData.h"
 
 struct D2PlayerDataStrc;
 
@@ -18,11 +19,6 @@ int __fastcall sub_005A4EE0_IsMonster(D2UnitStrc* pUnit); // 0x005A4EE0
 int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nRangeBonus); // 0x00622C40
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 
-struct D2PlayerDataStrc
-{
-    char unk0x000[0x154];
-    int nField154;
-};
 
 static inline int sub_0044BE50(D2UnitStrc* pUnit)
 {
@@ -140,6 +136,6 @@ void __fastcall sub_0057ED50_SetPlayerDataField154(D2UnitStrc* pUnit, int nValue
 {
     if (pUnit && pUnit->dwUnitType == 0 && pUnit->pPlayerData)
     {
-        pUnit->pPlayerData->nField154 = nValue;
+        pUnit->pPlayerData->nMode = nValue;
     }
 }

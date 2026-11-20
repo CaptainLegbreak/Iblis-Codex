@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 
 #define QUEST_A2Q2_HORADRICSTAFF 9
 #define QFLAG_COMPLETEDNOW 14
@@ -11,11 +12,6 @@ struct D2ItemsTxt;
 
 
 
-struct D2PlayerDataStrc
-{
-    char pad0x00[0x10];
-    D2BitBufferStrc* pQuestData[3];
-};
 
 
 struct D2QuestArgStrc
@@ -28,20 +24,6 @@ struct D2QuestArgStrc
     D2TextHeaderStrc* pTextControl;
 };
 
-struct D2QuestDataStrc
-{
-    int nQuestNo;
-    D2GameStrc* pGame;
-    unsigned char nActNo;
-    unsigned char bNotIntro;
-    unsigned char bActive;
-    unsigned char fLastState;
-    unsigned char fState;
-    char nInitNo;
-    unsigned short dw0E;
-    int nSeqId;
-    unsigned int dwFlags;
-};
 
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310

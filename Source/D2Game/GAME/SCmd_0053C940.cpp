@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2UnitData.h"
 #pragma pack(push, 1)
 struct D2GSPacketSrv5B
 {
@@ -32,10 +33,6 @@ struct D2ClientStrc
 };
 
 
-struct D2PlayerDataStrc
-{
-    char szName[16];
-};
 
 #define offsetof(s, m) ((unsigned int)&(((s*)0)->m))
 #define STAT_LEVEL 12

@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2UnitData.h"
 
 #define MONSTER_QUALKEHK 515
 struct Unit0058F000;
@@ -29,23 +30,6 @@ struct D2ObjInitFnStrc
 
 typedef void (__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
 
-struct D2QuestDataStrc
-{
-    int nQuestNo;
-    D2GameStrc* pGame;
-    unsigned char nActNo;
-    unsigned char bNotIntro;
-    unsigned char bActive;
-    unsigned char fLastState;
-    unsigned char fState;
-    char nInitNo;
-    unsigned short dw0E;
-    int nSeqId;
-    unsigned int dwFlags;
-    void* pQuestDataEx;
-    char pad0x1C[0x84];
-    QUESTCALLBACK pCallback[15];
-};
 
 struct D2Act5Quest1Strc
 {

@@ -2,17 +2,13 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2UnitData.h"
 struct D2UnitStrc;
 struct D2BitBufferStrc;
 struct D2ActiveRoomStrc;
 struct D2ClientStrc;
 
 
-struct D2PlayerDataStrc
-{
-    char unk0x00[0x10];
-    D2BitBufferStrc* pQuestData[3];
-};
 
 struct D2QuestArgStrc
 {
@@ -22,12 +18,6 @@ struct D2QuestArgStrc
     D2UnitStrc* pPlayer;
 };
 
-struct D2QuestGUIDStrc
-{
-    int nPlayerGUIDs[32];
-    unsigned short nGUIDCount;
-    unsigned short unk0x82;
-};
 
 struct D2QuestDataStrc;
 typedef void(__fastcall* QUESTCALLBACK)(D2QuestDataStrc*, D2QuestArgStrc*);
@@ -36,32 +26,6 @@ typedef int(__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, 
 typedef bool(__fastcall* QUESTACTIVEFILTER)(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC);
 typedef bool(__fastcall* QUESTSTATUSFILTER)(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus);
 
-struct D2QuestDataStrc
-{
-#ifdef MOVED_TEST
-    int testPadding;
-#endif
-    int nQuestNo;
-    D2GameStrc* pGame;
-    unsigned char nActNo;
-    unsigned char bNotIntro;
-    unsigned char bActive;
-    unsigned char fLastState;
-    unsigned char fState;
-    char nInitNo;
-    unsigned short dw0E;
-    int nSeqId;
-    unsigned int dwFlags;
-    void* pQuestDataEx;
-    D2QuestGUIDStrc tPlayerGUIDs;
-    QUESTCALLBACK pCallback[15];
-    void* pNPCMessages;
-    int eFilter;
-    int unk0xE4;
-    QUESTSTATUSFILTER pfStatusFilter;
-    QUESTACTIVEFILTER pfActiveFilter;
-    QUESTSEQFILTER pfSeqFilter;
-};
 
 struct D2Act5Quest6Strc
 {

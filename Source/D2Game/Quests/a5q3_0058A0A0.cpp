@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2UnitData.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2MapAIPathPositionStrc;
@@ -16,18 +17,7 @@ struct D2QuestGUIDStrc;
 struct D2ObjInitFnStrc;
 
 
-struct D2PlayerDataStrc
-{
-    char unk0x00[0x10];
-    D2BitBufferStrc* pQuestData[3];
-};
 
-struct D2QuestGUIDStrc
-{
-    int nPlayerGUIDs[32];
-    unsigned short nGUIDCount;
-    unsigned short unk0x82;
-};
 
 typedef void(__fastcall* QUESTCALLBACK)(D2QuestDataStrc*, D2QuestArgStrc*);
 
@@ -37,29 +27,6 @@ typedef bool(__fastcall* QUESTACTIVEFILTER)(D2QuestDataStrc* pQuest, int nNpcId,
 
 typedef bool(__fastcall* QUESTSEQFILTER)(D2QuestDataStrc* pQuestData);
 
-struct D2QuestDataStrc
-{
-    int nQuestNo;
-    D2GameStrc* pGame;
-    unsigned char nActNo;
-    unsigned char bNotIntro;
-    unsigned char bActive;
-    unsigned char fLastState;
-    unsigned char fState;
-    char nInitNo;
-    unsigned short dw0E;
-    int nSeqId;
-    unsigned int dwFlags;
-    void* pQuestDataEx;
-    D2QuestGUIDStrc tPlayerGUIDs;
-    QUESTCALLBACK pCallback[15];
-    void* pNPCMessages;
-    int eFilter;
-    int unk0xE4;
-    QUESTSTATUSFILTER pfStatusFilter;
-    QUESTACTIVEFILTER pfActiveFilter;
-    QUESTSEQFILTER pfSeqFilter;
-};
 
 
 struct D2Act5Quest3Strc

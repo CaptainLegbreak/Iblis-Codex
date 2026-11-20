@@ -4,19 +4,10 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 
 
-struct D2MonsterDataStrc
-{
-    char unk0x00[0x30];
-    D2MonsterInteractStrc* pMonInteract;
-};
 
-struct D2PlayerDataStrc
-{
-    char unk0x000[0x168];
-    int dwGameFrame;
-};
 
 
 struct D2GameStrc

@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2CubeInputItem;
@@ -85,14 +86,6 @@ struct D2PlayerTradeStrc
     int nNextUpdateTick;
 };
 
-struct D2PlayerDataStrc
-{
-    char unk0x00[0x50];
-    int dwTradeState;
-    char unk0x54[0x04];
-    unsigned int dwAcceptTradeTick;
-    D2PlayerTradeStrc* hTrade;
-};
 
 #pragma pack(push, 1)
 struct D2GSPacketSrv78

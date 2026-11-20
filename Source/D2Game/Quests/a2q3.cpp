@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2UnitData.h"
 
 #define QUEST_A1Q4_CAIN 4
 #define ACT_II 1
@@ -64,12 +65,6 @@ struct D2GSPacketSrv5D
 #pragma pack(pop)
 
 
-struct D2QuestGUIDStrc
-{
-    unsigned int nPlayerGUIDs[32];
-    unsigned short nPlayerCount;
-    unsigned char pad0x82[2];
-};
 
 typedef void (__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
 
@@ -79,29 +74,6 @@ typedef bool (__fastcall* QUESTACTIVEFILTER)(D2QuestDataStrc* pQuest, int nNpcId
 
 typedef bool (__fastcall* QUESTSEQFILTER)(D2QuestDataStrc* pQuestData);
 
-struct D2QuestDataStrc
-{
-    int nQuestNo;
-    D2GameStrc* pGame;
-    char nActNo;
-    unsigned char bNotIntro;
-    unsigned char bActive;
-    unsigned char fLastState;
-    unsigned char fState;
-    char nInitNo;
-    unsigned short dw0E;
-    int nSeqId;
-    unsigned int dwFlags;
-    void* pQuestDataEx;
-    char tPlayerGUIDs[0x84];
-    QUESTCALLBACK pCallback[15];
-    void* pNPCMessages;
-    int eFilter;
-    char unk0xE4[0x04];
-    QUESTSTATUSFILTER pfStatusFilter;
-    QUESTACTIVEFILTER pfActiveFilter;
-    QUESTSEQFILTER pfSeqFilter;
-};
 
 struct D2Act1Quest4Strc
 {
@@ -193,11 +165,6 @@ D2UnitStrc* __fastcall ITEMS_FindQuestItem(D2GameStrc* pGame, D2UnitStrc* pUnit,
 int __fastcall ACT2Q3_UnitIterate_SendPacket0x53ToClient(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x0059A170
 void __fastcall QUESTS_TriggerFX(D2GameStrc* pGame, unsigned char a2); // 0x00545760
 
-struct D2PlayerDataStrc
-{
-    char szName[0x10];
-    D2BitBufferStrc* pQuestData[3];
-};
 
 struct D2QuestArgStrc
 {

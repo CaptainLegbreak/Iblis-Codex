@@ -1,3 +1,4 @@
+#include "D2UnitData.h"
 #ifdef MOVED_TEST
 #define PREFIX char movedPrefix[4];
 #define TERMINAL_STATE 7
@@ -11,30 +12,6 @@ struct D2GameStrc;
 struct D2QuestDataStrc;
 typedef bool(__fastcall* QUESTSEQFILTER)(D2QuestDataStrc* pQuestData);
 
-struct D2QuestDataStrc
-{
-    PREFIX
-    int nQuestNo;
-    D2GameStrc* pGame;
-    unsigned char nActNo;
-    unsigned char bNotIntro;
-    unsigned char bActive;
-    unsigned char fLastState;
-    unsigned char fState;
-    char nInitNo;
-    unsigned short dw0E;
-    int nSeqId;
-    unsigned int dwFlags;
-    void* pQuestDataEx;
-    char tPlayerGUIDs[0x84];
-    void* pCallback[15];
-    void* pNPCMessages;
-    int eFilter;
-    int unk0xE4;
-    void* pfStatusFilter;
-    void* pfActiveFilter;
-    QUESTSEQFILTER pfSeqFilter;
-};
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090

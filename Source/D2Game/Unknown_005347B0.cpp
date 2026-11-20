@@ -1,13 +1,8 @@
 #include "D2Game.h"
+#include "D2UnitData.h"
 
 struct D2PlayerDataStrc;
 
-struct D2PlayerDataStrc
-{
-    char unk0x00[0x60];
-    D2PlrIntroStrc* pPlayerIntro[3];
-    unsigned int dwBoughtItemId;
-};
 
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
 D2PlrIntroStrc* __fastcall PLRINTRO_Create(D2GameStrc* pGame); // 0x00572560

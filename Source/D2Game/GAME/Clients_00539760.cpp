@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2UnitData.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -26,14 +27,6 @@ struct D2ClientStrc
 };
 
 
-struct D2PlayerDataStrc
-{
-    char unk0x00[0x70];
-    int nRightSkillId;
-    int nLeftSkillId;
-    unsigned int nRightSkillFlags;
-    unsigned int nLeftSkillFlags;
-};
 
 
 #define UNIT_INVALID 6

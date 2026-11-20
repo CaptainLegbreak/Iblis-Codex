@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 
 struct D2SeedStrc;
 struct D2MonsterDataStrc;
@@ -18,11 +19,6 @@ void __fastcall sub_005E0060_QuestsFxEmpty(D2GameStrc*, D2UnitStrc*); // 0x005E0
 void __fastcall QUESTSFX_UberPrimeEvil(D2GameStrc*, D2UnitStrc*); // 0x005E0070
 
 
-struct D2MonsterDataStrc
-{
-    char unk0x00[0x16];
-    unsigned short nFlags;
-};
 
 
 
@@ -175,7 +171,7 @@ void __fastcall sub_005A3610_SpawnSideMissiles(D2GameStrc* pGame, D2UnitStrc* pM
         D2MonsterDataStrc* pMonsterData = pOwner->pMonsterData;
         if (pMonsterData)
         {
-            pMonsterData->nFlags |= 0x80;
+            pMonsterData->nTypeFlag |= 0x80;
         }
     }
 
@@ -187,7 +183,7 @@ void __fastcall sub_005A3610_SpawnSideMissiles(D2GameStrc* pGame, D2UnitStrc* pM
         D2MonsterDataStrc* pMonsterData = pOwner->pMonsterData;
         if (pMonsterData)
         {
-            pMonsterData->nFlags &= ~0x80;
+            pMonsterData->nTypeFlag &= ~0x80;
         }
     }
 }

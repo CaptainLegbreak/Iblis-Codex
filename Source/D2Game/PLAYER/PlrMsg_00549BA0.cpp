@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2StaticPathStrc;
@@ -14,17 +15,7 @@ struct D2SkillsTxt;
 struct D2PacketTableStrc;
 
 
-struct D2MonsterDataStrc
-{
-    char unk0x00[0x30];
-    D2MonsterInteractStrc* pMonInteract;
-};
 
-struct D2PlayerDataStrc
-{
-    char unk0x000[0x168];
-    int dwGameFrame;
-};
 
 
 struct D2GameStrc

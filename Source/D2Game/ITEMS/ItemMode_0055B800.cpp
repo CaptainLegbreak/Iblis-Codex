@@ -5,6 +5,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 
 #define D2_MAX(a,b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a,b) ((a) < (b) ? (a) : (b))
@@ -96,11 +97,6 @@ struct D2UniqueItemsTxt
     char unk0x030[0x11C];
 };
 
-struct D2PlayerDataStrc
-{
-    char unk0x00[0x10];
-    D2BitBufferStrc* pQuestData[3];
-};
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 extern D2QuestItemPairStrc gQuestItemPairs_00731FEC[4]; // 0x00731FEC

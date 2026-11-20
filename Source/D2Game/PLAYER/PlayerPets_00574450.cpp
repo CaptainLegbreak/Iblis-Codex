@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 
 struct D2ModeChangeStrc;
 
@@ -53,11 +54,6 @@ struct D2PlayerPetStrc
     D2PetListStrc* pPetList;
 };
 
-struct D2PlayerDataStrc
-{
-    char unk0x00[0x44];
-    D2PlayerPetStrc* pPlayerPets;
-};
 
 
 

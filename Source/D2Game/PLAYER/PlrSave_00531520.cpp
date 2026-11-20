@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2UnitData.h"
 
 struct D2StaticPathStrc;
 struct D2PlayerDataStrc;
@@ -31,11 +32,6 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 static int __stdcall sub_00531520_PlaceSavedItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem, D2UnitStrc* pParent); // 0x00531520
 void __fastcall sub_00564CB0_PrepareItem(D2UnitStrc* pItem); // 0x00564CB0
 
-struct D2PlayerDataStrc
-{
-    char szName[16];
-    D2BitBufferStrc* pQuestData[3];
-};
 
 #pragma pack(push, 1)
 struct D2QuestSaveSectionStrc

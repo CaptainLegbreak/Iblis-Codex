@@ -3,16 +3,10 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 
 struct D2AiParamStrc;
 
-struct D2MonsterDataStrc
-{
-    char unk0x00[0x28];
-    D2AiControlStrc* pAiControl;
-    D2AiParamStrc* pAiParam;
-    D2MonsterInteractStrc* pMonInteract;
-};
 
 
 

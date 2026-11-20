@@ -6,6 +6,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 #define MONSTER_SUCKERNEST1 334
@@ -74,11 +75,6 @@ enum D2C_F41AiThinkConstants
     SKILL_NEST = 167,
 };
 
-struct D2MonsterDataStrc
-{
-    char unk0x00[0x28];
-    D2AiControlStrc* pAiControl;
-};
 
 struct D2AiCmdStrc
 {
@@ -158,7 +154,6 @@ int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int n
 D2AiCmdStrc* __fastcall AIGENERAL_GetCurrentAiCommandFromUnit(D2UnitStrc* pUnit); // 0x0058EE80
 void __fastcall AIGENERAL_FreeCurrentAiCommand(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0058ED10
 
-struct D2PlayerDataStrc { char unk_00[0x148]; int nX; int nY; };
 
 int __fastcall PLAYERPETS_GetTotalPetCount(D2UnitStrc*); // 0x00574F40
 unsigned int __fastcall AIUTIL_GetDistanceToCoordinates(D2UnitStrc*, int, int); // 0x005DC5C0
@@ -761,7 +756,7 @@ int __fastcall sub_005E45D0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pT
     if (nOwnerCollision != nUnitCollision) nMove = 1;
     if (nDistance > nRange) nMove = 1;
     if (nDistance > 50) nMove = 3;
-    if (AIUTIL_GetDistanceToCoordinates(pUnit, pPlayerData->nX, pPlayerData->nY) < 28)
+    if (AIUTIL_GetDistanceToCoordinates(pUnit, pPlayerData->nSkillCooldown148, pPlayerData->nSkillCooldown14C) < 28)
     {
         if ((nMove == 1 && nDistance < 30) || nMove == 2) nMove = 4;
     }

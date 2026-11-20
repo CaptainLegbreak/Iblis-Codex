@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2UnitData.h"
 
 #define MONSTER_AKARA 148
 #define MONSTER_DROGNAN 177
@@ -62,11 +63,6 @@ struct D2QuestArgStrc
 
 void __fastcall PLRINTRO_SetQuestIntroFlag(D2UnitStrc*, D2GameStrc*, int); // 0x00572360
 
-struct D2PlayerDataStrc
-{
-    char pad0x00[0x10];
-    D2BitBufferStrc* pQuestData[3];
-};
 
 typedef void(__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
 
@@ -76,27 +72,6 @@ typedef bool(__fastcall* QUESTACTIVEFILTER)(D2QuestDataStrc* pQuest, int nNpcId,
 
 typedef bool(__fastcall* QUESTSEQFILTER)(D2QuestDataStrc* pQuestData);
 
-struct D2QuestDataStrc
-{
-    int nQuestNo;
-    D2GameStrc* pGame;
-    char pad0x08[0x01];
-    unsigned char bNotIntro;
-    unsigned char bActive;
-    unsigned char fLastState;
-    unsigned char fState;
-    char unk0x0D[0x07];
-    unsigned int dwFlags;
-    void* pQuestDataEx;
-    char tPlayerGUIDs[0x84];
-    QUESTCALLBACK pCallback[15];
-    void* pNPCMessages;
-    int eFilter;
-    char pad0xE4[0x04];
-    QUESTSTATUSFILTER pfStatusFilter;
-    QUESTACTIVEFILTER pfActiveFilter;
-    QUESTSEQFILTER pfSeqFilter;
-};
 
 struct D2Act2Quest4Strc
 {

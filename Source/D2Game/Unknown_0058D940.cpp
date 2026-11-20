@@ -1,12 +1,8 @@
 #include "D2Game.h"
 #include "D2GameStrc.h"
+#include "D2UnitData.h"
 
 
-struct D2PlayerDataStrc
-{
-    char szName[0x10];
-    D2BitBufferStrc* pQuestData[3];
-};
 
 struct D2QuestArgStrc
 {
@@ -20,13 +16,6 @@ struct D2QuestArgStrc
     unsigned short nMessageIndex;
 };
 
-struct D2QuestDataStrc
-{
-    int nQuestNo;
-    D2GameStrc* pGame;
-    char unk0x08[0xD8];
-    int eFilter;
-};
 
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit);                                         // 0x006221A0
 void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState);           // 0x0065C360

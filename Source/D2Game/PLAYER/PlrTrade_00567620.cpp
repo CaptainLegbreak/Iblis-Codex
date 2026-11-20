@@ -2,16 +2,10 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 
 
 
-struct D2PlayerDataStrc
-{
-    char unk0x00[0x50];
-    int dwTradeState;
-    char unk0x54[0x08];
-    void* hTrade;
-};
 
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837

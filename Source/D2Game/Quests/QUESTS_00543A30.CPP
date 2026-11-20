@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2UnitData.h"
 
 struct D2QuestChainStrc;
 
@@ -10,13 +11,6 @@ typedef void (__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuest, D2QuestArgStrc
 
 
 
-struct D2QuestDataStrc
-{
-    char unk0x00[0x0A];
-    unsigned char bActive;
-    char unk0x0B[0x95];
-    QUESTCALLBACK pCallback[15];
-};
 
 struct D2QuestChainStrc
 {

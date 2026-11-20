@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2UnitData.h"
 
 
 
@@ -12,13 +13,6 @@ struct D2ObjOperateFnStrc
     D2UnitStrc* hPlayer;
 };
 
-struct D2QuestDataStrc
-{
-    int nQuestNo;
-    D2GameStrc* pGame;
-    char unk0[0x10];
-    void* pQuestDataEx;
-};
 
 struct D2Act2Quest2Strc
 {

@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 
 #pragma intrinsic(strcpy)
 
@@ -278,13 +279,6 @@ struct D2MapAIStrc
     void* pPosition;
 };
 
-struct D2QuestDataStrc
-{
-    int unk0x00;
-    D2GameStrc* pGame;
-    char unk0x08[0x10];
-    void* pQuestDataEx;
-};
 
 struct D2W11QuestEx5B7230Strc
 {

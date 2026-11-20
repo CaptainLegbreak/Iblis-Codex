@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2UnitData.h"
 
 #define EVENTTYPE_ENDANIM 1
 #define STAT_HITPOINTS 6
@@ -57,12 +58,6 @@ typedef int (__stdcall* FARPROC)();
 
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x006CC34C
 
-struct D2PlayerDataStrc
-{
-    char unk0x000[0x150];
-    int unk0x150;
-    int unk0x154;
-};
 
 struct D2SkillsTxt
 {
@@ -1424,12 +1419,12 @@ void __fastcall StartModeID(D2GameStrc* ptGame, D2UnitStrc* pPlayer, D2SkillStrc
     {
         if (pPlayer && pPlayer->dwUnitType == 0 && pPlayer->pPlayerData)
         {
-            pPlayer->pPlayerData->unk0x154 = 0;
+            pPlayer->pPlayerData->nMode = 0;
         }
 
         if (pPlayer && pPlayer->dwUnitType == 0 && pPlayer->pPlayerData)
         {
-            pPlayer->pPlayerData->unk0x150 = 0;
+            pPlayer->pPlayerData->nState = 0;
         }
 
         D2_ASSERT(!IsBadCodePtr((FARPROC)gsPlayerModeChart_006E1740[nMode].pfnStartID), 0x853);

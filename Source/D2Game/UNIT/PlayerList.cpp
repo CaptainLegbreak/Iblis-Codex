@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2UnitData.h"
 
 #define STATE_PLAYERBODY 7
 struct D2PlayerListStrc;
@@ -8,11 +9,6 @@ struct D2PlayerDataStrc;
 
 
 
-struct D2PlayerDataStrc
-{
-    char unk0x00[0x38];
-    D2PlayerListStrc* pPlayerList;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0

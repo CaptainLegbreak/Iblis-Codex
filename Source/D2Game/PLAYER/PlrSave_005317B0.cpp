@@ -5,6 +5,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 
 #define WRITE_ITEM(pItem) { const int nSize = D2GAME_SAVE_SerializeItem_6FC89AD0(pGame, pUnit, pItem, pData, nBufferSize - (pData - pBuffer), a4, a5, a6); if (nSize < 0) return -1; pData += nSize; if (!nSize && nItems > 0) --nItems; }
 #define PREPARE_ITEM(pItem) (ITEMS_SerializeItemToBitstream(pItem, tempBuffer, sizeof(tempBuffer), 1, 1, 0))
@@ -101,16 +102,6 @@ extern "C" const char gszSaveOpenError_006E09C4[]; // 0x006E09C4
 extern "C" const char szPlrSaveCppFile_006E09AC[];
 static __declspec(noinline) void __stdcall sub_00532240_SaveToLocalFile(int bInteractsWithPlayer, unsigned int dwArg, D2GameStrc* pGame, D2UnitStrc* pPlayer, const char* szName);
 
-struct D2PlayerDataStrc
-{
-    char unk0x00[0x1C];
-    D2WaypointDataStrc* pWaypointData[3];
-    char unk0x28[0x24];
-    int bBusy;
-    char unk0x50[0x10];
-    D2PlrIntroStrc* pPlayerIntro[3];
-    unsigned int dwBoughtItemId;
-};
 
 struct D2WaypointSaveRecordStrc
 {
