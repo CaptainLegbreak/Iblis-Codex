@@ -1,10 +1,10 @@
 #include "D2CMP.h"
+#include "D2CmpTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2CmpTileStrc;
 struct D2CmpTileProjectStrc;
-struct D2CmpTileSubStrc;
 struct D2CmpTileBlockStrc;
 struct D2CmpTileLibraryStrc;
 struct D2CmpGfxHashEntryStrc;
@@ -27,44 +27,7 @@ extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 int __fastcall sub_0060D040_LookupTilesInProject(D2CmpTileProjectStrc* pProject, D2CmpTileStrc** ppTiles, int nMaxTiles, int nOrientation, int nMainIndex, int nSubIndex); // 0x0060D040
 void* __stdcall sub_00606930_BuildTables(void* pSource); // 0x00606930
 
-struct D2CmpTileSubStrc
-{
-    int unk0x00;
-    int unk0x04;
-    short unk0x08;
-    unsigned short nSize;
-    int unk0x0C;
-    char* pData;
-};
-
-struct D2CmpTileBlockStrc
-{
-    char unk0x00[0x48];
-    int f_48;
-    int unk0x4C;
-    int nSubs;
-    D2CmpTileSubStrc* pSubs;
-    char* pName;
-    void* pExtra;
-};
-
-struct D2CmpTileLibraryStrc
-{
-    int dwVersion;
-    unsigned int dwFlags;
-    char szName[0x104];
-    int nBlocks;
-    D2CmpTileBlockStrc* pBlocks;
-};
-
 void __fastcall sub_005FE080_ReleaseBlockCaches(D2CmpTileLibraryStrc* pLibrary); // 0x005FE080
-
-struct D2CmpGfxHashEntryStrc
-{
-    char unk0x00[0x28];
-    D2CmpGfxHashEntryStrc* pPrev;
-    D2CmpGfxHashEntryStrc* pNext;
-};
 
 struct D2CmpGfxHashStrc
 {
@@ -106,16 +69,6 @@ struct D2CmpRGBImageStrc
     unsigned int nHeight;
     char unk0x0C[0x14];
     D2CmpRGBStrc aPixels[1];
-};
-
-struct D2CmpSubTileRecordStrc
-{
-    int unk0x00;
-    int unk0x04;
-    short unk0x08;
-    unsigned short nLength;
-    int unk0x0C;
-    void* ptData;
 };
 
 struct D2TileLibraryEntryStrc
@@ -180,11 +133,11 @@ void __stdcall TileProjectDestroy(D2CmpTileLibraryStrc* pLibrary, int bKeep)
         D2CmpTileBlockStrc* pBlock = &pLibrary->pBlocks[i];
         for (int j = 0; j < pBlock->nSubs; j++)
         {
-            D2CmpTileSubStrc* pSub = &pBlock->pSubs[j];
-            if (pSub->pData)
-                FOG_Free(pSub->pData, ".\\SRC\\Tilecmp.cpp", 0x274, 0);
-            pSub->nSize = 0;
-            pSub->pData = 0;
+            D2CmpSubTileRecordStrc* pSub = &pBlock->pSubs[j];
+            if (pSub->ptData)
+                FOG_Free(pSub->ptData, ".\\SRC\\Tilecmp.cpp", 0x274, 0);
+            pSub->nLength = 0;
+            pSub->ptData = 0;
         }
         if (pBlock->pSubs)
             FOG_Free(pBlock->pSubs, ".\\SRC\\Tilecmp.cpp", 0x27B, 0);
@@ -211,13 +164,13 @@ void __stdcall TileProjectNormalize(D2CmpTileLibraryStrc* pLibrary, D2CmpTileLib
         {
             D2CmpTileBlockStrc* pBlock = &pLibrary->pBlocks[i];
             pBlock->pName = pLibrary->szName;
-            pBlock->pSubs = (D2CmpTileSubStrc*)((char*)pLibrary + pBlock->f_48);
-            int nSize = pBlock->nSubs * sizeof(D2CmpTileSubStrc);
+            pBlock->pSubs = (D2CmpSubTileRecordStrc*)((char*)pLibrary + pBlock->unk0x48);
+            int nSize = pBlock->nSubs * sizeof(D2CmpSubTileRecordStrc);
             for (int j = 0; j < pBlock->nSubs; j++)
             {
-                D2CmpTileSubStrc* pSub = &pBlock->pSubs[j];
-                pSub->pData += (int)pData;
-                nSize += pSub->nSize;
+                D2CmpSubTileRecordStrc* pSub = &pBlock->pSubs[j];
+                pSub->ptData += (int)pData;
+                nSize += pSub->nLength;
             }
             pData += nSize;
         }
@@ -253,8 +206,8 @@ void __stdcall sub_0060A4C0_RelocateBlockSubs(D2CmpTileBlockStrc* pBlock)
     char* pBase = (char*)pBlock->pSubs;
     for (int i = 0; i < pBlock->nSubs; i++)
     {
-        D2CmpTileSubStrc* pSub = &pBlock->pSubs[i];
-        pSub->pData += (int)pBase;
+        D2CmpSubTileRecordStrc* pSub = &pBlock->pSubs[i];
+        pSub->ptData += (int)pBase;
     }
 }
 
@@ -360,7 +313,7 @@ D2CmpSubTileRecordStrc* __fastcall sub_0060D510_CreateSubTileRecord(const void* 
     D2CmpSubTileRecordStrc* pRecord = (D2CmpSubTileRecordStrc*)FOG_Alloc(sizeof(D2CmpSubTileRecordStrc), szSubTileFile, 0x6E, 0);
     memset(pRecord, 0, sizeof(D2CmpSubTileRecordStrc));
     D2_ASSERT(nSize > 0xFFFF, 0x70);
-    pRecord->ptData = pData;
+    pRecord->ptData = (unsigned char*)pData;
     pRecord->nLength = (unsigned short)nSize;
     return pRecord;
 }

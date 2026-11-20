@@ -1,4 +1,5 @@
 #include "D2CMP.h"
+#include "D2CmpTypes.h"
 
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
@@ -6,21 +7,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);                               // 0x0040B380
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
-
-struct D2CmpSubTileHeaderStrc
-{
-    int unk0x00;
-    int unk0x04;
-    short nFlags;
-    unsigned short nLength;
-    int unk0x0C;
-};
-
-struct D2CmpSubTileRecordStrc
-{
-    D2CmpSubTileHeaderStrc tHeader;
-    unsigned char* ptData;
-};
 
 typedef unsigned char (__stdcall* D2CmpMapColorFn)(unsigned char nRed, unsigned char nGreen, unsigned char nBlue);
 

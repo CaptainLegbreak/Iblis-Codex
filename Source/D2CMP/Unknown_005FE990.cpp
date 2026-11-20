@@ -1,4 +1,6 @@
-struct T00481720;
+#include "D2CmpTypes.h"
+#include "D2WinTypes.h"
+struct AsyncData;
 struct D2CmpBlockTableBStrc;
 struct D2SpriteCacheNodeStrc;
 struct D2CmpGfxHashEntryStrc;
@@ -15,7 +17,6 @@ extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...);             // 0x006CC468
 int __stdcall SStrCmpI(const char* szString1, const char* szString2, int nMaxChars);
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);           // 0x0040B430
-struct AsyncData;
 void* __fastcall FOG_AsyncDataGetBuffer(AsyncData* pAsync);                                                 // 0x0040A9E0
 
 extern int gbCmpCompressedDataMode;                                                                         // 0x00741EFC
@@ -36,78 +37,7 @@ extern "C" const char gszSpriteCacheSourceFile[];                               
 struct D2SpriteCacheStrc { void* pMemPool; };
 extern D2SpriteCacheStrc gCmpTileCache;                                                                     // 0x0089DB60
 
-struct D2CmpSpriteContextStrc
-{
-    int nFrame;
-    unsigned int dwFlags;
-    int nType;
-    int nIndex;
-    int nMode;
-    int nOverlay;
-    union
-    {
-        struct
-        {
-            char szToken[4];
-            char szComponent[4];
-            char szArmorType[4];
-            char szMode[4];
-            char szHitClass[4];
-        };
-        unsigned int dwName[5];
-    };
-    const char* pName;
-    int nFrames;
-    void* pCel;
-    char unk0x38[0x04];
-    void* pFrame;
-    int nDirection;
-    unsigned int dwGfxFlags;
-};
-
-struct D2CmpSpriteFileStrc
-{
-    unsigned int dwFlags;
-    char unk0x04[0x10];
-    int nDirections;
-    int nFramesPerDirection;
-    unsigned int aOffsets[1];
-};
-
 struct D2CmpDC6CelStrc { char unk0x00[0x2C]; };
-
-struct D2CmpSpriteEntryStrc
-{
-    int nType;
-    int nArg04;
-    int nArg08;
-    int nArg0C;
-    int nArg10;
-    int nArg14;
-    int nArg18;
-    int nArg1C;
-    unsigned char nFlags;
-    unsigned char nFrames;
-    unsigned char nFirstFrame;
-    unsigned char nDirections;
-    unsigned char nFramesPerDirection;
-    char unk0x25[3];
-    int f_28;
-    int aOffsets[0x21];
-    AsyncData* pAsync;
-    struct D2SpriteCacheNodeStrc* pHolder;
-};
-
-struct D2CmpDC6FrameStrc
-{
-    int f_0;
-    unsigned int nWidth;
-    unsigned int nHeight;
-    char unk0x0C[0x08];
-    int nOffsetY;
-    D2CmpDC6CelStrc* pCel;
-    int nLength;
-};
 
 #define APPEND_CODE(q, dw) \
     if ((char)(dw) != 0x20) { *q++ = (char)(dw); \
@@ -366,7 +296,7 @@ static __declspec(noinline) void __stdcall sub_005FEC90_InitDC6Frames(D2CmpSprit
     D2_ASSERT(pContext, 0x50D);
     D2_ASSERT(pEntry, 0x50E);
     D2_ASSERT(!(pFile->dwFlags & 1), 0x50F);
-    D2_ASSERT(!pEntry->f_28, 0x512);
+    D2_ASSERT(!pEntry->unk0x28, 0x512);
 
     const int nSize = pEntry->nFrames * pEntry->nFramesPerDirection * sizeof(D2CmpDC6CelStrc);
     D2CmpDC6CelStrc* pCels = (D2CmpDC6CelStrc*)FOG_AllocPool(gCmpTileCache.pMemPool, nSize, ".\\SRC\\SpriteCache.cpp", 0x517, 0);
@@ -377,10 +307,10 @@ static __declspec(noinline) void __stdcall sub_005FEC90_InitDC6Frames(D2CmpSprit
 
     int nOffset = pEntry->aOffsets[pEntry->nFirstFrame];
     D2CmpDC6FrameStrc* pFrame;
-    for (unsigned int i = 0; i < (unsigned int)(pEntry->nFrames * pEntry->nFramesPerDirection); ++i, nOffset += pFrame->nLength + pFrame->nOffsetY + 0x23)
+    for (unsigned int i = 0; i < (unsigned int)(pEntry->nFrames * pEntry->nFramesPerDirection); ++i, nOffset += pFrame->nLength + pFrame->nOffsetY_14 + 0x23)
     {
         pFrame = (D2CmpDC6FrameStrc*)(pData + nOffset);
-        if (pFrame->f_0 != 0 || pFrame->nWidth > 0x100 || pFrame->nHeight > 0x100)
+        if (pFrame->unk0x00 != 0 || pFrame->nWidth > 0x100 || pFrame->nHeight > 0x100)
         {
             sub_005FE2B0_BuildGfxName(pContext, szName);
             sub_005FE610_BuildGfxPath(szName, pContext, szPath);
@@ -390,47 +320,11 @@ static __declspec(noinline) void __stdcall sub_005FEC90_InitDC6Frames(D2CmpSprit
         pFrame->pCel = &pCels[i];
     }
 
-    pEntry->f_28 = 1;
+    pEntry->unk0x28 = 1;
 }
 
-struct D2CmpDC6HeaderStrc
-{
-    unsigned char nFlags;
-    char unk0x01[2];
-    unsigned char nDirections;
-    unsigned char nFrames;
-    char unk0x05[3];
-    int bFramesReady;
-    int aOffsets[1];
-    char unk0x10[0x80];
-    AsyncData* pAsync;
-};
-
-struct D2SpriteCacheNodeStrc
-{
-    D2CmpSpriteEntryStrc* f_0;
-    int unk0x04;
-    D2CmpGfxHashEntryStrc* pRecord;
-};
-
-struct D2CmpGfxHashEntryStrc
-{
-    char unk0x00[0x24];
-    D2SpriteCacheNodeStrc* pHolder;
-};
 
 D2SpriteCacheNodeStrc* __fastcall sub_005FFC40_SpriteCacheAlloc(D2SpriteCacheStrc* pCache, unsigned int nSize, unsigned int nKey, int bLocked); // 0x005FFC40
-
-struct D2CmpLoadDescStrc
-{
-    void* pfnCallback;
-    D2CmpSpriteFileStrc* pFile;
-    unsigned char* pFlags;
-    int nFirstFrame;
-    int nFrames;
-    int unk0x14;
-    int unk0x18;
-};
 
 struct D2SpriteLoadRequestStrc;
 AsyncData* __fastcall sub_0040A620(void* hArchive, const char* szFileName, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8, const char* szFile, int nLine); // 0x0040A620
@@ -474,13 +368,13 @@ static void* __stdcall sub_005FEB80_FindDC6Frame(void* pData, D2CmpSpriteContext
     for (int i = 0; i <= nFrame; ++i)
     {
         pFrame = (D2CmpDC6FrameStrc*)((char*)pData + nOffset);
-        if (pFrame->f_0 != 0)
+        if (pFrame->unk0x00 != 0)
             return 0;
         if (pFrame->nWidth > 0x100)
             return 0;
         if (pFrame->nHeight > 0x100)
             return 0;
-        nOffset += pFrame->nLength + pFrame->nOffsetY + 0x23;
+        nOffset += pFrame->nLength + pFrame->nOffsetY_14 + 0x23;
         if (nOffset < 0)
             return 0;
     }
@@ -540,7 +434,7 @@ static int __stdcall sub_005FFE90_LoadDC6Entry(D2CmpSpriteFileStrc* pFile, int n
     if (!pHolder)
         return 0;
 
-    D2CmpSpriteEntryStrc* pEntry = pHolder->f_0;
+    D2CmpSpriteEntryStrc* pEntry = pHolder->pEntry;
     memset(pEntry, 0, sizeof(D2CmpSpriteEntryStrc));
     pEntry->nType = pContext->nType;
     pEntry->nArg0C = pContext->dwName[0];
@@ -556,7 +450,7 @@ static int __stdcall sub_005FFE90_LoadDC6Entry(D2CmpSpriteFileStrc* pFile, int n
         sub_005FF760_LoadDCCFrames(szName, pFile, pContext, nArg2, nArg3, pEntry);
     }
 
-    D2CmpGfxHashEntryStrc* pRecord = sub_0060ADC0_GfxHashAdd(gCmpTileCache.pMemPool, &gCmpBlockTableB, pHolder->f_0, pContext, pFile);
+    D2CmpGfxHashEntryStrc* pRecord = sub_0060ADC0_GfxHashAdd(gCmpTileCache.pMemPool, &gCmpBlockTableB, pHolder->pEntry, pContext, pFile);
     D2_ASSERT(pRecord, 0x5D1);
     pHolder->pRecord = pRecord;
     pRecord->pHolder = pHolder;
@@ -566,7 +460,7 @@ static int __stdcall sub_005FFE90_LoadDC6Entry(D2CmpSpriteFileStrc* pFile, int n
         return 0;
     }
 
-    if (!pEntry->f_28)
+    if (!pEntry->unk0x28)
         sub_005FEC90_InitDC6Frames(pFile, pContext, pEntry);
 
     pContext->pFrame = sub_005FEC50_GetCachedDC6Frame(pContext, pEntry);
@@ -647,7 +541,7 @@ static int __stdcall sub_005FFFA0_LoadDC6CacheEntry(D2CmpSpriteFileStrc* pFile, 
     D2SpriteCacheNodeStrc* pHolder = sub_005FFC40_SpriteCacheAlloc(&gCmpTileCache, sizeof(D2CmpSpriteEntryStrc), 0, 1);
     if (pHolder)
     {
-        D2CmpSpriteEntryStrc* pEntry = pHolder->f_0;
+        D2CmpSpriteEntryStrc* pEntry = pHolder->pEntry;
         memset(pEntry, 0, sizeof(D2CmpSpriteEntryStrc));
         pEntry->nArg0C = pContext->dwName[0];
         pEntry->nArg18 = pContext->dwName[3];
@@ -669,7 +563,7 @@ static int __stdcall sub_005FFFA0_LoadDC6CacheEntry(D2CmpSpriteFileStrc* pFile, 
 
         if (nSize != -1)
         {
-            D2CmpGfxHashEntryStrc* pRecord = sub_0060ADC0_GfxHashAdd(gCmpTileCache.pMemPool, &gCmpBlockTableB, pHolder->f_0, pContext, pFile);
+            D2CmpGfxHashEntryStrc* pRecord = sub_0060ADC0_GfxHashAdd(gCmpTileCache.pMemPool, &gCmpBlockTableB, pHolder->pEntry, pContext, pFile);
             D2_ASSERT(pRecord, 0x630);
             pHolder->pRecord = pRecord;
             pRecord->pHolder = pHolder;

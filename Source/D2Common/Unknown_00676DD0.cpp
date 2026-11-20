@@ -1,34 +1,6 @@
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
-
-struct D2DrlgCoordStrc
-{
-    int nPosX;
-    int nPosY;
-    int nWidth;
-    int nHeight;
-};
-
-struct D2DrlgLinkStrc
-{
-    void* pfLinker;
-    int nLevel;
-    int nLevelLink;
-    int nLevelLinkEx;
-};
-
-struct D2DrlgLevelLinkDataStrc
-{
-    D2SeedStrc pSeed;
-    D2DrlgCoordStrc pLevelCoord[15];
-    D2DrlgLinkStrc* pLink;
-    int nRand[4][15];
-    int nIteration;
-    int nCurrentLevel;
-};
+#include "D2Structs.h"
+#include "D2Drlg.h"
+#include "D2DrlgPresets.h"
 
 #define LEVEL_ROGUEENCAMPMENT 1
 #define LEVEL_BURIALGROUNDS 17

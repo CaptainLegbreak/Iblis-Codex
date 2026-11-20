@@ -1,5 +1,7 @@
 #pragma once
 
+#include "D2GfxTypes.h"
+
 struct D2CmpCelContextStrc;
 struct D2GfxSettingsStrc;
 struct D2TileDrawFunctionsStrc;
@@ -37,12 +39,6 @@ struct D2CriticalSectionStrc
     void* hOwningThread;
     void* hLockSemaphore;
     unsigned long nSpinCount;
-};
-
-struct D2SmackRecordStrc
-{
-    void* f_0;
-    unsigned char nType;
 };
 
 struct T004F51E0

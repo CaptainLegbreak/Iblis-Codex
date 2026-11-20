@@ -6,6 +6,9 @@
 #include "D2Txt.h"
 #include "D2GameTypes.h"
 #include "D2Drlg.h"
+#include "D2UnitData.h"
+#include "D2QuestData.h"
+#include "D2GameObjs.h"
 
 #define QUEST_A4Q2_DIABLO 23
 #define QUESTSTATEFLAG_A4Q2 26
@@ -29,129 +32,11 @@ struct D2ObjInitFnStrc;
 struct D2ModeChangeStrc;
 struct D2ObjOperateFnStrc;
 
-
-
-struct D2PlayerDataStrc
-{
-    char unk0x00[0x10];
-    D2BitBufferStrc* pQuestData[3];
-};
-
 typedef void(__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
 
 typedef bool(__fastcall* QUESTACTIVEFILTER)(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC);
 
 typedef bool(__fastcall* QUESTSEQFILTER)(D2QuestDataStrc* pQuestData);
-
-struct D2QuestDataStrc
-{
-    int nQuestNo;
-    D2GameStrc* pGame;
-    unsigned char nActNo;
-    unsigned char bNotIntro;
-    unsigned char bActive;
-    unsigned char fLastState;
-    unsigned char fState;
-    char nInitNo;
-    unsigned short dw0E;
-    int nSeqId;
-    unsigned int dwFlags;
-    void* pQuestDataEx;
-    char tPlayerGUIDs[0x84];
-    QUESTCALLBACK pCallback[15];
-    void* pNPCMessages;
-    int eFilter;
-    int unk0xE4;
-    void* pfStatusFilter;
-    QUESTACTIVEFILTER pfActiveFilter;
-    QUESTSEQFILTER pfSeqFilter;
-};
-
-
-struct D2Act4Quest1Strc
-{
-    char unk0x00[0x12];
-    unsigned char bIzualGhostActivated;
-    unsigned char unk0x13;
-    D2UnitStrc* pTargetUnit;
-    unsigned char bCloseToIzualGhost;
-};
-
-struct D2Act4Quest2Strc
-{
-    unsigned char bTalkedToTyrael;
-    unsigned char bTimerCreated;
-    unsigned char bNeedToSpawnDiablo;
-    unsigned char unk0x03;
-    unsigned char bNeedToEndGame;
-    unsigned char bNeedToWarpPlayers;
-    unsigned char bDiabloStartPointInitialized;
-    unsigned char pad0x07;
-    int nDiabloStartPointObjectGUID;
-    unsigned char bSealActivated[5];
-    unsigned char bDiabloSpawned;
-    unsigned char unused0x12;
-    unsigned char bSanctumCleared;
-    unsigned char bDiabloKilled;
-    unsigned char bClientsSaved;
-    unsigned char pad0x16[2];
-    unsigned int dwTickCount;
-    int nPlayerCount;
-    char unk0x20[0x1C];
-    D2ActiveRoomStrc* pRoom;
-    int nLastLastPortalObjectMode;
-    unsigned char unk0x44;
-    unsigned char bPortalToAct5Spawned;
-    unsigned char pad0x46[2];
-    int nBossesKilled;
-};
-
-struct D2Act3Quest2Strc
-{
-    unsigned char bSewerStairsInitialized;
-    unsigned char bInitiallyTalkedToCain;
-    unsigned char pad0x02[2];
-    int nSewerStairsObjectGUID;
-    int nSewerStairsObjectMode;
-    int nItemDropCount;
-    int nEyesDropped;
-    int nBrainsDropped;
-    int nHeartsDropped;
-    int nFlailsDropped;
-    int nCubedFlails;
-};
-
-struct D2Act3Quest3Strc
-{
-    char unk0x00[0x06];
-    unsigned char bAltarCanBeActivated;
-    char unk0x07[0x09];
-    int nAltarX;
-    int nAltarY;
-};
-
-struct D2Act3Quest4Strc
-{
-    unsigned char bGoldenBirdBroughtToAlkor;
-};
-
-struct D2Act3Quest5Strc
-{
-    char unk0x00[0x0C];
-    unsigned char bOrbSmashed;
-};
-
-struct D2Act3Quest6Strc
-{
-    unsigned char bTimerStarted;
-    unsigned char bHellGatePortalInitialized;
-    unsigned char bMephistoBridgeInitialized;
-    unsigned char bOrmusActivated;
-    int nHellGatePortalGUID;
-    int nMephistoBridgeGUID;
-    int nHellGatePortalObjectMode;
-    int nMephistoBridgeObjectMode;
-};
 
 typedef int (__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 
@@ -164,7 +49,6 @@ void __fastcall SUNIT_IterateLivingPlayers(D2GameStrc* pGame, SUNIT_IterateFn pf
 void __fastcall ACT4Q1_UnitIterate_CheckDistanceToIzualGhost(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x005B43D0
 void __fastcall SUNIT_IterateUnitsOfType(D2GameStrc* pGame, int nType, void* pArg, QUESTUNITITERATE pfIterate); // 0x005537D0
 int __fastcall ACT4Q1_UnitIterate_AttachCompletionSound(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x005B3D30
-
 
 D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
@@ -197,7 +81,6 @@ int __fastcall ACT4Q2_UnitIterate_UpdateQuestStateFlags(D2GameStrc*, D2UnitStrc*
 int __fastcall ACT4Q2_UnitIterate_StatusCyclerEx(D2GameStrc*, D2UnitStrc*, void*); // 0x005B4E40
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-
 extern int gpAct4Q2NpcMessages[]; // 0x0073DBB8
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 bool __fastcall ACT4Q2_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC); // 0x005B4450
@@ -208,17 +91,6 @@ void __fastcall ACT4Q2_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
 void __fastcall ACT4Q2_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x005B4F90
 void __fastcall ACT4Q2_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x005B52E0
 void __stdcall QUESTRECORD_ClearQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C3A0
-
-
-struct D2ObjOperateFnStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* hObject;
-    D2UnitStrc* hPlayer;
-    void* pObjectregion;
-    int nObjectIdx;
-};
-
 
 typedef bool (__fastcall* QUESTUPDATE)(D2GameStrc* pGame, D2QuestDataStrc* pQuestData);
 

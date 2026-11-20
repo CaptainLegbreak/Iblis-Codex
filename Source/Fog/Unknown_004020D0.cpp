@@ -1,13 +1,5 @@
 #include "D2GameTypes.h"
-
-struct D2ImagehlpLine64Strc
-{
-    unsigned long SizeOfStruct;
-    void* Key;
-    unsigned long LineNumber;
-    char* FileName;
-    unsigned __int64 Address;
-};
+#include "D2CrashTypes.h"
 
 typedef int (__stdcall* SymGetLineFromAddr64Fn)(void* hProcess, unsigned __int64 qwAddr, unsigned long* pdwDisplacement, D2ImagehlpLine64Strc* pLine);
 
@@ -46,11 +38,6 @@ void __cdecl sub_00401A60_UnlockSymbols()
 // build: context D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
-struct D2SymbolLockGuardStrc
-{
-    D2SymbolLockGuardStrc() { EnterCriticalSection(&gtSymbolLock_0098A6F0); }
-    ~D2SymbolLockGuardStrc() { LeaveCriticalSection(&gtSymbolLock_0098A6F0); }
-};
 
 // 0x004020D0
 static bool __stdcall sub_004020D0_GetLineFromAddr(unsigned long dwAddress, char* szFile, unsigned long* pLineNumber)

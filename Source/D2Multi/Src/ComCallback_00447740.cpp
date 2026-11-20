@@ -1,4 +1,5 @@
 #include "D2Multi.h"
+#include "D2MultiTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2LaunchMsgStrc;
@@ -18,12 +19,6 @@ struct D2LaunchMsgStrc
 };
 
 typedef int (__fastcall* D2LaunchMsgHandler)(int nArg, char* pArg, const char* szText, const char* szNext);
-
-struct D2LaunchFuncsStrc
-{
-    char unk0x00[0x24];
-    int (__fastcall* pfnGetMessage)(int* pnType, D2LaunchMsgStrc* pMsg);
-};
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTempPathA(unsigned long nBufferLength, char* szBuffer); // 0x006CC344
 extern "C" __declspec(dllimport) unsigned int __stdcall GetTempFileNameA(const char* szPathName, const char* szPrefix, unsigned int nUnique, char* szTempFileName); // 0x006CC340

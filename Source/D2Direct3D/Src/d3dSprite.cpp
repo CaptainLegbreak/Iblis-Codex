@@ -1,25 +1,13 @@
 #include "D2Direct3D.h"
 
 struct D2Direct3D006B7110Strc;
-struct D2GlideRectViewStrc;
 struct D2VertexBufferDescStrc;
 struct D2Direct3DVtbl006B7110Strc;
-struct D2ComObjectStrc;
-struct D2ComVtblStrc;
 struct D2CellFileStrc;
 struct D2CelContext006B7090Strc;
 struct D2TextureInfo006B7090Strc;
 
 void __fastcall sub_006B1F40_SetBlendMode(int mode); // 0x006B1F40
-
-struct D2GlideRectViewStrc
-{
-    int unk0x00;
-    int nLeft;
-    int nTop;
-    int nOffsetX;
-    int nOffsetY;
-};
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -56,22 +44,10 @@ extern void* gpSpriteBuffer_00970F38; // 0x00970F38
 extern void* gpVertexBuffer_00970F3C; // 0x00970F3C
 extern int gnVertexCount_00970F40; // 0x00970F40
 
-struct D2ComVtblStrc
-{
-    long (__stdcall* QueryInterface)(D2ComObjectStrc* pThis, const void* riid, void** ppv);
-    unsigned long (__stdcall* AddRef)(D2ComObjectStrc* pThis);
-    unsigned long (__stdcall* Release)(D2ComObjectStrc* pThis);
-};
-
-struct D2ComObjectStrc
-{
-    D2ComVtblStrc* lpVtbl;
-};
-
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
-extern D2ComObjectStrc* gpSpriteTextures_00970F1C[3]; // 0x00970F1C
-extern D2ComObjectStrc* gpSpriteSurfaces_00970F28[3]; // 0x00970F28
-extern D2ComObjectStrc* gpSpriteObject_00970F3C; // 0x00970F3C
+extern D2D3DObjStrc* gpSpriteTextures_00970F1C[3]; // 0x00970F1C
+extern D2D3DObjStrc* gpSpriteSurfaces_00970F28[3]; // 0x00970F28
+extern D2D3DObjStrc* gpSpriteObject_00970F3C; // 0x00970F3C
 
 struct D2CelContext006B7090Strc
 {

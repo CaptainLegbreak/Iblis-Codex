@@ -1,11 +1,4 @@
-struct D2LRUNodeStrc
-{
-    void* pData;
-    unsigned int nSize;
-    int nFlags;
-    D2LRUNodeStrc* pNext;
-    D2LRUNodeStrc* pPrev;
-};
+#include "D2CmpCache.h"
 
 struct T006090E0
 {
@@ -70,7 +63,7 @@ void __fastcall sub_00609020(T006090E0* pCache, void* pMemPool, unsigned int nMa
 
         pNode->pData = 0;
         pNode->nSize = 0;
-        pNode->nFlags = 0;
+        pNode->nCost = 0;
     }
 
     pCache->nCount = 0;
@@ -272,7 +265,7 @@ void __fastcall sub_006092D0(T006090E0* pCache, D2LRUNodeStrc* pNode)
     if (pNode)
     {
         pCache->nCurrentSize -= pNode->nSize;
-        if (pNode->nFlags)
+        if (pNode->nCost)
         {
             pCache->pfnRelease(pNode);
         }
@@ -282,7 +275,7 @@ void __fastcall sub_006092D0(T006090E0* pCache, D2LRUNodeStrc* pNode)
             FOG_FreeServerMemory(pCache->pMemPool, pNode->pData, gszLRUCacheSourceFile, 200, 0);
             pNode->pData = 0;
             pNode->nSize = 0;
-            pNode->nFlags = 0;
+            pNode->nCost = 0;
         }
 
         sub_00609100(pCache, pNode);
@@ -339,6 +332,6 @@ D2LRUNodeStrc* __fastcall sub_00609420(T006090E0* pCache, unsigned int nSize, in
     pNode->pData = sub_0040B430(pCache->pMemPool, nSize, gszLRUCacheSourceFile, 132, 0);
     LRU_ASSERT(pNode->pData, 133);
     pNode->nSize = nSize;
-    pNode->nFlags = nFlags;
+    pNode->nCost = nFlags;
     return pNode;
 }

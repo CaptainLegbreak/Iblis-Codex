@@ -5,28 +5,8 @@
 #include "D2Structs.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
-
-
-
-struct D2MonsterRegionStrc
-{
-    char unk0x000[0x2D4];
-    int nTrapVariant;
-};
-
-struct D2GameStrc
-{
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-    char unk0x6E[0x3A];
-    int dwGameFrame;
-    char unk0xAC[0x44];
-    D2MonsterRegionStrc* pMonReg[1];
-};
-
-
-
-
+#include "D2ItemsWorld.h"
+#include "D2GameStrc.h"
 
 struct D2MephistoAiCallbackArgStrc
 {

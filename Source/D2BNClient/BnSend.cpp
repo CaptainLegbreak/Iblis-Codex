@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Primitives.h"
+#include "D2ClientMenus.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -41,7 +42,6 @@ struct FSafeSock;
 struct D2SystemTimeStrc;
 struct D2FileTimeStrc;
 struct D2TimeZoneInformationStrc;
-
 
 struct T0041D340
 {
@@ -161,15 +161,7 @@ struct D2SetItemsTxt { char unk0x000[0x1B8]; };
 
 struct D2UniqueItemsTxt { char unk0x000[0x14C]; };
 
-
-
 #pragma pack(push, 2)
-struct D2HotkeyStrc
-{
-    int nCommand;
-    unsigned short nKey;
-    int nMode;
-};
 
 #pragma pack(pop)
 enum

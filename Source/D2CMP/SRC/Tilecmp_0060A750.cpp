@@ -1,4 +1,5 @@
 #include "D2CMP.h"
+#include "D2CmpTypes.h"
 
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
@@ -10,45 +11,8 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 
 typedef unsigned char (__stdcall* D2CmpMapColorFn)(unsigned char nRed, unsigned char nGreen, unsigned char nBlue);
 
-struct D2CmpSubTileHeaderStrc
-{
-    int unk0x00;
-    int unk0x04;
-    unsigned short nFlags;
-    unsigned short nLength;
-    int unk0x0C;
-};
-
-struct D2CmpSubTileRecordStrc
-{
-    D2CmpSubTileHeaderStrc tHeader;
-    unsigned char* ptData;
-};
-
 void __fastcall sub_0060D5B0_MapSubTileColors(D2CmpSubTileRecordStrc* pDst, const D2CmpSubTileRecordStrc* pSrc, D2CmpColorStrc tTransparent, D2CmpMapColorFn pfnMapColor); // 0x0060D5B0
 void __fastcall sub_0060DB20_RecodeSubTile(D2CmpSubTileRecordStrc* pRecord);                               // 0x0060DB20
-
-struct D2CmpTileBlockStrc
-{
-    char unk0x00[0x24];
-    D2CmpColorStrc tTransparent;
-    char unk0x28[0x20];
-    int f_48;
-    int nSubBytes;
-    int nSubs;
-    D2CmpSubTileRecordStrc* pSubs;
-    char* pName;
-    void* pExtra;
-};
-
-struct D2CmpTileLibraryStrc
-{
-    int dwVersion;
-    unsigned int dwFlags;
-    char szName[0x104];
-    int nBlocks;
-    D2CmpTileBlockStrc* pBlocks;
-};
 
 static int IsSubTileDataEmpty(const D2CmpSubTileRecordStrc* pRecord, const unsigned char* pData)
 {
@@ -130,7 +94,7 @@ void __stdcall sub_0060A750_MapTileLibrary(D2CmpTileLibraryStrc* pSrc, D2CmpTile
             memset(pDstBlock->pSubs, 0, nSubSize);
             for (int j = 0; j < pSrcBlock->nSubs; j++)
             {
-                sub_0060A650_MapSubTileRecord(&pDstBlock->pSubs[j], &pSrcBlock->pSubs[j], pfnMapColor, pSrcBlock->tTransparent);
+                sub_0060A650_MapSubTileRecord(&pDstBlock->pSubs[j], &pSrcBlock->pSubs[j], pfnMapColor, pSrcBlock->tColor);
             }
         }
     }

@@ -1,44 +1,10 @@
+#include "D2Structs.h"
+#include "D2Drlg.h"
+#include "D2DrlgPresets.h"
 typedef unsigned __int64 uint64_t;
 
 #pragma pack(push, 4)
-struct D2SeedStrc
-{
-    union
-    {
-        struct
-        {
-            unsigned int nLowSeed;
-            unsigned int nHighSeed;
-        };
-        uint64_t lSeed;
-    };
-};
 
-struct D2DrlgCoordStrc
-{
-    int nPosX;
-    int nPosY;
-    int nWidth;
-    int nHeight;
-};
-
-struct D2DrlgLinkStrc
-{
-    void* pfLinker;
-    int nLevel;
-    int nLevelLink;
-    int nLevelLinkEx;
-};
-
-struct D2DrlgLevelLinkDataStrc
-{
-    D2SeedStrc pSeed;
-    D2DrlgCoordStrc pLevelCoord[15];
-    D2DrlgLinkStrc* pLink;
-    int nRand[4][15];
-    int nIteration;
-    int nCurrentLevel;
-};
 #pragma pack(pop)
 
 static __forceinline uint64_t SEED_RollRandomNumber(D2SeedStrc* pSeed)

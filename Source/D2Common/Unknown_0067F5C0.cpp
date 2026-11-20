@@ -1,18 +1,6 @@
 #include "D2Common.h"
-
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
-
-struct D2DrlgLevelStrc
-{
-    char unk0x000[0x1C4];
-    D2SeedStrc pSeed;
-    char unk0x1CC[0x04];
-    int eLevelId;
-};
+#include "D2Structs.h"
+#include "D2Drlg.h"
 
 typedef char G04_CheckSeedOffset[(int)&((D2DrlgLevelStrc*)0)->pSeed == 0x1C4 ? 1 : -1];
 typedef char G04_CheckLevelIdOffset[(int)&((D2DrlgLevelStrc*)0)->eLevelId == 0x1D0 ? 1 : -1];

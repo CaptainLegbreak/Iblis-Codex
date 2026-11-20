@@ -1,5 +1,6 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 #define D2_MIN(a,b) ((a) < (b) ? (a) : (b))
 #define D2_MAX(a,b) ((a) > (b) ? (a) : (b))
 
@@ -7,19 +8,6 @@ struct D2GameStrc;
 struct D2SkillStrc;
 struct D2StatListStrc;
 struct D2ClientStrc;
-
-
-struct D2SkillsTxt
-{
-    char unk0x000[0x186];
-    short wMinMana;
-    unsigned char nManaShift;
-    unsigned char unk0x189;
-    short wMana;
-    short wLevelMana;
-    char unk0x18E[0xAE];
-};
-
 
 #define UNIT_PLAYER 0
 #define UNIT_ITEM 4

@@ -1,10 +1,10 @@
 #include "Storm.h"
+#include "D2GfxTypes.h"
 
 struct D2Interface006B1C30Strc;
 struct D2GraphicsDeviceStrc;
 struct D2Interface006B1C30VtblStrc;
 struct D2Config006B1C30Strc;
-struct D2GfxPaletteViewStrc;
 struct D2GraphicsVTableStrc;
 
 extern int gdwGlobal_007B57E4; // 0x007B57E4

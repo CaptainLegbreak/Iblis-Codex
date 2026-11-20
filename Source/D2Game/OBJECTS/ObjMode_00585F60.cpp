@@ -3,6 +3,9 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
+#include "D2ItemsWorld.h"
+#include "D2GameObjs.h"
+#include "D2GameStrc.h"
 struct D2ActiveRoomStrc;
 struct D2ItemDropStrc;
 struct D2RoomCoordListStrc;
@@ -24,51 +27,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 #define MONSTER_FLYINGSCIMITAR 234
 #define MONMODE_WALK 2
 typedef int (__stdcall* FARPROC)();
-
-
-struct D2ObjectControlStrc
-{
-    D2SeedStrc pSeed;
-};
-
-
-struct D2ObjectDataStrc
-{
-    D2ObjectsTxt* pObjectTxt;
-    unsigned char InteractType;
-};
-
-
-struct D2MonRegDataStrc
-{
-    short nMonHcIdx;
-    char unk0x002[0x32];
-};
-
-struct D2MonsterRegionStrc
-{
-    char unk0x000[0x10];
-    unsigned char nMonCount;
-    char unk0x011[0x3];
-    D2MonRegDataStrc pMonData[1];
-};
-
-struct D2GameStrc
-{
-    char unk0x000[0xA8];
-    int dwGameFrame;
-    char unk0x0AC[0x44];
-    D2MonsterRegionStrc* pMonReg[1];
-};
-
-struct D2ObjOperateFnStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* hObject;
-    D2UnitStrc* hPlayer;
-    D2ObjectControlStrc* pObjectregion;
-    int nObjectIdx;
-};
 
 typedef void (__fastcall* ObjTrapHandlerFunction)(D2GameStrc* pGame, D2UnitStrc* pUnit);
 

@@ -6,6 +6,7 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2TxtTables.h"
+#include "D2ItemsWorld.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -26,9 +27,6 @@ struct D2TCArrayStrc;
 struct D2ItemsTxt;
 struct D2ItemTypesTxt;
 struct D2ItemRatioTxt;
-
-
-
 
 struct D2QualityModsStrc
 {
@@ -77,40 +75,6 @@ struct D2TCArrayStrc
     D2TCExShortStrc* pTC;
     int nPicks;
     D2TCModsStrc tMods;
-};
-
-
-
-
-struct D2ItemDropStrc
-{
-    D2UnitStrc* pUnit;
-    D2SeedStrc* pSeed;
-    D2GameStrc* pGame;
-    int nItemLvl;
-    unsigned int unk0x10;
-    int nId;
-    int nSpawnType;
-    int nX;
-    int nY;
-    D2ActiveRoomStrc* pRoom;
-    unsigned short wUnitInitFlags;
-    unsigned short wItemFormat;
-    int bForce;
-    int nQuality;
-    int nQuantity;
-    int nMinDur;
-    int nMaxDur;
-    int nItemIndex;
-    unsigned int dwFlags1;
-    unsigned int dwSeed;
-    unsigned int dwItemSeed;
-    int eEarLvl;
-    int nQtyOverride;
-    char szName[16];
-    int nPrefix[3];
-    int nSuffix[3];
-    unsigned int dwFlags2;
 };
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837

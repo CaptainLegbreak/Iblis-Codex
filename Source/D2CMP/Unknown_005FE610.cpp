@@ -1,3 +1,4 @@
+#include "D2CmpTypes.h"
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
@@ -28,58 +29,7 @@ extern "C" const char szDataGlobal_006D4118[];                                  
 struct D2SpriteCacheStrc { void* pMemPool; };
 extern D2SpriteCacheStrc gCmpTileCache;                                                                     // 0x0089DB60
 
-struct D2CmpSpriteContextStrc
-{
-    int nFrame;
-    unsigned int dwFlags;
-    int nType;
-    int nIndex;
-    int nMode;
-    int nOverlay;
-    union
-    {
-        struct
-        {
-            char szToken[4];
-            char szComponent[4];
-            char szArmorType[4];
-            char szMode[4];
-            char szHitClass[4];
-        };
-        unsigned int dwName[5];
-    };
-    const char* pName;
-    char unk0x30[0x14];
-    unsigned int dwGfxFlags;
-};
-
-struct D2CmpSpriteFileStrc { unsigned int dwFlags; };
-
 struct D2CmpDC6CelStrc { char unk0x00[0x2C]; };
-
-struct D2CmpSpriteEntryStrc
-{
-    char unk0x00[0x21];
-    unsigned char nFrames;
-    unsigned char nFirstFrame;
-    char unk0x23;
-    unsigned char nFramesPerDirection;
-    char unk0x25[3];
-    int f_28;
-    int aOffsets[0x21];
-    AsyncData* pAsync;
-};
-
-struct D2CmpDC6FrameStrc
-{
-    int f_0;
-    unsigned int nWidth;
-    unsigned int nHeight;
-    char unk0x0C[0x08];
-    int nOffsetY;
-    D2CmpDC6CelStrc* pCel;
-    int nLength;
-};
 
 #define APPEND_CODE(q, dw) \
     if ((char)(dw) != 0x20) { *q++ = (char)(dw); \
@@ -339,7 +289,7 @@ static __declspec(noinline) void __stdcall sub_005FEC90_InitDC6Frames(D2CmpSprit
     D2_ASSERT(pContext, 0x50D);
     D2_ASSERT(pEntry, 0x50E);
     D2_ASSERT(!(pFile->dwFlags & 1), 0x50F);
-    D2_ASSERT(!pEntry->f_28, 0x512);
+    D2_ASSERT(!pEntry->unk0x28, 0x512);
 
     const int nSize = pEntry->nFrames * pEntry->nFramesPerDirection * sizeof(D2CmpDC6CelStrc);
     D2CmpDC6CelStrc* pCels = (D2CmpDC6CelStrc*)FOG_AllocPool(gCmpTileCache.pMemPool, nSize, ".\\SRC\\SpriteCache.cpp", 0x517, 0);
@@ -350,10 +300,10 @@ static __declspec(noinline) void __stdcall sub_005FEC90_InitDC6Frames(D2CmpSprit
 
     int nOffset = pEntry->aOffsets[pEntry->nFirstFrame];
     D2CmpDC6FrameStrc* pFrame;
-    for (unsigned int i = 0; i < (unsigned int)(pEntry->nFrames * pEntry->nFramesPerDirection); ++i, nOffset += pFrame->nLength + pFrame->nOffsetY + 0x23)
+    for (unsigned int i = 0; i < (unsigned int)(pEntry->nFrames * pEntry->nFramesPerDirection); ++i, nOffset += pFrame->nLength + pFrame->nOffsetY_14 + 0x23)
     {
         pFrame = (D2CmpDC6FrameStrc*)(pData + nOffset);
-        if (pFrame->f_0 != 0 || pFrame->nWidth > 0x100 || pFrame->nHeight > 0x100)
+        if (pFrame->unk0x00 != 0 || pFrame->nWidth > 0x100 || pFrame->nHeight > 0x100)
         {
             sub_005FE2B0_BuildGfxName(pContext, szName);
             sub_005FE610_BuildGfxPath(szName, pContext, szPath);
@@ -363,7 +313,7 @@ static __declspec(noinline) void __stdcall sub_005FEC90_InitDC6Frames(D2CmpSprit
         pFrame->pCel = &pCels[i];
     }
 
-    pEntry->f_28 = 1;
+    pEntry->unk0x28 = 1;
 }
 
 // build: context sub_M320_Emit_005FEC90

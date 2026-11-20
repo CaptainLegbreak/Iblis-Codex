@@ -7,6 +7,7 @@
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2GameAux.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define STAT_TOHIT 19
@@ -32,12 +33,6 @@ struct D2HitFunc22ParamStrc;
 struct D2AuraCallbackStrc;
 union D2SeedStrc;
 struct D2SkillsTxt;
-
-
-
-
-
-
 
 struct D2MonStatsTxt
 {
@@ -70,7 +65,6 @@ struct D2MissilesTxt
     unsigned char nCollideKill;
     char pad0x187[0x1D];
 };
-
 
 struct D2UnkFieldsStrc
 {
@@ -137,11 +131,9 @@ void __stdcall DUNGEON_ToggleHasPortalFlag(D2ActiveRoomStrc* pRoom, int bSet); /
 
 typedef void(__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nUnused);
 
-
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 int __stdcall MISSILE_GetLevel(D2UnitStrc* pMissile); // 0x0064A210
 int __stdcall MISSILE_GetSkill(D2UnitStrc* pMissile); // 0x0064A280
-
 
 struct D2HitFunc22ParamStrc
 {
@@ -151,14 +143,6 @@ struct D2HitFunc22ParamStrc
     int nLevel;
     int nParam;
     int nHitSubMissile;
-};
-
-struct D2AuraCallbackStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* pOwner;
-    int nCounter;
-    void* pArgs;
 };
 
 int __fastcall D2GAME_CreatePortalObject_6FD13DF0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int nDestLevel, D2UnitStrc** ppSourceUnit, int nObjectId, int bPerm); // 0x0056D130

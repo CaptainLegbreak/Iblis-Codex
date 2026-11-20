@@ -1,5 +1,6 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Structs.h"
 struct D2ShrinesTxt;
 struct D2SpawnAreaStrc;
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -21,13 +22,6 @@ struct D2AiControlStrc;
 struct D2MonsterDataStrc { void* pMonstatsTxt; unsigned char nComponent[16]; char pad14[0x14]; D2AiControlStrc* pAiControl; };
 struct D2ItemDataStrc { char pad00[0x24]; int dwActionStamp; };
 struct D2ObjectDataStrc { void* pObjectsTxt; unsigned char InteractType; };
-struct D2UnitStrc
-{
-    int dwUnitType, dwClassId; void* pMemoryPool; int dwUnitId; unsigned int dwAnimMode;
-    union { D2MonsterDataStrc* pMonsterData; D2ItemDataStrc* pItemData; D2ObjectDataStrc* pObjectData; };
-    char pad18[0x48]; D2InventoryStrc* pInventory; char pad64[0x14]; unsigned char bSparkChest;
-    char pad79[0x3F]; unsigned int dwDropItemCode; char padBC[8]; unsigned int dwFlags,dwFlagEx;
-};
 struct D2InactiveMonsterNodeStrc
 {
     int nX;
@@ -63,8 +57,6 @@ struct D2AiCmdStrc
     int nCmdParam2;
     int nCmdParam3;
 };
-
-
 
 struct D2InactiveUnitNodeStrc
 {

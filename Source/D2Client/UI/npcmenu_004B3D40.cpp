@@ -1,21 +1,11 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2ClientMenus.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 union D2SeedStrc;
 
-
-
 #pragma pack(push, 2)
-struct D2NpcEntryStrc
-{
-    int nId;
-    char unk0x04[0x0D];
-    char bSelected;
-    char bFlag;
-    char unk0x13[0x02];
-    char bRefreshed;
-};
 
 #pragma pack(pop)
 typedef char check_size_npcentry[(sizeof(D2NpcEntryStrc) == 0x16) ? 1 : -1];

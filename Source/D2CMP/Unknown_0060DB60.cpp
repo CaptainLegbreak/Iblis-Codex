@@ -1,4 +1,5 @@
 #include "D2CMP.h"
+#include "D2CmpTypes.h"
 
 extern "C" void __cdecl sub_00408A60(const char*, const char*, int); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
@@ -8,27 +9,6 @@ int __fastcall FOG_Free(void*, const char*, int, int); // 0x0040B3C0
 extern "C" void* __cdecl memset(void*, int, unsigned int); // 0x00681EF0
 extern "C" void* __cdecl memcpy(void*, const void*, unsigned int); // 0x006829C0
 typedef unsigned char (__stdcall* D2CmpMapColorFn)(unsigned char, unsigned char, unsigned char);
-struct D2CmpSubTileHeaderStrc
-{
-    int unk0x00;
-    int unk0x04;
-    unsigned short nFlags;
-    unsigned short nLength;
-    int unk0x0C;
-};
-struct D2CmpSubTileRecordStrc
-{
-    D2CmpSubTileHeaderStrc tHeader;
-    unsigned char* ptData;
-};
-struct D2CmpTileBlockStrc
-{
-    char reserved[0x46];
-    unsigned char nFlags;
-    char pad47[9];
-    int nSubs;
-    D2CmpSubTileRecordStrc* pSubs;
-};
 
 int __fastcall sub_0060D310_ScanRun(unsigned char, const unsigned char*, const unsigned char*, int, int*, int*); // 0x0060D310
 int __fastcall sub_0060D3A0_ScanOtherRun(const unsigned char*, const unsigned char*, unsigned char, int, int*, int*); // 0x0060D3A0

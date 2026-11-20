@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientMenus.h"
 
 #define NUM_HOTKEYS 114
 #define HOTKEY_COMMAND_LIMIT 0x38
@@ -17,12 +18,6 @@ struct D2HotkeyCommandStrc
 };
 
 #pragma pack(push, 2)
-struct D2HotkeyStrc
-{
-    int nCommand;
-    unsigned short nKey;
-    int nMode;
-};
 
 #pragma pack(pop)
 

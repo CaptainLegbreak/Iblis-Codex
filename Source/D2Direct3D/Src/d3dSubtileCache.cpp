@@ -265,12 +265,12 @@ void __fastcall sub_006BADC0_Destroy(D2SubtilePoolStrc* pPool, int bReleaseAll)
 		D2SubtilePoolEntryStrc* pEntry = &pPool->pEntries[i];
 		if (pEntry->pSurface)
 		{
-			pEntry->pSurface->pVtbl->pRelease(pEntry->pSurface);
+			pEntry->pSurface->lpVtbl->Release(pEntry->pSurface);
 			pEntry->pSurface = 0;
 		}
 		if (pEntry->pTexture)
 		{
-			pEntry->pTexture->pVtbl->pRelease(pEntry->pTexture);
+			pEntry->pTexture->lpVtbl->Release(pEntry->pTexture);
 			pEntry->pTexture = 0;
 		}
 	}

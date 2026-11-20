@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2UnitData.h"
+#include "D2ClientGame.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -14,46 +15,6 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-
-
-struct D2RosterCorpseStrc
-{
-    int dwCorpseId;
-    D2RosterCorpseStrc* pNext;
-};
-
-struct D2StoredUnitRecordStrc
-{
-    char szName[16];
-    int dwUnitId;
-    int dwPartyLife;
-    int dwKillCount;
-    int dwClassId;
-    unsigned short wLevel;
-    unsigned short wPartyId;
-    int dwLevelId;
-    int dwPosX;
-    int dwPosY;
-    int dwPartyFlags;
-    D2RosterInfoStrc** pRosterInfo;
-    D2RosterCorpseStrc* pCorpse;
-    int dwPortalA;
-    int dwPortalB;
-    unsigned short wGuildFlags;
-    char szGuildTag[4];
-    char szGuildName[28];
-    char szNameEx[26];
-    D2StoredUnitRecordStrc* pNext;
-};
-
-struct D2RosterGroupStrc
-{
-    unsigned short wPartyId;
-    unsigned short unk0x02;
-    D2StoredUnitRecordStrc* pFirst;
-    D2RosterGroupStrc* pNext;
-};
-
 
 class D2SquelchListStrc
 {

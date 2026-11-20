@@ -1,12 +1,5 @@
 #include "D2DDraw.h"
-#include "D2GfxTypes.h"
-
-struct D2IDirectDrawSurface
-{
-    virtual long __stdcall QueryInterface(void* riid, void** ppObject) = 0;
-    virtual unsigned long __stdcall AddRef() = 0;
-    virtual unsigned long __stdcall Release() = 0;
-};
+#include "D2DDrawTypes.h"
 
 int __fastcall sub_00511870_EndScene();                                                                     // 0x00511870
 void __fastcall sub_00512ED0_ClearScreen(int bPartial);                                                     // 0x00512ED0
@@ -14,9 +7,9 @@ extern int gaDDrawCapsTypes_0072F7D0[7];                                        
 D2GfxPaletteViewStrc* gpDDrawCaps_007C9150;                                                                      // 0x007C9150
 extern int gbDDrawReady_00881264;                                                                           // 0x00881264
 extern int gbDDrawReady2_00881268;                                                                          // 0x00881268
-extern D2IDirectDrawSurface* gpDDrawSurface_00881278;                                                       // 0x00881278
-extern D2IDirectDrawSurface* gpDDrawBackSurface_0088127C;                                                   // 0x0088127C
-D2IDirectDrawSurface* gpDDrawSurface_00881280;                                                              // 0x00881280
+extern D2DDrawSurfaceStrc* gpDDrawSurface_00881278;                                                       // 0x00881278
+extern D2DDrawSurfaceStrc* gpDDrawBackSurface_0088127C;                                                   // 0x0088127C
+D2DDrawSurfaceStrc* gpDDrawSurface_00881280;                                                              // 0x00881280
 void* gpDDrawSmackBuffer_008816B0;                                                                          // 0x008816B0
 
 // 0x00511A80
@@ -31,17 +24,17 @@ void __cdecl sub_00511A80_DDrawReleaseSurfaces()
         }
         if (gpDDrawSurface_00881280)
         {
-            gpDDrawSurface_00881280->Release();
+            gpDDrawSurface_00881280->lpVtbl->Release(gpDDrawSurface_00881280);
             gpDDrawSurface_00881280 = 0;
         }
         if (gpDDrawBackSurface_0088127C)
         {
-            gpDDrawBackSurface_0088127C->Release();
+            gpDDrawBackSurface_0088127C->lpVtbl->Release(gpDDrawBackSurface_0088127C);
             gpDDrawBackSurface_0088127C = 0;
         }
         if (gpDDrawSurface_00881278)
         {
-            gpDDrawSurface_00881278->Release();
+            gpDDrawSurface_00881278->lpVtbl->Release(gpDDrawSurface_00881278);
             gpDDrawSurface_00881278 = 0;
         }
         gpTileDrawFunctions_007C914C->pfFillYBufferTable(0, 0, 0, 0);
@@ -86,12 +79,11 @@ void __fastcall sub_00513330_DDrawCloseSmacker(D2SmackRecordStrc* pRecord)
         FOG_Free(gpDDrawSmackBuffer_008816B0, szDDSmackFile_006DE20C, 0xF0, 0);
         gpDDrawSmackBuffer_008816B0 = 0;
     }
-    if (pRecord->nType == 's' && pRecord->f_0)
+    if (pRecord->nType == 's' && pRecord->hSmack)
     {
-        SmackClose(pRecord->f_0);
-        pRecord->f_0 = 0;
+        SmackClose(pRecord->hSmack);
+        pRecord->hSmack = 0;
     }
 }
 
 #include "gen/data/Source/D2DDraw/Src/ddCore_00511A80.inc"
-#include "D2GfxTypes.h"

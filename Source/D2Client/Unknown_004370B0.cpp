@@ -1,16 +1,9 @@
 #include "D2Client.h"
+#include "D2MultiTypes.h"
 
 struct D2FuncTable_0077ABF0Strc;
 
 void __cdecl sub_00435330_ShowLoginScreen(); // 0x00435330
-
-struct D2FuncTable_0077ABF0Strc
-{
-    char unk0x00[0x04];
-    void* (__fastcall* pfnSlot04)();
-    char unk0x08[0x08];
-    void (__fastcall* pfnSlot10)();
-};
 
 extern D2FuncTable_0077ABF0Strc* gpFuncTable_0077ABF0; // 0x0077ABF0
 extern int gnStatusDots_007799B4; // 0x007799B4

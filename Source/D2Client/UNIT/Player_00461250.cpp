@@ -5,6 +5,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2ClientTypes.h"
+#include "D2ClientGame.h"
 struct D2ActiveRoomStrc;
 struct D2ClientRecordStrc;
 struct D2DrlgActStrc;
@@ -30,7 +31,6 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-
 struct D2PlayerDataStrc
 {
     char unk0x000[0x150];
@@ -45,24 +45,6 @@ struct D2MonsterDataStrc
     char unk0x00[0x28];
     unsigned short nClientFlags;
 };
-
-
-struct D2PlayerCmdStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pPlayer;
-    D2UnitStrc* pTarget;
-    int nX;
-    int nY;
-    int nArg;
-    int nMode;
-    D2SkillStrc* pSkill;
-};
-
-
-
-
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern unsigned int gdwBitMasks[]; // 0x006CE268
@@ -181,7 +163,6 @@ void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit); // 0x0064C370
 unsigned short __stdcall COLLISION_CheckMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, unsigned short nMask); // 0x0064D870
 D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, int nUnitSize, unsigned int nMask, int bAllowNeighboringRooms); // 0x0064E7B0
 void __cdecl sub_004608C0_RefreshAdjacentPlayers(); // 0x004608C0
-
 
 int __cdecl sub_0044BF00(); // 0x0044BF00
 int __cdecl sub_0044BF10(); // 0x0044BF10

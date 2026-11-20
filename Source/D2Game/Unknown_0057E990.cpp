@@ -1,19 +1,10 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2ItemsWorld.h"
 struct D2DamageStrc;
 struct D2GameStrc;
 struct D2UnitStrc;
-
-
-
-struct D2PetInfoStrc
-{
-    unsigned int nSeed;
-    unsigned short wName;
-    short unk0x06;
-    int nHirelingId;
-};
 
 struct D2HirelingTxt
 {

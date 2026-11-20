@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2UnitData.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -12,16 +13,6 @@ struct D2AuraEnchantStrc;
 struct D2MissilesTxt;
 struct D2MonLvlTxt;
 struct D2MonUModTxt;
-
-
-struct D2MonsterDataStrc
-{
-    char unk0x00[0x14];
-    unsigned short wNameSeed;
-    char unk0x16[0x10];
-    unsigned short wBossHcIdx;
-};
-
 
 struct D2AuraEnchantStrc
 {
@@ -45,10 +36,6 @@ enum D2C_H16ElemConstants
     MONLVL_DM = 6,
     STAT_LEVEL = 12,
 };
-
-
-
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern unsigned int gdwBitMasks[]; // 0x006CE268

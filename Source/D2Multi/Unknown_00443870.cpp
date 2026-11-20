@@ -1,10 +1,5 @@
 #include "D2Multi.h"
-
-struct D2LaunchCharInfoStrc
-{
-    char unk0x000[0x210];
-    char nByte210;
-};
+#include "D2MultiTypes.h"
 
 int gdwGlobal_00798CC4;                                                                                     // 0x00798CC4
 D2WinControlStrc* gpControl_00798C4C;                                                                       // 0x00798C4C

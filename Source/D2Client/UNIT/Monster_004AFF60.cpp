@@ -4,24 +4,12 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameTypes.h"
-
+#include "D2ClientGame.h"
 
 struct D2MonsterDataStrc
 {
     char unk0x00[0x28];
     unsigned char nTypeFlags;
-};
-
-
-struct D2MonCommandStrc
-{
-    int nParam00;
-    int nParam04;
-    int nParam08;
-    int nParam0C;
-    int nParam10;
-    int nParam14;
-    int nParam18;
 };
 
 struct D2MonStatsTxt
@@ -47,8 +35,6 @@ struct D2MonStats2Txt
     unsigned char nModeFlags[16];
     char unk0x114[0x20];
 };
-
-
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -393,7 +379,7 @@ static __forceinline int sub_n5b_ValidateMonsterId(int nMonsterId)
 
 static __forceinline void sub_b1_WalkTo(D2UnitStrc* pUnit, D2MonCommandStrc* pCommand, int nMode)
 {
-    if (sub_004AE080(pUnit, 1) || !sub_004804A0_SetPathTargetPos(pUnit, pCommand->nParam00, pCommand->nParam04)
+    if (sub_004AE080(pUnit, 1) || !sub_004804A0_SetPathTargetPos(pUnit, pCommand->nX, pCommand->nY)
         || STATES_CheckState(pUnit, 0x8F) || !sub_0046C140_TestMonModeFlag(pUnit->dwClassId, nMode))
     {
         sub_004AE1D0_RefreshMonsterMode(pUnit);
@@ -430,13 +416,13 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
     if (nCommand != 0x13 && nCommand != 0x16 && nCommand != 0x15 && pCommand)
     {
         bUpdateVelocity = 1;
-        if (pCommand->nParam0C > 0)
+        if (pCommand->nPathValue > 0)
         {
-            PATH_SetType(pPath, pCommand->nParam0C);
+            PATH_SetType(pPath, pCommand->nPathValue);
             if (nCommand == 0x14)
             {
-                PATH_SetNewDistance(pPath, (unsigned char)pCommand->nParam14);
-                PATH_SetStepNum(pPath, (unsigned char)pCommand->nParam08);
+                PATH_SetNewDistance(pPath, (unsigned char)pCommand->nPathByte);
+                PATH_SetStepNum(pPath, (unsigned char)pCommand->nZero);
             }
         }
         UNITS_SetUsedSkill(pUnit, 0);
@@ -465,7 +451,7 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
     case 0x17:
         D2_ASSERT(pCommand, 0x6E2);
         D2COMMON_10212_PATH_SetMoveFlags(pUnit, 1);
-        if (sub_004AE080(pUnit, 1) || !sub_004804A0_SetPathTargetPos(pUnit, pCommand->nParam00, pCommand->nParam04))
+        if (sub_004AE080(pUnit, 1) || !sub_004804A0_SetPathTargetPos(pUnit, pCommand->nX, pCommand->nY))
         {
             sub_004AE1D0_RefreshMonsterMode(pUnit);
             break;
@@ -482,9 +468,9 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
     {
         D2_ASSERT(pCommand, 0x6F7);
         D2COMMON_10212_PATH_SetMoveFlags(pUnit, 1);
-        nValue = pCommand->nParam00;
-        sub_004643F0_SetTargetByGUID(pUnit, nValue, pCommand->nParam04);
-        if (sub_004AE080(pUnit, 1) || !sub_00480780_SetPathTargetUnit(pUnit, nValue, pCommand->nParam04))
+        nValue = pCommand->nX;
+        sub_004643F0_SetTargetByGUID(pUnit, nValue, pCommand->nY);
+        if (sub_004AE080(pUnit, 1) || !sub_00480780_SetPathTargetUnit(pUnit, nValue, pCommand->nY))
         {
             sub_004AE1D0_RefreshMonsterMode(pUnit);
             break;
@@ -507,11 +493,11 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
     {
         D2_ASSERT(pCommand, 0x70F);
         D2COMMON_10212_PATH_SetMoveFlags(pUnit, 0);
-        nValue = pCommand->nParam00;
+        nValue = pCommand->nX;
         if (nMonId == 0xE7)
             break;
 
-        sub_004643F0_SetTargetByGUID(pUnit, nValue, pCommand->nParam04);
+        sub_004643F0_SetTargetByGUID(pUnit, nValue, pCommand->nY);
         if (nMonId == 0x130 && nCommand == 0xA)
         {
             D2UnitStrc* pTargetUnit = sub_004648F0_GetPathTargetUnit(pUnit);
@@ -542,7 +528,7 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
 
         sub_00480E70_SetUnitMode(pUnit, pRecord->nIndex);
         if (sub_004AFBC0_HasMonStatsFlag(pUnit, pRecord))
-            sub_00480780_SetPathTargetUnit(pUnit, nValue, pCommand->nParam04);
+            sub_00480780_SetPathTargetUnit(pUnit, nValue, pCommand->nY);
         break;
     }
 
@@ -556,15 +542,15 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
         D2_ASSERT(pCommand, 0x741);
         D2COMMON_10212_PATH_SetMoveFlags(pUnit, 0);
         UNITS_SetTargetUnitForDynamicUnit(pUnit, 0);
-        if ((pCommand->nParam00 || pCommand->nParam04)
-            && (pCommand->nParam00 != CLIENTS_GetUnitX(pUnit) || pCommand->nParam04 != CLIENTS_GetUnitY(pUnit)))
+        if ((pCommand->nX || pCommand->nY)
+            && (pCommand->nX != CLIENTS_GetUnitX(pUnit) || pCommand->nY != CLIENTS_GetUnitY(pUnit)))
         {
-            UNITS_UpdateDirectionAndSpeed(pUnit, pCommand->nParam00, pCommand->nParam04);
+            UNITS_UpdateDirectionAndSpeed(pUnit, pCommand->nX, pCommand->nY);
         }
 
         sub_00480E70_SetUnitMode(pUnit, pRecord->nIndex);
         if (sub_004AFBC0_HasMonStatsFlag(pUnit, pRecord))
-            sub_004804A0_SetPathTargetPos(pUnit, pCommand->nParam00, pCommand->nParam04);
+            sub_004804A0_SetPathTargetPos(pUnit, pCommand->nX, pCommand->nY);
 
         if (nMonId == 0x6E)
             sub_004AFCE0_UpdateCollisionForMode(pUnit, nCommand);
@@ -575,19 +561,19 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
         if (!pCommand)
             break;
 
-        sub_004AC840(pUnit, pCommand->nParam08 & 0x80);
-        pCommand->nParam08 &= 0x7F;
-        if (pCommand->nParam08 > 1)
-            ++pCommand->nParam08;
+        sub_004AC840(pUnit, pCommand->nZero & 0x80);
+        pCommand->nZero &= 0x7F;
+        if (pCommand->nZero > 1)
+            ++pCommand->nZero;
 
         int bBlood = 1;
-        if (pCommand->nParam08)
+        if (pCommand->nZero)
         {
             const int nOldValue = STATLIST_UnitGetStatValue(pUnit, 6, 0) >> 8;
-            if (nOldValue == pCommand->nParam08)
+            if (nOldValue == pCommand->nZero)
                 bBlood = 0;
             else
-                STATLIST_SetUnitStat(pUnit, 6, pCommand->nParam08 << 8, 0);
+                STATLIST_SetUnitStat(pUnit, 6, pCommand->nZero << 8, 0);
         }
 
         D2COMMON_10212_PATH_SetMoveFlags(pUnit, 0);
@@ -604,15 +590,15 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
 
     case 0x13:
         D2_ASSERT(pCommand, 0x781);
-        sub_004AC840(pUnit, pCommand->nParam04 & 0x80);
-        pCommand->nParam04 &= 0x7F;
-        if (pCommand->nParam04 > 1)
-            ++pCommand->nParam04;
+        sub_004AC840(pUnit, pCommand->nY & 0x80);
+        pCommand->nY &= 0x7F;
+        if (pCommand->nY > 1)
+            ++pCommand->nY;
 
-        if (pCommand->nParam04)
-            STATLIST_SetUnitStat(pUnit, 6, pCommand->nParam04 << 8, 0);
+        if (pCommand->nY)
+            STATLIST_SetUnitStat(pUnit, 6, pCommand->nY << 8, 0);
 
-        pUnit->dwLastHitClass = pCommand->nParam00;
+        pUnit->dwLastHitClass = pCommand->nX;
         sub_004AF890_SpawnBloodMissiles(pUnit, 1, 1);
         sub_00464C90_SetCounter58(pUnit);
         sub_00480D20_SetModeOverlay(pUnit, 0xD);
@@ -622,15 +608,15 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
 
     case 0x14:
         D2_ASSERT(pCommand, 0x79A);
-        if (pCommand->nParam14)
-            STATLIST_SetUnitStat(pUnit, 6, pCommand->nParam14 << 8, 0);
+        if (pCommand->nPathByte)
+            STATLIST_SetUnitStat(pUnit, 6, pCommand->nPathByte << 8, 0);
 
         pUnit->dwLastHitClass = pCommand->nParam18;
         D2COMMON_10212_PATH_SetMoveFlags(pUnit, 0);
         PATH_RecacheRoomIfNeeded(pPath);
         PATH_SetType(pPath, 0xB);
-        D2COMMON_10190_PATH_SetDistance(pPath, (unsigned char)pCommand->nParam08);
-        D2COMMON_10170_PathSetTargetPos(pPath, (unsigned short)pCommand->nParam00, (unsigned short)pCommand->nParam04);
+        D2COMMON_10190_PATH_SetDistance(pPath, (unsigned char)pCommand->nZero);
+        D2COMMON_10170_PathSetTargetPos(pPath, (unsigned short)pCommand->nX, (unsigned short)pCommand->nY);
         D2Common_10142(pPath, pUnit, 0);
         sub_00480E70_SetUnitMode(pUnit, 0xD);
         break;
@@ -639,7 +625,7 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
         D2_ASSERT(pCommand, 0x7B0);
         D2COMMON_10212_PATH_SetMoveFlags(pUnit, 0);
         PATH_RecacheRoomIfNeeded(pPath);
-        sub_004643F0_SetTargetByGUID(pUnit, pCommand->nParam00, pCommand->nParam04);
+        sub_004643F0_SetTargetByGUID(pUnit, pCommand->nX, pCommand->nY);
         sub_00465BF0_SetPathTargetToTargetUnit(pUnit, 0);
         sub_00480E70_SetUnitMode(pUnit, 6);
         break;
@@ -767,8 +753,8 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
         case 0x11C:
         {
             D2MonCommandStrc tCommand = {};
-            tCommand.nParam00 = 0xD8;
-            tCommand.nParam10 = 1;
+            tCommand.nX = 0xD8;
+            tCommand.nArg = 1;
             sub_004AFF60_MonsterCommand(0x15, pUnit, &tCommand);
             pUnit->dwFlags &= ~2;
             sub_00464930_FreeLight(pUnit);
@@ -938,8 +924,8 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
     case 7:
     {
         D2COMMON_10212_PATH_SetMoveFlags(pUnit, 0);
-        if (pCommand && pCommand->nParam08)
-            STATLIST_SetUnitStat(pUnit, 6, pCommand->nParam08 << 8, 0);
+        if (pCommand && pCommand->nZero)
+            STATLIST_SetUnitStat(pUnit, 6, pCommand->nZero << 8, 0);
 
         if (sub_00451F30_TestUnitFlag(pUnit, 0x200))
             pUnit->dwFlags |= 2;
@@ -954,8 +940,8 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
             break;
         }
 
-        sub_004804E0_SetPosition(pUnit, (unsigned short)pCommand->nParam00, (unsigned short)pCommand->nParam04, 0, 0, 0);
-        if (sub_n5b_Distance(CLIENTS_GetUnitX(pUnit) - pCommand->nParam00) <= 1 && sub_n5b_Distance(CLIENTS_GetUnitY(pUnit) - pCommand->nParam04) <= 1)
+        sub_004804E0_SetPosition(pUnit, (unsigned short)pCommand->nX, (unsigned short)pCommand->nY, 0, 0, 0);
+        if (sub_n5b_Distance(CLIENTS_GetUnitX(pUnit) - pCommand->nX) <= 1 && sub_n5b_Distance(CLIENTS_GetUnitY(pUnit) - pCommand->nY) <= 1)
         {
             sub_004AE1D0_RefreshMonsterMode(pUnit);
             break;
@@ -969,15 +955,15 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
     {
         D2_ASSERT(pCommand, 0x911);
         D2COMMON_10212_PATH_SetMoveFlags(pUnit, 0);
-        nValue = pCommand->nParam00;
-        SKILLS_AssignSkill(pUnit, nValue, pCommand->nParam10, 0, gszMonsterSourceFile_006DA5C8, 0x914);
+        nValue = pCommand->nX;
+        SKILLS_AssignSkill(pUnit, nValue, pCommand->nArg, 0, gszMonsterSourceFile_006DA5C8, 0x914);
         D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nValue);
         UNITS_SetUsedSkill(pUnit, pSkill);
         nValue = SKILLS_GetSkillModeFromUnit(pUnit, pSkill);
         if (nValue == 0xE)
             sub_004AFB60_ReplaySequence(pUnit);
 
-        pCommand->nParam04 = -1;
+        pCommand->nY = -1;
         sub_00480E70_SetUnitMode(pUnit, nValue);
         sub_004C6EB0_StartSkillOnUnit(pUnit, pCommand);
         break;
@@ -988,15 +974,15 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
         D2_ASSERT(pCommand, 0x924);
         D2COMMON_10212_PATH_SetMoveFlags(pUnit, 0);
         UNITS_SetTargetUnitForDynamicUnit(pUnit, 0);
-        nValue = pCommand->nParam00;
-        SKILLS_AssignSkill(pUnit, nValue, pCommand->nParam10, 0, gszMonsterSourceFile_006DA5C8, 0x929);
+        nValue = pCommand->nX;
+        SKILLS_AssignSkill(pUnit, nValue, pCommand->nArg, 0, gszMonsterSourceFile_006DA5C8, 0x929);
         D2SkillStrc* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, nValue);
         UNITS_SetUsedSkill(pUnit, pSkill);
         nValue = SKILLS_GetSkillModeFromUnit(pUnit, pSkill);
         if (nValue == 0xE)
             sub_004AFB60_ReplaySequence(pUnit);
 
-        pCommand->nParam04 = -1;
+        pCommand->nY = -1;
         sub_00480E70_SetUnitMode(pUnit, nValue);
         sub_004C6F40(pUnit, pCommand);
         break;
@@ -1008,13 +994,13 @@ void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2M
         break;
     }
 
-    if (bUpdateVelocity && pCommand && pCommand->nParam10)
+    if (bUpdateVelocity && pCommand && pCommand->nArg)
     {
         const int nVelocity = STATLIST_UnitGetStatValue(pUnit, 0x43, 0);
-        if (nVelocity != pCommand->nParam10)
+        if (nVelocity != pCommand->nArg)
         {
             STATLIST_DeactivateTemporaryStates(pUnit);
-            STATLIST_AddUnitStat(pUnit, 0x43, pCommand->nParam10 - nVelocity, 0);
+            STATLIST_AddUnitStat(pUnit, 0x43, pCommand->nArg - nVelocity, 0);
             UnitUpdateAnimRateAndVel(pUnit, gszMonsterSourceFile_006DA5C8, 0x946);
         }
     }

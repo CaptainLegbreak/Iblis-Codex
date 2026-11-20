@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2GameTypes.h"
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
@@ -8,42 +9,6 @@ struct D2InventoryStrc;
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
 #define UNIT_OBJECT 2
-
-
-struct D2DamageStrc
-{
-    unsigned int wResultFlags;
-    unsigned int dwHitFlags;
-    int dwPhysDamage;
-    int dwEnDmgPct;
-    int dwFireDamage;
-    int dwBurnDamage;
-    int dwBurnLen;
-    int dwLtngDamage;
-    int dwMagDamage;
-    int dwColdDamage;
-    int dwPoisDamage;
-    int dwPoisLen;
-    int dwColdLen;
-    int dwFrzLen;
-    int dwLifeLeech;
-    int dwManaLeech;
-    int dwStamLeech;
-    int dwStunLen;
-    int dwAbsLife;
-    int dwDmgTotal;
-    int unk0x50;
-    int dwPiercePct;
-    int dwDamageRate;
-    int unk0x5C;
-    unsigned int dwHitClass;
-    unsigned char nHitClassActiveSet;
-    char nConvType;
-    unsigned char unk0x66;
-    unsigned char unk0x67;
-    int dwConvPct;
-    int nOverlay;
-};
 
 struct D2CombatStrc
 {
@@ -55,7 +20,6 @@ struct D2CombatStrc
     D2DamageStrc tDamage;
     D2CombatStrc* pNext;
 };
-
 
 struct D2BodyLocWeightStrc
 {

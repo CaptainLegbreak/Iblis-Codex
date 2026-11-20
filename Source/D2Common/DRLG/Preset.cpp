@@ -7,6 +7,7 @@
 #include "D2ItemsWorld.h"
 #include "D2LevelTxt.h"
 #include "D2GameAux.h"
+#include "D2GameObjs.h"
 
 #pragma intrinsic(memset)
 
@@ -56,7 +57,6 @@ struct D2DrlgRoomSubStrc
     char unk0x00[0xEC];
     int nFieldEC;
 };
-
 
 struct D2DrlgCoordStrc
 {
@@ -112,14 +112,6 @@ struct D2DrlgGridStrc
     int nFlags;
 };
 
-
-struct D2MapAIStrc
-{
-    int nPathNodes;
-    D2MapAIPathPositionStrc* pPosition;
-};
-
-
 struct D2DrlgFileStrc
 {
     char unk0x00[0x0C];
@@ -133,7 +125,6 @@ struct D2DrlgFileStrc
     unsigned char unk_44[0x10];
     D2PresetUnitStrc* pPresetUnit;
 };
-
 
 union D2C_PackedTileInformation
 {
@@ -239,9 +230,7 @@ void __fastcall DRLGGRID_AssignCellsOffsetsAndFlags(D2DrlgGridStrc* pGrid, int* 
 void __fastcall DRLGGRID_ResetGrid(D2DrlgGridStrc* pGrid); // 0x0067CDC0
 void __fastcall DRLGPRESET_AddPresetUnitToDrlgMap(void* pMemPool, D2DrlgMapStrc* pDrlgMap, D2SeedStrc* pSeed); // 0x00667620
 
-
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 extern unsigned short gwValue_0077905C;
@@ -317,7 +306,6 @@ struct D2Unk00667420Strc
     char unk0x00[0x14];
     D2Unk00667420BStrc* p14;
 };
-
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090

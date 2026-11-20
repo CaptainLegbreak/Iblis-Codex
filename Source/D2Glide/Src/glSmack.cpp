@@ -1,15 +1,8 @@
 #include "D2Glide.h"
 #include "D2DrlgMaps.h"
 
-struct D2GlideSmackStrc;
 struct T004F51E0;
 struct D2TileLibraryEntryStrc;
-
-struct D2GlideSmackStrc
-{
-    void* f_0;
-    unsigned char nType;
-};
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" __declspec(dllimport) void __stdcall SmackClose(void* hSmack); // 0x006CC608
@@ -124,12 +117,12 @@ void __cdecl sub_0050E030_GlideNoOp()
 }
 
 // 0x0050E040
-void __fastcall sub_0050E040_GlideCloseSmacker(D2GlideSmackStrc* pRecord)
+void __fastcall sub_0050E040_GlideCloseSmacker(D2SmackRecordStrc* pRecord)
 {
-    if (pRecord->nType == 's' && pRecord->f_0)
+    if (pRecord->nType == 's' && pRecord->hSmack)
     {
-        SmackClose(pRecord->f_0);
-        pRecord->f_0 = 0;
+        SmackClose(pRecord->hSmack);
+        pRecord->hSmack = 0;
     }
     pRecord->nType = 0;
 }
@@ -163,7 +156,7 @@ void __fastcall sub_0050E070_GlideSetSmackPalette(D2RgbColorStrc* colors)
 unsigned char* sgbSmack8BitBuffer; // 0x00880BF0
 
 // 0x0050E5D0
-void __fastcall sub_0050E5D0_GlideDecodeSmacker(const char* szFile, D2GlideSmackStrc* pSmack, unsigned char nType)
+void __fastcall sub_0050E5D0_GlideDecodeSmacker(const char* szFile, D2SmackRecordStrc* pSmack, unsigned char nType)
 {
     D2_ASSERT(sgbSmack8BitBuffer, 142);
     memset(sgbSmack8BitBuffer, 0, 0x8000);
@@ -178,16 +171,16 @@ void __fastcall sub_0050E5D0_GlideDecodeSmacker(const char* szFile, D2GlideSmack
     switch (nType)
     {
     case 's':
-        if (pSmack->f_0)
+        if (pSmack->hSmack)
         {
             return;
         }
-        pSmack->f_0 = SmackOpen(szFile, 0xFE000, -1);
-        if (!pSmack->f_0)
+        pSmack->hSmack = SmackOpen(szFile, 0xFE000, -1);
+        if (!pSmack->hSmack)
         {
             break;
         }
-        SmackToBuffer(pSmack->f_0, 0, 0, 0x200, 0x40, sgbSmack8BitBuffer, 0);
+        SmackToBuffer(pSmack->hSmack, 0, 0, 0x200, 0x40, sgbSmack8BitBuffer, 0);
         return;
 
     case 'p':
@@ -232,10 +225,10 @@ void __fastcall sub_0050E5D0_GlideDecodeSmacker(const char* szFile, D2GlideSmack
         return;
     }
 
-    if (pSmack->nType == 's' && pSmack->f_0)
+    if (pSmack->nType == 's' && pSmack->hSmack)
     {
-        SmackClose(pSmack->f_0);
-        pSmack->f_0 = 0;
+        SmackClose(pSmack->hSmack);
+        pSmack->hSmack = 0;
     }
     pSmack->nType = 0;
 }

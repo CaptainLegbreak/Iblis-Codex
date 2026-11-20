@@ -3,18 +3,7 @@
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
 #include "D2QuestData.h"
-
-
-
-
-struct D2ObjOperateFnStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* hObject;
-    D2UnitStrc* hPlayer;
-};
-
-
+#include "D2GameObjs.h"
 
 #define QUEST_A2Q2_HORADRICSTAFF 9
 #define ITEMQUAL_NORMAL 2

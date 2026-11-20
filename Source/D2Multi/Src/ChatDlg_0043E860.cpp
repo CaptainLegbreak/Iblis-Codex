@@ -1,10 +1,5 @@
+#include "D2MultiTypes.h"
 #pragma pack(push, 1)
-struct D2LaunchCharInfoStrc
-{
-    char unk0x000[0x3C3];
-    unsigned int nWordHash;
-    int nWordLength;
-};
 #pragma pack(pop)
 
 struct T0043E860

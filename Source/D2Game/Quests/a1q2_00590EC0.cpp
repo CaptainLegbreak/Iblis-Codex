@@ -1,5 +1,6 @@
 #include "D2Structs.h"
 #include "D2GameTypes.h"
+#include "D2UnitData.h"
 #ifdef MOVED_TEST
 #define DIAG_LINE_NUMBER 451
 #define STATE_LINE 452
@@ -14,37 +15,6 @@
 #define GLOBAL_STATE 13
 #endif
 struct D2GameStrc;
-
-struct D2QuestGUIDStrc
-{
-    unsigned int nPlayerGUIDs[32];
-    unsigned short nPlayerCount;
-    unsigned char pad0x82[2];
-};
-
-struct D2QuestDataStrc
-{
-#ifdef MOVED_TEST
-    int moved_prefix;
-#endif
-    int nQuestNo;
-    D2GameStrc* pGame;
-    unsigned char nActNo;
-    unsigned char bNotIntro;
-    unsigned char bActive;
-    unsigned char fLastState;
-    unsigned char fState;
-    char nInitNo;
-    unsigned short dw0E;
-    int nSeqId;
-    unsigned char bStatusFlags;
-    unsigned char pad0x15[3];
-    void* pQuestDataEx;
-    D2QuestGUIDStrc tPlayerGUIDs;
-    void* pCallback[16];
-    int eFilter;
-};
-
 
 struct D2Act1Quest2Strc
 {

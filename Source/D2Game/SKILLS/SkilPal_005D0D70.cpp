@@ -2,17 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameAux.h"
-
-
-
-struct D2SkillsTxt
-{
-    char unk0x000[0x138];
-    unsigned int dwCalc[3];
-    char unk0x144[0xF8];
-};
-
-
+#include "D2Txt.h"
 
 struct D2RedemptionAuraCallbackArgStrc
 {

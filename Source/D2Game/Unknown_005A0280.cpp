@@ -7,6 +7,7 @@
 #include "D2Txt.h"
 #include "D2UnitData.h"
 #include "D2TxtTables.h"
+#include "D2ItemsWorld.h"
 
 #define UNIT_MONSTER 1
 #define MONTYPEFLAG_CHAMPION 4
@@ -18,22 +19,8 @@ struct D2MonsterRegionStrc;
 struct D2MonStatsTxt;
 struct D2SuperUniquesTxt;
 
-
-
-
-
-
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __stdcall sub_O05_EmitArg_AddUMod(D2UnitStrc* pUnit, int nValue);
-
-
-struct D2MonsterRegionStrc
-{
-    char _pad000[0x2C8];
-    unsigned int dwUniqueCount;
-};
-
-
 
 struct D2SuperUniquesTxt
 {

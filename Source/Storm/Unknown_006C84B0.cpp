@@ -1,28 +1,16 @@
 #include "Storm.h"
+#include "D2GfxTypes.h"
 #include "D2CelContext.h"
 
 struct D2CelStrc;
 
-
-struct D2DDrawCapsStrc
-{
-    int nValue00;
-    int nValue04;
-    int nValue08;
-    unsigned char* pGammaTables[0x3E];
-    int nValue104;
-    int nValue108;
-    int nValue10C;
-    int unk0x110[2];
-    unsigned char* pMode7Table;
-};
 int __stdcall sub_006018C0(D2CelStrc* pCel);                                                                 // 0x006018C0
 int __stdcall sub_006018F0(D2CelStrc* pCel);                                                                // 0x006018F0
 int __stdcall sub_00601920(D2CelStrc* pCel);                                                               // 0x00601920
 int __stdcall sub_00601950(D2CelStrc* pCel);                                                               // 0x00601950
 int __fastcall sub_006C8250_GetSetting(unsigned int nSelector, int* pValue); // 0x006C8250
 extern int gnScreenHeight_007C913C;                                                                         // 0x007C913C
-extern D2DDrawCapsStrc* gpDDrawCaps_007C9150;                                                               // 0x007C9150
+extern D2GfxPaletteViewStrc* gpDDrawCaps_007C9150;                                                               // 0x007C9150
 
 static int __stdcall sub_00511E10_IsCelOffScreen(D2CelStrc* pCel, int nX, int nY, int bCenter)
 {
@@ -62,7 +50,7 @@ int __fastcall sub_006C84B0_Draw(void* pData, int nX, int nY, unsigned int dwGam
     if (nGamma != 0xFF)
         pGammaTable = gpDDrawCaps_007C9150->pGammaTables[nGamma >> 3];
     if (nDrawMode == 7)
-        pGammaTable = gpDDrawCaps_007C9150->pMode7Table;
+        pGammaTable = gpDDrawCaps_007C9150->pRemap;
 
     CelDraw((D2CmpCelContextStrc*)pContext, nX, nY, gnOriginX_0098A168, gnModeWidth_0098A16C,
         gpScreenBuffer_007C9154, gnScreenHeight_007C913C, gnScreenWidth_007C9138, (int)pGammaTable, nCaps, (int)pPalette);

@@ -1,4 +1,5 @@
 #include "D2Launch.h"
+#include "D2MultiTypes.h"
 struct SMSGHANDLER_PARAMS;
 struct D2LaunchControlTemplateStrc;
 struct D2LaunchRecord3Strc;
@@ -28,11 +29,6 @@ struct D2LaunchRecord3Strc
     int f_8;
 };
 
-struct D2LaunchFuncsStrc
-{
-    char unk0x00[0x78];
-    int (__fastcall* pfn0x78)(int nA, int nB, int nC, void* pKey);
-};
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long nValue); // 0x004150E0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
@@ -61,15 +57,6 @@ void __cdecl sub_0043B080_InitCharSelectScreen(); // 0x0043B080
 void __cdecl sub_00432100_CreateLoginScreen(); // 0x00432100
 
 #pragma pack(push, 1)
-struct D2LaunchRecordStrc
-{
-    char unk0x000[0x8D];
-    char szAccount[0x18];
-    char szPassword[0x100];
-    char unk0x1A5[0x21E];
-    unsigned int dwPasswordHash;
-    int nPasswordLength;
-};
 
 #pragma pack(pop)
 

@@ -1,3 +1,4 @@
+#include "D2MultiTypes.h"
 struct D2WinControlStrc;
 
 struct Unicode
@@ -7,34 +8,7 @@ struct Unicode
     Unicode(unsigned short w = 0) : wChar(w) {}
 };
 
-struct D2WinControlInitStrc
-{
-    int nType;
-    int nX;
-    int nY;
-    int nWidth;
-    int nHeight;
-    int field_14;
-    int nStringId;
-    void* ppCellFile;
-    int field_20;
-    int field_24;
-    int field_28;
-    int field_2C;
-};
-
 #pragma pack(push, 1)
-struct D2LaunchCharInfoStrc
-{
-    char unk0x00[0xBD];
-    char szName0xBD[0x131];
-    unsigned char nValue0x1EE;
-    char wFlags[2];
-    char unk0x1F1[0x1D0];
-    unsigned char nValue0x3C1;
-    char unk0x3C2[0x09];
-    unsigned char wFlags0x3CB[2];
-};
 #pragma pack(pop)
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD

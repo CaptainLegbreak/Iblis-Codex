@@ -1,4 +1,5 @@
 #include "D2CMP.h"
+#include "D2CmpTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -26,19 +27,6 @@ struct D2CmpTileNodeStrc
     short unk0x0A;
     unsigned char* pData;
     D2CmpTileNodeStrc* pNext;
-};
-
-struct D2CmpTileStrc
-{
-    int nMinX;
-    int nMaxY;
-    int nMaxX;
-    int nMinY;
-    char unk0x10[0x24];
-    D2CmpColorStrc tColor;
-    char unk0x38[0x1C];
-    int nCount;
-    D2CmpTileNodeStrc* pNodes;
 };
 
 extern D2CmpSubTilePosStrc gSubTilePositions_00743500[25]; // 0x00743500

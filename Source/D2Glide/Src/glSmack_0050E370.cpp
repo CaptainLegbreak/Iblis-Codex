@@ -1,14 +1,5 @@
 #include "D2Glide.h"
 
-struct D2GlideSmackStrc
-{
-    D2SmackStrc* f_0;
-    unsigned char nType;
-    unsigned char unk0x05[3];
-    int nX;
-    int nY;
-};
-
 extern "C" __declspec(dllimport) int __stdcall SmackWait(D2SmackStrc* hSmack);                             // 0x006CC5F8
 extern "C" __declspec(dllimport) void __stdcall SmackDoFrame(D2SmackStrc* hSmack);                         // 0x006CC5FC
 extern "C" __declspec(dllimport) void __stdcall SmackNextFrame(D2SmackStrc* hSmack);                       // 0x006CC600
@@ -16,7 +7,7 @@ void __fastcall sub_005094B0_GlideSetState(int nState);                         
 void __fastcall sub_00509500_GlideSetCombine(int nMode);                                                    // 0x00509500
 void __fastcall sub_005095D0_GlideSetDepth(int nMode);                                                      // 0x005095D0
 void __fastcall sub_00509460_GlideSelectTmuState(int nTmu);                                                 // 0x00509460
-void __fastcall sub_0050E040_GlideCloseSmacker(D2GlideSmackStrc* pRecord);                                  // 0x0050E040
+void __fastcall sub_0050E040_GlideCloseSmacker(D2SmackRecordStrc* pRecord);                                  // 0x0050E040
 void __fastcall sub_0050E070_GlideSetSmackPalette(D2RgbColorStrc* pColors);                                 // 0x0050E070
 void __cdecl sub_0050E330_GlideRefresh();                                                                    // 0x0050E330
 extern void (__stdcall* gpfGlideMask_0087EB8C)(int bEnable);                                                // 0x0087EB8C
@@ -31,7 +22,7 @@ D2GlideSpriteVertexStrc gaGlideSmackVertices_00880B78[4];                       
 extern int gbRenderPaused_007C9144;                                                                         // 0x007C9144
 
 // 0x0050E370
-static void __stdcall sub_0050E370_GlideDrawSmackFrame(int nHeight, D2GlideSmackStrc* pRecord, int nWidth)
+static void __stdcall sub_0050E370_GlideDrawSmackFrame(int nHeight, D2SmackRecordStrc* pRecord, int nWidth)
 {
     sub_005094B0_GlideSetState(1);
     sub_00509500_GlideSetCombine(1);
@@ -97,13 +88,13 @@ static void __stdcall sub_0050E370_GlideDrawSmackFrame(int nHeight, D2GlideSmack
 }
 
 // 0x0050E7F0
-void __fastcall sub_0050E7F0_GlidePlaySmacker(D2GlideSmackStrc* pRecord)
+void __fastcall sub_0050E7F0_GlidePlaySmacker(D2SmackRecordStrc* pRecord)
 {
     switch (pRecord->nType)
     {
     case 's':
     {
-        D2SmackStrc* hSmack = pRecord->f_0;
+        D2SmackStrc* hSmack = (D2SmackStrc*)pRecord->hSmack;
         if (!hSmack)
             return;
         if (!SmackWait(hSmack))

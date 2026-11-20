@@ -57,16 +57,16 @@ struct D2DDrawSurfaceVtblStrc
 {
     void* QueryInterface; // 0x00
     void* AddRef; // 0x04
-    void* Release; // 0x08
+    unsigned long (__stdcall* Release)(D2DDrawSurfaceStrc* pThis); // 0x08
     void* AddAttachedSurface; // 0x0C
     void* AddOverlayDirtyRect; // 0x10
     long (__stdcall* Blt)(D2DDrawSurfaceStrc* pThis, void* pDestRect, D2DDrawSurfaceStrc* pSrcSurface, void* pSrcRect, unsigned long dwFlags, D2DDBltFxStrc* pBltFx); // 0x14
     void* BltBatch; // 0x18
-    void* BltFast; // 0x1C
+    long (__stdcall* BltFast)(D2DDrawSurfaceStrc* pThis, unsigned long dwX, unsigned long dwY, D2DDrawSurfaceStrc* pSrcSurface, void* pSrcRect, unsigned long dwTrans); // 0x1C
     void* DeleteAttachedSurface; // 0x20
     void* EnumAttachedSurfaces; // 0x24
     void* EnumOverlayZOrders; // 0x28
-    void* Flip; // 0x2C
+    long (__stdcall* Flip)(D2DDrawSurfaceStrc* pThis, D2DDrawSurfaceStrc* pTargetOverride, unsigned long dwFlags); // 0x2C
     void* GetAttachedSurface; // 0x30
     void* GetBltStatus; // 0x34
     void* GetCaps; // 0x38

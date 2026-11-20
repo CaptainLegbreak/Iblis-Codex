@@ -1,5 +1,4 @@
 #include "D2DDraw.h"
-#include "D2GfxTypes.h"
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 extern "C" __declspec(dllimport) D2SmackStrc* __stdcall SmackOpen(const char* szName, unsigned int nFlags, unsigned int nExtraBuf); // 0x006CC604
@@ -19,10 +18,10 @@ void __fastcall sub_00513330_DDrawCloseSmacker(D2SmackRecordStrc* pRecord)
         FOG_Free(gpDDrawSmackBuffer_008816B0, szDDSmackFile_006DE20C, 0xF0, 0);
         gpDDrawSmackBuffer_008816B0 = 0;
     }
-    if (pRecord->nType == 's' && pRecord->f_0)
+    if (pRecord->nType == 's' && pRecord->hSmack)
     {
-        SmackClose(pRecord->f_0);
-        pRecord->f_0 = 0;
+        SmackClose(pRecord->hSmack);
+        pRecord->hSmack = 0;
     }
 }
 
@@ -34,12 +33,12 @@ void __fastcall sub_00513400_DDrawDecodeSmacker(const char* szFile, D2SmackRecor
     {
     case 's':
     {
-        if (pRecord->f_0)
+        if (pRecord->hSmack)
         {
             return;
         }
         D2SmackStrc* pSmack = SmackOpen(szFile, 0xFE000, -1);
-        pRecord->f_0 = pSmack;
+        pRecord->hSmack = pSmack;
         if (!pSmack)
         {
             break;
@@ -47,7 +46,7 @@ void __fastcall sub_00513400_DDrawDecodeSmacker(const char* szFile, D2SmackRecor
         unsigned char* pBuffer = (unsigned char*)FOG_Alloc(pSmack->nWidth * pSmack->nHeight, szDDSmackFile_006DE20C, 0x42, 0);
         gpDDrawSmackBuffer_008816B0 = pBuffer;
         memset(pBuffer, 0, pSmack->nWidth * pSmack->nHeight);
-        SmackToBuffer(pRecord->f_0, 0, 0, pSmack->nWidth, pSmack->nHeight, pBuffer, 0);
+        SmackToBuffer(pRecord->hSmack, 0, 0, pSmack->nWidth, pSmack->nHeight, pBuffer, 0);
         gbDDrawSmackRemapReady_008816B4 = 0;
         return;
     }

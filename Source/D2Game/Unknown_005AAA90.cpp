@@ -5,27 +5,11 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameTypes.h"
+#include "D2Txt.h"
 
 enum D2C_M11MeteorConstants
 {
     MONSTATS2FLAGINDEX_LARGE = 11,
-};
-struct D2MissilesTxt
-{
-    char unk0x00[0x24];
-    short wHitSubMissile[4];
-    char unk0x2C[0x20];
-    int dwHitPar[2];
-    char unk0x54[0x54];
-    unsigned int dwHitFlags;
-    unsigned short wResultFlags;
-    char unk0xAE[0xF6];
-};
-struct D2SkillsTxt
-{
-    char unk0x00[0x64];
-    unsigned int dwAuraRangeCalc;
-    char unk0x68[0x1D4];
 };
 extern D2DataTablesStrc* sgptDataTables;                                                                      // 0x00744304
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                  // 0x00681EF0

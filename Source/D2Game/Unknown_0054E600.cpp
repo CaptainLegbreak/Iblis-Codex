@@ -2,37 +2,13 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2ItemsWorld.h"
+#include "D2GameStrc.h"
 struct D2ActiveRoomStrc;
 struct D2MonStatsTxt;
 struct D2RoomCoordListStrc;
 struct D2SpawnAreaStrc;
 struct D2UnitStrc;
-
-
-
-
-
-struct D2MonsterRegionStrc
-{
-    unsigned char nAct;
-    char pad0x01[3];
-    int nCount;
-    char pad0x08[4];
-    int nMonsterRegionLevel;
-    char pad0x10[0x2B8 - 0x10];
-    int nMonsterCount;
-};
-
-struct D2GameStrc
-{
-    char pad0x00[0x6D];
-    unsigned char nDifficulty;
-    char pad0x6E[0xA8 - 0x6E];
-    unsigned int dwGameFrame;
-    char pad0xAC[0xBC - 0xAC];
-    int nActData[13];
-    D2MonsterRegionStrc* pMonReg[1];
-};
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 extern const unsigned int gdwBitMasks[32];                                                                  // 0x006CE268

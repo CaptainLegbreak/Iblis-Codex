@@ -7,18 +7,7 @@
 #include "D2DrlgMaps.h"
 #include "D2GameAux.h"
 #include "D2DrlgPresets.h"
-
-
-
-
-struct D2MapAIStrc
-{
-    int nPathNodes;
-    D2MapAIPathPositionStrc* pPosition;
-};
-
-
-
+#include "D2GameObjs.h"
 
 union D2C_PackedTileInformation
 {
@@ -48,12 +37,6 @@ union D2C_PackedTileInformation
 };
 
 struct D2DrlgVertexStrc;
-
-
-
-
-
-
 
 struct D2PresetUnitStrc* __fastcall DRLGROOM_AllocPresetUnit(D2DrlgRoomStrc* pDrlgRoom, void* pMemPool, int nUnitType, int nIndex, int nMode, int nX, int nY); // 0x0066BF30
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY);                                // 0x0067C570

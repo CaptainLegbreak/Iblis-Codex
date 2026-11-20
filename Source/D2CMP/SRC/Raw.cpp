@@ -1,3 +1,4 @@
+#include "D2CmpTypes.h"
 struct D2CmpRawFrameStrc
 {
     int unk0x00;
@@ -20,25 +21,6 @@ struct D2CmpRawStrc
     D2CmpRawFrameStrc* pFirst;
 };
 
-struct D2CmpDC6FrameStrc
-{
-    int f_0;
-    int nWidth;
-    int nHeight;
-    int nOffsetX;
-    int nOffsetY;
-    int unk0x14;
-    int nNext;
-    unsigned int nLength;
-    unsigned char pPixels[4];
-};
-
-struct D2CmpDC6HeaderStrc
-{
-    char unk0x00[0x18];
-    D2CmpDC6FrameStrc* pFrames[1];
-};
-
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);                          // 0x006829C0
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);                               // 0x0040B380
 int __stdcall sub_00600C90_GetDirectionIndex64(int nDirection, unsigned int nDirections);                   // 0x00600C90
@@ -54,13 +36,13 @@ void __fastcall sub_0060D190_BuildDC6FromRaw(D2CmpRawStrc* pRaw, D2CmpDC6HeaderS
     {
         unsigned int nLength = pRawFrame->nWidth * pRawFrame->nHeight * 3;
         D2CmpDC6FrameStrc* pFrame = (D2CmpDC6FrameStrc*)FOG_Alloc(nLength + 0x23, ".\\SRC\\Raw.cpp", 0x22, 0);
-        pFrame->f_0 = pRawFrame->f_8;
+        pFrame->unk0x00 = pRawFrame->f_8;
         pFrame->nWidth = pRawFrame->nWidth;
         pFrame->nHeight = pRawFrame->nHeight;
         pFrame->nOffsetX = pRawFrame->nOffsetX;
-        pFrame->nOffsetY = pRawFrame->nOffsetY;
-        pFrame->unk0x14 = 0;
-        pFrame->nNext = 0;
+        pFrame->nOffsetY_10 = pRawFrame->nOffsetY;
+        pFrame->nOffsetY_14 = 0;
+        pFrame->pCel = 0;
         pFrame->nLength = nLength;
         memcpy(pFrame->pPixels, pRawFrame->pData, nLength);
 

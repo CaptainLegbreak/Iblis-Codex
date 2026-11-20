@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2ClientGame.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct CellResource;
@@ -8,17 +9,7 @@ struct D2WeatherSplashStrc;
 struct D2PeriodLightStrc;
 struct D2B10EmitWeatherStrc;
 
-
 extern "C" double __cdecl fabs(double x);
-
-struct D2WeatherStrc
-{
-    char unk0x000[0x110];
-    int nLastParticle;
-    int unk0x114;
-    unsigned char unk_118[0x4];
-    D2WeatherSplashStrc* pRecords;
-};
 
 D2WeatherStrc* __fastcall sub_006BCA10_CreateDataArray(const char* szName, int nCount, int nRecordSize); // 0x006BCA10
 void __fastcall sub_006BCA90_ClearAndFree(void* pBlock); // 0x006BCA90
@@ -33,7 +24,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
@@ -280,7 +270,7 @@ static void __stdcall sub_00472590_SetSplash(int bForce, int bValue)
     if (bValue != gbWeatherSplash_007A8A14 || bForce)
     {
         sub_006BCAC0_ResetDataArray(gpWeather_007A8A04);
-        D2_ASSERT(!gpWeather_007A8A04->unk0x114, 0x15B);
+        D2_ASSERT(!gpWeather_007A8A04->nCount, 0x15B);
     }
     gbWeatherSplash_007A8A14 = bValue;
 }
@@ -550,7 +540,7 @@ void __cdecl sub_00473DC0_ToggleWeather()
         D2_ASSERT(sub_00463DD0_GetPlayerUnit(), 0x137);
         gnGlobal_007A89E0 = 0;
         sub_006BCAC0_ResetDataArray(gpWeather_007A8A04);
-        D2_ASSERT(!gpWeather_007A8A04->unk0x114, 0x15B);
+        D2_ASSERT(!gpWeather_007A8A04->nCount, 0x15B);
     }
     else
     {

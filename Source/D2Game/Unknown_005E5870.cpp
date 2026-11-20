@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2GameTypes.h"
 #include "D2GameStrc.h"
+#include "D2ItemsWorld.h"
 struct D2UnitStrc;
 struct D2AiParamStrc;
 union D2SeedStrc;
@@ -13,13 +14,7 @@ struct D2MonStatsTxt;
 struct D2MonRegDataStrc;
 struct D2MonsterRegionStrc;
 
-
-
-
-
-
 D2AiCmdStrc* __fastcall AIGENERAL_GetCurrentAiCommandFromUnit(D2UnitStrc* pUnit); // 0x0058EE80
-
 
 void __fastcall AIGENERAL_FreeCurrentAiCommand(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0058ED10
 D2UnitStrc* __fastcall AIGENERAL_GetMinionOwner(D2UnitStrc* pUnit); // 0x0058F0D0
@@ -38,7 +33,6 @@ unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax
 int __fastcall sub_00472210_SeedRollMasked(D2SeedStrc* pSeed, int nMax); // 0x00472210
 
 struct D2MonsterDataStrc { char pad00[0x2C]; D2AiParamStrc* pAiParam; };
-
 
 struct D2MonStatsTxt
 {
@@ -63,21 +57,6 @@ int __stdcall D2Common_10095(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x0061
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
-
-struct D2MonRegDataStrc
-{
-    short nMonHcIdx;
-    char unk0x02[0x32];
-};
-
-struct D2MonsterRegionStrc
-{
-    char unk0x00[0x10];
-    unsigned char nMonCount;
-    char pad0x11[3];
-    D2MonRegDataStrc pMonData[13];
-};
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern unsigned int gdwBitMasks[]; // 0x006CE268

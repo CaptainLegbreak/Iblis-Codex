@@ -1,4 +1,5 @@
 #include "D2Multi.h"
+#include "D2MultiTypes.h"
 
 struct Unicode;
 struct T0043E860;
@@ -38,13 +39,6 @@ extern char gData_00798D30[]; // 0x00798D30
 extern T0043E860* gpChannelUsers_00798F34; // 0x00798F34
 extern int gnChannelLines_00798F40; // 0x00798F40
 extern T0043E860* gpSelectedChannelUser_00798F48; // 0x00798F48
-
-struct D2LaunchCharInfoStrc
-{
-    char unk0x00[0x361];
-    char szChannel0x361[0x20];
-    char szChannel0x381[0x20];
-};
 
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 extern D2WinControlStrc* gapChatButtons_0077AD78[]; // 0x0077AD78
@@ -222,10 +216,10 @@ int __fastcall sub_004496B0_OnJoinChannel(int nA, int nB, int nC, const char* sz
     sub_00446A90_RemoveTableString(wszText);
     sub_0043E610_PrintText(wszText, 5);
     strcpy(gData_00798D30, szChannel);
-    strcpy(gpCharInfo_0077BBD8->szChannel0x361, gData_00798D30);
-    if (!gpCharInfo_0077BBD8->szChannel0x381[0])
+    strcpy(gpCharInfo_0077BBD8->szRealm0x361, gData_00798D30);
+    if (!gpCharInfo_0077BBD8->szRealm0x381[0])
     {
-        strcpy(gpCharInfo_0077BBD8->szChannel0x381, gData_00798D30);
+        strcpy(gpCharInfo_0077BBD8->szRealm0x381, gData_00798D30);
     }
     for (int i = 0; i < 11; i++)
     {

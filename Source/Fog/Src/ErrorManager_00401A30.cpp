@@ -66,12 +66,6 @@ struct FSafeSock
     char szName[64];
 };
 
-struct D2FdSetStrc
-{
-    unsigned int fd_count;
-    unsigned int fd_array[64];
-};
-
 union D2LargeIntegerStrc
 {
     struct

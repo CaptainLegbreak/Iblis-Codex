@@ -1,3 +1,5 @@
+#include "D2LevelTxt.h"
+#include "D2DataTbls.h"
 #pragma intrinsic(memset)
 
 #define WP_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -17,18 +19,6 @@ struct D2WaypointBitStrc
 {
     unsigned short nIndex;
     unsigned short nMask;
-};
-
-struct D2LevelsTxt
-{
-    char unk0x000[0xE4];
-    unsigned char nWaypoint;
-};
-
-struct D2DataTablesStrc
-{
-    char unk0x000[0xC5C];
-    int nLevelsTxtRecordCount;
 };
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

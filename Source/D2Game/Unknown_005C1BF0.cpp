@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Txt.h"
 #include "D2Path.h"
+#include "D2ItemsWorld.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2LowQualityItemsTxt;
@@ -9,14 +10,6 @@ struct D2MagicAffixTxt;
 struct D2RareAffixIndexAndPtrStrc;
 struct D2ItemsTxt;
 struct D2LowQualityItemDataTbl;
-
-
-struct D2ItemDropStrc
-{
-    char unk0x00[0x68];
-    int nPrefix[3];
-    int nSuffix[3];
-};
 
 struct D2MagicAffixTxt
 {
@@ -29,7 +22,6 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 int __fastcall sub_00472280(D2SeedStrc* pSeed, int nOffset, int nRange); // 0x00472280
-
 
 short __stdcall ITEMS_RollMagicAffixesOld(D2UnitStrc* pItem, int bRequireSpawnableAffix, int bForceAffixRoll, int bAssignProperties, int bPrefix, int nPreferredAffixIndex); // 0x005C12F0
 D2SeedStrc* __stdcall ITEMS_GetItemSeed(D2UnitStrc* pItem); // 0x00627D90
@@ -44,7 +36,6 @@ D2MagicAffixTxt* __stdcall DATATBLS_GetMagicAffixTxtRecord(int nIndex); // 0x006
 void __stdcall ITEMMODS_AssignProperty(int nMode, D2UnitStrc* pUnit, D2UnitStrc* pItem, const void* pProperty, int nSet, int nUnused); // 0x0065FEC0
 extern const int gnRareAffixCounts_006E3014[]; // 0x006E3014
 static int __stdcall ITEMS_RollLegacyRareItem(D2ItemDropStrc* pItemDrop, D2UnitStrc* pItem); // 0x005C1E80
-
 
 struct D2LowQualityItemDataTbl
 {

@@ -1,4 +1,5 @@
 #include "D2Launch.h"
+#include "D2MultiTypes.h"
 
 struct D2WinAnimImageStrc;
 struct D2LaunchRecordStrc;
@@ -8,12 +9,6 @@ struct Unicode
     unsigned short wChar;
 };
 
-struct D2LaunchRecordStrc
-{
-    char unk0x000[0x8D];
-    char szAccount[0x18];
-    char szPassword[0x100];
-};
 extern D2LaunchRecordStrc* gpLaunchRecord_007795D4; // 0x007795D4
 int __stdcall sub_0042FE70_FilterChar(D2WinControlStrc* pControl, int nUnused, const char* pChar); // 0x0042FE70
 D2WinControlStrc* __fastcall sub_0042F430_CreateControl(int nId); // 0x0042F430

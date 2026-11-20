@@ -1,4 +1,5 @@
 #include "D2CMP.h"
+#include "D2CmpTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2CmpTileStrc;
@@ -12,14 +13,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 typedef int (__stdcall* D2FarProcFn)();
 
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(D2FarProcFn lpfn); // 0x006CC34C
-
-struct D2CmpTileStrc
-{
-    char unk0x00[0x54];
-    int unk0x54;
-    int unk0x58;
-    int unk0x5C;
-};
 
 struct D2CmpPoolEntryStrc
 {
@@ -74,8 +67,8 @@ void __fastcall sub_005FDE50(void* pEntry)
         gpfnTileFreeCallback_0088CB1C(pTile);
     }
 
-    pTile->unk0x54 = 0;
-    pTile->unk0x5C = 0;
+    pTile->nCount = 0;
+    pTile->pNext = 0;
 }
 
 // 0x005FDEA0

@@ -1,18 +1,11 @@
 #include "D2DataTbls.h"
+#include "D2Structs.h"
+#include "D2Drlg.h"
+#include "D2GameObjs.h"
+#include "D2Path.h"
+#include "D2GameStrc.h"
 #pragma function(memset)
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                 // 0x00681EF0
-
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
-
-struct D2ActiveRoomStrc
-{
-    char unk0x00[0x6C];
-    D2SeedStrc pSeed;
-};
 
 struct D2InventoryStrc;
 struct D2ObjectsTxt;
@@ -36,27 +29,10 @@ struct D2InactiveItemBufferStrc
     unsigned char pBitstream[0x400];
 };
 
-struct D2ObjectDataStrc
-{
-    char unk0x00[4];
-    unsigned char InteractType;
-};
 struct D2StatListStrc;
 struct D2MinionListStrc;
 struct D2AiControlStrc;
 struct D2DynamicPathStrc;
-
-struct D2MapAIStrc
-{
-    int nPathNodes;
-};
-
-struct D2StaticPathStrc
-{
-    char unk0x00[0x0C];
-    int nXPos;
-    int nYPos;
-};
 
 struct D2MonsterDataStrc
 {
@@ -64,37 +40,6 @@ struct D2MonsterDataStrc
     unsigned char nComponent10;
     char unk0x0F[0x19];
     D2AiControlStrc* pAiControl;
-};
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    union
-    {
-        D2MonsterDataStrc* pMonsterData;
-        D2ObjectDataStrc* pObjectData;
-    };
-    char unk0x18[0x14];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x30];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0x14];
-    unsigned char bSparkChest;
-    char unk0x79[0x3F];
-    int dwDropItemCode;
-    char unk0xBC[8];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-    int unk0xCC;
-    int dwNodeIndex;
 };
 
 struct D2InactiveMonsterNodeStrc
@@ -158,29 +103,6 @@ struct D2MonStats2Txt
     char unk0x000[0x130];
     unsigned char nRestore;
     char unk0x131[3];
-};
-
-
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x88];
-    int dwGameFrame;
-    char unk0xAC[0x2C];
-    D2InactiveUnitListStrc* pInactiveUnitList[5];
-};
-
-struct D2DrlgCoordsStrc
-{
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-    int nTileXPos;
-    int nTileYPos;
-    int nTileWidth;
-    int nTileHeight;
 };
 
 extern "C" const char gszEmptyAssertText;                                                                    // 0x006CC837

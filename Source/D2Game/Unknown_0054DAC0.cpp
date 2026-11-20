@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2ItemsWorld.h"
 struct D2ActiveRoomStrc;
 struct D2RoomCoordListStrc;
 struct D2UnitStrc;
@@ -17,21 +18,6 @@ struct D2DrlgCoordsStrc { int nSubtileX; int nSubtileY; int nSubtileWidth; int n
 struct D2SpawnAreaStrc { char unk0x00[0x10]; tagRECT tRect; };
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 void __stdcall sub_M96_UseBounds_0054DAC0(int nX, int nY, int nWidth, int nHeight);
-
-
-
-
-
-struct D2MonsterRegionStrc
-{
-    unsigned char nAct;
-    char pad0x01[3];
-    int nCount;
-    char pad0x08[4];
-    int nMonsterRegionLevel;
-    char pad0x10[0x2B8 - 0x10];
-    int nMonsterCount;
-};
 
 struct D2GameStrc
 {

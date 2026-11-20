@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameTypes.h"
+#include "D2Txt.h"
 
 enum D2C_J07SkillsConstants
 {
@@ -10,35 +11,7 @@ enum D2C_J07SkillsConstants
     UNITFLAG_SKSRVDOFUNC = 0x40,
 };
 
-
-struct D2SkillsTxt
-{
-    char unk0x00[0x11];
-    unsigned char nMonAnim;
-    char unk0x12[0x36];
-    short wSrvMissileA;
-    char unk0x4A[0xEE];
-    unsigned int dwCalc[1];
-    char unk0x13C[0x100];
-};
-
-struct D2MonStatsTxt
-{
-    char unk0x00[0x18];
-    short wMonStatsEx;
-    char unk0x1A[0x18E];
-};
-
-struct D2MonStats2Txt
-{
-    char unk0x00[0x109];
-    unsigned char nInfernoAnim;
-    char unk0x10A[0x2A];
-};
-
-
 typedef void(__fastcall* MissileInitFunc)(D2UnitStrc*, int);
-
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 

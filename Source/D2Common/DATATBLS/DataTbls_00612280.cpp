@@ -1,4 +1,6 @@
 #include "D2Common.h"
+#include "D2TxtTables.h"
+#include "D2Records.h"
 struct D2AnimDataTableStrc;
 struct Unicode;
 struct D2BinFieldStrc;
@@ -7,14 +9,6 @@ struct D2PetTypeTxt;
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
 void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
-
-struct D2ItemTypesTxt
-{
-    char szCode[4];
-    short nEquiv1;
-    short nEquiv2;
-    char unk0x08[0xDC];
-};
 
 struct Unicode
 {
@@ -28,15 +22,6 @@ Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource,
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
 Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526790
-
-struct D2BinFieldStrc
-{
-    const char* szFieldName;
-    int nFieldType;
-    int nFieldLength;
-    int nFieldOffset;
-    void* pLinker;
-};
 
 extern "C" const char gszTxtField_Amazon[]; // 0x006E070C
 extern "C" const char gszTxtField_Sorceress[]; // 0x006E0700

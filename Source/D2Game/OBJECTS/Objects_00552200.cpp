@@ -4,16 +4,8 @@
 #include "D2Structs.h"
 #include "D2Txt.h"
 #include "D2Drlg.h"
+#include "D2ItemsWorld.h"
 struct D2ActiveRoomStrc;
-
-
-struct D2ObjectControlStrc
-{
-    D2SeedStrc pSeed;
-};
-
-
-
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090

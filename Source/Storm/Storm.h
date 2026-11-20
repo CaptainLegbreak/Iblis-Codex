@@ -507,21 +507,6 @@ struct D2CvNb10Strc
     char szPdbName[4];
 };
 
-struct D2DDSurfaceDescStrc
-{
-    unsigned int dwSize;
-    unsigned int dwFlags;
-    unsigned int dwHeight;
-    unsigned int dwWidth;
-    int lPitch;
-    unsigned int dwBackBufferCount;
-    unsigned int dwRefreshRate;
-    unsigned int dwAlphaBitDepth;
-    unsigned int dwReserved;
-    void* lpSurface;
-    unsigned int unk0x28[21];
-};
-
 struct D2Field14Strc
 {
     char unk0x00[0x14];
@@ -545,8 +530,6 @@ struct D2GfxBufferFuncsStrc
 {
     void (__fastcall* pfnSetBuffer)(void* pBits, int nWidth, int nHeight, int a4);
 };
-
-struct D2GfxPaletteViewStrc { unsigned int fields[72]; };
 
 struct D2ImageDataDirStrc
 {
@@ -796,7 +779,6 @@ struct D2SystemTimeStrc
     unsigned short wSecond;
     unsigned short wMilliseconds;
 };
-
 
 typedef int (__stdcall* EnumProcessModulesFn)(void* hProcess, void** phModules, unsigned long nSize, unsigned long* pnNeeded);
 

@@ -6,29 +6,7 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2UnitData.h"
-
-
-
-
-
-struct D2AiControlStrc
-{
-    char unk0x00[0x14];
-    int dwAiParam[2];
-};
-
-
-struct D2AiTickParamStrc
-{
-    D2AiControlStrc* pAiControl;
-    unsigned int unk0x04;
-    D2UnitStrc* pTarget;
-    unsigned int unk0x0C[2];
-    int nTargetDistance;
-    int bCombat;
-    D2MonStatsTxt* pMonstatsTxt;
-};
-
+#include "D2GameTypes.h"
 
 enum D2C_M150ZakarumZealotAi
 {

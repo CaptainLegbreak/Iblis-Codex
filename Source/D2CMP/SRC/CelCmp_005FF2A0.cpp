@@ -51,7 +51,6 @@ struct D2GameDataTableStrc;
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC1FC
@@ -82,7 +81,7 @@ struct D2SpriteCacheStrc
 
 extern D2SpriteCacheStrc gCmpTileCache; // 0x0089DB60
 D2SpriteCacheNodeStrc* __fastcall sub_005FF4A0_SpriteCachePurge(D2SpriteCacheStrc* pCache, D2SpriteCacheNodeStrc* pNode, int bLocked); // 0x005FF4A0
-void __fastcall sub_0040AB00_FreeAsyncData(T00481720* pAsync); // 0x0040AB00
+void __fastcall sub_0040AB00_FreeAsyncData(AsyncData* pAsync); // 0x0040AB00
 
 struct D2CelStrc
 {
@@ -105,10 +104,7 @@ struct D2CelFileStrc
     int nCelsPerDirection;
 };
 
-
 void __fastcall sub_00608D60_DrawCelShadowLines(D2CelStrc* pCel, unsigned char* pDst, int nX, int nClipLeft, int nClipRight, int nPitch, int nSkip, int nLines, int nTable, int nColor); // 0x00608D60
-
-
 
 void __fastcall sub_0060CFA0_AddTileToTable(D2TileLibraryHashStrc* pHash, D2CmpTileBlockStrc* pTile); // 0x0060CFA0
 
@@ -304,7 +300,7 @@ void __cdecl D2CMPSpriteFreeAsyncLoads()
         D2CmpCacheKeyStrc* pKey = pEntry->pKey;
         if (pKey)
         {
-            T00481720* pAsyncData = pKey->pAsyncData;
+            AsyncData* pAsyncData = pKey->pAsyncData;
             if (pAsyncData && !sub_0040A7F0_AsyncDataCheck(pAsyncData))
             {
                 sub_0040AB00_FreeAsyncData(pAsyncData);

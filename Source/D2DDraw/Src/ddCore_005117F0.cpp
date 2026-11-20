@@ -1,5 +1,4 @@
 #include "D2DDraw.h"
-#include "D2GfxTypes.h"
 
 class D2DDrawSurfaceClass
 {

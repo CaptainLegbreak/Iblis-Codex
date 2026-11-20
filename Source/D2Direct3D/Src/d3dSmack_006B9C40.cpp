@@ -1,36 +1,12 @@
 #include "D2Direct3D.h"
 #include "D2DDrawTypes.h"
-#include "D2D3DTypes.h"
 
-struct D2VideoBlitDevice;
-struct D2VideoHandleStrc;
-struct D2VideoBlitDeviceVtbl;
 struct T004F51E0;
-struct D2SmackRecordStrc;
 
-struct D2VideoHandleStrc
-{
-    D2SmackStrc* handle;
-    char type;
-    unsigned char pad_0005[3];
-    int x;
-    int y;
-};
-void __fastcall sub_006B9BB0_CloseSmack(D2VideoHandleStrc* video); // 0x006B9BB0
+void __fastcall sub_006B9BB0_CloseSmack(D2SmackRecordStrc* video); // 0x006B9BB0
 void __cdecl sub_006B9BD0_Apply(); // 0x006B9BD0
 
-struct D2VideoBlitDeviceVtbl
-{
-    void* slots_0000[28];
-    long (__stdcall* DrawPrimitive)(D2VideoBlitDevice*, unsigned int,
-        unsigned int, void*, unsigned int, unsigned int);
-    void* slots_0074[9];
-    long (__stdcall* SetTexture)(D2VideoBlitDevice*, unsigned int, void*);
-};
-
-struct D2VideoBlitDevice { D2VideoBlitDeviceVtbl* lpVtbl; };
-
-extern D2VideoBlitDevice* gpDevice_00970E78; // 0x00970E78
+extern D2D3DDeviceStrc* gpDevice_00970E78; // 0x00970E78
 void __fastcall sub_006B1EA0_SetState(int nState); // 0x006B1EA0
 void __fastcall sub_006B1F40_SetBlendMode(int nState); // 0x006B1F40
 void __fastcall sub_006B2030_SetFilterMode(int nMode); // 0x006B2030
@@ -53,12 +29,6 @@ struct T004F51E0
     unsigned char peFlags;
 };
 
-struct D2SmackRecordStrc
-{
-    void* f_0;
-    unsigned char nType;
-};
-
 extern "C" __declspec(dllimport) void* __stdcall SmackOpen(const char* szName, unsigned int nFlags, unsigned int nExtraBuf); // 0x006CC604
 extern "C" __declspec(dllimport) void __stdcall SmackClose(void* hSmack); // 0x006CC608
 extern "C" __declspec(dllimport) void __stdcall SmackToBuffer(void* hSmack, unsigned int nLeft, unsigned int nTop, unsigned int nPitch, unsigned int nHeight, void* pBuffer, unsigned int nFlags); // 0x006CC60C
@@ -72,15 +42,15 @@ extern unsigned short* gpD3DSmackBuffer_009897D0; // 0x009897D0
 D2TLVertexStrc gVideoVertices_00989750[4]; // 0x00989750
 
 // 0x006B9C40
-static void __stdcall sub_006B9C40_BlitVideo(D2VideoHandleStrc* video, int width, int height)
+static void __stdcall sub_006B9C40_BlitVideo(D2SmackRecordStrc* video, int width, int height)
 {
-    const int top = video->y - height;
-    const int bottom = video->y;
+    const int top = video->nY - height;
+    const int bottom = video->nY;
     sub_006B1EA0_SetState(1);
     sub_006B1F40_SetBlendMode(1);
     sub_006B2030_SetFilterMode(1);
 
-    int x = video->x;
+    int x = video->nX;
     int right = x + 256;
     gVideoVertices_00989750[0].fX = (float)x;
     gVideoVertices_00989750[0].fY = (float)top;
@@ -140,13 +110,13 @@ static void __stdcall sub_006B9C40_BlitVideo(D2VideoHandleStrc* video, int width
     gpDevice_00970E78->lpVtbl->DrawPrimitive(gpDevice_00970E78, 6, 0x1C4, gVideoVertices_00989750, 4, 0x1C);
 }
 
-void __fastcall sub_006BA390_PlaySmack(D2VideoHandleStrc* video)
+void __fastcall sub_006BA390_PlaySmack(D2SmackRecordStrc* video)
 {
-    switch (video->type)
+    switch (video->nType)
     {
     case 's':
         {
-            D2SmackStrc* smack = video->handle;
+            D2SmackStrc* smack = (D2SmackStrc*)video->hSmack;
             if (smack)
             {
                 if (!SmackWait(smack))
@@ -273,16 +243,16 @@ void __fastcall sub_006BA010_D3DDecodeSmacker(const char* szFile, D2SmackRecordS
     switch (nType)
     {
     case 's':
-        if (pSmack->f_0)
+        if (pSmack->hSmack)
         {
             return;
         }
-        pSmack->f_0 = SmackOpen(szFile, 0xFE000, -1);
-        if (!pSmack->f_0)
+        pSmack->hSmack = SmackOpen(szFile, 0xFE000, -1);
+        if (!pSmack->hSmack)
         {
             break;
         }
-        SmackToBuffer(pSmack->f_0, 0, 0, 0x400, 0x80, gpD3DSmackBuffer_009897D0, 0x80000000);
+        SmackToBuffer(pSmack->hSmack, 0, 0, 0x400, 0x80, gpD3DSmackBuffer_009897D0, 0x80000000);
         return;
 
     case 'p':
@@ -328,9 +298,9 @@ void __fastcall sub_006BA010_D3DDecodeSmacker(const char* szFile, D2SmackRecordS
         return;
     }
 
-    if (pSmack->nType == 's' && pSmack->f_0)
+    if (pSmack->nType == 's' && pSmack->hSmack)
     {
-        SmackClose(pSmack->f_0);
-        pSmack->f_0 = 0;
+        SmackClose(pSmack->hSmack);
+        pSmack->hSmack = 0;
     }
 }

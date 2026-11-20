@@ -1,6 +1,4 @@
 #include "D2Direct3D.h"
-#include "D2D3DTypes.h"
-#include "D2GfxTypes.h"
 
 struct D2QuadSpriteStrc
 {

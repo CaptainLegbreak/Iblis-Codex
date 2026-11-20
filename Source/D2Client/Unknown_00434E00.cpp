@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2MultiTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct Unicode;
@@ -16,15 +17,6 @@ struct D2LaunchControlTemplateStrc
 };
 
 #pragma pack(push, 1)
-struct D2LaunchRecordStrc
-{
-    char unk0x000[0x8D];
-    char szAccount[0x18];
-    char szPassword[0x100];
-    char unk0x1A5[0x21E];
-    unsigned int dwPasswordHash;
-    int nPasswordLength;
-};
 
 #pragma pack(pop)
 
@@ -62,11 +54,6 @@ extern int gnLaunchMode_007795EC; // 0x007795EC
 extern int gbFeCharPalette_007795F0; // 0x007795F0
 extern int gdwGlobal_007795F4; // 0x007795F4
 
-struct D2FuncTable_0077ABF0Strc
-{
-    char unk0x00[0xB8];
-    void (__fastcall* pfnSlotB8)(char* szText);
-};
 char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
 int __fastcall sub_005264F0_Compare(const Unicode* pString1, const Unicode* pString2); // 0x005264F0
 void __fastcall sub_004F96F0_ControlClearState(D2WinControlStrc* pControl, int nFlags); // 0x004F96F0

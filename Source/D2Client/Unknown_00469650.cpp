@@ -1,12 +1,7 @@
 #include "D2Client.h"
+#include "D2ClientMenus.h"
 
 #pragma pack(push, 2)
-struct D2HotkeyStrc
-{
-    int nCommand;
-    unsigned short nKey;
-    int nMode;
-};
 
 struct D2HotkeyFileStrc
 {

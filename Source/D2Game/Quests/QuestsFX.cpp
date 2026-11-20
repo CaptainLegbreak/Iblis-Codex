@@ -7,6 +7,7 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
+#include "D2ItemsWorld.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define MAX(a, b) ((a) < (b) ? (b) : (a))
@@ -36,23 +37,11 @@ enum D2C_M96QuestsFxConstants
     MONUMOD_TEMPSUMMON = 21,
 };
 
-
-
-
-
 struct D2UnitFindArgStrc
 {
     int nFlags; int unk0x04; D2UnitStrc* pUnit; int nX; int nY; int nSize; int nMaxArrayEntries; int nIndex;
     void* pField; void* pfnUnitTest; int unk0x28; int unk0x2C; int unk0x30; int unk0x34;
 };
-
-struct D2UnitFindDataStrc
-{
-    void* pMemPool; D2UnitStrc** pUnitsArray; D2ActiveRoomStrc* pRoom; void* pfnUnitTest; D2UnitFindArgStrc* pUnitFindArg;
-    int nFlags; int nIndex; int nMaxArrayEntries; int nX; int nY; int nSize;
-};
-
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
@@ -75,7 +64,6 @@ enum D2C_F41QuestsFxConstants
 
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArg);
 
-
 D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc* pGame, D2MissileStrc* pMissileParams); // 0x0059FA30
 
 enum D2C_P11QuestsFxConstants
@@ -86,7 +74,6 @@ enum D2C_P11QuestsFxConstants
     OBJMODE_OPERATING = 1,
     EVENTTYPE_ENDANIM = 1,
 };
-
 
 D2UnitStrc* __stdcall sub_0065A620_FindUnitInAdjacentRooms(D2ActiveRoomStrc* pRoom, int nUnitType, int nClassId); // 0x0065A620
 void __stdcall MISSILE_SetTargetX(D2UnitStrc* pMissile, int nTargetX); // 0x0064A710

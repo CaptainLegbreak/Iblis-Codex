@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2ClientMenus.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -14,11 +15,6 @@ enum
 {
     NUM_HOTKEYS = 114,
 };
-
-
-
-
-
 
 struct D2MsgRecordStrc
 {
@@ -42,13 +38,6 @@ struct tagRECT
     long top;
     long right;
     long bottom;
-};
-
-struct D2HotkeyStrc
-{
-    unsigned char nCommand[4];
-    unsigned short nKey;
-    unsigned char unk0x06[4];
 };
 
 struct D2PalShiftDataStrc

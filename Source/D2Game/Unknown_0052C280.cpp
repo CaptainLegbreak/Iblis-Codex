@@ -1,20 +1,6 @@
 #include "D2Game.h"
-
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
-
-struct D2GameStrc
-{
-    char unk0x00[0x7C];
-    unsigned int dwInitSeed;
-    char unk0x80[0x04];
-    int InitSeed;
-    char unk0x88[0x48];
-    D2SeedStrc pGameSeed;
-};
+#include "D2Structs.h"
+#include "D2GameStrc.h"
 
 extern "C" __declspec(dllimport) int __stdcall QueryPerformanceCounter(D2LargeIntegerPartsStrc* pCount);     // 0x006CC25C
 void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30

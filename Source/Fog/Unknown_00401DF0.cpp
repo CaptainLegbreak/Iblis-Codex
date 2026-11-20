@@ -1,20 +1,5 @@
 #include "D2GameTypes.h"
-
-struct D2ImagehlpModule64Strc
-{
-    unsigned long SizeOfStruct;
-    unsigned long unk_004;
-    unsigned __int64 BaseOfImage;
-    unsigned long ImageSize;
-    unsigned long TimeDateStamp;
-    unsigned long CheckSum;
-    unsigned long NumSyms;
-    unsigned long SymType;
-    char ModuleName[32];
-    char ImageName[256];
-    char LoadedImageName[256];
-    char unk_244[0x680 - 0x244];
-};
+#include "D2CrashTypes.h"
 
 typedef int (__stdcall* SymGetModuleInfo64Fn)(void* hProcess, unsigned __int64 qwAddr, D2ImagehlpModule64Strc* pModuleInfo);
 
@@ -45,11 +30,6 @@ void __cdecl sub_00401A60_UnlockSymbols()
 // build: context D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::D2SymbolLockGuardStrc
 // build: ltcg-noroot D2SymbolLockGuardStrc::~D2SymbolLockGuardStrc
-struct D2SymbolLockGuardStrc
-{
-    D2SymbolLockGuardStrc() { EnterCriticalSection(&gtSymbolLock_0098A6F0); }
-    ~D2SymbolLockGuardStrc() { LeaveCriticalSection(&gtSymbolLock_0098A6F0); }
-};
 
 // 0x00401DF0
 static bool __stdcall sub_00401DF0_GetModuleFromAddr(unsigned long dwAddress, unsigned long* pdwBase, char* szModule)

@@ -1,36 +1,7 @@
 #include "D2Client.h"
+#include "D2ClientGame.h"
 
 struct D2RosterInfoStrc;
-
-struct D2RosterCorpseStrc
-{
-    int dwCorpseId;
-    D2RosterCorpseStrc* pNext;
-};
-
-struct D2StoredUnitRecordStrc
-{
-    char szName[16];
-    int dwUnitId;
-    int dwPartyLife;
-    int dwKillCount;
-    int dwClassId;
-    unsigned short wLevel;
-    unsigned short wPartyId;
-    int dwLevelId;
-    int dwPosX;
-    int dwPosY;
-    int dwPartyFlags;
-    D2RosterInfoStrc** pRosterInfo;
-    D2RosterCorpseStrc* pCorpse;
-    int dwPortalA;
-    int dwPortalB;
-    unsigned short wGuildFlags;
-    char szGuildTag[4];
-    char szGuildName[28];
-    char szNameEx[26];
-    D2StoredUnitRecordStrc* pNext;
-};
 
 struct Unicode
 {

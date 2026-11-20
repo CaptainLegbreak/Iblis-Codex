@@ -1,4 +1,6 @@
 #include "D2Game.h"
+#include "D2Structs.h"
+#include "D2GameStrc.h"
 
 struct D2TargetNodeStrc;
 struct D2UnitStrc;
@@ -12,23 +14,6 @@ struct D2TargetNodeStrc
     int unk0x04;
     D2TargetNodeStrc* pNext;
     D2TargetNodeStrc* unk0x0C;
-};
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    char pad0x04[0xCC];
-    int dwNodeIndex;
-};
-
-struct D2GameStrc
-{
-    char pad0x00[0x1C];
-    void* pMemoryPool;
-    char pad0x20[0x6C];
-    int nClients;
-    char pad0x90[0x1068];
-    D2TargetNodeStrc* pTargetNodes[10];
 };
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430

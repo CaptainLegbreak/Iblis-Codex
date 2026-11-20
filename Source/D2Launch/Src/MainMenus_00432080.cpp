@@ -1,4 +1,5 @@
 #include "D2Launch.h"
+#include "D2MultiTypes.h"
 
 struct Unicode
 {
@@ -6,15 +7,6 @@ struct Unicode
 };
 
 #pragma pack(push, 1)
-struct D2LaunchRecordStrc
-{
-    char unk0x000[0x8D];
-    char szAccount[0x18];
-    char szPassword[0x100];
-    char unk0x1A5[0x21E];
-    unsigned int dwPasswordHash;
-    int nPasswordLength;
-};
 #pragma pack(pop)
 unsigned int __stdcall sub_00414150_HashPath(const char* szPath);                                           // 0x00414150
 int __fastcall sub_00526800(const Unicode* pString);                                                      // 0x00526800

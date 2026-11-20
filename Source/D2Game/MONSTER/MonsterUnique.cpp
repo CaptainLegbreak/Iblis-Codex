@@ -7,6 +7,7 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
+#include "D2UnitData.h"
 
 #define UNITFLAG_TARGETABLE 0x00000002
 #define UNITFLAG_ISVALIDTARGET 0x00000008
@@ -49,16 +50,9 @@ struct D2CoordStrc;
 struct D2DataTablesStrc;
 struct D2ClientStrc;
 
-
-
-
-
-
 typedef void(__fastcall* MissileInitFunc)(D2UnitStrc*, int);
 
-
 void __stdcall MISSILE_AllocMissileData(D2UnitStrc* pMissile); // 0x0064A100
-
 
 void __fastcall D2GAME_DeleteTimersOnUnit_6FC34A30(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540F30
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStat, int nValue, int nLayer); // 0x00627260
@@ -79,15 +73,6 @@ int __fastcall SUNITDMG_SetMissileDamageFlagsForNearbyUnits(D2GameStrc* pGame, D
 D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc* pGame, D2MissileStrc* pMissileParams); // 0x0059FA30
 extern const int gnBugLightningXOffsets_006E21A8[]; // 0x006E21A8
 extern const int gnBugLightningYOffsets_006E2198[]; // 0x006E2198
-
-
-struct D2MonsterDataStrc
-{
-    char unk0x00[0x16];
-    unsigned char nTypeFlag;
-};
-
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern "C" const char gszEmptyAssertText; // 0x006CC837

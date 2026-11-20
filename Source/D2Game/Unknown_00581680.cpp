@@ -5,6 +5,7 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2Drlg.h"
+#include "D2ItemsWorld.h"
 
 #define UNIT_PLAYER 0
 #define PLRMODE_DEAD 17
@@ -16,22 +17,11 @@ union D2SeedStrc;
 struct D2ObjectControlStrc;
 struct D2ObjOperateFnStrc;
 
-
-
-struct D2ObjectControlStrc
-{
-    D2SeedStrc pSeed;
-};
-
-
 struct D2ObjectDataStrc
 {
     char unk0x00[4];
     unsigned char nInteractType;
 };
-
-
-
 
 struct D2ObjOperateFnStrc
 {

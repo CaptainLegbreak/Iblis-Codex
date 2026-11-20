@@ -1,17 +1,8 @@
+#include "D2DDrawTypes.h"
+
 struct D2TileLibraryEntryStrc { char unk00[0x42]; short nCacheIndex; };
 struct D2SurfaceStrc;
 struct D2TextureStrc;
-struct D2SurfaceDescStrc
-{
-    unsigned int dwSize;
-    unsigned int dwFlags;
-    unsigned int dwHeight;
-    unsigned int dwWidth;
-    int lPitch;
-    unsigned int unk14[4];
-    void* pSurface;
-    unsigned int unk28[21];
-};
 struct D2SurfaceStrc
 {
     virtual void __stdcall Unused00() = 0;
@@ -39,7 +30,7 @@ struct D2SurfaceStrc
     virtual void __stdcall Unused58() = 0;
     virtual void __stdcall Unused5C() = 0;
     virtual void __stdcall Unused60() = 0;
-    virtual int __stdcall Lock(void* pRect, D2SurfaceDescStrc* pDesc, unsigned int dwFlags, void* hEvent) = 0;
+    virtual int __stdcall Lock(void* pRect, D2DDSurfaceDesc2Strc* pDesc, unsigned int dwFlags, void* hEvent) = 0;
     virtual void __stdcall Unused68() = 0;
     virtual void __stdcall Unused6C() = 0;
     virtual void __stdcall Unused70() = 0;
@@ -153,11 +144,11 @@ int __fastcall sub_006BB870_BindTileTexture(D2TileLibraryEntryStrc* pTile)
             D2TextureCacheEntryStrc* pEntry = &gTextureCache.pEntries[pTile->nCacheIndex - 1];
             pEntry->pTile = pTile;
             {
-                D2SurfaceDescStrc desc = { sizeof(D2SurfaceDescStrc) };
+                D2DDSurfaceDesc2Strc desc = { sizeof(D2DDSurfaceDesc2Strc) };
                 int nError = gpMemorySurface->Lock(0, &desc, 0x21, 0);
                 if (nError) sub_006B20E0_DDrawLogError(gszLockError, nError);
                 D2_ASSERT(desc.dwFlags & 8, 0x1AD);
-                sub_006BB720_DecodeTile(pTile, desc.pSurface, desc.lPitch >> 1);
+                sub_006BB720_DecodeTile(pTile, desc.lpSurface, desc.lPitch >> 1);
                 nError = gpMemorySurface->Unlock(0);
                 if (nError) sub_006B20E0_DDrawLogError(gszUnlockError, nError);
             }

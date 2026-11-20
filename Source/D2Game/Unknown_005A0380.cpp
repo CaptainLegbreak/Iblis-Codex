@@ -6,6 +6,7 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2TxtTables.h"
+#include "D2ItemsWorld.h"
 struct D2ActiveRoomStrc;
 struct D2GameStrc;
 struct D2UnitStrc;
@@ -36,18 +37,6 @@ struct D2MonsterDataStrc
     D2AiControlStrc* pAiControl;
 };
 
-
-
-
-struct D2MonsterRegionStrc
-{
-    char _pad000[0x2C8];
-    unsigned int dwUniqueCount;
-};
-
-
-
-
 struct D2SuperUniquesTxt
 {
     unsigned short wSuperUnique;
@@ -64,7 +53,6 @@ struct D2SuperUniquesTxt
     unsigned char nReplaceable;
     char _pad28[0x0C];
 };
-
 
 typedef void (__fastcall* UModInitFunc)(D2UnitStrc* pUnit, int nUMod, int bUnique);
 

@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2ClientMenus.h"
 
 struct D2PlayerDataStrc
 {
@@ -17,8 +18,6 @@ struct D2MonsterDataStrc
     unsigned short wFlags;
 };
 
-
-
 struct D2NpcMonListPacketStrc
 {
     unsigned char nHeader;
@@ -27,15 +26,6 @@ struct D2NpcMonListPacketStrc
 };
 
 #pragma pack(push, 2)
-struct D2NpcEntryStrc
-{
-    int nId;
-    char unk0x04[0x0D];
-    char bSelected;
-    char bFlag;
-    char unk0x13[0x02];
-    char bRefreshed;
-};
 #pragma pack(pop)
 
 typedef char check_size_npcentry[(sizeof(D2NpcEntryStrc) == 0x16) ? 1 : -1];

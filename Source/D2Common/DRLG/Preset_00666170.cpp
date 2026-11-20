@@ -4,23 +4,8 @@
 #include "D2LevelTxt.h"
 #include "D2GameAux.h"
 #include "D2DrlgPresets.h"
-
-struct D2MapAIStrc
-{
-    int nPathNodes;
-    D2MapAIPathPositionStrc* pPosition;
-};
-
-struct D2DrlgFileStrc
-{
-    char unk0x00[0x10];
-    int nHeight;
-    int nWallLayers;
-    int nFloorLayers;
-    void* pTileTypeLayer[4];
-    void* pWallLayer[4];
-    void* pFloorLayer[2];
-};
+#include "D2GameObjs.h"
+#include "D2DrlgMaps.h"
 
 union D2C_PackedTileInformation
 {
@@ -50,25 +35,6 @@ union D2C_PackedTileInformation
 };
 
 struct D2DrlgVertexStrc;
-
-struct D2DrlgMapStrc
-{
-    int nLevelPrest;
-    int nPickedFile;
-    D2LvlPrestTxt* pLvlPrestTxtRecord;
-    D2DrlgFileStrc* ptFile;
-    D2DrlgCoordStrc tCoords;
-    D2DrlgVertexStrc* pVertices;
-    D2DrlgGridStrc pMapGrid;
-    D2PresetUnitStrc* pPresetUnit;
-    int bInited;
-    int unk0x40;
-    int* pPopsIndex;
-    int* pPopsSubIndex;
-    int* pPopsOrientation;
-    int* pPopsLocation;
-    D2DrlgMapStrc* pNext;
-};
 
 extern "C" const char gszDrlgPresetSourceFile;                                                                    // 0x006EE7C4
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);          // 0x0040B430

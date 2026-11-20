@@ -1,5 +1,4 @@
 #include "D2DDraw.h"
-#include "D2GfxTypes.h"
 #include "D2CelContext.h"
 
 struct D2CelStrc;

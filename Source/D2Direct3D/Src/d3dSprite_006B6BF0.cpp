@@ -1,8 +1,8 @@
 #include "D2D3DTypes.h"
 #include "D2GfxTypes.h"
+#include "D2CelContext.h"
 
 struct D2CelStrc;
-struct D2CelContextStrc { unsigned char pad0[8]; int unitType; int classId; int mode; unsigned char pad1[0x18]; const char* name; unsigned char pad2[12]; D2CelStrc* cel; };
 
 extern D2GfxPaletteViewStrc* gpGlideState_007C9150; // 0x007C9150
 extern D2D3DDeviceStrc* gpDevice_00970E78; // 0x00970E78
@@ -39,16 +39,16 @@ int sub_006B5C80_LoadSpriteInfo(D2CelContextStrc* context, D2SpriteInfoStrc* inf
 {
     if (!sub_006001F0(context, 0, 1))
         return 0;
-    if (!context->cel)
+    if (!context->pCel)
     {
-        sub_00410610_WriteLogLine("error loading sprite unit:%d  class:%d  mode:%d  %s", context->unitType, context->classId, context->mode, context->name);
+        sub_00410610_WriteLogLine("error loading sprite unit:%d  class:%d  mode:%d  %s", context->nType, context->nClass, context->nMode, context->szName);
         return 0;
     }
     info->pContext = context;
-    info->nWidth = sub_006018C0(context->cel);
-    info->nOffsetX = sub_00601920(context->cel);
-    info->nHeight = sub_006018F0(context->cel);
-    info->nOffsetY = sub_00601950(context->cel);
+    info->nWidth = sub_006018C0(context->pCel);
+    info->nOffsetX = sub_00601920(context->pCel);
+    info->nHeight = sub_006018F0(context->pCel);
+    info->nOffsetY = sub_00601950(context->pCel);
     return 1;
 }
 
@@ -81,7 +81,7 @@ done:
 // calling-convention shim (not game code)
 int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* pInfo, int nMode, int nArg3, int nArg4)
 {
-    int* pSlots = sub_00601B10_GetCelTextureSlots(pInfo->pContext->cel);
+    int* pSlots = sub_00601B10_GetCelTextureSlots(pInfo->pContext->pCel);
     if (nMode == 4)
     {
         nMode = 1;

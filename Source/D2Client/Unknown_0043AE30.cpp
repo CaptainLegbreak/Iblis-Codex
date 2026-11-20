@@ -1,13 +1,8 @@
 #include "D2Client.h"
+#include "D2MultiTypes.h"
 
 struct D2WinTextBoxStrc;
 struct D2WinButtonStrc;
-
-struct D2LaunchRecordStrc
-{
-    char unk0x000[0x210];
-    char nByte210;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 int __fastcall sub_0042F2E0_ReadPaletteFiles(const char* szFile1, const char* szFile2);                          // 0x0042F2E0

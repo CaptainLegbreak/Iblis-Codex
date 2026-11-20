@@ -1,51 +1,6 @@
 #include "Storm.h"
-
-struct D2D3DObjStrc;
-struct D2D3DObjVtblStrc;
-struct D2FloorPoolOwnerStrc;
-struct D2FloorPoolEntryStrc;
-struct D2FloorPoolStrc;
-struct D2TileBlockStrc;
-struct D2TileStrc;
-
-struct D2D3DObjVtblStrc
-{
-	void* pQueryInterface;
-	void* pAddRef;
-	unsigned long (__stdcall* pRelease)(D2D3DObjStrc* pObj);
-};
-
-struct D2D3DObjStrc
-{
-	D2D3DObjVtblStrc* pVtbl;
-};
-
-struct D2FloorPoolOwnerStrc
-{
-	char unk0x00[0x42];
-	short nPoolId;
-};
-
-struct D2FloorPoolEntryStrc
-{
-	int nIndex;
-	D2FloorPoolOwnerStrc* pOwner;
-	D2D3DObjStrc* pTexture;
-	D2D3DObjStrc* pSurface;
-	D2FloorPoolEntryStrc* pNext;
-	D2FloorPoolEntryStrc* pPrev;
-};
-
-struct D2FloorPoolStrc
-{
-	int nCapacity;
-	int nInUse;
-	D2FloorPoolEntryStrc* pInUseFirst;
-	D2FloorPoolEntryStrc* pInUseLast;
-	D2FloorPoolEntryStrc* pSpareFirst;
-	D2FloorPoolEntryStrc* pSpareLast;
-	D2FloorPoolEntryStrc* pEntries;
-};
+#include "D2DrlgMaps.h"
+#include "D2D3DTypes.h"
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -215,7 +170,7 @@ void __fastcall sub_006BB330_ReleaseOldest(D2FloorPoolStrc* pPool)
 		{
 			if (pEntry->pOwner)
 			{
-				pEntry->pOwner->nPoolId = 0;
+				pEntry->pOwner->nCacheIndex = 0;
 				pEntry->pOwner = 0;
 			}
 			sub_006BB170_AppendSpare(pPool, pEntry);
@@ -240,12 +195,12 @@ void __fastcall sub_006BB3E0_Destroy(D2FloorPoolStrc* pPool, int bReleaseAll)
 		D2FloorPoolEntryStrc* pEntry = &pPool->pEntries[i];
 		if (pEntry->pTexture)
 		{
-			pEntry->pTexture->pVtbl->pRelease(pEntry->pTexture);
+			pEntry->pTexture->lpVtbl->Release(pEntry->pTexture);
 			pEntry->pTexture = 0;
 		}
 		if (pEntry->pSurface)
 		{
-			pEntry->pSurface->pVtbl->pRelease(pEntry->pSurface);
+			pEntry->pSurface->lpVtbl->Release(pEntry->pSurface);
 			pEntry->pSurface = 0;
 		}
 	}

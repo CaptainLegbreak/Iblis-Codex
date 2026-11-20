@@ -1,24 +1,8 @@
+#include "D2Structs.h"
+#include "D2Drlg.h"
 typedef unsigned __int64 uint64_t;
 
 #pragma pack(push, 4)
-struct D2SeedStrc
-{
-    union
-    {
-        struct
-        {
-            unsigned int nLowSeed;
-            unsigned int nHighSeed;
-        };
-        uint64_t lSeed;
-    };
-};
-
-struct D2ActiveRoomStrc
-{
-    char unk_00[0x6C];
-    D2SeedStrc pSeed;
-};
 
 struct D2MonsterRegionStrc
 {

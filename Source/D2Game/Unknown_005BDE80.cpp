@@ -4,6 +4,7 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2Drlg.h"
+#include "D2ItemsWorld.h"
 
 #define MONSTATSFLAGINDEX_PLACESPAWN 23
 
@@ -14,27 +15,6 @@ struct D2LevelsTxt;
 struct D2MonStatsTxt;
 struct D2SeedOwnerStrc;
 
-
-
-
-struct D2MonRegDataStrc
-{
-    unsigned short nMonHcIdx;
-    unsigned char nRarity;
-    char unk0x03[0x34 - 0x03];
-};
-
-struct D2MonsterRegionStrc
-{
-    char unk0x000[0x10];
-    unsigned char nMonCount;
-    unsigned char nTotalRarity;
-    char unk0x012[0x02];
-    D2MonRegDataStrc pMonData[13];
-    char unk0x2B8[0x08];
-    int dwlevel;
-};
-
 struct D2LevelsTxt
 {
     char unk0x00[0x35];
@@ -42,8 +22,6 @@ struct D2LevelsTxt
     char unk0x36[0x9A - 0x36];
     short wUniqueMonsters[25];
 };
-
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268

@@ -1,20 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
-
-struct D2DynamicPathStrc
-{
-    char unk0x00[0x10];
-    unsigned int tTargetCoord;
-    char unk0x14[0x18 - 0x14];
-    unsigned int tFinalTargetCoord;
-    char unk0x1C[0x24 - 0x1C];
-    int dwCurrentPointIdx;
-    char unk0x28[0x34 - 0x28];
-    unsigned int dwFlags;
-    char unk0x38[0x3C - 0x38];
-    int eType;
-};
-
+#include "D2Path.h"
 
 int __stdcall PATH_GetDistance(D2DynamicPathStrc* pDynamicPath); // 0x00649120
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040

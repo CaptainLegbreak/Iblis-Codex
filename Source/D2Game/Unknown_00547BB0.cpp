@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2ItemsWorld.h"
 
 #define D2_FREE_POOL(pMemPool, ptr, line) FOG_FreePool(pMemPool, ptr, ".\\MONSTER\\MonsterRegion.cpp", line, 0)
 #define SUMMONER_FLAG 2
@@ -10,20 +11,10 @@
 struct D2MonsterRegionStrc;
 union D2SeedStrc;
 
-
-
 void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
 
-struct D2MonsterRegionStrc
-{
-    char unk0x00[716];
-    unsigned int dwMonSpawnCount;
-    unsigned int dwMonKillCount;
-};
-
 void __fastcall MONSTERREGION_InitializeAll(void* pool,D2MonsterRegionStrc** regions,D2SeedStrc* seed,unsigned int lowSeed,unsigned char difficulty,int expansion); // 0x005479C0
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 void __fastcall FOG_FreePool(void* pMemPool, void* pMemory, const char* szFile, int nLine, int a5); // 0x0040B480

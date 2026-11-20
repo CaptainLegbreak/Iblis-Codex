@@ -5,6 +5,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define STAT_HITPOINTS 6
 #define DAMAGERESULTFLAG_SUCCESSFULHIT 1
@@ -22,14 +23,11 @@ struct D2DataTablesStrc;
 struct D2MissileStrc;
 struct D2DamageStrc;
 
-
-
 enum D2C_M54SkillMonstConstants
 {
     PATHTYPE_ASTAR = 1,
     PATHTYPE_TOWARD = 2,
 };
-
 
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553540
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
@@ -46,48 +44,6 @@ int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bA
 void __stdcall COLLISION_ResetMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, int nMask); // 0x0064EC10
 
 typedef int (__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nInitArg);
-
-struct D2SkillsTxt
-{
-    char unk0x000[0x48];
-    short wSrvMissileA;
-    unsigned char unk_4A[0x4];
-    short wSrvOverlay;
-    char unk50[0xDE];
-    unsigned short wResultFlags;
-    unsigned int dwHitFlags;
-    unsigned int dwHitClass;
-    unsigned int dwCalc[4];
-    int dwParam[8];
-    char unk0x168[0xD4];
-};
-
-struct D2MissilesTxt
-{
-    char unk0x000[0x38];
-    int dwParam[2];
-    char unk0x040[0x5A];
-    unsigned char nVel;
-    unsigned char nVelLev;
-    char unk0x09C[0xDC];
-    unsigned char nAnimLen;
-    char unk0x179[0x2B];
-};
-
-struct D2MonStatsTxt
-{
-    char unk0x000[0x18];
-    short wMonStatsEx;
-    char unk0x01A[0x18E];
-};
-
-struct D2MonStats2Txt
-{
-    char unk0x000[0x108];
-    unsigned char nInfernoLen;
-    char unk0x109[0x2B];
-};
-
 
 struct D2MissileStrc
 {

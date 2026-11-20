@@ -1,5 +1,6 @@
 #include "D2BNClient.h"
 #include "D2Primitives.h"
+#include "D2NetTypes.h"
 
 #define FD_ZERO(set) (((D2FdSetStrc*)(set))->fd_count = 0)
 #define FD_SET(fd, set) do { \
@@ -8,7 +9,6 @@
 } while (0)
 struct D2BnCheckAdReplyStrc;
 struct D2CriticalSectionStrc;
-struct D2FdSetStrc;
 struct D2BnStateStrc;
 struct D2BnServerEntryStrc;
 
@@ -28,12 +28,6 @@ extern "C" unsigned int __cdecl strlen(const char* szString);
 extern long volatile gnConnected_00881BF0; // 0x00881BF0
 extern int gbReady_00881BF8; // 0x00881BF8
 extern unsigned int gnVersion_0088252C; // 0x0088252C
-
-struct D2FdSetStrc
-{
-    unsigned int fd_count;
-    unsigned int fd_array[64];
-};
 
 struct D2BnServerEntryStrc
 {
