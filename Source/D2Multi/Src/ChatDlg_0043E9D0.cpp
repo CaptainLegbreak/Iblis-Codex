@@ -1,4 +1,5 @@
 #include "D2Multi.h"
+#include "D2MultiTypes.h"
 struct D2WinTextBoxStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -14,16 +15,6 @@ struct Unicode
     Unicode(unsigned short ch = 0) : wChar(ch) {}
 };
 
-struct D2WinControlInitStrc
-{
-    char data[0x30];
-};
-
-struct D2LaunchCharInfoStrc
-{
-    char unk0x000[0x22D];
-    char nByte22D;
-};
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 int __stdcall D2Win_10033(D2WinControlStrc* pControl, int nArg); // 0x004FA470

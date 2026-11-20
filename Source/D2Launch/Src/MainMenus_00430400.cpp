@@ -1,18 +1,8 @@
 #include "D2Launch.h"
+#include "D2MultiTypes.h"
 
 struct D2WinTextBoxStrc;
 
-struct D2LaunchRecordStrc
-{
-    char unk0x000[0x1EF];
-    char aFlags1EF[2];
-};
-
-struct D2FuncTable_0077ABF0Strc
-{
-    char unk0x00[0x4C];
-    int (__fastcall* pfnSlot4C)();
-};
 extern D2LaunchRecordStrc* gpLaunchRecord_007795D4;                                                         // 0x007795D4
 int gdwGlobal_0077932C;                                                                                     // 0x0077932C
 D2WinControlStrc* gapControlsB_00779350[0x40];                                                              // 0x00779350

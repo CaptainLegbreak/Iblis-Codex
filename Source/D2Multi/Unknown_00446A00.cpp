@@ -1,3 +1,4 @@
+#include "D2MultiTypes.h"
 #ifdef MOVED_TEST
 #define BUFFER_SIZE 0x104
 #define COMMAND_DELAY 1004
@@ -14,16 +15,6 @@ struct Unicode
     unsigned short wChar;
 };
 
-struct D2LaunchFuncsStrc
-{
-#ifdef MOVED_TEST
-    char movedPrefix[4];
-#endif
-    char unk0x00[0x14];
-    int (__fastcall* pfn0x14)(void* pBuffer);
-    char unk0x18[0x50];
-    int (__fastcall* pfn0x68)();
-};
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30

@@ -1,4 +1,5 @@
 #include "D2Multi.h"
+#include "D2MultiTypes.h"
 
 struct D2LaunchCharInfoStrc;
 struct D2ChatMessageStrc;
@@ -53,10 +54,6 @@ struct Unicode
     unsigned short wChar;
 };
 
-struct D2WinControlInitStrc
-{
-    char data[0x30];
-};
 void __fastcall D2Win_10044(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FD060
 extern D2WinControlInitStrc gtWaitInit_0070D3C0; // 0x0070D3C0
 extern D2WinControlStrc* gpControlA_0077B070; // 0x0077B070

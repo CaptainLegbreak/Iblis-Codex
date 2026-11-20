@@ -1,4 +1,5 @@
 #include "D2Win.h"
+#include "D2MultiTypes.h"
 
 struct D2WinControlStrc;
 struct Unicode;
@@ -11,18 +12,6 @@ struct Unicode
 };
 
 typedef void (__cdecl* D2LaunchDoneFn)();
-
-struct D2LaunchRecordStrc
-{
-    char unk0x000[0x8D];
-    char szAccount[0x18];
-};
-
-struct D2FuncTable_0077ABF0Strc
-{
-    char unk0x00[0x68];
-    int (__fastcall* pfnSlot68)();
-};
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 void __cdecl sub_0043C4F0(); // 0x0043C4F0

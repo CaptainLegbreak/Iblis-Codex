@@ -1,4 +1,5 @@
 #include "D2Multi.h"
+#include "D2MultiTypes.h"
 
 struct Unicode
 {
@@ -15,12 +16,6 @@ struct T0043E860
     unsigned int dwFlags;
     char unk0x94[0x1C];
     T0043E860* pNext;
-};
-
-struct D2LaunchFuncsStrc
-{
-    char unk0x00[0x18];
-    const char* (__cdecl* pfnGetUserName)();
 };
 
 class D2SquelchListStrc

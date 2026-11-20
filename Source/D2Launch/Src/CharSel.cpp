@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Drlg.h"
+#include "D2MultiTypes.h"
 
 #pragma intrinsic(strlen)
 
@@ -50,19 +51,6 @@ struct SMSGHANDLER_PARAMS
     int lResult;
 };
 
-struct D2FuncTable_0077ABF0Strc
-{
-    char unk0x00[0x10];
-    void (__fastcall* pfnSlot10)();
-    char unk0x14[0x50];
-    int (__fastcall* pfnSlot64)(int* pValue);
-    int (__fastcall* pfnSlot68)();
-    unsigned char unk_6C[0x2C];
-    D2FuncRecordStrc* (__cdecl* pfnGetRecord)();
-    unsigned char unk_9C[0x4];
-    int (__fastcall* pfnSlotA0)(int* pValue);
-};
-
 extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);
 void __fastcall sub_004F9740(D2WinControlStrc* pControl, int bSet); // 0x004F9740
 int __fastcall sub_004307A0(unsigned int nArg, int nMode, int nStringId1, int nStringId2); // 0x004307A0
@@ -82,8 +70,6 @@ extern D2CharSelCacheStrc* gpCharSelCache_00779DE8; // 0x00779DE8
 extern int gbFlag_00779C6C; // 0x00779C6C
 extern char gszBaseName_00779B68[]; // 0x00779B68
 
-
-
 struct D2StatesTxt
 {
     unsigned short wState;
@@ -94,23 +80,6 @@ struct D2StatesTxt
     unsigned char nStateFlags[4];
     unsigned int dwStateFlagsEx;
     short wStat;
-};
-
-
-struct D2LaunchCharInfoStrc
-{
-    char unk0x00[0x19];
-    char nState[4];
-    char wValue[2];
-    char szText0x1F[0x18];
-    char szText0x37[0x1B8];
-    char wFlags[2];
-    char unk0x1F1[0x3C];
-    char bOnline;
-    char unk0x22E[0x17];
-    char szText0x245[0x10];
-    char unk0x255[0x109];
-    char nType0x35E;
 };
 
 struct D2LaunchRequestStrc

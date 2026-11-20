@@ -1,4 +1,5 @@
 #include "D2Launch.h"
+#include "D2MultiTypes.h"
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 struct SMSGHANDLER_PARAMS;
@@ -24,22 +25,6 @@ struct SMSGHANDLER_PARAMS
     int lResult;
 };
 
-struct D2FuncTable_0077ABF0Strc
-{
-    char unk0x00[0x68];
-    int (__fastcall* pfnSlot68)();
-    char unk0x6C[0x50];
-    int (__fastcall* pfnSlotBC)(char* szA, char* szB);
-};
-
-struct D2LaunchFuncsStrc
-{
-    char unk0x00[0x68];
-    int (__fastcall* pfn0x68)();
-    char unk0x6C[0x40];
-    void (__fastcall* pfn0xAC)();
-};
-
 struct D2LaunchCharEntryStrc
 {
     char szName[0x100];
@@ -56,12 +41,6 @@ struct D2LaunchCharSelectStrc
 {
     char unk0x000[0x210];
     char nMode;
-};
-
-struct D2LaunchCharInfoStrc
-{
-    char unk0x00[0x8D];
-    char szText0x8D[0x10];
 };
 
 struct D2LaunchGameRecStrc

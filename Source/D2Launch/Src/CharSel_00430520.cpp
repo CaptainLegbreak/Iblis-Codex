@@ -1,4 +1,5 @@
 #include "D2Launch.h"
+#include "D2MultiTypes.h"
 
 struct Unicode
 {
@@ -6,31 +7,8 @@ struct Unicode
 };
 struct SMSGHANDLER_PARAMS;
 
-struct D2WinControlInitStrc
-{
-    char data[0x30];
-};
-
 #pragma pack(push, 1)
-struct D2LaunchRecordStrc
-{
-    char unk0x000[0x225];
-    struct D2FuncTable_0077ABF0Strc* pFuncTable;
-    char unk0x229[0x138];
-    char nByte361;
-    char unk0x362[0x1F];
-    char nByte381;
-};
 #pragma pack(pop)
-
-struct D2FuncTable_0077ABF0Strc
-{
-    int (__fastcall* pfnInit)(D2LaunchRecordStrc* pRecord);
-    char unk0x04[0x0C];
-    void (__fastcall* pfnSlot10)();
-    char unk0x14[0x84];
-    D2FuncRecordStrc* (__cdecl* pfnGetRecord)();
-};
 
 struct D2LaunchCharEntryStrc
 {
@@ -41,12 +19,6 @@ struct D2LaunchCharEntryStrc
     D2CellFileStrc* pCellFile;
     char unk0x33C[0x10];
     D2LaunchCharEntryStrc* pNext;
-};
-
-struct D2LaunchCharInfoStrc
-{
-    char unk0x000[0x22D];
-    char nByte22D;
 };
 
 struct D2CharSaveIdStrc

@@ -1,24 +1,9 @@
 #include "D2Multi.h"
+#include "D2MultiTypes.h"
 
 struct Unicode
 {
     unsigned short wChar;
-};
-
-struct D2WinControlInitStrc
-{
-    int nType;
-    int nX;
-    int nY;
-    int nWidth;
-    int nHeight;
-    int field_14;
-    int nStringId;
-    void* ppCellFile;
-    int field_20;
-    int field_24;
-    int field_28;
-    int field_2C;
 };
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260

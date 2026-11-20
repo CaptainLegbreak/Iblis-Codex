@@ -1,19 +1,8 @@
 #include "D2Client.h"
+#include "D2MultiTypes.h"
 
 struct D2FuncTable_0077ABF0Strc;
 struct Unicode;
-
-struct D2FuncTable_0077ABF0Strc
-{
-    char unk0x00[0x04];
-    void* (__fastcall* pfnSlot04)();
-    char unk0x08[0x08];
-    void (__fastcall* pfnSlot10)();
-    unsigned char unk_14[0x54];
-    int (__fastcall* pfnSlot68)();
-    char unk0x6C[0x54];
-    int (__fastcall* pfnSlotC0)(char* szName, char* szOld, char* szNew);
-};
 
 extern D2FuncTable_0077ABF0Strc* gpFuncTable_0077ABF0; // 0x0077ABF0
 extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(void* hHandle, unsigned long dwMilliseconds); // 0x006CC230
