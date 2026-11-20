@@ -6,6 +6,7 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
+#include "D2Drlg.h"
 struct D2UnitStrc;
 
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
@@ -19,11 +20,6 @@ struct D2StaticPathStrc;
 
 
 
-struct D2ActiveRoomStrc
-{
-    char unk0x00[0x38];
-    int nLastDeadGUIDs[4];
-};
 
 
 

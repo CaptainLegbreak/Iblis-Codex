@@ -1,50 +1,10 @@
 #include "D2Common.h"
+#include "D2Drlg.h"
 
 struct D2DrlgStrc;
 
-struct D2DrlgRoomStrc
-{
-    char unk0x00[0x0C];
-    unsigned short wRoomsInList[4];
-    char unk0x14[0x08];
-    D2DrlgRoomStrc* pStatusNext;
-    char unk0x20[0x08];
-    unsigned int dwFlags;
-    int nRoomsNear;
-    D2ActiveRoomStrc* pRoom;
-    char unk0x34[0x10];
-    unsigned char fRoomStatus;
-    char unk0x45[0x03];
-    int nType;
-    char unk0x4C[0x0C];
-    D2DrlgLevelStrc* ptDrlgLevel;
-    char unk0x5C[0x8C];
-    D2DrlgRoomStrc* pStatusPrev;
-};
 
-struct D2DrlgLevelStrc
-{
-    char unk0x000[0x1B4];
-    D2DrlgStrc* pDrlg;
-};
 
-struct D2DrlgStrc
-{
-    char unk0x000[0x08];
-    int nAllocatedRooms;
-    char unk0x00C[0x8C];
-    unsigned char nRoomsInitSinceLastUpdate;
-    char unk0x099[0x07];
-    D2DrlgRoomStrc tStatusRoomsLists[4];
-    char unk0x450[0x0C];
-    unsigned char nRoomsInitTimeout;
-    char unk0x45D[0x03];
-    D2DrlgRoomStrc* pDrlgRoom;
-    char unk0x464[0x04];
-    int nFreedRooms;
-    char unk0x46C[0x0C];
-    void* pMempool;
-};
 
 void __fastcall DRLGROOM_InitNearRooms(void* pContext, D2DrlgRoomStrc* pNode);                        // 0x0066C370
 void __fastcall DRLGROOMTILE_InitRoomGrids(D2DrlgRoomStrc* pDrlgRoom);                                      // 0x0066EE40

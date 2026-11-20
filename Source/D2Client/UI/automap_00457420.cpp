@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Drlg.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2TileLibraryEntryStrc;
@@ -54,11 +55,6 @@ extern int gnRevealSkip_007A51A4; // 0x007A51A4
 extern int gnMiniMapY_007A51D8; // 0x007A51D8
 extern int gdwGlobal_007A51E0; // 0x007A51E0
 
-struct D2DrlgLevelStrc
-{
-    char unk0x00[0x1D0];
-    int eLevelId;
-};
 
 struct D2AutomapRoomStrc
 {
@@ -100,11 +96,6 @@ int __fastcall DATATBLS_GetAutomapCellId(void* pAutomapLevelType, int nAutomapTi
 D2AutomapCellStrc* __cdecl sub_00457C30(); // 0x00457C30
 int __fastcall sub_00457B00(D2AutomapCellStrc* pCell, D2AutomapCellStrc** ppRoot); // 0x00457B00
 
-struct D2ActiveRoomStrc
-{
-    char unk0x00[0x74];
-    struct D2UnitStrc* pUnitFirst;
-};
 
 D2AutomapRoomStrc* __fastcall sub_0061AAE0_GetAutomapRoom(D2ActiveRoomStrc* pRoom); // 0x0061AAE0
 D2DrlgTileDataStrc* __stdcall sub_006196A0_GetWallTiles(D2ActiveRoomStrc* pRoom, unsigned int* pCount); // 0x006196A0

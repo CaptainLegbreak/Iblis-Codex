@@ -1,28 +1,8 @@
-struct D2DrlgCoordStrc
-{
-    int nPosX;
-    int nPosY;
-    int nWidth;
-    int nHeight;
-};
+#include "D2Drlg.h"
 
-struct D2DrlgStrc
-{
-    char unk0x000[0x478];
-    void* pMempool;
-};
 
 struct D2DrlgRoomStrc;
 
-struct D2DrlgLevelStrc
-{
-    char unk0x00[0x10];
-    D2DrlgRoomStrc* ptRoomFirst;
-    char unk0x14[0x8];
-    D2DrlgCoordStrc tCoords;
-    char unk0x2C[0x188];
-    D2DrlgStrc* pDrlg;
-};
 
 struct D2DrlgOrthStrc
 {
@@ -40,22 +20,6 @@ struct D2RoomTileStrc
     D2RoomTileStrc* pNext;
 };
 
-struct D2DrlgRoomStrc
-{
-    D2DrlgOrthStrc* pDrlgOrth;
-    char unk0x04[0x20];
-    D2DrlgRoomStrc* pDrlgRoomNext;
-    unsigned int dwFlags;
-    int unk0x2C;
-    void* pRoom;
-    D2DrlgCoordStrc tCoords;
-    char unk0x44[0x8];
-    D2RoomTileStrc* pRoomTiles;
-    char unk0x50[0x8];
-    D2DrlgLevelStrc* ptDrlgLevel;
-    char unk0x5C[0x4];
-    unsigned int dwOtherFlags;
-};
 
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);    // 0x0040B430
 void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0);  // 0x0040B480
@@ -118,7 +82,7 @@ void __fastcall sub_0066B560(D2DrlgRoomStrc* pDrlgRoom1, D2DrlgRoomStrc* pDrlgRo
     pNew->pTarget = pDrlgRoom2;
     pNew->nDirection = nDirection;
     pNew->bInit = 1;
-    pNew->pBox = &pDrlgRoom2->tCoords;
+    pNew->pBox = &pDrlgRoom2->pDrlgCoord;
 }
 
 // 0x0066B5E0
@@ -176,23 +140,23 @@ int __fastcall DRLGMAZE_CheckRoomNotOverlaping(D2DrlgLevelStrc* pLevel, D2DrlgRo
         if (pCurrentRoomEx != pDrlgRoom1 && pCurrentRoomEx != pIgnoredRoom)
         {
             int nDistanceX;
-            if (pDrlgRoom1->tCoords.nPosX < pCurrentRoomEx->tCoords.nPosX)
+            if (pDrlgRoom1->pDrlgCoord.nPosX < pCurrentRoomEx->pDrlgCoord.nPosX)
             {
-                nDistanceX = pCurrentRoomEx->tCoords.nPosX - pDrlgRoom1->tCoords.nWidth - pDrlgRoom1->tCoords.nPosX;
+                nDistanceX = pCurrentRoomEx->pDrlgCoord.nPosX - pDrlgRoom1->pDrlgCoord.nWidth - pDrlgRoom1->pDrlgCoord.nPosX;
             }
             else
             {
-                nDistanceX = pDrlgRoom1->tCoords.nPosX - pCurrentRoomEx->tCoords.nWidth - pCurrentRoomEx->tCoords.nPosX;
+                nDistanceX = pDrlgRoom1->pDrlgCoord.nPosX - pCurrentRoomEx->pDrlgCoord.nWidth - pCurrentRoomEx->pDrlgCoord.nPosX;
             }
 
             int nDistanceY;
-            if (pDrlgRoom1->tCoords.nPosY < pCurrentRoomEx->tCoords.nPosY)
+            if (pDrlgRoom1->pDrlgCoord.nPosY < pCurrentRoomEx->pDrlgCoord.nPosY)
             {
-                nDistanceY = pCurrentRoomEx->tCoords.nPosY - pDrlgRoom1->tCoords.nHeight - pDrlgRoom1->tCoords.nPosY;
+                nDistanceY = pCurrentRoomEx->pDrlgCoord.nPosY - pDrlgRoom1->pDrlgCoord.nHeight - pDrlgRoom1->pDrlgCoord.nPosY;
             }
             else
             {
-                nDistanceY = pDrlgRoom1->tCoords.nPosY - pCurrentRoomEx->tCoords.nHeight - pCurrentRoomEx->tCoords.nPosY;
+                nDistanceY = pDrlgRoom1->pDrlgCoord.nPosY - pCurrentRoomEx->pDrlgCoord.nHeight - pCurrentRoomEx->pDrlgCoord.nPosY;
             }
 
             if (!(nDistanceX >= nMargin || nDistanceY >= nMargin))

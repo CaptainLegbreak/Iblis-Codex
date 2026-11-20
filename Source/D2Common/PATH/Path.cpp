@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2Drlg.h"
 #define PATH_UNKNOWN_FLAG_0x00010 0x00010
 #define PATH_UNKNOWN_FLAG_0x00020 0x00020
 #define D2_ABS(x) ((x) >= 0 ? (x) : -(x))
@@ -80,19 +81,7 @@ typedef int BOOL;
 
 
 
-struct D2DrlgCoordsStrc
-{
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-};
 
-struct D2ActiveRoomStrc
-{
-    char unk0x00[0x4C];
-    D2DrlgCoordsStrc tCoords;
-};
 
 
 

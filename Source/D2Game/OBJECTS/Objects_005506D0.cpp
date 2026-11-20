@@ -2,6 +2,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
+#include "D2Drlg.h"
 struct D2GameStrc;
 struct D2ActiveRoomStrc;
 struct D2UnitStrc;
@@ -13,17 +14,6 @@ struct D2ObjectControlStrc
     D2SeedStrc pSeed;
 };
 
-struct D2DrlgCoordsStrc
-{
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-    int nTileXPos;
-    int nTileYPos;
-    int nTileWidth;
-    int nTileHeight;
-};
 
 
 

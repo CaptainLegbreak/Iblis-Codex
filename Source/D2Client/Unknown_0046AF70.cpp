@@ -5,6 +5,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
+#include "D2Drlg.h"
 struct D2UnitStrc;
 
 union D2SeedStrc;
@@ -16,27 +17,11 @@ struct D2MonStats2Txt;
 
 
 
-struct D2DrlgCoordsStrc
-{
-    int nX;
-    int nY;
-    int nWidth;
-    int nHeight;
-    int nTileX;
-    int nTileY;
-    int nTileW;
-    int nTileH;
-};
 
 
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 
-struct D2ActiveRoomStrc
-{
-    char unk0x00[0x6C];
-    D2SeedStrc tSeed;
-};
 
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
@@ -106,8 +91,8 @@ void __stdcall sub_0046AF70(D2ActiveRoomStrc* pRoom)
         for (; nCount < 3; ++i)
         {
             if (i >= 25) break;
-            int nX = tCoords.nX + SEED_RollLimitedRandomNumber(&pPlayer->pSeed, tCoords.nWidth);
-            int nY = tCoords.nY + SEED_RollLimitedRandomNumber(&pPlayer->pSeed, tCoords.nHeight);
+            int nX = tCoords.nSubtileX + SEED_RollLimitedRandomNumber(&pPlayer->pSeed, tCoords.nSubtileWidth);
+            int nY = tCoords.nSubtileY + SEED_RollLimitedRandomNumber(&pPlayer->pSeed, tCoords.nSubtileHeight);
             tMissile.nX = nX;
             if (!COLLISION_CheckMask(pRoom, nX, tMissile.nY = nY, 5)) { sub_004CD540_CreateMissile(&tMissile); } else { --nCount; }
             ++nCount;
@@ -213,10 +198,10 @@ static void __stdcall sub_0046C1A0_SpawnMonsterInRoom(D2ActiveRoomStrc* pRoom, i
 {
     D2DrlgCoordsStrc tCoords;
     DUNGEON_GetRoomCoordinates(pRoom, &tCoords);
-    const int nX = tCoords.nX;
-    const int nY = tCoords.nY;
-    const int nWidth = tCoords.nWidth - 1;
-    const int nHeight = tCoords.nHeight - 1;
+    const int nX = tCoords.nSubtileX;
+    const int nY = tCoords.nSubtileY;
+    const int nWidth = tCoords.nSubtileWidth - 1;
+    const int nHeight = tCoords.nSubtileHeight - 1;
 
     if (nMonsterId < 0 || nMonsterId >= sgptDataTables->nMonStatsTxtRecordCount)
         return;
@@ -250,7 +235,7 @@ void __fastcall sub_0046C460_PopulateRoom(D2ActiveRoomStrc* pRoom)
         return;
 
     D2LevelsTxt* pLevel = DATATBLS_GetLevelsTxtRecord(nLevelId);
-    D2SeedStrc* pSeed = pRoom ? &pRoom->tSeed : 0;
+    D2SeedStrc* pSeed = pRoom ? &pRoom->pSeed : 0;
     for (int i = 0; i < 4; ++i)
     {
         if (pLevel->wCMon[i] < 0)

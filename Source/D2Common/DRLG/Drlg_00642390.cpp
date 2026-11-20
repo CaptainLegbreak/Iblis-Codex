@@ -1,34 +1,12 @@
 #include "D2Structs.h"
+#include "D2Drlg.h"
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                  // 0x00681EF0
 #pragma function(memset)
 
 
 struct D2DrlgLevelStrc;
 
-struct D2DrlgStrc
-{
-    char unk0x000[0x08C];
-    unsigned int dwFlags;
-    char unk0x090[0x470 - 0x090];
-    unsigned int dwStartSeed;
-    char unk0x474[0x478 - 0x474];
-    void* pMempool;
-    D2DrlgLevelStrc* pLevel;
-};
 
-struct D2DrlgRoomStrc
-{
-    char unk0x00[0x24];
-    D2DrlgRoomStrc* pDrlgRoomNext;
-    unsigned int dwFlags;
-    char unk0x2C[0x34 - 0x2C];
-    int nTileXPos;
-    int nTileYPos;
-    int nTileWidth;
-    int nTileHeight;
-    char unk0x44[0x60 - 0x44];
-    unsigned int dwOtherFlags;
-};
 
 struct D2LevelDefBin
 {
@@ -37,28 +15,6 @@ struct D2LevelDefBin
     int dwLevelType;
 };
 
-struct D2DrlgLevelStrc
-{
-    int nDrlgType;
-    unsigned int dwFlags;
-    int nRooms;
-    char unk0x00C[0x010 - 0x00C];
-    D2DrlgRoomStrc* ptRoomFirst;
-    char unk0x014[0x1AC - 0x014];
-    D2DrlgLevelStrc* pNextLevel;
-    char unk0x1B0[0x1B4 - 0x1B0];
-    D2DrlgStrc* pDrlg;
-    char unk0x1B8[0x1C0 - 0x1B8];
-    int nLevelType;
-    D2SeedStrc pSeed;
-    char unk0x1CC[0x1D0 - 0x1CC];
-    int eLevelId;
-    char unk0x1D4[0x1E0 - 0x1D4];
-    int nRoom_Center_Warp_X[9];
-    int nRoom_Center_Warp_Y[9];
-    int nRoomCoords;
-    int* pPresetMaps;
-};
 
 typedef char D2DrlgLevelStrc_size_check[(sizeof(D2DrlgLevelStrc) == 0x230) ? 1 : -1];
 
@@ -119,9 +75,9 @@ static __declspec(noinline) void DRLG_ComputeLevelWarpInfo(D2DrlgLevelStrc* pLev
         {
             int* pX = &pLevel->nRoom_Center_Warp_X[pLevel->nRoomCoords];
             int* pY = &pLevel->nRoom_Center_Warp_Y[pLevel->nRoomCoords];
-            *pX = pDrlgRoom->nTileXPos + pDrlgRoom->nTileWidth / 2;
+            *pX = pDrlgRoom->pDrlgCoord.nPosX + pDrlgRoom->pDrlgCoord.nWidth / 2;
             bHasWarp = 0;
-            *pY = pDrlgRoom->nTileYPos + pDrlgRoom->nTileHeight / 2;
+            *pY = pDrlgRoom->pDrlgCoord.nPosY + pDrlgRoom->pDrlgCoord.nHeight / 2;
             sub_00643560_GameTileToSubtileCoords(pX, pY);
             ++pLevel->nRoomCoords;
         }

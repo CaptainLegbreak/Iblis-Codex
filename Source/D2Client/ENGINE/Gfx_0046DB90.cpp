@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Drlg.h"
 
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
@@ -165,11 +166,6 @@ extern const char* gaszHashedFileNames_006D6C30[]; // 0x006D6C30
 
 typedef unsigned long DWORD;
 
-struct D2ActiveRoomStrc
-{
-    int unk0x00[29];
-    D2UnitStrc* pUnitFirst;
-};
 
 struct D2GfxNodeTargetStrc
 {

@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2Drlg.h"
 #define LEVEL_COLDPLAINS 3
 #define FLAG_OPERATION_OR 0
 
@@ -10,36 +11,9 @@ struct D2DrlgOutdoorInfoStrc;
 union D2SeedStrc;
 struct D2CoordStrc;
 
-struct D2DrlgGridStrc
-{
-    int* pCellsFlags;
-    int* pCellsRowOffsets;
-    int nWidth;
-    int nHeight;
-    int field_10;
-};
-
-struct D2DrlgOutdoorInfoStrc
-{
-    int field_00;
-    D2DrlgGridStrc pGrid[4];
-    char unk0x54[0x08];
-    int nGridWidth;
-    int nGridHeight;
-};
 
 
-struct D2DrlgLevelStrc
-{
-    char pad_00[20];
-    D2DrlgOutdoorInfoStrc* pOutdoor;
-    char unk0x018[0x19C];
-    D2DrlgStrc* pDrlg;
-    char unk0x1B8[0x0C];
-    D2SeedStrc tSeed;
-    char unk0x1CC[0x04];
-    int eLevelId;
-};
+
 
 
 int __fastcall DRLGOUTDOORS_TestOutdoorLevelPreset(D2DrlgLevelStrc* pLevel, int nX, int nY, int nLevelPrestId, int nOffset, char nFlags); // 0x00674230
@@ -76,8 +50,8 @@ int __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPreset(D2DrlgLevelStrc* pLevel, int
 {
     D2CoordStrc pCoord[256];
 
-    const int nWidth = pLevel->pOutdoor->nGridWidth - 2;
-    const int nArea = nWidth * (pLevel->pOutdoor->nGridHeight - 2);
+    const int nWidth = pLevel->pOutdoors->nGridWidth - 2;
+    const int nArea = nWidth * (pLevel->pOutdoors->nGridHeight - 2);
 
     if (nArea)
     {
@@ -89,8 +63,8 @@ int __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPreset(D2DrlgLevelStrc* pLevel, int
 
         for (int i = 0; i < nArea; ++i)
         {
-            const unsigned int nRand1 = SEED_RollLimitedRandomNumber(&pLevel->tSeed, nArea);
-            const unsigned int nRand2 = SEED_RollLimitedRandomNumber(&pLevel->tSeed, nArea);
+            const unsigned int nRand1 = SEED_RollLimitedRandomNumber(&pLevel->pSeed, nArea);
+            const unsigned int nRand2 = SEED_RollLimitedRandomNumber(&pLevel->pSeed, nArea);
 
             const D2CoordStrc tCoord = pCoord[nRand1];
             pCoord[nRand1] = pCoord[nRand2];
@@ -135,7 +109,7 @@ void __fastcall DRLGOUTDOORS_SpawnAct12Waypoint(D2DrlgLevelStrc* pLevel)
 {
     D2CoordStrc pCoord[256];
     const int nLevelId = pLevel->eLevelId;
-    D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoor;
+    D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
     if (nLevelId == LEVEL_COLDPLAINS)
     {
         int* pVisArray = DRLGROOM_GetVisArrayFromLevelId(pLevel->pDrlg, nLevelId);
@@ -178,8 +152,8 @@ void __fastcall DRLGOUTDOORS_SpawnAct12Waypoint(D2DrlgLevelStrc* pLevel)
         }
         for (int i = 0; i < nArea; ++i)
         {
-            int nRand1 = SEED_RollLimitedRandomNumber_Inline(&pLevel->tSeed, nArea);
-            int nRand2 = SEED_RollLimitedRandomNumber_Inline(&pLevel->tSeed, nArea);
+            int nRand1 = SEED_RollLimitedRandomNumber_Inline(&pLevel->pSeed, nArea);
+            int nRand2 = SEED_RollLimitedRandomNumber_Inline(&pLevel->pSeed, nArea);
             D2CoordStrc tCoord = pCoord[nRand1];
             pCoord[nRand1] = pCoord[nRand2];
             pCoord[nRand2] = tCoord;
@@ -188,7 +162,7 @@ void __fastcall DRLGOUTDOORS_SpawnAct12Waypoint(D2DrlgLevelStrc* pLevel)
         {
             int nX = pCoord[i].nX + 1;
             int nY = pCoord[i].nY + 1;
-            if (!(DRLGGRID_GetGridEntry(&pLevel->pOutdoor->pGrid[2], nX, nY) & 0x1B81))
+            if (!(DRLGGRID_GetGridEntry(&pLevel->pOutdoors->pGrid[2], nX, nY) & 0x1B81))
             {
                 DRLGGRID_AlterGridFlag(&pOutdoors->pGrid[1], nX, nY, 0x10000, FLAG_OPERATION_OR);
                 DRLGGRID_AlterGridFlag(&pOutdoors->pGrid[2], nX, nY, 0x800, FLAG_OPERATION_OR);

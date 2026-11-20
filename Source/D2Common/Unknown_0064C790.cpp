@@ -1,16 +1,6 @@
 #include "D2Common.h"
+#include "D2Drlg.h"
 
-struct D2DrlgCoordsStrc
-{
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-    int nTileXPos;
-    int nTileYPos;
-    int nTileWidth;
-    int nTileHeight;
-};
 
 struct D2RoomCollisionGridStrc
 {

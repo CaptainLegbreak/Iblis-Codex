@@ -5,6 +5,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2Drlg.h"
 struct D2ClientStrc;
 struct D2UnitStrc;
 
@@ -17,11 +18,6 @@ struct D2ItemsTxt;
 struct D2UniqueSelection;
 
 
-struct D2ActiveRoomStrc
-{
-    char unk0x00[0x6C];
-    D2SeedStrc pSeed;
-};
 
 
 

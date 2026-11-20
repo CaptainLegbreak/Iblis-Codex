@@ -1,31 +1,11 @@
+#include "D2Drlg.h"
 // build: context DRLG_ComputeManhattanDistanceCheck
 
-struct D2DrlgCoordStrc
-{
-    int nPosX;
-    int nPosY;
-    int nWidth;
-    int nHeight;
-};
 
-struct D2DrlgStrc
-{
-    char unk0x000[0x478];
-    void* pMempool;
-};
 
 struct D2DrlgRoomStrc;
 struct D2LvlWarpTxt;
 
-struct D2DrlgLevelStrc
-{
-    char unk0x00[0x10];
-    D2DrlgRoomStrc* ptRoomFirst;
-    char unk0x14[0x1A0];
-    D2DrlgStrc* pDrlg;
-    char unk0x1B8[0x18];
-    int eLevelId;
-};
 
 struct D2RoomTileStrc
 {
@@ -49,23 +29,6 @@ struct D2PresetUnitStrc
     int unk0x1C;
 };
 
-struct D2DrlgRoomStrc
-{
-    void* pDrlgOrth;
-    int unk0x04;
-    D2DrlgRoomStrc** ppRoomsNear;
-    char unk0x0C[0x18];
-    D2DrlgRoomStrc* pDrlgRoomNext;
-    unsigned int dwFlags;
-    int nRoomsNear;
-    void* pRoom;
-    D2DrlgCoordStrc tCoords;
-    char unk0x44[0x8];
-    D2RoomTileStrc* pRoomTiles;
-    char unk0x50[0x8];
-    D2DrlgLevelStrc* ptDrlgLevel;
-    D2PresetUnitStrc* pPresetUnits;
-};
 
 struct D2LevelDefBin
 {
@@ -130,7 +93,7 @@ static void DRLGROOM_SortRoomListByPosition(D2DrlgRoomStrc** ppRoomList, int nLi
             D2DrlgRoomStrc* pDrlgRoom1 = ppRoomList[i + 1];
             D2DrlgRoomStrc* pDrlgRoom2 = ppRoomList[i];
 
-            if (pDrlgRoom2->tCoords.nPosX >= pDrlgRoom1->tCoords.nPosX + pDrlgRoom1->tCoords.nWidth || pDrlgRoom2->tCoords.nPosY >= pDrlgRoom1->tCoords.nPosY + pDrlgRoom1->tCoords.nHeight)
+            if (pDrlgRoom2->pDrlgCoord.nPosX >= pDrlgRoom1->pDrlgCoord.nPosX + pDrlgRoom1->pDrlgCoord.nWidth || pDrlgRoom2->pDrlgCoord.nPosY >= pDrlgRoom1->pDrlgCoord.nPosY + pDrlgRoom1->pDrlgCoord.nHeight)
             {
                 ppRoomList[i] = pDrlgRoom1;
                 ppRoomList[i + 1] = pDrlgRoom2;
@@ -152,7 +115,7 @@ static void __stdcall sub_0066BC20(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom)
         int nX;
         int nY;
 
-        if (DRLG_ComputeManhattanDistanceCheck(&pDrlgRoom->tCoords, &pCurrentRoomEx->tCoords, 6, &nX, &nY))
+        if (DRLG_ComputeManhattanDistanceCheck(&pDrlgRoom->pDrlgCoord, &pCurrentRoomEx->pDrlgCoord, 6, &nX, &nY))
         {
             pCurrentRoomEx = pCurrentRoomEx->pDrlgRoomNext;
         }
@@ -254,7 +217,7 @@ static int __stdcall sub_0066BE80(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom1, un
             {
                 int nX;
                 int nY;
-                DRLG_ComputeManhattanDistance(&pDrlgRoom1->tCoords, &pDrlgRoom2->tCoords, &nX, &nY);
+                DRLG_ComputeManhattanDistance(&pDrlgRoom1->pDrlgCoord, &pDrlgRoom2->pDrlgCoord, &nX, &nY);
 
                 if (nX < 6 && nY < 6)
                 {

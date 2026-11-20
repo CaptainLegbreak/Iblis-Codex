@@ -6,6 +6,7 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
+#include "D2Drlg.h"
 
 #define UNIT_MONSTER 1
 #define MONSTATS2FLAGINDEX_DEADCOL_0057AF00 0x13
@@ -144,17 +145,6 @@ extern Record gVar_00732980_Records[12]; // 0x00732980
 extern int __fastcall sub_00451F30_HasFlags(Unit*,unsigned int); // 0x00451F30
 
 
-struct D2DrlgCoordsStrc
-{
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-    int nTileXPos;
-    int nTileYPos;
-    int nTileWidth;
-    int nTileHeight;
-};
 
 typedef void (__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);
 

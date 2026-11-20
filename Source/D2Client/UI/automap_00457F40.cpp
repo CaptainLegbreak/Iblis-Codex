@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Drlg.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2AutomapRecordStrc;
@@ -65,11 +66,6 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 extern "C" const char szAutomapFile_006D66F0[]; // 0x006D66F0
 
-struct D2ActiveRoomStrc
-{
-    char unk0x00[0x74];
-    struct D2UnitStrc* pUnitFirst;
-};
 
 
 

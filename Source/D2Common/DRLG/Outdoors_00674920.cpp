@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2Drlg.h"
 #ifdef MOVED_TEST
 #define PREFIX char movedPrefix[4];
 #define BORDER 4
@@ -11,10 +12,6 @@
 #define TEST_FLAGS 15
 #endif
 struct D2DrlgStrc;
-struct D2DrlgGridStrc
-{
-    char unk0x00[0x14];
-};
 struct D2DrlgVertexStrc
 {
     int nPosX;
@@ -24,34 +21,6 @@ struct D2DrlgVertexStrc
     unsigned char nFlags;
     char pad0x0D[3];
     D2DrlgVertexStrc* pNext;
-};
-struct D2DrlgOutdoorInfoStrc
-{
-    PREFIX
-    unsigned int dwFlags;
-    D2DrlgGridStrc pGrid[4];
-    char unk0x54[0x08];
-    int nGridWidth;
-    int nGridHeight;
-    D2DrlgVertexStrc* pVertex;
-};
-struct D2DrlgCoordsStrc
-{
-    int nSubtileX;
-};
-struct D2DrlgLevelStrc
-{
-    PREFIX
-    char unk0x000[0x14];
-    D2DrlgOutdoorInfoStrc* pOutdoors;
-    char unk0x018[0x04];
-    D2DrlgCoordsStrc pLevelCoords;
-    char unk0x020[0x194];
-    D2DrlgStrc* pDrlg;
-    char unk0x1B8[0x0C];
-    D2SeedStrc pSeed;
-    char unk0x1CC[0x04];
-    int eLevelId;
 };
 struct D2LvlPrestRecordStrc;
 extern D2LvlPrestRecordStrc* __stdcall sub_0061F0B0(int nPresetId); // 0x0061F0B0

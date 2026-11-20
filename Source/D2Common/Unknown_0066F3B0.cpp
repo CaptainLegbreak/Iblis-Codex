@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2Drlg.h"
 
 struct D2DrlgCoordStrc;
 struct D2DrlgSubstGroupStrc;
@@ -14,22 +15,7 @@ struct D2DrlgDrlgStrc;
 struct D2DrlgOutdoorRoomStrc;
 struct D2UnkOutdoorStrc2;
 
-struct D2DrlgGridStrc
-{
-    int* pCellsFlags;
-    int* pCellsRowOffsets;
-    int nWidth;
-    int nHeight;
-    int nFlags;
-};
 
-struct D2DrlgCoordStrc
-{
-    int nPosX;
-    int nPosY;
-    int nWidth;
-    int nHeight;
-};
 
 struct D2DrlgSubstGroupStrc
 {
@@ -84,22 +70,7 @@ struct D2UnkOutdoorStrc
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY); // 0x0067C570
 
 
-struct D2DrlgOutdoorInfoStrc
-{
-    unsigned int dwFlags;
-};
 
-struct D2DrlgLevelStrc
-{
-    char pad_00[0x14];
-    D2DrlgOutdoorInfoStrc* pOutdoors;
-    unsigned char unk_18[0x19C];
-    D2DrlgDrlgStrc* pDrlg;
-    char pad_after_drlg[12];
-    D2SeedStrc pSeed;
-    char pad_1CC[4];
-    int eLevelId;
-};
 
 
 void __stdcall DRLGTILESUB_ReplaceSubPreset(int nX, int nY, D2UnkOutdoorStrc* pOutdoor, D2DrlgSubstGroupStrc* pSubstGroup, D2LvlSubTxt* pLvlSubTxtRecord, int nOffset); // 0x0066F520

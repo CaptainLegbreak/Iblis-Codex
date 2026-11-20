@@ -1,31 +1,8 @@
 #include "D2Common.h"
+#include "D2Drlg.h"
 
-struct D2DrlgStrc
-{
-    char unk0x000[0x478];
-    void* pMempool;
-};
 
-struct D2DrlgLevelStrc
-{
-    char unk0x000[0x1B4];
-    D2DrlgStrc* pDrlg;
-    char unk0x1B8[0x18];
-    int eLevelId;
-};
 
-struct D2DrlgRoomStrc
-{
-    char unk0x00[0x08];
-    D2DrlgRoomStrc** ppRoomsNear;
-    unsigned short wRoomsInList[4];
-    char unk0x14[0x18];
-    int nRoomsNear;
-    char unk0x30[0x14];
-    unsigned char fRoomStatus;
-    char unk0x45[0x13];
-    D2DrlgLevelStrc* ptDrlgLevel;
-};
 D2DrlgLevelStrc* __stdcall DRLG_GetLevel(D2DrlgStrc* pDrlg, int nLevelId);                                  // 0x00642BB0
 D2DrlgRoomStrc* __fastcall DRLG_GetRoomExFromCoordinates(int nX, int nY, D2DrlgStrc* pDrlg, D2DrlgRoomStrc* pDrlgRoom, D2DrlgLevelStrc* pLevel); // 0x00642C30
 void __fastcall DRLGACTIVATE_RoomExPropagateUnsetStatus(D2DrlgRoomStrc* pDrlgRoom, unsigned char nStatus);  // 0x0061B5B0

@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Drlg.h"
 
 struct D2CommonStormNodeStrc;
 struct D2CommonStormSlotListBStrc;
@@ -540,27 +541,6 @@ struct D2ExperienceDataTbl
     D2ExperienceTxt aLevels[1];
 };
 
-struct D2ActiveRoomStrc
-{
-    char unk0x00[0x10];
-    D2DrlgRoomStrc* pDrlgRoom;
-    char unk0x14[0x4];
-    D2DrlgDeleteStrc* pDrlgDelete;
-    char unk0x1C[0xC];
-    int nAllies;
-    D2DrlgActStrc* pAct;
-    char unk0x30[0x1C];
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-    int nTileXPos;
-    int nTileYPos;
-    int nTileWidth;
-    int nTileHeight;
-    char unk0x6C[0x10];
-    D2ActiveRoomStrc* pRoomNext;
-};
 
 struct D2DrlgActStrc
 {
@@ -1070,8 +1050,8 @@ D2ActiveRoomStrc* __stdcall DUNGEON_FindRoomByTileCoordinates(D2DrlgActStrc* pAc
 {
     for (D2ActiveRoomStrc* pRoom = pAct->pRoom; pRoom; pRoom = pRoom->pRoomNext)
     {
-        if (nX >= pRoom->nTileXPos && nX < pRoom->nTileXPos + pRoom->nTileWidth && nY >= pRoom->nTileYPos
-            && nY < pRoom->nTileYPos + pRoom->nTileHeight)
+        if (nX >= pRoom->tCoords.nTileXPos && nX < pRoom->tCoords.nTileXPos + pRoom->tCoords.nTileWidth && nY >= pRoom->tCoords.nTileYPos
+            && nY < pRoom->tCoords.nTileYPos + pRoom->tCoords.nTileHeight)
             return pRoom;
     }
     return 0;
@@ -1081,10 +1061,10 @@ D2ActiveRoomStrc* __stdcall DUNGEON_FindRoomByTileCoordinates(D2DrlgActStrc* pAc
 void __stdcall DUNGEON_GetSubtileRect(D2ActiveRoomStrc* pRoom, D2RectStrc* pRect)
 {
     D2_ASSERT(pRoom, 0x1E3);
-    pRect->top = pRoom->nSubtileY;
-    pRect->bottom = pRoom->nSubtileY + pRoom->nSubtileHeight;
-    pRect->left = pRoom->nSubtileX;
-    pRect->right = pRoom->nSubtileWidth + pRoom->nSubtileX;
+    pRect->top = pRoom->tCoords.nSubtileY;
+    pRect->bottom = pRoom->tCoords.nSubtileY + pRoom->tCoords.nSubtileHeight;
+    pRect->left = pRoom->tCoords.nSubtileX;
+    pRect->right = pRoom->tCoords.nSubtileWidth + pRoom->tCoords.nSubtileX;
     D2_ASSERT(pRect->top <= pRect->bottom, 0x1EB);
     D2_ASSERT(pRect->left <= pRect->right, 0x1EC);
 }

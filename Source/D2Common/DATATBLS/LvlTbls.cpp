@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2DataTbls.h"
 #include "D2Path.h"
+#include "D2Drlg.h"
 
 #pragma intrinsic(strcpy)
 #define LVL_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -119,26 +120,7 @@ struct D2SkillStrc
     int dwFlags;
 };
 
-struct D2DrlgRoomStrc
-{
-    char unk0x00[0x24];
-    D2DrlgRoomStrc* pDrlgRoomNext;
-};
 
-struct D2DrlgLevelStrc
-{
-    char unk0x00[0x8];
-    int nRooms;
-    char unk0x0C[0x4];
-    D2DrlgRoomStrc* ptRoomFirst;
-    D2LvlMazeTxt* pMaze;
-    char unk0x18[0x19C];
-    D2DrlgStrc* pDrlg;
-    char unk0x1B8[0xC];
-    D2SeedStrc pSeed;
-    void* pBuild;
-    int eLevelId;
-};
 
 int* __fastcall DRLGROOM_GetVisArrayFromLevelId(D2DrlgStrc* pDrlg, int nLevelId); // 0x0066C040
 
@@ -924,7 +906,7 @@ void __fastcall DRLGMAZE_ResetMazeRecord(D2DrlgLevelStrc* pLevel, int bKeepMazeR
 {
     if (!bKeepMazeRecord)
     {
-        pLevel->pMaze = 0;
+        pLevel->pOutdoors = 0;
     }
 }
 

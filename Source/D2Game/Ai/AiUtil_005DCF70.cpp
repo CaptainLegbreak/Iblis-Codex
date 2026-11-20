@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2Drlg.h"
 struct D2GameStrc;
 struct D2UnitStrc;
 
@@ -14,12 +15,6 @@ struct D2AiTargetArgsStrc;
 
 
 
-struct D2ActiveRoomStrc
-{
-    char unk0x00[0x74];
-    D2UnitStrc* pUnitFirst;
-    unsigned int nNumClients;
-};
 
 typedef D2UnitStrc* (__fastcall* AIUTIL_TargetCallback)(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg);
 

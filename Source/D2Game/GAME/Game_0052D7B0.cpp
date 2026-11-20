@@ -8,6 +8,7 @@
 #include "D2Txt.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2Drlg.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define PLRMODE_DEATH 0
@@ -144,23 +145,7 @@ struct D2QuestInfoStrc
     unsigned int dwTick;
 };
 
-struct D2DrlgCoordsStrc
-{
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-};
 
-struct D2ActiveRoomStrc
-{
-    char unk0x00[0x1C];
-    D2UnitStrc* pChangeFirstUnit;
-    unsigned char unk_20[0x2C];
-    D2DrlgCoordsStrc tCoords;
-    unsigned char unk_5C[0x20];
-    D2ActiveRoomStrc* pRoomNext;
-};
 
 struct D2ObjectRoomCoordStrc
 {
@@ -1091,7 +1076,7 @@ void __fastcall LEVEL_UpdateQueuedUnitsInAllActs(D2GameStrc* pGame)
         {
             for (D2ActiveRoomStrc* pRoom = DUNGEON_GetRoomFromAct(pAct); pRoom; pRoom = pRoom->pRoomNext)
             {
-                for (D2UnitStrc* pUnit = pRoom->pChangeFirstUnit; pUnit; pUnit = pUnit->pChangeNextUnit)
+                for (D2UnitStrc* pUnit = pRoom->pUnitUpdate; pUnit; pUnit = pUnit->pChangeNextUnit)
                 {
                     sub_00553220(pGame, pUnit);
                 }

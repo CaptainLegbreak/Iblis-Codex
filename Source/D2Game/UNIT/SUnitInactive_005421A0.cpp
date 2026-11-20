@@ -5,11 +5,6 @@
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                 // 0x00681EF0
 
 
-struct D2ActiveRoomStrc
-{
-    char unk0x00[0x6C];
-    D2SeedStrc pSeed;
-};
 
 struct D2InventoryStrc;
 struct D2ObjectsTxt;
@@ -137,17 +132,6 @@ struct D2DataTablesStrc
 };
 
 
-struct D2DrlgCoordsStrc
-{
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-    int nTileXPos;
-    int nTileYPos;
-    int nTileWidth;
-    int nTileHeight;
-};
 
 extern "C" const char gszEmptyAssertText;                                                                    // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                       // 0x00408090
@@ -160,6 +144,7 @@ extern const unsigned int gdwBitMasks[32];                                      
 #include "gen/data/Source/D2Game/UNIT/SUnitInactive_005421A0/gnInactiveCmdParam1_007314C0.inc"
 #include "D2GameStrc.h"
 #include "gen/data/Source/D2Game/UNIT/SUnitInactive_005421A0/gnInactiveNoXpParam2_007314C4.inc"
+#include "D2Drlg.h"
 #include "gen/data/Source/D2Game/UNIT/SUnitInactive_005421A0/gnInactiveNoTcParam2_007314C8.inc"
 struct D2UnitStrc;
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);    // 0x0040B430

@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2Drlg.h"
 struct D2PresetUnitStrc;
 
 struct D2DrlgTileDataStrc;
@@ -34,27 +35,8 @@ union D2C_PackedTileInformation
 };
 
 
-struct D2DrlgCoordStrc
-{
-    int nPosX;
-    int nPosY;
-    int nWidth;
-    int nHeight;
-};
 
-struct D2DrlgStrc
-{
-    char unk0x00[0x478];
-    void* pMempool;
-};
 
-struct D2DrlgLevelStrc
-{
-    char unk0x00[0x1B4];
-    D2DrlgStrc* pDrlg;
-    char unk0x1B8[0x18];
-    int eLevelId;
-};
 
 struct D2LvlWarpTxt
 {
@@ -123,23 +105,6 @@ struct D2DrlgTileGridStrc
     D2DrlgRoomTilesStrc pTiles;
 };
 
-struct D2DrlgRoomStrc
-{
-    char unk0x00[0x08];
-    D2DrlgRoomStrc** ppRoomsNear;
-    char unk0x0C[8];
-    D2SeedStrc pSeed;
-    char unk0x1C[12];
-    unsigned int dwFlags;
-    int nRoomsNear;
-    D2ActiveRoomStrc* pRoom;
-    D2DrlgCoordStrc pDrlgCoord;
-    char unk0x44[8];
-    D2RoomTileStrc* pRoomTiles;
-    int unk0x50;
-    D2DrlgTileGridStrc* ptDrlgTiles;
-    D2DrlgLevelStrc* ptDrlgLevel;
-};
 
 
 struct D2UnkDrlgRoomTileStrc2

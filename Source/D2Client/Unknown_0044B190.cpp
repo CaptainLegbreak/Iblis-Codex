@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2Drlg.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -22,13 +23,6 @@ struct D2ClientCharRecordStrc
 
 #pragma pack(pop)
 
-struct D2ActiveRoomStrc
-{
-    char unk0x00[0x34];
-    unsigned int dwFlags;
-    char unk0x38[0x44];
-    D2ActiveRoomStrc* pRoomNext;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090

@@ -1,14 +1,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
+#include "D2Drlg.h"
 struct D2LvlPrestTxt;
-struct D2DrlgGridStrc
-{
-    int* pCellsFlags;
-    int* pCellsRowOffsets;
-    int nWidth;
-    int nHeight;
-    int unk0x10;
-};
 
 
 struct D2DrlgVertexStrc
@@ -20,44 +13,7 @@ struct D2DrlgVertexStrc
     D2DrlgVertexStrc* pNext;
 };
 
-struct D2DrlgOutdoorInfoStrc
-{
-    int unk0x00;
-    D2DrlgGridStrc tGrid04;
-    int unk0x18;
-    int unk0x1C;
-    int unk0x20;
-    int unk0x24;
-    int unk0x28;
-    D2DrlgGridStrc tGrid2C;
-    int unk0x40;
-    int unk0x44;
-    int unk0x48;
-    int unk0x4C;
-    int unk0x50;
-    int unk0x54;
-    int unk0x58;
-    int nWidth;
-    int nHeight;
-    D2DrlgVertexStrc* pVertex;
-};
 
-struct D2DrlgLevelStrc
-{
-    int unk0x00;
-    int unk0x04;
-    int unk0x08;
-    int unk0x0C;
-    int unk0x10;
-    D2DrlgOutdoorInfoStrc* pOutdoorInfo;
-    int unk0x18;
-    int unk0x1C;
-    int unk0x20;
-    int nSizeX;
-    int nSizeY;
-    char unk0x2C[0x1A4];
-    int eLevelId;
-};
 
 struct D2LvlPrestRecordStrc
 {
@@ -206,7 +162,7 @@ static const D2Act5LevelPresetStrc gAct5LevelPresets[15] = // 0x006F2100
 // 0x0067E160
 void __stdcall sub_0067E160(D2DrlgLevelStrc* pLevel)
 {
-    int bTall = pLevel->nSizeX < pLevel->nSizeY;
+    int bTall = pLevel->nWidth < pLevel->nHeight;
     for (int i = 0; i < 15; ++i)
     {
         if (pLevel->eLevelId == gAct5LevelPresets[i].nLevelId)

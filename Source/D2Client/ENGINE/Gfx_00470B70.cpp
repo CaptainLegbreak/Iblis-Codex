@@ -1,15 +1,11 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Drlg.h"
 struct D2UnitStrc;
 
 typedef unsigned long DWORD;
 
-struct D2ActiveRoomStrc
-{
-    int unk0x00[29];
-    D2UnitStrc* pUnitFirst;
-};
 
 struct D2GfxLayerHeaderStrc
 {

@@ -1,11 +1,4 @@
-struct D2DrlgGridStrc
-{
-    int* pCellsFlags;
-    int* pCellsRowOffsets;
-    int nWidth;
-    int nHeight;
-    int unk0x10;
-};
+#include "D2Drlg.h"
 
 struct D2DrlgVertexStrc
 {

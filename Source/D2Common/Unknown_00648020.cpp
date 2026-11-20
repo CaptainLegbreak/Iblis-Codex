@@ -18,19 +18,7 @@ typedef int BOOL;
 
 
 
-struct D2DrlgCoordsStrc
-{
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-};
 
-struct D2ActiveRoomStrc
-{
-    char unk0x00[0x4C];
-    D2DrlgCoordsStrc tCoords;
-};
 
 
 
@@ -100,6 +88,7 @@ void __stdcall sub_K15_Emit8(int* p, int n)
 }
 
 #include "gen/data/Source/D2Common/Unknown_00648020.inc"
+#include "D2Drlg.h"
 
 // 0x00648050
 static __declspec(noinline) void PATH_FindValidTargetCoordsByMovingOrthogonally(D2PathInfoStrc* pPathInfo)

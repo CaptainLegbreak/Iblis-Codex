@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2Drlg.h"
 struct D2CoordStrc;
 struct D2StaticPathStrc;
 struct D2DrlgCoordsStrc;
@@ -9,28 +10,7 @@ struct D2DrlgCoordsStrc;
 
 
 
-struct D2DrlgCoordsStrc
-{
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-    int nTileXPos;
-    int nTileYPos;
-    int nTileWidth;
-    int nTileHeight;
-};
 
-struct D2ActiveRoomStrc
-{
-    char unk0x00[0x4C];
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-    char unk0x5C[0x74 - 0x5C];
-    D2UnitStrc* pUnitFirst;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -84,8 +64,8 @@ static int __stdcall sub_0064BF60_CanAddUnitToRoom(int bAssertIfPresent, D2UnitS
 
     const int nX = UNITS_GetXPositionInline(pUnit);
     const int nY = UNITS_GetYPositionInline(pUnit);
-    D2_ASSERT(pRoom && nX >= pRoom->nSubtileX && nX < pRoom->nSubtileX + pRoom->nSubtileWidth
-        && nY >= pRoom->nSubtileY && nY < pRoom->nSubtileY + pRoom->nSubtileHeight, 46);
+    D2_ASSERT(pRoom && nX >= pRoom->tCoords.nSubtileX && nX < pRoom->tCoords.nSubtileX + pRoom->tCoords.nSubtileWidth
+        && nY >= pRoom->tCoords.nSubtileY && nY < pRoom->tCoords.nSubtileY + pRoom->tCoords.nSubtileHeight, 46);
 
     for (D2UnitStrc* i = pRoom->pUnitFirst; i; i = i->ptRoomNext)
     {

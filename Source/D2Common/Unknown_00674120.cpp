@@ -1,20 +1,6 @@
-struct D2DrlgGridStrc
-{
-    char unk0x00[0x14];
-};
+#include "D2Drlg.h"
 
-struct D2DrlgOutdoorInfoStrc
-{
-    unsigned int dwFlags;
-    D2DrlgGridStrc pGrid[4];
-    int nWidth;
-};
 
-struct D2DrlgLevelStrc
-{
-    char unk0x00[0x14];
-    D2DrlgOutdoorInfoStrc* pOutdoors;
-};
 
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY);                                // 0x0067C570
 

@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2Drlg.h"
 
 #pragma function(memset)
 
@@ -25,45 +26,7 @@ struct D2DrlgLevelStrc;
 struct D2DrlgAnimTileGridStrc;
 
 
-struct D2DrlgCoordStrc
-{
-    int nPosX;
-    int nPosY;
-    int nWidth;
-    int nHeight;
-};
 
-struct D2DrlgRoomStrc
-{
-    char unk0x00[0x4];
-    unsigned int dwInitSeed;
-    char unk0x08[0xC];
-    D2SeedStrc pSeed;
-    unsigned char unk_1C[0xC];
-    unsigned int dwFlags;
-    char unk0x2C[0x4];
-    D2ActiveRoomStrc* pRoom;
-    union
-    {
-        struct
-        {
-            D2DrlgCoordStrc pDrlgCoord;
-        };
-        struct
-        {
-            int nTileXPos;
-            int nTileYPos;
-        };
-    };
-    unsigned char unk_44[0x4];
-    int nType;
-    D2RoomTileStrc* pRoomTiles;
-    char unk0x50[0x4];
-    D2DrlgTileGridStrc* ptDrlgTiles;
-    D2DrlgLevelStrc* ptDrlgLevel;
-    unsigned char unk_5C[0xC];
-    void* pTiles;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -181,20 +144,7 @@ struct D2RoomTileStrc
 
 D2DrlgRoomStrc* __fastcall DUNGEON_GetRoomExFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061AAE0
 
-struct D2DrlgStrc
-{
-    char unk0x000[0x468];
-    int nFreedRooms;
-    D2DrlgActStrc* pAct;
-    char unk0x470[0x8];
-    void* pMempool;
-};
 
-struct D2DrlgLevelStrc
-{
-    char unk0x000[0x1B4];
-    D2DrlgStrc* pDrlg;
-};
 
 struct D2DrlgAnimTileGridStrc
 {
@@ -366,8 +316,8 @@ static void DRLGROOMTILE_InitializeTileDataFlags(D2DrlgRoomStrc* pDrlgRoom, D2Dr
 // 0x0066DC10
 static void __stdcall sub_0066DC10(D2DrlgTileDataStrc* pTileData, D2DrlgRoomStrc* pDrlgRoom, int nX, int nY)
 {
-    pTileData->nPosX = nX - pDrlgRoom->nTileXPos;
-    pTileData->nPosY = nY - pDrlgRoom->nTileYPos;
+    pTileData->nPosX = nX - pDrlgRoom->pDrlgCoord.nPosX;
+    pTileData->nPosY = nY - pDrlgRoom->pDrlgCoord.nPosY;
 
     nY += 1;
     DUNGEON_GameTileToClientCoords(&nX, &nY);

@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2Drlg.h"
 #define DRLGROOMFLAG_HAS_ROOM 0x100000
 #define DRLGROOMFLAG_HASPORTAL 0x400000
 #define DRLGROOMFLAG_TILELIB_LOADED 0x1000000
@@ -25,16 +26,6 @@ struct D2DrlgActStrc
     void* pMemPool;
 };
 
-struct D2ActiveRoomStrc
-{
-    void* ppRoomList;
-    char unk0x04[0x28];
-    D2DrlgActStrc* pAct;
-    char unk0x30[0x18];
-    void* ppClients;
-    char unk0x4C[0x28];
-    D2UnitStrc* pUnitFirst;
-};
 
 void __stdcall UNITROOM_UpdatePath(D2UnitStrc* pUnit); // 0x0064C450
 void __fastcall COLLISION_FreeRoomCollisionGrid(void* pMemPool, D2ActiveRoomStrc* pRoom); // 0x0064CA10
@@ -44,40 +35,8 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-struct D2DrlgLevelStrc
-{
-    char unk0x000[0x10];
-    D2DrlgRoomStrc* ptRoomFirst;
-    char unk0x014[0x1A0];
-    D2DrlgStrc* pDrlg;
-    char unk0x1B8[0x18];
-    int eLevelId;
-};
 
-struct D2DrlgRoomStrc
-{
-    char unk0x00[0x24];
-    D2DrlgRoomStrc* pDrlgRoomNext;
-    unsigned int dwFlags;
-    int nRoomsNear;
-    D2ActiveRoomStrc* pRoom;
-    char unk0x34[0x10];
-    unsigned char fRoomStatus;
-    char unk0x45[0x03];
-    int nType;
-    char unk0x4C[0x0C];
-    D2DrlgLevelStrc* ptDrlgLevel;
-};
 
-struct D2DrlgStrc
-{
-    char unk0x000[0x08];
-    int nAllocatedRooms;
-    char unk0x00C[0x8C];
-    unsigned char nRoomsInitSinceLastUpdate;
-    char unk0x099[0x3DF];
-    void* pMempool;
-};
 
 extern const int gnTownLevelIds_006E7D1C[5]; // 0x006E7D1C
 int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0); // 0x0040B480
