@@ -7,6 +7,7 @@
 #include "D2Records.h"
 #include "D2ClientTypes.h"
 #include "D2ClientUi.h"
+#include "D2ClientGame.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define gnGlobal_007BCAA0 (gInvRect_007BCAA0.nLeft)
@@ -108,16 +109,6 @@ struct SMSGHANDLER_PARAMS
     unsigned int dwArg;
     int bReturn;
     int lResult;
-};
-
-struct D2RosterPetStrc
-{
-    int nClassId;
-    int nType;
-    int dwUnitId;
-    int dwOwnerId;
-    char unk0x10[0x20];
-    D2RosterPetStrc* pNext;
 };
 
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290

@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2ClientGame.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2RosterInfoStrc;
@@ -14,60 +15,8 @@ struct Obj0047A1B0;
 struct Obj0047A1E0;
 struct Obj0047A670;
 
-struct D2StoredUnitRecordStrc
-{
-    char szName[16];
-    int dwUnitId;
-    int dwPartyLife;
-    int dwKillCount;
-    int dwClassId;
-    unsigned short wValue;
-    unsigned short wPartyId;
-    int dwLevelId;
-    int dwPosX;
-    int dwPosY;
-    int dwPartyFlags;
-    D2RosterInfoStrc** pRosterInfo;
-    D2RosterCorpseStrc* pCorpse;
-    int dwPortalA;
-    int dwPortalB;
-    char unk0x44[0x22];
-    char szNameEx[26];
-    D2StoredUnitRecordStrc* pNext;
-};
-
-struct D2RosterPetStrc
-{
-    int nClassId;
-    int nType;
-    int dwUnitId;
-    int dwOwnerId;
-    char unk0x10[0xC];
-    int nLife;
-    char unk0x20[0x10];
-    D2RosterPetStrc* pNext;
-};
-
-struct D2RosterGroupStrc
-{
-    unsigned short wId;
-    unsigned short wUnk0x02;
-    D2StoredUnitRecordStrc* pFirst;
-    D2RosterGroupStrc* pNext;
-};
-
 extern D2RosterPetStrc* gpRosterPets_007BB5BC; // 0x007BB5BC
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
-
-struct D2RosterCorpseStrc
-{
-    int dwCorpseId;
-    union
-    {
-        D2RosterCorpseStrc* pPrev;
-        D2RosterCorpseStrc* pNext;
-    };
-};
 
 struct D2RosterUnitStrc
 {
@@ -86,7 +35,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 short __fastcall sub_00465400_GetPlayerRosterField22(D2UnitStrc* pUnit); // 0x00465400
@@ -158,7 +106,7 @@ int __fastcall sub_00479080_GetPetLife(int nUnitId)
     {
         if (pPet->dwUnitId == nUnitId)
         {
-            return pPet->nLife;
+            return pPet->nLifePercent;
         }
     }
 
@@ -198,7 +146,7 @@ int __fastcall sub_00479B90(D2StoredUnitRecordStrc* pEntry)
 {
     if (pEntry)
     {
-        return pEntry->wValue;
+        return pEntry->wLevel;
     }
 
     return 0;
@@ -207,7 +155,7 @@ int __fastcall sub_00479B90(D2StoredUnitRecordStrc* pEntry)
 // 0x004792C0
 static __forceinline int sub_004792C0_HasCorpse(D2RosterUnitStrc* pRosterUnit, unsigned int dwCorpseId)
 {
-    for (D2RosterCorpseStrc* pCorpse = pRosterUnit->pCorpse; pCorpse; pCorpse = pCorpse->pPrev)
+    for (D2RosterCorpseStrc* pCorpse = pRosterUnit->pCorpse; pCorpse; pCorpse = pCorpse->pNext)
     {
         if (pCorpse->dwCorpseId == dwCorpseId)
         {
@@ -223,7 +171,7 @@ static __forceinline void sub_00479470_FreeCorpses(D2RosterUnitStrc* pRosterUnit
     D2RosterCorpseStrc* pCorpse = pRosterUnit->pCorpse;
     while (pCorpse)
     {
-        D2RosterCorpseStrc* pPrev = pCorpse->pPrev;
+        D2RosterCorpseStrc* pPrev = pCorpse->pNext;
         FOG_Free(pCorpse, ".\\GAME\\Roster.cpp", 0x110, 0);
         pCorpse = pPrev;
     }
@@ -241,7 +189,7 @@ D2RosterGroupStrc* __fastcall sub_00479750_FindGroup(unsigned short wId)
 {
     for (D2RosterGroupStrc* pGroup = gpRosterGroups_007BB5C8; pGroup; pGroup = pGroup->pNext)
     {
-        if (pGroup->wId == wId)
+        if (pGroup->wPartyId == wId)
         {
             return pGroup;
         }

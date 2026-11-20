@@ -1,12 +1,11 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2ClientTypes.h"
+#include "D2ClientGame.h"
 
 union D2SeedStrc;
 struct D2WeatherSplashStrc;
 struct D2WeatherLayerStateStrc;
-
-
 
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
@@ -16,15 +15,6 @@ extern int gnGlobal_007A899C; // 0x007A899C
 extern int gnPhaseMax_007A89C0; // 0x007A89C0
 extern int gnGlobal_007A89DC; // 0x007A89DC
 extern int gbWeatherSplash_007A8A14; // 0x007A8A14
-
-
-struct D2WeatherStrc
-{
-    char unk0x000[0x110];
-    int nLastParticle;
-    char unk0x114[0x08];
-    D2WeatherSplashStrc* pRecords;
-};
 
 struct D2WeatherLayerStateStrc
 {

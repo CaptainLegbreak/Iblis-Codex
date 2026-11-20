@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientGame.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -6,11 +7,6 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-struct D2WeatherStrc
-{
-    char unk0x000[0x114];
-    int unk0x114;
-};
 void __fastcall sub_00473D00_SetPhase(int nPhase);                                                          // 0x00473D00
 
 static D2WeatherStrc* gpWeather_007A8A04;                                                                   // 0x007A8A04
@@ -35,7 +31,7 @@ static __forceinline void sub_00472530_SetPhaseActive(int bValue)
 void __cdecl sub_00472550_ResetWeather()
 {
     sub_006BCAC0_ResetDataArray(gpWeather_007A8A04);
-    D2_ASSERT(!gpWeather_007A8A04->unk0x114, 0x15B);
+    D2_ASSERT(!gpWeather_007A8A04->nCount, 0x15B);
 }
 
 void __fastcall sub_M110_Emit_00472530(int bValue)

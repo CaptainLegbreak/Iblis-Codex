@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2ClientGame.h"
 struct D2UnitStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -127,7 +128,6 @@ struct Obj004B8580 {
 extern char gbGlobal_007C0E80; // 0x007C0E80
 int __cdecl sub_004549C0_IsPanelAllocated(); // 0x004549C0
 
-
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __cdecl sub_00463DF0(); // 0x00463DF0
 int __cdecl sub_00468730(); // 0x00468730
@@ -184,12 +184,6 @@ extern "C" int gOpenFlag;
 extern "C" int gUiPhase;
 extern "C" U32 gRangeMode;
 extern "C" int gRangeValue;
-
-struct D2SoundNodeStrc
-{
-    D2ClientSoundStrc* f_0;
-    D2SoundNodeStrc* pNext;
-};
 
 struct D2SoundUnitNodeStrc
 {
@@ -956,7 +950,7 @@ D2ClientSoundStrc* __fastcall sub_004B9440_FindSoundByHandle(int nHandle)
     {
         for (D2SoundNodeStrc* pNode = gpSoundList_007C5458; pNode; pNode = pNode->pNext)
         {
-            D2ClientSoundStrc* pSound = pNode->f_0;
+            D2ClientSoundStrc* pSound = pNode->pSound;
             if (pSound->f_8 == nHandle)
             {
                 return pSound;

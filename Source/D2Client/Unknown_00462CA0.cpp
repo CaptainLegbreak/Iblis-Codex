@@ -5,6 +5,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2ClientTypes.h"
+#include "D2ClientGame.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2GfxLightStrc;
@@ -24,7 +25,6 @@ extern "C" const char* __cdecl sub_00408090();
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);
 
-
 struct D2PlayerDataStrc
 {
     char unk0x000[0x150];
@@ -41,24 +41,6 @@ struct D2MonsterDataStrc
     unsigned char unk_2A[0x2];
     const Unicode* wszName;
 };
-
-
-struct D2PlayerCmdStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pPlayer;
-    D2UnitStrc* pTarget;
-    int nX;
-    int nY;
-    int nArg;
-    int nMode;
-    D2SkillStrc* pSkill;
-};
-
-
-
-
-
 
 extern D2DataTablesStrc* sgptDataTables;
 extern unsigned int gdwBitMasks[];

@@ -1,7 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Path.h"
-
+#include "D2ClientGame.h"
 
 struct D2SoundUnitNodeStrc
 {
@@ -63,12 +63,6 @@ struct T00481920
 {
     char unk0x00[0x18];
     unsigned char bFlag;
-};
-
-struct D2SoundNodeStrc
-{
-    D2ClientSoundStrc* f_0;
-    D2SoundNodeStrc* pNext;
 };
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -134,7 +128,7 @@ static D2ClientSoundStrc* __stdcall sub_004B9700_FindUnitSound(D2ClientSoundStrc
 {
     for (D2SoundNodeStrc* pNode = gpSoundList_007C5458; pNode; pNode = pNode->pNext)
     {
-        D2ClientSoundStrc* pSound = pNode->f_0;
+        D2ClientSoundStrc* pSound = pNode->pSound;
         if (pSound != pExclude && pSound->nType == 1)
         {
             if (!pUnit || sub_005169D0_ListHasKey(pSound->pUnitList, pUnit))
@@ -275,11 +269,11 @@ void __fastcall sub_004BA020(unsigned int nTick)
         {
             if (pNode->pNext)
             {
-                if (sub_004BA020_SortsBefore(pNode->pNext->f_0, pNode->f_0))
+                if (sub_004BA020_SortsBefore(pNode->pNext->pSound, pNode->pSound))
                 {
-                    D2ClientSoundStrc* pTmp = pNode->f_0;
-                    pNode->f_0 = pNode->pNext->f_0;
-                    pNode->pNext->f_0 = pTmp;
+                    D2ClientSoundStrc* pTmp = pNode->pSound;
+                    pNode->pSound = pNode->pNext->pSound;
+                    pNode->pNext->pSound = pTmp;
                     bSorted = 0;
                 }
             }
@@ -289,7 +283,7 @@ void __fastcall sub_004BA020(unsigned int nTick)
 
     for (pNode = gpSoundList_007C5458; pNode; pNode = pNode->pNext)
     {
-        D2ClientSoundStrc* pSound = pNode->f_0;
+        D2ClientSoundStrc* pSound = pNode->pSound;
         if (pSound->bLocked && !sub_004B9BC0_IsOnAndNotHeld(pSound))
         {
             if (pSound->nType == 0)
@@ -306,7 +300,7 @@ void __fastcall sub_004BA020(unsigned int nTick)
     const int bEnabled = sub_00514CC0() > 0;
     for (pNode = gpSoundList_007C5458; pNode; pNode = pNode->pNext)
     {
-        D2ClientSoundStrc* pSound = pNode->f_0;
+        D2ClientSoundStrc* pSound = pNode->pSound;
         D2SoundsTxtStrc* pTxt = sub_00481860(pSound->nSoundId);
         int bAudible = bEnabled;
         if (pSound->nSoundId >= sub_004817F0() && pSound->nSoundId <= sub_00481800() && !sub_00514CF0())
@@ -484,7 +478,7 @@ void __fastcall sub_004BA020(unsigned int nTick)
     }
 
     for (D2SoundNodeStrc* pFree = pFreeList; pFree; pFree = pFree->pNext)
-        sub_004B94E0_FreeSound(pFree->f_0);
+        sub_004B94E0_FreeSound(pFree->pSound);
 
     sub_00516A10_FreeList(&pFreeList);
 
@@ -497,7 +491,7 @@ void __fastcall sub_004BA020(unsigned int nTick)
     int bDuck = 0;
     for (pNode = gpSoundList_007C5458; pNode; pNode = pNode->pNext)
     {
-        D2ClientSoundStrc* pSound = pNode->f_0;
+        D2ClientSoundStrc* pSound = pNode->pSound;
         if (sub_00481860(pSound->nSoundId)->bDuck && !sub_004B9BC0_IsOnAndNotHeld(pSound))
         {
             bDuck = 1;

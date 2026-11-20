@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2ClientGame.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -8,38 +9,6 @@ struct D2RosterCorpseStrc;
 struct D2RosterGroupStrc;
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
-
-struct D2StoredUnitRecordStrc
-{
-    char szName[16];
-    int dwUnitId;
-    int dwPartyLife;
-    int dwKillCount;
-    int dwClassId;
-    unsigned short wLevel;
-    unsigned short wPartyId;
-    int dwLevelId;
-    int dwPosX;
-    int dwPosY;
-    int dwPartyFlags;
-    D2RosterInfoStrc** pRosterInfo;
-    D2RosterCorpseStrc* pCorpse;
-    int dwPortalA;
-    int dwPortalB;
-    unsigned short wGuildFlags;
-    char szGuildTag[4];
-    char szGuildName[28];
-    char szNameEx[26];
-    D2StoredUnitRecordStrc* pNext;
-};
-
-struct D2RosterGroupStrc
-{
-    unsigned short wPartyId;
-    unsigned short unk0x02;
-    D2StoredUnitRecordStrc* pFirst;
-    D2RosterGroupStrc* pNext;
-};
 
 extern "C" const char szRosterCpp_006D7268[]; // 0x006D7268
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
@@ -51,13 +20,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" int __cdecl strcmp(const char* szLeft, const char* szRight);
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
-
-
-struct D2RosterCorpseStrc
-{
-    int dwCorpseId;
-    D2RosterCorpseStrc* pNext;
-};
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 void __fastcall sub_00478780_SendPartyCommand(unsigned char nCommand, int nUnitId); // 0x00478780

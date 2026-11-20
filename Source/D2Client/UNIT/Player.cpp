@@ -5,6 +5,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2UnitData.h"
+#include "D2ClientGame.h"
 struct D2SkillStrc;
 struct D2UnitStrc;
 
@@ -25,12 +26,6 @@ union D2SeedStrc;
 struct D2PlayerCmdStrc;
 struct D2SkillsTxt;
 struct D2StringRefStrc;
-
-
-
-
-
-
 
 struct D2StormLinkStrc
 {
@@ -110,7 +105,6 @@ extern int gnAutomapHeight_007A521C; // 0x007A521C
 extern int gnAutomapWidth_007A5220; // 0x007A5220
 extern int gdwGlobal_007A5264; // 0x007A5264
 
-
 struct D2ClientUnitViewStrc
 {
     int dwUnitType;
@@ -147,19 +141,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-
-struct D2PlayerCmdStrc
-{
-    unsigned int dwFlags;
-    D2UnitStrc* pPlayer;
-    D2UnitStrc* pTarget;
-    int nX;
-    int nY;
-    int nArg;
-    int nMode;
-    D2SkillStrc* pSkill;
-};
-
 
 extern int gnStringCount_00711EF0; // 0x00711EF0
 extern D2StringRefStrc gaStringRefs_00711DDC[]; // 0x00711DDC

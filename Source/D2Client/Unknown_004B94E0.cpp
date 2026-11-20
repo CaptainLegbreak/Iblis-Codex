@@ -1,10 +1,5 @@
 #include "D2Client.h"
-
-struct D2SoundNodeStrc
-{
-    D2ClientSoundStrc* f_0;
-    D2SoundNodeStrc* pNext;
-};
+#include "D2ClientGame.h"
 
 struct D2SoundUnitNodeStrc
 {
@@ -64,7 +59,7 @@ static D2ClientSoundStrc* __stdcall sub_004B9700_FindUnitSound(D2ClientSoundStrc
 {
     for (D2SoundNodeStrc* pNode = gpSoundList_007C5458; pNode; pNode = pNode->pNext)
     {
-        D2ClientSoundStrc* pSound = pNode->f_0;
+        D2ClientSoundStrc* pSound = pNode->pSound;
         if (pSound != pExclude && pSound->nType == 1)
         {
             if (!pUnit || sub_005169D0_ListHasKey(pSound->pUnitList, pUnit))
@@ -96,7 +91,7 @@ void __fastcall sub_004B99A0_MoveSound(int nHandle, int nX, int nY, int nZ)
 
     for (D2SoundNodeStrc* pNode = gpSoundList_007C5458; pNode; pNode = pNode->pNext)
     {
-        D2ClientSoundStrc* pSound = pNode->f_0;
+        D2ClientSoundStrc* pSound = pNode->pSound;
         if (pSound->f_8 == nHandle)
         {
             D2SoundVecStrc tPos;
@@ -114,7 +109,7 @@ void __cdecl sub_004B9D20_FreeAllSounds()
 {
     sub_004E4280();
     while (gpSoundList_007C5458)
-        sub_004B94E0_FreeSound(gpSoundList_007C5458->f_0);
+        sub_004B94E0_FreeSound(gpSoundList_007C5458->pSound);
 
     gbSoundReady_007C545C = 1;
 }

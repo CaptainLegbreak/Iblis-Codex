@@ -2,20 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
-
-
-
-
-struct D2MonCommandStrc
-{
-    int nX;
-    int nY;
-    int nZero;
-    int nPathValue;
-    int nArg;
-    int nPathByte;
-    int unk0x18;
-};
+#include "D2ClientGame.h"
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int* __fastcall sub_004AE170(D2UnitStrc* pUnit); // 0x004AE170

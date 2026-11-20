@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2CelContext.h"
+#include "D2ClientGame.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2SoundUnitNodeStrc;
@@ -19,7 +20,6 @@ struct Unicode
 {
     unsigned short ch;
 };
-
 
 struct D2DialogWidget
 {
@@ -81,7 +81,6 @@ void* __cdecl sub_00453AB0(); // 0x00453AB0
 void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
 
-
 #pragma pack(push, 1)
 struct D2ClientSoundStrc
 {
@@ -121,12 +120,6 @@ struct T00481920
 {
     char unk0x00[0x18];
     unsigned char bFlag;
-};
-
-struct D2SoundNodeStrc
-{
-    D2ClientSoundStrc* f_0;
-    D2SoundNodeStrc* pNext;
 };
 
 extern D2SoundNodeStrc* gpSoundList_007C5458; // 0x007C5458
@@ -223,7 +216,7 @@ static D2ClientSoundStrc* __stdcall sub_004B9760_FindGroupSound(D2ClientSoundStr
     D2SoundsTxtStrc* pTxt = sub_00481860(nSoundId);
     for (D2SoundNodeStrc* pNode = gpSoundList_007C5458; pNode; pNode = pNode->pNext)
     {
-        D2ClientSoundStrc* pSound = pNode->f_0;
+        D2ClientSoundStrc* pSound = pNode->pSound;
         if (sub_00481890_GetCacheFirst(pSound->nSoundId) == pTxt->nGroup && pSound != pExclude && !pSound->bLocked)
         {
             if (pTxt->nTimeout < 0 || sub_00481820() - pSound->f_34 <= pTxt->nTimeout)
