@@ -3,18 +3,11 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2Records.h"
+#include "D2Unicode.h"
 
 struct Unicode;
 struct D2SkillsTxt;
 struct D2SkillDescTxt;
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode(unsigned short ch = 0) : wChar(ch) {}
-};
-
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
 extern "C" const char gszFormatD_006D57BC[]; // 0x006D57BC

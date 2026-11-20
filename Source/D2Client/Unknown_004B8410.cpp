@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2ClientGame.h"
+#include "D2Unicode.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2SoundUnitNodeStrc;
@@ -12,11 +13,6 @@ struct D2SoundVecStrc;
 struct D2SoundsTxtStrc;
 struct T00481920;
 struct D2SoundNodeStrc;
-
-struct Unicode
-{
-    unsigned short ch;
-};
 
 struct D2DialogLineStrc
 {
@@ -205,7 +201,7 @@ void __fastcall sub_004B85F0_AddTextLine(D2ClientDialogStrc* pDialog, const Unic
     if (nLen > 0x77)
         nLen = 0x77;
     sub_00526790(pDialog->pLines[nIndex].wszText, wszText, nLen);
-    pDialog->pLines[nIndex].wszText[nLen].ch = 0;
+    pDialog->pLines[nIndex].wszText[nLen].wChar = 0;
     if (bEnabled)
         pDialog->nEnabled += 1;
     if (pDialog->bAutoSize)

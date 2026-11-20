@@ -1,10 +1,5 @@
+#include "D2Unicode.h"
 int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
-
-struct Unicode
-{
-    unsigned short wChar;
-    Unicode();                                                                                              // 0x0042F530
-};
 
 #pragma pack(push, 2)
 struct D2ListBoxLineStrc

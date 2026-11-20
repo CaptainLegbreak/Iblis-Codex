@@ -4,6 +4,7 @@
 #include "D2GameTypes.h"
 #include "D2Records.h"
 #include "D2LevelTxt.h"
+#include "D2Unicode.h"
 
 #define UNIT_ITEM 4
 struct D2StaticPathStrc;
@@ -258,16 +259,6 @@ int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsi
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 extern const int gnSetMaskToBonusMappingTable_006DBD90[0x40]; // 0x006DBD90
 void __fastcall sub_004E5A10_UseBonusCount(int nCount);
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    int isNewline() const
-    {
-        return wChar == '\n';
-    }
-};
 
 void __fastcall sub_004E6410_BuildPropText(D2UnitStrc* pItem, Unicode* wszText, int nArg, int bFlag, int nArg2); // 0x004E6410
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800

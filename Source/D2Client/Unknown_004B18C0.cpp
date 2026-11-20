@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2ClientMenus.h"
+#include "D2Unicode.h"
 struct D2UnitStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -27,11 +28,6 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 int __fastcall sub_004B18C0(void* pContext, int nArg, int nValue); // 0x004B18C0
 extern char gbGlobal_007C0C69; // 0x007C0C69
-
-struct Unicode
-{
-    unsigned short wChar;
-};
 
 struct tagRECT
 {

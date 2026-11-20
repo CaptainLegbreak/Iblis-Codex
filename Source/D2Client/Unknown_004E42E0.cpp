@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Unicode.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct T00481920;
@@ -43,18 +44,6 @@ void __fastcall sub_004BA840(int nHandle); // 0x004BA840
 int __fastcall sub_004E40A0(int nRange); // 0x004E40A0
 extern "C" int __fastcall sub_004E4100_RandomInRange(int nMin, int nMax); // 0x004E4100
 static void sub_004E4240_ResetEntryPairs(int nIndex); // 0x004E4240
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode(unsigned short ch = 0) : wChar(ch) {}
-};
-
-
-
-
-
 
 struct D2MonTypeTxt
 {

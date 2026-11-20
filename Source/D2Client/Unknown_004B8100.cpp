@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2CelContext.h"
 #include "D2ClientGame.h"
+#include "D2Unicode.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2SoundUnitNodeStrc;
@@ -15,11 +16,6 @@ struct D2SoundVecStrc;
 struct D2SoundsTxtStrc;
 struct T00481920;
 struct D2SoundNodeStrc;
-
-struct Unicode
-{
-    unsigned short ch;
-};
 
 struct D2DialogWidget
 {

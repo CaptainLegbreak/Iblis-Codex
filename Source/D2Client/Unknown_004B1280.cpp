@@ -7,6 +7,7 @@
 #include "D2Txt.h"
 #include "D2GameTypes.h"
 #include "D2ClientTypes.h"
+#include "D2Unicode.h"
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2MonStatsTxt;
 struct D2SeqModeStrc;
@@ -101,14 +102,6 @@ int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc* pDynamicPath)
 int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pDynamicPath); // 0x00648A10
 void __stdcall PATH_SetTargetUnit(D2DynamicPathStrc* pPath, D2UnitStrc* pTargetUnit); // 0x00648B90
 void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int a4); // 0x00649EF0
-
-struct Unicode
-{
-    unsigned short wChar;
-    Unicode() {}
-    Unicode(unsigned short wValue) : wChar(wValue) {}
-    Unicode sub_004B15F0() const;
-};
 
 enum { CASE_BOUND = 0x100 };
 

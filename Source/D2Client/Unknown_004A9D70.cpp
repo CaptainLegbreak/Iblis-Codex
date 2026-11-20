@@ -4,6 +4,7 @@
 #include "D2Txt.h"
 #include "D2CelContext.h"
 #include "D2Records.h"
+#include "D2Unicode.h"
 
 #define TEXT(y, id) sub_004AAAA0_DrawSkillTreeText(D2LANG_GetStringFromTblIndex(id), y)
 #define BITARRAY_CHECK(pBytes, nBit) ((pBytes)[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
@@ -18,12 +19,6 @@ extern int gnHotkeySkill_007C06C8[16]; // 0x007C06C8
 extern int gbHotkeyLeft_007C07B8[16]; // 0x007C07B8
 extern int gnHotkeyOwner_007C0768[16]; // 0x007C0768
 void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
-
-struct Unicode
-{
-    unsigned short wChar;
-    Unicode(unsigned short wValue = 0) : wChar(wValue) {}
-};
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
 int __cdecl sub_00468730(); // 0x00468730

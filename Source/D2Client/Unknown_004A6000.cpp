@@ -1,15 +1,7 @@
 #include "D2Client.h"
 #include "D2CelContext.h"
 #include "D2ClientTypes.h"
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode(unsigned short ch = 0) : wChar(ch) {}
-
-    static Unicode* __fastcall strncpy(Unicode* dest, const Unicode* src, int count); // 0x00526790
-};
+#include "D2Unicode.h"
 
 struct SMSGHANDLER_PARAMS
 {

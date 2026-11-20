@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2CelContext.h"
+#include "D2Unicode.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2QuestTextsStrc;
@@ -95,12 +96,6 @@ extern int gnIndex_007BF2C9; // 0x007BF2C9
 extern int gnIndex_007BF2CD; // 0x007BF2CD
 extern void* gapCelFiles_007BF2E1[27]; // 0x007BF2E1
 extern volatile char gabQuestFlagsB_007BF380[]; // 0x007BF380
-
-struct Unicode
-{
-    unsigned short wChar;
-};
-
 
 struct D2ButtonLayoutStrc
 {

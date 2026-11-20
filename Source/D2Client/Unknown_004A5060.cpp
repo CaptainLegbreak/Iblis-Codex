@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2CelContext.h"
+#include "D2Unicode.h"
 
 #define gbUpPressed_007C028C (gaPressed_007C0288[1])
 #define gbDownPressed_007C0290 (gaPressed_007C0288[2])
@@ -32,12 +33,6 @@ extern int gnSliderRows_007C0274; // 0x007C0274
 extern int gnSliderOffset_007C0278; // 0x007C0278
 extern int gnSliderScale_007C02AC; // 0x007C02AC
 extern int gnSliderPos_007C02CC; // 0x007C02CC
-
-struct Unicode
-{
-    unsigned short wChar;
-};
-
 
 #pragma pack(push, 2)
 struct D2ClientListEntryStrc

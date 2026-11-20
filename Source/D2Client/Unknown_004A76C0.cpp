@@ -4,6 +4,7 @@
 #include "D2CelContext.h"
 #include "D2Records.h"
 #include "D2LevelTxt.h"
+#include "D2Unicode.h"
 
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
@@ -72,12 +73,6 @@ int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg);
 extern "C" __declspec(dllimport) short __stdcall GetKeyState(int nVirtKey); // 0x006CC45C
 void __fastcall sub_004785B0_SendPacket3(unsigned char nCmd, unsigned short nArg); // 0x004785B0
 void __cdecl sub_0044DA70(); // 0x0044DA70
-
-struct Unicode
-{
-    unsigned short wChar;
-    Unicode(unsigned short ch = 0) : wChar(ch) {}
-};
 
 #pragma pack(push, 2)
 struct D2TextEntryStrc

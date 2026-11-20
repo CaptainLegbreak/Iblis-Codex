@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Unicode.h"
 
 class UIWidget;
 struct Unicode;
@@ -23,11 +24,6 @@ public:
     virtual int Slot11() = 0;
 
     int unk0x04;
-};
-
-struct Unicode
-{
-    unsigned short wChar;
 };
 
 #pragma pack(push, 2)

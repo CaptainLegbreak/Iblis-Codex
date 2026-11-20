@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Unicode.h"
 struct D2UnitStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -20,11 +21,6 @@ struct D2SkillDescTxt;
 struct D2DataTables;
 struct D2CelContext;
 struct D2SkillIconFile;
-
-struct Unicode
-{
-    unsigned short wChar;
-};
 
 struct D2TextCellStrc
 {

@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
+#include "D2Unicode.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
@@ -58,13 +59,6 @@ extern D2Record42Strc gtRecord_007BF355; // 0x007BF355
 extern int gnPage_007C0255; // 0x007C0255
 extern D2SliderButtonStrc gaSliderButtons_007246D8[3]; // 0x007246D8
 extern int gaPressed_007C0288[7]; // 0x007C0288
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode(unsigned short ch = 0) : wChar(ch) {}
-};
 
 struct UnicodeChar : Unicode
 {
