@@ -1,22 +1,7 @@
 #include "Storm.h"
 #include "D2GameTypes.h"
 #include "D2StormLink.h"
-
-
-
-struct D2StormMpqHeaderStrc
-{
-    unsigned int dwSignature;
-    unsigned int f_4;
-    unsigned int nArchiveSize;
-    unsigned short wVersion;
-    unsigned char nSectorShift;
-    unsigned char unk0x0F;
-    unsigned int nHashOffset;
-    unsigned int nBlockOffset;
-    unsigned int nHashEntries;
-    unsigned int nBlockEntries;
-};
+#include "D2StormTypes.h"
 
 struct D2StormArchiveRecStrc
 {

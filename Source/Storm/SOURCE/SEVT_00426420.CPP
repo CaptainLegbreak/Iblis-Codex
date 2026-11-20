@@ -1,31 +1,7 @@
 #include "Storm.h"
 #include "D2GameTypes.h"
+#include "D2StormTypes.h"
 
-
-struct D2StormEventHandlerStrc
-{
-    unsigned int nId;
-    unsigned int nSequence;
-    SEVTHANDLER pfnHandler;
-    D2StormEventHandlerStrc* pNext;
-};
-
-struct D2StormHandlerTableStrc
-{
-    D2StormEventHandlerStrc** ppTable;
-    unsigned int nSize;
-    unsigned int nUsed;
-    D2StormHandlerTableStrc* pPrevState;
-};
-
-struct D2StormEventTypeStrc
-{
-    unsigned int nType;
-    unsigned int nSubType;
-    unsigned int nSequence;
-    D2StormHandlerTableStrc* f_C;
-    D2StormEventTypeStrc* pNext;
-};
 #define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock);        // 0x006CC214
@@ -99,16 +75,16 @@ int __stdcall SEvtRegisterHandler(unsigned int nType, unsigned int nSubType, uns
         pType = (D2StormEventTypeStrc*)SMemAlloc(sizeof(D2StormEventTypeStrc), gszSEvtCpp, 0x15D, 8);
         pType->nType = nType;
         pType->nSubType = nSubType;
-        pType->f_C = (D2StormHandlerTableStrc*)SMemAlloc(sizeof(D2StormHandlerTableStrc), gszSEvtCpp, 0x160, 8);
+        pType->pHandlers = (D2StormHandlerTableStrc*)SMemAlloc(sizeof(D2StormHandlerTableStrc), gszSEvtCpp, 0x160, 8);
         ++gnSEvtTypeCount_00779308;
         pType->pNext = gppSEvtTypes_00779300[nBucket];
         gppSEvtTypes_00779300[nBucket] = pType;
     }
 
-    if (pType->f_C->nUsed >= pType->f_C->nSize / 2)
+    if (pType->pHandlers->nUsed >= pType->pHandlers->nSize / 2)
     {
         unsigned int nNewSize;
-        for (nNewSize = 1; nNewSize <= pType->f_C->nSize * 2 + 2; nNewSize *= 2)
+        for (nNewSize = 1; nNewSize <= pType->pHandlers->nSize * 2 + 2; nNewSize *= 2)
             ;
 
         D2StormEventHandlerStrc** ppNewTable = (D2StormEventHandlerStrc**)SMemAlloc(nNewSize * sizeof(D2StormEventHandlerStrc*), gszSEvtCpp, 0x16E, 8);
@@ -118,12 +94,12 @@ int __stdcall SEvtRegisterHandler(unsigned int nType, unsigned int nSubType, uns
             pppTails[i] = &ppNewTable[i];
         }
 
-        if (pType->f_C->ppTable && pType->f_C->nSize)
+        if (pType->pHandlers->ppTable && pType->pHandlers->nSize)
         {
-            for (unsigned int i = 0; i < pType->f_C->nSize; ++i)
+            for (unsigned int i = 0; i < pType->pHandlers->nSize; ++i)
             {
                 D2StormEventHandlerStrc* pNext;
-                for (D2StormEventHandlerStrc* pCur = pType->f_C->ppTable[i]; pCur; pCur = pNext)
+                for (D2StormEventHandlerStrc* pCur = pType->pHandlers->ppTable[i]; pCur; pCur = pNext)
                 {
                     const unsigned int nBucket = pCur->nId & (nNewSize - 1);
                     pNext = pCur->pNext;
@@ -135,21 +111,21 @@ int __stdcall SEvtRegisterHandler(unsigned int nType, unsigned int nSubType, uns
         }
 
         SMemFree(pppTails, gszSEvtCpp, 0x182, 0);
-        if (pType->f_C->ppTable)
-            SMemFree(pType->f_C->ppTable, gszSEvtCpp, 0x184, 0);
+        if (pType->pHandlers->ppTable)
+            SMemFree(pType->pHandlers->ppTable, gszSEvtCpp, 0x184, 0);
 
-        pType->f_C->ppTable = ppNewTable;
-        pType->f_C->nSize = nNewSize;
+        pType->pHandlers->ppTable = ppNewTable;
+        pType->pHandlers->nSize = nNewSize;
     }
 
-    const unsigned int nBucket = (pType->f_C->nSize - 1) & nId;
+    const unsigned int nBucket = (pType->pHandlers->nSize - 1) & nId;
     D2StormEventHandlerStrc* pHandler = (D2StormEventHandlerStrc*)SMemAlloc(sizeof(D2StormEventHandlerStrc), gszSEvtCpp, 0x18D, 8);
     pHandler->nId = nId;
     pHandler->nSequence = ++pType->nSequence;
     pHandler->pfnHandler = pfnHandler;
-    pHandler->pNext = pType->f_C->ppTable[nBucket];
-    pType->f_C->ppTable[nBucket] = pHandler;
-    ++pType->f_C->nUsed;
+    pHandler->pNext = pType->pHandlers->ppTable[nBucket];
+    pType->pHandlers->ppTable[nBucket] = pHandler;
+    ++pType->pHandlers->nUsed;
     gbSEvtModified_007792F8 = 1;
     LeaveCriticalSection(&gtSEvtLock);
     return nValid ? 1 : 0;

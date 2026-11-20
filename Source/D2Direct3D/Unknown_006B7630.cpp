@@ -1,7 +1,7 @@
 #include "D2Direct3D.h"
 #include "D2D3DTypes.h"
 
-extern D2TexturedVertexStrc gaVertices_00970F48[4];                                                         // 0x00970F48
+extern D2TLVertexStrc gaVertices_00970F48[4];                                                         // 0x00970F48
 
 __declspec(noinline) static int __stdcall sub_006B7530_DrawGlyph(int nX, int nY, char nChar);
 
@@ -22,14 +22,14 @@ static int __stdcall sub_006B7530_DrawGlyph(int nX, int nY, char nChar)
     {
         const int nRight = nX + 8;
         const int nBottom = nY + 16;
-        gaVertices_00970F48[0].nX = (float)nX;
-        gaVertices_00970F48[0].nY = (float)nY;
-        gaVertices_00970F48[1].nX = (float)nX;
-        gaVertices_00970F48[1].nY = (float)nBottom;
-        gaVertices_00970F48[2].nX = (float)nRight;
-        gaVertices_00970F48[2].nY = (float)nBottom;
-        gaVertices_00970F48[3].nX = (float)nRight;
-        gaVertices_00970F48[3].nY = (float)nY;
+        gaVertices_00970F48[0].fX = (float)nX;
+        gaVertices_00970F48[0].fY = (float)nY;
+        gaVertices_00970F48[1].fX = (float)nX;
+        gaVertices_00970F48[1].fY = (float)nBottom;
+        gaVertices_00970F48[2].fX = (float)nRight;
+        gaVertices_00970F48[2].fY = (float)nBottom;
+        gaVertices_00970F48[3].fX = (float)nRight;
+        gaVertices_00970F48[3].fY = (float)nY;
 
         nChar -= 0x20;
         gpD3DDevice_00970E78->lpVtbl->SetTexture(gpD3DDevice_00970E78, 0, gapGlyphTextures_009712D0[nChar]);

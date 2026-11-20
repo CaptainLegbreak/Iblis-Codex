@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientUi.h"
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 
@@ -39,12 +40,6 @@ struct D2ChatMessageStrc
     unsigned char nColor;
     unsigned char unk0x09[0x11];
     D2ChatTextStrc tText;
-};
-
-struct D2ClientNotifyStrc
-{
-    char unk0x00[0x14];
-    void(__fastcall* pfnResign)(const char* szInput);
 };
 
 struct D2ClientInfoStrc

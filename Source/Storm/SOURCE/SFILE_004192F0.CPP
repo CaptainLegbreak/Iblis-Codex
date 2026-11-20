@@ -1,13 +1,12 @@
 #include "Storm.h"
 #include "D2GameTypes.h"
+#include "D2StormTypes.h"
 #define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 
 struct D2StormFileRecStrc;
 struct D2CriticalSectionStrc;
 struct D2StormLinkStrc;
 struct D2StormFixedListStrc;
-struct D2StormMpqHeaderStrc;
-struct D2StormHashEntryStrc;
 struct D2StormBlockStrc;
 
 // build: context ArchiveHead
@@ -35,32 +34,6 @@ struct D2StormFixedListStrc
     D2StormLinkStrc m_terminator;
 
     char* sub_00418F20_NewNode(unsigned int nLinkType, unsigned int nExtraBytes, unsigned int nFlags);    // 0x00418F20
-};
-
-struct D2StormMpqHeaderStrc
-{
-    unsigned int dwSignature;
-
-    unsigned int nHeaderSize;
-    unsigned int nArchiveSize;
-    unsigned short wVersion;
-    unsigned char nSectorShift;
-    unsigned char unk0x0F;
-    unsigned int nHashOffset;
-    unsigned int nBlockOffset;
-    unsigned int nHashEntries;
-    unsigned int nBlockEntries;
-};
-
-struct D2StormHashEntryStrc
-{
-    unsigned int nName1;
-    unsigned int nName2;
-
-    unsigned short wLocale;
-    unsigned char nPlatform;
-    unsigned char unk0x0B;
-    int nBlockIndex;
 };
 
 struct D2StormBlockStrc

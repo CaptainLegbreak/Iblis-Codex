@@ -2,7 +2,7 @@
 #include "D2Path.h"
 #include "D2DrlgMaps.h"
 #include "D2GlideTypes.h"
-struct T00508FE0;
+
 struct D2GfxLightStrc
 {
     unsigned int aColor[8];
@@ -38,7 +38,7 @@ void __fastcall sub_005094B0_GlideSetState(int nState);                         
 void __fastcall sub_00509500_GlideSetCombine(int nMode);                                                     // 0x00509500
 void __fastcall sub_005095D0_GlideSetDepth(int nMode);                                                       // 0x005095D0
 void __fastcall sub_0050DBE0_GlideSetVertexShade(D2GlideSpriteVertexStrc* pVertex, unsigned char nShade);   // 0x0050DBE0
-void __fastcall sub_0050DC30_GlideSetVertexColor(T00508FE0* pVertex, unsigned int dwColor); // 0x0050DC30
+void __fastcall sub_0050DC30_GlideSetVertexColor(D2GlideSpriteVertexStrc* pVertex, unsigned int dwColor); // 0x0050DC30
 int __cdecl sub_0050DD30_GlideIsPerspective();                                                               // 0x0050DD30
 void __fastcall sub_0050DD60_ProjectToScreen(int nX, int nY, int nZ, int* pScreenX, int* pScreenY);          // 0x0050DD60
 void __fastcall sub_0050FBD0_GlideBindTileTexture(D2GlideTileStrc* pTile);                                   // 0x0050FBD0

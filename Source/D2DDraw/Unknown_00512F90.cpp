@@ -1,27 +1,7 @@
 #include "D2DDraw.h"
-
-struct D2TileBlockStrc
-{
-    short nPosX;
-    short nPosY;
-    char unk0x04[0x0C];
-    void* pData;
-};
-
-struct D2TileLibraryEntryStrc
-{
-    char unk0x00[0x50];
-    int nBlocks;
-    D2TileBlockStrc* pBlocks;
-};
-
-struct D2TileDrawFunctionsStrc
-{
-    void* unk0x00;
-    void (__fastcall* pfDrawWallBlock)(void* pData, int nX, int nY);
-    void* unk0x08[3];
-    void (__fastcall* pfDrawShadowBlock)(void* pData, int nX, int nY, int nAlpha);
-};
+#include "D2GfxTypes.h"
+#include "D2GlideTypes.h"
+#include "D2DrlgMaps.h"
 
 int __stdcall sub_005FDEA0(D2TileLibraryEntryStrc* pTile, int a2, int a3); // 0x005FDEA0
 int __cdecl sub_00512700_DDrawGetBlendedShadows(); // 0x00512700
@@ -49,7 +29,7 @@ int __fastcall sub_00512F90_DrawWallTile(D2TileLibraryEntryStrc* pTile, int nPos
 
         for (int i = 0; i < pTile->nBlocks; ++i)
         {
-            D2TileBlockStrc* pBlock = &pTile->pBlocks[i];
+            D2GlideTileStrc* pBlock = &pTile->pBlocks[i];
             const int nX = pBlock->nPosX + nPosX;
             const int nY = pTile->pBlocks[i].nPosY + nPosY;
             if (nX >= nMinX && nX < nMaxX && nY >= -32 && nY < nMaxY)

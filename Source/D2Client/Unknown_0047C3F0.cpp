@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2CelContext.h"
+#include "D2ClientUi.h"
 
 struct D2ChatTextStrc;
 struct D2ClientNotifyStrc;
@@ -15,11 +16,6 @@ struct D2ChatMessageStrc
     D2ChatTextStrc tText;
 };
 
-struct D2ClientNotifyStrc
-{
-    char unk0x00[0x14];
-    void(__fastcall* pfnResign)(const char* szInput);
-};
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 extern "C" size_t __cdecl strlen(const char* sz);
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
@@ -32,7 +28,6 @@ struct Unicode
 
     Unicode(unsigned short ch = 0) : wChar(ch) {}
 };
-
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x00681EF0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30

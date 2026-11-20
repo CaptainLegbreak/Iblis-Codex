@@ -1,92 +1,14 @@
 #include "D2DDraw.h"
+#include "D2DDrawTypes.h"
+#include "D2GfxTypes.h"
+#include "D2GlideTypes.h"
 
 struct D2CriticalSectionStrc;
 struct D2TileLibraryEntryStrc;
 struct D2GfxLightExStrc;
-struct D2DDrawSurfaceStrc;
-struct D2DDrawObjectStrc;
 struct T004F51E0;
-struct T00508FE0;
-struct D2GrLfbInfoStrc;
-struct D2BinkStrc;
-struct D2DDSurfaceDescStrc;
-struct D2DDrawSurfaceVtblStrc;
-struct D2DDrawObjectVtblStrc;
 struct tagRECT;
 
-struct T00508FE0
-{
-    float x;
-    float y;
-    float unk0x08;
-    float oow;
-    float sow;
-    float tow;
-    float unk0x18;
-};
-
-struct D2GrLfbInfoStrc
-{
-    int size;
-    void* f_4;
-    unsigned int strideInBytes;
-    int f_C;
-    int origin;
-};
-
-struct D2BinkStrc
-{
-    unsigned int Width;
-    unsigned int Height;
-    unsigned int Frames;
-    unsigned int f_C;
-};
-
-struct D2DDSurfaceDescStrc
-{
-    unsigned int dwSize;
-    unsigned int dwFlags;
-    unsigned int dwHeight;
-    unsigned int dwWidth;
-    int lPitch;
-    unsigned int dwBackBufferCount;
-    unsigned int dwRefreshRate;
-    unsigned int dwAlphaBitDepth;
-    unsigned int dwReserved;
-    void* lpSurface;
-    unsigned int unk0x28[17];
-};
-
-struct D2DDrawSurfaceVtblStrc
-{
-    void* unk0x00[25];
-    long (__stdcall* Lock)(D2DDrawSurfaceStrc* pThis, void* pDestRect, D2DDSurfaceDescStrc* pSurfaceDesc, unsigned long dwFlags, void* hEvent);
-    void* unk0x68[6];
-    long (__stdcall* Unlock)(D2DDrawSurfaceStrc* pThis, void* pRect);
-};
-
-struct D2DDrawSurfaceStrc
-{
-    D2DDrawSurfaceVtblStrc* lpVtbl;
-};
-
-struct D2DDrawObjectVtblStrc
-{
-    void* QueryInterface;
-    void* AddRef;
-    unsigned long (__stdcall* Release)(D2DDrawObjectStrc* pThis);
-};
-
-struct D2DDrawObjectStrc
-{
-    D2DDrawObjectVtblStrc* lpVtbl;
-};
-
-struct D2TileDrawFunctionsStrc
-{
-    void* unk0x00[3];
-    int (__fastcall* pfDrawFloorTile)(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, D2GfxLightExStrc* pLight);
-};
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(dllimport) void* __stdcall CreateFontA(int cHeight, int cWidth, int cEscapement, int cOrientation, int cWeight, unsigned long bItalic, unsigned long bUnderline, unsigned long bStrikeOut, unsigned long iCharSet, unsigned long iOutPrecision, unsigned long iClipPrecision, unsigned long iQuality, unsigned long iPitchAndFamily, const char* pszFaceName); // 0x006CC0E0
@@ -208,7 +130,7 @@ void __fastcall sub_0050BEF0_GlideDebugDraw(const unsigned int* pLight, const un
 // build: context sub_0050BF50_GlideDrawBox
 void __fastcall sub_0050BF50_GlideDrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int nDrawMode)
 {
-    T00508FE0 vertices[4];
+    D2GlideSpriteVertexStrc vertices[4];
     const int nX1 = D2_MIN(D2_MAX(nXStart, 0), gnScreenWidth_007C9138);
     const int nX2 = D2_MIN(D2_MAX(nXEnd, 0), gnScreenWidth_007C9138);
     if (nX1 == nX2)
@@ -258,14 +180,14 @@ void __fastcall sub_0050BF50_GlideDrawBox(int nXStart, int nYStart, int nXEnd, i
         break;
     }
     gpfGlideConstantColor_0087EFA0(dwRGBA);
-    gpfGlideDrawVertexArrayContiguous_0087EAC4(5, 4, vertices, sizeof(T00508FE0));
+    gpfGlideDrawVertexArrayContiguous_0087EAC4(5, 4, vertices, sizeof(D2GlideSpriteVertexStrc));
     gpfGlideMask_0087EB8C(1);
 }
 
 // build: context sub_0050C0F0_GlideDrawBoxAlpha
 void __fastcall sub_0050C0F0_GlideDrawBoxAlpha(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha)
 {
-    T00508FE0 vertices[4];
+    D2GlideSpriteVertexStrc vertices[4];
     const int nX1 = D2_MIN(D2_MAX(nXStart, 0), gnScreenWidth_007C9138);
     const int nX2 = D2_MIN(D2_MAX(nXEnd, 0), gnScreenWidth_007C9138);
     if (nX1 == nX2)
@@ -299,7 +221,7 @@ void __fastcall sub_0050C0F0_GlideDrawBoxAlpha(int nXStart, int nYStart, int nXE
     vertices[3].sow = 0.0f;
     vertices[3].tow = 0.0f;
     gpfGlideConstantColor_0087EFA0(sub_005093F0_GlidePaletteColor((unsigned char)dwColor) & 0xFFFFFF00 | nAlpha);
-    gpfGlideDrawVertexArrayContiguous_0087EAC4(5, 4, vertices, sizeof(T00508FE0));
+    gpfGlideDrawVertexArrayContiguous_0087EAC4(5, 4, vertices, sizeof(D2GlideSpriteVertexStrc));
     gpfGlideMask_0087EB8C(1);
 }
 
@@ -314,11 +236,11 @@ void __cdecl sub_0050FD10_GlideDrawVideoFrame()
     D2GrLfbInfoStrc info = { sizeof(D2GrLfbInfoStrc) };
     if (gpfGlideLfbLock_0087EADC(1, 0, 5, 0, 0, &info))
     {
-        BinkCopyToBuffer(gpGlideBink_00880C0C, info.f_4, info.strideInBytes, gpGlideBink_00880C0C->Height, gnGlideBinkX_00880C08, gnGlideBinkY_00880C04, gnGlideBinkFlags_00880C14);
+        BinkCopyToBuffer(gpGlideBink_00880C0C, info.lfbPtr, info.strideInBytes, gpGlideBink_00880C0C->nHeight, gnGlideBinkX_00880C08, gnGlideBinkY_00880C04, gnGlideBinkFlags_00880C14);
         gpfGlideLfbUnlock_0087EAD8(1, 0);
     }
     LeaveCriticalSection(gpRenderCriticalSection_007C9134);
-    if (gpGlideBink_00880C0C->f_C == gpGlideBink_00880C0C->Frames)
+    if (gpGlideBink_00880C0C->nFrameNum == gpGlideBink_00880C0C->nFrames)
     {
         gbGlideBinkDone_00880C18 = 1;
         return;
@@ -445,11 +367,11 @@ void __cdecl sub_005136F0_BlitBinkFrame()
     D2DDSurfaceDescStrc ddsd = { sizeof(D2DDSurfaceDescStrc) };
     if (gpDDrawSurface_00881278->lpVtbl->Lock(gpDDrawSurface_00881278, 0, &ddsd, 0x21, 0) == 0)
     {
-        BinkCopyToBuffer(gpDDrawBink_008816C0, ddsd.lpSurface, ddsd.lPitch, gpDDrawBink_008816C0->Height, gnDDrawBinkX_008816BC, gnDDrawBinkY_008816B8, gnDDrawBinkFlags_008816C8);
+        BinkCopyToBuffer(gpDDrawBink_008816C0, ddsd.lpSurface, ddsd.lPitch, gpDDrawBink_008816C0->nHeight, gnDDrawBinkX_008816BC, gnDDrawBinkY_008816B8, gnDDrawBinkFlags_008816C8);
         gpDDrawSurface_00881278->lpVtbl->Unlock(gpDDrawSurface_00881278, 0);
     }
     LeaveCriticalSection(gpRenderCriticalSection_007C9134);
-    if (gpDDrawBink_008816C0->f_C == gpDDrawBink_008816C0->Frames)
+    if (gpDDrawBink_008816C0->nFrameNum == gpDDrawBink_008816C0->nFrames)
     {
         gbDDrawBinkDone_008816CC = 1;
         return;

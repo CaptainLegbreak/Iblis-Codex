@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientUi.h"
 struct D2StoredUnitRecordStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -103,12 +104,6 @@ struct SMSGHANDLER_PARAMS
     char unk0x00[0x18];
     int bReturn;
     int lResult;
-};
-
-struct D2ClientNotifyStrc
-{
-    char unk0x00[0x14];
-    void (__fastcall* pfnSendCommand)(const char* szText);
 };
 
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
@@ -505,7 +500,7 @@ static int sub_0049B990_DoRosterButtonAction(D2StoredUnitRecordStrc* pEntry, int
             else
                 strcpy(szText, "/unsquelch ");
             strcat(szText, sub_004795C0_GetEntryName(pEntry));
-            pNotify->pfnSendCommand(szText);
+            pNotify->pfnResign(szText);
         }
         break;
     }

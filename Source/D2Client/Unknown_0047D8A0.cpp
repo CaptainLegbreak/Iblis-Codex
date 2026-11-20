@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientUi.h"
 
 struct D2OptionHeaderStrc;
 struct D2OptionEntryStrc;
@@ -13,23 +14,6 @@ struct SMSGHANDLER_PARAMS
     void* pExtra;
     int bUseResult;
     int lResult;
-};
-
-struct D2OptionHeaderStrc
-{
-    int nCount;
-};
-
-struct D2OptionEntryStrc
-{
-    int nKind;
-    char unk0x004[0x10C];
-    int (__cdecl* pfnEnabled)();
-    void (__fastcall* pfnChanged)(D2OptionEntryStrc* pEntry, int nArg);
-    int unk0x118[2];
-    unsigned int nValues;
-    unsigned int nValue;
-    char unk0x128[0x428];
 };
 
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290

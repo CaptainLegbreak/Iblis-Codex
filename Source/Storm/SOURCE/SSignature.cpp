@@ -1,4 +1,5 @@
 #include "Storm.h"
+#include "D2StormTypes.h"
 
 struct D2StormLinkStrc;
 struct D2StormNodeListStrc;
@@ -18,8 +19,6 @@ struct D2StormQueueStrc;
 struct D2StormRecord14Strc;
 struct D2StormRecordStackStrc;
 struct D2StormBigStrc;
-struct D2StormEventHandlerStrc;
-struct D2StormHandlerTableStrc;
 struct T0041D340;
 
 extern "C" void* __cdecl _alloca(unsigned int nSize);
@@ -331,19 +330,6 @@ struct D2StormBigStrc
 int __stdcall sub_004242C0_BigOp(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB, D2StormRecordStackStrc* pStack); // 0x004242C0
 int __stdcall sub_00424700_BigOp(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB, D2StormRecordStackStrc* pStack); // 0x00424700
 int __stdcall sub_00424B00_BigOp(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormRecordStackStrc* pStack); // 0x00424B00
-
-struct D2StormEventHandlerStrc
-{
-    int nData[3];
-    D2StormEventHandlerStrc* pNext;
-};
-
-struct D2StormHandlerTableStrc
-{
-    D2StormEventHandlerStrc** ppTable;
-    unsigned int nSize;
-    int nUsed;
-};
 
 struct T0041D340
 {

@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2CelContext.h"
+#include "D2ClientUi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -106,24 +107,6 @@ int __cdecl sub_004DF960(); // 0x004DF960
 int __cdecl sub_004E00D0_ToggleSoundMode01(); // 0x004E00D0
 int __cdecl sub_004E0140_ToggleSoundMode12(); // 0x004E0140
 
-struct D2OptionEntryStrc
-{
-    int nKind;
-    int bExpansionOnly;
-    int nY;
-    char f_C[0x104];
-    int (__cdecl* pfnEnabled)();
-    void (__fastcall* pfnChanged)(D2OptionEntryStrc* pEntry, SMSGHANDLER_PARAMS* pMsg);
-    void (__fastcall* pfnLoad)(D2OptionEntryStrc* pEntry, int nArg);
-    void (__fastcall* pfnInit)(D2OptionEntryStrc* pEntry, int nArg);
-    unsigned int nValues;
-    unsigned int nValue;
-    char unk0x128[4];
-    char szValueCels[4][0x104];
-    void* pCel;
-    void* pValueCels[4];
-};
-
 void __stdcall D2GFX_SetPerspective(int bPerspective); // 0x004F51E0
 void __stdcall D2GFX_SetBlendShadows(int bBlendedShadows); // 0x004F5200
 void __fastcall sub_0044BA20(int nResolution); // 0x0044BA20
@@ -138,14 +121,6 @@ int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x004
 extern D2ViewStrc* gpView_007A0640; // 0x007A0640
 extern int gnAutomapHeight_007A521C; // 0x007A521C
 extern int gnAutomapWidth_007A5220; // 0x007A5220
-
-struct D2OptionHeaderStrc
-{
-    int nCount;
-    int nHeight;
-    int nTextOffset;
-    int nArrowOffset;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -166,14 +141,12 @@ int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 extern D2EscMenuUIStateStrc gaEscMenuUIState_00713058[38]; // 0x00713058
 
-
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x00681EF0
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 extern void* gpCellFile_007BC960; // 0x007BC960
 extern int gnGlobal_00711470; // 0x00711470
 extern int gdwGlobal_007BC978; // 0x007BC978
 void __cdecl sub_K04_EmitUse(int nValue);
-
 
 int __cdecl sub_0044DB30(); // 0x0044DB30
 extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char* szText); // 0x006CC200

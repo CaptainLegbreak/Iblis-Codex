@@ -1,16 +1,7 @@
 #include "D2Glide.h"
+
 struct D2GlideDebugCellStrc;
 
-struct T00508FE0
-{
-    float x;
-    float y;
-    float unk0x08;
-    float oow;
-    float sow;
-    float tow;
-    float unk0x18;
-};
 extern void (__stdcall* gpfGlideColorCombine_0087EB2C)(int nFunction, int nFactor, int nLocal, int nOther, int bInvert); // 0x0087EB2C
 extern void (__stdcall* gpfGlideMask_0087EB8C)(int bEnable); // 0x0087EB8C
 extern void (__stdcall* gpfGlideConstantColor_0087EFA0)(unsigned int dwColor); // 0x0087EFA0
@@ -19,7 +10,7 @@ unsigned int __fastcall sub_005093F0_GlidePaletteColor(int nPaletteIndex); // 0x
 void __fastcall sub_005094B0_GlideSetState(int nState); // 0x005094B0
 void __fastcall sub_00509500_GlideSetCombine(int nMode); // 0x00509500
 extern int gnScreenWidth_007C9138; // 0x007C9138
-extern void (__stdcall* gpfGlideDrawLine_0087E978)(const T00508FE0* pStart, const T00508FE0* pEnd); // 0x0087E978
+extern void (__stdcall* gpfGlideDrawLine_0087E978)(const D2GlideSpriteVertexStrc* pStart, const D2GlideSpriteVertexStrc* pEnd); // 0x0087E978
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 void __fastcall sub_0050BF50_GlideDrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int nDrawMode); // 0x0050BF50
 extern void (__stdcall* gpfGlideBufferClear_0087EB88)(unsigned int color, unsigned int alpha, unsigned int depth); // 0x0087EB88
@@ -32,7 +23,7 @@ static void sub_0050BD30_GlideDrawPointCross(unsigned int dwColor, int nX, int n
     gpfGlideConstantColor_0087EFA0(dwColor);
     for (int i = 0; i < 8; ++i)
     {
-        T00508FE0 tVertex;
+        D2GlideSpriteVertexStrc tVertex;
         tVertex.x = (float)(gaGlideCrossOffsetX_0072F2C8[i] + nX);
         tVertex.y = (float)(gaGlideCrossOffsetY_0072F2E8[i] + nY);
         gpfGlideDrawPoint_0087EAA0(&tVertex);
@@ -129,7 +120,7 @@ void __fastcall sub_0050C270_GlideDrawLine(int nXStart, int nYStart, int nXEnd, 
 
     if (nXStart == nXEnd && nYStart == nYEnd)
     {
-        T00508FE0 tVertex;
+        D2GlideSpriteVertexStrc tVertex;
         tVertex.x = (float)nXStart;
         tVertex.y = (float)nYStart;
         tVertex.oow = 1.0f;
@@ -139,8 +130,8 @@ void __fastcall sub_0050C270_GlideDrawLine(int nXStart, int nYStart, int nXEnd, 
     }
     else
     {
-        T00508FE0 tStart;
-        T00508FE0 tEnd;
+        D2GlideSpriteVertexStrc tStart;
+        D2GlideSpriteVertexStrc tEnd;
         tStart.x = (float)nXStart;
         tStart.y = (float)nYStart;
         tStart.oow = 1.0f;

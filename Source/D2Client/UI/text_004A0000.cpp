@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientUi.h"
 
 struct T00479230;
 
@@ -10,12 +11,6 @@ struct D2TextNodeStrc
     D2TextNodeStrc* pNext;
 };
 #pragma pack(pop)
-
-struct D2TextListStrc
-{
-    D2TextNodeStrc* pFirst;
-    unsigned short wCount;
-};
 
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 extern T00479230* gpTextBox_007BF0A4;                                                                   // 0x007BF0A4

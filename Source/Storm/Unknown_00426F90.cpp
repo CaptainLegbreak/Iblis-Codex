@@ -1,29 +1,6 @@
 #include "Storm.h"
 #include "D2GameTypes.h"
-
-
-struct D2StormEventHandlerStrc
-{
-    unsigned int nId;
-    unsigned int nSequence;
-    SEVTHANDLER pfnHandler;
-    D2StormEventHandlerStrc* pNext;
-};
-
-struct D2StormHandlerTableStrc
-{
-    D2StormEventHandlerStrc** ppTable;
-    unsigned int nSize;
-};
-
-struct D2StormEventTypeStrc
-{
-    unsigned int nType;
-    unsigned int nSubType;
-    char unk0x08[0x04];
-    D2StormHandlerTableStrc* f_C;
-    D2StormEventTypeStrc* pNext;
-};
+#include "D2StormTypes.h"
 
 struct D2StormLinkStrc
 {
@@ -152,9 +129,9 @@ int __stdcall SEvtDispatch(unsigned int nType, unsigned int nSubType, unsigned i
         {
             pHandler = 0;
             D2StormEventTypeStrc* pType = sub_00426270(nType, nSubType);
-            if (pType && pType->f_C->ppTable && pType->f_C->nSize)
+            if (pType && pType->pHandlers->ppTable && pType->pHandlers->nSize)
             {
-                for (pHandler = pType->f_C->ppTable[(pType->f_C->nSize - 1) & nId]; pHandler; pHandler = pHandler->pNext)
+                for (pHandler = pType->pHandlers->ppTable[(pType->pHandlers->nSize - 1) & nId]; pHandler; pHandler = pHandler->pNext)
                 {
                     if (pHandler->nId == nId && pHandler->nSequence < nMinSequence)
                         break;

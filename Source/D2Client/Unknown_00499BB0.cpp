@@ -1,26 +1,8 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
+#include "D2ClientUi.h"
 struct D2UnitStrc;
-
-
-
-struct D2UiRectStrc
-{
-    int nLeft;
-    int nRight;
-    int nTop;
-    int nBottom;
-};
-
-struct D2UiRecordStrc
-{
-    int unk0x00;
-    unsigned char nBoxes;
-    unsigned char unk0x05;
-    unsigned short unk0x06;
-    D2UiRectStrc aRects[16];
-};
 
 struct SMSGHANDLER_PARAMS
 {

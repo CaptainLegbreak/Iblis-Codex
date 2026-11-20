@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2LevelTxt.h"
+#include "D2ClientUi.h"
 struct D2ActiveRoomStrc;
 struct D2StoredUnitRecordStrc;
 struct D2UnitStrc;
@@ -50,12 +51,6 @@ struct D2TextNodeStrc
     unsigned char pNext[4];
 };
 
-struct D2TextListStrc
-{
-    D2TextNodeStrc* pFirst;
-    unsigned short wCount;
-};
-
 struct D2NamePacketStrc
 {
     unsigned char nHeader;
@@ -78,7 +73,6 @@ int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 
 int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
 int __cdecl sub_0045AE90(); // 0x0045AE90
 void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
-
 
 void __fastcall sub_004E6410_BuildPropText(D2UnitStrc* pItem, Unicode* wszText, int nArg, int bFlag, int nArg2); // 0x004E6410
 int __fastcall D2Win_10123(const Unicode* wszText, int nLength); // 0x00501730
@@ -122,7 +116,6 @@ struct D2MonStatsTxt
     char unk0x00[0x6];
     unsigned short wNameStr;
 };
-
 
 struct D2ObjectsTxt
 {

@@ -6,8 +6,7 @@
 #include "D2Txt.h"
 #include "D2Records.h"
 #include "D2ClientTypes.h"
-
-
+#include "D2ClientUi.h"
 
 struct SMSGHANDLER_PARAMS
 {
@@ -25,19 +24,6 @@ struct SMSGHANDLER_PARAMS
 struct Unicode
 {
     unsigned short wChar;
-};
-
-
-
-
-
-
-struct D2InvCompGridStrc
-{
-    D2InvRectStrc rect;
-    unsigned char nWidth;
-    unsigned char nHeight;
-    unsigned short pad0x12;
 };
 
 #pragma pack(push, 2)

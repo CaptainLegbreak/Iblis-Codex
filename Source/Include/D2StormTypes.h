@@ -1,5 +1,5 @@
 #pragma once
-// Storm: memory manager heaps and blocks, error reports and other shared records.
+// Storm: memory manager heaps and blocks, error reports, archive headers and event dispatch records.
 
 #include "D2Check.h"
 #include "D2Structs.h"
@@ -9,8 +9,15 @@ struct D2SMemBlockStrc;
 struct D2SMemLargeHeaderStrc;
 struct D2SMemHeapStrc;
 struct D2ErrorReportStrc;
+struct D2StormMpqHeaderStrc;
+struct D2StormHashEntryStrc;
+struct D2StormArrayViewStrc;
+struct D2StormEventHandlerStrc;
+struct D2StormHandlerTableStrc;
+struct D2StormEventTypeStrc;
 
 typedef void (__stdcall* D2ErrorCallback)(D2ErrorReportStrc*);
+typedef void (__stdcall* SEVTHANDLER)(void* pData);
 
 struct D2SMemBlockSigStrc
 {
@@ -66,8 +73,69 @@ struct D2ErrorReportStrc
     D2ErrorCallback callback; // 0x0C
 };
 
+struct D2StormMpqHeaderStrc
+{
+    unsigned int dwSignature; // 0x00
+    unsigned int nHeaderSize; // 0x04
+    unsigned int nArchiveSize; // 0x08
+    unsigned short wVersion; // 0x0C
+    unsigned char nSectorShift; // 0x0E
+    unsigned char unk0x0F; // 0x0F
+    unsigned int nHashOffset; // 0x10
+    unsigned int nBlockOffset; // 0x14
+    unsigned int nHashEntries; // 0x18
+    unsigned int nBlockEntries; // 0x1C
+};
+
+struct D2StormHashEntryStrc
+{
+    unsigned int nName1; // 0x00
+    unsigned int nName2; // 0x04
+    unsigned short wLocale; // 0x08
+    unsigned char nPlatform; // 0x0A
+    unsigned char unk0x0B; // 0x0B
+    int nBlockIndex; // 0x0C
+};
+
+struct D2StormArrayViewStrc
+{
+    const unsigned int* pData; // 0x00
+    unsigned int nCount; // 0x04
+};
+
+struct D2StormEventHandlerStrc
+{
+    unsigned int nId; // 0x00
+    unsigned int nSequence; // 0x04
+    SEVTHANDLER pfnHandler; // 0x08
+    D2StormEventHandlerStrc* pNext; // 0x0C
+};
+
+struct D2StormHandlerTableStrc
+{
+    D2StormEventHandlerStrc** ppTable; // 0x00
+    unsigned int nSize; // 0x04
+    int nUsed; // 0x08
+    D2StormHandlerTableStrc* pPrevState; // 0x0C
+};
+
+struct D2StormEventTypeStrc
+{
+    unsigned int nType; // 0x00
+    unsigned int nSubType; // 0x04
+    unsigned int nSequence; // 0x08
+    D2StormHandlerTableStrc* pHandlers; // 0x0C
+    D2StormEventTypeStrc* pNext; // 0x10
+};
+
 D2_CHECK_SIZE(D2SMemBlockSigStrc, 0x4);
 D2_CHECK_SIZE(D2SMemBlockStrc, 0x8);
 D2_CHECK_SIZE(D2SMemLargeHeaderStrc, 0x10);
 D2_CHECK_SIZE(D2SMemHeapStrc, 0x64);
 D2_CHECK_SIZE(D2ErrorReportStrc, 0x10);
+D2_CHECK_SIZE(D2StormMpqHeaderStrc, 0x20);
+D2_CHECK_SIZE(D2StormHashEntryStrc, 0x10);
+D2_CHECK_SIZE(D2StormArrayViewStrc, 0x8);
+D2_CHECK_SIZE(D2StormEventHandlerStrc, 0x10);
+D2_CHECK_SIZE(D2StormHandlerTableStrc, 0x10);
+D2_CHECK_SIZE(D2StormEventTypeStrc, 0x14);

@@ -1,8 +1,4 @@
-struct D2HintCursorStrc
-{
-    char unk0x00[0x40];
-    unsigned char nRefreshCount;
-};
+#include "D2ClientUi.h"
 
 #pragma pack(push, 1)
 struct D2TimedHintEntryStrc
@@ -20,12 +16,6 @@ struct D2TimedHintEntryStrc
 #pragma pack(pop)
 
 typedef char check_size_hintentry[(sizeof(D2TimedHintEntryStrc) == 0x59) ? 1 : -1];
-
-struct D2TimedHintNodeStrc
-{
-    D2TimedHintEntryStrc* f_0;
-    D2TimedHintNodeStrc* pNext;
-};
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -74,7 +64,7 @@ int __fastcall sub_004B95C0_IsHintPlaying(int nKey)
     {
         for (D2TimedHintNodeStrc* pNode = gpTimedHintList_007C5458; pNode; pNode = pNode->pNext)
         {
-            D2TimedHintEntryStrc* pEntry = pNode->f_0;
+            D2TimedHintEntryStrc* pEntry = pNode->pEntry;
             if (pEntry->nKey == nKey)
             {
                 void* pSound = pEntry->f_2C;
@@ -98,7 +88,7 @@ int __fastcall sub_004B9D50_GetPosition(int nKey)
     {
         for (D2TimedHintNodeStrc* pNode = gpTimedHintList_007C5458; pNode; pNode = pNode->pNext)
         {
-            D2TimedHintEntryStrc* pEntry = pNode->f_0;
+            D2TimedHintEntryStrc* pEntry = pNode->pEntry;
             if (pEntry->nKey == nKey)
             {
                 D2_ASSERT(pEntry->f_2C, 0x45A);
@@ -117,7 +107,7 @@ void __fastcall sub_004BA840(int nHandle)
     {
         for (D2TimedHintNodeStrc* pNode = gpTimedHintList_007C5458; pNode; pNode = pNode->pNext)
         {
-            D2TimedHintEntryStrc* pEntry = pNode->f_0;
+            D2TimedHintEntryStrc* pEntry = pNode->pEntry;
             if (pEntry->nKey == nHandle)
             {
                 D2HintCursorStrc* pCursor = sub_00481860(pEntry->nHintId);
@@ -145,7 +135,7 @@ void __cdecl sub_004BA8F0()
 
     for (; pNode; pNode = pNode->pNext)
     {
-        D2TimedHintEntryStrc* pEntry = pNode->f_0;
+        D2TimedHintEntryStrc* pEntry = pNode->pEntry;
         if (pEntry->nHintId >= sub_004817F0() && pEntry->nHintId <= sub_00481800())
         {
             D2HintCursorStrc* pCursor = sub_00481860(pEntry->nHintId);
@@ -164,7 +154,7 @@ void __cdecl sub_004BAA50_RefreshHintRange()
 {
     for (D2TimedHintNodeStrc* pNode = gpTimedHintList_007C5458; pNode; pNode = pNode->pNext)
     {
-        D2TimedHintEntryStrc* pEntry = pNode->f_0;
+        D2TimedHintEntryStrc* pEntry = pNode->pEntry;
         if (pEntry->nHintId >= 0xB76 && pEntry->nHintId <= 0x1230)
         {
             D2HintCursorStrc* pCursor = sub_00481860(pEntry->nHintId);

@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2ClientTypes.h"
+#include "D2ClientUi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -7,22 +8,10 @@ struct D2RectStrc;
 struct D2MsgHandlerEntryStrc;
 struct D2DialogWidgetNodeStrc;
 
-
 struct D2DialogWidgetNodeStrc
 {
     void* f_0;
     D2DialogWidgetNodeStrc* pNext;
-};
-
-struct D2ClientDialogStrc
-{
-    unsigned long dwTick;
-    int unk0x04;
-    void* pCelFile;
-    int unk0x0C;
-    char unk0x10[0xAF8];
-    D2DialogWidgetNodeStrc* pWidgets;
-    D2ClientDialogStrc* pNext;
 };
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -109,7 +98,7 @@ void __fastcall sub_004B8020(void* pRes)
             pNode = pNext;
         }
 
-        if (pDialog->unk0x0C && pDialog->pCelFile)
+        if (pDialog->bDrawCel && pDialog->pCelFile)
         {
             sub_00478A00(pDialog->pCelFile);
         }

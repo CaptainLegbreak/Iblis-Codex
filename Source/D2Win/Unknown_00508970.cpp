@@ -4,7 +4,6 @@
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define GLIDE_GETPROC(pfn, szName, nLine) *(void**)&pfn = GetProcAddress(ghGlideLibrary_0087EFA8, szName); D2_ASSERT(pfn, nLine)
 
-struct T00508FE0;
 struct D2GrLfbInfoStrc;
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);
@@ -41,9 +40,9 @@ void* ghGlideLibrary_0087EFA8; // 0x0087EFA8
 
 void (__stdcall* gpfGlideGammaCorrectionRGB_0087EABC)(float fRed, float fGreen, float fBlue); // 0x0087EABC
 
-void (__stdcall* gpfGlideDrawPoint_0087EAA0)(const T00508FE0* pVertex); // 0x0087EAA0
+void (__stdcall* gpfGlideDrawPoint_0087EAA0)(const D2GlideSpriteVertexStrc* pVertex); // 0x0087EAA0
 
-void (__stdcall* gpfGlideDrawLine_0087E978)(const T00508FE0* pStart, const T00508FE0* pEnd); // 0x0087E978
+void (__stdcall* gpfGlideDrawLine_0087E978)(const D2GlideSpriteVertexStrc* pStart, const D2GlideSpriteVertexStrc* pEnd); // 0x0087E978
 
 void* gpfGlideDrawTriangle_0087EB0C; // 0x0087EB0C
 

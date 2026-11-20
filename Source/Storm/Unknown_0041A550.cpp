@@ -1,6 +1,6 @@
 #include "D2GameTypes.h"
+#include "D2StormTypes.h"
 #define INVALID_FILE_HANDLE ((void*)-1)
-
 
 struct D2StormLinkStrc
 {
@@ -33,32 +33,6 @@ struct D2StormLinkStrc
             m_next = 0;
         }
     }
-};
-
-struct D2StormMpqHeaderStrc
-{
-    unsigned int dwSignature;
-
-    unsigned int nHeaderSize;
-    unsigned int nArchiveSize;
-    unsigned short wVersion;
-    unsigned char nSectorShift;
-    unsigned char unk0x0F;
-    unsigned int nHashOffset;
-    unsigned int nBlockOffset;
-    unsigned int nHashEntries;
-    unsigned int nBlockEntries;
-};
-
-struct D2StormHashEntryStrc
-{
-    unsigned int nName1;
-    unsigned int nName2;
-
-    unsigned short wLocale;
-    unsigned char nPlatform;
-    unsigned char unk0x0B;
-    int nBlockIndex;
 };
 
 struct D2StormBlockStrc

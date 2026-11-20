@@ -6,6 +6,7 @@
 #include "D2CelContext.h"
 #include "D2Records.h"
 #include "D2ClientTypes.h"
+#include "D2ClientUi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define gnGlobal_007BCAA0 (gInvRect_007BCAA0.nLeft)
@@ -39,8 +40,6 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-
-
 struct T00479230
 {
     char unk0x00[0x16];
@@ -68,10 +67,6 @@ struct D2AreaScanFindStrc
 };
 
 typedef int (__fastcall* AREASCANFN)(void* pArg, D2UnitStrc* pUnit);
-
-
-
-
 
 struct D2RequestStrc
 {
@@ -123,23 +118,6 @@ struct D2RosterPetStrc
     int dwOwnerId;
     char unk0x10[0x20];
     D2RosterPetStrc* pNext;
-};
-
-struct D2OptionHeaderStrc
-{
-    int nCount;
-};
-
-struct D2OptionEntryStrc
-{
-    int nKind;
-    char unk0x004[0x10C];
-    int (__cdecl* pfnEnabled)();
-    void (__fastcall* pfnChanged)(D2OptionEntryStrc* pEntry, int nArg);
-    int unk0x118[2];
-    unsigned int nValues;
-    unsigned int nValue;
-    char unk0x128[0x428];
 };
 
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
@@ -232,7 +210,6 @@ extern D2OptionHeaderStrc gOptionHeader_0071D734; // 0x0071D734
 extern D2OptionEntryStrc gaOptionEntries_0071D748[]; // 0x0071D748
 extern D2OptionEntryStrc gaOptionEntries_0071F728[]; // 0x0071F728
 extern D2RosterPetStrc* gpRosterPets_007BB5BC; // 0x007BB5BC
-
 
 extern D2InvRectStrc gInvRect_007BCAA0; // 0x007BCAA0
 extern D2OptionHeaderStrc* gpOptionHeader_007BC93C; // 0x007BC93C

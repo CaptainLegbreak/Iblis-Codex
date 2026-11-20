@@ -2,13 +2,13 @@
 #include "D2Structs.h"
 #include "D2Txt.h"
 #include "D2CelContext.h"
+#include "D2ClientUi.h"
 struct D2UnitStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2UiRectStrc;
 struct D2UiRecordStrc;
 struct D2Block1;
-
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 void* __fastcall sub_004520C0_LoadUiCelFile(const char* szPath); // 0x004520C0
@@ -36,25 +36,6 @@ extern int gnGlobal_00711470; // 0x00711470
 extern void* gpBorderFrameCel_007BEF18; // 0x007BEF18
 extern int gnLevelTimer_007BEFEC; // 0x007BEFEC
 extern int gnLevelId_007BEFF0; // 0x007BEFF0
-
-
-
-struct D2UiRectStrc
-{
-    int nLeft;
-    int nRight;
-    int nTop;
-    int nBottom;
-};
-
-struct D2UiRecordStrc
-{
-    int unk0x00;
-    unsigned char nBoxes;
-    unsigned char unk0x05;
-    unsigned short unk0x06;
-    D2UiRectStrc aRects[16];
-};
 
 struct SMSGHANDLER_PARAMS
 {

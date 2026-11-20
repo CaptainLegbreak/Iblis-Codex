@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2CelContext.h"
+#include "D2ClientUi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -40,12 +41,6 @@ struct Unicode
     unsigned short wChar;
 
     Unicode();                                                                                              // 0x0042F530
-};
-
-struct D2ClientNotifyStrc
-{
-    char unk0x00[0x24];
-    int (__fastcall* pfnGetMessage)(int* pResult, D2BnetChatPacketStrc* pPacket);
 };
 
 class D2SquelchListStrc
@@ -95,31 +90,6 @@ int __cdecl sub_00514CC0(); // 0x00514CC0
 int __cdecl sub_00514CF0(); // 0x00514CF0
 int __cdecl sub_00514D20(); // 0x00514D20
 static __declspec(noinline) unsigned int __stdcall sub_0047CC90_ValueToSlider(D2MenuItemStrc* pItem, unsigned int nValue, unsigned int nMin, unsigned int nMax);
-
-struct D2OptionHeaderStrc
-{
-    int nCount;
-    unsigned char unk_04[0xC];
-    int nY;
-};
-
-struct D2OptionEntryStrc
-{
-    int nKind;
-    int bExpansionOnly;
-    char unk0x008[4];
-    char f_C[0x104];
-    int (__cdecl* pfnEnabled)();
-    void (__fastcall* pfnChanged)(D2OptionEntryStrc* pEntry, int nArg);
-    void (__fastcall* pfnLoad)(D2OptionEntryStrc* pEntry, int nArg);
-    void (__fastcall* pfnInit)(D2OptionEntryStrc* pEntry, int nArg);
-    unsigned int nValues;
-    unsigned int nValue;
-    int bEnabled;
-    char szValueCels[4][0x104];
-    void* pCel;
-    void* pValueCels[4];
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -341,9 +311,9 @@ void __fastcall sub_0047DBB0_LoadOptionCels(D2OptionHeaderStrc* pHeader, D2Optio
     {
         if (pEntries[i].bExpansionOnly && !sub_00408F20_HasExpansionMpq())
             continue;
-        if (pEntries[i].f_C[0])
+        if (pEntries[i].szCelName[0])
         {
-            sprintf(szPath, "%s\\UI\\%s\\%s", szDataLocal_006D41A8, szLang, pEntries[i].f_C);
+            sprintf(szPath, "%s\\UI\\%s\\%s", szDataLocal_006D41A8, szLang, pEntries[i].szCelName);
             pEntries[i].pCel = sub_004788B0(szPath, 0);
             if (pEntries[i].nKind == 1)
             {

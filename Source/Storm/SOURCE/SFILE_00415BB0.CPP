@@ -1,11 +1,5 @@
 #include "D2GameTypes.h"
-
-struct D2StormMpqHeaderStrc
-{
-    unsigned int dwSignature;
-    unsigned int f_4;
-    unsigned int nArchiveSize;
-};
+#include "D2StormTypes.h"
 
 struct D2StormArchiveRecStrc
 {

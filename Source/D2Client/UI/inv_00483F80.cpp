@@ -6,6 +6,7 @@
 #include "D2Txt.h"
 #include "D2Records.h"
 #include "D2ClientTypes.h"
+#include "D2ClientUi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2StaticPathStrc;
@@ -15,8 +16,6 @@ struct D2InvRectStrc;
 struct D2InventoryGridInfoStrc;
 struct D2InvCompGridStrc;
 struct D2NpcButtonStrc;
-
-
 
 struct SMSGHANDLER_PARAMS
 {
@@ -34,19 +33,6 @@ struct SMSGHANDLER_PARAMS
 struct Unicode
 {
     unsigned short wChar;
-};
-
-
-
-
-
-
-struct D2InvCompGridStrc
-{
-    D2InvRectStrc rect;
-    unsigned char nWidth;
-    unsigned char nHeight;
-    unsigned short pad0x12;
 };
 
 #pragma pack(push, 2)

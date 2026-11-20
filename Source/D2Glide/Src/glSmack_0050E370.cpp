@@ -1,5 +1,4 @@
 #include "D2Glide.h"
-#include "D2GfxTypes.h"
 
 struct D2GlideSmackStrc
 {
@@ -8,16 +7,6 @@ struct D2GlideSmackStrc
     unsigned char unk0x05[3];
     int nX;
     int nY;
-};
-struct T00508FE0
-{
-    float x;
-    float y;
-    float unk0x08;
-    float oow;
-    float sow;
-    float tow;
-    float unk0x18;
 };
 
 extern "C" __declspec(dllimport) int __stdcall SmackWait(D2SmackStrc* hSmack);                             // 0x006CC5F8
@@ -38,7 +27,7 @@ extern int gnGlideSmackTexAddrA_00880BE8;                                       
 extern int gnGlideSmackTexAddrB_00880BEC;                                                                   // 0x00880BEC
 extern D2GrTexInfoStrc gGlideSmackTexInfoA_0072F680;                                                        // 0x0072F680
 extern D2GrTexInfoStrc gGlideSmackTexInfoB_0072F694;                                                        // 0x0072F694
-T00508FE0 gaGlideSmackVertices_00880B78[4];                                                         // 0x00880B78
+D2GlideSpriteVertexStrc gaGlideSmackVertices_00880B78[4];                                                         // 0x00880B78
 extern int gbRenderPaused_007C9144;                                                                         // 0x007C9144
 
 // 0x0050E370
@@ -77,7 +66,7 @@ static void __stdcall sub_0050E370_GlideDrawSmackFrame(int nHeight, D2GlideSmack
     gaGlideSmackVertices_00880B78[3].oow = 1.0f;
     gaGlideSmackVertices_00880B78[3].sow = (float)nTexWidth;
     gaGlideSmackVertices_00880B78[3].tow = 0.0f;
-    gpfGlideDrawVertexArrayContiguous_0087EAC4(5, 4, gaGlideSmackVertices_00880B78, sizeof(T00508FE0));
+    gpfGlideDrawVertexArrayContiguous_0087EAC4(5, 4, gaGlideSmackVertices_00880B78, sizeof(D2GlideSpriteVertexStrc));
 
     gpfGlideTexSource_0087EB98(gnGlideSmackTmu_00880BF4, gnGlideSmackTexAddrB_00880BEC, 3, &gGlideSmackTexInfoB_0072F694);
     nX = nRight;
@@ -103,7 +92,7 @@ static void __stdcall sub_0050E370_GlideDrawSmackFrame(int nHeight, D2GlideSmack
     gaGlideSmackVertices_00880B78[3].oow = 1.0f;
     gaGlideSmackVertices_00880B78[3].sow = (float)nTexWidth;
     gaGlideSmackVertices_00880B78[3].tow = 0.0f;
-    gpfGlideDrawVertexArrayContiguous_0087EAC4(5, 4, gaGlideSmackVertices_00880B78, sizeof(T00508FE0));
+    gpfGlideDrawVertexArrayContiguous_0087EAC4(5, 4, gaGlideSmackVertices_00880B78, sizeof(D2GlideSpriteVertexStrc));
     gpfGlideMask_0087EB8C(1);
 }
 

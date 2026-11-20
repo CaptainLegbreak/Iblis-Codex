@@ -1,13 +1,4 @@
-struct D2AutomapCellStrc
-{
-    unsigned int fSaved;
-    short nCellNo;
-    short xPixel;
-    short yPixel;
-    short wWeight;
-    D2AutomapCellStrc* pPrev;
-    D2AutomapCellStrc* pNext;
-};
+#include "D2ClientUi.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090

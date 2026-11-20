@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2LevelTxt.h"
 #include "D2ClientTypes.h"
+#include "D2ClientUi.h"
 struct D2UnitStrc;
 
 #define PETTYPE_FLAG_PARTY 4
@@ -13,8 +14,6 @@ struct D2ClientEntryStrc;
 struct D2InvRectStrc;
 struct D2InventoryGridInfoStrc;
 struct D2InvCompGridStrc;
-
-
 
 struct D2RosterPetStrc
 {
@@ -45,8 +44,6 @@ D2StoredUnitRecordStrc* __fastcall sub_00479BB0_FindRosterUnit(int nUnitId); // 
 unsigned short __fastcall sub_00479BC0_GetEntryIndex(D2StoredUnitRecordStrc* pEntry); // 0x00479BC0
 extern D2RosterPetStrc* gpRosterPets_007BB5BC; // 0x007BB5BC
 
-
-
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -56,16 +53,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 unsigned int __fastcall sub_004DC440(int nUnitId1, int nUnitId2, unsigned int nFlags); // 0x004DC440
 int __fastcall sub_0047A070_TestPvpFlag8(int nUnitId1, int nUnitId2); // 0x0047A070
 int __cdecl sub_0044DCC0(); // 0x0044DCC0
-
-
-
-struct D2InvCompGridStrc
-{
-    D2InvRectStrc rect;
-    unsigned char nWidth;
-    unsigned char nHeight;
-    unsigned short pad0x12;
-};
 
 void __stdcall sub_0065C180_2(int nInventoryTxtId, int bHigherRes, D2InvRectStrc* pInvRect); // 0x0065C180
 void __stdcall sub_0065C1F0_2(int nInventoryTxtId, int bHigherRes, D2InventoryGridInfoStrc* pInventoryGridInfo); // 0x0065C1F0

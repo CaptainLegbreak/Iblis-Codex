@@ -5,6 +5,7 @@
 #include "D2Txt.h"
 #include "D2Drlg.h"
 #include "D2DrlgMaps.h"
+#include "D2ClientUi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2TileLibraryEntryStrc;
@@ -16,17 +17,6 @@ struct D2MonStatsTxt;
 struct D2MonStats2Txt;
 struct D2AutomapSaveStrc;
 struct D2AutomapRecordStrc;
-
-struct D2AutomapCellStrc
-{
-    unsigned int fSaved;
-    unsigned short nCellNo;
-    unsigned short xPixel;
-    unsigned short yPixel;
-    unsigned short wWeight;
-    D2AutomapCellStrc* pPrev;
-    D2AutomapCellStrc* pNext;
-};
 
 struct D2AutomapLayerStrc
 {
@@ -56,7 +46,6 @@ extern int gnRevealSkip_007A51A4; // 0x007A51A4
 extern int gnMiniMapY_007A51D8; // 0x007A51D8
 extern int gdwGlobal_007A51E0; // 0x007A51E0
 
-
 struct D2AutomapRoomStrc
 {
     char unk0x00[0x34];
@@ -65,7 +54,6 @@ struct D2AutomapRoomStrc
     char unk0x3C[0x1C];
     D2DrlgLevelStrc* pLevel;
 };
-
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -79,15 +67,9 @@ int __fastcall DATATBLS_GetAutomapCellId(void* pAutomapLevelType, int nAutomapTi
 D2AutomapCellStrc* __cdecl sub_00457C30(); // 0x00457C30
 int __fastcall sub_00457B00(D2AutomapCellStrc* pCell, D2AutomapCellStrc** ppRoot); // 0x00457B00
 
-
 D2AutomapRoomStrc* __fastcall sub_0061AAE0_GetAutomapRoom(D2ActiveRoomStrc* pRoom); // 0x0061AAE0
 D2DrlgTileDataStrc* __stdcall sub_006196A0_GetWallTiles(D2ActiveRoomStrc* pRoom, unsigned int* pCount); // 0x006196A0
 void __stdcall sub_00458DC0_RevealRoomObjects(D2ActiveRoomStrc* pRoom, D2AutomapCellStrc** ppRoot); // 0x00458DC0
-
-
-
-
-
 
 int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit); // 0x00620650
 int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit); // 0x006206B0

@@ -1,5 +1,4 @@
 #include "D2Glide.h"
-#include "D2GfxTypes.h"
 
 struct D2TileLibraryEntryStrc;
 
@@ -9,28 +8,6 @@ struct tagPOINT
     long y;
 };
 
-struct D2DDBltFxStrc
-{
-    unsigned int dwSize;
-    unsigned int unk0x04[19];
-    unsigned int dwFillColor;
-    unsigned int unk0x54[4];
-};
-
-struct D2DDrawSurfaceVtblStrc
-{
-    void* unk0x00[5];
-    long (__stdcall* Blt)(D2DDrawSurfaceStrc* pThis, tagRECT* pDestRect, D2DDrawSurfaceStrc* pSrcSurface, tagRECT* pSrcRect, unsigned long dwFlags, D2DDBltFxStrc* pBltFx);
-    void* unk0x18[19];
-    long (__stdcall* Lock)(D2DDrawSurfaceStrc* pThis, void* pDestRect, D2DDSurfaceDescStrc* pSurfaceDesc, unsigned long dwFlags, void* hEvent);
-    void* unk0x68[6];
-    long (__stdcall* Unlock)(D2DDrawSurfaceStrc* pThis, void* pRect);
-};
-
-struct D2DDrawSurfaceStrc
-{
-    D2DDrawSurfaceVtblStrc* lpVtbl;
-};
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
@@ -110,7 +87,7 @@ int __fastcall sub_00509210_GlideGetBackBuffer(unsigned char* pBuffer)
     }
 
     unsigned char* pDstRow = pBuffer;
-    unsigned short* pSrcRow = (unsigned short*)tInfo.f_4;
+    unsigned short* pSrcRow = (unsigned short*)tInfo.lfbPtr;
     for (int y = 0; y < gnScreenHeight_007C913C; ++y)
     {
         unsigned short* pSrc = pSrcRow;

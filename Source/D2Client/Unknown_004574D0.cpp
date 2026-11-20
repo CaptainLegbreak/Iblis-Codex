@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientUi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -11,17 +12,6 @@ extern int gnGlobal_00711470; // 0x00711470
 extern int gnMiniMapX_007A51DC; // 0x007A51DC
 extern int gnMiniMapY_007A51D8; // 0x007A51D8
 void __cdecl sub_00457520_UpdateAutomapLayout(); // 0x00457520
-
-struct D2AutomapCellStrc
-{
-    unsigned int fSaved;
-    short nCellNo;
-    short xPixel;
-    short yPixel;
-    short wWeight;
-    D2AutomapCellStrc* pPrev;
-    D2AutomapCellStrc* pNext;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090

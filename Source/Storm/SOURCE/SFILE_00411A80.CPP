@@ -1,5 +1,6 @@
 #include "Storm.h"
 #include "D2GameTypes.h"
+#include "D2StormTypes.h"
 #define VALIDATEEND if (!nValid) { sub_0041C340_SetLastError(0x57); return 0; }
 
 struct D2StormFileRecStrc;
@@ -30,8 +31,6 @@ struct D2CommonMappingEntryNodeBaseStrc;
 struct D2CommonMappingEntryNodeStrc;
 struct D2CommonStringEntryNodeStrc;
 struct D2CommonStormHashTableAStrc;
-struct D2StormMpqHeaderStrc;
-struct D2StormHashEntryStrc;
 struct D2StormBlockStrc;
 struct D2StormSoundBufferStrc;
 struct D2StormStreamStrc;
@@ -51,7 +50,6 @@ struct D2StormList00708384Strc;
 struct D2StormRecord419000Strc;
 struct D2StormAudioStreamStrc;
 struct D2StormFixedListStrc;
-
 
 struct D2FogBlockStrc
 {
@@ -127,32 +125,6 @@ extern "C" const char gszIgnoreListSourceFile_006E6290[];
 
 extern "C" unsigned int __security_cookie; // 0x00749DE0
 extern "C" void __fastcall __security_check_cookie(unsigned int); // 0x00681A48
-
-struct D2StormMpqHeaderStrc
-{
-    unsigned int dwSignature;
-
-    unsigned int nHeaderSize;
-    unsigned int nArchiveSize;
-    unsigned short wVersion;
-    unsigned char nSectorShift;
-    unsigned char unk0x0F;
-    unsigned int nHashOffset;
-    unsigned int nBlockOffset;
-    unsigned int nHashEntries;
-    unsigned int nBlockEntries;
-};
-
-struct D2StormHashEntryStrc
-{
-    unsigned int nName1;
-    unsigned int nName2;
-
-    unsigned short wLocale;
-    unsigned char nPlatform;
-    unsigned char unk0x0B;
-    int nBlockIndex;
-};
 
 struct D2StormBlockStrc
 {

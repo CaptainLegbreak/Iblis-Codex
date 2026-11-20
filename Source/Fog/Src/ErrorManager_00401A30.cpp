@@ -1,5 +1,6 @@
 #include "D2GameTypes.h"
 #include "D2NetTypes.h"
+#include "D2FogTypes.h"
 typedef unsigned int size_t;
 typedef char* va_list;
 #define _INTSIZEOF(n) ((sizeof(n) + sizeof(int) - 1) & ~(sizeof(int) - 1))
@@ -38,18 +39,6 @@ struct D2ServiceStatusStrc
     unsigned long dwServiceExitCode;
     unsigned long dwCheckPoint;
     unsigned long dwWaitHint;
-};
-
-struct D2PoolSystemStrc
-{
-    int bFreePoolAlloc;
-    D2CriticalSectionStrc tLock;
-    int nUnk0x1C;
-    char unk0x20[0x780];
-    int nLargeOverflow;
-    char unk0x7A4[0x08];
-    int* apLargeBlocks[1023];
-    int nCount;
 };
 
 struct AsyncData
@@ -388,7 +377,7 @@ void* __fastcall sub_00409770_PoolAllocLarge(D2PoolSystemStrc* pSystem, int nSiz
     int* pBlock = (int*)malloc(nSize + 4);
     if (!pBlock)
     {
-        sub_00409020_LogPoolError("(3) Pool Blocks overflowed at %d", pSystem->nLargeOverflow);
+        sub_00409020_LogPoolError("(3) Pool Blocks overflowed at %d", pSystem->nPoolBlocks);
         D2_ASSERT(pBlock, 904);
     }
     const int nBucket = (int)pBlock % 1023;

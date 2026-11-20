@@ -1,3 +1,4 @@
+#include "D2StormTypes.h"
 // build: context MakeLarge
 // build: context ExtractLowPart
 // build: context ExtractLowPartSx
@@ -100,12 +101,6 @@ struct D2StormArrayAStrc
     unsigned int sub_004210A0_CalcChunkSize(unsigned int nCount);                                           // 0x004210A0
     void sub_004215C0_Set(unsigned int nCount, const unsigned int* pData);                                  // 0x004215C0
     void sub_004216E0_ReallocData(unsigned int nAlloc);                                                     // 0x004216E0
-};
-
-struct D2StormArrayViewStrc
-{
-    const unsigned int* pData;
-    unsigned int nCount;
 };
 
 struct D2StormQueueStrc

@@ -1,17 +1,16 @@
 #pragma once
 
+#include "D2DDrawTypes.h"
+#include "D2GfxTypes.h"
 #include "D2GlideTypes.h"
 
 struct D2CelContextStrc;
 struct D2CelStrc;
 struct D2CriticalSectionStrc;
-struct D2DDrawSurfaceStrc;
 struct D2GfxPaletteViewStrc;
 struct D2GlideTileStrc;
-struct D2GrLfbInfoStrc;
 struct D2TileDrawFunctionsStrc;
 struct D2TileLibraryEntryStrc;
-struct T00508FE0;
 struct tagRECT;
 
 extern "C" __declspec(dllimport) int __stdcall DeleteDC(void* hdc); // 0x006CC0D8
@@ -50,7 +49,7 @@ extern int gnRenderWidth_007C9138; // 0x007C9138
 extern int gnScreenHeight_007C913C; // 0x007C913C
 extern unsigned int gaGlideDebugLight_0087F0D0[0x400]; // 0x0087F0D0
 extern unsigned int gaGlideLightPalette_0072F308[]; // 0x0072F308
-extern void (__stdcall* gpfGlideDrawPoint_0087EAA0)(const T00508FE0* pVertex); // 0x0087EAA0
+extern void (__stdcall* gpfGlideDrawPoint_0087EAA0)(const D2GlideSpriteVertexStrc* pVertex); // 0x0087EAA0
 extern void* gapGlideTileStripA_0072F350[10]; // 0x0072F350
 extern void* gapGlideTileStripB_0072F378[10]; // 0x0072F378
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
@@ -70,37 +69,6 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define GLIDE_VERTEX_IN_RECT(v, r) ((v).x >= (r).left && (v).x < (r).right && (v).y >= (r).top && (v).y < (r).bottom)
 
-struct D2BoundsStrc
-{
-    int nLeft;
-    int nRight;
-    int nTop;
-    int nBottom;
-};
-
-struct D2ClipStrc
-{
-    int nLeft;
-    int nWidth;
-    int nTop;
-    int nHeight;
-};
-
-struct D2DDSurfaceDescStrc
-{
-    unsigned int dwSize;
-    unsigned int dwFlags;
-    unsigned int dwHeight;
-    unsigned int dwWidth;
-    int lPitch;
-    unsigned int dwBackBufferCount;
-    unsigned int dwRefreshRate;
-    unsigned int dwAlphaBitDepth;
-    unsigned int dwReserved;
-    void* lpSurface;
-    unsigned int unk0x28[17];
-};
-
 struct D2GfxLightStrc
 {
     unsigned int aColor[8];
@@ -119,15 +87,6 @@ struct D2GlideTexDimsStrc
 {
     int nWidth;
     int nHeight;
-};
-
-struct D2GrLfbInfoStrc
-{
-    int size;
-    void* f_4;
-    unsigned int strideInBytes;
-    int f_C;
-    int origin;
 };
 
 struct T004F51E0

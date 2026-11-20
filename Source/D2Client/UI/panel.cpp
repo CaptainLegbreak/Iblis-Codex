@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Txt.h"
 #include "D2CelContext.h"
+#include "D2ClientUi.h"
 struct D2ActiveRoomStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -21,8 +22,6 @@ struct D2CelContextStrc;
 struct SMSGHANDLER_PARAMS;
 struct D2GfxMotionStrc;
 struct D2ItemsTxt;
-
-
 
 struct D2OrbSmoothStrc
 {
@@ -146,24 +145,6 @@ extern "C" U32 __fastcall sub_004538D0_UIState(U32 index);
 extern "C" const U16* __fastcall sub_00524A30_LocalizedText(U16 index);
 extern "C" void __fastcall sub_00502280_SetTooltip(const U16* text, int x, int y, int color, int mode);
 extern "C" void __stdcall sub_00410EB0_WriteBits(BitStreamContext* stream, U32 value, int bitCount);
-
-
-struct D2UiRectStrc
-{
-    int nLeft;
-    int nRight;
-    int nTop;
-    int nBottom;
-};
-
-struct D2UiRecordStrc
-{
-    int unk0x00;
-    unsigned char nBoxes;
-    unsigned char unk0x05;
-    unsigned short unk0x06;
-    D2UiRectStrc aRects[16];
-};
 
 extern "C" __declspec(dllimport) short __stdcall GetKeyState(int nVirtKey); // 0x006CC45C
 void __stdcall sub_00660CB0_GetUiRecord(int nIndex, int nRow, D2UiRecordStrc* pRecord); // 0x00660CB0

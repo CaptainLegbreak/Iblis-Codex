@@ -1,13 +1,11 @@
 #include "Fog.h"
 #include "D2GameTypes.h"
+#include "D2FogTypes.h"
 struct D2CrashInputStrc;
 
 #define FOG_ASSERT(expr, line) if (!(expr)) { const char* szAssertFile = sub_00408090(); FOG_SOCKET_WSACleanup(); sub_00408900_RaiseErrorReport(6, &gszEmptyAssertText, line, "Unrecoverable internal error %08x", szAssertFile); sub_0040F960_CloseLogFiles(); exit(-1); }
-struct D2PoolRecordStrc;
 struct D2CriticalSectionStrc;
 struct D2InspectorInfoStrc;
-struct T00408A30_2;
-struct T00408A30_1;
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 void __cdecl sub_00408900_RaiseErrorReport(int nType, const char* szFile, int nLine, const char* szFormat, ...); // 0x00408900
@@ -20,7 +18,6 @@ extern "C" char* __cdecl strcat(char* szDest, const char* szSource);
 extern "C" int __cdecl SStrPrintf(char* szDest, size_t nSize, const char* szFormat, ...); // 0x00413A40
 const char* __fastcall sub_00408000_StripSourcePath(const char* szFile); // 0x00408000
 void __cdecl sub_004106B0_LogWritePrefixed0(const char* szPrefix, const char* szFormat, ...); // 0x004106B0
-
 
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
 extern "C" int __cdecl atexit(void (__cdecl* pfnExit)()); // 0x00683824
@@ -47,36 +44,7 @@ extern int gbErrorMgrInit_0074F0D0; // 0x0074F0D0
 int __fastcall FOG_GetInstallPath(char* szPath, unsigned int nSize); // 0x00406BA0
 extern "C" const char gszExpansionMpq_006CD3A0[]; // 0x006CD3A0
 
-struct T00408A30_2
-{
-    char unk0x00[0x1E];
-};
-
-struct D2PoolSystemStrc
-{
-    int bFreePoolAlloc;
-    D2CriticalSectionStrc tLock;
-    int nPools;
-    T00408A30_2 aPools[40];
-    int nLargeOverflow;
-    int nUnk0x7A4;
-    D2PoolRecordStrc* pUnk0x7A8;
-    int* apLargeBlocks[1023];
-    int nCount;
-    char unk0x17AC[0x20];
-};
-
-struct T00408A30_1
-{
-    int bInit;
-    D2CriticalSectionStrc tLock;
-    D2PoolSystemStrc aSystems[8];
-    int nUnk0xBE7C;
-    unsigned int anFreeIndex[8];
-    int nFreeCount;
-};
-
-extern T00408A30_1 gtPoolManager_0074F0E8; // 0x0074F0E8
+extern D2PoolDirectoryStrc gtPoolManager_0074F0E8; // 0x0074F0E8
 
 // 0x00408A60
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine)

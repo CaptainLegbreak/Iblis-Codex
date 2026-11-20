@@ -1,4 +1,5 @@
 #include "D2GameTypes.h"
+#include "D2FogTypes.h"
 struct D2MemoryBasicInfoStrc
 {
     void* BaseAddress;
@@ -8,59 +9,6 @@ struct D2MemoryBasicInfoStrc
     unsigned long State;
     unsigned long Protect;
     unsigned long Type;
-};
-
-struct D2FloatSaveStrc
-{
-    unsigned long ControlWord;
-    unsigned long StatusWord;
-    unsigned long TagWord;
-    unsigned long ErrorOffset;
-    unsigned long ErrorSelector;
-    unsigned long DataOffset;
-    unsigned long DataSelector;
-    unsigned char RegisterArea[80];
-    unsigned long Cr0NpxState;
-};
-
-struct D2StackFrameStrc
-{
-    unsigned long dwPc;
-    unsigned long dwFrame;
-    unsigned long dwStack;
-    unsigned long dwReturn;
-    unsigned char bHasArgs;
-    void* apArgs[4];
-};
-
-struct D2ThreadContextStrc
-{
-    unsigned long ContextFlags;
-    unsigned long Dr0;
-    unsigned long Dr1;
-    unsigned long Dr2;
-    unsigned long Dr3;
-    unsigned long Dr6;
-    unsigned long Dr7;
-    D2FloatSaveStrc FloatSave;
-    unsigned long SegGs;
-    unsigned long SegFs;
-    unsigned long SegEs;
-    unsigned long SegDs;
-    unsigned long Edi;
-    unsigned long Esi;
-    unsigned long Ebx;
-    unsigned long Edx;
-    unsigned long Ecx;
-    unsigned long Eax;
-    unsigned long Ebp;
-    unsigned long Eip;
-    unsigned long SegCs;
-    unsigned long EFlags;
-    unsigned long Esp;
-    unsigned long SegSs;
-    unsigned char ExtendedRegisters[512];
-
 };
 
 extern "C" __declspec(dllimport) unsigned long __stdcall VirtualQuery(const void* pAddress, D2MemoryBasicInfoStrc* pBuffer, unsigned long nLength); // 0x006CC244
@@ -152,7 +100,6 @@ static unsigned char __stdcall sub_00401540_GetThreadStack(unsigned long* pStack
     }
     return bResult;
 }
-
 
 struct D2ImagehlpModule64Strc
 {

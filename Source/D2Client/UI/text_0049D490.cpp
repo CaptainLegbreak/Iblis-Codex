@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2ClientUi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct Unicode;
@@ -38,12 +39,6 @@ struct D2TextNodeStrc
     int nColor;
     unsigned int dwEndTick;
     D2TextNodeStrc* pNext;
-};
-
-struct D2TextListStrc
-{
-    D2TextNodeStrc* pFirst;
-    unsigned short wCount;
 };
 
 #pragma pack(pop)
@@ -86,7 +81,6 @@ extern ListBoxWrapper* gpListBox_007BF1B4; // 0x007BF1B4
 extern D2TextListStrc gtTextList_007BF1E4; // 0x007BF1E4
 extern D2TextListStrc gtTextList_007BF1EA; // 0x007BF1EA
 extern D2TextListStrc gtTextList_007BF1F0; // 0x007BF1F0
-
 
 #pragma pack(push, 2)
 struct T00479230
