@@ -11,7 +11,7 @@ extern "C" void __fastcall __security_check_cookie(unsigned int nCookie); // 0x0
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int dwFlags); // 0x00412650
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
 unsigned int __stdcall sub_00416370_StormGetFileSize(void* hFile, unsigned int* pnSizeHigh); // 0x00416370
-unsigned long __stdcall sub_004165A0_SetFilePointer(void* hFile, long nDistance, long* pnDistanceHigh, unsigned long dwMoveMethod); // 0x004165A0
+unsigned long __stdcall SFileSetFilePointer(void* hFile, long nDistance, long* pnDistanceHigh, unsigned long dwMoveMethod); // 0x004165A0
 int __stdcall SFileReadFile(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped); // 0x0041B050
 void __stdcall SMemZero(void* destination, unsigned int size); // 0x0041D300
 void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize); // 0x0041D2A0
@@ -35,7 +35,7 @@ struct D2BitOutputStrc
 };
 static __declspec(noinline) void sub_006C5A60_FlushBlock(D2BitOutputStrc*, unsigned char**);
 static __declspec(noinline) void __fastcall sub_006C5A90_EmitCode(D2BitOutputStrc*, unsigned char**, int);
-static __declspec(noinline) void __stdcall sub_006C6330_ResetDictionary(unsigned char**, D2BitOutputStrc*);
+static __declspec(noinline) void __stdcall ClearBlock(unsigned char**, D2BitOutputStrc*);
 __declspec(noinline) static void __stdcall sub_006C6370_AddChar(unsigned char** ppOutput, int nChar, D2BitOutputStrc* pState);
 
 static __declspec(noinline)
@@ -298,7 +298,7 @@ int __fastcall sub_006C5210_DecodeTgaPixels(const D2TargaHeaderStrc* pHeader, co
 }
 
 // 0x006C54D0
-static int __stdcall sub_006C54D0_LoadTgaFromFile(void* hFile, D2PaletteColorStrc* pPalette, unsigned char* pBuffer, unsigned int* pWidth, int nBufferSize, unsigned int* pHeight, unsigned int* pBitDepth)
+static int __stdcall DecodeTgaFile(void* hFile, D2PaletteColorStrc* pPalette, unsigned char* pBuffer, unsigned int* pWidth, int nBufferSize, unsigned int* pHeight, unsigned int* pBitDepth)
 {
     D2TargaHeaderStrc tHeader;
     int nRead;
@@ -354,7 +354,7 @@ static int __stdcall sub_006C54D0_LoadTgaFromFile(void* hFile, D2PaletteColorStr
         *pBitDepth = nBitDepth;
     }
 
-    sub_004165A0_SetFilePointer(hFile, nIdLength, 0, 1);
+    SFileSetFilePointer(hFile, nIdLength, 0, 1);
 
     if (pPalette && tHeader.bytes[1])
     {
@@ -384,7 +384,7 @@ static int __stdcall sub_006C54D0_LoadTgaFromFile(void* hFile, D2PaletteColorStr
 
 int __stdcall sub_006C54D0_Emit(void* hFile, unsigned char* pBuffer, unsigned int* pWidth, D2PaletteColorStrc* pPalette, int nBufferSize, unsigned int* pHeight, unsigned int* pBitDepth)
 {
-    return sub_006C54D0_LoadTgaFromFile(hFile, pPalette, pBuffer, pWidth, nBufferSize, pHeight, pBitDepth) + 3;
+    return DecodeTgaFile(hFile, pPalette, pBuffer, pWidth, nBufferSize, pHeight, pBitDepth) + 3;
 }
 
 // 0x006C5B10
@@ -453,7 +453,7 @@ static void __fastcall sub_006C5A90_EmitCode(D2BitOutputStrc* pState, unsigned c
     }
 }
 
-static void __stdcall sub_006C6330_ResetDictionary(unsigned char** ppOutput, D2BitOutputStrc* pState)
+static void __stdcall ClearBlock(unsigned char** ppOutput, D2BitOutputStrc* pState)
 {
     SMemZero(pState->f_28, 0x4E2C);
     int nCode = pState->nClearCode;
@@ -520,14 +520,14 @@ lNotFound:
         return;
     }
 
-    sub_006C6330_ResetDictionary(ppOutput, pState);
+    ClearBlock(ppOutput, pState);
 
 lSetPrefix:
     pState->unknown14[0] = nChar;
 }
 
 // 0x006C6470
-int __fastcall sub_006C6470_CompressLzw(int nSize, const unsigned char* pData, unsigned char* pOutput)
+int __fastcall CompressGifImage(int nSize, const unsigned char* pData, unsigned char* pOutput)
 {
     int nCount = nSize;
     const unsigned char* pIn = pData;

@@ -834,7 +834,7 @@ char* D2StormHashTable0060F1D0Strc::sub_0060F1D0_Ptr(unsigned int nHashVal, cons
 {
     for (char* pNode = m_slotlistarray.m_data[nHashVal & m_slotmask].Head(); (int)pNode > 0; pNode = m_slotlistarray.m_data[nHashVal & m_slotmask].RawNext(pNode))
     {
-        if (((D2StormNamedNodeStrc*)pNode)->m_hashval == nHashVal && !sub_00413590_StrCmpI(((D2StormNamedNodeStrc*)pNode)->m_key, tKey.m_str, 0x7FFFFFFF))
+        if (((D2StormNamedNodeStrc*)pNode)->m_hashval == nHashVal && !SStrCmpI(((D2StormNamedNodeStrc*)pNode)->m_key, tKey.m_str, 0x7FFFFFFF))
         {
             return pNode;
         }

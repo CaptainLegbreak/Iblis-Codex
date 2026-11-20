@@ -48,7 +48,7 @@ extern "C" __declspec(dllimport) int __stdcall SetEvent(void*); // 0x006CC130
 void __stdcall sub_0041C340_SetLastError(unsigned int); // 0x0041C340
 void* __stdcall sub_00413020_Allocate(unsigned int, const char*, int, int); // 0x00413020
 int __stdcall sub_0041A990_DdaClose(void*); // 0x0041A990
-unsigned long __stdcall sub_004165A0_SetFilePointer(void*, long, long*, unsigned int); // 0x004165A0
+unsigned long __stdcall SFileSetFilePointer(void*, long, long*, unsigned int); // 0x004165A0
 int __stdcall sub_0041AAD0(void*, void*, int, int*, void*, int, int); // 0x0041AAD0
 int __stdcall SFileReadFile(void*, void*, int, int*, void*); // 0x0041B050
 void __stdcall SMemZero(void*, unsigned int); // 0x0041D300
@@ -79,11 +79,11 @@ static int sub_0041B210_FindWaveChunk(void* hFile, unsigned int dwTag, unsigned 
     while (SFileReadFile(hFile, &tHeader, sizeof(tHeader), 0, 0)) {
         if (tHeader.dwTag == dwTag) {
             pChunk[0] = tHeader.dwSize;
-            const int nPosition = sub_004165A0_SetFilePointer(hFile, 0, 0, 1);
+            const int nPosition = SFileSetFilePointer(hFile, 0, 0, 1);
             pChunk[1] = nPosition;
             return nPosition != -1;
         }
-        if (sub_004165A0_SetFilePointer(hFile, tHeader.dwSize, 0, 1) == -1) break;
+        if (SFileSetFilePointer(hFile, tHeader.dwSize, 0, 1) == -1) break;
     }
     return 0;
 }
@@ -113,7 +113,7 @@ int __stdcall SFileDdaBeginEx(void* hFile, unsigned int nBufferSize, unsigned in
     unsigned int remainder = (gnChunk_00779038 - 1) & nBufferSize;
     if (remainder) nBufferSize += gnChunk_00779038 - remainder;
     if (nBufferSize < 2 * gnChunk_00779038) nBufferSize = 2 * gnChunk_00779038;
-    sub_004165A0_SetFilePointer(hFile, 0, 0, 0);
+    SFileSetFilePointer(hFile, 0, 0, 0);
     D2WaveHeaderStrc riff;
     if (!sub_0041AAD0(hFile, &riff, 12, 0, 0, 0, 0) || riff.tag != 0x46464952 || riff.type != 0x45564157) goto invalid;
     {
@@ -123,7 +123,7 @@ int __stdcall SFileDdaBeginEx(void* hFile, unsigned int nBufferSize, unsigned in
         {
             D2WaveBaseFormatStrc rawFormat;
             unsigned int formatSize = chunk[0];
-            if (!sub_0041AAD0(hFile, &rawFormat, 16, 0, 0, 0, 0) || sub_004165A0_SetFilePointer(hFile, formatSize - 16, 0, 1) == -1) goto invalid;
+            if (!sub_0041AAD0(hFile, &rawFormat, 16, 0, 0, 0, 0) || SFileSetFilePointer(hFile, formatSize - 16, 0, 1) == -1) goto invalid;
             format.format = rawFormat.format;
             format.channels = rawFormat.channels;
             format.samplesPerSec = rawFormat.samplesPerSec;

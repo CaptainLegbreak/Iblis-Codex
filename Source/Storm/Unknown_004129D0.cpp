@@ -1209,7 +1209,7 @@ int __stdcall SStrCmp(const char* szString1, const char* szString2, int nMaxChar
 }
 
 // 0x00413590
-int __stdcall sub_00413590_StrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars)
+int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars)
 {
     VALIDATEBEGIN;
     VALIDATE(szString1);

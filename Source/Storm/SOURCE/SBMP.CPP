@@ -40,7 +40,7 @@ struct D2TgaFieldsStrc
 #pragma pack(pop)
 
 static __declspec(noinline) int sub_006C50D0_IsSupportedTgaHeader(const D2TgaFieldsStrc* pHeader);
-static __declspec(noinline) int __stdcall sub_006C5730_DecodeTga(const D2TgaFieldsStrc* pHeader, unsigned int nSize, T004F51E0* pPalette, unsigned char* pDst, int nDstSize, int* pWidth, int* pHeight, int* pDepth);
+static __declspec(noinline) int __stdcall DecodeTgaMem(const D2TgaFieldsStrc* pHeader, unsigned int nSize, T004F51E0* pPalette, unsigned char* pDst, int nDstSize, int* pWidth, int* pHeight, int* pDepth);
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
 static __declspec(noinline) void __stdcall sub_006C59C0_FlipRows(unsigned char* pDst, int nRows, const unsigned char* pSrc, int nDstSize, int nRowWidth, int nStride);
 static __declspec(noinline) int __stdcall sub_006C60F0_DecodeBmp(int* pWidth, int* pHeight, unsigned int* pBitCount, const unsigned char* pData, unsigned char* pPalette, unsigned char* pPixels, int nPixelsSize);
@@ -63,7 +63,7 @@ struct D2BitOutputStrc
 };
 static __declspec(noinline) void sub_006C5A60_FlushBlock(D2BitOutputStrc*, unsigned char**);
 static __declspec(noinline) void __fastcall sub_006C5A90_EmitCode(D2BitOutputStrc*, unsigned char**, int);
-static __declspec(noinline) void __stdcall sub_006C6330_ResetDictionary(unsigned char**, D2BitOutputStrc*);
+static __declspec(noinline) void __stdcall ClearBlock(unsigned char**, D2BitOutputStrc*);
 const char* __stdcall SStrChr(const char* szString, char c); // 0x00413490
 static __declspec(noinline) const char* sub_006C5EE0_FindExtension(const char* szPath);
 static __declspec(noinline) int sub_006C5F40_GetImageType(unsigned short signature);
@@ -94,7 +94,7 @@ extern "C" __declspec(dllimport) int __stdcall WriteFile(void*, const void*, uns
 struct D2CopyStackArg { unsigned int value; };
 
 static __declspec(noinline) unsigned int __stdcall sub_006C59C0_CopyPixels(BYTE* out, D2CopyStackArg src, D2CopyStackArg size, D2CopyStackArg pitch, D2CopyStackArg width, unsigned int rows); // 0x006C59C0
-static __declspec(noinline) int __stdcall sub_006C61C0_WriteBmp(void* file, const D2PaletteEntry* palette, const BYTE* pixels, int width, int height);
+static __declspec(noinline) int __stdcall EncodeBmp256File(void* file, const D2PaletteEntry* palette, const BYTE* pixels, int width, int height);
 
 static int sub_006C50D0_IsSupportedTgaHeader(const D2TgaFieldsStrc* pHeader)
 {
@@ -327,7 +327,7 @@ static __declspec(noinline) int __fastcall sub_006C5210_DecodeTgaPixels(const D2
 }
 
 // 0x006C5730
-static int __stdcall sub_006C5730_DecodeTga(const D2TgaFieldsStrc* pHeader, unsigned int nSize, T004F51E0* pPalette, unsigned char* pDst, int nDstSize, int* pWidth, int* pHeight, int* pDepth)
+static int __stdcall DecodeTgaMem(const D2TgaFieldsStrc* pHeader, unsigned int nSize, T004F51E0* pPalette, unsigned char* pDst, int nDstSize, int* pWidth, int* pHeight, int* pDepth)
 {
     if (nSize < 18)
     {
@@ -408,7 +408,7 @@ int __stdcall sub_006C5730_EmitCaller(int nUnused, const D2TgaFieldsStrc* pHeade
     {
         *pWidth = 0;
     }
-    return sub_006C5730_DecodeTga(pHeader, nSize, pPalette, pDst, nDstSize, pWidth, pHeight, pDepth);
+    return DecodeTgaMem(pHeader, nSize, pPalette, pDst, nDstSize, pWidth, pHeight, pDepth);
 }
 
 // 0x006C59C0
@@ -564,7 +564,7 @@ static void __fastcall sub_006C5A90_EmitCode(D2BitOutputStrc* pState, unsigned c
 }
 
 // 0x006C6330
-static void __stdcall sub_006C6330_ResetDictionary(unsigned char** ppOutput, D2BitOutputStrc* pState)
+static void __stdcall ClearBlock(unsigned char** ppOutput, D2BitOutputStrc* pState)
 {
     SMemZero(pState->f_28, 0x4E2C);
     int nCode = pState->nClearCode;
@@ -577,7 +577,7 @@ static void __stdcall sub_006C6330_ResetDictionary(unsigned char** ppOutput, D2B
 
 void __fastcall ResetDictionaryContext(D2BitOutputStrc* pState, unsigned char** ppOutput)
 {
-    sub_006C6330_ResetDictionary(ppOutput, pState);
+    ClearBlock(ppOutput, pState);
 }
 
 // 0x006C5EE0
@@ -626,7 +626,7 @@ static unsigned int __stdcall sub_006C59C0_CopyPixels(BYTE* out, D2CopyStackArg 
 }
 
 // 0x006C61C0
-static int __stdcall sub_006C61C0_WriteBmp(void* file, const D2PaletteEntry* palette, const BYTE* pixels, int width, int height)
+static int __stdcall EncodeBmp256File(void* file, const D2PaletteEntry* palette, const BYTE* pixels, int width, int height)
 {
     D2BitmapFileHeader header;
     D2BitmapInfoHeader info;
@@ -679,5 +679,5 @@ static int __stdcall sub_006C61C0_WriteBmp(void* file, const D2PaletteEntry* pal
 // calling-convention shim (not game code)
 int __stdcall sub_006C61C0_Shim(void* file, const D2PaletteEntry* palette, const BYTE* pixels, int width, int height)
 {
-    return sub_006C61C0_WriteBmp(file, palette, pixels, width, height);
+    return EncodeBmp256File(file, palette, pixels, width, height);
 }

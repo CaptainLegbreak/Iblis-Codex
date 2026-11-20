@@ -577,7 +577,7 @@ void __stdcall SBigDel(D2StormBigStrc* pBig)
 }
 
 // 0x00424F10
-int __stdcall sub_00424F10_BigOp(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
+int __stdcall SBigMul(D2StormBigStrc* pResult, D2StormBigStrc* pA, D2StormBigStrc* pB)
 {
     return sub_004242C0_BigOp(pResult, pA, pB, &pResult->tStack);
 }

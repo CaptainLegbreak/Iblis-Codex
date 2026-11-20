@@ -796,7 +796,7 @@ void __fastcall sub_Z16_EmitTombStoneTiles(D2DrlgRoomStrc* pDrlgRoom, void* pMem
         sub_00666990(pMemPool, pDrlgRoom);
 }
 
-unsigned short __stdcall sub_004166F0_GetWord()
+unsigned short __stdcall SFileGetLocale()
 {
     return gwValue_0077905C;
 }

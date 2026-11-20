@@ -555,7 +555,7 @@ void* __stdcall sub_00601B10_GetCelPixels(D2CelStrc* pCel)
     return pCel->pBlockPixelData;
 }
 
-unsigned short __stdcall sub_004166F0_GetWord()
+unsigned short __stdcall SFileGetLocale()
 {
     return gwValue_0077905C;
 }

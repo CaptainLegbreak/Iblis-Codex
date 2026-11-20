@@ -329,7 +329,7 @@ unsigned char* gpStreamBuffer_00779050; // 0x00779050
 // build: symbol ??1D2StormFileRecStrc@@QAE@XZ 0x00419070
 // build: symbol ??1D2StormStreamOwnerStrc@@QAE@XZ 0x0041A020
 // 0x0041A110
-int __cdecl sub_0041A110_SFileDestroy()
+int __cdecl SFileDestroy()
 {
     sub_00419F30();
     if (ghStormThread_00779034)

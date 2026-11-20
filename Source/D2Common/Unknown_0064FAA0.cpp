@@ -913,7 +913,7 @@ extern "C" __declspec(dllexport) void __fastcall sub_00650E70(Pair00650E70* pPai
     *pSecond = pPair->dwSecond;
 }
 
-unsigned short __stdcall sub_004166F0_GetWord()
+unsigned short __stdcall SFileGetLocale()
 {
     return gwValue_0077905C;
 }

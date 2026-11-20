@@ -56,11 +56,11 @@ static void __stdcall sub_006C59C0_FlipRows(unsigned char* pDst, int nRows, cons
     FOG_AllocPool(0, nDstSize, (const char*)pSrc, nRowBytes, nStride);
 }
 
-__declspec(noinline) static int __stdcall sub_006C5F70_LoadBmpFile(unsigned char* pPalette, void* hFile, int* pWidth, unsigned char* pBuffer, unsigned int nBufferSize, int* pHeight, int* pBitDepth);
-static int __stdcall sub_006C5F70_LoadBmpFile(unsigned char* pPalette, void* hFile, int* pWidth, unsigned char* pBuffer, unsigned int nBufferSize, int* pHeight, int* pBitDepth); // 0x006C5F70
+__declspec(noinline) static int __stdcall DecodeBmpFile(unsigned char* pPalette, void* hFile, int* pWidth, unsigned char* pBuffer, unsigned int nBufferSize, int* pHeight, int* pBitDepth);
+static int __stdcall DecodeBmpFile(unsigned char* pPalette, void* hFile, int* pWidth, unsigned char* pBuffer, unsigned int nBufferSize, int* pHeight, int* pBitDepth); // 0x006C5F70
 
 // 0x006C5F70
-static int __stdcall sub_006C5F70_LoadBmpFile(unsigned char* pPalette, void* hFile, int* pWidth, unsigned char* pBuffer, unsigned int nBufferSize, int* pHeight, int* pBitDepth)
+static int __stdcall DecodeBmpFile(unsigned char* pPalette, void* hFile, int* pWidth, unsigned char* pBuffer, unsigned int nBufferSize, int* pHeight, int* pBitDepth)
 {
     struct Bgr0Color { unsigned char blue, green, red, reserved; };
     Bgr0Color aColors[256];
@@ -139,7 +139,6 @@ static int __stdcall sub_006C5F70_LoadBmpFile(unsigned char* pPalette, void* hFi
     return 1;
 }
 unsigned int __stdcall sub_00416370_StormGetFileSize(void* hFile, unsigned int* pnSizeHigh);                         // 0x00416370
-unsigned long __stdcall sub_004165A0_SetFilePointer(void* hFile, long nDistance, long* pnDistanceHigh, unsigned long dwMoveMethod); // 0x004165A0
 
 struct PcxHeaderStrc
 {
@@ -182,11 +181,11 @@ static void __stdcall sub_006C5CF0_DecodeRle(unsigned char* pDst, unsigned int n
     pOut[3] = nWidth + nBytesPerLine + nPlanes + pSrc - (const unsigned char*)0;
 }
 
-__declspec(noinline) static int __stdcall sub_006C6790_LoadPcx(void* hFile, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pWidth, int* pHeight, int* pBitDepth);
-static int __stdcall sub_006C6790_LoadPcx(void* hFile, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pWidth, int* pHeight, int* pBitDepth); // 0x006C6790
+__declspec(noinline) static int __stdcall DecodePcxFile(void* hFile, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pWidth, int* pHeight, int* pBitDepth);
+static int __stdcall DecodePcxFile(void* hFile, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pWidth, int* pHeight, int* pBitDepth); // 0x006C6790
 
 // 0x006C6790
-static int __stdcall sub_006C6790_LoadPcx(void* hFile, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pWidth, int* pHeight, int* pBitDepth)
+static int __stdcall DecodePcxFile(void* hFile, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pWidth, int* pHeight, int* pBitDepth)
 {
     PcxHeaderStrc header;
     if (!SFileReadFile(hFile, &header, sizeof(header), 0, 0))
@@ -217,7 +216,7 @@ static int __stdcall sub_006C6790_LoadPcx(void* hFile, unsigned char* pPalette, 
 
     if (pPixels)
     {
-        const int nDataSize = sub_00416370_StormGetFileSize(hFile, 0) - (nBits == 8 ? 0x300 : 0) - sub_004165A0_SetFilePointer(hFile, 0, 0, 1);
+        const int nDataSize = sub_00416370_StormGetFileSize(hFile, 0) - (nBits == 8 ? 0x300 : 0) - SFileSetFilePointer(hFile, 0, 0, 1);
         unsigned char* pData = (unsigned char*)SMemAlloc(nDataSize, ".\\SOURCE\\SBMP.CPP", 1131, 0);
         SFileReadFile(hFile, pData, nDataSize, 0, 0);
         sub_006C5CF0_DecodeRle(pPixels, nPixelsSize, pData, nDataSize - (nBits == 8 ? 1 : 0), nWidth, header.nBytesPerLine, header.nPlanes);
@@ -225,7 +224,7 @@ static int __stdcall sub_006C6790_LoadPcx(void* hFile, unsigned char* pPalette, 
     }
     else if (bPalette)
     {
-        sub_004165A0_SetFilePointer(hFile, -0x300, 0, 2);
+        SFileSetFilePointer(hFile, -0x300, 0, 2);
     }
 
     if (bPalette)
@@ -512,7 +511,7 @@ int __fastcall sub_006C5210_DecodeTgaPixels(const D2TargaHeaderStrc* pHeader, co
 }
 
 // 0x006C54D0
-static int __stdcall sub_006C54D0_LoadTgaFromFile(void* hFile, D2PaletteColorStrc* pPalette, unsigned char* pBuffer, unsigned int* pWidth, int nBufferSize, unsigned int* pHeight, unsigned int* pBitDepth)
+static int __stdcall DecodeTgaFile(void* hFile, D2PaletteColorStrc* pPalette, unsigned char* pBuffer, unsigned int* pWidth, int nBufferSize, unsigned int* pHeight, unsigned int* pBitDepth)
 {
     D2TargaHeaderStrc tHeader;
     int nRead;
@@ -568,7 +567,7 @@ static int __stdcall sub_006C54D0_LoadTgaFromFile(void* hFile, D2PaletteColorStr
         *pBitDepth = nBitDepth;
     }
 
-    sub_004165A0_SetFilePointer(hFile, nIdLength, 0, 1);
+    SFileSetFilePointer(hFile, nIdLength, 0, 1);
 
     if (pPalette && tHeader.bytes[1])
     {
@@ -616,15 +615,15 @@ int __stdcall sub_006C6B70_LoadImage(const char* filename,unsigned char* palette
  int type=0;
  if(SFileReadFile(hFile,&bufferSize,2,0,0))
  {
-  sub_004165A0_SetFilePointer(hFile,-2,0,1);
+  SFileSetFilePointer(hFile,-2,0,1);
   type=sub_006C5F40_GetImageType((unsigned short)bufferSize);
  }
  int result=0;
  switch(type)
  {
- case 1:result=sub_006C5F70_LoadBmpFile(palette,hFile,width,pixels,capacity,height,bits);break;
- case 2:result=sub_006C6790_LoadPcx(hFile,palette,pixels,capacity,width,height,bits);break;
- case 3:result=sub_006C54D0_LoadTgaFromFile(hFile,(D2PaletteColorStrc*)palette,pixels,(unsigned int*)width,capacity,(unsigned int*)height,(unsigned int*)bits);break;
+ case 1:result=DecodeBmpFile(palette,hFile,width,pixels,capacity,height,bits);break;
+ case 2:result=DecodePcxFile(hFile,palette,pixels,capacity,width,height,bits);break;
+ case 3:result=DecodeTgaFile(hFile,(D2PaletteColorStrc*)palette,pixels,(unsigned int*)width,capacity,(unsigned int*)height,(unsigned int*)bits);break;
  }
  sub_004198D0_CloseFile(hFile);
  return result;

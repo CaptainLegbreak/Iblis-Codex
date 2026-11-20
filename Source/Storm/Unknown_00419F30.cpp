@@ -108,7 +108,7 @@ extern void* ghStormThread_00779034;                                            
 extern int gbStreamsPaused_00779044;                                                                        // 0x00779044
 
 // 0x00419F30
-int __cdecl sub_00419F30_StopStreams()
+int __cdecl SFileDdaDestroy()
 {
     EnterCriticalSection(&gBasePathLock_00779068);
     gbStreamsPaused_00779044 = 1;

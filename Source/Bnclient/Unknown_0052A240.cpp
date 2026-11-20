@@ -3,7 +3,7 @@ struct D2StormBigStrc;
 int __stdcall sub_00423950(void** phBig); // 0x00423950
 int __stdcall sub_004238B0(void* hBig, unsigned int nValue); // 0x004238B0
 int __stdcall sub_00423850(void* hBig, const void* pData, unsigned int nSize); // 0x00423850
-void __stdcall sub_00423B30(void* hBig, void* pBuffer, unsigned int nSize, unsigned int* pRead); // 0x00423B30
+void __stdcall SBigToBinaryBuffer(void* hBig, void* pBuffer, unsigned int nSize, unsigned int* pRead); // 0x00423B30
 void __stdcall sub_00424E40(void* hBig); // 0x00424E40
 int __stdcall sub_00421530(void* hLeft, void* hRight); // 0x00421530
 int __stdcall sub_00423A80(void* hResult, void* hLeft, void* hRight); // 0x00423A80
@@ -38,7 +38,7 @@ void* __fastcall sub_0052A270_BigFromBinary(const void* pData, unsigned int nSiz
 unsigned int __fastcall sub_0052A2A0_BigToBinary(void* hBig, void* pBuffer, unsigned int nSize)
 {
     unsigned int nRead;
-    sub_00423B30(hBig, pBuffer, nSize, &nRead);
+    SBigToBinaryBuffer(hBig, pBuffer, nSize, &nRead);
     if (nRead < nSize)
         sub_0041D300_ZeroMemory((char*)pBuffer + nRead, nSize - nRead);
     return nRead;
@@ -139,7 +139,7 @@ unsigned int __fastcall sub_0052A4D0_BigOpUnsignedToUInt_424ED0(void* hLeft, uns
     abResult[2] = 0;
     abResult[1] = 0;
     abResult[0] = 0;
-    sub_00423B30(hResult, abResult, sizeof(abResult), 0);
+    SBigToBinaryBuffer(hResult, abResult, sizeof(abResult), 0);
     sub_00424E40(hValue);
     sub_00424E40(hResult);
     return (((abResult[3] << 8 | abResult[2]) << 8 | abResult[1]) << 8) | abResult[0];

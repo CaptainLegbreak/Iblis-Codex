@@ -281,7 +281,7 @@ typedef long long z_off64_t;
 inline void* operator new(unsigned int nSize, void* pWhere) throw();
 static unsigned long __stdcall crc32_combine_(unsigned long crc1, unsigned long crc2, __int64 len2);
 
-unsigned short __stdcall sub_004166F0_GetWord()
+unsigned short __stdcall SFileGetLocale()
 {
     return gwValue_0077905C;
 }

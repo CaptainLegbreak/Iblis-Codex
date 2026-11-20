@@ -934,7 +934,7 @@ void __cdecl SLogWrite(void* hLog, const char* szFormat, ...)
 }
 
 // 0x00420040
-void __cdecl sub_00420040_InitLocks()
+void __cdecl SLogInitialize()
 {
     D2CriticalSectionStrc* pLock = gaSLogLocks_00779238;
     int n = 4;
@@ -977,7 +977,7 @@ void __fastcall sub_00601E10_InitTerminator(D2StormListStrc* pList)
     pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
 }
 
-unsigned short __stdcall sub_004166F0_GetWord()
+unsigned short __stdcall SFileGetLocale()
 {
     return gwValue_0077905C;
 }
@@ -1536,8 +1536,8 @@ void __stdcall sub_00423850(void* hBig, const void* pData, unsigned int nSize)
     FROM_BINARY((const unsigned char*)pData, nSize, (D2StormBigBufferStrc*)hBig);
 }
 
-// build: context sub_00423890_FromLengthPrefixed
-void __stdcall sub_00423890_FromLengthPrefixed(void* hBig, const void* pData, unsigned int nSize, unsigned int* pnUsed)
+// build: context SBigFromStream
+void __stdcall SBigFromStream(void* hBig, const void* pData, unsigned int nSize, unsigned int* pnUsed)
 {
     FROM_LENGTH_PREFIXED((D2StormBigBufferStrc*)hBig, pnUsed, nSize, (const unsigned char*)pData);
 }

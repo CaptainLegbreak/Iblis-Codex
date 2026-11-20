@@ -101,7 +101,7 @@ struct D2CmpStringStrc
     int sub_0060DD20_EqualsNoCase(const D2CmpStringStrc* pOther);
 };
 
-int __stdcall sub_004164B0_SetBasePath(const char* szPath); // 0x004164B0
+int __stdcall SFileSetBasePath(const char* szPath); // 0x004164B0
 extern "C" void __cdecl _chkstk(); // 0x006831B0
 extern "C" void __cdecl _ftol2_sse(); // 0x00682FD0
 extern int gnRemapStart_008E9D48[80]; // 0x008E9D48
@@ -844,7 +844,7 @@ int gdwGlobal_008F03C8; // 0x008F03C8
 // 0x004067C0
 int __cdecl sub_004067C0_SetBasePathToCurrent()
 {
-    return sub_004164B0_SetBasePath(".\\");
+    return SFileSetBasePath(".\\");
 }
 
 // 0x00413740

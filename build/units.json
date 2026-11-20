@@ -3546,7 +3546,7 @@
     {
      "va": "0x004164B0",
      "length": 186,
-     "name": "?sub_004164B0_SetBasePath@@YGHPBD@Z"
+     "name": "?SFileSetBasePath@@YGHPBD@Z"
     },
     {
      "va": "0x00416570",
@@ -3556,22 +3556,22 @@
     {
      "va": "0x004165A0",
      "length": 262,
-     "name": "?sub_004165A0_SetFilePointer@@YGKPAXJPAJK@Z"
+     "name": "?SFileSetFilePointer@@YGKPAXJPAJK@Z"
     },
     {
      "va": "0x004166B0",
      "length": 29,
-     "name": "sub_004166B0_SetPair"
+     "name": "SFileSetIoErrorMode"
     },
     {
      "va": "0x004166D0",
      "length": 17,
-     "name": "sub_004166D0_SetWord"
+     "name": "SFileSetLocale"
     },
     {
      "va": "0x004166F0",
      "length": 7,
-     "name": "?sub_004166F0_GetWord@@YGGXZ"
+     "name": "?SFileGetLocale@@YGGXZ"
     },
     {
      "va": "0x00416710",
@@ -5149,7 +5149,7 @@
     {
      "va": "0x00413590",
      "length": 64,
-     "name": "?sub_00413590_StrCmpI@@YGHPBD0I@Z"
+     "name": "?SStrCmpI@@YGHPBD0I@Z"
     },
     {
      "va": "0x00413750",
@@ -5570,7 +5570,7 @@
     {
      "va": "0x00416700",
      "length": 15,
-     "name": "sub_00416700_SetByteFlag"
+     "name": "SFileSetPlatform"
     },
     {
      "va": "0x00418B80",
@@ -5695,7 +5695,7 @@
     {
      "va": "0x0041A110",
      "length": 423,
-     "name": "?sub_0041A110_SFileDestroy@@YAHXZ"
+     "name": "?SFileDestroy@@YAHXZ"
     }
    ]
   },
@@ -6378,7 +6378,7 @@
     {
      "va": "0x00424F10",
      "length": 28,
-     "name": "sub_00424F10_BigOp"
+     "name": "SBigMul"
     },
     {
      "va": "0x00424F70",
@@ -6900,7 +6900,7 @@
     {
      "va": "0x00420040",
      "length": 34,
-     "name": "?sub_00420040_InitLocks@@YAXXZ"
+     "name": "?SLogInitialize@@YAXXZ"
     },
     {
      "va": "0x00420070",
@@ -7508,7 +7508,7 @@
     {
      "va": "0x00423B30",
      "length": 68,
-     "name": "?sub_00423B30@@YGXPAX0IPAI@Z"
+     "name": "?SBigToBinaryBuffer@@YGXPAX0IPAI@Z"
     },
     {
      "va": "0x00423B80",
@@ -7792,7 +7792,7 @@
     {
      "va": "0x00423890",
      "length": 26,
-     "name": "?sub_00423890_FromLengthPrefixed@@YGXPAXPBXIPAI@Z"
+     "name": "?SBigFromStream@@YGXPAXPBXIPAI@Z"
     },
     {
      "va": "0x004238F0",

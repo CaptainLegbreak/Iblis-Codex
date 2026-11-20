@@ -141,7 +141,7 @@ int __stdcall SMsgRegisterMessage(HWND__* hWnd, unsigned int nId, SMSGHANDLER pH
     return sub_00420A70_RegisterHandler(0x534D5347, hWnd, nId, pHandler);
 }
 
-unsigned short __stdcall sub_004166F0_GetWord()
+unsigned short __stdcall SFileGetLocale()
 {
     return gwValue_0077905C;
 }

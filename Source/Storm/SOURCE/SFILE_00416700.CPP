@@ -17,7 +17,7 @@ void __stdcall sub_0041C360_SetSuppress(int bSuppress);                         
 void __cdecl sub_0041FFF0_FlushAll();                                                                       // 0x0041FFF0
 
 // 0x00416700
-void __stdcall sub_00416700_SetByteFlag(unsigned char nValue)
+void __stdcall SFileSetPlatform(unsigned char nValue)
 {
     gnStormByteFlag_0077905E = nValue;
 }

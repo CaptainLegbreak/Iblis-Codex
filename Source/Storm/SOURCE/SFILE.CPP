@@ -1292,7 +1292,7 @@ void __stdcall sub_004164A0_SetValue(int nValue)
 }
 
 // 0x004166B0
-int __stdcall sub_004166B0_SetPair(int nValueA, int nValueB)
+int __stdcall SFileSetIoErrorMode(int nValueA, int nValueB)
 {
     gnValueA_0070834C = nValueA;
     gnValueB_00779030 = nValueB;
@@ -1300,7 +1300,7 @@ int __stdcall sub_004166B0_SetPair(int nValueA, int nValueB)
 }
 
 // 0x004166D0
-void __stdcall sub_004166D0_SetWord(unsigned short nValue)
+void __stdcall SFileSetLocale(unsigned short nValue)
 {
     gwValue_0077905C = nValue;
 }
@@ -2467,7 +2467,7 @@ int __stdcall sub_00416400_GetFileTime(void* hFile, __int64* pFileTime)
 }
 
 // 0x004164B0
-int __stdcall sub_004164B0_SetBasePath(const char* szPath)
+int __stdcall SFileSetBasePath(const char* szPath)
 {
     VALIDATEBEGIN;
     VALIDATE(szPath);
@@ -2517,7 +2517,7 @@ int __stdcall SFileUnloadFile(void* pBuffer)
 }
 
 // 0x004165A0
-unsigned long __stdcall sub_004165A0_SetFilePointer(void* hFile, long nDistance, long* pnDistanceHigh, unsigned long dwMoveMethod)
+unsigned long __stdcall SFileSetFilePointer(void* hFile, long nDistance, long* pnDistanceHigh, unsigned long dwMoveMethod)
 {
     if (pnDistanceHigh && *pnDistanceHigh)
     {
@@ -2578,7 +2578,7 @@ unsigned long __stdcall sub_004165A0_SetFilePointer(void* hFile, long nDistance,
 unsigned short gwValue_0077905C; // 0x0077905C
 
 // 0x004166F0
-unsigned short __stdcall sub_004166F0_GetWord()
+unsigned short __stdcall SFileGetLocale()
 {
     return gwValue_0077905C;
 }

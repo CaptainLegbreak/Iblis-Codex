@@ -8,11 +8,11 @@ static void __stdcall sub_006C5CF0_DecodeRle(unsigned char* pDst, unsigned int n
     pOut[3] = nWidth + nBytesPerLine + nPlanes + pSrc - (const unsigned char*)0;
 }
 
-__declspec(noinline) static int __stdcall sub_006C6990_DecodePcx(int* pWidth, const unsigned char* pData, int nDataSize, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pHeight, int* pBitDepth);
-static int __stdcall sub_006C6990_DecodePcx(int* pWidth, const unsigned char* pData, int nDataSize, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pHeight, int* pBitDepth); // 0x006C6990
+__declspec(noinline) static int __stdcall DecodePcxMem(int* pWidth, const unsigned char* pData, int nDataSize, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pHeight, int* pBitDepth);
+static int __stdcall DecodePcxMem(int* pWidth, const unsigned char* pData, int nDataSize, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pHeight, int* pBitDepth); // 0x006C6990
 
 // 0x006C6990
-static int __stdcall sub_006C6990_DecodePcx(int* pWidth, const unsigned char* pData, int nDataSize, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pHeight, int* pBitDepth)
+static int __stdcall DecodePcxMem(int* pWidth, const unsigned char* pData, int nDataSize, unsigned char* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pHeight, int* pBitDepth)
 {
     const int nWidth = *(const unsigned short*)(pData + 8) - *(const unsigned short*)(pData + 4) + 1;
     const int nHeight = *(const unsigned short*)(pData + 0x0A) - *(const unsigned short*)(pData + 6) + 1;
@@ -61,5 +61,5 @@ static int __stdcall sub_006C6990_DecodePcx(int* pWidth, const unsigned char* pD
 
 int __stdcall sub_Emit_006C6990(const unsigned char* pData, int nDataSize, unsigned char* pPalette, unsigned char* pPixels, unsigned int nSize, int* pWidth, int* pHeight, int* pBitDepth)
 {
-    return sub_006C6990_DecodePcx(pWidth, pData, nDataSize, pPalette, pPixels, nSize, pHeight, pBitDepth) + 2;
+    return DecodePcxMem(pWidth, pData, nDataSize, pPalette, pPixels, nSize, pHeight, pBitDepth) + 2;
 }

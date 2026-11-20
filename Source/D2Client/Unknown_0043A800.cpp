@@ -2,7 +2,7 @@
 
 struct D2WinTextBoxStrc;
 typedef unsigned short Unicode;
-int __stdcall sub_00413590_StrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
+int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
 int __cdecl sub_00430B40(); // 0x00430B40
 void __cdecl sub_00437BF0_CreateControls(); // 0x00437BF0
 void __cdecl sub_0043A650_Refresh(); // 0x0043A650
@@ -54,7 +54,7 @@ void __cdecl sub_0043A800()
             char* szName = i < sub_00430B40() ? sub_00430B50_GetSlotName(i) : 0;
             if (!szName) { break; }
             D2Win_10045(gpNameControl_007799E8, szName);
-            if (!sub_00413590_StrCmpI(gData_00779A40, szName, 0x7FFFFFFF))
+            if (!SStrCmpI(gData_00779A40, szName, 0x7FFFFFFF))
             {
                 D2Win_10050_TEXTBOX_SetLine((D2WinTextBoxStrc*)gpNameControl_007799E8, i);
             }

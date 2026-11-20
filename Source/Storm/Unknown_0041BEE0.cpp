@@ -30,7 +30,7 @@ struct D2StormListBaseStrc;
 struct D2StormList00708420Strc;
 
 void __cdecl sub_00411CD0_InitHeaps(); // 0x00411CD0
-void __cdecl sub_00420040_InitLocks(); // 0x00420040
+void __cdecl SLogInitialize(); // 0x00420040
 extern "C" void __cdecl sub_00414360_CallThenSetFlag(); // 0x00414360
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
@@ -112,7 +112,7 @@ struct D2StormList00708420Strc : D2StormListBaseStrc
 void __cdecl sub_0041BEE0_InitStorm()
 {
     sub_00411CD0_InitHeaps();
-    sub_00420040_InitLocks();
+    SLogInitialize();
     sub_00414360_CallThenSetFlag();
 }
 
@@ -185,7 +185,7 @@ void __fastcall sub_00601E10_InitTerminator(D2StormListStrc* pList)
     pList->m_terminator.m_next = (char*)~(unsigned int)&pList->m_terminator;
 }
 
-unsigned short __stdcall sub_004166F0_GetWord()
+unsigned short __stdcall SFileGetLocale()
 {
     return gwValue_0077905C;
 }
