@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
+#include "D2QuestData.h"
 #define QFLAG_REWARDGRANTED 0
 #define QFLAG_STARTED 2
 #define QFLAG_CUSTOM3 7
@@ -54,26 +55,6 @@ struct D2QuestArgStrc
     unsigned short unk0x1A;
 };
 
-struct D2Act3Quest2Strc
-{
-    unsigned char bSewerStairsInitialized;
-    unsigned char bInitiallyTalkedToCain;
-    unsigned char pad0x02[2];
-    int nSewerStairsObjectGUID;
-    int nSewerStairsObjectMode;
-    int nItemDropCount;
-    int nEyesDropped;
-    int nBrainsDropped;
-    int nHeartsDropped;
-    int nFlailsDropped;
-    int nCubedFlails;
-    unsigned char bEyeDropped;
-    unsigned char bBrainDropped;
-    unsigned char bHeartDropped;
-    unsigned char bFlailDropped;
-    unsigned char unk_28[0x4];
-    D2QuestGUIDStrc tPlayerGUIDs;
-};
 
 struct D2ObjOperateFnStrc
 {

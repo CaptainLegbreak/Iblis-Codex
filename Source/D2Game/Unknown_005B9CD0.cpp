@@ -2,32 +2,10 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2UnitData.h"
+#include "D2QuestData.h"
 
 
 
-struct D2Act3Quest3Strc
-{
-    unsigned char bGidbinnDropped;
-    unsigned char bHratliActivated;
-    unsigned char bBossHasSpawned;
-    unsigned char bGidbinnObjectActivated;
-    unsigned char bBossIsSpawning;
-    unsigned char bSpawnTimerStarted;
-    unsigned char bAltarCanBeActivated;
-    char unk0x07;
-    int nGidbinnX;
-    int nGidbinnY;
-    int nAltarX;
-    int nAltarY;
-    unsigned char bGidbinnObjectInitialized;
-    char unk0x19[0x03];
-    int nGidbinnsInGame;
-    unsigned char bPlayerWithGidbinnDropped;
-    char unk0x21[0x03];
-    int nFetishBossGUID;
-    int nAltarGUID;
-    int nAltarObjectMode;
-};
 
 
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId);                                // 0x00543640

@@ -6,41 +6,13 @@
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
 #include "D2Drlg.h"
+#include "D2QuestData.h"
 
 
 
 
 
 
-struct D2Act4Quest2Strc
-{
-    unsigned char bTalkedToTyrael;
-    unsigned char bTimerCreated;
-    unsigned char bNeedToSpawnDiablo;
-    unsigned char unk0x03;
-    unsigned char bNeedToEndGame;
-    unsigned char bNeedToWarpPlayers;
-    unsigned char bDiabloStartPointInitialized;
-    unsigned char pad0x07;
-    int nDiabloStartPointObjectGUID;
-    unsigned char bSealActivated[5];
-    unsigned char bDiabloSpawned;
-    unsigned char unused0x12;
-    unsigned char bSanctumCleared;
-    unsigned char bDiabloKilled;
-    unsigned char bClientsSaved;
-    unsigned char pad0x16[2];
-    unsigned int dwTickCount;
-    int nPlayerCount;
-    D2UnitStrc* unk0x20;
-    D2CoordStrc pSealCoords[3];
-    D2ActiveRoomStrc* pRoom;
-    int nLastLastPortalObjectMode;
-    unsigned char unk0x44;
-    unsigned char bPortalToAct5Spawned;
-    unsigned char pad0x46[2];
-    int nBossesKilled;
-};
 
 
 

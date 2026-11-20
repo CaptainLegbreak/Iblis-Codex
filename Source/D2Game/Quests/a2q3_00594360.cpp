@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
+#include "D2QuestData.h"
 struct D2GameStrc;
 struct D2QuestDataStrc;
 
@@ -27,52 +28,10 @@ struct D2Act2Quest3Strc;
 
 
 
-struct D2Act1Quest4Strc
-{
-    char pad0x00[0x92];
-    unsigned char bChangePortalInTownToSpecialMode;
-    char pad0x93[0x03];
-    unsigned char bCainPortalInTownSpawned;
-    char pad0x97[0x11];
-    D2CoordStrc pCainPortalInTownCoords;
-    int nUnk0xB0;
-};
 
-struct D2Act2Quest2Strc
-{
-    int unused0x00[5];
-    int nItemDropCount;
-    int nBaseStaffs;
-    int nCubedStaffs;
-    int nHoradricCubes;
-    int nAmulets;
-    unsigned char bHoradricScrollDropped;
-    unsigned char bCubeDropped;
-    unsigned char bStaffCubed;
-    unsigned char unk0x2B;
-    int nPlayerGUID;
-};
 
-struct D2Act2Quest4Strc
-{
-    char pad0x00[0x40];
-    unsigned short nHaremBlockerObjectMode;
-    char pad0x42[0x04];
-    unsigned char bIsHaremBlockerNeutral;
-};
 
-struct D2Act2Quest5Strc
-{
-    char pad0x00[0x04];
-    D2ActiveRoomStrc* pRoom;
-};
 
-struct D2Act2Quest6Strc
-{
-    char pad0x00[0x40];
-    D2UnitStrc* pTyrael;
-    unsigned char bCloseToTyrael;
-};
 
 struct D2GSPacketSrv53
 {
@@ -175,21 +134,6 @@ int __fastcall ACT2Q2_UnitIterate_DetermineCubeDropCount(D2GameStrc* pGame, D2Un
 
 typedef bool (__fastcall* QUESTUPDATE)(D2GameStrc* pGame, D2QuestDataStrc* pQuestData);
 
-struct D2Act2Quest3Strc
-{
-    char unk0[0x2];
-    unsigned char bDarknessApplied;
-    char bDarknessPending[0x1];
-    unsigned char bAltarDestroyed;
-    unsigned char bAltarInitialized;
-    char unk0x06[0x2];
-    int nAltarMode;
-    int nAltarGUID;
-    D2ActiveRoomStrc* pRoom;
-    char tPlayerGUIDs[0x84];
-    int nAltarLevelId;
-    int nViperAmuletDropCount;
-};
 
 void __fastcall QUESTS_CreateTimer(D2QuestDataStrc* pQuest, QUESTUPDATE pfnCallback, int nTicks); // 0x00543F10
 void __fastcall QUESTS_DebugOutput(D2GameStrc* pGame, const char* szMessage, const char* szFile, int nLine); // 0x00544070
@@ -234,7 +178,7 @@ void __fastcall sub_005946D0_SetA1Q4Unk0xB0(D2GameStrc* pGame, D2UnitStrc* pUnit
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, QUEST_A1Q4_CAIN);
     if (pQuestData)
     {
-        ((D2Act1Quest4Strc*)pQuestData->pQuestDataEx)->nUnk0xB0 = nValue;
+        ((D2Act1Quest4Strc*)pQuestData->pQuestDataEx)->unk0xB0 = nValue;
     }
 }
 

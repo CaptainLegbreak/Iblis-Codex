@@ -5,6 +5,7 @@
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
 #include "D2Drlg.h"
+#include "D2QuestData.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define QFLAG_PRIMARYGOALDONE 13
@@ -40,28 +41,6 @@ typedef bool (__fastcall* QUESTUPDATE)(D2GameStrc* pGame, D2QuestDataStrc* pQues
 
 
 
-struct D2Act3Quest5Strc
-{
-    int nLastKilledMonsterGUID;
-    unsigned char bOrmusActivated;
-    unsigned char bMonstersSpawned;
-    unsigned char unk_06[0x2];
-    int bQuest1RewardGranted;
-    unsigned char bOrbSmashed;
-    unsigned char bFlailDropped;
-    unsigned char bCubeDropped;
-    unsigned char pad0x0F;
-    int nMonsterGUIDs[6];
-    unsigned char bCompellingOrbSpawned;
-    unsigned char pad0x29[3];
-    int nCompellingOrbGUID;
-    int nSpawnCount;
-    int nMonstersLeftToKill;
-    unsigned char unk_38[0x4];
-    int nFlailsMissing;
-    int nHoradricCubesMissing;
-    unsigned char unk_44[0xC];
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern char gpAct3Q5NpcMessages[]; // 0x007408B8
@@ -103,14 +82,6 @@ extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x
 typedef int (__fastcall* QUESTITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 void __fastcall QUESTS_RemovePlayerGUID(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x00545530
 
-struct D2Act3Quest2Strc
-{
-    char pad0x00[0x1C];
-    int nFlailsDropped;
-    int nCubedFlails;
-    char pad0x24[0x03];
-    unsigned char bFlailDropped;
-};
 
 void __fastcall QUESTS_DebugOutput(D2GameStrc* pGame, const char* szMessage, const char* szFile, int nLine); // 0x00544070
 D2UnitStrc* __fastcall D2GAME_DropItemAtUnit_6FC4FEC0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuality, int* pItemLevel, D2ItemDropStrc* pItemDrop, int a6, int a7); // 0x00559A30

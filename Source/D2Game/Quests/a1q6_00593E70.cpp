@@ -5,6 +5,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
+#include "D2QuestData.h"
 struct D2ActiveRoomStrc;
 struct D2CoordStrc;
 struct D2GameStrc;
@@ -105,90 +106,10 @@ struct D2ObjInitFnStrc
     int nY;
 };
 
-struct D2Act1Quest4Strc
-{
-    char pad0x00[0x4C];
-    unsigned char unk0x4C;
-    unsigned char bActivateCairnStones;
-    unsigned char bDecipheredScrollAcquired;
-    unsigned char unk_4F[0x2];
-    unsigned char bCainInTownSpawned;
-    unsigned char unk0x52;
-    unsigned char bAkaraIntroActivated;
-    int nCainGibbetObjectMode;
-    int unk0x58;
-    char pad0x5C[0x07];
-    unsigned char bQuestCompleteBefore;
-    unsigned char unk_64[0x4];
-    int nCainMonsterInTownGUID;
-    int nCainObjectGUID;
-    unsigned char bCainObjectInitialized;
-    unsigned char unk_71[0x7];
-    unsigned char bScrollAcquired;
-    char pad0x79[0x03];
-    int nScrollsInGame;
-    unsigned char unk_80[0x11];
-    unsigned char bChangePortalOutsideTownToSpecialMode;
-    char pad0x92[0x04];
-    unsigned char bCainPortalInTownSpawned;
-    char pad0x97[0x0D];
-    int nCainPortalInTownGUID;
-};
 
-struct D2Act1Quest5Strc
-{
-    int nUnitGUIDs1[12];
-    unsigned short nUnitCount1;
-    unsigned char pad0x32[2];
-    int nUnitGUIDs2[12];
-    unsigned short nUnitCount2;
-    unsigned char pad0x66[2];
-    int nObjectGUIDs[8];
-    unsigned short nCountessChestCount;
-    unsigned char pad0x8A[2];
-    D2QuestGUIDStrc tPlayerGUIDs;
-    D2CoordStrc pCoord;
-    unsigned char bCountessKilled;
-    unsigned char bDeathMissilesCreated;
-};
 
-struct D2Act1Quest6Strc
-{
-    D2QuestGUIDStrc pGUID1;
-    D2QuestGUIDStrc pGUID2;
-    D2QuestGUIDStrc pGUID3;
-    int nAndarielGUID;
-    short unk0x190;
-    short nTimerInvocations;
-    unsigned char bAndarielKilled;
-    unsigned char bCainActivated;
-    unsigned char unk_196[0x2];
-};
 
-struct D2Act2Quest4Strc
-{
-    char pad0x00[0x0C];
-    unsigned char bJerhynStartInitialized;
-    unsigned char bJerhynPalaceInitialized;
-    unsigned char bPalaceOpen;
-    char pad0x0F[0x2D];
-    int nJerhynGUID;
-    unsigned short nHaremBlockerObjectMode;
-    unsigned char unk_42[0x2];
-};
 
-struct D2Act2Quest6Strc
-{
-    unsigned char unk0x00;
-    unsigned char bDurielKilled;
-    char pad0x02[0x32];
-    int nStaffTombLevelId;
-    unsigned char bObjectIdsInitialized;
-    unsigned char pad0x39;
-    unsigned short nArcaneThings;
-    char pad0x3C[0x0C];
-    int nArcaneThingObjectIds[6];
-};
 
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
@@ -229,17 +150,6 @@ int __fastcall ACT2Q6_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* 
 
 typedef bool(__fastcall* QUESTUPDATE)(D2GameStrc*, D2QuestDataStrc*);
 
-struct D2Act2Quest1Strc
-{
-    unsigned char bRadamentKilled;
-    unsigned char pad0x01[3];
-    D2ActiveRoomStrc* pRoom;
-    unsigned char bAtmaActivated;
-    unsigned char unk0x09;
-    unsigned char bStatusTimerStarted;
-    unsigned char pad0x0B;
-    int nSkillBookDropCount;
-};
 
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 int __fastcall D2GAME_CreatePortalObject_6FD13DF0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int nDestLevel, D2UnitStrc** ppSourceUnit, int nObjectId, int bPerm); // 0x0056D130
@@ -337,7 +247,7 @@ void __fastcall ACT1Q4_SpawnCainPortalOutsideTown(D2GameStrc* pGame, D2UnitStrc*
 
     D2Act1Quest4Strc* pQuestDataEx = (D2Act1Quest4Strc*)pQuestData->pQuestDataEx;
     pQuestDataEx->bChangePortalOutsideTownToSpecialMode = 1;
-    pQuestDataEx->unk0x52 = 1;
+    pQuestDataEx->bCainInTownSpawnPending = 1;
     if (pQuestDataEx->bCainObjectInitialized != 1)
     {
         return;
@@ -924,12 +834,12 @@ void __fastcall ACT1Q4_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
         D2QuestDataStrc* pQuest = QUESTS_GetQuestData(pQuestData->pGame, QUEST_A1Q4_CAIN);
         if (pQuest)
         {
-            ((D2Act1Quest4Strc*)pQuest->pQuestDataEx)->unk0x52 = 1;
+            ((D2Act1Quest4Strc*)pQuest->pQuestDataEx)->bCainInTownSpawnPending = 1;
         }
 
         QUESTS_SetGlobalState(pQuestData->pGame, QUESTSTATEFLAG_A1Q4, QFLAG_PRIMARYGOALDONE);
         pQuestDataEx->nCainGibbetObjectMode = OBJMODE_SPECIAL1;
-        pQuestDataEx->unk0x4C = 1;
+        pQuestDataEx->bStonesActive = 1;
         pQuestDataEx->bActivateCairnStones = 1;
     }
     else if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A1Q4, QFLAG_COMPLETEDBEFORE) == 1)
@@ -937,7 +847,7 @@ void __fastcall ACT1Q4_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
         D2QuestDataStrc* pQuest = QUESTS_GetQuestData(pQuestData->pGame, QUEST_A1Q4_CAIN);
         if (pQuest)
         {
-            ((D2Act1Quest4Strc*)pQuest->pQuestDataEx)->unk0x52 = 1;
+            ((D2Act1Quest4Strc*)pQuest->pQuestDataEx)->bCainInTownSpawnPending = 1;
         }
 
         pQuest = QUESTS_GetQuestData(pQuestData->pGame, QUEST_A1Q4_CAIN);
@@ -947,14 +857,14 @@ void __fastcall ACT1Q4_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
         }
 
         pQuestDataEx->nCainGibbetObjectMode = OBJMODE_SPECIAL1;
-        pQuestDataEx->unk0x4C = 1;
+        pQuestDataEx->bStonesActive = 1;
         pQuestDataEx->bActivateCairnStones = 1;
     }
     else if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A1Q4, QFLAG_ENTERAREA) == 1)
     {
         pQuestData->fLastState = 4;
         pQuestData->fState = 5;
-        pQuestDataEx->unk0x4C = 1;
+        pQuestDataEx->bStonesActive = 1;
         pQuestDataEx->bDecipheredScrollAcquired = 1;
         pQuestDataEx->bActivateCairnStones = 1;
         pQuestDataEx->bScrollAcquired = 1;

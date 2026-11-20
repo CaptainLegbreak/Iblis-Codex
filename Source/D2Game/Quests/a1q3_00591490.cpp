@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
+#include "D2QuestData.h"
 struct D2GameStrc;
 struct D2UnitStrc;
 
@@ -18,25 +19,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 
 
 
-struct D2Act1Quest3Strc
-{
-    unsigned char unk0x00;
-    unsigned char bMalusInitialized;
-    unsigned char bCharsiIntroActivated;
-    unsigned char bCharsiEndActivated;
-    int nMalusGUID;
-    unsigned char unk0x08;
-    char unk0x09[0x7];
-    unsigned char unk0x10;
-    char pad0x11[0x1];
-    unsigned short unk0x12;
-    D2QuestGUIDStrc tPlayerGUIDs;
-    int nMalusObjectMode;
-    int nMalusItemsInGame;
-    unsigned char unk0xA0;
-    unsigned char bStartingPlayerHasMalus;
-    unsigned char pad0xA2[0x2];
-};
 typedef bool(__fastcall* QUESTSEQFILTER)(D2QuestDataStrc* pQuestData);
 typedef void(__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
 typedef bool(__fastcall* QUESTACTIVEFILTER)(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC);

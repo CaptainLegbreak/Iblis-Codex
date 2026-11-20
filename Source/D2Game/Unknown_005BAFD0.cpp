@@ -3,6 +3,7 @@
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2QuestData.h"
 
 struct Bits;
 struct Player;
@@ -48,17 +49,6 @@ typedef bool (__fastcall* QUESTUPDATE)(D2GameStrc* pGame, D2QuestDataStrc* pQues
 
 
 
-struct D2Act3Quest5Strc
-{
-    char unk0x00[0x04];
-    unsigned char bOrmusActivated;
-    char unk0x05[0x07];
-    unsigned char bOrbSmashed;
-    char unk0x0D[0x1B];
-    unsigned char bCompellingOrbSpawned;
-    char unk0x29[0x03];
-    int nCompellingOrbGUID;
-};
 
 
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640

@@ -1,23 +1,10 @@
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
+#include "D2QuestData.h"
 struct D2UnitStrc;
 struct D2BitBufferStrc;
 struct D2ActiveRoomStrc;
 struct D2GameStrc;
-struct D2Act3Quest5Strc
-{
-    int nLastKilledMonsterGUID;
-    unsigned char bOrmusActivated;
-    char pad0x05[0x07];
-    unsigned char bOrbSmashed;
-    unsigned char bFlailDropped;
-    unsigned char bCubeDropped;
-    char pad0x0F[0x25];
-    int nMonstersLeftToKill;
-    int nHits;
-    int nFlailsMissing;
-    int nHoradricCubesMissing;
-};
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit);                                         // 0x006221A0

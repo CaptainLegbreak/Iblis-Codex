@@ -3,27 +3,12 @@
 #include "D2Path.h"
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
+#include "D2QuestData.h"
 
 
 
 
-struct D2Act2Quest6Strc
-{
-    char unk0x00[0x3C];
-    unsigned char bPortalIsOpening;
-};
 
-struct D2Act2Quest2Strc
-{
-    int unused0x00[5];
-    int nItemDropCount;
-    int nBaseStaffs;
-    int nCubedStaffs;
-    int nHoradricCubes;
-    int nAmulets;
-    unsigned char bHoradricScrollDropped;
-    unsigned char bCubeDropped;
-};
 
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId);                                // 0x00543640
 D2ActiveRoomStrc* __stdcall DUNGEON_FindActSpawnLocationEx(D2DrlgActStrc* pAct, int nLevelId, int a3, int* pX, int* pY, int nUnitSize); // 0x0061B060

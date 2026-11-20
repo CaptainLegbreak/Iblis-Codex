@@ -3,6 +3,7 @@
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
 #include "D2Drlg.h"
+#include "D2QuestData.h"
 
 #define QUEST_A2Q4_HORAZONTOME 11
 #define LEVEL_PALACECELLARLEV3 54
@@ -35,12 +36,6 @@ typedef void (__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuestData, D2QuestArg
 typedef bool (__fastcall* QUESTSEQFILTER)(D2QuestDataStrc* pQuestData);
 
 
-struct D2Act2Quest4Strc
-{
-    char unk0x00[0x42];
-    unsigned short nPortalModeInSanctuary;
-    unsigned short nPortalModeInCellar;
-};
 
 
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
@@ -65,17 +60,6 @@ struct D2QuestArgStrc
     unsigned short unk0x1A;
 };
 
-struct D2Act2Quest6Strc
-{
-    unsigned char unk0x00[8];
-    unsigned char bInitJerhynActivated;
-    unsigned char bTyraelActivated;
-    unsigned char bEndJerhynActivated;
-    unsigned char unk0x0B[4];
-    unsigned char bPortalToLutGholeinOpened;
-    unsigned char unk0x10[0x2C];
-    unsigned char bPortalIsOpening;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090

@@ -3,6 +3,7 @@
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2QuestData.h"
 #define QFLAG_REWARDGRANTED 0
 #define QFLAG_REWARDPENDING 1
 #define QFLAG_STARTED 2
@@ -23,18 +24,6 @@ typedef int (__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit,
 
 
 
-struct D2Act5Quest1Strc
-{
-    void* pLarzukMapAI;
-    void* pRoom;
-    unsigned char bLarzukStartActivated;
-    unsigned char unused0x09[7];
-    int nLarzukGUID;
-    unsigned char unused0x14;
-    unsigned char bLarzukSpawned;
-    unsigned char bLarzukEndActivated;
-    unsigned char bLarzukMapAIChanged;
-};
 
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
 void __fastcall QUESTS_StatusCyclerEx(D2GameStrc* game,D2UnitStrc* player,unsigned char id); // 0x00544190

@@ -2,6 +2,7 @@
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2QuestData.h"
 
 
 
@@ -12,16 +13,6 @@ typedef bool(__fastcall* QUESTACTIVEFILTER)(D2QuestDataStrc* pQuest, int nNpcId,
 typedef bool(__fastcall* QUESTSTATUSFILTER)(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus);
 
 
-struct D2Act3Quest7Strc
-{
-    unsigned char bDarkWandererInitialized;
-    unsigned char bPrimaryGoalOpen;
-    unsigned char bWandererCoordsCalculated;
-    unsigned char pad0x03;
-    int nDarkWandererX;
-    int nDarkWandererY;
-    char unk0x0C[0x14 - 0x0C];
-};
 
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0

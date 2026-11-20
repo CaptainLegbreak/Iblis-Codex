@@ -3,27 +3,14 @@
 #include "D2Path.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2QuestData.h"
 
 struct D2Act3Quest0Strc;
 struct D2Act3Quest1Strc;
 struct D2ObjInitFnStrc;
 
 
-struct D2Act3Quest0Strc
-{
-    unsigned char bHratliStartCreated;
-    unsigned char bHratliEndCreated;
-    unsigned char bHratliEndObjectInitialized;
-    unsigned char bHratliStartIsPresent;
-    int nHratliX;
-    int nHratliY;
-};
 
-struct D2Act3Quest1Strc
-{
-    char unk0x00[0x18];
-    int nTomeObjectMode;
-};
 
 
 

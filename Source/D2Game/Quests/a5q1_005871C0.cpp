@@ -5,6 +5,7 @@
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2QuestData.h"
 #define QFLAG_REWARDGRANTED 0
 #define QFLAG_REWARDPENDING 1
 #define QFLAG_COMPLETEDBEFORE 15
@@ -46,30 +47,7 @@ typedef void (__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* 
 
 
 
-struct D2Act5Quest1Strc
-{
-    D2MapAIStrc* pLarzukMapAI;
-    D2ActiveRoomStrc* pRoom;
-    char pad0x08[0x8];
-    int nLarzukGUID;
-    char pad0x14[0x1];
-    unsigned char bLarzukSpawned;
-    char pad0x16[0x1];
-    unsigned char bLarzukMapAIChanged;
-};
 
-struct D2Act5Quest2Strc
-{
-    char tPlayerGUIDs[0x84];
-    unsigned char unk_84[0x2];
-    unsigned char bWussiesSpawned[3];
-    char unk0x89[0x1B];
-    int nSpawnedWussies;
-    int nKilledWussies;
-    int nFreedWussies;
-    int nWussieGUIDs[3][5];
-    unsigned char unk_EC[0x28];
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern char gpAct5Q1NpcMessages[]; // 0x00733308

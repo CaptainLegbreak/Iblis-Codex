@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
+#include "D2QuestData.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -15,23 +16,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 
 
 
-struct D2Act4Quest2Strc
-{
-    char unk0x000[0x1];
-    unsigned char bTimerCreated;
-    unsigned char bNeedToSpawnDiablo;
-    unsigned char unk0x03;
-    unsigned char bNeedToEndGame;
-    unsigned char bNeedToWarpPlayers;
-    unsigned char bDiabloStartPointInitialized;
-    char unk0x007[0x1];
-    int nDiabloStartPointObjectGUID;
-    char unk0x00C[0x9];
-    unsigned char bClientsSaved;
-    char unk0x016[0x2];
-    unsigned int dwTickCount;
-    char unk0x01C[0x30];
-};
 typedef int (__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 
 struct D2PacketDataStrc

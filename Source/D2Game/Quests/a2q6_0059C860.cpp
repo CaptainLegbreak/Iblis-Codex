@@ -3,6 +3,7 @@
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2QuestData.h"
 struct D2GameStrc;
 struct D2QuestDataStrc;
 
@@ -63,33 +64,6 @@ typedef bool (__fastcall* QUESTUPDATE)(D2GameStrc* pGame, D2QuestDataStrc* pQues
 typedef int (__stdcall* FARPROC)();
 
 
-struct D2Act2Quest6Strc
-{
-    unsigned char unk0x00;
-    unsigned char bDurielKilled;
-    char pad0x02[0x1];
-    unsigned char bTimerActive;
-    unsigned char bHoradricOrificeInitialized;
-    unsigned char bTyraelsDoorInitialized;
-    unsigned char bUnusedObjectInitialized;
-    char pad0x07[0x4];
-    unsigned char bDurielLairTombOpen;
-    unsigned char bDurielLairPortalNeedsToOpen;
-    unsigned char bObjectsNeedUpdate;
-    char pad0x0E[0xA];
-    int nTyraelsDoorObjectMode;
-    char pad0x1C[0x4];
-    int nHoradricOrificeGUID;
-    char pad0x24[0x4];
-    int nUnusedObjectGUID;
-    int nTyraelsDoorGUID;
-    char pad0x30[0x4];
-    int nStaffTombLevelId;
-    char pad0x38[0x5];
-    unsigned char bRewardedOrCompletedBefore;
-    char pad0x3E[0x22];
-    D2ActiveRoomStrc* pDurielRoom;
-};
 
 #pragma pack(push, 1)
 struct D2GSPacketSrv50

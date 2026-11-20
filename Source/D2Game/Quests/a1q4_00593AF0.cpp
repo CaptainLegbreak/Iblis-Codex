@@ -3,6 +3,7 @@
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2QuestData.h"
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 
@@ -24,53 +25,6 @@ typedef int (__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit,
 typedef void (__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs);
 
 
-struct D2Act1Quest4Strc
-{
-    unsigned short nStoneOrder[5];
-    unsigned short unused0x0A;
-    unsigned short nCurrentMonolithNo;
-    unsigned char pad0x0E[2];
-    int nMonolithGUIDs[5];
-    int unused0x24;
-    int nInvisibleObjectGUID;
-    short nCairnStoneInteractions;
-    unsigned char pad0x2E[2];
-    int nInifussTreeGUID;
-    int nCainGibbetGUID;
-    int nDecipheredScrollGUID;
-    int nPlayerGUID;
-    int nCairnStoneAlphaGUID;
-    unsigned char bOpenPortalTimerActive;
-    unsigned char bPortalToTristramOpened;
-    unsigned char bTimerActive;
-    unsigned char bInifussTreeInitialized;
-    unsigned char bCageModeChanged;
-    unsigned char bInvisbleObjectInitialized;
-    unsigned char bMonolithStonesOrdered;
-    unsigned char unk0x4B;
-    unsigned char unk0x4C;
-    unsigned char bActivateCairnStones;
-    unsigned char bDecipheredScrollAcquired;
-    unsigned char bOperatedWithLastCairnStone;
-    unsigned char unk0x50;
-    unsigned char bCainInTownSpawned;
-    unsigned char unk0x52;
-    unsigned char bAkaraIntroActivated;
-    int nCainGibbetObjectMode;
-    int unk0x58;
-    unsigned char bCairnStonesActive[5];
-    unsigned char bCainRemovedFromTristram;
-    unsigned char bCainNotCreated;
-    unsigned char bQuestCompleteBefore;
-    unsigned char bAkaraActivatedForScroll;
-    unsigned char unk0x65[0x13];
-    unsigned char bScrollAcquired;
-    unsigned char pad0x79[3];
-    int nScrollsInGame;
-    unsigned char unk0x80[0x34];
-    D2QuestGUIDStrc pQuestGUID;
-    D2QuestGUIDStrc tPlayerGUIDs;
-};
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);           // 0x0040B430
 void __fastcall QUESTS_ResetPlayerGUIDCount(D2QuestGUIDStrc* pQuestGUID);                                   // 0x00545300
 void __fastcall ACT1Q4_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);    // 0x005921B0

@@ -4,6 +4,7 @@
 #include "D2Txt.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2QuestData.h"
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 
@@ -19,38 +20,8 @@ typedef bool (__fastcall* QUESTACTIVEFILTER)(D2QuestDataStrc* pQuest, int nNpcId
 
 
 
-struct D2Act2Quest2Strc
-{
-    int unused0x00[5];
-    int nItemDropCount;
-    int nBaseStaffs;
-    int nCubedStaffs;
-    int nHoradricCubes;
-    int nAmulets;
-    unsigned char bHoradricScrollDropped;
-    unsigned char bCubeDropped;
-    unsigned char bStaffCubed;
-    unsigned char unk0x2B;
-    int nPlayerGUID;
-};
 
-struct D2Act2Quest6Strc
-{
-    char unk0x00[0x0B];
-    unsigned char bDurielLairTombOpen;
-    char unk0x0C[0x02];
-    unsigned char bStaffItemsRemoved;
-    unsigned char unk0x0F;
-    unsigned char bHoradricStaffIsMissing;
-    char unk0x11[0x03];
-    int nQuestStatus;
-};
 
-struct D2Act2Quest3Strc
-{
-    char unk0x00[0x04];
-    unsigned char bAltarDestroyed;
-};
 
 enum
 {

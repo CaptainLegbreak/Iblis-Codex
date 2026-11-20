@@ -2,16 +2,12 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
+#include "D2QuestData.h"
 
 
 
 
 
-struct D2Act2Quest2Strc
-{
-    int unused0x00[5];
-    int nItemDropCount;
-};
 
 enum
 {

@@ -1,20 +1,7 @@
 #include "D2Game.h"
 #include "D2UnitData.h"
+#include "D2QuestData.h"
 
-struct D2Act2Quest2Strc
-{
-    int unused0x00[5];
-    int nItemDropCount;
-    int nBaseStaffs;
-    int nCubedStaffs;
-    int nHoradricCubes;
-    int nAmulets;
-    unsigned char bBaseStaffDropped;
-    unsigned char bCubeDropped;
-    unsigned char bStaffCubed;
-    unsigned char bStaffMissingDetected;
-    int nPlayerGUID;
-};
 
 
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nQuest); // 0x00543640

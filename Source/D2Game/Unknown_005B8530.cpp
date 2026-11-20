@@ -2,14 +2,7 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2UnitData.h"
-struct D2Act3Quest2Strc
-{
-    unsigned char bSewerStairsInitialized;
-    unsigned char bInitiallyTalkedToCain;
-    unsigned char pad0x02[2];
-    int nSewerStairsObjectGUID;
-    int nSewerStairsObjectMode;
-};
+#include "D2QuestData.h"
 struct D2ObjOperateFnStrc
 {
     D2GameStrc* pGame;

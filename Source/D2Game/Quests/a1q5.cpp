@@ -7,6 +7,7 @@
 #include "D2Txt.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2QuestData.h"
 struct D2ActiveRoomStrc;
 struct D2CoordStrc;
 struct D2GameStrc;
@@ -70,48 +71,7 @@ struct D2ObjOperateFnStrc
 };
 
 
-struct D2Act1Quest4Strc
-{
-    char unk0x00[0x34];
-    int nCainGibbetGUID;
-    char unk0x38[0x10];
-    unsigned char bCageModeChanged;
-    char unk0x49[0x0B];
-    int nCainGibbetObjectMode;
-    unsigned char unk_58[0xF];
-    unsigned char bCainPortalCoordsInitialized;
-    char pad0x68[0x18];
-    int nObjectUpdateInvocations;
-    char pad0x84[0x0D];
-    unsigned char bChangePortalOutsideTownToSpecialMode;
-    unsigned char bChangePortalInTownToSpecialMode;
-    char pad0x93[0x02];
-    unsigned char bCainPortalOutsideTownSpawned;
-    char pad0x96[0x02];
-    int nCainPortalOutsideTownGUID;
-    D2CoordStrc pCainPortalOutsideTownCoords;
-};
 
-struct D2Act1Quest5Strc
-{
-    int nUnitGUIDs1[12];
-    unsigned short nUnitCount1;
-    unsigned char pad0x32[2];
-    int nUnitGUIDs2[12];
-    unsigned short nUnitCount2;
-    unsigned char pad0x66[2];
-    int nObjectGUIDs[8];
-    unsigned short nCountessChestCount;
-    unsigned char pad0x8A[2];
-    D2QuestGUIDStrc tPlayerGUIDs;
-    D2CoordStrc pCoord;
-    unsigned char bCountessKilled;
-    unsigned char bDeathMissilesCreated;
-    unsigned char bTriggerSeqFilter;
-    unsigned char bTowerTomeActivated;
-    unsigned char unk0x11C;
-    unsigned char pad0x11D[3];
-};
 
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
@@ -154,27 +114,6 @@ enum D2C_Q05QuestConstants
     QFLAG_CUSTOM7 = 11,
 };
 
-struct D2Act2Quest6Strc
-{
-    unsigned char unk0x00;
-    unsigned char bDurielKilled;
-    unsigned char unk0x02;
-    unsigned char bTimerActive;
-    unsigned char bHoradricOrificeInitialized;
-    unsigned char bTyraelsDoorInitialized;
-    unsigned char bUnusedObjectInitialized;
-    unsigned char unused0x07;
-    unsigned char bInitJerhynActivated;
-    unsigned char bTyraelActivated;
-    unsigned char bEndJerhynActivated;
-    unsigned char bDurielLairTombOpen;
-    unsigned char bDurielLairPortalNeedsToOpen;
-    unsigned char bObjectsNeedUpdate;
-    unsigned char unk0x0E[0x12];
-    int nHoradricOrificeGUID;
-    unsigned char unused0x24[4];
-    int nUnusedObjectGUID;
-};
 
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 int __fastcall QUESTS_GetGlobalState(D2GameStrc* pGame, int nQuestId, int nState); // 0x00544760

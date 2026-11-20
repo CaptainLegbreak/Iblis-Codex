@@ -4,6 +4,7 @@
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2QuestData.h"
 struct D2GameStrc;
 struct D2UnitStrc;
 struct D2BitBufferStrc;
@@ -22,21 +23,6 @@ typedef bool(__fastcall* QUESTACTIVEFILTER)(D2QuestDataStrc* pQuest, int nNpcId,
 typedef bool(__fastcall* QUESTSTATUSFILTER)(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus);
 
 
-struct D2Act5Quest6Strc
-{
-    D2QuestGUIDStrc tPlayerGUIDs;
-    char unk0x84[0x86 - 0x84];
-    unsigned char bWorldStoneChamberOpen;
-    char unk0x87;
-    int nCompletions;
-    D2ActiveRoomStrc* pRoom;
-    unsigned char bQuestStarted;
-    char unk0x91[0x94 - 0x91];
-    int nBaalPortalObjectMode;
-    char unk0x98[0x9C - 0x98];
-    int nLastPortalObjectMode;
-    char unk0xA0[0xA8 - 0xA0];
-};
 
 
 struct D2ObjOperateFnStrc

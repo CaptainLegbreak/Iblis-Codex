@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2QuestData.h"
 struct D2ActiveRoomStrc;
 struct D2CoordStrc;
 struct D2GameStrc;
@@ -27,17 +28,6 @@ struct D2MapAIStrc
 typedef void (__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
 
 
-struct D2Act5Quest1Strc
-{
-    D2MapAIStrc* pLarzukMapAI;
-    D2ActiveRoomStrc* pRoom;
-    char pad0x08[0x8];
-    int nLarzukGUID;
-    char pad0x14[0x1];
-    unsigned char bLarzukSpawned;
-    char pad0x16[0x1];
-    unsigned char bLarzukMapAIChanged;
-};
 
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
 void __fastcall QUESTS_GetFreePosition(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoord, unsigned int nSize, unsigned short fCollision, D2ActiveRoomStrc** ppRoom, int nId, int nRadius); // 0x00545340
@@ -46,13 +36,6 @@ extern "C" unsigned int* __stdcall sub_0058F000(Unit0058F000* pUnit); // 0x0058F
 D2MapAIStrc* __fastcall DRLGPRESET_ChangeMapAI(D2MapAIStrc** ppMapAI1, D2MapAIStrc* pMapAI2); // 0x00666120
 
 
-struct D2Act5Quest2Strc
-{
-    char tPlayerGUIDs[0x84];
-    unsigned char bQualKehkActivated;
-    char unk0x85[0xA8 - 0x85];
-    int nKilledWussies;
-};
 
 int __fastcall ACT5Q2_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x005879D0
 void __fastcall QUESTS_UnitIterate(D2QuestDataStrc* pQuest, int nIterateState, D2UnitStrc* pUnit, int(__fastcall* pfIterate)(D2GameStrc*, D2UnitStrc*, void*), bool bIterate); // 0x00544300

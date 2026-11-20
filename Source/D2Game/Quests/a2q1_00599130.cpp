@@ -3,6 +3,7 @@
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2QuestData.h"
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 
@@ -17,19 +18,6 @@ typedef int (__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit,
 typedef bool (__fastcall* QUESTACTIVEFILTER)(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC);
 
 
-struct D2Act2Quest1Strc
-{
-    unsigned char bRadamentKilled;
-    unsigned char pad0x01[3];
-    D2ActiveRoomStrc* pRoom;
-    unsigned char bAtmaActivated;
-    unsigned char unk0x09;
-    unsigned char bStatusTimerStarted;
-    unsigned char pad0x0B;
-    int nSkillBookDropCount;
-    unsigned char bRewardPending;
-    unsigned char pad0x11[3];
-};
 
 enum
 {
@@ -108,7 +96,7 @@ void __fastcall ACT2Q1_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
     {
         if (QUESTRECORD_GetQuestState(pQuestFlags, QUESTSTATEFLAG_A2Q1, 1) == 1)
         {
-            ((D2Act2Quest1Strc*)pQuestData->pQuestDataEx)->bRewardPending = 1;
+            ((D2Act2Quest1Strc*)pQuestData->pQuestDataEx)->rewardPending = 1;
         }
         pQuestData->fState = 0;
         pQuestData->bNotIntro = 0;

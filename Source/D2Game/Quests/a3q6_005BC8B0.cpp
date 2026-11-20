@@ -4,6 +4,7 @@
 #include "D2Txt.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2QuestData.h"
 struct D2QuestDataStrc;
 
 
@@ -15,21 +16,6 @@ typedef int(__fastcall* SUNIT_ITERATEFN)(D2GameStrc* pGame, D2UnitStrc* pUnit, v
 
 
 
-struct D2Act3Quest6Strc
-{
-    unsigned char bTimerStarted;
-    unsigned char bHellGatePortalInitialized;
-    unsigned char bMephistoBridgeInitialized;
-    unsigned char bOrmusActivated;
-    int nHellGatePortalGUID;
-    int nMephistoBridgeGUID;
-    int nHellGatePortalObjectMode;
-    int nMephistoBridgeObjectMode;
-    int nSoulStonesDropped;
-    unsigned char bSoulStoneDropped;
-    unsigned char pad0x19[3];
-    int nSoulstonesToDrop;
-};
 
 
 #define QFLAG_REWARDGRANTED 0
