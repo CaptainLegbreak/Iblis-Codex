@@ -2,6 +2,7 @@
 #include "D2Constants.h"
 #include "D2DataTbls.h"
 #include "D2GameTypes.h"
+#include "D2Win32Types.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -32,7 +33,6 @@ struct D2HintCursorStrc;
 struct D2PalShiftNodeStrc;
 struct D2SeedStrc;
 struct D2CelContextStrc;
-struct tagRECT;
 struct D2DataTablesStrc;
 struct D2UnitStrc;
 struct D2ActiveRoomStrc;
@@ -133,14 +133,6 @@ struct D2ClientEntryStrc
     int nValue;
 };
 
-struct tagRECT
-{
-    long left;
-    long top;
-    long right;
-    long bottom;
-};
-
 struct D2ClientViewStrc
 {
     unsigned int dwFlags;
@@ -177,7 +169,6 @@ struct T0044A980
     int nId;
     int nValue;
 };
-
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -289,7 +280,6 @@ struct D2DrlgCoordsStrc
     int nTileWidth;
     int nTileHeight;
 };
-
 
 struct D2RosterPetStrc
 {

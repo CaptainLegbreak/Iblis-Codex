@@ -4,6 +4,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2ClientMenus.h"
+#include "D2Win32Types.h"
+
 struct D2BitBufferStrc;
 struct D2GameStrc;
 
@@ -12,14 +14,6 @@ struct Unicode;
 struct D2NpcMenuSlotStrc;
 struct D2StoredMsgPacketStrc;
 struct D2StoredMsgStrc;
-
-struct tagRECT
-{
-    int left;
-    int top;
-    int right;
-    int bottom;
-};
 
 #pragma pack(push, 2)
 
@@ -41,7 +35,7 @@ extern "C" __declspec(dllimport) int __stdcall SetRect(tagRECT* lprc, int xLeft,
 D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 void __stdcall UNITS_GetClientCoords(D2UnitStrc* pUnit, D2CoordStrc* pClientCoords); // 0x00620900
-void __fastcall sub_00476070_GetViewRect(D2ViewStrc* pView, int* pLeft, int* pTop, int* pRight, int* pBottom); // 0x00476070
+void __fastcall sub_00476070_GetViewRect(D2ViewStrc* pView, long* pLeft, long* pTop, long* pRight, long* pBottom); // 0x00476070
 void __fastcall sub_004760C0_GetViewOffset(D2ViewStrc* pView, int* pX, int* pY); // 0x004760C0
 void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg); // 0x00478680
 void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0

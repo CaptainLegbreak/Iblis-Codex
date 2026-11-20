@@ -3,6 +3,8 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2ItemsWorld.h"
+#include "D2Win32Types.h"
+
 struct D2ActiveRoomStrc;
 struct D2RoomCoordListStrc;
 struct D2UnitStrc;

@@ -5,15 +5,13 @@
 #include "D2Txt.h"
 #include "D2ClientTypes.h"
 #include "D2Unicode.h"
+#include "D2Win32Types.h"
 
 struct D2ObjectDataStrc
 {
     char unk0x00[0x04];
     unsigned char nInteractType;
 };
-
-
-
 
 struct D2LevelsTxt
 {
@@ -30,16 +28,6 @@ struct D2TileRectStrc
     int nY;
     unsigned int nWidth;
     unsigned int nHeight;
-};
-
-
-
-struct tagRECT
-{
-    long left;
-    long top;
-    long right;
-    long bottom;
 };
 
 extern "C" __declspec(dllimport) int __stdcall SetRect(tagRECT* lprc, int xLeft, int yTop, int xRight, int yBottom); // 0x006CC498
@@ -469,4 +457,5 @@ void __fastcall sub_00454F30_DrawUnitHover(D2UnitStrc* pUnit)
 }
 
 #include "gen/data/Source/D2Client/Unknown_00454F30.inc"
+
 struct D2UnitStrc;

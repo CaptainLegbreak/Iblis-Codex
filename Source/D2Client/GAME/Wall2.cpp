@@ -2,22 +2,13 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2Win32Types.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2WallCellStrc;
 struct D2WallCtxStrc;
 struct D2StaticPathStrc;
 struct Obj004DCF10;
-
-struct tagRECT
-{
-    int left;
-    int top;
-    int right;
-    int bottom;
-};
-
-
 
 struct D2WallRoomArgStrc
 {

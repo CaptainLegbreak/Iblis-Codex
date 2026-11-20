@@ -2181,12 +2181,6 @@ typedef unsigned short U16;
 
 typedef unsigned char U8;
 
-struct _FILETIME
-{
-    unsigned long dwLowDateTime;
-    unsigned long dwHighDateTime;
-};
-
 typedef char pointer_width[sizeof(void*)==4?1:-1];
 
 typedef unsigned int size_t;

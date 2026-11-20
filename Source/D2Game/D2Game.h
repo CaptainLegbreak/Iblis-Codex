@@ -84,6 +84,7 @@ struct Tables;
 struct Text;
 struct Unit;
 struct _iobuf;
+struct D2SystemTimeStrc;
 struct tagRECT;
 
 D2ActiveRoomStrc* __stdcall DUNGEON_FindActSpawnLocation(D2DrlgActStrc* pAct, int nLevelId, int nTileIndex, int* pX, int* pY); // 0x00619E50
@@ -1178,18 +1179,6 @@ struct D2StaticFieldCallbackArgStrc
     int nElementalType;
 };
 
-struct D2SystemTimeStrc
-{
-    unsigned short wYear;
-    unsigned short wMonth;
-    unsigned short wDayOfWeek;
-    unsigned short wDay;
-    unsigned short wHour;
-    unsigned short wMinute;
-    unsigned short wSecond;
-    unsigned short wMilliseconds;
-};
-
 struct D2TaskStrc
 {
     int dwTaskQ;
@@ -1356,7 +1345,5 @@ struct ShrineRecord
 };
 
 typedef unsigned int size_t;
-
-struct tagRECT { long left; long top; long right; long bottom; };
 
 typedef unsigned __int64 uint64_t;
