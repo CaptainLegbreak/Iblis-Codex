@@ -2,10 +2,6 @@
 #include "D2Constants.h"
 #include "D2Txt.h"
 #include "D2DataTbls.h"
-#include "D2Structs.h"
-#include "D2Primitives.h"
-#include "D2ItemsWorld.h"
-#include "D2GameStrc.h"
 
 #define STAT_UNIT_DOOVERLAY 178
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -75,6 +71,30 @@ struct D2UnitPacketPrecacheStrc
     char unk0x0A[0x02];
 };
 
+struct D2UnitStrc
+{
+    int dwUnitType;
+    int dwClassId;
+    void* pMemoryPool;
+    int dwUnitId;
+    int dwAnimMode;
+    union
+    {
+        D2MonsterDataStrc* pMonsterData;
+        char* szName;
+        D2ObjectDataStrc* pObjectData;
+    };
+    char unk0x18[0x14];
+    D2DynamicPathStrc* pDynamicPath;
+    char unk_30[0x30];
+    D2InventoryStrc* pInventory;
+    char unk_64[0x60];
+    unsigned int dwFlags;
+    unsigned char unk_C8[0x24];
+    D2UnitPacketListStrc* pMsgFirst;
+    D2UnitPacketListStrc* pMsgLast;
+};
+
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
@@ -87,10 +107,23 @@ int __stdcall STATLIST_GetTotalStatValue_Layer0(D2StatListStrc* pStatListEx, int
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
 
+struct D2BitBufferStrc
+{
+    unsigned char* pBuffer;
+};
+
 struct D2PlrIntroStrc
 {
     D2BitBufferStrc* pQuestIntroFlags;
     D2BitBufferStrc* pNpcIntroFlags;
+};
+
+struct D2PetInfoStrc
+{
+    unsigned int nSeed;
+    unsigned short wName;
+    short unk0x06;
+    int nHirelingId;
 };
 
 struct D2PetDataStrc
@@ -137,6 +170,14 @@ struct D2InteractInfoStrc
     D2UnitStrc* pUnit;
     int nInteract;
     D2InteractInfoStrc* pNext;
+};
+
+struct D2GameStrc
+{
+    char unk0x00[0x1C];
+    void* pMemoryPool;
+    char unk0x20[0x4D];
+    unsigned char nDifficulty;
 };
 
 struct D2NpcRecordStrc
@@ -512,7 +553,7 @@ void __fastcall sub_00571F90(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc*
     switch (pUnit->dwUnitType)
     {
     case 0:
-        sub_6FC3D1F0(pClient, pUnit->dwUnitId, pUnit->dwClassId, (const char*)pUnit->pPlayerData, tCoords.nX, tCoords.nY);
+        sub_6FC3D1F0(pClient, pUnit->dwUnitId, pUnit->dwClassId, pUnit->szName, tCoords.nX, tCoords.nY);
         break;
     case 4:
         if (UnitHasFlag(pUnit, 0x10))
