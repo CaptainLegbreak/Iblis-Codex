@@ -1,5 +1,6 @@
 #include "D2CMP.h"
 #include "D2GameTypes.h"
+#include "D2CmpTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2SpriteCacheNodeStrc;
@@ -104,35 +105,11 @@ struct D2CelFileStrc
     int nCelsPerDirection;
 };
 
-struct D2CmpCelContextStrc
-{
-    unsigned int nFrame;
-    char unk0x04[0x30];
-    D2CelFileStrc* pCelFile;
-    char unk0x38[0x04];
-    D2CelStrc* pCel;
-};
 
 void __fastcall sub_00608D60_DrawCelShadowLines(D2CelStrc* pCel, unsigned char* pDst, int nX, int nClipLeft, int nClipRight, int nPitch, int nSkip, int nLines, int nTable, int nColor); // 0x00608D60
 
-struct D2CmpTileStrc
-{
-    char unk0x00[0x60];
-};
 
-struct D2CmpTileBlockStrc
-{
-    char unk0x00[0x60];
-};
 
-struct D2CmpTileLibraryStrc
-{
-    int dwVersion;
-    unsigned int dwFlags;
-    char szName[0x104];
-    int nBlocks;
-    D2CmpTileBlockStrc* pBlocks;
-};
 void __fastcall sub_0060CFA0_AddTileToTable(D2TileLibraryHashStrc* pHash, D2CmpTileBlockStrc* pTile); // 0x0060CFA0
 
 typedef void (__stdcall* PixelDataFreeCallback)(void* pData);

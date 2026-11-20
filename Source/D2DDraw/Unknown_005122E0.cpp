@@ -1,11 +1,7 @@
 #include "D2DDraw.h"
+#include "D2CmpTypes.h"
 
 struct D2CelStrc;
-struct D2CmpCelContextStrc
-{
-    char unk_00[0x3C];
-    D2CelStrc* pCel;
-};
 int __stdcall sub_006001F0(D2CmpCelContextStrc* pContext, int nArg2, int nArg3); // 0x006001F0
 int __stdcall sub_006018C0(D2CelStrc* pCel); // 0x006018C0
 int __stdcall sub_006018F0(D2CelStrc* pCel); // 0x006018F0

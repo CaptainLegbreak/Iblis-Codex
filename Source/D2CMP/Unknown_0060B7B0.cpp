@@ -1,10 +1,4 @@
-struct D2CmpBitCursorStrc
-{
-    unsigned int* pStart;
-    unsigned int* pData;
-    int unk0x08;
-    int f_C;
-};
+#include "D2CmpTypes.h"
 
 struct D2CmpCellBufStrc
 {
@@ -115,23 +109,23 @@ static void __fastcall sub_0060B7B0_DecodeCell(D2CmpBitCursorStrc* pPixelCodes, 
 static __forceinline unsigned int DccReadBits(D2CmpBitCursorStrc* pCursor, int nCount)
 {
     unsigned int nValue;
-    const int nLeft = 32 - pCursor->f_C;
+    const int nLeft = 32 - pCursor->nBitPos;
     if (nLeft >= nCount)
     {
-        nValue = (*pCursor->pData >> pCursor->f_C) & gdwBitMasks_006E6030[nCount];
-        pCursor->f_C += nCount;
-        if (pCursor->f_C == 32)
+        nValue = (*pCursor->pData >> pCursor->nBitPos) & gdwBitMasks_006E6030[nCount];
+        pCursor->nBitPos += nCount;
+        if (pCursor->nBitPos == 32)
         {
             ++pCursor->pData;
-            pCursor->f_C = 0;
+            pCursor->nBitPos = 0;
         }
     }
     else
     {
-        nValue = (*pCursor->pData >> pCursor->f_C) & gdwBitMasks_006E6030[nLeft];
+        nValue = (*pCursor->pData >> pCursor->nBitPos) & gdwBitMasks_006E6030[nLeft];
         ++pCursor->pData;
-        pCursor->f_C = nCount - nLeft;
-        nValue |= (*pCursor->pData & gdwBitMasks_006E6030[pCursor->f_C]) << nLeft;
+        pCursor->nBitPos = nCount - nLeft;
+        nValue |= (*pCursor->pData & gdwBitMasks_006E6030[pCursor->nBitPos]) << nLeft;
     }
     return nValue;
 }

@@ -1,4 +1,5 @@
 #include "D2Win.h"
+#include "D2CmpTypes.h"
 
 struct D2CharStrc
 {
@@ -200,21 +201,7 @@ struct D2CofDataStrc
     unsigned int nAnimSpeed;
 };
 
-struct D2CofNodeStrc
-{
-    int nRefCount;
-    int nMode;
-    unsigned int nClass;
-    unsigned int dwWeaponClass;
-    unsigned int unk0x10;
-    D2CofDataStrc* pCofData;
-};
 
-struct D2CofInfoStrc
-{
-    D2CofNodeStrc* pCofNode;
-    D2CofInfoStrc* pNext;
-};
 
 struct D2GfxInfoStrc
 {

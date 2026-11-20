@@ -1,38 +1,6 @@
 #include "D2GameTypes.h"
+#include "D2CmpTypes.h"
 
-struct D2CmpBitCursorStrc
-{
-    unsigned int* pStart;
-    unsigned int* pData;
-    int nBits;
-    int nBitPos;
-
-    unsigned char* GetBytePtr()
-    {
-        return (unsigned char*)pData + (nBitPos + 7) / 8;
-    }
-
-    void AlignToByte()
-    {
-        const unsigned int nPos = (nBitPos + 7) & ~7u;
-        nBitPos = nPos & 0x1F;
-        pData += nPos / 32;
-    }
-
-    void AlignToByteEnd()
-    {
-        const unsigned int nPos = (nBitPos + 7) & ~7u;
-        pData += nPos / 32;
-        nBitPos = nPos & 0x1F;
-    }
-
-    void AdvanceBits(int nCount)
-    {
-        int nPos = nBitPos + nCount;
-        nBitPos = nPos & 0x1F;
-        pData += nPos / 32;
-    }
-};
 
 struct D2CmpByteMapStrc
 {

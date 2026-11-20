@@ -6,6 +6,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2GameTypes.h"
+#include "D2CmpTypes.h"
 
 #define DAMAGERESULTFLAG_SUCCESSFULHIT 1
 #define SKILL_DIMVISION 71
@@ -180,17 +181,6 @@ struct D2WinImageClickRectStrc
     int (__stdcall* pCallback)(SMSGHANDLER_PARAMS* pMsg);
 };
 
-struct D2CofNodeStrc
-{
-    int nRefCount;
-    unsigned int nMode;
-    unsigned int nClass;
-    unsigned int dwWeaponClass;
-    unsigned int dwCofSize;
-    D2CofDataStrc* pCofData;
-    D2CofNodeStrc* pNext;
-    D2CofNodeStrc* pPrev;
-};
 
 extern D2CofNodeStrc* gpCofNodeList_0087E83C; // 0x0087E83C
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480

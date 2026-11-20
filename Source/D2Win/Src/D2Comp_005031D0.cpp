@@ -1,5 +1,6 @@
 #include "D2Win.h"
 #include "D2Records.h"
+#include "D2CmpTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define COF_PAD 0x20
@@ -40,23 +41,7 @@ struct D2CofDataStrc
     unsigned char nVersion;
 };
 
-struct D2CofNodeStrc
-{
-    int nRefCount;
-    unsigned int nMode;
-    unsigned int nClass;
-    unsigned int dwWeaponClass;
-    unsigned int dwCofSize;
-    D2CofDataStrc* pCofData;
-    D2CofNodeStrc* pNext;
-    D2CofNodeStrc* pPrev;
-};
 
-struct D2CofInfoStrc
-{
-    D2CofNodeStrc* pCofNode;
-    D2CofInfoStrc* pNext;
-};
 
 struct D2GfxInfoStrc
 {

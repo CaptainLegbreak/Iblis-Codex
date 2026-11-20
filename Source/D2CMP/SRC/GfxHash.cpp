@@ -1,4 +1,5 @@
 #include "D2CMP.h"
+#include "D2CmpTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -60,21 +61,6 @@ struct D2CmpGfxKeyStrc
     const char* szName;
 };
 
-struct D2CmpGfxHashEntryStrc
-{
-    unsigned int nIndex;
-    int nSub;
-    int nKey1;
-    int nKey2;
-    int nKey3;
-    int nKey4;
-    int nKey5;
-    unsigned int nValue;
-    int nArg;
-    int unk0x24;
-    D2CmpGfxHashEntryStrc* pPrev;
-    D2CmpGfxHashEntryStrc* pNext;
-};
 
 struct D2CmpGfxHashStrc
 {
