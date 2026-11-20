@@ -5,6 +5,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -60,12 +61,6 @@ enum D2C_F41AiTacticsConstants
 
 
 
-struct D2MonStatsTxt
-{
-    char unk0x000[0x0C];
-    unsigned char nMonStatsFlags[4];
-    char unk0x010[0x198];
-};
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 

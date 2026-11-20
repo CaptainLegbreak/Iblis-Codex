@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -18,26 +19,6 @@ extern "C" const char szFmtDec_006DBE94[]; // 0x006DBE94
 extern "C" const char szFmtRange_006D9D70[]; // 0x006D9D70
 
 
-struct D2SkillsTxt
-{
-    short nSkillId;
-    char unk0x02[0x02];
-    unsigned char nFlags[8];
-    char unk0x0C[0x48];
-    short wAuraStat[6];
-    char unk0x60[0x126];
-    short wMinMana;
-    short nManaShift;
-    short wMana;
-    short wLevelMana;
-    char unk0x18E[0x06];
-    short wSkillDesc;
-    char unk0x196[0x0F];
-    unsigned char nSrcDam;
-    char unk0x1A6[0x36];
-    unsigned char nEType;
-    char unk0x1DD[0x5F];
-};
 
 struct D2SkillDescTxt
 {

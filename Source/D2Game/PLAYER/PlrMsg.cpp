@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define UNIT_OBJECT 2
 #define UNIT_MISSILE 3
@@ -113,12 +114,6 @@ unsigned char __stdcall ITEMS_GetInvPage(D2UnitStrc* pItem); // 0x00628250
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0
 void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C360
 
-struct D2CharStatsTxt
-{
-    char unk0x00[0x3A];
-    unsigned char nManaRegen;
-    char unk0x3B[0x89];
-};
 
 
 struct D2ClientPlayerDataStrc
@@ -161,17 +156,7 @@ struct D2MonsterDataStrc
     D2MonsterInteractStrc* pMonInteract;
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x0C];
-    unsigned char nFlags[4];
-};
 
-struct D2SkillsTxt
-{
-    char unk0x00[0x04];
-    unsigned char nFlags[8];
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();
@@ -854,7 +839,7 @@ int __fastcall sub_6FC828D0(D2UnitStrc* pPlayer, int nUnitType, int nUnitGUID, i
         }
 
         D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(pUnit->dwClassId);
-        if (pMonStatsTxtRecord && pMonStatsTxtRecord->nFlags[1] & gdwBitMasks[1] && pMonStatsTxtRecord->nFlags[1] & gdwBitMasks[0])
+        if (pMonStatsTxtRecord && pMonStatsTxtRecord->nMonStatsFlags[1] & gdwBitMasks[1] && pMonStatsTxtRecord->nMonStatsFlags[1] & gdwBitMasks[0])
         {
             D2Common_10153(pUnit->pDynamicPath);
             AIGENERAL_SetAiControlParam(pUnit, 1, 40);

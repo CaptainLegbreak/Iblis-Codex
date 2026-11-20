@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define UNIT_OBJECT 2
 #define UNIT_ITEM 4
@@ -82,30 +83,7 @@ struct D2DamageStrc
     int nOverlay;
 };
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x54];
-    short wAuraStat[6];
-    char unk0x060[0x08];
-    unsigned int dwAuraStatCalc[6];
-    short nAuraState;
-    unsigned char unk_82[0x16];
-    short nPassiveStat[5];
-    char unk0x0A2[0x02];
-    unsigned int dwPassiveCalc[5];
-    char unk0x0B8[0x80];
-    unsigned int dwCalc[4];
-    char unk0x148[0x5D];
-    unsigned char nSrcDam;
-    char unk0x1A6[0x36];
-    unsigned char nEType;
-    char unk0x1DD[0x5F];
-};
 
-struct D2ItemStatCostTxt
-{
-    char unk0x000[0x144];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

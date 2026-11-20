@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Txt.h"
 
 struct D2PlayerDataStrc;
 struct D2AiCmdStrc;
@@ -14,7 +15,6 @@ struct D2AiControlStrc
     int dwAiParam[3];
 };
 
-struct D2MonStatsTxt { char unk_00[0x32]; short nVelocity; short nRun; };
 
 struct D2AiTickParamStrc
 {

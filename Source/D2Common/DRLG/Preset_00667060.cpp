@@ -2,6 +2,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 struct D2DrlgCoordStrc
 {
     int nPosX;
@@ -83,11 +84,6 @@ struct D2LvlPrestTxt
     unsigned int dwDt1Mask;
 };
 
-struct D2ObjectsTxt
-{
-    char unk0x000[0x167];
-    unsigned char nSubClass;
-};
 
 union D2C_PackedTileInformation
 {

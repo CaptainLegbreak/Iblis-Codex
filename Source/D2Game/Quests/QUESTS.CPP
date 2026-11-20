@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define QUEST_A2Q3_TAINTEDSUN 10
@@ -227,11 +228,6 @@ struct D2QuestTimerStrc
     D2QuestTimerStrc* pNext;
 };
 
-struct D2ItemsTxt
-{
-    char unk0x00[0x80];
-    unsigned int dwCode;
-};
 
 struct D2LevelsTxt
 {
@@ -353,12 +349,6 @@ void __fastcall sub_6FC3D830(D2ClientStrc* pClient, unsigned char nHeader, int n
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0
 int __stdcall INVENTORY_CompareWithItemsParentInventory(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063AD50
 
-struct D2MonStatsTxt
-{
-    char unk0x000[0x0C];
-    unsigned char nMonStatsFlags[4];
-    char unk0x010[0x198];
-};
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 void __fastcall sub_0059B6C0_JerhynSpawnHook(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY); // 0x0059B6C0
@@ -475,15 +465,6 @@ struct D2ObjOperateFnStrc
     int nObjectIdx;
 };
 
-struct D2ObjectsTxt
-{
-    char unk0x00[0xC4];
-    unsigned char nSelectable[8];
-    char unk0xCC[0x0C];
-    unsigned int dwFrameCnt[8];
-    char unk0xF8[0x47];
-    unsigned char nMode[8];
-};
 
 void __stdcall UNITS_GetCoords(D2UnitStrc* pUnit, D2CoordStrc* pCoord); // 0x00620870
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E90

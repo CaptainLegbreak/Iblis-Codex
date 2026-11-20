@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define UNIT_MONSTER 1
 #define MONSTATS2FLAGINDEX_DEADCOL_0057AF00 0x13
@@ -93,14 +94,6 @@ struct D2CombatStrc
 
 
 
-struct D2MonStatsTxt
-{
-    char unk0x000[0x4F];
-    unsigned char nAIdel[3];
-    unsigned char unk_52[0x116];
-    signed char nColdEffect[3];
-    char unk0x16B[0x3D];
-};
 
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
@@ -209,13 +202,6 @@ struct D2ObjOperateFnStrc
     int nObjectIdx;
 };
 
-struct D2ObjectsTxt
-{
-    char unk0x00[0xD8];
-    unsigned int dwFrameCnt[8];
-    char unk0xF8[0x75];
-    unsigned char nMonsterOK;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090

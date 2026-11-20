@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -77,16 +78,6 @@ struct D2TCArrayStrc
     D2TCModsStrc tMods;
 };
 
-struct D2ItemsTxt
-{
-    char unk0x000[0xF6];
-    unsigned short wVersion;
-    char unk0x0F8[5];
-    unsigned char nLevel;
-    char unk0x0FE[0x2B];
-    unsigned char nUnique;
-    unsigned char nQuest;
-};
 
 
 

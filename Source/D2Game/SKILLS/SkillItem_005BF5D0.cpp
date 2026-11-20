@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 struct D2AiControlStrc;
 struct D2AnimSeqTxt;
 struct D2ActiveRoomStrc;
@@ -84,21 +85,6 @@ struct D2UnitEventStrc
     D2UnitEventStrc* pNext;
 };
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x04];
-    unsigned char nFlags[8];
-    char unk0x00C[0x3C];
-    short wSrvMissileA;
-    char unk0x04A[0x36];
-    short nAuraState;
-    short wAuraTargetState;
-    char unk0x084[0xB4];
-    unsigned int dwCalc[4];
-    char unk0x148[0x3C];
-    short wStartMana;
-    char unk0x186[0xB6];
-};
 
 
 struct D2ItemDropStrc

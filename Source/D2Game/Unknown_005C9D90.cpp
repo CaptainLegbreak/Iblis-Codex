@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define STATE_BLAZE 13
 #define STAT_MODIFIERLIST_SKILL 350
@@ -10,13 +11,6 @@ struct D2SkillsTxt;
 struct D2MissilesTxt;
 
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x48];
-    short wSrvMissileA;
-    short wSrvMissileB;
-    char unk0x04C[0x23C - 0x4C];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -61,10 +55,6 @@ int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsi
 int __stdcall sub_006505C0_TestPathFlag8(D2DynamicPathStrc* pPath); // 0x006505C0
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId); // 0x0045C4B0
 
-struct D2MissilesTxt
-{
-    char unk0x000[0x1A4];
-};
 D2ActiveRoomStrc* __fastcall COLLISION_GetRoomBySubTileCoordinates(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553540
 int __fastcall sub_6FD15340(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMissileId); // 0x0056E450

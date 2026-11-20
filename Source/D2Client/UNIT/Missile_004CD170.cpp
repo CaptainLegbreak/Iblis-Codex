@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define UNIT_INVALID 6
 struct D2StaticPathStrc;
@@ -85,39 +86,7 @@ struct D2AreaScanStrc
     D2CltMissileSpawnArgStrc* pArg;
 };
 
-struct D2MissilesTxt
-{
-    unsigned short wId;
-    unsigned short pad0x02;
-    unsigned int dwMissileFlags;
-    unsigned short wCltDoFunc;
-    unsigned short wCltHitFunc;
-    unsigned short wSrvDoFunc;
-    unsigned short wSrvHitFunc;
-    unsigned short wSrvDmgFunc;
-    unsigned short wTravelSound;
-    unsigned short wHitSound;
-    unsigned short wExplosionMissile;
-    short wSubMissile[3];
-    short wCltSubMissile[3];
-    short wHitSubMissile[4];
-    short wCltHitSubMissile[4];
-    char unk0x034[0x58 - 0x2C - 8];
-    int dwCltParam[5];
-    int dwCltHitPar[3];
-    char unk0x078[0x1A4 - 0x6C - 12];
-};
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x50];
-    unsigned int dwAuraFilter;
-    char unk0x054[0x64 - 0x50 - 4];
-    unsigned int dwAuraRangeCalc;
-    char unk0x068[0x138 - 0x64 - 4];
-    unsigned int dwCalc[4];
-    char unk0x148[0x23C - 0x138 - 16];
-};
 
 typedef int (__fastcall* AREASCANFN)(void* pArg, D2UnitStrc* pUnit);
 

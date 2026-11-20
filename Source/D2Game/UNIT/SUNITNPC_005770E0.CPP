@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Txt.h"
 
 struct D2SeedStrc;
 struct D2PlayerDataStrc;
@@ -97,14 +98,6 @@ D2MonsterInteractStrc* __fastcall sub_00535E80_GetMonInteract(D2UnitStrc* pUnit)
 void __fastcall sub_00576770_VendorUpdate(D2GameStrc* pGame, D2ClientStrc* pClient, D2UnitStrc* pNpc, int bSingle); // 0x00576770
 void __fastcall sub_00577010_VendorRefresh(D2GameStrc* pGame, int nVendorId, D2NpcRecordStrc* pNpcRecord); // 0x00577010
 
-struct D2ItemsTxt
-{
-    char unk0x00[0x88];
-    unsigned int dwUberCode;
-    unsigned int dwUltraCode;
-    char unk0x90[0x6D];
-    unsigned char nLevel;
-};
 
 D2SeedStrc* __fastcall SUNITPROXY_GetSeedFromNpcControl(D2GameStrc* pGame); // 0x00536B40
 int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0

@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 struct Unicode
 {
@@ -14,10 +15,6 @@ struct Unicode
 };
 
 
-struct D2ItemStatCostTxt
-{
-    char unk0x00[0x144];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables;   // 0x00744304

@@ -1,9 +1,9 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 struct D2AiControlStrc { char unk_00[0x14]; int dwAiParam[3]; };
-struct D2MonStatsTxt { char unk_00[0x32]; short wVelocity; short wRun; char unk_36[0x20]; short wAiParam[8][3]; char unk_86[0xEA]; short nSkill[8]; unsigned char nSkillMode[8]; };
 struct D2AiTickParamStrc { D2AiControlStrc* pAiControl; int unk_04; D2UnitStrc* pTarget; int unk_0C[2]; int nDistance; int bCombat; D2MonStatsTxt* pMonstatsTxt; };
 
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
@@ -86,7 +86,7 @@ void __fastcall AITHINK_Fn108_SpiritWolf(D2GameStrc* pGame, D2UnitStrc* pUnit, D
     }
 
     int nVelocity;
-    if (pMonStats->wVelocity <= 0 || (nVelocity = pMonStats->wRun * 100 / pMonStats->wVelocity - 100) >= 100)
+    if (pMonStats->nVelocity <= 0 || (nVelocity = pMonStats->nRun * 100 / pMonStats->nVelocity - 100) >= 100)
     {
         nVelocity = 100;
     }

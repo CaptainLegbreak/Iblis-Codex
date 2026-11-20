@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define SKILLS_GetSkillsTxtRecord_E1120(nSkillId) \
@@ -246,14 +247,6 @@ struct D2RC4Strc
     void sub_0047F8C0_Crypt(unsigned char* pData, unsigned int nSize);       // 0x0047F8C0
 };
 
-struct D2SkillsTxt
-{
-    char unk0x000[0xEA];
-    short wCltMissile;
-    unsigned char unk_EC[0x4C];
-    unsigned int dwCalc[4];
-    char unk0x148[0x23C - 0x148];
-};
 
 
 typedef void(__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nUnused);
@@ -294,14 +287,6 @@ D2UnitStrc* __fastcall sub_004648F0_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x0
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 void __stdcall sub_006488A0_SetDirection(D2DynamicPathStrc* pPath, int nDirection); // 0x006488A0
 
-struct D2MissilesTxt
-{
-    char unk0x000[0x38];
-    int dwParam[5];
-    char unk0x04C[0x178 - 0x4C];
-    unsigned char nAnimLen;
-    char unk0x179[0x1A4 - 0x179];
-};
 
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 void __stdcall PATH_SetNewDistance(D2DynamicPathStrc* pDynamicPath, unsigned char nNewDistance); // 0x00648E70
@@ -827,7 +812,7 @@ int __fastcall sub_004E1120_SkillCreateTargetMissile(D2UnitStrc* pUnit, int nSki
         return 0;
     }
 
-    const int nMissile = pSkillsTxt->wCltMissile;
+    const int nMissile = pSkillsTxt->wCltMissileA;
     if (nMissile < 0 || nMissile >= sgptDataTables->nMissilesTxtRecordCount)
     {
         return 0;

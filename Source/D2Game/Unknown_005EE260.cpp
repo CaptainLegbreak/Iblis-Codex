@@ -1,5 +1,6 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 #ifdef MOVED_TEST
 #define ATTACK_MODE 6
 #define IDLE_FRAMES 17
@@ -17,17 +18,6 @@ struct D2AiControlStrc
     int dwAiParam[3];
 };
 
-struct D2MonStatsTxt
-{
-#ifdef MOVED_TEST
-    int moved_prefix;
-#endif
-    char unk0x00[0x56];
-    short wAiParam[8][3];
-    char unk0x86[0xEA];
-    short nSkill[8];
-    unsigned char nSkillMode[8];
-};
 
 struct D2AiTickParamStrc
 {

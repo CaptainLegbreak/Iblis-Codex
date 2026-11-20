@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2MsgHandlerEntryStrc;
@@ -67,17 +68,7 @@ struct Obj00451F70 {
     unsigned int dwValue10;
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x18];
-    short nMonStatsEx;
-    char unk0x1A[0x18E];
-};
 
-struct D2MonStats2Txt
-{
-    char unk0x00[0x134];
-};
 
 struct D2DataTablesStrc
 {
@@ -138,21 +129,7 @@ struct D2MonLvlTxt
     char unk0x00[0x78];
 };
 
-struct D2SkillsTxt
-{
-    char unk0x00[12];
-    signed char nCharClass;
-    char unk0x0D[328 - 12 - 1];
-    int dwParam[8];
-    char unk0x168[372 - 328 - 32];
-    short wReqLevel;
-    char unk0x176[572 - 372 - 2];
-};
 
-struct D2CharStatsTxt
-{
-    char unk0x00[0xC4];
-};
 
 struct D2PetTypeTxt
 {
@@ -244,7 +221,7 @@ D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonster
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
-        const int nId = sgptDataTables->pMonStatsTxt[nMonsterId].nMonStatsEx;
+        const int nId = sgptDataTables->pMonStatsTxt[nMonsterId].wMonStatsEx;
         if (nId >= 0 && nId < sgptDataTables->nMonStats2TxtRecordCount)
         {
             return &sgptDataTables->pMonStats2Txt[nId];

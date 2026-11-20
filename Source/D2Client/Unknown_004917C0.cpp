@@ -2,14 +2,10 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2Txt.h"
 
 
 
-struct D2ItemsTxt
-{
-    char unk0x00[0x80];
-    int dwCode;
-};
 
 
 extern D2InventoryGridInfoStrc gGrid_007BCA78;                                                              // 0x007BCA78

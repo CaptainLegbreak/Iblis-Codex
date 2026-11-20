@@ -1,14 +1,9 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 
-struct D2CharStatsTxt
-{
-    char unk0x00[0x5A];
-    unsigned short wStrClassOnly;
-    char unk0x5C[0xC4 - 0x5C];
-};
 
 
 typedef unsigned short Unicode;

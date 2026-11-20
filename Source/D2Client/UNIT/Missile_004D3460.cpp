@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 struct D2SeedStrc
 {
@@ -17,34 +18,6 @@ struct D2UnitStrc
     D2DynamicPathStrc* pDynamicPath;
 };
 
-struct D2MissilesTxt
-{
-    unsigned short wId;
-    unsigned short pad0x02;
-    unsigned int dwMissileFlags;
-    unsigned short wCltDoFunc;
-    unsigned short wCltHitFunc;
-    unsigned short wSrvDoFunc;
-    unsigned short wSrvHitFunc;
-    unsigned short wSrvDmgFunc;
-    unsigned short wTravelSound;
-    unsigned short wHitSound;
-    unsigned short wExplosionMissile;
-    short wSubMissile[3];
-    short wCltSubMissile[3];
-    short wHitSubMissile[4];
-    short wCltHitSubMissile[4];
-    short wProgSound;
-    unsigned short wProgOverlay;
-    int dwParam[5];
-    int dwHitPar[3];
-    int dwCltParam[5];
-    int dwCltHitPar[3];
-    char unk0x78[0x08];
-    unsigned int dwSrvCalc;
-    unsigned int dwCltCalc;
-    char unk0x88[0x11C];
-};
 
 
 typedef char cc_M338_D2MissilesTxt_size[sizeof(D2MissilesTxt) == 0x1A4 ? 1 : -1];

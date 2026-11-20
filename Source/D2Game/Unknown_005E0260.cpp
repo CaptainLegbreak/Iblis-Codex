@@ -5,6 +5,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 #define MONSTER_SUCKERNEST1 334
@@ -34,15 +35,6 @@ struct D2AiControlStrc
     int nMinionSpawnClassId;
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x000[0x56];
-    short wAiParam[8][3];
-    char unk0x086[0xEA];
-    short nSkill[8];
-    unsigned char nSkillMode[8];
-    char unk0x188[0x20];
-};
 
 
 
@@ -179,7 +171,6 @@ int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc*); // 0x00648A
 unsigned int __stdcall sub_00648A20_GetLastPointX(D2DynamicPathStrc*); // 0x00648A20
 unsigned int __stdcall sub_00648A30_GetLastPointY(D2DynamicPathStrc*); // 0x00648A30
 
-struct D2MonStats2Txt { char unk_00[0xE]; unsigned char nSteps; };
 
 struct D2PetInfoStrc { int unk_00[2]; int nHirelingId; };
 

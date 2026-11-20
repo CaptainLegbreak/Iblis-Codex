@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -29,9 +30,7 @@ void __fastcall sub_0058CF00_UpdatePortal(D2GameStrc* game,D2UnitStrc* unit); //
 D2ClientStrc* __fastcall sub_005531C0_GetClient(D2UnitStrc* unit,const char* file,int line,int type,int id); // 0x005531C0
 void __fastcall sub_0053B3D0_SendByte(D2ClientStrc* client,unsigned char code); // 0x0053B3D0
 
-struct D2ItemsTxt { char unk_00[0x98]; short nState; char unk_9A[4]; short nStat[3]; unsigned int dwCalc[3]; unsigned int dwLen; };
 
-struct D2ItemStatCostTxt { char unk_00[0x18]; unsigned char nValShift; char unk_19[0x19]; unsigned short nMaxStat; char unk_34[0x110]; };
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -138,7 +137,7 @@ int __fastcall sub_005BE3F0_ApplyPotion(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
     D2ItemsTxt* pItemsTxt = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
     if (!pItemsTxt) return 0;
     const int nLength = ITEMMODS_EvaluateItemFormula(pUnit, pItem, pItemsTxt->dwLen);
-    const int nState = pItemsTxt->nState;
+    const int nState = pItemsTxt->wState;
     D2StatListStrc* pStatList = 0;
     int nOldLength = 0;
     if (nLength > 0)
@@ -152,7 +151,7 @@ int __fastcall sub_005BE3F0_ApplyPotion(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
     for (int i = 0; i < 3; ++i)
     {
         D2SeedStrc* pSeed = &pUnit->pSeed;
-        const int nStat = pItemsTxt->nStat[i];
+        const int nStat = pItemsTxt->wStat[i];
         if (nStat < 0 || nStat >= sgptDataTables->nItemStatCostTxtRecordCount) break;
         D2ItemStatCostTxt* pCost = GetItemStatCost(nStat);
         if (!pCost) continue;
@@ -197,7 +196,7 @@ int __fastcall sub_005BE3F0_ApplyPotion(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
         if (nLength <= 0)
         {
             const int nCurrent = STATLIST_UnitGetStatValue(pUnit, nStat, 0);
-            const int nMaxStat = pCost->nMaxStat;
+            const int nMaxStat = pCost->wMaxStat;
             if (nMaxStat < sgptDataTables->nItemStatCostTxtRecordCount)
             {
                 const int nMaxValue = STATLIST_UnitGetStatValue(pUnit, nMaxStat, 0);

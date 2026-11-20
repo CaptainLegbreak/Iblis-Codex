@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2Structs.h"
+#include "D2Txt.h"
 
 typedef int BOOL;
 #define INVENTORY_SIGNATURE 0x1020304
@@ -50,13 +51,6 @@ struct D2BeltsTxt
     D2InvRectStrc beltBoxes[16];
 };
 
-struct D2ItemsTxt
-{
-    char unk0x00[0x80];
-    unsigned int dwCode;
-    char unk0x84[0x131 - 0x80 - 4];
-    unsigned char nAutoBelt;
-};
 
 struct D2Block1 { int n[6]; };
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);

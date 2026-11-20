@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -76,27 +77,7 @@ struct Unicode
     }
 };
 
-struct D2ItemsTxt
-{
-    char unk0x00[0xF0];
-    int nGemOffset;
-    unsigned short wNameStr;
-    char unk0xF6[0x08];
-    unsigned char nMinDam;
-    unsigned char nMaxDam;
-    char unk0x100[0x0A];
-    unsigned short wReqStr;
-    unsigned short wReqDex;
-    char unk0x10E[0x03];
-    unsigned char nBlock;
-};
 
-struct D2CharStatsTxt
-{
-    char unk0x00[0x49];
-    unsigned char nBlockFactor;
-    char unk0x4A[0x7A];
-};
 
 
 struct D2UnitInvView

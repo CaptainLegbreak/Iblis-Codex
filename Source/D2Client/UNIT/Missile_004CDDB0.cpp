@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define MAX(a, b) ((a) < (b) ? (b) : (a))
 struct D2StaticPathStrc;
@@ -48,23 +49,7 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 int __stdcall sub_0064A210(D2UnitStrc* pUnit); // 0x0064A210
 int __stdcall sub_0064A280(D2UnitStrc* pUnit); // 0x0064A280
 
-struct D2MissilesTxt
-{
-    char unk0x000[0x2C];
-    short wCltHitSubMissile[4];
-    short wProgSound;
-    short wProgOverlay;
-    unsigned char unk_38[0x20];
-    int dwCltParam[5];
-    int dwCltHitPar[3];
-    char unk0x078[0x12C];
-};
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x64];
-    unsigned int dwAuraRangeCalc;
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

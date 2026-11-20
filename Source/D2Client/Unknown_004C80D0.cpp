@@ -3,16 +3,11 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 
 
 
-struct D2SkillsTxt
-{
-    char unk0x00[0x64];
-    unsigned int dwAuraRangeCalc;
-    char unk0x68[0x1D4];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

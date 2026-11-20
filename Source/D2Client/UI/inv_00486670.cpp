@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2Txt.h"
 
 struct Unicode
 {
@@ -9,11 +10,6 @@ struct Unicode
 };
 
 
-struct D2ItemsTxt
-{
-    char unk0x00[0xF0];
-    int dwGemOffset;
-};
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength);                  // 0x00526320

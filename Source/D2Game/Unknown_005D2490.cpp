@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 struct Skills;
@@ -88,29 +89,6 @@ enum D2C_SkillsTxtFlagIndices
     SKILLSFLAGINDEX_PROGRESSIVE = 2,
 };
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x04];
-    unsigned char nFlags[8];
-    char unk0x00C[0x2C];
-    unsigned int dwPrgCalc[3];
-    unsigned char nPrgDamage;
-    char unk0x045[0xF];
-    short wAuraStat[6];
-    unsigned int dwAuraLenCalc;
-    unsigned int dwAuraRangeCalc;
-    unsigned int dwAuraStatCalc[6];
-    short nAuraState;
-    unsigned char unk_82[0x86];
-    short wTgtOverlay;
-    char unk0x10A[0x2E];
-    unsigned int dwCalc[4];
-    unsigned char unk_148[0x5D];
-    unsigned char nSrcDam;
-    unsigned char unk_1A6[0x36];
-    unsigned char nEType;
-    char unk0x1DD[0x5F];
-};
 
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268

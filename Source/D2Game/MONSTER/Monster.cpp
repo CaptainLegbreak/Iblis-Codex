@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 
 
@@ -13,14 +14,6 @@ struct D2ActiveRoomStrc
     D2ActiveRoomStrc* pRoomNext;
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x000[0x0C];
-    unsigned char nFlags[4];
-    char unk0x010[0x22];
-    short nVelocity;
-    char unk0x034[0x174];
-};
 
 
 struct D2ModeChangeStrc
@@ -128,7 +121,7 @@ int __fastcall MONSTER_Reinitialize(D2GameStrc* pGame, D2UnitStrc* pUnit, int nC
             return 0;
         }
 
-        if (!(pMonStatsTxtRecord->nFlags[25 >> 3] & gdwBitMasks[25 & 7]))
+        if (!(pMonStatsTxtRecord->nMonStatsFlags[25 >> 3] & gdwBitMasks[25 & 7]))
         {
             return 0;
         }

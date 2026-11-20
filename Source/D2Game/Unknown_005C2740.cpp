@@ -1,6 +1,6 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
-struct D2ItemsTxt { char unk_00[0x80]; unsigned int dwCode; };
+#include "D2Txt.h"
 struct D2SetItemsTxt { short nId; char unk_02[0x26]; unsigned int dwItemCode; };
 struct D2SetsTxt { int unk_00; unsigned short wVersion; char unk_06[6]; int nItemCount; char unk_10[0x100]; D2SetItemsTxt* pSetItems[6]; };
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

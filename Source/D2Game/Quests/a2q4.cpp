@@ -4,6 +4,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define QFLAG_REWARDGRANTED 0
 #define QFLAG_COMPLETEDNOW 14
@@ -191,11 +192,6 @@ struct D2ObjOperateFnStrc
     int nObjectIdx;
 };
 
-struct D2ObjectsTxt
-{
-    char unk0x00[0xD8];
-    unsigned int dwFrameCnt[8];
-};
 
 struct D2Act2Quest5Strc
 {

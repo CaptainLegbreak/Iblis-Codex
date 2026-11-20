@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 struct D2MonStatsTxt;
 struct D2ModeChangeStrc;
@@ -8,7 +9,6 @@ struct D2MissilesTxt;
 struct D2MissileUnitFindArgStrc;
 
 
-struct D2MonStatsTxt { short nId; short nBaseId; char unk_04[0x1A2]; unsigned char nSpecialEnd; char unk_1A7; };
 
 
 struct D2ModeChangeStrc
@@ -37,12 +37,6 @@ void __stdcall UNITS_SetUsedSkill(D2UnitStrc*, int); // 0x00620210
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc*, D2UnitStrc*); // 0x00553540
 int __stdcall sub_005A7C20_ChangeMode(D2GameStrc*, D2ModeChangeStrc*, int); // 0x005A7C20
 
-struct D2MissilesTxt
-{
-    char unk0x000[0x187];
-    unsigned char nCollideFriend;
-    unsigned char nNextHit;
-};
 
 struct D2MissileUnitFindArgStrc
 {

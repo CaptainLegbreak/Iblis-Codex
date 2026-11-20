@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 #define STAT_POISONMAXDAM 58
 #define STAT_POISON_COUNT 326
 struct D2SeedStrc;
@@ -23,18 +24,6 @@ struct D2PropertyStrc
     int nMax;
 };
 
-struct D2ItemsTxt
-{
-    char unk0x00[0xD0];
-    int dwMaxAc;
-    char unk0xD4[0x2A];
-    unsigned char nMinDam;
-    unsigned char nMaxDam;
-    unsigned char nMinMisDam;
-    unsigned char nMaxMisDam;
-    unsigned char n2HandMinDam;
-    unsigned char n2HandMaxDam;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -65,12 +54,6 @@ void __stdcall ITEMS_SetFileIndex(D2UnitStrc* pItem, unsigned int dwFileIndex); 
 extern int gaItemFileIndices_0074638C[]; // 0x0074638C
 extern int gnItemFileIndexCount_007463A4; // 0x007463A4
 
-struct D2ItemStatCostTxt
-{
-    char unk0x00[0x18];
-    unsigned char nValShift;
-    char unk0x19[0x12B];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

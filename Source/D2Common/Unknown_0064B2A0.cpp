@@ -1,13 +1,7 @@
 #include "D2Common.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
-struct D2MissilesTxt
-{
-    char unk_000[0x11C];
-    int nElementLength;
-    int nElementLengthPerLevel[3];
-    char unk_12C[0x78];
-};
 
 
 extern D2DataTablesStrc* gpDataTables_00744304; // 0x00744304

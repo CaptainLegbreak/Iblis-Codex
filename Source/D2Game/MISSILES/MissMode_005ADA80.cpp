@@ -1,13 +1,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
-struct D2MissilesTxt
-{
-    unsigned short wId;
-    unsigned short pad0x02;
-    unsigned char nMissileFlags[4];
-    char unk0x08[0x1A4 - 0x08];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

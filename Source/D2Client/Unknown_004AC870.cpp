@@ -1,5 +1,6 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 #define NULL 0
 extern "C" char* __cdecl strcpy(char*, const char*);
 #pragma intrinsic(strcpy)
@@ -21,12 +22,6 @@ struct D2SuperUniquesTxt
     unsigned short wNameStr;
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x00[6];
-    unsigned short wNameStr;
-    char unk0x08[0x1A8 - 8];
-};
 
 
 struct D2HoverModeStrc

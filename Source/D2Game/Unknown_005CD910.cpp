@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 struct MissileRecord;
 union D2SeedStrc;
@@ -46,18 +47,6 @@ struct D2UnitStrc
     unsigned int dwFlags;
 };
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x60];
-    unsigned int dwAuraLenCalc;
-    unsigned int dwAuraRangeCalc;
-    char unk0x068[0x1A];
-    short wAuraTargetState;
-    unsigned char unk_84[0xB4];
-    unsigned int dwCalc[4];
-    int dwParam[8];
-    char unk0x168[0xD4];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

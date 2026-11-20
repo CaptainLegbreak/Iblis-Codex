@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 
 struct D2DamageStrc
@@ -27,24 +28,7 @@ struct D2DamageStrc
     int nOverlay;
 };
 
-struct D2ItemsTxt
-{
-    char unk0x000[0xFE];
-    unsigned char nMinDam;
-    unsigned char nMaxDam;
-};
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x12E];
-    unsigned short wResultFlags;
-    unsigned int dwHitFlags;
-    unsigned int dwHitClass;
-    unsigned int dwCalc[4];
-    char unk0x148[0x94];
-    unsigned char nEType;
-    char unk0x1DD[0x5F];
-};
 
 
 #define UNIT_PLAYER 0

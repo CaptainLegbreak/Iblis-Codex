@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2StaticPathStrc;
@@ -8,19 +9,7 @@ struct D2MonStats2Txt;
 struct D2HoverCoordStrc;
 
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x0C];
-    unsigned char nFlags[4];
-    char unk0x10[0x4C - 0x10];
-    unsigned char nAlign;
-};
 
-struct D2MonStats2Txt
-{
-    char unk0x00[0x04];
-    unsigned char nFlags[4];
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -160,7 +149,7 @@ static void sub_00466DE0_SetHoverUnit(D2UnitStrc* pUnit)
             {
                 D2MonStats2Txt* pMonStats2TxtRecord = UNITS_GetMonStats2TxtRecordFromMonsterId(nClassId);
                 if (pMonStats2TxtRecord
-                    && !(pMonStatsTxtRecord->nFlags[1] & gdwBitMasks[0])
+                    && !(pMonStatsTxtRecord->nMonStatsFlags[1] & gdwBitMasks[0])
                     && pMonStatsTxtRecord->nAlign != 1
                     && (pMonStats2TxtRecord->nFlags[1] & gdwBitMasks[1]))
                 {

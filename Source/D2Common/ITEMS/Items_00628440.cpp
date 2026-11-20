@@ -1,3 +1,4 @@
+#include "D2Txt.h"
 typedef char check_int_width[(sizeof(int) == 4) ? 1 : -1];
 typedef char check_ptr_width[(sizeof(void*) == 4) ? 1 : -1];
 
@@ -11,21 +12,7 @@ struct D2MonLvlTxt
     char unk0x00[0x78];
 };
 
-struct D2SkillsTxt
-{
-    char unk0x00[12];
-    signed char nCharClass;
-    char unk0x0D[328 - 12 - 1];
-    int dwParam[8];
-    char unk0x168[372 - 328 - 32];
-    short wReqLevel;
-    char unk0x176[572 - 372 - 2];
-};
 
-struct D2CharStatsTxt
-{
-    char unk0x00[0xC4];
-};
 
 struct D2PetTypeTxt
 {

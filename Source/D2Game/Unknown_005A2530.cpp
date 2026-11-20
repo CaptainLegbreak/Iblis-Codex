@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -11,12 +12,6 @@ struct D2SkillsTxt;
 
 
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x64];
-    unsigned int dwAuraRangeCalc;
-    char unk0x068[0x23C - 0x64 - 4];
-};
 
 
 typedef void(__fastcall* CurseCallbackFunc)(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillLevel);

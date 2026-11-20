@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 enum D2C_U04BashConstants
 {
@@ -12,21 +13,6 @@ enum D2C_U04BashConstants
 
 
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x80];
-    short nAuraState;
-    char unk0x082[0xAC];
-    unsigned short wResultFlags;
-    unsigned int dwHitFlags;
-    unsigned int dwHitClass;
-    unsigned int dwCalc[4];
-    char unk0x148[0x5D];
-    unsigned char nSrcDam;
-    char unk0x1A6[0x36];
-    unsigned char nEType;
-    char unk0x1DD[0x5F];
-};
 
 
 struct D2DamageStrc

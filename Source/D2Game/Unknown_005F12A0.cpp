@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 struct D2SeedStrc;
@@ -11,11 +12,6 @@ struct D2AiCmdStrc;
 
 
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x56];
-    short wAiParam[8][3];
-};
 
 struct D2AiTickParamStrc
 {

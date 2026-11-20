@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 
 
@@ -19,14 +20,6 @@ struct D2ModeChangeStrc
     int unk0x1C;
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x000[0x26];
-    short wMinion[2];
-    char unk0x02A[0x1A4 - 0x2A];
-    unsigned char nSplEndDeath;
-    char unk0x1A5[3];
-};
 
 
 typedef int (__fastcall* MonModeStartFunc)(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange);

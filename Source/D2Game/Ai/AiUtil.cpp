@@ -4,6 +4,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr,line) if(!(expr)) { sub_00408A60(&gszEmptyAssertText,sub_00408090(),line);exit(-1); }
 struct D2MonsterDataStrc;
@@ -111,7 +112,6 @@ struct Obj005DD230 {
     unsigned short wFlags08;
 };
 
-struct D2MonStatsTxt { short nId,nBaseId; char unk04[0x1A4]; };
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

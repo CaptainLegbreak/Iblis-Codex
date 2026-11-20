@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 struct D2GameStrc;
 struct D2DrlgActStrc;
@@ -13,42 +14,8 @@ typedef void (__fastcall* StatListUnitCallback)(D2UnitStrc* pUnit1, int nStatId,
 
 
 
-struct D2OpStatDataStrc
-{
-    unsigned short nOpBase;
-    unsigned short nStat;
-    unsigned char nOp;
-    unsigned char nOpParam;
-};
 
-struct D2ItemStatCostTxt
-{
-    char unk0x00[0x04];
-    unsigned char nItemStatFlags[4];
-    char unk0x08[0x10];
-    unsigned char nValShift;
-    char unk0x19[0x13];
-    int dwMinAccr;
-    char unk0x30[0x20];
-    unsigned char nKeepZero;
-    unsigned char bIsBaseOfOtherStatOp;
-    unsigned char bHasOpStatData;
-    unsigned char bHasOpApplyingToItem;
-    unsigned char nOp;
-    char unk0x55[0x03];
-    unsigned short wOpStat[3];
-    unsigned short wStatsAffected[64];
-    D2OpStatDataStrc pOpStatData[16];
-    char unk0x13E[0x06];
-};
 
-struct D2CharStatsTxt
-{
-    char unk0x00[0x46];
-    unsigned char nLifePerVitality;
-    unsigned char nStaminaPerVitality;
-    unsigned char nManaPerMagic;
-};
 
 #define STATLIST_SET 0x2000
 

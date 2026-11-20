@@ -4,6 +4,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define QUEST_A1Q4_CAIN 4
 #define QUEST_A1Q5_COUNTESS 5
@@ -120,11 +121,6 @@ struct D2ObjOperateFnStrc
     int nObjectIdx;
 };
 
-struct D2ObjectsTxt
-{
-    char pad0x00[0xD8];
-    unsigned int dwFrameCnt[8];
-};
 
 struct D2Act1Quest4Strc
 {

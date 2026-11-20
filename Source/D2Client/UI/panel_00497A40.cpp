@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2Txt.h"
 
 struct Unicode;
 struct UnicodeChar;
@@ -40,11 +41,6 @@ Unicode* __fastcall sub_00526700(Unicode* pDest, const void* pSource); // 0x0052
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem); // 0x00627E70
 
-struct D2ItemsTxt
-{
-    char unk0x00[0x80];
-    unsigned int dwCode;
-};
 
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0

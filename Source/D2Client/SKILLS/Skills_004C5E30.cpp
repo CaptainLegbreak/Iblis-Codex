@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 #define BITARRAY_CHECK(pBytes, nBit) ((pBytes)[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
 struct D2SeedStrc;
 struct D2MonStats2Txt;
@@ -21,44 +22,8 @@ int __fastcall sub_004C5C40_ScanArea(D2UnitStrc* pUnit, int nX, int nY, int nRan
 int __fastcall sub_004C5E20_CountCallback(void* pArg, D2UnitStrc* pUnit); // 0x004C5E20
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 
-struct D2MonStats2Txt
-{
-    char unk0x00[0x0B];
-    char nType;
-};
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x04];
-    unsigned char nFlags[8];
-    unsigned char nCharClass;
-    char unk0x00D[0xE8 - 0x0D];
-    short wAuraFunc;
-    char unk0x0EA[0x08];
-    short wStartFunc;
-    unsigned char unk_F4[0x2];
-    short wCltPrgFunc[3];
-    short wStartSound;
-    short wStartSoundClass;
-    short wDoSound;
-    unsigned char unk_102[0x4];
-    short wCastOverlay;
-    short wTgtOverlay;
-    short wTgtSound;
-    unsigned char unk_10C[0x16];
-    short wItemStartSound;
-    short wItemCastOverlay;
-    char unk0x126[0x69];
-    unsigned char nLineOfSight;
-    char unk0x190[0x23C - 0x190];
-};
 
-struct D2MonStatsTxt
-{
-    char unk0x000[0x10];
-    unsigned int dwCode;
-    char unk0x014[0x1A8 - 0x14];
-};
 
 
 typedef int (__fastcall* CLIENTSKILLSTARTFN)(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);
@@ -410,7 +375,7 @@ static __declspec(noinline) int __stdcall sub_004C6140_StartSkill(int nOwnerGUID
         }
     }
 
-    short nSound = pSkillsTxtRecord->wStartSound;
+    short nSound = pSkillsTxtRecord->wStSound;
     if (nOwnerGUID != -1 && pSkillsTxtRecord->wItemStartSound > 0)
     {
         nSound = pSkillsTxtRecord->wItemStartSound;

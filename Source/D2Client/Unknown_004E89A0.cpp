@@ -1,3 +1,4 @@
+#include "D2Txt.h"
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 
@@ -44,16 +45,6 @@ struct D2SkillDescTxt
     int dwDescCalcB[17];
 };
 
-struct D2MissilesTxt
-{
-    char unk0x00[0x18];
-    short wSubMissile[3];
-    char unk0x1E[0x1A];
-    int dwParam[5];
-    char unk0x4C[0x4A];
-    short wRange;
-    short wLevRange;
-};
 
 struct D2DifficultyLevelsTxt
 {
@@ -61,12 +52,6 @@ struct D2DifficultyLevelsTxt
     int dwAiCurseDivisor;
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x0[0xAA];
-    short nLevel[3];
-    char unk0xB0[0xF8];
-};
 
 struct D2DataTablesStrc
 {
@@ -1876,12 +1861,6 @@ int __fastcall sub_004EDEA0_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2
 
 struct D2SkillStrc;
 
-struct D2SkillsTxt
-{
-    short nSkillId;
-    char unk0x02[0x02];
-    unsigned char nFlags[8];
-};
 
 struct D2ElemDamageStatsStrc
 {

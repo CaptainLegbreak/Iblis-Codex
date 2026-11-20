@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 struct D2PlayerDataStrc;
 struct D2QuestGUIDStrc;
@@ -225,7 +226,6 @@ static void sub_00589340_RemoveNihlathakInTown(D2QuestDataStrc* pQuestData, D2Un
 
 struct D2GSPacketSrv5D { unsigned char nHeader, nQuestId, nFlags, nState; unsigned short field_4; };
 
-struct D2ItemsTxt { char unk00[0x124]; short nNameStr; };
 
 struct D2QuestRewardItemsStrc { unsigned int* pCodes; int nCount; };
 
@@ -644,8 +644,8 @@ void __fastcall ACT5Q3_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
         packet.nFlags = 16;
         packet.nQuestId = 33;
         D2ItemsTxt* pItemsTxt = DATATBLS_GetItemsTxtRecord(nItemClassId);
-        if (pItemsTxt && pItemsTxt->nNameStr > 0)
-            packet.field_4 = pItemsTxt->nNameStr;
+        if (pItemsTxt && pItemsTxt->wDropSound > 0)
+            packet.field_4 = pItemsTxt->wDropSound;
         sub_0053D710_SendQuestPacket(SUNIT_GetClientFromPlayer(pQuestArg->pPlayer, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q3.cpp", 0x375), &packet);
         QUESTRECORD_SetQuestState(pQuestFlags, 37, 9);
         if (QUESTRECORD_GetQuestState(pQuestFlags, 37, 8))

@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Txt.h"
 
 #define MONMODE_ATTACK1 4
 #define MONMODE_ATTACK2 5
@@ -48,16 +49,6 @@ struct D2AiControlStrc
     int dwAiParam[3];
 };
 
-struct D2MonStatsTxt
-{
-    char unk00[0x4F];
-    unsigned char nAIDel[3];
-    char unk52[4];
-    short wAiParam[8][3];
-    char unk0x86[0xEA];
-    short nSkill[8];
-    unsigned char nSkillMode[8];
-};
 
 struct D2AiTickParamStrc
 {
@@ -192,7 +183,7 @@ void __fastcall sub_005F0700_SandRaiderThink(D2GameStrc* pGame,D2UnitStrc* pUnit
         default: sub_00621E40_ApplyOverlay(pUnit,46,0); break;
         case 1: sub_00621E40_ApplyOverlay(pUnit,150,0); break;
         }
-        AITACTICS_IdleInNeutralMode(pGame,pUnit,pMonStatsTxt->nAIDel[pGame->nDifficulty]+1);
+        AITACTICS_IdleInNeutralMode(pGame,pUnit,pMonStatsTxt->nAIdel[pGame->nDifficulty]+1);
         return;
     }
     if (pAiControl->dwAiParam[0] > nDelay)

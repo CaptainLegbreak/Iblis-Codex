@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define STAT_HITPOINTS 6
 struct D2SeedStrc;
@@ -9,24 +10,7 @@ struct D2SkillsTxt;
 
 
 
-struct D2MissilesTxt
-{
-    char unk0x00[0x18];
-    short wSubMissile[3];
-    char unk0x1E[0x18];
-    short wProgOverlay;
-    int dwParam[5];
-    char unk0x4C[0x158];
-};
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x64];
-    unsigned int dwAuraRangeCalc;
-    char unk0x068[0xD0];
-    unsigned int dwCalc[4];
-    char unk0x148[0xF4];
-};
 
 
 struct D2MissileStrc

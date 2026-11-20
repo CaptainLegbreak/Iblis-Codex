@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define QFLAG_PRIMARYGOALDONE 13
@@ -79,11 +80,6 @@ struct D2QuestArgStrc
     int nNewLevel;
 };
 
-struct D2ItemsTxt
-{
-    char unk0x00[0x80];
-    unsigned int dwCode;
-};
 
 struct D2Act3Quest4Strc
 {

@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2Txt.h"
 
 struct D2DrlgStrc;
 struct D2DrlgListEntryStrc;
@@ -127,11 +128,6 @@ struct D2PresetUnitStrc
     int nYpos;
 };
 
-struct D2ObjectsTxt
-{
-    char unk0x000[0x167];
-    unsigned char nSubClass;
-};
 
 unsigned int __fastcall DRLGROOM_CheckWaypointFlags(D2DrlgRoomStrc* pDrlgRoom); // 0x0066BAA0
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E90

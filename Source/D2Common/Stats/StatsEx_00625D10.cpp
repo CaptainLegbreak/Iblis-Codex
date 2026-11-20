@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define MOVED_PREFIX
 struct D2StatStrc;
@@ -11,16 +12,6 @@ struct D2ItemStatCostTxt;
 
 
 
-struct D2ItemStatCostTxt
-{
-    char unk0x00[0x04];
-    unsigned char nItemStatFlags[4];
-    char unk0x08[0x10];
-    unsigned char nValShift;
-    char unk0x19[0x13];
-    int dwMinAccr;
-    char unk0x30[0x144 - 0x30];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

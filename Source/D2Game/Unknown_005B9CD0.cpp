@@ -1,5 +1,6 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 
 struct D2QuestDataStrc
@@ -42,11 +43,6 @@ struct D2Act3Quest3Strc
     int nAltarObjectMode;
 };
 
-struct D2ObjectsTxt
-{
-    char unk0x00[0xD8];
-    unsigned int dwFrameCnt[8];
-};
 
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId);                                // 0x00543640
 void __fastcall sub_005417D0_DirectDated(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam);

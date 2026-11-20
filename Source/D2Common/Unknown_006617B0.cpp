@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
 #define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
@@ -25,10 +26,6 @@ struct D2BinFieldStrc
     void* pLinker;
 };
 
-struct D2MissilesTxt
-{
-    char unk0x000[0x1A4];
-};
 
 static __declspec(noinline) int __stdcall sub_00661A30_ClampMissileField(D2BinFieldStrc* pFields, int nMissileId, int nOffset, int nType, int nMin, int nMax);
 

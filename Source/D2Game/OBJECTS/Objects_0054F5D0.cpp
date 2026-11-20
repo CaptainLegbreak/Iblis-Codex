@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define ROOM_MIN_SUBTILES 2
@@ -73,17 +74,6 @@ struct D2UnitStrc
     unsigned int dwFlags;
 };
 
-struct D2ObjectsTxt
-{
-    char unk0x000[0xC4];
-    unsigned char nSelectable[8];
-    char unk0x0CC[0x5C];
-    unsigned char nIsAttackable;
-    char unk0x129[0x14];
-    unsigned char nAutomap13D;
-    char unk0x13E[0x73];
-    unsigned char nInitFn;
-};
 
 struct D2ObjInitFnStrc
 {
@@ -177,20 +167,7 @@ struct D2PlayerDataStrc
     unsigned int dwHostileDelay;
 };
 
-struct D2ItemsTxt
-{
-    char unk0x000[0x12A];
-    unsigned char nQuest;
-};
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x128];
-    unsigned int dwPerDelay;
-    char unk0x12C[0xB0];
-    unsigned char nEType;
-    char unk0x1DD[0x5F];
-};
 
 
 struct D2DamageStrc
@@ -340,7 +317,7 @@ void __fastcall OBJECTS_InitHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, int nU
 
     D2_ASSERT(nAnimMode < 8, 0x240);
 
-    if (pObjectsTxtRecord->nIsAttackable)
+    if (pObjectsTxtRecord->nIsAttackable0)
     {
         if (pUnit)
         {

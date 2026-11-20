@@ -1,15 +1,10 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 
 
-struct D2MissilesTxt
-{
-    char unk0x000[0x38];
-    int dwParam[5];
-    char unk0x04C[0x1A4 - 0x4C];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304

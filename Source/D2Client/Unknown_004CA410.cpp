@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Constants.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNITFLAGEX_0x40000 0x40000
@@ -125,21 +126,8 @@ struct D2SuperUniquesTxt
     int dwMonSound;
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x16];
-    short wUMonSound;
-};
 
 
-struct D2SkillsTxt
-{
-    char unk0x00[0xFC];
-    short wStSound;
-    unsigned char unk_FE[0x4A];
-    int dwParam[8];
-    char unk0x168[0xD4];
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern D2UnitSndPlayerStrc* gpUnitSndPlayer_0072A008[]; // 0x0072A008
@@ -267,32 +255,6 @@ struct D2CoordStrc
 };
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 
-struct D2MissilesTxt
-{
-    unsigned short wId;
-    unsigned short pad0x02;
-    unsigned int dwMissileFlags;
-    unsigned short wCltDoFunc;
-    unsigned short wCltHitFunc;
-    unsigned short wSrvDoFunc;
-    unsigned short wSrvHitFunc;
-    unsigned short wSrvDmgFunc;
-    unsigned short wTravelSound;
-    unsigned short wHitSound;
-    unsigned short wExplosionMissile;
-    short wSubMissile[3];
-    short wCltSubMissile[3];
-    short wHitSubMissile[4];
-    short wCltHitSubMissile[4];
-    short wProgSound;
-    short wProgOverlay;
-    int dwParam[5];
-    int dwHitPar[3];
-    int dwCltParam[5];
-    char unk0x06C[0x178 - 0x06C];
-    unsigned char nAnimLen;
-    char unk0x179[0x1A4 - 0x179];
-};
 
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 void __stdcall sub_004DA1D0_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ); // 0x004DA1D0

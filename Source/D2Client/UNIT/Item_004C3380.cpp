@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2Txt.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -26,13 +27,6 @@ struct D2ItemSaveStrc
     int nItemFileIndex;
 };
 
-struct D2ItemsTxt
-{
-    char unk0x00[0x80];
-    unsigned int dwCode;
-    char unk0x84[0x6C];
-    int dwGemOffset;
-};
 
 struct D2GemsTxt;
 struct D2UnitTargetStrc;

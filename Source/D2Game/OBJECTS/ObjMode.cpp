@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define OBJMODE_OPENED 2
@@ -67,21 +68,6 @@ struct D2DataTablesStrc;
 struct D2ShrinesTxt;
 struct D2TimerArgStrc;
 
-struct D2ObjectsTxt
-{
-    char unk0x00[0xC4];
-    unsigned char nSelectable[8];
-    char unk0xCC[0x0C];
-    unsigned int dwFrameCnt[8];
-    char unk0xF8[0x28];
-    unsigned char nHasCollision[8];
-    char unk0x128[0x17];
-    unsigned char nMode[8];
-    unsigned char unk_147[0x31];
-    int dwParm[8];
-    unsigned char unk_198[0x1B];
-    unsigned char nOperateFn;
-};
 
 struct D2ObjectDataStrc
 {
@@ -202,11 +188,6 @@ struct D2ContextStrc { int unknown; D2ContextDataStrc* data; };
 
 int __fastcall sub_00581F60_HandleState(D2ContextStrc* context, void* argument); // 0x00581F60
 
-struct D2MonStats2Txt
-{
-    char unk0x00[0x0B];
-    unsigned char nHeight;
-};
 
 int __stdcall MONSTERS_IsDead(D2UnitStrc* pMonster); // 0x0063EA40
 int __stdcall STATLIST_GetUnitAlignment(D2UnitStrc* pUnit); // 0x006259B0
@@ -262,14 +243,6 @@ struct D2ShrinesTxt
     int dwDurationInFrames;
 };
 
-struct D2ItemsTxt
-{
-    char unk0x000[0xBC];
-    unsigned int dwUpgradeCode;
-    unsigned char unk_C0[0x62];
-    unsigned char nSubType;
-    unsigned char unk_123[0x1];
-};
 
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 D2UnitStrc* __stdcall INVENTORY_GetBackPackItemByType(D2InventoryStrc* pInventory, int nItemType, D2UnitStrc* pLastItem); // 0x0063CD80
@@ -288,19 +261,7 @@ D2UnitStrc* __stdcall UNITFINDS_GetNearestTestedUnit(D2UnitStrc* pUnit, int nX, 
 int __fastcall sub_6FC76F60(D2UnitStrc* pMonster, D2UnitStrc* pUnit1); // 0x00582750
 void __fastcall sub_005A4940_PromoteToUnique(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005A4940
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x198];
-    int dwToHit;
-    int dwLevToHit;
-};
 
-struct D2CharStatsTxt
-{
-    char unk0x00[0x3C];
-    int dwToHitFactor;
-    char unk0x40[0x84];
-};
 
 typedef void(__fastcall* ObjShrineFunction)(D2ObjOperateFnStrc* pOp, D2ShrinesTxt* pShrinesTxtRecord);
 
@@ -907,7 +868,7 @@ int __fastcall sub_6FC76F60(D2UnitStrc* pMonster, D2UnitStrc* pUnit1)
         return 0;
     }
     D2MonStats2Txt* pMonStats2TxtRecord = UNITS_GetMonStats2TxtRecordFromMonsterId(nClassId);
-    if (!pMonStats2TxtRecord || !pMonStats2TxtRecord->nHeight)
+    if (!pMonStats2TxtRecord || !pMonStats2TxtRecord->nType)
     {
         return 0;
     }

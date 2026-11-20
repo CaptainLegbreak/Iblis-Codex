@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 struct D2MissilesTxt;
 struct D2SkillsTxt;
@@ -35,24 +36,7 @@ struct D2MissileStrc
     int nInitArg;
 };
 
-struct D2MissilesTxt
-{
-    char unk0x000[0x38];
-    int dwParam[5];
-    char unk0x04C[0x4E];
-    unsigned char nVel;
-    unsigned char nVelLev;
-    char unk0x09C[0x108];
-};
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x48];
-    short wSrvMissileA;
-    char unk0x04A[0xEE];
-    unsigned int dwCalc[4];
-    char unk0x148[0xF4];
-};
 
 
 enum D2C_Y09ImpInfernoConstants

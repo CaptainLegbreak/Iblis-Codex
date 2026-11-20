@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2Txt.h"
 
 struct D2StatStrc;
 struct D2StatsArrayStrc;
@@ -10,11 +11,6 @@ struct D2ItemStatCostTxt;
 
 
 
-struct D2ItemStatCostTxt
-{
-    char unk0x00[0x04];
-    unsigned char nItemStatFlags[4];
-};
 void __stdcall STATLIST_MergeStatLists(D2UnitStrc* pTarget, D2UnitStrc* pUnit, int bType); // 0x00627910
 D2ItemStatCostTxt* __fastcall sub_0045C4F0_GetItemStatCostTxtRecord(int nStatId); // 0x0045C4F0
 void __fastcall sub_00626920_UpdateStatValue(D2StatListExStrc* pStatListEx, int nLayer_StatId, int nValue, D2UnitStrc* pUnit); // 0x00626920

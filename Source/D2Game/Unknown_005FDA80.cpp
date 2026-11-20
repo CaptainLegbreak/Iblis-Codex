@@ -1,5 +1,6 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 #ifdef MOVED_TEST
 #define SHIFT 4
 #define INVALID_UNIT 8
@@ -10,15 +11,6 @@
 struct D2GameStrc;
 struct D2DynamicPathStrc;
 struct D2InventoryStrc;
-struct D2SkillsTxt {
-    char unk0x000[4 + SHIFT];
-    unsigned char nFlags[8];
-    char unk0x00C[0x120-0xC];
-    unsigned char nItemTarget;
-    char unk0x121[0x16A-0x121];
-    short wItemEffect;
-    char unk0x16C[0x23C-0x16C];
-};
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553540

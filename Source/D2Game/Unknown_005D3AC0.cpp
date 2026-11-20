@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 struct D2DamageStrc
 {
@@ -10,18 +11,6 @@ struct D2DamageStrc
     int dwEnDmgPct;
 };
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x44];
-    unsigned char nPrgDamage;
-    char unk0x045[0xF];
-    short wAuraStat[6];
-    char unk0x060[0xA8];
-    short wTgtOverlay;
-    char unk0x10A[0x2E];
-    unsigned int dwCalc[4];
-    char unk0x148[0xF4];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304

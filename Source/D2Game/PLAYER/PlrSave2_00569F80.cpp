@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define UNIT_PLAYER 0
 #define STAT_HITPOINTS 6
@@ -17,12 +18,6 @@ struct D2PlayerDataStrc
     int nLeftSkillId;
 };
 
-struct D2CharStatsTxt
-{
-    char unk0x00[0xAC];
-    short wStartSkill;
-    char unk0xAE[0x16];
-};
 
 
 struct D2SaveHeaderStrc

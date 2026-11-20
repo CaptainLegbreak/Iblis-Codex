@@ -1,23 +1,11 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 struct D2SkillsTxt;
 struct D2SkillListStrc;
 
-struct D2SkillsTxt
-{
-    short nSkillId;
-    char unk0x02[128 - 2];
-    short nAuraState;
-    char unk0x82[148 - 128 - 2];
-    short nPassiveState;
-    short nPassiveIType;
-    short nPassiveStat[5];
-    unsigned char unk_A2[0x2];
-    unsigned int dwPassiveCalc[5];
-    char unk0xB8[572 - 164 - 4 * 5];
-};
 
 struct D2SkillStrc
 {

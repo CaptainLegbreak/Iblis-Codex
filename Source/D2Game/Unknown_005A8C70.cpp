@@ -1,5 +1,6 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 // build: ob1
 
 enum D2C_ItemStats
@@ -78,27 +79,8 @@ struct D2DamageStrc
     int unk0x48[10];
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x1C];
-    short nMonType;
-    char unk0x1E[0x18A];
-};
 
-struct D2MissilesTxt
-{
-    char unk0x00[0x36];
-    short wProgOverlay;
-    char unk0x38[0x14];
-    int dwHitPar[2];
-    char unk0x54[0x150];
-};
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x138];
-    unsigned int dwCalc[2];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304

@@ -1,11 +1,6 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
-struct D2MonStatsTxt
-{
-    char unk0x00[0x0C];
-    unsigned char nMonStatsFlags[4];
-    char unk0x10[0x198];
-};
+#include "D2Txt.h"
 
 
 struct D2MonsterDataStrc

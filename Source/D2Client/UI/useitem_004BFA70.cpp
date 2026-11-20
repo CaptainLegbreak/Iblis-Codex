@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2Txt.h"
 
 struct SMSGHANDLER_PARAMS
 {
@@ -15,11 +16,6 @@ struct SMSGHANDLER_PARAMS
 };
 
 
-struct D2ItemsTxt
-{
-    char unk0x00[0x80];
-    unsigned int dwCode;
-};
 
 struct D2MsgHandlerEntryStrc
 {

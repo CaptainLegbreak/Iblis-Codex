@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 
 
@@ -30,23 +31,7 @@ struct D2MissileStrc
     int pInitArgs;
 };
 
-struct D2MissilesTxt
-{
-    char unk0x000[0x2C];
-    short wCltHitSubMissile[4];
-    short wProgSound;
-    short wProgOverlay;
-    char unk0x038[0x34];
-    int dwCltHitPar[3];
-    char unk0x078[0x12C];
-};
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x138];
-    unsigned int dwCalc[4];
-    char unk0x148[0xF4];
-};
 
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0

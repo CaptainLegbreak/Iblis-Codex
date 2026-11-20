@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define PLRSAVE2_WAYPOINT_HEADER 0x5357
@@ -220,15 +221,6 @@ struct D2BitBufferStrc
     int bFull;
 };
 
-struct D2ItemStatCostTxt
-{
-    char unk0x00[0x04];
-    unsigned char nItemStatFlags[4];
-    char unk0x08[0x02];
-    unsigned char nCsvBits;
-    unsigned char nCsvParam;
-    char unk0x0C[0x144 - 0x0C];
-};
 
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268
 void __stdcall BITMANIP_Initialize(D2BitBufferStrc* pBuffer, unsigned char* pBitStream, int nSize); // 0x00410E40

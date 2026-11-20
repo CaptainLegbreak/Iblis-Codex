@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define UNIT_OBJECT 2
 #define UNIT_ITEM 4
@@ -21,16 +22,6 @@ void __cdecl sub_00453D90_RunSequenceA(); // 0x00453D90
 
 
 
-struct D2ObjectsTxt
-{
-    char unk0x000[0x13A];
-    unsigned char nIsDoor;
-    char unk0x13B[0x26]; unsigned char nComponents; char unk0x162[0x3B]; unsigned char nSelectBox; char unk0x19E[2];
-    int dwLeft;
-    int dwTop;
-    int dwWidth;
-    int dwHeight;
-};
 
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
@@ -65,12 +56,6 @@ int __stdcall sub_004DA0D0_GetGfxMotionField38(D2UnitStrc* pUnit); // 0x004DA0D0
 int __stdcall sub_004DA0F0_GetGfxMotionField3C(D2UnitStrc* pUnit); // 0x004DA0F0
 static __declspec(noinline) int __stdcall sub_004640A0_GetUnitSelectRect(D2UnitStrc* pUnit, int nMode, D2RectStrc* pRect, unsigned int nFrame);
 
-struct D2SkillsTxt
-{
-    char unk0x00[0x15];
-    unsigned char nSelectProc;
-    char unk0x16[0x226];
-};
 
 
 typedef int (__fastcall* SKILLSELECTPROC)(D2UnitStrc* pPlayer, D2UnitStrc* pTarget);

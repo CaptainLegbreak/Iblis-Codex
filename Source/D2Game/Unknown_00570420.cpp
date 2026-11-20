@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define MONTYPEFLAG_UNIQUE 8
 #define STATE_STUNNED 0x15
@@ -66,12 +67,6 @@ void __fastcall sub_6FD10E50(D2UnitStrc* pUnit, int nState, D2StatListStrc* pSta
 void __stdcall MONSTERMODE_GetModeChangeInfo(D2UnitStrc* pUnit, int nMode, D2ModeChangeStrc* pModeChange); // 0x005A7E60
 int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int a3); // 0x005A7C20
 
-struct D2SkillsTxt
-{
-    char unk0x00[0x60];
-    unsigned int dwAuraLenCalc;
-    char unk0x64[0x23C - 0x64];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -83,24 +78,6 @@ typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit,
 void __fastcall SUNIT_IterateLivingPlayers(D2GameStrc* pGame, SUNIT_IterateFn pfIterate, void* pArg); // 0x005538D0
 void __fastcall sub_00570850_Forward(void* pUnused, D2UnitStrc* pUnit, int nArg); // 0x00570850
 
-struct D2CharStatsTxt
-{
-    char unk0x00[0x30];
-    unsigned char nStr;
-    unsigned char nDex;
-    unsigned char nInt;
-    unsigned char nVit;
-    unsigned char unk_34[0xF];
-    unsigned char lifePerLevel;
-    unsigned char staminaPerLevel;
-    unsigned char manaPerLevel;
-    unsigned char nLifePerVitality;
-    unsigned char nStaminaPerVitality;
-    unsigned char nManaPerMagic;
-    unsigned char unk_49[0x7];
-    signed char statPerLevel;
-    char unk_51[115];
-};
 
 typedef void (__fastcall* LevelCallback)(unsigned int, int);
 
@@ -131,7 +108,6 @@ struct D2StatStrc { union { struct { unsigned short nLayer; unsigned short nStat
 
 struct D2StatesTxt { char unk_00[0x10]; unsigned char nStateFlags[8]; char unk_18[0x24]; };
 
-struct D2ItemStatCostTxt { int nStatId; unsigned char dwItemStatFlags[4]; unsigned char nSendBits; unsigned char nSendParamBits; char unk_0A[0x13A]; };
 
 #pragma pack(push, 1)
 struct D2GSPacketSrvAA { unsigned char nHeader; unsigned char nUnitType; int nUnitId; unsigned char nSize; unsigned char pStream[244]; };
@@ -515,7 +491,7 @@ void __fastcall D2GAME_STATES_SendUnitStates_6FCC58E0(D2UnitStrc* pUnit, D2Clien
                             {
                                 if (pItemStatCostTxtRecord->nSendBits < 32)
                                 {
-                                    if (pItemStatCostTxtRecord->dwItemStatFlags[0] & gdwBitMasks[1])
+                                    if (pItemStatCostTxtRecord->nItemStatFlags[0] & gdwBitMasks[1])
                                     {
                                         const int nMin = -1 << (pItemStatCostTxtRecord->nSendBits - 1);
                                         nValue = D2_MIN(D2_MAX(nValue, nMin), (1 << (pItemStatCostTxtRecord->nSendBits - 1)) - 1);

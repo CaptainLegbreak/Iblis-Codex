@@ -1,4 +1,5 @@
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 struct D2SeedStrc
 {
     unsigned int nLowSeed;
@@ -15,13 +16,6 @@ struct D2UnitStrc
     int nSeqCurrentFramePrecise;
 };
 
-struct D2MissilesTxt
-{
-    char unk0x000[0x181];
-    unsigned char nSubStart;
-    unsigned char nSubStop;
-    char unk0x183[0x1A4 - 0x183];
-};
 
 
 typedef char cc_M439_D2MissilesTxt_size[sizeof(D2MissilesTxt) == 0x1A4 ? 1 : -1];

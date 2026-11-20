@@ -5,6 +5,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define PLRMODE_DEATH 0
@@ -198,19 +199,8 @@ struct D2GSPacketSrv53
     unsigned char nEclipse;
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x0C];
-    unsigned char nFlags[4];
-    char unk0x10[0x198];
-};
 
 
-struct D2ObjectsTxt
-{
-    char unk0x00[0xD8];
-    unsigned int dwFrameCnt[8];
-};
 
 struct D2ObjInitFnStrc
 {
@@ -466,7 +456,7 @@ void __fastcall SUNITPROXY_FillGlobalItemCache()
         D2MonStatsTxt* pMonStatsTxtRecord = SUNITPROXY_GetMonStatsTxtRecordInline(i);
         int bInteract = 0;
         if (pMonStatsTxtRecord)
-            bInteract = pMonStatsTxtRecord->nFlags[MONSTATSFLAGINDEX_INTERACT >> 3] & gdwBitMasks[MONSTATSFLAGINDEX_INTERACT & 7];
+            bInteract = pMonStatsTxtRecord->nMonStatsFlags[MONSTATSFLAGINDEX_INTERACT >> 3] & gdwBitMasks[MONSTATSFLAGINDEX_INTERACT & 7];
         if (bInteract)
         {
             switch (i)

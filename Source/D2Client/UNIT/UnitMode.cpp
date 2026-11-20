@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define BITARRAY_CHECK(pBytes, nBit) ((pBytes)[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
@@ -102,12 +103,6 @@ struct D2PlayerDataStrc
     int dwPendingId;
 };
 
-struct D2SkillsTxt
-{
-    char unk0x00[0x2E];
-    unsigned short wUnk0x2E;
-    char unk0x30[0x20C];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -504,7 +499,7 @@ static int sub_00480C80_IsTargetInRange(D2UnitStrc* pPlayer, D2UnitStrc* pUnit, 
     if (pSkill)
     {
         D2SkillsTxt* pSkillsTxt = sub_00644140_GetSkillsTxtFromSkill(pSkill);
-        if (pSkillsTxt && pSkillsTxt->wUnk0x2E == 0x13)
+        if (pSkillsTxt && pSkillsTxt->wSrvDoFunc == 0x13)
         {
             int nRange;
             int nDistance;

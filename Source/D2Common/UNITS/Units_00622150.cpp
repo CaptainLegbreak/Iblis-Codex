@@ -1,6 +1,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2Txt.h"
 struct D2SkillStrc;
 struct D2TimerArgStrc;
 struct D2PlayerDataStrc
@@ -19,11 +20,6 @@ struct D2PlayerDataStrc
     int nSwitchLeftSkillFlags;
     int nWeaponGUID;
     int unk0x94;
-};
-struct D2ObjectsTxt
-{
-    char unk0x00[360];
-    unsigned int dwNameOffset;
 };
 struct D2ObjectDataStrc
 {

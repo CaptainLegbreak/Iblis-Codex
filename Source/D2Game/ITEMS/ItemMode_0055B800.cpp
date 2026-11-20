@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define D2_MAX(a,b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a,b) ((a) < (b) ? (a) : (b))
@@ -32,19 +33,8 @@ struct D2EquipmentRefreshStateStrc;
 struct SwapEntry;
 
 
-struct D2MonStatsTxt { char unk00[0x1a0]; int nDamageRegen; };
 
-struct D2SkillsTxt
-{
-    char unk00[0xc];
-    signed char nCharClass;
-    unsigned char unk_0D[0x7];
-    unsigned char nRange;
-    char unk0x15[0x18 - 0x14 - 1];
-    short nITypeA[3];
-};
 
-struct D2ItemStatCostTxt { char unk00[0x48]; short wItemEvent[2]; short wItemEventFunc[2]; char unk50[0xf4]; };
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -79,21 +69,6 @@ D2SkillStrc* __stdcall SKILLS_AddSkill(D2UnitStrc*, int); // 0x00647110
 D2SkillStrc* __stdcall SKILLS_AssignSkill(D2UnitStrc*, int, int, int, const char*, int); // 0x00647280
 void __stdcall D2Common_10954(D2UnitStrc*, int, int, int, int, int); // 0x00647530
 
-struct D2ItemsTxt
-{
-    char unk0x000[0x80];
-    unsigned int dwCode;
-    unsigned char unk_84[0x44];
-    unsigned int dwTransmogrifyType;
-    unsigned char unk_CC[0x24];
-    int dwGemOffset;
-    unsigned char unk_F4[0x36];
-    unsigned char nQuest;
-    unsigned char unk_12B[0xE];
-    unsigned char nTransmogrify;
-    unsigned char nTmogMin;
-    unsigned char nTmogMax;
-};
 
 extern "C" const char szItemModeCpp[]; // 0x006E1164
 void __fastcall sub_0055C270_OnItemToBelt(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x0055C270
@@ -1214,7 +1189,7 @@ static int __stdcall sub_0055C560_IsThrowSkillUsable(D2UnitStrc* pUnit, D2SkillS
     }
 
     D2SkillsTxt* pSkillsTxtRecord = sub_00644140_GetSkillsTxtFromSkill(pSkill);
-    if (!pSkillsTxtRecord || pSkillsTxtRecord->nITypeA[0] <= 0 || !ITEMS_CheckType(pSkillsTxtRecord->nITypeA[0], 0x30) || pSkillsTxtRecord->nRange != 2)
+    if (!pSkillsTxtRecord || pSkillsTxtRecord->nITypeA[0] <= 0 || !ITEMS_CheckType(pSkillsTxtRecord->nITypeA[0], 0x30) || pSkillsTxtRecord->nAuraTargetState != 2)
     {
         return 0;
     }

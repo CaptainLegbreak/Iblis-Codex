@@ -1,19 +1,8 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 struct D2AuraCallbackStrc;
-struct D2SkillsTxt
-{
-    char unk_00[0x50];
-    unsigned int dwAuraFilter;
-    char unk_54[0x10];
-    unsigned int dwAuraRangeCalc;
-    char unk_68[0xD0];
-    unsigned int dwCalc[4];
-    char unk_148[0x94];
-    unsigned char nEType;
-    char unk_1DD[0x5F];
-};
 struct D2MonStatsInitStrc { int nMinHP, nMaxHP; int unk_08[12]; };
 struct D2DamageStrc
 {

@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 struct D2PathPointStrc
 {
@@ -23,20 +24,6 @@ struct D2SeedStrc;
 
 
 
-struct D2MissilesTxt
-{
-    char unk0x00[0x18];
-    short wSubMissile[3];
-    char unk0x1E[0x18];
-    short wProgOverlay;
-    int dwParam[5];
-    char unk0x4C[0x34];
-    unsigned int dwSrvCalc;
-    char unk0x84[0x24];
-    unsigned int dwHitFlags;
-    unsigned short wResultFlags;
-    char unk0xAE[0xF6];
-};
 
 
 struct D2MissileFindArgStrc { D2GameStrc* pGame; D2UnitStrc* pMissile; D2UnitStrc* pOwner; D2MissilesTxt* pMissilesTxtRecord; };
@@ -57,19 +44,6 @@ int __stdcall D2COMMON_10198_PathGetSaveStep(D2DynamicPathStrc*, D2PathPointStrc
 unsigned short __stdcall COLLISION_CheckMaskWithSize(D2ActiveRoomStrc*, int, int, int, int); // 0x0064D9B0
 D2UnitStrc* __stdcall D2Common_10407(D2ActiveRoomStrc*, int, int, void*, void*, int); // 0x00641CB0
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x50];
-    unsigned int dwAuraFilter;
-    char unk0x054[0x10];
-    unsigned int dwAuraRangeCalc;
-    unsigned char unk_68[0x18];
-    short nAuraState;
-    short wAuraTargetState;
-    unsigned char unk_84[0xB4];
-    unsigned int dwCalc[4];
-    char unk0x148[0xF4];
-};
 
 struct D2MissileStrc
 {

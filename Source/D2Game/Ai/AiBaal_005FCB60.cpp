@@ -3,11 +3,11 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 struct D2ActiveRoomStrc;
 struct D2DynamicPathStrc;
 struct D2AiControlStrc { char pad00[0x14]; int param[3]; };
 struct D2AiCmdStrc { void* next; void* prev; int param[5]; };
-struct D2MonStatsTxt { char pad00[0x170]; short skill[8]; unsigned char skillMode[8]; char pad188[0x20]; };
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const char gszAiBaal[]; // 0x006E3580
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc*); // 0x0045ADF0
@@ -161,13 +161,13 @@ void __fastcall AIBAAL_MainSkillHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
             return;
         }
 
-        if (pMonStatsTxtRecord->skill[5] > 0 && (STATLIST_GetMaxLifeFromUnit(pTarget) > STATLIST_GetMaxManaFromUnit(pTarget) || pTarget->dwUnitType != 0))
+        if (pMonStatsTxtRecord->nSkill[5] > 0 && (STATLIST_GetMaxLifeFromUnit(pTarget) > STATLIST_GetMaxManaFromUnit(pTarget) || pTarget->dwUnitType != 0))
         {
-            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxtRecord->skillMode[5], pMonStatsTxtRecord->skill[5], pTarget, 0, 0);
+            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxtRecord->nSkillMode[5], pMonStatsTxtRecord->nSkill[5], pTarget, 0, 0);
         }
-        else if (pMonStatsTxtRecord->skill[6] > 0 && pTarget->dwUnitType == 0)
+        else if (pMonStatsTxtRecord->nSkill[6] > 0 && pTarget->dwUnitType == 0)
         {
-            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxtRecord->skillMode[6], pMonStatsTxtRecord->skill[6], pTarget, 0, 0);
+            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxtRecord->nSkillMode[6], pMonStatsTxtRecord->nSkill[6], pTarget, 0, 0);
         }
         return;
     case 14:
@@ -192,13 +192,13 @@ void __fastcall AIBAAL_MainSkillHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
 
         if (pUnit->dwClassId == 709)
         {
-            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxtRecord->skillMode[4], pMonStatsTxtRecord->skill[4], 0, nTargetX, nTargetY);
+            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxtRecord->nSkillMode[4], pMonStatsTxtRecord->nSkill[4], 0, nTargetX, nTargetY);
             return;
         }
 
         if (MONSTERREGION_FindSpawnLocation(pGame, UNITS_GetRoom(pUnit), 0, pUnit->dwClassId, &nFinalX, &nFinalY, 0))
         {
-            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxtRecord->skillMode[4], pMonStatsTxtRecord->skill[4], 0, nFinalX, nFinalY);
+            AITACTICS_UseSkill(pGame, pUnit, pMonStatsTxtRecord->nSkillMode[4], pMonStatsTxtRecord->nSkill[4], 0, nFinalX, nFinalY);
         }
         else
         {

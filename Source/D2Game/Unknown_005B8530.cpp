@@ -1,5 +1,6 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 struct D2QuestDataStrc
 {
     int nQuestNo;
@@ -21,11 +22,6 @@ struct D2ObjOperateFnStrc
     D2UnitStrc* pObject;
     int unk0x08[2];
     int nObjectIdx;
-};
-struct D2ObjectsTxt
-{
-    char unk0x00[0xD8];
-    unsigned int dwFrameCnt[8];
 };
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitId); // 0x00552F60

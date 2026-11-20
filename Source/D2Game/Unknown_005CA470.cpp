@@ -2,29 +2,13 @@
 #include "D2Constants.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 struct D2SkillsTxt;
 struct D2CurseStrc;
 struct D2EnergyShieldDataStrc;
 
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x48];
-    short wSrvMissileA;
-    char unk0x04A[0x16];
-    unsigned int dwAuraLenCalc;
-    char unk0x064[0x1C];
-    short nAuraState;
-    char unk0x082[0x8A];
-    short wPrgOverlay;
-    unsigned char unk_10E[0x20];
-    unsigned short wResultFlags;
-    unsigned int dwHitFlags;
-    unsigned int dwHitClass;
-    unsigned int dwCalc[4];
-    char unk0x148[0xF4];
-};
 
 
 typedef void (__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);

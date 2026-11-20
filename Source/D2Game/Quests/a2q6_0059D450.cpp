@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2PlayerDataStrc;
@@ -18,11 +19,6 @@ struct D2PlayerDataStrc
     D2BitBufferStrc* pQuestData[3];
 };
 
-struct D2ObjectsTxt
-{
-    char pad0x00[0xDC];
-    unsigned int dwFrameCnt1;
-};
 
 struct D2ObjInitFnStrc
 {

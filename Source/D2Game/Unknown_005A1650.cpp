@@ -47,12 +47,6 @@ enum D2C_H16ElemConstants
 };
 
 
-struct D2MissilesTxt
-{
-    char pad0x000[0x04];
-    unsigned char nMissileFlags[4];
-    char pad0x008[0x19C];
-};
 
 struct D2MonUModTxt
 {
@@ -142,6 +136,7 @@ void __fastcall MONSTERUNIQUE_UMod30_AuraEnchanted(D2UnitStrc* pUnit, int nUMod,
 }
 
 #include "gen/data/Source/D2Game/Unknown_005A1650.inc"
+#include "D2Txt.h"
 
 static __forceinline D2MissilesTxt* MONUNIQUE_GetMissilesTxtRecord_Inline(int nMissileId)
 {

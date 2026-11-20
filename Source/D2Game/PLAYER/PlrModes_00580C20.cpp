@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 struct D2ItemsTxt;
 
@@ -23,12 +24,6 @@ struct D2PlayerDataStrc
 };
 
 
-struct D2CharStatsTxt
-{
-    char unk0x00[0x42];
-    unsigned char nRunDrain;
-    char unk0x43[0x81];
-};
 
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837

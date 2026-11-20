@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2Txt.h"
 struct D2PlayerDataStrc
 {
     char unk0x00[128];
@@ -10,11 +11,6 @@ struct D2PlayerDataStrc
 };
 
 
-struct D2MonStats2Txt
-{
-    int dwId;
-    unsigned char nFlags[4];
-};
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090

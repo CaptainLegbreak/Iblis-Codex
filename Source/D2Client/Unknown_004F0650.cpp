@@ -1,15 +1,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
-struct D2SkillsTxt
-{
-    char unk_000[0xEA];
-    short wCltMissileA;
-    short wCltMissileB;
-    char unk_0EE[0x114 - 0xEE];
-    int dwCltCalc[3];
-    char unk_120[0x23C - 0x120];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

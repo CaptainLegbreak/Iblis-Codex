@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2Txt.h"
 
 struct D2SeedStrc;
 
@@ -12,18 +13,6 @@ struct D2PropertyStrc
     int nMax;
 };
 
-struct D2ItemsTxt
-{
-    char unk0x00[0xD0];
-    int dwMaxAc;
-    char unk0xD4[0x2A];
-    unsigned char nMinDam;
-    unsigned char nMaxDam;
-    unsigned char nMinMisDam;
-    unsigned char nMaxMisDam;
-    unsigned char n2HandMinDam;
-    unsigned char n2HandMaxDam;
-};
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090

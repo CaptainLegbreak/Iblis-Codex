@@ -1,3 +1,4 @@
+#include "D2Txt.h"
 struct D2TxtLinkStrc;
 
 struct D2BinFieldStrc
@@ -9,14 +10,6 @@ struct D2BinFieldStrc
     void* pLinker;
 };
 
-struct D2ObjectsTxt
-{
-    char szName[64];
-    unsigned short wszName[64];
-    char f_C0[0x18];
-    unsigned int dwFrameCnt[8];
-    char unk0xF8[200];
-};
 
 extern "C" const char gszTxtField_end[];                                                                    // 0x006D9060
 void* __stdcall DATATBLS_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pTbl, int* pRecordCount, int nRecordSize);// 0x006122F0

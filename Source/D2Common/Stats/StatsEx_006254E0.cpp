@@ -1,16 +1,11 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 
 
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x194];
-    short wSkillDesc;
-    char unk0x196[0x23C - 0x196];
-};
 
 
 

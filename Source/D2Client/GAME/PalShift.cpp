@@ -1,4 +1,5 @@
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 struct D2MonStatsTxt;
 struct D2MonStats2Txt;
 struct D2DataTablesStrc;
@@ -7,19 +8,7 @@ struct D2PalShiftStrc;
 struct D2PalShiftNodeStrc;
 struct T0044A980;
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x18];
-    short nMonStatsEx;
-    char unk0x1A[0x18E];
-};
 
-struct D2MonStats2Txt
-{
-    char unk0x00[0x11C];
-    unsigned char nLocalBlood;
-    char unk0x11D[0x134 - 0x11D];
-};
 
 
 struct D2ShiftRowsStrc
@@ -63,7 +52,7 @@ static inline D2MonStats2Txt* UNITS_GetMonStats2TxtRecordFromMonsterId(int nMons
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
-        const int nId = sgptDataTables->pMonStatsTxt[nMonsterId].nMonStatsEx;
+        const int nId = sgptDataTables->pMonStatsTxt[nMonsterId].wMonStatsEx;
         if (nId >= 0 && nId < sgptDataTables->nMonStats2TxtRecordCount)
         {
             return &sgptDataTables->pMonStats2Txt[nId];

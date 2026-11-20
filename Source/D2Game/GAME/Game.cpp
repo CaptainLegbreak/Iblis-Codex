@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #pragma intrinsic(_ReadWriteBarrier)
 
@@ -287,25 +288,8 @@ struct Unicode
     unsigned short wChar;
 };
 
-struct D2MonStatsTxt
-{
-    short nId;
-    short nBaseId;
-    short nNextInClass;
-    unsigned short wNameStr;
-    char unk0x08[0x1A8 - 0x08];
-};
 
-struct D2ItemsTxt
-{
-    char unk0x00[0xF4];
-    unsigned short wNameStr;
-};
 
-struct D2ObjectsTxt
-{
-    char szName[64];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

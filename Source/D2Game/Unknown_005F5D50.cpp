@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 
 
@@ -11,20 +12,7 @@ struct D2AiControlStrc
     int dwAiParam[2];
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x56];
-    short wAiParam[8][3];
-    char unk0x86[0xEA];
-    short nSkill[8];
-    unsigned char nSkillMode[8];
-};
 
-struct D2MonStats2Txt
-{
-    char unk0x00[0x0E];
-    unsigned char nMeleeRng;
-};
 
 struct D2AiTickParamStrc
 {
@@ -81,9 +69,9 @@ void __fastcall AITHINK_Fn036_CorruptLancer(D2GameStrc* pGame, D2UnitStrc* pUnit
 
     if (pAiTickParam->nTargetDistance > AI_PARAM(pGame, pMonStatsTxt, CORRUPTLANCER_AI_PARAM_ALWAYS_RUN_DISTANCE))
     {
-        PATH_SetStepNum(pUnit->pDynamicPath, pAiTickParam->pMonstats2Txt->nMeleeRng);
+        PATH_SetStepNum(pUnit->pDynamicPath, pAiTickParam->pMonstats2Txt->nSteps);
         AITACTICS_SetVelocity(pUnit, 13, 100, 0);
-        AITACTICS_RunToTargetUnitWithSteps(pGame, pUnit, pTarget, pAiTickParam->pMonstats2Txt->nMeleeRng);
+        AITACTICS_RunToTargetUnitWithSteps(pGame, pUnit, pTarget, pAiTickParam->pMonstats2Txt->nSteps);
         pAiControl->dwAiParam[0] = 1;
         return;
     }
@@ -119,12 +107,12 @@ void __fastcall AITHINK_Fn036_CorruptLancer(D2GameStrc* pGame, D2UnitStrc* pUnit
 
     if ((int)(AI_RollSeed(pSeed) % 100) < AI_PARAM(pGame, pMonStatsTxt, CORRUPTLANCER_AI_PARAM_APPROACH_CHANCE_PCT))
     {
-        PATH_SetStepNum(pUnit->pDynamicPath, pAiTickParam->pMonstats2Txt->nMeleeRng);
+        PATH_SetStepNum(pUnit->pDynamicPath, pAiTickParam->pMonstats2Txt->nSteps);
 
         if ((int)(AI_RollSeed(pSeed) % 100) < AI_PARAM(pGame, pMonStatsTxt, CORRUPTLANCER_AI_PARAM_RUN_CHANCE_PCT))
         {
             AITACTICS_SetVelocity(pUnit, 13, 100, 0);
-            AITACTICS_RunToTargetUnitWithSteps(pGame, pUnit, pTarget, pAiTickParam->pMonstats2Txt->nMeleeRng);
+            AITACTICS_RunToTargetUnitWithSteps(pGame, pUnit, pTarget, pAiTickParam->pMonstats2Txt->nSteps);
             return;
         }
 

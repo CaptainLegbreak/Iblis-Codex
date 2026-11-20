@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 #define MONMODE_DEATH 0
 #define MONMODE_NEUTRAL 1
 #define EVENTTYPE_MONUMOD 7
@@ -31,12 +32,6 @@ void __fastcall MONSTER_UpdateAiCallbackEvent(D2GameStrc* pGame, D2UnitStrc* pUn
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
 int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, unsigned short nFlag); // 0x005A0180
 
-struct D2MonStatsTxt
-{
-    char unk0x000[0xA6];
-    unsigned char nCrit;
-    char unk0x0A7[0x101];
-};
 
 
 struct D2DamageStrc

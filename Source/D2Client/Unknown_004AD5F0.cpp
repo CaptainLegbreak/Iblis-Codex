@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define UNIT_MONSTER 1
 #define FIELD_OFFSET(T,F) ((unsigned long)&(((T*)0)->F))
@@ -65,12 +66,6 @@ D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams)
 void __fastcall sub_004E2ED0_VolleyCallback(D2UnitStrc* pMissile); // 0x004E2ED0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 
-struct D2MissilesTxt
-{
-    char unk0[0x4];
-    unsigned char nMissileFlags[4];
-    char wCltDoFunc[0x19C];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

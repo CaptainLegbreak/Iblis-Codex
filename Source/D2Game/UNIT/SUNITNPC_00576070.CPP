@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define SEND_GOLD(code,line,guid,kind) D2GAME_SendPacket0x2A_6FC3F3B0(SUNIT_GetClientFromPlayer(pPlayer,gszNpcSourceFile,line),0x2A,code,STATLIST_UnitGetStatValue(pPlayer,14,0),guid,kind)
@@ -84,7 +85,6 @@ struct D2UnitStrc
     int owner;
 };
 
-struct D2ItemsTxt { char unk_00[0x88]; unsigned int dwUberCode; unsigned int dwUltraCode; char unk_90[0x10C]; unsigned int dwNightmareUpgrade; unsigned int dwHellUpgrade; };
 extern "C" int __cdecl _stricmp(const char*, const char*); // 0x006841E9
 extern const char gszNpcSourceFile[]; // 0x006E15F0
 D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId); // 0x00633640

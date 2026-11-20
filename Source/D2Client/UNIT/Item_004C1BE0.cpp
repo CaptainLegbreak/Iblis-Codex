@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 extern "C" const char gszEmptyAssertText;
 extern "C" const char* __cdecl sub_00408090();
@@ -11,11 +12,6 @@ struct D2GemsTxt;
 struct D2UnitTargetStrc;
 
 
-struct D2ItemsTxt
-{
-    char unk0x00[0xF0];
-    int dwGemOffset;
-};
 
 #pragma pack(push, 1)
 struct D2GSPacketSrv7DStrc

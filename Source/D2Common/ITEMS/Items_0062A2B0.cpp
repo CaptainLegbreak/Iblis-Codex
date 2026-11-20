@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
 #define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
 #define IFLAG_IDENTIFIED 0x10
@@ -31,16 +32,6 @@ struct D2ItemDataStrc
 };
 
 
-struct D2ItemsTxt
-{
-    char unk0x00[0x12A];
-    unsigned char nQuest;
-    unsigned char nQuestDiffCheck;
-    char unk0x12C[0x143 - 0x12C];
-    unsigned char nCompactSave;
-    unsigned char nSkipName;
-    unsigned char nNameable;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -54,15 +45,6 @@ int __stdcall ITEMS_GetItemFlags(D2UnitStrc* pItem); // 0x00628110
 
 
 
-struct D2ItemStatCostTxt
-{
-    char unk0x00[0x18];
-    unsigned char nValShift;
-    unsigned char nSaveBits;
-    char unk0x1A[2];
-    int dwSaveAdd;
-    char unk0x20[0x144 - 0x20];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

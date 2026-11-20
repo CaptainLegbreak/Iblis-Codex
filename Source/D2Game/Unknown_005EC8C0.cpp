@@ -2,11 +2,10 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 struct D2AiControlStrc { char unk_00[0x14]; int dwAiParam[3]; };
-struct D2MonStatsTxt { char unk_00[0x56]; short wAiParam[8][3]; char unk_86[0xEA]; short nSkill[8]; };
 struct D2AiTickParamStrc { D2AiControlStrc* pAiControl; int unk_04; D2UnitStrc* pTarget; int unk_0C[2]; int nDistance; int bCombat; D2MonStatsTxt* pMonstatsTxt; };
-struct D2SkillsTxt { char unk_00[0x64]; unsigned int dwAuraRangeCalc; char unk_68[0x1D4]; };
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 D2UnitStrc* __fastcall AIGENERAL_GetMinionOwner(D2UnitStrc* pUnit); // 0x0058F0D0

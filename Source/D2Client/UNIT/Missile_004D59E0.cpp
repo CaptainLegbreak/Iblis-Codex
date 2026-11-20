@@ -1,5 +1,6 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 #ifdef MOVED_TEST
 #define TEST_OFFSET 8
 #define LIGHT_LIMIT 62
@@ -36,44 +37,7 @@ struct D2MissileStrc
     D2UnitStrc* pInitArgs;
 };
 
-struct D2MissilesTxt
-{
-    unsigned short wId;
-    unsigned short pad0x02;
-    unsigned int dwMissileFlags;
-    unsigned short wCltDoFunc;
-    unsigned short wCltHitFunc;
-    unsigned short wSrvDoFunc;
-    unsigned short wSrvHitFunc;
-    unsigned short wSrvDmgFunc;
-    unsigned short wTravelSound;
-    unsigned short wHitSound;
-    unsigned short wExplosionMissile;
-    short wSubMissile[3];
-    short wCltSubMissile[3];
-    short wHitSubMissile[4];
-    short wCltHitSubMissile[4];
-    short wProgSound;
-    unsigned short wProgOverlay;
-    int dwParam[5];
-    int dwHitPar[3];
-    int dwCltParam[5];
-    int dwCltHitPar[3];
-    char unk0x78[0xBD];
-    unsigned char nInitSteps;
-    char unk0x136[0x6E];
-};
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x50];
-    unsigned int dwAuraFilter;
-    char unk0x054[0x64 - 0x50 - 4];
-    unsigned int dwAuraRangeCalc;
-    char unk0x068[0x138 - 0x64 - 4];
-    unsigned int dwCalc[4];
-    char unk0x148[0x23C - 0x138 - 16];
-};
 
 extern D2DataTablesStrc* sgptDataTables;  // 0x00744304
 extern "C" void* __cdecl memset(void*,int,unsigned int);

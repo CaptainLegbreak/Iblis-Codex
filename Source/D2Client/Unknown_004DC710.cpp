@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Txt.h"
 
 struct D2MissilesTxt;
 struct D2TimedHintStrc;
@@ -18,19 +19,7 @@ struct D2UnitStrc
     unsigned int dwFlagExBits19 : 13;
 };
 
-struct D2ObjectsTxt
-{
-    char unk0x00[0x131];
-    unsigned char nDrawMode[8];
-};
 
-struct D2MissilesTxt
-{
-    char unk0x00[0xA2];
-    short nOffsetX;
-    short wYoffset;
-    short nOffsetY;
-};
 
 D2UnitStrc* __cdecl sub_00463DE0_GetStoredUnit(); // 0x00463DE0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
@@ -147,7 +136,7 @@ void __fastcall sub_004DC7B0_DrawUnitByType(D2UnitStrc* pUnit, int nColor, int b
         if (pUnit && pUnit->dwUnitType == 2)
         {
             D2ObjectsTxt* pObjectsRecord = DATATBLS_GetObjectsTxtRecord(pUnit->dwClassId);
-            if (pObjectsRecord->nDrawMode[UNITS_GetAnimOrSeqMode(pUnit)] == 2)
+            if (pObjectsRecord->nOrderFlag[UNITS_GetAnimOrSeqMode(pUnit)] == 2)
                 bOrder = 1;
         }
         int nTempY;

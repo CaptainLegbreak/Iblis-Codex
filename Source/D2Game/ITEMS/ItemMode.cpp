@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #pragma intrinsic(_ReadWriteBarrier)
 
@@ -137,11 +138,6 @@ struct D2CoordStrc
     int nY;
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0xC];
-    unsigned char nMonStatsFlags[4];
-};
 
 struct D2PetInfoStrc
 {
@@ -273,14 +269,6 @@ enum
 D2UnitStrc* __fastcall AIGENERAL_GetMinionOwner(D2UnitStrc* pUnit); // 0x0058F0D0
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBeltSlot(D2InventoryStrc*, int); // 0x0063C7F0
 
-struct D2ItemsTxt
-{
-    char pad00[0x88];
-    unsigned int dwUberCode;
-    unsigned int dwUltraCode;
-    char pad90[0xF6 - 0x90];
-    unsigned short wVersion;
-};
 
 struct D2DifficultyLevelsTxt
 {
@@ -390,13 +378,6 @@ struct D2StaticPathStrc
     int nY;
 };
 
-struct D2SkillsTxt
-{
-    char unk0x00[0x14];
-    unsigned char nRange;
-    char unk0x15[0x18 - 0x14 - 1];
-    short nITypeA[3];
-};
 
 struct D2ItemDropStrc
 {
@@ -834,7 +815,7 @@ static __declspec(noinline) int __stdcall sub_0055C560_IsThrowSkillUsable(D2Unit
     }
 
     D2SkillsTxt* pSkillsTxtRecord = sub_00644140_GetSkillsTxtFromSkill(pSkill);
-    if (!pSkillsTxtRecord || pSkillsTxtRecord->nITypeA[0] <= 0 || !ITEMS_CheckType(pSkillsTxtRecord->nITypeA[0], 0x30) || pSkillsTxtRecord->nRange != 2)
+    if (!pSkillsTxtRecord || pSkillsTxtRecord->nITypeA[0] <= 0 || !ITEMS_CheckType(pSkillsTxtRecord->nITypeA[0], 0x30) || pSkillsTxtRecord->nAuraTargetState != 2)
     {
         return 0;
     }

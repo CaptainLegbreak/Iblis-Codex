@@ -1,12 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2Txt.h"
 
-struct D2ObjectsTxt
-{
-    char unk0x000[0x1B4];
-    unsigned char nClientFn;
-    unsigned char nOverlay;
-};
 
 struct D2ObjectDataStrc
 {

@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 struct D2SaveHeaderStrc;
 struct D2ServerCallbackFunctions;
@@ -34,12 +35,6 @@ struct D2PlayerDataStrc
     int nLeftSkillId;
 };
 
-struct D2CharStatsTxt
-{
-    char unk0x00[0xAC];
-    short wStartSkill;
-    char unk0xAE[0x16];
-};
 
 
 #define UNIT_PLAYER 0

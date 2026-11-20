@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 struct D2MissilesTxt;
 struct D2SeedStrc;
@@ -9,27 +10,6 @@ struct D2SeedStrc;
 
 
 
-struct D2MissilesTxt
-{
-    char unk0x000[0x04];
-    unsigned char nFlags[4];
-    char unk0x008[0x06];
-    short wSrvHitFunc;
-    short wSrvDmgFunc;
-    char unk0x012[6];
-    short wSubMissile[3];
-    unsigned char unk_1E[0x1A];
-    int dwParam[5];
-    unsigned char unk_4C[0x13A];
-    unsigned char nCollideKill;
-    unsigned char nCollideFriend;
-    unsigned char nNextHit;
-    unsigned char nNextDelay;
-    unsigned char unk0x18A;
-    unsigned char nToHit;
-    unsigned char nAlwaysExplode;
-    char unk0x18D[0x17];
-};
 
 
 struct D2DamageStrc
@@ -155,7 +135,7 @@ static int sub_005ADA80_GetPierceFlags(D2UnitStrc* pMissile)
 {
     int nResult = 3;
     D2MissilesTxt* pTxt = pMissile ? SKILLS_GetMissilesTxtRecord(pMissile->dwClassId) : 0;
-    if ((pTxt->nFlags[0] & gdwBitMasks_006CE268[2]))
+    if ((pTxt->nMissileFlags[0] & gdwBitMasks_006CE268[2]))
     {
         const int nPierce = STATLIST_UnitGetStatValue(pMissile, 0x148, 0);
         if (nPierce)
@@ -213,7 +193,7 @@ static __forceinline int __fastcall MISSMODE_SrvDmgHitHandler(D2GameStrc* pGame,
     D2UnitStrc* pOwner = SUNIT_GetOwner(pGame, pMissile);
     int nHitResult = 2;
     int nPierceFlags = 3;
-    if (pTxt->nFlags[0] & gdwBitMasks_006CE268[1])
+    if (pTxt->nMissileFlags[0] & gdwBitMasks_006CE268[1])
     {
         nHitResult = 0;
     }
@@ -237,7 +217,7 @@ static __forceinline int __fastcall MISSMODE_SrvDmgHitHandler(D2GameStrc* pGame,
         }
     }
 
-    if (pOwner && pUnit && (pTxt->nFlags[0] & gdwBitMasks_006CE268[2])
+    if (pOwner && pUnit && (pTxt->nMissileFlags[0] & gdwBitMasks_006CE268[2])
         && (STATLIST_UnitGetStatValue(pOwner, 0xA6, 0) || STATLIST_UnitGetItemStatOrSkillStatValue(pOwner, 0x9C, 0)))
     {
         nPierceFlags = sub_005ADA80_GetPierceFlags(pMissile);

@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Txt.h"
 
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
@@ -24,11 +25,6 @@ struct D2BooksTxt
     int dwBookSkillId;
 };
 
-struct D2ItemsTxt
-{
-    char unk0x00[0x94];
-    int dwPspell;
-};
 
 typedef int (__fastcall* PSPELLFN)(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2UnitStrc* pTarget, int nX, int nY, int nSkillId);
 
@@ -57,11 +53,6 @@ struct D2DamageStrc
     unsigned short wExtra;
 };
 
-struct D2MonStats2Txt
-{
-    int dwId;
-    unsigned char nFlags[4];
-};
 
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625500

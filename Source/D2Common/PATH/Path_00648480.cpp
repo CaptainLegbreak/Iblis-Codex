@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 #define COLLIDE_MISSILE_BARRIER 0x4
 #define PATH_UNKNOWN_FLAG_0x00010 0x10
 #define MONSTATSFLAGINDEX_INTERACT 9
@@ -61,12 +62,6 @@ struct D2DynamicPathStrc
 };
 
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x0C];
-    unsigned char nMonStatsFlags[4];
-    char unk0x10[0x1A8 - 0x10];
-};
 
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837

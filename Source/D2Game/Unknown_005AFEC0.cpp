@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define STAT_HITPOINTS 6
 #define STAT_MANA 8
@@ -13,31 +14,7 @@ struct D2StaticPathStrc;
 
 
 
-struct D2MissilesTxt
-{
-    char unk0x00[0x18];
-    short wSubMissile[3];
-    char unk0x1E[0x18];
-    short wProgOverlay;
-    int dwParam[5];
-    char unk0x4C[0x34];
-    unsigned int dwSrvCalc;
-    char unk0x84[0x24];
-    unsigned int dwHitFlags;
-    unsigned short wResultFlags;
-    char unk0xAE[0xF6];
-};
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x50];
-    unsigned int dwAuraFilter;
-    char unk0x054[0x10];
-    unsigned int dwAuraRangeCalc;
-    char unk0x068[0xD0];
-    unsigned int dwCalc[4];
-    char unk0x148[0xF4];
-};
 
 
 struct D2MissileStrc

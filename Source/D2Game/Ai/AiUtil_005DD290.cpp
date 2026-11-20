@@ -4,6 +4,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 enum
 {
@@ -50,12 +51,6 @@ struct D2ModeChangeStrc
     int unk0x1C;
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x170];
-    short nSkill[8];
-    char unk0x180[0x28];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304

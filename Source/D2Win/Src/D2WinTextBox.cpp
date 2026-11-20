@@ -1,5 +1,6 @@
 #include "D2Win.h"
 #include "D2Structs.h"
+#include "D2Txt.h"
 
 struct D2CharStrc
 {
@@ -181,11 +182,6 @@ int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 extern D2FontCacheStrc gFontCache_00841DA8[]; // 0x00841DA8
 
 
-struct D2ItemsTxt
-{
-    char unk0x00[0xF0];
-    unsigned int dwGemOffset;
-};
 
 void __fastcall sub_004E6720_BuildItemPropTextB(D2UnitStrc* pItem, int nArg, int nArg2, Unicode* wszText, int nArg3, int nArg4); // 0x004E6720
 void __fastcall sub_004E67D0_BuildItemPropText(D2UnitStrc* pItem, int nArg, int nArg2, Unicode* wszText, int nArg3, int nArg4); // 0x004E67D0

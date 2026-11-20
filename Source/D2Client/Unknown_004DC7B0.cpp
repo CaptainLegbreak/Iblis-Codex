@@ -1,20 +1,9 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2Txt.h"
 
 
-struct D2ObjectsTxt
-{
-    char unk0x00[0x131];
-    unsigned char nDrawMode[8];
-};
 
-struct D2MissilesTxt
-{
-    char unk0x00[0xA2];
-    short nOffsetX;
-    short nOffsetZ;
-    short nOffsetY;
-};
 
 D2UnitStrc* __cdecl sub_00463DE0_GetStoredUnit();                                                           // 0x00463DE0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
@@ -116,7 +105,7 @@ void __fastcall sub_004DC7B0_DrawUnitByType(D2UnitStrc* pUnit, int nColor, int b
             const int nClassId = pUnit->dwClassId;
             D2ObjectsTxt* pObjectsRecord = DATATBLS_GetObjectsTxtRecord(nClassId);
             const int nMode = UNITS_GetAnimOrSeqMode(pUnit);
-            if (pObjectsRecord->nDrawMode[nMode] == 2)
+            if (pObjectsRecord->nOrderFlag[nMode] == 2)
                 bFlag = 1;
         }
         SCALE_ScalePerspectivePosition(nPrecisionX, nPrecisionY, 0x60, &nX, &nTempY, bFlag);
@@ -152,7 +141,7 @@ void __fastcall sub_004DC7B0_DrawUnitByType(D2UnitStrc* pUnit, int nColor, int b
         D2MissilesTxt* pMisTxt = DATATBLS_GetMissilesTxtRecord(!pUnit ? -1 : pUnit->dwClassId);
         if (!pMisTxt)
             break;
-        if (sub_00471EC0(pUnit, nColor, nX + pMisTxt->nOffsetX, nY + pMisTxt->nOffsetY + pMisTxt->nOffsetZ, 0, 1) && pUnit)
+        if (sub_00471EC0(pUnit, nColor, nX + pMisTxt->nOffsetX, nY + pMisTxt->nOffsetY + pMisTxt->wYoffset, 0, 1) && pUnit)
             pUnit->dwFlags |= 0x10000000;
         break;
     }

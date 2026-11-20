@@ -1,15 +1,10 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x64];
-    unsigned int dwParamCalc;
-    char unk0x068[0x23C - 0x68];
-};
 
 
 struct D2MissileStrc
@@ -82,13 +77,13 @@ int __fastcall sub_004C97C0_SpawnScatterMissiles(D2UnitStrc* pUnit, int nSkillId
         return 0;
     }
 
-    const int nRadius = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwParamCalc, nSkillId, nSkillLevel);
+    const int nRadius = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraRangeCalc, nSkillId, nSkillLevel);
     if (nRadius <= 0)
     {
         return 0;
     }
 
-    const int nSpacing = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwParamCalc, nSkillId, 1);
+    const int nSpacing = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraRangeCalc, nSkillId, 1);
     if (nSpacing <= 0)
     {
         return 0;

@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2Txt.h"
 struct Unicode
 {
     unsigned short wChar;
@@ -15,18 +16,6 @@ struct UnicodeChar : Unicode
 struct D2InventoryStrc;
 
 
-struct D2ItemsTxt
-{
-    char unk0x000[0x80];
-    int dwCode;
-    char unk0x084[0x70];
-    unsigned short wNameStr;
-    char unk0x0F6[0x34];
-    unsigned char nQuest;
-    unsigned char nQuestDiffCheck;
-    char unk0x12C[0x18];
-    unsigned char nUnk0x144;
-};
 
 struct D2LowQualityItemsTxt
 {
@@ -34,13 +23,6 @@ struct D2LowQualityItemsTxt
     unsigned short wTblId;
 };
 
-struct D2MonStatsTxt
-{
-    short nId;
-    short nBaseId;
-    short nNextInClass;
-    unsigned short wNameStr;
-};
 
 struct D2MagicAffixTxt
 {
@@ -464,7 +446,7 @@ void __fastcall sub_0048C060_BuildItemName(D2UnitStrc* pItem, Unicode* pOut, int
                     sub_005267E0(pOut, sub_004834A0_SkipBracketTag(WSZ(aName)));
                     break;
                 }
-                if (!pItemsTxt->nUnk0x144)
+                if (!pItemsTxt->nSkipName)
                 {
                     sub_005267E0(pOut, sub_004834A0_SkipBracketTag(WSZ(aName)));
                     sub_00526700(pOut, pNewLine);

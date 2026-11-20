@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2LightStrc;
@@ -25,19 +26,7 @@ struct D2StringRefStrc;
 
 
 
-struct D2MonStatsTxt
-{
-    short nId;
-    short nBaseId;
-    char unk0x04[0x08];
-    unsigned char nMonStatsFlags[4];
-    char unk0x10[0x198];
-};
 
-struct D2ItemStatCostTxt
-{
-    char unk0x000[0x144];
-};
 
 
 struct D2StormLinkStrc
@@ -176,16 +165,6 @@ struct D2PlayerCmdStrc
     D2SkillStrc* pSkill;
 };
 
-struct D2SkillsTxt
-{
-    char unk0x00[0x4];
-    unsigned char nFlags[8];
-    char unk0x0C[0x8];
-    char nAuraTargetState;
-    char unk0x15[0x19];
-    unsigned short wSrvDoFunc;
-    char unk0x30[0x20C];
-};
 
 extern int gnStringCount_00711EF0; // 0x00711EF0
 extern D2StringRefStrc gaStringRefs_00711DDC[]; // 0x00711DDC

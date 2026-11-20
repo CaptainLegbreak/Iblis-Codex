@@ -1,18 +1,7 @@
+#include "D2Txt.h"
 struct D2TxtLinkStrc;
 
-struct D2MonStats2CompStrc
-{
-    unsigned char nComposit[12];
-};
 
-struct D2MonStats2Txt
-{
-    char unk0x00[0x15];
-    unsigned char nComponentChoiceCounts[16];
-    unsigned char nTotalPieces;
-    D2MonStats2CompStrc pComponents[16];
-    char unk0xE6[0x4E];
-};
 
 extern "C" char* __cdecl strchr(const char* szString, int nChar);                                           // 0x00687740
 extern "C" unsigned int __cdecl strlen(const char* sz);

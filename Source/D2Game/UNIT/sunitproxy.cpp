@@ -2,6 +2,7 @@
 #include "D2Constants.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2NpcRecordStrc;
@@ -196,22 +197,6 @@ struct Obj00536B40 {
     unsigned int dwValue1D24;
 };
 
-struct D2ItemsTxt
-{
-    char unk0x000[0x80];
-    unsigned int dwCode;
-    char unk0x084[0xAF];
-    unsigned char nSpawnable;
-    char unk0x134[0x12];
-    unsigned char nVendorMin[17];
-    unsigned char nVendorMax[17];
-    unsigned char nVendorMagicMin[17];
-    unsigned char nVendorMagicMax[17];
-    unsigned char nVendorMagicLvl[17];
-    char unk0x19B[9];
-    unsigned char nPermStoreItem;
-    char unk0x1A5[3];
-};
 
 struct D2ItemDataTbl
 {

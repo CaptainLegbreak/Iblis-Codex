@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -15,13 +16,6 @@ struct Unicode
 };
 
 
-struct D2ItemsTxt
-{
-    char unk0x00[0xC8];
-    unsigned int dwTransmogrifyType;
-    char unk0xCC[0x28];
-    unsigned short wNameStr;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090

@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
@@ -59,17 +60,7 @@ struct D2GameStrc
     int sub_005491B0_CheckStoredOrEquippedItem(D2UnitStrc* pUnit, int nItemGUID);                          // 0x005491B0
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x0C];
-    unsigned char nFlags[4];
-};
 
-struct D2SkillsTxt
-{
-    char unk0x00[0x04];
-    unsigned char nFlags[8];
-};
 
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -392,7 +383,7 @@ int __fastcall sub_6FC828D0(D2UnitStrc* pPlayer, int nUnitType, int nUnitGUID, i
         }
 
         D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(pUnit->dwClassId);
-        if (pMonStatsTxtRecord && pMonStatsTxtRecord->nFlags[1] & gdwBitMasks[1] && pMonStatsTxtRecord->nFlags[1] & gdwBitMasks[0])
+        if (pMonStatsTxtRecord && pMonStatsTxtRecord->nMonStatsFlags[1] & gdwBitMasks[1] && pMonStatsTxtRecord->nMonStatsFlags[1] & gdwBitMasks[0])
         {
             D2Common_10153(pUnit->pDynamicPath);
             AIGENERAL_SetAiControlParam(pUnit, 1, 40);
@@ -2208,7 +2199,7 @@ int __fastcall D2GAME_PACKETCALLBACK_Rcv0x59_MakeEntityMove_6FC88400(D2GameStrc*
     if (pNpc && D2Common_10399(pUnit, pNpc) <= 50)
     {
         D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(pNpc->dwClassId);
-        if (pMonStatsTxtRecord && pMonStatsTxtRecord->nFlags[MONSTATSFLAGINDEX_INTERACT >> 3] & gdwBitMasks[MONSTATSFLAGINDEX_INTERACT & 7] && pMonStatsTxtRecord->nFlags[MONSTATSFLAGINDEX_NPC >> 3] & gdwBitMasks[MONSTATSFLAGINDEX_NPC & 7])
+        if (pMonStatsTxtRecord && pMonStatsTxtRecord->nMonStatsFlags[MONSTATSFLAGINDEX_INTERACT >> 3] & gdwBitMasks[MONSTATSFLAGINDEX_INTERACT & 7] && pMonStatsTxtRecord->nMonStatsFlags[MONSTATSFLAGINDEX_NPC >> 3] & gdwBitMasks[MONSTATSFLAGINDEX_NPC & 7])
         {
             if (pNpc->pDynamicPath)
             {

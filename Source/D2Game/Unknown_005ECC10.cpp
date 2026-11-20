@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 #define MONMODE_ATTACK1 4
@@ -23,18 +24,6 @@ struct D2AiControlStrc
     int dwAiParam[3];
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x000[0x32];
-    short nVelocity;
-    short nRun;
-    char unk0x036[0x56 - 0x36];
-    short wAiParam[8][3];
-    char unk0x086[0xEA];
-    short nSkill[8];
-    unsigned char nSkillMode[8];
-    char unk0x188[0x20];
-};
 
 
 struct D2AiTickParamStrc

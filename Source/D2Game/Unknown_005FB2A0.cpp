@@ -2,15 +2,11 @@
 #include "D2Constants.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 
 
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x56];
-    short wAiParam[8][3];
-};
 
 struct D2AiCmdStrc
 {

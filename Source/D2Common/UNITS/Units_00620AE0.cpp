@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 #define STAT_TOHIT 19
 #define STAT_DEXTERITY 2
 struct D2AnimSeqTxt;
@@ -29,12 +30,6 @@ struct D2AnimDataRecordStrc
 D2AnimSeqTxt* __stdcall DATATBLS_GetMonSeqTxtRecordFromUnit(D2UnitStrc*); // 0x006633B0
 void __stdcall DATATBLS_ComputeSequenceAnimation(D2AnimSeqTxt*, int, int, int*, int*, int*, int*); // 0x00663410
 
-struct D2CharStatsTxt
-{
-    char unk0x00[0x3C];
-    int dwToHitFactor;
-    char unk0x40[0x84];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

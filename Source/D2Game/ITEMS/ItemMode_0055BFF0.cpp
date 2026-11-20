@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define ITEMQUAL_UNIQUE 7
@@ -70,13 +71,6 @@ struct D2BooksTxt
     int dwBookSkillId;
 };
 
-struct D2SkillsTxt
-{
-    char unk0x00[0x14];
-    unsigned char nRange;
-    char unk0x15[0x18 - 0x14 - 1];
-    short nITypeA[3];
-};
 
 struct D2ItemDropStrc
 {
@@ -173,13 +167,6 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 int __stdcall ITEMS_UpdateSets(D2UnitStrc* pUnit, D2UnitStrc* pItem, int a3, int a4); // 0x00663CC0
 
-struct D2ItemsTxt
-{
-    char unk0x000[0x80];
-    unsigned int dwCode;
-    char unk0x084[0xA6];
-    unsigned char nQuest;
-};
 
 struct D2UniqueItemsTxt
 {
@@ -505,7 +492,7 @@ static int __stdcall sub_0055C560_IsThrowSkillUsable(D2UnitStrc* pUnit, D2SkillS
     }
 
     D2SkillsTxt* pSkillsTxtRecord = sub_00644140_GetSkillsTxtFromSkill(pSkill);
-    if (!pSkillsTxtRecord || pSkillsTxtRecord->nITypeA[0] <= 0 || !ITEMS_CheckType(pSkillsTxtRecord->nITypeA[0], 0x30) || pSkillsTxtRecord->nRange != 2)
+    if (!pSkillsTxtRecord || pSkillsTxtRecord->nITypeA[0] <= 0 || !ITEMS_CheckType(pSkillsTxtRecord->nITypeA[0], 0x30) || pSkillsTxtRecord->nAuraTargetState != 2)
     {
         return 0;
     }

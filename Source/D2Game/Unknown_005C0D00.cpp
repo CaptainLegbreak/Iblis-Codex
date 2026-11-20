@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 struct D2SeedStrc;
 struct D2MagicAffixTxt;
@@ -83,11 +84,6 @@ extern "C" void __stdcall sub_00628070(D2UnitStrc* pItem, unsigned short nSuffix
 void __stdcall ITEMS_SetItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int bSet); // 0x006280D0
 void __stdcall ITEMMODS_AssignProperty(int nMode, D2UnitStrc* pUnit, D2UnitStrc* pItem, const void* pProperty, int nSet, int nUnused); // 0x0065FEC0
 
-struct D2ItemsTxt
-{
-    char unk0x000[0x80];
-    unsigned int dwCode;
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 struct D2MonStatsTxt;
 struct D2MonStats2Txt;
@@ -9,26 +10,8 @@ struct D2SkillsTxt;
 
 
 
-struct D2MonStatsTxt
-{
-    char unk0x000[0x18];
-    short wMonStatsEx;
-    char unk0x01A[0x18E];
-};
 
-struct D2MonStats2Txt
-{
-    char unk0x000[0x108];
-    unsigned char nInfernoLen;
-    char unk0x109[0x2B];
-};
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x138];
-    unsigned int dwCalc[4];
-    char unk0x148[0xF4];
-};
 
 
 struct D2MissileStrc

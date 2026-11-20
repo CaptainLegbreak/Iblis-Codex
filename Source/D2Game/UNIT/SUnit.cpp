@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define NUM_UNIT_TYPES 6
@@ -189,11 +190,6 @@ struct D2ItemDataStrc
     int dwActionStamp;
 };
 
-struct D2ObjectsTxt
-{
-    char unk0x00[0x120];
-    unsigned char nHasCollision[8];
-};
 
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
@@ -357,12 +353,6 @@ struct Obj00554190 {
     unsigned char nValue6C;
 };
 
-struct D2SkillsTxt
-{
-    char unk0x00[4];
-    unsigned char nFlags[8];
-    char unk0x0C[0x230];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -398,11 +388,6 @@ void __fastcall sub_00571F90(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc*
 void __fastcall sub_00571600(D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00571600
 void __stdcall sub_00648B40_roomInvalid(D2DynamicPathStrc* pPath, int bValue); // 0x00648B40
 
-struct D2MonStatsTxt
-{
-    char unk0x00[30];
-    short wAI;
-};
 
 struct D2AiTableStrc
 {

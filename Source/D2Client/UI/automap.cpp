@@ -4,6 +4,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define OFFSET(T, M) ((unsigned int)&(((T*)0)->M))
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -228,12 +229,6 @@ struct D2UnitTargetStrc
     int unk0x08[5];
 };
 
-struct D2SkillsTxt
-{
-    short nSkillId;
-    char unk0x002[0x62];
-    int dwAuraRangeCalc;
-};
 
 struct D2UnitOverlayStrc
 {
@@ -459,11 +454,6 @@ struct D2PacketTableEntryStrc
     D2PacketHandlerFn f_8;
 };
 
-struct D2MonStats2Txt
-{
-    char unk0x000[0x11E];
-    unsigned char nLightRadius;
-};
 
 void __fastcall sub_00451D10_UnregisterMsgHandler(void* hWnd, int nType, int nId, SMSGHANDLER pfnHandler); // 0x00451D10
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290

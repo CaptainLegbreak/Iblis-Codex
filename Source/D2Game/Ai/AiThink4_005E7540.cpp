@@ -2,6 +2,7 @@
 #include "D2Constants.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -63,20 +64,6 @@ struct D2AiControlStrc
     int dwAiParam[3];
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x000[0x0C];
-    unsigned char nMonStatsFlags[4];
-    char unk0x010[0x22];
-    short nVelocity;
-    short nRun;
-    char unk0x036[0x20];
-    short wAiParam[8][3];
-    char unk0x086[0xEA];
-    short nSkill[8];
-    unsigned char nSkillMode[8];
-    char unk0x188[0x20];
-};
 
 struct D2StaticPathStrc
 {

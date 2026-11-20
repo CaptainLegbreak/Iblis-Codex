@@ -5,6 +5,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define UNITFLAG_TARGETABLE 0x00000002
 #define UNITFLAG_ISVALIDTARGET 0x00000008
@@ -156,12 +157,6 @@ struct D2MonsterDataStrc
     unsigned char nTypeFlag;
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x56];
-    short wAiParam[8][3];
-    char unk0x86[0x122];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

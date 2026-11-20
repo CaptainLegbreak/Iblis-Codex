@@ -1,10 +1,10 @@
 #include "D2Client.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 struct Unicode { unsigned short wChar; Unicode(unsigned short ch = 0) : wChar(ch) {} };
 struct UnicodeChar : Unicode { UnicodeChar(); // 0x0042F530
 };
-struct D2SkillsTxt { char unknown00[0x194]; short wSkillDesc; char unknown196[0x23C-0x196]; };
 struct D2SkillDescTxt { char unknown00[0x0E]; unsigned short wStrAlt; char unknown10[2]; unsigned short wDamageFunc, wDescFunc; char unknown16[0x120-0x16]; };
 struct D2SkillTextPositionStrc { int nLeft, nY, nRight; };
 typedef void (__fastcall* SKILLDAMAGEFN)(D2UnitStrc*, D2SkillStrc*, D2SkillsTxt*, int, int, int, int);

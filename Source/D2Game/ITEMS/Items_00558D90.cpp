@@ -1,15 +1,11 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 
 
 
-struct D2ItemsTxt
-{
-    char unk0x000[0xF6];
-    unsigned short wVersion;
-};
 
 struct D2ItemDataTbl
 {

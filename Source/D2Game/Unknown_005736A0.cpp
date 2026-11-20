@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 struct D2AiParamStrc;
 
@@ -15,12 +16,6 @@ struct D2MonsterDataStrc
 
 
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x0C];
-    unsigned char dwMonStatsFlags[4];
-    char unk0x10[0x1A8 - 0x0C - 4];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables;                                                                     // 0x00744304
@@ -41,7 +36,7 @@ static __forceinline int sub_E09_CheckMonStatsFlag(int nMonsterId, int nFlag)
         return 0;
     }
 
-    return pMonStatsTxtRecord->dwMonStatsFlags[nFlag >> 3] & gdwBitMasks[nFlag & 7];
+    return pMonStatsTxtRecord->nMonStatsFlags[nFlag >> 3] & gdwBitMasks[nFlag & 7];
 }
 
 // 0x005736A0

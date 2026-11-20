@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2Txt.h"
 struct D2SkillListStrc;
 struct D2InventoryStrc;
 struct D2PropertyStrc;
@@ -73,10 +74,6 @@ extern D2TxtLinkStrc* gpMissileCalcLinker_0096BC8C; // 0x0096BC8C
 int __stdcall FOG_GetLinkIndex(D2TxtLinkStrc* pLinker, unsigned int dwCode, int bLogError); // 0x006BD130
 
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x23C];
-};
 
 struct D2SkillStrc
 {
@@ -173,10 +170,6 @@ struct D2DifficultyLevelsTxt
     char unk0x00[0x58];
 };
 
-struct D2ObjectsTxt
-{
-    char unk0x000[0x1C0];
-};
 
 struct D2RunesTxt
 {

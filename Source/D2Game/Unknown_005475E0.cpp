@@ -1,5 +1,6 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 // build: context MonStats
 // build: context RollLimited
 // build: context Roll
@@ -19,7 +20,6 @@ struct D2LevelsTxt {
  unsigned char wander; char pad2F; unsigned char quest,ranged,numMon,normalCount,nightCount;
  char pad35; short normal[25],night[25];
 };
-struct D2MonStatsTxt { char pad00[0xC]; unsigned char flags[4]; char pad10[0x1E]; unsigned char rarity; char pad2F[0x179]; };
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const unsigned char gnSpawnMask; // 0x006CE268
 extern const unsigned char gnRangedMask; // 0x006CE278
@@ -77,14 +77,14 @@ static void __stdcall sub_005475E0_SelectMonsters(D2SeedStrc* seed,int higher,D2
   if(!i&&levels->ranged) {
    for(int j=0;j<20;++j) {
     D2MonStatsTxt* mon=MonStats(id);
-    if(mon&&(mon->flags[3]&gnRangedMask))break;
+    if(mon&&(mon->nMonStatsFlags[3]&gnRangedMask))break;
     index=RollLimited(seed,available);id=ids[index];
    }
   }
   --available;
   if(index<available)memmove(&ids[index],&ids[index+1],2*(available-index));
   D2MonStatsTxt* mon=MonStats(id);
-  if(mon&&(mon->flags[0]&gnSpawnMask)) {
+  if(mon&&(mon->nMonStatsFlags[0]&gnSpawnMask)) {
    entry->id=id;entry->rarity=mon->rarity;
    region->totalRarity+=mon->rarity;++region->spawnCount;++region->monCount;++entry;
   }

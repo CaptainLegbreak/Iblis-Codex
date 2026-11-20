@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -40,16 +41,6 @@ struct D2PlayerCmdStrc
     D2SkillStrc* pSkill;
 };
 
-struct D2SkillsTxt
-{
-    char unk0x00[0x4];
-    unsigned char nFlags[8];
-    char unk0x0C[0x8];
-    char nAuraTargetState;
-    char unk0x15[0x19];
-    unsigned short wSrvDoFunc;
-    char unk0x30[0x20C];
-};
 
 struct D2ClientEntryStrc
 {
@@ -57,12 +48,6 @@ struct D2ClientEntryStrc
     int nValue;
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0xC];
-    unsigned char nFlags[4];
-    char unk0x10[0x198];
-};
 
 
 
@@ -763,7 +748,7 @@ static void __stdcall sub_00461DC0_InteractWithUnit(int nUnitType, int nUnitId, 
         case 1:
         {
             D2MonStatsTxt* pMonStatsTxt = DATATBLS_GetMonStatsTxtRecord(pTarget ? pTarget->dwClassId : -1);
-            if (pMonStatsTxt && (pMonStatsTxt->nFlags[1] & gdwBitMasks[1]))
+            if (pMonStatsTxt && (pMonStatsTxt->nMonStatsFlags[1] & gdwBitMasks[1]))
             {
                 nRange = 2;
                 goto check_range;
@@ -778,7 +763,7 @@ check_range:
     if (pTarget && pTarget->dwUnitType == 1)
     {
         D2MonStatsTxt* pMonStatsTxt = E06_GetUnitMonStatsTxt(pTarget);
-        if (pMonStatsTxt && (pMonStatsTxt->nFlags[1] & gdwBitMasks[1]) && (pMonStatsTxt->nFlags[1] & gdwBitMasks[0]))
+        if (pMonStatsTxt && (pMonStatsTxt->nMonStatsFlags[1] & gdwBitMasks[1]) && (pMonStatsTxt->nMonStatsFlags[1] & gdwBitMasks[0]))
         {
             if (pTarget->pDynamicPath)
                 D2Common_10153(pTarget->pDynamicPath);
@@ -1150,7 +1135,7 @@ with_target:
             return;
 
         D2MonStatsTxt* pMonStatsTxt = DATATBLS_GetMonStatsTxtRecord(pTarget->dwClassId);
-        if (pMonStatsTxt && (pMonStatsTxt->nFlags[1] & gdwBitMasks[1]))
+        if (pMonStatsTxt && (pMonStatsTxt->nMonStatsFlags[1] & gdwBitMasks[1]))
         {
             sub_00461DC0_InteractWithUnit(1, nTargetId, pCmd);
             return;

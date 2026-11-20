@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 struct D2LightStrc;
 struct D2SeedStrc;
@@ -41,17 +42,6 @@ struct D2UnitStrc
     D2LightStrc* pLight;
 };
 
-struct D2MissilesTxt
-{
-    unsigned short wId;
-    unsigned short pad0x02;
-    unsigned char nMissileFlags[4];
-    short wCltDoFunc;
-    char unk0x00A[0x126];
-    unsigned char nLightMin;
-    unsigned char nLightRnd;
-    char unk0x132[0x72];
-};
 
 
 typedef void (__fastcall* D2CltDoFunc)(D2UnitStrc* pMissile);
@@ -121,9 +111,9 @@ static void sub_004CD1C0_FlickerLight(D2UnitStrc* pMissile)
     D2LightStrc* pLight = pMissile->pLight;
     if (!pLight)
         return;
-    if (sub_00474350_GetLightSize(pLight) < pMissilesTxtRecord->nLightMin)
+    if (sub_00474350_GetLightSize(pLight) < pMissilesTxtRecord->nLight)
         return;
-    const int nRadius = pMissilesTxtRecord->nLightMin + ITEMS_RollLimitedRandomNumber(&pMissile->tSeed, pMissilesTxtRecord->nLightRnd);
+    const int nRadius = pMissilesTxtRecord->nLight + ITEMS_RollLimitedRandomNumber(&pMissile->tSeed, pMissilesTxtRecord->nFlicker);
     sub_00474290_SetLightSize(pLight, nRadius);
 }
 
@@ -135,7 +125,7 @@ void __fastcall sub_004D2C70_CltDoMissile(D2UnitStrc* pMissile)
         sub_004CD390_CltDoDefault(pMissile);
         return;
     }
-    if (pMissilesTxtRecord->nLightRnd)
+    if (pMissilesTxtRecord->nFlicker)
         sub_004CD1C0_FlickerLight(pMissile);
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pMissile);
     if (!pRoom)

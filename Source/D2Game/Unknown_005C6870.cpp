@@ -1,12 +1,8 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Txt.h"
 
 
-struct D2MonStatsTxt
-{
-    char unk_000[0x170];
-    short nSkill[8];
-};
 
 D2UnitStrc* __fastcall sub_6FC7E8B0(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetType, int bIncludeDead); // 0x00574EC0
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80

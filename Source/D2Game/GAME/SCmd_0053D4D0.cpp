@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
@@ -103,15 +104,6 @@ struct D2BitBufferStrc
 };
 
 
-struct D2ItemStatCostTxt
-{
-    unsigned short wStatId;
-    unsigned short pad0x02;
-    unsigned char nItemStatFlags[4];
-    unsigned char nSendBits;
-    unsigned char nSendParamBits;
-    char unk0x0A[0x13A];
-};
 
 
 #pragma pack(push, 1)

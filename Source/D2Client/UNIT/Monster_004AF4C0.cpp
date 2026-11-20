@@ -3,35 +3,15 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 typedef unsigned int DWORD;
 
 
 
 
-struct D2MonStatsTxt
-{
-    char unk0x000[0x0C];
-    unsigned char nMonStatsFlags[4];
-    char unk0x010[0x197];
-    unsigned char nByte1A7;
-};
 
-struct D2MonStats2Txt
-{
-    char unk0x000[0x104];
-    unsigned char nModeEnabledWhenMovingFlags[4];
-    unsigned char nInfernoLen;
-    unsigned char nInfernoAnim;
-    unsigned char nInfernoRollback;
-};
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x2E];
-    short wSrvDoFunc;
-    char unk0x030[0x20C];
-};
 
 
 struct D2MissileStrc

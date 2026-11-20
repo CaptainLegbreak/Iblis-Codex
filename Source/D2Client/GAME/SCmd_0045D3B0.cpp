@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2PacketRecord11Strc;
@@ -113,12 +114,6 @@ struct D2SkillPacketStrc
 };
 
 #pragma pack(pop)
-struct D2SkillsTxt
-{
-    char unk_00[0x2E];
-    short nClientFunction;
-    char unk_30[0x20C];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -225,11 +220,8 @@ struct D2PacketSpawnStrc
 
 #pragma pack(pop)
 
-struct D2MonStatsTxt { char unknown00[0x18]; short wMonStatsEx; char unknown1A[0x1A8-0x1A]; };
 
-struct D2MonStats2Txt { char unknown00[0x15]; unsigned char nComponentChoices[16]; char unknown25[0x134-0x25]; };
 
-struct D2ItemStatCostTxt { short nStat; short unknown02; unsigned char nFlags[4], nSendBits, nSendParamBits; char unknown0A[0x144-10]; };
 
 struct D2UnitSpawnExtraStrc { int nFlags, nUniqueId; };
 
@@ -486,7 +478,7 @@ void __fastcall sub_0045D6A0_EndPacketSkill(D2SkillPacketStrc* pPacket)
     D2SkillsTxt* pSkill = GetSkillRecord(nSkillId);
     if (!pSkill)
         return;
-    switch (pSkill->nClientFunction)
+    switch (pSkill->wSrvDoFunc)
     {
     case 67:
         sub_004CA000_EndSkill(pUnit, nSkillId);
@@ -724,7 +716,7 @@ void __fastcall sub_0045F190_SpawnMonsterPacket(D2PacketSpawnStrc* pPacket)
         if (!pRecord) return;
         pComponents = aComponents;
         for (int i = 0; i < 16; ++i)
-            aComponents[i] = (unsigned char)sub_00411020_ReadBits(&tBuffer, Log2Ceil(pRecord->nComponentChoices[i]));
+            aComponents[i] = (unsigned char)sub_00411020_ReadBits(&tBuffer, Log2Ceil(pRecord->nComponentChoiceCounts[i]));
     }
     unsigned char* pMods = 0;
     unsigned short nFlags = 0;
@@ -778,7 +770,7 @@ void __fastcall sub_0045F190_SpawnMonsterPacket(D2PacketSpawnStrc* pPacket)
             int nLayer = 0;
             if (pRecord->nSendParamBits > 0) nLayer = (unsigned short)BITMANIP_ReadSigned(&tBuffer, pRecord->nSendParamBits);
             int nValue;
-            if (pRecord->nSendBits < 32 && (pRecord->nFlags[0] & (unsigned char)gdwBitMasks[1]))
+            if (pRecord->nSendBits < 32 && (pRecord->nItemStatFlags[0] & (unsigned char)gdwBitMasks[1]))
                 nValue = BITMANIP_ReadSigned(&tBuffer, pRecord->nSendBits);
             else
                 nValue = sub_00411020_ReadBits(&tBuffer, pRecord->nSendBits);

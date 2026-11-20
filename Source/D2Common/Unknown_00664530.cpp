@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 struct D2OverlayTxt;
 struct D2MonStatsTxt;
@@ -41,26 +42,8 @@ extern D2DataTablesStrc gtDataTables_0096BC30; // 0x0096BC30
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 void __stdcall DATATBLS_UnloadBin(void* pBinFile); // 0x006125C0
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x18];
-    short nMonStatsEx;
-    char unk0x1A[0x18E];
-};
 
-struct D2MonStats2CompStrc
-{
-    unsigned char nComposit[12];
-};
 
-struct D2MonStats2Txt
-{
-    char unk0x00[0x15];
-    unsigned char nComponentChoiceCounts[16];
-    char unk0x25;
-    D2MonStats2CompStrc unk0x26[16];
-    char unk0xE6[0x4E];
-};
 
 
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
@@ -218,7 +201,7 @@ static D2MonStats2Txt* MONSTERS_GetMonStats2TxtRecordInline(int nMonsterId)
 {
     if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
-        int nMonStatsEx = sgptDataTables->pMonStatsTxt[nMonsterId].nMonStatsEx;
+        int nMonStatsEx = sgptDataTables->pMonStatsTxt[nMonsterId].wMonStatsEx;
         if (nMonStatsEx >= 0 && nMonStatsEx < sgptDataTables->nMonStats2TxtRecordCount)
         {
             return &sgptDataTables->pMonStats2Txt[nMonStatsEx];
@@ -247,7 +230,7 @@ int __stdcall D2Common_11070(int nMonsterId, unsigned int nComponent, unsigned i
         return 0;
     }
 
-    return DATATBLS_GetCodeFromCompCodeTxt(pMonStats2TxtRecord->unk0x26[nComponent].nComposit[nIndex]);
+    return DATATBLS_GetCodeFromCompCodeTxt(pMonStats2TxtRecord->pComponents[nComponent].nComposit[nIndex]);
 }
 
 // 0x00664800

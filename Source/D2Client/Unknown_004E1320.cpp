@@ -1,5 +1,6 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 #ifdef MOVED_TEST
 #define UNIT_FLAG 0x20
 #define COUNT_BIAS 8
@@ -16,33 +17,6 @@ struct D2StaticPathStrc;
 struct D2InventoryStrc;
 struct D2GfxLightStrc;
 struct D2MissilesTxt;
-struct D2SkillsTxt
-{
-#ifdef MOVED_TEST
-    int movedPrefix[2];
-#endif
-    short nSkillId;
-    char unk0x002[0x02];
-    unsigned char nFlags[8];
-    char unk0x00C[0x0A];
-    unsigned char nSeqInput;
-    char unk0x017[0x4D];
-    int dwAuraRangeCalc;
-    char unk0x068[0x82];
-    short wCltMissileA;
-    short wCltMissileB;
-    short wCltMissileC;
-    short wCltMissileD;
-    char unk0x0F2[0x1A];
-    short wPrgOverlay;
-    short wPrgSound;
-    char unk0x110[0x04];
-    int dwCltCalc[3];
-    char unk0x120[0x18];
-    int dwCalc[4];
-    int dwParam[8];
-    char unk0x168[0xD4];
-};
 extern D2DataTablesStrc* sgptDataTables;  // 0x00744304
 int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY);                         // 0x004C52E0
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0

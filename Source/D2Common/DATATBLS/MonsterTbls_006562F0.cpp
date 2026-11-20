@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 struct D2HirelingTxt;
 struct D2BinFieldStrc;
@@ -21,7 +22,6 @@ extern int gaHirelingIndex_0096BDD8[2][256]; // 0x0096BDD8
 
 struct D2BinFieldStrc { const char* name; int type,length,offset; void* lookup; };
 
-struct D2MonStatsTxt { unsigned char unk00[42]; short equipIndex; unsigned char unk2C[380]; };
 
 struct D2MonEquipTxt { short monster,level; char onInit; char unk05[3]; unsigned int item[3]; char location[3]; char modifier[3]; char unk1A[2]; };
 
@@ -126,11 +126,11 @@ void __fastcall DATATBLS_LoadMonEquipTxt(void* archive)
  if(gnMonEquipCount_0096C814>=32767){
   sub_00408A60(gszEmptyAssertText_006CC837,sub_00408090(),3356);exit(-1);
  }
- for(int i=0;i<sgptDataTables->nMonStatsTxtRecordCount;++i)gpMonStatsTxt_0096C6A8[i].equipIndex=-1;
+ for(int i=0;i<sgptDataTables->nMonStatsTxtRecordCount;++i)gpMonStatsTxt_0096C6A8[i].nMonEquipTxtRecordId=-1;
  for(int i=0;i<gnMonEquipCount_0096C814;++i){
   D2MonEquipTxt* equip=&gpMonEquipTxt_0096C810[i];
   if(equip->monster>=0 && equip->monster<sgptDataTables->nMonStatsTxtRecordCount){
-   if(gpMonStatsTxt_0096C6A8[equip->monster].equipIndex<0)gpMonStatsTxt_0096C6A8[equip->monster].equipIndex=(short)i;
+   if(gpMonStatsTxt_0096C6A8[equip->monster].nMonEquipTxtRecordId<0)gpMonStatsTxt_0096C6A8[equip->monster].nMonEquipTxtRecordId=(short)i;
    char* location=equip->location;
    unsigned int* item=equip->item;
    int remaining=3;

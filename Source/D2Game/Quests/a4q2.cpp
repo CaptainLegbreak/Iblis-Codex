@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define QUEST_A4Q2_DIABLO 23
 #define QUESTSTATEFLAG_A4Q2 26
@@ -251,11 +252,6 @@ struct D2ObjOperateFnStrc
     int nObjectIdx;
 };
 
-struct D2ObjectsTxt
-{
-    char unk0x00[0xD8];
-    unsigned int dwFrameCnt[8];
-};
 
 typedef bool (__fastcall* QUESTUPDATE)(D2GameStrc* pGame, D2QuestDataStrc* pQuestData);
 

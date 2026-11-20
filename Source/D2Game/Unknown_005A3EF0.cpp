@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define UNIT_OBJECT 2
 #define UNIT_ITEM 4
@@ -21,12 +22,6 @@ struct StatValue;
 
 
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x56];
-    short wAiParam[8][3];
-    char unk0x86[0x122];
-};
 
 
 struct D2MonStatsInitStrc

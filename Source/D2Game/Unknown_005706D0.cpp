@@ -1,19 +1,9 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 
-struct D2CharStatsTxt
-{
-    char unk0x00[0x30];
-    unsigned char nStr;
-    unsigned char nDex;
-    unsigned char nInt;
-    unsigned char nVit;
-    unsigned char nStamina;
-    unsigned char nLifeAdd;
-    char unk0x36[0x8E];
-};
 
 #define STAT_ENERGY 1
 #define STAT_DEXTERITY 2

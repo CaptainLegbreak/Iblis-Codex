@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define D2_ABS(x) ((x) < 0 ? -(x) : (x))
 struct D2SeedStrc;
@@ -34,51 +35,6 @@ struct D2UnitStrc
     unsigned int dwFlagEx;
 };
 
-struct D2MissilesTxt
-{
-    char unk0x000[0x04];
-    unsigned char nFlags[4];
-    char unk0x008[0x0A];
-    short wTravelSound;
-    unsigned short wHitSound;
-    unsigned short wExplosionMissile;
-    short wSubMissile[3];
-    short wCltSubMissile[3];
-    short wHitSubMissile[4];
-    short wCltHitSubMissile[4];
-    short wProgSound;
-    unsigned short wProgOverlay;
-    int dwParam[5];
-    int dwHitPar[3];
-    int dwCltParam[5];
-    int dwCltHitPar[3];
-    unsigned char unk_78[0x1E];
-    short wRange;
-    short wLevRange;
-    unsigned char nVel;
-    unsigned char nVelLev;
-    unsigned char nMaxVel;
-    char unk0x09D;
-    short wAccel;
-    char unk0x0A0[0x90];
-    unsigned char nLight;
-    unsigned char nFlicker;
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-    unsigned char nCanDestroy;
-    unsigned char nActivate;
-    char unk0x137[0x41];
-    unsigned char nAnimLen;
-    char unk0x179[0x03];
-    int nRandFrames;
-    unsigned char nSubLoop;
-    unsigned char nSubStart;
-    unsigned char nSubStop;
-    char unk0x183[0x1E];
-    unsigned char nAnimSpeed;
-    char unk0x1A2[0x02];
-};
 
 
 typedef void(__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArgs);
@@ -179,12 +135,6 @@ void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY); // 0x0064
 int __stdcall MISSILE_GetLevel(D2UnitStrc* pMissile); // 0x0064A210
 int __stdcall MISSILE_GetSkill(D2UnitStrc* pMissile); // 0x0064A280
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x138];
-    int dwCltCalc;
-    char unk0x13C[0x100];
-};
 
 void __fastcall sub_004742D0_ResetLightSize(void* pLight, int nSize); // 0x004742D0
 int __fastcall sub_00474350_GetLightSize(void* pLight); // 0x00474350
@@ -253,7 +203,7 @@ static void __stdcall sub_004CD420_RollPierce(D2UnitStrc* pOwner, D2UnitStrc* pM
     }
 
     D2MissilesTxt* pMissilesTxtRecord = DATATBLS_GetMissilesTxtRecord(sub_0064A3E0(pMissile));
-    if (!(pMissilesTxtRecord->nFlags[2 >> 3] & gdwBitMasks[2 & 7]))
+    if (!(pMissilesTxtRecord->nMissileFlags[2 >> 3] & gdwBitMasks[2 & 7]))
     {
         return;
     }
@@ -357,7 +307,7 @@ D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams)
         : (pMissilesTxtRecord->nVel + (pMissilesTxtRecord->nVelLev * pMissileParams->nSkillLevel) / 8) << 8;
 
     int nVelocityPercent = 100;
-    if (pMissileParams->pOwner && (pMissilesTxtRecord->nFlags[3 >> 3] & gdwBitMasks[3 & 7])
+    if (pMissileParams->pOwner && (pMissilesTxtRecord->nMissileFlags[3 >> 3] & gdwBitMasks[3 & 7])
         && STATES_CheckState(pMissileParams->pOwner, 0x57))
     {
         D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pMissileParams->pOwner, 0x57);

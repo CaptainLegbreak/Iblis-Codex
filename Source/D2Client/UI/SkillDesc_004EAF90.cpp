@@ -2,25 +2,9 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 
-struct D2SkillsTxt
-{
-    short nSkillId;
-    char unk0x2[0x2];
-    unsigned char nFlags[8];
-    char unk0xC[0x48];
-    short wAuraStat[6];
-    char unk0x60[0xD8];
-    unsigned int dwCalc[3];
-    char unk0x144[0x4];
-    int dwParam[8];
-    char unk0x168[0x3D];
-    unsigned char nSrcDam;
-    char unk0x1A6[0x36];
-    unsigned char nEType;
-    char unk0x1DD[0x5F];
-};
 
 struct D2SkillDescTxt
 {

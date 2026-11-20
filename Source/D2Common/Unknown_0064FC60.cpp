@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2Txt.h"
 #define D2_ABS(x) ((x) < 0 ? -(x) : (x))
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 struct D2InventoryStrc;
@@ -74,17 +75,6 @@ struct D2AnimDataRecordStrc
     unsigned int animSpeed;
 };
 
-struct D2MonStatsTxt
-{
-    short id;
-    short baseId;
-    char pad04[0x2E];
-    short velocity;
-    short run;
-    short walkAnimSpeed;
-    short runAnimSpeed;
-    char pad3A[0x16E];
-};
 
 extern D2MonStatsTxt* gpMonStatsTxt; // 0x0096C6A8
 const D2AnimDataRecordStrc* __fastcall DATATBLS_GetAnimDataRecord(D2UnitStrc*, int, int, int, D2InventoryStrc*); // 0x0066A9B0
@@ -868,28 +858,28 @@ void __stdcall sub_00650F00(int nRecordCount)
     if (nRecordCount <= 0) return;
     do
     {
-        int base = gpMonStatsTxt[i].baseId;
+        int base = gpMonStatsTxt[i].nBaseId;
         if (base < 0 || base >= nRecordCount)
         {
-            gpMonStatsTxt[i].baseId = i;
+            gpMonStatsTxt[i].nBaseId = i;
             base = i;
         }
 
         const D2AnimDataRecordStrc* pAnimDataRecord = DATATBLS_GetAnimDataRecord(0, base, 2, 1, 0);
         unsigned int speed = pAnimDataRecord->animSpeed;
-        if (base != i && gpMonStatsTxt[base].velocity > 0)
-            speed = gpMonStatsTxt[i].velocity * speed / gpMonStatsTxt[base].velocity;
+        if (base != i && gpMonStatsTxt[base].nVelocity > 0)
+            speed = gpMonStatsTxt[i].nVelocity * speed / gpMonStatsTxt[base].nVelocity;
         speed = speed > 0 ? speed : 0;
-        gpMonStatsTxt[i].walkAnimSpeed = speed < 0x7FFF ? speed : 0x7FFF;
+        gpMonStatsTxt[i].nWalkAnimSpeed = speed < 0x7FFF ? speed : 0x7FFF;
 
         if (i >= 410)
             speed = DATATBLS_GetAnimDataRecord(0, base, 15, 1, 0)->animSpeed;
         else
-            speed = gpMonStatsTxt[base].walkAnimSpeed / 2;
-        if (base != i && gpMonStatsTxt[base].run > 0)
-            speed = gpMonStatsTxt[i].run * speed / gpMonStatsTxt[base].run;
+            speed = gpMonStatsTxt[base].nWalkAnimSpeed / 2;
+        if (base != i && gpMonStatsTxt[base].nRun > 0)
+            speed = gpMonStatsTxt[i].nRun * speed / gpMonStatsTxt[base].nRun;
         speed = speed > 0 ? speed : 0;
-        gpMonStatsTxt[i].runAnimSpeed = speed < 0x7FFF ? speed : 0x7FFF;
+        gpMonStatsTxt[i].nRunAnimSpeed = speed < 0x7FFF ? speed : 0x7FFF;
         ++i;
     } while (i < nRecordCount);
 }

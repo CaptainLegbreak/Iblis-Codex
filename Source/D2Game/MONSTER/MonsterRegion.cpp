@@ -1,5 +1,6 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 struct D2MonsterRegionStrc;
 struct D2SeedStrc;
 struct D2MonRegDataStrc;
@@ -26,7 +27,6 @@ struct D2LevelsTxt {
  char pad35; short normal[25],night[25];
 };
 
-struct D2MonStatsTxt { char pad00[0xC]; unsigned char flags[4]; char pad10[0x1E]; unsigned char rarity; char pad2F[0x179]; };
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 struct D2SkillsTxt;
 
@@ -11,12 +12,6 @@ enum D2C_SkillsTxtFlagIndices
     SKILLSFLAGINDEX_INTOWN = 8,
 };
 
-struct D2SkillsTxt
-{
-    char unk0x00[4];
-    unsigned char nFlags[8];
-    char unk0x0C[0x23C - 0x0C];
-};
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0

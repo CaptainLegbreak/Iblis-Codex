@@ -1,13 +1,9 @@
 #include "D2Structs.h"
+#include "D2Txt.h"
 struct D2InventoryStrc;
 struct D2BitBufferStrc;
 
 
-struct D2ItemsTxt
-{
-    char unk0x00[0x80];
-    int dwCode;
-};
 
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837

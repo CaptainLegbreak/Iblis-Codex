@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #pragma intrinsic(memset)
 
@@ -353,11 +354,6 @@ struct D2Unk00667420Strc
     D2Unk00667420BStrc* p14;
 };
 
-struct D2ObjectsTxt
-{
-    char unk0x00[0x167];
-    unsigned char nSubClass;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090

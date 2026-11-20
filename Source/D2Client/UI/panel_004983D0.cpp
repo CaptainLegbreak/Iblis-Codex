@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2UiRectStrc;
@@ -43,14 +44,6 @@ extern void* gpBorderFrameCel_007BEF18; // 0x007BEF18
 extern int gnLevelTimer_007BEFEC; // 0x007BEFEC
 extern int gnLevelId_007BEFF0; // 0x007BEFF0
 
-struct D2ItemsTxt
-{
-    char unk0x000[0x11D];
-    unsigned char bFlag0x11D;
-    char unk0x11E[0x0B];
-    unsigned char bFlag0x129;
-    unsigned char bFlag0x12A;
-};
 
 
 struct D2UiRectStrc
@@ -357,7 +350,7 @@ static void sub_00498930_HoverBeltBox(int nX, D2InventoryStrc* pInventory, int n
 static int __stdcall sub_00498A20_CheckState(D2UnitStrc* pPlayer, D2UnitStrc* pItem, D2ItemsTxt* pState)
 {
     D2_ASSERT(pState, 0xA3D);
-    if (pState->bFlag0x129 == 1 || pState->bFlag0x12A == 1)
+    if (pState->nUnique == 1 || pState->nQuest == 1)
     {
         sub_0049FF90_Close(pItem, pState);
         return 0;

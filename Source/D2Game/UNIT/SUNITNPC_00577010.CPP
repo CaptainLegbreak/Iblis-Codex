@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr,line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define D2_MIN(a,b) ((a)<(b)?(a):(b))
@@ -58,7 +59,6 @@ struct D2GambleStrc { int unk00; int* pItemIds; int nCount[100]; };
 
 struct D2DifficultyLevelsTxt { char unk00[0x44]; int nRare,nSet,nUnique,nUber,nUltra; };
 
-struct D2ItemsTxt { char unk00[0x88]; unsigned int dwUberCode,dwUltraCode; char unk90[0x66]; unsigned short wVersion; char unkF8[5]; unsigned char nLevel; };
 
 D2GambleStrc* __fastcall sub_00638CC0_GetGambleRecord(); // 0x00638CC0
 D2DifficultyLevelsTxt* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int); // 0x00611D30

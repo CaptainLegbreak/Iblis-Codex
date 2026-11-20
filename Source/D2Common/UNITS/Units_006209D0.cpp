@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 #define COLLIDE_WALL 0x1
 #define COLLIDE_MISSILE_BARRIER 0x4
 #define COLLIDE_ITEM 0x200
@@ -19,34 +20,13 @@ struct D2ObjectsTxt;
 struct D2ObjectDataStrc;
 struct D2CharStatsTxt;
 
-struct D2MonStats2Txt
-{
-    char unk0x00[12];
-    unsigned char nOverlayHeight;
-};
 
-struct D2ObjectsTxt
-{
-    char unk0x00[314];
-    unsigned char nIsDoor;
-    unsigned char nBlocksVis;
-    char unk0x13C[43];
-    unsigned char nSubClass;
-    char unk0x168[78];
-    unsigned char nBlockMissile;
-};
 
 struct D2ObjectDataStrc
 {
     D2ObjectsTxt* pObjectTxt;
 };
 
-struct D2CharStatsTxt
-{
-    char unk0x00[60];
-    int dwToHitFactor;
-    char unk0x40[132];
-};
 
 
 

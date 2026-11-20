@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct UIWidget;
@@ -157,11 +158,6 @@ extern int gnGlobal_007C547C; // 0x007C547C
 extern unsigned long gdwTick_007C5488; // 0x007C5488
 
 
-struct D2ItemsTxt
-{
-    char unk0x00[0x80];
-    unsigned int dwCode;
-};
 
 struct D2MsgHandlerEntryStrc
 {

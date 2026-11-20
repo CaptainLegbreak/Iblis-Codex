@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 struct D2SkillListStrc;
 
@@ -16,13 +17,6 @@ struct D2AiControlStrc
     int dwAiParam[3];
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x56];
-    short wAiParam[8][3];
-    char unk0x86[0x1A];
-    unsigned char nDrain[3];
-};
 
 struct D2AiTickParamStrc
 {
@@ -35,36 +29,7 @@ struct D2AiTickParamStrc
     D2MonStatsTxt* pMonstatsTxt;
 };
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x04];
-    unsigned char nFlags[8];
-    char unk0x00C[0x22];
-    short wSrvDoFunc;
-    char unk0x030[0x16];
-    short wSrvMissile;
-    short wSrvMissileA;
-    char unk0x04A[0x0A];
-    short wAuraStat[6];
-    char unk0x060[0x20];
-    short nAuraState;
-    short wAuraTargetState;
-    char unk0x084[0xF0];
-    short wReqLevel;
-    char unk0x176[0x66];
-    unsigned char nEType;
-    char unk0x1DD[0x53];
-    unsigned char nAiType;
-    char unk0x231;
-    short wAiBonus;
-    char unk0x234[0x08];
-};
 
-struct D2MissilesTxt
-{
-    char unk0x00[0x96];
-    short wRange;
-};
 
 
 struct D2ShadowMasterAiCallbackArgStrc

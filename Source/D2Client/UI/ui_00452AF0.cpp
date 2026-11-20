@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2Txt.h"
 
 struct Unicode
 {
@@ -18,17 +19,7 @@ struct D2ObjectDataStrc
 };
 
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x06];
-    unsigned short wNameStr;
-};
 
-struct D2ObjectsTxt
-{
-    char unk0x00[0x167];
-    unsigned char nSubClass;
-};
 
 struct D2LevelsTxt
 {

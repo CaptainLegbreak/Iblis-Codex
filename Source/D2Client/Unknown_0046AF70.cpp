@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 struct D2SeedStrc;
 struct D2DrlgCoordsStrc;
@@ -63,22 +64,7 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY); // 0x0064A760
 D2UnitStrc* __stdcall UNITFINDS_FindUnitInNeighboredRooms(D2ActiveRoomStrc* pRoom, int nUnitType, int nClassId); // 0x0065A620
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x18];
-    short nMonStatsEx;
-    char unk0x1A[0x15];
-    unsigned char nMinGrp;
-    unsigned char nMaxGrp;
-    char unk0x31[0x1A8 - 0x31];
-};
 
-struct D2MonStats2Txt
-{
-    char unk0x00[8];
-    char nSizeX;
-    char unk0x09[0x134 - 0x09];
-};
 
 struct D2LevelsTxt
 {
@@ -250,7 +236,7 @@ static void __stdcall sub_0046C1A0_SpawnMonsterInRoom(D2ActiveRoomStrc* pRoom, i
     if (nMonsterId < 0 || nMonsterId >= sgptDataTables->nMonStatsTxtRecordCount)
         return;
 
-    const int nMonStatsEx = sgptDataTables->pMonStatsTxt[nMonsterId].nMonStatsEx;
+    const int nMonStatsEx = sgptDataTables->pMonStatsTxt[nMonsterId].wMonStatsEx;
     D2MonStats2Txt* pMonStats2 = MONSTATS2_GetRecordInline(nMonStatsEx);
     if (!pMonStats2)
         return;

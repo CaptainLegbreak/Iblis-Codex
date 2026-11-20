@@ -3,21 +3,11 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 
 
 
-struct D2SkillsTxt
-{
-    char unk0x000[0xEA];
-    short wCltMissileA;
-    short wCltMissileB;
-    short wCltMissileC;
-    short wCltMissileD;
-    char unk0x0F2[0x22];
-    int dwCltCalc[3];
-    char unk0x120[0x11C];
-};
 
 
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArg);

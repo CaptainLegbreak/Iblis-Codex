@@ -1,24 +1,9 @@
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2Txt.h"
 struct D2InventoryStrc;
 
-struct D2ObjectsTxt
-{
-    char unk0x000[0x131];
-    unsigned char nModePerspective[8];
-    char unk0x139[0xF];
-    int nXOffset;
-    int nYOffset;
-    unsigned char bDraw;
-};
 
-struct D2MissilesTxt
-{
-    char unk0x000[0x18D];
-    unsigned char nTrans;
-    char unk0x18E[0x14];
-    unsigned char bAltPalette;
-};
 
 struct D2CelContextStrc
 {
@@ -251,7 +236,6 @@ struct D2GfxLayerHeaderStrc { unsigned char nCount, unk01, nArg; };
 struct D2GfxNodeTargetStrc { int unk00[5]; void* pLayer; };
 struct D2GfxListNodeStrc { int nMode,nId; D2GfxNodeTargetStrc* pTarget; int unk0C; D2GfxListNodeStrc* pNext; };
 struct D2GfxDataStrc { int unk00[10]; D2GfxListNodeStrc* pList; };
-struct D2MonStats2Txt { char unk00[0x11C]; unsigned char bAltPalette; };
 int __fastcall sub_00451F60_GetMonStats2Id(D2UnitStrc*); // 0x00451F60
 D2MonStats2Txt* __fastcall sub_00451FE0_GetMonStats2TxtRecord(int); // 0x00451FE0
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc*); // 0x004639D0
@@ -362,7 +346,7 @@ static int __stdcall sub_00470EC0_DrawGfxUnit(unsigned int dwColor, int nArg, in
     unsigned char* pLayerOrder = sub_004DB110_GetLayerOrder(pLayer, nDirectionIndex, nFrame);
     D2_ASSERT(pLayerOrder, 0x58E);
     int bObjectPerspective = 0;
-    if (nUnitType == UNIT_OBJECT && DATATBLS_GetObjectsTxtRecord(!pUnit ? -1 : pUnit->dwClassId)->nModePerspective[nMode] == 1)
+    if (nUnitType == UNIT_OBJECT && DATATBLS_GetObjectsTxtRecord(!pUnit ? -1 : pUnit->dwClassId)->nOrderFlag[nMode] == 1)
         bObjectPerspective = 1;
     int bUseItemShift = 1;
     if (sub_0063A790_CheckPaletteState(pUnit))
@@ -388,7 +372,7 @@ static int __stdcall sub_00470EC0_DrawGfxUnit(unsigned int dwColor, int nArg, in
             if (nUnitType == 1)
             {
                 D2MonStats2Txt* pRecord = sub_00451FE0_GetMonStats2TxtRecord(sub_00451F60_GetMonStats2Id(pUnit));
-                if (pRecord && pRecord->bAltPalette && sub_0044DC60()) pPalette = sub_00477680();
+                if (pRecord && pRecord->nLocalBlood && sub_0044DC60()) pPalette = sub_00477680();
             }
         }
         else if (nComponent == 14)

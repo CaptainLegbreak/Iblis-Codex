@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define STATE_BLAZE 0x0D
 #define STATE_SPIDERLAY 0x16
@@ -42,12 +43,6 @@ struct D2ModeChangeStrc
     int unk0x1C;
 };
 
-struct D2MonStatsTxt
-{
-    short nId;
-    short nBaseId;
-    char pad0x04[0x1A4];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -57,12 +52,6 @@ void __stdcall UNITS_SetUsedSkill(D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill); /
 int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int a3); // 0x005A7C20
 void __fastcall sub_6FC64CD0(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005A8520
 
-struct D2MissilesTxt
-{
-    char unk0x000[0x187];
-    unsigned char nCollideFriend;
-    unsigned char nNextHit;
-};
 
 struct D2MissileUnitFindArgStrc
 {

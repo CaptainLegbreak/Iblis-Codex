@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 struct D2SeedStrc;
 struct D2MonsterDataStrc;
@@ -23,12 +24,6 @@ struct D2MonsterDataStrc
     unsigned short nFlags;
 };
 
-struct D2MissilesTxt
-{
-    char unk0x00[0x04];
-    unsigned char nFlags[4];
-    char unk0x08[0x1A4 - 0x08];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -120,7 +115,7 @@ void __fastcall sub_005A3610_SpawnSideMissiles(D2GameStrc* pGame, D2UnitStrc* pM
     }
 
     D2MissilesTxt* pMissilesTxtRecord = DATATBLS_GetMissilesTxtRecord(nMissileId);
-    if (!pMissilesTxtRecord || pMissilesTxtRecord->nFlags[12 >> 3] & gdwBitMasks[12 & 7])
+    if (!pMissilesTxtRecord || pMissilesTxtRecord->nMissileFlags[12 >> 3] & gdwBitMasks[12 & 7])
     {
         return;
     }

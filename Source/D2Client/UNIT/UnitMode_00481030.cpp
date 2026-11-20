@@ -1,5 +1,6 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 struct D2SkillStrc;
 
 struct D2PlayerDataStrc
@@ -12,12 +13,6 @@ struct D2PlayerDataStrc
 };
 
 
-struct D2SkillsTxt
-{
-    char unk0x00[0x2E];
-    unsigned short wUnk0x2E;
-    char unk0x30[0x20C];
-};
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268

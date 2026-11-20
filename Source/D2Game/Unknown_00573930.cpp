@@ -1,14 +1,10 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
 #pragma intrinsic(memset)
 
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x4C];
-    unsigned char nAlign;
-};
 
 struct D2MonsterDataStrc
 {

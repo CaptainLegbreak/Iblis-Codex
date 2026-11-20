@@ -1,6 +1,6 @@
 #include "D2Structs.h"
+#include "D2Txt.h"
 struct D2ItemDataStrc { char unknown0[24]; unsigned int dwItemFlags; };
-struct D2ItemsTxt { char unknown0[271]; unsigned char nInvWidth; unsigned char nInvHeight; };
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 unsigned char __stdcall ITEMS_GetMaxSockets(D2UnitStrc* pItem); // 0x0062BC20
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, unsigned short nLayer); // 0x00627260

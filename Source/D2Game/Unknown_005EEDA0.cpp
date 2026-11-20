@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 
 
@@ -17,22 +18,7 @@ struct D2TargetNodeStrc
 };
 
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x56];
-    short wAiParam[8][3];
-    char unk0x86[0x170 - 0x86];
-    short nSkill[8];
-    unsigned char nSkillMode[8];
-};
 
-struct D2SkillsTxt
-{
-    char unk0x00[0x80];
-    short nAuraState;
-    short wAuraTargetState;
-    char unk0x84[0x23C - 0x84];
-};
 
 
 struct D2AiTickParamStrc

@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define MON_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2MonStatsTxt;
@@ -11,7 +12,6 @@ struct D2MonItemPercentTxt;
 struct D2MonRecord0C;
 struct D2MonItemPercentDataTbl;
 
-struct D2MonStatsTxt { char unk0x00[0x14]; short wMonSound; char unk1[0x32 - 0x14 - 2]; short nVelocity; char nRun[0x1A8 - 0x32 - 2]; };
 
 struct D2TCExShortStrc { unsigned short nGroup; short nLevel; char unk0x04[0x28 - 4]; void* pInfo; };
 

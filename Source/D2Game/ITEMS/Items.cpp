@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
@@ -26,26 +27,6 @@ struct D2PlayerDataStrc;
 
 
 
-struct D2ItemsTxt
-{
-    char unk0x000[0xCC];
-    unsigned int dwMinAc;
-    unsigned int dwMaxAc;
-    unsigned char unk_D4[0x24];
-    unsigned short wAutoPrefix;
-    unsigned char unk_FA[0x3];
-    unsigned char nLevel;
-    unsigned char nMinDam;
-    unsigned char nMaxDam;
-    unsigned char nMinMisDam;
-    unsigned char nMaxMisDam;
-    unsigned char n2HandMinDam;
-    unsigned char n2HandMaxDam;
-    unsigned char unk_104[0x25];
-    unsigned char nUnique;
-    unsigned char nQuest;
-    unsigned char unk_12B[0x7D];
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090

@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 struct D2DifficultyLevelsTxt;
 struct D2SkillsTxt;
@@ -59,37 +60,7 @@ struct D2DifficultyLevelsTxt
     int dwAiCurseDiv;
 };
 
-struct D2ItemStatCostTxt
-{
-    unsigned short wStatId;
-    unsigned short pad0x02;
-    unsigned char nItemStatFlags[4];
-};
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x50];
-    unsigned int dwAuraFilter;
-    short wAuraStat[6];
-    unsigned int dwAuraLenCalc;
-    unsigned int dwAuraRangeCalc;
-    unsigned int dwAuraStatCalc[6];
-    char unk0x080[0x2];
-    short wAuraTargetState;
-    short wAuraEvent[3];
-    short wAuraEventFunc[3];
-    unsigned char unk_90[0x2E];
-    unsigned char nPetType;
-    char unk0x0BF[0x01];
-    unsigned int dwPetMax;
-    unsigned char unk_C4[0x6A];
-    unsigned short wResultFlags;
-    unsigned int dwHitFlags;
-    unsigned int dwHitClass;
-    unsigned int dwCalc[4];
-    int dwParam[8];
-    char unk0x168[0x23C - 0x168];
-};
 
 
 struct D2UnkNecSkillStrc
@@ -218,13 +189,6 @@ struct D2DamageStrc
     int unk0x64[3];
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x000[0xA0];
-    unsigned char nDrain[3];
-    char unk0x0A3[0xCD];
-    short nSkill;
-};
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10

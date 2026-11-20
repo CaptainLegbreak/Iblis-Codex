@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
@@ -64,13 +65,6 @@ struct Unicode
     static Unicode* __fastcall win2Unicode(Unicode* dest, const char* src, int count);                      // 0x00526F20
 };
 
-struct D2ItemsTxt
-{
-    char unk0x00[0x80];
-    int dwCode;
-    char unk0x84[0xA6];
-    unsigned char nQuest;
-};
 
 struct D2SetItemsTxt
 {

@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define STATEMASK_BLUE 18
 #define INVENTORY_SIGNATURE 0x01020304
@@ -101,10 +102,6 @@ struct Obj0063CD40 {
     unsigned int dwValue00;
 };
 
-struct D2SkillsTxt
-{
-    short nSkillId;
-};
 
 struct D2SkillStrc
 {
@@ -164,19 +161,6 @@ s32 __stdcall sub_0064F420_UsesAppearance(s32); // 0x0064F420
 s32 __stdcall sub_0064F500_AppearanceIndex(s32, AppearanceSix*); // 0x0064F500
 AppearanceRecord* __stdcall sub_0065B620_AppearanceRecord(s32); // 0x0065B620
 
-struct D2ItemsTxt
-{
-    char unk0x000[0x80];
-    int dwCode;
-    char unk0x084[0x0C];
-    int dwAlternateGfx;
-    unsigned char unk_94[0x89];
-    unsigned char flag_11D;
-    short wType[2];
-    unsigned char unk_122[0xE];
-    unsigned char flag_130;
-    unsigned char unk_131[0x77];
-};
 
 struct D2ItemDataTbl
 {
@@ -871,7 +855,7 @@ int __stdcall sub_0063C830_CheckBeltItem(D2InventoryStrc* inventory, D2UnitStrc*
     if (width != 1 || height != 1)
         return 0;
     D2ItemsTxt* record = DATATBLS_GetItemsTxtRecord(!item ? -1 : item->dwClassId);
-    if (!record || record->flag_11D != 1 || record->flag_130 != 1)
+    if (!record || record->bFlag0x11D != 1 || record->nBelt != 1)
         return 0;
     *previous = INVENTORY_GetItemFromBeltSlot(inventory, slot);
     return 1;
@@ -1206,9 +1190,9 @@ void __fastcall INVENTORY_InitializeComponentArray()
             D2ItemsTxt* pItemsTxtRecord = &pItemDataTbl->pItemsTxt[i];
 
             int dwCode = 0;
-            if (pItemsTxtRecord->dwAlternateGfx)
+            if (pItemsTxtRecord->dwAltCode2)
             {
-                dwCode = pItemsTxtRecord->dwAlternateGfx;
+                dwCode = pItemsTxtRecord->dwAltCode2;
             }
             else
             {

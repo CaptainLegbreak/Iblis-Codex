@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define D2_MIN(a,b) ((a)<(b)?(a):(b))
@@ -69,29 +70,6 @@ int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinatesWithField(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, D2CoordStrc* pFieldCoord, int nUnitSize, unsigned int nMask, unsigned int nFieldMask, int bAllowNeighborRooms); // 0x0064E810
 static __declspec(noinline) int __stdcall ITEMS_SelectRandomDropItemId(D2GameStrc* pGame, D2SeedStrc* pSeed, int nLevelId, int nItemType, int bIgnoreRarity, int bAllowBodyParts);
 
-struct D2ItemsTxt
-{
-    char unk00[0x80];
-    unsigned int dwCode;
-    unsigned char unk_84[0x48];
-    unsigned int dwMinAc;
-    unsigned int dwMaxAc;
-    char unk0x0D4[0x04];
-    int dwSpeed;
-    char unk0x0DC[0x22];
-    unsigned char nMinDam;
-    unsigned char nMaxDam;
-    unsigned char nMinMisDam;
-    unsigned char nMaxMisDam;
-    unsigned char n2HandMinDam;
-    unsigned char n2HandMaxDam;
-    char unk0x104[0x0D];
-    unsigned char nBlock;
-    unsigned char nDurability;
-    char unk0x113[0x17];
-    unsigned char nQuest;
-    unsigned char nQuestDiffCheck;
-};
 
 struct D2UniqueItemsTxt { char unk00[0x24]; unsigned short wVersion; char unk26[2]; unsigned int dwCode; unsigned char nUniqueItemFlags[4]; int nRarity; short nLevel; char unk36[0x116]; };
 

@@ -5,6 +5,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define MISSILE_LIGHTUNIQUE 195
 #define MONTYPEFLAG_LIGHTNINGUNIQUE 0x100
@@ -29,24 +30,7 @@ struct D2MonsterDataStrc
 
 
 
-struct D2MissilesTxt
-{
-    char pad0x000[0x04];
-    unsigned char nMissileFlags[4];
-    unsigned char unk_08[0x44];
-    int dwHitPar[3];
-    char pad0x058[0x50];
-    unsigned int dwHitFlags;
-    unsigned short wResultFlags;
-    char pad0x0AE[0xF6];
-};
 
-struct D2SkillsTxt
-{
-    char pad0x000[0x64];
-    int dwAuraRangeCalc;
-    char pad0x068[0x1D4];
-};
 
 
 struct D2DamageStrc

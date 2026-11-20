@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 struct D2PathPointStrc
 {
@@ -37,12 +38,6 @@ struct D2DynamicPathStrc
     int nSavedStepsCount;
     D2PathPointStrc SavedSteps[7];
     char unk0x1F4[0x200 - 0x1F4];
-};
-struct D2MonStatsTxt
-{
-    char unk0x00[0x0C];
-    unsigned char nMonStatsFlags[4];
-    char unk0x10[0x1A8 - 0x10];
 };
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090

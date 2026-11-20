@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct Unicode;
@@ -23,11 +24,6 @@ struct D2UnitStrc
     D2InventoryStrc* pInventory;
 };
 
-struct D2ItemsTxt
-{
-    char unk0x000[0x1A5];
-    unsigned char nField1A5;
-};
 
 struct D2CoordStrc
 {

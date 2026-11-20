@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define BITARRAY_CHECK(pBytes, nBit) ((pBytes)[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -16,17 +17,6 @@ struct D2CoordPairStrc;
 struct D2MonStats2SelectStrc;
 
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x04];
-    unsigned char nFlags[8];
-    unsigned char unk_0C[0x4];
-    unsigned char nAnim;
-    unsigned char unk_11[0x4];
-    unsigned char nSelectProc;
-    unsigned char nFrame;
-    unsigned char unk_17[0x225];
-};
 
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill); // 0x00644140
@@ -175,16 +165,6 @@ struct D2StaticPathStrc
     D2CoordStrc tGameCoords;
 };
 
-struct D2ObjectsTxt
-{
-    char unk0x000[0x13A];
-    unsigned char nIsDoor;
-    char unk0x13B[0x26]; unsigned char nComponents; char unk0x162[0x3B]; unsigned char nSelectBox; char unk0x19E[2];
-    int dwLeft;
-    int dwTop;
-    int dwWidth;
-    int dwHeight;
-};
 
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
@@ -252,7 +232,7 @@ static __declspec(noinline) int __stdcall sub_004645B0_CheckSkillFrame(int nUnus
         return 1;
     }
 
-    const unsigned char nFrame = pSkillsTxtRecord->nFrame;
+    const unsigned char nFrame = pSkillsTxtRecord->nSeqInput;
     if (!nFrame)
     {
         return 0;
