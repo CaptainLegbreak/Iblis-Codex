@@ -2,6 +2,7 @@
 #include "D2Txt.h"
 #include "D2Records.h"
 #include "D2LevelTxt.h"
+#include "D2GameRecords.h"
 struct Unicode
 {
     unsigned short wChar;
@@ -26,11 +27,6 @@ struct D2LowQualityItemsTxt
 };
 
 
-struct D2MagicAffixTxt
-{
-    char szName[0x20];
-    unsigned short wTblIndex;
-};
 
 struct D2RareAffixTxt
 {

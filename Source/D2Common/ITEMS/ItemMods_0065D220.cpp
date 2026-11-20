@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2Records.h"
 #include "D2LevelTxt.h"
+#include "D2GameRecords.h"
 struct D2PropertyStrc;
 struct D2PropertiesTxt;
 struct D2MagicAffixTxt;
@@ -29,15 +30,6 @@ struct D2PropertiesTxt
 };
 
 
-struct D2MagicAffixTxt
-{
-    char unk0x00[0x24];
-    D2PropertyStrc pProperties[3];
-    char unk0x54[0x16];
-    short wIType[7];
-    short wEType[5];
-    unsigned char unk_82[0x2];
-};
 
 struct D2RareAffixTxt
 {

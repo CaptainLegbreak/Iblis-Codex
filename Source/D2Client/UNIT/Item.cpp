@@ -5,6 +5,7 @@
 #include "D2Path.h"
 #include "D2Records.h"
 #include "D2LevelTxt.h"
+#include "D2GameRecords.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define ITEMQUAL_SET 5
@@ -418,20 +419,6 @@ struct D2PacketRecord11Strc
 
 static void sub_004C1350_RefreshEquippedItems(D2UnitStrc* pUnit);
 
-struct D2ItemSaveStrc
-{
-    int nClassId;
-    unsigned short nX;
-    unsigned short nY;
-    unsigned char bMode;
-    unsigned char nPad09;
-    unsigned short nPad0A;
-    unsigned int dwFlags;
-    unsigned char nStorePage;
-    unsigned char nBodyloc;
-    unsigned short nPad12;
-    int nItemFileIndex;
-};
 
 #pragma pack(push, 1)
 struct D2GSPacketSrv9D

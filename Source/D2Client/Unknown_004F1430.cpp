@@ -7,6 +7,7 @@
 #include "D2GameTypes.h"
 #include "D2Txt.h"
 #include "D2ItemsWorld.h"
+#include "D2GameRecords.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -21,11 +22,6 @@ struct D2MissileStrc;
 
 
 
-struct D2UnitFindArgStrc
-{
-    int nFlags; int unk0x04; D2UnitStrc* pUnit; int nX; int nY; int nSize; int nMaxArrayEntries; int nIndex;
-    void* pField; void* pfnUnitTest; int unk0x28; int unk0x2C; int unk0x30; int unk0x34;
-};
 
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0

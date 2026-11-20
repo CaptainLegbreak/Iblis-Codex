@@ -4,24 +4,13 @@
 #include "D2Txt.h"
 #include "D2Records.h"
 #include "D2LevelTxt.h"
+#include "D2GameRecords.h"
 struct D2SkillStrc;
 struct D2UnitStrc;
 
 struct D2GameStrc;
 
 
-struct D2ItemSaveStrc
-{
-    int nClassId;
-    unsigned short nX;
-    unsigned short nY;
-    unsigned char nByte08;
-    unsigned char unk0x09;
-    unsigned short unk0x0A;
-    unsigned int dwFlags;
-    int unk0x10;
-    int unk0x14;
-};
 
 
 
@@ -86,7 +75,7 @@ static __declspec(noinline) D2UnitStrc* __stdcall sub_004C0F20_CreateWorldItem(u
         pItemSave = &tItemSave;
     }
 
-    D2UnitStrc* pItem = sub_004661C0_AllocClientUnit(pPacket->dwUnitId, pItemSave->nClassId, nX, nY, 4, pItemSave->nByte08);
+    D2UnitStrc* pItem = sub_004661C0_AllocClientUnit(pPacket->dwUnitId, pItemSave->nClassId, nX, nY, 4, pItemSave->bMode);
     int nFail;
     ITEMS_DecodeItemFromBitstream(pItem, pPacket->pData, nSize, 0, 0, 0x60, &nFail);
     if (nFail)
@@ -114,7 +103,7 @@ static __declspec(noinline) D2UnitStrc* __stdcall sub_004C0FF0_CreateOwnedItem(u
         pItemSave = &tItemSave;
     }
 
-    D2UnitStrc* pItem = sub_004661C0_AllocClientUnit(pPacket->dwUnitId, pItemSave->nClassId, nX, nY, 4, pItemSave->nByte08);
+    D2UnitStrc* pItem = sub_004661C0_AllocClientUnit(pPacket->dwUnitId, pItemSave->nClassId, nX, nY, 4, pItemSave->bMode);
     int nFail;
     ITEMS_DecodeItemFromBitstream(pItem, pPacket->pData, nSize, 0, 0, 0x60, &nFail);
     if (nFail)

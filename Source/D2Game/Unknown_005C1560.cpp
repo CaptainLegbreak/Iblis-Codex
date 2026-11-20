@@ -1,25 +1,9 @@
 #include "D2Txt.h"
 #include "D2Path.h"
 #include "D2ItemsWorld.h"
+#include "D2GameRecords.h"
 struct D2UnitStrc;
 
-struct D2MagicAffixTxt
-{
-    char pad00[0x22];
-    unsigned short wVersion;
-    char pad24[0x30];
-    unsigned char bSpawnable;
-    char pad55[3];
-    int nLevel;
-    int dwGroup;
-    int nMaxLevel;
-    unsigned char bRare;
-    unsigned char pad65;
-    unsigned char nClass;
-    char pad67[0x1B];
-    unsigned char nFrequency;
-    char pad83[0xD];
-};
 struct D2MagicAffixDataTbl
 {
     int nCount;

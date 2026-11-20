@@ -1,5 +1,6 @@
 #include "D2Structs.h"
 #include "D2UnitData.h"
+#include "D2GameRecords.h"
 #pragma pack(push, 1)
 struct D2GSPacketSrv5B
 {
@@ -17,12 +18,6 @@ struct D2GSPacketSrv5B
 };
 #pragma pack(pop)
 
-struct D2PacketDataStrc
-{
-    int nPacketSize;
-    unsigned char packetData[0x200];
-    D2PacketDataStrc* pNext;
-};
 
 struct D2ClientStrc
 {

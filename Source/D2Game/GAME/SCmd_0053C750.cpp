@@ -1,9 +1,4 @@
-struct D2PacketDataStrc
-{
-    int nPacketSize;
-    unsigned char packetData[0x200];
-    D2PacketDataStrc* pNext;
-};
+#include "D2GameRecords.h"
 
 struct D2ClientStrc
 {

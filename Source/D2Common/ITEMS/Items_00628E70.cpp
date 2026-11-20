@@ -4,6 +4,7 @@
 #include "D2Records.h"
 #include "D2ItemsWorld.h"
 #include "D2LevelTxt.h"
+#include "D2GameRecords.h"
 struct D2UnitStrc;
 
 #define ITEMS_ADD_BONUS_COSTS(nMult, nAdd, nValue, nBuyDiv)                                        \
@@ -153,11 +154,6 @@ unsigned char __stdcall ITEMS_GetSockets(D2UnitStrc* pItem); // 0x006299B0
 D2RuneDataTbl* __fastcall DATATBLS_GetRuneDataTables(); // 0x00639CB0
 
 
-struct D2MagicAffixTxt
-{
-    char unk0x00[0x56];
-    unsigned char nTransformColor;
-};
 
 
 

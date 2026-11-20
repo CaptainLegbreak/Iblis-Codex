@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
+#include "D2GameRecords.h"
 struct D2MonCommandStrc;
 struct D2SkillStrc;
 struct D2UnitStrc;
@@ -15,20 +16,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 
 
 
-struct D2ItemSaveStrc
-{
-    int nClassId;
-    unsigned short nX;
-    unsigned short nY;
-    unsigned char bMode;
-    unsigned char nPad09;
-    unsigned short nPad0A;
-    unsigned int dwFlags;
-    unsigned char nStorePage;
-    unsigned char nBodyloc;
-    unsigned short nPad12;
-    int nItemFileIndex;
-};
 
 
 struct D2GemsTxt;

@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2Drlg.h"
 #include "D2ItemsWorld.h"
+#include "D2GameRecords.h"
 
 
 
@@ -35,16 +36,6 @@ struct D2ObjectsTxt
     unsigned char nSide;
 };
 
-struct D2UnitFindArgStrc
-{
-    int nFlags;
-    int unk0x04;
-    D2UnitStrc* pUnit;
-    int nX;
-    int nY;
-    int nSize;
-    char unk0x18[0x38 - 0x18];
-};
 
 
 typedef int (__fastcall* D2UnitFindCallback)(D2UnitStrc* pUnit, void* pArg);

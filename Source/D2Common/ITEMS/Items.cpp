@@ -4,6 +4,7 @@
 #include "D2Records.h"
 #include "D2ItemsWorld.h"
 #include "D2LevelTxt.h"
+#include "D2GameRecords.h"
 #define STAT_ITEM_INDESCTRUCTIBLE 152
 #define IFLAG_IDENTIFIED 0x00000010
 #define NODEPAGE_STORAGE 1
@@ -278,19 +279,6 @@ struct Data00628250 { unsigned char bUnknown00[0x45]; char cValue45; };
 
 struct Unit00628250 { int nType; unsigned int dwUnknown04; unsigned int dwUnknown08; unsigned int dwUnknown0C; unsigned int dwUnknown10; Data00628250* pData; };
 
-struct D2ItemSaveStrc
-{
-    int nClassId;
-    unsigned short nX;
-    unsigned short nY;
-    unsigned char bMode;
-    unsigned char pad0x09[3];
-    unsigned int dwFlags;
-    unsigned char nStorePage;
-    unsigned char nBodyloc;
-    unsigned char pad0x12[2];
-    int nItemFileIndex;
-};
 
 int __stdcall DATATBLS_GetItemIdFromItemCode(unsigned int dwCode); // 0x00633680
 
@@ -301,11 +289,6 @@ struct Unit00629EA0 { int nType; unsigned int dwUnknown04; unsigned int dwUnknow
 int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem); // 0x00627E70
 
 
-struct D2MagicAffixTxt
-{
-    char unk0x00[0x56];
-    unsigned char nTransformColor;
-};
 
 
 
