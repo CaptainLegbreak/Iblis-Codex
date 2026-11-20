@@ -1,10 +1,10 @@
+#include "D2GameStrc.h"
 struct Lock { int values[6]; };
 struct D2ClientStrc {
  int nClientId; char pad4[0x3d8-4]; unsigned dwLastPacketTick; char pad3dc[0x4a8-0x3dc];
  D2ClientStrc* pNext; D2ClientStrc* pHashNext; int pad4b0;
  unsigned pings[16]; int pad4f4; __int64 average; unsigned count;
 };
-struct D2GameStrc { char pad0[0x88]; D2ClientStrc* pClients; };
 extern D2ClientStrc* gpClients_008842A8[256]; // 0x008842A8
 extern Lock gLock_008846A8; // 0x008846A8
 extern int gnReady_008846D8; // 0x008846D8
@@ -19,7 +19,7 @@ void __fastcall CLIENTS_UpdatePing(int nClientId,int tick,int delay,int unused)
 {
  D2GameStrc* pGame=GAME_GetGameByClientId(nClientId);
  if(pGame) {
-  D2ClientStrc* pClient=pGame->pClients;
+  D2ClientStrc* pClient=pGame->pClientList;
   for(;pClient;pClient=pClient->pNext) {
    if(pClient->nClientId==nClientId) {
     unsigned now=GetTickCount();

@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2DataTbls.h"
 
 #pragma pack(push, 4)
 struct D2SeedStrc
@@ -73,13 +74,6 @@ struct D2MissilesTxt
     char unk0x1A2[0x02];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xB64];
-    D2MissilesTxt* pMissilesTxt;
-    char unk0xB68[0x04];
-    int nMissilesTxtRecordCount;
-};
 
 typedef void(__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArgs);
 

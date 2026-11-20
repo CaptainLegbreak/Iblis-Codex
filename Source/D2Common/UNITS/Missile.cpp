@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2MissileDataStrc
 {
@@ -45,13 +46,6 @@ struct D2MissilesTxt
     char unk0x197[0x0D];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xB64];
-    D2MissilesTxt* pMissilesTxt;
-    int unk0xB68;
-    int nMissilesTxtRecordCount;
-};
 
 struct D2MissileCalcStrc
 {

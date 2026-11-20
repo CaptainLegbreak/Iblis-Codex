@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 #define D2_MIN(a,b) ((a) < (b) ? (a) : (b))
 #define D2_MAX(a,b) ((a) > (b) ? (a) : (b))
 
@@ -19,16 +20,6 @@ struct D2SkillsTxt
     char unk0x18E[0xAE];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xB98];
-    D2SkillsTxt* pSkillsTxt;
-    int unk0xB9C;
-    int nSkillsTxtRecordCount;
-    char unk0xBA4[0xC8];
-    int nStuff;
-    int nShiftedStuff;
-};
 
 #define UNIT_PLAYER 0
 #define UNIT_ITEM 4

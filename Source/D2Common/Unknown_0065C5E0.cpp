@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 struct D2SeedStrc;
 struct D2InventoryStrc;
 struct sub_M415_EmitArgs;
@@ -55,14 +56,6 @@ struct D2GemsTxt
 
 void __stdcall sub_C01_EmitSink(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const void* pMods, int nIndex, int nPropSet, int nApplyType, const D2PropertyStrc* pProperty, int nState, int fStatlist, D2UnitStrc* a11);
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xBA0];
-    int nSkillsTxtRecordCount;
-    char unk0xBA4[0xC6C - 0xBA4];
-    int nStuff;
-    int nShiftedStuff;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2StatListStrc* __stdcall STATLIST_GetStatListFromFlag(D2StatListStrc* pStatList, int nFlag); // 0x00625730

@@ -1,6 +1,8 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define INVPAGE_CUBE 3
@@ -20,20 +22,6 @@ struct ItemRecordTable;
 
 void __stdcall SUNIT_ResetInteractInfo(D2UnitStrc* pUnit); // 0x00554190
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x4A];
-    unsigned char nGameType;
-    char unk0x6B[0x02];
-    unsigned char nDifficulty;
-    char unk0x6E[0x02];
-    int bExpansion;
-    int dwGameType;
-    char unk0x78[0x30];
-    unsigned int dwGameFrame;
-};
 void __fastcall PLRTRADE_StopAllPlayerInteractions(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00568640
 
 struct D2ObjOperateFnStrc
@@ -98,11 +86,6 @@ struct D2ItemStatCostTxt
     unsigned char nValShift;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xBD4];
-    int nItemStatCostTxtRecordCount;
-};
 
 struct D2CubeItemStrc
 {

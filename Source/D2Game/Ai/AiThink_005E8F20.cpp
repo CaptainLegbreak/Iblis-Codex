@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 struct D2AiBaalTargetArgsStrc;
 
@@ -15,11 +16,6 @@ struct D2TargetNodeStrc
     D2TargetNodeStrc* unk0x0C;
 };
 
-struct D2GameStrc
-{
-    char pad0x00[0x10F8];
-    D2TargetNodeStrc* pTargetNodes[10];
-};
 
 #define UNIT_PLAYER 0
 #define PLRMODE_DEATH 0

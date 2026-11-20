@@ -2,6 +2,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -22,15 +24,6 @@ struct D2StaticPathStrc;
 struct D2MonStatsInitStrc;
 struct D2ModeChangeStrc;
 
-struct D2GameStrc
-{
-    char unk0x00[0x6A];
-    unsigned char nGameType;
-    char unk0x6B[0x02];
-    unsigned char nDifficulty;
-    char unk0x6E[0x06];
-    int dwGameType;
-};
 
 
 
@@ -48,24 +41,6 @@ struct D2DifficultyLevelsTxt
     int nMonsterCEDamagePercent;
 };
 
-struct D2DataTablesStrc
-{
-    char pad0x000[0xC4];
-    int nStatesTxtRecordCount;
-    unsigned char unk_C8[0x9B0];
-    D2MonStatsTxt* pMonStatsTxt;
-    unsigned char unk_A7C[4];
-    int nMonStatsTxtRecordCount;
-    unsigned char unk_A84[0x114];
-    D2SkillsTxt* pSkillsTxt;
-    char pad0xB9C[0x04];
-    int nSkillsTxtRecordCount;
-    char pad0xBA4[0x30];
-    int nItemStatCostTxtRecordCount;
-    unsigned char unk_BD8[0x78];
-    D2MonUModTxt* pMonUModTxt;
-    int nMonUModTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010

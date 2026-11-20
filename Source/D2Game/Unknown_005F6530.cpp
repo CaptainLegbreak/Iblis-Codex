@@ -1,15 +1,10 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 
 
-struct D2GameStrc
-{
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-    char unk0x6E[0x3A];
-    int dwGameFrame;
-};
 
 struct D2AiControlStrc
 {
@@ -38,11 +33,6 @@ struct D2AiTickParamStrc
     D2MonStatsTxt* pMonstatsTxt;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA80];
-    int nMonStatsTxtRecordCount;
-};
 
 enum D2C_M69AiConstants
 {

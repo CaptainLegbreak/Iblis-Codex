@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2GameStrc;
 
@@ -42,15 +43,6 @@ struct D2SetItemsTxt
     char unk0x87[0x131];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xC18];
-    D2SetItemsTxt* pSetItemsTxt;
-    int nSetItemsTxtRecordCount;
-    char unk0xC20[4];
-    D2UniqueItemsTxt* pUniqueItemsTxt;
-    int nUniqueItemsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables;
 extern "C" const char szItemCppFile[];

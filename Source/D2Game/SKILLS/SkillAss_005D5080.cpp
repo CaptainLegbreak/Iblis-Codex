@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 #ifdef MOVED_TEST
 #define BURST_CENTER 22
 #define MISSILE_FLAGS 7
@@ -10,16 +11,6 @@ struct D2GameStrc;
 struct D2SkillsTxt
 {
     char unk0x000[0x23C];
-};
-struct D2DataTablesStrc
-{
-#ifdef MOVED_TEST
-    int moved_prefix;
-#endif
-    char unk0x000[0xB98];
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[0x04];
-    int nSkillsTxtRecordCount;
 };
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArg);
 struct D2MissileStrc

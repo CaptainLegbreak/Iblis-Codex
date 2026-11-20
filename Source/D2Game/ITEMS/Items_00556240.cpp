@@ -2,6 +2,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define D2_MIN(a,b) ((a)<(b)?(a):(b))
@@ -20,19 +22,6 @@ struct D2ActiveRoomStrc
 
 
 
-struct D2GameStrc
-{
-    char unk00[0x6A];
-    unsigned char nGameType;
-    unsigned char unk_6B[0x2];
-    unsigned char nDifficulty;
-    char unk0x6E[0x02];
-    int bExpansion;
-    int bLadder;
-    unsigned short wItemFormat;
-    unsigned char unk_7A[0x1AAA];
-    unsigned int dwUniqueFlags[128];
-};
 
 struct D2ItemDropStrc
 {
@@ -106,12 +95,6 @@ struct D2ItemsTxt
 
 struct D2UniqueItemsTxt { char unk00[0x24]; unsigned short wVersion; char unk26[2]; unsigned int dwCode; unsigned char nUniqueItemFlags[4]; int nRarity; short nLevel; char unk36[0x116]; };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xC24];
-    D2UniqueItemsTxt* pUniqueItemsTxt;
-    int nUniqueItemsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern unsigned int gdwBitMasks[]; // 0x006CE268
@@ -361,7 +344,7 @@ int __stdcall sub_005566B0_RollUniqueItem(D2GameStrc* pGame,D2UnitStrc* pItem,D2
    {
     if(pRecord->nUniqueItemFlags[0]&gdwBitMasks[0])
     {
-     if(*pnGameType || pGame->bLadder || !(pRecord->nUniqueItemFlags[0]&gdwBitMasks[3]))
+     if(*pnGameType || pGame->dwGameType || !(pRecord->nUniqueItemFlags[0]&gdwBitMasks[3]))
      {
       if(pItemsTxtRecord->dwCode==pRecord->dwCode)
       {
@@ -386,7 +369,7 @@ int __stdcall sub_005566B0_RollUniqueItem(D2GameStrc* pGame,D2UnitStrc* pItem,D2
  {
   if(pUnique->wVersion>=100 && nFormat<100) continue;
   if(!(pUnique->nUniqueItemFlags[0]&gdwBitMasks[0]) || pItemsTxtRecord->dwCode!=pUnique->dwCode) continue;
-  if(!*pnGameType && !pGame->bLadder && (pUnique->nUniqueItemFlags[0]&gdwBitMasks[3])) continue;
+  if(!*pnGameType && !pGame->dwGameType && (pUnique->nUniqueItemFlags[0]&gdwBitMasks[3])) continue;
   if(pUnique->nLevel>ITEMS_GetItemLevel(pItem)) continue;
   if(pItemDrop->nItemIndex>0 && pItemDrop->nItemIndex-1==i) nSelected=i;
   gUniqueSelections[nCount].nIndex=i;

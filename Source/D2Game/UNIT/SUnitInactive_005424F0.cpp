@@ -1,3 +1,4 @@
+#include "D2DataTbls.h"
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char*,const char*,int); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
@@ -69,13 +70,6 @@ struct D2MonStatsTxt
     char unk0x10[0x1A8 - 0x10];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    int unk0xA7C;
-    int nMonStatsTxtRecordCount;
-};
 
 struct D2InactiveUnitNodeStrc
 {

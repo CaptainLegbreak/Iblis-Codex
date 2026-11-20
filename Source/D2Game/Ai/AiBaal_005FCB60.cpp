@@ -1,13 +1,13 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 struct D2ActiveRoomStrc;
 struct D2DynamicPathStrc;
-struct D2GameStrc { char pad00[0x6D]; unsigned char difficulty; };
 struct D2AiControlStrc { char pad00[0x14]; int param[3]; };
 struct D2AiCmdStrc { void* next; void* prev; int param[5]; };
 struct D2MonStatsTxt { char pad00[0x170]; short skill[8]; unsigned char skillMode[8]; char pad188[0x20]; };
-struct D2DataTablesStrc { char pad00[0xA78]; D2MonStatsTxt* monStats; int padA7C; int monCount; };
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const char gszAiBaal[]; // 0x006E3580
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc*); // 0x0045ADF0
@@ -66,10 +66,10 @@ static bool __stdcall sub_005FC860_SummonClone(D2GameStrc* game,D2UnitStrc* unit
  if(living)return false;
  D2UnitStrc* owner=SUNIT_GetOwner(game,unit);
  if(owner&&!SUNIT_IsDead(owner))return false;
- int monsterId=570<sgptDataTables->monCount?570:-1;
+ int monsterId=570<sgptDataTables->nMonStatsTxtRecordCount?570:-1;
  int unused1,unused2;
  int mode=1;
- MONSTERS_GetMinionSpawnInfo(unit,&monsterId,&unused1,&unused2,&mode,game->difficulty,0);
+ MONSTERS_GetMinionSpawnInfo(unit,&monsterId,&unused1,&unused2,&mode,game->nDifficulty,0);
  D2UnitStrc* target=SUNIT_GetTargetUnit(game,unit);
  int x=target?UnitX(target):UnitX(unit);
  int y=target?UnitY(target):UnitY(unit);
@@ -96,9 +96,9 @@ static bool __stdcall sub_005FC860_SummonClone(D2GameStrc* game,D2UnitStrc* unit
 
 static __forceinline D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecord(int nMonsterId)
 {
-    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->monCount)
+    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
-        return &sgptDataTables->monStats[nMonsterId];
+        return &sgptDataTables->pMonStatsTxt[nMonsterId];
     }
 
     return 0;
@@ -217,7 +217,7 @@ void __fastcall AIBAAL_MainSkillHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
     case 1:
     {
         int nDelay = 35;
-        switch (pGame->difficulty)
+        switch (pGame->nDifficulty)
         {
         case 1:
             nDelay = 15;

@@ -1,5 +1,6 @@
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2MissilesTxt
 {
@@ -16,13 +17,6 @@ struct D2MissilesTxt
     char unk0x18B[0x19];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xB64];
-    D2MissilesTxt* pMissilesTxt;
-    char unk0xB68[0x04];
-    int nMissilesTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 extern const unsigned int gdwBitMasks[32];                                                                  // 0x006CE268

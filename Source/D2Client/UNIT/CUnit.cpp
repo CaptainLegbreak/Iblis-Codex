@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Constants.h"
+#include "D2DataTbls.h"
 
 #define PLRMODE_NEUTRAL 1
 #define PLRMODE_TOWNNEUTRAL 5
@@ -91,30 +92,6 @@ struct D2MonStats2Txt
     char unk0x08[0x134 - 0x08];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char unk0xA7C[4];
-    int nMonStatsTxtRecordCount;
-    char unk0xA84[0xA90 - 0xA84];
-    D2MonStats2Txt* pMonStats2Txt;
-    char unk0xA94[4];
-    int nMonStats2TxtRecordCount;
-    unsigned char unk_A9C[0xFC];
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[0x04];
-    int nSkillsTxtRecordCount;
-    unsigned char unk_BA4[0x68];
-    D2SetsTxt* pSetsTxt;
-    int nSetsTxtRecordCount;
-    char unk0xC14[0x4];
-    D2SetItemsTxt* pSetItemsTxt;
-    int nSetItemsTxtRecordCount;
-    char unk0xC20[0x4];
-    D2UniqueItemsTxt* pUniqueItemsTxt;
-    int nUniqueItemsTxtRecordCount;
-};
 
 struct Unicode
 {

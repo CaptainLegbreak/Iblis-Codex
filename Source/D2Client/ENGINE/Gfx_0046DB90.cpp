@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
@@ -97,17 +98,6 @@ struct D2MonStats2Txt
     };
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    void* pMonStatsLinker;
-    int nMonStatsTxtRecordCount;
-    char unk0xA84[0xC];
-    D2MonStats2Txt* pMonStats2Txt;
-    void* pMonStats2Linker;
-    int nMonStats2TxtRecordCount;
-};
 
 struct D2GfxLayerHeaderStrc
 {

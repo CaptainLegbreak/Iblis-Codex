@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 #define STAT_DEXTERITY 2
 #define STAT_HITPOINTS 6
 #define STAT_MAXHP 7
@@ -43,15 +45,6 @@ struct D2UnitStrc;
 struct D2DataTablesStrc;
 struct D2HirelingTxt;
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    unsigned char unk_20[0x4D];
-    unsigned char nDifficulty;
-    unsigned char unk_6E[0x2];
-    int bExpansion;
-};
 
 struct D2MonsterInteractStrc
 {
@@ -79,15 +72,6 @@ struct D2SkillsTxt
     short wReqLevel;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    int unk0xA7C;
-    int nMonStatsTxtRecordCount;
-    unsigned char unk_A84[0x11C];
-    int nSkillsTxtRecordCount;
-};
 
 struct D2HirelingTxt
 {

@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2DataTbls.h"
 
 struct D2GameStrc;
 struct D2SkillsTxt;
@@ -20,12 +21,6 @@ struct D2SkillsTxt
     char nCharClass;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xC6C];
-    int nStuff;
-    int nShiftedStuff;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId); // 0x0045C4B0

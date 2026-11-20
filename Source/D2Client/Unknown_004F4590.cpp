@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 
 struct D2SkillsTxt
@@ -10,13 +11,6 @@ struct D2SkillsTxt
     unsigned char unk_106[0x136];
 };
 
-struct D2DataTablesStrc
-{
-    unsigned char unk_000[0xB98];
-    D2SkillsTxt* pSkillsTxt;
-    unsigned char unk_B9C[0x04];
-    int nSkillsTxtRecordCount;
-};
 void __fastcall sub_004B9A00(int nSound, D2UnitStrc* pUnit, int a3, int a4, int a5); // 0x004B9A00
 
 static __forceinline D2SkillsTxt* DATATBLS_GetSkillsTxtRecord(int nSkillId)

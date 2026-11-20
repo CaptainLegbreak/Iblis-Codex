@@ -2,6 +2,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 #define ASSERT(expr,line) if (!(expr)) { sub_00408A60(gszEmpty_006CC837,sub_00408090(),line); exit(-1); }
 #define AI_PARAM(n) (pMonStatsTxt->wAiParam[n][pGame->nDifficulty])
@@ -48,17 +50,6 @@ struct D2AiTickStrc { D2AiControlStrc* control; int unk04[6]; void* monstats; vo
 
 struct D2AiTableStrc { int unk00; AiFn init; AiFn function; AiFn alternate; };
 
-struct D2DataTablesStrc
-{
-    char unk_00[0xC4];
-    int nStatesTxtRecordCount;
-    unsigned char unk_C8[0x9B8];
-    int monstatsCount;
-    unsigned char unk_A84[0x114];
-    D2SkillsTxt* pSkillsTxt;
-    void* pLinker;
-    int nSkillsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const char gszEmpty_006CC837[]; // 0x006CC837
@@ -69,15 +60,6 @@ extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(void*);
 int __stdcall STATES_CheckState(D2UnitStrc*,int); // 0x00639DF0
 D2AiTableStrc* __fastcall sub_005B15D0_GetAiTable(D2UnitStrc*,int); // 0x005B15D0
 
-struct D2GameStrc
-{
-    char unk_00[0x1C];
-    void* pMemoryPool;
-    char unk_20[0x4D];
-    unsigned char nDifficulty;
-    char unk6E[0x3A];
-    int dwGameFrame;
-};
 
 void __fastcall AIGENERAL_FreeAllAiCommands(D2GameStrc*,D2UnitStrc*); // 0x0058EDE0
 void* __fastcall DATATBLS_GetMonStatsTxtRecord(int); // 0x00451F80
@@ -182,7 +164,7 @@ void __fastcall AITHINK_ExecuteAiFn(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiCo
     }
 
     const int nClassId = pUnit->dwClassId;
-    if (nClassId >= sgptDataTables->monstatsCount)
+    if (nClassId >= sgptDataTables->nMonStatsTxtRecordCount)
     {
         nAiSpecialState = 1;
     }

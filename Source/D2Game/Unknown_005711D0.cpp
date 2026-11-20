@@ -1,19 +1,9 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2StatesTxt { char pad00[0x10]; unsigned char nFlags; char pad11[0x2B]; };
 struct D2ItemStatCostTxt { char pad00[4]; unsigned char nFlags; char pad05[3]; unsigned char nSendBits; unsigned char nSendParamBits; char pad0A[0x13A]; };
-struct D2DataTablesStrc
-{
-    char pad00[0xBC];
-    D2StatesTxt* pStatesTxt;
-    int unkC0;
-    int nStatesTxtRecordCount;
-    char padC8[0xB04];
-    D2ItemStatCostTxt* pItemStatCostTxt;
-    int unkBD0;
-    int nItemStatCostTxtRecordCount;
-};
 struct D2BitBufferStrc { unsigned char* pBuffer; int nBits; int nPos; int nPosBits; int bFull; };
 #pragma pack(push, 1)
 struct D2GSPacketSrvA8 { unsigned char nHeader; unsigned char nUnitType; int nUnitId; unsigned char nSize; unsigned char nState; unsigned char pData[244]; };

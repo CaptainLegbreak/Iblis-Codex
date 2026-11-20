@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 
 struct D2MonsterDataStrc
@@ -46,17 +47,6 @@ struct D2MonStats2Txt
     char unk0x114[0x20];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char unk0xA7C[0x4];
-    int nMonStatsTxtRecordCount;
-    char unk0xA84[0xC];
-    D2MonStats2Txt* pMonStats2Txt;
-    char unk0xA94[0x4];
-    int nMonStats2TxtRecordCount;
-};
 
 struct D2MissileStrc
 {

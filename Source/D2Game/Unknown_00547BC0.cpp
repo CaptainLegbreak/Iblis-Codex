@@ -1,11 +1,11 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2MonRegDataStrc { unsigned short nMonHcIdx; unsigned char nRarity; unsigned char nComponentVariantsMax; unsigned char nComponentVariants[3][16]; };
 struct D2MonsterRegionStrc { unsigned char nAct; unsigned char unk01[3]; int unk04; int unk08; int unk0C; unsigned char nMonCount; unsigned char nTotalRarity; unsigned char nSpawnCount; unsigned char unk13; D2MonRegDataStrc pMonData[13]; };
 struct D2MonStatsTxt { char pad00[0x18]; short wMonStatsEx; char pad1A[0x1A8 - 0x1A]; };
 struct D2MonStats2Txt { char pad00[0xEC]; unsigned char nTotalPieces; char padED[0x134 - 0xED]; };
-struct D2DataTablesStrc { char pad00[0xA78]; D2MonStatsTxt* pMonStatsTxt; void* pMonStatsLinker; int nMonStatsTxtRecordCount; char padA84[0xC]; D2MonStats2Txt* pMonStats2Txt; void* pMonStats2Linker; int nMonStats2TxtRecordCount; };
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0

@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2StaticPathStrc;
 struct D2MissileStrc;
@@ -45,10 +46,6 @@ struct D2MonStatsTxt { char pad[0x18]; short wMonStatsEx; char pad2[0x1a8 - 0x1a
 
 struct D2MonStats2Txt { char pad[8]; signed char nSizeX; char pad2[0x134 - 9]; };
 
-struct D2DataTablesStrc {
-    char pad[0xA78]; D2MonStatsTxt* pMonStatsTxt; char pad1[4]; int nMonStatsTxtRecordCount;
-    char pad2[0xA90 - 0xA84]; D2MonStats2Txt* pMonStats2Txt; char pad3[4]; int nMonStats2TxtRecordCount;
-};
 
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* room, int x, int y); // 0x00463740
 D2UnitStrc* __fastcall sub_00466730_SpawnPresetUnit(int nClassId, int nX, int nY, int nUnitType, int nArg); // 0x00466730

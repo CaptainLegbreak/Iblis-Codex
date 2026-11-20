@@ -3,6 +3,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 #define DAMAGERESULTFLAG_SUCCESSFULHIT 1
 #define SKILL_DIMVISION 71
@@ -38,17 +40,6 @@ struct Unit;
 struct D2CoordStrc;
 struct D2ItemStatCostTxt;
 
-struct D2GameStrc
-{
-    char pad0x00[0x6A];
-    unsigned char nGameType;
-    char pad0x6B[0x02];
-    unsigned char nDifficulty;
-    char pad0x6E[0x06];
-    int dwGameType;
-    unsigned char unk_78[0x30];
-    int dwGameFrame;
-};
 
 
 
@@ -189,27 +180,6 @@ struct D2SkillsTxt
     char unk0x1DD[0x5F];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xC4];
-    int nStatesTxtRecordCount;
-    unsigned char unk_C8[0x9B8];
-    int nMonStatsTxtRecordCount;
-    unsigned char unk_A84[0xE8];
-    int nMissilesTxtRecordCount;
-    D2MonLvlTxt* pMonLvlTxt;
-    int nMonLvlTxtRecordCount;
-    unsigned char unk_B78[0x20];
-    D2SkillsTxt* pSkillsTxt;
-    void* pSkillsLinker;
-    int nSkillsTxtRecordCount;
-    char unk0xBA4[0x28];
-    D2ItemStatCostTxt* pItemStatCostTxt;
-    void* pItemStatCostLinker;
-    int nItemStatCostTxtRecordCount;
-    char unk0xBD8[0x18];
-    int nPetTypeTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __stdcall SKILLS_GetToHitFactor(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x006449F0

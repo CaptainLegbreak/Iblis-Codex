@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Constants.h"
+#include "D2DataTbls.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNITFLAGEX_0x40000 0x40000
@@ -130,19 +131,6 @@ struct D2MonStatsTxt
     short wUMonSound;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xA80];
-    int nMonStatsTxtRecordCount;
-    unsigned char unk_A84[0xE0];
-    D2MissilesTxt* pMissilesTxt;
-    char unk0xB68[0x04];
-    int nMissilesTxtRecordCount;
-    unsigned char unk_B70[0x28];
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[0x04];
-    int nSkillsTxtRecordCount;
-};
 
 struct D2SkillsTxt
 {

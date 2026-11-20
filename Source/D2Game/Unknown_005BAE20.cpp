@@ -1,3 +1,4 @@
+#include "D2GameStrc.h"
 struct D2UnitStrc;
 struct D2BitBufferStrc;
 struct D2ActiveRoomStrc;
@@ -35,16 +36,6 @@ struct D2Act3Quest5Strc
     int nHoradricCubesMissing;
 };
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
-struct D2GameStrc
-{
-#ifdef MOVED_TEST
-    int movedGamePadding;
-#endif
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-    char unk0x6E[0x3A];
-    int dwGameFrame;
-};
 struct D2PlayerDataStrc
 {
     char szName[0x10];

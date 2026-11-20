@@ -1,11 +1,6 @@
 #include "D2Structs.h"
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x88];
-    int dwGameFrame;
-};
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 
 struct D2MissilesTxt
@@ -26,13 +21,6 @@ struct D2MissilesTxt
     char unk0x18D[0x17];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xB64];
-    D2MissilesTxt* pMissilesTxt;
-    void* pMissilesLinker;
-    int nMissilesTxtRecordCount;
-};
 
 struct D2DamageStrc
 {

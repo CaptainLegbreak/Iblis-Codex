@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2GameActsViewStrc;
 struct D2RoomWarpCoordsStrc;
@@ -48,7 +49,6 @@ D2UnitStrc* __fastcall sub_005B3040_SpawnInCoordList(D2GameStrc*,D2ActiveRoomStr
 
 struct D2MonStatsTxt { short nId; short nBaseId; char unk_04[0x1A4]; };
 
-struct D2DataTablesStrc { char unk_000[0xA78]; D2MonStatsTxt* pMonStatsTxt; int unk_A7C; int nMonStatsTxtRecordCount; };
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 

@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 #define MONSTER_AKARA 148
 #define MONSTER_DROGNAN 177
@@ -58,11 +59,6 @@ struct D2QuestArgStrc
 };
 
 
-struct D2GameStrc
-{
-    char pad0x00[0x6D];
-    unsigned char nDifficulty;
-};
 
 void __fastcall PLRINTRO_SetQuestIntroFlag(D2UnitStrc*, D2GameStrc*, int); // 0x00572360
 

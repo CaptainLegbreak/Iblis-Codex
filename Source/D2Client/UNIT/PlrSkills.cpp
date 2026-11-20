@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
@@ -48,27 +49,6 @@ struct D2SkillsTxt
     char unk0x148[0xF4];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xBC];
-    D2StatesTxt* pStatesTxt;
-    void* pStatesLinker;
-    int nStatesTxtRecordCount;
-    char unk0x0C8[0xA9C];
-    D2MissilesTxt* pMissilesTxt;
-    char unk0xB68[0x04];
-    int nMissilesTxtRecordCount;
-    char unk0xB70[0x28];
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[4];
-    int nSkillsTxtRecordCount;
-    unsigned char unk_BA4[0x1C];
-    int nOverlayTxtRecordCount;
-    unsigned char unk_BC4[0x8];
-    D2ItemStatCostTxt* pItemStatCostTxt;
-    int unk0xBD0;
-    int nItemStatCostTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250

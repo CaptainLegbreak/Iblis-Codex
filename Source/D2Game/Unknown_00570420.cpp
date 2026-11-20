@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Constants.h"
+#include "D2DataTbls.h"
 
 #define MONTYPEFLAG_UNIQUE 8
 #define STATE_STUNNED 0x15
@@ -72,23 +73,6 @@ struct D2SkillsTxt
     char unk0x64[0x23C - 0x64];
 };
 
-struct D2DataTablesStrc
-{
-    char unk_00[0xBC];
-    D2StatesTxt* pStatesTxt;
-    int unk_C0;
-    int nStatesTxtRecordCount;
-    unsigned char unk_C8[0xAD0];
-    D2SkillsTxt* pSkillsTxt;
-    void* pSkillsLinker;
-    int nSkillsTxtRecordCount;
-    unsigned char unk_BA4[0x20];
-    D2CharStatsTxt* charStats;
-    int charStatsCount;
-    D2ItemStatCostTxt* pItemStatCostTxt;
-    int unk_BD0;
-    int nItemStatCostTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
@@ -292,7 +276,7 @@ void __fastcall PLAYERSTATS_LevelUp(D2GameStrc* game,D2UnitStrc* unit)
  STATLIST_SetUnitStat(unit,30,DATATBLS_GetLevelThreshold(classId,level),0);
  int gained=level-previousLevel;
  if(gained>0) {
-  D2CharStatsTxt* record=(classId>=0 && classId<sgptDataTables->charStatsCount)?&sgptDataTables->charStats[classId]:0;
+  D2CharStatsTxt* record=(classId>=0 && classId<sgptDataTables->nCharStatsTxtRecordCount)?&sgptDataTables->pCharStatsTxt[classId]:0;
   int life=STATLIST_GetUnitBaseStat(unit,7,0)+((record->lifePerLevel*gained)<<6);
   STATLIST_SetUnitStat(unit,7,life,0);
   int maxLife=sub_00625D10(unit);
@@ -335,9 +319,9 @@ void __fastcall sub_C899_Emit_00570A50(D2UnitStrc* pUnit, int nValue)
 
 static __forceinline D2CharStatsTxt* PLRSAVE2_GetCharStatsTxtRecord(int nClass)
 {
-    if (nClass >= 0 && nClass < sgptDataTables->charStatsCount)
+    if (nClass >= 0 && nClass < sgptDataTables->nCharStatsTxtRecordCount)
     {
-        return &sgptDataTables->charStats[nClass];
+        return &sgptDataTables->pCharStatsTxt[nClass];
     }
 
     return 0;

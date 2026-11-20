@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 // build: context MonStats
 // build: context RollLimited
 // build: context Roll
@@ -19,7 +20,6 @@ struct D2LevelsTxt {
  char pad35; short normal[25],night[25];
 };
 struct D2MonStatsTxt { char pad00[0xC]; unsigned char flags[4]; char pad10[0x1E]; unsigned char rarity; char pad2F[0x179]; };
-struct D2DataTablesStrc { char pad00[0xA78]; D2MonStatsTxt* monStats; int padA7C; int monCount; char padA84[0x1D8]; int levelCount; };
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const unsigned char gnSpawnMask; // 0x006CE268
 extern const unsigned char gnRangedMask; // 0x006CE278
@@ -51,8 +51,8 @@ static __forceinline unsigned int RollLimited(D2SeedStrc* pSeed, int nMax)
     return (unsigned int)((((unsigned int)nMax - 1) & (unsigned int)nMax) ? (unsigned int)Roll(pSeed) % nMax : Roll(pSeed) & (nMax - 1));
 }
 static __forceinline D2MonStatsTxt* MonStats(int id) {
- if(id<0||id>=sgptDataTables->monCount)return 0;
- return &sgptDataTables->monStats[id];
+ if(id<0||id>=sgptDataTables->nMonStatsTxtRecordCount)return 0;
+ return &sgptDataTables->pMonStatsTxt[id];
 }
 __declspec(noinline) static void __stdcall sub_005475E0_SelectMonsters(D2SeedStrc*,int,D2LevelsTxt*,D2MonsterRegionStrc*);
 static void __stdcall sub_005475E0_SelectMonsters(D2SeedStrc*,int,D2LevelsTxt*,D2MonsterRegionStrc*); // 0x005475E0
@@ -99,7 +99,7 @@ void __fastcall MONSTERREGION_InitializeAll(void* pool,D2MonsterRegionStrc** reg
  if(!DATATBLS_GetDifficultyLevelsTxtRecord(difficulty)) {
   sub_00408A60(&gszEmptyAssertText,sub_00408090(),0x83);exit(-1);
  }
- for(int level=1;level<sgptDataTables->levelCount;++level) {
+ for(int level=1;level<sgptDataTables->nLevelsTxtRecordCount;++level) {
   D2MonsterRegionStrc* region=(D2MonsterRegionStrc*)FOG_AllocPool(pool,sizeof(D2MonsterRegionStrc),gszMonsterRegion,0x87,0);
   memset(region,0,sizeof(D2MonsterRegionStrc));
   D2LevelsTxt* levels=DATATBLS_GetLevelsTxtRecord(level);

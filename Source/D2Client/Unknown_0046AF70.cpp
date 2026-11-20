@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2SeedStrc;
 struct D2DrlgCoordsStrc;
@@ -87,17 +88,6 @@ struct D2LevelsTxt
     short wCAmt[4];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char unk0xA7C[4];
-    int nMonStatsTxtRecordCount;
-    char unk0xA84[0x0C];
-    D2MonStats2Txt* pMonStats2Txt;
-    char unk0xA94[4];
-    int nMonStats2TxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0

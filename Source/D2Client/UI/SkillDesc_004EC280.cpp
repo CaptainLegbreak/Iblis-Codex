@@ -1,3 +1,4 @@
+#include "D2DataTbls.h"
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
 
@@ -68,17 +69,6 @@ struct D2MonStatsTxt
     char unk0xB0[0xF8];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x0[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char unk0xA7C[0x4];
-    int nMonStatsTxtRecordCount;
-    char unk0xA84[0x114];
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[0x4];
-    int nSkillsTxtRecordCount;
-};
 
 struct D2MonStatsInitStrc
 {

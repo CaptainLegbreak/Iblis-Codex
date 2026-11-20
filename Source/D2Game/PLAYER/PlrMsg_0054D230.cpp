@@ -1,13 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
-struct D2GameStrc
-{
-    char unk0x00[0x70];
-    int bExpansion;
-    char f_74[0x34];
-    unsigned int dwGameFrame;
-};
 
 
 typedef char H15_CheckInventoryOffset[(int)&((D2UnitStrc*)0)->pInventory == 0x60 ? 1 : -1];

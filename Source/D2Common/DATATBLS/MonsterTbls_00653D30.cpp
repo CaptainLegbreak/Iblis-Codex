@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2DataTbls.h"
 
 #define MON_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2MonStatsTxt;
@@ -26,7 +27,6 @@ struct D2MonRecord0C { char unk[0xC]; };
 
 struct D2MonItemPercentDataTbl { int nMonItemPercentTxtRecordCount; D2MonItemPercentTxt* pMonItemPercentTxt; };
 
-struct D2DataTablesStrc { char unk[0xA80]; int nMonStatsTxtRecordCount; };
 
 extern void* gpMonTable_96BDC4; // 0x0096BDC4
 extern D2TxtLinkStrc* gpMonTableLinker_96BDC8; // 0x0096BDC8

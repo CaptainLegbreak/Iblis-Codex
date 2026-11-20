@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define D2_NORETURN __declspec(noreturn)
 #define Min(a,b) ((a) < (b) ? (a) : (b))
@@ -86,16 +87,6 @@ struct D2SkillsTxt
     int dwCostAdd;
 };
 
-struct D2DataTablesStrc
-{
-    unsigned char pad00[0xB98];
-    D2SkillsTxt* pSkillsTxt;
-    int unknownB9C;
-    int nSkillsTxtRecordCount;
-    char unk0xBA4[0xC6C - 0xBA4];
-    int nStuff;
-    int nShiftedStuff;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 unsigned short __stdcall ITEMS_GetPrefixId(D2UnitStrc*, int); // 0x00627EC0

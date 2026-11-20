@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define MONSTER_TENTACLEHEAD1 261
 #define MONSTATSFLAGINDEX_SETBOSS 4
@@ -39,13 +40,6 @@ struct D2MonStatsTxt
     char pad0x2E[0x1A8 - 0x2E];
 };
 
-struct D2DataTablesStrc
-{
-    char pad0x00[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char pad0xA7C[4];
-    int nMonStatsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern unsigned int gdwBitMasks[]; // 0x006CE268

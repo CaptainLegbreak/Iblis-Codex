@@ -3,6 +3,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 #define STAT_ITEM_MAGICARROW 157
 #define DAMAGERESULTFLAG_SUCCESSFULHIT 1
@@ -26,15 +28,6 @@ struct D2MonsterDataStrc;
 struct D2SummonArgStrc;
 struct D2ModeChangeStrc;
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x58];
-    unsigned short wItemFormat;
-    unsigned char unk_7A[0x2E];
-    int dwGameFrame;
-};
 
 
 struct D2ItemDropStrc
@@ -91,15 +84,6 @@ struct D2PetTypeTxt
     unsigned short unk0xDE;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xB98];
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[0x04];
-    int nSkillsTxtRecordCount;
-    char unk0xBA4[0x4C];
-    int nPetTypeTxtRecordCount;
-};
 
 struct D2DamageStrc
 {

@@ -1,12 +1,8 @@
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize);
 #pragma intrinsic(memset)
 
-struct D2GameStrc
-{
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-};
 
 struct D2MonStatsTxt
 {

@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define UNIT_PLAYER 0
 #define STAT_HITPOINTS 6
@@ -23,12 +24,6 @@ struct D2CharStatsTxt
     char unk0xAE[0x16];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xBC4];
-    D2CharStatsTxt* pCharStatsTxt;
-    int nCharStatsTxtRecordCount;
-};
 
 struct D2SaveHeaderStrc
 {

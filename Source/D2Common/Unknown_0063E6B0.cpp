@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 enum
 {
@@ -41,13 +42,6 @@ struct D2MonStats2Txt
     D2UnkMonCompStrc unk0x26[16];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    int unk0xA7C;
-    int nMonStatsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 extern int gnMonStatsMissileOffsets_006EA938[];                                                             // 0x006EA938

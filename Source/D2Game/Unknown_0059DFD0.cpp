@@ -1,13 +1,9 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Path.h"
+#include "D2GameStrc.h"
 
 
-struct D2GameStrc
-{
-    char unk0x00[0xBC];
-    D2DrlgActStrc* pAct[5];
-};
 
 struct D2QuestDataStrc
 {

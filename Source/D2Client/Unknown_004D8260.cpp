@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
@@ -62,13 +63,6 @@ struct D2SkillsTxt
     char unk0x30[0x23C - 0x30];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xB98];
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[4];
-    int nSkillsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250

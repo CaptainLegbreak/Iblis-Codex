@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2DataTbls.h"
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2LightStrc;
 struct D2RoomStrc;
@@ -88,17 +89,6 @@ struct D2MonStatsTxt
     char unk0x1A0[0x08];
 };
 
-struct D2DataTablesStrc
-{
-    char pad0x00[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char pad0xA7C[0x04];
-    int nMonStatsTxtRecordCount;
-    char unk0xA84[0x0C];
-    D2MonStats2Txt* pMonStats2Txt;
-    char unk0xA94[0x04];
-    int nMonStats2TxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0

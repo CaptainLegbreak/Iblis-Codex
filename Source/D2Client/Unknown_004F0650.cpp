@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2SkillsTxt
 {
@@ -10,15 +11,6 @@ struct D2SkillsTxt
     char unk_120[0x23C - 0x120];
 };
 
-struct D2DataTablesStrc
-{
-    char unk_000[0xB6C];
-    int nMissilesTxtRecordCount;
-    char unk_B70[0xB98 - 0xB70];
-    D2SkillsTxt* pSkillsTxt;
-    char unk_B9C[4];
-    int nSkillsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0

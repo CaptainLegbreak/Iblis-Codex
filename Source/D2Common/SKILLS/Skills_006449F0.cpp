@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 struct D2InventoryStrc;
 struct D2SkillsTxt;
 struct D2SkillCalcStrc;
@@ -33,16 +34,6 @@ struct D2SkillsTxt
     char unk0x228[572 - 532 - 20];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[64];
-    char* pSkillsCode;
-    unsigned int nSkillsCodeSize;
-    char unk0x48[2968 - 64 - 8];
-    D2SkillsTxt* pSkillsTxt;
-    void* pSkillsLinker;
-    int nSkillsTxtRecordCount;
-};
 
 struct D2SkillCalcStrc
 {

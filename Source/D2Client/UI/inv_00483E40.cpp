@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
@@ -77,12 +78,6 @@ struct D2SetItemsTxt
     char unk0x02[0x1B6];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xC18];
-    D2SetItemsTxt* pSetItemsTxt;
-    int nSetItemsTxtRecordCount;
-};
 
 struct D2InvRectStrc
 {

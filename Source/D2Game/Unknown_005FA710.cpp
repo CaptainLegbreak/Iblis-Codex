@@ -1,5 +1,5 @@
 #include "D2Structs.h"
-struct D2GameStrc { char pad00[0x6D]; unsigned char nDifficulty; };
+#include "D2GameStrc.h"
 struct D2AiControlStrc { char pad00[0x14]; int dwAiParam[3]; };
 struct D2MonStatsTxt { char pad00[0x56]; short wAiParam[8][3]; char pad86[0xEA]; short nSkill[8]; unsigned char nSkillMode[8]; };
 struct D2AiTickParamStrc { D2AiControlStrc* pAiControl; int unk04; D2UnitStrc* pTarget; int unk0C[2]; int nTargetDistance; int bCombat; D2MonStatsTxt* pMonstatsTxt; };

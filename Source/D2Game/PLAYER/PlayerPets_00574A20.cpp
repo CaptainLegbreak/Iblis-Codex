@@ -2,6 +2,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2PetInfoStrc;
@@ -48,17 +50,6 @@ struct D2PlayerDataStrc
     D2PlayerPetStrc* pPlayerPets;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char unk0xA7C[0x04];
-    int nMonStatsTxtRecordCount;
-    char unk0xA84[0x164];
-    D2PetTypeTxt* pPetTypeTxt;
-    char unk0xBEC[0x04];
-    int nPetTypeTxtRecordCount;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -70,13 +61,6 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
 
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x9C];
-    D2DrlgActStrc* pAct[5];
-};
 
 struct D2ModeChangeStrc
 {

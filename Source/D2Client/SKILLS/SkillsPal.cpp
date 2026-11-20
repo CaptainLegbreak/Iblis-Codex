@@ -1,11 +1,9 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2GameStrc;
 struct D2SkillsTxt { char unk[0x102]; short sound; char tail[0x138]; };
-struct D2DataTablesStrc {
-    char unk[0xB98]; D2SkillsTxt* pSkillsTxt; int unkB9C; int nSkillsTxtRecordCount;
-};
 struct D2MonStatsTxt { char unk[0x32]; short nVelocity, nRun; };
 struct D2CharStatsTxt { char unk[0x40]; unsigned char nWalkSpeed, nRunSpeed; };
 struct D2ModeChangeStrc {

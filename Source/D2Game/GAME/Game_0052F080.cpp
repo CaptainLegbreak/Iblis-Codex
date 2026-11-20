@@ -1,3 +1,4 @@
+#include "D2GameStrc.h"
 #ifdef MOVED_TEST
 #define BUCKETS 132
 #define INFO_DESCRIPTION_SIZE 40
@@ -26,16 +27,6 @@ struct D2CriticalSectionStrc
     unsigned long SpinCount;
 };
 
-struct D2GameStrc
-{
-#ifdef MOVED_TEST
-    int moved_prefix;
-#endif
-    char unk0x0000[0x18];
-    D2CriticalSectionStrc* lpCriticalSection;
-    char unk0x001C[0x1104];
-    D2UnitStrc* pUnitList[5][BUCKETS];
-};
 
 struct D2UnitInfoStrc
 {

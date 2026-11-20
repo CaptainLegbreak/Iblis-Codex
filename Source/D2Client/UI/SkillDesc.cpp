@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct Unicode;
 struct UnicodeChar;
@@ -93,13 +94,6 @@ int __stdcall MISSILE_GetMaxElemDamage(D2UnitStrc* pMissile, D2UnitStrc* pOwner,
 D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
 static __declspec(noinline) void __stdcall sub_004E96E0_DrawDamageRange(int nColor, int nY, int nMin, int nMax, int nLeft, int nRight);
 
-struct D2DataTablesStrc
-{
-    char unk_00[0xB98];
-    D2SkillsTxt* pSkillsTxt;
-    void* pSkillsLinker;
-    int nSkillsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* gpDataTables_00744304; // 0x00744304
 int __fastcall sub_00451F60_UnitClassId(D2UnitStrc*); // 0x00451F60

@@ -1,3 +1,4 @@
+#include "D2DataTbls.h"
 struct D2ActiveRoomStrc;
 struct D2DynamicPathStrc;
 #pragma pack(push, 4)
@@ -24,7 +25,6 @@ struct D2GameStrc { char pad00[0x6D]; unsigned char difficulty; };
 struct D2AiControlStrc { char pad00[0x14]; int param[3]; };
 struct D2AiCmdStrc { void* next; void* prev; int param[5]; };
 struct D2MonStatsTxt { char pad00[0x170]; short skill[8]; unsigned char skillMode[8]; char pad188[0x20]; };
-struct D2DataTablesStrc { char pad00[0xA78]; D2MonStatsTxt* monStats; int padA7C; int monCount; };
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const char gszAiBaal[]; // 0x006E3580
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc*); // 0x0045ADF0
@@ -85,7 +85,7 @@ static __forceinline unsigned __int64 SEED_RollNextHL_Inline(D2SeedStrc* pSeed, 
 // 0x00463900
 int __fastcall sub_00463900_GetValidMonsterId(int nMonsterId)
 {
- if(nMonsterId<0 || nMonsterId>=sgptDataTables->monCount) return -1;
+ if(nMonsterId<0 || nMonsterId>=sgptDataTables->nMonStatsTxtRecordCount) return -1;
  return nMonsterId;
 }
 __declspec(noinline) static bool __stdcall sub_005FC860_SummonClone(D2GameStrc*,D2UnitStrc*,D2AiControlStrc*);
@@ -138,9 +138,9 @@ static bool __stdcall sub_005FC860_SummonClone(D2GameStrc* game,D2UnitStrc* unit
 // build: context MONSTERMODE_GetMonStatsTxtRecord
 static __forceinline D2MonStatsTxt* MONSTERMODE_GetMonStatsTxtRecord(int nMonsterId)
 {
-    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->monCount)
+    if (nMonsterId >= 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
-        return &sgptDataTables->monStats[nMonsterId];
+        return &sgptDataTables->pMonStatsTxt[nMonsterId];
     }
 
     return 0;

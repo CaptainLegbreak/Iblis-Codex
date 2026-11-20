@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2GameStrc.h"
 
 struct D2SaveHeaderStrc;
 struct D2ClientInfoStrc;
@@ -8,11 +9,6 @@ struct D2ActiveRoomStrc
     D2ClientStrc** ppClients;
     char unk0x4C[0x2C];
     unsigned int nNumClients;
-};
-struct D2GameStrc
-{
-    char unk0x00[136];
-    D2ClientStrc* pClientList;
 };
 struct D2ClientKeySkillStrc
 {

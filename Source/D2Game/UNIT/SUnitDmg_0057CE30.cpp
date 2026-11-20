@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 #define D2MAX(a, b) (((a) > (b)) ? (a) : (b))
 #define D2MIN(a, b) (((a) < (b)) ? (a) : (b))
@@ -12,11 +13,6 @@ struct D2CurseStrc;
 
 
 
-struct D2GameStrc
-{
-    char unk0x00[0xA8];
-    int dwGameFrame;
-};
 
 struct D2MonStatsTxt
 {

@@ -1,11 +1,7 @@
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 // build: ob1
 
-struct D2GameStrc
-{
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-};
 
 struct D2InventoryStrc;
 struct D2CorpseStrc;

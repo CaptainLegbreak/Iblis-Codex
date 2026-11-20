@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define MIN(a,b) ((a)<(b)?(a):(b))
 #define MAX(a,b) ((a)<(b)?(b):(a))
@@ -22,23 +23,6 @@ struct D2SkillsTxt
     char unk0x148[0xF4];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xB6C];
-    int nMissilesTxtRecordCount;
-    char unk0xB70[0x28];
-    union
-    {
-        D2SkillsTxt* skills;
-        D2SkillsTxt* pSkillsTxt;
-    };
-    int unkB9C;
-    union
-    {
-        int skillCount;
-        int nSkillsTxtRecordCount;
-    };
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc*,D2UnitStrc*); // 0x00553540
@@ -135,7 +119,7 @@ static inline int sub_0044BE50(D2UnitStrc* unit)
 // 0x005D16A0
 int __fastcall sub_005D16A0_TransferLifeFromDamage(D2GameStrc* game,D2UnitStrc* unit,int skillId,int level)
 {
- D2SkillsTxt* skill=(skillId>=0 && skillId<sgptDataTables->skillCount)?&sgptDataTables->skills[skillId]:0;
+ D2SkillsTxt* skill=(skillId>=0 && skillId<sgptDataTables->nSkillsTxtRecordCount)?&sgptDataTables->pSkillsTxt[skillId]:0;
  if(!skill)return 0;
  D2UnitStrc* target=SUNIT_GetTargetUnit(game,unit);
  if(!target)return 0;

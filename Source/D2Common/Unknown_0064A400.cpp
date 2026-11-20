@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2MissileDataStrc
 {
@@ -16,13 +17,6 @@ struct D2MissilesTxt
     unsigned char unk_08[0x19C];
 };
 
-struct D2DataTablesStrc
-{
-    unsigned char unk_000[0xB64];
-    D2MissilesTxt* pMissilesTxt;
-    unsigned char unk_B68[0x04];
-    int nMissilesTxtRecordCount;
-};
 extern const unsigned char gbBitMasks_006CE268[]; // 0x006CE268
 
 static __forceinline D2MissilesTxt* DATATBLS_GetMissilesTxtRecord(int nMissileId)

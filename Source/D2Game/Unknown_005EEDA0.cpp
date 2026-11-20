@@ -2,6 +2,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 
 
@@ -14,13 +16,6 @@ struct D2TargetNodeStrc
     D2TargetNodeStrc* unk0x0C;
 };
 
-struct D2GameStrc
-{
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-    char unk0x6E[0x10F8 - 0x6E];
-    D2TargetNodeStrc* pTargetNodes[10];
-};
 
 struct D2MonStatsTxt
 {
@@ -39,15 +34,6 @@ struct D2SkillsTxt
     char unk0x84[0x23C - 0x84];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xC4];
-    int nStatesTxtRecordCount;
-    char unk0x0C8[0xB98 - 0xC8];
-    D2SkillsTxt* pSkillsTxt;
-    int unk0xB9C;
-    int nSkillsTxtRecordCount;
-};
 
 struct D2AiTickParamStrc
 {

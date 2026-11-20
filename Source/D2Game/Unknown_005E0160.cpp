@@ -2,6 +2,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 #define MONMODE_ATTACK1 4
@@ -13,13 +15,6 @@ struct D2PlayerDataStrc;
 struct D2PetMoveStrc;
 
 
-struct D2GameStrc
-{
-    char unk00[0x6D];
-    unsigned char nDifficulty;
-    char unk6E[0x3A];
-    int dwGameFrame;
-};
 
 struct D2AiControlStrc
 {
@@ -48,13 +43,6 @@ struct D2AiTickParamStrc
     D2MonStatsTxt* pMonstatsTxt;
 };
 
-struct D2DataTablesStrc
-{
-    char unk_00[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    int unk_A7C;
-    int nMonStatsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* gpDataTables; // 0x00744304
 

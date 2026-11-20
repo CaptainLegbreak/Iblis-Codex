@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 #define QUEST_A4Q2_DIABLO 23
 #define QUESTSTATEFLAG_A4Q2 26
@@ -25,19 +26,6 @@ struct D2ObjInitFnStrc;
 struct D2ModeChangeStrc;
 struct D2ObjOperateFnStrc;
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x4D];
-    unsigned char nDifficulty;
-    char unk0x6E[0x02];
-    int bExpansion;
-    unsigned char unk_74[0x34];
-    unsigned int dwGameFrame;
-    char unk0xAC[0x10];
-    D2DrlgActStrc* pAct[5];
-};
 
 
 struct D2PlayerDataStrc

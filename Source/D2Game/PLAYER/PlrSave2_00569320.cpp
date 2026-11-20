@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
 #define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
 struct D2StatListExStrc;
@@ -72,13 +74,6 @@ struct D2ItemStatCostTxt
     char unk0x0C[0x144 - 0x0C];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xBCC];
-    D2ItemStatCostTxt* pItemStatCostTxt;
-    char unk0xBD0[0x04];
-    int nItemStatCostTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268
@@ -87,11 +82,6 @@ int __stdcall BITMANIP_GetSize(D2BitBufferStrc* pBuffer); // 0x00410E90
 void __stdcall BITMANIP_Write(D2BitBufferStrc* pBuffer, int nValue, int nBits); // 0x00410EB0
 int __stdcall STATLIST_GetBaseStatsData(D2StatListExStrc* pStatListEx, D2StatStrc* pStatBuffer, int nBufferSize); // 0x00625C90
 
-struct D2GameStrc
-{
-    char pad0[0x6A]; unsigned char nGameType; char pad6B[2]; unsigned char nDifficulty;
-    char pad6E[0xE]; unsigned int dwInitSeed; int dwObjSeed; int bInitSeed;
-};
 
 #pragma pack(push, 1)
 struct D2SaveHeaderStrc
@@ -335,7 +325,7 @@ int __fastcall PLRSAVE2_ReadSaveHeader(D2GameStrc* pGame, D2ClientStrc* pClient,
     int& bUseSeed = nSkillId;
     bUseSeed = nAct & 0x80;
     CLIENTS_SetActNo(pClient, GetSavedAct(nAct));
-    if (pGame->nGameType == 3 && !pGame->bInitSeed && bUseSeed)
+    if (pGame->nGameType == 3 && !pGame->InitSeed && bUseSeed)
         pGame->dwInitSeed = pHeader->dwMapSeed;
     *ppPlayer = SUNIT_AllocUnitData(0, nClass, 0, 0, pGame, 0, 0, 0, 0);
     sub_00569F20(pGame, *ppPlayer, pClient);

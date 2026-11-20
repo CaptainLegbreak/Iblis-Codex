@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define UNIT_INVALID 6
 struct D2StaticPathStrc;
@@ -120,17 +121,6 @@ struct D2SkillsTxt
 
 typedef int (__fastcall* AREASCANFN)(void* pArg, D2UnitStrc* pUnit);
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xB64];
-    D2MissilesTxt* pMissilesTxt;
-    char unk0xB68[0xB6C - 0xB64 - 4];
-    int nMissilesTxtRecordCount;
-    char unk0xB70[0xB98 - 0xB6C - 4];
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[0xBA0 - 0xB98 - 4];
-    int nSkillsTxtRecordCount;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

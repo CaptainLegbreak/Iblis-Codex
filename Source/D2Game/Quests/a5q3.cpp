@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 struct D2PlayerDataStrc;
 struct D2QuestGUIDStrc;
@@ -22,15 +23,6 @@ struct D2QuestDataStrc;
 struct D2QuestArgStrc;
 struct D2MapAIStrc;
 
-struct D2GameStrc
-{
-    char unk0x00[0x6A];
-    unsigned char nGameType;
-    char unk6B[2];
-    unsigned char nDifficulty;
-    char unk0x6E[0x3A];
-    int dwGameFrame;
-};
 
 
 struct D2PlayerDataStrc

@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 struct D2RoomCoordListStrc;
 struct D2ActiveRoomStrc;
 struct D2UnkMonCreateStrc2;
@@ -18,13 +19,6 @@ struct D2MonStatsTxt
     char pad0x32[0x1A8 - 0x32];
 };
 
-struct D2DataTablesStrc
-{
-    char pad0x00[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char pad0xA7C[4];
-    int nMonStatsTxtRecordCount;
-};
 
 struct D2MonsterRegionStrc
 {

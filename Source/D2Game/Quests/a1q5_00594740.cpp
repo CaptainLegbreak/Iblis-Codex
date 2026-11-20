@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 #define UNIT_PLAYER 0
 #define LEVEL_ROGUEENCAMPMENT 1
@@ -15,15 +16,6 @@ struct D2QuestGUIDStrc;
 struct D2ObjInitFnStrc;
 
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x6D - 0x20];
-    unsigned char nDifficulty;
-    char unk0x6E[0xA8 - 0x6E];
-    int dwGameFrame;
-};
 
 struct D2PlayerDataStrc
 {

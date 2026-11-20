@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -16,7 +18,6 @@ unsigned char __stdcall DRLG_GetActNoFromLevelId(int level); // 0x006427F0
 int __stdcall DUNGEON_GetTownLevelIdFromActNo(unsigned char act); // 0x0061AB70
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* room); // 0x0061AB00
 
-struct D2GameStrc { char unk_00[0x1C]; void* pMemoryPool; char unk_20[0x88]; int dwGameFrame; };
 
 void __fastcall sub_00535430_ClearPortal(D2GameStrc* game,D2UnitStrc* unit); // 0x00535430
 int __fastcall sub_0056D130(D2GameStrc* game,D2UnitStrc* unit,D2ActiveRoomStrc* room,int x,int y,int level,D2UnitStrc** out,int object,int permanent); // 0x0056D130
@@ -32,7 +33,6 @@ struct D2ItemsTxt { char unk_00[0x98]; short nState; char unk_9A[4]; short nStat
 
 struct D2ItemStatCostTxt { char unk_00[0x18]; unsigned char nValShift; char unk_19[0x19]; unsigned short nMaxStat; char unk_34[0x110]; };
 
-struct D2DataTablesStrc { char unk_00[0xC4]; int nStatesCount; char unk_C8[0xB04]; D2ItemStatCostTxt* pItemStatCostTxt; int unk_BD0; int nItemStatCostCount; };
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __fastcall sub_0044BE50_GetUnitTypeOrInvalid(D2UnitStrc*); // 0x0044BE50
@@ -127,7 +127,7 @@ int __fastcall sub_005BE290_CreateTownPortal(D2GameStrc* game,D2UnitStrc* unit,D
 // build: context GetItemStatCost
 static __forceinline D2ItemStatCostTxt* GetItemStatCost(int nStat)
 {
-    if (nStat >= 0 && nStat < sgptDataTables->nItemStatCostCount)
+    if (nStat >= 0 && nStat < sgptDataTables->nItemStatCostTxtRecordCount)
         return &sgptDataTables->pItemStatCostTxt[nStat];
     return 0;
 }
@@ -143,7 +143,7 @@ int __fastcall sub_005BE3F0_ApplyPotion(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
     int nOldLength = 0;
     if (nLength > 0)
     {
-        if (nState <= 0 || nState >= sgptDataTables->nStatesCount) return 0;
+        if (nState <= 0 || nState >= sgptDataTables->nStatesTxtRecordCount) return 0;
         pStatList = STATLIST_GetStatListFromUnitAndState(pUnit, nState);
         if (pStatList) nOldLength = D2COMMON_10473(pStatList) - pGame->dwGameFrame;
     }
@@ -153,7 +153,7 @@ int __fastcall sub_005BE3F0_ApplyPotion(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
     {
         D2SeedStrc* pSeed = &pUnit->pSeed;
         const int nStat = pItemsTxt->nStat[i];
-        if (nStat < 0 || nStat >= sgptDataTables->nItemStatCostCount) break;
+        if (nStat < 0 || nStat >= sgptDataTables->nItemStatCostTxtRecordCount) break;
         D2ItemStatCostTxt* pCost = GetItemStatCost(nStat);
         if (!pCost) continue;
         int nValue = ITEMMODS_EvaluateItemFormula(pUnit, pItem, pItemsTxt->dwCalc[i]);
@@ -198,7 +198,7 @@ int __fastcall sub_005BE3F0_ApplyPotion(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
         {
             const int nCurrent = STATLIST_UnitGetStatValue(pUnit, nStat, 0);
             const int nMaxStat = pCost->nMaxStat;
-            if (nMaxStat < sgptDataTables->nItemStatCostCount)
+            if (nMaxStat < sgptDataTables->nItemStatCostTxtRecordCount)
             {
                 const int nMaxValue = STATLIST_UnitGetStatValue(pUnit, nMaxStat, 0);
                 if (nCurrent + nValue > nMaxValue)

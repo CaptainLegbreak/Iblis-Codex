@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2DataTbls.h"
 
 struct D2MissilesTxt
 {
@@ -8,13 +9,6 @@ struct D2MissilesTxt
     char unk_12C[0x78];
 };
 
-struct D2DataTablesStrc
-{
-    char unk_000[0xB64];
-    D2MissilesTxt* pMissilesTxt;
-    void* pMissilesLinker;
-    int nMissilesTxtRecordCount;
-};
 
 extern D2DataTablesStrc* gpDataTables_00744304; // 0x00744304
 

@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
@@ -105,23 +106,6 @@ struct D2CharStatsTxt
     char unk0x20[0xA4];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char unk0xA7C[4];
-    int nMonStatsTxtRecordCount;
-    unsigned char unk_A84[0x108];
-    D2SkillDescTxt* pSkillDescTxt;
-    char unk0xB90[0x4];
-    int nSkillDescTxtRecordCount;
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[0x4];
-    int nSkillsTxtRecordCount;
-    unsigned char unk_BA4[0x20];
-    D2CharStatsTxt* pCharStatsTxt;
-    int nCharStatsTxtRecordCount;
-};
 
 struct D2DifficultyLevelsTxt
 {

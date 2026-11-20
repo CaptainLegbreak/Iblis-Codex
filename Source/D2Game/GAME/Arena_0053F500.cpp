@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
@@ -9,13 +10,6 @@ struct D2ArenaStrc;
 struct D2ArenaUnitStrc;
 struct D2PlayerDataStrc;
 
-struct D2GameStrc
-{
-    char unk0x0000[0x1C];
-    void* pMemoryPool;
-    char unk0x0020[0x1D08];
-    D2ArenaStrc* pArenaCtrl;
-};
 
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 extern "C" const char gszEmptyAssertText; // 0x006CC837

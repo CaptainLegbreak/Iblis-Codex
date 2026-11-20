@@ -1,5 +1,6 @@
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 #include "D2Client.h"
+#include "D2DataTbls.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define CHECK(c,line) if(!(c)) { sub_00408A60(&empty,sub_00408090(),line); exit(-1); }
@@ -78,13 +79,6 @@ struct D2MonStatsTxt
     char unk0x5C[0x14C];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char unk0xA7C[0x04];
-    int nMonStatsTxtRecordCount;
-};
 
 struct D2ClientItemSlotStrc
 {

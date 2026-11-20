@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define PLRMODE_THROW 11
 #define LVLSUB_UNUSED_INVALID -1
@@ -273,48 +274,6 @@ struct D2MissilesTxt
     char unk0x08[0x19C];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0x040];
-    char* pSkillsCode;
-    unsigned int nSkillsCodeSize;
-    unsigned char unk_48[0x4];
-    char* pSkillDescCode;
-    unsigned int nSkillDescCodeSize;
-    unsigned char unk_54[0x68];
-    D2StatesTxt* pStatesTxt;
-    char unk0x0C0[0x04];
-    int nStatesTxtRecordCount;
-    char unk0x0C8[0xB4];
-    unsigned short* pTransformStates;
-    short nTransformStates;
-    unsigned char unk_182[0x8F6];
-    D2MonStatsTxt* pMonStatsTxt;
-    char unk0xA7C[4];
-    int nMonStatsTxtRecordCount;
-    char unk0xA84[0xA90 - 0xA84];
-    D2MonStats2Txt* pMonStats2Txt;
-    char unk0xA94[4];
-    int nMonStats2TxtRecordCount;
-    unsigned char unk_A9C[0xC8];
-    D2MissilesTxt* pMissilesTxt;
-    int unk0xB68;
-    int nMissilesTxtRecordCount;
-    unsigned char unk_B70[0x28];
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[4];
-    int nSkillsTxtRecordCount;
-    int* nClassSkillCount;
-    int nHighestClassSkillCount;
-    short* nClassSkillList;
-    int nPassiveSkills;
-    unsigned short* pPassiveSkills;
-    unsigned char unk_BB8[0xC];
-    D2CharStatsTxt* pCharStatsTxt;
-    int nCharStatsTxtRecordCount;
-    unsigned char unk_BCC[0x8];
-    int nItemStatCostTxtRecordCount;
-};
 
 struct D2Unk00667030InnerStrc
 {

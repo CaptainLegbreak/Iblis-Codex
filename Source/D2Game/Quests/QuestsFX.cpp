@@ -3,6 +3,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define MAX(a, b) ((a) < (b) ? (b) : (a))
@@ -34,13 +36,6 @@ enum D2C_M96QuestsFxConstants
 
 
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0xA8 - 0x20];
-    unsigned int dwGameFrame;
-};
 
 
 struct D2UnitFindArgStrc
@@ -57,7 +52,6 @@ struct D2UnitFindDataStrc
 
 struct D2MissilesTxt { char unk0x00[0x96]; short wRange; char unk0x98[0x1A4 - 0x98]; };
 
-struct D2DataTablesStrc { char unk0x00[0xB64]; D2MissilesTxt* pMissilesTxt; char unk0xB68[4]; int nMissilesTxtRecordCount; };
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0

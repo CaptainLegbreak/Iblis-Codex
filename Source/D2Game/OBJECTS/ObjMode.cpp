@@ -2,6 +2,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define OBJMODE_OPENED 2
@@ -93,21 +95,6 @@ struct D2ObjectDataStrc
 
 
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    unsigned char unk_20[0x4D];
-    unsigned char nDifficulty;
-    char unk0x6E[0x02];
-    int bExpansion;
-    unsigned char unk_74[0x4];
-    unsigned short wItemFormat;
-    char unk0x7A[0x2E];
-    int dwGameFrame;
-    unsigned char unk_AC[0x10];
-    D2DrlgActStrc* pAct[5];
-};
 
 struct D2ObjOperateFnStrc
 {
@@ -263,14 +250,6 @@ void __stdcall STATLIST_AddUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, 
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
 extern "C" char* __cdecl _strrev(char* szString); // 0x00687860
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xAE0];
-    unsigned short nSuperUniqueIds[66];
-    unsigned char unk_B64[0x60];
-    D2CharStatsTxt* pCharStatsTxt;
-    int nCharStatsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 

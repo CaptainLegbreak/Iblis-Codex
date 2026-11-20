@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2OverlayStrc;
 
@@ -39,12 +40,6 @@ struct D2OverlayTxt
     char unk0x82[2];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xBBC];
-    D2OverlayTxt* pOverlayTxt;
-    int nOverlayTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 extern int gnGlobal_0071146C;                                                                               // 0x0071146C

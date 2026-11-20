@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_ITEM 4
@@ -36,19 +37,6 @@ struct D2ActiveRoomStrc
     D2ActiveRoomStrc* pRoomNext;
 };
 
-struct D2GameStrc
-{
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-    char unk0x006E[0x2];
-    int bExpansion;
-    char unk0x0074[0x4];
-    unsigned short wItemFormat;
-    unsigned char unk_7A[0x2E];
-    int dwGameFrame;
-    char unk0xAC[0x10];
-    D2DrlgActStrc* pAct[5];
-};
 
 struct D2ItemDropStrc
 {

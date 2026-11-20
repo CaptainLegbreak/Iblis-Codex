@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
@@ -16,7 +18,6 @@ struct D2MonStats2Txt;
 struct D2SkillsTxt;
 
 
-struct D2GameStrc { char unk_00[0xA8]; int dwGameFrame; };
 
 typedef void (__fastcall* StatListRemoveCallback)(D2UnitStrc*, int, D2StatListStrc*);
 
@@ -52,21 +53,6 @@ struct D2SkillsTxt
     char unk0x154[0xE8];
 };
 
-struct D2DataTablesStrc
-{
-    char unk_000[0xBC];
-    D2StatesTxt* pStatesTxt;
-    void* pStatesLinker;
-    int nStatesTxtRecordCount;
-    char unk_0C8[0x9B0];
-    D2MonStatsTxt* pMonStatsTxt;
-    void* pMonStatsLinker;
-    int nMonStatsTxtRecordCount;
-    char unk_A84[0x114];
-    D2SkillsTxt* pSkillsTxt;
-    void* pSkillsLinker;
-    int nSkillsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern unsigned int gdwBitMasks[]; // 0x006CE268

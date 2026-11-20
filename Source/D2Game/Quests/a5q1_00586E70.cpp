@@ -1,17 +1,12 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2QuestGUIDStrc;
 struct D2PlayerDataStrc;
 struct D2Act5Quest1Strc;
 
-struct D2GameStrc
-{
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-    char pad0x6E[0x2];
-};
 
 struct D2PlayerDataStrc
 {

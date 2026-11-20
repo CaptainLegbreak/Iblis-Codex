@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2PacketRecord11Strc;
@@ -119,25 +120,6 @@ struct D2SkillsTxt
     char unk_30[0x20C];
 };
 
-struct D2DataTablesStrc
-{
-    char unknown00[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    int unknownA7C;
-    int nMonStatsTxtRecordCount;
-    char unknownA84[0xA90-0xA84];
-    D2MonStats2Txt* pMonStats2Txt;
-    int unknownA94;
-    int nMonStats2TxtRecordCount;
-    unsigned char unk_A9C[0xFC];
-    D2SkillsTxt* pSkills;
-    int unk_B9C;
-    int nSkillCount;
-    unsigned char unk_BA4[0x28];
-    D2ItemStatCostTxt* pItemStatCostTxt;
-    int unknownBD0;
-    int nItemStatCostTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 void __fastcall sub_004CA000_EndSkill(D2UnitStrc* pUnit, int nSkillId); // 0x004CA000
@@ -486,8 +468,8 @@ void __fastcall sub_0045D880_HandleUnitStatPacket2(D2UnitStatPacket2Strc* pPacke
 
 static __forceinline D2SkillsTxt* GetSkillRecord(int nSkillId)
 {
-    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillCount)
-        return &sgptDataTables->pSkills[nSkillId];
+    if (nSkillId >= 0 && nSkillId < sgptDataTables->nSkillsTxtRecordCount)
+        return &sgptDataTables->pSkillsTxt[nSkillId];
     return 0;
 }
 

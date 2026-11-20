@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 #define STAT_ITEM_INDESTRUCTIBLE 152
@@ -14,20 +15,6 @@ struct D2SkillsTxt
     char unk0x000[0x23C];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xB98];
-    D2SkillsTxt* pSkillsTxt;
-    int unk0xB9C;
-    int nSkillsTxtRecordCount;
-    unsigned char unk_BA4[0x28];
-    D2ItemStatCostTxt* pItemStatCostTxt;
-    char unk0xBD0[0x04];
-    int nItemStatCostTxtRecordCount;
-    unsigned char unk_BD8[0x94];
-    int nSkillLayerShift;
-    int nSkillLayerMask;
-};
 
 struct D2PropertyStrc
 {
@@ -172,7 +159,7 @@ int __fastcall sub_0065DBC0_PropertyFunc_SkillCharges(int nType, D2UnitStrc* pUn
 
     const int nCurrent = ITEMS_RollLimitedRandomNumber(ITEMS_GetItemSeed(pItem), nCharges - (nCharges / 8)) + (nCharges / 8) + 1;
     D2StatListStrc* pStatList = ITEMMODS_GetOrCreateStatList(pUnit, pItem, nState, fStatList);
-    sub_00627150(pStatList, nStatId, (nCurrent & 0xFF) + (nCharges << 8), (nSkillId << sgptDataTables->nSkillLayerShift) + (nSkillLevel & sgptDataTables->nSkillLayerMask));
+    sub_00627150(pStatList, nStatId, (nCurrent & 0xFF) + (nCharges << 8), (nSkillId << sgptDataTables->nStuff) + (nSkillLevel & sgptDataTables->nShiftedStuff));
     return 1;
     }
 

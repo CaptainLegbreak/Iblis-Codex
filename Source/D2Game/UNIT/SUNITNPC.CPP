@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define UNIT_OBJECT 2
 #define UNIT_ITEM 4
@@ -145,11 +146,6 @@ struct D2NpcRecordStrc
     int dwNPCGUID;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xC4];
-    int nStatesTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern "C" const char gszEmptyAssertText; // 0x006CC837

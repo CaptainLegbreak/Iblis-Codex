@@ -1,3 +1,4 @@
+#include "D2DataTbls.h"
 #pragma function(memset)
 
 #define ARENA_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -17,11 +18,6 @@ struct D2BinFieldStrc
     D2TxtLinkStrc** pLinker;
 };
 
-struct D2DataTablesStrc
-{
-    void* unk0x00;
-    D2TxtLinkStrc* pPlayerClassLinker;
-};
 
 struct D2ArenaTxt
 {

@@ -2,14 +2,9 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x88];
-    int dwGameFrame;
-};
 
 
 
@@ -41,19 +36,6 @@ struct D2SkillsTxt
     char pad0x148[0xF4];
 };
 
-struct D2DataTablesStrc
-{
-    char pad0x000[0xC4];
-    int nStatesTxtRecordCount;
-    char pad0x0C8[0xA9C];
-    D2MissilesTxt* pMissilesTxt;
-    char pad0xB68[0x04];
-    int nMissilesTxtRecordCount;
-    char pad0xB70[0x28];
-    D2SkillsTxt* pSkillsTxt;
-    char pad0xB9C[0x04];
-    int nSkillsTxtRecordCount;
-};
 
 struct D2DamageStrc
 {

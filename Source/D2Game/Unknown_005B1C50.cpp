@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 #pragma pack(push, 1)
 struct D2MonsterEquipmentStrc
 {
@@ -11,11 +12,6 @@ struct D2MonsterEquipmentStrc
 #pragma pack(pop)
 
 
-struct D2GameStrc
-{
-	char unk_00[0x6D];
-	unsigned char nDifficulty;
-};
 
 struct D2ItemsTxt
 {

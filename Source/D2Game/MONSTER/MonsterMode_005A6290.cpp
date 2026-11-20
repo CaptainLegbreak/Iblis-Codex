@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 #define UNIT_MONSTER 1
 #define MONMODE_DEATH 0
@@ -48,16 +50,6 @@ struct D2MonsterDataStrc
 };
 
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    unsigned char unk_20[0x4D];
-    unsigned char nDifficulty;
-    unsigned char unk_6E[0x1D02];
-    int dwPathTypesCount[17];
-    int nTotalPathTypesCount;
-};
 
 struct D2MonStats2Txt
 {
@@ -99,13 +91,6 @@ struct D2MonStatsTxt
     char unk0xA0[0x108];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char unk0xA7C[0x4];
-    int nMonStatsTxtRecordCount;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090

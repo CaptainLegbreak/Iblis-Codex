@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define OFFSET(T, M) ((unsigned int)&(((T*)0)->M))
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -266,12 +267,6 @@ struct D2OverlayTxt
     char unk0x7D[7];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xBBC];
-    D2OverlayTxt* pOverlayTxt;
-    int nOverlayTxtRecordCount;
-};
 
 struct D2AutomapPairStrc
 {

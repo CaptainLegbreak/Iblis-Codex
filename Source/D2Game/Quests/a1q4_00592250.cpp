@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define QUEST_A1Q4_CAIN 4
@@ -20,11 +21,6 @@ struct D2QuestGUIDStrc;
 struct D2Act1Quest4Strc;
 struct D2SeedStrc;
 
-struct D2GameStrc
-{
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-};
 
 struct D2PlayerDataStrc
 {

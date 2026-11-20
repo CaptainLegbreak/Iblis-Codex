@@ -1,3 +1,4 @@
+#include "D2DataTbls.h"
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
@@ -17,11 +18,6 @@ struct D2UnitStrc
     int nField88;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xC5C];
-    int nLevelsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 

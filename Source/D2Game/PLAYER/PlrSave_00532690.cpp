@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2SaveHeaderStrc;
 struct D2ServerCallbackFunctions;
@@ -40,14 +41,6 @@ struct D2CharStatsTxt
     char unk0xAE[0x16];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xBA0];
-    int nSkillsTxtRecordCount;
-    char unk0xBA4[0x20];
-    D2CharStatsTxt* pCharStatsTxt;
-    int nCharStatsTxtRecordCount;
-};
 
 #define UNIT_PLAYER 0
 #define PLRMODE_NEUTRAL 1

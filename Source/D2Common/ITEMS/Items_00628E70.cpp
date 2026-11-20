@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define ITEMS_ADD_BONUS_COSTS(nMult, nAdd, nValue, nBuyDiv)                                        \
     if (*pSellCost * (nValue) > 0xFFFF && (nMult))                                          \
@@ -58,27 +59,6 @@ struct D2ItemStatCostTxt
     char unk0x31[0x144 - 0x31];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xBC];
-    D2StatesTxt* pStatesTxt;
-    char f_C0[0x04];
-    int nStatesTxtRecordCount;
-    char unk0xC8[0xC4];
-    unsigned short* pColourStates;
-    short nColourStates;
-    unsigned char unk_192[0xA06];
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[0x04];
-    int nSkillsTxtRecordCount;
-    char unk0xBA4[0xBCC - 0xBA4];
-    D2ItemStatCostTxt* pItemStatCostTxt;
-    char unk0xBD0[0x04];
-    int nItemStatCostTxtRecordCount;
-    char unk0xBD8[0xC6C - 0xBD8];
-    int nSkillLayerShift;
-    int nSkillLevelMask;
-};
 
 struct D2TimeModStrc
 {
@@ -179,11 +159,6 @@ struct D2RunesTxt
     char unk0xB0[0x70];
 };
 
-struct D2RuneDataTbl
-{
-    int nRunesTxtRecordCount;
-    D2RunesTxt* pRunesTxt;
-};
 
 typedef char check_D2RunesTxt_size[sizeof(D2RunesTxt) == 0x120 ? 1 : -1];
 
@@ -310,8 +285,8 @@ void __fastcall ITEMS_CalculateAdditionalCostsForBonusStats(D2UnitStrc* pItem, i
                 case 3:
                 {
                     const int nLayer = pStat[tLoop.i].nLayer;
-                    const int nSkillId = nLayer >> sgptDataTables->nSkillLayerShift;
-                    const int nLevel = nLayer & sgptDataTables->nSkillLevelMask;
+                    const int nSkillId = nLayer >> sgptDataTables->nStuff;
+                    const int nLevel = nLayer & sgptDataTables->nShiftedStuff;
                     D2SkillsTxt* pSkillsTxtRecord = SKILLS_GetSkillsTxtRecord(nSkillId);
                     ITEMS_ADD_BONUS_COSTS(pSkillsTxtRecord->nCostMult, pSkillsTxtRecord->nCostAdd, nLevel, 4096);
                     break;

@@ -1,6 +1,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 // build: ob1
 
 struct D2ClientStrc;
@@ -12,15 +13,6 @@ struct D2DynamicPathStrc;
 
 
 
-struct D2GameStrc
-{
-    char unk0x00[0x70];
-    int bExpansion;
-    char f_74[0x78 - 0x70 - 4];
-    unsigned short wItemFormat;
-    char unk0x7A[0xA8 - 0x78 - 2];
-    unsigned int dwGameFrame;
-};
 
 struct D2BooksTxt
 {

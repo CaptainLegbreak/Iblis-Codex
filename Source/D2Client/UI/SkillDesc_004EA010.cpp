@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -54,22 +55,6 @@ struct D2SkillDescTxt
     int dwDescCalcB[17];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x0[0x16C];
-    short* pProgressiveStates;
-    short nProgressiveStates;
-    unsigned char unk_172[0x906];
-    D2MonStatsTxt* pMonStatsTxt;
-    char unk0xA7C[0x4];
-    int nMonStatsTxtRecordCount;
-    char unk0xA84[0x114];
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[0x4];
-    int nSkillsTxtRecordCount;
-    char unk0xBA4[0x30];
-    int nItemStatCostTxtRecordCount;
-};
 
 struct Unicode
 {

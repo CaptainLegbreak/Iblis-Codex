@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define UNIT_OBJECT 2
 #define UNIT_ITEM 4
@@ -71,13 +72,6 @@ struct D2SkillsTxt
     char unk0x16[0x226];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xB98];
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[0x04];
-    int nSkillsTxtRecordCount;
-};
 
 typedef int (__fastcall* SKILLSELECTPROC)(D2UnitStrc* pPlayer, D2UnitStrc* pTarget);
 

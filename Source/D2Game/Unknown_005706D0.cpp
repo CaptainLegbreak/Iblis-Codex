@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 
 struct D2CharStatsTxt
@@ -14,12 +15,6 @@ struct D2CharStatsTxt
     char unk0x36[0x8E];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xBC4];
-    D2CharStatsTxt* pCharStatsTxt;
-    int nCharStatsTxtRecordCount;
-};
 #define STAT_ENERGY 1
 #define STAT_DEXTERITY 2
 #define STAT_VITALITY 3

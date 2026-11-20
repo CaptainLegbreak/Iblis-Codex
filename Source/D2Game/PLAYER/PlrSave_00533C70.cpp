@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 // build: base-profile
 
 struct D2ClientStrc;
@@ -43,14 +44,6 @@ struct D2CharStatsTxt
     char unk0xAE[0x16];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xBA0];
-    int nSkillsTxtRecordCount;
-    char unk0xBA4[0x20];
-    D2CharStatsTxt* pCharStatsTxt;
-    int nCharStatsTxtRecordCount;
-};
 
 #define UNIT_PLAYER 0
 #define ACT_I 0

@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2SeedStrc;
 struct D2MissilesTxt;
@@ -28,17 +29,6 @@ struct D2SkillsTxt
     char pad140[0xFC];
 };
 
-struct D2DataTablesStrc
-{
-    char pad00[0xB64];
-    D2MissilesTxt* pMissilesTxt;
-    int unusedB68;
-    int nMissilesTxtRecordCount;
-    char padB70[0x28];
-    D2SkillsTxt* pSkillsTxt;
-    void* pSkillsLinker;
-    int nSkillsTxtRecordCount;
-};
 
 struct D2MissileStrc
 {

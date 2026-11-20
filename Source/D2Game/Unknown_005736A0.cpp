@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 struct D2AiParamStrc;
 
@@ -12,11 +14,6 @@ struct D2MonsterDataStrc
 };
 
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-};
 
 struct D2MonStatsTxt
 {
@@ -25,13 +22,6 @@ struct D2MonStatsTxt
     char unk0x10[0x1A8 - 0x0C - 4];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char unk0xA7C[0xA80 - 0xA78 - 4];
-    int nMonStatsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables;                                                                     // 0x00744304
 extern const unsigned int gdwBitMasks[];                                                                    // 0x006CE268

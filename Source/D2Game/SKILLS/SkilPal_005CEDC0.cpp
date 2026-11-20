@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2CurseStrc;
 struct D2BasicAuraParamStrc;
@@ -26,15 +27,6 @@ struct D2AuraCallbackStrc { D2GameStrc* pGame; D2UnitStrc* pOwner; int nCounter;
 
 struct D2ItemStatCostTxt { unsigned short wStatId, pad2; unsigned char nItemStatFlags[4]; char pad8[0x2A]; unsigned short wMaxStat; };
 
-struct D2DataTablesStrc
-{
-    char pad_000[2968];
-    D2SkillsTxt* pSkillsTxt;
-    char pad_gap[4];
-    int nSkillsTxtRecordCount;
-    unsigned char unk_BA4[0x30];
-    int nItemStatCostTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268

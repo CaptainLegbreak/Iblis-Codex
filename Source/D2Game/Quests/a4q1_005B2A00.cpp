@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 struct D2UnitStrc;
 struct D2ActiveRoomStrc { char unknown00[0x6c]; D2SeedStrc pSeed; };
 struct D2RectStrc { int left,top,right,bottom; };
@@ -10,7 +11,6 @@ struct D2MonsterSpawnParamsStrc { D2GameStrc* pGame; D2ActiveRoomStrc* pRoom; D2
 typedef D2MonsterSpawnParamsStrc D2UnkMonCreateStrc;
 struct D2MonStatsTxt { short nId,nBaseId; char unknown04[8]; unsigned char nFlags[4]; char unknown10[8]; short wMonStatsEx; char unknown1a[0xc]; short wMinion[2]; short nEquip; unsigned char nPartyMin,nPartyMax; char unknown2e[0x1e]; unsigned char nAlign; char unknown4d[0x15b]; };
 struct D2MonStats2Txt { char unknown00[8]; signed char nSizeX,nSizeY; unsigned char nSpawnCol; char unknown0b[0x129]; };
-struct D2DataTablesStrc { char unknown00[0xa78]; D2MonStatsTxt* pMonStatsTxt; int unknowna7c,nMonStatsTxtRecordCount; char unknowna84[0xc]; D2MonStats2Txt* pMonStats2Txt; int unknowna94,nMonStats2TxtRecordCount; };
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern unsigned char gbNeverCount_006CE270; // 0x006CE270
 extern unsigned int gdwSetBoss_006CE278; // 0x006CE278

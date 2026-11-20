@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2GameStrc.h"
 
 struct D2ClientStrc
 {
@@ -7,17 +8,6 @@ struct D2ClientStrc
     D2ClientStrc* pNext;
 };
 
-struct D2GameStrc
-{
-    char unk0x00[0x88];
-    D2ClientStrc* pClientList;
-    int nClients;
-    char unk0x90[0x18];
-    int dwGameFrame;
-    char unk0xAC[0x1D14];
-    int nTickCountSinceNoClients;
-    unsigned int nSyncTimer;
-};
 
 struct D2CriticalSectionStrc
 {

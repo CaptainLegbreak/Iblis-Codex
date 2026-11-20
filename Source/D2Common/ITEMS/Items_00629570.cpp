@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 #define IFLAG_ETHEREAL 0x00400000
 #define STAT_MINDAMAGE 21
 #define STAT_MAXDAMAGE 22
@@ -64,12 +65,6 @@ struct D2SetItemsTxt
     char unk0x30[0x1B8 - 0x30];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xC18];
-    D2SetItemsTxt* pSetItemsTxt;
-    int nSetItemsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem); // 0x00629DA0

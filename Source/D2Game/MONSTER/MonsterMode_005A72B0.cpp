@@ -1,12 +1,9 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 
-struct D2GameStrc
-{
-    char unk0x00[0xA8];
-    int dwGameFrame;
-};
 
 struct D2ModeChangeStrc
 {
@@ -31,13 +28,6 @@ struct D2MonStatsTxt
     char unk0x1A5[3];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    void* pMonStatsLinker;
-    int nMonStatsTxtRecordCount;
-};
 
 typedef int (__fastcall* MonModeStartFunc)(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange);
 typedef int (__fastcall* MonModeUnitFunc)(D2GameStrc* pGame, D2UnitStrc* pUnit);

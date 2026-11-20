@@ -2,6 +2,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_MONSTER 1
@@ -83,17 +85,6 @@ struct D2InactiveUnitListStrc
     D2InactiveUnitListStrc* pNext;
 };
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x88];
-    int dwGameFrame;
-    unsigned char unk_AC[0x10];
-    D2DrlgActStrc* pAct[5];
-    char unk0xD0[0x08];
-    D2InactiveUnitListStrc* pInactiveUnitList[5];
-};
 
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 void __fastcall AIGENERAL_FreeAllMinionLists(D2GameStrc* pGame, D2MinionListStrc* pMinionList); // 0x0058F350
@@ -235,20 +226,6 @@ struct D2MonStats2Txt
     char unk0x131[3];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0x174];
-    short* pCurseStates;
-    short nCurseStates;
-    char unk0x17A[0xA78 - 0x17A];
-    D2MonStatsTxt* pMonStatsTxt;
-    int unk0xA7C;
-    int nMonStatsTxtRecordCount;
-    int unk0xA84[3];
-    D2MonStats2Txt* pMonStats2Txt;
-    int unk0xA94;
-    int nMonStats2TxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268

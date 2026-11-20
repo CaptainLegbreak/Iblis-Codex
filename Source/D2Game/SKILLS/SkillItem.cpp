@@ -1,6 +1,8 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 #define IFLAG_TARGETING 4
 #define OBJECT_STASH 267
@@ -41,13 +43,6 @@ D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x
 D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
 D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x88];
-    int dwGameFrame;
-};
 
 int __fastcall D2GAME_PLRTRADE_IsInteractingWithPlayer(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3); // 0x005678A0
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
@@ -89,25 +84,6 @@ D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 
 typedef void(__fastcall* StatListRemoveCallback)(D2UnitStrc*, int, D2StatListStrc*);
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xC4];
-    int nStatesTxtRecordCount;
-    char unk0x0C8[0x9B0];
-    D2MonStatsTxt* pMonStatsTxt;
-    void* pMonStatsLinker;
-    int nMonStatsTxtRecordCount;
-    char unk0xA84[0x114];
-    D2SkillsTxt* pSkillsTxt;
-    void* pSkillsLinker;
-    int nSkillsTxtRecordCount;
-    unsigned char unk_BA4[0x28];
-    D2ItemStatCostTxt* statCosts;
-    int unusedbd0;
-    int nItemStatCostTxtRecordCount;
-    char unk0xBD8[0x08];
-    D2MonEquipTxt* pMonEquipTxt;
-};
 
 enum D2C_Z09ItemConstants
 {
@@ -394,7 +370,7 @@ int __fastcall SKILLITEM_pSpell04_ApplyPotionStats(D2GameStrc* game,D2UnitStrc* 
  for(int i=0;i<3;++i){
   int stat=record->wStat[i];
   if(stat<0 || stat>=sgptDataTables->nItemStatCostTxtRecordCount)break;
-  D2ItemStatCostTxt* cost=&sgptDataTables->statCosts[stat];
+  D2ItemStatCostTxt* cost=&sgptDataTables->pItemStatCostTxt[stat];
   if(!cost)continue;
   int value=ITEMMODS_EvaluateItemFormula(unit,item,record->dwCalc[i]);
   if(stat==26 || stat==74)value<<=8;
@@ -460,7 +436,7 @@ static __forceinline D2ItemStatCostTxt* SKILLS_GetItemStatCostTxtRecord(int nSta
         return 0;
     }
 
-    return &sgptDataTables->statCosts[nStatId];
+    return &sgptDataTables->pItemStatCostTxt[nStatId];
 }
 
 // 0x005BEAC0

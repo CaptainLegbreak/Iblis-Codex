@@ -1,3 +1,4 @@
+#include "D2DataTbls.h"
 struct D2UnitStrc;
 
 struct D2PropertyStrc
@@ -8,11 +9,6 @@ struct D2PropertyStrc
     int nMax;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xBA0];
-    int nSkillsTxtRecordCount;
-};
 
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
 #define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))

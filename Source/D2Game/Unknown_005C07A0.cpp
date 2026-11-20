@@ -1,18 +1,18 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 struct D2MonStats2Txt;
 struct D2ModeChangeStrc;
 struct D2SeedStrc;
 
-struct D2GameStrc { char unk0x00[0xA8]; int dwGameFrame; };
 
 
 
 struct D2MonStats2Txt { char unk0x00[0x10B]; unsigned char nResurrectMode; };
 
-struct D2DataTablesStrc { char unk0x00[0xA80]; int nMonStatsTxtRecordCount; };
 
 struct D2ModeChangeStrc
 {

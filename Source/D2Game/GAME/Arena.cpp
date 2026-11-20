@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
@@ -21,13 +22,6 @@ struct D2ArenaStrc
     int nTemplate;
 };
 
-struct D2GameStrc
-{
-    char unk0x0000[0x88];
-    D2ClientStrc* pClientList;
-    char unk0x008C[0x1C9C];
-    D2ArenaStrc* pArenaCtrl;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090

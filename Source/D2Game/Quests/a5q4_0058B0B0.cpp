@@ -2,18 +2,12 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 struct D2NPCMessageTableStrc;
 
 
 
-struct D2GameStrc
-{
-    char pad0x00[0x1C];
-    void* pMemoryPool;
-    char pad0x20[0x4D];
-    unsigned char nDifficulty;
-};
 
 struct D2PlayerDataStrc
 {

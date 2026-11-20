@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 #define STAT_ITEM_INDESCTRUCTIBLE 152
 #define IFLAG_IDENTIFIED 0x00000010
 #define NODEPAGE_STORAGE 1
@@ -188,26 +189,6 @@ struct D2BooksTxt
     unsigned char nSpellIcon;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xBC];
-    D2StatesTxt* pStatesTxt;
-    char f_C0[0x04];
-    int nStatesTxtRecordCount;
-    char unk0xC8[0x04];
-    unsigned int* fStateMasks[40];
-    unsigned char unk_16C[0x20];
-    unsigned short* pColourStates;
-    short nColourStates;
-    unsigned char unk_192[0xA66];
-    D2ItemTypesTxt* pItemTypesTxt;
-    int nItemTypesTxtRecordCount;
-    int nItemTypesIndex;
-    unsigned int* pItemTypesEquivalenceLUTs;
-    unsigned char unk_C08[0x10];
-    D2SetItemsTxt* pSetItemsTxt;
-    int nSetItemsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268
@@ -267,11 +248,6 @@ struct D2RunesTxt
     char unk0x00[0x120];
 };
 
-struct D2RuneDataTbl
-{
-    int nRunesTxtRecordCount;
-    D2RunesTxt* pRunesTxt;
-};
 
 extern D2RuneDataTbl gRuneDataTables; // 0x0096CA98
 void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30

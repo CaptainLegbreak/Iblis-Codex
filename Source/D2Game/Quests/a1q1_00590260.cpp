@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define LEVEL_DENOFEVIL 8
@@ -29,17 +30,6 @@ struct D2MonsterRegionStrc
     unsigned int dwMonKillCount;
 };
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    unsigned char unk_20[0x4D];
-    unsigned char nDifficulty;
-    unsigned char unk_6E[0x4E];
-    D2DrlgActStrc* pAct[5];
-    char unk0xD0[0x20];
-    D2MonsterRegionStrc* pMonReg[1024];
-};
 
 
 struct D2QuestGUIDStrc

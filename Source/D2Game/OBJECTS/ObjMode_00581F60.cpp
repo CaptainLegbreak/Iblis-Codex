@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 #define D2_ASSERT(expr,line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2ObjOperateFnStrc;
@@ -9,19 +10,6 @@ struct D2ObjectDataStrc;
 struct D2PlayerDataStrc;
 struct D2PortalQuestStrc;
 
-struct D2GameStrc
-{
-    char unk00[0x1C];
-    void* pMemoryPool;
-    char unk20[0x4D];
-    unsigned char nDifficulty;
-    char unk6E[2];
-    int bExpansion;
-    char unk74[0x34];
-    int dwGameFrame;
-    char unkAC[0x10];
-    D2DrlgActStrc* pAct[5];
-};
 
 
 struct D2ActiveRoomStrc { char unk00[0x74]; D2UnitStrc* pUnitFirst; };

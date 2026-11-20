@@ -1,6 +1,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 struct D2DrlgCoordStrc
 {
     int nPosX;
@@ -299,11 +300,6 @@ extern "C" const char gszEmptyAssertText;
 extern "C" const char* __cdecl sub_00408090();
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA80];
-    int nMonStatsTxtRecordCount;
-};
 extern D2DataTablesStrc* sgptDataTables;
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);

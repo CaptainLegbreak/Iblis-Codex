@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2DataTbls.h"
 
 struct D2BinFieldStrc
 {
@@ -42,23 +43,6 @@ struct D2DrlgFileStrc
     int nSubstGroups;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xC64];
-    D2LvlPrestTxt* pLvlPrestTxt;
-    int nLvlPrestTxtRecordCount;
-    char unk0xC6C[0x154];
-    D2LvlTypesTxt* pLvlTypesTxt;
-    char unk0xDC4[0x008];
-    int nLvlTypesTxtRecordCount;
-    char unk0xDD0[0x010];
-    D2LvlSubTxt* pLvlSubTxt;
-    int nLvlSubTxtRecordCount;
-    int* pLvlSubTypeStartIds;
-    char unk0xDEC[0x004];
-    D2DrlgFileStrc** ppLvlPrestFiles;
-    D2DrlgFileStrc** ppLvlSubTypeFiles;
-};
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...);             // 0x006CC468
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);

@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define CP_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define COF_PAD 0x20
@@ -37,7 +38,6 @@ struct D2ModeTypeTxt {char pad[0x20]; unsigned int token;};
 
 struct D2MonStatsTxt {char pad[0x10]; unsigned int code; char rest[0x194];};
 
-struct D2DataTablesStrc {char pad[0xA78]; D2MonStatsTxt* monsters; void* linker; int monsterCount;};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern D2CompositStrc gPlayerModes_00745900[]; // 0x00745900
@@ -168,7 +168,7 @@ unsigned int __stdcall COMPOSIT_GetArmorTypeFromComponent(int nComponent, unsign
 }
 
 // build: context DATATBLS_GetMonStatsTxtRecord
-inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecord(int id) {if(id>=0 && id<sgptDataTables->monsterCount)return &sgptDataTables->monsters[id];return 0;}
+inline D2MonStatsTxt* DATATBLS_GetMonStatsTxtRecord(int id) {if(id>=0 && id<sgptDataTables->nMonStatsTxtRecordCount)return &sgptDataTables->pMonStatsTxt[id];return 0;}
 
 // build: context COMPOSIT_FormatPathInto
 static __forceinline void COMPOSIT_FormatPathInto(char* path,unsigned int classCode,unsigned int modeCode,int* weapon,const char* prefix,int full,char* w,char* c,char* m) {

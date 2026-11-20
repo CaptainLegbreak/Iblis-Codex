@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 struct D2Act5Quest2Strc;
 struct D2PlayerDataStrc;
 struct D2ObjInitFnStrc;
@@ -64,15 +65,6 @@ struct D2Act5Quest2Strc
     int nWussiesInRangeToDoor;
 };
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x6D - 0x20];
-    unsigned char nDifficulty;
-    char unk0x6E[0xA8 - 0x6E];
-    int dwGameFrame;
-};
 
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
 

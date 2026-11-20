@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 
 struct D2CharStatsTxt
@@ -9,12 +10,6 @@ struct D2CharStatsTxt
     char unk0x5C[0xC4 - 0x5C];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xBC4];
-    D2CharStatsTxt* pCharStatsTxt;
-    int nCharStatsTxtRecordCount;
-};
 
 typedef unsigned short Unicode;
 unsigned short __fastcall sub_004E6CE0_GetStringId(int skillId, int stringIndex); // 0x004E6CE0

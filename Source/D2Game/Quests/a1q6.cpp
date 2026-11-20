@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 #define UNIT_MONSTER 1
 #define QUEST_A1Q6_ANDARIEL 6
@@ -21,14 +22,6 @@ struct D2SeedStrc;
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x4D];
-    unsigned char nDifficulty;
-    unsigned char unk_6E[0x2];
-};
 
 struct D2PlayerDataStrc
 {

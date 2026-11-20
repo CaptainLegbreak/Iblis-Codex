@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define ITEMQUAL_NORMAL 2
@@ -20,13 +21,6 @@ struct D2ObjOperateFnStrc;
 struct D2Act2Quest3Strc;
 
 
-struct D2GameStrc
-{
-    char pad0x00[0x6D];
-    unsigned char nDifficulty;
-    char nMaxPlayers[0x4E];
-    D2DrlgActStrc* pAct[5];
-};
 
 struct D2PlayerDataStrc
 {

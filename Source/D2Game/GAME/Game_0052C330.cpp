@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -34,17 +35,6 @@ struct D2ClientStrc
     int unk0x504;
 };
 
-struct D2GameStrc
-{
-    char unk0x00[0x18];
-    D2CriticalSectionStrc* lpCriticalSection;
-    char unk0x1C[0x58];
-    int dwGameType;
-    char unk0x78[0x10];
-    D2ClientStrc* pClientList;
-    char unk0x8C[0x1C];
-    int dwGameFrame;
-};
 
 typedef void (__fastcall* FnUpdateCharacterLadder)(const char* szCharName, int nClassId, int nLevel, unsigned __int64 nExperience, unsigned int nFlags, D2FileTimeStrc* pSaveCreationTimestamp);
 

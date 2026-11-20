@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 #define UNIT_PLAYER 0
 #define PLRMODE_DEAD 17
@@ -41,11 +42,6 @@ struct D2ActiveRoomStrc
     D2UnitStrc* pUnitFirst;
 };
 
-struct D2GameStrc
-{
-    char unk0x00[0xA8];
-    int dwGameFrame;
-};
 
 struct D2ObjOperateFnStrc
 {

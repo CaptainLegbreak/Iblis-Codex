@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 #define UNIT_MONSTER 1
 struct D2SeedStrc;
@@ -7,11 +9,9 @@ struct D2MonsterDataStrc;
 struct D2ComponentVariantStrc;
 struct D2MonRegDataStrc;
 
-struct D2GameStrc { char unk00[0xA8]; unsigned int dwGameFrame; };
 
 
 
-struct D2DataTablesStrc { char unk00[0xA80]; int nMonStatsTxtRecordCount; };
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __fastcall sub_00463860_GetMonsterClass(D2UnitStrc* pUnit); // 0x00463860

@@ -1,7 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
-struct D2GameStrc { char unknown00[0x6D]; unsigned char difficulty; };
 struct D2NpcRecordStrc;
 struct D2NpcVendorChainStrc { int unknown00; unsigned char gamble; };
 struct D2BooksTxt { int unknown00[2]; int scrollSkill, bookSkill; };
@@ -70,7 +70,7 @@ int __fastcall D2GAME_STORES_SellItem_6FCC7680(D2GameStrc* game,D2UnitStrc* play
     if (GetMode(item)==itemMode) {
     if (!sub_0062A130(item)) { SEND_ERROR(9,0x4DE); return 3; }
     const int vendorId=npc->dwClassId;
-    int price=ITEMS_GetTransactionCost(player,item,game->difficulty,sub_00543520(game,player),vendorId,1);
+    int price=ITEMS_GetTransactionCost(player,item,game->nDifficulty,sub_00543520(game,player),vendorId,1);
     int keep=1;
     if (ITEMS_GetItemQuality(item)==1) { const char* name=DATATBLS_GetLowQualityItemsTxtRecord(ITEMS_GetFileIndex(item))->name; if (!_stricmp(name,"Cracked")) keep=0; }
     if (ITEMS_CheckItemFlag(item,0x100,0x505,gszNpcSource_006E15F0)) keep=0;
@@ -104,7 +104,7 @@ int __fastcall D2GAME_STORES_SellItem_6FCC7680(D2GameStrc* game,D2UnitStrc* play
                         const int quantity=ITEMS_GetTotalMaxStack(copy);
                         STATLIST_SetUnitStat(copy,70,quantity,0);
                         const int vendorId=npc->dwClassId;
-                        int newPrice=ITEMS_GetTransactionCost(player,copy,game->difficulty,sub_00543520(game,player),vendorId,1);
+                        int newPrice=ITEMS_GetTransactionCost(player,copy,game->nDifficulty,sub_00543520(game,player),vendorId,1);
                         if (price>newPrice) price=newPrice;
                     }
                 }
@@ -117,7 +117,7 @@ int __fastcall D2GAME_STORES_SellItem_6FCC7680(D2GameStrc* game,D2UnitStrc* play
                 const int quantity=ITEMS_GetTotalMaxStack(copy);
                         STATLIST_SetUnitStat(copy,70,quantity,0);
                 const int vendorId=npc->dwClassId;
-                        int newPrice=ITEMS_GetTransactionCost(player,copy,game->difficulty,sub_00543520(game,player),vendorId,1);
+                        int newPrice=ITEMS_GetTransactionCost(player,copy,game->nDifficulty,sub_00543520(game,player),vendorId,1);
                 if (price>newPrice) price=newPrice;
             }
         }

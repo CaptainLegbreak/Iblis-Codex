@@ -2,6 +2,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 #define D2_MAX(a,b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a,b) ((a) < (b) ? (a) : (b))
@@ -44,21 +46,6 @@ struct D2SkillsTxt
 
 struct D2ItemStatCostTxt { char unk00[0x48]; short wItemEvent[2]; short wItemEventFunc[2]; char unk50[0xf4]; };
 
-struct D2DataTablesStrc
-{
-    char unk000[0xc4];
-    int nStatesTxtRecordCount;
-    char unk0C8[0xb04];
-    D2ItemStatCostTxt* pItemStatCostTxt;
-    void* pLinker;
-    int nItemStatCostTxtRecordCount;
-    unsigned char unk_BD8[0x4C];
-    D2UniqueItemsTxt* pUniqueItemsTxt;
-    int nUniqueItemsTxtRecordCount;
-    unsigned char unk_C2C[0x40];
-    int nStuff;
-    int nMask;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int); // 0x0045C4B0
@@ -66,17 +53,6 @@ void __fastcall D2GAME_PACKETS_SendPacket0x21_UpdateSkills_6FC3DB50(D2ClientStrc
 D2ClientStrc* __fastcall SUNIT_GetClientFromPlayer(D2UnitStrc*, const char*, int); // 0x005531C0
 D2MonStatsTxt* __fastcall sub_0055B7E0_GetMonStatsTxtFromUnit(D2UnitStrc*); // 0x0055B7E0
 
-struct D2GameStrc
-{
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-    unsigned char unk_6E[0x2];
-    int bExpansion;
-    char f_74[0x78 - 0x70 - 4];
-    unsigned short wItemFormat;
-    char unk0x7A[0xA8 - 0x78 - 2];
-    unsigned int dwGameFrame;
-};
 
 void __fastcall sub_0056BD90_RefreshPetMaxForSkill(D2GameStrc*, D2UnitStrc*, int); // 0x0056BD90
 void __fastcall sub_6FD11C90(D2UnitStrc*, int, int); // 0x0056C740
@@ -478,7 +454,7 @@ void __fastcall D2GAME_ITEMMODE_ServerStatlistCallback_6FC41910(D2GameStrc* pGam
     case 204:
         if (pOther) {
             int nShift = sgptDataTables->nStuff;
-            int nLevel = sgptDataTables->nMask;
+            int nLevel = sgptDataTables->nShiftedStuff;
             int nLayer = (unsigned short)nLayerStatId;
             int nSkillId = nLayer >> nShift;
             nLevel &= nLayer;

@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 #define QUEST_A2Q2_HORADRICSTAFF 9
 #define QFLAG_COMPLETEDNOW 14
@@ -7,11 +8,6 @@
 struct D2PlayerDataStrc;
 struct D2ItemsTxt;
 
-struct D2GameStrc
-{
-    char pad0x00[0x6D];
-    unsigned char nDifficulty;
-};
 
 
 struct D2PlayerDataStrc

@@ -2,8 +2,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
-struct D2GameStrc { char unk00[0x6D]; unsigned char nDifficulty; char unk6E[0x3A]; int dwGameFrame; };
 struct D2ActiveRoomStrc { char unk00[0x74]; D2UnitStrc* pUnitFirst; };
 struct D2PlayerDataStrc { char unk00[0x10]; D2BitBufferStrc* pQuestData[3]; };
 struct D2Act5Quest2Strc { char unk00[0x84]; unsigned char bQualKehkActivated,unk85,bGroupFreed[3]; char unk89[3]; D2CoordStrc tCageCoords[3]; int nTotalWussies,nKilledWussies,nFreedWussies; int nWussieGUIDs[3][5]; int nPortalGUIDs[3]; unsigned char bPortalSpawned[3]; char unkFB[0x13]; unsigned char bPortalAttempted[3]; };

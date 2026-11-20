@@ -1,6 +1,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 // build: ob1
 
 struct D2UnitStrc;
@@ -30,17 +32,6 @@ struct D2MonsterRegionStrc
     unsigned int dwUniqueCount;
 };
 
-struct D2GameStrc
-{
-    char _pad0000[0x6D];
-    unsigned char nDifficulty;
-    char _pad006E[2];
-    int bExpansion;
-    char _pad0074[0x7C];
-    D2MonsterRegionStrc* pMonReg[1024];
-    char _pad10F0[0xC40];
-    unsigned char nBossFlagList[64];
-};
 
 struct D2MonStatsTxt
 {
@@ -83,20 +74,6 @@ struct D2SuperUniquesTxt
     char _pad28[0x0C];
 };
 
-struct D2DataTablesStrc
-{
-    char _pad0000[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char _pad0A7C[4];
-    int nMonStatsTxtRecordCount;
-    char _pad0A84[0x50];
-    D2SuperUniquesTxt* pSuperUniquesTxt;
-    char _pad0AD8[4];
-    int nSuperUniquesTxtRecordCount;
-    char _pad0AE0[0x170];
-    D2MonUModTxt* pMonUModTxt;
-    int nMonUModTxtRecordCount;
-};
 
 typedef void (__fastcall* UModInitFunc)(D2UnitStrc* pUnit, int nUMod, int bUnique);
 typedef void (__fastcall* MinionCallbackFunc)(D2UnitStrc* pUnit, void* pArg1, void* pArg2);

@@ -2,6 +2,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define QUEST_A2Q3_TAINTEDSUN 10
@@ -80,20 +82,6 @@ struct Packet;
 struct D2ObjOperateFnStrc;
 struct D2Unk00545D40Rec;
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    unsigned char unk_20[0x4A];
-    unsigned char nGameType;
-    unsigned char unk_6B[0x2];
-    unsigned char nDifficulty;
-    unsigned char unk_6E[0x3A];
-    int dwGameFrame;
-    unsigned char unk_AC[0x1044];
-    D2ObjectControlStrc* pObjectControl;
-    D2QuestInfoStrc* pQuestControl;
-};
 
 struct D2PlayerDataStrc
 {
@@ -153,17 +141,6 @@ struct D2SuperUniquesTxt
     char unk0x0C[0x28];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char unk0xA7C[0x4];
-    int nMonStatsTxtRecordCount;
-    unsigned char unk_A84[0x50];
-    D2SuperUniquesTxt* pSuperUniquesTxt;
-    char unk0xAD8[0x4];
-    int nSuperUniquesTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0

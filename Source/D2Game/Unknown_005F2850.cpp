@@ -1,9 +1,5 @@
 #include "D2Structs.h"
-struct D2GameStrc
-{
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-};
+#include "D2GameStrc.h"
 
 
 

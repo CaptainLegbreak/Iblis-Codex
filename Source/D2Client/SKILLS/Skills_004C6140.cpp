@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2DataTbls.h"
 #define BITARRAY_CHECK(pBytes, nBit) ((pBytes)[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
 #define SKILLSFLAGINDEX_LOB 1
 #define SKILLSFLAGINDEX_PRGSTACK 7
@@ -114,31 +115,6 @@ struct D2MonStatsTxt
     char unk0x014[0x1A8 - 0x14];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xC4];
-    int nStatesTxtRecordCount;
-    unsigned char unk_C8[0x9B0];
-    D2MonStatsTxt* pMonStatsTxt;
-    int unk0xA7C;
-    int nMonStatsTxtRecordCount;
-    char unk0xA84[0xB98 - 0xA84];
-    union
-    {
-        D2SkillsTxt* pSkillsTxt;
-        D2SkillsTxt* skills;
-    };
-    int unk0xB9C;
-    union
-    {
-        int nSkillsTxtRecordCount;
-        int skillCount;
-    };
-    char unk0xBA4[0x1C];
-    int nOverlayTxtRecordCount;
-    unsigned char unk_BC4[0x10];
-    int nItemStatCostTxtRecordCount;
-};
 
 typedef int (__fastcall* CLIENTSKILLSTARTFN)(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);
 
@@ -786,7 +762,7 @@ int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* p
 }
 
 static __forceinline D2SkillsTxt* GetSkillRecord(int id)
-{if(id>=0 && id<sgptDataTables->skillCount)return &sgptDataTables->skills[id];return 0;}
+{if(id>=0 && id<sgptDataTables->nSkillsTxtRecordCount)return &sgptDataTables->pSkillsTxt[id];return 0;}
 
 // 0x004C6680
 int __fastcall sub_004C6680_SkillDo(D2UnitStrc* unit,int skillId,int skillLevel,int mode)

@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct Unicode;
 struct UnicodeChar;
@@ -118,13 +119,6 @@ struct D2MonStatsTxt
     char unk0xB0[0xF8];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x0[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char unk0xA7C[0x4];
-    int nMonStatsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);

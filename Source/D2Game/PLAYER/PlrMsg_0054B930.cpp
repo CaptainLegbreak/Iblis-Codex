@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 
 struct D2MonsterDataStrc
@@ -39,11 +40,6 @@ struct D2SkillsTxt
     unsigned char nFlags[8];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xC5C];
-    int nLevelsTxtRecordCount;
-};
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090

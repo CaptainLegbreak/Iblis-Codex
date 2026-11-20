@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 
 
@@ -41,21 +42,6 @@ struct D2SkillsTxt
     char unk0x148[0xF4];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xC4];
-    int nStatesTxtRecordCount;
-    char unk0x0C8[0xAD0];
-    D2SkillsTxt* pSkillsTxt;
-    void* pSkillsLinker;
-    int nSkillsTxtRecordCount;
-    char unk0xBA4[0x28];
-    D2ItemStatCostTxt* pItemStatCostTxt;
-    void* pItemStatCostLinker;
-    int nItemStatCostTxtRecordCount;
-    char unk0xBD8[0x18];
-    int nPetTypeTxtRecordCount;
-};
 
 enum D2C_Q05SkillConstants
 {

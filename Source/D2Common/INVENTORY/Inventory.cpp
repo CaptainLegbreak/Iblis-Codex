@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define STATEMASK_BLUE 18
 #define INVENTORY_SIGNATURE 0x01020304
@@ -47,13 +48,6 @@ struct D2InvRectStrc;
 struct D2BeltsTxt;
 
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xC4];
-    int nStatesTxtRecordCount;
-    char unk0x0C8[0x4];
-    unsigned int* fStateMasks[40];
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 unsigned int* __stdcall D2COMMON_STATES_GetStatFlags_6FDB8A90(D2UnitStrc* pUnit); // 0x00625BB0

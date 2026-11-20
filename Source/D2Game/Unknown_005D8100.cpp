@@ -40,13 +40,6 @@ struct D2SkillsTxt
 
 typedef char chk_D2SkillsTxt_size[sizeof(D2SkillsTxt) == 0x23C ? 1 : -1];
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xB98];
-    D2SkillsTxt* pSkillsTxt;
-    void* pSkillsLinker;
-    int nSkillsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553540
@@ -108,6 +101,7 @@ int __fastcall sub_005D8100_EmitCaller(D2GameStrc* pGame, D2UnitStrc* pUnit, int
 }
 
 #include "gen/data/Source/D2Game/Unknown_005D8100.inc"
+#include "D2DataTbls.h"
 
 static D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {

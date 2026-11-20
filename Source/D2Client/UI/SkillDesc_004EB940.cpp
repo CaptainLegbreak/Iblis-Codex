@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 
 struct D2SkillsTxt
@@ -25,13 +26,6 @@ struct D2SkillDescTxt
     char unk0x20[0x100];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xB98];
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[0x04];
-    int nSkillsTxtRecordCount;
-};
 
 struct Unicode
 {

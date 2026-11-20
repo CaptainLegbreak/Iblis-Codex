@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Constants.h"
+#include "D2DataTbls.h"
 
 struct D2LightStrc;
 
@@ -159,17 +160,6 @@ struct D2SuperUniquesTxt
     unsigned char nModes[3];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char unk0xA7C[0x04];
-    int nMonStatsTxtRecordCount;
-    char unk0xA84[0x0C];
-    D2MonStats2Txt* pMonStats2Txt;
-    char unk0xA94[0x04];
-    int nMonStats2TxtRecordCount;
-};
 
 struct D2ClientEntryStrc
 {

@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -8,15 +10,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2NpcControlStrc;
-struct D2GameStrc
-{
-    char unknown00[0x1C];
-    void* pMemoryPool;
-    char unknown20[0xB0];
-    D2SeedStrc pSeed;
-    char unknownD8[0x1D24-0xD8];
-    D2NpcControlStrc* pNpcControl;
-};
 
 #define MAX_NPC_INVENTORY 17
 
@@ -73,13 +66,6 @@ struct D2MonStatsTxt
     unsigned char nFlags1;
     unsigned char unknown0E[0x1A8-0x0E];
 };
-struct D2DataTablesStrc
-{
-    char unknown00[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    int unknownA7C;
-    int nMonStatsTxtRecordCount;
-};
 struct D2NpcConfigStrc
 {
     int nClassId;
@@ -130,7 +116,7 @@ void __fastcall sub_00536070_InitNpcControl(D2GameStrc* pGame)
     pControl->nArraySize = 0;
     pControl->nNpcCount = 0;
     SEED_InitSeed(&pControl->pSeed);
-    SEED_InitLowSeed(&pControl->pSeed, RollSeed(&pGame->pSeed));
+    SEED_InitLowSeed(&pControl->pSeed, RollSeed(&pGame->pGameSeed));
     if (!gnItemCode_00883E9C) DATATBLS_GetItemRecordFromItemCode(0x20767163, &gnItemCode_00883E9C);
     if (!gnItemCode_00883EA0) DATATBLS_GetItemRecordFromItemCode(0x20767161, &gnItemCode_00883EA0);
     DATATBLS_GetItemDataTables();

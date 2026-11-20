@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
@@ -112,13 +113,6 @@ struct D2ItemStatCostTxt
     char unk0x0A[0x13A];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xBCC];
-    D2ItemStatCostTxt* pItemStatCostTxt;
-    char unk0xBD0[0x04];
-    int nItemStatCostTxtRecordCount;
-};
 
 #pragma pack(push, 1)
 struct D2GSPacketSrvAC

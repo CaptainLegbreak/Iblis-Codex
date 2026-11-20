@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct Unicode;
 struct D2SkillsTxt;
@@ -46,16 +47,6 @@ struct D2SkillDescTxt
     char unk0x0C[0x114];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xB8C];
-    D2SkillDescTxt* pSkillDescTxt;
-    char unk0xB90[0x4];
-    int nSkillDescTxtRecordCount;
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[0x4];
-    int nSkillsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __fastcall sub_004EDEA0_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2SkillsTxt* pSkillsTxt, int nSkillId, int nArg3, int nArg4, int nLine, int nArg5); // 0x004EDEA0

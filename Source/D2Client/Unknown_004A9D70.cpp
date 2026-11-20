@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define TEXT(y, id) sub_004AAAA0_DrawSkillTreeText(D2LANG_GetStringFromTblIndex(id), y)
 #define BITARRAY_CHECK(pBytes, nBit) ((pBytes)[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
@@ -64,16 +65,6 @@ struct D2SkillDescTxt
     char unk0x08[0x118];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xB8C];
-    D2SkillDescTxt* pSkillDescTxt;
-    char unk0xB90[0x4];
-    int nSkillDescTxtRecordCount;
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[0x4];
-    int nSkillsTxtRecordCount;
-};
 
 struct SMSGHANDLER_PARAMS
 {

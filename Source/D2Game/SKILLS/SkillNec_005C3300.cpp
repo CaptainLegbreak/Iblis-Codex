@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Constants.h"
+#include "D2DataTbls.h"
 
 struct D2DifficultyLevelsTxt;
 struct D2SkillsTxt;
@@ -90,19 +91,6 @@ struct D2SkillsTxt
     char unk0x168[0x23C - 0x168];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xC4];
-    int nStatesTxtRecordCount;
-    char unk0x0C8[0xAD0];
-    D2SkillsTxt* pSkillsTxt;
-    void* pSkillsLinker;
-    int nSkillsTxtRecordCount;
-    char unk0xBA4[0x30];
-    int nItemStatCostTxtRecordCount;
-    unsigned char unk_BD8[0x18];
-    int nPetTypeTxtRecordCount;
-};
 
 struct D2UnkNecSkillStrc
 {

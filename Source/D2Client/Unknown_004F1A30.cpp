@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -44,17 +45,6 @@ struct D2SkillsTxt
     char unk0x120[0x11C];
 };
 
-struct D2DataTablesStrc
-{
-    char unk_000[0xC4];
-    int nStatesTxtRecordCount;
-    char unk_0C8[0xB98 - 0xC8];
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[0x4];
-    int nSkillsTxtRecordCount;
-    char unk_BA4[0xBD4 - 0xBA4];
-    int nItemStatCostTxtRecordCount;
-};
 
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc*, int);
 

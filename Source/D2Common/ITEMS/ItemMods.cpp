@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #pragma intrinsic(_ReadWriteBarrier)
 
@@ -20,20 +21,6 @@ struct Unit;
 struct D2ItemStatCostTxt;
 struct D2StatListStrc;
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xAC];
-    int nPropertiesTxtRecordCount;
-    unsigned char unk_B0[0xAF0];
-    int nSkillsTxtRecordCount;
-    char unk0xBA4[0x28];
-    D2ItemStatCostTxt* pItemStatCostTxt;
-    char unk0xBD0[0x04];
-    int nItemStatCostTxtRecordCount;
-    char unk0xBD8[0x94];
-    int nStuff;
-    unsigned int dwStuffMask;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -1414,7 +1401,7 @@ int __fastcall sub_0065F6A0_PropertyFunc17_ChargedSkill(int nType, D2UnitStrc* p
 
     const int nCurrentCharges = SEED_RollLimitedRandomNumber(ITEMS_GetItemSeed(pItem), nCharges - nCharges / 8) + nCharges / 8 + 1;
     D2StatListStrc* pStatList = ITEMMODS_GetOrCreateStatList(pUnit, pItem, nState, fStatList);
-    STATLIST_SetStatIfListIsValid(pStatList, nStatId, (nCurrentCharges & 0xFF) + (nCharges << 8), (unsigned short)((nSkillId << sgptDataTables->nStuff) + (sgptDataTables->dwStuffMask & nSkillLevel)));
+    STATLIST_SetStatIfListIsValid(pStatList, nStatId, (nCurrentCharges & 0xFF) + (nCharges << 8), (unsigned short)((nSkillId << sgptDataTables->nStuff) + (sgptDataTables->nShiftedStuff & nSkillLevel)));
     return nCharges;
 }
 

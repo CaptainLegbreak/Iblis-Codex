@@ -3,6 +3,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define PLRMODE_DEATH 0
@@ -181,35 +183,6 @@ struct D2ObjectControlStrc
     D2ObjectRoomCoordStrc* pObjectRoomCoord;
 };
 
-struct D2GameStrc
-{
-    char unk0x0000[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x4A];
-    unsigned char nGameType;
-    char unk0x6B[5];
-    int bExpansion;
-    char f_74[8];
-    unsigned int dwInitSeed;
-    unsigned int dwObjSeed;
-    unsigned char unk_84[0x4];
-    D2ClientStrc* pClientList;
-    char unk0x008C[0x1C];
-    int dwGameFrame;
-    char unk0x00AC[0x10];
-    D2DrlgActStrc* pAct[5];
-    char unk0x00D0[0x08];
-    D2InactiveUnitListStrc* pInactiveUnitList[5];
-    char unk0x00EC[0x1004];
-    D2ObjectControlStrc* pObjectControl;
-    D2QuestInfoStrc* pQuestControl;
-    unsigned char unk_10F8[0x28];
-    D2UnitStrc* pUnitList[5][128];
-    char unk0x1B20[0x204];
-    D2NpcControlStrc* pNpcControl;
-    D2ArenaStrc* pArenaCtrl;
-    D2PartyControlStrc* pPartyControl;
-};
 
 struct D2GSPacketSrv53
 {
@@ -232,15 +205,6 @@ struct D2MonStatsTxt
     char unk0x10[0x198];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char unk0xA7C[0x04];
-    int nMonStatsTxtRecordCount;
-    char unk0xA84[0x1D8];
-    int nLevelsTxtRecordCount;
-};
 
 struct D2ObjectsTxt
 {

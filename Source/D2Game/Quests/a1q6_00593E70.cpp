@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 #define LEVEL_ROGUEENCAMPMENT 1
 #define LEVEL_SEWERSLEV3 49
@@ -61,17 +62,6 @@ enum D2C_P08QuestConstants
 
 
 
-struct D2GameStrc
-{
-    char pad0x00[0x6D];
-    unsigned char nDifficulty;
-    char pad0x6E[0x02];
-    int bExpansion;
-    char pad0x74[0x34];
-    int dwGameFrame;
-    char pad0xAC[0x10];
-    D2DrlgActStrc* pAct[5];
-};
 
 struct D2PlayerDataStrc
 {

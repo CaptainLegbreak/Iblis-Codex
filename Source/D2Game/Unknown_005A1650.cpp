@@ -1,6 +1,8 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -44,15 +46,6 @@ enum D2C_H16ElemConstants
     STAT_LEVEL = 12,
 };
 
-struct D2GameStrc
-{
-    char pad0x00[0x6A];
-    unsigned char nGameType;
-    char pad0x6B[0x02];
-    unsigned char nDifficulty;
-    char pad0x6E[0x06];
-    int dwGameType;
-};
 
 struct D2MissilesTxt
 {
@@ -67,18 +60,6 @@ struct D2MonUModTxt
     int dwConstants;
 };
 
-struct D2DataTablesStrc
-{
-    char pad0x000[0xB64];
-    D2MissilesTxt* pMissilesTxt;
-    char pad0xB68[0x04];
-    int nMissilesTxtRecordCount;
-    D2MonLvlTxt* pMonLvlTxt;
-    int nMonLvlTxtRecordCount;
-    char pad0xB78[0xD8];
-    D2MonUModTxt* pMonUModTxt;
-    int nMonUModTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern unsigned int gdwBitMasks[]; // 0x006CE268

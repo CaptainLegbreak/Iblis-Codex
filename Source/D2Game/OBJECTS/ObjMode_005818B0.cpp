@@ -2,6 +2,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 #define UNIT_OBJECT 2
 #define UNITFLAGEX_TELEPORTED 0x10000
@@ -46,11 +48,6 @@ struct D2ActiveRoomStrc
     D2UnitStrc* pUnitFirst;
 };
 
-struct D2GameStrc
-{
-    char pad00[0xA8];
-    int dwGameFrame;
-};
 
 
 struct D2ObjectsTxt
@@ -170,12 +167,6 @@ struct D2CharStatsTxt
     char unk0x40[0x84];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xBC4];
-    D2CharStatsTxt* pCharStatsTxt;
-    int nCharStatsTxtRecordCount;
-};
 
 typedef void(__fastcall* ObjShrineFunction)(D2ObjOperateFnStrc* pOp, D2ShrinesTxt* pShrinesTxtRecord);
 

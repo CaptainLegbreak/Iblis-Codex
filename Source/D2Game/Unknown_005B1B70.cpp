@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 struct D2TargetNodeStrc;
 struct D2MonsterSpawnParamsStrc;
@@ -16,14 +18,6 @@ struct D2TargetNodeStrc
     D2TargetNodeStrc* pPrevious;
 };
 
-struct D2GameStrc
-{
-    char pad0x00[0x6D];
-    unsigned char nDifficulty;
-    unsigned char unk_6E[0x108A];
-    D2TargetNodeStrc* pTargetNodes[10];
-    int unk0x1120;
-};
 
 
 void __fastcall D2GAME_FreeUnitNode_6FC40310(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005B1A20
@@ -44,13 +38,6 @@ struct D2MonStatsTxt
     char pad0x04[0x1A4];
 };
 
-struct D2DataTablesStrc
-{
-    char pad0x000[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    int nPadA7C;
-    int nMonStatsTxtRecordCount;
-};
 
 struct D2ItemsTxt
 {

@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 struct Unicode
 {
     unsigned short wChar;
@@ -33,16 +34,6 @@ struct D2SkillDescTxt
     char unk0x08[0x118];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xB8C];
-    D2SkillDescTxt* pSkillDescTxt;
-    char unk0xB90[0x4];
-    int nSkillDescTxtRecordCount;
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[0x4];
-    int nSkillsTxtRecordCount;
-};
 
 struct SMSGHANDLER_PARAMS
 {

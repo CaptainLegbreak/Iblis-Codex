@@ -2,6 +2,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 #define EVENTTYPE_ENDANIM 1
 #define STAT_HITPOINTS 6
@@ -37,17 +39,6 @@ struct D2CorpsePositionStrc;
 struct D2ItemsTxt;
 
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    unsigned char unk_20[0x50];
-    int bExpansion;
-    unsigned char unk_74[0x34];
-    int dwGameFrame;
-    unsigned char unk_AC[0x24];
-    D2SeedStrc pGameSeed;
-};
 
 typedef void(__fastcall* EventCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* pUnit, int nCustomId, int nCustomParam);
 
@@ -96,16 +87,6 @@ struct D2SkillsTxt
     unsigned char unk_30[0x20C];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xB98];
-    D2SkillsTxt* pSkillsTxt;
-    void* pSkillsLinker;
-    int nSkillsTxtRecordCount;
-    unsigned char unk_BA4[0x20];
-    D2CharStatsTxt* pCharStatsTxt;
-    int nCharStatsTxtRecordCount;
-};
 
 typedef void (__fastcall* PLRMODESTARTXY)(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, int nX, int nY);
 

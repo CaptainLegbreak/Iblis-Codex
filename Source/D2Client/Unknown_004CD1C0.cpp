@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2DataTbls.h"
 
 struct D2LightStrc;
 struct D2SeedStrc;
@@ -52,13 +53,6 @@ struct D2MissilesTxt
     char unk0x132[0x72];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xB64];
-    D2MissilesTxt* pMissilesTxt;
-    char unk0xB68[0x04];
-    int nMissilesTxtRecordCount;
-};
 
 typedef void (__fastcall* D2CltDoFunc)(D2UnitStrc* pMissile);
 

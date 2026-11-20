@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 struct D2PropertyStrc;
 struct D2PropertiesTxt;
 struct D2MagicAffixTxt;
@@ -32,15 +33,6 @@ struct D2PropertiesTxt
     unsigned short wStat[7];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA4];
-    D2PropertiesTxt* pPropertiesTxt;
-    char unk0x0A8[0x04];
-    int nPropertiesTxtRecordCount;
-    char unk0x0B0[0xAF0];
-    int nSkillsTxtRecordCount;
-};
 
 struct D2MagicAffixTxt
 {

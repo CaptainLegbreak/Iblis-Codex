@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 #define STATEMASK_ACTIVE 5
 #define STATEMASK_REMHIT 6
 #define STATEMASK_DAMBLUE 7
@@ -31,13 +32,6 @@ struct D2ItemDataStrc;
 struct D2InventoryPairStrc;
 struct D2InventoryGridStrc;
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xC4];
-    int nStatesTxtRecordCount;
-    char unk0x0C8[0x4];
-    unsigned int* fStateMasks[40];
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 

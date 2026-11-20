@@ -1,13 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x1D04];
-    struct D2NpcControlStrc* pNpcControl;
-};
 
 
 struct D2NpcGambleStrc

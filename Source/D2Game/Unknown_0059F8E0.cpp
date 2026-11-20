@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 struct D2SeedStrc;
 struct D2MissilesTxt;
 struct D2MissileUnitFindTableStrc;
@@ -64,13 +65,6 @@ struct D2MissilesTxt
     char unk0x1A0[0x04];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xB64];
-    D2MissilesTxt* pMissilesTxt;
-    char unk0xB68[0x04];
-    int nMissilesTxtRecordCount;
-};
 
 extern "C" D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern unsigned int gdwBitMasks[]; // 0x006CE268

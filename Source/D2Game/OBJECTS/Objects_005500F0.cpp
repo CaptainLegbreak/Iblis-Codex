@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 #define OBJMODE_OPERATING 1
 #define OBJMODE_OPENED 2
@@ -12,11 +13,6 @@ struct D2ObjectControlStrc;
 struct D2ObjInitFnStrc;
 struct D2DrlgCoordsStrc;
 
-struct D2GameStrc
-{
-    char unk0x00[0xA8];
-    int dwGameFrame;
-};
 
 
 struct D2ObjectControlStrc

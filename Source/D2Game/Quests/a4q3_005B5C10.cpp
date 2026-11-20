@@ -1,7 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
-struct D2GameStrc { char pad00[0x6d];unsigned char difficulty;char pad6e[0x3a];int frame; };
 struct D2PlayerDataStrc { char pad00[0x10];D2BitBufferStrc* quest[3]; };
 struct D2Act4Quest3Strc { unsigned short forgeMode;unsigned char unused02,completionStarted,rewardPending;char pad05[3];int rewardState,hammerHits;int unused10,playersInAct; };
 struct D2QuestDataStrc { int number;D2GameStrc* game;unsigned char act,notIntro,active,lastState,state,init;unsigned short unused0e;int sequence;unsigned char flagsLow;char flagsHigh[3];D2Act4Quest3Strc* data;char pad1c[0xc4];int filter; };
@@ -42,7 +42,7 @@ int __fastcall sub_005B5C10(D2ObjectOperateStrc* operation)
  D2QuestDataStrc* quest=QUESTS_GetQuestData(operation->game,24);
  if(!quest)return 0;
  D2GameStrc* game=operation->game;
- D2BitBufferStrc* flags=UNITS_GetPlayerData(operation->player)->quest[game->difficulty];
+ D2BitBufferStrc* flags=UNITS_GetPlayerData(operation->player)->quest[game->nDifficulty];
  if(QUESTRECORD_GetQuestState(flags,27,0)==1 || QUESTRECORD_GetQuestState(flags,27,1)==1)goto playSound;
  {
   D2Act4Quest3Strc* data=quest->data;
@@ -52,7 +52,7 @@ int __fastcall sub_005B5C10(D2ObjectOperateStrc* operation)
    case 0:
     if(ITEMS_FindQuestItem(operation->game,operation->player,0x2073736d)){
      UNITS_ChangeAnimMode(operation->object,1);
-     EVENT_SetEvent(operation->game,operation->object,1,operation->game->frame+(record->animation1>>8),0,0);
+     EVENT_SetEvent(operation->game,operation->object,1,operation->game->dwGameFrame+(record->animation1>>8),0,0);
      data->forgeMode=2;quest->flagsLow=0;
      QUESTS_UnitIterate(quest,3,0,sub_005B59C0,true);
      QUESTS_DeleteItem(operation->game,operation->player,0x2073736d);
@@ -82,7 +82,7 @@ int __fastcall sub_005B5C10(D2ObjectOperateStrc* operation)
     QUESTS_StateDebug(quest,4,"d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a4q3.cpp",293);
     quest->flagsLow=0;
     QUESTS_UnitIterate(quest,13,0,sub_005B59C0,true);
-    EVENT_SetEvent(operation->game,operation->object,7,operation->game->frame+(record->animation3>>8),0,0);
+    EVENT_SetEvent(operation->game,operation->object,7,operation->game->dwGameFrame+(record->animation3>>8),0,0);
     SUNIT_IterateUnitsOfType(operation->game,0,operation->player,sub_005B5BB0);
     QUESTS_TriggerFX(operation->game,14);
     return 0;

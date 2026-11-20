@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 #define UNIT_OBJECT 2
 #define UNIT_ITEM 4
@@ -15,13 +16,6 @@ struct D2StaticPathStrc;
 struct D2Act5Quest4Strc;
 struct D2PlayerDataStrc;
 
-struct D2GameStrc
-{
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-    unsigned char unk_6E[0x3A];
-    int dwGameFrame;
-};
 
 
 

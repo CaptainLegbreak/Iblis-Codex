@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 struct D2MonStatsTxt;
 struct D2MonsterDataStrc;
@@ -20,11 +21,6 @@ enum D2C_F41AiUtilConstants
     EVENTTYPE_AITHINK = 2,
 };
 
-struct D2GameStrc
-{
-    char unk0x00[0xA8];
-    int dwGameFrame;
-};
 
 struct D2MonsterDataStrc
 {

@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2StaticPathStrc;
 struct D2SkillsTxt;
@@ -35,15 +36,6 @@ struct D2SkillsTxt
     char unk0x1DD[0x5F];
 };
 
-struct D2DataTablesStrc
-{
-    char unk_00[0xB6C];
-    int nMissilesTxtRecordCount;
-    char unk_B70[0x28];
-    D2SkillsTxt* pSkillsTxt;
-    int unk_B9C;
-    int nSkillsTxtRecordCount;
-};
 
 struct D2MissileStrc
 {

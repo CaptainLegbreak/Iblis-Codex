@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define MONMODE_NEUTRAL 1
 struct D2MissilesTxt;
@@ -23,15 +24,6 @@ struct D2MissilesTxt
 
 typedef char D2MissilesTxt_size_check[sizeof(D2MissilesTxt) == 0x1A4 ? 1 : -1];
 
-struct D2DataTablesStrc
-{
-    char pad0x000[0xA80];
-    int nMonStatsTxtRecordCount;
-    char pad0xA84[0xE0];
-    D2MissilesTxt* pMissilesTxt;
-    char pad0xB68[0x04];
-    int nMissilesTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0

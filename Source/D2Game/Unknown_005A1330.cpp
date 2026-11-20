@@ -1,15 +1,5 @@
 #include "D2Structs.h"
-struct D2GameStrc
-{
-    char pad0x00[0x6A];
-    unsigned char nGameType;
-    char pad0x6B[0x02];
-    unsigned char nDifficulty;
-    char pad0x6E[0x06];
-    int dwGameType;
-    char pad0x78[0x30];
-    int dwGameFrame;
-};
+#include "D2GameStrc.h"
 
 
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit);                                            // 0x00554010

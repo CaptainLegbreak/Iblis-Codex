@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 
@@ -91,20 +92,6 @@ struct D2SkillStrc
 };
 
 
-struct D2DataTablesStrc
-{
-    char unk0x00[64];
-    char* pSkillsCode;
-    unsigned int nSkillsCodeSize;
-    unsigned char unk_48[0x7C];
-    int nStatesTxtRecordCount;
-    char unk0xC8[2968 - 196 - 4];
-    D2SkillsTxt* pSkillsTxt;
-    void* pSkillsLinker;
-    int nSkillsTxtRecordCount;
-    char unk0xBA4[3028 - 2968 - 12];
-    int nItemStatCostTxtRecordCount;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090

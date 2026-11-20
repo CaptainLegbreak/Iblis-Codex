@@ -1,7 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
-struct D2GameStrc { char unk00[0x6D]; unsigned char nDifficulty; char unk6E[0x3A]; int dwGameFrame; };
 struct D2PlayerDataStrc { char unk00[0x10]; D2BitBufferStrc* pQuestData[3]; };
 struct D2QuestExStrc { char unk00[3]; unsigned char f_3; unsigned char bSpawning; unsigned char bTimerStarted; };
 struct D2QuestDataStrc { char unk00[9]; unsigned char bNotIntro; char unk0A[2]; unsigned char fState; char unk0D[0xB]; D2QuestExStrc* pQuestDataEx; };

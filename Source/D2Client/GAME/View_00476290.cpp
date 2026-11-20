@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define STARS_ROLL(pSeed, lSeed) ((lSeed) = (pSeed)->nHighSeed + 0x6AC690C5i64 * (pSeed)->nLowSeed, \
     (pSeed)->nHighSeed = (unsigned int)((lSeed) >> 32), (pSeed)->nLowSeed = (unsigned int)(lSeed), (unsigned int)(lSeed))
@@ -26,11 +27,6 @@ struct D2PlayerDataStrc
 };
 
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xBF0];
-    int nPetTypeTxtRecordCount;
-};
 
 struct D2QuestLookupEntryStrc
 {

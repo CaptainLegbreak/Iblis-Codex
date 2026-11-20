@@ -1,3 +1,4 @@
+#include "D2DataTbls.h"
 struct D2SeedStrc
 {
     unsigned int nLowSeed;
@@ -22,13 +23,6 @@ struct D2MissilesTxt
     char unk0x183[0x1A4 - 0x183];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xB64];
-    D2MissilesTxt* pMissilesTxt;
-    char unk0xB68[0x04];
-    int nMissilesTxtRecordCount;
-};
 
 typedef char cc_M439_D2MissilesTxt_size[sizeof(D2MissilesTxt) == 0x1A4 ? 1 : -1];
 typedef char cc_M439_D2UnitStrc_frame[sizeof(D2UnitStrc) == 0x48 ? 1 : -1];

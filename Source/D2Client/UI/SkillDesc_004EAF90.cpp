@@ -1,6 +1,7 @@
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 
 struct D2SkillsTxt
@@ -32,18 +33,6 @@ struct D2SkillDescTxt
     char unk0x3C[0xE4];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x0[0x16C];
-    short* pProgressiveStates;
-    short nProgressiveStates;
-    char unk0x172[0xA26];
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[0x4];
-    int nSkillsTxtRecordCount;
-    char unk0xBA4[0x30];
-    int nItemStatCostTxtRecordCount;
-};
 
 struct Unicode
 {

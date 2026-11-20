@@ -2,6 +2,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -23,19 +25,6 @@ struct D2ItemsTxt;
 struct D2ItemTypesTxt;
 struct D2ItemRatioTxt;
 
-struct D2GameStrc
-{
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-    char unk0x6E[2];
-    int bExpansion;
-    char f_74[4];
-    unsigned short wItemFormat;
-    unsigned char unk_7A[0x2E];
-    unsigned int dwGameFrame;
-    char unk0xAC[0x24];
-    int pGameSeed;
-};
 
 
 
@@ -99,12 +88,6 @@ struct D2ItemsTxt
     unsigned char nQuest;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xBF8];
-    D2ItemTypesTxt* pItemTypesTxt;
-    int nItemTypesTxtRecordCount;
-};
 
 
 struct D2ItemDropStrc

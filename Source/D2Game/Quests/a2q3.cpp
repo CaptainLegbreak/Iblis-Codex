@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 #define QUEST_A1Q4_CAIN 4
 #define ACT_II 1
@@ -61,17 +62,6 @@ struct D2GSPacketSrv5D
 };
 
 #pragma pack(pop)
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x4D];
-    unsigned char nDifficulty;
-    unsigned char unk_6E[0x3A];
-    int dwGameFrame;
-    unsigned char unk_AC[0x10];
-    D2DrlgActStrc* pAct[5];
-};
 
 
 struct D2QuestGUIDStrc

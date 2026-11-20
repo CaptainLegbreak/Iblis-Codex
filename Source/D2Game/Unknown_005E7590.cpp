@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 struct D2MonStatsTxt;
 struct D2SeedStrc;
@@ -11,11 +12,6 @@ struct D2AiCmdStrc;
 
 
 
-struct D2GameStrc
-{
-    char unk0x00[0xA8];
-    int dwGameFrame;
-};
 
 struct D2AiCmdStrc
 {

@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 struct D2SkillStrc;
 
 struct D2PlayerDataStrc
@@ -18,13 +19,6 @@ struct D2SkillsTxt
     char unk0x30[0x20C];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xB98];
-    D2SkillsTxt* pSkillsTxt;
-    char unk0xB9C[0x4];
-    int nSkillsTxtRecordCount;
-};
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268
 extern "C" const char szUnitModeFile_006D8E84[];                                                            // 0x006D8E84

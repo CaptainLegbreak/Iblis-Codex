@@ -3,6 +3,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 #define STAT_FIRERESIST 39
 #define STAT_LIGHTRESIST 41
@@ -33,21 +35,6 @@ struct D2SkillsTxt
     char unk0x190[0xAC];
 };
 
-struct D2DataTablesStrc
-{
-    char unk_000[0xBC];
-    D2StatesTxt* pStatesTxt;
-    void* pStatesLinker;
-    int nStatesTxtRecordCount;
-    char unk_0C8[0x9B0];
-    D2MonStatsTxt* pMonStatsTxt;
-    void* pMonStatsLinker;
-    int nMonStatsTxtRecordCount;
-    unsigned char unk_A84[0x114];
-    D2SkillsTxt* pSkillsTxt;
-    int unk_B9C;
-    int nSkillsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
@@ -95,13 +82,6 @@ extern const int gnRandomElemTypes_006E1278[4]; // 0x006E1278
 
 
 
-struct D2GameStrc
-{
-    char unk_00[0x1C];
-    void* pMemoryPool;
-    unsigned char unk_20[0x88];
-    int dwGameFrame;
-};
 
 struct D2UnitFindArgStrc
 {

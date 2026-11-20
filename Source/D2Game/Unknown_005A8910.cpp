@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 struct D2SeedStrc;
 struct D2MonStatsTxt;
@@ -105,17 +106,6 @@ struct D2SkillsTxt
     unsigned int dwCalc[2];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    int unk0xA7C;
-    int nMonStatsTxtRecordCount;
-    char unk0xA84[0xE0];
-    D2MissilesTxt* pMissilesCode;
-    int unk0xB68;
-    int nMissilesTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
@@ -160,7 +150,7 @@ static __forceinline D2MissilesTxt* GetMissilesTxtRecord(int nMissileId)
 {
     if (nMissileId >= 0 && nMissileId < sgptDataTables->nMissilesTxtRecordCount)
     {
-        return &sgptDataTables->pMissilesCode[nMissileId];
+        return &sgptDataTables->pMissilesTxt[nMissileId];
     }
     return 0;
 }

@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 struct D2MonsterDataStrc;
 struct D2ItemsTxt;
 struct D2MonStatsTxt;
@@ -48,13 +49,6 @@ extern const D2DifficultyStatStrc gaDifficultyStats_006EA9F0[3]; // 0x006EA9F0
 
 
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char unk0xA7C[4];
-    int nMonStatsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern "C" const char gszEmptyAssertText; // 0x006CC837

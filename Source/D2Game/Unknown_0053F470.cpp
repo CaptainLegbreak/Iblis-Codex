@@ -1,3 +1,4 @@
+#include "D2GameStrc.h"
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
@@ -11,11 +12,6 @@ struct D2ArenaStrc
     unsigned int fFlags;
 };
 
-struct D2GameStrc
-{
-    char unk0x0000[0x1D28];
-    D2ArenaStrc* pArenaCtrl;
-};
 
 // 0x0053F470
 static int __stdcall sub_0053F470_ArenaHasFlag(D2GameStrc* pGame, unsigned int nFlag)

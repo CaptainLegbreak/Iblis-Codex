@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #pragma function(memset)
 
@@ -360,19 +361,6 @@ struct D2StatesTxt
     char unk0x20[0x1C];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xBC];
-    D2StatesTxt* pStatesTxt;
-    char unk0x0C0[0x04];
-    int nStatesTxtRecordCount;
-    char unk0x0C8[0xAC];
-    short* pCurseStates;
-    short nCurseStates;
-    unsigned char unk_17A[0xA4A];
-    D2CharStatsTxt* pCharStatsTxt;
-    int nCharStatsTxtRecordCount;
-};
 
 typedef void (__fastcall* RealmSaveCallback)(unsigned int*, const char*, char*, void*, int, unsigned int);
 

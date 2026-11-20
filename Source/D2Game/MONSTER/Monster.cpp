@@ -1,11 +1,8 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
-struct D2GameStrc
-{
-    char unk0x00[0xBC];
-    D2DrlgActStrc* pAct[5];
-};
 
 
 struct D2ActiveRoomStrc
@@ -25,13 +22,6 @@ struct D2MonStatsTxt
     char unk0x034[0x174];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xA78];
-    D2MonStatsTxt* pMonStatsTxt;
-    char unk0xA7C[0x04];
-    int nMonStatsTxtRecordCount;
-};
 
 struct D2ModeChangeStrc
 {

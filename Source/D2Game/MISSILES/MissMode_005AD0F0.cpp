@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 
 #define D2_MIN(a,b) ((a) < (b) ? (a) : (b))
 struct D2MissilesTxt;
@@ -18,13 +19,6 @@ struct D2MissilesTxt
     char unk0x0AF[0x1A4 - 0xAF];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x00[0xB64];
-    D2MissilesTxt* pMissilesTxt;
-    int unk0xB68;
-    int nMissilesTxtRecordCount;
-};
 
 struct D2DamageStrc
 {

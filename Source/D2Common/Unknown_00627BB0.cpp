@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2DataTbls.h"
 
 struct D2ItemCalcStrc
 {
@@ -6,11 +7,6 @@ struct D2ItemCalcStrc
     D2UnitStrc* pItem;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xBD4];
-    int nItemStatCostTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 int __stdcall UNITS_GetAttackRate(D2UnitStrc* pAttacker);                                                   // 0x00622560

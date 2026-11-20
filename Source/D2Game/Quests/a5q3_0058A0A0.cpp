@@ -2,6 +2,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2MapAIPathPositionStrc;
@@ -13,15 +15,6 @@ struct D2Act5Quest6Strc;
 struct D2QuestGUIDStrc;
 struct D2ObjInitFnStrc;
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x6D - 0x20];
-    unsigned char nDifficulty;
-    char unk0x6E[0xA8 - 0x6E];
-    int dwGameFrame;
-};
 
 struct D2PlayerDataStrc
 {
@@ -191,11 +184,6 @@ struct D2MapAIStrc
     D2MapAIPathPositionStrc* pPosition;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xAE0];
-    unsigned short nSuperUniqueIds[66];
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0

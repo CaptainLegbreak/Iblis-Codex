@@ -3,6 +3,8 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2DataTbls.h"
+#include "D2GameStrc.h"
 
 #define MISSILE_LIGHTUNIQUE 195
 #define MONTYPEFLAG_LIGHTNINGUNIQUE 0x100
@@ -16,17 +18,6 @@ struct D2SeedStrc;
 struct D2MonLvlTxt;
 struct D2MonUModTxt;
 
-struct D2GameStrc
-{
-    char pad0x00[0x6A];
-    unsigned char nGameType;
-    char pad0x6B[0x02];
-    unsigned char nDifficulty;
-    char pad0x6E[0x06];
-    int dwGameType;
-    unsigned char unk_78[0x30];
-    int dwGameFrame;
-};
 
 
 struct D2MonsterDataStrc
@@ -57,22 +48,6 @@ struct D2SkillsTxt
     char pad0x068[0x1D4];
 };
 
-struct D2DataTablesStrc
-{
-    char pad0x000[0xB64];
-    D2MissilesTxt* pMissilesTxt;
-    char pad0xB68[0x04];
-    int nMissilesTxtRecordCount;
-    D2MonLvlTxt* pMonLvlTxt;
-    int nMonLvlTxtRecordCount;
-    unsigned char unk_B78[0x20];
-    D2SkillsTxt* pSkillsTxt;
-    char pad0xB9C[0x04];
-    int nSkillsTxtRecordCount;
-    unsigned char unk_BA4[0xAC];
-    D2MonUModTxt* pMonUModTxt;
-    int nMonUModTxtRecordCount;
-};
 
 struct D2DamageStrc
 {

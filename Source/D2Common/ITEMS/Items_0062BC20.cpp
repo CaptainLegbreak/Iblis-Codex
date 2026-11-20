@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2DataTbls.h"
 #ifdef MOVED_TEST
 #define LEVEL_LOW 27
 #define LEVEL_HIGH 42
@@ -106,19 +107,6 @@ struct D2ItemTypesTxt
     char unk0x1D[0xC7];
 };
 
-struct D2DataTablesStrc
-{
-#ifdef MOVED_TEST
-    char movedPrefix[4];
-#endif
-    char unk0x00[0xC4];
-    int nStatesTxtRecordCount;
-    char unk0xC8[0x04];
-    unsigned int* fStateMasks[40];
-    char unk0x16C[0xA8C];
-    D2ItemTypesTxt* pItemTypesTxt;
-    int nItemTypesTxtRecordCount;
-};
 extern D2DataTablesStrc* sgptDataTables;  // 0x00744304
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId);  // 0x006335F0
 int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem);  // 0x0062B400

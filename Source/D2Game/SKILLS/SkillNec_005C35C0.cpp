@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Constants.h"
+#include "D2DataTbls.h"
 
 #define D2_MAX(a, b) ((a) < (b) ? (b) : (a))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -83,21 +84,6 @@ struct D2UnkNecSkillStrc
     int nAuraEventFunc[3];
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xC4];
-    int nStatesTxtRecordCount;
-    char unk0x0C8[0xAD0];
-    D2SkillsTxt* pSkillsTxt;
-    void* pSkillsLinker;
-    int nSkillsTxtRecordCount;
-    unsigned char unk_BA4[0x1C];
-    int nOverlayTxtRecordCount;
-    unsigned char unk_BC4[0x10];
-    int nItemStatCostTxtRecordCount;
-    unsigned char unk_BD8[0x18];
-    int nPetTypeTxtRecordCount;
-};
 
 enum D2SkillNecConstants
 {

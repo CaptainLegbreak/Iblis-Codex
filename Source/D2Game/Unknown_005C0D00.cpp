@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2DataTbls.h"
 
 struct D2SeedStrc;
 struct D2MagicAffixTxt;
@@ -88,12 +89,6 @@ struct D2ItemsTxt
     unsigned int dwCode;
 };
 
-struct D2DataTablesStrc
-{
-    char unk0x000[0xC18];
-    D2SetItemsTxt* pSetItemsTxt;
-    int nSetItemsTxtRecordCount;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0

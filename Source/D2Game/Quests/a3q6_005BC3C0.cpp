@@ -1,17 +1,11 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2GameStrc.h"
 
 struct D2PlayerDataStrc;
 struct D2QuestGUIDStrc;
 struct D2QuestExtraStrc;
 
-struct D2GameStrc
-{
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-    unsigned char unk_6E[0x3A];
-    int dwGameFrame;
-};
 
 struct D2PlayerDataStrc
 {
