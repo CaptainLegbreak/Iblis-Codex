@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Path.h"
+#include "D2GameStrc.h"
 
 #define EVENTTYPE_CANTDOTHAT 14
 #define STRCOLOR_RED 1
@@ -44,15 +45,6 @@ typedef void(__fastcall* GAME_ForEachIngameClientCallbackPtr)(D2ClientStrc* pCli
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    char unk0x20[0x4A];
-    unsigned char nGameType;
-    char unk0x6B[0x3D];
-    int dwGameFrame;
-};
 
 void __fastcall GAME_ForEachIngameClient(D2GameStrc* pGame, GAME_ForEachIngameClientCallbackPtr pFn, void* pContext); // 0x0052DED0
 void __fastcall LEVEL_WarpUnit(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nDestinationLevelId, int nTileCalc); // 0x0053AEC0

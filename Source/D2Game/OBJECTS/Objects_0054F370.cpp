@@ -3,6 +3,7 @@
 #include "D2Txt.h"
 #include "D2Path.h"
 #include "D2Drlg.h"
+#include "D2GameStrc.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define GAMEV (game)
@@ -36,11 +37,6 @@ enum
     OBJECT_COUNTESSCHEST = 0x173,
 };
 
-struct D2GameStrc
-{
-    char unk0x000[0xBC];
-    D2DrlgActStrc* pAct[5];
-};
 
 
 D2ObjectControlStrc* __fastcall OBJRGN_GetObjectControlFromGame(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom); // 0x00546FA0

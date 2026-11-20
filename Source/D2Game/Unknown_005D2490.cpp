@@ -3,6 +3,7 @@
 #include "D2Txt.h"
 #include "D2Path.h"
 #include "D2GameTypes.h"
+#include "D2GameStrc.h"
 struct D2ActiveRoomStrc;
 struct D2UnitStrc;
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
@@ -30,15 +31,6 @@ enum { MINION_FLAGS = 0x4020000 };
 
 
 
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    unsigned char unk_20[0x4D];
-    unsigned char nDifficulty;
-    unsigned char unk_6E[0x3A];
-    int dwGameFrame;
-};
 
 D2UnitStrc* __fastcall SUNIT_GetOwner(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00552FD0
 void __stdcall D2Common_10235_PATH_UpdateRiderPath(D2UnitStrc* pRiderUnit, D2UnitStrc* pMountUnit); // 0x006505E0

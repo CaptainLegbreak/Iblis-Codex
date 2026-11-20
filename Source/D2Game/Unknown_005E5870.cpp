@@ -2,6 +2,7 @@
 #include "D2DataTbls.h"
 #include "D2Path.h"
 #include "D2GameTypes.h"
+#include "D2GameStrc.h"
 struct D2UnitStrc;
 struct D2AiParamStrc;
 union D2SeedStrc;
@@ -19,13 +20,6 @@ struct D2MonsterRegionStrc;
 
 D2AiCmdStrc* __fastcall AIGENERAL_GetCurrentAiCommandFromUnit(D2UnitStrc* pUnit); // 0x0058EE80
 
-struct D2GameStrc
-{
-    char pad00[0x6D];
-    unsigned char nDifficulty;
-    unsigned char unk_6E[0x82];
-    D2MonsterRegionStrc* pMonReg[1024];
-};
 
 void __fastcall AIGENERAL_FreeCurrentAiCommand(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0058ED10
 D2UnitStrc* __fastcall AIGENERAL_GetMinionOwner(D2UnitStrc* pUnit); // 0x0058F0D0

@@ -4,6 +4,7 @@
 #include "D2Txt.h"
 #include "D2Path.h"
 #include "D2UnitData.h"
+#include "D2GameStrc.h"
 struct D2ActiveRoomStrc;
 struct D2CoordStrc;
 struct D2UnitStrc;
@@ -33,16 +34,6 @@ struct D2PlayerDataStrc;
 struct D2MonStatsTxt;
 struct D2GSPacketSrv58;
 
-struct D2GameStrc
-{
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-    char unk0x6E[0x02];
-    int bExpansion;
-    char f_74[0x04];
-    unsigned short wItemFormat;
-    unsigned char unk_7A[0x2];
-};
 
 struct D2NpcTradeStrc
 {

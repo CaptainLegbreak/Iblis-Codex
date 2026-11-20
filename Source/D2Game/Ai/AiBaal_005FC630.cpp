@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Path.h"
+#include "D2GameStrc.h"
 struct D2ActiveRoomStrc;
 struct D2DynamicPathStrc;
 
@@ -13,11 +14,6 @@ struct D2DynamicPathStrc;
 // build: context AIBAAL_GetUnitX_Inline
 // build: context AIBAAL_GetUnitY_Inline
 // build: context sub_005FC630_Shim
-struct D2GameStrc
-{
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-};
 
 
 struct D2AiControlStrc
