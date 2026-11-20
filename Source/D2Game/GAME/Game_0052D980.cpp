@@ -4,6 +4,7 @@
 #include "D2UnitData.h"
 #include "D2QuestData.h"
 #include "D2GameRecords.h"
+#include "D2GameClient.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -15,26 +16,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 #define CLIENTS_MAX_UPDATES 55u
 
 typedef int (__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
-
-struct D2ClientStrc
-{
-    int dwClientId;
-    int dwClientState;
-    char unk0x008[0x174];
-    unsigned char* pSaveHeader;
-    int nSaveHeaderSize;
-    unsigned int nSaveHeaderSendDelay;
-    int nSaveHeaderDataSentBytes;
-    char unk0x18C[0x1C];
-    D2GameStrc* pGame;
-    char unk0x1AC[0x4];
-    int nPlayerSyncCount;
-    char unk0x1B4[0xC];
-    D2PacketDataStrc* pPacketDataPool;
-    int nSaveHeaderSendFailures;
-    char unk0x1C8[0x2E0];
-    D2ClientStrc* pNext;
-};
 
 #pragma pack(push, 1)
 struct D2SavePartPacketStrc
@@ -169,7 +150,7 @@ static void __stdcall GAME_SendSaveFilePart(D2GameStrc* pGame, D2ClientStrc* pCl
         return;
     }
 
-    const unsigned char* pSaveData = pClient->pSaveHeader;
+    const unsigned char* pSaveData = (const unsigned char*)pClient->pSaveHeader;
     pClient->nSaveHeaderSendDelay = 5;
     if (!pSaveData)
     {

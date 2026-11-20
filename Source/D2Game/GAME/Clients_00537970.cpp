@@ -1,3 +1,4 @@
+#include "D2GameClient.h"
 struct D2StoredUnitRecordStrc
 {
     char unk0x00[0x66];
@@ -17,12 +18,6 @@ struct D2SoundObjStrc_00515A30
     int nValue44;
 };
 
-struct D2ClientStrc
-{
-    char unk0x00[0x3D4];
-    unsigned int dwFlags;
-};
-
 struct D2LinkStrc_004CA990
 {
     void* pFirst;
@@ -38,7 +33,6 @@ typedef char check_ptr_width[(sizeof(void*) == 4) ? 1 : -1];
 typedef char check_size_entry[(sizeof(D2StoredUnitRecordStrc) == 0x67) ? 1 : -1];
 typedef char check_size_ctrl[(sizeof(D2PanelCtrlStrc_004B8370) == 0x60) ? 1 : -1];
 typedef char check_size_sound[(sizeof(D2SoundObjStrc_00515A30) == 0x48) ? 1 : -1];
-typedef char check_size_client[(sizeof(D2ClientStrc) == 0x3D8) ? 1 : -1];
 typedef char check_size_owner[(sizeof(D2OwnerStrc_004CA990) == 0x7C) ? 1 : -1];
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
