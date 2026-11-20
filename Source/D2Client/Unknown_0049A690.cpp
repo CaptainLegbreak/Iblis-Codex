@@ -1,27 +1,6 @@
 #include "D2Client.h"
+#include "D2ClientTypes.h"
 
-struct D2GfxDataStrc
-{
-    int nFrame;
-    unsigned char unk0x04;
-    unsigned char nComponent;
-    unsigned short unk0x06;
-    int nUnitType;
-    int nUnitIndex;
-    unsigned int nMode;
-    int unk0x14;
-    unsigned int dwUnitToken;
-    unsigned int dwComponentToken;
-    unsigned int dwArmorType;
-    unsigned int dwModeToken;
-    unsigned int dwWClassToken;
-    int unk0x2C[2];
-    D2CelFileStrc* pCelFile;
-    int nDrawFlag;
-    D2CelStrc* pCel;
-    int nDirection;
-    unsigned int dwFlags;
-};
 
 #pragma pack(push, 1)
 struct D2PanelIconStrc
@@ -75,7 +54,7 @@ void __stdcall sub_0049A690_DrawPanelIcons(D2PanelIconRecordStrc* pRecord)
     {
         if (pRecord->pIcons[i].nType || pRecord->pIcons[i].nState != 1)
         {
-            tGfx.pCelFile = pRecord->pIcons[i].pCelFile;
+            tGfx.pCellFile = pRecord->pIcons[i].pCelFile;
             const unsigned int nFrame = pRecord->pIcons[i].nFrame;
             tGfx.nFrame = nFrame;
 

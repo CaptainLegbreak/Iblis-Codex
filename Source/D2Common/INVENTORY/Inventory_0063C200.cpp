@@ -5,6 +5,7 @@
 #include "D2Structs.h"
 #include "D2Txt.h"
 #include "D2ItemsWorld.h"
+#include "D2ClientTypes.h"
 
 typedef int BOOL;
 #define INVENTORY_SIGNATURE 0x1020304
@@ -24,13 +25,6 @@ struct D2InventoryStrc;
 
 
 
-struct D2InvRectStrc
-{
-    int nLeft;
-    int nRight;
-    int nTop;
-    int nBottom;
-};
 
 struct D2BeltsTxt
 {

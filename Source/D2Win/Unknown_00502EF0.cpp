@@ -1,3 +1,4 @@
+#include "D2WinTypes.h"
 struct D2CelFileStrc;
 
 struct D2CharStrc
@@ -23,13 +24,6 @@ struct D2FontStrc
     D2CharStrc aChars[1];
 };
 
-struct D2FontCacheStrc
-{
-    D2CelFileStrc* pCellFile;
-    D2FontStrc* pFontInfo[2];
-    D2CharStrc* pCharInfo;
-    unsigned int dwShiftedTickCount;
-};
 
 struct Unicode
 {

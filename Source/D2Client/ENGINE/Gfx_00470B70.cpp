@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Drlg.h"
+#include "D2ClientTypes.h"
 struct D2UnitStrc;
 
 typedef unsigned long DWORD;
@@ -30,11 +31,6 @@ struct D2GfxListNodeStrc
     D2GfxListNodeStrc* pNext;
 };
 
-struct D2GfxDataStrc
-{
-    int unk0x00[10];
-    D2GfxListNodeStrc* pList;
-};
 
 struct D2CelContextStrc
 {

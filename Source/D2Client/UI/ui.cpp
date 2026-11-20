@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2CelContext.h"
+#include "D2ClientTypes.h"
 
 struct D2CellFileStrc;
 struct Unicode;
@@ -77,12 +78,6 @@ int __cdecl sub_004B85E0(); // 0x004B85E0
 int __fastcall sub_00469D90(int nA, int nB); // 0x00469D90
 unsigned short __fastcall sub_00469AA0(int nA, int nB); // 0x00469AA0
 
-struct D2MsgHandlerEntryStrc
-{
-    int nType;
-    int nId;
-    void* pfnHandler;
-};
 
 struct D2PanelHotkeysStrc
 {

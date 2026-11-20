@@ -1,18 +1,8 @@
 #include "D2Direct3D.h"
+#include "D2ClientTypes.h"
 
 struct D2CelStrc;
 
-struct D2GfxDataStrc
-{
-	char unk0x00[0x08];
-	int nUnitType;
-	int nClass;
-	int nMode;
-	char unk0x14[0x18];
-	const char* szName;
-	char unk0x30[0x0C];
-	D2CelStrc* pCel;
-};
 
 struct D2D3DQuadSetupStrc
 {
@@ -122,7 +112,7 @@ static int sub_006B5C80_GetSpriteInfo(D2GfxDataStrc* pData, D2D3DQuadSetupStrc* 
 
 	if (!pData->pCel)
 	{
-		sub_00410610_WriteLogLine("error loading sprite unit:%d  class:%d  mode:%d  %s", pData->nUnitType, pData->nClass, pData->nMode, pData->szName);
+		sub_00410610_WriteLogLine("error loading sprite unit:%d  class:%d  mode:%d  %s", pData->nUnitType, pData->nUnitIndex, pData->nMode, pData->pOverlays);
 		return 0;
 	}
 

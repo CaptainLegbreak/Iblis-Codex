@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2CelContext.h"
+#include "D2ClientTypes.h"
 
 
 struct SMSGHANDLER_PARAMS
@@ -103,13 +104,6 @@ extern D2ClientCacheNodeStrc* gpCacheList_007BC9B8;                             
 extern unsigned int gdwGlobal_007BC9BC;                                                                     // 0x007BC9BC
 extern unsigned int gdwCacheUsed_007BC9D0;                                                                  // 0x007BC9D0
 int gnGlobal_007BCA4C;                                                                                      // 0x007BCA4C
-struct D2InvRectStrc
-{
-    int nLeft;
-    int nRight;
-    int nTop;
-    int nBottom;
-};
 
 
 D2InvRectStrc gInvRect_007BCAA0;                                                                            // 0x007BCAA0

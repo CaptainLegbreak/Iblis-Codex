@@ -5,6 +5,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2Records.h"
+#include "D2ClientTypes.h"
 struct D2ClientTextDataStrc;
 struct D2InventoryStrc;
 struct D2UnitStrc;
@@ -32,13 +33,6 @@ struct Unicode
 
 
 
-struct D2InvRectStrc
-{
-    int nLeft;
-    int nRight;
-    int nTop;
-    int nBottom;
-};
 
 
 struct D2InvCompGridStrc

@@ -1,0 +1,57 @@
+#pragma once
+// Client: a unit's graphics data, inventory screen rectangles and window message handler entries.
+
+#include "D2Check.h"
+#include "D2Structs.h"
+
+struct D2CelFileStrc;
+struct D2CelStrc;
+struct D2GfxListNodeStrc;
+struct D2GfxMotionStrc;
+struct D2UnitOverlayStrc;
+struct D2GfxDataStrc;
+struct D2InvRectStrc;
+struct D2MsgHandlerEntryStrc;
+
+struct D2GfxDataStrc
+{
+    int nFrame; // 0x00
+    unsigned char unk0x04; // 0x04
+    unsigned char nComponent; // 0x05
+    unsigned short unk0x06; // 0x06
+    int nUnitType; // 0x08
+    int nUnitIndex; // 0x0C
+    unsigned int nMode; // 0x10
+    int nOverlayId; // 0x14
+    unsigned int dwUnitToken; // 0x18
+    unsigned int dwComponentToken; // 0x1C
+    unsigned int dwArmorType; // 0x20
+    unsigned int dwModeToken; // 0x24
+    D2GfxListNodeStrc* pList; // 0x28
+    D2UnitOverlayStrc* pOverlays; // 0x2C
+    D2GfxMotionStrc* pMotion; // 0x30
+    D2CelFileStrc* pCellFile; // 0x34
+    int nDrawFlag; // 0x38
+    D2CelStrc* pCel; // 0x3C
+    int nDirection; // 0x40
+    unsigned int dwFlags; // 0x44
+};
+
+struct D2InvRectStrc
+{
+    int nLeft; // 0x00
+    int nRight; // 0x04
+    int nTop; // 0x08
+    int nBottom; // 0x0C
+};
+
+struct D2MsgHandlerEntryStrc
+{
+    int nType; // 0x00
+    int nId; // 0x04
+    void* pfnHandler; // 0x08
+};
+
+D2_CHECK_SIZE(D2GfxDataStrc, 0x48);
+D2_CHECK_SIZE(D2InvRectStrc, 0x10);
+D2_CHECK_SIZE(D2MsgHandlerEntryStrc, 0xC);

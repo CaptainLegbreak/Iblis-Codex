@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2CelContext.h"
+#include "D2ClientTypes.h"
 
 struct D2CellFileStrc;
 
@@ -105,13 +106,6 @@ static void* gpCellFile_007BCC2C;                                               
 static void* gpCellFile_007BCC30;                                                                           // 0x007BCC30
 static void* gpCellFile_007BCC3C;                                                                           // 0x007BCC3C
 static int gnGlobal_007BCC4C;                                                                               // 0x007BCC4C
-struct D2InvRectStrc
-{
-    int nLeft;
-    int nRight;
-    int nTop;
-    int nBottom;
-};
 
 struct D2InvCompGridStrc
 {

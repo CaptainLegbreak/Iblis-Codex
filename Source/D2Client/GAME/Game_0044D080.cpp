@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct _RTL_CRITICAL_SECTION;
@@ -44,15 +45,6 @@ struct D2BetaScreenStrc
 };
 
 #pragma pack(pop)
-struct D2GfxDataStrc
-{
-    int nFrame;
-    char unk0x04[0x30];
-    D2CelFileStrc* pCellFile;
-    char unk0x38[0x08];
-    int nDirection;
-    char unk0x44[0x04];
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090

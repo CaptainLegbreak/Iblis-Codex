@@ -1,4 +1,5 @@
 #include "D2CelContext.h"
+#include "D2WinTypes.h"
 struct D2CelFileStrc;
 struct D2CelStrc;
 
@@ -31,13 +32,6 @@ struct D2FontStrc
     unsigned char unk0x0B;
 };
 
-struct D2FontCacheStrc
-{
-    D2CelFileStrc* pCellFile;
-    D2FontStrc* pFontInfo[2];
-    D2CharStrc* pCharInfo;
-    unsigned int dwShiftedTickCount;
-};
 
 
 int __cdecl sub_004F5140(); // 0x004F5140

@@ -1,4 +1,5 @@
 #include "D2Win.h"
+#include "D2WinTypes.h"
 
 enum D2WinControlType
 {
@@ -18,25 +19,6 @@ enum D2WinControlType
 };
 struct D2CompositeUnitStrc;
 
-struct D2WinControlStrc
-{
-    int eType;
-    D2CelFileStrc* pCellFile;
-    unsigned int dwFlags;
-    int nImageX;
-    int nImageY;
-    int nWidth;
-    int nHeight;
-    void* pfDraw;
-    void* pfInitialize;
-    void* pfHandleMouseDown;
-    void* pfHandleMouseUp;
-    void* pfHandleCharInput;
-    void* pfHandleVirtualKeyInput;
-    void* field_34;
-    void* pfShouldMouseInputBeHandled;
-    D2WinControlStrc* pNext;
-};
 
 struct D2WinCommandRegisterStrc
 {

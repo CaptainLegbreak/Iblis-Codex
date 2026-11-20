@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2ClientTypes.h"
 
 struct Unicode
 {
@@ -20,13 +21,6 @@ struct D2PanelButtonStrc
 
 extern int gnGlobal_007BCA4C;                                                                               // 0x007BCA4C
 extern int gnGlobal_007BCBD8;                                                                               // 0x007BCBD8
-struct D2InvRectStrc
-{
-    int nLeft;
-    int nRight;
-    int nTop;
-    int nBottom;
-};
 
 extern D2InvRectStrc gRect_007BCBB0;                                                                        // 0x007BCBB0
 #define gnGlobal_007BCBB0 (gRect_007BCBB0.nLeft)

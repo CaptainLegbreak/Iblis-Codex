@@ -5,6 +5,7 @@
 #include "D2Txt.h"
 #include "D2CelContext.h"
 #include "D2Records.h"
+#include "D2ClientTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define gnGlobal_007BCAA0 (gInvRect_007BCAA0.nLeft)
@@ -232,13 +233,6 @@ extern D2OptionEntryStrc gaOptionEntries_0071D748[]; // 0x0071D748
 extern D2OptionEntryStrc gaOptionEntries_0071F728[]; // 0x0071F728
 extern D2RosterPetStrc* gpRosterPets_007BB5BC; // 0x007BB5BC
 
-struct D2InvRectStrc
-{
-    int nLeft;
-    int nRight;
-    int nTop;
-    int nBottom;
-};
 
 extern D2InvRectStrc gInvRect_007BCAA0; // 0x007BCAA0
 extern D2OptionHeaderStrc* gpOptionHeader_007BC93C; // 0x007BC93C

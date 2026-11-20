@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2CelContext.h"
+#include "D2ClientTypes.h"
 
 struct Unicode;
 
@@ -78,13 +79,6 @@ extern int gnGlobal_007A285C;                                                   
 extern int gnGlobal_007A524C;                                                                               // 0x007A524C
 extern int gnGlobal_007BB5DC;                                                                               // 0x007BB5DC
 extern unsigned char gbGlobal_007BB5E0;                                                                     // 0x007BB5E0
-struct D2InvRectStrc
-{
-    int nLeft;
-    int nRight;
-    int nTop;
-    int nBottom;
-};
 
 extern D2InvRectStrc gInvRect_007BCAA0;                                                                     // 0x007BCAA0
 #define gnGlobal_007BCAA0 (gInvRect_007BCAA0.nLeft)

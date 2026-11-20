@@ -1,15 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2ClientTypes.h"
 
-struct D2GfxDataStrc
-{
-    int nFrame;
-    char unk0x04[0x30];
-    D2CelFileStrc* pCellFile;
-    char unk0x38[0x08];
-    int nDirection;
-    char unk0x44[0x04];
-};
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                     // 0x006CC260
 extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 void __fastcall SEED_InitSeed(D2SeedStrc* pSeed);                                                            // 0x00650E30

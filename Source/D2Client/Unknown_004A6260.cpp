@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientTypes.h"
 
 struct D2ClientListEntryStrc
 {
@@ -6,12 +7,6 @@ struct D2ClientListEntryStrc
     unsigned char unk0x04[6];
 };
 
-struct D2MsgHandlerEntryStrc
-{
-    int unk0x00;
-    int unk0x04;
-    int unk0x08;
-};
 
 struct SMSGHANDLER_PARAMS
 {

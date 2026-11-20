@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
+#include "D2ClientTypes.h"
 struct D2SelectionRectStrc;
 struct Unicode;
 
@@ -161,12 +162,6 @@ extern unsigned long gdwTick_007C5488; // 0x007C5488
 
 
 
-struct D2MsgHandlerEntryStrc
-{
-    int unk0x00;
-    int unk0x04;
-    int unk0x08;
-};
 
 extern int gnGlobal_007C5480; // 0x007C5480
 extern int gnGlobal_007C5470; // 0x007C5470
