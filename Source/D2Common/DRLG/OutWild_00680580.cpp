@@ -14,13 +14,13 @@ struct D2DrlgLevelStrc
     char unk0x000[0x1C4];
     D2SeedStrc pSeed;
     char unk0x1CC[0x04];
-    int nLevelId;
+    int eLevelId;
 };
 
 #define C07_OFFSET_CHECK(name, type, field, offset) typedef char name[((unsigned int)&((type*)0)->field == (offset)) ? 1 : -1]
 C07_OFFSET_CHECK(C07_check_pSeed, D2DrlgLevelStrc, pSeed, 0x1C4);
 C07_OFFSET_CHECK(C07_check_nHighSeed, D2DrlgLevelStrc, pSeed.nHighSeed, 0x1C8);
-C07_OFFSET_CHECK(C07_check_nLevelId, D2DrlgLevelStrc, nLevelId, 0x1D0);
+C07_OFFSET_CHECK(C07_check_nLevelId, D2DrlgLevelStrc, eLevelId, 0x1D0);
 
 void __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(D2DrlgLevelStrc* pLevel, int nX, int nY, int nLevelPrestId, int nPickedFile, int a6); // 0x006743C0
 int __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPreset(D2DrlgLevelStrc* pLevel, int nLevelPrestId, int nPickedFile, int a4, int a5); // 0x00674730
@@ -57,7 +57,7 @@ static __declspec(noinline) void __stdcall DRLGOUTWILD_SpawnCottage(int bExtraCo
 // 0x00680580
 static __declspec(noinline) void DRLGOUTWILD_SpawnSpecialPresets(D2DrlgLevelStrc* pLevel)
 {
-    switch (pLevel->nLevelId)
+    switch (pLevel->eLevelId)
     {
     case LEVEL_BLOODMOOR:
         DRLGOUTDOORS_SpawnRandomOutdoorDS1(pLevel, 0x2E, -1);

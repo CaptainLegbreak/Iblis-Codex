@@ -44,7 +44,7 @@ struct D2QuestDataStrc
     unsigned int dwFlags;
     void* pQuestDataEx;
     char pad0x1C[0x84];
-    QUESTCALLBACK pfCallback[15];
+    QUESTCALLBACK pCallback[15];
 };
 
 struct D2Act5Quest1Strc
@@ -170,6 +170,6 @@ void __fastcall ACT5Q2_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
         pQuestData->dwFlags &= 0xFFFFFF00;
         QUESTS_UnitIterate(pQuestData, 1, 0, ACT5Q2_UnitIterate_StatusCyclerEx, 1);
         pQuestDataEx->bQualKehkActivated = 0;
-        pQuestData->pfCallback[QUESTEVENT_NPCDEACTIVATE] = 0;
+        pQuestData->pCallback[QUESTEVENT_NPCDEACTIVATE] = 0;
     }
 }

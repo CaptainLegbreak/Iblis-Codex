@@ -21,9 +21,9 @@ struct D2QuestDataStrc
     unsigned int dwFlags;
     D2Act5Quest3Strc* pQuestDataEx;
     char tPlayerGUIDs[0x84];
-    void* pfCallback[15];
+    void* pCallback[15];
     void* pNPCMessages;
-    int nQuestFilter;
+    int eFilter;
 };
 
 typedef void(__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArgs);
@@ -70,13 +70,13 @@ bool __fastcall ACT5Q3_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc*
 
     if (QUESTRECORD_GetQuestState(pFlags, QUESTSTATEFLAG_A5Q3, QFLAG_REWARDPENDING) || QUESTRECORD_GetQuestState(pFlags, QUESTSTATEFLAG_A5Q3, QFLAG_PRIMARYGOALDONE))
     {
-        if (QUESTRECORD_GetQuestState(pFlags, pQuest->nQuestFilter, QFLAG_CUSTOM4) && !QUESTRECORD_GetQuestState(pFlags, pQuest->nQuestFilter, QFLAG_CUSTOM5))
+        if (QUESTRECORD_GetQuestState(pFlags, pQuest->eFilter, QFLAG_CUSTOM4) && !QUESTRECORD_GetQuestState(pFlags, pQuest->eFilter, QFLAG_CUSTOM5))
         {
             *pStatus = 6;
             return true;
         }
 
-        if (!QUESTRECORD_GetQuestState(pFlags, pQuest->nQuestFilter, QFLAG_CUSTOM4))
+        if (!QUESTRECORD_GetQuestState(pFlags, pQuest->eFilter, QFLAG_CUSTOM4))
         {
             *pStatus = 5;
             return true;

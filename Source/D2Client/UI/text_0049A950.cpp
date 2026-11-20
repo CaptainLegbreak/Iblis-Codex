@@ -62,7 +62,7 @@ struct D2TextNodeStrc
 struct D2TextListStrc
 {
     D2TextNodeStrc* pFirst;
-    unsigned short nCount;
+    unsigned short wCount;
 };
 
 struct D2MsgHandlerEntryStrc
@@ -234,8 +234,8 @@ void __stdcall sub_0049D4D0_FreeTextList(D2TextListStrc* pList)
         pList->pFirst = pNode;
     }
 
-    D2_ASSERT((unsigned short)nCount == pList->nCount, 1741);
-    pList->nCount = 0;
+    D2_ASSERT((unsigned short)nCount == pList->wCount, 1741);
+    pList->wCount = 0;
 }
 
 // 0x0049DA10

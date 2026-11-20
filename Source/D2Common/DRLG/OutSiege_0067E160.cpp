@@ -55,7 +55,7 @@ struct D2DrlgLevelStrc
     int nSizeX;
     int nSizeY;
     char unk0x2C[0x1A4];
-    int nLevelId;
+    int eLevelId;
 };
 
 struct D2LvlPrestRecordStrc
@@ -208,7 +208,7 @@ void __stdcall sub_0067E160(D2DrlgLevelStrc* pLevel)
     int bTall = pLevel->nSizeX < pLevel->nSizeY;
     for (int i = 0; i < 15; ++i)
     {
-        if (pLevel->nLevelId == gAct5LevelPresets[i].nLevelId)
+        if (pLevel->eLevelId == gAct5LevelPresets[i].nLevelId)
         {
             int nPresetId;
             if (bTall)

@@ -47,11 +47,11 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 struct D2DrlgLevelStrc
 {
     char unk0x000[0x10];
-    D2DrlgRoomStrc* pFirstRoomEx;
+    D2DrlgRoomStrc* ptRoomFirst;
     char unk0x014[0x1A0];
     D2DrlgStrc* pDrlg;
     char unk0x1B8[0x18];
-    int nLevelId;
+    int eLevelId;
 };
 
 struct D2DrlgRoomStrc
@@ -66,7 +66,7 @@ struct D2DrlgRoomStrc
     char unk0x45[0x03];
     int nType;
     char unk0x4C[0x0C];
-    D2DrlgLevelStrc* pLevel;
+    D2DrlgLevelStrc* ptDrlgLevel;
 };
 
 struct D2DrlgStrc
@@ -150,7 +150,7 @@ D2ActiveRoomStrc* __fastcall DRLGACTIVATE_InitializeRoomEx(D2DrlgRoomStrc* pDrlg
 
     if (!(pDrlgRoom->dwFlags & DRLGROOMFLAG_HAS_ROOM))
     {
-        D2DrlgStrc* pDrlg = pDrlgRoom->pLevel->pDrlg;
+        D2DrlgStrc* pDrlg = pDrlgRoom->ptDrlgLevel->pDrlg;
         if (!pDrlgRoom->nRoomsNear)
             DRLGROOM_InitNearRooms(pDrlg->pMempool, pDrlgRoom);
 
@@ -174,10 +174,10 @@ int __fastcall DRLGACTIVATE_TestRoomCanUnTile(D2DrlgRoomStrc* ptRoom)
     if (ptRoom->fRoomStatus <= 1)
         return 0;
 
-    int nLevelId = ptRoom->pLevel->nLevelId;
+    int nLevelId = ptRoom->ptDrlgLevel->eLevelId;
     if (DRLG_IsTownLevel(nLevelId) || nLevelId == LEVEL_ROCKYSUMMIT)
     {
-        for (D2DrlgRoomStrc* pCurrentRoomEx = ptRoom->pLevel->pFirstRoomEx; pCurrentRoomEx; pCurrentRoomEx = pCurrentRoomEx->pDrlgRoomNext)
+        for (D2DrlgRoomStrc* pCurrentRoomEx = ptRoom->ptDrlgLevel->ptRoomFirst; pCurrentRoomEx; pCurrentRoomEx = pCurrentRoomEx->pDrlgRoomNext)
         {
             if (pCurrentRoomEx->fRoomStatus <= 1)
                 return 0;

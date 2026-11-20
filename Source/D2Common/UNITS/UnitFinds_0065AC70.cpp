@@ -100,7 +100,7 @@ D2UnitStrc* __stdcall UNITFINDS_GetNearestTestedUnit(D2UnitStrc* pUnit, int nX, 
     {
         if (sub_0065A710_IsAreaInRoomRange(ppRoomList[i], nX, nY, nSize))
         {
-            for (D2UnitStrc* j = ppRoomList[i]->pUnitFirst; j; j = j->pRoomNext)
+            for (D2UnitStrc* j = ppRoomList[i]->pUnitFirst; j; j = j->ptRoomNext)
             {
                 const int nDistance = UNITS_GetDistanceToCoordinates(j, nX, nY);
                 if (nDistance < nSize && nDistance < nSmallestDistance && pfnUnitTest(j, pUnit))
@@ -165,7 +165,7 @@ int __stdcall UNITFINDS_FindAllMatchingUnitsInNeighboredRooms(D2UnitFindDataStrc
         D2UnitStrc* pUnit = ppRoomList[i]->pUnitFirst;
         while (pUnit)
         {
-            D2UnitStrc* pNext = pUnit->pRoomNext;
+            D2UnitStrc* pNext = pUnit->ptRoomNext;
             int bMatch;
             if (pUnitFindData->pfnUnitTest)
             {

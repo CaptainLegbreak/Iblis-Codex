@@ -38,7 +38,7 @@ struct D2DrlgLevelStrc
     char unk0x000[0x1B4];
     D2DrlgStrc* pDrlg;
     char unk0x1B8[0x18];
-    int nLevelId;
+    int eLevelId;
     char unk0x1D4[0x8];
     int nCoordLists;
 };
@@ -133,8 +133,8 @@ struct D2DrlgRoomStrc
         };
     };
     char unk0x44[0x10];
-    D2DrlgTileGridStrc* pTileGrid;
-    D2DrlgLevelStrc* pLevel;
+    D2DrlgTileGridStrc* ptDrlgTiles;
+    D2DrlgLevelStrc* ptDrlgLevel;
     char unk0x5C[0x8];
     D2DrlgLogicalRoomInfoStrc* pLogicalRoomInfo;
 };
@@ -317,7 +317,7 @@ static void sub_0066C6A0(void* pMemPool, D2DrlgLogicalRoomInfoStrc* pLogicalRoom
 // 0x0066C6E0
 void __fastcall DRLGLOGIC_FreeDrlgCoordList(D2DrlgRoomStrc* pDrlgRoom)
 {
-    void* pMemPool = pDrlgRoom->pLevel->pDrlg->pMempool;
+    void* pMemPool = pDrlgRoom->ptDrlgLevel->pDrlg->pMempool;
     D2DrlgLogicalRoomInfoStrc* pLogicalRoomInfo = pDrlgRoom->pLogicalRoomInfo;
 
     if (pLogicalRoomInfo)
@@ -369,7 +369,7 @@ void __fastcall sub_0066C770(D2DrlgRoomStrc* pDrlgRoom, int nIndex1, int nIndex2
             for (int i = 0; i < pDrlgRoom->nRoomsNear; ++i)
             {
                 D2DrlgRoomStrc* pDrlgRoomNear = pDrlgRoom->ppRoomsNear[i];
-                if (pDrlgRoomNear != pDrlgRoom && pDrlgRoomNear->pLevel->nLevelId == pDrlgRoom->pLevel->nLevelId)
+                if (pDrlgRoomNear != pDrlgRoom && pDrlgRoomNear->ptDrlgLevel->eLevelId == pDrlgRoom->ptDrlgLevel->eLevelId)
                 {
                     sub_0066C770(pDrlgRoomNear, nIndex1, nIndex2, bNode);
                 }
@@ -381,7 +381,7 @@ void __fastcall sub_0066C770(D2DrlgRoomStrc* pDrlgRoom, int nIndex1, int nIndex2
 // 0x0066C7F0
 static void __stdcall sub_0066C7F0(D2DrlgRoomStrc* pDrlgRoom, D2DrlgGridStrc* pWallGrid)
 {
-    D2DrlgRoomTilesStrc* pDrlgRoomTiles = &pDrlgRoom->pTileGrid->pTiles;
+    D2DrlgRoomTilesStrc* pDrlgRoomTiles = &pDrlgRoom->ptDrlgTiles->pTiles;
     for (unsigned int i = 0; i < pDrlgRoomTiles->nWalls; ++i)
     {
         if (pDrlgRoomTiles->pWallTiles[i].dwFlags & 4 && !(pDrlgRoomTiles->pWallTiles[i].dwFlags & 0x1C000))
@@ -394,7 +394,7 @@ static void __stdcall sub_0066C7F0(D2DrlgRoomStrc* pDrlgRoom, D2DrlgGridStrc* pW
 // 0x0066CA50
 void __stdcall DRLGLOGIC_AssignCoordListsForGrids(D2DrlgRoomStrc* pDrlgRoom, D2DrlgLogicalRoomInfoStrc* pDrlgCoordList)
 {
-    void* pMempool = pDrlgRoom->pLevel->pDrlg->pMempool;
+    void* pMempool = pDrlgRoom->ptDrlgLevel->pDrlg->pMempool;
     DRLGGRID_InitializeGridCells(pMempool, &pDrlgCoordList->pIndexY, pDrlgRoom->nTileWidth + 1, pDrlgRoom->nTileHeight + 1);
     const int nWidth = pDrlgRoom->nTileWidth + 1;
     const int nHeight = pDrlgRoom->nTileHeight + 1;
@@ -490,7 +490,7 @@ void __stdcall DRLGLOGIC_AssignCoordListsForGrids(D2DrlgRoomStrc* pDrlgRoom, D2D
 // 0x0066CCB0
 void __fastcall DRLGLOGIC_AllocCoordLists(D2DrlgRoomStrc* pDrlgRoom)
 {
-    D2DrlgLevelStrc* pLevel = pDrlgRoom->pLevel;
+    D2DrlgLevelStrc* pLevel = pDrlgRoom->ptDrlgLevel;
     void* pMemPool = pLevel->pDrlg->pMempool;
     D2DrlgLogicalRoomInfoStrc* pLogicalRoomInfo = sub_0066C660(pMemPool, 0, pDrlgRoom);
 
@@ -597,7 +597,7 @@ static void __stdcall sub_0066CF60(D2DrlgRoomStrc* pDrlgRoom1, D2DrlgRoomStrc* p
 
         if (pRoomCoordList2->nIndex && pRoomCoordList1->nIndex)
         {
-            if (pDrlgRoom2->pLevel->nLevelId == pDrlgRoom1->pLevel->nLevelId && pRoomCoordList2->nIndex != pRoomCoordList1->nIndex && pRoomCoordList2->bNode == pRoomCoordList1->bNode)
+            if (pDrlgRoom2->ptDrlgLevel->eLevelId == pDrlgRoom1->ptDrlgLevel->eLevelId && pRoomCoordList2->nIndex != pRoomCoordList1->nIndex && pRoomCoordList2->bNode == pRoomCoordList1->bNode)
             {
                 sub_0066C770(pDrlgRoom1, pRoomCoordList1->nIndex, pRoomCoordList2->nIndex, pRoomCoordList2->bNode);
             }
@@ -637,7 +637,7 @@ void __fastcall DRLGLOGIC_InitializeDrlgCoordList(D2DrlgRoomStrc* pDrlgRoom, D2D
     int nCellPositions[1024];
     int nCellFlags[256];
 
-    D2DrlgLevelStrc* pLevel = pDrlgRoom->pLevel;
+    D2DrlgLevelStrc* pLevel = pDrlgRoom->ptDrlgLevel;
     void* pMemPool = pLevel->pDrlg->pMempool;
     D2DrlgLogicalRoomInfoStrc* pDrlgCoordList = sub_0066C660(pMemPool, 0, pDrlgRoom);
 

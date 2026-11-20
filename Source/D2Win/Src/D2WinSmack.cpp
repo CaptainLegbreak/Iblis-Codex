@@ -17,7 +17,7 @@ typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
 
 struct D2WinControlStrc
 {
-    int nType;
+    int eType;
     D2CelFileStrc* pCellFile;
     unsigned int dwFlags;
     int nImageX;
@@ -67,7 +67,7 @@ int __fastcall SMACK_Draw(D2WinControlStrc* pControl)
 {
     D2WinSmackStrc* pSmack = (D2WinSmackStrc*)pControl;
 
-    D2_ASSERT(pSmack->controlHeader.nType == D2WIN_SMACK, 0xA4);
+    D2_ASSERT(pSmack->controlHeader.eType == D2WIN_SMACK, 0xA4);
 
     if (!(pSmack->controlHeader.dwFlags & gdwBitMasks[2]) || !(pSmack->controlHeader.dwFlags & gdwBitMasks[0]))
     {

@@ -31,8 +31,8 @@ struct D2ObjInitFnStrc
 struct D2ObjOperateFnStrc
 {
     D2GameStrc* pGame;
-    D2UnitStrc* pObject;
-    D2UnitStrc* pPlayer;
+    D2UnitStrc* hObject;
+    D2UnitStrc* hPlayer;
 };
 
 typedef void (__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
@@ -62,9 +62,9 @@ struct D2QuestDataStrc
     unsigned int dwFlags;
     void* pQuestDataEx;
     char tPlayerGUIDs[0x84];
-    QUESTCALLBACK pfCallback[15];
+    QUESTCALLBACK pCallback[15];
     void* pNPCMessages;
-    int nQuestFilter;
+    int eFilter;
     char pad0xE4[0xC];
     QUESTSEQFILTER pfSeqFilter;
 };
@@ -207,7 +207,7 @@ void __fastcall ACT2Q6_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
         ((D2Act2Quest6Strc*)pQuestData->pQuestDataEx)->bObjectsNeedUpdate = 1;
     }
 
-    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, 0) || QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, 0xF))
+    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 0) || QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 0xF))
     {
         ((D2Act2Quest6Strc*)pQuestData->pQuestDataEx)->bRewardedOrCompletedBefore = 1;
     }
@@ -342,39 +342,39 @@ int __fastcall OBJECTS_OperateFunction25_StaffOrifice(D2ObjOperateFnStrc* pOp, i
         return 0;
     }
 
-    D2UnitStrc* pInteractUnit = SUNIT_GetInteractUnit(pOp->pGame, pOp->pPlayer);
-    D2ClientStrc* pClient = UnitGetClient(pOp->pPlayer, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q6.cpp", 0x635);
-    switch (!pOp->pObject ? 0 : pOp->pObject->dwAnimMode)
+    D2UnitStrc* pInteractUnit = SUNIT_GetInteractUnit(pOp->pGame, pOp->hPlayer);
+    D2ClientStrc* pClient = UnitGetClient(pOp->hPlayer, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q6.cpp", 0x635);
+    switch (!pOp->hObject ? 0 : pOp->hObject->dwAnimMode)
     {
     case 0:
     {
-        if (PLAYER_IsBusy(pOp->pPlayer) == 1)
+        if (PLAYER_IsBusy(pOp->hPlayer) == 1)
         {
             return 1;
         }
 
-        if (!ITEMS_FindQuestItem(pOp->pGame, pOp->pPlayer, 0x20747368))
+        if (!ITEMS_FindQuestItem(pOp->pGame, pOp->hPlayer, 0x20747368))
         {
-            SUNIT_AttachSound(pOp->pPlayer, 0x13, pOp->pPlayer);
+            SUNIT_AttachSound(pOp->hPlayer, 0x13, pOp->hPlayer);
             return 1;
         }
 
-        SUNIT_SetInteractInfo(pOp->pPlayer, 2, !pOp->pObject ? -1 : pOp->pObject->dwUnitId);
-        UNITS_ChangeAnimMode(pOp->pObject, 1);
+        SUNIT_SetInteractInfo(pOp->hPlayer, 2, !pOp->hObject ? -1 : pOp->hObject->dwUnitId);
+        UNITS_ChangeAnimMode(pOp->hObject, 1);
 
         D2GSPacketSrv58 packet58;
         packet58.nHeader = 0x58;
-        const int nUnitId = !pOp->pObject ? -1 : pOp->pObject->dwUnitId;
+        const int nUnitId = !pOp->hObject ? -1 : pOp->hObject->dwUnitId;
         packet58.nUnitId = nUnitId;
         packet58.unk0x05 = 0;
         sub_0053D8D0_SendPacket0x58(pClient, &packet58);
         break;
     }
     case 1:
-        if (pInteractUnit == pOp->pObject)
+        if (pInteractUnit == pOp->hObject)
         {
-            SUNIT_ResetInteractInfo(pOp->pPlayer);
-            UNITS_ChangeAnimMode(pOp->pObject, 2);
+            SUNIT_ResetInteractInfo(pOp->hPlayer);
+            UNITS_ChangeAnimMode(pOp->hObject, 2);
         }
         break;
     }

@@ -27,7 +27,7 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 
 struct D2WinControl004FD110Strc
 {
-    int nType;
+    int eType;
     D2CellFileStrc* pCellFile;
     unsigned char f_8[0x38];
     int nFrame;
@@ -75,7 +75,7 @@ typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
 
 struct D2WinControlStrc
 {
-    int nType;
+    int eType;
     D2CelFileStrc* pCellFile;
     unsigned int dwFlags;
     int nImageX;
@@ -232,7 +232,7 @@ void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, 
 // 0x004FD110
 int __stdcall sub_004FD110_SetFrame(D2WinControl004FD110Strc* pControl, int nFrame)
 {
-    D2_ASSERT(pControl->nType == 2, 0x8B);
+    D2_ASSERT(pControl->eType == 2, 0x8B);
     const int nFrames = CelFileGetCelsPerDirection(pControl->pCellFile);
     if (nFrame > nFrames - 1)
     {
@@ -253,7 +253,7 @@ int __fastcall IMAGE2_Draw(D2WinControlStrc* pControl)
 {
     D2WinImage2Strc* pImage = (D2WinImage2Strc*)pControl;
 
-    D2_ASSERT(pImage->controlHeader.nType == D2WIN_IMAGE, 0xB6);
+    D2_ASSERT(pImage->controlHeader.eType == D2WIN_IMAGE, 0xB6);
 
     if (!(pImage->controlHeader.dwFlags & gdwBitMasks_006CE268[2]) || !(pImage->controlHeader.dwFlags & gdwBitMasks_006CE268[0]))
     {
@@ -300,7 +300,7 @@ int __fastcall sub_6F8B1C60(D2WinControlStrc* pControl)
 {
     D2WinTimerStrc* pTimer = (D2WinTimerStrc*)pControl;
 
-    D2_ASSERT(pTimer->controlHeader.nType == D2WIN_TIMER, 0x52);
+    D2_ASSERT(pTimer->controlHeader.eType == D2WIN_TIMER, 0x52);
 
     if (!(pTimer->controlHeader.dwFlags & gdwBitMasks_006CE268[2]) || !(pTimer->controlHeader.dwFlags & gdwBitMasks_006CE268[0]))
     {
@@ -330,7 +330,7 @@ int __fastcall sub_6F8B1CF0(D2WinControlStrc* pControl)
 {
     D2WinTimerStrc* pTimer = (D2WinTimerStrc*)pControl;
 
-    D2_ASSERT(pTimer->controlHeader.nType == D2WIN_TIMER, 0x6A);
+    D2_ASSERT(pTimer->controlHeader.eType == D2WIN_TIMER, 0x6A);
 
     if (!(pTimer->controlHeader.dwFlags & gdwBitMasks_006CE268[2]) || !(pTimer->controlHeader.dwFlags & gdwBitMasks_006CE268[0]))
     {
@@ -382,7 +382,7 @@ int __fastcall LIST_Draw(D2WinControlStrc* pControl)
 {
     D2WinListStrc* pList = (D2WinListStrc*)pControl;
 
-    D2_ASSERT(pList->controlHeader.nType == D2WIN_LIST, 0x119);
+    D2_ASSERT(pList->controlHeader.eType == D2WIN_LIST, 0x119);
 
     sub_00502EF0(pList->eFont);
 
@@ -453,7 +453,7 @@ int __fastcall LIST_Draw(D2WinControlStrc* pControl)
 // 0x00507900
 int __fastcall ACCOUNTLIST_RemoveEntry(D2WinAccountListStrc* ptListData, const char* szText)
 {
-    D2_ASSERT(ptListData->controlHeader.nType == D2WIN_ACCOUNTLIST, 0x90);
+    D2_ASSERT(ptListData->controlHeader.eType == D2WIN_ACCOUNTLIST, 0x90);
 
     D2WinAccountListDataStrc* pPrevious = 0;
     for (D2WinAccountListDataStrc* pData = ptListData->pDataList; pData; pData = pData->pNext)
@@ -489,7 +489,7 @@ int __fastcall PROGRESSBAR_Draw(D2WinControlStrc* pControl)
 {
     D2WinProgressBarStrc* pProgressBar = (D2WinProgressBarStrc*)pControl;
 
-    D2_ASSERT(pProgressBar->controlHeader.nType == D2WIN_PROGRESSBAR, 0x4F);
+    D2_ASSERT(pProgressBar->controlHeader.eType == D2WIN_PROGRESSBAR, 0x4F);
 
     if (!(pProgressBar->controlHeader.dwFlags & gdwBitMasks_006CE268[2]) || !(pProgressBar->controlHeader.dwFlags & gdwBitMasks_006CE268[0]))
     {
@@ -513,7 +513,7 @@ int __fastcall POPUP_Draw(D2WinControlStrc* pControl)
 {
     D2WinPopUpStrc* pPopUp = (D2WinPopUpStrc*)pControl;
 
-    D2_ASSERT(pPopUp->controlHeader.nType == D2WIN_POPUP, 0xC6);
+    D2_ASSERT(pPopUp->controlHeader.eType == D2WIN_POPUP, 0xC6);
 
     if (!(pPopUp->controlHeader.dwFlags & gdwBitMasks_006CE268[2]) || !(pPopUp->controlHeader.dwFlags & gdwBitMasks_006CE268[0]))
     {

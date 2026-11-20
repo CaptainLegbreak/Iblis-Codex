@@ -288,18 +288,18 @@ static void sub_00458200_WriteAutomapLayer(D2AutomapSaveStrc* pSave)
     sub_004069D0_WriteFile(hFile, &pSave->nLayerNo, 4, &nCount, 0);
     sub_004069D0_WriteFile(hFile, &pSave->fSaved, 4, &nCount, 0);
     sub_004069D0_WriteFile(hFile, &pSave->nUnk0x08, 4, &nCount, 0);
-    sub_004069D0_WriteFile(hFile, &pSave->nFloors, 4, &nCount, 0);
-    sub_004069D0_WriteFile(hFile, &pSave->nWalls, 4, &nCount, 0);
+    sub_004069D0_WriteFile(hFile, &pSave->dwFloorSize, 4, &nCount, 0);
+    sub_004069D0_WriteFile(hFile, &pSave->dwWallsSize, 4, &nCount, 0);
     sub_004069D0_WriteFile(hFile, &pSave->nObjects, 4, &nCount, 0);
-    sub_004069D0_WriteFile(hFile, &pSave->nExtras, 4, &nCount, 0);
-    if (pSave->nFloors)
-        sub_004069D0_WriteFile(hFile, pSave->pFloors, pSave->nFloors, &nCount, 0);
-    if (pSave->nWalls)
-        sub_004069D0_WriteFile(hFile, pSave->pWalls, pSave->nWalls, &nCount, 0);
+    sub_004069D0_WriteFile(hFile, &pSave->dwExtraSize, 4, &nCount, 0);
+    if (pSave->dwFloorSize)
+        sub_004069D0_WriteFile(hFile, pSave->pFloors, pSave->dwFloorSize, &nCount, 0);
+    if (pSave->dwWallsSize)
+        sub_004069D0_WriteFile(hFile, pSave->pWalls, pSave->dwWallsSize, &nCount, 0);
     if (pSave->nObjects)
         sub_004069D0_WriteFile(hFile, pSave->pObjects, pSave->nObjects, &nCount, 0);
-    if (pSave->nExtras)
-        sub_004069D0_WriteFile(hFile, pSave->pExtras, pSave->nExtras, &nCount, 0);
+    if (pSave->dwExtraSize)
+        sub_004069D0_WriteFile(hFile, pSave->pExtras, pSave->dwExtraSize, &nCount, 0);
     sub_004069A0_CloseFile(hFile);
 }
 
@@ -331,23 +331,23 @@ void __cdecl sub_004584C0()
     tSave.nLayerNo = pLayer->nLayerNo;
     tSave.fSaved = pLayer->fSaved;
     tSave.nUnk0x08 = gpAutomapRecord_007A0638->nValue;
-    sub_00458440_CountCells(pLayer->pFloors, &tSave.nFloors);
-    sub_00458440_CountCells(pLayer->pWalls, &tSave.nWalls);
+    sub_00458440_CountCells(pLayer->pFloors, &tSave.dwFloorSize);
+    sub_00458440_CountCells(pLayer->pWalls, &tSave.dwWallsSize);
     sub_00458440_CountCells(pLayer->pObjects, &tSave.nObjects);
-    sub_00458440_CountCells(pLayer->pExtras, &tSave.nExtras);
-    if (!tSave.nFloors && !tSave.nWalls && !tSave.nObjects && !tSave.nExtras)
+    sub_00458440_CountCells(pLayer->pExtras, &tSave.dwExtraSize);
+    if (!tSave.dwFloorSize && !tSave.dwWallsSize && !tSave.nObjects && !tSave.dwExtraSize)
     {
         return;
     }
-    if (tSave.nFloors)
+    if (tSave.dwFloorSize)
     {
-        tSave.pFloors = FOG_Alloc(tSave.nFloors, szAutomapFile_006D66F0, 0x4EA, 0);
+        tSave.pFloors = FOG_Alloc(tSave.dwFloorSize, szAutomapFile_006D66F0, 0x4EA, 0);
         gpAutomapSaveBuffer_007A5154 = tSave.pFloors;
         sub_00458470_StoreCells(gpAutomapContext_007A5164->pFloors);
     }
-    if (tSave.nWalls)
+    if (tSave.dwWallsSize)
     {
-        tSave.pWalls = FOG_Alloc(tSave.nWalls, szAutomapFile_006D66F0, 0x4F1, 0);
+        tSave.pWalls = FOG_Alloc(tSave.dwWallsSize, szAutomapFile_006D66F0, 0x4F1, 0);
         gpAutomapSaveBuffer_007A5154 = tSave.pWalls;
         sub_00458470_StoreCells(gpAutomapContext_007A5164->pWalls);
     }
@@ -357,9 +357,9 @@ void __cdecl sub_004584C0()
         gpAutomapSaveBuffer_007A5154 = tSave.pObjects;
         sub_00458470_StoreCells(gpAutomapContext_007A5164->pObjects);
     }
-    if (tSave.nExtras)
+    if (tSave.dwExtraSize)
     {
-        tSave.pExtras = FOG_Alloc(tSave.nExtras, szAutomapFile_006D66F0, 0x4FF, 0);
+        tSave.pExtras = FOG_Alloc(tSave.dwExtraSize, szAutomapFile_006D66F0, 0x4FF, 0);
         gpAutomapSaveBuffer_007A5154 = tSave.pExtras;
         sub_00458470_StoreCells(gpAutomapContext_007A5164->pExtras);
     }
@@ -410,7 +410,7 @@ static __forceinline D2MonStats2Txt* AUTOMAP_GetMonStats2TxtRecord(int nMonStats
 // 0x00458DC0
 void __stdcall sub_00458DC0_RevealRoomObjects(D2ActiveRoomStrc* pRoom, D2AutomapCellStrc** ppRoot)
 {
-    for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pUnit->pRoomNext)
+    for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
     {
         const int nFlag = AUTOMAP_CheckFlagEx(pUnit, 28);
         const int nUnitType = pUnit ? pUnit->dwUnitType : UNIT_INVALID;
@@ -993,7 +993,7 @@ void __cdecl sub_0045AC90_DrawAutomapUnits()
     const int nCount = nRooms;
     for (int i = 0; i < nCount; ++i)
     {
-        for (D2UnitStrc* pUnit = ppRooms[i]->pUnitFirst; pUnit; pUnit = pUnit->pRoomNext)
+        for (D2UnitStrc* pUnit = ppRooms[i]->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
         {
             sub_0045A860_DrawAutomapUnit(pUnit);
         }

@@ -31,7 +31,7 @@ typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
 
 struct D2WinControlStrc
 {
-    int nType;
+    int eType;
     D2CelFileStrc* pCellFile;
     unsigned int dwFlags;
     int nImageX;
@@ -120,7 +120,7 @@ extern D2WinPopUpStrc* gpPopUp_0087E974; // 0x0087E974
 // 0x00508000
 extern "C" int __fastcall sub_00508000_SetScrollBarHandler(D2WinScrollBarStrc* pScrollBar, D2WinMsgHandler pfHandler)
 {
-    D2_ASSERT(pScrollBar->controlHeader.nType == D2WIN_SCROLLBAR, 0x8B);
+    D2_ASSERT(pScrollBar->controlHeader.eType == D2WIN_SCROLLBAR, 0x8B);
     pScrollBar->field_5C = pfHandler;
     return 1;
 }
@@ -128,7 +128,7 @@ extern "C" int __fastcall sub_00508000_SetScrollBarHandler(D2WinScrollBarStrc* p
 // 0x005080F0
 extern "C" int __fastcall sub_005080F0_GetScrollBarField50(D2WinScrollBarStrc* pScrollBar)
 {
-    D2_ASSERT(pScrollBar->controlHeader.nType == D2WIN_SCROLLBAR, 0xD2);
+    D2_ASSERT(pScrollBar->controlHeader.eType == D2WIN_SCROLLBAR, 0xD2);
     return pScrollBar->field_50;
 }
 
@@ -136,7 +136,7 @@ extern "C" int __fastcall sub_005080F0_GetScrollBarField50(D2WinScrollBarStrc* p
 int __stdcall SCROLLBAR_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
 {
     D2WinScrollBarStrc* ptScrollbarData = (D2WinScrollBarStrc*)pMsg->hWnd;
-    D2_ASSERT(ptScrollbarData->controlHeader.nType == D2WIN_SCROLLBAR, 0x12F);
+    D2_ASSERT(ptScrollbarData->controlHeader.eType == D2WIN_SCROLLBAR, 0x12F);
 
     if (pMsg->uMessage != WM_LBUTTONDOWN)
     {
@@ -249,7 +249,7 @@ int __fastcall SCROLLBAR_Draw(D2WinControlStrc* pControl)
 {
     D2WinScrollBarStrc* pScrollBar = (D2WinScrollBarStrc*)pControl;
     D2_ASSERT(pScrollBar, 0xE7);
-    D2_ASSERT(pScrollBar->controlHeader.nType == 5, 0xE8);
+    D2_ASSERT(pScrollBar->controlHeader.eType == 5, 0xE8);
     if (!(pScrollBar->controlHeader.dwFlags & gdwBitMasks[2]) ||
         !(pScrollBar->controlHeader.dwFlags & gdwBitMasks[0]))
         return 0;
@@ -309,7 +309,7 @@ void __stdcall POPUP_Create()
     }
     D2WinPopUpStrc* pPopUp = (D2WinPopUpStrc*)FOG_Alloc(sizeof(D2WinPopUpStrc), ".\\Src\\D2WinPopup.cpp", 0x29, 0);
     memset(pPopUp, 0, sizeof(D2WinPopUpStrc));
-    pPopUp->controlHeader.nType = D2WIN_POPUP;
+    pPopUp->controlHeader.eType = D2WIN_POPUP;
     pPopUp->controlHeader.dwFlags |= gdwBitMasks_006CE268[0];
     pPopUp->controlHeader.dwFlags |= gdwBitMasks_006CE268[2];
     pPopUp->controlHeader.dwFlags |= gdwBitMasks_006CE268[3];

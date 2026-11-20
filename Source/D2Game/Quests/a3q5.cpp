@@ -59,9 +59,9 @@ struct D2QuestDataStrc
     unsigned int dwFlags;
     void* pQuestDataEx;
     char tPlayerGUIDs[0x84];
-    QUESTCALLBACK pfCallback[15];
+    QUESTCALLBACK pCallback[15];
     void* pNPCMessages;
-    int nQuestFilter;
+    int eFilter;
     int unk0xE4;
     QUESTSTATUSFILTER pfStatusFilter;
     QUESTACTIVEFILTER pfActiveFilter;
@@ -190,7 +190,7 @@ void __fastcall ACT3Q5_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
     if (pQuestArg->nNewLevel == 82 && pQuestData->bNotIntro && !pQuestData->fState)
     {
         pQuestData->fState = 1;
-        pQuestData->pfCallback[2] = ACT3Q5_Callback02_NpcDeactivate;
+        pQuestData->pCallback[2] = ACT3Q5_Callback02_NpcDeactivate;
     }
 
     if (nOldLevel != 75)
@@ -206,7 +206,7 @@ void __fastcall ACT3Q5_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
     }
 
     D2BitBufferStrc* pQuestFlags = PLAYER_GetQuestFlags(pQuestArg->pGame, pQuestArg->pPlayer);
-    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, 0) == 1 || QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, 4) == 1)
+    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 0) == 1 || QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 4) == 1)
     {
         return;
     }
@@ -487,19 +487,19 @@ void __fastcall ACT3Q5_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
 // 0x005BBEB0
 void __fastcall ACT3Q5_InitQuestData(D2QuestDataStrc* pQuestData)
 {
-    memset(pQuestData->pfCallback, 0x00, sizeof(pQuestData->pfCallback));
+    memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
     pQuestData->pNPCMessages = gpAct3Q5NpcMessages;
     pQuestData->bActive = 1;
-    pQuestData->pfCallback[8] = ACT3Q5_Callback08_MonsterKilled;
-    pQuestData->pfCallback[0] = ACT3Q5_Callback00_NpcActivate;
-    pQuestData->pfCallback[11] = ACT3Q5_Callback11_ScrollMessage;
-    pQuestData->pfCallback[3] = ACT3Q5_Callback03_ChangedLevel;
-    pQuestData->pfCallback[13] = ACT3Q5_Callback13_PlayerStartedGame;
-    pQuestData->pfCallback[10] = ACT3Q5_Callback10_PlayerLeavesGame;
+    pQuestData->pCallback[8] = ACT3Q5_Callback08_MonsterKilled;
+    pQuestData->pCallback[0] = ACT3Q5_Callback00_NpcActivate;
+    pQuestData->pCallback[11] = ACT3Q5_Callback11_ScrollMessage;
+    pQuestData->pCallback[3] = ACT3Q5_Callback03_ChangedLevel;
+    pQuestData->pCallback[13] = ACT3Q5_Callback13_PlayerStartedGame;
+    pQuestData->pCallback[10] = ACT3Q5_Callback10_PlayerLeavesGame;
     pQuestData->pfSeqFilter = ACT3Q5_SeqCallback;
     pQuestData->nSeqId = 20;
     pQuestData->fState = 0;
-    pQuestData->nQuestFilter = 21;
+    pQuestData->eFilter = 21;
     pQuestData->pfActiveFilter = ACT3Q5_ActiveFilterCallback;
     pQuestData->nInitNo = 6;
     pQuestData->pfStatusFilter = 0;

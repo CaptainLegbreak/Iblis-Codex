@@ -36,7 +36,7 @@ struct D2DrlgLevelStrc
     char unk0x000[0x1AC];
     D2DrlgLevelStrc* pNextLevel;
     char unk0x1B0[0x1D0 - 0x1B0];
-    int nLevelId;
+    int eLevelId;
 };
 
 struct D2DrlgStrc
@@ -172,7 +172,7 @@ D2DrlgLevelStrc* __stdcall DRLG_GetLevel(D2DrlgStrc* pDrlg, int nLevelId)
 {
     for (D2DrlgLevelStrc* pLevel = pDrlg->pLevel; pLevel; pLevel = pLevel->pNextLevel)
     {
-        if (pLevel->nLevelId == nLevelId)
+        if (pLevel->eLevelId == nLevelId)
         {
             return pLevel;
         }

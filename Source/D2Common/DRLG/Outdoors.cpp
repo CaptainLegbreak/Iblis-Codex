@@ -76,7 +76,7 @@ struct D2DrlgLevelStrc
     int unk0x1C0;
     D2SeedStrc tSeed;
     D2OutdoorPresetFileStrc* pPresetFiles;
-    int nLevelId;
+    int eLevelId;
 };
 
 struct D2LvlPrestRecordStrc

@@ -11,7 +11,7 @@ struct D2DrlgLevelStrc
     char unk0x000[0x1B4];
     D2DrlgStrc* pDrlg;
     char unk0x1B8[0x18];
-    int nLevelId;
+    int eLevelId;
 };
 
 struct D2DrlgRoomStrc
@@ -24,7 +24,7 @@ struct D2DrlgRoomStrc
     char unk0x30[0x14];
     unsigned char fRoomStatus;
     char unk0x45[0x13];
-    D2DrlgLevelStrc* pLevel;
+    D2DrlgLevelStrc* ptDrlgLevel;
 };
 D2DrlgLevelStrc* __stdcall DRLG_GetLevel(D2DrlgStrc* pDrlg, int nLevelId);                                  // 0x00642BB0
 D2DrlgRoomStrc* __fastcall DRLG_GetRoomExFromCoordinates(int nX, int nY, D2DrlgStrc* pDrlg, D2DrlgRoomStrc* pDrlgRoom, D2DrlgLevelStrc* pLevel); // 0x00642C30
@@ -45,7 +45,7 @@ static bool RoomExHasRefCount(D2DrlgRoomStrc* pDrlgRoom, int nMaxStatus)
 // 0x0061B490
 static void DRLGACTIVATE_RoomSetAndPropagateStatus(D2DrlgRoomStrc* pDrlgRoom, unsigned char nStatus)
 {
-    DRLGACTIVATE_RoomExPropagateSetStatus(pDrlgRoom->pLevel->pDrlg->pMempool, pDrlgRoom, nStatus + 1);
+    DRLGACTIVATE_RoomExPropagateSetStatus(pDrlgRoom->ptDrlgLevel->pDrlg->pMempool, pDrlgRoom, nStatus + 1);
     const int nIndex = nStatus;
     if (pDrlgRoom->fRoomStatus >= nIndex)
     {
@@ -61,7 +61,7 @@ static void DRLGACTIVATE_RoomSetAndPropagateStatus(D2DrlgRoomStrc* pDrlgRoom, un
 void __fastcall DRLGACTIVATE_SetClientIsInSight(D2DrlgStrc* pDrlg, int nLevelId, int nX, int nY, D2DrlgRoomStrc* pDrlgRoomHint)
 {
     D2DrlgLevelStrc* pLevel = DRLG_GetLevel(pDrlg, nLevelId);
-    if (pDrlgRoomHint && pDrlgRoomHint->pLevel->nLevelId != nLevelId)
+    if (pDrlgRoomHint && pDrlgRoomHint->ptDrlgLevel->eLevelId != nLevelId)
     {
         pDrlgRoomHint = 0;
     }

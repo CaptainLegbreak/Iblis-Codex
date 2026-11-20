@@ -18,7 +18,7 @@ struct D2CellTileStrc
     char unk0x08[0x0C];
     unsigned int dwFlags;
     D2TileGfxStrc* pTile;
-    int nType;
+    int eTileType;
     int unk0x20;
     unsigned int dwFadeFlags;
     unsigned char nAlpha;
@@ -98,7 +98,7 @@ void __stdcall sub_004DEF80_DrawCellTiles(D2GridCellStrc* pCell, int nPass, D2Ce
     for (D2CellTileNodeStrc* pNode = pCell->pTiles; pNode; pNode = pNode->pNext)
     {
         D2CellTileStrc* ptTile = pNode->pTile;
-        D2_ASSERT(ptTile->nType != 0xF, 0xF9);
+        D2_ASSERT(ptTile->eTileType != 0xF, 0xF9);
 
         const unsigned int dwFade = ptTile->dwFadeFlags;
         if (dwFade & 2)

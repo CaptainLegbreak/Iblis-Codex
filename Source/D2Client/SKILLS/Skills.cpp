@@ -2025,7 +2025,7 @@ void __fastcall sub_004C5C40_ScanArea(D2UnitStrc* pUnit, int nX, int nY, int nRa
         D2UnitStrc* pTarget = ((D2ActiveRoomViewStrc*)ppRoomList[i])->pUnitFirst;
         while (pTarget)
         {
-            D2UnitStrc* pNext = pTarget->pRoomNext;
+            D2UnitStrc* pNext = pTarget->ptRoomNext;
             if (pTarget != pUnit
                 && nRangeSq >= PATH_ComputeSquaredDistance(nX, nY, UNITS_GetXPositionInline(pTarget), UNITS_GetYPositionInline(pTarget))
                 && sub_004C5960_CanScanUnit(pUnit, pTarget, nFlags)

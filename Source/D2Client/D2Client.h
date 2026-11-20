@@ -1110,10 +1110,10 @@ struct D2AutomapSaveStrc
     unsigned int nLayerNo;
     unsigned int fSaved;
     unsigned int nUnk0x08;
-    unsigned int nFloors;
-    unsigned int nWalls;
+    unsigned int dwFloorSize;
+    unsigned int dwWallsSize;
     unsigned int nObjects;
-    unsigned int nExtras;
+    unsigned int dwExtraSize;
     void* pFloors;
     void* pWalls;
     void* pObjects;
@@ -1986,7 +1986,7 @@ struct D2RosterPetNodeStrc
 
 struct D2ShrinesTxt
 {
-    unsigned char nCode;
+    unsigned char bCode;
 };
 
 struct D2SkillIconStateStrc

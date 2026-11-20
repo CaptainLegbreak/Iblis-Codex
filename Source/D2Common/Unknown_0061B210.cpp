@@ -17,7 +17,7 @@ struct D2DrlgRoomStrc
     char unk0x45[0x03];
     int nType;
     char unk0x4C[0x0C];
-    D2DrlgLevelStrc* pLevel;
+    D2DrlgLevelStrc* ptDrlgLevel;
     char unk0x5C[0x8C];
     D2DrlgRoomStrc* pStatusPrev;
 };
@@ -58,7 +58,7 @@ static int gnStatsFreedRooms_0096C8C0;                                          
 
 static int DRLGACTIVATE_RoomEx_EnsureHasRoom(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom)
 {
-    D2DrlgStrc* pDrlg = pDrlgRoom->pLevel->pDrlg;
+    D2DrlgStrc* pDrlg = pDrlgRoom->ptDrlgLevel->pDrlg;
     if (!pDrlgRoom->nRoomsNear)
         sub_0066C370_OnChildlessNode(pMemPool, pDrlgRoom);
     DRLGROOMTILE_InitRoomGrids(pDrlgRoom);
@@ -89,7 +89,7 @@ static void DRLGACTIVATE_ForceRoomExStatusImpl(D2DrlgRoomStrc* pDrlgRoom, unsign
     DRLGACTIVATE_RoomExStatusUnlink(pDrlgRoom);
     if (nStatus < 4)
     {
-        D2DrlgRoomStrc* pHead = &pDrlgRoom->pLevel->pDrlg->tStatusRoomsLists[nStatus];
+        D2DrlgRoomStrc* pHead = &pDrlgRoom->ptDrlgLevel->pDrlg->tStatusRoomsLists[nStatus];
         pDrlgRoom->pStatusNext = pHead;
         pDrlgRoom->pStatusPrev = pHead->pStatusPrev;
         pHead->pStatusPrev->pStatusNext = pDrlgRoom;
@@ -122,7 +122,7 @@ void __fastcall DRLGACTIVATE_RoomExSetStatus_ClientInSight(D2DrlgRoomStrc* pDrlg
 {
     if (!pDrlgRoom->pRoom && !(pDrlgRoom->dwFlags & 0x100000))
     {
-        D2DrlgStrc* pDrlg = pDrlgRoom->pLevel->pDrlg;
+        D2DrlgStrc* pDrlg = pDrlgRoom->ptDrlgLevel->pDrlg;
         DRLGACTIVATE_RoomEx_EnsureHasRoom(pDrlg->pMempool, pDrlgRoom);
         pDrlg->nRoomsInitTimeout = DRLG_IsOnClient(pDrlg) == 0 ? 7 : 5;
     }
@@ -175,7 +175,7 @@ void __fastcall DRLGACTIVATE_RoomExStatusUnset_Untile(D2DrlgRoomStrc* pDrlgRoom)
     if (pDrlgRoom->fRoomStatus != 4)
     {
         sub_0061B4F0(pDrlgRoom);
-        if (pDrlgRoom->fRoomStatus == 4 && DRLG_IsOnClient(pDrlgRoom->pLevel->pDrlg))
+        if (pDrlgRoom->fRoomStatus == 4 && DRLG_IsOnClient(pDrlgRoom->ptDrlgLevel->pDrlg))
             DRLGROOMTILE_FreeRoom(pDrlgRoom, 0);
     }
 }

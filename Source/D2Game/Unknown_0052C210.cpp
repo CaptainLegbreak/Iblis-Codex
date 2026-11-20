@@ -9,7 +9,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 struct D2ClientStrc
 {
     char unk0x00[0x1AC];
-    unsigned char nAct;
+    unsigned char bAct;
 };
 
 void __fastcall sub_0053AFB0_EnsureAct(D2GameStrc* pGame, unsigned char nAct);                              // 0x0053AFB0
@@ -20,7 +20,7 @@ void __fastcall CLIENTS_SetClientState(D2ClientStrc* pClient, int nClientState);
 void __fastcall sub_0052C210_ClientEnterAct(D2GameStrc* pGame, D2ClientStrc* pClient)
 {
     D2_ASSERT(pClient, 0x1C4);
-    sub_0053AFB0_EnsureAct(pGame, pClient->nAct);
+    sub_0053AFB0_EnsureAct(pGame, pClient->bAct);
     sub_0053ABE0_EnterAct(pGame, pClient);
     CLIENTS_SetClientState(pClient, 2);
 }

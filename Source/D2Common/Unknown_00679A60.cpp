@@ -353,7 +353,7 @@ static int PATH_CheckCollisionsToNextPosition(D2DynamicPathStrc* pDynamicPath, D
     D2PathPointStrc tPoint;
 
     D2_ASSERT(((pDynamicPath->pUnit && pDynamicPath->pUnit->dwUnitType == 0) || (pDynamicPath->pUnit && pDynamicPath->pUnit->dwUnitType == 1)) != 0, 324);
-    D2_ASSERT(pDynamicPath->dwPathType != 4, 325);
+    D2_ASSERT(pDynamicPath->eType != 4, 325);
     D2_ASSERT(pGameCoord->X != 0, 326);
     D2_ASSERT(pGameCoord->Y != 0, 327);
 
@@ -566,12 +566,12 @@ int __fastcall PATH_Knockback_Server(D2PathInfoStrc* pPathInfo)
     D2DynamicPathStrc* pDynamicPath = pPathInfo->pDynamicPath;
     const int nHalfDist = (pDynamicPath->nDist >> 1) + 1;
     D2PathPointStrc tFinalCoords;
-    if (pDynamicPath->pTargetUnit)
+    if (pDynamicPath->hTarget)
     {
         tFinalCoords = pPathInfo->tStartCoord;
 
-        const int nTargetUnitX = UNITS_GetXPositionInline(pDynamicPath->pTargetUnit);
-        const int nTargetUnitY = UNITS_GetYPositionInline(pDynamicPath->pTargetUnit);
+        const int nTargetUnitX = UNITS_GetXPositionInline(pDynamicPath->hTarget);
+        const int nTargetUnitY = UNITS_GetYPositionInline(pDynamicPath->hTarget);
         int nDeltaX = pPathInfo->tStartCoord.X - nTargetUnitX;
         int nDeltaY = pPathInfo->tStartCoord.Y - nTargetUnitY;
         if (const int nMax = PATH_MaxRef(nDeltaX < 0 ? -nDeltaX : nDeltaX, nDeltaY < 0 ? -nDeltaY : nDeltaY))
@@ -1117,7 +1117,7 @@ static int PATH_AStar_FlushNodeToDynamicPath(D2PathInfoStrc* pPathInfo, D2PathFo
 
 static BOOL PATH_AStar_TargetLocationHasEnoughRoom(D2PathInfoStrc* pPathInfo)
 {
-    if (!pPathInfo->pDynamicPath->pTargetUnit)
+    if (!pPathInfo->pDynamicPath->hTarget)
     {
         return TRUE;
     }

@@ -47,8 +47,8 @@ struct D2QuestArgStrc
 struct D2ObjOperateFnStrc
 {
     D2GameStrc* pGame;
-    D2UnitStrc* pObject;
-    D2UnitStrc* pPlayer;
+    D2UnitStrc* hObject;
+    D2UnitStrc* hPlayer;
     void* pObjectregion;
     int nObjectIdx;
 };
@@ -109,7 +109,7 @@ int __fastcall sub_0059DA10_ACT2Q6_OperateTombPortal(D2ObjOperateFnStrc* pOp, in
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pOp->pGame, QUEST_A2Q6_DURIEL);
     if (!pQuestData || pQuestData->bNotIntro != 1 || pQuestData->pQuestDataEx->bDurielLairTombOpen)
     {
-        if (pOp->pObject && pOp->pObject->dwAnimMode == 2)
+        if (pOp->hObject && pOp->hObject->dwAnimMode == 2)
         {
             D2GAME_WarpPlayerToTile_6FCA5B20(pOp);
         }

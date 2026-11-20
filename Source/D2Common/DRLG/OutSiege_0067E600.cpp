@@ -46,7 +46,7 @@ struct D2DrlgLevelStrc
     char unk0x2C[0x198];
     D2SeedStrc pSeed;
     int unk0x1CC;
-    int nLevelId;
+    int eLevelId;
 };
 
 struct D2LvlPrestRecordStrc
@@ -118,7 +118,7 @@ static void DRLGOUTSIEGE_PlaceCaves(D2DrlgLevelStrc* pLevel)
     D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoorInfo;
     for (int i = 0; i < 3; ++i)
     {
-        if (pLevel->nLevelId == gaOutSiegeCaves[i].nLevelId)
+        if (pLevel->eLevelId == gaOutSiegeCaves[i].nLevelId)
         {
             int nLevelPrestId;
             int nX;
@@ -144,7 +144,7 @@ static void DRLGOUTSIEGE_PlaceCaves(D2DrlgLevelStrc* pLevel)
 
 static void sub_0067E0E0(D2DrlgLevelStrc* pLevel)
 {
-    if (pLevel->nLevelId == 110)
+    if (pLevel->eLevelId == 110)
     {
         return;
     }
@@ -196,7 +196,7 @@ static __forceinline int sub_0067E210_PlaceShiftedPreset(D2DrlgLevelStrc* pLevel
 
 static void sub_0067E240(D2DrlgLevelStrc* pLevel)
 {
-    if (pLevel->nLevelId != 111)
+    if (pLevel->eLevelId != 111)
         return;
 
     D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoorInfo;
@@ -244,7 +244,7 @@ static void sub_0067E4B0(D2DrlgLevelStrc* pLevel)
         exit(-1);
     }
 
-    if (pLevel->nLevelId != 111)
+    if (pLevel->eLevelId != 111)
     {
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 624);
         exit(-1);
@@ -273,7 +273,7 @@ static void sub_0067E4B0(D2DrlgLevelStrc* pLevel)
 // 0x0067E600
 void __fastcall sub_0067E600(D2DrlgLevelStrc* pLevel)
 {
-    if (pLevel->nLevelId == 110)
+    if (pLevel->eLevelId == 110)
     {
         sub_0067E560(pLevel);
         return;
@@ -285,7 +285,7 @@ void __fastcall sub_0067E600(D2DrlgLevelStrc* pLevel)
     sub_0067DB50(pLevel);
     DRLGOUTSIEGE_PlaceCaves(pLevel);
 
-    if (pLevel->nLevelId == 111)
+    if (pLevel->eLevelId == 111)
     {
         sub_0067E4B0(pLevel);
     }

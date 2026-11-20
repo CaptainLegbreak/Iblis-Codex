@@ -17,7 +17,7 @@ struct D2ClientStrc {
  int nCharSaveTransactionToken; int unk64; void* pClientInfo; char szPreview[0x100];
  int dwUnitType; int dwUnitId; D2UnitStrc* pPlayer; int unk178; void* pSaveFile;
  char unk180[0x10]; unsigned int nSaveCreationTimestamp[2]; char unk198[0x10]; D2GameStrc* pGame;
- char unk1AC[8]; D2ActiveRoomStrc* pRoom; void* pPacketDataHead; void* pPacketDataTail;
+ char unk1AC[8]; D2ActiveRoomStrc* hRoom; void* pPacketDataHead; void* pPacketDataTail;
  D2PacketDataStrc* pPacketDataPool; char unk1C4[0x2E4]; D2ClientStrc* pNext; D2ClientStrc* pServerNext; D2ClientStrc* pServerNextByName;
 };
 typedef void (__fastcall* FnCloseCharacter)(void**, int, int, int, __int64, int, const char*, const char*, int, int, int, const char*, int, int, int, int, int, int, unsigned int*);
@@ -137,7 +137,7 @@ void __fastcall ClientRemoveFromGame(D2GameStrc* ptGame,void* hClientId,int bTri
   D2_ASSERT(!IsBadCodePtr((void*)gpD2EventCallbackTable_6FD45830->pfCloseCharacter),0x5CE);
   if(gpD2EventCallbackTable_6FD45830->pfCloseCharacter) gpD2EventCallbackTable_6FD45830->pfCloseCharacter(&pClient->pClientInfo,ptGame->nGameId,0,0,0,0,pClient->szName,pClient->szPreview,pClient->unk178,0,0,pClient->szAccount,pClient->nCharSaveTransactionToken,0,0,0,0,0,pClient->nSaveCreationTimestamp);
  }
- if(pClient->pRoom) LEVEL_RemoveClientFromAdjacentRooms(pClient->pRoom,pClient);
+ if(pClient->hRoom) LEVEL_RemoveClientFromAdjacentRooms(pClient->hRoom,pClient);
  if(pClient->pSaveFile) {
   FOG_FreePool(pClient->pGame->pMemoryPool,pClient->pSaveFile,szClientsCppFile,0x5F5,0);
   pClient->pSaveFile=0;

@@ -81,9 +81,9 @@ struct D2QuestDataStrc
     unsigned int dwFlags;
     D2Act5Quest5Strc* pQuestDataEx;
     D2QuestGUIDStrc tPlayerGUIDs;
-    QUESTCALLBACK pfCallback[15];
+    QUESTCALLBACK pCallback[15];
     void* pNPCMessages;
-    int nQuestFilter;
+    int eFilter;
     int unk0xE4;
     void* pfStatusFilter;
     QUESTACTIVEFILTER pfActiveFilter;
@@ -126,41 +126,41 @@ void __fastcall sub_0058C440(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuest
     D2GameStrc* pGame = pQuestData->pGame;
     D2UnitStrc* pPlayer = pQuestArg->pPlayer;
     D2BitBufferStrc* pFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
-    int bRewarded = QUESTRECORD_GetQuestState(pFlags, pQuestData->nQuestFilter, 0 + FLAG_SHIFT);
+    int bRewarded = QUESTRECORD_GetQuestState(pFlags, pQuestData->eFilter, 0 + FLAG_SHIFT);
     int nNpcId = !pQuestArg->pTarget ? -1 : pQuestArg->pTarget->dwClassId;
     if (!pQuestData->bNotIntro)
         return;
     if (bRewarded)
     {
-        int bPrimaryGoal = QUESTRECORD_GetQuestState(pFlags, pQuestData->nQuestFilter, 13 + FLAG_SHIFT);
+        int bPrimaryGoal = QUESTRECORD_GetQuestState(pFlags, pQuestData->eFilter, 13 + FLAG_SHIFT);
         switch (nNpcId)
         {
         case 511 + NPC_SHIFT:
-            if (!QUESTRECORD_GetQuestState(pFlags, pQuestData->nQuestFilter, 5 + FLAG_SHIFT))
+            if (!QUESTRECORD_GetQuestState(pFlags, pQuestData->eFilter, 5 + FLAG_SHIFT))
                 QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 5 + MESSAGE_SHIFT);
             else if (bPrimaryGoal)
                 QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 3 + MESSAGE_SHIFT);
             break;
         case 520 + NPC_SHIFT:
-            if (!QUESTRECORD_GetQuestState(pFlags, pQuestData->nQuestFilter, 6 + FLAG_SHIFT))
+            if (!QUESTRECORD_GetQuestState(pFlags, pQuestData->eFilter, 6 + FLAG_SHIFT))
                 QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 5 + MESSAGE_SHIFT);
             else if (bPrimaryGoal)
                 QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 3 + MESSAGE_SHIFT);
             break;
         case 512 + NPC_SHIFT:
-            if (!QUESTRECORD_GetQuestState(pFlags, pQuestData->nQuestFilter, 7 + FLAG_SHIFT))
+            if (!QUESTRECORD_GetQuestState(pFlags, pQuestData->eFilter, 7 + FLAG_SHIFT))
                 QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 5 + MESSAGE_SHIFT);
             else if (bPrimaryGoal)
                 QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 3 + MESSAGE_SHIFT);
             break;
         case 513 + NPC_SHIFT:
-            if (!QUESTRECORD_GetQuestState(pFlags, pQuestData->nQuestFilter, 8 + FLAG_SHIFT))
+            if (!QUESTRECORD_GetQuestState(pFlags, pQuestData->eFilter, 8 + FLAG_SHIFT))
                 QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 5 + MESSAGE_SHIFT);
             else if (bPrimaryGoal)
                 QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 3 + MESSAGE_SHIFT);
             break;
         case 515 + NPC_SHIFT:
-            if (!QUESTRECORD_GetQuestState(pFlags, pQuestData->nQuestFilter, 9 + FLAG_SHIFT))
+            if (!QUESTRECORD_GetQuestState(pFlags, pQuestData->eFilter, 9 + FLAG_SHIFT))
                 QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 5 + MESSAGE_SHIFT);
             else if (bPrimaryGoal)
                 QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 3 + MESSAGE_SHIFT);

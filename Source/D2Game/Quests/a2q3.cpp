@@ -94,9 +94,9 @@ struct D2QuestDataStrc
     unsigned int dwFlags;
     void* pQuestDataEx;
     char tPlayerGUIDs[0x84];
-    QUESTCALLBACK pfCallback[15];
+    QUESTCALLBACK pCallback[15];
     void* pNPCMessages;
-    int nQuestFilter;
+    int eFilter;
     char unk0xE4[0x04];
     QUESTSTATUSFILTER pfStatusFilter;
     QUESTACTIVEFILTER pfActiveFilter;
@@ -572,18 +572,18 @@ int __fastcall ACT2Q3_UnitIterate_SetCompletionFlag(D2GameStrc* pGame, D2UnitStr
 // 0x0059EEA0
 void __fastcall ACT2Q3_InitQuestData(D2QuestDataStrc* pQuestData)
 {
-    memset(pQuestData->pfCallback, 0x00, sizeof(pQuestData->pfCallback));
-    pQuestData->pfCallback[0] = ACT2Q3_Callback00_NpcActivate;
-    pQuestData->pfCallback[11] = ACT2Q3_Callback11_ScrollMessage;
-    pQuestData->pfCallback[3] = ACT2Q3_Callback03_ChangedLevel;
-    pQuestData->pfCallback[10] = ACT2Q3_Callback10_PlayerLeavesGame;
-    pQuestData->pfCallback[13] = ACT2Q3_Callback13_PlayerStartedGame;
+    memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
+    pQuestData->pCallback[0] = ACT2Q3_Callback00_NpcActivate;
+    pQuestData->pCallback[11] = ACT2Q3_Callback11_ScrollMessage;
+    pQuestData->pCallback[3] = ACT2Q3_Callback03_ChangedLevel;
+    pQuestData->pCallback[10] = ACT2Q3_Callback10_PlayerLeavesGame;
+    pQuestData->pCallback[13] = ACT2Q3_Callback13_PlayerStartedGame;
     pQuestData->pNPCMessages = gpAct2Q3NpcMessages;
     pQuestData->bActive = 1;
     pQuestData->fState = 0;
     D2Act2Quest3Strc* pQuestDataEx = (D2Act2Quest3Strc*)sub_0040B430(pQuestData->pGame->pMemoryPool, sizeof(D2Act2Quest3Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q3.cpp", 803, 0);
     pQuestData->pQuestDataEx = pQuestDataEx;
-    pQuestData->nQuestFilter = QUESTSTATEFLAG_A2Q3;
+    pQuestData->eFilter = QUESTSTATEFLAG_A2Q3;
     pQuestData->pfStatusFilter = 0;
     pQuestData->nInitNo = 4;
     pQuestData->pfActiveFilter = ACT2Q3_ActiveFilterCallback;

@@ -20,7 +20,7 @@ struct D2DrlgRoomStrc
     char unk0x34[0x10];
     unsigned char fRoomStatus;
     char unk0x45[0x13];
-    D2DrlgLevelStrc* pLevel;
+    D2DrlgLevelStrc* ptDrlgLevel;
     char unk0x5C[0x90];
 };
 
@@ -204,7 +204,7 @@ static int gnStatsFreedRooms_0096C8C0; // 0x0096C8C0
 // 0x0061B190
 static int DRLGACTIVATE_RoomEx_EnsureHasRoom(void* pMemPool, D2DrlgRoomStrc* pDrlgRoom)
 {
-    D2DrlgStrc* pDrlg = pDrlgRoom->pLevel->pDrlg;
+    D2DrlgStrc* pDrlg = pDrlgRoom->ptDrlgLevel->pDrlg;
     if (!pDrlgRoom->nRoomsNear)
         sub_0066C370_OnChildlessNode(pMemPool, pDrlgRoom);
     DRLGROOMTILE_InitRoomGrids(pDrlgRoom);

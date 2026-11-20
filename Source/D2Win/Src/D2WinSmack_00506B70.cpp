@@ -8,7 +8,7 @@ typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
 #pragma pack(push, 1)
 struct D2WinControlStrc
 {
-    int nType;
+    int eType;
     D2CelFileStrc* pCellFile;
     unsigned int dwFlags;
     int nImageX;
@@ -47,7 +47,7 @@ D2WinSmackStrc* __fastcall sub_00506B70_SmackCreate(int nX, int nY, int nWidth, 
 {
     D2WinSmackStrc* pSmack = (D2WinSmackStrc*)FOG_Alloc(sizeof(D2WinSmackStrc), ".\\Src\\D2WinSmack.cpp", 0x23, 0);
     memset(pSmack, 0, sizeof(D2WinSmackStrc));
-    pSmack->controlHeader.nType = 9;
+    pSmack->controlHeader.eType = 9;
     pSmack->controlHeader.dwFlags |= gdwBitMasks_006CE268[0];
     pSmack->controlHeader.dwFlags |= gdwBitMasks_006CE268[2];
     pSmack->controlHeader.nWidth = nWidth;

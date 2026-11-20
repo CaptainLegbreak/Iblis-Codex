@@ -25,7 +25,7 @@ struct D2PlayerDataStrc
     int dwTradeState;
     char unk0x54[0x04];
     unsigned int dwAcceptTradeTick;
-    D2PlayerTradeStrc* pTrade;
+    D2PlayerTradeStrc* hTrade;
 };
 
 
@@ -628,7 +628,7 @@ static __declspec(noinline) bool PLRTRADE_AllocPlayerTrade(D2GameStrc* pGame, D2
 static __declspec(noinline) bool PLRTRADE_AllocPlayerTrade(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 {
     D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
-    if (!pPlayerData->pTrade)
+    if (!pPlayerData->hTrade)
     {
     D2PlayerTradeStrc* pTrade = (D2PlayerTradeStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2PlayerTradeStrc), ".\\PLAYER\\PlrTrade.cpp", 0x806, 0);
     pTrade->pSaveData = (unsigned char*)FOG_AllocPool(pGame->pMemoryPool, 0x2000, ".\\PLAYER\\PlrTrade.cpp", 0x807, 0);
@@ -638,7 +638,7 @@ static __declspec(noinline) bool PLRTRADE_AllocPlayerTrade(D2GameStrc* pGame, D2
     pTrade->nGoldInTrade = 0;
     pTrade->nNextUpdateTick = 0;
     pTrade->nGoldInTradeOtherPlayer = STATLIST_UnitGetStatValue(pPlayer, 0xE, 0);
-    pPlayerData->pTrade = pTrade;
+    pPlayerData->hTrade = pTrade;
     return true;
     }
 
@@ -773,8 +773,8 @@ static void __stdcall PLRTRADE_ResetTrade(D2GameStrc* pGame, D2UnitStrc* pPlayer
     {
         pPlayer2->dwFlagEx |= 0x800000;
     }
-    pPlayerData1->pTrade->nGoldInTrade = 0;
-    pPlayerData2->pTrade->nGoldInTrade = 0;
+    pPlayerData1->hTrade->nGoldInTrade = 0;
+    pPlayerData2->hTrade->nGoldInTrade = 0;
     sub_6FC90AE0(pGame, pPlayer1, 1);
     sub_6FC90AE0(pGame, pPlayer2, 1);
     D2GAME_PACKETS_SendPacket0x79_6FC3E1D0(UnitGetClient(pPlayer1, ".\\PLAYER\\PlrTrade.cpp", 0x991), 0, 0);
@@ -796,7 +796,7 @@ static __declspec(noinline) void __stdcall sub_00567C70_AcceptTrade(D2GameStrc* 
 static void __stdcall sub_00567C70_AcceptTrade(D2GameStrc* pGame, D2UnitStrc* pInteractPlayer, D2PlayerDataStrc* pPlayerData, D2PlayerDataStrc* pInteractPlayerData, D2UnitStrc* pPlayer)
 {
     {
-        D2PlayerTradeStrc* pTrade = pPlayerData->pTrade;
+        D2PlayerTradeStrc* pTrade = pPlayerData->hTrade;
         if (pTrade->nGoldInTrade)
         {
             if (STATLIST_UnitGetStatValue(pPlayer, 0xE, 0) < pTrade->nGoldInTrade)
@@ -816,7 +816,7 @@ static void __stdcall sub_00567C70_AcceptTrade(D2GameStrc* pGame, D2UnitStrc* pI
     }
 
     {
-        D2PlayerTradeStrc* pTrade = pInteractPlayerData->pTrade;
+        D2PlayerTradeStrc* pTrade = pInteractPlayerData->hTrade;
         if (pTrade->nGoldInTrade)
         {
             if (STATLIST_UnitGetStatValue(pInteractPlayer, 0xE, 0) < pTrade->nGoldInTrade)
@@ -839,8 +839,8 @@ static void __stdcall sub_00567C70_AcceptTrade(D2GameStrc* pGame, D2UnitStrc* pI
     if (!INVENTORY_CanItemsBeTraded(pGame->pMemoryPool, pPlayer, pInteractPlayer, &nTradeState))
     {
         D2PlayerDataStrc* pFailedPartnerData = pInteractPlayerData;
-        pPlayerData->pTrade->nGoldInTrade = 0;
-        pFailedPartnerData->pTrade->nGoldInTrade = 0;
+        pPlayerData->hTrade->nGoldInTrade = 0;
+        pFailedPartnerData->hTrade->nGoldInTrade = 0;
         if (nTradeState)
         {
             D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(UnitGetClient(pPlayer, ".\\PLAYER\\PlrTrade.cpp", 0xA51), 9);
@@ -883,7 +883,7 @@ static void __stdcall sub_00567C70_AcceptTrade(D2GameStrc* pGame, D2UnitStrc* pI
         }
 
         {
-            D2PlayerTradeStrc* pTrade = pPlayerData->pTrade;
+            D2PlayerTradeStrc* pTrade = pPlayerData->hTrade;
             if (pTrade->nGoldInTrade)
             {
                 if (STATLIST_UnitGetStatValue(pPlayer, 0xE, 0) >= pTrade->nGoldInTrade)
@@ -893,7 +893,7 @@ static void __stdcall sub_00567C70_AcceptTrade(D2GameStrc* pGame, D2UnitStrc* pI
                 ITEMS_HandleGoldTransaction(pGame, pInteractPlayer, pTrade->nGoldInTrade);
             }
 
-            pTrade = pInteractPlayerData->pTrade;
+            pTrade = pInteractPlayerData->hTrade;
             if (pTrade->nGoldInTrade)
             {
                 if (STATLIST_UnitGetStatValue(pInteractPlayer, 0xE, 0) >= pTrade->nGoldInTrade)
@@ -1068,7 +1068,7 @@ int __fastcall PLRTRADE_HandleTradeButton(D2GameStrc* pGame, D2UnitStrc* pPlayer
                         nGold = nInventoryGoldLimit - nCurrentGold;
                     }
 
-                    D2PlayerTradeStrc* pTrade = pPlayerData->pTrade;
+                    D2PlayerTradeStrc* pTrade = pPlayerData->hTrade;
                     if (pTrade)
                     {
                         pTrade->nGoldInTrade = nGold;

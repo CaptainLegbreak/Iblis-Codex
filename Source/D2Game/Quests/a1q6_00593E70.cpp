@@ -113,9 +113,9 @@ struct D2QuestDataStrc
     unsigned int dwFlags;
     void* pQuestDataEx;
     D2QuestGUIDStrc tPlayerGUIDs;
-    QUESTCALLBACK pfCallback[15];
+    QUESTCALLBACK pCallback[15];
     void* pNPCMessages;
-    int nQuestFilter;
+    int eFilter;
 };
 
 struct D2ObjInitFnStrc
@@ -645,10 +645,10 @@ void __fastcall ACT2Q1_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2Que
     D2UnitStrc* pPlayer = pQuestArg->pPlayer;
     D2GameStrc* pGame = pQuestArg->pGame;
     D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
-    const int bPrimaryGoalDone = QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, QFLAG_PRIMARYGOALDONE);
-    const int bRewardGranted = QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, QFLAG_REWARDGRANTED);
+    const int bPrimaryGoalDone = QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_PRIMARYGOALDONE);
+    const int bRewardGranted = QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_REWARDGRANTED);
 
-    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, QFLAG_REWARDPENDING))
+    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_REWARDPENDING))
     {
         QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 3);
     }
@@ -1034,10 +1034,10 @@ void __fastcall ACT2Q1_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
 
     QUESTS_DebugOutput(pQuestData->pGame, "killed radament for quest", "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q1.cpp", 495);
     QUESTS_StateDebug(pQuestData, 4, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q1.cpp", 496);
-    QUESTS_SetGlobalState(pQuestArg->pGame, pQuestData->nQuestFilter, QFLAG_PRIMARYGOALDONE);
+    QUESTS_SetGlobalState(pQuestArg->pGame, pQuestData->eFilter, QFLAG_PRIMARYGOALDONE);
 
     D2Act2Quest1Strc* pQuestDataEx = (D2Act2Quest1Strc*)pQuestData->pQuestDataEx;
-    pQuestData->pfCallback[2] = 0;
+    pQuestData->pCallback[2] = 0;
     pQuestDataEx->bRadamentKilled = 1;
     pQuestDataEx->pRoom = UNITS_GetRoom(pQuestArg->pTarget);
     SUNIT_IterateUnitsOfType(pQuestArg->pGame, 0, pQuestArg->pTarget, ACT2Q1_UnitIterate_SetPrimaryGoalDoneForPartyMembers);
@@ -1079,7 +1079,7 @@ void __fastcall ACT2Q1_OnRadamentActivated(D2GameStrc* pGame, D2UnitStrc* pUnit)
         return;
     }
 
-    pQuestData->pfCallback[2] = 0;
+    pQuestData->pCallback[2] = 0;
 
     bool bStepped = false;
     if (pQuestData->fState < 3)
@@ -1126,7 +1126,7 @@ void __fastcall ACT2Q3_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2Que
         {
             QUESTS_InitScrollTextChain(pQuestData, pQuestArg->pTextControl, nNpcId, 4);
         }
-        else if (pQuestData->fState && pQuestData->bNotIntro && QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, QFLAG_REWARDGRANTED) != 1 && pQuestData->fState < 4)
+        else if (pQuestData->fState && pQuestData->bNotIntro && QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_REWARDGRANTED) != 1 && pQuestData->fState < 4)
         {
             const int nIndex = nIndices_0073A620[pQuestData->fState];
             if (nIndex != -1 && (unsigned int)nIndex < 6)

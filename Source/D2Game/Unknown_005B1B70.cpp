@@ -12,7 +12,7 @@ struct D2UnkMonCreateStrc;
 
 struct D2TargetNodeStrc
 {
-    D2UnitStrc* pUnit;
+    D2UnitStrc* hUnit;
     int nNodeData;
     D2TargetNodeStrc* pNext;
     D2TargetNodeStrc* pPrevious;
@@ -96,9 +96,9 @@ void __fastcall sub_005B1B70_FreeAllTargetNodes(D2GameStrc* pGame)
     D2TargetNodeStrc* pTargetNode = *ppTargetNode;
     for (int nCount = 10; nCount; --nCount)
     {
-        if (pTargetNode && pTargetNode->pUnit)
+        if (pTargetNode && pTargetNode->hUnit)
         {
-            D2GAME_FreeUnitNode_6FC40310(pGame, pTargetNode->pUnit);
+            D2GAME_FreeUnitNode_6FC40310(pGame, pTargetNode->hUnit);
         }
         pTargetNode = *++ppTargetNode;
     }

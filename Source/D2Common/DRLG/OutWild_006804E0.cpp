@@ -5,7 +5,7 @@ struct D2DrlgLevelStrc
     char unk0x000[0x1C4];
     D2SeedStrc pSeed;
     char unk0x1CC[0x04];
-    int nLevelId;
+    int eLevelId;
 };
 
 int __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPreset(D2DrlgLevelStrc* pLevel, int nLevelPrestId, int nPickedFile, int a4, int a5); // 0x00674730

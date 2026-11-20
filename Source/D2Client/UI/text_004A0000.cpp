@@ -14,7 +14,7 @@ struct D2TextNodeStrc
 struct D2TextListStrc
 {
     D2TextNodeStrc* pFirst;
-    unsigned short nCount;
+    unsigned short wCount;
 };
 
 void __fastcall sub_00455F20(int nUIVar, int nState, int nArg);                                        // 0x00455F20

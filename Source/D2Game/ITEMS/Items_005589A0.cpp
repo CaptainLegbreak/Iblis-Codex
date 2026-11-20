@@ -159,7 +159,7 @@ struct D2ItemSaveStrc
 {
     int nClassId;
     unsigned short nX, nY;
-    unsigned char nAnimMode, nPad09;
+    unsigned char bMode, nPad09;
     unsigned short nPad0A;
     unsigned int dwFlags;
     unsigned char nStorePage, nBodyloc;

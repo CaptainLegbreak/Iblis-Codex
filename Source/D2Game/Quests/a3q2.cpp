@@ -65,9 +65,9 @@ struct D2QuestDataStrc
     unsigned int dwFlags;
     void* pQuestDataEx;
     D2QuestGUIDStrc tPlayerGUIDs;
-    QUESTCALLBACK pfCallback[15];
+    QUESTCALLBACK pCallback[15];
     void* pNPCMessages;
-    int nQuestFilter;
+    int eFilter;
     int unk0xE4;
     QUESTSTATUSFILTER pfStatusFilter;
     QUESTACTIVEFILTER pfActiveFilter;
@@ -111,8 +111,8 @@ struct D2Act3Quest2Strc
 struct D2ObjOperateFnStrc
 {
     D2GameStrc* pGame;
-    D2UnitStrc* pObject;
-    D2UnitStrc* pPlayer;
+    D2UnitStrc* hObject;
+    D2UnitStrc* hPlayer;
     void* pObjectregion;
     int nObjectIdx;
 };
@@ -218,7 +218,7 @@ void __fastcall ACT3Q2_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
     {
         pQuestData->dwFlags &= 0xFFFFFF00;
         QUESTS_UnitIterate(pQuestData, 1, 0, ACT3Q2_UnitIterate_StatusCyclerEx, 1);
-        pQuestData->pfCallback[QUESTEVENT_NPCDEACTIVATE] = 0;
+        pQuestData->pCallback[QUESTEVENT_NPCDEACTIVATE] = 0;
     }
 }
 
@@ -259,7 +259,7 @@ void __fastcall ACT3Q2_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
 // 0x005B84E0
 int __fastcall OBJECTS_OperateFunction44_SewerStairs(D2ObjOperateFnStrc* pOp, int nOperate)
 {
-    D2UnitStrc* pObject = pOp->pObject;
+    D2UnitStrc* pObject = pOp->hObject;
     if (pObject && pObject->dwAnimMode == OBJMODE_OPENED)
     {
         D2GAME_WarpPlayerToTile_6FCA5B20(pOp);
@@ -360,21 +360,21 @@ int __fastcall OBJECTS_OperateFunction57_KhalimChest(D2ObjOperateFnStrc* pOp, in
     const int nCounter = SEED_RollRandomNumber(pSeed) % 5 + 5;
     for (int i = 0; i < nCounter; ++i)
     {
-        OBJMODE_DropItemWithCodeAndQuality(pOp->pGame, pOp->pObject, ' dlg', 2);
+        OBJMODE_DropItemWithCodeAndQuality(pOp->pGame, pOp->hObject, ' dlg', 2);
     }
-    pOp->pObject->dwDropItemCode = ' rhq';
+    pOp->hObject->dwDropItemCode = ' rhq';
 
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pOp->pGame, QUEST_A3Q2_KHALIMFLAIL);
     if (pQuestData)
     {
         D2Act3Quest2Strc* pQuestDataEx = (D2Act3Quest2Strc*)pQuestData->pQuestDataEx;
         pQuestDataEx->nItemDropCount = 0;
-        SUNIT_IterateUnitsOfType(pOp->pGame, 0, pOp->pPlayer, ACT3Q2_UnitIterate_DetermineKhalimHeartDropCount);
+        SUNIT_IterateUnitsOfType(pOp->pGame, 0, pOp->hPlayer, ACT3Q2_UnitIterate_DetermineKhalimHeartDropCount);
 
         for (int i = 0; i < pQuestDataEx->nItemDropCount; ++i)
         {
             int nItemLevel;
-            if (D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->pObject, ITEMQUAL_NORMAL, &nItemLevel, 0, -1, 1))
+            if (D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->hObject, ITEMQUAL_NORMAL, &nItemLevel, 0, -1, 1))
             {
                 ++pQuestDataEx->nHeartsDropped;
                 pQuestDataEx->bHeartDropped = 1;
@@ -398,21 +398,21 @@ int __fastcall OBJECTS_OperateFunction58_KhalimChest(D2ObjOperateFnStrc* pOp, in
     const int nCounter = SEED_RollRandomNumber(pSeed) % 5 + 5;
     for (int i = 0; i < nCounter; ++i)
     {
-        OBJMODE_DropItemWithCodeAndQuality(pOp->pGame, pOp->pObject, ' dlg', 2);
+        OBJMODE_DropItemWithCodeAndQuality(pOp->pGame, pOp->hObject, ' dlg', 2);
     }
-    pOp->pObject->dwDropItemCode = ' yeq';
+    pOp->hObject->dwDropItemCode = ' yeq';
 
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pOp->pGame, QUEST_A3Q2_KHALIMFLAIL);
     if (pQuestData)
     {
         D2Act3Quest2Strc* pQuestDataEx = (D2Act3Quest2Strc*)pQuestData->pQuestDataEx;
         pQuestDataEx->nItemDropCount = 0;
-        SUNIT_IterateUnitsOfType(pOp->pGame, 0, pOp->pPlayer, ACT3Q2_UnitIterate_DetermineKhalimEyeDropCount);
+        SUNIT_IterateUnitsOfType(pOp->pGame, 0, pOp->hPlayer, ACT3Q2_UnitIterate_DetermineKhalimEyeDropCount);
 
         for (int i = 0; i < pQuestDataEx->nItemDropCount; ++i)
         {
             int nItemLevel;
-            if (D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->pObject, ITEMQUAL_NORMAL, &nItemLevel, 0, -1, 1))
+            if (D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->hObject, ITEMQUAL_NORMAL, &nItemLevel, 0, -1, 1))
             {
                 ++pQuestDataEx->nEyesDropped;
                 pQuestDataEx->bEyeDropped = 1;
@@ -436,21 +436,21 @@ int __fastcall OBJECTS_OperateFunction59_KhalimChest(D2ObjOperateFnStrc* pOp, in
     const int nCounter = SEED_RollRandomNumber(pSeed) % 5 + 5;
     for (int i = 0; i < nCounter; ++i)
     {
-        OBJMODE_DropItemWithCodeAndQuality(pOp->pGame, pOp->pObject, ' dlg', 2);
+        OBJMODE_DropItemWithCodeAndQuality(pOp->pGame, pOp->hObject, ' dlg', 2);
     }
-    pOp->pObject->dwDropItemCode = ' rbq';
+    pOp->hObject->dwDropItemCode = ' rbq';
 
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pOp->pGame, QUEST_A3Q2_KHALIMFLAIL);
     if (pQuestData)
     {
         D2Act3Quest2Strc* pQuestDataEx = (D2Act3Quest2Strc*)pQuestData->pQuestDataEx;
         pQuestDataEx->nItemDropCount = 0;
-        SUNIT_IterateUnitsOfType(pOp->pGame, 0, pOp->pPlayer, ACT3Q2_UnitIterate_DetermineKhalimBrainDropCount);
+        SUNIT_IterateUnitsOfType(pOp->pGame, 0, pOp->hPlayer, ACT3Q2_UnitIterate_DetermineKhalimBrainDropCount);
 
         for (int i = 0; i < pQuestDataEx->nItemDropCount; ++i)
         {
             int nItemLevel;
-            if (D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->pObject, ITEMQUAL_NORMAL, &nItemLevel, 0, -1, 1))
+            if (D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->hObject, ITEMQUAL_NORMAL, &nItemLevel, 0, -1, 1))
             {
                 ++pQuestDataEx->nBrainsDropped;
                 pQuestDataEx->bBrainDropped = 1;
@@ -489,7 +489,7 @@ void __fastcall ACT3Q2_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
             QUESTS_StateDebug(pQuestData, 2, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q2.cpp", 504);
             QUESTRECORD_SetQuestState(pQuestFlags, 18, 2);
             ((D2Act3Quest2Strc*)pQuestData->pQuestDataEx)->bInitiallyTalkedToCain = 1;
-            pQuestData->pfCallback[2] = ACT3Q2_Callback02_NpcDeactivate;
+            pQuestData->pCallback[2] = ACT3Q2_Callback02_NpcDeactivate;
             break;
 
         case 545:
@@ -872,23 +872,23 @@ void __fastcall ACT3Q2_Callback04_ItemPickedUp(D2QuestDataStrc* pQuestData, D2Qu
 // 0x005BDA30
 void __fastcall ACT3Q2_InitQuestData(D2QuestDataStrc* pQuestData)
 {
-    memset(pQuestData->pfCallback, 0x00, sizeof(pQuestData->pfCallback));
+    memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
     pQuestData->bActive = 1;
     pQuestData->fLastState = 1;
     pQuestData->pNPCMessages = gpAct3Q2NpcMessages;
     pQuestData->fState = 0;
-    pQuestData->nQuestFilter = 18;
+    pQuestData->eFilter = 18;
     pQuestData->nInitNo = 0;
     pQuestData->pfStatusFilter = ACT3Q2_StatusFilterCallback;
     pQuestData->pfActiveFilter = ACT3Q2_ActiveFilterCallback;
     pQuestData->pfSeqFilter = ACT3Q2_SeqCallback;
     pQuestData->nSeqId = 15;
-    pQuestData->pfCallback[0] = ACT3Q2_Callback00_NpcActivate;
-    pQuestData->pfCallback[11] = ACT3Q2_Callback11_ScrollMessage;
-    pQuestData->pfCallback[3] = ACT3Q2_Callback03_ChangedLevel;
-    pQuestData->pfCallback[13] = ACT3Q2_Callback13_PlayerStartedGame;
-    pQuestData->pfCallback[10] = sub_005B7FE0_EmptyCallback;
-    pQuestData->pfCallback[4] = ACT3Q2_Callback04_ItemPickedUp;
+    pQuestData->pCallback[0] = ACT3Q2_Callback00_NpcActivate;
+    pQuestData->pCallback[11] = ACT3Q2_Callback11_ScrollMessage;
+    pQuestData->pCallback[3] = ACT3Q2_Callback03_ChangedLevel;
+    pQuestData->pCallback[13] = ACT3Q2_Callback13_PlayerStartedGame;
+    pQuestData->pCallback[10] = sub_005B7FE0_EmptyCallback;
+    pQuestData->pCallback[4] = ACT3Q2_Callback04_ItemPickedUp;
 
     D2Act3Quest2Strc* pQuestDataEx = (D2Act3Quest2Strc*)FOG_AllocPool(pQuestData->pGame->pMemoryPool, sizeof(D2Act3Quest2Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q2.cpp", 923, 0);
     pQuestData->pQuestDataEx = pQuestDataEx;

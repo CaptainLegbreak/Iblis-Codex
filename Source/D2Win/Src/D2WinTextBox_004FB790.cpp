@@ -9,7 +9,7 @@ struct Unicode
 
 struct D2WinControlStrc
 {
-    int nType;
+    int eType;
     D2CelFileStrc* pCellFile;
     unsigned int dwFlags;
     int nImageX;
@@ -63,7 +63,7 @@ int __fastcall sub_00526800(const Unicode* pString);                            
 int __fastcall sub_004FB790(D2WinTextBoxStrc* pTextBox, const Unicode* pText, int a3, int nColumn)
 {
     D2_ASSERT(pTextBox, 0x1F9);
-    D2_ASSERT(pTextBox->controlHeader.nType == 4, 0x1FA);
+    D2_ASSERT(pTextBox->controlHeader.eType == 4, 0x1FA);
     D2_ASSERT(pTextBox->nNumColumns > nColumn, 0x1FB);
 
     Unicode wszText[1024];

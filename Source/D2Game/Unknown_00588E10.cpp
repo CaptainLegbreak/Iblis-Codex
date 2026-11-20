@@ -45,7 +45,7 @@ int __fastcall sub_00588E10_IsMonsterNearby(D2GameStrc* pGame, D2UnitStrc* pUnit
     DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRoomList, &nNumRooms);
     for (unsigned int i = 0; i < nNumRooms; ++i)
     {
-        for (D2UnitStrc* pTarget = ppRoomList[i]->pUnitFirst; pTarget; pTarget = pTarget->pRoomNext)
+        for (D2UnitStrc* pTarget = ppRoomList[i]->pUnitFirst; pTarget; pTarget = pTarget->ptRoomNext)
         {
             if ((!pTarget ? 6 : pTarget->dwUnitType) == 1 && (!pTarget ? -1 : pTarget->dwClassId) == 0x1B2 && (!pTarget ? 0 : pTarget->dwAnimMode) == 12)
             {

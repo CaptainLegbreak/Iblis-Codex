@@ -68,9 +68,9 @@ struct D2QuestDataStrc
     unsigned char unk0x15[0x3];
     void* pQuestDataEx;
     D2QuestGUIDStrc tPlayerGUIDs;
-    QUESTCALLBACK pfCallback[15];
+    QUESTCALLBACK pCallback[15];
     void* pNPCMessages;
-    int nQuestFilter;
+    int eFilter;
     char pad0xE4[0x4];
     QUESTSTATUSFILTER pfStatusFilter;
     QUESTACTIVEFILTER pfActiveFilter;

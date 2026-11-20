@@ -43,9 +43,9 @@ struct D2QuestDataStrc
     unsigned int dwFlags;
     void* pQuestDataEx;
     D2QuestGUIDStrc tPlayerGUIDs;
-    QUESTCALLBACK pfCallback[15];
+    QUESTCALLBACK pCallback[15];
     void* pNPCMessages;
-    int nQuestFilter;
+    int eFilter;
     int unk0xE4;
     QUESTSTATUSFILTER pfStatusFilter;
     QUESTACTIVEFILTER pfActiveFilter;
@@ -75,8 +75,8 @@ struct D2ObjInitFnStrc
 struct D2ObjOperateFnStrc
 {
     D2GameStrc* pGame;
-    D2UnitStrc* pObject;
-    D2UnitStrc* pPlayer;
+    D2UnitStrc* hObject;
+    D2UnitStrc* hPlayer;
 };
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
@@ -132,9 +132,9 @@ void __fastcall ACT5Q6_Callback14_PlayerJoinedGame(D2QuestDataStrc* pQuestData, 
     D2GameStrc* pGame = pQuestArg->pGame;
     D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
 
-    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, 0))
+    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 0))
     {
-        QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->nQuestFilter, 10);
+        QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->eFilter, 10);
     }
 }
 
@@ -144,19 +144,19 @@ void __fastcall ACT5Q6_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
     D2UnitStrc* pPlayer = pQuestArg->pPlayer;
     D2GameStrc* pGame = pQuestArg->pGame;
     D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
-    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, 0) || QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, 15))
+    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 0) || QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 15))
     {
-        QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->nQuestFilter, 10);
+        QUESTRECORD_SetQuestState(pQuestFlags, pQuestData->eFilter, 10);
         CLIENTS_UpdateCharacterProgression(UnitGetClient(pQuestArg->pPlayer, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q6.cpp", 766), 5, pQuestData->pGame->nDifficulty);
     }
-    else if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, 1) != 1)
+    else if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 1) != 1)
     {
-        if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, 3) == 1)
+        if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 3) == 1)
         {
             pQuestData->fLastState = 1;
             pQuestData->fState = 3;
         }
-        else if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, 2) == 1)
+        else if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 2) == 1)
         {
             ((D2Act5Quest6Strc*)pQuestData->pQuestDataEx)->bQuestStarted = 1;
             pQuestData->fLastState = 1;
@@ -168,21 +168,21 @@ void __fastcall ACT5Q6_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
 // 0x0058E500
 void __fastcall ACT5Q6_InitQuestData(D2QuestDataStrc* pQuestData)
 {
-    memset(pQuestData->pfCallback, 0x00, sizeof(pQuestData->pfCallback));
-    pQuestData->pfCallback[10] = ACT5Q6_Callback10_PlayerLeavesGame;
-    pQuestData->pfCallback[3] = ACT5Q6_Callback03_ChangedLevel;
-    pQuestData->pfCallback[8] = ACT5Q6_Callback08_MonsterKilled;
-    pQuestData->pfCallback[0] = ACT5Q6_Callback00_NpcActivate;
-    pQuestData->pfCallback[2] = ACT5Q6_Callback02_NpcDeactivate;
-    pQuestData->pfCallback[11] = ACT5Q6_Callback11_ScrollMessage;
-    pQuestData->pfCallback[13] = ACT5Q6_Callback13_PlayerStartedGame;
-    pQuestData->pfCallback[14] = ACT5Q6_Callback14_PlayerJoinedGame;
+    memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
+    pQuestData->pCallback[10] = ACT5Q6_Callback10_PlayerLeavesGame;
+    pQuestData->pCallback[3] = ACT5Q6_Callback03_ChangedLevel;
+    pQuestData->pCallback[8] = ACT5Q6_Callback08_MonsterKilled;
+    pQuestData->pCallback[0] = ACT5Q6_Callback00_NpcActivate;
+    pQuestData->pCallback[2] = ACT5Q6_Callback02_NpcDeactivate;
+    pQuestData->pCallback[11] = ACT5Q6_Callback11_ScrollMessage;
+    pQuestData->pCallback[13] = ACT5Q6_Callback13_PlayerStartedGame;
+    pQuestData->pCallback[14] = ACT5Q6_Callback14_PlayerJoinedGame;
     pQuestData->pNPCMessages = gpAct5Q6NpcMessages;
     pQuestData->bActive = 1;
     pQuestData->fState = 0;
     D2Act5Quest6Strc* pQuestDataEx = (D2Act5Quest6Strc*)FOG_AllocPool(pQuestData->pGame->pMemoryPool, sizeof(D2Act5Quest6Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q6.cpp", 809, 0);
     pQuestData->pQuestDataEx = pQuestDataEx;
-    pQuestData->nQuestFilter = 40;
+    pQuestData->eFilter = 40;
     pQuestData->pfStatusFilter = 0;
     pQuestData->nInitNo = 4;
     pQuestData->pfActiveFilter = ACT5Q6_ActiveFilterCallback;
@@ -212,7 +212,7 @@ int __fastcall OBJECTS_OperateFunction70_BaalPortal(D2ObjOperateFnStrc* pOp, int
         return 0;
     }
 
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pOp->pPlayer);
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pOp->hPlayer);
     if (!pRoom)
     {
         return 0;
@@ -222,12 +222,12 @@ int __fastcall OBJECTS_OperateFunction70_BaalPortal(D2ObjOperateFnStrc* pOp, int
     {
         if (((D2Act5Quest6Strc*)pQuestData->pQuestDataEx)->bWorldStoneChamberOpen == 1)
         {
-            LEVEL_WarpUnit(pOp->pGame, pOp->pPlayer, 132, 11);
+            LEVEL_WarpUnit(pOp->pGame, pOp->hPlayer, 132, 11);
         }
     }
     else
     {
-        LEVEL_WarpUnit(pOp->pGame, pOp->pPlayer, 131, 0);
+        LEVEL_WarpUnit(pOp->pGame, pOp->hPlayer, 131, 0);
     }
 
     return 0;

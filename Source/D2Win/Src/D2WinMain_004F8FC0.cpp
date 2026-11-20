@@ -91,7 +91,7 @@ typedef int (__stdcall* D2WinMsgHandler)(SMSGHANDLER_PARAMS* pMsg);
 
 struct D2WinControlStrc
 {
-    int nType;
+    int eType;
     D2CellFileStrc* pCellFile;
     unsigned int dwFlags;
     int nImageX;
@@ -780,7 +780,7 @@ void __cdecl sub_004FB010_SetPaletteTables()
 int __fastcall D2Win_10062(D2WinTextBoxStrc* ptTextData, int a2, int a3)
 {
     D2_ASSERT(ptTextData, 0xFA);
-    D2_ASSERT(ptTextData->controlHeader.nType == D2WIN_TEXTBOX, 0xFB);
+    D2_ASSERT(ptTextData->controlHeader.eType == D2WIN_TEXTBOX, 0xFB);
 
     ptTextData->field_A0 = a2;
     ptTextData->field_A4 = a3;
@@ -1102,7 +1102,7 @@ void __stdcall D2Win_COMMANDS_MouseButton_6F8AE070(SMSGHANDLER_PARAMS* pMsg)
 Unicode* __fastcall D2Win_10196(D2WinTextBoxStrc* pTextBox, int nLineNum, int nColumnNum)
 {
     D2_ASSERT(pTextBox, 0x2C2);
-    D2_ASSERT(pTextBox->controlHeader.nType == D2WIN_TEXTBOX, 0x2C3);
+    D2_ASSERT(pTextBox->controlHeader.eType == D2WIN_TEXTBOX, 0x2C3);
     D2_ASSERT(nLineNum <= pTextBox->nNumLines, 0x2C4);
     D2_ASSERT(nColumnNum < 5, 0x2C5);
 
@@ -1129,7 +1129,7 @@ Unicode* __fastcall D2Win_10196(D2WinTextBoxStrc* pTextBox, int nLineNum, int nC
 int __fastcall D2Win_10188(D2WinTextBoxStrc* pTextBox, int nLineNum, int a3)
 {
     D2_ASSERT(pTextBox, 0x368);
-    D2_ASSERT(pTextBox->controlHeader.nType == D2WIN_TEXTBOX, 0x369);
+    D2_ASSERT(pTextBox->controlHeader.eType == D2WIN_TEXTBOX, 0x369);
 
     if (nLineNum == -1)
     {
@@ -1169,7 +1169,7 @@ int __stdcall TEXTBOX_HandleVirtualKeyInput(SMSGHANDLER_PARAMS* pMsg)
     D2WinTextBoxStrc* pTextBox = (D2WinTextBoxStrc*)pMsg->hWnd;
 
     D2_ASSERT(pTextBox, 0x501);
-    D2_ASSERT(pTextBox->controlHeader.nType == D2WIN_TEXTBOX, 0x502);
+    D2_ASSERT(pTextBox->controlHeader.eType == D2WIN_TEXTBOX, 0x502);
 
     if (!(pTextBox->controlHeader.dwFlags & gdwBitMasks_006CE268[2]) || !(pTextBox->controlHeader.dwFlags & gdwBitMasks_006CE268[0])
         || pTextBox->nNumLines < 1 || pTextBox->nCurrentLine == -1 || sub_004F9200())
@@ -1273,7 +1273,7 @@ int __stdcall IMAGE2_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
 {
     D2WinImage2Strc* pImage = (D2WinImage2Strc*)pMsg->hWnd;
 
-    D2_ASSERT(pImage->controlHeader.nType == D2WIN_IMAGE, 0x159);
+    D2_ASSERT(pImage->controlHeader.eType == D2WIN_IMAGE, 0x159);
 
     if (!(pImage->controlHeader.dwFlags & gdwBitMasks_006CE268[2]) || !(pImage->controlHeader.dwFlags & gdwBitMasks_006CE268[0]))
     {
@@ -1311,7 +1311,7 @@ int __stdcall sub_004FE710_EditBoxMouseDown(SMSGHANDLER_PARAMS* pMsg)
     D2WinEditBoxStrc* pEditBox = (D2WinEditBoxStrc*)pMsg->hWnd;
 
     D2_ASSERT(pEditBox, 0x7E5);
-    D2_ASSERT(pEditBox->controlHeader.nType == D2WIN_EDITBOX, 0x7E6);
+    D2_ASSERT(pEditBox->controlHeader.eType == D2WIN_EDITBOX, 0x7E6);
 
     const int nX = gMousePosition_6F8FE234.x - pEditBox->field_40 - pEditBox->controlHeader.nImageX;
     const int nY = gMousePosition_6F8FE234.y + pEditBox->controlHeader.nHeight - pEditBox->field_44 - pEditBox->controlHeader.nImageY;
@@ -1334,7 +1334,7 @@ void __stdcall sub_00503FA0_AddHoverLine(const Unicode* wszText, D2HoverLineStrc
 // 0x00506EC0
 void __fastcall D2Win_10137(D2WinListStrc* ptListData, const Unicode* wszText, D2WinMsgHandler a3, char a4, int a5, int a6, int a7)
 {
-    D2_ASSERT(ptListData->controlHeader.nType == D2WIN_LIST, 0xA1);
+    D2_ASSERT(ptListData->controlHeader.eType == D2WIN_LIST, 0xA1);
 
     sub_00502EF0(ptListData->eFont);
 
@@ -1401,7 +1401,7 @@ int __stdcall ACCOUNTLIST_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
 {
     D2WinAccountListStrc* pAccountList = (D2WinAccountListStrc*)pMsg->hWnd;
 
-    D2_ASSERT(pAccountList->controlHeader.nType == D2WIN_ACCOUNTLIST, 0x10D);
+    D2_ASSERT(pAccountList->controlHeader.eType == D2WIN_ACCOUNTLIST, 0x10D);
 
     if (!(pAccountList->controlHeader.dwFlags & gdwBitMasks_006CE268[2]) || !(pAccountList->controlHeader.dwFlags & gdwBitMasks_006CE268[0]))
     {
@@ -1433,7 +1433,7 @@ int __stdcall ACCOUNTLIST_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
 // 0x00508030
 int __fastcall sub_6F8AF240(SMSGHANDLER_PARAMS* pMsg, D2WinScrollBarStrc* ptScrollbarData, int a3)
 {
-    D2_ASSERT(ptScrollbarData->controlHeader.nType == D2WIN_SCROLLBAR, 0x99);
+    D2_ASSERT(ptScrollbarData->controlHeader.eType == D2WIN_SCROLLBAR, 0x99);
 
     if (!ptScrollbarData->bIsStepIndicatorDragged)
     {
@@ -1476,7 +1476,7 @@ int __stdcall POPUP_AddLine(D2WinPopUpLineStrc* pPopUpLine)
 {
     D2WinPopUpStrc* pPopUp = gpPopUp_0087E974;
 
-    D2_ASSERT(pPopUp->controlHeader.nType == D2WIN_POPUP, 0x74);
+    D2_ASSERT(pPopUp->controlHeader.eType == D2WIN_POPUP, 0x74);
 
     if (pPopUp->nLines >= 8)
     {

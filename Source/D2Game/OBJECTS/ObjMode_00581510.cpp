@@ -11,7 +11,7 @@ struct D2SeedStrc;
 
 struct D2ShrinesTxt
 {
-    unsigned char nCode;
+    unsigned char bCode;
     char unk0x01[0x0F];
     unsigned char nResetTimeInMins;
 };
@@ -47,8 +47,8 @@ struct D2ActiveRoomStrc
 struct D2ObjOperateFnStrc
 {
     D2GameStrc* pGame;
-    D2UnitStrc* pObject;
-    D2UnitStrc* pPlayer;
+    D2UnitStrc* hObject;
+    D2UnitStrc* hPlayer;
     D2ObjectControlStrc* pObjectregion;
     int nObjectIdx;
 };
@@ -298,29 +298,29 @@ void __fastcall sub_6FC74B40(D2GameStrc* pGame, D2UnitStrc* pObject)
 int __fastcall OBJECTS_OperateFunction16_TrapDoor(D2ObjOperateFnStrc* pOp, int nOperate)
 {
 
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pOp->pObject);
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pOp->hObject);
     D2CoordStrc pCoord;
-    UNITS_GetCoords(pOp->pObject, &pCoord);
-    const int nSizeX = UNITS_GetUnitSizeX(pOp->pObject);
-    const int nSizeY = UNITS_GetUnitSizeY(pOp->pObject);
+    UNITS_GetCoords(pOp->hObject, &pCoord);
+    const int nSizeX = UNITS_GetUnitSizeX(pOp->hObject);
+    const int nSizeY = UNITS_GetUnitSizeY(pOp->hObject);
 
-    switch (!pOp->pObject ? 0 : pOp->pObject->dwAnimMode)
+    switch (!pOp->hObject ? 0 : pOp->hObject->dwAnimMode)
     {
     case OBJMODE_NEUTRAL:
-        UNITS_ChangeAnimMode(pOp->pObject, OBJMODE_OPENED);
+        UNITS_ChangeAnimMode(pOp->hObject, OBJMODE_OPENED);
         break;
 
     case OBJMODE_OPENED:
     {
-        D2UnitStrc* hUnit = UNITS_GetRoom(pOp->pObject)->pUnitFirst;
+        D2UnitStrc* hUnit = UNITS_GetRoom(pOp->hObject)->pUnitFirst;
         while (hUnit && hUnit->dwUnitType != UNIT_TILE)
         {
-            hUnit = hUnit->pRoomNext;
+            hUnit = hUnit->ptRoomNext;
         }
 
         D2_ASSERT(hUnit, 1038);
 
-        SUNIT_WarpPlayer(pOp->pGame, pOp->pPlayer, hUnit);
+        SUNIT_WarpPlayer(pOp->pGame, pOp->hPlayer, hUnit);
         return 1;
     }
     }
@@ -332,8 +332,8 @@ int __fastcall OBJECTS_OperateFunction16_TrapDoor(D2ObjOperateFnStrc* pOp, int n
 int __fastcall OBJECTS_OperateFunction02_Shrine(D2ObjOperateFnStrc* pOp, int nOperate)
 {
 
-    D2UnitStrc* pPlayer = pOp->pPlayer;
-    D2UnitStrc* pObject = pOp->pObject;
+    D2UnitStrc* pPlayer = pOp->hPlayer;
+    D2UnitStrc* pObject = pOp->hObject;
     D2ObjectDataStrc* pObjectData = pObject->pObjectData;
 
     if (pObjectData->dwOperateGUID)
@@ -352,27 +352,27 @@ int __fastcall OBJECTS_OperateFunction02_Shrine(D2ObjOperateFnStrc* pOp, int nOp
     pObject->dwFlags |= UNITFLAG_DOUPDATE;
     UNITS_ChangeAnimMode(pObject, OBJMODE_OPERATING);
 
-    D2HoverTextStrc* pOldHoverText = UNIT_GetHoverText(pOp->pObject);
+    D2HoverTextStrc* pOldHoverText = UNIT_GetHoverText(pOp->hObject);
     if (pOldHoverText)
     {
         CHAT_FreeHoverMsg(pOp->pGame->pMemoryPool, pOldHoverText);
     }
 
     char szText[20];
-    wsprintfA(szText, gszFormatD_006D57BC, (unsigned short)(pOp->pObject->pObjectData->InteractType + 3683));
+    wsprintfA(szText, gszFormatD_006D57BC, (unsigned short)(pOp->hObject->pObjectData->InteractType + 3683));
 
     D2HoverTextStrc* pHoverText = CHAT_AllocHoverMsg(pOp->pGame->pMemoryPool, szText, pOp->pGame->dwGameFrame);
     if (pHoverText)
     {
-        UNIT_SetHoverText(pOp->pObject, pHoverText);
-        UNITROOM_RefreshUnit(pOp->pObject);
-        SetUnitFlagMask(pOp->pObject, UNITFLAG_HASTXTMSG);
-        EVENT_SetEvent(pOp->pGame, pOp->pObject, EVENTTYPE_FREEHOVER, pOp->pGame->dwGameFrame + 300, 0, 0);
+        UNIT_SetHoverText(pOp->hObject, pHoverText);
+        UNITROOM_RefreshUnit(pOp->hObject);
+        SetUnitFlagMask(pOp->hObject, UNITFLAG_HASTXTMSG);
+        EVENT_SetEvent(pOp->pGame, pOp->hObject, EVENTTYPE_FREEHOVER, pOp->pGame->dwGameFrame + 300, 0, 0);
     }
 
     D2ShrinesTxt* pShrinesTxtRecord = UNITS_GetShrineTxtRecordFromObject(pObject);
 
-    const int nId = pShrinesTxtRecord->nCode;
+    const int nId = pShrinesTxtRecord->bCode;
     if (nId >= 0 && nId < gnShrineTableCount_00732EAC && sgcptShrineChart[nId].pfShrineCallback)
     {
         D2_ASSERT(!IsBadCodePtr((FARPROC)sgcptShrineChart[nId].pfShrineCallback), 2653);
@@ -393,7 +393,7 @@ int __fastcall OBJECTS_OperateFunction02_Shrine(D2ObjOperateFnStrc* pOp, int nOp
         D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(pOp->nObjectIdx);
         if (!pObjectsTxtRecord->nCycleAnim[1] && pObjectsTxtRecord->nMode[2])
         {
-            EVENT_SetEvent(pOp->pGame, pOp->pObject, EVENTTYPE_ENDANIM, (pObjectsTxtRecord->dwFrameCnt[1] >> 8) + pOp->pGame->dwGameFrame + 1, 0, 0);
+            EVENT_SetEvent(pOp->pGame, pOp->hObject, EVENTTYPE_ENDANIM, (pObjectsTxtRecord->dwFrameCnt[1] >> 8) + pOp->pGame->dwGameFrame + 1, 0, 0);
         }
     }
 
@@ -430,8 +430,8 @@ int __fastcall OBJECTS_OperateHandler(D2GameStrc* pGame, D2UnitStrc* pPlayer, un
     {
         D2ObjOperateFnStrc pObjOperate;
         pObjOperate.pGame = pGame;
-        pObjOperate.pObject = pObject;
-        pObjOperate.pPlayer = pPlayer;
+        pObjOperate.hObject = pObject;
+        pObjOperate.hPlayer = pPlayer;
         pObjOperate.pObjectregion = OBJRGN_GetObjectControlFromGame(pGame, UNITS_GetRoom(pObject));
         pObjOperate.nObjectIdx = nClassId;
         return gpObjOperateFnTable_00732D18[pObjectTxtRecord->nOperateFn](&pObjOperate);
@@ -485,27 +485,27 @@ void __fastcall sub_005845D0_UpdateDoorCollisionMode(D2GameStrc* pGame, D2UnitSt
 int __fastcall OBJECTS_OperateFunction46_HellGatePortal(D2ObjOperateFnStrc* pOp, int nOperate)
 {
 
-    const int nLevelId = DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pOp->pObject));
+    const int nLevelId = DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pOp->hObject));
 
-    if (!pOp->pObject || pOp->pObject->dwAnimMode == OBJMODE_NEUTRAL)
+    if (!pOp->hObject || pOp->hObject->dwAnimMode == OBJMODE_NEUTRAL)
     {
         return 0;
     }
 
-    if (QUESTRECORD_GetQuestState(PLAYER_GetQuestFlags(pOp->pGame, pOp->pPlayer), QUESTSTATEFLAG_A3Q6, QFLAG_PRIMARYGOALDONE)
-        || QUESTRECORD_GetQuestState(PLAYER_GetQuestFlags(pOp->pGame, pOp->pPlayer), QUESTSTATEFLAG_A3Q6, QFLAG_REWARDGRANTED))
+    if (QUESTRECORD_GetQuestState(PLAYER_GetQuestFlags(pOp->pGame, pOp->hPlayer), QUESTSTATEFLAG_A3Q6, QFLAG_PRIMARYGOALDONE)
+        || QUESTRECORD_GetQuestState(PLAYER_GetQuestFlags(pOp->pGame, pOp->hPlayer), QUESTSTATEFLAG_A3Q6, QFLAG_REWARDGRANTED))
     {
-        QUESTS_HellPortalActChange(pOp->pGame, pOp->pPlayer, nLevelId, pOp->pObject);
+        QUESTS_HellPortalActChange(pOp->pGame, pOp->hPlayer, nLevelId, pOp->hObject);
         if (nLevelId == LEVEL_DURANCEOFHATELEV3)
         {
-            D2WaypointDataStrc* pWaypointFlags = PLAYER_GetWaypointFlags(pOp->pGame, pOp->pPlayer);
+            D2WaypointDataStrc* pWaypointFlags = PLAYER_GetWaypointFlags(pOp->pGame, pOp->hPlayer);
             unsigned short nWpNo;
             if (WAYPOINTS_GetWaypointNoFromLevelId(LEVEL_THEPANDEMONIUMFORTRESS, &nWpNo))
             {
                 WAYPOINTS_ActivateWaypoint(pWaypointFlags, nWpNo);
             }
 
-            LEVEL_WarpUnit(pOp->pGame, pOp->pPlayer, LEVEL_THEPANDEMONIUMFORTRESS, 0);
+            LEVEL_WarpUnit(pOp->pGame, pOp->hPlayer, LEVEL_THEPANDEMONIUMFORTRESS, 0);
         }
     }
 
@@ -516,13 +516,13 @@ int __fastcall OBJECTS_OperateFunction46_HellGatePortal(D2ObjOperateFnStrc* pOp,
 int __fastcall OBJECTS_OperateFunction43_DurielPortal(D2ObjOperateFnStrc* pOp, int nOperate)
 {
 
-    D2_ASSERT((pOp->pPlayer ? pOp->pPlayer->dwUnitType : UNIT_INVALID) == UNIT_PLAYER, 4019);
+    D2_ASSERT((pOp->hPlayer ? pOp->hPlayer->dwUnitType : UNIT_INVALID) == UNIT_PLAYER, 4019);
 
-    const unsigned char nPortalFlags = UNITS_GetObjectPortalFlags(pOp->pObject) | 5;
-    UNITS_SetObjectPortalFlags(pOp->pObject, nPortalFlags);
+    const unsigned char nPortalFlags = UNITS_GetObjectPortalFlags(pOp->hObject) | 5;
+    UNITS_SetObjectPortalFlags(pOp->hObject, nPortalFlags);
 
     int nLevel = 0;
-    D2UnitStrc* pObject = pOp->pObject;
+    D2UnitStrc* pObject = pOp->hObject;
     if (pObject)
     {
         switch (pObject->dwClassId)
@@ -542,17 +542,17 @@ int __fastcall OBJECTS_OperateFunction43_DurielPortal(D2ObjOperateFnStrc* pOp, i
     const unsigned char bAct = DRLG_GetActNoFromLevelId(nLevel);
     D2_ASSERT(bAct < 5, 4043);
 
-    D2ActiveRoomStrc* pRoom = DUNGEON_FindActSpawnLocationEx(pOp->pGame->pAct[bAct], nLevel, 0, &nX, &nY, UNITS_GetUnitSizeX(pOp->pPlayer));
+    D2ActiveRoomStrc* pRoom = DUNGEON_FindActSpawnLocationEx(pOp->pGame->pAct[bAct], nLevel, 0, &nX, &nY, UNITS_GetUnitSizeX(pOp->hPlayer));
     D2_ASSERT(pRoom, 4045);
 
     D2CoordStrc pCoord;
     pCoord.nX = nX;
     pCoord.nY = nY;
 
-    pRoom = COLLISION_GetFreeCoordinates(pRoom, &pCoord, UNITS_GetUnitSizeX(pOp->pPlayer), 0x1C09, 0);
+    pRoom = COLLISION_GetFreeCoordinates(pRoom, &pCoord, UNITS_GetUnitSizeX(pOp->hPlayer), 0x1C09, 0);
     if (pRoom)
     {
-        D2_ASSERT(sub_6FCBDFE0(pOp->pGame, pOp->pPlayer, pRoom, pCoord.nX, pCoord.nY, 0, 0), 4057);
+        D2_ASSERT(sub_6FCBDFE0(pOp->pGame, pOp->hPlayer, pRoom, pCoord.nX, pCoord.nY, 0, 0), 4057);
     }
 
     return 0;
@@ -562,35 +562,35 @@ int __fastcall OBJECTS_OperateFunction43_DurielPortal(D2ObjOperateFnStrc* pOp, i
 int __fastcall OBJECTS_OperateFunction23_Waypoint(D2ObjOperateFnStrc* pOp, int nOperate)
 {
 
-    const int nLevelId = DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pOp->pObject));
-    D2WaypointDataStrc* pWaypointFlags = PLAYER_GetWaypointFlags(pOp->pGame, pOp->pPlayer);
+    const int nLevelId = DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pOp->hObject));
+    D2WaypointDataStrc* pWaypointFlags = PLAYER_GetWaypointFlags(pOp->pGame, pOp->hPlayer);
     unsigned short nWpNo;
     if (WAYPOINTS_GetWaypointNoFromLevelId(nLevelId, &nWpNo))
     {
         WAYPOINTS_ActivateWaypoint(pWaypointFlags, nWpNo);
     }
 
-    if (UNIT_GetAnimMode(pOp->pObject) == OBJMODE_NEUTRAL)
+    if (UNIT_GetAnimMode(pOp->hObject) == OBJMODE_NEUTRAL)
     {
-        UNITS_ChangeAnimMode(pOp->pObject, OBJMODE_OPERATING);
+        UNITS_ChangeAnimMode(pOp->hObject, OBJMODE_OPERATING);
 
         D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(pOp->nObjectIdx);
-        EVENT_SetEvent(pOp->pGame, pOp->pObject, EVENTTYPE_ENDANIM, (pObjectsTxtRecord->dwFrameCnt[1] >> 8) + pOp->pGame->dwGameFrame + 1, 0, 0);
+        EVENT_SetEvent(pOp->pGame, pOp->hObject, EVENTTYPE_ENDANIM, (pObjectsTxtRecord->dwFrameCnt[1] >> 8) + pOp->pGame->dwGameFrame + 1, 0, 0);
     }
-    else if (UNIT_GetAnimMode(pOp->pObject) == OBJMODE_OPENED || UNIT_GetAnimMode(pOp->pObject) == OBJMODE_OPERATING)
+    else if (UNIT_GetAnimMode(pOp->hObject) == OBJMODE_OPENED || UNIT_GetAnimMode(pOp->hObject) == OBJMODE_OPERATING)
     {
-        if (!PLAYER_IsBusy(pOp->pPlayer))
+        if (!PLAYER_IsBusy(pOp->hPlayer))
         {
             D2GSPacketSrv63 packet63;
             packet63.nHeader = 0x63;
-            const int nUnitId = !pOp->pObject ? -1 : pOp->pObject->dwUnitId;
+            const int nUnitId = !pOp->hObject ? -1 : pOp->hObject->dwUnitId;
             *(int*)packet63.dwUnitId = nUnitId;
             WAYPOINTS_ValidateAndCopyWaypointData(pWaypointFlags, (D2WaypointDataStrc*)packet63.pData);
 
-            D2ClientStrc* pClient = UnitGetClient(pOp->pPlayer, ".\\OBJECTS\\ObjMode.cpp", 4126);
+            D2ClientStrc* pClient = UnitGetClient(pOp->hPlayer, ".\\OBJECTS\\ObjMode.cpp", 4126);
             sub_0053D960_SendPacket0x63(pClient, &packet63);
 
-            SUNIT_SetInteractInfo(pOp->pPlayer, UNIT_OBJECT, !pOp->pObject ? -1 : pOp->pObject->dwUnitId);
+            SUNIT_SetInteractInfo(pOp->hPlayer, UNIT_OBJECT, !pOp->hObject ? -1 : pOp->hObject->dwUnitId);
         }
     }
 
@@ -708,45 +708,45 @@ D2UnitStrc* __fastcall OBJMODE_DropItemWithCodeAndQuality(D2GameStrc* pGame, D2U
 void __fastcall sub_6FC75EB0(D2ObjOperateFnStrc* pOp)
 {
 
-    if (!pOp->pObject || pOp->pObject->dwAnimMode == OBJMODE_NEUTRAL)
+    if (!pOp->hObject || pOp->hObject->dwAnimMode == OBJMODE_NEUTRAL)
     {
         D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(pOp->nObjectIdx);
 
         D2CoordStrc pCoord;
-        UNITS_GetCoords(pOp->pObject, &pCoord);
+        UNITS_GetCoords(pOp->hObject, &pCoord);
 
         OBJMODE_DropFromChestTCWithQuality(pOp, ITEMQUAL_MAGIC);
         OBJMODE_DropFromChestTCWithQuality(pOp, ITEMQUAL_MAGIC);
         OBJMODE_DropFromChestTCWithQuality(pOp, ITEMQUAL_MAGIC);
 
-        unsigned int dwCode = ITEMS_GetHealthPotionDropCode(pOp->pObject);
+        unsigned int dwCode = ITEMS_GetHealthPotionDropCode(pOp->hObject);
         D2_ASSERT(dwCode, 1428);
 
-        pOp->pObject->dwDropItemCode = dwCode;
+        pOp->hObject->dwDropItemCode = dwCode;
 
         int nItemLevel;
-        D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->pObject, 2, &nItemLevel, 0, -1, 1);
-        D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->pObject, 2, &nItemLevel, 0, -1, 1);
+        D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->hObject, 2, &nItemLevel, 0, -1, 1);
+        D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->hObject, 2, &nItemLevel, 0, -1, 1);
 
-        dwCode = ITEMS_GetManaPotionDropCode(pOp->pObject);
+        dwCode = ITEMS_GetManaPotionDropCode(pOp->hObject);
         D2_ASSERT(dwCode, 1433);
 
-        pOp->pObject->dwDropItemCode = dwCode;
+        pOp->hObject->dwDropItemCode = dwCode;
 
-        D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->pObject, 2, &nItemLevel, 0, -1, 1);
-        D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->pObject, 2, &nItemLevel, 0, -1, 1);
+        D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->hObject, 2, &nItemLevel, 0, -1, 1);
+        D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->hObject, 2, &nItemLevel, 0, -1, 1);
 
         if (pObjectsTxtRecord->nMode[1])
         {
-            UNITS_ChangeAnimMode(pOp->pObject, OBJMODE_OPERATING);
-            EVENT_SetEvent(pOp->pGame, pOp->pObject, EVENTTYPE_ENDANIM, (pObjectsTxtRecord->dwFrameCnt[1] >> 8) + pOp->pGame->dwGameFrame + 1, 0, 0);
+            UNITS_ChangeAnimMode(pOp->hObject, OBJMODE_OPERATING);
+            EVENT_SetEvent(pOp->pGame, pOp->hObject, EVENTTYPE_ENDANIM, (pObjectsTxtRecord->dwFrameCnt[1] >> 8) + pOp->pGame->dwGameFrame + 1, 0, 0);
         }
         else
         {
-            UNITS_ChangeAnimMode(pOp->pObject, OBJMODE_OPENED);
+            UNITS_ChangeAnimMode(pOp->hObject, OBJMODE_OPENED);
         }
 
-        UNIT_ClearFlag(pOp->pObject, UNITFLAG_TARGETABLE);
+        UNIT_ClearFlag(pOp->hObject, UNITFLAG_TARGETABLE);
     }
 }
 
@@ -756,9 +756,9 @@ void __fastcall sub_6FC78340(D2GameStrc* pGame, D2UnitStrc* pUnit)
 
     D2ObjOperateFnStrc op;
     op.pGame = pGame;
-    op.pObject = pUnit;
+    op.hObject = pUnit;
     op.pObjectregion = OBJRGN_GetObjectControlFromGame(pGame, UNITS_GetRoom(pUnit));
-    op.pPlayer = SUNIT_GetServerUnit(pGame, UNIT_PLAYER, OBJECTS_GetUnitIdFromTimerArg(pUnit));
+    op.hPlayer = SUNIT_GetServerUnit(pGame, UNIT_PLAYER, OBJECTS_GetUnitIdFromTimerArg(pUnit));
     OBJMODE_DropFromChestTCWithQuality(&op, 0);
 }
 

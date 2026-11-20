@@ -26,7 +26,7 @@ struct D2DrlgRoomStrc
 struct D2DrlgLevelStrc
 {
     char unk0x00[0x10];
-    D2DrlgRoomStrc* pFirstRoomEx;
+    D2DrlgRoomStrc* ptRoomFirst;
     char unk0x14[0x08];
     int nPosX;
     int nPosY;
@@ -35,7 +35,7 @@ struct D2DrlgLevelStrc
     unsigned char unk_2C[0x180];
     D2DrlgLevelStrc* pNextLevel;
     char unk0x1B0[0x20];
-    int nLevelId;
+    int eLevelId;
 };
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -98,7 +98,7 @@ void __fastcall DRLG_UpdateRoomExCoordinates(D2DrlgLevelStrc* pLevel)
         exit(-1);
     }
 
-    D2DrlgRoomStrc* pDrlgRoom = pLevel->pFirstRoomEx;
+    D2DrlgRoomStrc* pDrlgRoom = pLevel->ptRoomFirst;
     if (!pDrlgRoom)
     {
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 740);
@@ -142,7 +142,7 @@ static __forceinline D2DrlgLevelStrc* DRLG_GetLevel(D2DrlgStrc* pDrlg, int nLeve
 {
     for (D2DrlgLevelStrc* pLevel = pDrlg->pLevel; pLevel; pLevel = pLevel->pNextLevel)
     {
-        if (pLevel->nLevelId == nLevelId)
+        if (pLevel->eLevelId == nLevelId)
         {
             return pLevel;
         }

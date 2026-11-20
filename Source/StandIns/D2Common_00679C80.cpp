@@ -56,13 +56,13 @@ struct D2DynamicPathStrc
     char unk0x2C[0x4];
     D2UnitStrc* pUnit;
     char unk0x34[0x8];
-    unsigned int dwPathType;
+    unsigned int eType;
     char unk0x40[0x8];
     unsigned int dwCollisionPattern;
     char unk0x4C[0x4];
     unsigned int nMoveTestCollisionMask;
     char unk0x54[0x4];
-    D2UnitStrc* pTargetUnit;
+    D2UnitStrc* hTarget;
     char unk0x5C[0x20];
     int dwVelocity;
     char unk0x80[0x10];
@@ -351,7 +351,7 @@ static int PATH_CheckCollisionsToNextPosition(D2DynamicPathStrc* pDynamicPath, D
     D2PathPointStrc tPoint;
 
     D2_ASSERT(((pDynamicPath->pUnit && pDynamicPath->pUnit->dwUnitType == 0) || (pDynamicPath->pUnit && pDynamicPath->pUnit->dwUnitType == 1)) != 0, 324);
-    D2_ASSERT(pDynamicPath->dwPathType != 4, 325);
+    D2_ASSERT(pDynamicPath->eType != 4, 325);
     D2_ASSERT(pGameCoord->X != 0, 326);
     D2_ASSERT(pGameCoord->Y != 0, 327);
 
@@ -504,12 +504,12 @@ int __fastcall PATH_Knockback_Server(D2PathInfoStrc* pPathInfo)
     int nDeltaY = 0;
     const int nHalfDist = (pDynamicPath->nDist >> 1) + 1;
     D2PathPointStrc tFinalCoords;
-    if ((pDynamicPath ? pDynamicPath->pTargetUnit : 0))
+    if ((pDynamicPath ? pDynamicPath->hTarget : 0))
     {
         tFinalCoords = pPathInfo->tStartCoord;
 
-        const int nTargetUnitX = UNITS_GetXPositionInline((pDynamicPath ? pDynamicPath->pTargetUnit : 0));
-        const int nTargetUnitY = UNITS_GetYPositionInline((pDynamicPath ? pDynamicPath->pTargetUnit : 0));
+        const int nTargetUnitX = UNITS_GetXPositionInline((pDynamicPath ? pDynamicPath->hTarget : 0));
+        const int nTargetUnitY = UNITS_GetYPositionInline((pDynamicPath ? pDynamicPath->hTarget : 0));
         nDeltaX = pPathInfo->tStartCoord.X - nTargetUnitX;
         nDeltaY = pPathInfo->tStartCoord.Y - nTargetUnitY;
         if (const int nMax = D2_MAX(D2_ABS(nDeltaX), D2_ABS(nDeltaY)))

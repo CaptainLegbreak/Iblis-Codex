@@ -616,7 +616,7 @@ void __fastcall sub_6FD0FE80(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int n
                 D2UnitStrc* pTarget = ppRoomList[i]->pUnitFirst;
                 while (pTarget)
                 {
-                    D2UnitStrc* pNextTarget = pTarget->pRoomNext;
+                    D2UnitStrc* pNextTarget = pTarget->ptRoomNext;
                     if (pTarget != pUnit && nAuraRangeSq >= PATH_ComputeSquaredDistance(nX, nY, UNITS_GetUnitXPosition(pTarget), UNITS_GetUnitYPosition(pTarget)) && sub_6FD0FA00(pUnit, pTarget, nAuraFilter))
                     {
                         if (!bCheckMonAuraFlag || pTarget->dwUnitType != UNIT_MONSTER || !sub_00457490_CheckMonStatsFlag(pTarget->dwClassId, MONSTATSFLAGINDEX_NOAURA))
@@ -1902,7 +1902,7 @@ int __fastcall sub_6FD10360(D2GameStrc* pGame, unsigned int nFlags, D2UnitStrc* 
         {
             if (sub_0056B770_IsRoomInRange(ppRoomList[i], nX, nY, nDistance))
             {
-                for (D2UnitStrc* j = ppRoomList[i]->pUnitFirst; j; j = j->pRoomNext)
+                for (D2UnitStrc* j = ppRoomList[i]->pUnitFirst; j; j = j->ptRoomNext)
                 {
                     if (nDistanceSq >= PATH_ComputeSquaredDistance(nX, nY, UNITS_GetUnitXPosition(j), UNITS_GetUnitYPosition(j)) && sub_6FD0FA00(pUnit, j, nFlags))
                     {

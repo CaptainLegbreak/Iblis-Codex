@@ -67,9 +67,9 @@ struct D2QuestDataStrc
     unsigned char unk_15[0x3];
     void* pQuestDataEx;
     D2QuestGUIDStrc tPlayerGUIDs;
-    QUESTCALLBACK pfCallback[15];
+    QUESTCALLBACK pCallback[15];
     void* pNPCMessages;
-    int nQuestFilter;
+    int eFilter;
     char unk0xE4[0x04];
     QUESTSTATUSFILTER pfStatusFilter;
     QUESTACTIVEFILTER pfActiveFilter;
@@ -147,15 +147,15 @@ static __forceinline int UNITS_GetUnitId(D2UnitStrc* pUnit)
 // 0x005985D0
 void __fastcall ACT2Intro_InitQuestData(D2QuestDataStrc* pQuestData)
 {
-    memset(pQuestData->pfCallback, 0x00, sizeof(pQuestData->pfCallback));
-    pQuestData->pfCallback[0] = ACT2Intro_Callback00_NpcActivate;
-    pQuestData->pfCallback[11] = ACT2Intro_Callback11_ScrollMessage;
+    memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
+    pQuestData->pCallback[0] = ACT2Intro_Callback00_NpcActivate;
+    pQuestData->pCallback[11] = ACT2Intro_Callback11_ScrollMessage;
     pQuestData->pNPCMessages = gpAct2IntroNpcMessages;
     pQuestData->bActive = 1;
     pQuestData->fState = 0;
     pQuestData->fLastState = 0;
     pQuestData->pQuestDataEx = 0;
-    pQuestData->nQuestFilter = 42;
+    pQuestData->eFilter = 42;
     pQuestData->pfStatusFilter = sub_005985B0_StatusFilterCallback;
     pQuestData->pfActiveFilter = ACT2Intro_ActiveFilterCallback;
 }
@@ -204,17 +204,17 @@ void __fastcall ACT2Q0_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
 // 0x00598810
 void __fastcall ACT2Q0_InitQuestData(D2QuestDataStrc* pQuestData)
 {
-    memset(pQuestData->pfCallback, 0x00, sizeof(pQuestData->pfCallback));
-    pQuestData->pfCallback[11] = ACT2Q0_Callback11_ScrollMessage;
-    pQuestData->pfCallback[0] = ACT2Q0_Callback00_NpcActivate;
-    pQuestData->pfCallback[10] = ACT2Q0_Callback10_PlayerLeavesGame;
-    pQuestData->pfCallback[13] = ACT2Q0_Callback13_PlayerStartedGame;
+    memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
+    pQuestData->pCallback[11] = ACT2Q0_Callback11_ScrollMessage;
+    pQuestData->pCallback[0] = ACT2Q0_Callback00_NpcActivate;
+    pQuestData->pCallback[10] = ACT2Q0_Callback10_PlayerLeavesGame;
+    pQuestData->pCallback[13] = ACT2Q0_Callback13_PlayerStartedGame;
     pQuestData->pNPCMessages = gpAct2Q0NpcMessages;
     pQuestData->bActive = 1;
     pQuestData->fState = 0;
     pQuestData->fLastState = 0;
     pQuestData->pQuestDataEx = 0;
-    pQuestData->nQuestFilter = 8;
+    pQuestData->eFilter = 8;
     pQuestData->pfStatusFilter = ACT2Q0_StatusFilterCallback;
     pQuestData->pfActiveFilter = ACT2Q0_ActiveFilterCallback;
 
@@ -253,7 +253,7 @@ void __fastcall ACT2Q1_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2Q
     pQuestData->nFlagsByte = 0;
     QUESTS_UnitIterate(pQuestData, 1, 0, ACT2Q1_UnitIterate_StatusCyclerEx, 1);
     pQuestDataEx->bAtmaActivated = 0;
-    pQuestData->pfCallback[2] = 0;
+    pQuestData->pCallback[2] = 0;
 }
 
 // 0x005989E0
@@ -307,13 +307,13 @@ void __fastcall sub_00598A70(D2QuestDataStrc* q,D2QuestArgStrc* arg)
   sub_005537D0(q->pGame,0,0,sub_005989E0);
  } else {
   if(message!=334) return;
-  const int filter=q->nQuestFilter;
+  const int filter=q->eFilter;
   if(!QUESTRECORD_GetQuestState(flags,filter,1)) return;
-  if(QUESTRECORD_GetQuestState(flags,q->nQuestFilter,13)) {
+  if(QUESTRECORD_GetQuestState(flags,q->eFilter,13)) {
    if(q->fState!=5) {
     q->nFlagsByte=0;
     QUESTS_UnitIterate(q,13,0,sub_005988B0,true);
-    q->pfCallback[2]=0;
+    q->pCallback[2]=0;
     sub_00544350(q,5,text_006E1F60,253);
     CHECK(!IsBadCodePtr((int (__stdcall*)())q->pfSeqFilter),254);
     q->pfSeqFilter(q);
@@ -326,8 +326,8 @@ void __fastcall sub_00598A70(D2QuestDataStrc* q,D2QuestArgStrc* arg)
     seq->pfSeqFilter(seq);
    }
   }
-  QUESTRECORD_SetQuestState(flags,q->nQuestFilter,0);
-  sub_0065C3A0(flags,q->nQuestFilter,1);
+  QUESTRECORD_SetQuestState(flags,q->eFilter,0);
+  sub_0065C3A0(flags,q->eFilter,1);
   QUESTS_AddPlayerGUID(&q->tPlayerGUIDs,UNITS_GetUnitId(arg->pPlayer));
  }
  sub_00545780(arg->pGame,arg->pPlayer,arg->pTarget);

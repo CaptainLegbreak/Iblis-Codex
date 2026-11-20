@@ -516,9 +516,9 @@ static void __stdcall sub_004BD550_PlayShrineSound(D2UnitStrc* pPlayer, D2UnitSt
 {
     D2ShrinesTxt* pShrinesTxt = UNITS_GetShrineTxtRecordFromObject(pUnit);
     D2_ASSERT(pShrinesTxt, 0x34D);
-    D2_ASSERT(pShrinesTxt->nCode < gnShrineHandlerCount_0072779C, 0x34E);
+    D2_ASSERT(pShrinesTxt->bCode < gnShrineHandlerCount_0072779C, 0x34E);
 
-    D2ShrineHandlerStrc* pHandler = &gShrineHandlers_006DA8C0[pShrinesTxt->nCode];
+    D2ShrineHandlerStrc* pHandler = &gShrineHandlers_006DA8C0[pShrinesTxt->bCode];
     if (pHandler->nSoundId)
         sub_004B9A00(pHandler->nSoundId, pPlayer, 0, 0, 0);
 }
@@ -531,7 +531,7 @@ static void __stdcall sub_004BD5C0_OperateShrine(D2UnitTargetStrc* pTarget, D2Un
     if (sub_00621B00_IsShrine(pUnit))
     {
         pShrinesTxt = UNITS_GetShrineTxtRecordFromObject(pUnit);
-        nIndex = pShrinesTxt->nCode;
+        nIndex = pShrinesTxt->bCode;
     }
     else
     {
@@ -552,9 +552,9 @@ static void sub_004BD650_InitShrine(D2UnitStrc* pUnit)
 {
     D2ShrinesTxt* pShrinesTxt = UNITS_GetShrineTxtRecordFromObject(pUnit);
     D2_ASSERT(pShrinesTxt, 0x37A);
-    D2_ASSERT(pShrinesTxt->nCode < gnShrineHandlerCount_0072779C, 0x37B);
+    D2_ASSERT(pShrinesTxt->bCode < gnShrineHandlerCount_0072779C, 0x37B);
 
-    D2ShrineHandlerStrc* pHandler = &gShrineHandlers_006DA8C0[pShrinesTxt->nCode];
+    D2ShrineHandlerStrc* pHandler = &gShrineHandlers_006DA8C0[pShrinesTxt->bCode];
     if (pHandler->pfnInit)
         pHandler->pfnInit(pUnit, pShrinesTxt);
 }
@@ -653,9 +653,9 @@ void __fastcall sub_004BD090_OperateReverseNameShrine(D2UnitStrc* pUnit, D2UnitS
 // 0x004BD4A0
 void __fastcall sub_004BD4A0_InitShrineOverlays(D2UnitStrc* pUnit, D2ShrinesTxt* pShrinesTxt)
 {
-    D2_ASSERT(pShrinesTxt->nCode < gnShrineHandlerCount_0072779C, 0x337);
+    D2_ASSERT(pShrinesTxt->bCode < gnShrineHandlerCount_0072779C, 0x337);
 
-    D2ShrineHandlerStrc* pHandler = &gShrineHandlers_006DA8C0[pShrinesTxt->nCode];
+    D2ShrineHandlerStrc* pHandler = &gShrineHandlers_006DA8C0[pShrinesTxt->bCode];
     if (pHandler->f_8 != -1)
     {
         sub_0046F0C0(pUnit, 0, pHandler->f_8);

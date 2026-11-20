@@ -78,9 +78,9 @@ struct D2DrlgLevelStrc
     char unk0x02C[0x1B4 - 0x02C];
     D2DrlgStrc* pDrlg;
     int nJungleDefs;
-    int* pJungleDefs;
+    int* pnJungleDefs;
     char unk0x1C0[0x10];
-    int nLevelId;
+    int eLevelId;
 };
 
 struct D2LevelDefBin
@@ -725,7 +725,7 @@ RESTART:
     for (nJ = 0; nJ < 3; nJ++)
     {
         pJungleLevel = DRLG_GetLevel(pDrlg, nJ + 76);
-        pJungleLevel->pJungleDefs = tJungles[nJ].pJungleDefs;
+        pJungleLevel->pnJungleDefs = tJungles[nJ].pJungleDefs;
         pJungleLevel->nJungleDefs = tJungles[nJ].nJungleDefs;
         pJungleLevel->nPosX = tJungles[nJ].tCoord.nX;
         pJungleLevel->nPosY = tJungles[nJ].tCoord.nY;
@@ -889,7 +889,7 @@ static void __stdcall sub_006772C0_InitLevelLinks(D2DrlgLinkStrc* pDrlgLink, LIN
 
         if (pLevel->nDrlgType == DRLGTYPE_PRESET)
         {
-            switch (pLevel->nLevelId)
+            switch (pLevel->eLevelId)
             {
             case 1:
                 pLevel->pPreset->nDirection = pLevelLinkData.nRand[0][i];
@@ -900,7 +900,7 @@ static void __stdcall sub_006772C0_InitLevelLinks(D2DrlgLinkStrc* pDrlgLink, LIN
             }
         }
 
-        if (pLevel->nLevelId == 6)
+        if (pLevel->eLevelId == 6)
         {
             pPresetInfo = DRLG_GetLevel(pDrlg, 0x1B)->pPreset;
             switch (pLevelLinkData.nRand[0][i])

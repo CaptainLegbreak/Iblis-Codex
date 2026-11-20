@@ -50,7 +50,7 @@ struct D2CmpTileBlockStrc
 
 struct D2CmpTileLibraryStrc
 {
-    int nVersion;
+    int dwVersion;
     unsigned int dwFlags;
     char szName[0x104];
     int nBlocks;
@@ -115,7 +115,7 @@ struct D2CmpSubTileRecordStrc
     short unk0x08;
     unsigned short nLength;
     int unk0x0C;
-    void* pData;
+    void* ptData;
 };
 
 struct D2TileLibraryEntryStrc
@@ -200,7 +200,7 @@ void __stdcall TileProjectDestroy(D2CmpTileLibraryStrc* pLibrary, int bKeep)
 // 0x0060A290
 void __stdcall TileProjectNormalize(D2CmpTileLibraryStrc* pLibrary, D2CmpTileLibraryStrc** ppLibrary, const char* szName)
 {
-    D2_ASSERT(pLibrary->nVersion == 7, 0x348);
+    D2_ASSERT(pLibrary->dwVersion == 7, 0x348);
     if (pLibrary->dwFlags & 3)
     {
         pLibrary->pBlocks = (D2CmpTileBlockStrc*)((char*)pLibrary + (int)pLibrary->pBlocks);
@@ -229,7 +229,7 @@ void __stdcall TileProjectNormalize(D2CmpTileLibraryStrc* pLibrary, D2CmpTileLib
 // 0x0060A390
 void __stdcall sub_0060A390(D2CmpTileLibraryStrc* pLibrary, D2CmpTileLibraryStrc** ppLibrary, const char* szName)
 {
-    D2_ASSERT(pLibrary->nVersion == 7, 0x37F);
+    D2_ASSERT(pLibrary->dwVersion == 7, 0x37F);
     if (pLibrary->dwFlags & 2)
     {
         pLibrary->pBlocks = (D2CmpTileBlockStrc*)((char*)pLibrary + (int)pLibrary->pBlocks);
@@ -360,7 +360,7 @@ D2CmpSubTileRecordStrc* __fastcall sub_0060D510_CreateSubTileRecord(const void* 
     D2CmpSubTileRecordStrc* pRecord = (D2CmpSubTileRecordStrc*)FOG_Alloc(sizeof(D2CmpSubTileRecordStrc), szSubTileFile, 0x6E, 0);
     memset(pRecord, 0, sizeof(D2CmpSubTileRecordStrc));
     D2_ASSERT(nSize > 0xFFFF, 0x70);
-    pRecord->pData = pData;
+    pRecord->ptData = pData;
     pRecord->nLength = (unsigned short)nSize;
     return pRecord;
 }

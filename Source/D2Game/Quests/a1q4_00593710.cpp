@@ -16,8 +16,8 @@ struct D2PlayerDataStrc
 struct D2ObjOperateFnStrc
 {
     D2GameStrc* pGame;
-    D2UnitStrc* pObject;
-    D2UnitStrc* pPlayer;
+    D2UnitStrc* hObject;
+    D2UnitStrc* hPlayer;
     int unk0C;
     unsigned short nObjectIdx;
 };
@@ -38,9 +38,9 @@ struct D2QuestDataStrc
     unsigned int dwFlags;
     void* pQuestDataEx;
     char tPlayerGUIDs[0x84];
-    QUESTCALLBACK pfCallback[15];
+    QUESTCALLBACK pCallback[15];
     void* pNPCMessages;
-    int nQuestFilter;
+    int eFilter;
 };
 
 struct D2Act1Quest4Strc
@@ -158,13 +158,13 @@ int __fastcall sub_00593710(D2ObjOperateFnStrc* pOp,int nOperate)
   pEx->bMonolithStonesOrdered=1;
   sub_00592E90_OrderStones(pQuestInfo);
  }
- D2BitBufferStrc* pFlags=GetPlayerQuestFlags(pOp->pGame,pOp->pPlayer);
+ D2BitBufferStrc* pFlags=GetPlayerQuestFlags(pOp->pGame,pOp->hPlayer);
  if(QUESTRECORD_GetQuestState(pFlags,4,0)==1 || QUESTRECORD_GetQuestState(pFlags,4,1)==1) {
-  SUNIT_AttachSound(pOp->pPlayer,0x13,pOp->pPlayer);return 0;
+  SUNIT_AttachSound(pOp->hPlayer,0x13,pOp->hPlayer);return 0;
  }
- if(!ITEMS_FindQuestItem(pOp->pGame,pOp->pPlayer,0x20646B62)) {
+ if(!ITEMS_FindQuestItem(pOp->pGame,pOp->hPlayer,0x20646B62)) {
   if((int)pEx->nSoundCounter%64==0 && !QUESTRECORD_GetQuestState(pFlags,4,3) && !QUESTRECORD_GetQuestState(pFlags,4,4))
-   SUNIT_AttachSound(pOp->pPlayer,0x27,pOp->pPlayer);
+   SUNIT_AttachSound(pOp->hPlayer,0x27,pOp->hPlayer);
   ++pEx->nSoundCounter;return 0;
  }
  if(!pQuestInfo->bNotIntro || pQuestInfo->fState>=6) return 0;
@@ -176,7 +176,7 @@ int __fastcall sub_00593710(D2ObjOperateFnStrc* pOp,int nOperate)
     sub_00592860_DebugStartedQuest(pQuestInfo);
     QUESTS_StateDebug(pQuestInfo,1,gszA1Q4SourceFile,0x793);
    }
-   if(!ITEMS_FindQuestItem(pOp->pGame,pOp->pPlayer,0x20646B62)) return 0;
+   if(!ITEMS_FindQuestItem(pOp->pGame,pOp->hPlayer,0x20646B62)) return 0;
   }
  }
  if(pEx->bOperatedWithLastCairnStone==1) return 0;
@@ -185,20 +185,20 @@ int __fastcall sub_00593710(D2ObjOperateFnStrc* pOp,int nOperate)
    sub_00592860_DebugStartedQuest(pQuestInfo);
    QUESTS_StateDebug(pQuestInfo,1,gszA1Q4SourceFile,0x7A5);
   }
-  if(!ITEMS_FindQuestItem(pOp->pGame,pOp->pPlayer,0x20646B62)) return 0;
+  if(!ITEMS_FindQuestItem(pOp->pGame,pOp->hPlayer,0x20646B62)) return 0;
   pQuestInfo->fState=5;
  }
  if(pOp->nObjectIdx!=pEx->nStoneOrder[pEx->nStoneCount]) return 0;
- pEx->nStoneGUIDs[pEx->nStoneCount]=GetGUID(pOp->pObject);
+ pEx->nStoneGUIDs[pEx->nStoneCount]=GetGUID(pOp->hObject);
  ++pEx->nStoneCount;
- if(pOp->pObject && pOp->pObject->dwAnimMode) return 0;
+ if(pOp->hObject && pOp->hObject->dwAnimMode) return 0;
  unsigned short nCount=pEx->nStoneCount;
  switch(nCount) {
  case 5: {
- UNITS_ChangeAnimMode(pOp->pObject,1);
+ UNITS_ChangeAnimMode(pOp->hObject,1);
  if(pInvisible) UNITS_ChangeAnimMode(pInvisible,6);
  pEx->bOperatedWithLastCairnStone=1;
- QUESTS_DeleteItem(pOp->pGame,pOp->pPlayer,0x20646B62);
+ QUESTS_DeleteItem(pOp->pGame,pOp->hPlayer,0x20646B62);
  --pEx->nScrollsInGame;
  D2CoordStrc coords={0,0};
  for(int i=0;i<5;++i) {
@@ -210,11 +210,11 @@ int __fastcall sub_00593710(D2ObjOperateFnStrc* pOp,int nOperate)
  if(!coords.nX) {
   D2ActiveRoomStrc** ppRooms;
   unsigned int nRooms;
-  DUNGEON_GetAdjacentRoomsListFromRoom(UNITS_GetRoom(pOp->pObject),&ppRooms,&nRooms);
+  DUNGEON_GetAdjacentRoomsListFromRoom(UNITS_GetRoom(pOp->hObject),&ppRooms,&nRooms);
   for(unsigned int i=0;i<nRooms;++i) {
    D2UnitStrc* pUnit=ppRooms[i]->pUnitFirst;
    while(pUnit) {
-    D2UnitStrc* pNext=pUnit->pRoomNext;
+    D2UnitStrc* pNext=pUnit->ptRoomNext;
     if(pUnit->dwUnitType==2 && pUnit->dwClassId==21) {
      UNITS_GetCoords(pUnit,&coords);i=nRooms;break;
     }
@@ -225,13 +225,13 @@ int __fastcall sub_00593710(D2ObjOperateFnStrc* pOp,int nOperate)
  if(coords.nX) {
   const int nPortalX=coords.nX+6;
   const int nPortalY=coords.nY-3;
-  D2UnitStrc* pPortal=sub_0056EDE0_CreatePortal(pOp->pGame,pOp->pPlayer,0,1,0x120,nPortalX,nPortalY);
+  D2UnitStrc* pPortal=sub_0056EDE0_CreatePortal(pOp->pGame,pOp->hPlayer,0,1,0x120,nPortalX,nPortalY);
   if(pPortal) { D2ActiveRoomStrc* pRoom=UNITS_GetRoom(pPortal);sub_0061AED0(pRoom,0); }
  }
  if(pQuestInfo->fLastState<4) {
   pQuestInfo->dwFlags&=0xFFFFFF00;
-  QUESTS_UnitIterate(pQuestInfo,4,pOp->pPlayer,ACT1Q4_UnitIterate_StatusCyclerEx,true);
-  unsigned short nParty=SUNIT_GetPartyId(pOp->pPlayer);
+  QUESTS_UnitIterate(pQuestInfo,4,pOp->hPlayer,ACT1Q4_UnitIterate_StatusCyclerEx,true);
+  unsigned short nParty=SUNIT_GetPartyId(pOp->hPlayer);
   if(nParty!=0xFFFF) sub_00540510(pOp->pGame,nParty,sub_005936B0_UpdateParty,0);
   QUESTRECORD_SetQuestState(pFlags,4,4);
  }
@@ -239,7 +239,7 @@ int __fastcall sub_00593710(D2ObjOperateFnStrc* pOp,int nOperate)
  return 0;
  }
  case 0:case 1:case 2:case 3:case 4:
-  UNITS_ChangeAnimMode(pOp->pObject,1);
+  UNITS_ChangeAnimMode(pOp->hObject,1);
   if(pInvisible) UNITS_ChangeAnimMode(pInvisible,pEx->nStoneCount+1);
   return 0;
  }

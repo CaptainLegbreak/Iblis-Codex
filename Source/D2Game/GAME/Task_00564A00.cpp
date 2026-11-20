@@ -6,7 +6,7 @@ struct D2LinkStrc
 
 struct D2TaskStrc
 {
-    int nTaskQ;
+    int dwTaskQ;
     int nType;
     D2LinkStrc pTaskBalanceLink;
     D2LinkStrc pTaskQueueLink;
@@ -90,9 +90,9 @@ int __fastcall sub_00564A00_QueueGame(D2TaskGameStrc* pTaskGame, int nArg, unsig
         if (pLink != &gpTaskQueueLink_0088C788 && pLink)
         {
             D2TaskStrc* pTask = TASK_GetTaskQueueFromLink(gpTaskQueueLink_0088C788.pNext);
-            EnterCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[pTask->nTaskQ]);
+            EnterCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[pTask->dwTaskQ]);
             TASK_LinkList_PushFrontInline(&pTask->pTaskBalanceLink, &pTaskGame->tLink);
-            LeaveCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[pTask->nTaskQ]);
+            LeaveCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[pTask->dwTaskQ]);
             ++pTask->nType;
             ++gnGamesCount_0088C79C;
             TASK_LinkList_RemoveInline(pLink);

@@ -8,8 +8,8 @@
 struct D2ObjOperateFnStrc
 {
     D2GameStrc* pGame;
-    D2UnitStrc* pObject;
-    D2UnitStrc* pPlayer;
+    D2UnitStrc* hObject;
+    D2UnitStrc* hPlayer;
 };
 
 struct D2QuestDataStrc
@@ -67,19 +67,19 @@ int __fastcall sub_00599CF0(D2ObjOperateFnStrc* pOp, int nOperate)
     int nResult = 0;
     if (QUESTS_SetObjectSelection(pOp))
     {
-        pOp->pObject->dwDropItemCode = ' fsm';
+        pOp->hObject->dwDropItemCode = ' fsm';
 
         D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pOp->pGame, QUEST_A2Q2_HORADRICSTAFF);
         if (pQuestData)
         {
             D2Act2Quest2Strc* pQuestDataEx = (D2Act2Quest2Strc*)pQuestData->pQuestDataEx;
             pQuestDataEx->nItemDropCount = 0;
-            SUNIT_IterateUnitsOfType(pOp->pGame, 0, pOp->pPlayer, ACT2Q2_UnitIterate_DetermineStaffDropCount);
+            SUNIT_IterateUnitsOfType(pOp->pGame, 0, pOp->hPlayer, ACT2Q2_UnitIterate_DetermineStaffDropCount);
 
             for (int i = 0; i < pQuestDataEx->nItemDropCount; ++i)
             {
                 int nItemLevel;
-                D2UnitStrc* pItem = D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->pObject, ITEMQUAL_UNIQUE, &nItemLevel, 0, -1, 1);
+                D2UnitStrc* pItem = D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->hObject, ITEMQUAL_UNIQUE, &nItemLevel, 0, -1, 1);
                 if (pItem)
                 {
                     ITEMS_SetItemFlag(pItem, 0x10, 1);
@@ -95,7 +95,7 @@ int __fastcall sub_00599CF0(D2ObjOperateFnStrc* pOp, int nOperate)
         const int nCounter = SEED_RollRandomNumber(pSeed) % 5 + 5;
         for (int i = 0; i < nCounter; ++i)
         {
-            OBJMODE_DropItemWithCodeAndQuality(pOp->pGame, pOp->pObject, ' dlg', 2);
+            OBJMODE_DropItemWithCodeAndQuality(pOp->pGame, pOp->hObject, ' dlg', 2);
         }
     }
     return nResult;

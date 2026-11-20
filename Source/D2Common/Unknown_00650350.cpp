@@ -12,7 +12,7 @@ struct D2DynamicPathStrc
     char unk0x28[0x34 - 0x28];
     unsigned int dwFlags;
     char unk0x38[0x3C - 0x38];
-    int dwPathType;
+    int eType;
 };
 
 
@@ -46,7 +46,7 @@ int __stdcall D2Common_10236(D2UnitStrc* pUnit, int a2)
         PATH_AddToDistance(pDynamicPath, -pDynamicPath->dwCurrentPointIdx);
     }
 
-    switch (pDynamicPath->dwPathType)
+    switch (pDynamicPath->eType)
     {
     case 2:
     case 13:
@@ -59,18 +59,18 @@ int __stdcall D2Common_10236(D2UnitStrc* pUnit, int a2)
 
     if (a2)
     {
-        pDynamicPath->dwPathType = 13;
+        pDynamicPath->eType = 13;
     }
     else
     {
-        pDynamicPath->dwPathType = 2;
+        pDynamicPath->eType = 2;
         pDynamicPath->tTargetCoord = pDynamicPath->tFinalTargetCoord;
     }
 
     nResult = D2Common_10142(pDynamicPath, pUnit, 0);
     if (!nResult)
     {
-        pDynamicPath->dwPathType = 15;
+        pDynamicPath->eType = 15;
         nResult = D2Common_10142(pDynamicPath, pUnit, 0);
     }
 

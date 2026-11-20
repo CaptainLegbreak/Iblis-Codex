@@ -60,7 +60,7 @@ struct D2UnitStrc
 
 struct D2TargetNodeStrc
 {
-    D2UnitStrc* pUnit;
+    D2UnitStrc* hUnit;
     int unk0x04;
     D2TargetNodeStrc* pNext;
     D2TargetNodeStrc* unk0x0C;
@@ -271,8 +271,8 @@ static D2UnitStrc* __stdcall sub_005FBDD0(D2GameStrc* pGame, int* pMax, int* pCo
     {
         if (pTargetNode)
         {
-            D2_ASSERT(pTargetNode->pUnit && pTargetNode->pUnit->dwUnitType == UNIT_PLAYER, 0xB3);
-            D2UnitStrc* pTargetUnit = pTargetNode->pUnit;
+            D2_ASSERT(pTargetNode->hUnit && pTargetNode->hUnit->dwUnitType == UNIT_PLAYER, 0xB3);
+            D2UnitStrc* pTargetUnit = pTargetNode->hUnit;
 
             if (pfCull(pUnit, pTargetUnit))
             {
@@ -302,7 +302,7 @@ static D2UnitStrc* __stdcall sub_005FBDD0(D2GameStrc* pGame, int* pMax, int* pCo
                         break;
                     }
 
-                    pTargetUnit = pTargetNode->pUnit;
+                    pTargetUnit = pTargetNode->hUnit;
                     nCurrent = sub_005FBB00_GetUberTargetScore(pUnit, pTargetUnit, pArgs);
                 }
             }
@@ -313,7 +313,7 @@ static D2UnitStrc* __stdcall sub_005FBDD0(D2GameStrc* pGame, int* pMax, int* pCo
 
     while (pTargetNode)
     {
-        D2UnitStrc* pTargetUnit = pTargetNode->pUnit;
+        D2UnitStrc* pTargetUnit = pTargetNode->hUnit;
         if (nAct == pTargetUnit->nAct)
         {
             const int nCurrent = sub_005FBB00_GetUberTargetScore(pUnit, pTargetUnit, pArgs);
@@ -336,7 +336,7 @@ static D2UnitStrc* __stdcall sub_005FBDD0(D2GameStrc* pGame, int* pMax, int* pCo
     {
         do
         {
-            D2UnitStrc* pTargetUnit = pTargetNode->pUnit;
+            D2UnitStrc* pTargetUnit = pTargetNode->hUnit;
             if (nAct == pTargetUnit->nAct)
             {
                 const int nCurrent = sub_005FBB00_GetUberTargetScore(pUnit, pTargetUnit, pArgs);

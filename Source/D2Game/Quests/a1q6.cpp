@@ -76,9 +76,9 @@ struct D2QuestDataStrc
     unsigned int dwFlags;
     D2Act1Quest6Strc* pQuestDataEx;
     D2QuestGUIDStrc tPlayerGUIDs;
-    QUESTCALLBACK pfCallback[15];
+    QUESTCALLBACK pCallback[15];
     void* pNPCMessages;
-    int nQuestFilter;
+    int eFilter;
     int unk0xE4;
     void* pfStatusFilter;
     QUESTACTIVEFILTER pfActiveFilter;
@@ -183,7 +183,7 @@ void __fastcall sub_00596010(D2QuestDataStrc* q,D2QuestArgStrc* arg)
   sub_00545310(q);
   if(q->fState==2) {
    D2BitBufferStrc* flags=PLAYER_GetQuestFlags(arg->pGame,arg->pPlayer);
-   if(QUESTRECORD_GetQuestState(flags,q->nQuestFilter,0)!=1 && QUESTRECORD_GetQuestState(flags,q->nQuestFilter,1)!=1) {
+   if(QUESTRECORD_GetQuestState(flags,q->eFilter,0)!=1 && QUESTRECORD_GetQuestState(flags,q->eFilter,1)!=1) {
     QUESTS_StateDebug(q,3,"d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a1q6.cpp",405);
     SUNIT_IterateUnitsOfType(q->pGame,0,0,sub_00595BD0);
    }
@@ -303,7 +303,7 @@ void __fastcall ACT1Q6_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
     D2GameStrc* pGame = pQuestArg->pGame;
     D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pQuestArg->pPlayer)->pQuestData[pGame->nDifficulty];
 
-    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, QFLAG_REWARDGRANTED) || QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, QFLAG_COMPLETEDBEFORE))
+    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_REWARDGRANTED) || QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_COMPLETEDBEFORE))
     {
         return;
     }
@@ -328,17 +328,17 @@ void __fastcall ACT1Q6_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
 // 0x00596990
 void __fastcall ACT1Q6_InitQuestData(D2QuestDataStrc* pQuestData)
 {
-    memset(pQuestData->pfCallback, 0x00, sizeof(pQuestData->pfCallback));
+    memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
 
-    pQuestData->pfCallback[QUESTEVENT_CHANGEDLEVEL] = ACT1Q6_Callback03_ChangedLevel;
-    pQuestData->pfCallback[QUESTEVENT_MONSTERKILLED] = ACT1Q6_Callback08_MonsterKilled;
-    pQuestData->pfCallback[QUESTEVENT_NPCACTIVATE] = ACT1Q6_Callback00_NpcActivate;
-    pQuestData->pfCallback[QUESTEVENT_SCROLLMESSAGE] = ACT1Q6_Callback11_ScrollMessage;
-    pQuestData->pfCallback[QUESTEVENT_NPCDEACTIVATE] = ACT1Q6_Callback02_NpcDeactivate;
-    pQuestData->pfCallback[QUESTEVENT_PLAYERSTARTEDGAME] = ACT1Q6_Callback13_PlayerStartedGame;
+    pQuestData->pCallback[QUESTEVENT_CHANGEDLEVEL] = ACT1Q6_Callback03_ChangedLevel;
+    pQuestData->pCallback[QUESTEVENT_MONSTERKILLED] = ACT1Q6_Callback08_MonsterKilled;
+    pQuestData->pCallback[QUESTEVENT_NPCACTIVATE] = ACT1Q6_Callback00_NpcActivate;
+    pQuestData->pCallback[QUESTEVENT_SCROLLMESSAGE] = ACT1Q6_Callback11_ScrollMessage;
+    pQuestData->pCallback[QUESTEVENT_NPCDEACTIVATE] = ACT1Q6_Callback02_NpcDeactivate;
+    pQuestData->pCallback[QUESTEVENT_PLAYERSTARTEDGAME] = ACT1Q6_Callback13_PlayerStartedGame;
     pQuestData->pfSeqFilter = ACT1Q6_SeqCallback;
 
-    pQuestData->nQuestFilter = QUESTSTATEFLAG_A1Q6;
+    pQuestData->eFilter = QUESTSTATEFLAG_A1Q6;
     pQuestData->pNPCMessages = gpAct1Q6NpcMessages;
     pQuestData->bActive = 1;
     pQuestData->fLastState = 0;
@@ -450,7 +450,7 @@ void __fastcall ACT1Q6_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
 {
     D2Act1Quest6Strc* pQuestDataEx = pQuestData->pQuestDataEx;
 
-    pQuestData->pfCallback[QUESTEVENT_NPCDEACTIVATE] = 0;
+    pQuestData->pCallback[QUESTEVENT_NPCDEACTIVATE] = 0;
 
     if (pQuestData->bNotIntro)
     {
@@ -490,8 +490,8 @@ void __fastcall ACT1Q6_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
 
     pQuestDataEx->bAndarielKilled = 1;
     QUESTS_StateDebug(pQuestData, 4, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a1q6.cpp", 688);
-    pQuestData->pfCallback[QUESTEVENT_PLAYERLEAVESGAME] = ACT1Q6_Callback10_PlayerLeavesGame;
-    pQuestData->pfCallback[QUESTEVENT_MONSTERKILLED] = 0;
+    pQuestData->pCallback[QUESTEVENT_PLAYERLEAVESGAME] = ACT1Q6_Callback10_PlayerLeavesGame;
+    pQuestData->pCallback[QUESTEVENT_MONSTERKILLED] = 0;
 }
 
 // 0x005968C0

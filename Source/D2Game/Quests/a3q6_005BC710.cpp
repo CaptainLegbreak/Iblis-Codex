@@ -33,9 +33,9 @@ struct D2QuestDataStrc
     unsigned int dwFlags;
     void* pQuestDataEx;
     char tPlayerGUIDs[0x84];
-    QUESTCALLBACK pfCallback[15];
+    QUESTCALLBACK pCallback[15];
     void* pNPCMessages;
-    int nQuestFilter;
+    int eFilter;
     int unk0xE4;
     QUESTSTATUSFILTER pfStatusFilter;
     QUESTACTIVEFILTER pfActiveFilter;
@@ -188,18 +188,18 @@ void __fastcall ACT3Q5_SpawnCouncil(D2GameStrc* pGame, D2UnitStrc* pUnit)
 // 0x005BCDC0
 void __fastcall ACT3Q6_InitQuestData(D2QuestDataStrc* pQuestData)
 {
-    memset(pQuestData->pfCallback, 0x00, sizeof(pQuestData->pfCallback));
+    memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
     pQuestData->pNPCMessages = gpAct3Q6NpcMessages;
     pQuestData->bActive = 1;
-    pQuestData->pfCallback[8] = ACT3Q6_Callback08_MonsterKilled;
-    pQuestData->pfCallback[0] = ACT3Q6_Callback00_NpcActivate;
-    pQuestData->pfCallback[11] = ACT3Q6_Callback11_ScrollMessage;
-    pQuestData->pfCallback[3] = ACT3Q6_Callback03_ChangedLevel;
-    pQuestData->pfCallback[13] = ACT3Q6_Callback13_PlayerStartedGame;
-    pQuestData->pfCallback[10] = ACT3Q6_Callback10_PlayerLeavesGame;
+    pQuestData->pCallback[8] = ACT3Q6_Callback08_MonsterKilled;
+    pQuestData->pCallback[0] = ACT3Q6_Callback00_NpcActivate;
+    pQuestData->pCallback[11] = ACT3Q6_Callback11_ScrollMessage;
+    pQuestData->pCallback[3] = ACT3Q6_Callback03_ChangedLevel;
+    pQuestData->pCallback[13] = ACT3Q6_Callback13_PlayerStartedGame;
+    pQuestData->pCallback[10] = ACT3Q6_Callback10_PlayerLeavesGame;
     pQuestData->pfSeqFilter = ACT3Q6_SeqCallback;
     pQuestData->fState = 0;
-    pQuestData->nQuestFilter = QUESTSTATEFLAG_A3Q6;
+    pQuestData->eFilter = QUESTSTATEFLAG_A3Q6;
     pQuestData->nInitNo = 6;
     pQuestData->pfStatusFilter = 0;
     pQuestData->pfActiveFilter = ACT3Q6_ActiveFilterCallback;

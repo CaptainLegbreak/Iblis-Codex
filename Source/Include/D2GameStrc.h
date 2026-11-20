@@ -72,7 +72,7 @@ struct D2GameStrc
     unsigned int dwUniqueFlags[128]; // 0x1B24
     D2NpcControlStrc* pNpcControl; // 0x1D24
     D2ArenaStrc* pArenaCtrl; // 0x1D28
-    D2PartyControlStrc* pPartyControl; // 0x1D2C
+    D2PartyControlStrc* hParty; // 0x1D2C
     unsigned char nBossFlagList[64]; // 0x1D30
     int dwPathTypesCount[17]; // 0x1D70
     int nTotalPathTypesCount; // 0x1DB4
@@ -96,5 +96,5 @@ D2_CHECK_OFFSET(D2GameStrc, pGameSeed, 0xD0);
 D2_CHECK_OFFSET(D2GameStrc, pMonReg, 0xF0);
 D2_CHECK_OFFSET(D2GameStrc, pUnitList, 0x1120);
 D2_CHECK_OFFSET(D2GameStrc, pNpcControl, 0x1D24);
-D2_CHECK_OFFSET(D2GameStrc, pPartyControl, 0x1D2C);
+D2_CHECK_OFFSET(D2GameStrc, hParty, 0x1D2C);
 D2_CHECK_OFFSET(D2GameStrc, nUberFields, 0x1DD4);

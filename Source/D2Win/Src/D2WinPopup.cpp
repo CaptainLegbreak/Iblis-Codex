@@ -22,7 +22,7 @@ typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
 
 struct D2WinControlStrc
 {
-    int nType;
+    int eType;
     D2CelFileStrc* pCellFile;
     unsigned int dwFlags;
     int nImageX;
@@ -63,7 +63,7 @@ int __fastcall sub_00508710(D2WinControlStrc* pControl)
 {
     D2WinPopUpStrc* pPopUp = (D2WinPopUpStrc*)pControl;
 
-    D2_ASSERT(pPopUp->controlHeader.nType == D2WIN_POPUP, 0xA6);
+    D2_ASSERT(pPopUp->controlHeader.eType == D2WIN_POPUP, 0xA6);
 
     if (!(pPopUp->controlHeader.dwFlags & gdwBitMasks_006CE268[2]) || !(pPopUp->controlHeader.dwFlags & gdwBitMasks_006CE268[0]))
     {

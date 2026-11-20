@@ -69,9 +69,9 @@ struct D2QuestDataStrc
     unsigned int dwFlags;
     void* pQuestDataEx;
     char tPlayerGUIDs[0x84];
-    QUESTCALLBACK pfCallback[15];
+    QUESTCALLBACK pCallback[15];
     void* pNPCMessages;
-    int nQuestFilter;
+    int eFilter;
     int unk0xE4;
     void* pfStatusFilter;
     void* pfActiveFilter;
@@ -307,7 +307,7 @@ void __fastcall ACT4Q3_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
         ++pQuestDataEx->nHellforgeHammersInGame;
     }
 
-    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, 0) || QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, 15))
+    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 0) || QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 15))
     {
         return;
     }
@@ -459,7 +459,7 @@ void __fastcall ACT3Q4_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
     {
         D2GameStrc* pGame = pQuestData->pGame;
         D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
-        if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, 0))
+        if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 0))
         {
             return;
         }
@@ -469,7 +469,7 @@ void __fastcall ACT3Q4_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
     int nItemLevel;
     if (D2GAME_DropItemAtUnit_6FC4FEC0(pQuestData->pGame, pQuestArg->pTarget, 2, &nItemLevel, 0, -1, 0))
     {
-        pQuestData->pfCallback[8] = 0;
+        pQuestData->pCallback[8] = 0;
         pQuestDataEx->unk0x0C = 0;
         pQuestDataEx->bJadeFigurineDropped = 1;
         ++pQuestDataEx->nGoldenBirdsInGame;

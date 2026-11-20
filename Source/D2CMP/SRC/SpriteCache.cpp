@@ -103,7 +103,7 @@ struct D2CelStrc
 
 struct D2CelFileStrc
 {
-    int nVersion;
+    int dwVersion;
     unsigned int dwFlags;
     int nFormat;
     int nTermination;
@@ -136,7 +136,7 @@ struct D2CmpTileBlockStrc
 
 struct D2CmpTileLibraryStrc
 {
-    int nVersion;
+    int dwVersion;
     unsigned int dwFlags;
     char szName[0x104];
     int nBlocks;
@@ -970,7 +970,7 @@ void __stdcall CelDrawEx(D2CmpCelContextStrc* pContext, int nX, int nY, int nArg
     D2CelFileStrc* pCelFile = pContext->pCelFile;
     if (pCelFile)
     {
-        D2_ASSERT(pCelFile->nVersion == 6, 0x4C6);
+        D2_ASSERT(pCelFile->dwVersion == 6, 0x4C6);
         D2_ASSERT(!(pCelFile->dwFlags & 4), 0x4C7);
     }
     D2_ASSERT(pBuffer, 0x4CA);
@@ -1008,7 +1008,7 @@ void __stdcall CelDrawShadow(D2CmpCelContextStrc* pContext, int nX, int nY, int 
     D2CelFileStrc* pCelFile = pContext->pCelFile;
     if (pCelFile)
     {
-        D2_ASSERT(pCelFile->nVersion == 6, 0x50D);
+        D2_ASSERT(pCelFile->dwVersion == 6, 0x50D);
         D2_ASSERT(!(pCelFile->dwFlags & 4), 0x50E);
     }
 
@@ -1083,7 +1083,7 @@ int __stdcall CelFileFreeHardware(D2CelFileStrc* ptFile)
     {
         return 0;
     }
-    D2_ASSERT(ptFile->nVersion == 6, 0x5F1);
+    D2_ASSERT(ptFile->dwVersion == 6, 0x5F1);
     D2CelBlockStrc* pBlocks = ptFile->pCels[0]->pBlockPixelData;
     D2_ASSERT(pBlocks, 0x5F5);
     for (unsigned int i = 0; i < ptFile->nCelsPerDirection * ptFile->nDirections; i++)

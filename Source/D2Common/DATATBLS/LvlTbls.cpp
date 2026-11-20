@@ -134,14 +134,14 @@ struct D2DrlgLevelStrc
     char unk0x00[0x8];
     int nRooms;
     char unk0x0C[0x4];
-    D2DrlgRoomStrc* pFirstRoomEx;
+    D2DrlgRoomStrc* ptRoomFirst;
     D2LvlMazeTxt* pMaze;
     char unk0x18[0x19C];
     D2DrlgStrc* pDrlg;
     char unk0x1B8[0xC];
     D2SeedStrc pSeed;
     void* pBuild;
-    int nLevelId;
+    int eLevelId;
 };
 
 int* __fastcall DRLGROOM_GetVisArrayFromLevelId(D2DrlgStrc* pDrlg, int nLevelId); // 0x0066C040
@@ -914,7 +914,7 @@ static __forceinline unsigned int MAZE_RollLimitedRandomNumberInline(D2SeedStrc*
 D2DrlgRoomStrc* __fastcall DRLGMAZE_GetRandomRoomExFromLevel(D2DrlgLevelStrc* pLevel)
 {
     int i = MAZE_RollLimitedRandomNumberInline(&pLevel->pSeed, pLevel->nRooms);
-    D2DrlgRoomStrc* pDrlgRoom = pLevel->pFirstRoomEx;
+    D2DrlgRoomStrc* pDrlgRoom = pLevel->ptRoomFirst;
     for (; i; --i)
     {
         pDrlgRoom = pDrlgRoom->pDrlgRoomNext;
@@ -935,11 +935,11 @@ void __fastcall DRLGMAZE_ResetMazeRecord(D2DrlgLevelStrc* pLevel, int bKeepMazeR
 // 0x00673FF0
 int __fastcall sub_00673FF0_GetVisFlagToLevel(D2DrlgLevelStrc* pLevel, D2DrlgLevelStrc* pOtherLevel)
 {
-    int* pLevelIds = DRLGROOM_GetVisArrayFromLevelId(pLevel->pDrlg, pLevel->nLevelId);
+    int* pLevelIds = DRLGROOM_GetVisArrayFromLevelId(pLevel->pDrlg, pLevel->eLevelId);
     int i = 0;
     for (; i < 8; ++i)
     {
-        if (pLevelIds[i] == pOtherLevel->nLevelId)
+        if (pLevelIds[i] == pOtherLevel->eLevelId)
         {
             break;
         }

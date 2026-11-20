@@ -50,7 +50,7 @@ struct D2DrlgLevelStrc
     char unk0x02C[0x188];
     D2DrlgStrc* pDrlg;
     char unk0x1B8[0x18];
-    int nLevelId;
+    int eLevelId;
 };
 
 struct D2LevelDefBin
@@ -212,7 +212,7 @@ static void __stdcall sub_006772C0_InitLevelLinks(D2DrlgLinkStrc* pDrlgLink, LIN
 
         if (pLevel->nDrlgType == DRLGTYPE_PRESET)
         {
-            switch (pLevel->nLevelId)
+            switch (pLevel->eLevelId)
             {
             case 1:
                 pLevel->pPreset->nDirection = pLevelLinkData.nRand[0][i];
@@ -223,7 +223,7 @@ static void __stdcall sub_006772C0_InitLevelLinks(D2DrlgLinkStrc* pDrlgLink, LIN
             }
         }
 
-        if (pLevel->nLevelId == 6)
+        if (pLevel->eLevelId == 6)
         {
             pPresetInfo = DRLG_GetLevel(pDrlg, 0x1B)->pPreset;
             switch (pLevelLinkData.nRand[0][i])

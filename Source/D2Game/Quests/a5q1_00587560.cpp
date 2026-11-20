@@ -27,9 +27,9 @@ struct D2QuestDataStrc
     unsigned int dwFlags;
     void* pQuestDataEx;
     char tPlayerGUIDs[0x84];
-    void* pfCallback[15];
+    void* pCallback[15];
     void* pNPCMessages;
-    int nQuestFilter;
+    int eFilter;
     int unk0xE4;
     void* pfStatusFilter;
     void* pfActiveFilter;

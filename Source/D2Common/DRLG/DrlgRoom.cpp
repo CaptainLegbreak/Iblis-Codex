@@ -27,13 +27,13 @@ struct D2DrlgLevelStrc
     unsigned int dwFlags;
     int nRooms;
     char unk0x00C[0x4];
-    D2DrlgRoomStrc* pFirstRoomEx;
+    D2DrlgRoomStrc* ptRoomFirst;
     char unk0x14[0x1A0];
     D2DrlgStrc* pDrlg;
     char unk0x1B8[0xC];
     D2SeedStrc pSeed;
     unsigned char unk_1CC[0x4];
-    int nLevelId;
+    int eLevelId;
 };
 
 struct D2DrlgRoomStrc
@@ -55,7 +55,7 @@ struct D2DrlgRoomStrc
     char unk0x4C[0x4];
     unsigned int dwDT1Mask;
     char unk0x54[0x4];
-    D2DrlgLevelStrc* pLevel;
+    D2DrlgLevelStrc* ptDrlgLevel;
     D2PresetUnitStrc* pPresetUnits;
     unsigned char unk_60[0x8C];
 };
@@ -158,7 +158,7 @@ D2DrlgRoomStrc* __fastcall DRLGROOM_AllocRoomEx(D2DrlgLevelStrc* pLevel, int nTy
     D2DrlgRoomStrc* pDrlgRoom = (D2DrlgRoomStrc*)sub_0040B430(pLevel->pDrlg->pMempool, sizeof(D2DrlgRoomStrc), ".\\DRLG\\DrlgRoom.cpp", 32, 0);
     memset(pDrlgRoom, 0, sizeof(D2DrlgRoomStrc));
     pDrlgRoom->nType = nType;
-    pDrlgRoom->pLevel = pLevel;
+    pDrlgRoom->ptDrlgLevel = pLevel;
     pDrlgRoom->fRoomStatus = 4;
     SEED_InitLowSeed(&pDrlgRoom->pSeed, (unsigned int)SEED_RollRandomNumber(&pLevel->pSeed));
     pDrlgRoom->dwInitSeed = (unsigned int)SEED_RollRandomNumber(&pDrlgRoom->pSeed);
@@ -204,9 +204,9 @@ int __fastcall DRLGTILESUB_PickSubThemes(D2DrlgRoomStrc* pDrlgRoom, int nSubType
 // 0x0066B970
 void __fastcall DRLGROOM_AddRoomExToLevel(D2DrlgLevelStrc* pLevel, D2DrlgRoomStrc* pDrlgRoom)
 {
-    pDrlgRoom->pDrlgRoomNext = pLevel->pFirstRoomEx;
+    pDrlgRoom->pDrlgRoomNext = pLevel->ptRoomFirst;
     ++pLevel->nRooms;
-    pLevel->pFirstRoomEx = pDrlgRoom;
+    pLevel->ptRoomFirst = pDrlgRoom;
 }
 
 // 0x0066BA70
@@ -227,7 +227,7 @@ int __fastcall DRLGROOM_CheckLOSDraw(D2DrlgRoomStrc* pDrlgRoom)
 // 0x0066BAB0
 int __fastcall DRLGROOM_GetLevelId(D2DrlgRoomStrc* pDrlgRoom)
 {
-    return pDrlgRoom->pLevel->nLevelId;
+    return pDrlgRoom->ptDrlgLevel->eLevelId;
 }
 
 // 0x0066BFA0
@@ -348,13 +348,13 @@ int __fastcall DRLGROOM_GetWarpDestinationLevel(D2DrlgRoomStrc* pDrlgRoom, int n
         exit(-1);
     }
 
-    if (!pDrlgRoom->pLevel)
+    if (!pDrlgRoom->ptDrlgLevel)
     {
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 607);
         exit(-1);
     }
 
-    return pDrlgRoom->pLevel->nLevelId;
+    return pDrlgRoom->ptDrlgLevel->eLevelId;
 }
 
 // 0x0066BB20
@@ -371,7 +371,7 @@ int __fastcall DRLGROOM_GetLevelIdFromPopulatedRoom(D2DrlgRoomStrc* pDrlgRoom)
         return 0;
     }
 
-    return pDrlgRoom->pLevel->nLevelId;
+    return pDrlgRoom->ptDrlgLevel->eLevelId;
 }
 
 // 0x0066BB60
@@ -432,19 +432,19 @@ int* __fastcall DRLGROOM_GetVisArrayFromLevelId(D2DrlgStrc* pDrlg, int nLevelId)
 // 0x0066C020
 int __fastcall sub_0066C020_GetDrlgTypeFromRoom(D2DrlgRoomStrc* pDrlgRoom)
 {
-    return DATATBLS_GetLevelDefRecord(pDrlgRoom->pLevel->nLevelId)->dwDrlgType;
+    return DATATBLS_GetLevelDefRecord(pDrlgRoom->ptDrlgLevel->eLevelId)->dwDrlgType;
 }
 
 // 0x0066C090
 int* __fastcall sub_0066C090_GetVisArrayFromLevel(D2DrlgLevelStrc* pLevel)
 {
-    return DRLGROOM_GetVisArrayFromLevelId(pLevel->pDrlg, pLevel->nLevelId);
+    return DRLGROOM_GetVisArrayFromLevelId(pLevel->pDrlg, pLevel->eLevelId);
 }
 
 // 0x0066C100
 void __fastcall DRLGROOM_FreeRoomEx(D2DrlgRoomStrc* pDrlgRoom)
 {
-    void* pMemPool = pDrlgRoom->pLevel->pDrlg->pMempool;
+    void* pMemPool = pDrlgRoom->ptDrlgLevel->pDrlg->pMempool;
 
     DRLGROOM_FreeRoomTiles(pMemPool, pDrlgRoom);
 
@@ -489,11 +489,11 @@ void __fastcall DRLGROOM_FreeRoomEx(D2DrlgRoomStrc* pDrlgRoom)
 
     DRLGROOM_FreeRoomData(pMemPool, pDrlgRoom->pDrlgOrth);
 
-    D2DrlgLevelStrc* pLevel = pDrlgRoom->pLevel;
-    D2DrlgRoomStrc* pCurrentRoomEx = pLevel->pFirstRoomEx;
+    D2DrlgLevelStrc* pLevel = pDrlgRoom->ptDrlgLevel;
+    D2DrlgRoomStrc* pCurrentRoomEx = pLevel->ptRoomFirst;
     if (pCurrentRoomEx == pDrlgRoom)
     {
-        pLevel->pFirstRoomEx = pDrlgRoom->pDrlgRoomNext;
+        pLevel->ptRoomFirst = pDrlgRoom->pDrlgRoomNext;
         --pLevel->nRooms;
     }
     else

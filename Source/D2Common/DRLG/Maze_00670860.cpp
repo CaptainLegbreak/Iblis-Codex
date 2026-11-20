@@ -64,7 +64,7 @@ struct D2DrlgStrc
 struct D2DrlgLevelStrc
 {
     char unk0x000[0x10];
-    D2DrlgRoomStrc* pFirstRoomEx;
+    D2DrlgRoomStrc* ptRoomFirst;
     union
     {
         D2LvlMazeTxt* pMaze;
@@ -81,7 +81,7 @@ struct D2DrlgLevelStrc
     int nLevelType;
     D2SeedStrc pSeed;
     D2DrlgBuildStrc* pBuild;
-    int nLevelId;
+    int eLevelId;
 };
 
 struct D2DrlgRoomStrc
@@ -95,7 +95,7 @@ struct D2DrlgRoomStrc
     char unk0x28[0xC];
     D2DrlgCoordStrc pDrlgCoord;
     char unk0x44[0x14];
-    D2DrlgLevelStrc* pLevel;
+    D2DrlgLevelStrc* ptDrlgLevel;
 };
 
 struct D2LvlPrestTxt
@@ -178,7 +178,7 @@ static D2DrlgRoomStrc* DRLGMAZE_SetPickedFileAndPresetId(D2DrlgRoomStrc* pDrlgRo
 // 0x00670860
 static void DRLGMAZE_SetRoomSize(D2DrlgRoomStrc* pDrlgRoom)
 {
-    D2LvlMazeTxt* pMaze = pDrlgRoom->pLevel->pMaze;
+    D2LvlMazeTxt* pMaze = pDrlgRoom->ptDrlgLevel->pMaze;
     pDrlgRoom->pDrlgCoord.nWidth = pMaze->dwSizeX;
     pDrlgRoom->pDrlgCoord.nHeight = pMaze->dwSizeY;
 }
@@ -192,7 +192,7 @@ static void sub_006709A0_SetPickedFile(D2DrlgRoomStrc* pDrlgRoom, int nPickedFil
 // 0x00670C10
 static D2DrlgRoomStrc* __stdcall DRLGMAZE_ReplaceRoomPreset(D2DrlgLevelStrc* pLevel, int nLevelPrestId1, int nLevelPrestId2, int nPickedFile, int bResetFlag)
 {
-    for (D2DrlgRoomStrc* pDrlgRoom = pLevel->pFirstRoomEx; pDrlgRoom; pDrlgRoom = pDrlgRoom->pDrlgRoomNext)
+    for (D2DrlgRoomStrc* pDrlgRoom = pLevel->ptRoomFirst; pDrlgRoom; pDrlgRoom = pDrlgRoom->pDrlgRoomNext)
     {
         if (DRLGMAZE_HasMapDS1(pDrlgRoom) && pDrlgRoom->pMaze->nLevelPrest == nLevelPrestId1)
             return DRLGMAZE_SetPickedFileAndPresetId(pDrlgRoom, nLevelPrestId2, nPickedFile, bResetFlag);
@@ -205,7 +205,7 @@ D2DrlgRoomStrc* __fastcall sub_M116_Emit_00670860(D2DrlgRoomStrc* pDrlgRoom, int
 {
     DRLGMAZE_SetRoomSize(pDrlgRoom);
     sub_006709A0_SetPickedFile(pDrlgRoom, nFile);
-    return DRLGMAZE_ReplaceRoomPreset(pDrlgRoom->pLevel, nFile, 0x2C5, -1, 0);
+    return DRLGMAZE_ReplaceRoomPreset(pDrlgRoom->ptDrlgLevel, nFile, 0x2C5, -1, 0);
 }
 
 static __forceinline unsigned int MAZE_RollSeed(D2SeedStrc* pSeed)
@@ -223,7 +223,7 @@ static __forceinline int MAZE_IsPresetUnset(D2DrlgRoomStrc* pDrlgRoom)
 
 static __forceinline void MAZE_SetRoomSizeFromMaze(D2DrlgRoomStrc* pDrlgRoom)
 {
-    D2LvlMazeTxt* pMaze = pDrlgRoom->pLevel->pMaze;
+    D2LvlMazeTxt* pMaze = pDrlgRoom->ptDrlgLevel->pMaze;
     pDrlgRoom->pDrlgCoord.nWidth = pMaze->dwSizeX;
     pDrlgRoom->pDrlgCoord.nHeight = pMaze->dwSizeY;
 }
@@ -330,7 +330,7 @@ static __declspec(noinline) int __stdcall sub_00670880(D2DrlgRoomStrc* pDrlgRoom
         }
     }
 
-    return DRLGMAZE_CheckRoomNotOverlaping(pNewRoomEx->pLevel, pNewRoomEx, pDrlgRoom, 0);
+    return DRLGMAZE_CheckRoomNotOverlaping(pNewRoomEx->ptDrlgLevel, pNewRoomEx, pDrlgRoom, 0);
 }
 
 // 0x006709B0
@@ -364,7 +364,7 @@ static D2DrlgRoomStrc* __stdcall sSetChamberPreset(int bResetFlag, D2DrlgRoomStr
         }
     }
 
-    D2DrlgLevelStrc* pLevel = pDrlgRoom->pLevel;
+    D2DrlgLevelStrc* pLevel = pDrlgRoom->ptDrlgLevel;
     switch (pLevel->nLevelType)
     {
     case 3:
@@ -397,12 +397,12 @@ static D2DrlgRoomStrc* __stdcall sSetChamberPreset(int bResetFlag, D2DrlgRoomStr
 
     case 15:
         nLevelPrest = gnMazePresetRemap[nLevelPrest][1];
-        if (pLevel->nLevelId == 52 && nLevelPrest == 361)
+        if (pLevel->eLevelId == 52 && nLevelPrest == 361)
         {
             nPickedFile = 2;
         }
 
-        if (pLevel->nLevelId == 54 && (nLevelPrest == 361 || nLevelPrest == 359))
+        if (pLevel->eLevelId == 54 && (nLevelPrest == 361 || nLevelPrest == 359))
         {
             nPickedFile = 3;
         }
@@ -426,12 +426,12 @@ static D2DrlgRoomStrc* __stdcall sSetChamberPreset(int bResetFlag, D2DrlgRoomStr
 
     case 23:
         nLevelPrest = gnMazePresetRemap[nLevelPrest][2];
-        if (pLevel->nLevelId == 84 && nLevelPrest == 662)
+        if (pLevel->eLevelId == 84 && nLevelPrest == 662)
         {
             nLevelPrest = 664;
         }
 
-        if (pLevel->nLevelId == 85 && nLevelPrest == 661)
+        if (pLevel->eLevelId == 85 && nLevelPrest == 661)
         {
             nLevelPrest = 663;
         }
@@ -483,7 +483,7 @@ static D2DrlgRoomStrc* __stdcall sSetChamberPreset(int bResetFlag, D2DrlgRoomStr
 
 static __forceinline D2DrlgRoomStrc* MAZE_ReplaceRoomPreset(D2DrlgLevelStrc* pLevel, int nLevelPrestId1, int nLevelPrestId2, int nPickedFile)
 {
-    for (D2DrlgRoomStrc* pDrlgRoom = pLevel->pFirstRoomEx; pDrlgRoom; pDrlgRoom = pDrlgRoom->pDrlgRoomNext)
+    for (D2DrlgRoomStrc* pDrlgRoom = pLevel->ptRoomFirst; pDrlgRoom; pDrlgRoom = pDrlgRoom->pDrlgRoomNext)
     {
         if (MAZE_IsPresetUnset(pDrlgRoom) && pDrlgRoom->pMaze->nLevelPrest == nLevelPrestId1)
         {
@@ -496,7 +496,7 @@ static __forceinline D2DrlgRoomStrc* MAZE_ReplaceRoomPreset(D2DrlgLevelStrc* pLe
 
 static D2DrlgRoomStrc* __stdcall DRLGMAZE_PlaceAdjacentPresetRoom(D2DrlgRoomStrc* pDrlgRoom, int nDirection, int bMergeRooms)
 {
-    D2DrlgRoomStrc* pNewRoomEx = DRLGROOM_AllocRoomEx(pDrlgRoom->pLevel, 2);
+    D2DrlgRoomStrc* pNewRoomEx = DRLGROOM_AllocRoomEx(pDrlgRoom->ptDrlgLevel, 2);
     MAZE_SetRoomSizeFromMaze(pNewRoomEx);
 
     if (!sub_00670880(pDrlgRoom, nDirection, pNewRoomEx))
@@ -510,13 +510,13 @@ static D2DrlgRoomStrc* __stdcall DRLGMAZE_PlaceAdjacentPresetRoom(D2DrlgRoomStrc
     {
         DRLGMAZE_MergeMazeRooms(pNewRoomEx);
     }
-    DRLGROOM_AddRoomExToLevel(pDrlgRoom->pLevel, pNewRoomEx);
+    DRLGROOM_AddRoomExToLevel(pDrlgRoom->ptDrlgLevel, pNewRoomEx);
     return pNewRoomEx;
 }
 
 static D2DrlgRoomStrc* __stdcall DRLGMAZE_InitRoomFixedPreset(D2DrlgRoomStrc* pDrlgRoom, int nDirection, int nLvlPrestId, int nFile, int bUseInitPreset)
 {
-    D2DrlgRoomStrc* pNewRoomEx = DRLGROOM_AllocRoomEx(pDrlgRoom->pLevel, 2);
+    D2DrlgRoomStrc* pNewRoomEx = DRLGROOM_AllocRoomEx(pDrlgRoom->ptDrlgLevel, 2);
     MAZE_SetRoomSizeFromMaze(pNewRoomEx);
 
     if (!sub_00670880(pDrlgRoom, nDirection, pNewRoomEx))
@@ -526,7 +526,7 @@ static D2DrlgRoomStrc* __stdcall DRLGMAZE_InitRoomFixedPreset(D2DrlgRoomStrc* pD
     }
 
     DRLGROOM_AllocDrlgOrthsForRooms(pDrlgRoom, pNewRoomEx, nDirection);
-    DRLGROOM_AddRoomExToLevel(pDrlgRoom->pLevel, pNewRoomEx);
+    DRLGROOM_AddRoomExToLevel(pDrlgRoom->ptDrlgLevel, pNewRoomEx);
     if (bUseInitPreset)
     {
         sSetChamberPreset(1, pDrlgRoom);
@@ -540,7 +540,7 @@ static D2DrlgRoomStrc* __stdcall DRLGMAZE_InitRoomFixedPreset(D2DrlgRoomStrc* pD
 static D2DrlgRoomStrc* __stdcall DRLGMAZE_AddSpecialPreset(D2DrlgLevelStrc* pLevel, int nDirection, int nLvlPrestId, int nFile)
 {
     D2DrlgRoomStrc* pNewRoomEx = 0;
-    for (D2DrlgRoomStrc* pDrlgRoom = pLevel->pFirstRoomEx; pDrlgRoom; pDrlgRoom = pDrlgRoom->pDrlgRoomNext)
+    for (D2DrlgRoomStrc* pDrlgRoom = pLevel->ptRoomFirst; pDrlgRoom; pDrlgRoom = pDrlgRoom->pDrlgRoomNext)
     {
         if (MAZE_IsPresetUnset(pDrlgRoom))
         {
@@ -588,7 +588,7 @@ static __declspec(noinline) int DRLGMAZE_CheckIfMayPlaceAdjacentPresetRoom(D2Drl
 D2DrlgRoomStrc* __fastcall DRLGMAZE_GetFreeLocationForRoomEast(D2DrlgLevelStrc* pLevel)
 {
     D2DrlgRoomStrc* pResult = 0;
-    for (D2DrlgRoomStrc* pDrlgRoom = pLevel->pFirstRoomEx; pDrlgRoom; pDrlgRoom = pDrlgRoom->pDrlgRoomNext)
+    for (D2DrlgRoomStrc* pDrlgRoom = pLevel->ptRoomFirst; pDrlgRoom; pDrlgRoom = pDrlgRoom->pDrlgRoomNext)
     {
         if ((!pResult || pDrlgRoom->pDrlgCoord.nPosX < pResult->pDrlgCoord.nPosX) && DRLGMAZE_CheckIfMayPlaceAdjacentPresetRoom(pDrlgRoom, 0))
         {
@@ -639,7 +639,7 @@ static D2DrlgRoomStrc* __stdcall DRLGMAZE_AddAdjacentMazeRoom(D2DrlgRoomStrc* pD
 void __fastcall DRLGMAZE_PlaceArcaneSanctuary(D2DrlgLevelStrc* pLevel)
 {
     D2DrlgRoomStrc* pRooms[60];
-    D2DrlgRoomStrc* pFirstRoomEx = pLevel->pFirstRoomEx;
+    D2DrlgRoomStrc* pFirstRoomEx = pLevel->ptRoomFirst;
     const int nRand = MAZE_RollSeed(&pLevel->pSeed) & 3;
     int n = 0;
 

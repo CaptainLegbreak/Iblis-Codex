@@ -104,7 +104,7 @@ struct D2CelStrc
 
 struct D2CelFileStrc
 {
-    int nVersion;
+    int dwVersion;
     unsigned int dwFlags;
     int nFormat;
     int nTermination;
@@ -135,7 +135,7 @@ struct D2CmpTileBlockStrc
 
 struct D2CmpTileLibraryStrc
 {
-    int nVersion;
+    int dwVersion;
     unsigned int dwFlags;
     char szName[0x104];
     int nBlocks;
@@ -394,7 +394,7 @@ void __stdcall CelDrawShadow(D2CmpCelContextStrc* pContext, int nX, int nY, int 
     D2CelFileStrc* pCelFile = pContext->pCelFile;
     if (pCelFile)
     {
-        D2_ASSERT(pCelFile->nVersion == 6, 0x50D);
+        D2_ASSERT(pCelFile->dwVersion == 6, 0x50D);
         D2_ASSERT(!(pCelFile->dwFlags & 4), 0x50E);
     }
 
@@ -530,7 +530,7 @@ int __stdcall sub_006018C0(D2CelStrc* pCel)
 // 0x006019F0
 int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pFile)
 {
-    D2_ASSERT(pFile->nVersion == 6, 1489);
+    D2_ASSERT(pFile->dwVersion == 6, 1489);
 
     return pFile->nCelsPerDirection;
 }

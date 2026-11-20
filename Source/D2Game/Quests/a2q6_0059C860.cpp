@@ -50,9 +50,9 @@ struct D2QuestDataStrc
     unsigned int dwFlags;
     void* pQuestDataEx;
     char tPlayerGUIDs[0x84];
-    QUESTCALLBACK pfCallback[15];
+    QUESTCALLBACK pCallback[15];
     void* pNPCMessages;
-    int nQuestFilter;
+    int eFilter;
     char pad0xE4[0xC];
     QUESTSEQFILTER pfSeqFilter;
 };
@@ -79,8 +79,8 @@ struct D2ObjInitFnStrc
 struct D2ObjOperateFnStrc
 {
     D2GameStrc* pGame;
-    D2UnitStrc* pObject;
-    D2UnitStrc* pPlayer;
+    D2UnitStrc* hObject;
+    D2UnitStrc* hPlayer;
 };
 
 typedef int (__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
@@ -281,8 +281,8 @@ void __fastcall ACT2Q6_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2Q
     }
 
     D2Act2Quest6Strc* pQuestDataEx = (D2Act2Quest6Strc*)pQuestData->pQuestDataEx;
-    pQuestData->pfCallback[2] = 0;
-    pQuestData->pfCallback[8] = 0;
+    pQuestData->pCallback[2] = 0;
+    pQuestData->pCallback[8] = 0;
     pQuestDataEx->bDurielKilled = 1;
     pQuestDataEx->pDurielRoom = UNITS_GetRoom(pQuestArg->pTarget);
     QUESTS_TriggerFX(pQuestData->pGame, 8);

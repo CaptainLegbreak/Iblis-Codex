@@ -991,7 +991,7 @@ struct D2MessageStrc
 
 struct D2MessageListStrc
 {
-    unsigned char nCount;
+    unsigned char bCount;
     unsigned char pad0x01;
     D2MessageStrc pMessages[8];
 };
@@ -1152,7 +1152,7 @@ struct D2QualityItemDataTbl
 struct D2QuestInitTableStrc
 {
     void* pfInit;
-    unsigned char nAct;
+    unsigned char bAct;
     unsigned char pad0x05[3];
     unsigned int nVersion;
     unsigned char bNoSetState;
@@ -1234,7 +1234,7 @@ struct D2SystemTimeStrc
 
 struct D2TaskStrc
 {
-    int nTaskQ;
+    int dwTaskQ;
     int nType;
     D2LinkStrc pTaskBalanceLink;
     D2LinkStrc pTaskQueueLink;

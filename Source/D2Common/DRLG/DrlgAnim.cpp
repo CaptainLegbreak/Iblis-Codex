@@ -61,8 +61,8 @@ struct D2DrlgRoomStrc
     int nPosX;
     int nPosY;
     char unk0x3C[0x18];
-    D2DrlgTileGridStrc* pTileGrid;
-    D2DrlgLevelStrc* pLevel;
+    D2DrlgTileGridStrc* ptDrlgTiles;
+    D2DrlgLevelStrc* ptDrlgLevel;
     char unk0x5C[0x0C];
     void* pTiles;
 };
@@ -94,7 +94,7 @@ static inline int GetMapTileLayer(unsigned int nMapTileFlags) { return int((nMap
 static void __fastcall DRLGANIM_AllocAnimationTileGrid(D2DrlgRoomStrc* pDrlgRoom, int nAnimationSpeed, D2DrlgTileDataStrc* pTiles, int nTiles, D2DrlgGridStrc* pDrlgGrid, int nUnused)
 {
     (void)nUnused;
-    void* pMemPool = pDrlgRoom->pLevel->pDrlg->pMempool;
+    void* pMemPool = pDrlgRoom->ptDrlgLevel->pDrlg->pMempool;
 
     if (!pTiles)
     {
@@ -137,8 +137,8 @@ static void __fastcall DRLGANIM_AllocAnimationTileGrid(D2DrlgRoomStrc* pDrlgRoom
             pDrlgAnimTileGrid->ppMapTileData = (D2DrlgTileDataStrc**)FOG_AllocPool(pMemPool, nFrames * sizeof(D2DrlgTileDataStrc*), gszDrlgAnimSourceFile, 161, 0);
             memset(pDrlgAnimTileGrid->ppMapTileData, 0x00, nFrames * sizeof(D2DrlgTileDataStrc*));
             pDrlgAnimTileGrid->nAnimationSpeed = nAnimationSpeed;
-            pDrlgAnimTileGrid->pNext = pDrlgRoom->pTileGrid->pAnimTiles;
-            pDrlgRoom->pTileGrid->pAnimTiles = pDrlgAnimTileGrid;
+            pDrlgAnimTileGrid->pNext = pDrlgRoom->ptDrlgTiles->pAnimTiles;
+            pDrlgRoom->ptDrlgTiles->pAnimTiles = pDrlgAnimTileGrid;
 
             unsigned int nEntryIndex;
             for (nEntryIndex = 0; nEntryIndex < nFrames; ++nEntryIndex)
@@ -197,7 +197,7 @@ static void __fastcall DRLGANIM_AllocAnimationTileGrid(D2DrlgRoomStrc* pDrlgRoom
 // 0x0066D700
 void __fastcall DRLGANIM_AllocAnimationTileGrids(D2DrlgRoomStrc* pRoom, int nAnimationSpeed, D2DrlgGridStrc* pWallGrid, int nWalls, D2DrlgGridStrc* pFloorGrid, int nFloors, D2DrlgGridStrc* pShadowGrid)
 {
-    D2DrlgTileGridStrc* pTileGrid = pRoom->pTileGrid;
+    D2DrlgTileGridStrc* pTileGrid = pRoom->ptDrlgTiles;
     DRLGANIM_AllocAnimationTileGrid(pRoom, nAnimationSpeed, pTileGrid->pWallTiles, pTileGrid->nWalls, pWallGrid, nWalls);
     DRLGANIM_AllocAnimationTileGrid(pRoom, nAnimationSpeed, pTileGrid->pFloorTiles, pTileGrid->nFloors, pFloorGrid, nFloors);
     DRLGANIM_AllocAnimationTileGrid(pRoom, nAnimationSpeed, pTileGrid->pRoofTiles, pTileGrid->nShadows, pShadowGrid, 1);

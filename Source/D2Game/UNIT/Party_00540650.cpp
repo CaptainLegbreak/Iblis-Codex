@@ -90,8 +90,8 @@ void __fastcall PLRTRADE_AddGold(D2UnitStrc* pUnit, int nStat, int nValue)
 // 0x00540290
 static D2PartyStrc* sub_00540290_FindParty(D2GameStrc* pGame, short nPartyId)
 {
-    D2_ASSERT(pGame->pPartyControl, 210);
-    for (D2PartyStrc* pParty = pGame->pPartyControl->pParties; pParty; pParty = pParty->pNext)
+    D2_ASSERT(pGame->hParty, 210);
+    for (D2PartyStrc* pParty = pGame->hParty->pParties; pParty; pParty = pParty->pNext)
     {
         if (pParty->nPartyId == nPartyId)
         {

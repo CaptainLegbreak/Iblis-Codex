@@ -80,7 +80,7 @@ struct D2CmpTileBlockStrc
 
 struct D2CmpTileLibraryStrc
 {
-    int nVersion;
+    int dwVersion;
     unsigned int dwFlags;
     char szName[0x104];
     int nBlocks;

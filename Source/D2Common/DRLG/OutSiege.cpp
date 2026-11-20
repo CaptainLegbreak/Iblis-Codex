@@ -66,7 +66,7 @@ struct D2DrlgLevelStrc
     int nSizeX;
     int nSizeY;
     char unk0x2C[0x1A4];
-    int nLevelId;
+    int eLevelId;
 };
 
 struct D2LvlPrestRecordStrc
@@ -161,7 +161,7 @@ static void DRLGACT5_PlaceCornerPresets(D2DrlgLevelStrc* pLevel)
     for (int i = 0; i < 3; ++i)
     {
         const D2Act5CornerPresetStrc* pEntry = &gAct5CornerPresets[i];
-        if (pLevel->nLevelId == pEntry->nLevelId)
+        if (pLevel->eLevelId == pEntry->nLevelId)
         {
             int nPresetId;
             int nX;
@@ -192,7 +192,7 @@ static int __stdcall sub_0067DB00(D2DrlgOutdoorInfoStrc* pInfo, int nX, int nY, 
 {
     if (sub_0067C570(&pInfo->tGrid2C, nX, nY) & 0x400)
     {
-        sub_006743C0(pLevel, nX, nY, nPresetId, (pLevel->nLevelId == 110) ? 1 : -1, 0);
+        sub_006743C0(pLevel, nX, nY, nPresetId, (pLevel->eLevelId == 110) ? 1 : -1, 0);
         return 1;
     }
     return 0;
@@ -249,7 +249,7 @@ static void sub_0067DCA0(D2DrlgLevelStrc* pLevel)
 // 0x0067DCE0
 int __fastcall sub_0067DCE0(D2DrlgLevelStrc* pLevel)
 {
-    return (pLevel->nLevelId == 117) + 4;
+    return (pLevel->eLevelId == 117) + 4;
 }
 
 // build: context sub_0067DCF0
@@ -311,7 +311,7 @@ void __stdcall sub_0067DCF0(D2DrlgLevelStrc* pLevel)
     }
     while (pVertex != pInfo->pVertex);
 
-    if (pLevel->nLevelId == 111)
+    if (pLevel->eLevelId == 111)
     {
         sub_0067DCA0(pLevel);
     }
@@ -330,7 +330,7 @@ void __stdcall sub_0067DEF0(D2DrlgLevelStrc* pLevel)
     D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoorInfo;
     int nRight = pInfo->nWidth - 2;
     int nBottom = pInfo->nHeight - 2;
-    int bTundra = pLevel->nLevelId == 117;
+    int bTundra = pLevel->eLevelId == 117;
     int nKindBase = bTundra ? 0x3BD : 0x371;
     int nPresetBase = bTundra ? 0x3C9 : 0x37D;
     int nX = nRight;
@@ -371,7 +371,7 @@ int __fastcall sub_0067E000(D2DrlgLevelStrc* pLevel, int nType, int nIndex)
         exit(-1);
     }
 
-    int bTundra = pLevel->nLevelId == 117;
+    int bTundra = pLevel->eLevelId == 117;
     for (int i = 0; i < 10; ++i)
     {
         const D2Act5TypeRangeStrc* pEntry = &gAct5TypeRanges[i];
@@ -409,7 +409,7 @@ int __fastcall sub_0067E080(D2DrlgLevelStrc* pLevel, int nX, int nY, int nPreset
 // 0x0067E0E0
 static void sub_0067E0E0(D2DrlgLevelStrc* pLevel)
 {
-    if (pLevel->nLevelId == 110)
+    if (pLevel->eLevelId == 110)
     {
         return;
     }
@@ -456,7 +456,7 @@ void __stdcall sub_0067E160(D2DrlgLevelStrc* pLevel)
     for (int i = 0; i < 15; ++i)
     {
         const D2Act5LevelPresetStrc* pEntry = &gAct5LevelPresets[i];
-        if (pLevel->nLevelId != pEntry->nLevelId)
+        if (pLevel->eLevelId != pEntry->nLevelId)
         {
             continue;
         }
@@ -497,7 +497,7 @@ static void sub_0067E4B0(D2DrlgLevelStrc* ptLevelData)
         exit(-1);
     }
 
-    if (ptLevelData->nLevelId != 111)
+    if (ptLevelData->eLevelId != 111)
     {
         sub_00408A60(&gszEmptyAssertText, sub_00408090(), 624);
         exit(-1);
@@ -557,7 +557,7 @@ void __stdcall sub_0067E560(D2DrlgLevelStrc* pLevel)
 
 void __fastcall sub_0067E600(D2DrlgLevelStrc* pLevel)
 {
-    if (pLevel->nLevelId == 110)
+    if (pLevel->eLevelId == 110)
     {
         sub_0067E560(pLevel);
         return;
@@ -569,7 +569,7 @@ void __fastcall sub_0067E600(D2DrlgLevelStrc* pLevel)
     sub_0067DB50(pLevel);
     DRLGACT5_PlaceCornerPresets(pLevel);
 
-    if (pLevel->nLevelId == 111)
+    if (pLevel->eLevelId == 111)
     {
         sub_0067E4B0(pLevel);
     }

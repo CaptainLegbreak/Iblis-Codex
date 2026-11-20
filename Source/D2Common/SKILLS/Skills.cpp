@@ -251,7 +251,7 @@ struct D2DynamicPathStrc
     D2UnitStrc* pUnit;
     unsigned int dwFlags;
     char unk0x38[0x58 - 0x38];
-    D2UnitStrc* pTargetUnit;
+    D2UnitStrc* hTarget;
     unsigned char unk_5C[0x8];
     unsigned char nDirection;
     unsigned char nNewDirection;
@@ -3922,7 +3922,7 @@ int __stdcall D2Common_10227(D2UnitStrc* pUnit)
         return 1;
     }
 
-    if (pDynamicPath->pTargetUnit && D2Common_10399(pDynamicPath->pTargetUnit, pUnit) <= pDynamicPath->nStepNum)
+    if (pDynamicPath->hTarget && D2Common_10399(pDynamicPath->hTarget, pUnit) <= pDynamicPath->nStepNum)
     {
         return 1;
     }

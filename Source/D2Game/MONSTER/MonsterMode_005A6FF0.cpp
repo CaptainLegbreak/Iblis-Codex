@@ -159,7 +159,7 @@ static void __stdcall sub_6FC63FD0(D2GameStrc* pGame, D2UnitStrc* pUnit)
             sub_0057C6C0_FillDamage(pGame, pUnit, pTarget, 1, &damage);
             sub_0057CEE0_ApplyDamage(pGame, pUnit, pTarget, &damage);
         }
-        pTarget = pTarget->pRoomNext;
+        pTarget = pTarget->ptRoomNext;
     }
 }
 __forceinline D2MonStatsTxt* GetMonStatsById(int nId)

@@ -129,7 +129,7 @@ struct D2PlayerDataStrc
     int dwTradeState;
     int unk0x54;
     int dwAcceptTradeTick;
-    D2PlayerTradeStrc* pTrade;
+    D2PlayerTradeStrc* hTrade;
 };
 
 struct D2CoordStrc
@@ -2878,7 +2878,7 @@ void __fastcall sub_6FC90C20(D2GameStrc* pGame, D2UnitStrc* pPlayer)
         sub_0063BE30_Return(pPlayer->pInventory, i);
     }
 
-    D2PlayerTradeStrc* ptTradeRecord = pPlayerData->pTrade;
+    D2PlayerTradeStrc* ptTradeRecord = pPlayerData->hTrade;
     D2_ASSERT(ptTradeRecord, 0x888);
 
     D2GAME_EVENTS_Delete_6FC34840(pGame, pPlayer, 9, 0);
@@ -3093,7 +3093,7 @@ void __fastcall sub_00569F20_InitPlayerFromClient(D2GameStrc* pGame, D2UnitStrc*
     UNITS_ChangeAnimMode(pPlayer, 1);
 
     D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
-    pPlayerData->pTrade = 0;
+    pPlayerData->hTrade = 0;
     pPlayerData->dwTradeState = 0;
     pPlayerData->dwAcceptTradeTick = 0;
     pPlayerData->unk0x54 = 0;

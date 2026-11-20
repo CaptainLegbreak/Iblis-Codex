@@ -47,7 +47,7 @@ struct D2DrlgLevelStrc
     int unk0x10;
     D2DrlgOutdoorInfoStrc* pOutdoorInfo;
     char unk0x18[0x1B8];
-    int nLevelId;
+    int eLevelId;
 };
 
 void __fastcall sub_006743C0(D2DrlgLevelStrc* pLevel, int nX, int nY, int nPresetId, int nDirection, int a6); // 0x006743C0
@@ -69,7 +69,7 @@ static void sub_0067DCA0(D2DrlgLevelStrc* pLevel)
 
 static int sub_0067DCE0(D2DrlgLevelStrc* pLevel)
 {
-    return (pLevel->nLevelId == 117) + 4;
+    return (pLevel->eLevelId == 117) + 4;
 }
 
 // 0x0067DCF0
@@ -131,7 +131,7 @@ void __stdcall sub_0067DCF0(D2DrlgLevelStrc* pLevel)
     }
     while (pVertex != pInfo->pVertex);
 
-    if (pLevel->nLevelId == 111)
+    if (pLevel->eLevelId == 111)
     {
         sub_0067DCA0(pLevel);
     }

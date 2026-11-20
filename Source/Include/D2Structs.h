@@ -208,7 +208,7 @@ struct D2UnitStrc
     D2EventTimerStrc* pTimer; // 0xDC
     D2UnitStrc* pChangeNextUnit; // 0xE0
     D2UnitStrc* pListNext; // 0xE4
-    D2UnitStrc* pRoomNext; // 0xE8
+    D2UnitStrc* ptRoomNext; // 0xE8
     D2UnitPacketListStrc* pMsgFirst; // 0xEC
     D2UnitPacketListStrc* pMsgLast; // 0xF0
 };

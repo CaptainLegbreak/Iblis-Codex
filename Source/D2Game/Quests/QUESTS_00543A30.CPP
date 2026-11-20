@@ -15,7 +15,7 @@ struct D2QuestDataStrc
     char unk0x00[0x0A];
     unsigned char bActive;
     char unk0x0B[0x95];
-    QUESTCALLBACK pfCallback[15];
+    QUESTCALLBACK pCallback[15];
 };
 
 struct D2QuestChainStrc
@@ -61,10 +61,10 @@ static void __stdcall QUESTS_StatusCycler(bool bForceActive, D2QuestArgStrc* pAr
 {
     for (D2QuestChainStrc* i = pArgs->pTarget->pQuestEventList; i; i = i->pNext)
     {
-        if (i->pQuestData->pfCallback[pArgs->nEvent] && (i->pQuestData->bActive == 1 || bForceActive))
+        if (i->pQuestData->pCallback[pArgs->nEvent] && (i->pQuestData->bActive == 1 || bForceActive))
         {
-            D2_ASSERT(!IsBadCodePtr((FARPROC)i->pQuestData->pfCallback[pArgs->nEvent]), 0x23E);
-            i->pQuestData->pfCallback[pArgs->nEvent](i->pQuestData, pArgs);
+            D2_ASSERT(!IsBadCodePtr((FARPROC)i->pQuestData->pCallback[pArgs->nEvent]), 0x23E);
+            i->pQuestData->pCallback[pArgs->nEvent](i->pQuestData, pArgs);
         }
     }
 }

@@ -1,7 +1,7 @@
 #include "D2Game.h"
 
 struct CriticalSection;
-struct Game { char pad[0x18]; CriticalSection* lock; char pad1c[0x1DAC]; int mode; };
+struct Game { char pad[0x18]; CriticalSection* ptLock; char pad1c[0x1DAC]; int mode; };
 extern CriticalSection games_lock;  // 0x00882D18
 extern int game_guids[1024];  // 0x00882D38
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(CriticalSection*);  // 0x006CC218
@@ -26,6 +26,6 @@ void __stdcall sub_0052F630(unsigned short gameId,unsigned char* message)
     message[255] = 0;
     if (!strncmp("<ABEND> ",(const char*)message,8)) ptGame->mode = message[8] & MODE_MASK;
     sub_0054A9B0(ptGame,(const char*)message,1);
-    CHECK(ptGame->lock,0x1064);
-    LeaveCriticalSection(ptGame->lock);
+    CHECK(ptGame->ptLock,0x1064);
+    LeaveCriticalSection(ptGame->ptLock);
 }

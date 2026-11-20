@@ -23,7 +23,7 @@ struct D2ItemSaveStrc
     int nClassId;
     unsigned short nX;
     unsigned short nY;
-    unsigned char nAnimMode;
+    unsigned char bMode;
     unsigned char nPad09;
     unsigned short nPad0A;
     unsigned int dwFlags;
@@ -220,7 +220,7 @@ static D2UnitStrc* __stdcall sub_004C0F20_CreateItem9C(unsigned short nX, unsign
         pItemSave = &tItemSave;
     }
 
-    D2UnitStrc* pItem = sub_004661C0_CreateClientUnit(pPacket->nItemId, pItemSave->nClassId, nX, nY, 4, pItemSave->nAnimMode);
+    D2UnitStrc* pItem = sub_004661C0_CreateClientUnit(pPacket->nItemId, pItemSave->nClassId, nX, nY, 4, pItemSave->bMode);
     ITEMS_DecodeItemFromBitstream(pItem, pPacket->pBitstream, nSize, 0, 0, 0x60, &bFail);
     if (bFail)
     {
@@ -252,7 +252,7 @@ static D2UnitStrc* __stdcall sub_004C0FF0_CreateItem9D(unsigned short nX, unsign
         pItemSave = &tItemSave;
     }
 
-    D2UnitStrc* pItem = sub_004661C0_CreateClientUnit(pPacket->nItemId, pItemSave->nClassId, nX, nY, 4, pItemSave->nAnimMode);
+    D2UnitStrc* pItem = sub_004661C0_CreateClientUnit(pPacket->nItemId, pItemSave->nClassId, nX, nY, 4, pItemSave->bMode);
     ITEMS_DecodeItemFromBitstream(pItem, pPacket->pBitstream, nSize, 0, 0, 0x60, &bFail);
     if (bFail)
     {
@@ -338,7 +338,7 @@ void __fastcall sub_004C2650_ItemOnCursor9C(D2GSPacketSrv9C* pPacket)
     sub_0062E410(pPacket->pBitstream, pPacket->nPacketSize - 0x08, 0, &tItemSave);
 
     D2InventoryStrc* pInventory = sub_00463DD0()->pInventory;
-    if (tItemSave.nAnimMode == 4)
+    if (tItemSave.bMode == 4)
     {
         D2_ASSERT(!sub_00463990(pPacket->nItemId, 4), 0x3A0);
 
@@ -422,7 +422,7 @@ void __fastcall sub_004C2AD0_ItemToStorage9C(D2GSPacketSrv9C* pPacket)
         }
         else
         {
-            sub_004C2540_PlaceItem(pItem, tItemSave.nX, tItemSave.nY, tItemSave.nAnimMode, 0, tItemSave.nStorePage);
+            sub_004C2540_PlaceItem(pItem, tItemSave.nX, tItemSave.nY, tItemSave.bMode, 0, tItemSave.nStorePage);
             ITEMS_SetItemFlag(pItem, -1, 0);
             ITEMS_SetItemFlag(pItem, tItemSave.dwFlags, 1);
         }
@@ -508,7 +508,7 @@ void __fastcall sub_004C2C80_ItemFromStorage9D(D2GSPacketSrv9D* pPacket)
         }
         else
         {
-            sub_004C2540_PlaceItem(pItem, tItemSave.nX, tItemSave.nX, tItemSave.nAnimMode, 0, tItemSave.nStorePage);
+            sub_004C2540_PlaceItem(pItem, tItemSave.nX, tItemSave.nX, tItemSave.bMode, 0, tItemSave.nStorePage);
         }
 
         ITEMS_SetInvPage(pItem, 0xFF);
@@ -660,7 +660,7 @@ static void sub_004C3E00_CursorItemToBelt(D2GSPacketSrv9C* pPacket, D2ItemSaveSt
     }
     else
     {
-        sub_004C2540_PlaceItem(pItem, 0, 0, pItemSave->nAnimMode, 0, pItemSave->nStorePage);
+        sub_004C2540_PlaceItem(pItem, 0, 0, pItemSave->bMode, 0, pItemSave->nStorePage);
     }
 
     D2InventoryStrc* pInventory = pPlayer->pInventory;
@@ -726,7 +726,7 @@ static void __stdcall sub_004C3F60_BeltItemToCursor(D2GSPacketSrv9C* pPacket, D2
     }
     else
     {
-        sub_004C2540_PlaceItem(pItem, 0, 0, pItemSave->nAnimMode, 0, pItemSave->nStorePage);
+        sub_004C2540_PlaceItem(pItem, 0, 0, pItemSave->bMode, 0, pItemSave->nStorePage);
     }
 
     INVENTORY_SetCursorItem(pInventory, pItem);
@@ -769,7 +769,7 @@ void __fastcall sub_004C4130_ItemToBelt9C(D2GSPacketSrv9C* pPacket)
     D2UnitStrc* pItem = sub_00463990(pPacket->nItemId, 4);
     if (pItem)
     {
-        sub_004C2540_PlaceItem(pItem, 0, 0, tItemSave.nAnimMode, 0, tItemSave.nStorePage);
+        sub_004C2540_PlaceItem(pItem, 0, 0, tItemSave.bMode, 0, tItemSave.nStorePage);
     }
     else
     {
@@ -841,7 +841,7 @@ void __fastcall sub_004C42A0_ItemFromBelt9C(D2GSPacketSrv9C* pPacket)
 
     if (!sub_006287A0_TestFlags(tItemSave.dwFlags, 0x20))
     {
-        sub_004C2540_PlaceItem(pItem, 0, 0, tItemSave.nAnimMode, 0, tItemSave.nStorePage);
+        sub_004C2540_PlaceItem(pItem, 0, 0, tItemSave.bMode, 0, tItemSave.nStorePage);
         INVENTORY_SetCursorItem(pInventory, pItem);
         sub_00468070_SetCursorItemState(INVENTORY_GetCursorItem(pInventory));
         sub_004C2180_UpdateCursorItem(pItem);
@@ -865,7 +865,7 @@ static void __stdcall sub_004C43E0_ItemToBelt(D2GSPacketSrv9C* pPacket, D2ItemSa
         return;
     }
 
-    sub_004C2540_PlaceItem(pItem, 0, 0, pItemSave->nAnimMode, 0, pItemSave->nStorePage);
+    sub_004C2540_PlaceItem(pItem, 0, 0, pItemSave->bMode, 0, pItemSave->nStorePage);
 
     D2InventoryStrc* pInventory = pPlayer->pInventory;
     D2_ASSERT(pInventory, 0x963);
@@ -919,7 +919,7 @@ void __stdcall sub_004C44D0_ItemFromBelt(D2GSPacketSrv9C* pPacket, D2ItemSaveStr
     }
 
     sub_0063C550_Return(pInventory, pItemSave->nX);
-    sub_004C2540_PlaceItem(pItem, 0, 0, pItemSave->nAnimMode, 0, pItemSave->nStorePage);
+    sub_004C2540_PlaceItem(pItem, 0, 0, pItemSave->bMode, 0, pItemSave->nStorePage);
     INVENTORY_SetCursorItem(pInventory, pItem);
     sub_00468070_SetCursorItemState(INVENTORY_GetCursorItem(pInventory));
     sub_004C2180_UpdateCursorItem(pItem);
@@ -963,7 +963,7 @@ void __fastcall sub_004C4990_ItemToSocket9D(D2GSPacketSrv9D* pPacket)
     D2UnitStrc* pItem = sub_00463990(pPacket->nItemId, 4);
     if (pItem)
     {
-        sub_004C2540_PlaceItem(pItem, tItemSave.nX, tItemSave.nY, tItemSave.nAnimMode, 0, tItemSave.nStorePage);
+        sub_004C2540_PlaceItem(pItem, tItemSave.nX, tItemSave.nY, tItemSave.bMode, 0, tItemSave.nStorePage);
     }
     else
     {
@@ -1079,7 +1079,7 @@ static void __stdcall sub_004C3760_ItemFromBody9D(D2GSPacketSrv9D* pPacket, D2It
     }
     else
     {
-        sub_004C2540_PlaceItem(pItem, 0, 0, pItemSave->nAnimMode, 0, pItemSave->nStorePage);
+        sub_004C2540_PlaceItem(pItem, 0, 0, pItemSave->bMode, 0, pItemSave->nStorePage);
     }
 
     if (pUnit == sub_00463DD0())

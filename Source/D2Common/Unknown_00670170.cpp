@@ -87,7 +87,7 @@ struct D2DrlgRoomStrc
     int nTileWidth;
     int nTileHeight;
     char unk0x44[0x14];
-    D2DrlgLevelStrc* pLevel;
+    D2DrlgLevelStrc* ptDrlgLevel;
 };
 
 struct D2DrlgOutdoorRoomStrc
@@ -138,7 +138,7 @@ static __declspec(noinline) void __stdcall DRLGTILESUB_DoSubstitutions(D2UnkOutd
 static void __stdcall DRLGTILESUB_DoSubstitutions(D2UnkOutdoorStrc2* pOutdoor, D2LvlSubTxt* pRecord)
 {
     D2DrlgRoomStrc* pRoom = pOutdoor->pDrlgRoom;
-    void* pMemPool = pRoom->pLevel->pDrlg->pMemPool;
+    void* pMemPool = pRoom->ptDrlgLevel->pDrlg->pMemPool;
     D2DrlgFileStrc* pFile = pRecord->pDrlgFile;
     const int nMax = pRecord->nMax[pOutdoor->nSubTheme];
     if (!pFile->nSubstGroups) return;
@@ -204,7 +204,7 @@ void __fastcall sub_006707A0(D2UnkOutdoorStrc2* pOutdoor)
     {
         D2LvlSubTxt* pLvlSubTxtRecord = DATATBLS_GetLvlSubTxtRecord(pOutdoor->nSubWaypoint_Shrine);
         unsigned int nThemeFlag = pOutdoor->nSubThemePicked;
-        void* hArchive = pOutdoor->pDrlgRoom->pLevel->pDrlg->hArchive;
+        void* hArchive = pOutdoor->pDrlgRoom->ptDrlgLevel->pDrlg->hArchive;
         while (nThemeFlag)
         {
             if (nThemeFlag & 1)

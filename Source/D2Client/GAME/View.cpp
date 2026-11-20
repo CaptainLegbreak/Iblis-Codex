@@ -249,7 +249,7 @@ struct D2UnitStrc
     unsigned short nLastClickX;
     unsigned short nLastClickY;
     char unk0x90[0x58];
-    D2UnitStrc* pRoomNext;
+    D2UnitStrc* ptRoomNext;
 };
 
 struct D2ClientUnitPointStrc
@@ -627,7 +627,7 @@ void __fastcall sub_0045B0B0_DrawRoomUnitBoxes(D2ActiveRoomStrc* pRoom)
     DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRoomList, &nNumRooms);
     for (unsigned int i = 0; i < nNumRooms; ++i)
     {
-        for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pUnit->pRoomNext)
+        for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
         {
             const int nX = UNITS_GetClientCoordX(pUnit) - gdwGlobal_007A520C;
             const int nY = UNITS_GetClientCoordY(pUnit) - gdwGlobal_007A5208;

@@ -39,7 +39,7 @@ struct D2QuestDataStrc
     char pad0x0D[0x0B];
     void* pQuestDataEx;
     char pad0x1C[0xC4];
-    int nQuestFilter;
+    int eFilter;
 };
 
 struct D2Act1Quest4Strc
@@ -173,8 +173,8 @@ int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOthe
 struct D2ObjOperateFnStrc
 {
     D2GameStrc* pGame;
-    D2UnitStrc* pObject;
-    D2UnitStrc* pPlayer;
+    D2UnitStrc* hObject;
+    D2UnitStrc* hPlayer;
 };
 
 typedef int (__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
@@ -312,12 +312,12 @@ int __fastcall ACT2Q3_UnitIterate_SendPacket0x53ToClient(D2GameStrc* pGame, D2Un
 // 0x0059A1C0
 bool __fastcall ACT2Q3_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC)
 {
-    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuest->nQuestFilter, QFLAG_REWARDGRANTED) == 1)
+    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuest->eFilter, QFLAG_REWARDGRANTED) == 1)
     {
         return false;
     }
 
-    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuest->nQuestFilter, QFLAG_REWARDPENDING) == 1)
+    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuest->eFilter, QFLAG_REWARDPENDING) == 1)
     {
         if (nNpcId == MONSTER_ATMA || nNpcId == MONSTER_WARRIV2 || nNpcId == MONSTER_GREIZ || nNpcId == MONSTER_ELZIX
             || nNpcId == MONSTER_DROGNAN || nNpcId == MONSTER_LYSANDER || nNpcId == MONSTER_CAIN2 || nNpcId == MONSTER_MESHIF1
@@ -440,19 +440,19 @@ int __fastcall OBJECTS_OperateFunction40_HoradricScrollChest(D2ObjOperateFnStrc*
     int nResult = 0;
     if (QUESTS_SetObjectSelection(pOp))
     {
-        pOp->pObject->dwDropItemCode = ' 1rt';
+        pOp->hObject->dwDropItemCode = ' 1rt';
 
         D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pOp->pGame, QUEST_A2Q2_HORADRICSTAFF);
         if (pQuestData)
         {
             D2Act2Quest2Strc* pQuestDataEx = (D2Act2Quest2Strc*)pQuestData->pQuestDataEx;
             pQuestDataEx->nItemDropCount = 0;
-            SUNIT_IterateUnitsOfType(pOp->pGame, 0, pOp->pPlayer, ACT2Q2_UnitIterate_DetermineHoradricScrollDropCount);
+            SUNIT_IterateUnitsOfType(pOp->pGame, 0, pOp->hPlayer, ACT2Q2_UnitIterate_DetermineHoradricScrollDropCount);
 
             for (int i = 0; i < pQuestDataEx->nItemDropCount; ++i)
             {
                 int nItemLevel;
-                D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->pObject, ITEMQUAL_UNIQUE, &nItemLevel, 0, -1, 1);
+                D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->hObject, ITEMQUAL_UNIQUE, &nItemLevel, 0, -1, 1);
             }
         }
 
@@ -462,7 +462,7 @@ int __fastcall OBJECTS_OperateFunction40_HoradricScrollChest(D2ObjOperateFnStrc*
         const int nCounter = SEED_RollRandomNumber(pSeed) % 5 + 5;
         for (int i = 0; i < nCounter; ++i)
         {
-            OBJMODE_DropItemWithCodeAndQuality(pOp->pGame, pOp->pObject, ' dlg', 2);
+            OBJMODE_DropItemWithCodeAndQuality(pOp->pGame, pOp->hObject, ' dlg', 2);
         }
     }
     return nResult;
@@ -474,19 +474,19 @@ int __fastcall OBJECTS_OperateFunction39_HoradricCubeChest(D2ObjOperateFnStrc* p
     int nResult = 0;
     if (QUESTS_SetObjectSelection(pOp))
     {
-        pOp->pObject->dwDropItemCode = ' xob';
+        pOp->hObject->dwDropItemCode = ' xob';
 
         D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pOp->pGame, QUEST_A2Q2_HORADRICSTAFF);
         if (pQuestData)
         {
             D2Act2Quest2Strc* pQuestDataEx = (D2Act2Quest2Strc*)pQuestData->pQuestDataEx;
             pQuestDataEx->nItemDropCount = 0;
-            SUNIT_IterateUnitsOfType(pOp->pGame, 0, pOp->pPlayer, ACT2Q2_UnitIterate_DetermineCubeDropCount);
+            SUNIT_IterateUnitsOfType(pOp->pGame, 0, pOp->hPlayer, ACT2Q2_UnitIterate_DetermineCubeDropCount);
 
             for (int i = 0; i < pQuestDataEx->nItemDropCount; ++i)
             {
                 int nItemLevel;
-                if (D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->pObject, ITEMQUAL_NORMAL, &nItemLevel, 0, -1, 1))
+                if (D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->hObject, ITEMQUAL_NORMAL, &nItemLevel, 0, -1, 1))
                 {
                     ++pQuestDataEx->nHoradricCubes;
                     pQuestDataEx->bCubeDropped = 1;
@@ -500,7 +500,7 @@ int __fastcall OBJECTS_OperateFunction39_HoradricCubeChest(D2ObjOperateFnStrc* p
         const int nCounter = SEED_RollRandomNumber(pSeed) % 5 + 5;
         for (int i = 0; i < nCounter; ++i)
         {
-            OBJMODE_DropItemWithCodeAndQuality(pOp->pGame, pOp->pObject, ' dlg', 2);
+            OBJMODE_DropItemWithCodeAndQuality(pOp->pGame, pOp->hObject, ' dlg', 2);
         }
     }
     return nResult;
@@ -520,15 +520,15 @@ int __fastcall OBJECTS_OperateFunction24_TaintedSunAltar(D2ObjOperateFnStrc* pOp
         return 0;
     }
 
-    D2BitBufferStrc* pQuestFlags = PLAYER_GetQuestFlags(pOp->pGame, pOp->pPlayer);
+    D2BitBufferStrc* pQuestFlags = PLAYER_GetQuestFlags(pOp->pGame, pOp->hPlayer);
     if ((QUESTRECORD_GetQuestState(pQuestFlags, 11, 1) == 1 || QUESTRECORD_GetQuestState(pQuestFlags, 11, 0) == 1)
-        && (QUESTRECORD_GetQuestState(pQuestFlags, 10, 0) == 1 || ITEMS_FindQuestItem(pOp->pGame, pOp->pPlayer, ' piv') || ITEMS_FindQuestItem(pOp->pGame, pOp->pPlayer, ' tsh')))
+        && (QUESTRECORD_GetQuestState(pQuestFlags, 10, 0) == 1 || ITEMS_FindQuestItem(pOp->pGame, pOp->hPlayer, ' piv') || ITEMS_FindQuestItem(pOp->pGame, pOp->hPlayer, ' tsh')))
     {
-        SUNIT_AttachSound(pOp->pPlayer, 19, pOp->pPlayer);
+        SUNIT_AttachSound(pOp->hPlayer, 19, pOp->hPlayer);
         return 0;
     }
 
-    if (pOp->pObject && pOp->pObject->dwAnimMode)
+    if (pOp->hObject && pOp->hObject->dwAnimMode)
     {
         return 0;
     }
@@ -536,18 +536,18 @@ int __fastcall OBJECTS_OperateFunction24_TaintedSunAltar(D2ObjOperateFnStrc* pOp
     D2Act2Quest3Strc* pQuestDataEx = (D2Act2Quest3Strc*)pQuestData->pQuestDataEx;
     if (!pQuestData->bNotIntro)
     {
-        UNITS_ChangeAnimMode(pOp->pObject, 1);
+        UNITS_ChangeAnimMode(pOp->hObject, 1);
         pQuestDataEx->nAltarMode = 2;
         pQuestDataEx->nViperAmuletDropCount = 0;
         pQuestDataEx->bAltarDestroyed = 1;
-        SUNIT_IterateUnitsOfType(pOp->pGame, 0, pOp->pPlayer, ACT2Q3_UnitIterate_DetermineViperAmuletDropCount);
-        D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pOp->pObject);
+        SUNIT_IterateUnitsOfType(pOp->pGame, 0, pOp->hPlayer, ACT2Q3_UnitIterate_DetermineViperAmuletDropCount);
+        D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pOp->hObject);
         int nItemLevel = DUNGEON_GetLevelIdFromRoom(pRoom);
         int nAmuletsDropped = 0;
-        pOp->pObject->dwDropItemCode = ' piv';
+        pOp->hObject->dwDropItemCode = ' piv';
         for (int i = 0; i < pQuestDataEx->nViperAmuletDropCount; ++i)
         {
-            D2UnitStrc* pItem = D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->pObject, 7, &nItemLevel, 0, -1, 0);
+            D2UnitStrc* pItem = D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->hObject, 7, &nItemLevel, 0, -1, 0);
             if (pItem)
             {
                 ITEMS_SetItemFlag(pItem, 16, 1);
@@ -560,7 +560,7 @@ int __fastcall OBJECTS_OperateFunction24_TaintedSunAltar(D2ObjOperateFnStrc* pOp
         const int nGoldDropCount = SEED_RollRandomNumber(pSeed) % 5 + 5;
         for (int i = 0; i < nGoldDropCount; ++i)
         {
-            OBJMODE_DropItemWithCodeAndQuality(pOp->pGame, pOp->pObject, ' dlg', 2);
+            OBJMODE_DropItemWithCodeAndQuality(pOp->pGame, pOp->hObject, ' dlg', 2);
         }
 
         D2QuestDataStrc* pQuestDataStaff = QUESTS_GetQuestData(pQuestData->pGame, 9);
@@ -571,13 +571,13 @@ int __fastcall OBJECTS_OperateFunction24_TaintedSunAltar(D2ObjOperateFnStrc* pOp
         return 0;
     }
 
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pOp->pObject);
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pOp->hObject);
     pQuestDataEx->pRoom = pRoom;
     pQuestDataEx->nAltarLevelId = DUNGEON_GetLevelIdFromRoom(pRoom);
-    UNITS_ChangeAnimMode(pOp->pObject, 1);
+    UNITS_ChangeAnimMode(pOp->hObject, 1);
     pQuestDataEx->nAltarMode = 2;
     pQuestDataEx->bAltarInitialized = 1;
-    pQuestDataEx->nAltarGUID = !pOp->pObject ? -1 : pOp->pObject->dwUnitId;
+    pQuestDataEx->nAltarGUID = !pOp->hObject ? -1 : pOp->hObject->dwUnitId;
     pQuestDataEx->bAltarDestroyed = 1;
 
     if (pQuestData->bNotIntro)
@@ -596,7 +596,7 @@ int __fastcall OBJECTS_OperateFunction24_TaintedSunAltar(D2ObjOperateFnStrc* pOp
     }
 
     pQuestDataEx->nViperAmuletDropCount = 0;
-    SUNIT_IterateUnitsOfType(pOp->pGame, 0, pOp->pPlayer, ACT2Q3_UnitIterate_DetermineViperAmuletDropCount);
+    SUNIT_IterateUnitsOfType(pOp->pGame, 0, pOp->hPlayer, ACT2Q3_UnitIterate_DetermineViperAmuletDropCount);
 
     if (pQuestData->bNotIntro)
     {
@@ -607,18 +607,18 @@ int __fastcall OBJECTS_OperateFunction24_TaintedSunAltar(D2ObjOperateFnStrc* pOp
             QUESTRECORD_ClearQuestState(pQuestFlags, 11, 14);
         }
 
-        SUNIT_IterateUnitsOfType(pOp->pGame, 0, pOp->pObject, ACT2Q3_UnitIterate_SetRewardPending);
-        SUNIT_IterateUnitsOfType(pOp->pGame, 0, pOp->pObject, ACT2Q3_UnitIterate_SetPrimaryGoalDoneForPartyMembers);
-        SUNIT_IterateUnitsOfType(pOp->pGame, 0, pOp->pObject, ACT2Q3_UnitIterate_AttachCompletionSound);
-        QUESTS_SetGlobalState(pOp->pGame, pQuestData->nQuestFilter, 13);
+        SUNIT_IterateUnitsOfType(pOp->pGame, 0, pOp->hObject, ACT2Q3_UnitIterate_SetRewardPending);
+        SUNIT_IterateUnitsOfType(pOp->pGame, 0, pOp->hObject, ACT2Q3_UnitIterate_SetPrimaryGoalDoneForPartyMembers);
+        SUNIT_IterateUnitsOfType(pOp->pGame, 0, pOp->hObject, ACT2Q3_UnitIterate_AttachCompletionSound);
+        QUESTS_SetGlobalState(pOp->pGame, pQuestData->eFilter, 13);
     }
 
     int nItemLevel = DUNGEON_GetLevelIdFromRoom(pQuestDataEx->pRoom);
     int nAmuletsDropped = 0;
-    pOp->pObject->dwDropItemCode = ' piv';
+    pOp->hObject->dwDropItemCode = ' piv';
     for (int i = 0; i < pQuestDataEx->nViperAmuletDropCount; ++i)
     {
-        D2UnitStrc* pItem = D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->pObject, 7, &nItemLevel, 0, -1, 0);
+        D2UnitStrc* pItem = D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->hObject, 7, &nItemLevel, 0, -1, 0);
         if (pItem)
         {
             ITEMS_SetItemFlag(pItem, 16, 1);
@@ -637,7 +637,7 @@ int __fastcall OBJECTS_OperateFunction24_TaintedSunAltar(D2ObjOperateFnStrc* pOp
     const int nGoldDropCount = SEED_RollRandomNumber(pSeed) % 5 + 5;
     for (int i = 0; i < nGoldDropCount; ++i)
     {
-        OBJMODE_DropItemWithCodeAndQuality(pOp->pGame, pOp->pObject, ' dlg', 2);
+        OBJMODE_DropItemWithCodeAndQuality(pOp->pGame, pOp->hObject, ' dlg', 2);
     }
 
     SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT2Q3_UnitIterate_SetCompletionFlag);

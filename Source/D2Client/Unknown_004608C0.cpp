@@ -2,7 +2,7 @@ struct D2UnitStrc
 {
     int dwUnitType;
     char unk0x04[0xE4];
-    D2UnitStrc* pRoomNext;
+    D2UnitStrc* ptRoomNext;
 };
 
 struct D2ActiveRoomStrc
@@ -41,7 +41,7 @@ void __cdecl sub_004608C0_RefreshAdjacentPlayers()
     DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRoomList, &nNumRooms);
     for (unsigned int i = 0; i < nNumRooms; ++i)
     {
-        for (D2UnitStrc* pUnit = ppRoomList[i]->pUnitFirst; pUnit; pUnit = pUnit->pRoomNext)
+        for (D2UnitStrc* pUnit = ppRoomList[i]->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
         {
             if ((pUnit ? pUnit->dwUnitType : 6) == UNIT_PLAYER && STATES_CheckState(pUnit, 0x3F))
             {

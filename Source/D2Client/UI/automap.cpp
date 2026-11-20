@@ -1102,7 +1102,7 @@ void __cdecl sub_0045B3E0_DrawRoomTileRects()
         DUNGEON_GetAdjacentRoomsListFromRoom(pRoom, &ppRoomList, &nNumRooms);
         for (unsigned int i = 0; i < nNumRooms; ++i)
         {
-            for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pUnit->pRoomNext)
+            for (D2UnitStrc* pUnit = pRoom->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
             {
                 if (pUnit->dwUnitType == UNIT_TILE)
                 {

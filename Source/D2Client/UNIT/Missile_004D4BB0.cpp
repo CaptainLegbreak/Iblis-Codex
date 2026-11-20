@@ -142,7 +142,7 @@ void __fastcall sub_004D4BB0_CltDoObjectSpawn(D2UnitStrc* pMissile)
                     }
                 }
             }
-            pUnit = pUnit->pRoomNext;
+            pUnit = pUnit->ptRoomNext;
         } while (pUnit);
     }
 

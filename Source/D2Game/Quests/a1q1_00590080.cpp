@@ -29,8 +29,8 @@ struct D2QuestDataStrc
     unsigned char pad0x15[3];
     void* pQuestDataEx;
     D2QuestGUIDStrc tPlayerGUIDs;
-    void* pfCallback[16];
-    int nQuestFilter;
+    void* pCallback[16];
+    int eFilter;
 };
 struct D2QuestArgStrc
 {
@@ -178,7 +178,7 @@ void __fastcall ACT1Q1_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData,
 {
     D2GameStrc* pGame = pQuestArg->pGame;
     D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pQuestArg->pPlayer)->pQuestData[pGame->nDifficulty];
-    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, QFLAG_REWARDGRANTED) || QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, QFLAG_COMPLETEDBEFORE))
+    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_REWARDGRANTED) || QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, QFLAG_COMPLETEDBEFORE))
     {
         return;
     }

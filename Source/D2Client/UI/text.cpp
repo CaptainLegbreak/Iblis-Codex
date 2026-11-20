@@ -54,7 +54,7 @@ struct D2TextListNodeStrc
 struct D2TextListStrc
 {
     D2TextListNodeStrc* pFirst;
-    unsigned int nCount;
+    unsigned int wCount;
     char unk0x08[0x08];
     unsigned short nWidth;
     unsigned short nHeight;
@@ -594,7 +594,7 @@ unsigned int __fastcall sub_0049D590_CalcTextOffset(unsigned int nValue)
 // 0x0049D8E0
 void __fastcall sub_0049D8E0_DrawTextList(D2TextListStrc* pList, int nX, int nY)
 {
-    int nLines = pList->nCount > 10 ? 10 : pList->nCount;
+    int nLines = pList->wCount > 10 ? 10 : pList->wCount;
 
     D2TextListNodeStrc* pNode = pList->pFirst;
     if (!nLines || !pNode || nY < 0)
@@ -613,7 +613,7 @@ void __fastcall sub_0049D8E0_DrawTextList(D2TextListStrc* pList, int nX, int nY)
     const int nOldFont = sub_00502EF0(13);
     for (; i < nLines && pNode; ++i)
     {
-        sub_00502320(pNode->wszText, nX + 10, nY + 18 + 15 * (i - nLines + pList->nCount), 0, 0);
+        sub_00502320(pNode->wszText, nX + 10, nY + 18 + 15 * (i - nLines + pList->wCount), 0, 0);
         pNode = pNode->pNext;
     }
     sub_00502EF0(nOldFont);

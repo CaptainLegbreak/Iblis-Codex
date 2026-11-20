@@ -18,7 +18,7 @@ struct D2DynamicPathStrc
     union
     {
         PathOwner* field58;
-        D2UnitStrc* pTargetUnit;
+        D2UnitStrc* hTarget;
     };
     char pad5C[0x0C];
     unsigned char field68;
@@ -99,14 +99,14 @@ inline int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
 void __fastcall sub_6FDAB940(D2PathPointStrc* pOutPathPoint, D2DynamicPathStrc* ptPath)
 {
     D2_ASSERT(ptPath, 0x201);
-    D2_ASSERT(ptPath->pTargetUnit, 0x202);
+    D2_ASSERT(ptPath->hTarget, 0x202);
 
-    pOutPathPoint->X = UNITS_GetXPositionInline(ptPath->pTargetUnit);
-    pOutPathPoint->Y = UNITS_GetYPositionInline(ptPath->pTargetUnit);
+    pOutPathPoint->X = UNITS_GetXPositionInline(ptPath->hTarget);
+    pOutPathPoint->Y = UNITS_GetYPositionInline(ptPath->hTarget);
 
     if (ptPath->field68)
     {
-        int nDirection = 8 * PATH_GetDirection(ptPath->pTargetUnit->pDynamicPath);
+        int nDirection = 8 * PATH_GetDirection(ptPath->hTarget->pDynamicPath);
         nDirection = (nDirection - (ptPath->field68 << 8)) & 0x1FF;
         const float fSpeed = ptPath->field68;
         pOutPathPoint->X += (short)(sub_0040B330_Cos(nDirection) * fSpeed);

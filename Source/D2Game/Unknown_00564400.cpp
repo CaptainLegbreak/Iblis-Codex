@@ -92,14 +92,14 @@ static __forceinline void TASK_CloseGame(int nGameHashKey, int nTaskNumber, D2Ta
         D2LinkStrc* pNewTaskLink;
         if (ptTaskQTail->nType == nTaskSlotType + 1)
         {
-            EnterCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[ptTaskQTail->nTaskQ]);
+            EnterCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[ptTaskQTail->dwTaskQ]);
             D2LinkStrc* ptTaskBalanceLink = TASK_GetLastTaskFromListHead(&ptTaskQTail->pTaskBalanceLink);
             D2_ASSERT(ptTaskBalanceLink, 0x2F5);
             TASK_LinkList_Remove(ptTaskBalanceLink);
-            LeaveCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[ptTaskQTail->nTaskQ]);
-            EnterCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[pTaskSlot->nTaskQ]);
+            LeaveCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[ptTaskQTail->dwTaskQ]);
+            EnterCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[pTaskSlot->dwTaskQ]);
             TASK_QueueIncrement(pTaskSlot, &TASK_GetTaskFromTaskQueueLink(ptTaskBalanceLink)->nType, 0);
-            LeaveCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[pTaskSlot->nTaskQ]);
+            LeaveCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[pTaskSlot->dwTaskQ]);
             --ptTaskQTail->nType;
             pNewTaskLink = ptTaskQTailLink;
         }
@@ -162,9 +162,9 @@ void __stdcall sub_005645E0_TASK_ProcessGame(int nTaskNumber, D2TaskStrc* ptTask
         EnterCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[nTaskSlotIdx]);
         if (D2TaskStrc* ptTaskQ = gtTaskSlots_0088C708[nTaskSlotIdx])
         {
-            TASK_QueueIncrement(ptTaskQ, &ptTask->nTaskQ, 40);
-            D2_ASSERT(ptTaskQ->nTaskQ < 32, 0x97);
-            LeaveCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[ptTaskQ->nTaskQ]);
+            TASK_QueueIncrement(ptTaskQ, &ptTask->dwTaskQ, 40);
+            D2_ASSERT(ptTaskQ->dwTaskQ < 32, 0x97);
+            LeaveCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[ptTaskQ->dwTaskQ]);
         }
         else
         {

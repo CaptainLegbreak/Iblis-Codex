@@ -1072,7 +1072,7 @@ static void sub_00470070_PreloadRoomUnits(int bAsync)
             return;
         }
 
-        for (D2UnitStrc* pUnit = ppRooms[i]->pUnitFirst; pUnit; pUnit = pUnit->pRoomNext)
+        for (D2UnitStrc* pUnit = ppRooms[i]->pUnitFirst; pUnit; pUnit = pUnit->ptRoomNext)
         {
           {
             int nTypeValue;

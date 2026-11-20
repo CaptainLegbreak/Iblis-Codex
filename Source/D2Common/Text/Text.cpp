@@ -32,7 +32,7 @@ struct D2MessageStrc
 
 struct D2MessageListStrc
 {
-    unsigned char nCount;
+    unsigned char bCount;
     unsigned char pad0x01;
     D2MessageStrc pMessages[8];
 };
@@ -209,7 +209,7 @@ void __stdcall TEXT_CreateMessageListFromTextHeader(D2TextHeaderStrc* pTextHead,
 
     memset(pMsgList, 0, sizeof(D2MessageListStrc));
     D2TextNodeStrc* pNode = pTextHead->pNode;
-    pMsgList->nCount = (unsigned char)pTextHead->nCount;
+    pMsgList->bCount = (unsigned char)pTextHead->nCount;
 
     for (int i = 0; pNode; pNode = pNode->pNext)
     {
@@ -229,9 +229,9 @@ void __stdcall TEXT_CreateTextHeaderFromMessageList(D2TextHeaderStrc* pTextHead,
 
     sub_00661270(pTextHead);
 
-    TEXT_ASSERT(pMsgList->nCount < 8, 274);
+    TEXT_ASSERT(pMsgList->bCount < 8, 274);
 
-    for (int i = 0; i < pMsgList->nCount; ++i)
+    for (int i = 0; i < pMsgList->bCount; ++i)
     {
         TEXT_AddNodeToTextList(pTextHead, pMsgList->pMessages[i].nStringId, pMsgList->pMessages[i].nMenu);
     }

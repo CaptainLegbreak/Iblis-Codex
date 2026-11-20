@@ -40,7 +40,7 @@ typedef int (__fastcall* D2WinControlFn)(D2WinControlStrc* pControl);
 
 struct D2WinControlStrc
 {
-    int nType;
+    int eType;
     D2CelFileStrc* pCellFile;
     unsigned int dwFlags;
     int nImageX;
@@ -236,7 +236,7 @@ extern int gnSelectedCelFileFrameCount_0087E854;                                
 void __fastcall D2Win_10059(D2WinTextBoxStrc* pTextBox, int nColumn, int a3)
 {
     D2_ASSERT(pTextBox, 0x2EF);
-    D2_ASSERT(pTextBox->controlHeader.nType == 4, 0x2F0);
+    D2_ASSERT(pTextBox->controlHeader.eType == 4, 0x2F0);
     D2_ASSERT((nColumn >= 0) && (nColumn < pTextBox->nNumColumns), 0x2F2);
     pTextBox->unk0x68[nColumn] = a3;
 }
@@ -245,7 +245,7 @@ void __fastcall D2Win_10059(D2WinTextBoxStrc* pTextBox, int nColumn, int a3)
 void __fastcall D2Win_10060(D2WinTextBoxStrc* ptTextData, int nColumn, int a3)
 {
     D2_ASSERT(ptTextData, 0x2FC);
-    D2_ASSERT(ptTextData->controlHeader.nType == 4, 0x2FD);
+    D2_ASSERT(ptTextData->controlHeader.eType == 4, 0x2FD);
     D2_ASSERT(nColumn >= 0, 0x2FF);
     ptTextData->unk0x7C[nColumn] = a3;
 }
@@ -253,7 +253,7 @@ void __fastcall D2Win_10060(D2WinTextBoxStrc* ptTextData, int nColumn, int a3)
 // 0x004FD070
 int __stdcall IMAGE_SetCellFile(D2WinImageStrc* pImage, D2CelFileStrc* pCellFile, D2WinImageClickRectStrc* pClickRect)
 {
-    D2_ASSERT(pImage->controlHeader.nType == 2, 0x5F);
+    D2_ASSERT(pImage->controlHeader.eType == 2, 0x5F);
     pImage->controlHeader.pCellFile = pCellFile;
     pImage->pClickRect = pClickRect;
     return 1;
@@ -262,7 +262,7 @@ int __stdcall IMAGE_SetCellFile(D2WinImageStrc* pImage, D2CelFileStrc* pCellFile
 // 0x004FD0B0
 int __stdcall IMAGE_SetCoordinates(D2WinImageStrc* ptImageData, int nX, int nY)
 {
-    D2_ASSERT(ptImageData->controlHeader.nType == 2, 0x6C);
+    D2_ASSERT(ptImageData->controlHeader.eType == 2, 0x6C);
     ptImageData->controlHeader.nImageX = nX;
     ptImageData->controlHeader.nImageY = nY;
     return 1;
@@ -271,7 +271,7 @@ int __stdcall IMAGE_SetCoordinates(D2WinImageStrc* ptImageData, int nX, int nY)
 // 0x004FD170
 int __stdcall IMAGE_ForceNormalDrawMode(D2WinImageStrc* ptImageData, int nUnused)
 {
-    D2_ASSERT(ptImageData->controlHeader.nType == 2, 0x9D);
+    D2_ASSERT(ptImageData->controlHeader.eType == 2, 0x9D);
     ptImageData->eDrawMode = 5;
     return 1;
 }
@@ -279,7 +279,7 @@ int __stdcall IMAGE_ForceNormalDrawMode(D2WinImageStrc* ptImageData, int nUnused
 // 0x004FD1B0
 int __stdcall IMAGE_GetFrameCount(D2WinImageStrc* ptImageData)
 {
-    D2_ASSERT(ptImageData->controlHeader.nType == 2, 0xA9);
+    D2_ASSERT(ptImageData->controlHeader.eType == 2, 0xA9);
     return CelFileGetCelsPerDirection(ptImageData->controlHeader.pCellFile);
 }
 
@@ -288,7 +288,7 @@ D2WinImage2Strc* __fastcall IMAGE2_Create(int nX, int nY, int nWidth, int nHeigh
 {
     D2WinImage2Strc* pImage = (D2WinImage2Strc*)FOG_Alloc(sizeof(D2WinImage2Strc), ".\\Src\\D2WinImage.cpp", 0x1D, 0);
     memset(pImage, 0, sizeof(D2WinImage2Strc));
-    pImage->controlHeader.nType = 2;
+    pImage->controlHeader.eType = 2;
     pImage->controlHeader.dwFlags |= gdwBitMasks[0];
     pImage->controlHeader.dwFlags |= gdwBitMasks[2];
     pImage->controlHeader.pCellFile = pCellFile;
@@ -315,7 +315,7 @@ D2WinImageStrc* __fastcall IMAGE_Create(int nX, int nY, int nWidth, int nHeight,
 {
     D2WinImageStrc* pImage = (D2WinImageStrc*)FOG_Alloc(sizeof(D2WinImageStrc), ".\\Src\\D2WinImage.cpp", 0x3B, 0);
     memset(pImage, 0, sizeof(D2WinImageStrc));
-    pImage->controlHeader.nType = 2;
+    pImage->controlHeader.eType = 2;
     pImage->controlHeader.dwFlags |= gdwBitMasks[0];
     pImage->controlHeader.dwFlags |= gdwBitMasks[2];
     pImage->controlHeader.pCellFile = pCellFile;
@@ -343,7 +343,7 @@ D2WinImageStrc* __fastcall IMAGE_Create(int nX, int nY, int nWidth, int nHeight,
 int __stdcall TIMER_HandleVirtualKeyInput(SMSGHANDLER_PARAMS* pMsg)
 {
     D2WinControlStrc* pTimer = (D2WinControlStrc*)pMsg->hWnd;
-    D2_ASSERT(pTimer->nType == 8, 0x82);
+    D2_ASSERT(pTimer->eType == 8, 0x82);
     if (pMsg->uMessage == 0x102 || pMsg->wParam != 0x20)
         return 0;
     if (pTimer->field_34)
@@ -356,7 +356,7 @@ int __stdcall EDITBOX_HandleMouseUp(SMSGHANDLER_PARAMS* pMsg)
 {
     D2WinEditBoxStrc* pEditBox = (D2WinEditBoxStrc*)pMsg->hWnd;
     D2_ASSERT(pEditBox, 0x739);
-    D2_ASSERT(pEditBox->controlHeader.nType == 1, 0x73A);
+    D2_ASSERT(pEditBox->controlHeader.eType == 1, 0x73A);
     if (pEditBox->field_280)
     {
         pEditBox->field_280 = 0;
@@ -375,7 +375,7 @@ int __stdcall D2Win_10079_IsLetter(int nUnused1, int nUnused2, const char* szCha
 int __stdcall ANIMIMAGE_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
 {
     D2WinAnimImageStrc* pAnimImage = (D2WinAnimImageStrc*)pMsg->hWnd;
-    D2_ASSERT(pAnimImage->controlHeader.nType == 2, 0x15A);
+    D2_ASSERT(pAnimImage->controlHeader.eType == 2, 0x15A);
     int nResult;
     if (pAnimImage->controlHeader.field_34)
         nResult = pAnimImage->controlHeader.field_34(pMsg);
@@ -402,7 +402,7 @@ int __stdcall ANIMIMAGE_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
 // 0x00500810
 int __stdcall ANIMIMAGE_SetIsRunning(D2WinAnimImageStrc* ptAnim, int bIsRunning)
 {
-    D2_ASSERT(ptAnim->controlHeader.nType == 2, 0x183);
+    D2_ASSERT(ptAnim->controlHeader.eType == 2, 0x183);
     ptAnim->bIsRunning = bIsRunning;
     return 1;
 }
@@ -412,7 +412,7 @@ D2WinAnimImageStrc* __fastcall ANIMIMAGE_Create(int nX, int nY, int nWidth, int 
 {
     D2WinAnimImageStrc* pAnimImage = (D2WinAnimImageStrc*)FOG_Alloc(sizeof(D2WinAnimImageStrc), ".\\D2WinAnimImage.cpp", 0x1C, 0);
     memset(pAnimImage, 0, sizeof(D2WinAnimImageStrc));
-    pAnimImage->controlHeader.nType = 2;
+    pAnimImage->controlHeader.eType = 2;
     pAnimImage->controlHeader.dwFlags |= gdwBitMasks[0];
     pAnimImage->controlHeader.dwFlags |= gdwBitMasks[2];
     pAnimImage->controlHeader.pCellFile = pCellFile;
@@ -447,7 +447,7 @@ D2WinAnimImageStrc* __fastcall ANIMIMAGE_Create(int nX, int nY, int nWidth, int 
 // 0x005009D0
 void __fastcall BUTTON_SetText(D2WinButtonStrc* pButton, int eFont, const Unicode* wszText, int nTextColor)
 {
-    D2_ASSERT(pButton->controlHeader.nType == 6, 0x84);
+    D2_ASSERT(pButton->controlHeader.eType == 6, 0x84);
     pButton->eFont = eFont;
     pButton->nTextColor = nTextColor;
     sub_005267E0(pButton->wszText, wszText);
@@ -456,7 +456,7 @@ void __fastcall BUTTON_SetText(D2WinButtonStrc* pButton, int eFont, const Unicod
 // 0x00500A20
 void __fastcall BUTTON_SetTextWithStringId(D2WinButtonStrc* ptBtnData, int eFont, unsigned short nStringId, int nTextColor)
 {
-    D2_ASSERT(ptBtnData->controlHeader.nType == 6, 0x96);
+    D2_ASSERT(ptBtnData->controlHeader.eType == 6, 0x96);
     ptBtnData->eFont = eFont;
     ptBtnData->nTextColor = nTextColor;
     sub_005267E0(ptBtnData->wszText, D2LANG_GetStringFromTblIndex(nStringId));
@@ -465,7 +465,7 @@ void __fastcall BUTTON_SetTextWithStringId(D2WinButtonStrc* ptBtnData, int eFont
 // 0x00500A70
 void __fastcall BUTTON_SetCoordinates(D2WinButtonStrc* ptBtnData, int nX, int nY, int nWidth, int nHeight)
 {
-    D2_ASSERT(ptBtnData->controlHeader.nType == 6, 0xAB);
+    D2_ASSERT(ptBtnData->controlHeader.eType == 6, 0xAB);
     ptBtnData->controlHeader.nImageX = nX;
     ptBtnData->controlHeader.nImageY = nY;
     ptBtnData->controlHeader.nWidth = nWidth;
@@ -476,7 +476,7 @@ void __fastcall BUTTON_SetCoordinates(D2WinButtonStrc* ptBtnData, int nX, int nY
 int __stdcall BUTTON_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
 {
     D2WinButtonStrc* pButton = (D2WinButtonStrc*)pMsg->hWnd;
-    D2_ASSERT(pButton->controlHeader.nType == 6, 0x1FD);
+    D2_ASSERT(pButton->controlHeader.eType == 6, 0x1FD);
     if (!(pButton->controlHeader.dwFlags & gdwBitMasks[2]) || !(pButton->controlHeader.dwFlags & gdwBitMasks[0]))
         return 0;
     if (pButton->dwButtonFlags & 2)
@@ -505,7 +505,7 @@ int __stdcall BUTTON_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg)
 int __stdcall BUTTON_HandleMouseUp(SMSGHANDLER_PARAMS* pMsg)
 {
     D2WinButtonStrc* pButton = (D2WinButtonStrc*)pMsg->hWnd;
-    D2_ASSERT(pButton->controlHeader.nType == 6, 0x232);
+    D2_ASSERT(pButton->controlHeader.eType == 6, 0x232);
     int nResult = 0;
     pButton->controlHeader.dwFlags |= gdwBitMasks[1];
     if (!(pButton->controlHeader.dwFlags & gdwBitMasks[2]) || !(pButton->controlHeader.dwFlags & gdwBitMasks[0]))
@@ -531,7 +531,7 @@ int __stdcall BUTTON_HandleMouseUp(SMSGHANDLER_PARAMS* pMsg)
 int __stdcall BUTTON_HandleVirtualKeyInput(SMSGHANDLER_PARAMS* pMsg)
 {
     D2WinButtonStrc* pButton = (D2WinButtonStrc*)pMsg->hWnd;
-    D2_ASSERT(pButton->controlHeader.nType == 6, 0x259);
+    D2_ASSERT(pButton->controlHeader.eType == 6, 0x259);
     int nResult = 0;
     if (pMsg->uMessage != 0x102 && pButton->nActivationVirtualKey == pMsg->wParam && pButton->controlHeader.pfHandleMouseDown)
     {

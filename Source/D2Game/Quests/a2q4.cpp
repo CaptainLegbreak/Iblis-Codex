@@ -89,9 +89,9 @@ struct D2QuestDataStrc
     };
     void* pQuestDataEx;
     D2QuestGUIDStrc tPlayerGUIDs;
-    QUESTCALLBACK pfCallback[15];
+    QUESTCALLBACK pCallback[15];
     void* pNPCMessages;
-    int nQuestFilter;
+    int eFilter;
     int unk0xE4;
     QUESTSTATUSFILTER pfStatusFilter;
     QUESTACTIVEFILTER pfActiveFilter;
@@ -186,8 +186,8 @@ struct D2ObjInitFnStrc
 struct D2ObjOperateFnStrc
 {
     D2GameStrc* pGame;
-    D2UnitStrc* pObject;
-    D2UnitStrc* pPlayer;
+    D2UnitStrc* hObject;
+    D2UnitStrc* hPlayer;
     D2ObjectControlStrc* pObjectregion;
     int nObjectIdx;
 };
@@ -352,7 +352,7 @@ void __fastcall ACT2Q4_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
                 if (pRoom && D2GAME_CreatePortalObject_6FD13DF0(pQuestData->pGame, pQuestArg->pPlayer, pRoom, pCoord.nX, pCoord.nY, LEVEL_CANYONOFTHEMAGI, 0, OBJECT_PERMANENT_TOWN_PORTAL, 0))
                 {
                     pQuestDataEx->bPortalToCanyonOpen = 1;
-                    QUESTS_SetGlobalState(pQuestArg->pGame, pQuestData->nQuestFilter, QFLAG_PRIMARYGOALDONE);
+                    QUESTS_SetGlobalState(pQuestArg->pGame, pQuestData->eFilter, QFLAG_PRIMARYGOALDONE);
                 }
             }
         }
@@ -570,21 +570,21 @@ int __fastcall ACT2Q4_UnitIterate_UselessGoalCheck(D2GameStrc* pGame, D2UnitStrc
 // 0x0059B970
 int __fastcall OBJECTS_OperateFunction42_SanctuaryTome(D2ObjOperateFnStrc* pOp, int nOperate)
 {
-    if (!pOp->pObject || pOp->pObject->dwAnimMode == OBJMODE_NEUTRAL)
+    if (!pOp->hObject || pOp->hObject->dwAnimMode == OBJMODE_NEUTRAL)
     {
-        UNITS_ChangeAnimMode(pOp->pObject, OBJMODE_OPERATING);
+        UNITS_ChangeAnimMode(pOp->hObject, OBJMODE_OPERATING);
 
         D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(pOp->nObjectIdx);
-        EVENT_SetEvent(pOp->pGame, pOp->pObject, EVENTTYPE_ENDANIM, pOp->pGame->dwGameFrame + (pObjectsTxtRecord->dwFrameCnt[1] >> 8), 0, 0);
+        EVENT_SetEvent(pOp->pGame, pOp->hObject, EVENTTYPE_ENDANIM, pOp->pGame->dwGameFrame + (pObjectsTxtRecord->dwFrameCnt[1] >> 8), 0, 0);
     }
 
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pOp->pGame, QUEST_A2Q4_HORAZONTOME);
     if (pQuestData)
     {
         D2Act2Quest4Strc* pQuestDataEx = (D2Act2Quest4Strc*)pQuestData->pQuestDataEx;
-        QUESTS_SendScrollMessage(pOp->pPlayer, pOp->pObject, 396);
+        QUESTS_SendScrollMessage(pOp->hPlayer, pOp->hObject, 396);
 
-        pQuestDataEx->pRoom = UNITS_GetRoom(pOp->pObject);
+        pQuestDataEx->pRoom = UNITS_GetRoom(pOp->hObject);
 
         if (pQuestData->bNotIntro && pQuestData->fState != 5)
         {
@@ -803,18 +803,18 @@ void __fastcall ACT2Q2_UpdateHoradricItemCounts(D2GameStrc* pGame, D2UnitStrc* p
 // 0x0059F2A0
 void __fastcall ACT2Q4_InitQuestData(D2QuestDataStrc* pQuestData)
 {
-    memset(pQuestData->pfCallback, 0x00, sizeof(pQuestData->pfCallback));
+    memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
     pQuestData->pNPCMessages = gpAct2Q4NpcMessages;
-    pQuestData->pfCallback[0] = ACT2Q4_Callback00_NpcActivate;
-    pQuestData->pfCallback[11] = ACT2Q4_Callback11_ScrollMessage;
-    pQuestData->pfCallback[3] = ACT2Q4_Callback03_ChangedLevel;
-    pQuestData->pfCallback[10] = ACT2Q4_Callback10_PlayerLeavesGame;
-    pQuestData->pfCallback[2] = ACT2Q4_Callback02_NpcDeactivate;
-    pQuestData->pfCallback[13] = ACT2Q4_Callback13_PlayerStartedGame;
+    pQuestData->pCallback[0] = ACT2Q4_Callback00_NpcActivate;
+    pQuestData->pCallback[11] = ACT2Q4_Callback11_ScrollMessage;
+    pQuestData->pCallback[3] = ACT2Q4_Callback03_ChangedLevel;
+    pQuestData->pCallback[10] = ACT2Q4_Callback10_PlayerLeavesGame;
+    pQuestData->pCallback[2] = ACT2Q4_Callback02_NpcDeactivate;
+    pQuestData->pCallback[13] = ACT2Q4_Callback13_PlayerStartedGame;
     pQuestData->bActive = 1;
     pQuestData->fState = 0;
     pQuestData->pQuestDataEx = FOG_AllocPool(pQuestData->pGame->pMemoryPool, sizeof(D2Act2Quest4Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q4.cpp", 989, 0);
-    pQuestData->nQuestFilter = 12;
+    pQuestData->eFilter = 12;
     pQuestData->pfStatusFilter = 0;
     pQuestData->nInitNo = 5;
     pQuestData->pfActiveFilter = ACT2Q4_ActiveFilterCallback;

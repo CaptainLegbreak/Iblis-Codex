@@ -51,7 +51,7 @@ struct D2DrlgLevelStrc
     char unk0x1B8[0x0C];
     D2SeedStrc pSeed;
     char unk0x1CC[0x04];
-    int nLevelId;
+    int eLevelId;
 };
 struct D2LvlPrestRecordStrc;
 extern D2LvlPrestRecordStrc* __stdcall sub_0061F0B0(int nPresetId); // 0x0061F0B0

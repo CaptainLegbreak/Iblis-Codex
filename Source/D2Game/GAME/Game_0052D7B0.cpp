@@ -81,9 +81,9 @@ struct D2ClientStrc
     unsigned int nSaveHeaderSize;
     char unk0x184[0x24];
     D2GameStrc* pGame;
-    unsigned char nAct;
+    unsigned char bAct;
     unsigned char unk_1AD[0x7];
-    D2ActiveRoomStrc* pRoom;
+    D2ActiveRoomStrc* hRoom;
     unsigned char unk_1B8[0x2F0];
     D2ClientStrc* pNext;
 };
@@ -432,7 +432,7 @@ void __fastcall GAME_UpdateEnvironment(D2GameStrc* pGame)
                 if (pPlayer)
                 {
                     D2GAME_UpdatePlayerItems_6FC4BB90(pGame, pPlayer, 1);
-                    if (pClient->dwClientState == 4 && pClient->nAct == i)
+                    if (pClient->dwClientState == 4 && pClient->bAct == i)
                         D2GAME_SendPacket0x53_6FC3DF50(pClient, &packet53);
                 }
             }
@@ -521,7 +521,7 @@ void __fastcall SUNITPROXY_FillGlobalItemCache()
 void __fastcall PARTY_FreePartyControl(D2GameStrc* ptGame)
 {
     D2_ASSERT(ptGame, 0x2E);
-    D2PartyControlStrc* pPartyControl = ptGame->pPartyControl;
+    D2PartyControlStrc* pPartyControl = ptGame->hParty;
     if (!pPartyControl)
         return;
     D2PartyStrc* pParty = pPartyControl->pParties;
@@ -539,7 +539,7 @@ void __fastcall PARTY_FreePartyControl(D2GameStrc* ptGame)
         pParty = pNextParty;
     }
     FOG_FreeServerMemory(ptGame->pMemoryPool, pPartyControl, ".\\UNIT\\Party.cpp", 0x47, 0);
-    ptGame->pPartyControl = 0;
+    ptGame->hParty = 0;
 }
 
 // 0x005404C0
@@ -1035,7 +1035,7 @@ void __fastcall sub_005384E0_RemoveUnitIfNotAdjacent(D2ClientStrc* pClient, D2Un
     D2_ASSERT(pClient, 2131);
 
     D2ActiveRoomStrc* pUnitRoom = UNITS_GetRoom(pUnit);
-    D2ActiveRoomStrc* pClientRoom = pClient->pRoom;
+    D2ActiveRoomStrc* pClientRoom = pClient->hRoom;
     D2_ASSERT(pClientRoom, 2137);
 
     D2ActiveRoomStrc** ppRoomList;

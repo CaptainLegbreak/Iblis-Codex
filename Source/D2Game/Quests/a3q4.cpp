@@ -59,9 +59,9 @@ struct D2QuestDataStrc
     unsigned int dwFlags;
     void* pQuestDataEx;
     char tPlayerGUIDs[0x84];
-    QUESTCALLBACK pfCallback[15];
+    QUESTCALLBACK pCallback[15];
     void* pNPCMessages;
-    int nQuestFilter;
+    int eFilter;
     int unk0xE4;
     QUESTSTATUSFILTER pfStatusFilter;
     QUESTACTIVEFILTER pfActiveFilter;
@@ -310,24 +310,24 @@ void __fastcall ACT3Q4_Callback09_PlayerDroppedWithQuestItem(D2QuestDataStrc* pQ
 // 0x005BAA70
 void __fastcall ACT3Q4_InitQuestData(D2QuestDataStrc* pQuestData)
 {
-    memset(pQuestData->pfCallback, 0x00, sizeof(pQuestData->pfCallback));
+    memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
     pQuestData->pNPCMessages = gpAct3Q4NpcMessages;
     pQuestData->bActive = 1;
     pQuestData->fState = 0;
-    pQuestData->nQuestFilter = 20;
+    pQuestData->eFilter = 20;
     pQuestData->pfActiveFilter = ACT3Q4_ActiveFilterCallback;
     pQuestData->nInitNo = 0;
     pQuestData->pfStatusFilter = ACT3Q4_StatusFilterCallback;
     pQuestData->pfSeqFilter = ACT3Q4_SeqCallback;
     pQuestData->nSeqId = 16;
-    pQuestData->pfCallback[4] = ACT3Q4_Callback04_ItemPickedUp;
-    pQuestData->pfCallback[0] = ACT3Q4_Callback00_NpcActivate;
-    pQuestData->pfCallback[11] = ACT3Q4_Callback11_ScrollMessage;
-    pQuestData->pfCallback[3] = ACT3Q4_Callback03_ChangedLevel;
-    pQuestData->pfCallback[13] = ACT3Q4_Callback13_PlayerStartedGame;
-    pQuestData->pfCallback[10] = ACT3Q4_Callback10_PlayerLeavesGame;
-    pQuestData->pfCallback[14] = ACT3Q4_Callback14_PlayerJoinedGame;
-    pQuestData->pfCallback[9] = ACT3Q4_Callback09_PlayerDroppedWithQuestItem;
+    pQuestData->pCallback[4] = ACT3Q4_Callback04_ItemPickedUp;
+    pQuestData->pCallback[0] = ACT3Q4_Callback00_NpcActivate;
+    pQuestData->pCallback[11] = ACT3Q4_Callback11_ScrollMessage;
+    pQuestData->pCallback[3] = ACT3Q4_Callback03_ChangedLevel;
+    pQuestData->pCallback[13] = ACT3Q4_Callback13_PlayerStartedGame;
+    pQuestData->pCallback[10] = ACT3Q4_Callback10_PlayerLeavesGame;
+    pQuestData->pCallback[14] = ACT3Q4_Callback14_PlayerJoinedGame;
+    pQuestData->pCallback[9] = ACT3Q4_Callback09_PlayerDroppedWithQuestItem;
     QUESTS_ResetPlayerGUIDCount(&pQuestData->tPlayerGUIDs);
 
     D2Act3Quest4Strc* pQuestDataEx = (D2Act3Quest4Strc*)FOG_AllocPool(pQuestData->pGame->pMemoryPool, sizeof(D2Act3Quest4Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q4.cpp", 832, 0);

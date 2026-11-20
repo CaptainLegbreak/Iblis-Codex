@@ -173,8 +173,8 @@ static __forceinline void sub_005643C0_TASK_UnlockQueueSlot(D2TaskStrc* pTask)
 {
     if (pTask)
     {
-        D2_ASSERT((unsigned int)pTask->nTaskQ < 32, 0x97);
-        LeaveCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[pTask->nTaskQ]);
+        D2_ASSERT((unsigned int)pTask->dwTaskQ < 32, 0x97);
+        LeaveCriticalSection(&gtTaskQueuesCriticalSections_0088C7A8[pTask->dwTaskQ]);
     }
 }
 
@@ -234,7 +234,7 @@ int __cdecl sub_00564960()
     if (!gtTaskSlots_0088C708[nIndex])
     {
         D2TaskStrc* pTask = (D2TaskStrc*)sub_0040B430(0, sizeof(D2TaskStrc), ".\\GAME\\Task.cpp", 0x3FB, 0);
-        pTask->nTaskQ = nIndex;
+        pTask->dwTaskQ = nIndex;
         pTask->nType = 0;
         D2LinkStrc* pBalanceLink = &pTask->pTaskBalanceLink;
         pBalanceLink->pPrev = pBalanceLink;

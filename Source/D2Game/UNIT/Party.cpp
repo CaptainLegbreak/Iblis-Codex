@@ -73,9 +73,9 @@ static D2PartyStrc* sub_M08_FindPartyById(D2PartyControlStrc* pPartyControl, sho
 
 static D2PartyStrc* PARTY_FindParty_Inlined(D2GameStrc* pGame, short nPartyId)
 {
-    D2_ASSERT(pGame->pPartyControl, 210);
+    D2_ASSERT(pGame->hParty, 210);
 
-    for (D2PartyStrc* pParty = pGame->pPartyControl->pParties; pParty; pParty = pParty->pNext)
+    for (D2PartyStrc* pParty = pGame->hParty->pParties; pParty; pParty = pParty->pNext)
     {
         if (pParty->nPartyId == nPartyId)
         {
@@ -90,7 +90,7 @@ static D2PartyStrc* PARTY_FindParty_Inlined(D2GameStrc* pGame, short nPartyId)
 void __fastcall PARTY_AllocPartyControl(D2GameStrc* ptGame)
 {
     D2_ASSERT(ptGame, 0x18);
-    D2_ASSERT(!ptGame->pPartyControl, 0x19);
+    D2_ASSERT(!ptGame->hParty, 0x19);
 
     D2PartyControlStrc* pPartyControl = (D2PartyControlStrc*)FOG_AllocPool(ptGame->pMemoryPool, sizeof(D2PartyControlStrc), ".\\UNIT\\Party.cpp", 0x1A, 0);
     D2_ASSERT(pPartyControl, 0x1B);
@@ -98,13 +98,13 @@ void __fastcall PARTY_AllocPartyControl(D2GameStrc* ptGame)
     memset(pPartyControl, 0, sizeof(D2PartyControlStrc));
     pPartyControl->nNextPartyId = 3;
 
-    ptGame->pPartyControl = pPartyControl;
+    ptGame->hParty = pPartyControl;
 }
 
 // 0x005400B0
 static short sub_005400B0_GetFreePartyId(D2GameStrc* pGame)
 {
-    D2PartyControlStrc* pPartyControl = pGame->pPartyControl;
+    D2PartyControlStrc* pPartyControl = pGame->hParty;
     short nPartyId = pPartyControl->nNextPartyId;
     if ((unsigned short)nPartyId < PARTY_FIRST_ID)
     {
@@ -138,7 +138,7 @@ static short sub_005400B0_GetFreePartyId(D2GameStrc* pGame)
 // 0x00540100
 short __fastcall PARTY_CreateParty(D2GameStrc* pGame)
 {
-    D2PartyControlStrc* pPartyControl = pGame->pPartyControl;
+    D2PartyControlStrc* pPartyControl = pGame->hParty;
     D2_ASSERT(pPartyControl, 0x7F);
     D2PartyStrc* pParty = (D2PartyStrc*)FOG_AllocPool(pGame->pMemoryPool, sizeof(D2PartyStrc), ".\\UNIT\\Party.cpp", 0x80, 0);
     D2_ASSERT(pParty, 0x81);
@@ -170,7 +170,7 @@ static void __stdcall sub_00540180_FreeParty(D2PartyStrc* pParty, D2GameStrc* pG
 // 0x00540220
 void __fastcall sub_00540220_RemoveParty(D2GameStrc* pGame, short nPartyId)
 {
-    D2PartyControlStrc* pPartyControl = pGame->pPartyControl;
+    D2PartyControlStrc* pPartyControl = pGame->hParty;
     D2PartyStrc* pPrevious = 0;
     D2_ASSERT(pPartyControl, 180);
     for (D2PartyStrc* pParty = pPartyControl->pParties; pParty; pParty = pParty->pNext)
@@ -195,8 +195,8 @@ void __fastcall sub_00540220_RemoveParty(D2GameStrc* pGame, short nPartyId)
 // 0x00540290
 static D2PartyStrc* sub_00540290_FindParty(D2GameStrc* pGame, short nPartyId)
 {
-    D2_ASSERT(pGame->pPartyControl, 210);
-    for (D2PartyStrc* pParty = pGame->pPartyControl->pParties; pParty; pParty = pParty->pNext)
+    D2_ASSERT(pGame->hParty, 210);
+    for (D2PartyStrc* pParty = pGame->hParty->pParties; pParty; pParty = pParty->pNext)
     {
         if (pParty->nPartyId == nPartyId)
         {
@@ -223,8 +223,8 @@ static int sub_005402D0_PartyHasMember(D2PartyStrc* pParty, int nUnitGUID)
 // 0x00540320
 int __fastcall PARTY_AddPlayerToParty(D2GameStrc* pGame, short nPartyId, D2UnitStrc* hPlayer)
 {
-    D2_ASSERT(pGame->pPartyControl, 210);
-    D2PartyStrc* pParty = sub_M08_FindPartyById(pGame->pPartyControl, nPartyId);
+    D2_ASSERT(pGame->hParty, 210);
+    D2PartyStrc* pParty = sub_M08_FindPartyById(pGame->hParty, nPartyId);
     const int nUnitGUID = !hPlayer ? -1 : hPlayer->dwUnitId;
     int nUnitType;
     if (pParty && hPlayer && (nUnitType = hPlayer->dwUnitType, _ReadWriteBarrier(), nUnitType == UNIT_PLAYER))
@@ -356,12 +356,12 @@ unsigned short __fastcall PARTY_GetPartyIdForUnitOwner(D2GameStrc* ptGame, D2Uni
     D2_ASSERT(pUnit->dwUnitType == UNIT_PLAYER, 0x27B);
     D2_ASSERT(ptGame, 0x27C);
 
-    if (!ptGame->pPartyControl)
+    if (!ptGame->hParty)
     {
         return D2PartyIdNone;
     }
 
-    for (D2PartyStrc* pParty = ptGame->pPartyControl->pParties; pParty; pParty = pParty->pNext)
+    for (D2PartyStrc* pParty = ptGame->hParty->pParties; pParty; pParty = pParty->pNext)
     {
         for (D2PartyNodeStrc* pPartyNode = pParty->pPartyNodes; pPartyNode; pPartyNode = pPartyNode->pNext)
         {
@@ -389,8 +389,8 @@ static D2PartyStrc* sub_M08_FindPartyById(D2PartyControlStrc* pPartyControl, sho
 
 int __fastcall sub_00540320(D2GameStrc* pGame, short nPartyId, D2UnitStrc* pPlayer)
 {
-    D2_ASSERT(pGame->pPartyControl, 210);
-    D2PartyStrc* pParty = sub_M08_FindPartyById(pGame->pPartyControl, nPartyId);
+    D2_ASSERT(pGame->hParty, 210);
+    D2PartyStrc* pParty = sub_M08_FindPartyById(pGame->hParty, nPartyId);
     const int nUnitGUID = !pPlayer ? -1 : pPlayer->dwUnitId;
     D2_ASSERT(pParty, 254);
     const int nType = pPlayer ? pPlayer->dwUnitType : UNIT_INVALID;

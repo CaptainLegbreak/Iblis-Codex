@@ -11,11 +11,11 @@ struct D2DrlgLevelStrc
     char unk0x000[0x1C4];
     D2SeedStrc pSeed;
     char unk0x1CC[0x04];
-    int nLevelId;
+    int eLevelId;
 };
 
 typedef char G04_CheckSeedOffset[(int)&((D2DrlgLevelStrc*)0)->pSeed == 0x1C4 ? 1 : -1];
-typedef char G04_CheckLevelIdOffset[(int)&((D2DrlgLevelStrc*)0)->nLevelId == 0x1D0 ? 1 : -1];
+typedef char G04_CheckLevelIdOffset[(int)&((D2DrlgLevelStrc*)0)->eLevelId == 0x1D0 ? 1 : -1];
 
 void __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(D2DrlgLevelStrc* pLevel, int nX, int nY, int nLevelPrestId, int nPickedFile, int a6); // 0x006743C0
 

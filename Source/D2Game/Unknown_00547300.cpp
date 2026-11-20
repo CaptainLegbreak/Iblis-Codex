@@ -55,7 +55,7 @@ struct D2MonsterRegionStrc
 struct D2ObjOperateFnStrc
 {
     D2GameStrc* pGame;
-    D2UnitStrc* pObject;
+    D2UnitStrc* hObject;
 };
 
 
@@ -120,7 +120,7 @@ extern "C" __declspec(dllexport) void __fastcall sub_00547390(Obj00547390* pObj,
 // 0x005474C0
 int __fastcall OBJRGN_GetTrapMonsterId(D2ObjOperateFnStrc* pOp)
 {
-    const int nLevelId = DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pOp->pObject));
+    const int nLevelId = DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pOp->hObject));
     const unsigned char nAct = DRLG_GetActNoFromLevelId(nLevelId);
     D2ObjectRegionStrc* pObjectRegion = pOp->pGame->pObjectControl->pObjectRegion[nLevelId];
     if (pObjectRegion->nTrapMonsterId < 0 || pObjectRegion->nTrapMonsterId >= sgptDataTables->nMonStatsTxtRecordCount)

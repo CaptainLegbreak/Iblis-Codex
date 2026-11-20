@@ -56,7 +56,7 @@ struct D2QuestDataStrc
     unsigned char bNotIntro;
     unsigned char bActive;
     char unk0x0B[0x95];
-    QUESTCALLBACK pfCallback[15];
+    QUESTCALLBACK pCallback[15];
     char unk0xDC[0x18];
     D2QuestDataStrc* pPrev;
 };
@@ -123,10 +123,10 @@ static void __stdcall QUESTS_EventCallback(bool bCheckActive, unsigned char bChe
     }
     while (pQuestData)
     {
-        if (pQuestData->pfCallback[pArgs->nEvent] && (bCheckActive || pQuestData->bActive == 1) && (nAct == 0xFF || nAct == pQuestData->nActNo))
+        if (pQuestData->pCallback[pArgs->nEvent] && (bCheckActive || pQuestData->bActive == 1) && (nAct == 0xFF || nAct == pQuestData->nActNo))
         {
-            D2_ASSERT(!IsBadCodePtr((FARPROC)pQuestData->pfCallback[pArgs->nEvent]), 550);
-            pQuestData->pfCallback[pArgs->nEvent](pQuestData, pArgs);
+            D2_ASSERT(!IsBadCodePtr((FARPROC)pQuestData->pCallback[pArgs->nEvent]), 550);
+            pQuestData->pCallback[pArgs->nEvent](pQuestData, pArgs);
         }
         pQuestData = pQuestData->pPrev;
     }
@@ -177,10 +177,10 @@ void __fastcall QUESTS_PlayerDroppedWithQuestItem(D2GameStrc* pGame, D2UnitStrc*
         {
             D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, pItemsTxtRecord->nQuest - 1);
             tArgs.pTarget = pUnit;
-            if (pQuestData && pQuestData->pfCallback[QUESTEVENT_PLAYERDROPPEDWITHQUESTITEM])
+            if (pQuestData && pQuestData->pCallback[QUESTEVENT_PLAYERDROPPEDWITHQUESTITEM])
             {
-                D2_ASSERT(!IsBadCodePtr((FARPROC)pQuestData->pfCallback[QUESTEVENT_PLAYERDROPPEDWITHQUESTITEM]), 734);
-                pQuestData->pfCallback[QUESTEVENT_PLAYERDROPPEDWITHQUESTITEM](pQuestData, &tArgs);
+                D2_ASSERT(!IsBadCodePtr((FARPROC)pQuestData->pCallback[QUESTEVENT_PLAYERDROPPEDWITHQUESTITEM]), 734);
+                pQuestData->pCallback[QUESTEVENT_PLAYERDROPPEDWITHQUESTITEM](pQuestData, &tArgs);
             }
         }
     }

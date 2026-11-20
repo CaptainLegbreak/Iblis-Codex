@@ -9,7 +9,7 @@ struct Unicode
 
 struct D2WinControlStrc
 {
-    int nType;
+    int eType;
     void* pCellFile;
     unsigned int dwFlags;
     int nImageX;
@@ -48,7 +48,7 @@ int __fastcall ACCOUNTLIST_Draw(D2WinControlStrc* pControl)
 {
     D2WinAccountListStrc* pAccountList = (D2WinAccountListStrc*)pControl;
 
-    D2_ASSERT(pAccountList->controlHeader.nType == 0x0C, 0xD0);
+    D2_ASSERT(pAccountList->controlHeader.eType == 0x0C, 0xD0);
 
     if (!(pAccountList->controlHeader.dwFlags & gdwBitMasks[2]) || !(pAccountList->controlHeader.dwFlags & gdwBitMasks[0]) || !pAccountList->pDataList)
     {

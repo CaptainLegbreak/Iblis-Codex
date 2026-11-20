@@ -196,8 +196,8 @@ struct D2CurseStrc
 struct D2ObjOperateFnStrc
 {
     D2GameStrc* pGame;
-    D2UnitStrc* pObject;
-    D2UnitStrc* pPlayer;
+    D2UnitStrc* hObject;
+    D2UnitStrc* hPlayer;
     D2ObjectControlStrc* pObjectregion;
     int nObjectIdx;
 };
@@ -1371,17 +1371,17 @@ void __fastcall sub_00582800_ApplyShrineCurse(D2UnitStrc* pUnit, D2UnitStrc* pTa
 // 0x00582A30
 void __fastcall D2GAME_SHRINES_Portal_6FC76880(D2ObjOperateFnStrc* pOp, D2ShrinesTxt* pShrinesTxtRecord)
 {
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pOp->pPlayer);
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pOp->hPlayer);
 
     D2CoordStrc pCoord;
-    UNITS_GetCoords(pOp->pPlayer, &pCoord);
+    UNITS_GetCoords(pOp->hPlayer, &pCoord);
 
     const unsigned char nAct = DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom));
     const int nTownId = DUNGEON_GetTownLevelIdFromActNo(nAct);
 
-    if (COLLISION_GetFreeCoordinates(UNITS_GetRoom(pOp->pPlayer), &pCoord, 3, 0x1C09, 0))
+    if (COLLISION_GetFreeCoordinates(UNITS_GetRoom(pOp->hPlayer), &pCoord, 3, 0x1C09, 0))
     {
-        D2GAME_CreatePortalObject_6FD13DF0(pOp->pGame, pOp->pPlayer, pRoom, pCoord.nX + 5, pCoord.nY + 5, nTownId, 0, OBJECT_TOWN_PORTAL, 0);
+        D2GAME_CreatePortalObject_6FD13DF0(pOp->pGame, pOp->hPlayer, pRoom, pCoord.nX + 5, pCoord.nY + 5, nTownId, 0, OBJECT_TOWN_PORTAL, 0);
     }
 }
 
@@ -1403,18 +1403,18 @@ void __fastcall sub_6FC77C10(D2UnitStrc* pUnit, int nState, D2StatListStrc* pSta
 // 0x00583E70
 int __fastcall OBJECTS_OperateFunction33_WirtsBody(D2ObjOperateFnStrc* pOp, int nOperate)
 {
-    if (!pOp->pObject || pOp->pObject->dwAnimMode == OBJMODE_NEUTRAL)
+    if (!pOp->hObject || pOp->hObject->dwAnimMode == OBJMODE_NEUTRAL)
     {
-        pOp->pObject->dwDropItemCode = ' gel';
+        pOp->hObject->dwDropItemCode = ' gel';
 
         int nItemLevel;
-        if (D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->pObject, ITEMQUAL_NORMAL, &nItemLevel, 0, -1, 0))
+        if (D2GAME_DropItemAtUnit_6FC4FEC0(pOp->pGame, pOp->hObject, ITEMQUAL_NORMAL, &nItemLevel, 0, -1, 0))
         {
-            UNITS_ChangeAnimMode(pOp->pObject, OBJMODE_OPERATING);
+            UNITS_ChangeAnimMode(pOp->hObject, OBJMODE_OPERATING);
 
             D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(pOp->nObjectIdx);
-            EVENT_SetEvent(pOp->pGame, pOp->pObject, EVENTTYPE_ENDANIM, (pObjectsTxtRecord->dwFrameCnt[1] >> 8) + pOp->pGame->dwGameFrame + 1, 0, 0);
-            EVENT_SetEvent(pOp->pGame, pOp->pObject, EVENTTYPE_QUESTFN, pOp->pGame->dwGameFrame + 10, 0, 0);
+            EVENT_SetEvent(pOp->pGame, pOp->hObject, EVENTTYPE_ENDANIM, (pObjectsTxtRecord->dwFrameCnt[1] >> 8) + pOp->pGame->dwGameFrame + 1, 0, 0);
+            EVENT_SetEvent(pOp->pGame, pOp->hObject, EVENTTYPE_QUESTFN, pOp->pGame->dwGameFrame + 10, 0, 0);
         }
     }
 
@@ -1424,14 +1424,14 @@ int __fastcall OBJECTS_OperateFunction33_WirtsBody(D2ObjOperateFnStrc* pOp, int 
 // 0x00584160
 int __fastcall OBJECTS_OperateFunction19_ArmorStand(D2ObjOperateFnStrc* pOp, int nOperate)
 {
-    if (!pOp->pObject || pOp->pObject->dwAnimMode == OBJMODE_NEUTRAL)
+    if (!pOp->hObject || pOp->hObject->dwAnimMode == OBJMODE_NEUTRAL)
     {
         D2CoordStrc pCoord;
-        UNITS_GetCoords(pOp->pObject, &pCoord);
-        D2GAME_DropArmor_6FC4F830(pOp->pGame, UNITS_GetRoom(pOp->pObject), &pCoord, -1, 0, 0);
-        UNITS_ChangeAnimMode(pOp->pObject, OBJMODE_OPENED);
+        UNITS_GetCoords(pOp->hObject, &pCoord);
+        D2GAME_DropArmor_6FC4F830(pOp->pGame, UNITS_GetRoom(pOp->hObject), &pCoord, -1, 0, 0);
+        UNITS_ChangeAnimMode(pOp->hObject, OBJMODE_OPENED);
 
-        D2UnitStrc* pObject = pOp->pObject;
+        D2UnitStrc* pObject = pOp->hObject;
         if (pObject)
         {
             pObject->dwFlags &= ~UNITFLAG_TARGETABLE;
@@ -1444,14 +1444,14 @@ int __fastcall OBJECTS_OperateFunction19_ArmorStand(D2ObjOperateFnStrc* pOp, int
 // 0x005841D0
 int __fastcall OBJECTS_OperateFunction20_WeaponRack(D2ObjOperateFnStrc* pOp, int nOperate)
 {
-    if (!pOp->pObject || pOp->pObject->dwAnimMode == OBJMODE_NEUTRAL)
+    if (!pOp->hObject || pOp->hObject->dwAnimMode == OBJMODE_NEUTRAL)
     {
         D2CoordStrc pCoord;
-        UNITS_GetCoords(pOp->pObject, &pCoord);
-        D2GAME_DropWeapon_6FC4FA50(pOp->pGame, UNITS_GetRoom(pOp->pObject), &pCoord, -1, 0, 0);
-        UNITS_ChangeAnimMode(pOp->pObject, OBJMODE_OPENED);
+        UNITS_GetCoords(pOp->hObject, &pCoord);
+        D2GAME_DropWeapon_6FC4FA50(pOp->pGame, UNITS_GetRoom(pOp->hObject), &pCoord, -1, 0, 0);
+        UNITS_ChangeAnimMode(pOp->hObject, OBJMODE_OPENED);
 
-        D2UnitStrc* pObject = pOp->pObject;
+        D2UnitStrc* pObject = pOp->hObject;
         if (pObject)
         {
             pObject->dwFlags &= ~UNITFLAG_TARGETABLE;

@@ -48,13 +48,13 @@ struct D2DrlgLevelStrc
 {
     char unk0x000[0x00C];
     int bActive;
-    D2DrlgRoomStrc* pFirstRoomEx;
+    D2DrlgRoomStrc* ptRoomFirst;
     char unk0x014[0x1AC - 0x014];
     D2DrlgLevelStrc* pNextLevel;
     char unk0x1B0[0x1B4 - 0x1B0];
     D2DrlgStrc* pDrlg;
     char unk0x1B8[0x1D0 - 0x1B8];
-    int nLevelId;
+    int eLevelId;
     int dwInactiveFrames;
 };
 
@@ -75,7 +75,7 @@ inline D2DrlgLevelStrc* DRLG_InlineGetLevel(D2DrlgStrc* pDrlg, int nLevelId)
 {
     for (D2DrlgLevelStrc* pLevel = pDrlg->pLevel; pLevel; pLevel = pLevel->pNextLevel)
     {
-        if (pLevel->nLevelId == nLevelId)
+        if (pLevel->eLevelId == nLevelId)
         {
             return pLevel;
         }
@@ -143,7 +143,7 @@ D2DrlgRoomStrc* __fastcall DRLG_GetRoomExFromCoordinates(int nX, int nY, D2DrlgS
         pLevel = DRLG_InlineGetLevel(pDrlg, sub_006427A0_GetLevelIdFromCoordinates(pDrlg, nX, nY));
     }
 
-    if (!pLevel->pFirstRoomEx)
+    if (!pLevel->ptRoomFirst)
     {
         DRLG_InitLevel(pLevel);
     }
@@ -158,7 +158,7 @@ void __fastcall sub_00642F70_AddLevelActivity(D2DrlgLevelStrc* pLevel, int nDelt
     pLevel->bActive = pLevel->bActive <= 0 ? 0 : pLevel->bActive;
     pLevel->dwInactiveFrames = 10;
 
-    int* pVisLevelIds = DRLGROOM_GetVisArrayFromLevelId(pLevel->pDrlg, pLevel->nLevelId);
+    int* pVisLevelIds = DRLGROOM_GetVisArrayFromLevelId(pLevel->pDrlg, pLevel->eLevelId);
     for (int i = 0; i < 8; ++i)
     {
         const int nVisLevelId = pVisLevelIds[i];
@@ -177,7 +177,7 @@ int __stdcall sub_00643060_FreeInactiveVisRoomTiles(D2DrlgLevelStrc* pLevel)
 {
     void* pMemPool = pLevel->pDrlg->pMempool;
 
-    for (D2DrlgRoomStrc* pRoom = pLevel->pFirstRoomEx; pRoom; pRoom = pRoom->pDrlgRoomNext)
+    for (D2DrlgRoomStrc* pRoom = pLevel->ptRoomFirst; pRoom; pRoom = pRoom->pDrlgRoomNext)
     {
         if (pRoom->fRoomStatus <= 3 || pRoom->dwFlags & 0x100000)
         {
@@ -185,20 +185,20 @@ int __stdcall sub_00643060_FreeInactiveVisRoomTiles(D2DrlgLevelStrc* pLevel)
         }
     }
 
-    int* pLevelIds = DRLGROOM_GetVisArrayFromLevelId(pLevel->pDrlg, pLevel->nLevelId);
+    int* pLevelIds = DRLGROOM_GetVisArrayFromLevelId(pLevel->pDrlg, pLevel->eLevelId);
     for (int j = 0; j < 8; ++j)
     {
         if (pLevelIds[j])
         {
             D2DrlgLevelStrc* pCurrentLevel = DRLG_InlineGetLevel(pLevel->pDrlg, pLevelIds[j]);
-            D2DrlgRoomStrc* pRoom = pCurrentLevel->pFirstRoomEx;
+            D2DrlgRoomStrc* pRoom = pCurrentLevel->ptRoomFirst;
             if (pRoom)
             {
-                int* pLevels = DRLGROOM_GetVisArrayFromLevelId(pCurrentLevel->pDrlg, pCurrentLevel->nLevelId);
+                int* pLevels = DRLGROOM_GetVisArrayFromLevelId(pCurrentLevel->pDrlg, pCurrentLevel->eLevelId);
                 unsigned int dwFlags = 0;
                 for (int i = 0; i < 8; ++i)
                 {
-                    if (pLevels[i] == pLevel->nLevelId)
+                    if (pLevels[i] == pLevel->eLevelId)
                     {
                         dwFlags |= 1 << (i + 4);
                     }
@@ -212,7 +212,7 @@ int __stdcall sub_00643060_FreeInactiveVisRoomTiles(D2DrlgLevelStrc* pLevel)
                     }
                 }
 
-                for (pRoom = pCurrentLevel->pFirstRoomEx; pRoom; pRoom = pRoom->pDrlgRoomNext)
+                for (pRoom = pCurrentLevel->ptRoomFirst; pRoom; pRoom = pRoom->pDrlgRoomNext)
                 {
                     if (pRoom->dwFlags & dwFlags)
                     {

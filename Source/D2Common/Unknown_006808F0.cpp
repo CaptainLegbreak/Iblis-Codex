@@ -67,7 +67,7 @@ struct D2DrlgLevelStrc
     unsigned char unk_24[0x190];
     D2DrlgStrc* pDrlg;
     unsigned char unk_1B8[0x18];
-    int nLevelId;
+    int eLevelId;
 };
 
 struct D2DrlgOutdoorRoomStrc
@@ -271,7 +271,7 @@ void __stdcall sub_00680D70(D2DrlgLevelStrc* pLevel)
     {
         D2DrlgLevelStrc* pRoomLevel = pRoomData->pLevel;
         D2DrlgVertexStrc* pVertex;
-        switch (pRoomLevel->nLevelId)
+        switch (pRoomLevel->eLevelId)
         {
         case 1:
             pVertex = &pOutdoors->pVertices[pOutdoors->nRoads];

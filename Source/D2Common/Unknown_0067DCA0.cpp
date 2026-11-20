@@ -30,7 +30,7 @@ struct D2DrlgLevelStrc
     char unk0x00[0x14];
     D2DrlgOutdoorInfoStrc* pOutdoorInfo;
     char unk0x18[0x1B8];
-    int nLevelId;
+    int eLevelId;
 };
 
 void __fastcall DRLGGRID_AlterGridFlag(D2DrlgGridStrc* pGrid, int nX, int nY, int nFlag, int nOperation); // 0x0067C4F0
@@ -68,7 +68,7 @@ void __stdcall sub_0067DEF0(D2DrlgLevelStrc* pLevel)
     int nX = nRight;
     int nY = 0;
     int nBottom = pInfo->nHeight - 2;
-    int bTundra = pLevel->nLevelId == 117;
+    int bTundra = pLevel->eLevelId == 117;
     int nKindBase = bTundra ? 0x3BD : 0x371;
     int nPresetBase = bTundra ? 0x3C9 : 0x37D;
 

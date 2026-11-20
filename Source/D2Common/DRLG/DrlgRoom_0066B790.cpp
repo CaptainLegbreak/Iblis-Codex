@@ -17,7 +17,7 @@ struct D2DrlgStrc
 struct D2DrlgLevelStrc
 {
     char unk0x00[0x10];
-    D2DrlgRoomStrc* pFirstRoomEx;
+    D2DrlgRoomStrc* ptRoomFirst;
     char unk0x14[0x8];
     D2DrlgCoordStrc tCoords;
     char unk0x2C[0x188];
@@ -52,7 +52,7 @@ struct D2DrlgRoomStrc
     char unk0x44[0x8];
     D2RoomTileStrc* pRoomTiles;
     char unk0x50[0x8];
-    D2DrlgLevelStrc* pLevel;
+    D2DrlgLevelStrc* ptDrlgLevel;
     char unk0x5C[0x4];
     unsigned int dwOtherFlags;
 };

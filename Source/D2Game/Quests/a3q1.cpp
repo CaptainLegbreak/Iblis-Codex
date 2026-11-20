@@ -94,9 +94,9 @@ struct D2QuestDataStrc
     unsigned int dwFlags;
     void* pQuestDataEx;
     D2QuestGUIDStrc tPlayerGUIDs;
-    QUESTCALLBACK pfCallback[15];
+    QUESTCALLBACK pCallback[15];
     void* pNPCMessages;
-    int nQuestFilter;
+    int eFilter;
     int unk0xE4;
     QUESTSTATUSFILTER pfStatusFilter;
     QUESTACTIVEFILTER pfActiveFilter;
@@ -217,10 +217,10 @@ enum { FINAL_STATE = 5 };
 // 0x005B7010
 void __fastcall ACT3Q0_InitQuestData(D2QuestDataStrc* pQuestData)
 {
-    memset(pQuestData->pfCallback, 0x00, sizeof(pQuestData->pfCallback));
-    pQuestData->pfCallback[11] = ACT3Q0_Callback11_ScrollMessage;
-    pQuestData->pfCallback[0] = ACT3Q0_Callback00_NpcActivate;
-    pQuestData->pfCallback[13] = ACT3Q0_Callback13_PlayerStartedGame;
+    memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
+    pQuestData->pCallback[11] = ACT3Q0_Callback11_ScrollMessage;
+    pQuestData->pCallback[0] = ACT3Q0_Callback00_NpcActivate;
+    pQuestData->pCallback[13] = ACT3Q0_Callback13_PlayerStartedGame;
     pQuestData->pNPCMessages = gpAct3Q0NpcMessages;
     pQuestData->bActive = 1;
     pQuestData->fState = 0;
@@ -230,7 +230,7 @@ void __fastcall ACT3Q0_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->pQuestDataEx = pQuestDataEx;
     memset(pQuestDataEx, 0x00, sizeof(D2Act3Quest0Strc));
 
-    pQuestData->nQuestFilter = 16;
+    pQuestData->eFilter = 16;
     pQuestData->pfStatusFilter = ACT3Q0_StatusFilterCallback;
     pQuestData->pfActiveFilter = ACT3Q0_ActiveFilterCallback;
 }
@@ -367,8 +367,8 @@ void __fastcall ACT3Q1_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
     }
 
     D2BitBufferStrc* pQuestFlags = sub_00543520(pQuestData->pGame, pQuestArg->pPlayer);
-    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, 0) == 1
-        || QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, 0) == 1)
+    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 0) == 1
+        || QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 0) == 1)
     {
         return;
     }
@@ -444,7 +444,7 @@ void __fastcall ACT3Q1_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
             QUESTS_DeleteItem(pQuestArg->pGame, pQuestArg->pPlayer, 0x20626262);
             pQuestDataEx->bTomeBroughtToAlkor = 1;
             pQuestDataEx->nPlayerWithTomeGUID = !pQuestArg->pPlayer ? -1 : pQuestArg->pPlayer->dwUnitId;
-            pQuestData->pfCallback[2] = ACT3Q1_Callback02_NpcDeactivate;
+            pQuestData->pCallback[2] = ACT3Q1_Callback02_NpcDeactivate;
         }
 
         if (pQuestDataEx->bCanGetReward == 1)
@@ -667,11 +667,11 @@ bool __fastcall ACT3Q1_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc*
 // 0x005B7E90
 void __fastcall ACT3Q1_InitQuestData(D2QuestDataStrc* pQuestData)
 {
-    memset(pQuestData->pfCallback, 0x00, sizeof(pQuestData->pfCallback));
+    memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
     pQuestData->pNPCMessages = gpAct3Q1NpcMessages;
     pQuestData->bActive = 1;
     pQuestData->fState = 0;
-    pQuestData->nQuestFilter = 17;
+    pQuestData->eFilter = 17;
     pQuestData->nInitNo = 4;
     pQuestData->pfStatusFilter = ACT3Q1_StatusFilterCallback;
     pQuestData->pfActiveFilter = ACT3Q1_ActiveFilterCallback;
@@ -680,15 +680,15 @@ void __fastcall ACT3Q1_InitQuestData(D2QuestDataStrc* pQuestData)
 
     D2Act3Quest1Strc* pQuestDataEx = (D2Act3Quest1Strc*)FOG_AllocPool(pQuestData->pGame->pMemoryPool, sizeof(D2Act3Quest1Strc), "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a3q1.cpp", 941, 0);
     pQuestData->pQuestDataEx = pQuestDataEx;
-    pQuestData->pfCallback[4] = ACT3Q1_Callback04_ItemPickedUp;
-    pQuestData->pfCallback[5] = ACT3Q1_Callback05_ItemDropped;
-    pQuestData->pfCallback[0] = ACT3Q1_Callback00_NpcActivate;
-    pQuestData->pfCallback[11] = ACT3Q1_Callback11_ScrollMessage;
-    pQuestData->pfCallback[3] = ACT3Q1_Callback03_ChangedLevel;
-    pQuestData->pfCallback[13] = ACT3Q1_Callback13_PlayerStartedGame;
-    pQuestData->pfCallback[14] = ACT3Q1_Callback14_PlayerJoinedGame;
-    pQuestData->pfCallback[10] = ACT3Q1_Callback10_PlayerLeavesGame;
-    pQuestData->pfCallback[9] = ACT3Q1_Callback09_PlayerDroppedWithQuestItem;
+    pQuestData->pCallback[4] = ACT3Q1_Callback04_ItemPickedUp;
+    pQuestData->pCallback[5] = ACT3Q1_Callback05_ItemDropped;
+    pQuestData->pCallback[0] = ACT3Q1_Callback00_NpcActivate;
+    pQuestData->pCallback[11] = ACT3Q1_Callback11_ScrollMessage;
+    pQuestData->pCallback[3] = ACT3Q1_Callback03_ChangedLevel;
+    pQuestData->pCallback[13] = ACT3Q1_Callback13_PlayerStartedGame;
+    pQuestData->pCallback[14] = ACT3Q1_Callback14_PlayerJoinedGame;
+    pQuestData->pCallback[10] = ACT3Q1_Callback10_PlayerLeavesGame;
+    pQuestData->pCallback[9] = ACT3Q1_Callback09_PlayerDroppedWithQuestItem;
     memset(pQuestDataEx, 0x00, sizeof(D2Act3Quest1Strc));
 
     pQuestDataEx->bTomeDropped = 0;

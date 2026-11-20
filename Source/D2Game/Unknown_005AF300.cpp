@@ -20,15 +20,15 @@ struct D2MissilesTxt;
 struct D2ObjOperateFnStrc
 {
     D2GameStrc* pGame;
-    D2UnitStrc* pObject;
-    D2UnitStrc* pPlayer;
+    D2UnitStrc* hObject;
+    D2UnitStrc* hPlayer;
     D2ObjectControlStrc* pObjectregion;
     int nObjectIdx;
 };
 
 struct D2ShrinesTxt
 {
-    unsigned char nCode;
+    unsigned char bCode;
     char unk0x01[0x03];
     int dwArg0;
     int dwArg1;
@@ -111,12 +111,12 @@ int __fastcall MISSMODE_SrvDo18_TowerChestSpawner(D2GameStrc* pGame, D2UnitStrc*
         const int nObjectGUID = MISSILE_GetTargetX(pMissile);
         D2ObjOperateFnStrc op;
         op.pGame = pGame;
-        op.pPlayer = 0;
+        op.hPlayer = 0;
         D2UnitStrc* pObject = SUNIT_GetServerUnit(pGame, 2, nObjectGUID);
         if (pObject)
         {
             op.pObjectregion = (D2ObjectControlStrc*)&pObject->pSeed;
-            op.pObject = pObject;
+            op.hObject = pObject;
             op.nObjectIdx = pObject->dwClassId;
             sub_6FC75EB0(&op);
         }

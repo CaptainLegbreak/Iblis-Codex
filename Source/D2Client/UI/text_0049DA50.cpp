@@ -31,7 +31,7 @@ struct D2TextNodeStrc
 struct D2TextListStrc
 {
     D2TextNodeStrc* pFirst;
-    unsigned short nCount;
+    unsigned short wCount;
 };
 
 #pragma pack(pop)
@@ -286,7 +286,7 @@ void __fastcall sub_0049DBC0_AddToHistory(D2TextNodeStrc* pSource)
 {
     D2TextNodeStrc* pClone = sub_0049DB10_CloneStringList(pSource);
     D2TextNodeStrc* pNode;
-    if (gtTextList_007BF1F0.nCount >= 0x80)
+    if (gtTextList_007BF1F0.wCount >= 0x80)
     {
         pNode = gtTextList_007BF1F0.pFirst;
         if (!pNode)
@@ -303,12 +303,12 @@ void __fastcall sub_0049DBC0_AddToHistory(D2TextNodeStrc* pSource)
         sub_0049D490_FreeTextNode(pNode);
         if (pPrevious)
             pPrevious->pNext = 0;
-        if (gtTextList_007BF1F0.nCount >= 1)
-            gtTextList_007BF1F0.nCount--;
+        if (gtTextList_007BF1F0.wCount >= 1)
+            gtTextList_007BF1F0.wCount--;
     }
     pNode = gtTextList_007BF1F0.pFirst;
 link:
     pClone->pNext = pNode;
-    gtTextList_007BF1F0.nCount++;
+    gtTextList_007BF1F0.wCount++;
     gtTextList_007BF1F0.pFirst = pClone;
 }

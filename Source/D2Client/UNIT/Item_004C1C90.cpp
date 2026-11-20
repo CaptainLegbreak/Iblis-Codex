@@ -17,7 +17,7 @@ struct D2ItemSaveStrc
     int nClassId;
     unsigned short nX;
     unsigned short nY;
-    unsigned char nAnimMode;
+    unsigned char bMode;
     unsigned char nPad09;
     unsigned short nPad0A;
     unsigned int dwFlags;
@@ -249,7 +249,7 @@ static D2UnitStrc* __stdcall sub_004C0F20_CreateItem9C(unsigned short nX, unsign
         pItemSave = &tItemSave;
     }
 
-    D2UnitStrc* pItem = sub_004661C0_CreateClientUnit(pPacket->nItemId, pItemSave->nClassId, nX, nY, 4, pItemSave->nAnimMode);
+    D2UnitStrc* pItem = sub_004661C0_CreateClientUnit(pPacket->nItemId, pItemSave->nClassId, nX, nY, 4, pItemSave->bMode);
     ITEMS_DecodeItemFromBitstream(pItem, pPacket->pBitstream, nSize, 0, 0, 0x60, &bFail);
     if (bFail)
     {
@@ -282,7 +282,7 @@ static D2UnitStrc* __stdcall sub_004C0FF0_CreateItem9D(unsigned short nX, unsign
         pItemSave = &tItemSave;
     }
 
-    D2UnitStrc* pItem = sub_004661C0_CreateClientUnit(pPacket->nItemId, pItemSave->nClassId, nX, nY, 4, pItemSave->nAnimMode);
+    D2UnitStrc* pItem = sub_004661C0_CreateClientUnit(pPacket->nItemId, pItemSave->nClassId, nX, nY, 4, pItemSave->bMode);
     ITEMS_DecodeItemFromBitstream(pItem, pPacket->pBitstream, nSize, 0, 0, 0x60, &bFail);
     if (bFail)
     {
@@ -696,7 +696,7 @@ void __fastcall sub_004C2E90(D2GSPacketSrv9D* pPacket)
         }
         else
         {
-            sub_004C2540_PlaceItem(pItem, 0, 0, tItemSave.nAnimMode, 0, tItemSave.nStorePage);
+            sub_004C2540_PlaceItem(pItem, 0, 0, tItemSave.bMode, 0, tItemSave.nStorePage);
         }
     }
     else
@@ -797,7 +797,7 @@ void __stdcall sub_004C35F0_ItemToBody9D(D2GSPacketSrv9D* pPacket, D2ItemSaveStr
     }
     else
     {
-        sub_004C2540_PlaceItem(pItem, 0, 0, pItemSave->nAnimMode, 0, pItemSave->nStorePage);
+        sub_004C2540_PlaceItem(pItem, 0, 0, pItemSave->bMode, 0, pItemSave->nStorePage);
     }
 
     ITEMS_SetBodyLocation(pItem, pItemSave->nBodyloc);
@@ -1003,7 +1003,7 @@ void __fastcall sub_004C3070(D2GSPacketSrv9D* pPacket)
         }
         else
         {
-            sub_004C2540_PlaceItem(pNewItem, 0, 0, tItemSave.nAnimMode, 0, tItemSave.nStorePage);
+            sub_004C2540_PlaceItem(pNewItem, 0, 0, tItemSave.bMode, 0, tItemSave.nStorePage);
         }
     }
     else
@@ -1124,7 +1124,7 @@ void __fastcall sub_004C3380(D2GSPacketSrv9D* pPacket)
             }
             else
             {
-                sub_004C2540_PlaceItem(pItem, 0, 0, tItemSave.nAnimMode, 0, tItemSave.nStorePage);
+                sub_004C2540_PlaceItem(pItem, 0, 0, tItemSave.bMode, 0, tItemSave.nStorePage);
             }
 
             ITEMS_SetBodyLocation(pItem, 0);
@@ -1207,7 +1207,7 @@ void __fastcall sub_004C4740(D2GSPacketSrv9D* pPacket)
     }
     else
     {
-        sub_004C2540_PlaceItem(pItem, 0, 0, tItemSave.nAnimMode, 0, tItemSave.nStorePage);
+        sub_004C2540_PlaceItem(pItem, 0, 0, tItemSave.bMode, 0, tItemSave.nStorePage);
     }
 
     if (pUnit != sub_00463DD0())
@@ -1291,7 +1291,7 @@ void __fastcall sub_004C4AA0(D2GSPacketSrv9D* pPacket)
     }
     else
     {
-        sub_004C2540_PlaceItem(hGridItem, 0, 0, tItemSave.nAnimMode, 0, tItemSave.nStorePage);
+        sub_004C2540_PlaceItem(hGridItem, 0, 0, tItemSave.bMode, 0, tItemSave.nStorePage);
     }
 
     ITEMS_SetBodyLocation(hGridItem, tItemSave.nBodyloc);
@@ -1346,7 +1346,7 @@ D2UnitStrc* __fastcall sub_004C4C70(D2GSPacketSrv9D* pPacket)
         return NULL;
     }
 
-    const unsigned char nMode = tItemSave.nAnimMode;
+    const unsigned char nMode = tItemSave.bMode;
     if (pUnit == pPlayer && nMode == 0)
     {
         pItem = sub_00463990(pPacket->nItemId, 4);
@@ -1499,7 +1499,7 @@ D2UnitStrc* __fastcall sub_004C4C70(D2GSPacketSrv9D* pPacket)
 
             sub_00498D60();
             pItem = sub_004C0FF0_CreateItem9D(0, 0, 0, pPacket, &tItemSave);
-            D2_ASSERT(tItemSave.nAnimMode == 2, 0xC69);
+            D2_ASSERT(tItemSave.bMode == 2, 0xC69);
 
             UNITS_SetXForStaticUnit(pItem, tItemSave.nX);
             UNITS_SetYForStaticUnit(pItem, tItemSave.nY);

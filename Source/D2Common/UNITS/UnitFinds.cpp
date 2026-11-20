@@ -157,7 +157,7 @@ D2UnitStrc* __stdcall sub_0065A620_FindUnitInAdjacentRooms(D2ActiveRoomStrc* hRo
             {
                 return pUnit;
             }
-            pUnit = pUnit->pRoomNext;
+            pUnit = pUnit->ptRoomNext;
         }
     }
     return 0;
@@ -190,7 +190,7 @@ int __stdcall UNITFINDS_GetTestedUnitsFromRoom(D2ActiveRoomStrc* pRoom, D2UnitSt
 
     D2_ASSERT(!IsBadCodePtr((int (__stdcall*)())pfnUnitTest), 114);
 
-    for (; pUnit; pUnit = pUnit->pRoomNext)
+    for (; pUnit; pUnit = pUnit->ptRoomNext)
     {
         if (pfnUnitTest(pUnit, pUnitFindArg))
         {

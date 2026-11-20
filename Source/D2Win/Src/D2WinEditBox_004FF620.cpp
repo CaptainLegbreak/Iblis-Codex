@@ -44,7 +44,7 @@ struct SMSGHANDLER_PARAMS
 
 struct D2WinEditBoxStrc
 {
-    int nType;
+    int eType;
     D2CelFileStrc* pCellFile;
     unsigned int dwFlags;
     int nImageX;
@@ -93,7 +93,7 @@ void __fastcall D2Win_10133(const Unicode* wszText, int nX, int nY, int nColor, 
 static int sub_004FDC70_HasSelection(D2WinEditBoxStrc* pEditBox)
 {
     D2_ASSERT(pEditBox, 0x198);
-    D2_ASSERT(pEditBox->nType == 1, 0x19A);
+    D2_ASSERT(pEditBox->eType == 1, 0x19A);
     if (pEditBox->nSelectionStart != -1 && pEditBox->nSelectionStart != pEditBox->nSelectionEnd)
         return 1;
     return 0;
@@ -103,7 +103,7 @@ static int sub_004FDC70_HasSelection(D2WinEditBoxStrc* pEditBox)
 int __fastcall sub_004FF620_EditBoxDrawAlt(D2WinEditBoxStrc* pEditBox)
 {
     D2_ASSERT(pEditBox, 0x510);
-    D2_ASSERT(pEditBox->nType == 1, 0x512);
+    D2_ASSERT(pEditBox->eType == 1, 0x512);
 
     if (pEditBox->dwFlags & gdwBitMasks[2] && pEditBox->dwFlags & gdwBitMasks[0])
     {
@@ -273,7 +273,7 @@ int __fastcall sub_004FF620_EditBoxDrawAlt(D2WinEditBoxStrc* pEditBox)
 int __fastcall sub_004FFE50_EditBoxDraw(D2WinEditBoxStrc* pEditBox)
 {
     D2_ASSERT(pEditBox, 0x49C);
-    D2_ASSERT(pEditBox->nType == 1, 0x49E);
+    D2_ASSERT(pEditBox->eType == 1, 0x49E);
 
     if (pEditBox->dwFlags & gdwBitMasks[2] && pEditBox->dwFlags & gdwBitMasks[0])
     {

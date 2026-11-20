@@ -617,7 +617,7 @@ struct D2InactiveUnitNodeStrc
     int nY;
     int nUnitType;
     int nClassId;
-    int nAnimMode;
+    int nMode;
     int nGameFrame;
     unsigned int nUnitFlags;
     unsigned int nUnitFlagsEx;
@@ -732,7 +732,7 @@ static void __stdcall sub_00542E10_CompressInactiveUnit(D2GameStrc* pGame, D2Uni
     {
     case 0:
         pNode->nUnitId = pUnit->dwUnitId;
-        pNode->nAnimMode = pUnit->dwAnimMode;
+        pNode->nMode = pUnit->dwAnimMode;
         break;
 
     case 2:
@@ -743,7 +743,7 @@ static void __stdcall sub_00542E10_CompressInactiveUnit(D2GameStrc* pGame, D2Uni
             pUnit->dwAnimMode = 2;
         }
 
-        pNode->nAnimMode = pUnit->dwAnimMode;
+        pNode->nMode = pUnit->dwAnimMode;
 
         if (sub_00621B00_IsShrine(pUnit))
         {
@@ -769,7 +769,7 @@ static void __stdcall sub_00542E10_CompressInactiveUnit(D2GameStrc* pGame, D2Uni
     }
 
     default:
-        pNode->nAnimMode = pUnit->dwAnimMode;
+        pNode->nMode = pUnit->dwAnimMode;
         break;
     }
 

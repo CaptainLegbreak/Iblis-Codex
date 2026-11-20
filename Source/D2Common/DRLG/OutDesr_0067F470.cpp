@@ -43,7 +43,7 @@ struct D2DrlgLevelStrc
     char unk0x1B8[0x0C];
     D2SeedStrc pSeed;
     char unk0x1CC[0x04];
-    int nLevelId;
+    int eLevelId;
 };
 
 #define C07_OFFSET_CHECK(name, type, field, offset) typedef char name[((unsigned int)&((type*)0)->field == (offset)) ? 1 : -1]
@@ -52,7 +52,7 @@ C07_OFFSET_CHECK(C07_check_pLevelCoords, D2DrlgLevelStrc, pLevelCoords, 0x1C);
 C07_OFFSET_CHECK(C07_check_pDrlg, D2DrlgLevelStrc, pDrlg, 0x1B4);
 C07_OFFSET_CHECK(C07_check_pSeed, D2DrlgLevelStrc, pSeed, 0x1C4);
 C07_OFFSET_CHECK(C07_check_nHighSeed, D2DrlgLevelStrc, pSeed.nHighSeed, 0x1C8);
-C07_OFFSET_CHECK(C07_check_nLevelId, D2DrlgLevelStrc, nLevelId, 0x1D0);
+C07_OFFSET_CHECK(C07_check_nLevelId, D2DrlgLevelStrc, eLevelId, 0x1D0);
 C07_OFFSET_CHECK(C07_check_nGridWidth, D2DrlgOutdoorInfoStrc, nGridWidth, 0x5C);
 C07_OFFSET_CHECK(C07_check_nGridHeight, D2DrlgOutdoorInfoStrc, nGridHeight, 0x60);
 
@@ -240,7 +240,7 @@ void __fastcall DRLGOUTDESR_InitAct2OutdoorLevel(D2DrlgLevelStrc* pLevel)
     DRLGOUTPLACE_SetOutGridLinkFlags(pLevel);
     DRLGOUTPLACE_PlaceAct1245OutdoorBorders(pLevel);
 
-    switch (pLevel->nLevelId)
+    switch (pLevel->eLevelId)
     {
     case LEVEL_ROCKYWASTE:
         DRLGOUTDESR_PlaceDesertTransitionToTown(pLevel);
@@ -344,7 +344,7 @@ static __declspec(noinline) int __stdcall DRLGOUTWILD_SpawnCliffCaves(D2DrlgLeve
 
 void __stdcall sub_00680200_SpawnRiverAndCliffCaves(D2DrlgLevelStrc* pLevel)
 {
-    if (pLevel->nLevelId == LEVEL_MOOMOOFARM)
+    if (pLevel->eLevelId == LEVEL_MOOMOOFARM)
     {
         return;
     }
@@ -413,7 +413,7 @@ void __stdcall sub_00680200_SpawnRiverAndCliffCaves(D2DrlgLevelStrc* pLevel)
         const int nRand = SEED_RollRandomNumber_Inline(&pLevel->pSeed) & 3;
         const int nPosX = (nRand % 2) ? 3 : nWidth;
         const int nPosY = (nRand / 2) ? 3 : nHeight;
-        DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, nPosX, nPosY, (pLevel->nLevelId == LEVEL_BLOODMOOR) + 0x33, -1, 0);
+        DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, nPosX, nPosY, (pLevel->eLevelId == LEVEL_BLOODMOOR) + 0x33, -1, 0);
         pOutdoors->dwFlags |= 0x40;
     }
 }
@@ -421,7 +421,7 @@ void __stdcall sub_00680200_SpawnRiverAndCliffCaves(D2DrlgLevelStrc* pLevel)
 // 0x006803D0
 static __declspec(noinline) void DRLGOUTWILD_SpawnTownTransitionsAndCaves(D2DrlgLevelStrc* pLevel)
 {
-    if (pLevel->nLevelId == LEVEL_MOOMOOFARM)
+    if (pLevel->eLevelId == LEVEL_MOOMOOFARM)
     {
         return;
     }
@@ -459,7 +459,7 @@ static __declspec(noinline) void DRLGOUTWILD_SpawnTownTransitionsAndCaves(D2Drlg
     if (!(pOutdoors->dwFlags & 0x40))
     {
         int fAdded = 0;
-        if (pLevel->nLevelId == LEVEL_BLOODMOOR)
+        if (pLevel->eLevelId == LEVEL_BLOODMOOR)
         {
             D2DrlgCoordsStrc* pCoords = &DRLG_GetLevel(pLevel->pDrlg, LEVEL_ROGUEENCAMPMENT)->pLevelCoords;
             fAdded = DRLGOUTDOORS_SpawnPresetFarAway(pLevel, pCoords, 0x34, -1, 1, 15);

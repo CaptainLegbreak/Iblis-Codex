@@ -297,7 +297,7 @@ struct D2CelStrc
 
 struct D2CelFileStrc
 {
-    int nVersion;
+    int dwVersion;
     unsigned int dwFlags;
     int nFormat;
     int nTermination;
@@ -2067,11 +2067,11 @@ void __stdcall CelFileNormalize(D2CelFileStrc* pFile, D2CelFileStrc** ppOutFile,
     D2_ASSERT(dwFlags & 1, 0x396);
     if (nSpecVersion == -1)
     {
-        D2_ASSERT(pFile->nVersion == 6, 0x399);
+        D2_ASSERT(pFile->dwVersion == 6, 0x399);
     }
     else
     {
-        D2_ASSERT(pFile->nVersion == nSpecVersion, 0x39B);
+        D2_ASSERT(pFile->dwVersion == nSpecVersion, 0x39B);
     }
 
     if (dwFlags & 2)
@@ -2115,7 +2115,7 @@ void __stdcall CelDraw(D2CmpCelContextStrc* pContext, int nX, int nY, int nArg4,
     D2CelFileStrc* pCelFile = pContext->pCelFile;
     if (pCelFile)
     {
-        D2_ASSERT(pCelFile->nVersion == 6, 0x452);
+        D2_ASSERT(pCelFile->dwVersion == 6, 0x452);
         D2_ASSERT(!(pCelFile->dwFlags & 4), 0x453);
     }
 
@@ -2975,7 +2975,7 @@ unsigned int __stdcall CelCompressCreateCelFile(unsigned int hCelList, D2CelFile
     }
 
     D2CelFileStrc* pCelFile = (D2CelFileStrc*)FOG_Alloc(pList->nCount * sizeof(void*) + 0x18, ".\\SRC\\CelCmp.cpp", 615, 0);
-    pCelFile->nVersion = 6;
+    pCelFile->dwVersion = 6;
     pCelFile->dwFlags = pList->dwFlags;
     pCelFile->nFormat = pList->nType;
     pCelFile->nDirections = pList->nDirections;

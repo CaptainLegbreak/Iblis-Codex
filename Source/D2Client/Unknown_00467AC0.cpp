@@ -697,7 +697,7 @@ void __cdecl sub_00467AC0_UpdateHoverUnit()
         D2UnitStrc* pUnit = ppRoomList[i]->pUnitFirst;
         D2UnitStrc* pPrevious = 0;
         int nCount = 0;
-        for (; pUnit; pUnit = pUnit->pRoomNext)
+        for (; pUnit; pUnit = pUnit->ptRoomNext)
         {
             const int nUnitType = !pUnit ? 6 : pUnit->dwUnitType;
             if (nUnitType == 3)

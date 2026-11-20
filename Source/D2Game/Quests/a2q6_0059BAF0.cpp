@@ -26,8 +26,8 @@ struct D2ActiveRoomStrc
 struct D2ObjOperateFnStrc
 {
     D2GameStrc* pGame;
-    D2UnitStrc* pObject;
-    D2UnitStrc* pPlayer;
+    D2UnitStrc* hObject;
+    D2UnitStrc* hPlayer;
     D2ObjectControlStrc* pObjectregion;
     int nObjectIdx;
 };
@@ -58,9 +58,9 @@ struct D2QuestDataStrc
     unsigned int dwFlags;
     void* pQuestDataEx;
     D2QuestGUIDStrc tPlayerGUIDs;
-    QUESTCALLBACK pfCallback[15];
+    QUESTCALLBACK pCallback[15];
     void* pNPCMessages;
-    int nQuestFilter;
+    int eFilter;
     char pad0xE4[0xC];
     QUESTSEQFILTER pfSeqFilter;
 };
@@ -169,11 +169,11 @@ void __fastcall ACT2Q4_SetPortalMode(D2GameStrc* pGame, int nLevelId)
 // 0x0059D9D0
 void __fastcall D2GAME_WarpPlayerToTile_6FCA5B20(D2ObjOperateFnStrc* pOp)
 {
-    for (D2UnitStrc* i = UNITS_GetRoom(pOp->pObject)->pUnitFirst; i; i = i->pRoomNext)
+    for (D2UnitStrc* i = UNITS_GetRoom(pOp->hObject)->pUnitFirst; i; i = i->ptRoomNext)
     {
         if (i->dwUnitType == UNIT_TILE)
         {
-            SUNIT_WarpPlayer(pOp->pGame, pOp->pPlayer, i);
+            SUNIT_WarpPlayer(pOp->pGame, pOp->hPlayer, i);
         }
     }
 }
@@ -205,7 +205,7 @@ void __fastcall ACT2Q6_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
 
                 pQuestDataEx->bPortalToLutGholeinOpened = 1;
                 pQuestDataEx->bTyraelActivated = 1;
-                pQuestData->pfCallback[2] = ACT2Q6_Callback02_NpcDeactivate;
+                pQuestData->pCallback[2] = ACT2Q6_Callback02_NpcDeactivate;
             }
 
             pQuestDataEx->bPortalIsOpening = 0;
@@ -219,7 +219,7 @@ void __fastcall ACT2Q6_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
             QUESTS_StateDebug(pQuestData, 2, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q6.cpp", 596);
             D2QuestDataStrc* pQuest = QUESTS_GetQuestData(pQuestData->pGame, 10);
             pQuestDataEx->bInitJerhynActivated = 1;
-            pQuestData->pfCallback[2] = ACT2Q6_Callback02_NpcDeactivate;
+            pQuestData->pCallback[2] = ACT2Q6_Callback02_NpcDeactivate;
             if (pQuest)
             {
                 D2_ASSERT(!IsBadCodePtr((FARPROC)pQuestData->pfSeqFilter), 602);
@@ -233,7 +233,7 @@ void __fastcall ACT2Q6_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
                 QUESTS_StateDebug(pQuestData, 5, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a2q6.cpp", 620);
             }
             pQuestDataEx->bEndJerhynActivated = 1;
-            pQuestData->pfCallback[2] = ACT2Q6_Callback02_NpcDeactivate;
+            pQuestData->pCallback[2] = ACT2Q6_Callback02_NpcDeactivate;
             QUESTRECORD_SetQuestState(pQuestFlags, 14, 4);
             QUESTRECORD_ClearQuestState(pQuestFlags, 14, 3);
             QUESTS_NPCActivateSpeeches(pQuestArg->pGame, pQuestArg->pPlayer, pQuestArg->pTarget);

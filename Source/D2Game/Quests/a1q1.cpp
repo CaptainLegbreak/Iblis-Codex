@@ -36,9 +36,9 @@ struct D2QuestDataStrc
     unsigned int dwFlags;
     void* pQuestDataEx;
     char tPlayerGUIDs[0x84];
-    void* pfCallback[15];
+    void* pCallback[15];
     void* pNPCMessages;
-    int nQuestFilter;
+    int eFilter;
     int nQuestFilter2;
     char unk0xE8[0x08];
     QUESTSEQFILTER pfSeqFilter;
@@ -113,12 +113,12 @@ void __fastcall ACT1Q1_Callback11_ScrollMessage(D2QuestDataStrc* pQuest, D2Quest
     }
     else if (nMessageIndex == 0x4C)
     {
-        if (QUESTRECORD_GetQuestState(pQuestFlags, pQuest->nQuestFilter, 1) != 1)
+        if (QUESTRECORD_GetQuestState(pQuestFlags, pQuest->eFilter, 1) != 1)
         {
             return;
         }
 
-        if (QUESTRECORD_GetQuestState(pQuestFlags, pQuest->nQuestFilter, 0xD))
+        if (QUESTRECORD_GetQuestState(pQuestFlags, pQuest->eFilter, 0xD))
         {
             if (pQuest->fState != 5)
             {
@@ -129,14 +129,14 @@ void __fastcall ACT1Q1_Callback11_ScrollMessage(D2QuestDataStrc* pQuest, D2Quest
                 QUESTS_UnitIterate(pQuest, 0xD, 0, ACT1Q1_UnitIterate_StatusCyclerEx, 0);
             }
 
-            pQuest->pfCallback[2] = 0;
+            pQuest->pCallback[2] = 0;
         }
 
-        QUESTRECORD_SetQuestState(pQuestFlags, pQuest->nQuestFilter, 0);
-        QUESTRECORD_ClearQuestState(pQuestFlags, pQuest->nQuestFilter, 1);
+        QUESTRECORD_SetQuestState(pQuestFlags, pQuest->eFilter, 0);
+        QUESTRECORD_ClearQuestState(pQuestFlags, pQuest->eFilter, 1);
         QUESTRECORD_SetQuestState(pQuestFlags, pQuest->nQuestFilter2, 0xD);
         QUESTRECORD_SetQuestState(pQuestFlags, pQuest->nQuestFilter2, 1);
-        QUESTRECORD_ResetIntermediateStateFlags(pQuestFlags, pQuest->nQuestFilter);
+        QUESTRECORD_ResetIntermediateStateFlags(pQuestFlags, pQuest->eFilter);
         STATLIST_AddUnitStat(pArg->pPlayer, 5, 1, 0);
         QUESTS_AddPlayerGUID((D2QuestGUIDStrc*)pQuest->tPlayerGUIDs, !pArg->pPlayer ? -1 : pArg->pPlayer->dwUnitId);
         QUESTS_NPCActivateSpeeches(pArg->pGame, pArg->pPlayer, pArg->pTarget);
@@ -149,10 +149,10 @@ void __fastcall ACT1Q1_Callback00_NpcActivate(D2QuestDataStrc* pQuest, D2QuestAr
     D2GameStrc* pGame = pQuest->pGame;
     D2UnitStrc* pPlayer = pArg->pPlayer;
     D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pPlayer)->pQuestData[pGame->nDifficulty];
-    const int bRewardGranted = QUESTRECORD_GetQuestState(pQuestFlags, pQuest->nQuestFilter, 0);
-    const int bPrimaryGoalDone = QUESTRECORD_GetQuestState(pQuestFlags, pQuest->nQuestFilter, 0xD);
+    const int bRewardGranted = QUESTRECORD_GetQuestState(pQuestFlags, pQuest->eFilter, 0);
+    const int bPrimaryGoalDone = QUESTRECORD_GetQuestState(pQuestFlags, pQuest->eFilter, 0xD);
     const int nNpcId = !pArg->pTarget ? -1 : pArg->pTarget->dwClassId;
-    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuest->nQuestFilter, 1))
+    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuest->eFilter, 1))
     {
         QUESTS_InitScrollTextChain(pQuest, pArg->pTextControl, nNpcId, 3);
         return;

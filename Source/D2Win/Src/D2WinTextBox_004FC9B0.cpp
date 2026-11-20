@@ -20,7 +20,7 @@ struct D2WinTextBoxLineStrc
 
 struct D2WinTextBoxStrc
 {
-    int nType;
+    int eType;
     int unk0x04[4];
     int nWidth;
     int unk0x18[10];
@@ -68,7 +68,7 @@ static int sub_004FBE90_CountLinesFromCurrent(D2WinTextBoxStrc* pTextBox); // 0x
 static int sub_004FBE90_CountLinesFromCurrent(D2WinTextBoxStrc* pTextBox)
 {
     D2_ASSERT(pTextBox, 0x393);
-    D2_ASSERT(pTextBox->nType == 4, 0x394);
+    D2_ASSERT(pTextBox->eType == 4, 0x394);
 
     D2WinTextBoxLineStrc* pLine = pTextBox->pCurrentLine;
     int nCount = 0;
@@ -89,7 +89,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 int __fastcall D2Win_10051(D2WinTextBoxStrc* ptTextData, const Unicode* wszText, int nColor, char bIsWrapped, int nIndent)
 {
     D2_ASSERT(ptTextData, 0x132);
-    D2_ASSERT(ptTextData->nType == 4, 0x133);
+    D2_ASSERT(ptTextData->eType == 4, 0x133);
 
     Unicode wszBuffer[0x400];
     sub_005267E0(wszBuffer, wszText);

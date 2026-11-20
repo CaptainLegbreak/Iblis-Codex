@@ -43,7 +43,7 @@ struct D2DrlgLevelStrc
     unsigned int dwFlags;
     int nRooms;
     char unk0x00C[0x010 - 0x00C];
-    D2DrlgRoomStrc* pFirstRoomEx;
+    D2DrlgRoomStrc* ptRoomFirst;
     char unk0x014[0x1AC - 0x014];
     D2DrlgLevelStrc* pNextLevel;
     char unk0x1B0[0x1B4 - 0x1B0];
@@ -52,7 +52,7 @@ struct D2DrlgLevelStrc
     int nLevelType;
     D2SeedStrc pSeed;
     char unk0x1CC[0x1D0 - 0x1CC];
-    int nLevelId;
+    int eLevelId;
     char unk0x1D4[0x1E0 - 0x1D4];
     int nRoom_Center_Warp_X[9];
     int nRoom_Center_Warp_Y[9];
@@ -80,7 +80,7 @@ static __declspec(noinline) void sub_00642390_MarkPresetRooms(D2DrlgLevelStrc* p
     if (pLevel->nRooms && pLevel->pPresetMaps)
     {
         int nCounter = 0;
-        for (D2DrlgRoomStrc* pDrlgRoom = pLevel->pFirstRoomEx; pDrlgRoom; pDrlgRoom = pDrlgRoom->pDrlgRoomNext)
+        for (D2DrlgRoomStrc* pDrlgRoom = pLevel->ptRoomFirst; pDrlgRoom; pDrlgRoom = pDrlgRoom->pDrlgRoomNext)
         {
             if (pLevel->pPresetMaps[nCounter++])
             {
@@ -94,7 +94,7 @@ static __declspec(noinline) void sub_00642390_MarkPresetRooms(D2DrlgLevelStrc* p
 static __declspec(noinline) void DRLG_ComputeLevelWarpInfo(D2DrlgLevelStrc* pLevel)
 {
     int bHasWarp = 0;
-    for (D2DrlgRoomStrc* pDrlgRoom = pLevel->pFirstRoomEx; pDrlgRoom; pDrlgRoom = pDrlgRoom->pDrlgRoomNext)
+    for (D2DrlgRoomStrc* pDrlgRoom = pLevel->ptRoomFirst; pDrlgRoom; pDrlgRoom = pDrlgRoom->pDrlgRoomNext)
     {
         if (pDrlgRoom->dwFlags & 0x30000)
         {
@@ -131,7 +131,7 @@ static __declspec(noinline) void DRLG_ComputeLevelWarpInfo(D2DrlgLevelStrc* pLev
 // 0x006424A0
 void __stdcall DRLG_InitLevel(D2DrlgLevelStrc* pLevel)
 {
-    SEED_InitLowSeed(&pLevel->pSeed, pLevel->nLevelId + pLevel->pDrlg->dwStartSeed);
+    SEED_InitLowSeed(&pLevel->pSeed, pLevel->eLevelId + pLevel->pDrlg->dwStartSeed);
 
     switch (pLevel->nDrlgType)
     {
@@ -157,7 +157,7 @@ D2DrlgLevelStrc* __fastcall DRLG_AllocLevel(D2DrlgStrc* pDrlg, int nLevelId)
     memset(pLevel, 0, sizeof(D2DrlgLevelStrc));
 
     pLevel->pDrlg = pDrlg;
-    pLevel->nLevelId = nLevelId;
+    pLevel->eLevelId = nLevelId;
     pLevel->nLevelType = DATATBLS_GetLevelDefRecord(nLevelId)->dwLevelType;
     pLevel->nDrlgType = DATATBLS_GetLevelDefRecord(nLevelId)->dwDrlgType;
 
@@ -166,7 +166,7 @@ D2DrlgLevelStrc* __fastcall DRLG_AllocLevel(D2DrlgStrc* pDrlg, int nLevelId)
         pLevel->dwFlags |= 0x10;
     }
 
-    SEED_InitLowSeed(&pLevel->pSeed, pLevel->nLevelId + pLevel->pDrlg->dwStartSeed);
+    SEED_InitLowSeed(&pLevel->pSeed, pLevel->eLevelId + pLevel->pDrlg->dwStartSeed);
 
     switch (pLevel->nDrlgType)
     {

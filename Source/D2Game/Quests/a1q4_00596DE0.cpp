@@ -61,7 +61,7 @@ struct D2QuestDataStrc
     unsigned int dwFlags;
     void* pQuestDataEx;
     char unk0x1C[0xC4];
-    int nQuestFilter;
+    int eFilter;
 };
 
 struct D2Act1Quest4Strc
@@ -392,7 +392,7 @@ void __fastcall ACT1Q4_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
 
         D2GameStrc* pGame = pQuestArg->pGame;
         D2BitBufferStrc* pQuestFlags = GetQuestFlags(pGame, pQuestArg->pPlayer);
-        if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, 0) == 1 || QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, 1) == 1)
+        if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 0) == 1 || QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 1) == 1)
         {
             return;
         }
@@ -419,7 +419,7 @@ void __fastcall ACT1Q4_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
     {
         D2GameStrc* pGame = pQuestArg->pGame;
         D2BitBufferStrc* pQuestFlags = GetQuestFlags(pGame, pQuestArg->pPlayer);
-        if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, 0) == 1 || QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, 1) == 1)
+        if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 0) == 1 || QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 1) == 1)
         {
             return;
         }
@@ -443,7 +443,7 @@ void __fastcall ACT1Q4_UpdateQuestStateOnActChange(D2GameStrc* pGame, D2UnitStrc
     D2BitBufferStrc* pQuestFlags = UNITS_GetPlayerData(pUnit)->pQuestData[pGame->nDifficulty];
     D2QuestDataStrc* pQuestData = QUESTS_GetQuestData(pGame, 4);
 
-    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, 0) == 1 || QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->nQuestFilter, 1) == 1 || ((D2Act1Quest4Strc*)pQuestData->pQuestDataEx)->unk0x50)
+    if (QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 0) == 1 || QUESTRECORD_GetQuestState(pQuestFlags, pQuestData->eFilter, 1) == 1 || ((D2Act1Quest4Strc*)pQuestData->pQuestDataEx)->unk0x50)
     {
         return;
     }

@@ -70,15 +70,15 @@ struct D2DynamicPathStrc
     void* pUnit;
     int dwFlags;
     int unk0x38;
-    int dwPathType;
-    int dwPrevPathType;
+    int eType;
+    int ePrevType;
     int dwUnitSize;
     char unk0x48[0x14];
     int dwTargetType;
     int dwTargetId;
     unsigned char unk0x64[3];
     unsigned char nDist;
-    unsigned char nDistMax;
+    unsigned char bDistMax;
     unsigned char unk0x69;
     D2PathPointStrc tPrevPoint;
     D2PathPointStrc tNextPoint;
@@ -344,7 +344,7 @@ void __fastcall sub_00465070_OnUnitC(D2UnitStrc* pUnit)
     pDst->dwTargetType = pSrc->dwTargetType;
     pDst->dwTargetId = pSrc->dwTargetId;
     pDst->nDist = pSrc->nDist;
-    pDst->nDistMax = pSrc->nDistMax;
+    pDst->bDistMax = pSrc->bDistMax;
     pDst->dwVelocity = pSrc->dwVelocity;
     pDst->unk0x80 = pSrc->unk0x80;
     pDst->dwVelocity2 = pSrc->dwVelocity2;
@@ -366,13 +366,13 @@ void __fastcall sub_00465070_OnUnitC(D2UnitStrc* pUnit)
 
     pDst->nSavedSteps = pSrc->nSavedSteps;
 
-    if (pSrc->dwPathType != 8 && pSrc->dwPathType != 11)
-        pDst->dwPathType = pSrc->dwPathType;
+    if (pSrc->eType != 8 && pSrc->eType != 11)
+        pDst->eType = pSrc->eType;
 
-    if (pSrc->dwPrevPathType != 8 && pSrc->dwPrevPathType != 11)
-        pDst->dwPrevPathType = pSrc->dwPrevPathType;
+    if (pSrc->ePrevType != 8 && pSrc->ePrevType != 11)
+        pDst->ePrevType = pSrc->ePrevType;
 
-    pDst->dwPrevPathType = pSrc->dwPrevPathType;
+    pDst->ePrevType = pSrc->ePrevType;
     pDst->dwUnitSize = pSrc->dwUnitSize;
     sub_00648750(pDst, D2COMMON_10209_PathCheckPathingFlag(pSrc));
 

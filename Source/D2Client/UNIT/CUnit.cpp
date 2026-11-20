@@ -73,7 +73,7 @@ struct D2UnitStrc
     D2PacketListStrc* pPacketList;
     char unk0xDC[0xE4 - 0xDC];
     D2UnitStrc* pListNext;
-    D2UnitStrc* pRoomNext;
+    D2UnitStrc* ptRoomNext;
 };
 
 struct D2MonStatsTxt
@@ -863,7 +863,7 @@ void __fastcall sub_00464930_FreeLight(D2UnitStrc* pUnit)
 // 0x00464A10
 static D2UnitStrc* sub_00464A10_FindTileUnit(D2UnitStrc* pUnit)
 {
-    for (; pUnit; pUnit = pUnit->pRoomNext)
+    for (; pUnit; pUnit = pUnit->ptRoomNext)
     {
         if (pUnit->dwUnitType == UNIT_TILE)
         {

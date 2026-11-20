@@ -65,10 +65,10 @@ struct AsyncData
     void* hFile;
     void* pMemPool;
     char unk0x08[0x34];
-    void* pBuffer;
+    void* ptBuffer;
     unsigned int nFileSize;
     unsigned int nPriority;
-    unsigned int nFlags;
+    unsigned int dwFlags;
 };
 
 struct D2WSADataStrc
@@ -428,10 +428,10 @@ void* __fastcall sub_00409770_PoolAllocLarge(D2PoolSystemStrc* pSystem, int nSiz
 void __fastcall sub_0040AA80_AsyncDataReplaceBuffer(AsyncData* ptAsyncData, int nUnused, void* pBuffer, unsigned int nBufferSize)
 {
     D2_ASSERT(ptAsyncData, 638);
-    D2_ASSERT((ptAsyncData->nFlags & 0xFFFFFFF0) == 0x41737960, 639);
-    D2_ASSERT(ptAsyncData->nFlags & 1, 641);
-    FOG_FreePool(ptAsyncData->pMemPool, ptAsyncData->pBuffer, ".\\Src\\AsyncData.cpp", 644, 0);
-    ptAsyncData->pBuffer = pBuffer;
+    D2_ASSERT((ptAsyncData->dwFlags & 0xFFFFFFF0) == 0x41737960, 639);
+    D2_ASSERT(ptAsyncData->dwFlags & 1, 641);
+    FOG_FreePool(ptAsyncData->pMemPool, ptAsyncData->ptBuffer, ".\\Src\\AsyncData.cpp", 644, 0);
+    ptAsyncData->ptBuffer = pBuffer;
     ptAsyncData->nFileSize = nBufferSize;
 }
 
