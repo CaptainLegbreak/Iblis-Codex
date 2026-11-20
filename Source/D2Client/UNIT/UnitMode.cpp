@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define BITARRAY_CHECK(pBytes, nBit) ((pBytes)[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
@@ -94,14 +95,6 @@ D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUn
 int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine); // 0x00643CE0
 void __stdcall PATH_SetTargetUnit(D2DynamicPathStrc* pPath, D2UnitStrc* pTargetUnit); // 0x00648B90
 
-struct D2PlayerDataStrc
-{
-    char unk0x00[0x150];
-    int dwPendingFlag;
-    int dwPendingAction;
-    int dwPendingType;
-    int dwPendingId;
-};
 
 
 
@@ -403,7 +396,7 @@ static __forceinline int UMODE_GetPendingFlag(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == 0 && pUnit->pPlayerData)
     {
-        return pUnit->pPlayerData->dwPendingFlag;
+        return pUnit->pPlayerData->nState;
     }
     return 0;
 }
@@ -412,7 +405,7 @@ static __forceinline int UMODE_GetPendingAction(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == 0 && pUnit->pPlayerData)
     {
-        return pUnit->pPlayerData->dwPendingAction;
+        return pUnit->pPlayerData->nMode;
     }
     return 0;
 }
@@ -421,7 +414,7 @@ static __forceinline int UMODE_GetPendingType(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == 0 && pUnit->pPlayerData)
     {
-        return pUnit->pPlayerData->dwPendingType;
+        return pUnit->pPlayerData->nArg1;
     }
     return 0;
 }
@@ -430,7 +423,7 @@ static __forceinline int UMODE_GetPendingId(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == 0 && pUnit->pPlayerData)
     {
-        return pUnit->pPlayerData->dwPendingId;
+        return pUnit->pPlayerData->nArg2;
     }
     return 0;
 }
@@ -439,10 +432,10 @@ static __forceinline void UMODE_SetPendingAction(D2UnitStrc* pUnit, int bFlag, i
 {
     if (pUnit && pUnit->dwUnitType == 0 && pUnit->pPlayerData)
     {
-        pUnit->pPlayerData->dwPendingFlag = bFlag;
-        pUnit->pPlayerData->dwPendingAction = nAction;
-        pUnit->pPlayerData->dwPendingType = nType;
-        pUnit->pPlayerData->dwPendingId = nId;
+        pUnit->pPlayerData->nState = bFlag;
+        pUnit->pPlayerData->nMode = nAction;
+        pUnit->pPlayerData->nArg1 = nType;
+        pUnit->pPlayerData->nArg2 = nId;
     }
 }
 
@@ -783,14 +776,14 @@ static int __stdcall sub_004815A0_ActOnObject(D2UnitStrc* pPlayer, int nType, in
 void __fastcall sub_00481600_RunPendingAction(D2UnitStrc* pPlayer)
 {
     D2PlayerDataStrc* pPlayerData = UMODE_GetPlayerData(pPlayer);
-    if (!pPlayerData || !pPlayerData->dwPendingFlag)
+    if (!pPlayerData || !pPlayerData->nState)
     {
         return;
     }
 
-    const int nAction = pPlayer->dwUnitType == 0 ? pPlayer->pPlayerData->dwPendingAction : 0;
-    const int nType = pPlayer->dwUnitType == 0 ? pPlayer->pPlayerData->dwPendingType : 0;
-    const int nId = pPlayer->dwUnitType == 0 ? pPlayer->pPlayerData->dwPendingId : 0;
+    const int nAction = pPlayer->dwUnitType == 0 ? pPlayer->pPlayerData->nMode : 0;
+    const int nType = pPlayer->dwUnitType == 0 ? pPlayer->pPlayerData->nArg1 : 0;
+    const int nId = pPlayer->dwUnitType == 0 ? pPlayer->pPlayerData->nArg2 : 0;
 
     D2UnitStrc* pUnit = sub_00463990(nId, nType);
     sub_0045C470_ClearPendingAction(pPlayer);

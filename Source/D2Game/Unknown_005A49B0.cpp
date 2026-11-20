@@ -4,6 +4,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 // build: ob1
 
 struct D2UnitStrc;
@@ -14,17 +15,6 @@ struct D2AiControlStrc;
 
 
 
-struct D2MonsterDataStrc
-{
-    void* pMonStatsTxt;
-    unsigned char nComponent[16];
-    unsigned short wNameSeed;
-    unsigned short nTypeFlag;
-    unsigned int dwDurielFlag;
-    unsigned char nMonUmod[10];
-    short wBossHcIdx;
-    D2AiControlStrc* pAiControl;
-};
 
 
 struct D2MonsterRegionStrc

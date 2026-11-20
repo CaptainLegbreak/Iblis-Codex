@@ -5,6 +5,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 
 enum D2C_F39Constants
 {
@@ -54,13 +55,6 @@ struct D2ModeChangeStrc
     int unk0x00[9];
 };
 
-struct D2MonsterDataStrc
-{
-    int unk0x00;
-    unsigned char nComponent[16];
-    char unk0x14[0x14];
-    D2AiControlStrc* pAiControl;
-};
 
 struct D2UnitFindArgStrc
 {

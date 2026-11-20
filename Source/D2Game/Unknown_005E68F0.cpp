@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2UnitData.h"
 
 #define MONMODE_ATTACK1 4
 struct D2MonsterDataStrc;
@@ -14,11 +15,6 @@ enum
 {
 };
 
-struct D2MonsterDataStrc
-{
-    char unk0x00[0x30];
-    D2MonsterInteractStrc* pMonInteract;
-};
 
 
 

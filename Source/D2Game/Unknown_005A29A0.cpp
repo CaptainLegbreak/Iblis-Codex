@@ -6,6 +6,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 
 #define MISSILE_LIGHTUNIQUE 195
 #define MONTYPEFLAG_LIGHTNINGUNIQUE 0x100
@@ -21,12 +22,6 @@ struct D2MonUModTxt;
 
 
 
-struct D2MonsterDataStrc
-{
-    char unk0x00[0x16];
-    unsigned short nTypeFlag;
-    int dwDurielFlag;
-};
 
 
 

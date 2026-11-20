@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2PlayerDataStrc;
@@ -33,17 +34,7 @@ int __stdcall sub_00626090(D2StatListStrc* pStatList); // 0x00626090
 static __declspec(noinline) unsigned char sub_005485B0_GetPoisonedLifePercent(D2UnitStrc* pUnit);
 
 
-struct D2MonsterDataStrc
-{
-    char unk0x00[0x30];
-    D2MonsterInteractStrc* pMonInteract;
-};
 
-struct D2PlayerDataStrc
-{
-    char unk0x000[0x168];
-    int dwGameFrame;
-};
 
 
 

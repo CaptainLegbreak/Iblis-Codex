@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 
 
 
@@ -12,10 +13,6 @@ struct D2ItemDataTbl
     int nItemsTxtRecordCount;
 };
 
-struct D2PlayerDataStrc
-{
-    char szName[16];
-};
 
 struct D2ItemDropStrc
 {

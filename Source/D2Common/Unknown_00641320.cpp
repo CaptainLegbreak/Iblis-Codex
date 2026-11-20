@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 
 struct D2GfxLightStrc;
 struct D2BinFieldStrc;
@@ -127,14 +128,6 @@ void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc*,D2ActiveRo
 static int sub_00641930_IsPointNearRoom(D2ActiveRoomStrc*,int,int,int); // 0x00641930
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc*); // 0x0045ADF0
 
-struct D2PlayerDataStrc
-{
-    char unk0x00[0x150];
-    int nState;
-    int nMode;
-    int nArg1;
-    int nArg2;
-};
 
 void __fastcall sub_00460780_SetPlayerMode(int nMode, D2UnitStrc* pUnit, int nArg1, int nArg2); // 0x00460780
 

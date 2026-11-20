@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2UnitData.h"
 
 enum
 {
@@ -23,11 +24,6 @@ enum
     STAT_HITPOINTS = 6,
 };
 
-struct D2MonsterDataStrc
-{
-    char unk0x00[0x30];
-    D2MonsterInteractStrc* pMonInteract;
-};
 
 
 struct D2AiCmdStrc

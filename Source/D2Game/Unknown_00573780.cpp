@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2UnitData.h"
 
 #define UNIT_MONSTER 1
 struct D2SeedStrc;
@@ -18,11 +19,6 @@ int __fastcall sub_00463860_GetMonsterClass(D2UnitStrc* pUnit); // 0x00463860
 void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUnit, int nType, int nParam); // 0x00540E60
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nType, int nFrame, int nParam1, int nParam2); // 0x005417D0
 
-struct D2MonsterDataStrc
-{
-    void* pMonstatsTxt;
-    unsigned char nComponent[16];
-};
 
 struct D2ComponentVariantStrc
 {

@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2LightStrc;
@@ -107,14 +108,6 @@ extern int gnAutomapHeight_007A521C; // 0x007A521C
 extern int gnAutomapWidth_007A5220; // 0x007A5220
 extern int gdwGlobal_007A5264; // 0x007A5264
 
-struct D2PlayerDataStrc
-{
-    char unk0x00[0x150];
-    int nState;
-    int nMode;
-    int nArg1;
-    int nArg2;
-};
 
 struct D2ClientUnitViewStrc
 {

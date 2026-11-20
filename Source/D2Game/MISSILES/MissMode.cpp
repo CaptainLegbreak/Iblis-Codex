@@ -5,6 +5,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2UnitData.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define STAT_TOHIT 19
@@ -33,11 +34,6 @@ struct D2SkillsTxt;
 
 
 
-struct D2MonsterDataStrc
-{
-    char pad0x00[0x16];
-    unsigned short nTypeFlag;
-};
 
 
 struct D2DamageStrc

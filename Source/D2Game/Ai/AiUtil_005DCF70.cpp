@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2UnitData.h"
 
 #define ROOM_HAS_CLIENTS(pRoom) ((pRoom)->nNumClients & (pRoom)->nNumClients)
 struct D2UnkAiTableStrc;
@@ -53,11 +54,6 @@ struct D2AiControlStrc
     int nOwnerType;
 };
 
-struct D2MonsterDataStrc
-{
-    char pad[0x28];
-    D2AiControlStrc* pAiControl;
-};
 
 struct D2AiTargetArgsStrc
 {

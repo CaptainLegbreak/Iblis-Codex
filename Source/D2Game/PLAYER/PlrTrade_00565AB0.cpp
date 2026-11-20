@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 
 #define CUBE_MAX(a,b) ((a)>(b)?(a):(b))
 #define CUBE_MIN(a,b) ((a)<(b)?(a):(b))
@@ -82,13 +83,6 @@ void __stdcall ITEMMODS_AddCraftPropertyList(D2UnitStrc*,D2PropertyStrc*,int); /
 void __fastcall D2GAME_UpdateClientItem_6FC3E9D0(D2ClientStrc*,D2UnitStrc*,D2UnitStrc*,unsigned); // 0x0053D010
 void __fastcall D2GAME_RemoveItem_6FC471F0(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,int); // 0x0055DF10
 
-struct D2PlayerDataStrc
-{
-    char unk0x00[0x50];
-    int dwTradeState;
-    char unk0x54[0x08];
-    void* hTrade;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090

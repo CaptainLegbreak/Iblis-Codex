@@ -1,18 +1,12 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2Path.h"
+#include "D2UnitData.h"
 
 struct D2Act3Quest0Strc;
 struct D2Act3Quest1Strc;
 struct D2ObjInitFnStrc;
 
-struct D2QuestDataStrc
-{
-    char unk0x00[0x09];
-    unsigned char bNotIntro;
-    char unk0x0A[0x0E];
-    void* pQuestDataEx;
-};
 
 struct D2Act3Quest0Strc
 {

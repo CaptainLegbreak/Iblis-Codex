@@ -5,6 +5,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 
 enum
 {
@@ -23,13 +24,6 @@ enum
 };
 
 
-struct D2MonsterDataStrc
-{
-    char unk0x00[0x28];
-    D2AiControlStrc* pAiControl;
-    char unk0x2C[0x04];
-    D2MonsterInteractStrc* pMonInteract;
-};
 
 
 struct D2AiCmdStrc

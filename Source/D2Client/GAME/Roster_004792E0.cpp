@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2UnitData.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -53,10 +54,6 @@ struct D2RosterGroupStrc
     D2RosterGroupStrc* pNext;
 };
 
-struct D2PlayerDataStrc
-{
-    char szName[16];
-};
 
 class D2SquelchListStrc
 {

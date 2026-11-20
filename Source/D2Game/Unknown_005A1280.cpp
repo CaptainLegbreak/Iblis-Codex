@@ -1,9 +1,6 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
-struct D2MonsterDataStrc
-{
-    void* pMonstatsTxt;
-};
+#include "D2UnitData.h"
 
 
 

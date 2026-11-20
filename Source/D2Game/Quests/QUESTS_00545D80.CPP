@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2UnitData.h"
 struct D2BitBufferStrc;
 struct D2QuestInfoStrc;
 
@@ -13,19 +14,6 @@ struct D2GameStrc
     D2QuestInfoStrc* pQuestControl;
 };
 
-struct D2QuestDataStrc
-{
-    int nQuestNo;
-    D2GameStrc* pGame;
-    unsigned char nActNo;
-    unsigned char bNotIntro;
-    unsigned char bActive;
-    unsigned char fLastState;
-    char unk0x0C[0x90];
-    unsigned short nPlayerCount;
-    char unk0x9E[0x56];
-    D2QuestDataStrc* pPrev;
-};
 
 struct D2QuestInfoStrc
 {
@@ -97,7 +85,7 @@ static __forceinline void QUESTS_InitQuestData(D2QuestDataStrc* pQuestData, D2Ga
     pQuestData->fLastState = 0;
     pQuestData->bNotIntro = 1;
     pQuestData->nActNo = nAct;
-    pQuestData->nPlayerCount = 0;
+    pQuestData->tPlayerGUIDs.nPlayerCount = 0;
 }
 
 // 0x00545D80

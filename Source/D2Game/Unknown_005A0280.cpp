@@ -5,6 +5,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 
 #define UNIT_MONSTER 1
 #define MONTYPEFLAG_CHAMPION 4
@@ -16,17 +17,6 @@ struct D2MonsterRegionStrc;
 struct D2MonStatsTxt;
 struct D2SuperUniquesTxt;
 
-struct D2MonsterDataStrc
-{
-    void* pMonStatsTxt;
-    unsigned char nComponent[16];
-    unsigned short wNameSeed;
-    unsigned short nTypeFlag;
-    char unk0x18[0x04];
-    unsigned char nMonUmod[10];
-    short wBossHcIdx;
-    D2AiControlStrc* pAiControl;
-};
 
 
 

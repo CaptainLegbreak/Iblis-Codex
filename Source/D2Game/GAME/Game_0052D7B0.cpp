@@ -6,6 +6,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define PLRMODE_DEATH 0
@@ -120,13 +121,6 @@ struct D2InactiveUnitListStrc
     D2InactiveUnitListStrc* pNext;
 };
 
-struct D2QuestDataStrc
-{
-    char unk0x00[0x18];
-    void* pQuestDataEx;
-    char unk0x1C[0xD8];
-    D2QuestDataStrc* pPrev;
-};
 
 typedef unsigned char (__fastcall* QUESTUPDATE)(D2GameStrc* pGame, D2QuestDataStrc* pQuest);
 
@@ -284,11 +278,6 @@ struct D2GameDataTableStrc
     _RTL_CRITICAL_SECTION f_50;
 };
 
-struct D2PlayerDataStrc
-{
-    char unk0x00[0x4C];
-    int bBusy;
-};
 
 struct D2NpcEventStrc
 {

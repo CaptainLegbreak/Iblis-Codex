@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2UnitData.h"
 
 struct D2QuestCallbacks0058EA50Strc;
 struct D2QuestData0058EA50Strc;
@@ -15,16 +16,6 @@ struct D2QuestArgStrc
     unsigned short unk0x1A;
 };
 
-struct D2QuestDataStrc
-{
-    int nQuestNo;
-    D2GameStrc* pGame;
-    unsigned char nActNo;
-    unsigned char bNotIntro;
-    unsigned char bActive;
-    unsigned char fLastState;
-    unsigned char fState;
-};
 
 void __fastcall PLRINTRO_SetQuestIntroFlag(D2UnitStrc* pUnit, D2GameStrc* pGame, int nNpcId); // 0x00572360
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640

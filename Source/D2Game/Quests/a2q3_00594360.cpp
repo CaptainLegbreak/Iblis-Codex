@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2UnitData.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define ITEMQUAL_NORMAL 2
@@ -22,25 +23,7 @@ struct D2Act2Quest3Strc;
 
 
 
-struct D2PlayerDataStrc
-{
-    char pad0x00[0x10];
-    D2BitBufferStrc* pQuestData[3];
-};
 
-struct D2QuestDataStrc
-{
-    int nQuestNo;
-    D2GameStrc* pGame;
-    char pad0x08[0x01];
-    unsigned char bNotIntro;
-    char pad0x0A[0x02];
-    unsigned char fState;
-    char pad0x0D[0x0B];
-    void* pQuestDataEx;
-    char pad0x1C[0xC4];
-    int eFilter;
-};
 
 struct D2Act1Quest4Strc
 {

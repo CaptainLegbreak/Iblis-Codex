@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 
 
 struct D2PlayerTradeStrc
@@ -15,14 +16,6 @@ struct D2PlayerTradeStrc
     int nNextUpdateTick;
 };
 
-struct D2PlayerDataStrc
-{
-    char unk0x00[0x50];
-    int dwTradeState;
-    char unk0x54[0x04];
-    unsigned int dwAcceptTradeTick;
-    D2PlayerTradeStrc* hTrade;
-};
 
 
 struct D2CubeMainTxt

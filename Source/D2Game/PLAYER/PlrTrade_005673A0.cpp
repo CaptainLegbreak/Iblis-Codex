@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2UnitData.h"
 
 
 
@@ -16,13 +17,6 @@ struct D2PlayerTradeStrc
     unsigned int nNextUpdateTick;
 };
 
-struct D2PlayerDataStrc
-{
-    char unk0x00[0x50];
-    unsigned int dwTradeState;
-    char unk0x54[0x08];
-    D2PlayerTradeStrc* hTrade;
-};
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
 extern "C" const char szPlrTradeCpp[];

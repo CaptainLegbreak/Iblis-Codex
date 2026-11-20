@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define PLRSAVE2_WAYPOINT_HEADER 0x5357
@@ -142,22 +143,6 @@ struct D2WaypointDataStrc
     int unk0x04[3];
 };
 
-struct D2PlayerDataStrc
-{
-    char unk0x00[0x1C];
-    D2WaypointDataStrc* pWaypointData[3];
-    unsigned char unk_28[0x38];
-    D2PlrIntroStrc* pPlayerIntro[3];
-    unsigned char unk_6C[0x4];
-    int nRightSkillId;
-    int nLeftSkillId;
-    int nRightSkillFlags;
-    int nLeftSkillFlags;
-    int nSwitchRightSkillId;
-    int nSwitchLeftSkillId;
-    int nSwitchRightSkillFlags;
-    int nSwitchLeftSkillFlags;
-};
 
 #pragma pack(push, 1)
 struct D2WaypointSaveFlagStrc
@@ -236,13 +221,6 @@ void __fastcall sub_0056DEB0(Unit*,int,int,int); // 0x0056DEB0
 
 enum { REMOVE_SKILL = 1 };
 
-struct D2QuestDataStrc
-{
-    int nQuestNo;
-    D2GameStrc* pGame;
-    char unk0x08[0x10];
-    void* pQuestDataEx;
-};
 
 struct D2Act5Quest3Strc
 {

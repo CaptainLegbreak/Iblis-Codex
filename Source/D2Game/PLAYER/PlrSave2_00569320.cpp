@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
 #define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
 struct D2StatListExStrc;
@@ -12,22 +13,6 @@ struct D2PlrIntroSaveStrc;
 struct D2SaveHeaderStrc;
 struct D2PackedWordStrc;
 
-struct D2PlayerDataStrc
-{
-    char unk0x00[0x10];
-    D2BitBufferStrc* pQuestData[3];
-    char unk0x1C[0x44];
-    D2PlrIntroStrc* pPlayerIntro[3];
-    unsigned char unk_6C[0x4];
-    int nRightSkillId;
-    int nLeftSkillId;
-    int nRightSkillOwner;
-    int nLeftSkillOwner;
-    int nSwitchRightId;
-    int nSwitchLeftId;
-    int nSwitchRightOwner;
-    int nSwitchLeftOwner;
-};
 
 #pragma pack(push, 2)
 struct D2QuestSaveStrc
@@ -331,13 +316,13 @@ int __fastcall PLRSAVE2_ReadSaveHeader(D2GameStrc* pGame, D2ClientStrc* pClient,
     if (!pPlayerData)
         return 4;
     sub_00569EC0_UnpackWord(&pHeader->nSkills[0], &nSkillId, &nHand, &nOwner);
-    StoreSkillPair(&pPlayerData->nLeftSkillId, &pPlayerData->nLeftSkillOwner, nSkillId, nOwner);
+    StoreSkillPair(&pPlayerData->nLeftSkillId, &pPlayerData->nLeftSkillFlags, nSkillId, nOwner);
     sub_00569EC0_UnpackWord(&pHeader->nSkills[1], &nSkillId, &nHand, &nOwner);
-    StoreSkillPair(&pPlayerData->nRightSkillId, &pPlayerData->nRightSkillOwner, nSkillId, nOwner);
+    StoreSkillPair(&pPlayerData->nRightSkillId, &pPlayerData->nRightSkillFlags, nSkillId, nOwner);
     sub_00569EC0_UnpackWord(&pHeader->nSkills[2], &nSkillId, &nHand, &nOwner);
-    StoreSkillPair(&pPlayerData->nSwitchLeftId, &pPlayerData->nSwitchLeftOwner, nSkillId, nOwner);
+    StoreSkillPair(&pPlayerData->nSwitchLeftSkillId, &pPlayerData->nSwitchLeftSkillFlags, nSkillId, nOwner);
     sub_00569EC0_UnpackWord(&pHeader->nSkills[3], &nSkillId, &nHand, &nOwner);
-    StoreSkillPair(&pPlayerData->nSwitchRightId, &pPlayerData->nSwitchRightOwner, nSkillId, nOwner);
+    StoreSkillPair(&pPlayerData->nSwitchRightSkillId, &pPlayerData->nSwitchRightSkillFlags, nSkillId, nOwner);
     sub_005391C0_SetClientBytes(pClient, pHeader->nUnknownCF, 0, 0);
     *ppSection = pNext;
     return 0;

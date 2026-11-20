@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2UnitData.h"
 
 struct D2MinionListStrc;
 
@@ -9,11 +10,6 @@ struct D2AiControlStrc
 	D2MinionListStrc* pMinionList;
 };
 
-struct D2MonsterDataStrc
-{
-	char unk_00[0x28];
-	D2AiControlStrc* pAiControl;
-};
 
 
 void __fastcall AIGENERAL_SetOwnerData(D2GameStrc* pGame, D2UnitStrc* pUnit, int nOwnerGUID, int nOwnerType, int bSetFlag1, int bSetFlag2); // 0x0058F030

@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2UnitData.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
@@ -35,11 +36,6 @@ struct D2ArenaStrc
     unsigned char pad0x0D[3];
 };
 
-struct D2PlayerDataStrc
-{
-    char unk0x00[0x34];
-    D2ArenaUnitStrc* pArenaUnit;
-};
 
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0

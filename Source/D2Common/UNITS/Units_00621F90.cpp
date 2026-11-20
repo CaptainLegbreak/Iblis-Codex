@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2UnitData.h"
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
@@ -11,17 +12,6 @@ struct D2BitBufferStrc;
 struct D2WaypointDataStrc;
 struct D2RosterInfoStrc;
 
-struct D2PlayerDataStrc
-{
-    char szName[16];
-    D2BitBufferStrc* pQuestData[3];
-    D2WaypointDataStrc* pWaypointData[3];
-    char unk0x28[0x04];
-    int nPortalFlags;
-    char unk0x30[0x1C];
-    int bBusy;
-    char unk0x50[0x11C];
-};
 
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);           // 0x0040B430

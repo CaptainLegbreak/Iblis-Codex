@@ -1,17 +1,10 @@
 #include "D2Structs.h"
+#include "D2UnitData.h"
 struct D2BitBufferStrc;
 struct D2TextHeaderStrc;
 struct D2InventoryStrc;
 struct D2DynamicPathStrc;
 
-struct D2PlayerDataStrc
-{
-    char unk0x000[0x150];
-    int nValue150;
-    int nValue154;
-    int nValue158;
-    int nValue15C;
-};
 
 
 struct D2NpcQuestHandlerStrc

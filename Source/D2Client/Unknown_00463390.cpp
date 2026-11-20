@@ -1,6 +1,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2UnitData.h"
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 #pragma intrinsic(memset)
 
@@ -10,12 +11,6 @@ struct D2SkillStrc;
 struct D2InventoryStrc;
 
 
-struct D2PlayerDataStrc
-{
-    char unk0x000[0x150];
-    int nState;
-    int nMode;
-};
 
 
 

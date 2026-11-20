@@ -1,15 +1,8 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 struct D2SkillStrc;
-struct D2PlayerDataStrc
-{
-    char _pad_0x0[0x150];
-    int nState;
-    int nAction;
-    int nArg1;
-    int nArg2;
-};
 struct D2UnitTargetStrc
 {
     int nArg1;
@@ -142,7 +135,7 @@ static __forceinline void sub_SetPlayerAction(D2UnitStrc* pPlayer, int nState, i
     if (sub_GetPlayerDataOrNull(pPlayer))
     {
         pPlayer->pPlayerData->nState = nState;
-        pPlayer->pPlayerData->nAction = nAction;
+        pPlayer->pPlayerData->nMode = nAction;
         pPlayer->pPlayerData->nArg1 = nArg1;
         pPlayer->pPlayerData->nArg2 = nArg2;
     }
@@ -316,7 +309,7 @@ void __fastcall sub_00481600_RunPendingAction(D2UnitStrc* pPlayer)
 {
     if (sub_0044BE50(pPlayer) == 0 && pPlayer->pPlayerData && pPlayer->pPlayerData->nState)
     {
-        const int nAction = sub_0044BE50(pPlayer) == 0 ? pPlayer->pPlayerData->nAction : 0;
+        const int nAction = sub_0044BE50(pPlayer) == 0 ? pPlayer->pPlayerData->nMode : 0;
         const int nArg1 = sub_0044BE50(pPlayer) == 0 ? pPlayer->pPlayerData->nArg1 : 0;
         const int nArg2 = sub_0044BE50(pPlayer) == 0 ? pPlayer->pPlayerData->nArg2 : 0;
 

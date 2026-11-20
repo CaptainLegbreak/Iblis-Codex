@@ -4,24 +4,12 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 
 struct D2ItemsTxt;
 
 
 
-struct D2PlayerDataStrc
-{
-    char unk0x00[0xA0];
-    unsigned char nPositionHistoryIndex;
-    char unk0xA1[0x03];
-    unsigned int dwPositionHistoryTick;
-    D2CoordStrc pPositionHistory[20];
-    char unk0x148[0x08];
-    int bInteract;
-    int nInteractAction;
-    int nInteractUnitType;
-    int nInteractUnitGUID;
-};
 
 
 
@@ -104,19 +92,19 @@ static __forceinline int sub_F05_PlrGetUnitY(D2UnitStrc* pUnit)
 // build: context sub_F05_GetInteractAction
 static __forceinline int sub_F05_GetInteractAction(D2UnitStrc* pPlayer)
 {
-    return pPlayer->dwUnitType == 0 ? pPlayer->pPlayerData->nInteractAction : 0;
+    return pPlayer->dwUnitType == 0 ? pPlayer->pPlayerData->nMode : 0;
 }
 
 // build: context sub_F05_GetInteractUnitType
 static __forceinline int sub_F05_GetInteractUnitType(D2UnitStrc* pPlayer)
 {
-    return pPlayer->dwUnitType == 0 && pPlayer->pPlayerData ? pPlayer->pPlayerData->nInteractUnitType : 0;
+    return pPlayer->dwUnitType == 0 && pPlayer->pPlayerData ? pPlayer->pPlayerData->nArg1 : 0;
 }
 
 // build: context sub_F05_GetInteractUnitGUID
 static __forceinline int sub_F05_GetInteractUnitGUID(D2UnitStrc* pPlayer)
 {
-    return pPlayer->dwUnitType == 0 ? (pPlayer->pPlayerData ? pPlayer->pPlayerData->nInteractUnitGUID : 0) : 0;
+    return pPlayer->dwUnitType == 0 ? (pPlayer->pPlayerData ? pPlayer->pPlayerData->nArg2 : 0) : 0;
 }
 
 // build: context sub_F05_IsInteracting
@@ -129,7 +117,7 @@ static __forceinline int sub_F05_IsInteracting(D2UnitStrc* pPlayer)
         case 0:
             if (pPlayer->pPlayerData)
             {
-                return pPlayer->pPlayerData->bInteract;
+                return pPlayer->pPlayerData->nState;
             }
             break;
         case 1:
@@ -149,7 +137,7 @@ static __forceinline void sub_F05_SetInteractFlag(D2UnitStrc* pPlayer, int nFlag
 {
     if (pPlayer->dwUnitType == 0 && pPlayer->pPlayerData)
     {
-        pPlayer->pPlayerData->bInteract = nFlag;
+        pPlayer->pPlayerData->nState = nFlag;
     }
 }
 

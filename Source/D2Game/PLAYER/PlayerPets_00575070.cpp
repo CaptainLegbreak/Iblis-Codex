@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2DataTbls.h"
+#include "D2UnitData.h"
 
 struct D2PetDataStrc
 {
@@ -21,11 +22,6 @@ struct D2PlayerPetStrc
     D2PetListStrc* pPetList;
 };
 
-struct D2PlayerDataStrc
-{
-    unsigned char unk_00[0x44];
-    D2PlayerPetStrc* pPlayerPets;
-};
 
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0

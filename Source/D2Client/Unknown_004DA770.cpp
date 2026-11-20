@@ -1,9 +1,5 @@
 #include "D2Structs.h"
-struct D2MonsterDataStrc
-{
-    char unk0x00[4];
-    unsigned char nComponent[16];
-};
+#include "D2UnitData.h"
 
 
 // 0x004DA770

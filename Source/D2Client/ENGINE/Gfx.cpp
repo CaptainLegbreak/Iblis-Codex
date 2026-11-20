@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
@@ -192,14 +193,6 @@ int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nL
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 void __stdcall sub_0046E300(D2UnitStrc* pItem, int nArg2, int nArg3, int nX, int nY, int nArg6); // 0x0046E300
 
-struct D2PlayerDataStrc
-{
-    char unk0x000[0x150];
-    int nUnk0x150;
-    int nUnk0x154;
-    int nUnk0x158;
-    int nUnk0x15C;
-};
 
 int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
 void __fastcall sub_00461250_QueueMove(int nCommand, D2UnitStrc* pUnit, void* pTarget, int nArg); // 0x00461250
@@ -769,10 +762,10 @@ void __fastcall sub_0045C470_ClearPendingAction(D2UnitStrc* pUnit)
 {
     if (pUnit && pUnit->dwUnitType == 0 && pUnit->pPlayerData)
     {
-        pUnit->pPlayerData->nUnk0x150 = 0;
-        pUnit->pPlayerData->nUnk0x154 = 0;
-        pUnit->pPlayerData->nUnk0x158 = 0;
-        pUnit->pPlayerData->nUnk0x15C = 0;
+        pUnit->pPlayerData->nState = 0;
+        pUnit->pPlayerData->nMode = 0;
+        pUnit->pPlayerData->nArg1 = 0;
+        pUnit->pPlayerData->nArg2 = 0;
     }
 }
 

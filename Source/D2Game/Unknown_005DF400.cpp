@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2UnitData.h"
 
 #define UNIT_INVALID 6
 #define UNIT_MONSTER 1
@@ -16,11 +17,6 @@ struct D2ModeChangeStrc;
 
 
 
-struct D2MonsterDataStrc
-{
-    char unk0x00[0x28];
-    D2AiControlStrc* pAiControl;
-};
 
 
 struct D2ModeChangeStrc

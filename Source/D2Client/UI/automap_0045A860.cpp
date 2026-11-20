@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2UnitData.h"
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 extern "C" size_t __cdecl strlen(const char* szString);
@@ -10,10 +11,6 @@ struct Unicode
 };
 
 
-struct D2PlayerDataStrc
-{
-    char szName[0x10];
-};
 
 struct D2ActiveRoomStrc
 {

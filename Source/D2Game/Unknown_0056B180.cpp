@@ -4,6 +4,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2UnitData.h"
 
 #define STAT_HITPOINTS 6
 #define STAT_MANA 8
@@ -14,12 +15,6 @@ struct D2MonStatsTxt;
 struct D2MissilesTxt;
 
 
-struct D2PlayerDataStrc
-{
-    char unk0x00[0x70];
-    int nRightSkillId;
-    int nLeftSkillId;
-};
 
 struct D2CharStatsTxt
 {

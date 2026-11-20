@@ -1,5 +1,6 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2UnitData.h"
 
 struct D2AiCmdStrc
 {
@@ -31,11 +32,6 @@ struct D2AiControlStrc
     D2MinionListStrc* pMinionList;
 };
 
-struct D2MonsterDataStrc
-{
-    char unk0x00[0x28];
-    D2AiControlStrc* pAiControl;
-};
 
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);

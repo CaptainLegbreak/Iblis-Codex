@@ -5,6 +5,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2UnitData.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -38,11 +39,6 @@ enum D2C_P08MonsterConstants
 
 
 
-struct D2MonsterDataStrc
-{
-    char pad0x00[0x16];
-    unsigned short nTypeFlag;
-};
 
 
 

@@ -1,14 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2UnitData.h"
 
-struct D2PlayerDataStrc
-{
-    char unk0x000[0x150];
-    int nValue150;
-    int nValue154;
-    int nValue158;
-    int nValue15C;
-};
 
 
 struct D2ClientStringListStrc
@@ -442,10 +435,10 @@ void __fastcall sub_004B6DD0_NpcInteractPacket(unsigned char nUnitType, int nUni
         D2UnitStrc* pPlayer = sub_00463DD0();
         if (pPlayer && pPlayer->dwUnitType == 0 && pPlayer->pPlayerData)
         {
-            pPlayer->pPlayerData->nValue150 = 0;
-            pPlayer->pPlayerData->nValue154 = 0;
-            pPlayer->pPlayerData->nValue158 = 0;
-            pPlayer->pPlayerData->nValue15C = 0;
+            pPlayer->pPlayerData->nState = 0;
+            pPlayer->pPlayerData->nMode = 0;
+            pPlayer->pPlayerData->nArg1 = 0;
+            pPlayer->pPlayerData->nArg2 = 0;
         }
         sub_004786A0_SendIntInt(0x30, nArg, nUnitId);
         sub_004B3830_ClearNpcInventoryAndSound(nUnitId);

@@ -6,6 +6,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 
 struct D2MonsterRegionStrc;
 struct D2StaticPathStrc;
@@ -76,11 +77,6 @@ struct D2ModeChangeStrc
     int unk0x00[9];
 };
 
-struct D2MonsterDataStrc
-{
-    int unk0x00;
-    unsigned char nComponent[16];
-};
 
 struct D2UnitFindDataStrc
 {

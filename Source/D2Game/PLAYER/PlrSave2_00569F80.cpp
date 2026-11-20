@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 
 #define UNIT_PLAYER 0
 #define STAT_HITPOINTS 6
@@ -11,12 +12,6 @@ struct D2CharStatsTxt;
 struct D2SaveHeaderStrc;
 
 
-struct D2PlayerDataStrc
-{
-    char unk0x00[0x70];
-    int nRightSkillId;
-    int nLeftSkillId;
-};
 
 
 

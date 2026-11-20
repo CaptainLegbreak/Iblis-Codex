@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define BITARRAY_CHECK(pBytes, nBit) ((pBytes)[(nBit) >> 3] & gdwBitMasks[(nBit) & 7])
@@ -93,11 +94,6 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x00
 int __fastcall sub_00451F60_UnitClassId(D2UnitStrc* pUnit); // 0x00451F60
 int __stdcall SKILLS_GetPlayerSkillCount(int nClassId); // 0x00646140
 
-struct D2MonsterDataStrc
-{
-    char unk0x00[0x14];
-    short wField14;
-};
 
 // 0x004A9BD0
 void __stdcall sub_004A9BD0_SkillSelectClickHandler(SMSGHANDLER_PARAMS* pMsg)
@@ -391,5 +387,5 @@ short __fastcall sub_004AC760_GetMonsterDataWord14(D2UnitStrc* pUnit)
     D2MonsterDataStrc* pMonsterData = sub_004AC730_MonsterDataOf(pUnit);
     if (!pMonsterData)
         return 0;
-    return pMonsterData->wField14;
+    return pMonsterData->wNameSeed;
 }

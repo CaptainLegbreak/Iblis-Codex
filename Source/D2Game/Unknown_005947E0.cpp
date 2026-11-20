@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2UnitData.h"
 
 struct D2Act1Quest5Strc;
 struct D2PlayerDataStrc;
@@ -15,17 +16,8 @@ struct D2Act1Quest5Strc
     unsigned short nUnitCount2;
 };
 
-struct D2QuestDataStrc
-{
-    char unk00[0xB];
-    unsigned char fLastState;
-    unsigned char fState;
-    unsigned char unk_0D[0xB];
-    void* pQuestDataEx;
-};
 
 
-struct D2PlayerDataStrc { char unk00[0x10]; D2BitBufferStrc* pQuestData[3]; };
 
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc*); // 0x006221A0
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc*, int, int); // 0x0065C310

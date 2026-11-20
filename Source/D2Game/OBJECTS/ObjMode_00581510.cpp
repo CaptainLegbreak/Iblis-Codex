@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 
 struct D2ObjectControlStrc;
 struct D2SeedStrc;
@@ -27,14 +28,6 @@ struct D2ObjectDataStrc
     int dwOperateGUID;
 };
 
-struct D2PlayerDataStrc
-{
-    char unk0x00[0x10];
-    D2BitBufferStrc* pQuestData[3];
-    D2WaypointDataStrc* pWaypointData[3];
-    char unk0x28[0x24];
-    int bBusy;
-};
 
 
 struct D2ActiveRoomStrc

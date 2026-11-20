@@ -1,22 +1,6 @@
 #include "D2Game.h"
+#include "D2UnitData.h"
 
-struct D2QuestDataStrc
-{
-    int nQuestNo;
-    D2GameStrc* pGame;
-    unsigned char nActNo;
-    unsigned char bNotIntro;
-    unsigned char bActive;
-    unsigned char fLastState;
-    unsigned char fState;
-    char nInitNo;
-    unsigned short dw0E;
-    int nSeqId;
-    unsigned int dwFlags;
-    void* pQuestDataEx;
-    char unk0x1C[0xC4];
-    int eFilter;
-};
 
 struct D2Act5Quest5Strc
 {

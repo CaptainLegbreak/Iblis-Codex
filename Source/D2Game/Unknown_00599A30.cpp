@@ -2,14 +2,10 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2UnitData.h"
 
 
 
-struct D2PlayerDataStrc
-{
-    char pad0x00[0x10];
-    D2BitBufferStrc* pQuestData[3];
-};
 
 
 struct D2QuestArgStrc
@@ -20,20 +16,6 @@ struct D2QuestArgStrc
     D2UnitStrc* pPlayer;
 };
 
-struct D2QuestDataStrc
-{
-    int nQuestNo;
-    D2GameStrc* pGame;
-    unsigned char nActNo;
-    unsigned char bNotIntro;
-    unsigned char bActive;
-    unsigned char fLastState;
-    unsigned char fState;
-    char nInitNo;
-    unsigned short dw0E;
-    int nSeqId;
-    unsigned int dwFlags;
-};
 
 #define QUESTSTATEFLAG_A2Q2 10
 #define QUEST_A2Q2_HORADRICSTAFF 9

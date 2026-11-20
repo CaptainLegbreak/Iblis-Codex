@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2UnitData.h"
 struct D2MonsterDataStrc;
 struct D2ItemsTxt;
 struct D2MonStatsTxt;
@@ -11,11 +12,6 @@ struct D2SeedStrc;
 struct D2CoordStrc;
 struct D2StaticPathStrc;
 
-struct D2MonsterDataStrc
-{
-    void* pMonstatsTxt;
-    unsigned char nComponent[16];
-};
 
 
 

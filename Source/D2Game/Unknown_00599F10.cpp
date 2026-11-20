@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2UnitData.h"
 
 struct D2Act2Quest2Strc
 {
@@ -15,21 +16,6 @@ struct D2Act2Quest2Strc
     int nPlayerGUID;
 };
 
-struct D2QuestDataStrc
-{
-    int nQuestNo;
-    D2GameStrc* pGame;
-    unsigned char nActNo;
-    bool bNotIntro;
-    bool bActive;
-    unsigned char fLastState;
-    unsigned char fState;
-    char nInitNo;
-    unsigned short dw0E;
-    int nSeqId;
-    unsigned int dwFlags;
-    void* pQuestDataEx;
-};
 
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nQuest); // 0x00543640
 
