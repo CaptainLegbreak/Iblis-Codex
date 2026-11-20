@@ -2,6 +2,7 @@
 #include "D2Constants.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
+#include "D2Path.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define ITEMQUAL_SET 5
@@ -47,30 +48,7 @@ struct D2ItemsTxt;
 struct D2ItemSaveStrc;
 struct D2GSPacketSrv9D;
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
-struct D2StaticPathStrc
-{
-    D2ActiveRoomStrc* pRoom;
-    int dwClientCoordX;
-    int dwClientCoordY;
-    union
-    {
-        struct
-        {
-            D2CoordStrc tGameCoords;
-        };
-        struct
-        {
-            int nX;
-            int nY;
-        };
-    };
-};
 
 struct D2ObjectDataStrc
 {
@@ -1242,7 +1220,7 @@ static __forceinline int ITEMPKT_GetUnitX(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nX;
+        return pUnit->pStaticPath->nXPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
     }
@@ -1255,7 +1233,7 @@ static __forceinline int ITEMPKT_GetUnitY(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nY;
+        return pUnit->pStaticPath->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
     }

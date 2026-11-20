@@ -3,12 +3,8 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2Path.h"
 
-struct D2PathPointStrc
-{
-    unsigned short X;
-    unsigned short Y;
-};
 #define UNITFLAG_SKSRVDOFUNC 0x40
 #define AURAFILTER_DOUBLESWING 0x20003
 #define TIMERQUEUE_CURSESTATE 1
@@ -136,18 +132,7 @@ extern "C" void __stdcall sub_00625CE0(D2StatListStrc* pStatList, unsigned int d
 extern "C" void __stdcall sub_006260B0(D2StatListStrc* pStatList, int nValue); // 0x006260B0
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
 
-struct D2StaticPathStrc
-{
-    char unk0x000[0x0C];
-    int nX;
-    int nY;
-};
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 D2ActiveRoomStrc* __fastcall D2GAME_GetRoom_6FC52070(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
 int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit); // 0x0045ADF0
@@ -811,7 +796,7 @@ static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nX;
+        return pUnit->pStaticPath->nXPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
     }
@@ -824,7 +809,7 @@ static __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nY;
+        return pUnit->pStaticPath->nYPos;
     default:
         return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
     }

@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Path.h"
 
 struct SMSGHANDLER_PARAMS
 {
@@ -13,15 +14,6 @@ struct SMSGHANDLER_PARAMS
     int lResult;
 };
 
-struct D2UnitStrc
-{
-    char unk0x00[0x4];
-    unsigned int dwClassId;
-    char unk0x08[0x4];
-    int dwUnitId;
-    char unk0x10[0x50];
-    D2InventoryStrc* pInventory;
-};
 
 struct D2ItemsTxt
 {

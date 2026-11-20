@@ -1,12 +1,8 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Path.h"
 
-struct D2PathPointStrc
-{
-    unsigned short X;
-    unsigned short Y;
-};
 
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
@@ -21,12 +17,6 @@ struct D2SummonArgStrc;
 struct D2ModeChangeStrc;
 
 
-struct D2StaticPathStrc
-{
-    char unk0x00[0x0C];
-    int nX;
-    int nY;
-};
 
 
 extern int gnChargedBoltTurnEvery_00741B0C; // 0x00741B0C
@@ -149,11 +139,6 @@ struct D2MissileStrc
 D2UnitStrc* __fastcall sub_0059FA30_CreateMissile(D2GameStrc* pGame, D2MissileStrc* pMissileParams); // 0x0059FA30
 int __stdcall PATH_ComputeSquaredDistance(int nX1, int nY1, int nX2, int nY2); // 0x006492A0
 
-struct D2CoordStrc
-{
-    int nX;
-    int nY;
-};
 
 struct D2SummonArgStrc
 {
@@ -225,7 +210,7 @@ static __forceinline int CLIENTS_GetUnitXInline(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        nX = pUnit->pStaticPath->nX;
+        nX = pUnit->pStaticPath->nXPos;
         break;
     default:
         nX = pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -242,7 +227,7 @@ static __forceinline int CLIENTS_GetUnitYInline(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        nY = pUnit->pStaticPath->nY;
+        nY = pUnit->pStaticPath->nYPos;
         break;
     default:
         nY = pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
@@ -666,7 +651,7 @@ static int UNITS_GetUnitXPosition(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nX;
+        return pUnit->pStaticPath->nXPos;
     }
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
 }
@@ -678,7 +663,7 @@ static int UNITS_GetUnitYPosition(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nY;
+        return pUnit->pStaticPath->nYPos;
     }
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
 }
@@ -732,7 +717,7 @@ static int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nX;
+        return pUnit->pStaticPath->nXPos;
     }
 
     return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
@@ -745,7 +730,7 @@ static int UNITS_GetYPositionInline(D2UnitStrc* pUnit)
     case 2:
     case 4:
     case 5:
-        return pUnit->pStaticPath->nY;
+        return pUnit->pStaticPath->nYPos;
     }
 
     return pUnit->pDynamicPath ? PATH_GetYPosition(pUnit->pDynamicPath) : 0;
