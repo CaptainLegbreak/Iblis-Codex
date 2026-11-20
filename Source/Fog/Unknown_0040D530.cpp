@@ -14,8 +14,8 @@ struct D2AiTickParamStrc
     D2AiControlStrc* pAiControl;
 };
 
-int __fastcall sub_0040C720(int nArg);                                                                      // 0x0040C720
-void __fastcall sub_00469A60(int nArg);                                                                     // 0x00469A60
+int __fastcall sub_0040C720_ReleaseReferences(int nArg);                                                                      // 0x0040C720
+void __fastcall sub_00469A60_ResetKeyConfig(int nArg);                                                                     // 0x00469A60
 void __fastcall sub_00478A00(void* pCel);                                                                   // 0x00478A00
 extern "C" void __cdecl sub_00517ABB(void* pMemory);                                                        // 0x00517ABB
 
@@ -24,13 +24,13 @@ extern void* gpCelFile_007C02BC;                                                
 // 0x0040D530
 int __cdecl sub_0040D530_Call0040C720()
 {
-    return sub_0040C720(1);
+    return sub_0040C720_ReleaseReferences(1);
 }
 
 // 0x004A5010
 void __cdecl sub_004A5010_Call00469A60()
 {
-    sub_00469A60(0);
+    sub_00469A60_ResetKeyConfig(0);
 }
 
 // 0x004A51E0

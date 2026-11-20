@@ -27,7 +27,7 @@ int gnGlobal_007C0DD0;        // 0x007C0DD0
 extern unsigned int gnHirelingName_00725494; // 0x00725494
 extern D2NpcIndexStrc gaNpcIndex_00726C48[]; // 0x00726C48
 D2UnitStrc* __fastcall sub_00463990(int,int); // 0x00463990
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 unsigned char __cdecl sub_0044DCD0_GetDifficulty(); // 0x0044DCD0
 void __fastcall sub_00455F20(int,int,int); // 0x00455F20
 const Unicode* __fastcall sub_00464A60_GetUnitName(D2UnitStrc*); // 0x00464A60
@@ -100,7 +100,7 @@ void __cdecl sub_004B4830_Rebuild()
     }
     if(gnGlobal_007C0D2D==252 || gnGlobal_007C0D2D==198 || gnGlobal_007C0D2D==515 || gnGlobal_007C0D2D==150)
     {
-        D2UnitStrc* pPlayer=sub_00463DD0();
+        D2UnitStrc* pPlayer=sub_00463DD0_GetPlayerUnit();
         sub_004786D0_SendPacket38(0x38,3,gnGlobal_007C0D25,!pPlayer?-1:pPlayer->dwUnitId);
     }
     D2CoordStrc tCoords;
@@ -129,9 +129,9 @@ void __cdecl sub_004B4830_Rebuild()
         }
         else if(nStringId==0xD09)
         {
-            int nLife=STATLIST_UnitGetStatValue(sub_00463DD0(),6,0);
-            if(nLife>=STATLIST_GetMaxLifeFromUnit(sub_00463DD0()))continue;
-            int nCost=UNITS_GetHealingCost(sub_00463DD0());
+            int nLife=STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(),6,0);
+            if(nLife>=STATLIST_GetMaxLifeFromUnit(sub_00463DD0_GetPlayerUnit()))continue;
+            int nCost=UNITS_GetHealingCost(sub_00463DD0_GetPlayerUnit());
             if(!nCost)nCost=1;
             sub_005267E0(wszLine,D2LANG_GetStringFromTblIndex(gaNpcIndex_00726C48[nIndex].awIds[i]));
             Unicode wszNumber[10] = {0,0,0,0,0,0,0,0,0,0};
@@ -145,7 +145,7 @@ void __cdecl sub_004B4830_Rebuild()
         {
             int bCharge=0;
             if(!QUESTRECORD_GetQuestState(gpQuestFlags_007C0D43,4,0) && !QUESTRECORD_GetQuestState(gpQuestFlags_007C0D43,4,1))bCharge=1;
-            int nCount=ITEMS_GetNoOfUnidItems(sub_00463DD0());
+            int nCount=ITEMS_GetNoOfUnidItems(sub_00463DD0_GetPlayerUnit());
             if(nCount)
             {
             gaNpcIndex_00726C48[nIndex].nCount=3;

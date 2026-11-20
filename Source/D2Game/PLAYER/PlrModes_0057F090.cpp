@@ -31,7 +31,7 @@ int __fastcall sub_6FC828D0(D2UnitStrc* pPlayer, int nUnitType, int nUnitGUID, i
 void __fastcall sub_6FCBC7E0(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553490
 void __fastcall SUNIT_SetCombatMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode); // 0x00553570
 void __fastcall D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553990
-int __fastcall SUNIT_UpdateUnitPath(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00554CA0
+int __fastcall sub_6FCBC930(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00554CA0
 void __fastcall PLRMODE_StartXY_Neutral(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nMode, int nX, int nY); // 0x0057F020
 void __fastcall StartModeID(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2SkillStrc* pSkill, int nMode, int nUnitType, int nTargetGUID, int bAllowReEnter); // 0x00580A70
 void __fastcall SKILLS_CreateBlazeMissile(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005C9D90
@@ -76,8 +76,8 @@ extern D2ServerCallbackFunctions* gpD2EventCallbackTable_6FD45830; // 0x00883D50
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 void __fastcall D2GAME_SetClientDead_6FC33830(D2ClientStrc* pClient, void* pArg); // 0x00538260
 void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nEventCustomId); // 0x00540E60
-D2UnitStrc* __fastcall sub_0057F700(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, D2ActiveRoomStrc* pRoom); // 0x0057F700
-void __fastcall D2GAME_KillPlayerPets_6FC7CD10(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00575BC0
+D2UnitStrc* __fastcall sub_0057F700_CreateDeadBody(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, D2ActiveRoomStrc* pRoom); // 0x0057F700
+void __fastcall sub_00575BC0(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00575BC0
 void __fastcall CLIENTS_ToggleFlag(D2ClientStrc* pClient, unsigned short nFlag, int bSet); // 0x00538650
 int __fastcall CLIENTS_CheckFlag(D2ClientStrc* pClient, int nFlag); // 0x00538670
 char* __fastcall CLIENTS_GetName(D2ClientStrc* pClient); // 0x00538830
@@ -88,7 +88,7 @@ D2UnitStrc* __fastcall AIGENERAL_GetMinionOwner(D2UnitStrc* pUnit); // 0x0058F0D
 void __fastcall ITEMS_DropPlayerEar(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x0055A200
 void __fastcall D2GAME_PLRMSG_Last_6FC89450(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender); // 0x0054D8A0
 void __fastcall ARENA_ProcessKillEvent(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender); // 0x0053F720
-void __fastcall PLAYER_StopInteractions(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x005350F0
+void __fastcall sub_6FC7BEC0(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x005350F0
 
 static __forceinline int sub_F05_PlrGetUnitX(D2UnitStrc* pUnit)
 {
@@ -290,7 +290,7 @@ int __fastcall PLRMODE_UpdateMovement(D2GameStrc* pGame, D2UnitStrc* pPlayer, in
         sub_0057F090_StartMovement(pGame, pPlayer, 2);
     }
 
-    int nPathResult = SUNIT_UpdateUnitPath(pGame, pPlayer);
+    int nPathResult = sub_6FCBC930(pGame, pPlayer);
     const unsigned int nTickCount = GetTickCount();
     D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
     if (nTickCount > pPlayerData->dwPositionHistoryTick + 25)
@@ -414,8 +414,8 @@ static void sub_6FC814F0(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 // 0x0057FCA0
 void __fastcall PLRMODE_StartXY_Dead(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, int nX, int nY)
 {
-    sub_0057F700(pGame, pUnit, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), UNITS_GetRoom(pUnit));
-    D2GAME_KillPlayerPets_6FC7CD10(pGame, pUnit);
+    sub_0057F700_CreateDeadBody(pGame, pUnit, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), UNITS_GetRoom(pUnit));
+    sub_00575BC0(pGame, pUnit);
 
     D2ClientStrc* pClient = UnitGetClient(pUnit, ".\\PLAYER\\PlrModes.cpp", 0x434);
     CLIENTS_ToggleFlag(pClient, 0x08, 1);
@@ -485,5 +485,5 @@ void __fastcall PLRMODE_StartID_Death(D2GameStrc* pGame, D2UnitStrc* pDefender, 
         ARENA_ProcessKillEvent(pGame, pAttacker, pDefender);
     }
 
-    PLAYER_StopInteractions(pGame, pDefender);
+    sub_6FC7BEC0(pGame, pDefender);
 }

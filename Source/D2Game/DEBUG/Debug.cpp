@@ -14,7 +14,7 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 D2UnitStrc* __fastcall SUNIT_GetNextUnitFromList(D2UnitStrc* pUnit);                                        // 0x00552DB0
-void __cdecl sub_005449D0_ClearByte();                                                                      // 0x005449D0
+void __cdecl sub_005449D0_ClearFlag();                                                                      // 0x005449D0
 
 // 0x005346C0
 int __stdcall sub_005346C0()
@@ -39,7 +39,7 @@ int __stdcall sub_005346C0()
 // 0x00534790
 void __cdecl sub_00534790_ClearByte()
 {
-    sub_005449D0_ClearByte();
+    sub_005449D0_ClearFlag();
 }
 
 // 0x005347A0

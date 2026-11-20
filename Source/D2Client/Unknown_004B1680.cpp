@@ -22,7 +22,7 @@ struct D2NpcEntryStrc
 };
 #pragma pack(pop)
 
-D2UnitStrc* __cdecl sub_00463DD0();                                                               // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState);            // 0x0065C310
 extern D2NpcChoiceStrc gaNpcChoices_00725CB0[];                                                             // 0x00725CB0
 
@@ -54,7 +54,7 @@ void __stdcall sub_004B1680(D2NpcEntryStrc* pEntry)
 {
     int* const pnSelected = &pEntry->nSelected;
     int nTries = 10;
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     const int nClass = !pPlayer ? -1 : pPlayer->dwClassId;
 
     do

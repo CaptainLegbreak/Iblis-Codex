@@ -26,21 +26,21 @@ void __cdecl sub_00453AE0(); // 0x00453AE0
 void __cdecl sub_00453EE0_ClosePanel(); // 0x00453EE0
 void __fastcall sub_0045AEA0_SetPanelSlide(int nMode); // 0x0045AEA0
 void __cdecl sub_00466FE0(); // 0x00466FE0
-void __cdecl sub_0047B2E0(); // 0x0047B2E0
+void __cdecl sub_0047B2E0_CloseChatInput(); // 0x0047B2E0
 void __cdecl sub_0047B4E0(); // 0x0047B4E0
 void __cdecl sub_00487990_ResetHover(); // 0x00487990
 void __cdecl sub_00489EE0(); // 0x00489EE0
 void __cdecl sub_0048A500(); // 0x0048A500
 void __cdecl sub_00494FC0(); // 0x00494FC0
 void __cdecl sub_0049A020_FreeRosterUnits(); // 0x0049A020
-void __cdecl sub_0049CF50(); // 0x0049CF50
+void __cdecl sub_0049CF50_SendWaypointClose(); // 0x0049CF50
 void __cdecl sub_0049FF00(); // 0x0049FF00
-void __cdecl sub_004A01A0(); // 0x004A01A0
-void __cdecl sub_004A28D0(); // 0x004A28D0
+void __cdecl sub_004A01A0_CloseListBoxDialog(); // 0x004A01A0
+void __cdecl sub_004A28D0_ResetButton(); // 0x004A28D0
 void __cdecl sub_004A3000(); // 0x004A3000
 void __fastcall sub_004A5200(int nArg); // 0x004A5200
-void __cdecl sub_004ABF10(); // 0x004ABF10
-void __cdecl sub_004B3F10(); // 0x004B3F10
+void __cdecl sub_004ABF10_ClearSkillStates(); // 0x004ABF10
+void __cdecl sub_004B3F10_CloseByState(); // 0x004B3F10
 void __fastcall sub_004B8940_CloseWait(int bReopen); // 0x004B8940
 extern D2MsgHandlerEntryStrc gtPanelHandlers_006D5F28[]; // 0x006D5F28
 extern D2MsgHandlerEntryStrc gtPanelHandlers_006D5F58[]; // 0x006D5F58
@@ -115,7 +115,7 @@ int __cdecl sub_004A0000(); // 0x004A0000
 int __fastcall sub_004B3230_GetTickPair(int* pLow); // 0x004B3230
 void __fastcall sub_004B3C20(int nValue); // 0x004B3C20
 void __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
@@ -127,59 +127,59 @@ int __cdecl D2GFX_GetResolutionMode(); // 0x004F5160
 void __fastcall sub_00502280_SetPopUpText(const unsigned short* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 int __cdecl sub_0045AE90(); // 0x0045AE90
 D2UnitStrc* __cdecl sub_00467A10(); // 0x00467A10
-void __fastcall sub_00454F30(D2UnitStrc* pUnit); // 0x00454F30
+void __fastcall sub_00454F30_DrawUnitHover(D2UnitStrc* pUnit); // 0x00454F30
 void __fastcall sub_00456300(int nArg1, int nArg2); // 0x00456300
 void __fastcall sub_004B8100(void* pObj); // 0x004B8100
-void __fastcall sub_004A0E70(D2ViewStrc* pView); // 0x004A0E70
-void __fastcall sub_00453330(D2UnitStrc* pUnit); // 0x00453330
+void __fastcall sub_004A0E70_UpdateTexts(D2ViewStrc* pView); // 0x004A0E70
+void __fastcall sub_00453330_DrawPartyMemberText(D2UnitStrc* pUnit); // 0x00453330
 void __fastcall sub_00464950(void (__fastcall* pfnCallback)(D2UnitStrc*)); // 0x00464950
-void __cdecl sub_0047E3D0(); // 0x0047E3D0
+void __cdecl sub_0047E3D0_DrawOptions(); // 0x0047E3D0
 void __cdecl sub_004A5270(); // 0x004A5270
-void __cdecl sub_00452D20(); // 0x00452D20
-void __cdecl sub_00497FE0(); // 0x00497FE0
+void __cdecl sub_00452D20_DrawPetHover(); // 0x00452D20
+void __cdecl sub_00497FE0_DrawDurabilityIcons(); // 0x00497FE0
 void __cdecl sub_00497E00(); // 0x00497E00
 void __cdecl sub_0045AD60(); // 0x0045AD60
-void __cdecl sub_00455510(); // 0x00455510
-void __cdecl sub_00493340(); // 0x00493340
-void __cdecl sub_00494020(); // 0x00494020
-void __cdecl sub_004929F0(); // 0x004929F0
+void __cdecl sub_00455510_DrawLevelLoadingScreen(); // 0x00455510
+void __cdecl sub_00493340_UpdateHirelingPanel(); // 0x00493340
+void __cdecl sub_00494020_DrawPetIcons(); // 0x00494020
+void __cdecl sub_004929F0_DrawMercPanel(); // 0x004929F0
 void __cdecl sub_0048BC10(); // 0x0048BC10
-void __cdecl sub_004A34F0(); // 0x004A34F0
-void __cdecl sub_0048EDF0(); // 0x0048EDF0
-void __cdecl sub_004B8730(); // 0x004B8730
-void __cdecl sub_00453470(); // 0x00453470
-void __cdecl sub_004AC690(); // 0x004AC690
-void __cdecl sub_004A7D00(); // 0x004A7D00
-void __cdecl sub_0049C3D0(); // 0x0049C3D0
-void __cdecl sub_0049FF10(); // 0x0049FF10
-void __cdecl sub_0049C9C0_DrawPanel20(); // 0x0049C9C0
-void __cdecl sub_00494320(); // 0x00494320
+void __cdecl sub_004A34F0_DrawQuestPage(); // 0x004A34F0
+void __cdecl sub_0048EDF0_DrawInventoryPanel(); // 0x0048EDF0
+void __cdecl sub_004B8730_DrawDialogHover(); // 0x004B8730
+void __cdecl sub_00453470_DrawProgressiveStates(); // 0x00453470
+void __cdecl sub_004AC690_DrawSkillPanel(); // 0x004AC690
+void __cdecl sub_004A7D00_DrawCharStats(); // 0x004A7D00
+void __cdecl sub_0049C3D0_DrawPartyPanel(); // 0x0049C3D0
+void __cdecl sub_0049FF10_DispatchTextData(); // 0x0049FF10
+void __cdecl sub_0049C9C0_DrawWaypointPanel(); // 0x0049C9C0
+void __cdecl sub_00494320_LoadHelpCels(); // 0x00494320
 void __cdecl sub_00494EB0(); // 0x00494EB0
-void __cdecl sub_00499450(); // 0x00499450
-void __cdecl sub_004AA7E0(); // 0x004AA7E0
-void __cdecl sub_00498E90(); // 0x00498E90
-void __cdecl sub_004A64C0(); // 0x004A64C0
-void __cdecl sub_00495180(); // 0x00495180
-void __cdecl sub_004A6B30(); // 0x004A6B30
-void __cdecl sub_004A6A70(); // 0x004A6A70
-void __cdecl sub_004A6E60(); // 0x004A6E60
-void __cdecl sub_004A6DA0(); // 0x004A6DA0
-void __cdecl sub_004A2A80(); // 0x004A2A80
+void __cdecl sub_00499450_DrawControlPanel(); // 0x00499450
+void __cdecl sub_004AA7E0_ResetSkillIcons(); // 0x004AA7E0
+void __cdecl sub_00498E90_SetRecordMode(); // 0x00498E90
+void __cdecl sub_004A64C0_UpdateStatButtons(); // 0x004A64C0
+void __cdecl sub_00495180_DrawButtons(); // 0x00495180
+void __cdecl sub_004A6B30_DrawLeftPanelButtons(); // 0x004A6B30
+void __cdecl sub_004A6A70_DrawLeftPanelButton(); // 0x004A6A70
+void __cdecl sub_004A6E60_DrawRightPanelButtons(); // 0x004A6E60
+void __cdecl sub_004A6DA0_DrawRightPanelButton(); // 0x004A6DA0
+void __cdecl sub_004A2A80_DrawButton(); // 0x004A2A80
 void __cdecl sub_00498120(); // 0x00498120
-void __cdecl sub_0047F710(); // 0x0047F710
-void __cdecl sub_0047B720(); // 0x0047B720
-void __cdecl sub_004966C0(); // 0x004966C0
+void __cdecl sub_0047F710_UpdateSlotBar(); // 0x0047F710
+void __cdecl sub_0047B720_DrawChatPanel(); // 0x0047B720
+void __cdecl sub_004966C0_DrawHelpScreen(); // 0x004966C0
 void __cdecl sub_004C0810_DrawUnitNames(); // 0x004C0810
-void __cdecl sub_004B4380(); // 0x004B4380
-void __cdecl sub_004C01E0(); // 0x004C01E0
+void __cdecl sub_004B4380_UpdateNpcInteract(); // 0x004B4380
+void __cdecl sub_004C01E0_DrawPanelUnit(); // 0x004C01E0
 void __cdecl sub_00496B10(); // 0x00496B10
 void __cdecl sub_00503000(); // 0x00503000
-void __cdecl sub_00454A70(); // 0x00454A70
+void __cdecl sub_00454A70_DrawHoverText(); // 0x00454A70
 void __cdecl sub_00453060(); // 0x00453060
-void __cdecl sub_004554B0(); // 0x004554B0
-void __cdecl sub_00453B30(); // 0x00453B30
-void __cdecl sub_00453100(); // 0x00453100
-void __cdecl sub_0046C130(); // 0x0046C130
+void __cdecl sub_004554B0_DrawHoverName(); // 0x004554B0
+void __cdecl sub_00453B30_DrawStoredUnitNumber(); // 0x00453B30
+void __cdecl sub_00453100_DrawDeathScreen(); // 0x00453100
+void __cdecl sub_0046C130_DrawCountdown(); // 0x0046C130
 
 // 0x004549D0
 D2Block0xA0Strc* __fastcall sub_004549D0_ClearBlock(D2Block0xA0Strc* pBlock)
@@ -207,7 +207,7 @@ void __fastcall sub_00455AE0_ClearPanelHandlers(int nPanel)
     case 0x4:
         sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_006D5FAC, 0x2);
         sub_00453AE0();
-        sub_004ABF10();
+        sub_004ABF10_ClearSkillStates();
         return;
     case 0x2:
         sub_00453EE0_ClosePanel();
@@ -221,7 +221,7 @@ void __fastcall sub_00455AE0_ClearPanelHandlers(int nPanel)
         sub_00453AE0();
         return;
     case 0x5:
-        sub_0047B2E0();
+        sub_0047B2E0_CloseChatInput();
         sub_0047B4E0();
         if (!gaUIVarStates_007A27C0[0xC] && !gaUIVarStates_007A27C0[0x17] && !gaUIVarStates_007A27C0[0x19]
             && !gaUIVarStates_007A27C0[0x1A] && !gaUIVarStates_007A27C0[0x1B] && !gaUIVarStates_007A27C0[0x1C]
@@ -242,7 +242,7 @@ void __fastcall sub_00455AE0_ClearPanelHandlers(int nPanel)
     case 0x8:
     case 0xE:
         sub_00453AE0();
-        sub_004B3F10();
+        sub_004B3F10_CloseByState();
         return;
     case 0x9:
         sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_006D6030, 0x7);
@@ -255,12 +255,12 @@ void __fastcall sub_00455AE0_ClearPanelHandlers(int nPanel)
         return;
     case 0xC:
         sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_0070F878, 0x8);
-        sub_004B3F10();
+        sub_004B3F10_CloseByState();
         sub_0046AA20(0x1, 0x1);
         return;
     case 0xF:
         sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_0070F8D8, 0x7);
-        sub_004A28D0();
+        sub_004A28D0_ResetButton();
         sub_00453AE0();
         return;
     case 0x11:
@@ -274,7 +274,7 @@ void __fastcall sub_00455AE0_ClearPanelHandlers(int nPanel)
         return;
     case 0x14:
         sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_006D61C8, 0x5);
-        sub_0049CF50();
+        sub_0049CF50_SendWaypointClose();
         sub_00453AE0();
         return;
     case 0x15:
@@ -311,7 +311,7 @@ void __fastcall sub_00455AE0_ClearPanelHandlers(int nPanel)
         sub_0046AA20(0x1, 0x1);
         return;
     case 0x18:
-        sub_004A01A0();
+        sub_004A01A0_CloseListBoxDialog();
         return;
     case 0x1F:
         sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_0070FA84, 0x2);
@@ -471,7 +471,7 @@ void __cdecl sub_004567F0_ToggleMiniPanel()
             }
         }
     }
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (!pPlayer || (pPlayer->dwUnitType == 0 && !sub_00464820_IsDeadOrDying(pPlayer)))
         gbMiniPanel_007A2814 = gbMiniPanel_007A2814 == 0;
     if (!bWasOn)
@@ -509,78 +509,78 @@ void __fastcall sub_00456EE0_DrawUIPanels(D2ViewStrc* pView)
     gwszText_007A2D30[0] = 0;
     gwszText_007A2A78[0] = 0;
     if (gaUIVarStates_007A27C0[9])
-        sub_0047E3D0();
+        sub_0047E3D0_DrawOptions();
     if (gaUIVarStates_007A27C0[11])
         sub_004A5270();
-    sub_00454F30(sub_00467A10());
+    sub_00454F30_DrawUnitHover(sub_00467A10());
     if (gaUIVarStates_007A27C0[35])
-        sub_00452D20();
+        sub_00452D20_DrawPetHover();
     if (!gaUIVarStates_007A27C0[1] && !gaUIVarStates_007A27C0[12] && !gaUIVarStates_007A27C0[14])
     {
-        sub_00497FE0();
+        sub_00497FE0_DrawDurabilityIcons();
         sub_00497E00();
     }
     if (gaUIVarStates_007A27C0[10] && sub_0045AE90() != 3)
         sub_0045AD60();
-    sub_00455510();
-    sub_00493340();
+    sub_00455510_DrawLevelLoadingScreen();
+    sub_00493340_UpdateHirelingPanel();
     if (gaUIVarStates_007A27C0[19])
-        sub_00494020();
+        sub_00494020_DrawPetIcons();
     if (gaUIVarStates_007A27C0[36])
-        sub_004929F0();
+        sub_004929F0_DrawMercPanel();
     if (gaUIVarStates_007A27C0[37])
         sub_0048BC10();
     if (gaUIVarStates_007A27C0[15])
-        sub_004A34F0();
+        sub_004A34F0_DrawQuestPage();
     if (gaUIVarStates_007A27C0[1] || gaUIVarStates_007A27C0[12] || gaUIVarStates_007A27C0[14] || gaUIVarStates_007A27C0[25]
         || gaUIVarStates_007A27C0[26] || gaUIVarStates_007A27C0[28] || gaUIVarStates_007A27C0[29])
-        sub_0048EDF0();
+        sub_0048EDF0_DrawInventoryPanel();
     if (gaUIVarStates_007A27C0[23])
     {
-        sub_004B8730();
-        sub_0048EDF0();
+        sub_004B8730_DrawDialogHover();
+        sub_0048EDF0_DrawInventoryPanel();
     }
-    sub_00453470();
+    sub_00453470_DrawProgressiveStates();
     if (gaUIVarStates_007A27C0[4])
-        sub_004AC690();
+        sub_004AC690_DrawSkillPanel();
     if (gaUIVarStates_007A27C0[2])
-        sub_004A7D00();
+        sub_004A7D00_DrawCharStats();
     if (gaUIVarStates_007A27C0[22])
-        sub_0049C3D0();
+        sub_0049C3D0_DrawPartyPanel();
     if (gpGlobal_007A27A0)
         sub_004B8100(gpGlobal_007A27A0);
     if (gaUIVarStates_007A27C0[16])
-        sub_0049FF10();
+        sub_0049FF10_DispatchTextData();
     if (gaUIVarStates_007A27C0[20])
-        sub_0049C9C0_DrawPanel20();
+        sub_0049C9C0_DrawWaypointPanel();
     if (gaUIVarStates_007A27C0[33])
     {
-        sub_00494320();
+        sub_00494320_LoadHelpCels();
         sub_00494EB0();
     }
-    sub_00499450();
+    sub_00499450_DrawControlPanel();
     if (gaUIVarStates_007A27C0[3])
-        sub_004AA7E0();
+        sub_004AA7E0_ResetSkillIcons();
     if (gaUIVarStates_007A27C0[31])
-        sub_00498E90();
-    sub_004A64C0();
+        sub_00498E90_SetRecordMode();
+    sub_004A64C0_UpdateStatButtons();
     if (gaUIVarStates_007A27C0[34])
-        sub_00495180();
+        sub_00495180_DrawButtons();
     if (gaUIVarStates_007A27C0[6])
-        sub_004A6B30();
+        sub_004A6B30_DrawLeftPanelButtons();
     else
-        sub_004A6A70();
+        sub_004A6A70_DrawLeftPanelButton();
     if (gaUIVarStates_007A27C0[7])
-        sub_004A6E60();
+        sub_004A6E60_DrawRightPanelButtons();
     else
-        sub_004A6DA0();
+        sub_004A6DA0_DrawRightPanelButton();
     if (gaUIVarStates_007A27C0[17])
-        sub_004A2A80();
+        sub_004A2A80_DrawButton();
     sub_00498120();
     if (gaUIVarStates_007A27C0[21])
-        sub_0047F710();
+        sub_0047F710_UpdateSlotBar();
     if (gaUIVarStates_007A27C0[5])
-        sub_0047B720();
+        sub_0047B720_DrawChatPanel();
     if (gaUIVarStates_007A27C0[33])
     {
         sub_00456300(0, 0);
@@ -624,7 +624,7 @@ void __fastcall sub_00456EE0_DrawUIPanels(D2ViewStrc* pView)
             }
         }
         {
-            D2UnitStrc* pPlayer = sub_00463DD0();
+            D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
             if (!pPlayer || (pPlayer->dwUnitType == 0 && !sub_00464820_IsDeadOrDying(pPlayer)))
                 gaUIVarStates_007A27C0[33] = gaUIVarStates_007A27C0[33] == 0;
             if (!bWasOn)
@@ -644,25 +644,25 @@ void __fastcall sub_00456EE0_DrawUIPanels(D2ViewStrc* pView)
             sub_00468740();
         }
 done:
-        sub_004966C0();
+        sub_004966C0_DrawHelpScreen();
     }
     if (gaUIVarStates_007A27C0[13] && sub_0045AE90() != 3)
     {
         sub_004C0810_DrawUnitNames();
         if (sub_0044DB30())
-            sub_00464950(sub_00453330);
+            sub_00464950(sub_00453330_DrawPartyMemberText);
     }
     if (gaUIVarStates_007A27C0[8])
-        sub_004B4380();
+        sub_004B4380_UpdateNpcInteract();
     if (gaUIVarStates_007A27C0[14])
-        sub_004C01E0();
+        sub_004C01E0_DrawPanelUnit();
     sub_00496B10();
-    sub_004A0E70(pView);
+    sub_004A0E70_UpdateTexts(pView);
     sub_00503000();
-    sub_00454A70();
+    sub_00454A70_DrawHoverText();
     sub_00453060();
-    sub_004554B0();
-    sub_00453B30();
-    sub_00453100();
-    sub_0046C130();
+    sub_004554B0_DrawHoverName();
+    sub_00453B30_DrawStoredUnitNumber();
+    sub_00453100_DrawDeathScreen();
+    sub_0046C130_DrawCountdown();
 }

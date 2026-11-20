@@ -45,10 +45,10 @@ Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc);           
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);                                 // 0x00526700
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);                  // 0x00526F20
 void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* pText, int nA, int nB, int nC); // 0x004FC9B0
-void __fastcall sub_004FCFF0_SetTextA(D2WinControlStrc* pControl, const char* szText, int nArg);            // 0x004FCFF0
+void __fastcall D2Win_10046(D2WinControlStrc* pControl, const char* szText, int nArg);            // 0x004FCFF0
 D2WinControlStrc* __stdcall CONTROL_Create(D2WinControlInitStrc* pControlInit);                             // 0x004F93C0
 void __fastcall sub_004F96F0_ControlClearState(D2WinControlStrc* pControl, int nFlags);                     // 0x004F96F0
-const char* __stdcall sub_005068A0(int nA, int nB, int nC, int nD);                                         // 0x005068A0
+const char* __stdcall D2Win_10161(int nA, int nB, int nC, int nD);                                         // 0x005068A0
 
 extern D2LaunchCharInfoStrc* gpCharInfo_0077BBD8;                                                           // 0x0077BBD8
 extern D2WinControlStrc* gpChatControl_0077B058[17];                                                        // 0x0077B058
@@ -137,11 +137,11 @@ void __cdecl sub_0043DDD0_CreateCharControls()
     const int nMask20 = *(unsigned short*)pInfo->wFlags & 0x20;
     const int nMask4 = *(unsigned short*)pInfo->wFlags & 4;
     const int nLevel = (*(unsigned short*)pInfo->wFlags >> 8) & 0x1F;
-    const char* szRealm = sub_005068A0(pInfo->nValue0x1EE, nLevel, nMask4, nMask20);
+    const char* szRealm = D2Win_10161(pInfo->nValue0x1EE, nLevel, nMask4, nMask20);
     if (szRealm)
         strcat(szText, szRealm);
     strcat(szText, gpCharInfo_0077BBD8->szName0xBD);
-    sub_004FCFF0_SetTextA(gpControl_0077BC40, szText, (gpCharInfo_0077BBD8->wFlags0x3CB[0] >> 2) & 1);
+    D2Win_10046(gpControl_0077BC40, szText, (gpCharInfo_0077BBD8->wFlags0x3CB[0] >> 2) & 1);
     GET_CLASS_NAME(gpCharInfo_0077BBD8->nValue0x1EE, wszClass);
 
     Unicode wszLine[100];

@@ -89,7 +89,7 @@ void __fastcall sub_006BBA00_SelectTile(D2PerspectiveTileStrc* pTile); // 0x006B
 int __stdcall sub_005FDEA0_CheckSurface(void*, int, int); // 0x005FDEA0
 void __fastcall sub_006B1F40_SetBlendMode(int); // 0x006B1F40
 void __fastcall sub_006B2030_SetFilterMode(int); // 0x006B2030
-int __cdecl sub_006B9830_UseAlternate(); // 0x006B9830
+int __cdecl sub_006B9830_GetPerspective(); // 0x006B9830
 int __stdcall sub_006B8950_DrawAlternate(void*, void*, int, int, int, unsigned char); // 0x006B8950
 int __stdcall sub_006B87A0_DrawNormal(void*, void*, int, int, int, unsigned char); // 0x006B87A0
 static __declspec(noinline) int __stdcall sub_006B8DF0_DrawConfigured(void*, int, int, int, void*, unsigned char);
@@ -129,7 +129,7 @@ extern IndexStrip gIndexStrips[5]; // 0x009716B0
 extern const char gCreateFailure[]; // 0x006FC2C4
 extern const char gLockFailure[]; // 0x006FC330
 extern const char gUnlockFailure[]; // 0x006FC310
-void __fastcall sub_006B39B0(const char*,long); // 0x006B39B0
+void __fastcall sub_006B39B0_ShowD3DError(const char*,long); // 0x006B39B0
 void __fastcall sub_006B20E0(const char*,long); // 0x006B20E0
 
 struct D2GridPointStrc { unsigned char nScale,nRed,nGreen,nBlue; int nX,nY; };
@@ -390,7 +390,7 @@ static int __stdcall sub_006B8DF0_DrawConfigured(void* pSurface, int nA, int nB,
     sub_006B1EA0_SetMode(1);
     sub_006B1F40_SetBlendMode(nAlpha == 255 ? 1 : 4);
     sub_006B2030_SetFilterMode(1);
-    if (sub_006B9830_UseAlternate())
+    if (sub_006B9830_GetPerspective())
         return sub_006B8950_DrawAlternate(pImage, pSurface, nA, nB, nC, nAlpha);
     return sub_006B87A0_DrawNormal(pImage, pSurface, nA, nB, nC, nAlpha);
 }
@@ -416,7 +416,7 @@ void __cdecl sub_006B8F10()
     long result = gGraphics->CreateVertexBuffer(&description, &gGridBuffer, 4, 0);
     if (result)
     {
-        sub_006B39B0(gCreateFailure, result);
+        sub_006B39B0_ShowD3DError(gCreateFailure, result);
         return;
     }
 

@@ -97,21 +97,21 @@ D2WinControlStrc* __fastcall sub_0042F430_CreateControl(int nId);               
 void __cdecl sub_0042F480_Reset();                                                                          // 0x0042F480
 void __cdecl sub_0042F6E0();                                                                                // 0x0042F6E0
 void __cdecl sub_00432EF0();                                                                                // 0x00432EF0
-int __stdcall sub_00433020(int nArg);                                                                       // 0x00433020
-int __stdcall sub_00433060(int nArg);                                                                       // 0x00433060
+int __stdcall sub_00433020_PollConnectA(int nArg);                                                                       // 0x00433020
+int __stdcall sub_00433060_PollConnectB(int nArg);                                                                       // 0x00433060
 void __fastcall sub_00433380_ShowMessage(const Unicode* pText, D2LaunchDoneFn pfnDone, int nArg);           // 0x00433380
 void __stdcall sub_0043A460(const Unicode* pTitle, const Unicode* pText, int nArg3, int nArg4);             // 0x0043A460
-void __cdecl sub_0043A730();                                                                                // 0x0043A730
-void __stdcall sub_00449E50(int nValue);                                                                    // 0x00449E50
-void __fastcall sub_0044A7A0(const char* szName, unsigned short nArg);                                      // 0x0044A7A0
-void __fastcall sub_0044A810(const char* szName);                                                           // 0x0044A810
-void __cdecl sub_0044AA80();                                                                                // 0x0044AA80
+void __cdecl sub_0043A730_UpdateButtons();                                                                                // 0x0043A730
+void __stdcall sub_00449E50_SetValue(int nValue);                                                                    // 0x00449E50
+void __fastcall sub_0044A7A0_SendPacket0A(const char* szName, unsigned short nArg);                                      // 0x0044A7A0
+void __fastcall sub_0044A810_SendPacket18(const char* szName);                                                           // 0x0044A810
+void __cdecl sub_0044AA80_SendPacket13();                                                                                // 0x0044AA80
 int __stdcall sub_004F91C0(void* pEditBox);                                                                  // 0x004F91C0
-int __stdcall sub_004F91A0(D2WinControlStrc* pControl, D2CellFileStrc* pCellFile);                          // 0x004F91A0
+int __stdcall CONTROL_SetCellFile(D2WinControlStrc* pControl, D2CellFileStrc* pCellFile);                          // 0x004F91A0
 void __stdcall sub_004FA590_RunLoop(D2LaunchCallback pfnCallback);                                          // 0x004FA590
 void __fastcall sub_004FB740(D2WinControlStrc* pList, int nA, int nB);                                      // 0x004FB740
 int __fastcall sub_004FB990_GetSelection(D2WinControlStrc* pControl);                                       // 0x004FB990
-void __fastcall sub_004FCF80_SetTextA(D2WinControlStrc* pControl, const char* szText);                      // 0x004FCF80
+void __fastcall D2Win_10045(D2WinControlStrc* pControl, const char* szText);                      // 0x004FCF80
 int __stdcall sub_004FD0B0_SetColor(D2WinControlStrc* pControl, int nColor, int nValue);                    // 0x004FD0B0
 int __stdcall sub_00500810(D2WinControlStrc* pControl, int nArg);                                           // 0x00500810
 int __stdcall D2Win_10125();                                                                                // 0x00501A40
@@ -245,8 +245,8 @@ char* __fastcall sub_00430B50_GetSlotName(int nIndex)
 void __cdecl sub_00430C80_FillList()
 {
     for (int i = 0; i < 50; i++)
-        sub_004FCF80_SetTextA(gpList_00779964, &gszEmptyAssertText);
-    sub_004FCF80_SetTextA(gpList_00779964, "The End");
+        D2Win_10045(gpList_00779964, &gszEmptyAssertText);
+    D2Win_10045(gpList_00779964, "The End");
     gnListPos_0077996C = sub_004FB950_GetFirstVisible(gpList_00779964);
 }
 
@@ -258,28 +258,28 @@ void __cdecl sub_00430EF0_SyncLists()
     int nThird = sub_004FB950_GetFirstVisible(gpList_00779960);
     while (nSecond > nThird)
     {
-        sub_004FCF80_SetTextA(gpList_00779960, &gszEmptyAssertText);
+        D2Win_10045(gpList_00779960, &gszEmptyAssertText);
         nThird = sub_004FB950_GetFirstVisible(gpList_00779960);
     }
     while (nSecond < nThird)
     {
-        sub_004FCF80_SetTextA(gpList_0077995C, &gszEmptyAssertText);
+        D2Win_10045(gpList_0077995C, &gszEmptyAssertText);
         nSecond = sub_004FB950_GetFirstVisible(gpList_0077995C);
     }
     while (nFirst > nSecond)
     {
-        sub_004FCF80_SetTextA(gpList_0077995C, &gszEmptyAssertText);
+        D2Win_10045(gpList_0077995C, &gszEmptyAssertText);
         nSecond = sub_004FB950_GetFirstVisible(gpList_0077995C);
-        sub_004FCF80_SetTextA(gpList_00779960, &gszEmptyAssertText);
+        D2Win_10045(gpList_00779960, &gszEmptyAssertText);
     }
     while (nFirst < nSecond)
     {
-        sub_004FCF80_SetTextA(gpList_00779964, &gszEmptyAssertText);
+        D2Win_10045(gpList_00779964, &gszEmptyAssertText);
         nFirst = sub_004FB950_GetFirstVisible(gpList_00779964);
     }
-    sub_004FCF80_SetTextA(gpList_00779964, &gszEmptyAssertText);
-    sub_004FCF80_SetTextA(gpList_0077995C, &gszEmptyAssertText);
-    sub_004FCF80_SetTextA(gpList_00779960, &gszEmptyAssertText);
+    D2Win_10045(gpList_00779964, &gszEmptyAssertText);
+    D2Win_10045(gpList_0077995C, &gszEmptyAssertText);
+    D2Win_10045(gpList_00779960, &gszEmptyAssertText);
 }
 
 // 0x00431570
@@ -363,8 +363,8 @@ int __fastcall sub_00434960_Validate(D2LaunchCharEntryStrc* pEntry, const char* 
         }
     }
     sub_0042F6E0();
-    sub_0044A7A0(pEntry->szName, 0);
-    sub_004FA590_RunLoop(sub_00433020);
+    sub_0044A7A0_SendPacket0A(pEntry->szName, 0);
+    sub_004FA590_RunLoop(sub_00433020_PollConnectA);
     return 1;
 }
 
@@ -381,8 +381,8 @@ int __fastcall sub_004349B0_Validate(D2LaunchCharEntryStrc* pEntry, const char* 
         }
     }
     sub_0042F6E0();
-    sub_0044A810(pEntry->szName);
-    sub_004FA590_RunLoop(sub_00433060);
+    sub_0044A810_SendPacket18(pEntry->szName);
+    sub_004FA590_RunLoop(sub_00433060_PollConnectB);
     return sub_00449C00() == 0;
 }
 
@@ -574,7 +574,7 @@ int __stdcall sub_0043A950(SMSGHANDLER_PARAMS* pMsg)
     if (gnLaunchMode_007795EC == 1)
     {
         sub_0042F3F0_DestroyControls();
-        sub_0043A730();
+        sub_0043A730_UpdateButtons();
     }
     gbFlag_00779C6C = 0;
     return 1;
@@ -723,15 +723,15 @@ void __cdecl sub_0043F4D0()
 // 0x0043F560
 void __fastcall sub_0043F560_Disable(D2WinControlStrc* pControl)
 {
-    sub_004F91A0(pControl, gpCellFile_0077BC6C);
+    CONTROL_SetCellFile(pControl, gpCellFile_0077BC6C);
     sub_004F96F0_ControlClearState(pControl, 0);
 }
 
 // 0x0043F850
 int __cdecl sub_0043F850()
 {
-    sub_0044AA80();
-    sub_00449E50(0);
+    sub_0044AA80_SendPacket13();
+    sub_00449E50_SetValue(0);
     return 1;
 }
 

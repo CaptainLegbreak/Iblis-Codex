@@ -46,8 +46,8 @@ void __fastcall sub_004BA790_ReleaseUnitSfx(void* pUnitSfx, D2UnitStrc* pUnit, i
 void* __fastcall sub_004CA900_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId);                               // 0x004CA900
 void __fastcall sub_004CD380_StatRemoveCallback_ToggleStateOff(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x004CD380
 D2UnitStrc* __fastcall sub_004CDBA0_SubmitOwnerRequest(D2UnitStrc* pUnit, int nMissileId, int nArg3, int nArg4, int nSkill, int nLevel); // 0x004CDBA0
-int __stdcall sub_004DA110_GetUnitGfxShiftX(D2UnitStrc* pUnit);                                             // 0x004DA110
-int __stdcall sub_004DA130_GetUnitGfxShiftY(D2UnitStrc* pUnit);                                             // 0x004DA130
+int __stdcall sub_004DA110_GetMotionAX(D2UnitStrc* pUnit);                                             // 0x004DA110
+int __stdcall sub_004DA130_GetMotionAY(D2UnitStrc* pUnit);                                             // 0x004DA130
 int __stdcall sub_004DA150_GetMotionAZ(D2UnitStrc* pUnit);                                                  // 0x004DA150
 void __stdcall sub_004DA1D0_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ);                    // 0x004DA1D0
 void __stdcall sub_004DA640_SetMotionFlag1(D2UnitStrc* pUnit);                                              // 0x004DA640
@@ -180,7 +180,7 @@ D2UnitStrc* __fastcall sub_004D2D70_CltMissileHit(D2UnitStrc* pMissile, D2UnitSt
                 pSubMissile = sub_004CDBA0_SubmitOwnerRequest(pMissile, nSubMissile, 0, 0, MISSILE_GetSkill(pMissile), MISSILE_GetLevel(pMissile));
                 if (pSubMissile)
                 {
-                    sub_004DA1D0_SetMotionVectorA(pSubMissile, sub_004DA110_GetUnitGfxShiftX(pMissile), sub_004DA130_GetUnitGfxShiftY(pMissile), sub_004DA150_GetMotionAZ(pMissile));
+                    sub_004DA1D0_SetMotionVectorA(pSubMissile, sub_004DA110_GetMotionAX(pMissile), sub_004DA130_GetMotionAY(pMissile), sub_004DA150_GetMotionAZ(pMissile));
                     sub_004DA640_SetMotionFlag1(pSubMissile);
                     sub_004DA690_ReplaceMotionFlag1With8(pSubMissile);
                     if (pSubMissile->dwClassId != 0x92)

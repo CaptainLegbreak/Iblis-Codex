@@ -3,7 +3,7 @@
 
 
 
-D2UnitStrc* __cdecl sub_00463DD0();                                                               // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 
 static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
@@ -31,7 +31,7 @@ static __forceinline unsigned int SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed
 // 0x004E40A0
 int __fastcall sub_004E40A0(int nRange)
 {
-    return SEED_RollLimitedRandomNumber(&sub_00463DD0()->pSeed, nRange);
+    return SEED_RollLimitedRandomNumber(&sub_00463DD0_GetPlayerUnit()->pSeed, nRange);
 }
 
 // 0x004E4200

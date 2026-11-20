@@ -68,7 +68,7 @@ struct D2KeyConfigButtonStrc
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
-void __fastcall sub_00452E50_DrawRect(D2RectStrc* pRect); // 0x00452E50
+void __fastcall sub_00452E50_DrawRectangleBorder(D2RectStrc* pRect); // 0x00452E50
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
 int __fastcall sub_00469D90(int nA, int nB); // 0x00469D90
@@ -250,9 +250,9 @@ void __cdecl sub_004A5270()
     tRect.nTop = KEYCFG_Y + 3;
     tRect.nRight = gnScreenWidth_0071146C - KEYCFG_X - 3;
     tRect.nBottom = KEYCFG_Y + 0x170;
-    sub_00452E50_DrawRect(&tRect);
+    sub_00452E50_DrawRectangleBorder(&tRect);
     tRect.nTop = KEYCFG_Y + 0x143;
-    sub_00452E50_DrawRect(&tRect);
+    sub_00452E50_DrawRectangleBorder(&tRect);
 
     sub_00502320(D2LANG_GetStringFromTblIndex(0xF51), KEYCFG_X + 0x12, KEYCFG_Y + 0x1E, 4, 0);
     sub_00502320(D2LANG_GetStringFromTblIndex(0xF52), KEYCFG_X + 0x12 + (gnScreenWidth_0071146C - 2 * KEYCFG_X - 0x31) / 3, KEYCFG_Y + 0x1E, 4, 0);

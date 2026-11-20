@@ -173,7 +173,7 @@ void __fastcall sub_004AC7A0(D2UnitStrc* pUnit, unsigned short wValue);         
 short __fastcall sub_004AC7C0_GetSuperUniqueId(D2UnitStrc* pUnit);                                          // 0x004AC7C0
 void __fastcall sub_004AE0A0_SetClientFlags(D2UnitStrc* pUnit, unsigned short wFlags);                      // 0x004AE0A0
 void __fastcall sub_004AE150(D2UnitStrc* pUnit, unsigned int dwValue);                                      // 0x004AE150
-int __fastcall sub_004AE360_IsMonsterFlag8(D2UnitStrc* pUnit);                                              // 0x004AE360
+int __fastcall sub_004AE360_IsUniqueMonster(D2UnitStrc* pUnit);                                              // 0x004AE360
 void __fastcall sub_004AE8D0(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int nClassId, int nMode); // 0x004AE8D0
 void __fastcall sub_004B1090_InitHireling(D2UnitStrc* pUnit, D2HirelingInfoStrc* pInfo);                    // 0x004B1090
 void __fastcall sub_004CC380_PlayInitSound(D2UnitStrc* pUnit);                                              // 0x004CC380
@@ -1036,7 +1036,7 @@ D2UnitStrc* __fastcall sub_00466360_AddClientMonster(D2UnitSpawnStrc* pSpawn, vo
         nMode = pMonStatsTxtRecord->nMode4D + 2;
     }
 
-    if (sub_004AE360_IsMonsterFlag8(pUnit) && !sub_004638A0_CheckMonStats2Flag(nClassId, 15))
+    if (sub_004AE360_IsUniqueMonster(pUnit) && !sub_004638A0_CheckMonStats2Flag(nClassId, 15))
     {
         nMode = sub_00477620(pUnit, nArg4);
     }

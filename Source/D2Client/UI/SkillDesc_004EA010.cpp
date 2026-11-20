@@ -132,7 +132,7 @@ void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFor
 unsigned char __cdecl sub_0044DCD0_GetDifficulty(); // 0x0044DCD0
 int __cdecl sub_0044DCA0_GetGameType(); // 0x0044DCA0
 int __cdecl sub_0044DCC0(); // 0x0044DCC0
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __stdcall SKILLS_EvaluateSkillDescFormula(D2UnitStrc* pUnit, int nCalc, int nSkillId, int nSkillLevel); // 0x00646D00
 
 static D2SkillsTxt* sub_I05_GetSkillsTxtRecord(int nSkillId)
@@ -758,7 +758,7 @@ static unsigned short sub_004E6F60_GetElemDamageText(int nElemType)
 
 static __declspec(noinline) void __stdcall sub_004E6EA0_ApplyFireMastery(int* pMin, int* pMax, D2SkillsTxt* pSkillsTxt)
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (pSkillsTxt && pSkillsTxt->nEType == 1)
     {
         const int nMastery = STATLIST_UnitGetStatValue(pPlayer, 0x149, 0);
@@ -774,7 +774,7 @@ static __declspec(noinline) void __stdcall sub_004E6EA0_ApplyFireMastery(int* pM
 
 static __declspec(noinline) void __stdcall sub_004E6F00_ApplyLightningMastery(int* pMin, int* pMax, D2SkillsTxt* pSkillsTxt)
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (pSkillsTxt && pSkillsTxt->nEType == 2)
     {
         const int nMastery = STATLIST_UnitGetStatValue(pPlayer, 0x14A, 0);

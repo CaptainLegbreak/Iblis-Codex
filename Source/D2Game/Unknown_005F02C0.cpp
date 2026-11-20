@@ -88,7 +88,7 @@ void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2A
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 void __fastcall AIGENERAL_CopyAiCommand(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiCmdStrc* pAiCmd); // 0x0058EF40
 void __fastcall AITACTICS_SetVelocity(D2UnitStrc* pUnit, int a2, int nVel, unsigned char a4); // 0x005DE190
-int __fastcall D2GAME_AICORE_Escape_6FCD0560(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance, int bDeleteAiEventCallback); // 0x005DEFE0
+int __fastcall sub_005DEFE0_Escape(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance, int bDeleteAiEventCallback); // 0x005DEFE0
 
 struct D2ZakarumPriestAiCallbackArgStrc
 {
@@ -111,7 +111,7 @@ enum D2C_M197ZakarumPriestAi
 
 typedef D2UnitStrc* (__fastcall* AIUTIL_TargetCallback)(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg);
 
-D2UnitStrc* __fastcall sub_6FCF1E80(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg, AIUTIL_TargetCallback pfnCallback, int nCallbackId); // 0x005DD0B0
+D2UnitStrc* __fastcall AIUTIL_FindTargetWithCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg, AIUTIL_TargetCallback pfnCallback, int nCallbackId); // 0x005DD0B0
 int __fastcall sub_005DD290_NoMissileBarrierCollision(D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x005DD290
 int __fastcall AITACTICS_UseSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nMode, int nSkillId, D2UnitStrc* pTarget, int nX, int nY); // 0x005DEAD0
 int __fastcall sub_005DF7D0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int a4, int bDeleteAiEventCallback);
@@ -195,7 +195,7 @@ void __fastcall AITHINK_Fn006_Fallen(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
                 AIGENERAL_FreeCurrentAiCommand(pGame, pUnit);
                 AITACTICS_SetVelocity(pUnit, 0, 50, 0);
 
-                if (D2GAME_AICORE_Escape_6FCD0560(pGame, pUnit, pAiTickParam->pTarget, 12, 1))
+                if (sub_005DEFE0_Escape(pGame, pUnit, pAiTickParam->pTarget, 12, 1))
                 {
                     if ((int)(AI_RollUnit(pUnit) % 20) < 1)
                     {
@@ -375,7 +375,7 @@ void __fastcall AITHINK_Fn049_ZakarumPriest(D2GameStrc* pGame, D2UnitStrc* pUnit
     arg.nCounter = 0;
     arg.nMaxLifePercentage = 0x7FFFFFFF;
     arg.nMaxDistance = AI_PARAM(pGame, pMonStatsTxt, ZAKARUMPRIEST_AI_PARAM_HEAL_RANGE) * AI_PARAM(pGame, pMonStatsTxt, ZAKARUMPRIEST_AI_PARAM_HEAL_RANGE);
-    sub_6FCF1E80(pGame, pUnit, &arg, AITHINK_TargetCallback_ZakarumPriest, 1);
+    AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, AITHINK_TargetCallback_ZakarumPriest, 1);
 
     if (pMonStatsTxt->nSkill[0] >= 0 && arg.pTarget && (int)(AI_RollSeed(pSeed) % 100) < 25)
     {

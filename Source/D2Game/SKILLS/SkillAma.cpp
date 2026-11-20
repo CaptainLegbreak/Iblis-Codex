@@ -69,7 +69,7 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553540
 
-int __fastcall sub_00554200(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00554200
+int __fastcall SUNIT_AreUnitsHostile(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00554200
 
 void __fastcall D2GAME_RollElementalDamage_6FD14DD0(D2UnitStrc* pUnit, D2DamageStrc* pDamage, int nSkillId, int nSkillLevel); // 0x0056E0C0
 
@@ -162,7 +162,7 @@ int __fastcall sub_005DAB40(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, 
     if (pSkillsTxtRecord)
     {
         D2UnitStrc* pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
-        if (pTarget && sub_00554200(pGame, pUnit, pTarget))
+        if (pTarget && SUNIT_AreUnitsHostile(pGame, pUnit, pTarget))
         {
             memset(&damage, 0, sizeof(damage));
             damage.wResultFlags = SUNITDMG_GetResultFlags(pGame, pUnit, pTarget, SKILLS_GetToHitFactor(pUnit, nSkillId, nSkillLevel), 0);
@@ -254,11 +254,11 @@ int __fastcall SKILLS_SrvSt10_LightningStrike(D2GameStrc* pGame, D2UnitStrc* pUn
 
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 
-int __fastcall SKILLS_CanUseWeaponAmmo(D2UnitStrc* pUnit); // 0x0056C4E0
+int __fastcall sub_6FD119C0(D2UnitStrc* pUnit); // 0x0056C4E0
 
-void __fastcall PLRMODE_HandleDepletedWeapons(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00580310
+void __fastcall sub_6FC80A30(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00580310
 
-void __fastcall PLRMODE_BreakDepletedWeapons(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00580380
+void __fastcall sub_6FC80E10(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00580380
 
 int __fastcall sub_6FD10790(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nAuraRange, unsigned int nAuraFilter); // 0x0056BC80
 
@@ -307,10 +307,10 @@ int __fastcall SKILLS_SrvSt08_Strafe(D2GameStrc* pGame, D2UnitStrc* pUnit, int n
         return 0;
     }
 
-    if (!SKILLS_CanUseWeaponAmmo(pUnit))
+    if (!sub_6FD119C0(pUnit))
     {
-        PLRMODE_HandleDepletedWeapons(pGame, pUnit);
-        PLRMODE_BreakDepletedWeapons(pGame, pUnit);
+        sub_6FC80A30(pGame, pUnit);
+        sub_6FC80E10(pGame, pUnit);
         return 0;
     }
 

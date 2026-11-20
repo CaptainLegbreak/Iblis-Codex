@@ -9,7 +9,7 @@ extern int gnItemLabelCount_007C54A0; // 0x007C54A0
 extern D2ItemLabelStrc gaItemLabels_007C54A8[32]; // 0x007C54A8
 extern "C" const char gszShowItems_006DAB64[]; // 0x006DAB64
 int __cdecl D2GFX_CheckPerspective(); // 0x004F51D0
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc*); // 0x00620BB0
 D2UnitStrc* __cdecl sub_00467A10(); // 0x00467A10
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc*,D2ActiveRoomStrc***,unsigned int*); // 0x00619790
@@ -17,24 +17,24 @@ int __stdcall UNITS_GetPrecisionX(D2UnitStrc*); // 0x006203B0
 int __stdcall UNITS_GetPrecisionY(D2UnitStrc*); // 0x00620410
 int __stdcall SCALE_CheckPerspectivePosition(int,int); // 0x004F66E0
 void __stdcall SCALE_AdjustPerspectivePosition(int,int,int,int*,int*); // 0x004F6760
-int __cdecl sub_0045AE90_GetPanelMode(); // 0x0045AE90
-int __stdcall sub_00620650(D2UnitStrc*); // 0x00620650
-int __stdcall sub_006206B0(D2UnitStrc*); // 0x006206B0
+int __cdecl sub_0045AE90(); // 0x0045AE90
+int __stdcall UNITS_GetClientCoordX(D2UnitStrc*); // 0x00620650
+int __stdcall UNITS_GetClientCoordY(D2UnitStrc*); // 0x006206B0
 int __cdecl sub_0045AFC0_GetViewX(); // 0x0045AFC0
 int __cdecl sub_0045AFD0_GetViewY(); // 0x0045AFD0
-void __fastcall sub_004527D0_GetUnitName(D2UnitStrc*,Unicode*,int); // 0x004527D0
+void __fastcall sub_004527D0_BuildItemHoverName(D2UnitStrc*,Unicode*,int); // 0x004527D0
 void __fastcall D2Win_10131_GetTextDimensions(const Unicode*,int*,int*); // 0x00502520
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
-void __fastcall sub_00467A70_SetSelectedUnit(D2UnitStrc*); // 0x00467A70
-void __fastcall sub_00502280_SetPopUpText(const Unicode*,int,int,int,int); // 0x00502280
-void __cdecl sub_00466FE0_ClearSelectedUnit(); // 0x00466FE0
+void __fastcall sub_00467A70_RefreshHoverUnit(D2UnitStrc*); // 0x00467A70
+void __fastcall D2Win_10129_DrawFramedText(const Unicode*,int,int,int,int); // 0x00502280
+void __cdecl sub_00466FE0(); // 0x00466FE0
 int __stdcall ITEMS_GetItemQuality(D2UnitStrc*); // 0x00627E70
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc*,unsigned int,int,const char*); // 0x006280A0
 int __stdcall ITEMS_CheckIfSocketable(D2UnitStrc*); // 0x00629900
-unsigned char __stdcall ITEMS_GetMaxSockets(D2UnitStrc*); // 0x0062BC20
+unsigned char __stdcall sub_0062BC20(D2UnitStrc*); // 0x0062BC20
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int); // 0x006335F0
 void __fastcall sub_005023B0_DrawTextBox(const Unicode*,int,int,int,int,int); // 0x005023B0
 static __forceinline int GetUnitType(D2UnitStrc* pUnit)
@@ -125,7 +125,7 @@ int __fastcall sub_004C0640_AdjustLabel(int* pLeft, int* pTop, int* pRight, int*
 void __cdecl sub_004C0810_DrawUnitNames()
 {
     int bPerspective=D2GFX_CheckPerspective();
-    D2UnitStrc* pPlayer=sub_00463DD0();
+    D2UnitStrc* pPlayer=sub_00463DD0_GetPlayerUnit();
     if(!pPlayer)return;
     D2ActiveRoomStrc* pRoom=UNITS_GetRoom(pPlayer);
     if(!pRoom)return;
@@ -153,7 +153,7 @@ void __cdecl sub_004C0810_DrawUnitNames()
                 if(!SCALE_CheckPerspectivePosition(nPrecisionX,nPrecisionY))continue;
                 int nProjectedX,nProjectedY;
                 SCALE_AdjustPerspectivePosition(nPrecisionX,nPrecisionY,0,&nProjectedX,&nProjectedY);
-                switch(sub_0045AE90_GetPanelMode())
+                switch(sub_0045AE90())
                 {
                 case 1:nProjectedX+=-(gnScreenWidth_0071146C/4);break;
                 case 2:nProjectedX+=gnScreenWidth_0071146C/4;break;
@@ -164,20 +164,20 @@ void __cdecl sub_004C0810_DrawUnitNames()
             }
             else
             {
-                nX=sub_00620650(pItem)-sub_0045AFC0_GetViewX();
-                nY=sub_006206B0(pItem)+(-16-sub_0045AFD0_GetViewY());
+                nX=UNITS_GetClientCoordX(pItem)-sub_0045AFC0_GetViewX();
+                nY=UNITS_GetClientCoordY(pItem)+(-16-sub_0045AFD0_GetViewY());
                 nBottom=nY;
             }
             int nMinX=0;
             int nMaxX=gnScreenWidth_0071146C;
-            switch(sub_0045AE90_GetPanelMode())
+            switch(sub_0045AE90())
             {
             case 1:nMaxX=gnScreenWidth_0071146C/2-32;break;
             case 2:nMinX=gnScreenWidth_0071146C/2;break;
             }
             if(nX<nMinX || nX>nMaxX || nY<-8 || nY>gnScreenHeight_00711470-16)continue;
             pLabel->wszText[0].wChar=0;
-            sub_004527D0_GetUnitName(pItem,pLabel->wszText,256);
+            sub_004527D0_BuildItemHoverName(pItem,pLabel->wszText,256);
             int nWidth,nTop;
             D2Win_10131_GetTextDimensions(pLabel->wszText,&nWidth,&nTop);
             nWidth+=8;
@@ -200,14 +200,14 @@ Placed:
             if(!bSelected && nMouseX>=nX && nMouseX<=nRight && nMouseY>=nTop && nMouseY<=nBottom+4)
             {
                 pLabel->nFillColor=nHighlight;pLabel->nDrawMode=5;pLabel->nTextColor=0;
-                sub_00467A70_SetSelectedUnit(pItem);
+                sub_00467A70_RefreshHoverUnit(pItem);
                 bSelected=1;
             }
             else if(!bSelected && pItem==pSelectedUnit)
             {
                 pLabel->nFillColor=nHighlight;pLabel->nDrawMode=5;pLabel->nTextColor=0;
-                sub_00502280_SetPopUpText(0,0,0,0,0);
-                sub_00466FE0_ClearSelectedUnit();
+                D2Win_10129_DrawFramedText(0,0,0,0,0);
+                sub_00466FE0();
                 bSelected=1;
             }
             else
@@ -223,7 +223,7 @@ Placed:
                 case 7:nColor=4;break;
                 case 5:nColor=2;break;
                 default:
-                    if((ITEMS_CheckItemFlag(pItem,0x800,0x106,gszShowItems_006DAB64) && ITEMS_CheckIfSocketable(pItem) && ITEMS_GetMaxSockets(pItem)>0) || ITEMS_CheckItemFlag(pItem,0x400000,0x10C,gszShowItems_006DAB64))nColor=5;
+                    if((ITEMS_CheckItemFlag(pItem,0x800,0x106,gszShowItems_006DAB64) && ITEMS_CheckIfSocketable(pItem) && sub_0062BC20(pItem)>0) || ITEMS_CheckItemFlag(pItem,0x400000,0x10C,gszShowItems_006DAB64))nColor=5;
                     break;
                 }
                 int nClassId=pItem->dwClassId;
@@ -241,8 +241,8 @@ Placed:
     }
     if(!bSelected)
     {
-        sub_00466FE0_ClearSelectedUnit();
-        sub_00502280_SetPopUpText(0,0,0,0,0);
+        sub_00466FE0();
+        D2Win_10129_DrawFramedText(0,0,0,0,0);
     }
 }
 

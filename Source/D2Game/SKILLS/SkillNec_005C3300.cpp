@@ -45,7 +45,7 @@ struct D2UnitStrc
     unsigned int dwFlags;
 };
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
-int __fastcall SKILLS_CanSwitchAi(D2UnitStrc* pUnit, int nAiSpecialState); // 0x0056E2F0
+int __fastcall sub_6FD15190(D2UnitStrc* pUnit, int nAiSpecialState); // 0x0056E2F0
 static __declspec(noinline) int sub_005C3300_CorpseConsumedCheck(D2UnitStrc* pUnit);
 
 struct D2GameStrc
@@ -119,9 +119,9 @@ int __fastcall sub_6FD0BDA0(D2UnitStrc* pUnit, void* pArg); // 0x005C3B30
 void __fastcall sub_005C3B00_AttractStateRemove(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x005C3B00
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553540
 int __fastcall sub_005C31F0_IsValidAttractTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x005C31F0
-void __fastcall sub_6FCBDD30(D2UnitStrc* pUnit, unsigned char nAlignNew, int a3); // 0x005543B0
+void __fastcall sub_005543B0_AssignAlignment(D2UnitStrc* pUnit, unsigned char nAlignNew, int a3); // 0x005543B0
 void __fastcall sub_6FC40280(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int a4); // 0x005B1990
-void __fastcall sub_6FD154D0(D2UnitStrc* pUnit); // 0x0056E580
+void __fastcall SKILLS_ClearMonsterMinionOwnership(D2UnitStrc* pUnit); // 0x0056E580
 D2StatListStrc* __fastcall sub_0056E970(D2CurseStrc* pCurse); // 0x0056E970
 
 struct D2MonsterDataStrc
@@ -166,7 +166,7 @@ struct D2SummonArgStrc
 D2UnitStrc* __fastcall D2GAME_SummonPet_6FD14430(D2GameStrc* pGame, D2SummonArgStrc* pSummonArg); // 0x0056D940
 int __fastcall D2GAME_GetSummonIdFromSkill_6FD15580(D2UnitStrc* pUnit, int bFromMonster, int nSkillId, int nSkillLevel, int* pSpawnMode, int* pX, int* pY); // 0x0056E620
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
-D2ActiveRoomStrc* __fastcall D2GAME_GetRoom_6FC52070(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 void __fastcall D2GAME_SetSummonPassiveStats_6FD0C530(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pPet, int nSkillId, int nSkillLevel, int nItemLevel); // 0x005C4470
 void __fastcall D2GAME_BOSSES_AssignUMod_6FC6FF10(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique); // 0x005A4850
@@ -230,7 +230,7 @@ static int sub_005C3300_CorpseConsumedCheck(D2UnitStrc* pUnit)
         return 0;
     }
 
-    return SKILLS_CanSwitchAi(pUnit, 7) != 0;
+    return sub_6FD15190(pUnit, 7) != 0;
 }
 
 // build: context sub_005C3300_Shim
@@ -303,9 +303,9 @@ int __fastcall SKILLS_SrvDo059_Attract(D2GameStrc* pGame, D2UnitStrc* pUnit, int
         pUnit->dwFlags |= 0x40;
     }
 
-    sub_6FCBDD30(pTarget, 1, 1);
+    sub_005543B0_AssignAlignment(pTarget, 1, 1);
     sub_6FC40280(pGame, pTarget, 0, 9);
-    sub_6FD154D0(pTarget);
+    SKILLS_ClearMonsterMinionOwnership(pTarget);
 
     const int nRange = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraRangeCalc, nSkillId, nSkillLevel);
     const int nBaseLength = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraLenCalc, nSkillId, nSkillLevel);
@@ -523,7 +523,7 @@ static D2UnitStrc* __stdcall sub_005C5BC0_SpawnBonePrisonPet(D2GameStrc* pGame, 
         nPetType = 0;
     }
 
-    if (DUNGEON_IsRoomInTown(D2GAME_GetRoom_6FC52070(UNITS_GetRoom(pUnit), nX, nY)))
+    if (DUNGEON_IsRoomInTown(sub_00463740_FindRoomAtPoint(UNITS_GetRoom(pUnit), nX, nY)))
     {
         return 0;
     }

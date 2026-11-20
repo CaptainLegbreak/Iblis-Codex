@@ -8,14 +8,14 @@ typedef D2UnitStrc* (__fastcall* AIUTIL_TargetCallback)(D2GameStrc*, D2UnitStrc*
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 int __fastcall AITHINK_GetSquaredDistance(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2); // 0x005B0BD0
-D2UnitStrc* __fastcall sub_6FCF1E80(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg, AIUTIL_TargetCallback pCallback, int nCallbackId); // 0x005DD0B0
+D2UnitStrc* __fastcall AIUTIL_FindTargetWithCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg, AIUTIL_TargetCallback pCallback, int nCallbackId); // 0x005DD0B0
 int __fastcall AITACTICS_ChangeModeAndTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, D2UnitStrc* pTarget); // 0x005DDF90
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames); // 0x005DE080
 int __fastcall AITACTICS_WalkCloseToUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nMaxDistance); // 0x005DE200
 int __fastcall AITACTICS_UseSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nMode, int nSkillId, D2UnitStrc* pTarget, int nX, int nY); // 0x005DEAD0
 int __fastcall AITACTICS_WalkToTargetUnitWithFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nFlag); // 0x005DEC80
 int __fastcall AITACTICS_WalkToTargetUnitWithSteps(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nStep); // 0x005DEF80
-int __fastcall D2GAME_AICORE_Escape_6FCD0560(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance, int bDeleteAiEventCallback); // 0x005DEFE0
+int __fastcall sub_005DEFE0_Escape(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance, int bDeleteAiEventCallback); // 0x005DEFE0
 D2UnitStrc* __fastcall AITHINK_TargetCallback_Regurgitator(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg); // 0x005FA690
 #define AI_PARAM(i) (pMonStats->wAiParam[i][pGame->nDifficulty])
 #define ROLL() ((int)SEED_RollLimitedRandomNumber(pSeed, 100))
@@ -31,7 +31,7 @@ void __fastcall sub_005FA710_RegurgitatorThink(D2GameStrc* pGame, D2UnitStrc* pU
     D2AiControlStrc* pAi = pAiTickParam->pAiControl;
     if (pAi->dwAiParam[0] == 5)
     {
-        D2GAME_AICORE_Escape_6FCD0560(pGame, pUnit, pTarget, 16, 1);
+        sub_005DEFE0_Escape(pGame, pUnit, pTarget, 16, 1);
         pAi->dwAiParam[0] = 0;
         return;
     }
@@ -89,14 +89,14 @@ void __fastcall sub_005FA710_RegurgitatorThink(D2GameStrc* pGame, D2UnitStrc* pU
             pAi->dwAiParam[0] = 5;
             return;
         }
-        D2GAME_AICORE_Escape_6FCD0560(pGame, pUnit, pTarget, 8, 1);
+        sub_005DEFE0_Escape(pGame, pUnit, pTarget, 8, 1);
         return;
     }
     D2RegurgitatorAiCallbackArgStrc args;
     args.pTarget = 0;
     const int nDistance = AI_PARAM(5);
     args.nDistance = nDistance * nDistance;
-    sub_6FCF1E80(pGame, pUnit, &args, AITHINK_TargetCallback_Regurgitator, 1);
+    AIUTIL_FindTargetWithCallback(pGame, pUnit, &args, AITHINK_TargetCallback_Regurgitator, 1);
     pCorpse = args.pTarget;
     if (pAi->dwAiParam[0] == 1)
     {

@@ -60,7 +60,7 @@ void __fastcall QUESTS_StateDebug(D2QuestDataStrc* pQuestData, int nState, const
 int __fastcall QUESTS_GetGlobalState(D2GameStrc* pGame, int nQuestId, int nState); // 0x00544760
 void __fastcall QUESTS_QuickRemovePlayerGUID(D2QuestDataStrc* pQuest, D2QuestArgStrc* pQuestArg); // 0x00545310
 void __fastcall SUNIT_IterateUnitsOfType(D2GameStrc* pGame, int nType, void* pArg, QUESTUNITITERATE pfIterate); // 0x005537D0
-int __fastcall ACT3Q6_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x005BC020
+int __fastcall sub_005BC020_UpdatePlayerQuestFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x005BC020
 int __fastcall ACT3Q6_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x005BC210
 void __fastcall ACT3Q6_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x005BC370
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
@@ -131,7 +131,7 @@ void __fastcall ACT3Q6_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
                 QUESTS_StateDebug(pQuestData, 5, gszAct3Q6SourceFile, 368);
             }
 
-            SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT3Q6_UnitIterate_UpdateQuestStateFlags);
+            SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, sub_005BC020_UpdatePlayerQuestFlags);
         }
     }
 
@@ -160,7 +160,7 @@ void __fastcall ACT3Q6_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
 
         if (bUpdate)
         {
-            SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT3Q6_UnitIterate_UpdateQuestStateFlags);
+            SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, sub_005BC020_UpdatePlayerQuestFlags);
         }
     }
     else if (nNewLevel == 102)
@@ -183,7 +183,7 @@ void __fastcall ACT3Q6_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2Qu
             }
         }
 
-        SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, ACT3Q6_UnitIterate_UpdateQuestStateFlags);
+        SUNIT_IterateUnitsOfType(pQuestData->pGame, 0, 0, sub_005BC020_UpdatePlayerQuestFlags);
     }
 }
 

@@ -89,7 +89,7 @@ struct D2ClientItemSlotStrc
 };
 
 unsigned char __cdecl sub_0044DCD0_GetDifficulty(); // 0x0044DCD0
-int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit); // 0x0045ADF0
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 void __fastcall sub_00465EE0_RemoveClientSideUnit(int nUnitId, int nUnitType); // 0x00465EE0
 void __fastcall sub_0046F0C0(D2UnitStrc* pUnit, int nArg, int nValue); // 0x0046F0C0
@@ -100,7 +100,7 @@ int __fastcall sub_004CDBA0_AddOverlay(D2UnitStrc* pUnit, int nOverlay, int nX, 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x0063B2C0
 void __stdcall sub_0063BD00(D2InventoryStrc* pInventory); // 0x0063BD00
-void __stdcall sub_0063CB70(D2InventoryStrc* pInventory); // 0x0063CB70
+void __stdcall INVENTORY_RemoveInventoryItems(D2InventoryStrc* pInventory); // 0x0063CB70
 D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
 D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
@@ -263,7 +263,7 @@ void __fastcall sub_004760C0_GetViewOffset(D2ViewStrc* pView, int* pX, int* pY);
 void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg); // 0x00478680
 void __fastcall sub_004786A0_SendIntInt(char nHeader, int nArg1, int nArg2); // 0x004786A0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
-const Unicode* __fastcall sub_0049F910_GetString(unsigned short nStringId); // 0x0049F910
+const Unicode* __fastcall sub_0049F910_GetTextString(unsigned short nStringId); // 0x0049F910
 int __stdcall ITEMS_GetBaseCode(D2UnitStrc* pItem); // 0x00628590
 D2ClientDialogStrc* __fastcall sub_004B7EB0_CreateDialog(int nArg1, int nArg2, int (__cdecl* pfnArg8)(),
     int (__cdecl* pfnArgC)(), int nArg10, int nArg14, int nArg18, int nArg1C, int nArg20, int nArg24, int nArg28); // 0x004B7EB0
@@ -398,7 +398,7 @@ struct UnicodeChar : Unicode
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
 extern "C" const char gszFormatD_006D57BC[]; // 0x006D57BC
-void __fastcall sub_0048C060(D2UnitStrc* pItem, Unicode* pText, int nMaxLength); // 0x0048C060
+void __fastcall sub_0048C060_BuildItemName(D2UnitStrc* pItem, Unicode* pText, int nMaxLength); // 0x0048C060
 int __fastcall sub_004B2AD0_GetTradeCostText(D2UnitStrc* pItem, int bService, int* pCost, Unicode* pText, int nMaxLength); // 0x004B2AD0
 int __cdecl sub_004B2E70_MenuBack(); // 0x004B2E70
 int __cdecl sub_004B2F00_MenuClose(); // 0x004B2F00
@@ -413,9 +413,9 @@ typedef char sub_I16_AssertUnitInventory[(int)&((D2UnitStrc*)0)->pInventory == 0
 
 const Unicode* __fastcall sub_00464A60_GetUnitName(D2UnitStrc* pUnit); // 0x00464A60
 void __fastcall sub_004B82F0_Select(D2ClientDialogStrc* pDialog, int nIndex); // 0x004B82F0
-int __cdecl sub_004B4670(); // 0x004B4670
-int __cdecl sub_004B46D0(); // 0x004B46D0
-int __cdecl sub_004B4730(); // 0x004B4730
+int __cdecl sub_004B4670_NpcMenuCancelText(); // 0x004B4670
+int __cdecl sub_004B46D0_NpcMenuCancelTextB(); // 0x004B46D0
+int __cdecl sub_004B4730_NpcMenuTalk(); // 0x004B4730
 
 static int GetUnitPathX(D2UnitStrc* pUnit)
 {
@@ -471,7 +471,7 @@ void __fastcall sub_004AD0C0_StateOverlayBurst(D2UnitStrc* pUnit, int nState, in
         return;
     }
 
-    const int nX = UNITS_GetXPosition(pUnit);
+    const int nX = CLIENTS_GetUnitX(pUnit);
     const int nY = CLIENTS_GetUnitY(pUnit);
     sub_004CDB40_SubmitRequest(pUnit, 0x52, nX, nY, 0, 1);
     sub_004CDB40_SubmitRequest(pUnit, 0x52, nX + 1, nY + 1, 0, 1);
@@ -501,7 +501,7 @@ void __fastcall sub_004AD1A0_StateOverlayCross(D2UnitStrc* pUnit, int nState, in
         return;
     }
 
-    const int nX = UNITS_GetXPosition(pUnit);
+    const int nX = CLIENTS_GetUnitX(pUnit);
     const int nY = CLIENTS_GetUnitY(pUnit);
     sub_004CDB40_SubmitRequest(pUnit, 0x75, nX, nY, 0, 1);
     const int nYPlus = nY + 1;
@@ -549,7 +549,7 @@ void __fastcall sub_004AD510_StateEffect(D2UnitStrc* pUnit, int nState, int bFla
 
     if (nState == 0x0A)
     {
-        sub_004CDBA0_AddOverlay(pUnit, 0x9B, UNITS_GetXPosition(pUnit), CLIENTS_GetUnitY(pUnit), 0, STATLIST_UnitGetStatValue(pUnit, 0x0C, 0));
+        sub_004CDBA0_AddOverlay(pUnit, 0x9B, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 0, STATLIST_UnitGetStatValue(pUnit, 0x0C, 0));
         return;
     }
     if (nState == 0x12)
@@ -595,11 +595,11 @@ void __fastcall sub_004ADBC0_StateMonOverlay(D2UnitStrc* pUnit, int nState, int 
 
     if (nLevel == 1)
     {
-        sub_004CDBA0_AddOverlay(pUnit, 0x1AB, UNITS_GetXPosition(pUnit), CLIENTS_GetUnitY(pUnit), 0, 1);
+        sub_004CDBA0_AddOverlay(pUnit, 0x1AB, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 0, 1);
     }
     else if (nLevel >= 2)
     {
-        sub_004CDBA0_AddOverlay(pUnit, 0x1AC, UNITS_GetXPosition(pUnit), CLIENTS_GetUnitY(pUnit), 0, 1);
+        sub_004CDBA0_AddOverlay(pUnit, 0x1AC, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 0, 1);
     }
     sub_004CDBA0_AddOverlay(pUnit, 0x1AA, GetUnitPathX(pUnit), GetUnitPathY(pUnit), 0, 1);
 }
@@ -1224,7 +1224,7 @@ void __cdecl sub_004B2F50_ShowTradeDialog()
         }
 
         UnicodeChar wszName[0xC0];
-        sub_0048C060(pItem, wszName, 0xBF);
+        sub_0048C060_BuildItemName(pItem, wszName, 0xBF);
         const int nLength = sub_00526800(wszName);
         int i = 0;
         int bDone = 0;
@@ -1421,7 +1421,7 @@ void __fastcall sub_004B3790_RemoveInventoryClientUnits(D2UnitStrc* pUnit)
             sub_00465EE0_RemoveClientSideUnit(nUnitId, nUnitType);
         }
     }
-    sub_0063CB70(pInventory);
+    INVENTORY_RemoveInventoryItems(pInventory);
     sub_0063BD00(pInventory);
 }
 
@@ -1567,7 +1567,7 @@ void __cdecl sub_004B4DB0_OpenGreetingDialog()
     tCoords.nY = 0;
     sub_004B1C80_GetNpcDialogPos(&tCoords);
 
-    gpDialog_007C0D7B = sub_004B7EB0_CreateDialog(tCoords.nX, tCoords.nY, sub_004B4670, sub_004B46D0, 0, 0, 1, 0, 0, 0, 1);
+    gpDialog_007C0D7B = sub_004B7EB0_CreateDialog(tCoords.nX, tCoords.nY, sub_004B4670_NpcMenuCancelText, sub_004B46D0_NpcMenuCancelTextB, 0, 0, 1, 0, 0, 0, 1);
     sub_004B8370_SetCtrlState(gpDialog_007C0D7B, 1);
 
     Unicode wszName[80];
@@ -1596,8 +1596,8 @@ void __cdecl sub_004B4DB0_OpenGreetingDialog()
     aStrings[nStrings++] = 0xD3E;
     D2UnitStrc* pPlayer = sub_00463DD0();
     const unsigned int nRoll = NPCDLG_RollSeed_Inline(&pPlayer->tSeed) % nStrings;
-    sub_004B85F0_AddTextLine(gpDialog_007C0D7B, D2LANG_GetStringFromTblIndex(aStrings[nRoll]), 0xF, 0, 0, 1, sub_004B4730, 1);
-    sub_004B85F0_AddTextLine(gpDialog_007C0D7B, D2LANG_GetStringFromTblIndex(0x102E), 0xF, 0, 0, 1, sub_004B4670, 1);
+    sub_004B85F0_AddTextLine(gpDialog_007C0D7B, D2LANG_GetStringFromTblIndex(aStrings[nRoll]), 0xF, 0, 0, 1, sub_004B4730_NpcMenuTalk, 1);
+    sub_004B85F0_AddTextLine(gpDialog_007C0D7B, D2LANG_GetStringFromTblIndex(0x102E), 0xF, 0, 0, 1, sub_004B4670_NpcMenuCancelText, 1);
     sub_004B82F0_Select(gpDialog_007C0D7B, 1);
 }
 
@@ -1731,7 +1731,7 @@ void __stdcall sub_004B5890_OpenNpcPanel(int nStringIndex, int nEntryIndex)
     for (int i = 0; i < nCount; ++i)
     {
         const unsigned short nStringId = TEXT_GetStringIdOfMenuType2Node(pTextHeader, i);
-        sub_004B85F0_AddTextLine(gpDialog_007C0D6F, sub_0049F910_GetString(nStringId), 0xF, 0, 0, 1, sub_004B1A80, 1);
+        sub_004B85F0_AddTextLine(gpDialog_007C0D6F, sub_0049F910_GetTextString(nStringId), 0xF, 0, 0, 1, sub_004B1A80, 1);
     }
 
     if (gdwGlobal_007C0D2D == 0xC9)

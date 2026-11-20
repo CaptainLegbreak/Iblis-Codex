@@ -83,7 +83,7 @@ struct D2SplittedTextStrc
     D2SplittedTextStrc* pNextLine;
 };
 extern "C" const char gszD2WinFontSourceFile[]; // 0x006DC9FC
-int __fastcall sub_00501730_GetTextWidthN(const Unicode* wszText, int nLength); // 0x00501730
+int __fastcall D2Win_10123(const Unicode* wszText, int nLength); // 0x00501730
 int __fastcall sub_00526D30(const Unicode* pText, int nCount); // 0x00526D30
 D2SplittedTextStrc* __stdcall sub_005028E0_AllocSplitTextLine(const Unicode* wszText, int nLength, int bSkipSpace); // 0x005028E0
 
@@ -198,7 +198,7 @@ D2SplittedTextStrc* __fastcall sub_00502970_SplitText(const Unicode* wszText, in
     D2SplittedTextStrc* pLast = 0;
     D2SplittedTextStrc* pFirst = 0;
     *pLineCount = 0;
-    if (sub_00501730_GetTextWidthN(wszText, nLength) <= nWidth)
+    if (D2Win_10123(wszText, nLength) <= nWidth)
     {
         *pLineCount = 1;
         return AllocSplitTextLine_Inline(wszText, nLength + 1, 0);
@@ -211,7 +211,7 @@ D2SplittedTextStrc* __fastcall sub_00502970_SplitText(const Unicode* wszText, in
         int nTextWidth = 0;
         for (; nEnd > nStart; --nEnd)
         {
-            nTextWidth = sub_00501730_GetTextWidthN(&wszText[nStart], nEnd - nStart + 1);
+            nTextWidth = D2Win_10123(&wszText[nStart], nEnd - nStart + 1);
             if (nTextWidth <= nWidth)
             {
                 break;
@@ -229,7 +229,7 @@ D2SplittedTextStrc* __fastcall sub_00502970_SplitText(const Unicode* wszText, in
         {
             for (nEnd = nLength; nEnd > nStart; --nEnd)
             {
-                if (sub_00501730_GetTextWidthN(&wszText[nStart], nEnd - nStart + 1) <= nWidth)
+                if (D2Win_10123(&wszText[nStart], nEnd - nStart + 1) <= nWidth)
                 {
                     break;
                 }
@@ -259,7 +259,7 @@ D2SplittedTextStrc* __fastcall sub_00502970_SplitText(const Unicode* wszText, in
             {
                 for (nEnd = nLength; nEnd > nStart; --nEnd)
                 {
-                    if (sub_00501730_GetTextWidthN(&wszText[nStart], nEnd - nStart + 1) <= nWidth)
+                    if (D2Win_10123(&wszText[nStart], nEnd - nStart + 1) <= nWidth)
                     {
                         break;
                     }
@@ -276,7 +276,7 @@ D2SplittedTextStrc* __fastcall sub_00502970_SplitText(const Unicode* wszText, in
                 {
                     for (nEnd = nLength; nEnd > nStart; --nEnd)
                     {
-                        if (sub_00501730_GetTextWidthN(&wszText[nStart], nEnd - nStart + 1) <= nWidth)
+                        if (D2Win_10123(&wszText[nStart], nEnd - nStart + 1) <= nWidth)
                         {
                             break;
                         }

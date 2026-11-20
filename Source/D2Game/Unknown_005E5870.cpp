@@ -73,7 +73,7 @@ struct D2MonStatsTxt
 void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nCustomId); // 0x00540E60
 D2AiCmdStrc* __fastcall AIGENERAL_GetAiCommandFromParam(D2UnitStrc* pUnit, int nCmd, int bSet); // 0x0058EEF0
 void __fastcall AIGENERAL_CopyAiCommand(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiCmdStrc* pCmd); // 0x0058EF40
-void __fastcall D2GAME_MONSTERMODE_SetVelocityParams_6FC62FC0(D2AiParamStrc* pAiParam, int nFlags, int nVelocity, unsigned char nUnused); // 0x005A6260
+void __fastcall sub_005A6260_SetAiParamFields(D2AiParamStrc* pAiParam, int nFlags, int nVelocity, unsigned char nUnused); // 0x005A6260
 int __fastcall AIUTIL_GetDistanceToCoordinates(D2UnitStrc* pUnit, int nX, int nY); // 0x005DC5C0
 int __fastcall AITACTICS_ChangeModeAndTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, D2UnitStrc* pTarget); // 0x005DDF90
 void __fastcall AITACTICS_SetVelocity(D2UnitStrc* pUnit, int nFlags, int nVelocity, unsigned char nUnused); // 0x005DE190
@@ -242,7 +242,7 @@ void __fastcall sub_005E5C50_HomeGuardThink(D2GameStrc* pGame, D2UnitStrc* pUnit
     int nRegion = D2Common_10095(pRoom, pCmd->nCmdParam[1], pCmd->nCmdParam[2]);
     if (nRegion != D2Common_10095(pRoom, GetX(pUnit), GetY(pUnit)))
     {
-        D2GAME_MONSTERMODE_SetVelocityParams_6FC62FC0(GetAiParam(pUnit), 1, 0, 0);
+        sub_005A6260_SetAiParamFields(GetAiParam(pUnit), 1, 0, 0);
         if (AITACTICS_RunToTargetCoordinates(pGame, pUnit, pCmd->nCmdParam[1], pCmd->nCmdParam[2])) return;
         D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 2, 0);
     }
@@ -254,13 +254,13 @@ void __fastcall sub_005E5C50_HomeGuardThink(D2GameStrc* pGame, D2UnitStrc* pUnit
             AITACTICS_IdleInNeutralMode(pGame, pUnit, 10);
             return;
         }
-        D2GAME_MONSTERMODE_SetVelocityParams_6FC62FC0(GetAiParam(pUnit), 1, 0, 0);
+        sub_005A6260_SetAiParamFields(GetAiParam(pUnit), 1, 0, 0);
         if (AITACTICS_RunToTargetCoordinates(pGame, pUnit, pCmd->nCmdParam[1], pCmd->nCmdParam[2])) return;
         D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 2, 0);
     }
     if ((unsigned int)AIUTIL_GetDistanceToCoordinates(pUnit, pCmd->nCmdParam[1], pCmd->nCmdParam[2]) > 40)
     {
-        D2GAME_MONSTERMODE_SetVelocityParams_6FC62FC0(GetAiParam(pUnit), 1, 0, 0);
+        sub_005A6260_SetAiParamFields(GetAiParam(pUnit), 1, 0, 0);
         if (AITACTICS_RunToTargetCoordinates(pGame, pUnit, pCmd->nCmdParam[1], pCmd->nCmdParam[2])) return;
         D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 2, 0);
     }

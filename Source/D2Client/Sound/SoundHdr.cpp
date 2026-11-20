@@ -30,14 +30,14 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 int __fastcall sub_004DF630_QueryAddress(D2ClientCacheEntryStrc* pEntry); // 0x004DF630
-void __fastcall sub_00482860(int nIndex); // 0x00482860
+void __fastcall sub_00482860_TouchCacheEntry(int nIndex); // 0x00482860
 int __stdcall sub_004824A0_FreeCacheEntries(unsigned int nFree, int bTwoPasses, int bCheckAge); // 0x004824A0
 void* __stdcall sub_004FAC80(); // 0x004FAC80
-void* __fastcall sub_00517079_LoadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
+void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
 void __cdecl sub_004DF800(); // 0x004DF800
-void __cdecl sub_004B9D20(); // 0x004B9D20
-void __cdecl sub_004E00C0(); // 0x004E00C0
-void __cdecl sub_004828B0(); // 0x004828B0
+void __cdecl sub_004B9D20_FreeAllSounds(); // 0x004B9D20
+void __cdecl sub_004E00C0_CloseSoundChannels(); // 0x004E00C0
+void __cdecl sub_004828B0_ReleaseSoundTables(); // 0x004828B0
 extern D2ClientCacheEntryStrc* gpCacheEntries_007BC9A0; // 0x007BC9A0
 extern int gdwGlobal_007BC9BC; // 0x007BC9BC
 extern unsigned int gnCacheMax_007BC9CC; // 0x007BC9CC
@@ -267,9 +267,9 @@ void __cdecl sub_00482940_UpdateSound()
         return;
     sub_004DF800();
     sub_004BAAB0();
-    sub_004B9D20();
-    sub_004E00C0();
-    sub_004828B0();
+    sub_004B9D20_FreeAllSounds();
+    sub_004E00C0_CloseSoundChannels();
+    sub_004828B0_ReleaseSoundTables();
 }
 
 unsigned int gdwCacheUsed_007BC9D0; // 0x007BC9D0
@@ -322,10 +322,10 @@ void __fastcall sub_00482970_LoadCacheEntry(int nIndex, int bDirect, int nArg)
 
     if (bDirect)
     {
-        pEntry->pData = sub_00517079_LoadFile(sub_004FAC80(), szPath, &pEntry->nSize, ".\\Sound\\SoundHdr.cpp", 0x301);
+        pEntry->pData = ARCHIVE_AllocateBufferAndReadFile(sub_004FAC80(), szPath, &pEntry->nSize, ".\\Sound\\SoundHdr.cpp", 0x301);
         D2_ASSERT(pEntry->pData && pEntry->nSize, 0x302);
         gdwCacheUsed_007BC9D0 += pEntry->nSize;
-        sub_00482860(nIndex);
+        sub_00482860_TouchCacheEntry(nIndex);
         pEntry->nState = 2;
         sub_004DF630_QueryAddress(pEntry);
         return;
@@ -337,7 +337,7 @@ void __fastcall sub_00482970_LoadCacheEntry(int nIndex, int bDirect, int nArg)
         const unsigned int nAsyncSize = sub_0040AA40(pEntry->pAsync);
         gdwCacheUsed_007BC9D0 += nAsyncSize;
         pEntry->nSize = nAsyncSize;
-        sub_00482860(nIndex);
+        sub_00482860_TouchCacheEntry(nIndex);
         gnCacheLoading_007BC9C8 += 1;
         pEntry->nState = 1;
     }

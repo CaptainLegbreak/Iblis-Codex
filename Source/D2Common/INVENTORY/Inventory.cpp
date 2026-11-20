@@ -157,7 +157,7 @@ ItemRecord* __stdcall sub_006335F0_ItemRecord(s32); // 0x006335F0
 ItemRecord* __stdcall sub_00633640_RecordByCode(u32, s32*); // 0x00633640
 Unit* __stdcall sub_0063C050_BodyItem(Inventory*, s32); // 0x0063C050
 u32 __stdcall sub_0064F380_WeaponCode(Unit*, Inventory*, s32*, s32, s32); // 0x0064F380
-s32 __stdcall sub_0064F420_UsesAppearance(s32); // 0x0064F420
+s32 __stdcall COMPOSIT_IsArmorComponent(s32); // 0x0064F420
 s32 __stdcall sub_0064F500_AppearanceIndex(s32, AppearanceSix*); // 0x0064F500
 AppearanceRecord* __stdcall sub_0065B620_AppearanceRecord(s32); // 0x0065B620
 
@@ -185,7 +185,7 @@ int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 
 typedef int BOOL;
 
-void* __fastcall sub_0040B4B0(void* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0); // 0x0040B4B0
+void* __fastcall FOG_ReallocPool(void* pMemPool, void* pMemory, int nSize, const char* szFile, int nLine, int n0); // 0x0040B4B0
 int __stdcall UNITS_GetInventoryRecordId(D2UnitStrc* pUnit, int nInvPage, int bLoD); // 0x00621050
 void __stdcall ITEMS_GetDimensions(D2UnitStrc* pItem, unsigned char* pWidth, unsigned char* pHeight, const char* szFile, int nLine); // 0x006286C0
 BOOL __stdcall INVENTORY_GetFreePosition(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nInventoryRecordId, int* pFreeX, int* pFreeY, unsigned char nPage); // 0x0063B850
@@ -642,7 +642,7 @@ static __declspec(noinline) D2InventoryGridStrc* __stdcall INVENTORY_GetGrid(D2I
         return 0;
     }
 
-    pInventory->pGrids = (D2InventoryGridStrc*)sub_0040B4B0(pInventory->pMemPool, pInventory->pGrids, sizeof(D2InventoryGridStrc) * (nInventoryGrid + 1), gszInventorySourceFile_006EA918, 740, 0);
+    pInventory->pGrids = (D2InventoryGridStrc*)FOG_ReallocPool(pInventory->pMemPool, pInventory->pGrids, sizeof(D2InventoryGridStrc) * (nInventoryGrid + 1), gszInventorySourceFile_006EA918, 740, 0);
     memset(&pInventory->pGrids[pInventory->nGridCount], 0, sizeof(D2InventoryGridStrc) * (nInventoryGrid - pInventory->nGridCount + 1));
     pInventory->nGridCount = nInventoryGrid + 1;
 
@@ -1099,7 +1099,7 @@ void __stdcall sub_0063E510_InventoryAppearance(Unit* unit, u8* firstOutput, u8*
                         sub_0063D690_CopySix(&appearance, item);
                         for (u32 slot = 0; slot < 0x10; ++slot)
                         {
-                            if (sub_0064F420_UsesAppearance(slot))
+                            if (COMPOSIT_IsArmorComponent(slot))
                             {
                                 AppearanceRecord* appearanceRecord = sub_0065B620_AppearanceRecord(sub_0064F500_AppearanceIndex(slot, &appearance));
                                 if (sub_00451F60_ClassId(item) > 0)

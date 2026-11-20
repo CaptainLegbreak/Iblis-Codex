@@ -81,15 +81,15 @@ int __cdecl sub_0044DB30(); // 0x0044DB30
 void __cdecl sub_0044DA70(); // 0x0044DA70
 int __cdecl sub_0044DCC0(); // 0x0044DCC0
 void __cdecl sub_00457520_UpdateAutomapLayout(); // 0x00457520
-void __cdecl sub_00459700(); // 0x00459700
-void __cdecl sub_00459E90(); // 0x00459E90
-void __cdecl sub_00459FF0(); // 0x00459FF0
-void __cdecl sub_0045A050(); // 0x0045A050
-void __cdecl sub_0045A0A0(); // 0x0045A0A0
-void __cdecl sub_0045A120(); // 0x0045A120
-void __cdecl sub_0045A190(); // 0x0045A190
-void __cdecl sub_0045AC90(); // 0x0045AC90
-D2UnitStrc* __cdecl sub_00463DE0_GetStoredUnit(); // 0x00463DE0
+void __cdecl sub_00459700_PaintAutomap(); // 0x00459700
+void __cdecl sub_00459E90_DrawGameInfoLines(); // 0x00459E90
+void __cdecl sub_00459FF0_DrawStringLine(); // 0x00459FF0
+void __cdecl sub_0045A050_DrawLevelName(); // 0x0045A050
+void __cdecl sub_0045A0A0_DrawVersionLine(); // 0x0045A0A0
+void __cdecl sub_0045A120_DrawLocalIpLine(); // 0x0045A120
+void __cdecl sub_0045A190_DrawDifficultyLine(); // 0x0045A190
+void __cdecl sub_0045AC90_DrawAutomapUnits(); // 0x0045AC90
+D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 D2PacketBufferStrc* __fastcall sub_00464770_GetPacketBuffer(void* pArg); // 0x00464770
 void __fastcall sub_004647A0_SetPacketBuffer(void* pArg, D2PacketBufferStrc* pBuffer); // 0x004647A0
 void __fastcall sub_004F52A0_SetOffset(int nOffset); // 0x004F52A0
@@ -125,8 +125,8 @@ typedef void (__fastcall* STATLIST_CallbackFn)(D2GameStrc* pGame, D2UnitStrc* pO
 
 extern int gnInTown_007A5260; // 0x007A5260
 void __fastcall sub_004609F0_OnStatChanged(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pOther, int nLayer_StatId, int nPreviousValue, int nNewValue); // 0x004609F0
-void __cdecl sub_004608C0(); // 0x004608C0
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+void __cdecl sub_004608C0_RefreshAdjacentPlayers(); // 0x004608C0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 void __fastcall sub_0046C6E0_AddToUnitSlots(D2UnitStrc* pUnit); // 0x0046C6E0
 D2GfxLightStrc* __fastcall sub_00474160_MakeLightEntry(D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6); // 0x00474160
 int __fastcall sub_00474350_GetLightSize(D2GfxLightStrc* pLight); // 0x00474350
@@ -140,7 +140,7 @@ void __stdcall SKILLS_InitSkillList(D2UnitStrc* pUnit); // 0x00647EE0
 void __stdcall PATH_SetDirection(D2DynamicPathStrc* pDynamicPath, unsigned char nDirection); // 0x006488A0
 void __stdcall PATH_SetFootprintCollisionMask(D2DynamicPathStrc* pDynamicPath, int nCollisionMask); // 0x00648C30
 int __stdcall PATH_RemoveCollisionFootprintForUnit(D2UnitStrc* pUnit, int bForce); // 0x00649560
-void __stdcall sub_00649D00(void* pMemPool, D2ActiveRoomStrc* pRoom, int nX, int nY, D2UnitStrc* pUnit, int bSetFlag); // 0x00649D00
+void __stdcall PATH_AllocDynamicPath(void* pMemPool, D2ActiveRoomStrc* pRoom, int nX, int nY, D2UnitStrc* pUnit, int bSetFlag); // 0x00649D00
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -206,31 +206,31 @@ void __cdecl sub_0045AD60()
     {
         return;
     }
-    if (!sub_00463DE0_GetStoredUnit())
+    if (!sub_00463DE0_GetPlayerUnit())
     {
         return;
     }
-    if (!UNITS_GetRoom(sub_00463DE0_GetStoredUnit()))
+    if (!UNITS_GetRoom(sub_00463DE0_GetPlayerUnit()))
     {
         return;
     }
     sub_00457520_UpdateAutomapLayout();
-    sub_00459700();
-    sub_0045AC90();
+    sub_00459700_PaintAutomap();
+    sub_0045AC90_DrawAutomapUnits();
     gnAutomapTextY_007A51BC = 0x18;
     const int nAct = sub_0044DB30();
     const int nPrevious = sub_00502EF0(1);
-    sub_00459E90();
-    sub_0045A050();
-    sub_0045A0A0();
-    sub_0045A190();
+    sub_00459E90_DrawGameInfoLines();
+    sub_0045A050_DrawLevelName();
+    sub_0045A0A0_DrawVersionLine();
+    sub_0045A190_DrawDifficultyLine();
     if (nAct == 6 || nAct == 8)
     {
-        sub_0045A120();
+        sub_0045A120_DrawLocalIpLine();
     }
     if (sub_0044DCC0())
     {
-        sub_00459FF0();
+        sub_00459FF0_DrawStringLine();
     }
     sub_00502EF0(nPrevious);
 }
@@ -486,7 +486,7 @@ void __fastcall sub_M115_Emit_00460FF0(D2UnitStrc* pUnit)
 void __fastcall sub_00460BF0_InitClientPlayer(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY)
 {
     sub_0046C6E0_AddToUnitSlots(pUnit);
-    sub_00649D00(0, pRoom, nX, nY, pUnit, 1);
+    PATH_AllocDynamicPath(0, pRoom, nX, nY, pUnit, 1);
     if (!pUnit->pInventory)
     {
         pUnit->pInventory = INVENTORY_AllocInventory(0, pUnit);
@@ -509,7 +509,7 @@ void __fastcall sub_00460BF0_InitClientPlayer(D2UnitStrc* pUnit, D2ActiveRoomStr
         PATH_SetFootprintCollisionMask(pUnit->pDynamicPath, 0x8000);
     }
 
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (!sub_0061AB30(pRoom))
     {
         D2GfxLightStrc* pLight = sub_00474160_MakeLightEntry(pUnit, pPlayer && pUnit != pPlayer, 0xD, 0xFF, 0xFF, 0xFF, 0xFF);
@@ -531,7 +531,7 @@ void __fastcall sub_00460BF0_InitClientPlayer(D2UnitStrc* pUnit, D2ActiveRoomStr
         PATH_SetDirection(pPath, (unsigned int)lSeed & 0x3F);
     }
 
-    sub_004608C0();
+    sub_004608C0_RefreshAdjacentPlayers();
 }
 
 static void __stdcall sub_00461070_RequestSkillString(D2UnitStrc* pUnit, int nIndex)
@@ -545,7 +545,7 @@ static void __stdcall sub_00461070_RequestSkillString(D2UnitStrc* pUnit, int nIn
 // 0x004610C0
 static int __stdcall sub_004610C0_CheckSkillUse(D2SkillStrc** ppSkill, int* pUseState, D2UnitStrc* pUnit)
 {
-    if (pUnit != sub_00463DD0())
+    if (pUnit != sub_00463DD0_GetPlayerUnit())
         return 1;
 
     if (!ppSkill || !*ppSkill)

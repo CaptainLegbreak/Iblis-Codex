@@ -30,7 +30,7 @@ extern unsigned int gnCapabilities_0096F3A8; // 0x0096F3A8
 extern int gnGammaScale_0074C020; // 0x0074C020
 extern D2GammaControlStrc* gpGammaControl_00970E74; // 0x00970E74
 void __fastcall sub_006BE190_BuildGammaTable(int nGamma, void* pTable, double dScale, int nStride, int nEntries, int nMask); // 0x006BE190
-void __fastcall sub_006B20E0_ReportError(const char* szMessage, int nResult); // 0x006B20E0
+void __fastcall sub_006B20E0_DDrawLogError(const char* szMessage, int nResult); // 0x006B20E0
 extern "C" void* __cdecl memcpy(void* pDest, const void* pSource, unsigned int nBytes);
 
 struct D2DDrawSurfaceVtblStrc
@@ -144,7 +144,7 @@ void __fastcall sub_006B3570_SetGamma(int nGamma)
         {
             int nResult = gpGammaControl_00970E74->pVTable->SetGammaRamp(gpGammaControl_00970E74, 0, &ramp);
             if (nResult)
-                sub_006B20E0_ReportError("Failed to set gamma ramp", nResult);
+                sub_006B20E0_DDrawLogError("Failed to set gamma ramp", nResult);
         }
     }
 }
@@ -161,7 +161,7 @@ int __fastcall sub_006B3610_ReadScreenRGB(unsigned char* pDst)
     long hResult = gpSurface_00970E6C->lpVtbl->Lock(gpSurface_00970E6C, 0, &tDesc, 0x11, 0);
     if (hResult)
     {
-        sub_006B20E0_ReportError("Lock failed!", hResult);
+        sub_006B20E0_DDrawLogError("Lock failed!", hResult);
         return 0;
     }
 
@@ -186,7 +186,7 @@ int __fastcall sub_006B3610_ReadScreenRGB(unsigned char* pDst)
     hResult = gpSurface_00970E6C->lpVtbl->Unlock(gpSurface_00970E6C, 0);
     if (hResult)
     {
-        sub_006B20E0_ReportError("Unlock failed!", hResult);
+        sub_006B20E0_DDrawLogError("Unlock failed!", hResult);
         return 0;
     }
     return 1;
@@ -204,13 +204,13 @@ int __fastcall sub_006B3730_CreateMemoryTexture(D2ComObject006B3730Strc** ppSurf
     long hResult = gpDirectDraw_00970E60->lpVtbl->CreateSurface(gpDirectDraw_00970E60, &tDesc, ppSurface, 0);
     if (hResult)
     {
-        sub_006B20E0_ReportError("CreateSurface (memory surface)", hResult);
+        sub_006B20E0_DDrawLogError("CreateSurface (memory surface)", hResult);
         return 0;
     }
     hResult = (*ppSurface)->lpVtbl->QueryInterface(*ppSurface, gIidTexture_006FF478, (void**)ppTexture);
     if (hResult)
     {
-        sub_006B20E0_ReportError("Failed to get texture interface for memory surface", hResult);
+        sub_006B20E0_DDrawLogError("Failed to get texture interface for memory surface", hResult);
         (*ppSurface)->lpVtbl->Release(*ppSurface);
         return 0;
     }
@@ -229,7 +229,7 @@ void __cdecl sub_006B3800_Flush()
     int nResult = pSurface->f_0->Lock(pSurface, 0, &desc, 0x21, 0);
     if (nResult)
     {
-        sub_006B20E0_ReportError("Failed to lock render surface for clear", nResult);
+        sub_006B20E0_DDrawLogError("Failed to lock render surface for clear", nResult);
         return;
     }
     int nHeight = gnScreenHeight_007C913C;

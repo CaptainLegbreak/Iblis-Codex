@@ -170,7 +170,7 @@ void* __fastcall sub_0046E570_GetGfxEntry(D2UnitStrc* pUnit, int nMode); // 0x00
 void* __fastcall sub_0046E5A0_FindGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nArg); // 0x0046E5A0
 void* __fastcall sub_0046FA80_LoadGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nArg); // 0x0046FA80
 int __fastcall sub_004709A0_IsOnScreen(D2UnitStrc* pUnit, int nX, int nY, int nArg1, int nArg2); // 0x004709A0
-D2UnitStrc* __fastcall sub_004648F0_GetTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
+D2UnitStrc* __fastcall sub_004648F0_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 D2UnitStrc* __fastcall sub_004CD540_HandleRequest(D2RequestStrc* pRequest); // 0x004CD540
 void __fastcall sub_004CEFE0_AddMissileEffect(D2UnitStrc* pMissile, int nMissile, int nArg1, int nArg2, int nArg3); // 0x004CEFE0
 int __fastcall sub_004DB0D0_UpdateGfxEntry(void* pEntry, int nArg); // 0x004DB0D0
@@ -204,7 +204,7 @@ int __fastcall sub_004A8D30_GetSkillState(D2UnitStrc* pUnit, D2SkillStrc* pSkill
 void __fastcall sub_004A9690_DrawSkillInfoBase(int nValue, D2SkillsTxt* pSkillsTxt, int nOwnerGUID, int nCharges, int nState, int nX, int nY, int nArg); // 0x004A9690
 void __fastcall sub_004A8D50_UpdateButton(short* pId, int nState, int nA, int nB, int nX, int nY); // 0x004A8D50
 void __fastcall sub_004AA1F0_DrawSkillQuantity(short* pId, int nState, int nQuantity, int nX, int nY); // 0x004AA1F0
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 int __stdcall WAYPOINTS_GetLevelIdFromWaypointNo(unsigned short wWaypointNo, int* pLevelId); // 0x00660D90
@@ -215,10 +215,10 @@ D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill);
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus); // 0x006442A0
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x00412650
 D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType); // 0x00463990
-int __fastcall sub_00463E50_GetUnitFlagA(D2UnitStrc* pUnit); // 0x00463E50
-int __fastcall sub_00463EB0_GetUnitFlagB(D2UnitStrc* pUnit); // 0x00463EB0
+int __fastcall sub_00463E50_GetGfxField34(D2UnitStrc* pUnit); // 0x00463E50
+int __fastcall sub_00463EB0_GetGfxField38(D2UnitStrc* pUnit); // 0x00463EB0
 int __fastcall sub_004791B0_IsOwnedByPlayer(D2UnitStrc* pUnit); // 0x004791B0
-void __cdecl sub_0047B9C0_LoadChatHistoryLine(); // 0x0047B9C0
+void __cdecl sub_0047B9C0_RecallChatLine(); // 0x0047B9C0
 void __stdcall sub_0047BA80_StepChatIndex(int nDelta); // 0x0047BA80
 extern const int gdwBitMasks[]; // 0x006CE268
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -342,9 +342,9 @@ void __fastcall sub_00479230_UpdateOwnerPetFlags(int nOwnerId)
                 D2UnitStrc* pUnit = sub_00463990(pPet->dwUnitId, UNIT_MONSTER);
                 if (pUnit)
                 {
-                    int nFlagB = sub_00463EB0_GetUnitFlagB(pUnit);
+                    int nFlagB = sub_00463EB0_GetGfxField38(pUnit);
                     int bSet = !sub_004791B0_IsOwnedByPlayer(pUnit);
-                    if (nFlagB == sub_00463E50_GetUnitFlagA(pUnit))
+                    if (nFlagB == sub_00463E50_GetGfxField34(pUnit))
                     {
                         sub_00463E80_SetUnitFlagB(pUnit, bSet);
                     }
@@ -371,12 +371,12 @@ void __stdcall sub_0047BCA0_ChatKeyDown(SMSGHANDLER_PARAMS* pMsg)
     switch (nKey)
     {
     case 0x26:
-        sub_0047B9C0_LoadChatHistoryLine();
+        sub_0047B9C0_RecallChatLine();
         sub_0047BA80_StepChatIndex(1);
         break;
     case 0x28:
         sub_0047BA80_StepChatIndex(-1);
-        sub_0047B9C0_LoadChatHistoryLine();
+        sub_0047B9C0_RecallChatLine();
         break;
     }
 }
@@ -603,7 +603,7 @@ void __cdecl sub_0049C7F0_BuildWaypointList()
 {
     gnWaypointCount_007BF08A = 0;
     gnWaypointEnabled_007BF08E = 0;
-    const int nCurrentLevelId = DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(sub_00463DD0()));
+    const int nCurrentLevelId = DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(sub_00463DD0_GetPlayerUnit()));
 
     for (int i = 0; i < 9; ++i)
     {
@@ -740,7 +740,7 @@ void __fastcall sub_004A1320_OpenTextPanel(unsigned short nStringId, int bSide, 
     const int nSoundId = sub_004E0650_GetStringSound(nStringId);
     if (nSoundId)
     {
-        gnHintSound_007BF24B = sub_004B9A00(nSoundId, sub_00463DD0(), 5, 0, 0);
+        gnHintSound_007BF24B = sub_004B9A00(nSoundId, sub_00463DD0_GetPlayerUnit(), 5, 0, 0);
         gnHintId_007BF260 = nSoundId;
     }
 
@@ -971,7 +971,7 @@ int __fastcall sub_004F3CE0_CreateSkillMissiles(D2UnitStrc* pUnit, int nSkillId,
             sub_004CEFE0_AddMissileEffect(pMissile, nMissileB, 0, 2, 0);
         }
 
-        if (!sub_004648F0_GetTargetUnit(pUnit) && pSkillsTxt->wTgtSound > 0)
+        if (!sub_004648F0_GetPathTargetUnit(pUnit) && pSkillsTxt->wTgtSound > 0)
         {
             sub_004B9A00(pSkillsTxt->wTgtSound, pMissile, 0, 0, 0);
         }

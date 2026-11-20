@@ -79,7 +79,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 void __stdcall ITEMS_SetInvPage(D2UnitStrc* pItem, unsigned char nPage); // 0x00628280
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
-int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit); // 0x0045ADF0
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall D2GAME_PlaceItem_6FC44410(const char* szFile, int nLine, D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnitId, int nX, int nY, int a8, int a9, D2InventoryStrc* pInventory); // 0x00560200
 int __fastcall ITEMMODE_EquipCursorItem(D2GameStrc* pGame, D2UnitStrc* pUnit, int nItemGUID, unsigned char nBodyLoc, int a5, int* pUnused); // 0x005606B0
 unsigned char __stdcall ITEMS_GetBodyLocation(D2UnitStrc* pItem); // 0x00627D40
@@ -117,7 +117,7 @@ void __stdcall UNITS_GetCoords(D2UnitStrc* pUnit, D2CoordStrc* pCoord); // 0x006
 void __stdcall UNITS_StoreOwner(D2UnitStrc* pUnit, D2UnitStrc* pOwner); // 0x00621CE0
 int __stdcall UNITS_GetInventoryGoldLimit(D2UnitStrc* pUnit); // 0x00622E70
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
-D2UnitStrc* __fastcall sub_00553720(D2GameStrc* pGame, D2UnitStrc* pPortal); // 0x00553720
+D2UnitStrc* __fastcall sub_00553720_ResolveObjectOwner(D2GameStrc* pGame, D2UnitStrc* pPortal); // 0x00553720
 void __fastcall ACT5Q5_OnPortalClosed(D2GameStrc* pGame, D2UnitStrc* pPortal); // 0x0058CF50
 void __stdcall DUNGEON_ToggleHasPortalFlag(D2ActiveRoomStrc* pRoom, int bReset); // 0x0061AED0
 
@@ -205,7 +205,7 @@ static int __stdcall PLAYER_PlaceItemInInventory(D2GameStrc* pGame, int a8, D2Un
     D2_ASSERT(hPlayer, 181);
     ITEMS_SetInvPage(hItem, INVPAGE_INVENTORY);
     const int nItemGUID = hItem->dwUnitId;
-    return D2GAME_PlaceItem_6FC44410(".\\PLAYER\\Player.cpp", 186, pGame, hPlayer, nItemGUID, UNITS_GetXPosition(hItem), CLIENTS_GetUnitY(hItem), a8, 1, 0) != 0;
+    return D2GAME_PlaceItem_6FC44410(".\\PLAYER\\Player.cpp", 186, pGame, hPlayer, nItemGUID, CLIENTS_GetUnitX(hItem), CLIENTS_GetUnitY(hItem), a8, 1, 0) != 0;
 }
 
 // 0x00534BB0
@@ -233,7 +233,7 @@ static int __stdcall sub_00534C10_PlaceStartItemInBelt(D2GameStrc* pGame, D2Unit
     D2_ASSERT(pPlayer, 217);
     const int nItemGUID = pItem->dwUnitId;
     int nUnused;
-    return sub_6FC48940(pGame, pPlayer, nItemGUID, UNITS_GetXPosition(pItem), bFindFreeSlot, &nUnused) != 0;
+    return sub_6FC48940(pGame, pPlayer, nItemGUID, CLIENTS_GetUnitX(pItem), bFindFreeSlot, &nUnused) != 0;
 }
 
 // 0x00534C70
@@ -402,7 +402,7 @@ void __fastcall PLAYER_RemoveTownPortal(D2GameStrc* pGame, D2UnitStrc* pPlayer)
 
 	ACT5Q5_OnPortalClosed(pGame, pPortal);
 
-	D2UnitStrc* pOwner = sub_00553720(pGame, pPortal);
+	D2UnitStrc* pOwner = sub_00553720_ResolveObjectOwner(pGame, pPortal);
 	D2ActiveRoomStrc* pPortalRoom = UNITS_GetRoom(pPortal);
 	if (pPortalRoom)
 	{

@@ -56,7 +56,7 @@ int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
 T0044CB60* __fastcall sub_00502970_SplitText(const Unicode* pText, int* pLineCount, int nWidth); // 0x00502970
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
-int __cdecl sub_00525150(); // 0x00525150
+int __cdecl STRTABLE_GetLanguage(); // 0x00525150
 Unicode* __fastcall strncpy(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526790
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
@@ -244,7 +244,7 @@ static bool sub_0049E280_ConvertHoverText(int nLangId, const char* szText, Unico
     }
 
     MultiByteToWideChar(0, 1, szText, 0x100, wszText, 0x100);
-    const int nCurrentLangId = sub_00525150();
+    const int nCurrentLangId = STRTABLE_GetLanguage();
     if (nCurrentLangId == nLangId)
         return true;
     if (nCurrentLangId == 7)

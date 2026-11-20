@@ -90,7 +90,7 @@ int __cdecl sub_0045AE90(); // 0x0045AE90
 extern "C" int __cdecl sub_0045AFC0(); // 0x0045AFC0
 extern "C" int __cdecl sub_0045AFD0_GetMouseYOffset(); // 0x0045AFD0
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 void* __fastcall sub_0046E570_GetNodeValue(D2UnitStrc* pUnit, int nMode); // 0x0046E570
 void* __fastcall sub_0046E5A0_FindGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nArg); // 0x0046E5A0
 void* __fastcall sub_0046FA80_LoadGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nArg); // 0x0046FA80
@@ -373,7 +373,7 @@ int __fastcall sub_00471620_DrawUnitShadow(D2UnitStrc* pUnit)
 
     bTownMode = 0;
     nPrevMode = sub_004F5170();
-    if (nPrevMode && D2GFX_CheckPerspective() && pUnit == sub_00463DD0() && !sub_0046D9F0_TestUnit(pUnit))
+    if (nPrevMode && D2GFX_CheckPerspective() && pUnit == sub_00463DD0_GetPlayerUnit() && !sub_0046D9F0_TestUnit(pUnit))
     {
         sub_004F5190_SetTownMode(0);
         bTownMode = 1;

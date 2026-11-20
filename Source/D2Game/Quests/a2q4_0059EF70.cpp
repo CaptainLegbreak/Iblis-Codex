@@ -18,7 +18,7 @@ D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc*,int,int); // 0x00552F60
 int __fastcall MONSTERAI_HasInteractUnit(void*); // 0x00572DC0
 void __fastcall sub_00573180(D2GameStrc*,D2UnitStrc*,void*,int); // 0x00573180
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc*,int); // 0x00543640
-D2ActiveRoomStrc* __fastcall sub_00463740(D2ActiveRoomStrc*,int,int); // 0x00463740
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc*,int,int); // 0x00463740
 void __fastcall QUESTS_GetFreePosition(D2ActiveRoomStrc*,D2CoordStrc*,unsigned int,unsigned int,D2ActiveRoomStrc**,int,int); // 0x00545340
 D2UnitStrc* __fastcall sub_005B2F20(D2GameStrc*,D2ActiveRoomStrc*,int,int,int,int,int,int); // 0x005B2F20
 static __forceinline void* GetMonsterInteract(D2UnitStrc* unit) {
@@ -48,7 +48,7 @@ void __stdcall sub_0059EF70_SpawnQuestNpc(D2QuestDataStrc* quest,D2CoordStrc* co
     if (bDone) coords->nX+=15;
     else coords->nX-=10;
     coords->nY-=3;
-    D2ActiveRoomStrc* found=sub_00463740(room,coords->nX,coords->nY);
+    D2ActiveRoomStrc* found=sub_00463740_FindRoomAtPoint(room,coords->nX,coords->nY);
     QUESTS_GetFreePosition(room,coords,3,0x100,&found,9,100);
     D2UnitStrc* npc=sub_005B2F20(quest->game,found,coords->nX,coords->nY,201,1,-1,0);
     if (!npc) npc=sub_005B2F20(quest->game,found,coords->nX,coords->nY,201,1,2,0);

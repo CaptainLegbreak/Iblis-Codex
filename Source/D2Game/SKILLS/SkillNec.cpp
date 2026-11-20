@@ -60,7 +60,7 @@ D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit);
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 int __stdcall sub_00645680_CanUnitCorpseBeSelected(D2UnitStrc* pUnit); // 0x00645680
-void __fastcall sub_6FCBDD30(D2UnitStrc* pUnit, unsigned char nAlignNew, int a3); // 0x005543B0
+void __fastcall sub_005543B0_AssignAlignment(D2UnitStrc* pUnit, unsigned char nAlignNew, int a3); // 0x005543B0
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
 int __fastcall sub_005C31F0_IsValidAttractTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x005C31F0
@@ -336,7 +336,7 @@ D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom
 void __fastcall MONSTER_UpdateAiCallbackEvent(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00573780
 void __stdcall MONSTERMODE_GetModeChangeInfo(D2UnitStrc* pUnit, int nMode, D2ModeChangeStrc* pModeChange); // 0x005A7E60
 int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int a3); // 0x005A7C20
-void __fastcall sub_6FD154D0(D2UnitStrc* pUnit); // 0x0056E580
+void __fastcall SKILLS_ClearMonsterMinionOwnership(D2UnitStrc* pUnit); // 0x0056E580
 void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nEventCustomId); // 0x00540E60
 D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
 int __fastcall sub_6FCBDFE0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY, int a6, int a7); // 0x00554EA0
@@ -697,7 +697,7 @@ void __fastcall sub_6FD0B9F0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* p
 // 0x005C3B00
 void __fastcall sub_005C3B00_AttractStateRemove(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList)
 {
-    sub_6FCBDD30(pUnit, 0, 1);
+    sub_005543B0_AssignAlignment(pUnit, 0, 1);
     STATES_ToggleState(pUnit, nState, 0);
     sub_005B1A90(SUNIT_GetGameFromUnit(pUnit), pUnit);
 }
@@ -727,7 +727,7 @@ int __fastcall sub_6FD0BDA0(D2UnitStrc* pUnit, void* pArg)
 // 0x005C3DB0
 void __fastcall sub_6FD0C2B0(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList)
 {
-    sub_6FCBDD30(pUnit, 0, 1);
+    sub_005543B0_AssignAlignment(pUnit, 0, 1);
     STATES_ToggleState(pUnit, nState, 0);
     sub_005B1A90(SUNIT_GetGameFromUnit(pUnit), pUnit);
 }
@@ -781,7 +781,7 @@ int __fastcall sub_6FD0C060(D2UnitStrc* pUnit, D2UnkNecSkillStrc* pArgs)
         UnitUpdateAnimRateAndVel(pUnit, ".\\SKILLS\\SkillNec.cpp", 983);
     }
 
-    sub_6FCBDD30(pUnit, 1, 1);
+    sub_005543B0_AssignAlignment(pUnit, 1, 1);
     sub_6FC40280(pArgs->pGame, pUnit, 0, 9);
     sub_6FC61E30(pUnit, 3, 0);
     EVENT_SetEvent(pArgs->pGame, pUnit, EVENTTYPE_AIRESET, pArgs->pGame->dwGameFrame + pArgs->nDuration, 0, 0);
@@ -990,7 +990,7 @@ static int __stdcall sub_005C5430_MoveRevivedTarget(D2GameStrc* pGame, D2UnitStr
     D2ModeChangeStrc tModeChange = {};
     MONSTERMODE_GetModeChangeInfo(pTarget, 1, &tModeChange);
     D2GAME_ModeChange_6FC65220(pGame, &tModeChange, 1);
-    sub_6FD154D0(pTarget);
+    SKILLS_ClearMonsterMinionOwnership(pTarget);
     D2GAME_EVENTS_Delete_6FC34840(pGame, pTarget, 8, 0);
     if (UNITS_GetRightSkill(pTarget))
     {
@@ -1009,7 +1009,7 @@ static void __stdcall sub_005C55C0_InitializeRevivedMonster(D2GameStrc* pGame, D
         AIUTIL_SetOwnerGUIDAndType(pMonster, pUnit);
         D2GAME_EVENTS_Delete_6FC34840(pGame, pMonster, 2, 0);
         EVENT_SetEvent(pGame, pMonster, 2, pGame->dwGameFrame + 15, 0, 0);
-        sub_6FCBDD30(pMonster, 2, 0);
+        sub_005543B0_AssignAlignment(pMonster, 2, 0);
         sub_00573120_ClearMonsterPair(pMonster);
 
         if (pMonster)

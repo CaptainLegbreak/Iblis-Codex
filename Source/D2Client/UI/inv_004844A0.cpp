@@ -43,23 +43,23 @@ extern D2InvCompGridStrc gaCompGrids_007BCC58[11]; // 0x007BCC58
 extern "C" const char szCmnItemsH_006D9B90[]; // 0x006D9B90
 extern "C" const char szInvCpp_006D9BC0[]; // 0x006D9BC0
 int __cdecl sub_0044DCC0(); // 0x0044DCC0
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
 int __cdecl sub_00468830(); // 0x00468830
 void __fastcall sub_0046EE80_DrawCursorItem(D2UnitStrc*,int,int); // 0x0046EE80
 void __fastcall sub_0046EFD0_DrawFramedBox(int,int,unsigned char,unsigned char,unsigned char,int); // 0x0046EFD0
 void __cdecl sub_004835B0_LoadUiRecords(); // 0x004835B0
-void __stdcall sub_00483E40(D2UnitStrc*,D2InventoryGridInfoStrc*,int,int); // 0x00483E40
+void __stdcall sub_00483E40_DrawItemSockets(D2UnitStrc*,D2InventoryGridInfoStrc*,int,int); // 0x00483E40
 int __fastcall sub_004C2240(D2UnitStrc*); // 0x004C2240
 int __stdcall UNITS_GetInventoryRecordId(D2UnitStrc*,int,int); // 0x00621050
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc*,unsigned int,int,const char*); // 0x006280A0
 void __stdcall ITEMS_GetDimensions(D2UnitStrc*,unsigned char*,unsigned char*,const char*,int); // 0x006286C0
 int __stdcall ITEMS_CheckIfSocketable(D2UnitStrc*); // 0x00629900
 unsigned char __stdcall ITEMS_GetSockets(D2UnitStrc*); // 0x006299B0
-int __stdcall sub_0062A4E0_TestItem(D2UnitStrc*); // 0x0062A4E0
-unsigned char __stdcall ITEMS_GetMaxSockets(D2UnitStrc*); // 0x0062BC20
-int __stdcall sub_0062BEB0(D2UnitStrc*); // 0x0062BEB0
+int __stdcall ITEMS_CanBeEquipped(D2UnitStrc*); // 0x0062A4E0
+unsigned char __stdcall sub_0062BC20(D2UnitStrc*); // 0x0062BC20
+int __stdcall ITEMS_IsSocketFiller(D2UnitStrc*); // 0x0062BEB0
 int __stdcall ITEMS_GetAmmoType(D2UnitStrc*); // 0x0062E6F0
 int __stdcall ITEMS_GetQuiverType(D2UnitStrc*); // 0x0062E740
 int __stdcall ITEMS_CheckRequirements(D2UnitStrc*,D2UnitStrc*,int,int*,int*,int*); // 0x0062EAF0
@@ -103,7 +103,7 @@ struct D2ItemTypeNameStrc
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 Unicode* __fastcall sub_004521C0_PrefixLevelText(Unicode* pText, int nDigit); // 0x004521C0
-D2UnitStrc* __cdecl sub_00463DE0_GetStoredUnit(); // 0x00463DE0
+D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
@@ -190,14 +190,14 @@ D2SetItemsTxt* __fastcall sub_00483440_GetSetItemsTxtRecord(int nIndex); // 0x00
 int __stdcall sub_00485410_AppendDamage(D2UnitStrc* pItem, Unicode* pText); // 0x00485410
 void __stdcall sub_00485EE0_AppendDefense(D2UnitStrc* pUnit, D2UnitStrc* pItem, Unicode* pText); // 0x00485EE0
 void __cdecl sub_0048BE80_FormatArgs(Unicode* pDest, const Unicode* pFormat, ...); // 0x0048BE80
-void __fastcall sub_0048C060(D2UnitStrc* pItem, Unicode* pText, int nMaxLength); // 0x0048C060
+void __fastcall sub_0048C060_BuildItemName(D2UnitStrc* pItem, Unicode* pText, int nMaxLength); // 0x0048C060
 int __fastcall sub_004B2AD0_GetTradeCostText(D2UnitStrc* pItem, int nArg, int* pOut, Unicode* pName, int nMaxLength); // 0x004B2AD0
 void __fastcall sub_004E6410_BuildPropText(D2UnitStrc* pItem, Unicode* wszText, int nArg, int bFlag, int nArg2); // 0x004E6410
 void __fastcall sub_004E6560_SetItemPropTexts(D2UnitStrc* pPlayer, D2UnitStrc* pItem, Unicode* pText, int nMaxLength); // 0x004E6560
 void __fastcall sub_004E6680_AddSetStatePropText(D2UnitStrc* pUnit, D2UnitStrc* pItem, Unicode* pText, int nMaxLength); // 0x004E6680
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 int __stdcall STATLIST_GetMaxDamageFromUnit(D2UnitStrc* pItem, int a2); // 0x00625E60
-int __stdcall STATLIST_GetMinDamageFromUnit(D2UnitStrc* pItem, int a2); // 0x00625EF0
+int __stdcall sub_00625EF0_MinDamage(D2UnitStrc* pItem, int a2); // 0x00625EF0
 int __stdcall sub_00626020_ArmorValue(D2UnitStrc* pUnit); // 0x00626020
 int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem); // 0x00627E70
 unsigned char __stdcall ITEMS_GetInvPage(D2UnitStrc* pItem); // 0x00628250
@@ -240,7 +240,7 @@ static int sub_004843E0_CanSocketInto(D2UnitStrc* pItem, D2UnitStrc* pSocketable
     {
         return 0;
     }
-    if (!sub_0062BEB0(pSocketable))
+    if (!ITEMS_IsSocketFiller(pSocketable))
     {
         return 0;
     }
@@ -252,7 +252,7 @@ static int sub_004843E0_CanSocketInto(D2UnitStrc* pItem, D2UnitStrc* pSocketable
     {
         return 0;
     }
-    if (ITEMS_GetMaxSockets(pItem) <= 0)
+    if (sub_0062BC20(pItem) <= 0)
     {
         return 0;
     }
@@ -296,7 +296,7 @@ static void sub_004844A0_DrawBodyLocPlacement(D2InventoryStrc* pInventory)
     unsigned char nWidth;
     unsigned char nHeight;
     ITEMS_GetDimensions(pCursorItem, &nWidth, &nHeight, szCmnItemsH_006D9B90, 0x6DC);
-    if (ITEMS_CheckBodyLocation(pCursorItem, gnGlobal_007BCC20) && ITEMS_CheckRequirements(pCursorItem, sub_00463DD0(), 0, 0, 0, 0))
+    if (ITEMS_CheckBodyLocation(pCursorItem, gnGlobal_007BCC20) && ITEMS_CheckRequirements(pCursorItem, sub_00463DD0_GetPlayerUnit(), 0, 0, 0, 0))
     {
         sub_00483A70_DrawSlotFrame(&gaCompGrids_007BCC58[gnGlobal_007BCC20], 1);
     }
@@ -337,7 +337,7 @@ void __cdecl sub_004845A0_DrawEquippedItems()
         nOffsetX=4;
         nOffsetY=-4;
     }
-    D2UnitStrc* pPlayer=sub_00463DD0();
+    D2UnitStrc* pPlayer=sub_00463DD0_GetPlayerUnit();
     D2InventoryStrc* pInventory=pPlayer->pInventory;
     UNITS_GetInventoryRecordId(pPlayer,0,sub_0044DCC0());
     sub_004835B0_LoadUiRecords();
@@ -384,14 +384,14 @@ void __cdecl sub_004845A0_DrawEquippedItems()
             if(sub_00468830()==8)sub_00483A70_DrawSlotFrame(&gaCompGrids_007BCC58[nBodyLoc],0);
             else sub_00483A70_DrawSlotFrame(&gaCompGrids_007BCC58[nBodyLoc],1);
             sub_0046EE80_DrawCursorItem(pItem,nX,nY);
-            if(ITEMS_CheckIfSocketable(pItem) && ITEMS_GetMaxSockets(pItem)>0 && ITEMS_CheckItemFlag(pItem,0x800,0x673,szInvCpp_006D9BC0))
-                sub_00483E40(pItem,&gGrid_007BCB88,nX,nY);
+            if(ITEMS_CheckIfSocketable(pItem) && sub_0062BC20(pItem)>0 && ITEMS_CheckItemFlag(pItem,0x800,0x673,szInvCpp_006D9BC0))
+                sub_00483E40_DrawItemSockets(pItem,&gGrid_007BCB88,nX,nY);
         }
         else
         {
             if (pOther || (!ITEMS_GetAmmoType(pItem) && !ITEMS_GetQuiverType(pItem)))
             {
-                if (ITEMS_CheckRequirements(pItem,pPlayer,0,0,0,0) && !sub_004C2240(pItem) && sub_0062A4E0_TestItem(pItem))
+                if (ITEMS_CheckRequirements(pItem,pPlayer,0,0,0,0) && !sub_004C2240(pItem) && ITEMS_CanBeEquipped(pItem))
                 {
                     if(!ITEMS_CheckItemFlag(pItem,0x10,0x682,szInvCpp_006D9BC0))sub_00483A70_DrawSlotFrame(&gaCompGrids_007BCC58[nBodyLoc],4);
                 }
@@ -570,7 +570,7 @@ static void __stdcall sub_00485D40_AppendThrowDamage(D2UnitStrc* pItem, D2ItemsT
     if (ITEMSIsA(pItem, 0x33))
     {
         nStringId = 0xD8C;
-        D2UnitStrc* pUnit = sub_00463DE0_GetStoredUnit();
+        D2UnitStrc* pUnit = sub_00463DE0_GetPlayerUnit();
         void* pSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, 0x75);
         if (pSkill && STATES_CheckState(pUnit, 0x65))
         {
@@ -623,7 +623,7 @@ static void __stdcall sub_00486100_AppendStackQuantity(D2UnitStrc* pItem, Unicod
 static void __stdcall sub_00485BE0_AppendBlockChance(Unicode* pText, D2ItemsTxt* pItemsTxt, D2UnitStrc* pItem)
 {
     int nBlock = STATLIST_UnitGetStatValue(pItem, 0x14, 0);
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (pPlayer)
     {
         const int nClass = pPlayer->dwClassId;
@@ -665,7 +665,7 @@ static void __stdcall sub_004861D0_AppendAttackSpeed(Unicode* pText, D2UnitStrc*
     const Unicode* pColorStart = D2LANG_GetStringFromTblIndex(0xF9B);
     const Unicode* pColorEnd = D2LANG_GetStringFromTblIndex(0xF9E);
     const Unicode* pColorAlt = D2LANG_GetStringFromTblIndex(0xF9C);
-    D2UnitStrc* pStoredUnit = sub_00463DE0_GetStoredUnit();
+    D2UnitStrc* pStoredUnit = sub_00463DE0_GetPlayerUnit();
     const int nAttackSpeed = ITEMS_GetWeaponAttackSpeed(pStoredUnit, pItem);
     int bBonus = 0;
     if (sub_00625560(pItem, 0x5D, 0))
@@ -683,7 +683,7 @@ static void __stdcall sub_004861D0_AppendAttackSpeed(Unicode* pText, D2UnitStrc*
     }
     else
     {
-        D2UnitStrc* pUnit = sub_00463DE0_GetStoredUnit();
+        D2UnitStrc* pUnit = sub_00463DE0_GetPlayerUnit();
         const int bMissile = (ITEMSIsA(pItem, 0x23) || ITEMSIsA(pItem, 0x1B)) ? 1 : 0;
         const int nClass = !pUnit ? -1 : pUnit->dwClassId;
         nSpeed = gaSpeedTable_00721F10[nAttackSpeed - 10][gaClassSpeedOffsets_00722078[nClass][bMissile]];
@@ -1082,7 +1082,7 @@ void __fastcall sub_0048D1D0_DrawSetItemTooltip(D2UnitStrc* pUnit)
 
     D2UnitStrc* pPlayer = pUnit;
     if (pUnit && pUnit->dwUnitType == 1 && !MONSTERS_GetHirelingTypeId(pUnit))
-        pPlayer = sub_00463DD0();
+        pPlayer = sub_00463DD0_GetPlayerUnit();
 
     D2InventoryStrc* pInventory = pUnit->pInventory;
     if (!gdwGlobal_007BCBE8 && !gdwGlobal_007BCBE4)
@@ -1175,7 +1175,7 @@ void __fastcall sub_0048D1D0_DrawSetItemTooltip(D2UnitStrc* pUnit)
         sub_004521C0_PrefixLevelText(wszSpeed, 0);
         sub_00526700(wszStats, wszSpeed);
 
-        if (STATLIST_GetMinDamageFromUnit(gpHoverItem_007BCBF4, 0) >= 0 && STATLIST_GetMaxDamageFromUnit(gpHoverItem_007BCBF4, 0) >= 0)
+        if (sub_00625EF0_MinDamage(gpHoverItem_007BCBF4, 0) >= 0 && STATLIST_GetMaxDamageFromUnit(gpHoverItem_007BCBF4, 0) >= 0)
         {
             sub_00485410_AppendDamage(gpHoverItem_007BCBF4, wszDamage);
             sub_004521C0_PrefixLevelText(wszDamage, 0);
@@ -1208,7 +1208,7 @@ void __fastcall sub_0048D1D0_DrawSetItemTooltip(D2UnitStrc* pUnit)
         sub_00526700(wszStats, wszDefense);
     }
 
-    sub_0048C060(gpHoverItem_007BCBF4, wszName, 0x100);
+    sub_0048C060_BuildItemName(gpHoverItem_007BCBF4, wszName, 0x100);
     if (ITEMS_CheckItemFlag(gpHoverItem_007BCBF4, 0x100, 0xDDB, ".\\UI\\inv.cpp"))
     {
         sub_004521C0_PrefixLevelText(wszName, 1);

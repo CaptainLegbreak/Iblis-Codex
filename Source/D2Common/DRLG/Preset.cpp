@@ -408,7 +408,7 @@ struct D2DrlgPresetInfoStrc
 extern const char gszPresetFile[]; // 0x006EE7C4
 int __fastcall sub_0045C3E0(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 D2LvlPrestTxt* __fastcall DATATBLS_GetLvlPrestTxtRecordFromLevelId(int nLevelId); // 0x0061F0E0
-void __fastcall sub_00642D10(D2DrlgStrc* pDrlg, D2DrlgLevelStrc* pLevel); // 0x00642D10
+void __fastcall DRLG_SetLevelPositionAndSize(D2DrlgStrc* pDrlg, D2DrlgLevelStrc* pLevel); // 0x00642D10
 
 // 0x00666070
 static __forceinline void sub_00666070_FindLevelFile(D2DrlgFileStrc** ppDrlgFile, D2LevelFileListStrc** ppPrevious, D2LevelFileListStrc** ppCurrent)
@@ -1014,7 +1014,7 @@ void __fastcall DRLGPRESET_InitLevelData(D2DrlgLevelStrc* pLevel)
 		pPreset->nDirection = -1;
 	}
 
-	sub_00642D10(pLevel->pDrlg, pLevel);
+	DRLG_SetLevelPositionAndSize(pLevel->pDrlg, pLevel);
 }
 
 static __forceinline int DRLGPRESET_GetMonsterId(int nMonsterId, int nMonStatsCount)

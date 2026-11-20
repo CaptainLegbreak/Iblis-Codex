@@ -59,7 +59,7 @@ struct D2RosterCorpseStrc
     D2RosterCorpseStrc* pNext;
 };
 
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 void __fastcall sub_00478780_SendPartyCommand(int nCommand, int nUnitId); // 0x00478780
 D2StoredUnitRecordStrc* __stdcall sub_004795F0_SortRosterByName(D2StoredUnitRecordStrc* pList); // 0x004795F0
 void __cdecl sub_004797C0_FreeRosterGroups(); // 0x004797C0
@@ -284,7 +284,7 @@ static void sub_00479A60_MovePlayerToFront(int nPlayerId)
 
 __declspec(noinline) void __cdecl sub_00479AB0()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     const int nPlayerId = !pPlayer ? -1 : pPlayer->dwUnitId;
     D2StoredUnitRecordStrc* pRec = sub_004792E0_FindRosterUnit(nPlayerId);
     const unsigned short wPartyId = pRec ? pRec->wPartyId : 0xFFFF;

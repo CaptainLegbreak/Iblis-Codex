@@ -30,8 +30,8 @@ void __fastcall sub_006B9780_SetColor(D2TLVertexStrc*,U32,U8); // 0x006B9780
 void __fastcall sub_006BBA00_BindTile(D2TileBlockStrc*); // 0x006BBA00
 int __stdcall sub_005FDEA0_CheckTile(D2TileStrc*,int,int); // 0x005FDEA0
 void __fastcall sub_006B1EA0_SetState(int); // 0x006B1EA0
-void __fastcall sub_006B1F40_SetBlend(int); // 0x006B1F40
-void __fastcall sub_006B2030_SetMode(int); // 0x006B2030
+void __fastcall sub_006B1F40_SetBlendMode(int); // 0x006B1F40
+void __fastcall sub_006B2030_SetFilterMode(int); // 0x006B2030
 int __cdecl sub_006B9830_GetPerspective(); // 0x006B9830
 #define D3D_VERTEX_IN_RECT(v, r) ((v).x >= (r).left && (v).x < (r).right && (v).y >= (r).top && (v).y < (r).bottom)
 #define D2ASSERT(c,l) if(!(c)) { sub_00408A60(gszAssert_006CC837,sub_00408090(),l); sub_00681E09_Exit(-1); }
@@ -207,7 +207,7 @@ static int __stdcall sub_006B8DF0_AlphaWall(D2TileStrc*,int,int,U32*,int,U8); //
 static int __stdcall sub_006B8DF0_AlphaWall(D2TileStrc* t,int x,int y,U32* l,int panels,U8 alpha)
 {
  if(!sub_005FDEA0_CheckTile(t,1,0))return 0;
- sub_006B1EA0_SetState(1);sub_006B1F40_SetBlend(alpha==255?1:4);sub_006B2030_SetMode(1);
+ sub_006B1EA0_SetState(1);sub_006B1F40_SetBlendMode(alpha==255?1:4);sub_006B2030_SetFilterMode(1);
  if(sub_006B9830_GetPerspective())return sub_006B8950_Lit(panels,t,x,y,l,alpha);
  return sub_006B87A0_Flat(t,x,y,l,panels,alpha);
 }
@@ -220,7 +220,7 @@ int __fastcall sub_006B8E60_DrawAlphaWall(D2TileStrc* t,int x,int y,U32* l,int p
 int __fastcall sub_006B8E90_DrawWall(D2TileStrc* t,int x,int y,U32* l,int panels)
 {
  if(!sub_005FDEA0_CheckTile(t,1,0))return 0;
- sub_006B1EA0_SetState(1);sub_006B1F40_SetBlend(1);sub_006B2030_SetMode(1);
+ sub_006B1EA0_SetState(1);sub_006B1F40_SetBlendMode(1);sub_006B2030_SetFilterMode(1);
  if(sub_006B9830_GetPerspective())return sub_006B8950_Lit(panels,t,x,y,l,255);
  return sub_006B87A0_Flat(t,x,y,l,panels,255);
 }

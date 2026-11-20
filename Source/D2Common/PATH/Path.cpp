@@ -131,7 +131,7 @@ extern const D2CoordStrc gatDirectionToOffset_006EB398[8]; // 0x006EB398
 extern PATH_FUNCTION const scpfnPathFunction_006EB6D8[]; // 0x006EB6D8
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
-D2ActiveRoomStrc* __fastcall COLLISION_GetRoomBySubTileCoordinates(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 int __stdcall UNITS_GetUnitSizeX(D2UnitStrc* pUnit); // 0x00620510
 int __stdcall UnitIsDoor(D2UnitStrc* pUnit); // 0x00621A70
@@ -914,11 +914,11 @@ static __declspec(noinline) BOOL PATH_IsTargetDestinationAllowed(D2PathInfoStrc*
         const unsigned short nStartY = pPathInfo->tStartCoord.Y;
         const unsigned short nTargetX = pPathInfo->tTargetCoord.X;
         const unsigned short nTargetY = pPathInfo->tTargetCoord.Y;
-        D2ActiveRoomStrc* pRoomHalfway = COLLISION_GetRoomBySubTileCoordinates(
+        D2ActiveRoomStrc* pRoomHalfway = sub_00463740_FindRoomAtPoint(
             pPathInfo->pStartRoom,
             nStartX + (nTargetX - nStartX) / 2,
             nStartY + (nTargetY - nStartY) / 2);
-        pTargetRoom = COLLISION_GetRoomBySubTileCoordinates(pRoomHalfway, nTargetX, nTargetY);
+        pTargetRoom = sub_00463740_FindRoomAtPoint(pRoomHalfway, nTargetX, nTargetY);
     }
 
     return !DUNGEON_IsRoomInTown(pTargetRoom);
@@ -970,7 +970,7 @@ int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bA
                 if (nDeltaX <= PATH_MAX_DISTANCE && -nDeltaX <= PATH_MAX_DISTANCE && nDeltaY <= PATH_MAX_DISTANCE && -nDeltaY <= PATH_MAX_DISTANCE)
                 {
                     tPathInfo.pStartRoom = pPath->pRoom;
-                    tPathInfo.pTargetRoom = COLLISION_GetRoomBySubTileCoordinates(tPathInfo.pStartRoom, tPathInfo.tTargetCoord.X, tPathInfo.tTargetCoord.Y);
+                    tPathInfo.pTargetRoom = sub_00463740_FindRoomAtPoint(tPathInfo.pStartRoom, tPathInfo.tTargetCoord.X, tPathInfo.tTargetCoord.Y);
                     if (tPathInfo.pStartRoom && tPathInfo.pTargetRoom && (PATH_IsTargetDestinationAllowed(&tPathInfo, pUnit) || bAllowInTown))
                     {
                         tPathInfo.nPathType = pPath->eType;

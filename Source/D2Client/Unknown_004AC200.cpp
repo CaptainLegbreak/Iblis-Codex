@@ -15,7 +15,7 @@ struct D2SkillDescTxt
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...);
 
-D2UnitStrc* __cdecl sub_00463DD0();                                                               // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 int __fastcall sub_004AA8B0_GetSkillMaxLevel(int nSkillId);                                                 // 0x004AA8B0
 void __stdcall sub_004ABF60_DrawSkillButton(int nSkillId, D2SkillsTxt* pSkillsTxt, int nLevel, int nState, int nFrame); // 0x004ABF60
 void __fastcall sub_00502320_DrawText(const wchar_t* wszText, int nX, int nY, int nColor, int bCentered);   // 0x00502320
@@ -71,7 +71,7 @@ inline D2SkillDescTxt* sub_004AC200_GetSkillDescFromSkillId(int nSkillId)
 // 0x004AC200
 void __cdecl sub_004AC200_RefreshSkillTree()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (!pPlayer)
     {
         return;
@@ -93,7 +93,7 @@ void __cdecl sub_004AC200_RefreshSkillTree()
     wsprintfA(szText, "%i", sub_006253B0(pPlayer, 5, 0));
     sub_00526320_ToUnicode(wszText, szText, 9);
 
-    D2UnitStrc* pUnit = sub_00463DD0();
+    D2UnitStrc* pUnit = sub_00463DD0_GetPlayerUnit();
     if ((pUnit && sub_00639DF0_CheckState(pUnit, 0x36)) || gbSkillPointsHighlight_007C0C3C)
     {
         sub_00502320_DrawText(wszText, gnScreenWidth_0071146C - gnPanelOffsetX_007A2858 - 0x34, gnScreenHeight_00711470 + gnPanelOffsetY_007A285C - 0x190, 1, 0);

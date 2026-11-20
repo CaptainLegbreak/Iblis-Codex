@@ -82,18 +82,18 @@ D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); 
 unsigned char __stdcall ITEMS_GetBodyLocation(D2UnitStrc* pItem); // 0x00627D40
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
-int __stdcall sub_0062A4E0_TestItem(D2UnitStrc* pItem); // 0x0062A4E0
+int __stdcall ITEMS_CanBeEquipped(D2UnitStrc* pItem); // 0x0062A4E0
 D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic); // 0x00625820
 void __stdcall STATLIST_MergeStatLists(D2UnitStrc* pTarget, D2UnitStrc* pUnit, int bType); // 0x00627910
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); // 0x00483360
-short __stdcall sub_00629860_GetStrengthFactor(D2UnitStrc* pItem); // 0x00629860
-short __stdcall sub_006298A0_GetDexterityFactor(D2UnitStrc* pItem); // 0x006298A0
+short __stdcall ITEMS_GetStrengthBonus(D2UnitStrc* pItem); // 0x00629860
+short __stdcall ITEMS_GetDexBonus(D2UnitStrc* pItem); // 0x006298A0
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 int __stdcall SKILLS_GetWeaponMasteryBonus(D2UnitStrc* pUnit, D2UnitStrc* pItem, D2SkillStrc* pSkill, int nType); // 0x00645830
 int __fastcall sub_004E9610_WeaponDamageCallback(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pColor, int nBonus, int nAdd, D2SkillStrc* pSkill, int nSrcDam, D2UnitStrc* pItem); // 0x004E9610
 int __fastcall sub_004EA4A0_WeaponDamageCallback2(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pColor, int nBonus, int nAdd, D2SkillStrc* pSkill, int nSrcDam, D2UnitStrc* pItem); // 0x004EA4A0
-void __fastcall sub_004EA010_SkillDescLine(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLeft, int nY, int nRight); // 0x004EA010
+void __fastcall sub_004EA010_DrawSkillWeaponLine(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLeft, int nY, int nRight); // 0x004EA010
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625500
 D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill); // 0x00644140
 extern unsigned int gdwBitMasks_006CE268[]; // 0x006CE268
@@ -107,7 +107,7 @@ int __stdcall sub_004E89A0_GetElementalDamage(D2UnitStrc* pUnit, int* pMinDamage
 __declspec(noinline) static int sub_004E6FB0_GetETypeColor(int nEType);
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 unsigned char __stdcall MISSILE_GetElemTypeFromMissileId(int nMissileId); // 0x0064B0C0
 int __stdcall MISSILE_GetMinElemDamage(D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nLevel); // 0x0064B100
 int __stdcall MISSILE_GetMaxElemDamage(D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nLevel); // 0x0064B1D0
@@ -195,7 +195,7 @@ static D2UnitStrc* sub_004E9260_MergeOtherHandWeapon(D2UnitStrc* pUnit)
     if (!ITEMSIsA(pOther, 45))
         return 0;
 
-    if (!sub_0062A4E0_TestItem(pWeapon) || !sub_0062A4E0_TestItem(pOther))
+    if (!ITEMS_CanBeEquipped(pWeapon) || !ITEMS_CanBeEquipped(pOther))
         return 0;
 
     if (STATLIST_GetOwner(pWeapon, 0))
@@ -224,7 +224,7 @@ static D2UnitStrc* sub_004E9300_MergeWeaponPair(D2UnitStrc* pUnit)
     {
         if (ITEMSIsA(pOther, 45))
         {
-            if (sub_0062A4E0_TestItem(pWeapon) && sub_0062A4E0_TestItem(pOther))
+            if (ITEMS_CanBeEquipped(pWeapon) && ITEMS_CanBeEquipped(pOther))
             {
                 STATLIST_MergeStatLists(pUnit, pOther, 0);
                 STATLIST_MergeStatLists(pUnit, pWeapon, 1);
@@ -233,7 +233,7 @@ static D2UnitStrc* sub_004E9300_MergeWeaponPair(D2UnitStrc* pUnit)
         }
     }
 
-    if (sub_0062A4E0_TestItem(pWeapon))
+    if (ITEMS_CanBeEquipped(pWeapon))
         STATLIST_MergeStatLists(pUnit, pWeapon, 1);
     return pWeapon;
 }
@@ -248,11 +248,11 @@ static int __stdcall sub_004E93A0_EvaluateForEachWeapon(int* pValue1, int* pValu
         return 0;
 
     D2UnitStrc* pRight = INVENTORY_GetItemFromBodyLoc(pInventory, 4);
-    if (!sub_0062A4E0_TestItem(pRight) || ITEMSIsA(pRight, 0x26))
+    if (!ITEMS_CanBeEquipped(pRight) || ITEMSIsA(pRight, 0x26))
         pRight = 0;
 
     D2UnitStrc* pLeft = INVENTORY_GetItemFromBodyLoc(pInventory, 5);
-    if (!sub_0062A4E0_TestItem(pLeft) || ITEMSIsA(pLeft, 0x26))
+    if (!ITEMS_CanBeEquipped(pLeft) || ITEMSIsA(pLeft, 0x26))
         pLeft = 0;
 
     if (pRight && pLeft)
@@ -282,7 +282,7 @@ static int __stdcall sub_004E93A0_EvaluateForEachWeapon(int* pValue1, int* pValu
     }
 
     D2UnitStrc* pWeapon = INVENTORY_GetLeftHandWeapon(pInventory);
-    if (pWeapon && sub_0062A4E0_TestItem(pWeapon))
+    if (pWeapon && ITEMS_CanBeEquipped(pWeapon))
         STATLIST_MergeStatLists(pUnit, pWeapon, 1);
     pfnEvaluate(pUnit, pValue1, pValue2, pColor1, nBonus, nAdd, pSkill, 0, 0);
     return 1;
@@ -509,12 +509,12 @@ void __fastcall sub_004EA790_DrawWeaponStatDamage(D2UnitStrc* pUnit, D2SkillStrc
     }
 
     int nBonus = 0;
-    int nFactor = sub_00629860_GetStrengthFactor(pItem);
+    int nFactor = ITEMS_GetStrengthBonus(pItem);
     if (nFactor)
     {
         nBonus = STATLIST_UnitGetStatValue(pUnit, 0, 0) * nFactor / 100;
     }
-    nFactor = sub_006298A0_GetDexterityFactor(pItem);
+    nFactor = ITEMS_GetDexBonus(pItem);
     if (nFactor)
     {
         nBonus += STATLIST_UnitGetStatValue(pUnit, 2, 0) * nFactor / 100;
@@ -682,10 +682,10 @@ static int __stdcall sub_004E86F0_GetWeaponDamage(int* pMinDamage, int* pMaxDama
     int nDamage = 0;
     if (pItem)
     {
-        int nFactor = sub_00629860_GetStrengthFactor(pItem);
+        int nFactor = ITEMS_GetStrengthBonus(pItem);
         if (nFactor)
             nBonus += STATLIST_UnitGetStatValue(pUnit, 0, 0) * nFactor / 100;
-        nFactor = sub_006298A0_GetDexterityFactor(pItem);
+        nFactor = ITEMS_GetDexBonus(pItem);
         if (nFactor)
             nBonus += STATLIST_UnitGetStatValue(pUnit, 2, 0) * nFactor / 100;
         nDamage = STATLIST_UnitGetItemStatOrSkillStatValue(pItem, 0x6F, 0);
@@ -748,7 +748,7 @@ void __fastcall sub_004EA170_DrawDualWieldLine(D2UnitStrc* pUnit, D2SkillStrc* p
         return;
     }
 
-    sub_004EA010_SkillDescLine(pUnit, pSkill, pSkillsTxt, nSkillLevel, nLeft, nY, nRight);
+    sub_004EA010_DrawSkillWeaponLine(pUnit, pSkill, pSkillsTxt, nSkillLevel, nLeft, nY, nRight);
 }
 
 // 0x004EA240
@@ -778,7 +778,7 @@ void __fastcall sub_004EA240_DrawDualWieldLineNoElem(D2UnitStrc* pUnit, D2SkillS
         return;
     }
 
-    sub_004EA010_SkillDescLine(pUnit, pSkill, pSkillsTxt, nSkillLevel, nLeft, nY, nRight);
+    sub_004EA010_DrawSkillWeaponLine(pUnit, pSkill, pSkillsTxt, nSkillLevel, nLeft, nY, nRight);
 }
 
 void __fastcall sub_004EB240_DrawSkillWeaponDamage(D2UnitStrc* pUnit, D2SkillStrc* pSkill, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nLeft, int nY, int nRight)
@@ -811,7 +811,7 @@ void __fastcall sub_004EB390_DrawElementalDamageLine(D2UnitStrc* pUnit, D2SkillS
 
 static __declspec(noinline) void __stdcall sub_004E6EA0_ApplyFireMastery(int* pMin, int* pMax, D2SkillsTxt* pSkillsTxt)
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (pSkillsTxt && pSkillsTxt->nEType == 1)
     {
         const int nMastery = STATLIST_UnitGetStatValue(pPlayer, 0x149, 0);
@@ -827,7 +827,7 @@ static __declspec(noinline) void __stdcall sub_004E6EA0_ApplyFireMastery(int* pM
 
 static __declspec(noinline) void __stdcall sub_004E6F00_ApplyLightningMastery(int* pMin, int* pMax, D2SkillsTxt* pSkillsTxt)
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (pSkillsTxt && pSkillsTxt->nEType == 2)
     {
         const int nMastery = STATLIST_UnitGetStatValue(pPlayer, 0x14A, 0);

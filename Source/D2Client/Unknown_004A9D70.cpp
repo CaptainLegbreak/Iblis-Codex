@@ -31,7 +31,7 @@ Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x00526
 Unicode* __fastcall sub_00526700(Unicode* pDst, const Unicode* pSrc); // 0x00526700
 void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 unsigned short __fastcall sub_004E6CE0_GetStringId(int nId, int nIndex); // 0x004E6CE0
-void __fastcall sub_00502280_SetPopUpText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
+void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 void __fastcall sub_004A7080(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
 extern int gnGlobal_007A2858; // 0x007A2858
 extern int gnGlobal_00711470; // 0x00711470
@@ -96,7 +96,7 @@ void __cdecl sub_0044DA70(); // 0x0044DA70
 int __fastcall sub_00451F60_UnitClassId(D2UnitStrc* pUnit); // 0x00451F60
 void __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId); // 0x0045C4B0
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 void __stdcall sub_00467F20_MsgHandler(SMSGHANDLER_PARAMS* pMsg); // 0x00467F20
 void __stdcall sub_00467FA0_MsgHandler(SMSGHANDLER_PARAMS* pMsg); // 0x00467FA0
 void __fastcall sub_004785B0_SendPacket3(unsigned char nCmd, unsigned short nArg); // 0x004785B0
@@ -192,7 +192,7 @@ void __fastcall sub_004AA1F0_DrawSkillQuantity(short* pId, int nState, int nQuan
     sub_00526700(wszText, wszNumber);
     sub_00526700(wszText, wszNewline);
     sub_00526700(wszText, D2LANG_GetStringFromTblIndex(nNameId));
-    sub_00502280_SetPopUpText(wszText, nX, nY - 0x32, nState, 1);
+    D2Win_10129_DrawFramedText(wszText, nX, nY - 0x32, nState, 1);
 }
 
 int gnAutomapWidth_007A5220; // 0x007A5220
@@ -455,7 +455,7 @@ static void __stdcall sub_004ABF60_DrawSkillIcon(int nSkillId, D2SkillsTxt* pSki
     if (!(gdwBitMasks[10 & 7] & pSkillsTxt->nFlags[10 >> 3]))
         nMode = 1;
 
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     const int nBaseLevel = SKILLS_GetSkillLevel(pPlayer, SKILLS_GetSkillById(pPlayer, nSkillId, -1), 0);
     const int nBonus = SKILLS_GetBonusSkillLevelFromSkillId(pPlayer, nSkillId);
     if (!nBaseLevel && nBonus && nState != -1)
@@ -471,9 +471,9 @@ static void __stdcall sub_004ABF60_DrawSkillIcon(int nSkillId, D2SkillsTxt* pSki
     if (nMouseX > nX && nMouseX < nX + 0x30 && nMouseY > nY - 0x30 && nMouseY < nY)
     {
         if (nState != -1)
-            sub_004EEF00_ShowSkillPopup(sub_00463DD0(), nSkillId, nSkillLevel, 0, nX, nY);
+            sub_004EEF00_ShowSkillPopup(sub_00463DD0_GetPlayerUnit(), nSkillId, nSkillLevel, 0, nX, nY);
         else
-            sub_004EF410_ShowSkillPopupB(sub_00463DD0(), nSkillId, nSkillLevel, 0, nX, nY);
+            sub_004EF410_ShowSkillPopupB(sub_00463DD0_GetPlayerUnit(), nSkillId, nSkillLevel, 0, nX, nY);
     }
 
     if (nBaseLevel || nSkillLevel)
@@ -504,7 +504,7 @@ static void __stdcall sub_004ABF60_DrawSkillIcon(int nSkillId, D2SkillsTxt* pSki
         }
 
         int nColor = 0;
-        D2UnitStrc* const pPlayerUnit = sub_00463DD0();
+        D2UnitStrc* const pPlayerUnit = sub_00463DD0_GetPlayerUnit();
         const int nBonusLevel = SKILLS_GetBonusSkillLevelFromSkillId(pPlayerUnit, nSkillId);
         if (nBonusLevel > 0)
             nColor = 3;
@@ -530,7 +530,7 @@ inline D2SkillDescTxt* sub_004AC200_GetSkillDescFromSkillId(int nSkillId)
 // build: context sub_004AC200_RefreshSkillTree
 void __cdecl sub_004AC200_RefreshSkillTree()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (!pPlayer)
     {
         return;
@@ -552,7 +552,7 @@ void __cdecl sub_004AC200_RefreshSkillTree()
     wsprintfA(szText, "%i", STATLIST_GetUnitBaseStat(pPlayer, 5, 0));
     sub_00526320_ToUnicode((Unicode*)wszText, szText, 9);
 
-    D2UnitStrc* pUnit = sub_00463DD0();
+    D2UnitStrc* pUnit = sub_00463DD0_GetPlayerUnit();
     if ((pUnit && sub_00639DF0_CheckState(pUnit, 0x36)) || gnValue_007C0C3C)
     {
         sub_00502320((const Unicode*)wszText, gnGlobal_0071146C - gnGlobal_007A2858 - 0x34, gnGlobal_00711470 + gnGlobal_007A285C - 0x190, 1, 0);
@@ -648,7 +648,7 @@ void __cdecl sub_004AC200_RefreshSkillTree()
 // build: context sub_004AC4D0_DrawSkillTree
 void __cdecl sub_004AC4D0_DrawSkillTree()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (!pPlayer)
         return;
 

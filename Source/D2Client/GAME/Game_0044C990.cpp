@@ -46,7 +46,7 @@ extern int gnViewDeltaX_007A0678; // 0x007A0678
 extern int gnViewDeltaY_007A067C; // 0x007A067C
 extern void* gpGlobal_007A0634; // 0x007A0634
 void __fastcall sub_004547B0(); // 0x004547B0
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 void __fastcall sub_00476070_GetViewRect(D2ViewStrc* pView, int* pLeft, int* pTop, int* pRight, int* pBottom); // 0x00476070
 int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit); // 0x00620650
 int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit); // 0x006206B0
@@ -55,13 +55,13 @@ void __fastcall sub_004760A0_SetViewPos(D2ViewStrc* pView, int nX, int nY); // 0
 void __fastcall sub_00476140(D2ViewStrc* pView, int nArg); // 0x00476140
 void __fastcall sub_00473F50(); // 0x00473F50
 void __stdcall sub_0061C0B0(void* pAct, unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue); // 0x0061C0B0
-void __stdcall sub_004F6430_SetAmbientColor(int nRed, int nGreen, int nBlue); // 0x004F6430
+void __stdcall D2GFX_SetAmbientColor(int nRed, int nGreen, int nBlue); // 0x004F6430
 D2ActiveRoomStrc* __fastcall sub_004646A0_GetPlayerRoom(); // 0x004646A0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 void __fastcall sub_0045B440(); // 0x0045B440
 int __cdecl sub_0045AE90(); // 0x0045AE90
 void __fastcall sub_00476BC0(D2ViewStrc* pView); // 0x00476BC0
-void __fastcall sub_00456EE0(D2ViewStrc* pView); // 0x00456EE0
+void __fastcall sub_00456EE0_DrawUIPanels(D2ViewStrc* pView); // 0x00456EE0
 void __stdcall sub_004F98E0(); // 0x004F98E0
 void __fastcall sub_00468820(int nArg1, int nArg2); // 0x00468820
 void __fastcall sub_004684C0(); // 0x004684C0
@@ -202,7 +202,7 @@ void __fastcall sub_0044C990_DrawGameView(int bNoCursor)
     if (WINDOW_GetState())
         return;
 
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2RectStrc tRect;
     sub_00476070_GetViewRect(gpView_007A0640, &tRect.nLeft, &tRect.nTop, &tRect.nRight, &tRect.nBottom);
     int nY;
@@ -223,7 +223,7 @@ void __fastcall sub_0044C990_DrawGameView(int bNoCursor)
 
     unsigned char nRed, nGreen, nBlue;
     sub_0061C0B0(gpGlobal_007A0634, &nRed, &nGreen, &nBlue);
-    sub_004F6430_SetAmbientColor(nRed, nGreen, nBlue);
+    D2GFX_SetAmbientColor(nRed, nGreen, nBlue);
 
     if (!D2GFX_StartDraw(GetRoomBlankScreen(sub_004646A0_GetPlayerRoom()), 0, 0, 0))
         return;
@@ -232,7 +232,7 @@ void __fastcall sub_0044C990_DrawGameView(int bNoCursor)
     sub_0045B440();
     if (sub_0045AE90() != 3)
         sub_00476BC0(gpView_007A0640);
-    sub_00456EE0(gpView_007A0640);
+    sub_00456EE0_DrawUIPanels(gpView_007A0640);
     sub_004F98E0();
     sub_00468820(10, 10);
     if (!bNoCursor)

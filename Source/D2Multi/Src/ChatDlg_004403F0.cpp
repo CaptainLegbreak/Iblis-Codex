@@ -19,11 +19,11 @@ extern "C" char* __cdecl strcat(char* szDest, const char* szSource);
 extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);
 
 void __fastcall sub_0043FB50_ShowWait(const Unicode* pText, D2LaunchCallback pfnDone);                      // 0x0043FB50
-void __fastcall sub_00443F50_GetPlayerName(char* szName);                                                   // 0x00443F50
+void __fastcall sub_00443F50_CopyName(char* szName);                                                   // 0x00443F50
 void __fastcall sub_004FB870_InsertRow(D2WinControlStrc* pControl, int nRow);                                // 0x004FB870
 int __fastcall D2Win_10188(D2WinControlStrc* pTextBox, int nLineNum, int a3);                               // 0x004FBDE0
 void __fastcall sub_004FCD90_SetCellW(D2WinControlStrc* pControl, const Unicode* wszText, int nRow, int nColumn); // 0x004FCD90
-const char* __stdcall sub_005068A0(int nA, int nB, int nC, int nD);                                         // 0x005068A0
+const char* __stdcall D2Win_10161(int nA, int nB, int nC, int nD);                                         // 0x005068A0
 void __stdcall sub_005255C0_FormatDate(Unicode* wszOut, int nA, int nB, int nMaxLength);                   // 0x005255C0
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...);               // 0x005269D0
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);                   // 0x00526F20
@@ -52,7 +52,7 @@ void __fastcall sub_004403F0_OnListEvent(int nStart, int nCount, int nNameLength
             Unicode wszFormat[256];
             Unicode wszName[256];
             char szName[256];
-            sub_00443F50_GetPlayerName(szName);
+            sub_00443F50_CopyName(szName);
             sub_00526F20_ToUnicode(wszFormat, "Player '%s' is not on the ladder.", 0x100);
             sub_00526F20_ToUnicode(wszName, szName, 0x100);
             sub_005269D0(0x100, wszText, wszFormat, wszName);
@@ -96,7 +96,7 @@ void __fastcall sub_004403F0_OnListEvent(int nStart, int nCount, int nNameLength
         sub_004FCD40_SetCell(gpList_0077BD00, szNumber, i, 0);
 
         szTitle[0] = '\0';
-        const char* szPrefix = sub_005068A0(nClass, ((unsigned int)dwFlags >> 8) & 0x1F, dwFlags & 0x20, dwFlags & 0x40);
+        const char* szPrefix = D2Win_10161(nClass, ((unsigned int)dwFlags >> 8) & 0x1F, dwFlags & 0x20, dwFlags & 0x40);
         if (szPrefix)
         {
             strcat(szTitle, szPrefix);

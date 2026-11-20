@@ -277,7 +277,7 @@ D2DrlgRoomStrc* __fastcall DRLGROOM_AllocRoomEx(D2DrlgLevelStrc* pLevel, int nTy
 void __fastcall DRLGROOM_AddRoomExToLevel(D2DrlgLevelStrc* pLevel, D2DrlgRoomStrc* pDrlgRoom);                          // 0x0066B970
 void __fastcall DRLGGRID_FreeGrid(void* pMemPool, D2DrlgGridStrc* pGrid);                                     // 0x0067CD90
 void __fastcall DRLGVER_FreeVertices(void* pMemPool, D2DrlgVertexStrc** ppVertices);                              // 0x0067D1E0
-void __stdcall DUNGEON_GameTileToSubtileCoords(int* pX, int* pY);                                                            // 0x00643560
+void __stdcall sub_00643560_GameTileToSubtileCoords(int* pX, int* pY);                                                            // 0x00643560
 struct D2PresetUnitStrc* __fastcall DRLGROOM_AllocPresetUnit(D2DrlgRoomStrc* pDrlgRoom, void* pMemPool, int nUnitType, int nIndex, int nMode, int nX, int nY);   // 0x0066BF30
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY);                                          // 0x0067C570
 void __fastcall DRLGGRID_AssignCellsOffsetsAndFlags(D2DrlgGridStrc* pGrid, int* pCellFlags, D2DrlgCoordStrc* pCoord, int nWidth, int* pBuffer);   // 0x0067CD30
@@ -319,7 +319,7 @@ void __fastcall DRLGPRESET_FreeDrlgFile(D2DrlgFileStrc** ppDrlgFile);
 void __fastcall DRLGPRESET_ParseDS1File(D2DrlgFileStrc* pDrlgFile, void* hArchive, const char* szFile);                  // 0x00665950
 int __stdcall sub_00604B90(void* pTile);                                                                  // 0x00604B90
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void);                                // 0x006CC260
-void __fastcall DRLGGRID_FillGrid(D2DrlgGridStrc* pGrid, int nWidth, int nHeight, int* pCellPos, int* pCellFlags);   // 0x0067CBF0
+void __fastcall sub_0067CBF0(D2DrlgGridStrc* pGrid, int nWidth, int nHeight, int* pCellPos, int* pCellFlags);   // 0x0067CBF0
 extern "C" const char gszEmptyAssertText;                                                                          // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                               // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
@@ -368,8 +368,8 @@ static void DRLGPRESET_SpawnRiver(D2DrlgMapStrc* pDrlgMap, int nX, int nY, void*
     int nEndSubtileX = 0;
     int nEndSubtileY = nY + pDrlgMap->ptFile->nHeight;
 
-    DUNGEON_GameTileToSubtileCoords(&nSubtileX, &nSubtileY);
-    DUNGEON_GameTileToSubtileCoords(&nEndSubtileX, &nEndSubtileY);
+    sub_00643560_GameTileToSubtileCoords(&nSubtileX, &nSubtileY);
+    sub_00643560_GameTileToSubtileCoords(&nEndSubtileX, &nEndSubtileY);
 
     while (nSubtileY < nEndSubtileY)
     {
@@ -385,7 +385,7 @@ static void __stdcall DRLGPRESET_AddPresetRiverObjects(D2DrlgMapStrc* pDrlgMap, 
         const int nX = nOffsetX > 0 ? nOffsetX : 0;
         int nObjectX = pDrlgMap->tCoords.nPosX + nOffsetX;
         int nObjectY = pDrlgMap->tCoords.nPosY + nY;
-        DUNGEON_GameTileToSubtileCoords(&nObjectX, &nObjectY);
+        sub_00643560_GameTileToSubtileCoords(&nObjectX, &nObjectY);
         nObjectX -= 5;
 
         sub_00666170(pDrlgMap, pMemPool, 40, nObjectX, nObjectY);
@@ -458,7 +458,7 @@ static void __stdcall sub_006664A0(D2DrlgMapStrc* pDrlgMap, void* pMemPool)
 {
     int nX = pDrlgMap->tCoords.nPosX + pDrlgMap->tCoords.nWidth / 2;
     int nY = pDrlgMap->tCoords.nPosY + pDrlgMap->tCoords.nHeight / 2;
-    DUNGEON_GameTileToSubtileCoords(&nX, &nY);
+    sub_00643560_GameTileToSubtileCoords(&nX, &nY);
 
     const int nClassId = sgptDataTables->nMonStatsTxtRecordCount <= 266 ? -1 : 266;
     D2PresetUnitStrc* pPresetUnit = DRLGROOM_AllocPresetUnit(0, pMemPool, 1, nClassId, 1, nX, nY);
@@ -564,8 +564,8 @@ static void sub_00666710(D2DrlgRoomStrc* pDrlgRoom)
     tDrlgCoord.nPosY = pDrlgRoom->pDrlgCoord.nPosY;
     tDrlgCoord.nWidth = pDrlgRoom->pDrlgCoord.nWidth;
     tDrlgCoord.nHeight = pDrlgRoom->pDrlgCoord.nHeight;
-    DUNGEON_GameTileToSubtileCoords(&tDrlgCoord.nPosX, &tDrlgCoord.nPosY);
-    DUNGEON_GameTileToSubtileCoords(&tDrlgCoord.nWidth, &tDrlgCoord.nHeight);
+    sub_00643560_GameTileToSubtileCoords(&tDrlgCoord.nPosX, &tDrlgCoord.nPosY);
+    sub_00643560_GameTileToSubtileCoords(&tDrlgCoord.nWidth, &tDrlgCoord.nHeight);
 
     D2PresetUnitStrc* pPresetUnit = pDrlgMap->pPresetUnit;
     const int nOffsetX = 5 * pDrlgRoom->pDrlgCoord.nPosX;
@@ -808,7 +808,7 @@ static void __fastcall DRLGPRESET_AddTombStoneTiles(void* pMemPool, D2DrlgRoomSt
                 {
                     int nTileX = nX + pDrlgRoom->pDrlgCoord.nPosX;
                     int nTileY = nY + pDrlgRoom->pDrlgCoord.nPosY;
-                    DUNGEON_GameTileToSubtileCoords(&nTileX, &nTileY);
+                    sub_00643560_GameTileToSubtileCoords(&nTileX, &nTileY);
                     pMaze->pTombStoneTiles[nTombStoneTiles].nX = nTileX + 2;
                     pMaze->pTombStoneTiles[nTombStoneTiles].nY = nTileY + 2;
                     ++nTombStoneTiles;
@@ -850,8 +850,8 @@ void __fastcall DRLGPRESET_AddPresetRoomMapTiles(D2DrlgRoomStrc* pDrlgRoom)
     case 1:
     case 108:
         bTownOrGraveyard = 1;
-        DRLGGRID_FillGrid(&tTileTypeGrid, pDrlgRoom->pDrlgCoord.nWidth + 1, pDrlgRoom->pDrlgCoord.nHeight + 1, aTileTypeCellPos, aTileTypeCellFlags);
-        DRLGGRID_FillGrid(&tTileInfoGrid, pDrlgRoom->pDrlgCoord.nWidth + 1, pDrlgRoom->pDrlgCoord.nHeight + 1, aTileInfoCellPos, aTileInfoCellFlags);
+        sub_0067CBF0(&tTileTypeGrid, pDrlgRoom->pDrlgCoord.nWidth + 1, pDrlgRoom->pDrlgCoord.nHeight + 1, aTileTypeCellPos, aTileTypeCellFlags);
+        sub_0067CBF0(&tTileInfoGrid, pDrlgRoom->pDrlgCoord.nWidth + 1, pDrlgRoom->pDrlgCoord.nHeight + 1, aTileInfoCellPos, aTileInfoCellFlags);
         break;
     }
 
@@ -1432,7 +1432,7 @@ D2DrlgRoomStrc* __fastcall DRLGPRESET_BuildArea(D2DrlgLevelStrc* pLevel, D2DrlgM
         nFlags |= 0x80000;
     }
 
-    DRLGGRID_FillGrid(&tDrlgGrid, nGridWidth, nGridHeight, nCellPos, nCellFlags);
+    sub_0067CBF0(&tDrlgGrid, nGridWidth, nGridHeight, nCellPos, nCellFlags);
     DRLGPRESET_BuildPresetArea(pLevel, &tDrlgGrid, nFlags, pDrlgMap, bSingleRoom);
 
     const unsigned int dwDT1Mask = pDrlgMap->pLvlPrestTxtRecord->dwDt1Mask;

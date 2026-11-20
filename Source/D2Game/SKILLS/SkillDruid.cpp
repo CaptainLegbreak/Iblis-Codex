@@ -134,17 +134,17 @@ void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUn
 void __stdcall D2COMMON_10476(D2StatListStrc* pStatList, int nExpireFrame); // 0x006260B0
 void __stdcall SKILLS_SetParam1(D2SkillStrc* pSkill, int nValue); // 0x00644560
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268
-int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit); // 0x0045ADF0
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
-D2ActiveRoomStrc* __fastcall D2GAME_GetRoom_6FC52070(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
 D2UnitStrc* __fastcall D2GAME_CreateMissile_6FD115E0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nMissileId, int nX, int nY); // 0x0056EDE0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 void __stdcall STATLIST_FreeStatList(D2StatListStrc* pStatList); // 0x00626CD0
 void __stdcall D2Common_10474(D2UnitStrc* pUnit, D2StatListStrc* pStatList); // 0x006277E0
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
-int __stdcall sub_00645950_CheckTarget(int nX, int nY, D2UnitStrc* pUnit, int nMask); // 0x00645950
+int __stdcall D2Common_11026(int nX, int nY, D2UnitStrc* pUnit, int nMask); // 0x00645950
 unsigned short __stdcall COLLISION_CheckMask(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask); // 0x0064CB30
 
 struct D2DamageStrc
@@ -720,7 +720,7 @@ int __fastcall sub_005C8520_PeriodicMissile(D2GameStrc* pGame, D2UnitStrc* pUnit
     if (!pRoom || DUNGEON_IsRoomInTown(pRoom)) return 0;
     SEED_InitLowSeed(pSeed, SKILLS_GetParam1(pSkill));
     SKILLS_SetParam1(pSkill, SEED_RollLimitedRandomNumber(pSeed, 1000000));
-    UNITS_GetXPosition(pUnit);
+    CLIENTS_GetUnitX(pUnit);
     CLIENTS_GetUnitY(pUnit);
     int nX, nY;
     int i = 0;
@@ -728,12 +728,12 @@ int __fastcall sub_005C8520_PeriodicMissile(D2GameStrc* pGame, D2UnitStrc* pUnit
     {
         int nMax = 2 * nRange + 1;
         nX = SEED_RollLimitedRandomNumber(pSeed, nMax) - nRange;
-        nX += UNITS_GetXPosition(pUnit);
+        nX += CLIENTS_GetUnitX(pUnit);
         nY = SEED_RollLimitedRandomNumber(pSeed, nMax) - nRange;
         nY += CLIENTS_GetUnitY(pUnit);
-        if (sub_00645950_CheckTarget(nX, nY, pUnit, 0x805))
+        if (D2Common_11026(nX, nY, pUnit, 0x805))
         {
-            pRoom = D2GAME_GetRoom_6FC52070(pRoom, nX, nY);
+            pRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
             if (pRoom && !COLLISION_CheckMask(pRoom, nX, nY, 1)) break;
         }
     }

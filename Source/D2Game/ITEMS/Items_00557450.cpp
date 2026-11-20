@@ -57,7 +57,7 @@ int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType);                       
 void __stdcall ITEMS_SetFileIndex(D2UnitStrc* pItem, unsigned int dwFileIndex);                             // 0x00629DF0
 unsigned short __stdcall ITEMS_GetItemFormat(D2UnitStrc* pItem);                                            // 0x0062A670
 int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem);                                                         // 0x0062B400
-unsigned char __stdcall ITEMS_GetMaxSockets(D2UnitStrc* pItem);                                             // 0x0062BC20
+unsigned char __stdcall sub_0062BC20(D2UnitStrc* pItem);                                             // 0x0062BC20
 void __stdcall ITEMS_AddSockets(D2UnitStrc* pItem, int nSockets);                                           // 0x0062BCB0
 void* __stdcall DATATBLS_GetMagicAffixTxtRecord(int nIndex);                                                // 0x00633EE0
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId);                                              // 0x006335F0
@@ -173,12 +173,12 @@ static void __stdcall ITEMS_RollDropSockets(D2GameStrc* pGame, D2UnitStrc* pItem
         return;
     }
 
-    if (!ITEMS_GetMaxSockets(pItem))
+    if (!sub_0062BC20(pItem))
     {
         return;
     }
 
-    int nMaxSockets = ITEMS_GetMaxSockets(pItem);
+    int nMaxSockets = sub_0062BC20(pItem);
     switch (pGame->nDifficulty)
     {
     case 0:

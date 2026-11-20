@@ -149,13 +149,13 @@ void __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int a
 void __stdcall D2COMMON_10170_PathSetTargetPos(D2DynamicPathStrc* pPath, int nX, int nY); // 0x00648AD0
 int __stdcall PATH_GetNumberOfPathPoints(D2DynamicPathStrc* pPath); // 0x00648780
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
-D2UnitStrc* __fastcall sub_6FCF1E80(D2GameStrc* pGame, D2UnitStrc* pUnit, void* a3, AIUTIL_TargetCallback a4, int nCallbackId); // 0x005DD0B0
+D2UnitStrc* __fastcall AIUTIL_FindTargetWithCallback(D2GameStrc* pGame, D2UnitStrc* pUnit, void* a3, AIUTIL_TargetCallback a4, int nCallbackId); // 0x005DD0B0
 int __fastcall MONSTERAI_GetTargetOverrideType(D2UnitStrc* pUnit); // 0x005730E0
 int __fastcall MONSTERAI_GetTargetOverrideGUID(D2UnitStrc* pUnit); // 0x00573100
 void __fastcall sub_00573120_ClearMonsterPair(D2UnitStrc* pUnit); // 0x00573120
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 int __fastcall sub_00472210_SeedRollMasked(D2SeedStrc* pSeed, int nMax); // 0x00472210
-void __fastcall sub_6FCBDD30(D2UnitStrc* pUnit, unsigned char nAlignNew, int a3); // 0x005543B0
+void __fastcall sub_005543B0_AssignAlignment(D2UnitStrc* pUnit, unsigned char nAlignNew, int a3); // 0x005543B0
 int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nRangeBonus); // 0x00622C40
 static int __stdcall AIUTIL_ResolveTargetOverride(int bCheckCollision, int bUseEligibilityCheck, D2UnitStrc** ppUnit, int* pDistance, D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005DD610
 
@@ -515,7 +515,7 @@ static int __stdcall AIUTIL_ShouldUseAlternativeTarget(D2UnitStrc** ppTarget, in
     arg.pTarget = 0;
     arg.nDistance = 0x7FFFFFFF;
     arg.pIgnoredTarget = pCurrentTarget;
-    sub_6FCF1E80(SUNIT_GetGameFromUnit(pUnit), pUnit, &arg, 0, 7);
+    AIUTIL_FindTargetWithCallback(SUNIT_GetGameFromUnit(pUnit), pUnit, &arg, 0, 7);
 
     if (!arg.pTarget || arg.nDistance >= 20)
     {
@@ -618,22 +618,22 @@ static int __stdcall AIUTIL_ResolveTargetOverride(int bCheckCollision, int bUseE
         {
             if (nRoll)
             {
-                sub_6FCBDD30(pUnit, 2, 1);
+                sub_005543B0_AssignAlignment(pUnit, 2, 1);
             }
             else
             {
-                sub_6FCBDD30(pUnit, 0, 1);
+                sub_005543B0_AssignAlignment(pUnit, 0, 1);
             }
         }
         else if (nRoll)
         {
             if (nAlignment == 0)
             {
-                sub_6FCBDD30(pUnit, 2, 1);
+                sub_005543B0_AssignAlignment(pUnit, 2, 1);
             }
             else if (nAlignment == 2)
             {
-                sub_6FCBDD30(pUnit, 0, 1);
+                sub_005543B0_AssignAlignment(pUnit, 0, 1);
             }
         }
 
@@ -648,18 +648,18 @@ static int __stdcall AIUTIL_ResolveTargetOverride(int bCheckCollision, int bUseE
             arg.tSearch.unk0x10 = nUnk;
             arg.tSearch.pAlternativeTarget = 0;
             arg.tSearch.nAlternativeDistance = 0x7FFFFFFF;
-            sub_6FCF1E80(pGame, pUnit, &arg, 0, 5);
+            AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, 0, 5);
         }
         else
         {
             arg.tEligible.pAlternativeTarget = 0;
             arg.tEligible.nAlternativeDistance = 0x7FFFFFFF;
-            sub_6FCF1E80(pGame, pUnit, &arg, 0, 6);
+            AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, 0, 6);
         }
 
         pTarget = arg.pTarget;
         nDistance = arg.nDistance;
-        sub_6FCBDD30(pUnit, nAlignment, 1);
+        sub_005543B0_AssignAlignment(pUnit, nAlignment, 1);
         break;
     }
 
@@ -692,7 +692,7 @@ D2UnitStrc* __fastcall AIUTIL_SelectAiTargetWithCollisionCheck(D2GameStrc* pGame
         arg.nDistance = 0x7FFFFFFF;
         arg.tEligible.pAlternativeTarget = 0;
         arg.tEligible.nAlternativeDistance = 0x7FFFFFFF;
-        sub_6FCF1E80(pGame, pUnit, &arg, 0, 6);
+        AIUTIL_FindTargetWithCallback(pGame, pUnit, &arg, 0, 6);
 
         if (AIUTIL_ShouldUseAlternativeTarget(&arg.pTarget, &arg.nDistance, arg.tEligible.pAlternativeTarget, arg.tEligible.nAlternativeDistance, pUnit))
         {

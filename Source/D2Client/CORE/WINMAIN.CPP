@@ -15,22 +15,22 @@ void __stdcall sub_00449E70_SetMcpPacket(const char* pData, int nSize);         
 void __cdecl sub_006115F0_Empty();                                                                          // 0x006115F0
 void __cdecl sub_0052BDA0_Empty();                                                                          // 0x0052BDA0
 void __cdecl sub_0052BDB0_Empty();                                                                          // 0x0052BDB0
-void __cdecl sub_00611600();                                                                                // 0x00611600
+void __cdecl sub_00611600_CloseLogTail();                                                                                // 0x00611600
 int __stdcall sub_0044B8A0_LauncherRun(void* hInstance, D2ClientCharRecordStrc* pRecord);                   // 0x0044B8A0
 void __cdecl sub_004519A0_ToggleFlags();                                                                    // 0x004519A0
 void __cdecl sub_004518E0_StartPlayback();                                                                  // 0x004518E0
 int __stdcall sub_0044B4E0_ShowCommandLineHelp(const D2CmdParamsStrc* pParams, int nUnused);                // 0x0044B4E0
 int __cdecl CLIENT_GetConnectionStatus();                                                                   // 0x0052B050
-void __fastcall sub_0044E380_SetConnectionError(int nError);                                                // 0x0044E380
+void __fastcall sub_0044E380_ShowLoadingMessage(int nError);                                                // 0x0044E380
 int __fastcall sub_00451BB0_MessageLoop(int (__stdcall* pfnIdle)(int));                                     // 0x00451BB0
 void __stdcall SERVER_Initialize(int a1, int a2);                                                           // 0x0052B7A0
-void __stdcall sub_0052A750(int nArg, const char* szAddress);                                               // 0x0052A750
+void __stdcall CLIENT_Initialize(int nArg, const char* szAddress);                                               // 0x0052A750
 void __stdcall sub_0052B250_ObjectCall_6BE4A0(int nArg1);                                                   // 0x0052B250
 int __stdcall sub_0052B280_ObjectCall_6BF4E0(int nArg1);                                                    // 0x0052B280
 void __stdcall GAME_InitGameDataTable(D2GameDataTableStrc* pGameDataTbl, void* pGameList);                  // 0x0052C0A0
 int __stdcall sub_0044BAD0_PollSystemPackets(int nUnused);                                                  // 0x0044BAD0
 int __stdcall sub_0044BD20_PumpSystemPackets(int nUnused);                                                  // 0x0044BD20
-void __cdecl sub_0052A7E0();                                                                                // 0x0052A7E0
+void __cdecl CLIENT_Release();                                                                                // 0x0052A7E0
 void __cdecl sub_0052B2A0_SendCloseAndClear();                                                              // 0x0052B2A0
 int __cdecl sub_0044B480_PopValue();                                                                        // 0x0044B480
 
@@ -106,7 +106,7 @@ D2ClientInterfaceStrc* __fastcall sub_0044B400_Init(void* hInstance)
 void __cdecl sub_0044B420_Shutdown()
 {
     sub_0052BDB0_Empty();
-    sub_00611600();
+    sub_00611600_CloseLogTail();
 }
 
 // 0x0044B430
@@ -160,7 +160,7 @@ int __stdcall sub_0044BBB0_WaitConnect(int nUnused)
         const int nStatus = CLIENT_GetConnectionStatus();
         if (nStatus == 0)
         {
-            sub_0044E380_SetConnectionError(6);
+            sub_0044E380_ShowLoadingMessage(6);
             gdwGlobal_007A0460 = 1;
             gdwGlobal_007A0618 = 0;
             return 1;
@@ -177,7 +177,7 @@ int __cdecl sub_0044BC30_Start()
     if (gdwGlobal_007A0610 == 0)
     {
         SERVER_Initialize(1, 1);
-        sub_0052A750(1, 0);
+        CLIENT_Initialize(1, 0);
         sub_00451BB0_MessageLoop(sub_0044BBB0_WaitConnect);
         sub_0052B280_ObjectCall_6BF4E0(0);
         GAME_InitGameDataTable(&gtGameDataTable_007A0690, gtGameList_007A0630);
@@ -187,7 +187,7 @@ int __cdecl sub_0044BC30_Start()
     else if (gdwGlobal_007A0610 == 1)
     {
         SERVER_Initialize(2, 1);
-        sub_0052A750(2, 0);
+        CLIENT_Initialize(2, 0);
         sub_00451BB0_MessageLoop(sub_0044BBB0_WaitConnect);
         sub_0052B280_ObjectCall_6BF4E0(0);
         GAME_InitGameDataTable(&gtGameDataTable_007A0690, gtGameList_007A0630);
@@ -196,7 +196,7 @@ int __cdecl sub_0044BC30_Start()
     }
     else if (gdwGlobal_007A0610 == 4)
     {
-        sub_0052A750(0, gszAddress_0070F028);
+        CLIENT_Initialize(0, gszAddress_0070F028);
         sub_00451BB0_MessageLoop(sub_0044BBB0_WaitConnect);
     }
     else if (gdwGlobal_007A0610 == 6 || gdwGlobal_007A0610 == 8)
@@ -204,7 +204,7 @@ int __cdecl sub_0044BC30_Start()
         SERVER_Initialize(0, 1);
         sub_0052B250_ObjectCall_6BE4A0(8);
         sub_0052B280_ObjectCall_6BF4E0(0);
-        sub_0052A750(0, gszAddress_0070EF20);
+        CLIENT_Initialize(0, gszAddress_0070EF20);
         sub_00451BB0_MessageLoop(sub_0044BBB0_WaitConnect);
         GAME_InitGameDataTable(&gtGameDataTable_007A0690, gtGameList_007A0630);
         gnSubsystemActive_007A0458 = 1;
@@ -212,7 +212,7 @@ int __cdecl sub_0044BC30_Start()
     }
     else
     {
-        sub_0052A750(0, gszAddress_0070EF20);
+        CLIENT_Initialize(0, gszAddress_0070EF20);
         sub_00451BB0_MessageLoop(sub_0044BBB0_WaitConnect);
     }
 
@@ -227,7 +227,7 @@ int __cdecl sub_0044BD90_Stop()
 {
     gdwTick_007A045C = GetTickCount();
     sub_00451BB0_MessageLoop(sub_0044BD20_PumpSystemPackets);
-    sub_0052A7E0();
+    CLIENT_Release();
     if (gdwGlobal_007A0610 == 0 || gdwGlobal_007A0610 == 1 || gdwGlobal_007A0610 == 6 || gdwGlobal_007A0610 == 8)
         sub_0052B2A0_SendCloseAndClear();
     return sub_0044B480_PopValue();

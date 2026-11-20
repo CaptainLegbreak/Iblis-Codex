@@ -43,7 +43,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                                                  // 0x0045C3E0
-D2ActiveRoomStrc* __fastcall sub_00463740(D2ActiveRoomStrc* pRoom, int nX, int nY);                         // 0x00463740
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY);                         // 0x00463740
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams);                          // 0x004CD540
 void __stdcall sub_004DA000_ResetGfxMotion(D2UnitStrc* pUnit);                                                             // 0x004DA000
 void __stdcall sub_004DA1D0_SetMotionVectorA(D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4);                            // 0x004DA1D0
@@ -188,7 +188,7 @@ void __fastcall sub_004CEA00_SpawnMissileInRadius(D2UnitStrc* pOwner, D2UnitStrc
         nX += UNITS_GetUnitXPosition(pUnit);
         nY += UNITS_GetUnitYPosition(pUnit);
 
-        D2ActiveRoomStrc* pRoom = sub_00463740(UNITS_GetRoom(pUnit), nX, nY);
+        D2ActiveRoomStrc* pRoom = sub_00463740_FindRoomAtPoint(UNITS_GetRoom(pUnit), nX, nY);
         if (!pRoom || COLLISION_CheckAnyCollisionWithPattern(pRoom, nX, nY, 0, 1))
         {
             continue;

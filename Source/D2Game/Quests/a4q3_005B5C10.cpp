@@ -30,9 +30,9 @@ void __fastcall QUESTS_UnitIterate(D2QuestDataStrc*,int,D2UnitStrc*,UnitCallback
 void __fastcall EVENT_SetEvent(D2GameStrc*,D2UnitStrc*,int,int,int,int); // 0x005417D0
 void __fastcall SUNIT_IterateUnitsOfType(D2GameStrc*,int,void*,UnitCallback); // 0x005537D0
 void __fastcall QUESTS_TriggerFX(D2GameStrc*,unsigned char); // 0x00545760
-int __fastcall sub_005B59C0(D2GameStrc*,D2UnitStrc*,void*); // 0x005B59C0
-void __fastcall sub_005B5B00(D2GameStrc*,D2UnitStrc*,void*); // 0x005B5B00
-int __fastcall sub_005B5BB0(D2GameStrc*,D2UnitStrc*,void*); // 0x005B5BB0
+int __fastcall ACT4Q3_UnitIterate_StatusCyclerEx(D2GameStrc*,D2UnitStrc*,void*); // 0x005B59C0
+void __fastcall ACT4Q3_UnitIterate_SetPrimaryGoalDone(D2GameStrc*,D2UnitStrc*,void*); // 0x005B5B00
+int __fastcall ACT4Q3_UnitIterate_SetCompletionFlag(D2GameStrc*,D2UnitStrc*,void*); // 0x005B5BB0
 static __forceinline int UNITS_GetClassIdInline(D2UnitStrc* unit){ if(!unit)return -1; return unit->dwClassId; }
 static __forceinline int UNITS_GetAnimModeInline(D2UnitStrc* unit){ if(!unit)return 0; return unit->dwAnimMode; }
 
@@ -54,7 +54,7 @@ int __fastcall sub_005B5C10(D2ObjectOperateStrc* operation)
      UNITS_ChangeAnimMode(operation->object,1);
      EVENT_SetEvent(operation->game,operation->object,1,operation->game->dwGameFrame+(record->animation1>>8),0,0);
      data->forgeMode=2;quest->flagsLow=0;
-     QUESTS_UnitIterate(quest,3,0,sub_005B59C0,true);
+     QUESTS_UnitIterate(quest,3,0,ACT4Q3_UnitIterate_StatusCyclerEx,true);
      QUESTS_DeleteItem(operation->game,operation->player,0x2073736d);
      return 0;
     }
@@ -78,12 +78,12 @@ int __fastcall sub_005B5C10(D2ObjectOperateStrc* operation)
     QUESTRECORD_ResetIntermediateStateFlags(flags,quest->filter);
     data->rewardPending=1;data->completionStarted=1;data->rewardState=4;data->playersInAct=1;
     unsigned short party=SUNIT_GetPartyId(operation->player);
-    if(party!=0xffff)PARTY_IteratePartyMembers(operation->game,party,sub_005B5B00,0);
+    if(party!=0xffff)PARTY_IteratePartyMembers(operation->game,party,ACT4Q3_UnitIterate_SetPrimaryGoalDone,0);
     QUESTS_StateDebug(quest,4,"d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a4q3.cpp",293);
     quest->flagsLow=0;
-    QUESTS_UnitIterate(quest,13,0,sub_005B59C0,true);
+    QUESTS_UnitIterate(quest,13,0,ACT4Q3_UnitIterate_StatusCyclerEx,true);
     EVENT_SetEvent(operation->game,operation->object,7,operation->game->dwGameFrame+(record->animation3>>8),0,0);
-    SUNIT_IterateUnitsOfType(operation->game,0,operation->player,sub_005B5BB0);
+    SUNIT_IterateUnitsOfType(operation->game,0,operation->player,ACT4Q3_UnitIterate_SetCompletionFlag);
     QUESTS_TriggerFX(operation->game,14);
     return 0;
     }

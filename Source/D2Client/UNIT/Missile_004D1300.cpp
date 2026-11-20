@@ -46,7 +46,7 @@ void __fastcall sub_004D30C0_CltDoCommon(D2UnitStrc* pMissile); // 0x004D30C0
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 void __fastcall sub_004DA5B0_SetBallistic(D2UnitStrc* pUnit, int nSpeed, int nFrames); // 0x004DA5B0
 void __fastcall sub_004DA340(D2UnitStrc* pMissile); // 0x004DA340
-int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit); // 0x0045ADF0
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 int __stdcall MISSILE_GetLevel(D2UnitStrc* pMissile); // 0x0064A210
 int __stdcall MISSILE_GetSkill(D2UnitStrc* pMissile); // 0x0064A280
@@ -143,7 +143,7 @@ void __fastcall sub_004D66E0_CltDoFallingSpawn(D2UnitStrc* pMissile)
         if (pOwner)
         {
             const int nRollX = SEED_RollLimitedRandomNumber(&pMissile->pSeed, 10);
-            const int nTargetX = nRollX + UNITS_GetXPosition(pOwner) - 5;
+            const int nTargetX = nRollX + CLIENTS_GetUnitX(pOwner) - 5;
             D2MissileStrc tParams;
             memset(&tParams, 0, sizeof(tParams));
             tParams.nTargetX = nTargetX;

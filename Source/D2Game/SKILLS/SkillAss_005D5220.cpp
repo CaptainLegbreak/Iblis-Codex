@@ -12,7 +12,7 @@ extern const SkillDoFunc gpSkillSrvDoFnTable_007322B0[]; // 0x007322B0
 unsigned __int64 __fastcall SEED_RollRandomNumber(D2SeedStrc*); // 0x0045C370
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int); // 0x0045C4B0
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc*, D2UnitStrc*); // 0x00553540
-void __fastcall sub_00571AA0_SendProgressiveEvent(D2UnitStrc*, D2UnitStrc*, short, short, int, int, unsigned char); // 0x00571AA0
+void __fastcall sub_6FCC6300(D2UnitStrc*, D2UnitStrc*, short, short, int, int, unsigned char); // 0x00571AA0
 int __stdcall UNITS_IsInMeleeRange(D2UnitStrc*, D2UnitStrc*, int); // 0x00622C40
 int __stdcall UNITS_IsInMovingMode(D2UnitStrc*); // 0x00622D00
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc*, int); // 0x006256B0
@@ -86,7 +86,7 @@ void __fastcall sub_005D5220_DischargeProgressiveSkills(D2GameStrc* pGame, D2Uni
                     if (pDo)
                         pDo(pGame, pUnit, nSkill, nLevel);
                 }
-                sub_00571AA0_SendProgressiveEvent(pUnit, pTarget, (short)nSkill, (short)nLevel, nSeed, 0, (unsigned char)(nCharges + 1));
+                sub_6FCC6300(pUnit, pTarget, (short)nSkill, (short)nLevel, nSeed, 0, (unsigned char)(nCharges + 1));
             }
         }
         D2Common_10474(pUnit, pStatList);

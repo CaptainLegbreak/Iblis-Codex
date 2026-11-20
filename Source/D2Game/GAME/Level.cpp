@@ -77,7 +77,7 @@ D2ActiveRoomStrc* __stdcall DUNGEON_FindActSpawnLocationEx(D2DrlgActStrc* pAct, 
 D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinatesEx(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoord, int nUnitSize, unsigned int nMask, int nFieldSize); // 0x0064E7E0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall D2Common_10229(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, unsigned int nX, unsigned int nY); // 0x00650BE0
-void __fastcall sub_6FCBB190(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom); // 0x00554670
+void __fastcall sub_00554670_UpdateClientsOnRoomChange(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom); // 0x00554670
 void __fastcall CLIENTS_SetRoomInClient(D2ClientStrc* pClient, D2ActiveRoomStrc* pRoom); // 0x005381F0
 void __fastcall D2GAME_PACKETS_SendHeaderOnlyPacket(D2ClientStrc* pClient, unsigned char nHeader); // 0x0053B320
 void __fastcall CLIENTS_SetActNo(D2ClientStrc* pClient, unsigned char nAct); // 0x005382E0
@@ -328,7 +328,7 @@ void __fastcall LEVEL_ChangeAct(D2GameStrc* pGame, D2ClientStrc* ptClient, int n
     D2ActiveRoomStrc* pOldRoom = UNITS_GetRoom(hUnit);
     D2_ASSERT(D2Common_10229(pPath, hUnit, 0, 0, 0), 0x1D1);
 
-    sub_6FCBB190(pGame, hUnit, pOldRoom);
+    sub_00554670_UpdateClientsOnRoomChange(pGame, hUnit, pOldRoom);
     D2_ASSERT(D2Common_10229(pPath, hUnit, pRoom, nX, nY), 0x1D6);
 
     CLIENTS_SetRoomInClient(ptClient, 0);
@@ -340,7 +340,7 @@ void __fastcall LEVEL_ChangeAct(D2GameStrc* pGame, D2ClientStrc* ptClient, int n
     CLIENTS_SetRoomInClient(ptClient, pRoom);
     UNITROOM_RefreshUnit(hUnit);
     hUnit->dwFlagEx |= 0x10000;
-    sub_6FCBB190(pGame, hUnit, 0);
+    sub_00554670_UpdateClientsOnRoomChange(pGame, hUnit, 0);
     UNITROOM_RefreshUnit(hUnit);
 
     if (hUnit->dwUnitType == 0)

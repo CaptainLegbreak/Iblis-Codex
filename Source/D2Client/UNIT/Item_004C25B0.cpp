@@ -51,10 +51,10 @@ extern short gwGlobal_007C78A8;                                                 
 extern short gwGlobal_007C78AC;                                                                             // 0x007C78AC
 void __fastcall sub_00465EE0_RemoveClientSideUnit(int nUnitId, int nUnitType);                              // 0x00465EE0
 D2UnitStrc* __fastcall sub_004661C0_CreateItem(int nUnitId, int nClassId, int nX, int nY, int nArg, int nValue); // 0x004661C0
-void __fastcall sub_0046F280(D2UnitStrc* pUnit, int nComponent);                               // 0x0046F280
+void __fastcall sub_0046F280_ClearGfxBytes(D2UnitStrc* pUnit, int nComponent);                               // 0x0046F280
 void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg);                                           // 0x00478680
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nDelay, int nArg3, int nArg4);          // 0x004B9A00
-void __fastcall sub_004B9B50_SetHintValue(int nKey, int nValue);                                            // 0x004B9B50
+void __fastcall sub_004B9B50_SetValue(int nKey, int nValue);                                            // 0x004B9B50
 int __fastcall sub_004D9FC0_GetSkillUseState(D2UnitStrc* pUnit, D2SkillStrc* pSkill);                       // 0x004D9FC0
 D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit);                                               // 0x00620190
 D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit);                                              // 0x006201D0
@@ -79,7 +79,7 @@ int __stdcall ITEMS_DecodeItemFromBitstream(D2UnitStrc* pItem, unsigned char* pB
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId);                                              // 0x006335F0
 D2InventoryStrc* __stdcall INVENTORY_AllocInventory(void* pMemPool, D2UnitStrc* pOwner);                    // 0x0063ABD0
 D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory);                             // 0x0063BEF0
-void __stdcall sub_0063D2B0_DetachItem(D2InventoryStrc* pInventory, D2UnitStrc* pItem);                     // 0x0063D2B0
+void __stdcall INVENTORY_UpdateWeaponGUIDOnRemoval(D2InventoryStrc* pInventory, D2UnitStrc* pItem);                     // 0x0063D2B0
 D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID);               // 0x006439B0
 int __stdcall SKILLS_GetOwnerGUIDFromSkill(D2SkillStrc* pSkill);                                            // 0x00643AD0
 void __stdcall SKILLS_SetLeftActiveSkill(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID);                  // 0x00643BC0
@@ -219,13 +219,13 @@ static __declspec(noinline) void __stdcall sub_004C1290_AttachItem(int nComponen
     if (!pUnit || !pItem || !pUnit->pInventory)
         return;
 
-    sub_0063D2B0_DetachItem(pUnit->pInventory, pItem);
+    INVENTORY_UpdateWeaponGUIDOnRemoval(pUnit->pInventory, pItem);
     if (pUnit->dwUnitType == 0)
         INVENTORY_GetLeftHandWeapon(pUnit->pInventory);
 
     ITEMS_CheckItemFlag(pItem, 0x100, 0x96, ".\\UNIT\\Item.cpp");
     STATLIST_ExpireUnitStatlist(pUnit, pItem);
-    sub_0046F280(pUnit, nComponent);
+    sub_0046F280_ClearGfxBytes(pUnit, nComponent);
 }
 
 static __forceinline D2UniqueItemsTxt* ITEM_GetUniqueItemsTxtRecord(int nIndex)
@@ -291,7 +291,7 @@ static __declspec(noinline) void sub_004C18B0_PlayDropSound(D2UnitStrc* pItem)
     {
         const int nHandle = sub_004B9A00(nSound, pItem, nDelay, 0, 0);
         if (nHandle)
-            sub_004B9B50_SetHintValue(nHandle, 0xB4);
+            sub_004B9B50_SetValue(nHandle, 0xB4);
     }
 }
 

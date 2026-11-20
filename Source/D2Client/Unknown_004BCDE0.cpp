@@ -81,14 +81,14 @@ void __fastcall sub_00470610_Refresh(D2UnitStrc* pUnit, int nArg);              
 D2GfxLightStrc* __fastcall sub_00474160_MakeLightEntry(D2UnitStrc* pUnit, int nMode, int nRadius, unsigned char nIntensity, unsigned char nRed, unsigned char nGreen, unsigned char nBlue); // 0x00474160
 void __fastcall sub_00474290(D2GfxLightStrc* pLight, int nRadius);                           // 0x00474290
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4);           // 0x004B9A00
-void __fastcall sub_004CB460(D2UnitStrc* pUnit);                                                            // 0x004CB460
+void __fastcall sub_004CB460_UpdateModeSound(D2UnitStrc* pUnit);                                                            // 0x004CB460
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);                                          // 0x0061A1B0
 int __stdcall DUNGEON_GetTownLevelIdFromActNo(unsigned char nAct);                                          // 0x0061AB70
 int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseTime);                       // 0x0061C100
 void __stdcall UNITS_BlockCollisionPath(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY);        // 0x00620A70
 void __stdcall UNITS_InitializeStaticPath(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY);      // 0x00620AE0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
-int __stdcall sub_00621B00_IsShrine(D2UnitStrc* pUnit);                                                     // 0x00621B00
+int __stdcall UNITS_IsShrine(D2UnitStrc* pUnit);                                                     // 0x00621B00
 D2ShrinesTxt* __stdcall UNITS_GetShrineTxtRecordFromObject(D2UnitStrc* pUnit);                              // 0x00621B70
 void __stdcall UNITS_SetShrineTxtRecordInObjectData(D2UnitStrc* pUnit, D2ShrinesTxt* pShrinesTxtRecord);    // 0x00621BB0
 void __stdcall UNITS_FreeCollisionPath(D2UnitStrc* pUnit);                                                  // 0x00623830
@@ -488,7 +488,7 @@ static void sub_004BCF60_SetObjectMode(D2UnitStrc* pUnit, D2UnitTargetStrc* pTar
         sub_004BC580_UpdateLight(pUnit, pTxt->nLit[pTarget->nParam2], pTxt->nRed, pTxt->nGreen, pTxt->nBlue);
     }
 
-    sub_004CB460(pUnit);
+    sub_004CB460_UpdateModeSound(pUnit);
     sub_00624390_AnimInit(pUnit);
     if (!pTxt->nBlocksLight[pUnit->dwAnimMode])
         pUnit->dwFlags |= 0x20;
@@ -513,7 +513,7 @@ static void __stdcall sub_004BD5C0_OperateShrine(D2UnitTargetStrc* pTarget, D2Un
 {
     D2ShrinesTxt* pShrinesTxt = 0;
     int nIndex;
-    if (sub_00621B00_IsShrine(pUnit))
+    if (UNITS_IsShrine(pUnit))
     {
         pShrinesTxt = UNITS_GetShrineTxtRecordFromObject(pUnit);
         nIndex = pShrinesTxt->bCode;
@@ -559,7 +559,7 @@ void __fastcall sub_004BD6D0_ObjectCommand(int nCommand, D2UnitStrc* pUnit, D2Un
     {
     case 3:
         sub_004BCF60_SetObjectMode(pUnit, pTarget);
-        if (sub_00621B00_IsShrine(pUnit))
+        if (UNITS_IsShrine(pUnit))
             sub_004BD650_InitShrine(pUnit);
         return;
 
@@ -577,5 +577,5 @@ void __fastcall sub_004BDFF0_UpdateObject(D2UnitStrc* pUnit)
 {
     sub_004BCBB0_UpdateObjectFrame(pUnit);
     if (pUnit->pObjectData->pObjectTxt->nClientFn <= 3 || sub_004BDEE0(pUnit))
-        sub_004CB460(pUnit);
+        sub_004CB460_UpdateModeSound(pUnit);
 }

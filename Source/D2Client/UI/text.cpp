@@ -66,8 +66,8 @@ void __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
 D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType); // 0x00463990
 void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 void __stdcall sub_00487A10_SelectItemPageTab(unsigned char nTab); // 0x00487A10
-void __cdecl sub_00487ED0(); // 0x00487ED0
-int __fastcall sub_004B3230_GetSelectedUnitId(int* pUnitId); // 0x004B3230
+void __cdecl sub_00487ED0_SetupPanelButtons(); // 0x00487ED0
+int __fastcall sub_004B3230_GetTickPair(int* pUnitId); // 0x004B3230
 void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
 extern int gnGlobal_00711470; // 0x00711470
@@ -155,10 +155,10 @@ Unicode* __fastcall sub_004521C0_PrefixLevelText(Unicode* pText, int nDigit); //
 Unicode* __fastcall sub_00452300_StripStringAndNextChar(Unicode* pText); // 0x00452300
 int __fastcall sub_0047A170_TestNotFlag4(int nUnitId); // 0x0047A170
 void __fastcall sub_0048BBE0_SetNameText(const Unicode* wszName, int nUnused, int nArg); // 0x0048BBE0
-void __fastcall sub_0049E3A0_ShowChatText(const Unicode* wszText, char nColor); // 0x0049E3A0
+void __fastcall sub_0049E3A0_PrintChatLine(const Unicode* wszText, char nColor); // 0x0049E3A0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 extern "C" Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
-void __cdecl sub_005269D0_Unicode_sprintf(int nBufferSize, Unicode* pDst, const Unicode* pFormat, ...); // 0x005269D0
+void __cdecl sub_005269D0(int nBufferSize, Unicode* pDst, const Unicode* pFormat, ...); // 0x005269D0
 char* __stdcall UNITS_GetPlayerName(D2UnitStrc* pUnit); // 0x00622150
 void __stdcall CHAT_FreeHoverMsg(void* pMemoryPool, D2HoverTextStrc* pHoverText); // 0x006611A0
 extern int gnGameFrame_007BF20E; // 0x007BF20E
@@ -465,7 +465,7 @@ D2ClientDialogStrc* __fastcall sub_004B7EB0_CreateDialog(int nArg1, int nArg2, i
     int nArg18, int nArg1C, int nArg20, int nArg24, int nArg28); // 0x004B7EB0
 void __fastcall sub_004B82F0_Select(D2ClientDialogStrc* pDialog, int nIndex); // 0x004B82F0
 void __fastcall sub_004B8370_SetField5C(D2ClientDialogStrc* pDialog, int nValue); // 0x004B8370
-void __fastcall sub_004B85F0_DialogControl(D2ClientDialogStrc* pDialog, const Unicode* wszText, int nArg8, int nArgC,
+void __fastcall sub_004B85F0_AddTextLine(D2ClientDialogStrc* pDialog, const Unicode* wszText, int nArg8, int nArgC,
     int nArg10, int nArg14, int (__cdecl* pfnCallback)(), int nArg1C); // 0x004B85F0
 
 unsigned char gnSelectedTab_007BCC04; // 0x007BCC04
@@ -486,10 +486,10 @@ void __cdecl sub_00491940_ResetNpcPanel()
     }
     gnGlobal_007BCBEC = 0;
     gdwGlobal_007BCBF0 = 1;
-    sub_00487ED0();
+    sub_00487ED0_SetupPanelButtons();
 
     int nNpcId;
-    if (sub_004B3230_GetSelectedUnitId(&nNpcId))
+    if (sub_004B3230_GetTickPair(&nNpcId))
     {
         D2UnitStrc* pNpc = sub_00463990(nNpcId, 1);
         int bMatched = 0;
@@ -724,7 +724,7 @@ void __fastcall sub_0049F490_HandleHoverTextPacket(D2GSPacketSrv26* pPacket)
 
     if (pPacket->nMessageType == 4)
     {
-        sub_0049E3A0_ShowChatText(wszText, pPacket->nMessageColor);
+        sub_0049E3A0_PrintChatLine(wszText, pPacket->nMessageColor);
         return;
     }
 
@@ -735,9 +735,9 @@ void __fastcall sub_0049F490_HandleHoverTextPacket(D2GSPacketSrv26* pPacket)
     {
         Unicode::win2Unicode(wszB, pPacket->szMessage, 0x100);
         Unicode::win2Unicode(wszC, pPacket->szName, 0x10);
-        sub_005269D0_Unicode_sprintf(0x264, wszA, D2LANG_GetStringFromTblIndex(0xE4A), wszC, wszB);
+        sub_005269D0(0x264, wszA, D2LANG_GetStringFromTblIndex(0xE4A), wszC, wszB);
         sub_00452300_StripStringAndNextChar(wszA);
-        sub_0049E3A0_ShowChatText(wszA, 2);
+        sub_0049E3A0_PrintChatLine(wszA, 2);
     }
     else if (pPacket->nMessageType == 2)
     {
@@ -750,19 +750,19 @@ void __fastcall sub_0049F490_HandleHoverTextPacket(D2GSPacketSrv26* pPacket)
             Unicode::strcat(wszA, D2LANG_GetStringFromTblIndex(0xE46));
             sub_005267E0(wszB, wszText);
             Unicode::strcat(wszA, wszB);
-            sub_0049E3A0_ShowChatText(wszA, 2);
+            sub_0049E3A0_PrintChatLine(wszA, 2);
             return;
         }
         if (nTextLen > 0x131)
             return;
         sub_005267E0(wszA, wszText);
-        sub_0049E3A0_ShowChatText(wszA, 2);
+        sub_0049E3A0_PrintChatLine(wszA, 2);
     }
     else if (pPacket->nMessageType == 1)
     {
         if (pPacket->nUnitType == 0 || pPacket->nUnitType == 1)
         {
-            sub_0049E3A0_ShowChatText(wszText, pPacket->nMessageColor);
+            sub_0049E3A0_PrintChatLine(wszText, pPacket->nMessageColor);
             return;
         }
         const int nNameLen = strlen(pPacket->szName);
@@ -777,13 +777,13 @@ void __fastcall sub_0049F490_HandleHoverTextPacket(D2GSPacketSrv26* pPacket)
             Unicode::strcat(wszB, wszText);
             sub_004521C0_PrefixLevelText(wszB, 0);
             Unicode::strcat(wszA, wszB);
-            sub_0049E3A0_ShowChatText(wszA, pPacket->nMessageColor);
+            sub_0049E3A0_PrintChatLine(wszA, pPacket->nMessageColor);
             return;
         }
         if (nTextLen > 0x131)
             return;
         sub_005267E0(wszA, wszText);
-        sub_0049E3A0_ShowChatText(wszA, pPacket->nMessageColor);
+        sub_0049E3A0_PrintChatLine(wszA, pPacket->nMessageColor);
     }
     else if (pPacket->nMessageType == 5)
     {
@@ -1090,8 +1090,8 @@ void sub_004A0050_OpenListBoxDialog()
     gpListDialog_007BF1B0 = sub_004B7EB0_CreateDialog(5, 0x1E, (int)sub_004A0030_DialogCallback, 0, 0, 0, 0,
         gnGlobal_0071146C - 0x14, gnGlobal_00711470 - 0x82, 0, 0);
     sub_004B8370_SetField5C(gpListDialog_007BF1B0, 1);
-    sub_004B85F0_DialogControl(gpListDialog_007BF1B0, D2LANG_GetStringFromTblIndex(0xFC3), 0x15, 0, 4, 1, 0, 0);
-    sub_004B85F0_DialogControl(gpListDialog_007BF1B0, D2LANG_GetStringFromTblIndex(0x1030), gnGlobal_00711470 - 0xA5, 0,
+    sub_004B85F0_AddTextLine(gpListDialog_007BF1B0, D2LANG_GetStringFromTblIndex(0xFC3), 0x15, 0, 4, 1, 0, 0);
+    sub_004B85F0_AddTextLine(gpListDialog_007BF1B0, D2LANG_GetStringFromTblIndex(0x1030), gnGlobal_00711470 - 0xA5, 0,
         0, 1, sub_004A0030_DialogCallback, 1);
     gpListBox_007BF1B4 = new ListBoxWrapper(5, 0x41, gnGlobal_0071146C - 0x14, gnGlobal_00711470 - 0xC8, 2, 0, 0xD, 0,
         1);

@@ -57,13 +57,13 @@ void __stdcall sub_004313D0(int nLevel);                                        
 void __cdecl sub_00431AF0();                                                                                // 0x00431AF0
 void __fastcall sub_00433380_ShowMessage(const Unicode* pText, D2LaunchCallback pfnDone, int nArg);         // 0x00433380
 void __cdecl sub_004365B0_CreateCharacter();                                                                                // 0x004365B0
-void __cdecl sub_0043B080();                                                                                // 0x0043B080
+void __cdecl sub_0043B080_InitCharSelectScreen();                                                                                // 0x0043B080
 void __cdecl sub_0043B9A0();                                                                                // 0x0043B9A0
 void __fastcall sub_0043C6A0(int bSet);                                                                     // 0x0043C6A0
 void __cdecl sub_0043C4F0();                                                                                // 0x0043C4F0
 void __stdcall sub_004FA590_RunLoop(D2LaunchCallback pfnCallback);                                          // 0x004FA590
 int __fastcall sub_004F9190();                                                            // 0x004F9190
-void __fastcall sub_004FCF80_SetTextA(D2WinControlStrc* pControl, const char* szText);                      // 0x004FCF80
+void __fastcall D2Win_10045(D2WinControlStrc* pControl, const char* szText);                      // 0x004FCF80
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(short nIndex);                                       // 0x00524A30
 void __stdcall sub_00525260(void* pOut, int nField);                                                 // 0x00525260
 int __fastcall sub_00526800(const Unicode* pString);                                                      // 0x00526800
@@ -733,7 +733,7 @@ int __stdcall sub_00434790_JoinTcpIp(int nUnused)
         *(unsigned short*)gpLaunchRecord_007795D4->aWord1D = 1;
         sub_00515020();
         sub_0042F480_Reset();
-        sub_0043B080();
+        sub_0043B080_InitCharSelectScreen();
     }
     return 1;
 }
@@ -891,5 +891,5 @@ void __cdecl sub_00436AD0_UpdateStatus()
     const unsigned long nCounter = (GetTickCount() - gdwStatusStart_007799B8) / 250 % 20 + 1;
     sprintf(szText, "%.*s", nCounter, "....................");
     sub_004FB6A0_ClearText(gpCounterText_007799AC);
-    sub_004FCF80_SetTextA(gpCounterText_007799AC, szText);
+    D2Win_10045(gpCounterText_007799AC, szText);
 }

@@ -24,7 +24,7 @@ struct D2WinControlInitStrc
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
 void __fastcall sub_0043FB50_ShowWait(const Unicode* pText, D2LaunchCallback pfnDone);                      // 0x0043FB50
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
-void __fastcall sub_004FD060_SetText(D2WinControlStrc* pControl, const Unicode* pText);                     // 0x004FD060
+void __fastcall D2Win_10044(D2WinControlStrc* pControl, const Unicode* pText);                     // 0x004FD060
 void __fastcall sub_004FDAD0_SetKeyCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(D2WinControlStrc*, int, const char*)); // 0x004FDAD0
 void __fastcall sub_004FDB00_SetEnterCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(int)); // 0x004FDB00
 int __stdcall sub_004F91C0(D2WinControlStrc* pEditBox);                                                      // 0x004F91C0
@@ -63,13 +63,13 @@ void __cdecl sub_00445DF0_CreateJoinScreen()
     }
     gpControl_00798BC8 = CONTROL_Create(&gtControlInit_0070D630);
     gpControl_00798BDC = CONTROL_Create(&gtControlInit_0070D660);
-    sub_004FD060_SetText(gpControl_00798BDC, D2LANG_GetStringFromTblIndex(0x141F));
+    D2Win_10044(gpControl_00798BDC, D2LANG_GetStringFromTblIndex(0x141F));
     gpControl_00798BE0 = CONTROL_Create(&gtControlInit_0070D690);
-    sub_004FD060_SetText(gpControl_00798BE0, D2LANG_GetStringFromTblIndex(0x149A));
+    D2Win_10044(gpControl_00798BE0, D2LANG_GetStringFromTblIndex(0x149A));
     gpControl_00798BE4 = CONTROL_Create(&gtControlInit_0070D6C0);
-    sub_004FD060_SetText(gpControl_00798BE4, D2LANG_GetStringFromTblIndex(0x1469));
+    D2Win_10044(gpControl_00798BE4, D2LANG_GetStringFromTblIndex(0x1469));
     gpControl_00798BE8 = CONTROL_Create(&gtControlInit_0070D6F0);
-    sub_004FD060_SetText(gpControl_00798BE8, D2LANG_GetStringFromTblIndex(0x149B));
+    D2Win_10044(gpControl_00798BE8, D2LANG_GetStringFromTblIndex(0x149B));
     gpControl_00798BCC = CONTROL_Create(&gtControlInit_0070D7B0);
     gpControl_00798BD0 = CONTROL_Create(&gtControlInit_0070E110);
     sub_004FA450_SetActive(gpControl_00798BD0);

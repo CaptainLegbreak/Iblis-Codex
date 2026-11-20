@@ -52,12 +52,12 @@ void __fastcall sub_0043ADB0_UseName(char* szName); // 0x0043ADB0
 void __cdecl sub_0043EA20_Wait(); // 0x0043EA20
 int __stdcall sub_0043F580(int nArg); // 0x0043F580
 int __stdcall sub_0043F590_CallTable7C(int nUnused); // 0x0043F590
-void __fastcall sub_004401C0_ShowText(const Unicode* pText, D2LaunchCallback pfnDone); // 0x004401C0
+void __fastcall sub_004401C0_ShowTimedMessage(const Unicode* pText, D2LaunchCallback pfnDone); // 0x004401C0
 extern D2LaunchControlTemplateStrc gtControlTemplates_00708D10[]; // 0x00708D10
 extern int gnTextMode_00708D0C; // 0x00708D0C
 extern char gKey_0070CD54; // 0x0070CD54
 void __cdecl sub_00515020_FadeOutWaves(); // 0x00515020
-void __cdecl sub_0043B080(); // 0x0043B080
+void __cdecl sub_0043B080_InitCharSelectScreen(); // 0x0043B080
 void __cdecl sub_00432100_CreateLoginScreen(); // 0x00432100
 
 #pragma pack(push, 1)
@@ -246,7 +246,7 @@ int __fastcall sub_00440CA0(int nA, int nB, int nC, int nD)
     gtRecord_0077B0A8.f_8 = nD;
     gpLaunchFuncs_0077B09C->pfn0x78(nA, 3, 1, &gKey_0070CD54);
     gbFlag_0077ADA4 = 0;
-    sub_004401C0_ShowText(D2LANG_GetStringFromTblIndex(0x147B), sub_0043F580);
+    sub_004401C0_ShowTimedMessage(D2LANG_GetStringFromTblIndex(0x147B), sub_0043F580);
     sub_004FA590_RunLoop(sub_0043F590_CallTable7C);
     sub_0043EA20_Wait();
     return gbFlag_0077ADA4 == 0;
@@ -274,7 +274,7 @@ int __stdcall sub_00432020_OnCancel(int nArg)
 {
     sub_00515020_FadeOutWaves();
     sub_0042F480_Reset();
-    sub_0043B080();
+    sub_0043B080_InitCharSelectScreen();
     return 1;
 }
 
@@ -283,7 +283,7 @@ int __stdcall sub_00432040_OnCancel2(int nArg)
 {
     sub_00515020_FadeOutWaves();
     sub_0042F480_Reset();
-    sub_0043B080();
+    sub_0043B080_InitCharSelectScreen();
     return 1;
 }
 

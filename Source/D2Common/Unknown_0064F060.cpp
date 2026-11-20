@@ -37,7 +37,7 @@ unsigned short __stdcall ITEMS_GetWeaponClassId(D2UnitStrc* pUnit);             
 int __stdcall ITEMS_CanBeEquipped(D2UnitStrc* pItem);                                                       // 0x0062A4E0
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc);             // 0x0063BDE0
 D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory);                             // 0x0063BEF0
-void __stdcall sub_0063D1D0_InventoryItemCall(D2InventoryStrc* pInventory, D2UnitStrc* pItem);              // 0x0063D1D0
+void __stdcall INVENTORY_UpdateWeaponGUIDOnInsert(D2InventoryStrc* pInventory, D2UnitStrc* pItem);              // 0x0063D1D0
 int __stdcall INVENTORY_GetWieldType(D2UnitStrc* pUnit, D2InventoryStrc* pInventory);                       // 0x0063D340
 int __stdcall COMPOSIT_GetWeaponClassIdFromCode(int nWeaponClassCode);                                      // 0x0064F020
 
@@ -138,7 +138,7 @@ LABEL_CLASS:
                 D2UnitStrc* pPrimaryWeapon = INVENTORY_GetLeftHandWeapon(pInventory);
                 if (!pPrimaryWeapon)
                 {
-                    sub_0063D1D0_InventoryItemCall(pInventory, pRightHandItem);
+                    INVENTORY_UpdateWeaponGUIDOnInsert(pInventory, pRightHandItem);
                     pPrimaryWeapon = pRightHandItem;
                 }
 

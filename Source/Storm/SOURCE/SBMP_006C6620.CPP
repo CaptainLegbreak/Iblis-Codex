@@ -5,7 +5,7 @@ struct RGBQuad { unsigned char r, g, b, a; };
 extern "C" __declspec(dllimport) int __stdcall WriteFile(HANDLE, const void*, unsigned long, unsigned long*, void*); // 0x006CC1A8
 void* __stdcall SMemAlloc(unsigned int, const char*, int, int); // 0x00413020
 void __stdcall SMemFree(void*, const char*, int, int); // 0x00412650
-int __fastcall sub_006C6470_CompressGif(int nCount, const unsigned char* pPixels, unsigned char* pOut); // 0x006C6470
+int __fastcall CompressGifImage(int nCount, const unsigned char* pPixels, unsigned char* pOut); // 0x006C6470
 
 struct RGBTriple { unsigned char r, g, b; };
 
@@ -58,7 +58,7 @@ static int __stdcall EncodeGif256File(HANDLE hFile, const RGBQuad* pPalette, con
     SBmpWrite(hFile, header, 10);
 
     unsigned char* pData = (unsigned char*)SMemAlloc(nWidth * nHeight * 2, gszSBmpSource, 1000, 0);
-    int nLength = sub_006C6470_CompressGif(nWidth * nHeight, pPixels, pData);
+    int nLength = CompressGifImage(nWidth * nHeight, pPixels, pData);
     WriteFile(hFile, pData, nLength, &written, 0);
     SMemFree(pData, gszSBmpSource, 1006, 0);
 

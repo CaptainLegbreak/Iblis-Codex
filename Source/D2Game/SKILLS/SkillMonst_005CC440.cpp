@@ -70,7 +70,7 @@ extern D2DataTablesStrc* sgptDataTables;                                        
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 void __stdcall UNITS_SetAnimationFrame(D2UnitStrc* pUnit, int nFrame);                                      // 0x006212C0
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
-int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit);                                                       // 0x0045ADF0
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                                                       // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
 int __fastcall D2GAME_GetXAndYFromTargetUnit_6FD14020(D2GameStrc* pGame, D2UnitStrc* pUnit, int* pX, int* pY); // 0x0056D2C0
 D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc* pGame, D2MissileStrc* pMissileParams);  // 0x0059FA30
@@ -150,7 +150,7 @@ int __fastcall SKILLS_SrvDo102_DiabWall(D2GameStrc* pGame, D2UnitStrc* pUnit, in
     D2MissileStrc missileParams = {};
     missileParams.dwFlags = 0x21;
     missileParams.pOwner = pUnit;
-    missileParams.nX = UNITS_GetXPosition(pUnit);
+    missileParams.nX = CLIENTS_GetUnitX(pUnit);
     missileParams.nY = CLIENTS_GetUnitY(pUnit);
     missileParams.nMissile = nMissileId;
     missileParams.nSkillLevel = nSkillLevel;

@@ -40,7 +40,7 @@ extern D2DataTablesStrc* sgptDataTables;                                        
 extern const int gaRingOffsetY_006DAF88[8];                                                                 // 0x006DAF88
 extern const int gaRingOffsetX_006DAFA8[8];                                                                 // 0x006DAFA8
 
-int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit);                                                       // 0x0045ADF0
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                                                       // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId);                                      // 0x0045C4B0
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit);                                       // 0x004639D0
@@ -49,7 +49,7 @@ void __fastcall sub_004C71F0(int nCount, D2MissileStrc* pMissileParams);        
 void __fastcall sub_004C7700(D2UnitStrc* pMissile, int nMissile, int nCount, int nRows, int nSkill, int nSkillLevel); // 0x004C7700
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams);                          // 0x004CD540
 D2UnitStrc* __fastcall sub_004CDBA0_SubmitOwnerRequest(D2UnitStrc* pUnit, int nArg0, int nArg5, int nArg6, int nArg3, int nArg4); // 0x004CDBA0
-void __fastcall sub_004CEF50(D2UnitStrc* pMissile, int nParam0, int nMissile, int nSkill, int nSkillLevel, int nParam1, int nFlag); // 0x004CEF50
+void __fastcall sub_004CEF50_SpawnBurst(D2UnitStrc* pMissile, int nParam0, int nMissile, int nSkill, int nSkillLevel, int nParam1, int nFlag); // 0x004CEF50
 void __stdcall sub_004DA2F0_SetMotionParams(D2UnitStrc* pUnit, int nParam0, int nParam1);                   // 0x004DA2F0
 void __fastcall sub_004DA340(D2UnitStrc* pMissile);                                                         // 0x004DA340
 void __fastcall sub_004DA5B0_SetBallistic(D2UnitStrc* pUnit, int nSpeed, int nFrames);                      // 0x004DA5B0
@@ -135,7 +135,7 @@ int __fastcall sub_004CCE40_HitSpiralGrid(D2UnitStrc* pMissile, D2UnitStrc* pUni
     D2MissileStrc tMissileParams;
     memset(&tMissileParams, 0, sizeof(tMissileParams));
     tMissileParams.dwFlags = 3;
-    tMissileParams.nX = UNITS_GetXPosition(pMissile);
+    tMissileParams.nX = CLIENTS_GetUnitX(pMissile);
     tMissileParams.nY = CLIENTS_GetUnitY(pMissile);
     tMissileParams.nSkill = MISSILE_GetSkill(pMissile);
     tMissileParams.pOwner = sub_004639D0_GetOwnerUnit(pMissile);
@@ -215,7 +215,7 @@ int __fastcall sub_004D06F0_HitSubMissiles(D2UnitStrc* pMissile, D2UnitStrc* pUn
 
     if (pMissilesTxtRecord->wCltHitSubMissile[1] >= 0)
     {
-        sub_004CEF50(pMissile, pMissilesTxtRecord->dwCltHitPar[0], pMissilesTxtRecord->wCltHitSubMissile[1], nSkill, nSkillLevel, pMissilesTxtRecord->dwCltHitPar[1], 1);
+        sub_004CEF50_SpawnBurst(pMissile, pMissilesTxtRecord->dwCltHitPar[0], pMissilesTxtRecord->wCltHitSubMissile[1], nSkill, nSkillLevel, pMissilesTxtRecord->dwCltHitPar[1], 1);
     }
 
     if (pUnit)
@@ -272,7 +272,7 @@ int __fastcall sub_004D0A80_HitBurst(D2UnitStrc* pMissile, D2UnitStrc* pUnit)
     sub_004C7700(pMissile, pMissilesTxtRecord->wCltHitSubMissile[0], nCount, nCount / 4, MISSILE_GetSkill(pMissile), nSkillLevel);
     if (pMissilesTxtRecord->wCltHitSubMissile[1] >= 0)
     {
-        sub_004CDBA0_SubmitOwnerRequest(pMissile, pMissilesTxtRecord->wCltHitSubMissile[1], UNITS_GetXPosition(pMissile), CLIENTS_GetUnitY(pMissile), MISSILE_GetSkill(pMissile), MISSILE_GetLevel(pMissile));
+        sub_004CDBA0_SubmitOwnerRequest(pMissile, pMissilesTxtRecord->wCltHitSubMissile[1], CLIENTS_GetUnitX(pMissile), CLIENTS_GetUnitY(pMissile), MISSILE_GetSkill(pMissile), MISSILE_GetLevel(pMissile));
     }
     return 1;
 }

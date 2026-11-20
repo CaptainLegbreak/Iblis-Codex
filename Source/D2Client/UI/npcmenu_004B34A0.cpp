@@ -46,14 +46,14 @@ public:
     virtual ~D2NpcTradeObjStrc();
 };
 
-D2UnitStrc* __cdecl sub_00463DD0();                                                               // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType);                             // 0x00463990
 void __fastcall sub_00455F20(int nUIVar, int nState, int nArg);                                        // 0x00455F20
 void __fastcall sub_004B3790_RemoveInventoryClientUnits(D2UnitStrc* pUnit);                                 // 0x004B3790
 void __fastcall sub_004BA840(int nHandle);                                                                  // 0x004BA840
 void __fastcall sub_004786A0_SendIntInt(char nHeader, int nArg1, int nArg2);                               // 0x004786A0
 void __cdecl sub_004A1730_ClearPanel();                                                                     // 0x004A1730
-void __fastcall sub_00480E70_SetState(D2UnitStrc* pUnit, int nArg);                                         // 0x00480E70
+void __fastcall sub_00480E70_SetUnitMode(D2UnitStrc* pUnit, int nArg);                                         // 0x00480E70
 void __fastcall sub_004B8020(void* pRes);                                                                   // 0x004B8020
 void __cdecl sub_004B4830_Rebuild();                                                                        // 0x004B4830
 int __cdecl sub_004B5C60_Handler();                                                                         // 0x004B5C60
@@ -100,9 +100,9 @@ void __fastcall sub_004B3510(D2NpcMonListPacketStrc* pPacket)
 // 0x004B3C20
 void __fastcall sub_004B3C20(int nValue)
 {
-    if (sub_00463DD0())
+    if (sub_00463DD0_GetPlayerUnit())
     {
-        D2UnitStrc* pPlayer = sub_00463DD0();
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         if (pPlayer && pPlayer->dwUnitType == 0 && pPlayer->pPlayerData)
         {
             pPlayer->pPlayerData->unk0x150 = 0;
@@ -144,7 +144,7 @@ void __fastcall sub_004B3C20(int nValue)
             pUnit->pMonsterData->wFlags &= ~1;
         }
 
-        sub_00480E70_SetState(pUnit, 1);
+        sub_00480E70_SetUnitMode(pUnit, 1);
     }
 }
 

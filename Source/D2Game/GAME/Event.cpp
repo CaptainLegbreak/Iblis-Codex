@@ -57,7 +57,7 @@ D2EventTimerStrc* __fastcall SUNIT_GetTimerFromUnit(D2UnitStrc* pUnit); // 0x005
 void __fastcall D2GAME_EVENTS_Callback_6FC81BD0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEvent, int nCustomId, int nCustomParam); // 0x00581220
 void __fastcall MONSTERMODE_EventHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEvent, int nCustomId, int nCustomParam); // 0x005A7F80
 void __fastcall D2GAME_OBJMODE_InvokeEventFunction_6FC75250(D2GameStrc* pGame, D2UnitStrc* pObject, int nEvent); // 0x00586AD0
-void __fastcall MISSMODE_SrvDoHandler(D2GameStrc* pGame, D2UnitStrc* pMissile, int nEvent); // 0x005ADCC0
+void __fastcall sub_005ADCC0(D2GameStrc* pGame, D2UnitStrc* pMissile, int nEvent); // 0x005ADCC0
 void __fastcall D2GAME_Items_EventsHandler_6FC4A460(D2GameStrc* pGame, D2UnitStrc* pItem, int nEvent); // 0x00562DA0
 static void sub_6FC34890(D2GameStrc* pGame, D2EventTimerStrc* pTimer); // 0x00540CD0
 void __fastcall sub_6FC349F0(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00540EE0
@@ -329,7 +329,7 @@ static void __stdcall EVENT_ExecuteObjectEvents(int a4, D2GameStrc* pGame, D2Eve
 // 0x00541240
 static void __stdcall EVENT_ExecuteMissileEvents(int a4, D2GameStrc* pGame, D2EventTimerQueueStrc* pTimerQueue, D2EventTimerStrc* pEventTimer)
 {
-    EVENT_ExecuteEventsImpl3(MISSMODE_SrvDoHandler, pGame, pTimerQueue, pEventTimer, a4);
+    EVENT_ExecuteEventsImpl3(sub_005ADCC0, pGame, pTimerQueue, pEventTimer, a4);
 }
 
 // 0x00541320

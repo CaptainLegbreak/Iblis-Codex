@@ -57,7 +57,7 @@ D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc*); // 0x006221A0
 void __fastcall QUESTS_RefreshStatus(D2QuestDataStrc*,unsigned char*,D2BitBufferStrc*); // 0x00543F90
 unsigned short __fastcall ACT1Q1_GetMonstersToBeKilled(D2QuestDataStrc*); // 0x005901E0
 unsigned short __fastcall ACT5Q2_GetBarbsToBeRescued(D2QuestDataStrc*); // 0x00588C50
-void __fastcall sub_0053D710_SendQuestStatus(D2ClientStrc*,D2GSPacketSrv5D*); // 0x0053D710
+void __fastcall sub_6FC3F380(D2ClientStrc*,D2GSPacketSrv5D*); // 0x0053D710
 
 typedef int (__stdcall* D2FarProc)();
 
@@ -76,7 +76,7 @@ struct D2DrlgCoordsStrc
     int nTileHeight;
 };
 
-D2ActiveRoomStrc* __fastcall COLLISION_GetRoomBySubTileCoordinates(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
 void __fastcall QUESTS_GetFreePosition(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoord, unsigned int nSize, unsigned short fCollision, D2ActiveRoomStrc** ppRoom, int nId, int nRadius); // 0x00545340
 D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int a7, int a8); // 0x005B2F20
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
@@ -156,7 +156,7 @@ void __fastcall QUESTS_StatusCyclerEx(D2GameStrc* game,D2UnitStrc* player,unsign
   }
   if(pQuestInfo->eFilter==1) packet.remaining=ACT1Q1_GetMonstersToBeKilled(pQuestInfo);
   else if(pQuestInfo->eFilter==36) packet.remaining=ACT5Q2_GetBarbsToBeRescued(pQuestInfo);
-  sub_0053D710_SendQuestStatus(client,&packet);
+  sub_6FC3F380(client,&packet);
  }
 }
 
@@ -217,7 +217,7 @@ D2UnitStrc* __fastcall sub_005459A0_SpawnMonsterNear(D2GameStrc* pGame, int nX, 
             ++nTryY;
             tCoord.nX = nTryX;
             tCoord.nY = nTryY;
-            pFreeRoom = COLLISION_GetRoomBySubTileCoordinates(pSpawnRoom, nTryX, nTryY);
+            pFreeRoom = sub_00463740_FindRoomAtPoint(pSpawnRoom, nTryX, nTryY);
             if (!pFreeRoom)
             {
                 pFreeRoom = pRoom;

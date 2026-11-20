@@ -333,15 +333,15 @@ void __fastcall SUNIT_Restore(D2GameStrc*,D2UnitStrc*,D2ActiveRoomStrc*,int,int)
 void __fastcall AIGENERAL_FreeAllMinionLists(D2GameStrc*,D2MinionListStrc*); // 0x0058F350
 D2UnitStrc* __fastcall MONSTERSPAWN_SpawnWithUnitId(D2GameStrc*,D2ActiveRoomStrc*,int,int,int,int,int,int,int); // 0x005B30E0
 D2UnitStrc* __fastcall MONSTERUNIQUE_RestoreUniqueMonster(D2GameStrc*,D2ActiveRoomStrc*,int,int,int,int,unsigned short,int,int,unsigned short,unsigned char*); // 0x005A4440
-D2UnitStrc* __fastcall MONSTERUNIQUE_RestoreMinion(D2GameStrc*,D2ActiveRoomStrc*,int,int,int,int,unsigned char*); // 0x005A46E0
+D2UnitStrc* __fastcall sub_6FC6FDC0(D2GameStrc*,D2ActiveRoomStrc*,int,int,int,int,unsigned char*); // 0x005A46E0
 int __fastcall MONSTERREGION_FindSpawnLocation(D2GameStrc*,D2ActiveRoomStrc*,int,int,int*,int*,int); // 0x0054DC40
 int __fastcall sub_0064E840_FindRoomCoordinates(D2ActiveRoomStrc*,D2CoordStrc*,int,int,D2ActiveRoomStrc**); // 0x0064E840
 void __fastcall AIGENERAL_SetAiControlInfo(D2GameStrc*,D2UnitStrc*,int,int,int,int,D2MinionListStrc*); // 0x0058F4D0
 void __fastcall AITHINK_ExecuteAiFn(D2GameStrc*,D2UnitStrc*,D2AiControlStrc*,int); // 0x005B0E00
-void __fastcall TARGETS_InsertUnitNode(D2GameStrc*,D2UnitStrc*,int,int); // 0x005B1990
+void __fastcall sub_6FC40280(D2GameStrc*,D2UnitStrc*,int,int); // 0x005B1990
 unsigned char* __fastcall MONSTERUNIQUE_GetUMods(D2UnitStrc*); // 0x005A0120
 void __fastcall D2GAME_BOSSES_AssignUMod_6FC6FF10(D2GameStrc*,D2UnitStrc*,int,int); // 0x005A4850
-void __fastcall SUNIT_SetAlignment(D2UnitStrc*,unsigned char,int); // 0x005543B0
+void __fastcall sub_005543B0_AssignAlignment(D2UnitStrc*,unsigned char,int); // 0x005543B0
 void __fastcall MONSTERREGION_AdjustCountsForInactiveMonster(void**,int,int,int,int,int,D2UnitStrc*); // 0x00547ED0
 void __fastcall DRLGPRESET_FreeMapAI(void*,D2MapAIStrc*); // 0x00666130
 D2UnitStrc* __fastcall SUNIT_CreatePresetUnit(D2GameStrc*,D2ActiveRoomStrc*,int,int,int,int,int,int); // 0x005557D0
@@ -454,7 +454,7 @@ static void __stdcall sub_005424F0_RestoreInactiveMonsters(D2GameStrc* pGame,D2A
             switch (type)
             {
             case 2:
-                unit = MONSTERUNIQUE_RestoreMinion(pGame,pRoom,x,y,id,node->nUnitId,node->nMonUMods);
+                unit = sub_6FC6FDC0(pGame,pRoom,x,y,id,node->nUnitId,node->nMonUMods);
                 break;
             case 1:
                 unit = MONSTERUNIQUE_RestoreUniqueMonster(pGame,pRoom,x,y,id,node->nUnitId,node->nNameSeed,node->nTypeFlags & 2,node->nTypeFlags & 0x800,node->nBossHcIdx,node->nMonUMods);
@@ -504,8 +504,8 @@ fallbackLocation:
                 sub_00541E20_RestoreSpecialMonsterParameters(pGame,node,unit);
                 if (node->nTypeFlags & 0x400)
                 {
-                    if (alignment == 2) TARGETS_InsertUnitNode(pGame,unit,0,8);
-                    else { D2_ASSERT(alignment == 1,0x691); TARGETS_InsertUnitNode(pGame,unit,0,9); }
+                    if (alignment == 2) sub_6FC40280(pGame,unit,0,8);
+                    else { D2_ASSERT(alignment == 1,0x691); sub_6FC40280(pGame,unit,0,9); }
                 }
                 unsigned char* saved = node->nMonUMods;
                 unsigned char* mods = MONSTERUNIQUE_GetUMods(unit);
@@ -520,7 +520,7 @@ fallbackLocation:
                         --n;
                     } while (n);
                 }
-                SUNIT_SetAlignment(unit,alignment,1);
+                sub_005543B0_AssignAlignment(unit,alignment,1);
                 if (node->nUnitFlagsEx & 0x200) unit->dwFlagEx |= 0x200;
                 unit->dwFlags |= (node->nUnitFlags & 0x20000) | 0x3000000;
             }

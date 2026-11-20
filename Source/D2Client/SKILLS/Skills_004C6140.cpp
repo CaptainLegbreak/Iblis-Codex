@@ -122,12 +122,12 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 extern CLIENTSKILLSTARTFN gpfnClientSkillStartFuncs_00727A90[]; // 0x00727A90
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType); // 0x00463990
-D2UnitStrc* __fastcall sub_004648F0_GetTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
+D2UnitStrc* __fastcall sub_004648F0_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 int __fastcall sub_00464F70_IsTargetBlocked(D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00464F70
 void __fastcall sub_00470390(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
-void __fastcall sub_00480E70_SetState(D2UnitStrc* pUnit, int nArg); // 0x00480E70
+void __fastcall sub_00480E70_SetUnitMode(D2UnitStrc* pUnit, int nArg); // 0x00480E70
 int __fastcall sub_004AA8B0_GetSkillMaxLevel(int nSkillId); // 0x004AA8B0
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY); // 0x004C52E0
@@ -139,13 +139,13 @@ void __stdcall UNITS_SetUsedSkill(D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill); /
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall UNITS_CanDualWield(D2UnitStrc* pUnit); // 0x006235A0
-int __fastcall sub_00623C20(D2UnitStrc* pUnit); // 0x00623C20
+int __fastcall UNITS_GetHitClass(D2UnitStrc* pUnit); // 0x00623C20
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
-int __stdcall sub_0062A4E0_TestItem(D2UnitStrc* pItem); // 0x0062A4E0
+int __stdcall ITEMS_CanBeEquipped(D2UnitStrc* pItem); // 0x0062A4E0
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
-D2SkillStrc* __fastcall SKILLS_GetSkill(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x006439B0
-int __stdcall sub_00643B00(D2SkillStrc* pSkill, int* pArg2, int* pArg3, int* pSkillLevel, int* pCharges); // 0x00643B00
+D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x006439B0
+int __stdcall SKILLS_GetSkillInfo(D2SkillStrc* pSkill, int* pArg2, int* pArg3, int* pSkillLevel, int* pCharges); // 0x00643B00
 int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine); // 0x00643CE0
 int __stdcall SKILLS_GetSkillModeFromUnit(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x00643860
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus); // 0x006442A0
@@ -169,7 +169,7 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc* pDynamicPath); // 0x00648A00
 int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pDynamicPath); // 0x00648A10
-int __fastcall UNITS_GetXPosition(D2UnitStrc*); // 0x0045ADF0
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc*); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc*); // 0x0045AE20
 D2UnitStrc* __fastcall sub_004CDC30(D2UnitStrc*,int,int,int,int,int,int,int,int); // 0x004CDC30
 D2UnitStrc* __fastcall sub_004C57B0_FireMissileAtTarget(int,D2UnitStrc*,int,int,int,int,int,int); // 0x004C57B0
@@ -177,7 +177,7 @@ void* __stdcall D2Common_10958(D2UnitStrc*,void*); // 0x00643A00
 void __fastcall sub_004743D0_ReleaseOverlayResource(void*); // 0x004743D0
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc*,unsigned int,int,int); // 0x00646CA0
 unsigned int __cdecl sub_0044DA90_GetTick(); // 0x0044DA90
-void __fastcall sub_0044CE40_SetSkillDelay(int); // 0x0044CE40
+void __fastcall sub_0044CE40(int); // 0x0044CE40
 
 typedef int (__fastcall* CLIENTSKILLDOFN)(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);
 extern CLIENTSKILLDOFN gpfnClientSkillDoFuncs_00727BA8[]; // 0x00727BA8
@@ -234,7 +234,7 @@ static __forceinline void SKILLCLT_SetCastState(D2UnitStrc* pUnit)
 {
     if (pUnit && (pUnit->dwUnitType == 0 || pUnit->dwUnitType == 1))
     {
-        sub_00480E70_SetState(pUnit, 1);
+        sub_00480E70_SetUnitMode(pUnit, 1);
     }
 }
 
@@ -242,7 +242,7 @@ static __forceinline void SKILLCLT_SetCastState(D2UnitStrc* pUnit)
 static __declspec(noinline) int sub_004C5710_GetAttackMode(D2UnitStrc* pUnit)
 {
     int nMode = 7;
-    D2UnitStrc* pTarget = sub_004648F0_GetTargetUnit(pUnit);
+    D2UnitStrc* pTarget = sub_004648F0_GetPathTargetUnit(pUnit);
     int bRandom = 1;
     if (pTarget && pTarget->dwUnitType == 1)
     {
@@ -287,7 +287,7 @@ static __declspec(noinline) int sub_004C5710_GetAttackMode(D2UnitStrc* pUnit)
 // 0x004C58A0
 static __declspec(noinline) int sub_004C58A0_CheckTarget(D2UnitStrc* pUnit, int nSkillId)
 {
-    D2UnitStrc* pTarget = sub_004648F0_GetTargetUnit(pUnit);
+    D2UnitStrc* pTarget = sub_004648F0_GetPathTargetUnit(pUnit);
     if (!pTarget)
     {
         return 1;
@@ -368,12 +368,12 @@ static __declspec(noinline) int __stdcall sub_004C6140_StartSkill(int nOwnerGUID
     D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
     if (!pSkill || SKILLS_GetSkillIdFromSkill(pSkill, ".\\SKILLS\\Skills.cpp", 0x504) != nSkillId)
     {
-        pSkill = SKILLS_GetSkill(pUnit, nSkillId, nOwnerGUID);
+        pSkill = SKILLS_GetSkillById(pUnit, nSkillId, nOwnerGUID);
         if (!pSkill)
         {
             SKILLS_AddSkill(pUnit, nSkillId);
-            pSkill = SKILLS_GetSkill(pUnit, nSkillId, nOwnerGUID);
-            if (pSkill && pUnit == sub_00463DD0() && nOwnerGUID == -1)
+            pSkill = SKILLS_GetSkillById(pUnit, nSkillId, nOwnerGUID);
+            if (pSkill && pUnit == sub_00463DD0_GetPlayerUnit() && nOwnerGUID == -1)
             {
                 SKILLS_SetFlags(pSkill, 8);
             }
@@ -403,13 +403,13 @@ static __declspec(noinline) int __stdcall sub_004C6140_StartSkill(int nOwnerGUID
         int nItemOwnerGUID;
         int nItemSkillId;
         int nCharges;
-        if (!sub_00643B00(pSkill, &nItemOwnerGUID, &nItemSkillId, &nSkillLevel, &nCharges) || !nCharges)
+        if (!SKILLS_GetSkillInfo(pSkill, &nItemOwnerGUID, &nItemSkillId, &nSkillLevel, &nCharges) || !nCharges)
         {
             return 0;
         }
     }
 
-    if (pUnit != sub_00463DD0())
+    if (pUnit != sub_00463DD0_GetPlayerUnit())
     {
         const int nMaxLevel = sub_004AA8B0_GetSkillMaxLevel(nSkillId);
         if (nSkillLevel > nMaxLevel)
@@ -427,7 +427,7 @@ static __declspec(noinline) int __stdcall sub_004C6140_StartSkill(int nOwnerGUID
         nSkillLevel = SKILLS_GetSkillLevel(pUnit, pSkill, 1);
     }
 
-    D2UnitStrc* pTarget = sub_004648F0_GetTargetUnit(pUnit);
+    D2UnitStrc* pTarget = sub_004648F0_GetPathTargetUnit(pUnit);
     if (pTarget && !BITARRAY_CHECK(pSkillsTxtRecord->nFlags, 26) && sub_00464F70_IsTargetBlocked(pUnit, pTarget))
     {
         return 0;
@@ -438,7 +438,7 @@ static __declspec(noinline) int __stdcall sub_004C6140_StartSkill(int nOwnerGUID
         UNITS_SetUsedSkill(pUnit, NULL);
         int aArgs[7] = {};
         sub_00480C10_UnitEvent(7, pUnit, aArgs, 0);
-        if (pUnit == sub_00463DD0())
+        if (pUnit == sub_00463DD0_GetPlayerUnit())
         {
             sub_004CB9C0_Request(pUnit, 0x18);
         }
@@ -457,7 +457,7 @@ static __declspec(noinline) int __stdcall sub_004C6140_StartSkill(int nOwnerGUID
 
     if (nMode)
     {
-        sub_00480E70_SetState(pUnit, nMode);
+        sub_00480E70_SetUnitMode(pUnit, nMode);
     }
     else if (!STATES_CheckState(pUnit, 12) || !BITARRAY_CHECK(pSkillsTxtRecord->nFlags, 11))
     {
@@ -491,7 +491,7 @@ static __declspec(noinline) int __stdcall sub_004C6140_StartSkill(int nOwnerGUID
     {
         if (BITARRAY_CHECK(pSkillsTxtRecord->nFlags, 13))
         {
-            const int nDirection = sub_00623C20(pUnit);
+            const int nDirection = UNITS_GetHitClass(pUnit);
             sub_004CA500_GetAnimRate(pUnit, nDirection);
             const int nDelay = sub_004CA500_GetAnimRate(pUnit, nDirection) - 3;
             sub_004B9A00(nSound, pUnit, nDelay, 0, 0);
@@ -504,10 +504,10 @@ static __declspec(noinline) int __stdcall sub_004C6140_StartSkill(int nOwnerGUID
 
     if (BITARRAY_CHECK(pSkillsTxtRecord->nFlags, 14))
     {
-        const int nSoundId = sub_004CA4C0(pUnit, sub_00623C20(pUnit));
+        const int nSoundId = sub_004CA4C0(pUnit, UNITS_GetHitClass(pUnit));
         if (nSoundId)
         {
-            const int nDirection = sub_00623C20(pUnit);
+            const int nDirection = UNITS_GetHitClass(pUnit);
             sub_004CA500_GetAnimRate(pUnit, nDirection);
             const int nRate = sub_004CA500_GetAnimRate(pUnit, nDirection);
             sub_004B9A00(nSoundId, pUnit, nRate, 0, 0);
@@ -520,7 +520,7 @@ static __declspec(noinline) int __stdcall sub_004C6140_StartSkill(int nOwnerGUID
     {
         if (BITARRAY_CHECK(pSkillsTxtRecord->nFlags, 13))
         {
-            const int nDirection = sub_00623C20(pUnit);
+            const int nDirection = UNITS_GetHitClass(pUnit);
             sub_004CA500_GetAnimRate(pUnit, nDirection);
             const int nDelay = sub_004CA500_GetAnimRate(pUnit, nDirection) - 3;
             sub_004B9A00(nClassSound, pUnit, nDelay, 0, 0);
@@ -568,25 +568,25 @@ static __declspec(noinline) void __stdcall sub_004C6DE0_SwapDualWieldSkill(D2Cli
 
     D2InventoryStrc* pInventory = pUnit->pInventory;
     D2UnitStrc* pRightHand = INVENTORY_GetItemFromBodyLoc(pInventory, 4);
-    if (pRightHand && (!sub_0062A4E0_TestItem(pRightHand) || ITEMS_GetItemType(pRightHand) == 0x26))
+    if (pRightHand && (!ITEMS_CanBeEquipped(pRightHand) || ITEMS_GetItemType(pRightHand) == 0x26))
     {
         pRightHand = NULL;
     }
 
     D2UnitStrc* pLeftHand = INVENTORY_GetItemFromBodyLoc(pInventory, 5);
-    if (pLeftHand && (!sub_0062A4E0_TestItem(pLeftHand) || ITEMS_GetItemType(pLeftHand) == 0x26))
+    if (pLeftHand && (!ITEMS_CanBeEquipped(pLeftHand) || ITEMS_GetItemType(pLeftHand) == 0x26))
     {
         pLeftHand = NULL;
     }
 
     if (ITEMSIsA(pRightHand, 0x2D) && ITEMSIsA(pLeftHand, 0x2D))
     {
-        D2SkillStrc* pSkill = SKILLS_GetSkill(pUnit, 0, -1);
+        D2SkillStrc* pSkill = SKILLS_GetSkillById(pUnit, 0, -1);
         if (!SKILLS_GetParam4(pSkill))
         {
             pArgs->nSkillId = 5;
             SKILLS_SetParam4(pSkill, 5);
-            pSkill = SKILLS_GetSkill(pUnit, 5, -1);
+            pSkill = SKILLS_GetSkillById(pUnit, 5, -1);
         }
         else
         {
@@ -701,7 +701,7 @@ void __fastcall sub_004C51E0_GetAdjacentPosition(D2UnitStrc* pUnit, int* pX, int
 int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY)
 {
     int nY;
-    D2UnitStrc* pTarget = sub_004648F0_GetTargetUnit(pUnit);
+    D2UnitStrc* pTarget = sub_004648F0_GetPathTargetUnit(pUnit);
     if (pTarget)
     {
         int nX;
@@ -777,7 +777,7 @@ int __fastcall sub_004C6680_SkillDo(D2UnitStrc* unit,int skillId,int skillLevel,
    sub_004C52E0_GetTargetPosition(unit,&x,&y);
    if(x && y){
     targetX=x;targetY=y;
-    x-=UNITS_GetXPosition(unit);
+    x-=CLIENTS_GetUnitX(unit);
     y-=CLIENTS_GetUnitY(unit);
     targetX+=x;targetY+=y;
    }
@@ -802,18 +802,18 @@ int __fastcall sub_004C6680_SkillDo(D2UnitStrc* unit,int skillId,int skillLevel,
  if(!result)return 0;
  if(skill->sound>0)sub_004B9A00(skill->sound,unit,0,0,0);
  if(skill->targetSound>0){
-  D2UnitStrc* target=sub_004648F0_GetTargetUnit(unit);
+  D2UnitStrc* target=sub_004648F0_GetPathTargetUnit(unit);
   if(target)sub_004B9A00(skill->targetSound,target,0,0,0);
  }
  if(skill->targetOverlay>0){
-  D2UnitStrc* target=sub_004648F0_GetTargetUnit(unit);
+  D2UnitStrc* target=sub_004648F0_GetPathTargetUnit(unit);
   if(target)sub_00470390(target,skill->targetOverlay,2,0,0,0,0,0);
  }
  int delay=SKILLS_EvaluateSkillFormula(unit,skill->delay,skillId,skillLevel);
- if(delay>0 && sub_00463DD0()==unit){
+ if(delay>0 && sub_00463DD0_GetPlayerUnit()==unit){
   if(delay>12)delay=12;
   if(skill->animation!=18 || !(unit->frame & 0xffffff00))
-   sub_0044CE40_SetSkillDelay(sub_0044DA90_GetTick()+delay);
+   sub_0044CE40(sub_0044DA90_GetTick()+delay);
  }
  return 1;
 }
@@ -868,7 +868,7 @@ void __fastcall sub_004C6AC0_DoSkill(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int
     int nTargetX;
     int nTargetY;
     const int bHasTargetPos = sub_004C52E0_GetTargetPosition(pUnit, &nTargetX, &nTargetY);
-    D2UnitStrc* pOldTarget = sub_004648F0_GetTargetUnit(pUnit);
+    D2UnitStrc* pOldTarget = sub_004648F0_GetPathTargetUnit(pUnit);
 
     if (pTarget)
     {
@@ -931,7 +931,7 @@ void __fastcall sub_004C6AC0_DoSkill(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int
 
                 if (pSkillsTxtRecord->wTgtSound > 0)
                 {
-                    D2UnitStrc* pCurrentTarget = sub_004648F0_GetTargetUnit(pUnit);
+                    D2UnitStrc* pCurrentTarget = sub_004648F0_GetPathTargetUnit(pUnit);
                     if (pCurrentTarget)
                     {
                         sub_004B9A00(pSkillsTxtRecord->wTgtSound, pCurrentTarget, 0, 0, 0);
@@ -940,7 +940,7 @@ void __fastcall sub_004C6AC0_DoSkill(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int
 
                 if (pSkillsTxtRecord->wTgtOverlay > 0)
                 {
-                    D2UnitStrc* pCurrentTarget = sub_004648F0_GetTargetUnit(pUnit);
+                    D2UnitStrc* pCurrentTarget = sub_004648F0_GetPathTargetUnit(pUnit);
                     if (pCurrentTarget)
                     {
                         sub_00470390(pCurrentTarget, pSkillsTxtRecord->wTgtOverlay, 2, 0, 0, 0, 0, 0);

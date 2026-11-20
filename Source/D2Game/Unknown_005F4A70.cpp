@@ -45,7 +45,7 @@ int __fastcall AITACTICS_ChangeModeAndTargetUnit(D2GameStrc* pGame, D2UnitStrc* 
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames);            // 0x005DE080
 int __fastcall AITACTICS_UseSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nMode, int nSkillId, D2UnitStrc* pTarget, int nX, int nY); // 0x005DEAD0
 int __fastcall AITACTICS_WalkToTargetUnitWithFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit, unsigned char nFlag); // 0x005DEC80
-int __fastcall D2GAME_AICORE_Escape_6FCD0560(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance, int bDeleteAiEventCallback); // 0x005DEFE0
+int __fastcall sub_005DEFE0_Escape(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance, int bDeleteAiEventCallback); // 0x005DEFE0
 int __stdcall UNITS_GetCurrentLifePercentage(D2UnitStrc* pUnit);                                            // 0x00621F20
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndFlag(D2UnitStrc* pUnit, int nFlag);                // 0x00625760
 int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit);                                               // 0x00625D10
@@ -107,7 +107,7 @@ void __fastcall sub_005F4A70_Think(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTic
             nVelocity = nVelocity <= 0 ? 0 : nVelocity;
             nVelocity = nVelocity >= 120 ? 120 : nVelocity;
             AITACTICS_SetVelocity(pUnit, 0, nVelocity, 0);
-            if (D2GAME_AICORE_Escape_6FCD0560(pGame, pUnit, pTarget, 8, 1)) return;
+            if (sub_005DEFE0_Escape(pGame, pUnit, pTarget, 8, 1)) return;
         }
         if (nDistance < AI_PARAM(pGame, pStats, 2) && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pStats, 1)) {
             if (bSkill1 && pAi->dwAiParam[2] <= 0 && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pStats, 3)) {
@@ -129,7 +129,7 @@ void __fastcall sub_005F4A70_Think(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTic
     }
     if (nLife < 33) {
         pAi->dwAiParam[0] = 2;
-        if (D2GAME_AICORE_Escape_6FCD0560(pGame, pUnit, pTarget, 8, 0)) return;
+        if (sub_005DEFE0_Escape(pGame, pUnit, pTarget, 8, 0)) return;
     }
     if (bCombat) {
         pAi->dwAiParam[0] = 1;
@@ -165,7 +165,7 @@ void __fastcall sub_005F4A70_Think(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTic
         }
         if (nDistance > 20) { AITACTICS_WalkToTargetUnitWithFlags(pGame, pUnit, pTarget, 7); return; }
         if (nDistance < 9 && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < 50) {
-            D2GAME_AICORE_Escape_6FCD0560(pGame, pUnit, pTarget, 8, 0);
+            sub_005DEFE0_Escape(pGame, pUnit, pTarget, 8, 0);
             return;
         }
         if ((int)SEED_RollLimitedRandomNumber(pSeed, 100) < 50) sub_6FCD0E80(pGame, pUnit, pTarget, 4, 0);

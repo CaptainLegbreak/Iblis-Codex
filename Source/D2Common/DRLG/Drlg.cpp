@@ -297,7 +297,7 @@ struct D2DrlgVertexStrc
 
 int __fastcall DRLGOUTDOORS_GetOutLinkVisFlag(D2DrlgLevelStrc* pLevel, D2DrlgVertexStrc* pDrlgVertex); // 0x00674040
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pDrlgGrid, int nX, int nY); // 0x0067C570
-void __fastcall sub_0067C760_AlterVertexGridFlags(D2DrlgGridStrc* pDrlgGrid, D2DrlgVertexStrc* pDrlgVertex, int nFlag, int nOperation, int bAlterNextVertex); // 0x0067C760
+void __fastcall sub_0067C760(D2DrlgGridStrc* pDrlgGrid, D2DrlgVertexStrc* pDrlgVertex, int nFlag, int nOperation, int bAlterNextVertex); // 0x0067C760
 
 struct D2UnkDrlgRoomTileStrc
 {
@@ -813,8 +813,8 @@ void __fastcall DRLGOUTPLACE_SetOutGridLinkFlags(D2DrlgLevelStrc* pLevel)
         {
             int nVisFlag = DRLGOUTDOORS_GetOutLinkVisFlag(pLevel, pVertex);
             int nPacked = 2 * (pVertex->nDirection != 0) + 1;
-            sub_0067C760_AlterVertexGridFlags(&pOutdoors->pGrid[1], pVertex, nVisFlag, 0, 1);
-            sub_0067C760_AlterVertexGridFlags(&pOutdoors->pGrid[2], pVertex, nPacked, 0, 1);
+            sub_0067C760(&pOutdoors->pGrid[1], pVertex, nVisFlag, 0, 1);
+            sub_0067C760(&pOutdoors->pGrid[2], pVertex, nPacked, 0, 1);
         }
         pVertex = pNext;
         pNext = pVertex->pNext;

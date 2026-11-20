@@ -70,7 +70,7 @@ extern void* gpGlobal_007A0634; // 0x007A0634
 extern int gnGlobal_0071146C; // 0x0071146C
 unsigned char __stdcall sub_0061C0E0(void* pAct); // 0x0061C0E0
 void __stdcall sub_0061C0B0(void* pAct, unsigned char* pR, unsigned char* pG, unsigned char* pB); // 0x0061C0B0
-void __fastcall sub_00475AA0(int nX, int nY, unsigned char* pB0, unsigned char* pB1, unsigned char* pB2, unsigned char* pB3); // 0x00475AA0
+void __fastcall sub_00475AA0_ReadGridCell(int nX, int nY, unsigned char* pB0, unsigned char* pB1, unsigned char* pB2, unsigned char* pB3); // 0x00475AA0
 int __stdcall sub_00477730(); // 0x00477730
 void __stdcall sub_004DE070(D2GridCellStrc* pCells, int nX, int nY, int nSubX, int nSubY, int nZ, int nMode, int bCorners); // 0x004DE070
 void __stdcall sub_004DE260(D2GridCellStrc* pCells, int nSubX, int nSubY, int nZ, int nMode, int bCorners); // 0x004DE260
@@ -159,7 +159,7 @@ static void __stdcall sub_004DDEF0_BuildLargeGrid(int nX, int nY, int bFlat, D2G
     {
         for (int i = 0; i < 8; ++i)
         {
-            sub_00475AA0(8 * (nX + i - 1), 8 * (nY + j - 1), &pCells->nB0, &pCells->nB1, &pCells->nB2, &pCells->nB3);
+            sub_00475AA0_ReadGridCell(8 * (nX + i - 1), 8 * (nY + j - 1), &pCells->nB0, &pCells->nB1, &pCells->nB2, &pCells->nB3);
             ++pCells;
         }
     }

@@ -41,7 +41,7 @@ void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit
 void __fastcall AITACTICS_SetVelocity(D2UnitStrc* pUnit, int a2, int nVel, unsigned char a4);             // 0x005DE190
 int __fastcall AITACTICS_WalkCloseToUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nMaxDistance); // 0x005DE200
 int __fastcall sub_6FCD0410(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nFlags); // 0x005DED40
-int __fastcall D2GAME_AICORE_Escape_6FCD0560(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance, int bDeleteAiEventCallback); // 0x005DEFE0
+int __fastcall sub_005DEFE0_Escape(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance, int bDeleteAiEventCallback); // 0x005DEFE0
 int __fastcall sub_005DF7D0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int a4, int bDeleteAiEventCallback);
 int __stdcall UNITS_GetCurrentLifePercentage(D2UnitStrc* pUnit);                                           // 0x00621F20
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer);            // 0x00625480
@@ -134,7 +134,7 @@ zero_vel:
 
         AITACTICS_SetVelocity(pUnit, 2, nVel, 0);
 
-        if (!D2GAME_AICORE_Escape_6FCD0560(pGame, pUnit, pTarget, 15, 1))
+        if (!sub_005DEFE0_Escape(pGame, pUnit, pTarget, 15, 1))
         {
             if (bCombat)
             {
@@ -177,7 +177,7 @@ zero_vel:
             }
 
             AITACTICS_SetVelocity(pUnit, 2, nVel, 0);
-            D2GAME_AICORE_Escape_6FCD0560(pGame, pUnit, pTarget, 15, 0);
+            sub_005DEFE0_Escape(pGame, pUnit, pTarget, 15, 0);
             return;
         }
 

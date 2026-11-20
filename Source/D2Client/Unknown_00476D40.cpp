@@ -2,11 +2,11 @@
 
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
-D2UnitStrc* __cdecl sub_00463DD0();                                                               // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 int __fastcall sub_00472280(D2SeedStrc* pSeed, int nOffset, int nRange);                                 // 0x00472280
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4);                   // 0x004B9A00
 int __fastcall sub_004B9B20(int nHandle);                                                                   // 0x004B9B20
-void __fastcall sub_004B9B50_SetHintValue(int nKey, int nValue);                                            // 0x004B9B50
+void __fastcall sub_004B9B50_SetValue(int nKey, int nValue);                                            // 0x004B9B50
 void __fastcall sub_004BA840(int nHandle);                                                                  // 0x004BA840
 
 static int gnGlobal_007B8D10;                                                                               // 0x007B8D10
@@ -35,7 +35,7 @@ static void sub_004769D0_UpdateShakeSound(int nIntensity)
         {
             return;
         }
-        sub_004B9B50_SetHintValue(gnGlobal_007B8D2C, 0);
+        sub_004B9B50_SetValue(gnGlobal_007B8D2C, 0);
     }
 
     if (!gnGlobal_007B8D2C)
@@ -69,7 +69,7 @@ static void sub_004769D0_UpdateShakeSound(int nIntensity)
 
     if (nNew)
     {
-        sub_004B9B50_SetHintValue(gnGlobal_007B8D2C, nNew);
+        sub_004B9B50_SetValue(gnGlobal_007B8D2C, nNew);
         return;
     }
 
@@ -113,7 +113,7 @@ void __fastcall sub_00476D40_AdjustViewPos(int* pX, int* pY)
 
     if (nMagnitude)
     {
-        D2SeedStrc* pSeed = &sub_00463DD0()->pSeed;
+        D2SeedStrc* pSeed = &sub_00463DD0_GetPlayerUnit()->pSeed;
         gnGlobal_007B9538 = sub_00472280(pSeed, -nMagnitude, 2 * nMagnitude);
         const int nOffsetY = sub_00472280(pSeed, -nMagnitude, 2 * nMagnitude);
         *pX += gnGlobal_007B9538;

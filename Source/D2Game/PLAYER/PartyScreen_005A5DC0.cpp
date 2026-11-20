@@ -26,7 +26,7 @@ unsigned int __fastcall PLAYERLIST_GetHostileDelay(D2UnitStrc* pPlayer1, D2UnitS
 void __fastcall PLAYERLIST_SetHostileDelay(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, unsigned int dwDelay); // 0x0055B720
 void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc* pUpdateUnit);             // 0x00553380
 void __fastcall PLRTRADE_SendEventPacketToPlayer(D2UnitStrc* pPlayer, unsigned char nType, char* szSource); // 0x00566D90
-void __fastcall sub_00535430(D2GameStrc* pGame, D2UnitStrc* pPlayer);                                       // 0x00535430
+void __fastcall PLAYER_RemoveTownPortal(D2GameStrc* pGame, D2UnitStrc* pPlayer);                                       // 0x00535430
 void __fastcall PARTYSCREEN_PlayerLeftParty(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, int nParam, int* pFailure); // 0x005A5D20
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
 
@@ -84,7 +84,7 @@ void __fastcall PARTYSCREEN_ToggleHostile(D2GameStrc* pGame, D2UnitStrc* pPlayer
 
         PLAYERLIST_SetHostileDelay(pPlayer1, pPlayer2, GetTickCount() + 60000);
         sub_005A5DC0(pGame, pPlayer1, pPlayer2);
-        sub_00535430(pGame, pPlayer1);
+        PLAYER_RemoveTownPortal(pGame, pPlayer1);
 
         short nPartyId = SUNIT_GetPartyId(pPlayer1);
         if (nPartyId != -1 && nPartyId == SUNIT_GetPartyId(pPlayer2))

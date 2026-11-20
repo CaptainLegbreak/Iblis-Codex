@@ -153,7 +153,7 @@ struct Level { char pad0[0x1B4]; Drlg* drlg; };
 struct Room { char pad0[0x54]; T0066E090* grid; Level* level; };
 
 void __fastcall sub_0040B480(void*,void*,const char*,int,int); // 0x0040B480
-void* __fastcall sub_0040B4B0(void*,void*,int,const char*,int,int); // 0x0040B4B0
+void* __fastcall FOG_ReallocPool(void*,void*,int,const char*,int,int); // 0x0040B4B0
 
 struct D2DrlgTileLinkStrc
 {
@@ -211,8 +211,8 @@ void __fastcall DRLGPRESET_FreeDrlgGridsFromPresetRoom(D2DrlgRoomStrc* pDrlgRoom
 void __fastcall DRLGPRESET_AddPresetRoomMapTiles(D2DrlgRoomStrc* pDrlgRoom); // 0x00666AC0
 void __fastcall DRLGLOGIC_FreeDrlgCoordList(D2DrlgRoomStrc* pDrlgRoom); // 0x0066C6E0
 D2DrlgTileDataStrc* __fastcall DRLGROOMTILE_InitShadowTileData(D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileDataStrc** ppTileData, int nX, int nY, unsigned int nPackedTileInformation, D2TileLibraryEntryStrc* pTileLibraryEntry); // 0x0066DF40
-void __fastcall DRLGOUTROOM_FreeDrlgOutdoorRoomData(D2DrlgRoomStrc* pDrlgRoom); // 0x0067D680
-void __fastcall DRLGOUTROOM_InitializeDrlgOutdoorRoom(D2DrlgRoomStrc* pDrlgRoom); // 0x0067D710
+void __fastcall sub_0067D680(D2DrlgRoomStrc* pDrlgRoom); // 0x0067D680
+void __fastcall sub_0067D710(D2DrlgRoomStrc* pDrlgRoom); // 0x0067D710
 
 static void sub_0066F180_ResetRoomTiles(D2DrlgRoomStrc* pDrlgRoom);
 
@@ -487,7 +487,7 @@ void __fastcall sub_0066E090(Room* room)
     }
     if(grid->capacity>grid->count)
     {
-        grid->tiles=(Tile*)sub_0040B4B0(pool,grid->tiles,grid->count*sizeof(Tile),".\\DRLG\\RoomTile.cpp",0x25F,0);
+        grid->tiles=(Tile*)FOG_ReallocPool(pool,grid->tiles,grid->count*sizeof(Tile),".\\DRLG\\RoomTile.cpp",0x25F,0);
         int i;
         const int& nCount=grid->count;
         for(i=0;i<nCount-1;++i) grid->tiles[i].next=&grid->tiles[i+1];
@@ -579,7 +579,7 @@ void __fastcall DRLGROOMTILE_AddRoomMapTiles(D2DrlgRoomStrc* pDrlgRoom)
     switch (pDrlgRoom->nType)
     {
     case 1:
-        DRLGOUTROOM_InitializeDrlgOutdoorRoom(pDrlgRoom);
+        sub_0067D710(pDrlgRoom);
         break;
 
     case 2:
@@ -631,7 +631,7 @@ void __fastcall DRLGROOMTILE_ReallocRoofTileGrid(void* pMemPool, D2DrlgTileGridS
     if (nAdditionalRoofs)
     {
         D2DrlgRoomTilesStrc* pRoomTiles = &pTileGrid->pTiles;
-        pRoomTiles->pRoofTiles = (D2DrlgTileDataStrc*)sub_0040B4B0(pMemPool, pRoomTiles->pRoofTiles, sizeof(D2DrlgTileDataStrc) * (nAdditionalRoofs + pRoomTiles->nRoofs), ".\\DRLG\\RoomTile.cpp", 1377, 0);
+        pRoomTiles->pRoofTiles = (D2DrlgTileDataStrc*)FOG_ReallocPool(pMemPool, pRoomTiles->pRoofTiles, sizeof(D2DrlgTileDataStrc) * (nAdditionalRoofs + pRoomTiles->nRoofs), ".\\DRLG\\RoomTile.cpp", 1377, 0);
 
         int nCounter = 0;
         while (nCounter < pTileGrid->nShadows - 1)
@@ -742,7 +742,7 @@ void __fastcall DRLGROOMTILE_FreeRoom(D2DrlgRoomStrc* pDrlgRoom, int bKeepRoom)
         switch (pDrlgRoom->nType)
         {
         case 1:
-            DRLGOUTROOM_FreeDrlgOutdoorRoomData(pDrlgRoom);
+            sub_0067D680(pDrlgRoom);
             break;
 
         case 2:

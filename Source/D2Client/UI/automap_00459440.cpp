@@ -45,7 +45,7 @@ struct D2CropRectStrc
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize);                                     // 0x00681EF0
 int __cdecl sub_0045AE90();                                                                                 // 0x0045AE90
 static int __cdecl sub_004576C0();                                                                          // 0x004576C0
-D2UnitStrc* __cdecl sub_00463DD0();                                                               // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 int __cdecl sub_00492C10();                                                                                 // 0x00492C10
 void __stdcall TEXTURE_CelDrawClipped(D2GfxDataStrc* pData, int nXPos, int nYPos, D2CropRectStrc* pCropRect, int eDrawMode); // 0x004F6510
 
@@ -148,7 +148,7 @@ void __fastcall sub_00459440(D2AutomapCellStrc* pCell, D2AutomapDrawStrc* pInfo)
             nDrawMode = 1;
             break;
         case 3:
-            switch (sub_00463DD0()->nAct)
+            switch (sub_00463DD0_GetPlayerUnit()->nAct)
             {
             case 0:
             case 2:

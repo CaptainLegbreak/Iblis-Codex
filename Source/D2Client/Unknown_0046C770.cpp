@@ -15,8 +15,8 @@ struct D2MonCommandStrc
     int unk0x18;
 };
 
-D2UnitStrc* __cdecl sub_00463DD0();                                                               // 0x00463DD0
-D2UnitStrc* __cdecl sub_00463DE0_GetStoredUnit();                                                           // 0x00463DE0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit();                                                           // 0x00463DE0
 int* __fastcall sub_004AE170(D2UnitStrc* pUnit);                                                 // 0x004AE170
 void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2MonCommandStrc* pTarget);    // 0x004AFF60
 int __fastcall sub_00457490_CheckMonStatsFlag(int nMonsterId, int nFlag);                                   // 0x00457490
@@ -335,7 +335,7 @@ static void sub_0046CE40_AiType3(D2UnitStrc* pUnit)
         int* pState = sub_004AE170(pUnit);
         if (pState)
         {
-            D2UnitStrc* pPlayer = sub_00463DD0();
+            D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
             const int nDistance = sub_006416D0_UnitEdgeDistance(pUnit, pPlayer);
             if (*pState && nDistance > 25)
             {
@@ -556,7 +556,7 @@ static void sub_0046D310_AiType7(D2UnitStrc* pUnit)
 
 static void sub_0046D450_AiType8(D2UnitStrc* pUnit)
 {
-    if (!sub_00463DE0_GetStoredUnit())
+    if (!sub_00463DE0_GetPlayerUnit())
     {
         AI_SetTimer_Inline(pUnit, 5);
         return;
@@ -652,7 +652,7 @@ void __fastcall sub_0046D780(D2UnitStrc* pUnit)
     D2UnitStrc* pTarget = sub_0046C720_FindNearestTarget(pUnit, &nDistance);
     if (!pTarget)
     {
-        pTarget = sub_00463DD0();
+        pTarget = sub_00463DD0_GetPlayerUnit();
         if (!pTarget)
         {
             AI_SetTimer_Inline(pUnit, 25);

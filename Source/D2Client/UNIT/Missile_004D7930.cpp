@@ -126,7 +126,7 @@ struct D2StormPhaseStrc { int nFrameLimit,nPeriod,bSpawn; };
 extern D2StormPhaseStrc gtStormPhase_006DB908[5]; // 0x006DB908
 int __stdcall MISSILE_GetCurrentFrame(D2UnitStrc*); // 0x0064A380
 int __stdcall MISSILE_GetTargetY(D2UnitStrc*); // 0x0064A780
-D2UnitStrc* __stdcall UNITFINDS_FindUnitInNeighboredRooms(D2ActiveRoomStrc*,int,int); // 0x0065A620
+D2UnitStrc* __stdcall sub_0065A620_FindUnitInAdjacentRooms(D2ActiveRoomStrc*,int,int); // 0x0065A620
 // 0x004D7930
 void __fastcall sub_004D7930_CltDoBaalStormMissile(D2UnitStrc* pMissile)
 {
@@ -194,7 +194,7 @@ void __fastcall sub_004D7930_CltDoBaalStormMissile(D2UnitStrc* pMissile)
     }
     if(MISSILE_GetTargetY(pMissile))
     {
-        D2UnitStrc* pTarget=UNITFINDS_FindUnitInNeighboredRooms(UNITS_GetRoom(pMissile),1,521);
+        D2UnitStrc* pTarget=sub_0065A620_FindUnitInAdjacentRooms(UNITS_GetRoom(pMissile),1,521);
         if(pTarget)
         {
             const unsigned __int64 lSeed1=(unsigned __int64)pMissile->pSeed.nHighSeed+(unsigned __int64)pMissile->pSeed.nLowSeed*0x6AC690C5;

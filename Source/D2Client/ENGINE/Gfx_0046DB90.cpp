@@ -135,8 +135,8 @@ extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* 
 unsigned int __stdcall SStrHash(const char* szString, unsigned int nFlags, unsigned int nSeed); // 0x00413CE0
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
-void* __stdcall sub_004FAC80(); // 0x004FAC80
-void* __fastcall sub_00517079_LoadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
+void* __stdcall D2Win_GetArchive(); // 0x004FAC80
+void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
 D2GfxDataStrc* __fastcall sub_00463E10_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 int __fastcall sub_0046E570_GetNodeValue(D2UnitStrc* pUnit, int nMode); // 0x0046E570
@@ -144,7 +144,7 @@ void* __fastcall sub_0046E5A0_FindGfxNode(D2UnitStrc* pUnit, int nWeaponClassId,
 void __fastcall sub_0046EC80_FreeGfxNodes(D2UnitStrc* pUnit); // 0x0046EC80
 void __fastcall sub_0046F020_FillGfxEntries(D2UnitStrc* pUnit, unsigned char nValue); // 0x0046F020
 int __fastcall sub_004DB180_IsGfxUnitType(D2UnitStrc* pUnit); // 0x004DB180
-unsigned char __fastcall sub_004DB1A0_GetGfxByte(D2UnitStrc* pUnit, int nIndex); // 0x004DB1A0
+unsigned char __fastcall sub_004DB1A0(D2UnitStrc* pUnit, int nIndex); // 0x004DB1A0
 D2GfxLayerHeaderStrc* __fastcall sub_004DB040_GetLayerHeader(void* pGfx); // 0x004DB040
 int __fastcall sub_004DBCF0_FillMonsterCelContextEx(D2CelContextStrc* pContext, int nA, int nB, int nLayer, int nMode, unsigned int dwCode, D2HashedFileEntryStrc* pEntry, D2MonCofInfoStrc* pInfo, D2MonStatsTxt* pMonStats, int nIndex); // 0x004DBCF0
 int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3); // 0x006001F0
@@ -190,7 +190,7 @@ int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInv
 void* __fastcall sub_0046FA80_LoadGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nArg); // 0x0046FA80
 void __fastcall sub_004DB2E0_GetLayerInfo(D2UnitStrc* pUnit, int nType, int nClass, int nMode, int* pDirection, int* pA, int* pB, int nArg, int nFlag); // 0x004DB2E0
 int __fastcall sub_004DBB50_GetItemCelContext(D2CelContextStrc* pContext, D2UnitStrc* pItem, int nArg3, int nArg4, int nArg5, int* pOut, unsigned char nArg7, int nArg8); // 0x004DBB50
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, int* pnNumRooms); // 0x00619790
 extern D2MonGfxCacheStrc gaPlayerGfxCache_007A7490[7]; // 0x007A7490
@@ -281,7 +281,7 @@ static D2HashedFileEntryStrc* __stdcall sub_0046DCC0_LoadHashedEntry(D2HashedFil
         memset(pEntry, 0, sizeof(D2HashedFileEntryStrc));
         pEntry->nFlags |= 1;
         strcpy(pEntry->szName, szName);
-        pEntry->pData = (unsigned char*)sub_00517079_LoadFile(sub_004FAC80(), szPath, (unsigned int*)&pEntry->nSize, ".\\ENGINE\\Gfx.cpp", 0xE0);
+        pEntry->pData = (unsigned char*)ARCHIVE_AllocateBufferAndReadFile(D2Win_GetArchive(), szPath, (unsigned int*)&pEntry->nSize, ".\\ENGINE\\Gfx.cpp", 0xE0);
         if (!pEntry->pData)
         {
             return 0;
@@ -435,7 +435,7 @@ static int sub_0046E8D0_LoadMonsterGfx(D2UnitStrc* pUnit, int nIndex)
     D2COMMON_11013_ConvertMode(pUnit, &nUnitType, &nClassId, &nMode, ".\\ENGINE\\Gfx.cpp", 0x464);
     if (sub_0046C140_CheckMonStats2ModeFlag(nClassId, nIndex))
     {
-        if (sub_004DB1A0_GetGfxByte(pUnit, nIndex))
+        if (sub_004DB1A0(pUnit, nIndex))
         {
             return 0;
         }
@@ -468,7 +468,7 @@ static int sub_0046E980_LoadObjectGfx(D2UnitStrc* pUnit, int nIndex)
     D2_ASSERT(pObjectsTxtRecord, 0x4C2);
     if (pObjectsTxtRecord->nModeEnabled[nIndex] == 1)
     {
-        if (sub_004DB1A0_GetGfxByte(pUnit, nIndex))
+        if (sub_004DB1A0(pUnit, nIndex))
         {
             return 0;
         }
@@ -785,7 +785,7 @@ static void __stdcall sub_0046DDF0_LoadHashedFile(D2HashedFileStrc* pTable, cons
     {
         return;
     }
-    pTable->pData = (unsigned char*)sub_00517079_LoadFile(sub_004FAC80(), szFile, &pTable->nSize, ".\\ENGINE\\Gfx.cpp", 267);
+    pTable->pData = (unsigned char*)ARCHIVE_AllocateBufferAndReadFile(D2Win_GetArchive(), szFile, &pTable->nSize, ".\\ENGINE\\Gfx.cpp", 267);
     D2_ASSERT(pTable->pData, 268);
     unsigned char* pCursor = pTable->pData;
     int nRemaining = pTable->nSize;
@@ -1041,7 +1041,7 @@ static void __stdcall sub_0046FF50_PreloadPlayerMode(int bAsync, D2UnitStrc* pUn
 // 0x00470070
 static void sub_00470070_PreloadRoomUnits(int bAsync)
 {
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(sub_00463DD0());
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(sub_00463DD0_GetPlayerUnit());
     if (!pRoom)
     {
         return;

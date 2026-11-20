@@ -23,9 +23,9 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 Unicode* __fastcall sub_00452170(Unicode* pText); // 0x00452170
 Unicode* __fastcall sub_004521C0_PrefixLevelText(Unicode* pText, int nDigit); // 0x004521C0
-void __fastcall sub_0048C060(D2UnitStrc* pItem, Unicode* pText, int nMaxLength); // 0x0048C060
-int __fastcall sub_004B2AD0(D2UnitStrc* pItem, int nArg, int* pOut, Unicode* pName, int nMaxLength); // 0x004B2AD0
-void __fastcall sub_00502280_SetPopUpText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
+void __fastcall sub_0048C060_BuildItemName(D2UnitStrc* pItem, Unicode* pText, int nMaxLength); // 0x0048C060
+int __fastcall sub_004B2AD0_GetTradeCostText(D2UnitStrc* pItem, int nArg, int* pOut, Unicode* pName, int nMaxLength); // 0x004B2AD0
+void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 void __fastcall D2Win_10131_GetTextDimensions(const Unicode* pText, int* pWidth, int* pHeight); // 0x00502520
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
@@ -75,7 +75,7 @@ static void __stdcall sub_0048CEA0_AppendItemSetName(const Unicode* pSource, Uni
     }
 
     int nSetIndex;
-    if (sub_004B2AD0(gdwGlobal_007BCBF4, gnGlobal_00721E38, &nSetIndex, wszName, 0x40))
+    if (sub_004B2AD0_GetTradeCostText(gdwGlobal_007BCBF4, gnGlobal_00721E38, &nSetIndex, wszName, 0x40))
     {
         if (wszName[0].wChar)
         {
@@ -114,7 +114,7 @@ void __cdecl sub_0048CFF0_DrawStackTooltip()
     }
 
     Unicode wszLine[0x80];
-    sub_0048C060(gdwGlobal_007BCBF4, wszLine, 0x80);
+    sub_0048C060_BuildItemName(gdwGlobal_007BCBF4, wszLine, 0x80);
     sub_00452170(wszLine);
     sub_00526700(wszText, wszLine);
 
@@ -134,11 +134,11 @@ void __cdecl sub_0048CFF0_DrawStackTooltip()
     D2Win_10131_GetTextDimensions(wszTooltip, &nWidth, &nHeight);
     if (gnGlobal_00721E40 - nHeight > 0)
     {
-        sub_00502280_SetPopUpText(wszTooltip, gnGlobal_00721E3C, gnGlobal_00721E40, 0, 0);
+        D2Win_10129_DrawFramedText(wszTooltip, gnGlobal_00721E3C, gnGlobal_00721E40, 0, 0);
     }
     else
     {
-        sub_00502280_SetPopUpText(wszTooltip, gnGlobal_00721E44, gnGlobal_00721E48 + nHeight, 0, 0);
+        D2Win_10129_DrawFramedText(wszTooltip, gnGlobal_00721E44, gnGlobal_00721E48 + nHeight, 0, 0);
     }
 }
 
@@ -167,7 +167,7 @@ void __cdecl sub_0048DB80_DrawBaseItemTooltip()
     sub_00526700(wszText, pColorEnd);
 
     Unicode wszLine[0x80];
-    sub_0048C060(gdwGlobal_007BCBF4, wszLine, 0x80);
+    sub_0048C060_BuildItemName(gdwGlobal_007BCBF4, wszLine, 0x80);
     sub_00452170(wszLine);
     sub_00526700(wszText, wszLine);
 
@@ -187,10 +187,10 @@ void __cdecl sub_0048DB80_DrawBaseItemTooltip()
     D2Win_10131_GetTextDimensions(wszTooltip, &nWidth, &nHeight);
     if (gnGlobal_00721E40 - nHeight > 0)
     {
-        sub_00502280_SetPopUpText(wszTooltip, gnGlobal_00721E3C, gnGlobal_00721E40, 0, 0);
+        D2Win_10129_DrawFramedText(wszTooltip, gnGlobal_00721E3C, gnGlobal_00721E40, 0, 0);
     }
     else
     {
-        sub_00502280_SetPopUpText(wszTooltip, gnGlobal_00721E44, gnGlobal_00721E48 + nHeight, 0, 0);
+        D2Win_10129_DrawFramedText(wszTooltip, gnGlobal_00721E44, gnGlobal_00721E48 + nHeight, 0, 0);
     }
 }

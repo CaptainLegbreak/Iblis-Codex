@@ -47,7 +47,7 @@ struct D2FuncTable_0077ABF0Strc
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 void __cdecl sub_0042F3F0_DestroyControls(); // 0x0042F3F0
-int __stdcall sub_00431D10(int nArg); // 0x00431D10
+int __stdcall sub_00431D10_ClearLoop(int nArg); // 0x00431D10
 int __stdcall sub_00432FE0_OnReceiveB(int nArg); // 0x00432FE0
 void __fastcall sub_00433380_ShowMessage(const Unicode* pText, D2LaunchDoneFn pfnDone, int nArg); // 0x00433380
 int __cdecl sub_0043BF60(); // 0x0043BF60
@@ -69,11 +69,11 @@ static void sub_00431E70_SetModeFlags(char nMode); // 0x00431E70
 int __stdcall sub_0042FDE0_KeyFilter(D2WinControlStrc* pControl, int nArg, const char* pChar); // 0x0042FDE0
 int __stdcall sub_0042FE60_KeyFilter(D2WinControlStrc* pControl, int nArg, const char* pChar); // 0x0042FE60
 void __cdecl sub_004306C0_UpdateOk(); // 0x004306C0
-int __stdcall sub_00433BE0_OnEnter(int nArg); // 0x00433BE0
+int __stdcall sub_00433BE0_UpdateOk(int nArg); // 0x00433BE0
 int __cdecl sub_0043B840(); // 0x0043B840
 int __stdcall sub_004F91C0(D2WinControlStrc* pEditBox); // 0x004F91C0
 void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* pText, int nA, int nB, int nC); // 0x004FC9B0
-void __fastcall sub_004FD060_SetText(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FD060
+void __fastcall D2Win_10044(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FD060
 void __fastcall sub_004FDAD0_SetKeyCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(D2WinControlStrc*, int, const char*)); // 0x004FDAD0
 void __fastcall sub_004FDB00_SetEnterCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(int)); // 0x004FDB00
 void __fastcall sub_004FDD50_SetMaxLength(D2WinControlStrc* pControl, int nLength); // 0x004FDD50
@@ -297,7 +297,7 @@ int __fastcall sub_00434A00_Join(const char* szGameName, unsigned short wFlags, 
 
         gnLaunchState_007795E8 = 3;
         sub_0042F6E0();
-        sub_004FA590_RunLoop(sub_00431D10);
+        sub_004FA590_RunLoop(sub_00431D10_ClearLoop);
         sub_004F9190();
         return 1;
     }
@@ -335,9 +335,9 @@ create:
     sub_0042F430_CreateControl(0x15);
     sub_0042F430_CreateControl(0x16);
     D2WinControlStrc* pControl = sub_0042F430_CreateControl(0x1A);
-    sub_004FD060_SetText(pControl, D2LANG_GetStringFromTblIndex(0x1468));
+    D2Win_10044(pControl, D2LANG_GetStringFromTblIndex(0x1468));
     pControl = sub_0042F430_CreateControl(0x1B);
-    sub_004FD060_SetText(pControl, D2LANG_GetStringFromTblIndex(0x1469));
+    D2Win_10044(pControl, D2LANG_GetStringFromTblIndex(0x1469));
     if (!sub_00408F20_HasExpansionMpq())
     {
         pControl = sub_0042F430_CreateControl(0x1F);
@@ -347,11 +347,11 @@ create:
     sub_004FC9B0_SetText(pControl, D2LANG_GetStringFromTblIndex(0x1455), 0, 0, 0);
     gpEdit_0077958C = sub_0042F430_CreateControl(0x22);
     sub_004FDD50_SetMaxLength(gpEdit_0077958C, 0x10);
-    sub_004FDB00_SetEnterCallback(gpEdit_0077958C, sub_00433BE0_OnEnter);
+    sub_004FDB00_SetEnterCallback(gpEdit_0077958C, sub_00433BE0_UpdateOk);
     sub_004FDAD0_SetKeyCallback(gpEdit_0077958C, sub_0042FDE0_KeyFilter);
     gpEdit_00779334 = sub_0042F430_CreateControl(0x23);
     sub_004FDD50_SetMaxLength(gpEdit_00779334, 0xD);
-    sub_004FDB00_SetEnterCallback(gpEdit_00779334, sub_00433BE0_OnEnter);
+    sub_004FDB00_SetEnterCallback(gpEdit_00779334, sub_00433BE0_UpdateOk);
     sub_004FDAD0_SetKeyCallback(gpEdit_00779334, sub_0042FE60_KeyFilter);
     if (SRegLoadString("Diablo II", "Last BNet", 0, szAccount, 0x400))
     {
@@ -370,7 +370,7 @@ create:
     if (gnValue_00779980)
     {
         pControl = sub_0042F430_CreateControl(0x28);
-        sub_004FD060_SetText(pControl, D2LANG_GetStringFromTblIndex(0x2B62));
+        D2Win_10044(pControl, D2LANG_GetStringFromTblIndex(0x2B62));
     }
     if (sub_00514D80())
         D2SOUND_10034(1);

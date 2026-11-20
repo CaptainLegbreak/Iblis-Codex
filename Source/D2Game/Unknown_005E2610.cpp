@@ -34,7 +34,7 @@ void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit
 void __fastcall AITACTICS_SetVelocity(D2UnitStrc* pUnit, int a2, int nVel, unsigned char a4);             // 0x005DE190
 int __fastcall AITACTICS_WalkCloseToUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMaxDistance);          // 0x005DE200
 int __fastcall AITACTICS_WalkToTargetUnitWithFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit, unsigned char nFlag); // 0x005DEC80
-int __fastcall D2GAME_AICORE_Escape_6FCD0560(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance, int bDeleteAiEventCallback); // 0x005DEFE0
+int __fastcall sub_005DEFE0_Escape(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance, int bDeleteAiEventCallback); // 0x005DEFE0
 
 static int AI_RollPercentage(D2UnitStrc* pUnit)
 {
@@ -110,7 +110,7 @@ void __fastcall AITHINK_Fn005_BloodHawk(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
         }
 
         AITACTICS_SetVelocity(pUnit, 0, AI_GetParam(pGame, pMonStatsTxt, 3), 0);
-        if (!D2GAME_AICORE_Escape_6FCD0560(pGame, pUnit, pTarget, 4, 1))
+        if (!sub_005DEFE0_Escape(pGame, pUnit, pTarget, 4, 1))
         {
             AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
         }
@@ -141,7 +141,7 @@ void __fastcall AITHINK_Fn005_BloodHawk(D2GameStrc* pGame, D2UnitStrc* pUnit, D2
     }
 
     AITACTICS_SetVelocity(pUnit, 0, AI_GetParam(pGame, pMonStatsTxt, 3), 0);
-    if (!D2GAME_AICORE_Escape_6FCD0560(pGame, pUnit, pTarget, 4, 1))
+    if (!sub_005DEFE0_Escape(pGame, pUnit, pTarget, 4, 1))
     {
         AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, MONMODE_ATTACK1, pTarget);
     }

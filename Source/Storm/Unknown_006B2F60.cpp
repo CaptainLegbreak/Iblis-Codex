@@ -79,7 +79,7 @@ struct D2Cache006BA830Strc
     int unk0x00[7];
 };
 
-void __cdecl sub_006B5B10_Shutdown(); // 0x006B5B10
+void __cdecl sub_006B5B10_ReleaseSprites(); // 0x006B5B10
 void __cdecl sub_006B7250_ReleaseAll(); // 0x006B7250
 void __cdecl sub_006B9B30_ReleaseObjects(); // 0x006B9B30
 void __fastcall sub_006BA830_FreeCache(D2Cache006BA830Strc* pCache, int bFree); // 0x006BA830
@@ -189,7 +189,7 @@ void __cdecl sub_006B32B0_ReleaseRenderer()
     sub_006BA830_FreeCache(&gCache_00970EC8, 1);
     sub_006BA830_FreeCache(&gCache_00970EE4, 1);
     sub_006BA830_FreeCache(&gCache_00970F00, 1);
-    sub_006B5B10_Shutdown();
+    sub_006B5B10_ReleaseSprites();
 }
 
 // 0x006B3400

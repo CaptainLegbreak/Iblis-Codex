@@ -24,7 +24,7 @@ void __cdecl sub_004DFA60(); // 0x004DFA60
 
 
 
-D2UnitStrc* __fastcall sub_004648F0_GetTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
+D2UnitStrc* __fastcall sub_004648F0_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 void __stdcall SKILLS_SetFlags(D2SkillStrc* pSkill, int nValue); // 0x00644660
 int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc* pDynamicPath); // 0x00648A00
@@ -125,7 +125,7 @@ int __fastcall sub_004E1720_SkillSetTargetFlags(D2UnitStrc* pUnit, int nSkillId,
 // 0x004E1740
 int __fastcall sub_004E1740_SkillNeedTarget(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
 {
-    if (!sub_004648F0_GetTargetUnit(pUnit))
+    if (!sub_004648F0_GetPathTargetUnit(pUnit))
     {
         return 0;
     }

@@ -467,7 +467,7 @@ D2UnitStrc* __fastcall sub_6FC7C7B0(D2UnitStrc* pUnit); // 0x00535BC0
 D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic); // 0x00625820
 void __stdcall STATLIST_MergeStatLists(D2UnitStrc* pTarget, D2UnitStrc* pUnit, int bType); // 0x00627910
 D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
-D2UnitStrc* __stdcall INVENTORY_GetSecondaryWeapon(D2InventoryStrc* pInventory); // 0x0063BF90
+D2UnitStrc* __stdcall sub_0063BF90_GetSecondaryWeapon(D2InventoryStrc* pInventory); // 0x0063BF90
 extern "C" char* __cdecl strcpy(char* pDst, const char* pSrc);
 extern "C" void __fastcall __security_check_cookie(unsigned int); // 0x00681A48
 
@@ -2154,7 +2154,7 @@ void __fastcall PLAYER_ApplyWeaponStatsForSkill(D2UnitStrc* pAttacker, int bTemp
             STATLIST_MergeStatLists(pAttacker, pLeftHandWeapon, 0);
         }
 
-        D2UnitStrc* pSecondaryWeapon = INVENTORY_GetSecondaryWeapon(pAttacker->pInventory);
+        D2UnitStrc* pSecondaryWeapon = sub_0063BF90_GetSecondaryWeapon(pAttacker->pInventory);
         if (pSecondaryWeapon && pSecondaryWeapon != pLeftHandWeapon && STATLIST_GetOwner(pSecondaryWeapon, 0))
         {
             STATLIST_MergeStatLists(pAttacker, pSecondaryWeapon, 0);
@@ -2177,7 +2177,7 @@ void __fastcall PLAYER_ApplyWeaponStatsForSkill(D2UnitStrc* pAttacker, int bTemp
         }
         else if (pWeapon == pLeftHandWeapon)
         {
-            D2UnitStrc* pSecondaryWeapon = INVENTORY_GetSecondaryWeapon(pAttacker->pInventory);
+            D2UnitStrc* pSecondaryWeapon = sub_0063BF90_GetSecondaryWeapon(pAttacker->pInventory);
             if (STATLIST_GetOwner(pLeftHandWeapon, 0))
             {
                 STATLIST_MergeStatLists(pAttacker, pLeftHandWeapon, 1);
@@ -2217,7 +2217,7 @@ void __fastcall PLAYER_RestoreWeaponStats(D2UnitStrc* pTarget, int bTemporaryWea
         STATLIST_MergeStatLists(pTarget, pLeftHandWeapon, 1);
     }
 
-    D2UnitStrc* pSecondaryWeapon = INVENTORY_GetSecondaryWeapon(pTarget->pInventory);
+    D2UnitStrc* pSecondaryWeapon = sub_0063BF90_GetSecondaryWeapon(pTarget->pInventory);
     if (pSecondaryWeapon && pSecondaryWeapon != pLeftHandWeapon)
     {
         if (STATLIST_GetOwner(pSecondaryWeapon, 0))

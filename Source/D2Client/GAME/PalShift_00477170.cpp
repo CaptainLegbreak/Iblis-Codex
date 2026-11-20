@@ -43,8 +43,8 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);   
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId);                                    // 0x00451F80
 int __fastcall DATATBLS_GetMonStatsTxtRecordCount();                                                        // 0x0045C460
 D2PalShiftNodeStrc* __fastcall sub_00477030_FindPalShiftNode(int nId);                                          // 0x00477030
-int __fastcall ARCHIVE_OpenFile(void* hArchive, const char* szFilePath, void** phFile, int bFileNotFoundLogSkipped); // 0x00516E46
-void __fastcall ARCHIVE_CloseFile(void* hArchive, void* hFile);                                             // 0x00516E84
+int __fastcall sub_00516E46_OpenFile(void* hArchive, const char* szFilePath, void** phFile, int bFileNotFoundLogSkipped); // 0x00516E46
+void __fastcall sub_00516E84_CloseFile(void* hArchive, void* hFile);                                             // 0x00516E84
 void __fastcall ARCHIVE_ReadFileToBuffer(void* hArchive, void* hFile, void* pBuffer, unsigned int dwBytesToRead); // 0x00516F85
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
@@ -126,7 +126,7 @@ void __fastcall sub_00477170_LoadPalShift(int nMonsterId)
     strcat(szFile, szCode);
     strcat(szFile, "\\Cof\\palshift.dat");
 
-    if (!ARCHIVE_OpenFile(0, szFile, &hFile, 1))
+    if (!sub_00516E46_OpenFile(0, szFile, &hFile, 1))
     {
         return;
     }
@@ -134,7 +134,7 @@ void __fastcall sub_00477170_LoadPalShift(int nMonsterId)
     pShift = (D2PalShiftNodeStrc*)FOG_Alloc(sizeof(D2PalShiftNodeStrc), ".\\GAME\\PalShift.cpp", 244, 0);
     memset(pShift, 0, sizeof(D2PalShiftNodeStrc));
     ARCHIVE_ReadFileToBuffer(0, hFile, &pShift->tBase, sizeof(pShift->tBase));
-    ARCHIVE_CloseFile(0, hFile);
+    sub_00516E84_CloseFile(0, hFile);
     sub_00477060_BuildBloodShift(nMonsterId, pShift);
     pShift->nId = nMonsterId;
     pShift->pNext = gpPalShiftList_007B957C;

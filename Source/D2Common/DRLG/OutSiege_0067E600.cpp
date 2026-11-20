@@ -94,7 +94,7 @@ extern const D2DrlgOutSiegeInitStrc gaOutSiegeCaves[3]; // 0x006F1F9C
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 D2LvlPrestRecordStrc* __stdcall sub_0061F0B0(int nPresetId); // 0x0061F0B0
 int __fastcall DRLGOUTDOORS_GetPresetIndexFromGridCell(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x00674120
-void __fastcall sub_006743C0(D2DrlgLevelStrc* pLevel, int nX, int nY, int nPresetId, int nDirection, int a6); // 0x006743C0
+void __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(D2DrlgLevelStrc* pLevel, int nX, int nY, int nPresetId, int nDirection, int a6); // 0x006743C0
 void __fastcall sub_00670750(D2DrlgOutPlaceCtxStrc* pCtx); // 0x00670750
 int __fastcall sub_00674160(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x00674160
 int __fastcall sub_006741A0(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x006741A0
@@ -137,7 +137,7 @@ static void DRLGOUTSIEGE_PlaceCaves(D2DrlgLevelStrc* pLevel)
                 nX = 2;
                 nY = gaOutSiegeCaves[i].field_8 ? pOutdoors->nHeight - 2 : 0;
             }
-            sub_006743C0(pLevel, nX, nY, nLevelPrestId, gaOutSiegeCaves[i].field_4, 0);
+            DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, nX, nY, nLevelPrestId, gaOutSiegeCaves[i].field_4, 0);
         }
     }
 }
@@ -159,7 +159,7 @@ static void sub_0067E0E0(D2DrlgLevelStrc* pLevel)
     tCtx.pfnTest = sub_0067E080;
     tCtx.pfn2C = sub_00674160;
     tCtx.pfn30 = sub_006741A0;
-    tCtx.pfnPlace = sub_006743C0;
+    tCtx.pfnPlace = DRLGOUTDOORS_SpawnOutdoorLevelPresetEx;
     tCtx.pfnGetPreset = sub_0067E000;
     tCtx.n14 = -1;
     tCtx.n18 = 12;
@@ -188,7 +188,7 @@ static __forceinline int sub_0067E210_PlaceShiftedPreset(D2DrlgLevelStrc* pLevel
     const int nPreset = DRLGOUTDOORS_GetPresetIndexFromGridCell(pLevel, nX, nY);
     if (nPreset >= 0x393 && nPreset <= 0x39A)
     {
-        sub_006743C0(pLevel, nX, nY, nPreset + 0x10, -1, 0);
+        DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, nX, nY, nPreset + 0x10, -1, 0);
         return 1;
     }
     return 0;
@@ -266,8 +266,8 @@ static void sub_0067E4B0(D2DrlgLevelStrc* pLevel)
 
     int nX = pInfo->nWidth - pRecord->nSizeX / 8;
     int nY = pInfo->nHeight - pRecord->nSizeY / 8;
-    sub_006743C0(pLevel, nX, nY, 0x370, -1, 0);
-    sub_006743C0(pLevel, nX, nY - 2, 0x380, -1, 0);
+    DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, nX, nY, 0x370, -1, 0);
+    DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, nX, nY - 2, 0x380, -1, 0);
 }
 
 // 0x0067E600

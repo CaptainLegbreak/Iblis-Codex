@@ -109,7 +109,7 @@ int __cdecl sub_004F59A0(); // 0x004F59A0
 void __fastcall sub_00451DB0_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
 void __cdecl sub_0047B090_InitChatIme(); // 0x0047B090
-void __cdecl sub_0047B4D0(); // 0x0047B4D0
+void __cdecl sub_0047B4D0_Nop(); // 0x0047B4D0
 void __fastcall sub_00467A70(int nArg); // 0x00467A70
 void __fastcall sub_004A5200(int nArg); // 0x004A5200
 void __cdecl sub_00454980(); // 0x00454980
@@ -230,13 +230,13 @@ void __fastcall sub_004B8020(void* pRes); // 0x004B8020
 extern unsigned int gnDialogAmount_007A2A68; // 0x007A2A68
 void __cdecl sub_00453EE0_ClosePanel(); // 0x00453EE0
 void __fastcall sub_004B9110_TransferGold(unsigned int nAmount); // 0x004B9110
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 void __fastcall sub_004786A0_SendIntInt(char nHeader, int nArg1, int nArg2); // 0x004786A0
 void __fastcall sub_00478600_SendShorts(char nHeader, short nArg1, short nArg2, short nArg3); // 0x00478600
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 void __fastcall sub_004B8100(void* pObj); // 0x004B8100
 void __cdecl sub_004A02F0_ToggleListDialogUI(); // 0x004A02F0
-void __cdecl sub_004B69E0(); // 0x004B69E0
+void __cdecl sub_004B69E0_CloseTrade(); // 0x004B69E0
 extern D2UiControlAStrc* gpGoldControlA_007A27A4; // 0x007A27A4
 extern D2UiControlBStrc* gpGoldControlB_007A27A8; // 0x007A27A8
 extern D2UiControlCStrc* gpGoldControlC_007A27AC; // 0x007A27AC
@@ -266,17 +266,17 @@ D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00
 const Unicode* __fastcall sub_00464A60_GetUnitName(D2UnitStrc* pUnit); // 0x00464A60
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
-int __cdecl sub_00525150(); // 0x00525150
+int __cdecl STRTABLE_GetLanguage(); // 0x00525150
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
-int __fastcall sub_004AE360_IsMonsterFlag8(D2UnitStrc* pUnit); // 0x004AE360
+int __fastcall sub_004AE360_IsUniqueMonster(D2UnitStrc* pUnit); // 0x004AE360
 int __fastcall sub_00454880_GetHoverRect(D2RectStrc* pRect); // 0x00454880
 int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
-void __fastcall sub_005022F0_ShowPopUpText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5, int nArg6); // 0x005022F0
+void __fastcall D2Win_10130_DrawFramedTextEx(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5, int nArg6); // 0x005022F0
 int __fastcall sub_00452580_GetHoverMonsterName(D2UnitStrc* pUnit, int nArg); // 0x00452580
 void __fastcall sub_00452520_SetHoverLine(const Unicode* pText, int nColor); // 0x00452520
 int __fastcall sub_004B3230_GetTickPair(int* pLow); // 0x004B3230
 int __cdecl sub_004A0000(); // 0x004A0000
-void __fastcall sub_00502280_SetPopUpText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
+void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const D2ImmunityTextStrc gaImmunityTexts_006D6418[6]; // 0x006D6418
 extern Unicode gwszText_007A2A78[]; // 0x007A2A78
@@ -615,7 +615,7 @@ int __cdecl sub_00454080_ConfirmGoldDialog()
     case 0:
     case 1:
     {
-        D2UnitStrc* pPlayer = sub_00463DD0();
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         int nId = GetUnitId(pPlayer);
         sub_004786A0_SendIntInt(0x50, nId, gnDialogAmount_007A2A68);
         return 1;
@@ -683,7 +683,7 @@ int __cdecl sub_00454840()
 void __cdecl sub_004549B0_ToggleListDialog()
 {
     sub_004A02F0_ToggleListDialogUI();
-    sub_004B69E0();
+    sub_004B69E0_CloseTrade();
 }
 
 // 0x00455720
@@ -716,7 +716,7 @@ void __fastcall sub_00455720_SetPanelHandlers(int nPanel)
         sub_0046AA20(0, 0x1);
         if (gnPanelState_007A27E8)
             sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_006D6084, 0x5);
-        sub_0047B4D0();
+        sub_0047B4D0_Nop();
         return;
     case 0x6:
         sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtPanelHandlers_006D5FE8, 0x2);
@@ -1070,7 +1070,7 @@ void __fastcall sub_00454AD0_DrawUnitHoverName(D2UnitStrc* pUnit)
                 return;
             }
             bDead = 1;
-            if (!sub_00525150())
+            if (!STRTABLE_GetLanguage())
             {
                 sub_00526700((Unicode*)wszText, D2LANG_GetStringFromTblIndex(0x90B));
             }
@@ -1090,7 +1090,7 @@ void __fastcall sub_00454AD0_DrawUnitHoverName(D2UnitStrc* pUnit)
         sub_00526700((Unicode*)wszText, D2LANG_GetStringFromTblIndex(0xF9B));
         const int nY = sub_004525F0_GetHoverTextY(pUnit);
         int nColor = 0;
-        if (sub_004AE360_IsMonsterFlag8(pUnit))
+        if (sub_004AE360_IsUniqueMonster(pUnit))
         {
             nColor = 4;
         }
@@ -1112,7 +1112,7 @@ void __fastcall sub_00454AD0_DrawUnitHoverName(D2UnitStrc* pUnit)
         if (sub_00454880_GetHoverRect(&tRect))
         {
             const int nWidth = sub_00501820((Unicode*)wszText);
-            sub_005022F0_ShowPopUpText((Unicode*)wszText, ((tRect.nLeft + tRect.nRight) >> 1) - (nWidth >> 1), 0x20, nColor, 0, nY);
+            D2Win_10130_DrawFramedTextEx((Unicode*)wszText, ((tRect.nLeft + tRect.nRight) >> 1) - (nWidth >> 1), 0x20, nColor, 0, nY);
             if (bDead)
             {
                 gwszHoverName_007A2F38[0].wChar = 0;
@@ -1161,7 +1161,7 @@ void __fastcall sub_00454AD0_DrawUnitHoverName(D2UnitStrc* pUnit)
             {
                 gnHoverY_0070F858 -= pMonStats2Txt->nPixHeight;
             }
-            sub_00502280_SetPopUpText(sub_00464A60_GetUnitName(pUnit), gnHoverX_0070F854, gnHoverY_0070F858, 0, 1);
+            D2Win_10129_DrawFramedText(sub_00464A60_GetUnitName(pUnit), gnHoverX_0070F854, gnHoverY_0070F858, 0, 1);
         }
     }
     sub_00502EF0(nOld);

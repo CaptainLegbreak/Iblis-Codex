@@ -60,7 +60,7 @@ public:
 
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);                               // 0x0040B380
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0
-D2UnitStrc* __cdecl sub_00463DD0();                                                               // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 void __fastcall sub_00478740_SendPvpCommand(int nCommand, int nUnitId, int bSet);                           // 0x00478740
 void __cdecl sub_00478FA0_UpdatePetFlags();                                                                 // 0x00478FA0
 void __fastcall sub_00479230_UpdateOwnerPetFlags(int nOwnerId);                                             // 0x00479230
@@ -100,7 +100,7 @@ static D2StoredUnitRecordStrc* sub_004792E0_FindRosterUnit(int nUnitId)
 // 0x00479320
 D2StoredUnitRecordStrc* __cdecl sub_00479320_GetPlayerRosterUnit()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2StoredUnitRecordStrc* pRec = sub_004792E0_FindRosterUnit(!pPlayer ? -1 : pPlayer->dwUnitId);
     D2_ASSERT(pRec, 0x75);
     return pRec;
@@ -228,7 +228,7 @@ static void sub_00479A60_MovePlayerToFront(int nPlayerId)
 // 0x00479AB0
 __declspec(noinline) void __cdecl sub_00479AB0()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     const int nPlayerId = !pPlayer ? -1 : pPlayer->dwUnitId;
     D2StoredUnitRecordStrc* pRec = sub_004792E0_FindRosterUnit(nPlayerId);
     const unsigned short wPartyId = pRec ? pRec->wPartyId : 0xFFFF;
@@ -276,7 +276,7 @@ unsigned short __fastcall sub_00479C00_LookupPartyNumber(D2UnitStrc* pUnit)
 // 0x00479D30
 static void sub_00479D30_TogglePvpFlag(D2StoredUnitRecordStrc* pEntry, unsigned short nFlag)
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     const int nPlayerId = !pPlayer ? -1 : pPlayer->dwUnitId;
     D2_ASSERT(pEntry, 0x463);
     sub_004DC320_AddRosterInfo(nPlayerId, pEntry->dwUnitId);
@@ -289,7 +289,7 @@ void __fastcall sub_00479DA0_TogglePvpFlag1(D2StoredUnitRecordStrc* pEntry)
     if (pEntry)
     {
         sub_00479D30_TogglePvpFlag(pEntry, 1);
-        D2UnitStrc* pPlayer = sub_00463DD0();
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         sub_00478740_SendPvpCommand(1, pEntry->dwUnitId, sub_004DC440(!pPlayer ? -1 : pPlayer->dwUnitId, pEntry->dwUnitId, 1));
     }
 }
@@ -300,7 +300,7 @@ void __fastcall sub_00479DE0_TogglePvpFlag2(D2StoredUnitRecordStrc* pEntry)
     if (pEntry)
     {
         sub_00479D30_TogglePvpFlag(pEntry, 2);
-        D2UnitStrc* pPlayer = sub_00463DD0();
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         sub_00478740_SendPvpCommand(2, pEntry->dwUnitId, sub_004DC440(!pPlayer ? -1 : pPlayer->dwUnitId, pEntry->dwUnitId, 2));
     }
 }
@@ -311,9 +311,9 @@ void __fastcall sub_00479E20_ToggleSquelch(D2StoredUnitRecordStrc* pEntry)
     if (pEntry)
     {
         sub_00479D30_TogglePvpFlag(pEntry, 4);
-        D2UnitStrc* pPlayer = sub_00463DD0();
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         sub_00478740_SendPvpCommand(3, pEntry->dwUnitId, sub_004DC440(!pPlayer ? -1 : pPlayer->dwUnitId, pEntry->dwUnitId, 4));
-        pPlayer = sub_00463DD0();
+        pPlayer = sub_00463DD0_GetPlayerUnit();
         if (sub_004DC440(!pPlayer ? -1 : pPlayer->dwUnitId, pEntry->dwUnitId, 4))
             sub_00611560_GetSquelchList()->Squelch(pEntry->szNameEx);
         else
@@ -324,7 +324,7 @@ void __fastcall sub_00479E20_ToggleSquelch(D2StoredUnitRecordStrc* pEntry)
 // 0x00479F60
 D2StoredUnitRecordStrc* __cdecl sub_00479F60_LeaveParty()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2StoredUnitRecordStrc* pRec = sub_004792E0_FindRosterUnit(!pPlayer ? -1 : pPlayer->dwUnitId);
     D2_ASSERT(pRec, 0x4ED);
     pRec->wPartyId = 0xFFFF;
@@ -337,7 +337,7 @@ D2StoredUnitRecordStrc* __cdecl sub_00479F60_LeaveParty()
 // 0x00479FE0
 void __fastcall sub_00479FE0_TogglePvpFlag8(D2StoredUnitRecordStrc* pEntry)
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     const int nPlayerId = !pPlayer ? -1 : pPlayer->dwUnitId;
     if (!pEntry)
         return;
@@ -403,7 +403,7 @@ int __fastcall sub_0047A170_TestNotFlag4(int nUnitId)
     D2StoredUnitRecordStrc* pRec = sub_004792E0_FindRosterUnit(nUnitId);
     if (pRec)
     {
-        D2UnitStrc* pPlayer = sub_00463DD0();
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         int nPlayerId;
         if (!pPlayer)
             nPlayerId = -1;
@@ -489,7 +489,7 @@ void __fastcall sub_0047A370_SetPvpFlags(int nUnitId1, int nUnitId2, unsigned sh
     sub_004DC320_AddRosterInfo(nUnitId1, nUnitId2);
     sub_004DC4C0_SetPvpFlagsLow(nUnitId1, nUnitId2, wFlags);
     sub_0049A640();
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (nUnitId2 == (!pPlayer ? -1 : pPlayer->dwUnitId))
         sub_00479230_UpdateOwnerPetFlags(nUnitId1);
 }
@@ -570,7 +570,7 @@ int __fastcall sub_0047A520_IsSameParty(int nUnitId1, int nUnitId2)
 int __fastcall sub_0047A6B0_GetOtherPartyLife(int nUnitId)
 {
     D2StoredUnitRecordStrc* pRec = sub_004792E0_FindRosterUnit(nUnitId);
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (nUnitId != (!pPlayer ? -1 : pPlayer->dwUnitId) && pRec)
         return pRec->dwPartyLife;
     return 0;

@@ -52,7 +52,7 @@ int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 void __fastcall sub_6FCBD120(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3); // 0x00553C70
 static void sub_005C8C10_StopInferno(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005C8C10
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
-D2ActiveRoomStrc* __fastcall COLLISION_GetRoomBySubTileCoordinates(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 
 inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
@@ -169,7 +169,7 @@ int __fastcall sub_005C9220_SrvStTargetNotInTown(D2GameStrc* pGame, D2UnitStrc* 
         return 0;
     }
 
-    D2ActiveRoomStrc* pTargetRoom = COLLISION_GetRoomBySubTileCoordinates(pRoom, nX, nY);
+    D2ActiveRoomStrc* pTargetRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
     if (!pTargetRoom)
     {
         return 0;

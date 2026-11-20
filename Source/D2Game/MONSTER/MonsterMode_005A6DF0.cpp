@@ -41,7 +41,7 @@ struct D2ModeChangeStrc
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-int __fastcall sub_0046C140_CheckMonStats2ModeFlag(int nMonsterId, int nMode); // 0x0046C140
+int __fastcall sub_0046C140_TestMonModeFlag(int nMonsterId, int nMode); // 0x0046C140
 int __fastcall sub_00463860(D2UnitStrc* pUnit); // 0x00463860
 void __stdcall PATH_SetType(D2DynamicPathStrc* pDynamicPath, int nPathType); // 0x00648CF0
 int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown); // 0x00649970
@@ -79,12 +79,12 @@ void __fastcall sub_Emit_005A6DF0(D2GameStrc* pGame, D2UnitStrc* pUnit)
 int __fastcall sub_005A77D0_StartKnockback(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange)
 {
     D2UnitStrc* pUnit = pModeChange->pUnit;
-    if (!sub_0046C140_CheckMonStats2ModeFlag(!pUnit ? -1 : pUnit->dwClassId, 3))
+    if (!sub_0046C140_TestMonModeFlag(!pUnit ? -1 : pUnit->dwClassId, 3))
     {
         return 0;
     }
 
-    if (!sub_0046C140_CheckMonStats2ModeFlag(!pUnit ? -1 : pUnit->dwClassId, 13))
+    if (!sub_0046C140_TestMonModeFlag(!pUnit ? -1 : pUnit->dwClassId, 13))
     {
         return 0;
     }

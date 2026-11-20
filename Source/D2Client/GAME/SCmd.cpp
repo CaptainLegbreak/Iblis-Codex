@@ -338,7 +338,7 @@ int __stdcall SMsgUnregisterMessage(void* hWnd, int nId, SMSGHANDLER pfnHandler)
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(short nIndex); // 0x00524A30
-Unicode* __fastcall sub_00526940_UnicodeStrStr(const Unicode* pString, const Unicode* pPattern); // 0x00526940
+Unicode* __fastcall sub_00526940_FindSubstring(const Unicode* pString, const Unicode* pPattern); // 0x00526940
 void __stdcall sub_005022F0_ShowPopUpText(const Unicode* wszText, int nX, int nY, int nArg); // 0x005022F0
 
 struct D2SeedStrc
@@ -371,7 +371,7 @@ struct D2UnitStrc
     unsigned int dwFlagEx;
 };
 
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 void __fastcall sub_004804E0_SetPosition(D2UnitStrc* pUnit, unsigned short nX, unsigned short nY, int nA, int nB, int nC); // 0x004804E0
 void __fastcall sub_004B1240_UsePacket7(D2ClientPacket7Strc* pPacket); // 0x004B1240
 void __fastcall sub_0049F8C0_UsePacket6(D2ClientPacket6Strc* pPacket); // 0x0049F8C0
@@ -415,7 +415,7 @@ struct D2ErrorPacketStrc
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 void __cdecl sub_0045C520_SaveCharFile(); // 0x0045C520
-void __fastcall sub_0044E380_SetConnectionError(int nError); // 0x0044E380
+void __fastcall sub_0044E380_ShowLoadingMessage(int nError); // 0x0044E380
 extern int gdwGlobal_007A0618; // 0x007A0618
 
 #pragma pack(push, 1)
@@ -501,13 +501,13 @@ extern int gdwGlobal_007A0620; // 0x007A0620
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 int __cdecl sub_0044C870(); // 0x0044C870
 D2UnitStrc* __fastcall sub_004661C0_AllocClientUnit(unsigned int nUnitId, int nClassId, int nX, int nY, int nUnitType, int nArg5); // 0x004661C0
-void __fastcall sub_00470B70_ResetMonsterMode(D2UnitStrc* pUnit); // 0x00470B70
+void __fastcall sub_00470B70_ResetMonsterModeGfx(D2UnitStrc* pUnit); // 0x00470B70
 D2UnitStrc* __fastcall sub_00466300_CreateObjectUnit(unsigned int nUnitId, int nClassId, int nX, int nY, int nUnitType, int nArg5, int nArg6, unsigned char nInteractType); // 0x00466300
 int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny); // 0x00478F20
 void __fastcall sub_00465EE0_RemoveClientSideUnit(int nUnitId, int nUnitType); // 0x00465EE0
 D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType); // 0x00463990
 void __fastcall sub_00463D90(int nArg); // 0x00463D90
-void __cdecl sub_0046F360(); // 0x0046F360
+void __cdecl sub_0046F360_Empty(); // 0x0046F360
 
 enum D2C_F23Constants
 {
@@ -657,11 +657,11 @@ int __stdcall BITMANIP_ReadSigned(D2BitBufferStrc* pBuffer, int nBits); // 0x004
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
 int __cdecl sub_0044DA30(); // 0x0044DA30
-int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit); // 0x0045ADF0
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 void __fastcall sub_00462F60(D2GSPacketSrv74Strc* pPacket); // 0x00462F60
 int __cdecl sub_00463DF0(); // 0x00463DF0
-void __fastcall sub_0047A270(int nOwnerGUID, int nPortalGUID0, int nPortalGUID1); // 0x0047A270
+void __fastcall sub_0047A270_SetPortalIds(int nOwnerGUID, int nPortalGUID0, int nPortalGUID1); // 0x0047A270
 void __fastcall sub_0047A690(int nUnitGUID, unsigned char nLifePct); // 0x0047A690
 void __fastcall sub_004A1600(D2GSPacketSrv27Strc* pPacket); // 0x004A1600
 void __fastcall sub_004BDFE0_SetObjectName(D2UnitStrc* pUnit, const char* szName); // 0x004BDFE0
@@ -672,8 +672,8 @@ void __fastcall sub_004C7990(D2UnitStrc* pUnit, int nA, int nB, char nC); // 0x0
 int __fastcall sub_004CDB40_SubmitRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
 void __fastcall sub_004D9B20_BeginState(D2UnitStrc* pUnit, int nState); // 0x004D9B20
 int __fastcall sub_004D9D70_SetStateStat(D2UnitStrc* pUnit, int nPrev, int nState, int nStatId, int nValue, int nLayer); // 0x004D9D70
-void __fastcall sub_004D9E60_EndState(D2UnitStrc* pUnit, int nState); // 0x004D9E60
-D2UnitStrc* __stdcall UNITFINDS_FindUnitInNeighboredRooms(D2ActiveRoomStrc* pRoom, int nUnitType, int nClassId); // 0x0065A620
+void __fastcall sub_004D9E60_StartClientState(D2UnitStrc* pUnit, int nState); // 0x004D9E60
+D2UnitStrc* __stdcall sub_0065A620_FindUnitInAdjacentRooms(D2ActiveRoomStrc* pRoom, int nUnitType, int nClassId); // 0x0065A620
 
 struct D2GSPacketSrv10
 {
@@ -697,7 +697,7 @@ struct D2UnitDropItemsPacketStrc
 
 unsigned char __stdcall sub_00462EE0_GetItemComponent(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x00462EE0
 int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
-void __fastcall sub_0046F280(D2UnitStrc* pUnit, int nComponent); // 0x0046F280
+void __fastcall sub_0046F280_ClearGfxBytes(D2UnitStrc* pUnit, int nComponent); // 0x0046F280
 void __fastcall sub_00470610_Refresh(D2UnitStrc* pUnit, int nArg); // 0x00470610
 void __fastcall sub_00480E70_SetUnitMode(D2UnitStrc* pUnit, int nArg); // 0x00480E70
 void __fastcall sub_004C0EC0_UpdateItemLink(D2UnitStrc* pItem, D2UnitStrc* pUnit, int bForce, int bClamp); // 0x004C0EC0
@@ -705,7 +705,7 @@ D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x
 D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
 int __stdcall INVENTORY_GetItemNodePage(D2UnitStrc* pItem); // 0x0063E020
 D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
-void __stdcall sub_0063D2B0_DetachItem(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063D2B0
+void __stdcall INVENTORY_UpdateWeaponGUIDOnRemoval(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063D2B0
 unsigned char __stdcall ITEMS_GetBodyLocation(D2UnitStrc* pItem); // 0x00627D40
 unsigned char __stdcall PATH_GetDirection(D2DynamicPathStrc* pPath); // 0x006487F0
 void __stdcall PATH_SetDirection(D2DynamicPathStrc* pPath, unsigned char nDirection); // 0x006488A0
@@ -804,9 +804,9 @@ struct D2GSPacketSrv99
 
 #pragma pack(pop)
 
-void __fastcall sub_00464E50(D2UnitStrc* pUnit, int nOverlay, int nArg); // 0x00464E50
+void __fastcall sub_00464E50_SetOverlayWithSound(D2UnitStrc* pUnit, int nOverlay, int nArg); // 0x00464E50
 void __fastcall sub_004B6DD0_NpcInteractPacket(unsigned char nUnitType, int nUnitId, unsigned char* pBuffer, unsigned char nArg); // 0x004B6DD0
-void __fastcall sub_004B5320(unsigned char nUnitType, int nUnitId); // 0x004B5320
+void __fastcall sub_004B5320_OnUnitRemoved(unsigned char nUnitType, int nUnitId); // 0x004B5320
 void __fastcall sub_004B2620(const unsigned char* pData); // 0x004B2620
 void __fastcall sub_0046F870_LoadMonsterCofs(int nMonsterId, int bLoadNow); // 0x0046F870
 D2SkillStrc* __stdcall SKILLS_AssignSkill(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove, const char* szFile, int nLine); // 0x00647280
@@ -1181,8 +1181,8 @@ struct D2GSPacketSrvA9
 void __fastcall sub_004CBDE0_PlayEventSound(int nUnitId, unsigned char nUnitType, unsigned short nEvent); // 0x004CBDE0
 D2UnitStrc* __fastcall sub_00466200_CreatePlayerUnit(unsigned int nUnitId, int nClassId, int nX, int nY, char* szName); // 0x00466200
 void __fastcall sub_0047A6F0(int nUnitId, int nClass, const char* szName, int nLevel, int nPartyId, int nArg1C, int nPartyFlags, int nArg20, const char* szText1, const char* szText2); // 0x0047A6F0
-void __fastcall sub_0047A8B0(int nPlayerGUID); // 0x0047A8B0
-void __fastcall sub_004C23E0(D2UnitStrc* pUnit); // 0x004C23E0
+void __fastcall sub_0047A8B0_RemoveRosterUnit(int nPlayerGUID); // 0x0047A8B0
+void __fastcall sub_004C23E0_RemoveEquippedItems(D2UnitStrc* pUnit); // 0x004C23E0
 void __stdcall UNITS_SetPlayerPortalFlags(D2UnitStrc* pUnit, int nPortalFlags); // 0x006221E0
 void __fastcall sub_004B9320_PlayCinematicFromPacket(const D2CinematicPacketStrc* pPacket); // 0x004B9320
 void __cdecl sub_0047F1D0_LoadResolution(); // 0x0047F1D0
@@ -1190,9 +1190,9 @@ void __fastcall sub_00479B10_SetKillCount(int nUnitId, unsigned short nValue); /
 void __fastcall sub_0047A850_UpdateRosterUnit(int nUnitId, unsigned short wPartyId, unsigned short wLevel, int nUnused, int nPartyFlags); // 0x0047A850
 void __fastcall sub_004B90D0(int nGold, unsigned char nOwner); // 0x004B90D0
 void __fastcall sub_00478B10_SetRosterEntry(int nKey, int nArg, int nType, int nValue); // 0x00478B10
-void __fastcall sub_00478C90(int nKey); // 0x00478C90
+void __fastcall sub_00478C90_DropPetEntry(int nKey); // 0x00478C90
 void __fastcall sub_004AA0C0_SetSlot(int nSlot, int nValueA, int nValueB, int nValueC); // 0x004AA0C0
-void __fastcall sub_0046F310(unsigned char nAct); // 0x0046F310
+void __fastcall sub_0046F310_LoadGlobalHashedFile(unsigned char nAct); // 0x0046F310
 void __fastcall sub_0047A0D0_SetLifeAndLevel(int nUnitId, int nLife, unsigned short wLevelId); // 0x0047A0D0
 void __fastcall sub_00479010_UpdatePetLife(int nUnitId, int nLifePercent, unsigned short nArg); // 0x00479010
 void __fastcall sub_0047A100_SetPosition(int nUnitId, int nX, int nY); // 0x0047A100
@@ -1431,11 +1431,11 @@ Unicode* __fastcall sub_00452300_StripStringAndNextChar(Unicode* pString)
 
     const Unicode* pPattern = D2LANG_GetStringFromTblIndex(0xF9A);
     const int nLength = sub_00526800(pPattern);
-    Unicode* pFound = sub_00526940_UnicodeStrStr(pString, pPattern);
+    Unicode* pFound = sub_00526940_FindSubstring(pString, pPattern);
     while (pFound && pFound[nLength].wChar)
     {
         memmove(pFound, &pFound[nLength + 1], sizeof(Unicode) * (sub_00526800(pFound) - nLength));
-        pFound = sub_00526940_UnicodeStrStr(pString, pPattern);
+        pFound = sub_00526940_FindSubstring(pString, pPattern);
     }
 
     return pString;
@@ -1589,7 +1589,7 @@ void __fastcall sub_0045CFB0_UnitPacket6C(D2UnitStrc* pUnit, const D2GSPacketSrv
 // 0x0045D260
 void __fastcall sub_0045D260_UnitPacket17(D2UnitStrc* pUnit, const D2GSPacketSrv17* pPacket)
 {
-    if (pUnit != sub_00463DD0())
+    if (pUnit != sub_00463DD0_GetPlayerUnit())
     {
         D2_ASSERT(pUnit, 0x841);
 
@@ -1745,33 +1745,33 @@ static void sub_0045C6D0_HandleErrorPacket(D2ErrorPacketStrc* pPacket)
 {
     switch (pPacket->nCode)
     {
-    case 1: sub_0044E380_SetConnectionError(0); return;
-    case 2: sub_0044E380_SetConnectionError(1); return;
-    case 3: sub_0044E380_SetConnectionError(2); return;
-    case 4: sub_0044E380_SetConnectionError(3); return;
-    case 5: sub_0044E380_SetConnectionError(4); return;
-    case 6: sub_0044E380_SetConnectionError(5); return;
-    case 7: sub_0044E380_SetConnectionError(0x0A); return;
-    case 8: sub_0044E380_SetConnectionError(0x0B); return;
-    case 9: sub_0044E380_SetConnectionError(0x0C); return;
-    case 10: sub_0044E380_SetConnectionError(0x0D); return;
-    case 11: sub_0044E380_SetConnectionError(0x0E); return;
-    case 12: sub_0044E380_SetConnectionError(0x0F); return;
-    case 13: sub_0044E380_SetConnectionError(0x10); return;
-    case 14: sub_0044E380_SetConnectionError(0x11); return;
-    case 15: sub_0044E380_SetConnectionError(0x12); return;
-    case 16: sub_0044E380_SetConnectionError(0x13); return;
-    case 17: sub_0044E380_SetConnectionError(0x14); return;
-    case 18: sub_0044E380_SetConnectionError(0x15); return;
-    case 19: sub_0044E380_SetConnectionError(0x16); return;
-    case 20: sub_0044E380_SetConnectionError(0x17); return;
-    case 21: sub_0044E380_SetConnectionError(0x18); return;
-    case 24: sub_0044E380_SetConnectionError(0x1A); return;
-    case 23: sub_0044E380_SetConnectionError(0x19); return;
-    case 26: sub_0044E380_SetConnectionError(0x1C); return;
-    case 25: sub_0044E380_SetConnectionError(0x1B); return;
+    case 1: sub_0044E380_ShowLoadingMessage(0); return;
+    case 2: sub_0044E380_ShowLoadingMessage(1); return;
+    case 3: sub_0044E380_ShowLoadingMessage(2); return;
+    case 4: sub_0044E380_ShowLoadingMessage(3); return;
+    case 5: sub_0044E380_ShowLoadingMessage(4); return;
+    case 6: sub_0044E380_ShowLoadingMessage(5); return;
+    case 7: sub_0044E380_ShowLoadingMessage(0x0A); return;
+    case 8: sub_0044E380_ShowLoadingMessage(0x0B); return;
+    case 9: sub_0044E380_ShowLoadingMessage(0x0C); return;
+    case 10: sub_0044E380_ShowLoadingMessage(0x0D); return;
+    case 11: sub_0044E380_ShowLoadingMessage(0x0E); return;
+    case 12: sub_0044E380_ShowLoadingMessage(0x0F); return;
+    case 13: sub_0044E380_ShowLoadingMessage(0x10); return;
+    case 14: sub_0044E380_ShowLoadingMessage(0x11); return;
+    case 15: sub_0044E380_ShowLoadingMessage(0x12); return;
+    case 16: sub_0044E380_ShowLoadingMessage(0x13); return;
+    case 17: sub_0044E380_ShowLoadingMessage(0x14); return;
+    case 18: sub_0044E380_ShowLoadingMessage(0x15); return;
+    case 19: sub_0044E380_ShowLoadingMessage(0x16); return;
+    case 20: sub_0044E380_ShowLoadingMessage(0x17); return;
+    case 21: sub_0044E380_ShowLoadingMessage(0x18); return;
+    case 24: sub_0044E380_ShowLoadingMessage(0x1A); return;
+    case 23: sub_0044E380_ShowLoadingMessage(0x19); return;
+    case 26: sub_0044E380_ShowLoadingMessage(0x1C); return;
+    case 25: sub_0044E380_ShowLoadingMessage(0x1B); return;
     }
-    sub_0044E380_SetConnectionError(9);
+    sub_0044E380_ShowLoadingMessage(9);
 }
 
 void __fastcall sub_0045C850_HandleSystemPacket(unsigned char* pPacket, int nSize)
@@ -1822,7 +1822,7 @@ void __fastcall sub_0045C9A0_GamePacket04_LoadDone(void* pPacket)
     if (pRoom)
     {
         sub_00470B10_PreloadForceAct(DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(pRoom)));
-        D2UnitStrc* pPlayer = sub_00463DD0();
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         if (pPlayer && pPlayer->dwUnitType == 0 && pPlayer->pPlayerData)
         {
             pPlayer->pPlayerData->unk0x150 = 0;
@@ -1856,10 +1856,10 @@ void __fastcall sub_0045CA60_GamePacket06_LogoutDone(void* pPacket)
     if (gdwGlobal_007A0610 == 7 || gdwGlobal_007A0610 == 9)
     {
         if (!sub_0044C870())
-            sub_0044E380_SetConnectionError(8);
+            sub_0044E380_ShowLoadingMessage(8);
     }
     if ((gdwGlobal_007A0610 == 2 || gdwGlobal_007A0610 == 3) && gdwGlobal_007A061C)
-        sub_0044E380_SetConnectionError(7);
+        sub_0044E380_ShowLoadingMessage(7);
     gdwGlobal_007A0620 = 1;
 }
 
@@ -1871,7 +1871,7 @@ void __fastcall sub_0045CB90_GamePacket09_AssignWarp(D2GSPacketSrv09* pPacket)
     const unsigned short nY = pPacket->nPosY;
     D2UnitStrc* pUnit = sub_004661C0_AllocClientUnit(nUnitGUID, pPacket->unk0x06, nX, nY, pPacket->nUnitType, 0);
     if (pUnit && pUnit->dwUnitType == 1)
-        sub_00470B70_ResetMonsterMode(pUnit);
+        sub_00470B70_ResetMonsterModeGfx(pUnit);
 }
 
 // 0x0045CBD0
@@ -1884,7 +1884,7 @@ void __fastcall sub_0045CBD0_GamePacket51_AssignObject(D2GSPacketSrv51* pPacket)
 void __fastcall sub_0045CC10_GamePacket0A_RemoveObject(D2GSPacketSrv0A* pPacket)
 {
     const int nUnitGUID = pPacket->dwUnitGUID;
-    if (pPacket->nUnitType == 1 && nUnitGUID == sub_00478F20_FindPetIdByOwner(sub_00463DD0(), 7, 1))
+    if (pPacket->nUnitType == 1 && nUnitGUID == sub_00478F20_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 1))
         return;
     sub_00465EE0_RemoveClientSideUnit(nUnitGUID, pPacket->nUnitType);
 }
@@ -1896,7 +1896,7 @@ void __fastcall sub_0045CC50_GamePacket0B_Handshake(D2GSPacketSrv0B* pPacket)
     D2UnitStrc* pUnit = sub_00463990(nUnitGUID, pPacket->nUnitType);
     if (pUnit)
         sub_00463D90((int)pUnit);
-    sub_0046F360();
+    sub_0046F360_Empty();
 }
 
 // 0x0045CCC0
@@ -2032,7 +2032,7 @@ void __fastcall sub_0045E9D0_Packet82(const D2GSPacketSrv82* pPacket)
         {
             sub_004BDFE0_SetObjectName(pPortal, pPacket->szOwnerName);
         }
-        sub_0047A270(nOwnerGUID, nPortalGUID0, nPortalGUID1);
+        sub_0047A270_SetPortalIds(nOwnerGUID, nPortalGUID0, nPortalGUID1);
     }
 }
 
@@ -2074,7 +2074,7 @@ void __fastcall sub_0045EE20_PacketA8(D2GSPacketSrvA8* pPacket)
         nStatId = sub_00411020_ReadBits(&tBuffer, 9);
     }
 
-    sub_004D9E60_EndState(pUnit, nState);
+    sub_004D9E60_StartClientState(pUnit, nState);
 }
 
 // 0x0045EFA0
@@ -2118,7 +2118,7 @@ void __fastcall sub_0045EFA0_PacketAA(D2GSPacketSrvAA* pPacket)
                 nStatId = sub_00411020_ReadBits(&tBuffer, 9);
             }
         }
-        sub_004D9E60_EndState(pUnit, nState);
+        sub_004D9E60_StartClientState(pUnit, nState);
         nState = sub_00411020_ReadBits(&tBuffer, 8);
     }
 }
@@ -2143,17 +2143,17 @@ void __cdecl sub_004689D0_ShowHelpOnce()
 // 0x0046B4A0
 void __cdecl sub_0046B4A0_RequestNearMonster()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (!pPlayer)
         return;
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
     if (!pRoom)
         return;
-    D2UnitStrc* pMonster = UNITFINDS_FindUnitInNeighboredRooms(pRoom, UNIT_MONSTER, 0x20E);
+    D2UnitStrc* pMonster = sub_0065A620_FindUnitInAdjacentRooms(pRoom, UNIT_MONSTER, 0x20E);
     if (!pMonster)
         return;
 
-    const int nX = UNITS_GetXPosition(pMonster);
+    const int nX = CLIENTS_GetUnitX(pMonster);
     const int nY = CLIENTS_GetUnitY(pMonster);
     sub_004CDB40_SubmitRequest(pPlayer, 0x25E, nX, nY, 0, 1);
     sub_004CDB40_SubmitRequest(pPlayer, 0x25B, nX, nY, 0, 1);
@@ -2238,7 +2238,7 @@ void __fastcall sub_00462F60_UnitDropItems(D2UnitDropItemsPacketStrc* pPacket)
         return;
     if (!sub_00464820_IsDeadOrDying(pUnit))
         sub_00480E70_SetUnitMode(pUnit, 0);
-    if (pUnit == sub_00463DD0())
+    if (pUnit == sub_00463DD0_GetPlayerUnit())
     {
         D2UnitStrc* pOther = sub_00463990(*(int*)pPacket->nOtherUnitId, 0);
         if (!pOther)
@@ -2246,7 +2246,7 @@ void __fastcall sub_00462F60_UnitDropItems(D2UnitDropItemsPacketStrc* pPacket)
         D2DynamicPathStrc* pPath = pOther->pDynamicPath;
         PATH_SetMoveTestCollisionMask(pPath, 0);
         sub_00649190_SetPathMode(pOther, 5);
-        D2_ASSERT(sub_00650BE0_PlaceUnit(pPath, pOther, UNITS_GetRoom(pUnit), UNITS_GetXPosition(pUnit), CLIENTS_GetUnitY(pUnit)), 0xABA);
+        D2_ASSERT(sub_00650BE0_PlaceUnit(pPath, pOther, UNITS_GetRoom(pUnit), CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit)), 0xABA);
         PATH_SetDirection(pOther->pDynamicPath, PATH_GetDirection(pUnit->pDynamicPath));
     }
     D2InventoryStrc* pInventory = pUnit->pInventory;
@@ -2257,8 +2257,8 @@ void __fastcall sub_00462F60_UnitDropItems(D2UnitDropItemsPacketStrc* pPacket)
         if (INVENTORY_GetItemNodePage(pItem) == 3)
         {
             pItem = INVENTORY_UnitIsItem(pItem);
-            sub_0063D2B0_DetachItem(pInventory, pItem);
-            sub_0046F280(pUnit, sub_00462EE0_GetItemComponent(pUnit, pItem));
+            INVENTORY_UpdateWeaponGUIDOnRemoval(pInventory, pItem);
+            sub_0046F280_ClearGfxBytes(pUnit, sub_00462EE0_GetItemComponent(pUnit, pItem));
             D2UnitStrc* pRemoved = INVENTORY_RemoveItemFromInventory(pInventory, pItem);
             D2_ASSERT(pRemoved, 0xAC8);
             D2_ASSERT(pRemoved == pItem, 0xAC9);
@@ -2328,7 +2328,7 @@ void __fastcall sub_0045D0F0_Packet11(const D2GSPacketSrv11* pPacket)
     D2UnitStrc* pUnit = sub_00463990(nUnitId, nUnitType);
     if (pUnit && wOverlay < sgptDataTables->nOverlayTxtRecordCount)
     {
-        sub_00464E50(pUnit, wOverlay, 0);
+        sub_00464E50_SetOverlayWithSound(pUnit, wOverlay, 0);
     }
 }
 
@@ -2341,7 +2341,7 @@ void __fastcall sub_0045D370_Packet28(const D2GSPacketSrv28* pPacket)
 // 0x0045D390
 void __fastcall sub_0045D390_Packet62(const D2GSPacketSrv62* pPacket)
 {
-    sub_004B5320(pPacket->nUnitType, pPacket->nUnitId);
+    sub_004B5320_OnUnitRemoved(pPacket->nUnitType, pPacket->nUnitId);
 }
 
 // 0x0045D3A0
@@ -2465,7 +2465,7 @@ void __fastcall sub_0045D160(const unsigned char* pPacket)
                 PATH_SetFootprintCollisionMask(pUnit->pDynamicPath, 0x100);
             }
         }
-        if (pUnit == sub_00463DD0())
+        if (pUnit == sub_00463DD0_GetPlayerUnit())
         {
             D2_ASSERT(!sub_0061AB30(UNITS_GetRoom(pUnit)), 0x81E);
             sub_0044DB40(3000);
@@ -2506,8 +2506,8 @@ static void __stdcall sub_0045D4B0_OnStatChanged(int nValue, int nStat, D2UnitSt
         break;
 
     case 0xC:
-        sub_0045D3B0_SendUnitStatus(sub_00463DD0());
-        if (pUnit != sub_00463DD0())
+        sub_0045D3B0_SendUnitStatus(sub_00463DD0_GetPlayerUnit());
+        if (pUnit != sub_00463DD0_GetPlayerUnit())
             break;
         sub_0045D3E0(pUnit);
 
@@ -2964,7 +2964,7 @@ void __fastcall sub_0045E4E0_Packet5B(const D2GSPacketSrv5B* pPacket)
 // 0x0045E530
 void __fastcall sub_0045E530_Packet5C(const D2GSPacketSrv5C* pPacket)
 {
-    sub_0047A8B0(pPacket->dwPlayerGUID);
+    sub_0047A8B0_RemoveRosterUnit(pPacket->dwPlayerGUID);
 }
 
 // 0x0045E5B0
@@ -2974,7 +2974,7 @@ void __fastcall sub_0045E5B0_Packet92(const D2GSPacketSrv92* pPacket)
     D2UnitStrc* pUnit = sub_00463990(nUnitGUID, pPacket->nUnitType);
     if (pUnit)
     {
-        sub_004C23E0(pUnit);
+        sub_004C23E0_RemoveEquippedItems(pUnit);
     }
 }
 
@@ -3022,7 +3022,7 @@ void __fastcall sub_0045E860_Packet7A(const D2GSPacketSrv7A* pPacket)
     }
     else
     {
-        sub_00478C90(nKey);
+        sub_00478C90_DropPetEntry(nKey);
     }
 }
 
@@ -3042,7 +3042,7 @@ void __fastcall sub_0045E8D0_Packet7B(const D2GSPacketSrv7B* pPacket)
 // 0x0045E970
 void __fastcall sub_0045E970_Packet7E(const D2GSPacketSrv7E* pPacket)
 {
-    sub_0046F310(DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(sub_00463DD0()))));
+    sub_0046F310_LoadGlobalHashedFile(DRLG_GetActNoFromLevelId(DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(sub_00463DD0_GetPlayerUnit()))));
 }
 
 // 0x0045E990
@@ -3130,7 +3130,7 @@ void __fastcall sub_0045EDE0_PacketA7(const D2GSPacketSrvA7* pPacket)
     {
         const int nState = pPacket->nState;
         sub_004D9B20_BeginState(pUnit, nState);
-        sub_004D9E60_EndState(pUnit, nState);
+        sub_004D9E60_StartClientState(pUnit, nState);
     }
 }
 

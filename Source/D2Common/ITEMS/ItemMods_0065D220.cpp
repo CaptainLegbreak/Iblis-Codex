@@ -90,7 +90,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
-D2StatListStrc* __stdcall sub_00625790_UnitFindStatList(D2UnitStrc* pUnit, int nState, int nFlag); // 0x00625790
+D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitStateOrFlag(D2UnitStrc* pUnit, int nState, int nFlag); // 0x00625790
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, int nLayer); // 0x00627260
 void __stdcall ITEMS_SetItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int bSet); // 0x006280D0
 unsigned int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
@@ -99,8 +99,8 @@ int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 unsigned short __stdcall ITEMS_GetItemFormat(D2UnitStrc* pItem); // 0x0062A670
 int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem); // 0x0062B400
 int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc* pItem); // 0x0062BA80
-unsigned char __stdcall ITEMS_GetMaxSockets(D2UnitStrc* pItem); // 0x0062BC20
-void __stdcall ITEMS_SetSockets(D2UnitStrc* pItem, int nSockets); // 0x0062BE00
+unsigned char __stdcall sub_0062BC20(D2UnitStrc* pItem); // 0x0062BC20
+void __stdcall ITEMS_AddSockets(D2UnitStrc* pItem, int nSockets); // 0x0062BE00
 const D2RunesTxt* __stdcall ITEMS_GetRunesTxtRecordFromItem(D2UnitStrc* pItem); // 0x0062BED0
 int __fastcall ITEMMODS_RollRandomValueInRange(D2UnitStrc* pItem, int nMin, int nMax); // 0x0065E9E0
 int __fastcall ITEMMODS_AddPropertyToItemStatList(D2UnitStrc* pItem, int fStatList, D2UnitStrc* pUnit, const D2PropertyStrc* pProperty, int nSet, short nStatId, int nLayer, int nValue, int nState); // 0x0065EA50
@@ -152,7 +152,7 @@ struct D2PropertyAssignStrc
 };
 
 int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem); // 0x00629DA0
-D2UniqueItemsTxt* __fastcall sub_00483470(int nUniqueItemId); // 0x00483470
+D2UniqueItemsTxt* __fastcall sub_00483470_GetUniqueItemsTxtRecord(int nUniqueItemId); // 0x00483470
 D2SetItemsTxt* __fastcall sub_00483440_GetSetItemsTxtRecord(int nIndex); // 0x00483440
 void __stdcall D2COMMON_11292_ItemAssignProperty(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const void* pMods, int nIndex, int nPropSet, const D2PropertyStrc* pProperty, int nState, int fStatlist, D2UnitStrc* a10); // 0x0065FD70
 int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem); // 0x00627E70
@@ -188,7 +188,7 @@ int __fastcall sub_6FD93170(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, con
     D2_ASSERT(ptProperty, 786);
 
     ITEMS_SetItemFlag(pItem, 0x800, 1);
-    ITEMS_SetSockets(pItem, ptProperty->nLayer);
+    ITEMS_AddSockets(pItem, ptProperty->nLayer);
 
     return 1;
 }
@@ -223,7 +223,7 @@ int __stdcall ITEMMODS_CanItemHaveMagicAffix(D2UnitStrc* pItem, const D2MagicAff
         return 0;
     }
 
-    if (!(ITEMS_CheckIfSocketable(pItem) && ITEMS_GetMaxSockets(pItem) > 0))
+    if (!(ITEMS_CheckIfSocketable(pItem) && sub_0062BC20(pItem) > 0))
     {
         const int nProperty = pMagicAffixTxtRecord->pProperties[0].nProperty;
         if (nProperty >= 0)
@@ -670,7 +670,7 @@ void __stdcall ITEMMODS_AssignProperty(int nType, D2UnitStrc* a2, D2UnitStrc* pI
     case 3:
         if (ITEMS_GetFileIndex(pItem) >= 0)
         {
-            D2UniqueItemsTxt* pUniqueItemsTxtRecord = sub_00483470(ITEMS_GetFileIndex(pItem));
+            D2UniqueItemsTxt* pUniqueItemsTxtRecord = sub_00483470_GetUniqueItemsTxtRecord(ITEMS_GetFileIndex(pItem));
             if (pUniqueItemsTxtRecord)
             {
                 for (int i = 0; i < 12; ++i)

@@ -38,7 +38,7 @@ void __fastcall BUTTON_SetIsPressed(D2WinControlStrc* pButton, int bIsPressed); 
 extern D2WinControlStrc* gpChatControl_0077B074; // 0x0077B074
 extern D2WinControlStrc* gpControlC_0077B07C; // 0x0077B07C
 void __cdecl sub_0043EB30_CreateControls(); // 0x0043EB30
-void __cdecl sub_00440FC0(); // 0x00440FC0
+void __cdecl sub_00440FC0_CreateGatewayControls(); // 0x00440FC0
 extern D2LaunchCharInfoStrc* gpCharInfo_0077BBD8; // 0x0077BBD8
 void __cdecl sub_004F8FE0(); // 0x004F8FE0
 void __stdcall sub_004F90A0(int nResolution); // 0x004F90A0
@@ -57,7 +57,7 @@ struct D2WinControlInitStrc
 {
     char data[0x30];
 };
-void __fastcall sub_004FD060_SetText(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FD060
+void __fastcall D2Win_10044(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FD060
 extern D2WinControlInitStrc gtWaitInit_0070D3C0; // 0x0070D3C0
 extern D2WinControlStrc* gpControlA_0077B070; // 0x0077B070
 extern D2WinControlStrc* gpControlB_0077B078; // 0x0077B078
@@ -264,7 +264,7 @@ int __stdcall sub_00442370_ReleaseAndCreate(int nArg)
     BUTTON_SetIsPressed(gpControlC_0077B07C, 0);
     BUTTON_SetIsPressed(gpControlA_0077B070, 0);
     sub_0043F8C0_ResetLaunchState();
-    sub_00440FC0();
+    sub_00440FC0_CreateGatewayControls();
     return 1;
 }
 
@@ -287,7 +287,7 @@ int __fastcall sub_0043FB50_ShowWait(const Unicode* pText, D2LaunchCallback pfnD
     BUTTON_SetIsPressed(gpControlB_0077B078, 0);
     BUTTON_SetIsPressed(gpControlC_0077B07C, 0);
     gpWaitText_0077BD9C = CONTROL_Create(&gtWaitInit_0070D3C0);
-    sub_004FD060_SetText(gpWaitText_0077BD9C, pText);
+    D2Win_10044(gpWaitText_0077BD9C, pText);
     gpfnLaunchCallback_0077BDA4 = pfnDone;
     return 1;
 }

@@ -8,7 +8,7 @@ struct D2HirelingInfoStrc;
 
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 extern D2RosterPetNodeStrc* gpRosterPets_007BB5BC; // 0x007BB5BC
 
 struct D2HirelingInfoStrc
@@ -54,7 +54,7 @@ void __fastcall sub_00478C90_DropPetEntry(int nKey)
         {
             if (pNode->nType == 7)
             {
-                D2UnitStrc* pPlayer = sub_00463DD0();
+                D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
                 if (pNode->nArg == (!pPlayer ? -1 : pPlayer->dwUnitId))
                 {
                     pNode->nClear = 1;

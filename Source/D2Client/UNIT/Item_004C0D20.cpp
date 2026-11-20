@@ -20,13 +20,13 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 void __stdcall STATLIST_MergeStatLists(D2UnitStrc* pTarget, D2UnitStrc* pUnit, int bType); // 0x00627910
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
-int __stdcall sub_00629A40(D2UnitStrc* pItem); // 0x00629A40
+int __stdcall ITEMS_GetGemApplyType(D2UnitStrc* pItem); // 0x00629A40
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 D2GemsTxt* __stdcall DATATBLS_GetGemsTxtRecord(int nGemId); // 0x006372C0
 D2UnitStrc* __stdcall sub_0063BEF0_GetLeftWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
 int __stdcall UNITS_CanDualWield(D2UnitStrc* pUnit); // 0x006235A0
-void __stdcall sub_0065FEC0_ItemApplyProps(int nPass, D2UnitStrc* pUnit, D2UnitStrc* pItem, const void* pProperty, int nArg2, int nArg5); // 0x0065FEC0
+void __stdcall ITEMMODS_AssignProperty(int nPass, D2UnitStrc* pUnit, D2UnitStrc* pItem, const void* pProperty, int nArg2, int nArg5); // 0x0065FEC0
 int __stdcall ITEMS_UpdateSets(D2UnitStrc* pUnit, D2UnitStrc* pItem, int a3, int a4); // 0x00663CC0
 static __declspec(noinline) void __stdcall sub_004C0D20_ApplyItemStats(D2UnitStrc* pItem, D2UnitStrc* pUnit, int bForce);
 
@@ -134,7 +134,7 @@ static void __stdcall sub_004C0D20_ApplyItemStats(D2UnitStrc* pItem, D2UnitStrc*
         D2_ASSERT(pItemsTxtRecord, 0x32);
         pGemsTxtRecord = DATATBLS_GetGemsTxtRecord(pItemsTxtRecord->dwGemOffset);
         D2_ASSERT(pGemsTxtRecord, 0x34);
-        sub_0065FEC0_ItemApplyProps(2, NULL, pItem, pGemsTxtRecord, sub_00629A40(pUnit), 0);
+        ITEMMODS_AssignProperty(2, NULL, pItem, pGemsTxtRecord, ITEMS_GetGemApplyType(pUnit), 0);
     }
     else if (ITEMSIsA(pItem, 0x4A))
     {
@@ -143,7 +143,7 @@ static void __stdcall sub_004C0D20_ApplyItemStats(D2UnitStrc* pItem, D2UnitStrc*
         D2_ASSERT(pItemsTxtRecord, 0x3C);
         pGemsTxtRecord = DATATBLS_GetGemsTxtRecord(pItemsTxtRecord->dwGemOffset);
         D2_ASSERT(pGemsTxtRecord, 0x3E);
-        sub_0065FEC0_ItemApplyProps(5, pUnit, pItem, pGemsTxtRecord, sub_00629A40(pUnit), 0);
+        ITEMMODS_AssignProperty(5, pUnit, pItem, pGemsTxtRecord, ITEMS_GetGemApplyType(pUnit), 0);
     }
     else
     {

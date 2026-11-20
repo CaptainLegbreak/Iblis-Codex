@@ -46,7 +46,7 @@ extern "C" int __cdecl isalpha(int c); // 0x00686DA5
 int __cdecl sub_004F59A0(); // 0x004F59A0
 void __fastcall sub_00451DB0_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
-void __cdecl sub_0046AAE0(); // 0x0046AAE0
+void __cdecl sub_0046AAE0_LoadKeyConfig(); // 0x0046AAE0
 extern D2HotkeyCommandStrc gtHotkeyCommands_00712698[]; // 0x00712698
 extern D2HotkeyStrc gtHotkeys_007A6F90[NUM_HOTKEYS]; // 0x007A6F90
 extern HOTKEYCOMMANDFN gpfnBoundCommand_007A7404; // 0x007A7404
@@ -296,7 +296,7 @@ void __fastcall sub_0046AA20_SetHotkeyHandlers(int bEnable, int bFlag)
 // 0x0046AC70
 void __cdecl sub_0046AC70_EnableHotkeyHandlers()
 {
-    sub_0046AAE0();
+    sub_0046AAE0_LoadKeyConfig();
     gnGlobal_007A7418 = 1;
     if (gnGlobal_007A7428 == 0)
     {

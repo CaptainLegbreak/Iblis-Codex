@@ -85,7 +85,7 @@ inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId);                                        // 0x0045C4B0
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed);                                 // 0x00650E40
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                         // 0x0045C3E0
-void __fastcall sub_00464810(D2UnitStrc* pUnit);                                                            // 0x00464810
+void __fastcall sub_00464810_SetUnitFlag16(D2UnitStrc* pUnit);                                                            // 0x00464810
 unsigned short __stdcall COLLISION_CheckMask(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned short nMask);         // 0x0064CB30
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
 #ifdef MOVED_TEST
@@ -148,7 +148,7 @@ void __fastcall sub_004D59E0_CltDoSeededSpawn(D2UnitStrc* pMissile)
             params.nX = nX;
             params.nY = nY;
             D2UnitStrc* pSub = sub_004CD540_CreateMissile(&params);
-            if (pSub) sub_00464810(pSub);
+            if (pSub) sub_00464810_SetUnitFlag16(pSub);
             if (pRecord->wCltSubMissile[1] >= 0) {
                 params.nMissile = pRecord->wCltSubMissile[1];
                 sub_004CD540_CreateMissile(&params);

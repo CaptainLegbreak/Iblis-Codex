@@ -39,8 +39,8 @@ struct D2WinSmackStrc
 #pragma pack(pop)
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 int __stdcall CONTROL_AppendToList(D2WinControlStrc* pControl); // 0x004F9210
-int __fastcall sub_00506A90_SmackDraw(D2WinControlStrc* pControl); // 0x00506A90
-int __stdcall sub_00506B10_SmackMouseDown(SMSGHANDLER_PARAMS* pMsg); // 0x00506B10
+int __fastcall SMACK_Draw(D2WinControlStrc* pControl); // 0x00506A90
+int __stdcall SMACK_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg); // 0x00506B10
 
 // 0x00506B70
 D2WinSmackStrc* __fastcall sub_00506B70_SmackCreate(int nX, int nY, int nWidth, int nHeight, D2WinMsgHandler pfHandler)
@@ -57,8 +57,8 @@ D2WinSmackStrc* __fastcall sub_00506B70_SmackCreate(int nX, int nY, int nWidth, 
     pSmack->controlHeader.nImageY = nY;
     pSmack->controlHeader.nHeight = nHeight;
     pSmack->controlHeader.field_34 = pfHandler;
-    pSmack->controlHeader.pfDraw = sub_00506A90_SmackDraw;
-    pSmack->controlHeader.pfHandleMouseDown = sub_00506B10_SmackMouseDown;
+    pSmack->controlHeader.pfDraw = SMACK_Draw;
+    pSmack->controlHeader.pfHandleMouseDown = SMACK_HandleMouseDown;
     pSmack->szFile[0] = 0;
     memset(&pSmack->unk0x140, 0, 2 * sizeof(int));
     pSmack->nMovieX = (nWidth - 468) / 2 + nX;

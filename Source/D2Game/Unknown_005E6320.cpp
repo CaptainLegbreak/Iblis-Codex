@@ -16,7 +16,7 @@ unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax
 void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nCustomId); // 0x00540E60
 D2AiCmdStrc* __fastcall AIGENERAL_GetAiCommandFromParam(D2UnitStrc* pUnit, int nCmd, int bSet); // 0x0058EEF0
 void __fastcall AIGENERAL_CopyAiCommand(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiCmdStrc* pCmd); // 0x0058EF40
-void __fastcall D2GAME_MONSTERMODE_SetVelocityParams_6FC62FC0(D2AiParamStrc* pAiParam, int nFlags, int nVelocity, unsigned char nUnused); // 0x005A6260
+void __fastcall sub_005A6260_SetAiParamFields(D2AiParamStrc* pAiParam, int nFlags, int nVelocity, unsigned char nUnused); // 0x005A6260
 int __fastcall AIUTIL_GetDistanceToCoordinates(D2UnitStrc* pUnit, int nX, int nY); // 0x005DC5C0
 int __fastcall AITACTICS_ChangeModeAndTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, D2UnitStrc* pTarget); // 0x005DDF90
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames); // 0x005DE080
@@ -45,7 +45,7 @@ D2UnitStrc* __fastcall AIUTIL_SelectAiTargetWithCollisionCheck(D2GameStrc*, D2Un
 int __fastcall AITACTICS_UseSkill(D2GameStrc*, D2UnitStrc*, unsigned char, int, D2UnitStrc*, int, int); // 0x005DEAD0
 int __fastcall AITACTICS_RunCloseToTargetUnit(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, unsigned char); // 0x005DF680
 int __fastcall sub_005DF7D0(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, int, int); // 0x005DF7D0
-int __fastcall sub_6FCD06D0(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, unsigned char, int); // 0x005DF140
+int __fastcall sub_005DF140_Escape(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, unsigned char, int); // 0x005DF140
 static __forceinline unsigned int Roll(D2SeedStrc* pSeed)
 {
     unsigned __int64 seed = pSeed->nHighSeed + 0x6AC690C5i64 * pSeed->nLowSeed;
@@ -132,7 +132,7 @@ void __fastcall sub_005E6320_Think(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTic
     }
     if ((int)(Roll(pSeed) % 100) < 30 && nDistance < 12) {
         AITACTICS_SetVelocity(pUnit, 7, 100, 0);
-        if (sub_6FCD06D0(pGame, pUnit, pTarget, 12 - nDistance, 0)) return;
+        if (sub_005DF140_Escape(pGame, pUnit, pTarget, 12 - nDistance, 0)) return;
         D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 2, 0);
     }
     AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, 4, pTarget);

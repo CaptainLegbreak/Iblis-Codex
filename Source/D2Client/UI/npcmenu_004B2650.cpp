@@ -67,7 +67,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 extern "C" __declspec(dllimport) int __stdcall SetRect(tagRECT* lprc, int xLeft, int yTop, int xRight, int yBottom); // 0x006CC498
 D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType); // 0x00463990
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 void __stdcall UNITS_GetClientCoords(D2UnitStrc* pUnit, D2CoordStrc* pClientCoords); // 0x00620900
 void __fastcall sub_00476070_GetViewRect(D2ViewStrc* pView, int* pLeft, int* pTop, int* pRight, int* pBottom); // 0x00476070
 void __fastcall sub_004760C0_GetViewOffset(D2ViewStrc* pView, int* pX, int* pY); // 0x004760C0
@@ -75,7 +75,7 @@ void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg); // 0x00478680
 void __fastcall sub_004786A0_SendIntInt(char nHeader, int nArg1, int nArg2); // 0x004786A0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 D2TextHeaderStrc* __cdecl sub_0049F900(); // 0x0049F900
-const Unicode* __fastcall sub_0049F910_GetString(unsigned short nStringId); // 0x0049F910
+const Unicode* __fastcall sub_0049F910_GetTextString(unsigned short nStringId); // 0x0049F910
 D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x0063B2C0
 D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
 D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
@@ -122,7 +122,7 @@ int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nL
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
 Unicode* __fastcall sub_004521C0_PrefixLevelText(Unicode* pText, int nDigit); // 0x004521C0
 unsigned char __cdecl sub_0044DCD0_GetDifficulty(); // 0x0044DCD0
-D2UnitStrc* __cdecl sub_00463DE0_GetStoredUnit(); // 0x00463DE0
+D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 int __stdcall ITEMS_GetAllRepairCosts(void* pGame, D2UnitStrc* pUnit, int nNpcId, int nDifficulty, D2BitBufferStrc* pQuestFlags, void* pfCallback); // 0x0062FE60
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
@@ -391,7 +391,7 @@ int __fastcall sub_004B2AD0_GetTradeCostText(D2UnitStrc* pItem, int bService, in
                 if (!sub_004B1F80_ItemNeedsRepair(pItem))
                     return 0;
                 D2UnitStrc* pVendor = sub_004B1620_GetInteractNpc();
-                *pCost = ITEMS_GetTransactionCost(sub_00463DE0_GetStoredUnit(), pItem, sub_0044DCD0_GetDifficulty(), gpQuestFlags_007C0D43, !pVendor ? -1 : pVendor->dwClassId, 3);
+                *pCost = ITEMS_GetTransactionCost(sub_00463DE0_GetPlayerUnit(), pItem, sub_0044DCD0_GetDifficulty(), gpQuestFlags_007C0D43, !pVendor ? -1 : pVendor->dwClassId, 3);
                 nStringId = 0xD02;
                 break;
             }
@@ -413,7 +413,7 @@ int __fastcall sub_004B2AD0_GetTradeCostText(D2UnitStrc* pItem, int bService, in
             if (!sub_0062A130(pItem))
                 return 0;
             D2UnitStrc* pVendor = sub_004B1620_GetInteractNpc();
-            *pCost = ITEMS_GetTransactionCost(sub_00463DE0_GetStoredUnit(), pItem, sub_0044DCD0_GetDifficulty(), gpQuestFlags_007C0D43, !pVendor ? -1 : pVendor->dwClassId, 1);
+            *pCost = ITEMS_GetTransactionCost(sub_00463DE0_GetPlayerUnit(), pItem, sub_0044DCD0_GetDifficulty(), gpQuestFlags_007C0D43, !pVendor ? -1 : pVendor->dwClassId, 1);
             nStringId = 0xD03;
             break;
         }
@@ -426,7 +426,7 @@ int __fastcall sub_004B2AD0_GetTradeCostText(D2UnitStrc* pItem, int bService, in
             nType = 2;
         D2UnitStrc* pVendor = GetInteractNpc_Inline();
         const int nVendorId = !pVendor ? -1 : pVendor->dwClassId;
-        *pCost = ITEMS_GetTransactionCost(sub_00463DE0_GetStoredUnit(), pItem, sub_0044DCD0_GetDifficulty(), gpQuestFlags_007C0D43, nVendorId, nType);
+        *pCost = ITEMS_GetTransactionCost(sub_00463DE0_GetPlayerUnit(), pItem, sub_0044DCD0_GetDifficulty(), gpQuestFlags_007C0D43, nVendorId, nType);
         nStringId = 0xD01;
     }
     if (!nStringId)
@@ -495,10 +495,10 @@ int __fastcall sub_004B3870_HandleTradeClick(D2UnitStrc* pPlayer, D2UnitStrc* pI
                 if (!sub_004B1F80_ItemNeedsRepair(pItem))
                     return 0;
                 gnGlobal_007C0D31 = 3;
-                gnGlobal_007C0D7F = ITEMS_GetTransactionCost(sub_00463DE0_GetStoredUnit(), pItem, sub_0044DCD0_GetDifficulty(), gpQuestFlags_007C0D43, nNpcClass, 3);
+                gnGlobal_007C0D7F = ITEMS_GetTransactionCost(sub_00463DE0_GetPlayerUnit(), pItem, sub_0044DCD0_GetDifficulty(), gpQuestFlags_007C0D43, nNpcClass, 3);
                 break;
             }
-            gnGlobal_007C0D7F = ITEMS_GetTransactionCost(sub_00463DE0_GetStoredUnit(), pItem, sub_0044DCD0_GetDifficulty(), gpQuestFlags_007C0D43, nNpcClass, 1);
+            gnGlobal_007C0D7F = ITEMS_GetTransactionCost(sub_00463DE0_GetPlayerUnit(), pItem, sub_0044DCD0_GetDifficulty(), gpQuestFlags_007C0D43, nNpcClass, 1);
             if (!sub_0062A130(pItem))
                 return 0;
             gnGlobal_007C0D31 = 2;
@@ -515,7 +515,7 @@ int __fastcall sub_004B3870_HandleTradeClick(D2UnitStrc* pPlayer, D2UnitStrc* pI
         case 0x200:
         case 0x201:
         case 0x202:
-            gnGlobal_007C0D7F = ITEMS_GetTransactionCost(sub_00463DE0_GetStoredUnit(), pItem, sub_0044DCD0_GetDifficulty(), gpQuestFlags_007C0D43, nNpcClass, 1);
+            gnGlobal_007C0D7F = ITEMS_GetTransactionCost(sub_00463DE0_GetPlayerUnit(), pItem, sub_0044DCD0_GetDifficulty(), gpQuestFlags_007C0D43, nNpcClass, 1);
             if (!sub_0062A130(pItem))
                 return 0;
             gnGlobal_007C0D31 = 2;
@@ -535,13 +535,13 @@ int __fastcall sub_004B3870_HandleTradeClick(D2UnitStrc* pPlayer, D2UnitStrc* pI
     }
     else
     {
-        if (INVENTORY_GetCursorItem(sub_00463DD0()->pInventory))
+        if (INVENTORY_GetCursorItem(sub_00463DD0_GetPlayerUnit()->pInventory))
             return 0;
         gnGlobal_007C0D31 = 1;
         int nType = 0;
         if (gnGlobal_007C0DB0)
             nType = 2;
-        gnGlobal_007C0D7F = ITEMS_GetTransactionCost(sub_00463DE0_GetStoredUnit(), pItem, sub_0044DCD0_GetDifficulty(), gpQuestFlags_007C0D43, nNpcClass, nType);
+        gnGlobal_007C0D7F = ITEMS_GetTransactionCost(sub_00463DE0_GetPlayerUnit(), pItem, sub_0044DCD0_GetDifficulty(), gpQuestFlags_007C0D43, nNpcClass, nType);
     }
     gbGlobal_007C0DE0 = 1;
     gnGlobal_007C0DE5 = GetUnitIdOrNone(pItem);

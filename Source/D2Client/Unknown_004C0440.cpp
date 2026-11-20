@@ -33,8 +33,8 @@ struct D2HotspotStrc
 extern D2HotspotStrc gaHotspots_00727902[]; // 0x00727902
 extern int gnGlobal_007C5474; // 0x007C5474
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
-int __cdecl sub_004BFAF0(); // 0x004BFAF0
-int __cdecl sub_004C02F0(); // 0x004C02F0
+int __cdecl sub_004BFAF0_ShowConfirmation(); // 0x004BFAF0
+int __cdecl sub_004C02F0_ClosePanel(); // 0x004C02F0
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 int __stdcall sub_004890B0_ClickRectMsg(SMSGHANDLER_PARAMS* pMsg); // 0x004890B0
 
@@ -54,9 +54,9 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 void __cdecl sub_004C0380_OpenPanel(); // 0x004C0380
-void __cdecl sub_004B3FB0_Close(); // 0x004B3FB0
+void __cdecl sub_004B3FB0_CloseNpc2(); // 0x004B3FB0
 void __fastcall sub_004B8020(void* pRes); // 0x004B8020
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 extern void* gpGlobal_007C5484; // 0x007C5484
 
 static int sub_004C0450_ClickHotspots(int nX, int nY);
@@ -64,7 +64,7 @@ static int sub_004C0450_ClickHotspots(int nX, int nY);
 // 0x004C0440
 int __cdecl sub_004C0440_Thunk()
 {
-    return sub_004C02F0();
+    return sub_004C02F0_ClosePanel();
 }
 
 // 0x004C04E0
@@ -80,7 +80,7 @@ void __stdcall sub_004C04E0_OnHotspotClick(SMSGHANDLER_PARAMS* pMsg)
         if (sub_004C0450_ClickHotspots(nX, nY))
             return;
         if (sub_00489190(pMsg))
-            sub_004C02F0();
+            sub_004C02F0_ClosePanel();
         return;
     }
     if (sub_004890B0_ClickRectMsg(pMsg))
@@ -99,9 +99,9 @@ static int sub_004C0450_ClickHotspots(int nX, int nY)
         {
             sub_004B9A00(1, 0, 0, 0, 0);
             if (!i)
-                sub_004BFAF0();
+                sub_004BFAF0_ShowConfirmation();
             else
-                sub_004C02F0();
+                sub_004C02F0_ClosePanel();
             bHit = 1;
         }
     }
@@ -145,7 +145,7 @@ void __fastcall sub_004C0550(D2PacketRecord7Strc* pPacket)
 
     case 5:
     {
-        D2InventoryStrc* pInventory = sub_00463DD0()->pInventory;
+        D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
         INVENTORY_SetCursorItem(pInventory, 0);
     }
         if (pPacket->bFlag)
@@ -162,7 +162,7 @@ void __fastcall sub_004C0550(D2PacketRecord7Strc* pPacket)
     case 6:
     case 7:
         sub_004C0090();
-        sub_004B3FB0_Close();
+        sub_004B3FB0_CloseNpc2();
         return;
 
     default:

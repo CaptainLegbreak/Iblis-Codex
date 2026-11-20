@@ -123,8 +123,8 @@ void __stdcall MISSILE_SetTotalFrames(D2UnitStrc* pMissile, int nTotalFrames); /
 void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nCurrentFrame); // 0x0064A330
 void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nEventCustomId); // 0x00540E60
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
-D2MissilesTxt* __fastcall DATATBLS_GetMissilesTxtRecord(int nMissileId); // 0x0046ACE0
-int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit); // 0x0045ADF0
+D2MissilesTxt* __fastcall sub_0046ACE0(int nMissileId); // 0x0046ACE0
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 int __fastcall D2GAME_GetXAndYFromTargetUnit_6FD14020(D2GameStrc* pGame, D2UnitStrc* pUnit, int* pX, int* pY); // 0x0056D2C0
 D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc* pGame, D2MissileStrc* pMissileParams); // 0x0059FA30
@@ -395,12 +395,12 @@ int __fastcall SKILLS_SrvDo095_MonInferno(D2GameStrc* pGame, D2UnitStrc* pUnit, 
         return 0;
     }
 
-    D2MissilesTxt* pMissilesTxtRecord = DATATBLS_GetMissilesTxtRecord(nMissile);
+    D2MissilesTxt* pMissilesTxtRecord = sub_0046ACE0(nMissile);
     D2MissileStrc missileParams;
     memset(&missileParams, 0, sizeof(missileParams));
     missileParams.dwFlags = 0x25;
     missileParams.pOwner = pUnit;
-    missileParams.nX = UNITS_GetXPosition(pUnit);
+    missileParams.nX = CLIENTS_GetUnitX(pUnit);
     missileParams.nY = CLIENTS_GetUnitY(pUnit);
     missileParams.nSkillLevel = nSkillLevel;
     missileParams.nMissile = nMissile;
@@ -463,12 +463,12 @@ int __fastcall SKILLS_SrvDo152_DiabLight(D2GameStrc* pGame, D2UnitStrc* pUnit, i
         return 0;
     }
 
-    D2MissilesTxt* pMissilesTxtRecord = DATATBLS_GetMissilesTxtRecord(nMissile);
+    D2MissilesTxt* pMissilesTxtRecord = sub_0046ACE0(nMissile);
     D2MissileStrc missileParams;
     memset(&missileParams, 0, sizeof(missileParams));
     missileParams.dwFlags = 0x25;
     missileParams.pOwner = pUnit;
-    missileParams.nX = UNITS_GetXPosition(pUnit);
+    missileParams.nX = CLIENTS_GetUnitX(pUnit);
     missileParams.nY = CLIENTS_GetUnitY(pUnit);
     missileParams.nSkillLevel = nSkillLevel;
     missileParams.nMissile = nMissile;

@@ -72,7 +72,7 @@ int __fastcall sub_00453A90_GetUIVarUnchecked(int nUIVar);                      
 int __fastcall sub_004538D0(int nUIVar);                                                             // 0x004538D0
 void __fastcall sub_00455F20(int nUIVar, int nState, int nArg);                                        // 0x00455F20
 D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType);                             // 0x00463990
-D2UnitStrc* __cdecl sub_00463DD0();                                                               // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 void __fastcall sub_00468070_SetCursorItemState(D2UnitStrc* pItem);                                         // 0x00468070
 int __cdecl sub_00468730();                                                                                 // 0x00468730
 int __cdecl sub_00468740();                                                                                 // 0x00468740
@@ -82,7 +82,7 @@ void __stdcall sub_004873A0_HandleClick(SMSGHANDLER_PARAMS* pMsg);              
 void __cdecl sub_00487990_ResetHover();                                                                     // 0x00487990
 void __fastcall sub_0049FF90_Close(int nArg, D2ClientStateStrc* pState);                                    // 0x0049FF90
 int __cdecl sub_004B34A0();                                                                                 // 0x004B34A0
-int __fastcall sub_004B3230_GetSelectedUnitId(int* pUnitId);                                                // 0x004B3230
+int __fastcall sub_004B3230_GetTickPair(int* pUnitId);                                                // 0x004B3230
 void __cdecl sub_004B3ED0();                                                                                // 0x004B3ED0
 void __fastcall sub_004CB9C0_Request(int nArg, int nId);                                                    // 0x004CB9C0
 int __fastcall sub_004DF9D0_CheckCacheEntry(int nId);                                                       // 0x004DF9D0
@@ -220,7 +220,7 @@ void __stdcall sub_00487A10_SelectItemPageTab(unsigned char nTab)
         return;
     }
     int nUnitId;
-    if (!sub_004B3230_GetSelectedUnitId(&nUnitId))
+    if (!sub_004B3230_GetTickPair(&nUnitId))
     {
         return;
     }
@@ -276,7 +276,7 @@ void __stdcall sub_00488910_ResetCursorMsg(SMSGHANDLER_PARAMS* pMsg)
         && !sub_00453A90_GetUIVarUnchecked(5))
     {
         gnGlobal_007BCBE0 = 0;
-        sub_00468070_SetCursorItemState(INVENTORY_GetCursorItem(sub_00463DD0()->pInventory));
+        sub_00468070_SetCursorItemState(INVENTORY_GetCursorItem(sub_00463DD0_GetPlayerUnit()->pInventory));
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_BreakHandlerChain(pMsg);

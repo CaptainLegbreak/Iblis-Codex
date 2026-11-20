@@ -75,7 +75,7 @@ int __cdecl D2GFX_GetResolutionMode();                                          
 int __cdecl sub_004F59A0();                                                                                // 0x004F59A0
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 int __fastcall sub_00501820(const Unicode* wszText);                                             // 0x00501820
-void __fastcall sub_00502280_SetPopUpText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5);    // 0x00502280
+void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5);    // 0x00502280
 void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 int __fastcall sub_00526800(const Unicode* pString);                                                      // 0x00526800
@@ -161,7 +161,7 @@ void __cdecl sub_004A6A70_DrawLeftPanelButton()
     tContext.nFrame = 2;
     if (sub_004A65E0_IsInLeftButton() && !sub_004538D0(9))
     {
-        sub_00502280_SetPopUpText(D2LANG_GetStringFromTblIndex(0xF92), gnGlobal_0071146C / 2 - 0xB3, gnGlobal_00711470 - 0x32, 0, 1);
+        D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0xF92), gnGlobal_0071146C / 2 - 0xB3, gnGlobal_00711470 - 0x32, 0, 1);
     }
 
     sub_004F6480(&tContext, gnGlobal_0071146C / 2 - 0xC2, gnGlobal_00711470 - 8, -1, 5, 0);
@@ -182,7 +182,7 @@ void __cdecl sub_004A6DA0_DrawRightPanelButton()
     tContext.nFrame = 2;
     if (sub_004A6690_IsInRightButton() && !sub_004538D0(9))
     {
-        sub_00502280_SetPopUpText(D2LANG_GetStringFromTblIndex(0xF93), gnGlobal_0071146C / 2 + 0xB2, gnGlobal_00711470 - 0x32, 0, 1);
+        D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0xF93), gnGlobal_0071146C / 2 + 0xB2, gnGlobal_00711470 - 0x32, 0, 1);
     }
 
     sub_004F6480(&tContext, gnGlobal_0071146C / 2 + 0xA3, gnGlobal_00711470 - 8, -1, 5, 0);

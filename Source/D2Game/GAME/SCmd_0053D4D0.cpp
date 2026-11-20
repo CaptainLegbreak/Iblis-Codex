@@ -122,14 +122,14 @@ extern const unsigned int gdwBitMasks[32]; // 0x006CE268
 void __stdcall BITMANIP_Initialize(D2BitBufferStrc* pBuffer, unsigned char* pBitStream, int nSize); // 0x00410E40
 int __stdcall BITMANIP_GetSize(D2BitBufferStrc* pBuffer); // 0x00410E90
 void __stdcall BITMANIP_Write(D2BitBufferStrc* pBuffer, int nValue, int nBits); // 0x00410EB0
-int __fastcall MONSTER_HasComponents(D2UnitStrc* pUnit); // 0x00573AE0
+int __fastcall sub_00573AE0_HasComponents(D2UnitStrc* pUnit); // 0x00573AE0
 int __fastcall PLAYERPETS_GetPetTypeFromPetGUID(D2UnitStrc* pPlayer, int nPetGUID); // 0x00574A20
 D2UnitStrc* __fastcall AIGENERAL_GetMinionOwner(D2UnitStrc* pUnit); // 0x0058F0D0
 unsigned char* __fastcall MONSTERUNIQUE_GetUMods(D2UnitStrc* pUnit); // 0x005A0120
 unsigned short __fastcall MONSTERUNIQUE_GetNameSeed(D2UnitStrc* pUnit); // 0x005A0140
 int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, int nFlag); // 0x005A0180
 short __fastcall MONSTERUNIQUE_GetBossHcIdx(D2UnitStrc* pUnit); // 0x005A01E0
-int __fastcall MONSTERUNIQUE_HasUMods(D2UnitStrc* pUnit); // 0x005A0380
+int __fastcall sub_005A0380_HasMonsterFlag(D2UnitStrc* pUnit); // 0x005A0380
 unsigned char __fastcall MONSTERMODE_GetHpPercent128(D2UnitStrc* pUnit); // 0x005A5650
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitStateAndFlag(D2UnitStrc* pUnit, int nState, int nFlag); // 0x006257D0
 int __stdcall STATLIST_GetBaseStatsData(D2StatListStrc* pStatList, D2StatStrc* pOutStatBuffer, int nBufferSize); // 0x00625C90
@@ -403,7 +403,7 @@ void __fastcall sub_6FC3FC80(D2ClientStrc* pClient, D2UnitStrc* pUnit)
         BITMANIP_Write(&bitBuffer, MONMODE_NEUTRAL, 4);
     }
 
-    if (MONSTER_HasComponents(pUnit))
+    if (sub_00573AE0_HasComponents(pUnit))
     {
         BITMANIP_Write(&bitBuffer, 1, 1);
 
@@ -422,7 +422,7 @@ void __fastcall sub_6FC3FC80(D2ClientStrc* pClient, D2UnitStrc* pUnit)
         BITMANIP_Write(&bitBuffer, 0, 1);
     }
 
-    if (!MONSTERUNIQUE_HasUMods(pUnit) && !UNITS_IsMerc(pUnit))
+    if (!sub_005A0380_HasMonsterFlag(pUnit) && !UNITS_IsMerc(pUnit))
     {
         BITMANIP_Write(&bitBuffer, 0, 1);
     }

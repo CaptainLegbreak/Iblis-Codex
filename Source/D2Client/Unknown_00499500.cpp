@@ -22,7 +22,7 @@ extern int gnGlobal_00711470; // 0x00711470
 extern int gnGlobal_007BEFA4; // 0x007BEFA4
 extern int gnGlobal_007BEFD0; // 0x007BEFD0
 extern int gnGlobal_007BEFD8; // 0x007BEFD8
-extern int __cdecl sub_0044DA30_InputBlocked(); // 0x0044DA30
+extern int __cdecl sub_0044DA30(); // 0x0044DA30
 extern int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS*); // 0x00420290
 
 struct Unicode
@@ -135,7 +135,7 @@ static __declspec(noinline) int __cdecl sub_00497780_Bounds(int nX,int nY)
 // 0x00499500
 void __stdcall sub_00499500_Click(SMSGHANDLER_PARAMS* pMsg)
 {
-    if (sub_0044DA30_InputBlocked() || sub_00463DF0_StateBlocked())
+    if (sub_0044DA30() || sub_00463DF0_StateBlocked())
     {
         pMsg->bReturn=0;
         return;

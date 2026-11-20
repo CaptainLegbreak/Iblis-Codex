@@ -21,7 +21,7 @@ struct D2DynamicPathStrc {
 };
 #pragma pack(pop)
 extern const D2CoordStrc gtZeroVector_006EB7D4; // 0x006EB7D4
-void __fastcall PATH_SetDirection(D2DynamicPathStrc*,unsigned char); // 0x006485F0
+void __fastcall sub_6FDA9720(D2DynamicPathStrc*,unsigned char); // 0x006485F0
 // build: context PATH_ToFP16Center
 static __forceinline unsigned int PATH_ToFP16Center(unsigned short nValue)
 {
@@ -167,7 +167,7 @@ int __fastcall PATH_ComputeVelocityAndDirectionVectorsToNextPoint(D2DynamicPathS
 
     if (bForceDirectionNormalization || bSame && bNormalizeDirectionIfSamePos)
     {
-        PATH_SetDirection(pPath, (unsigned char)nDirection);
+        sub_6FDA9720(pPath, (unsigned char)nDirection);
     }
 
     return bSame;

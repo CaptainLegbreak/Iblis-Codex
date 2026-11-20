@@ -25,11 +25,11 @@ const char* __cdecl sub_00408090_GetAssertText(int); // 0x00408090
 void __cdecl sub_00408A60_Assert(const char*,...); // 0x00408A60
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc*,int); // 0x0045C390
 unsigned int __fastcall sub_0045C3E0(D2SeedStrc*,int); // 0x0045C3E0
-int __fastcall sub_00463900_GetInventoryId(int); // 0x00463900
+int __fastcall sub_00463900_GetValidMonsterId(int); // 0x00463900
 int __fastcall DATATBLS_ApplyRatio(int,int,int); // 0x00483360
-D2InventoryStrc* __fastcall sub_00536B20_AllocateInventory(D2GameStrc*,int); // 0x00536B20
+D2InventoryStrc* __fastcall SUNITPROXY_GetNpcInventory(D2GameStrc*,int); // 0x00536B20
 void __fastcall sub_0055B800_StatCallback(D2UnitStrc*,int,int,int,void*); // 0x0055B800
-void __fastcall sub_0056DEB0_AssignSkill(D2UnitStrc*,int,int,int); // 0x0056DEB0
+void __fastcall D2GAME_SetSkills_6FD14C60(D2UnitStrc*,int,int,int); // 0x0056DEB0
 D2MonsterPropertyStrc* __fastcall sub_00573470_GetMonsterProperties(int); // 0x00573470
 void __fastcall MONSTER_GetPlayerCountBonus(D2GameStrc*,D2PlayerCountBonusStrc*,D2ActiveRoomStrc*,D2UnitStrc*); // 0x00573930
 void __fastcall sub_005739D0_SetMonsterSeed(int,D2UnitStrc*); // 0x005739D0
@@ -42,21 +42,21 @@ void __stdcall sub_00626E10(D2UnitStrc*,D2StatListStrc*,int); // 0x00626E10
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc*,int,int,int); // 0x00627260
 D2InventoryStrc* __stdcall INVENTORY_AllocInventory(void*,D2UnitStrc*); // 0x0063ABD0
 void __stdcall sub_0063EBC0_SetSkillBonus(D2UnitStrc*,int); // 0x0063EBC0
-void __stdcall sub_0063EEF0_InitMonsterData(D2UnitStrc*,int,unsigned char); // 0x0063EEF0
+void __stdcall sub_0063EEF0_AdjustMonsterStats(D2UnitStrc*,int,unsigned char); // 0x0063EEF0
 D2SkillsStrc* __stdcall SKILLS_AllocSkillList(void*); // 0x006438B0
 void* __fastcall sub_006439F0_GetSkill(D2UnitStrc*,int); // 0x006439F0
 void __stdcall sub_00644340_SetSkillMode(void*,int); // 0x00644340
 void __stdcall sub_006538A0_CalculateMonsterStats(int,int,int,int,int,D2MonsterStatsStrc*); // 0x006538A0
 void __stdcall sub_0065FD70_ApplyProperty(int,int,D2UnitStrc*,int,int,int,D2PropertyStrc*,int,int,int); // 0x0065FD70
-void __fastcall sub_00540F30_InitUnit(D2GameStrc*,D2UnitStrc*); // 0x00540F30
-D2AiControlStrc* __fastcall sub_0058EBC0_AllocAiControl(D2GameStrc*); // 0x0058EBC0
+void __fastcall D2GAME_DeleteTimersOnUnit_6FC34A30(D2GameStrc*,D2UnitStrc*); // 0x00540F30
+D2AiControlStrc* __fastcall AIGENERAL_AllocAiControl(D2GameStrc*); // 0x0058EBC0
 void* __fastcall sub_005A6490_AllocMonsterAi(D2GameStrc*); // 0x005A6490
 void* __fastcall sub_00572BA0_AllocModeData(D2GameStrc*); // 0x00572BA0
 int __fastcall sub_00547BC0_GetMonsterSeed(D2SeedStrc*,D2ActiveRoomStrc*,D2UnitStrc*); // 0x00547BC0
 void __fastcall AITHINK_ExecuteAiFn(D2GameStrc*,D2UnitStrc*,D2AiControlStrc*,int); // 0x005B0E00
-void __fastcall sub_00545CD0_PlaceMonster(D2GameStrc*,D2UnitStrc*,D2ActiveRoomStrc*,int); // 0x00545CD0
-void __fastcall sub_005533D0_UpdateUnit(D2UnitStrc*); // 0x005533D0
-void __fastcall sub_00553570_SetMode(D2GameStrc*,D2UnitStrc*,int); // 0x00553570
+void __fastcall QUESTS_AttachLevelChainRecord(D2GameStrc*,D2UnitStrc*,D2ActiveRoomStrc*,int); // 0x00545CD0
+void __fastcall SUNIT_InitializeAnimation(D2UnitStrc*); // 0x005533D0
+void __fastcall SUNIT_SetCombatMode(D2GameStrc*,D2UnitStrc*,int); // 0x00553570
 static __forceinline void MONSTER_SetComponent(D2UnitStrc* pUnit,int nComponent,unsigned char nValue)
 {
     if (pUnit && pUnit->dwUnitType==1 && pUnit->pMonsterData) pUnit->pMonsterData->nComponent[nComponent]=nValue;
@@ -150,13 +150,13 @@ void __stdcall sub_00573CB0_InitializeStats(D2GameStrc* pGame,D2ActiveRoomStrc* 
     STATLIST_SetUnitStat(pMonster,31,tStats.nArmor,0);
     STATLIST_SetUnitStat(pMonster,13,tStats.nExperience+DATATBLS_ApplyRatio(tStats.nExperience,tBonus.nExperience,100),0);
     STATLIST_SetUnitStat(pMonster,74,MONSTER_Regeneration(nShiftedHp,pStats->nDamageRegen),0);
-    sub_0063EEF0_InitMonsterData(pMonster,pGame->bExpansion,pGame->nDifficulty);
+    sub_0063EEF0_AdjustMonsterStats(pMonster,pGame->bExpansion,pGame->nDifficulty);
     D2StatListStrc* pStatList=STATLIST_AllocStatList(pGame->pMemoryPool,1,0,1,!pMonster ? -1 : pMonster->dwUnitId);
     sub_00626E10(pMonster,pStatList,1);
     if(pStats->nFlags[3]&(unsigned char)gdwBitMasks[0])
     {
         if(pStats->nFlags[1]&(unsigned char)gdwBitMasks[1])
-            pMonster->pInventory=sub_00536B20_AllocateInventory(pGame,sub_00463900_GetInventoryId(nClass));
+            pMonster->pInventory=SUNITPROXY_GetNpcInventory(pGame,sub_00463900_GetValidMonsterId(nClass));
         else INVENTORY_AllocInventory(0,pMonster);
     }
     pMonster->pSkills=SKILLS_AllocSkillList(pGame->pMemoryPool);
@@ -167,7 +167,7 @@ void __stdcall sub_00573CB0_InitializeStats(D2GameStrc* pGame,D2ActiveRoomStrc* 
             const signed char nSkillLevel=pStats->nSkillLevel[i];
             if (nSkillLevel>0)
             {
-                sub_0056DEB0_AssignSkill(pMonster,pStats->nSkill[i],tBonus.nSkillBonus+nSkillLevel,0);
+                D2GAME_SetSkills_6FD14C60(pMonster,pStats->nSkill[i],tBonus.nSkillBonus+nSkillLevel,0);
                 const signed char nSkillMode=pStats->nSkillMode[i];
                 if(nSkillMode>=0) sub_00644340_SetSkillMode(sub_006439F0_GetSkill(pMonster,pStats->nSkill[i]),nSkillMode);
             }
@@ -224,10 +224,10 @@ void __fastcall MONSTER_Initialize(D2GameStrc* pGame,D2ActiveRoomStrc* pRoom,D2U
         pMonster->dwFlags |= 0x0A;
     }
 
-    sub_00540F30_InitUnit(pGame, pMonster);
+    D2GAME_DeleteTimersOnUnit_6FC34A30(pGame, pMonster);
 
     D2MonsterDataStrc* pMonsterData = MONSTER_GetMonsterData(pMonster);
-    pMonsterData->pAiControl = sub_0058EBC0_AllocAiControl(pGame);
+    pMonsterData->pAiControl = AIGENERAL_AllocAiControl(pGame);
     pMonsterData->pMonsterAi = sub_005A6490_AllocMonsterAi(pGame);
     pMonsterData->pModeData = sub_00572BA0_AllocModeData(pGame);
     pMonsterData->pMonstatsTxt = MONSTER_GetMonStatsTxtRecord(pMonster);
@@ -248,8 +248,8 @@ void __fastcall MONSTER_Initialize(D2GameStrc* pGame,D2ActiveRoomStrc* pRoom,D2U
         nAnimMode = pMonster->dwAnimMode;
         if (nAnimMode != 0 && nAnimMode != 12)
         {
-            sub_00545CD0_PlaceMonster(pGame, pMonster, pRoom, 1);
-            sub_005533D0_UpdateUnit(pMonster);
+            QUESTS_AttachLevelChainRecord(pGame, pMonster, pRoom, 1);
+            SUNIT_InitializeAnimation(pMonster);
             return;
         }
     }
@@ -258,6 +258,6 @@ void __fastcall MONSTER_Initialize(D2GameStrc* pGame,D2ActiveRoomStrc* pRoom,D2U
         nAnimMode = 0;
     }
 
-    sub_00553570_SetMode(pGame, pMonster, nAnimMode);
-    sub_005533D0_UpdateUnit(pMonster);
+    SUNIT_SetCombatMode(pGame, pMonster, nAnimMode);
+    SUNIT_InitializeAnimation(pMonster);
 }

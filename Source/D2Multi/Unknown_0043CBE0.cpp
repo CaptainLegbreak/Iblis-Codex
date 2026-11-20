@@ -41,7 +41,7 @@ void __fastcall sub_00448BD0_UpdateScroll(int nDelta); // 0x00448BD0
 void __cdecl sub_004477A0_Refresh(); // 0x004477A0
 int __cdecl sub_00449AC0(); // 0x00449AC0
 int __fastcall sub_004F9190(); // 0x004F9190
-int __cdecl sub_00449C30_GetValue(); // 0x00449C30
+int __cdecl sub_00449C30(); // 0x00449C30
 void __stdcall sub_00449C40_SetValue(int nValue); // 0x00449C40
 extern D2WinControlStrc* gpControlMain_0077BC4C; // 0x0077BC4C
 extern D2WinControlStrc* gpControl_0077BCFC; // 0x0077BCFC
@@ -609,7 +609,7 @@ int __stdcall sub_0043DBC0_OnWaitTick(SMSGHANDLER_PARAMS* pMsg)
 int __stdcall sub_0043DBF0_OnReceiveTick(SMSGHANDLER_PARAMS* pMsg)
 {
     sub_00449B70_Receive();
-    if (sub_00449C30_GetValue() || !sub_00449B30_QueryAddress() || gnFlag_0077BD60)
+    if (sub_00449C30() || !sub_00449B30_QueryAddress() || gnFlag_0077BD60)
     {
         sub_00449C40_SetValue(0);
         sub_004F9190();

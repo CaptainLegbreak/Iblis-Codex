@@ -71,7 +71,7 @@ extern "C" const char gHelpBorder800File[];
 extern "C" const char gHelpBorderFile[];
 extern "C" const char gWhiteBulletFile[];
 extern "C" const char gYellowBulletFile[];
-D2UnitStrc* __cdecl sub_00463DE0_GetStoredUnit(); // 0x00463DE0
+D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __fastcall sub_00472280(D2SeedStrc* pSeed, int nOffset, int nRange); // 0x00472280
 void __cdecl sub_00472400_ResetPhaseState(); // 0x00472400
@@ -456,7 +456,7 @@ extern "C" void __cdecl sub_004736C0_DrawPanelShade()
 // 0x00473720
 static __forceinline void sub_00473720_GetLevelWeather(int* pRain, int* pMud)
 {
-    D2UnitStrc* pUnit = sub_00463DE0_GetStoredUnit();
+    D2UnitStrc* pUnit = sub_00463DE0_GetPlayerUnit();
     *pRain = 0;
     *pMud = 0;
     if (pUnit)

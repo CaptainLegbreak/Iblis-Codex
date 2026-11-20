@@ -64,7 +64,7 @@ struct Unicode
 
 void* __fastcall sub_004520C0_LoadUiCelFile(const char* szPath); // 0x004520C0
 int __fastcall sub_004538D0(int nUIVar); // 0x004538D0
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
 void __fastcall sub_00478A00(void* pCel); // 0x00478A00
@@ -124,7 +124,7 @@ bool __stdcall sub_004A6A00_IsUiBusy(int nType); // 0x004A6A00
 bool __stdcall sub_004A6D50_IsUiBusy2(int nType); // 0x004A6D50
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
-void __fastcall sub_00502280_SetPopUpText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
+void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext); // 0x00601840
@@ -579,7 +579,7 @@ void __cdecl sub_004A64C0_UpdateStatButtons()
 {
     if (sub_004538D0(0xB))
         return;
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (sub_004538D0(6))
     {
         if (!STATLIST_GetUnitBaseStat(pPlayer, STAT_STATPTS, 0))
@@ -835,7 +835,7 @@ void __cdecl sub_004A6B30_DrawLeftPanelButtons()
     }
 
     if (sub_004A65E0_IsInLeftButton() && !sub_004538D0(9))
-        sub_00502280_SetPopUpText(D2LANG_GetStringFromTblIndex(0xF92), gnGlobal_0071146C / 2 - 0xB3, gnGlobal_00711470 - 0x32, 0, 1);
+        D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0xF92), gnGlobal_0071146C / 2 - 0xB3, gnGlobal_00711470 - 0x32, 0, 1);
     sub_004F6480(&tContext, gnGlobal_0071146C / 2 - 0xC2, gnGlobal_00711470 - 8, -1, 5, 0);
 }
 
@@ -894,6 +894,6 @@ void __cdecl sub_004A6E60_DrawRightPanelButtons()
     }
 
     if (sub_004A6690_IsInRightButton() && !sub_004538D0(9))
-        sub_00502280_SetPopUpText(D2LANG_GetStringFromTblIndex(0xF93), gnGlobal_0071146C / 2 + 0xB2, gnGlobal_00711470 - 0x32, 0, 1);
+        D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0xF93), gnGlobal_0071146C / 2 + 0xB2, gnGlobal_00711470 - 0x32, 0, 1);
     sub_004F6480(&tContext, gnGlobal_0071146C / 2 + 0xA3, gnGlobal_00711470 - 8, -1, 5, 0);
 }

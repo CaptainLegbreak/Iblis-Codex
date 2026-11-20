@@ -17,7 +17,7 @@ extern "C" __declspec(dllimport) short __stdcall GetAsyncKeyState(int vKey);
 int __cdecl sub_0044DCC0(); // 0x0044DCC0
 unsigned char __cdecl sub_0044DCD0_GetDifficulty(); // 0x0044DCD0
 D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType); // 0x00463990
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 void __fastcall sub_00468070_SetCursorItemState(D2UnitStrc* pItem); // 0x00468070
 D2UnitStrc* __cdecl sub_004680A0(); // 0x004680A0
@@ -27,12 +27,12 @@ void __fastcall sub_004786A0_SendDwords2(char nHeader, int nArg1, int nArg2); //
 void __fastcall sub_00478700_SendCommand(char nCommand, int nArg0, int nArg1, int nArg2, int nArg3); // 0x00478700
 int __cdecl sub_00486D10_CheckTick(); // 0x00486D10
 void __cdecl sub_004A9DF0_UpdateSkillIcons(); // 0x004A9DF0
-int __fastcall sub_004B3230_GetSelectedUnitId(int* pUnitId); // 0x004B3230
+int __fastcall sub_004B3230_GetTickPair(int* pUnitId); // 0x004B3230
 D2BitBufferStrc* __cdecl sub_004B32D0(); // 0x004B32D0
 int __fastcall sub_004B3870(int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x004B3870
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 int __fastcall sub_004C1D60(D2UnitStrc* pItem); // 0x004C1D60
-void __fastcall sub_004C21F0(D2UnitStrc* pItem); // 0x004C21F0
+void __fastcall sub_004C21F0_SetState36(D2UnitStrc* pItem); // 0x004C21F0
 int __fastcall sub_004C2240(D2UnitStrc* pItem); // 0x004C2240
 void __fastcall sub_004CB9C0_Request(D2UnitStrc* pUnit, int nId); // 0x004CB9C0
 void __fastcall sub_004DBEA0(D2UnitStrc* pUnit, int nArg2, int nArg3, unsigned int* pWidth, unsigned int* pHeight); // 0x004DBEA0
@@ -46,15 +46,15 @@ unsigned char __stdcall ITEMS_GetSockets(D2UnitStrc* pItem); // 0x006299B0
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 int __stdcall ITEMS_IsNotQuestItem(D2UnitStrc* pItem); // 0x0062A130
 unsigned int __stdcall ITEMS_CheckIfBeltable(D2UnitStrc* pItem); // 0x0062BAD0
-unsigned char __stdcall ITEMS_GetMaxSockets(D2UnitStrc* pItem); // 0x0062BC20
-int __stdcall sub_0062BEB0(D2UnitStrc* pItem); // 0x0062BEB0
+unsigned char __stdcall sub_0062BC20(D2UnitStrc* pItem); // 0x0062BC20
+int __stdcall ITEMS_IsSocketFiller(D2UnitStrc* pItem); // 0x0062BEB0
 int __stdcall ITEMS_AreStackablesEqual(D2UnitStrc* pItem1, D2UnitStrc* pItem2); // 0x0062C850
-int __stdcall ITEMS_GetTransactionCost(D2UnitStrc* pPlayer, D2UnitStrc* pItem, int nDifficulty, D2BitBufferStrc* pQuestFlags, int nVendorId, int nTransactionType); // 0x0062FDC0
+int __stdcall sub_0062FDC0_GetRepairCost(D2UnitStrc* pPlayer, D2UnitStrc* pItem, int nDifficulty, D2BitBufferStrc* pQuestFlags, int nVendorId, int nTransactionType); // 0x0062FDC0
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 int __stdcall INVENTORY_GetFreePosition(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nInventoryRecordId, int* pFreeX, int* pFreeY, unsigned char nPage); // 0x0063B850
 int __stdcall INVENTORY_CanItemBePlaced(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nX, int nY, int nRecord, D2UnitStrc** ppExchangeItem, unsigned int* pCount, unsigned char nPage); // 0x0063B9D0
-int __stdcall sub_0063BB20(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nX, int nY, int nRecord, D2UnitStrc** ppOther, unsigned char nPage, int nArg8); // 0x0063BB20
-D2UnitStrc* __stdcall sub_0063BD10(D2InventoryStrc* pInventory, int nX, int nY, int* pOutX, int* pOutY, int nRecord, unsigned char nPage); // 0x0063BD10
+int __stdcall sub_0063BB20_CheckInventoryOverlap(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nX, int nY, int nRecord, D2UnitStrc** ppOther, unsigned char nPage, int nArg8); // 0x0063BB20
+D2UnitStrc* __stdcall INVENTORY_GetItemFromInventoryPage(D2InventoryStrc* pInventory, int nX, int nY, int* pOutX, int* pOutY, int nRecord, unsigned char nPage); // 0x0063BD10
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0
 unsigned int __stdcall INVENTORY_GetItemCount(D2InventoryStrc* pInventory); // 0x0063CD60
 
@@ -81,7 +81,7 @@ static int sub_004843E0_CanSocketInto(D2UnitStrc* pItem, D2UnitStrc* pSocketable
     {
         return 0;
     }
-    if (!sub_0062BEB0(pSocketable))
+    if (!ITEMS_IsSocketFiller(pSocketable))
     {
         return 0;
     }
@@ -93,7 +93,7 @@ static int sub_004843E0_CanSocketInto(D2UnitStrc* pItem, D2UnitStrc* pSocketable
     {
         return 0;
     }
-    if (ITEMS_GetMaxSockets(pItem) <= 0)
+    if (sub_0062BC20(pItem) <= 0)
     {
         return 0;
     }
@@ -204,16 +204,16 @@ static int __stdcall sub_0048FFE0_ClickInvGrid(D2UnitStrc* pUnit, D2InventoryStr
     if (sub_00468830() == 6)
     {
         D2UnitStrc* pCursor = sub_004680A0();
-        D2UnitStrc* pHit = sub_0063BD10(pInventory, nGridX, nGridY, &nOutX, &nOutY, nRecord, nPage);
+        D2UnitStrc* pHit = INVENTORY_GetItemFromInventoryPage(pInventory, nGridX, nGridY, &nOutX, &nOutY, nRecord, nPage);
         if (pCursor && pHit)
         {
             nResult = 1;
             if (!sub_004C2240(pHit))
             {
-                if (pUnit == sub_00463DD0() && nPage != 1 && nPage != 2 && sub_00486D10_CheckTick())
+                if (pUnit == sub_00463DD0_GetPlayerUnit() && nPage != 1 && nPage != 2 && sub_00486D10_CheckTick())
                 {
                     sub_004786A0_SendDwords2(0x27, !pHit ? -1 : pHit->dwUnitId, !pCursor ? -1 : pCursor->dwUnitId);
-                    sub_004C21F0(pHit);
+                    sub_004C21F0_SetState36(pHit);
                 }
                 else
                 {
@@ -224,16 +224,16 @@ static int __stdcall sub_0048FFE0_ClickInvGrid(D2UnitStrc* pUnit, D2InventoryStr
     }
     else if (sub_00468830() == 8)
     {
-        D2UnitStrc* pHit = sub_0063BD10(pInventory, nGridX, nGridY, &nOutX, &nOutY, nRecord, nPage);
+        D2UnitStrc* pHit = INVENTORY_GetItemFromInventoryPage(pInventory, nGridX, nGridY, &nOutX, &nOutY, nRecord, nPage);
         if (pHit)
         {
             nResult = 1;
             if (!sub_004C2240(pHit))
             {
-                if (pUnit == sub_00463DD0() && nPage != 1 && nPage != 2 && sub_00486D10_CheckTick())
+                if (pUnit == sub_00463DD0_GetPlayerUnit() && nPage != 1 && nPage != 2 && sub_00486D10_CheckTick())
                 {
                     sub_00478680_SendPacket5(0x4C, pHit->dwUnitId);
-                    sub_004C21F0(pHit);
+                    sub_004C21F0_SetState36(pHit);
                 }
                 else
                 {
@@ -244,10 +244,10 @@ static int __stdcall sub_0048FFE0_ClickInvGrid(D2UnitStrc* pUnit, D2InventoryStr
     }
     else if (!pCursorItem)
     {
-        D2UnitStrc* pHit = sub_0063BD10(pInventory, nGridX, nGridY, &nOutX, &nOutY, nRecord, nPage);
+        D2UnitStrc* pHit = INVENTORY_GetItemFromInventoryPage(pInventory, nGridX, nGridY, &nOutX, &nOutY, nRecord, nPage);
         if (pHit)
         {
-            const int bIsPlayer = pUnit == sub_00463DD0();
+            const int bIsPlayer = pUnit == sub_00463DD0_GetPlayerUnit();
             if (sub_00486B30_IsNpcStateA() && bIsPlayer == 1)
             {
                 if (!sub_004C2240(pHit) && sub_00486D10_CheckTick())
@@ -255,14 +255,14 @@ static int __stdcall sub_0048FFE0_ClickInvGrid(D2UnitStrc* pUnit, D2InventoryStr
                     if (GetAsyncKeyState(0x11) & 0x8000)
                     {
                         int nNpcId;
-                        if (sub_004B3230_GetSelectedUnitId(&nNpcId))
+                        if (sub_004B3230_GetTickPair(&nNpcId))
                         {
                             D2UnitStrc* pNpc = sub_00463990(nNpcId, 1);
                             if (pNpc)
                             {
                                 if (ITEMS_IsNotQuestItem(pHit))
                                 {
-                                    const int nCost = ITEMS_GetTransactionCost(sub_00463DE0_GetPlayerUnit(), pHit, sub_0044DCD0_GetDifficulty(), sub_004B32D0(), !pNpc ? -1 : pNpc->dwClassId, 1);
+                                    const int nCost = sub_0062FDC0_GetRepairCost(sub_00463DE0_GetPlayerUnit(), pHit, sub_0044DCD0_GetDifficulty(), sub_004B32D0(), !pNpc ? -1 : pNpc->dwClassId, 1);
                                     sub_00478700_SendCommand(0x33, !pNpc ? -1 : pNpc->dwUnitId, !pHit ? -1 : pHit->dwUnitId, !pHit ? -1 : pHit->dwAnimMode, nCost);
                                 }
                                 else
@@ -283,7 +283,7 @@ static int __stdcall sub_0048FFE0_ClickInvGrid(D2UnitStrc* pUnit, D2InventoryStr
                         gnGlobal_007BCBEC = 1;
                     }
                     nResult = 1;
-                    sub_004C21F0(pHit);
+                    sub_004C21F0_SetState36(pHit);
                 }
             }
             else if (gdwGlobal_007BCBF0 < 0x13)
@@ -302,7 +302,7 @@ static int __stdcall sub_0048FFE0_ClickInvGrid(D2UnitStrc* pUnit, D2InventoryStr
         if (nCount > 1)
         {
             D2UnitStrc* pBox = 0;
-            sub_0063BB20(pInventory, pCursorItem, gnGlobal_00721E4C, gnGlobal_00721E50, nRecord, &pBox, nPage, 1);
+            sub_0063BB20_CheckInventoryOverlap(pInventory, pCursorItem, gnGlobal_00721E4C, gnGlobal_00721E50, nRecord, &pBox, nPage, 1);
             if (pBox && DATATBLS_GetItemsTxtRecord((!pBox ? -1 : pBox->dwClassId))->dwCode == 0x20786F62)
             {
                 pHit = pBox;
@@ -317,7 +317,7 @@ static int __stdcall sub_0048FFE0_ClickInvGrid(D2UnitStrc* pUnit, D2InventoryStr
                 if (!sub_004C2240(pCursorItem) && sub_00486D10_CheckTick() && gdwGlobal_007BCBF0 != 0xB && nPage != 2)
                 {
                     sub_004786A0_SendDwords2(0x21, (!pCursorItem ? -1 : pCursorItem->dwUnitId), !pHit ? -1 : pHit->dwUnitId);
-                    sub_004C21F0(pCursorItem);
+                    sub_004C21F0_SetState36(pCursorItem);
                     sub_004B9A00(sub_004C1D60(pCursorItem), 0, 0, 0, 0);
                     nResult = 1;
                 }
@@ -327,7 +327,7 @@ static int __stdcall sub_0048FFE0_ClickInvGrid(D2UnitStrc* pUnit, D2InventoryStr
                 if (sub_004843E0_CanSocketInto(pHit, pCursorItem) && !sub_004C2240(pCursorItem) && sub_00486D10_CheckTick())
                 {
                     sub_004786A0_SendDwords2(0x28, (!pCursorItem ? -1 : pCursorItem->dwUnitId), !pHit ? -1 : pHit->dwUnitId);
-                    sub_004C21F0(pCursorItem);
+                    sub_004C21F0_SetState36(pCursorItem);
                     sub_004B9A00(sub_004C1D60(pHit), 0, 0, 0, 0);
                     bPlace = 0;
                     nResult = 1;
@@ -339,7 +339,7 @@ static int __stdcall sub_0048FFE0_ClickInvGrid(D2UnitStrc* pUnit, D2InventoryStr
                 {
                     sub_004A9DF0_UpdateSkillIcons();
                     sub_004786A0_SendDwords2(0x29, (!pCursorItem ? -1 : pCursorItem->dwUnitId), !pHit ? -1 : pHit->dwUnitId);
-                    sub_004C21F0(pCursorItem);
+                    sub_004C21F0_SetState36(pCursorItem);
                     sub_004B9A00(sub_004C1D60(pHit), 0, 0, 0, 0);
                     bPlace = 0;
                     nResult = 1;
@@ -356,7 +356,7 @@ LBL_CUBE:
                         if (INVENTORY_GetFreePosition(pInventory, pCursorItem, nCubeRecord, &nFreeX, &nFreeY, 3))
                         {
                             sub_004786A0_SendDwords2(0x2A, (!pCursorItem ? -1 : pCursorItem->dwUnitId), !pHit ? -1 : pHit->dwUnitId);
-                            sub_004C21F0(pCursorItem);
+                            sub_004C21F0_SetState36(pCursorItem);
                             sub_004B9A00(sub_004C1D60(pHit), 0, 0, 0, 0);
                             nResult = 1;
                         }
@@ -368,11 +368,11 @@ LBL_CUBE:
                     }
                 }
 
-                if (bPlace && sub_0063BB20(pInventory, pCursorItem, gnGlobal_00721E4C, gnGlobal_00721E50, nRecord, &pOther, nPage, 0)
+                if (bPlace && sub_0063BB20_CheckInventoryOverlap(pInventory, pCursorItem, gnGlobal_00721E4C, gnGlobal_00721E50, nRecord, &pOther, nPage, 0)
                     && !sub_004C2240(pCursorItem) && sub_00486D10_CheckTick() && nPage != 2)
                 {
                     sub_00478700_SendCommand(0x1F, (!pCursorItem ? -1 : pCursorItem->dwUnitId), !pOther ? -1 : pOther->dwUnitId, gnGlobal_00721E4C, gnGlobal_00721E50);
-                    sub_004C21F0(pCursorItem);
+                    sub_004C21F0_SetState36(pCursorItem);
                     sub_004B9A00(sub_004C1D60(pCursorItem), 0, 0, 0, 0);
                     nResult = 1;
                 }
@@ -401,7 +401,7 @@ LBL_DONE:
                 && !sub_004C2240(pCursorItem) && sub_00486D10_CheckTick())
             {
                 sub_00478700_SendCommand(0x18, (!pCursorItem ? -1 : pCursorItem->dwUnitId), nCellX, nCellY, nPage);
-                sub_004C21F0(pCursorItem);
+                sub_004C21F0_SetState36(pCursorItem);
                 sub_004B9A00(sub_004C1D60(pCursorItem), 0, 0, 0, 0);
                 nResult = 1;
             }

@@ -34,7 +34,7 @@ D2TimedHintStrc gTimedHint_007C89E4;                                            
 int gnGlobal_007C8A04;                                                                                      // 0x007C8A04
 
 int __cdecl sub_0044DB00();                                                                                 // 0x0044DB00
-D2UnitStrc* __cdecl sub_00463DD0();                                                               // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit);                                               // 0x00464820
 int __cdecl sub_00481780_GetPlayerLevelId();                                                                // 0x00481780
 int __cdecl sub_004817F0();                                                                                 // 0x004817F0
@@ -121,7 +121,7 @@ void __fastcall sub_004DCAA0_UpdateLevelSong(unsigned int dwTick)
 
         if (gTimedHint_007C89E4.nArgG && sub_0044DB00() >= gTimedHint_007C89E4.nEndTickF)
         {
-            D2UnitStrc* pPlayer = sub_00463DD0();
+            D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
             if (!sub_00464820_IsDeadOrDying(pPlayer))
             {
                 sub_004B9A00(gTimedHint_007C89E4.nArgE, pPlayer, 0, 0, 0);

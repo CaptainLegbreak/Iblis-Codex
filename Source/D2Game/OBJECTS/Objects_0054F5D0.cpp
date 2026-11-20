@@ -268,7 +268,7 @@ void __fastcall sub_0053DA90(D2UnitStrc* pUnit, int nArg); // 0x0053DA90
 void __fastcall sub_0053DE20_SendPacket0x8CToAllPlayers(D2GameStrc* pGame, int dwPlayerId1, int dwPlayerId2, unsigned short wRelationState); // 0x0053DE20
 int __fastcall QUESTS_CreateChainRecord(D2GameStrc* pGame, D2UnitStrc* pUnit, int nQuestId); // 0x005436B0
 void __fastcall sub_0056DCC0(D2GameStrc* pGame, D2Unk0056DCC0Strc* pRecord); // 0x0056DCC0
-int __fastcall sub_0058F710(D2UnitStrc* pUnit); // 0x0058F710
+int __fastcall AIGENERAL_GetMinionSpawnClassId(D2UnitStrc* pUnit); // 0x0058F710
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
@@ -956,7 +956,7 @@ int __fastcall sub_0056E620_GetValidMonsterId(D2UnitStrc* pUnit, int nArg2, int 
         return nMonsterId;
     }
 
-    nMonsterId = sub_0058F710(pUnit);
+    nMonsterId = AIGENERAL_GetMinionSpawnClassId(pUnit);
     if (nMonsterId > 0 && nMonsterId < sgptDataTables->nMonStatsTxtRecordCount)
     {
         return nMonsterId;

@@ -15,9 +15,9 @@ struct D2SkillsTxt
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 
-int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit);                                                       // 0x0045ADF0
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                                                       // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
-D2UnitStrc* __fastcall sub_004648F0_GetTargetUnit(D2UnitStrc* pUnit);                                       // 0x004648F0
+D2UnitStrc* __fastcall sub_004648F0_GetPathTargetUnit(D2UnitStrc* pUnit);                                       // 0x004648F0
 int __fastcall sub_004C54F0_CanThrow(D2UnitStrc* pUnit);                                                 // 0x004C54F0
 int __fastcall sub_004C5E30_ScanCount(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nFlags);           // 0x004C5E30
 D2UnitStrc* __fastcall sub_004C5EB0_FindDestination(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nArg5, int nUnitId, int* pCount); // 0x004C5EB0
@@ -85,7 +85,7 @@ int __fastcall sub_004F4170_SkillStartMultiTarget(D2UnitStrc* pUnit, int nSkillI
     }
 
     int nRange = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraRangeCalc, nSkillId, nSkillLevel);
-    D2UnitStrc* pTarget = sub_004648F0_GetTargetUnit(pUnit);
+    D2UnitStrc* pTarget = sub_004648F0_GetPathTargetUnit(pUnit);
     int nCount = 0;
     if (!pTarget)
     {
@@ -119,7 +119,7 @@ int __fastcall sub_004F4170_SkillStartMultiTarget(D2UnitStrc* pUnit, int nSkillI
 
     if (pTarget)
     {
-        D2Common_10216(pUnit->pDynamicPath, UNITS_GetXPosition(pTarget), CLIENTS_GetUnitY(pTarget), 0);
+        D2Common_10216(pUnit->pDynamicPath, CLIENTS_GetUnitX(pTarget), CLIENTS_GetUnitY(pTarget), 0);
     }
 
     return 1;

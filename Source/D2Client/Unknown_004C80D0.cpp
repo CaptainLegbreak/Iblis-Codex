@@ -11,7 +11,7 @@
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-D2ActiveRoomStrc* __fastcall sub_00463740_GetRoomBySubTileCoordinates(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
 void __fastcall sub_004CB9C0_Request(D2UnitStrc* pUnit, unsigned short nStringId); // 0x004CB9C0
 int __stdcall UNITS_GetUnitSizeX(D2UnitStrc* pUnit); // 0x00620510
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
@@ -85,7 +85,7 @@ static int __stdcall sub_004C80D0_AdjustTargetPosition(int nSkillId, D2UnitStrc*
     int nTries = 3;
     while (nTries)
     {
-        D2ActiveRoomStrc* pRoom = sub_00463740_GetRoomBySubTileCoordinates(UNITS_GetRoom(pUnit), tCoord.nX, tCoord.nY);
+        D2ActiveRoomStrc* pRoom = sub_00463740_FindRoomAtPoint(UNITS_GetRoom(pUnit), tCoord.nX, tCoord.nY);
         pRoom = COLLISION_GetFreeCoordinates(pRoom, &tCoord, UNITS_GetUnitSizeX(pUnit), 0x1C09, 1);
         const int nAdjustedX = tCoord.nX;
         const int nAdjustedY = tCoord.nY;

@@ -103,7 +103,7 @@ int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 unsigned int __stdcall DATATBLS_Get1OfNFromOverlayTxt(int nOverlayId); // 0x00664740
 void __stdcall UNITS_StoreOwnerTypeAndGUID(D2UnitStrc* pUnit, int nOwnerType, int nOwnerId); // 0x00621CC0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 void __fastcall sub_0046AE50_StartTimedBox(int nFadeIn, int nHold, int nFadeOut, int nLevelId, int bForce); // 0x0046AE50
 int __fastcall sub_004AA8B0_GetSkillMaxLevel(int nSkillId); // 0x004AA8B0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
@@ -120,10 +120,10 @@ void __fastcall sub_004BA790_ReleaseUnitSfx(void* pUnitSfx, D2UnitStrc* pUnit, i
 void* __fastcall sub_004CA900_FindUnitSfxInRange(D2UnitStrc* pUnit, int nId); // 0x004CA900
 void __stdcall sub_004DA000_ResetGfxMotion(D2UnitStrc* pUnit); // 0x004DA000
 void __stdcall sub_004DA1D0_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ); // 0x004DA1D0
-int __stdcall sub_0063A210_StateMaskTest(int nState); // 0x0063A210
+int __stdcall STATES_CheckStateMaskAuraByStateId(int nState); // 0x0063A210
 void __stdcall SKILLS_SetParam2(D2SkillStrc* pSkill, int nValue); // 0x006445A0
 void __stdcall SKILLS_SetParam3(D2SkillStrc* pSkill, int nValue); // 0x006445E0
-D2ActiveRoomStrc* __fastcall D2GAME_GetRoom_6FC52070(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
 void __fastcall sub_004ADCE0_StateRequests(D2UnitStrc* pUnit); // 0x004ADCE0
 void __fastcall sub_0044CE40(int nValue); // 0x0044CE40
 
@@ -174,7 +174,7 @@ int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
 int __fastcall sub_004638A0_CheckMonStats2Flag(int nMonsterId, int nFlag); // 0x004638A0
-D2UnitStrc* __fastcall sub_004648F0_GetTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
+D2UnitStrc* __fastcall sub_004648F0_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 void __fastcall sub_00472C50(int nArg); // 0x00472C50
 int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY); // 0x004C52E0
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
@@ -186,7 +186,7 @@ void __stdcall STATLIST_ExpireUnitStatlist(D2UnitStrc* pUnused, D2UnitStrc* pUni
 void __stdcall STATLIST_MergeStatLists(D2UnitStrc* pTarget, D2UnitStrc* pUnit, int bType); // 0x00627910
 D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
 unsigned char __stdcall sub_0063E7A0_GetByteTableEntry(unsigned char nIndex); // 0x0063E7A0
-int __stdcall sub_0063EA70_GetMonsterId(D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4, int* pMode, int* pX, int* pY); // 0x0063EA70
+int __stdcall MONSTERS_GetSpawnMode_XY(D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4, int* pMode, int* pX, int* pY); // 0x0063EA70
 int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc* pDynamicPath); // 0x00648A00
 int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pDynamicPath); // 0x00648A10
 void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int a4); // 0x00649EF0
@@ -426,7 +426,7 @@ void __fastcall sub_004D88A0_StateSkillLevel(D2UnitStrc* pUnit, int nState)
     D2StatListStrc* pStatList;
     int nSkillId;
 
-    if (pUnit == sub_00463DD0())
+    if (pUnit == sub_00463DD0_GetPlayerUnit())
     {
         return;
     }
@@ -804,9 +804,9 @@ void __fastcall sub_004D9260_StateClearCollision(D2UnitStrc* pUnit, int nState)
 
     SKILLS_SetParam2(pSkill, 0);
     SKILLS_SetParam3(pSkill, 0);
-    if (D2GAME_GetRoom_6FC52070(UNITS_GetRoom(pUnit), nX, nY))
+    if (sub_00463740_FindRoomAtPoint(UNITS_GetRoom(pUnit), nX, nY))
     {
-        D2ActiveRoomStrc* pRoom = D2GAME_GetRoom_6FC52070(UNITS_GetRoom(pUnit), nX, nY);
+        D2ActiveRoomStrc* pRoom = sub_00463740_FindRoomAtPoint(UNITS_GetRoom(pUnit), nX, nY);
         COLLISION_ResetMaskWithPattern(pRoom, nX, nY, COLLISION_PATTERN_SMALL_UNIT_PRESENCE, 0x100);
     }
 }
@@ -1007,7 +1007,7 @@ void __fastcall sub_004D9920_StartStateOverlays(D2UnitStrc* pUnit, int nState)
     int nCastOverlay = pStatesTxtRecord->wCastOverlay >= 0 ? pStatesTxtRecord->wCastOverlay : -1;
     int nOverlay1 = pStatesTxtRecord->wOverlay[0] >= 0 ? pStatesTxtRecord->wOverlay[0] : -1;
     int nOverlay2 = pStatesTxtRecord->wOverlay[1] >= 0 ? pStatesTxtRecord->wOverlay[1] : -1;
-    const int bMask = sub_0063A210_StateMaskTest(nState);
+    const int bMask = STATES_CheckStateMaskAuraByStateId(nState);
 
     if (nCastOverlay != -1)
     {
@@ -1328,14 +1328,14 @@ int __fastcall sub_004E0FD0_SkillStartMarkTarget(D2UnitStrc* pUnit, int nSkillId
     int nMode;
     int nY;
     int nX;
-    if (sub_0063EA70_GetMonsterId(pUnit, 1, nSkillId, nSkillLevel, &nMode, &nX, &nY) < 0)
+    if (MONSTERS_GetSpawnMode_XY(pUnit, 1, nSkillId, nSkillLevel, &nMode, &nX, &nY) < 0)
     {
         return 0;
     }
 
     SKILLS_SetParam2(pSkill, nX);
     SKILLS_SetParam3(pSkill, nY);
-    D2ActiveRoomStrc* pRoom = D2GAME_GetRoom_6FC52070(UNITS_GetRoom(pUnit), nX, nY);
+    D2ActiveRoomStrc* pRoom = sub_00463740_FindRoomAtPoint(UNITS_GetRoom(pUnit), nX, nY);
     COLLISION_SetMaskWithPattern(pRoom, nX, nY, 1, 0x100);
     return 1;
 }
@@ -1378,7 +1378,7 @@ int __fastcall sub_004E1B10_FireAtTarget(D2UnitStrc* pUnit, int nSkillId, int nS
     tMissileParams.nSkillLevel = nSkillLevel;
     tMissileParams.nLoops = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwCalc[0], nSkillId, nSkillLevel);
 
-    D2UnitStrc* pTarget = sub_004648F0_GetTargetUnit(pUnit);
+    D2UnitStrc* pTarget = sub_004648F0_GetPathTargetUnit(pUnit);
     if (pTarget)
     {
         D2Common_10216(pUnit->pDynamicPath, CLIENTS_GetUnitX(pTarget), CLIENTS_GetUnitY(pTarget), 0);
@@ -1415,7 +1415,7 @@ int __fastcall sub_004E3C50_MissileAtTargetUnit(D2UnitStrc* pUnit, int nSkillId,
         return 0;
     }
 
-    D2UnitStrc* pTarget = sub_004648F0_GetTargetUnit(pUnit);
+    D2UnitStrc* pTarget = sub_004648F0_GetPathTargetUnit(pUnit);
     if (pTarget && pUnit)
     {
         D2MissileStrc tMissileParams;
@@ -1593,7 +1593,7 @@ int __fastcall sub_004F4000_MissileByOverlay(D2UnitStrc* pUnit, int nSkillId, in
         return 0;
     }
 
-    D2UnitStrc* pTarget = sub_004648F0_GetTargetUnit(pUnit);
+    D2UnitStrc* pTarget = sub_004648F0_GetPathTargetUnit(pUnit);
     if (!pTarget)
     {
         return 0;

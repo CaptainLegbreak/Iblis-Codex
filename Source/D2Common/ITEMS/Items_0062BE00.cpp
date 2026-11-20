@@ -2,7 +2,7 @@
 #include "D2Txt.h"
 struct D2ItemDataStrc { char unknown0[24]; unsigned int dwItemFlags; };
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
-unsigned char __stdcall ITEMS_GetMaxSockets(D2UnitStrc* pItem); // 0x0062BC20
+unsigned char __stdcall sub_0062BC20(D2UnitStrc* pItem); // 0x0062BC20
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, unsigned short nLayer); // 0x00627260
 
 static void ITEMS_GetDimensions(D2UnitStrc* pItem, unsigned char* pWidth, unsigned char* pHeight)
@@ -60,9 +60,9 @@ void __stdcall ITEMS_AddSockets(D2UnitStrc* pItem, int nSockets)
         }
 
         {
-            if (nMaxSockets >= ITEMS_GetMaxSockets(pItem))
+            if (nMaxSockets >= sub_0062BC20(pItem))
             {
-                nMaxSockets = ITEMS_GetMaxSockets(pItem);
+                nMaxSockets = sub_0062BC20(pItem);
             }
 
             if (nSockets <= 1)

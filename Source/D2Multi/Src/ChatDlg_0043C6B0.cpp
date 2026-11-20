@@ -48,7 +48,7 @@ struct D2LaunchCharInfoStrc
 };
 void __fastcall sub_00407050_GetSavePath(char* szPath, int nSize); // 0x00407050
 void* __fastcall sub_00406960_CreateFile(const char* szPath, unsigned long dwAccess, unsigned long dwShare, void* pSecurity, unsigned long dwCreation, unsigned long dwFlags, void* hTemplate); // 0x00406960
-int __fastcall sub_004069A0_CloseHandle(void* hFile); // 0x004069A0
+int __fastcall sub_004069A0_CloseFile(void* hFile); // 0x004069A0
 int __fastcall sub_004069B0_ReadFile(void* hFile, void* pBuffer, unsigned long nSize, unsigned long* pRead, void* pOverlapped); // 0x004069B0
 int __fastcall sub_004069D0_WriteFile(void* hFile, const void* pBuffer, unsigned long nSize, unsigned long* pWritten, void* pOverlapped); // 0x004069D0
 unsigned long __fastcall sub_004069F0_SetFilePointer(void* hFile, long nDistance, long* pDistanceHigh, unsigned long dwMethod); // 0x004069F0
@@ -270,7 +270,7 @@ int __fastcall sub_0043C6B0_WriteSaveHeader(const char* szName)
 
     gtCharSaveHeader_0077AC10.dwChecksum = FOG_ComputeChecksum((const unsigned char*)&gtCharSaveHeader_0077AC10, 0x14F);
     sub_004069D0_WriteFile(hFile, &gtCharSaveHeader_0077AC10, 0x14F, &dwWritten, 0);
-    sub_004069A0_CloseHandle(hFile);
+    sub_004069A0_CloseFile(hFile);
     return 1;
 }
 
@@ -317,7 +317,7 @@ int __fastcall sub_0043CAA0_UpdateSaveFlags(const char* szName)
         nResult = sub_004069D0_WriteFile(hFile, &tSave, dwRead, &dwWritten, 0);
     }
 
-    sub_004069A0_CloseHandle(hFile);
+    sub_004069A0_CloseFile(hFile);
     return nResult;
 }
 

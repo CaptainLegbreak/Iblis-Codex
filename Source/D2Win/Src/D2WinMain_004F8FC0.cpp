@@ -178,7 +178,7 @@ void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 int __cdecl sub_00407FF0(); // 0x00407FF0
 void __stdcall WINDOW_SetPaused(int bPaused); // 0x004F5990
 int __stdcall WINDOW_GetDimensions(int* pWidth, int* pHeight); // 0x004F59B0
-void __stdcall sub_004F59F0(int nArg); // 0x004F59F0
+void __stdcall WINDOW_ShowCursor(int nArg); // 0x004F59F0
 int __stdcall WINDOW_CheckCutScene(); // 0x004F5DD0
 int __stdcall D2GFX_HardwareAcceleratedRenderMode(); // 0x004F6270
 D2WinControlStrc* __fastcall D2Win_10042_TEXTBOX_Create(int nX, int nY, int nWidth, int nHeight, int a5, int a6, D2CellFileStrc* pCellFile, int a8, int a9, int a10, int a11); // 0x004FC7A0
@@ -202,7 +202,7 @@ D2WinControlStrc* __fastcall LIST_Create(int nX, int nY, int nWidth, int nHeight
 D2WinControlStrc* __fastcall ACCOUNTLIST_Create(int nX, int nY, int nWidth, int nHeight, int a5, int a6); // 0x00507CA0
 D2WinControlStrc* __fastcall PROGRESSBAR_Create(int nX, int nY, int nWidth, int nHeight); // 0x00507E50
 D2WinControlStrc* __fastcall SCROLLBAR_Create(int nX, int nY, int nWidth, int nHeight, D2CellFileStrc* pCellFile, int a6); // 0x005084F0
-void __fastcall D2SOUND_10034(int nArg); // 0x005148F0
+void __fastcall sub_005148F0_SetChannelValue(int nArg); // 0x005148F0
 void __fastcall D2SOUND_10065(); // 0x00514960
 int __cdecl sub_00514CF0(); // 0x00514CF0
 void __fastcall D2SOUND_10049(int nState); // 0x00514D00
@@ -350,7 +350,7 @@ int __fastcall D2Win_10053(D2WinTextBoxStrc* pTextBox, int nLine); // 0x004FBA30
 int __fastcall D2Win_10055(D2WinTextBoxStrc* pTextBox); // 0x004FBAB0
 int __stdcall sub_004FE3B0_EditBoxClick(SMSGHANDLER_PARAMS* pMsg, int nX, int nY); // 0x004FE3B0
 int __fastcall D2Win_10074(D2WinEditBoxStrc* pEditBox, unsigned char nChar); // 0x004FEAE0
-int __fastcall sub_6F8A7AB0(D2WinEditBoxStrc* pEditBox, char nKey); // 0x004FF050
+int __fastcall sub_004FF050_EditBoxKeyDown(D2WinEditBoxStrc* pEditBox, char nKey); // 0x004FF050
 int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
 void __fastcall D2Win_10131_GetTextDimensions(const Unicode* pText, int* pWidth, int* pHeight); // 0x00502520
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
@@ -359,7 +359,7 @@ int __stdcall POPUP_IsActive(); // 0x005085C0
 int __stdcall POPUP_HandleMouseButtonInput(SMSGHANDLER_PARAMS* pMsg); // 0x005086A0
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
-void __stdcall D2CMP_SetCompressedDataMode(int bCompress); // 0x005FE280
+void __stdcall sub_005FE280_LoadCompressedDataFlag(int bCompress); // 0x005FE280
 extern int gdwGlobal_007D5590; // 0x007D5590
 extern D2WinEditBoxStrc* gpEditBox_6F8FE258; // 0x007D55C8
 extern D2WinEditBoxStrc* dword_6F8FE25C; // 0x007D55CC
@@ -598,7 +598,7 @@ void __stdcall sub_004FA160(SMSGHANDLER_PARAMS* pMsg)
     }
     else
     {
-        D2SOUND_10034(1);
+        sub_005148F0_SetChannelValue(1);
         D2SOUND_10070(1);
     }
 
@@ -645,7 +645,7 @@ void __stdcall sub_004FA4C0_HideCursorMsg(SMSGHANDLER_PARAMS* pMsg)
     if (pMsg->wParam == 2)
     {
         dword_6F8BDE18 = 0;
-        sub_004F59F0(0);
+        WINDOW_ShowCursor(0);
     }
     else
     {
@@ -663,7 +663,7 @@ void __stdcall sub_004FA4F0_MouseLeaveMsg(SMSGHANDLER_PARAMS* pMsg)
     {
         dword_6F8BDE18 = 0;
     }
-    sub_004F59F0(0);
+    WINDOW_ShowCursor(0);
     pMsg->bReturn = 0;
     pMsg->lResult = 0;
 }
@@ -685,7 +685,7 @@ void __stdcall D2Win_COMMANDS_MouseMove_6F8AD670(SMSGHANDLER_PARAMS* pMsg)
     int nX = pMsg->nXpos;
     int nY = pMsg->nYpos;
     dword_6F8BDE18 = 1;
-    sub_004F59F0(1);
+    WINDOW_ShowCursor(1);
 
     int nScreenWidth;
     int nScreenHeight;
@@ -909,7 +909,7 @@ void __stdcall D2Win_COMMANDS_VirtualKey_6F8ADB50(SMSGHANDLER_PARAMS* pMsg)
         }
 
 check_edit_box:
-        if (sub_6F8A7AB0(dword_6F8FE25C, nKey))
+        if (sub_004FF050_EditBoxKeyDown(dword_6F8FE25C, nKey))
         {
             goto done;
         }
@@ -948,7 +948,7 @@ done:
 int __stdcall D2Win_CreateWindow(void* hInstance, int nRenderMode, int bWindowed, int bCompress)
 {
     gdwGlobal_007D5590 = nRenderMode;
-    D2CMP_SetCompressedDataMode(bCompress);
+    sub_005FE280_LoadCompressedDataFlag(bCompress);
     return D2GFX_Initialize(hInstance, D2Win_MAINWINDOW_WndProc_6F8AD9B0, nRenderMode, bWindowed);
 }
 

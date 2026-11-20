@@ -34,7 +34,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x006253B0
-D2StatListStrc* __stdcall sub_00625790_UnitFindStatList(D2UnitStrc* pUnit, int nState, int nFlag); // 0x00625790
+D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitStateOrFlag(D2UnitStrc* pUnit, int nState, int nFlag); // 0x00625790
 int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625D00
 int __stdcall STATLIST_GetMaxDurabilityFromUnit(D2UnitStrc* pUnit); // 0x00625E00
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
@@ -110,7 +110,7 @@ struct D2PropertyAssignStrc
 };
 
 int __stdcall ITEMS_GetFileIndex(D2UnitStrc* pItem); // 0x00629DA0
-D2UniqueItemsTxt* __fastcall sub_00483470(int nUniqueItemId); // 0x00483470
+D2UniqueItemsTxt* __fastcall sub_00483470_GetUniqueItemsTxtRecord(int nUniqueItemId); // 0x00483470
 D2SetItemsTxt* __fastcall sub_00483440_GetSetItemsTxtRecord(int nIndex); // 0x00483440
 void __stdcall D2COMMON_11292_ItemAssignProperty(int nType, D2UnitStrc* pUnit, D2UnitStrc* pItem, const void* pMods, int nIndex, int nPropSet, const D2PropertyStrc* pProperty, int nState, int fStatlist, D2UnitStrc* a10); // 0x0065FD70
 int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem); // 0x00627E70
@@ -691,7 +691,7 @@ static __declspec(noinline) D2StatListStrc* __stdcall ITEMMODS_GetOrCreateStatLi
 
     if (pUnit)
     {
-        pStatList = sub_00625790_UnitFindStatList(pUnit, nState, fFilter);
+        pStatList = STATLIST_GetStatListFromUnitStateOrFlag(pUnit, nState, fFilter);
         if (!pStatList)
         {
             int nUnitGUID = pUnit->dwUnitId;
@@ -703,7 +703,7 @@ static __declspec(noinline) D2StatListStrc* __stdcall ITEMMODS_GetOrCreateStatLi
     }
     else
     {
-        pStatList = sub_00625790_UnitFindStatList(pItem, nState, fFilter);
+        pStatList = STATLIST_GetStatListFromUnitStateOrFlag(pItem, nState, fFilter);
         if (!pStatList)
         {
             pStatList = STATLIST_AllocStatList(!pItem ? 0 : pItem->pMemoryPool, fFilter, 0, 4, !pItem ? -1 : pItem->dwUnitId);
@@ -1025,7 +1025,7 @@ void __stdcall ITEMMODS_AssignProperty(int nType, D2UnitStrc* a2, D2UnitStrc* pI
     case 3:
         if (ITEMS_GetFileIndex(pItem) >= 0)
         {
-            D2UniqueItemsTxt* pUniqueItemsTxtRecord = sub_00483470(ITEMS_GetFileIndex(pItem));
+            D2UniqueItemsTxt* pUniqueItemsTxtRecord = sub_00483470_GetUniqueItemsTxtRecord(ITEMS_GetFileIndex(pItem));
             if (pUniqueItemsTxtRecord)
             {
                 for (int i = 0; i < 12; ++i)

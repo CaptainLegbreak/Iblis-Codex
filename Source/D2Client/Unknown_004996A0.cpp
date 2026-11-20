@@ -12,19 +12,19 @@ unsigned int __stdcall ITEMS_CheckIfBeltable(D2UnitStrc*); // 0x0062BAD0
 int __fastcall sub_004C2240(D2UnitStrc*); // 0x004C2240
 void __fastcall sub_004786A0_SendIntInt(char,int,int); // 0x004786A0
 void __fastcall sub_00478680_SendPacket5(char,int); // 0x00478680
-void __fastcall sub_004C21F0(D2UnitStrc*); // 0x004C21F0
+void __fastcall sub_004C21F0_SetState36(D2UnitStrc*); // 0x004C21F0
 int __fastcall sub_004C1D60(D2UnitStrc*); // 0x004C1D60
 int __fastcall sub_004B9A00(int,int,int,int,int); // 0x004B9A00
 int __cdecl sub_00468830(); // 0x00468830
 int __cdecl sub_0044DA30(); // 0x0044DA30
 int __cdecl sub_00463DF0(); // 0x00463DF0
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 void __cdecl sub_00453EC0(); // 0x00453EC0
 int __fastcall sub_004538D0(unsigned int); // 0x004538D0
 void __fastcall sub_00455F20_SetUiVar(int,int,int); // 0x00455F20
-void __fastcall sub_004A8CE0_SelectSkillSide(int); // 0x004A8CE0
-int __cdecl sub_0044BE90_GetRun(); // 0x0044BE90
-void __fastcall sub_0044BE80_SetRun(int); // 0x0044BE80
+void __fastcall sub_004A8CE0_SetValue(int); // 0x004A8CE0
+int __cdecl sub_0044BE90(); // 0x0044BE90
+void __fastcall sub_0044BE80(int); // 0x0044BE80
 int __fastcall sub_00498DC0_MouseMoveMsg(SMSGHANDLER_PARAMS*); // 0x00498DC0
 void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS*); // 0x00420290
 extern int gnUiRecordRow_007A5218; // 0x007A5218
@@ -82,13 +82,13 @@ static void __stdcall sub_00498870_ClickBeltBox(D2InventoryStrc* pInventory, int
             if (!bBusy)
             {
                 sub_004786A0_SendIntInt(0x25, pCursorItem->dwUnitId, pBeltItem->dwUnitId);
-                sub_004C21F0(pCursorItem);
+                sub_004C21F0_SetState36(pCursorItem);
             }
         }
         else if (!bBusy)
         {
             sub_004786A0_SendIntInt(0x23, pCursorItem->dwUnitId, (unsigned short)nBox);
-            sub_004C21F0(pCursorItem);
+            sub_004C21F0_SetState36(pCursorItem);
         }
         sub_004B9A00(sub_004C1D60(pCursorItem), 0, 0, 0, 0);
         return;
@@ -97,7 +97,7 @@ static void __stdcall sub_00498870_ClickBeltBox(D2InventoryStrc* pInventory, int
     if (pBeltItem && !pCursorItem && !sub_004C2240(pBeltItem))
     {
         sub_00478680_SendPacket5(0x24, pBeltItem->dwUnitId);
-        sub_004C21F0(pBeltItem);
+        sub_004C21F0_SetState36(pBeltItem);
     }
 }
 
@@ -113,7 +113,7 @@ void __stdcall sub_004996A0_BeltMouseRelease(SMSGHANDLER_PARAMS* pMsg)
         pMsg->bUseResult=0;
         return;
     }
-    D2UnitStrc* pPlayer=sub_00463DD0();
+    D2UnitStrc* pPlayer=sub_00463DD0_GetPlayerUnit();
     const int x=pMsg->nX;
     const int y=pMsg->nY;
     gnGlobal_007BEF88=0;
@@ -133,14 +133,14 @@ void __stdcall sub_004996A0_BeltMouseRelease(SMSGHANDLER_PARAMS* pMsg)
             }
             else if(x>=117 && x<=165 && y>=gnGlobal_00711470-48 && y<=gnGlobal_00711470) {
                 sub_00455F20_SetUiVar(3,2,0);
-                sub_004A8CE0_SelectSkillSide(1);
+                sub_004A8CE0_SetValue(1);
             }
             else if(x>=gnGlobal_0071146C-165 && x<=gnGlobal_0071146C-117 && y>=gnGlobal_00711470-48 && y<=gnGlobal_00711470) {
                 sub_00455F20_SetUiVar(3,2,0);
-                sub_004A8CE0_SelectSkillSide(0);
+                sub_004A8CE0_SetValue(0);
             }
             else if(x>=gnGlobal_0071146C/2-145 && x<=gnGlobal_0071146C/2-128 && y>=gnGlobal_00711470-28 && y<=gnGlobal_00711470-8) {
-                sub_0044BE80_SetRun(!sub_0044BE90_GetRun());
+                sub_0044BE80(!sub_0044BE90());
             }
             gnGlobal_007BEFA4=0;
         }
@@ -153,16 +153,16 @@ void __stdcall sub_004996A0_BeltMouseRelease(SMSGHANDLER_PARAMS* pMsg)
                 CancelCursorMode();
                 if(sub_004538D0(3)) sub_00455F20_SetUiVar(3,1,0);
                 else sub_00455F20_SetUiVar(3,0,0);
-                sub_004A8CE0_SelectSkillSide(1);
+                sub_004A8CE0_SetValue(1);
             }
             else if(x>=gnGlobal_0071146C-165 && x<=gnGlobal_0071146C-117 && y<=gnGlobal_00711470) {
                 CancelCursorMode();
                 if(sub_004538D0(3)) sub_00455F20_SetUiVar(3,1,0);
                 else sub_00455F20_SetUiVar(3,0,0);
-                sub_004A8CE0_SelectSkillSide(0);
+                sub_004A8CE0_SetValue(0);
             }
             else if(x>=gnGlobal_0071146C/2-145 && x<=gnGlobal_0071146C/2-128 && y>=gnGlobal_00711470-28 && y<=gnGlobal_00711470-8) {
-                sub_0044BE80_SetRun(!sub_0044BE90_GetRun());
+                sub_0044BE80(!sub_0044BE90());
             }
             else if(x>=gnGlobal_0071146C/2-8 && x<=gnGlobal_0071146C/2+5 && y>=gnGlobal_00711470-39 && y<=gnGlobal_00711470-13) {
                 if(sub_004538D0(21)) sub_00455F20_SetUiVar(21,1,0);

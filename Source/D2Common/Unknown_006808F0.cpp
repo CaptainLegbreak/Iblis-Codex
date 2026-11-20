@@ -90,7 +90,7 @@ struct D2DrlgRoomStrc
 };
 
 void __fastcall DRLGGRID_AlterGridFlag(D2DrlgGridStrc* pGrid, int nX, int nY, int nFlag, int eOperation); // 0x0067C4F0
-int __fastcall sub_0067C570(D2DrlgGridStrc* pGrid, int nX, int nY); // 0x0067C570
+int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY); // 0x0067C570
 void __fastcall sub_0067C8E0(D2DrlgGridStrc* pGrid, D2DrlgVertexStrc* pVertex, D2DrlgCoordsStrc* pCoords, int nFlag, int eOperation, int nSize); // 0x0067C8E0
 void __fastcall DRLGGRID_InitializeGridCells(void* pMemPool, D2DrlgGridStrc* pGrid, int nWidth, int nHeight); // 0x0067CB80
 extern const unsigned char gRoadPatternCodes[256]; // 0x006F2700
@@ -147,23 +147,23 @@ static void __stdcall sub_00680950(D2DrlgGridStrc* pGrid, int pFlags[3][3], int 
     pFlags[1][2] = pFlags[2][0];
     pFlags[2][0] = pFlags[2][1];
     pFlags[2][1] = pFlags[2][2];
-    pFlags[0][2] = sub_0067C570(pGrid, nX - 1, nY - 1);
-    pFlags[1][2] = sub_0067C570(pGrid, nX, nY - 1);
-    pFlags[2][2] = sub_0067C570(pGrid, nX + 1, nY - 1);
+    pFlags[0][2] = DRLGGRID_GetGridEntry(pGrid, nX - 1, nY - 1);
+    pFlags[1][2] = DRLGGRID_GetGridEntry(pGrid, nX, nY - 1);
+    pFlags[2][2] = DRLGGRID_GetGridEntry(pGrid, nX + 1, nY - 1);
 }
 
 // 0x006809C0
 static void __stdcall sub_006809C0(D2DrlgGridStrc* pGrid, int pFlags[3][3], int nX, int nY)
 {
-    pFlags[0][2] = sub_0067C570(pGrid, nX - 1, nY - 1);
-    pFlags[0][1] = sub_0067C570(pGrid, nX - 1, nY);
-    pFlags[0][0] = sub_0067C570(pGrid, nX - 1, nY + 1);
-    pFlags[1][2] = sub_0067C570(pGrid, nX, nY - 1);
-    pFlags[2][2] = sub_0067C570(pGrid, nX + 1, nY - 1);
-    pFlags[1][1] = sub_0067C570(pGrid, nX, nY);
-    pFlags[2][1] = sub_0067C570(pGrid, nX + 1, nY);
-    pFlags[1][0] = sub_0067C570(pGrid, nX, nY + 1);
-    pFlags[2][0] = sub_0067C570(pGrid, nX + 1, nY + 1);
+    pFlags[0][2] = DRLGGRID_GetGridEntry(pGrid, nX - 1, nY - 1);
+    pFlags[0][1] = DRLGGRID_GetGridEntry(pGrid, nX - 1, nY);
+    pFlags[0][0] = DRLGGRID_GetGridEntry(pGrid, nX - 1, nY + 1);
+    pFlags[1][2] = DRLGGRID_GetGridEntry(pGrid, nX, nY - 1);
+    pFlags[2][2] = DRLGGRID_GetGridEntry(pGrid, nX + 1, nY - 1);
+    pFlags[1][1] = DRLGGRID_GetGridEntry(pGrid, nX, nY);
+    pFlags[2][1] = DRLGGRID_GetGridEntry(pGrid, nX + 1, nY);
+    pFlags[1][0] = DRLGGRID_GetGridEntry(pGrid, nX, nY + 1);
+    pFlags[2][0] = DRLGGRID_GetGridEntry(pGrid, nX + 1, nY + 1);
 }
 
 // 0x00680A70
@@ -320,8 +320,8 @@ void __stdcall sub_00680D70(D2DrlgLevelStrc* pLevel)
     {
         for (int j = 0; j < pOutdoors->nGridHeight; ++j)
         {
-            const int nGrid0Entry = sub_0067C570(&pOutdoors->pGrid[0], i, j);
-            const unsigned int nPacked = sub_0067C570(&pOutdoors->pGrid[2], i, j);
+            const int nGrid0Entry = DRLGGRID_GetGridEntry(&pOutdoors->pGrid[0], i, j);
+            const unsigned int nPacked = DRLGGRID_GetGridEntry(&pOutdoors->pGrid[2], i, j);
 
             D2DrlgVertexStrc* pVertex = &pOutdoors->pVertices[pOutdoors->nRoads];
             pVertex->nPosX = pLevel->nPosX + 8 * i + 3;

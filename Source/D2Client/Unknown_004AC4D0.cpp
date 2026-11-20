@@ -38,7 +38,7 @@ extern int ganSkillMode_007C0838[];                                             
 extern int ganSkillState_007C0A38[];                                                                        // 0x007C0A38
 
 int __fastcall sub_00451F60_UnitClassId(D2UnitStrc* pUnit);                                                 // 0x00451F60
-D2UnitStrc* __cdecl sub_00463DD0();                                                               // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 void __fastcall sub_004A7080(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
 void __stdcall sub_004ABF60_DrawSkillIcon(int nSkillId, D2SkillsTxt* pSkillsTxt, int nSkillLevel, int nState, int nMode); // 0x004ABF60
 void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength);                 // 0x00526320
@@ -78,7 +78,7 @@ static inline D2SkillDescTxt* SKILLTREE_GetSkillDescRec(int nSkillId)
 // 0x004AC4D0
 void __cdecl sub_004AC4D0_DrawSkillTree()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (!pPlayer)
         return;
 

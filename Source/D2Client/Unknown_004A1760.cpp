@@ -50,12 +50,12 @@ int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuest
 
 
 
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 int __cdecl D2GFX_GetResolutionMode(); // 0x004F5160
-void __stdcall sub_004A3220(int nPage, int nArg); // 0x004A3220
+void __stdcall sub_004A3220_LoadQuestPage(int nPage, int nArg); // 0x004A3220
 void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 void __fastcall sub_004A3FE0(int nMode); // 0x004A3FE0
@@ -127,7 +127,7 @@ D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext); // 0x00601840
 int __stdcall sub_006018C0(D2CelStrc* pCel); // 0x006018C0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
-void __fastcall sub_00502320_DrawText(const Unicode* wszText, int nX, int nY, int nColor, int nArg5); // 0x00502320
+void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int nArg5); // 0x00502320
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
@@ -292,7 +292,7 @@ static void sub_004A2220_SetQuestPage(int nPage)
 // 0x004A2300
 void __cdecl sub_004A2300_UpdateQuestPage()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (pPlayer)
     {
         D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
@@ -439,7 +439,7 @@ void __stdcall sub_004A3E40_OnLeftButtonDown(SMSGHANDLER_PARAMS* pMsg)
             {
                 sub_004A2760(gnGlobal_007C0255);
                 sub_004A2220_SetQuestPage(nIndex);
-                sub_004A3220(gnGlobal_007C0255, 1);
+                sub_004A3220_LoadQuestPage(gnGlobal_007C0255, 1);
                 sub_004A2390_ResetQuestSelection();
             }
         }
@@ -757,7 +757,7 @@ void __cdecl sub_004A2A80_DrawButton()
     const int nTextY = gaButtonLayouts_007241C0[nIndex].nTextY + gnGlobal_00711470 - 0x1E0;
     if (sub_0045AE90() == 2)
         nTextX += (gnGlobal_0071146C - 0x280) / 2;
-    sub_00502320_DrawText(D2LANG_GetStringFromTblIndex(0xF58), nTextX, nTextY, 0, 0);
+    sub_00502320(D2LANG_GetStringFromTblIndex(0xF58), nTextX, nTextY, 0, 0);
 
     int nCelX = gaButtonLayouts_007241C0[nIndex].nTextX;
     const int nCelY = gaButtonLayouts_007241C0[nIndex].nBottom + gnGlobal_00711470 - 0x1E0;
@@ -950,7 +950,7 @@ void __fastcall sub_004A3150_SpawnQuestUnits(int nX, int nY)
 {
     if (gbGlobal_007C025F)
     {
-        D2UnitStrc* pPlayer = sub_00463DD0();
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         int nCount = SEED_RollLimitedRandomNumber(&pPlayer->pSeed, 3) + 2;
         for (int i = 0; i < nCount; ++i)
         {

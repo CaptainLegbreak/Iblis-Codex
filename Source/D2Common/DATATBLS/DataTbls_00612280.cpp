@@ -6,7 +6,7 @@ struct D2SkillsTxt;
 struct D2PetTypeTxt;
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
-void* __fastcall sub_00517079_LoadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
+void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
 
 struct D2ItemTypesTxt
 {
@@ -142,7 +142,7 @@ void* __fastcall sub_00612280_ReadExcelFile(void* hArchive, const char* szName, 
 {
     char szPath[0x104];
     wsprintfA(szPath, "%s\\%s%s", gszExcelDirectory_006D8ED4, szName, szExtension);
-    return sub_00517079_LoadFile(hArchive, szPath, pnSize, ".\\DATATBLS\\DataTbls.cpp", 0x82F);
+    return ARCHIVE_AllocateBufferAndReadFile(hArchive, szPath, pnSize, ".\\DATATBLS\\DataTbls.cpp", 0x82F);
 }
 
 // 0x00638CD0

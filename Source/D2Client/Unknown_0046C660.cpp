@@ -14,7 +14,7 @@ struct D2Txt84Strc;
 
 
 int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x006416D0
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 extern D2UnitStrc* gpAiTargets_007A7470[]; // 0x007A7470
 
@@ -57,7 +57,7 @@ int __fastcall sub_0046C660_FindCorpseCallback(D2UnitStrc* pUnit, D2UnitStrc* pT
     }
 
     const int nDistance = sub_006416D0_UnitEdgeDistance(pUnit, pTarget);
-    if (nDistance >= 3 && nDistance <= 25 && sub_006416D0_UnitEdgeDistance(pTarget, sub_00463DD0()) > 7 && SEED_RollLimitedRandomNumber(&pUnit->pSeed, 2))
+    if (nDistance >= 3 && nDistance <= 25 && sub_006416D0_UnitEdgeDistance(pTarget, sub_00463DD0_GetPlayerUnit()) > 7 && SEED_RollLimitedRandomNumber(&pUnit->pSeed, 2))
     {
         *pDistance = nDistance;
         *ppTarget = pTarget;

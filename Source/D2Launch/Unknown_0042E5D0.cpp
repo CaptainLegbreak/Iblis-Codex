@@ -30,7 +30,7 @@ private:
 
 extern int gnGatewayValue_007795BC; // 0x007795BC
 extern int gbGatewayFlag_00779954; // 0x00779954
-void __fastcall sub_004FAAE0_FreeCellFile(D2CelFileStrc* pCellFile); // 0x004FAAE0
+void __fastcall ARCHIVE_FreeCellFile(D2CelFileStrc* pCellFile); // 0x004FAAE0
 extern D2CelFileStrc* gpCellFile_007796F8; // 0x007796F8
 extern D2CelFileStrc* gpCellFile_007796FC; // 0x007796FC
 extern D2CelFileStrc* gpCellFile_00779704; // 0x00779704
@@ -158,91 +158,91 @@ D2CelFileStrc* gpCellFile_007798C4; // 0x007798C4
 // 0x0042EF50
 void __cdecl sub_0042EF50_FreeFrontEndCells()
 {
-    sub_004FAAE0_FreeCellFile(gpCellFile_007796F8);
-    sub_004FAAE0_FreeCellFile(gpCellFile_007796FC);
-    sub_004FAAE0_FreeCellFile(gpCellFile_00779700);
-    sub_004FAAE0_FreeCellFile(gpCellFile_0077971C);
-    sub_004FAAE0_FreeCellFile(gpCellFile_00779704);
-    sub_004FAAE0_FreeCellFile(gpCellFile_00779708);
-    sub_004FAAE0_FreeCellFile(gpCellFile_0077970C);
-    sub_004FAAE0_FreeCellFile(gpCellFile_00779710);
-    sub_004FAAE0_FreeCellFile(gpCellFile_00779714);
-    sub_004FAAE0_FreeCellFile(gpCellFile_00779718);
-    sub_004FAAE0_FreeCellFile(gpCellFile_00779720);
-    sub_004FAAE0_FreeCellFile(gpCellFile_00779738);
-    sub_004FAAE0_FreeCellFile(gpCellFile_00779754);
-    sub_004FAAE0_FreeCellFile(gpCellFile_00779758);
-    sub_004FAAE0_FreeCellFile(gpCellFile_0077975C);
+    ARCHIVE_FreeCellFile(gpCellFile_007796F8);
+    ARCHIVE_FreeCellFile(gpCellFile_007796FC);
+    ARCHIVE_FreeCellFile(gpCellFile_00779700);
+    ARCHIVE_FreeCellFile(gpCellFile_0077971C);
+    ARCHIVE_FreeCellFile(gpCellFile_00779704);
+    ARCHIVE_FreeCellFile(gpCellFile_00779708);
+    ARCHIVE_FreeCellFile(gpCellFile_0077970C);
+    ARCHIVE_FreeCellFile(gpCellFile_00779710);
+    ARCHIVE_FreeCellFile(gpCellFile_00779714);
+    ARCHIVE_FreeCellFile(gpCellFile_00779718);
+    ARCHIVE_FreeCellFile(gpCellFile_00779720);
+    ARCHIVE_FreeCellFile(gpCellFile_00779738);
+    ARCHIVE_FreeCellFile(gpCellFile_00779754);
+    ARCHIVE_FreeCellFile(gpCellFile_00779758);
+    ARCHIVE_FreeCellFile(gpCellFile_0077975C);
     if (sub_00408F20_HasExpansionMpq())
     {
-        sub_004FAAE0_FreeCellFile(gpCellFile_0077972C);
-        sub_004FAAE0_FreeCellFile(gpCellFile_00779730);
-        sub_004FAAE0_FreeCellFile(gpCellFile_00779734);
-        sub_004FAAE0_FreeCellFile(gpCellFile_00779774);
+        ARCHIVE_FreeCellFile(gpCellFile_0077972C);
+        ARCHIVE_FreeCellFile(gpCellFile_00779730);
+        ARCHIVE_FreeCellFile(gpCellFile_00779734);
+        ARCHIVE_FreeCellFile(gpCellFile_00779774);
     }
-    sub_004FAAE0_FreeCellFile(gpCellFile_0077973C);
-    sub_004FAAE0_FreeCellFile(gpCellFile_00779740);
-    sub_004FAAE0_FreeCellFile(gpCellFile_00779748);
-    sub_004FAAE0_FreeCellFile(gpCellFile_0077974C);
-    sub_004FAAE0_FreeCellFile(gpCellFile_00779764);
-    sub_004FAAE0_FreeCellFile(gpCellFile_00779768);
-    sub_004FAAE0_FreeCellFile(gpCellFile_0077976C);
-    sub_004FAAE0_FreeCellFile(gpCellFile_00779770);
-    sub_004FAAE0_FreeCellFile(gpCellFile_00779778);
-    sub_004FAAE0_FreeCellFile(gpCellFile_0077977C);
-    sub_004FAAE0_FreeCellFile(gpCellFile_00779798);
-    sub_004FAAE0_FreeCellFile(gpCellFile_0077979C);
-    sub_004FAAE0_FreeCellFile(gpCellFile_007797A0);
-    sub_004FAAE0_FreeCellFile(gpCellFile_007797A4);
-    sub_004FAAE0_FreeCellFile(gpCellFile_007797A8);
-    sub_004FAAE0_FreeCellFile(gpCellFile_007797AC);
-    sub_004FAAE0_FreeCellFile(gpCellFile_00779780);
-    sub_004FAAE0_FreeCellFile(gpCellFile_00779784);
-    sub_004FAAE0_FreeCellFile(gpCellFile_007797B0);
-    sub_004FAAE0_FreeCellFile(gpCellFile_007797B4);
-    sub_004FAAE0_FreeCellFile(gpCellFile_00779788);
-    sub_004FAAE0_FreeCellFile(gpCellFile_0077978C);
-    sub_004FAAE0_FreeCellFile(gpCellFile_00779790);
-    sub_004FAAE0_FreeCellFile(gpCellFile_007797B8);
-    sub_004FAAE0_FreeCellFile(gpCellFile_00779794);
+    ARCHIVE_FreeCellFile(gpCellFile_0077973C);
+    ARCHIVE_FreeCellFile(gpCellFile_00779740);
+    ARCHIVE_FreeCellFile(gpCellFile_00779748);
+    ARCHIVE_FreeCellFile(gpCellFile_0077974C);
+    ARCHIVE_FreeCellFile(gpCellFile_00779764);
+    ARCHIVE_FreeCellFile(gpCellFile_00779768);
+    ARCHIVE_FreeCellFile(gpCellFile_0077976C);
+    ARCHIVE_FreeCellFile(gpCellFile_00779770);
+    ARCHIVE_FreeCellFile(gpCellFile_00779778);
+    ARCHIVE_FreeCellFile(gpCellFile_0077977C);
+    ARCHIVE_FreeCellFile(gpCellFile_00779798);
+    ARCHIVE_FreeCellFile(gpCellFile_0077979C);
+    ARCHIVE_FreeCellFile(gpCellFile_007797A0);
+    ARCHIVE_FreeCellFile(gpCellFile_007797A4);
+    ARCHIVE_FreeCellFile(gpCellFile_007797A8);
+    ARCHIVE_FreeCellFile(gpCellFile_007797AC);
+    ARCHIVE_FreeCellFile(gpCellFile_00779780);
+    ARCHIVE_FreeCellFile(gpCellFile_00779784);
+    ARCHIVE_FreeCellFile(gpCellFile_007797B0);
+    ARCHIVE_FreeCellFile(gpCellFile_007797B4);
+    ARCHIVE_FreeCellFile(gpCellFile_00779788);
+    ARCHIVE_FreeCellFile(gpCellFile_0077978C);
+    ARCHIVE_FreeCellFile(gpCellFile_00779790);
+    ARCHIVE_FreeCellFile(gpCellFile_007797B8);
+    ARCHIVE_FreeCellFile(gpCellFile_00779794);
     if (gpCellFile_00779724)
     {
-        sub_004FAAE0_FreeCellFile(gpCellFile_00779724);
+        ARCHIVE_FreeCellFile(gpCellFile_00779724);
         gpCellFile_00779724 = 0;
-        sub_004FAAE0_FreeCellFile(gpCellFile_00779728);
-        sub_004FAAE0_FreeCellFile(gpCellFile_00779744);
-        sub_004FAAE0_FreeCellFile(gpCellFile_007797BC);
-        sub_004FAAE0_FreeCellFile(gpCellFile_007797C0);
+        ARCHIVE_FreeCellFile(gpCellFile_00779728);
+        ARCHIVE_FreeCellFile(gpCellFile_00779744);
+        ARCHIVE_FreeCellFile(gpCellFile_007797BC);
+        ARCHIVE_FreeCellFile(gpCellFile_007797C0);
         for (int i = 0; i < 5; ++i)
-            sub_004FAAE0_FreeCellFile(gapCellFiles_00779808[i]);
+            ARCHIVE_FreeCellFile(gapCellFiles_00779808[i]);
         for (int i = 0; i < 5; ++i)
-            sub_004FAAE0_FreeCellFile(gapCellFiles_0077981C[i]);
+            ARCHIVE_FreeCellFile(gapCellFiles_0077981C[i]);
         for (int i = 0; i < 5; ++i)
-            sub_004FAAE0_FreeCellFile(gapCellFiles_00779830[i]);
+            ARCHIVE_FreeCellFile(gapCellFiles_00779830[i]);
         for (int i = 0; i < 5; ++i)
-            sub_004FAAE0_FreeCellFile(gapCellFiles_00779844[i]);
+            ARCHIVE_FreeCellFile(gapCellFiles_00779844[i]);
         for (int i = 0; i < 5; ++i)
-            sub_004FAAE0_FreeCellFile(gapCellFiles_00779858[i]);
+            ARCHIVE_FreeCellFile(gapCellFiles_00779858[i]);
         for (int i = 0; i < 3; ++i)
-            sub_004FAAE0_FreeCellFile(gapCellFiles_0077989C[i]);
+            ARCHIVE_FreeCellFile(gapCellFiles_0077989C[i]);
         for (int i = 0; i < 3; ++i)
-            sub_004FAAE0_FreeCellFile(gapCellFiles_00779888[i]);
-        sub_004FAAE0_FreeCellFile(gpCellFile_007798B0);
-        sub_004FAAE0_FreeCellFile(gpCellFile_007798C4);
+            ARCHIVE_FreeCellFile(gapCellFiles_00779888[i]);
+        ARCHIVE_FreeCellFile(gpCellFile_007798B0);
+        ARCHIVE_FreeCellFile(gpCellFile_007798C4);
         if (sub_00408F20_HasExpansionMpq())
         {
             for (int i = 0; i < 5; ++i)
-                sub_004FAAE0_FreeCellFile(gapCellFiles_007797E0[i]);
+                ARCHIVE_FreeCellFile(gapCellFiles_007797E0[i]);
             for (int i = 0; i < 5; ++i)
-                sub_004FAAE0_FreeCellFile(gapCellFiles_007797F4[i]);
-            sub_004FAAE0_FreeCellFile(gpCellFile_007797C4);
+                ARCHIVE_FreeCellFile(gapCellFiles_007797F4[i]);
+            ARCHIVE_FreeCellFile(gpCellFile_007797C4);
         }
     }
-    sub_004FAAE0_FreeCellFile(gpCellFile_007797C8);
-    sub_004FAAE0_FreeCellFile(gpCellFile_007797CC);
-    sub_004FAAE0_FreeCellFile(gpCellFile_007797D0);
-    sub_004FAAE0_FreeCellFile(gpCellFile_007797D4);
-    sub_004FAAE0_FreeCellFile(gpCellFile_007797D8);
-    sub_004FAAE0_FreeCellFile(gpCellFile_007797DC);
-    sub_004FAAE0_FreeCellFile(gpCellFile_00779750);
+    ARCHIVE_FreeCellFile(gpCellFile_007797C8);
+    ARCHIVE_FreeCellFile(gpCellFile_007797CC);
+    ARCHIVE_FreeCellFile(gpCellFile_007797D0);
+    ARCHIVE_FreeCellFile(gpCellFile_007797D4);
+    ARCHIVE_FreeCellFile(gpCellFile_007797D8);
+    ARCHIVE_FreeCellFile(gpCellFile_007797DC);
+    ARCHIVE_FreeCellFile(gpCellFile_00779750);
 }

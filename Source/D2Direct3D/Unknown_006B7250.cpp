@@ -115,7 +115,7 @@ struct D2SurfaceVtableStrc { void* unk[31]; int (__stdcall *SetPalette)(D2Surfac
 
 struct D2SurfaceStrc { D2SurfaceVtableStrc* vtable; };
 
-void __fastcall sub_006B20E0_Report(const char*, int); // 0x006B20E0
+void __fastcall sub_006B20E0_DDrawLogError(const char*, int); // 0x006B20E0
 
 void __cdecl sub_006B72A0_PrepareRenderer(); // 0x006B72A0
 
@@ -155,7 +155,7 @@ struct D2Device006B77B0Strc
 };
 extern D2Device006B77B0Strc* gpDevice_00970E78; // 0x00970E78
 void __fastcall sub_006B1EA0_SetState(int nState); // 0x006B1EA0
-void __fastcall sub_006B1F40_SetBlend(int nBlend); // 0x006B1F40
+void __fastcall sub_006B1F40_SetBlendMode(int nBlend); // 0x006B1F40
 void __fastcall sub_006B2030_SetFilterMode(int nMode); // 0x006B2030
 
 struct D2Rect006B7C90Strc
@@ -329,7 +329,7 @@ void __fastcall sub_006B74F0_SetPalette(void* pPalette)
   D2SurfaceStrc* s = *p;
   if (s) {
    int result = s->vtable->SetPalette(s, pPalette);
-   if (result) { sub_006B20E0_Report("SetPalette (debug font surface)", result); return; }
+   if (result) { sub_006B20E0_DDrawLogError("SetPalette (debug font surface)", result); return; }
   }
   ++p;
  } while ((int)p < (int)(gaSurfaces_00971150 + 96));
@@ -400,7 +400,7 @@ void __fastcall sub_006B77B0_Call(int nX1, int nY1, int nX2, int nY2, unsigned c
     D2_ASSERT(nY2 > nY1, 0x2B);
 
     sub_006B1EA0_SetState(2);
-    sub_006B1F40_SetBlend(4);
+    sub_006B1F40_SetBlendMode(4);
     sub_006B2030_SetFilterMode(1);
 
     D2TLVertex006B77B0Strc tVertices[4];

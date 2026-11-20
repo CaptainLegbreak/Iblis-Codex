@@ -144,7 +144,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x0068
 extern "C" size_t __cdecl fread(void* pBuffer, size_t nSize, size_t nCount, _iobuf* pFile); // 0x00684782
 extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, ...); // 0x00413A40
 void __cdecl sub_00401A70_SetMiniDumpThreadName(); // 0x00401A70
-void __cdecl sub_004026D0_LockedDbgHelpCall(); // 0x004026D0
+void __cdecl sub_004026D0_WriteMiniDump(); // 0x004026D0
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 void __fastcall sShowStack(void* hThread, D2ThreadContextStrc* pContext); // 0x0040CC10
 _iobuf* __fastcall sub_0040EBD0_OpenDatedLogFile(const char* szName, D2SystemTimeStrc* pTime, const char* szMode, int* pbNew, char* szPathOut, unsigned int nPathOutSize); // 0x0040EBD0
@@ -951,7 +951,7 @@ unsigned long __stdcall sub_004027C0_DbgHelpThreadProc(void* pParam)
     WaitForSingleObject(ghDbgHelpWorkEvent_0098A6C0, 0xFFFFFFFF);
     while (gpDbgHelpRequest_0098A6E4)
     {
-        sub_004026D0_LockedDbgHelpCall();
+        sub_004026D0_WriteMiniDump();
         SetEvent(ghDbgHelpDoneEvent_0098A6BC);
         WaitForSingleObject(ghDbgHelpWorkEvent_0098A6C0, 0xFFFFFFFF);
     }

@@ -42,7 +42,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 
 extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void);                                // 0x006CC544
 
-void __fastcall sub_00452E50_AddDirtyRect(D2RectStrc* pRect);                                               // 0x00452E50
+void __fastcall sub_00452E50_DrawRectangleBorder(D2RectStrc* pRect);                                               // 0x00452E50
 void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 int __stdcall D2Win_10125();                                                                                // 0x00501A40
 void __fastcall sub_00501DF0_DrawClippedFontText(const Unicode* pText, int nX, int nY, int nTextColor, int nSkipLines, int nDrawLines); // 0x00501DF0
@@ -123,7 +123,7 @@ static int sub_0049D5A0_UpdateScrollText(D2TextScrollStrc* pRec)
         tRect.top = gnGlobal_007225FC - 6;
         tRect.right = gnGlobal_007BF278 + 0x146;
         tRect.bottom = gnGlobal_007225FC + 0x75;
-        sub_00452E50_AddDirtyRect(&tRect);
+        sub_00452E50_DrawRectangleBorder(&tRect);
     }
 
     T0044CB60* pLine = pRec->pLines;

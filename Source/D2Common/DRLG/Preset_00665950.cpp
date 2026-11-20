@@ -75,7 +75,7 @@ struct D2ItemsTxt;
 extern "C" char* __cdecl strncpy(char* szDest, const char* szSource, unsigned int nCount);                  // 0x00687330
 extern "C" int __cdecl tolower(int nChar);                                                                  // 0x0068523E
 unsigned int __fastcall sub_006C9A38(const char* szString);                                                    // 0x006C9A38
-void* __fastcall sub_00517079_LoadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
+void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);           // 0x0040B430
 D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId);                // 0x00633640
 D2MonPresetTxt* __stdcall DATATBLS_GetMonPresetTxtActSection(int nAct, int* pnRecords);                     // 0x00659B40
@@ -135,7 +135,7 @@ static __forceinline int sub_IsSubstMethod(int nSubstMethod)
 // 0x00665950
 void __fastcall DRLGPRESET_ParseDS1File(D2DrlgFileStrc* pDrlgFile, void* hArchive, const char* szFileName)
 {
-    int* pData = (int*)sub_00517079_LoadFile(hArchive, szFileName, 0, ".\\DRLG\\Preset.cpp", 0x300);
+    int* pData = (int*)ARCHIVE_AllocateBufferAndReadFile(hArchive, szFileName, 0, ".\\DRLG\\Preset.cpp", 0x300);
     pDrlgFile->pDS1File = pData;
 
     int nAct = 0;

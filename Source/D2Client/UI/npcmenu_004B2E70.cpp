@@ -11,7 +11,7 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 void __cdecl sub_00466FE0(); // 0x00466FE0
 void __cdecl sub_00487C20_ResetButtonsFromState5(); // 0x00487C20
-void __cdecl sub_004B1E80(); // 0x004B1E80
+void __cdecl sub_004B1E80_OpenTimedDialog36(); // 0x004B1E80
 int __cdecl sub_004B5C60_Handler(); // 0x004B5C60
 void __fastcall sub_004B8020(void* pRes); // 0x004B8020
 
@@ -31,12 +31,12 @@ extern unsigned char gbFound_007C0DDA; // 0x007C0DDA
 void __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
 void __cdecl sub_00453AE0(); // 0x00453AE0
 void __cdecl sub_00487990_ResetHover(); // 0x00487990
-void __fastcall sub_004C0620(int nArg); // 0x004C0620
+void __fastcall sub_004C0620_OpenPanelMode1(int nArg); // 0x004C0620
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny); // 0x00478F20
 int __cdecl sub_0044DCC0(); // 0x0044DCC0
-int __fastcall sub_00478EE0_GetPetCount(D2UnitStrc* pOwner, int nPetType); // 0x00478EE0
+int __fastcall sub_00478EE0_CountPets(D2UnitStrc* pOwner, int nPetType); // 0x00478EE0
 void __cdecl sub_004B3610_CloseTradeDialog(); // 0x004B3610
 extern int (__cdecl* gpfnGlobal_00726CD7)(); // 0x00726CD7
 extern short gwGlobal_00726CC9; // 0x00726CC9
@@ -101,7 +101,7 @@ int __cdecl sub_004B2E70_MenuBack()
             sub_004B8020(gpRes_007C0D5F);
             gpRes_007C0D5F = 0;
         }
-        sub_004B1E80();
+        sub_004B1E80_OpenTimedDialog36();
         return 1;
     }
     if (gnGlobal_007C0C6B == 4)
@@ -159,7 +159,7 @@ int __cdecl sub_004B35B0_NpcMenuHandler()
     sub_00487990_ResetHover();
     gnGlobal_007C0C6B = 7;
     gnGlobal_007C0D31 = 0;
-    sub_004C0620(gnGlobal_007C0D25);
+    sub_004C0620_OpenPanelMode1(gnGlobal_007C0D25);
     return 1;
 }
 
@@ -172,10 +172,10 @@ int __cdecl sub_004B3660_TradeMenuHandler()
     gnGlobal_007C0C64 = gnGlobal_007C0D25;
     if (nCount < 10 && gpTradeObj_007C0D83->GetAt(nCount) < 10)
     {
-        if (sub_00478F20_FindPetIdByOwner(sub_00463DD0(), 7, 0) == -1
-            && (!sub_0044DCC0() || (!sub_00478EE0_GetPetCount(sub_00463DD0(), 7) && gwGlobal_00725494 == 0xFFFF)))
+        if (sub_00478F20_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0) == -1
+            && (!sub_0044DCC0() || (!sub_00478EE0_CountPets(sub_00463DD0_GetPlayerUnit(), 7) && gwGlobal_00725494 == 0xFFFF)))
         {
-            sub_004B1E80();
+            sub_004B1E80_OpenTimedDialog36();
             return 0;
         }
         sub_004B3610_CloseTradeDialog();
@@ -293,7 +293,7 @@ int __cdecl sub_004B42B0_NpcMenuTrade()
     gdwGlobal_007C0DB0 = 0;
     sub_00455F20(0xC, 0, 0);
     sub_004786D0_SendPacket(0x38, 1, gnGlobal_007C0D25, 0);
-    gpUnit_007C0DD4 = sub_00463DD0();
+    gpUnit_007C0DD4 = sub_00463DD0_GetPlayerUnit();
     gwGlobal_007C0DD8 = 0;
     return 1;
 }
@@ -457,7 +457,7 @@ int __cdecl sub_004B41C0_NextNpcMessage()
 // 0x004B41E0
 int __cdecl sub_004B41E0_GreetNpcMessage()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     const int nClass = !pPlayer ? -1 : pPlayer->dwClassId;
     if (gnGlobal_007C0D29)
     {

@@ -7,8 +7,8 @@
 struct D2DamageStrc { unsigned int dwHitFlags; unsigned short wResultFlags; unsigned short wExtra; int dwPhysDamage; int dwEnDmgPct; int pad10[20]; unsigned int dwHitClass; unsigned char nHitClassActiveSet; unsigned char nConvType; unsigned short unk66; int dwConvPct; int nOverlay; };
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern "C" void* __cdecl memset(void*, int, unsigned int);
-int __fastcall sub_00463860_GetClassId(D2UnitStrc* pUnit); // 0x00463860
-int __fastcall sub_00463900_GetBaseId(int nClassId); // 0x00463900
+int __fastcall sub_00463860(D2UnitStrc* pUnit); // 0x00463860
+int __fastcall sub_00463900_GetValidMonsterId(int nClassId); // 0x00463900
 void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUnit, int nType, int nCustom); // 0x00540E60
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nType, int nFrame, int nCustom, int nParam); // 0x005417D0
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nType, int nId); // 0x00552F60
@@ -20,7 +20,7 @@ void __fastcall sub_00571B70_SkillUpdate(D2UnitStrc* pUnit, int nSkillId); // 0x
 void __fastcall SUNITDMG_DrainItemDurability(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int nUnused); // 0x0057D4F0
 void __fastcall SUNITDMG_AllocCombat(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, D2DamageStrc* pDamage, unsigned char nSrcDam); // 0x0057DBF0
 unsigned short __fastcall SUNITDMG_GetResultFlags(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int nToHit); // 0x0057EC10
-int __fastcall sub_005CF8C0_GetChargeFrame(D2UnitStrc* pUnit); // 0x005CF8C0
+int __fastcall sub_005CF8C0_GetSeqEventFrame(D2UnitStrc* pUnit); // 0x005CF8C0
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 void __stdcall UNITS_SetOverlay(D2UnitStrc* pUnit, int nOverlay, int nUnused); // 0x00621E40
 int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nBonus); // 0x00622C40
@@ -47,7 +47,7 @@ int __fastcall SKILLS_SrvDo067_Charge(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
     D2SkillStrc* pSkill = UNITS_GetUsedSkill(pUnit);
     if (!pSkill) return 0;
     if (DATATBLS_GetMonSeqTxtRecordFromUnit(pUnit)) DATATBLS_GetSeqFrameCount(pUnit);
-    int nFrame = sub_005CF8C0_GetChargeFrame(pUnit);
+    int nFrame = sub_005CF8C0_GetSeqEventFrame(pUnit);
     int nTargetType = SKILLS_GetParam1(pSkill);
     int nTargetId = SKILLS_GetParam2(pSkill);
     D2UnitStrc* pTarget = 0;
@@ -76,7 +76,7 @@ int __fastcall SKILLS_SrvDo067_Charge(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
             }
             else
             {
-                if (!pUnit || pUnit->dwUnitType != 1 || sub_00463900_GetBaseId(sub_00463860_GetClassId(pUnit)) != 436 || sub_00463900_GetBaseId(sub_00463860_GetClassId(pUnit)) != 441)
+                if (!pUnit || pUnit->dwUnitType != 1 || sub_00463900_GetValidMonsterId(sub_00463860(pUnit)) != 436 || sub_00463900_GetValidMonsterId(sub_00463860(pUnit)) != 441)
                 {
                     D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 1, 0);
                     EVENT_SetEvent(pGame, pUnit, 1, pGame->dwGameFrame + 1, 0, 0);
@@ -134,7 +134,7 @@ int __fastcall SKILLS_SrvDo067_Charge(D2GameStrc* pGame, D2UnitStrc* pUnit, int 
         if (pUnit && pUnit->dwUnitType == 1)
         {
             int nMode;
-            switch (sub_00463900_GetBaseId(pUnit->dwClassId))
+            switch (sub_00463900_GetValidMonsterId(pUnit->dwClassId))
             {
             case 73: nMode = 8; break;
             case 211: case 436: nMode = 5; break;

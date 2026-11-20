@@ -26,8 +26,8 @@ int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);              
 int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseTime);                       // 0x0061C100
 int __fastcall sub_00472280(D2SeedStrc* pSeed, int nOffset, int nRange);                                 // 0x00472280
 int __fastcall sub_006BCB40(D2WeatherStrc* pArray);                                             // 0x006BCB40
-D2UnitStrc* __cdecl sub_00463DE0_GetStoredUnit();                                                           // 0x00463DE0
-D2UnitStrc* __cdecl sub_00463DD0();                                                               // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit();                                                           // 0x00463DE0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 unsigned int __cdecl sub_0044DB00();                                                                        // 0x0044DB00
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
 void __fastcall sub_00472C80_StepSplashes(int nUnused);                                                     // 0x00472C80
@@ -304,7 +304,7 @@ void __cdecl sub_00473F50_UpdateWeather()
     int nLevelId;
     int bRain;
     int bMud;
-    D2UnitStrc* pStoredUnit = sub_00463DE0_GetStoredUnit();
+    D2UnitStrc* pStoredUnit = sub_00463DE0_GetPlayerUnit();
     bRain = 0;
     bMud = 0;
     if (pStoredUnit)
@@ -339,7 +339,7 @@ void __cdecl sub_00473F50_UpdateWeather()
     gbMudActive_007A8A40 = bMud;
 
     const unsigned int nTick = sub_0044DB00();
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2_ASSERT(pPlayer, 0x547);
 
     D2SeedStrc* pSeed = &pPlayer->pSeed;

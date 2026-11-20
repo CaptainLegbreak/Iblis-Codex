@@ -30,9 +30,9 @@ enum
 extern D2DataTablesStrc sgtDataTables;                                                                      // 0x0096BC30
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...);             // 0x006CC468
-int __fastcall ARCHIVE_OpenFile(void* hArchive, const char* szFilePath, void** phFile, int bFileNotFoundLogSkipped);// 0x00516E46
+int __fastcall sub_00516E46_OpenFile(void* hArchive, const char* szFilePath, void** phFile, int bFileNotFoundLogSkipped);// 0x00516E46
 void* __stdcall DATATBLS_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pTbl, int* pRecordCount, int nRecordSize);// 0x006122F0
-void __fastcall DATATBLS_CubeMainInputLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn);// 0x00669080
+void __fastcall sub_00669080_CubeInputLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn);// 0x00669080
 void __fastcall DATATBLS_CubeMainOutputLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn);// 0x006690B0
 void __fastcall DATATBLS_CubeMainParamLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn);// 0x006690E0
 
@@ -53,13 +53,13 @@ void __fastcall DATATBLS_LoadCubeMainTxt(void* hArchive)
         { "class", TXTFIELD_CODETOBYTE, 0, 3, &sgtDataTables.pPlayerClassLinker },
         { "numinputs", TXTFIELD_BYTE, 0, 16, 0 },
         { gszTxtField_version, TXTFIELD_WORD, 0, 18, 0 },
-        { "input 1", TXTFIELD_CUSTOMLINK, 0, 0, (void*)DATATBLS_CubeMainInputLinker },
-        { "input 2", TXTFIELD_CUSTOMLINK, 0, 1, (void*)DATATBLS_CubeMainInputLinker },
-        { "input 3", TXTFIELD_CUSTOMLINK, 0, 2, (void*)DATATBLS_CubeMainInputLinker },
-        { "input 4", TXTFIELD_CUSTOMLINK, 0, 3, (void*)DATATBLS_CubeMainInputLinker },
-        { "input 5", TXTFIELD_CUSTOMLINK, 0, 4, (void*)DATATBLS_CubeMainInputLinker },
-        { "input 6", TXTFIELD_CUSTOMLINK, 0, 5, (void*)DATATBLS_CubeMainInputLinker },
-        { "input 7", TXTFIELD_CUSTOMLINK, 0, 6, (void*)DATATBLS_CubeMainInputLinker },
+        { "input 1", TXTFIELD_CUSTOMLINK, 0, 0, (void*)sub_00669080_CubeInputLinker },
+        { "input 2", TXTFIELD_CUSTOMLINK, 0, 1, (void*)sub_00669080_CubeInputLinker },
+        { "input 3", TXTFIELD_CUSTOMLINK, 0, 2, (void*)sub_00669080_CubeInputLinker },
+        { "input 4", TXTFIELD_CUSTOMLINK, 0, 3, (void*)sub_00669080_CubeInputLinker },
+        { "input 5", TXTFIELD_CUSTOMLINK, 0, 4, (void*)sub_00669080_CubeInputLinker },
+        { "input 6", TXTFIELD_CUSTOMLINK, 0, 5, (void*)sub_00669080_CubeInputLinker },
+        { "input 7", TXTFIELD_CUSTOMLINK, 0, 6, (void*)sub_00669080_CubeInputLinker },
         { "output", TXTFIELD_CUSTOMLINK, 0, 0, (void*)DATATBLS_CubeMainOutputLinker },
         { "lvl", TXTFIELD_BYTE, 0, 85, 0 },
         { "plvl", TXTFIELD_BYTE, 0, 86, 0 },
@@ -151,10 +151,10 @@ void __fastcall DATATBLS_LoadCubeMainTxt(void* hArchive)
     };
 
     wsprintfA(szPath, gszPathFormat_006D4124, gszExcelDirectory_006D8ED4, "cubeserver.bin");
-    D2_ASSERT(!ARCHIVE_OpenFile(hArchive, szPath, &pFileHandle, 1), 752);
+    D2_ASSERT(!sub_00516E46_OpenFile(hArchive, szPath, &pFileHandle, 1), 752);
 
     wsprintfA(szPath, gszPathFormat_006D4124, gszExcelDirectory_006D8ED4, "cubeserver.txt");
-    D2_ASSERT(!ARCHIVE_OpenFile(hArchive, szPath, &pFileHandle, 1), 756);
+    D2_ASSERT(!sub_00516E46_OpenFile(hArchive, szPath, &pFileHandle, 1), 756);
 
     sgtDataTables.pCubeMainTxt = (D2CubeMainTxt*)DATATBLS_CompileTxt(hArchive, "cubemain", pTbl, &sgtDataTables.nCubeMainTxtRecordCount, 0x148);
 }

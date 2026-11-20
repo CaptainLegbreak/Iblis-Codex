@@ -218,7 +218,7 @@ extern "C" void* __cdecl memset(void*,int,unsigned int); // 0x00681EF0
 extern "C" __declspec(dllimport) int __stdcall MoveWindow(void*,int,int,int,int,int); // 0x006CC444
 void __fastcall sub_006B20E0_LogDrawError(const char*,long); // 0x006B20E0
 void __fastcall sub_006B39B0_ShowD3DError(const char*,long); // 0x006B39B0
-void __cdecl sub_006B3320_ReleaseSurfaces(); // 0x006B3320
+void __cdecl sub_006B3320_ReleaseResources(); // 0x006B3320
 void __cdecl sub_006B3800(); // 0x006B3800
 void __cdecl sub_006B3080(); // 0x006B3080
 void __cdecl sub_006BB5E0_CreateSurfaces(); // 0x006BB5E0
@@ -282,12 +282,12 @@ struct D2GuidStrc
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(void* pCriticalSection);
 extern "C" int __cdecl atexit(void (__cdecl* pfnExit)()); // 0x00683824
 int __stdcall sub_006B1350_DirectDrawCreate(D2GuidStrc* pGuid, D2ComObjectStrc** ppDD, void* pUnkOuter); // 0x006B1350
-void __fastcall sub_006B20E0_ReportError(const char* szMessage, int hResult); // 0x006B20E0
+void __fastcall sub_006B20E0_DDrawLogError(const char* szMessage, int hResult); // 0x006B20E0
 void __cdecl sub_006B5990_Shutdown(); // 0x006B5990
-void __cdecl sub_006B80A0(); // 0x006B80A0
-void __cdecl sub_006B96C0(); // 0x006B96C0
-void __cdecl sub_006B97D0(); // 0x006B97D0
-void __cdecl sub_006B9A10(); // 0x006B9A10
+void __cdecl sub_006B80A0_InitializeDrawingGeometry(); // 0x006B80A0
+void __cdecl sub_006B96C0_BuildScaleTable(); // 0x006B96C0
+void __cdecl sub_006B97D0_BuildScaleTable(); // 0x006B97D0
+void __cdecl sub_006B9A10_Init(); // 0x006B9A10
 extern const unsigned int gnDeviceFlagMask_006CE268; // 0x006CE268
 extern const D2GuidStrc gIID_IDirectDraw4_006FF8D8; // 0x006FF8D8
 extern const D2GuidStrc gIID_IDirect3D3_006FF558; // 0x006FF558
@@ -404,7 +404,7 @@ static int sub_006B4FD0_InitializeFullscreen(void* window,int mode)
 D3DFail:
     sub_006B39B0_ShowD3DError(msg,error);
 Fail:
-    sub_006B3320_ReleaseSurfaces(); ghWindow=0; return 0;
+    sub_006B3320_ReleaseResources(); ghWindow=0; return 0;
 }
 
 // 0x006B55E0
@@ -465,7 +465,7 @@ int __fastcall sub_006B5830_ResizeWindow(void* window,int mode)
     if (gnWindowed)
         return 1;
 
-    sub_006B3320_ReleaseSurfaces();
+    sub_006B3320_ReleaseResources();
     ghWindow = 0;
     if (!sub_006B4FD0_InitializeFullscreen(window, mode))
         return 0;
@@ -497,7 +497,7 @@ int __fastcall sub_006B58A0_CreateDeviceTexture(D2ComObject006B58A0Strc** ppSurf
     {
         if (hResult != (long)0x8876017C)
         {
-            sub_006B20E0_ReportError("CreateSurface (device surface)", hResult);
+            sub_006B20E0_DDrawLogError("CreateSurface (device surface)", hResult);
         }
         return 0;
     }
@@ -546,14 +546,14 @@ int __fastcall sub_006B59A0_D3DInit(int nArg1, int nArg2)
 
     if (hResult)
     {
-        sub_006B20E0_ReportError("DirectDrawCreate failed!", hResult);
+        sub_006B20E0_DDrawLogError("DirectDrawCreate failed!", hResult);
         return 0;
     }
 
     hResult = ((D2ComQueryInterfaceFn)pDirectDraw->lpVtbl[0])(pDirectDraw, &gIID_IDirectDraw4_006FF8D8, &gpDirectDraw4_00970E60);
     if (hResult)
     {
-        sub_006B20E0_ReportError("Failed to get DirectDraw4 interface!", hResult);
+        sub_006B20E0_DDrawLogError("Failed to get DirectDraw4 interface!", hResult);
         return 0;
     }
 
@@ -563,22 +563,22 @@ int __fastcall sub_006B59A0_D3DInit(int nArg1, int nArg2)
     hResult = ((D2ComQueryInterfaceFn)gpDirectDraw4_00970E60->lpVtbl[0])(gpDirectDraw4_00970E60, &gIID_IDirect3D3_006FF558, &gpDirect3D3_00970E64);
     if (hResult)
     {
-        sub_006B20E0_ReportError("Failed to get D3D interface!", hResult);
+        sub_006B20E0_DDrawLogError("Failed to get D3D interface!", hResult);
         return 0;
     }
 
     hResult = ((D2DDGetDeviceIdentifierFn)gpDirectDraw4_00970E60->lpVtbl[0x1B])(gpDirectDraw4_00970E60, tIdentifier, 0);
     if (hResult)
     {
-        sub_006B20E0_ReportError("Failed to get device identifier interface!", hResult);
+        sub_006B20E0_DDrawLogError("Failed to get device identifier interface!", hResult);
     }
 
     atexit(sub_006B5990_Shutdown);
     gbD3DInitialized_00970E48 = 1;
-    sub_006B96C0();
-    sub_006B97D0();
-    sub_006B80A0();
-    sub_006B9A10();
+    sub_006B96C0_BuildScaleTable();
+    sub_006B97D0_BuildScaleTable();
+    sub_006B80A0_InitializeDrawingGeometry();
+    sub_006B9A10_Init();
     gpCriticalSection_007C9134 = FOG_Alloc(0x18, gszD3DCoreFile_006FC120, 0x6EA, 0);
     InitializeCriticalSection(gpCriticalSection_007C9134);
     return 1;

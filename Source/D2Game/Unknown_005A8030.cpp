@@ -35,7 +35,7 @@ void __stdcall UNITS_ChangeAnimMode(D2UnitStrc*, int); // 0x00624690
 void __fastcall sub_6FCBDE90(D2UnitStrc*, int); // 0x005544B0
 void __stdcall UNITS_SetUsedSkill(D2UnitStrc*, int); // 0x00620210
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc*, D2UnitStrc*); // 0x00553540
-int __stdcall sub_005A7C20_ChangeMode(D2GameStrc*, D2ModeChangeStrc*, int); // 0x005A7C20
+int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc*, D2ModeChangeStrc*, int); // 0x005A7C20
 
 
 struct D2MissileUnitFindArgStrc
@@ -45,7 +45,7 @@ struct D2MissileUnitFindArgStrc
     D2UnitStrc* pOwner;
     D2MissilesTxt* pMissilesTxtRecord;
 };
-int __fastcall sub_00554200(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00554200
+int __fastcall SUNIT_AreUnitsHostile(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00554200
 int __stdcall STATLIST_GetUnitAlignment(D2UnitStrc* pUnit); // 0x006259B0
 
 // build: context MONSTATS_GetRecordInline
@@ -139,7 +139,7 @@ void __fastcall MONSTERMODE_HandleEndAnimation(D2GameStrc* pGame, D2UnitStrc* pU
     mode.pUnit = pUnit;
     mode.nVelocity = 100;
     mode.pTarget = SUNIT_GetTargetUnit(pGame, pUnit);
-    sub_005A7C20_ChangeMode(pGame, &mode, 1);
+    D2GAME_ModeChange_6FC65220(pGame, &mode, 1);
 }
 
 #include "gen/data/Source/D2Game/Unknown_005A8030.inc"
@@ -185,7 +185,7 @@ static int __stdcall sub_005A8730_MISSMODE_CanCollideWithUnit(D2GameStrc* pGame,
         return 0;
     }
 
-    return !pOwner || sub_00554200(pGame, pOwner, pUnit) || pMissilesTxtRecord->nCollideFriend;
+    return !pOwner || SUNIT_AreUnitsHostile(pGame, pOwner, pUnit) || pMissilesTxtRecord->nCollideFriend;
 }
 
 int __fastcall MISSMODE_UnitFindCallback_CanCollideWithMonster(D2UnitStrc* pUnit, void* pArgument)

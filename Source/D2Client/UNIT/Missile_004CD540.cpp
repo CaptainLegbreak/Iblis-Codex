@@ -128,7 +128,7 @@ extern void* gpGlobal_007A0634; // 0x007A0634
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 void __fastcall sub_00464930_FreeLight(D2UnitStrc* pUnit); // 0x00464930
 D2UnitStrc* __fastcall sub_00466730_SpawnPresetUnit(int nIndex, int nX, int nY, int nUnitType, int nMode); // 0x00466730
 void* __fastcall sub_00474160_MakeLightEntry(D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3, int nArg4, int nArg5, int nArg6); // 0x00474160
@@ -213,7 +213,7 @@ struct D2SpawnArgsStrc
 static __declspec(noinline) D2UnitStrc* __stdcall sub_004CE530_SpawnSubMissile(D2UnitStrc* pOwner, int nMissile, int nSpread, D2UnitStrc* pMissile);
 void __fastcall sub_004B9A00_PlayOverlay(int nOverlay, D2UnitStrc* pOwner, int a3, int a4, int a5); // 0x004B9A00
 void __fastcall sub_004CD540_CreateClientMissile(D2MissileStrc* pMissile); // 0x004CD540
-void __fastcall sub_004CE650_PlaySound(D2UnitStrc* pOwner, D2UnitStrc* pUnit, int nSound, int nLevel); // 0x004CE650
+void __fastcall sub_004CE650_SpawnScatterMissiles(D2UnitStrc* pOwner, D2UnitStrc* pUnit, int nSound, int nLevel); // 0x004CE650
 
 struct D2MissileScanArgStrc
 {
@@ -312,7 +312,7 @@ static void __stdcall sub_004CD420_RollPierce(D2UnitStrc* pOwner, D2UnitStrc* pM
     }
 
     int nSeed;
-    if (pOwner && pOwner->dwUnitType == 0 && sub_00463DD0() != pOwner)
+    if (pOwner && pOwner->dwUnitType == 0 && sub_00463DD0_GetPlayerUnit() != pOwner)
     {
         nChance = 100;
         nSeed = 0;
@@ -376,7 +376,7 @@ D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams)
     }
     else
     {
-        D2UnitStrc* pPlayer = sub_00463DD0();
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         if (pPlayer && !COLLISION_GetRoomBySubTileCoordinates(UNITS_GetRoom(pPlayer), nX, nY)
             && !sub_00619DA0_ActLookup(gpGlobal_007A0634, nX, nY))
         {
@@ -871,7 +871,7 @@ void __fastcall sub_004CE850_SpawnPeriodicMissile(D2UnitStrc* pOwner, D2UnitStrc
 
     if (pMissilesTxtRecord->wSound > 0)
     {
-        sub_004CE650_PlaySound(pOwner, pUnit, pMissilesTxtRecord->wSound, nLevel);
+        sub_004CE650_SpawnScatterMissiles(pOwner, pUnit, pMissilesTxtRecord->wSound, nLevel);
     }
 
     if (pMissilesTxtRecord->wProgOverlay > 0 && nFrame == 315)

@@ -47,7 +47,7 @@ const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); /
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
-void __fastcall sub_00502280_SetPopUpText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
+void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 unsigned short __fastcall sub_00469AA0(int nA, int nB); // 0x00469AA0
 const Unicode* __fastcall sub_00469DE0_GetKeyText(int nKey, int nArg2); // 0x00469DE0
@@ -279,7 +279,7 @@ static void __stdcall sub_0047F490_ShowSlotTooltip(int nX, int nY, int nKind)
             sub_00526700(wszText, wszKey);
         }
     }
-    sub_00502280_SetPopUpText(wszText, nX - 3, nY - 0x1A, 0, 1);
+    D2Win_10129_DrawFramedText(wszText, nX - 3, nY - 0x1A, 0, 1);
 }
 
 // 0x0047F650

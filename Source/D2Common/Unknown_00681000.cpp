@@ -58,7 +58,7 @@ struct D2DrlgLevelStrc
     int eLevelId;
 };
 
-int __fastcall sub_0067C570(D2DrlgGridStrc* pGrid, int nX, int nY); // 0x0067C570
+int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY); // 0x0067C570
 int __fastcall DRLGOUTDOORS_TestGridCellSpawnValid(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x00674200
 void __fastcall DRLGOUTWILD_GetBridgeCoords(D2DrlgLevelStrc* pLevel, int* pX, int* pY); // 0x0067FC20
 extern const int gnXOffsets_006F2810[4]; // 0x006F2810
@@ -167,8 +167,8 @@ void __stdcall sub_00680D70(D2DrlgLevelStrc* pLevel)
     {
         for (int j = 0; j < pOutdoors->nGridHeight; ++j)
         {
-            const int nGrid0Entry = sub_0067C570(&pOutdoors->pGrid[0], i, j);
-            const unsigned int nPacked = sub_0067C570(&pOutdoors->pGrid[2], i, j);
+            const int nGrid0Entry = DRLGGRID_GetGridEntry(&pOutdoors->pGrid[0], i, j);
+            const unsigned int nPacked = DRLGGRID_GetGridEntry(&pOutdoors->pGrid[2], i, j);
 
             D2DrlgVertexStrc* pVertex = &pOutdoors->pVertices[pOutdoors->nVertices];
             pVertex->nPosX = pLevel->nPosX + 8 * i + 3;

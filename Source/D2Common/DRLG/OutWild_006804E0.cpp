@@ -9,7 +9,7 @@ struct D2DrlgLevelStrc
 };
 
 int __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPreset(D2DrlgLevelStrc* pLevel, int nLevelPrestId, int nPickedFile, int a4, int a5); // 0x00674730
-int __fastcall DRLGOUTDOORS_SpawnRandomOutdoorDS1(D2DrlgLevelStrc* pLevel, int nLvlPrestId, int nRand);       // 0x00674920
+int __fastcall sub_00674920_PlaceRandomPreset(D2DrlgLevelStrc* pLevel, int nLvlPrestId, int nRand);       // 0x00674920
 
 static __forceinline unsigned int SEED_RollRandomNumber_Wild(D2SeedStrc* pSeed)
 {
@@ -24,23 +24,23 @@ static __declspec(noinline) void __stdcall DRLGOUTWILD_SpawnCottage(int bExtraCo
 {
     if (SEED_RollRandomNumber_Wild(&pLevel->pSeed) & 3)
     {
-        DRLGOUTDOORS_SpawnRandomOutdoorDS1(pLevel, nLvlPrestId, -1);
+        sub_00674920_PlaceRandomPreset(pLevel, nLvlPrestId, -1);
 
         if (bExtraCottage && (SEED_RollRandomNumber_Wild(&pLevel->pSeed) & 1))
         {
-            DRLGOUTDOORS_SpawnRandomOutdoorDS1(pLevel, 0x31, -1);
+            sub_00674920_PlaceRandomPreset(pLevel, 0x31, -1);
         }
     }
     else
     {
-        DRLGOUTDOORS_SpawnRandomOutdoorDS1(pLevel, nLvlPrestId, -1);
-        DRLGOUTDOORS_SpawnRandomOutdoorDS1(pLevel, nLvlPrestId, -1);
+        sub_00674920_PlaceRandomPreset(pLevel, nLvlPrestId, -1);
+        sub_00674920_PlaceRandomPreset(pLevel, nLvlPrestId, -1);
     }
 }
 
 void __fastcall sub_M90_Emit_006804E0(D2DrlgLevelStrc* pLevel)
 {
-    DRLGOUTDOORS_SpawnRandomOutdoorDS1(pLevel, 0x2E, -1);
+    sub_00674920_PlaceRandomPreset(pLevel, 0x2E, -1);
     DRLGOUTWILD_SpawnCottage(0, 0x2F, pLevel);
     DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x1D, -1, 0, 15);
     DRLGOUTWILD_SpawnCottage(1, 0x30, pLevel);

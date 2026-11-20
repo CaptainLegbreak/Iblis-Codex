@@ -121,7 +121,7 @@ int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsi
 int __fastcall sub_004F2450_StartStateList(D2UnitStrc* pUnit, int nSkillId, int nArg); // 0x004F2450
 extern int gnRingX_006DBFE8[]; // 0x006DBFE8
 extern int gnRingY_006DC0E8[]; // 0x006DC0E8
-void __fastcall sub_004F2AC0_RingMissileInit(D2UnitStrc* pMissile, int nArg); // 0x004F2AC0
+void __fastcall sub_004F2AC0_MissileInit(D2UnitStrc* pMissile, int nArg); // 0x004F2AC0
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed); // 0x00650E40
 int __fastcall sub_004EFC20_GetSkillParam2(int nSkillId); // 0x004EFC20
 int __fastcall sub_004F21B0_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId); // 0x004F21B0
@@ -129,7 +129,7 @@ int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 extern int gnRing2X_006DC228[]; // 0x006DC228
 extern int gnRing2Y_006DC328[]; // 0x006DC328
-void __fastcall sub_004F2BE0_RingMissileInit(D2UnitStrc* pMissile, int nArg); // 0x004F2BE0
+void __fastcall sub_004F2BE0_MissileInit_CurvingPath(D2UnitStrc* pMissile, int nArg); // 0x004F2BE0
 unsigned int __fastcall SEED_GetLowSeed(D2SeedStrc* pSeed); // 0x00650E50
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 void __stdcall SKILLS_SetParam1(D2SkillStrc* pSkill, int nValue); // 0x00644560
@@ -564,7 +564,7 @@ static void __stdcall sub_004F2B20_CreateMissileRing(D2UnitStrc* pUnit, int nMis
     tMissileParams.dwFlags = 3;
     tMissileParams.nSkill = nSkillId;
     tMissileParams.nSkillLevel = nSkillLevel;
-    tMissileParams.pInitFunc = sub_004F2AC0_RingMissileInit;
+    tMissileParams.pInitFunc = sub_004F2AC0_MissileInit;
     for (int i = 0; i < 64; i += nCount)
     {
         tMissileParams.nTargetX = gnRingX_006DBFE8[i];
@@ -626,7 +626,7 @@ static void __stdcall sub_004F2DD0_CreateMissileRing2(D2UnitStrc* pUnit, int nMi
     tMissileParams.dwFlags = 3;
     tMissileParams.nSkill = nSkillId;
     tMissileParams.nSkillLevel = nSkillLevel;
-    tMissileParams.pInitFunc = sub_004F2BE0_RingMissileInit;
+    tMissileParams.pInitFunc = sub_004F2BE0_MissileInit_CurvingPath;
     for (int i = 0; i < 64; i += nCount)
     {
         tMissileParams.nTargetX = gnRing2X_006DC228[i];

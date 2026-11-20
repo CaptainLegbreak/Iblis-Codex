@@ -134,8 +134,8 @@ extern D2UnitStrc* gpUnitHashTable_007A5E70[6 * UNIT_HASH_BUCKETS]; // 0x007A5E7
 void __fastcall sub_00480810_OnUnitA(D2UnitStrc* pUnit); // 0x00480810
 void __fastcall sub_0046D780(D2UnitStrc* pUnit); // 0x0046D780
 void __fastcall sub_004BDEE0(D2UnitStrc* pUnit); // 0x004BDEE0
-int __fastcall sub_0046F1F0(D2GfxDataStrc* pGfxData); // 0x0046F1F0
-int __fastcall sub_0046F250(D2GfxDataStrc* pGfxData); // 0x0046F250
+int __fastcall sub_0046F1F0_GetGfx34(D2GfxDataStrc* pGfxData); // 0x0046F1F0
+int __fastcall sub_0046F250_GetGfx38(D2GfxDataStrc* pGfxData); // 0x0046F250
 D2UnitStrc* __cdecl sub_00467A10(); // 0x00467A10
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E90
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
@@ -151,7 +151,7 @@ struct D2ActiveRoomStrc
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall ENVIRONMENT_GetPeriodOfDayFromAct(D2DrlgActStrc* pAct, int* pBaseTime); // 0x0061C100
-int __fastcall sub_004BC5E0(D2UnitStrc* pUnit, int nArg); // 0x004BC5E0
+int __fastcall sub_004BC5E0_UpdateEnvObject(D2UnitStrc* pUnit, int nArg); // 0x004BC5E0
 void __fastcall sub_00480420_RefreshPathTarget(D2UnitStrc* pUnit); // 0x00480420
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 short __fastcall sub_00479C00(D2UnitStrc* pUnit); // 0x00479C00
@@ -179,15 +179,15 @@ void __cdecl sub_00466FE0(); // 0x00466FE0
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill); // 0x00644140
 void __cdecl sub_004DBFE0_StopSkill(); // 0x004DBFE0
-void __stdcall sub_0061ACD0_SetRoomPos(D2ActiveRoomStrc* pRoom, int nX, int nY, int bChanged); // 0x0061ACD0
+void __stdcall DUNGEON_UpdatePops(D2ActiveRoomStrc* pRoom, int nX, int nY, int bChanged); // 0x0061ACD0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
-unsigned char __stdcall sub_0061DBE0(int nLevelId); // 0x0061DBE0
+unsigned char __stdcall DATATBLS_GetNoPerFromLevelsTxt(int nLevelId); // 0x0061DBE0
 int __stdcall UNITS_GetUnitSizeX(D2UnitStrc* pUnit); // 0x00620510
 D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, int nUnitSize, unsigned int nMask, int bAllowNeighboringRooms); // 0x0064E7B0
 int __stdcall D2Common_10231(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00650C20
 void __cdecl sub_00459140_Refresh(); // 0x00459140
 void __fastcall sub_00472C20_PlayerMoved(int nArg); // 0x00472C20
-int __stdcall sub_00645630(D2UnitStrc* pUnit); // 0x00645630
+int __stdcall sub_00645630_IsSelectableSoftCorpse(D2UnitStrc* pUnit); // 0x00645630
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 int __fastcall sub_00463860(D2UnitStrc* pUnit); // 0x00463860
 void __fastcall sub_00470390(D2UnitStrc* pUnit, int nOverlay, int nType, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
@@ -272,7 +272,7 @@ D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 const Unicode* __fastcall sub_00464A30_GetWarpName(D2ActiveRoomStrc* pRoom, D2UnitStrc* pTile); // 0x00464A30
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
-int __stdcall sub_00621B00_IsShrine(D2UnitStrc* pUnit); // 0x00621B00
+int __stdcall UNITS_IsShrine(D2UnitStrc* pUnit); // 0x00621B00
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 void __stdcall sub_004DA000_ResetGfxMotion(D2UnitStrc* pUnit); // 0x004DA000
 void __stdcall sub_004DA1D0_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ); // 0x004DA1D0
@@ -445,7 +445,7 @@ void __fastcall sub_00463E20_SetGfxField34(D2UnitStrc* pUnit, int nValue)
 int __fastcall sub_00463E50_GetGfxField34(D2UnitStrc* pUnit)
 {
     D2_ASSERT(pUnit, 0x56C);
-    return sub_0046F1F0(pUnit->pGfxData);
+    return sub_0046F1F0_GetGfx34(pUnit->pGfxData);
 }
 
 // 0x00463E80
@@ -459,7 +459,7 @@ void __fastcall sub_00463E80_SetGfxField38(D2UnitStrc* pUnit, int nValue)
 int __fastcall sub_00463EB0_GetGfxField38(D2UnitStrc* pUnit)
 {
     D2_ASSERT(pUnit, 0x57E);
-    return sub_0046F250(pUnit->pGfxData);
+    return sub_0046F250_GetGfx38(pUnit->pGfxData);
 }
 
 // 0x00464210
@@ -507,7 +507,7 @@ int __fastcall sub_00464280_SkillSelectProc4(D2UnitStrc* pPlayer, D2UnitStrc* pT
 // 0x00464290
 int __fastcall sub_00464290_SkillSelectProc6(D2UnitStrc* pPlayer, D2UnitStrc* pTarget)
 {
-    return sub_00645630(pTarget);
+    return sub_00645630_IsSelectableSoftCorpse(pTarget);
 }
 
 // 0x004642A0
@@ -743,7 +743,7 @@ void __cdecl sub_004646C0_UpdateObjectsForPeriod()
             {
                 D2UnitStrc* pNext = pUnit->pListNext;
                 D2_ASSERT(pUnit->dwUnitType == UNIT_OBJECT, 0x88C);
-                sub_004BC5E0(pUnit, 0);
+                sub_004BC5E0_UpdateEnvObject(pUnit, 0);
                 pUnit = pNext;
             }
         }
@@ -754,7 +754,7 @@ void __cdecl sub_004646C0_UpdateObjectsForPeriod()
             {
                 D2UnitStrc* pNext = pUnit->pListNext;
                 D2_ASSERT(pUnit->dwUnitType == UNIT_OBJECT, 0x896);
-                sub_004BC5E0(pUnit, 0);
+                sub_004BC5E0_UpdateEnvObject(pUnit, 0);
                 pUnit = pNext;
             }
         }
@@ -937,7 +937,7 @@ const Unicode* __fastcall sub_00464A60_GetUnitName(D2UnitStrc* pUnit)
             }
             return D2LANG_GetStringFromTblIndex(nStringId);
         }
-        if (sub_00621B00_IsShrine(pUnit))
+        if (UNITS_IsShrine(pUnit))
         {
             return D2LANG_GetStringFromTblIndex(pUnit->pObjectData->InteractType + 0x2A39);
         }
@@ -1101,8 +1101,8 @@ void __fastcall sub_004654C0_SetUnitPosition(D2UnitStrc* pUnit, int nX, int nY, 
         }
         if (pRoom)
         {
-            sub_0061ACD0_SetRoomPos(pRoom, nX, nY, pOldRoom != pRoom);
-            sub_004F5190_SetTownMode(!sub_0061DBE0(DUNGEON_GetLevelIdFromRoom(pRoom)));
+            DUNGEON_UpdatePops(pRoom, nX, nY, pOldRoom != pRoom);
+            sub_004F5190_SetTownMode(!DATATBLS_GetNoPerFromLevelsTxt(DUNGEON_GetLevelIdFromRoom(pRoom)));
             if (pOldRoom)
             {
                 D2LevelsTxt* pOldLevel = DATATBLS_GetLevelsTxtRecord(DUNGEON_GetLevelIdFromRoom(pOldRoom));

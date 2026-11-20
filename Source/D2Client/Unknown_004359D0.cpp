@@ -53,8 +53,8 @@ int __stdcall CURSOR_SetCellFile(D2CelFileStrc* pCellFile);                     
 void __stdcall sub_004F9180(int (__cdecl* a1)());                                                            // 0x004F9180
 int __stdcall sub_004FA590(void (__stdcall* pCallback)(unsigned long));                                      // 0x004FA590
 void* __stdcall sub_004FAC80(int nArg);                                                                     // 0x004FAC80
-void __cdecl sub_00514DB0();                                                                                // 0x00514DB0
-void __fastcall sub_00514E10(const char* szFile);                                                           // 0x00514E10
+void __cdecl sub_00514DB0_InitWaveSlots();                                                                                // 0x00514DB0
+void __fastcall sub_00514E10_LoadWave(const char* szFile);                                                           // 0x00514E10
 int __cdecl sub_00514FB0_IsAnyWavePlaying();                                                                // 0x00514FB0
 void __cdecl sub_00515070();                                                                                // 0x00515070
 
@@ -77,24 +77,24 @@ int __fastcall sub_004359D0_RunFrontEnd(D2LaunchRecordStrc* pRecord)
     gpLaunchRecord_007795D4->nByte245 = 0;
     if (gnLaunchMode_007795EC != 2)
         gpLaunchRecord_007795D4->nByte37 = 0;
-    sub_00514DB0();
-    sub_00514E10("data\\global\\sfx\\cursor\\button.wav");
-    sub_00514E10("data\\global\\sfx\\cursor\\intro\\amazon select.wav");
-    sub_00514E10("data\\global\\sfx\\cursor\\intro\\amazon deselect.wav");
-    sub_00514E10("data\\global\\sfx\\cursor\\intro\\barbarian select.wav");
-    sub_00514E10("data\\global\\sfx\\cursor\\intro\\barbarian deselect.wav");
-    sub_00514E10("data\\global\\sfx\\cursor\\intro\\paladin select.wav");
-    sub_00514E10("data\\global\\sfx\\cursor\\intro\\paladin deselect.wav");
-    sub_00514E10("data\\global\\sfx\\cursor\\intro\\necromancer select.wav");
-    sub_00514E10("data\\global\\sfx\\cursor\\intro\\necromancer deselect.wav");
-    sub_00514E10("data\\global\\sfx\\cursor\\intro\\sorceress select.wav");
-    sub_00514E10("data\\global\\sfx\\cursor\\intro\\sorceress deselect.wav");
+    sub_00514DB0_InitWaveSlots();
+    sub_00514E10_LoadWave("data\\global\\sfx\\cursor\\button.wav");
+    sub_00514E10_LoadWave("data\\global\\sfx\\cursor\\intro\\amazon select.wav");
+    sub_00514E10_LoadWave("data\\global\\sfx\\cursor\\intro\\amazon deselect.wav");
+    sub_00514E10_LoadWave("data\\global\\sfx\\cursor\\intro\\barbarian select.wav");
+    sub_00514E10_LoadWave("data\\global\\sfx\\cursor\\intro\\barbarian deselect.wav");
+    sub_00514E10_LoadWave("data\\global\\sfx\\cursor\\intro\\paladin select.wav");
+    sub_00514E10_LoadWave("data\\global\\sfx\\cursor\\intro\\paladin deselect.wav");
+    sub_00514E10_LoadWave("data\\global\\sfx\\cursor\\intro\\necromancer select.wav");
+    sub_00514E10_LoadWave("data\\global\\sfx\\cursor\\intro\\necromancer deselect.wav");
+    sub_00514E10_LoadWave("data\\global\\sfx\\cursor\\intro\\sorceress select.wav");
+    sub_00514E10_LoadWave("data\\global\\sfx\\cursor\\intro\\sorceress deselect.wav");
     if (sub_00408F20_HasExpansionMpq())
     {
-        sub_00514E10("data\\global\\sfx\\cursor\\intro\\druid select.wav");
-        sub_00514E10("data\\global\\sfx\\cursor\\intro\\druid deselect.wav");
-        sub_00514E10("data\\global\\sfx\\cursor\\intro\\assassin select.wav");
-        sub_00514E10("data\\global\\sfx\\cursor\\intro\\assassin deselect.wav");
+        sub_00514E10_LoadWave("data\\global\\sfx\\cursor\\intro\\druid select.wav");
+        sub_00514E10_LoadWave("data\\global\\sfx\\cursor\\intro\\druid deselect.wav");
+        sub_00514E10_LoadWave("data\\global\\sfx\\cursor\\intro\\assassin select.wav");
+        sub_00514E10_LoadWave("data\\global\\sfx\\cursor\\intro\\assassin deselect.wav");
     }
     gpFuncTable_0077ABF0 = pRecord->pFuncTable;
     const char nStartMode = gpLaunchRecord_007795D4->nStartMode;

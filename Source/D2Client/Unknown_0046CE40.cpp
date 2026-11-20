@@ -17,7 +17,7 @@ struct D2MonCommandStrc
     int unk0x18;
 };
 
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int* __fastcall sub_004AE170(D2UnitStrc* pUnit); // 0x004AE170
 void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2MonCommandStrc* pTarget); // 0x004AFF60
 void __fastcall sub_00465F00_RemoveServerSideUnit(unsigned int nUnitId, int nUnitType); // 0x00465F00
@@ -95,7 +95,7 @@ static void sub_0046CE40_AiType3(D2UnitStrc* pUnit)
         int* pState = sub_004AE170(pUnit);
         if (pState)
         {
-            D2UnitStrc* pPlayer = sub_00463DD0();
+            D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
             const int nDistance = sub_006416D0_UnitEdgeDistance(pUnit, pPlayer);
             if (*pState && nDistance > 25)
             {

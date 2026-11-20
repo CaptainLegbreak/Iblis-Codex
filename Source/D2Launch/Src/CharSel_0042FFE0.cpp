@@ -9,15 +9,15 @@ int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned in
 void __fastcall sub_0042F2E0_ReadPaletteFiles(const char* szFile1, const char* szFile2);                         // 0x0042F2E0
 D2WinControlStrc* __fastcall sub_0042F430_CreateControl(int nId);                                           // 0x0042F430
 void __cdecl sub_0042F480_Reset();                                                                          // 0x0042F480
-void __cdecl sub_0042FF20();                                                                                // 0x0042FF20
+void __cdecl sub_0042FF20_ShowLocalAddress();                                                                                // 0x0042FF20
 int __cdecl sub_00430A20_FreeSlots();                                                                       // 0x00430A20
 void __cdecl sub_00436CF0();                                                                                // 0x00436CF0
-int __stdcall sub_00436D40(int nArg);                                                                       // 0x00436D40
+int __stdcall sub_00436D40_Callback(int nArg);                                                                       // 0x00436D40
 void __cdecl sub_0043B9A0();                                                                                // 0x0043B9A0
 void __cdecl sub_0043C4F0();                                                                                // 0x0043C4F0
 void __cdecl sub_0043DB20_DestroyControls();                                                                // 0x0043DB20
 void __cdecl sub_0043EA20_Wait();                                                                           // 0x0043EA20
-void __cdecl sub_00443220();                                                                                // 0x00443220
+void __cdecl sub_00443220_DestroyControls();                                                                                // 0x00443220
 int __cdecl sub_00444E20();                                                                                 // 0x00444E20
 int __stdcall sub_004F91C0(void* pEditBox);                                                                  // 0x004F91C0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(short nIndex);                                       // 0x00524A30
@@ -66,7 +66,7 @@ void __cdecl sub_0042FFE0_CreateScreen()
     sub_004FD830(gpControl_00779344);
     sub_004FDA50(gpControl_00779344);
     gpControl_00779588 = sub_0042F430_CreateControl(0x105);
-    sub_0042FF20();
+    sub_0042FF20_ShowLocalAddress();
 }
 
 // 0x00436D50
@@ -82,12 +82,12 @@ void __cdecl sub_00436D50_CreateScreen()
     pControl = sub_0042F430_CreateControl(0x124);
     sub_004FD060_SetText(pControl, D2LANG_GetStringFromTblIndex(0x2B57));
     gpEdit_007799CC = sub_0042F430_CreateControl(0x126);
-    sub_004FDB00_SetEnterCallback(gpEdit_007799CC, sub_00436D40);
+    sub_004FDB00_SetEnterCallback(gpEdit_007799CC, sub_00436D40_Callback);
     sub_0042F430_CreateControl(0x121);
     pControl = sub_0042F430_CreateControl(0x125);
     sub_004FD060_SetText(pControl, D2LANG_GetStringFromTblIndex(0x2B58));
     gpEdit_007799D0 = sub_0042F430_CreateControl(0x127);
-    sub_004FDB00_SetEnterCallback(gpEdit_007799D0, sub_00436D40);
+    sub_004FDB00_SetEnterCallback(gpEdit_007799D0, sub_00436D40_Callback);
     gpControl_007799D4 = sub_0042F430_CreateControl(0x128);
     sub_0042F430_CreateControl(0x129);
     sub_0042F430_CreateControl(0x12A);
@@ -115,7 +115,7 @@ void __cdecl sub_00437B90_FreeCache()
 // 0x0043F8C0
 void __cdecl sub_0043F8C0_ResetLaunchState()
 {
-    sub_00443220();
+    sub_00443220_DestroyControls();
     sub_00443130_Reset();
     sub_0043DB20_DestroyControls();
     sub_0043EA20_Wait();

@@ -21,7 +21,7 @@ enum { UNIT_MONSTER = 1, STAT_HITPOINTS = 6, STAT_MAXHP = 7, MONTYPEFLAG_POSSESS
 
 int __fastcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, unsigned short nLayer); // 0x00627260
-void __fastcall MONSTERUNIQUE_UMod16_Champion(D2UnitStrc* pUnit, int nUMod, int bUnique); // 0x005A0E80
+void __fastcall sub_005A0E80_ApplyMonsterPenalty(D2UnitStrc* pUnit, int nUMod, int bUnique); // 0x005A0E80
 static __declspec(noinline) void sub_005A0D20_AddLifePercent(D2UnitStrc* pUnit, int nPercent);
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625480
 
@@ -71,7 +71,7 @@ void __fastcall MONSTERUNIQUE_UMod38_Possessed(D2UnitStrc* pUnit, int nUMod, int
         pMonsterData->nTypeFlag |= MONTYPEFLAG_POSSESSED;
 
     sub_005A0D20_AddLifePercent(pUnit, 100);
-    MONSTERUNIQUE_UMod16_Champion(pUnit, nUMod, bUnique);
+    sub_005A0E80_ApplyMonsterPenalty(pUnit, nUMod, bUnique);
 }
 
 // 0x005A1370

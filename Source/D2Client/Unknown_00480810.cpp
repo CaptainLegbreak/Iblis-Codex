@@ -2,14 +2,14 @@
 D2UnitStrc* __fastcall sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 void __fastcall sub_004786A0_SendUnitPacket(unsigned char header, int type, int id); // 0x004786A0
 void __fastcall sub_00465F00_RemoveUnit(int id, int type); // 0x00465F00
-void __stdcall sub_00627460_SetUnitValue(D2UnitStrc* unit, int value); // 0x00627460
-void __stdcall sub_004DA350_ClearUnit(D2UnitStrc* unit); // 0x004DA350
-void __fastcall sub_00470C30_ReleaseUnitState(D2UnitStrc* unit); // 0x00470C30
-void __fastcall sub_00463390_ReleasePlayer(D2UnitStrc* unit); // 0x00463390
-void __fastcall sub_004B13A0_ReleaseMonster(D2UnitStrc* unit); // 0x004B13A0
-void __fastcall sub_004BDFF0_ReleaseObject(D2UnitStrc* unit); // 0x004BDFF0
-void __fastcall sub_004D2C70_ReleaseMissile(D2UnitStrc* unit); // 0x004D2C70
-void __fastcall sub_004C1AD0_ReleaseItem(D2UnitStrc* unit); // 0x004C1AD0
+void __stdcall STATLIST_UpdateStatListsExpiration(D2UnitStrc* unit, int value); // 0x00627460
+void __stdcall sub_004DA350_UpdateMotion(D2UnitStrc* unit); // 0x004DA350
+void __fastcall sub_00470C30_UpdateStateOverlays(D2UnitStrc* unit); // 0x00470C30
+void __fastcall sub_00463390_UpdatePlayerMode(D2UnitStrc* unit); // 0x00463390
+void __fastcall sub_004B13A0_UpdateMonsterClient(D2UnitStrc* unit); // 0x004B13A0
+void __fastcall sub_004BDFF0_UpdateObject(D2UnitStrc* unit); // 0x004BDFF0
+void __fastcall sub_004D2C70_CltDoMissile(D2UnitStrc* unit); // 0x004D2C70
+void __fastcall sub_004C1AD0_UpdateAnim(D2UnitStrc* unit); // 0x004C1AD0
 D2UnitStrc* __fastcall sub_00463990_FindUnit(int id, int type); // 0x00463990
 D2UnitStrc* __fastcall sub_004639B0_FindServerUnit(int id, int type); // 0x004639B0
 void __fastcall sub_0045FA40_FreeUnit(D2UnitStrc* unit); // 0x0045FA40
@@ -55,8 +55,8 @@ void __fastcall sub_00480810_OnUnitA(D2UnitStrc* unit)
             sub_00465F00_RemoveUnit(GetUnitId(unit), GetUnitType(unit));
         return;
     }
-    sub_00627460_SetUnitValue(unit, 0);
-    sub_004DA350_ClearUnit(unit);
+    STATLIST_UpdateStatListsExpiration(unit, 0);
+    sub_004DA350_UpdateMotion(unit);
     int type, server;
     int id;
     if (!unit)
@@ -72,14 +72,14 @@ void __fastcall sub_00480810_OnUnitA(D2UnitStrc* unit)
         id = unit->dwUnitId;
         server &= 1;
     }
-    sub_00470C30_ReleaseUnitState(unit);
+    sub_00470C30_UpdateStateOverlays(unit);
     switch (unit->dwUnitType)
     {
-    case 0: sub_00463390_ReleasePlayer(unit); break;
-    case 1: sub_004B13A0_ReleaseMonster(unit); break;
-    case 2: sub_004BDFF0_ReleaseObject(unit); break;
-    case 3: sub_004D2C70_ReleaseMissile(unit); break;
-    case 4: sub_004C1AD0_ReleaseItem(unit); break;
+    case 0: sub_00463390_UpdatePlayerMode(unit); break;
+    case 1: sub_004B13A0_UpdateMonsterClient(unit); break;
+    case 2: sub_004BDFF0_UpdateObject(unit); break;
+    case 3: sub_004D2C70_CltDoMissile(unit); break;
+    case 4: sub_004C1AD0_UpdateAnim(unit); break;
     }
     D2UnitStrc* found = server ? sub_004639B0_FindServerUnit(id, type) : sub_00463990_FindUnit(id, type);
     if (found)

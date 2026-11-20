@@ -183,7 +183,7 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-void __stdcall sub_00449BF0_SetGlobal(int nValue); // 0x00449BF0
+void __stdcall sub_00449BF0_SetValue(int nValue); // 0x00449BF0
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 D2ClientEntryStrc* __fastcall sub_00478E40_FindEntry(int nKey); // 0x00478E40
 void __fastcall sub_004786A0_SendIntInt(char nHeader, int nArg1, int nArg2); // 0x004786A0
@@ -197,8 +197,8 @@ int __fastcall sub_004538D0(int nUIVar); // 0x004538D0
 void __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
 void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned char nColor, unsigned char nAlpha); // 0x004F6380
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
-int __cdecl sub_004942D0(); // 0x004942D0
-void __cdecl sub_00495030(); // 0x00495030
+int __cdecl sub_004942D0_GetHelpMenuSetting(); // 0x004942D0
+void __cdecl sub_00495030_DrawKeyHelp(); // 0x00495030
 extern void* gpGlobal_00798FB4; // 0x00798FB4
 extern void* gpGlobal_007A5240; // 0x007A5240
 extern int gnGlobal_007A2858; // 0x007A2858
@@ -350,7 +350,7 @@ extern D2TimedHintNodeStrc* gpTimedHintList_007C5458; // 0x007C5458
 extern "C" int __cdecl sub_0045AFC0(); // 0x0045AFC0
 extern "C" int __cdecl sub_0045AFD0_GetMouseYOffset(); // 0x0045AFD0
 D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType); // 0x00463990
-void __fastcall sub_00464810(D2UnitStrc* pUnit); // 0x00464810
+void __fastcall sub_00464810_SetUnitFlag16(D2UnitStrc* pUnit); // 0x00464810
 void __fastcall sub_00466730_SpawnPresetUnit(int nIndex, int nX, int nY, int nUnitType, int nMode); // 0x00466730
 D2HintCursorStrc* __fastcall sub_00481860(int nId); // 0x00481860
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
@@ -407,7 +407,7 @@ struct D2CacheStatsStrc
 };
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
-void __cdecl sub_00475EB0(); // 0x00475EB0
+void __cdecl sub_00475EB0_FreeCels(); // 0x00475EB0
 void __fastcall sub_004DCF30(D2ViewStrc* pView); // 0x004DCF30
 int __cdecl sub_0045AE90(); // 0x0045AE90
 void __fastcall sub_004DDB70_PrepareWallCells(D2ViewStrc* pView, int nValue); // 0x004DDB70
@@ -417,7 +417,7 @@ extern int gnGlobal_007B8D2C; // 0x007B8D2C
 extern int gnGlobal_007B9534; // 0x007B9534
 extern unsigned char** gppLerpRows_007B953C; // 0x007B953C
 extern int gnGlobal_007BB3AC; // 0x007BB3AC
-void __fastcall sub_004FAAE0_FreeCellFile(D2CelFileStrc* pCellFile); // 0x004FAAE0
+void __fastcall ARCHIVE_FreeCellFile(D2CelFileStrc* pCellFile); // 0x004FAAE0
 extern D2CelFileStrc* sghPentagram; // 0x0087E96C
 extern unsigned char gabBeltHotkey_007BEFB0[]; // 0x007BEFB0
 extern int gnBeltHover_007BEF94; // 0x007BEF94
@@ -437,11 +437,11 @@ extern int gdwGlobal_007BCBF0; // 0x007BCBF0
 extern D2UnitStrc* gdwGlobal_007BCBF4; // 0x007BCBF4
 extern int gdwGlobal_007BCBF8; // 0x007BCBF8
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __fastcall sub_00472280(D2SeedStrc* pSeed, int nOffset, int nRange); // 0x00472280
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 int __fastcall sub_004B9B20(int nHandle); // 0x004B9B20
-void __fastcall sub_004B9B50_SetHintValue(int nKey, int nValue); // 0x004B9B50
+void __fastcall sub_004B9B50_SetValue(int nKey, int nValue); // 0x004B9B50
 void __fastcall sub_004BA840(int nHandle); // 0x004BA840
 extern int gnGlobal_007B8D10; // 0x007B8D10
 extern int gnGlobal_007B8D14; // 0x007B8D14
@@ -483,7 +483,7 @@ static inline D2ClientListLinkStrc* ListNextLink(D2ClientListLinkStrc* pLink, in
 void __cdecl sub_0044A980_SendPacket0D()
 {
     unsigned char nHeader;
-    sub_00449BF0_SetGlobal(0);
+    sub_00449BF0_SetValue(0);
     nHeader = 0x0D;
     sub_006BC8A0_SendBuffer(gpGlobal_00798FB4, &nHeader, 1);
 }
@@ -492,7 +492,7 @@ void __cdecl sub_0044A980_SendPacket0D()
 void __cdecl sub_0044A9B0_SendPacket0F()
 {
     unsigned char nHeader;
-    sub_00449BF0_SetGlobal(0);
+    sub_00449BF0_SetValue(0);
     nHeader = 0x0F;
     sub_006BC8A0_SendBuffer(gpGlobal_00798FB4, &nHeader, 1);
 }
@@ -501,7 +501,7 @@ void __cdecl sub_0044A9B0_SendPacket0F()
 void __cdecl sub_0044A9E0_SendPacket10()
 {
     unsigned char nHeader;
-    sub_00449BF0_SetGlobal(0);
+    sub_00449BF0_SetValue(0);
     nHeader = 0x10;
     sub_006BC8A0_SendBuffer(gpGlobal_00798FB4, &nHeader, 1);
 }
@@ -510,7 +510,7 @@ void __cdecl sub_0044A9E0_SendPacket10()
 void __fastcall sub_0044AA10_SendPacket11(unsigned char nArg1, unsigned short nArg2)
 {
     D2ClientPacket11Strc tPacket;
-    sub_00449BF0_SetGlobal(0);
+    sub_00449BF0_SetValue(0);
     tPacket.nHeader = 0x11;
     tPacket.nArg1 = nArg1;
     tPacket.nArg2 = nArg2;
@@ -521,7 +521,7 @@ void __fastcall sub_0044AA10_SendPacket11(unsigned char nArg1, unsigned short nA
 void __cdecl sub_0044AA50_SendPacket12()
 {
     unsigned char nHeader;
-    sub_00449BF0_SetGlobal(0);
+    sub_00449BF0_SetValue(0);
     nHeader = 0x12;
     sub_006BC8A0_SendBuffer(gpGlobal_00798FB4, &nHeader, 1);
 }
@@ -530,7 +530,7 @@ void __cdecl sub_0044AA50_SendPacket12()
 void __cdecl sub_0044AA80_SendPacket13()
 {
     unsigned char nHeader;
-    sub_00449BF0_SetGlobal(0);
+    sub_00449BF0_SetValue(0);
     nHeader = 0x13;
     sub_006BC8A0_SendBuffer(gpGlobal_00798FB4, &nHeader, 1);
 }
@@ -539,7 +539,7 @@ void __cdecl sub_0044AA80_SendPacket13()
 void __cdecl sub_0044AAB0_SendPacket19()
 {
     D2ClientPacket19Strc tPacket;
-    sub_00449BF0_SetGlobal(0);
+    sub_00449BF0_SetValue(0);
     tPacket.nHeader = 0x19;
     *(int*)&tPacket.nValue0 = 8;
     sub_006BC8A0_SendBuffer(gpGlobal_00798FB4, &tPacket.nHeader, 5);
@@ -891,7 +891,7 @@ void __cdecl sub_00475EF0_FreeLerpTables()
     gpLerpTable_007B954C = 0;
     gpLerpTable_007B9550 = 0;
     gnGlobal_007B8D2C = 0;
-    sub_00475EB0();
+    sub_00475EB0_FreeCels();
 }
 
 // 0x00475FD0
@@ -1022,7 +1022,7 @@ void __fastcall sub_00476D40_AdjustViewPos(int* pX, int* pY)
 
     if (nMagnitude)
     {
-        D2UnitStrc* pPlayer = sub_00463DD0();
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         gnGlobal_007B9538 = sub_00472280(&pPlayer->tSeed, -nMagnitude, 2 * nMagnitude);
         const int nOffsetY = sub_00472280(&pPlayer->tSeed, -nMagnitude, 2 * nMagnitude);
         *pX += gnGlobal_007B9538;
@@ -1097,7 +1097,7 @@ static void sub_004769D0_UpdateShakeSound(int nIntensity)
         {
             return;
         }
-        sub_004B9B50_SetHintValue(gnGlobal_007B8D2C, 0);
+        sub_004B9B50_SetValue(gnGlobal_007B8D2C, 0);
     }
 
     if (!gnGlobal_007B8D2C)
@@ -1131,7 +1131,7 @@ static void sub_004769D0_UpdateShakeSound(int nIntensity)
 
     if (nNew)
     {
-        sub_004B9B50_SetHintValue(gnGlobal_007B8D2C, nNew);
+        sub_004B9B50_SetValue(gnGlobal_007B8D2C, nNew);
         return;
     }
 
@@ -1503,11 +1503,11 @@ void __cdecl sub_00495180_DrawButtons()
         return;
     }
     gnGlobal_007BEF08 = 0;
-    if (!sub_004942D0())
+    if (!sub_004942D0_GetHelpMenuSetting())
     {
         D2CelContextStrc tContext;
         memset(&tContext, 0, sizeof(tContext));
-        sub_00495030();
+        sub_00495030_DrawKeyHelp();
         tContext.pCellFile = gpGlobal_007C02E0;
         tContext.unk0x40 = 0;
         tContext.nFrame = 0;
@@ -1641,7 +1641,7 @@ D2UnitStrc* __fastcall sub_004D1640_SpawnDirectionalMissile(D2UnitStrc* pUnit, i
             pMissile->nSeqCurrentFramePrecise = nFrame << 8;
             if (pMissile->pDynamicPath)
                 D2COMMON_10160_PathUpdateDirection(pMissile->pDynamicPath, nDirection);
-            sub_00464810(pMissile);
+            sub_00464810_SetUnitFlag16(pMissile);
         }
     }
     return pMissile;
@@ -1666,6 +1666,6 @@ void __fastcall sub_004DC580_DrawUnitClickCross(D2UnitStrc* pUnit)
 // 0x00507140
 void __stdcall LIST_UnloadPentspinCellfile()
 {
-    sub_004FAAE0_FreeCellFile(sghPentagram);
+    ARCHIVE_FreeCellFile(sghPentagram);
     sghPentagram = 0;
 }

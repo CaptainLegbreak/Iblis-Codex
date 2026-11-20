@@ -76,11 +76,11 @@ void __fastcall sub_00478A00(void* pCel); // 0x00478A00
 int __fastcall D2Win_10177(unsigned char nAct); // 0x004FB480
 void __cdecl sub_00475EF0_FreeLerpTables(); // 0x00475EF0
 void __cdecl sub_00468170_ShutdownCursor(); // 0x00468170
-void __cdecl sub_00451850(); // 0x00451850
+void __cdecl sub_00451850_FreeMsgRecordChunks(); // 0x00451850
 void __cdecl sub_004794B0_FreeRosterLists(); // 0x004794B0
 void __cdecl sub_00478A50_FreeRosterPets(); // 0x00478A50
 void __cdecl sub_00451F20_RegisterWindowHandlers(); // 0x00451F20
-void __fastcall sub_00530F30(int nValue); // 0x00530F30
+void __fastcall sub_00530F30_SetGlobal(int nValue); // 0x00530F30
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
 void __stdcall GAME_SetGlobalAct(int nAct); // 0x0052DFA0
 
@@ -109,30 +109,30 @@ extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(_RTL_CRITIC
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(_RTL_CRITICAL_SECTION* pCriticalSection); // 0x006CC214
 extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(void* hHandle, unsigned long dwMilliseconds); // 0x006CC230
 void __cdecl sub_00449B70(); // 0x00449B70
-void __cdecl sub_0044C000(); // 0x0044C000
+void __cdecl sub_0044C000_StartClick(); // 0x0044C000
 void __cdecl sub_0044C2C0(); // 0x0044C2C0
-void __cdecl sub_0044C6E0(); // 0x0044C6E0
-void __cdecl sub_0044C790(); // 0x0044C790
+void __cdecl sub_0044C6E0_DrainPacketQueues(); // 0x0044C6E0
+void __cdecl sub_0044C790_Update(); // 0x0044C790
 __declspec(noinline) int __fastcall sub_0044CCA0(unsigned int nFrames, unsigned int nRemainder, int nRate);
-void __cdecl sub_0044CCE0(); // 0x0044CCE0
-void __cdecl sub_0044CE90(); // 0x0044CE90
-void __cdecl sub_0044EEC0(); // 0x0044EEC0
-void __cdecl sub_004519C0(); // 0x004519C0
+void __cdecl sub_0044CCE0_AverageCounters(); // 0x0044CCE0
+void __cdecl sub_0044CE90_UpdateKeyState(); // 0x0044CE90
+void __cdecl sub_0044EEC0_CheckConnectionTimeouts(); // 0x0044EEC0
+void __cdecl sub_004519C0_ReplayRecords(); // 0x004519C0
 int __fastcall sub_00453A90_GetUIVarUnchecked(int nUIVar); // 0x00453A90
 int __fastcall sub_00456300_CloseUIVars(int bArg1, int nArg2); // 0x00456300
-void __cdecl sub_00462920(); // 0x00462920
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+void __cdecl sub_00462920_ClearValue(); // 0x00462920
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2ActiveRoomStrc* __fastcall sub_004646A0_GetPlayerRoom(); // 0x004646A0
-void __cdecl sub_00467AC0(); // 0x00467AC0
+void __cdecl sub_00467AC0_UpdateHoverUnit(); // 0x00467AC0
 void __cdecl sub_00477DD0(); // 0x00477DD0
 void __cdecl sub_0047BDF0(); // 0x0047BDF0
-void __fastcall sub_00480320(int nDelta); // 0x00480320
-void __fastcall sub_00481600(D2UnitStrc* pPlayer); // 0x00481600
+void __fastcall sub_00480320_CallHolderSlot3(int nDelta); // 0x00480320
+void __fastcall sub_00481600_RunPendingAction(D2UnitStrc* pPlayer); // 0x00481600
 void __cdecl sub_00482C20_Tick(); // 0x00482C20
 int __cdecl sub_00514840_IsChannelStreaming(); // 0x00514840
-void __cdecl sub_00514930(); // 0x00514930
-void __fastcall sub_00515F50(int nArg); // 0x00515F50
-int __stdcall sub_0052FC20(int nArg); // 0x0052FC20
+void __cdecl sub_00514930_StopChannel(); // 0x00514930
+void __fastcall sub_00515F50_FadeOutMaster(int nArg); // 0x00515F50
+int __stdcall GAME_UpdateGamesProgress(int nArg); // 0x0052FC20
 extern unsigned int gdwFrameTime_0070EF1C; // 0x0070EF1C
 extern D2ClientConfigStrc* gpConfig_007A0438; // 0x007A0438
 extern _RTL_CRITICAL_SECTION gCriticalSection_007A0468; // 0x007A0468
@@ -223,7 +223,7 @@ int __cdecl sub_0044D550_Shutdown()
 {
     sub_00475EF0_FreeLerpTables();
     sub_00468170_ShutdownCursor();
-    sub_00451850();
+    sub_00451850_FreeMsgRecordChunks();
     sub_004794B0_FreeRosterLists();
     sub_00478A50_FreeRosterPets();
     sub_00451F20_RegisterWindowHandlers();
@@ -234,7 +234,7 @@ int __cdecl sub_0044D550_Shutdown()
 void __fastcall sub_0044D580_ApplyConfig219(D2ConfigStrc* pConfig)
 {
     if (pConfig->bFlag219)
-        sub_00530F30(0);
+        sub_00530F30_SetGlobal(0);
 }
 
 // 0x0044D5A0
@@ -380,7 +380,7 @@ int __stdcall sub_0044EFA0_GameFrame(int nUnused)
 {
     int bFrame = 0;
     int bDrawn = 0;
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (gnGameType_007A0610 == 0 || gnGameType_007A0610 == 1)
     {
         if (WINDOW_GetState())
@@ -398,10 +398,10 @@ int __stdcall sub_0044EFA0_GameFrame(int nUnused)
         }
     }
 
-    sub_004519C0();
+    sub_004519C0_ReplayRecords();
     if (gnGlobal_007A0650)
     {
-        sub_0044C000();
+        sub_0044C000_StartClick();
     }
 
     if (gnGlobal_007A0654)
@@ -409,7 +409,7 @@ int __stdcall sub_0044EFA0_GameFrame(int nUnused)
         sub_0044C2C0();
     }
 
-    sub_0044CE90();
+    sub_0044CE90_UpdateKeyState();
 
     unsigned int dwNow = GetTickCount();
     if (gdwNextCheck_007A049C < dwNow)
@@ -432,8 +432,8 @@ int __stdcall sub_0044EFA0_GameFrame(int nUnused)
         gdwLastFrame_007A0490 = gdwGlobal_007A048C - gdwFrameTime_0070EF1C;
     }
 
-    sub_00480320(gdwLastFrame_007A0490 - gdwGlobal_007A048C);
-    sub_0044CCE0();
+    sub_00480320_CallHolderSlot3(gdwLastFrame_007A0490 - gdwGlobal_007A048C);
+    sub_0044CCE0_AverageCounters();
 
     unsigned int nElapsed = gdwGlobal_007A048C - gdwLastFrame_007A0490;
     if (nElapsed >= gdwFrameTime_0070EF1C)
@@ -461,7 +461,7 @@ int __stdcall sub_0044EFA0_GameFrame(int nUnused)
 
         if (gdwGlobal_007A061C)
         {
-            sub_00481600(pPlayer);
+            sub_00481600_RunPendingAction(pPlayer);
         }
     }
 
@@ -469,7 +469,7 @@ int __stdcall sub_0044EFA0_GameFrame(int nUnused)
     if (gnGameType_007A0610 == 0)
     {
         sub_0052CFE0();
-        bReady = sub_0052FC20(1);
+        bReady = GAME_UpdateGamesProgress(1);
         if (bReady)
         {
             sub_0052FD90(1, 0);
@@ -478,14 +478,14 @@ int __stdcall sub_0044EFA0_GameFrame(int nUnused)
     else if (gnGameType_007A0610 == 1)
     {
         sub_0052CFE0();
-        bReady = sub_0052FC20(1);
+        bReady = GAME_UpdateGamesProgress(1);
         sub_0052FD90(0, 0);
     }
 
-    sub_0044C6E0();
+    sub_0044C6E0_DrainPacketQueues();
     sub_0047BDF0();
     sub_00449B70();
-    sub_0044EEC0();
+    sub_0044EEC0_CheckConnectionTimeouts();
 
     if (gdwGlobal_007A061C)
     {
@@ -493,7 +493,7 @@ int __stdcall sub_0044EFA0_GameFrame(int nUnused)
         {
             if (bFrame)
             {
-                sub_0044C790();
+                sub_0044C790_Update();
                 gdwLastFrame_007A0490 += gdwFrameTime_0070EF1C - nElapsed;
                 bDrawn = 1;
                 const int nRate = gdwGlobal_007A04A8;
@@ -517,7 +517,7 @@ int __stdcall sub_0044EFA0_GameFrame(int nUnused)
         }
         else if (bReady)
         {
-            sub_0044C790();
+            sub_0044C790_Update();
             bDrawn = 1;
             if (nElapsed <= gdwFrameTime_0070EF1C)
             {
@@ -538,12 +538,12 @@ int __stdcall sub_0044EFA0_GameFrame(int nUnused)
 
     if (gdwGlobal_007A061C)
     {
-        sub_00462920();
-        sub_00467AC0();
+        sub_00462920_ClearValue();
+        sub_00467AC0_UpdateHoverUnit();
         if (sub_00514840_IsChannelStreaming())
         {
-            sub_00515F50(0xB4);
-            sub_00514930();
+            sub_00515F50_FadeOutMaster(0xB4);
+            sub_00514930_StopChannel();
             sub_00515CE0_SetMasterVolume(0xFF);
         }
 

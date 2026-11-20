@@ -79,7 +79,7 @@ void __stdcall ITEMS_GetRealmData(D2UnitStrc* pItem, int* pRealmData0, int* pRea
 static int __stdcall sub_0062A900_GetSocketedItemCount(D2UnitStrc* pItem);                                  // 0x0062A900
 static void __stdcall ITEMS_WriteBitsToBitstream(D2BitBufferStrc* pBuffer, unsigned int nData, int nBits); // 0x0062AF50
 const D2RunesTxt* __stdcall ITEMS_GetRunesTxtRecordFromItem(D2UnitStrc* pItem);                             // 0x0062BED0
-unsigned char __stdcall sub_0062E8D0_HasAltInvGfx(D2UnitStrc* pItem);                                       // 0x0062E8D0
+unsigned char __stdcall ITEMS_GetVarInvGfxCount(D2UnitStrc* pItem);                                       // 0x0062E8D0
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId);                                              // 0x006335F0
 D2MagicAffixDataTbl* __stdcall DATATBLS_GetMagicAffixDataTables();                                          // 0x00633ED0
 D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory);                                  // 0x0063B2C0
@@ -481,8 +481,8 @@ static void __stdcall ITEMS_SerializeItemComplete(D2UnitStrc* pItem, D2BitBuffer
     ITEMS_WriteBitsInl(7, D2_MIN(ITEMS_GetItemLevelInl(pItem), 99), pBuffer);
     ITEMS_WriteBitsInl(4, ITEMS_GetItemQualityInl(pItem), pBuffer);
 
-    ITEMS_WriteBitsInl(1, sub_0062E8D0_HasAltInvGfx(pItem) != 0, pBuffer);
-    if (sub_0062E8D0_HasAltInvGfx(pItem))
+    ITEMS_WriteBitsInl(1, ITEMS_GetVarInvGfxCount(pItem) != 0, pBuffer);
+    if (ITEMS_GetVarInvGfxCount(pItem))
     {
         ITEMS_WriteBitsInl(3, ITEMS_GetInvGfxIndexInl(pItem), pBuffer);
     }

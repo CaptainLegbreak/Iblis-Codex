@@ -96,7 +96,7 @@ int __stdcall SErrDisplayError(unsigned int nErrorCode, const char* szFile, int 
 void __stdcall SMemZero(void* pLocation, unsigned int nLength); // 0x0041D300
 int __stdcall sub_004269C0_RegisterHandler(unsigned long dwId, void* pContext); // 0x004269C0
 void __fastcall sub_004307A0(unsigned int nArg, int nMode, int nStringId1, int nStringId2); // 0x004307A0
-int __stdcall sub_00431600(int nArg); // 0x00431600
+int __stdcall sub_00431600_ShowLevelScreen(int nArg); // 0x00431600
 extern "C" const char gszPercentS_006FFC58[]; // 0x006FFC58
 extern "C" const char gszKernel32_006CD6E4[]; // 0x006CD6E4
 extern char gszServiceName_007065DC[]; // 0x007065DC
@@ -116,7 +116,7 @@ struct D2SlotEntryStrc
 };
 
 extern void** gppSlots_00779988; // 0x00779988
-void __fastcall sub_004FCF80_SetTextA(D2WinControlStrc* pControl, const char* szText); // 0x004FCF80
+void __fastcall D2Win_10045(D2WinControlStrc* pControl, const char* szText); // 0x004FCF80
 extern D2WinControlStrc* gpList_0077995C; // 0x0077995C
 extern D2WinControlStrc* gpList_00779960; // 0x00779960
 extern int gdwGlobal_00779990; // 0x00779990
@@ -233,12 +233,12 @@ int __fastcall D2Win_10051(D2WinControlStrc* pTextBox, const Unicode* wszText, i
 void __fastcall sub_00433450_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone); // 0x00433450
 void __fastcall sub_0042E6B0(int nValue); // 0x0042E6B0
 void __fastcall sub_0042E6A0(void (__cdecl* pfnCallback)()); // 0x0042E6A0
-void __cdecl sub_0043B810(); // 0x0043B810
+void __cdecl sub_0043B810_SetFlag(); // 0x0043B810
 void __cdecl sub_00436AD0_UpdateStatus(); // 0x00436AD0
 int __cdecl sub_004F5D60(); // 0x004F5D60
 int __stdcall sub_0042FE70_FilterChar(D2WinControlStrc* pControl, int nUnused, const char* pChar); // 0x0042FE70
 int __stdcall sub_0042FEF0_FilterChar(D2WinControlStrc* pControl, int nUnused, const char* pChar); // 0x0042FEF0
-int __stdcall sub_00436F20_OnEnter(int nArg); // 0x00436F20
+int __stdcall sub_00436F20_OnEditChange(int nArg); // 0x00436F20
 int __stdcall sub_004372A0_OnEnter(int nArg); // 0x004372A0
 void __cdecl sub_00436EB0_UpdateOkButton(); // 0x00436EB0
 void __cdecl sub_004371E0_UpdatePasswordOk(); // 0x004371E0
@@ -527,16 +527,16 @@ int __fastcall sub_00430B80_GetSlotField04(int nSlot)
 // 0x00431020
 void __cdecl sub_00431020_ClearLists()
 {
-    sub_004FCF80_SetTextA(gpList_0077995C, &gszEmptyAssertText);
-    sub_004FCF80_SetTextA(gpList_00779960, &gszEmptyAssertText);
+    D2Win_10045(gpList_0077995C, &gszEmptyAssertText);
+    D2Win_10045(gpList_00779960, &gszEmptyAssertText);
 }
 
 // 0x00431040
 void __cdecl sub_00431040_ClearList() {
 #ifdef MOVED_TEST
- sub_004FCF80_SetTextA(gpList_00779964,&gszEmptyAssertText+4);
+ D2Win_10045(gpList_00779964,&gszEmptyAssertText+4);
 #else
- sub_004FCF80_SetTextA(gpList_00779964,&gszEmptyAssertText);
+ D2Win_10045(gpList_00779964,&gszEmptyAssertText);
 #endif
 }
 
@@ -654,7 +654,7 @@ int __stdcall sub_00431920_SetFlagD4(int nArg)
 // 0x00431930
 int __stdcall sub_00431930_RunAndSetFlag(int nArg)
 {
-    sub_00431600(nArg);
+    sub_00431600_ShowLevelScreen(nArg);
     gnFlag_007798D0 = 1;
     return 1;
 }
@@ -1138,12 +1138,12 @@ void __cdecl sub_00436F30_CreateEmailScreen()
     gpEdit_007799DC = sub_0042F430_CreateControl(0x131);
     sub_004FDD50_SetMaxLength(gpEdit_007799DC, 0x10);
     sub_004FDAD0_SetKeyCallback(gpEdit_007799DC, sub_0042FEF0_FilterChar);
-    sub_004FDB00_SetEnterCallback(gpEdit_007799DC, sub_00436F20_OnEnter);
+    sub_004FDB00_SetEnterCallback(gpEdit_007799DC, sub_00436F20_OnEditChange);
     sub_0042F430_CreateControl(0x132);
     pControl = sub_0042F430_CreateControl(0x133);
     sub_004FD060_SetText(pControl, D2LANG_GetStringFromTblIndex(0x2B57));
     gpEdit_007799E0 = sub_0042F430_CreateControl(0x134);
-    sub_004FDB00_SetEnterCallback(gpEdit_007799E0, sub_00436F20_OnEnter);
+    sub_004FDB00_SetEnterCallback(gpEdit_007799E0, sub_00436F20_OnEditChange);
     sub_004FFE10_SetTextA(gpEdit_007799DC, gpLaunchRecord_007795D4->szAccount);
     sub_004F91C0(gpEdit_007799DC);
     sub_004FDDD0_LinkTab(gpEdit_007799DC, gpEdit_007799E0);
@@ -1242,7 +1242,7 @@ void __cdecl sub_00437550_CreateStatusScreen()
     D2Win_10030_CONTROL_ToggleFourthFlag(gpCounterText_007799AC, 0x1);
     gnStatusStringId_007799B0 = -1;
     gnStatusDots_007799B4 = 0x0;
-    sub_0042E6A0(sub_0043B810);
+    sub_0042E6A0(sub_0043B810_SetFlag);
     sub_00436AD0_UpdateStatus();
 }
 

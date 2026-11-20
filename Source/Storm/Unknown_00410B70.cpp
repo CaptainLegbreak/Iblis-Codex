@@ -43,7 +43,7 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern unsigned int gdwLowMasks_006CE368[]; // 0x006CE368
-unsigned int __stdcall BITMANIP_Read(D2BitBufferStrc* pBuffer, int nBits); // 0x00410F60
+unsigned int __stdcall sub_00410F60_ReadBits(D2BitBufferStrc* pBuffer, int nBits); // 0x00410F60
 
 struct Obj00410E90 {
     unsigned int dwUnknown00;
@@ -260,13 +260,13 @@ void __stdcall BITMANIP_Write(D2BitBufferStrc* pBuffer, int nValue, int nBits)
 // 0x00411020
 unsigned int __stdcall sub_00411020_ReadBits(D2BitBufferStrc* pBuffer, int nBits)
 {
-    return BITMANIP_Read(pBuffer, nBits);
+    return sub_00410F60_ReadBits(pBuffer, nBits);
 }
 
 // 0x00411030
 int __stdcall BITMANIP_ReadSigned(D2BitBufferStrc* pBuffer, int nBits)
 {
-    int nValue = BITMANIP_Read(pBuffer, nBits);
+    int nValue = sub_00410F60_ReadBits(pBuffer, nBits);
     if (nBits < 32 && ((1 << (nBits - 1)) & nValue))
     {
         nValue |= ~((1 << nBits) - 1);

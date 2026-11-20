@@ -97,8 +97,8 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 extern "C" int __stdcall ioctlsocket(unsigned int s, long nCommand, unsigned long* pArg); // 0x006B015C
 extern "C" int __stdcall WSAGetLastError(void); // 0x006B0168
 extern "C" char* __stdcall inet_ntoa(unsigned int nAddress); // 0x006B013E
-int __fastcall sub_0040D880_CloseSocket(unsigned int s); // 0x0040D880
-void __cdecl sub_00410660_Log(const char* szChannel, const char* szFormat, ...); // 0x00410660
+int __fastcall sub_0040D880(unsigned int s); // 0x0040D880
+void __cdecl sub_00410660_LogWritePrefixed(const char* szChannel, const char* szFormat, ...); // 0x00410660
 int __fastcall sub_006BE9F0_CheckRecordThreshold(T006BE350* pServer, const unsigned int* pAddress); // 0x006BE9F0
 int __fastcall sub_006C0800_BanByAddress(T006BE350* pServer, unsigned int* pAddress, const char* szFile, int nLine); // 0x006C0800
 void __fastcall sub_006BFEA0_RecordAddress(T006BE350* pServer, const char* szFile, unsigned int nAddress, int nLine); // 0x006BFEA0
@@ -264,8 +264,8 @@ static unsigned int __stdcall sQSNTAccept(int nSlot, int* pAddrLen, T006BE350* p
         ++pServer->aStats[nSlot].nRejected;
         LeaveCriticalSection(pLock);
         const char* szReason = nReason == 1 ? "user on hack list" : (nReason == 2 ? "user logged on twice" : "user spamming with reconnects");
-        sub_00410660_Log(gszHack_006FC4A8, "[sQSNTAccept]               *** Deleted socket %d (%s) - %s ***", (unsigned int)pAddrLen, inet_ntoa(pAddr->f_4), szReason);
-        sub_0040D880_CloseSocket((unsigned int)pAddrLen);
+        sub_00410660_LogWritePrefixed(gszHack_006FC4A8, "[sQSNTAccept]               *** Deleted socket %d (%s) - %s ***", (unsigned int)pAddrLen, inet_ntoa(pAddr->f_4), szReason);
+        sub_0040D880((unsigned int)pAddrLen);
         return (unsigned int)-1;
     }
 

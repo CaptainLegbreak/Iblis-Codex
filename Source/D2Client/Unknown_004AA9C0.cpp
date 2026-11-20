@@ -74,7 +74,7 @@ void __cdecl sub_0044DA70();                                                    
 int __fastcall sub_00451F60_UnitClassId(D2UnitStrc* pUnit);                                                 // 0x00451F60
 void __fastcall sub_00455F20(int nUIVar, int nState, int nArg);                                        // 0x00455F20
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId);                                      // 0x0045C4B0
-D2UnitStrc* __cdecl sub_00463DD0();                                                               // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 void __stdcall sub_00467F20_MsgHandler(SMSGHANDLER_PARAMS* pMsg);                                           // 0x00467F20
 void __stdcall sub_00467FA0_MsgHandler(SMSGHANDLER_PARAMS* pMsg);                                           // 0x00467FA0
 void __fastcall sub_004785B0_SendPacket3(unsigned char nCmd, unsigned short nArg);                          // 0x004785B0
@@ -89,7 +89,7 @@ int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int n
 void __fastcall sub_004EEF00_ShowSkillPopup(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nArg, int nX, int nY); // 0x004EEF00
 void __fastcall sub_004EF410_ShowSkillPopupB(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nArg, int nX, int nY); // 0x004EF410
 void __stdcall TEXTURE_CelDrawColor(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, int nGlobalPaletteShift); // 0x004F64B0
-void __fastcall sub_00502280_SetPopUpText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5);    // 0x00502280
+void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5);    // 0x00502280
 void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);         // 0x00502320
 int __fastcall sub_00502EF0(int nArg);                                                                      // 0x00502EF0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
@@ -179,17 +179,17 @@ void __cdecl sub_004AB630_DrawTabHint()
     if (gnTabSelection_00724CE0 == 1)
     {
         if (sub_004AB5F0_IsMouseInRect(gnGlobal_0071146C - gnGlobal_007A2858 - 0x95, gnGlobal_00711470 + gnGlobal_007A285C - 0x3F, 0x22, 0x22))
-            sub_00502280_SetPopUpText(D2LANG_GetStringFromTblIndex(0x1030), gnGlobal_0071146C - gnGlobal_007A2858 - 0x86, gnGlobal_00711470 + gnGlobal_007A285C - 0x62, 0, 1);
+            D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0x1030), gnGlobal_0071146C - gnGlobal_007A2858 - 0x86, gnGlobal_00711470 + gnGlobal_007A285C - 0x62, 0, 1);
     }
     else if (gnTabSelection_00724CE0 == 2)
     {
         if (sub_004AB5F0_IsMouseInRect(gnGlobal_0071146C - gnGlobal_007A2858 - 0xDC, gnGlobal_00711470 + gnGlobal_007A285C - 0x3F, 0x22, 0x22))
-            sub_00502280_SetPopUpText(D2LANG_GetStringFromTblIndex(0x1030), gnGlobal_0071146C - gnGlobal_007A2858 - 0xCD, gnGlobal_00711470 + gnGlobal_007A285C - 0x62, 0, 1);
+            D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0x1030), gnGlobal_0071146C - gnGlobal_007A2858 - 0xCD, gnGlobal_00711470 + gnGlobal_007A285C - 0x62, 0, 1);
     }
     else if (gnTabSelection_00724CE0 == 3)
     {
         if (sub_004AB5F0_IsMouseInRect(gnGlobal_0071146C - gnGlobal_007A2858 - 0x131, gnGlobal_00711470 + gnGlobal_007A285C - 0x3F, 0x22, 0x22))
-            sub_00502280_SetPopUpText(D2LANG_GetStringFromTblIndex(0x1030), gnGlobal_0071146C - gnGlobal_007A2858 - 0x122, gnGlobal_00711470 + gnGlobal_007A285C - 0x62, 0, 1);
+            D2Win_10129_DrawFramedText(D2LANG_GetStringFromTblIndex(0x1030), gnGlobal_0071146C - gnGlobal_007A2858 - 0x122, gnGlobal_00711470 + gnGlobal_007A285C - 0x62, 0, 1);
     }
 }
 
@@ -201,7 +201,7 @@ void __stdcall sub_004AB7E0_SkillTreeLButtonDown(SMSGHANDLER_PARAMS* pMsg)
     if (sub_00498DC0_MouseMoveMsg(pMsg))
         return;
 
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (!pPlayer)
         return;
 
@@ -358,7 +358,7 @@ void __stdcall sub_004ABC30_SkillTreeLButtonUp(SMSGHANDLER_PARAMS* pMsg)
 {
     const int nMouseX = pMsg->nXpos;
     const int nMouseY = pMsg->nYpos;
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (!pPlayer)
         return;
 
@@ -504,7 +504,7 @@ void __stdcall sub_004ABF60_DrawSkillIcon(int nSkillId, D2SkillsTxt* pSkillsTxt,
     if (!BITARRAY_CHECK(pSkillsTxt->nFlags, 10))
         nMode = 1;
 
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     const int nBaseLevel = SKILLS_GetSkillLevel(pPlayer, SKILLS_GetSkillById(pPlayer, nSkillId, -1), 0);
     if (!nBaseLevel && SKILLS_GetBonusSkillLevelFromSkillId(pPlayer, nSkillId) && nState != -1)
         nMode = 3;
@@ -519,9 +519,9 @@ void __stdcall sub_004ABF60_DrawSkillIcon(int nSkillId, D2SkillsTxt* pSkillsTxt,
     if (nMouseX > nX && nMouseX < nX + 0x30 && nMouseY > nY - 0x30 && nMouseY < nY)
     {
         if (nState != -1)
-            sub_004EEF00_ShowSkillPopup(sub_00463DD0(), nSkillId, nSkillLevel, 0, nX, nY);
+            sub_004EEF00_ShowSkillPopup(sub_00463DD0_GetPlayerUnit(), nSkillId, nSkillLevel, 0, nX, nY);
         else
-            sub_004EF410_ShowSkillPopupB(sub_00463DD0(), nSkillId, nSkillLevel, 0, nX, nY);
+            sub_004EF410_ShowSkillPopupB(sub_00463DD0_GetPlayerUnit(), nSkillId, nSkillLevel, 0, nX, nY);
     }
 
     if (nBaseLevel || nSkillLevel)
@@ -540,7 +540,7 @@ void __stdcall sub_004ABF60_DrawSkillIcon(int nSkillId, D2SkillsTxt* pSkillsTxt,
             sub_00502EF0(1);
         }
 
-        const int nBonusLevel = SKILLS_GetBonusSkillLevelFromSkillId(sub_00463DD0(), nSkillId);
+        const int nBonusLevel = SKILLS_GetBonusSkillLevelFromSkillId(sub_00463DD0_GetPlayerUnit(), nSkillId);
         int nColor = 0;
         if (nBonusLevel > 0)
             nColor = 3;

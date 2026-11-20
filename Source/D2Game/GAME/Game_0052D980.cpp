@@ -93,7 +93,7 @@ extern int gnGamesGUIDs_6FD447F8[1024];                                         
 extern unsigned long gdwPlayerPos_00883D4C;                                                                 // 0x00883D4C
 unsigned long dword_6FD45848;                                                                               // 0x00883D5C
 
-int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit);                                                       // 0x0045ADF0
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                                                       // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize);              // 0x004135D0
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);   // 0x0040B430
@@ -122,7 +122,7 @@ void __fastcall CLIENTS_CopyAccountNameToBuffer(D2ClientStrc* pClient, char* szB
 void __fastcall ClientRemoveFromGame(D2GameStrc* pGame, int nClientId, int bTriggerSave);           // 0x00539DA0
 void __fastcall sub_0053B220_SendHeaderOnly0xB0(int nClientId);                                             // 0x0053B220
 void __fastcall D2GAME_PACKETS_SendHeaderOnlyPacket(D2ClientStrc* pClient, unsigned char nHeader);        // 0x0053B320
-void __fastcall D2GAME_PACKETS_SendPacket0x16_UnitsUpdate(D2ClientStrc* pClient);                           // 0x0053E130
+void __fastcall sub_0053E130_SendUnitUpdates(D2ClientStrc* pClient);                           // 0x0053E130
 int __fastcall sub_6FC82360(D2UnitStrc* pUnit, D2UnitStrc* pUnit2, int bSkipHpCheck);                       // 0x00548760
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID);              // 0x00552F60
 void __fastcall SUNIT_IterateUnitsOfType(D2GameStrc* pGame, int nType, void* pArg, QUESTUNITITERATE pfIterate); // 0x005537D0
@@ -174,7 +174,7 @@ static void sub_0052DA00_RefreshUnitsUpdate(D2ClientStrc* pClient)
             {
                 D2_ASSERT(nUpdateSize <= CLIENTS_MAX_UPDATES, 0xF23);
                 CLIENTS_RefreshUnitsUpdateList(pClient, nUpdateSize);
-                D2GAME_PACKETS_SendPacket0x16_UnitsUpdate(pClient);
+                sub_0053E130_SendUnitUpdates(pClient);
             }
         }
     }

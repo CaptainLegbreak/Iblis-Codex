@@ -12,7 +12,7 @@ struct Unicode
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
 int __cdecl sub_0044B850_IsHardcore();                                                                      // 0x0044B850
 unsigned char __cdecl sub_0044DCD0_GetDifficulty();                                                         // 0x0044DCD0
-D2UnitStrc* __cdecl sub_00463DD0();                                                               // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit);                                               // 0x00464820
 D2CellFileStrc* __fastcall sub_004788B0(const char* szFile, int nType);                             // 0x004788B0
 int __fastcall sub_00501820(const Unicode* wszText);                                             // 0x00501820
@@ -35,7 +35,7 @@ void __cdecl sub_00453100_DrawDeathScreen()
 {
     char szPath[0x104];
     char szLanguage[4];
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (!pPlayer)
         return;
 

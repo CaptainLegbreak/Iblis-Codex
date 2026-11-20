@@ -34,7 +34,7 @@ enum D2C_M86ReanimatedHordeAi
 };
 
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                          // 0x0045C390
-int __fastcall sub_6FCF14D0(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2);                                       // 0x005DC640
+int __fastcall sub_005DC640_HasFreeSpotNearTarget(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2);                                       // 0x005DC640
 int __fastcall AITACTICS_ChangeModeAndTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, D2UnitStrc* pTargetUnit); // 0x005DDF90
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames);            // 0x005DE080
 int __fastcall D2GAME_AICORE_Escape_6FCD0560(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nMaxDistance, int bDeleteAiEventCallback); // 0x005DE6D0
@@ -77,7 +77,7 @@ void __fastcall AITHINK_Fn114_ReanimatedHorde(D2GameStrc* pGame, D2UnitStrc* pUn
         return;
     }
 
-    if (pMonStatsTxt->nSkill[1] >= 0 && sub_6FCF14D0(pUnit, pTarget)
+    if (pMonStatsTxt->nSkill[1] >= 0 && sub_005DC640_HasFreeSpotNearTarget(pUnit, pTarget)
         && nDistance < AI_PARAM(pGame, pMonStatsTxt, REANIMATEDHORDE_AI_PARAM_CHARGE_RANGE) && nDistance > 5
         && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pMonStatsTxt, REANIMATEDHORDE_AI_PARAM_CHARGE_CHANCE_PCT))
     {

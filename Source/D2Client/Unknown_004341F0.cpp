@@ -42,7 +42,7 @@ struct D2FuncTable_0077ABF0Strc
     unsigned char unk_9C[0x1C];
     void (__fastcall* pfnSlotB8)(char* szText);
 };
-void __fastcall sub_004FD060_SetText(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FD060
+void __fastcall D2Win_10044(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FD060
 int __fastcall D2Win_10055(D2WinControlStrc* pTextBox); // 0x004FBAB0
 int __fastcall D2Win_10053(D2WinControlStrc* pTextBox, int nLine); // 0x004FBA30
 void __fastcall sub_004FB9D0_Select(D2WinControlStrc* pControl, int nLine); // 0x004FB9D0
@@ -207,8 +207,8 @@ int __stdcall sub_00434600_CreateGatewayScreen(int nUnused)
 {
     sub_0043C4F0();
     sub_0042F430_CreateControl(0x47);
-    sub_004FD060_SetText(sub_0042F430_CreateControl(0x48), D2LANG_GetStringFromTblIndex(0x2B2F));
-    sub_004FD060_SetText(sub_0042F430_CreateControl(0x49), D2LANG_GetStringFromTblIndex(0x2B30));
+    D2Win_10044(sub_0042F430_CreateControl(0x48), D2LANG_GetStringFromTblIndex(0x2B2F));
+    D2Win_10044(sub_0042F430_CreateControl(0x49), D2LANG_GetStringFromTblIndex(0x2B30));
     gpControl_00779590 = sub_0042F430_CreateControl(0x4A);
     sub_0042F430_CreateControl(0x4B);
     sub_0042F430_CreateControl(0x4C);

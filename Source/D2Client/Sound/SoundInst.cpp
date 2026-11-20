@@ -79,14 +79,14 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 int __cdecl sub_0044DB30(); // 0x0044DB30
 int __fastcall sub_00453A90_GetUIVarUnchecked(int nUIVar); // 0x00453A90
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __cdecl sub_004817F0(); // 0x004817F0
 int __cdecl sub_00481800(); // 0x00481800
 unsigned int __cdecl sub_00481820(); // 0x00481820
 D2SoundsTxtStrc* __fastcall sub_00481860(int nId); // 0x00481860
 T00481920* __fastcall sub_00481920_GetSoundEnvironTxtRecord(int nEnvironId); // 0x00481920
-float __fastcall sub_00482610(int nSoundId); // 0x00482610
-void __fastcall sub_00482860(int nSoundId); // 0x00482860
+float __fastcall sub_00482610_GetCacheRange(int nSoundId); // 0x00482610
+void __fastcall sub_00482860_TouchCacheEntry(int nSoundId); // 0x00482860
 float __fastcall sub_004B93A0_ClampFloat(float fValue, float fMin, float fMax); // 0x004B93A0
 D2ClientSoundStrc* __stdcall sub_004B9690_FindOldestEntry(int nGroup, D2UnitStrc* pUnit, D2ClientSoundStrc* pExclude); // 0x004B9690
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nDelay, int nArg3, int nArg4); // 0x004B9A00
@@ -155,7 +155,7 @@ static void __stdcall sub_004B97D0_GetSoundOffset(D2UnitStrc* pUnit, int nSoundI
     int nX;
     int nY;
 
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     UNITS_GetClientCoords(pPlayer, &tPlayer);
     UNITS_GetClientCoords(pUnit, &tUnit);
     if (nSoundId == 0xA27)
@@ -197,7 +197,7 @@ static float __stdcall sub_004B9890_GetSoundPan(D2UnitStrc* pUnit, int nSoundId)
         }
     }
 
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (UNITS_TestCollisionWithUnit(pPlayer, pUnit, 2))
         return 0.5f;
 
@@ -387,7 +387,7 @@ void __fastcall sub_004BA020(unsigned int nTick)
             }
         }
 
-        const float fRange = sub_00482610(pSound->nSoundId);
+        const float fRange = sub_00482610_GetCacheRange(pSound->nSoundId);
         const float fRangeSq = fRange * fRange;
         if (pSound->nType == 0 && nTick >= pSound->f_34 && pSound->f_1C)
         {
@@ -473,7 +473,7 @@ void __fastcall sub_004BA020(unsigned int nTick)
             {
                 sub_004DFC20(pSound->pStream);
                 if (pTxt->nMusicType == 2)
-                    sub_00482860(pSound->nSoundId);
+                    sub_00482860_TouchCacheEntry(pSound->nSoundId);
             }
             else
             {

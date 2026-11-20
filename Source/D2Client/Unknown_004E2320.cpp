@@ -90,7 +90,7 @@ struct D2MissileStrc
 };
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAt(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
 void __fastcall sub_004B9A00(int nId, D2UnitStrc* pUnit, int nArg3, int nArg4, int nArg5); // 0x004B9A00
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
@@ -167,7 +167,7 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId); // 0x0045C4B0
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2CharStatsTxt* __fastcall sub_004833E0_GetCharStatsTxtRecord(int nClassId); // 0x004833E0
 D2MonTypeTxt* __fastcall sub_004E4640_GetMonTypeTxtRecord(int nMonType); // 0x004E4640
 void __fastcall sub_004E48B0_BuildText(D2UnitStrc* pUnused, Unicode* wszOut, int nUnused); // 0x004E48B0
@@ -226,8 +226,8 @@ void __fastcall sub_004E9870_DrawTwoTexts(const Unicode* wszText1, const Unicode
 D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill); // 0x00644140
 D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
 int __cdecl sub_004E6FF0_SumProgressiveBonus(); // 0x004E6FF0
-short __stdcall sub_00629860_GetStrengthFactor(D2UnitStrc* pItem); // 0x00629860
-short __stdcall sub_006298A0_GetDexterityFactor(D2UnitStrc* pItem); // 0x006298A0
+short __stdcall ITEMS_GetStrengthBonus(D2UnitStrc* pItem); // 0x00629860
+short __stdcall ITEMS_GetDexBonus(D2UnitStrc* pItem); // 0x006298A0
 int __stdcall sub_0063A380(D2UnitStrc* pUnit); // 0x0063A380
 int __stdcall sub_0063A3A0(D2UnitStrc* pUnit); // 0x0063A3A0
 int __stdcall sub_004E89A0_GetElementalDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pColor, D2SkillStrc* pSkill); // 0x004E89A0
@@ -244,7 +244,7 @@ typedef int (__fastcall* SKILLWEAPONFN)(D2UnitStrc* pUnit, int* pValue1, int* pV
 int __stdcall UNITS_CanDualWield(D2UnitStrc* pUnit); // 0x006235A0
 unsigned char __stdcall ITEMS_GetBodyLocation(D2UnitStrc* pItem); // 0x00627D40
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
-int __stdcall sub_0062A4E0_TestItem(D2UnitStrc* pItem); // 0x0062A4E0
+int __stdcall ITEMS_CanBeEquipped(D2UnitStrc* pItem); // 0x0062A4E0
 D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic); // 0x00625820
 void __stdcall STATLIST_MergeStatLists(D2UnitStrc* pTarget, D2UnitStrc* pUnit, int bType); // 0x00627910
 int __fastcall sub_004E8FE0_AttackRatingCallback(D2UnitStrc* pUnit, int* pValue1, int* pValue2, int nArg3, int nArg4, int nLevel, D2SkillStrc* pSkill, int nArg7, D2UnitStrc* pItem); // 0x004E8FE0
@@ -354,7 +354,7 @@ D2UnitStrc* __fastcall sub_004E2D40_UpdateState22(D2UnitStrc* pUnit)
         sub_0063E7E0_GetDirectionDelta(nDirection, &nDeltaX, &nDeltaY);
         const int nSpawnX = nX + nDeltaX;
         const int nSpawnY = nY + nDeltaY;
-        if (!DUNGEON_IsRoomInTown(sub_00463740_FindRoomAt(pRoom, nSpawnX, nSpawnY)))
+        if (!DUNGEON_IsRoomInTown(sub_00463740_FindRoomAtPoint(pRoom, nSpawnX, nSpawnY)))
         {
             D2MissileStrc tParams;
             memset(&tParams, 0, sizeof(tParams));
@@ -468,7 +468,7 @@ static int __stdcall sub_004E4C50_GetStatDisplayValue(int nValue, D2ItemStatCost
         if (!pBase)
             return 0;
 
-        nValue = (STATLIST_UnitGetStatValue(sub_00463DD0(), nOpBase, 0) >> pBase->nValShift) * nValue >> pRecord->nOpParam;
+        nValue = (STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), nOpBase, 0) >> pBase->nValShift) * nValue >> pRecord->nOpParam;
     }
 
     nValue >>= pRecord->nValShift;
@@ -1013,7 +1013,7 @@ static int __stdcall sub_004E4D80_BuildStatText(D2UnitStrc* pUnit, D2StatListStr
 
         D2UnitStrc* pPlayer = pUnit;
         if (!pPlayer || pPlayer->dwUnitType != 0)
-            pPlayer = sub_00463DD0();
+            pPlayer = sub_00463DD0_GetPlayerUnit();
 
         const int nClass = !pPlayer ? -1 : pPlayer->dwClassId;
         if (pSkillsTxt->nCharClass == nClass && nDisplay > 3)
@@ -1638,10 +1638,10 @@ static int __stdcall sub_004E86F0_GetWeaponDamage(int* pMinDamage, int* pMaxDama
     int nDamage = 0;
     if (pItem)
     {
-        int nFactor = sub_00629860_GetStrengthFactor(pItem);
+        int nFactor = ITEMS_GetStrengthBonus(pItem);
         if (nFactor)
             nBonus += STATLIST_UnitGetStatValue(pUnit, 0, 0) * nFactor / 100;
-        nFactor = sub_006298A0_GetDexterityFactor(pItem);
+        nFactor = ITEMS_GetDexBonus(pItem);
         if (nFactor)
             nBonus += STATLIST_UnitGetStatValue(pUnit, 2, 0) * nFactor / 100;
         nDamage = STATLIST_UnitGetItemStatOrSkillStatValue(pItem, 0x6F, 0);
@@ -1918,7 +1918,7 @@ static D2UnitStrc* sub_004E9260_MergeOtherHandWeapon(D2UnitStrc* pUnit)
     if (!ITEMSIsA(pOther, 45))
         return 0;
 
-    if (!sub_0062A4E0_TestItem(pWeapon) || !sub_0062A4E0_TestItem(pOther))
+    if (!ITEMS_CanBeEquipped(pWeapon) || !ITEMS_CanBeEquipped(pOther))
         return 0;
 
     if (STATLIST_GetOwner(pWeapon, 0))
@@ -1930,7 +1930,7 @@ static D2UnitStrc* sub_004E9260_MergeOtherHandWeapon(D2UnitStrc* pUnit)
 
 static __forceinline D2UnitStrc* sub_P03_MergeLeftWeaponOnly(D2UnitStrc* pUnit, D2UnitStrc* pWeapon)
 {
-    if (sub_0062A4E0_TestItem(pWeapon))
+    if (ITEMS_CanBeEquipped(pWeapon))
         STATLIST_MergeStatLists(pUnit, pWeapon, 1);
     return pWeapon;
 }
@@ -1957,7 +1957,7 @@ static D2UnitStrc* sub_004E9300_MergeWeaponPair(D2UnitStrc* pUnit)
     if (!ITEMSIsA(pOther, 45))
         return sub_P03_MergeLeftWeaponOnly(pUnit, pWeapon);
 
-    if (!sub_0062A4E0_TestItem(pWeapon) || !sub_0062A4E0_TestItem(pOther))
+    if (!ITEMS_CanBeEquipped(pWeapon) || !ITEMS_CanBeEquipped(pOther))
         return sub_P03_MergeLeftWeaponOnly(pUnit, pWeapon);
 
     STATLIST_MergeStatLists(pUnit, pOther, 0);
@@ -1975,11 +1975,11 @@ static int __stdcall sub_004E93A0_EvaluateForEachWeapon(int* pValue1, int* pValu
         return 0;
 
     D2UnitStrc* pRight = INVENTORY_GetItemFromBodyLoc(pInventory, 4);
-    if (!sub_0062A4E0_TestItem(pRight) || ITEMSIsA(pRight, 0x26))
+    if (!ITEMS_CanBeEquipped(pRight) || ITEMSIsA(pRight, 0x26))
         pRight = 0;
 
     D2UnitStrc* pLeft = INVENTORY_GetItemFromBodyLoc(pInventory, 5);
-    if (!sub_0062A4E0_TestItem(pLeft) || ITEMSIsA(pLeft, 0x26))
+    if (!ITEMS_CanBeEquipped(pLeft) || ITEMSIsA(pLeft, 0x26))
         pLeft = 0;
 
     if (pRight && pLeft)
@@ -2009,7 +2009,7 @@ static int __stdcall sub_004E93A0_EvaluateForEachWeapon(int* pValue1, int* pValu
     }
 
     D2UnitStrc* pWeapon = INVENTORY_GetLeftHandWeapon(pInventory);
-    if (pWeapon && sub_0062A4E0_TestItem(pWeapon))
+    if (pWeapon && ITEMS_CanBeEquipped(pWeapon))
         STATLIST_MergeStatLists(pUnit, pWeapon, 1);
     pfnEvaluate(pUnit, pValue1, pValue2, nArg3, nArg9, nLevel, pSkill, 0, 0);
     return 1;

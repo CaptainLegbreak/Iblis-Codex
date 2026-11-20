@@ -53,13 +53,13 @@ static void __fastcall sub_006C5A90_EmitCode(D2BitOutputStrc* pState, unsigned c
     }
 }
 
-void __stdcall sub_0041D300_ZeroBytes(void*, unsigned int); // 0x0041D300
+void __stdcall SMemZero(void*, unsigned int); // 0x0041D300
 static __declspec(noinline) void __stdcall ClearBlock(unsigned char**, D2BitOutputStrc*);
 
 // 0x006C6330
 static void __stdcall ClearBlock(unsigned char** ppOutput, D2BitOutputStrc* pState)
 {
-    sub_0041D300_ZeroBytes(pState->f_28, 0x4E2C);
+    SMemZero(pState->f_28, 0x4E2C);
     int nCode = pState->nClearCode;
     pState->nNextCode = nCode + 2;
     sub_006C5A90_EmitCode(pState, ppOutput, nCode);

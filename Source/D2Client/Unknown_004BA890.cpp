@@ -42,7 +42,7 @@ struct D2TimedHintNodeStrc
 
 
 D2HintCursorStrc* __fastcall sub_00481860(int nId); // 0x00481860
-int __fastcall sub_00481890_GetHintGroup(int nId); // 0x00481890
+int __fastcall sub_00481890_GetCacheFirst(int nId); // 0x00481890
 void __fastcall sub_004B9EF0_ArmHint(int nKey, int nGroup, int nOffset, unsigned int nCount); // 0x004B9EF0
 extern D2TimedHintNodeStrc* gpTimedHintList_007C5458; // 0x007C5458
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -58,7 +58,7 @@ struct D2HintKeyListStrc
 
 
 int __cdecl sub_00481820(); // 0x00481820
-void __fastcall sub_004B9B50_SetHintValue(int nKey, int nValue); // 0x004B9B50
+void __fastcall sub_004B9B50_SetValue(int nKey, int nValue); // 0x004B9B50
 
 // 0x004BA890
 void __fastcall sub_004BA890_RefreshHintsById(int nHintId)
@@ -91,7 +91,7 @@ void __fastcall sub_004BA950_RefreshHintsInRangeA(int nGroupA, int nGroupB)
     for (; pNode; pNode = pNode->pNext)
     {
         D2TimedHintEntryStrc* pEntry = pNode->f_0;
-        if (sub_00481890_GetHintGroup(pEntry->nHintId) != nGroupA && sub_00481890_GetHintGroup(pEntry->nHintId) != nGroupB
+        if (sub_00481890_GetCacheFirst(pEntry->nHintId) != nGroupA && sub_00481890_GetCacheFirst(pEntry->nHintId) != nGroupB
             && pEntry->nHintId >= 0x34 && pEntry->nHintId <= 0x47)
         {
             D2HintCursorStrc* pCursor = sub_00481860(pEntry->nHintId);
@@ -117,7 +117,7 @@ void __fastcall sub_004BA9D0_RefreshHintsInRangeB(int nGroupA, int nGroupB)
     for (; pNode; pNode = pNode->pNext)
     {
         D2TimedHintEntryStrc* pEntry = pNode->f_0;
-        if (sub_00481890_GetHintGroup(pEntry->nHintId) != nGroupA && sub_00481890_GetHintGroup(pEntry->nHintId) != nGroupB
+        if (sub_00481890_GetCacheFirst(pEntry->nHintId) != nGroupA && sub_00481890_GetCacheFirst(pEntry->nHintId) != nGroupB
             && pEntry->nHintId >= 0x48 && pEntry->nHintId <= 0xC9)
         {
             D2HintCursorStrc* pCursor = sub_00481860(pEntry->nHintId);
@@ -210,7 +210,7 @@ static void __fastcall CLIENT_ArmHintInline(int nKey, int nGroup, int nOffset, u
     if (!nCount)
     {
         D2_ASSERT(!nOffset, 0x25C);
-        sub_004B9B50_SetHintValue(nKey, nGroup);
+        sub_004B9B50_SetValue(nKey, nGroup);
         return;
     }
 

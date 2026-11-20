@@ -37,8 +37,8 @@ void __fastcall DRLGGRID_AlterGridFlag(D2DrlgGridStrc* pGrid, int nX, int nY, in
 static __declspec(noinline) void sub_0067DCA0(D2DrlgLevelStrc* pLevel);
 
 
-int __fastcall sub_0067C570(D2DrlgGridStrc* pGrid, int nX, int nY); // 0x0067C570
-void __fastcall sub_006743C0(D2DrlgLevelStrc* pLevel, int nX, int nY, int nPresetId, int nDirection, int a6); // 0x006743C0
+int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY); // 0x0067C570
+void __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(D2DrlgLevelStrc* pLevel, int nX, int nY, int nPresetId, int nDirection, int a6); // 0x006743C0
 extern const D2CoordStrc gAct5WallSteps_006F1FD8[12]; // 0x006F1FD8
 
 // 0x0067DCA0
@@ -74,12 +74,12 @@ void __stdcall sub_0067DEF0(D2DrlgLevelStrc* pLevel)
 
     while (nX != 0 || nY != nBottom)
     {
-        const int nEntry = sub_0067C570(&pInfo->tGrid04, nX, nY);
-        sub_006743C0(pLevel, nX, nY, nEntry - nKindBase + nPresetBase, -1, 0);
+        const int nEntry = DRLGGRID_GetGridEntry(&pInfo->tGrid04, nX, nY);
+        DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, nX, nY, nEntry - nKindBase + nPresetBase, -1, 0);
         nX += 2 * gAct5WallSteps_006F1FD8[nEntry - nKindBase].nX;
         nY += 2 * gAct5WallSteps_006F1FD8[nEntry - nKindBase].nY;
     }
 
-    sub_006743C0(pLevel, nRight, 0, bTundra ? 0x3D6 : 0x38A, -1, 0);
-    sub_006743C0(pLevel, 0, nBottom, bTundra ? 0x3D5 : 0x389, -1, 0);
+    DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, nRight, 0, bTundra ? 0x3D6 : 0x38A, -1, 0);
+    DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(pLevel, 0, nBottom, bTundra ? 0x3D5 : 0x389, -1, 0);
 }

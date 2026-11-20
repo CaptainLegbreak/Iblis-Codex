@@ -52,7 +52,7 @@ extern Tile* __stdcall sub_006196A0_WallTiles(Room*,u32*); // 0x006196A0
 extern Tile* __stdcall sub_006196E0_FloorTiles(Room*,u32*); // 0x006196E0
 extern s32 __stdcall sub_00620650_PixelX(Unit*); // 0x00620650
 extern s32 __stdcall sub_006206B0_PixelY(Unit*); // 0x006206B0
-extern void __stdcall sub_00643340_Grid(s32,s32,s32*,s32*); // 0x00643340
+extern void __stdcall DUNGEON_ClientTileDrawPositionToGameCoords(s32,s32,s32*,s32*); // 0x00643340
 extern s32 __stdcall sub_006488C0_PathX(Path*); // 0x006488C0
 extern s32 __stdcall sub_00648900_PathY(Path*); // 0x00648900
 
@@ -80,7 +80,7 @@ static __declspec(noinline) void __stdcall sub_004DDFD0_BuildSmallFlatGrid(D2Gri
 extern void* gpGlobal_007A0634; // 0x007A0634
 unsigned char __stdcall sub_0061C0E0(void* pAct); // 0x0061C0E0
 void __stdcall sub_0061C0B0(void* pAct, unsigned char* pR, unsigned char* pG, unsigned char* pB); // 0x0061C0B0
-void __fastcall sub_00475AA0(int nX, int nY, unsigned char* pB0, unsigned char* pB1, unsigned char* pB2, unsigned char* pB3); // 0x00475AA0
+void __fastcall sub_00475AA0_ReadGridCell(int nX, int nY, unsigned char* pB0, unsigned char* pB1, unsigned char* pB2, unsigned char* pB3); // 0x00475AA0
 
 static __declspec(noinline) s32 __cdecl sub_004DCF70_Inside(Context* context,s32 y,s32 x)
 {
@@ -381,7 +381,7 @@ s32 __stdcall sub_004DD7C0_VisitRoom(Room* room,View* view)
         TileRecord* record=FIELD(TileRecord*,tile,24);
         s32 height=sub_00604CB0_Height(record);
         s32 x,y;
-        sub_00643340_Grid(FIELD(s32,tile,0),FIELD(s32,tile,4),&x,&y);
+        DUNGEON_ClientTileDrawPositionToGameCoords(FIELD(s32,tile,0),FIELD(s32,tile,4),&x,&y);
         --y;
         if(FIELD(s32,tile,0)>FIELD(s32,view,12)) continue;
         if(FIELD(s32,tile,0)+160<FIELD(s32,view,4)) continue;
@@ -409,7 +409,7 @@ s32 __stdcall sub_004DD7C0_VisitRoom(Room* room,View* view)
     {
         s32 height=sub_00604CB0_Height(FIELD(TileRecord*,tile,24));
         s32 x,y;
-        sub_00643340_Grid(FIELD(s32,tile,0),FIELD(s32,tile,4),&x,&y);
+        DUNGEON_ClientTileDrawPositionToGameCoords(FIELD(s32,tile,0),FIELD(s32,tile,4),&x,&y);
         --y;
         if(FIELD(s32,tile,0)>FIELD(s32,view,12)) continue;
         if(FIELD(s32,tile,0)+160<FIELD(s32,view,4)) continue;
@@ -426,7 +426,7 @@ s32 __stdcall sub_004DD7C0_VisitRoom(Room* room,View* view)
     {
         s32 x=sub_00620650_PixelX(unit);
         s32 y=sub_006206B0_PixelY(unit);
-        sub_00643340_Grid(x,y,&x,&y);
+        DUNGEON_ClientTileDrawPositionToGameCoords(x,y,&x,&y);
         x-=FIELD(s32,context,0xEA68);
         y-=FIELD(s32,context,0xEA6C);
         if(x<0 || y<0 || x>=FIELD(s32,context,0xEA78) || y>=FIELD(s32,context,0xEA78)) continue;
@@ -518,7 +518,7 @@ void __stdcall sub_004DE070(D2GridCellStrc* pCells, int nX, int nY, int nSubX, i
                     pCell->nB2 = nB2;
                 }
                 else
-                    sub_00475AA0((nSubX + i) << 3, 8 * (nSubY + j), &pCell->nB0, &pCell->nB1, &pCell->nB2, &pCell->nB3);
+                    sub_00475AA0_ReadGridCell((nSubX + i) << 3, 8 * (nSubY + j), &pCell->nB0, &pCell->nB1, &pCell->nB2, &pCell->nB3);
             }
         }
     }
@@ -581,7 +581,7 @@ void __stdcall sub_004DE260(D2GridCellStrc* pCells, int nSubX, int nSubY, int nZ
                     const int nX = i + nSubX;
                     sub_004F6760(nX << 16, nY << 16, 0, &pCell->nX, &pCell->nY);
                     pCell->nX += nOffset;
-                    sub_00475AA0(nX << 3, nY << 3, &pCell->nB0, &pCell->nB1, &pCell->nB2, &pCell->nB3);
+                    sub_00475AA0_ReadGridCell(nX << 3, nY << 3, &pCell->nB0, &pCell->nB1, &pCell->nB2, &pCell->nB3);
                 }
 
                 ++pCell;

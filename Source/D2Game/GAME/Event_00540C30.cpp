@@ -42,7 +42,7 @@ typedef char TimerSizeCheck[(sizeof(D2EventTimerStrc)==0x30)?1:-1];
 typedef char SlabSizeCheck[(sizeof(D2EventTimerSlabListStrc)==0x7088)?1:-1];
 typedef char QueueSizeCheck[(sizeof(D2EventTimerQueueStrc)==0xA20)?1:-1];
 extern "C" void* __cdecl memset(void*, int, unsigned int); // 0x00681EF0
-extern void __fastcall sub_005544B0_SetUninterruptable(D2UnitStrc*, int); // 0x005544B0
+extern void __fastcall sub_6FCBDE90(D2UnitStrc*, int); // 0x005544B0
 
 // @ref 0x00540BB0
 // build: symbol ?sub_00540BB0_AllocateSlab@@YAPAUD2EventTimerSlabListStrc@@PAUD2GameStrc@@@Z 0x00540BB0
@@ -167,7 +167,7 @@ static __declspec(noinline) void __stdcall sub_005416B0_InsertDated(D2UnitStrc* 
     if (pUnit && pUnit->dwUnitType == 1 && nEventType == 2)
     {
         if (sub_00639DF0_CheckState(pUnit, 54))
-            sub_005544B0_SetUninterruptable(pUnit, 0);
+            sub_6FCBDE90(pUnit, 0);
     }
     D2EventTimerStrc* pTimer = sub_00540DF0_InitializeTimer(pGame, pUnit);
     pTimer->dwEventCustomId = nCustomId;

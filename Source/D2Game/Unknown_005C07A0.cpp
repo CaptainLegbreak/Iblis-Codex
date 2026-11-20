@@ -30,12 +30,12 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
-D2ActiveRoomStrc* __fastcall D2GAME_GetRoom_6FC52070(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
 void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUnit, int nType, int nId); // 0x00540E60
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nType, int nExpire, int nId, int nParam); // 0x005417D0
 D2AiControlStrc* __fastcall AIGENERAL_GetAiControlFromUnit(D2UnitStrc* pUnit); // 0x00541860
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nType, int nGUID); // 0x00552F60
-void __fastcall sub_6FCBDD30(D2UnitStrc* pUnit, unsigned char nAlignNew, int a3); // 0x005543B0
+void __fastcall sub_005543B0_AssignAlignment(D2UnitStrc* pUnit, unsigned char nAlignNew, int a3); // 0x005543B0
 void __fastcall MONSTER_UpdateAiCallbackEvent(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00573780
 void __fastcall AIGENERAL_SetOwnerData(D2GameStrc* pGame, D2UnitStrc* pUnit, int nOwnerGUID, int nOwnerType, int nFlag1, int nFlag2); // 0x0058F030
 void __fastcall D2GAME_BOSSES_AssignUMod_6FC6FF10(D2GameStrc* pGame, D2UnitStrc* pUnit, int nUMod, int bUnique); // 0x005A4850
@@ -120,7 +120,7 @@ int __fastcall sub_005C07A0_ReanimateMonster(D2GameStrc* pGame, int nUnusedRegis
     const int nX = CLIENTS_GetUnitX(pCorpse);
     const int nY = CLIENTS_GetUnitY(pCorpse);
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pCorpse);
-    pRoom = D2GAME_GetRoom_6FC52070(pRoom, nX, nY);
+    pRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
     if (!pRoom)
         return 0;
     D2MonStats2Txt* pMonStats2 = UNITS_GetMonStats2TxtRecordFromMonsterId(nMonsterId);
@@ -137,7 +137,7 @@ int __fastcall sub_005C07A0_ReanimateMonster(D2GameStrc* pGame, int nUnusedRegis
     AIUTIL_SetOwnerGUIDAndType(pPet, pOwner);
     D2GAME_EVENTS_Delete_6FC34840(pGame, pPet, 2, 0);
     EVENT_SetEvent(pGame, pPet, 2, pGame->dwGameFrame + 25, 0, 0);
-    sub_6FCBDD30(pPet, 2, 0);
+    sub_005543B0_AssignAlignment(pPet, 2, 0);
     pPet->dwFlags |= 0x80000000;
     STATES_ToggleState(pPet, 96, 1);
     D2GAME_BOSSES_AssignUMod_6FC6FF10(pGame, pPet, 21, 0);

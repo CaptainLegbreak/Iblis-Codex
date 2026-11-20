@@ -54,7 +54,7 @@ void __stdcall sub_00467F20_MsgHandler(SMSGHANDLER_PARAMS*); // 0x00467F20
 int __cdecl sub_004B3470_IsNpcQuestActive(); // 0x004B3470
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS*); // 0x00420290
 extern int gnPressed_007C02E4; // 0x007C02E4
-int __fastcall sub_004A6630_IsInPanelButton(int, int, int); // 0x004A6630
+int __fastcall sub_004A6630_IsInRightPanelButton(int, int, int); // 0x004A6630
 int __cdecl sub_004A6690_IsMouseOnRightButton(); // 0x004A6690
 
 
@@ -79,12 +79,12 @@ extern int gnGlobal_007A285C; // 0x007A285C
 extern int gnGlobal_00711470; // 0x00711470
 int __cdecl sub_0044DCC0(); // 0x0044DCC0
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
-D2UnitStrc* __cdecl sub_00463DE0_GetStoredUnit(); // 0x00463DE0
+D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 int __cdecl sub_00466DD0(); // 0x00466DD0
 void __fastcall sub_005023B0_DrawTextBox(const Unicode* wszText, int nX, int nY, int nColor, int nArg5, int nArg6); // 0x005023B0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
-int __stdcall sub_00622720(D2UnitStrc* pUnit, int nArg); // 0x00622720
+int __stdcall UNITS_GetBlockRate(D2UnitStrc* pUnit, int nArg); // 0x00622720
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
 int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClassId, int nAnimMode, int a5); // 0x0064F380
@@ -541,7 +541,7 @@ void __stdcall sub_004A6790_HandleRightButton(SMSGHANDLER_PARAMS* message)
     int border = sub_0045AE90();
     if (D2GFX_GetResolutionMode() != 2)
     {
-        if (sub_004A6630_IsInPanelButton(border, x, y))
+        if (sub_004A6630_IsInRightPanelButton(border, x, y))
         {
             MarkRightButtonPressed();
             sub_00467F20_MsgHandler(message);
@@ -622,8 +622,8 @@ static void sub_004A7180_DrawHoverLevelText(int nX, int nY, int nValue)
         return;
     }
 
-    D2UnitStrc* pPlayer = sub_00463DE0_GetStoredUnit();
-    int nLevel = sub_00622720(pPlayer, sub_0044DCC0());
+    D2UnitStrc* pPlayer = sub_00463DE0_GetPlayerUnit();
+    int nLevel = UNITS_GetBlockRate(pPlayer, sub_0044DCC0());
     if (nLevel <= 0)
     {
         nLevel = sub_004A70C0_GetWieldedTypeStatMax(pPlayer);

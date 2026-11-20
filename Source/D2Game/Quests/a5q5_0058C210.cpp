@@ -149,7 +149,7 @@ int __fastcall QUESTS_FastRemovePlayerGUID(D2QuestGUIDStrc* pGUIDs, int dwGUID);
 void __fastcall QUESTS_SendLogUpdateEx(D2UnitStrc* pUnit, int nQuestId, int a3); // 0x00545920
 void __fastcall ACT5Q5_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x0058BE80
 void __fastcall ACT5Q5_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x0058C290
-void __fastcall ACT5Q5_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x0058C440
+void __fastcall sub_0058C440(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x0058C440
 void __fastcall ACT5Q5_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x0058C9A0
 void __fastcall ACT5Q5_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x0058CBA0
 bool __fastcall ACT5Q5_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC); // 0x0058CCF0
@@ -268,7 +268,7 @@ void __fastcall ACT5Q5_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->pCallback[QUESTEVENT_PLAYERLEAVESGAME] = ACT5Q5_Callback10_PlayerLeavesGame;
     pQuestData->pCallback[QUESTEVENT_CHANGEDLEVEL] = ACT5Q5_Callback03_ChangedLevel;
     pQuestData->pCallback[QUESTEVENT_MONSTERKILLED] = ACT5Q5_Callback08_MonsterKilled;
-    pQuestData->pCallback[QUESTEVENT_NPCACTIVATE] = ACT5Q5_Callback00_NpcActivate;
+    pQuestData->pCallback[QUESTEVENT_NPCACTIVATE] = sub_0058C440;
     pQuestData->pCallback[QUESTEVENT_NPCDEACTIVATE] = ACT5Q5_Callback02_NpcDeactivate;
     pQuestData->pCallback[QUESTEVENT_SCROLLMESSAGE] = ACT5Q5_Callback11_ScrollMessage;
     pQuestData->pCallback[QUESTEVENT_PLAYERSTARTEDGAME] = ACT5Q5_Callback13_PlayerStartedGame;

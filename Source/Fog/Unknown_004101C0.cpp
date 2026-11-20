@@ -95,7 +95,7 @@ extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long dwMillisecon
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
 
 void __fastcall sub_0040F720_WriteMessage(D2LogMessageStrc* pMessage);                                      // 0x0040F720
-void __fastcall sub_0040F070_WriteMessage2(D2LogMessageStrc* pMessage);                                     // 0x0040F070
+void __fastcall sub_0040F070_WriteDumpMessage(D2LogMessageStrc* pMessage);                                     // 0x0040F070
 void __cdecl sub_0040F350_CloseStaleLogs();                                                                 // 0x0040F350
 void __cdecl sub_0040F970_SweepOldLogFiles();                                                               // 0x0040F970
 
@@ -149,7 +149,7 @@ next:
                 sub_0040F720_WriteMessage(pMessage);
                 break;
             case 2:
-                sub_0040F070_WriteMessage2(pMessage);
+                sub_0040F070_WriteDumpMessage(pMessage);
                 break;
             }
             LeaveCriticalSection(&gtLogLock_0075E850);

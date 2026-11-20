@@ -123,7 +123,7 @@ void __fastcall ACT1Q1_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, 
 bool __fastcall ACT1Q1_Timer_StatusCycler(D2GameStrc* pGame, D2QuestDataStrc* pQuestData); // 0x00590230
 void __fastcall ACT1Q1_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x00590470
 bool __fastcall ACT1Q1_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC); // 0x005905B0
-bool __fastcall ACT1Q1_SeqCallback(D2QuestDataStrc* pQuestData); // 0x00590620
+bool __fastcall sub_00590620_SeqCallback(D2QuestDataStrc* pQuestData); // 0x00590620
 void __fastcall ACT1Q1_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x00590690
 
 struct D2PlayerDataStrc
@@ -225,7 +225,7 @@ void __fastcall ACT1Q1_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->pfStatusFilter = 0;
     pQuestData->nInitNo = 4;
     pQuestData->pfActiveFilter = ACT1Q1_ActiveFilterCallback;
-    pQuestData->pfSeqFilter = ACT1Q1_SeqCallback;
+    pQuestData->pfSeqFilter = sub_00590620_SeqCallback;
     pQuestData->nSeqId = 2;
 
     memset(pQuestDataEx, 0x00, sizeof(D2Act1Quest1Strc));

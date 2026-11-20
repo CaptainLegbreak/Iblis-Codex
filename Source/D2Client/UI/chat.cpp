@@ -41,7 +41,7 @@ extern Unicode gwszChatLine_007BB638[]; // 0x007BB638
 void __fastcall sub_00451DB0_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
 bool __cdecl sub_0047B010_IsImeLanguage(); // 0x0047B010
 int __cdecl sub_004F59A0(); // 0x004F59A0
-int __cdecl sub_00525150(); // 0x00525150
+int __cdecl STRTABLE_GetLanguage(); // 0x00525150
 extern "C" int __stdcall ImmReleaseContext(int hWnd, T0046E1B0* hImc); // 0x006B00B4
 extern "C" T0046E1B0* __stdcall ImmGetContext(int hWnd); // 0x006B00C6
 extern "C" int __stdcall ImmGetConversionStatus(T0046E1B0* hImc, unsigned long* pConversion, unsigned long* pSentence); // 0x006B00DE
@@ -133,7 +133,7 @@ static int gnGlobal_007BB5F0; // 0x007BB5F0
 void __cdecl sub_0047B090_InitChatIme()
 {
     sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtChatHandlers_00712F4C, 4);
-    gnLanguageId_007BB5DC = sub_00525150();
+    gnLanguageId_007BB5DC = STRTABLE_GetLanguage();
     if (gnLanguageId_007BB5DC != 6 && gnLanguageId_007BB5DC != 9 && gnLanguageId_007BB5DC != 8 && gnLanguageId_007BB5DC != 7 && gnLanguageId_007BB5DC != 12)
         return;
 

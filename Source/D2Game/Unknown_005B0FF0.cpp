@@ -26,11 +26,11 @@ struct D2AiTickParamStrc
     int bCombat;
 };
 
-int __fastcall sub_0046C140_CheckMonStats2ModeFlag(int, int); // 0x0046C140
+int __fastcall sub_0046C140_TestMonModeFlag(int, int); // 0x0046C140
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc*, int, int); // 0x00552F60
 int __fastcall SUNIT_IsDead(D2UnitStrc*); // 0x005541B0
 int __fastcall AIUTIL_GetDistanceToCoordinates_FullUnitSize(D2UnitStrc*, D2UnitStrc*); // 0x005DC380
-int __fastcall D2GAME_AICORE_Escape_6FCD0560(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, unsigned char, int); // 0x005DEFE0
+int __fastcall sub_005DEFE0_Escape(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, unsigned char, int); // 0x005DEFE0
 void __fastcall AITACTICS_SetVelocity(D2UnitStrc*, int, int, unsigned char); // 0x005DE190
 int __fastcall D2GAME_AICORE_WalkToOwner_6FCD0B60(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, int); // 0x005DF530
 
@@ -49,7 +49,7 @@ D2UnitStrc* __fastcall sub_005DE9D0_FindTarget(D2GameStrc*, D2UnitStrc*, D2AiCon
 
 static __forceinline int CanWalk(D2UnitStrc* pMonster)
 {
-    return sub_0046C140_CheckMonStats2ModeFlag(!pMonster ? -1 : pMonster->dwClassId, 2);
+    return sub_0046C140_TestMonModeFlag(!pMonster ? -1 : pMonster->dwClassId, 2);
 }
 
 // 0x005B0FF0
@@ -80,7 +80,7 @@ int __fastcall D2GAME_AICORE_MinionLeash_6FCF0D10(D2GameStrc* pGame, D2UnitStrc*
     const int nDistance = AIUTIL_GetDistanceToCoordinates_FullUnitSize(pMonster, pOwner);
     if (nDistance <= 1 && (*(D2AiControlStrc* volatile*)&pAiControl)->nOwnerType == 0)
     {
-        if (D2GAME_AICORE_Escape_6FCD0560(pGame, pMonster, pOwner, 19, 1))
+        if (sub_005DEFE0_Escape(pGame, pMonster, pOwner, 19, 1))
             return 1;
     }
     else

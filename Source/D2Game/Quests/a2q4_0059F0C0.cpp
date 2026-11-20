@@ -78,7 +78,7 @@ void __fastcall GAME_RemoveUnit(D2UnitStrc* pUnit, D2GameStrc* pGame);          
 void __stdcall UNITS_GetCoords(D2UnitStrc* pUnit, D2CoordStrc* pCoord);                                     // 0x00620870
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nQuest);                             // 0x00543640
-D2ActiveRoomStrc* __fastcall D2GAME_GetRoom_6FC52070(D2ActiveRoomStrc* pRoom, int nX, int nY);              // 0x00463740
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY);              // 0x00463740
 void __fastcall QUESTS_GetFreePosition(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoord, unsigned int a3, unsigned int a4, D2ActiveRoomStrc** ppRoom, int a6, int a7); // 0x00545340
 D2UnitStrc* __fastcall sub_005B2F20(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonId, int nMode, int a7, int a8); // 0x005B2F20
 int __fastcall ACT2Q4_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);        // 0x0059AD50
@@ -128,7 +128,7 @@ Retreat:
     coords->nX -= 10;
 Position:
     coords->nY -= 3;
-    D2ActiveRoomStrc* found = D2GAME_GetRoom_6FC52070(room, coords->nX, coords->nY);
+    D2ActiveRoomStrc* found = sub_00463740_FindRoomAtPoint(room, coords->nX, coords->nY);
     QUESTS_GetFreePosition(room, coords, 3, 0x100, &found, 9, 100);
     D2UnitStrc* npc = sub_005B2F20(quest->pGame, found, coords->nX, coords->nY, 201, 1, -1, 0);
     if (!npc) npc = sub_005B2F20(quest->pGame, found, coords->nX, coords->nY, 201, 1, 2, 0);

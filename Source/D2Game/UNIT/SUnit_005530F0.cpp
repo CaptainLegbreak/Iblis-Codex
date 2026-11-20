@@ -47,7 +47,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 void __fastcall MONSTERAI_RemoveInteractInfoFor(D2GameStrc* pGame, D2UnitStrc* pMonster, D2MonsterInteractStrc* pMonInteract); // 0x00572E00
 void __fastcall SUNITPROXY_FreeVendorChain(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc); // 0x00536B50
-void __fastcall sub_6FC79C00(D2GameStrc* pGame, D2UnitStrc* pObject); // 0x00585550
+void __fastcall sub_00585550_ResetObject(D2GameStrc* pGame, D2UnitStrc* pObject); // 0x00585550
 void __stdcall D2Common_10228(D2UnitStrc* pUnit); // 0x00649F50
 void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit); // 0x0064C370
 
@@ -87,7 +87,7 @@ struct D2UnitInfoStrc
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 void __stdcall UNITS_InitializeSequence(D2UnitStrc* pUnit); // 0x00621260
-void __stdcall sub_00620F00(D2UnitStrc* pUnit, int nUnitType, int nClassId, int nAnimMode); // 0x00620F00
+void __stdcall UNITS_SetAnimData(D2UnitStrc* pUnit, int nUnitType, int nClassId, int nAnimMode); // 0x00620F00
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
@@ -115,12 +115,12 @@ struct D2DrlgCoordsStrc
 typedef int (__fastcall* EventTimerCallback)(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int a4, int a5);
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
-D2ActiveRoomStrc* __fastcall D2GAME_GetRoom_6FC52070(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
 void __fastcall D2GAME_PACKETS_SendPacket0x07_6FC3D120(D2ClientStrc* pClient, int nAreaId, unsigned short nTileX, unsigned short nTileY); // 0x0053BC50
 void __fastcall sub_00541800(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, EventTimerCallback pfCallBack, int nSkillId, int nSkillLevel); // 0x00541800
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
 int __fastcall sub_6FCBDF90(D2GameStrc* pGame, D2UnitStrc* pPlayer, int a3, int a4, int a5); // 0x00554570
-void __fastcall sub_6FCBB190(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom); // 0x00554670
+void __fastcall sub_00554670_UpdateClientsOnRoomChange(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom); // 0x00554670
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 int __stdcall UNITS_GetUnitSizeX(D2UnitStrc* pUnit); // 0x00620510
@@ -209,7 +209,7 @@ static void sub_00555500_ClearPlayerInteraction(D2GameStrc* pGame, D2UnitStrc* p
                 SUNITPROXY_FreeVendorChain(pGame, pUnit, pInteractUnit);
                 break;
             case UNIT_OBJECT:
-                sub_6FC79C00(pGame, pInteractUnit);
+                sub_00585550_ResetObject(pGame, pInteractUnit);
                 break;
             }
 
@@ -328,7 +328,7 @@ void __fastcall SUNIT_InitializeAnimation(D2UnitStrc* ptUnit)
     }
     else
     {
-        sub_00620F00(ptUnit, ptUnit->dwUnitType, ptUnit->dwClassId, ptUnit->dwAnimMode);
+        UNITS_SetAnimData(ptUnit, ptUnit->dwUnitType, ptUnit->dwClassId, ptUnit->dwAnimMode);
     }
 
     ptUnit->dwFrameCountPrecise = ptUnit->pAnimData->dwFrames << 8;
@@ -437,10 +437,10 @@ int __fastcall sub_6FCBDFE0(D2GameStrc* pGame, D2UnitStrc* hUnit, D2ActiveRoomSt
     tCoords.nY = nY;
     if (!pRoom)
     {
-        pRoom = D2GAME_GetRoom_6FC52070(0, tCoords.nX, tCoords.nY);
+        pRoom = sub_00463740_FindRoomAtPoint(0, tCoords.nX, tCoords.nY);
         if (!pRoom)
         {
-            pRoom = D2GAME_GetRoom_6FC52070(pUnitRoom, tCoords.nX, tCoords.nY);
+            pRoom = sub_00463740_FindRoomAtPoint(pUnitRoom, tCoords.nX, tCoords.nY);
         }
     }
 
@@ -481,7 +481,7 @@ int __fastcall sub_6FCBDFE0(D2GameStrc* pGame, D2UnitStrc* hUnit, D2ActiveRoomSt
             hUnit->dwFlagEx |= 0x10000;
         }
 
-        sub_6FCBB190(pGame, hUnit, 0);
+        sub_00554670_UpdateClientsOnRoomChange(pGame, hUnit, 0);
 
         D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(hUnit);
         const unsigned char nIndex = pPlayerData->unk0xA0;
@@ -511,7 +511,7 @@ int __fastcall sub_6FCBDFE0(D2GameStrc* pGame, D2UnitStrc* hUnit, D2ActiveRoomSt
             hUnit->dwFlagEx |= 0x10000;
         }
 
-        sub_6FCBB190(pGame, hUnit, 0);
+        sub_00554670_UpdateClientsOnRoomChange(pGame, hUnit, 0);
     }
 
     return 1;

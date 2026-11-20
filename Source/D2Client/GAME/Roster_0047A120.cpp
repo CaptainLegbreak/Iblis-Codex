@@ -49,7 +49,7 @@ int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);    
 void __cdecl sub_00479AB0();                                                                                // 0x00479AB0
 void __cdecl sub_0049A640();                                                                                // 0x0049A640
 void __fastcall sub_004DC2B0_FreeRosterInfoList(D2RosterInfoStrc** pList);                                  // 0x004DC2B0
-D2UnitStrc* __cdecl sub_00463DD0();                                                               // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 unsigned short __fastcall sub_00465400_GetPlayerRosterField22(D2UnitStrc* pUnit);                           // 0x00465400
 
 extern D2StoredUnitRecordStrc* gpStoredUnits_007BB5C0;                                                      // 0x007BB5C0
@@ -57,7 +57,7 @@ extern D2StoredUnitRecordStrc* gpStoredUnits_007BB5C0;                          
 // 0x0047A120
 int __fastcall sub_0047A120_IsInPlayerParty(D2StoredUnitRecordStrc* pRecord)
 {
-    if (pRecord && pRecord->wPartyId != 0xFFFF && sub_00465400_GetPlayerRosterField22(sub_00463DD0()) == pRecord->wPartyId)
+    if (pRecord && pRecord->wPartyId != 0xFFFF && sub_00465400_GetPlayerRosterField22(sub_00463DD0_GetPlayerUnit()) == pRecord->wPartyId)
     {
         return 1;
     }

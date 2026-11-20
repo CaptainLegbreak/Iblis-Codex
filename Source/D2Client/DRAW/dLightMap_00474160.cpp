@@ -51,7 +51,7 @@ struct D2DrlgCoordsStrc
     int nTileHeight;
 };
 
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, int* pnNumRooms); // 0x00619790
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
@@ -157,7 +157,7 @@ static void __stdcall sub_004744B0_FillLightGrid(int nX0, int nY0, int nX1, int 
 // build: context sub_00474610_UpdateLightGrid
 void __stdcall sub_00474610_UpdateLightGrid(int bReset)
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (!pPlayer)
     {
         sub_004744B0_FillLightGrid(0, 0, 0x2F, 0x2F, 0);
@@ -218,7 +218,7 @@ void __stdcall sub_00474610_UpdateLightGrid(int bReset)
 // 0x00474790
 void __cdecl sub_00474790_ClearLightGrid()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (pPlayer)
         UNITS_GetRoom(pPlayer);
 

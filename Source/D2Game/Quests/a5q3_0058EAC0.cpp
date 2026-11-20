@@ -31,7 +31,7 @@ struct D2Act5Quest3Strc
 struct D2Act5Quest4Strc { char unk_00[0x87]; unsigned char bObjectEvent; };
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc*, int); // 0x00543640
 bool __fastcall ACT5Q3_SeqCallback(D2QuestDataStrc*); // 0x00589160
-D2UnitStrc* __fastcall QUESTS_SpawnCriticalMonster(D2GameStrc*, int, int, D2ActiveRoomStrc*, int, int); // 0x005459A0
+D2UnitStrc* __fastcall sub_005459A0_SpawnMonsterNear(D2GameStrc*, int, int, D2ActiveRoomStrc*, int, int); // 0x005459A0
 D2MapAIStrc* __stdcall AIGENERAL_GetMapAiFromUnit(D2UnitStrc*); // 0x0058F000
 D2MapAIStrc* __fastcall DRLGPRESET_ChangeMapAI(D2MapAIStrc**, D2MapAIStrc*); // 0x00666120
 void __fastcall EVENT_SetEvent(D2GameStrc*, D2UnitStrc*, int, int, int, int); // 0x005417D0
@@ -53,7 +53,7 @@ void __fastcall sub_0058EAC0_InitDrehyaTownObject(D2ObjInitFnStrc* pOp)
             ACT5Q3_SeqCallback(pQuestData);
             if (!pQuestDataEx->bDrehyaSpawned)
             {
-                D2UnitStrc* pDrehya = QUESTS_SpawnCriticalMonster(pOp->pGame, pOp->nX, pOp->nY, pOp->pRoom, 1, 512);
+                D2UnitStrc* pDrehya = sub_005459A0_SpawnMonsterNear(pOp->pGame, pOp->nX, pOp->nY, pOp->pRoom, 1, 512);
                 if (pDrehya)
                 {
                     pQuestDataEx->nDrehyaGUID = !pDrehya ? -1 : pDrehya->dwUnitId;

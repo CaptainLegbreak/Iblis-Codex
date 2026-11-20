@@ -34,7 +34,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
-void __cdecl sub_00468310_AfterCursorDraw();                                                                // 0x00468310
+void __cdecl sub_00468310_UpdateCursor();                                                                // 0x00468310
 int __fastcall sub_004DBB50_GetItemCelContext(D2CelContextStrc* pContext, D2UnitStrc* pItem, int nArg3, int nArg4, int nArg5, int* pOut, int nArg7, int nArg8); // 0x004DBB50
 int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3);                // 0x006001F0
 unsigned int __stdcall sub_006018C0(D2CelStrc* pCel);                                                        // 0x006018C0
@@ -83,7 +83,7 @@ void __cdecl sub_004683C0_DrawDefaultCursor()
     tContext.unk0x40 = 0;
     tContext.nFrame = gnGlobal_007A6AE0 >> 8;
     sub_004F6480(&tContext, nX, nY, -1, 5, 0);
-    sub_00468310_AfterCursorDraw();
+    sub_00468310_UpdateCursor();
 }
 
 // 0x004684C0
@@ -160,7 +160,7 @@ void __cdecl sub_004685C0_PaintCursorItem()
             tContext.unk0x40 = 0;
             tContext.nFrame = gnGlobal_007A6AE0 >> 8;
             sub_004F6480(&tContext, nX, nY, -1, 5, 0);
-            sub_00468310_AfterCursorDraw();
+            sub_00468310_UpdateCursor();
         }
     }
 }

@@ -32,7 +32,7 @@ struct D2PetTypeTxt
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize);                                      // 0x00681EF0
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
-D2UnitStrc* __cdecl sub_00463DD0();                                                               // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 int __cdecl sub_0045AE90();                                                                                 // 0x0045AE90
 int __cdecl sub_0044DCC0();                                                                                 // 0x0044DCC0
 int __fastcall sub_004538D0(int nUIVar);                                                             // 0x004538D0
@@ -40,7 +40,7 @@ int __fastcall sub_00455F20(int nUIVar, int nState, int nArg);                  
 D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType);                             // 0x00463990
 unsigned short __fastcall sub_00465400_GetPlayerRosterField22(D2UnitStrc* pUnit);                          // 0x00465400
 const Unicode* __fastcall sub_00464A60_GetUnitName(D2UnitStrc* pUnit);                                     // 0x00464A60
-int __fastcall sub_00478EE0_GetPetCount(D2UnitStrc* pOwner, int nPetType);                                 // 0x00478EE0
+int __fastcall sub_00478EE0_CountPets(D2UnitStrc* pOwner, int nPetType);                                 // 0x00478EE0
 int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny);                  // 0x00478F20
 int __fastcall sub_00479080_GetPetLife(int nUnitId);                                                       // 0x00479080
 D2StoredUnitRecordStrc* __fastcall sub_004795A0_GetNextEntry(D2StoredUnitRecordStrc* pEntry);              // 0x004795A0
@@ -57,7 +57,7 @@ void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, uns
 int __fastcall sub_00501820(const Unicode* wszText);                                             // 0x00501820
 void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
 int __fastcall sub_00502EF0(int nArg);                                                                      // 0x00502EF0
-void __fastcall sub_00502280_SetPopUpText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5);    // 0x00502280
+void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5);    // 0x00502280
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength);                  // 0x00526320
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);                                 // 0x00526700
@@ -302,7 +302,7 @@ static int __stdcall sub_00493E10_DrawPetIcon(D2UnitStrc* pPlayer, int* pnX, int
 // 0x00493EB0
 static int __stdcall sub_00493EB0_DrawPetCountIcon(D2UnitStrc* pPlayer, int* pnY, int* pbAlternate, int nPetType, int* pnX)
 {
-    const int nCount = sub_00478EE0_GetPetCount(pPlayer, nPetType);
+    const int nCount = sub_00478EE0_CountPets(pPlayer, nPetType);
     if (!nCount)
         return 0;
 
@@ -363,7 +363,7 @@ static int __stdcall sub_00493F80_DrawPetIcon3(D2UnitStrc* pPlayer, int* pnX, in
 // 0x00494020
 void __cdecl sub_00494020_DrawPetIcons()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     int nY = 0x48;
     int bAlternate = 0;
     int nX = 0xF;
@@ -414,7 +414,7 @@ void __cdecl sub_00494020_DrawPetIcons()
             sub_005269D0(0x100, wszText, wszFormat, sub_0046A530_GetKeyName(0x36, 1));
             sub_00526700(wszText, wszMiddle);
             sub_00526700(wszText, wszSuffix);
-            sub_00502280_SetPopUpText(wszText, gnPopupX_007BEED4, gnPopupY_007BEED8 + 0x24, 0, 0);
+            D2Win_10129_DrawFramedText(wszText, gnPopupX_007BEED4, gnPopupY_007BEED8 + 0x24, 0, 0);
         }
     }
     else

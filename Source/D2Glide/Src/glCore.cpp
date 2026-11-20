@@ -73,10 +73,10 @@ extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2Critical
 extern "C" __declspec(dllimport) int __stdcall FreeLibrary(void* hModule); // 0x006CC14C
 int __fastcall sub_00509F70_GlideReopenWindow(void* hWnd, int nResolution); // 0x00509F70
 void __fastcall sub_005090B0_GlideSetGamma(int nGamma); // 0x005090B0
-void __cdecl sub_0050DF70_GlideShutdownStep(); // 0x0050DF70
+void __cdecl sub_0050DF70_GlideSmackFree(); // 0x0050DF70
 void __cdecl sub_0050F8C0_GlideShutdownStep(); // 0x0050F8C0
-void __cdecl sub_0050DCA0_GlideShutdownStep(); // 0x0050DCA0
-void __cdecl sub_0050DB40_GlideShutdownStep(); // 0x0050DB40
+void __cdecl sub_0050DCA0_FreePerspectiveTable(); // 0x0050DCA0
+void __cdecl sub_0050DB40_FreeBlendTable(); // 0x0050DB40
 extern int gnScreenWidth_007C9138; // 0x007C9138
 extern void* ghDDrawWindow_007C9140; // 0x007C9140
 extern int gbRenderPaused_007C9144; // 0x007C9144
@@ -143,10 +143,10 @@ extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2Crit
 extern "C" int __cdecl atexit(void (__cdecl* pfnExit)()); // 0x00683824
 extern int gbGlideInit_0087EFCC; // 0x0087EFCC
 void __cdecl sub_00509FD0_GlideAtExit(); // 0x00509FD0
-void __cdecl sub_0050C760_GlideInitC(); // 0x0050C760
+void __cdecl sub_0050C760_GlideInitVertices(); // 0x0050C760
 void __cdecl sub_0050D540_GlideInitD(); // 0x0050D540
 void __cdecl sub_0050DB20_AllocBlendTable(); // 0x0050DB20
-void __cdecl sub_0050DB70_GlideInitB(); // 0x0050DB70
+void __cdecl sub_0050DB70_BuildMulTable(); // 0x0050DB70
 void __cdecl sub_0050DC80_AllocPerspectiveTable(); // 0x0050DC80
 void __cdecl sub_0050DCD0_FillPerspectiveTable(); // 0x0050DCD0
 void __cdecl sub_0050DF10_GlideSmackInit(); // 0x0050DF10
@@ -565,12 +565,12 @@ int __cdecl sub_00509E10_GlideClose()
 {
     if (gbGlideInit_0087EFCC)
     {
-        sub_0050DF70_GlideShutdownStep();
+        sub_0050DF70_GlideSmackFree();
         sub_00509AA0_GlideSuspend();
         gpfGlideFn_0087EAB0();
         sub_0050F8C0_GlideShutdownStep();
-        sub_0050DCA0_GlideShutdownStep();
-        sub_0050DB40_GlideShutdownStep();
+        sub_0050DCA0_FreePerspectiveTable();
+        sub_0050DB40_FreeBlendTable();
         gbGlideInit_0087EFCC = 0;
     }
 
@@ -890,9 +890,9 @@ int __fastcall sub_0050A010_GlideInit(D2GfxSettingsStrc* pSettings, D2TileDrawFu
     gbGlideInit_0087EFCC = 1;
     gpfGlideFn_0087EB3C(0);
     atexit(sub_00509FD0_GlideAtExit);
-    sub_0050DB70_GlideInitB();
+    sub_0050DB70_BuildMulTable();
     sub_0050DCD0_FillPerspectiveTable();
-    sub_0050C760_GlideInitC();
+    sub_0050C760_GlideInitVertices();
     sub_0050D540_GlideInitD();
     sub_0050DF10_GlideSmackInit();
     gpRenderCriticalSection_007C9134 = (D2CriticalSectionStrc*)FOG_Alloc(sizeof(D2CriticalSectionStrc), ".\\Src\\glCore.cpp", 0x2D5, 0);

@@ -91,10 +91,10 @@ struct D2DrlgPathSearchStrc
 };
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
-int __fastcall sub_0067C570(D2DrlgGridStrc* pGrid, int nX, int nY);                         // 0x0067C570
+int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY);                         // 0x0067C570
 D2DrlgVertexStrc* __fastcall DRLGVER_AllocVertex(void* pMemPool, unsigned char nDirection);          // 0x0067CDD0
 int __fastcall DRLGROOM_AreXYInsideCoordinates(D2DrlgCoordsStrc* pCoords, int nX, int nY);          // 0x0066B980
-int __fastcall sub_00678CF0(int nX1, int nY1, int nX2, int nY2);              // 0x00678CF0
+int __fastcall sub_6FDAB750(int nX1, int nY1, int nX2, int nY2);              // 0x00678CF0
 
 extern const unsigned char gPathTurns[4][4]; // 0x006F2840
 
@@ -184,7 +184,7 @@ static int __stdcall sub_006815C0(D2DrlgVertexStrc* pGoal, int nX, int nY, D2Drl
     }
 
     D2DrlgOutdoorInfoStrc* pInfo = pLevel->pOutdoorInfo;
-    if (!DRLGROOM_AreXYInsideCoordinates(&pInfo->tCoords, nX, nY) || (sub_0067C570(&pInfo->tGrid2C, nX, nY) & 0x200))
+    if (!DRLGROOM_AreXYInsideCoordinates(&pInfo->tCoords, nX, nY) || (DRLGGRID_GetGridEntry(&pInfo->tGrid2C, nX, nY) & 0x200))
     {
         return 0;
     }
@@ -237,7 +237,7 @@ static T00681490* __stdcall sub_00681630(D2DrlgPathSearchStrc* pSearch, int nMax
                 pNode->nCost = nCost;
                 pNode->nSpent = nSpent;
                 pNode->nTried = 0;
-                int nBase = sub_00678CF0(nX, nY, nGoalX, nGoalY) / 2;
+                int nBase = sub_6FDAB750(nX, nY, nGoalX, nGoalY) / 2;
                 pNode->pTurn = sub_00681540(pNode->pParent->nDirection, nBase);
                 pNode->nDirection = (*pNode->pTurn + nBase) & 3;
                 pNode->nX = nX;
@@ -282,7 +282,7 @@ int __fastcall sub_006817D0(D2DrlgLevelStrc* pLevel, int nRoad)
 
     D2DrlgPathSearchStrc tSearch;
     T00681490 tStart;
-    int nDirection = sub_00678CF0(nStartX, nStartY, tGoal.nPosX, tGoal.nPosY) / 2;
+    int nDirection = sub_6FDAB750(nStartX, nStartY, tGoal.nPosX, tGoal.nPosY) / 2;
     tStart.nSpent = 0;
     int nEstimate = sub_006814E0(nStartX, nStartY, tGoal.nPosX, tGoal.nPosY);
     tStart.nDirection = nDirection & 3;

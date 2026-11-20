@@ -46,7 +46,7 @@ void __stdcall UNITS_GetCoords(D2UnitStrc*, D2CoordStrc*); // 0x00620870
 int __stdcall UNITS_GetUnitSizeX(D2UnitStrc*); // 0x00620510
 int __stdcall UNITS_GetUnitSizeY(D2UnitStrc*); // 0x006205A0
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc*, D2ActiveRoomStrc***, unsigned int*); // 0x00619790
-void __fastcall SUNIT_WarpPlayer(D2GameStrc*, D2UnitStrc*, D2UnitStrc*); // 0x005550B0
+void __fastcall sub_005550B0_WarpPlayer(D2GameStrc*, D2UnitStrc*, D2UnitStrc*); // 0x005550B0
 void __stdcall UNITS_ChangeAnimMode(D2UnitStrc*, int); // 0x00624690
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int); // 0x00640E90
 void __fastcall EVENT_SetEvent(D2GameStrc*, D2UnitStrc*, int, int, int, int); // 0x005417D0
@@ -66,7 +66,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void);
 extern const char gszObjModeSourceFile_006E1970[]; // 0x006E1970
 int __fastcall PLAYER_HasHostilePlayer(D2GameStrc*, D2UnitStrc*); // 0x00535B10
-D2UnitStrc* __fastcall sub_00553720_GetOtherPortal(D2GameStrc*, D2UnitStrc*); // 0x00553720
+D2UnitStrc* __fastcall sub_00553720_ResolveObjectOwner(D2GameStrc*, D2UnitStrc*); // 0x00553720
 void __fastcall ACT5Q5_OnPortalClosed(D2GameStrc*, D2UnitStrc*); // 0x0058CF50
 D2PortalQuestStrc* __fastcall DATATBLS_GetLevelDefRecord(int); // 0x0061E470
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc*); // 0x0045ADF0
@@ -146,7 +146,7 @@ int __fastcall sub_00581F60_OperateWarpObject(D2ObjOperateFnStrc* pOp)
             } while (++i < nRooms);
             return 1;
         found:
-            SUNIT_WarpPlayer(pOp->pGame, pOp->hPlayer, pTile);
+            sub_005550B0_WarpPlayer(pOp->pGame, pOp->hPlayer, pTile);
             return 1;
         }
         break;
@@ -195,7 +195,7 @@ int __fastcall sub_00584870_OperatePortal(D2ObjOperateFnStrc* pOp)
         }
     }
     D2_ASSERT((pOp->hPlayer ? pOp->hPlayer->dwUnitType : 6) == 0, 0xED8);
-    D2UnitStrc* pOtherPortal = sub_00553720_GetOtherPortal(pOp->pGame, pOp->hObject);
+    D2UnitStrc* pOtherPortal = sub_00553720_ResolveObjectOwner(pOp->pGame, pOp->hObject);
     if (pOtherPortal && pOtherPortal->dwUnitType != 2) pOtherPortal = 0;
     if (UNITS_GetRoom(pOp->hObject)) {
         D2BitBufferStrc* pQuestFlags = PLAYER_GetQuestFlags(pOp->pGame, pOp->hPlayer);

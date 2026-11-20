@@ -65,13 +65,13 @@ void __stdcall ITEMS_SetInvPage(D2UnitStrc* pItem, unsigned char nPage);        
 int __stdcall ITEMS_CheckType(int nItemType, int nItemTypeToCheck);                                         // 0x00629B50
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType);                                     // 0x00629BB0
 int __stdcall INVENTORY_PlaceItemInSocket(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nPage);       // 0x0063B210
-int __stdcall sub_0063BDB0(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nBodyLoc);                   // 0x0063BDB0
+int __stdcall INVENTORY_PlaceItemInBodyLoc(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nBodyLoc);                   // 0x0063BDB0
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc);             // 0x0063BDE0
 void __stdcall sub_0063BE30(D2InventoryStrc* pInventory, int nBodyLoc);                                     // 0x0063BE30
 D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory);                             // 0x0063BEF0
 void __stdcall INVENTORY_SetCursorItem(D2InventoryStrc* pInventory, D2UnitStrc* pItem);                     // 0x0063C180
 void __stdcall INVENTORY_AddItemToTradeInventory(D2InventoryStrc* pInventory, D2UnitStrc* pItem);           // 0x0063CC70
-void __stdcall sub_0063D1D0_InventoryItemCall(D2InventoryStrc* pInventory, D2UnitStrc* pItem);              // 0x0063D1D0
+void __stdcall INVENTORY_UpdateWeaponGUIDOnInsert(D2InventoryStrc* pInventory, D2UnitStrc* pItem);              // 0x0063D1D0
 D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID);              // 0x006439B0
 D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill);                            // 0x00644140
 int __stdcall SKILLS_GetUseState(D2UnitStrc* pUnit, D2SkillStrc* pSkill);                                   // 0x00647960
@@ -423,14 +423,14 @@ int __fastcall ITEMMODE_EquipItemAtResolvedBodyLocation(D2GameStrc* pGame, D2Uni
     int nBodyLoc;
     if (sub_6FC42F20(pUnit, pItem, &nBodyLoc, bSkipRequirementCheck))
     {
-        if (sub_0063BDB0(pInventory, pItem, nBodyLoc))
+        if (INVENTORY_PlaceItemInBodyLoc(pInventory, pItem, nBodyLoc))
         {
             if (nBodyLoc != 0xB && nBodyLoc != 0xC)
             {
                 if (INVENTORY_PlaceItemInSocket(pInventory, pItem, 3))
                 {
                     ITEMS_SetBodyLocation(pItem, nBodyLoc);
-                    sub_0063D1D0_InventoryItemCall(pInventory, pItem);
+                    INVENTORY_UpdateWeaponGUIDOnInsert(pInventory, pItem);
                     INVENTORY_SetCursorItem(pInventory, 0);
                     sITEMSAddStatsList(pGame, pItem, pUnit, 0);
                     if (pItem)

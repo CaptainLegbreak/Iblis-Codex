@@ -102,8 +102,8 @@ int __stdcall BACKGROUND_SetCellFile(D2CellFileStrc* pCellFile); // 0x004F9140
 void __fastcall sub_004F9740(D2WinControlStrc* pControl, int bSet); // 0x004F9740
 void __fastcall sub_004FB590(int nArg); // 0x004FB590
 int __fastcall D2Win_10051(D2WinControlStrc* pTextBox, const Unicode* wszText, int nColor, char bIsWrapped, int nIndent); // 0x004FC9B0
-void __fastcall sub_004FD830(D2WinTimerStrc* pTimer); // 0x004FD830
-void __fastcall sub_004FDA50(D2WinTimerStrc* pTimer); // 0x004FDA50
+void __fastcall sub_004FD830_2(D2WinTimerStrc* pTimer); // 0x004FD830
+void __fastcall sub_004FDA50_2(D2WinTimerStrc* pTimer); // 0x004FDA50
 void __fastcall BUTTON_SetCoordinates(D2WinButtonStrc* pButton, int nX, int nY, int nWidth, int nHeight); // 0x00500A70
 extern D2CellFileStrc* gpCellFile_00779768; // 0x00779768
 extern D2WinControlStrc* gpControl_00779D8C; // 0x00779D8C
@@ -124,11 +124,11 @@ struct SMSGHANDLER_PARAMS
 
 void __cdecl sub_0043A730(); // 0x0043A730
 int __cdecl sub_0042FA30(); // 0x0042FA30
-void __cdecl sub_0042F990(); // 0x0042F990
+void __cdecl sub_0042F990_UpdateProgress(); // 0x0042F990
 int __cdecl sub_0042F6D0(); // 0x0042F6D0
 int __fastcall sub_004F9190(); // 0x004F9190
 extern int gdwGlobal_0077AC04; // 0x0077AC04
-void __cdecl sub_00518C20(); // 0x00518C20
+void __cdecl sub_00518C20_DeleteQueueLock(); // 0x00518C20
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -315,8 +315,8 @@ void __cdecl sub_0043B080_InitCharSelectScreen()
     gnState_00779DAC = 0;
 
     D2WinTimerStrc* pTimer = (D2WinTimerStrc*)sub_0042F430_CreateControl(0x7A);
-    sub_004FD830(pTimer);
-    sub_004FDA50(pTimer);
+    sub_004FD830_2(pTimer);
+    sub_004FDA50_2(pTimer);
     gpLaunchRecord_007795D4->nByte210 = 0;
 
     gpControl_007799F8 = sub_0042F430_CreateControl(0x7C);
@@ -416,7 +416,7 @@ int __stdcall sub_0043B850_OnTick(SMSGHANDLER_PARAMS* pMsg)
 {
     if (gpFuncTable_0077ABF0->pfnSlot4C() != 0x65 && !sub_0042FA30())
     {
-        sub_0042F990();
+        sub_0042F990_UpdateProgress();
         return 1;
     }
     sub_004F9190();
@@ -437,7 +437,7 @@ int __stdcall sub_0043B890_OnTick(SMSGHANDLER_PARAMS* pMsg)
 void __cdecl sub_0043B800_ClearFuncTable()
 {
     gpFuncTable_0077ABF0 = 0;
-    sub_00518C20();
+    sub_00518C20_DeleteQueueLock();
 }
 
 // 0x0043B8E0

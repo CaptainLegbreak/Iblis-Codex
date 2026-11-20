@@ -257,7 +257,7 @@ extern char gpAct2Q4NpcMessages[]; // 0x0073A638
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 void __fastcall QUESTS_ResetPlayerGUIDCount(D2QuestGUIDStrc* pQuestGUID); // 0x00545300
 bool __fastcall ACT2Q4_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC); // 0x0059ACA0
-void __fastcall ACT2Q4_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x0059AD40
+void __fastcall ACT3Q5_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x0059AD40
 void __fastcall ACT2Q4_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x0059AE60
 void __fastcall ACT2Q4_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x0059AF50
 void __fastcall ACT2Q4_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x0059B1C0
@@ -808,7 +808,7 @@ void __fastcall ACT2Q4_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->pCallback[0] = ACT2Q4_Callback00_NpcActivate;
     pQuestData->pCallback[11] = ACT2Q4_Callback11_ScrollMessage;
     pQuestData->pCallback[3] = ACT2Q4_Callback03_ChangedLevel;
-    pQuestData->pCallback[10] = ACT2Q4_Callback10_PlayerLeavesGame;
+    pQuestData->pCallback[10] = ACT3Q5_Callback10_PlayerLeavesGame;
     pQuestData->pCallback[2] = ACT2Q4_Callback02_NpcDeactivate;
     pQuestData->pCallback[13] = ACT2Q4_Callback13_PlayerStartedGame;
     pQuestData->bActive = 1;

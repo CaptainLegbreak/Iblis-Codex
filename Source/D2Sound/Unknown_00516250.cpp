@@ -73,7 +73,7 @@ extern void* ghSoundEvent_0088180C; // 0x0088180C
 extern int gbIconic_00881814; // 0x00881814
 extern "C" void* __cdecl sub_004F59A0_GetHwnd(); // 0x004F59A0
 int __cdecl sub_00514920(); // 0x00514920
-int __cdecl sub_00514840(); // 0x00514840
+int __cdecl sub_00514840_IsChannelStreaming(); // 0x00514840
 void __cdecl sub_00514990_PickRandomChannel(); // 0x00514990
 void __fastcall sub_00515180_FillBuffer(D2SoundStrc* pSound, int nArg2, int nArg3, unsigned int nSize); // 0x00515180
 int __fastcall sub_00515300_ClearSoundBuffer(D2DSoundBufferStrc* pBuffer, unsigned long nOffset, unsigned long nBytes); // 0x00515300
@@ -130,7 +130,7 @@ unsigned long __stdcall sub_00516250_SoundThread(void* pParameter)
         const int bWasIconic = gbIconic_00881814;
         gbIconic_00881814 = IsIconic(sub_004F59A0_GetHwnd());
 
-        if (sub_00514920() && !sub_00514840())
+        if (sub_00514920() && !sub_00514840_IsChannelStreaming())
         {
             sub_00514990_PickRandomChannel();
         }

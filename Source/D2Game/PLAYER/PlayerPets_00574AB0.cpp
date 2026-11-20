@@ -57,7 +57,7 @@ extern D2DataTablesStrc* sgptDataTables;                                        
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc*); // 0x006221A0
 int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc*); // 0x00451F50
 void __fastcall SUNIT_IterateLivingPlayers(D2GameStrc*, SUNIT_IterateFn, void*); // 0x005538D0
-void __fastcall sub_00574930_NotifyPetRevival(D2GameStrc*, D2UnitStrc*, void*); // 0x00574930
+void __fastcall PLAYERPETS_PlayerIterate_UpdateClient(D2GameStrc*, D2UnitStrc*, void*); // 0x00574930
 static __forceinline D2PetListStrc* GetPetList(D2PlayerPetStrc* pPets, int nType, int nCount)
 {
     if (nType >= 0 && nType < nCount)
@@ -102,7 +102,7 @@ int __fastcall sub_00574AB0_RevivePet(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2
                     arg.nUnitGUID = GetUnitGUID(pPlayer);
                     arg.nSeed = pPetData->petInfo.nSeed;
                     arg.nName = pPetData->petInfo.nName;
-                    SUNIT_IterateLivingPlayers(pGame, sub_00574930_NotifyPetRevival, &arg);
+                    SUNIT_IterateLivingPlayers(pGame, PLAYERPETS_PlayerIterate_UpdateClient, &arg);
                     return 1;
                 }
             }

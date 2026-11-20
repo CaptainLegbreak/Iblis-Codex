@@ -38,12 +38,12 @@ struct D2AiTickParamStrc
 };
 
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                          // 0x0045C390
-int __fastcall sub_004CC7C0_GetSkillRange(int nSkillId, int nSkillLevel);                                   // 0x004CC7C0
-D2UnitStrc* __fastcall sub_0056E390_FindSkillTarget(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillId, int nSkillLevel); // 0x0056E390
+int __fastcall sub_004CC7C0_GetSkillMissileRange(int nSkillId, int nSkillLevel);                                   // 0x004CC7C0
+D2UnitStrc* __fastcall sub_6FD15210(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillId, int nSkillLevel); // 0x0056E390
 D2UnitStrc* __fastcall AIUTIL_SelectAiTargetWithCollisionCheck(D2GameStrc* pGame, D2UnitStrc* pUnit, int* pDistance, int* pInMeleeRange); // 0x005DDC30
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames);            // 0x005DE080
 int __fastcall AITACTICS_UseSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nMode, int nSkillId, D2UnitStrc* pTarget, int nX, int nY); // 0x005DEAD0
-int __fastcall sub_005EA2B0_Check(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam, int a4); // 0x005EA2B0
+int __fastcall AITHINK_AssasinSentryHasLostTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam, int a4); // 0x005EA2B0
 int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pOther);                        // 0x006416D0
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId);          // 0x006439F0
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus);                     // 0x006442A0
@@ -62,7 +62,7 @@ void __fastcall sub_005EA980_AiThink(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
     int nLastTarget;
     int nRange;
 
-    if (sub_005EA2B0_Check(pGame, pUnit, pAiTickParam, 0))
+    if (AITHINK_AssasinSentryHasLostTarget(pGame, pUnit, pAiTickParam, 0))
     {
         return;
     }
@@ -88,12 +88,12 @@ void __fastcall sub_005EA980_AiThink(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
         return;
     }
 
-    pSkillTarget = sub_0056E390_FindSkillTarget(pUnit, pTarget, nSkillId, nSkillLevel);
+    pSkillTarget = sub_6FD15210(pUnit, pTarget, nSkillId, nSkillLevel);
     nLastTarget = pAiTickParam->pAiControl->dwAiParam[0];
-    nRange = sub_004CC7C0_GetSkillRange(nSkillId, nSkillLevel) / 2;
+    nRange = sub_004CC7C0_GetSkillMissileRange(nSkillId, nSkillLevel) / 2;
     if (pSkillTarget && (!pSkillTarget ? -1 : pSkillTarget->dwUnitId) != nLastTarget && sub_006416D0_UnitEdgeDistance(pTarget, pSkillTarget) < nRange)
     {
-        if (sub_005EA2B0_Check(pGame, pUnit, pAiTickParam, 1))
+        if (AITHINK_AssasinSentryHasLostTarget(pGame, pUnit, pAiTickParam, 1))
         {
             return;
         }
@@ -105,7 +105,7 @@ void __fastcall sub_005EA980_AiThink(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
 
     if (nDistance < pMonStatsTxt->nAiP1[pGame->nDifficulty] && (int)SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100) < pMonStatsTxt->nAiDist[pGame->nDifficulty])
     {
-        if (sub_005EA2B0_Check(pGame, pUnit, pAiTickParam, 1))
+        if (AITHINK_AssasinSentryHasLostTarget(pGame, pUnit, pAiTickParam, 1))
         {
             return;
         }

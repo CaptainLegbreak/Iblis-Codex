@@ -26,7 +26,7 @@ int __fastcall sub_6FC828D0(D2UnitStrc* pPlayer, int nUnitType, int nUnitGUID, i
 void __fastcall sub_6FCBC7E0(D2GameStrc* pGame, D2UnitStrc* pUnit);                                         // 0x00553490
 void __fastcall SUNIT_SetCombatMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode);                       // 0x00553570
 void __fastcall D2GAME_DeletePlayerPerFrameEvents_6FCBCE50(D2GameStrc* pGame, D2UnitStrc* pUnit);           // 0x00553990
-int __fastcall SUNIT_UpdateUnitPath(D2GameStrc* pGame, D2UnitStrc* pUnit);                                  // 0x00554CA0
+int __fastcall sub_6FCBC930(D2GameStrc* pGame, D2UnitStrc* pUnit);                                  // 0x00554CA0
 void __fastcall PLRMODE_StartXY_Neutral(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nMode, int nX, int nY); // 0x0057F020
 void __fastcall StartModeID(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2SkillStrc* pSkill, int nMode, int nUnitType, int nTargetGUID, int bAllowReEnter); // 0x00580A70
 void __fastcall SKILLS_CreateBlazeMissile(D2GameStrc* pGame, D2UnitStrc* pUnit);                            // 0x005C9D90
@@ -290,7 +290,7 @@ int __fastcall PLRMODE_UpdateMovement(D2GameStrc* pGame, D2UnitStrc* pPlayer, in
         sub_0057F090_StartMovement(pGame, pPlayer, 2);
     }
 
-    int nPathResult = SUNIT_UpdateUnitPath(pGame, pPlayer);
+    int nPathResult = sub_6FCBC930(pGame, pPlayer);
     const unsigned int nTickCount = GetTickCount();
     D2PlayerDataStrc* pPlayerData = UNITS_GetPlayerData(pPlayer);
     if (nTickCount > pPlayerData->dwPositionHistoryTick + 25)

@@ -50,7 +50,7 @@ struct D2DrlgLevelStrc
     D2SeedStrc tSeed;
 };
 
-int __fastcall sub_0067C570(D2DrlgGridStrc* pGrid, int nX, int nY); // 0x0067C570
+int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY); // 0x0067C570
 
 struct D2PresetPairStrc
 {
@@ -85,8 +85,8 @@ static void __stdcall DRLGOUTWILD_FindBridgeInColumn(D2DrlgLevelStrc* pLevel, in
     D2DrlgOutdoorInfoStrc* pOutdoors = pLevel->pOutdoors;
     for (int nY = 1; nY < pOutdoors->nGridWidth - 1; ++nY)
     {
-        const int nEntry = sub_0067C570(&pOutdoors->pGrid[0], nX, nY);
-        const unsigned int nPacked = sub_0067C570(&pOutdoors->pGrid[2], nX, nY);
+        const int nEntry = DRLGGRID_GetGridEntry(&pOutdoors->pGrid[0], nX, nY);
+        const unsigned int nPacked = DRLGGRID_GetGridEntry(&pOutdoors->pGrid[2], nX, nY);
         const int nPickedFile = (nPacked >> 16) & 0xF;
         if (nEntry == 28 && nPickedFile == 1)
         {

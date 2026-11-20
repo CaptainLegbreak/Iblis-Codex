@@ -14,7 +14,7 @@ struct D2MonsterSpawnParamsStrc
     short nFlags;
 };
 
-D2UnitStrc* __fastcall D2GAME_SpawnNormalMonster_6FC68E30(D2MonsterSpawnParamsStrc* pMonCreate); // 0x005B2A00
+D2UnitStrc* __fastcall sub_005B2A00_SpawnNormalMonster(D2MonsterSpawnParamsStrc* pMonCreate); // 0x005B2A00
 
 // 0x005B2F20
 D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags)
@@ -32,5 +32,5 @@ D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveR
     monCreate.nX = nX;
     monCreate.nY = nY;
 
-    return D2GAME_SpawnNormalMonster_6FC68E30(&monCreate);
+    return sub_005B2A00_SpawnNormalMonster(&monCreate);
 }

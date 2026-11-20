@@ -37,15 +37,15 @@ void __fastcall sub_00401740_SetText(const char* szText); // 0x00401740
 void __fastcall sub_00403F60_SetCrashHandler(void* pfnHandler, void* pContext, int nUnused); // 0x00403F60
 int __fastcall sub_00406B60_GetModuleDirectory(char* szPath, int nSize); // 0x00406B60
 void __cdecl sub_004076B0_LogSystemInfo(); // 0x004076B0
-void __cdecl sub_00407DE0_InitStep(); // 0x00407DE0
+void __cdecl sub_00407DE0_CaptureSystemInfo(); // 0x00407DE0
 void __cdecl sub_00407F20_ExitHandler(); // 0x00407F20
 void __cdecl sub_004082E0_CrashHandler(); // 0x004082E0
 void __cdecl sub_0040D5B0_InitStep(); // 0x0040D5B0
-void __cdecl sub_00410540_InitStep(); // 0x00410540
-int __cdecl sub_00410960_GetValue(); // 0x00410960
+void __cdecl sub_00410540_InitLogSystem(); // 0x00410540
+int __cdecl sub_00410960_IsPlatformNT(); // 0x00410960
 void __cdecl sub_004109D0_InitTimeBase(); // 0x004109D0
-void __cdecl sub_00411210_InitStep(); // 0x00411210
-void __fastcall sub_0041C0E0_SetReportHandler(void* pfnHandler); // 0x0041C0E0
+void __cdecl sub_00411210_InitTimer(); // 0x00411210
+void __fastcall sub_0041C0E0_SetCallback(void* pfnHandler); // 0x0041C0E0
 extern unsigned int gdwBitMasks_006CE268[]; // 0x006CE268
 extern unsigned int gdwInvBitMasks_006CE2E8[]; // 0x006CE2E8
 extern D2CriticalSectionStrc gtLock_0074C830; // 0x0074C830
@@ -166,7 +166,7 @@ void __fastcall FOG_InitErrorMgr(const char* szProgramName, const char* szVersio
     {
         SStrCopy(gszVersion_0074C848, szVersion, 0x1000);
     }
-    gnValue_0074F0CC = sub_00410960_GetValue();
+    gnValue_0074F0CC = sub_00410960_IsPlatformNT();
     InitializeCriticalSection(&gtLock_0074C830);
     InitializeCriticalSection(&gtLock_0074D848);
     gbErrorMgrInit_0074F0D0 = 1;
@@ -175,22 +175,22 @@ void __fastcall FOG_InitErrorMgr(const char* szProgramName, const char* szVersio
     SRegLoadValue("Diablo II", "TraceUnfreedMemory", 0, &dwValue);
     gdwRegValue_0074F0E0 = dwValue;
     sub_00409DD0_InitPoolSystem(0, "Global Pool System", 0x40000, 0x8000);
-    sub_00411210_InitStep();
+    sub_00411210_InitTimer();
     for (int i = 0; i < 0x20; ++i)
     {
         const unsigned int nMask = 1 << i;
         FOG_ASSERT(gdwBitMasks_006CE268[i] == nMask, 0x576);
         FOG_ASSERT(gdwInvBitMasks_006CE2E8[i] == ~nMask, 0x577);
     }
-    sub_00407DE0_InitStep();
-    sub_00410540_InitStep();
+    sub_00407DE0_CaptureSystemInfo();
+    sub_00410540_InitLogSystem();
     if (bLogToFile)
     {
         sub_004076B0_LogSystemInfo();
     }
     atexit(sub_00407F20_ExitHandler);
     sub_0040D5B0_InitStep();
-    sub_0041C0E0_SetReportHandler(sub_00408660_ShowErrorReport);
+    sub_0041C0E0_SetCallback(sub_00408660_ShowErrorReport);
 }
 
 static int s_bExpansionChecked_0074F0DC; // 0x0074F0DC

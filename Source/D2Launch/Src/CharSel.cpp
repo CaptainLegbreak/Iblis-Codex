@@ -63,7 +63,7 @@ struct D2FuncTable_0077ABF0Strc
 };
 
 extern "C" int __cdecl strcmp(const char* sz1, const char* sz2);
-void __fastcall sub_004F9740_SetControlState(D2WinControlStrc* pControl, int bSet); // 0x004F9740
+void __fastcall sub_004F9740(D2WinControlStrc* pControl, int bSet); // 0x004F9740
 void __fastcall sub_004307A0(unsigned int nArg, int nMode, int nStringId1, int nStringId2); // 0x004307A0
 void __fastcall sub_00439AF0(SMSGHANDLER_PARAMS* pMsg, int nMode); // 0x00439AF0
 void __fastcall sub_004FC660_SetValue(D2WinControlStrc* pControl, int nValue); // 0x004FC660
@@ -143,27 +143,27 @@ extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long nMillisecond
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
-void __cdecl sub_00444E70_SendFallbackRequest(); // 0x00444E70
+void __cdecl sub_00444E70_FillGameList(); // 0x00444E70
 void __fastcall sub_0044A590_SendRequest(D2LaunchRequestStrc* pRequest, unsigned short wRequestId); // 0x0044A590
 void __cdecl sub_00451620_WriteRecordFile(); // 0x00451620
 D2StatesTxt* __fastcall DATATBLS_GetStatesTxtRecord(int nStateId); // 0x00452040
-void __cdecl sub_004584C0_ResetA(); // 0x004584C0
-void __cdecl sub_00458680_ResetB(); // 0x00458680
-void __cdecl sub_00458750_Rebuild(); // 0x00458750
-int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit); // 0x0045ADF0
+void __cdecl sub_004584C0(); // 0x004584C0
+void __cdecl sub_00458680_ResetAutomapCells(); // 0x00458680
+void __cdecl sub_00458750(); // 0x00458750
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
-void __fastcall sub_004565E0_Redraw(int nArg); // 0x004565E0
+void __fastcall sub_004565E0_DrawLoadingScreen(int nArg); // 0x004565E0
 unsigned char __stdcall sub_00462EE0_GetItemComponent(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x00462EE0
-D2ActiveRoomStrc* __fastcall D2GAME_GetRoom_6FC52070(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
 D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType); // 0x00463990
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
-D2UnitStrc* __cdecl sub_00463DE0_GetStoredUnit(); // 0x00463DE0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
 void __fastcall sub_00465EE0_RemoveClientSideUnit(int nUnitId, int nUnitType); // 0x00465EE0
-void __fastcall sub_0046E1B0_DrawOverlay(D2UnitStrc* pUnit, int nOverlay, int nX, int nY); // 0x0046E1B0
-void __fastcall sub_0046F280(D2UnitStrc* pUnit, int nComponent); // 0x0046F280
+void __fastcall sub_0046E1B0_DrawUnitOverlays(D2UnitStrc* pUnit, int nOverlay, int nX, int nY); // 0x0046E1B0
+void __fastcall sub_0046F280_ClearGfxBytes(D2UnitStrc* pUnit, int nComponent); // 0x0046F280
 void __fastcall sub_00470610_Refresh(D2UnitStrc* pUnit, int nArg); // 0x00470610
-void __fastcall sub_00480E70_SetState(D2UnitStrc* pUnit, int nArg); // 0x00480E70
+void __fastcall sub_00480E70_SetUnitMode(D2UnitStrc* pUnit, int nArg); // 0x00480E70
 void __fastcall sub_004C0EC0_UpdateItemLink(D2UnitStrc* pItem, D2UnitStrc* pUnit, int bForce, int bClamp); // 0x004C0EC0
 int __cdecl D2GFX_GetResolutionMode(); // 0x004F5160
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
@@ -171,7 +171,7 @@ D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x
 D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
 int __stdcall INVENTORY_GetItemNodePage(D2UnitStrc* pItem); // 0x0063E020
 D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
-void __stdcall sub_0063D2B0_DetachItem(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063D2B0
+void __stdcall INVENTORY_UpdateWeaponGUIDOnRemoval(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063D2B0
 D2UnitStrc* __stdcall INVENTORY_RemoveItemFromInventory(D2InventoryStrc* pInventory, D2UnitStrc* pItem); // 0x0063AD90
 void __stdcall sub_0063BE30(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BE30
 unsigned char __stdcall ITEMS_GetBodyLocation(D2UnitStrc* pItem); // 0x00627D40
@@ -283,9 +283,9 @@ int __stdcall sub_0042FE70_FilterChar(void* pControl, int nUnused, const char* p
 int __stdcall sub_00430120_OnToggle(SMSGHANDLER_PARAMS* pMsg)
 {
     if (pMsg->lParam)
-        sub_004F9740_SetControlState(gpControl_007795E0, 1);
+        sub_004F9740(gpControl_007795E0, 1);
     else
-        sub_004F9740_SetControlState(gpControl_007795E0, 0);
+        sub_004F9740(gpControl_007795E0, 0);
     return 1;
 }
 
@@ -293,9 +293,9 @@ int __stdcall sub_00430120_OnToggle(SMSGHANDLER_PARAMS* pMsg)
 int __stdcall sub_00430160_OnToggle(SMSGHANDLER_PARAMS* pMsg)
 {
     if (pMsg->lParam)
-        sub_004F9740_SetControlState(gpControl_007795E4, 1);
+        sub_004F9740(gpControl_007795E4, 1);
     else
-        sub_004F9740_SetControlState(gpControl_007795E4, 0);
+        sub_004F9740(gpControl_007795E4, 0);
     return 1;
 }
 
@@ -812,7 +812,7 @@ void __cdecl sub_00445020_SendLaunchRequest()
     }
     else
     {
-        sub_00444E70_SendFallbackRequest();
+        sub_00444E70_FillGameList();
     }
 }
 
@@ -829,9 +829,9 @@ void __cdecl sub_00453470_DrawProgressiveStates()
 {
     if (!gpGlobal_007A0634)
         return;
-    if (!sub_00463DE0_GetStoredUnit())
+    if (!sub_00463DE0_GetPlayerUnit())
         return;
-    if (!UNITS_GetRoom(sub_00463DE0_GetStoredUnit()))
+    if (!UNITS_GetRoom(sub_00463DE0_GetPlayerUnit()))
         return;
     if (!gbOverlaysEnabled_007A289C)
         return;
@@ -839,7 +839,7 @@ void __cdecl sub_00453470_DrawProgressiveStates()
     int nX = gnGlobal_0071146C - gnGlobal_007111D0;
     if (D2GFX_GetResolutionMode() == 2)
         nY = gnGlobal_00711470 - gnGlobal_007111CC;
-    D2UnitStrc* pUnit = sub_00463DE0_GetStoredUnit();
+    D2UnitStrc* pUnit = sub_00463DE0_GetPlayerUnit();
     for (int i = 0; i < sgptDataTables->nProgressiveStates; ++i)
     {
         const int nState = sgptDataTables->pProgressiveStates[i];
@@ -859,7 +859,7 @@ void __cdecl sub_00453470_DrawProgressiveStates()
         const int nCharges = STATLIST_UnitGetStatValue(pUnit, pStatesTxtRecord->wStat, 0);
         if (nCharges < 1 || nCharges > 3)
             continue;
-        sub_0046E1B0_DrawOverlay(pUnit, pStatesTxtRecord->wPrgOverlay + nCharges - 1, nX, nY);
+        sub_0046E1B0_DrawUnitOverlays(pUnit, pStatesTxtRecord->wPrgOverlay + nCharges - 1, nX, nY);
         nX -= gnOverlayStep_007A3138;
     }
 }
@@ -867,10 +867,10 @@ void __cdecl sub_00453470_DrawProgressiveStates()
 // 0x00458CD0
 void __stdcall sub_00458CD0_SetAutomapContext(void* pContext)
 {
-    sub_004584C0_ResetA();
-    sub_00458680_ResetB();
+    sub_004584C0();
+    sub_00458680_ResetAutomapCells();
     gpAutomapContext_007A5164 = pContext;
-    sub_00458750_Rebuild();
+    sub_00458750();
 }
 
 // build: context sub_00462F60_UnitDropItems
@@ -882,8 +882,8 @@ void __fastcall sub_00462F60_UnitDropItems(D2UnitDropItemsPacketStrc* pPacket)
     if (!pUnit)
         return;
     if (!sub_00464820_IsDeadOrDying(pUnit))
-        sub_00480E70_SetState(pUnit, 0);
-    if (pUnit == sub_00463DD0())
+        sub_00480E70_SetUnitMode(pUnit, 0);
+    if (pUnit == sub_00463DD0_GetPlayerUnit())
     {
         D2UnitStrc* pOther = sub_00463990(*(int*)pPacket->nOtherUnitId, 0);
         if (!pOther)
@@ -891,7 +891,7 @@ void __fastcall sub_00462F60_UnitDropItems(D2UnitDropItemsPacketStrc* pPacket)
         D2DynamicPathStrc* pPath = pOther->pDynamicPath;
         PATH_SetMoveTestCollisionMask(pPath, 0);
         sub_00649190_SetPathMode(pOther, 5);
-        D2_ASSERT(sub_00650BE0_PlaceUnit(pPath, pOther, UNITS_GetRoom(pUnit), UNITS_GetXPosition(pUnit), CLIENTS_GetUnitY(pUnit)), 0xABA);
+        D2_ASSERT(sub_00650BE0_PlaceUnit(pPath, pOther, UNITS_GetRoom(pUnit), CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit)), 0xABA);
         sub_006488A0_SetDirection(pOther->pDynamicPath, PATH_GetDirection(pUnit->pDynamicPath));
     }
     D2InventoryStrc* pInventory = pUnit->pInventory;
@@ -902,8 +902,8 @@ void __fastcall sub_00462F60_UnitDropItems(D2UnitDropItemsPacketStrc* pPacket)
         if (INVENTORY_GetItemNodePage(pItem) == 3)
         {
             pItem = INVENTORY_UnitIsItem(pItem);
-            sub_0063D2B0_DetachItem(pInventory, pItem);
-            sub_0046F280(pUnit, sub_00462EE0_GetItemComponent(pUnit, pItem));
+            INVENTORY_UpdateWeaponGUIDOnRemoval(pInventory, pItem);
+            sub_0046F280_ClearGfxBytes(pUnit, sub_00462EE0_GetItemComponent(pUnit, pItem));
             D2UnitStrc* pRemoved = INVENTORY_RemoveItemFromInventory(pInventory, pItem);
             D2_ASSERT(pRemoved, 0xAC8);
             D2_ASSERT(pRemoved == pItem, 0xAC9);
@@ -921,7 +921,7 @@ void __fastcall sub_00462F60_UnitDropItems(D2UnitDropItemsPacketStrc* pPacket)
 // 0x004756D0
 void __cdecl sub_004756D0_ScanGridCollision()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (!pPlayer)
         return;
     D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
@@ -931,7 +931,7 @@ void __cdecl sub_004756D0_ScanGridCollision()
     {
         for (int nX = 0; nX < 0x30; ++nX)
         {
-            pRoom = D2GAME_GetRoom_6FC52070(pRoom, gnGlobal_007B0A54 + nX, gnGlobal_007B0A58 + nY);
+            pRoom = sub_00463740_FindRoomAtPoint(pRoom, gnGlobal_007B0A54 + nX, gnGlobal_007B0A58 + nY);
             if (!pRoom)
                 pRoom = UNITS_GetRoom(pPlayer);
             if (COLLISION_CheckMask(pRoom, gnGlobal_007B0A54 + nX, gnGlobal_007B0A58 + nY, 0x22))
@@ -951,7 +951,7 @@ void __fastcall sub_00478160_ShowProgressSteps(int nDone, int nTotal)
             gnProgress_007BB3B4 = 0;
         else
             gnProgress_007BB3B4 = (nPosition * 0x100) / nDivisor;
-        sub_004565E0_Redraw(0);
+        sub_004565E0_DrawLoadingScreen(0);
         Sleep(250);
         ++nPosition;
     }

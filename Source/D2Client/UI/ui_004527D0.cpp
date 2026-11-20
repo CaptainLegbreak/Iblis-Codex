@@ -36,8 +36,8 @@ extern "C" const char gszFmtInt_006D6454[]; // 0x006D6454
 extern "C" const char gszUiCpp_006D6458[]; // 0x006D6458
 Unicode* __fastcall sub_004521C0_PrefixLevelText(Unicode* pText, int nDigit); // 0x004521C0
 const Unicode* __fastcall sub_00464A60_GetUnitName(D2UnitStrc* pUnit); // 0x00464A60
-void __fastcall sub_0048C060(D2UnitStrc* pItem, Unicode* pText, int nMaxLength); // 0x0048C060
-void __fastcall sub_00502280_SetPopUpText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
+void __fastcall sub_0048C060_BuildItemName(D2UnitStrc* pItem, Unicode* pText, int nMaxLength); // 0x0048C060
+void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
@@ -50,7 +50,7 @@ int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 extern "C" const char gszFormatD_006D57BC[]; // 0x006D57BC
 int __cdecl sub_0047A980_IsNumberDisplayEnabled(); // 0x0047A980
-D2UnitStrc* __cdecl sub_00463DE0_GetStoredUnit(); // 0x00463DE0
+D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 int __fastcall sub_00479B80_GetRecordValue(D2StoredUnitRecordStrc* pRecord); // 0x00479B80
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
@@ -116,7 +116,7 @@ void __fastcall sub_004527D0_BuildItemHoverName(D2UnitStrc* pUnit, Unicode* pOut
         sub_00526700(wszText, pName);
         if (!pOut)
         {
-            sub_00502280_SetPopUpText(wszText, gnHoverX_0070F854, gnHoverY_0070F858, nColor, 1);
+            D2Win_10129_DrawFramedText(wszText, gnHoverX_0070F854, gnHoverY_0070F858, nColor, 1);
             return;
         }
 
@@ -128,10 +128,10 @@ void __fastcall sub_004527D0_BuildItemHoverName(D2UnitStrc* pUnit, Unicode* pOut
     else if (pUnit)
     {
         UnicodeChar wszItem[0x80] = { 0 };
-        sub_0048C060(pUnit, (Unicode*)wszItem, 0x100);
+        sub_0048C060_BuildItemName(pUnit, (Unicode*)wszItem, 0x100);
         if (!pOut)
         {
-            sub_00502280_SetPopUpText((Unicode*)wszItem, gnHoverX_0070F854, gnHoverY_0070F858, nColor, 1);
+            D2Win_10129_DrawFramedText((Unicode*)wszItem, gnHoverX_0070F854, gnHoverY_0070F858, nColor, 1);
             return;
         }
 
@@ -151,7 +151,7 @@ void __cdecl sub_00453B30_DrawStoredUnitNumber()
         return;
     }
 
-    D2UnitStrc* pUnit = sub_00463DE0_GetStoredUnit();
+    D2UnitStrc* pUnit = sub_00463DE0_GetPlayerUnit();
     if (!pUnit)
     {
         return;

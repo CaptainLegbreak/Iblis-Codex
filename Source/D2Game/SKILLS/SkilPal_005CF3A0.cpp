@@ -113,7 +113,7 @@ struct D2AuraCallbackStrc
 };
 
 int __fastcall SKILLS_AuraCallback_BasicAura(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit); // 0x005CEDC0
-int __fastcall sub_005CF2A0_ApplyDamageAura(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit); // 0x005CF2A0
+int __fastcall SKILLS_AuraCallback_HolyFire_HolyShock_Sanctuary_Conviction(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit); // 0x005CF2A0
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
@@ -260,7 +260,7 @@ int __fastcall sub_005CF3A0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, 
     unsigned int const tArg7 = pSkillsTxtRecord->dwAuraRangeCalc;
     const int nAuraRange = SKILLS_EvaluateSkillFormula(pUnit, tArg7, nSkillId, nSkillLevel);
 
-    sub_6FD0FE80(pGame, pUnit, 0, 0, nAuraRange, pSkillsTxtRecord->dwAuraFilter, sub_005CF2A0_ApplyDamageAura, &args2, 0, gszSkillPalSourceFile, 698);
+    sub_6FD0FE80(pGame, pUnit, 0, 0, nAuraRange, pSkillsTxtRecord->dwAuraFilter, SKILLS_AuraCallback_HolyFire_HolyShock_Sanctuary_Conviction, &args2, 0, gszSkillPalSourceFile, 698);
 
     if (nManaCost > 0 && pUnit && pUnit->dwUnitType == UNIT_PLAYER)
     {

@@ -34,7 +34,7 @@ static int gnGlobal_007A6AE8;                                                   
 static int gnGlobal_007A6AF0;                                                                               // 0x007A6AF0
 extern "C" __declspec(dllimport) int __stdcall SetCursorPos(int nX, int nY);                               // 0x006CC4B4
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
-D2UnitStrc* __cdecl sub_00463DD0();                                                               // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 
 #define SEED_ROLL(pSeed, lSeed) \
     unsigned __int64 lSeed = (unsigned __int64)(pSeed)->nHighSeed + (unsigned __int64)(pSeed)->nLowSeed * 0x6AC690C5; \
@@ -58,7 +58,7 @@ static int sub_00467E90_GetCursorAnimLength(int nIndex)
 // 0x004681C0
 void __cdecl sub_004681C0_AdvanceCursorAnim()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (!pPlayer)
         return;
     const int nIndex = gnGlobal_007A6ADC;

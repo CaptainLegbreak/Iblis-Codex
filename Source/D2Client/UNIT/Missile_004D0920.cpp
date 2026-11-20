@@ -79,7 +79,7 @@ D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams)
 void __fastcall sub_004CD390_CltDoDefault(D2UnitStrc* pMissile); // 0x004CD390
 void __fastcall sub_004D30C0_CltDoCommon(D2UnitStrc* pMissile); // 0x004D30C0
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
-int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit); // 0x0045ADF0
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 int __stdcall MISSILE_GetLevel(D2UnitStrc* pMissile); // 0x0064A210
 int __stdcall MISSILE_GetSkill(D2UnitStrc* pMissile); // 0x0064A280
@@ -208,7 +208,7 @@ void __fastcall sub_004D3630_CltDoCommon2(D2UnitStrc* pMissile)
             return;
         }
 
-        const int nX = UNITS_GetXPosition(pMissile);
+        const int nX = CLIENTS_GetUnitX(pMissile);
         D2MissileStrc tParams;
         memset(&tParams, 0, sizeof(tParams));
         tParams.dwFlags = 0x21;
@@ -256,7 +256,7 @@ void __fastcall sub_004D3630_CltDoCommon2(D2UnitStrc* pMissile)
         if (!nChance || SEED_RollLimitedRandomNumber(&pMissile->pSeed, nChance))
             tParams.dwFlags |= 0x4000;
 
-        tParams.nTargetX = UNITS_GetXPosition(pMissile);
+        tParams.nTargetX = CLIENTS_GetUnitX(pMissile);
         tParams.nTargetY = CLIENTS_GetUnitY(pMissile);
         D2UnitStrc* pNew = sub_004CD540_CreateMissile(&tParams);
         if (pNew)

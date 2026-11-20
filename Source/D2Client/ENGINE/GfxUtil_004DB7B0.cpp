@@ -106,10 +106,10 @@ void* __fastcall sub_00463E10_GetGfxData(D2UnitStrc* pUnit);                    
 int __fastcall sub_004DAA00_GetModeArg(D2UnitStrc* pUnit, int nType, int nClass);                           // 0x004DAA00
 unsigned char __fastcall sub_004DA770_GetMonComponentIndex(D2UnitStrc* pUnit, unsigned char nComponent);    // 0x004DA770
 int __fastcall sub_004638A0_CheckMonStats2Flag(int nMonsterId, int nFlag);                                  // 0x004638A0
-D2UnitStrc* __cdecl sub_00463DD0();                                                               // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 void __fastcall sub_004DAAB0_GetArmorComponents(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int bSkip, unsigned char* pComponents); // 0x004DAAB0
 D2UnitStrc* __stdcall sub_0063C050_GetBodyLocItem(D2InventoryStrc* pInventory, int nBodyLoc);               // 0x0063C050
-int __stdcall sub_0062A4E0_TestItem(D2UnitStrc* pItem);                                                     // 0x0062A4E0
+int __stdcall ITEMS_CanBeEquipped(D2UnitStrc* pItem);                                                     // 0x0062A4E0
 void __fastcall sub_004DAA70_GetItemMode(D2UnitStrc* pUnit, int* pMode);                                    // 0x004DAA70
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId);                                              // 0x006335F0
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile);   // 0x006280A0
@@ -402,7 +402,7 @@ found:
         {
         case 0:
         {
-            if (pUnit == sub_00463DD0())
+            if (pUnit == sub_00463DD0_GetPlayerUnit())
                 pToken->nFlags |= 8;
 
             if (!pInventory)
@@ -425,7 +425,7 @@ found:
             else
             {
                 pToken->dwToken = sub_004DAD80_GetWeaponClassToken(pUnit, pToken->nComponent);
-                if (pItem && !pToken->dwToken && sub_0062A4E0_TestItem(pItem))
+                if (pItem && !pToken->dwToken && ITEMS_CanBeEquipped(pItem))
                     pToken->dwToken = ITEMS_GetAltGfx(pItem);
                 else if (!pToken->dwToken)
                     pToken->dwToken = 0x2074696C;

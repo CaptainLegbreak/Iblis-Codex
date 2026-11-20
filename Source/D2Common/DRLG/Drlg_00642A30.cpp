@@ -67,7 +67,7 @@ int __stdcall TileLibraryGetTiles(D2CmpTileProjectStrc** ppProjects, int nOrient
 void __fastcall DRLGROOMTILE_InitTileData(D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileDataStrc* pTileData, int nX, int nY, unsigned int nPackedTileInformation, D2CmpTileStrc* pTileLibraryEntry); // 0x0066DDE0
 int __fastcall DRLGROOM_AreXYInsideCoordinates(D2DrlgCoordsStrc* pCoords, int nX, int nY);                  // 0x0066B980
 int __fastcall sub_006427A0_GetLevelIdFromCoordinates(D2DrlgStrc* pDrlg, int nX, int nY);                   // 0x006427A0
-D2DrlgRoomStrc* __fastcall sub_00642630_GetRoomExFromLevelAndCoordinates(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x00642630
+D2DrlgRoomStrc* __fastcall DRLG_GetRoomExFromLevelAndCoordinates(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x00642630
 D2DrlgLevelStrc* __fastcall DRLG_AllocLevel(D2DrlgStrc* pDrlg, int nLevelId);                               // 0x00642AE0
 int* __fastcall DRLGROOM_GetVisArrayFromLevelId(D2DrlgStrc* pDrlg, int nLevelId);                           // 0x0066C040
 
@@ -148,7 +148,7 @@ D2DrlgRoomStrc* __fastcall DRLG_GetRoomExFromCoordinates(int nX, int nY, D2DrlgS
         DRLG_InitLevel(pLevel);
     }
 
-    return sub_00642630_GetRoomExFromLevelAndCoordinates(pLevel, nX, nY);
+    return DRLG_GetRoomExFromLevelAndCoordinates(pLevel, nX, nY);
 }
 
 // 0x00642F70

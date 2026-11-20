@@ -25,7 +25,7 @@ struct SMSGHANDLER_PARAMS
 };
 
 void __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory); // 0x0063C1E0
 int __fastcall sub_00498DC0_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00498DC0
 int __fastcall sub_00486E10_IsInNpcPanelRect(int nX, int nY); // 0x00486E10
@@ -109,12 +109,12 @@ struct D2BodyLocRectStrc
 
 
 void __fastcall sub_0046EE80_DrawCursorItem(D2UnitStrc* pItem, int nX, int nY); // 0x0046EE80
-void __stdcall sub_00483E40(D2UnitStrc* pItem, D2InventoryGridInfoStrc* pGrid, int nX, int nY); // 0x00483E40
+void __stdcall sub_00483E40_DrawItemSockets(D2UnitStrc* pItem, D2InventoryGridInfoStrc* pGrid, int nX, int nY); // 0x00483E40
 void __fastcall sub_0048B3F0_DrawMercEquipHighlights(D2UnitStrc* pUnit); // 0x0048B3F0
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
 void __stdcall ITEMS_GetDimensions(D2UnitStrc* pItem, unsigned char* pWidth, unsigned char* pHeight, const char* szFile, int nLine); // 0x006286C0
 int __stdcall ITEMS_CheckIfSocketable(D2UnitStrc* pItem); // 0x00629900
-unsigned char __stdcall ITEMS_GetMaxSockets(D2UnitStrc* pItem); // 0x0062BC20
+unsigned char __stdcall sub_0062BC20(D2UnitStrc* pItem); // 0x0062BC20
 extern D2UnitStrc* gdwGlobal_007BCBF4; // 0x007BCBF4
 extern D2BodyLocRectStrc gaBodyLocRects_007BCD38[11]; // 0x007BCD38
 
@@ -134,7 +134,7 @@ void __fastcall sub_00455F20(int nUIState, int eState, int nUnknown); // 0x00455
 D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType); // 0x00463990
 int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int nIndex); // 0x00478F20
 void __cdecl sub_004835B0_LoadUiRecords(); // 0x004835B0
-void __stdcall sub_0048DD90(D2UnitStrc* pUnit, int nArg); // 0x0048DD90
+void __stdcall sub_0048DD90_DrawItemTooltip(D2UnitStrc* pUnit, int nArg); // 0x0048DD90
 void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int nDrawMode, int nPalette); // 0x004F6480
 extern D2CelFileStrc* gpMercPanelCells_007BCE88; // 0x007BCE88
 extern int gbBuySellPressed_007BCEA0; // 0x007BCEA0
@@ -152,7 +152,7 @@ static __declspec(noinline) int sub_00483B10_IsInRect(int nX, int nY)
 // 0x00486DA0
 static int sub_00486DA0_IsOverGoldButton(int nX, int nY)
 {
-    if (INVENTORY_GetCursorItem(sub_00463DD0()->pInventory))
+    if (INVENTORY_GetCursorItem(sub_00463DD0_GetPlayerUnit()->pInventory))
     {
         return 0;
     }
@@ -213,7 +213,7 @@ void __stdcall sub_00492310_StashButtonUp(SMSGHANDLER_PARAMS* pMsg)
         sub_004912A0_HandlePanelClick(pMsg);
         return;
     }
-    if (INVENTORY_GetCursorItem(sub_00463DD0()->pInventory))
+    if (INVENTORY_GetCursorItem(sub_00463DD0_GetPlayerUnit()->pInventory))
     {
         gnGlobal_007BCE20 = 0;
         gnGlobal_007BCE18 = 0;
@@ -588,10 +588,10 @@ static void sub_0048B540_DrawEquippedItems(D2UnitStrc* pUnit)
             const int nY = gaBodyLocRects_007BCD38[i].nTop
                 + (gaBodyLocRects_007BCD38[i].nHeight - nHeight * gInventoryGrid_007BCBC0.nGridBoxWidth) / 2;
             sub_0046EE80_DrawCursorItem(pItem, nX, nY);
-            if (gdwGlobal_007BCBF4 == pItem && ITEMS_CheckIfSocketable(pItem) && ITEMS_GetMaxSockets(pItem) > 0
+            if (gdwGlobal_007BCBF4 == pItem && ITEMS_CheckIfSocketable(pItem) && sub_0062BC20(pItem) > 0
                 && ITEMS_CheckItemFlag(pItem, 0x800, 0x30C8, ".\\UI\\inv.cpp"))
             {
-                sub_00483E40(pItem, &gInventoryGrid_007BCBC0, nX, nY);
+                sub_00483E40_DrawItemSockets(pItem, &gInventoryGrid_007BCBC0, nX, nY);
             }
         }
     }
@@ -605,7 +605,7 @@ void __cdecl sub_004929F0_DrawMercPanel()
         return;
     }
 
-    const int nPetId = sub_00478F20_FindPetIdByOwner(sub_00463DD0(), 7, 0);
+    const int nPetId = sub_00478F20_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0);
     if ((unsigned int)nPetId == 0xFFFFFFFF)
     {
         sub_00455F20(0x24, 2, 0);
@@ -644,5 +644,5 @@ void __cdecl sub_004929F0_DrawMercPanel()
     sub_0048B0A0(pMerc);
     sub_0048B540_DrawEquippedItems(pMerc);
     sub_0048B3F0_DrawMercEquipHighlights(pMerc);
-    sub_0048DD90(pMerc, 0);
+    sub_0048DD90_DrawItemTooltip(pMerc, 0);
 }

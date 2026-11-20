@@ -37,7 +37,7 @@ struct D2SkillDescTxt
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2SkillDescTxt* __fastcall sub_004A89D0_SkillDescRec(int nSkillId); // 0x004A89D0
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 int __fastcall DATATBLS_ApplyRatio(int nValue, int nMultiplier, int nDivisor); // 0x00483360
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
@@ -55,7 +55,7 @@ int __stdcall UNITS_CanDualWield(D2UnitStrc* pUnit); // 0x006235A0
 unsigned char __stdcall ITEMS_GetBodyLocation(D2UnitStrc* pItem); // 0x00627D40
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc); // 0x0063BDE0
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
-int __stdcall sub_0062A4E0_TestItem(D2UnitStrc* pItem); // 0x0062A4E0
+int __stdcall ITEMS_CanBeEquipped(D2UnitStrc* pItem); // 0x0062A4E0
 D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic); // 0x00625820
 void __stdcall STATLIST_MergeStatLists(D2UnitStrc* pTarget, D2UnitStrc* pUnit, int bType); // 0x00627910
 extern unsigned int gdwBitMasks_006CE268[]; // 0x006CE268
@@ -63,8 +63,8 @@ D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 int __stdcall D2Common_11248(D2UnitStrc* pUnused, D2UnitStrc* pUnit, int nStatId); // 0x00626070
 int __stdcall INVENTORY_GetWieldType(D2UnitStrc* pUnit, D2InventoryStrc* pInventory); // 0x0063D340
 int __cdecl sub_004E6FF0_SumProgressiveBonus(); // 0x004E6FF0
-short __stdcall sub_00629860_GetStrengthFactor(D2UnitStrc* pItem); // 0x00629860
-short __stdcall sub_006298A0_GetDexterityFactor(D2UnitStrc* pItem); // 0x006298A0
+short __stdcall ITEMS_GetStrengthBonus(D2UnitStrc* pItem); // 0x00629860
+short __stdcall ITEMS_GetDexBonus(D2UnitStrc* pItem); // 0x006298A0
 int __stdcall sub_0063A380(D2UnitStrc* pUnit); // 0x0063A380
 int __stdcall sub_0063A3A0(D2UnitStrc* pUnit); // 0x0063A3A0
 int __stdcall sub_004E89A0_GetElementalDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pColor, D2SkillStrc* pSkill); // 0x004E89A0
@@ -104,7 +104,7 @@ static __declspec(noinline) unsigned short sub_004E6DE0_GetSkillDescStrLong(int 
 // 0x004E6EA0
 static void __stdcall sub_004E6EA0_ApplyColdSkillBonus(int* pValue1, int* pValue2, D2SkillsTxt* pSkillsTxt)
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (pSkillsTxt && pSkillsTxt->nEType == 1)
     {
         int nBonus = STATLIST_UnitGetStatValue(pPlayer, 0x149, 0);
@@ -121,7 +121,7 @@ static void __stdcall sub_004E6EA0_ApplyColdSkillBonus(int* pValue1, int* pValue
 // 0x004E6F00
 static void __stdcall sub_004E6F00_ApplyFireSkillBonus(int* pValue1, int* pValue2, D2SkillsTxt* pSkillsTxt)
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (pSkillsTxt && pSkillsTxt->nEType == 2)
     {
         int nBonus = STATLIST_UnitGetStatValue(pPlayer, 0x14A, 0);
@@ -709,10 +709,10 @@ static int __stdcall sub_004E86F0_GetWeaponDamage(int* pMinDamage, int* pMaxDama
     int nDamage = 0;
     if (pItem)
     {
-        int nFactor = sub_00629860_GetStrengthFactor(pItem);
+        int nFactor = ITEMS_GetStrengthBonus(pItem);
         if (nFactor)
             nBonus += STATLIST_UnitGetStatValue(pUnit, 0, 0) * nFactor / 100;
-        nFactor = sub_006298A0_GetDexterityFactor(pItem);
+        nFactor = ITEMS_GetDexBonus(pItem);
         if (nFactor)
             nBonus += STATLIST_UnitGetStatValue(pUnit, 2, 0) * nFactor / 100;
         nDamage = STATLIST_UnitGetItemStatOrSkillStatValue(pItem, 0x6F, 0);
@@ -840,7 +840,7 @@ static D2UnitStrc* sub_004E9260_MergeOtherHandWeapon(D2UnitStrc* pUnit)
     if (!ITEMSIsA(pOther, 45))
         return 0;
 
-    if (!sub_0062A4E0_TestItem(pWeapon) || !sub_0062A4E0_TestItem(pOther))
+    if (!ITEMS_CanBeEquipped(pWeapon) || !ITEMS_CanBeEquipped(pOther))
         return 0;
 
     if (STATLIST_GetOwner(pWeapon, 0))
@@ -869,7 +869,7 @@ static D2UnitStrc* sub_004E9300_MergeWeaponPair(D2UnitStrc* pUnit)
     {
         if (ITEMSIsA(pOther, 45))
         {
-            if (sub_0062A4E0_TestItem(pWeapon) && sub_0062A4E0_TestItem(pOther))
+            if (ITEMS_CanBeEquipped(pWeapon) && ITEMS_CanBeEquipped(pOther))
             {
                 STATLIST_MergeStatLists(pUnit, pOther, 0);
                 STATLIST_MergeStatLists(pUnit, pWeapon, 1);
@@ -878,7 +878,7 @@ static D2UnitStrc* sub_004E9300_MergeWeaponPair(D2UnitStrc* pUnit)
         }
     }
 
-    if (sub_0062A4E0_TestItem(pWeapon))
+    if (ITEMS_CanBeEquipped(pWeapon))
         STATLIST_MergeStatLists(pUnit, pWeapon, 1);
     return pWeapon;
 }
@@ -893,11 +893,11 @@ static int __stdcall sub_004E93A0_EvaluateForEachWeapon(int* pValue1, int* pValu
         return 0;
 
     D2UnitStrc* pRight = INVENTORY_GetItemFromBodyLoc(pInventory, 4);
-    if (!sub_0062A4E0_TestItem(pRight) || ITEMSIsA(pRight, 38))
+    if (!ITEMS_CanBeEquipped(pRight) || ITEMSIsA(pRight, 38))
         pRight = 0;
 
     D2UnitStrc* pLeft = INVENTORY_GetItemFromBodyLoc(pInventory, 5);
-    if (!sub_0062A4E0_TestItem(pLeft) || ITEMSIsA(pLeft, 38))
+    if (!ITEMS_CanBeEquipped(pLeft) || ITEMSIsA(pLeft, 38))
         pLeft = 0;
 
     if (pRight && pLeft)
@@ -925,7 +925,7 @@ static int __stdcall sub_004E93A0_EvaluateForEachWeapon(int* pValue1, int* pValu
     }
 
     D2UnitStrc* pWeapon = INVENTORY_GetLeftHandWeapon(pInventory);
-    if (pWeapon && sub_0062A4E0_TestItem(pWeapon))
+    if (pWeapon && ITEMS_CanBeEquipped(pWeapon))
         STATLIST_MergeStatLists(pUnit, pWeapon, 1);
     pfnEvaluate(pUnit, pValue1, pValue2, nArg3, nArg9, nLevel, pSkill, 0, 0);
     return 1;

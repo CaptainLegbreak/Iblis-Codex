@@ -63,14 +63,14 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 void __fastcall SUNITINACTIVE_CompressUnitIfNeeded(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005433F0
 void __fastcall OBJECTS_PopulationHandler(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom); // 0x00552610
 void __fastcall SUNIT_SpawnPresetUnitsInRoom(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom); // 0x005559A0
-int __cdecl sub_005377B0(); // 0x005377B0
+int __cdecl sub_005377B0_CountFlaggedClients(); // 0x005377B0
 
 struct D2DrlgActStrc
 {
     char unk0x0000[0x54];
     int bHasPendingRoomsUpdates;
 };
-void __stdcall sub_0061AA20(D2DrlgActStrc* pAct); // 0x0061AA20
+void __stdcall DUNGEON_UpdateAndFreeInactiveRooms(D2DrlgActStrc* pAct); // 0x0061AA20
 
 struct D2ClientStrc
 {
@@ -119,7 +119,7 @@ void __stdcall sub_0052D240(D2GameStrc* pGame); // 0x0052D240
 void __stdcall sub_0052D350_CheckClientHeartbeats(D2GameStrc* pGame, int* pbDisconnected); // 0x0052D350
 void __fastcall GAME_UpdateEnvironment(D2GameStrc* pGame); // 0x0052D7B0
 D2UnitStrc* __stdcall CLIENTS_GetPlayerFromClient(D2ClientStrc* pClient, int bIgnoreDeath); // 0x00537860
-void __fastcall CLIENTS_SynchronizePlayer(D2GameStrc* pGame, D2ClientStrc* pClient); // 0x005380D0
+void __fastcall sub_6FC33670(D2GameStrc* pGame, D2ClientStrc* pClient); // 0x005380D0
 void __fastcall CLIENTS_SetClientState(D2ClientStrc* pClient, int nClientState); // 0x005386D0
 void __fastcall CLIENTS_CopyAccountNameToBuffer(D2ClientStrc* pClient, char* szBuffer); // 0x005392F0
 void __fastcall LEVEL_FreeDrlgDeletes(D2GameStrc* pGame); // 0x0053A820
@@ -395,7 +395,7 @@ static __forceinline void sub_0052D2E0_RefreshActs(D2GameStrc* pGame)
     {
         if (pGame->pAct[i])
         {
-            sub_0061AA20(pGame->pAct[i]);
+            DUNGEON_UpdateAndFreeInactiveRooms(pGame->pAct[i]);
         }
     }
 }
@@ -409,7 +409,7 @@ void __cdecl sub_0052DAD0_AssertFail()
 // 0x0052DB80
 int __cdecl sub_0052DB80_CountFlaggedClients()
 {
-    return sub_005377B0();
+    return sub_005377B0_CountFlaggedClients();
 }
 
 void __fastcall sub_M118_Emit_0052D000(D2GameStrc* pGame, int nAct)
@@ -510,7 +510,7 @@ static __declspec(noinline) void sub_0052D440_UpdateAllClients(D2GameStrc* pGame
         {
         case 3:
         {
-            CLIENTS_SynchronizePlayer(pGame, pClient);
+            sub_6FC33670(pGame, pClient);
 
             if (D2Common_10073(pClient->hRoom) && CLIENTS_GetPlayerFromClient(pClient, 0))
             {
@@ -559,12 +559,12 @@ static __declspec(noinline) void sub_0052D440_UpdateAllClients(D2GameStrc* pGame
         }
         case 4:
         {
-            CLIENTS_SynchronizePlayer(pGame, pClient);
+            sub_6FC33670(pGame, pClient);
             break;
         }
         case 5:
         {
-            CLIENTS_SynchronizePlayer(pGame, pClient);
+            sub_6FC33670(pGame, pClient);
 
             if (D2Common_10073(pClient->hRoom))
             {
@@ -659,7 +659,7 @@ void __fastcall GAME_UpdateProgress(D2GameStrc* pGame)
         {
             if (pGame->pAct[i])
             {
-                sub_0061AA20(pGame->pAct[i]);
+                DUNGEON_UpdateAndFreeInactiveRooms(pGame->pAct[i]);
             }
         }
     }

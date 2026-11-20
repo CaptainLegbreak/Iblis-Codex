@@ -358,9 +358,9 @@ struct Obj00554190 {
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 void __fastcall AIGENERAL_GetOwnerData(D2UnitStrc* pUnit, int* pOwnerGUID, int* pOwnerType); // 0x0058F090
-void __fastcall sub_00547DD0(D2MonsterRegionStrc** pMonReg, D2UnitStrc* pUnit, int nAlignment, int nAlignNew); // 0x00547DD0
+void __fastcall sub_6FC681C0(D2MonsterRegionStrc** pMonReg, D2UnitStrc* pUnit, int nAlignment, int nAlignNew); // 0x00547DD0
 void __stdcall sub_00619EE0(D2ActiveRoomStrc* pRoom); // 0x00619EE0
-void __stdcall sub_00619F20(D2ActiveRoomStrc* pRoom); // 0x00619F20
+void __stdcall DUNGEON_DecreaseAlliedCountOfRoom(D2ActiveRoomStrc* pRoom); // 0x00619F20
 int __fastcall sub_00451F30_TestUnitFlag(D2UnitStrc* pUnit, int nFlag); // 0x00451F30
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState); // 0x006256B0
 D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
@@ -401,7 +401,7 @@ int __stdcall D2Common_10226(D2UnitStrc* pUnit, int nFlag); // 0x00650840
 void __fastcall sub_00555580_DetachUnit(D2UnitStrc* pUnit, D2GameStrc* pGame, int bKeepInRoom); // 0x00555580
 void __fastcall QUESTS_FreeChainRecord(D2GameStrc* pGame, D2QuestChainStrc* pChain); // 0x00543590
 void __fastcall D2GAME_FreeUnitNode_6FC40310(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005B1A20
-void __fastcall sub_00535430(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00535430
+void __fastcall PLAYER_RemoveTownPortal(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00535430
 void __fastcall PARTY_LeaveParty(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x005407A0
 void __fastcall PLAYER_Destroy(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x005349D0
 void __fastcall MONSTER_Free(D2GameStrc* pGame, D2UnitStrc* pMonster); // 0x005736A0
@@ -1378,7 +1378,7 @@ static void __stdcall sub_00554340_UpdateAlignmentRegion(D2UnitStrc* pUnit, int 
     }
     if (bUpdate)
     {
-        sub_00547DD0(pUnit->pGame->pMonReg, pUnit, nAlignment, nAlignNew);
+        sub_6FC681C0(pUnit->pGame->pMonReg, pUnit, nAlignment, nAlignNew);
     }
     if (nAlignment == nAlignNew)
     {
@@ -1395,7 +1395,7 @@ static void __stdcall sub_00554340_UpdateAlignmentRegion(D2UnitStrc* pUnit, int 
     }
     else if (nAlignment == UNIT_ALIGNMENT_GOOD)
     {
-        sub_00619F20(pRoom);
+        DUNGEON_DecreaseAlliedCountOfRoom(pRoom);
     }
     if (!MONSTERS_IsDead(pUnit))
     {
@@ -1608,7 +1608,7 @@ void __fastcall SUNIT_RemoveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit)
     {
     case UNIT_PLAYER:
         D2GAME_FreeUnitNode_6FC40310(pGame, pUnit);
-        sub_00535430(pGame, pUnit);
+        PLAYER_RemoveTownPortal(pGame, pUnit);
         PARTY_LeaveParty(pGame, pUnit);
         PLAYER_Destroy(pGame, pUnit);
 

@@ -26,7 +26,7 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
-D2StatListStrc* __stdcall sub_00625790_UnitFindStatList(D2UnitStrc* pUnit, int nState, int nFlag); // 0x00625790
+D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitStateOrFlag(D2UnitStrc* pUnit, int nState, int nFlag); // 0x00625790
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
 void __stdcall STATLIST_SetStat(D2StatListStrc* pStatList, int nStatId, int nValue, int nLayer); // 0x00627150
 void __stdcall sub_00627150(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer); // 0x00627150
@@ -56,7 +56,7 @@ static __declspec(noinline) D2StatListStrc* __stdcall ITEMMODS_GetOrCreateStatLi
 
     if (pUnit)
     {
-        pStatList = sub_00625790_UnitFindStatList(pUnit, nState, fFilter);
+        pStatList = STATLIST_GetStatListFromUnitStateOrFlag(pUnit, nState, fFilter);
         if (!pStatList)
         {
             int nUnitGUID = pUnit->dwUnitId;
@@ -68,7 +68,7 @@ static __declspec(noinline) D2StatListStrc* __stdcall ITEMMODS_GetOrCreateStatLi
     }
     else
     {
-        pStatList = sub_00625790_UnitFindStatList(pItem, nState, fFilter);
+        pStatList = STATLIST_GetStatListFromUnitStateOrFlag(pItem, nState, fFilter);
         if (!pStatList)
         {
             pStatList = STATLIST_AllocStatList(!pItem ? 0 : pItem->pMemoryPool, fFilter, 0, 4, !pItem ? -1 : pItem->dwUnitId);

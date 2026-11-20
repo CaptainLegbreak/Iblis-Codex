@@ -50,7 +50,7 @@ D2HintCursorStrc* __fastcall sub_00481860(int nId); // 0x00481860
 int __fastcall sub_00515710(D2SoundStrc* pSound); // 0x00515710
 int __fastcall sub_00515740_IsSoundPlaying(D2SoundStrc* pSound); // 0x00515740
 int __fastcall sub_00515C30(D2SoundStrc* pSound); // 0x00515C30
-void __fastcall sub_005160D0_ReleaseSound(D2SoundStrc* pSound); // 0x005160D0
+void __fastcall sub_005160D0_DestroySound(D2SoundStrc* pSound); // 0x005160D0
 
 struct D2TileLibraryEntryStrc
 {
@@ -197,7 +197,7 @@ void __cdecl sub_004DFA60()
         sub_004DF800();
         for (int i = 0; i < 16; ++i)
         {
-            sub_005160D0_ReleaseSound(gaSlots_007C8A78[i].f_0);
+            sub_005160D0_DestroySound(gaSlots_007C8A78[i].f_0);
             gaSlots_007C8A78[i].f_0 = 0;
         }
 

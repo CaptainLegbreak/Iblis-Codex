@@ -1,7 +1,7 @@
 #include "D2Client.h"
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
-int __cdecl sub_00525150();                                                                         // 0x00525150
+int __cdecl STRTABLE_GetLanguage();                                                                         // 0x00525150
 
 // 0x0042FCE0
 static int sub_0042FCE0_ArchiveFilePresent(const char* szFile)
@@ -20,7 +20,7 @@ static void sub_0042FD10_BuildLocalizedVideoPath(char* szOut, const char* szForm
     sprintf(szOut, szFormat, gszDataLocal_006D41A8, szLang, szFile);
     if (sub_0042FCE0_ArchiveFilePresent(szOut))
         return;
-    if (sub_00525150())
+    if (STRTABLE_GetLanguage())
     {
         sprintf(szOut, szFormat, gszDataLocal_006D41A8, "ENG", szFile);
         sub_0042FCE0_ArchiveFilePresent(szOut);

@@ -34,7 +34,7 @@ void __stdcall sub_0041D010_ReportHandleLeak(const char* szName, const char* szD
 void __cdecl sub_0041C1A0_LockErrorState(); // 0x0041C1A0
 void __cdecl sub_0041C1E0_UnlockErrorState(); // 0x0041C1E0
 int __stdcall SMsgDispatchMessage(void* hWnd, unsigned int uMsg, unsigned int wParam, int lParam, int* pbUseResult, int* plResult); // 0x00420B00
-int __stdcall sub_00426370_PushEventState(unsigned int nType, unsigned int nSubtype); // 0x00426370
+int __stdcall SEvtPushState(unsigned int nType, unsigned int nSubtype); // 0x00426370
 extern unsigned int gaCrc32Table_00708448[256]; // 0x00708448
 
 struct D2StormLinkStrc
@@ -478,10 +478,10 @@ void __fastcall sub_0041F9E0_DecompressHuffman(void* pOutput, unsigned int* pOut
 // 0x00420360
 int __stdcall SMsgPushRegisterState(int nType)
 {
-    sub_00426370_PushEventState('SMSH', nType);
-    sub_00426370_PushEventState('SMSI', nType);
-    sub_00426370_PushEventState('SMSJ', nType);
-    sub_00426370_PushEventState('SMSG', nType);
+    SEvtPushState('SMSH', nType);
+    SEvtPushState('SMSI', nType);
+    SEvtPushState('SMSJ', nType);
+    SEvtPushState('SMSG', nType);
     return 1;
 }
 

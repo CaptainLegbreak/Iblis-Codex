@@ -65,10 +65,10 @@ int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);              
 void __fastcall LEVEL_WarpUnit(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nDestinationLevelId, int nTileCalc); // 0x0053AEC0
 int __fastcall ACT5Q6_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);        // 0x0058D770
 void __fastcall ACT5Q6_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);   // 0x0058D870
-void __fastcall ACT5Q6_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);   // 0x0058D940
+void __fastcall sub_0058D940_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);   // 0x0058D940
 void __fastcall ACT5Q6_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);     // 0x0058D9F0
 void __fastcall ACT5Q6_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x0058DCF0
-void __fastcall ACT5Q6_Callback08_MonsterKilled(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);   // 0x0058DF20
+void __fastcall sub_0058DF20_MonsterKilled(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);   // 0x0058DF20
 void __fastcall ACT5Q6_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);     // 0x0058E190
 bool __fastcall ACT5Q6_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC); // 0x0058E2B0
 void __fastcall ACT5Q6_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg);
@@ -138,10 +138,10 @@ void __fastcall ACT5Q6_InitQuestData(D2QuestDataStrc* pQuestData)
     memset(pQuestData->pCallback, 0x00, sizeof(pQuestData->pCallback));
     pQuestData->pCallback[10] = ACT5Q6_Callback10_PlayerLeavesGame;
     pQuestData->pCallback[3] = ACT5Q6_Callback03_ChangedLevel;
-    pQuestData->pCallback[8] = ACT5Q6_Callback08_MonsterKilled;
+    pQuestData->pCallback[8] = sub_0058DF20_MonsterKilled;
     pQuestData->pCallback[0] = ACT5Q6_Callback00_NpcActivate;
     pQuestData->pCallback[2] = ACT5Q6_Callback02_NpcDeactivate;
-    pQuestData->pCallback[11] = ACT5Q6_Callback11_ScrollMessage;
+    pQuestData->pCallback[11] = sub_0058D940_Callback11_ScrollMessage;
     pQuestData->pCallback[13] = ACT5Q6_Callback13_PlayerStartedGame;
     pQuestData->pCallback[14] = ACT5Q6_Callback14_PlayerJoinedGame;
     pQuestData->pNPCMessages = gpAct5Q6NpcMessages;

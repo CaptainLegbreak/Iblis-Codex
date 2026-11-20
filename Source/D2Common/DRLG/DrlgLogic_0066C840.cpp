@@ -151,7 +151,7 @@ int __fastcall DRLGGRID_IsGridValid(D2DrlgGridStrc* pGrid);                     
 void __fastcall DRLGGRID_AlterGridFlag(D2DrlgGridStrc* pGrid, int nX, int nY, int nFlag, int nOperation);   // 0x0067C4F0
 int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY);                           // 0x0067C570
 void __fastcall DRLGGRID_InitializeGridCells(void* pMemPool, D2DrlgGridStrc* pGrid, int nWidth, int nHeight);  // 0x0067CB80
-void __fastcall DRLGGRID_FillGrid(D2DrlgGridStrc* pGrid, int nWidth, int nHeight, int* pCellPos, int* pCellFlags);  // 0x0067CBF0
+void __fastcall sub_0067CBF0(D2DrlgGridStrc* pGrid, int nWidth, int nHeight, int* pCellPos, int* pCellFlags);  // 0x0067CBF0
 void __fastcall DRLGGRID_ResetGrid(D2DrlgGridStrc* pGrid);                                          // 0x0067CDC0
 
 // @ref 0x0066C3D0
@@ -639,7 +639,7 @@ void __fastcall DRLGLOGIC_InitializeDrlgCoordList(D2DrlgRoomStrc* pDrlgRoom, D2D
     const int nLists = pLevel->nCoordLists;
 
     D2DrlgGridStrc pDrlgGrid;
-    DRLGGRID_FillGrid(&pDrlgGrid, pDrlgRoom->tCoords.nWidth + 1, pDrlgRoom->tCoords.nHeight + 1, nCellPositions, nCellFlags);
+    sub_0067CBF0(&pDrlgGrid, pDrlgRoom->tCoords.nWidth + 1, pDrlgRoom->tCoords.nHeight + 1, nCellPositions, nCellFlags);
 
     sub_0066C870(pDrlgRoom, &pDrlgGrid);
 

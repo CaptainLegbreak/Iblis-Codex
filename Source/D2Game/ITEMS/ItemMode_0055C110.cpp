@@ -97,7 +97,7 @@ void __fastcall ITEMS_RemoveFromAllPlayers(D2GameStrc* pGame, D2UnitStrc* pUnit)
 void __fastcall ITEMS_DropGoldPile(D2GameStrc* pGame, D2UnitStrc* pUnit, int nAmount); // 0x0055B030
 void __fastcall sub_0055BF50_ClearTargetingFlags(D2UnitStrc* pUnit, const char* szFile, int nLine); // 0x0055BF50
 void __fastcall sITEMSAddStatsList(D2GameStrc* pGame, D2UnitStrc* pItem, D2UnitStrc* pUnit, int a4); // 0x0055C2C0
-void __fastcall sub_0055DBC0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nArg); // 0x0055DBC0
+void __fastcall sub_0055DBC0_RecalcEquippedItemStates(D2GameStrc* pGame, D2UnitStrc* pUnit, int nArg); // 0x0055DBC0
 void __fastcall D2GAME_RemoveItem_6FC471F0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, int bSendPacket); // 0x0055DF10
 int __fastcall sub_6FD136E0(D2UnitStrc* pUnit, int nSkillId); // 0x00570080
 void __fastcall D2GAME_AssignSkill_6FD13800(D2UnitStrc* pUnit, int a2, int nSkillId, int nFlags); // 0x005701B0
@@ -1102,7 +1102,7 @@ void __fastcall sub_0055F900_EquipItemRefresh(D2GameStrc* pGame, D2UnitStrc* pUn
     if (pInventory)
     {
         sub_0055D970_UpdateEquippedItemStats(pGame, pItem, pUnit);
-        sub_0055DBC0(pGame, pUnit, 0);
+        sub_0055DBC0_RecalcEquippedItemStates(pGame, pUnit, 0);
         INVENTORY_AddItemToTradeInventory(pInventory, pItem);
         UNITS_RefreshInventory(pUnit, 1);
     }
@@ -1390,7 +1390,7 @@ static int __stdcall sub_005600A0_PlaceItemInInventory(D2GameStrc* pGame, int bR
 
             if (ITEMS_IsCharmUsable(pItem, pUnit))
             {
-                sub_0055DBC0(pGame, pUnit, 0);
+                sub_0055DBC0_RecalcEquippedItemStates(pGame, pUnit, 0);
                 UNITS_RefreshInventory(pUnit, 1);
             }
 
@@ -1509,7 +1509,7 @@ int __fastcall D2GAME_PickupItem_6FC43340(D2GameStrc* ptGame, D2UnitStrc* pUnit,
 
                     if (ITEMS_IsCharmUsable(pItem, pUnit))
                     {
-                        sub_0055DBC0(ptGame, pUnit, 0);
+                        sub_0055DBC0_RecalcEquippedItemStates(ptGame, pUnit, 0);
                         UNITS_RefreshInventory(pUnit, 1);
                     }
 

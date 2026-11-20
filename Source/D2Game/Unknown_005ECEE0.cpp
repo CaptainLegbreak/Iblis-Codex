@@ -19,9 +19,9 @@ D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 D2UnitStrc* __fastcall sub_6FCCFD40(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int* pDistance, int* pCombat, int nRange); // 0x005DDE50
 D2UnitStrc* __fastcall sub_6FCF2110(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int* pDistance, int* pCombat); // 0x005DD7F0
-int __fastcall sub_6FCF14D0(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2); // 0x005DC640
+int __fastcall sub_005DC640_HasFreeSpotNearTarget(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2); // 0x005DC640
 int __fastcall AIUTIL_GetDistanceToCoordinates_FullUnitSize(D2UnitStrc* pTarget, D2UnitStrc* pSource); // 0x005DC380
-int __stdcall sub_006416D0_GetDistance(D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x006416D0
+int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x006416D0
 int __fastcall AITACTICS_ChangeModeAndTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, D2UnitStrc* pTargetUnit); // 0x005DDF90
 void __fastcall AITACTICS_SetVelocity(D2UnitStrc* pUnit, int a2, int nVel, unsigned char a4); // 0x005DE190
 int __fastcall AITACTICS_RunToTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit); // 0x005DED20
@@ -71,7 +71,7 @@ void __fastcall AITHINK_Fn108_SpiritWolf(D2GameStrc* pGame, D2UnitStrc* pUnit, D
     int nOwnerDistance;
     int bOwnerCombat;
     D2UnitStrc* pOwnerTarget = sub_6FCF2110(pGame, pOwner, pAiControl, &nOwnerDistance, &bOwnerCombat);
-    if (pTarget && !sub_6FCF14D0(pUnit, pTarget))
+    if (pTarget && !sub_005DC640_HasFreeSpotNearTarget(pUnit, pTarget))
     {
         pTarget = 0;
     }
@@ -79,7 +79,7 @@ void __fastcall AITHINK_Fn108_SpiritWolf(D2GameStrc* pGame, D2UnitStrc* pUnit, D
     if (!pTarget && pOwnerTarget)
     {
         nDistance = AIUTIL_GetDistanceToCoordinates_FullUnitSize(pUnit, pOwnerTarget);
-        if (nDistance < nRange && !sub_6FCF14D0(pUnit, pOwnerTarget))
+        if (nDistance < nRange && !sub_005DC640_HasFreeSpotNearTarget(pUnit, pOwnerTarget))
         {
             pTarget = pOwnerTarget;
         }
@@ -91,7 +91,7 @@ void __fastcall AITHINK_Fn108_SpiritWolf(D2GameStrc* pGame, D2UnitStrc* pUnit, D
         nVelocity = 100;
     }
 
-    const int nOwnerDistance2 = sub_006416D0_GetDistance(pOwner, pUnit);
+    const int nOwnerDistance2 = sub_006416D0_UnitEdgeDistance(pOwner, pUnit);
     if (pMonStats->nSkill[0] >= 0 && nOwnerDistance2 > 50)
     {
         AITACTICS_UseSkill(pGame, pUnit, pMonStats->nSkillMode[0], pMonStats->nSkill[0], 0, CLIENTS_GetUnitX(pOwner), CLIENTS_GetUnitY(pOwner));
@@ -142,7 +142,7 @@ void __fastcall AITHINK_Fn108_SpiritWolf(D2GameStrc* pGame, D2UnitStrc* pUnit, D
             return;
         }
 
-        if (sub_006416D0_GetDistance(pOwner, pTarget) < nRange)
+        if (sub_006416D0_UnitEdgeDistance(pOwner, pTarget) < nRange)
         {
             AITACTICS_SetVelocity(pUnit, 0, nVelocity, 0);
             AITACTICS_RunToTargetUnit(pGame, pUnit, pTarget);

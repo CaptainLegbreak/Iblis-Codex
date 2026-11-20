@@ -13,7 +13,7 @@ struct D2ClientStrc
 };
 
 void __fastcall sub_0053AFB0_EnsureAct(D2GameStrc* pGame, unsigned char nAct);                              // 0x0053AFB0
-void __fastcall sub_0053ABE0_EnterAct(D2GameStrc* pGame, D2ClientStrc* pClient);                            // 0x0053ABE0
+void __fastcall LEVEL_SynchronizeDayNightCycleWithClient(D2GameStrc* pGame, D2ClientStrc* pClient);                            // 0x0053ABE0
 void __fastcall CLIENTS_SetClientState(D2ClientStrc* pClient, int nClientState);                            // 0x005386D0
 
 // 0x0052C210
@@ -21,6 +21,6 @@ void __fastcall sub_0052C210_ClientEnterAct(D2GameStrc* pGame, D2ClientStrc* pCl
 {
     D2_ASSERT(pClient, 0x1C4);
     sub_0053AFB0_EnsureAct(pGame, pClient->bAct);
-    sub_0053ABE0_EnterAct(pGame, pClient);
+    LEVEL_SynchronizeDayNightCycleWithClient(pGame, pClient);
     CLIENTS_SetClientState(pClient, 2);
 }

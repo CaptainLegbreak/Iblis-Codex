@@ -78,7 +78,7 @@ void __cdecl GAME_LogMessage(int nLevel, const char* szFormat, ...);            
 int __stdcall sub_0052B2D0_ObjectCallMode1(unsigned char* pBuffer, int nSize);                              // 0x0052B2D0
 int __stdcall sub_0052B2F0_ObjectCallMode0(unsigned char* pBuffer, int nSize);                              // 0x0052B2F0
 int __stdcall sub_0052B310_ObjectCallMode2(unsigned char* pBuffer, int nSize);                              // 0x0052B310
-void __fastcall sub_6FC38140(void* pData, int nSize);                                                       // 0x0052CC20
+void __fastcall sub_0052CC20_Statistics(void* pData, int nSize);                                                       // 0x0052CC20
 void __fastcall SrvDisconnectClient(D2GameStrc* pGame, D2ClientStrc* pClient, int nEventType);            // 0x0052CAF0
 void __fastcall GAME_LeaveGamesCriticalSection(D2GameStrc* pGame);                                          // 0x0052DA90
 D2GameStrc* __fastcall GAME_LockGame(int nGameGUID);                                                        // 0x0052E860
@@ -93,7 +93,7 @@ int __fastcall CLIENTS_CheckFlag(D2ClientStrc* pClient, unsigned short nFlag);  
 char* __fastcall CLIENTS_GetName(D2ClientStrc* pClient);                                                    // 0x00538830
 int __fastcall CLIENTS_AttachSaveFile(int nClientId, const void* pSaveData, int nSize, int nTotalSize, int bUnlockCharacter, int a6, int a7); // 0x00538CE0
 void __fastcall CLIENTS_GetGuildEmblem(D2ClientStrc* pClient, unsigned char* pBackgroundColor, unsigned char* pForegroundColor, unsigned char* pEmblemType); // 0x00539190
-void __fastcall CLIENTS_SetClientState(D2ClientStrc* pClient, unsigned char nClientState);                  // 0x0053B320
+void __fastcall D2GAME_PACKETS_SendHeaderOnlyPacket(D2ClientStrc* pClient, unsigned char nClientState);                  // 0x0053B320
 int __fastcall CCMD_IsStringZeroTerminated(const char* pData, int nDataSize);                               // 0x0053EFC0
 void __fastcall CCMD_ProcessClientSystemMessage(void* pData, int nSize);                                    // 0x0053F100
 void __fastcall ProcessClientMessage(void* pData, int nPacketSize);                                    // 0x0053F3D0
@@ -194,7 +194,7 @@ void __fastcall GAME_ProcessNetworkMessages()
         nSize = sub_0052B310_ObjectCallMode2(buffer, 512);
         if (nSize != -1)
         {
-            sub_6FC38140(buffer, nSize);
+            sub_0052CC20_Statistics(buffer, nSize);
         }
     } while (nSize != -1);
 }
@@ -346,7 +346,7 @@ int __stdcall SrvRecvDatabaseCharacter(int nClientId, const unsigned char* pSave
 
     pClient->nSaveCreationTimestamp = *pSaveCreationTimestamp;
     GAME_LeaveGamesCriticalSection(pGame);
-    CLIENTS_SetClientState(pClient, 2);
+    D2GAME_PACKETS_SendHeaderOnlyPacket(pClient, 2);
     return nTotalSize;
 }
 

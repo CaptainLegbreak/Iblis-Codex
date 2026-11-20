@@ -133,13 +133,13 @@ struct D2MissilesTxt
 D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
 int __stdcall sub_006270B0(D2StatListStrc* pStatList, int nStatId, int nValue, int nLayer); // 0x006270B0
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
-int __stdcall sub_00623B10_GetStartFrame(D2UnitStrc* pUnit); // 0x00623B10
+int __stdcall UNITS_GetFrameBonus(D2UnitStrc* pUnit); // 0x00623B10
 void __stdcall UNITS_InitializeSequence(D2UnitStrc* pUnit); // 0x00621260
 void __stdcall UnitUpdateAnimRateAndVel(D2UnitStrc* pUnit, const char* szFile, int nLine); // 0x00623F50
 int __stdcall STATES_IsUnitShapeShifted(D2UnitStrc* pUnit); // 0x0063A400
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId); // 0x00640E90
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
-D2MissilesTxt* __fastcall DATATBLS_GetMissilesTxtRecord(int nMissileId); // 0x0046ACE0
+D2MissilesTxt* __fastcall sub_0046ACE0(int nMissileId); // 0x0046ACE0
 static __declspec(noinline) void UNITS_CharacterStartRunningOrKnockback(D2UnitStrc* pUnit, int nClassId);
 
 static __forceinline int UNITS_GetXPositionForceInl(D2UnitStrc* pUnit)
@@ -706,7 +706,7 @@ int __stdcall sub_00624390_AnimInit(D2UnitStrc* ptUnit)
     D2_ASSERT(ptUnit, 0x951);
 
     ptUnit->nActionFrame = 0;
-    ptUnit->nSeqCurrentFramePrecise = sub_00623B10_GetStartFrame(ptUnit) << 8;
+    ptUnit->nSeqCurrentFramePrecise = UNITS_GetFrameBonus(ptUnit) << 8;
 
     int nUnitType = ptUnit->dwUnitType;
     int nMode = ptUnit->dwAnimMode;
@@ -800,7 +800,7 @@ int __stdcall sub_00624390_AnimInit(D2UnitStrc* ptUnit)
 
     case 3:
     {
-        D2MissilesTxt* pMissilesTxtRecord = DATATBLS_GetMissilesTxtRecord(ptUnit->dwClassId);
+        D2MissilesTxt* pMissilesTxtRecord = sub_0046ACE0(ptUnit->dwClassId);
         if (!pMissilesTxtRecord)
         {
             return 0;

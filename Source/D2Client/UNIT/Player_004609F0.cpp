@@ -20,8 +20,8 @@ struct D2UnitStrc
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId); // 0x0045C4B0
-void __fastcall sub_00460930_UpdateLightRadius(D2UnitStrc* pUnit, int nValue); // 0x00460930
-void __fastcall sub_004609A0_UpdateLightColor(D2UnitStrc* pUnit, int nValue); // 0x004609A0
+void __fastcall sub_00460930_SetUnitLightRadius(D2UnitStrc* pUnit, int nValue); // 0x00460930
+void __fastcall sub_004609A0_SetUnitLightColor(D2UnitStrc* pUnit, int nValue); // 0x004609A0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic); // 0x00625820
 D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x006439B0
@@ -53,11 +53,11 @@ void __fastcall sub_004609F0_OnStatChanged(D2GameStrc* pGame, D2UnitStrc* pOwner
     switch (nStatId)
     {
     case 89:
-        sub_00460930_UpdateLightRadius(pOwner, nNewValue);
+        sub_00460930_SetUnitLightRadius(pOwner, nNewValue);
         break;
 
     case 90:
-        sub_004609A0_UpdateLightColor(pOwner, nNewValue);
+        sub_004609A0_SetUnitLightColor(pOwner, nNewValue);
         break;
 
     case 97:

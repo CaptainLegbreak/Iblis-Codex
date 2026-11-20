@@ -102,15 +102,15 @@ const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);  
 int __fastcall sub_00526800(const Unicode* pString);                                                      // 0x00526800
 void __cdecl sub_004F9190();                                                              // 0x004F9190
 void __fastcall BUTTON_SetIsPressed(D2WinControlStrc* pButton, int bIsPressed);                             // 0x005009A0
-void __fastcall sub_004FD060_SetText(D2WinControlStrc* pControl, const Unicode* pText);                     // 0x004FD060
+void __fastcall D2Win_10044(D2WinControlStrc* pControl, const Unicode* pText);                     // 0x004FD060
 void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* pText, int nA, int nB, int nC); // 0x004FC9B0
 void __stdcall sub_004FA590_RunLoop(D2LaunchCallback pfnCallback);                                          // 0x004FA590
 void __fastcall sub_0043FB50_ShowWait(const Unicode* pText, D2LaunchCallback pfnDone);                      // 0x0043FB50
-void __fastcall sub_004401C0_ShowText(const Unicode* pText, D2LaunchCallback pfnDone);                      // 0x004401C0
+void __fastcall sub_004401C0_ShowTimedMessage(const Unicode* pText, D2LaunchCallback pfnDone);                      // 0x004401C0
 int __stdcall sub_0043D9A0(int nArg);                                                                       // 0x0043D9A0
 int __stdcall sub_0043DBC0(int nArg);                                                                       // 0x0043DBC0
 int __stdcall sub_0043DBF0(int nArg);                                                                       // 0x0043DBF0
-void __cdecl sub_00443630();                                                                                // 0x00443630
+void __cdecl sub_00443630_UpdateCreateButton();                                                                                // 0x00443630
 int __stdcall sub_00449E10_Forward1(const char* szName);                                                    // 0x00449E10
 void __stdcall sub_00449E50_SetValue(int nValue);                                                           // 0x00449E50
 void __stdcall sub_0044A130_StartThread(D2LaunchThreadRecordStrc* pRecord);                                 // 0x0044A130
@@ -283,7 +283,7 @@ int __cdecl sub_00441A90()
     if (sub_00449B30_QueryAddress())
         return 1;
     gnFlag_0077BD60 = 0;
-    sub_004401C0_ShowText(D2LANG_GetStringFromTblIndex(0x147B), sub_0043D9A0);
+    sub_004401C0_ShowTimedMessage(D2LANG_GetStringFromTblIndex(0x147B), sub_0043D9A0);
     D2LaunchPayloadStrc* pPayload = gpLaunchFuncs_0077B09C->pfn0x44(gpCharInfo_0077BBD8->szRealm0x22D, gszPassword_006D423C);
     if (!pPayload)
         return 0;
@@ -405,15 +405,15 @@ void __cdecl sub_00443220_DestroyControls()
 void __cdecl sub_00443D50_CreateControls()
 {
     gpControl_00798C90 = CONTROL_Create(&gtControlInit_0070E860);
-    sub_004FD060_SetText(gpControl_00798C90, D2LANG_GetStringFromTblIndex(0x1493));
+    D2Win_10044(gpControl_00798C90, D2LANG_GetStringFromTblIndex(0x1493));
     gpControl_00798C94 = CONTROL_Create(&gtControlInit_0070E890);
-    sub_004FD060_SetText(gpControl_00798C94, D2LANG_GetStringFromTblIndex(0x1494));
+    D2Win_10044(gpControl_00798C94, D2LANG_GetStringFromTblIndex(0x1494));
     gpControl_00798C98 = CONTROL_Create(&gtControlInit_0070E8C0);
-    sub_004FD060_SetText(gpControl_00798C98, D2LANG_GetStringFromTblIndex(0x1496));
+    D2Win_10044(gpControl_00798C98, D2LANG_GetStringFromTblIndex(0x1496));
     gpControl_00798C9C = CONTROL_Create(&gtControlInit_0070E8F0);
-    sub_004FD060_SetText(gpControl_00798C9C, D2LANG_GetStringFromTblIndex(0x1497));
+    D2Win_10044(gpControl_00798C9C, D2LANG_GetStringFromTblIndex(0x1497));
     gpControl_00798CA8 = CONTROL_Create(&gtControlInit_0070E9B0);
-    sub_004FD060_SetText(gpControl_00798CA8, D2LANG_GetStringFromTblIndex(0x1492));
+    D2Win_10044(gpControl_00798CA8, D2LANG_GetStringFromTblIndex(0x1492));
 }
 
 // 0x00443E10
@@ -496,7 +496,7 @@ int __stdcall sub_00445550(int nArg)
         sub_004FC9B0_SetText(gpControl_00798C04, D2LANG_GetStringFromTblIndex(0x148B), 5, 0, 0);
         sub_004FC9B0_SetText(gpControl_00798C08, D2LANG_GetStringFromTblIndex(0x148C), 5, 0, 0);
     }
-    sub_00443630();
+    sub_00443630_UpdateCreateButton();
     return 1;
 }
 

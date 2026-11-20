@@ -26,16 +26,16 @@ struct D2SkillStateStrc
     int nLeftOwnerGUID;
 };
 
-void __fastcall sub_0046F280(D2UnitStrc* pUnit, int nComponent);                               // 0x0046F280
+void __fastcall sub_0046F280_ClearGfxBytes(D2UnitStrc* pUnit, int nComponent);                               // 0x0046F280
 void __fastcall sub_0046F950(D2UnitStrc* pUnit);                                                            // 0x0046F950
 void __fastcall sub_00470610_Refresh(D2UnitStrc* pUnit, int nArg);                                          // 0x00470610
 void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget);   // 0x004AFF60
-int __fastcall sub_004C10E0_CanUseItem(D2UnitStrc* pUnit, D2UnitStrc* pItem);                               // 0x004C10E0
+int __fastcall sub_0055DB00_CheckEquipRequirements(D2UnitStrc* pUnit, D2UnitStrc* pItem);                               // 0x004C10E0
 int __fastcall sub_004D9FC0_GetSkillUseState(D2UnitStrc* pUnit, D2SkillStrc* pSkill);                       // 0x004D9FC0
 D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit);                                               // 0x00620190
 D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit);                                              // 0x006201D0
 int __stdcall UNITS_CanDualWield(D2UnitStrc* pUnit);                                                        // 0x006235A0
-unsigned char __stdcall sub_00623D60_GetItemComponent(D2UnitStrc* pUnit, D2UnitStrc* pItem);                // 0x00623D60
+unsigned char __stdcall UNITS_GetItemComponentId(D2UnitStrc* pUnit, D2UnitStrc* pItem);                // 0x00623D60
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);                        // 0x00625480
 D2UnitStrc* __stdcall STATLIST_GetOwner(D2UnitStrc* pUnit, int* pStatNotDynamic);                           // 0x00625820
 void __stdcall STATLIST_ExpireUnitStatlist(D2UnitStrc* pUnused, D2UnitStrc* pUnit);                         // 0x006277F0
@@ -44,7 +44,7 @@ unsigned char __stdcall ITEMS_GetBodyLocation(D2UnitStrc* pItem);               
 int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem);                                                      // 0x00627E70
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile);   // 0x006280A0
 void __stdcall ITEMS_SetItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int bSet);                         // 0x006280D0
-int __stdcall sub_00629A40(D2UnitStrc* pItem);                                                              // 0x00629A40
+int __stdcall ITEMS_GetGemApplyType(D2UnitStrc* pItem);                                                              // 0x00629A40
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType);                                      // 0x00629BB0
 int __stdcall ITEMS_IsCharmUsable(D2UnitStrc* pItem, D2UnitStrc* pPlayer);                                  // 0x0062FF70
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId);                                              // 0x006335F0
@@ -52,8 +52,8 @@ D2GemsTxt* __stdcall DATATBLS_GetGemsTxtRecord(int nGemId);                     
 D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory);                                  // 0x0063B2C0
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc);              // 0x0063BDE0
 D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory);                             // 0x0063BEF0
-void __stdcall sub_0063D1D0_InventoryItemCall(D2InventoryStrc* pInventory, D2UnitStrc* pItem);              // 0x0063D1D0
-void __stdcall sub_0063D2B0_DetachItem(D2InventoryStrc* pInventory, D2UnitStrc* pItem);                     // 0x0063D2B0
+void __stdcall INVENTORY_UpdateWeaponGUIDOnInsert(D2InventoryStrc* pInventory, D2UnitStrc* pItem);              // 0x0063D1D0
+void __stdcall INVENTORY_UpdateWeaponGUIDOnRemoval(D2InventoryStrc* pInventory, D2UnitStrc* pItem);                     // 0x0063D2B0
 D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem);                                             // 0x0063DFA0
 D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem);                                              // 0x0063DFD0
 int __stdcall INVENTORY_GetItemNodePage(D2UnitStrc* pItem);                                                 // 0x0063E020
@@ -110,7 +110,7 @@ static void __stdcall sub_004C0D20_ApplyItemStats(D2UnitStrc* pItem, D2UnitStrc*
         D2_ASSERT(pItemsTxtRecord, 0x32);
         pGemsTxtRecord = DATATBLS_GetGemsTxtRecord(pItemsTxtRecord->dwGemOffset);
         D2_ASSERT(pGemsTxtRecord, 0x34);
-        sub_0065FEC0_ItemApplyProps(2, NULL, pItem, pGemsTxtRecord, sub_00629A40(pUnit), 0);
+        sub_0065FEC0_ItemApplyProps(2, NULL, pItem, pGemsTxtRecord, ITEMS_GetGemApplyType(pUnit), 0);
     }
     else if (ITEMSIsA(pItem, 0x4A))
     {
@@ -119,7 +119,7 @@ static void __stdcall sub_004C0D20_ApplyItemStats(D2UnitStrc* pItem, D2UnitStrc*
         D2_ASSERT(pItemsTxtRecord, 0x3C);
         pGemsTxtRecord = DATATBLS_GetGemsTxtRecord(pItemsTxtRecord->dwGemOffset);
         D2_ASSERT(pGemsTxtRecord, 0x3E);
-        sub_0065FEC0_ItemApplyProps(5, pUnit, pItem, pGemsTxtRecord, sub_00629A40(pUnit), 0);
+        sub_0065FEC0_ItemApplyProps(5, pUnit, pItem, pGemsTxtRecord, ITEMS_GetGemApplyType(pUnit), 0);
     }
     else
     {
@@ -233,13 +233,13 @@ static void __stdcall sub_004C1290_AttachItem(int nComponent, D2UnitStrc* pUnit,
     if (!pUnit || !pItem || !pUnit->pInventory)
         return;
 
-    sub_0063D2B0_DetachItem(pUnit->pInventory, pItem);
+    INVENTORY_UpdateWeaponGUIDOnRemoval(pUnit->pInventory, pItem);
     if (pUnit->dwUnitType == 0)
         INVENTORY_GetLeftHandWeapon(pUnit->pInventory);
 
     ITEMS_CheckItemFlag(pItem, 0x100, 0x96, ".\\UNIT\\Item.cpp");
     STATLIST_ExpireUnitStatlist(pUnit, pItem);
-    sub_0046F280(pUnit, nComponent);
+    sub_0046F280_ClearGfxBytes(pUnit, nComponent);
 }
 
 static __forceinline int sub_0044BE50(D2UnitStrc* pUnit)
@@ -269,12 +269,12 @@ static __forceinline void ITEM_ReattachItem(int nMode, int nComponent, D2UnitStr
     if (nBodyLoc == 0x0B || nBodyLoc == 0x0C)
         return;
 
-    sub_0063D2B0_DetachItem(pInventory, pItem);
-    sub_0046F280(pUnit, nComponent);
+    INVENTORY_UpdateWeaponGUIDOnRemoval(pInventory, pItem);
+    sub_0046F280_ClearGfxBytes(pUnit, nComponent);
     if (nMode == 1 && !STATLIST_GetOwner(pItem, NULL))
         sub_004C0D20_ApplyItemStats(pItem, pUnit, 1);
 
-    sub_0063D1D0_InventoryItemCall(pInventory, pItem);
+    INVENTORY_UpdateWeaponGUIDOnInsert(pInventory, pItem);
 }
 
 static __forceinline int sub_H18_UnitFlag9(D2UnitStrc* pUnit)
@@ -310,7 +310,7 @@ static void sub_004C1350_RefreshEquippedItems(D2UnitStrc* pUnit)
     {
         D2UnitStrc* pItem = INVENTORY_UnitIsItem(pNode);
         if (pItem && INVENTORY_GetItemNodePage(pNode) == 1 && ITEMS_IsCharmUsable(pItem, pUnit)
-            && !STATLIST_GetOwner(pItem, NULL) && sub_004C10E0_CanUseItem(pUnit, pItem))
+            && !STATLIST_GetOwner(pItem, NULL) && sub_0055DB00_CheckEquipRequirements(pUnit, pItem))
         {
             ITEMS_SetItemFlag(pItem, 0x4000, 0);
             sub_004C0D20_ApplyItemStats(pItem, pUnit, 0);
@@ -329,11 +329,11 @@ static void sub_004C1350_RefreshEquippedItems(D2UnitStrc* pUnit)
         if (ITEMS_CheckItemFlag(pItem, 0x4000, 0x208, ".\\UNIT\\Item.cpp") && !STATLIST_GetOwner(pItem, NULL))
             continue;
 
-        if (sub_004C10E0_CanUseItem(pUnit, pItem))
+        if (sub_0055DB00_CheckEquipRequirements(pUnit, pItem))
             continue;
 
         ITEMS_SetItemFlag(pItem, 0x4000, 1);
-        const int nComponent = sub_00623D60_GetItemComponent(pUnit, pItem);
+        const int nComponent = UNITS_GetItemComponentId(pUnit, pItem);
         sub_004C1290_AttachItem(nComponent, pUnit, pItem);
         bChanged = 1;
     }
@@ -355,11 +355,11 @@ static void sub_004C1350_RefreshEquippedItems(D2UnitStrc* pUnit)
             if (!ITEMS_CheckItemFlag(pItem, 0x4000, 0x22A, ".\\UNIT\\Item.cpp") && STATLIST_GetOwner(pItem, NULL))
                 continue;
 
-            if (!sub_004C10E0_CanUseItem(pUnit, pItem))
+            if (!sub_0055DB00_CheckEquipRequirements(pUnit, pItem))
                 continue;
 
             ITEMS_SetItemFlag(pItem, 0x4000, 0);
-            ITEM_ReattachItem(pItem->dwAnimMode, sub_00623D60_GetItemComponent(pUnit, pItem), pUnit, pItem);
+            ITEM_ReattachItem(pItem->dwAnimMode, UNITS_GetItemComponentId(pUnit, pItem), pUnit, pItem);
             bMore = 1;
             bChanged = 1;
         }

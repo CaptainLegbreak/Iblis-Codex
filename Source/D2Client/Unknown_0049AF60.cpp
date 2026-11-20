@@ -71,7 +71,7 @@ int __fastcall sub_0047A5B0(D2StoredUnitRecordStrc* pEntry); // 0x0047A5B0
 int __fastcall sub_0047A610(D2StoredUnitRecordStrc* pEntry); // 0x0047A610
 int __fastcall sub_0047A670(D2StoredUnitRecordStrc* pEntry); // 0x0047A670
 int __cdecl sub_0044B850_IsHardcore(); // 0x0044B850
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 int __fastcall sub_00479B90(D2StoredUnitRecordStrc* pEntry); // 0x00479B90
@@ -323,7 +323,7 @@ void __cdecl sub_0049B330_DrawRosterButtonHints()
 {
     D2RosterUnitStrc* pRow = gpRosterUnits_007BF014;
     D2StoredUnitRecordStrc* pFirst = sub_004795A0_GetNextEntry(0);
-    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(sub_00463DD0());
+    D2ActiveRoomStrc* pRoom = UNITS_GetRoom(sub_00463DD0_GetPlayerUnit());
     int bInTown = 0;
     D2StoredUnitRecordStrc* pEntry = sub_004795A0_GetNextEntry(pFirst);
     gbGlobal_007BF034 = D2Win_10034_MixRGB(0, 0, 0);
@@ -535,7 +535,7 @@ void __stdcall sub_0049BDD0_OnRosterClick(SMSGHANDLER_PARAMS* pMsg)
     D2StoredUnitRecordStrc* pEntry = sub_004795A0_GetNextEntry(0);
     D2RosterUnitStrc* pRow = gpRosterUnits_007BF014;
     gnGlobal_007BF030 = 0;
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (nX < gnGlobal_0071146C / 2)
     {
         nX = sub_00468730();

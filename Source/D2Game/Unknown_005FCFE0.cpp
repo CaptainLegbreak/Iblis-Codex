@@ -761,7 +761,7 @@ typedef int(__fastcall* CULLFN)(D2UnitStrc*, D2UnitStrc*);
 D2AiCmdStrc* __fastcall AIGENERAL_GetAiCommandFromParam(D2UnitStrc* pUnit, int nCmdParam, int bSet); // 0x0058EEF0
 D2AiCmdStrc* __fastcall sub_0058EF40_CopyAiCommand(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiCmdStrc* pAiCmd); // 0x0058EF40
 int __fastcall AIBAAL_CullPotentialTargets(D2UnitStrc* pBaal, D2UnitStrc* pTarget); // 0x005FC000
-void __fastcall sub_005FCB60_MainSkillHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, D2UnitStrc* pTarget, int nParam, D2AiCmdStrc* pAiCmd); // 0x005FCB60
+void __fastcall AIBAAL_MainSkillHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, D2UnitStrc* pTarget, int nParam, D2AiCmdStrc* pAiCmd); // 0x005FCB60
 void __fastcall AITACTICS_Idle(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames); // 0x005DE0F0
 
 static __forceinline int UNITS_GetXPos(D2UnitStrc* pUnit)
@@ -820,6 +820,6 @@ void __fastcall AITHINK_Fn135_BaalCrab(D2GameStrc* pGame, D2UnitStrc* pUnit, D2A
 
     D2AiControlStrc* pAiControl = pAiTickParam->pAiControl;
     const int nParam = AIBAAL_RollRandomAiParam(pGame, pUnit, pAiControl, pTarget, nMax, nCount, pAiCmd);
-    sub_005FCB60_MainSkillHandler(pGame, pUnit, pAiControl, pTarget, nParam, pAiCmd);
+    AIBAAL_MainSkillHandler(pGame, pUnit, pAiControl, pTarget, nParam, pAiCmd);
     AITACTICS_Idle(pGame, pUnit, 25);
 }

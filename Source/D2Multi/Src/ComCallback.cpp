@@ -81,7 +81,7 @@ int __fastcall sub_0043E610_PrintText(Unicode* pText, int nColor); // 0x0043E610
 void __stdcall sub_00446A90_RemoveTableString(Unicode* pText); // 0x00446A90
 int __cdecl sub_00449E20(); // 0x00449E20
 void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* pText, int nA, int nB, int nC); // 0x004FC9B0
-void __fastcall sub_004FD060_SetText(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FD060
+void __fastcall D2Win_10044(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FD060
 int __stdcall sub_004FD110_SetBarValue(D2WinControlStrc* pBar, int nValue); // 0x004FD110
 int __stdcall sub_004FD170_SetBarMode(D2WinControlStrc* pBar, int nMode); // 0x004FD170
 int __stdcall sub_004FD1B0_GetBarMax(D2WinControlStrc* pBar); // 0x004FD1B0
@@ -423,9 +423,9 @@ void __cdecl sub_004453B0_BuildPanel()
 
     gpPanelControl_00798BEC = CONTROL_Create(&gtControlInit_0070D300);
     gpPanelTitle_00798BF0 = CONTROL_Create(&gtControlInit_0070EAA0);
-    sub_004FD060_SetText(gpPanelTitle_00798BF0, D2LANG_GetStringFromTblIndex(0x141E));
+    D2Win_10044(gpPanelTitle_00798BF0, D2LANG_GetStringFromTblIndex(0x141E));
     gpPanelText_00798BF4 = CONTROL_Create(&gtControlInit_0070EAD0);
-    sub_004FD060_SetText(gpPanelText_00798BF4, D2LANG_GetStringFromTblIndex(0x2B0F));
+    D2Win_10044(gpPanelText_00798BF4, D2LANG_GetStringFromTblIndex(0x2B0F));
     sub_004FCFF0_SetTextA(gpPanelText_00798BF4, gszSpace_006FFC44, 0);
 
     for (int i = 0; i < 0xC8; i++)
@@ -444,7 +444,7 @@ void __cdecl sub_004453B0_BuildPanel()
     sub_00526F20_ToUnicode(wszNumber, szNumber, 2);
     sub_00526700(wszText, wszNumber);
     sub_00526700(wszText, wszLevel);
-    sub_004FD060_SetText(gpPanelText_00798BF4, wszText);
+    D2Win_10044(gpPanelText_00798BF4, wszText);
 
     gpPanelControl_00798C48 = CONTROL_Create(&gtControlInit_0070EB30);
     sub_004FA450_SetActive(gpPanelControl_00798C48);

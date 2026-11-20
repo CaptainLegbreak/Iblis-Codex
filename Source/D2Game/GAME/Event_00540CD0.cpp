@@ -51,7 +51,7 @@ typedef char SlabSizeCheck[(sizeof(D2EventTimerSlabListStrc)==0x7088)?1:-1];
 
 typedef char QueueSizeCheck[(sizeof(D2EventTimerQueueStrc)==0xA20)?1:-1];
 extern "C" void* __cdecl memset(void*, int, unsigned int); // 0x00681EF0
-extern void __fastcall sub_005544B0_SetUninterruptable(D2UnitStrc*, int); // 0x005544B0
+extern void __fastcall sub_6FCBDE90(D2UnitStrc*, int); // 0x005544B0
 
 static __forceinline D2EventTimerStrc** sub_6FC353D0(D2GameStrc* pGame, int nUnitType, int nExpireFrame)
 {

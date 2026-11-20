@@ -120,7 +120,7 @@ void __stdcall ITEMS_SetItemFormat(D2UnitStrc* pItem, unsigned short nItemFormat
 int __stdcall ITEMS_IsEthereal(D2UnitStrc* pItem);                                                          // 0x0062A8D0
 static void __stdcall ITEMS_ReadStatFromItemBitstream(D2BitBufferStrc* pBuffer, D2StatListStrc* pStatList, D2ItemStatCostTxt* pItemStatCostTxtRecord, int nStatId, unsigned int dwVersion, int n109); // 0x0062AC80
 int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc* pItem);                                                    // 0x0062BA80
-void __stdcall sub_0062BE00_SetSockets(D2UnitStrc* pItem, int nSockets);                                    // 0x0062BE00
+void __stdcall ITEMS_AddSockets(D2UnitStrc* pItem, int nSockets);                                    // 0x0062BE00
 static void __stdcall ITEMS_SetDefenseOrDamage(D2UnitStrc* pItem, int nStat);                               // 0x0062C9F0
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId);                                              // 0x006335F0
 D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId);                // 0x00633640
@@ -130,7 +130,7 @@ void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed);     
 void __stdcall D2Common_10844_ITEMMODS_First(int nValue, int* pSkillId, int* pSkillValue);                  // 0x0065C7A0
 void __stdcall D2Common_10846(int nValue, int* p1, int* p2, int* p3, int* p4);                              // 0x0065C7D0
 void __stdcall D2Common_10845(int nValue, int* pSkillId, int* pSkillLevel, int* pChance);                   // 0x0065CB10
-void __stdcall sub_0065CB60_DecodeAddSkillTab(int nValue, int* pClass, int* pTab, int* pLevel);             // 0x0065CB60
+void __stdcall D2Common_10848(int nValue, int* pClass, int* pTab, int* pLevel);             // 0x0065CB60
 
 #define IFLAG_IDENTIFIED 0x10
 #define IFLAG_ISEAR 0x10000
@@ -950,7 +950,7 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
     if (ITEMS_GetItemFlagsInl(pItem) & IFLAG_SOCKETED)
     {
         pItemStatCostTxtRecord = ITEMS_GetRecF3(194);
-        sub_0062BE00_SetSockets(pItem, BITMANIP_ReadInl(pBuffer, pItemStatCostTxtRecord->nSaveBits[b109]));
+        ITEMS_AddSockets(pItem, BITMANIP_ReadInl(pBuffer, pItemStatCostTxtRecord->nSaveBits[b109]));
     }
 
     if (bCheckForHeader || ITEMS_GetItemFlagsInl(pItem) & IFLAG_IDENTIFIED)
@@ -1261,7 +1261,7 @@ static int __stdcall ITEMS_DecodeItemBitstreamComplete(D2UnitStrc* pItem, D2BitB
                 if (dwVersion <= 92)
                 {
                     nValue = BITMANIP_ReadInl(pBuffer, 10);
-                    sub_0065CB60_DecodeAddSkillTab(nValue, &v238, &v237, &nTabLevel);
+                    D2Common_10848(nValue, &v238, &v237, &nTabLevel);
                     if (nTabLevel > 7)
                     {
                         nTabLevel = 7;

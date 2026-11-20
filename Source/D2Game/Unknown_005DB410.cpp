@@ -67,8 +67,8 @@ struct D2MissileStrc
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern "C" void* __cdecl memset(void*, int, unsigned int);
 int __fastcall D2GAME_GetXAndYFromTargetUnit_6FD14020(D2GameStrc*, D2UnitStrc*, int*, int*); // 0x0056D2C0
-void __fastcall sub_6FD140D0(int*, int*); // 0x0056D370
-void __fastcall sub_6FD14120(int*, int*); // 0x0056D3B0
+void __fastcall SKILLS_EnlargeVector(int*, int*); // 0x0056D370
+void __fastcall SKILLS_MakeShortPerpendicularVector(int*, int*); // 0x0056D3B0
 D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc*, D2MissileStrc*); // 0x0059FA30
 int __fastcall UNITS_GetWeaponClass(D2UnitStrc*); // 0x00623C60
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc*, unsigned int, int, int); // 0x00646CA0
@@ -158,8 +158,8 @@ int __fastcall sub_005DB410_CreateMissileWall(D2GameStrc* pGame, D2UnitStrc* pUn
             break;
         }
         int nDy = nY - nUnitY;
-        sub_6FD140D0(&nDx, &nDy);
-        sub_6FD14120(&nDx, &nDy);
+        SKILLS_EnlargeVector(&nDx, &nDy);
+        SKILLS_MakeShortPerpendicularVector(&nDx, &nDy);
         nX += -(nDx * nTotal / 2);
         nY += -(nDy * nTotal / 2);
         int nMissile = pSkillsTxtRecord->nSrvMissile;

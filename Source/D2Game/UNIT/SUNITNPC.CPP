@@ -176,7 +176,7 @@ void __fastcall sub_6FCC7FA0(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc*
 int __fastcall sub_6FCC88B0(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc, int nItemGUID, int nItemMode, int nTransactionType, int nCost, int bMultibuy); // 0x00577830
 int __fastcall D2GAME_NPC_RemoveStates_6FCCAF30(D2UnitStrc* pUnit); // 0x00578C20
 void __fastcall SUNITNPC_PetIterate_Heal(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pPet, void* pArg); // 0x00578CA0
-void __fastcall sub_6FCC84D0(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pPet); // 0x00579AA0
+void __fastcall sub_00579AA0_ReplacePet(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pPet); // 0x00579AA0
 void __stdcall UNITS_RefreshInventory(D2UnitStrc* pUnit, int bSetFlag); // 0x00621000
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode); // 0x00624690
 unsigned int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
@@ -191,7 +191,7 @@ int __fastcall sub_6FC446B0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nItemGUID,
 void __stdcall ITEMS_SetItemCMDFlag(D2UnitStrc* pItem, int nFlag, int bSet); // 0x00628170
 void __fastcall ITEMS_RemoveFromAllPlayers(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00557FD0
 void __fastcall D2GAME_STORES_CreateVendorCache_6FCCAE20(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc, int bGamble); // 0x00578B30
-void __fastcall sub_00536D10_ReallocNpcInventory(D2GameStrc* pGame, D2NpcRecordStrc* pNpcRecord, D2UnitStrc* pNpc); // 0x00536D10
+void __fastcall SUNITPROXY_AllocNpcInventory(D2GameStrc* pGame, D2NpcRecordStrc* pNpcRecord, D2UnitStrc* pNpc); // 0x00536D10
 void __fastcall D2GAME_NPC_FillStoreInventory_6FCC7100(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc, D2NpcTradeStrc* pTrade); // 0x00576980
 void __fastcall sub_00576C30_AddItemsToTrade(D2UnitStrc* pPlayer, D2InventoryStrc* pInventory); // 0x00576C30
 
@@ -215,7 +215,7 @@ D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc*, in
 int __stdcall SKILLS_GetQuantity(D2SkillStrc*); // 0x006450F0
 void __stdcall SKILLS_SetQuantity(D2SkillStrc*, int); // 0x00645120
 D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc*); // 0x006201D0
-void __fastcall sub_005701B0_AssignSkill(D2UnitStrc*, int, int, int); // 0x005701B0
+void __fastcall D2GAME_AssignSkill_6FD13800(D2UnitStrc*, int, int, int); // 0x005701B0
 void __fastcall D2GAME_PACKETS_SendPacket0x22_6FC3DBE0(D2ClientStrc*, unsigned char, int, int, int); // 0x0053C520
 extern const char gszUnitNpcSource_006E15F0[]; // 0x006E15F0
 void __fastcall ITEMS_HandleGoldTransaction(D2GameStrc*,D2UnitStrc*,unsigned int); // 0x0055B060
@@ -837,7 +837,7 @@ void __fastcall D2GAME_NPC_ResurrectMerc_6FCC9350(D2GameStrc* pGame, D2UnitStrc*
     pHireling->dwFlags &= 0xFFFEFFFF;
     UNITS_ChangeAnimMode(pHireling, 1);
     STATLIST_SetUnitStat(pHireling, STAT_HITPOINTS, STATLIST_GetMaxLifeFromUnit(pHireling), 0);
-    sub_6FCC84D0(pGame, pPlayer, pHireling);
+    sub_00579AA0_ReplacePet(pGame, pPlayer, pHireling);
     D2GAME_PACKETS_SendPacket0x9B_6FC3FB30(UnitGetClient(pPlayer, gszNpcSourceFile, 2461), 0xFFFF, 0);
     const int nHirelingGUID = pHireling->dwUnitId;
     D2GAME_SendPacket0x2A_6FC3F3B0(UnitGetClient(pPlayer, gszNpcSourceFile, 2462), 0x2A, 5, STATLIST_UnitGetStatValue(pPlayer, STAT_GOLD, 0), nHirelingGUID, 0);
@@ -913,7 +913,7 @@ void __fastcall D2GAME_STORES_CreateVendorCache_6FCC74F0(D2GameStrc* pGame, D2Un
         if (pTrade->bRefreshInventory)
         {
             pTrade->bRefreshInventory = 0;
-            sub_00536D10_ReallocNpcInventory(pGame, pNpcRecord, pNPC);
+            SUNITPROXY_AllocNpcInventory(pGame, pNpcRecord, pNPC);
             D2GAME_NPC_FillStoreInventory_6FCC7100(pGame, pPlayer, pNPC, pTrade);
             pTrade->bVendorInit = 1;
         }
@@ -997,7 +997,7 @@ void __fastcall sub_00576E40_DecreaseSkillQuantity(D2UnitStrc* unit, int skillId
     if (!skill) return;
     int quantity = SKILLS_GetQuantity(skill) - decrement;
     if (quantity <= 0) {
-        if (UNITS_GetRightSkill(unit) == skill) sub_005701B0_AssignSkill(unit, 0, 0, -1);
+        if (UNITS_GetRightSkill(unit) == skill) D2GAME_AssignSkill_6FD13800(unit, 0, 0, -1);
         quantity = 0;
     }
     SKILLS_SetQuantity(skill, quantity);

@@ -135,8 +135,8 @@ void* __fastcall sub_00406960_CreateFile(const char* szFileName, unsigned long d
 int __fastcall sub_004069B0_ReadFile(void* hFile, void* pBuffer, unsigned long nToRead, unsigned long* pnRead, void* pOverlapped); // 0x004069B0
 void __fastcall sub_004069A0_CloseFile(void* hFile); // 0x004069A0
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
-void* __stdcall sub_004FAC80(); // 0x004FAC80
-void* __fastcall sub_00517079_LoadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
+void* __stdcall D2Win_GetArchive(); // 0x004FAC80
+void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
 D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType); // 0x00463990
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
@@ -543,7 +543,7 @@ void __stdcall sub_004698D0_LoadKeyConfig(int bInstallDir)
     if (!bLoaded)
     {
         sprintf(szPath, "%s\\CMD\\%s\\default.key", szDataLocal_006D41A8, szLang);
-        pData = sub_00517079_LoadFile(sub_004FAC80(), szPath, 0, ".\\UI\\CmdTbl.cpp", 0x51E);
+        pData = ARCHIVE_AllocateBufferAndReadFile(D2Win_GetArchive(), szPath, 0, ".\\UI\\CmdTbl.cpp", 0x51E);
     }
     if (!pData)
         return;

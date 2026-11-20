@@ -63,8 +63,8 @@ int __stdcall D2Common_11248(D2UnitStrc* pUnused, D2UnitStrc* pUnit, int nStatId
 int __stdcall INVENTORY_GetWieldType(D2UnitStrc* pUnit, D2InventoryStrc* pInventory);                       // 0x0063D340
 int __stdcall SKILLS_GetWeaponMasteryBonus(D2UnitStrc* pUnit, D2UnitStrc* pItem, D2SkillStrc* pSkill, int nType); // 0x00645830
 int __cdecl sub_004E6FF0_SumProgressiveBonus();                                                             // 0x004E6FF0
-short __stdcall sub_00629860_GetStrengthFactor(D2UnitStrc* pItem);                                          // 0x00629860
-short __stdcall sub_006298A0_GetDexterityFactor(D2UnitStrc* pItem);                                         // 0x006298A0
+short __stdcall ITEMS_GetStrengthBonus(D2UnitStrc* pItem);                                          // 0x00629860
+short __stdcall ITEMS_GetDexBonus(D2UnitStrc* pItem);                                         // 0x006298A0
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);         // 0x00625500
 int __stdcall sub_0063A380(D2UnitStrc* pUnit);                                        // 0x0063A380
 int __stdcall sub_0063A3A0(D2UnitStrc* pUnit);                                         // 0x0063A3A0
@@ -215,10 +215,10 @@ static int __stdcall sub_004E86F0_GetWeaponDamage(int* pMinDamage, int* pMaxDama
     int nDamage = 0;
     if (pItem)
     {
-        int nFactor = sub_00629860_GetStrengthFactor(pItem);
+        int nFactor = ITEMS_GetStrengthBonus(pItem);
         if (nFactor)
             nBonus += STATLIST_UnitGetStatValue(pUnit, 0, 0) * nFactor / 100;
-        nFactor = sub_006298A0_GetDexterityFactor(pItem);
+        nFactor = ITEMS_GetDexBonus(pItem);
         if (nFactor)
             nBonus += STATLIST_UnitGetStatValue(pUnit, 2, 0) * nFactor / 100;
         nDamage = STATLIST_UnitGetItemStatOrSkillStatValue(pItem, 0x6F, 0);

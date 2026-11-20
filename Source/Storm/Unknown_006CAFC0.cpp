@@ -73,7 +73,7 @@ inline void* __cdecl operator new(unsigned int nSize, void* pWhere)
 }
 
 extern D2GameDataTableStrc gCelListTable_008E8CC0;                                                  // 0x008E8CC0
-void __cdecl sub_006CB4C0_DestroyCelListTable();                                                           // 0x006CB4C0
+void __cdecl sub_006CB4C0_DestroyTable();                                                           // 0x006CB4C0
 extern "C" int __cdecl atexit(void (__cdecl* callback)());                                                  // 0x00683824
 
 // build: symbol ??_7?$TSExportTableSync@UCELLIST@@PAUHCELLIST__@@PAUHLOCKEDCELLIST__@@VCCritSect@@$0A@@@6B@ 0x006E5E24
@@ -81,5 +81,5 @@ extern "C" int __cdecl atexit(void (__cdecl* callback)());                      
 void __cdecl sub_006CAFC0_InitCelListTable()
 {
     new (&gCelListTable_008E8CC0) D2GameDataTableStrc;
-    atexit(sub_006CB4C0_DestroyCelListTable);
+    atexit(sub_006CB4C0_DestroyTable);
 }

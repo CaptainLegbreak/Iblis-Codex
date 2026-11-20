@@ -303,18 +303,18 @@ extern "C" int __cdecl abs(int nValue);
 extern "C" void* __cdecl memmove(void* pDst, const void* pSrc, unsigned int nSize); // 0x00683840
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(short nIndex); // 0x00524A30
-Unicode* __fastcall sub_00526940_UnicodeStrStr(const Unicode* pString, const Unicode* pPattern); // 0x00526940
+Unicode* __fastcall sub_00526940_FindSubstring(const Unicode* pString, const Unicode* pPattern); // 0x00526940
 int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned char nFlags, const char* szString); // 0x00415070
 void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 void __cdecl sub_00466FF0(); // 0x00466FF0
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 void __fastcall sub_004693B0(int nSteps); // 0x004693B0
 void __cdecl sub_00469270(); // 0x00469270
 void __cdecl sub_00469230(); // 0x00469230
 void __cdecl sub_004692B0(); // 0x004692B0
 void __cdecl sub_00469330(); // 0x00469330
 void __cdecl sub_004692F0(); // 0x004692F0
-void __cdecl sub_00469370(); // 0x00469370
+void __cdecl sub_00469370_CallBoundCommand(); // 0x00469370
 int __cdecl sub_004F5A30(); // 0x004F5A30
 void __cdecl sub_00453DE0(); // 0x00453DE0
 void __cdecl sub_00467A00(); // 0x00467A00
@@ -347,7 +347,7 @@ int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
 int __stdcall sub_00420290_BreakHandlerChain(void* pMsg); // 0x00420290
 extern int gnGlobal_007A0608; // 0x007A0608
-void __fastcall sub_0047A9B0_SetFlag712EFC(int bClear); // 0x0047A9B0
+void __fastcall sub_0047A9B0_SetClientFlag1(int bClear); // 0x0047A9B0
 
 #pragma pack(push, 1)
 struct D2ConfigStrc
@@ -404,7 +404,7 @@ struct D2ConfigStrc
 #pragma pack(pop)
 
 extern char gszRealm_007A0500[]; // 0x007A0500
-void __cdecl sub_004776E0(); // 0x004776E0
+void __cdecl sub_004776E0_SetModeValuesOne(); // 0x004776E0
 void __cdecl sub_004F5280(); // 0x004F5280
 void __cdecl sub_004776F0(); // 0x004776F0
 void __cdecl sub_00477700(); // 0x00477700
@@ -414,9 +414,9 @@ void __fastcall sub_004776C0(int nGamma); // 0x004776C0
 void __cdecl D2GFX_EnableVSync(); // 0x004F5270
 void __fastcall sub_00624B50(int nValue); // 0x00624B50
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
-void __fastcall sub_0047AA10(int nValue); // 0x0047AA10
-void __stdcall D2CMP_SetCompressedDataMode(int bCompress); // 0x005FE280
-void __stdcall sub_006125A0(int bValue); // 0x006125A0
+void __fastcall sub_0047AA10_SetGlobal(int nValue); // 0x0047AA10
+void __stdcall sub_005FE280_LoadCompressedDataFlag(int bCompress); // 0x005FE280
+void __stdcall DATATBLS_ToggleCompileTxtFlag(int bValue); // 0x006125A0
 void __fastcall sub_0044B880_SetValue(int nValue); // 0x0044B880
 
 struct D2StormLinkStrc
@@ -1674,7 +1674,7 @@ void __stdcall sub_0044B230_StripStringAndNextChar(Unicode* pString)
     D2_ASSERT(sub_00526800(pString) < 500, 0x342);
     const Unicode* pPattern = D2LANG_GetStringFromTblIndex(0xF9A);
     int nLength = sub_00526800(pPattern);
-    for (Unicode* pFound = sub_00526940_UnicodeStrStr(pString, pPattern); pFound && pFound[nLength].wChar; pFound = sub_00526940_UnicodeStrStr(pString, pPattern))
+    for (Unicode* pFound = sub_00526940_FindSubstring(pString, pPattern); pFound && pFound[nLength].wChar; pFound = sub_00526940_FindSubstring(pString, pPattern))
     {
         memmove(pFound, &pFound[nLength + 1], (sub_00526800(pFound) - nLength) * sizeof(Unicode));
     }
@@ -1786,7 +1786,7 @@ void __stdcall sub_0044BF40_ClickMapMsg(SMSGHANDLER_PARAMS* pMsg)
     if (gdwGlobal_007A061C)
     {
         gdwGlobal_007A0650 = 1;
-        D2UnitStrc* pPlayer = sub_00463DD0();
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         int nFlags = 0;
         if (gdwGlobal_007A065C)
             nFlags = 8;
@@ -1846,7 +1846,7 @@ void __stdcall sub_0044C370_ClickMapMsgMode5(SMSGHANDLER_PARAMS* pMsg)
     sub_00466FF0();
     if (gdwGlobal_007A061C)
     {
-        D2UnitStrc* pPlayer = sub_00463DD0();
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         if (pPlayer && pPlayer->dwUnitType == 0)
         {
             gdwGlobal_007A0654 = sub_00462D00(5, pMsg->nXpos, pMsg->nYpos, pMsg->nWParamLo);
@@ -1923,7 +1923,7 @@ void __stdcall sub_0044C520_HiWordDispatchMsgB(SMSGHANDLER_PARAMS* pMsg)
         if (nCode == 1)
             sub_004692F0();
         else if (nCode == 2)
-            sub_00469370();
+            sub_00469370_CallBoundCommand();
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
         sub_00420290_HandleMsg(pMsg);
@@ -2175,7 +2175,7 @@ void* gpComInterface_007A05F4; // 0x007A05F4
 void __fastcall sub_0044D760_ApplyConfigWindow(D2ConfigStrc* pConfig)
 {
     if (pConfig->bWindow)
-        sub_004776E0();
+        sub_004776E0_SetModeValuesOne();
 }
 
 // 0x0044D770
@@ -2285,7 +2285,7 @@ void __fastcall sub_0044D900_ApplyConfigRealm(D2ConfigStrc* pConfig)
 // 0x0044D920
 void __fastcall sub_0044D920_ApplyConfigSetFlag(D2ConfigStrc* pConfig)
 {
-    sub_0047A9B0_SetFlag712EFC(0);
+    sub_0047A9B0_SetClientFlag1(0);
 }
 
 // 0x0044D930
@@ -2306,7 +2306,7 @@ void __fastcall sub_0044D950_ApplyConfigNop(D2ConfigStrc* pConfig)
 // 0x0044D960
 void __fastcall sub_0044D960_ApplyConfigCTemp(D2ConfigStrc* pConfig)
 {
-    sub_0047AA10(pConfig->nCTemp);
+    sub_0047AA10_SetGlobal(pConfig->nCTemp);
 }
 
 // 0x0044D970
@@ -2330,13 +2330,13 @@ void __fastcall sub_0044D990_ApplyConfigNop(D2ConfigStrc* pConfig)
 void __fastcall sub_0044D9A0_ApplyConfigNoCompress(D2ConfigStrc* pConfig)
 {
     if (pConfig->bNoCompress)
-        D2CMP_SetCompressedDataMode(pConfig->bNoCompress);
+        sub_005FE280_LoadCompressedDataFlag(pConfig->bNoCompress);
 }
 
 // 0x0044D9C0
 void __fastcall sub_0044D9C0_ApplyConfigTxt(D2ConfigStrc* pConfig)
 {
-    sub_006125A0(!pConfig->bTxt);
+    DATATBLS_ToggleCompileTxtFlag(!pConfig->bTxt);
 }
 
 // 0x0044D9E0

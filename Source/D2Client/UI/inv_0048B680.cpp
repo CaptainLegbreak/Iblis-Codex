@@ -42,7 +42,7 @@ struct D2BodyLocRectStrc
 void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS* pMsg);                                             // 0x00420290
 void __fastcall sub_00455F20(int nUIVar, int nState, int nArg);                                        // 0x00455F20
 D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType);                             // 0x00463990
-D2UnitStrc* __cdecl sub_00463DD0();                                                               // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 int __cdecl sub_00468730();                                                                                 // 0x00468730
 int __cdecl sub_00468740();                                                                                 // 0x00468740
 int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pUnit, int nType, int bAny);                       // 0x00478F20
@@ -78,7 +78,7 @@ static __forceinline int IsCursorInRectInline(int nLeft, int nTop, int nRight, i
 // 0x0048B680
 void __stdcall sub_0048B680_MercPanelClickMsg(SMSGHANDLER_PARAMS* pMsg)
 {
-    const int nPetId = sub_00478F20_FindPetIdByOwner(sub_00463DD0(), 7, 0);
+    const int nPetId = sub_00478F20_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0);
     if (nPetId == -1)
     {
         sub_00455F20(0x24, 2, 0);
@@ -115,7 +115,7 @@ void __stdcall sub_0048B680_MercPanelClickMsg(SMSGHANDLER_PARAMS* pMsg)
 // 0x0048BA50
 void __stdcall sub_0048BA50_MercPanelHoverMsg(SMSGHANDLER_PARAMS* pMsg)
 {
-    const int nPetId = sub_00478F20_FindPetIdByOwner(sub_00463DD0(), 7, 0);
+    const int nPetId = sub_00478F20_FindPetIdByOwner(sub_00463DD0_GetPlayerUnit(), 7, 0);
     if (nPetId == -1)
     {
         sub_00455F20(0x24, 2, 0);
@@ -147,7 +147,7 @@ void __stdcall sub_0048BA50_MercPanelHoverMsg(SMSGHANDLER_PARAMS* pMsg)
     }
 
     sub_00487990_ResetHover();
-    if (INVENTORY_GetCursorItem(sub_00463DD0()->pInventory))
+    if (INVENTORY_GetCursorItem(sub_00463DD0_GetPlayerUnit()->pInventory))
     {
         return;
     }

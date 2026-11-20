@@ -250,22 +250,22 @@ void __fastcall sub_6FC3F550(D2ClientStrc*, D2UnitStrc*); // 0x0053D900
 void __fastcall D2GAME_PACKETS_SendPacket0x74_6FC3F640(D2ClientStrc*, D2UnitStrc*, D2UnitStrc*, unsigned char); // 0x0053DA40
 void __fastcall D2GAME_PACKETS_SendPacket0x82_6FC3F790(D2GameStrc*, D2ClientStrc*, int, int); // 0x0053DB90
 void __fastcall sub_6FC3FAF0(D2ClientStrc*, unsigned int, unsigned short); // 0x0053E0A0
-void __fastcall sub_0053E2E0_SendMonster(D2ClientStrc*, D2UnitStrc*); // 0x0053E2E0
+void __fastcall sub_6FC3FC80(D2ClientStrc*, D2UnitStrc*); // 0x0053E2E0
 void __fastcall sub_6FC3D1F0(D2ClientStrc*, int, unsigned char, const char*, short, short); // 0x0053E8F0
 void __fastcall D2GAME_SendP0x9C_ItemAction_AddToGround_6FC3E850(D2ClientStrc*, D2UnitStrc*, unsigned int); // 0x0053EC00
 void __fastcall D2GAME_SendP0x9C_ItemAction_DropToGround_6FC3E8E0(D2ClientStrc*, D2UnitStrc*, D2UnitStrc*, int); // 0x0053EC90
 void __fastcall sub_6FC82270(D2GameStrc*, D2UnitStrc*, D2ClientStrc*); // 0x005484B0
 void __fastcall sub_6FC82830(D2UnitStrc*, D2ClientStrc*); // 0x005489F0
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc*, int, int); // 0x00552F60
-D2UnitStrc* __fastcall sub_00553720_GetPortalOwner(D2GameStrc*, D2UnitStrc*); // 0x00553720
+D2UnitStrc* __fastcall sub_00553720_ResolveObjectOwner(D2GameStrc*, D2UnitStrc*); // 0x00553720
 int __fastcall SUNIT_IsDead(D2UnitStrc*); // 0x005541B0
 void __fastcall sub_6FC42050(D2UnitStrc*, D2ClientStrc*); // 0x0055BED0
 void __fastcall D2GAME_STATES_SendUnitStates_6FCC58E0(D2UnitStrc*, D2ClientStrc*); // 0x00570E30
 void __fastcall sub_00571620(D2UnitStrc*, D2ClientStrc*); // 0x00571620
 void __fastcall sub_6FCC6540(D2UnitStrc*, D2ClientStrc*); // 0x00571CD0
-int __fastcall sub_0058F710(D2UnitStrc*); // 0x0058F710
+int __fastcall AIGENERAL_GetMinionSpawnClassId(D2UnitStrc*); // 0x0058F710
 void __fastcall MONSTERMSG_SendMonsterModeUpdate(D2GameStrc*, D2UnitStrc*, D2ClientStrc*); // 0x00597E20
-void __fastcall sub_0059FEE0_SendMissile(D2ClientStrc*, D2GameStrc*, D2UnitStrc*, int); // 0x0059FEE0
+void __fastcall sub_0059FEE0_SendMissilePacket(D2ClientStrc*, D2GameStrc*, D2UnitStrc*, int); // 0x0059FEE0
 void __stdcall UNITS_GetCoords(D2UnitStrc*, D2CoordStrc*); // 0x00620870
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc*, int, int, int); // 0x00627260
 int __stdcall STATES_CheckState(D2UnitStrc*, int); // 0x00639DF0
@@ -273,7 +273,7 @@ int __stdcall STATES_CheckStateMaskHideOnUnit(D2UnitStrc*); // 0x0063A320
 int __stdcall INVENTORY_GetOwnerId(D2InventoryStrc*); // 0x0063D450
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc*, int); // 0x006439F0
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc*, D2SkillStrc*, int); // 0x006442A0
-int __stdcall sub_006486C0(D2DynamicPathStrc*); // 0x006486C0
+int __stdcall PATH_GetVelocity(D2DynamicPathStrc*); // 0x006486C0
 
 // 0x005715A0
 void __fastcall sub_6FCC5F20(D2UnitStrc* pUnit, D2ClientStrc* pClient)
@@ -580,7 +580,7 @@ void __fastcall sub_00571F90(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc*
             sub_6FC3F550(pClient, pUnit);
             if ((short)nClassId == 59)
             {
-                D2UnitStrc* pOwner = sub_00553720_GetPortalOwner(pGame, pUnit);
+                D2UnitStrc* pOwner = sub_00553720_ResolveObjectOwner(pGame, pUnit);
                 int nOwnerId = -1;
                 if (pOwner) nOwnerId = pOwner->dwUnitId;
                 const int nPortalId = UnitGUID(pUnit);
@@ -591,10 +591,10 @@ void __fastcall sub_00571F90(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc*
     case 1:
         if (!SUNIT_IsDead(pUnit) || !STATES_CheckStateMaskHideOnUnit(pUnit))
         {
-            sub_0053E2E0_SendMonster(pClient, pUnit);
+            sub_6FC3FC80(pClient, pUnit);
             STATLIST_SetUnitStat(pUnit, 328, (unsigned short)(tCoords.nX + tCoords.nY), 0);
             if (pUnit->dwClassId == 528)
-                sub_6FC3FAF0(pClient, pUnit->dwUnitId, sub_0058F710(pUnit));
+                sub_6FC3FAF0(pClient, pUnit->dwUnitId, AIGENERAL_GetMinionSpawnClassId(pUnit));
             D2MonStatsTxt* pMonStatsTxt = DATATBLS_GetMonStatsTxtRecord(pUnit->dwClassId);
             if (pMonStatsTxt)
             {
@@ -619,7 +619,7 @@ void __fastcall sub_00571F90(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc*
         }
         break;
     case 3:
-        sub_0059FEE0_SendMissile(pClient, pGame, pUnit, sub_006486C0(UnitPath(pUnit)));
+        sub_0059FEE0_SendMissilePacket(pClient, pGame, pUnit, PATH_GetVelocity(UnitPath(pUnit)));
         break;
     default:
         D2GAME_PACKETS_SendPacket0x09_6FC3D1A0(pClient, 9, pUnit->dwUnitType, pUnit->dwUnitId, pUnit->dwClassId, tCoords.nX, tCoords.nY);

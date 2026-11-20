@@ -52,7 +52,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 void __fastcall D2GAME_PACKETS_SendHeaderOnlyPacket(D2ClientStrc* pClient, unsigned char nHeader);          // 0x0053B320
 D2GameStrc* __fastcall CLIENTS_GetGame(D2ClientStrc* pClient);                                              // 0x005387C0
 D2NpcRecordStrc* __fastcall SUNITPROXY_GetNpcRecordFromUnit(D2GameStrc* pGame, D2UnitStrc* pNpc, int* pIndex); // 0x00535F10
-void __fastcall sub_00576070(D2GameStrc* pGame, int nVendorId, D2NpcRecordStrc* pNpcRecord); // 0x00576070
+void __fastcall sub_00576070_InitGamble(D2GameStrc* pGame, int nVendorId, D2NpcRecordStrc* pNpcRecord); // 0x00576070
 D2HirelingTxt* __stdcall sub_006564D0_GetHirelingTxtRecord(int nGameType, int nId, int nDifficulty, int a4); // 0x006564D0
 void __fastcall D2GAME_SendPacket0x4E_6FC3F410(D2ClientStrc* pClient, D2GSPacketSrv4E* pPacket);           // 0x0053D7B0
 
@@ -103,7 +103,7 @@ void __fastcall D2GAME_NPC_BuildHirelingList_6FCC6FF0(D2GameStrc* pGame, D2Clien
     const int nNpcClassId = pNpc->dwClassId;
     if (!pNpcRecord->bHirelingsInit)
     {
-        sub_00576070(CLIENTS_GetGame(pClient), nNpcClassId, pNpcRecord);
+        sub_00576070_InitGamble(CLIENTS_GetGame(pClient), nNpcClassId, pNpcRecord);
     }
 
     D2NpcHirelingStrc* pHirelings = pNpcRecord->pHirelings;

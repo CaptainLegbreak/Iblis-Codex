@@ -14,7 +14,7 @@ void* __cdecl sub_0041BEF0_GetExeModule();                                      
 void __cdecl sub_0041C1A0_LockErrorState();                                                                 // 0x0041C1A0
 void __cdecl sub_0041C1E0_UnlockErrorState();                                                               // 0x0041C1E0
 void __stdcall sub_0041C360_SetSuppress(int bSuppress);                                                     // 0x0041C360
-void __cdecl sub_0041FFF0_FlushAll();                                                                       // 0x0041FFF0
+void __cdecl SLogFlushAll();                                                                       // 0x0041FFF0
 
 // 0x00416700
 void __stdcall SFileSetPlatform(unsigned char nValue)
@@ -32,7 +32,7 @@ int __stdcall sub_00418B80_FileQueryDirect(const char* szFileName)
 int __stdcall sub_0041BEB0_FlushAndNotify(int nArg)
 {
     sub_0041C360_SetSuppress(1);
-    sub_0041FFF0_FlushAll();
+    SLogFlushAll();
     if (gpfnStormNotify_007790B8)
         gpfnStormNotify_007790B8(nArg);
     return 0;

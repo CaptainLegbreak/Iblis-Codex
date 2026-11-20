@@ -46,7 +46,7 @@ struct Unicode
 };
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
-void __fastcall sub_004FD060_SetText(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FD060
+void __fastcall D2Win_10044(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FD060
 int __stdcall sub_0043DBA0_ClearSelection(int nArg1, int nArg2, int nArg3); // 0x0043DBA0
 int __stdcall sub_00440110_OnEditChange(void* pMsg); // 0x00440110
 void __fastcall sub_004FDAD0_SetKeyCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(int, int, int)); // 0x004FDAD0
@@ -122,13 +122,13 @@ void __cdecl sub_00440FC0_CreateGatewayControls()
     gpControl_0077BCDC = CONTROL_Create(&gtControlInit_0070D8D0);
 
     gpControl_0077BCE0 = CONTROL_Create(&gtControlInit_0070D900);
-    sub_004FD060_SetText(gpControl_0077BCE0, D2LANG_GetStringFromTblIndex(0x148D));
+    D2Win_10044(gpControl_0077BCE0, D2LANG_GetStringFromTblIndex(0x148D));
 
     gpControl_0077BCE4 = CONTROL_Create(&gtControlInit_0070D930);
-    sub_004FD060_SetText(gpControl_0077BCE4, D2LANG_GetStringFromTblIndex(0x148E));
+    D2Win_10044(gpControl_0077BCE4, D2LANG_GetStringFromTblIndex(0x148E));
 
     gpControl_0077BCE8 = CONTROL_Create(&gtControlInit_0070D960);
-    sub_004FD060_SetText(gpControl_0077BCE8, D2LANG_GetStringFromTblIndex(0x148F));
+    D2Win_10044(gpControl_0077BCE8, D2LANG_GetStringFromTblIndex(0x148F));
 
     gpControl_0077BCEC = CONTROL_Create(&gtControlInit_0070DA20);
 

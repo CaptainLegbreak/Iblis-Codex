@@ -4,7 +4,7 @@ int gdwGlobal_007A277C;                                                         
 extern int gdwGlobal_007A2784;                                                                              // 0x007A2784
 int gnRecordInitSeed_007A2778;                                                                              // 0x007A2778
 
-void __cdecl sub_00451710_ReadRecordFile();                                                                 // 0x00451710
+void __cdecl sub_00451710_LoadRecord();                                                                 // 0x00451710
 
 // 0x004518E0
 void __cdecl sub_004518E0_StartPlayback()
@@ -14,7 +14,7 @@ void __cdecl sub_004518E0_StartPlayback()
     else
     {
         gdwGlobal_007A2784 = 1;
-        sub_00451710_ReadRecordFile();
+        sub_00451710_LoadRecord();
         GAME_SetInitSeed(gnRecordInitSeed_007A2778);
     }
 }

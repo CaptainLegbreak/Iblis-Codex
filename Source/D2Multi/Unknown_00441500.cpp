@@ -52,7 +52,7 @@ void __cdecl sub_004F9190();                                                    
 int __stdcall CONTROL_MouseInsideRect(const tagRECT* pRect);                                                // 0x004F97B0
 void __fastcall sub_0043FB50_ShowWait(const Unicode* pText, D2LaunchCallback pfnDone);                      // 0x0043FB50
 void __stdcall sub_004413E0_Enable(int bEnable);                                                            // 0x004413E0
-void __cdecl sub_0043E3A0_ProcessQueue();                                                                   // 0x0043E3A0
+void __cdecl sub_0043E3A0_FlushChatMessages();                                                                   // 0x0043E3A0
 void __fastcall sub_00442B90_HandleReply(D2LaunchReplyStrc* pReply);                                        // 0x00442B90
 void __cdecl sub_00442E00_Poll();                                                                           // 0x00442E00
 void __fastcall sub_00442EB0_HandleOther(D2LaunchReplyStrc* pReply);                                        // 0x00442EB0
@@ -305,7 +305,7 @@ int __stdcall sub_00441500(int nUnused)
             bUpdated = 1;
             sub_00442E00_Poll();
         }
-        sub_0043E3A0_ProcessQueue();
+        sub_0043E3A0_FlushChatMessages();
         if (!bUpdated)
             return 0;
     }

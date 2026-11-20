@@ -40,10 +40,10 @@ struct D2AutomapLayerStrc
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 void __fastcall sub_00457640(int bForce); // 0x00457640
-void __cdecl sub_00470290(); // 0x00470290
+void __cdecl sub_00470290_FreeHashedFiles(); // 0x00470290
 void __fastcall sub_00478A00(void* pCel); // 0x00478A00
 int __cdecl sub_00492C10(); // 0x00492C10
-void __stdcall sub_005FDE10_FreeCache(int bFree); // 0x005FDE10
+void __stdcall sub_005FDE10_FreeCelPool(int bFree); // 0x005FDE10
 void __stdcall sub_005FFE30_FreeTileCache(int bFree); // 0x005FFE30
 extern int gnGlobal_0071146C; // 0x0071146C
 extern int gnGlobal_00711470; // 0x00711470
@@ -93,9 +93,9 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 void* __stdcall sub_00642750_GetAutomapLevelType(int nLevelId); // 0x00642750
-int __stdcall sub_00604B60_GetTileType(D2TileLibraryEntryStrc* pTile); // 0x00604B60
-int __stdcall sub_00604B90_GetTileStyle(D2TileLibraryEntryStrc* pTile); // 0x00604B90
-int __stdcall sub_00604C50_GetTileSequence(D2TileLibraryEntryStrc* pTile); // 0x00604C50
+int __stdcall TileGetType(D2TileLibraryEntryStrc* pTile); // 0x00604B60
+int __stdcall TileGetStyle(D2TileLibraryEntryStrc* pTile); // 0x00604B90
+int __stdcall TileGetSequence(D2TileLibraryEntryStrc* pTile); // 0x00604C50
 int __fastcall DATATBLS_GetAutomapCellId(void* pAutomapLevelType, int nAutomapTileType, int nStyle, int nSequence); // 0x0061FFF0
 D2AutomapCellStrc* __cdecl sub_00457C30(); // 0x00457C30
 void __fastcall sub_00457B00(D2AutomapCellStrc* pCell, D2AutomapCellStrc** ppRoot); // 0x00457B00
@@ -135,7 +135,7 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 extern D2AutomapRecordStrc* gpAutomapRecord_007A0638; // 0x007A0638
 extern void* gpAutomapSaveBuffer_007A5154; // 0x007A5154
 extern int gnAutomapCelFrames_007A5178[4]; // 0x007A5178
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2ActiveRoomStrc* __fastcall sub_004646A0_GetPlayerRoom(); // 0x004646A0
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
 void __stdcall sub_00458F40_RevealRoomTiles(D2ActiveRoomStrc* pActiveRoom, int bRevealAll, D2AutomapLayerStrc* pLayer); // 0x00458F40
@@ -169,9 +169,9 @@ int gnGlobal_007A51F0; // 0x007A51F0
 // 0x00457420
 void __fastcall sub_00457420_FreeCaches(int bFree)
 {
-    sub_005FDE10_FreeCache(bFree);
+    sub_005FDE10_FreeCelPool(bFree);
     sub_005FFE30_FreeTileCache(bFree);
-    sub_00470290();
+    sub_00470290_FreeHashedFiles();
 }
 
 // 0x00457440
@@ -341,9 +341,9 @@ static void __stdcall sub_00457CF0_RevealAutomapTile(D2DrlgTileDataStrc* pTileDa
     }
     pTileData->dwFlags |= 0x40000;
     void* pLevelType = sub_00642750_GetAutomapLevelType(pRoom->pLevel->eLevelId);
-    const int nType = sub_00604B60_GetTileType(pTileData->pTile);
-    const int nStyle = sub_00604B90_GetTileStyle(pTileData->pTile);
-    const int nSequence = sub_00604C50_GetTileSequence(pTileData->pTile);
+    const int nType = TileGetType(pTileData->pTile);
+    const int nStyle = TileGetStyle(pTileData->pTile);
+    const int nSequence = TileGetSequence(pTileData->pTile);
     const int nCell = DATATBLS_GetAutomapCellId(pLevelType, nType, nStyle, nSequence);
     if (nCell == -1)
     {
@@ -797,7 +797,7 @@ void __cdecl sub_00459020_UpdateAutomapReveal()
         return;
     }
 
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     D2_ASSERT(pPlayer, 0x696);
     gnPlayerX_007A5200 = UNITS_GetClientCoordX(pPlayer);
     gnPlayerY_007A51F8 = UNITS_GetClientCoordY(pPlayer);

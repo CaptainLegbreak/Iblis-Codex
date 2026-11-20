@@ -95,7 +95,7 @@ static void __stdcall D2GAME_PACKETS_SendPacket_6FC3C710(const void* pPacket, in
     pPacketData->nPacketSize += nPacketSize;
 }
 
-int __stdcall UNITS_GetDistanceToOtherUnit(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2);                         // 0x006416D0
+int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2);                         // 0x006416D0
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                                                         // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
 
@@ -139,7 +139,7 @@ void __fastcall SCMD_SendUnitLifeAndPositionUpdate(D2ClientStrc* pClient, D2Unit
     if (tPacket.packet7F.bIsPlayer)
     {
         D2UnitStrc* pClientPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
-        if (UNITS_GetDistanceToOtherUnit(pClientPlayer, hUnit) > 50)
+        if (sub_006416D0_UnitEdgeDistance(pClientPlayer, hUnit) > 50)
         {
             const D2GSPacketSrv90 tZero90 = {};
             tPacket.packet90 = tZero90;

@@ -118,7 +118,7 @@ int __fastcall sub_6FD15190(D2UnitStrc* pUnit, int nAiSpecialState); // 0x0056E2
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
-int __fastcall sub_00554200(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00554200
+int __fastcall SUNIT_AreUnitsHostile(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00554200
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
 void __fastcall SUNITEVENT_Unregister(D2GameStrc* pGame, D2UnitStrc* pUnit, int nTimerQueueNo, int a4); // 0x005C0B50
 void __fastcall AITHINK_ExecuteAiFn(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int nAiSpecialState); // 0x005B0E00
@@ -536,7 +536,7 @@ int __fastcall sub_005C31F0_IsValidAttractTarget(D2GameStrc* pGame, D2UnitStrc* 
         return 0;
     }
 
-    return sub_00554200(pGame, pUnit, pTarget) != 0;
+    return SUNIT_AreUnitsHostile(pGame, pUnit, pTarget) != 0;
 }
 
 // 0x005C3370
@@ -570,7 +570,7 @@ int __fastcall sub_005C3D50_IsValidTerrorTarget(D2GameStrc* pGame, D2UnitStrc* p
         return 0;
     }
 
-    if (!sub_00554200(pGame, pUnit, pTarget))
+    if (!SUNIT_AreUnitsHostile(pGame, pUnit, pTarget))
     {
         return 0;
     }

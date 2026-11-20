@@ -169,7 +169,7 @@ int __fastcall sub_0040D880(unsigned int s); // 0x0040D880
 extern "C" int __stdcall WSACleanup(void); // 0x006B0138
 void __stdcall sub_006BE3C0_Shutdown(T006BE350* pServer); // 0x006BE3C0
 void __stdcall sub_006BFAD0_Notify(T006BE350* pServer, int a2, int a3); // 0x006BFAD0
-void __fastcall sub_006C2110_StopModeThread(T006BE350* pServer); // 0x006C2110
+void __fastcall sub_006C2110_StopServerThreads(T006BE350* pServer); // 0x006C2110
 void __fastcall sub_006C33D0_Stop(T006BE350* pServer); // 0x006C33D0
 extern int gnLockCount_0074C3E0; // 0x0074C3E0
 static __declspec(noinline) void sub_006BF320_FreeChain(T006BE350* pServer);
@@ -392,7 +392,7 @@ int __stdcall sub_006C0170_DestroyServer(T006BE350* pServer, int a2, int a3)
     if (pServer->nState != 1 && pServer->nState != 2)
     {
         if (pServer->nMode)
-            sub_006C2110_StopModeThread(pServer);
+            sub_006C2110_StopServerThreads(pServer);
         else
             sub_006C33D0_Stop(pServer);
     }

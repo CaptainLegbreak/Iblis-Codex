@@ -21,7 +21,7 @@ struct D2PacketRecord21Strc
 int __cdecl sub_0044DCC0();                                                                                 // 0x0044DCC0
 D2BitBufferStrc* __cdecl sub_004B32D0();                                                           // 0x004B32D0
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState);            // 0x0065C310
-D2UnitStrc* __cdecl sub_00463DD0();                                                               // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);                                          // 0x0061A1B0
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId);                                             // 0x006427F0
@@ -112,7 +112,7 @@ static void sub_0049C760_SetWaypointAct(int nAct)
 // 0x0049C980
 void __cdecl sub_0049C980_UpdateWaypointAct()
 {
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     if (pPlayer)
     {
         D2ActiveRoomStrc* pRoom = UNITS_GetRoom(pPlayer);
@@ -207,7 +207,7 @@ void __stdcall sub_0049D160_WaypointMouseDown(SMSGHANDLER_PARAMS* pMsg)
 
     if (nX > gnGlobal_0071146C / 2 || nY > gnGlobal_00711470 - 0x31)
     {
-        if (!gbGlobal_007BF085 && sub_00463DD0() && UNITS_GetRoom(sub_00463DD0()))
+        if (!gbGlobal_007BF085 && sub_00463DD0_GetPlayerUnit() && UNITS_GetRoom(sub_00463DD0_GetPlayerUnit()))
         {
             sub_004786A0_SendIntInt(0x49, gnGlobal_007BF07D, 0);
             gbGlobal_007BF085 = 1;

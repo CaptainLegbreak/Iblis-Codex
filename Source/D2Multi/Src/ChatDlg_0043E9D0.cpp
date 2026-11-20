@@ -27,10 +27,10 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 int __stdcall D2Win_10033(D2WinControlStrc* pControl, int nArg); // 0x004FA470
 void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* pText, int nA, int nB, int nC); // 0x004FC9B0
-void __fastcall sub_004FD060_SetText(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FD060
+void __fastcall D2Win_10044(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FD060
 void __fastcall BUTTON_SetIsPressed(D2WinButtonStrc* pButton, int bIsPressed); // 0x005009A0
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
-int __cdecl sub_00525150(); // 0x00525150
+int __cdecl STRTABLE_GetLanguage(); // 0x00525150
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 void __fastcall sub_004FC720(D2WinControlStrc* pList, int nValue); // 0x004FC720
 void __fastcall sub_004FB740(D2WinControlStrc* pList, int nA, int nB); // 0x004FB740
@@ -108,7 +108,7 @@ void __cdecl sub_0043EB30_CreateControls()
     D2WinControlStrc* pControl;
     sub_0043E9D0_CreateControl(0x5D);
     pControl = sub_0043E9D0_CreateControl(0x5E);
-    sub_004FD060_SetText(pControl, D2LANG_GetStringFromTblIndex(0x14C5));
+    D2Win_10044(pControl, D2LANG_GetStringFromTblIndex(0x14C5));
     sub_0043E9D0_CreateControl(0x5F);
     sub_0043E9D0_CreateControl(0x61);
     sub_0043E9D0_CreateControl(0x62);
@@ -137,30 +137,30 @@ void __cdecl sub_0043ED60_CreateClassButtons()
     gpClassButtons_0077BC98[0] = (D2WinButtonStrc*)sub_0043E9D0_CreateControl(0x6E);
     BUTTON_SetIsPressed(gpClassButtons_0077BC98[0], 1);
     pControl = sub_0043E9D0_CreateControl(0x76);
-    sub_004FD060_SetText(pControl, D2LANG_GetStringFromTblIndex(0x14CE));
+    D2Win_10044(pControl, D2LANG_GetStringFromTblIndex(0x14CE));
     gpClassButtons_0077BC98[1] = (D2WinButtonStrc*)sub_0043E9D0_CreateControl(0x6F);
     BUTTON_SetIsPressed(gpClassButtons_0077BC98[1], 0);
-    sub_004FD060_SetText(sub_0043E9D0_CreateControl(0x77), szText0);
+    D2Win_10044(sub_0043E9D0_CreateControl(0x77), szText0);
     gpClassButtons_0077BC98[2] = (D2WinButtonStrc*)sub_0043E9D0_CreateControl(0x70);
     BUTTON_SetIsPressed(gpClassButtons_0077BC98[2], 0);
-    sub_004FD060_SetText(sub_0043E9D0_CreateControl(0x78), szText1);
+    D2Win_10044(sub_0043E9D0_CreateControl(0x78), szText1);
     gpClassButtons_0077BC98[3] = (D2WinButtonStrc*)sub_0043E9D0_CreateControl(0x71);
     BUTTON_SetIsPressed(gpClassButtons_0077BC98[3], 0);
-    sub_004FD060_SetText(sub_0043E9D0_CreateControl(0x79), szText2);
+    D2Win_10044(sub_0043E9D0_CreateControl(0x79), szText2);
     gpClassButtons_0077BC98[4] = (D2WinButtonStrc*)sub_0043E9D0_CreateControl(0x72);
     BUTTON_SetIsPressed(gpClassButtons_0077BC98[4], 0);
-    sub_004FD060_SetText(sub_0043E9D0_CreateControl(0x7A), szText3);
+    D2Win_10044(sub_0043E9D0_CreateControl(0x7A), szText3);
     gpClassButtons_0077BC98[5] = (D2WinButtonStrc*)sub_0043E9D0_CreateControl(0x73);
     BUTTON_SetIsPressed(gpClassButtons_0077BC98[5], 0);
-    sub_004FD060_SetText(sub_0043E9D0_CreateControl(0x7B), szText4);
+    D2Win_10044(sub_0043E9D0_CreateControl(0x7B), szText4);
     if (gbExpansionClasses_0070CD70)
     {
         gpClassButtons_0077BC98[6] = (D2WinButtonStrc*)sub_0043E9D0_CreateControl(0x74);
         BUTTON_SetIsPressed(gpClassButtons_0077BC98[6], 0);
-        sub_004FD060_SetText(sub_0043E9D0_CreateControl(0x7C), szText5);
+        D2Win_10044(sub_0043E9D0_CreateControl(0x7C), szText5);
         gpClassButtons_0077BC98[7] = (D2WinButtonStrc*)sub_0043E9D0_CreateControl(0x75);
         BUTTON_SetIsPressed(gpClassButtons_0077BC98[7], 0);
-        sub_004FD060_SetText(sub_0043E9D0_CreateControl(0x7D), szText6);
+        D2Win_10044(sub_0043E9D0_CreateControl(0x7D), szText6);
     }
 }
 
@@ -201,15 +201,15 @@ void __cdecl sub_004406F0_CreateClassScreen()
     sub_0043ED60_CreateClassButtons();
     sub_004FA450_SetActive(sub_0043E9D0_CreateControl(0x6D));
     D2WinControlStrc* pControl = sub_0043E9D0_CreateControl(0x67);
-    sub_004FD060_SetText(pControl, sub_00525150() == 3 ? D2LANG_GetStringFromTblIndex(0x2B54) : D2LANG_GetStringFromTblIndex(0x14C8));
+    D2Win_10044(pControl, STRTABLE_GetLanguage() == 3 ? D2LANG_GetStringFromTblIndex(0x2B54) : D2LANG_GetStringFromTblIndex(0x14C8));
     pControl = sub_0043E9D0_CreateControl(0x68);
-    sub_004FD060_SetText(pControl, D2LANG_GetStringFromTblIndex(0x14C9));
+    D2Win_10044(pControl, D2LANG_GetStringFromTblIndex(0x14C9));
     pControl = sub_0043E9D0_CreateControl(0x69);
-    sub_004FD060_SetText(pControl, D2LANG_GetStringFromTblIndex(0x14CA));
+    D2Win_10044(pControl, D2LANG_GetStringFromTblIndex(0x14CA));
     pControl = sub_0043E9D0_CreateControl(0x6B);
-    sub_004FD060_SetText(pControl, D2LANG_GetStringFromTblIndex(0x14CC));
+    D2Win_10044(pControl, D2LANG_GetStringFromTblIndex(0x14CC));
     pControl = sub_0043E9D0_CreateControl(0x6A);
-    sub_004FD060_SetText(pControl, D2LANG_GetStringFromTblIndex(0xFD9));
+    D2Win_10044(pControl, D2LANG_GetStringFromTblIndex(0xFD9));
     gpList_0077BD00 = sub_0043E9D0_CreateControl(0x6C);
     sub_004FC720(gpList_0077BD00, 0x10);
     sub_004FBC20(gpList_0077BD00, 5);
@@ -250,7 +250,7 @@ void __cdecl sub_004408B0_OpenClassSelectA()
 
     sub_0043E9D0_CreateControl(0x65);
     D2WinControlStrc* pControl = sub_0043E9D0_CreateControl(0x66);
-    sub_004FD060_SetText(pControl, D2LANG_GetStringFromTblIndex(0x14C5));
+    D2Win_10044(pControl, D2LANG_GetStringFromTblIndex(0x14C5));
     sub_004406F0_CreateClassScreen();
     gnSelection_0077BBF4 = -2;
     gnSelectModeB_0070CD63 = 0x23;
@@ -280,7 +280,7 @@ void __cdecl sub_00440980_OpenClassSelectB()
 
     sub_0043E9D0_CreateControl(0x65);
     D2WinControlStrc* pControl = sub_0043E9D0_CreateControl(0x66);
-    sub_004FD060_SetText(pControl, D2LANG_GetStringFromTblIndex(0x14C6));
+    D2Win_10044(pControl, D2LANG_GetStringFromTblIndex(0x14C6));
     sub_004406F0_CreateClassScreen();
     gnSelection_0077BBF4 = -2;
     gnSelectModeB_0070CD63 = 0x23;
@@ -310,7 +310,7 @@ void __cdecl sub_00440A50_OpenClassSelectC()
 
     sub_0043E9D0_CreateControl(0x65);
     D2WinControlStrc* pControl = sub_0043E9D0_CreateControl(0x66);
-    sub_004FD060_SetText(pControl, D2LANG_GetStringFromTblIndex(0x276A));
+    D2Win_10044(pControl, D2LANG_GetStringFromTblIndex(0x276A));
     sub_004406F0_CreateClassScreen();
     gnSelection_0077BBF4 = -2;
     gnSelectModeB_0070CD63 = 0x23;
@@ -340,7 +340,7 @@ void __cdecl sub_00440B30_OpenClassSelectD()
 
     sub_0043E9D0_CreateControl(0x65);
     D2WinControlStrc* pControl = sub_0043E9D0_CreateControl(0x66);
-    sub_004FD060_SetText(pControl, D2LANG_GetStringFromTblIndex(0x276B));
+    D2Win_10044(pControl, D2LANG_GetStringFromTblIndex(0x276B));
     sub_004406F0_CreateClassScreen();
     gnSelection_0077BBF4 = -2;
     gnSelectModeB_0070CD63 = 0x23;

@@ -44,7 +44,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize);                                      // 0x00681EF0
-D2UnitStrc* __cdecl sub_00463DD0();                                                               // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 int __fastcall sub_004538D0(int nUIVar);                                                             // 0x004538D0
 unsigned short __fastcall sub_00469AA0(int nA, int nB);                                                     // 0x00469AA0
 const Unicode* __fastcall sub_0046A530_GetKeyName(int nA, int nB);                                          // 0x0046A530
@@ -58,7 +58,7 @@ int __fastcall sub_00502EF0(int nArg);                                          
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc);                                     // 0x005267E0
 int __fastcall sub_00526800(const Unicode* pString);                                                      // 0x00526800
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile);  // 0x006280A0
-int __stdcall sub_00628C20(D2UnitStrc* pItem);                                                              // 0x00628C20
+int __stdcall ITEMS_CheckIfUseable(D2UnitStrc* pItem);                                                              // 0x00628C20
 unsigned int __stdcall ITEMS_CheckIfBeltable(D2UnitStrc* pItem);                                            // 0x0062BAD0
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc* pInventory, int nBodyLoc);             // 0x0063BDE0
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory);                                 // 0x0063C1E0
@@ -132,7 +132,7 @@ static void __cdecl sub_00497920_DrawCursorBeltBox(D2InventoryStrc* pInventory);
 void __cdecl sub_00499040_DrawBelt()
 {
     sub_00502EF0(1);
-    D2InventoryStrc* pInventory = sub_00463DD0()->pInventory;
+    D2InventoryStrc* pInventory = sub_00463DD0_GetPlayerUnit()->pInventory;
     D2UnitStrc* pBelt = INVENTORY_GetItemFromBodyLoc(pInventory, 8);
     if (pBelt)
     {
@@ -237,7 +237,7 @@ void __cdecl sub_00499040_DrawBelt()
             break;
         }
 
-        if (!ITEMS_CheckItemFlag(pItem, 4, 0x5D5, ".\\UI\\panel.cpp") && sub_00628C20(pItem) && !sub_004C2240(pItem))
+        if (!ITEMS_CheckItemFlag(pItem, 4, 0x5D5, ".\\UI\\panel.cpp") && ITEMS_CheckIfUseable(pItem) && !sub_004C2240(pItem))
         {
             if (pItem == gpBeltItemA_007BEFA8 && gnBeltHover_007BEF94)
                 sub_004978D0_DrawBeltBoxFrame(nBox, 1);
@@ -252,7 +252,7 @@ void __cdecl sub_00499040_DrawBelt()
         D2UiRectStrc tRect;
         DATATBLS_GetInvRectFromBeltsTxt(gnUiRecordIndex_00722354, gnUiRecordRow_007A5218, &tRect, nBox);
         sub_0046EE80_DrawCursorItem(pItem, tRect.nLeft, tRect.nTop);
-        if (nSlot < sizeof(gaBeltKeys_00722404) / sizeof(gaBeltKeys_00722404[0]) && sub_00628C20(pItem))
+        if (nSlot < sizeof(gaBeltKeys_00722404) / sizeof(gaBeltKeys_00722404[0]) && ITEMS_CheckIfUseable(pItem))
         {
             Unicode wszKey[100];
             for (int i = 0; i < 100; ++i)

@@ -168,7 +168,7 @@ D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 
 void __fastcall QUESTS_UnitIterate(D2QuestDataStrc* pQuest, int nIterateState, D2UnitStrc* pUnit, QUESTUNITITERATE pfIterate, bool bIterate); // 0x00544300
 void __fastcall QUESTS_StateDebug(D2QuestDataStrc* pQuestData, int nState, const char* szFile, int nLine); // 0x00544350
 void __fastcall QUESTS_QuickRemovePlayerGUID(D2QuestDataStrc* pQuest, D2QuestArgStrc* pQuestArg); // 0x00545310
-D2UnitStrc* __fastcall QUESTS_SpawnCriticalMonster(D2GameStrc* pGame, int nX, int nY, D2ActiveRoomStrc* pRoom, int a5, int nMonsterId); // 0x005459A0
+D2UnitStrc* __fastcall sub_005459A0_SpawnMonsterNear(D2GameStrc* pGame, int nX, int nY, D2ActiveRoomStrc* pRoom, int a5, int nMonsterId); // 0x005459A0
 void __fastcall SUNITINACTIVE_DeleteSingleListNode(D2GameStrc* pGame, unsigned short nUnitType, unsigned short nClassId, unsigned char nAct); // 0x00543140
 void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nEventCustomId); // 0x00540E60
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
@@ -180,7 +180,7 @@ void __fastcall sub_00573180(D2GameStrc* pGame, D2UnitStrc* pUnit, void(__fastca
 D2MapAIStrc* __stdcall AIGENERAL_GetMapAiFromUnit(D2UnitStrc* pUnit); // 0x0058F000
 void __stdcall MONSTERMODE_GetModeChangeInfo(D2UnitStrc* pUnit, int nMode, D2ModeChangeStrc* pModeChange); // 0x005A7E60
 int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int a3); // 0x005A7C20
-D2ActiveRoomStrc* __fastcall D2GAME_GetRoom_6FC52070(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nSubtileX, int nSubtileY); // 0x00463740
 void __stdcall DUNGEON_AllocDrlgDelete(D2ActiveRoomStrc* pRoom, int nUnitType, int nUnitGUID); // 0x0061A270
 void __stdcall UNITS_GetCoords(D2UnitStrc* pUnit, D2CoordStrc* pCoord); // 0x00620870
 void __stdcall UNITS_FreeCollisionPath(D2UnitStrc* pUnit); // 0x00623830
@@ -238,7 +238,7 @@ void __fastcall QUESTS_NPCActivateSpeeches(D2GameStrc*, D2UnitStrc*, D2UnitStrc*
 void __fastcall QUESTS_UpdatePlayerFlags(D2GameStrc*, D2UnitStrc*); // 0x005455B0
 D2UnitStrc* __fastcall QUESTS_CreateItem(D2GameStrc*, D2UnitStrc*, unsigned int, int, int, int); // 0x005466B0
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc*, const char*, int); // 0x005531C0
-void __fastcall sub_0053D710_SendQuestPacket(D2ClientStrc*, D2GSPacketSrv5D*); // 0x0053D710
+void __fastcall sub_6FC3F380(D2ClientStrc*, D2GSPacketSrv5D*); // 0x0053D710
 int __fastcall ACT5Q3_RemoveDrehyaIced(D2GameStrc*, D2UnitStrc*, void*); // 0x005890B0
 void __stdcall QUESTRECORD_ClearQuestState(D2BitBufferStrc*, int, int); // 0x0065C3A0
 unsigned int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc*, int, int); // 0x006253B0
@@ -306,7 +306,7 @@ static void __stdcall ACT5Q3_SpawnDrehyaInTown(D2QuestDataStrc* pQuestData, D2Ac
         return;
     }
 
-    D2UnitStrc* pDrehya = QUESTS_SpawnCriticalMonster(pQuestData->pGame, op.nX, op.nY, op.pRoom, 1, 0x200);
+    D2UnitStrc* pDrehya = sub_005459A0_SpawnMonsterNear(pQuestData->pGame, op.nX, op.nY, op.pRoom, 1, 0x200);
     if (!pDrehya)
     {
         return;
@@ -325,7 +325,7 @@ static void __stdcall ACT5Q3_SpawnDrehyaInTown(D2QuestDataStrc* pQuestData, D2Ac
     D2CoordStrc pCoord;
     UNITS_GetCoords(pDrehya, &pCoord);
 
-    D2ActiveRoomStrc* pRoom = D2GAME_GetRoom_6FC52070(UNITS_GetRoom(pDrehya), pCoord.nX, pCoord.nY);
+    D2ActiveRoomStrc* pRoom = sub_00463740_FindRoomAtPoint(UNITS_GetRoom(pDrehya), pCoord.nX, pCoord.nY);
     if (pRoom)
     {
         D2UnitStrc* pDrehyaPortal = SUNIT_AllocUnitData(2, 0xBD, pCoord.nX, pCoord.nY, pQuestData->pGame, pRoom, 1, 1, 0);
@@ -385,7 +385,7 @@ static void __stdcall sub_005891D0_SpawnDrehyaInTown(D2QuestDataStrc* pQuestData
         return;
     }
 
-    D2UnitStrc* pDrehya = QUESTS_SpawnCriticalMonster(pQuestData->pGame, nX, nY, pRoom, 1, 0x200);
+    D2UnitStrc* pDrehya = sub_005459A0_SpawnMonsterNear(pQuestData->pGame, nX, nY, pRoom, 1, 0x200);
     if (!pDrehya)
     {
         return;
@@ -404,7 +404,7 @@ static void __stdcall sub_005891D0_SpawnDrehyaInTown(D2QuestDataStrc* pQuestData
     D2CoordStrc pCoord;
     UNITS_GetCoords(pDrehya, &pCoord);
 
-    D2ActiveRoomStrc* pTargetRoom = D2GAME_GetRoom_6FC52070(UNITS_GetRoom(pDrehya), pCoord.nX, pCoord.nY);
+    D2ActiveRoomStrc* pTargetRoom = sub_00463740_FindRoomAtPoint(UNITS_GetRoom(pDrehya), pCoord.nX, pCoord.nY);
     if (pTargetRoom)
     {
         D2UnitStrc* pDrehyaPortal = SUNIT_AllocUnitData(2, 0xBD, pCoord.nX, pCoord.nY, pQuestData->pGame, pTargetRoom, 1, 1, 0);
@@ -560,7 +560,7 @@ void __fastcall ACT5Q3_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
             packet.nHeader = 0x5D;
             packet.nQuestId = 33;
             packet.nFlags = 1;
-            sub_0053D710_SendQuestPacket(pClient, &packet);
+            sub_6FC3F380(pClient, &packet);
             pQuestDataEx->bMalahActivated = 1;
             return;
         }
@@ -577,7 +577,7 @@ void __fastcall ACT5Q3_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
                 packet.nHeader = 0x5D;
                 packet.nQuestId = 33;
                 packet.nFlags = 2;
-                sub_0053D710_SendQuestPacket(pClient, &packet);
+                sub_6FC3F380(pClient, &packet);
                 if (QUESTRECORD_GetQuestState(pQuestFlags, 37, 9))
                 {
                     QUESTRECORD_ClearQuestState(pQuestFlags, 37, 1);
@@ -646,7 +646,7 @@ void __fastcall ACT5Q3_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2Q
         D2ItemsTxt* pItemsTxt = DATATBLS_GetItemsTxtRecord(nItemClassId);
         if (pItemsTxt && pItemsTxt->wDropSound > 0)
             packet.field_4 = pItemsTxt->wDropSound;
-        sub_0053D710_SendQuestPacket(UnitGetClient(pQuestArg->pPlayer, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q3.cpp", 0x375), &packet);
+        sub_6FC3F380(UnitGetClient(pQuestArg->pPlayer, "d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a5q3.cpp", 0x375), &packet);
         QUESTRECORD_SetQuestState(pQuestFlags, 37, 9);
         if (QUESTRECORD_GetQuestState(pQuestFlags, 37, 8))
         {
@@ -884,7 +884,7 @@ bool __fastcall ACT5Q3_SpawnDrehyaIcedMonsterOutsideTown(D2GameStrc* pGame, D2Qu
             pQuestDataEx->nTimerInvocations = 2;
             if (pFrozenDrehya)
             {
-                D2UnitStrc* pDrehya = QUESTS_SpawnCriticalMonster(pGame, pQuestDataEx->pDrehyaObjectOutsideTownCoords.nX, pQuestDataEx->pDrehyaObjectOutsideTownCoords.nY, UNITS_GetRoom(pFrozenDrehya), 1, 0x20F);
+                D2UnitStrc* pDrehya = sub_005459A0_SpawnMonsterNear(pGame, pQuestDataEx->pDrehyaObjectOutsideTownCoords.nX, pQuestDataEx->pDrehyaObjectOutsideTownCoords.nY, UNITS_GetRoom(pFrozenDrehya), 1, 0x20F);
                 if (pDrehya)
                 {
                     const int nUnitGUID = pFrozenDrehya->dwUnitId;

@@ -88,7 +88,7 @@ void __fastcall sub_6FC3F060(D2ClientStrc* pClient, unsigned char a2, int a3, un
 void __fastcall sub_0053D530(D2ClientStrc* pClient, unsigned char a2, int a3, unsigned char nUnitType, int nUnitGUID, unsigned short a6, unsigned short a7, unsigned char a8, int a9); // 0x0053D530
 void __fastcall D2GAME_PACKETS_SendPacket0xA4_6FC3FC00(D2ClientStrc* pClient, short a2);                    // 0x0053E1A0
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit);                                            // 0x00554010
-int __fastcall sub_00554200(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget);                     // 0x00554200
+int __fastcall SUNIT_AreUnitsHostile(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget);                     // 0x00554200
 
 // 0x00571CD0
 void __fastcall sub_6FCC6540(D2UnitStrc* pUnit, D2ClientStrc* pClient)
@@ -125,7 +125,7 @@ void __fastcall sub_6FCC6540(D2UnitStrc* pUnit, D2ClientStrc* pClient)
             if (!sub_00451F30_TestUnitFlag(pUnit, UNITFLAG_UPGRLIFENHITCLASS))
             {
                 D2UnitStrc* pPlayer = CLIENTS_GetPlayerFromClient(pClient, 0);
-                if (pPlayer && sub_00554200(SUNIT_GetGameFromUnit(pPlayer), pPlayer, pUnit))
+                if (pPlayer && SUNIT_AreUnitsHostile(SUNIT_GetGameFromUnit(pPlayer), pPlayer, pUnit))
                 {
                     D2GAME_PACKETS_SendPacket0xAB_6FC3D7B0(pClient, pMsg->pAB.nUnitType, pMsg->pAB.dwUnitId, pMsg->pAB.nUnitLife);
                 }

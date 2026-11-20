@@ -63,12 +63,12 @@ struct D2SkillDescTxt
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __fastcall sub_004EDEA0_AddSkillLine(D2UnitStrc* pUnit, Unicode* wszText, D2SkillsTxt* pSkillsTxt, int nSkillId, int nArg3, int nArg4, int nLine, int nArg5); // 0x004EDEA0
-void __fastcall sub_00502280_SetPopUpText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
+void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 void __fastcall D2Win_10131_GetTextDimensions(const Unicode* pText, int* pWidth, int* pHeight); // 0x00502520
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc*,int,int); // 0x006439B0
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc*,D2SkillStrc*,int); // 0x006442A0
-int __fastcall sub_004AA8B0_GetMaxSkillLevel(int); // 0x004AA8B0
+int __fastcall sub_004AA8B0_GetSkillMaxLevel(int); // 0x004AA8B0
 void __fastcall sub_004521C0_SetTextColor(Unicode*,int); // 0x004521C0
 int __stdcall sub_004ED480_HasClassSkill(D2UnitStrc*); // 0x004ED480
 Unicode* __fastcall sub_004521C0_PrefixLevelText(Unicode*, int); // 0x004521C0
@@ -345,7 +345,7 @@ void __fastcall sub_004EEF00_ShowSkillPopup(D2UnitStrc* pUnit, int nSkillId, int
     sub_005267E0(wszText,D2LANG_GetStringFromTblIndex(0x109C));
     D2SkillStrc* pSkill=SKILLS_GetSkillById(pUnit,nSkillId,-1);
     int bMaxed;
-    if(pSkill && SKILLS_GetSkillLevel(pUnit,pSkill,0)>=sub_004AA8B0_GetMaxSkillLevel(nSkillId))bMaxed=1;
+    if(pSkill && SKILLS_GetSkillLevel(pUnit,pSkill,0)>=sub_004AA8B0_GetSkillMaxLevel(nSkillId))bMaxed=1;
     else bMaxed=0;
     int bFound=0;
     for(int i=16;i>=10;--i)
@@ -406,7 +406,7 @@ void __fastcall sub_004EEF00_ShowSkillPopup(D2UnitStrc* pUnit, int nSkillId, int
         sub_00526700(wszText,D2LANG_GetStringFromTblIndex(0x1114));
     }
     D2Win_10131_GetTextDimensions(wszText,&nWidth,&nHeight);
-    sub_00502280_SetPopUpText(wszText,nX-24,nHeight+nY+3,0,0);
+    D2Win_10129_DrawFramedText(wszText,nX-24,nHeight+nY+3,0,0);
 }
 
 static inline D2SkillsTxt* GetSkillsRecord(int nSkillId) {
@@ -517,7 +517,7 @@ void __fastcall sub_004EF410_ShowSkillPopupB(D2UnitStrc* pUnit, int nSkillId, in
         sub_00526700(wszText, D2LANG_GetStringFromTblIndex(0x1114));
     }
     D2Win_10131_GetTextDimensions(wszText, &nWidth, &nHeight);
-    sub_00502280_SetPopUpText(wszText, nX, nHeight + nY + 3, 1, 0);
+    D2Win_10129_DrawFramedText(wszText, nX, nHeight + nY + 3, 1, 0);
 }
 
 inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)

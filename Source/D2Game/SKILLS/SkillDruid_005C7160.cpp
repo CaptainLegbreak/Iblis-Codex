@@ -91,13 +91,13 @@ D2UnitStrc* __fastcall D2GAME_CreateMissile_6FD115E0(D2GameStrc* pGame, D2UnitSt
 void __fastcall sub_6FD14170(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pOrigin, int nMissileId, int nSkillId, int nSkillLevel, int nVelocity); // 0x0056D400
 int __fastcall SKILLS_ApplyWarcryStats(D2GameStrc* pGame, D2UnitStrc* a2, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x005D8290
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
-int __fastcall sub_005D5BF0(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nCalc, int nRange, int nSkillId, int nSkillLevel); // 0x005D5BF0
+int __fastcall SKILLS_CreateMissilesAroundTarget(D2GameStrc* pGame, D2UnitStrc* pMissile, D2UnitStrc* pOwner, int nMissileId, int nCalc, int nRange, int nSkillId, int nSkillLevel); // 0x005D5BF0
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit);                            // 0x00553540
 void __fastcall SUNITDMG_DrainItemDurability(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int a4); // 0x0057D4F0
 void __fastcall SUNITDMG_FreeAttackerDefenderCombatList(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender); // 0x0057C9F0
 D2UnitStrc* __fastcall sub_6FD11420(D2GameStrc* pGame, int nMissileId, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nX, int nY, int nTargetX, int nTargetY, int a10); // 0x0056ECB0
 int __fastcall sub_00463860(D2UnitStrc* pUnit);                                                             // 0x00463860
-int __fastcall MONSTERS_GetBaseIdFromMonsterId(int nMonsterId);                                             // 0x00463900
+int __fastcall sub_00463900_GetValidMonsterId(int nMonsterId);                                             // 0x00463900
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet);                                 // 0x00639DB0
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState);                                             // 0x00639DF0
 void __stdcall UNITS_StoreOwner(D2UnitStrc* pUnit, D2UnitStrc* pOwner);                                     // 0x00621CE0
@@ -145,7 +145,7 @@ void __stdcall UNITS_SetAnimationFrame(D2UnitStrc* pUnit, int nFrame);          
 void __stdcall PATH_SetNewDistance(D2DynamicPathStrc* pDynamicPath, unsigned char nNewDistance);            // 0x00648E70
 void __stdcall PATH_SetStepNum(D2DynamicPathStrc* pDynamicPath, unsigned char nSteps);                      // 0x00649070
 void __stdcall D2COMMON_10170_PathSetTargetPos(D2DynamicPathStrc* pPath, int nX, int nY);                   // 0x00648AD0
-int __fastcall sub_6FD15500(D2UnitStrc* pUnit);                                                             // 0x0056E5B0
+int __fastcall SKILLS_GetBaseWalkVelocity(D2UnitStrc* pUnit);                                                             // 0x0056E5B0
 void __stdcall PATH_SetVelocity(D2DynamicPathStrc* pDynamicPath, int nVelocity, const char* szFile, int nLine); // 0x00648690
 
 inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
@@ -374,7 +374,7 @@ int __fastcall SKILLS_SrvDo089_Jump(D2GameStrc* pGame, D2UnitStrc* pUnit, int nS
             PATH_SetMoveTestCollisionMask(pPath, 0x3C01);
             PATH_SetType(pPath, PATHTYPE_MON_OTHER_2);
 
-            if (MONSTERS_GetBaseIdFromMonsterId(sub_00463860(pUnit)) == MONSTER_SANDLEAPER1)
+            if (sub_00463900_GetValidMonsterId(sub_00463860(pUnit)) == MONSTER_SANDLEAPER1)
             {
                 D2UnitStrc* pTarget = SUNIT_GetServerUnit(pGame, SKILLS_GetParam3(pSkill), SKILLS_GetParam4(pSkill));
                 if (pTarget)
@@ -398,7 +398,7 @@ int __fastcall SKILLS_SrvDo089_Jump(D2GameStrc* pGame, D2UnitStrc* pUnit, int nS
         else
         {
             int nFrame = 0;
-            if (MONSTERS_GetBaseIdFromMonsterId(sub_00463860(pUnit)) == MONSTER_SANDLEAPER1)
+            if (sub_00463900_GetValidMonsterId(sub_00463860(pUnit)) == MONSTER_SANDLEAPER1)
             {
                 nFrame = 8;
             }
@@ -417,7 +417,7 @@ int __fastcall SKILLS_SrvDo089_Jump(D2GameStrc* pGame, D2UnitStrc* pUnit, int nS
         PATH_SetFootprintCollisionMask(pPath, 0);
         D2COMMON_10170_PathSetTargetPos(pPath, nX, nY);
         PATH_SetType(pPath, PATHTYPE_LEAP);
-        PATH_SetVelocity(pPath, sub_6FD15500(pUnit), ".\\SKILLS\\SkillMonst.cpp", 0x282);
+        PATH_SetVelocity(pPath, SKILLS_GetBaseWalkVelocity(pUnit), ".\\SKILLS\\SkillMonst.cpp", 0x282);
         D2Common_10142(pPath, pUnit, 0);
     }
     else
@@ -734,7 +734,7 @@ int __fastcall SKILLS_SrvDo043_ShockField(D2GameStrc* pGame, D2UnitStrc* pUnit, 
     }
 
     const int nAuraRange = SKILLS_EvaluateSkillFormula(pUnit, pSkillsTxtRecord->dwAuraRangeCalc, nSkillId, nSkillLevel);
-    return sub_005D5BF0(pGame, pUnit, pUnit, nMissileId, nSubMissiles, nAuraRange, nSkillId, nSkillLevel);
+    return SKILLS_CreateMissilesAroundTarget(pGame, pUnit, pUnit, nMissileId, nSubMissiles, nAuraRange, nSkillId, nSkillLevel);
 }
 
 // 0x005D68A0

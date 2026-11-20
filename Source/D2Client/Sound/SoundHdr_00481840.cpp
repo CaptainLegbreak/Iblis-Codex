@@ -37,8 +37,8 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 extern "C" char* __cdecl strcat(char* szDest, const char* szSource);
 extern "C" unsigned int __cdecl strlen(const char* szString);
-void __cdecl sub_00481950(); // 0x00481950
-void __fastcall sub_004E0050(int nArg); // 0x004E0050
+void __cdecl sub_00481950_LoadSoundTables(); // 0x00481950
+void __fastcall sub_004E0050_RestartSound(int nArg); // 0x004E0050
 void __cdecl sub_004B9D00(); // 0x004B9D00
 void __cdecl sub_004CA280(); // 0x004CA280
 int __fastcall sub_004DF9D0_CheckCacheEntry(int nId); // 0x004DF9D0
@@ -129,8 +129,8 @@ void __fastcall sub_00482260_UpdateSoundSystem(int nArg)
 {
     if (!sub_00513B50())
         return;
-    sub_00481950();
-    sub_004E0050(nArg);
+    sub_00481950_LoadSoundTables();
+    sub_004E0050_RestartSound(nArg);
     sub_004B9D00();
     sub_004DCA30();
     sub_004CA280();

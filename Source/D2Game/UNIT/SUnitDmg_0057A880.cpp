@@ -100,7 +100,7 @@ void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUn
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0
-int __fastcall sub_00554200(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00554200
+int __fastcall SUNIT_AreUnitsHostile(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00554200
 void __fastcall sub_6FD10E50(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x0056E900
 void __fastcall SUNITDMG_RemoveShatterState(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x0057AD80
 int __fastcall SUNITDMG_GetColdEffect(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0057AF30
@@ -158,14 +158,14 @@ struct D2ModeChangeStrc
 };
 
 extern "C" const D2DamageHitClassMappingStrc gsDamageHitClassMapping_006E16D8[8]; // 0x006E16D8
-int __fastcall sub_0046C140_CheckMonStats2ModeFlag(int nMonsterId, int nMode); // 0x0046C140
+int __fastcall sub_0046C140_TestMonModeFlag(int nMonsterId, int nMode); // 0x0046C140
 void __fastcall sub_6FC62DF0(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pUnit, D2DamageStrc* pDamage); // 0x005A54F0
 void __fastcall SUNITDMG_KillMonster(D2GameStrc* pGame, D2UnitStrc* pDefender, D2UnitStrc* pAttacker, int bSendMsg); // 0x0057CCB0
 void __stdcall MONSTERMODE_GetModeChangeInfo(D2UnitStrc* pUnit, int nMode, D2ModeChangeStrc* pModeChange); // 0x005A7E60
 int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int a3); // 0x005A7C20
 void __fastcall sub_6FC6E8A0(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005A43A0
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit); // 0x0064C040
-unsigned char __fastcall sub_6FC62F50(D2UnitStrc* pUnit); // 0x005A5650
+unsigned char __fastcall MONSTERMODE_GetHpPercent128(D2UnitStrc* pUnit); // 0x005A5650
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId); // 0x006439F0
 int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
 void __stdcall SKILLS_SetFlags(D2SkillStrc* pSkill, int nValue); // 0x00644660
@@ -771,7 +771,7 @@ static __declspec(noinline) void __stdcall sub_0057C420_ApplyLeech(D2UnitStrc* p
 
 void __fastcall SUNITDMG_ExecuteEvents(D2GameStrc* pGame, D2UnitStrc* pAttacker, D2UnitStrc* pDefender, int bMissile, D2DamageStrc* pDamage)
 {
-    if (!sub_00554200(pGame, pAttacker, pDefender) && !(pDamage->dwHitFlags & 0x1000))
+    if (!SUNIT_AreUnitsHostile(pGame, pAttacker, pDefender) && !(pDamage->dwHitFlags & 0x1000))
     {
         pDamage->wResultFlags &= (unsigned short)~(1 | 2);
         return;
@@ -1062,7 +1062,7 @@ static int __stdcall sub_0057CB00(D2UnitStrc* pUnit, D2DamageStrc* pDamage, int 
         return 1;
     }
 
-    if (pUnit && pUnit->dwUnitType == 1 && !sub_0046C140_CheckMonStats2ModeFlag(pUnit->dwClassId, 3))
+    if (pUnit && pUnit->dwUnitType == 1 && !sub_0046C140_TestMonModeFlag(pUnit->dwClassId, 3))
     {
         return 1;
     }
@@ -1273,7 +1273,7 @@ void __fastcall SUNITDMG_ExecuteMissileDamage(D2GameStrc* pGame, D2UnitStrc* pAt
         const unsigned short wResultFlags = pDamage->wResultFlags;
         if (wResultFlags & 0x08)
         {
-            if (!sub_0046C140_CheckMonStats2ModeFlag(pUnit->dwClassId, 0x0D))
+            if (!sub_0046C140_TestMonModeFlag(pUnit->dwClassId, 0x0D))
             {
                 pDamage->wResultFlags = wResultFlags & (unsigned short)(~0x08) | 0x04;
             }
@@ -1302,7 +1302,7 @@ void __fastcall SUNITDMG_ExecuteMissileDamage(D2GameStrc* pGame, D2UnitStrc* pAt
             if (pUnit->dwClassId == 0xF3) goto Blocked;
             if (pUnit->dwClassId == 0x14D) goto Blocked;
             if (pUnit->dwClassId == 0x2C1) goto Blocked;
-            if (!sub_0046C140_CheckMonStats2ModeFlag(pUnit->dwClassId, 6))
+            if (!sub_0046C140_TestMonModeFlag(pUnit->dwClassId, 6))
             {
             Blocked:
                 MONSTER_SetAiState(pUnit, 0x13);
@@ -1342,7 +1342,7 @@ void __fastcall SUNITDMG_ExecuteMissileDamage(D2GameStrc* pGame, D2UnitStrc* pAt
         if (pDamage->wResultFlags & 1 && pDamage->dwDmgTotal > 0)
         {
             const unsigned char nLastHpPct = (unsigned char)STATLIST_UnitGetStatValue(pUnit, 0x160, 0);
-            int nHpDiff = nLastHpPct - sub_6FC62F50(pUnit);
+            int nHpDiff = nLastHpPct - MONSTERMODE_GetHpPercent128(pUnit);
             if (nHpDiff < 0)
             {
                 nHpDiff = -nHpDiff;

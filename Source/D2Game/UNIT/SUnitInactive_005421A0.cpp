@@ -200,14 +200,14 @@ D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem);                  
 D2UnitStrc* __stdcall INVENTORY_RemoveItemFromInventory(D2InventoryStrc* pInventory, D2UnitStrc* pItem);     // 0x0063AD90
 void __fastcall SUNIT_RemoveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit);                                      // 0x00555600
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId);                                        // 0x00640E90
-int __stdcall sub_00621B00_IsShrine(D2UnitStrc* pUnit);                                                     // 0x00621B00
+int __stdcall UNITS_IsShrine(D2UnitStrc* pUnit);                                                     // 0x00621B00
 int __fastcall EVENT_GetEventFrame(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEvent);                       // 0x005415A0
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit);                                                             // 0x005541B0
 int __stdcall DRLG_GetSaveMonstersFromLevelId(int nLevelId);                                                // 0x00642820
 int __fastcall D2GAME_CheckIfSparklyChest_6FCBD7F0(D2UnitStrc* pUnit);                                      // 0x005540D0
 int __stdcall STATES_CheckStateMaskUdeadOnUnit(D2UnitStrc* pUnit);                                          // 0x0063A770
-void __fastcall sub_6FCBDD30(D2UnitStrc* pUnit, unsigned char nAlignNew, int a3);                           // 0x005543B0
-void __fastcall sub_005B1A90(D2GameStrc* pGame, D2UnitStrc* pUnit);                         // 0x005B1A90
+void __fastcall sub_005543B0_AssignAlignment(D2UnitStrc* pUnit, unsigned char nAlignNew, int a3);                           // 0x005543B0
+void __fastcall TARGETS_RemoveUnitNode(D2GameStrc* pGame, D2UnitStrc* pUnit);                         // 0x005B1A90
 D2UnitStrc* __fastcall AIGENERAL_GetMinionOwner(D2UnitStrc* pUnit);                                         // 0x0058F0D0
 int __fastcall sub_6FC7D5F0(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pUnit);                      // 0x005752B0
 void __stdcall UNITROOM_UpdatePath(D2UnitStrc* pUnit);                                                      // 0x0064C450

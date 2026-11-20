@@ -5,7 +5,7 @@
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
 int __fastcall sub_004C9D70(D2UnitStrc* pUnit); // 0x004C9D70
-void __fastcall sub_004CB6A0(D2UnitStrc* pUnit, int nMode, int nArg); // 0x004CB6A0
+void __fastcall sub_004CB6A0_PlayAttackSound(D2UnitStrc* pUnit, int nMode, int nArg); // 0x004CB6A0
 void __stdcall SKILLS_SetParam1(D2SkillStrc* pSkill, int nValue); // 0x00644560
 void __stdcall SKILLS_SetParam2(D2SkillStrc* pSkill, int nValue); // 0x006445A0
 void __stdcall SKILLS_SetParam3(D2SkillStrc* pSkill, int nValue); // 0x006445E0
@@ -56,7 +56,7 @@ int __fastcall sub_004C9DB0_SkillCltDo(D2UnitStrc* pUnit, int nSkillId, int nSki
     const int nEventFrame = sub_004C9D70(pUnit);
     if (pUnit && (pUnit->dwUnitType == 0 || pUnit->dwUnitType == 1) && pUnit->nActionFrame == 3)
     {
-        sub_004CB6A0(pUnit, pUnit->dwAnimMode, 0);
+        sub_004CB6A0_PlayAttackSound(pUnit, pUnit->dwAnimMode, 0);
         return 0;
     }
 

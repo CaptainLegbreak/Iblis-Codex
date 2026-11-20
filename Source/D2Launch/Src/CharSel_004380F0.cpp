@@ -41,13 +41,13 @@ extern "C" long __cdecl _time32(long* pTime);                                   
 void __fastcall sub_004FB6A0_ClearText(D2WinControlStrc* pControl);                                         // 0x004FB6A0
 void __fastcall sub_004FB740(D2WinControlStrc* pList, int nA, int nB);                                      // 0x004FB740
 int __fastcall D2Win_10051(D2WinControlStrc* pTextBox, const Unicode* wszText, int nColor, char bIsWrapped, int nIndent); // 0x004FC9B0
-void __fastcall sub_004FCFF0_SetTextA(D2WinControlStrc* pControl, const char* szText, int nArg);            // 0x004FCFF0
-void __stdcall sub_005052B0_SetX(D2CompositeUnitStrc* pCompositeUnit, int nX);                              // 0x005052B0
-void __stdcall sub_005052F0_SetY(D2CompositeUnitStrc* pCompositeUnit, int nY);                              // 0x005052F0
+void __fastcall D2Win_10046(D2WinControlStrc* pControl, const char* szText, int nArg);            // 0x004FCFF0
+void __stdcall D2Win_10152(D2CompositeUnitStrc* pCompositeUnit, int nX);                              // 0x005052B0
+void __stdcall D2Win_10153(D2CompositeUnitStrc* pCompositeUnit, int nY);                              // 0x005052F0
 void __stdcall D2Win_10156(D2CompositeUnitStrc* pCompositeUnit, int nFlags);                                // 0x00505360
-const char* __stdcall sub_005068A0(int nA, int nB, int nC, int nD);                                         // 0x005068A0
+const char* __stdcall D2Win_10161(int nA, int nB, int nC, int nD);                                         // 0x005068A0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
-int __cdecl sub_00525150();                                                                         // 0x00525150
+int __cdecl STRTABLE_GetLanguage();                                                                         // 0x00525150
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);                                 // 0x00526700
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc);                                     // 0x005267E0
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...);               // 0x005269D0
@@ -115,7 +115,7 @@ void __cdecl sub_004380F0_UpdateCharList()
     for (int i = 0; i < gnVisibleRows_0070CC0C; ++i)
     {
         sub_004FB6A0_ClearText(gapRowControls_00779A20[i]);
-        switch (sub_00525150())
+        switch (STRTABLE_GetLanguage())
         {
         case 7:
             sub_004FB740(gapRowControls_00779A20[i], -1, -7);
@@ -143,8 +143,8 @@ void __cdecl sub_004380F0_UpdateCharList()
         if (nIndex >= gnTopRow_00779DC8 && nIndex < gnTopRow_00779DC8 + gnVisibleRows_0070CC0C)
         {
             const int nRow = nIndex - gnTopRow_00779DC8;
-            sub_005052B0_SetX(pEntry->pCompositeUnit, nX + 30);
-            sub_005052F0_SetY(pEntry->pCompositeUnit, nY);
+            D2Win_10152(pEntry->pCompositeUnit, nX + 30);
+            D2Win_10153(pEntry->pCompositeUnit, nY);
 
             const int bHardcore = pEntry->nStatus & 4;
             int nFlags = 1;
@@ -181,7 +181,7 @@ void __cdecl sub_004380F0_UpdateCharList()
                     wszClass[j].wChar = 0;
                 }
 
-                const char* szTitle = sub_005068A0(nClass, (pEntry->nStatus >> 8) & 0x1F, bHardcore, pEntry->nStatus & 0x20);
+                const char* szTitle = D2Win_10161(nClass, (pEntry->nStatus >> 8) & 0x1F, bHardcore, pEntry->nStatus & 0x20);
                 if (szTitle)
                 {
                     int nColor;
@@ -193,7 +193,7 @@ void __cdecl sub_004380F0_UpdateCharList()
                     {
                         nColor = 4;
                     }
-                    sub_004FCFF0_SetTextA(gapRowControls_00779A20[nRow], szTitle, nColor);
+                    D2Win_10046(gapRowControls_00779A20[nRow], szTitle, nColor);
                 }
 
                 strcat(szName, pEntry->szTitle);
@@ -201,7 +201,7 @@ void __cdecl sub_004380F0_UpdateCharList()
                 {
                     sprintf(&szName[strlen(szName)], " {%s}", pEntry->szCode32A);
                 }
-                sub_004FCFF0_SetTextA(gapRowControls_00779A20[nRow], szName, bHardcore ? 1 : 4);
+                D2Win_10046(gapRowControls_00779A20[nRow], szName, bHardcore ? 1 : 4);
 
                 sub_00437F60_GetClassName(wszClass, pEntry->nSel);
 

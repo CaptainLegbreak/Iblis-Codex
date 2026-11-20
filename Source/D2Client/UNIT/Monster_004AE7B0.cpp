@@ -75,13 +75,13 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2UnitStrc* __fastcall sub_004CDB40_SubmitRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
 void __stdcall sub_004DA000_ResetGfxMotion(D2UnitStrc* pUnit); // 0x004DA000
 void __stdcall sub_006488A0_SetDirection(D2DynamicPathStrc* pPath, D2DirectionArgStrc tDirection); // 0x006488A0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
-void __stdcall sub_00649030_SetPathFlag40(D2DynamicPathStrc* pPath, int bClear); // 0x00649030
+void __stdcall D2COMMON_10203_PATH_SetRotateFlag(D2DynamicPathStrc* pPath, int bClear); // 0x00649030
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 unsigned char __cdecl sub_0044DCD0_GetDifficulty(); // 0x0044DCD0
@@ -109,7 +109,7 @@ struct D2DifficultyLevelsTxt { char unk0[16]; int nMonsterSkillBonus; };
 
 extern const char gszMonsterFile_006DA5C8[]; // 0x006DA5C8
 int __cdecl sub_0044DCC0(); // 0x0044DCC0
-void __stdcall sub_0063EEF0_SetMonsterFlags(D2UnitStrc*, int, unsigned char); // 0x0063EEF0
+void __stdcall sub_0063EEF0_AdjustMonsterStats(D2UnitStrc*, int, unsigned char); // 0x0063EEF0
 void __stdcall PATH_AllocDynamicPath(void*, D2RoomStrc*, int, int, D2UnitStrc*, int); // 0x00649D00
 int __stdcall MONSTERS_IsDead(D2UnitStrc*); // 0x0063EA40
 void __stdcall PATH_RemoveCollisionFootprintForUnit(D2UnitStrc*, int); // 0x00649560
@@ -255,7 +255,7 @@ static __declspec(noinline) void sub_004AE4F0_MonsterEvent(D2UnitStrc* pUnit, in
     {
     case 0x14B:
     {
-        D2UnitStrc* pPlayer = sub_00463DD0();
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         if (pPlayer)
         {
             UNITS_SetTargetUnitForDynamicUnit(pUnit, pPlayer);
@@ -274,13 +274,13 @@ static __declspec(noinline) void sub_004AE4F0_MonsterEvent(D2UnitStrc* pUnit, in
         break;
     case 0x158:
     {
-        D2UnitStrc* pPlayer = sub_00463DD0();
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         D2DirectionArgStrc tDirection;
         tDirection.nDirection = sub_I07_SeedRoll(&pPlayer->pSeed) & 0x3F;
         D2DynamicPathStrc* pPath = pUnit->pDynamicPath;
-        sub_00649030_SetPathFlag40(pPath, 1);
+        D2COMMON_10203_PATH_SetRotateFlag(pPath, 1);
         sub_006488A0_SetDirection(pPath, tDirection);
-        sub_00649030_SetPathFlag40(pPath, 0);
+        D2COMMON_10203_PATH_SetRotateFlag(pPath, 0);
         break;
     }
     case 0x1F1:
@@ -373,7 +373,7 @@ void __fastcall sub_004AE8D0_InitMonster(D2UnitStrc* pUnit, D2RoomStrc* pRoom, i
     STATLIST_SetUnitStat(pUnit,0x29,pMonStats->wResLi[nDifficulty],0);
     STATLIST_SetUnitStat(pUnit,0x2B,pMonStats->wResCo[nDifficulty],0);
     STATLIST_SetUnitStat(pUnit,0x2D,pMonStats->wResPo[nDifficulty],0);
-    sub_0063EEF0_SetMonsterFlags(pUnit,sub_0044DCC0(),sub_0044DCD0_GetDifficulty());
+    sub_0063EEF0_AdjustMonsterStats(pUnit,sub_0044DCC0(),sub_0044DCD0_GetDifficulty());
     STATLIST_SetUnitStat(pUnit,7,0x6400,0);
     STATLIST_SetUnitStat(pUnit,6,0x6400,0);
     PATH_AllocDynamicPath(0,pRoom,nX,nY,pUnit,1);

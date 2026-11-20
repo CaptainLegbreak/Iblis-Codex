@@ -84,12 +84,12 @@ void __cdecl sub_004390A0_RedrawExpansion(); // 0x004390A0
 void* __fastcall FOG_Alloc(int,const char*,int,int); // 0x0040B380
 void __fastcall FOG_Free(void*,const char*,int,int); // 0x0040B3C0
 void __stdcall SMemCopy(void*,const void*,unsigned int); // 0x0041D2A0
-void __fastcall sub_004F96F0_SetEnabled(D2WinControlStrc*,int); // 0x004F96F0
-void __fastcall sub_004F9740_SetControlState(D2WinControlStrc*,int); // 0x004F9740
+void __fastcall sub_004F96F0_ControlClearState(D2WinControlStrc*,int); // 0x004F96F0
+void __fastcall sub_004F9740(D2WinControlStrc*,int); // 0x004F9740
 void __stdcall sub_004FD0B0_SetSprite(D2WinControlStrc*,int,void*); // 0x004FD0B0
 void __fastcall sub_004FB6A0_ClearText(D2WinControlStrc*); // 0x004FB6A0
 void __fastcall sub_004FC9B0_SetText(D2WinControlStrc*,const Unicode*,int,int,int); // 0x004FC9B0
-void __fastcall sub_004FCFF0_SetTextA(D2WinControlStrc*,const char*,int); // 0x004FCFF0
+void __fastcall D2Win_10046(D2WinControlStrc*,const char*,int); // 0x004FCFF0
 void __stdcall sub_005041B0_FreeAnim(void*,int); // 0x005041B0
 void* __stdcall sub_005066C0_CreateAnim(int,int,unsigned char*,unsigned char*); // 0x005066C0
 void __stdcall sub_005051A0_SetAnimField(void*,int); // 0x005051A0
@@ -118,26 +118,26 @@ int __cdecl sub_00439210_Redraw()
     if(sub_00408F20_HasExpansionMpq()) {sub_004390A0_RedrawExpansion();return 1;}
     if(!gnCount_00779DC4) gnSelected_0070CC00=0;
     int row=gnSelected_0070CC00-gnTopRow_00779DC8;
-    sub_004F96F0_SetEnabled(gpControl_007799F4,gnCount_00779DC4>0 && gnSelected_0070CC00>gnSelectionA_0070CC04 && gnSelected_0070CC00!=gnSelectionB_0070CC08 ? 1:0);
-    sub_004F96F0_SetEnabled(gpControl_00779C68,1);
+    sub_004F96F0_ControlClearState(gpControl_007799F4,gnCount_00779DC4>0 && gnSelected_0070CC00>gnSelectionA_0070CC04 && gnSelected_0070CC00!=gnSelectionB_0070CC08 ? 1:0);
+    sub_004F96F0_ControlClearState(gpControl_00779C68,1);
     if(row>=0 && row<gnVisibleRows_0070CC0C) {
         if(gnSelected_0070CC00==gnSelectionA_0070CC04 && gbFlag_00779DD8) {
             sub_004FD0B0_SetSprite(gpControl_00779C78,0x202,gaSprites_007799FC[row]);
-            sub_004F9740_SetControlState(gpControl_00779C78,1);
-            sub_004F9740_SetControlState(gpControl_00779D94,0);
+            sub_004F9740(gpControl_00779C78,1);
+            sub_004F9740(gpControl_00779D94,0);
         } else {
             sub_004FD0B0_SetSprite(gpControl_00779D94,0x202,gaSprites_007799FC[row]);
-            sub_004F9740_SetControlState(gpControl_00779D94,1);
-            sub_004F9740_SetControlState(gpControl_00779C78,0);
+            sub_004F9740(gpControl_00779D94,1);
+            sub_004F9740(gpControl_00779C78,0);
         }
     } else {
-        sub_004F9740_SetControlState(gpControl_00779D94,0);
-        sub_004F9740_SetControlState(gpControl_00779C78,0);
+        sub_004F9740(gpControl_00779D94,0);
+        sub_004F9740(gpControl_00779C78,0);
     }
-    if(gnTopRow_00779DC8>0) sub_004F9740_SetControlState(gpControl_00779A1C,1);
-    else sub_004F9740_SetControlState(gpControl_00779A1C,0);
-    if(gnTopRow_00779DC8+gnVisibleRows_0070CC0C<gnCount_00779DC4) sub_004F9740_SetControlState(gpControl_00779B64,1);
-    else sub_004F9740_SetControlState(gpControl_00779B64,0);
+    if(gnTopRow_00779DC8>0) sub_004F9740(gpControl_00779A1C,1);
+    else sub_004F9740(gpControl_00779A1C,0);
+    if(gnTopRow_00779DC8+gnVisibleRows_0070CC0C<gnCount_00779DC4) sub_004F9740(gpControl_00779B64,1);
+    else sub_004F9740(gpControl_00779B64,0);
     int index=0;
     D2LaunchCharEntryStrc* entry=gpCharList_00779DBC;
     if(!gpCharList_00779DBC) return 1;
@@ -196,8 +196,8 @@ BUILD_MODEL:
     sub_004FB6A0_ClearText(gpControl_00779B60);
     if(strlen(gpCurrent_00779DC0->szTag)) {
         sprintf(text,gszNameTagFormat,gpCurrent_00779DC0->szName,gpCurrent_00779DC0->szTag);
-        sub_004FCFF0_SetTextA(gpControl_00779B60,text,0);
-    } else sub_004FCFF0_SetTextA(gpControl_00779B60,gpCurrent_00779DC0->szName,0);
+        D2Win_10046(gpControl_00779B60,text,0);
+    } else D2Win_10046(gpControl_00779B60,gpCurrent_00779DC0->szName,0);
     sub_004FB6A0_ClearText(gpControl_007799F0);
     sub_00437F60_GetClassName(className,gpCurrent_00779DC0->nType);
     Unicode description[100];
@@ -211,6 +211,6 @@ BUILD_MODEL:
     sub_004FB6A0_ClearText(gpControl_00779C70);
     if(gpCurrent_00779DC0->wszName[0].wChar) sub_004FC9B0_SetText(gpControl_00779C70,gpCurrent_00779DC0->wszName,0,0,0);
     else sub_004FC9B0_SetText(gpControl_00779C70,D2LANG_GetStringFromTblIndex(0x142C),0,0,0);
-    if(entry->wFlags&32) sub_004F96F0_SetEnabled(gpControl_00779C68,0);
+    if(entry->wFlags&32) sub_004F96F0_ControlClearState(gpControl_00779C68,0);
     return 1;
 }

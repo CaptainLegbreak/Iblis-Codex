@@ -64,7 +64,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 D2MonStatsTxtRun* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId);                                 // 0x00451F80
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                                                         // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
-D2ActiveRoomStrc* __fastcall COLLISION_GetRoomBySubTileCoordinates(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
 int __fastcall sub_00463860(D2UnitStrc* pUnit);                                                             // 0x00463860
 D2CharStatsTxtRun* __fastcall sub_004833E0_GetCharStatsTxtRecord(int nClassId);                             // 0x004833E0
 void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nSkillId); // 0x00540E60
@@ -88,11 +88,11 @@ int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int n
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState);              // 0x006256B0
 void __stdcall STATLIST_FreeStatList(D2StatListStrc* pStatList);                                            // 0x00626CD0
 void __stdcall D2Common_10474(D2UnitStrc* pUnit, D2StatListStrc* pStatList);                                // 0x006277E0
-int __stdcall UNITS_GetDistanceToCoordinates(D2UnitStrc* pUnit, int nX, int nY);                                          // 0x006417F0
+int __stdcall sub_006417F0_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY);                                          // 0x006417F0
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId);         // 0x006439F0
 int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine);               // 0x00643CE0
-int __stdcall sub_006444A0(D2SkillStrc* pSkill);                                                            // 0x006444A0
-int __stdcall sub_006444D0(D2SkillStrc* pSkill);                                                            // 0x006444D0
+int __stdcall SKILLS_GetParam1(D2SkillStrc* pSkill);                                                            // 0x006444A0
+int __stdcall SKILLS_GetParam2(D2SkillStrc* pSkill);                                                            // 0x006444D0
 int __stdcall SKILLS_GetParam3(D2SkillStrc* pSkill);                                                        // 0x00644500
 int __stdcall SKILLS_GetParam4(D2SkillStrc* pSkill);                                                        // 0x00644530
 void __stdcall SKILLS_SetParam3(D2SkillStrc* pSkill, int nValue);                                           // 0x006445E0
@@ -154,8 +154,8 @@ static int __stdcall sub_005D9F70_SetLeapVelocity(D2GameStrc* pGame, D2UnitStrc*
     PATH_SetMoveTestCollisionMask(pPath, 0);
     PATH_SetFootprintCollisionMask(pPath, 0);
 
-    const int nX = sub_006444A0(pSkill);
-    const int nY = sub_006444D0(*(D2SkillStrc* volatile*)&pSkill);
+    const int nX = SKILLS_GetParam1(pSkill);
+    const int nY = SKILLS_GetParam2(*(D2SkillStrc* volatile*)&pSkill);
     if (!nX || !nY)
     {
         return 0;
@@ -214,7 +214,7 @@ static int __stdcall sub_005DA020_SandLeaperKnockback(D2GameStrc* pGame, int nX,
 
     nX = 3 * nX - 2 * CLIENTS_GetUnitX(pTarget);
     nY = 3 * nY - 2 * CLIENTS_GetUnitY(pTarget);
-    D2ActiveRoomStrc* pTargetRoom = COLLISION_GetRoomBySubTileCoordinates(UNITS_GetRoom(pUnit), nX, nY);
+    D2ActiveRoomStrc* pTargetRoom = sub_00463740_FindRoomAtPoint(UNITS_GetRoom(pUnit), nX, nY);
     if (pTargetRoom && DUNGEON_IsRoomInTown(pTargetRoom))
     {
         return 0;
@@ -241,8 +241,8 @@ static int __stdcall sub_005DA120_Leap(D2GameStrc* pGame, D2SkillStrc* pSkill, D
         return 0;
     }
 
-    const int nX = sub_006444A0(pSkill);
-    const int nY = sub_006444D0(pSkill);
+    const int nX = SKILLS_GetParam1(pSkill);
+    const int nY = SKILLS_GetParam2(pSkill);
 
     const int bMonster = sub_I16_IsMonster(pUnit);
     int nBaseId;
@@ -299,7 +299,7 @@ static int __stdcall sub_005DA120_Leap(D2GameStrc* pGame, D2SkillStrc* pSkill, D
     }
     else if (nBaseId == 0x21C)
     {
-        nAnimFrame = UNITS_GetDistanceToCoordinates(pUnit, nX, nY) < 2 ? 12 : 10;
+        nAnimFrame = sub_006417F0_GetDistanceToXY(pUnit, nX, nY) < 2 ? 12 : 10;
     }
 
     UNITS_SetAnimationFrame(pUnit, nAnimFrame);

@@ -20,7 +20,7 @@ struct D2LaunchCharInfoStrc
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-void __fastcall sub_004FD060_SetText(D2WinControlStrc* pControl, const Unicode* pText);                     // 0x004FD060
+void __fastcall D2Win_10044(D2WinControlStrc* pControl, const Unicode* pText);                     // 0x004FD060
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 void __fastcall sub_0043FB50_ShowWait(const Unicode* pText, D2LaunchCallback pfnDone);                      // 0x0043FB50
 void __fastcall sub_004403F0_OnListEvent(int nA, int nB);                                                   // 0x004403F0
@@ -92,7 +92,7 @@ void __cdecl sub_004408B0_OpenClassSelectA()
 
     sub_0043E9D0_CreateControl(0x65);
     D2WinControlStrc* pControl = sub_0043E9D0_CreateControl(0x66);
-    sub_004FD060_SetText(pControl, D2LANG_GetStringFromTblIndex(0x14C5));
+    D2Win_10044(pControl, D2LANG_GetStringFromTblIndex(0x14C5));
     sub_004406F0_CreateClassScreen();
     gnSelection_0077BBF4 = -2;
     gnSelectModeB_0070CD63 = 0x23;
@@ -120,7 +120,7 @@ void __cdecl sub_00440980_OpenClassSelectB()
 
     sub_0043E9D0_CreateControl(0x65);
     D2WinControlStrc* pControl = sub_0043E9D0_CreateControl(0x66);
-    sub_004FD060_SetText(pControl, D2LANG_GetStringFromTblIndex(0x14C6));
+    D2Win_10044(pControl, D2LANG_GetStringFromTblIndex(0x14C6));
     sub_004406F0_CreateClassScreen();
     gnSelection_0077BBF4 = -2;
     gnSelectModeB_0070CD63 = 0x23;
@@ -148,7 +148,7 @@ void __cdecl sub_00440A50_OpenClassSelectC()
 
     sub_0043E9D0_CreateControl(0x65);
     D2WinControlStrc* pControl = sub_0043E9D0_CreateControl(0x66);
-    sub_004FD060_SetText(pControl, D2LANG_GetStringFromTblIndex(0x276A));
+    D2Win_10044(pControl, D2LANG_GetStringFromTblIndex(0x276A));
     sub_004406F0_CreateClassScreen();
     gnSelection_0077BBF4 = -2;
     gnSelectModeB_0070CD63 = 0x23;
@@ -176,7 +176,7 @@ void __cdecl sub_00440B30_OpenClassSelectD()
 
     sub_0043E9D0_CreateControl(0x65);
     D2WinControlStrc* pControl = sub_0043E9D0_CreateControl(0x66);
-    sub_004FD060_SetText(pControl, D2LANG_GetStringFromTblIndex(0x276B));
+    D2Win_10044(pControl, D2LANG_GetStringFromTblIndex(0x276B));
     sub_004406F0_CreateClassScreen();
     gnSelection_0077BBF4 = -2;
     gnSelectModeB_0070CD63 = 0x23;

@@ -21,8 +21,8 @@ struct D2CmpCellListStrc;
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 int __stdcall sub_00600760_GetValue(void* pData); // 0x00600760
-void __fastcall sub_005179A4_VirtualFree(void* pMemory); // 0x005179A4
-void __stdcall sub_006059B0_BuildTable(unsigned char* pData); // 0x006059B0
+void __fastcall sub_005179A4_FreeVirtualMemory(void* pMemory); // 0x005179A4
+void __stdcall sub_006059B0_BuildAdditiveTable(unsigned char* pData); // 0x006059B0
 extern unsigned int gdwSwappedColor_008E9D38; // 0x008E9D38
 extern int gnGlobal_008E9028; // 0x008E9028
 extern int gnGlobal_008E9D3C; // 0x008E9D3C
@@ -189,7 +189,7 @@ double __stdcall sub_00604FE0_HueToRgb(double n1, double n2, double hue)
 void __stdcall sub_006051F0_FreeIfSet(void* pMemory)
 {
     if (pMemory)
-        sub_005179A4_VirtualFree(pMemory);
+        sub_005179A4_FreeVirtualMemory(pMemory);
 }
 
 // 0x00605320
@@ -223,7 +223,7 @@ void __stdcall PaletteSetMask(const unsigned char* pTable)
 // 0x00605A90
 void __stdcall UpdateD2TransparencyTable(unsigned char* pData, int nUnused)
 {
-    sub_006059B0_BuildTable(pData);
+    sub_006059B0_BuildAdditiveTable(pData);
 }
 
 // 0x00606D40

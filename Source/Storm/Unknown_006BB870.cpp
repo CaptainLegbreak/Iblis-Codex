@@ -125,7 +125,7 @@ int __stdcall sub_005FDEA0(D2TileLibraryEntryStrc*, int, int); // 0x005FDEA0
 int __fastcall sub_006BB520_AddCacheEntry(D2TextureCacheStrc*); // 0x006BB520
 void __fastcall sub_006BB2D0_TouchCacheEntry(D2TextureCacheStrc*, int); // 0x006BB2D0
 void __stdcall sub_006BB720_DecodeTile(D2TileLibraryEntryStrc*, void*, int); // 0x006BB720
-void __fastcall sub_006B20E0_ReportSurfaceError(const char*, int); // 0x006B20E0
+void __fastcall sub_006B20E0_DDrawLogError(const char*, int); // 0x006B20E0
 void __fastcall sub_006B38A0_CopySurface(D2SurfaceStrc*, D2SurfaceStrc*, void*); // 0x006B38A0
 extern D2TextureCacheStrc gTextureCache; // 0x0096FC9C
 extern D2SurfaceStrc* gpMemorySurface; // 0x00989BF8
@@ -155,11 +155,11 @@ int __fastcall sub_006BB870_BindTileTexture(D2TileLibraryEntryStrc* pTile)
             {
                 D2SurfaceDescStrc desc = { sizeof(D2SurfaceDescStrc) };
                 int nError = gpMemorySurface->Lock(0, &desc, 0x21, 0);
-                if (nError) sub_006B20E0_ReportSurfaceError(gszLockError, nError);
+                if (nError) sub_006B20E0_DDrawLogError(gszLockError, nError);
                 D2_ASSERT(desc.dwFlags & 8, 0x1AD);
                 sub_006BB720_DecodeTile(pTile, desc.pSurface, desc.lPitch >> 1);
                 nError = gpMemorySurface->Unlock(0);
-                if (nError) sub_006B20E0_ReportSurfaceError(gszUnlockError, nError);
+                if (nError) sub_006B20E0_DDrawLogError(gszUnlockError, nError);
             }
             if (gdwCapabilities & gdwSurfaceCopyMask)
                 sub_006B38A0_CopySurface(pEntry->pSurface, gpMemorySurface, gpCopyContext);

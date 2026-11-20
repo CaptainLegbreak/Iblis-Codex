@@ -36,7 +36,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 void __stdcall ITEMS_SetInvPage(D2UnitStrc* pItem, unsigned char nPage); // 0x00628280
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
-int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit); // 0x0045ADF0
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 
 
 int __fastcall D2GAME_PlaceItem_6FC44410(const char* szFile, int nLine, D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnitId, int nX, int nY, int a8, int a9, D2InventoryStrc* pInventory); // 0x00560200
@@ -95,7 +95,7 @@ static int __stdcall PLAYER_PlaceItemInInventory(D2GameStrc* pGame, int a8, D2Un
     D2_ASSERT(pPlayer, 181);
     ITEMS_SetInvPage(pItem, INVPAGE_INVENTORY);
     const int nItemGUID = pItem->dwUnitId;
-    return D2GAME_PlaceItem_6FC44410(".\\PLAYER\\Player.cpp", 186, pGame, pPlayer, nItemGUID, UNITS_GetXPosition(pItem), CLIENTS_GetUnitY(pItem), a8, 1, 0) != 0;
+    return D2GAME_PlaceItem_6FC44410(".\\PLAYER\\Player.cpp", 186, pGame, pPlayer, nItemGUID, CLIENTS_GetUnitX(pItem), CLIENTS_GetUnitY(pItem), a8, 1, 0) != 0;
 }
 
 // 0x00534BB0

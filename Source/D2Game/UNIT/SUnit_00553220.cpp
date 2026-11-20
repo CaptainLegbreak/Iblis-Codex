@@ -64,7 +64,7 @@ struct D2ObjectDataStrc { int unk_00; unsigned char nLevelId; char unk_05[0x13];
 
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
 D2ActiveRoomStrc* __stdcall sub_00619DA0_ActLookup(D2DrlgActStrc* pAct, int nX, int nY); // 0x00619DA0
-D2ActiveRoomStrc* __stdcall sub_0061A140_FindRoom(D2DrlgActStrc* pAct, int nX, int nY); // 0x0061A140
+D2ActiveRoomStrc* __stdcall DUNGEON_StreamRoomAtCoords(D2DrlgActStrc* pAct, int nX, int nY); // 0x0061A140
 void __fastcall GAME_ActivateRoom(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom); // 0x0052D0F0
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 
@@ -167,7 +167,7 @@ D2UnitStrc* __fastcall sub_00553720_ResolveObjectOwner(D2GameStrc* pGame, D2Unit
 
     if (!sub_00619DA0_ActLookup(pGame->pAct[nAct], nX, nY))
     {
-        D2ActiveRoomStrc* pRoom = sub_0061A140_FindRoom(pGame->pAct[nAct], nX, nY);
+        D2ActiveRoomStrc* pRoom = DUNGEON_StreamRoomAtCoords(pGame->pAct[nAct], nX, nY);
         if (pRoom)
             GAME_ActivateRoom(pGame, pRoom);
     }

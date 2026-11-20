@@ -111,7 +111,7 @@ void __fastcall SUNIT_AttachSound(D2UnitStrc* pUnit, int nUpdateType, D2UnitStrc
 void __fastcall SUNIT_IterateUnitsOfType(D2GameStrc* pGame, int nType, void* pArg, QUESTUNITITERATE pfIterate); // 0x005537D0
 short __fastcall SUNIT_GetPartyId(D2UnitStrc* pPlayer); // 0x00554630
 int __fastcall ACT1Q6_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x00595B20
-void __fastcall ACT1Q6_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x00595B80
+void __fastcall sub_00595B80_HandleNpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x00595B80
 void __fastcall ACT1Q6_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x00595C60
 void __fastcall ACT1Q6_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x00595E20
 void __fastcall ACT1Q6_Callback03_ChangedLevel(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x00596010
@@ -122,9 +122,9 @@ bool __fastcall ACT1Q6_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId,
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
 void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C360
-void __fastcall sub_00544070(D2GameStrc*,const char*,const char*,int); // 0x00544070
+void __fastcall QUESTS_DebugOutput(D2GameStrc*,const char*,const char*,int); // 0x00544070
 void __fastcall sub_00545310(D2QuestDataStrc*); // 0x00545310
-int __fastcall sub_00595BD0(D2GameStrc*,D2UnitStrc*,void*); // 0x00595BD0
+int __fastcall ACT1Q6_UnitIterate_UpdateQuestStateFlags(D2GameStrc*,D2UnitStrc*,void*); // 0x00595BD0
 void __fastcall CLIENTS_UpdateCharacterProgression(D2ClientStrc* pClient, int nAct, int nDifficulty); // 0x00538680
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
 void __fastcall QUESTS_AddPlayerGUID(D2QuestGUIDStrc* pQuestGUID, int dwGUID); // 0x00545200
@@ -171,8 +171,8 @@ void __fastcall sub_00596010(D2QuestDataStrc* q,D2QuestArgStrc* arg)
    QUESTS_UnitIterate(q,1,0,ACT1Q6_UnitIterate_StatusCyclerEx,false);
    changed=true;
   }
-  if(changed) SUNIT_IterateUnitsOfType(q->pGame,0,0,sub_00595BD0);
-  sub_00544070(arg->pGame,"started quest by jumping to level","d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a1q6.cpp",384);
+  if(changed) SUNIT_IterateUnitsOfType(q->pGame,0,0,ACT1Q6_UnitIterate_UpdateQuestStateFlags);
+  QUESTS_DebugOutput(arg->pGame,"started quest by jumping to level","d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a1q6.cpp",384);
   return;
  }
  if(q->fState==4 && newLevel==40) {
@@ -185,7 +185,7 @@ void __fastcall sub_00596010(D2QuestDataStrc* q,D2QuestArgStrc* arg)
    D2BitBufferStrc* flags=PLAYER_GetQuestFlags(arg->pGame,arg->pPlayer);
    if(QUESTRECORD_GetQuestState(flags,q->eFilter,0)!=1 && QUESTRECORD_GetQuestState(flags,q->eFilter,1)!=1) {
     QUESTS_StateDebug(q,3,"d:\\diablo2\\Diablo2\\Source\\D2Game/Quests/a1q6.cpp",405);
-    SUNIT_IterateUnitsOfType(q->pGame,0,0,sub_00595BD0);
+    SUNIT_IterateUnitsOfType(q->pGame,0,0,ACT1Q6_UnitIterate_UpdateQuestStateFlags);
    }
   }
  }
@@ -334,7 +334,7 @@ void __fastcall ACT1Q6_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->pCallback[QUESTEVENT_MONSTERKILLED] = ACT1Q6_Callback08_MonsterKilled;
     pQuestData->pCallback[QUESTEVENT_NPCACTIVATE] = ACT1Q6_Callback00_NpcActivate;
     pQuestData->pCallback[QUESTEVENT_SCROLLMESSAGE] = ACT1Q6_Callback11_ScrollMessage;
-    pQuestData->pCallback[QUESTEVENT_NPCDEACTIVATE] = ACT1Q6_Callback02_NpcDeactivate;
+    pQuestData->pCallback[QUESTEVENT_NPCDEACTIVATE] = sub_00595B80_HandleNpcDeactivate;
     pQuestData->pCallback[QUESTEVENT_PLAYERSTARTEDGAME] = ACT1Q6_Callback13_PlayerStartedGame;
     pQuestData->pfSeqFilter = ACT1Q6_SeqCallback;
 

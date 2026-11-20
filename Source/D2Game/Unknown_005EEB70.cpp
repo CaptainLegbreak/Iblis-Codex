@@ -95,8 +95,8 @@ int __stdcall D2Common_10142(D2DynamicPathStrc* pDynamicPath, D2UnitStrc* pUnit,
 int __fastcall AITHINK_AreUnitsInSameLevel(D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x005EEB10
 void __stdcall UNITS_SetUsedSkill(D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill); // 0x00620210
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
-int __stdcall UNITS_GetDistanceToOtherUnit(D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x006416D0
-int __stdcall UNITS_GetDistanceToCoordinates(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
+int __stdcall sub_006416D0_UnitEdgeDistance(D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x006416D0
+int __stdcall sub_006417F0_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId); // 0x006439F0
 void __stdcall PATH_SetStepNum(D2DynamicPathStrc* pDynamicPath, unsigned char nSteps); // 0x00649070
 
@@ -125,8 +125,8 @@ void __fastcall AITHINK_AncientBarb1SkillHandler(D2GameStrc* pGame, D2UnitStrc* 
 void __fastcall AITHINK_AncientBarb2SkillHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam); // 0x005EEDA0
 void __fastcall AITHINK_AncientBarb3SkillHandler(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam); // 0x005EF010
 int __fastcall AITACTICS_UseSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nMode, int nSkillId, D2UnitStrc* pTarget, int nX, int nY); // 0x005DEAD0
-int __fastcall sub_0040C720(int nArg); // 0x0040C720
-void __fastcall sub_00469A60(int nArg); // 0x00469A60
+int __fastcall sub_0040C720_ReleaseReferences(int nArg); // 0x0040C720
+void __fastcall sub_00469A60_ResetKeyConfig(int nArg); // 0x00469A60
 void __fastcall sub_00478A00(void* pCel); // 0x00478A00
 extern "C" void __cdecl sub_00517ABB(void* pMemory); // 0x00517ABB
 extern void* gpCelFile_007C02BC; // 0x007C02BC
@@ -302,7 +302,7 @@ void __fastcall AITHINK_AncientBarb1SkillHandler(D2GameStrc* pGame, D2UnitStrc* 
     }
 
     const int bInMeleeRange = UNITS_IsInMeleeRange(pUnit, pTarget, 0);
-    const int nDistance = UNITS_GetDistanceToOtherUnit(pUnit, pTarget);
+    const int nDistance = sub_006416D0_UnitEdgeDistance(pUnit, pTarget);
 
     const int bUseSkill = (pMonStatsTxt->nSkill[0] > 0 && AIUTIL_CheckIfMonsterUsesSkill(pUnit, pMonStatsTxt->nSkill[0])
         && nDistance < AI_GetParamValue(pGame, pMonStatsTxt, ANCIENTBARB1_AI_PARAM_WHIRLWIND_DISTANCE)
@@ -341,7 +341,7 @@ void __fastcall AITHINK_AncientBarb1SkillHandler(D2GameStrc* pGame, D2UnitStrc* 
     int nXDiff = nTargetX - CLIENTS_GetUnitX(pUnit);
     int nYDiff = nTargetY - CLIENTS_GetUnitY(pUnit);
 
-    const int nDist = UNITS_GetDistanceToCoordinates(pUnit, nTargetX, nTargetY);
+    const int nDist = sub_006417F0_GetDistanceToXY(pUnit, nTargetX, nTargetY);
     const int nScale = nDist ? nDist : 1;
 
     nXDiff = nXDiff * AI_GetParamValue(pGame, pMonStatsTxt, ANCIENTBARB1_AI_PARAM_SKILL_REACH) / nScale;
@@ -375,7 +375,7 @@ void __fastcall AITHINK_AncientBarb3SkillHandler(D2GameStrc* pGame, D2UnitStrc* 
     {
         D2SeedStrc* pSeed = &pUnit->pSeed;
         bInMeleeRange = UNITS_IsInMeleeRange(pUnit, pTarget, 0);
-        const int nDistance = UNITS_GetDistanceToOtherUnit(pUnit, pTarget);
+        const int nDistance = sub_006416D0_UnitEdgeDistance(pUnit, pTarget);
 
         if (pMonStatsTxt->nSkill[0] > 0 && nDistance < AI_PARAM(pGame, pMonStatsTxt, 0)
             && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pMonStatsTxt, 1)
@@ -482,13 +482,13 @@ void __fastcall AITHINK_Fn141_BaalMinion(D2GameStrc* pGame, D2UnitStrc* pUnit, D
 // 0x0040D530
 int __cdecl sub_0040D530_Call0040C720()
 {
-    return sub_0040C720(1);
+    return sub_0040C720_ReleaseReferences(1);
 }
 
 // 0x004A5010
 void __cdecl sub_004A5010_Call00469A60()
 {
-    sub_00469A60(0);
+    sub_00469A60_ResetKeyConfig(0);
 }
 
 // 0x004A51E0

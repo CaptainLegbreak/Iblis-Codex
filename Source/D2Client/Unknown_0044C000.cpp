@@ -15,7 +15,7 @@ struct SMSGHANDLER_PARAMS
 };
 
 
-D2UnitStrc* __cdecl sub_00463DD0(); // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
 int __cdecl sub_0045AE90(); // 0x0045AE90
@@ -55,7 +55,7 @@ void __cdecl sub_0044C000_StartClick()
     if (gdwGlobal_007A061C && gdwGlobal_007A0650 && !gdwGlobal_007A0658)
     {
         gdwGlobal_007A066C = 1;
-        D2UnitStrc* pPlayer = sub_00463DD0();
+        D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         const int nFlags = sub_0044BEC0_GetClickFlags_static();
         if (pPlayer && pPlayer->dwUnitType == 0)
         {
@@ -94,7 +94,7 @@ void __stdcall sub_0044C180_OnClickUp(SMSGHANDLER_PARAMS* pMsg)
         return;
     }
     gdwGlobal_007A0654 = 1;
-    D2UnitStrc* pPlayer = sub_00463DD0();
+    D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
     const int nFlags = sub_0044BEC0_GetClickFlags_static();
     if (pPlayer && pPlayer->dwUnitType == 0)
     {

@@ -9,12 +9,12 @@ struct D2CacheBlockEntryStrc;
 extern "C" __declspec(dllimport) long __stdcall InterlockedCompareExchange(long volatile* pDestination, long nExchange, long nComparand); // 0x006CC3A0
 int __fastcall sub_0040DF20_SOCKET_GetSockName(FSafeSock* pSafeSock, void* pAddress, int* pnLength); // 0x0040DF20
 void __cdecl sub_00519300_FreeCache(); // 0x00519300
-void __cdecl sub_0051AC20_FreeBuffer(); // 0x0051AC20
+void __cdecl sub_0051AC20_FreeChannelList(); // 0x0051AC20
 void __cdecl sub_0051B210_FreeBuffer(); // 0x0051B210
 void __cdecl sub_0051E5D0_SetStopFlag(); // 0x0051E5D0
 extern "C" int __cdecl sub_0051E5E0_IsPendingCountPositive(); // 0x0051E5E0
 void __cdecl sub_005201E0_InitMessageQueue(); // 0x005201E0
-int __cdecl sub_00520440_FreeMessages(); // 0x00520440
+int __cdecl sub_00520440_FreeAllMessages(); // 0x00520440
 extern "C" int __cdecl sub_00520AD0_SetFlag882528(); // 0x00520AD0
 void __cdecl sub_00521B90_ClearSrpState(); // 0x00521B90
 extern BnClientInterface gBnClientInterface_0072FAA0; // 0x0072FAA0
@@ -85,10 +85,10 @@ int __cdecl sub_0051BEC0_IsExpansion()
 // 0x0051C470
 int __cdecl sub_0051C470_CloseBNetConnection()
 {
-    sub_0051AC20_FreeBuffer();
+    sub_0051AC20_FreeChannelList();
     sub_0051B210_FreeBuffer();
     sub_00519300_FreeCache();
-    sub_00520440_FreeMessages();
+    sub_00520440_FreeAllMessages();
     sub_00521B90_ClearSrpState();
     InterlockedExchange(&gnDnsDone_00881BFC, 1);
     while (InterlockedCompareExchange(&gnReceiveThreads_00881BF4, 0, 0))

@@ -16,19 +16,19 @@ void __stdcall sub_0063E510_FillInventoryTables(D2UnitStrc* pUnit, unsigned char
 D2UnitStrc* __fastcall sub_00463DE0_GetStoredUnit(); // 0x00463DE0
 D2UnitStrc* __fastcall sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc*, int, int); // 0x00625480
-D2UnitStrc* __fastcall sub_004648F0_GetTargetUnit(D2UnitStrc*); // 0x004648F0
+D2UnitStrc* __fastcall sub_004648F0_GetPathTargetUnit(D2UnitStrc*); // 0x004648F0
 int __stdcall sub_00648BF0_GetPathFlag(D2DynamicPathStrc*); // 0x00648BF0
-int __stdcall sub_00648A00_GetPathTargetX(D2DynamicPathStrc*); // 0x00648A00
+int __stdcall D2COMMON_10175_PathGetFirstPointX(D2DynamicPathStrc*); // 0x00648A00
 int __stdcall sub_00648A10_GetPathTargetY(D2DynamicPathStrc*); // 0x00648A10
 void __fastcall sub_00461250_ApplyUnitAction(int, D2UnitStrc*, int*, int); // 0x00461250
 D2UnitStrc* __stdcall sub_00643A00_GetRelatedUnit(D2UnitStrc*, int); // 0x00643A00
 void __fastcall sub_004743D0_UpdateRelatedUnit(D2UnitStrc*); // 0x004743D0
 void __stdcall sub_00620210_SetUnitAction(D2UnitStrc*, int); // 0x00620210
-void __stdcall sub_00648DC0_ResetPath(D2DynamicPathStrc*); // 0x00648DC0
+void __stdcall PATH_ResetToPreviousType(D2DynamicPathStrc*); // 0x00648DC0
 D2RoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc*); // 0x00620BB0
 int __stdcall sub_0061AB00_IsTownRoom(D2RoomStrc*); // 0x0061AB00
 int __fastcall sub_004804A0_SetPathTargetPos(D2UnitStrc*, int, int); // 0x004804A0
-void __fastcall sub_00480E70_SetState(D2UnitStrc*, int); // 0x00480E70
+void __fastcall sub_00480E70_SetUnitMode(D2UnitStrc*, int); // 0x00480E70
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc*); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc*); // 0x00648900
 void __fastcall sub_004804E0_SetPosition(D2UnitStrc*, unsigned short, unsigned short, int, int, int); // 0x004804E0
@@ -65,7 +65,7 @@ int __fastcall sub_00463130_GetPlayerTableB(unsigned char* pTable, unsigned int 
 
 static void __stdcall sub_00460830_SetStateAndSync(int bSync, int nState, D2UnitStrc* pUnit)
 {
-    sub_00480E70_SetState(pUnit, nState);
+    sub_00480E70_SetUnitMode(pUnit, nState);
     if (!bSync) return;
     if (pUnit != sub_00463DE0_GetStoredUnit()) return;
     int nX, nY;
@@ -121,7 +121,7 @@ static __declspec(noinline) void sub_00463260_UpdateStoredUnit(D2UnitStrc* unit)
         return;
     D2DynamicPathStrc* path = unit->pDynamicPath;
     int args[7] = {};
-    D2UnitStrc* target = sub_004648F0_GetTargetUnit(unit);
+    D2UnitStrc* target = sub_004648F0_GetPathTargetUnit(unit);
     if (sub_00648BF0_GetPathFlag(path))
     {
         args[0] = UNITS_GetUnitTypeInline(target);
@@ -129,7 +129,7 @@ static __declspec(noinline) void sub_00463260_UpdateStoredUnit(D2UnitStrc* unit)
         sub_00461250_ApplyUnitAction(0, unit, args, 0);
         return;
     }
-    args[0] = sub_00648A00_GetPathTargetX(path);
+    args[0] = D2COMMON_10175_PathGetFirstPointX(path);
     args[1] = sub_00648A10_GetPathTargetY(path);
     D2UnitStrc* related = sub_00643A00_GetRelatedUnit(unit, 0);
     if (related)
@@ -143,7 +143,7 @@ static __declspec(noinline) void sub_00463260_UpdateStoredUnit(D2UnitStrc* unit)
     else
     {
 
-        sub_00648DC0_ResetPath(path);
+        PATH_ResetToPreviousType(path);
         int idle, move;
         if (sub_0061AB00_IsTownRoom(UNITS_GetRoom(unit)))
         {
@@ -156,7 +156,7 @@ static __declspec(noinline) void sub_00463260_UpdateStoredUnit(D2UnitStrc* unit)
             move = 2;
         }
         if (sub_004804A0_SetPathTargetPos(unit, args[0], args[1]))
-            sub_00480E70_SetState(unit, move);
+            sub_00480E70_SetUnitMode(unit, move);
         else
             sub_00460830_SetStateAndSync(1, idle, unit);
     }

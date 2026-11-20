@@ -44,7 +44,7 @@ void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit
 void __fastcall AITACTICS_Idle(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames);                         // 0x005DE0F0
 int __fastcall AITACTICS_WalkCloseToUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nMaxDistance); // 0x005DE200
 int __fastcall AITACTICS_WalkToTargetUnitWithFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit, unsigned char nFlag); // 0x005DEC80
-int __fastcall D2GAME_AICORE_Escape_6FCD0560(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance, int bDeleteAiEventCallback); // 0x005DEFE0
+int __fastcall sub_005DEFE0_Escape(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance, int bDeleteAiEventCallback); // 0x005DEFE0
 int __stdcall UNITS_GetCurrentLifePercentage(D2UnitStrc* pUnit);                                           // 0x00621F20
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer);            // 0x00625480
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStatId, int nValue, unsigned short nLayer);    // 0x00627260
@@ -105,7 +105,7 @@ void __fastcall AITHINK_Fn029_BatDemon(D2GameStrc* pGame, D2UnitStrc* pUnit, D2A
         }
         else if (nAiState == 2)
         {
-            if (nLifePercentage < AI_GetParam(pGame, pMonStatsTxt, BATDEMON_AI_PARAM_HURT_PCT) && D2GAME_AICORE_Escape_6FCD0560(pGame, pUnit, pTarget, 15, 0))
+            if (nLifePercentage < AI_GetParam(pGame, pMonStatsTxt, BATDEMON_AI_PARAM_HURT_PCT) && sub_005DEFE0_Escape(pGame, pUnit, pTarget, 15, 0))
             {
                 pAiControl->dwAiParam[0] = 4;
             }
@@ -125,7 +125,7 @@ void __fastcall AITHINK_Fn029_BatDemon(D2GameStrc* pGame, D2UnitStrc* pUnit, D2A
         }
         else if (nAiState == 3)
         {
-            if (nLifePercentage < AI_GetParam(pGame, pMonStatsTxt, BATDEMON_AI_PARAM_HURT_PCT) && D2GAME_AICORE_Escape_6FCD0560(pGame, pUnit, pTarget, 15, 0))
+            if (nLifePercentage < AI_GetParam(pGame, pMonStatsTxt, BATDEMON_AI_PARAM_HURT_PCT) && sub_005DEFE0_Escape(pGame, pUnit, pTarget, 15, 0))
             {
                 pAiControl->dwAiParam[0] = 4;
             }
@@ -139,7 +139,7 @@ void __fastcall AITHINK_Fn029_BatDemon(D2GameStrc* pGame, D2UnitStrc* pUnit, D2A
                 pAiControl->dwAiParam[1] = 0;
             }
             else if (sub_6FCF2E70(pUnit) && AI_RollChanceLimited(pGame, pSeed, pMonStatsTxt, BATDEMON_AI_PARAM_DISENGAGE_ON_HIT_CHANCE_PCT)
-                && D2GAME_AICORE_Escape_6FCD0560(pGame, pUnit, pTarget, 12, 0))
+                && sub_005DEFE0_Escape(pGame, pUnit, pTarget, 12, 0))
             {
                 pAiControl->dwAiParam[0] = 2;
             }

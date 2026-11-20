@@ -19,7 +19,7 @@ struct D2GuidStrc;
 struct D2SidAuthorityStrc;
 struct D2ProcessEntryStrc;
 
-void __cdecl sub_00402980_StartDbgHelpThreadBody(); // 0x00402980
+void __cdecl sub_00402980_StartDbgHelpWorker(); // 0x00402980
 
 struct D2WSADataStrc
 {
@@ -211,7 +211,7 @@ extern void* gpModeContext_0074C718; // 0x0074C718
 // 0x004016A0
 void __cdecl sub_004016A0_StartDbgHelpThread()
 {
-    sub_00402980_StartDbgHelpThreadBody();
+    sub_00402980_StartDbgHelpWorker();
 }
 
 D2ModeIfaceStrc* gpModeIface_0074C700; // 0x0074C700

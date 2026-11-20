@@ -30,7 +30,7 @@ void __stdcall D2COMMON_10170_PathSetTargetPos(D2DynamicPathStrc* pPath, int nX,
 int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown); // 0x00649970
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
-int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit); // 0x0045ADF0
+int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 D2UnitStrc* __fastcall sub_004C5EB0_FindDestination(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nArg5, int nUnitId, int nArg7); // 0x004C5EB0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
@@ -140,7 +140,7 @@ static int sub_004CCB50_SeekTarget(D2UnitStrc* pUnit)
     D2UnitStrc* pOwner = sub_004639D0_GetOwnerUnit(pUnit);
     if (!pOwner)
         return 1;
-    sub_004CCA00_SteerMissile(sub_004C5EB0_FindDestination(pOwner, UNITS_GetXPosition(pUnit), CLIENTS_GetUnitY(pUnit), nRange, 3, -1, 0), pUnit);
+    sub_004CCA00_SteerMissile(sub_004C5EB0_FindDestination(pOwner, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), nRange, 3, -1, 0), pUnit);
     return 0;
 }
 
@@ -193,7 +193,7 @@ int __fastcall sub_004CCD20_CltHitSpiral(D2UnitStrc* pMissile, D2UnitStrc* pHitU
     D2MissileStrc tParams;
     memset(&tParams, 0, sizeof(tParams));
     tParams.dwFlags = 3;
-    tParams.nX = UNITS_GetXPosition(pMissile);
+    tParams.nX = CLIENTS_GetUnitX(pMissile);
     tParams.nY = CLIENTS_GetUnitY(pMissile);
     tParams.pOwner = pOwner;
     tParams.nMissile = pMissilesTxtRecord->wHitSubMissile[0];

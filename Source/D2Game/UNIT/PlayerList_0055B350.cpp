@@ -19,7 +19,7 @@ D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, 
 void __fastcall D2GAME_PACKETS_SendPacket0x8B_6FC3F810(D2ClientStrc* pClient, int nUnitGUID, unsigned char nPartyState); // 0x0053DDC0
 void __fastcall SUNIT_IterateLivingPlayers(D2GameStrc* pGame, SUNIT_IterateFn pfIterate, void* pArg);       // 0x005538D0
 void __fastcall FOG_FreeServerMemory(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
-void __fastcall PLAYERLIST_IterateCallback_InitializePlayerRelation(D2GameStrc* pGame, D2UnitStrc* pPlayer, void* pArg); // 0x0055B540
+void __fastcall sub_0055B540_UpdatePlayerRelations(D2GameStrc* pGame, D2UnitStrc* pPlayer, void* pArg); // 0x0055B540
 void __fastcall sub_0055B780_FreePlayerListCallback(D2GameStrc* pGame, D2UnitStrc* pPlayer, void* pArg); // 0x0055B780
 
 static __forceinline D2PlayerListStrc* sub_0055B110(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2)
@@ -83,7 +83,7 @@ void __fastcall PLAYERLIST_SendPartyState(D2UnitStrc* pPlayer1, D2UnitStrc* pPla
 void __fastcall PLAYERLIST_InitializePlayerRelations(D2GameStrc* pGame, D2UnitStrc* hPlayer)
 {
     D2_ASSERT(hPlayer, 0x14F);
-    SUNIT_IterateLivingPlayers(pGame, PLAYERLIST_IterateCallback_InitializePlayerRelation, hPlayer);
+    SUNIT_IterateLivingPlayers(pGame, sub_0055B540_UpdatePlayerRelations, hPlayer);
 }
 
 // 0x0055B6C0

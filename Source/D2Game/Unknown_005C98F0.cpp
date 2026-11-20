@@ -42,7 +42,7 @@ int __fastcall PLAYER_IsBusy(D2UnitStrc* pUnit); // 0x00535060
 
 
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553540
-int __fastcall sub_00554200(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00554200
+int __fastcall SUNIT_AreUnitsHostile(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x00554200
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
@@ -72,10 +72,10 @@ struct D2SummonArgStrc
 extern const int gnHydraOffsetX_006E312C[]; // 0x006E312C
 extern const int gnHydraOffsetY_006E3120[]; // 0x006E3120
 int __fastcall sub_0044BE50_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
-D2ActiveRoomStrc* __fastcall D2GAME_GetRoom_6FC52070(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
+D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
 int __fastcall sub_004E6CA0_GetSkillParamByLevel(int nSkillId, int nSkillLevel); // 0x004E6CA0
 D2AiControlStrc* __fastcall AIGENERAL_GetAiControlFromUnit(D2UnitStrc* pUnit); // 0x00541860
-void __fastcall sub_6FCBDD30(D2UnitStrc* pUnit, unsigned char nAlignNew, int a3); // 0x005543B0
+void __fastcall sub_005543B0_AssignAlignment(D2UnitStrc* pUnit, unsigned char nAlignNew, int a3); // 0x005543B0
 int __fastcall D2GAME_GetXAndYFromTargetUnit_6FD14020(D2GameStrc* pGame, D2UnitStrc* pUnit, int* pX, int* pY); // 0x0056D2C0
 D2UnitStrc* __fastcall D2GAME_SummonPet_6FD14430(D2GameStrc* pGame, D2SummonArgStrc* pArgs); // 0x0056D940
 void __fastcall D2GAME_SetSkills_6FD14C60(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove); // 0x0056DEB0
@@ -86,7 +86,7 @@ void __fastcall D2GAME_SetSummonPassiveStats_6FD0C530(D2GameStrc* pGame, D2UnitS
 int __stdcall STATLIST_GetUnitAlignment(D2UnitStrc* pUnit); // 0x006259B0
 int __stdcall MONSTERS_GetHirelingTypeId(D2UnitStrc* pUnit); // 0x0063EE90
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
-void __stdcall sub_00649F70(D2UnitStrc* pUnit, int nArg); // 0x00649F70
+void __stdcall PATH_SetUnitDeadCollision(D2UnitStrc* pUnit, int nArg); // 0x00649F70
 
 
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
@@ -138,7 +138,7 @@ int __fastcall sub_005C98F0_Telekinesis(D2GameStrc* pGame, D2UnitStrc* pUnit, in
     case 0:
     case 1:
         {
-            if (!sub_00554200(pGame, pUnit, pTarget))
+            if (!SUNIT_AreUnitsHostile(pGame, pUnit, pTarget))
                 return 0;
             if (DUNGEON_IsRoomInTown(UNITS_GetRoom(pTarget)))
                 return 0;
@@ -203,7 +203,7 @@ int __fastcall sub_005CA910(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, 
     int nY;
     if (!D2GAME_GetXAndYFromTargetUnit_6FD14020(pGame, pUnit, &nX, &nY))
         return 0;
-    pRoom = D2GAME_GetRoom_6FC52070(pRoom, nX, nY);
+    pRoom = sub_00463740_FindRoomAtPoint(pRoom, nX, nY);
     if (!pRoom || DUNGEON_IsRoomInTown(pRoom))
         return 0;
     if (pUnit && pUnit->dwUnitType == 1 && MONSTERS_GetHirelingTypeId(pUnit))
@@ -237,7 +237,7 @@ int __fastcall sub_005CA910(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, 
             if (pAiControl)
                 AITHINK_SetAiControlParams(pAiControl, nExpireFrame, -666, -666);
             if (sub_0044BE50_GetUnitTypeOrInvalid(pUnit) == 1)
-                sub_6FCBDD30(pPet, STATLIST_GetUnitAlignment(pUnit), 1);
+                sub_005543B0_AssignAlignment(pPet, STATLIST_GetUnitAlignment(pUnit), 1);
         }
     }
     return nResult;
@@ -253,7 +253,7 @@ int __fastcall SKILLS_SrvSt43_MaggotEgg(D2GameStrc* pGame, D2UnitStrc* pUnit, in
         pUnit->dwFlags &= 0xFFFFFFF1;
     }
 
-    sub_00649F70(pUnit, 1);
+    PATH_SetUnitDeadCollision(pUnit, 1);
     return 1;
 }
 

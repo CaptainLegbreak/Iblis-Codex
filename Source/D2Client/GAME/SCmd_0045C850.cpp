@@ -53,7 +53,7 @@ struct D2ErrorPacketStrc
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 void __cdecl sub_0045C520_SaveCharFile(); // 0x0045C520
-void __fastcall sub_0044E380_SetConnectionError(int nError); // 0x0044E380
+void __fastcall sub_0044E380_ShowLoadingMessage(int nError); // 0x0044E380
 extern unsigned char* gpSaveBuffer_007A5224; // 0x007A5224
 extern unsigned int gnSaveBufferSize_007A5228; // 0x007A5228
 extern int gdwGlobal_007A0618; // 0x007A0618
@@ -343,9 +343,9 @@ void __fastcall sub_004C1BF0(D2PacketRecord11Strc* pPacket); // 0x004C1BF0
 void __fastcall sub_004B9210(D2PacketRecord15Strc* pPacket); // 0x004B9210
 void __fastcall sub_004B3240(D2PacketRecord7Strc* pPacket); // 0x004B3240
 void __fastcall sub_004C0550(D2PacketRecord7Strc* pPacket); // 0x004C0550
-void __fastcall sub_004A2CB0(int nArg, D2PacketRecord6Strc* pPacket); // 0x004A2CB0
+void __fastcall sub_004A2CB0_HandleQuestEvent(int nArg, D2PacketRecord6Strc* pPacket); // 0x004A2CB0
 void __fastcall sub_004B3510(D2GSPacket91Strc* pPacket); // 0x004B3510
-D2UnitStrc* __cdecl sub_00463DE0_GetStoredUnit(); // 0x00463DE0
+D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 void __fastcall sub_004BDF30(D2PacketRecord7Strc* pPacket); // 0x004BDF30
 void __fastcall sub_0049CF90(D2PacketRecord21Strc* pPacket); // 0x0049CF90
 void __fastcall sub_004B9010(D2PacketRecord21Strc* pPacket); // 0x004B9010
@@ -356,12 +356,12 @@ void __cdecl sub_0044DA70(); // 0x0044DA70
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 void __stdcall sub_00619EE0(D2ActiveRoomStrc* pRoom); // 0x00619EE0
-void __stdcall sub_00619F20(D2ActiveRoomStrc* pRoom); // 0x00619F20
+void __stdcall DUNGEON_DecreaseAlliedCountOfRoom(D2ActiveRoomStrc* pRoom); // 0x00619F20
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
 void __stdcall sub_00643260(int* pX, int* pY); // 0x00643260
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
-int __stdcall sub_0046BD50(unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue); // 0x0046BD50
+int __stdcall sub_0046BD50_GetPulseColor(unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue); // 0x0046BD50
 D2GfxDataStrc* __fastcall sub_00463E10_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
 void __stdcall sub_0061C0B0(void* pAct, unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue); // 0x0061C0B0
 int __stdcall sub_0061C0E0(void* pAct); // 0x0061C0E0
@@ -415,33 +415,33 @@ static void sub_0045C6D0_HandleErrorPacket(D2ErrorPacketStrc* pPacket)
 {
     switch (pPacket->nCode)
     {
-    case 1: sub_0044E380_SetConnectionError(0); return;
-    case 2: sub_0044E380_SetConnectionError(1); return;
-    case 3: sub_0044E380_SetConnectionError(2); return;
-    case 4: sub_0044E380_SetConnectionError(3); return;
-    case 5: sub_0044E380_SetConnectionError(4); return;
-    case 6: sub_0044E380_SetConnectionError(5); return;
-    case 7: sub_0044E380_SetConnectionError(0x0A); return;
-    case 8: sub_0044E380_SetConnectionError(0x0B); return;
-    case 9: sub_0044E380_SetConnectionError(0x0C); return;
-    case 10: sub_0044E380_SetConnectionError(0x0D); return;
-    case 11: sub_0044E380_SetConnectionError(0x0E); return;
-    case 12: sub_0044E380_SetConnectionError(0x0F); return;
-    case 13: sub_0044E380_SetConnectionError(0x10); return;
-    case 14: sub_0044E380_SetConnectionError(0x11); return;
-    case 15: sub_0044E380_SetConnectionError(0x12); return;
-    case 16: sub_0044E380_SetConnectionError(0x13); return;
-    case 17: sub_0044E380_SetConnectionError(0x14); return;
-    case 18: sub_0044E380_SetConnectionError(0x15); return;
-    case 19: sub_0044E380_SetConnectionError(0x16); return;
-    case 20: sub_0044E380_SetConnectionError(0x17); return;
-    case 21: sub_0044E380_SetConnectionError(0x18); return;
-    case 24: sub_0044E380_SetConnectionError(0x1A); return;
-    case 23: sub_0044E380_SetConnectionError(0x19); return;
-    case 26: sub_0044E380_SetConnectionError(0x1C); return;
-    case 25: sub_0044E380_SetConnectionError(0x1B); return;
+    case 1: sub_0044E380_ShowLoadingMessage(0); return;
+    case 2: sub_0044E380_ShowLoadingMessage(1); return;
+    case 3: sub_0044E380_ShowLoadingMessage(2); return;
+    case 4: sub_0044E380_ShowLoadingMessage(3); return;
+    case 5: sub_0044E380_ShowLoadingMessage(4); return;
+    case 6: sub_0044E380_ShowLoadingMessage(5); return;
+    case 7: sub_0044E380_ShowLoadingMessage(0x0A); return;
+    case 8: sub_0044E380_ShowLoadingMessage(0x0B); return;
+    case 9: sub_0044E380_ShowLoadingMessage(0x0C); return;
+    case 10: sub_0044E380_ShowLoadingMessage(0x0D); return;
+    case 11: sub_0044E380_ShowLoadingMessage(0x0E); return;
+    case 12: sub_0044E380_ShowLoadingMessage(0x0F); return;
+    case 13: sub_0044E380_ShowLoadingMessage(0x10); return;
+    case 14: sub_0044E380_ShowLoadingMessage(0x11); return;
+    case 15: sub_0044E380_ShowLoadingMessage(0x12); return;
+    case 16: sub_0044E380_ShowLoadingMessage(0x13); return;
+    case 17: sub_0044E380_ShowLoadingMessage(0x14); return;
+    case 18: sub_0044E380_ShowLoadingMessage(0x15); return;
+    case 19: sub_0044E380_ShowLoadingMessage(0x16); return;
+    case 20: sub_0044E380_ShowLoadingMessage(0x17); return;
+    case 21: sub_0044E380_ShowLoadingMessage(0x18); return;
+    case 24: sub_0044E380_ShowLoadingMessage(0x1A); return;
+    case 23: sub_0044E380_ShowLoadingMessage(0x19); return;
+    case 26: sub_0044E380_ShowLoadingMessage(0x1C); return;
+    case 25: sub_0044E380_ShowLoadingMessage(0x1B); return;
     }
-    sub_0044E380_SetConnectionError(9);
+    sub_0044E380_ShowLoadingMessage(9);
 }
 
 // 0x0045C850
@@ -542,7 +542,7 @@ void __fastcall sub_0045E490_Packet58(const D2PacketRecord7Strc* pPacket)
 void __fastcall sub_0045E540_Packet5D(const D2PacketRecord6Strc* pPacket)
 {
     D2PacketRecord6Strc tPacket = *pPacket;
-    sub_004A2CB0(1, &tPacket);
+    sub_004A2CB0_HandleQuestEvent(1, &tPacket);
 }
 
 // 0x0045E580
@@ -556,7 +556,7 @@ void __fastcall sub_0045E580_Packet91(const D2GSPacket91Strc* pPacket)
 void __fastcall sub_0045E610_Packet60(const D2PacketRecord7Strc* pPacket)
 {
     D2PacketRecord7Strc tPacket = *pPacket;
-    D2_ASSERT(sub_00463DE0_GetStoredUnit(), 3361);
+    D2_ASSERT(sub_00463DE0_GetPlayerUnit(), 3361);
     sub_004BDF30(&tPacket);
 }
 
@@ -652,7 +652,7 @@ void __fastcall sub_00463C00_OnModeChange(D2UnitStrc* pUnit, unsigned char nOldM
             }
             else if (nOld == MODE_2)
             {
-                sub_00619F20(pRoom);
+                DUNGEON_DecreaseAlliedCountOfRoom(pRoom);
             }
             D2Common_10214(pUnit);
         }
@@ -784,7 +784,7 @@ int __fastcall sub_0046BDD0_GetLevelLight(D2ActiveRoomStrc* pRoom, unsigned char
     switch (DUNGEON_GetLevelIdFromRoom(pRoom))
     {
     case LEVEL_8:
-        return sub_0046BD50(pRed, pGreen, pBlue);
+        return sub_0046BD50_GetPulseColor(pRed, pGreen, pBlue);
 
     case LEVEL_107:
     case LEVEL_108:

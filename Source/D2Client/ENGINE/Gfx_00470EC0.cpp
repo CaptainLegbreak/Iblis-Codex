@@ -27,10 +27,10 @@ int __cdecl sub_0044DC60();                                                     
 int __cdecl sub_0045AE90();                                                                         // 0x0045AE90
 extern "C" int __cdecl sub_0045AFC0();                                                          // 0x0045AFC0
 extern "C" int __cdecl sub_0045AFD0_GetMouseYOffset();                                                      // 0x0045AFD0
-D2UnitStrc* __cdecl sub_00463DD0();                                                               // 0x00463DD0
+D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 int __fastcall sub_00464C40_DecrementCounter58(D2UnitStrc* pUnit);                                          // 0x00464C40
 D2UnitStrc* __cdecl sub_00467A10();                                                             // 0x00467A10
-D2MissilesTxt* __fastcall DATATBLS_GetMissilesTxtRecord(int nMissileId);                                    // 0x0046ACE0
+D2MissilesTxt* __fastcall sub_0046ACE0(int nMissileId);                                    // 0x0046ACE0
 void __stdcall sub_0046E300_DrawUnitOverlays(D2UnitStrc* pUnit, unsigned int dwColor, int bFront, int nX, int nY, int bLift); // 0x0046E300
 int __fastcall sub_00471BD0(D2UnitStrc* pUnit);                                               // 0x00471BD0
 unsigned char* __cdecl sub_00477680();                                                                      // 0x00477680
@@ -48,7 +48,7 @@ int __stdcall UNITS_GetAnimOrSeqMode(D2UnitStrc* pUnit);                        
 void __stdcall UNITS_GetShiftedFrameMetrics(D2UnitStrc* pUnit, int* pFrameNo, int* pFrameCount);           // 0x00621810
 unsigned int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);               // 0x00625480
 int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem);                                                         // 0x0062B400
-unsigned char* __stdcall sub_0062C100(D2UnitStrc* pUnit, D2UnitStrc* pItem, unsigned char* pShift, int nArg); // 0x0062C100
+unsigned char* __stdcall ITEMS_GetColor(D2UnitStrc* pUnit, D2UnitStrc* pItem, unsigned char* pShift, int nArg); // 0x0062C100
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId);                                        // 0x00640E90
 void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pClass, int* pMode, const char* szFile, int nLine); // 0x00645270
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
@@ -114,7 +114,7 @@ int __fastcall sub_00471EC0(D2UnitStrc* pUnit, unsigned int dwColor, int nX, int
 
     unsigned char* pPalShift = 0;
     const int nPaletteShift = pUnit->nPaletteIndex;
-    if (nPaletteShift && pUnit != sub_00463DD0())
+    if (nPaletteShift && pUnit != sub_00463DD0_GetPlayerUnit())
     {
         pPalShift = D2Win_10175_GetPL2Shift(nPaletteShift - 1);
     }
@@ -186,7 +186,7 @@ int __fastcall sub_00471EC0(D2UnitStrc* pUnit, unsigned int dwColor, int nX, int
 
     if (nUnitType == UNIT_MISSILE)
     {
-        D2MissilesTxt* pMissilesTxtRecord = DATATBLS_GetMissilesTxtRecord(pUnit->dwClassId);
+        D2MissilesTxt* pMissilesTxtRecord = sub_0046ACE0(pUnit->dwClassId);
         int nDrawMode = 5;
         if (pMissilesTxtRecord->nTrans == 1)
         {
@@ -224,7 +224,7 @@ int __fastcall sub_00471EC0(D2UnitStrc* pUnit, unsigned int dwColor, int nX, int
     unsigned char* pPalette;
     {
         unsigned char nShift;
-        if (nUnitType != UNIT_ITEM || (pPalette = sub_0062C100(0, pUnit, &nShift, 0)) == 0)
+        if (nUnitType != UNIT_ITEM || (pPalette = ITEMS_GetColor(0, pUnit, &nShift, 0)) == 0)
         {
             pPalette = pPalShift;
         }
@@ -243,16 +243,16 @@ struct D2GfxLayerHeaderStrc { unsigned char nCount, unk01, nArg; };
 struct D2GfxNodeTargetStrc { int unk00[5]; void* pLayer; };
 struct D2GfxListNodeStrc { int nMode,nId; D2GfxNodeTargetStrc* pTarget; int unk0C; D2GfxListNodeStrc* pNext; };
 struct D2GfxDataStrc { int unk00[10]; D2GfxListNodeStrc* pList; };
-int __fastcall sub_00451F60_GetMonStats2Id(D2UnitStrc*); // 0x00451F60
-D2MonStats2Txt* __fastcall sub_00451FE0_GetMonStats2TxtRecord(int); // 0x00451FE0
+int __fastcall sub_00451F60_UnitClassId(D2UnitStrc*); // 0x00451F60
+D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int); // 0x00451FE0
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc*); // 0x004639D0
 D2GfxDataStrc* __fastcall sub_00463E10_GetGfxData(D2UnitStrc*); // 0x00463E10
-int __fastcall sub_00464370_GetTransparency(D2UnitStrc*); // 0x00464370
+int __fastcall sub_00464370_IsSelectedUnit(D2UnitStrc*); // 0x00464370
 void* __fastcall sub_0046E5A0_FindGfxListNode(D2UnitStrc*, int, int); // 0x0046E5A0
 void* __fastcall sub_0046FA80_LoadGfxNode(D2UnitStrc*, int, int); // 0x0046FA80
 int __fastcall sub_004709A0_IsOnScreen(D2UnitStrc*, int, int, int, int); // 0x004709A0
 unsigned char* __fastcall sub_00477530_GetPalShift(D2UnitStrc*); // 0x00477530
-int __cdecl sub_00477750_CheckPalette(); // 0x00477750
+int __cdecl sub_00477750_IsModeAtLeast4(); // 0x00477750
 D2GfxLayerHeaderStrc* __fastcall sub_004DB040_GetLayerHeader(void*); // 0x004DB040
 int __fastcall sub_004DB050_GetCofLayerOverrideTransLvl(void*, int); // 0x004DB050
 unsigned char* __fastcall sub_004DB110_GetLayerOrder(void*, int, int); // 0x004DB110
@@ -261,13 +261,13 @@ void __fastcall sub_004DB2E0_GetLayerInfo(D2UnitStrc*, int, int, int, int*, int*
 int __fastcall sub_004DB360_GetCompTransparency(D2UnitStrc*, int, int*, int); // 0x004DB360
 unsigned char* __fastcall sub_004DB570_GetBodyLocItemShift(D2UnitStrc*, int, unsigned char*); // 0x004DB570
 void __fastcall sub_004DC7B0_DrawUnitByType(D2UnitStrc*, unsigned int, int); // 0x004DC7B0
-int __cdecl sub_004F5170_GetTownMode(); // 0x004F5170
+int __cdecl sub_004F5170(); // 0x004F5170
 void __stdcall sub_004F5190_SetTownMode(int); // 0x004F5190
 void __stdcall sub_004F6450_DrawPerspective(D2CelContextStrc*, int, int, unsigned int, int, int, unsigned char*); // 0x004F6450
 int __stdcall UNITS_GetPrecisionX(D2UnitStrc*); // 0x006203B0
 int __stdcall UNITS_GetPrecisionY(D2UnitStrc*); // 0x00620410
 int __stdcall STATES_CheckState(D2UnitStrc*, int); // 0x00639DF0
-int __stdcall sub_0063A790_CheckPaletteState(D2UnitStrc*); // 0x0063A790
+int __stdcall STATES_CheckStateMaskGreenOnUnit(D2UnitStrc*); // 0x0063A790
 int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc*, int); // 0x0063A7B0
 int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc*, D2InventoryStrc*, int*, int, int); // 0x0064F380
 
@@ -315,8 +315,8 @@ static int __stdcall sub_00470EC0_DrawGfxUnit(unsigned int dwColor, int nArg, in
         }
     }
     int bRestoreTown = 0;
-    int nTown = sub_004F5170_GetTownMode();
-    if (nTown && bPerspective && pUnit == sub_00463DD0() && nUnitType == 0)
+    int nTown = sub_004F5170();
+    if (nTown && bPerspective && pUnit == sub_00463DD0_GetPlayerUnit() && nUnitType == 0)
     {
         sub_004F5190_SetTownMode(0);
         bRestoreTown = 1;
@@ -348,7 +348,7 @@ static int __stdcall sub_00470EC0_DrawGfxUnit(unsigned int dwColor, int nArg, in
     if (!pLayer) return 0;
     D2GfxLayerHeaderStrc* pHeader = sub_004DB040_GetLayerHeader(pLayer);
     if (!pPalShift) pPalShift = sub_00477530_GetPalShift(pUnit);
-    int bTransparent = sub_00464370_GetTransparency(pUnit);
+    int bTransparent = sub_00464370_IsSelectedUnit(pUnit);
     int nDirection = UNITS_GetDirection(pUnit);
     int nDirectionIndex, nDirectionCount;
     sub_004DB2E0_GetLayerInfo(pUnit, nUnitType, nClassId, nMode, &nDirection, &nDirectionIndex, &nDirectionCount, pHeader->nArg, 1);
@@ -358,13 +358,13 @@ static int __stdcall sub_00470EC0_DrawGfxUnit(unsigned int dwColor, int nArg, in
     if (nUnitType == UNIT_OBJECT && DATATBLS_GetObjectsTxtRecord(!pUnit ? -1 : pUnit->dwClassId)->nOrderFlag[nMode] == 1)
         bObjectPerspective = 1;
     int bUseItemShift = 1;
-    if (sub_0063A790_CheckPaletteState(pUnit))
+    if (STATES_CheckStateMaskGreenOnUnit(pUnit))
     {
-        if (pUnit != sub_00463DD0())
+        if (pUnit != sub_00463DD0_GetPlayerUnit())
         {
             bUseItemShift = 0;
         }
-        else if (!sub_00477750_CheckPalette())
+        else if (!sub_00477750_IsModeAtLeast4())
         {
             bUseItemShift = 0;
         }
@@ -380,7 +380,7 @@ static int __stdcall sub_00470EC0_DrawGfxUnit(unsigned int dwColor, int nArg, in
             pPalette = 0;
             if (nUnitType == 1)
             {
-                D2MonStats2Txt* pRecord = sub_00451FE0_GetMonStats2TxtRecord(sub_00451F60_GetMonStats2Id(pUnit));
+                D2MonStats2Txt* pRecord = UNITS_GetMonStats2TxtRecordFromMonsterId(sub_00451F60_UnitClassId(pUnit));
                 if (pRecord && pRecord->nLocalBlood && sub_0044DC60()) pPalette = sub_00477680();
             }
         }

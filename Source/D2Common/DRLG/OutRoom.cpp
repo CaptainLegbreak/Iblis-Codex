@@ -151,7 +151,7 @@ void __fastcall DRLGGRID_InitializeGridCells(void* pMemPool, D2DrlgGridStrc* pGr
 
 void __fastcall DRLGGRID_AlterGridFlag(D2DrlgGridStrc* pGrid, int nX, int nY, int nFlag, int eOperation);            // 0x0067C4F0
 
-int __fastcall sub_0067C570(D2DrlgGridStrc* pGrid, int nX, int nY);                                          // 0x0067C570
+int __fastcall DRLGGRID_GetGridEntry(D2DrlgGridStrc* pGrid, int nX, int nY);                                          // 0x0067C570
 
 void __fastcall DRLGGRID_AlterEdgeGridFlags(D2DrlgGridStrc* pGrid, int nFlag, int eOperation);                       // 0x0067C600
 
@@ -163,9 +163,9 @@ void __fastcall sub_00680C80(D2DrlgLevelStrc* pLevel, D2DrlgRoomStrc* pRoom);
 
 void __fastcall sub_006707A0(D2DrlgOutdoorTileCtxStrc* pCtx);
 
-D2DrlgRoomStrc* __fastcall sub_0066B3E0(D2DrlgLevelStrc* pLevel, int nType);                                    // 0x0066B3E0
+D2DrlgRoomStrc* __fastcall DRLGROOM_AllocRoomEx(D2DrlgLevelStrc* pLevel, int nType);                                    // 0x0066B3E0
 
-void __fastcall sub_0066B970(D2DrlgLevelStrc* pLevel, D2DrlgRoomStrc* pRoom);                                  // 0x0066B970
+void __fastcall DRLGROOM_AddRoomExToLevel(D2DrlgLevelStrc* pLevel, D2DrlgRoomStrc* pRoom);                                  // 0x0066B970
 
 int __fastcall sub_006706A0(D2DrlgRoomStrc* pRoom, int a2, int a3);                                          // 0x006706A0
 
@@ -257,7 +257,7 @@ void __fastcall DRLGOUTROOM_InitOutdoorRoomGrids(D2DrlgRoomStrc* pRoom)
     {
         for (int nX = 0; nX < nWidth; ++nX)
         {
-            if (!(sub_0067C570(&pOutdoor->tGrid28, nX, nY) & 0x3F0FF80))
+            if (!(DRLGGRID_GetGridEntry(&pOutdoor->tGrid28, nX, nY) & 0x3F0FF80))
             {
                 DRLGGRID_AlterGridFlag(&pOutdoor->tGrid28, nX, nY, nMask, 0);
             }
@@ -271,12 +271,12 @@ void __fastcall DRLGOUTROOM_InitOutdoorRoomGrids(D2DrlgRoomStrc* pRoom)
 // 0x0067D540
 D2DrlgRoomStrc* __fastcall sub_0067D540(D2DrlgLevelStrc* pLevel, int nX, int nY, int nWidth, int nHeight, unsigned int dwRoomFlags, unsigned int dwOutdoorFlags, int nOutdoor58, int nRoom50)
 {
-    D2DrlgRoomStrc* pRoom = sub_0066B3E0(pLevel, 1);
+    D2DrlgRoomStrc* pRoom = DRLGROOM_AllocRoomEx(pLevel, 1);
     pRoom->nTileXPos = nX;
     pRoom->nTileYPos = nY;
     pRoom->nTileWidth = nWidth;
     pRoom->nTileHeight = nHeight;
-    sub_0066B970(pLevel, pRoom);
+    DRLGROOM_AddRoomExToLevel(pLevel, pRoom);
 
     pRoom->dwFlags |= dwRoomFlags | 0x80000;
     pRoom->unk0x50 = nRoom50;
@@ -389,9 +389,9 @@ static void __stdcall DRLGOUTROOM_GetOrthCoords(D2DrlgCoordsStrc* pCoords, int n
     pCoords->nY = gOutdoorOrthOffsets[nDirection][nType].nY + pBase->nY;
 }
 
-D2DrlgRoomStrc* __fastcall sub_0066B3E0(D2DrlgLevelStrc* pLevel, int nType);
+D2DrlgRoomStrc* __fastcall DRLGROOM_AllocRoomEx(D2DrlgLevelStrc* pLevel, int nType);
 
-void __fastcall sub_0066B970(D2DrlgLevelStrc* pLevel, D2DrlgRoomStrc* pRoom);
+void __fastcall DRLGROOM_AddRoomExToLevel(D2DrlgLevelStrc* pLevel, D2DrlgRoomStrc* pRoom);
 
 int __fastcall sub_006706A0(D2DrlgRoomStrc* pRoom, int a2, int a3);
 

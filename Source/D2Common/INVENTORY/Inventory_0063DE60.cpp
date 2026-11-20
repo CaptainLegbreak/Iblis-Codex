@@ -11,11 +11,11 @@ int __stdcall ITEMS_GetQuiverType(D2UnitStrc* pItem);                           
 unsigned int __stdcall ITEMS_CheckWeaponIfTwoHanded(D2UnitStrc* pItem);                                     // 0x006289C0
 int __stdcall ITEMS_Is1Or2Handed(D2UnitStrc* pPlayer, D2UnitStrc* pItem);                                   // 0x0062A1E0
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType);                                      // 0x00629BB0
-int __fastcall MONSTERS_GetBaseIdFromMonsterId(int nMonsterId);                                             // 0x00463900
+int __fastcall sub_00463900_GetValidMonsterId(int nMonsterId);                                             // 0x00463900
 
 int __stdcall ITEMS_AreStackablesEqual(D2UnitStrc* pItem1, D2UnitStrc* pItem2);                              // 0x0062C850
 int __stdcall UNITS_GetInventoryRecordId(D2UnitStrc* pUnit, int nInvPage, int bLoD);                        // 0x00621050
-int __stdcall sub_0063CB00_CanPlaceInBodyLoc(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nBodyLoc, int nInventoryRecordId); // 0x0063CB00
+int __stdcall INVENTORY_IsItemBodyLocFree(D2InventoryStrc* pInventory, D2UnitStrc* pItem, int nBodyLoc, int nInventoryRecordId); // 0x0063CB00
 
 static __declspec(noinline) int sub_0063DBC0_PairIsWieldable(D2UnitStrc* pUnit, D2UnitStrc* pItem1, D2UnitStrc* pItem2);
 static int sub_0063DBC0_PairIsWieldable(D2UnitStrc* pUnit, D2UnitStrc* pItem1, D2UnitStrc* pItem2); // 0x0063DBC0
@@ -53,7 +53,7 @@ static int sub_0063DBC0_PairIsWieldable(D2UnitStrc* pUnit, D2UnitStrc* pItem1, D
 
         if (pUnit->dwUnitType == 1)
         {
-            switch (MONSTERS_GetBaseIdFromMonsterId(pUnit->dwClassId))
+            switch (sub_00463900_GetValidMonsterId(pUnit->dwClassId))
             {
             case 0x1A1:
             case 0x1A2:
@@ -125,7 +125,7 @@ static int __stdcall sub_0063DD90_CheckHandSlots(D2UnitStrc* pUnit, int nOtherLo
                 return 5;
             }
 
-            return sub_0063CB00_CanPlaceInBodyLoc(pInventory, pNewItem, nOtherLoc, UNITS_GetInventoryRecordId(pUnit, 0, 1)) ? 7 : 0;
+            return INVENTORY_IsItemBodyLocFree(pInventory, pNewItem, nOtherLoc, UNITS_GetInventoryRecordId(pUnit, 0, 1)) ? 7 : 0;
         }
 
         if (pOtherItem)

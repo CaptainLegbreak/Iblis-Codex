@@ -192,7 +192,7 @@ int __fastcall sub_00581F60_HandleState(D2ContextStrc* context, void* argument);
 
 int __stdcall MONSTERS_IsDead(D2UnitStrc* pMonster); // 0x0063EA40
 int __stdcall STATLIST_GetUnitAlignment(D2UnitStrc* pUnit); // 0x006259B0
-int __fastcall sub_0046C140_CheckMonStats2ModeFlag(int nMonsterId, int nMode); // 0x0046C140
+int __fastcall sub_0046C140_TestMonModeFlag(int nMonsterId, int nMode); // 0x0046C140
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
 D2MonStatsTxt* __fastcall sub_0055B7E0_GetMonStatsTxtFromUnit(D2UnitStrc* pUnit); // 0x0055B7E0
 int __stdcall MONSTERS_IsBoss(D2MonStatsTxt* pMonStatsTxtRecord, D2UnitStrc* pMonster); // 0x0063E9F0
@@ -378,7 +378,7 @@ struct D2PortalFlags00585580Strc
     unsigned char nFlags;
 };
 
-D2UnitStrc* __fastcall sub_00553720_GetPortalPair(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553720
+D2UnitStrc* __fastcall sub_00553720_ResolveObjectOwner(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553720
 void __fastcall SUNIT_RemoveUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00555600
 D2UnitStrc* __fastcall D2GAME_CreateLinkPortal_6FD13B20(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pPortal, unsigned char nDestLevel, int nSourceLevel); // 0x0056CF40
 void __stdcall DUNGEON_AllocDrlgDelete(D2ActiveRoomStrc* pRoom, int nUnitType, int nUnitGUID); // 0x0061A270
@@ -860,7 +860,7 @@ int __fastcall sub_6FC76F60(D2UnitStrc* pMonster, D2UnitStrc* pUnit1)
         return 0;
     }
     const int nClassId = pMonster->dwClassId;
-    if (!sub_0046C140_CheckMonStats2ModeFlag(nClassId, 2))
+    if (!sub_0046C140_TestMonModeFlag(nClassId, 2))
     {
         return 0;
     }
@@ -1561,7 +1561,7 @@ void __fastcall sub_00585580_RetargetTownPortal(D2GameStrc* ptGame, D2UnitStrc* 
         return;
     }
 
-    D2UnitStrc* pPair = sub_00553720_GetPortalPair(ptGame, pPortal);
+    D2UnitStrc* pPair = sub_00553720_ResolveObjectOwner(ptGame, pPortal);
     if (!pPair)
     {
         return;

@@ -229,7 +229,7 @@ struct D2GSPacketSrv5E
 };
 
 extern D2SoundNodeStrc* gpSoundList_007C5458; // 0x007C5458
-void __fastcall sub_0046B630_SetBit(int nIndex); // 0x0046B630
+void __fastcall sub_0046B630_FireLevelEvent(int nIndex); // 0x0046B630
 void __fastcall sub_004CA8D0_NotifyUnitHint(D2UnitStrc* pUnit, int nHandle); // 0x004CA8D0
 void __fastcall sub_00516A10_FreeList(D2SoundUnitNodeStrc** ppList); // 0x00516A10
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
@@ -945,7 +945,7 @@ int __stdcall sub_004B92D0_IsTableReady(int nUnused)
 // 0x004B9330
 void __fastcall sub_004B9330_ForwardByte(const unsigned char* pPacket)
 {
-    sub_0046B630_SetBit(pPacket[1]);
+    sub_0046B630_FireLevelEvent(pPacket[1]);
 }
 
 // 0x004B9440
