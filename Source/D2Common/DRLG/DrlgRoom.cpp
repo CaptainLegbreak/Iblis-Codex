@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2Drlg.h"
+#include "D2ItemsWorld.h"
 
 #define DRLGROOMFLAG_NO_LOS_DRAW 0x80000
 #define DRLGROOMFLAG_PRESET_UNITS_SPAWNED 0x4000000
@@ -79,11 +80,6 @@ struct D2DrlgOrthStrc
     D2DrlgOrthStrc* pNext;
 };
 
-struct D2PresetUnitStrc
-{
-    int unk0x00[3];
-    D2PresetUnitStrc* pNext;
-};
 
 void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
 void __fastcall DRLGPRESET_FreePresetRoomData(D2DrlgRoomStrc* pDrlgRoom); // 0x006665B0

@@ -1,6 +1,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2ItemsWorld.h"
 struct D2InventoryStrc;
 struct D2SkillStrc;
 struct D2UnitStrc;
@@ -151,12 +152,6 @@ struct D2HirelingTxt
     char pad24[0xF0];
     unsigned short wNameFirst;
     unsigned short wNameLast;
-};
-struct D2PetInfoStrc
-{
-    unsigned int nSeed;
-    int nName;
-    int nHirelingId;
 };
 #pragma pack(push, 1)
 struct D2LegacyMercSaveStrc

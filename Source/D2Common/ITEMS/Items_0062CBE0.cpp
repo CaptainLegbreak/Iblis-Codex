@@ -2,29 +2,10 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Records.h"
+#include "D2ItemsWorld.h"
 struct D2UnitStrc;
 
 
-struct D2ItemDataStrc
-{
-    int dwQualityNo;
-    char unk0x04[0x18 - 0x04];
-    unsigned int dwItemFlags;
-    char unk0x1C[0x2C - 0x1C];
-    int dwItemLevel;
-    unsigned short wItemFormat;
-    unsigned short wRarePrefix;
-    unsigned short wRareSuffix;
-    unsigned short wAutoAffix;
-    unsigned short wMagicPrefix[3];
-    unsigned short wMagicSuffix[3];
-    unsigned char nBodyLoc;
-    char nInvPage;
-    char unk0x46[2];
-    unsigned char nEarLvl;
-    unsigned char nInvGfxIdx;
-    char szPlayerName[16];
-};
 
 
 struct D2ItemsTxt

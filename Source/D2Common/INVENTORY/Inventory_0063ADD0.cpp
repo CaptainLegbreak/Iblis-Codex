@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2Structs.h"
+#include "D2ItemsWorld.h"
 #define INVENTORY_SIGNATURE 0x1020304
 #define NUM_BODYLOC 13
 #define ITEMTYPE_WEAPON 0x2D
@@ -33,23 +34,7 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc*); // 0x0045AE20
 
 typedef int BOOL;
 
-struct D2ItemExtraDataStrc
-{
-    D2InventoryStrc* pParentInv;
-    D2UnitStrc* pPreviousItem;
-    D2UnitStrc* pNextItem;
-    unsigned char nNodePos;
-    unsigned char nNodePosOther;
-    unsigned short unk0x0E;
-    D2UnitStrc* pPreviousGridItem;
-    D2UnitStrc* pNextGridItem;
-};
 
-struct D2ItemDataStrc
-{
-    char unk0x00[0x5C];
-    D2ItemExtraDataStrc pExtraData;
-};
 
 extern D2InventoryGridInfoStrc gBodyLocInventoryGridInfo; // 0x0074479C
 extern D2InventoryGridInfoStrc gBeltInventoryGridInfo; // 0x007447B4

@@ -6,6 +6,7 @@
 #include "D2DataTbls.h"
 #include "D2GameTypes.h"
 #include "D2Txt.h"
+#include "D2ItemsWorld.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -26,11 +27,6 @@ struct D2UnitFindArgStrc
     void* pField; void* pfnUnitTest; int unk0x28; int unk0x2C; int unk0x30; int unk0x34;
 };
 
-struct D2UnitFindDataStrc
-{
-    void* pMemPool; D2UnitStrc** pUnitsArray; D2ActiveRoomStrc* pRoom; void* pfnUnitTest; D2UnitFindArgStrc* pUnitFindArg;
-    int nFlags; int nIndex; int nMaxArrayEntries; int nX; int nY; int nSize;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

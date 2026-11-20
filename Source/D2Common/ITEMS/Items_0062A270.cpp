@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2ItemsWorld.h"
 struct D2UnitStrc;
 #define IFLAG_IDENTIFIED 0x10
 #define IFLAG_ETHEREAL 0x400000
@@ -14,11 +15,6 @@ struct D2GameStrc;
 struct D2ItemDataStrc;
 struct D2ItemsTxt;
 
-struct D2ItemDataStrc
-{
-    char unk0x00[0x18];
-    unsigned int dwItemFlags;
-};
 
 
 

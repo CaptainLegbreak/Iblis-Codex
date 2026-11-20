@@ -1,6 +1,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2ItemsWorld.h"
 #ifdef MOVED_TEST
 #define LEVEL_LOW 27
 #define LEVEL_HIGH 42
@@ -9,29 +10,6 @@
 #define LEVEL_HIGH 40
 #endif
 
-struct D2ItemDataStrc
-{
-#ifdef MOVED_TEST
-    char movedPrefix[4];
-#endif
-    int dwQualityNo;
-    D2SeedStrc pSeed;
-    int dwOwnerGUID;
-    unsigned int dwInitSeed;
-    unsigned int dwCommandFlags;
-    unsigned int dwItemFlags;
-    char unk0x1C[0x0C];
-    int dwFileIndex;
-    int dwItemLevel;
-    unsigned short wItemFormat;
-    unsigned short wRarePrefix;
-    unsigned short wRareSuffix;
-    unsigned short wAutoAffix;
-    unsigned short wMagicPrefix[3];
-    unsigned short wMagicSuffix[3];
-    unsigned char nBodyLoc;
-    unsigned char nInvPage;
-};
 
 
 

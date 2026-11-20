@@ -1,5 +1,6 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2ItemsWorld.h"
 struct D2InventoryStrc;
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
 #pragma intrinsic(memcpy)
@@ -16,12 +17,6 @@ struct D2MercSaveDataStrc
     unsigned int unk0x10[4];
 };
 
-struct D2PetInfoStrc
-{
-    unsigned int nSeed;
-    int wName;
-    int nHirelingId;
-};
 
 struct D2HirelingTxt
 {
@@ -82,7 +77,7 @@ D2UnitStrc* __fastcall PLRSAVE2_ReadMercData(D2GameStrc* pGame, D2UnitStrc* pPla
 
     D2PetInfoStrc petInfo;
     petInfo.nSeed = hirelingData.nSeed;
-    petInfo.wName = hirelingData.wName;
+    petInfo.nName = hirelingData.wName;
     petInfo.nHirelingId = hirelingData.nHirelingId;
     PLAYERPETS_UpdatePetInfo(pPlayer, 7, !pMerc ? -1 : pMerc->dwUnitId, &petInfo);
 

@@ -5,6 +5,7 @@
 #include "D2Txt.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2ItemsWorld.h"
 struct D2GameStrc;
 struct D2UnitStrc;
 struct D2AiControlStrc;
@@ -76,13 +77,6 @@ struct D2UnitEventStrc
 
 
 
-struct D2ItemDropStrc
-{
-    char unk0x00[0x0C];
-    int nItemLvl;
-    char unk0x10[0x70];
-    unsigned int dwFlags2;
-};
 
 struct D2LevelsTxt
 {

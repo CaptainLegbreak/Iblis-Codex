@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
+#include "D2ItemsWorld.h"
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 typedef int BOOL;
@@ -15,18 +16,7 @@ typedef int BOOL;
 
 struct D2InventoryStrc;
 
-struct D2ItemExtraDataStrc
-{
-    D2InventoryStrc* pParentInv;
-    char unk0x04[0x10];
-    D2UnitStrc* pNextGridItem;
-};
 
-struct D2ItemDataStrc
-{
-    char unk0x00[0x5C];
-    D2ItemExtraDataStrc pExtraData;
-};
 
 
 

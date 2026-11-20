@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
+#include "D2ItemsWorld.h"
 #define INVENTORY_SIGNATURE 0x1020304
 #define NUM_BODYLOC 13
 #define WEAPONCLASS_HT1 12
@@ -29,23 +30,7 @@ struct D2Block1;
 
 typedef int BOOL;
 
-struct D2ItemExtraDataStrc
-{
-    D2InventoryStrc* pParentInv;
-    D2UnitStrc* pPreviousItem;
-    D2UnitStrc* pNextItem;
-    unsigned char nNodePos;
-    unsigned char nNodePosOther;
-    unsigned short unk0x0E;
-    D2UnitStrc* pPreviousGridItem;
-    D2UnitStrc* pNextGridItem;
-};
 
-struct D2ItemDataStrc
-{
-    char unk0x00[0x5C];
-    D2ItemExtraDataStrc pExtraData;
-};
 
 
 

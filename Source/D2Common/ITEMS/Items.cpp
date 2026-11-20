@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Records.h"
+#include "D2ItemsWorld.h"
 #define STAT_ITEM_INDESCTRUCTIBLE 152
 #define IFLAG_IDENTIFIED 0x00000010
 #define NODEPAGE_STORAGE 1
@@ -79,33 +80,6 @@ struct D2WeaponClassCodeStrc;
 struct D2StatStrc;
 
 
-struct D2ItemDataStrc
-{
-    int dwQualityNo;
-    D2SeedStrc pSeed;
-    int dwOwnerGUID;
-    unsigned int dwInitSeed;
-    unsigned int dwCommandFlags;
-    unsigned int dwItemFlags;
-    int dwRealmData[2];
-    char unk0x24[4];
-    int dwFileIndex;
-    int dwItemLevel;
-    unsigned short wItemFormat;
-    unsigned short wRarePrefix;
-    unsigned short wRareSuffix;
-    unsigned short wAutoAffix;
-    unsigned short wMagicPrefix[3];
-    unsigned short wMagicSuffix[3];
-    unsigned char nBodyLoc;
-    unsigned char nInvPage;
-    unsigned char nCellOverlap;
-    unsigned char nItemCell;
-    unsigned char nEarLvl;
-    unsigned char nInvGfxIdx;
-    char szPlayerName[16];
-    char unk0x5A[26];
-};
 
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837

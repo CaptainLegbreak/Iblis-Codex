@@ -1,4 +1,5 @@
 #include "D2DataTbls.h"
+#include "D2ItemsWorld.h"
 struct D2MapAIPathPositionStrc
 {
     int nMapAIAction;
@@ -12,17 +13,6 @@ struct D2MapAIStrc
     D2MapAIPathPositionStrc* pPosition;
 };
 
-struct D2PresetUnitStrc
-{
-    int nMode;
-    int nIndex;
-    int nXpos;
-    D2PresetUnitStrc* pNext;
-    D2MapAIStrc* pMapAI;
-    int nUnitType;
-    int nYpos;
-    int dwFlags;
-};
 
 struct D2DrlgSubstGroupStrc
 {
@@ -367,7 +357,7 @@ void __fastcall DRLGPRESET_ParseDS1File(D2DrlgFileStrc* pDrlgFile, void* hArchiv
                 D2PresetUnitStrc* pPresetUnit = DRLGROOM_AllocPresetUnit(0, 0, nType, nIndex, nMode, nX, nY);
                 pPresetUnit->pNext = pDrlgFile->pPresetUnit;
                 pDrlgFile->pPresetUnit = pPresetUnit;
-                pPresetUnit->dwFlags |= nFlags;
+                pPresetUnit->bSpawned |= nFlags;
             }
         }
     }

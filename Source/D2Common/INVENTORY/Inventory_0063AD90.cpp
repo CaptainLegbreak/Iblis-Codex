@@ -1,21 +1,11 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2Structs.h"
+#include "D2ItemsWorld.h"
 
 struct D2InventoryStrc;
 
-struct D2ItemExtraDataStrc
-{
-    D2InventoryStrc* pParentInv;
-    D2UnitStrc* pPreviousItem;
-    D2UnitStrc* pNextItem;
-};
 
-struct D2ItemDataStrc
-{
-    char unk0x00[0x5C];
-    D2ItemExtraDataStrc pExtraData;
-};
 
 
 
