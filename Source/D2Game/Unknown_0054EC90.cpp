@@ -1,6 +1,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2ItemsWorld.h"
 struct D2MonStatsTxt;
 struct D2UnitStrc;
 struct D2RoomCoordListStrc;
@@ -11,16 +12,6 @@ struct D2UnkMonCreateStrc2;
 
 
 
-struct D2MonsterRegionStrc
-{
-    unsigned char nAct;
-    char pad0x01[3];
-    int nCount;
-    int nPopulated;
-    int nMonsterRegionLevel;
-    char pad0x10[0x2B8 - 0x10];
-    int nMonsterCount;
-};
 
 struct D2GameStrc
 {

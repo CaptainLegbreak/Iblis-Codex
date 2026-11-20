@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2ItemsWorld.h"
 #define STATEMASK_ACTIVE 5
 #define STATEMASK_REMHIT 6
 #define STATEMASK_DAMBLUE 7
@@ -40,23 +41,7 @@ unsigned int* __stdcall D2COMMON_STATES_GetStatFlags_6FDB8A90(D2UnitStrc* pUnit)
 void __stdcall sub_0063A180_UpdateGfxFlagsWithMask(D2UnitStrc* pUnit, unsigned int* pMask); // 0x0063A180
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 
-struct D2ItemExtraDataStrc
-{
-    D2InventoryStrc* pParentInv;
-    D2UnitStrc* pPreviousItem;
-    D2UnitStrc* pNextItem;
-    signed char nNodePos;
-    unsigned char nNodePosOther;
-    unsigned char pad0E[2];
-    D2UnitStrc* pPreviousGridItem;
-    D2UnitStrc* pNextGridItem;
-};
 
-struct D2ItemDataStrc
-{
-    unsigned char pad00[EXTRA_OFFSET];
-    D2ItemExtraDataStrc pExtraData;
-};
 
 struct D2InventoryPairStrc
 {

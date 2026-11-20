@@ -1,5 +1,6 @@
 #include "D2Txt.h"
 #include "D2Path.h"
+#include "D2ItemsWorld.h"
 struct D2UnitStrc;
 
 struct D2MagicAffixTxt
@@ -28,14 +29,6 @@ struct D2MagicAffixDataTbl
     D2MagicAffixTxt* pAuto;
 };
 struct D2MagicAffixIndexAndPtrStrc { int nAffixId; D2MagicAffixTxt* pMagicAffixRecord; };
-struct D2ItemDropStrc
-{
-    char unk0x00[0x0C];
-    int nItemLvl;
-    char unk0x10[0x58];
-    int nPrefix[3];
-    int nSuffix[3];
-};
 
 struct D2RareAffixTxt
 {

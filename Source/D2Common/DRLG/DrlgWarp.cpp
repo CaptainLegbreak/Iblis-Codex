@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
+#include "D2ItemsWorld.h"
 struct D2ActiveRoomStrc;
 
 struct D2DrlgStrc;
@@ -118,16 +119,6 @@ struct D2RoomTileStrc
 
 D2LevelDefBin* __fastcall DATATBLS_GetLevelDefRecord(int nLevelId); // 0x0061E470
 
-struct D2PresetUnitStrc
-{
-    int unk0x00;
-    int nIndex;
-    int nXpos;
-    D2PresetUnitStrc* pNext;
-    int unk0x10;
-    int nUnitType;
-    int nYpos;
-};
 
 
 unsigned int __fastcall DRLGROOM_CheckWaypointFlags(D2DrlgRoomStrc* pDrlgRoom); // 0x0066BAA0

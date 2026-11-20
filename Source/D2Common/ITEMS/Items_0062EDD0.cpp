@@ -2,6 +2,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2Records.h"
+#include "D2ItemsWorld.h"
 struct D2UnitStrc;
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -12,15 +13,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 struct D2InventoryStrc;
 struct D2BitBufferStrc;
 
-struct D2ItemDataStrc
-{
-    int dwQualityNo;
-    unsigned int pSeed[2];
-    int dwOwnerGUID;
-    unsigned int dwInitSeed;
-    unsigned int dwCommandFlags;
-    unsigned int dwItemFlags;
-};
 
 
 

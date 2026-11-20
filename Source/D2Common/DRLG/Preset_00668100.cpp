@@ -1,5 +1,6 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2ItemsWorld.h"
 struct D2ActiveRoomStrc;
 struct D2DrlgCoordStrc
 {
@@ -31,17 +32,6 @@ struct D2MapAIStrc
     D2MapAIPathPositionStrc* pPosition;
 };
 
-struct D2PresetUnitStrc
-{
-    int nMode;
-    int nIndex;
-    int nXpos;
-    D2PresetUnitStrc* pNext;
-    D2MapAIStrc* pMapAI;
-    int nUnitType;
-    int nYpos;
-    int bSpawned;
-};
 
 struct D2DrlgFileStrc
 {

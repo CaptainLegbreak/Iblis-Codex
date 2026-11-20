@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
+#include "D2ItemsWorld.h"
 
 
 struct D2DrlgWarpStrc
@@ -17,16 +18,6 @@ struct D2DrlgStrc
     D2DrlgWarpStrc* pWarp;
 };
 
-struct D2PresetUnitStrc
-{
-    int unk0x00;
-    int nIndex;
-    int nXpos;
-    D2PresetUnitStrc* pNext;
-    int unk0x10;
-    int nUnitType;
-    int nYpos;
-};
 
 struct D2DrlgRoomStrc
 {

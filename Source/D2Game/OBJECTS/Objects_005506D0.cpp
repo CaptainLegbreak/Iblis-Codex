@@ -3,16 +3,13 @@
 #include "D2Structs.h"
 #include "D2Txt.h"
 #include "D2Drlg.h"
+#include "D2ItemsWorld.h"
 struct D2GameStrc;
 struct D2ActiveRoomStrc;
 struct D2UnitStrc;
 struct D2ItemDropStrc;
 
 
-struct D2ObjectControlStrc
-{
-    D2SeedStrc pSeed;
-};
 
 
 

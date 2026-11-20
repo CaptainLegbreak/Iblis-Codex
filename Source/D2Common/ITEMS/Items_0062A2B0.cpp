@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2ItemsWorld.h"
 struct D2UnitStrc;
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
 #define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
@@ -18,19 +19,6 @@ struct D2CoordStrc;
 struct D2StaticPathStrc;
 struct D2ItemStatCostTxt;
 
-struct D2ItemDataStrc
-{
-    char unk0x00[0x18];
-    unsigned int dwItemFlags;
-    char unk0x1C[0x44 - 0x1C];
-    unsigned char nBodyLoc;
-    char nInvPage;
-    char unk0x46[2];
-    unsigned char nEarLvl;
-    char unk0x49;
-    char szPlayerName[16];
-    unsigned char unk_5A[0x2];
-};
 
 
 

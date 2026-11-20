@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2ItemsWorld.h"
 
 #define D2_NORETURN __declspec(noreturn)
 #define Min(a,b) ((a) < (b) ? (a) : (b))
@@ -21,20 +22,6 @@ struct D2ItemsTxt;
 struct D2StatStrc;
 struct D2SkillsTxt;
 
-struct D2ItemDataStrc
-{
-    union
-    {
-        int dwQualityNo;
-        unsigned int quality;
-    };
-    char unk0x04[0x14];
-    unsigned int dwItemFlags;
-    unsigned char unk_1C[0x1A];
-    unsigned short autoAffix;
-    unsigned short prefix[3];
-    unsigned short suffix[3];
-};
 
 
 struct D2MagicAffixTxt
@@ -400,7 +387,7 @@ static __forceinline D2ItemDataStrc* GetData(D2UnitStrc* item) {
 static __forceinline unsigned int GetQuality(D2UnitStrc* item) {
     const int type = item ? item->dwUnitType : 6;
     D2ItemDataStrc* data = (type == 4 && item->pItemData) ? item->pItemData : 0;
-    return data ? data->quality : 2;
+    return data ? data->dwQualityNo : 2;
 }
 
 // 0x0062BCB0

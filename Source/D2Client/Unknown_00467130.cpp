@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2ItemsWorld.h"
 struct D2ActiveRoomStrc;
 struct D2SkillStrc;
 struct D2UnitStrc;
@@ -47,20 +48,6 @@ struct D2UnitFindArgStrc
     char unk0x18[0x38 - 0x18];
 };
 
-struct D2UnitFindDataStrc
-{
-    void* pMemPool;
-    D2UnitStrc** pUnitsArray;
-    D2ActiveRoomStrc* pRoom;
-    void* pfnUnitTest;
-    D2UnitFindArgStrc* pUnitFindArg;
-    int nFlags;
-    int nIndex;
-    int nMaxArrayEntries;
-    int nX;
-    int nY;
-    int nSize;
-};
 
 typedef int (__fastcall* D2UnitFindCallback)(D2UnitStrc* pUnit, void* pArg);
 

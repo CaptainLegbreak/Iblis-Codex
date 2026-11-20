@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2Records.h"
+#include "D2ItemsWorld.h"
 #define IFLAG_ETHEREAL 0x00400000
 #define STAT_MINDAMAGE 21
 #define STAT_MAXDAMAGE 22
@@ -27,17 +28,6 @@ struct D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x00633
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625480
 int __stdcall ITEMS_CheckItemTypeIdByItemId(int nItemId, int nItemType); // 0x00629A90
 
-struct D2ItemDataStrc
-{
-    int dwQualityNo;
-    char unk0x04[0x14];
-    unsigned int dwItemFlags;
-    char unk0x1C[0x0C];
-    int dwFileIndex;
-    char unk0x2C[0x19];
-    unsigned char nInvPage;
-    unsigned char unk_46[0x2];
-};
 
 
 

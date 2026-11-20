@@ -5,6 +5,7 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2UnitData.h"
+#include "D2ItemsWorld.h"
 // build: ob1
 
 struct D2UnitStrc;
@@ -17,11 +18,6 @@ struct D2AiControlStrc;
 
 
 
-struct D2MonsterRegionStrc
-{
-    char _pad000[0x2C8];
-    unsigned int dwUniqueCount;
-};
 
 
 

@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2Structs.h"
+#include "D2ItemsWorld.h"
 
 typedef int BOOL;
 #define INVENTORY_SIGNATURE 0x1020304
@@ -10,18 +11,7 @@ typedef int BOOL;
 
 struct D2InventoryStrc;
 
-struct D2ItemExtraDataStrc
-{
-    D2InventoryStrc* pParentInv;
-    char unk0x04[0x10];
-    D2UnitStrc* pNextGridItem;
-};
 
-struct D2ItemDataStrc
-{
-    char unk0x00[0x5C];
-    D2ItemExtraDataStrc pExtraData;
-};
 
 
 

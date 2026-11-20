@@ -1,4 +1,5 @@
 #include "D2Drlg.h"
+#include "D2ItemsWorld.h"
 // build: context DRLG_ComputeManhattanDistanceCheck
 
 
@@ -17,17 +18,6 @@ struct D2RoomTileStrc
     int unk0x14;
 };
 
-struct D2PresetUnitStrc
-{
-    int nMode;
-    int nIndex;
-    int nXpos;
-    D2PresetUnitStrc* pNext;
-    int unk0x10;
-    int nUnitType;
-    int nYpos;
-    int unk0x1C;
-};
 
 
 struct D2LevelDefBin

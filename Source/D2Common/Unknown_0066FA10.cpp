@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Drlg.h"
+#include "D2ItemsWorld.h"
 
 struct D2PresetUnitStrc;
 
@@ -12,16 +13,6 @@ struct D2DrlgSubstGroupStrc
     int field_14;
 };
 
-struct D2PresetUnitStrc
-{
-    int nMode;
-    int nIndex;
-    int nXpos;
-    D2PresetUnitStrc* pNext;
-    int unk0x10;
-    int nUnitType;
-    int nYpos;
-};
 
 struct D2DrlgFileStrc
 {

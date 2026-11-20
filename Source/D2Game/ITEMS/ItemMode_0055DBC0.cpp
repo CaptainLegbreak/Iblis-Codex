@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2ItemsWorld.h"
 struct D2GameStrc;
 struct D2UnitStrc;
 // build: ob1
@@ -36,29 +37,6 @@ struct D2EquipmentRefreshStateStrc
     int nLeftSkillOwnerGUID;
 };
 
-struct D2ItemDropStrc
-{
-    D2UnitStrc* pUnit;
-    int* pSeed;
-    D2GameStrc* pGame;
-    int nItemLvl;
-    int unk0x10;
-    int nId;
-    int nSpawnType;
-    int nX;
-    int nY;
-    int unk0x24;
-    unsigned short wUnitInitFlags;
-    unsigned short wItemFormat;
-    int unk0x2C;
-    int nQuality;
-    char unk0x34[0x40 - 0x34];
-    int dwFlags1;
-    int unk0x44;
-    unsigned int dwSeed;
-    unsigned int dwItemSeed;
-    char unk0x50[0x84 - 0x50];
-};
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
