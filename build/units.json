@@ -58363,37 +58363,10 @@
      "name": "?PLAYERLIST_AllocPlayerList@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@1@Z"
     },
     {
-     "va": "0x0055B780",
-     "length": 9,
-     "name": "?sub_0055B780_FreePlayerListCallback@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/UNIT/PlayerList_0055B1E0.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x0055B1E0",
      "length": 113,
      "name": "?PLAYERLIST_IterateCallback_FreePlayerList@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
-    {
-     "va": "0x0055B540",
-     "length": 210,
-     "name": "?sub_0055B540_UpdatePlayerRelations@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
-    },
-    {
-     "va": "0x0055B650",
-     "length": 101,
-     "name": "?sub_0055B650_RefreshPendingRelations@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/UNIT/PlayerList_0055B350.cpp",
-   "rank": 0,
-   "functions": [
     {
      "va": "0x0055B350",
      "length": 67,
@@ -58410,14 +58383,29 @@
      "name": "?PLAYERLIST_SendPartyState@@YIXPAUD2UnitStrc@@0@Z"
     },
     {
+     "va": "0x0055B540",
+     "length": 210,
+     "name": "?sub_0055B540_UpdatePlayerRelations@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
+    },
+    {
      "va": "0x0055B620",
      "length": 47,
      "name": "?PLAYERLIST_InitializePlayerRelations@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
+     "va": "0x0055B650",
+     "length": 101,
+     "name": "?sub_0055B650_RefreshPendingRelations@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
      "va": "0x0055B6C0",
      "length": 86,
      "name": "?PLAYERLIST_GetHostileDelay@@YIHPAUD2UnitStrc@@0@Z"
+    },
+    {
+     "va": "0x0055B780",
+     "length": 9,
+     "name": "?sub_0055B780_FreePlayerListCallback@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@PAX@Z"
     },
     {
      "va": "0x0055B790",
