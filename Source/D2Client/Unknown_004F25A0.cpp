@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 struct D2SeedStrc;
 struct D2StaticPathStrc;
@@ -12,20 +13,6 @@ struct D2MissileStrc;
 
 
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x16];
-    unsigned char nSeqInput;
-    char unk0x017[0x4D];
-    int dwAuraRangeCalc;
-    char unk0x068[0x18];
-    short nAuraState;
-    unsigned char unk_82[0x6C];
-    short wCltMissileC;
-    unsigned char unk_F0[0x58];
-    int dwParam[8];
-    char unk0x168[0xD4];
-};
 
 
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArg);

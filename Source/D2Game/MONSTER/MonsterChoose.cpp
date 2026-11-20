@@ -1,5 +1,5 @@
 #include "D2Structs.h"
-struct D2MonStats2Txt { char pad00[0x15]; unsigned char nComponentCount[16]; unsigned char nTotalPieces; };
+#include "D2Txt.h"
 struct D2MonPresetStrc { short nMonsterId; unsigned char nUnk02; unsigned char nCount; unsigned char nComponents[3][16]; };
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -35,7 +35,7 @@ void __stdcall sub_005BDB20_RollComponentVariants(D2SeedStrc* pSeed, D2MonPreset
  if (nCount <= 0) return;
  if (pPreset->nCount + nCount > 3) nCount = 3 - pPreset->nCount;
  if (nCount <= 0) return;
- unsigned char* pComponentCount = pMonStats2Txt->nComponentCount;
+ unsigned char* pComponentCount = pMonStats2Txt->nComponentChoiceCounts;
  unsigned char* pNewComponents = pPreset->nComponents[pPreset->nCount];
  unsigned char* pBaseComponents = pPreset->nComponents[0];
  if (!pPreset->nCount)

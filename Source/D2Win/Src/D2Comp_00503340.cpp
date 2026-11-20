@@ -1,4 +1,5 @@
 #include "D2Win.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define COF_PAD 0x20
@@ -175,19 +176,6 @@ struct D2CompPairStrc
     int nValue;
 };
 
-struct D2ItemsTxt
-{
-    char unk0x00[0x80];
-    unsigned int dwCode;
-    char unk0x84[0x0C];
-    unsigned int dwAlternateGfx;
-    char unk0x94[0x2C];
-    unsigned int dwWeapClass;
-    unsigned int dwWeapClass2Hand;
-    char unk0xC8[0x56];
-    short wType[2];
-    char unk0x122[0x86];
-};
 
 typedef char check_size_itemstxt[(sizeof(D2ItemsTxt) == 0x1A8) ? 1 : -1];
 void* __stdcall sub_00504430_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pBinField, int* pRecordCount,
@@ -696,9 +684,9 @@ void __stdcall sub_00506000_InitCompItems()
         D2ItemsTxt* pRecord = &gpItemsTxt_008426F0[i];
 
         unsigned int dwCode;
-        if (pRecord->dwAlternateGfx)
+        if (pRecord->dwAltCode2)
         {
-            dwCode = pRecord->dwAlternateGfx;
+            dwCode = pRecord->dwAltCode2;
         }
         else
         {

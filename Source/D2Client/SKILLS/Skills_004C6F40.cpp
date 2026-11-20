@@ -1,45 +1,14 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 
 
-struct D2MonStats2Txt
-{
-    char unk0x00[0x0B];
-    char nType;
-};
 
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x04];
-    unsigned char nFlags[8];
-    unsigned char nCharClass;
-    char unk0x00D[0xE8 - 0x0D];
-    short wAuraFunc;
-    char unk0x0EA[0x08];
-    short wStartFunc;
-    char unk0x0F4[0x08];
-    short wStartSound;
-    short wStartSoundClass;
-    char unk0x100[0x06];
-    short wCastOverlay;
-    char unk0x108[0x1A];
-    short wItemStartSound;
-    short wItemCastOverlay;
-    char unk0x126[0x69];
-    unsigned char nTargetMode;
-    char unk0x190[0x23C - 0x190];
-};
 
-struct D2MonStatsTxt
-{
-    char unk0x000[0x10];
-    unsigned int dwCode;
-    char unk0x014[0x1A8 - 0x14];
-};
 
 
 typedef int (__fastcall* CLIENTSKILLSTARTFN)(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel);
@@ -215,10 +184,10 @@ static __declspec(noinline) int __stdcall sub_004C6140_StartSkill(int nOwnerGUID
     int nX;
     int nY;
     int nItemSkillArg;
-    if (pSkillsTxtRecord->nTargetMode && sub_004C52E0_GetTargetPosition(pUnit, &nX, &nY))
+    if (pSkillsTxtRecord->nLineOfSight && sub_004C52E0_GetTargetPosition(pUnit, &nX, &nY))
     {
         int nCollisionMask;
-        switch (pSkillsTxtRecord->nTargetMode)
+        switch (pSkillsTxtRecord->nLineOfSight)
         {
         case 1:
             nCollisionMask = 4;
@@ -362,7 +331,7 @@ static __declspec(noinline) int __stdcall sub_004C6140_StartSkill(int nOwnerGUID
         }
     }
 
-    short nSound = pSkillsTxtRecord->wStartSound;
+    short nSound = pSkillsTxtRecord->wStSound;
     if (nOwnerGUID != -1 && pSkillsTxtRecord->wItemStartSound > 0)
     {
         nSound = pSkillsTxtRecord->wItemStartSound;

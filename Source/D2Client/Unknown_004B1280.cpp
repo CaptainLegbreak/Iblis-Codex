@@ -4,6 +4,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2MonStatsTxt;
 struct D2SeqModeStrc;
@@ -15,15 +16,6 @@ struct D2SkillsTxt;
 struct D2MissileStrc;
 struct Unicode;
 
-struct D2MonStatsTxt
-{
-    char unk0x000[0x0C];
-    unsigned char nMonStatsFlags[4];
-    unsigned char unk_10[0x194];
-    unsigned char nFlag1A4;
-    unsigned char unk_1A5[0x2];
-    unsigned char nByte1A7;
-};
 
 
 
@@ -52,21 +44,7 @@ extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 typedef unsigned int DWORD;
 
 
-struct D2MonStats2Txt
-{
-    char unk0x000[0x104];
-    unsigned char nModeEnabledWhenMovingFlags[4];
-    unsigned char nInfernoLen;
-    unsigned char nInfernoAnim;
-    unsigned char nInfernoRollback;
-};
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x2E];
-    short wSrvDoFunc;
-    char unk0x030[0x20C];
-};
 
 struct D2MissileStrc
 {
@@ -197,7 +175,7 @@ int __fastcall sub_004B1280_HandleSequenceStop(D2UnitStrc* pUnit, D2SeqModeStrc*
             return 0;
         }
 
-        switch (pMonStatsTxtRecord->nFlag1A4)
+        switch (pMonStatsTxtRecord->nSplEndDeath)
         {
         case 1:
             if (!pUnit->dwAnimMode && UNITS_IsAtEndOfFrameCycle(pUnit))

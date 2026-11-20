@@ -1,5 +1,6 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
@@ -21,25 +22,6 @@ struct D2ItemDataStrc
 
 
 
-struct D2ItemsTxt
-{
-    char unk0x00[0x80];
-    unsigned int dwCode;
-    unsigned int dwNormCode;
-    unsigned int dwUberCode;
-    unsigned int dwUltraCode;
-    char unk0x90[0xCC - 0x90];
-    int dwMinAc;
-    int dwMaxAc;
-    unsigned int dwGambleCost;
-    int dwSpeed;
-    unsigned int dwBitField1;
-    int dwCost;
-    unsigned int dwMinStack;
-    unsigned int dwMaxStack;
-    char unk0xEC[0xFD - 0xEC];
-    unsigned char nLevel;
-};
 
 struct D2ItemTypesTxt
 {
@@ -48,29 +30,9 @@ struct D2ItemTypesTxt
     char unk0x20[0xE4 - 0x20];
 };
 
-struct D2SkillsTxt
-{
-    char unk0x00[0x234];
-    int nCostMult;
-    int nCostAdd;
-};
-
-struct D2ItemStatCostTxt
-{
-    char unk0x00[0x10];
-    int dwMultiply, dwAdd;
-    unsigned char nValShift;
-    char unk0x19[0x17];
-    unsigned char nEncode;
-    char unk0x31[0x144-0x31];
-};
 
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0xAA];
-    short nLevel[3];
-};
+
 
 struct D2BooksTxt
 {

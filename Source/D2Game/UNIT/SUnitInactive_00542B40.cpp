@@ -1,4 +1,5 @@
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char*,const char*,int); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
@@ -61,14 +62,6 @@ struct D2AiCmdStrc
     int nCmdParam3;
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x02];
-    short nBaseId;
-    char unk0x04[0x08];
-    unsigned char nMonStatsFlags[4];
-    char unk0x10[0x1A8 - 0x10];
-};
 
 
 struct D2InactiveUnitNodeStrc
@@ -83,7 +76,6 @@ struct D2GameStrc { char pad00[0x1C]; void* pMemoryPool; char pad20[0x88]; int d
 struct D2DrlgCoordsStrc { int nSubtileX,nSubtileY,nSubtileWidth,nSubtileHeight,nTileXPos,nTileYPos,nTileWidth,nTileHeight; };
 struct D2CoordStrc { int nX,nY; };
 struct D2ItemSaveStrc { int nClassId; unsigned short nX,nY; unsigned char nAnimMode,nPad09; unsigned short nPad0A; unsigned int dwFlags; unsigned char nStorePage,nBodyloc; unsigned short nPad12; int nItemFileIndex; };
-struct D2ObjectsTxt { char pad00[0x167]; unsigned char nSubClass; char pad168[0x10]; int dwParm[8]; };
 extern D2DataTablesStrc* sgptDataTables;                                                                     // 0x00744304
 extern const unsigned int gdwBitMasks[32];                                                                   // 0x006CE268
 extern int gnInactiveCmdParam1_007314C0; // 0x007314C0

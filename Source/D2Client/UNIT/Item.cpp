@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Constants.h"
 #include "D2Structs.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define ITEMQUAL_SET 5
@@ -97,12 +98,6 @@ struct D2GSPacketSrv9C
     unsigned char pBitstream[244];
 };
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x114];
-    int dwCltCalc[3];
-    char unk0x120[0x11C];
-};
 
 struct D2DataTablesStrc
 {
@@ -331,16 +326,6 @@ int __stdcall ITEMS_CheckRequirements(D2UnitStrc* pItem, D2UnitStrc* pUnit, int 
 int __stdcall ITEMS_GetQuiverType(D2UnitStrc* pItem); // 0x0062E740
 int __stdcall ITEMS_CheckItemTypeId(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 
-struct D2ItemsTxt
-{
-    char unk0x00[0x80];
-    unsigned int dwCode;
-    char unk0x84[0x6C];
-    int dwGemOffset;
-    unsigned char unk_F4[0x30];
-    short wDropSound;
-    short wUseSound;
-};
 
 #pragma pack(push, 1)
 struct D2GSPacketSrv7DStrc

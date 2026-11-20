@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 #define STAT_ITEM_INDESTRUCTIBLE 152
@@ -10,10 +11,6 @@ struct D2PropertyStrc;
 struct D2ItemStatCostTxt;
 
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x23C];
-};
 
 
 struct D2PropertyStrc
@@ -39,10 +36,6 @@ D2SeedStrc* __stdcall ITEMS_GetItemSeed(D2UnitStrc* pItem); // 0x00627D90
 int __stdcall ITEMS_GetItemLevel(D2UnitStrc* pItem); // 0x006281E0
 int __stdcall SKILLS_GetRequiredLevel(int nSkillId); // 0x00644710
 
-struct D2ItemStatCostTxt
-{
-    char unk0x000[0x144];
-};
 
 void __stdcall STATLIST_AddStat(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer); // 0x00627030
 

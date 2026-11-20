@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 struct D2DynamicPathStrc;
 struct D2ActiveRoomStrc;
@@ -17,17 +18,6 @@ struct D2ObjectDataStrc
 
 
 
-struct D2MonStatsTxt
-{
-    short nId;
-    short nBaseId;
-    short nNextInClass;
-    unsigned short wNameStr;
-    unsigned short wDescStr;
-    unsigned short unk0x0A;
-    unsigned char nMonStatsFlags[4];
-    char unk0x10[0x1A8 - 0x10];
-};
 
 
 enum D2C_M192SUnitAlloc

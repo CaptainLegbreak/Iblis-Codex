@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 enum D2C_SkillsTxtFlagIndices
 {
@@ -20,15 +21,6 @@ struct D2SpellSelSlotsStrc
 };
 #pragma pack(pop)
 
-struct D2SkillsTxt
-{
-    short nSkillId;
-    char unk0x002[0x2];
-    unsigned char nFlags[8];
-    char unk0x00C[0x188];
-    short wSkillDesc;
-    char unk0x196[0x23C - 0x196];
-};
 
 struct D2SkillDescTxt
 {

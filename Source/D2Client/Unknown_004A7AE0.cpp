@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define SPELLSEL_HOTKEY_LABEL(i, key, flag) \
@@ -31,12 +32,6 @@ struct D2TextCellStrc
     D2TextCellStrc() : nValue(0) {}
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x06];
-    unsigned short nNameStr;
-    char unk0x08[0x1A0];
-};
 
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -57,15 +52,6 @@ const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); /
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 static void __stdcall sub_004A7AE0_DrawHoverValueBox(int nValueA, int nValueB, int nX, int nY);
 
-struct D2SkillsTxt
-{
-    short nSkillId;
-    char unk0x002[0x2];
-    unsigned char nFlags[8];
-    char unk0x00C[0x188];
-    short wSkillDesc;
-    char unk0x196[0x23C - 0x196];
-};
 
 extern "C" char* __cdecl _itoa(int nValue, char* szOut, int nRadix);
 extern "C" int __fastcall sub_00526800(const unsigned short* pText); // 0x00526800
@@ -175,7 +161,7 @@ static __declspec(noinline) void __stdcall sub_004A7AE0_DrawHoverValueBox(int nV
     D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecordInl(sub_00466DC0());
     D2_ASSERT(pMonStatsTxtRecord, 0xEC);
 
-    sub_005269D0(0x80, (Unicode*)aText, D2LANG_GetStringFromTblIndex(0x2777), D2LANG_GetStringFromTblIndex(pMonStatsTxtRecord->nNameStr), nValue);
+    sub_005269D0(0x80, (Unicode*)aText, D2LANG_GetStringFromTblIndex(0x2777), D2LANG_GetStringFromTblIndex(pMonStatsTxtRecord->wNameStr), nValue);
     sub_00502320((Unicode*)aText, gaHoverBoxes_006DA430[nIndex].nTextX + gnGlobal_007A2858, gaHoverBoxes_006DA430[nIndex].nTextY + gnGlobal_007A285C + gnGlobal_00711470 - 480, 0, 0);
 }
 

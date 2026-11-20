@@ -1,24 +1,10 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 
 
-struct D2ItemsTxt
-{
-    char unk0x000[0xF6];
-    unsigned short wVersion;
-    char unk0x0F8[0x4];
-    unsigned char nRarity;
-    unsigned char nLevel;
-    char unk0x0FE[0x20];
-    short wType[2];
-    char unk0x122[0x8];
-    unsigned char nQuest;
-    char unk0x12B[0x8];
-    unsigned char nSpawnable;
-    char unk0x134[0x74];
-};
 
 struct D2ItemDataTbl
 {

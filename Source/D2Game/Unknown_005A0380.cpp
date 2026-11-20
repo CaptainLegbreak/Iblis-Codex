@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -41,16 +42,6 @@ struct D2MonsterRegionStrc
 };
 
 
-struct D2MonStatsTxt
-{
-    char _pad000[0x0C];
-    unsigned char nMonStatsFlags[4];
-    char _pad010[0x16];
-    short wMinion[2];
-    unsigned char unk_2A[0x8];
-    short nVelocity;
-    char unk0x034[0x1A8 - 0x34];
-};
 
 struct D2MonUModTxt
 {

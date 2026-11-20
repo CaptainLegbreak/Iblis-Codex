@@ -2,6 +2,7 @@
 #include "D2Constants.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2TileLibraryEntryStrc;
@@ -110,25 +111,8 @@ D2DrlgTileDataStrc* __stdcall sub_006196A0_GetWallTiles(D2ActiveRoomStrc* pRoom,
 void __stdcall sub_00458DC0_RevealRoomObjects(D2ActiveRoomStrc* pRoom, D2AutomapCellStrc** ppRoot); // 0x00458DC0
 
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x18];
-    short nMonStatsEx;
-    char unk0x1A[0x18E];
-};
 
-struct D2MonStats2Txt
-{
-    char unk0x00[0x118];
-    int dwAutomapCel;
-    char unk0x11C[0x18];
-};
 
-struct D2ObjectsTxt
-{
-    char unk0x00[0x1BC];
-    int dwAutomap;
-};
 
 
 int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit); // 0x00620650
@@ -451,7 +435,7 @@ void __stdcall sub_00458DC0_RevealRoomObjects(D2ActiveRoomStrc* pRoom, D2Automap
                 const int nClassId = pUnit->dwClassId;
                 if (nClassId >= 0 && nClassId < sgptDataTables->nMonStatsTxtRecordCount)
                 {
-                    const int nMonStatsEx = sgptDataTables->pMonStatsTxt[nClassId].nMonStatsEx;
+                    const int nMonStatsEx = sgptDataTables->pMonStatsTxt[nClassId].wMonStatsEx;
                     if (nMonStatsEx >= 0 && nMonStatsEx < sgptDataTables->nMonStats2TxtRecordCount)
                     {
                         D2MonStats2Txt* pMonStats2Txt = &sgptDataTables->pMonStats2Txt[nMonStatsEx];

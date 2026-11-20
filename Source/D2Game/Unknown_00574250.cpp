@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 struct D2GameStrc
 {
@@ -9,10 +10,6 @@ struct D2GameStrc
 };
 struct D2MonRegDataStrc;
 
-struct D2MonStatsTxt
-{
-    char unk_000[0x1A8];
-};
 
 struct D2MonsterDataStrc
 {

@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Constants.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2StaticPathStrc;
@@ -154,18 +155,8 @@ struct D2SuperUniquesTxt
     int dwMonSound;
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x16];
-    short wUMonSound;
-};
 
 
-struct D2SkillsTxt
-{
-    char unk0x00[0xFC];
-    short wStSound;
-};
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern D2UnitSndPlayerStrc* gpUnitSndPlayer_0072A008[]; // 0x0072A008

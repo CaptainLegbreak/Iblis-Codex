@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
@@ -56,12 +57,6 @@ extern "C" int __stdcall sub_0064A730_GetMissileTargetStatus(D2UnitStrc* pUnit);
 extern "C" int __stdcall sub_0064A780_targetValue(D2UnitStrc* pUnit); // 0x0064A780
 extern "C" void __stdcall sub_00648AD0(D2DynamicPathStrc* pPath, unsigned short wA, unsigned short wB); // 0x00648AD0
 
-struct D2SkillsTxt
-{
-    char unk0x00[0x2E];
-    short wSrvDoFunc;
-    char unk0x30[0x23C - 0x30];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

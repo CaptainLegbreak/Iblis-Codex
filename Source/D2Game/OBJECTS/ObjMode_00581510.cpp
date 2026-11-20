@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 struct D2ObjectControlStrc;
 struct D2SeedStrc;
@@ -15,19 +16,6 @@ struct D2ShrinesTxt
     unsigned char nResetTimeInMins;
 };
 
-struct D2ObjectsTxt
-{
-    char unk0x00[0xD8];
-    unsigned int dwFrameCnt[8];
-    char unk0xF8[0x10];
-    unsigned char nCycleAnim[8];
-    char unk0x110[0x2F];
-    unsigned char nMode[8];
-    char unk0x147[0x31];
-    int dwParm[8];
-    char unk0x198[0x1B];
-    unsigned char nOperateFn;
-};
 
 struct D2ObjectDataStrc
 {

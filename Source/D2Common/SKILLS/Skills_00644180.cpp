@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 
@@ -15,62 +16,6 @@ struct D2SkillListStrc;
 
 typedef int BOOL;
 
-struct D2SkillsTxt
-{
-    short nSkillId;
-    char unk0x002[0x02];
-    unsigned char nFlags[8];
-    char nCharClass;
-    char unk0x00D[0x0B];
-    short nITypeA[3];
-    short nITypeB[3];
-    short nETypeA[2];
-    char unk0x028[0x06];
-    short wSrvDoFunc;
-    unsigned char unk_30[0x50];
-    short nAuraState;
-    char unk0x82[148 - 128 - 2];
-    short nPassiveState;
-    short nPassiveIType;
-    short nPassiveStat[5];
-    unsigned char unk_A2[0x2];
-    unsigned int dwPassiveCalc[5];
-    unsigned char unk_B8[0xCC];
-    short wStartMana;
-    short unk0x186;
-    unsigned char nManaShift;
-    char unk0x189;
-    short wMana;
-    short wLevelMana;
-    short unk0x18E;
-    unsigned int dwDelay;
-    unsigned char unk_194[0x4];
-    int dwToHit;
-    int dwLevToHit;
-    unsigned int dwToHitCalc;
-    unsigned char nToHitShift;
-    unsigned char nSrcDam;
-    char unk0x1A6[2];
-    int dwMinDam;
-    int dwMaxDam;
-    int dwMinLvlDam[5];
-    int dwMaxLvlDam[5];
-    unsigned int dwDmgSymPerCalc;
-    unsigned char nEType;
-    char unk0x1DD[3];
-    int dwEMin;
-    int dwEMax;
-    int dwEMinLev[5];
-    int dwEMaxLev[5];
-    unsigned int dwEDmgSymPerCalc;
-    int dwELen;
-    int dwELevLen[3];
-    unsigned int dwELenSymPerCalc;
-    unsigned char nRestrict;
-    char unk0x229;
-    short nState[3];
-    char unk0x230[0x0C];
-};
 
 struct D2SkillDescTxt
 {

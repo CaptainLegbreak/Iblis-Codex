@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 struct D2GfxLightStrc;
 struct D2StaticPathStrc;
@@ -13,23 +14,7 @@ struct D2MissileStrc;
 
 
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x64];
-    int dwAuraRangeCalc;
-    char unk0x068[0xAC];
-    int dwCltCalc[3];
-    char unk0x120[0x18];
-    int dwCalc[4];
-    char unk0x148[0xF4];
-};
 
-struct D2MissilesTxt
-{
-    char unk0x000[0x58];
-    int dwCltParam[5];
-    char unk0x06C[0x138];
-};
 
 struct D2StatesTxt
 {

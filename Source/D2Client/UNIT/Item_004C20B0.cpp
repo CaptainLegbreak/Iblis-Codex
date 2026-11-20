@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2GemsTxt;
@@ -32,13 +33,6 @@ struct D2ItemSaveStrc
     int nItemFileIndex;
 };
 
-struct D2ItemsTxt
-{
-    char unk0x00[0x80];
-    unsigned int dwCode;
-    char unk0x84[0x6C];
-    int dwGemOffset;
-};
 
 #pragma pack(push, 1)
 struct D2GSPacketSrv9C

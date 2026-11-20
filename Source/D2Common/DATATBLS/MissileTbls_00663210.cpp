@@ -1,10 +1,4 @@
-struct D2MissilesTxt
-{
-    char unk0x000[0x9A];
-    unsigned char nVel;
-    unsigned char nVelLev;
-    char unk0x09C[0x108];
-};
+#include "D2Txt.h"
 
 struct D2TxtLinkStrc;
 

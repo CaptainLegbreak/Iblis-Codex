@@ -5,6 +5,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define STAT_FIRERESIST 39
 #define STAT_LIGHTRESIST 41
@@ -23,17 +24,6 @@ struct D2MonStats2Txt;
 
 
 
-struct D2SkillsTxt
-{
-    char unk0x000[4];
-    unsigned char nFlags[8];
-    signed char nCharClass;
-    unsigned char unk_0D[0x1F];
-    short wSrvStartFunc;
-    char unk0x02E[0x161];
-    unsigned char nLineOfSight;
-    char unk0x190[0xAC];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -131,9 +121,7 @@ struct D2CurseStrc
 
 struct D2StatesTxt { char unk_00[0x10]; unsigned char nFlags[4]; char unk_14[0x28]; };
 
-struct D2MonStatsTxt { char unk_00[0xC]; unsigned char nFlags[4]; char unk_10[0x198]; };
 
-struct D2MonStats2Txt { char unk_00[4]; unsigned char nFlags[4]; };
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
@@ -436,7 +424,7 @@ D2StatListStrc* __fastcall sub_0056E970(D2CurseStrc* pCurse)
         {
             pMonStatsTxtRecord = &sgptDataTables->pMonStatsTxt[pTarget->dwClassId];
         }
-        if (!pMonStatsTxtRecord || (pMonStatsTxtRecord->nFlags[1] & (unsigned char)gdwBitMasks[0]))
+        if (!pMonStatsTxtRecord || (pMonStatsTxtRecord->nMonStatsFlags[1] & (unsigned char)gdwBitMasks[0]))
             return 0;
         D2MonStats2Txt* pMonStats2TxtRecord = UNITS_GetMonStats2TxtRecordFromMonsterId(pTarget->dwClassId);
         if (!pMonStats2TxtRecord || !(pMonStats2TxtRecord->nFlags[1] & (unsigned char)gdwBitMasks[1]))

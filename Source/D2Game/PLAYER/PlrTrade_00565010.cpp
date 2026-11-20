@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2CubeInputItem;
@@ -43,25 +44,7 @@ struct D2CubeMainTxt
     unsigned char unk_55[0x3];
 };
 
-struct D2ItemsTxt
-{
-    char unk0x00[0x80];
-    unsigned int dwCode;
-    unsigned int dwNormCode;
-    unsigned int dwUberCode;
-    unsigned int dwUltraCode;
-    char unk0x90[0x66];
-    unsigned short wVersion;
-    char unk0xF8[0x32];
-    unsigned char nQuest;
-    unsigned char nQuestDiffCheck;
-};
 
-struct D2ItemStatCostTxt
-{
-    char unk0x00[0x18];
-    unsigned char nValShift;
-};
 
 
 struct D2CubeItemStrc

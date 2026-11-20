@@ -1,13 +1,6 @@
 #include "D2Client.h"
+#include "D2Txt.h"
 
-struct D2SkillsTxt
-{
-    short nSkillId;
-    char unk0x002[0x1A5 - 0x002];
-    unsigned char nSrcDam;
-    char unk0x1A6[0x1DC - 0x1A6];
-    unsigned char nEType;
-};
 
 int __stdcall SKILLS_GetMinElemDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a4); // 0x00644D50
 int __stdcall SKILLS_GetMaxElemDamage(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int a4); // 0x00644E40

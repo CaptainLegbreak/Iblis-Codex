@@ -2,6 +2,7 @@
 #include "D2Constants.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 
 
@@ -12,12 +13,6 @@ struct D2DamageStrc
     unsigned short wExtra;
 };
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x04];
-    unsigned char nFlags[8];
-    char unk0x00C[0x230];
-};
 
 
 enum D2C_J10SkillItemConstants

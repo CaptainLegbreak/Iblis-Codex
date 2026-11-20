@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Constants.h"
+#include "D2Txt.h"
 
 #define STAT_UNIT_DOOVERLAY 178
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -232,11 +233,9 @@ struct D2UnitPacketSkillEventStrc
 
 struct D2CoordStrc { int nX; int nY; };
 
-struct D2ObjectsTxt { char unk_00[0x167]; unsigned char nFlags; };
 
 struct D2ObjectDataStrc { D2ObjectsTxt* pObjectsTxt; unsigned char nInteractType; };
 
-struct D2MonStatsTxt { char unk_00[0x16C]; unsigned char nSendSkill[4]; short nSkill[8]; };
 
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268
 int __fastcall sub_00451F30_TestUnitFlag(D2UnitStrc*, int); // 0x00451F30
@@ -576,7 +575,7 @@ void __fastcall sub_00571F90(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc*
         break;
     case 2:
         D2GAME_PACKETS_SendPacket0x51_6FC3D300(pClient, 0x51, 2, pUnit->dwUnitId, pUnit->dwClassId, tCoords.nX, tCoords.nY, pUnit->dwAnimMode, pUnit->pObjectData->nInteractType);
-        if (pUnit->pObjectData->pObjectsTxt->nFlags & 4)
+        if (pUnit->pObjectData->pObjectsTxt->nSubClass & 4)
         {
             sub_6FC3F550(pClient, pUnit);
             if ((short)nClassId == 59)

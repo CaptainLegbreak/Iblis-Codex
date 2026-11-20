@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_MONSTER 1
@@ -208,23 +209,7 @@ struct D2AiCmdStrc
     int nCmdParam3;
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x02];
-    short nBaseId;
-    char unk0x04[0x08];
-    unsigned char nMonStatsFlags[4];
-    char unk0x10[0x08];
-    short nMonStatsEx;
-    char unk0x1A[0x1A8 - 0x1A];
-};
 
-struct D2MonStats2Txt
-{
-    char unk0x000[0x130];
-    unsigned char nRestore;
-    char unk0x131[3];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

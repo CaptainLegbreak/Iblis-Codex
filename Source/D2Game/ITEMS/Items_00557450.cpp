@@ -1,16 +1,12 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 struct D2SeedStrc;
 
 
 
-struct D2ItemsTxt
-{
-    char unk0x000[0xF8];
-    unsigned short wAutoPrefix;
-};
 
 struct D2ItemDropStrc
 {

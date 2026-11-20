@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2Txt.h"
 
 
 struct D2ObjectControlStrc
@@ -22,12 +23,6 @@ struct D2DrlgCoordsStrc
 };
 
 
-struct D2ObjectsTxt
-{
-    char unk0x00[0xD0];
-    unsigned int dwSizeX;
-    unsigned int dwSizeY;
-};
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090

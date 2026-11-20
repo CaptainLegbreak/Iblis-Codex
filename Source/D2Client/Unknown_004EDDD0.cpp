@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 struct Unicode;
 struct D2SkillsTxt;
@@ -13,15 +14,6 @@ struct Unicode
     Unicode(unsigned short ch = 0) : wChar(ch) {}
 };
 
-struct D2SkillsTxt
-{
-    short nSkillId;
-    unsigned char unk_02[0x192];
-    short wSkillDesc;
-    unsigned char unk_196[0x46];
-    unsigned char nEType;
-    unsigned char unk_1DD[0x5F];
-};
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
 extern "C" const char gszFormatD_006D57BC[]; // 0x006D57BC

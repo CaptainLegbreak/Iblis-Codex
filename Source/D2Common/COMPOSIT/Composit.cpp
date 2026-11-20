@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define CP_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define COF_PAD 0x20
@@ -36,7 +37,6 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 struct D2ModeTypeTxt {char pad[0x20]; unsigned int token;};
 
-struct D2MonStatsTxt {char pad[0x10]; unsigned int code; char rest[0x194];};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -205,7 +205,7 @@ void __stdcall D2Common_10884_COMPOSIT_unk(D2UnitStrc* unit,int cls,int mode,int
  case 1:{
   char w[4],c[4],m[4];
   D2MonStatsTxt* record=DATATBLS_GetMonStatsTxtRecord(cls);if(!record)return;
-  clsCode=record->code;
+  clsCode=record->dwCode;
   modeCode=DATATBLS_GetMonModeTxtRecord(mode,1)->token;
   if(mode && mode!=12){int weaponId;*weapon=COMPOSIT_GetWeaponClassCode(unit,1,cls,mode,inv,&weaponId);}
   else{if(sub_004638A0_CheckMonStats2Flag(cls,16)){int weaponId;*weapon=COMPOSIT_GetWeaponClassCode(unit,1,cls,mode,inv,&weaponId);}else *weapon=0x20687468;}

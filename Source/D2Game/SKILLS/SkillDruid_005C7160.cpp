@@ -5,6 +5,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 typedef void(__fastcall* StatListRemoveCallback)(D2UnitStrc*, int, D2StatListStrc*);
 typedef void(__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nUnused);
@@ -18,21 +19,6 @@ struct D2MonsterDataStrc
 
 
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x48];
-    short wSrvMissileA;
-    char unk0x04A[0x04];
-    short wSrvOverlay;
-    char unk0x050[0x10];
-    unsigned int dwAuraLenCalc;
-    unsigned int dwAuraRangeCalc;
-    char unk0x068[0x18];
-    short nAuraState;
-    char unk0x082[0xB6];
-    unsigned int dwCalc[4];
-    char unk0x148[0xF4];
-};
 
 
 struct D2MissileStrc

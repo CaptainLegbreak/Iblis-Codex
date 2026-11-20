@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 
 
@@ -13,18 +14,6 @@ struct D2DamageStrc
     int unk0x08[26];
 };
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x54];
-    short wAuraStat[6];
-    unsigned int dwAuraLenCalc;
-    unsigned int dwAuraRangeCalc;
-    unsigned int dwAuraStatCalc[6];
-    short nAuraState;
-    char unk0x082[0x123];
-    unsigned char nSrcDam;
-    char unk0x1A6[0x96];
-};
 
 
 typedef void (__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);

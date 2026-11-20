@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 
 
@@ -24,13 +25,6 @@ struct Unicode
     unsigned short wChar;
 };
 
-struct D2ItemsTxt
-{
-    char unk0x00[0x80];
-    int dwCode;
-    char unk0x84[0xA6];
-    unsigned char nQuest;
-};
 
 struct D2SetItemsTxt
 {

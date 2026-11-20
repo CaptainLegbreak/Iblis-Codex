@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2StaticPathStrc;
@@ -37,17 +38,7 @@ struct D2GameStrc
     int sub_005492F0_CheckBeltItem(D2UnitStrc* pUnit, int nItemGUID);                                      // 0x005492F0
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x0C];
-    unsigned char nFlags[4];
-};
 
-struct D2SkillsTxt
-{
-    char unk0x00[0x04];
-    unsigned char nFlags[8];
-};
 
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -324,7 +315,7 @@ int __fastcall sub_6FC828D0(D2UnitStrc* pPlayer, int nUnitType, int nUnitGUID, i
         }
 
         D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(pUnit->dwClassId);
-        if (pMonStatsTxtRecord && pMonStatsTxtRecord->nFlags[1] & gdwBitMasks[1] && pMonStatsTxtRecord->nFlags[1] & gdwBitMasks[0])
+        if (pMonStatsTxtRecord && pMonStatsTxtRecord->nMonStatsFlags[1] & gdwBitMasks[1] && pMonStatsTxtRecord->nMonStatsFlags[1] & gdwBitMasks[0])
         {
             D2Common_10153(pUnit->pDynamicPath);
             AIGENERAL_SetAiControlParam(pUnit, 1, 40);

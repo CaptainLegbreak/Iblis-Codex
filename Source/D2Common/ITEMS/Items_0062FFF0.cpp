@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 struct D2InventoryStrc;
 
@@ -31,23 +32,7 @@ struct D2ItemDataStrc
 };
 
 
-struct D2ItemsTxt
-{
-    char unk0x00[0x137];
-    unsigned char nHasInv;
-};
 
-struct D2ItemStatCostTxt
-{
-    char unk0x00[0x18];
-    unsigned char nValShift;
-    unsigned char nSaveBits;
-    char unk0x1A[2];
-    int dwSaveAdd;
-    char unk0x20[4];
-    int dwSaveParamBits;
-    char unk0x28[0x144 - 0x28];
-};
 
 
 struct D2RunesTxt
@@ -849,9 +834,9 @@ L_NO_RECORD:
                         }
                         else
                         {
-                    if (pItemStatCostTxtRecord->dwSaveParamBits > 0)
+                    if (pItemStatCostTxtRecord->nSaveParamBits > 0)
                     {
-                        ITEMS_WriteBitsInl(pItemStatCostTxtRecord->dwSaveParamBits, nLayer, pBuffer);
+                        ITEMS_WriteBitsInl(pItemStatCostTxtRecord->nSaveParamBits, nLayer, pBuffer);
                     }
 
                     if (pItemStatCostTxtRecord->nSaveBits > 0)
@@ -914,9 +899,9 @@ L_NO_RECORD:
                     break;
 
                 default:
-                    if (pItemStatCostTxtRecord->dwSaveParamBits > 0)
+                    if (pItemStatCostTxtRecord->nSaveParamBits > 0)
                     {
-                        ITEMS_WriteBitsInl(pItemStatCostTxtRecord->dwSaveParamBits, nLayer, pBuffer);
+                        ITEMS_WriteBitsInl(pItemStatCostTxtRecord->nSaveParamBits, nLayer, pBuffer);
                     }
 
                     if (pItemStatCostTxtRecord->nSaveBits > 0)

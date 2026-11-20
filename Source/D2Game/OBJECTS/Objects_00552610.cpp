@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 
 
@@ -54,15 +55,6 @@ struct D2ObjGroupTxt
     unsigned char nProbability[8];
 };
 
-struct D2ObjectsTxt
-{
-    char unk0x000[0x167];
-    unsigned char nSubClass;
-    char unk0x168[0xA];
-    unsigned char nGore;
-    char unk0x173[0x3F];
-    unsigned char nPopulateFn;
-};
 
 
 typedef int (__fastcall* OBJTHEMEFN)(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pDrlgCoords);

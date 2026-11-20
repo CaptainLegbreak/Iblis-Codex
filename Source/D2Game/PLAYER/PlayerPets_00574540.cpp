@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 struct D2ModeChangeStrc;
 
@@ -58,12 +59,6 @@ struct D2PlayerDataStrc
     D2PlayerPetStrc* pPlayerPets;
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x0C];
-    unsigned char dwMonStatsFlags[4];
-    char unk0x10[0x1A8 - 0x0C - 4];
-};
 
 
 typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
@@ -117,7 +112,7 @@ static __forceinline int sub_E09_CheckMonStatsFlag(int nMonsterId, int nFlag)
         return 0;
     }
 
-    return pMonStatsTxtRecord->dwMonStatsFlags[nFlag >> 3] & gdwBitMasks[nFlag & 7];
+    return pMonStatsTxtRecord->nMonStatsFlags[nFlag >> 3] & gdwBitMasks[nFlag & 7];
 }
 
 // build: context sub_00574450_KillPet

@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define UNIT_MONSTER 1
 #define STAT_HITPOINTS 6
@@ -8,12 +9,6 @@
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
 
 
-struct D2SkillsTxt
-{
-    unsigned char unk0x000[0x138];
-    unsigned int dwCalc[4];
-    unsigned char unk0x148[0x23C - 0x148];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304

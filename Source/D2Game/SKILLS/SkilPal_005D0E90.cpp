@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 
 
@@ -22,24 +23,6 @@ struct D2BasicAuraParamStrc
     void* pStateRemoveCallback;
 };
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x50];
-    unsigned int dwAuraFilter;
-    short wAuraStat[6];
-    unsigned int dwAuraLenCalc;
-    unsigned int dwAuraRangeCalc;
-    unsigned int dwAuraStatCalc[6];
-    short nAuraState;
-    short wAuraTargetState;
-    char unk0x084[0x10];
-    short nPassiveState;
-    char unk0x096[0x02];
-    short nPassiveStat[5];
-    char unk0x0A2[0x02];
-    unsigned int dwPassiveCalc[5];
-    char unk0x0B8[0x184];
-};
 
 
 typedef int (__fastcall* AURACALLBACK)(D2AuraCallbackStrc* pAuraCallback, D2UnitStrc* pUnit);

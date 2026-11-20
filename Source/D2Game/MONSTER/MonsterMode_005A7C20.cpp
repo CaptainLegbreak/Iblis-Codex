@@ -1,6 +1,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 // build: ob1
 
 struct D2StatListStrc;
@@ -30,11 +31,6 @@ struct D2MonsterDataStrc
 
 
 
-struct D2MonStats2Txt
-{
-    char unk0x000[0x104];
-    unsigned char nModeEventFlags[4];
-};
 
 struct D2MonModeInfoTableStrc
 {
@@ -68,10 +64,6 @@ struct D2MonModeCallbackTableStrc
     int bScheduleEvents;
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x000[0x1A8];
-};
 
 
 #define UNIT_MONSTER 1
@@ -207,7 +199,7 @@ static int sub_005A6B10_IsModeEventEnabled(D2UnitStrc* pUnit, int nMode)
         D2MonStats2Txt* pMonStats2TxtRecord = UNITS_GetMonStats2TxtRecordFromMonsterId(pUnit->dwClassId);
         if (pMonStats2TxtRecord)
         {
-            return pMonStats2TxtRecord->nModeEventFlags[nMode >> 3] & gdwBitMasks[nMode & 7];
+            return pMonStats2TxtRecord->nModeEnabledWhenMovingFlags[nMode >> 3] & gdwBitMasks[nMode & 7];
         }
     }
 

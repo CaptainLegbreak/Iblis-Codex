@@ -1,5 +1,6 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 struct D2UnitStrc;
 struct D2ActiveRoomStrc { char unknown00[0x6c]; D2SeedStrc pSeed; };
 struct D2RectStrc { int left,top,right,bottom; };
@@ -9,8 +10,6 @@ struct D2RoomCoordListStrc { D2RectStrc box[2]; char unknown20[8]; int nIndex; }
 struct D2GameStrc { char unknown00[0x6d]; unsigned char nDifficulty; char unknown6e[0x82]; void* pMonReg[1]; };
 struct D2MonsterSpawnParamsStrc { D2GameStrc* pGame; D2ActiveRoomStrc* pRoom; D2RoomCoordListStrc* pRoomCoordList; int nMonsterId,nAnimMode,nUnitGUID,nX,nY,nMaxSearchRings; short nFlags; };
 typedef D2MonsterSpawnParamsStrc D2UnkMonCreateStrc;
-struct D2MonStatsTxt { short nId,nBaseId; char unknown04[8]; unsigned char nFlags[4]; char unknown10[8]; short wMonStatsEx; char unknown1a[0xc]; short wMinion[2]; short nEquip; unsigned char nPartyMin,nPartyMax; char unknown2e[0x1e]; unsigned char nAlign; char unknown4d[0x15b]; };
-struct D2MonStats2Txt { char unknown00[8]; signed char nSizeX,nSizeY; unsigned char nSpawnCol; char unknown0b[0x129]; };
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern unsigned char gbNeverCount_006CE270; // 0x006CE270
 extern unsigned int gdwSetBoss_006CE278; // 0x006CE278
@@ -112,12 +111,6 @@ static void MONSTERSPAWN_SetupNormalMods(D2UnkMonCreateStrc* pMonCreate, D2UnitS
     }
 }
 
-struct D2ItemsTxt
-{
-    char pad0x00[0x88];
-    unsigned int dwUberCode;
-    unsigned int dwUltraCode;
-};
 
 struct D2MonsterItemCodeStrc
 {
@@ -375,20 +368,20 @@ static void MONSTERSPAWN_SpawnMinionParty(D2MonsterSpawnParamsStrc* pCreate,D2Un
     const int nBase=sub_00463830_GetBaseId(nMonsterId);
     if(nBase>=0 && nBase<sgptDataTables->nMonStatsTxtRecordCount && nBase==0x105)
     {
-        AIGENERAL_SetOwnerData(pGame,pUnit,pUnit?pUnit->dwUnitId:-1,1,1,pRecord->nFlags[0]&gdwBossTransfer_006CE27C);
+        AIGENERAL_SetOwnerData(pGame,pUnit,pUnit?pUnit->dwUnitId:-1,1,1,pRecord->nMonStatsFlags[0]&gdwBossTransfer_006CE27C);
         const int nCount=sub_004CC790_RollRange(&pUnit->pSeed,pRecord->nPartyMin,pRecord->nPartyMax);
         sub_005B2570_SpawnTentacles(pGame,pUnit,pRecord->wMinion[0],1,nCount,(~(nFlags>>2))&1,0x40);
         return;
     }
-    if(pRecord->nFlags[0]&gdwSetBoss_006CE278)
-        AIGENERAL_SetOwnerData(pGame,pUnit,pUnit?pUnit->dwUnitId:-1,1,1,pRecord->nFlags[0]&gdwBossTransfer_006CE27C);
+    if(pRecord->nMonStatsFlags[0]&gdwSetBoss_006CE278)
+        AIGENERAL_SetOwnerData(pGame,pUnit,pUnit?pUnit->dwUnitId:-1,1,1,pRecord->nMonStatsFlags[0]&gdwBossTransfer_006CE27C);
     int nIndex=0,nThreshold=0;
     if(pRecord->wMinion[1]>=0 && pRecord->wMinion[1]<sgptDataTables->nMonStatsTxtRecordCount) nThreshold=1;
     int nCount=sub_004CC790_RollRange(&pUnit->pSeed,pRecord->nPartyMin,pRecord->nPartyMax);
     while(nCount>0)
     {
         D2UnitStrc* pMinion=sub_005B23C0_SpawnAtUnit(pGame,pUnit,pRecord->wMinion[nIndex],1,4,0x40);
-        if(pMinion && (pRecord->nFlags[0]&(unsigned char)gdwSetBoss_006CE278))
+        if(pMinion && (pRecord->nMonStatsFlags[0]&(unsigned char)gdwSetBoss_006CE278))
         {
             AIGENERAL_SetOwnerData(pGame,pMinion,sub_00451F50_GetUnitId(pUnit),1,0,0);
             AIGENERAL_AllocMinionList(pGame,pUnit,pMinion);
@@ -525,7 +518,7 @@ D2UnitStrc* __fastcall sub_005B2A00_SpawnNormalMonster(D2MonsterSpawnParamsStrc*
     if(pMonster)
     {
         int bNeverCount=nFlags&8;
-        if(pRecord->nFlags[2]&gbNeverCount_006CE270) bNeverCount=1;
+        if(pRecord->nMonStatsFlags[2]&gbNeverCount_006CE270) bNeverCount=1;
         sub_00547D90_RegisterSpawn(pCreate->pGame->pMonReg,pRoom,pMonster,bNeverCount);
         D2RoomCoordListStrc* pList=pCreate->pRoomCoordList;
         if(!pList) pList=D2Common_10096(pRoom,nSpawnX,nSpawnY);

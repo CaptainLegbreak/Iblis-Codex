@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2HashedFileEntryStrc;
@@ -72,12 +73,6 @@ D2StateOwnerStrc* __fastcall sub_00463E10_GetGfxData(D2UnitStrc* pUnit); // 0x00
 void __fastcall sub_004743D0_ReleaseOverlayResource(void* pResource); // 0x004743D0
 static __declspec(noinline) void __stdcall sub_0046E040_RemoveOverlay(D2UnitStrc* pUnit, D2StateNodeStrc* pOverlay);
 
-struct D2ObjectsTxt
-{
-    char unk0x000[0x148];
-    int nXOffset;
-    int nYOffset;
-};
 
 struct D2GfxLayerHeaderStrc
 {

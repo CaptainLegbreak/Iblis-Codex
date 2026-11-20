@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Constants.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 struct D2LightStrc;
 
@@ -134,25 +135,7 @@ struct D2MonsterDataLocalStrc
     D2MonsterInfo16Strc tInfo;
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x000[0x06];
-    unsigned short wNameStr;
-    char unk0x008[0x10];
-    short wMonStatsEx;
-    char unk0x01A[0x33];
-    unsigned char nMode4D;
-    char unk0x04E[0x15A];
-};
 
-struct D2MonStats2Txt
-{
-    char unk0x000[0x0E];
-    unsigned char nSteps;
-    char unk0x00F[0x113];
-    unsigned char nModes[3];
-    char unk0x125[0x0F];
-};
 
 struct D2SuperUniquesTxt
 {

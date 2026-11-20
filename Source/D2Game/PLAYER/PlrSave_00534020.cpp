@@ -1,5 +1,6 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 // build: base-profile
 
 struct D2ClientStrc;
@@ -37,12 +38,6 @@ struct D2PlayerDataStrc
     int nLeftSkillId;
 };
 
-struct D2CharStatsTxt
-{
-    char unk0x00[0xAC];
-    short wStartSkill;
-    char unk0xAE[0x16];
-};
 
 
 #define UNIT_PLAYER 0

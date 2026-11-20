@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2SeedStrc;
@@ -53,13 +54,6 @@ struct D2BooksTxt
     int dwBookSkillId;
 };
 
-struct D2SkillsTxt
-{
-    char unk0x00[0x14];
-    unsigned char nRange;
-    char unk0x15[0x18 - 0x14 - 1];
-    short nITypeA[3];
-};
 
 struct D2ItemDropStrc
 {
@@ -180,15 +174,6 @@ int __fastcall sub_0055F590_CheckItem(D2UnitStrc* pItem, const char* szFile, int
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 int __fastcall D2GAME_PlaceItem_6FC44410(const char* szFile, int nLine, D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnitId, int nX, int nY, int a8, int a9, D2InventoryStrc* pInventory); // 0x00560200
 
-struct D2ItemsTxt
-{
-    char unk0x000[0xC8];
-    unsigned int dwTransmogrifyType;
-    char unk0x0CC[0x139 - 0xC8 - 4];
-    unsigned char nTransmogrify;
-    unsigned char nTmogMin;
-    unsigned char nTmogMax;
-};
 
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId); // 0x00633640
@@ -447,7 +432,7 @@ static int __stdcall sub_0055C560_IsThrowSkillUsable(D2UnitStrc* pUnit, D2SkillS
     }
 
     D2SkillsTxt* pSkillsTxtRecord = sub_00644140_GetSkillsTxtFromSkill(pSkill);
-    if (!pSkillsTxtRecord || pSkillsTxtRecord->nITypeA[0] <= 0 || !ITEMS_CheckType(pSkillsTxtRecord->nITypeA[0], 0x30) || pSkillsTxtRecord->nRange != 2)
+    if (!pSkillsTxtRecord || pSkillsTxtRecord->nITypeA[0] <= 0 || !ITEMS_CheckType(pSkillsTxtRecord->nITypeA[0], 0x30) || pSkillsTxtRecord->nAuraTargetState != 2)
     {
         return 0;
     }

@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define LEVEL_ROGUEENCAMPMENT 1
@@ -56,15 +57,6 @@ struct D2ObjectDataStrc
 };
 
 
-struct D2ObjectsTxt
-{
-    char unk0x00[0xC4];
-    unsigned char nSelectable[8];
-    char unk0xCC[0x04];
-    unsigned int dwSizeX;
-    unsigned int dwSizeY;
-    unsigned int dwFrameCnt[8];
-};
 
 struct D2ObjInitFnStrc
 {

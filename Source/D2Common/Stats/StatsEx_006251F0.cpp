@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define STATLIST_NEWLENGTH 0x00000002
 #define STATLIST_UNK_0x100 0x00000100
@@ -19,16 +20,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
 
-struct D2ItemStatCostTxt
-{
-    char unk0x00[0x04];
-    unsigned char nItemStatFlags[4];
-    char unk0x08[0x10];
-    unsigned char nValShift;
-    char unk0x19[0x13];
-    int dwMinAccr;
-    char unk0x30[0x144 - 0x30];
-};
 
 struct D2StatesTxt
 {

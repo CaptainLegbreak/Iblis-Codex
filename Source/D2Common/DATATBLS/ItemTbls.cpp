@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 // build: base-profile
 #define NULL 0
 
@@ -40,18 +41,6 @@ struct D2BinFieldStrc
     void* pLinker;
 };
 
-struct D2ItemsTxt
-{
-    char unk0x00[0x80];
-    unsigned int dwCode;
-    unsigned char unk_84[0x6C];
-    int dwGemOffset;
-    unsigned char unk_F4[0x2];
-    unsigned short wVersion;
-    unsigned char unk_F8[0x5];
-    unsigned char nLevel;
-    char unk0x0FE[0xAA];
-};
 
 extern D2TxtLinkStrc* gpItemTypesLinker_0096C824; // 0x0096C824
 extern D2TxtLinkStrc* gpSoundsLinker_0096BDC8; // 0x0096BDC8

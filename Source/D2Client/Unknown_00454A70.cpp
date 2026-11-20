@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define UNIT_MONSTER 1
 struct Unicode;
@@ -27,21 +28,7 @@ D2UnitStrc* __cdecl sub_00467A10(); // 0x00467A10
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 int __fastcall sub_004AE360_IsMonsterFlag8(D2UnitStrc* pUnit); // 0x004AE360
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x06];
-    unsigned short wNameStr;
-    unsigned short wDescStr;
-    char unk0x0A[0x02];
-    unsigned char dwMonStatsFlags[4];
-    char unk0x10[0x1A8 - 0x10];
-};
 
-struct D2MonStats2Txt
-{
-    char unk0x00[0x0D];
-    unsigned char nPixHeight;
-};
 
 
 #pragma pack(push, 2)
@@ -190,7 +177,7 @@ void __fastcall sub_00454AD0_DrawUnitHoverName(D2UnitStrc* pUnit)
     unsigned short wszText[0x800];
     for (int i = 0; i < 0x800; i++)
         wszText[i] = 0;
-    if (!(gdwMask_006CE26C & pMonStatsTxt->dwMonStatsFlags[1]) && (gdwTitleMaskB_006CE284 & pMonStatsTxt->dwMonStatsFlags[1]) && pMonStatsTxt->wNameStr)
+    if (!(gdwMask_006CE26C & pMonStatsTxt->nMonStatsFlags[1]) && (gdwTitleMaskB_006CE284 & pMonStatsTxt->nMonStatsFlags[1]) && pMonStatsTxt->wNameStr)
     {
         pMonStats2Txt = UNITS_GetMonStats2TxtRecordFromMonsterId(!pUnit ? -1 : pUnit->dwClassId);
         if (pMonStats2Txt)

@@ -2,29 +2,13 @@
 #include "D2Constants.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define UNIT_ALIGNMENT_GOOD 2
 struct D2MissilesTxt;
 struct D2CltMissileFindArgStrc;
 
 
-struct D2MissilesTxt
-{
-    unsigned short wId;
-    unsigned short pad0x02;
-    unsigned char nMissileFlags[4];
-    char unk0x08[0x30];
-    int dwParam[5];
-    char unk0x4C[0x137];
-    unsigned char nCollideType;
-    unsigned char nCollision;
-    unsigned char unk_185[0x2];
-    unsigned char nCollideFriend;
-    unsigned char nNextHit;
-    unsigned char unk_189[0x1];
-    unsigned char nSize;
-    char unk0x18B[0x19];
-};
 
 struct D2CltMissileFindArgStrc
 {

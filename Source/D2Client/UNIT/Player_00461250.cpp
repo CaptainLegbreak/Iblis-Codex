@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2GfxLightStrc;
@@ -51,16 +52,6 @@ struct D2PlayerCmdStrc
     D2SkillStrc* pSkill;
 };
 
-struct D2SkillsTxt
-{
-    char unk0x00[0x4];
-    unsigned char nFlags[8];
-    char unk0x0C[0x8];
-    char nAuraTargetState;
-    char unk0x15[0x19];
-    unsigned short wSrvDoFunc;
-    char unk0x30[0x20C];
-};
 
 struct D2ClientEntryStrc
 {
@@ -68,12 +59,6 @@ struct D2ClientEntryStrc
     int nValue;
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0xC];
-    unsigned char nFlags[4];
-    char unk0x10[0x198];
-};
 
 
 
@@ -765,7 +750,7 @@ static void __stdcall sub_00461DC0_InteractWithUnit(int nUnitType, int nUnitId, 
         case 1:
         {
             D2MonStatsTxt* pMonStatsTxt = DATATBLS_GetMonStatsTxtRecord(!pUnit ? -1 : pUnit->dwClassId);
-            if (pMonStatsTxt && (pMonStatsTxt->nFlags[1] & gdwBitMasks[1]))
+            if (pMonStatsTxt && (pMonStatsTxt->nMonStatsFlags[1] & gdwBitMasks[1]))
             {
                 nRange = 2;
             }
@@ -783,7 +768,7 @@ check_range:
     if (pTarget && pTarget->dwUnitType == 1)
     {
         D2MonStatsTxt* pMonStatsTxt = E06_GetMonStatsTxtRecord(!pUnit ? -1 : pUnit->dwClassId);
-        if (pMonStatsTxt && (pMonStatsTxt->nFlags[1] & gdwBitMasks[1]) && (pMonStatsTxt->nFlags[1] & gdwBitMasks[0]))
+        if (pMonStatsTxt && (pMonStatsTxt->nMonStatsFlags[1] & gdwBitMasks[1]) && (pMonStatsTxt->nMonStatsFlags[1] & gdwBitMasks[0]))
         {
             if (pTarget->pDynamicPath)
                 D2Common_10153(pTarget->pDynamicPath);

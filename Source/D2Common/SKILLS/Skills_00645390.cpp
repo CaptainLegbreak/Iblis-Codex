@@ -1,13 +1,10 @@
 #include "D2Structs.h"
+#include "D2Txt.h"
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
 struct D2DynamicPathStrc;
 
-struct D2SkillsTxt
-{
-    short nSkillId;
-};
 
 struct D2SkillStrc
 {

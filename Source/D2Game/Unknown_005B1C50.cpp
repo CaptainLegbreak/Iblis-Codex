@@ -1,5 +1,6 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 #pragma pack(push, 1)
 struct D2MonsterEquipmentStrc
 {
@@ -13,12 +14,6 @@ struct D2MonsterEquipmentStrc
 
 
 
-struct D2ItemsTxt
-{
-	char unk_000[0x88];
-	int dwUberCode;
-	int dwUltraCode;
-};
 
 extern const D2MonsterEquipmentStrc gtAncientEquipment[12]; // 0x006E2C90
 D2GameStrc* __fastcall SUNIT_GetGameFromUnit(D2UnitStrc* pUnit); // 0x00554010

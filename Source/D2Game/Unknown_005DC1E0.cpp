@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 
 
@@ -19,16 +20,6 @@ struct D2SummonArgStrc
     int nPetMax;
 };
 
-struct D2SkillsTxt
-{
-    char unk0x000[0xBE];
-    unsigned char nPetType;
-    char unk0x0BF[0x01];
-    unsigned int dwPetMax;
-    char unk0x0C4[0x74];
-    unsigned int dwCalc[4];
-    char unk0x148[0xF4];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304

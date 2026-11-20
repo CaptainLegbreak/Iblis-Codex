@@ -5,6 +5,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2QuestGUIDStrc;
@@ -123,12 +124,6 @@ struct D2PlayerDataStrc
     int bBusy;
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x0C];
-    unsigned char nFlags[4];
-    char unk0x10[0x198];
-};
 
 
 struct D2ObjInitFnStrc
@@ -136,11 +131,6 @@ struct D2ObjInitFnStrc
     D2GameStrc* pGame;
 };
 
-struct D2ObjectsTxt
-{
-    char unk0x000[0xD8];
-    unsigned int dwFrameCnt[8];
-};
 
 struct D2QuestArgStrc
 {
@@ -609,7 +599,7 @@ void __fastcall OBJECTS_InitFunction79_Zoo(D2ObjInitFnStrc* pOp)
         int bZoo = 0;
         if (pMonStatsTxtRecord)
         {
-            bZoo = pMonStatsTxtRecord->nFlags[MONSTATSFLAGINDEX_ZOO >> 3] & gdwBitMasks[MONSTATSFLAGINDEX_ZOO & 7];
+            bZoo = pMonStatsTxtRecord->nMonStatsFlags[MONSTATSFLAGINDEX_ZOO >> 3] & gdwBitMasks[MONSTATSFLAGINDEX_ZOO & 7];
         }
 
         if (bZoo)

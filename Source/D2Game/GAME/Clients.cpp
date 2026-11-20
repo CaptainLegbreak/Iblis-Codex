@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2Txt.h"
 
 #pragma intrinsic(strcpy)
 
@@ -255,11 +256,6 @@ struct D2ObjectControlStrc
     unsigned short wRoomsNoGroup;
 };
 
-struct D2ObjectsTxt
-{
-    char unk0x000[0x1B2];
-    unsigned char nPopulateFn;
-};
 
 struct D2W11RoomTileRecordStrc
 {

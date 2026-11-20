@@ -1,13 +1,7 @@
 #include "D2Client.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
-struct D2MissilesTxt
-{
-	unsigned short wId;
-	unsigned short pad0x02;
-	unsigned char nFlags[4];
-	char unk_08[0x1A4 - 0x08];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables_00744304; // 0x00744304
@@ -34,7 +28,7 @@ static int sub_004CD310_UseCharge(D2UnitStrc* pUnit)
 	int nResult = 3;
 	D2MissilesTxt* pMissilesTxtRecord = DATATBLS_GetMissilesTxtRecord(sub_0064A3E0(pUnit));
 
-	if (!(pMissilesTxtRecord->nFlags[0] & gbFlagMask_006CE270))
+	if (!(pMissilesTxtRecord->nMissileFlags[0] & gbFlagMask_006CE270))
 	    return nResult;
 		const int nValue = STATLIST_UnitGetStatValue(pUnit, 328, 0);
 		if (nValue)

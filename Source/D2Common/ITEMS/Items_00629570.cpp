@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 #define IFLAG_ETHEREAL 0x00400000
 #define STAT_MINDAMAGE 21
 #define STAT_MAXDAMAGE 22
@@ -15,27 +16,6 @@ struct D2ItemDataStrc;
 struct D2SetItemsTxt;
 struct D2SeedStrc;
 
-struct D2ItemsTxt
-{
-    char unk0x00[128];
-    unsigned int dwCode;
-    char unk0x84[4];
-    unsigned int dwUberCode;
-    unsigned int dwUltraCode;
-    char unk0x90[84];
-    unsigned int dwMinStack;
-    unsigned int dwMaxStack;
-    unsigned int dwSpawnStack;
-    char unk0xF0[46];
-    short wType[2];
-    char unk0x122[8];
-    unsigned char nQuest;
-    char unk0x12B[14];
-    unsigned char nTransmogrify;
-    char unk0x13A[4];
-    unsigned char nGemApplyType;
-    char unk0x13F[105];
-};
 
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837

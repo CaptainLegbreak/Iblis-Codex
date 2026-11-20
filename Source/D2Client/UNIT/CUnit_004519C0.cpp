@@ -2,6 +2,7 @@
 #include "D2Constants.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -15,25 +16,9 @@ enum
 };
 
 
-struct D2MonStatsTxt
-{
-    short unk0x00;
-    short nBaseId;
-    char unk0x04[0x1A4];
-};
 
 
-struct D2ObjectsTxt
-{
-    char unk0x000[0x1B7];
-    unsigned char nFlags1B7;
-};
 
-struct D2MonStats2Txt
-{
-    char unk0x000[0x11C];
-    unsigned char nLocalBlood;
-};
 
 struct D2MsgRecordStrc
 {

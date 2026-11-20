@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
 #define D2_MIN(a, b) (((a) < (b)) ? (a) : (b))
 struct D2StatListExStrc;
@@ -64,15 +65,6 @@ struct D2BitBufferStrc
 };
 
 
-struct D2ItemStatCostTxt
-{
-    char unk0x00[0x04];
-    unsigned char nItemStatFlags[4];
-    char unk0x08[0x02];
-    unsigned char nCsvBits;
-    unsigned char nCsvParam;
-    char unk0x0C[0x144 - 0x0C];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

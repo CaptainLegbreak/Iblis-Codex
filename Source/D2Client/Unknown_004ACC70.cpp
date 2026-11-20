@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2Txt.h"
 
 #define UNIT_MONSTER 1
 #define MONTYPEFLAG_CHAMPION 4
@@ -19,13 +20,6 @@ struct D2MonsterDataStrc
 };
 
 
-struct D2MonStats2Txt
-{
-    char unk0x000[0x11F];
-    unsigned char nLight_R;
-    unsigned char nLight_G;
-    unsigned char nLight_B;
-};
 
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
 void __fastcall sub_00464930_FreeLight(D2UnitStrc* pUnit); // 0x00464930

@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
@@ -228,21 +229,7 @@ extern D2MsgHandlerEntryStrc gaMsgHandlers_00724780[]; // 0x00724780
 extern D2MsgHandlerEntryStrc gaMsgHandlers_0072478C[]; // 0x0072478C
 
 
-struct D2CharStatsTxt
-{
-    char unk0x00[0x3C];
-    int dwToHitFactor;
-    char unk0x40[0x84];
-};
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x4C];
-    unsigned char nAlign;
-    char unk0x4D[0x5D];
-    short nLevel[3];
-    char unk0xB0[0xF8];
-};
 
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0

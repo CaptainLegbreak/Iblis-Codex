@@ -2,6 +2,7 @@
 #include "D2Constants.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2AutomapRecordStrc;
@@ -71,25 +72,8 @@ struct D2ActiveRoomStrc
 };
 
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x18];
-    short nMonStatsEx;
-    char unk0x1A[0x18E];
-};
 
-struct D2MonStats2Txt
-{
-    char unk0x00[0x118];
-    int dwAutomapCel;
-    char unk0x11C[0x18];
-};
 
-struct D2ObjectsTxt
-{
-    char unk0x00[0x1BC];
-    int dwAutomap;
-};
 
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -450,7 +434,7 @@ void __stdcall sub_00458DC0_RevealRoomObjects(D2ActiveRoomStrc* pRoom, D2Automap
                 const int nClassId = pUnit->dwClassId;
                 if (nClassId >= 0 && nClassId < sgptDataTables->nMonStatsTxtRecordCount)
                 {
-                    const int nMonStatsEx = sgptDataTables->pMonStatsTxt[nClassId].nMonStatsEx;
+                    const int nMonStatsEx = sgptDataTables->pMonStatsTxt[nClassId].wMonStatsEx;
                     D2MonStats2Txt* pMonStats2Txt = AUTOMAP_GetMonStats2TxtRecord(nMonStatsEx);
                     if (pMonStats2Txt && pMonStats2Txt->dwAutomapCel)
                         sub_00457E80_AddUnitAutomapCell(pMonStats2Txt->dwAutomapCel, ppRoot, pUnit);

@@ -4,19 +4,11 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 
 
 
-struct D2SkillsTxt
-{
-    char unk0x00[0x12E];
-    unsigned short wResultFlags;
-    unsigned int dwHitFlags;
-    unsigned int dwHitClass;
-    unsigned int dwCalc[4];
-    char unk0x148[0xF4];
-};
 
 
 struct D2DamageStrc

@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define QUEST_A2Q2_HORADRICSTAFF 9
 #define QFLAG_COMPLETEDNOW 14
@@ -16,11 +17,6 @@ struct D2PlayerDataStrc
     D2BitBufferStrc* pQuestData[3];
 };
 
-struct D2ItemsTxt
-{
-    char pad0x00[0x80];
-    unsigned int dwCode;
-};
 
 struct D2QuestArgStrc
 {

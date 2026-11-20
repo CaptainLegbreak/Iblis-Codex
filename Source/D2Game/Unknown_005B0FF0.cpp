@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Txt.h"
 
 struct D2AiTableStrc;
 struct D2MonStatsTxt;
@@ -35,7 +36,6 @@ int __fastcall D2GAME_AICORE_WalkToOwner_6FCD0B60(D2GameStrc*, D2UnitStrc*, D2Un
 
 struct D2AiTableStrc { int a, b, c, d; };
 
-struct D2MonStatsTxt { char pad[0x1E]; unsigned short wAI; };
 
 struct D2MonsterDataStrc { D2MonStatsTxt* pMonStatsTxt; };
 extern const D2AiTableStrc gpAiTable_6FD3F990[148]; // 0x0073CA18

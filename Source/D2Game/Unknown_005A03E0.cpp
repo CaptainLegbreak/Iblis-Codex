@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 
 
@@ -27,14 +28,6 @@ struct D2MonsterRegionStrc
 };
 
 
-struct D2MonStatsTxt
-{
-    char _pad000[0x0C];
-    unsigned char nMonStatsFlags[4];
-    char _pad010[0x16];
-    short wMinion[2];
-    char _pad02A[0x17E];
-};
 
 struct D2MonUModTxt
 {

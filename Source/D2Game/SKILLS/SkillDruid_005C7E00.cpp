@@ -1,4 +1,5 @@
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 struct D2GameStrc;
 struct D2UnitStrc;
 #ifdef MOVED_TEST
@@ -35,47 +36,6 @@ struct D2DamageStrc
     int nOverlay;
 };
 
-struct D2SkillsTxt
-{
-#ifdef MOVED_TEST
-    int moved_prefix[4];
-#endif
-    char unk0x000[0x04];
-    unsigned char nFlags[8];
-    char unk0x00C[0x3C];
-    short wSrvMissileA;
-    short wSrvMissileB;
-    char unk0x04C[0x02];
-    short wSrvOverlay;
-    unsigned int dwAuraFilter;
-    short wAuraStat[6];
-    unsigned int dwAuraLenCalc;
-    unsigned int dwAuraRangeCalc;
-    unsigned int dwAuraStatCalc[6];
-    short nAuraState;
-    short wAuraTargetState;
-    short wAuraEvent[3];
-    short wAuraEventFunc[3];
-    char unk0x090[0x08];
-    short nPassiveStat[5];
-    char unk0x0A2[0x02];
-    unsigned int dwPassiveCalc[5];
-    char unk0x0B8[0x2E];
-    short wSumOverlay;
-    char unk0x0E8[0x28];
-    short wCltOverlayA;
-    char unk0x112[0x1C];
-    unsigned short wResultFlags;
-    unsigned int dwHitFlags;
-    unsigned int dwHitClass;
-    unsigned int dwCalc[4];
-    int dwParam[4];
-    char unk0x158[0x4D];
-    unsigned char nSrcDam;
-    char unk0x1A6[0x36];
-    unsigned char nEType;
-    char unk0x1DD[0x5F];
-};
 
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0

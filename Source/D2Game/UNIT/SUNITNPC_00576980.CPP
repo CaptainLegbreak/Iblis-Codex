@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define STAT_LEVEL 12
 #define ITEMQUAL_NORMAL 2
@@ -54,15 +55,6 @@ struct D2NpcRecordStrc
     D2NpcTradeStrc npcTrade;
 };
 
-struct D2ItemsTxt
-{
-    char unk0x000[0x80];
-    unsigned int dwCode;
-    char unk0x084[0x72];
-    unsigned short wVersion;
-    char unk0x0F8[0x05];
-    unsigned char nLevel;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -157,12 +149,6 @@ struct D2ItemDropStrc
     unsigned int dwFlags2;
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x0C];
-    unsigned char nFlags[4];
-    char unk0x10[0x198];
-};
 
 
 #pragma pack(push, 1)
@@ -392,7 +378,7 @@ static __forceinline int MONSTERS_CheckMonStatsFlag(int nMonsterId, int nFlag)
         return 0;
     }
 
-    return pMonStatsTxtRecord->nFlags[nFlag >> 3] & gdwBitMasks[nFlag & 7];
+    return pMonStatsTxtRecord->nMonStatsFlags[nFlag >> 3] & gdwBitMasks[nFlag & 7];
 }
 
 static __forceinline int UNITS_GetUnitId(D2UnitStrc* pUnit)

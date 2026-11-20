@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 #define STAT_HITPOINTS 6
 #define STAT_MANA 8
 #define STAT_STAMINA 10
@@ -24,34 +25,7 @@ void __stdcall STATLIST_AddStat(D2StatListStrc* pStatList, int nStatId, int nVal
 typedef void (__fastcall* StatListUnitCallback)(D2UnitStrc* pUnit1, int nStatId, int nValue, D2UnitStrc* pUnit2);
 
 
-struct D2OpStatDataStrc
-{
-    unsigned short nOpBase;
-    unsigned short nStat;
-    unsigned char nOp;
-    unsigned char nOpParam;
-};
 
-struct D2ItemStatCostTxt
-{
-    char unk0x00[0x04];
-    unsigned char nItemStatFlags[4];
-    char unk0x08[0x10];
-    unsigned char nValShift;
-    char unk0x19[0x13];
-    int dwMinAccr;
-    char unk0x30[0x20];
-    unsigned char nKeepZero;
-    unsigned char bIsBaseOfOtherStatOp;
-    unsigned char bHasOpStatData;
-    unsigned char bHasOpApplyingToItem;
-    unsigned char nOp;
-    char unk0x55[0x03];
-    unsigned short wOpStat[3];
-    unsigned short wStatsAffected[64];
-    D2OpStatDataStrc pOpStatData[16];
-    char unk0x13E[0x06];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 
 
@@ -16,16 +17,6 @@ struct D2AiControlStrc
     int dwAiParam[3];
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x000[0x4F];
-    unsigned char nAIdel[3];
-    char unk0x052[0x04];
-    short wAiParam[8][3];
-    char unk0x086[0xEA];
-    short nSkill[8];
-    unsigned char nSkillMode[8];
-};
 
 struct D2AiTickParamStrc
 {
@@ -38,12 +29,6 @@ struct D2AiTickParamStrc
     D2MonStatsTxt* pMonstatsTxt;
 };
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x80];
-    short nAuraState;
-    char unk0x082[0x1BA];
-};
 
 
 enum D2C_M144UberIzualAi

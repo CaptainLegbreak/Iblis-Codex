@@ -1,3 +1,4 @@
+#include "D2Txt.h"
 struct D2TxtLinkStrc;
 
 struct D2BinFieldStrc
@@ -53,12 +54,6 @@ struct D2TreasureClassExTxt
     int nProb[10];
 };
 
-struct D2ItemsTxt
-{
-    char unk0x00[0xF6];
-    unsigned short wVersion;
-    char unk0xF8[0x1A8 - 0xF8];
-};
 
 struct D2UniqueItemsTxt { char unk0x00[0x28]; unsigned int dwBaseItemCode; char unk0x2C[0x14C - 0x2C]; };
 struct D2SetItemsTxt { char unk0x00[0x28]; unsigned int dwItemCode; char unk0x2C[0x1B8 - 0x2C]; };

@@ -1,3 +1,4 @@
+#include "D2Txt.h"
 struct Unicode
 {
     unsigned short wChar;
@@ -7,11 +8,6 @@ struct Unicode
 
 struct D2UnitStrc;
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x1DC];
-    unsigned char nEType;
-};
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...);             // 0x006CC468
 extern "C" const char gszFormatD_006D57BC[];                                                                // 0x006D57BC

@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define D2MAX(a, b) (((a) > (b)) ? (a) : (b))
 #define D2MIN(a, b) (((a) < (b)) ? (a) : (b))
@@ -14,19 +15,7 @@ struct D2CurseStrc;
 
 
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x0C];
-    unsigned char nMonStatsFlags[4];
-    unsigned char unk_10[0xC];
-    short wMonType;
-};
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x0FC];
-    short wStSound;
-};
 
 struct D2DamageStrc
 {

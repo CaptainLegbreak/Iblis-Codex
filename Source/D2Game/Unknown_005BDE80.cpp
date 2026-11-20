@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define MONSTATSFLAGINDEX_PLACESPAWN 23
 
@@ -46,14 +47,6 @@ struct D2LevelsTxt
     short wUniqueMonsters[25];
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x000[0x0C];
-    unsigned char nMonStatsFlags[4];
-    char unk0x010[0x10];
-    short wSpawn;
-    char unk0x022[0x1A8 - 0x22];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

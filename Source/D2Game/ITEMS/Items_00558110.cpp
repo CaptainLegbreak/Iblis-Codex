@@ -3,14 +3,9 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 
-struct D2ItemsTxt
-{
-    char unk0x00[0x12A];
-    unsigned char nQuest;
-    unsigned char nQuestDiffCheck;
-};
 
 
 

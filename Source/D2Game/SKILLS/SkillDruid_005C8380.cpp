@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 
 struct D2DamageStrc
@@ -15,21 +16,6 @@ struct D2DamageStrc
     int unk0x64[3];
 };
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x04];
-    unsigned char nFlags[8];
-    char unk0x00C[0x44];
-    unsigned int dwAuraFilter;
-    char unk0x054[0x10];
-    int dwAuraRangeCalc;
-    char unk0x068[0x18];
-    short nAuraState;
-    char unk0x082[0xAC];
-    unsigned short wResultFlags;
-    unsigned int dwHitFlags;
-    char unk0x134[0x108];
-};
 
 
 enum

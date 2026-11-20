@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define LEVEL_DENOFEVIL 8
 #define LEVEL_THRONEOFDESTRUCTION 131
@@ -19,33 +20,8 @@ struct D2MissileStrc;
 struct D2SeedStrc;
 struct D2DrlgCoordsStrc;
 
-struct D2MissilesTxt
-{
-    char unk0x000[0x38];
-    int dwParam[5];
-    char unk0x04C[0x4A];
-    short wRange;
-    char unk0x098[0x10C];
-};
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x18];
-    short wMonStatsEx;
-    char unk0x1A[0x15];
-    unsigned char nMinGrp;
-    unsigned char nMaxGrp;
-    char unk0x31[0x1A8 - 0x31];
-};
 
-struct D2MonStats2Txt
-{
-    char unk0x00[8];
-    char nSizeX;
-    unsigned char unk_09[0xE7];
-    unsigned char nModeFlags[4];
-    char unk0xF4[0x40];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

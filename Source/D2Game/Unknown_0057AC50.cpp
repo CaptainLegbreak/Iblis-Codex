@@ -2,20 +2,9 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x0C];
-    unsigned char nFlags[4];
-    char unk0x10[0x22];
-    short nVelocity;
-    char unk0x34[0x6C];
-    unsigned char nDrain[3];
-    char unk0xA3[0xC5];
-    signed char nColdEffect[3];
-    char unk0x16B[0x3D];
-};
 
 struct D2MonsterDataStrc
 {
@@ -655,7 +644,7 @@ void __fastcall SUNITDMG_ExecuteEvents(D2GameStrc* pGame, D2UnitStrc* pAttacker,
         }
 
         D2MonStatsTxt* pMonStatsTxtRecord = DATATBLS_GetMonStatsTxtRecord(pAttacker->dwClassId);
-        if (!pMonStatsTxtRecord || !(pMonStatsTxtRecord->nFlags[1] & gdwBitMasks[2]))
+        if (!pMonStatsTxtRecord || !(pMonStatsTxtRecord->nMonStatsFlags[1] & gdwBitMasks[2]))
         {
             pDamage->wResultFlags &= (unsigned short)~2;
             return;

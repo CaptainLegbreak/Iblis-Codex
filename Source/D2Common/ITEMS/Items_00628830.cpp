@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define D2_NORETURN __declspec(noreturn)
 #define Min(a,b) ((a) < (b) ? (a) : (b))
@@ -57,35 +58,8 @@ struct D2SetItemsTxt
     unsigned char unk_34[0x184];
 };
 
-struct D2ItemsTxt
-{
-    char unk0x00[0xE0];
-    int dwCost;
-    unsigned char unk_E4[0x26];
-    unsigned short wReqStr;
-    unsigned short wReqDex;
-    unsigned char unk_10E[0x1];
-    unsigned char invWidth;
-    unsigned char invHeight;
-    unsigned char unk_111[0x20];
-    unsigned char nAutoBelt;
-    unsigned char unk_132[0x5];
-    unsigned char nHasInv;
-    unsigned char unk_138[0x7];
-    unsigned char levelReq;
-};
 
 
-struct D2SkillsTxt
-{
-    unsigned char pad00[12];
-    signed char characterClass;
-    unsigned char pad0D[0x167];
-    short wReqLevel;
-    char unk0x176[0x234 - 0x176];
-    int dwCostMult;
-    int dwCostAdd;
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -215,15 +189,15 @@ int __fastcall sub_00628D30_GetChargedSkillsCost(D2UnitStrc* pItem, int nBaseCos
                 if (pSkillsTxtRecord)
                 {
                     int nChargeCost;
-                    if ((nSkillLevel + 2 * (pSkillsTxtRecord->wReqLevel / 6) + 2) * nBaseCost > 0xFFFF && pSkillsTxtRecord->dwCostMult)
+                    if ((nSkillLevel + 2 * (pSkillsTxtRecord->wReqLevel / 6) + 2) * nBaseCost > 0xFFFF && pSkillsTxtRecord->nCostMult)
                     {
-                        nChargeCost = (nSkillLevel + 2 * (pSkillsTxtRecord->wReqLevel / 6) + 2) * nBaseCost / 1024 * pSkillsTxtRecord->dwCostMult;
-                        nChargeCost += pSkillsTxtRecord->dwCostAdd;
+                        nChargeCost = (nSkillLevel + 2 * (pSkillsTxtRecord->wReqLevel / 6) + 2) * nBaseCost / 1024 * pSkillsTxtRecord->nCostMult;
+                        nChargeCost += pSkillsTxtRecord->nCostAdd;
                     }
                     else
                     {
-                        nChargeCost = pSkillsTxtRecord->dwCostMult * (nSkillLevel + 2 * (pSkillsTxtRecord->wReqLevel / 6) + 2) * nBaseCost / 1024;
-                        nChargeCost += pSkillsTxtRecord->dwCostAdd;
+                        nChargeCost = pSkillsTxtRecord->nCostMult * (nSkillLevel + 2 * (pSkillsTxtRecord->wReqLevel / 6) + 2) * nBaseCost / 1024;
+                        nChargeCost += pSkillsTxtRecord->nCostAdd;
                     }
                     nCost += (nMaxCharges - nCharges) * nChargeCost / nMaxCharges;
                 }
@@ -415,7 +389,7 @@ static __forceinline void GetDimensions(D2UnitStrc* item, unsigned char* width, 
     *height = 0;
     if (item && item->dwUnitType == 4) {
         D2ItemsTxt* txt = DATATBLS_GetItemsTxtRecord(!item ? -1 : item->dwClassId);
-        if (txt) { *width = txt->invWidth; *height = txt->invHeight; }
+        if (txt) { *width = txt->nInvWidth; *height = txt->nInvHeight; }
     }
 }
 

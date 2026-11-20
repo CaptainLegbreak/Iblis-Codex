@@ -1,19 +1,12 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 
 
 
 
-struct D2ItemStatCostTxt
-{
-    char unk0x00[0x04];
-    unsigned char nItemStatFlags[4];
-    char unk0x08[0x4B];
-    unsigned char bUpdateAnimRate;
-    char unk0x54[0x144 - 0x54];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
@@ -97,7 +90,7 @@ void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListEx
         {
             const int nPacked = pStat->nPackedValue;
             D2ItemStatCostTxt* pRecord = ITEMS_GetItemStatCostTxtRecord((nPacked >> 16) & 0xFFFF);
-            if (pRecord && pRecord->bUpdateAnimRate)
+            if (pRecord && pRecord->bHasOpApplyingToItem)
                 aStats[nCount++] = nPacked;
         }
 

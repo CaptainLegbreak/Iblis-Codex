@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
@@ -137,22 +138,7 @@ struct D2GfxListNodeStrc
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 void __fastcall sub_004743D0_ReleaseOverlayResource(void* pResource); // 0x004743D0
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x0C];
-    unsigned char nMonStatsFlags[4];
-    char unk0x10[0x198];
-};
 
-struct D2ObjectsTxt
-{
-    char unk0x00[0x118];
-    unsigned char nBlocksLight[8];
-    char unk0x120[0x28];
-    int dwXOffset;
-    int dwYOffset;
-    unsigned char nDraw;
-};
 
 struct D2CelContextStrc
 {
@@ -551,12 +537,12 @@ int __fastcall sub_00471A30(D2UnitStrc* pUnit)
     {
         D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(nClass);
         D2_ASSERT(pObjectsTxtRecord, 0x9BE);
-        if (!pObjectsTxtRecord->nDraw || !pObjectsTxtRecord->nBlocksLight[nMode])
+        if (!pObjectsTxtRecord->bDraw || !pObjectsTxtRecord->nBlocksLight[nMode])
         {
             return 0;
         }
-        nOffsetY = pObjectsTxtRecord->dwYOffset;
-        nOffsetX = pObjectsTxtRecord->dwXOffset;
+        nOffsetY = pObjectsTxtRecord->nYOffset;
+        nOffsetX = pObjectsTxtRecord->nXOffset;
     }
     int nX = nOffsetX - sub_0045AFC0() + UNITS_GetClientCoordX(pUnit);
     int nY = nOffsetY - sub_0045AFD0_GetMouseYOffset() + UNITS_GetClientCoordY(pUnit);
@@ -1051,12 +1037,12 @@ int __fastcall sub_00471450_DrawUnitShadow(D2UnitStrc* pUnit)
     {
         D2ObjectsTxt* pObjectsTxtRecord = DATATBLS_GetObjectsTxtRecord(nClass);
         D2_ASSERT(pObjectsTxtRecord, 0x87A);
-        if (!pObjectsTxtRecord->nDraw || !pObjectsTxtRecord->nBlocksLight[nMode])
+        if (!pObjectsTxtRecord->bDraw || !pObjectsTxtRecord->nBlocksLight[nMode])
         {
             return 0;
         }
-        nOffsetX = pObjectsTxtRecord->dwXOffset;
-        nOffsetY = pObjectsTxtRecord->dwYOffset;
+        nOffsetX = pObjectsTxtRecord->nXOffset;
+        nOffsetY = pObjectsTxtRecord->nYOffset;
     }
     int nX = nOffsetX - sub_0045AFC0() + UNITS_GetClientCoordX(pUnit) + sub_004DA110_GetUnitGfxShiftX(pUnit);
     int nY = nOffsetY - sub_0045AFD0_GetMouseYOffset() + UNITS_GetClientCoordY(pUnit) + sub_004DA130_GetUnitGfxShiftY(pUnit);

@@ -1,5 +1,6 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 #ifdef MOVED_TEST
 #define MON_FLAG 11
 #define ATTACK_MODE 6
@@ -19,23 +20,6 @@ struct D2MonStats2Txt;
 struct D2MissilesTxt;
 
 
-struct D2MonStatsTxt
-{
-#ifdef MOVED_TEST
-    int moved_prefix[4];
-#endif
-    char unk0x000[0x0C];
-    unsigned char nMonStatsFlags[4];
-    char unk0x010[0x22];
-    short nVelocity;
-    short nRun;
-    char unk0x036[0x20];
-    short wAiParam[8][3];
-    char unk0x086[0xEA];
-    short nSkill[8];
-    unsigned char nSkillMode[8];
-    char unk0x188[0x20];
-};
 
 struct D2AiTickParamStrc
 {

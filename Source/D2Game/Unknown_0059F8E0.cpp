@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 struct D2SeedStrc;
 struct D2MissilesTxt;
 struct D2MissileUnitFindTableStrc;
@@ -39,31 +40,6 @@ struct D2MissileStrc
     int nInitArg;
 };
 
-struct D2MissilesTxt
-{
-    unsigned short wId;
-    unsigned short pad0x02;
-    unsigned char nMissileFlags[4];
-    char unk0x008[0x8E];
-    short wRange;
-    short wLevRange;
-    unsigned char nVel;
-    unsigned char nVelLev;
-    unsigned char nMaxVel;
-    unsigned char pad0x09D;
-    short wAccel;
-    char unk0x0A0[0x96];
-    unsigned char nActivate;
-    char unk0x137[0x49];
-    unsigned char nSubLoop;
-    unsigned char nSubStart;
-    unsigned char nSubStop;
-    unsigned char nCollideType;
-    unsigned char nCollision;
-    char unk0x185[0x17];
-    int nMissileStatValue;
-    char unk0x1A0[0x04];
-};
 
 
 extern "C" D2DataTablesStrc* sgptDataTables; // 0x00744304

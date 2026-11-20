@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
@@ -12,26 +13,6 @@ struct D2MissilesTxt;
 struct D2MonStats2Txt;
 struct D2MissileStrc;
 
-struct D2SkillsTxt
-{
-    short nSkillId;
-    char unk0x002[0x02];
-    unsigned char nFlags[8];
-    char unk0x00C[0x48];
-    short wAuraStat[6];
-    char unk0x060[0x20];
-    short nAuraState;
-    unsigned char unk_82[0x68];
-    short wCltMissileA;
-    short wCltMissileB;
-    short wCltMissileC;
-    short wCltMissileD;
-    char unk0x0F2[0x18];
-    unsigned short wTgtSound;
-    short wPrgOverlay;
-    short wPrgSound;
-    char unk0x110[0x12C];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -45,23 +26,7 @@ int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc* pUnit, int nState); // 0x006256B0
 int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625D00
 
-struct D2MissilesTxt
-{
-    char unk0x000[0x18];
-    short wSubMissile[3];
-    char unk0x01E[0x186];
-};
 
-struct D2MonStats2Txt
-{
-    unsigned int dwId;
-    union
-    {
-        unsigned int dwFlags;
-        unsigned char nFlags[4];
-    };
-    char unk0x08[0x12C];
-};
 
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArg);
 

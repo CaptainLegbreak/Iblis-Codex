@@ -1,14 +1,9 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Txt.h"
 
 
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x170];
-    short nSkill[8];
-    unsigned char nSkillMode[8];
-};
 
 struct D2AiTickParamStrc
 {

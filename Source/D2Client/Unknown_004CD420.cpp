@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 struct D2SeedStrc
 {
@@ -27,38 +28,6 @@ struct D2UnitStrc
     unsigned int dwFlagEx;
 };
 
-struct D2MissilesTxt
-{
-    char unk0x000[0x04];
-    unsigned char nFlags[4];
-    char unk0x008[0x0A];
-    short wTravelSound;
-    char unk0x014[0x82];
-    short wRange;
-    short wLevRange;
-    unsigned char nVel;
-    unsigned char nVelLev;
-    unsigned char nMaxVel;
-    char unk0x09D;
-    short wAccel;
-    char unk0x0A0[0x90];
-    unsigned char nLight;
-    unsigned char nFlicker;
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-    unsigned char nCanDestroy;
-    unsigned char nActivate;
-    char unk0x137[0x41];
-    unsigned char nAnimLen;
-    char unk0x179[0x07];
-    unsigned char nSubLoop;
-    unsigned char nSubStart;
-    unsigned char nSubStop;
-    char unk0x183[0x1E];
-    unsigned char nAnimSpeed;
-    char unk0x1A2[0x02];
-};
 
 
 typedef void(__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArgs);
@@ -192,7 +161,7 @@ static void __stdcall sub_004CD420_RollPierce(D2UnitStrc* pOwner, D2UnitStrc* pM
     }
 
     D2MissilesTxt* pMissilesTxtRecord = DATATBLS_GetMissilesTxtRecord(MISSILE_GetClassId(pMissile));
-    if (!(pMissilesTxtRecord->nFlags[2 >> 3] & gdwBitMasks[2 & 7]))
+    if (!(pMissilesTxtRecord->nMissileFlags[2 >> 3] & gdwBitMasks[2 & 7]))
     {
         return;
     }
@@ -296,7 +265,7 @@ D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams)
         : (pMissilesTxtRecord->nVel + (pMissilesTxtRecord->nVelLev * pMissileParams->nSkillLevel) / 8) << 8;
 
     int nVelocityPercent = 100;
-    if (pMissileParams->pOwner && (pMissilesTxtRecord->nFlags[3 >> 3] & gdwBitMasks[3 & 7])
+    if (pMissileParams->pOwner && (pMissilesTxtRecord->nMissileFlags[3 >> 3] & gdwBitMasks[3 & 7])
         && STATES_CheckState(pMissileParams->pOwner, 0x57))
     {
         D2StatListStrc* pStatList = STATLIST_GetStatListFromUnitAndState(pMissileParams->pOwner, 0x57);

@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2AiBaalTargetArgsStrc;
@@ -53,19 +54,7 @@ struct D2UnitStrc
     D2SeedStrc pSeed;
 };
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x18E];
-    unsigned char nAttackRank;
-    char unk0x18F[0xAD];
-};
 
-struct D2MonStatsTxt
-{
-    char unk0x000[0x4E];
-    unsigned char nThreat;
-    char unk0x04F[0x159];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

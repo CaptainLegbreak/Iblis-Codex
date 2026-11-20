@@ -2,20 +2,11 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2Txt.h"
 
 
 
 
-struct D2ObjectsTxt
-{
-    char unk0x000[0x13A];
-    unsigned char nIsDoor;
-    char unk0x13B[0x65];
-    int dwLeft;
-    int dwTop;
-    int dwWidth;
-    int dwHeight;
-};
 
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath);                                                  // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath);                                                  // 0x00648900

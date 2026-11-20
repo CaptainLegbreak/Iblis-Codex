@@ -3,15 +3,10 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 
 
-struct D2MonStatsTxt
-{
-    short nId;
-    short nBaseId;
-    char unk0x04[0x1A8 - 4];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304

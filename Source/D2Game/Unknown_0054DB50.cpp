@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 struct D2GameActsViewStrc;
 struct D2RoomWarpCoordsStrc;
@@ -47,7 +48,6 @@ int __stdcall D2Common_10095(D2ActiveRoomStrc*,int,int); // 0x0061B130
 D2UnitStrc* __fastcall sub_005B2F20_Spawn(D2GameStrc*,D2ActiveRoomStrc*,int,int,int,int,int,int); // 0x005B2F20
 D2UnitStrc* __fastcall sub_005B3040_SpawnInCoordList(D2GameStrc*,D2ActiveRoomStrc*,D2SpawnAreaStrc*,int,int,int,int,int,int); // 0x005B3040
 
-struct D2MonStatsTxt { short nId; short nBaseId; char unk_04[0x1A4]; };
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

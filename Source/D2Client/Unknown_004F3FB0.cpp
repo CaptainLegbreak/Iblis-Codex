@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 struct D2SkillsTxt;
 struct D2MissileStrc;
@@ -12,15 +13,6 @@ int __fastcall sub_004C54F0_CanThrow(D2UnitStrc* pUnit); // 0x004C54F0
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
 void __stdcall SKILLS_SetParam1(D2SkillStrc* pSkill, int nValue); // 0x00644560
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x64];
-    unsigned int dwAuraRangeCalc;
-    char unk0x068[0x82];
-    short wCltMissileA;
-    short wCltMissileB;
-    char unk0x0EE[0x14E];
-};
 
 
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArg);

@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define UNIT_MONSTER 1
 #define MONMODE_DEATH 0
@@ -51,11 +52,6 @@ struct D2MonsterDataStrc
 
 
 
-struct D2MonStats2Txt
-{
-    char unk0x000[0x104];
-    unsigned char nModeEventFlags[4];
-};
 
 struct D2ModeChangeStrc
 {
@@ -82,14 +78,6 @@ struct D2MonModeCallbackTableStrc
     int bScheduleEvents;
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x86];
-    unsigned short wTreasureClass[3][4];
-    unsigned char nTCQuestId;
-    unsigned char nTCQuestCP;
-    char unk0xA0[0x108];
-};
 
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -233,7 +221,7 @@ static int sub_005A6B10_IsModeEventEnabled(D2UnitStrc* pUnit, int nMode)
         D2MonStats2Txt* pMonStats2TxtRecord = UNITS_GetMonStats2TxtRecordFromMonsterId(pUnit->dwClassId);
         if (pMonStats2TxtRecord)
         {
-            return pMonStats2TxtRecord->nModeEventFlags[nMode >> 3] & gdwBitMasks[nMode & 7];
+            return pMonStats2TxtRecord->nModeEnabledWhenMovingFlags[nMode >> 3] & gdwBitMasks[nMode & 7];
         }
     }
 

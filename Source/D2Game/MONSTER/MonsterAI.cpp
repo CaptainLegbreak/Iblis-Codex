@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 #define STAT_DEXTERITY 2
 #define STAT_HITPOINTS 6
 #define STAT_MAXHP 7
@@ -66,11 +67,6 @@ struct D2PetInfoStrc
     int nHirelingId;
 };
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x174];
-    short wReqLevel;
-};
 
 
 struct D2HirelingTxt
@@ -193,14 +189,6 @@ void __fastcall D2GAME_NPC_BuildHirelingList_6FCC6FF0(D2GameStrc* pGame, D2Clien
 int __fastcall ACT1Q4_IsCainInTristramDeactivated(D2GameStrc* pGame); // 0x00594610
 void __stdcall TEXT_CreateMessageListFromTextHeader(D2TextHeaderStrc* pTextHeader, D2MessageListStrc* pMsgList); // 0x00661480
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x0C];
-    unsigned char nMonStatsFlags[4];
-    unsigned char unk_10[0x90];
-    unsigned char nDrain[3];
-    unsigned char unk_A3[0x105];
-};
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 extern "C" const char gszMonsterAISourceFile[]; // 0x006E1560

@@ -1,3 +1,4 @@
+#include "D2Txt.h"
 struct D2ClientStrc;
 struct D2ActiveRoomStrc;
 struct D2InventoryStrc;
@@ -43,13 +44,6 @@ struct D2GameStrc
     unsigned int dwGameFrame;
 };
 
-struct D2SkillsTxt
-{
-    char unk0x00[0x14];
-    unsigned char nRange;
-    char unk0x15[0x18 - 0x14 - 1];
-    short nITypeA[3];
-};
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -177,7 +171,7 @@ static int __stdcall sub_0055C560_IsThrowSkillUsable(D2UnitStrc* pUnit, D2SkillS
     }
 
     D2SkillsTxt* pSkillsTxtRecord = sub_00644140_GetSkillsTxtFromSkill(pSkill);
-    if (!pSkillsTxtRecord || pSkillsTxtRecord->nITypeA[0] <= 0 || !ITEMS_CheckType(pSkillsTxtRecord->nITypeA[0], 0x30) || pSkillsTxtRecord->nRange != 2)
+    if (!pSkillsTxtRecord || pSkillsTxtRecord->nITypeA[0] <= 0 || !ITEMS_CheckType(pSkillsTxtRecord->nITypeA[0], 0x30) || pSkillsTxtRecord->nAuraTargetState != 2)
     {
         return 0;
     }

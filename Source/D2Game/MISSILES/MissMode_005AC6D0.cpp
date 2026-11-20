@@ -5,6 +5,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2AiParamStrc;
@@ -23,17 +24,6 @@ struct D2GSPacketSrv5D;
 
 
 
-struct D2MissilesTxt
-{
-    char pad0x000[0x24];
-    short wHitSubMissile[4];
-    char pad0x02C[0x20];
-    int dwHitPar[3];
-    char unk0x58[0x50];
-    unsigned int dwHitFlags;
-    unsigned short wResultFlags;
-    char unk0xAE[0xF6];
-};
 
 
 typedef void(__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nUnused);
@@ -78,16 +68,6 @@ int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pDynamicPath)
 int __stdcall MISSILE_GetLevel(D2UnitStrc* pMissile); // 0x0064A210
 int __stdcall MISSILE_GetSkill(D2UnitStrc* pMissile); // 0x0064A280
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x04];
-    unsigned char nFlags[8];
-    unsigned char unk_0C[0x58];
-    unsigned int dwAuraRangeCalc;
-    unsigned char unk_68[0x18];
-    short nAuraState;
-    char unk0x082[0x1BA];
-};
 
 struct D2DamageStrc
 {

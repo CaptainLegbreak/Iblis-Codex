@@ -4,6 +4,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 enum D2C_F39Constants
 {
@@ -145,11 +146,6 @@ struct D2UnkNecSkillStrc
     int nAuraEventFunc[3];
 };
 
-struct D2ItemStatCostTxt
-{
-    int unk0x00;
-    unsigned char nItemStatFlags[4];
-};
 
 struct D2MissileStrc
 {
@@ -232,54 +228,7 @@ struct D2DifficultyLevelsTxt
     int dwStaticFieldMin;
 };
 
-struct D2MissilesTxt
-{
-    unsigned short wId;
-    unsigned short pad0x02;
-    unsigned char nMissileFlags[4];
-    char unk0x08[0x30];
-    int dwParam[5];
-    char unk0x4C[0x158];
-};
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x04];
-    unsigned char nFlags[8];
-    char unk0x00C[0x3C];
-    short wSrvMissileA;
-    short wSrvMissileB;
-    char unk0x04C[0x02];
-    short wSrvOverlay;
-    unsigned int dwAuraFilter;
-    short wAuraStat[6];
-    unsigned int dwAuraLenCalc;
-    unsigned int dwAuraRangeCalc;
-    unsigned int dwAuraStatCalc[6];
-    short nAuraState;
-    short wAuraTargetState;
-    short wAuraEvent[3];
-    short wAuraEventFunc[3];
-    char unk0x090[0x08];
-    short nPassiveStat[5];
-    char unk0x0A2[0x02];
-    unsigned int dwPassiveCalc[5];
-    char unk0x0B8[0x2E];
-    short wSumOverlay;
-    char unk0x0E8[0x28];
-    short wCltOverlayA;
-    char unk0x112[0x1C];
-    unsigned short wResultFlags;
-    unsigned int dwHitFlags;
-    unsigned int dwHitClass;
-    unsigned int dwCalc[4];
-    int dwParam[4];
-    char unk0x158[0x4D];
-    unsigned char nSrcDam;
-    char unk0x1A6[0x36];
-    unsigned char nEType;
-    char unk0x1DD[0x5F];
-};
 
 struct D2StatesTxt
 {

@@ -1,12 +1,9 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x23C];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304

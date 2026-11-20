@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 #define SKILL_INFERNO 41
@@ -20,15 +21,6 @@ struct D2SkillsTxt;
 
 
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x56];
-    short wAiParam[8][3];
-    unsigned char unk_86[0xEA];
-    short nSkill[8];
-    unsigned char nSkillMode[8];
-    char unk0x188[0x20];
-};
 
 struct D2AiTickParamStrc
 {
@@ -82,16 +74,6 @@ struct D2HirelingTxt
     unsigned char nMode[6];
 };
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x04];
-    unsigned char nFlags[8];
-    char unk0x00C[0x74];
-    short nAuraState;
-    char unk0x082[0x1AE];
-    unsigned char nAiType;
-    char unk0x231[0x0B];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

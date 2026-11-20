@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 struct D2SkillsTxt;
 struct D2SkillDescTxt;
@@ -10,16 +11,6 @@ typedef unsigned short Unicode;
 
 
 
-struct D2SkillsTxt
-{
-    char unk0x000[0xEA];
-    short wCltMissileA;
-    char unk0x0EC[0x28];
-    int dwCltCalc[3];
-    unsigned char unk_120[0x74];
-    short wSkillDesc;
-    char unk0x196[0xA6];
-};
 
 struct D2SkillDescTxt
 {

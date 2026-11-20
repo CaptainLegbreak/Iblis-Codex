@@ -1,11 +1,9 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 struct D2GameStrc;
-struct D2SkillsTxt { char unk[0x102]; short sound; char tail[0x138]; };
-struct D2MonStatsTxt { char unk[0x32]; short nVelocity, nRun; };
-struct D2CharStatsTxt { char unk[0x40]; unsigned char nWalkSpeed, nRunSpeed; };
 struct D2ModeChangeStrc {
     int nMode; D2UnitStrc* pUnit; D2UnitStrc* pTargetUnit;
     int nX, nY, unk14, unk18, unk1C;
@@ -83,7 +81,7 @@ int __fastcall sub_004C9B40_StartCharge(D2UnitStrc* pUnit,int nSkillId,int nSkil
  D2UnitStrc* pTarget=sub_004648F0_GetPathTargetUnit(pUnit);
  if(UNITS_GetUnitTypeChecked(pUnit)==0 && pTarget && UNITS_IsInMeleeRange(pUnit,pTarget,0))return sub_004C7630(pUnit,pTarget);
  if(UNITS_GetUnitTypeChecked(pUnit)==0){
-  if(pRecord->sound>0)sub_004B9A00(pRecord->sound,pUnit,0,0,0);
+  if(pRecord->wDoSoundA>0)sub_004B9A00(pRecord->wDoSoundA,pUnit,0,0,0);
  }else if(UNITS_GetUnitTypeChecked(pUnit)==1){
   int sound=sub_004F4F40_GetMonSkillSound(pUnit,nSkillId);
   if(sound>0)sub_004B9A00(sound,pUnit,0,0,0);

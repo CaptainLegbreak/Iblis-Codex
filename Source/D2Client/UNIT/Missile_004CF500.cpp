@@ -3,30 +3,12 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 
 
 
-struct D2MissilesTxt
-{
-    char unk0x000[0x2C];
-    short wCltHitSubMissile[4];
-    char unk0x034[0x38];
-    int dwCltHitPar[3];
-    char unk0x078[0x10];
-    unsigned int dwHitCalc;
-    char unk0x08C[0x0A];
-    short wRange;
-    short wLevRange;
-    char unk0x09A[0x10A];
-};
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x138];
-    unsigned int dwCalc[4];
-    char unk0x148[0xF4];
-};
 
 
 struct D2CltHitPatternStrc

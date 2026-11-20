@@ -1,5 +1,6 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 #ifdef MOVED_TEST
 #define LEVEL_LOW 27
 #define LEVEL_HIGH 42
@@ -33,54 +34,6 @@ struct D2ItemDataStrc
 };
 
 
-struct D2ItemsTxt
-{
-#ifdef MOVED_TEST
-    char movedPrefix[4];
-#endif
-    char unk0x00[128];
-    unsigned int dwCode;
-    unsigned int dwNormCode;
-    unsigned int dwUberCode;
-    unsigned int dwUltraCode;
-    unsigned int dwAlternateGfx;
-    char unk0x94[44];
-    unsigned int dwWeapClass;
-    unsigned int dwWeapClass2Hand;
-    char unk0xC8[20];
-    unsigned int dwBitField1;
-    char unk0xE0[26];
-    unsigned short wMissileType;
-    char unk0xFC[1];
-    unsigned char nLevel;
-    char unk0xFE[6];
-    unsigned char nRangeAdder;
-    char unk0x105[1];
-    short nStrBonus;
-    short nDexBonus;
-    char unk0x10A[5];
-    unsigned char nInvWidth;
-    unsigned char nInvHeight;
-    char unk0x111[4];
-    unsigned char nComponent;
-    char unk0x116[6];
-    unsigned char n2Handed;
-    unsigned char nUseable;
-    short wType[2];
-    char unk0x122[7];
-    unsigned char nUnique;
-    unsigned char nQuest;
-    char unk0x12B[7];
-    unsigned char nStackable;
-    char unk0x133[2];
-    unsigned char nDurWarning;
-    unsigned char nQuantityWarning;
-    unsigned char nHasInv;
-    unsigned char nGemSockets;
-    char unk0x139[3];
-    unsigned char nHitClass;
-    char unk0x13D[107];
-};
 
 struct D2ItemTypesTxt
 {

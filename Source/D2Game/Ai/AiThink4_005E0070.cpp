@@ -4,6 +4,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define AI_GetParam(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
@@ -124,14 +125,6 @@ struct D2AiControlStrc
     int dwAiParam[3];
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x000[0x56];
-    short wAiParam[8][3];
-    unsigned char unk_86[0xEA];
-    short nSkill[8];
-    unsigned char nSkillMode[8];
-};
 
 struct D2AiTickParamStrc
 {
@@ -247,14 +240,6 @@ struct D2AiCmdStrc
     int nCmdParam[5];
 };
 
-struct D2SkillsTxt
-{
-    char unk0x000[0x048];
-    short wSrvMissileA;
-    char unk0x04A[0x138 - 0x04A];
-    unsigned int dwCalc[4];
-    char unk0x148[0x23C - 0x148];
-};
 
 struct D2ModeChangeStrc
 {

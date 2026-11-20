@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct T00481920;
@@ -52,42 +53,8 @@ struct Unicode
 
 
 
-struct D2ItemStatCostTxt
-{
-    char unk0x00[0x18];
-    unsigned char nValShift;
-    char unk0x19[0x1D];
-    unsigned char nDescFunc;
-    unsigned char nDescVal;
-    unsigned short wDescStrPos;
-    unsigned short wDescStrNeg;
-    unsigned short wDescStr2;
-    unsigned short wDescGrp;
-    unsigned char nDescGrpFunc;
-    unsigned char nDescGrpVal;
-    unsigned short wDescGrpStrPos;
-    unsigned short wDescGrpStrNeg;
-    unsigned short wDescGrpStr2;
-    char unk0x48[0x0C];
-    unsigned char nOp;
-    unsigned char nOpParam;
-    unsigned short wOpBase;
-    char unk0x58[0xEC];
-};
 
-struct D2CharStatsTxt
-{
-    char unk0x00[0x52];
-    unsigned short wStrAllSkills;
-    unsigned short wStrSkillTab[3];
-    unsigned short wStrClassOnly;
-};
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x06];
-    unsigned short wNameStr;
-};
 
 struct D2MonTypeTxt
 {
@@ -95,18 +62,7 @@ struct D2MonTypeTxt
     unsigned short wStrPlur;
 };
 
-struct D2SkillsTxt
-{
-    char unk0x00[0x0C];
-    char nCharClass;
-};
 
-struct D2ItemsTxt
-{
-    char unk0x000[0x112];
-    unsigned char nDurability;
-    unsigned char nNoDurability;
-};
 
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837

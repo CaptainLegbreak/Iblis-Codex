@@ -1,5 +1,6 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 #ifdef MOVED_TEST
 #define BURST_CENTER 22
 #define MISSILE_FLAGS 7
@@ -8,10 +9,6 @@
 #define MISSILE_FLAGS 3
 #endif
 struct D2GameStrc;
-struct D2SkillsTxt
-{
-    char unk0x000[0x23C];
-};
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArg);
 struct D2MissileStrc
 {

@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+#include "D2Txt.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -74,11 +75,6 @@ struct D2GameStrc
     T005438E0* pQuestControl;
 };
 
-struct D2ItemsTxt
-{
-    char unk0x000[0x12A];
-    unsigned char nQuest;
-};
 
 #define UNIT_MONSTER 1
 #define UNIT_INVALID 6

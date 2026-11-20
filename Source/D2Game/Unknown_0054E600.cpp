@@ -1,20 +1,10 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 
 
-struct D2MonStatsTxt
-{
-    short nId;
-    short nBaseId;
-    char pad0x04[8];
-    unsigned char nMonStatsFlags[4];
-    char pad0x10[0x1F];
-    unsigned char nMinGrp;
-    unsigned char nMaxGrp;
-    char pad0x31[0x1A8 - 0x31];
-};
 
 
 struct D2MonsterRegionStrc

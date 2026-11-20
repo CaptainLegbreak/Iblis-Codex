@@ -2,6 +2,7 @@
 #include "D2Constants.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define gnGlobal_007BCAA0 (gInvRect_007BCAA0.nLeft)
@@ -80,24 +81,7 @@ struct D2SetItemsTxt
     unsigned char nAddFunc;
 };
 
-struct D2SkillsTxt
-{
-    short nSkillId;
-    char unk0x02[2];
-    unsigned char nFlags[8];
-    char unk0x0C[0xDE];
-    short wCltMissileA;
-    short wCltMissileB;
-    short wCltMissileC;
-    char unk0xF0[0x1A];
-    short wTgtSound;
-    char unk0x10C[0x130];
-};
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x1A8];
-};
 
 
 struct D2RequestStrc

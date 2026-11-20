@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Constants.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define SKILLSFLAGINDEX_PROGRESSIVE 2
@@ -515,15 +516,6 @@ enum D2C_F23Constants
     STATE_ID_END = 0xFF,
 };
 
-struct D2ItemStatCostTxt
-{
-    unsigned short wStatId;
-    unsigned short pad0x02;
-    unsigned char nItemStatFlags[4];
-    unsigned char nSendBits;
-    unsigned char nSendParamBits;
-    char unk0x0A[0x13A];
-};
 
 struct D2GSPacketSrv0D
 {
@@ -908,12 +900,6 @@ struct D2SkillPacketStrc
 };
 
 #pragma pack(pop)
-struct D2SkillsTxt
-{
-    char unk0x000[0x04];
-    unsigned char nFlags[8];
-    char unk0x00C[0x230];
-};
 
 void __fastcall sub_004C6930_DoSkillPrgFunc(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillId, int nSkillLevel, int nX, int nY, unsigned char nMode); // 0x004C6930
 void __fastcall sub_004C6AC0_DoSkill(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSkillId, int nSkillLevel, int nX, int nY, int nMode);

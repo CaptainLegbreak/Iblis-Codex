@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 struct D2SeedStrc;
 struct D2StaticPathStrc;
@@ -14,15 +15,6 @@ struct D2SummonArgs;
 
 
 
-struct D2MissilesTxt
-{
-    char unk00[0x38];
-    int dwParam[5];
-    unsigned char unk_4C[0x135];
-    unsigned char startFrame;
-    unsigned char endFrame;
-    char tail[0x21];
-};
 
 struct D2DataTables { char pad[0xb64]; D2MissilesTxt* missiles; int unknown; int count; };
 
@@ -37,7 +29,6 @@ int __stdcall sub_0064A380_GetRemainingFrames(D2UnitStrc*); // 0x0064A380
 void __stdcall COLLISION_SetMaskWithSize(D2ActiveRoomStrc*,int,int,int,unsigned short); // 0x0064EA00
 extern "C" void* __cdecl memset(void*,int,unsigned int);
 
-struct D2SkillsTxt { char unk_00[190]; unsigned char petType; };
 
 
 struct D2SummonArgs { int mode; D2UnitStrc* owner; int monsterId; int unknown; int variant; int x; int y; int petType; int flags; };
@@ -80,13 +71,13 @@ int __fastcall sub_005AE520_UpdateMissileFrames(D2GameStrc* game,D2UnitStrc* uni
  if(!rec) return MISSMODE_HandleMissileCollision(game,unit);
  int frame=unit->nSeqCurrentFramePrecise>>8;
  COLLISION_SetMaskWithSize(UNITS_GetRoom(unit),GetX(unit),GetY(unit),UNITS_GetUnitSizeX(unit),0x40);
- if(frame==rec->startFrame-1) {
-  unit->nSeqCurrentFramePrecise=(frame+sub_0045C3E0_RollLimited(&unit->pSeed,rec->endFrame-rec->startFrame))<<8;
+ if(frame==rec->nSubStart-1) {
+  unit->nSeqCurrentFramePrecise=(frame+sub_0045C3E0_RollLimited(&unit->pSeed,rec->nSubStop-rec->nSubStart))<<8;
  }
- else if(sub_0064A380_GetRemainingFrames(unit)==rec->startFrame) {
-  unit->nSeqCurrentFramePrecise=(rec->startFrame-3)<<8;
+ else if(sub_0064A380_GetRemainingFrames(unit)==rec->nSubStart) {
+  unit->nSeqCurrentFramePrecise=(rec->nSubStart-3)<<8;
  }
- else if(sub_0064A380_GetRemainingFrames(unit)<rec->startFrame) {
+ else if(sub_0064A380_GetRemainingFrames(unit)<rec->nSubStart) {
   frame-=2; if(frame<0)frame=0; unit->nSeqCurrentFramePrecise=frame<<8;
  }
  return MISSMODE_HandleMissileCollision(game,unit);
@@ -108,7 +99,7 @@ int __fastcall sub_005AEDA0_SummonPet(D2GameStrc* game,D2UnitStrc* unit)
   int variant;
   int monsterId=sub_0056E620_GetValidMonsterId(owner,0,skillId,skillLevel,&variant,0,0);
   if(monsterId<0) return 0;
-  unsigned char petType=skill->petType;
+  unsigned char petType=skill->nPetType;
   if(petType>=sgptDataTables->nPetTypeTxtRecordCount) petType=0;
   D2UnitStrc* target=SUNIT_GetServerUnit(game,1,sub_0064A730_GetUnitId(unit));
   if(target) {

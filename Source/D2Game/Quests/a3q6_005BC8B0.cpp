@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 
 struct D2PlayerDataStrc
@@ -57,11 +58,6 @@ struct D2Act3Quest6Strc
     int nSoulstonesToDrop;
 };
 
-struct D2ObjectsTxt
-{
-    char unk0x00[0xD8];
-    unsigned int dwFrameCnt[8];
-};
 
 #define QFLAG_REWARDGRANTED 0
 #define QFLAG_CUSTOM7 11

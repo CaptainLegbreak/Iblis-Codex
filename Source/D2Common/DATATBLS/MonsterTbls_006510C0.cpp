@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Txt.h"
 
 #define TC_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2BinFieldStrc;
@@ -20,13 +21,6 @@ struct D2BinFieldStrc
     void* pLinkField;
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x000[0x04A];
-    unsigned char nMaxChainId;
-    unsigned char nChainId;
-    char unk0x04C[0x1A8 - 0x04C];
-};
 
 struct D2HirelingTxt
 {

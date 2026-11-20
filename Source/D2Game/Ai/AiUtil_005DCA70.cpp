@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 struct D2MonStatsTxt;
 struct D2AiTargetSearchArgsStrc;
@@ -67,24 +68,7 @@ enum D2C_J07AiConstants
     TRAPMISSILE_AI_PARAM_DELAY = 2,
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x0C];
-    unsigned char nMonStatsFlags[4];
-    char unk0x10[0x08];
-    short wMonStatsEx;
-    char unk0x1A[0x3C];
-    short wAiParam[8][3];
-    char unk0x86[0x122];
-};
 
-struct D2MonStats2Txt
-{
-    char unk0x00[0x10B];
-    unsigned char nResurrectMode;
-    unsigned short nResurrectSkill;
-    char unk0x10E[0x26];
-};
 
 
 struct D2AiTickParamStrc

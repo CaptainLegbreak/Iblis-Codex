@@ -1,10 +1,8 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
-struct D2SkillsTxt { char unk[0x23C]; };
-struct D2MonStatsTxt { char unk[0x32]; short nVelocity, nRun; };
-struct D2CharStatsTxt { char unk[0x40]; unsigned char nWalkSpeed, nRunSpeed; };
 struct D2ModeChangeStrc {
     int nMode; D2UnitStrc* pUnit; D2UnitStrc* pTargetUnit;
     int nX, nY, unk14, unk18, unk1C;

@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2Txt.h"
 
 struct Unicode
 {
@@ -14,17 +15,6 @@ struct UnicodeChar : Unicode
 };
 
 
-struct D2SkillsTxt
-{
-    short nSkillId;
-    char unk0x02[0x136];
-    unsigned int dwCalc;
-    char unk0x13C[0x69];
-    unsigned char nSrcDam;
-    char unk0x1A6[0x36];
-    unsigned char nEType;
-    char unk0x1DD[0x5F];
-};
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...);             // 0x006CC468

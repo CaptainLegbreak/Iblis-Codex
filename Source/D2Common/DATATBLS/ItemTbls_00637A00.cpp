@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2Txt.h"
 struct D2BinFieldStrc;
 struct D2OpStatDataStrc;
 struct D2ItemStatCostTxt;
@@ -16,65 +17,7 @@ struct D2BinFieldStrc
     void* pLinker;
 };
 
-struct D2OpStatDataStrc
-{
-    unsigned short wOpBase;
-    unsigned short wStatId;
-    unsigned char nOp;
-    unsigned char nOpParam;
-};
 
-struct D2ItemStatCostTxt
-{
-    unsigned short wStatId;
-    unsigned short unk0x02;
-    unsigned char nItemStatFlags[4];
-    unsigned char nSendBits;
-    unsigned char nSendParamBits;
-    unsigned char nCsvBits;
-    unsigned char nCsvParam;
-    int nDivide;
-    int nMultiply;
-    int nAdd;
-    unsigned char nValShift;
-    unsigned char nSaveBits;
-    unsigned char n109SaveBits;
-    unsigned char unk0x1B;
-    int nSaveAdd;
-    int n109SaveAdd;
-    int nSaveParamBits;
-    int unk0x28;
-    int nMinAccr;
-    unsigned char nEncode;
-    unsigned char unk0x31;
-    unsigned short wMaxStat;
-    short nDescPriority;
-    unsigned char nDescFunc;
-    unsigned char nDescVal;
-    unsigned short wDescStrPos;
-    unsigned short wDescStrNeg;
-    unsigned short wDescStr2;
-    unsigned short wDgrp;
-    unsigned char nDgrpFunc;
-    unsigned char nDgrpVal;
-    unsigned short wDgrpStrPos;
-    unsigned short wDgrpStrNeg;
-    unsigned short wDgrpStr2;
-    unsigned short wItemEvent[2];
-    unsigned short wItemEventFunc[2];
-    unsigned char nKeepZero;
-    unsigned char unk0x51;
-    unsigned char unk0x52;
-    unsigned char unk0x53;
-    unsigned char nOp;
-    unsigned char nOpParam;
-    unsigned short wOpBase;
-    unsigned short wOpStat[3];
-    unsigned short wOpStatData[64];
-    D2OpStatDataStrc pOpStatData[16];
-    unsigned short unk0x13E;
-    int nStuff;
-};
 
 struct D2ItemStatCostDescStrc
 {
@@ -99,12 +42,6 @@ struct D2GambleTxt
     int nItemId;
 };
 
-struct D2ItemsTxt
-{
-    char unk0x000[0xFD];
-    unsigned char nLevel;
-    char unk0x0FE[0xAA];
-};
 
 struct D2GambleDataTbl
 {
@@ -221,7 +158,7 @@ void __fastcall DATATBLS_LoadItemStatCostTxt(void* hArchive)
     {
         for (int j = 0; j < 64; ++j)
         {
-            pTxt[i].wOpStatData[j] = 0xFFFF;
+            pTxt[i].wStatsAffected[j] = 0xFFFF;
         }
     }
 
@@ -234,10 +171,10 @@ void __fastcall DATATBLS_LoadItemStatCostTxt(void* hArchive)
             {
                 D2ItemStatCostTxt* pOpBase = &gpItemStatCostTxt[pItemStatCostTxt->wOpBase];
                 int j = 0;
-                pOpBase->unk0x51 = 1;
+                pOpBase->bIsBaseOfOtherStatOp = 1;
                 for (j = 0; j < 64; ++j)
                 {
-                    if (pOpBase->wOpStatData[j] >= gnItemStatCostTxtRecordCount)
+                    if (pOpBase->wStatsAffected[j] >= gnItemStatCostTxtRecordCount)
                     {
                         break;
                     }
@@ -245,12 +182,12 @@ void __fastcall DATATBLS_LoadItemStatCostTxt(void* hArchive)
 
                 if (j < 64)
                 {
-                    pOpBase->wOpStatData[j] = i;
+                    pOpBase->wStatsAffected[j] = i;
                 }
 
                 if (pItemStatCostTxt->nOp == 4 || pItemStatCostTxt->nOp == 5)
                 {
-                    pItemStatCostTxt->unk0x53 = 1;
+                    pItemStatCostTxt->bHasOpApplyingToItem = 1;
                 }
             }
 
@@ -262,7 +199,7 @@ void __fastcall DATATBLS_LoadItemStatCostTxt(void* hArchive)
                     break;
                 }
 
-                pItemStatCostTxt->unk0x51 = 1;
+                pItemStatCostTxt->bIsBaseOfOtherStatOp = 1;
 
                 int j = 0;
                 for (j = 0; j < 16; ++j)
@@ -275,11 +212,11 @@ void __fastcall DATATBLS_LoadItemStatCostTxt(void* hArchive)
 
                 if (j < 16)
                 {
-                    gpItemStatCostTxt[nStatId].pOpStatData[j].wStatId = i;
+                    gpItemStatCostTxt[nStatId].pOpStatData[j].nStat = i;
                     gpItemStatCostTxt[nStatId].pOpStatData[j].nOp = pItemStatCostTxt->nOp;
-                    gpItemStatCostTxt[nStatId].pOpStatData[j].wOpBase = pItemStatCostTxt->wOpBase;
+                    gpItemStatCostTxt[nStatId].pOpStatData[j].nOpBase = pItemStatCostTxt->wOpBase;
                     gpItemStatCostTxt[nStatId].pOpStatData[j].nOpParam = pItemStatCostTxt->nOpParam;
-                    gpItemStatCostTxt[nStatId].unk0x52 = 1;
+                    gpItemStatCostTxt[nStatId].bHasOpStatData = 1;
 
                     if (i == 7 || nStatId == 7)
                     {

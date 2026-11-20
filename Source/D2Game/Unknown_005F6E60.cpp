@@ -4,6 +4,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 
 
@@ -15,14 +16,6 @@ struct D2AiControlStrc
     int dwAiParam[2];
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x32];
-    short nVelocity;
-    short nRun;
-    char unk0x36[0x20];
-    short wAiParam[8][3];
-};
 
 struct D2AiTickParamStrc
 {

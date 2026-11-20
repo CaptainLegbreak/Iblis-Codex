@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define QUEST_A5Q5_ANCIENTS 35
 #define STAT_LEVEL 12
@@ -147,11 +148,6 @@ struct D2ObjInitFnStrc
     D2UnitStrc* pObject;
 };
 
-struct D2ObjectsTxt
-{
-    char unk0x000[0xD8];
-    unsigned int dwFrameCnt[8];
-};
 
 struct D2QuestArgStrc
 {

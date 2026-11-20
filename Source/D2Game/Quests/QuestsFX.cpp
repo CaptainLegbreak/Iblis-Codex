@@ -5,6 +5,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define MAX(a, b) ((a) < (b) ? (b) : (a))
@@ -50,7 +51,6 @@ struct D2UnitFindDataStrc
     int nFlags; int nIndex; int nMaxArrayEntries; int nX; int nY; int nSize;
 };
 
-struct D2MissilesTxt { char unk0x00[0x96]; short wRange; char unk0x98[0x1A4 - 0x98]; };
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -112,11 +112,6 @@ enum D2C_P11QuestsFxConstants
     EVENTTYPE_ENDANIM = 1,
 };
 
-struct D2ObjectsTxt
-{
-    char unk0x00[0xD8];
-    unsigned int dwFrameCnt[8];
-};
 
 D2UnitStrc* __stdcall UNITFINDS_FindUnitInNeighboredRooms(D2ActiveRoomStrc* pRoom, int nUnitType, int nClassId); // 0x0065A620
 void __stdcall MISSILE_SetTargetX(D2UnitStrc* pMissile, int nTargetX); // 0x0064A710

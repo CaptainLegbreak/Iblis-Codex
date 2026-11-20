@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 struct D2GfxCodeRecordStrc;
 struct D2GfxCodeTableStrc;
@@ -35,17 +36,7 @@ struct D2OverlayTxt
     unsigned short pad0x82;
 };
 
-struct D2MonStats2Txt
-{
-    char unk0x00[0xF4];
-    unsigned char nModeDirections[16];
-};
 
-struct D2MissilesTxt
-{
-    char unk0x00[0x1A0];
-    unsigned char nNumDirections;
-};
 
 struct D2MonGfxCacheStrc
 {

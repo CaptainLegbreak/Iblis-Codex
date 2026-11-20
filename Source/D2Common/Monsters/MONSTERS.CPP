@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define CHECK(p,line) if (!(p)) { sub_00408A60(text_006CC837,sub_00408090(),line); sub_00681E09(-1); }
 struct Unicode;
@@ -23,17 +24,6 @@ struct D2MonsterDataStrc
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x02];
-    short nBaseId;
-    short nNextInClass;
-    unsigned char unk_06[0x6];
-    unsigned char nMonStatsFlags[4];
-    unsigned char unk_10[0x9A];
-    short nLevel[3];
-    char unk0xB0[0xF8];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

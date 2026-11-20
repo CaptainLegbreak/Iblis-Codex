@@ -2,6 +2,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 // build: ob1
 
 struct D2ClientStrc;
@@ -21,13 +22,6 @@ struct D2BooksTxt
     int dwBookSkillId;
 };
 
-struct D2SkillsTxt
-{
-    char unk0x00[0x14];
-    unsigned char nRange;
-    char unk0x15[0x18 - 0x14 - 1];
-    short nITypeA[3];
-};
 
 struct D2EquipmentRefreshStateStrc
 {

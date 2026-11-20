@@ -1,17 +1,9 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 
-struct D2SkillsTxt
-{
-    short nSkillId;
-    char unk0x002[0x16E];
-    int dwReqSkillCalc;
-    char unk0x174[0x20];
-    short wSkillDesc;
-    char unk0x196[0xA6];
-};
 
 struct D2SkillDescTxt
 {
@@ -150,9 +142,9 @@ void __cdecl sub_004AC200_RefreshSkillTree()
             }
 
             int nRequired = 1;
-            if (pSkillsTxtRecord->dwReqSkillCalc != -1)
+            if (pSkillsTxtRecord->dwSkPoints != -1)
             {
-                nRequired = SKILLS_EvaluateSkillFormula(pPlayer, pSkillsTxtRecord->dwReqSkillCalc, nSkillId, nLevel);
+                nRequired = SKILLS_EvaluateSkillFormula(pPlayer, pSkillsTxtRecord->dwSkPoints, nSkillId, nLevel);
             }
 
             if (nPoints >= nRequired && bCanLearn)

@@ -1,4 +1,5 @@
 #include "D2Game.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2LowQualityItemsTxt;
@@ -59,11 +60,6 @@ void __stdcall ITEMMODS_AssignProperty(int nMode, D2UnitStrc* pUnit, D2UnitStrc*
 extern const int gnRareAffixCounts_006E3014[]; // 0x006E3014
 static int __stdcall ITEMS_RollLegacyRareItem(D2ItemDropStrc* pItemDrop, D2UnitStrc* pItem); // 0x005C1E80
 
-struct D2ItemsTxt
-{
-    char unk0x00[0x112];
-    unsigned char nDurability;
-};
 
 struct D2LowQualityItemDataTbl
 {

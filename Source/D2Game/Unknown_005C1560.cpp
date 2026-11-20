@@ -1,3 +1,4 @@
+#include "D2Txt.h"
 struct D2UnitStrc { int dwUnitType; int dwClassId; };
 struct D2SeedStrc
 {
@@ -12,7 +13,6 @@ struct D2SeedStrc
     };
 };
 
-struct D2ItemsTxt { char pad00[0x140]; unsigned char nMagicLevel; };
 struct D2MagicAffixTxt
 {
     char pad00[0x22];

@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 #define UNIT_MONSTER 1
 #define UNIT_INVALID 6
@@ -22,14 +23,6 @@ enum D2C_SkillsTxtFlagIndices
     SKILLSFLAGINDEX_INTOWN = 8,
 };
 
-struct D2SkillsTxt
-{
-    char unk0x00[4];
-    unsigned char nFlags[8];
-    char unk0x0C[0x58];
-    unsigned int dwAuraRangeCalc;
-    char unk0x68[0x23C - 0x68];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -63,23 +56,7 @@ int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath); // 0x00648900
 static int __stdcall sub_004C8350_CanTargetRoom(int nSkillId, D2UnitStrc* pUnit, int nX, int nY); // 0x004C8350
 static int __stdcall sub_004C80D0_AdjustTargetPosition(int nSkillId, D2UnitStrc* pUnit, int nSkillLevel, int* pX, int* pY); // 0x004C80D0
 
-struct D2MonStatsTxt
-{
-    short nId;
-    short nBaseId;
-    unsigned char unk_04[0x2E];
-    short nVelocity;
-    short nRun;
-    char unk0x36[0x172];
-};
 
-struct D2CharStatsTxt
-{
-    char unk0x00[0x40];
-    unsigned char nWalkSpeed;
-    unsigned char nRunSpeed;
-    char unk0x42[0x82];
-};
 void __stdcall PATH_SetFootprintCollisionMask(D2DynamicPathStrc* pDynamicPath, int nCollisionMask); // 0x00648C30
 void __stdcall D2COMMON_10170_PathSetTargetPos(D2DynamicPathStrc* pPath, int nX, int nY); // 0x00648AD0
 void __stdcall PATH_SetType(D2DynamicPathStrc* pDynamicPath, int nPathType); // 0x00648CF0

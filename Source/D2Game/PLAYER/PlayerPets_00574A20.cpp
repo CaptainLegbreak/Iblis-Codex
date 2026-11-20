@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2PetInfoStrc;
@@ -94,12 +95,6 @@ struct D2PetTypeTxt
     char unk0x0A[0xD6];
 };
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x0C];
-    unsigned char dwMonStatsFlags[4];
-    char unk0x10[0x198];
-};
 
 typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg);
 
@@ -254,7 +249,7 @@ static __forceinline int sub_F05_CheckMonStatsFlag(int nMonsterId, int nFlag)
         return 0;
     }
 
-    return pMonStatsTxtRecord->dwMonStatsFlags[nFlag >> 3] & gdwBitMasks[nFlag & 7];
+    return pMonStatsTxtRecord->nMonStatsFlags[nFlag >> 3] & gdwBitMasks[nFlag & 7];
 }
 
 static __forceinline int sub_F05_GetUnitX(D2UnitStrc* pUnit)

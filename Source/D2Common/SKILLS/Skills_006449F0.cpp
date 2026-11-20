@@ -1,38 +1,11 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 struct D2InventoryStrc;
 struct D2SkillsTxt;
 struct D2SkillCalcStrc;
 
-struct D2SkillsTxt
-{
-    char unk0x00[4];
-    unsigned char nFlags[8];
-    unsigned char unk_0C[0x18C];
-    int dwToHit;
-    int dwLevToHit;
-    unsigned int dwToHitCalc;
-    unsigned char nToHitShift;
-    unsigned char nSrcDam;
-    char unk0x1A6[2];
-    int dwMinDam;
-    int dwMaxDam;
-    int dwMinLvlDam[5];
-    int dwMaxLvlDam[5];
-    unsigned int dwDmgSymPerCalc;
-    unsigned char nEType;
-    char unk0x1DD[3];
-    int dwEMin;
-    int dwEMax;
-    int dwEMinLev[5];
-    int dwEMaxLev[5];
-    unsigned int dwEDmgSymPerCalc;
-    int dwELen;
-    int dwELevLen[3];
-    unsigned int dwELenSymPerCalc;
-    char unk0x228[572 - 532 - 20];
-};
 
 
 struct D2SkillCalcStrc

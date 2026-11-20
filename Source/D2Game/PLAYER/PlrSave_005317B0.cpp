@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2Txt.h"
 
 #define WRITE_ITEM(pItem) { const int nSize = D2GAME_SAVE_SerializeItem_6FC89AD0(pGame, pUnit, pItem, pData, nBufferSize - (pData - pBuffer), a4, a5, a6); if (nSize < 0) return -1; pData += nSize; if (!nSize && nItems > 0) --nItems; }
 #define PREPARE_ITEM(pItem) (ITEMS_SerializeItemToBitstream(pItem, tempBuffer, sizeof(tempBuffer), 1, 1, 0))
@@ -126,25 +127,9 @@ struct D2WaypointSaveSectionStrc
     D2WaypointSaveRecordStrc pRecords[3];
 };
 
-struct D2CharItemStrc
-{
-    int dwItemCode;
-    int unk0x04;
-};
-
-struct D2CharStatsTxt
-{
-    char unk0x00[0x5C];
-    D2CharItemStrc pItems[10];
-    char unk0xAC[0x18];
-};
 
 
-struct D2ItemsTxt
-{
-    char unk0x00[0x80];
-    unsigned int dwCode;
-};
+
 
 
 struct D2DrlgDeleteStrc

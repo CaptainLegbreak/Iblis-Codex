@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 struct D2GameStrc;
 struct D2SkillsTxt;
@@ -15,11 +16,6 @@ struct D2UnitStrc
     D2PlayerDataStrc* pPlayerData;
 };
 
-struct D2SkillsTxt
-{
-    char unk0x00[0x0C];
-    char nCharClass;
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

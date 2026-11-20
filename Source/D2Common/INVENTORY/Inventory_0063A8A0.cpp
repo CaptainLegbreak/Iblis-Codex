@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2Structs.h"
+#include "D2Txt.h"
 #define INVENTORY_SIGNATURE 0x1020304
 #define NUM_BODYLOC 13
 #define WEAPONCLASS_HT1 12
@@ -101,13 +102,6 @@ struct D2BeltsTxt
     D2InvRectStrc beltBoxes[16];
 };
 
-struct D2ItemsTxt
-{
-    char unk0x00[0x80];
-    unsigned int dwCode;
-    char unk0x84[0x131 - 0x80 - 4];
-    unsigned char nAutoBelt;
-};
 
 struct D2Block1 { int n[6]; };
 

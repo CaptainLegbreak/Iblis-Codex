@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 struct D2StaticPathStrc;
 struct D2MissileStrc;
@@ -42,9 +43,7 @@ void __stdcall MISSILE_SetTargetX(D2UnitStrc* pMissile, int nTargetX); // 0x0064
 D2UnitStrc* __stdcall UNITFINDS_FindUnitInNeighboredRooms(D2ActiveRoomStrc* pRoom, int nUnitType, int nClassId); // 0x0065A620
 
 
-struct D2MonStatsTxt { char pad[0x18]; short wMonStatsEx; char pad2[0x1a8 - 0x1a]; };
 
-struct D2MonStats2Txt { char pad[8]; signed char nSizeX; char pad2[0x134 - 9]; };
 
 
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* room, int x, int y); // 0x00463740

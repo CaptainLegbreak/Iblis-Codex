@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 #define MONSTATSFLAGINDEX_OPENDOORS 3
 #define STATE_STUNNED 21
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -13,14 +14,6 @@ struct D2MonStats2Txt;
 
 
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x0C];
-    unsigned char nMonStatsFlags[4];
-    unsigned char unk_10[0x8];
-    short wMonStatsEx;
-    char unk0x01A[0x18E];
-};
 
 struct D2AiTickParamStrc
 {
@@ -34,11 +27,6 @@ struct D2AiTickParamStrc
     D2MonStats2Txt* pMonstats2Txt;
 };
 
-struct D2ObjectsTxt
-{
-    char unk0x00[0x16D];
-    unsigned char nMonsterOK;
-};
 
 struct D2DoorObjectAiCallbackArgStrc
 {
@@ -101,10 +89,6 @@ struct D2MonsterDataStrc
     D2AiControlStrc* pAiControl;
 };
 
-struct D2MonStats2Txt
-{
-    char unk0x000[0x134];
-};
 
 int __fastcall sub_005B10E0_AiTickPreChecks(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam); // 0x005B10E0
 int __fastcall sub_005B1650_AiTickTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam); // 0x005B1650

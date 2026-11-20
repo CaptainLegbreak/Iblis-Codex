@@ -3,6 +3,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2Txt.h"
 
 
 
@@ -30,11 +31,6 @@ struct D2AiControlStrc
 };
 
 
-struct D2MonStatsTxt
-{
-    char unk0x00[0x56];
-    short wAiParam[8][3];
-};
 
 struct D2AiTickParamStrc
 {

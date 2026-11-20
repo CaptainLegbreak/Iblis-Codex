@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2Txt.h"
 
 struct D2MissileDataStrc
 {
@@ -24,27 +25,6 @@ struct D2MissileDataStrc
 };
 
 
-struct D2MissilesTxt
-{
-    char unk0x00[0xB0];
-    int dwMinDamage;
-    int dwMaxDamage;
-    int dwMinLevDam[5];
-    int dwMaxLevDam[5];
-    int dwDmgSymPerCalc;
-    unsigned char nElemType;
-    unsigned char pad0xE5[3];
-    int dwElemMin;
-    int dwElemMax;
-    int dwMinElemLev[5];
-    int dwMaxElemLev[5];
-    int dwElemDmgSymPerCalc;
-    int dwElemLen;
-    int dwElemLevLen[3];
-    char unk0x12C[0x6A];
-    unsigned char nHitShift;
-    char unk0x197[0x0D];
-};
 
 
 struct D2MissileCalcStrc
