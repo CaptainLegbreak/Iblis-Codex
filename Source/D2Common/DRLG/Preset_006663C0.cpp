@@ -6,6 +6,7 @@
 #include "D2LevelTxt.h"
 #include "D2DrlgMaps.h"
 #include "D2GameAux.h"
+#include "D2DrlgPresets.h"
 
 
 
@@ -49,25 +50,7 @@ union D2C_PackedTileInformation
 struct D2DrlgVertexStrc;
 
 
-struct D2DrlgPresetRoomStrc
-{
-    int nLevelPrest;
-    int nPickedFile;
-    D2DrlgMapStrc* pMap;
-    unsigned int dwFlags;
-    D2DrlgGridStrc pWallGrid[4];
-    D2DrlgGridStrc pTileTypeGrid[4];
-    D2DrlgGridStrc pFloorGrid[2];
-    D2DrlgGridStrc pCellGrid;
-    D2DrlgGridStrc* pMazeGrid;
-    D2DrlgCoordStrc* pTombStoneTiles;
-    int nTombStoneTiles;
-};
 
-struct D2DrlgPresetLevelStrc
-{
-    D2DrlgMapStrc* pDrlgMap;
-};
 
 
 

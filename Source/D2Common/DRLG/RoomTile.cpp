@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Drlg.h"
 #include "D2DrlgMaps.h"
+#include "D2DrlgPresets.h"
 
 #pragma function(memset)
 
@@ -64,15 +65,6 @@ union D2C_PackedTileInformation
 };
 
 
-struct D2DrlgRoomTilesStrc
-{
-    D2DrlgTileDataStrc* pWallTiles;
-    int nWalls;
-    D2DrlgTileDataStrc* pFloorTiles;
-    int nFloors;
-    D2DrlgTileDataStrc* pRoofTiles;
-    int nRoofs;
-};
 
 struct D2DrlgTileGridStrc
 {
@@ -101,12 +93,6 @@ struct Room { char pad0[0x54]; T0066E090* grid; Level* level; };
 void __fastcall sub_0040B480(void*,void*,const char*,int,int); // 0x0040B480
 void* __fastcall FOG_ReallocPool(void*,void*,int,const char*,int,int); // 0x0040B4B0
 
-struct D2DrlgTileLinkStrc
-{
-    int bFloor;
-    D2DrlgTileDataStrc* pMapTile;
-    D2DrlgTileLinkStrc* pNext;
-};
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 void __fastcall sub_M105_EmitSink_0066E5E0(D2DrlgRoomStrc* pDrlgRoom, D2DrlgTileDataStrc** ppTileData, int nX, int nY);

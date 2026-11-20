@@ -1,4 +1,5 @@
 #include "D2Common.h"
+#include "D2DrlgPresets.h"
 
 #define MASK_NO_PATH 0x1000
 #define MASK_PET 0x2000
@@ -8,18 +9,6 @@ struct D2BoundingBoxStrc;
 
 D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinatesImpl(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, D2CoordStrc* pFieldCoord, int nUnitSize, unsigned int nMask, unsigned int nFieldMask, int bAllowNeighborRooms, int nMaxDistance, int nPosIncrementValue); // 0x0064DEA0
 
-struct D2RoomCollisionGridStrc
-{
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-    int nTileX;
-    int nTileY;
-    int nTileWidth;
-    int nTileHeight;
-    unsigned short* pCollisionMask;
-};
 
 struct D2BoundingBoxStrc
 {
