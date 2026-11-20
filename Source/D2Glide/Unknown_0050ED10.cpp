@@ -1,27 +1,5 @@
 #include "D2Glide.h"
 
-struct D2GlideTexCacheEntryStrc
-{
-    int nId;
-    int unk0x04;
-    D2GlideTexOwnerStrc* pOwner;
-    int nOwnerIndex;
-    int unk0x10;
-    D2GlideTexCacheEntryStrc* pNext;
-    D2GlideTexCacheEntryStrc* pPrev;
-};
-
-struct D2GlideTexCacheStrc
-{
-    int unk0x00;
-    int nCount;
-    int nUsed;
-    D2GlideTexCacheEntryStrc* pHead;
-    D2GlideTexCacheEntryStrc* pTail;
-    D2GlideTexCacheEntryStrc* f_14;
-    D2GlideTexCacheEntryStrc* f_18;
-    D2GlideTexCacheEntryStrc* pEntries;
-};
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 
 // 0x0050EB60
@@ -32,17 +10,17 @@ static int sub_0050EB60_ListTakeFree(D2GlideTexCacheStrc* pList)
         return 0;
     }
 
-    D2GlideTexCacheEntryStrc* pNode = pList->f_14;
+    D2GlideTexCacheEntryStrc* pNode = pList->pFreeHead;
     if (pNode)
     {
-        pList->f_14 = pNode->pNext;
-        if (pList->f_14)
+        pList->pFreeHead = pNode->pNext;
+        if (pList->pFreeHead)
         {
-            pList->f_14->pPrev = 0;
+            pList->pFreeHead->pPrev = 0;
         }
         else
         {
-            pList->f_18 = 0;
+            pList->pFreeTail = 0;
         }
         pNode->pNext = 0;
         pNode->pPrev = 0;
@@ -90,20 +68,20 @@ void __fastcall sub_0050EC40_TexCacheEvict(D2GlideTexCacheStrc* pCache)
     {
         if (pEntry->pOwner)
         {
-            pEntry->pOwner[pEntry->nOwnerIndex].unk0x00 = 0;
-            pEntry->pOwner[pEntry->nOwnerIndex].unk0x04 = 0;
+            pEntry->pOwner[pEntry->nOwnerIndex].nCache = 0;
+            pEntry->pOwner[pEntry->nOwnerIndex].nId = 0;
             pEntry->pOwner = 0;
         }
-        if (!pCache->f_14)
+        if (!pCache->pFreeHead)
         {
-            pCache->f_14 = pEntry;
-            pCache->f_18 = pEntry;
+            pCache->pFreeHead = pEntry;
+            pCache->pFreeTail = pEntry;
         }
         else
         {
-            pCache->f_18->pNext = pEntry;
-            pEntry->pPrev = pCache->f_18;
-            pCache->f_18 = pEntry;
+            pCache->pFreeTail->pNext = pEntry;
+            pEntry->pPrev = pCache->pFreeTail;
+            pCache->pFreeTail = pEntry;
         }
     }
     --pCache->nUsed;

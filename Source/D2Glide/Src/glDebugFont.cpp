@@ -137,15 +137,6 @@ struct D2GlideFontVertexStrc
     float unk0x18;
 };
 
-struct D2GrTexInfoStrc
-{
-    int nSmallLodLog2;
-    int nLargeLodLog2;
-    int nAspectRatioLog2;
-    int nFormat;
-    void* pData;
-};
-
 struct D2GlideDebugGlyphStrc
 {
     unsigned char pixels[16][8];

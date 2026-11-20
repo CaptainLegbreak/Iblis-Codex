@@ -1,25 +1,6 @@
 #include "D2Glide.h"
 #include "D2CelContext.h"
 
-
-struct D2GlideTexInfoStrc
-{
-	D2CelContextStrc* pData;
-	int nWidth;
-	int nHeight;
-	int nOffsetX;
-	int nOffsetY;
-	int nTexWidth;
-	int nTexHeight;
-	int nTexArea;
-	float fS0;
-	float fS1;
-	float fT0;
-	float fT1;
-	int nLod;
-	int nAspect;
-};
-
 struct D2GlideVtxStrc
 {
 	float fX;
@@ -68,7 +49,7 @@ static int sub_0050A260_GlideTexInfoInit(D2CelContextStrc* pData, D2GlideTexInfo
 
 	D2_ASSERT(pData->pCel, 206);
 
-	pInfo->pData = pData;
+	pInfo->pContext = pData;
 	pInfo->nWidth = sub_006018C0(pData->pCel);
 	pInfo->nOffsetX = sub_00601920(pData->pCel);
 	pInfo->nHeight = sub_006018F0(pData->pCel);
@@ -80,19 +61,19 @@ static int sub_0050A260_GlideTexInfoInit(D2CelContextStrc* pData, D2GlideTexInfo
 // calling-convention shim (not game code)
 static void sub_0050A2D0_GlideTexInfoSetupSize(D2GlideTexInfoStrc* pInfo)
 {
-	D2CelContextStrc* pData = pInfo->pData;
+	D2CelContextStrc* pData = pInfo->pContext;
 	sub_006018C0(pData->pCel);
 	sub_006018F0(pData->pCel);
 	sub_00601920(pData->pCel);
-	pInfo->nTexArea = sub_00601950(pData->pCel);
+	pInfo->nTexSize = sub_00601950(pData->pCel);
 }
 
 // build: context sub_0050A450_UploadSprite
 // calling-convention shim (not game code)
 static int __stdcall sub_0050A450_UploadSprite(D2GlideTexInfoStrc* pInfo, unsigned char* pPalette, int nArg2, int nArg3)
 {
-	int nResult = sub_00601B10_GetCelPixels(pInfo->pData->pCel);
-	pInfo->nTexArea = nResult;
+	int nResult = sub_00601B10_GetCelPixels(pInfo->pContext->pCel);
+	pInfo->nTexSize = nResult;
 	return nResult + (int)pPalette + nArg2 + nArg3 + pInfo->nWidth;
 }
 

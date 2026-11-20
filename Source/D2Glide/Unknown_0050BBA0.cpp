@@ -1,6 +1,5 @@
 #include "D2Glide.h"
 #include "D2DrlgMaps.h"
-struct D2GrTexInfoStrc;
 struct D2GlideDebugCellStrc;
 struct D2GfxLightStrc;
 struct D2GlideVtxStrc;
@@ -14,13 +13,6 @@ struct T00508FE0
     float sow;
     float tow;
     float unk0x18;
-};
-
-struct D2GrTexInfoStrc
-{
-    int nSmallLodLog2;
-    int nLargeLodLog2;
-    int nAspectRatioLog2;
 };
 
 extern "C" __declspec(dllimport) int __stdcall wvsprintfA(char* szDest, const char* szFormat, char* args); // 0x006CC4AC
@@ -37,13 +29,6 @@ extern void (__stdcall* gpfGlideColorCombine_0087EB2C)(int nFunction, int nFacto
 extern void (__stdcall* gpfGlideMask_0087EB8C)(int bEnable); // 0x0087EB8C
 extern void (__stdcall* gpfGlideConstantColor_0087EFA0)(unsigned int dwColor); // 0x0087EFA0
 extern D2GlideDebugCellStrc** gppGlideDebugBuffer_00880454; // 0x00880454
-
-struct D2GlideTileStrc
-{
-    short nPosX;
-    short nPosY;
-    char unk0x04[0x10];
-};
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern int gnScreenWidth_007C9138; // 0x007C9138

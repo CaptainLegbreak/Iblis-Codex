@@ -2,19 +2,10 @@
 #include "D2DrlgMaps.h"
 
 struct D2GlideSmackStrc;
-struct D2GlideFloorCacheEntryStrc;
-struct D2GlideFloorCacheStrc;
-struct D2GrTexInfoStrc;
-struct D2GlideTexOwnerStrc;
-struct D2GlideTexCacheEntryStrc;
-struct D2GlideTexCacheStrc;
-struct D2GlideTileCacheEntryStrc;
-struct D2GlideTileCacheStrc;
 struct T004F51E0;
 struct D2RgbColorStrc;
 struct T00508FE0;
 struct D2TileLibraryEntryStrc;
-struct D2GlideTileStrc;
 
 struct T00508FE0
 {
@@ -33,37 +24,6 @@ struct D2GlideSmackStrc
     unsigned char nType;
 };
 
-
-struct D2GlideFloorCacheEntryStrc
-{
-    int unk0x00;
-    int f_4;
-    D2TileLibraryEntryStrc* pTile;
-    D2GlideFloorCacheEntryStrc* pNext;
-    D2GlideFloorCacheEntryStrc* pPrev;
-};
-
-struct D2GlideFloorCacheStrc
-{
-    int unk0x00;
-    int nCount;
-    int nUsed;
-    D2GlideFloorCacheEntryStrc* pHead;
-    D2GlideFloorCacheEntryStrc* pTail;
-    D2GlideFloorCacheEntryStrc* f_14;
-    D2GlideFloorCacheEntryStrc* f_18;
-    D2GlideFloorCacheEntryStrc* pEntries;
-};
-
-struct D2GrTexInfoStrc
-{
-    int nSmallLodLog2;
-    int nLargeLodLog2;
-    int nAspectRatioLog2;
-    int nFormat;
-    unsigned char* pData;
-};
-
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" __declspec(dllimport) void __stdcall SmackClose(void* hSmack); // 0x006CC608
 D2GlideFloorCacheEntryStrc* __fastcall sub_0050F570_FloorCacheUnlink(D2GlideFloorCacheStrc* pCache, int nIndex); // 0x0050F570
@@ -76,56 +36,6 @@ extern unsigned char* sgbSmack8BitBuffer; // 0x00880BF0
 extern unsigned char* gpGlideTileDecodeBuffer_00880BFC; // 0x00880BFC
 extern unsigned char* gpGlideFloorDecodeBuffer_00880C00; // 0x00880C00
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-
-struct D2GlideTexCacheEntryStrc
-{
-    int unk0x00[2];
-    D2GlideTexOwnerStrc* pOwner;
-    int nOwnerIndex;
-    int unk0x10;
-    D2GlideTexCacheEntryStrc* pNext;
-    D2GlideTexCacheEntryStrc* pPrev;
-};
-
-struct D2GlideTexCacheStrc
-{
-    int unk0x00;
-    int nCount;
-    int nUsed;
-    D2GlideTexCacheEntryStrc* pHead;
-    D2GlideTexCacheEntryStrc* pTail;
-    D2GlideTexCacheEntryStrc* f_14;
-    D2GlideTexCacheEntryStrc* f_18;
-    D2GlideTexCacheEntryStrc* pEntries;
-};
-
-struct D2GlideTileStrc
-{
-    int unk0x00;
-    short nCacheIndex;
-    short unk0x06;
-};
-
-struct D2GlideTileCacheEntryStrc
-{
-    int unk0x00;
-    int f_4;
-    D2GlideTileStrc* pTile;
-    D2GlideTileCacheEntryStrc* pNext;
-    D2GlideTileCacheEntryStrc* pPrev;
-};
-
-struct D2GlideTileCacheStrc
-{
-    int unk0x00;
-    int nCount;
-    int nUsed;
-    D2GlideTileCacheEntryStrc* pHead;
-    D2GlideTileCacheEntryStrc* pTail;
-    D2GlideTileCacheEntryStrc* f_14;
-    D2GlideTileCacheEntryStrc* f_18;
-    D2GlideTileCacheEntryStrc* pEntries;
-};
 
 struct D2RgbColorStrc
 {
@@ -198,16 +108,16 @@ static void sub_N19_TileEvict(D2GlideTileCacheStrc* pCache)
             pTile->nCacheIndex = 0;
             pEntry->pTile = 0;
         }
-        if (!pCache->f_14)
+        if (!pCache->pFreeHead)
         {
-            pCache->f_14 = pEntry;
-            pCache->f_18 = pEntry;
+            pCache->pFreeHead = pEntry;
+            pCache->pFreeTail = pEntry;
         }
         else
         {
-            pCache->f_18->pNext = pEntry;
-            pEntry->pPrev = pCache->f_18;
-            pCache->f_18 = pEntry;
+            pCache->pFreeTail->pNext = pEntry;
+            pEntry->pPrev = pCache->pFreeTail;
+            pCache->pFreeTail = pEntry;
         }
     }
     --pCache->nUsed;
@@ -397,20 +307,20 @@ void __fastcall sub_0050EC40_TexCacheEvict(D2GlideTexCacheStrc* pCache)
     {
         if (pEntry->pOwner)
         {
-            pEntry->pOwner[pEntry->nOwnerIndex].unk0x00 = 0;
-            pEntry->pOwner[pEntry->nOwnerIndex].unk0x04 = 0;
+            pEntry->pOwner[pEntry->nOwnerIndex].nCache = 0;
+            pEntry->pOwner[pEntry->nOwnerIndex].nId = 0;
             pEntry->pOwner = 0;
         }
-        if (!pCache->f_14)
+        if (!pCache->pFreeHead)
         {
-            pCache->f_14 = pEntry;
-            pCache->f_18 = pEntry;
+            pCache->pFreeHead = pEntry;
+            pCache->pFreeTail = pEntry;
         }
         else
         {
-            pCache->f_18->pNext = pEntry;
-            pEntry->pPrev = pCache->f_18;
-            pCache->f_18 = pEntry;
+            pCache->pFreeTail->pNext = pEntry;
+            pEntry->pPrev = pCache->pFreeTail;
+            pCache->pFreeTail = pEntry;
         }
     }
     --pCache->nUsed;
@@ -481,16 +391,16 @@ void __fastcall sub_0050F6D0_FloorCacheEvict(D2GlideFloorCacheStrc* pCache)
         D2_ASSERT(pTile, 0xD3);
         pTile->nCacheIndex = 0;
         pEntry->pTile = 0;
-        if (!pCache->f_14)
+        if (!pCache->pFreeHead)
         {
-            pCache->f_14 = pEntry;
-            pCache->f_18 = pEntry;
+            pCache->pFreeHead = pEntry;
+            pCache->pFreeTail = pEntry;
         }
         else
         {
-            pCache->f_18->pNext = pEntry;
-            pEntry->pPrev = pCache->f_18;
-            pCache->f_18 = pEntry;
+            pCache->pFreeTail->pNext = pEntry;
+            pEntry->pPrev = pCache->pFreeTail;
+            pCache->pFreeTail = pEntry;
         }
     }
     --pCache->nUsed;
@@ -508,16 +418,16 @@ void __fastcall sub_0050F750_FloorCacheRemove(D2GlideFloorCacheStrc* pCache, int
         D2_ASSERT(pTile, 0xF1);
         pTile->nCacheIndex = 0;
         pEntry->pTile = 0;
-        if (!pCache->f_14)
+        if (!pCache->pFreeHead)
         {
-            pCache->f_14 = pEntry;
-            pCache->f_18 = pEntry;
+            pCache->pFreeHead = pEntry;
+            pCache->pFreeTail = pEntry;
         }
         else
         {
-            pCache->f_18->pNext = pEntry;
-            pEntry->pPrev = pCache->f_18;
-            pCache->f_18 = pEntry;
+            pCache->pFreeTail->pNext = pEntry;
+            pEntry->pPrev = pCache->pFreeTail;
+            pCache->pFreeTail = pEntry;
         }
     }
     --pCache->nUsed;

@@ -1,23 +1,5 @@
 #include "D2Glide.h"
 
-struct D2GlideTexInfoStrc
-{
-    D2CelContextStrc* pContext;
-    int nWidth;
-    int nHeight;
-    int nOffsetX;
-    int nOffsetY;
-    int f_14;
-    int f_18;
-    int nTexSize;
-    float fS0;
-    float fS1;
-    float fT0;
-    float fT1;
-    int nLod;
-    int f_34;
-};
-
 struct D2PaletteRgbStrc
 {
     unsigned char nRed;
@@ -65,7 +47,7 @@ static void __stdcall sub_0050A9A0_GlideDrawSpriteQuad(int nX, int nY, unsigned 
     gaGlideSpriteVertices_0087EFF8[2].dwColor = gaGlideSpriteVertices_0087EFF8[0].dwColor;
     gaGlideSpriteVertices_0087EFF8[1].dwColor = gaGlideSpriteVertices_0087EFF8[0].dwColor;
 
-    const int nDimIndex = pInfo->f_34 + 3;
+    const int nDimIndex = pInfo->nAspect + 3;
     int nTexW = gaGlideAspectTexDims_0072F278[nDimIndex].nWidth;
     int nTexH = gaGlideAspectTexDims_0072F278[nDimIndex].nHeight;
     const float fS0 = pInfo->fS0 * nTexW;
@@ -83,8 +65,8 @@ static void __stdcall sub_0050A9A0_GlideDrawSpriteQuad(int nX, int nY, unsigned 
     }
     else
     {
-        nWidth = pInfo->f_14;
-        nHeight = pInfo->f_18;
+        nWidth = pInfo->nTexWidth;
+        nHeight = pInfo->nTexHeight;
     }
 
     int nLeft = pInfo->nOffsetX;

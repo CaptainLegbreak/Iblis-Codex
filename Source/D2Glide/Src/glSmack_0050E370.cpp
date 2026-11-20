@@ -35,12 +35,6 @@ struct T00508FE0
     float tow;
     float unk0x18;
 };
-struct D2GrTexInfoStrc
-{
-    int nSmallLodLog2;
-    int nLargeLodLog2;
-    int nAspectRatioLog2;
-};
 
 extern "C" __declspec(dllimport) int __stdcall SmackWait(D2SmackStrc* hSmack);                             // 0x006CC5F8
 extern "C" __declspec(dllimport) void __stdcall SmackDoFrame(D2SmackStrc* hSmack);                         // 0x006CC5FC

@@ -2,9 +2,6 @@
 #include "D2GameTypes.h"
 struct D2GfxSettingsStrc;
 struct D2GlideHwQueryStrc;
-struct D2GlideTexSlotStrc;
-struct D2GlideTexCacheEntryStrc;
-struct D2GlideTexCacheStrc;
 
 extern int gdwGlobal_007C8CB0; // 0x007C8CB0
 extern int gdwGlobal_007C8CB4; // 0x007C8CB4
@@ -64,7 +61,6 @@ struct D2GfxPaletteViewStrc
 };
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC1FC
 extern "C" __declspec(dllimport) int __stdcall FreeLibrary(void* hModule); // 0x006CC14C
@@ -112,29 +108,6 @@ extern int gdwGlobal_0087EFC0; // 0x0087EFC0
 extern int gdwGlobal_0087EFBC; // 0x0087EFBC
 extern int (__stdcall* gpfGlideGet_0087EB1C)(int nName, int nSize, int* pParams); // 0x0087EB1C
 extern void (__stdcall* gpfGlideFn_0087EB9C)(int a1, int a2, int a3); // 0x0087EB9C
-
-struct D2GlideTexCacheEntryStrc
-{
-    int nId;
-    int f_4;
-    D2GlideTexSlotStrc* pOwner;
-    int nOwnerIndex;
-    int f_10;
-    D2GlideTexCacheEntryStrc* pNext;
-    D2GlideTexCacheEntryStrc* pPrev;
-};
-
-struct D2GlideTexCacheStrc
-{
-    int unk0x00;
-    int nCount;
-    int nUsed;
-    D2GlideTexCacheEntryStrc* pHead;
-    D2GlideTexCacheEntryStrc* pTail;
-    D2GlideTexCacheEntryStrc* f_14;
-    D2GlideTexCacheEntryStrc* f_18;
-    D2GlideTexCacheEntryStrc* pEntries;
-};
 
 extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC210
 extern "C" int __cdecl atexit(void (__cdecl* pfnExit)()); // 0x00683824

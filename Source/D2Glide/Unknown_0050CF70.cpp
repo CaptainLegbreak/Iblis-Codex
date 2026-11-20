@@ -1,13 +1,6 @@
 #include "D2Glide.h"
 #include "D2DrlgMaps.h"
 
-struct D2GlideTileStrc
-{
-    short nPosX;
-    short nPosY;
-    char unk0x04[0x10];
-};
-
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 
 extern int gnScreenWidth_007C9138;                                                                          // 0x007C9138

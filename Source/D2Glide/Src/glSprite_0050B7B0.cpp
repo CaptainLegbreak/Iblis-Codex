@@ -10,15 +10,6 @@ struct D2GfxSettingsStrc
     int bBlendedShadows;
 };
 
-struct D2GrTexInfoStrc
-{
-    int nSmallLodLog2;
-    int nLargeLodLog2;
-    int nAspectRatioLog2;
-    int nFormat;
-    unsigned char* pData;
-};
-
 typedef void (__fastcall* PixelDataFreeCallback)(void* pData);
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 int __cdecl sub_00509650();                                                                                  // 0x00509650
