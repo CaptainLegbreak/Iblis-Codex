@@ -3,30 +3,13 @@
 #include "D2ItemsWorld.h"
 #include "D2LevelTxt.h"
 #include "D2GameAux.h"
-struct D2DrlgCoordStrc
-{
-    int nPosX;
-    int nPosY;
-    int nWidth;
-    int nHeight;
-};
-
-struct D2DrlgGridStrc
-{
-    int* pCellsFlags;
-    int* pCellsRowOffsets;
-    int nWidth;
-    int nHeight;
-    int nFlags;
-};
-
+#include "D2DrlgPresets.h"
 
 struct D2MapAIStrc
 {
     int nPathNodes;
     D2MapAIPathPositionStrc* pPosition;
 };
-
 
 struct D2DrlgFileStrc
 {
@@ -38,7 +21,6 @@ struct D2DrlgFileStrc
     void* pWallLayer[4];
     void* pFloorLayer[2];
 };
-
 
 union D2C_PackedTileInformation
 {
@@ -86,63 +68,6 @@ struct D2DrlgMapStrc
     int* pPopsOrientation;
     int* pPopsLocation;
     D2DrlgMapStrc* pNext;
-};
-
-struct D2DrlgPresetRoomStrc
-{
-    int nLevelPrest;
-    int nPickedFile;
-    D2DrlgMapStrc* pMap;
-    unsigned int dwFlags;
-    D2DrlgGridStrc pWallGrid[4];
-    D2DrlgGridStrc pTileTypeGrid[4];
-    D2DrlgGridStrc pFloorGrid[2];
-    D2DrlgGridStrc pCellGrid;
-    D2DrlgGridStrc* pMazeGrid;
-    D2DrlgCoordStrc* pTombStoneTiles;
-    int nTombStoneTiles;
-};
-
-struct D2DrlgPresetLevelStrc
-{
-    D2DrlgMapStrc* pDrlgMap;
-};
-
-struct D2DrlgStrc
-{
-    char unk0x000[0x464];
-    void* hArchive;
-    char unk0x468[0x10];
-    void* pMempool;
-};
-
-struct D2DrlgLevelStrc
-{
-    char unk0x000[0x14];
-    D2DrlgPresetLevelStrc* pPreset;
-    char unk0x018[0x19C];
-    D2DrlgStrc* pDrlg;
-    char unk0x1B8[0x18];
-    int eLevelId;
-};
-
-
-struct D2DrlgRoomStrc
-{
-    char unk0x00[0x14];
-    D2SeedStrc pSeed;
-    char unk0x1C[0x4];
-    D2DrlgPresetRoomStrc* pMaze;
-    char unk0x24[0x4];
-    unsigned int dwFlags;
-    char unk0x2C[0x8];
-    D2DrlgCoordStrc pDrlgCoord;
-    char unk0x44[0x4];
-    int nType;
-    char unk0x4C[0x4];
-    unsigned int dwDT1Mask;
-    char unk0x54[0x4];
-    D2DrlgLevelStrc* ptDrlgLevel;
 };
 
 extern "C" const char gszDrlgPresetSourceFile;                                                                    // 0x006EE7C4

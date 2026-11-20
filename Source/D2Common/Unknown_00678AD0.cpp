@@ -1,55 +1,14 @@
 #include "D2Path.h"
 #include "D2DrlgTiles.h"
-
-struct D2DrlgStrc
-{
-    D2SeedStrc pSeed;
-    char unk0x008[0x448];
-    unsigned char nDifficulty;
-    char unk0x451[0x2F];
-    unsigned char nAct;
-};
-
-struct D2DrlgCoordStrc
-{
-    int nPosX;
-    int nPosY;
-    int nWidth;
-    int nHeight;
-};
+#include "D2Drlg.h"
 
 struct D2DrlgOrthStrc;
-
-struct D2DrlgOutdoorInfoStrc
-{
-    unsigned int dwFlags;
-    char unk0x004[0x260];
-    D2DrlgOrthStrc* pRoomData;
-};
 
 struct D2DrlgPresetInfoStrc
 {
     int unk0x00;
     int nDirection;
 };
-
-struct D2DrlgLevelStrc
-{
-    int nDrlgType;
-    char unk0x004[0x10];
-    union
-    {
-        D2DrlgOutdoorInfoStrc* pOutdoors;
-        D2DrlgPresetInfoStrc* pPreset;
-    };
-    char unk0x018[0x04];
-    D2DrlgCoordStrc pLevelCoords;
-    char unk0x02C[0x188];
-    D2DrlgStrc* pDrlg;
-    char unk0x1B8[0x18];
-    int eLevelId;
-};
-
 
 struct D2DrlgLevelLinkDataStrc;
 

@@ -133,10 +133,17 @@ struct D2DrlgLevelStrc
         D2LvlMazeTxt* pMaze;
     };
     int unk0x18; // 0x18
-    int nPosX; // 0x1C
-    int nPosY; // 0x20
-    int nWidth; // 0x24
-    int nHeight; // 0x28
+    union // 0x1C
+    {
+        struct
+        {
+            int nPosX; // 0x1C
+            int nPosY; // 0x20
+            int nWidth; // 0x24
+            int nHeight; // 0x28
+        };
+        D2DrlgCoordStrc pLevelCoords;
+    };
     D2DrlgTileInfoStrc pTileInfo[32]; // 0x2C
     D2DrlgLevelStrc* pNextLevel; // 0x1AC
     D2DrlgMapStrc* pCurrentMap; // 0x1B0
