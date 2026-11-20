@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2ClientTypes.h"
 
 struct D2MsgHandlerEntryStrc;
 struct D2RectStrc;
@@ -18,12 +19,6 @@ void __cdecl sub_004C0090_CloseUseItemPanel(); // 0x004C0090
 
 typedef void(__stdcall* SMSGHANDLER)(SMSGHANDLER_PARAMS* pMsg);
 
-struct D2MsgHandlerEntryStrc
-{
-    int nType;
-    int nId;
-    SMSGHANDLER pfnHandler;
-};
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 extern unsigned long gdwTick_007C5488; // 0x007C5488

@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientTypes.h"
 
 #pragma function(memset)
 
@@ -156,12 +157,6 @@ static void __cdecl sub_004B7100_Select(int step, SelectionState* state); // 0x0
 extern "C" void* __cdecl memset(void* pDest, int nValue, unsigned int nSize); // 0x00681EF0
 void __cdecl sub_00453AE0(); // 0x00453AE0
 
-struct D2MsgHandlerEntryStrc
-{
-    int nType;
-    int nId;
-    void* pfnHandler;
-};
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 void __cdecl sub_0044DA40(); // 0x0044DA40
 void __fastcall sub_00451DB0_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0

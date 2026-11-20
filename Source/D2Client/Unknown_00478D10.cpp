@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2LevelTxt.h"
+#include "D2ClientTypes.h"
 struct D2UnitStrc;
 
 #define PETTYPE_FLAG_PARTY 4
@@ -61,13 +62,6 @@ unsigned int __fastcall sub_004DC440(int nUnitId1, int nUnitId2, unsigned int nF
 int __fastcall sub_0047A070_TestPvpFlag8(int nUnitId1, int nUnitId2); // 0x0047A070
 int __cdecl sub_0044DCC0(); // 0x0044DCC0
 
-struct D2InvRectStrc
-{
-    int nLeft;
-    int nRight;
-    int nTop;
-    int nBottom;
-};
 
 
 struct D2InvCompGridStrc

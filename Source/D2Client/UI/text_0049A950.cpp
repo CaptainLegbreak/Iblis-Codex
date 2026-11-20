@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2CelContext.h"
+#include "D2ClientTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct Unicode;
@@ -57,12 +58,6 @@ struct D2TextListStrc
     unsigned short wCount;
 };
 
-struct D2MsgHandlerEntryStrc
-{
-    int unk0x00;
-    int unk0x04;
-    int unk0x08;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090

@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2ClientTypes.h"
 
 union D2SeedStrc;
 struct D2WeatherSplashStrc;
@@ -16,15 +17,6 @@ extern int gnPhaseMax_007A89C0; // 0x007A89C0
 extern int gnGlobal_007A89DC; // 0x007A89DC
 extern int gbWeatherSplash_007A8A14; // 0x007A8A14
 
-struct D2GfxDataStrc
-{
-    int nFrame;
-    char unk0x04[0x30];
-    D2CelFileStrc* pCellFile;
-    char unk0x38[0x08];
-    int nDirection;
-    char unk0x44[0x04];
-};
 
 struct D2WeatherStrc
 {

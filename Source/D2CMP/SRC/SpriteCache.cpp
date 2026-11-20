@@ -1,5 +1,6 @@
 #include "D2CMP.h"
 #include "D2GameTypes.h"
+#include "D2WinTypes.h"
 
 #pragma intrinsic(strcpy)
 
@@ -158,16 +159,6 @@ struct D2CmpValueObjStrc
 extern D2CmpBlockTableAStrc gCmpBlockTableA; // 0x0088CB20
 extern D2CmpBlockTableBStrc gCmpBlockTableB; // 0x0088DB58
 
-struct D2SpriteCacheNodeStrc
-{
-    void* pData;
-    unsigned int nSize;
-    unsigned int nKey;
-    unsigned int dwFlags;
-    unsigned int dwTick;
-    D2SpriteCacheNodeStrc* pNext;
-    D2SpriteCacheNodeStrc* pPrev;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x00681EF0
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0

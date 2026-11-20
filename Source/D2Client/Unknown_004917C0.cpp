@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
+#include "D2ClientTypes.h"
 struct D2UnitStrc;
 
 
@@ -49,13 +50,6 @@ struct SMSGHANDLER_PARAMS
     int lResult;
 };
 
-struct D2InvRectStrc
-{
-    int nLeft;
-    int nRight;
-    int nTop;
-    int nBottom;
-};
 
 extern D2InvRectStrc gInvRect_007BCAA0;                                                                     // 0x007BCAA0
 #define gnGlobal_007BCAA0 (gInvRect_007BCAA0.nLeft)

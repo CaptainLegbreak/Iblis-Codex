@@ -1,10 +1,4 @@
-struct D2InvRectStrc
-{
-    int nLeft;
-    int nRight;
-    int nTop;
-    int nBottom;
-};
+#include "D2ClientTypes.h"
 
 struct D2BeltsTxt
 {

@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2ClientTypes.h"
 
 #define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
 
@@ -80,12 +81,6 @@ extern int gnGlobal_007BCC40; // 0x007BCC40
 extern int gnGlobal_007BCE30; // 0x007BCE30
 extern int gnGlobal_007BEECC; // 0x007BEECC
 
-struct D2MsgHandlerEntryStrc
-{
-    int nType;
-    int nId;
-    void* pfnHandler;
-};
 
 struct D2TextFieldA4Strc
 {

@@ -1,4 +1,6 @@
 #include "D2Win.h"
+#include "D2ClientTypes.h"
+#include "D2WinTypes.h"
 
 struct D2CharStrc
 {
@@ -23,26 +25,10 @@ struct T0044CB60;
 struct D2GfxDataStrc;
 struct Unicode;
 
-struct D2FontCacheStrc
-{
-    D2CelFileStrc* pCellFile;
-    D2FontStrc* pFontInfo[2];
-    D2CharStrc* pCharInfo;
-    unsigned int dwShiftedTickCount;
-};
 
 extern D2FontCacheStrc gFontCache_00841DA8[]; // 0x00841DA8
 void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode); // 0x004F6300
 
-struct D2GfxDataStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    D2CelFileStrc* pCellFile;
-    int unk0x38[2];
-    int nDirection;
-    int unk0x44;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pCelFile); // 0x006019F0

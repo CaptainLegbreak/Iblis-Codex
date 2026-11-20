@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -6,12 +7,6 @@ struct D2RectStrc;
 struct D2MsgHandlerEntryStrc;
 struct D2DialogWidgetNodeStrc;
 
-struct D2MsgHandlerEntryStrc
-{
-    int nType;
-    int nId;
-    void* pfnHandler;
-};
 
 struct D2DialogWidgetNodeStrc
 {

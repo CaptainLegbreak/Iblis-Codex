@@ -5,6 +5,7 @@
 #include "D2Structs.h"
 #include "D2Txt.h"
 #include "D2ItemsWorld.h"
+#include "D2ClientTypes.h"
 #define INVENTORY_SIGNATURE 0x1020304
 #define NUM_BODYLOC 13
 #define WEAPONCLASS_HT1 12
@@ -70,13 +71,6 @@ D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); 
 
 
 
-struct D2InvRectStrc
-{
-    int nLeft;
-    int nRight;
-    int nTop;
-    int nBottom;
-};
 
 struct D2BeltsTxt
 {

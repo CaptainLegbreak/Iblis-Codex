@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2ClientTypes.h"
 
 
 struct D2AutomapCellStrc
@@ -24,15 +25,6 @@ struct D2AutomapDrawStrc
     int nYOffset;
 };
 
-struct D2GfxDataStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    D2CelFileStrc* pCellFile;
-    int unk0x38[2];
-    int unk0x40;
-    int unk0x44;
-};
 
 struct D2CropRectStrc
 {
@@ -112,7 +104,7 @@ void __fastcall sub_00459440(D2AutomapCellStrc* pCell, D2AutomapDrawStrc* pInfo)
         memset(&tData, 0, sizeof(tData));
         tData.nFrame = pCell->nCellNo;
         tData.pCellFile = pInfo->pCelFile;
-        tData.unk0x40 = 0;
+        tData.nDirection = 0;
 
         switch (sub_004576C0())
         {

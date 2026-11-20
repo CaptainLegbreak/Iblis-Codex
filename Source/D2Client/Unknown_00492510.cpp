@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2ClientTypes.h"
 struct D2InvRectStrc;
 
 
@@ -50,13 +51,6 @@ extern int gnGlobal_007BCB50;
 int __cdecl sub_004680A0(); // 0x004680A0
 int __fastcall sub_00486E10_IsInNpcPanelRect(int nX, int nY); // 0x00486E10
 
-struct D2InvRectStrc
-{
-    int nLeft;
-    int nRight;
-    int nTop;
-    int nBottom;
-};
 
 extern D2InvRectStrc gInvRect_007BCB30; // 0x007BCB30
 extern int gnGlobal_007BCB74;

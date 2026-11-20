@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2CelContext.h"
+#include "D2ClientTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -13,12 +14,6 @@ struct D2Block0xA0Strc
     unsigned short wData[0x50];
 };
 
-struct D2MsgHandlerEntryStrc
-{
-    int nType;
-    int nId;
-    void* pfnHandler;
-};
 
 int __cdecl sub_004F59A0(); // 0x004F59A0
 void __fastcall sub_00451DB0_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0

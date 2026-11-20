@@ -1,13 +1,8 @@
 #include "D2Client.h"
+#include "D2ClientTypes.h"
 
 struct D2CellFileStrc;
 
-struct D2MsgHandlerEntryStrc
-{
-    int nType;
-    int nId;
-    void* pfnHandler;
-};
 
 void __cdecl sub_00477DD0();                                                                                // 0x00477DD0
 void __stdcall sub_0045FBC0_DrawCelPair(int bFirst);                                                        // 0x0045FBC0

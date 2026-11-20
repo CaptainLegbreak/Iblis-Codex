@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2ClientTypes.h"
 
 #define gnGlobal_007BCA34 (gGrid_007BCA30.nGridLeft)
 #define gnGlobal_007BCA38 (gGrid_007BCA30.nGridRight)
@@ -49,13 +50,6 @@ extern int gdwGlobal_007BCBF0; // 0x007BCBF0
 static __declspec(noinline) unsigned char sub_00482C70_GetFlagIndex(unsigned char nFlags);
 int __cdecl sub_0044DCC0(); // 0x0044DCC0
 
-struct D2InvRectStrc
-{
-    int nLeft;
-    int nRight;
-    int nTop;
-    int nBottom;
-};
 
 
 extern D2InventoryGridInfoStrc gGrid_007BCA30; // 0x007BCA30

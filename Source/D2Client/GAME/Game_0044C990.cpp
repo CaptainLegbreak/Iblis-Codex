@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2LevelTxt.h"
+#include "D2ClientTypes.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2ActInfoStrc;
@@ -134,12 +135,6 @@ struct D2GSPacketSrv8F
 
 extern D2PongDataStrc gtPongData_007A04D4; // 0x007A04D4
 
-struct D2MsgHandlerEntryStrc
-{
-    int nType;
-    int nId;
-    void* pfnHandler;
-};
 
 typedef char D2MsgHandlerEntrySize[(sizeof(D2MsgHandlerEntryStrc) == 12) ? 1 : -1];
 

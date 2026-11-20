@@ -1,3 +1,4 @@
+#include "D2WinTypes.h"
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
@@ -32,13 +33,6 @@ struct D2FontStrc
     unsigned char unk0x0B;
 };
 
-struct D2FontCacheStrc
-{
-    D2CelFileStrc* pCellFile;
-    D2FontStrc* pFontInfo[2];
-    D2CharStrc* pCharInfo;
-    unsigned int dwShiftedTickCount;
-};
 
 extern "C" int __fastcall sub_00526800(const unsigned short* pText);                                      // 0x00526800
 extern D2CharStrc* (__fastcall* gpfGetCharInfo_00841DA0)(int nChar);                                        // 0x00841DA0

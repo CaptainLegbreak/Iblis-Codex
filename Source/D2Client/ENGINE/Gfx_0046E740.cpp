@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Drlg.h"
+#include "D2ClientTypes.h"
 
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
@@ -54,11 +55,6 @@ struct D2GfxListNodeStrc
     D2GfxListNodeStrc* pNext;
 };
 
-struct D2GfxDataStrc
-{
-    char unk0x00[0x28];
-    D2GfxListNodeStrc* pList;
-};
 
 struct D2ObjectsTxt
 {

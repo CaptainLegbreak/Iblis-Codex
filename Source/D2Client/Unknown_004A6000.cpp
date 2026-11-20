@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2CelContext.h"
+#include "D2ClientTypes.h"
 
 struct Unicode
 {
@@ -44,12 +45,6 @@ struct D2ClientListEntryStrc
     unsigned char unk0x04[6];
 };
 
-struct D2MsgHandlerEntryStrc
-{
-    int unk0x00;
-    int unk0x04;
-    int unk0x08;
-};
 
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260

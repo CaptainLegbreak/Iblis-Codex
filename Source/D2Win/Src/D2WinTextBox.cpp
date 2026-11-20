@@ -1,6 +1,7 @@
 #include "D2Win.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
+#include "D2ClientTypes.h"
 
 struct D2CharStrc
 {
@@ -136,15 +137,6 @@ struct D2WinImageStrc
     int field_50;
 };
 
-struct D2GfxDataStrc
-{
-    int nFrame;
-    int unk0x04[12];
-    D2CelFileStrc* pCellFile;
-    int unk0x38[2];
-    int unk0x40;
-    int unk0x44;
-};
 
 enum D2ControlTypes
 {
@@ -703,7 +695,7 @@ int __fastcall IMAGE_Draw(D2WinControlStrc* pControl)
     D2GfxDataStrc tGfxData;
     memset(&tGfxData, 0, sizeof(tGfxData));
     tGfxData.pCellFile = pImage->controlHeader.pCellFile;
-    tGfxData.unk0x40 = 0;
+    tGfxData.nDirection = 0;
     tGfxData.nFrame = 0;
 
     int nX[4];
