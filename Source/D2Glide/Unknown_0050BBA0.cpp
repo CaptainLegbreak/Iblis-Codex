@@ -1,5 +1,6 @@
 #include "D2Glide.h"
 #include "D2DrlgMaps.h"
+
 struct D2GlideDebugCellStrc;
 struct D2GfxLightStrc;
 struct D2GlideVtxStrc;

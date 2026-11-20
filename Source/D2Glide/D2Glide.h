@@ -1,6 +1,7 @@
 #pragma once
 
 #include "D2DDrawTypes.h"
+#include "D2GfxTypes.h"
 #include "D2GlideTypes.h"
 
 struct D2CelContextStrc;
@@ -68,22 +69,6 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define GLIDE_VERTEX_IN_RECT(v, r) ((v).x >= (r).left && (v).x < (r).right && (v).y >= (r).top && (v).y < (r).bottom)
-
-struct D2BoundsStrc
-{
-    int nLeft;
-    int nRight;
-    int nTop;
-    int nBottom;
-};
-
-struct D2ClipStrc
-{
-    int nLeft;
-    int nWidth;
-    int nTop;
-    int nHeight;
-};
 
 struct D2GfxLightStrc
 {

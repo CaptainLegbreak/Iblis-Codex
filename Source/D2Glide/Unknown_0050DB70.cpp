@@ -1,10 +1,8 @@
 #include "D2Glide.h"
+#include "D2DrlgMaps.h"
 
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 #define MIN(a, b) ((a) < (b) ? (a) : (b))
-
-struct D2SubTileBlockStrc;
-struct D2TileStrc;
 
 extern unsigned char* gpMulTable_00880B5C; // 0x00880B5C
 extern unsigned char gnGlideAmbient_00880B58; // 0x00880B58
@@ -12,23 +10,6 @@ extern unsigned char gnGlideAmbient_00880B59; // 0x00880B59
 extern unsigned char gnGlideAmbient_00880B5A; // 0x00880B5A
 extern int* gpnPerspectiveTable_00880B6C; // 0x00880B6C
 
-struct D2SubTileBlockStrc
-{
-    short nX;
-    short nY;
-    int unk0x04;
-    unsigned short nFormat;
-    unsigned short unk0x0A;
-    int unk0x0C;
-    unsigned char* pData;
-};
-
-struct D2TileStrc
-{
-    char unk0x00[0x50];
-    int nBlocks;
-    D2SubTileBlockStrc* pBlocks;
-};
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 int __fastcall sub_00511FB0_DrawImage(void* pData, int nX, int nY, unsigned int dwGamma, int nDrawMode, void* pPalette); // 0x00511FB0
@@ -99,14 +80,14 @@ void __fastcall sub_0050DD60_ProjectToScreen(int nX, int nY, int nZ, int* pScree
 }
 
 // 0x0050F980
-void __stdcall sub_0050F980_DecodeTileBlocks(D2TileStrc* pTile, unsigned char* pDst)
+void __stdcall sub_0050F980_DecodeTileBlocks(D2TileLibraryEntryStrc* pTile, unsigned char* pDst)
 {
     memset(pDst, 0, 0x8000);
 
     for (int i = 0; i < pTile->nBlocks; ++i)
     {
-        const D2SubTileBlockStrc* pBlock = &pTile->pBlocks[i];
-        unsigned char* p = pBlock->nX + ((pBlock->nY << 8) + pDst);
+        const D2GlideTileStrc* pBlock = &pTile->pBlocks[i];
+        unsigned char* p = pBlock->nPosX + ((pBlock->nPosY << 8) + pDst);
         const unsigned short nFormat = pBlock->nFormat;
         if (!(nFormat & 1))
         {

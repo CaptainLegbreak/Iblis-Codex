@@ -1,5 +1,4 @@
 #include "D2Glide.h"
-#include "D2GfxTypes.h"
 
 struct D2GlideSmackStrc
 {

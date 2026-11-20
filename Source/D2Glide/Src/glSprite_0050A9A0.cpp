@@ -1,5 +1,4 @@
 #include "D2Glide.h"
-#include "D2GfxTypes.h"
 
 void __fastcall sub_005094B0_GlideSetState(int nState); // 0x005094B0
 void __fastcall sub_005095D0_GlideSetDepth(int nMode); // 0x005095D0

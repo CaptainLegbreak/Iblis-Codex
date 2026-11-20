@@ -1,6 +1,6 @@
 #include "D2Glide.h"
-#include "D2GfxTypes.h"
 #include "D2GameTypes.h"
+
 struct D2GlideHwQueryStrc;
 
 extern int gdwGlobal_007C8CB0; // 0x007C8CB0

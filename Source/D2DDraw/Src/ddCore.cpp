@@ -8,7 +8,6 @@ struct D2TileLibraryEntryStrc;
 struct D2GfxLightExStrc;
 struct T004F51E0;
 struct T00508FE0;
-struct D2BinkStrc;
 struct tagRECT;
 
 struct T00508FE0
@@ -20,14 +19,6 @@ struct T00508FE0
     float sow;
     float tow;
     float unk0x18;
-};
-
-struct D2BinkStrc
-{
-    unsigned int Width;
-    unsigned int Height;
-    unsigned int Frames;
-    unsigned int f_C;
 };
 
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -257,11 +248,11 @@ void __cdecl sub_0050FD10_GlideDrawVideoFrame()
     D2GrLfbInfoStrc info = { sizeof(D2GrLfbInfoStrc) };
     if (gpfGlideLfbLock_0087EADC(1, 0, 5, 0, 0, &info))
     {
-        BinkCopyToBuffer(gpGlideBink_00880C0C, info.lfbPtr, info.strideInBytes, gpGlideBink_00880C0C->Height, gnGlideBinkX_00880C08, gnGlideBinkY_00880C04, gnGlideBinkFlags_00880C14);
+        BinkCopyToBuffer(gpGlideBink_00880C0C, info.lfbPtr, info.strideInBytes, gpGlideBink_00880C0C->nHeight, gnGlideBinkX_00880C08, gnGlideBinkY_00880C04, gnGlideBinkFlags_00880C14);
         gpfGlideLfbUnlock_0087EAD8(1, 0);
     }
     LeaveCriticalSection(gpRenderCriticalSection_007C9134);
-    if (gpGlideBink_00880C0C->f_C == gpGlideBink_00880C0C->Frames)
+    if (gpGlideBink_00880C0C->nFrameNum == gpGlideBink_00880C0C->nFrames)
     {
         gbGlideBinkDone_00880C18 = 1;
         return;
@@ -388,11 +379,11 @@ void __cdecl sub_005136F0_BlitBinkFrame()
     D2DDSurfaceDescStrc ddsd = { sizeof(D2DDSurfaceDescStrc) };
     if (gpDDrawSurface_00881278->lpVtbl->Lock(gpDDrawSurface_00881278, 0, &ddsd, 0x21, 0) == 0)
     {
-        BinkCopyToBuffer(gpDDrawBink_008816C0, ddsd.lpSurface, ddsd.lPitch, gpDDrawBink_008816C0->Height, gnDDrawBinkX_008816BC, gnDDrawBinkY_008816B8, gnDDrawBinkFlags_008816C8);
+        BinkCopyToBuffer(gpDDrawBink_008816C0, ddsd.lpSurface, ddsd.lPitch, gpDDrawBink_008816C0->nHeight, gnDDrawBinkX_008816BC, gnDDrawBinkY_008816B8, gnDDrawBinkFlags_008816C8);
         gpDDrawSurface_00881278->lpVtbl->Unlock(gpDDrawSurface_00881278, 0);
     }
     LeaveCriticalSection(gpRenderCriticalSection_007C9134);
-    if (gpDDrawBink_008816C0->f_C == gpDDrawBink_008816C0->Frames)
+    if (gpDDrawBink_008816C0->nFrameNum == gpDDrawBink_008816C0->nFrames)
     {
         gbDDrawBinkDone_008816CC = 1;
         return;

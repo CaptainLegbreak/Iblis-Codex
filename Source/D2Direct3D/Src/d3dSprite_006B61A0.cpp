@@ -1,3 +1,5 @@
+#include "D2D3DTypes.h"
+
 struct D2SpriteQuad006B61A0Strc
 {
     int unk_00[3];
@@ -10,18 +12,6 @@ struct D2SpriteQuad006B61A0Strc
     float fU1;
     float fV0;
     float fV1;
-};
-
-struct D2TLVertex006B61A0Strc
-{
-    float fX;
-    float fY;
-    float fZ;
-    float fRhw;
-    unsigned int dwColor;
-    unsigned int dwSpecular;
-    float fU;
-    float fV;
 };
 
 struct D2VertexBuffer006B61A0Strc;
@@ -94,7 +84,7 @@ static void __stdcall sub_006B61A0_DrawQuad(int nOffsetX, int nOffsetY, unsigned
     float fTop = (float)nY;
     float fBottom = (float)(nY + nHeight);
 
-    D2TLVertex006B61A0Strc* pVertices;
+    D2TLVertexStrc* pVertices;
     if (gpVertexBuffer_00970F3C->lpVtbl->Lock(gpVertexBuffer_00970F3C, 0x21, (void**)&pVertices, 0))
         return;
 

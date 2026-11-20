@@ -1,4 +1,5 @@
 #include "D2Glide.h"
+
 struct D2GlideDebugCellStrc;
 
 struct T00508FE0

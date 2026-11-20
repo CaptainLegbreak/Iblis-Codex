@@ -1,18 +1,16 @@
 #include "D2Direct3D.h"
 #include "D2D3DTypes.h"
+
 #define WRITE_CORNER(i) pVertices[i].dwColor=PackGridColor(pPoints[i],nAlpha); pVertices[i].fX=(float)pPoints[i].nX; pVertices[i].fY=(float)pPoints[i].nY;
 struct D2DrawDeviceStrc;
 struct D2TileLibraryEntryStrc;
-struct D2TexturedVertexStrc;
 struct D2RectStrc;
 struct D2ClipRectStrc;
 struct D2TilePartStrc;
 struct D2TileContextStrc;
-struct D2QuadVertexStrc;
 struct D2DrawVtableStrc;
 struct D2PerspectiveTileStrc;
 struct D2PerspectiveSpriteStrc;
-struct Vertex;
 struct BufferDescription;
 struct VertexBuffer;
 struct GraphicsInterface;
@@ -20,7 +18,7 @@ struct IndexStrip;
 struct D2GridPointStrc;
 struct D2RendererSettingsStrc;
 
-extern D2TexturedVertexStrc gaVertices_00970F48[4]; // 0x00970F48
+extern D2TLVertexStrc gaVertices_00970F48[4]; // 0x00970F48
 __declspec(noinline) static int __stdcall sub_006B7530_DrawGlyph(int nX, int nY, char nChar);
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -37,10 +35,10 @@ struct D2DrawVtableStrc { void* unknown000[28]; int (__stdcall* DrawPrimitive)(D
 
 struct D2DrawDeviceStrc { D2DrawVtableStrc* vtable; };
 
-extern D2QuadVertexStrc gaQuadVertices[4]; // 0x00971630
+extern D2TLVertexStrc gaQuadVertices[4]; // 0x00971630
 extern D2DrawDeviceStrc* gpDrawDevice; // 0x00970E78
 void __fastcall sub_006BBA00_BindTilePart(D2TilePartStrc*); // 0x006BBA00
-void __fastcall sub_006B9730_SetQuadColor(D2QuadVertexStrc*,unsigned char,int); // 0x006B9730
+void __fastcall sub_006B9730_SetQuadColor(D2TLVertexStrc*,unsigned char,int); // 0x006B9730
 
 struct D2PerspectiveTileStrc { short nX,nY; char unknown04[0x10]; };
 
@@ -60,15 +58,13 @@ int __stdcall sub_006B8950_DrawAlternate(void*, void*, int, int, int, unsigned c
 int __stdcall sub_006B87A0_DrawNormal(void*, void*, int, int, int, unsigned char); // 0x006B87A0
 static __declspec(noinline) int __stdcall sub_006B8DF0_DrawConfigured(void*, int, int, int, void*, unsigned char);
 
-struct Vertex { float x,y,z,rhw; unsigned int diffuse,specular; float u,v; };
-
 struct BufferDescription { unsigned int size,caps,format,count; };
 
 struct VertexBuffer {
  virtual long __stdcall QueryInterface(const void*,void**) = 0;
  virtual unsigned long __stdcall AddRef() = 0;
  virtual unsigned long __stdcall Release() = 0;
- virtual long __stdcall Lock(unsigned int,Vertex**,unsigned int*) = 0;
+ virtual long __stdcall Lock(unsigned int,D2TLVertexStrc**,unsigned int*) = 0;
  virtual long __stdcall Unlock() = 0;
 };
 
@@ -133,14 +129,14 @@ static int __stdcall sub_006B7530_DrawGlyph(int nX, int nY, char nChar)
     {
         const int nRight = nX + 8;
         const int nBottom = nY + 16;
-        gaVertices_00970F48[0].nX = (float)nX;
-        gaVertices_00970F48[0].nY = (float)nY;
-        gaVertices_00970F48[1].nX = (float)nX;
-        gaVertices_00970F48[1].nY = (float)nBottom;
-        gaVertices_00970F48[2].nX = (float)nRight;
-        gaVertices_00970F48[2].nY = (float)nBottom;
-        gaVertices_00970F48[3].nX = (float)nRight;
-        gaVertices_00970F48[3].nY = (float)nY;
+        gaVertices_00970F48[0].fX = (float)nX;
+        gaVertices_00970F48[0].fY = (float)nY;
+        gaVertices_00970F48[1].fX = (float)nX;
+        gaVertices_00970F48[1].fY = (float)nBottom;
+        gaVertices_00970F48[2].fX = (float)nRight;
+        gaVertices_00970F48[2].fY = (float)nBottom;
+        gaVertices_00970F48[3].fX = (float)nRight;
+        gaVertices_00970F48[3].fY = (float)nY;
 
         nChar -= 0x20;
         gpD3DDevice_00970E78->lpVtbl->SetTexture(gpD3DDevice_00970E78, 0, gapGlyphTextures_009712D0[nChar]);
@@ -245,18 +241,18 @@ int __fastcall sub_006B8220_DrawTileParts(D2TileContextStrc* pTile, int nX, int 
             bDrawn = 1;
             int nRight = nLeft + 32;
             sub_006BBA00_BindTilePart(&pTile->parts[i]);
-            gaQuadVertices[0].x = (float)nLeft;
-            gaQuadVertices[0].y = (float)nTop;
-            gaQuadVertices[1].x = (float)nLeft;
-            gaQuadVertices[1].y = (float)nBottom;
-            gaQuadVertices[2].x = (float)nRight;
-            gaQuadVertices[2].y = (float)nBottom;
-            gaQuadVertices[3].x = (float)nRight;
-            gaQuadVertices[3].y = (float)nTop;
+            gaQuadVertices[0].fX = (float)nLeft;
+            gaQuadVertices[0].fY = (float)nTop;
+            gaQuadVertices[1].fX = (float)nLeft;
+            gaQuadVertices[1].fY = (float)nBottom;
+            gaQuadVertices[2].fX = (float)nRight;
+            gaQuadVertices[2].fY = (float)nBottom;
+            gaQuadVertices[3].fX = (float)nRight;
+            gaQuadVertices[3].fY = (float)nTop;
             sub_006B9730_SetQuadColor(gaQuadVertices, (unsigned char)nLight, nColorMode);
-            gaQuadVertices[1].color = gaQuadVertices[0].color;
-            gaQuadVertices[2].color = gaQuadVertices[0].color;
-            gaQuadVertices[3].color = gaQuadVertices[0].color;
+            gaQuadVertices[1].dwColor = gaQuadVertices[0].dwColor;
+            gaQuadVertices[2].dwColor = gaQuadVertices[0].dwColor;
+            gaQuadVertices[3].dwColor = gaQuadVertices[0].dwColor;
             gpDrawDevice->vtable->DrawPrimitive(gpDrawDevice, 6, 0x1C4, gaQuadVertices, 4, 0x1C);
         }
     }
@@ -377,7 +373,7 @@ void __cdecl sub_006B8F10()
         return;
     }
 
-    Vertex* data;
+    D2TLVertexStrc* data;
     result = gGridBuffer->Lock(0x21, &data, 0);
     if (result)
     {
@@ -417,10 +413,10 @@ void __cdecl sub_006B8F10()
             u += (column - row) * xStep;
             float v = (float)yBorder / gTileHeight;
             v += (column + row) * yStep;
-            data->z = 0.5f;
-            data->rhw = 1.0f;
-            data->u = u;
-            data->v = v;
+            data->fZ = 0.5f;
+            data->fRhw = 1.0f;
+            data->fU = u;
+            data->fV = v;
             ++data;
         }
     }

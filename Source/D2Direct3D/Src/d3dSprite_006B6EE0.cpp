@@ -13,22 +13,6 @@ extern const char gszEmpty_006CC837[]; // 0x006CC837
 extern int gnScreenWidth_007C9138; // 0x007C9138
 extern int gnScreenHeight_007C913C; // 0x007C913C
 
-struct D2BoundsStrc
-{
-    int nLeft;
-    int nRight;
-    int nTop;
-    int nBottom;
-};
-
-struct D2ClipStrc
-{
-    int nLeft;
-    int nWidth;
-    int nTop;
-    int nHeight;
-};
-
 int __stdcall sub_006001F0(D2CelContextStrc* context, int a2, int a3); // 0x006001F0
 void __cdecl sub_00410610_WriteLogLine(const char* format, ...); // 0x00410610
 int __stdcall sub_006018C0(D2CelStrc* cel); // 0x006018C0

@@ -1,9 +1,9 @@
 #include "D2Direct3D.h"
 #include "D2DDrawTypes.h"
+#include "D2D3DTypes.h"
 
 struct D2VideoBlitDevice;
 struct D2VideoHandleStrc;
-struct D2VideoBlitVertex;
 struct D2VideoBlitDeviceVtbl;
 struct T004F51E0;
 struct D2SmackRecordStrc;
@@ -69,7 +69,7 @@ void __cdecl sub_006B9F00_UploadFrameBuffer(); // 0x006B9F00
 extern "C" const char szD3DSmackFile_006FC358[]; // 0x006FC358
 extern unsigned short* gpD3DSmackBuffer_009897D0; // 0x009897D0
 
-D2VideoBlitVertex gVideoVertices_00989750[4]; // 0x00989750
+D2TLVertexStrc gVideoVertices_00989750[4]; // 0x00989750
 
 // 0x006B9C40
 static void __stdcall sub_006B9C40_BlitVideo(D2VideoHandleStrc* video, int width, int height)
@@ -82,60 +82,60 @@ static void __stdcall sub_006B9C40_BlitVideo(D2VideoHandleStrc* video, int width
 
     int x = video->x;
     int right = x + 256;
-    gVideoVertices_00989750[0].x = (float)x;
-    gVideoVertices_00989750[0].y = (float)top;
-    gVideoVertices_00989750[0].z = 0.5f;
-    gVideoVertices_00989750[0].rhw = 1.0f;
-    gVideoVertices_00989750[0].u = 0.0f;
-    gVideoVertices_00989750[0].v = 0.0f;
-    gVideoVertices_00989750[1].x = (float)x;
-    gVideoVertices_00989750[1].y = (float)bottom;
-    gVideoVertices_00989750[1].z = 0.5f;
-    gVideoVertices_00989750[1].rhw = 1.0f;
-    gVideoVertices_00989750[1].u = 0.0f;
-    gVideoVertices_00989750[1].v = 1.0f;
-    gVideoVertices_00989750[2].x = (float)right;
-    gVideoVertices_00989750[2].y = (float)bottom;
-    gVideoVertices_00989750[2].z = 0.5f;
-    gVideoVertices_00989750[2].rhw = 1.0f;
-    gVideoVertices_00989750[2].u = 1.0f;
-    gVideoVertices_00989750[2].v = 1.0f;
-    gVideoVertices_00989750[3].x = (float)right;
-    gVideoVertices_00989750[3].y = (float)top;
-    gVideoVertices_00989750[3].z = 0.5f;
-    gVideoVertices_00989750[3].rhw = 1.0f;
-    gVideoVertices_00989750[3].u = 1.0f;
-    gVideoVertices_00989750[3].v = 0.0f;
+    gVideoVertices_00989750[0].fX = (float)x;
+    gVideoVertices_00989750[0].fY = (float)top;
+    gVideoVertices_00989750[0].fZ = 0.5f;
+    gVideoVertices_00989750[0].fRhw = 1.0f;
+    gVideoVertices_00989750[0].fU = 0.0f;
+    gVideoVertices_00989750[0].fV = 0.0f;
+    gVideoVertices_00989750[1].fX = (float)x;
+    gVideoVertices_00989750[1].fY = (float)bottom;
+    gVideoVertices_00989750[1].fZ = 0.5f;
+    gVideoVertices_00989750[1].fRhw = 1.0f;
+    gVideoVertices_00989750[1].fU = 0.0f;
+    gVideoVertices_00989750[1].fV = 1.0f;
+    gVideoVertices_00989750[2].fX = (float)right;
+    gVideoVertices_00989750[2].fY = (float)bottom;
+    gVideoVertices_00989750[2].fZ = 0.5f;
+    gVideoVertices_00989750[2].fRhw = 1.0f;
+    gVideoVertices_00989750[2].fU = 1.0f;
+    gVideoVertices_00989750[2].fV = 1.0f;
+    gVideoVertices_00989750[3].fX = (float)right;
+    gVideoVertices_00989750[3].fY = (float)top;
+    gVideoVertices_00989750[3].fZ = 0.5f;
+    gVideoVertices_00989750[3].fRhw = 1.0f;
+    gVideoVertices_00989750[3].fU = 1.0f;
+    gVideoVertices_00989750[3].fV = 0.0f;
     gpDevice_00970E78->lpVtbl->SetTexture(gpDevice_00970E78, 0, gpArray_009897EC[0]);
     gpDevice_00970E78->lpVtbl->DrawPrimitive(gpDevice_00970E78, 6, 0x1C4, gVideoVertices_00989750, 4, 0x1C);
 
     x += 256;
     right = x + width - 256;
     const float u = (float)((width - 256) * (1.0 / 256.0));
-    gVideoVertices_00989750[0].x = (float)x;
-    gVideoVertices_00989750[0].y = (float)top;
-    gVideoVertices_00989750[0].z = 0.5f;
-    gVideoVertices_00989750[0].rhw = 1.0f;
-    gVideoVertices_00989750[0].u = 0.0f;
-    gVideoVertices_00989750[0].v = 0.0f;
-    gVideoVertices_00989750[1].x = (float)x;
-    gVideoVertices_00989750[1].y = (float)bottom;
-    gVideoVertices_00989750[1].z = 0.5f;
-    gVideoVertices_00989750[1].rhw = 1.0f;
-    gVideoVertices_00989750[1].u = 0.0f;
-    gVideoVertices_00989750[1].v = 1.0f;
-    gVideoVertices_00989750[2].x = (float)right;
-    gVideoVertices_00989750[2].y = (float)bottom;
-    gVideoVertices_00989750[2].z = 0.5f;
-    gVideoVertices_00989750[2].rhw = 1.0f;
-    gVideoVertices_00989750[2].u = u;
-    gVideoVertices_00989750[2].v = 1.0f;
-    gVideoVertices_00989750[3].x = (float)right;
-    gVideoVertices_00989750[3].y = (float)top;
-    gVideoVertices_00989750[3].z = 0.5f;
-    gVideoVertices_00989750[3].rhw = 1.0f;
-    gVideoVertices_00989750[3].u = u;
-    gVideoVertices_00989750[3].v = 0.0f;
+    gVideoVertices_00989750[0].fX = (float)x;
+    gVideoVertices_00989750[0].fY = (float)top;
+    gVideoVertices_00989750[0].fZ = 0.5f;
+    gVideoVertices_00989750[0].fRhw = 1.0f;
+    gVideoVertices_00989750[0].fU = 0.0f;
+    gVideoVertices_00989750[0].fV = 0.0f;
+    gVideoVertices_00989750[1].fX = (float)x;
+    gVideoVertices_00989750[1].fY = (float)bottom;
+    gVideoVertices_00989750[1].fZ = 0.5f;
+    gVideoVertices_00989750[1].fRhw = 1.0f;
+    gVideoVertices_00989750[1].fU = 0.0f;
+    gVideoVertices_00989750[1].fV = 1.0f;
+    gVideoVertices_00989750[2].fX = (float)right;
+    gVideoVertices_00989750[2].fY = (float)bottom;
+    gVideoVertices_00989750[2].fZ = 0.5f;
+    gVideoVertices_00989750[2].fRhw = 1.0f;
+    gVideoVertices_00989750[2].fU = u;
+    gVideoVertices_00989750[2].fV = 1.0f;
+    gVideoVertices_00989750[3].fX = (float)right;
+    gVideoVertices_00989750[3].fY = (float)top;
+    gVideoVertices_00989750[3].fZ = 0.5f;
+    gVideoVertices_00989750[3].fRhw = 1.0f;
+    gVideoVertices_00989750[3].fU = u;
+    gVideoVertices_00989750[3].fV = 0.0f;
     gpDevice_00970E78->lpVtbl->SetTexture(gpDevice_00970E78, 0, gpArray_009897EC[1]);
     gpDevice_00970E78->lpVtbl->DrawPrimitive(gpDevice_00970E78, 6, 0x1C4, gVideoVertices_00989750, 4, 0x1C);
 }

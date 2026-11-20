@@ -5,7 +5,6 @@
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2DDrawSurfaceStrc;
-struct D2BinkStrc;
 struct tagPOINT;
 struct T004F51E0;
 
@@ -19,14 +18,6 @@ extern D2GrTexInfoStrc gGlideTileTexInfo_0072F6A8; // 0x0072F6A8
 extern D2GlideTileCacheStrc gGlideTileCache_0087EB48; // 0x0087EB48
 extern int gnGlideTileTmu_00880BF8; // 0x00880BF8
 extern unsigned char* gpGlideTileDecodeBuffer_00880BFC; // 0x00880BFC
-
-struct D2BinkStrc
-{
-    unsigned int Width;
-    unsigned int Height;
-    unsigned int Frames;
-    unsigned int f_C;
-};
 
 struct tagPOINT
 {
@@ -211,12 +202,12 @@ LABEL_FAIL:
         return;
     }
 
-    gnGlideBinkX_00880C08 = (gnScreenWidth_007C9138 - gpGlideBink_00880C0C->Width) >> 1;
+    gnGlideBinkX_00880C08 = (gnScreenWidth_007C9138 - gpGlideBink_00880C0C->nWidth) >> 1;
     if (gnGlideBinkX_00880C08 & 3)
     {
         gnGlideBinkX_00880C08 = (gnGlideBinkX_00880C08 | 3) + 1;
     }
-    gnGlideBinkY_00880C04 = (gnScreenHeight_007C913C - gpGlideBink_00880C0C->Height) >> 1;
+    gnGlideBinkY_00880C04 = (gnScreenHeight_007C913C - gpGlideBink_00880C0C->nHeight) >> 1;
     {
         const unsigned long dwEnd = GetTickCount() + 500;
         for (;;)
@@ -334,12 +325,12 @@ LABEL_FAIL:
         return;
     }
 
-    gnDDrawBinkX_008816BC = (gnScreenWidth_007C9138 - gpDDrawBink_008816C0->Width) >> 1;
+    gnDDrawBinkX_008816BC = (gnScreenWidth_007C9138 - gpDDrawBink_008816C0->nWidth) >> 1;
     if (gnDDrawBinkX_008816BC & 3)
     {
         gnDDrawBinkX_008816BC = (gnDDrawBinkX_008816BC | 3) + 1;
     }
-    gnDDrawBinkY_008816B8 = (gnScreenHeight_007C913C - gpDDrawBink_008816C0->Height) >> 1;
+    gnDDrawBinkY_008816B8 = (gnScreenHeight_007C913C - gpDDrawBink_008816C0->nHeight) >> 1;
     {
         const unsigned long dwEnd = GetTickCount() + 500;
         for (;;)

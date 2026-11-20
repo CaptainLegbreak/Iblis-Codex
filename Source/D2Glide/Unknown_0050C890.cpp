@@ -1,8 +1,5 @@
 #include "D2Glide.h"
 #include "D2DrlgMaps.h"
-#include "D2GfxTypes.h"
-
-struct D2TileVertexStrc;
 
 extern int gnScreenWidth_007C9138; // 0x007C9138
 extern D2GlideSpriteVertexStrc gaGlideTileQuad_00880600[4]; // 0x00880600

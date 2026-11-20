@@ -1,6 +1,5 @@
 #include "D2Glide.h"
 #include "D2CelContext.h"
-#include "D2GfxTypes.h"
 
 struct D2GlideRectViewStrc;
 struct D2GlideTexDimsStrc;

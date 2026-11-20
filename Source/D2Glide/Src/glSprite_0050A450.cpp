@@ -1,11 +1,8 @@
 #include "D2Glide.h"
 #include "D2CelContext.h"
-#include "D2GfxTypes.h"
 
 struct T00508FE0;
 struct D2GlideTexDimsStrc;
-struct D2BoundsStrc;
-struct D2ClipStrc;
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);

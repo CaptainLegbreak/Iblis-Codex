@@ -1,21 +1,21 @@
 #include "D2Direct3D.h"
+#include "D2D3DTypes.h"
 
-#define gnHandle_00989760 (gVideoVertices_00989750[0].color)
-#define gnHandle_00989780 (gVideoVertices_00989750[1].color)
-#define gnHandle_009897A0 (gVideoVertices_00989750[2].color)
-#define gnHandle_009897C0 (gVideoVertices_00989750[3].color)
+#define gnHandle_00989760 (gVideoVertices_00989750[0].dwColor)
+#define gnHandle_00989780 (gVideoVertices_00989750[1].dwColor)
+#define gnHandle_009897A0 (gVideoVertices_00989750[2].dwColor)
+#define gnHandle_009897C0 (gVideoVertices_00989750[3].dwColor)
 #define D2_IMPORT __declspec(dllimport)
 
 struct D2ComObject006B9B30Strc;
 struct D2ComObject006B9BD0Strc;
-struct D2VideoBlitVertex;
 struct D2ComObjectVtbl006B9B30Strc;
 struct D2VideoHandleStrc;
 struct D2ComObjectVtbl006B9BD0Strc;
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 
-extern D2VideoBlitVertex gVideoVertices_00989750[4]; // 0x00989750
+extern D2TLVertexStrc gVideoVertices_00989750[4]; // 0x00989750
 extern void* gpBuffer_009897D0; // 0x009897D0
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* pText, const char* pFile, int nLine); // 0x00408A60

@@ -2,6 +2,7 @@
 #include "D2DDrawTypes.h"
 #include "D2D3DTypes.h"
 #include "D2GfxTypes.h"
+
 #define ASSERT(expr,line) if (!(expr)) { sub_00408A60(gszEmpty_006CC837,sub_00408090(),line); exit(-1); }
 #define MIN(a,b) ((a)<(b)?(a):(b))
 #define MAX(a,b) ((a)>(b)?(a):(b))
@@ -15,13 +16,10 @@ struct D2Direct3DDevice006B7F70Strc;
 struct D2Unknown006B7250VtblStrc;
 struct D2RectStrc;
 struct D2SurfaceVtableStrc;
-struct D2TexturedVertexStrc;
-struct D2TLVertex006B77B0Strc;
 struct D2DeviceVtbl006B77B0Strc;
 struct D2Rect006B7C90Strc;
 struct D2D3DRect006B7F70Strc;
 struct D2Direct3DDeviceVtbl006B7F70Strc;
-struct D2QuadVertexStrc;
 struct D2GridVertexStrc;
 struct D2FixedPointStrc;
 struct D2FixedShapeStrc;
@@ -78,18 +76,6 @@ void __fastcall sub_006B20E0_DDrawLogError(const char*, int); // 0x006B20E0
 void __cdecl sub_006B72A0_CreateFontTextures(); // 0x006B72A0
 
 extern D2GfxSettingsStrc* gpGfxSettings_007C9148; // 0x007C9148
-
-struct D2TLVertex006B77B0Strc
-{
-    float fX;
-    float fY;
-    float fZ;
-    float fRhw;
-    unsigned int dwColor;
-    unsigned int f_14;
-    float fU;
-    float fV;
-};
 
 struct D2DeviceVtbl006B77B0Strc
 {
@@ -283,40 +269,40 @@ void __fastcall sub_006B74F0_SetPalette(void* pPalette)
  } while ((int)p < (int)(gaSurfaces_00971150 + 96));
 }
 
-D2TexturedVertexStrc gaVertices_00970F48[4]; // 0x00970F48
+D2TLVertexStrc gaVertices_00970F48[4]; // 0x00970F48
 
 // 0x006B76D0
 char* __fastcall sub_006B76D0_InitVertices(char* pObject)
 {
     sub_006B72A0_CreateFontTextures();
-    gaVertices_00970F48[0].nX = 0.0f;
-    gaVertices_00970F48[0].nY = 0.0f;
-    gaVertices_00970F48[0].nZ = 0.5f;
-    gaVertices_00970F48[0].nRhw = 1.0f;
-    gaVertices_00970F48[0].nDiffuse = 0xFFFFFFFF;
-    gaVertices_00970F48[1].nDiffuse = 0xFFFFFFFF;
-    gaVertices_00970F48[2].nDiffuse = 0xFFFFFFFF;
-    gaVertices_00970F48[3].nDiffuse = 0xFFFFFFFF;
-    gaVertices_00970F48[1].nRhw = 1.0f;
-    gaVertices_00970F48[1].nV = 1.0f;
-    gaVertices_00970F48[2].nRhw = 1.0f;
-    gaVertices_00970F48[2].nU = 1.0f;
-    gaVertices_00970F48[2].nV = 1.0f;
-    gaVertices_00970F48[3].nRhw = 1.0f;
-    gaVertices_00970F48[3].nU = 1.0f;
-    gaVertices_00970F48[0].nU = 0.0f;
-    gaVertices_00970F48[0].nV = 0.0f;
-    gaVertices_00970F48[1].nX = 0.0f;
-    gaVertices_00970F48[1].nY = 0.0f;
-    gaVertices_00970F48[1].nU = 0.0f;
-    gaVertices_00970F48[2].nX = 0.0f;
-    gaVertices_00970F48[2].nY = 0.0f;
-    gaVertices_00970F48[3].nX = 0.0f;
-    gaVertices_00970F48[3].nY = 0.0f;
-    gaVertices_00970F48[3].nV = 0.0f;
-    gaVertices_00970F48[1].nZ = 0.5f;
-    gaVertices_00970F48[2].nZ = 0.5f;
-    gaVertices_00970F48[3].nZ = 0.5f;
+    gaVertices_00970F48[0].fX = 0.0f;
+    gaVertices_00970F48[0].fY = 0.0f;
+    gaVertices_00970F48[0].fZ = 0.5f;
+    gaVertices_00970F48[0].fRhw = 1.0f;
+    gaVertices_00970F48[0].dwColor = 0xFFFFFFFF;
+    gaVertices_00970F48[1].dwColor = 0xFFFFFFFF;
+    gaVertices_00970F48[2].dwColor = 0xFFFFFFFF;
+    gaVertices_00970F48[3].dwColor = 0xFFFFFFFF;
+    gaVertices_00970F48[1].fRhw = 1.0f;
+    gaVertices_00970F48[1].fV = 1.0f;
+    gaVertices_00970F48[2].fRhw = 1.0f;
+    gaVertices_00970F48[2].fU = 1.0f;
+    gaVertices_00970F48[2].fV = 1.0f;
+    gaVertices_00970F48[3].fRhw = 1.0f;
+    gaVertices_00970F48[3].fU = 1.0f;
+    gaVertices_00970F48[0].fU = 0.0f;
+    gaVertices_00970F48[0].fV = 0.0f;
+    gaVertices_00970F48[1].fX = 0.0f;
+    gaVertices_00970F48[1].fY = 0.0f;
+    gaVertices_00970F48[1].fU = 0.0f;
+    gaVertices_00970F48[2].fX = 0.0f;
+    gaVertices_00970F48[2].fY = 0.0f;
+    gaVertices_00970F48[3].fX = 0.0f;
+    gaVertices_00970F48[3].fY = 0.0f;
+    gaVertices_00970F48[3].fV = 0.0f;
+    gaVertices_00970F48[1].fZ = 0.5f;
+    gaVertices_00970F48[2].fZ = 0.5f;
+    gaVertices_00970F48[3].fZ = 0.5f;
     return pObject + 0x6000;
 }
 
@@ -351,7 +337,7 @@ void __fastcall sub_006B77B0_Call(int nX1, int nY1, int nX2, int nY2, unsigned c
     sub_006B1F40_SetBlendMode(4);
     sub_006B2030_SetFilterMode(1);
 
-    D2TLVertex006B77B0Strc tVertices[4];
+    D2TLVertexStrc tVertices[4];
     tVertices[0].fX = (float)nX1;
     tVertices[0].fY = (float)nY1;
     tVertices[0].fZ = 0.5f;
@@ -468,19 +454,19 @@ void __cdecl sub_006B7F70_ClearTarget()
     gpDevice_00970E7C->lpVtbl->Clear(gpDevice_00970E7C, 1, &tRect, 1, 0xFF000000, 0.0f, 0);
 }
 
-D2QuadVertexStrc gaQuadVertices[4]; // 0x00971630
+D2TLVertexStrc gaQuadVertices[4]; // 0x00971630
 
 // 0x006B80A0
 void __cdecl sub_006B80A0_InitializeDrawingGeometry()
 {
- gaQuadVertices[0].x=0.0f;gaQuadVertices[0].y=0.0f;gaQuadVertices[0].z=0.5f;gaQuadVertices[0].rhw=1.0f;
- gaQuadVertices[0].s=0.0f;gaQuadVertices[0].t=0.0f;
- gaQuadVertices[1].x=0.0f;gaQuadVertices[1].y=0.0f;gaQuadVertices[1].z=0.5f;gaQuadVertices[1].rhw=1.0f;
- gaQuadVertices[1].s=0.0f;gaQuadVertices[1].t=1.0f;
- gaQuadVertices[2].x=0.0f;gaQuadVertices[2].y=0.0f;gaQuadVertices[2].z=0.5f;gaQuadVertices[2].rhw=1.0f;
- gaQuadVertices[2].s=1.0f;gaQuadVertices[2].t=1.0f;
- gaQuadVertices[3].x=0.0f;gaQuadVertices[3].y=0.0f;gaQuadVertices[3].z=0.5f;gaQuadVertices[3].rhw=1.0f;
- gaQuadVertices[3].s=1.0f;gaQuadVertices[3].t=0.0f;
+ gaQuadVertices[0].fX=0.0f;gaQuadVertices[0].fY=0.0f;gaQuadVertices[0].fZ=0.5f;gaQuadVertices[0].fRhw=1.0f;
+ gaQuadVertices[0].fU=0.0f;gaQuadVertices[0].fV=0.0f;
+ gaQuadVertices[1].fX=0.0f;gaQuadVertices[1].fY=0.0f;gaQuadVertices[1].fZ=0.5f;gaQuadVertices[1].fRhw=1.0f;
+ gaQuadVertices[1].fU=0.0f;gaQuadVertices[1].fV=1.0f;
+ gaQuadVertices[2].fX=0.0f;gaQuadVertices[2].fY=0.0f;gaQuadVertices[2].fZ=0.5f;gaQuadVertices[2].fRhw=1.0f;
+ gaQuadVertices[2].fU=1.0f;gaQuadVertices[2].fV=1.0f;
+ gaQuadVertices[3].fX=0.0f;gaQuadVertices[3].fY=0.0f;gaQuadVertices[3].fZ=0.5f;gaQuadVertices[3].fRhw=1.0f;
+ gaQuadVertices[3].fU=1.0f;gaQuadVertices[3].fV=0.0f;
  for(int row=0;row<5;++row) {
   float t=(float)(row*0.984375*0.25+0.015625);
   for(int column=0;column<3;++column) {

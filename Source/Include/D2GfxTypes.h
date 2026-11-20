@@ -11,6 +11,9 @@ struct D2RgbColorStrc;
 struct D2GfxSettingsStrc;
 struct D2GfxPaletteViewStrc;
 struct D2SmackStrc;
+struct D2BinkStrc;
+struct D2BoundsStrc;
+struct D2ClipStrc;
 struct D2TileDrawFunctionsStrc;
 
 struct D2RgbColorStrc
@@ -59,6 +62,30 @@ struct D2SmackStrc
     int nFrameNum; // 0x374
 };
 
+struct D2BinkStrc
+{
+    unsigned int nWidth; // 0x00
+    unsigned int nHeight; // 0x04
+    unsigned int nFrames; // 0x08
+    unsigned int nFrameNum; // 0x0C
+};
+
+struct D2BoundsStrc
+{
+    int nLeft; // 0x00
+    int nRight; // 0x04
+    int nTop; // 0x08
+    int nBottom; // 0x0C
+};
+
+struct D2ClipStrc
+{
+    int nLeft; // 0x00
+    int nWidth; // 0x04
+    int nTop; // 0x08
+    int nHeight; // 0x0C
+};
+
 struct D2TileDrawFunctionsStrc
 {
     void (__fastcall* pfFillYBufferTable)(unsigned char* pBits, int nWidth, int nHeight, int a4); // 0x00
@@ -74,4 +101,7 @@ D2_CHECK_SIZE(D2RgbColorStrc, 0x3);
 D2_CHECK_SIZE(D2GfxSettingsStrc, 0x18);
 D2_CHECK_SIZE(D2GfxPaletteViewStrc, 0x120);
 D2_CHECK_SIZE(D2SmackStrc, 0x378);
+D2_CHECK_SIZE(D2BinkStrc, 0x10);
+D2_CHECK_SIZE(D2BoundsStrc, 0x10);
+D2_CHECK_SIZE(D2ClipStrc, 0x10);
 D2_CHECK_SIZE(D2TileDrawFunctionsStrc, 0x1C);

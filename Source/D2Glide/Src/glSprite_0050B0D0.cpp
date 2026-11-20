@@ -1,6 +1,5 @@
 #include "D2Glide.h"
 #include "D2CelContext.h"
-#include "D2GfxTypes.h"
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 

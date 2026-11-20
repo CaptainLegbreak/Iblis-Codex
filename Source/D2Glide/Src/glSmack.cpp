@@ -1,6 +1,5 @@
 #include "D2Glide.h"
 #include "D2DrlgMaps.h"
-#include "D2GfxTypes.h"
 
 struct D2GlideSmackStrc;
 struct T004F51E0;

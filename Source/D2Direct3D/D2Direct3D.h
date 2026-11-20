@@ -82,8 +82,6 @@ struct D2FloorPoolStrc
 	D2FloorPoolEntryStrc* pEntries;
 };
 
-struct D2QuadVertexStrc { float x,y,z,rhw; unsigned int color,specular; float s,t; };
-
 struct D2RectStrc
 {
     int nLeft;
@@ -121,16 +119,3 @@ struct D2TexPoolStrc
 	D2TexPoolEntryStrc* pEntries;
 };
 
-struct D2TexturedVertexStrc
-{
-    float nX, nY, nZ, nRhw;
-    unsigned int nDiffuse, nSpecular;
-    float nU, nV;
-};
-
-struct D2VideoBlitVertex
-{
-    float x, y, z, rhw;
-    unsigned int color, specular;
-    float u, v;
-};

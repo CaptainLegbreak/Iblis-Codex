@@ -101,7 +101,8 @@ struct D2GlideTileStrc
     short nPosY; // 0x02
     short nCacheIndex; // 0x04
     short unk0x06; // 0x06
-    int unk0x08; // 0x08
+    unsigned short nFormat; // 0x08
+    unsigned short nLength; // 0x0A
     int unk0x0C; // 0x0C
     unsigned char* pData; // 0x10
 };

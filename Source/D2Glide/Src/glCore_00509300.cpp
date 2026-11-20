@@ -1,5 +1,4 @@
 #include "D2Glide.h"
-#include "D2GfxTypes.h"
 
 struct D2GfxLightExStrc;
 
@@ -12,14 +11,6 @@ struct T00508FE0
     float sow;
     float tow;
     float unk0x18;
-};
-
-struct D2BinkStrc
-{
-    unsigned int Width;
-    unsigned int Height;
-    unsigned int Frames;
-    unsigned int f_C;
 };
 
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
