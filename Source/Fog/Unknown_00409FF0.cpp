@@ -37,7 +37,7 @@ extern int gbUsePools_00708000;                                                 
 void* __fastcall sub_0040A080_PoolAlloc(void* pPool, int nSize, const char* szFile, int nLine);             // 0x0040A080
 void __fastcall sub_00409AB0_PoolFree(void* pPool, void** ppMemory, const char* szFile, int nLine);         // 0x00409AB0
 void* __fastcall sub_0040A1F0_PoolRealloc(void* pPool, void* pMemory, int nSize, const char* szFile, int nLine); // 0x0040A1F0
-void __cdecl sub_00408900_ReportAllocFailure(int nType, const char* szFile, int nLine, const char* szText); // 0x00408900
+void __cdecl sub_00408900_RaiseErrorReport(int nType, const char* szFile, int nLine, const char* szFormat, ...); // 0x00408900
 
 // 0x00409FF0
 void __cdecl FOG_SetMemoryPoolSystemMode(D2PoolSystemStrc* pSystem, int bFreePoolAlloc)
@@ -91,7 +91,7 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0)
     void* pMemory = sub_0040A080_PoolAlloc(0, nSize, szFile, nLine);
     if (!pMemory)
     {
-        sub_00408900_ReportAllocFailure(2, szFile, nLine, &gszEmptyAssertText);
+        sub_00408900_RaiseErrorReport(2, szFile, nLine, &gszEmptyAssertText);
     }
     return pMemory;
 }
@@ -109,7 +109,7 @@ void* __fastcall FOG_Realloc(void* pMemory, int nSize, const char* szFile, int n
     void* pNew = sub_0040A1F0_PoolRealloc(0, pMemory, nSize, szFile, nLine);
     if (!pNew)
     {
-        sub_00408900_ReportAllocFailure(2, szFile, nLine, &gszEmptyAssertText);
+        sub_00408900_RaiseErrorReport(2, szFile, nLine, &gszEmptyAssertText);
     }
     return pNew;
 }
@@ -120,7 +120,7 @@ void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, in
     void* pMemory = sub_0040A080_PoolAlloc(gbUsePools_00708000 ? pMemPool : 0, nSize, szFile, nLine);
     if (!pMemory)
     {
-        sub_00408900_ReportAllocFailure(2, szFile, nLine, &gszEmptyAssertText);
+        sub_00408900_RaiseErrorReport(2, szFile, nLine, &gszEmptyAssertText);
     }
     return pMemory;
 }
@@ -138,7 +138,7 @@ void* __fastcall FOG_ReallocPool(void* pMemPool, void* pMemory, int nSize, const
     void* pNew = sub_0040A1F0_PoolRealloc(gbUsePools_00708000 ? pMemPool : 0, pMemory, nSize, szFile, nLine);
     if (!pNew)
     {
-        sub_00408900_ReportAllocFailure(2, szFile, nLine, &gszEmptyAssertText);
+        sub_00408900_RaiseErrorReport(2, szFile, nLine, &gszEmptyAssertText);
     }
     return pNew;
 }

@@ -1,3 +1,4 @@
+struct D2DrlgCoordStrc;
 struct D2DrlgCoordsStrc;
 struct D2DrlgVertexStrc;
 struct D2DrlgOrthStrc;
@@ -37,7 +38,7 @@ extern "C" const char* __cdecl sub_00408090();
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
-void __stdcall sub_0067CE20(void* pMemPool, D2DrlgVertexStrc* pVertex, D2DrlgCoordsStrc* pDefaultCoords, unsigned char nDirection, D2DrlgOrthStrc* pOrth); // 0x0067CE20
+void __stdcall sub_0067CE20(void* pMemPool, D2DrlgVertexStrc* pCurrentVertex, D2DrlgCoordStrc* pDrlgCoord, unsigned char nDirection, D2DrlgOrthStrc* pCurrentRoomData); // 0x0067CE20
 D2DrlgVertexStrc* __fastcall DRLGVER_AllocVertex(void* pMemPool, unsigned char nDirection);
 static void __stdcall sub_0067CE00_MarkVertex(D2DrlgVertexStrc* pVertex, int bInit);
 static void __fastcall sub_0067D030(D2DrlgCoordsStrc* pCoords, D2DrlgVertexStrc* pFirst);

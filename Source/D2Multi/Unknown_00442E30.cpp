@@ -1,4 +1,5 @@
 #include "D2Multi.h"
+struct D2WinEditBoxStrc;
 
 struct Unicode;
 struct SMSGHANDLER_PARAMS;
@@ -31,7 +32,7 @@ struct D2LaunchGameRecStrc
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 extern "C" unsigned int __cdecl strlen(const char* szString);
-int __stdcall sub_004F91C0(void* pEditBox); // 0x004F91C0
+int __stdcall sub_004F91C0(D2WinEditBoxStrc* pEditBox); // 0x004F91C0
 const Unicode* __fastcall sub_004FBB30_GetText(D2WinControlStrc* pControl); // 0x004FBB30
 char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70
 void __fastcall sub_004FF5A0_SetEditText(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FF5A0

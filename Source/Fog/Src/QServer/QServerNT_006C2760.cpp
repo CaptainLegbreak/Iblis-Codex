@@ -14,13 +14,13 @@ struct T006BFAD0
     unsigned char pad78[0x28];
     unsigned int f_A0;
 };
-void* __fastcall FOG_Alloc(unsigned int size, const char* file, int line, int unused); // 0x0040B380
+void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 extern "C" void* __cdecl memcpy(void* dst, const void* src, unsigned int count);
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc*);
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc*);
 extern "C" __declspec(dllimport) int __stdcall send(unsigned int socket, const char* bytes, int size, int flags);
 extern "C" __declspec(dllimport) int __stdcall WSAGetLastError();
-unsigned int __cdecl sub_00410A80_GetTimeSeconds(); // 0x00410A80
+long __cdecl sub_00410A80_GetTimeSeconds(); // 0x00410A80
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60

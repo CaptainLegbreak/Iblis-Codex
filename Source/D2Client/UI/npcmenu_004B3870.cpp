@@ -1,5 +1,8 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+struct D2BitBufferStrc;
+struct D2GameStrc;
+struct D2UnitStrc;
 
 
 struct Unicode
@@ -15,8 +18,8 @@ extern "C" const char gszFormatD_006D57BC[];                                    
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...);            // 0x006CC468
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer);                        // 0x00625480
-int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem);                                                    // 0x006289F0
-D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType);                             // 0x00463990
+unsigned int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
+D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 D2UnitStrc* __cdecl sub_004B1620_GetInteractNpc();                                                          // 0x004B1620
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId);                                              // 0x006335F0
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile);   // 0x006280A0
@@ -27,13 +30,13 @@ unsigned char __cdecl sub_0044DCD0_GetDifficulty();                             
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit();                                                           // 0x00463DE0
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory);                                 // 0x0063C1E0
-int __stdcall ITEMS_GetAllRepairCosts(void* pGame, D2UnitStrc* pUnit, int nNpcId, int nDifficulty, D2BitBufferStrc* pQuestFlags, void* pfCallback); // 0x0062FE60
+int __stdcall ITEMS_GetAllRepairCosts(D2GameStrc* pGame, D2UnitStrc* pUnit, int nNpcId, int nDifficulty, D2BitBufferStrc* pQuestFlags, void (__fastcall* pfCallback)(D2GameStrc*, D2UnitStrc*, D2UnitStrc*)); // 0x0062FE60
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 int __fastcall sub_00526800(const Unicode* pString);                                                      // 0x00526800
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc);                                     // 0x005267E0
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);                                 // 0x00526700
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);                   // 0x00526F20
-void __fastcall sub_00467A70(int nArg);                                                                     // 0x00467A70
+void __fastcall sub_00467A70_RefreshHoverUnit(D2UnitStrc* pUnit); // 0x00467A70
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4);           // 0x004B9A00
 
 static int sub_004B1F80_ItemNeedsRepair(D2UnitStrc* pItem); // 0x004B1F80
@@ -210,7 +213,7 @@ int __fastcall sub_004B3870_HandleTradeClick(D2UnitStrc* pPlayer, D2UnitStrc* pI
         gnGlobal_007C0D31 = 3;
         gbGlobal_007C0DE0 = 1;
         gnGlobal_007C0DE5 = 0;
-        sub_00467A70(0);
+        sub_00467A70_RefreshHoverUnit(0);
         gnGlobal_007C0D4B = nX;
         gnGlobal_007C0D4F = nY;
     }
@@ -288,7 +291,7 @@ int __fastcall sub_004B3870_HandleTradeClick(D2UnitStrc* pPlayer, D2UnitStrc* pI
         gbGlobal_007C0DE0 = 1;
         gnGlobal_007C0DE5 = GetUnitIdOrNone(pItem);
         gnGlobal_007C0DE1 = GetClassIdOrNone(pItem);
-        sub_00467A70(0);
+        sub_00467A70_RefreshHoverUnit(0);
         if (!((gnGlobal_007C0D31 == 2 && bCheckTick) || (gnGlobal_007C0D31 == 1 && bCheckTick)))
         {
             sub_004B9A00(1, 0, 0, 0, 0);

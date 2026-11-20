@@ -1,5 +1,6 @@
 #include "D2Structs.h"
 #include "D2Path.h"
+struct D2DrlgCoordStrc;
 struct D2DrlgGridStrc
 {
     int* pCellsFlags;
@@ -41,7 +42,7 @@ extern "C" const char gszDrlgGridSourceFile;
 
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);   // 0x0040B430
 void __fastcall sub_0040B480(void* pMemPool, void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B480
-int __fastcall DRLGROOM_AreXYInsideCoordinates(D2DrlgCoordsStrc* pCoords, int nX, int nY);                   // 0x0066B980
+int __fastcall DRLGROOM_AreXYInsideCoordinates(D2DrlgCoordStrc* pDrlgCoord, int nX, int nY); // 0x0066B980
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
 

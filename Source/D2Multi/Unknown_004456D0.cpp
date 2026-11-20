@@ -44,7 +44,7 @@ struct D2LaunchLoginStrc
 extern "C" int __cdecl atoi(const char* szString);
 extern "C" size_t __cdecl strlen(const char* szString);
 
-const char* __cdecl sub_0040DF60_GetLocalIp(); // 0x0040DF60
+const char* __fastcall FOG_GetHostIPAddress(); // 0x0040DF60
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
 int __fastcall sub_0043FE40_SetupLogin(D2LaunchLoginStrc* pLogin, const char* szText0x37); // 0x0043FE40
@@ -57,7 +57,7 @@ void __cdecl sub_004453B0_BuildPanel(); // 0x004453B0
 void __stdcall sub_004FA590_RunLoop(D2LaunchCallback pfnCallback); // 0x004FA590
 const Unicode* __fastcall sub_004FDD90_GetEditText(D2WinControlStrc* pControl); // 0x004FDD90
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
-void __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
+char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
 char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70
 extern "C" const char gszMaxPlayer_006D57C0[]; // 0x006D57C0
 extern "C" const char gszLvlRest_006D57CC[]; // 0x006D57CC
@@ -179,7 +179,7 @@ int __stdcall sub_004456D0_SubmitCreateGame(int nArg)
             }
         }
 
-        sub_0043FE40_SetupLogin(&tLogin, sub_0040DF60_GetLocalIp());
+        sub_0043FE40_SetupLogin(&tLogin, FOG_GetHostIPAddress());
         if (!sub_00449B30_QueryAddress())
         {
             sub_004401C0_ShowTimedMessage(D2LANG_GetStringFromTblIndex(0x147B), 0);

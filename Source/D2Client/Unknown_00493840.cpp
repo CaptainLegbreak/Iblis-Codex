@@ -1,7 +1,7 @@
 struct Unicode;
 
 extern int gnGlobal_007BEEE8; // 0x007BEEE8
-void __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 int __cdecl sub_0044DB30(); // 0x0044DB30
 
 struct Unicode

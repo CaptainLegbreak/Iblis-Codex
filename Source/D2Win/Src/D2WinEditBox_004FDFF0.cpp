@@ -72,7 +72,7 @@ char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount);
 int __fastcall sub_00501820(const Unicode* wszText);                                             // 0x00501820
 int __fastcall D2Win_10122(const Unicode* wszText, int nTextLength);                                        // 0x005017D0
 int __stdcall D2Win_10125();                                                                                // 0x00501A40
-int __stdcall sub_004F91C0(void* pEditBox);                                                                  // 0x004F91C0
+int __stdcall sub_004F91C0(D2WinEditBoxStrc* pEditBox); // 0x004F91C0
 int __fastcall D2Win_10082(D2WinControlStrc* pEditBox);                                                     // 0x004FDD00
 void __fastcall sub_004FDCC0(D2WinEditBoxStrc* pEditBox);                                                    // 0x004FDCC0
 int __stdcall sub_004FE3B0_EditBoxClick(SMSGHANDLER_PARAMS* pMsg, int nX, int nY);                          // 0x004FE3B0

@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+struct D2UnitStrc;
 
 #define UNIT_OBJECT 2
 #define UNITFLAGEX_TELEPORTED 0x10000
@@ -126,7 +127,7 @@ static __declspec(noinline) void sub_00581B50_TeleportToUnit(D2UnitStrc* pUnit, 
 
 struct D2ObjOperateStrc { D2GameStrc* game; D2UnitStrc* object; D2UnitStrc* player; };
 unsigned int __stdcall sub_00620510(D2UnitStrc*); // 0x00620510
-unsigned int __stdcall sub_006205A0(D2UnitStrc*); // 0x006205A0
+int __stdcall UNITS_GetUnitSizeY(D2UnitStrc* ptUnit); // 0x006205A0
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 int __fastcall D2GAME_DoKeyCheck_6FC4A4B0(D2GameStrc*,D2UnitStrc*); // 0x0055F140
 void __stdcall UNITS_FreeCollisionPath(D2UnitStrc*); // 0x00623830
@@ -410,7 +411,7 @@ int __fastcall sub_00581D40_OperateDoor(D2ObjOperateStrc* context,int unused)
  D2CoordStrc coords;
  UNITS_GetCoords(context->object,&coords);
  unsigned int sizeX=sub_00620510(context->object);
- unsigned int sizeY=sub_006205A0(context->object);
+ unsigned int sizeY=UNITS_GetUnitSizeY(context->object);
  unsigned int tick=GetTickCount();
  unsigned int mode=GetAnimMode(context->object);
  if(tick<context->object->dwTickCount+500) return 1;

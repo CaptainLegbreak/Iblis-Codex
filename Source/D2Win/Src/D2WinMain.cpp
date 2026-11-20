@@ -55,10 +55,10 @@ void __stdcall D2GFX_DrawBoxAlpha(int nXStart, int nYStart, int nXEnd, int nYEnd
 void __stdcall D2GFX_ClearScreen(int bPartial); // 0x004F63B0
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 int __fastcall sub_004F9250_AppendToDeadList(D2WinControlStrc* pControl); // 0x004F9250
-void __cdecl sub_004F9290_FreeDeadControls(); // 0x004F9290
+int __stdcall CONTROL_FreeDeadList(); // 0x004F9290
 void __cdecl sub_004F97E0_PaintCursor(); // 0x004F97E0
 void __cdecl sub_004F9870_DrawFontCaches(); // 0x004F9870
-void __stdcall D2CMPSpriteCacheInit(int a1, int nCacheSize, int nCacheCount, int a4); // 0x005FFD40
+void __stdcall D2CMPSpriteCacheInit(void* pMemPool, unsigned int nMaxSize, int nArg, unsigned int nCacheSize); // 0x005FFD40
 void __stdcall sub_005FFE30_FreeTileCache(int bFree); // 0x005FFE30
 extern void* ghMainWindow_6F8FE23C; // 0x007D55AC
 extern int gbWindowed_6F8FE244; // 0x007D55B4
@@ -122,10 +122,10 @@ extern "C" __declspec(dllimport) int __stdcall GetClientRect(void* hWnd, tagRECT
 extern "C" __declspec(dllimport) int __stdcall GetWindowPlacement(void* hWnd, tagWINDOWPLACEMENT* lpwndpl); // 0x006CC508
 extern "C" __declspec(dllimport) int __stdcall GetMonitorInfoA(void* hMonitor, tagMONITORINFO* lpmi); // 0x006CC510
 extern "C" __declspec(dllimport) void* __stdcall MonitorFromWindow(void* hWnd, unsigned long dwFlags); // 0x006CC514
-int __cdecl D2GFX_GetResolutionMode(); // 0x004F5160
+int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 int __cdecl sub_004F5180(); // 0x004F5180
 void __stdcall sub_004F5570_GetResolutionSize(int nResolution, long* pWidth, long* pHeight); // 0x004F5570
-int __cdecl sub_004F5A30(); // 0x004F5A30
+int __stdcall WINDOW_IsFullScreen(); // 0x004F5A30
 int __stdcall sub_004F5BC0_CenterWindow(int nResolution); // 0x004F5BC0
 
 struct Point { int x, y; };
@@ -374,7 +374,7 @@ void __stdcall sub_004F98E0()
         D2GFX_EndScene();
     }
 
-    sub_004F9290_FreeDeadControls();
+    CONTROL_FreeDeadList();
 }
 
 int dword_6F8FE26C; // 0x007D55DC
@@ -470,7 +470,7 @@ tagRECT gWindowRect_007C9160; // 0x007C9160
 void __stdcall sub_004F9CC0_SysCommandMaximizeMsg(SMSGHANDLER_PARAMS* pMsg)
 {
     const unsigned short nCommand = pMsg->nWParamLo & 0xFFF0;
-    if (nCommand == 0xF130 || nCommand == 0xF100 || (nCommand == 0xF010 && sub_004F5A30()))
+    if (nCommand == 0xF130 || nCommand == 0xF100 || (nCommand == 0xF010 && WINDOW_IsFullScreen()))
     {
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
@@ -482,7 +482,7 @@ void __stdcall sub_004F9CC0_SysCommandMaximizeMsg(SMSGHANDLER_PARAMS* pMsg)
         return;
     }
 
-    if (sub_004F5A30())
+    if (WINDOW_IsFullScreen())
     {
         return;
     }

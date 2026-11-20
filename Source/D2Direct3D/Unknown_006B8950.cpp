@@ -21,8 +21,8 @@ extern D2TLVertexStrc gaQuad_00971630[4]; // 0x00971630
 extern unsigned short gaIndices_0074C0D0[22]; // 0x0074C0D0
 extern D2D3DDeviceStrc* gpDevice_00970E78; // 0x00970E78
 extern const char gszAssert_006CC837[]; // 0x006CC837
-void* __stdcall sub_00408090(); // 0x00408090
-void __cdecl sub_00408A60(const char*,void*,int); // 0x00408A60
+extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 __declspec(noreturn) void __cdecl sub_00681E09_Exit(int);
 void __cdecl sub_00681E09_Exit(int); // 0x00681E09
 void __fastcall sub_006B9860_Project(int,int,int,int*,int*); // 0x006B9860

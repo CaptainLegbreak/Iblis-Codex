@@ -39,7 +39,7 @@ struct D2SoundStrc
     void* hStreamFile;
 };
 
-D2SoundStrc* __fastcall sub_00515530(int nType, int nArg); // 0x00515530
+D2SoundStrc* __fastcall sub_00515530_CreateSound(unsigned int nFlags, int nValue); // 0x00515530
 int __fastcall sub_00515710_GetSoundPlaying(D2SoundStrc* pSound); // 0x00515710
 int __fastcall sub_00515C30_IsSoundStreaming(D2SoundStrc* pSound); // 0x00515C30
 void __fastcall sub_00515C60_StartFade(D2SoundStrc* pFade, int nTarget, int nDuration); // 0x00515C60
@@ -77,7 +77,7 @@ extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalS
 extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 int __fastcall sub_004068E0(const char* szFileName, void** phFile); // 0x004068E0
 int __stdcall SFileDdaBeginEx(void* hFile, int nBufferSize, unsigned int nFlags, unsigned int nOffset, int nVolume, int nPan, D2DSoundBufferStrc* pBuffer); // 0x0041B280
-void __fastcall sub_00515180_FillBuffer(D2SoundStrc* pSound, int nArg2, int nArg3, unsigned int nSize); // 0x00515180
+int __fastcall sub_00515180_FillBuffer(D2SoundStrc* sound,unsigned int sourcePosition,unsigned int destinationPosition,unsigned int size); // 0x00515180
 void* __fastcall sub_00516760_ParseWave(const void* pFile, unsigned int* pnSize, D2WaveFormatStrc* pFormat); // 0x00516760
 void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
 extern int gbWaveSlotsInit_008817FC; // 0x008817FC
@@ -171,7 +171,7 @@ void __cdecl sub_00514DB0_InitWaveSlots()
         InitializeCriticalSection(&gWaveLock_008817C4);
         sub_00515CE0_SetMasterVolume(0xFF);
         for (int i = 0; i < 8; ++i)
-            gapWaveSlots_008817DC[i] = sub_00515530(i < 4, 0);
+            gapWaveSlots_008817DC[i] = sub_00515530_CreateSound(i < 4, 0);
         gbWaveSlotsInit_008817FC = 1;
     }
 }

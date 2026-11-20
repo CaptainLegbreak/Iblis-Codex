@@ -54,7 +54,7 @@ struct D2ErrorReportStrc
 extern const char* gszErrorDefaults_006FCC24[]; // 0x006FCC24
 extern const char gszPercentS_006FFC58[]; // 0x006FFC58
 extern const char gszNewline_006FFCB0[]; // 0x006FFCB0
-void* __stdcall sub_0041BEF0_GetModule(); // 0x0041BEF0
+void* __cdecl sub_0041BEF0_GetExeModule(); // 0x0041BEF0
 unsigned int __stdcall SStrCopy(char*, const char*, unsigned int); // 0x004135D0
 unsigned int __stdcall sub_00413800(char*, const char*, unsigned int); // 0x00413800
 extern "C" char* __cdecl strstr(const char*, const char*);
@@ -146,7 +146,7 @@ static void __stdcall sub_006C3E10_ReportCommandError(D2ErrorCallback callback, 
         return;
     }
     format[0] = 0;
-    LoadStringA(sub_0041BEF0_GetModule(), resource, format, 256);
+    LoadStringA(sub_0041BEF0_GetExeModule(), resource, format, 256);
     if (!format[0])
         SStrCopy(format, gszErrorDefaults_006FCC24[index], 256);
     if (strstr(format, gszPercentS_006FFC58))

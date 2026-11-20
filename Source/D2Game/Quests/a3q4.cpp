@@ -110,8 +110,8 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 extern char gpAct3Q4NpcMessages[]; // 0x007401D0
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
-int __fastcall QUESTS_DebugOutput(D2GameStrc* pGame, const char* szMessage, const char* szFile, int nLine); // 0x00544070
-void __fastcall QUESTS_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nQuestId); // 0x00544190
+void __fastcall QUESTS_DebugOutput(D2GameStrc* pGame, const char* szMessage, const char* szFile, int nLine); // 0x00544070
+void __fastcall QUESTS_StatusCyclerEx(D2GameStrc* game,D2UnitStrc* player,unsigned char id); // 0x00544190
 void __fastcall QUESTS_UnitIterate(D2QuestDataStrc* pQuest, int nIterateState, D2UnitStrc* pUnit, QUESTUNITITERATE pfIterate, bool bIterate); // 0x00544300
 void __fastcall QUESTS_StateDebug(D2QuestDataStrc* pQuestData, int nState, const char* szFile, int nLine); // 0x00544350
 void __fastcall QUESTS_ResetPlayerGUIDCount(void* pQuestGUID); // 0x00545300
@@ -126,7 +126,7 @@ bool __fastcall ACT3Q4_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId,
 void __fastcall ACT3Q4_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x005B9ED0
 void __fastcall ACT3Q4_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x005BA320
 void __fastcall ACT3Q4_Callback13_PlayerStartedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x005BA870
-void __fastcall ACT3Q4_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x005BA990
+void __fastcall ACT3Q5_Callback10_PlayerLeavesGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x005BA990
 void __fastcall ACT3Q4_Callback14_PlayerJoinedGame(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x005BA9E0
 bool __fastcall ACT3Q4_StatusFilterCallback(D2QuestDataStrc* pQuest, D2UnitStrc* pPlayer, D2BitBufferStrc* pGlobalFlags, D2BitBufferStrc* pFlags, unsigned char* pStatus); // 0x005BA170
 
@@ -325,7 +325,7 @@ void __fastcall ACT3Q4_InitQuestData(D2QuestDataStrc* pQuestData)
     pQuestData->pCallback[11] = ACT3Q4_Callback11_ScrollMessage;
     pQuestData->pCallback[3] = ACT3Q4_Callback03_ChangedLevel;
     pQuestData->pCallback[13] = ACT3Q4_Callback13_PlayerStartedGame;
-    pQuestData->pCallback[10] = ACT3Q4_Callback10_PlayerLeavesGame;
+    pQuestData->pCallback[10] = ACT3Q5_Callback10_PlayerLeavesGame;
     pQuestData->pCallback[14] = ACT3Q4_Callback14_PlayerJoinedGame;
     pQuestData->pCallback[9] = ACT3Q4_Callback09_PlayerDroppedWithQuestItem;
     QUESTS_ResetPlayerGUIDCount(&pQuestData->tPlayerGUIDs);

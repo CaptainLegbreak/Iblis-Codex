@@ -1,5 +1,6 @@
 #include "D2Game.h"
 #include "D2GameStrc.h"
+struct D2LinkStrc;
 
 struct D2ClientStrc
 {
@@ -24,13 +25,13 @@ extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalS
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
 D2GameStrc* __fastcall GAME_LockGame(int nGameGUID);                                                        // 0x0052E860
 void __fastcall GAME_UpdateProgress(D2GameStrc* pGame);                                                     // 0x0052D870
-int __cdecl sub_00410A80_GetTime();                                                                         // 0x00410A80
+long __cdecl sub_00410A80_GetTimeSeconds(); // 0x00410A80
 void __fastcall sub_0053B220_SendHeaderOnly0xB0(int nClientId);                                             // 0x0053B220
 void __fastcall ClientRemoveFromGame(D2GameStrc* pGame, int nClientId, int bTriggerSave);          // 0x00539DA0
 void __fastcall GAME_LeaveGamesCriticalSection(D2GameStrc* pGame);                                          // 0x0052DA90
 void __fastcall GAME_CloseGame(int nGameGUID);                                                              // 0x0052E770
 void __fastcall TASK_LinkList_PushFront(D2LinkStrc* pList, D2LinkStrc* pLink);                              // 0x00564250
-void __fastcall TASK_LinkList_Remove(D2LinkStrc* pLink);                                                    // 0x005642E0
+D2LinkStrc* __fastcall TASK_LinkList_Remove(D2LinkStrc* pLink); // 0x005642E0
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0
 extern "C" const char gszTaskSourceFile[];                                                                  // 0x006E11B8
 extern D2TaskStrc* gtTaskSlots_0088C708[32];                                                          // 0x0088C708
@@ -150,7 +151,7 @@ void __stdcall sub_005645E0_TASK_ProcessGame(int nTaskNumber, D2TaskStrc* ptTask
     {
         GAME_UpdateProgress(pGame);
         sub_6FC39270(pGame, 0);
-        const unsigned int nSyncTime = sub_00410A80_GetTime();
+        const unsigned int nSyncTime = sub_00410A80_GetTimeSeconds();
         const unsigned int nSyncTimer = pGame->nSyncTimer;
         if (nSyncTimer == 1)
             goto IoTimeout;

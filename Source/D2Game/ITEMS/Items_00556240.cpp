@@ -5,6 +5,8 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+struct D2ClientStrc;
+struct D2UnitStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define D2_MIN(a,b) ((a)<(b)?(a):(b))
@@ -87,9 +89,9 @@ unsigned short __stdcall ITEMS_GetItemFormat(D2UnitStrc*); // 0x0062A670
 int __stdcall ITEMS_HasDurability(D2UnitStrc*); // 0x00629930
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc*,int,int); // 0x00625480
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc*,int,int,int); // 0x00627260
-void __stdcall ITEMS_SetFileIndex(D2UnitStrc*,int); // 0x00629DF0
-void __stdcall ITEMS_SetItemFlag(D2UnitStrc*,int,int); // 0x006280D0
-void __stdcall sub_0065FEC0_ApplyProperties(int,void*,D2UnitStrc*,int,int,int); // 0x0065FEC0
+void __stdcall ITEMS_SetFileIndex(D2UnitStrc* pItem, unsigned int dwFileIndex); // 0x00629DF0
+void __stdcall ITEMS_SetItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int bSet); // 0x006280D0
+void __stdcall ITEMMODS_AssignProperty(int nType, D2UnitStrc* a2, D2UnitStrc* pItem, const void* pMods, int nPropSet, int nApplyType); // 0x0065FEC0
 int __stdcall ITEMS_GetItemLevel(D2UnitStrc*); // 0x006281E0
 int __stdcall ITEMS_GetUniqueColumnFromItemsTxt(D2UnitStrc*); // 0x00628C70
 D2SeedStrc* __stdcall ITEMS_GetItemSeed(D2UnitStrc*); // 0x00627D90
@@ -113,7 +115,7 @@ int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc*); // 0x0062BA80
 int __stdcall STATLIST_GetMaxDurabilityFromUnit(D2UnitStrc*); // 0x00625E00
 void __fastcall ITEMS_ScheduleDurabilityReplenishment(D2GameStrc*,D2UnitStrc*); // 0x00558530
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc*,const char*,int); // 0x005531C0
-void __fastcall D2GAME_PACKETS_SendPacket0x3E_6FC3EC20(D2ClientStrc*,D2UnitStrc*,int,int,int,int); // 0x0053D130
+void __fastcall D2GAME_PACKETS_SendPacket0x3E_6FC3EC20(D2ClientStrc* pClient, D2UnitStrc* pItem, unsigned char a3, int nStatId, unsigned int nValue, unsigned short a6); // 0x0053D130
 int __stdcall sub_006280A0(D2UnitStrc*,int,int,const char*); // 0x006280A0
 void __fastcall sub_6FC4B580(D2GameStrc*,D2UnitStrc*,D2UnitStrc*); // 0x0055F850
 void __fastcall sub_6FC80A30(D2GameStrc*,D2UnitStrc*); // 0x00580310
@@ -309,7 +311,7 @@ int __stdcall sub_005566B0_RollUniqueItem(D2GameStrc* pGame,D2UnitStrc* pItem,D2
   ITEMS_SetFileIndex(pItem,pItemDrop->nItemIndex);
   if(pUnique->dwCode!=pItemsTxtRecord->dwCode) return 1;
   ITEMS_SetItemFlag(pItem,16,0);
-  sub_0065FEC0_ApplyProperties(3,0,pItem,0,0,0);
+  ITEMMODS_AssignProperty(3,0,pItem,0,0,0);
   return 1;
  }
  D2UniqueItemsTxt* pUnique=sgptDataTables->pUniqueItemsTxt;
@@ -330,7 +332,7 @@ int __stdcall sub_005566B0_RollUniqueItem(D2GameStrc* pGame,D2UnitStrc* pItem,D2
        {
         ITEMS_SetFileIndex(pItem,i);
         ITEMS_SetItemFlag(pItem,16,0);
-  sub_0065FEC0_ApplyProperties(3,0,pItem,0,0,0);
+  ITEMMODS_AssignProperty(3,0,pItem,0,0,0);
   return 1;
        }
       }
@@ -383,7 +385,7 @@ int __stdcall sub_005566B0_RollUniqueItem(D2GameStrc* pGame,D2UnitStrc* pItem,D2
  if(ITEMS_CanUniqueItemBeDropped(pGame,pItem))
  {
   ITEMS_SetItemFlag(pItem,16,0);
-  sub_0065FEC0_ApplyProperties(3,0,pItem,0,0,0);
+  ITEMMODS_AssignProperty(3,0,pItem,0,0,0);
   return 1;
  }
 FailedUnique:

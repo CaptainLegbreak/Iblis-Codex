@@ -106,7 +106,7 @@ extern unsigned long gdwFontTextColor_0074C0CC; // 0x0074C0CC
 extern unsigned int gdwRenderFlags_0096F3A8; // 0x0096F3A8
 extern void* gapFontGlyphA_00971150[]; // 0x00971150
 extern D2D3DTextureStrc* gapFontGlyphB_009712D0[]; // 0x009712D0
-void __fastcall sub_006B20E0_ReportError(const char* szMessage, long hResult); // 0x006B20E0
+void __fastcall sub_006B20E0_DDrawLogError(const char* szWhere, int hResult); // 0x006B20E0
 int __fastcall sub_006B3730_CreateWorkSurface(D2DDSurfaceStrc** ppSurface, D2D3DTextureStrc** ppTexture, int nWidth, int nHeight); // 0x006B3730
 int __fastcall sub_006B58A0_CreateGlyphTexture(void** ppGlyphA, D2D3DTextureStrc** ppGlyphB, int nWidth, int nHeight); // 0x006B58A0
 void __fastcall sub_006B38A0_UploadGlyph(void* pGlyphA, D2DDSurfaceStrc* pSurface, int nHeight); // 0x006B38A0
@@ -117,7 +117,7 @@ struct D2SurfaceStrc { D2SurfaceVtableStrc* vtable; };
 
 void __fastcall sub_006B20E0_DDrawLogError(const char*, int); // 0x006B20E0
 
-void __cdecl sub_006B72A0_PrepareRenderer(); // 0x006B72A0
+void __cdecl sub_006B72A0_CreateFontTextures(); // 0x006B72A0
 
 struct D2GfxSettingsStrc
 {
@@ -166,7 +166,7 @@ struct D2Rect006B7C90Strc
     int nBottom;
 };
 
-void __fastcall sub_006B7B30_DrawLine(int nX1, int nY1, int nX2, int nY2, int nColor, int nAlpha); // 0x006B7B30
+void __fastcall sub_006B7B30_DrawLine(int x1,int y1,int x2,int y2,unsigned char index,unsigned char alpha); // 0x006B7B30
 extern const char gszEmpty_006CC837[]; // 0x006CC837
 
 struct D2D3DRect006B7F70Strc
@@ -272,7 +272,7 @@ void __cdecl sub_006B72A0_CreateFontTextures()
         long hResult = pSurface->lpVtbl->Lock(pSurface, 0, &tDesc, 0x21, 0);
         if (hResult)
         {
-            sub_006B20E0_ReportError("Failed to lock memory surface", hResult);
+            sub_006B20E0_DDrawLogError("Failed to lock memory surface", hResult);
         }
 
         unsigned short* pPixel = (unsigned short*)tDesc.lpSurface;
@@ -294,7 +294,7 @@ void __cdecl sub_006B72A0_CreateFontTextures()
         hResult = pSurface->lpVtbl->Unlock(pSurface, 0);
         if (hResult)
         {
-            sub_006B20E0_ReportError("Failed to unlock memory surface", hResult);
+            sub_006B20E0_DDrawLogError("Failed to unlock memory surface", hResult);
         }
 
         D2_ASSERT(sub_006B58A0_CreateGlyphTexture(&gapFontGlyphA_00971150[nChar - ' '], &gapFontGlyphB_009712D0[nChar - ' '], 8, 16), 0xBF);
@@ -340,7 +340,7 @@ D2TexturedVertexStrc gaVertices_00970F48[4]; // 0x00970F48
 // 0x006B76D0
 char* __fastcall sub_006B76D0_InitVertices(char* pObject)
 {
-    sub_006B72A0_PrepareRenderer();
+    sub_006B72A0_CreateFontTextures();
     gaVertices_00970F48[0].nX = 0.0f;
     gaVertices_00970F48[0].nY = 0.0f;
     gaVertices_00970F48[0].nZ = 0.5f;

@@ -39,14 +39,14 @@ void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pC
 int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc* pUnit, int nStateMask);                               // 0x0063A7B0
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit);                                        // 0x004639D0
 short __fastcall sub_00465400_GetPlayerRosterField22(D2UnitStrc* pUnit);                                    // 0x00465400
-int __fastcall sub_00478D90_GetUnitAlignment(unsigned int nUnitId);                                         // 0x00478D90
+int __fastcall sub_00478D90_GetPetRelation(int nUnitId); // 0x00478D90
 int __fastcall sub_00451F30_TestUnitFlag(D2UnitStrc* pUnit, int nFlag);                                     // 0x00451F30
 int __stdcall INVENTORY_GetOwnerId(D2InventoryStrc* pInventory);                                            // 0x0063D450
 int __fastcall sub_00502EF0(int nArg);                                                                      // 0x00502EF0
-void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength);                  // 0x00526320
+Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 int __fastcall sub_00501820(const Unicode* wszText);                                             // 0x00501820
 void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered);          // 0x00502320
-void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned char nColor, unsigned char nAlpha); // 0x004F6380
+void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha); // 0x004F6380
 int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit);                                               // 0x00464820
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState);                                             // 0x00639DF0
 int __stdcall UNITS_GetClientCoordX(D2UnitStrc* pUnit);                                                     // 0x00620650
@@ -61,7 +61,7 @@ int __fastcall sub_0047A0C0_GetRecordUnitId(D2StoredUnitRecordStrc* pRecord);   
 int __fastcall sub_0047A1E0(D2StoredUnitRecordStrc* pEntry);                                                // 0x0047A1E0
 void __fastcall sub_0047A1B0_GetEntryPosition(D2StoredUnitRecordStrc* pEntry, int* pX, int* pY);            // 0x0047A1B0
 void __stdcall sub_00643260(int* pX, int* pY);                                                   // 0x00643260
-const char* __fastcall sub_004795C0_GetEntryName(D2StoredUnitRecordStrc* pEntry);                           // 0x004795C0
+extern "C" const char* __fastcall sub_004795C0_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, int* pNumRooms); // 0x00619790
 
 static inline int AUTOMAP_GetUnitType(D2UnitStrc* pUnit)
@@ -196,7 +196,7 @@ static int sub_00459BC0_GetAutomapUnitColor(D2UnitStrc* pUnit, unsigned char* pC
             return 1;
         }
 
-        switch (sub_00478D90_GetUnitAlignment(!pUnit ? -1 : pUnit->dwUnitId))
+        switch (sub_00478D90_GetPetRelation(!pUnit ? -1 : pUnit->dwUnitId))
         {
         case 0:
         case 3:
@@ -471,3 +471,4 @@ void __cdecl sub_0045AC90_DrawAutomapUnits()
 }
 
 #include "gen/data/Source/D2Client/UI/automap_0045A860.inc"
+struct D2StoredUnitRecordStrc;

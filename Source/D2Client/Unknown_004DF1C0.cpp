@@ -100,7 +100,7 @@ struct D2TileLightCtxStrc
 extern D2LightOffsetsStrc gaLightOffsetsA_0072ABC8[]; // 0x0072ABC8
 extern D2LightOffsetsStrc gaLightOffsetsB_0072A9E8[]; // 0x0072A9E8
 int __cdecl sub_0045AE90(); // 0x0045AE90
-int __stdcall sub_00477730(); // 0x00477730
+int __cdecl sub_00477730(); // 0x00477730
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 void __fastcall sub_00475AA0_ReadGridCell(int nX, int nY, unsigned char* pValue0, unsigned char* pValue1, unsigned char* pValue2, unsigned char* pValue3); // 0x00475AA0
 int __stdcall TILE_TileDrawTrans(D2TileLibraryEntryStrc* pTile, int nXPos, int nYPos, D2GfxLightStrc* pLight, int nScreenPanels, unsigned char nAlpha); // 0x004F6950
@@ -175,7 +175,7 @@ int __fastcall sub_00515710(D2SoundStrc* pSound); // 0x00515710
 void __fastcall sub_00515A30(D2SoundStrc* pSound, int nValue); // 0x00515A30
 void __fastcall sub_00515A60(D2SoundStrc* pSound, int nValue); // 0x00515A60
 void __fastcall sub_00515B40(D2SoundStrc* pSound, float fValue); // 0x00515B40
-int __fastcall sub_00515D70(D2SoundStrc* pSound, char* szPath, int nA, int nB); // 0x00515D70
+int __fastcall sub_00515D70_StartStream(D2SoundStrc* pSound, const char* szFileName, int nPosition, int bLoop); // 0x00515D70
 void __fastcall sub_00516140_ResetSound(D2SoundStrc* pSound); // 0x00516140
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 
@@ -511,7 +511,7 @@ D2SlotStrc* __fastcall sub_004E01B0_PlaySlotSound(D2SlotObjectStrc* pObject)
     {
         char szPath[0x50];
         sub_00482710(pObject->f_4, szPath);
-        bOk = sub_00515D70(pSlot->f_0, szPath, pObject->nField0x24, pRecord->nField0x3E);
+        bOk = sub_00515D70_StartStream(pSlot->f_0, szPath, pObject->nField0x24, pRecord->nField0x3E);
     }
     if (!bOk)
     {
@@ -886,6 +886,7 @@ int __fastcall sub_004E1120_SkillCreateTargetMissile(D2UnitStrc* pUnit, int nSki
 }
 
 #include "gen/data/Source/D2Client/Unknown_004DF1C0.inc"
+struct D2SoundStrc;
 
 static inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
 {

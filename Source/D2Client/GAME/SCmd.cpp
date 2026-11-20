@@ -2,6 +2,7 @@
 #include "D2Constants.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+struct D2ActiveRoomStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define SKILLSFLAGINDEX_PROGRESSIVE 2
@@ -318,14 +319,14 @@ extern "C" __declspec(dllimport) int __stdcall TranslateMessage(const D2WinMsgSt
 extern "C" __declspec(dllimport) int __stdcall DispatchMessageA(const D2WinMsgStrc* pMsg); // 0x006CC478
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned int nMilliseconds); // 0x006CC258
 extern "C" void* __cdecl memmove(void* pDst, const void* pSrc, unsigned int nSize); // 0x00683840
-void __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 void __cdecl sub_00466FE0(); // 0x00466FE0
 int __fastcall sub_00469D90(int nA, int nB); // 0x00469D90
 unsigned short __fastcall sub_00469AA0(int nA, int nB); // 0x00469AA0
 void __cdecl sub_0044C060_Refresh(); // 0x0044C060
 void __cdecl sub_00466FF0(); // 0x00466FF0
 void __cdecl sub_004A01E0_ClearListFlags(); // 0x004A01E0
-void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
+int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 int __cdecl sub_004F59A0(); // 0x004F59A0
 int __stdcall SMsgRegisterCommand(void* hWnd, int nId, SMSGHANDLER pfnHandler); // 0x00420BF0
 int __stdcall SMsgRegisterKeyDown(void* hWnd, int nId, SMSGHANDLER pfnHandler); // 0x00420C10
@@ -337,7 +338,7 @@ int __stdcall SMsgUnregisterKeyUp(void* hWnd, int nId, SMSGHANDLER pfnHandler); 
 int __stdcall SMsgUnregisterMessage(void* hWnd, int nId, SMSGHANDLER pfnHandler); // 0x00420CD0
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(short nIndex); // 0x00524A30
+const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 Unicode* __fastcall sub_00526940_FindSubstring(const Unicode* pString, const Unicode* pPattern); // 0x00526940
 void __stdcall sub_005022F0_ShowPopUpText(const Unicode* wszText, int nX, int nY, int nArg); // 0x005022F0
 
@@ -387,7 +388,7 @@ extern Unicode gxGlobal_007A2C80[80]; // 0x007A2C80
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 
 unsigned int __stdcall sub_00411020_ReadBits(D2BitBufferStrc* pBuffer, int nBits); // 0x00411020
-D2ActiveRoomStrc* __fastcall sub_004646A0_GetPlayerRoom(); // 0x004646A0
+D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
@@ -504,8 +505,8 @@ D2UnitStrc* __fastcall sub_004661C0_AllocClientUnit(unsigned int nUnitId, int nC
 void __fastcall sub_00470B70_ResetMonsterModeGfx(D2UnitStrc* pUnit); // 0x00470B70
 D2UnitStrc* __fastcall sub_00466300_CreateObjectUnit(unsigned int nUnitId, int nClassId, int nX, int nY, int nUnitType, int nArg5, int nArg6, unsigned char nInteractType); // 0x00466300
 int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny); // 0x00478F20
-void __fastcall sub_00465EE0_RemoveClientSideUnit(int nUnitId, int nUnitType); // 0x00465EE0
-D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType); // 0x00463990
+void __fastcall sub_00465EE0_RemoveClientSideUnit(unsigned int nUnitId, int nUnitType); // 0x00465EE0
+D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 void __fastcall sub_00463D90(int nArg); // 0x00463D90
 void __cdecl sub_0046F360_Empty(); // 0x0046F360
 
@@ -668,7 +669,7 @@ void __fastcall sub_004BDFE0_SetObjectName(D2UnitStrc* pUnit, const char* szName
 void __fastcall sub_004C1F30(unsigned int nA, unsigned char nB, unsigned int nC, unsigned int nD, unsigned short nE); // 0x004C1F30
 void __fastcall sub_004C2050(D2GSPacketSrv42Strc* pPacket); // 0x004C2050
 void __fastcall sub_004C2270(D2GSPacketSrv7DStrc* pPacket); // 0x004C2270
-void __fastcall sub_004C7990(D2UnitStrc* pUnit, int nA, int nB, char nC); // 0x004C7990
+void __fastcall sub_004C7990(D2UnitStrc* pUnit, int nA, int nB, unsigned char nC); // 0x004C7990
 int __fastcall sub_004CDB40_SubmitRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
 void __fastcall sub_004D9B20_BeginState(D2UnitStrc* pUnit, int nState); // 0x004D9B20
 int __fastcall sub_004D9D70_SetStateStat(D2UnitStrc* pUnit, int nPrev, int nState, int nStatId, int nValue, int nLayer); // 0x004D9D70
@@ -809,7 +810,7 @@ void __fastcall sub_004B6DD0_NpcInteractPacket(unsigned char nUnitType, int nUni
 void __fastcall sub_004B5320_OnUnitRemoved(unsigned char nUnitType, int nUnitId); // 0x004B5320
 void __fastcall sub_004B2620(const unsigned char* pData); // 0x004B2620
 void __fastcall sub_0046F870_LoadMonsterCofs(int nMonsterId, int bLoadNow); // 0x0046F870
-D2SkillStrc* __stdcall SKILLS_AssignSkill(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove, const char* szFile, int nLine); // 0x00647280
+void __stdcall SKILLS_AssignSkill(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int bRemove, const char* szFile, int nLine); // 0x00647280
 extern "C" void __cdecl sub_004AA8F0_ClearValue7C0C3C(); // 0x004AA8F0
 D2SkillStrc* __fastcall SKILLS_GetSkillById(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x006439B0
 void __stdcall SKILLS_SetQuantity(D2SkillStrc* pSkill, int nQuantity); // 0x00645120
@@ -1180,7 +1181,7 @@ struct D2GSPacketSrvA9
 
 void __fastcall sub_004CBDE0_PlayEventSound(int nUnitId, unsigned char nUnitType, unsigned short nEvent); // 0x004CBDE0
 D2UnitStrc* __fastcall sub_00466200_CreatePlayerUnit(unsigned int nUnitId, int nClassId, int nX, int nY, char* szName); // 0x00466200
-void __fastcall sub_0047A6F0(int nUnitId, int nClass, const char* szName, int nLevel, int nPartyId, int nArg1C, int nPartyFlags, int nArg20, const char* szText1, const char* szText2); // 0x0047A6F0
+void __fastcall sub_0047A6F0_AddRosterUnit(int nUnitId, int nClassId, const char* szName, unsigned short wLevel, unsigned short wPartyId, int nUnused, int nPartyFlags, unsigned short wGuildFlags, const char* szGuildTag, const char* szGuildName); // 0x0047A6F0
 void __fastcall sub_0047A8B0_RemoveRosterUnit(int nPlayerGUID); // 0x0047A8B0
 void __fastcall sub_004C23E0_RemoveEquippedItems(D2UnitStrc* pUnit); // 0x004C23E0
 void __stdcall UNITS_SetPlayerPortalFlags(D2UnitStrc* pUnit, int nPortalFlags); // 0x006221E0
@@ -1421,7 +1422,7 @@ void __stdcall sub_00452090_ResetMsg(SMSGHANDLER_PARAMS* pMsg)
     sub_004A01E0_ClearListFlags();
     pMsg->bUseResult = 1;
     pMsg->lResult = 0;
-    sub_00420290_HandleMsg(pMsg);
+    sub_00420290_BreakHandlerChain(pMsg);
 }
 
 // 0x00452300
@@ -2957,7 +2958,7 @@ void __fastcall sub_0045E4C0_Packet59(const D2GSPacketSrv59* pPacket)
 void __fastcall sub_0045E4E0_Packet5B(const D2GSPacketSrv5B* pPacket)
 {
     const char* szText = pPacket->szText;
-    sub_0047A6F0(pPacket->nUnitGUID, pPacket->nClass, pPacket->szName, pPacket->nLevel, pPacket->nPartyId, pPacket->unk0x1C,
+    sub_0047A6F0_AddRosterUnit(pPacket->nUnitGUID, pPacket->nClass, pPacket->szName, pPacket->nLevel, pPacket->nPartyId, pPacket->unk0x1C,
                  pPacket->nPartyFlags, pPacket->unk0x20, szText, szText + strlen(szText) + 1);
 }
 

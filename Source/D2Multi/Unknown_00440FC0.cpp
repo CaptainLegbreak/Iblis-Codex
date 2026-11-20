@@ -67,7 +67,7 @@ extern D2LaunchCharInfoStrc* gpCharInfo_0077BBD8; // 0x0077BBD8
 extern D2WinControlStrc* gpControl_0077BCEC; // 0x0077BCEC
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 extern "C" size_t __cdecl strlen(const char* szString);
-void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
+Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* pText, int nA, int nB, int nC); // 0x004FC9B0
 void __fastcall sub_00440140_ShowError(const Unicode* pText, D2LaunchCallback pfnDone); // 0x00440140
 extern D2WinControlStrc* gpChatTextBox_0077BD8C; // 0x0077BD8C

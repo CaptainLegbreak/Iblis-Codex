@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+struct D2UnitStrc;
 
 struct D2GfxLightStrc;
 
@@ -72,8 +73,8 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);   
 void __fastcall sub_00457460(D2UnitStrc* pUnit, int nArg, int nValue);                                      // 0x00457460
 void __fastcall sub_0046C320_SpawnAroundUnit(D2UnitStrc* pUnit, int nMonsterId, int nCount);               // 0x0046C320
 void __fastcall sub_0046F0C0(D2UnitStrc* pUnit, int nArg, int nValue);                                      // 0x0046F0C0
-unsigned char __fastcall sub_004BDEE0(D2UnitStrc* pUnit);                                                   // 0x004BDEE0
-D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType);                             // 0x00463990
+char __fastcall sub_004BDEE0(D2UnitStrc* pUnit); // 0x004BDEE0
+D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 void __fastcall sub_00464930_FreeLight(D2UnitStrc* pUnit);                                                  // 0x00464930
 void __fastcall sub_00470390(D2UnitStrc* pUnit, int nOverlay, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x00470390
 void __fastcall sub_00470610_Refresh(D2UnitStrc* pUnit, int nArg);                                          // 0x00470610
@@ -91,7 +92,7 @@ int __stdcall UNITS_IsShrine(D2UnitStrc* pUnit);                                
 D2ShrinesTxt* __stdcall UNITS_GetShrineTxtRecordFromObject(D2UnitStrc* pUnit);                              // 0x00621B70
 void __stdcall UNITS_SetShrineTxtRecordInObjectData(D2UnitStrc* pUnit, D2ShrinesTxt* pShrinesTxtRecord);    // 0x00621BB0
 void __stdcall UNITS_FreeCollisionPath(D2UnitStrc* pUnit);                                                  // 0x00623830
-void __stdcall sub_00624390_AnimInit(D2UnitStrc* pUnit);                                                    // 0x00624390
+int __stdcall sub_00624390_AnimInit(D2UnitStrc* ptUnit); // 0x00624390
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode);                                           // 0x00624690
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId);                                        // 0x00640E90
 D2ShrinesTxt* __stdcall DATATBLS_GetShrinesTxtRecord(int nShrineId);                                        // 0x006414B0

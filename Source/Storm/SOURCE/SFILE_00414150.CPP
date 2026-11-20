@@ -1,3 +1,4 @@
+struct D2StormSoundBuffer;
 struct D2CriticalSectionStrc
 {
     void* pDebugInfo;
@@ -100,7 +101,7 @@ int __stdcall sub_00415960_CheckVolume(const char* szPath)
 int __cdecl sub_00418B50();                                                                         // 0x00418B50
 int __stdcall sub_0041AAD0_StormReadFile(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped, int nArg6, int nArg7); // 0x0041AAD0
 int __stdcall sub_0041AF60_StormLoadFile(void* hMpq, const char* szFileName, void** ppBuffer, unsigned int* pSize, unsigned int nExtraSize, int nFlags, void* pOverlapped, int nArg8); // 0x0041AF60
-int __stdcall SFileDdaBeginEx(void* hFile, int nBufferSize, unsigned int nFlags, unsigned int nOffset, int nVolume, int nPan, int nArg7); // 0x0041B280
+int __stdcall SFileDdaBeginEx(void* hFile, unsigned int nBufferSize, unsigned int nFlags, unsigned int nOffset, int nVolume, int nPan, D2StormSoundBuffer* pBuffer); // 0x0041B280
 
 // 0x0041B050
 int __stdcall SFileReadFile(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped)

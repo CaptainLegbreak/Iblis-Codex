@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+struct D2UnitStrc;
 
 union D2SeedStrc;
 struct D2SkillsTxt;
@@ -69,7 +70,7 @@ int __stdcall sub_005C2740_RollLegacySetItem(D2UnitStrc* pItem); // 0x005C2740
 void __stdcall ITEMS_SetItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int bSet); // 0x006280D0
 int __stdcall ITEMS_GetItemLevel(D2UnitStrc* pItem); // 0x006281E0
 void __stdcall ITEMS_SetFileIndex(D2UnitStrc* pItem, unsigned int dwFileIndex); // 0x00629DF0
-void __stdcall sub_0065FEC0_ItemApplyProps(int nPass, int nArg1, D2UnitStrc* pItem, void* pProperty, int nArg2, int nArg5); // 0x0065FEC0
+void __stdcall ITEMMODS_AssignProperty(int nType, D2UnitStrc* a2, D2UnitStrc* pItem, const void* pMods, int nPropSet, int nApplyType); // 0x0065FEC0
 static __declspec(noinline) int __stdcall sub_005C25C0_RollSetItemRecord(D2ItemDropStrc* pItemDrop, D2UnitStrc* pItem);
 
 static __forceinline unsigned int RollSeed(D2SeedStrc* pSeed)
@@ -340,7 +341,7 @@ static int __stdcall sub_005C25C0_RollSetItemRecord(D2ItemDropStrc* pItemDrop, D
 LBL_SET:
     ITEMS_SetFileIndex(pItem, nFileIndex);
     ITEMS_SetItemFlag(pItem, 0x10, 0);
-    sub_0065FEC0_ItemApplyProps(4, 0, pItem, 0, 0, 0);
+    ITEMMODS_AssignProperty(4, 0, pItem, 0, 0, 0);
     return 1;
 }
 

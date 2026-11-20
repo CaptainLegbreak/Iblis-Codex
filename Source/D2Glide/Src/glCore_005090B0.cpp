@@ -1,4 +1,5 @@
 #include "D2Glide.h"
+struct D2TileLibraryEntryStrc;
 
 struct D2GfxSettingsStrc
 {
@@ -44,18 +45,18 @@ void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, uns
 void __fastcall sub_005094B0_GlideSetState(int nState);                                                      // 0x005094B0
 void __fastcall sub_00509500_GlideSetCombine(int nMode);                                                     // 0x00509500
 void __fastcall sub_005095D0_GlideSetDepth(int nMode);                                                       // 0x005095D0
-void __fastcall sub_00509E90_GlideResume(void* hWnd, int nResolutionMode);                                   // 0x00509E90
+int __fastcall sub_00509E90_GlideOpenWindow(void* hWnd, int nResolution); // 0x00509E90
 int __cdecl sub_0050BF40_GlideGetBlendedShadows();                                                                    // 0x0050BF40
 void __fastcall sub_0050BF50_GlideDrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int nDrawMode); // 0x0050BF50
-void __fastcall sub_0050C270_GlideDrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, int nColor, int nAlpha); // 0x0050C270
-int __fastcall sub_0050C890_GlideShadowTileDrawFlat(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, int eDrawMode, int nScreenPanels); // 0x0050C890
+void __fastcall sub_0050C270_GlideDrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned char nColor, unsigned char nAlpha); // 0x0050C270
+int __fastcall sub_0050C890_GlideTileDrawShaded(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, unsigned char nShade, int nScreenPanels); // 0x0050C890
 int __fastcall sub_0050CA00_GlideShadowTileDrawPerspective(D2TileLibraryEntryStrc* pTile, int nPosX, int nPosY, int eDrawMode, int nScreenPanels); // 0x0050CA00
 int __cdecl sub_0050DD30_GlideIsPerspective();                                                               // 0x0050DD30
 void __fastcall sub_0050FDF0_GlidePlaySmacker(const char* szFile, int nResolutionMode, void* pfFrame);      // 0x0050FDF0
-void __fastcall sub_005103B0(const char* szText, long nResult);                                 // 0x005103B0
+void __fastcall sub_005103B0_DDrawLogError(const char* szWhere, int hResult); // 0x005103B0
 void __fastcall sub_00512D90_DDrawUtilFilledRect(tagRECT* pRect, unsigned char nColor);                     // 0x00512D90
 void __fastcall sub_005137E0_DDrawPlaySmacker(const char* szFile, int nResolutionMode, void* pfFrame);      // 0x005137E0
-void __fastcall sub_006BE190_BuildGammaTable(int nGamma, unsigned int* pTable, double dScale, int nArg, int nEntries, int nMask); // 0x006BE190
+void __fastcall sub_006BE190_BuildGammaTable(int gamma,void* table,double scale,int entrySize,int entries,int mask); // 0x006BE190
 
 extern const double gdGlideGammaScale_006CD038;                                                             // 0x006CD038
 extern T004F51E0 gaDDrawPalette_007C8CC8[256];                                                     // 0x007C8CC8
@@ -175,7 +176,7 @@ void __fastcall sub_00509EE0_GlidePauseSurface(void* hWnd, int nResolutionMode, 
     }
     else
     {
-        sub_00509E90_GlideResume(hWnd, nResolutionMode);
+        sub_00509E90_GlideOpenWindow(hWnd, nResolutionMode);
         gbRenderPaused_007C9144 = 0;
     }
     LeaveCriticalSection(gpRenderCriticalSection_007C9134);
@@ -278,7 +279,7 @@ int __fastcall sub_0050CD40_GlideShadowTileDraw(D2TileLibraryEntryStrc* pTile, i
         }
         else
         {
-            nResult = sub_0050C890_GlideShadowTileDrawFlat(pTile, nPosX, nPosY, eDrawMode, nScreenPanels);
+            nResult = sub_0050C890_GlideTileDrawShaded(pTile, nPosX, nPosY, eDrawMode, nScreenPanels);
         }
     }
 
@@ -298,7 +299,7 @@ void __fastcall sub_00511660_DDrawOpenSmackCutscene(const char* szFile, int nRes
         const long hResult = gpDDrawSurface_00881278->lpVtbl->Blt(gpDDrawSurface_00881278, 0, 0, 0, 0x400, &tBltFx);
         if (hResult)
         {
-            sub_005103B0("Cutscene clearing blit failed!", hResult);
+            sub_005103B0_DDrawLogError("Cutscene clearing blit failed!", hResult);
             return;
         }
 
@@ -319,7 +320,7 @@ int __fastcall sub_00511970_DDrawGetBackBuffer(unsigned char* pBuffer)
     long hResult = gpDDrawBackSurface_0088127C->lpVtbl->Lock(gpDDrawBackSurface_0088127C, 0, &tDesc, 0x11, 0);
     if (hResult)
     {
-        sub_005103B0("Lock failed!", hResult);
+        sub_005103B0_DDrawLogError("Lock failed!", hResult);
         return 0;
     }
 
@@ -348,7 +349,7 @@ int __fastcall sub_00511970_DDrawGetBackBuffer(unsigned char* pBuffer)
     hResult = gpDDrawBackSurface_0088127C->lpVtbl->Unlock(gpDDrawBackSurface_0088127C, 0);
     if (hResult)
     {
-        sub_005103B0("Unlock failed!", hResult);
+        sub_005103B0_DDrawLogError("Unlock failed!", hResult);
         return 0;
     }
 

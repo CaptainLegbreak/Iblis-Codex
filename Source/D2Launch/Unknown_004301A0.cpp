@@ -21,7 +21,7 @@ void __cdecl sub_0043C4F0(); // 0x0043C4F0
 int __stdcall sub_004F91C0(void* pEditBox); // 0x004F91C0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 void __cdecl sub_0042F480_Reset(); // 0x0042F480
-void __fastcall sub_0042F2E0_ReadPaletteFiles(const char* szFile1, const char* szFile2); // 0x0042F2E0
+int __fastcall sub_0042F2E0_ReadPaletteFiles(const char* szFile1, const char* szFile2); // 0x0042F2E0
 int __stdcall ANIMIMAGE_SetIsRunning(D2WinAnimImageStrc* pAnimImage, int bIsRunning); // 0x00500810
 
 D2WinControlStrc* gpEdit_007795A8; // 0x007795A8

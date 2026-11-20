@@ -1,4 +1,5 @@
 #include "D2Client.h"
+struct D2SlotStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define OFFSET(T, M) ((unsigned int)&(((T*)0)->M))
@@ -39,9 +40,9 @@ extern "C" char* __cdecl strcat(char* szDest, const char* szSource);
 extern "C" unsigned int __cdecl strlen(const char* szString);
 void __cdecl sub_00481950_LoadSoundTables(); // 0x00481950
 void __fastcall sub_004E0050_RestartSound(int nArg); // 0x004E0050
-void __cdecl sub_004B9D00(); // 0x004B9D00
+extern "C" void __cdecl sub_004B9D00_ResetSoundState(); // 0x004B9D00
 void __cdecl sub_004CA280(); // 0x004CA280
-int __fastcall sub_004DF9D0_CheckCacheEntry(int nId); // 0x004DF9D0
+D2SlotStrc* __fastcall SoundChannelFind(int nOwner); // 0x004DF9D0
 void __fastcall sub_00516980_RemoveNode(D2ClientCacheNodeStrc** ppList, int nId); // 0x00516980
 void __fastcall sub_00516A70_AppendNode(D2ClientCacheNodeStrc** ppList, int nId); // 0x00516A70
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
@@ -65,8 +66,8 @@ extern int gTextY;
 extern int gTextRight;
 PlayerListHead* __fastcall sub_0047A310(int playerId);
 void* __fastcall Allocate(U32 bytes, const char* file, int line, U32 flags);
-int __fastcall Release(void* allocation, const char* file, int line, U32 flags); // 0x0040B3C0
-void __fastcall sub_004823E0(int index); // 0x004823E0
+int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
+void __fastcall sub_004823E0_ReleaseCacheEntry(int nIndex); // 0x004823E0
 void* __cdecl sub_004646A0();
 int __stdcall DUNGEON_GetLevelIdFromRoom(void* room);
 const U16* __fastcall sub_00453E70(int levelId);
@@ -131,7 +132,7 @@ void __fastcall sub_00482260_UpdateSoundSystem(int nArg)
         return;
     sub_00481950_LoadSoundTables();
     sub_004E0050_RestartSound(nArg);
-    sub_004B9D00();
+    sub_004B9D00_ResetSoundState();
     sub_004DCA30();
     sub_004CA280();
     sub_00515CE0_SetMasterVolume(0xFF);
@@ -147,7 +148,7 @@ void __fastcall sub_004823E0_ReleaseCacheEntry(int nIndex)
     D2ClientCacheEntryStrc* pEntry = sub_00481860_GetCacheEntry(nIndex);
     if (!pEntry->nState)
         return;
-    D2_ASSERT(!sub_004DF9D0_CheckCacheEntry(nIndex), 0x259);
+    D2_ASSERT(!SoundChannelFind(nIndex), 0x259);
     gdwCacheUsed_007BC9D0 -= pEntry->nSize;
     sub_00516980_RemoveNode(&gpCacheList_007BC9B8, nIndex);
     pEntry->dwLastUse = 0;
@@ -267,15 +268,15 @@ void __cdecl sub_004828B0_ReleaseSoundTables()
 {
     if (gAuxSoundRows)
     {
-        Release(gAuxSoundRows, ".\\Sound\\SoundHdr.cpp", 385, 0);
+        FOG_Free(gAuxSoundRows, ".\\Sound\\SoundHdr.cpp", 385, 0);
         gAuxSoundRows = 0;
         gAuxSoundCount = 0;
     }
     if (gCacheRows)
     {
         for (int index = 1; index < gnCacheEntries_007BC9A4; index += 1)
-            sub_004823E0(index);
-        Release(gCacheRows, ".\\Sound\\SoundHdr.cpp", 398, 0);
+            sub_004823E0_ReleaseCacheEntry(index);
+        FOG_Free(gCacheRows, ".\\Sound\\SoundHdr.cpp", 398, 0);
         gCacheRows = 0;
         gnCacheEntries_007BC9A4 = 0;
     }

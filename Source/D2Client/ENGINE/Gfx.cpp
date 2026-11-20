@@ -3,6 +3,8 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2UnitData.h"
+struct D2UnitStrc;
+struct D2UnitTargetStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
@@ -179,23 +181,23 @@ int __stdcall UNITS_GetPrecisionY(D2UnitStrc* pUnit); // 0x00620410
 int __stdcall STATES_CheckStateMaskOnUnit(D2UnitStrc* pUnit, int nStateMask); // 0x0063A7B0
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClassId, int nAnimMode, int a5); // 0x0064F380
-void* __fastcall sub_0046E5A0_FindGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nArg); // 0x0046E5A0
+D2GfxListNodeStrc* __fastcall sub_0046E5A0_FindGfxListNode(D2UnitStrc* pUnit, int nId, int nMode); // 0x0046E5A0
 void* __fastcall sub_0046FA80_LoadGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nArg); // 0x0046FA80
 void* __fastcall sub_0046E570_GetGfxEntry(D2UnitStrc* pUnit, int nMode); // 0x0046E570
 D2GfxLayerHeaderStrc* __fastcall sub_004DB040_GetLayerHeader(void* pGfx); // 0x004DB040
 void __fastcall sub_004DB2E0_GetLayerInfo(D2UnitStrc* pUnit, int nType, int nClass, int nMode, int* pDirection, int* pA, int* pB, int nArg, int nFlag); // 0x004DB2E0
 int __fastcall sub_004DB670_UpdateUnitGfx(D2UnitStrc* pUnit, int nLayer); // 0x004DB670
-int __fastcall sub_004DBB50_GetItemCelContext(D2CelContextStrc* pContext, D2UnitStrc* pItem, int nArg3, int nArg4, int nArg5, int* pOut, int nArg7, int nArg8); // 0x004DBB50
+int __fastcall sub_004DBB50_GetItemCelContext(D2CelContextStrc* pToken, D2UnitStrc* pUnit, int nArg34, int nArg40, int nArg0, int* pItemId, unsigned char nComponent, int nMode); // 0x004DBB50
 int __stdcall sub_006001F0(D2CelContextStrc* pContext, int nArg2, int nArg3); // 0x006001F0
 int __stdcall sub_006018F0(D2CelStrc* pCel); // 0x006018F0
 int __stdcall sub_006018C0(D2CelStrc* pCel); // 0x006018C0
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
-void __stdcall sub_0046E300(D2UnitStrc* pItem, int nArg2, int nArg3, int nX, int nY, int nArg6); // 0x0046E300
+void __stdcall sub_0046E300_DrawUnitOverlays(D2UnitStrc* pUnit, unsigned int nColor, int bFront, int nX, int nY, int bLift); // 0x0046E300
 
 
 int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
-void __fastcall sub_00461250_QueueMove(int nCommand, D2UnitStrc* pUnit, void* pTarget, int nArg); // 0x00461250
+int __fastcall sub_00461250_QueueMove(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget, int bForce); // 0x00461250
 extern D2UnitStrc* gpAiTargets_007A7470[]; // 0x007A7470
 
 struct D2GfxNodeTargetStrc
@@ -627,7 +629,7 @@ int __fastcall sub_00471BD0(D2UnitStrc* pUnit)
         }
         int nWeaponClassId;
         int nComponent = COMPOSIT_GetWeaponClassId(pUnit, pInventory, &nWeaponClassId, nMode, 0);
-        if (!sub_0046E5A0_FindGfxNode(pUnit, nComponent, -1) && !sub_0046FA80_LoadGfxNode(pUnit, nComponent, -1))
+        if (!sub_0046E5A0_FindGfxListNode(pUnit, nComponent, -1) && !sub_0046FA80_LoadGfxNode(pUnit, nComponent, -1))
         {
             return 0;
         }
@@ -709,7 +711,7 @@ int __fastcall sub_0046EE80_DrawItemCel(D2UnitStrc* pItem, int nX, int nY)
         nDrawMode = 1;
     }
     sub_004F6480(&tContext, nX, nY + sub_006018F0(tContext.pCel), -1, nDrawMode, nPalette);
-    sub_0046E300(pItem, 0xFF, 0, nX + ((unsigned int)sub_006018C0(tContext.pCel) >> 1), nY + ((unsigned int)sub_006018F0(tContext.pCel) >> 1), 0);
+    sub_0046E300_DrawUnitOverlays(pItem, 0xFF, 0, nX + ((unsigned int)sub_006018C0(tContext.pCel) >> 1), nY + ((unsigned int)sub_006018F0(tContext.pCel) >> 1), 0);
     return 1;
 }
 

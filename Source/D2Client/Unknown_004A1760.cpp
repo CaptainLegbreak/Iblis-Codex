@@ -54,9 +54,9 @@ D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
-int __cdecl D2GFX_GetResolutionMode(); // 0x004F5160
+int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 void __stdcall sub_004A3220_LoadQuestPage(int nPage, int nArg); // 0x004A3220
-void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
+int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 void __fastcall sub_004A3FE0(int nMode); // 0x004A3FE0
 void __cdecl sub_0044DA70(); // 0x0044DA70
@@ -119,10 +119,10 @@ struct D2ButtonLayoutStrc
     int nTextY;
 };
 
-int __fastcall sub_004538D0(int nUIVar); // 0x004538D0
+int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
 int __cdecl sub_0045AE90(); // 0x0045AE90
 int __cdecl sub_00463DF0(); // 0x00463DF0
-void __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 D2CelStrc* __stdcall CelGetHandle(D2CelContextStrc* pContext); // 0x00601840
 int __stdcall sub_006018C0(D2CelStrc* pCel); // 0x006018C0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
@@ -475,7 +475,7 @@ void __stdcall sub_004A3E40_OnLeftButtonDown(SMSGHANDLER_PARAMS* pMsg)
     }
     pMsg->bUseResult = 1;
     pMsg->lResult = 0;
-    sub_00420290_HandleMsg(pMsg);
+    sub_00420290_BreakHandlerChain(pMsg);
 }
 
 void __stdcall sub_004A42A0_OnLeftButtonUp(SMSGHANDLER_PARAMS* pMsg)
@@ -518,7 +518,7 @@ void __stdcall sub_004A42A0_OnLeftButtonUp(SMSGHANDLER_PARAMS* pMsg)
     sub_0044DA70();
     pMsg->bUseResult = 1;
     pMsg->lResult = 0;
-    sub_00420290_HandleMsg(pMsg);
+    sub_00420290_BreakHandlerChain(pMsg);
 }
 
 #include "gen/data/Source/D2Client/Unknown_004A1760.inc"

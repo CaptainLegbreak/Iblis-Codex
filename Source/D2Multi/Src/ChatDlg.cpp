@@ -62,7 +62,7 @@ unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 Unicode* __fastcall sub_00526940_FindSubstring(const Unicode* pString, const Unicode* pPattern); // 0x00526940
-void __cdecl sub_004F9190(); // 0x004F9190
+int __fastcall sub_004F9190(); // 0x004F9190
 void __cdecl sub_0043FBD0_Refresh(); // 0x0043FBD0
 int __fastcall sub_0044AAE0_SendSelect(const char* szName, int nB, int nC); // 0x0044AAE0
 int __fastcall sub_0044A2E0_Forward3(int nA, int nB, int nC); // 0x0044A2E0
@@ -116,7 +116,7 @@ extern D2WinControlStrc* gpChatTextBox_0077BD8C; // 0x0077BD8C
 extern D2WinControlStrc* gpControl_0077BD98; // 0x0077BD98
 void __fastcall BUTTON_SetIsPressed(D2WinControlStrc* pButton, int bIsPressed); // 0x005009A0
 void __fastcall sub_004423B0_RunCommand(char* szText); // 0x004423B0
-void __fastcall sub_004481F0_EchoText(char* szText); // 0x004481F0
+void __fastcall sub_004481F0_PrintOwnLine(const char* szText); // 0x004481F0
 void __fastcall sub_004FF5A0_SetEditText(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FF5A0
 int __fastcall sub_004FB910_GetLineCount(D2WinControlStrc* pTextBox); // 0x004FB910
 extern D2WinControlStrc* gpChatControl_0077B074; // 0x0077B074
@@ -659,7 +659,7 @@ int __cdecl sub_00442810_SendChatBuffer()
             return 1;
         }
         gpLaunchFuncs_0077B09C->pfn0x14(gszChatBuffer_0077AE40);
-        sub_004481F0_EchoText(gszChatBuffer_0077AE40);
+        sub_004481F0_PrintOwnLine(gszChatBuffer_0077AE40);
     }
     sub_004FF5A0_SetEditText(gpChatEdit_0077BD94, 0);
     const int nFirst = D2Win_10055(gpChatTextBox_0077BD8C);

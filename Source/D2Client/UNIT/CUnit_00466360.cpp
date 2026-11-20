@@ -2,6 +2,7 @@
 #include "D2Constants.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+struct D2InventoryStrc;
 
 struct D2LightStrc;
 
@@ -112,7 +113,7 @@ int __cdecl sub_0044DCC0();                                                     
 D2ActiveRoomStrc* __fastcall sub_00465420_FindRoomBySubtile(int nX, int nY);                                // 0x00465420
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);                                          // 0x0061A1B0
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId);                                             // 0x006427F0
-void __fastcall SEED_InitSeed(D2SeedStrc* pSeed);                                                           // 0x00650E30
+void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed);                                 // 0x00650E40
 void __fastcall sub_004CD0A0(D2UnitStrc* pMissile, D2ActiveRoomStrc* pRoom, int nTargetX, int nTargetY, int nUnused); // 0x004CD0A0
 void __stdcall UNITS_InitializeStaticPath(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY);      // 0x00620AE0
@@ -163,7 +164,7 @@ extern D2DataTablesStrc* sgptDataTables;                                        
 unsigned char __cdecl sub_0044DCD0_GetDifficulty();                                                         // 0x0044DCD0
 int __fastcall sub_004638A0_CheckMonStats2Flag(int nMonsterId, int nFlag);                                  // 0x004638A0
 void __fastcall sub_0046EC10_FreeGfxData(D2UnitStrc* pUnit);                                                // 0x0046EC10
-int __fastcall sub_00477620(D2UnitStrc* pUnit, int nArg);                                                   // 0x00477620
+int __fastcall sub_00477620_RollUnitValue(D2UnitStrc* pUnit, unsigned short nOffset); // 0x00477620
 D2ClientEntryStrc* __fastcall sub_00478E40_FindEntry(int nKey);                                             // 0x00478E40
 int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny);                   // 0x00478F20
 int __fastcall sub_00479180_GetPetType(int nUnitId);                                                        // 0x00479180
@@ -179,7 +180,7 @@ void __fastcall sub_004B1090_InitHireling(D2UnitStrc* pUnit, D2HirelingInfoStrc*
 void __fastcall sub_004CC380_PlayInitSound(D2UnitStrc* pUnit);                                              // 0x004CC380
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode);                                           // 0x00624690
-void* __stdcall INVENTORY_AllocInventory(void* pMemPool, D2UnitStrc* pOwner);                               // 0x0063ABD0
+D2InventoryStrc* __stdcall INVENTORY_AllocInventory(void* pMemPool, D2UnitStrc* pOwner); // 0x0063ABD0
 void __fastcall MONSTERS_SetMonsterNameInMonsterData(D2UnitStrc* pMonster, const Unicode* wszName);         // 0x0063E810
 int __stdcall MONSTERS_GetHirelingTypeId(D2UnitStrc* pUnit);                                                // 0x0063EE90
 D2SuperUniquesTxt* __stdcall DATATBLS_GetSuperUniquesTxtRecord(int nSuperUniqueId);                         // 0x006556E0
@@ -1038,7 +1039,7 @@ D2UnitStrc* __fastcall sub_00466360_AddClientMonster(D2UnitSpawnStrc* pSpawn, vo
 
     if (sub_004AE360_IsUniqueMonster(pUnit) && !sub_004638A0_CheckMonStats2Flag(nClassId, 15))
     {
-        nMode = sub_00477620(pUnit, nArg4);
+        nMode = sub_00477620_RollUnitValue(pUnit, nArg4);
     }
 
     D2MonStats2Txt* pModeTxtRecord = sub_F4B0_GetMonStats2TxtFromMonsterId(nClassId);

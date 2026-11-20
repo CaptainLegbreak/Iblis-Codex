@@ -48,7 +48,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();        
 extern "C" __declspec(dllimport) int __stdcall SetRect(tagRECT* lprc, int xLeft, int yTop, int xRight, int yBottom); // 0x006CC498
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
-void __cdecl sub_004F9190();                                                              // 0x004F9190
+int __fastcall sub_004F9190(); // 0x004F9190
 int __stdcall CONTROL_MouseInsideRect(const tagRECT* pRect);                                                // 0x004F97B0
 void __fastcall sub_0043FB50_ShowWait(const Unicode* pText, D2LaunchCallback pfnDone);                      // 0x0043FB50
 void __stdcall sub_004413E0_Enable(int bEnable);                                                            // 0x004413E0

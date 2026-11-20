@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
+struct D2UnitStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -33,7 +34,7 @@ Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x00526
 Unicode* __fastcall sub_00526F20(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
-int __stdcall sub_0062A0A0(D2UnitStrc* pItem); // 0x0062A0A0
+unsigned int __stdcall ITEMS_GetTransmogrify(D2UnitStrc* pItem); // 0x0062A0A0
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 extern int gnGlobal_00721E38; // 0x00721E38
 extern int gnGlobal_00721E3C; // 0x00721E3C
@@ -149,7 +150,7 @@ void __cdecl sub_0048DB80_DrawBaseItemTooltip()
 {
     Unicode wszText[0x400];
     const Unicode* pColorEnd = D2LANG_GetStringFromTblIndex(0xF9E);
-    if (!sub_0062A0A0(gdwGlobal_007BCBF4))
+    if (!ITEMS_GetTransmogrify(gdwGlobal_007BCBF4))
     {
         return;
     }

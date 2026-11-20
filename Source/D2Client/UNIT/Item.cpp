@@ -120,15 +120,15 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
-D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType); // 0x00463990
+D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2UnitStrc* __fastcall sub_004648F0_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
-void __fastcall sub_00465EE0_RemoveClientSideUnit(int nUnitId, int nUnitType); // 0x00465EE0
+void __fastcall sub_00465EE0_RemoveClientSideUnit(unsigned int nUnitId, int nUnitType); // 0x00465EE0
 D2GfxMotionStrc* __fastcall sub_0046F060_GetGfxMotion(D2UnitStrc* pUnit); // 0x0046F060
 void __fastcall sub_00468070_SetCursorItemState(D2UnitStrc* pItem); // 0x00468070
 int __fastcall sub_00480C10_DispatchUnitEvent(int nEvent, D2UnitStrc* pUnit, D2UnitEventArgsStrc* pArgs, int nArg); // 0x00480C10
 void __fastcall sub_004C2180_UpdateCursorItem(D2UnitStrc* pItem); // 0x004C2180
-void __fastcall sub_004C5420_UseBow(D2UnitStrc* pUnit, int nValue, int nArg2, int nArg3); // 0x004C5420
+D2UnitStrc* __fastcall sub_004C5420_RequestAtTarget(D2UnitStrc* pUnit, int nRequest, int nArg3, int nArg4); // 0x004C5420
 void __fastcall sub_004C7BE0_ApplyClientSkillCalc(D2UnitStrc* pUnit, int nValue); // 0x004C7BE0
 void __fastcall sub_004E4050_Nothing(D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x004E4050
 unsigned char __stdcall UNITS_GetObjectPortalFlags(D2UnitStrc* pUnit); // 0x006222C0
@@ -273,7 +273,7 @@ extern D2SlotStrc gaSlots_007C8A78[16]; // 0x007C8A78
 int __cdecl sub_0044DB00(); // 0x0044DB00
 int __cdecl sub_0045AE90(); // 0x0045AE90
 int __cdecl sub_00463DF0(); // 0x00463DF0
-void __fastcall sub_0046EE80(D2UnitStrc* pUnit, int nX, int nY); // 0x0046EE80
+int __fastcall sub_0046EE80_DrawItemCel(D2UnitStrc* pItem, int nX, int nY); // 0x0046EE80
 void __fastcall sub_00475AA0_ReadGridCell(int nA, int nB, unsigned char* pByte0, unsigned char* pByte1, unsigned char* pByte2, unsigned char* pByte3); // 0x00475AA0
 int __cdecl sub_004817F0(); // 0x004817F0
 int __cdecl sub_00481810(); // 0x00481810
@@ -287,7 +287,7 @@ int __fastcall sub_004DBB50(D2PanelGfxStrc* pGfx, D2UnitStrc* pUnit, int nArg3, 
 void __fastcall sub_004DBEA0(D2UnitStrc* pUnit, int nArg2, int nArg3, unsigned int* pWidth, unsigned int* pHeight); // 0x004DBEA0
 int __fastcall sub_004DC110(void* pArg1, int nArg2, int nArg3, int nArg4, void* pfnCallback, int nArg6, int nArg7); // 0x004DC110
 void __stdcall sub_004DEF80_DrawCellTiles(D2GridCellStrc* pCell, int nArg, D2CellGridViewStrc* pView); // 0x004DEF80
-int __cdecl sub_004F51D0(); // 0x004F51D0
+int __stdcall D2GFX_CheckPerspective(); // 0x004F51D0
 int __fastcall sub_00515710(int nHandle); // 0x00515710
 int __fastcall sub_00516760(int nSocket, int* pParam, D2AddressInfoStrc* pInfo); // 0x00516760
 int __stdcall sub_006001F0(D2PanelGfxStrc* pGfx, int nArg2, int nArg3); // 0x006001F0
@@ -322,8 +322,8 @@ void __fastcall sub_0046F280_ClearGfxBytes(D2UnitStrc* pUnit, int nComponent); /
 void __fastcall sub_0046F950(D2UnitStrc* pUnit); // 0x0046F950
 void __fastcall sub_00470610_Refresh(D2UnitStrc* pUnit, int nArg); // 0x00470610
 void __fastcall sub_004AFF60_MonsterCommand(int nCommand, D2UnitStrc* pUnit, D2UnitTargetStrc* pTarget); // 0x004AFF60
-int __fastcall sub_004C10E0_CanUseItem(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x004C10E0
-int __fastcall sub_004D9FC0_GetSkillUseState(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x004D9FC0
+int __fastcall sub_0055DB00_CheckEquipRequirements(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x004C10E0
+extern "C" int __fastcall sub_004D9FC0(D2UnitStrc* unit,D2SkillStrc* skill); // 0x004D9FC0
 D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit); // 0x00620190
 D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
 int __stdcall UNITS_CanDualWield(D2UnitStrc* pUnit); // 0x006235A0
@@ -349,7 +349,7 @@ int __stdcall SKILLS_GetOwnerGUIDFromSkill(D2SkillStrc* pSkill); // 0x00643AD0
 void __stdcall SKILLS_SetLeftActiveSkill(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x00643BC0
 void __stdcall SKILLS_SetRightActiveSkill(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x00643C50
 int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine); // 0x00643CE0
-void __stdcall sub_0065FEC0_ItemApplyProps(int nPass, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2GemsTxt* pGemsTxt, int nArg2, int nArg5); // 0x0065FEC0
+void __stdcall ITEMMODS_AssignProperty(int nType, D2UnitStrc* a2, D2UnitStrc* pItem, const void* pMods, int nPropSet, int nApplyType); // 0x0065FEC0
 int __stdcall ITEMS_UpdateSets(D2UnitStrc* pUnit, D2UnitStrc* pItem, int a3, int a4); // 0x00663CC0
 
 struct D2UniqueItemsTxt
@@ -406,7 +406,7 @@ void __stdcall D2Common_10474(D2UnitStrc* pUnit, D2StatListStrc* pStatList); // 
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 int __fastcall sub_00453A90_GetUIVarUnchecked(int nUIVar); // 0x00453A90
-void __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 void __fastcall sub_00468010(D2UnitStrc* pItem, int nCursor); // 0x00468010
 extern "C" int gnTable_00727A28[5]; // 0x00727A28
 extern "C" unsigned int gnTableCount_00727A3C; // 0x00727A3C
@@ -570,7 +570,7 @@ void __cdecl sub_004C01E0_DrawPanelUnit()
                     {
                         nOffsetY = (0x72 - nHeight) >> 1;
                     }
-                    sub_0046EE80(pUnit, 0xA7 - (nWidth >> 1), nOffsetY + 0x6A);
+                    sub_0046EE80_DrawItemCel(pUnit, 0xA7 - (nWidth >> 1), nOffsetY + 0x6A);
                     UNITS_ChangeAnimMode(pUnit, 4);
                 }
             }
@@ -608,6 +608,7 @@ void __fastcall sub_004C0EC0_UpdateItemLink(D2UnitStrc* pItem, D2UnitStrc* pUnit
 }
 
 #include "gen/data/Source/D2Client/UNIT/Item.inc"
+struct D2SkillStrc;
 
 // 0x004C10C0
 int __fastcall sub_004C10C0_IsSkillStateUsable(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
@@ -658,14 +659,14 @@ static void __stdcall sub_004C0D20_ApplyItemStats(D2UnitStrc* pUnit, D2UnitStrc*
         D2_ASSERT(pUnit->dwUnitType == 4, 0x30);
         pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
         pGemsTxtRecord = DATATBLS_GetGemsTxtRecord(pItemsTxtRecord->dwGemOffset);
-        sub_0065FEC0_ItemApplyProps(2, NULL, pItem, pGemsTxtRecord, ITEMS_GetGemApplyType(pUnit), 0);
+        ITEMMODS_AssignProperty(2, NULL, pItem, pGemsTxtRecord, ITEMS_GetGemApplyType(pUnit), 0);
     }
     else if (ITEMSIsA(pItem, 0x4A))
     {
         D2_ASSERT(pUnit->dwUnitType == 4, 0x3A);
         pItemsTxtRecord = DATATBLS_GetItemsTxtRecord(!pItem ? -1 : pItem->dwClassId);
         pGemsTxtRecord = DATATBLS_GetGemsTxtRecord(pItemsTxtRecord->dwGemOffset);
-        sub_0065FEC0_ItemApplyProps(5, pUnit, pItem, pGemsTxtRecord, ITEMS_GetGemApplyType(pUnit), 0);
+        ITEMMODS_AssignProperty(5, pUnit, pItem, pGemsTxtRecord, ITEMS_GetGemApplyType(pUnit), 0);
     }
     else
     {
@@ -744,7 +745,7 @@ static void sub_004C1200_RestoreSkillState(D2UnitStrc* pUnit, D2SkillStateStrc* 
         D2SkillStrc* pSkill = SKILLS_GetSkillById(pUnit, pState->nLeftSkillId, pState->nLeftOwnerGUID);
         if (pSkill && pSkill != UNITS_GetLeftSkill(pUnit))
         {
-            switch (sub_004D9FC0_GetSkillUseState(pUnit, pSkill))
+            switch (sub_004D9FC0(pUnit, pSkill))
             {
             case 2:
             case 7:
@@ -761,7 +762,7 @@ static void sub_004C1200_RestoreSkillState(D2UnitStrc* pUnit, D2SkillStateStrc* 
         D2SkillStrc* pSkill = SKILLS_GetSkillById(pUnit, pState->nRightSkillId, pState->nRightOwnerGUID);
         if (pSkill && pSkill != UNITS_GetRightSkill(pUnit))
         {
-            switch (sub_004D9FC0_GetSkillUseState(pUnit, pSkill))
+            switch (sub_004D9FC0(pUnit, pSkill))
             {
             case 2:
             case 7:
@@ -846,7 +847,7 @@ static void sub_004C1350_RefreshEquippedItems(D2UnitStrc* pUnit)
     {
         D2UnitStrc* pItem = INVENTORY_UnitIsItem(pNode);
         if (pItem && INVENTORY_GetItemNodePage(pNode) == 1 && ITEMS_IsCharmUsable(pItem, pUnit)
-            && !STATLIST_GetOwner(pItem, NULL) && sub_004C10E0_CanUseItem(pUnit, pItem))
+            && !STATLIST_GetOwner(pItem, NULL) && sub_0055DB00_CheckEquipRequirements(pUnit, pItem))
         {
             ITEMS_SetItemFlag(pItem, 0x4000, 0);
             sub_004C0D20_ApplyItemStats(pUnit, pItem, 0);
@@ -865,7 +866,7 @@ static void sub_004C1350_RefreshEquippedItems(D2UnitStrc* pUnit)
         if (ITEMS_CheckItemFlag(pItem, 0x4000, 0x208, ".\\UNIT\\Item.cpp") && !STATLIST_GetOwner(pItem, NULL))
             continue;
 
-        if (sub_004C10E0_CanUseItem(pUnit, pItem))
+        if (sub_0055DB00_CheckEquipRequirements(pUnit, pItem))
             continue;
 
         ITEMS_SetItemFlag(pItem, 0x4000, 1);
@@ -890,7 +891,7 @@ static void sub_004C1350_RefreshEquippedItems(D2UnitStrc* pUnit)
             if (!ITEMS_CheckItemFlag(pItem, 0x4000, 0x22A, ".\\UNIT\\Item.cpp") && STATLIST_GetOwner(pItem, NULL))
                 continue;
 
-            if (!sub_004C10E0_CanUseItem(pUnit, pItem))
+            if (!sub_0055DB00_CheckEquipRequirements(pUnit, pItem))
                 continue;
 
             ITEMS_SetItemFlag(pItem, 0x4000, 0);
@@ -2342,7 +2343,7 @@ int __fastcall sub_004C6030_UseBowOrCallTarget(D2UnitStrc* pUnit, int nArg2, int
         const int nValue = D2COMMON_11039_CheckWeaponIsMissileBased(pUnit, &nArg3);
         if (nValue != -1)
         {
-            sub_004C5420_UseBow(pUnit, nValue, nArg2, nArg3);
+            sub_004C5420_RequestAtTarget(pUnit, nValue, nArg2, nArg3);
         }
     }
     else
@@ -2543,7 +2544,7 @@ void __thiscall D2CellGridViewStrc::sub_004DF510_DrawCellNodes()
             }
             else
             {
-                const int bMode = sub_004F51D0();
+                const int bMode = D2GFX_CheckPerspective();
                 if (pNode->dwFlags & 1)
                 {
                     if (bMode)

@@ -110,7 +110,7 @@ D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
 void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C360
 void __fastcall QUESTS_SetGlobalState(D2GameStrc* pGame, int nQuestId, int nState); // 0x00544720
-void __fastcall QUESTS_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nQuestId); // 0x00544190
+void __fastcall QUESTS_StatusCyclerEx(D2GameStrc* game,D2UnitStrc* player,unsigned char id); // 0x00544190
 void __fastcall QUESTS_UnitIterate(D2QuestDataStrc* pQuest, int nIterateState, D2UnitStrc* pUnit, QUESTUNITITERATE pfIterate, bool bIterate); // 0x00544300
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
@@ -128,8 +128,8 @@ extern "C" void __cdecl sub_00408A60(const char*,const char*,int); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl sub_00681E09(int); // 0x00681E09
 void __fastcall sub_00544350(D2QuestDataStrc*,int,const char*,int); // 0x00544350
 D2UnitStrc* __fastcall SUNIT_IterateUnitsOfType(D2GameStrc*,int,void*,QUESTUNITITERATE); // 0x005537D0
-int __fastcall sub_005989E0(D2GameStrc*,D2UnitStrc*,void*); // 0x005989E0
-int __fastcall sub_005988B0(D2GameStrc*,D2UnitStrc*,void*); // 0x005988B0
+int __fastcall ACT2Q1_UnitIterate_UpdateQuestStateFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x005989E0
+int __fastcall ACT2Q1_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData); // 0x005988B0
 void __stdcall QUESTRECORD_ClearQuestState(D2BitBufferStrc*,int,int); // 0x0065C3A0
 void __fastcall QUESTS_NPCActivateSpeeches(D2GameStrc*,D2UnitStrc*,D2UnitStrc*); // 0x00545780
 
@@ -304,7 +304,7 @@ void __fastcall sub_00598A70(D2QuestDataStrc* q,D2QuestArgStrc* arg)
  if(message==304) {
   ex->bAtmaActivated=1;
   sub_00544350(q,2,text_006E1F60,239);
-  SUNIT_IterateUnitsOfType(q->pGame,0,0,sub_005989E0);
+  SUNIT_IterateUnitsOfType(q->pGame,0,0,ACT2Q1_UnitIterate_UpdateQuestStateFlags);
  } else {
   if(message!=334) return;
   const int filter=q->eFilter;
@@ -312,7 +312,7 @@ void __fastcall sub_00598A70(D2QuestDataStrc* q,D2QuestArgStrc* arg)
   if(QUESTRECORD_GetQuestState(flags,q->eFilter,13)) {
    if(q->fState!=5) {
     q->nFlagsByte=0;
-    QUESTS_UnitIterate(q,13,0,sub_005988B0,true);
+    QUESTS_UnitIterate(q,13,0,ACT2Q1_UnitIterate_StatusCyclerEx,true);
     q->pCallback[2]=0;
     sub_00544350(q,5,text_006E1F60,253);
     CHECK(!IsBadCodePtr((int (__stdcall*)())q->pfSeqFilter),254);

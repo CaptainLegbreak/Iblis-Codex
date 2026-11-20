@@ -415,7 +415,7 @@ struct D2CmpLoadDescStrc
 
 struct D2SpriteLoadRequestStrc;
 AsyncData* __fastcall sub_0040A620(void* hArchive, const char* szFileName, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8, const char* szFile, int nLine); // 0x0040A620
-int __fastcall sub_0040AA40(AsyncData* pAsync);                                                       // 0x0040AA40
+unsigned int __fastcall FOG_AsyncDataGetBufferSize(AsyncData* pAsyncData); // 0x0040AA40
 int __stdcall sub_005FF6E0_SpriteLoadCallback(void* hArg, int nArg, D2SpriteLoadRequestStrc* pRequest);    // 0x005FF6E0
 
 extern D2CmpBlockTableBStrc gCmpBlockTableB;                                                                // 0x0088DB58
@@ -500,12 +500,12 @@ static int __fastcall sub_005FF760_LoadDCCFrames(const char* szName, D2CmpSprite
     pEntry->pHolder = sub_005FFC40_SpriteCacheAlloc((D2SpriteCacheStrc*)szName, (unsigned int)pFile, 0, 0);
     for (const int* pOffset = pEntry->aOffsets; *pOffset; ++pOffset)
     {
-        pEntry->nFlags += (unsigned char)sub_0040AA40((AsyncData*)pOffset);
+        pEntry->nFlags += (unsigned char)FOG_AsyncDataGetBufferSize((AsyncData*)pOffset);
     }
 
-    sub_0040AA40((AsyncData*)&pContext);
-    sub_0040AA40((AsyncData*)&nDirection);
-    sub_0040AA40((AsyncData*)&nFrames);
+    FOG_AsyncDataGetBufferSize((AsyncData*)&pContext);
+    FOG_AsyncDataGetBufferSize((AsyncData*)&nDirection);
+    FOG_AsyncDataGetBufferSize((AsyncData*)&nFrames);
     return pEntry->nFlags;
 }
 

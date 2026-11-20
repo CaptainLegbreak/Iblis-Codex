@@ -4,6 +4,8 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+struct D2StatListStrc;
+struct D2UnitStrc;
 
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 #define AI_ROLL_PERCENT(pSeed) ((int)((unsigned int)SEED_RollRandomNumber(pSeed) % 100))
@@ -60,7 +62,7 @@ int __fastcall AITACTICS_UseSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned
 int __fastcall ACT3Q7_GetWandererCoordinates(D2GameStrc* game,D2UnitStrc* unit,D2CoordStrc* coords); // 0x005BD0D0
 void __fastcall ACT3Q7_CreateVileDogSpawnTimer(D2GameStrc* game,D2UnitStrc* unit); // 0x005BD4A0
 unsigned int __fastcall AIUTIL_GetDistanceToCoordinates(D2UnitStrc* unit,int x,int y); // 0x005DC5C0
-void __fastcall AITACTICS_SetVelocity(D2UnitStrc* unit,int mode,int velocity,unsigned char flags); // 0x005DE190
+void __fastcall sub_005DE190_SetAiParam(D2UnitStrc* pUnit, int nParam, int nValue, int nArg); // 0x005DE190
 int __fastcall AITACTICS_WalkToTargetCoordinates(D2GameStrc* game,D2UnitStrc* unit,int x,int y); // 0x005DED90
 
 struct D2SkillsTxt
@@ -87,7 +89,7 @@ int __fastcall AITHINK_ShadowMasterCheckTargetPetType(D2GameStrc*, D2UnitStrc*, 
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268
 int __stdcall STATES_CheckState(D2UnitStrc*, int); // 0x00639DF0
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndState(D2UnitStrc*, int); // 0x006256B0
-int __stdcall STATLIST_GetStatValue(D2StatListStrc*, int, int); // 0x00625D00
+int __stdcall STATLIST_GetStatValue(D2StatListStrc* pStatList, int nStatId, unsigned short nLayer); // 0x00625D00
 
 struct D2NihlathakOverseerAiCallbackArgStrc
 {
@@ -214,7 +216,7 @@ void __fastcall sub_005EA130_UpdateWanderer(D2GameStrc* game,D2UnitStrc* unit,D2
    }
    if(control->dwAiParam[1]<3) {
     ++control->dwAiParam[1];
-    AITACTICS_SetVelocity(unit,1,0,0);
+    sub_005DE190_SetAiParam(unit,1,0,0);
     AITACTICS_WalkToTargetCoordinates(game,unit,coords.nX,coords.nY);return;
    }
    if(unit) unit->dwFlags|=0x20000;

@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Path.h"
+struct D2ActiveRoomStrc;
+struct D2DynamicPathStrc;
 
 // build: context AIBAAL_RollSeed_M282Inline
 // build: context AIBAAL_RollLimited_M282Inline
@@ -380,9 +382,9 @@ static __declspec(noinline) int __stdcall sub_005FC1C0_RollBaalMeleeAiParam(D2Ga
 }
 
 struct D2AiCmdStrc { int pad[3]; int nX; int nY; };
-int __stdcall PATH_GetX(void* pPath); // 0x006488C0
+int __stdcall PATH_GetXPosition(D2DynamicPathStrc* hPath); // 0x006488C0
 int __stdcall PATH_GetY(void* pPath); // 0x00648900
-int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nPattern, int nMask); // 0x0064D910
+int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, unsigned short nMask); // 0x0064D910
 int __fastcall PLAYER_GetUniqueIdFromPlayerData(D2UnitStrc* pUnit); // 0x005353F0
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nType, int nId); // 0x00552F60
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
@@ -394,7 +396,7 @@ static __forceinline int AIBAAL_GetUnitX_Inline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType) {
     case 2: case 4: case 5: return ((int*)pUnit->pDynamicPath)[3];
-    default: return pUnit->pDynamicPath ? PATH_GetX(pUnit->pDynamicPath) : 0;
+    default: return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
     }
 }
 static __forceinline int AIBAAL_GetUnitY_Inline(D2UnitStrc* pUnit)

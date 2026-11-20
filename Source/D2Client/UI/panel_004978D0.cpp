@@ -51,10 +51,10 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x00681EF0
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
-int __fastcall sub_004538D0(int nUIVar); // 0x004538D0
+int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
 unsigned short __fastcall sub_00469AA0(int nA, int nB); // 0x00469AA0
 const Unicode* __fastcall sub_0046A530_GetKeyName(int nA, int nB); // 0x0046A530
-void __fastcall sub_0046EE80_DrawCursorItem(D2UnitStrc* pItem, int nX, int nY); // 0x0046EE80
+int __fastcall sub_0046EE80_DrawItemCel(D2UnitStrc* pItem, int nX, int nY); // 0x0046EE80
 void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 int __fastcall sub_004C2240(D2UnitStrc* pItem); // 0x004C2240
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
@@ -99,7 +99,7 @@ struct SMSGHANDLER_PARAMS
 
 extern "C" __declspec(dllimport) short __stdcall GetKeyState(int nVirtKey); // 0x006CC45C
 int __cdecl sub_00468830(); // 0x00468830
-void __fastcall sub_004786A0_SendIntInt(char nHeader, int nArg1, int nArg2); // 0x004786A0
+void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg); // 0x00478680
 void __fastcall sub_004786D0_SendDwords3(unsigned char nHeader, unsigned int d1, unsigned int d5, unsigned int d9); // 0x004786D0
 void __fastcall sub_004C21F0(D2UnitStrc* pItem);
@@ -118,12 +118,12 @@ int __stdcall UNITS_GetInventoryRecordId(D2UnitStrc* pUnit, int nArg, int nMode)
 void __stdcall sub_0065C1F0(int nId, int nGroup, D2Block1* pBlock); // 0x0065C1F0
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 void __fastcall sub_0049FF90_Close(D2UnitStrc* pItem, D2ItemsTxt* pState); // 0x0049FF90
-void __fastcall sub_004CB9C0_Request(D2UnitStrc* pUnit, int nId); // 0x004CB9C0
+void __fastcall sub_004CB9C0_Request(D2UnitStrc* pUnit, unsigned short nStringId); // 0x004CB9C0
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny); // 0x00478F20
 void __fastcall sub_004CBDE0_PlayEventSound(int nUnitId, unsigned char nUnitType, unsigned short nEvent); // 0x004CBDE0
 int __fastcall sub_00498DC0_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00498DC0
-void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
+int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 extern int gdwGlobal_007A061C; // 0x007A061C
 extern unsigned char gabBeltHotkey_007BEFB0[]; // 0x007BEFB0
 static __declspec(noinline) void sub_00498930_HoverBeltBox(int nX, D2InventoryStrc* pInventory, int nY);
@@ -287,7 +287,7 @@ void __cdecl sub_00499040_DrawBelt()
 
         D2UiRectStrc tRect;
         DATATBLS_GetInvRectFromBeltsTxt(gnUiRecordIndex_00722354, gnUiRecordRow_007A5218, &tRect, nBox);
-        sub_0046EE80_DrawCursorItem(pItem, tRect.nLeft, tRect.nTop);
+        sub_0046EE80_DrawItemCel(pItem, tRect.nLeft, tRect.nTop);
         if (nSlot < sizeof(gaBeltKeys_00722404) / sizeof(gaBeltKeys_00722404[0]) && ITEMS_CheckIfUseable(pItem))
         {
             Unicode wszKey[100];
@@ -320,6 +320,7 @@ void __cdecl sub_00499040_DrawBelt()
 }
 
 #include "gen/data/Source/D2Client/UI/panel_004978D0.inc"
+struct D2UnitStrc;
 
 static int __stdcall sub_004987E0_GetBeltBoxAt(int nY, int nX)
 {
@@ -361,13 +362,13 @@ static void __stdcall sub_00498870_ClickBeltBox(D2InventoryStrc* pInventory, int
         {
             if (!bBusy)
             {
-                sub_004786A0_SendIntInt(0x25, pCursorItem->dwUnitId, pBeltItem->dwUnitId);
+                sub_004786A0_SendDwords2(0x25, pCursorItem->dwUnitId, pBeltItem->dwUnitId);
                 sub_004C21F0(pCursorItem);
             }
         }
         else if (!bBusy)
         {
-            sub_004786A0_SendIntInt(0x23, pCursorItem->dwUnitId, (unsigned short)nBox);
+            sub_004786A0_SendDwords2(0x23, pCursorItem->dwUnitId, (unsigned short)nBox);
             sub_004C21F0(pCursorItem);
         }
         sub_004B9A00(sub_004C1D60(pCursorItem), 0, 0, 0, 0);
@@ -654,7 +655,7 @@ void __stdcall sub_00499D10_BeltClick(SMSGHANDLER_PARAMS* pMsg)
         }
 
         sub_00498A90_UseBeltSlot(nBox, pPlayer, pPlayer->pInventory, (pMsg->wParam >> 2) & 1);
-        sub_00420290_HandleMsg(pMsg);
+        sub_00420290_BreakHandlerChain(pMsg);
         return;
     }
 

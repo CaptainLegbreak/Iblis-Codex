@@ -9,7 +9,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" __declspec(dllimport) __declspec(noalias) int __stdcall GetWindowRect(void* hWindow, D2RectStrc* pRect);
 extern "C" __declspec(dllimport) int __stdcall GetSystemMetrics(int nIndex);
 extern "C" __declspec(dllimport) int __stdcall SetCursorPos(int nX, int nY);
-int __cdecl sub_004F5A30_IsFullscreen(); // 0x004F5A30
+int __stdcall WINDOW_IsFullScreen(); // 0x004F5A30
 void* __cdecl sub_004F59A0_GetWindow(); // 0x004F59A0
 extern int gnCursorY_007A6AAC; // 0x007A6AAC
 extern int gnCursorX_007A6AB0; // 0x007A6AB0
@@ -20,7 +20,7 @@ void __fastcall sub_00468770_SetCursorPosition(int nX, int nY)
     D2RectStrc rect;
     D2_ASSERT(nX >= 0, 0x30F);
     D2_ASSERT(nY >= 0, 0x310);
-    if (!sub_004F5A30_IsFullscreen())
+    if (!WINDOW_IsFullScreen())
     {
         _ReadWriteBarrier();
         D2RectStrc* pWindowRect = &rect;

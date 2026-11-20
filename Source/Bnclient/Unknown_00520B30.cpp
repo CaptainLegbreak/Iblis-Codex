@@ -30,7 +30,7 @@ int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, uns
 void __fastcall sub_0051BDC0_SetReply(const void* pData, unsigned int nSize); // 0x0051BDC0
 void __fastcall sub_0051BE20_SetReply(const void* pData, unsigned int nSize); // 0x0051BE20
 void __fastcall sub_0051BD60_SetReply(const void* pData, unsigned int nSize); // 0x0051BD60
-void __fastcall sub_005202F0_PostText(int nType, const char* szText); // 0x005202F0
+int __fastcall sub_005202F0_QueueText(int nId, const char* szText); // 0x005202F0
 int __fastcall sub_00520630_SetText(const char* szText); // 0x00520630
 
 struct D2BnTokenReplyStrc
@@ -46,7 +46,7 @@ int __fastcall sub_005223F0_SendUpgradeProof(unsigned int nServerToken); // 0x00
 int __cdecl sub_005224E0(); // 0x005224E0
 int __fastcall sub_005223A0(int bFlag); // 0x005223A0
 int __fastcall sub_00522310_SendChangeProof(const unsigned char* pSalt, const unsigned char* pServerKey); // 0x00522310
-int __cdecl sub_00522050(); // 0x00522050
+int __cdecl sub_00522050_SendAccountLogon(); // 0x00522050
 void __fastcall sub_0051AB30_SetAdUrlReply(const void* pData, unsigned int nSize); // 0x0051AB30
 void __fastcall sub_0051B3E0_SetSizedReply(const void* pData, unsigned int nSize); // 0x0051B3E0
 void __fastcall sub_0051B820_SetReply(const void* pData, unsigned int nSize); // 0x0051B820
@@ -196,7 +196,7 @@ int __fastcall sub_005211D0_SetReply(const void* pData, unsigned int nSize)
 // 0x005210F0
 int __fastcall sub_005210F0_ShowText(const void* pData, unsigned int nSize)
 {
-    sub_005202F0_PostText(2, (const char*)pData);
+    sub_005202F0_QueueText(2, (const char*)pData);
     sub_00520630_SetText((const char*)pData);
     return 1;
 }
@@ -421,7 +421,7 @@ int __fastcall sub_005219B0_AuthAccountUpgradeProof(const void* pData, unsigned 
         if (sub_005224E0())
         {
             sub_0051A480_DebugLog("Upgrade Proof success, logging in");
-            return sub_00522050();
+            return sub_00522050_SendAccountLogon();
         }
         sub_0051A480_DebugLog("Upgrade Proof success, password changed");
         sub_005224F0_ClearPassword();

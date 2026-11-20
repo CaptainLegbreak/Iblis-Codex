@@ -41,19 +41,19 @@ struct D2QuestUiFlagsStrc
 };
 
 extern D2QuestUiFlagsStrc gtQuestUiFlags_007BF2B3; // 0x007BF2B3
-void __cdecl sub_0044C820_ConfigureOrDefer(); // 0x0044C820
+extern "C" void __cdecl sub_0044C820_ConfigureOrDefer(); // 0x0044C820
 void __cdecl sub_0044D520(); // 0x0044D520
 void __fastcall sub_0044D530(int nValue); // 0x0044D530
 int __cdecl sub_0044DCC0(); // 0x0044DCC0
 void __cdecl sub_0044EC80_SetDifficultyFlags(); // 0x0044EC80
 int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
-int __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 void __fastcall sub_00464990(UNITFN pfnCallback); // 0x00464990
 void __fastcall sub_0046BFD0_StartTimer(int nDelay); // 0x0046BFD0
 void __fastcall sub_0046F870_LoadMonsterCofs(int nMonsterId, int bLoadNow); // 0x0046F870
 void __cdecl sub_00483300_SetByteFlag7BC9D4(); // 0x00483300
 void __cdecl sub_00483340_SetByteFlag7BC9D8(); // 0x00483340
-void __fastcall sub_0049E3A0_PrintChatLine(const Unicode* pText, char nColor); // 0x0049E3A0
+void __fastcall sub_0049E3A0_PrintChatLine(const Unicode* wszText, char nColor); // 0x0049E3A0
 void __fastcall sub_004A2C30_SelectQuestPage(int nCondition); // 0x004A2C30
 void __fastcall sub_004A2C70_ClearUnitFlag92(D2UnitStrc* pUnit); // 0x004A2C70
 void __fastcall sub_004A2C90_ClearUnitFlag20F(D2UnitStrc* pUnit); // 0x004A2C90

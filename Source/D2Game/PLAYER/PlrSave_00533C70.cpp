@@ -1,6 +1,9 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+struct D2InventoryStrc;
+struct D2SkillStrc;
+struct D2UnitStrc;
 // build: base-profile
 
 struct D2ClientStrc;
@@ -60,21 +63,21 @@ extern "C" int __cdecl fclose(_iobuf* pFile);                                   
 void __fastcall CLIENTS_SetPlayerInClient(D2ClientStrc* pClient, D2UnitStrc* pUnit);                        // 0x005378E0
 void __fastcall SUNIT_InitClientInPlayerData(D2UnitStrc* pUnit, D2ClientStrc* pClient);                     // 0x00553180
 char* __fastcall CLIENTS_GetName(D2ClientStrc* pClient);                                                    // 0x00538830
-void __stdcall UNITS_SetNameInPlayerData(D2UnitStrc* pUnit, char* szName);                                  // 0x006220F0
+unsigned int __stdcall UNITS_SetNameInPlayerData(D2UnitStrc* ptUnit, char* szName); // 0x006220F0
 void __fastcall SUNIT_InitSeed(D2UnitStrc* pUnit, int* pSeed);                                              // 0x00552DF0
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode);                                           // 0x00624690
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit);                                         // 0x006221A0
-void __fastcall sub_6FC32220(D2ClientStrc* pClient);                                                        // 0x00537970
+extern "C" void __fastcall sub_00537970_SetClientFlag1(D2ClientStrc* pClient); // 0x00537970
 int __fastcall CLIENTS_GetClassId(D2ClientStrc* pClient);                                                   // 0x005385F0
 D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char a7, int nMode, unsigned int a9); // 0x00555230
 void __fastcall sub_00571F90(D2GameStrc* pGame, D2UnitStrc* pUnit, D2ClientStrc* pClient); // 0x00571F90
 unsigned char __fastcall CLIENTS_GetActNo(D2ClientStrc* pClient);                                           // 0x005382B0
 void __fastcall PLAYERSTATS_SetStatsForStartingAct(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char nAct); // 0x005706D0
 void __fastcall PLAYER_CreateStartItemsFromCharStatsTxt(D2UnitStrc* pPlayer, D2GameStrc* pGame, unsigned char nAct); // 0x00534F10
-void* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId);                 // 0x006439F0
+D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId); // 0x006439F0
 void __fastcall D2GAME_AssignSkill_6FD13800(D2UnitStrc* pUnit, int a2, int nSkillId, int nFlags);          // 0x005701B0
 void __fastcall QUESTS_SequenceCycler(D2GameStrc* pGame, D2UnitStrc* pPlayer, int a3);                     // 0x00546270
-void __fastcall sub_00407050_GetSavePath(char* szPath, int nSize);                                          // 0x00407050
+int __fastcall sub_00407050_GetSavePath(char* szPath, int nSize); // 0x00407050
 int __fastcall sub_00534330(D2GameStrc* pGame, D2ClientStrc* pClient, D2SaveHeaderStrc* pSave, unsigned int nSize, D2UnitStrc** ppPlayer, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00534330
 D2SaveHeaderStrc* __fastcall CLIENTS_GetSaveHeader(D2ClientStrc* pClient);                                  // 0x00538E00
 int __fastcall CLIENTS_GetSaveHeaderSize(D2ClientStrc* pClient);                                            // 0x00538E30
@@ -110,7 +113,7 @@ static void __stdcall sub_00532520_AttachPlayerToClient(D2GameStrc* pGame, D2Uni
 // 0x00532590
 static int __stdcall PLRSAVE_CreateNewPlayer(D2GameStrc* pGame, D2ClientStrc* pClient, D2UnitStrc** ppPlayer)
 {
-    sub_6FC32220(pClient);
+    sub_00537970_SetClientFlag1(pClient);
     const int nClassId = CLIENTS_GetClassId(pClient);
     D2UnitStrc* pPlayer = SUNIT_AllocUnitData(UNIT_PLAYER, nClassId, 0, 0, pGame, 0, 0, 0, 0);
     sub_00532520_AttachPlayerToClient(pGame, pPlayer, pClient);
@@ -171,7 +174,7 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char*, const char*, int); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
-extern "C" void __cdecl sub_00410610_WriteLogLine(const char*, ...); // 0x00410610
+void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
 D2HirelingTxt* __stdcall DATATBLS_GetHirelingTxtRecordFromIdAndLevel(int, int, int); // 0x006562F0
 D2UnitStrc* __fastcall D2GAME_MERCS_Create_6FCC8630(D2GameStrc*, D2UnitStrc*, unsigned short, int, unsigned short, int, int); // 0x005774F0
 unsigned int __fastcall PLRSAVE_ConvertLegacyHirelingExperience(D2GameStrc*, unsigned short, unsigned int); // 0x00533BF0
@@ -183,7 +186,7 @@ int __stdcall DATATBLS_GetMaxLevel(int); // 0x00611830
 void __fastcall D2GAME_MERCS_SendStat_6FCC61D0(D2UnitStrc*, unsigned short, int); // 0x005718C0
 int __stdcall MONSTERS_GetHirelingExpForNextLevel(int, int); // 0x00663790
 void __fastcall MONSTERAI_UpdateMercStatsAndSkills(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, int); // 0x00572840
-void* __stdcall INVENTORY_AllocInventory(void*, D2UnitStrc*); // 0x0063ABD0
+D2InventoryStrc* __stdcall INVENTORY_AllocInventory(void* pMemPool, D2UnitStrc* pOwner); // 0x0063ABD0
 void __fastcall sub_6FC7D470(D2GameStrc*, D2UnitStrc*, D2UnitStrc*); // 0x005751A0
 void __fastcall SUNIT_SetCombatMode(D2GameStrc*, D2UnitStrc*, int); // 0x00553570
 void __fastcall sub_005738D0(D2GameStrc*, D2UnitStrc*); // 0x005738D0
@@ -193,16 +196,16 @@ void __fastcall sub_0055F4F0(D2GameStrc*, D2UnitStrc*, int); // 0x0055F4F0
 int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc*); // 0x00625D10
 void __fastcall MONSTERAI_SendMercStats(D2GameStrc*, D2UnitStrc*, int); // 0x005726C0
 int __fastcall sub_00532BE0_ReadQuestData(D2UnitStrc*, unsigned char*, int, int*); // 0x00532BE0
-int __fastcall D2GAME_SAVE_ReadWaypointData_6FC8AD50(D2UnitStrc*, unsigned char*, int, int*); // 0x00532C70
+int __fastcall D2GAME_SAVE_ReadWaypointData_6FC8AD50(D2UnitStrc* pUnit, const unsigned char* pSection, int nUnused, int* pSize); // 0x00532C70
 int __fastcall sub_00532D00_ReadPlayerIntro(D2UnitStrc*, unsigned char*, int, int*); // 0x00532D00
 int __fastcall sub_00532DA0_ReadPlayerStats(D2GameStrc*, D2UnitStrc*, unsigned char*, int, int, int*); // 0x00532DA0
 int __fastcall sub_6FC8AEC0(D2GameStrc*, D2ClientStrc*, D2UnitStrc*, unsigned char*, int, int, int*); // 0x00532E90
-int __stdcall UNITS_GetInventoryGoldLimit(D2UnitStrc*); // 0x00622E70
+unsigned int __stdcall UNITS_GetInventoryGoldLimit(D2UnitStrc* pUnit); // 0x00622E70
 int __stdcall UNITS_GetStashGoldLimit(D2UnitStrc*); // 0x00623460
 void __fastcall sub_00568DB0(D2GameStrc*, D2UnitStrc*); // 0x00568DB0
-int __fastcall PLRSAVE_ReadCorpseSection(D2GameStrc*, D2UnitStrc*, unsigned char*, int, int, int*); // 0x005339A0
-int __stdcall sub_00533F70_ReadHotkeySection(D2UnitStrc*, unsigned char*, unsigned int, int*); // 0x00533F70
-int __stdcall DATATBLS_GetLevelThreshold(int, int); // 0x00611800
+int __fastcall PLRSAVE_ReadCorpseSection(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char* pSection, unsigned int dwVersion, int nRemainingSize, int* pSize); // 0x005339A0
+int __stdcall sub_00533F70_ReadHotkeySection(D2UnitStrc* pPlayer, const unsigned char* pSection, unsigned int nSize, int* pSize); // 0x00533F70
+unsigned int __stdcall DATATBLS_GetLevelThreshold(int nClass, unsigned int dwLevel); // 0x00611800
 unsigned char __fastcall CLIENTS_GetWeaponSwitch(D2ClientStrc*); // 0x00539220
 void __fastcall D2GAME_PACKETS_SendPacket0x97_6FC3FB60(D2ClientStrc*); // 0x0053E110
 
@@ -346,7 +349,7 @@ struct D2LegacySaveHeaderStrc
 typedef char LegacyHeaderSizeCheck[sizeof(D2LegacySaveHeaderStrc)==130?1:-1];
 extern "C" void* __cdecl memcpy(void*,const void*,unsigned int);
 extern "C" int __cdecl _stricmp(const char*,const char*); // 0x006841E9
-void __fastcall sub_00538630(D2ClientStrc*,unsigned short); // 0x00538630
+void __fastcall CLIENTS_SetFlags(D2ClientStrc* pClient, int nFlags); // 0x00538630
 void __fastcall CLIENTS_SetClassId(D2ClientStrc*,int); // 0x00538620
 void __fastcall CLIENTS_SetActNo(D2ClientStrc*,unsigned char); // 0x005382E0
 D2GameStrc* __fastcall CLIENTS_GetGame(D2ClientStrc*); // 0x005387C0
@@ -356,7 +359,7 @@ void __fastcall sub_00539140_SetGuildTag(D2ClientStrc*,char*); // 0x00539140
 void __fastcall sub_00539170_SetGuildName(D2ClientStrc*,char*); // 0x00539170
 void __fastcall sub_005391C0_SetGuildColors(D2ClientStrc*,unsigned char,int,int); // 0x005391C0
 void __fastcall sub_00539230_SetFlag(D2ClientStrc*,unsigned char); // 0x00539230
-void __fastcall sub_005390A0(D2ClientStrc*,int,int,int,int); // 0x005390A0
+void __fastcall CLIENTS_SetSkillHotKey(D2ClientStrc* pClient, int nHotkeyId, short nSkillId, unsigned char nHand, int nItemGUID); // 0x005390A0
 static __forceinline int PLRSAVE_ConvertLegacySkill(unsigned char nSkill)
 {
  int nId=nSkill;
@@ -370,7 +373,7 @@ int __fastcall PLRSAVE_ReadLegacyHeader(D2GameStrc* pGame,D2ClientStrc* pClient,
  char szGuildTag[4];
  *pHeaderSize=0;
  D2LegacySaveHeaderStrc header=*pSave;
- sub_00538630(pClient,0);
+ CLIENTS_SetFlags(pClient,0);
  if(header.dwMagic!=0xAA55AA55) {
   if(gpD2EventCallbackTable_6FD45830) { *pNewPlayer=1;return 0; }
   return 1;
@@ -410,14 +413,14 @@ int __fastcall PLRSAVE_ReadLegacyHeader(D2GameStrc* pGame,D2ClientStrc* pClient,
  sub_005391C0_SetGuildColors(pClient,header.guildColors[0],*(int*)&header.guildColors[1],*(int*)&header.guildColors[2]);
  if(header.dwFlags & 1) {
   *pNewPlayer=1;header.dwFlags &= ~1;
-  sub_00538630(pClient,header.dwFlags);
+  CLIENTS_SetFlags(pClient,header.dwFlags);
   return 0;
  }
  sub_00539230_SetFlag(pClient,(header.dwFlags>>13)&1);
  const int nClass=header.nClass;
  *pNewPlayer=0;
  CLIENTS_SetClassId(pClient,nClass);
- sub_00538630(pClient,nSaveFlags);
+ CLIENTS_SetFlags(pClient,nSaveFlags);
  unsigned char nAct=header.nLocation & 15;
  const unsigned char nDifficulty=header.nLocation>>4;
  if(nAct>=5 || nDifficulty>=3) return 9;
@@ -437,7 +440,7 @@ int __fastcall PLRSAVE_ReadLegacyHeader(D2GameStrc* pGame,D2ClientStrc* pClient,
  if(header.nSkills!=sgptDataTables->nSkillsTxtRecordCount) *pSkills=header.nSkills;
  unsigned char* pHotkey;
  int i;
- for(i=0,pHotkey=&header.hotkeys[0][1];i<8;++i,pHotkey+=2) sub_005390A0(pClient,i,PLRSAVE_ConvertLegacySkill(pHotkey[-1]),*pHotkey,-1);
+ for(i=0,pHotkey=&header.hotkeys[0][1];i<8;++i,pHotkey+=2) CLIENTS_SetSkillHotKey(pClient,i,PLRSAVE_ConvertLegacySkill(pHotkey[-1]),*pHotkey,-1);
  *pLeft=PLRSAVE_ConvertLegacySkill(header.nLeftSkill);
  *pRight=PLRSAVE_ConvertLegacySkill(header.nRightSkill);
  *pHeaderSize=header.nHeaderSize;

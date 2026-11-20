@@ -59,7 +59,7 @@ extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalS
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
 extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC1FC
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
-extern "C" int __cdecl sub_00517ABB_BitScanForward1(unsigned int nValue); // 0x00517ABB
+int __cdecl sub_00517ABB_FindLowestSetBit(unsigned int dwMask); // 0x00517ABB
 
 extern D2CmpPoolStrc gCmpPool; // 0x0088CAE0
 extern void* gpfnTileFreeCallback_0088CB1C; // 0x0088CB1C
@@ -84,7 +84,7 @@ struct D2SpriteCacheStrc
 };
 
 extern D2SpriteCacheStrc gCmpTileCache; // 0x0089DB60
-int __fastcall sub_005FF4A0_SpriteCachePurge(D2SpriteCacheStrc* pCache, int nArg, int bForce); // 0x005FF4A0
+D2SpriteCacheNodeStrc* __fastcall sub_005FF4A0_SpriteCachePurge(D2SpriteCacheStrc* pCache, D2SpriteCacheNodeStrc* pNode, int bLocked); // 0x005FF4A0
 
 extern D2CmpCacheListEntryStrc* gpCmpCacheEntries; // 0x0089DB7C
 void __fastcall sub_0040AB00_FreeAsyncData(T00481720* pAsync); // 0x0040AB00
@@ -863,7 +863,7 @@ void __stdcall D2CMPSpriteCacheInit(void* pMemPool, unsigned int nMaxSize, int n
 // 0x00600C90
 int __stdcall sub_00600C90_GetDirectionIndex64(int nDirection, unsigned int nDirections)
 {
-    return gaDirectionIndex64_006E45A0[sub_00517ABB_BitScanForward1(nDirections)][nDirection];
+    return gaDirectionIndex64_006E45A0[sub_00517ABB_FindLowestSetBit(nDirections)][nDirection];
 }
 
 // 0x00600D30
@@ -886,18 +886,18 @@ int __stdcall sub_00600D30_CanConvertDirections(int nDirections, int nNewDirecti
 int __stdcall CelGameDirToShadowGameDir(unsigned int nIndex, unsigned int nDirections)
 {
     D2_ASSERT(nIndex < 64, 0x1DD);
-    D2_ASSERT(sub_00517ABB_BitScanForward1(nDirections) < 8u, 0x1DE);
+    D2_ASSERT(sub_00517ABB_FindLowestSetBit(nDirections) < 8u, 0x1DE);
     D2_ASSERT(D2CMP_BITCOUNT(nDirections) == 1, 0x1DF);
-    return gaDirectionIndex64A[sub_00517ABB_BitScanForward1(nDirections)][nIndex];
+    return gaDirectionIndex64A[sub_00517ABB_FindLowestSetBit(nDirections)][nIndex];
 }
 
 // 0x00600E20
 int __stdcall CelGameDirToNormalDir(unsigned int nIndex, unsigned int nDirections)
 {
     D2_ASSERT(nIndex < 64, 0x1EC);
-    D2_ASSERT(sub_00517ABB_BitScanForward1(nDirections) < 8u, 0x1ED);
+    D2_ASSERT(sub_00517ABB_FindLowestSetBit(nDirections) < 8u, 0x1ED);
     D2_ASSERT(D2CMP_BITCOUNT(nDirections) == 1, 0x1EE);
-    return gaDirectionIndex64B[sub_00517ABB_BitScanForward1(nDirections)][nIndex];
+    return gaDirectionIndex64B[sub_00517ABB_FindLowestSetBit(nDirections)][nIndex];
 }
 
 // 0x00601180

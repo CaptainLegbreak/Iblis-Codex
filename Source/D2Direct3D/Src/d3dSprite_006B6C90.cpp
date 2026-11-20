@@ -94,7 +94,7 @@ static __declspec(noinline) int __stdcall sub_006B5D40_UploadTexture(D2SpriteInf
 static __declspec(noinline) void __stdcall sub_006B63F0_DrawQuad(D2SpriteInfoStrc* pSprite, int nX, int nY, unsigned int nColor, int nPaletteIndex, unsigned char nAlpha, int bPalette);
 static __declspec(noinline) unsigned char sub_006B6680_SetBlendAndAlpha(int mode);
 
-static int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* pInfo, int nMode, int nArg3, int nArg4); // 0x006B5D40
+int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* ptInfo, int nMode, int nArg3, unsigned char nColor); // 0x006B5D40
 
 // 0x006B5C80
 int sub_006B5C80_LoadSpriteInfo(D2CelContextStrc* context, D2SpriteInfoStrc* info)

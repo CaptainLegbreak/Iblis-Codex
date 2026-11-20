@@ -153,7 +153,7 @@ struct D2OptionEntryStrc
     char unk0x128[0x428];
 };
 
-void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
+int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 int __cdecl sub_0047A560(); // 0x0047A560
 int __cdecl sub_004B8A10(); // 0x004B8A10
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
@@ -162,9 +162,9 @@ int __cdecl sub_0045AE90(); // 0x0045AE90
 extern "C" int __cdecl sub_0045AFC0(); // 0x0045AFC0
 extern "C" int __cdecl sub_0045AFD0_GetMouseYOffset(); // 0x0045AFD0
 int __cdecl sub_0044DCC0(); // 0x0044DCC0
-int __fastcall sub_004538D0(int nUIVar); // 0x004538D0
+int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
 void __fastcall sub_00451DB0_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451DB0
-void __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639D0
 void* __fastcall sub_0046E570_GetGfxEntry(D2UnitStrc* pUnit, int nMode); // 0x0046E570
 void* __fastcall sub_0046E5A0_FindGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nArg); // 0x0046E5A0
@@ -188,7 +188,7 @@ int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInv
 void __cdecl sub_00466FE0(); // 0x00466FE0
 void __fastcall sub_00467430(D2RectStrc* pRect); // 0x00467430
 T00479230* __fastcall sub_004A05E0_CreateTextBox(const Unicode* wszText, int nMode); // 0x004A05E0
-int __fastcall sub_004C5C40_ScanArea(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nFlags, AREASCANFN pfCallback, void* pArg, int bCheckType); // 0x004C5C40
+void __fastcall sub_004C5C40_ScanArea(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nFlags, AREASCANFN pfCallback, void* pArg, int bCheckType); // 0x004C5C40
 int __fastcall sub_004C5E70_FindCallback(void* pArg, D2UnitStrc* pUnit); // 0x004C5E70
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 void __fastcall sub_004B9EF0_ArmHint(int nKey, int nGroup, int nOffset, unsigned int nCount); // 0x004B9EF0
@@ -214,7 +214,7 @@ int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill); // 0x00644140
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus); // 0x006442A0
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x00412650
-D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType); // 0x00463990
+D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 int __fastcall sub_00463E50_GetGfxField34(D2UnitStrc* pUnit); // 0x00463E50
 int __fastcall sub_00463EB0_GetGfxField38(D2UnitStrc* pUnit); // 0x00463EB0
 int __fastcall sub_004791B0_IsOwnedByPlayer(D2UnitStrc* pUnit); // 0x004791B0
@@ -362,7 +362,7 @@ void __stdcall sub_0047BCA0_ChatKeyDown(SMSGHANDLER_PARAMS* pMsg)
 {
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_HandleMsg(pMsg);
+    sub_00420290_BreakHandlerChain(pMsg);
     if (pMsg->lParam & 0x40000000)
     {
         return;
@@ -475,7 +475,7 @@ int __stdcall sub_004922A0_ClickMsg(SMSGHANDLER_PARAMS* pMsg)
     gnGlobal_007BCBD8 = nY;
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_HandleMsg(pMsg);
+    sub_00420290_BreakHandlerChain(pMsg);
     if (nX >= gnGlobal_007BCAA0 && nX < gnGlobal_007BCAA4 && nY >= gnGlobal_007BCAA8 && nY <= gnGlobal_007BCAAC)
     {
         sub_004912A0_HandlePanelClick(pMsg);
@@ -510,7 +510,7 @@ void __stdcall sub_004936E0_ClickMsg(SMSGHANDLER_PARAMS* pMsg)
         sub_004785B0_SendPacket3(0x61, 0);
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_HandleMsg(pMsg);
+        sub_00420290_BreakHandlerChain(pMsg);
     }
 }
 
@@ -981,6 +981,7 @@ int __fastcall sub_004F3CE0_CreateSkillMissiles(D2UnitStrc* pUnit, int nSkillId,
 }
 
 #include "gen/data/Source/D2Client/WARDEN/WardenClient.inc"
+struct D2UnitStrc;
 
 void WardenModule_EmitDelete(WardenModule* pModule)
 {

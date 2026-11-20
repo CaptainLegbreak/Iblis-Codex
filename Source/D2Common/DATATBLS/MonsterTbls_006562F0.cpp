@@ -34,8 +34,8 @@ extern void* gpMonStatsLinker_0096C6AC; // 0x0096C6AC
 extern void* gpItemsLinker_0096BCC4; // 0x0096BCC4
 extern void* gpBodyLocsLinker_0096BC3C; // 0x0096BC3C
 extern const char gszEmptyAssertText_006CC837[]; // 0x006CC837
-const char* __cdecl sub_00408090(); // 0x00408090
-void __cdecl sub_00408A60(const char*,const char*,int); // 0x00408A60
+extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int);
 void* __stdcall DATATBLS_CompileTxt(void*,const char*,D2BinFieldStrc*,int*,int); // 0x006122F0
 int __stdcall FOG_GetLinkIndex(void*,unsigned int,int); // 0x006BD130

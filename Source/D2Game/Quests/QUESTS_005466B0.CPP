@@ -2,10 +2,13 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+struct D2ActiveRoomStrc;
+struct D2CoordStrc;
+struct D2UnitStrc;
 
 struct D2ItemsTxt;
 
-void __fastcall QUESTS_GetFreePosition(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoord, unsigned int nSize, unsigned int fCollision, D2ActiveRoomStrc** ppRoom, int nId, int nRadius); // 0x00545340
+void __fastcall QUESTS_GetFreePosition(D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoord, unsigned int nSize, unsigned short fCollision, D2ActiveRoomStrc** ppRoom, int nId, int nRadius); // 0x00545340
 void __fastcall ITEMS_RemoveFromAllPlayers(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00557FD0
 int __fastcall ITEMS_GetItemLevelForNewItem(D2UnitStrc* pUnit, int nLevelId); // 0x00558200
 void __fastcall D2GAME_DropItem_6FC52260(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00558AA0
@@ -17,7 +20,7 @@ D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall STATLIST_GetMaxDurabilityFromUnit(D2UnitStrc* pUnit); // 0x00625E00
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStat, int nValue, int nLayer); // 0x00627260
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
-void __stdcall sub_00628280_SetItemValue(D2UnitStrc* pItem, int nValue); // 0x00628280
+void __stdcall ITEMS_SetInvPage(D2UnitStrc* pItem, unsigned char nPage); // 0x00628280
 D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId); // 0x00633640
 
 // 0x005466B0
@@ -38,7 +41,7 @@ D2UnitStrc* __fastcall QUESTS_CreateItem(D2GameStrc* pGame, D2UnitStrc* pPlayer,
         if (nMaxDurability > 0)
             STATLIST_SetUnitStat(pItem, 0x48, nMaxDurability, 0);
 
-        sub_00628280_SetItemValue(pItem, 0);
+        ITEMS_SetInvPage(pItem, 0);
 
         if (D2GAME_PlaceItem_6FC44410(".\\QUESTS\\QUESTS.CPP", 0x9CF, pGame, pPlayer, (!pItem ? -1 : pItem->dwUnitId), 0, 0, 1, 1, 0))
         {

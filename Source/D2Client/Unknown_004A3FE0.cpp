@@ -165,10 +165,10 @@ struct D2ClientListEntryStrc
 #pragma pack(pop)
 
 int __cdecl sub_0044DA30(); // 0x0044DA30
-void __cdecl sub_0044DCE0(); // 0x0044DCE0
+extern "C" void __cdecl sub_0044DCE0_MouseExtTables_451E10(); // 0x0044DCE0
 extern "C" void __cdecl sub_0044DD20_MouseExtTables_451DB0(); // 0x0044DD20
 void __cdecl sub_00466FE0(); // 0x00466FE0
-void __fastcall sub_00467A70(int nArg); // 0x00467A70
+void __fastcall sub_00467A70_RefreshHoverUnit(D2UnitStrc* pUnit); // 0x00467A70
 void __cdecl sub_00469D20_SaveHotkeys(); // 0x00469D20
 void __cdecl sub_004A43E0(); // 0x004A43E0
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
@@ -209,7 +209,7 @@ struct D2HotkeyActionStrc
     int nState1C;
 };
 
-extern "C" int __cdecl sub_0044DA30_InputBlocked(); // 0x0044DA30
+int __cdecl sub_0044DA30(); // 0x0044DA30
 extern "C" void __fastcall sub_004A4500_SetActionValue(int nValue); // 0x004A4500
 extern "C" int __stdcall sub_00420290_HandleMsg(void* pMessage); // 0x00420290
 
@@ -633,8 +633,8 @@ void __fastcall sub_004A5200(int nArg)
         {
             sub_00469D20_SaveHotkeys();
             sub_0046AA20(0, 0);
-            sub_0044DCE0();
-            sub_00467A70(0);
+            sub_0044DCE0_MouseExtTables_451E10();
+            sub_00467A70_RefreshHoverUnit(0);
         }
         gnFirstVisible_007C02AC = 0;
         gnGlobal_007C02B0 = 0;
@@ -759,7 +759,7 @@ void __fastcall sub_00600C60_CallFree(void* pMemory)
 // 0x004A59D0
 int __stdcall sub_004A59D0_HandleHotkeyAction(D2HotkeyActionStrc* pAction)
 {
-    if (sub_0044DA30_InputBlocked())
+    if (sub_0044DA30())
     {
         pAction->nState18 = 0;
         return (int)pAction;
@@ -807,6 +807,7 @@ void __cdecl sub_004A5DE0_CloseSliderHandlers()
 }
 
 #include "gen/data/Source/D2Client/Unknown_004A3FE0.inc"
+struct D2UnitStrc;
 
 __forceinline D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId)
 {

@@ -91,12 +91,12 @@ struct D2ClientItemSlotStrc
 unsigned char __cdecl sub_0044DCD0_GetDifficulty(); // 0x0044DCD0
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
-void __fastcall sub_00465EE0_RemoveClientSideUnit(int nUnitId, int nUnitType); // 0x00465EE0
+void __fastcall sub_00465EE0_RemoveClientSideUnit(unsigned int nUnitId, int nUnitType); // 0x00465EE0
 void __fastcall sub_0046F0C0(D2UnitStrc* pUnit, int nArg, int nValue); // 0x0046F0C0
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 void __fastcall sub_004C70D0_StartUnitEffect(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nEffect, int nArg4, int nArg5, int nStatValue, int nVelocity); // 0x004C70D0
 int __fastcall sub_004CDB40_SubmitRequest(D2UnitStrc* pUnit, int nRequest, int nX, int nY, int nA, int nB); // 0x004CDB40
-int __fastcall sub_004CDBA0_AddOverlay(D2UnitStrc* pUnit, int nOverlay, int nX, int nY, int nA, int nB); // 0x004CDBA0
+D2UnitStrc* __fastcall sub_004CDBA0_SubmitOwnerRequest(D2UnitStrc* pUnit, int nArg0, int nArg5, int nArg6, int nArg3, int nArg4); // 0x004CDBA0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x0063B2C0
 void __stdcall sub_0063BD00(D2InventoryStrc* pInventory); // 0x0063BD00
@@ -163,7 +163,7 @@ extern void* gpRes_007C0D67; // 0x007C0D67
 extern void* gpRes_007C0D73; // 0x007C0D73
 extern void* gpRes_007C0D7B; // 0x007C0D7B
 extern D2ClientStringListStrc gtStringList_007C0D9A; // 0x007C0D9A
-D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType); // 0x00463990
+D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 void __fastcall sub_004649D0(UNITFN pfnCallback); // 0x004649D0
 void __cdecl sub_00466FE0(); // 0x00466FE0
 D2UnitStrc* __cdecl sub_00467A10(); // 0x00467A10
@@ -261,10 +261,10 @@ void __stdcall UNITS_GetClientCoords(D2UnitStrc* pUnit, D2CoordStrc* pClientCoor
 void __fastcall sub_00476070_GetViewRect(D2ViewStrc* pView, int* pLeft, int* pTop, int* pRight, int* pBottom); // 0x00476070
 void __fastcall sub_004760C0_GetViewOffset(D2ViewStrc* pView, int* pX, int* pY); // 0x004760C0
 void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg); // 0x00478680
-void __fastcall sub_004786A0_SendIntInt(char nHeader, int nArg1, int nArg2); // 0x004786A0
+void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 const Unicode* __fastcall sub_0049F910_GetTextString(unsigned short nStringId); // 0x0049F910
-int __stdcall ITEMS_GetBaseCode(D2UnitStrc* pItem); // 0x00628590
+unsigned int __stdcall ITEMS_GetBaseCode(D2UnitStrc* hItem); // 0x00628590
 D2ClientDialogStrc* __fastcall sub_004B7EB0_CreateDialog(int nArg1, int nArg2, int (__cdecl* pfnArg8)(),
     int (__cdecl* pfnArgC)(), int nArg10, int nArg14, int nArg18, int nArg1C, int nArg20, int nArg24, int nArg28); // 0x004B7EB0
 void __fastcall sub_004B8370_SetCtrlState(void* pPanel, int nValue); // 0x004B8370
@@ -279,7 +279,7 @@ extern int gnGlobal_007C0C64; // 0x007C0C64
 extern D2NpcMenuSlotStrc gaSlots_007C0C85[]; // 0x007C0C85
 extern D2ClientDialogStrc* gpDialog_007C0D67; // 0x007C0D67
 extern D2NpcEntryStrc gaNpcEntries_00726850[]; // 0x00726850
-int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
+unsigned int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
 D2UnitStrc* __stdcall sub_Z12_EmitNext(D2UnitStrc* pItem);
 void __stdcall sub_Z12_EmitUseItem(D2UnitStrc* pItem);
 
@@ -312,7 +312,7 @@ extern int gnGlobal_007C0D39; // 0x007C0D39
 extern short gwGlobal_007C0D3D; // 0x007C0D3D
 extern unsigned char g007C0D89; // 0x007C0D89
 int __cdecl sub_004B1DD0_OpenTimedDialog62(); // 0x004B1DD0
-void __fastcall sub_004786D0_SendPacket(char nHeader, int nArg1, int nArg2, int nArg3); // 0x004786D0
+void __fastcall sub_004786D0_SendDwords3(unsigned char nHeader, unsigned int d1, unsigned int d5, unsigned int d9); // 0x004786D0
 extern short gwGlobal_00726E01; // 0x00726E01
 extern int gnGlobal_00726E0F; // 0x00726E0F
 extern short gwGlobal_00726E4F; // 0x00726E4F
@@ -351,7 +351,7 @@ struct D2ClientValueBlockStrc
 #pragma pack(pop)
 
 void __cdecl sub_004939B0_LoadPopupHireling(); // 0x004939B0
-void __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 void __fastcall sub_004B3C20(int nValue); // 0x004B3C20
 void __cdecl sub_004B2F50_ShowTradeDialog(); // 0x004B2F50
 extern "C" D2UnitStrc* __fastcall sub_00463990_FindClientUnit(int nUnitId, int nUnitType); // 0x00463990
@@ -362,9 +362,9 @@ extern "C" int gnNpcSoundHandle_007C0DB8; // 0x007C0DB8
 extern char gbGlobal_007C0C69; // 0x007C0C69
 void __cdecl sub_004B3DE0_CloseNpc(); // 0x004B3DE0
 void __cdecl sub_004B3ED0(); // 0x004B3ED0
-void __cdecl sub_004B2110_CloseNpcDialogs(); // 0x004B2110
-void __fastcall sub_00456300_CloseUIVars(int bArg1, int nArg2); // 0x00456300
-void __cdecl sub_004C0440_Thunk(); // 0x004C0440
+void __cdecl sub_004B2110_FreeResources(); // 0x004B2110
+int __fastcall sub_00456300_CloseUIVars(int bArg1, int nArg2); // 0x00456300
+int __cdecl sub_004C0440_Thunk(); // 0x004C0440
 void __cdecl sub_0048A6A0_ResetNpcCursor(); // 0x0048A6A0
 void __cdecl sub_004B2110_FreeResources(); // 0x004B2110
 
@@ -377,7 +377,7 @@ int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
 Unit* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 Unit* __stdcall INVENTORY_GetCursorItem(void*); // 0x0063C1E0
-Unit* __cdecl sub_004680A0(); // 0x004680A0
+int __cdecl sub_004680A0(); // 0x004680A0
 void __fastcall sub_00468070_SetCursorItemState(Unit*); // 0x00468070
 extern const char empty; // 0x006CC837
 extern int g007C0C6B; // 0x007C0C6B
@@ -549,7 +549,7 @@ void __fastcall sub_004AD510_StateEffect(D2UnitStrc* pUnit, int nState, int bFla
 
     if (nState == 0x0A)
     {
-        sub_004CDBA0_AddOverlay(pUnit, 0x9B, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 0, STATLIST_UnitGetStatValue(pUnit, 0x0C, 0));
+        sub_004CDBA0_SubmitOwnerRequest(pUnit, 0x9B, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 0, STATLIST_UnitGetStatValue(pUnit, 0x0C, 0));
         return;
     }
     if (nState == 0x12)
@@ -572,7 +572,7 @@ void __fastcall sub_004ADB20_StateOverlayAtPath(D2UnitStrc* pUnit, int nState, i
     {
         return;
     }
-    sub_004CDBA0_AddOverlay(pUnit, 0x2A, GetUnitPathX(pUnit), GetUnitPathY(pUnit), 0, 1);
+    sub_004CDBA0_SubmitOwnerRequest(pUnit, 0x2A, GetUnitPathX(pUnit), GetUnitPathY(pUnit), 0, 1);
 }
 
 // 0x004ADBC0
@@ -595,13 +595,13 @@ void __fastcall sub_004ADBC0_StateMonOverlay(D2UnitStrc* pUnit, int nState, int 
 
     if (nLevel == 1)
     {
-        sub_004CDBA0_AddOverlay(pUnit, 0x1AB, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 0, 1);
+        sub_004CDBA0_SubmitOwnerRequest(pUnit, 0x1AB, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 0, 1);
     }
     else if (nLevel >= 2)
     {
-        sub_004CDBA0_AddOverlay(pUnit, 0x1AC, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 0, 1);
+        sub_004CDBA0_SubmitOwnerRequest(pUnit, 0x1AC, CLIENTS_GetUnitX(pUnit), CLIENTS_GetUnitY(pUnit), 0, 1);
     }
-    sub_004CDBA0_AddOverlay(pUnit, 0x1AA, GetUnitPathX(pUnit), GetUnitPathY(pUnit), 0, 1);
+    sub_004CDBA0_SubmitOwnerRequest(pUnit, 0x1AA, GetUnitPathX(pUnit), GetUnitPathY(pUnit), 0, 1);
 }
 
 unsigned char g007C0D89; // 0x007C0D89
@@ -817,7 +817,7 @@ int __cdecl sub_004B1DD0_OpenTimedDialog62()
 // 0x004B1E80
 void __cdecl sub_004B1E80_OpenTimedDialog36()
 {
-    sub_004786A0_SendIntInt(0x36, gnGlobal_007C0C64, gaSlots_007C0C85[gnGlobal_007C0C60].wId);
+    sub_004786A0_SendDwords2(0x36, gnGlobal_007C0C64, gaSlots_007C0C85[gnGlobal_007C0C60].wId);
 
     if (gpDialog_007C0D77)
     {
@@ -971,7 +971,7 @@ void __cdecl sub_004B2250_ResetHandlers()
 void __fastcall sub_004B2370_SendPacket38(int nArg)
 {
     gnGlobal_007C0D96 = 0;
-    sub_004786D0_SendPacket(0x38, 0, gnGlobal_007C0D25, nArg);
+    sub_004786D0_SendDwords3(0x38, 0, gnGlobal_007C0D25, nArg);
 }
 
 // 0x004B2390
@@ -1497,7 +1497,7 @@ void __cdecl sub_004B3F10_CloseByState()
         sub_004B3DE0_CloseNpc();
     }
 
-    sub_004B2110_CloseNpcDialogs();
+    sub_004B2110_FreeResources();
     gnGlobal_007C0C6B = 0;
 }
 

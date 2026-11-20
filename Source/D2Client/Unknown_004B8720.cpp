@@ -9,8 +9,8 @@ struct D2TimedHintEntryStrc;
 struct D2TimedHintNodeStrc;
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
-void __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
-int __fastcall sub_004538D0(int nUIVar); // 0x004538D0
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
 int __cdecl sub_00463DF0(); // 0x00463DF0
 void __cdecl sub_0048A6F0_ClearValue(); // 0x0048A6F0
 void __fastcall sub_00478600_SendShorts(char nHeader, short nArg1, short nArg2, short nArg3); // 0x00478600

@@ -29,7 +29,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 extern "C" long __cdecl _time32(long* pTime); // 0x006850E6
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 int __cdecl sub_0051BEC0_IsExpansion(); // 0x0051BEC0
-void __fastcall sub_0051E340_BuildCDKeyInfoForSlot(D2CDKeyInfoStrc* pKeyInfo, unsigned int dwClientToken, int nSlot); // 0x0051E340
+int __fastcall sub_0051E340_BuildCDKeyInfoForSlot(D2CDKeyInfoStrc* pInfo, unsigned int dwClientToken, int nSlot); // 0x0051E340
 int __fastcall sub_0051E6D0_RunCheckRevision(unsigned int* pExeVersion, unsigned int* pExeHash, char* szText); // 0x0051E6D0
 int __cdecl sub_0051EAA0_HasName(); // 0x0051EAA0
 int __fastcall sub_005204A0_SetError(int nError); // 0x005204A0

@@ -32,7 +32,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 int __fastcall sub_004DF630_QueryAddress(D2ClientCacheEntryStrc* pEntry); // 0x004DF630
 void __fastcall sub_00482860_TouchCacheEntry(int nIndex); // 0x00482860
 int __stdcall sub_004824A0_FreeCacheEntries(unsigned int nFree, int bTwoPasses, int bCheckAge); // 0x004824A0
-void* __stdcall sub_004FAC80(); // 0x004FAC80
+void* __stdcall D2Win_GetArchive(); // 0x004FAC80
 void* __fastcall ARCHIVE_AllocateBufferAndReadFile(void* hArchive, const char* szFileName, unsigned int* pnSize, const char* szFile, int nLine); // 0x00517079
 void __cdecl sub_004DF800(); // 0x004DF800
 void __cdecl sub_004B9D20_FreeAllSounds(); // 0x004B9D20
@@ -322,7 +322,7 @@ void __fastcall sub_00482970_LoadCacheEntry(int nIndex, int bDirect, int nArg)
 
     if (bDirect)
     {
-        pEntry->pData = ARCHIVE_AllocateBufferAndReadFile(sub_004FAC80(), szPath, &pEntry->nSize, ".\\Sound\\SoundHdr.cpp", 0x301);
+        pEntry->pData = ARCHIVE_AllocateBufferAndReadFile(D2Win_GetArchive(), szPath, &pEntry->nSize, ".\\Sound\\SoundHdr.cpp", 0x301);
         D2_ASSERT(pEntry->pData && pEntry->nSize, 0x302);
         gdwCacheUsed_007BC9D0 += pEntry->nSize;
         sub_00482860_TouchCacheEntry(nIndex);

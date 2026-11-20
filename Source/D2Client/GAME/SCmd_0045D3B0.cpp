@@ -2,6 +2,9 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+struct D2ActiveRoomStrc;
+struct D2StatListStrc;
+struct D2UnitStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2PacketRecord11Strc;
@@ -96,7 +99,7 @@ struct D2UnitStatPacket2Strc
 #pragma pack(pop)
 
 void __fastcall sub_004C1BC0(D2PacketRecord11Strc* pPacket, int nArg); // 0x004C1BC0
-D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType); // 0x00463990
+D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 void __fastcall sub_00480E70_SetUnitMode(D2UnitStrc* pUnit, int nArg); // 0x00480E70
@@ -148,7 +151,7 @@ struct D2ChatMessageStrc
 };
 
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
-int __stdcall SStrLen(const char* szString); // 0x00413750
+unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 
 #pragma pack(push, 1)
 struct D2EnvironmentPacketStrc
@@ -162,7 +165,7 @@ struct D2EnvironmentPacketStrc
 #pragma pack(pop)
 
 extern D2DrlgActStrc* gpDrlgAct_007A0634; // 0x007A0634
-D2ActiveRoomStrc* __fastcall sub_004646A0_GetPlayerRoom(); // 0x004646A0
+D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
 void __cdecl sub_004646C0_UpdateObjectsForPeriod(); // 0x004646C0
 
 struct D2GSPacketSrv9C
@@ -209,7 +212,7 @@ void __fastcall sub_004C45C0_BeltPacket9C(D2GSPacketSrv9C* pPacket); // 0x004C45
 void __fastcall sub_004C4740(D2GSPacketSrv9D* pPacket); // 0x004C4740
 void __fastcall sub_004C4990_ItemToSocket9D(D2GSPacketSrv9D* pPacket); // 0x004C4990
 void __fastcall sub_004C4AA0(D2GSPacketSrv9D* pPacket); // 0x004C4AA0
-void __fastcall sub_004C4C70(D2GSPacketSrv9D* pPacket); // 0x004C4C70
+D2UnitStrc* __fastcall sub_004C4C70(D2GSPacketSrv9D* pPacket); // 0x004C4C70
 
 #pragma pack(push, 1)
 struct D2PacketSpawnStrc
@@ -239,7 +242,7 @@ void __fastcall sub_00470B70_ResetMonsterModeGfx(D2UnitStrc*); // 0x00470B70
 void __fastcall sub_00477170_LoadPalShift(int); // 0x00477170
 int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc*, int, int); // 0x00478F20
 void __stdcall UNITS_StoreOwnerTypeAndGUID(D2UnitStrc*, int, int); // 0x00621CC0
-D2StatListStrc* __stdcall STATLIST_AllocStatList(void*, int, int, int, int); // 0x006251F0
+D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
 void __stdcall STATLIST_SetState(D2StatListStrc*, int); // 0x006252D0
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitStateAndFlag(D2UnitStrc*, int, int); // 0x006257D0
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc*, D2StatListStrc*, int); // 0x00626E10

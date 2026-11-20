@@ -1,4 +1,5 @@
 #include "D2Client.h"
+struct D2StoredUnitRecordStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct Unicode;
@@ -61,8 +62,8 @@ int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
 D2StoredUnitRecordStrc* __fastcall sub_004795A0_GetNextEntry(D2StoredUnitRecordStrc* pEntry); // 0x004795A0
 unsigned short __fastcall sub_00479BC0_GetEntryIndex(D2StoredUnitRecordStrc* pEntry); // 0x00479BC0
-const char* __fastcall sub_004795C0_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
-void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
+extern "C" const char* __fastcall sub_004795C0_GetEntryName(D2StoredUnitRecordStrc* pEntry); // 0x004795C0
+Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 int __fastcall sub_0047A5E0(D2StoredUnitRecordStrc* pEntry); // 0x0047A5E0
 int __fastcall sub_0047A640(D2StoredUnitRecordStrc* pEntry); // 0x0047A640
@@ -103,9 +104,9 @@ struct D2ClientNotifyStrc
     void (__fastcall* pfnSendCommand)(const char* szText);
 };
 
-void __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 void __cdecl sub_0044DA70(); // 0x0044DA70
-void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
+int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 int __stdcall sub_0049AA50_IsMouseInRect(int nX, int nY, int nWidth, int nHeight); // 0x0049AA50
 void __cdecl sub_00479FC0(); // 0x00479FC0
 void __fastcall sub_00479EB0(D2StoredUnitRecordStrc* pEntry); // 0x00479EB0
@@ -551,7 +552,7 @@ void __stdcall sub_0049BDD0_OnRosterClick(SMSGHANDLER_PARAMS* pMsg)
             sub_0044DA70();
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
-            sub_00420290_HandleMsg(pMsg);
+            sub_00420290_BreakHandlerChain(pMsg);
             return;
         }
 
@@ -561,7 +562,7 @@ void __stdcall sub_0049BDD0_OnRosterClick(SMSGHANDLER_PARAMS* pMsg)
             sub_0044DA70();
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
-            sub_00420290_HandleMsg(pMsg);
+            sub_00420290_BreakHandlerChain(pMsg);
             return;
         }
 
@@ -585,7 +586,7 @@ void __stdcall sub_0049BDD0_OnRosterClick(SMSGHANDLER_PARAMS* pMsg)
                             {
                                 pMsg->bReturn = 1;
                                 pMsg->lResult = 0;
-                                sub_00420290_HandleMsg(pMsg);
+                                sub_00420290_BreakHandlerChain(pMsg);
                                 return;
                             }
                             if (pSlot->nType == 1)
@@ -611,7 +612,7 @@ void __stdcall sub_0049BDD0_OnRosterClick(SMSGHANDLER_PARAMS* pMsg)
                             sub_0044DA70();
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
-            sub_00420290_HandleMsg(pMsg);
+            sub_00420290_BreakHandlerChain(pMsg);
             return;
                         }
                     }
@@ -623,7 +624,7 @@ void __stdcall sub_0049BDD0_OnRosterClick(SMSGHANDLER_PARAMS* pMsg)
             sub_0044DA70();
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
-            sub_00420290_HandleMsg(pMsg);
+            sub_00420290_BreakHandlerChain(pMsg);
             return;
         }
 
@@ -641,7 +642,7 @@ void __stdcall sub_0049BDD0_OnRosterClick(SMSGHANDLER_PARAMS* pMsg)
         sub_0044DA70();
             pMsg->bReturn = 1;
             pMsg->lResult = 0;
-            sub_00420290_HandleMsg(pMsg);
+            sub_00420290_BreakHandlerChain(pMsg);
             return;
     }
     pMsg->bReturn = 0;

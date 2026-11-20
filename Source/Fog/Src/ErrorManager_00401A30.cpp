@@ -176,7 +176,7 @@ void __cdecl sub_00409020_LogPoolError(const char* szFormat, ...);              
 int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0);            // 0x0040B480
 void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...);                                                           // 0x00410610
 void __cdecl sub_00410660_LogWritePrefixed(const char* szPrefix, const char* szFormat, ...);                // 0x00410660
-__int64 __cdecl sub_0040E850_ReadTimeStampCounter();                                                        // 0x0040E850
+unsigned __int64 __cdecl sub_0040E850_ReadTimeStampCounter(); // 0x0040E850
 
 extern D2CriticalSectionStrc gtSymbolLock_0098A6F0;                                                         // 0x0098A6F0
 extern "C" const char gszNewline_006FFCB0[];                                                                // 0x006FFCB0

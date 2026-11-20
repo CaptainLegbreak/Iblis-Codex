@@ -279,7 +279,7 @@ int __fastcall sub_6F8B1C60(D2WinControlStrc* pControl);                        
 int __fastcall sub_6F8B1CF0(D2WinControlStrc* pControl);                                                    // 0x004FD8F0
 int __stdcall TIMER_HandleVirtualKeyInput(SMSGHANDLER_PARAMS* pMsg);                                        // 0x004FD970
 int __fastcall D2Win_10122(const Unicode* wszText, int nTextLength);                                        // 0x005017D0
-int __stdcall sub_005041B0_Destroy(D2CompositeUnitStrc* pComposite, int nFlag);                             // 0x005041B0
+void __stdcall D2Win_10142_CompUnitDestroy(D2CompositeUnitStrc* pCompositeUnit, int bUnlink); // 0x005041B0
 int __stdcall SMACK_DeleteFile(D2WinSmackStrc* pSmack);                                                     // 0x00506990
 void __fastcall sub_00507EE0(void* pArg);                                                                   // 0x00507EE0
 int __fastcall sub_00526800(const Unicode* pString);                                                      // 0x00526800
@@ -561,7 +561,7 @@ void __stdcall D2Win_10146()
     while (pCompositeUnit)
     {
         D2CompositeUnitStrc* pNext = pCompositeUnit->pNext;
-        sub_005041B0_Destroy(pCompositeUnit, 0);
+        D2Win_10142_CompUnitDestroy(pCompositeUnit, 0);
         FOG_Free(pCompositeUnit, ".\\Src\\D2Comp.cpp", 0xD38, 0);
         pCompositeUnit = pNext;
     }

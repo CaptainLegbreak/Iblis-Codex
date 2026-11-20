@@ -1,5 +1,8 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+struct D2ActiveRoomStrc;
+struct D2GameStrc;
+struct D2UnitStrc;
 struct D2DrlgCoordsStrc { int nSubtileX; int nSubtileY; int nSubtileWidth; int nSubtileHeight; int nTileXPos; int nTileYPos; int nTileWidth; int nTileHeight; };
 struct D2SpawnAreaStrc { char unk0x00[0x10]; tagRECT tRect; char unk0x20[0x08]; int nIndex; };
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords);              // 0x00619730
@@ -59,7 +62,7 @@ struct D2UnkMonCreateStrc2
 };
 
 int __stdcall D2Common_10095(D2ActiveRoomStrc* pRoom, int nX, int nY);                                       // 0x0061B130
-D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int a7, int a8); // 0x005B2F20
+D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
 D2UnitStrc* __fastcall MONSTERSPAWN_SpawnInCoordList(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2SpawnAreaStrc* pCoordList, int nX, int nY, int nMonsterId, int nMode, int a8, int a9); // 0x005B3040
 
 static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)

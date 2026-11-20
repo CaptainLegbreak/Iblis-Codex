@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+struct D2DrlgRoomStrc;
 
 #pragma function(memset)
 #define ROOMFLAG_2 0x00000002
@@ -144,7 +145,7 @@ void __fastcall DRLG_UpdateAndFreeInactiveRooms(D2DrlgStrc* pDrlg); // 0x0064320
 int __fastcall DRLGROOM_CheckLOSDraw(D2DrlgRoomStrc* pDrlgRoom); // 0x0066BA70
 int __fastcall DRLG_IsTownLevel(int nLevelId); // 0x006426A0
 int __fastcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x00642740
-int __fastcall sub_6FD779F0(D2DrlgRoomStrc* pDrlgRoom); // 0x0066BA90
+unsigned int __fastcall sub_0066BA90(D2DrlgRoomStrc* pDrlgRoom); // 0x0066BA90
 int __fastcall DRLG_GetNumberOfPopulatedRoomsInLevel(D2DrlgStrc* pDrlg, int nLevelId); // 0x00642BE0
 int* __fastcall DRLG_GetRoomCenterX_RoomWarpXFromRoom(D2DrlgRoomStrc* pDrlgRoom); // 0x00642380
 void __fastcall DRLGWARP_UpdateWarpRoomSelect(D2DrlgRoomStrc* pDrlgRoom, int nLevelId); // 0x0066AB90
@@ -863,7 +864,7 @@ int __stdcall D2Common_10087(D2ActiveRoomStrc* ptRoom)
 {
     D2_ASSERT(ptRoom, 1445);
 
-    return sub_6FD779F0(ptRoom->pDrlgRoom);
+    return sub_0066BA90(ptRoom->pDrlgRoom);
 }
 
 // 0x0061ABF0

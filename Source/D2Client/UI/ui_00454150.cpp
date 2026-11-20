@@ -101,12 +101,12 @@ void __fastcall sub_004B8370(void* pPanel, int nValue);                         
 int __fastcall sub_00502EF0(int nArg);                                                                      // 0x00502EF0
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pDest, const Unicode* pFormat, ...);                 // 0x005269D0
 Unicode* __fastcall sub_005267E0(Unicode* pDest, const Unicode* pSource);                                 // 0x005267E0
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(short nIndex);                                       // 0x00524A30
+const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 T0044CB60* __fastcall sub_00502970_SplitText(Unicode* pText, int* pLineCount, int nWidth);             // 0x00502970
 void __fastcall sub_004B85F0_AddTextLine(void* pPanel, Unicode* pText, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8); // 0x004B85F0
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0
 void __fastcall sub_004B7C00_AddControl(void* pPanel, void* pControl, int nArg3, int nArg4);                // 0x004B7C00
-void __cdecl sub_004B90B0();                                                                                // 0x004B90B0
+extern "C" void __cdecl sub_004B90B0_SendState(); // 0x004B90B0
 int __cdecl sub_00453FC0_GoldPanelClose();                                                                                 // 0x00453FC0
 int __cdecl sub_00453FD0();                                                                                 // 0x00453FD0
 int __cdecl sub_00453FE0_GoldSpinnerChanged();                                                                                 // 0x00453FE0
@@ -225,7 +225,7 @@ void __fastcall sub_00454150_OpenGoldPanel(int nMode)
 
     if (nMode == 2)
     {
-        sub_004B90B0();
+        sub_004B90B0_SendState();
         return;
     }
     if (nMode == 3 || nMode == 7 || nMode == 6)

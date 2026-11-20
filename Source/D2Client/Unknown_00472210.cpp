@@ -21,7 +21,7 @@ struct D2WeatherStrc
 };
 
 D2WeatherStrc* __fastcall sub_006BCA10_CreateDataArray(const char* szName, int nCount, int nRecordSize); // 0x006BCA10
-void __fastcall sub_006BCA90_FreeDataArray(D2WeatherStrc* pArray); // 0x006BCA90
+void __fastcall sub_006BCA90_ClearAndFree(void* pBlock); // 0x006BCA90
 void __fastcall sub_006BCCC0(D2WeatherStrc* pArray); // 0x006BCCC0
 int __stdcall sub_004726F0(int nArg); // 0x004726F0
 extern int gnGlobal_007A896C; // 0x007A896C
@@ -36,7 +36,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
-D2ActiveRoomStrc* __fastcall sub_004646A0_GetPlayerRoom(); // 0x004646A0
+D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
 void __fastcall sub_00473D00_SetPhase(int nPhase); // 0x00473D00
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
@@ -62,7 +62,7 @@ extern int gScreenHeight; // 0x00711470
 extern CellResource* gHelpBorder;
 extern CellResource* gWhiteBullet;
 extern CellResource* gYellowBullet;
-extern "C" int __cdecl sub_0045AE90(); // 0x0045AE90
+int __cdecl sub_0045AE90(); // 0x0045AE90
 extern "C" void __stdcall sub_004F6300(int x1, int y1, int x2, int y2, int color, int mode); // 0x004F6300
 extern "C" int __cdecl ResolutionMode();
 extern "C" void __fastcall ReleaseCell(CellResource* resource);
@@ -176,9 +176,9 @@ void __cdecl sub_00472320()
 // 0x004723C0
 void __cdecl sub_004723C0()
 {
-    sub_006BCA90_FreeDataArray(gpWeather_007A8A04);
-    sub_006BCA90_FreeDataArray(gpWeather_007A89FC);
-    sub_006BCA90_FreeDataArray(gpWeather_007A8A00);
+    sub_006BCA90_ClearAndFree(gpWeather_007A8A04);
+    sub_006BCA90_ClearAndFree(gpWeather_007A89FC);
+    sub_006BCA90_ClearAndFree(gpWeather_007A8A00);
 }
 
 // 0x00472C20
@@ -434,6 +434,7 @@ void __cdecl sub_B10_Emit_00472FB0(D2B10EmitWeatherStrc* pWeather, unsigned char
 }
 
 #include "gen/data/Source/D2Client/Unknown_00472210.inc"
+struct D2ActiveRoomStrc;
 
 // 0x004736C0
 extern "C" void __cdecl sub_004736C0_DrawPanelShade()

@@ -31,10 +31,10 @@ extern int gbUiRecordMode_007BEF98; // 0x007BEF98
 Unicode* __fastcall sub_00452170(Unicode* pText); // 0x00452170
 Unicode* __fastcall sub_004521C0_PrefixLevelText(Unicode* pText, int nDigit); // 0x004521C0
 D2UnitStrc* __fastcall sub_00463DD0(); // 0x00463DD0
-extern "C" int __cdecl sub_00489840_ModeInGroup(); // 0x00489840
+int __cdecl sub_00489840_IsNpcState123(); // 0x00489840
 void __fastcall sub_0048C060_BuildItemName(D2UnitStrc* pItem, Unicode* pText, int nMaxLength); // 0x0048C060
 int __fastcall sub_004B2AD0(D2UnitStrc* pItem, int nArg, int* pOut, UnicodeChar* pName, int nMaxLength); // 0x004B2AD0
-void __fastcall sub_004E6410_BuildPropText(D2UnitStrc* pItem, Unicode* wszText, int nArg, int bFlag, int nArg2); // 0x004E6410
+void __fastcall sub_004E6410_BuildPropText(D2UnitStrc* pItem, Unicode* wszText, int nUnused, int bFlag, const Unicode* wszExtra); // 0x004E6410
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 Unicode* __fastcall sub_00526700(Unicode* pDest, const void* pSource); // 0x00526700
@@ -121,7 +121,7 @@ void __cdecl sub_00497A40_DrawBeltItemHoverText()
     }
 
     sub_00452170(wszText);
-    if (sub_00489840_ModeInGroup())
+    if (sub_00489840_IsNpcState123())
     {
         UnicodeChar wszSocket[0x40] = { 0 };
         int nUnused;
@@ -136,6 +136,7 @@ void __cdecl sub_00497A40_DrawBeltItemHoverText()
 }
 
 #include "gen/data/Source/D2Client/UI/panel_00497A40.inc"
+struct D2UnitStrc;
 
 // 0x00497E00
 void __cdecl sub_00497E00()

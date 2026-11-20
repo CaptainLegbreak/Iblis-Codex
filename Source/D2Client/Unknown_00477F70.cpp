@@ -20,7 +20,7 @@ struct D2GameLogonPacketStrc
 };
 
 D2ClientInterfaceStrc* __cdecl sub_0044D540_GetClientInterface();                                           // 0x0044D540
-unsigned char __cdecl sub_00525150();                                                               // 0x00525150
+int __cdecl STRTABLE_GetLanguage(); // 0x00525150
 int __cdecl sub_0047AA30_HasClassOverride();                                                                // 0x0047AA30
 extern char gszCharName_007A05C4[];                                                                         // 0x007A05C4
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x004135D0
@@ -37,7 +37,7 @@ void __fastcall sub_00477F70_SendGameLogon(int nServerToken, int nServerHash)
     *(int*)tPacket.nVersion = sub_0044D540_GetClientInterface()->pfnGetVersion();
     *(unsigned int*)tPacket.nKey1 = sub_00408F20_HasExpansionMpq() ? 0xED5DCC50 : 0x2185EDD6;
     *(unsigned int*)tPacket.nKey2 = 0x91A519B6;
-    tPacket.f_14 = sub_00525150();
+    tPacket.f_14 = STRTABLE_GetLanguage();
     tPacket.nClass = sub_0047AA30_HasClassOverride() ? sub_0047AA20_GetClassOverride() : gnCharClass_007A0522;
     SStrCopy(tPacket.szName, gszCharName_007A05C4, 0x7FFFFFFF);
     sub_0052AE50_SendPacket(sizeof(D2GameLogonPacketStrc), 0, &tPacket);

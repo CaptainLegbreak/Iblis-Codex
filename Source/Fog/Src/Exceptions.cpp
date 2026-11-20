@@ -342,9 +342,9 @@ typedef int (__stdcall* SymGetLineFromAddrFn)(void* hProcess, unsigned long dwAd
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 extern "C" const char gszEmptyString_006FFC44[]; // 0x006FFC44
 const char* __fastcall sub_00408000_StripSourcePath(const char* szPath); // 0x00408000
-int __stdcall SStrLen(const char* szString); // 0x00413750
+unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 int __cdecl s_DoSymInitialize(); // 0x0040C620
-int __fastcall sub_0040C720_SymCleanupOnce(int bAll); // 0x0040C720
+int __fastcall sub_0040C720_ReleaseReferences(int all); // 0x0040C720
 extern SymGetLineFromAddrFn gpfnSymGetLineFromAddr_0075CFE4; // 0x0075CFE4
 extern void* gpfnSymFunctionTableAccess_0075CFE0; // 0x0075CFE0
 extern void* gpfnSymGetModuleBase_0075CFE8; // 0x0075CFE8
@@ -380,7 +380,7 @@ struct D2CrashDumpEntryStrc
 
 extern "C" unsigned int __cdecl fread(void* pBuffer, unsigned int nSize, unsigned int nCount, _iobuf* pFile); // 0x00684782
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
-int __stdcall SMemCmp(const void* pLocation1, const void* pLocation2, unsigned int nSize); // 0x0041D200
+int __stdcall SMemCmp(void* pLocation1, void* pLocation2, unsigned int nSize); // 0x0041D200
 extern "C" const char gszReadBinary_006CDC90[]; // 0x006CDC90
 extern D2CriticalSectionStrc gtImageHlpLock_0075CFBC; // 0x0075CFBC
 extern int gnSymInitCount_0075CFD4; // 0x0075CFD4
@@ -871,7 +871,7 @@ int __fastcall QuickStackWalk(const char* szPrefix, void* hThread, D2ContextStrc
         }
     }
 
-    sub_0040C720_SymCleanupOnce(0);
+    sub_0040C720_ReleaseReferences(0);
     sub_00410660_LogWritePrefixed(szPrefix, "QuickStackWalk: %d entries, %I64d+%I64d+%I64d+%I64d cycles, %I64d avg", nEntries, aTotals[0], aTotals[1], aTotals[2], aTotals[3], (aTotals[0] + aTotals[1] + aTotals[2] + aTotals[3]) / nEntries);
     --gnStackWalkDepth_0075D018;
     return 1;

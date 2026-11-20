@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+struct D2ClientStrc;
 
 struct D2NpcRecordStrc;
 struct D2NpcVendorChainStrc { int unknown00; unsigned char gamble; };
@@ -16,7 +17,7 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc*); // 0x0045AE20
 D2UnitStrc* __fastcall SUNIT_GetInteractUnit(D2GameStrc*,D2UnitStrc*); // 0x00554D00
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc*,int,int); // 0x00552F60
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc*,const char*,int); // 0x005531C0
-void __fastcall D2GAME_SendPacket0x2A_6FC3F3B0(D2ClientStrc*,unsigned char,int,int,int,int); // 0x0053D740
+void __fastcall sub_0053D740_SendPacket0x2A(D2ClientStrc* pClient, char nHeader, char nResult, int nGold, int nUnitGUID, char nTransactionType); // 0x0053D740
 void __fastcall D2GAME_UpdateClientItem_6FC3E9D0(D2ClientStrc*,D2UnitStrc*,D2UnitStrc*,unsigned int); // 0x0053D010
 D2NpcRecordStrc* __fastcall SUNITPROXY_GetNpcRecordFromUnit(D2GameStrc*,D2UnitStrc*,int*); // 0x00535F10
 D2NpcVendorChainStrc* __fastcall SUNITPROXY_GetVendorChain(D2GameStrc*,D2NpcRecordStrc*,D2UnitStrc*); // 0x00536CB0
@@ -56,7 +57,7 @@ D2BooksTxt* __stdcall DATATBLS_GetBooksTxtRecord(int); // 0x006374B0
 D2LowQualityItemsTxt* __stdcall DATATBLS_GetLowQualityItemsTxtRecord(int); // 0x006375C0
 static __forceinline int GetMode(D2UnitStrc* unit) { if (unit) return unit->dwAnimMode; return 0; }
 static __forceinline int GetId(D2UnitStrc* unit) { if (unit) return unit->dwUnitId; return -1; }
-#define SEND_ERROR(code,line) D2GAME_SendPacket0x2A_6FC3F3B0(UnitGetClient(player,gszNpcSource_006E15F0,line),0x2A,code,STATLIST_UnitGetStatValue(player,14,0),-1,0)
+#define SEND_ERROR(code,line) sub_0053D740_SendPacket0x2A(UnitGetClient(player,gszNpcSource_006E15F0,line),0x2A,code,STATLIST_UnitGetStatValue(player,14,0),-1,0)
 // 0x00579510
 int __fastcall D2GAME_STORES_SellItem_6FCC7680(D2GameStrc* ptGame,D2UnitStrc* player,int npcId,int itemId,unsigned short itemMode,int unused)
 {
@@ -146,7 +147,7 @@ int __fastcall D2GAME_STORES_SellItem_6FCC7680(D2GameStrc* ptGame,D2UnitStrc* pl
         }
     }
     ITEMS_HandleGoldTransaction(ptGame,player,price);
-    D2GAME_SendPacket0x2A_6FC3F3B0(UnitGetClient(player,gszNpcSource_006E15F0,0x5BD),0x2A,1,STATLIST_UnitGetStatValue(player,14,0),itemId,3);
+    sub_0053D740_SendPacket0x2A(UnitGetClient(player,gszNpcSource_006E15F0,0x5BD),0x2A,1,STATLIST_UnitGetStatValue(player,14,0),itemId,3);
     return 0;
     }
     SEND_ERROR(9,0x4C7);

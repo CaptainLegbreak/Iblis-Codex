@@ -73,13 +73,13 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
 T0044CB60* __fastcall sub_00502970_SplitText(const Unicode* pText, int* pLineCount, int nWidth); // 0x00502970
-void __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
+char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
 Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526790
-int __fastcall sub_00526D30(const Unicode* pText, int nCount); // 0x00526D30
+int __fastcall sub_00526D30_IsLineBreak(const Unicode* pText, unsigned int nIndex); // 0x00526D30
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 int __fastcall D2Win_10123(const Unicode* wszText, int nLength); // 0x00501730
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
-int __fastcall sub_004538D0(int nUIVar); // 0x004538D0
+int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
 D2TextNodeStrc* __fastcall sub_0049DB10_CloneStringList(D2TextNodeStrc* pSource); // 0x0049DB10
 extern int gnGlobal_0071146C; // 0x0071146C
 extern ListBoxWrapper* gpListBox_007BF1B4; // 0x007BF1B4
@@ -193,7 +193,7 @@ void __fastcall sub_0049E5C0_PrintWrappedLine(const Unicode* wszText, char nColo
         }
         if (nStart + nCount != nTotal)
         {
-            while (nCount > 0 && !sub_00526D30(&wszText[nStart], nCount + 1))
+            while (nCount > 0 && !sub_00526D30_IsLineBreak(&wszText[nStart], nCount + 1))
                 nCount--;
         }
         if (!nCount)

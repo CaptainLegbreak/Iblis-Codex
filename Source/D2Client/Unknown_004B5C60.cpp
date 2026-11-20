@@ -81,7 +81,7 @@ int __cdecl sub_0044DCC0();                                                     
 unsigned char __cdecl sub_0044DCD0_GetDifficulty();                                                         // 0x0044DCD0
 D2UnitStrc* __fastcall sub_00463DD0();                                                             // 0x00463DD0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);                               // 0x00625480
-const Unicode* __fastcall MONSTERS_GetHirelingDescString(int nId);                                          // 0x00663720
+const Unicode* __fastcall MONSTERS_GetHirelingDescString(int nId); // 0x00663720
 void __cdecl sub_0048BE80_FormatArgs(Unicode* pDest, const Unicode* pFormat, ...);                          // 0x0048BE80
 int __cdecl sub_004B3660_TradeMenuHandler();                                                                // 0x004B3660
 void __cdecl sub_004B4830_Rebuild();                                                                        // 0x004B4830
@@ -89,7 +89,7 @@ int __cdecl sub_004B5C20_ClosePanel77();                                        
 void __fastcall sub_004B7C00_AddWidget(D2ClientDialogStrc* pDialog, void* pWidget, int nArg8, int nArgC);   // 0x004B7C00
 D2ClientDialogStrc* __fastcall sub_004B7EB0_CreateDialog(int nArg1, int nArg2, int nArg8, int nArgC, int nArg10, int nArg14,
     int nArg18, int nArg1C, int nArg20, int nArg24, int nArg28);                                            // 0x004B7EB0
-void __fastcall sub_004B8020(D2ClientDialogStrc* pDialog);                                                  // 0x004B8020
+void __fastcall sub_004B8020(void* pRes); // 0x004B8020
 void __fastcall sub_004B82F0_Select(D2ClientDialogStrc* pDialog, int nIndex);                               // 0x004B82F0
 void __fastcall sub_004B8370_SetField5C(D2ClientDialogStrc* pDialog, int nValue);                           // 0x004B8370
 void __fastcall sub_004B85F0_AddTextLine(D2ClientDialogStrc* pDialog, const Unicode* wszText, int nArg8, int nArgC,

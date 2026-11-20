@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2DataTbls.h"
 #include "D2Path.h"
+struct D2UnitStrc;
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2LightStrc;
 struct D2RoomStrc;
@@ -121,7 +122,7 @@ void __stdcall sub_0063EBC0(D2UnitStrc*, int); // 0x0063EBC0
 int __fastcall sub_0046C140_TestMonModeFlag(int, int); // 0x0046C140
 int __fastcall sub_004AE7B0_CheckMonsterFacing(D2UnitStrc*, D2UnitStrc*, int, int); // 0x004AE7B0
 int __fastcall sub_0046C570_ForEachUnitInAdjacentRooms(D2UnitStrc*, int, int, int (__fastcall*)(D2UnitStrc*,D2UnitStrc*,int,int)); // 0x0046C570
-void __fastcall sub_004CDBA0_SubmitOwnerRequest(D2UnitStrc* pUnit, int nMissile, int nX, int nY, int a5, int a6); // 0x004CDBA0
+D2UnitStrc* __fastcall sub_004CDBA0_SubmitOwnerRequest(D2UnitStrc* pUnit, int nArg0, int nArg5, int nArg6, int nArg3, int nArg4); // 0x004CDBA0
 void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, int nLowSeed); // 0x00650E40
 

@@ -72,7 +72,7 @@ struct D2DDSurfaceStrc
 
 extern "C" const char gszUnlockFailed_006FC284[]; // 0x006FC284
 extern "C" const char gszLockFailed_006FC2A4[]; // 0x006FC2A4
-void __fastcall sub_006B20E0_ReportError(const char* szMessage, long hResult); // 0x006B20E0
+void __fastcall sub_006B20E0_DDrawLogError(const char* szWhere, int hResult); // 0x006B20E0
 static __declspec(noinline) void __stdcall sub_006B9EB0_CopyWithAlpha(const unsigned short* pSrc, unsigned char* pDst, int nPitch);
 
 struct T004F51E0
@@ -95,7 +95,7 @@ extern "C" __declspec(dllimport) void __stdcall SmackToBuffer(void* hSmack, unsi
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
 int __stdcall SFileLoadFileEx(void* hMpq, const char* szFileName, void** ppBuffer, int* pnSize, int nExtraBytes, int nFlags, void* pOverlapped); // 0x0041B680
 int __stdcall sub_006C6A80_DecodeImage(int nMode, void* pData, int nSize, T004F51E0* pPalette, unsigned char* pDest, int nDestSize, int* pWidth, int* pHeight, int* pDepth); // 0x006C6A80
-void __cdecl sub_006B9F00_D3DFlushSmack(); // 0x006B9F00
+void __cdecl sub_006B9F00_UploadFrameBuffer(); // 0x006B9F00
 extern "C" const char szD3DSmackFile_006FC358[]; // 0x006FC358
 extern unsigned short* gpD3DSmackBuffer_009897D0; // 0x009897D0
 
@@ -260,13 +260,13 @@ void __cdecl sub_006B9F00_UploadFrameBuffer()
     long hResult = gpMemSurfaceA_009897D4->lpVtbl->Lock(gpMemSurfaceA_009897D4, 0, &tDesc, 0x21, 0);
     if (hResult)
     {
-        sub_006B20E0_ReportError(gszLockFailed_006FC2A4, hResult);
+        sub_006B20E0_DDrawLogError(gszLockFailed_006FC2A4, hResult);
     }
     sub_006B9EB0_CopyWithAlpha((const unsigned short*)gpFrameBuffer_009897D0, (unsigned char*)tDesc.lpSurface, tDesc.lPitch);
     hResult = gpMemSurfaceA_009897D4->lpVtbl->Unlock(gpMemSurfaceA_009897D4, 0);
     if (hResult)
     {
-        sub_006B20E0_ReportError(gszUnlockFailed_006FC284, hResult);
+        sub_006B20E0_DDrawLogError(gszUnlockFailed_006FC284, hResult);
     }
 
     if (!gpMemSurfaceB_009897D8)
@@ -278,13 +278,13 @@ void __cdecl sub_006B9F00_UploadFrameBuffer()
     hResult = gpMemSurfaceB_009897D8->lpVtbl->Lock(gpMemSurfaceB_009897D8, 0, &tDesc, 0x21, 0);
     if (hResult)
     {
-        sub_006B20E0_ReportError(gszLockFailed_006FC2A4, hResult);
+        sub_006B20E0_DDrawLogError(gszLockFailed_006FC2A4, hResult);
     }
     sub_006B9EB0_CopyWithAlpha((const unsigned short*)(gpFrameBuffer_009897D0 + 0x200), (unsigned char*)tDesc.lpSurface, tDesc.lPitch);
     hResult = gpMemSurfaceB_009897D8->lpVtbl->Unlock(gpMemSurfaceB_009897D8, 0);
     if (hResult)
     {
-        sub_006B20E0_ReportError(gszUnlockFailed_006FC284, hResult);
+        sub_006B20E0_DDrawLogError(gszUnlockFailed_006FC284, hResult);
     }
 }
 
@@ -295,7 +295,7 @@ void __fastcall sub_006BA010_D3DDecodeSmacker(const char* szFile, D2SmackRecordS
     {
         D2_ASSERT(gpD3DSmackBuffer_009897D0, 0x94);
         memset(gpD3DSmackBuffer_009897D0, 0, 0x10000);
-        sub_006B9F00_D3DFlushSmack();
+        sub_006B9F00_UploadFrameBuffer();
         sub_006B9BD0_Apply();
     }
 
@@ -348,7 +348,7 @@ void __fastcall sub_006BA010_D3DDecodeSmacker(const char* szFile, D2SmackRecordS
 
         if (!gbRenderPaused_007C9144)
         {
-            sub_006B9F00_D3DFlushSmack();
+            sub_006B9F00_UploadFrameBuffer();
             sub_006B9BD0_Apply();
         }
         return;

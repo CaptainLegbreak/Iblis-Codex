@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+struct D2ClientStrc;
+struct D2UnitStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct BeltRect;
@@ -55,7 +57,7 @@ struct Game
     U8 pad00[112];
     int expansion;
 };
-void __fastcall sub_0053D010_Notify(void*, Unit*, Unit*, U32); // 0x0053D010
+void __fastcall D2GAME_UpdateClientItem_6FC3E9D0(D2ClientStrc* hClient, D2UnitStrc* hUnit, D2UnitStrc* pItem, unsigned int dwCmdFlag); // 0x0053D010
 Unit* __fastcall sub_00552F60_Find(Game*, int, int); // 0x00552F60
 void* __fastcall sub_005531C0_Client(Unit*, const char*, int); // 0x005531C0
 void* __fastcall sub_00555DA0_FreeSpot(void*, Point*, Point*, int, U8); // 0x00555DA0

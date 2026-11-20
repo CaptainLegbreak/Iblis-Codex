@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
+struct D2ActiveRoomStrc;
 
 struct D2DrlgStrc;
 struct D2DrlgListEntryStrc;
@@ -73,7 +74,7 @@ struct D2DrlgListOwnerStrc
 };
 
 unsigned int __fastcall sub_006C9A38(const char* szString); // 0x006C9A38
-void __fastcall DRLGACTIVATE_InitializeRoomEx(D2DrlgRoomStrc* pDrlgRoom); // 0x0061B730
+D2ActiveRoomStrc* __fastcall DRLGACTIVATE_InitializeRoomEx(D2DrlgRoomStrc* pDrlgRoom); // 0x0061B730
 
 struct D2DrlgStrc
 {

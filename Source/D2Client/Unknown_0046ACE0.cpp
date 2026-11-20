@@ -92,7 +92,7 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 void __stdcall sub_0046AF70(D2ActiveRoomStrc* pRoom); // 0x0046AF70
-void __cdecl sub_0046AD10(); // 0x0046AD10
+void __cdecl sub_0046AD10_UpdateTimedBox(); // 0x0046AD10
 void __cdecl sub_0046C060_DrawCountdown(); // 0x0046C060
 extern D2DrlgActStrc* gpGlobal_007A0634; // 0x007A0634
 extern D2ClientTimedBoxStrc gtTimedBox_007A742C; // 0x007A742C
@@ -118,7 +118,7 @@ struct D2LevelsTxt
 };
 
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
-void __fastcall sub_00466730_SpawnPresetUnit(int nIndex, int nX, int nY, int nUnitType, int nMode); // 0x00466730
+D2UnitStrc* __fastcall sub_00466730_SpawnPresetUnit(int nClassId, int nX, int nY, int nUnitType, int nArg); // 0x00466730
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 
 // 0x0046ACE0
@@ -505,7 +505,7 @@ void __cdecl sub_0046BEB0_UpdateTimers()
 {
     if (gtTimedBox_007A742C.bActive)
     {
-        sub_0046AD10();
+        sub_0046AD10_UpdateTimedBox();
     }
     if (!gnGlobal_007A745C && gnGlobal_007129CC != -1)
     {
@@ -573,6 +573,7 @@ void __cdecl sub_0046C130_DrawCountdown()
 }
 
 #include "gen/data/Source/D2Client/Unknown_0046ACE0.inc"
+struct D2UnitStrc;
 
 // 0x0046B1E0
 void __cdecl sub_0046B1E0_EventObject95Request()

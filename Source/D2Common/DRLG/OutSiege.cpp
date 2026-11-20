@@ -136,7 +136,7 @@ void __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(D2DrlgLevelStrc* pLevel, 
 int __fastcall sub_00674730(D2DrlgLevelStrc* pLevel, int nPresetId, int nArg, int a4, int a5);
 void __fastcall sub_00675770(D2DrlgLevelStrc* pLevel);
 void __fastcall sub_00670750(D2DrlgOutPlaceCtxStrc* pCtx); // 0x00670750
-int __fastcall sub_006741E0(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x006741E0
+unsigned int __fastcall DRLGOUTDOORS_TestGridCellNonLvlLink(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x006741E0
 int __fastcall DRLGOUTDOOR_00674120(D2DrlgLevelStrc* pLevel, int nX, int nY);
 int __fastcall sub_00674160(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x00674160
 int __fastcall sub_006741A0(D2DrlgLevelStrc* pLevel, int nX, int nY); // 0x006741A0
@@ -403,7 +403,7 @@ int __fastcall sub_0067E080(D2DrlgLevelStrc* pLevel, int nX, int nY, int nPreset
         return 0;
     }
 
-    return sub_006741E0(pLevel, nX, nY) != 0;
+    return DRLGOUTDOORS_TestGridCellNonLvlLink(pLevel, nX, nY) != 0;
 }
 
 // 0x0067E0E0

@@ -52,7 +52,7 @@ public:
 extern "C" unsigned int __cdecl strlen(const char* szString);
 extern "C" int __cdecl atoi(const char* szString);                                                          // 0x00681EBB
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
-void __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength);               // 0x005263E0
+char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
 int __fastcall sub_00526800(const Unicode* pString);                                                      // 0x00526800
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength);                  // 0x00526F20
 

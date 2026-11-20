@@ -58,7 +58,7 @@ public:
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg);                                     // 0x00420290
-unsigned int __fastcall D2Win_10128(char nChar);                                                            // 0x00502550
+unsigned int __fastcall D2Win_10128(unsigned char nCharCode); // 0x00502550
 T0044CB60* __fastcall sub_00502970_SplitText(const unsigned short* pText, int* pLineCount, int nWidth); // 0x00502970
 int __fastcall sub_00502EF0(int nFontSize);                                                                 // 0x00502EF0
 void __fastcall sub_005263E0(char* szDest, const unsigned short* pSource, int nMaxLength);         // 0x005263E0

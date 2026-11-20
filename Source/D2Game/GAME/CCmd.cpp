@@ -72,7 +72,7 @@ struct D2ClientStrc
 };
 
 extern D2ServerCallbackFunctions* gpD2EventCallbackTable_6FD45830; // 0x00883D50
-int __stdcall SStrCmpI(const char* szString1, const char* szString2, int nMaxChars); // 0x00413590
+int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
 int __fastcall GAME_GetGameGUIDFromGameId(unsigned short nGameId); // 0x0052C060
 D2GameStrc* __fastcall GAME_LockGame(int nGameGUID); // 0x0052E860
 void __fastcall GAME_LeaveGamesCriticalSection(D2GameStrc* pGame); // 0x0052DA90
@@ -85,7 +85,7 @@ void __cdecl GAME_LogMessage(int nLevel, const char* szFormat, ...); // 0x0052BE
 void __fastcall D2GAME_PACKETS_SendSystemError(int nClientId, unsigned int nErrorCode); // 0x0053B260
 int __stdcall sub_0052B4F0(int nClientId, const char* szFile, int nLine); // 0x0052B4F0
 int __fastcall SrvVerifyJoinGame(int nClientId, unsigned short nGameId, unsigned char nPlayerClass, const char* szClientName, int nTokenId, char* szAccountName, int* a7, unsigned char nLocale, int* a9, int* a10, int* a11, int* a12, int a13); // 0x0052C690
-void __fastcall SrvJoinGame(int nClientId, unsigned short nGameId, unsigned char nPlayerClass, const char* szClientName, int nTokenId, char* szAccountName, int a7, unsigned char nLocale, int a9, int a10, int a11, int a12, int a13); // 0x0052FA50
+void __fastcall SrvJoinGame(int dwClientId, unsigned short nGameId, int nClass, const char* szClientName, int a5, const char* szAccountName, int nCharSaveTransactionToken, int nLocale, int a8, int a9, int a11, int a12, int a13); // 0x0052FA50
 int __fastcall GAME_VerifyEndGame(int nClientId); // 0x0052C8E0
 void __fastcall SrvEndGame(int nClientId, int a2); // 0x005303D0
 int __fastcall D2GAME_Return1_6FC41900(int nClientId); // 0x0052DAF0
@@ -103,7 +103,7 @@ void __fastcall sub_005377A0_UnlockClientList(int nClientId); // 0x005377A0
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
 D2ClientStrc* __fastcall CLIENTS_GetClientFromClientId(D2GameStrc* pGame, int nClientId); // 0x00537810
 D2UnitStrc* __stdcall CLIENTS_GetPlayerFromClient(D2ClientStrc* pClient, int bIgnoreDeath); // 0x00537860
-void __fastcall sub_0054D750_HandleClientPacket(D2GameStrc* pGame, D2UnitStrc* pPlayer, unsigned char* pPacket, int nPacketSize); // 0x0054D750
+int __fastcall D2GAME_PACKET_Handler_6FC89320(D2GameStrc* pGame,D2UnitStrc* pUnit,unsigned char* pPacket,int nSize); // 0x0054D750
 
 static int CCMD_IsStringZeroTerminated(const char* pData, int nDataSize)
 {
@@ -278,7 +278,7 @@ void __fastcall ProcessClientMessage(void* pData, int nPacketSize)
     D2UnitStrc* pPlayer = CLIENTS_GetPlayerFromClient(ptClient, 0);
     if (pPlayer && (pPlayer ? pPlayer->dwUnitType : 6) == 0)
     {
-        sub_0054D750_HandleClientPacket(pGame, pPlayer, pPacket, nPacketSize);
+        D2GAME_PACKET_Handler_6FC89320(pGame, pPlayer, pPacket, nPacketSize);
     }
 
     GAME_LeaveGamesCriticalSection(pGame);

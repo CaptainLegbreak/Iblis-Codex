@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+struct D2UnitStrc;
 #define LIGHT_MIN(a, b) ((a) < (b) ? (a) : (b))
 #define LIGHT_ABS(x) ((x) >= 0 ? (x) : -(x))
 
@@ -65,7 +66,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit();                                                           // 0x00463DE0
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 D2UnitStrc* __fastcall sub_004639B0_FindServerSideUnit(unsigned int nUnitId, int nUnitType);                 // 0x004639B0
-D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType);                              // 0x00463990
+D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
 int __stdcall UNITS_GetPrecisionX(D2UnitStrc* pUnit);                                                       // 0x006203B0
 int __stdcall UNITS_GetPrecisionY(D2UnitStrc* pUnit);                                                       // 0x00620410

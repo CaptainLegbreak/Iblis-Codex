@@ -1,3 +1,4 @@
+struct D2CompositeUnitStrc;
 struct Unicode
 {
     unsigned short wChar;
@@ -80,9 +81,9 @@ extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 extern "C" unsigned int __cdecl strlen(const char*);
 extern "C" int __cdecl sprintf(char*,const char*,...); // 0x006823FD
 int __cdecl sub_00408F20_HasExpansionMpq(); // 0x00408F20
-void __cdecl sub_004390A0_RedrawExpansion(); // 0x004390A0
+int __cdecl sub_004390A0_UpdateSelection(); // 0x004390A0
 void* __fastcall FOG_Alloc(int,const char*,int,int); // 0x0040B380
-void __fastcall FOG_Free(void*,const char*,int,int); // 0x0040B3C0
+int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 void __stdcall SMemCopy(void*,const void*,unsigned int); // 0x0041D2A0
 void __fastcall sub_004F96F0_ControlClearState(D2WinControlStrc*,int); // 0x004F96F0
 void __fastcall sub_004F9740(D2WinControlStrc*,int); // 0x004F9740
@@ -91,7 +92,7 @@ void __fastcall sub_004FB6A0_ClearText(D2WinControlStrc*); // 0x004FB6A0
 void __fastcall sub_004FC9B0_SetText(D2WinControlStrc*,const Unicode*,int,int,int); // 0x004FC9B0
 void __fastcall D2Win_10046(D2WinControlStrc*,const char*,int); // 0x004FCFF0
 void __stdcall sub_005041B0_FreeAnim(void*,int); // 0x005041B0
-void* __stdcall sub_005066C0_CreateAnim(int,int,unsigned char*,unsigned char*); // 0x005066C0
+D2CompositeUnitStrc* __stdcall sub_005066C0_CreateCompositeUnit(unsigned int nUnitIndex, unsigned int nMode, unsigned char* pComponents, const unsigned char* pComponentColors); // 0x005066C0
 void __stdcall sub_005051A0_SetAnimField(void*,int); // 0x005051A0
 void __stdcall sub_00505260_SetAnimField(void*,int); // 0x00505260
 void __fastcall sub_005042F0_SetAnimMode(void*,int); // 0x005042F0
@@ -115,7 +116,7 @@ extern void* gaSprites_007799FC[]; // 0x007799FC
 // 0x00439210
 int __cdecl sub_00439210_Redraw()
 {
-    if(sub_00408F20_HasExpansionMpq()) {sub_004390A0_RedrawExpansion();return 1;}
+    if(sub_00408F20_HasExpansionMpq()) {sub_004390A0_UpdateSelection();return 1;}
     if(!gnCount_00779DC4) gnSelected_0070CC00=0;
     int row=gnSelected_0070CC00-gnTopRow_00779DC8;
     sub_004F96F0_ControlClearState(gpControl_007799F4,gnCount_00779DC4>0 && gnSelected_0070CC00>gnSelectionA_0070CC04 && gnSelected_0070CC00!=gnSelectionB_0070CC08 ? 1:0);
@@ -174,11 +175,11 @@ BUILD_MODEL:
         if(gpCurrent_00779DC0->wFlags&8) type=8+(sub_00438030_IsNotListedCode(type)!=0);
         else if(sub_00408F20_HasExpansionMpq() || gpCurrent_00779DC0->nType<5) mode=1;
     }
-    gpCurrent_00779DC0->pAnim=sub_005066C0_CreateAnim(type,mode,gpCurrent_00779DC0->aBlock0x300,gpCurrent_00779DC0->aBlock0x310);
+    gpCurrent_00779DC0->pAnim=sub_005066C0_CreateCompositeUnit(type,mode,gpCurrent_00779DC0->aBlock0x300,gpCurrent_00779DC0->aBlock0x310);
     if(!gpCurrent_00779DC0->pAnim) {
         for(int i=0;i<16;++i) {gpCurrent_00779DC0->aBlock0x300[i]=0;gpCurrent_00779DC0->aBlock0x310[i]=255;}
         gpCurrent_00779DC0->aBlock0x300[1]=1;
-        gpCurrent_00779DC0->pAnim=sub_005066C0_CreateAnim(7,5,gpCurrent_00779DC0->aBlock0x300,gpCurrent_00779DC0->aBlock0x310);
+        gpCurrent_00779DC0->pAnim=sub_005066C0_CreateCompositeUnit(7,5,gpCurrent_00779DC0->aBlock0x300,gpCurrent_00779DC0->aBlock0x310);
     }
     if(!gpCurrent_00779DC0->pAnim) {sub_00408A60(&gszEmptyAssertText,sub_00408090(),0x619);exit(-1);}
     sub_005051A0_SetAnimField(gpCurrent_00779DC0->pAnim,0);

@@ -74,17 +74,17 @@ const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);  
 void __fastcall sub_0043FB50_ShowWait(const Unicode* pText, int (__stdcall* pfnDone)(int));                 // 0x0043FB50
 void __cdecl sub_004453B0_BuildPanel();                                                                     // 0x004453B0
 void __fastcall D2Win_10044(D2WinControlStrc* pControl, const Unicode* pText);                     // 0x004FD060
-void __stdcall sub_004FA450(D2WinControlStrc* pControl);                                                     // 0x004FA450
+void __stdcall sub_004FA450(void* a1); // 0x004FA450
 void __fastcall sub_004FDAD0_SetKeyCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(D2WinControlStrc*, int, const char*));// 0x004FDAD0
 void __fastcall sub_004FDB00_SetEnterCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(int));// 0x004FDB00
-void __fastcall BUTTON_SetIsPressed(D2WinButtonStrc* pButton, int bIsPressed);                              // 0x005009A0
+extern "C" void __fastcall BUTTON_SetIsPressed(D2WinButtonStrc* ptBtnData, int bIsPressed); // 0x005009A0
 void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* pText, int nA, int nB, int nC);// 0x004FC9B0
 void __cdecl sub_00445300_LoadLvlRest();                                                                    // 0x00445300
 void __cdecl sub_004431B0();                                                                                // 0x004431B0
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue);// 0x004150E0
 void __fastcall sub_0043F560_Disable(D2WinControlStrc* pControl);                                           // 0x0043F560
 int __stdcall sub_004F91C0(D2WinEditBoxStrc* pEditBox);                                                      // 0x004F91C0
-void __stdcall sub_00445550(int nArg);                                                                      // 0x00445550
+int __stdcall sub_00445550(int nArg); // 0x00445550
 int __stdcall sub_00443540_IsNameChar(D2WinControlStrc* pControl, int nArg, const char* pChar);             // 0x00443540
 int __stdcall sub_004456A0_OnEnter(int nArg);                                                               // 0x004456A0
 int __stdcall sub_00443600_IsPrintableChar(D2WinControlStrc* pControl, int nArg, const char* pChar);        // 0x00443600

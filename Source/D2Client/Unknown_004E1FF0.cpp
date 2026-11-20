@@ -189,7 +189,7 @@ void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListSt
 D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
 void __stdcall STATLIST_SetState(D2StatListStrc* pStatList, int nState); // 0x006252D0
 void __stdcall STATLIST_SetStatRemoveCallback(D2StatListStrc* pStatList, StatListRemoveCallback pfStatRemove); // 0x00625CE0
-void __fastcall sub_004E3050_PrgStateRemoveCallback(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x004E3050
+void __fastcall sub_004C21E0_StatRemoveCallback_ToggleStateOff(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList); // 0x004E3050
 void __fastcall sub_004E3170_SetMissileFrames(D2UnitStrc* pMissile, int nDivisor); // 0x004E3170
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId); // 0x0045C4B0
@@ -197,15 +197,15 @@ D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit); // 0x004639
 D2UnitStrc* __fastcall sub_004648F0_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 int __fastcall sub_00465C60_CheckUnitPair(D2UnitStrc* pUnit, D2UnitStrc* pOther); // 0x00465C60
 void __fastcall sub_004C53D0_ScaleDownDirection(int* pX, int* pY); // 0x004C53D0
-D2UnitStrc* __fastcall sub_004C5EB0_FindDestination(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nArg5, int nUnitId, int nArg7); // 0x004C5EB0
+int __fastcall sub_004C5EB0_ScanFind(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nFlags, int nArg, int* pOut); // 0x004C5EB0
 void __fastcall sub_004C70D0_StartUnitEffect(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nEffect, int nArg4, int nArg5, int nStatValue, int nVelocity); // 0x004C70D0
-void __fastcall sub_004C7700(D2UnitStrc* pMissile, int nMissile, int nCount, int nRows, int nSkill, int nSkillLevel); // 0x004C7700
+int __fastcall sub_004C7700(D2UnitStrc* pMissile, int nMissile, int nCount, int nRange, int nSkill, int nSkillLevel); // 0x004C7700
 int __fastcall sub_004C7B20(D2UnitStrc* pUnit, int nMissile); // 0x004C7B20
 int __stdcall sub_004DA150_GetMotionAZ(D2UnitStrc* pUnit); // 0x004DA150
 void __stdcall sub_004DA1D0_SetMotionVectorA(D2UnitStrc* pUnit, int nX, int nY, int nZ); // 0x004DA1D0
 void __stdcall sub_004DA200_SetMotionVectorB(D2UnitStrc* pUnit, int nX, int nY, int nZ, int bShift); // 0x004DA200
 void __stdcall sub_004DA350_UpdateMotion(D2UnitStrc* pUnit); // 0x004DA350
-void __fastcall sub_004E2ED0_MissileInit(D2UnitStrc* pMissile, int nArg); // 0x004E2ED0
+void __fastcall sub_004E2ED0_InitCappedChargedPath(D2UnitStrc* pMissile, int nSeedOffset); // 0x004E2ED0
 int __fastcall sub_004F16F0_CreateMissileVolley(D2UnitStrc* pUnit, int nCount, int nMissile, int nSkillId, int nSkillLevel, int nArg6, int nArg7, int nArg8); // 0x004F16F0
 int __fastcall sub_004F21B0_GetCltMissileId(D2UnitStrc* pUnit, int nSkillId); // 0x004F21B0
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit); // 0x00620250
@@ -255,7 +255,7 @@ void __fastcall sub_004BA9D0_RefreshHintsInRangeB(int nGroupA, int nGroupB); // 
 void __fastcall sub_004B9B50_SetValue(int nKey, int nValue); // 0x004B9B50
 int __fastcall sub_004B9B20(int nHandle); // 0x004B9B20
 void __fastcall sub_004BA840(int nHandle); // 0x004BA840
-int __fastcall sub_004E4100(int nMin, int nMax); // 0x004E4100
+extern "C" int __fastcall sub_004E4100_RandomInRange(int nMin, int nMax); // 0x004E4100
 
 struct D2MonTypeTxt
 {
@@ -732,7 +732,7 @@ int __fastcall sub_004E3060_CltDoPrgState(D2UnitStrc* pUnit, int nSkillId, int n
             return 0;
         }
         D2COMMON_10475_PostStatToStatList(pUnit, pStatList, 1);
-        STATLIST_SetStatRemoveCallback(pStatList, sub_004E3050_PrgStateRemoveCallback);
+        STATLIST_SetStatRemoveCallback(pStatList, sub_004C21E0_StatRemoveCallback_ToggleStateOff);
         STATLIST_SetState(pStatList, 12);
         STATES_ToggleState(pUnit, 12, 1);
         return 1;
@@ -1526,7 +1526,7 @@ int __fastcall sub_004F48F0_MirrorMissiles(D2UnitStrc* pUnit, int nSkillId, int 
     tMissileParams.nSkill = nSkillId;
     tMissileParams.nSkillLevel = nSkillLevel;
     tMissileParams.nMissile = nMissile;
-    tMissileParams.pInitFunc = sub_004E2ED0_MissileInit;
+    tMissileParams.pInitFunc = sub_004E2ED0_InitCappedChargedPath;
     for (int i = 0; i < nCount; i += 1)
     {
         tMissileParams.nInitArg = i;
@@ -1537,6 +1537,8 @@ int __fastcall sub_004F48F0_MirrorMissiles(D2UnitStrc* pUnit, int nSkillId, int 
 }
 
 #include "gen/data/Source/D2Client/Unknown_004E1FF0.inc"
+struct D2StatListStrc;
+struct D2UnitStrc;
 
 // 0x004E3EB0
 int __fastcall sub_004E3EB0_ScatterMissile(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel)
@@ -1775,7 +1777,7 @@ void __fastcall sub_004E42E0_UpdateEnvironSounds(unsigned int dwTick)
             if (nHandle)
             {
                 const int nSign = sub_004E40A0(2) ? 1 : -1;
-                const int nPan = sub_004E4100(0x1C2, 0x2EE) * nSign;
+                const int nPan = sub_004E4100_RandomInRange(0x1C2, 0x2EE) * nSign;
                 const int nPanVolume = sub_004E4120(0x64);
                 sub_004B99A0(nHandle, nPan, nPanVolume, 0);
                 gnGlobal_007C8C98 = dwTick;

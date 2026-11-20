@@ -435,7 +435,7 @@ struct D2CmpLoadDescStrc
 
 struct D2SpriteLoadRequestStrc;
 AsyncData* __fastcall sub_0040A620(void* hArchive, const char* szFileName, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8, const char* szFile, int nLine); // 0x0040A620
-int __fastcall sub_0040AA40(AsyncData* pAsync);                                                       // 0x0040AA40
+unsigned int __fastcall FOG_AsyncDataGetBufferSize(AsyncData* pAsyncData); // 0x0040AA40
 int __stdcall sub_005FF6E0_SpriteLoadCallback(void* hArg, int nArg, D2SpriteLoadRequestStrc* pRequest);    // 0x005FF6E0
 
 extern D2CmpBlockTableBStrc gCmpBlockTableB;                                                                // 0x0088DB58
@@ -522,12 +522,12 @@ static int __fastcall sub_005FF760_LoadDCCFrames(const char* szName, D2CmpSprite
     pEntry->pHolder = sub_005FFC40_SpriteCacheAlloc((D2SpriteCacheStrc*)szName, (unsigned int)pFile, 0, 0);
     for (const int* pOffset = pEntry->aOffsets; *pOffset; ++pOffset)
     {
-        pEntry->nFlags += (unsigned char)sub_0040AA40((AsyncData*)pOffset);
+        pEntry->nFlags += (unsigned char)FOG_AsyncDataGetBufferSize((AsyncData*)pOffset);
     }
 
-    sub_0040AA40((AsyncData*)&pContext);
-    sub_0040AA40((AsyncData*)&nDirection);
-    sub_0040AA40((AsyncData*)&nFrames);
+    FOG_AsyncDataGetBufferSize((AsyncData*)&pContext);
+    FOG_AsyncDataGetBufferSize((AsyncData*)&nDirection);
+    FOG_AsyncDataGetBufferSize((AsyncData*)&nFrames);
     return pEntry->nFlags;
 }
 
@@ -574,9 +574,9 @@ static int __stdcall sub_005FFE90_LoadDC6Entry(D2CmpSpriteFileStrc* pFile, int n
     return pContext->pFrame != 0;
 }
 
-int __fastcall sub_005FF4A0_SpriteCachePurge(D2SpriteCacheStrc* pCache, D2SpriteCacheNodeStrc* pNode, int bForce); // 0x005FF4A0
+D2SpriteCacheNodeStrc* __fastcall sub_005FF4A0_SpriteCachePurge(D2SpriteCacheStrc* pCache, D2SpriteCacheNodeStrc* pNode, int bLocked); // 0x005FF4A0
 void __fastcall sub_005FF630_ResizeCacheEntry(D2SpriteCacheStrc* pCache, D2SpriteCacheNodeStrc* pNode, int nDelta, int nArg); // 0x005FF630
-unsigned int __stdcall sub_00600D30_CanConvertDirections(unsigned int nFrom, unsigned int nTo);             // 0x00600D30
+int __stdcall sub_00600D30_CanConvertDirections(int nDirections, int nNewDirections); // 0x00600D30
 void* __fastcall sub_0060ACE0_GfxHashFind(D2CmpBlockTableBStrc* pHash, D2CmpSpriteContextStrc* pContext, int* pDirection, unsigned int* pFrames, D2CmpSpriteFileStrc* pFile); // 0x0060ACE0
 extern int gbCmpDisableConvert_0089DB58;                                                                    // 0x0089DB58
 
@@ -778,8 +778,8 @@ extern int gWarn_008ADBB0; // 0x008ADBB0
 extern int __fastcall FOG_AsyncDataTestLoaded(AsyncData*); // 0x0040A7F0
 extern void* __stdcall CelGetHandle(D2CmpSpriteContextStrc*); // 0x00601840
 extern HashNode* __fastcall sub_0060ACE0_GfxHashFind(HashTable*, D2CmpSpriteContextStrc*, unsigned int*, unsigned int*, SpriteFile*); // 0x0060ACE0
-extern void __fastcall sub_005FF5B0_SpriteCacheTouchNode(SpriteCache*, void*); // 0x005FF5B0
-extern unsigned int __stdcall sub_00600CB0_ConvertDirection(unsigned int, unsigned int, unsigned int, int); // 0x00600CB0
+void __fastcall sub_005FF5B0_SpriteCacheTouchNode(D2SpriteCacheStrc* pCache, D2SpriteCacheNodeStrc* pNode); // 0x005FF5B0
+int __stdcall sub_00600CB0_ConvertDirection(unsigned int nDirection, unsigned int nDirections, int nNewDirections, int bAlt); // 0x00600CB0
 #define SPRITE_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 extern HashTable gFileHash_0088CB20; // 0x0088CB20
 extern SpriteCache gFileCache_0088DB20; // 0x0088DB20
@@ -790,9 +790,9 @@ void __fastcall sub_00609380(SpriteCache*, void*); // 0x00609380
 void* __fastcall sub_00609420(SpriteCache*, unsigned int, HashNode*); // 0x00609420
 int __fastcall sub_0060BF20_LoadTileHeader(const char*, SpriteFile*); // 0x0060BF20
 int __fastcall sub_004068E0(const char*, char**); // 0x004068E0
-int __fastcall sub_00406900(char*, void*, unsigned int, unsigned int, unsigned int, unsigned int, unsigned int); // 0x00406900
-unsigned int __fastcall sub_00406930(char*, unsigned int*); // 0x00406930
-void __fastcall sub_004068F0(char*); // 0x004068F0
+int __fastcall sub_00406900(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped, int nArg7, int nArg6); // 0x00406900
+int __fastcall sub_00406930(void* hFile, unsigned int* pnSizeHigh); // 0x00406930
+int __fastcall sub_004068F0(void* pArg); // 0x004068F0
 
 static __declspec(noinline) SpriteFile* __stdcall sub_005FE990_LoadSpriteFile(D2CmpSpriteContextStrc*, char*, char*);
 

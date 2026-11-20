@@ -116,11 +116,11 @@ extern D2SurfaceStrc* gpRenderSurface_00970E6C; // 0x00970E6C
 void __cdecl sub_00410610_WriteLogLine(const char*,...); // 0x00410610
 
 struct T004013C0 { int unk00; int mode; };
-const char* __cdecl sub_00408090(); // 0x00408090
-void __cdecl sub_00408A60(const char*,const char*,int); // 0x00408A60
+extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 int __stdcall sub_006B4C90_ShowVideoConfiguration(void*); // 0x006B4C90
-int __stdcall SRegLoadString(const char*,const char*,unsigned int,char*,unsigned int); // 0x00414E50
+int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned long nBufferSize); // 0x00414E50
 int __stdcall SRegLoadValue(const char*,const char*,unsigned int,unsigned long*); // 0x00414F10
 int __stdcall SRegLoadData(const char*,const char*,unsigned int,void*,unsigned int,unsigned int*); // 0x00414DE0
 

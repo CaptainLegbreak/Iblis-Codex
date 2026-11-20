@@ -35,10 +35,10 @@ struct D2LaunchFuncsStrc
 };
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long nValue); // 0x004150E0
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(short nIndex); // 0x00524A30
+const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 void __stdcall sub_004FA590_RunLoop(D2LaunchCallback pfnCallback); // 0x004FA590
 void __fastcall sub_005009D0_SetValue(D2WinControlStrc* pControl, int nMode, unsigned short* pText, int nArg); // 0x005009D0
-void __fastcall sub_0042F2E0_ReadPaletteFiles(const char* szFile1, const char* szFile2); // 0x0042F2E0
+int __fastcall sub_0042F2E0_ReadPaletteFiles(const char* szFile1, const char* szFile2); // 0x0042F2E0
 D2WinControlStrc* __fastcall sub_0042F3A0_CreateFromTemplate(int nTemplateId); // 0x0042F3A0
 void __cdecl sub_0042F3F0_DestroyControls(); // 0x0042F3F0
 D2WinControlStrc* __fastcall sub_0042F430_CreateControl(int nId); // 0x0042F430
@@ -75,7 +75,7 @@ struct D2LaunchRecordStrc
 
 extern void (__cdecl* gpfnGatewayDone_007795BC)(); // 0x007795BC
 extern D2LaunchRecordStrc* gpLaunchRecord_007795D4; // 0x007795D4
-void __cdecl sub_004F9190(); // 0x004F9190
+int __fastcall sub_004F9190(); // 0x004F9190
 int __cdecl sub_00449C10(); // 0x00449C10
 void __stdcall sub_00449C20_SetValue(int nValue); // 0x00449C20
 int __cdecl sub_00449C30(); // 0x00449C30

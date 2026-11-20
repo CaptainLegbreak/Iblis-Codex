@@ -93,7 +93,7 @@ int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nDelay, int nAr
 void __fastcall sub_004CA8D0_NotifyUnitHint(D2UnitStrc* pUnit, int nHandle); // 0x004CA8D0
 void __fastcall sub_004DFC20(void* pStream); // 0x004DFC20
 void* __fastcall sub_004E01B0(D2ClientSoundStrc* pSound); // 0x004E01B0
-int __fastcall sub_004E4100(int nMin, int nMax); // 0x004E4100
+extern "C" int __fastcall sub_004E4100_RandomInRange(int nMin, int nMax); // 0x004E4100
 float __stdcall sub_004E4160_LengthSquared2D(float fX, float fY); // 0x004E4160
 int __cdecl sub_00514CC0(); // 0x00514CC0
 int __cdecl sub_00514CF0(); // 0x00514CF0
@@ -224,7 +224,7 @@ static void __cdecl sub_004B9EB0_PlayRandomSound()
 {
     if (sub_00481820() % 3 == 0)
     {
-        const int nSound = sub_004E4100(0xB76, 0x1230);
+        const int nSound = sub_004E4100_RandomInRange(0xB76, 0x1230);
         sub_004B9A00(nSound, 0, 0, 0, 0);
     }
 }

@@ -84,7 +84,7 @@ struct D2SplittedTextStrc
 };
 extern "C" const char gszD2WinFontSourceFile[]; // 0x006DC9FC
 int __fastcall D2Win_10123(const Unicode* wszText, int nLength); // 0x00501730
-int __fastcall sub_00526D30(const Unicode* pText, int nCount); // 0x00526D30
+int __fastcall sub_00526D30_IsLineBreak(const Unicode* pText, unsigned int nIndex); // 0x00526D30
 D2SplittedTextStrc* __stdcall sub_005028E0_AllocSplitTextLine(const Unicode* wszText, int nLength, int bSkipSpace); // 0x005028E0
 
 // 0x00501FE0
@@ -219,7 +219,7 @@ D2SplittedTextStrc* __fastcall sub_00502970_SplitText(const Unicode* wszText, in
         }
         for (; nEnd > nStart; --nEnd)
         {
-            if (nEnd == nLength || sub_00526D30(&wszText[nStart], nEnd - nStart + 1))
+            if (nEnd == nLength || sub_00526D30_IsLineBreak(&wszText[nStart], nEnd - nStart + 1))
             {
                 break;
             }
@@ -266,7 +266,7 @@ D2SplittedTextStrc* __fastcall sub_00502970_SplitText(const Unicode* wszText, in
                 }
                 for (; nEnd > nStart; --nEnd)
                 {
-                    if (nEnd == nLength || sub_00526D30(&wszText[nStart], nEnd - nStart + 1))
+                    if (nEnd == nLength || sub_00526D30_IsLineBreak(&wszText[nStart], nEnd - nStart + 1))
                     {
                         break;
                     }

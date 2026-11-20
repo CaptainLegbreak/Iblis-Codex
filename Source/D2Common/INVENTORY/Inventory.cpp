@@ -151,7 +151,7 @@ extern CodeEntry gTable_0096CC68[]; // 0x0096CC68
 s32 __fastcall sub_00451F60_ClassId(Unit*); // 0x00451F60
 u8 __stdcall sub_00627D40_Page(Unit*); // 0x00627D40
 u8 __stdcall sub_00628660_BodySlot(Unit*); // 0x00628660
-s32 __stdcall sub_00629B50_IsType(s32, s32); // 0x00629B50
+int __stdcall ITEMS_CheckType(int nItemType1, int nItemType2); // 0x00629B50
 s32 __stdcall sub_0062C100_Transform(Unit*, Unit*, u8*, s32); // 0x0062C100
 ItemRecord* __stdcall sub_006335F0_ItemRecord(s32); // 0x006335F0
 ItemRecord* __stdcall sub_00633640_RecordByCode(u32, s32*); // 0x00633640
@@ -1134,7 +1134,7 @@ void __stdcall sub_0063E510_InventoryAppearance(Unit* unit, u8* firstOutput, u8*
                 }
                 else
                 {
-                    if (!sub_00629B50_IsType(FIELD(short, record, 0x11E), 0x4B))
+                    if (!ITEMS_CheckType(FIELD(short, record, 0x11E), 0x4B))
                     {
                         sub_0063DA70_ItemSlots(unit, firstOutput, secondOutput, item);
                     }

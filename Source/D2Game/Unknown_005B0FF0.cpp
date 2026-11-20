@@ -31,8 +31,8 @@ D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc*, int, int); // 0x00552F60
 int __fastcall SUNIT_IsDead(D2UnitStrc*); // 0x005541B0
 int __fastcall AIUTIL_GetDistanceToCoordinates_FullUnitSize(D2UnitStrc*, D2UnitStrc*); // 0x005DC380
 int __fastcall sub_005DEFE0_Escape(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, unsigned char, int); // 0x005DEFE0
-void __fastcall AITACTICS_SetVelocity(D2UnitStrc*, int, int, unsigned char); // 0x005DE190
-int __fastcall D2GAME_AICORE_WalkToOwner_6FCD0B60(D2GameStrc*, D2UnitStrc*, D2UnitStrc*, int); // 0x005DF530
+void __fastcall sub_005DE190_SetAiParam(D2UnitStrc* pUnit, int nParam, int nValue, int nArg); // 0x005DE190
+int __fastcall D2GAME_AICORE_WalkToOwner_6FCD0B60(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pOwner, unsigned char nMaxDistance); // 0x005DF530
 
 struct D2AiTableStrc { int a, b, c, d; };
 
@@ -87,7 +87,7 @@ int __fastcall D2GAME_AICORE_MinionLeash_6FCF0D10(D2GameStrc* pGame, D2UnitStrc*
     {
         if (nDistance <= 20)
             return 0;
-        AITACTICS_SetVelocity(pMonster, 7, 0, 40);
+        sub_005DE190_SetAiParam(pMonster, 7, 0, 40);
     }
     D2GAME_AICORE_WalkToOwner_6FCD0B60(pGame, pMonster, pOwner, 19);
     return 1;
@@ -126,6 +126,8 @@ const D2AiTableStrc* __fastcall sub_005B15D0_GetAiTable(D2UnitStrc* pUnit, int n
 }
 
 #include "gen/data/Source/D2Game/Unknown_005B0FF0.inc"
+struct D2GameStrc;
+struct D2UnitStrc;
 
 // 0x005B1650
 int __fastcall sub_005B1650_AiTickTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTickParamStrc* pAiTickParam)

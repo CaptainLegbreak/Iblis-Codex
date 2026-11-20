@@ -86,11 +86,11 @@ Unicode* __fastcall sub_00452170(Unicode* pText);                               
 Unicode* __fastcall sub_004521C0_PrefixLevelText(Unicode* pText, int nDigit);                               // 0x004521C0
 D2SetItemsTxt* __fastcall sub_00483440_GetSetItemsTxtRecord(int nIndex);                                    // 0x00483440
 D2UniqueItemsTxt* __fastcall sub_00483470_GetUniqueItemsTxtRecord(int nIndex);                              // 0x00483470
-Unicode* __fastcall sub_004834A0_SkipBracketTag(Unicode* pText);                                            // 0x004834A0
+const Unicode* __fastcall sub_004834A0_SkipBracketTag(const Unicode* pString); // 0x004834A0
 void __cdecl sub_0048BE80_FormatArgs(Unicode* pDest, const Unicode* pFormat, ...);                          // 0x0048BE80
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 int __cdecl STRTABLE_GetLanguage();                                                                         // 0x00525150
-void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength);                  // 0x00526320
+Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);                                 // 0x00526700
 Unicode* __fastcall sub_005267E0(Unicode* pDest, const Unicode* pSource);                                 // 0x005267E0
 int __fastcall sub_00526800(const Unicode* pString);                                                      // 0x00526800

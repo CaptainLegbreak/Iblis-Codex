@@ -33,8 +33,8 @@ extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(D2FarProcFn lpfn);  
 void __fastcall sub_004743D0_ReleaseOverlayResource(void* pResource);                                       // 0x004743D0
 void __cdecl sub_0049F960_ResetTextBox();                                                                   // 0x0049F960
 void __stdcall TEXT_FreeTextHeader(D2TextHeaderStrc* pTextHeader);                                          // 0x006612A0
-void __stdcall sub_00416710_Unlock(void* pHandle);                                                          // 0x00416710
-void __fastcall sub_00455F20(int nUIVar, int nState, int nArg);                                        // 0x00455F20
+int __stdcall SFileUnloadFile(void* pBuffer); // 0x00416710
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 unsigned char __stdcall sub_004FB180_FindPaletteIndex(unsigned char nRed, unsigned char nGreen, unsigned char nBlue);  // 0x004FB180
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
@@ -308,13 +308,13 @@ void __cdecl sub_005239C0_UnlockCDKeys()
 {
     if (gpCDKeyHandle_00882744)
     {
-        sub_00416710_Unlock(gpCDKeyHandle_00882744);
+        SFileUnloadFile(gpCDKeyHandle_00882744);
         gpCDKeyHandle_00882744 = 0;
     }
 
     if (gpCDKeyHandle_00882750)
     {
-        sub_00416710_Unlock(gpCDKeyHandle_00882750);
+        SFileUnloadFile(gpCDKeyHandle_00882750);
         gpCDKeyHandle_00882750 = 0;
     }
 }

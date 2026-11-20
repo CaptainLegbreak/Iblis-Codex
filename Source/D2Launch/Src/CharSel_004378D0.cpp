@@ -84,10 +84,10 @@ char* __fastcall sub_0040E080_AddressToString(int nAddress); // 0x0040E080
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
-int __cdecl sub_005269D0_Sprintf(int nCount, Unicode* pDest, const Unicode* pFormat, ...); // 0x005269D0
+void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 void __fastcall D2Win_10045(D2WinControlStrc* pControl, const char* szText); // 0x004FCF80
 int __fastcall sub_004FBD20_GetLastRow(D2WinControlStrc* pControl); // 0x004FBD20
-void __fastcall sub_004FCD40_SetCell(D2WinControlStrc* pControl, const char* szText, int nRow, int nColumn); // 0x004FCD40
+int __fastcall D2Win_10057(D2WinControlStrc* pControl, const char* szText, int a3, int a4); // 0x004FCD40
 void __fastcall sub_004FB9D0_Select(D2WinControlStrc* pControl, int nLine); // 0x004FB9D0
 int __fastcall D2Win_10053(D2WinControlStrc* pTextBox, int nLine); // 0x004FBA30
 void __fastcall sub_004FF5A0_SetEditText(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FF5A0
@@ -104,14 +104,14 @@ void __cdecl sub_0043B080_InitCharSelectScreen(); // 0x0043B080
 void __fastcall sub_0043C750_JoinEntry(D2LaunchCharEntryStrc* pEntry, const char* szName); // 0x0043C750
 int __fastcall sub_0043CAA0_UpdateSaveFlags(const char* szName); // 0x0043CAA0
 int __stdcall sub_0043E6C0_OnError(int nArg); // 0x0043E6C0
-void __cdecl sub_0043E570(); // 0x0043E570
+int __cdecl sub_0043E570(); // 0x0043E570
 int __fastcall sub_0043F5F0_CallTable74(int nA, int nB, int nC, int nD); // 0x0043F5F0
 void __cdecl sub_0043FC20(); // 0x0043FC20
 int __fastcall sub_0043FFA0_SetupCharacter(unsigned short wValue, const char* szText0x1F, const char* szText0x245, const char* szText0x37); // 0x0043FFA0
 void __fastcall sub_00440140_ShowError(const Unicode* pText, D2LaunchCallback pfnDone); // 0x00440140
 void __fastcall sub_004401C0_ShowTimedMessage(const Unicode* pText, D2LaunchCallback pfnDone); // 0x004401C0
 void __fastcall sub_004411E0_Use(const char* szText); // 0x004411E0
-int __fastcall sub_004428D0_SendChatText(const char* szText, int bFlag); // 0x004428D0
+int __fastcall sub_004428D0_SendChatText(char* szText, int bWhisper); // 0x004428D0
 int __fastcall sub_004438E0_Lookup(const char* szName, const char* szPassword, D2LaunchGameRecStrc* pRecord); // 0x004438E0
 extern char gszValue_0070EBD0[]; // 0x0070EBD0
 extern char gszValue_0070EBD4[]; // 0x0070EBD4
@@ -248,7 +248,7 @@ int __stdcall sub_0043B520_OnCharSelect(int nArg)
                         Unicode wszText[0x100];
                         Unicode wszArg[0x100];
                         sub_00526F20_ToUnicode(wszArg, pEntry->szName, 0x100);
-                        sub_005269D0_Sprintf(0x100, wszText, D2LANG_GetStringFromTblIndex(0x2B89), wszArg);
+                        sub_005269D0(0x100, wszText, D2LANG_GetStringFromTblIndex(0x2B89), wszArg);
                         sub_00433450_ShowText(wszText, sub_0043B080_InitCharSelectScreen);
                     }
                     gbBusy_00779DA0 = 0;
@@ -432,7 +432,7 @@ void __cdecl sub_00442C20_HandleList()
         if (!bNoNumbers)
         {
             _itoa(*(unsigned short*)gaGames_0078A440[i].wValue0x31, szNumber, 10);
-            sub_004FCD40_SetCell(gpGameList_00798BC0, szNumber, nRow, 1);
+            D2Win_10057(gpGameList_00798BC0, szNumber, nRow, 1);
         }
     }
 
@@ -700,6 +700,7 @@ int __stdcall sub_00446890_SendChatLine(int nArg)
 }
 
 #include "gen/data/Source/D2Launch/Src/CharSel_004378D0.inc"
+struct D2WinControlStrc;
 
 // 0x00437CB0
 static void sub_00437CB0_SelectNamedSlot(const char* szName)

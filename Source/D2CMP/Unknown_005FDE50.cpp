@@ -59,7 +59,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x0068
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 void __fastcall sub_00609380(D2CmpPoolStrc* pPool, D2LRUNodeStrc* pNode); // 0x00609380
 D2LRUNodeStrc* __fastcall sub_00609420(D2CmpPoolStrc* pPool, unsigned int nSize, D2TileLibraryEntryStrc* pOwner); // 0x00609420
-void __fastcall sub_00516F14_ArchiveSetFilePointer(void* hArchive, void* hFile, int nOffset, int a4, int a5); // 0x00516F14
+int __fastcall sub_00516F14_SetFilePointer(void* unused, void* file, long nOffset, long* pnOffsetHigh, int nMethod); // 0x00516F14
 void __stdcall sub_0060A4C0_TileEntryLoaded(D2TileLibraryEntryStrc* pEntry); // 0x0060A4C0
 
 D2TileFreeCallbackFn gpfnTileFreeCallback_0088CB1C; // 0x0088CB1C
@@ -102,7 +102,7 @@ int __stdcall sub_005FDEA0(D2TileLibraryEntryStrc* pEntry, int a2, int a3)
         return 0;
     }
 
-    sub_00516F14_ArchiveSetFilePointer(0, hFile, pEntry->nFileOffset, 0, 0);
+    sub_00516F14_SetFilePointer(0, hFile, pEntry->nFileOffset, 0, 0);
     ARCHIVE_ReadFileToBuffer(0, hFile, pEntry->pData, pEntry->nSize);
     ARCHIVE_CloseFile(0, hFile);
     sub_0060A4C0_TileEntryLoaded(pEntry);

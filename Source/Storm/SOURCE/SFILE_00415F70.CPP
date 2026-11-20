@@ -1,6 +1,6 @@
 int gnStormDirectFlags_00779058;                                                                            // 0x00779058
 int __cdecl sub_00418B50();                                                                         // 0x00418B50
-int __stdcall SFileOpenFileEx(void* hMpq, const char* szFileName, int nSearchScope, void** phFile);         // 0x004192F0
+int __stdcall SFileOpenFileEx(unsigned int hMpq, const char* szFileName, unsigned int dwFlags, void** phFile); // 0x004192F0
 int __stdcall sub_0041AF60_StormLoadFile(void* hMpq, const char* szFileName, void** ppBuffer, int* pnSize, int nExtraBytes, int nFlags, void* pOverlapped, int nArg8); // 0x0041AF60
 
 // 0x00415F70

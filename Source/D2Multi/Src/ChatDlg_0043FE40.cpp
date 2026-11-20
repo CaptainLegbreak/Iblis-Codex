@@ -100,7 +100,7 @@ unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int
 const char* __stdcall SStrChr(const char* szString, char nChar);                                            // 0x00413490
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 int __fastcall sub_00526800(const Unicode* pString);                                                      // 0x00526800
-void __cdecl sub_004F9190();                                                              // 0x004F9190
+int __fastcall sub_004F9190(); // 0x004F9190
 void __fastcall BUTTON_SetIsPressed(D2WinControlStrc* pButton, int bIsPressed);                             // 0x005009A0
 void __fastcall D2Win_10044(D2WinControlStrc* pControl, const Unicode* pText);                     // 0x004FD060
 void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* pText, int nA, int nB, int nC); // 0x004FC9B0

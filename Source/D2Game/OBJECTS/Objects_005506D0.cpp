@@ -36,7 +36,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId);                                        // 0x00640E90
 D2ObjectControlStrc* __fastcall OBJRGN_GetObjectControlFromGame(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom); // 0x00546FA0
 D2UnitStrc* __fastcall SUNIT_AllocUnitData(int nUnitType, int nClassId, int nX, int nY, D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, char a7, int nMode, unsigned int a9); // 0x00555230
-unsigned short __stdcall COLLISION_CheckMaskWithSizeXY(D2ActiveRoomStrc* pRoom, int nX, int nY, int nSizeX, int nSizeY, int nMask); // 0x0064D800
+unsigned short __stdcall COLLISION_CheckMaskWithSizeXY(D2ActiveRoomStrc* pRoom, int nX, int nY, unsigned int nSizeX, unsigned int nSizeY, unsigned short nMask); // 0x0064D800
 D2UnitStrc* __fastcall sub_00559130_DropRandomItem(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2CoordStrc* pCoords, D2ItemDropStrc* pItemDrop); // 0x00559130
 extern int gnArmorStandOrRackIds_00731EA0[];                                                                // 0x00731EA0
 extern int gnArmorStandOrRackCount_00731EB0;                                                                // 0x00731EB0
@@ -125,7 +125,7 @@ static int __stdcall sub_00550220_CanPlaceObject(D2ActiveRoomStrc* pRoom, int nS
 struct D2ObjOperateFnStrc { D2GameStrc* game;D2UnitStrc* object;D2ActiveRoomStrc* room;D2SeedStrc* seed;int unk10,x,y; };
 extern int gaDirectionX_00731B7C[]; // 0x00731B7C
 extern int gaDirectionY_00731B9C[]; // 0x00731B9C
-D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc*,D2ActiveRoomStrc*,int,int,int,int,int,int); // 0x005B2F20
+D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc*,int); // 0x00624690
 #define D2_MAX(a,b) ((a)>(b)?(a):(b))
 // 0x005506D0

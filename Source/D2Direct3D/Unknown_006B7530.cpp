@@ -130,7 +130,7 @@ extern const char gCreateFailure[]; // 0x006FC2C4
 extern const char gLockFailure[]; // 0x006FC330
 extern const char gUnlockFailure[]; // 0x006FC310
 void __fastcall sub_006B39B0_ShowD3DError(const char*,long); // 0x006B39B0
-void __fastcall sub_006B20E0(const char*,long); // 0x006B20E0
+void __fastcall sub_006B20E0_DDrawLogError(const char* szWhere, int hResult); // 0x006B20E0
 
 struct D2GridPointStrc { unsigned char nScale,nRed,nGreen,nBlue; int nX,nY; };
 
@@ -424,7 +424,7 @@ void __cdecl sub_006B8F10()
     result = gGridBuffer->Lock(0x21, &data, 0);
     if (result)
     {
-        sub_006B20E0(gLockFailure, result);
+        sub_006B20E0_DDrawLogError(gLockFailure, result);
         return;
     }
 
@@ -471,7 +471,7 @@ void __cdecl sub_006B8F10()
     result = gGridBuffer->Unlock();
     if (result)
     {
-        sub_006B20E0(gUnlockFailure, result);
+        sub_006B20E0_DDrawLogError(gUnlockFailure, result);
         return;
     }
 

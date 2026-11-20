@@ -74,8 +74,8 @@ extern int gbIconic_00881814; // 0x00881814
 extern "C" void* __cdecl sub_004F59A0_GetHwnd(); // 0x004F59A0
 int __cdecl sub_00514920(); // 0x00514920
 int __cdecl sub_00514840_IsChannelStreaming(); // 0x00514840
-void __cdecl sub_00514990_PickRandomChannel(); // 0x00514990
-void __fastcall sub_00515180_FillBuffer(D2SoundStrc* pSound, int nArg2, int nArg3, unsigned int nSize); // 0x00515180
+int __cdecl sub_00514990_PickRandomChannel(); // 0x00514990
+int __fastcall sub_00515180_FillBuffer(D2SoundStrc* sound,unsigned int sourcePosition,unsigned int destinationPosition,unsigned int size); // 0x00515180
 int __fastcall sub_00515300_ClearSoundBuffer(D2DSoundBufferStrc* pBuffer, unsigned long nOffset, unsigned long nBytes); // 0x00515300
 void __fastcall sub_005157B0_SetSoundVolume(D2SoundStrc* pSound, int nVolume); // 0x005157B0
 void __fastcall sub_00515E40_CloseSoundStream(D2SoundStrc* pSound); // 0x00515E40

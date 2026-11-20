@@ -90,8 +90,8 @@ void __fastcall MONSTERUNIQUE_UMod30_AuraEnchanted(D2UnitStrc* pUnit, int nUMod,
 void __fastcall sub_6FC6F670(D2UnitStrc* pUnit, int nUMod, int bUnique);                    // 0x005A2100
 void __fastcall AITHINK_ExecuteAiFn(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int nAiSpecialState); // 0x005B0E00
 D2UnitStrc* __fastcall sub_6FC68D70(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int a5, short nFlags); // 0x005B23C0
-D2UnitStrc* __fastcall MONSTERSPAWN_SpawnLinkedMinionsAtOwner(D2GameStrc* pGame, D2UnitStrc* pOwner, int nMonsterId, int nAnimMode, int nMin, int nMax, short nFlags); // 0x005B24E0
-D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int a7, int a8); // 0x005B2F20
+int __fastcall sub_6FC6A230(D2GameStrc* pGame, D2UnitStrc* pOwner, int nMonsterId, int nAnimMode, int a5, int nCount, short nFlags); // 0x005B24E0
+D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
 D2UnitStrc* __fastcall sub_6FC69F70(D2GameStrc* pGame, D2RoomCoordListStrc* pRoomCoordList, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int a6, short nFlags); // 0x005B2F70
 D2UnitStrc* __fastcall sub_005B3040_SpawnInCoordList(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2RoomCoordListStrc* pRoomCoordList, int nX, int nY, int nMonsterId, int nAnimMode, int a8, short nFlags); // 0x005B3040
 D2UnitStrc* __fastcall sub_005B30E0_SpawnWithUnitId(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nUnitGUID, int a8, short nFlags); // 0x005B30E0
@@ -1155,7 +1155,7 @@ D2UnitStrc* __fastcall D2GAME_SpawnSuperUnique_6FC6F690(D2GameStrc* pGame, D2Act
     }
 
     case 42:
-        MONSTERSPAWN_SpawnLinkedMinionsAtOwner(pGame, pMonster, 0x1C5, 1, 20, 20, 0);
+        sub_6FC6A230(pGame, pMonster, 0x1C5, 1, 20, 20, 0);
         QUESTS_CreateChainRecord(pGame, pMonster, 0x1F);
         QUESTS_MonsterSpawn(pGame, pMonster);
         STATES_ToggleState(pMonster, 0x76, 1);
@@ -1172,13 +1172,13 @@ D2UnitStrc* __fastcall D2GAME_SpawnSuperUnique_6FC6F690(D2GameStrc* pGame, D2Act
     {
         AIGENERAL_SetOwnerData(pGame, pMonster, !pMonster ? -1 : pMonster->dwUnitId, 1, 1, 0);
         const int nMinionId = D2Common_11063(UNITS_GetRoom(pMonster), 0x1C5);
-        MONSTERSPAWN_SpawnLinkedMinionsAtOwner(pGame, pMonster, nMinionId, 1, 10, 20, 64);
+        sub_6FC6A230(pGame, pMonster, nMinionId, 1, 10, 20, 64);
         QUESTS_CreateChainRecord(pGame, pMonster, 0x22);
         break;
     }
 
     case 62:
-        MONSTERSPAWN_SpawnLinkedMinionsAtOwner(pGame, pMonster, 0x17D, 1, 20, 10, 64);
+        sub_6FC6A230(pGame, pMonster, 0x17D, 1, 20, 10, 64);
         break;
 
     default:

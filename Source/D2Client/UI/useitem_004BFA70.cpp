@@ -45,7 +45,7 @@ int __cdecl sub_004B1670();                                                     
 int __cdecl sub_004F59A0();                                                                                // 0x004F59A0
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount);     // 0x00451E10
 void __fastcall sub_004B8020(void* pRes);                                                                   // 0x004B8020
-void __fastcall sub_00455F20(int nUIVar, int nState, int nArg);                                        // 0x00455F20
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 void __fastcall sub_00467430(void* pRect);                                                                  // 0x00467430
 
 // 0x004BFA70

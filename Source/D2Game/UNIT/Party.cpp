@@ -56,7 +56,7 @@ unsigned short __fastcall PARTY_GetPartyIdForUnitOwner(D2GameStrc* pGame, D2Unit
 int __fastcall sub_00540460_GetPartyMemberCount(D2GameStrc* pGame, short nPartyId); // 0x00540460
 void __fastcall sub_00540220_RemoveParty(D2GameStrc* pGame, short nPartyId); // 0x00540220
 void __fastcall sub_6FC3F8F0(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x0053DEC0
-void __fastcall FRIENDLY_RemoveHostility(D2GameStrc* pGame, D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2); // 0x005A6080
+int __fastcall FRIENDLY_RemoveHostility(D2GameStrc* pGame, D2UnitStrc* hPlayer, D2UnitStrc* pPlayer2); // 0x005A6080
 void __fastcall PARTY_CountLivingUnits(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pLivingUnits); // 0x005404F0
 int __stdcall UNITS_GetInventoryGoldLimit(D2UnitStrc* pUnit); // 0x00622E70
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480

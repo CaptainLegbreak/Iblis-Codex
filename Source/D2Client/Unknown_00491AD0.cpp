@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
+struct D2UnitStrc;
 
 
 
@@ -15,20 +16,20 @@ extern int gdwGlobal_007BCBE4;                                                  
 extern int gnGlobal_007BCC50;                                                                               // 0x007BCC50
 
 int __cdecl sub_0044DCC0();                                                                                 // 0x0044DCC0
-int __fastcall sub_004538D0(int nUIVar);                                                            // 0x004538D0
+int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
 void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg);                                          // 0x00478680
-void __fastcall sub_004786D0_SendPacket(char nHeader, int nArg1, int nArg2, int nArg3);                    // 0x004786D0
+void __fastcall sub_004786D0_SendDwords3(unsigned char nHeader, unsigned int d1, unsigned int d5, unsigned int d9); // 0x004786D0
 int __cdecl sub_00486D10_CheckTick();                                                                      // 0x00486D10
 void __fastcall sub_0049FF90_OpenTextData(D2UnitStrc* pUnit, D2ItemsTxt* pTxt);                            // 0x0049FF90
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4);                  // 0x004B9A00
 int __fastcall sub_004C1E20_GetItemUseSound(D2UnitStrc* pItem);                                                            // 0x004C1E20
 void __fastcall sub_004C21F0_SetState36(D2UnitStrc* pItem);                                                           // 0x004C21F0
 int __fastcall sub_004C2240(D2UnitStrc* pItem);                                                            // 0x004C2240
-int __stdcall UNITS_GetInventoryRecordId(D2UnitStrc* pUnit, unsigned char nInvPage, int bLoD);             // 0x00621050
-int __stdcall ITEMS_GetBaseCode(D2UnitStrc* pItem);                                                        // 0x00628590
+int __stdcall UNITS_GetInventoryRecordId(D2UnitStrc* hUnit, int nInvPage, int bLoD); // 0x00621050
+unsigned int __stdcall ITEMS_GetBaseCode(D2UnitStrc* hItem); // 0x00628590
 int __stdcall ITEMS_CheckIfUseable(D2UnitStrc* pItem);                                                             // 0x00628C20
 int __stdcall ITEMS_GetUniqueColumnFromItemsTxt(D2UnitStrc* pItem);                                                             // 0x00628C70
-int __stdcall sub_0062A0A0(D2UnitStrc* pItem);                                                             // 0x0062A0A0
+unsigned int __stdcall ITEMS_GetTransmogrify(D2UnitStrc* pItem); // 0x0062A0A0
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId);                                             // 0x006335F0
 D2UnitStrc* __stdcall INVENTORY_GetItemFromInventoryPage(D2InventoryStrc* pInventory, int nX, int nY, int* pOutX, int* pOutY, int nRecord, unsigned char nPage); // 0x0063BD10
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory);                                // 0x0063C1E0
@@ -63,7 +64,7 @@ extern D2InvRectStrc gInvRect_007BCAA0;                                         
 #define gnGlobal_007BCAAC (gInvRect_007BCAA0.nBottom)
 extern int gdwGlobal_007BCBF0;                                                                              // 0x007BCBF0
 
-void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS* pMsg);                                            // 0x00420290
+int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 int __cdecl sub_0044DA30();                                                                                 // 0x0044DA30
 void __cdecl sub_00453EC0();                                                                                // 0x00453EC0
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
@@ -97,10 +98,10 @@ void __stdcall sub_004917C0_OnGridClickMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00491
 int __fastcall sub_00483AB0_IsInInvRect(int nX, int nY); // 0x00483AB0
 int __cdecl sub_004888C0_CanUseCursor(); // 0x004888C0
 int __fastcall sub_004B3230_GetTickPair(int* pUnitId); // 0x004B3230
-D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType); // 0x00463990
+D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 int __fastcall sub_004B3870(D2UnitStrc* pUnit, int nSkill, int nArg3, int nX, int nY, unsigned int nArg6, int nArg7, int nArg8); // 0x004B3870
-void __fastcall sub_00468070_SetCursorItemState(int nState); // 0x00468070
-void __fastcall sub_004CB9C0(D2UnitStrc* pUnit, int nArg); // 0x004CB9C0
+void __fastcall sub_00468070_SetCursorItemState(D2UnitStrc* pItem); // 0x00468070
+void __fastcall sub_004CB9C0_Request(D2UnitStrc* pUnit, unsigned short nStringId); // 0x004CB9C0
 
 static int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
 {
@@ -155,7 +156,7 @@ static __declspec(noinline) int __stdcall sub_00487740_ClickGridItem(D2UnitStrc*
     D2UnitStrc* pItem = INVENTORY_GetItemFromInventoryPage(pInventory, nGridX, nGridY, &nOutX, &nOutY, nRecord, nPage);
     if (pItem)
     {
-        if (!INVENTORY_GetCursorItem(pInventory) && sub_0062A0A0(pItem))
+        if (!INVENTORY_GetCursorItem(pInventory) && ITEMS_GetTransmogrify(pItem))
         {
             if (!sub_004C2240(pItem))
             {
@@ -175,7 +176,7 @@ static __declspec(noinline) int __stdcall sub_00487740_ClickGridItem(D2UnitStrc*
                     gnGlobal_007BCC50 = 1;
                 }
 
-                sub_004786D0_SendPacket(0x20, pItem->dwUnitId, nUnitX, nUnitY);
+                sub_004786D0_SendDwords3(0x20, pItem->dwUnitId, nUnitX, nUnitY);
                 sub_004C21F0_SetState36(pItem);
                 sub_004B9A00(sub_004C1E20_GetItemUseSound(pItem), 0, 0, 0, 0);
                 gdwGlobal_007BCBE4 = 0;
@@ -277,7 +278,7 @@ void __stdcall sub_00491AD0_OnInventoryClickMsg(SMSGHANDLER_PARAMS* pMsg)
             {
                 pMsg->bReturn = 1;
                 pMsg->lResult = 0;
-                sub_00420290_HandleMsg(pMsg);
+                sub_00420290_BreakHandlerChain(pMsg);
                 if (nX >= gnGlobal_007BCB5C && nX <= gnGlobal_007BCB60 && nY >= gnGlobal_007BCB64 && nY <= gnGlobal_007BCB68 && gdwGlobal_007BCBF4)
                 {
                     int nUnitId;
@@ -312,7 +313,7 @@ void __stdcall sub_00491AD0_OnInventoryClickMsg(SMSGHANDLER_PARAMS* pMsg)
         {
             if (sub_00483BF0_IsInRect(nX, nY))
             {
-                sub_004CB9C0(pPlayer, 0x13);
+                sub_004CB9C0_Request(pPlayer, 0x13);
             }
         }
         else if (gdwGlobal_007BCBF0 == 0xC && sub_00483B40_IsInRect(nX, nY))
@@ -327,7 +328,7 @@ void __stdcall sub_00491AD0_OnInventoryClickMsg(SMSGHANDLER_PARAMS* pMsg)
             }
             else
             {
-                sub_004CB9C0(pPlayer, 0x13);
+                sub_004CB9C0_Request(pPlayer, 0x13);
             }
         }
         else if (INV_IsModeInRange(gdwGlobal_007BCBF0))
@@ -349,5 +350,5 @@ void __stdcall sub_00491AD0_OnInventoryClickMsg(SMSGHANDLER_PARAMS* pMsg)
 
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_HandleMsg(pMsg);
+    sub_00420290_BreakHandlerChain(pMsg);
 }

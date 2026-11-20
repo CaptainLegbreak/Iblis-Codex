@@ -1,6 +1,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+struct D2DifficultyLevelsTxt;
 // build: context MonStats
 // build: context RollLimited
 // build: context Roll
@@ -33,7 +34,7 @@ extern "C" void* __cdecl memmove(void*,const void*,unsigned int); // 0x00683840
 extern "C" void* __cdecl memset(void*,int,unsigned int); // 0x00681EF0
 void* __fastcall FOG_AllocPool(void*,int,const char*,int,int); // 0x0040B430
 void __fastcall SEED_InitLowSeed(D2SeedStrc*,unsigned int); // 0x00650E40
-void* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int); // 0x00611D30
+D2DifficultyLevelsTxt* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int nDifficulty); // 0x00611D30
 D2LevelsTxt* __stdcall DATATBLS_GetLevelsTxtRecord(int); // 0x0061DB70
 void __stdcall sub_005BDB20_GenerateComponentVariants(D2SeedStrc*,D2MonRegDataStrc*,int); // 0x005BDB20
 static __forceinline unsigned __int64 Roll(D2SeedStrc* pSeed)

@@ -2,6 +2,8 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+struct D2GameStrc;
+struct D2UnitStrc;
 
 struct D2GameActsViewStrc;
 struct D2RoomWarpCoordsStrc;
@@ -45,7 +47,7 @@ struct D2DrlgCoordsStrc { int nSubtileX; int nSubtileY; int nSubtileWidth; int n
 struct D2SpawnAreaStrc { char unk0x00[0x10]; tagRECT tRect; char pad20[8]; int areaId; };
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 int __stdcall D2Common_10095(D2ActiveRoomStrc*,int,int); // 0x0061B130
-D2UnitStrc* __fastcall sub_005B2F20_Spawn(D2GameStrc*,D2ActiveRoomStrc*,int,int,int,int,int,int); // 0x005B2F20
+D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
 D2UnitStrc* __fastcall sub_005B3040_SpawnInCoordList(D2GameStrc*,D2ActiveRoomStrc*,D2SpawnAreaStrc*,int,int,int,int,int,int); // 0x005B3040
 
 
@@ -190,7 +192,7 @@ int __fastcall MONSTERREGION_FindSpawnLocation(D2GameStrc* pGame, D2ActiveRoomSt
         }
         else
         {
-            pMonster = sub_005B2F20_Spawn(pGame, pRoom, nPosX, nPosY, nClassId, 1, -1, 1);
+            pMonster = D2GAME_SpawnMonster_6FC69F10(pGame, pRoom, nPosX, nPosY, nClassId, 1, -1, 1);
         }
 
         if (pMonster)

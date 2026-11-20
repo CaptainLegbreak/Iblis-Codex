@@ -18,8 +18,8 @@ int __stdcall PATH_GetY(D2PathRecordStrc* path); // 0x00648900
 int __fastcall CLIENTS_GetUnitX(D2UnitStrc* unit); // 0x0045ADF0
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* unit); // 0x0045AE20
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* unit, int stat, int layer); // 0x00625480
-const char* __cdecl sub_00408090(); // 0x00408090
-void __cdecl sub_00408A60(const char* text, const char* file, int line); // 0x00408A60
+extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 __declspec(noreturn) void __cdecl exit(int code); // 0x00681E09
 
 static __forceinline int GetReferenceX(D2UnitStrc* unit)

@@ -1,6 +1,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+struct D2DifficultyLevelsTxt;
 struct D2MonsterRegionStrc;
 union D2SeedStrc;
 struct D2MonRegDataStrc;
@@ -38,7 +39,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 extern "C" void* __cdecl memset(void*,int,unsigned int); // 0x00681EF0
 void* __fastcall FOG_AllocPool(void*,int,const char*,int,int); // 0x0040B430
 void __fastcall SEED_InitLowSeed(D2SeedStrc*,unsigned int); // 0x00650E40
-void* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int); // 0x00611D30
+D2DifficultyLevelsTxt* __stdcall DATATBLS_GetDifficultyLevelsTxtRecord(int nDifficulty); // 0x00611D30
 D2LevelsTxt* __stdcall DATATBLS_GetLevelsTxtRecord(int); // 0x0061DB70
 void __stdcall sub_005BDB20_GenerateComponentVariants(D2SeedStrc*,D2MonRegDataStrc*,int); // 0x005BDB20
 __declspec(noinline) static void __stdcall sub_005475E0_SelectMonsters(D2SeedStrc* pSeed, int bHigher, D2MonsterRegionStrc* pRegion, D2LevelsTxt* pLevels);

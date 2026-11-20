@@ -42,13 +42,13 @@ public:
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 extern "C" size_t __cdecl strlen(const char* szString);
 const char* __stdcall SStrChr(const char* szString, char nChar);                                            // 0x00413490
-void __stdcall SStrCopy(char* szDest, const char* szSource, int nMax);                                      // 0x004135D0
-void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength);                  // 0x00526320
+unsigned int __stdcall SStrCopy(char* dest,const char* source,unsigned int limit); // 0x004135D0
+Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* pText, int nA, int nB, int nC); // 0x004FC9B0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 void __fastcall sub_00440140_ShowError(const Unicode* pText, D2LaunchCallback pfnDone);                     // 0x00440140
 void __fastcall sub_004411E0_Use(const char* szText);                                                       // 0x004411E0
-void __fastcall sub_0043E5F0_PrintMessage(const Unicode* pText, int nColor);                                // 0x0043E5F0
+int __fastcall sub_0043E5F0_PrintMessage(const Unicode* pText, int nColor); // 0x0043E5F0
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...);               // 0x005269D0
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource);                                 // 0x00526700
 

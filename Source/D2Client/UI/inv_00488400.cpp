@@ -1,4 +1,6 @@
 #include "D2Structs.h"
+struct D2CellFileStrc;
+struct D2UnitStrc;
 typedef unsigned int size_t;
 struct Unicode;
 struct D2InventoryStrc;
@@ -42,9 +44,9 @@ D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory);     
 void __fastcall sub_00468070_SetCursorItemState(D2UnitStrc* pItem);                                         // 0x00468070
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 int __fastcall sub_004B3230_GetTickPair(int* pUnitId);                                                // 0x004B3230
-D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType);                             // 0x00463990
+D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 void __stdcall sub_00483FF0_DrawUnitInventory(D2UnitStrc* pUnit);                                           // 0x00483FF0
-void* __cdecl sub_00454600();                                                                               // 0x00454600
+D2CellFileStrc* __cdecl sub_00454600_GetBuySellButtonCells(); // 0x00454600
 int __fastcall sub_00502EF0(int nFont);                                                                     // 0x00502EF0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 int __fastcall sub_00501820(const Unicode* wszText);                                             // 0x00501820
@@ -127,7 +129,7 @@ void __cdecl sub_00488400_DrawPanel()
         }
     }
 
-    tContext.pCellFile = sub_00454600();
+    tContext.pCellFile = sub_00454600_GetBuySellButtonCells();
     for (int i = 0; i < gnButtonCount_00722160; ++i)
     {
         tContext.nFrame = gaPanelButtons_007BC9E0[i].nFrame + gaPanelButtons_007BC9E0[i].nFrameAdd;

@@ -55,8 +55,8 @@ int __fastcall sub_00502EF0(int nArg);                                          
 int __fastcall sub_00501820(const Unicode* wszText);                                             // 0x00501820
 int __fastcall D2Win_10122(const Unicode* wszText, int nTextLength);                                        // 0x005017D0
 int __fastcall D2Win_10055(D2WinTextBoxStrc* pTextBox);                                                     // 0x004FBAB0
-int __fastcall SCROLLBAR_GetMaxSteps(D2WinScrollBarStrc* pScrollBar);                                       // 0x00507EF0
-int __fastcall SCROLLBAR_GetCurrentStep(D2WinScrollBarStrc* pScrollBar);                                    // 0x00507FA0
+extern "C" int __fastcall sub_00507EF0_GetScrollBarField48(D2WinScrollBarStrc* ptScrollbarData); // 0x00507EF0
+extern "C" int __fastcall sub_00507FA0_GetScrollBarField4C(D2WinScrollBarStrc* ptScrollbarData); // 0x00507FA0
 int __fastcall SCROLLBAR_SetMaxSteps(D2WinScrollBarStrc* pScrollBar, int nMaxSteps);                        // 0x00507F20
 int __fastcall SCROLLBAR_SetCurrentStep(D2WinScrollBarStrc* pScrollBar, int nCurrentStep);                  // 0x00507F60
 
@@ -163,7 +163,7 @@ int __fastcall D2Win_10051(D2WinTextBoxStrc* ptTextData, const Unicode* wszText,
         if (sub_004FBE90_CountLinesFromCurrent(ptTextData) > nVisible)
         {
             D2WinScrollBarStrc* pScrollBar = ptTextData->pScrollBar;
-            if (!pScrollBar || SCROLLBAR_GetCurrentStep(pScrollBar) == SCROLLBAR_GetMaxSteps(ptTextData->pScrollBar))
+            if (!pScrollBar || sub_00507FA0_GetScrollBarField4C(pScrollBar) == sub_00507EF0_GetScrollBarField48(ptTextData->pScrollBar))
             {
                 bScrolled = 1;
                 ptTextData->pCurrentLine = ptTextData->pCurrentLine->pNext;
@@ -174,7 +174,7 @@ int __fastcall D2Win_10051(D2WinTextBoxStrc* ptTextData, const Unicode* wszText,
 
     if (ptTextData->pScrollBar)
     {
-        const int nStep = SCROLLBAR_GetCurrentStep(ptTextData->pScrollBar);
+        const int nStep = sub_00507FA0_GetScrollBarField4C(ptTextData->pScrollBar);
         SCROLLBAR_SetMaxSteps(ptTextData->pScrollBar, ptTextData->nNumLines - D2Win_10055(ptTextData));
         if (bScrolled)
             SCROLLBAR_SetCurrentStep(ptTextData->pScrollBar, ptTextData->nLine);

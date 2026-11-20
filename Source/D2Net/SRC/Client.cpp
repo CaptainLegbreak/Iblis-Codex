@@ -86,7 +86,7 @@ extern "C" void* __cdecl memcpy(void* pDest, const void* pSource, size_t nSize);
 extern "C" void* __cdecl memmove(void* pDest, const void* pSource, size_t nSize); // 0x00683840
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 0x006CC260
 void __fastcall FOG_10219(unsigned char* pData); // 0x0040ADB0
-int __fastcall SERVER_GetServerPacketSize(D2PacketBufferStrc* pBuffer, unsigned int nBufferSize, int* pSize); // 0x0052B920
+int __fastcall SERVER_GetServerPacketSize(D2PacketBufferStrc* pBuffer, int nBufferSize, int* pSize); // 0x0052B920
 
 struct D2FdSetStrc
 {

@@ -1,4 +1,5 @@
 #include "D2Multi.h"
+struct D2WinTextBoxStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2WinButtonStrc;
@@ -26,9 +27,9 @@ struct D2LaunchCharInfoStrc
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 int __stdcall D2Win_10033(D2WinControlStrc* pControl, int nArg); // 0x004FA470
-void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* pText, int nA, int nB, int nC); // 0x004FC9B0
+int __fastcall D2Win_10051(D2WinTextBoxStrc* ptTextData, const Unicode* wszText, int nColor, char bIsWrapped, int nIndent); // 0x004FC9B0
 void __fastcall D2Win_10044(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FD060
-void __fastcall BUTTON_SetIsPressed(D2WinButtonStrc* pButton, int bIsPressed); // 0x005009A0
+extern "C" void __fastcall BUTTON_SetIsPressed(D2WinButtonStrc* ptBtnData, int bIsPressed); // 0x005009A0
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 int __cdecl STRTABLE_GetLanguage(); // 0x00525150
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
@@ -96,10 +97,10 @@ void __fastcall sub_0043EA70_ShowMessage(const Unicode* pTitle, const Unicode* p
     D2Win_10030_CONTROL_ToggleFourthFlag(pControl, 1);
     pControl = sub_0043E9D0_CreateControl(0x28);
     D2Win_10030_CONTROL_ToggleFourthFlag(pControl, 1);
-    sub_004FC9B0_SetText(pControl, pTitle, 0, 0, 0);
+    D2Win_10051(pControl, pTitle, 0, 0, 0);
     pControl = sub_0043E9D0_CreateControl(0x29);
     D2Win_10030_CONTROL_ToggleFourthFlag(pControl, 1);
-    sub_004FC9B0_SetText(pControl, pText, 0, 0, 0);
+    D2Win_10051(pControl, pText, 0, 0, 0);
 }
 
 // 0x0043EB30
@@ -175,7 +176,7 @@ void __fastcall sub_00440140_ShowError(const Unicode* pText, D2LaunchCallback pf
     D2Win_10030_CONTROL_ToggleFourthFlag(pControl, 1);
     pControl = sub_0043E9D0_CreateControl(0x24);
     D2Win_10030_CONTROL_ToggleFourthFlag(pControl, 1);
-    sub_004FC9B0_SetText(pControl, pText, 0, 0, 0);
+    D2Win_10051(pControl, pText, 0, 0, 0);
     gpfnLaunchCallback_0077BDA4 = pfnDone ? pfnDone : sub_0043EB00_OnErrorDone;
 }
 
@@ -190,7 +191,7 @@ void __fastcall sub_004401C0_ShowTimedMessage(const Unicode* pText, D2LaunchCall
     D2Win_10030_CONTROL_ToggleFourthFlag(pControl, 1);
     pControl = sub_0043E9D0_CreateControl(0x24);
     D2Win_10030_CONTROL_ToggleFourthFlag(pControl, 1);
-    sub_004FC9B0_SetText(pControl, pText, 0, 0, 0);
+    D2Win_10051(pControl, pText, 0, 0, 0);
     gpfnLaunchCallback_0077BDA4 = pfnDone ? pfnDone : sub_0043EB00_OnErrorDone;
     gdwConnectTime_0077BBF0 = GetTickCount();
 }

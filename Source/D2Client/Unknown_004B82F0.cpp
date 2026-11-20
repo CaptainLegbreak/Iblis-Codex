@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+struct D2UnitStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct UiControl;
@@ -148,10 +149,10 @@ extern int gnGlobal_007C0E7C; // 0x007C0E7C
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 void __fastcall sub_004B8020(void* pRes); // 0x004B8020
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
-int __fastcall sub_004538D0(int nUIVar); // 0x004538D0
+int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
 int __fastcall sub_00453A90_GetUIVarUnchecked(int nUIVar); // 0x00453A90
-int __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
-D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType); // 0x00463990
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 void __fastcall sub_00489360_SetTradePanelOpen(int bOpen); // 0x00489360
 void __fastcall sub_004897E0_UpdateSound(int nArg1, int nArg2); // 0x004897E0
 void __cdecl sub_00489E00_OpenUi(); // 0x00489E00
@@ -251,7 +252,7 @@ void __fastcall sub_004A28A0_OnUiPacket1(D2UiPacketStrc_004B9210* pPacket); // 0
 void __fastcall sub_004B3340_OnUiPacket2(unsigned short nArg); // 0x004B3340
 void __fastcall sub_004B25C0_OnUiPacket3(D2UiPacketStrc_004B9210* pPacket); // 0x004B25C0
 void __fastcall sub_0049FF60_OnUiPacket4(D2UiPacketStrc_004B9210* pPacket); // 0x0049FF60
-void __fastcall sub_004A3100_OnUiPacket36(int nArg); // 0x004A3100
+extern "C" void __fastcall sub_004A3100_SetPacketValue(unsigned int value); // 0x004A3100
 void __fastcall sub_00478A00(void* pCel); // 0x00478A00
 
 struct D2CinematicPacketStrc
@@ -437,7 +438,7 @@ struct D2EntryNode004B9CD0Strc
 };
 
 unsigned int __cdecl sub_00481820(); // 0x00481820
-int __fastcall sub_004E4100(int nMin, int nMax); // 0x004E4100
+extern "C" int __fastcall sub_004E4100_RandomInRange(int nMin, int nMax); // 0x004E4100
 extern D2EntryNode004B9CD0Strc* gpEntryNodes_007C5458; // 0x007C5458
 
 // 0x004B82F0
@@ -1073,7 +1074,7 @@ void __fastcall sub_004B9210_DispatchUiPacket(D2UiPacketStrc_004B9210* pPacket)
     switch (pPacket->nType)
     {
     case 36:
-        sub_004A3100_OnUiPacket36(pPacket->nArg);
+        sub_004A3100_SetPacketValue(pPacket->nArg);
         return;
 
     case 2:
@@ -1410,7 +1411,7 @@ void __cdecl sub_004B9EB0_PlayRandomSound()
 {
     if (sub_00481820() % 3 == 0)
     {
-        const int nSound = sub_004E4100(0xB76, 0x1230);
+        const int nSound = sub_004E4100_RandomInRange(0xB76, 0x1230);
         sub_004B9A00(nSound, 0, 0, 0, 0);
     }
 }

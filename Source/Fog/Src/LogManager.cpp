@@ -146,7 +146,7 @@ extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const ch
 void __cdecl sub_00401A70_SetMiniDumpThreadName(); // 0x00401A70
 void __cdecl sub_004026D0_WriteMiniDump(); // 0x004026D0
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
-void __fastcall sShowStack(void* hThread, D2ThreadContextStrc* pContext); // 0x0040CC10
+int __fastcall sShowStack(void* hThread, D2ThreadContextStrc* pContext); // 0x0040CC10
 _iobuf* __fastcall sub_0040EBD0_OpenDatedLogFile(const char* szName, D2SystemTimeStrc* pTime, const char* szMode, int* pbNew, char* szPathOut, unsigned int nPathOutSize); // 0x0040EBD0
 void __fastcall sub_0040F000_GetLogDirectory(char* szDirectory, int nSize); // 0x0040F000
 void __fastcall sub_0040F470_LookupLog(const char* szName); // 0x0040F470
@@ -173,7 +173,7 @@ extern "C" __declspec(dllimport) long __stdcall SHGetFolderPathA(void* hWnd, int
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 int __fastcall sub_00406A10_CreateDirectoryTree(const char* szPath); // 0x00406A10
-int __fastcall sub_00406B20_AppendBackslash(char* szPath, int nSize); // 0x00406B20
+int __fastcall sub_00406B20_AppendBackslash(char* szPath, unsigned int nSize); // 0x00406B20
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void); // 0x006CC260
 _iobuf* __fastcall sub_0040EDE0_GetLogFile(const char* szName, int* pnSlot); // 0x0040EDE0
 

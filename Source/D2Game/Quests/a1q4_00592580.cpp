@@ -50,7 +50,7 @@ extern const int gnA1Q4MessageIndices[]; // 0x00737648
 D2UnitStrc* __fastcall ITEMS_FindQuestItem(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned int dwCode); // 0x00558110
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
 void __fastcall QUESTS_InitScrollTextChain(D2QuestDataStrc* pQuest, D2TextHeaderStrc* pText, int nNpc, int nMessage); // 0x00543790
-void __fastcall QUESTS_DeleteItem(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned int dwCode); // 0x00544160
+void __fastcall QUESTS_DeleteItem(D2GameStrc* pGame, D2UnitStrc* pPlayer, int dwCode); // 0x00544160
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pFlags, int nQuest, int nState); // 0x0065C310
 int __fastcall QUESTS_QuickCheckPlayerGUID(D2QuestGUIDStrc* pGuids, int nId); // 0x00545290
 int __fastcall QUESTS_CheckPlayerGUID(D2QuestDataStrc* pQuest, int nId); // 0x005452C0
@@ -148,6 +148,8 @@ void __fastcall ACT1Q4_Callback00_NpcActivate(D2QuestDataStrc* pQuest, D2QuestAr
 }
 
 #include "gen/data/Source/D2Game/Quests/a1q4_00592580.inc"
+struct D2GameStrc;
+struct D2UnitStrc;
 
 // 0x005935E0
 void __fastcall OBJECTS_InitFunction06_CairnStone(D2ObjInitFnStrc* pOp)

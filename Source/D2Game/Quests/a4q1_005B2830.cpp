@@ -1,6 +1,8 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+struct D2GameStrc;
+struct D2UnitStrc;
 
 #define MONSTER_TENTACLEHEAD1 261
 #define MONSTATSFLAGINDEX_SETBOSS 4
@@ -49,7 +51,7 @@ int __fastcall sub_004CC790_RollRange(D2SeedStrc* pSeed, int nMin, int nMax); //
 void __fastcall AIGENERAL_SetOwnerData(D2GameStrc* pGame, D2UnitStrc* pUnit, int nOwnerGUID, int nOwnerType, int bSetFlag1, int bSetFlag2); // 0x0058F030
 void __fastcall AIGENERAL_AllocMinionList(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pMinion); // 0x0058F100
 int __fastcall sub_005B2570_SpawnMinionsAround(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMonsterId, int nAnimMode, int nCount, int nOffset, short nFlags); // 0x005B2570
-void __stdcall DATATBLS_GetMonsterChainInfo(int nMonsterId, int* pChainId, int* pMissileOffset); // 0x006510C0
+int __stdcall DATATBLS_GetMonsterChainInfo(int nMonsterId, int* pMaxChainId, int* pChainId); // 0x006510C0
 static __declspec(noinline) void MONSTERSPAWN_SpawnMinionParty(D2UnkMonCreateStrc* pMonCreate, D2UnitStrc* pUnit);
 
 struct D2UnkMonCreateStrc2
@@ -62,7 +64,7 @@ struct D2UnkMonCreateStrc2
 };
 
 D2UnitStrc* __fastcall D2GAME_SpawnNormalMonster_6FC68E30(D2UnkMonCreateStrc* pMonCreate); // 0x005B2A00
-D2UnitStrc* __fastcall sub_005B3130_SpawnLeader(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nClassId, int nAnimMode, int a7, int a8, unsigned short nFlags); // 0x005B3130
+D2UnitStrc* __fastcall sub_005B3130_SpawnOwned(D2GameStrc* pGame, void* pRoom, int a1, int a2, int a3, int a4, int a5, int a6, unsigned short a7); // 0x005B3130
 D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nClassId, int nAnimMode, int a7, short nFlags); // 0x005B2F20
 int __fastcall sub_6FC6A230(D2GameStrc* pGame, D2UnitStrc* pOwner, int nX, int nY, int nMonsterId, int nAnimMode, int a5, int nCount, short nFlags); // 0x005B31B0
 int __fastcall sub_0044BE50_GetUnitTypeOrInvalid(D2UnitStrc* pUnit); // 0x0044BE50
@@ -165,11 +167,11 @@ int __fastcall MONSTERSPAWN_SpawnFormation(D2GameStrc* pGame, D2ActiveRoomStrc* 
         switch (bForce ? 4 : pRecord->nSpawnType)
         {
         case 1:
-            pLeader = sub_005B3130_SpawnLeader(pGame, pRoom, nX + pRecord->nXOffset, nY + pRecord->nYOffset, nClassId, nAnimMode, -1, 0, 0);
+            pLeader = sub_005B3130_SpawnOwned(pGame, pRoom, nX + pRecord->nXOffset, nY + pRecord->nYOffset, nClassId, nAnimMode, -1, 0, 0);
             if (pLeader) nResult = 1;
             break;
         case 2:
-            pLeader = sub_005B3130_SpawnLeader(pGame, pRoom, nX + pRecord->nXOffset, nY + pRecord->nYOffset, nClassId, nAnimMode, -1, 1, 0);
+            pLeader = sub_005B3130_SpawnOwned(pGame, pRoom, nX + pRecord->nXOffset, nY + pRecord->nYOffset, nClassId, nAnimMode, -1, 1, 0);
             if (pLeader) nResult = 1;
             break;
         case 5:

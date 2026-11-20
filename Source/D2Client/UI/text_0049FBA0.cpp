@@ -64,7 +64,7 @@ extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szDest, const char*
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 Unicode* __fastcall sub_005267E0(Unicode* pDest, const Unicode* pSource); // 0x005267E0
-void __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
+char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
 int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
 
 // 0x0049FBA0

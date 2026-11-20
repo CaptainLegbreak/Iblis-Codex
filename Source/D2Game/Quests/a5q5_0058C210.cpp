@@ -146,7 +146,7 @@ extern int gpAct5Q5NpcMessages[]; // 0x00735100
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640
 int __fastcall QUESTS_FastRemovePlayerGUID(D2QuestGUIDStrc* pGUIDs, int dwGUID); // 0x00545240
-void __fastcall QUESTS_SendLogUpdateEx(D2UnitStrc* pUnit, int nQuestId, int a3); // 0x00545920
+void __fastcall QUESTS_SendLogUpdateEx(D2UnitStrc* pPlayer, int nQuestId, unsigned char nAct); // 0x00545920
 void __fastcall ACT5Q5_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x0058BE80
 void __fastcall ACT5Q5_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x0058C290
 void __fastcall sub_0058C440(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x0058C440
@@ -161,7 +161,7 @@ void __stdcall QUESTRECORD_SetQuestState(D2BitBufferStrc* pQuestFlags, int nQues
 typedef int (__fastcall *Iter)(D2GameStrc*,D2UnitStrc*,void*);
 
 void __fastcall QUESTS_StateDebug(D2QuestDataStrc*,int,const char*,int); // 0x00544350
-void __fastcall QUESTS_UnitIterate(D2QuestDataStrc*,int,int,Iter,int); // 0x00544300
+void __fastcall QUESTS_UnitIterate(D2QuestDataStrc* pQuest, int nIterateState, D2UnitStrc* pUnit, int(__fastcall* pfIterate)(D2GameStrc*, D2UnitStrc*, void*), bool bIterate); // 0x00544300
 int __fastcall ACT5Q5_UnitIterate_StatusCyclerEx(D2GameStrc*,D2UnitStrc*,void*); // 0x0058BE20
 void __fastcall SUNIT_IterateUnitsOfType(D2GameStrc*,int,void*,Iter); // 0x005537D0
 int __fastcall ACT5Q5_UnitIterate_UpdateQuestStateFlags(D2GameStrc*,D2UnitStrc*,void*); // 0x0058C210
@@ -288,6 +288,8 @@ void __fastcall ACT5Q5_InitQuestData(D2QuestDataStrc* pQuestData)
 }
 
 #include "gen/data/Source/D2Game/Quests/a5q5_0058C210.inc"
+struct D2GameStrc;
+struct D2UnitStrc;
 
 // 0x0058C290
 void __fastcall ACT5Q5_Callback11_ScrollMessage(D2QuestDataStrc* q,D2QuestArgStrc* a)

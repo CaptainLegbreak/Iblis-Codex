@@ -110,7 +110,7 @@ void __fastcall sub_00451DB0_RegisterMsgHandlers(int hWnd, D2MsgHandlerEntryStrc
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
 void __cdecl sub_0047B090_InitChatIme(); // 0x0047B090
 void __cdecl sub_0047B4D0_Nop(); // 0x0047B4D0
-void __fastcall sub_00467A70(int nArg); // 0x00467A70
+void __fastcall sub_00467A70_RefreshHoverUnit(D2UnitStrc* pUnit); // 0x00467A70
 void __fastcall sub_004A5200(int nArg); // 0x004A5200
 void __cdecl sub_00454980(); // 0x00454980
 void __cdecl sub_00491940_ResetNpcPanel(); // 0x00491940
@@ -229,9 +229,9 @@ void __cdecl sub_004A7A80_OpenPanel0(); // 0x004A7A80
 void __fastcall sub_004B8020(void* pRes); // 0x004B8020
 extern unsigned int gnDialogAmount_007A2A68; // 0x007A2A68
 void __cdecl sub_00453EE0_ClosePanel(); // 0x00453EE0
-void __fastcall sub_004B9110_TransferGold(unsigned int nAmount); // 0x004B9110
+void __fastcall sub_004B9110_SendGoldRequest(unsigned long nGold); // 0x004B9110
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
-void __fastcall sub_004786A0_SendIntInt(char nHeader, int nArg1, int nArg2); // 0x004786A0
+void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 void __fastcall sub_00478600_SendShorts(char nHeader, short nArg1, short nArg2, short nArg3); // 0x00478600
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 void __fastcall sub_004B8100(void* pObj); // 0x004B8100
@@ -607,7 +607,7 @@ int __cdecl sub_00454080_ConfirmGoldDialog()
     if (!gnDialogAmount_007A2A68)
     {
         if (gnDialogMode_007A279C == 2)
-            sub_004B9110_TransferGold(gnDialogAmount_007A2A68);
+            sub_004B9110_SendGoldRequest(gnDialogAmount_007A2A68);
         return 1;
     }
     switch (gnDialogMode_007A279C)
@@ -617,11 +617,11 @@ int __cdecl sub_00454080_ConfirmGoldDialog()
     {
         D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
         int nId = GetUnitId(pPlayer);
-        sub_004786A0_SendIntInt(0x50, nId, gnDialogAmount_007A2A68);
+        sub_004786A0_SendDwords2(0x50, nId, gnDialogAmount_007A2A68);
         return 1;
     }
     case 2:
-        sub_004B9110_TransferGold(gnDialogAmount_007A2A68);
+        sub_004B9110_SendGoldRequest(gnDialogAmount_007A2A68);
         break;
     case 4:
         sub_00478600_SendShorts(0x4F, 0x13, gwDialogAmountHigh_007A2A6A, gnDialogAmount_007A2A68);
@@ -729,7 +729,7 @@ void __fastcall sub_00455720_SetPanelHandlers(int nPanel)
         return;
     case 0x9:
         sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtPanelHandlers_006D6030, 0x7);
-        sub_00467A70(0);
+        sub_00467A70_RefreshHoverUnit(0);
         return;
     case 0xB:
         sub_004A5200(0x1);

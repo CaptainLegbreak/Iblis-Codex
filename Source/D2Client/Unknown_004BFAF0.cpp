@@ -1,12 +1,13 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+struct D2ClientDialogStrc;
 
 typedef unsigned short Unicode;
 int __fastcall sub_004B9A00(int, D2UnitStrc*, int, int, int); // 0x004B9A00
 D2ClientDialogStrc* __fastcall sub_004B7EB0_CreateDialog(int, int, int (__cdecl*)(), int (__cdecl*)(), int, int, int, int, int, int, int); // 0x004B7EB0
 void __fastcall sub_004B8370_SetField5C(D2ClientDialogStrc*, int); // 0x004B8370
-void __fastcall sub_004B85F0_AddTextLine(D2ClientDialogStrc*, const Unicode*, int, int, int, int, int (__cdecl*)(), int); // 0x004B85F0
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short); // 0x00524A30
+void __fastcall sub_004B85F0_AddTextLine(D2ClientDialogStrc* pDialog, const Unicode* wszText, int nHeight, int nArg4, int nType, int nFont, int (__cdecl* pfnCallback)(), int bEnabled); // 0x004B85F0
+const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 void __fastcall sub_00478700_SendCommand(char, int, int, int, int); // 0x00478700
 void __fastcall sub_004B2370_SendPacket38(int); // 0x004B2370

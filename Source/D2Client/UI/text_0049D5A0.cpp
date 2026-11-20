@@ -1,3 +1,4 @@
+struct D2SelectionRectStrc;
 struct Unicode
 {
     unsigned short wChar;
@@ -257,7 +258,7 @@ extern char gHandlerTable_00722600[]; // 0x00722600
 int __cdecl sub_00514CC0(); // 0x00514CC0
 int __fastcall sub_004B95C0_IsHintPlaying(void* pHint); // 0x004B95C0
 void __stdcall sub_0049D410_FreeTextBox(D2TextScrollStrc* pTextBox); // 0x0049D410
-void __fastcall sub_00467430_SetSelectionRect(void* pRect); // 0x00467430
+void __fastcall sub_00467430_SetSelectionRect(const D2SelectionRectStrc* pRect); // 0x00467430
 void __cdecl sub_0049F960_ResetTextBox(); // 0x0049F960
 void __fastcall sub_004B3D10_CancelAndFlag(void* pHint); // 0x004B3D10
 void __cdecl sub_00453AE0(); // 0x00453AE0

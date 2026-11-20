@@ -234,13 +234,13 @@ extern int gnGlobal_0071146C; // 0x0071146C
 extern int gnGlobal_00711470; // 0x00711470
 extern int gnSoundEnvironId_0072ADE4; // 0x0072ADE4
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
-D2ActiveRoomStrc* __fastcall sub_004646A0_GetPlayerRoom(); // 0x004646A0
+D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
 int __fastcall sub_004648F0_GetPathValue(D2UnitStrc* pUnit); // 0x004648F0
 D2RosterInfoStrc** __fastcall sub_0047A310_GetRosterInfoList(int nUnitId); // 0x0047A310
 T00481920* __fastcall sub_00481920_GetSoundEnvironTxtRecord(int nEnvironId); // 0x00481920
-void __fastcall sub_004C5420_CreateClientMissile(D2UnitStrc* pUnit, int nMissileId, int nSkillId, int nSkillLevel); // 0x004C5420
-int __fastcall sub_004E31C0_CltDo(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x004E31C0
-int __fastcall D2GFX_GetResolutionMode(); // 0x004F5160
+D2UnitStrc* __fastcall sub_004C5420_RequestAtTarget(D2UnitStrc* pUnit, int nRequest, int nArg3, int nArg4); // 0x004C5420
+D2UnitStrc* __fastcall sub_004E31C0_CltDo(D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x004E31C0
+int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 void __fastcall sub_00513C50_SetSoundEnviron(D2SoundEnvironStrc* pEnviron); // 0x00513C50
 int __stdcall sub_006018C0(D2CelStrc* pCel); // 0x006018C0
 int __stdcall sub_006018F0(D2CelStrc* pCel); // 0x006018F0
@@ -1633,7 +1633,7 @@ int __fastcall sub_004E24D0_CltDoMissileA(D2UnitStrc* pUnit, int nSkillId, int n
     const int nMissileId = pSkillsTxtRecord->wCltMissileA;
     if (nMissileId >= 0 && nMissileId < sgptDataTables->nMissilesTxtRecordCount)
     {
-        sub_004C5420_CreateClientMissile(pUnit, nMissileId, nSkillId, nSkillLevel);
+        sub_004C5420_RequestAtTarget(pUnit, nMissileId, nSkillId, nSkillLevel);
         return 1;
     }
 
@@ -1716,7 +1716,7 @@ int __fastcall sub_004F34D0_CltDoMissileC(D2UnitStrc* pUnit, int nSkillId, int n
     const int nMissileId = pSkillsTxtRecord->wCltMissileC;
     if (nMissileId >= 0 && nMissileId < sgptDataTables->nMissilesTxtRecordCount)
     {
-        sub_004C5420_CreateClientMissile(pUnit, nMissileId, nSkillId, nSkillLevel);
+        sub_004C5420_RequestAtTarget(pUnit, nMissileId, nSkillId, nSkillLevel);
     }
 
     return 1;

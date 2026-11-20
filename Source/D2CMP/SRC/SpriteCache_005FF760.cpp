@@ -16,7 +16,7 @@ extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 #pragma intrinsic(strcpy)
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...);             // 0x006CC468
-int __stdcall SStrCmpI(const char* szString1, const char* szString2, int nMaxChars);                        // 0x00413590
+int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);           // 0x0040B430
 struct AsyncData;
 void* __fastcall FOG_AsyncDataGetBuffer(AsyncData* pAsync);                                                 // 0x0040A9E0
@@ -434,7 +434,7 @@ struct D2CmpLoadDescStrc
 
 struct D2SpriteLoadRequestStrc;
 AsyncData* __fastcall sub_0040A620(void* pMemPool, const char* szFileName, int bAllowAsync, long nFileOffset, int nFileSize, void* pBuffer, D2CmpLoadDescStrc* pAsyncOpDesc, int nPriority, const char* szFile, int nLine); // 0x0040A620
-int __fastcall sub_0040AA40(AsyncData* pAsync);                                                       // 0x0040AA40
+unsigned int __fastcall FOG_AsyncDataGetBufferSize(AsyncData* pAsyncData); // 0x0040AA40
 int __stdcall sub_005FF6E0_SpriteLoadCallback(void* hArg, int nArg, D2SpriteLoadRequestStrc* pRequest);    // 0x005FF6E0
 
 extern D2CmpBlockTableBStrc gCmpBlockTableB;                                                                // 0x0088DB58
@@ -596,7 +596,7 @@ static int __stdcall sub_005FF760_LoadDCCFrames(D2CmpSpriteContextStrc* pContext
         tDesc.nFrames = nFrames;
         pEntry->nFlags |= 4;
         pEntry->pAsync = sub_0040A620(gCmpTileCache.pMemPool, szName, 0, pFile->aOffsets[nStart], nSize, 0, &tDesc, -2, gszSpriteCacheSourceFile, 0x369);
-        nSize = sub_0040AA40(pEntry->pAsync);
+        nSize = FOG_AsyncDataGetBufferSize(pEntry->pAsync);
     }
     else
     {

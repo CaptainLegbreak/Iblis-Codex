@@ -4,6 +4,9 @@
 #include "D2Path.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+struct D2GameStrc;
+struct D2SkillStrc;
+struct D2UnitStrc;
 
 
 struct D2MissilesTxt;
@@ -40,13 +43,13 @@ int __fastcall CLIENTS_GetUnitX(D2UnitStrc* pUnit);                             
 int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                                                         // 0x0045AE20
 D2MissilesTxt* __fastcall sub_0046ACE0(int nMissileId);                          // 0x0046ACE0
 void __fastcall sub_005417D0_DirectDated(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nFrame, int a5, int a6); // 0x005417D0
-void __fastcall sub_0056BFE0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel); // 0x0056BFE0
+int __fastcall sub_0056BFE0(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nSkillId, int nSkillLevel); // 0x0056BFE0
 int __fastcall SKILLS_HasManaOrChargesForUsedSkill(D2UnitStrc* pUnit);                                      // 0x0056C160
 int __fastcall sub_6FD118C0(D2GameStrc* pGame, D2UnitStrc* pUnit);                                          // 0x0056C3F0
 void __fastcall sub_6FD10E50(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);                   // 0x0056E900
 D2UnitStrc* __fastcall sub_6FD11420(D2GameStrc* pGame, int nMissileId, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nX, int nY, int nTargetX, int nTargetY, int bCheckItemQuantity); // 0x0056ECB0
 D2UnitStrc* __fastcall sub_6FD11710(D2GameStrc* pGame, int nMissileId, D2UnitStrc* pUnit, int nSkillId, int nSkillLevel, int nX, int nY, int nTargetX, int nTargetY, int bCheckItemQuantity); // 0x0056EE90
-void __fastcall sub_6FC817D0(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3, int nMode, int nX, int nY, int a7); // 0x005809D0
+void __fastcall sub_6FC817D0(D2GameStrc* ptGame, D2UnitStrc* pUnit, D2SkillStrc* pUsedSkill, int nMode, int nX, int nY, int a7); // 0x005809D0
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom);                                                // 0x0061AB00
 void __stdcall UNITS_SetUsedSkill(D2UnitStrc* pUnit, D2SkillStrc* pSkill);                                  // 0x00620210
 D2SkillStrc* __stdcall UNITS_GetUsedSkill(D2UnitStrc* pUnit);                                               // 0x00620250
@@ -61,7 +64,7 @@ void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet);     
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId);         // 0x006439F0
 int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc* pSkill, const char* szFile, int nLine);              // 0x00643CE0
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus);                    // 0x006442A0
-unsigned int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill);                                                // 0x006446A0
+int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill); // 0x006446A0
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 
 #define PLRMODE_TOWNNEUTRAL 5

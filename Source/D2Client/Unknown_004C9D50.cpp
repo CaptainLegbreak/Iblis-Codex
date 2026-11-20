@@ -1,7 +1,7 @@
 #include "D2Client.h"
 
 D2UnitStrc* __fastcall sub_004C5EB0_FindDestination(D2UnitStrc* pUnit, int nX, int nY, int nRange, int nArg5, int nUnitId, int nArg7); // 0x004C5EB0
-unsigned int __cdecl sub_0044DA90(); // 0x0044DA90
+int __cdecl sub_0044DA90(); // 0x0044DA90
 
 // 0x004C9D50
 static __forceinline D2UnitStrc* sub_004C9D50_FindDestinationById(D2UnitStrc* pUnit, int nUnitId)

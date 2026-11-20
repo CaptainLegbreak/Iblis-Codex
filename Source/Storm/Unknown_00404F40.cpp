@@ -83,7 +83,7 @@ extern "C" __declspec(dllimport) int __stdcall CloseHandle(void* hObject); // 0x
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, int nFlags); // 0x00412650
 void* __stdcall SMemAlloc(size_t nSize, const char* szFile, int nLine, int nFlags); // 0x00413020
 extern "C" const char gszNew_006CC82C[]; // 0x006CC82C
-int __fastcall sub_00406B60_GetModuleDirectory(char* szPath, int nSize); // 0x00406B60
+int __fastcall sub_00406B60_GetModuleDirectory(char* szPath, unsigned int nSize); // 0x00406B60
 unsigned int __stdcall sub_00413800(char* szDest, const char* szSource, unsigned int nDestSize); // 0x00413800
 
 struct D2IniEntryStrc
@@ -105,7 +105,7 @@ extern "C" int __cdecl fputc(int nChar, _iobuf* pFile); // 0x00682058
 void __stdcall sub_00525260(void* pOut, int nField); // 0x00525260
 int __cdecl sub_00408F20_HasExpansionMpq(); // 0x00408F20
 int __fastcall sub_00406C40_GetBlizzardDataPath(char* szOutPath, int nSize); // 0x00406C40
-bool __fastcall sub_00516DE1_CanRunSurvey(const char* szExePath); // 0x00516DE1
+bool __fastcall sub_00516DE1_Verify(void* pContext); // 0x00516DE1
 bool __fastcall sub_00516D8B_RunSurvey(const char* szExePath); // 0x00516D8B
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
@@ -169,7 +169,7 @@ struct D2ConfigStrc
     unsigned char pComInterface[4];
 };
 int __stdcall sub_004059D0_RunModeInterface(D2ConfigStrc* pCfg); // 0x004059D0
-void __cdecl sub_00405A70(); // 0x00405A70
+void __stdcall sub_00405A70_WriteSurveyLocale(); // 0x00405A70
 void __fastcall sub_00406870_InitStorm(int nDirectFlags, int nValue); // 0x00406870
 void __cdecl sub_00407970_ForceCrash(); // 0x00407970
 void __cdecl FOG_DestroyMemoryPoolSystem(D2PoolSystemStrc* pSystem); // 0x00409C80
@@ -180,15 +180,15 @@ void __cdecl FOG_10082_Noop(); // 0x0040B320
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
 void __cdecl D2MCPClientCloseMCP(); // 0x00449AD0
-void __cdecl D2GFX_Release(); // 0x004F5050
+int __stdcall D2GFX_Release(); // 0x004F5050
 void __stdcall D2GFX_SetPerspective(int bPerspective); // 0x004F51E0
 int __stdcall D2GFX_SetGamma(int nGamma); // 0x004F5230
 void __cdecl D2GFX_EnableVSync(); // 0x004F5270
 void __cdecl sub_004F5280(); // 0x004F5280
-void __cdecl D2GFX_ToggleLowQuality(); // 0x004F54F0
+int __stdcall D2GFX_ToggleLowQuality(); // 0x004F54F0
 int __cdecl sub_004F59A0(); // 0x004F59A0
 int __stdcall D2Win_InitializeSpriteCache(int bWindowed, int nResolution); // 0x004F8F10
-void __cdecl D2Win_CloseSpriteCache(); // 0x004F9030
+int __stdcall D2Win_CloseSpriteCache(); // 0x004F9030
 int __stdcall D2Win_CreateWindow(void* hInstance, int nRenderMode, int bWindowed, int bCompress); // 0x004FA520
 int __cdecl sub_004FAB00_ShowInsertExpansionDisc(); // 0x004FAB00
 int __cdecl sub_004FAB30_ShowInsertPlayDisc(); // 0x004FAB30
@@ -501,7 +501,7 @@ void __stdcall sub_00405A70_WriteSurveyLocale()
     }
     sub_00406B60_GetModuleDirectory(szExe, 0x400);
     sub_00413800(szExe, "SystemSurvey.exe", 0x400);
-    if (sub_00516DE1_CanRunSurvey(szExe))
+    if (sub_00516DE1_Verify(szExe))
         sub_00516D8B_RunSurvey(szExe);
 }
 
@@ -716,7 +716,7 @@ int __fastcall GameStart(void* hInstance, D2ConfigStrc* pCfg, int nModType)
             return 0;
         }
         pCfg->bIsExpansion = sub_00408F20_HasExpansionMpq();
-        sub_00405A70();
+        sub_00405A70_WriteSurveyLocale();
     }
 
     STRTABLE_GetLanguage();

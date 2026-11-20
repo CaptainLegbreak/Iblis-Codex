@@ -3,6 +3,8 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+struct D2GameStrc;
+struct D2UnitStrc;
 
 struct D2AiControlStrc { char unk_00[0x14]; int dwAiParam[3]; };
 struct D2AiTickParamStrc { D2AiControlStrc* pAiControl; int unk_04; D2UnitStrc* pTarget; int unk_0C[2]; int nDistance; int bCombat; D2MonStatsTxt* pMonstatsTxt; };
@@ -19,8 +21,8 @@ int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int a
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStat, int nLayer); // 0x00625480
 int __stdcall STATLIST_GetMaxLifeFromUnit(D2UnitStrc* pUnit); // 0x00625D10
 int __stdcall sub_00625D60(D2UnitStrc* pUnit); // 0x00625D60
-void __fastcall sub_005DEAD0_UseSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, int nSkill, D2UnitStrc* pTarget, int nX, int nY); // 0x005DEAD0
-void __fastcall sub_005DEFE0_Attack(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nMode, int a5); // 0x005DEFE0
+int __fastcall AITACTICS_UseSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nMode, int nSkillId, D2UnitStrc* pTarget, int nX, int nY); // 0x005DEAD0
+int __fastcall sub_005DEFE0_Escape(D2GameStrc* game,D2UnitStrc* unit,D2UnitStrc* target,unsigned char maxDistance,int deleteEvent); // 0x005DEFE0
 void __fastcall sub_005DEC80_Walk(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nSteps); // 0x005DEC80
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames); // 0x005DE080
 inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkill)
@@ -94,7 +96,7 @@ void __fastcall sub_005EC8C0_ThinkPet(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Ai
     {
         if (pAiControl->dwAiParam[1] + AI_PARAM(0) < pGame->dwGameFrame)
         {
-            sub_005DEAD0_UseSkill(pGame, pUnit, 8, pMonStats->nSkill[0], pTarget, 0, 0);
+            AITACTICS_UseSkill(pGame, pUnit, 8, pMonStats->nSkill[0], pTarget, 0, 0);
             pAiControl->dwAiParam[1] = pGame->dwGameFrame;
             return;
         }
@@ -103,7 +105,7 @@ void __fastcall sub_005EC8C0_ThinkPet(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Ai
     {
         if (SEED_RollLimitedRandomNumber(&pUnit->pSeed, 100) < 25)
         {
-            sub_005DEFE0_Attack(pGame, pUnit, pCombatTarget, (unsigned char)AI_PARAM(3), 0);
+            sub_005DEFE0_Escape(pGame, pUnit, pCombatTarget, (unsigned char)AI_PARAM(3), 0);
             return;
         }
     }

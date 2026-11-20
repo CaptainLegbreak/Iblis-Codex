@@ -58,16 +58,16 @@ int __fastcall sub_004FD820(void* pArg);                                        
 int __fastcall D2Win_10071_EDITBOX_Destroy(D2WinControlStrc* pControl);                                     // 0x004FDAA0
 int __fastcall sub_00500300(void* pArg);                                                                    // 0x00500300
 int __fastcall BUTTON_Destroy(D2WinControlStrc* pControl);                                                  // 0x00500930
-void __cdecl sub_005015F0();                                                                                // 0x005015F0
+void __stdcall D2Win_10116(); // 0x005015F0
 void __fastcall D2Win_10115_FONT();                                                                         // 0x00502C60
 int __fastcall sub_00502EF0(int nArg);                                                                      // 0x00502EF0
 void __fastcall sub_00503A50_DrawCompositeShadow(D2CompositeUnitStrc* pCompositeUnit);                                          // 0x00503A50
-void __fastcall sub_00503BA0(D2CompositeUnitStrc* pCompositeUnit, int nValue);                              // 0x00503BA0
+int __fastcall sub_00503BA0_DrawCompositeUnit(D2CompositeUnitStrc* pCompositeUnit, int nGamma); // 0x00503BA0
 D2CompositeUnitStrc* __cdecl sub_00505150();                                                                // 0x00505150
 D2CompositeUnitStrc* __stdcall D2Win_10148(D2CompositeUnitStrc* pCompositeUnit);                            // 0x00505160
-void __stdcall D2Win_10157();                                                                               // 0x00505550
-void __fastcall sub_00505810(D2CompositeUnitStrc* pCompositeUnit);                                          // 0x00505810
-void __fastcall sub_00505A80(D2CompositeUnitStrc* pCompositeUnit);                                          // 0x00505A80
+void __cdecl sub_00505550_LoadItemPalettes(); // 0x00505550
+int __fastcall sub_00505810_DrawCompositeLabel(D2CompositeUnitStrc* unit); // 0x00505810
+int __fastcall sub_00505A80_DrawCompositeUnitHover(D2CompositeUnitStrc* pCompositeUnit); // 0x00505A80
 int __fastcall SMACK_Destroy(D2WinControlStrc* pControl);                                                   // 0x00506A40
 void __fastcall WREGISTER_RegisterCommands(void* hWnd, D2WinCommandRegisterStrc* pCommandRegister, unsigned int nCommands); // 0x00506DA0
 void __fastcall WREGISTER_UnregisterCommands(void* hWnd, D2WinCommandRegisterStrc* pCommandRegister, unsigned int nCommands); // 0x00506E00
@@ -91,7 +91,7 @@ int __fastcall D2Win_10015()
     D2Win_10115_FONT();
     sub_00502EF0(1);
     LIST_LoadPentspinCellfile();
-    D2Win_10157();
+    sub_00505550_LoadItemPalettes();
     gpfWndProc_6F8FE268 = 0;
     WREGISTER_RegisterCommands(sub_004F59A0(), gpCommandRegister_6F8BDE28, 0x21);
     D2Win_10177(0);
@@ -272,13 +272,13 @@ void __cdecl sub_004F9870_DrawFontCaches()
 
     for (D2CompositeUnitStrc* p = sub_00505150(); p; p = D2Win_10148(p))
     {
-        sub_00503BA0(p, -1);
+        sub_00503BA0_DrawCompositeUnit(p, -1);
     }
 
     for (D2CompositeUnitStrc* p = sub_00505150(); p; p = D2Win_10148(p))
     {
-        sub_00505810(p);
-        sub_00505A80(p);
+        sub_00505810_DrawCompositeLabel(p);
+        sub_00505A80_DrawCompositeUnitHover(p);
     }
 }
 
@@ -288,7 +288,7 @@ int __fastcall D2Win_10016()
     gnWinCallbackDepth_007D55C4 = 0;
     CONTROL_FreeDeadList();
     LIST_UnloadPentspinCellfile();
-    sub_005015F0();
+    D2Win_10116();
     WREGISTER_UnregisterCommands(sub_004F59A0(), gpCommandRegister_6F8BDE28, 0x21);
     return 1;
 }

@@ -1,4 +1,5 @@
 #include "D2Client.h"
+struct T006BC290;
 
 struct D2CriticalSectionStrc
 {
@@ -30,7 +31,7 @@ extern "C" __declspec(dllimport) void* __stdcall CreateEventA(void* pAttributes,
 extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(void* hHandle, unsigned long nMilliseconds); // 0x006CC230
 extern "C" __declspec(dllimport) void __stdcall Sleep(unsigned long nMilliseconds);                         // 0x006CC258
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
-int __fastcall sub_0040DEE0_QueryAddress(FSafeSock* pHandle, D2LaunchAddressStrc* pAddress, int* pSize);    // 0x0040DEE0
+int __fastcall FOG_SOCKET_GetPeerName(FSafeSock* pSafeSock, void* pAddress, int* pnLength); // 0x0040DEE0
 int __fastcall FOG_SOCKET_GetError(FSafeSock* pSafeSock, unsigned long* pFogError, unsigned long* pWSALastError); // 0x0040E0B0
 int __fastcall sub_0044A1D0_StartConnect(D2LaunchThreadRecordStrc* pRecord);                                // 0x0044A1D0
 int __fastcall sub_0044B1C0_HandlePacket(const unsigned char* pData, unsigned int nSize, int nArg);         // 0x0044B1C0
@@ -38,7 +39,7 @@ void __stdcall sub_006BC010_SetHandler(void* pConnection, D2LaunchPacketHandler 
 int __stdcall sub_006BC0B0_Send(void* pConnection, const char* pData, int nSize);                           // 0x006BC0B0
 void __stdcall sub_006BC5A0_Start(void* pConnection);                                                       // 0x006BC5A0
 void __stdcall sub_006BC680_Close(void* pConnection);                                                       // 0x006BC680
-void* __stdcall sub_006BC6A0_Open(const char* szAddress, int nPort, const char* szName);                    // 0x006BC6A0
+T006BC290* __stdcall sub_006BC6A0_AllocSocketRecord(const char* szName, int nValue, const char* szLabel); // 0x006BC6A0
 FSafeSock* __stdcall sub_006BC810_LookupHandle(void* pConnection);                                          // 0x006BC810
 
 extern void* gpConnection_00798FB4;                                                                         // 0x00798FB4
@@ -55,7 +56,7 @@ int __cdecl sub_00449B30_QueryAddress()
         return 0;
     D2LaunchAddressStrc tAddress;
     int nSize = sizeof(tAddress);
-    return sub_0040DEE0_QueryAddress(pHandle, &tAddress, &nSize);
+    return FOG_SOCKET_GetPeerName(pHandle, &tAddress, &nSize);
 }
 
 // 0x00449FB0
@@ -90,7 +91,7 @@ int __cdecl sub_0044A070_ConnectThread()
 {
     const char* szAddress = sub_0040E080_AddressToString(gnServerAddress_00798FC8);
     gnValue_0079929C = 0;
-    void* pConnection = sub_006BC6A0_Open(szAddress, gnServerPort_00798FCC, "clt->mcp");
+    void* pConnection = sub_006BC6A0_AllocSocketRecord(szAddress, gnServerPort_00798FCC, "clt->mcp");
     gpConnection_00798FB4 = pConnection;
     sub_006BC010_SetHandler(pConnection, sub_0044B1C0_HandlePacket, 0);
     sub_006BC5A0_Start(pConnection);

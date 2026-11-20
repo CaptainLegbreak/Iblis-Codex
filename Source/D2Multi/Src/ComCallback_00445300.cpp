@@ -60,12 +60,12 @@ unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int
 char* __stdcall SStrChr(const char* szString, char nChar); // 0x00413490
 int __stdcall SMsgDispatchMessage(void* hWnd, unsigned int uMessage, unsigned int wParam, int lParam, int* pUseResult, int* pResult); // 0x00420B00
 int __fastcall D2Win_10076(D2WinEditBoxStrc* pEditBox, const char* szText); // 0x004FFE10
-void __fastcall BUTTON_SetIsPressed(D2WinButtonStrc* pButton, int bIsPressed); // 0x005009A0
+extern "C" void __fastcall BUTTON_SetIsPressed(D2WinButtonStrc* ptBtnData, int bIsPressed); // 0x005009A0
 unsigned int __stdcall sub_00505330_GetCompositeFlags(D2CompositeStrc* pComposite); // 0x00505330
 const char* __stdcall D2Win_10160_GetPlayerTitle(int nClass, int nRank, int bSoftCore); // 0x00505640
 void __cdecl sub_004451C0_UpdateLevelControls(); // 0x004451C0
 void __stdcall sub_004493E0_RemoveChannelUser(const char* szName); // 0x004493E0
-int __stdcall sub_0041C430_LoadString(int nId, char* szBuffer, unsigned int nSize); // 0x0041C430
+int __stdcall sub_0041C430_FormatError(unsigned long error, char* buffer, unsigned long size); // 0x0041C430
 void __cdecl sub_00451400_AddRecordChunk(); // 0x00451400
 int __cdecl sub_0044DA90(); // 0x0044DA90
 int __cdecl sub_00451990(); // 0x00451990
@@ -249,7 +249,7 @@ int __fastcall sub_0044CCA0_CountLevels(int nValue, int nUnused, int nLimit)
 int __stdcall sub_004512C0_LoadString(int nId, char* szBuffer, unsigned int nSize)
 {
     D2_ASSERT(gbStringsLoaded_007A070C, 0x81);
-    if (!sub_0041C430_LoadString(nId, szBuffer, nSize))
+    if (!sub_0041C430_FormatError(nId, szBuffer, nSize))
     {
         SStrCopy(szBuffer, "Stupid Lng.cpp error.", nSize);
         return 0;

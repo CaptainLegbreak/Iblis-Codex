@@ -106,8 +106,8 @@ void __fastcall sub_006B1EA0_SetState(int nState); // 0x006B1EA0
 void __fastcall sub_006B2030_SetFilterMode(int nMode); // 0x006B2030
 void __fastcall sub_006B9780_SetColor(D2TLVertexStrc* pVertex, unsigned int nPacked, unsigned char nAlpha); // 0x006B9780
 int __cdecl sub_006B9830_GetPerspective(); // 0x006B9830
-const char* __cdecl sub_00408090(); // 0x00408090
-void __cdecl sub_00408A60(const char* szMsg, const char* szFile, int nLine); // 0x00408A60
+extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
 static __declspec(noinline) int sub_006B5C80_LoadSpriteInfo(D2CelContextStrc* context, D2SpriteInfoStrc* info);
@@ -118,7 +118,7 @@ static __declspec(noinline) unsigned char sub_006B6680_SetBlendAndAlpha(int mode
 static __declspec(noinline) int __stdcall sub_006B6D70_ClipSprite(D2SpriteInfoStrc* pInfo, int nX, int nY, const D2BoundsStrc* pBounds, D2ClipStrc* pClip);
 static int __stdcall sub_006B6D70_ClipSprite(D2SpriteInfoStrc* pInfo, int nX, int nY, const D2BoundsStrc* pBounds, D2ClipStrc* pClip); // 0x006B6D70
 
-static int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* pInfo, int nMode, int nArg3, int nArg4); // 0x006B5D40
+int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* ptInfo, int nMode, int nArg3, unsigned char nColor); // 0x006B5D40
 
 // 0x006B5C80
 int sub_006B5C80_LoadSpriteInfo(D2CelContextStrc* context, D2SpriteInfoStrc* info)

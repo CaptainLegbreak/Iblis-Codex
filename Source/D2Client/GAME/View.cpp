@@ -186,16 +186,16 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 void __stdcall sub_00449BF0_SetValue(int nValue); // 0x00449BF0
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 D2ClientEntryStrc* __fastcall sub_00478E40_FindEntry(int nKey); // 0x00478E40
-void __fastcall sub_004786A0_SendIntInt(char nHeader, int nArg1, int nArg2); // 0x004786A0
+void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 void __fastcall sub_004785D0_SendShortShort(char nHeader, short nArg1, short nArg2); // 0x004785D0
-int __cdecl D2GFX_GetResolutionMode(); // 0x004F5160
+int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
 int __cdecl sub_0044BE90(); // 0x0044BE90
 void __cdecl sub_00497300(); // 0x00497300
-int __fastcall sub_004538D0(int nUIVar); // 0x004538D0
-void __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
-void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned char nColor, unsigned char nAlpha); // 0x004F6380
+int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+void __stdcall D2GFX_DrawLine(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, unsigned char nAlpha); // 0x004F6380
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 int __cdecl sub_004942D0_GetHelpMenuSetting(); // 0x004942D0
 void __cdecl sub_00495030_DrawKeyHelp(); // 0x00495030
@@ -349,9 +349,9 @@ extern int gdwGlobal_007A5208; // 0x007A5208
 extern D2TimedHintNodeStrc* gpTimedHintList_007C5458; // 0x007C5458
 extern "C" int __cdecl sub_0045AFC0(); // 0x0045AFC0
 extern "C" int __cdecl sub_0045AFD0_GetMouseYOffset(); // 0x0045AFD0
-D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType); // 0x00463990
+D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 void __fastcall sub_00464810_SetUnitFlag16(D2UnitStrc* pUnit); // 0x00464810
-void __fastcall sub_00466730_SpawnPresetUnit(int nIndex, int nX, int nY, int nUnitType, int nMode); // 0x00466730
+D2UnitStrc* __fastcall sub_00466730_SpawnPresetUnit(int nClassId, int nX, int nY, int nUnitType, int nArg); // 0x00466730
 D2HintCursorStrc* __fastcall sub_00481860(int nId); // 0x00481860
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 void __fastcall sub_004DCD40_ShowTimedHint(void* pOwner, int nDelayA, int nDelayC, unsigned int nIndex, int nArgE, int nDelayF, int nArgG); // 0x004DCD40
@@ -457,7 +457,7 @@ extern int gaStarX_007B8D30[256]; // 0x007B8D30
 extern int gaStarY_007B57E8[256]; // 0x007B57E8
 extern unsigned char gaStarColor_007B5688[256]; // 0x007B5688
 extern int gaStarSpeed_007B9130[256]; // 0x007B9130
-int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
+unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 
 static void sub_004769D0_UpdateShakeSound(int nIntensity);
 
@@ -1285,7 +1285,7 @@ void __fastcall sub_00480B40_SendPacket(int nHeader, int nUnused, int nArg1, int
         sub_004785D0_SendShortShort(nHeader, nArg1, nArg2);
         return;
     case 2: case 4: case 6: case 7: case 9: case 10: case 13: case 14: case 16: case 17:
-        sub_004786A0_SendIntInt(nHeader, nArg1, nArg2);
+        sub_004786A0_SendDwords2(nHeader, nArg1, nArg2);
         return;
     default:
         sub_004785D0_SendShortShort(nHeader, nArg1, nArg2);

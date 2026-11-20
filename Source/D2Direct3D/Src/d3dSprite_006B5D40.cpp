@@ -175,7 +175,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);    
 
 void __stdcall CelDraw(D2CelContextStrc* pContext, int nX, int nY, int nArg4, int nArg5, unsigned char* pBuffer, int nHeight, int nPitch, int nArg9, int nArg10, int nArg11); // 0x006014C0
 void __fastcall sub_006B1DC0_Blit8To16(const unsigned char* pSource, unsigned short* pDest, int nWidth, int nHeight, int nPitch, int nUnused); // 0x006B1DC0
-void __fastcall sub_006B20E0_ReportError(const char* szMessage, long hResult); // 0x006B20E0
+void __fastcall sub_006B20E0_DDrawLogError(const char* szWhere, int hResult); // 0x006B20E0
 void __fastcall sub_006B38A0_Copy(void* pTarget, D2DDSurfaceStrc* pSurface, int nRows); // 0x006B38A0
 void __fastcall sub_006B39B0_ShowD3DError(const char* szText, long nResult); // 0x006B39B0
 void __fastcall sub_006BA760_TouchEntry(D2TexturePoolStrc* pPool, int nIndex); // 0x006BA760
@@ -396,7 +396,7 @@ int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* ptInfo, int nMode, in
     hResult = pSurface->lpVtbl->Lock(pSurface, 0, &tDesc, 0x21, 0);
     if (hResult)
     {
-        sub_006B20E0_ReportError(gszLockFailed_006FC2A4, hResult);
+        sub_006B20E0_DDrawLogError(gszLockFailed_006FC2A4, hResult);
     }
     D2_ASSERT(tDesc.dwFlags & 8, 0x1C0);
     sub_006B1DC0_Blit8To16(pData, (unsigned short*)tDesc.lpSurface, ptInfo->f_14, ptInfo->f_18, tDesc.lPitch >> 1,
@@ -404,7 +404,7 @@ int __stdcall sub_006B5D40_UploadTexture(D2SpriteInfoStrc* ptInfo, int nMode, in
     hResult = pSurface->lpVtbl->Unlock(pSurface, 0);
     if (hResult)
     {
-        sub_006B20E0_ReportError(gszUnlockFailed_006FC284, hResult);
+        sub_006B20E0_DDrawLogError(gszUnlockFailed_006FC284, hResult);
     }
 
     if (gnRenderFlags_0096F3A8 & gnRenderFlag_006CE290)

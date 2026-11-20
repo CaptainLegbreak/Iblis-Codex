@@ -13,9 +13,9 @@ int __stdcall sub_006B015C_Ioctl(unsigned int socket,unsigned int command,unsign
 unsigned short __stdcall sub_006B0156_Htons(unsigned short value); // 0x006B0156
 int __stdcall sub_006C9B76_Bind(unsigned int socket,const D2SockAddrStrc* address,int size); // 0x006C9B76
 int __stdcall sub_006C9B70_Listen(unsigned int socket,int backlog); // 0x006C9B70
-void __fastcall sub_0040D880_CloseSocket(unsigned int socket); // 0x0040D880
+int __fastcall sub_0040D880(unsigned int s); // 0x0040D880
 unsigned long __stdcall sub_006C3470_ServerThread(void* context); // 0x006C3470
-void __fastcall sub_00407F80_RegisterThread(unsigned long id,void* thread); // 0x00407F80
+void __fastcall sub_00407F80_ThreadHookNop2(unsigned int nId, void* hThread); // 0x00407F80
 extern "C" __declspec(dllimport) void* __stdcall CreateEventA(void* attributes,int manualReset,int initialState,const char* name);
 extern "C" __declspec(dllimport) void* __stdcall CreateThread(void* attributes,unsigned int stackSize,unsigned long (__stdcall* routine)(void*),void* argument,unsigned long flags,unsigned long* id);
 // 0x006C3B50
@@ -39,13 +39,13 @@ int __fastcall sub_006C3B50_StartServer(T006BE350* server,int port)
  address.port=sub_006B0156_Htons((unsigned short)port);
  server->port=(unsigned short)port;
  if(sub_006C9B76_Bind(server->socket,&address,sizeof(address))==-1) {
-  sub_0040D880_CloseSocket(socket);
+  sub_0040D880(socket);
   return 0;
  }
  if(sub_006C9B70_Listen(socket,25)==-1)
-  sub_0040D880_CloseSocket(socket);
+  sub_0040D880(socket);
  server->event=CreateEventA(0,0,0,0);
  server->thread=CreateThread(0,0,sub_006C3470_ServerThread,server,0,&server->threadId);
- sub_00407F80_RegisterThread(server->threadId,server->thread);
+ sub_00407F80_ThreadHookNop2(server->threadId,server->thread);
  return 1;
 }

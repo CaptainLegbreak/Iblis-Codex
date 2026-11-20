@@ -4,6 +4,8 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+struct D2SkillStrc;
+struct D2UnitStrc;
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -61,14 +63,14 @@ extern int gnStringCount_00711EF0;                                              
 extern D2StringRefStrc gaStringRefs_00711DDC[];                                                             // 0x00711DDC
 extern "C" const char gszPlayerCpp_006D6A34[];                                                              // 0x006D6A34
 
-unsigned int __cdecl sub_0044BEF0();                                                                        // 0x0044BEF0
-unsigned int __cdecl sub_0044DA90();                                                                        // 0x0044DA90
-unsigned int __cdecl sub_0044DAA0();                                                                        // 0x0044DAA0
-unsigned int __cdecl sub_0044DAC0();                                                                        // 0x0044DAC0
-void __fastcall sub_0044DAD0(unsigned int nValue);                                                          // 0x0044DAD0
+void __cdecl sub_0044BEF0(); // 0x0044BEF0
+int __cdecl sub_0044DA90(); // 0x0044DA90
+int __cdecl sub_0044DAA0(); // 0x0044DAA0
+int __cdecl sub_0044DAC0(); // 0x0044DAC0
+void __fastcall sub_0044DAD0(int nValue); // 0x0044DAD0
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId);                                    // 0x00451F80
 void __cdecl sub_00453EC0();                                                                                // 0x00453EC0
-int __fastcall sub_004538D0(int nUIVar);                                                             // 0x004538D0
+int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
 void __fastcall sub_0045AFF0_ScreenToMap(int* pX, int* pY);                                                             // 0x0045AFF0
 void __fastcall sub_0045C470_ClearPendingAction(D2UnitStrc* pUnit);                                        // 0x0045C470
 int __stdcall sub_00461D60_CheckPlayerState(int nArg1, int nArg2);                                             // 0x00461D60
@@ -78,7 +80,7 @@ int __fastcall sub_00465C60_CheckUnitPair(D2UnitStrc* pUnit, D2UnitStrc* pOther)
 void __cdecl sub_00466FE0();                                                                                // 0x00466FE0
 D2UnitStrc* __cdecl sub_00467A10();                                                             // 0x00467A10
 void __fastcall sub_00467A70_RefreshHoverUnit(D2UnitStrc* pUnit);                                                            // 0x00467A70
-D2UnitStrc* __fastcall sub_00467880_FindSkillTarget(D2SkillStrc* pSkill, D2UnitStrc* pTarget, int* pX, int* pY, unsigned int dwFlags, int bForce); // 0x00467880
+D2UnitStrc* __fastcall sub_00467880_GetSkillTarget(D2SkillStrc* pSkill, D2UnitStrc* pUnit, int* pnX, int* pnY, unsigned char nFlags, int bArg); // 0x00467880
 int __cdecl sub_00468830();                                                                                 // 0x00468830
 int __fastcall sub_00474080_GetDistance(int nDX, int nDY);                                                  // 0x00474080
 void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg);                                           // 0x00478680
@@ -90,8 +92,8 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);                             
 void __fastcall sub_00460780_SetPlayerMode(int nMode, D2UnitStrc* pUnit, int nArg1, int nArg2);             // 0x00460780
 int __fastcall sub_00461AC0_IsInAuraRange(D2SkillStrc* pSkill, D2UnitStrc* pTarget, int* pRange, int* pDistance); // 0x00461AC0
 int __fastcall sub_00462930_FilterMessage(D2PlayerCmdStrc* pCmd);                                           // 0x00462930
-D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType);                             // 0x00463990
-void __fastcall sub_00463D90(int nArg);                                                                     // 0x00463D90
+D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
+void __fastcall sub_00463D90_SetPlayerUnit(D2UnitStrc* pUnit); // 0x00463D90
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit();                                                           // 0x00463DE0
 void __fastcall sub_00464810_SetUnitFlag16(D2UnitStrc* pUnit);                                                            // 0x00464810
@@ -105,7 +107,7 @@ void __fastcall sub_0046BF30_CheckThroneLevel(D2ActiveRoomStrc* pRoom);         
 void __fastcall sub_0046C700(D2UnitStrc* pUnit);                                                            // 0x0046C700
 void __fastcall sub_0046EC10_FreeGfxData(D2UnitStrc* pUnit);                                                            // 0x0046EC10
 void __fastcall sub_0046ECE0_PruneGfxNodes(D2UnitStrc* pUnit);                                              // 0x0046ECE0
-void __fastcall sub_0046F020_FillGfxEntries(D2UnitStrc* pUnit, char nValue);                                // 0x0046F020
+void __fastcall sub_0046F020_FillGfxEntries(D2UnitStrc* pUnit, unsigned char nValue); // 0x0046F020
 void __fastcall sub_00473C90_SetGlobal(int nValue);                                                         // 0x00473C90
 void __fastcall sub_004743D0_ReleaseOverlayResource(void* pResource);                                       // 0x004743D0
 D2ClientEntryStrc* __fastcall sub_00478E40_FindEntry(int nKey);                                             // 0x00478E40
@@ -115,9 +117,9 @@ void __fastcall sub_004804E0_SetPosition(D2UnitStrc* pUnit, unsigned short nX, u
 void __fastcall sub_00481030_DoUnitAction(int nMode, D2UnitStrc* pUnit, int nArg1, int nArg2, int nArg3);                // 0x00481030
 void __fastcall sub_004B3E10_RefreshNpcEntries(D2UnitStrc* pUnit);                                                            // 0x004B3E10
 void __cdecl sub_004C1E30();                                                                                // 0x004C1E30
-void __fastcall sub_004C68F0(D2UnitStrc* pUnit);                                                            // 0x004C68F0
+int __fastcall sub_004C68F0_DoUsedSkill(D2UnitStrc* pUnit); // 0x004C68F0
 void __fastcall sub_004CB9C0_Request(D2UnitStrc* pUnit, unsigned short nStringId);                          // 0x004CB9C0
-int __fastcall sub_004D9FC0_GetSkillUseState(D2UnitStrc* pUnit, D2SkillStrc* pSkill);                       // 0x004D9FC0
+extern "C" int __fastcall sub_004D9FC0(D2UnitStrc* unit,D2SkillStrc* skill); // 0x004D9FC0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom);                                          // 0x0061A1B0
 int __stdcall DUNGEON_CheckLOSDraw(D2ActiveRoomStrc* pRoom);                                                        // 0x0061AA40
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom);                                                // 0x0061AB00
@@ -134,7 +136,7 @@ int __stdcall UNITS_IsCurrentRoomInvalid(D2UnitStrc* pUnit);                    
 void __stdcall UNITS_FreePlayerData(void* pMemPool, D2UnitStrc* pPlayer);                                   // 0x00622060
 void __stdcall UNITS_SetPlayerPortalFlags(D2UnitStrc* pUnit, int nPortalFlags);                             // 0x006221E0
 int __stdcall UNITS_GetPlayerPortalFlags(D2UnitStrc* pUnit);                                                // 0x00622230
-int __stdcall sub_00622B50_TestInteractCollision(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nMask);       // 0x00622B50
+int __stdcall sub_00622B50_IsRayFreeBetweenUnits(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2, unsigned int nCollisionMask); // 0x00622B50
 int __stdcall UNITS_IsInMeleeRange(D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nRangeBonus);                // 0x00622C40
 int __stdcall UNITS_IsInMovingModeEx(D2UnitStrc* pUnit);                                                    // 0x00622DC0
 void __stdcall STATLIST_SetUnitStat(D2UnitStrc* pUnit, int nStat, int nValue, int nLayer);                  // 0x00627260
@@ -211,7 +213,7 @@ void __fastcall sub_00460D50_FreeClientPlayer(D2UnitStrc* pUnit)
         sub_004743D0_ReleaseOverlayResource(pResource);
     sub_00464930_FreeLight(pUnit);
     if (pUnit == sub_00463DD0_GetPlayerUnit())
-        sub_00463D90(0);
+        sub_00463D90_SetPlayerUnit(0);
     UNITS_FreePlayerData(0, pUnit);
     sub_004608C0_RefreshAdjacentPlayers();
 }
@@ -337,7 +339,7 @@ static int __stdcall sub_004610C0_CheckSkillUse(int* pUseState, D2SkillStrc** pp
     if (!ppSkill || !*ppSkill)
         return 0;
 
-    int nUseState = sub_004D9FC0_GetSkillUseState(pUnit, *ppSkill);
+    int nUseState = sub_004D9FC0(pUnit, *ppSkill);
     if (pUseState)
         *pUseState = nUseState;
 
@@ -349,7 +351,7 @@ static int __stdcall sub_004610C0_CheckSkillUse(int* pUseState, D2SkillStrc** pp
         && (pSkillsTxt->nFlags[3] & gdwBitMasks[4]))
     {
         *ppSkill = SKILLS_GetHighestLevelSkillFromUnitAndId(pUnit, 0);
-        nUseState = sub_004D9FC0_GetSkillUseState(pUnit, *ppSkill);
+        nUseState = sub_004D9FC0(pUnit, *ppSkill);
     }
 
     if (nUseState == 5 || nUseState == 0)
@@ -392,7 +394,7 @@ static void __stdcall sub_004611F0_ReleaseUsedSkill(int bKeep, D2UnitStrc* pUnit
     if (nFlags & 1)
     {
         SKILLS_SetFlags(pSkill, nFlags | 2);
-        sub_004C68F0(pUnit);
+        sub_004C68F0_DoUsedSkill(pUnit);
         return;
     }
 
@@ -401,7 +403,7 @@ static void __stdcall sub_004611F0_ReleaseUsedSkill(int bKeep, D2UnitStrc* pUnit
 
     const int bFlag = pUnit ? (pUnit->dwFlags >> 6) & 1 : 0;
     if (!bFlag)
-        sub_004C68F0(pUnit);
+        sub_004C68F0_DoUsedSkill(pUnit);
 }
 
 static __declspec(noinline) void __stdcall sub_00461700_SendCommand(int bTarget, D2PlayerCmdStrc* pCmd);
@@ -545,7 +547,7 @@ static void __stdcall sub_00461890_OperateObject(int nObjectIdArg, D2PlayerCmdSt
     if ((!pObject ? -1 : pObject->dwClassId) == 0x3B && STATES_CheckState(sub_00463DD0_GetPlayerUnit(), 0x66))
         bSetMode = 0;
 
-    if (sub_00623660_IsInObjectInteractRange(pCmd->pPlayer, pCmd->pTarget) && !sub_00622B50_TestInteractCollision(pCmd->pPlayer, pCmd->pTarget, 0x804))
+    if (sub_00623660_IsInObjectInteractRange(pCmd->pPlayer, pCmd->pTarget) && !sub_00622B50_IsRayFreeBetweenUnits(pCmd->pPlayer, pCmd->pTarget, 0x804))
     {
         if (bSetMode)
             sub_00481030_DoUnitAction(0x13, pCmd->pPlayer, 2, nObjectId, 0);
@@ -567,7 +569,7 @@ static void sub_004619E0_InteractWithTarget(D2PlayerCmdStrc* pCmd, int nTargetId
     case 0:
     case 1:
     case 2:
-        if (!sub_00622B50_TestInteractCollision(pCmd->pTarget, pCmd->pPlayer, 0x804))
+        if (!sub_00622B50_IsRayFreeBetweenUnits(pCmd->pTarget, pCmd->pPlayer, 0x804))
         {
             sub_00481030_DoUnitAction(0x13, pCmd->pPlayer, 0, nTargetId, 0);
             return;
@@ -715,7 +717,7 @@ static void __stdcall sub_00461DC0_InteractWithUnit(int nUnitType, int nUnitId, 
             int bSetMode = 1;
             if (pCmd->pTarget && pCmd->pTarget->dwClassId == 0x3B && STATES_CheckState(pPlayerUnit, 0x66))
                 bSetMode = 0;
-            if (sub_00623660_IsInObjectInteractRange(pCmd->pPlayer, pCmd->pTarget) && !sub_00622B50_TestInteractCollision(pCmd->pPlayer, pCmd->pTarget, 0x804))
+            if (sub_00623660_IsInObjectInteractRange(pCmd->pPlayer, pCmd->pTarget) && !sub_00622B50_IsRayFreeBetweenUnits(pCmd->pPlayer, pCmd->pTarget, 0x804))
             {
                 if (bSetMode)
                 {
@@ -739,7 +741,7 @@ static void __stdcall sub_00461DC0_InteractWithUnit(int nUnitType, int nUnitId, 
         {
             if (pCmd->dwFlags & 8)
                 return;
-            if (sub_00641530(pTarget, pCmd->pPlayer) <= 4 && !sub_00622B50_TestInteractCollision(pCmd->pPlayer, pCmd->pTarget, 0x804))
+            if (sub_00641530(pTarget, pCmd->pPlayer) <= 4 && !sub_00622B50_IsRayFreeBetweenUnits(pCmd->pPlayer, pCmd->pTarget, 0x804))
             {
                 sub_00481030_DoUnitAction(0x13, pCmd->pPlayer, nUnitType, nUnitId, 0);
                 sub_0044BEF0();
@@ -754,7 +756,7 @@ static void __stdcall sub_00461DC0_InteractWithUnit(int nUnitType, int nUnitId, 
         }
         case 0:
         {
-            if (sub_00641530(pTarget, pCmd->pPlayer) <= 4 && !sub_00622B50_TestInteractCollision(pCmd->pPlayer, pCmd->pTarget, 0x804))
+            if (sub_00641530(pTarget, pCmd->pPlayer) <= 4 && !sub_00622B50_IsRayFreeBetweenUnits(pCmd->pPlayer, pCmd->pTarget, 0x804))
             {
                 sub_00481030_DoUnitAction(0x13, pCmd->pPlayer, nUnitType, nUnitId, 0);
                 return;
@@ -915,7 +917,7 @@ static int sub_004621D0_PrepareCommand(D2PlayerCmdStrc* pCmd)
     int bForce = (pCmd->dwFlags >> 5) & 1;
     if ((pCmd->dwFlags & 2) && !pCmd->pTarget)
         bForce = 1;
-    pCmd->pTarget = sub_00467880_FindSkillTarget(pCmd->pSkill, pCmd->pTarget, &pCmd->nX, &pCmd->nY, pCmd->dwFlags, bForce);
+    pCmd->pTarget = sub_00467880_GetSkillTarget(pCmd->pSkill, pCmd->pTarget, &pCmd->nX, &pCmd->nY, pCmd->dwFlags, bForce);
     if (sub_00468830() == 6)
     {
         sub_00453EC0();

@@ -79,11 +79,11 @@ struct D2QuestTableStrc
     int nQuestId;
 };
 int __cdecl sub_0044DCC0(); // 0x0044DCC0
-void* __fastcall sub_004788B0_LoadCellFile(const char* szPath, int nFlags); // 0x004788B0
+D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType); // 0x004788B0
 D2BitBufferStrc* __cdecl sub_004B32D0(); // 0x004B32D0
 int __stdcall sub_004B92E0_GetTableByte(int nUnused, int nIndex); // 0x004B92E0
 const unsigned short* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
-void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
+Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 unsigned short* __fastcall sub_00526700(unsigned short* pDest, const Unicode* pSource); // 0x00526700
 unsigned short* __fastcall sub_00526790(unsigned short* pDest, const unsigned short* pSource, int nCount); // 0x00526790
 unsigned short* __fastcall sub_005267E0(unsigned short* pDest, const unsigned short* pSource); // 0x005267E0
@@ -120,8 +120,8 @@ struct T0044CB60
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
-int __fastcall sub_004538D0(int nUIVar); // 0x004538D0
-void __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
+int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 int __cdecl sub_00463DF0(); // 0x00463DF0
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
@@ -210,9 +210,9 @@ D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 unsigned char __stdcall DRLG_GetActNoFromLevelId(int nLevelId); // 0x006427F0
-int __cdecl D2GFX_GetResolutionMode(); // 0x004F5160
-void __stdcall sub_004A3220(int nPage, int nArg); // 0x004A3220
-void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
+int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
+void __stdcall sub_004A3220_LoadQuestPage(int nPage, int bReset); // 0x004A3220
+int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 void __fastcall sub_004A3FE0(int nMode); // 0x004A3FE0
 void __cdecl sub_0044DA70(); // 0x0044DA70
 void __fastcall sub_0049E7E0_SetTextCallback(D2TextCallback pfnCallback, void* pContext); // 0x0049E7E0
@@ -990,6 +990,7 @@ void __cdecl sub_004A34F0_DrawQuestPage()
 }
 
 #include "gen/data/Source/D2Client/Unknown_004A1600.inc"
+struct D2CelFileStrc;
 
 // 0x004A2220
 static void sub_004A2220_SetQuestPage(int nPageArg)
@@ -1169,7 +1170,7 @@ void __stdcall sub_004A3E40_OnLeftButtonDown(SMSGHANDLER_PARAMS* pMsg)
             {
                 sub_004A2760(gnGlobal_007C0255);
                 sub_004A2220_SetQuestPage(nIndex);
-                sub_004A3220(gnGlobal_007C0255, 1);
+                sub_004A3220_LoadQuestPage(gnGlobal_007C0255, 1);
                 sub_004A2390_ResetQuestSelection();
             }
         }
@@ -1205,7 +1206,7 @@ void __stdcall sub_004A3E40_OnLeftButtonDown(SMSGHANDLER_PARAMS* pMsg)
     }
     pMsg->bUseResult = 1;
     pMsg->lResult = 0;
-    sub_00420290_HandleMsg(pMsg);
+    sub_00420290_BreakHandlerChain(pMsg);
 }
 
 void __stdcall sub_004A42A0_OnLeftButtonUp(SMSGHANDLER_PARAMS* pMsg)
@@ -1248,7 +1249,7 @@ void __stdcall sub_004A42A0_OnLeftButtonUp(SMSGHANDLER_PARAMS* pMsg)
     sub_0044DA70();
     pMsg->bUseResult = 1;
     pMsg->lResult = 0;
-    sub_00420290_HandleMsg(pMsg);
+    sub_00420290_BreakHandlerChain(pMsg);
 }
 
 int ganPageSelection_007BF280[5]; // 0x007BF280
@@ -1273,7 +1274,7 @@ void __stdcall sub_004A3220_LoadQuestPage(int nPage, int bReset)
         if (!gapCelFiles_007BF2E1[i])
         {
             sprintf(szPath, "%s\\ui\\menu\\%s", gszDataGlobal_006D4118, gaszQuestCelNames_006DA2C8[i]);
-            gapCelFiles_007BF2E1[i] = sub_004788B0_LoadCellFile(szPath, 0);
+            gapCelFiles_007BF2E1[i] = sub_004788B0(szPath, 0);
         }
     }
 

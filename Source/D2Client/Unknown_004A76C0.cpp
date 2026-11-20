@@ -52,7 +52,7 @@ extern int gnGlobal_007A2858; // 0x007A2858
 extern int gnGlobal_007A285C; // 0x007A285C
 extern int gnGlobal_007C02F4; // 0x007C02F4
 extern D2BeltSlotStrc gtSlots_00724A48[4]; // 0x00724A48
-int __cdecl D2GFX_GetResolutionMode(); // 0x004F5160
+int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 int __fastcall sub_00498DC0_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00498DC0
 int __cdecl sub_00468830(); // 0x00468830
 void __cdecl sub_00453EC0(); // 0x00453EC0
@@ -65,7 +65,7 @@ int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLaye
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
 void __stdcall sub_00467FA0_MsgHandler(SMSGHANDLER_PARAMS* pMsg); // 0x00467FA0
 void __stdcall sub_00467F20_MsgHandler(SMSGHANDLER_PARAMS* pMsg); // 0x00467F20
-void __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 extern "C" __declspec(dllimport) short __stdcall GetKeyState(int nVirtKey); // 0x006CC45C
 void __fastcall sub_004785B0_SendPacket3(unsigned char nCmd, unsigned short nArg); // 0x004785B0
 void __cdecl sub_0044DA70(); // 0x0044DA70
@@ -216,11 +216,11 @@ void __stdcall TEXTURE_CelDraw(D2CelContextStrc* pData, int nXPos, int nYPos, un
 int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nTextColor, int nAlign); // 0x00502280
 void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320
-void __fastcall sub_005023B0_DrawTextBox(const Unicode* wszText, int nX, int nY, int nColor, int nArg5, int nArg6); // 0x005023B0
+void __fastcall D2Win_10132(const Unicode* wszText, int nX, int nY, unsigned int dwColor, int eDrawMode, int nColor); // 0x005023B0
 void __fastcall D2Win_10131_GetTextDimensions(const Unicode* pText, int* pWidth, int* pHeight); // 0x00502520
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
 void __stdcall sub_00525350_FormatUInt(Unicode* pOut, unsigned int nValue, int nSize); // 0x00525350
-unsigned int __fastcall sub_005262A0_Utf8CountChars(const char* szText, int nLength); // 0x005262A0
+int __fastcall sub_005262A0_Utf8CountChars(const char* pSrc, int nCount); // 0x005262A0
 Unicode* __fastcall strncpy(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526790
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 Unicode* __fastcall win2Unicode(Unicode* pDest, const char* szSource, int nCount); // 0x00526F20
@@ -278,7 +278,7 @@ void __cdecl sub_004AB530_DrawTabCel(); // 0x004AB530
 void __cdecl sub_004AB630_DrawTabHint(); // 0x004AB630
 void __cdecl sub_004AC200_RefreshSkillTree(); // 0x004AC200
 void __cdecl sub_004AC4D0_DrawSkillTree(); // 0x004AC4D0
-int __fastcall sub_004D9FC0_GetSkillUseState(D2UnitStrc* pUnit, D2SkillStrc* pSkill); // 0x004D9FC0
+extern "C" int __fastcall sub_004D9FC0(D2UnitStrc* unit,D2SkillStrc* skill); // 0x004D9FC0
 D2SkillsTxt* __fastcall sub_00644140_GetSkillsTxtFromSkill(D2SkillStrc* pSkill); // 0x00644140
 int __stdcall SKILLS_GetClassIdFromSkillId(int nSkillId); // 0x00645040
 void __stdcall sub_K05_EmitUse(int nValue);
@@ -396,6 +396,8 @@ void __cdecl sub_004A7AA0_InitTextEntryLengths()
 }
 
 #include "gen/data/Source/D2Client/Unknown_004A76C0.inc"
+struct D2SkillStrc;
+struct D2UnitStrc;
 
 int gnGlobal_007C02F4; // 0x007C02F4
 
@@ -517,7 +519,7 @@ static void sub_004A7180_DrawHoverLevelText(int nX, int nY, int nValue)
         sub_005269D0(0x80, wszText, D2LANG_GetStringFromTblIndex(0x2778), D2LANG_GetStringFromTblIndex(pMonStatsTxtRecord->nNameStr), nValue);
     }
 
-    sub_005023B0_DrawTextBox(wszText, gnGlobal_007A2858 + 0x8B, gnGlobal_00711470 + gnGlobal_007A285C - 0x13B, gnTextColor_007C02F8, 2, 0);
+    D2Win_10132(wszText, gnGlobal_007A2858 + 0x8B, gnGlobal_00711470 + gnGlobal_007A285C - 0x13B, gnTextColor_007C02F8, 2, 0);
 }
 
 static void __stdcall sub_004A7AE0_DrawHoverToHit(int nX, int nY, int nLeftChance, int nRightChance)
@@ -1141,7 +1143,7 @@ void __fastcall sub_004A8CE0_SetValue(int nValue)
 // 0x004A8D30
 int __fastcall sub_004A8D30_GetSkillState(D2UnitStrc* pUnit, D2SkillStrc* pSkill)
 {
-    const int nState = sub_004D9FC0_GetSkillUseState(pUnit, pSkill);
+    const int nState = sub_004D9FC0(pUnit, pSkill);
     if (nState)
     {
         return nState == 6 ? 4 : 1;

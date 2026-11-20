@@ -1,6 +1,9 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+struct D2GfxDataStrc;
+struct D2GfxListNodeStrc;
+struct D2UnitStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2CompRecordStrc;
@@ -108,14 +111,14 @@ extern unsigned int gaCompTokens_007C8920[]; // 0x007C8920
 extern unsigned int gaObjModeTokens_007C8960[8]; // 0x007C8960
 extern unsigned int gaMonModeTokens_007C8980[]; // 0x007C8980
 extern unsigned int gaClassTokens_007C89C0[3]; // 0x007C89C0
-unsigned int __stdcall UNITS_GetAnimOrSeqMode(D2UnitStrc* pUnit); // 0x00621190
+int __stdcall UNITS_GetAnimOrSeqMode(D2UnitStrc* pUnit); // 0x00621190
 void __stdcall D2COMMON_11013_ConvertMode(D2UnitStrc* pUnit, int* pType, int* pClass, int* pMode, const char* szFile, int nLine); // 0x00645270
 D2InventoryStrc* __fastcall sub_0046DB30_GetCompInventory(D2UnitStrc* pUnit, int* pOut); // 0x0046DB30
 int __stdcall COMPOSIT_GetWeaponClassId(D2UnitStrc* pUnit, D2InventoryStrc* pInventory, int* pWeaponClassId, int nAnimMode, int a5); // 0x0064F380
-void* __fastcall sub_0046E5A0_FindGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nArg); // 0x0046E5A0
+D2GfxListNodeStrc* __fastcall sub_0046E5A0_FindGfxListNode(D2UnitStrc* pUnit, int nId, int nMode); // 0x0046E5A0
 void* __fastcall sub_0046FA80_LoadGfxNode(D2UnitStrc* pUnit, int nWeaponClassId, int nArg); // 0x0046FA80
 D2CompEntryStrc* __fastcall sub_0046E570_GetGfxEntry(D2UnitStrc* pUnit, int nMode); // 0x0046E570
-void* __fastcall sub_00463E10_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
+D2GfxDataStrc* __fastcall sub_00463E10_GetGfxData(D2UnitStrc* pUnit); // 0x00463E10
 int __fastcall sub_004DAA00_GetModeArg(D2UnitStrc* pUnit, int nType, int nClass); // 0x004DAA00
 unsigned char __fastcall sub_004DA770_GetMonComponentIndex(D2UnitStrc* pUnit, unsigned char nComponent); // 0x004DA770
 int __fastcall sub_004638A0_CheckMonStats2Flag(int nMonsterId, int nFlag); // 0x004638A0
@@ -355,7 +358,7 @@ static int __stdcall sub_004DB7B0_ResolveUnitCelContext(D2UnitStrc* pUnit, D2Cel
         pToken->nArg1C = gaCompTokens_007C8920[pToken->nComponent];
         int nWeaponClassId;
         pToken->dwCode = COMPOSIT_GetWeaponClassId(pUnit, pInventory, &nWeaponClassId, pToken->nMode, 0);
-        if (!sub_0046E5A0_FindGfxNode(pUnit, pToken->dwCode, pToken->nMode) && !sub_0046FA80_LoadGfxNode(pUnit, pToken->dwCode, pToken->nMode))
+        if (!sub_0046E5A0_FindGfxListNode(pUnit, pToken->dwCode, pToken->nMode) && !sub_0046FA80_LoadGfxNode(pUnit, pToken->dwCode, pToken->nMode))
             return 0;
 
         D2CompEntryStrc* pEntry = sub_0046E570_GetGfxEntry(pUnit, pToken->nMode);

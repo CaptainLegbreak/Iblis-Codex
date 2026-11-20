@@ -23,7 +23,7 @@ typedef void (__fastcall* PixelDataFreeCallback)(void* pData);
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 int __cdecl sub_00509650();                                                                                  // 0x00509650
 void __fastcall sub_0050A110_GlideFreeCelData(void* pData);                                                 // 0x0050A110
-void __stdcall sub_00601A30_StorePixelFreeHandler(PixelDataFreeCallback pfnCallback);                                 // 0x00601A30
+void __stdcall sub_00601A30_StorePixelFreeHandler(PixelDataFreeCallback pfnCallback); // 0x00601A30
 
 extern D2GrTexInfoStrc gGlideSmackTexInfoA_0072F680;                                                        // 0x0072F680
 extern D2GrTexInfoStrc gGlideSmackTexInfoB_0072F694;                                                        // 0x0072F694

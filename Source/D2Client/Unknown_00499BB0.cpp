@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2Txt.h"
+struct D2UnitStrc;
 
 
 
@@ -48,7 +49,7 @@ D2UnitStrc* __stdcall INVENTORY_GetItemFromBeltSlot(D2InventoryStrc* pInventory,
 int __cdecl sub_00468830();                                                                                 // 0x00468830
 unsigned int __stdcall ITEMS_CheckIfBeltable(D2UnitStrc* pItem);                                            // 0x0062BAD0
 int __fastcall sub_004C2240(D2UnitStrc* pItem);                                                             // 0x004C2240
-void __fastcall sub_004786A0_SendIntInt(char nHeader, int nArg1, int nArg2);                               // 0x004786A0
+void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg);                                           // 0x00478680
 void __fastcall sub_004786D0_SendDwords3(unsigned char nHeader, unsigned int d1, unsigned int d5, unsigned int d9); // 0x004786D0
 void __fastcall sub_004C21F0(D2UnitStrc* pItem);
@@ -68,12 +69,12 @@ int __stdcall UNITS_GetInventoryRecordId(D2UnitStrc* pUnit, int nArg, int nMode)
 void __stdcall sub_0065C1F0(int nId, int nGroup, D2Block1* pBlock);              // 0x0065C1F0
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId);                                              // 0x006335F0
 void __fastcall sub_0049FF90_Close(D2UnitStrc* pItem, D2ItemsTxt* pState);                                  // 0x0049FF90
-void __fastcall sub_004CB9C0_Request(D2UnitStrc* pUnit, int nId);                                           // 0x004CB9C0
+void __fastcall sub_004CB9C0_Request(D2UnitStrc* pUnit, unsigned short nStringId); // 0x004CB9C0
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType);                                      // 0x00629BB0
 int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pOwner, int nPetType, int bAny);                   // 0x00478F20
 void __fastcall sub_004CBDE0_PlayEventSound(int nUnitId, unsigned char nUnitType, unsigned short nEvent);   // 0x004CBDE0
 int __fastcall sub_00498DC0_MouseMoveMsg(SMSGHANDLER_PARAMS* pMsg);                                         // 0x00498DC0
-void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS* pMsg);                                            // 0x00420290
+int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 extern int gnUiRecordRow_007A5218;                                                                          // 0x007A5218
 extern int gnGlobal_0071146C;                                                                               // 0x0071146C
 extern int gnGlobal_00711470;                                                                               // 0x00711470
@@ -124,13 +125,13 @@ static void __stdcall sub_00498870_ClickBeltBox(D2InventoryStrc* pInventory, int
         {
             if (!bBusy)
             {
-                sub_004786A0_SendIntInt(0x25, pCursorItem->dwUnitId, pBeltItem->dwUnitId);
+                sub_004786A0_SendDwords2(0x25, pCursorItem->dwUnitId, pBeltItem->dwUnitId);
                 sub_004C21F0(pCursorItem);
             }
         }
         else if (!bBusy)
         {
-            sub_004786A0_SendIntInt(0x23, pCursorItem->dwUnitId, (unsigned short)nBox);
+            sub_004786A0_SendDwords2(0x23, pCursorItem->dwUnitId, (unsigned short)nBox);
             sub_004C21F0(pCursorItem);
         }
         sub_004B9A00(sub_004C1D60(pCursorItem), 0, 0, 0, 0);
@@ -374,7 +375,7 @@ void __stdcall sub_00499D10_BeltClick(SMSGHANDLER_PARAMS* pMsg)
         }
 
         sub_00498A90_UseBeltSlot(nBox, pPlayer, pPlayer->pInventory, (pMsg->wParam >> 2) & 1);
-        sub_00420290_HandleMsg(pMsg);
+        sub_00420290_BreakHandlerChain(pMsg);
         return;
     }
 

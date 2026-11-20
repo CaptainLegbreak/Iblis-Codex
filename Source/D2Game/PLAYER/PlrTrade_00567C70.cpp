@@ -3,6 +3,9 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2UnitData.h"
+struct D2GameStrc;
+struct D2PlayerDataStrc;
+struct D2UnitStrc;
 // build: base-profile
 
 struct D2InventoryStrc;
@@ -83,8 +86,8 @@ int gbEnableAllCubeRecipes_0088CAC0;                                            
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);           // 0x0040B430
 int __fastcall sub_00451F60_UnitClassId(D2UnitStrc* pUnit);                                                 // 0x00451F60
 D2ItemStatCostTxt* __fastcall sub_0045C4F0_GetItemStatCostTxtRecord(int nStatId);                           // 0x0045C4F0
-int __fastcall sub_00531BB0_WriteItemList(void* pArg1, void* pArg2, unsigned char* pBuffer, int nBufferSize, int nArg5, int nArg6, int nArg7); // 0x00531BB0
-int __fastcall CLIENTS_CheckFlag(D2ClientStrc* pClient, int nFlag);                                         // 0x00538670
+int __fastcall sub_00531BB0_WriteItemList(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char* pBuffer, int nBufferSize, int nArg5, int nArg6, int nArg7); // 0x00531BB0
+int __fastcall CLIENTS_CheckFlag(D2ClientStrc* pClient, unsigned short nFlag); // 0x00538670
 char* __fastcall CLIENTS_GetName(D2ClientStrc* pClient);                                                    // 0x00538830
 void __fastcall D2GAME_PACKETS_SendPacket0x77_Ui_6FC3E0B0(D2ClientStrc* pClient, unsigned char nUiNo);      // 0x0053CAB0
 void __fastcall sub_0053CAD0_SendPacket0x78(D2ClientStrc* pClient, D2GSPacketSrv78* pPacket);               // 0x0053CAD0
@@ -106,7 +109,7 @@ void __fastcall ITEMMODE_ResetBookScrollSkillQuantity(D2UnitStrc* pUnit, D2UnitS
 void __fastcall ITEMMODE_RebuildBookScrollSkillQuantities(D2GameStrc* pGame, D2UnitStrc* pUnit);                                         // 0x0055FA40
 int __fastcall D2GAME_PlaceItem_6FC44410(const char* szFile, int nLine, D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnitId, int nX, int nY, int a8, int a9, D2InventoryStrc* pInventory); // 0x00560200
 int __fastcall sub_6FC4B310(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2UnitStrc* pSocketable, int bRefresh); // 0x00563350
-void __fastcall PLRTRADE_CreateCubeOutputs(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2CubeMainTxt* pCubeMainTxtRecord, D2CubeItemStrc* pCubeItem, int nArg5); // 0x00565AB0
+D2UnitStrc* __fastcall PLRTRADE_CreateCubeOutputs(D2GameStrc* game,D2UnitStrc* player,D2CubeMainTxt* recipe,D2CubeItemStrc* inputs,int unused); // 0x00565AB0
 int __fastcall PLRTRADE_CheckCubeInput(D2GameStrc* pGame, D2InventoryStrc* pInventory, D2CubeMainTxt* pCubeMainTxtRecord, int nInputIndex, D2CubeItemStrc* pCubeItem, int* pUsedItems); // 0x00565010
 void __fastcall PLRTRADE_Free(D2GameStrc* pGame, D2UnitStrc* pUnit);                                        // 0x00566BF0
 void __fastcall sPlayerRestoreInventoryCopy(D2GameStrc* pGame, D2UnitStrc* pUnit, int a3);                                 // 0x005678F0
@@ -116,12 +119,12 @@ int __fastcall ACT4Q2_HasDiabloBeenKilled(D2GameStrc* pGame);                   
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                               // 0x00620BB0
 void __stdcall UNITS_RefreshInventory(D2UnitStrc* pUnit, int bSetFlag);                                     // 0x00621000
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit);                                         // 0x006221A0
-int __stdcall UNITS_GetInventoryGoldLimit(D2UnitStrc* pUnit);                                               // 0x00622E70
+unsigned int __stdcall UNITS_GetInventoryGoldLimit(D2UnitStrc* pUnit); // 0x00622E70
 int __stdcall UNITS_GetStashGoldLimit(D2UnitStrc* pUnit);                                                   // 0x00623460
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode);                                           // 0x00624690
 int __stdcall STATLIST_GetUnitBaseStat(D2UnitStrc* pUnit, int nStatId, int nLayer);                         // 0x006253B0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);                        // 0x00625480
-int __stdcall sub_00625560(D2UnitStrc* pUnit, int nStatId, int nLayer);                                     // 0x00625560
+int __stdcall STATLIST_GetUnitStatBonus(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625560
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom);                                                // 0x0061AB00
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile);   // 0x006280A0
 void __stdcall ITEMS_SetItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int bSet);                         // 0x006280D0
@@ -130,8 +133,8 @@ void __stdcall ITEMS_SetInvPage(D2UnitStrc* pItem, unsigned char nPage);        
 void __stdcall ITEMS_SetItemCell(D2UnitStrc* pItem, unsigned char nItemCell);                               // 0x00628320
 char* __stdcall ITEMS_GetEarName(D2UnitStrc* pItem);                                                        // 0x00628340
 void __stdcall ITEMS_SetEarName(D2UnitStrc* pItem, char* szName);                                           // 0x00628370
-int __stdcall ITEMS_GetEarLevel(D2UnitStrc* pItem);                                                         // 0x006283A0
-void __stdcall ITEMS_SetEarLevel(D2UnitStrc* pItem, int nLevel);                                            // 0x006283D0
+unsigned char __stdcall ITEMS_GetEarLevel(D2UnitStrc* pItem); // 0x006283A0
+void __stdcall ITEMS_SetEarLevel(D2UnitStrc* pItem, unsigned char nLevel); // 0x006283D0
 void __stdcall ITEMS_SetOrRemoveFlag(int* pFlags, int nFlag, int bSet);                                     // 0x006287B0
 int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem);                                                         // 0x0062B400
 D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory);                                  // 0x0063B2C0
@@ -504,7 +507,7 @@ static void __stdcall PLRTRADE_HandleCubeInteraction(D2GameStrc* pGame, D2UnitSt
                     {
                         tOp.nShifted = pCubeMainTxtRecord->nValue >> pItemStatCostTxtRecord->nValShift;
                         tOp.nStatId = pCubeMainTxtRecord->nParam;
-                        if (sub_00625560(pUnit, tOp.nStatId, 0) >= tOp.nShifted)
+                        if (STATLIST_GetUnitStatBonus(pUnit, tOp.nStatId, 0) >= tOp.nShifted)
                         {
                             bOpConditionsFulfilled = 1;
                         }
@@ -525,7 +528,7 @@ static void __stdcall PLRTRADE_HandleCubeInteraction(D2GameStrc* pGame, D2UnitSt
                     {
                         tOp.nShifted = pCubeMainTxtRecord->nValue >> pItemStatCostTxtRecord->nValShift;
                         tOp.nStatId = pCubeMainTxtRecord->nParam;
-                        if (sub_00625560(pUnit, tOp.nStatId, 0) <= tOp.nShifted)
+                        if (STATLIST_GetUnitStatBonus(pUnit, tOp.nStatId, 0) <= tOp.nShifted)
                         {
                             bOpConditionsFulfilled = 1;
                         }
@@ -546,7 +549,7 @@ static void __stdcall PLRTRADE_HandleCubeInteraction(D2GameStrc* pGame, D2UnitSt
                     {
                         tOp.nShifted = pCubeMainTxtRecord->nValue >> pItemStatCostTxtRecord->nValShift;
                         tOp.nStatId = pCubeMainTxtRecord->nParam;
-                        if (sub_00625560(pUnit, tOp.nStatId, 0) != tOp.nShifted)
+                        if (STATLIST_GetUnitStatBonus(pUnit, tOp.nStatId, 0) != tOp.nShifted)
                         {
                             bOpConditionsFulfilled = 1;
                         }
@@ -567,7 +570,7 @@ static void __stdcall PLRTRADE_HandleCubeInteraction(D2GameStrc* pGame, D2UnitSt
                     {
                         tOp.nShifted = pCubeMainTxtRecord->nValue >> pItemStatCostTxtRecord->nValShift;
                         tOp.nStatId = pCubeMainTxtRecord->nParam;
-                        if (sub_00625560(pUnit, tOp.nStatId, 0) == tOp.nShifted)
+                        if (STATLIST_GetUnitStatBonus(pUnit, tOp.nStatId, 0) == tOp.nShifted)
                         {
                             bOpConditionsFulfilled = 1;
                         }
@@ -638,7 +641,7 @@ static __declspec(noinline) bool PLRTRADE_AllocPlayerTrade(D2GameStrc* pGame, D2
     return false;
 }
 
-static void __stdcall sub_00567020_StartTrade(D2UnitStrc* pPlayer, D2UnitStrc* pInteractPlayer, D2PlayerDataStrc* pPlayerData, D2PlayerDataStrc* pInteractPlayerData); // 0x00567020
+void __fastcall sub_00567020_StartTrade(D2UnitStrc* pPlayer, int nUnused, D2UnitStrc* pInteractPlayer, D2PlayerDataStrc* pPlayerData, D2PlayerDataStrc* pInteractPlayerData); // 0x00567020
 // 0x00567020
 static void __stdcall sub_00567020_StartTrade(D2UnitStrc* pPlayer, D2UnitStrc* pInteractPlayer, D2PlayerDataStrc* pPlayerData, D2PlayerDataStrc* pInteractPlayerData)
 {

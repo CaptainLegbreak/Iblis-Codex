@@ -89,18 +89,18 @@ extern "C" __declspec(dllimport) void __stdcall OutputDebugStringA(const char* s
 
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);                               // 0x0040B380
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int dwFlags);                  // 0x00412650
-void __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax);                             // 0x004135D0
-void __fastcall sub_0042F2E0_ReadPaletteFiles(const char* szFile1, const char* szFile2);                         // 0x0042F2E0
+unsigned int __stdcall SStrCopy(char* dest,const char* source,unsigned int limit); // 0x004135D0
+int __fastcall sub_0042F2E0_ReadPaletteFiles(const char* szFile1, const char* szFile2); // 0x0042F2E0
 D2WinControlStrc* __fastcall sub_0042F3A0_CreateFromTemplate(int nTemplateId);                              // 0x0042F3A0
 void __cdecl sub_0042F3F0_DestroyControls();                                                                // 0x0042F3F0
 D2WinControlStrc* __fastcall sub_0042F430_CreateControl(int nId);                                           // 0x0042F430
 void __cdecl sub_0042F480_Reset();                                                                          // 0x0042F480
 void __cdecl sub_0042F6E0();                                                                                // 0x0042F6E0
-void __cdecl sub_00432EF0();                                                                                // 0x00432EF0
+extern "C" void __cdecl sub_00432EF0_ConfigureLanguageLayout(); // 0x00432EF0
 int __stdcall sub_00433020_PollConnectA(int nArg);                                                                       // 0x00433020
 int __stdcall sub_00433060_PollConnectB(int nArg);                                                                       // 0x00433060
 void __fastcall sub_00433380_ShowMessage(const Unicode* pText, D2LaunchDoneFn pfnDone, int nArg);           // 0x00433380
-void __stdcall sub_0043A460(const Unicode* pTitle, const Unicode* pText, int nArg3, int nArg4);             // 0x0043A460
+extern "C" int __stdcall sub_0043A460_CreateNotice(const Unicode* pTitle, const Unicode* pText, int nState, unsigned char nSel); // 0x0043A460
 void __cdecl sub_0043A730_UpdateButtons();                                                                                // 0x0043A730
 void __stdcall sub_00449E50_SetValue(int nValue);                                                                    // 0x00449E50
 void __fastcall sub_0044A7A0_SendPacket0A(const char* szName, unsigned short nArg);                                      // 0x0044A7A0
@@ -119,7 +119,7 @@ int __fastcall sub_00502EF0(int nArg);                                          
 int __stdcall sub_005041B0_Destroy(D2CellFileStrc* pCellFile, int nFlag);                                   // 0x005041B0
 int __stdcall sub_00518150(D2FuncRecordStrc* pRecord, int nIndex);                                          // 0x00518150
 D2FuncTable_0077ABF0Strc* __cdecl sub_00518C00();                                                           // 0x00518C00
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(short nIndex);                                       // 0x00524A30
+const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 int __fastcall sub_00526800(const Unicode* pString);                                                      // 0x00526800
 
 extern "C" const char* const gapszSkyPalette_006D3A08[2];                                                   // 0x006D3A08
@@ -533,7 +533,7 @@ void __cdecl sub_0043A5D0_ShowMessage()
     else
         pText = D2LANG_GetStringFromTblIndex(0x141A);
     gnSelectionA_0070CC04 = gdwGlobal_00779DC4;
-    sub_0043A460(pTitle, pText, 1, 0xC);
+    sub_0043A460_CreateNotice(pTitle, pText, 1, 0xC);
 }
 
 // 0x0043A650
@@ -621,7 +621,7 @@ void __cdecl sub_0043C4F0()
     sub_0042F430_CreateControl(6);
     sub_0042F430_CreateControl(7);
     sub_0042F2E0_ReadPaletteFiles(gapszSkyPalette_006D3A08[0], gapszSkyPalette_006D3A08[1]);
-    sub_00432EF0();
+    sub_00432EF0_ConfigureLanguageLayout();
 }
 
 // 0x0043C6A0

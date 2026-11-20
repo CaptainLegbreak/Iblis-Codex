@@ -115,6 +115,7 @@ extern const unsigned int gdwBitMasks[32];                                      
 #include "gen/data/Source/D2Game/UNIT/SUnitInactive_00541FE0/gnInactiveNoTcParam2_007314C8.inc"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+struct D2UnitStrc;
 void* __fastcall sub_0040B430(void* pMemPool, int nSize, const char* szFile, int nLine, int n0);    // 0x0040B430
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit);                                                // 0x00620BB0
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState);                                              // 0x00639DF0
@@ -125,7 +126,7 @@ void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc* pGame, D2UnitStrc* pUn
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath);                                                   // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath);                                                   // 0x00648900
 int __fastcall AITHINK_GetSpecialStateFromAiControl(D2AiControlStrc* pAiControl);                            // 0x005B0D60
-int __fastcall MONSTERUNIQUE_GetNameSeed(D2UnitStrc* pUnit);                                                 // 0x005A0140
+unsigned short __fastcall MONSTERUNIQUE_GetNameSeed(D2UnitStrc* pUnit); // 0x005A0140
 int __fastcall MONSTERUNIQUE_CheckMonTypeFlag(D2UnitStrc* pUnit, int nFlag);                                 // 0x005A0180
 short __fastcall MONSTERUNIQUE_GetBossHcIdx(D2UnitStrc* pUnit);                                              // 0x005A01E0
 void __fastcall QUESTS_SetGoldenBirdSpawn(D2GameStrc* pGame, D2UnitStrc* pUnit);                             // 0x00544F20

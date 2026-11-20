@@ -225,7 +225,7 @@ struct Unicode
 };
 
 void __stdcall sub_00449DD0_SetValue(int nValue); // 0x00449DD0
-int __stdcall SStrLen(const char* szString); // 0x00413750
+unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 void __stdcall sub_0044B230_StripStringAndNextChar(Unicode* pText); // 0x0044B230
 char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70

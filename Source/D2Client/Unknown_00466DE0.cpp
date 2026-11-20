@@ -34,9 +34,9 @@ D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonster
 static __declspec(noinline) void sub_00466DE0_SetHoverUnit(D2UnitStrc* pUnit);
 int __fastcall sub_00463EE0_IsPointInTileRect(D2UnitStrc* pUnit, int nX, int nY); // 0x00463EE0
 int __cdecl sub_0044BF30(); // 0x0044BF30
-unsigned int __cdecl sub_0044DAA0(); // 0x0044DAA0
+int __cdecl sub_0044DAA0(); // 0x0044DAA0
 unsigned int __cdecl sub_0044DAC0(); // 0x0044DAC0
-void __fastcall sub_0044DAD0(unsigned int nValue); // 0x0044DAD0
+void __fastcall sub_0044DAD0(int nValue); // 0x0044DAD0
 
 static __declspec(noinline) int __stdcall sub_00467000_CheckWarpTileHover(D2UnitStrc* pPlayer, D2HoverCoordStrc tY1, int nX2, int nY2, D2UnitStrc* pUnit, int nX1, int* pnFlag);
 

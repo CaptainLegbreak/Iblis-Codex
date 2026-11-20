@@ -139,7 +139,7 @@ struct D2QServerReqStrc
     D2QueueServerStrc* pServer;
     int nSlot;
 };
-void __fastcall sub_00407F90_ThreadHookNop1(int n); // 0x00407F90
+void __fastcall sub_00407F90_ThreadHookNop1(unsigned int nId); // 0x00407F90
 void __fastcall sub_006C2D70(D2QueueServerStrc* pServer, int nSlot, int nWait); // 0x006C2D70
 extern const char gszQServerFile[]; // 0x006FC8A0
 

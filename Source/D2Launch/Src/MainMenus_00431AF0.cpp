@@ -20,7 +20,7 @@ extern "C" __declspec(dllimport) int __stdcall DeleteFileA(const char* lpFileNam
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 const char* __stdcall sub_005180A0_GetNthString(D2FuncRecordStrc* pRecord, int nIndex); // 0x005180A0
-void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
+Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
@@ -48,7 +48,7 @@ extern const char gszTosPrefix[]; // 0x006D48E8
 extern "C" __declspec(dllimport) unsigned long __stdcall GetFileSize(void*, unsigned long*); // 0x006CC2F0
 extern "C" unsigned int __cdecl strlen(const char*);
 void __cdecl sub_0042F800(); // 0x0042F800
-void __stdcall sub_00525260(char*, int); // 0x00525260
+void __stdcall sub_00525260(void* pOut, int nField); // 0x00525260
 unsigned int __stdcall sub_00413800(char*, const char*, unsigned int); // 0x00413800
 void __cdecl sub_00430400_PollSlot4C(); // 0x00430400
 void __stdcall sub_004FA590(D2LaunchDoneFn); // 0x004FA590
@@ -60,12 +60,12 @@ void* __fastcall sub_00406960_CreateFile(const char*, unsigned long, unsigned lo
 int __fastcall sub_004069B0_ReadFile(void*, void*, unsigned long, unsigned long*, void*); // 0x004069B0
 int __fastcall sub_004069A0_CloseFile(void*); // 0x004069A0
 int __fastcall sub_00406990_DeleteFile(const char*); // 0x00406990
-void* __fastcall FOG_Alloc(unsigned int, const char*, int, int); // 0x0040B380
-void __fastcall FOG_Free(void*, const char*, int, int); // 0x0040B3C0
+void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
+int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 void __fastcall sub_0042E5D0_SwapUnicode(Unicode*, unsigned int); // 0x0042E5D0
 Unicode* __fastcall win2Unicode(Unicode*, const char*, int); // 0x00526F20
 int __fastcall sub_00501820(const Unicode*); // 0x00501820
-int __fastcall sub_00526D30_IsBreak(const Unicode*, int); // 0x00526D30
+int __fastcall sub_00526D30_IsLineBreak(const Unicode* pText, unsigned int nIndex); // 0x00526D30
 void __fastcall D2Win_10053(D2WinControlStrc*, int); // 0x004FBA30
 
 struct D2MenuCallbackArgStrc { D2WinControlStrc* pControl; unsigned int nMessage, nParam, nArg; };
@@ -466,7 +466,7 @@ int __cdecl sub_00433810_ShowTerms()
             if (sub_00501820(wszLine) > 540)
             {
                 int nLength = sub_00526800(wszLine);
-                while (nLength > 1 && !sub_00526D30_IsBreak(pChars + nStart, nLength)) --nLength;
+                while (nLength > 1 && !sub_00526D30_IsLineBreak(pChars + nStart, nLength)) --nLength;
                 i = nStart + nLength;
                 wszLine[nLength].wChar = 0;
                 if (nLength && wszLine[nLength - 1].wChar == ' ') wszLine[nLength - 1].wChar = 0;

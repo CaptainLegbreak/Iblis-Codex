@@ -2,6 +2,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+struct D2GameStrc;
 // build: ob1
 
 struct D2StatListStrc;
@@ -103,7 +104,7 @@ void __stdcall UnitUpdateAnimRateAndVel(D2UnitStrc* pUnit, const char* szFile, i
 D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
 D2StatListStrc* __stdcall STATLIST_GetStatListFromUnitAndFlag(D2UnitStrc* pUnit, int nFlag);                // 0x00625760
 void __stdcall D2COMMON_10475_PostStatToStatList(D2UnitStrc* pUnit, D2StatListStrc* pStatList, int bResetFlag); // 0x00626E10
-int __stdcall sub_006270B0(D2StatListStrc* pStatList, int nStatId, int nValue, int nLayer);           // 0x006270B0
+int __stdcall sub_006270B0(D2StatListStrc* pStatList, int nStatId, int nValue, unsigned short nLayer); // 0x006270B0
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState);                                             // 0x00639DF0
 void __stdcall SKILLS_SetFlags(D2SkillStrc* pSkill, int nValue);                                           // 0x00644660
 int __stdcall SKILLS_GetFlags(D2SkillStrc* pSkill);                                                         // 0x006446A0
@@ -115,7 +116,7 @@ void __stdcall PATH_SetTargetUnit(D2DynamicPathStrc* pPath, D2UnitStrc* pTargetU
 D2UnitStrc* __stdcall PATH_GetTargetUnit(D2DynamicPathStrc* pDynamicPath);                                  // 0x00648BF0
 void __stdcall PATH_SetType(D2DynamicPathStrc* pDynamicPath, int nPathType);                                // 0x00648CF0
 void __stdcall PATH_SetNewDistance(D2DynamicPathStrc* pDynamicPath, unsigned char nNewDistance);            // 0x00648E70
-void __stdcall PATH_SetDistance(D2DynamicPathStrc* pDynamicPath, unsigned char nDistance);                  // 0x006490E0
+void __stdcall PATH_SetDistance(D2DynamicPathStrc* pDynamicPath, int nDist); // 0x006490E0
 void __stdcall PATH_AddCollisionFootprintForUnit(D2UnitStrc* pUnit);                                        // 0x00649400
 int __stdcall D2Common_10142(D2DynamicPathStrc* pPath, D2UnitStrc* pUnit, int bAllowInTown);                // 0x00649970
 void __stdcall UNITROOM_RefreshUnit(D2UnitStrc* pUnit);                                                     // 0x0064C040
@@ -129,7 +130,7 @@ void __fastcall sub_6FCBD3A0(D2GameStrc* pGame, D2UnitStrc* pUnit);             
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit);                                                             // 0x005541B0
 void __fastcall sub_6FCBDE90(D2UnitStrc* pUnit, int bUninterruptable);                          // 0x005544B0
 int __fastcall sub_6FCBC930(D2GameStrc* pGame, D2UnitStrc* pUnit);                                  // 0x00554CA0
-void __fastcall sub_0056FAF0(D2GameStrc* pGame, D2UnitStrc* pUnit);                       // 0x0056FAF0
+int __fastcall SKILLS_StartUsedSkill(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x0056FAF0
 void __fastcall sub_6FD13410(D2GameStrc* pGame, D2UnitStrc* pUnit);                              // 0x0056FC50
 int __fastcall MONSTER_GetAiState(D2UnitStrc* pMonster);                                                    // 0x005734E0
 void __fastcall MONSTER_SetAiState(D2UnitStrc* pMonster, int nAiState);                                     // 0x005734C0

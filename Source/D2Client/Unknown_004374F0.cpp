@@ -31,7 +31,7 @@ void __fastcall sub_00433450_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDo
 void __cdecl sub_00435330_ShowLoginScreen(); // 0x00435330
 const Unicode* __fastcall sub_004FDD90_GetEditText(D2WinControlStrc* pControl); // 0x004FDD90
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
-void __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
+char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
 int __fastcall sub_005264F0_Compare(const Unicode* pString1, const Unicode* pString2); // 0x005264F0
 
 int gnStatusDots_007799B4; // 0x007799B4

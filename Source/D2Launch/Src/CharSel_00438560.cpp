@@ -1,3 +1,4 @@
+struct D2CompositeUnitStrc;
 struct Unicode
 {
     unsigned short wChar;
@@ -63,9 +64,9 @@ extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 extern "C" unsigned int __cdecl strlen(const char*);
 extern "C" int __cdecl sprintf(char*,const char*,...); // 0x006823FD
 int __cdecl sub_00408F20_HasExpansionMpq(); // 0x00408F20
-void __cdecl sub_004390A0_RedrawExpansion(); // 0x004390A0
+int __cdecl sub_004390A0_UpdateSelection(); // 0x004390A0
 void* __fastcall FOG_Alloc(int,const char*,int,int); // 0x0040B380
-void __fastcall FOG_Free(void*,const char*,int,int); // 0x0040B3C0
+int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 void __stdcall SMemCopy(void*,const void*,unsigned int); // 0x0041D2A0
 void __fastcall sub_004F96F0_ControlClearState(D2WinControlStrc*,int); // 0x004F96F0
 void __fastcall sub_004F9740(D2WinControlStrc*,int); // 0x004F9740
@@ -73,11 +74,11 @@ void __stdcall sub_004FD0B0_SetSprite(D2WinControlStrc*,int,void*); // 0x004FD0B
 void __fastcall sub_004FB6A0_ClearText(D2WinControlStrc*); // 0x004FB6A0
 void __fastcall sub_004FC9B0_SetText(D2WinControlStrc*,const Unicode*,int,int,int); // 0x004FC9B0
 void __fastcall D2Win_10046(D2WinControlStrc*,const char*,int); // 0x004FCFF0
-void __stdcall sub_005041B0_FreeAnim(void*,int); // 0x005041B0
-void* __stdcall sub_005066C0_CreateAnim(int,int,unsigned char*,unsigned char*); // 0x005066C0
-void __stdcall sub_005051A0_SetAnimField(void*,int); // 0x005051A0
-void __stdcall sub_00505260_SetAnimField(void*,int); // 0x00505260
-void __fastcall sub_005042F0_SetAnimMode(void*,int); // 0x005042F0
+void __stdcall D2Win_10142_CompUnitDestroy(D2CompositeUnitStrc* pCompositeUnit, int bUnlink); // 0x005041B0
+D2CompositeUnitStrc* __stdcall sub_005066C0_CreateCompositeUnit(unsigned int nUnitIndex, unsigned int nMode, unsigned char* pComponents, const unsigned char* pComponentColors); // 0x005066C0
+void __stdcall D2Win_10149(D2CompositeUnitStrc* ptUnit, unsigned char nValue); // 0x005051A0
+void __stdcall D2Win_10151(D2CompositeUnitStrc* ptUnit, int nFrame); // 0x00505260
+int __fastcall D2Win_10143(D2CompositeUnitStrc* pCompositeUnit, int nMode); // 0x005042F0
 void __stdcall sub_005052B0_SetAnimX(void*,int); // 0x005052B0
 void __stdcall sub_005052F0_SetAnimY(void*,int); // 0x005052F0
 void __stdcall sub_00505360_SetAnimFlags(void*,unsigned int); // 0x00505360
@@ -103,7 +104,7 @@ extern "C" const char gszTagFormat[]; // 0x006D4E2C
 void __cdecl sub_004380F0_UpdateCharList(); // 0x004380F0
 int __cdecl STRTABLE_GetLanguage(); // 0x00525150
 void __fastcall sub_004FB740_SetTextOffset(D2WinControlStrc*,int,int); // 0x004FB740
-void __fastcall sub_005263E0(char*,const Unicode*,int); // 0x005263E0
+char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
 const char* __stdcall D2Win_10161(int,int,int,int); // 0x005068A0
 void __cdecl sub_005269D0(int,Unicode*,const Unicode*,...); // 0x005269D0
 extern "C" char* __cdecl strcat(char*,const char*);

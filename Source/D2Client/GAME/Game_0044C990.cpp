@@ -53,18 +53,18 @@ int __stdcall UNITS_GetClientCoordY(D2UnitStrc* pUnit); // 0x006206B0
 void __fastcall sub_00476D40_AdjustViewPos(int* pX, int* pY); // 0x00476D40
 void __fastcall sub_004760A0_SetViewPos(D2ViewStrc* pView, int nX, int nY); // 0x004760A0
 void __fastcall sub_00476140(D2ViewStrc* pView, int nArg); // 0x00476140
-void __fastcall sub_00473F50(); // 0x00473F50
+void __cdecl sub_00473F50_UpdateWeather(); // 0x00473F50
 void __stdcall sub_0061C0B0(void* pAct, unsigned char* pRed, unsigned char* pGreen, unsigned char* pBlue); // 0x0061C0B0
 void __stdcall D2GFX_SetAmbientColor(int nRed, int nGreen, int nBlue); // 0x004F6430
-D2ActiveRoomStrc* __fastcall sub_004646A0_GetPlayerRoom(); // 0x004646A0
+D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
-void __fastcall sub_0045B440(); // 0x0045B440
+void __cdecl sub_0045B440_UpdateAutomapOrigin(); // 0x0045B440
 int __cdecl sub_0045AE90(); // 0x0045AE90
 void __fastcall sub_00476BC0(D2ViewStrc* pView); // 0x00476BC0
 void __fastcall sub_00456EE0_DrawUIPanels(D2ViewStrc* pView); // 0x00456EE0
 void __stdcall sub_004F98E0(); // 0x004F98E0
 void __fastcall sub_00468820(int nArg1, int nArg2); // 0x00468820
-void __fastcall sub_004684C0(); // 0x004684C0
+void __cdecl sub_004684C0(); // 0x004684C0
 void __fastcall sub_00477980(); // 0x00477980
 
 struct SMSGHANDLER_PARAMS
@@ -150,7 +150,7 @@ typedef char D2MsgHandlerEntrySize[(sizeof(D2MsgHandlerEntryStrc) == 12) ? 1 : -
 extern "C" D2MsgHandlerEntryStrc gtHandlers_0070F2C4[1]; // 0x0070F2C4
 extern "C" D2MsgHandlerEntryStrc gtHandlers_0070F348[2]; // 0x0070F348
 extern "C" D2MsgHandlerEntryStrc gtHandlers_0070F360[2]; // 0x0070F360
-extern "C" int __cdecl sub_004F59A0_GetHwnd(); // 0x004F59A0
+int __cdecl sub_004F59A0(); // 0x004F59A0
 extern "C" void __fastcall sub_00451DB0_RegisterMsgHandlers(int hwnd, D2MsgHandlerEntryStrc* table, unsigned int count); // 0x00451DB0
 extern "C" void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);
@@ -170,7 +170,7 @@ extern D2LoadingTimerStrc gtLoadingTimer_007A0684; // 0x007A0684
 void __fastcall sub_0044B880_SetValue(int nValue); // 0x0044B880
 void __cdecl sub_0044CB60_DrawLoadingText(); // 0x0044CB60
 int __fastcall sub_0044E040_TimerRunning(D2LoadingTimerStrc* pTimer); // 0x0044E040
-void __fastcall sub_00456300(int nArg1, int nArg2); // 0x00456300
+int __fastcall sub_00456300_CloseUIVars(int bArg1, int nArg2); // 0x00456300
 
 D2ViewStrc* gpView_007A0640; // 0x007A0640
 
@@ -219,7 +219,7 @@ void __fastcall sub_0044C990_DrawGameView(int bNoCursor)
     gnLastViewY_0070F558 = nY;
     sub_004760A0_SetViewPos(gpView_007A0640, nX, nY);
     sub_00476140(gpView_007A0640, 0);
-    sub_00473F50();
+    sub_00473F50_UpdateWeather();
 
     unsigned char nRed, nGreen, nBlue;
     sub_0061C0B0(gpGlobal_007A0634, &nRed, &nGreen, &nBlue);
@@ -229,7 +229,7 @@ void __fastcall sub_0044C990_DrawGameView(int bNoCursor)
         return;
 
     sub_004FB0D0();
-    sub_0045B440();
+    sub_0045B440_UpdateAutomapOrigin();
     if (sub_0045AE90() != 3)
         sub_00476BC0(gpView_007A0640);
     sub_00456EE0_DrawUIPanels(gpView_007A0640);
@@ -273,6 +273,7 @@ void __stdcall sub_0044E4F0_MouseMsg(SMSGHANDLER_PARAMS* pMsg)
 }
 
 #include "gen/data/Source/D2Client/GAME/Game_0044C990.inc"
+struct D2ActiveRoomStrc;
 
 // 0x0044CB60
 void __cdecl sub_0044CB60_DrawLoadingText()
@@ -355,17 +356,17 @@ void __fastcall sub_0044CDB0_StorePong(const D2GSPacketSrv8F* pPacket)
 // 0x0044DCE0
 extern "C" void __cdecl sub_0044DCE0_MouseExtTables_451E10()
 {
-    sub_00451E10_RegisterHandlerTable(sub_004F59A0_GetHwnd(), gtHandlers_0070F2C4, 1);
-    sub_00451E10_RegisterHandlerTable(sub_004F59A0_GetHwnd(), gtHandlers_0070F348, 2);
-    sub_00451E10_RegisterHandlerTable(sub_004F59A0_GetHwnd(), gtHandlers_0070F360, 2);
+    sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtHandlers_0070F2C4, 1);
+    sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtHandlers_0070F348, 2);
+    sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtHandlers_0070F360, 2);
 }
 
 // 0x0044DD20
 extern "C" void __cdecl sub_0044DD20_MouseExtTables_451DB0()
 {
-    sub_00451DB0_RegisterMsgHandlers(sub_004F59A0_GetHwnd(), gtHandlers_0070F2C4, 1);
-    sub_00451DB0_RegisterMsgHandlers(sub_004F59A0_GetHwnd(), gtHandlers_0070F348, 2);
-    sub_00451DB0_RegisterMsgHandlers(sub_004F59A0_GetHwnd(), gtHandlers_0070F360, 2);
+    sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtHandlers_0070F2C4, 1);
+    sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtHandlers_0070F348, 2);
+    sub_00451DB0_RegisterMsgHandlers(sub_004F59A0(), gtHandlers_0070F360, 2);
 }
 
 bool D2ChatStormLinkStrc::sub_0060E0C0_IsLinked()
@@ -583,7 +584,7 @@ void __fastcall sub_0044E380_ShowLoadingMessage(int nIndex)
         gnLoadingIndex_007A05D4 = 9;
     }
 
-    sub_00456300(1, 0);
+    sub_00456300_CloseUIVars(1, 0);
     gtLoadingTimer_007A0684.dwStart = GetTickCount();
     gtLoadingTimer_007A0684.dwLength = 2500;
     gdwGlobal_007A0620 = 1;

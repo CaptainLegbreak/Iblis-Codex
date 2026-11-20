@@ -14,7 +14,7 @@ void __stdcall sub_0045FBC0_DrawCelPair(int bFirst);                            
 void __cdecl sub_0045FC60_DrawLoadingTexts();                                                               // 0x0045FC60
 void __stdcall sub_0045FD20_DrawPanelCel(int nFrame);                                                       // 0x0045FD20
 void __cdecl sub_0045FD80_DrawCenteredString();                                                             // 0x0045FD80
-void __fastcall sub_004684C0();                                                                  // 0x004684C0
+void __cdecl sub_004684C0(); // 0x004684C0
 void __cdecl sub_00482C20_Tick();                                                                           // 0x00482C20
 void __fastcall sub_00460190_DrawFrame(int nUnused);                                                        // 0x00460190
 D2CellFileStrc* __fastcall sub_004788B0(const char* szFile, int nType);                             // 0x004788B0

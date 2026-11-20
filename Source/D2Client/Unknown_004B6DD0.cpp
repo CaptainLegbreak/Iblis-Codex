@@ -57,16 +57,16 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 int __cdecl sub_00408F20_HasExpansionMpq();                                                                 // 0x00408F20
 void __cdecl sub_0044DA40();                                                                                // 0x0044DA40
 int __cdecl sub_0044DCC0();                                                                                 // 0x0044DCC0
-int __fastcall sub_00455F20(int nUIVar, int nState, int nArg);                                         // 0x00455F20
-void __fastcall sub_00456300(int nArg1, int nArg2);                                                         // 0x00456300
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+int __fastcall sub_00456300_CloseUIVars(int bArg1, int nArg2); // 0x00456300
 int __fastcall sub_00457490_CheckMonStatsFlag(int nMonsterId, int nFlag);                                   // 0x00457490
-D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType);                             // 0x00463990
+D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 void __fastcall sub_00464420_TurnTowardPlayer(D2UnitStrc* pUnit);                                                 // 0x00464420
 void __fastcall sub_004644E0_PlayerFaceUnit(D2UnitStrc* pUnit);                                             // 0x004644E0
 void __fastcall sub_00464990(UNITFN pfnCallback);                                                           // 0x00464990
 void __fastcall sub_004785B0_SendPacket3(unsigned char nCmd, unsigned short nArg);                          // 0x004785B0
-void __fastcall sub_004786A0_SendIntInt(char nHeader, int nArg1, int nArg2);                                // 0x004786A0
+void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 void __cdecl sub_00487990_ResetHover();                                                                     // 0x00487990
 void __fastcall sub_0049E7E0_SetTextCallback(D2TextCallback pfnCallback, void* pContext);                   // 0x0049E7E0
 D2TextHeaderStrc* __cdecl sub_0049F900();                                                                   // 0x0049F900
@@ -76,7 +76,7 @@ unsigned short __fastcall sub_004B1830_GetFreeStringId(unsigned short wStringId)
 int __cdecl sub_004B1DD0_OpenTimedDialog62();                                                               // 0x004B1DD0
 void __cdecl sub_004B2250_ResetHandlers();                                                                  // 0x004B2250
 void __fastcall sub_004B2390_CheckMonStatsFlag(D2UnitStrc* pUnit);                                          // 0x004B2390
-void __fastcall sub_004B3830_ClearNpcInventoryAndSound(int nUnitId);                                        // 0x004B3830
+extern "C" void __fastcall sub_004B3830_ClearNpcInventoryAndSound(int nUnitId); // 0x004B3830
 void __fastcall sub_004B3C20(int nValue);                                                                   // 0x004B3C20
 void __cdecl sub_004B3DE0_CloseNpc();                                                                       // 0x004B3DE0
 void __cdecl sub_004B4830_Rebuild();                                                                        // 0x004B4830
@@ -93,12 +93,13 @@ D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc* pInventory);     
 void __stdcall D2Common_10153(D2DynamicPathStrc* pDynamicPath);                                             // 0x00648730
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState);            // 0x0065C310
 void __stdcall QUESTRECORD_CopyBufferToRecord(D2BitBufferStrc* pQuestRecord, unsigned char* pBuffer, unsigned short nBufferSize, int bResetStates); // 0x0065C4D0
-unsigned short __stdcall sub_00661400(D2TextHeaderStrc* pTextHeader, int nNodeId);    // 0x00661400
-unsigned short __stdcall sub_00661440(D2TextHeaderStrc* pTextHeader, int nNodeId);    // 0x00661440
+short __stdcall sub_00661400(D2TextHeaderStrc* pTextHeader, int nNodeId); // 0x00661400
+short __stdcall sub_00661440(D2TextHeaderStrc* pTextHeader, int nNodeId); // 0x00661440
 
 extern unsigned short gwGlobal_00725494;                                                                    // 0x00725494
 extern D2NpcQuestHandlerStrc gaNpcHandlers_007253E0[];                                                      // 0x007253E0
 #include "gen/data/Source/D2Client/Unknown_004B66B0/gnHandlerCount_007253DC.inc"
+struct D2UnitStrc;
 extern int gnNpcEntryCount_0072554C;                                                                        // 0x0072554C
 extern int gnNpcIndexCount_00725A74;                                                                        // 0x00725A74
 extern D2NpcEntryStrc gaNpcEntries_00726850[];                                                              // 0x00726850
@@ -270,7 +271,7 @@ static void __stdcall sub_004B66B0_OpenNpcInteract(D2UnitStrc* pUnit, int bReope
     gnGlobal_007C0C6B = 1;
     gnGlobal_007C0D31 = 0;
     gnGlobal_007C0C73 = STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(), 0xE, 0);
-    sub_00456300(0, 0);
+    sub_00456300_CloseUIVars(0, 0);
 
     if (!bReopen)
     {
@@ -338,7 +339,7 @@ static void __stdcall sub_004B66B0_OpenNpcInteract(D2UnitStrc* pUnit, int bReope
     {
         gnGlobal_007C0C6B = 0;
         pUnit->dwFlags |= 2;
-        sub_004786A0_SendIntInt(0x30, 1, !pUnit ? -1 : pUnit->dwUnitId);
+        sub_004786A0_SendDwords2(0x30, 1, !pUnit ? -1 : pUnit->dwUnitId);
         gnGlobal_007C0D29 = 0;
         sub_004B3830_ClearNpcInventoryAndSound(pUnit->dwUnitId);
         return;
@@ -421,7 +422,7 @@ int __fastcall sub_004B6A30_NpcTextCallback(void* pContext, int nArg, int nValue
             sub_004B1980_AddUsedString(gwGlobal_007C0C7B);
             sub_0049E7E0_SetTextCallback(sub_004B6A30_NpcTextCallback, 0);
             gwGlobal_007C0C77 = gwGlobal_007C0C7B;
-            sub_004786A0_SendIntInt(0x31, gnGlobal_007C0D25, gwGlobal_007C0C7B);
+            sub_004786A0_SendDwords2(0x31, gnGlobal_007C0D25, gwGlobal_007C0C7B);
             gwGlobal_007C0C79 = sub_004B1830_GetFreeStringId(gwGlobal_007C0C7B);
             return 1;
         }
@@ -481,7 +482,7 @@ void __fastcall sub_004B6DD0_NpcInteractPacket(unsigned char nUnitType, int nUni
             pPlayer->pPlayerData->nArg1 = 0;
             pPlayer->pPlayerData->nArg2 = 0;
         }
-        sub_004786A0_SendIntInt(0x30, nArg, nUnitId);
+        sub_004786A0_SendDwords2(0x30, nArg, nUnitId);
         sub_004B3830_ClearNpcInventoryAndSound(nUnitId);
         return;
     }
@@ -490,7 +491,7 @@ void __fastcall sub_004B6DD0_NpcInteractPacket(unsigned char nUnitType, int nUni
     pUnit->dwFlags |= 2;
     QUESTRECORD_CopyBufferToRecord(gpQuestFlags_007C0D43, pBuffer, 0x60, 0);
     sub_004B2250_ResetHandlers();
-    sub_004786A0_SendIntInt(0x2F, nUnitType, nUnitId);
+    sub_004786A0_SendDwords2(0x2F, nUnitType, nUnitId);
     sub_0044DA40();
 
     if (gaGlobal_007C0C68[0])
@@ -526,12 +527,12 @@ void __fastcall sub_004B6DD0_NpcInteractPacket(unsigned char nUnitType, int nUni
     gtStringList_007C0D9A.wCount = 0;
     if (wString != 0xFFFF)
     {
-        sub_00456300(0, 0);
+        sub_00456300_CloseUIVars(0, 0);
         gwGlobal_007C0C77 = wString;
         sub_004A10E0_ShowNpcMessage(pUnit, wString, 1);
         sub_004B1980_AddUsedString(wString);
         gwGlobal_007C0C79 = sub_004B1830_GetFreeStringId(wString);
-        sub_004786A0_SendIntInt(0x31, pUnit->dwUnitId, wString);
+        sub_004786A0_SendDwords2(0x31, pUnit->dwUnitId, wString);
         gbGlobal_007C0C69 = 1;
         sub_0049E7E0_SetTextCallback(sub_004B6A30_NpcTextCallback, 0);
         sub_004B1640_SetNpcInteract(pUnit);
@@ -551,7 +552,7 @@ void __fastcall sub_004B6DD0_NpcInteractPacket(unsigned char nUnitType, int nUni
         if (wString2 != 0xFFFF)
         {
             sub_00487990_ResetHover();
-            sub_00456300(0, 0);
+            sub_00456300_CloseUIVars(0, 0);
             gwGlobal_007C0C77 = wString2;
             gwGlobal_007C0C79 = sub_004B1830_GetFreeStringId(wString2);
             sub_004B4FD0_OpenNpcWindow(pUnit);
@@ -571,7 +572,7 @@ void __fastcall sub_004B6DD0_NpcInteractPacket(unsigned char nUnitType, int nUni
                     return;
                 }
                 sub_00487990_ResetHover();
-                sub_00456300(0, 0);
+                sub_00456300_CloseUIVars(0, 0);
                 sub_004B66B0_OpenNpcInteract(pUnit, 0);
             }
             else

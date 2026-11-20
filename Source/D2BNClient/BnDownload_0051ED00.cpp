@@ -23,9 +23,9 @@ char* __stdcall SStrChr(const char* szString, char nChar); // 0x00413490
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize); // 0x004135D0
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
-unsigned int __stdcall sub_00416370_StormGetFileSize(void* hFile, unsigned int* pnSizeHigh); // 0x00416370
+int __stdcall sub_00416370_StormGetFileSize(void* hFile, unsigned int* pdwFileSizeHigh); // 0x00416370
 int __stdcall sub_004198D0(void* hFile); // 0x004198D0
-int __stdcall SFileReadFile(void* hFile, void* pBuffer, unsigned int nToRead, unsigned int* pnRead, void* pOverlapped); // 0x0041B050
+int __stdcall SFileReadFile(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped); // 0x0041B050
 void __fastcall sub_0051E920_ExtractFile(const char* szMember, void* hArchive, const char* szDestination); // 0x0051E920
 
 extern BNGatewayAccess gBnGatewayAccess_00881838; // 0x00881838

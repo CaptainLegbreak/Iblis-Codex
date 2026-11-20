@@ -15,7 +15,7 @@ extern int gnTable_007C04E0[60]; // 0x007C04E0
 extern int gnHotkeySkill_007C06C8[16]; // 0x007C06C8
 extern int gbHotkeyLeft_007C07B8[16]; // 0x007C07B8
 extern int gnHotkeyOwner_007C0768[16]; // 0x007C0768
-void __fastcall sub_004786A0_SendIntInt(char nHeader, int nArg1, int nArg2); // 0x004786A0
+void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 
 struct Unicode
 {
@@ -29,7 +29,7 @@ int __cdecl sub_00468740(); // 0x00468740
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 Unicode* __fastcall sub_00526700(Unicode* pDst, const Unicode* pSrc); // 0x00526700
-void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
+Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 unsigned short __fastcall sub_004E6CE0_GetStringId(int nId, int nIndex); // 0x004E6CE0
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
 void __fastcall sub_004A7080(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
@@ -91,10 +91,10 @@ extern int gnGlobal_007C0C44; // 0x007C0C44
 extern int gnGlobal_007C0C4C; // 0x007C0C4C
 extern int ganSkillMode_007C0838[]; // 0x007C0838
 extern int ganSkillState_007C0A38[]; // 0x007C0A38
-void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
+int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 void __cdecl sub_0044DA70(); // 0x0044DA70
 int __fastcall sub_00451F60_UnitClassId(D2UnitStrc* pUnit); // 0x00451F60
-void __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId); // 0x0045C4B0
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 void __stdcall sub_00467F20_MsgHandler(SMSGHANDLER_PARAMS* pMsg); // 0x00467F20
@@ -142,7 +142,7 @@ void __stdcall sub_004A9D70_ClearSkillHotkeys(D2SkillsTxt* pSkillsTxt, int nQuan
                 gnHotkeySkill_007C06C8[nSlot] = -1;
                 gbHotkeyLeft_007C07B8[nSlot] = -1;
                 gnHotkeyOwner_007C0768[nSlot] = -1;
-                sub_004786A0_SendIntInt(0x51, (nSlot << 16) + 0xFFFF, -1);
+                sub_004786A0_SendDwords2(0x51, (nSlot << 16) + 0xFFFF, -1);
             }
         }
 

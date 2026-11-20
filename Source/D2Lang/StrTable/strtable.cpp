@@ -54,7 +54,7 @@ struct Unicode
     static Unicode* __fastcall strncat(Unicode* dest, const Unicode* src, int count);
 };
 
-void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
+Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 int __fastcall sub_00527D50_GetCodePageCharCount(const char* szSource, int nLength); // 0x00527D50
 extern const unsigned short gaCrc16Table_007301D8[256]; // 0x007301D8
 extern "C" const char szNotTranslated_00730520[]; // 0x00730520

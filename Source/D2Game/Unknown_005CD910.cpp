@@ -66,7 +66,7 @@ struct Skills { char pad0[4]; unsigned char flags[4]; char pad8[0x40]; short mis
 
 struct Tables { char pad0[0xB6C]; int missileCount; char padB70[0x28]; Skills* skills; void* linker; int skillCount; };
 extern unsigned bitMasks[]; // 0x006CE268
-MissileRecord* __fastcall sub_0046ACE0(int); // 0x0046ACE0
+D2MissilesTxt* __fastcall sub_0046ACE0(int nMissileId); // 0x0046ACE0
 Unit* __fastcall sub_0056EE90(Game*,int,Unit*,int,int,int,int,int,int,int); // 0x0056EE90
 Unit* __fastcall sub_0056ECB0(Game*,int,Unit*,int,int,int,int,int,int,int); // 0x0056ECB0
 
@@ -320,6 +320,7 @@ int __fastcall SKILLS_SrvDo112_MonCurseCast(D2GameStrc* pGame, D2UnitStrc* pUnit
 }
 
 #include "gen/data/Source/D2Game/Unknown_005CD910.inc"
+struct D2MissilesTxt;
 
 static int UNITS_GetXPositionInline(D2UnitStrc* pUnit)
 {

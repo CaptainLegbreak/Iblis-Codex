@@ -135,7 +135,7 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-int __stdcall sub_004F6480(D2GfxDataStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, unsigned char* pPalette); // 0x004F6480
+void __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 int __fastcall D2Win_10143(D2CompositeUnitStrc* pCompositeUnit, int nMode); // 0x005042F0
 void __stdcall sub_00506000_InitCompItems(); // 0x00506000
 extern unsigned int gdwBitMasks[]; // 0x006CE268
@@ -218,7 +218,7 @@ Unicode* __fastcall sub_005267E0(Unicode*,const Unicode*); // 0x005267E0
 Unicode* __fastcall sub_00526700(Unicode*,const Unicode*); // 0x00526700
 int __fastcall sub_00526800(const Unicode*); // 0x00526800
 Unicode* __fastcall sub_00526F20(Unicode*,const char*,int); // 0x00526F20
-void __fastcall sub_00526320(Unicode*,const char*,int); // 0x00526320
+Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 int __fastcall sub_00502EF0(int); // 0x00502EF0
 int __stdcall sub_00503EC0_TruncateText(Unicode*,int); // 0x00503EC0
 void __fastcall D2Win_10131_GetTextDimensions(const Unicode*,int*,int*); // 0x00502520
@@ -573,7 +573,7 @@ int __fastcall sub_00503BA0_DrawCompositeUnit(D2CompositeUnitStrc* pCompositeUni
         tGfxData.nFrame = gnSelectedCelFileFrame_0087E858;
         tGfxData.pCelFile = pCelFile;
         tGfxData.nDirection = 0;
-        sub_004F6480(&tGfxData, pCompositeUnit->nX + 5, pCompositeUnit->nY - 5, -1, 3, 0);
+        TEXTURE_CelDraw(&tGfxData, pCompositeUnit->nX + 5, pCompositeUnit->nY - 5, -1, 3, 0);
     }
 
     D2CelFileStrc* pEmblemCellFile = pCompositeUnit->pEmblemCellFile;
@@ -587,7 +587,7 @@ int __fastcall sub_00503BA0_DrawCompositeUnit(D2CompositeUnitStrc* pCompositeUni
         tGfxData.nDirection = 0;
         tGfxData.nFrame = 0;
         tGfxData.nDrawFlag = 1;
-        sub_004F6480(&tGfxData, pCompositeUnit->nX - 0x14, pCompositeUnit->nY - 0x3C, -1, 5, aPalette);
+        TEXTURE_CelDraw(&tGfxData, pCompositeUnit->nX - 0x14, pCompositeUnit->nY - 0x3C, -1, 5, aPalette);
     }
 
     D2_ASSERT(pCompositeUnit->pGfxInfo, 0x622);
@@ -628,7 +628,7 @@ int __fastcall sub_00503BA0_DrawCompositeUnit(D2CompositeUnitStrc* pCompositeUni
         {
             pPalette = sub_005038D0_GetComponentPalette(nColor);
         }
-        sub_004F6480(&tGfxData, pCompositeUnit->nX, pCompositeUnit->nY, nGamma, nDrawMode, pPalette);
+        TEXTURE_CelDraw(&tGfxData, pCompositeUnit->nX, pCompositeUnit->nY, nGamma, nDrawMode, pPalette);
     }
 
     pCompositeUnit->nFrame += pCompositeUnit->nAnimSpeed;
@@ -661,7 +661,7 @@ int __fastcall sub_00503BA0_DrawCompositeUnit(D2CompositeUnitStrc* pCompositeUni
         tGfxData.nFrame = gnSquelchCelFileFrame_0087E84C;
         tGfxData.pCelFile = pCelFile;
         tGfxData.nDirection = 0;
-        sub_004F6480(&tGfxData, pCompositeUnit->nX, pCompositeUnit->nY + 10, -1, 3, 0);
+        TEXTURE_CelDraw(&tGfxData, pCompositeUnit->nX, pCompositeUnit->nY + 10, -1, 3, 0);
     }
 
     return 1;
@@ -1392,10 +1392,10 @@ int __fastcall sub_00505810_DrawCompositeLabel(D2CompositeUnitStrc* unit)
  }
  Unicode decoration[256];
  if(sub_00526800(unit->guildTag)){
-  sub_00526320(decoration,gszGuildPrefix,256);
+  sub_00526320_ToUnicode(decoration,gszGuildPrefix,256);
   sub_00526700(text,decoration);
   sub_00526700(text,unit->guildTag);
-  sub_00526320(decoration,gszGuildSuffix,256);
+  sub_00526320_ToUnicode(decoration,gszGuildSuffix,256);
   sub_00526700(text,decoration);
  }
  sub_00502EF0(12);

@@ -24,7 +24,7 @@ struct Unicode
 extern "C" const char gszOpenBracket_006E6438[]; // 0x006E6438
 extern "C" const char gszCloseBracket_006E6434[]; // 0x006E6434
 const Unicode* __fastcall D2LANG_GetStringByReferenceString(const char* szKey); // 0x00524E20
-void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
+Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
 Unicode* __fastcall sub_00526790(Unicode* pDest, const Unicode* pSource, int nCount); // 0x00526790
@@ -71,9 +71,9 @@ struct D2PetTypeTxt
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern D2TxtLinkStrc* gpPettypeLinker_0096C81C; // 0x0096C81C
-void __fastcall sub_006117B0(); // 0x006117B0
-void __fastcall DATATBLS_SkillCalcLinker(); // 0x00611BD0
-void __fastcall DATATBLS_SkillDescCalcLinker(); // 0x00611C70
+unsigned short __fastcall DATATBLS_GetStringIdFromReferenceString(char* szReference); // 0x006117B0
+void __fastcall DATATBLS_SkillCalcLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn); // 0x00611BD0
+void __fastcall DATATBLS_SkillDescCalcLinker(char* pSrc, void* pRecord, int nOffset, int nPosition, int nTxtRow, int nTxtColumn); // 0x00611C70
 extern int gnPettypeTxtRecordCount_0096C820; // 0x0096C820
 extern void* gpSkillsCode_0096BC70; // 0x0096BC70
 extern void* gpSkillDescCode_0096BC7C; // 0x0096BC7C
@@ -87,7 +87,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize); // 0x00681EF0
 extern void* gpDifficultylevelsTxt; // 0x0096C8AC
 int __fastcall FOG_FreePool(void* pMemPool, void* pFree, const char* szFile, int nLine, int n0); // 0x0040B480
-void __fastcall sub_00612EA0_UnloadCompileTxtBins(); // 0x00612EA0
+void __stdcall sub_00612EA0_UnloadCompCodeAndCompileBins(); // 0x00612EA0
 void __fastcall DATATBLS_UnloadMissilesTxt(); // 0x00663210
 void __fastcall DATATBLS_UnloadOverlayTxt(); // 0x00664530
 void __fastcall DATATBLS_UnloadSkills_SkillDescTxt(); // 0x00617C30
@@ -309,11 +309,11 @@ void __stdcall DATATBLS_LoadSkills_SkillDescTxt(void* hArchive)
         { "ListRow", 4, 0, 5, 0 },
         { "ListPool", 4, 0, 6, 0 },
         { "iconcel", 4, 0, 7, 0 },
-        { "str name", 22, 0, 8, (void*)sub_006117B0 },
-        { "str short", 22, 0, 10, (void*)sub_006117B0 },
-        { "str long", 22, 0, 12, (void*)sub_006117B0 },
-        { "str alt", 22, 0, 14, (void*)sub_006117B0 },
-        { "str mana", 22, 0, 16, (void*)sub_006117B0 },
+        { "str name", 22, 0, 8, (void*)DATATBLS_GetStringIdFromReferenceString },
+        { "str short", 22, 0, 10, (void*)DATATBLS_GetStringIdFromReferenceString },
+        { "str long", 22, 0, 12, (void*)DATATBLS_GetStringIdFromReferenceString },
+        { "str alt", 22, 0, 14, (void*)DATATBLS_GetStringIdFromReferenceString },
+        { "str mana", 22, 0, 16, (void*)DATATBLS_GetStringIdFromReferenceString },
         { "descdam", 3, 0, 18, 0 },
         { "descatt", 3, 0, 20, 0 },
         { "ddam calc1", 25, 0, 24, (void*)DATATBLS_SkillDescCalcLinker },
@@ -331,88 +331,88 @@ void __stdcall DATATBLS_LoadSkills_SkillDescTxt(void* hArchive)
         { "descmissile2", 20, 0, 62, &gpMissilesLinker_0096C798 },
         { "descmissile3", 20, 0, 64, &gpMissilesLinker_0096C798 },
         { "descline1", 4, 0, 66, 0 },
-        { "desctexta1", 22, 0, 84, (void*)sub_006117B0 },
-        { "desctextb1", 22, 0, 118, (void*)sub_006117B0 },
+        { "desctexta1", 22, 0, 84, (void*)DATATBLS_GetStringIdFromReferenceString },
+        { "desctextb1", 22, 0, 118, (void*)DATATBLS_GetStringIdFromReferenceString },
         { "desccalca1", 25, 0, 152, (void*)DATATBLS_SkillDescCalcLinker },
         { "desccalcb1", 25, 0, 220, (void*)DATATBLS_SkillDescCalcLinker },
         { "descline2", 4, 0, 67, 0 },
-        { "desctexta2", 22, 0, 86, (void*)sub_006117B0 },
-        { "desctextb2", 22, 0, 120, (void*)sub_006117B0 },
+        { "desctexta2", 22, 0, 86, (void*)DATATBLS_GetStringIdFromReferenceString },
+        { "desctextb2", 22, 0, 120, (void*)DATATBLS_GetStringIdFromReferenceString },
         { "desccalca2", 25, 0, 156, (void*)DATATBLS_SkillDescCalcLinker },
         { "desccalcb2", 25, 0, 224, (void*)DATATBLS_SkillDescCalcLinker },
         { "descline3", 4, 0, 68, 0 },
-        { "desctexta3", 22, 0, 88, (void*)sub_006117B0 },
-        { "desctextb3", 22, 0, 122, (void*)sub_006117B0 },
+        { "desctexta3", 22, 0, 88, (void*)DATATBLS_GetStringIdFromReferenceString },
+        { "desctextb3", 22, 0, 122, (void*)DATATBLS_GetStringIdFromReferenceString },
         { "desccalca3", 25, 0, 160, (void*)DATATBLS_SkillDescCalcLinker },
         { "desccalcb3", 25, 0, 228, (void*)DATATBLS_SkillDescCalcLinker },
         { "descline4", 4, 0, 69, 0 },
-        { "desctexta4", 22, 0, 90, (void*)sub_006117B0 },
-        { "desctextb4", 22, 0, 124, (void*)sub_006117B0 },
+        { "desctexta4", 22, 0, 90, (void*)DATATBLS_GetStringIdFromReferenceString },
+        { "desctextb4", 22, 0, 124, (void*)DATATBLS_GetStringIdFromReferenceString },
         { "desccalca4", 25, 0, 164, (void*)DATATBLS_SkillDescCalcLinker },
         { "desccalcb4", 25, 0, 232, (void*)DATATBLS_SkillDescCalcLinker },
         { "descline5", 4, 0, 70, 0 },
-        { "desctexta5", 22, 0, 92, (void*)sub_006117B0 },
-        { "desctextb5", 22, 0, 126, (void*)sub_006117B0 },
+        { "desctexta5", 22, 0, 92, (void*)DATATBLS_GetStringIdFromReferenceString },
+        { "desctextb5", 22, 0, 126, (void*)DATATBLS_GetStringIdFromReferenceString },
         { "desccalca5", 25, 0, 168, (void*)DATATBLS_SkillDescCalcLinker },
         { "desccalcb5", 25, 0, 236, (void*)DATATBLS_SkillDescCalcLinker },
         { "descline6", 4, 0, 71, 0 },
-        { "desctexta6", 22, 0, 94, (void*)sub_006117B0 },
-        { "desctextb6", 22, 0, 128, (void*)sub_006117B0 },
+        { "desctexta6", 22, 0, 94, (void*)DATATBLS_GetStringIdFromReferenceString },
+        { "desctextb6", 22, 0, 128, (void*)DATATBLS_GetStringIdFromReferenceString },
         { "desccalca6", 25, 0, 172, (void*)DATATBLS_SkillDescCalcLinker },
         { "desccalcb6", 25, 0, 240, (void*)DATATBLS_SkillDescCalcLinker },
         { "dsc2line1", 4, 0, 72, 0 },
-        { "dsc2texta1", 22, 0, 96, (void*)sub_006117B0 },
-        { "dsc2textb1", 22, 0, 130, (void*)sub_006117B0 },
+        { "dsc2texta1", 22, 0, 96, (void*)DATATBLS_GetStringIdFromReferenceString },
+        { "dsc2textb1", 22, 0, 130, (void*)DATATBLS_GetStringIdFromReferenceString },
         { "dsc2calca1", 25, 0, 176, (void*)DATATBLS_SkillDescCalcLinker },
         { "dsc2calcb1", 25, 0, 244, (void*)DATATBLS_SkillDescCalcLinker },
         { "dsc2line2", 4, 0, 73, 0 },
-        { "dsc2texta2", 22, 0, 98, (void*)sub_006117B0 },
-        { "dsc2textb2", 22, 0, 132, (void*)sub_006117B0 },
+        { "dsc2texta2", 22, 0, 98, (void*)DATATBLS_GetStringIdFromReferenceString },
+        { "dsc2textb2", 22, 0, 132, (void*)DATATBLS_GetStringIdFromReferenceString },
         { "dsc2calca2", 25, 0, 180, (void*)DATATBLS_SkillDescCalcLinker },
         { "dsc2calcb2", 25, 0, 248, (void*)DATATBLS_SkillDescCalcLinker },
         { "dsc2line3", 4, 0, 74, 0 },
-        { "dsc2texta3", 22, 0, 100, (void*)sub_006117B0 },
-        { "dsc2textb3", 22, 0, 134, (void*)sub_006117B0 },
+        { "dsc2texta3", 22, 0, 100, (void*)DATATBLS_GetStringIdFromReferenceString },
+        { "dsc2textb3", 22, 0, 134, (void*)DATATBLS_GetStringIdFromReferenceString },
         { "dsc2calca3", 25, 0, 184, (void*)DATATBLS_SkillDescCalcLinker },
         { "dsc2calcb3", 25, 0, 252, (void*)DATATBLS_SkillDescCalcLinker },
         { "dsc2line4", 4, 0, 75, 0 },
-        { "dsc2texta4", 22, 0, 102, (void*)sub_006117B0 },
-        { "dsc2textb4", 22, 0, 136, (void*)sub_006117B0 },
+        { "dsc2texta4", 22, 0, 102, (void*)DATATBLS_GetStringIdFromReferenceString },
+        { "dsc2textb4", 22, 0, 136, (void*)DATATBLS_GetStringIdFromReferenceString },
         { "dsc2calca4", 25, 0, 188, (void*)DATATBLS_SkillDescCalcLinker },
         { "dsc2calcb4", 25, 0, 256, (void*)DATATBLS_SkillDescCalcLinker },
         { "dsc3line1", 4, 0, 76, 0 },
-        { "dsc3texta1", 22, 0, 104, (void*)sub_006117B0 },
-        { "dsc3textb1", 22, 0, 138, (void*)sub_006117B0 },
+        { "dsc3texta1", 22, 0, 104, (void*)DATATBLS_GetStringIdFromReferenceString },
+        { "dsc3textb1", 22, 0, 138, (void*)DATATBLS_GetStringIdFromReferenceString },
         { "dsc3calca1", 25, 0, 192, (void*)DATATBLS_SkillDescCalcLinker },
         { "dsc3calcb1", 25, 0, 260, (void*)DATATBLS_SkillDescCalcLinker },
         { "dsc3line2", 4, 0, 77, 0 },
-        { "dsc3texta2", 22, 0, 106, (void*)sub_006117B0 },
-        { "dsc3textb2", 22, 0, 140, (void*)sub_006117B0 },
+        { "dsc3texta2", 22, 0, 106, (void*)DATATBLS_GetStringIdFromReferenceString },
+        { "dsc3textb2", 22, 0, 140, (void*)DATATBLS_GetStringIdFromReferenceString },
         { "dsc3calca2", 25, 0, 196, (void*)DATATBLS_SkillDescCalcLinker },
         { "dsc3calcb2", 25, 0, 264, (void*)DATATBLS_SkillDescCalcLinker },
         { "dsc3line3", 4, 0, 78, 0 },
-        { "dsc3texta3", 22, 0, 108, (void*)sub_006117B0 },
-        { "dsc3textb3", 22, 0, 142, (void*)sub_006117B0 },
+        { "dsc3texta3", 22, 0, 108, (void*)DATATBLS_GetStringIdFromReferenceString },
+        { "dsc3textb3", 22, 0, 142, (void*)DATATBLS_GetStringIdFromReferenceString },
         { "dsc3calca3", 25, 0, 200, (void*)DATATBLS_SkillDescCalcLinker },
         { "dsc3calcb3", 25, 0, 268, (void*)DATATBLS_SkillDescCalcLinker },
         { "dsc3line4", 4, 0, 79, 0 },
-        { "dsc3texta4", 22, 0, 110, (void*)sub_006117B0 },
-        { "dsc3textb4", 22, 0, 144, (void*)sub_006117B0 },
+        { "dsc3texta4", 22, 0, 110, (void*)DATATBLS_GetStringIdFromReferenceString },
+        { "dsc3textb4", 22, 0, 144, (void*)DATATBLS_GetStringIdFromReferenceString },
         { "dsc3calca4", 25, 0, 204, (void*)DATATBLS_SkillDescCalcLinker },
         { "dsc3calcb4", 25, 0, 272, (void*)DATATBLS_SkillDescCalcLinker },
         { "dsc3line5", 4, 0, 80, 0 },
-        { "dsc3texta5", 22, 0, 112, (void*)sub_006117B0 },
-        { "dsc3textb5", 22, 0, 146, (void*)sub_006117B0 },
+        { "dsc3texta5", 22, 0, 112, (void*)DATATBLS_GetStringIdFromReferenceString },
+        { "dsc3textb5", 22, 0, 146, (void*)DATATBLS_GetStringIdFromReferenceString },
         { "dsc3calca5", 25, 0, 208, (void*)DATATBLS_SkillDescCalcLinker },
         { "dsc3calcb5", 25, 0, 276, (void*)DATATBLS_SkillDescCalcLinker },
         { "dsc3line6", 4, 0, 81, 0 },
-        { "dsc3texta6", 22, 0, 114, (void*)sub_006117B0 },
-        { "dsc3textb6", 22, 0, 148, (void*)sub_006117B0 },
+        { "dsc3texta6", 22, 0, 114, (void*)DATATBLS_GetStringIdFromReferenceString },
+        { "dsc3textb6", 22, 0, 148, (void*)DATATBLS_GetStringIdFromReferenceString },
         { "dsc3calca6", 25, 0, 212, (void*)DATATBLS_SkillDescCalcLinker },
         { "dsc3calcb6", 25, 0, 280, (void*)DATATBLS_SkillDescCalcLinker },
         { "dsc3line7", 4, 0, 82, 0 },
-        { "dsc3texta7", 22, 0, 116, (void*)sub_006117B0 },
-        { "dsc3textb7", 22, 0, 150, (void*)sub_006117B0 },
+        { "dsc3texta7", 22, 0, 116, (void*)DATATBLS_GetStringIdFromReferenceString },
+        { "dsc3textb7", 22, 0, 150, (void*)DATATBLS_GetStringIdFromReferenceString },
         { "dsc3calca7", 25, 0, 216, (void*)DATATBLS_SkillDescCalcLinker },
         { "dsc3calcb7", 25, 0, 284, (void*)DATATBLS_SkillDescCalcLinker },
         { gszTxtField_end, 0, 0, 0, 0 },
@@ -844,7 +844,7 @@ static void DATATBLS_UnloadBinInline(void* pBinFile)
 // 0x00619140
 void __stdcall DATATBLS_UnloadAllBins()
 {
-    sub_00612EA0_UnloadCompileTxtBins();
+    sub_00612EA0_UnloadCompCodeAndCompileBins();
     DATATBLS_UnloadBinInline(gpCharstatsTxt);
     DATATBLS_UnloadMissilesTxt();
     DATATBLS_UnloadOverlayTxt();

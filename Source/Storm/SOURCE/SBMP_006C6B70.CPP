@@ -43,7 +43,7 @@ struct D2BmpInfoHeaderStrc
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);          // 0x00413020
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);                   // 0x00412650
 int __stdcall SFileReadFile(void* hFile, void* pBuffer, unsigned int nToRead, unsigned int* pnRead, void* pOverlapped); // 0x0041B050
-unsigned long __stdcall SFileSetFilePointer(void* hFile, long lDistanceToMove, long* plDistanceToMoveHigh, unsigned int dwMoveMethod); // 0x004165A0
+unsigned long __stdcall SFileSetFilePointer(void* hFile, long nDistance, long* pnDistanceHigh, unsigned long dwMoveMethod); // 0x004165A0
 
 void* __fastcall FOG_AllocPool(void* pPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 
@@ -138,7 +138,7 @@ static int __stdcall DecodeBmpFile(unsigned char* pPalette, void* hFile, int* pW
 
     return 1;
 }
-unsigned int __stdcall sub_00416370_StormGetFileSize(void* hFile, unsigned int* pnSizeHigh);                         // 0x00416370
+int __stdcall sub_00416370_StormGetFileSize(void* hFile, unsigned int* pdwFileSizeHigh); // 0x00416370
 
 struct PcxHeaderStrc
 {
@@ -597,7 +597,7 @@ static int __stdcall DecodeTgaFile(void* hFile, D2PaletteColorStrc* pPalette, un
 
 int __stdcall sub_00419980(const char*,void**); // 0x00419980
 int __stdcall sub_004198D0(void*); // 0x004198D0
-void __stdcall sub_0041C340_SetLastError(unsigned int); // 0x0041C340
+void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
 
 // 0x006C6B70
 int __stdcall sub_006C6B70_LoadImage(const char* filename,unsigned char* palette,unsigned char* pixels,unsigned int bufferSize,int* width,int* height,int* bits)

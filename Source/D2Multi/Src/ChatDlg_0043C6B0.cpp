@@ -46,7 +46,7 @@ struct D2LaunchCharInfoStrc
     char szText0xBD[0x170];
     char szText0x22D[0x10];
 };
-void __fastcall sub_00407050_GetSavePath(char* szPath, int nSize); // 0x00407050
+int __fastcall sub_00407050_GetSavePath(char* szPath, int nSize); // 0x00407050
 void* __fastcall sub_00406960_CreateFile(const char* szPath, unsigned long dwAccess, unsigned long dwShare, void* pSecurity, unsigned long dwCreation, unsigned long dwFlags, void* hTemplate); // 0x00406960
 int __fastcall sub_004069A0_CloseFile(void* hFile); // 0x004069A0
 int __fastcall sub_004069B0_ReadFile(void* hFile, void* pBuffer, unsigned long nSize, unsigned long* pRead, void* pOverlapped); // 0x004069B0
@@ -61,7 +61,7 @@ void __fastcall sub_004FDAD0_SetKeyCallback(D2WinControlStrc* pControl, int (__s
 void __fastcall sub_004FDB00_SetEnterCallback(D2WinControlStrc* pControl, int (__stdcall* pfnCallback)(int)); // 0x004FDB00
 void __cdecl sub_0043E130_Reset(); // 0x0043E130
 void __cdecl sub_004477A0_Refresh(); // 0x004477A0
-int __stdcall sub_00448C70_ButtonCallback(void* pMsg); // 0x00448C70
+int __stdcall sub_00448C70_ButtonCallback(D2ChatMessageStrc* pMsg); // 0x00448C70
 extern "C" const char szDataGlobal_006D4118[]; // 0x006D4118
 extern "C" const char gszSaveFormat_006D4230[]; // 0x006D4230
 extern D2WinControlInitStrc gtControlTemplates_00708D10[]; // 0x00708D10
@@ -166,8 +166,8 @@ extern "C" __declspec(dllimport) int __stdcall MultiByteToWideChar(unsigned int 
 extern "C" __declspec(dllimport) int __stdcall GetDateFormatA(unsigned long nLocale, unsigned long dwFlags, const _SYSTEMTIME* pDate, const char* szFormat, char* szDate, int nDate); // 0x006CC330
 extern "C" __declspec(dllimport) int __stdcall FileTimeToSystemTime(const _FILETIME* pFileTime, _SYSTEMTIME* pSystemTime); // 0x006CC334
 extern "C" __declspec(dllimport) int __stdcall FileTimeToLocalFileTime(const _FILETIME* pFileTime, _FILETIME* pLocalFileTime); // 0x006CC338
-void __stdcall SStrCopy(char* szDest, const char* szSource, int nMax); // 0x004135D0
-void __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
+unsigned int __stdcall SStrCopy(char* dest,const char* source,unsigned int limit); // 0x004135D0
+char* __fastcall sub_005263E0(char* szDest, const Unicode* pSource, int nMaxLength); // 0x005263E0
 
 struct D2LaunchFuncsStrc
 {
@@ -194,12 +194,12 @@ public:
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 extern "C" size_t __cdecl strlen(const char* szString);
 const char* __stdcall SStrChr(const char* szString, char nChar); // 0x00413490
-void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
+Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* pText, int nA, int nB, int nC); // 0x004FC9B0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 void __fastcall sub_00440140_ShowError(const Unicode* pText, D2LaunchCallback pfnDone); // 0x00440140
 void __fastcall sub_004411E0_Use(const char* szText); // 0x004411E0
-void __fastcall sub_0043E5F0_PrintMessage(const Unicode* pText, int nColor); // 0x0043E5F0
+int __fastcall sub_0043E5F0_PrintMessage(const Unicode* pText, int nColor); // 0x0043E5F0
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
 extern char gaszHistory_0077B1D8[10][0x100]; // 0x0077B1D8

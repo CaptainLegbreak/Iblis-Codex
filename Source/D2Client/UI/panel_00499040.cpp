@@ -45,10 +45,10 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize);                                      // 0x00681EF0
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
-int __fastcall sub_004538D0(int nUIVar);                                                             // 0x004538D0
+int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
 unsigned short __fastcall sub_00469AA0(int nA, int nB);                                                     // 0x00469AA0
 const Unicode* __fastcall sub_0046A530_GetKeyName(int nA, int nB);                                          // 0x0046A530
-void __fastcall sub_0046EE80_DrawCursorItem(D2UnitStrc* pItem, int nX, int nY);                             // 0x0046EE80
+int __fastcall sub_0046EE80_DrawItemCel(D2UnitStrc* pItem, int nX, int nY); // 0x0046EE80
 void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 int __fastcall sub_004C2240(D2UnitStrc* pItem);                                                             // 0x004C2240
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
@@ -251,7 +251,7 @@ void __cdecl sub_00499040_DrawBelt()
 
         D2UiRectStrc tRect;
         DATATBLS_GetInvRectFromBeltsTxt(gnUiRecordIndex_00722354, gnUiRecordRow_007A5218, &tRect, nBox);
-        sub_0046EE80_DrawCursorItem(pItem, tRect.nLeft, tRect.nTop);
+        sub_0046EE80_DrawItemCel(pItem, tRect.nLeft, tRect.nTop);
         if (nSlot < sizeof(gaBeltKeys_00722404) / sizeof(gaBeltKeys_00722404[0]) && ITEMS_CheckIfUseable(pItem))
         {
             Unicode wszKey[100];
@@ -284,3 +284,4 @@ void __cdecl sub_00499040_DrawBelt()
 }
 
 #include "gen/data/Source/D2Client/UI/panel_00499040.inc"
+struct D2UnitStrc;

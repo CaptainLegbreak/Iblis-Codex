@@ -28,7 +28,7 @@ extern "C" int __fastcall sub_004D9FC0(D2UnitStrc*, D2SkillStrc*); // 0x004D9FC0
 void __fastcall sub_004E9870_DrawTwoTexts(const Unicode*, const Unicode*, int, int, int, int, int); // 0x004E9870
 int __fastcall sub_00502EF0(int); // 0x00502EF0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short); // 0x00524A30
-void __fastcall sub_00526320_ToUnicode(Unicode*, const char*, int); // 0x00526320
+Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 Unicode* __fastcall sub_005267E0(Unicode*, const Unicode*); // 0x005267E0
 void __cdecl sub_005269D0(int, Unicode*, const Unicode*, ...); // 0x005269D0
 int __stdcall SKILLS_GetSkillIdFromSkill(D2SkillStrc*, const char*, int); // 0x00643CE0

@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
+struct D2GameStrc;
+struct D2UnitStrc;
 
 #pragma pack(push,1)
 struct D2Packet8A { unsigned char header; unsigned char type; int guid; };
@@ -18,7 +20,7 @@ void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc*); // 0x0064C370
 void __fastcall SUNIT_RemoveUnit(D2GameStrc*,D2UnitStrc*); // 0x00555600
 int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc*,int); // 0x0045C390
 void __fastcall AITACTICS_WalkToTargetUnitWithFlags(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,int); // 0x005DEC80
-void __fastcall AITACTICS_WalkCloseToUnit(D2GameStrc*,D2UnitStrc*,int); // 0x005DE200
+int __fastcall AITACTICS_WalkCloseToUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nMaxDistance); // 0x005DE200
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc*,D2UnitStrc*,int); // 0x005DE080
 D2UnitStrc* __fastcall sub_6FCCFD70(D2GameStrc*,D2UnitStrc*,int*); // 0x005DDF20
 int __fastcall sub_00588E10_IsMonsterNearby(D2GameStrc*,D2UnitStrc*,D2UnitStrc*); // 0x00588E10

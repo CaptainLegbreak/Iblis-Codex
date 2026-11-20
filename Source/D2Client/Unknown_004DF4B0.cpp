@@ -161,7 +161,7 @@ void __stdcall MISSILE_SetCurrentFrame(D2UnitStrc* pMissile, int nCurrentFrame);
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 int __fastcall sub_004C52E0_GetTargetPosition(D2UnitStrc* pUnit, int* pX, int* pY); // 0x004C52E0
 void __stdcall D2Common_10216(D2DynamicPathStrc* pPath, int nX, int nY, int a4); // 0x00649EF0
-void __fastcall sub_004E1970(D2SkillsTxt* pSkillsTxt, D2UnitStrc* pUnit); // 0x004E1970
+void __fastcall sub_004E1970_SetInfernoFrames(D2SkillsTxt* pSkillsTxtRecord, D2UnitStrc* pUnit); // 0x004E1970
 extern const int gaMissileVelocityPair_006DBAA0[]; // 0x006DBAA0
 extern const int gaMissileVelocityCharged_006DBB38[]; // 0x006DBB38
 
@@ -452,6 +452,7 @@ extern "C" void __cdecl sub_004E4280()
 }
 
 #include "gen/data/Source/D2Client/Unknown_004DF4B0.inc"
+struct D2UnitStrc;
 
 // 0x004E06A0
 void __fastcall sub_004E06A0_FreeModules(D2ClientModuleListStrc* pList)
@@ -763,7 +764,7 @@ int __fastcall sub_004E1A20_SkillCltDoChargedMissile(D2UnitStrc* pUnit, int nSki
 
     D2Common_10216(pUnit->pDynamicPath, nX, nY, 0);
     sub_004E14D0_CreateSkillMissile(gaMissileVelocityCharged_006DBB38, nX, nY, nSkillId, nSkillLevel, pUnit, nMissile);
-    sub_004E1970(pSkillsTxt, pUnit);
+    sub_004E1970_SetInfernoFrames(pSkillsTxt, pUnit);
     return 1;
 }
 

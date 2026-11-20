@@ -2,6 +2,8 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+struct D2SkillStrc;
+struct D2UnitStrc;
 
 struct D2GameStrc;
 
@@ -41,19 +43,19 @@ struct D2SetItemsTxt
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 extern short gwGlobal_007C78A8;                                                                             // 0x007C78A8
 extern short gwGlobal_007C78AC;                                                                             // 0x007C78AC
-void __fastcall sub_00465EE0_RemoveClientSideUnit(int nUnitId, int nUnitType);                              // 0x00465EE0
-D2UnitStrc* __fastcall sub_004661C0_CreateItem(int nUnitId, int nClassId, int nX, int nY, int nArg, int nValue); // 0x004661C0
+void __fastcall sub_00465EE0_RemoveClientSideUnit(unsigned int nUnitId, int nUnitType); // 0x00465EE0
+D2UnitStrc* __fastcall sub_004661C0_AllocClientUnit(unsigned int nUnitId, int nClassId, int nX, int nY, int nUnitType, int nArg5); // 0x004661C0
 void __fastcall sub_0046F280_ClearGfxBytes(D2UnitStrc* pUnit, int nComponent);                               // 0x0046F280
 void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg);                                           // 0x00478680
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nDelay, int nArg3, int nArg4);          // 0x004B9A00
 void __fastcall sub_004B9B50_SetValue(int nKey, int nValue);                                            // 0x004B9B50
-int __fastcall sub_004D9FC0_GetSkillUseState(D2UnitStrc* pUnit, D2SkillStrc* pSkill);                       // 0x004D9FC0
+extern "C" int __fastcall sub_004D9FC0(D2UnitStrc* unit,D2SkillStrc* skill); // 0x004D9FC0
 D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit);                                               // 0x00620190
 D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit);                                              // 0x006201D0
 void __stdcall UNITS_BlockCollisionPath(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY);        // 0x00620A70
 void __stdcall UNITS_InitializeStaticPath(D2UnitStrc* pUnit, D2ActiveRoomStrc* pRoom, int nX, int nY);      // 0x00620AE0
 void __stdcall UNITS_FreeCollisionPath(D2UnitStrc* pUnit);                                                  // 0x00623830
-void __stdcall sub_00624390_AnimInit(D2UnitStrc* pUnit);                                                    // 0x00624390
+int __stdcall sub_00624390_AnimInit(D2UnitStrc* ptUnit); // 0x00624390
 D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);                        // 0x00625480
 void __stdcall STATLIST_AllocStatListEx(D2UnitStrc* pUnit, int nFlags, void* pCallback, D2GameStrc* pGame);  // 0x00626D40
@@ -91,7 +93,7 @@ static __declspec(noinline) D2UnitStrc* __stdcall sub_004C0F20_CreateWorldItem(u
         pItemSave = &tItemSave;
     }
 
-    D2UnitStrc* pItem = sub_004661C0_CreateItem(pPacket->dwUnitId, pItemSave->nClassId, nX, nY, 4, pItemSave->nByte08);
+    D2UnitStrc* pItem = sub_004661C0_AllocClientUnit(pPacket->dwUnitId, pItemSave->nClassId, nX, nY, 4, pItemSave->nByte08);
     int nFail;
     ITEMS_DecodeItemFromBitstream(pItem, pPacket->pData, nSize, 0, 0, 0x60, &nFail);
     if (nFail)
@@ -120,7 +122,7 @@ static __declspec(noinline) D2UnitStrc* __stdcall sub_004C0FF0_CreateOwnedItem(u
         pItemSave = &tItemSave;
     }
 
-    D2UnitStrc* pItem = sub_004661C0_CreateItem(pPacket->dwUnitId, pItemSave->nClassId, nX, nY, 4, pItemSave->nByte08);
+    D2UnitStrc* pItem = sub_004661C0_AllocClientUnit(pPacket->dwUnitId, pItemSave->nClassId, nX, nY, 4, pItemSave->nByte08);
     int nFail;
     ITEMS_DecodeItemFromBitstream(pItem, pPacket->pData, nSize, 0, 0, 0x60, &nFail);
     if (nFail)
@@ -177,7 +179,7 @@ static void sub_004C1200_RestoreSkillState(D2UnitStrc* pUnit, D2SkillStateStrc* 
         D2SkillStrc* pSkill = SKILLS_GetSkillById(pUnit, pState->nLeftSkillId, pState->nLeftOwnerGUID);
         if (pSkill && pSkill != UNITS_GetLeftSkill(pUnit))
         {
-            switch (sub_004D9FC0_GetSkillUseState(pUnit, pSkill))
+            switch (sub_004D9FC0(pUnit, pSkill))
             {
             case 2:
             case 7:
@@ -194,7 +196,7 @@ static void sub_004C1200_RestoreSkillState(D2UnitStrc* pUnit, D2SkillStateStrc* 
         D2SkillStrc* pSkill = SKILLS_GetSkillById(pUnit, pState->nRightSkillId, pState->nRightOwnerGUID);
         if (pSkill && pSkill != UNITS_GetRightSkill(pUnit))
         {
-            switch (sub_004D9FC0_GetSkillUseState(pUnit, pSkill))
+            switch (sub_004D9FC0(pUnit, pSkill))
             {
             case 2:
             case 7:

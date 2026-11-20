@@ -38,8 +38,8 @@ extern CLTHITFUNC gpfCltHitFuncs_0072A508[];                                    
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax);                          // 0x0045C390
 D2UnitStrc* __fastcall sub_004639D0_GetOwnerUnit(D2UnitStrc* pUnit);                                        // 0x004639D0
 int __fastcall sub_00465C60_CheckUnitPair(D2UnitStrc* pUnit, D2UnitStrc* pOther);                           // 0x00465C60
-void __fastcall sub_00465EE0_RemoveClientSideUnit(int nUnitId, int nUnitType);                              // 0x00465EE0
-void __fastcall sub_00465F00_RemoveClientUnit(int nUnitId, int nUnitType);                                  // 0x00465F00
+void __fastcall sub_00465EE0_RemoveClientSideUnit(unsigned int nUnitId, int nUnitType); // 0x00465EE0
+void __fastcall sub_00465F00_RemoveServerSideUnit(unsigned int nUnitId, int nUnitType); // 0x00465F00
 void __fastcall sub_00474470_ReleaseLight(D2GfxLightStrc* pLight);                                          // 0x00474470
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4);           // 0x004B9A00
 void __fastcall sub_004BA790_ReleaseUnitSfx(void* pUnitSfx, D2UnitStrc* pUnit, int bForce);                 // 0x004BA790
@@ -213,7 +213,7 @@ D2UnitStrc* __fastcall sub_004D2D70_CltMissileHit(D2UnitStrc* pMissile, D2UnitSt
             const int nUnitId = pMissile->dwUnitId;
             if (bFlag)
             {
-                sub_00465F00_RemoveClientUnit(nUnitId, nUnitType);
+                sub_00465F00_RemoveServerSideUnit(nUnitId, nUnitType);
             }
             else
             {

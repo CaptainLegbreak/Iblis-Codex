@@ -47,7 +47,7 @@ D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
 int __cdecl sub_00468830(); // 0x00468830
-void __fastcall sub_0046EE80_DrawCursorItem(D2UnitStrc*,int,int); // 0x0046EE80
+int __fastcall sub_0046EE80_DrawItemCel(D2UnitStrc* pItem, int nX, int nY); // 0x0046EE80
 void __fastcall sub_0046EFD0_DrawFramedBox(int,int,unsigned char,unsigned char,unsigned char,int); // 0x0046EFD0
 void __cdecl sub_004835B0_LoadUiRecords(); // 0x004835B0
 void __stdcall sub_00483E40_DrawItemSockets(D2UnitStrc*,D2InventoryGridInfoStrc*,int,int); // 0x00483E40
@@ -66,7 +66,7 @@ int __stdcall ITEMS_CheckRequirements(D2UnitStrc*,D2UnitStrc*,int,int*,int*,int*
 int __stdcall ITEMS_CheckBodyLocation(D2UnitStrc*,int); // 0x0062ED50
 D2UnitStrc* __stdcall INVENTORY_GetItemFromBodyLoc(D2InventoryStrc*,int); // 0x0063BDE0
 D2UnitStrc* __stdcall INVENTORY_GetCursorItem(D2InventoryStrc*); // 0x0063C1E0
-unsigned int __stdcall INVENTORY_GetItemCount(D2InventoryStrc*); // 0x0063CD60
+int __stdcall INVENTORY_GetItemCount(D2InventoryStrc* pInventory); // 0x0063CD60
 int __stdcall INVENTORY_GetWieldType(D2UnitStrc*,D2InventoryStrc*); // 0x0063D340
 
 struct Unicode
@@ -109,14 +109,14 @@ Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x0
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 Unicode* __fastcall sub_00526F20(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
-int __stdcall sub_00625560(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625560
+int __stdcall STATLIST_GetUnitStatBonus(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625560
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType); // 0x00629BB0
 int __stdcall ITEMS_CheckIfThrowable(D2UnitStrc* pItem); // 0x0062BA80
-void* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId); // 0x006439F0
+D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId); // 0x006439F0
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, void* pSkill, int bBonus); // 0x006442A0
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
-void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
+Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 int __stdcall ITEMS_GetWeaponAttackSpeed(D2UnitStrc* pUnit, D2UnitStrc* pItem); // 0x0062A710
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 D2GemsTxt* __stdcall DATATBLS_GetGemsTxtRecord(int nGemId); // 0x006372C0
@@ -192,7 +192,7 @@ void __stdcall sub_00485EE0_AppendDefense(D2UnitStrc* pUnit, D2UnitStrc* pItem, 
 void __cdecl sub_0048BE80_FormatArgs(Unicode* pDest, const Unicode* pFormat, ...); // 0x0048BE80
 void __fastcall sub_0048C060_BuildItemName(D2UnitStrc* pItem, Unicode* pText, int nMaxLength); // 0x0048C060
 int __fastcall sub_004B2AD0_GetTradeCostText(D2UnitStrc* pItem, int nArg, int* pOut, Unicode* pName, int nMaxLength); // 0x004B2AD0
-void __fastcall sub_004E6410_BuildPropText(D2UnitStrc* pItem, Unicode* wszText, int nArg, int bFlag, int nArg2); // 0x004E6410
+void __fastcall sub_004E6410_BuildPropText(D2UnitStrc* pItem, Unicode* wszText, int nUnused, int bFlag, const Unicode* wszExtra); // 0x004E6410
 void __fastcall sub_004E6560_SetItemPropTexts(D2UnitStrc* pPlayer, D2UnitStrc* pItem, Unicode* pText, int nMaxLength); // 0x004E6560
 void __fastcall sub_004E6680_AddSetStatePropText(D2UnitStrc* pUnit, D2UnitStrc* pItem, Unicode* pText, int nMaxLength); // 0x004E6680
 void __fastcall D2Win_10129_DrawFramedText(const Unicode* wszText, int nX, int nY, int nArg4, int nArg5); // 0x00502280
@@ -354,7 +354,7 @@ void __cdecl sub_004845A0_DrawEquippedItems()
             pOther=INVENTORY_GetItemFromBodyLoc(pInventory,4);
             if(bDualWield && !ITEMS_GetQuiverType(pOther) && !ITEMS_GetQuiverType(pItem))
             {
-                sub_0046EE80_DrawCursorItem(pItem,gaCompGrids_007BCC58[4].rect.nLeft+((gaCompGrids_007BCC58[5].nWidth-gGrid_007BCB88.nGridBoxWidth*nWidth)>>1)+nOffsetX,
+                sub_0046EE80_DrawItemCel(pItem,gaCompGrids_007BCC58[4].rect.nLeft+((gaCompGrids_007BCC58[5].nWidth-gGrid_007BCB88.nGridBoxWidth*nWidth)>>1)+nOffsetX,
                     gaCompGrids_007BCC58[4].rect.nTop+((gaCompGrids_007BCC58[5].nHeight-gGrid_007BCB88.nGridBoxHeight*nHeight)>>1)+nOffsetY);
                 sub_004845A0_DrawOtherHandFrame(&gaCompGrids_007BCC58[4]);
             }
@@ -363,7 +363,7 @@ void __cdecl sub_004845A0_DrawEquippedItems()
             pOther=INVENTORY_GetItemFromBodyLoc(pInventory,5);
             if(bDualWield && !ITEMS_GetQuiverType(pOther) && !ITEMS_GetQuiverType(pItem))
             {
-                sub_0046EE80_DrawCursorItem(pItem,gaCompGrids_007BCC58[5].rect.nLeft+((gaCompGrids_007BCC58[4].nWidth-gGrid_007BCB88.nGridBoxWidth*nWidth)>>1)+nOffsetX,
+                sub_0046EE80_DrawItemCel(pItem,gaCompGrids_007BCC58[5].rect.nLeft+((gaCompGrids_007BCC58[4].nWidth-gGrid_007BCB88.nGridBoxWidth*nWidth)>>1)+nOffsetX,
                     gaCompGrids_007BCC58[5].rect.nTop+((gaCompGrids_007BCC58[4].nHeight-gGrid_007BCB88.nGridBoxHeight*nHeight)>>1)+nOffsetY);
                 sub_004845A0_DrawOtherHandFrame(&gaCompGrids_007BCC58[5]);
             }
@@ -383,7 +383,7 @@ void __cdecl sub_004845A0_DrawEquippedItems()
         {
             if(sub_00468830()==8)sub_00483A70_DrawSlotFrame(&gaCompGrids_007BCC58[nBodyLoc],0);
             else sub_00483A70_DrawSlotFrame(&gaCompGrids_007BCC58[nBodyLoc],1);
-            sub_0046EE80_DrawCursorItem(pItem,nX,nY);
+            sub_0046EE80_DrawItemCel(pItem,nX,nY);
             if(ITEMS_CheckIfSocketable(pItem) && sub_0062BC20(pItem)>0 && ITEMS_CheckItemFlag(pItem,0x800,0x673,szInvCpp_006D9BC0))
                 sub_00483E40_DrawItemSockets(pItem,&gGrid_007BCB88,nX,nY);
         }
@@ -404,7 +404,7 @@ void __cdecl sub_004845A0_DrawEquippedItems()
             {
                 sub_00483A70_DrawSlotFrame(&gaCompGrids_007BCC58[nBodyLoc],0);
             }
-            sub_0046EE80_DrawCursorItem(pItem,nX,nY);
+            sub_0046EE80_DrawItemCel(pItem,nX,nY);
         }
     }
     sub_004844A0_DrawBodyLocPlacement(pInventory);
@@ -477,7 +477,7 @@ static void __stdcall sub_00484E90_AppendDurability(D2UnitStrc* pItem, Unicode* 
     if (ITEMS_HasDurability(pItem) && STATLIST_GetMaxDurabilityFromUnit(pItem) > 0 && !ITEMS_CheckIfThrowable(pItem))
     {
         int bBonus = 0;
-        if (sub_00625560(pItem, 0x4B, 0))
+        if (STATLIST_GetUnitStatBonus(pItem, 0x4B, 0))
         {
             bBonus = 1;
         }
@@ -668,7 +668,7 @@ static void __stdcall sub_004861D0_AppendAttackSpeed(Unicode* pText, D2UnitStrc*
     D2UnitStrc* pStoredUnit = sub_00463DE0_GetPlayerUnit();
     const int nAttackSpeed = ITEMS_GetWeaponAttackSpeed(pStoredUnit, pItem);
     int bBonus = 0;
-    if (sub_00625560(pItem, 0x5D, 0))
+    if (STATLIST_GetUnitStatBonus(pItem, 0x5D, 0))
     {
         bBonus = 1;
     }
@@ -730,6 +730,9 @@ void __stdcall sub_E05_Emit_Tooltip(D2UnitStrc* pItem, D2ItemsTxt* pItemsTxt, in
 }
 
 #include "gen/data/Source/D2Client/UI/inv_004844A0.inc"
+struct D2InventoryStrc;
+struct D2SkillStrc;
+struct D2UnitStrc;
 
 // 0x0048A990
 static void sub_0048A990_DrawMercStats(D2UnitStrc* pUnit)

@@ -31,7 +31,7 @@ int __fastcall sub_004F9190(); // 0x004F9190
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 extern "C" unsigned int __cdecl strlen(const char* szString);
 const char* __stdcall SStrChr(const char* szString, char nChar); // 0x00413490
-void __stdcall SStrCopy(char* szDest, const char* szSource, int nMax); // 0x004135D0
+unsigned int __stdcall SStrCopy(char* dest,const char* source,unsigned int limit); // 0x004135D0
 void __stdcall sub_A09_Use(const char* szText);
 int __cdecl sub_00444E20(); // 0x00444E20
 void __fastcall BUTTON_SetIsPressed(D2WinControlStrc* pButton, int bIsPressed); // 0x005009A0
@@ -40,10 +40,10 @@ extern D2WinControlStrc* gpControlC_0077B07C; // 0x0077B07C
 void __cdecl sub_0043EB30_CreateControls(); // 0x0043EB30
 void __cdecl sub_00440FC0_CreateGatewayControls(); // 0x00440FC0
 extern D2LaunchCharInfoStrc* gpCharInfo_0077BBD8; // 0x0077BBD8
-void __cdecl sub_004F8FE0(); // 0x004F8FE0
-void __stdcall sub_004F90A0(int nResolution); // 0x004F90A0
+int __fastcall D2Win_10015(); // 0x004F8FE0
+int __stdcall sub_004F90A0_SwitchResolution(int nResolution); // 0x004F90A0
 int __fastcall sub_00441B70_RunChat(D2LaunchCharInfoStrc* pInfo); // 0x00441B70
-void __cdecl sub_004FA550(); // 0x004FA550
+int __fastcall D2Win_10016(); // 0x004FA550
 extern int gbDone_0077BDA0; // 0x0077BDA0
 void __cdecl sub_00440980_OpenClassSelectB(); // 0x00440980
 int __cdecl sub_00442810_SendChatBuffer(); // 0x00442810
@@ -240,10 +240,10 @@ int __stdcall sub_0043F970_ReleaseAndRecreate(int nArg)
 int __fastcall sub_00442150_StartChat(D2LaunchCharInfoStrc* pInfo)
 {
     gpCharInfo_0077BBD8 = pInfo;
-    sub_004F8FE0();
-    sub_004F90A0(1);
+    D2Win_10015();
+    sub_004F90A0_SwitchResolution(1);
     sub_00441B70_RunChat(pInfo);
-    sub_004FA550();
+    D2Win_10016();
     return gbDone_0077BDA0;
 }
 

@@ -62,8 +62,8 @@ struct D2TextListStrc
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
-void __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
-D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType); // 0x00463990
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
 void __stdcall sub_00487A10_SelectItemPageTab(unsigned char nTab); // 0x00487A10
 void __cdecl sub_00487ED0_SetupPanelButtons(); // 0x00487ED0
@@ -199,7 +199,7 @@ void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); //
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 void __fastcall sub_00451E10_RegisterHandlerTable(int hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
 void __fastcall sub_00467430(void* pRect); // 0x00467430
-void __fastcall sub_004786A0_SendIntInt(char nHeader, int nArg1, int nArg2); // 0x004786A0
+void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 void __stdcall sub_0049D4D0_FreeTextList(void* pList); // 0x0049D4D0
 void __cdecl sub_0049FE10(); // 0x0049FE10
 T0044CB60* __stdcall sub_004A0320_BuildTextLines(const Unicode* wszText, int* pLineCount, unsigned short* pMaxLines); // 0x004A0320
@@ -964,7 +964,7 @@ void __cdecl sub_0049F960_ResetTextBox()
     }
     if (gbTextSound_007BF230)
     {
-        sub_004786A0_SendIntInt(0x31, -1, gwTextStringId_007BF212);
+        sub_004786A0_SendDwords2(0x31, -1, gwTextStringId_007BF212);
         gbTextSound_007BF230 = 0;
     }
 }

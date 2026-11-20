@@ -4,6 +4,9 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+struct D2GameStrc;
+struct D2SpawnAreaStrc;
+struct D2UnitStrc;
 struct D2ActiveRoomStrc;
 struct D2DynamicPathStrc;
 struct D2AiControlStrc { char pad00[0x14]; int param[3]; };
@@ -25,12 +28,12 @@ void __stdcall SKILLS_AssignSkill(D2UnitStrc*,int,int,int,const char*,int); // 0
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc*,D2UnitStrc*,int); // 0x005DE080
 void __fastcall AITACTICS_Idle(D2GameStrc*,D2UnitStrc*,int); // 0x005DE0F0
 int __fastcall AITACTICS_WalkCloseToUnit(D2GameStrc*,D2UnitStrc*,unsigned char); // 0x005DE200
-int __fastcall D2GAME_AICORE_Escape_6FCD0560(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,unsigned char,int); // 0x005DE6D0
+int __fastcall D2GAME_AICORE_Escape_6FCD0560(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int nMaxDistance, int bDeleteAiEventCallback); // 0x005DE6D0
 int __fastcall sub_005DF7D0_WalkRandomPath(D2GameStrc*,D2UnitStrc*,D2UnitStrc*,unsigned char,int); // 0x005DF7D0
 int __fastcall AITACTICS_WalkToTargetCoordinates(D2GameStrc*,D2UnitStrc*,int,int); // 0x005DED90
-int __fastcall AITACTICS_UseSkill(D2GameStrc*,D2UnitStrc*,int,int,D2UnitStrc*,int,int); // 0x005DEAD0
+int __fastcall AITACTICS_UseSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nMode, int nSkillId, D2UnitStrc* pTarget, int nX, int nY); // 0x005DEAD0
 int __fastcall AITACTICS_ChangeModeAndTargetUnit(D2GameStrc*,D2UnitStrc*,int,D2UnitStrc*); // 0x005DDF90
-int __fastcall MONSTERREGION_FindSpawnLocation(D2GameStrc*,D2ActiveRoomStrc*,void*,int,int*,int*,int); // 0x0054DC40
+int __fastcall MONSTERREGION_FindSpawnLocation(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2SpawnAreaStrc* pArea, int nClassId, int* pX, int* pY, int bAvoidWarps); // 0x0054DC40
 D2UnitStrc* __fastcall SUNIT_GetOwner(D2GameStrc*,D2UnitStrc*); // 0x00552FD0
 int __fastcall SUNIT_IsDead(D2UnitStrc*); // 0x005541B0
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc*,D2UnitStrc*); // 0x00553540
@@ -41,7 +44,7 @@ void __fastcall AIGENERAL_SetOwnerData(D2GameStrc*,D2UnitStrc*,int,int,int,int);
 void __fastcall AIGENERAL_AllocMinionList(D2GameStrc*,D2UnitStrc*,D2UnitStrc*); // 0x0058F100
 void __stdcall MONSTERS_GetMinionSpawnInfo(D2UnitStrc*,int*,int*,int*,int*,int,int(__fastcall*)(D2UnitStrc*)); // 0x0063EFA0
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc*,int,int); // 0x00463740
-D2UnitStrc* __fastcall sub_005B2F20_SpawnMonster(D2GameStrc*,D2ActiveRoomStrc*,int,int,int,int,int,int); // 0x005B2F20
+D2UnitStrc* __fastcall D2GAME_SpawnMonster_6FC69F10(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, int nX, int nY, int nMonsterId, int nAnimMode, int nMaxSearchRings, short nFlags); // 0x005B2F20
 
 static __forceinline int UnitX(D2UnitStrc* u) {
  switch(u->dwUnitType) {case 2:case 4:case 5:return ((D2StaticPathStrc*)u->pDynamicPath)->nXPos;}
@@ -79,7 +82,7 @@ static bool __stdcall sub_005FC860_SummonClone(D2GameStrc* game,D2UnitStrc* unit
  if(!room)return false;
 
  sub_00463740_FindRoomAtPoint(UNITS_GetRoom(unit),x,y);
- D2UnitStrc* clone=sub_005B2F20_SpawnMonster(game,room,x,y,monsterId,mode,-1,0);
+ D2UnitStrc* clone=D2GAME_SpawnMonster_6FC69F10(game,room,x,y,monsterId,mode,-1,0);
  if(!clone)return false;
  clone->dwFlags|=0x04020000;
  AITACTICS_Idle(game,clone,15);

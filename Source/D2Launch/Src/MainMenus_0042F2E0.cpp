@@ -72,7 +72,7 @@ void __cdecl sub_0043C4F0(); // 0x0043C4F0
 void __stdcall sub_004FA590_RunLoop(D2LaunchCallback pfnCallback); // 0x004FA590
 int __fastcall sub_004F9190(); // 0x004F9190
 void __fastcall D2Win_10045(D2WinControlStrc* pControl, const char* szText); // 0x004FCF80
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(short nIndex); // 0x00524A30
+const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 void __stdcall sub_00525260(void* pOut, int nField); // 0x00525260
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 extern int gbConnected_0077959C; // 0x0077959C
@@ -161,7 +161,7 @@ extern D2ConfigStrc* gpConfig_007795D4; // 0x007795D4
 extern "C" const char gszMainMenusFile_006D41C0[]; // 0x006D41C0
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 int __fastcall sub_004068E0(const char* szFileName, void** phFile); // 0x004068E0
-void __fastcall sub_004068F0(void* hFile); // 0x004068F0
+int __fastcall sub_004068F0(void* pArg); // 0x004068F0
 int __fastcall sub_00406900(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped, int nArg7, int nArg6); // 0x00406900
 int __fastcall sub_00406930(void* hFile, unsigned int* pnSizeHigh); // 0x00406930
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380

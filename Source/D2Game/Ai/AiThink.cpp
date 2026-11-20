@@ -53,8 +53,8 @@ struct D2AiTableStrc { int unk00; AiFn init; AiFn function; AiFn alternate; };
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const char gszEmpty_006CC837[]; // 0x006CC837
-const char* __cdecl sub_00408090(); // 0x00408090
-void __cdecl sub_00408A60(const char*,const char*,int); // 0x00408A60
+extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(void*);
 int __stdcall STATES_CheckState(D2UnitStrc*,int); // 0x00639DF0
@@ -62,8 +62,8 @@ D2AiTableStrc* __fastcall sub_005B15D0_GetAiTable(D2UnitStrc*,int); // 0x005B15D
 
 
 void __fastcall AIGENERAL_FreeAllAiCommands(D2GameStrc*,D2UnitStrc*); // 0x0058EDE0
-void* __fastcall DATATBLS_GetMonStatsTxtRecord(int); // 0x00451F80
-void* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int); // 0x00451FE0
+D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
+D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId); // 0x00451FE0
 void __fastcall AITHINK_Fn001_100_Idle_Buffy(D2GameStrc*,D2UnitStrc*,D2AiTickStrc*); // 0x005B0CD0
 
 
@@ -103,12 +103,12 @@ int __fastcall PLAYER_GetUniqueIdFromPlayerData(D2UnitStrc*); // 0x005353F0
 void __fastcall D2GAME_EVENTS_Delete_6FC34840(D2GameStrc*, D2UnitStrc*, int, int); // 0x00540E60
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc*, int, int); // 0x00552F60
 D2AiCmdStrc* __fastcall AIGENERAL_GetAiCommandFromParam(D2UnitStrc*, int, int); // 0x0058EEF0
-D2AiCmdStrc* __fastcall AIGENERAL_CopyAiCommand(D2GameStrc*, D2UnitStrc*, D2AiCmdStrc*); // 0x0058EF40
-unsigned int __fastcall AIUTIL_GetDistanceToCoordinates(D2UnitStrc*, int, int); // 0x005DC5C0
+void __fastcall AIGENERAL_CopyAiCommand(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiCmdStrc* pAiCmd); // 0x0058EF40
+int __fastcall AIUTIL_GetDistanceToCoordinates(D2UnitStrc* hUnit, int nX, int nY); // 0x005DC5C0
 int __fastcall AITACTICS_ChangeModeAndTargetUnit(D2GameStrc*, D2UnitStrc*, int, D2UnitStrc*); // 0x005DDF90
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc*, D2UnitStrc*, int); // 0x005DE080
-void __fastcall AITACTICS_SetVelocity(D2UnitStrc*, int, int, unsigned char); // 0x005DE190
-void __fastcall AITACTICS_WalkInRadiusToTarget(D2GameStrc*, D2UnitStrc*, unsigned char); // 0x005DE200
+void __fastcall sub_005DE190_SetAiParam(D2UnitStrc* pUnit, int nParam, int nValue, int nArg); // 0x005DE190
+int __fastcall AITACTICS_WalkCloseToUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nMaxDistance); // 0x005DE200
 int __fastcall AITACTICS_UseSkill(D2GameStrc*, D2UnitStrc*, unsigned char, int, D2UnitStrc*, int, int); // 0x005DEAD0
 int __fastcall AITACTICS_WalkToTargetCoordinates(D2GameStrc*, D2UnitStrc*, int, int); // 0x005DED90
 int __fastcall AITACTICS_WalkToTargetCoordinatesDeleteAiEvent(D2GameStrc*, D2UnitStrc*, int, int); // 0x005DEE50
@@ -137,11 +137,11 @@ D2AiControlStrc* __fastcall AIGENERAL_GetAiControlFromUnit(D2UnitStrc* pUnit); /
 void __fastcall sub_00553380_SetUnitFlag(D2UnitStrc* pUnit, int nFlag, int bSet); // 0x00553380
 void __fastcall SUNITMSG_QueueMonsterPrecache(D2UnitStrc* pUnit, int nClass); // 0x00571C00
 int __fastcall MONSTER_Reinitialize(D2GameStrc* pGame, D2UnitStrc* pUnit, int nClass, int nMode); // 0x00574370
-int __fastcall sub_00586B30_GetSuperUniqueId(int nIndex); // 0x00586B30
+int __fastcall sub_00586B30_GetSuperUniqueId(unsigned int nIndex); // 0x00586B30
 void __fastcall AITHINK_ExecuteAiFn(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiControlStrc* pAiControl, int nState); // 0x005B0E00
 D2UnitStrc* __fastcall sub_005DD0B0_FindTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pArg, void* pCallback, int nCallbackId); // 0x005DD0B0
 void __fastcall sub_005EF210_BaalThroneSpawnMinion(D2UnitStrc* pUnit, int nSuperUnique, D2AiTickParamStrc* pTick); // 0x005EF210
-D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pPool, int nFlags, int nExpire, int nType, int nUnitId); // 0x006251F0
+D2StatListStrc* __stdcall STATLIST_AllocStatList(void* pMemPool, unsigned int fFilter, unsigned int dwTimeout, int nUnitType, int nUnitGUID); // 0x006251F0
 void __stdcall STATLIST_SetState(D2StatListStrc* pList, int nState); // 0x006252D0
 void __stdcall sub_00626E10(D2UnitStrc* pUnit, D2StatListStrc* pList, int bReset); // 0x00626E10
 void __stdcall STATLIST_SetStat(D2StatListStrc* pList, int nStat, int nValue, int nLayer); // 0x00627150
@@ -217,6 +217,8 @@ void __fastcall AITHINK_ExecuteAiFn(D2GameStrc* pGame, D2UnitStrc* hUnit, D2AiCo
 }
 
 #include "gen/data/Source/D2Game/Ai/AiThink.inc"
+struct D2MonStats2Txt;
+struct D2StatListStrc;
 
 static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)
 {
@@ -320,7 +322,7 @@ void __fastcall sub_005E9170_Think(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTic
     int bKeepAction = 0;
     switch (nAction) {
     case 1:
-        AITACTICS_SetVelocity(pUnit, 0, 20, 0);
+        sub_005DE190_SetAiParam(pUnit, 0, 20, 0);
         AITACTICS_WalkToTargetCoordinates(pGame, pUnit, CLIENTS_GetUnitX(pTarget), CLIENTS_GetUnitY(pTarget));
         break;
     case 2: AITACTICS_ChangeModeAndTargetUnit(pGame, pUnit, 4, pTarget); break;
@@ -362,7 +364,7 @@ void __fastcall sub_005E9170_Think(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTic
         break;
     case 12: sub_005DF7D0(pGame, pUnit, pTarget, 4, 0); break;
     case 14:
-        AITACTICS_SetVelocity(pUnit, 0, 50, 100);
+        sub_005DE190_SetAiParam(pUnit, 0, 50, 100);
         if (!AITACTICS_WalkToTargetCoordinatesDeleteAiEvent(pGame, pUnit, pCmd->nCmdParam[1], pCmd->nCmdParam[2])) {
             D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 2, 0);
             int nX = CLIENTS_GetUnitX(pUnit);
@@ -376,7 +378,7 @@ void __fastcall sub_005E9170_Think(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTic
             if (nX > nTargetX) nDirectionX = 1;
             if (nY < nTargetY) nDirectionY = -1;
             if (nY > nTargetY) nDirectionY = 1;
-            AITACTICS_SetVelocity(pUnit, 0, 50, 100);
+            sub_005DE190_SetAiParam(pUnit, 0, 50, 100);
             if (!AITACTICS_WalkToTargetCoordinatesDeleteAiEvent(pGame, pUnit, nTargetX + (nDistance >> 1) * nDirectionX, nTargetY + (nDistance >> 1) * nDirectionY)) {
                 D2GAME_EVENTS_Delete_6FC34840(pGame, pUnit, 2, 0);
                 AITACTICS_IdleInNeutralMode(pGame, pUnit, 2);
@@ -396,8 +398,8 @@ void __fastcall sub_005E9170_Think(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiTic
         }
         break;
     case 16:
-        AITACTICS_SetVelocity(pUnit, 0, 20, 0);
-        AITACTICS_WalkInRadiusToTarget(pGame, pUnit, 5);
+        sub_005DE190_SetAiParam(pUnit, 0, 20, 0);
+        AITACTICS_WalkCloseToUnit(pGame, pUnit, 5);
         break;
     default:
         {

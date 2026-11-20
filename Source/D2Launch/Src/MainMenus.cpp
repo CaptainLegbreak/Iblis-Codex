@@ -79,7 +79,7 @@ extern "C" __declspec(dllimport) __declspec(noreturn) void __stdcall ExitProcess
 extern "C" int __cdecl vsprintf(char* szDest, const char* szFormat, va_list args); // 0x00682DA1
 extern "C" void* __cdecl realloc(void* pMemory, size_t nSize); // 0x00683BA5
 void __stdcall D2ServerServiceHandlerProc(unsigned long dwCtrlCode); // 0x00406410
-int __fastcall GameInit(unsigned long dwNumServicesArgs, const char* lpServiceArgVectors[]); // 0x004064C0
+int __fastcall GameInit(int argc, const char** argv); // 0x004064C0
 int __cdecl sub_00406650_StartServiceDispatcher(); // 0x00406650
 int __cdecl sub_004061C0_DenyProcessAccess(); // 0x004061C0
 void __fastcall sub_00410340_LogV(const char* szPrefix, int nArg2, int nArg3, const char* szFormat, va_list args); // 0x00410340
@@ -89,13 +89,13 @@ int __stdcall sub_00415F70(int nFlags); // 0x00415F70
 void __stdcall sub_00415F90_SetValue(int nValue); // 0x00415F90
 int __stdcall SFileSetBasePath(const char* szPath); // 0x004164B0
 int __stdcall SFileSetIoErrorMode(int nValueA, int nValueB); // 0x004166B0
-int __stdcall sub_0041BFC0_SetOption(int nOption, void* pData, unsigned int nSize); // 0x0041BFC0
+int __stdcall sub_0041BFC0(unsigned int nOption, const void* pInput, unsigned int nSize); // 0x0041BFC0
 void __cdecl sub_0041C1A0_LockErrorState(); // 0x0041C1A0
 void __cdecl sub_0041C1E0_UnlockErrorState(); // 0x0041C1E0
 int __stdcall SErrDisplayError(unsigned int nErrorCode, const char* szFile, int nLine, const char* szDescription, int bRecoverable, unsigned int nExitCode); // 0x0041CAF0
 void __stdcall SMemZero(void* pLocation, unsigned int nLength); // 0x0041D300
 int __stdcall sub_004269C0_RegisterHandler(unsigned long dwId, void* pContext); // 0x004269C0
-void __fastcall sub_004307A0(unsigned int nArg, int nMode, int nStringId1, int nStringId2); // 0x004307A0
+int __fastcall sub_004307A0(unsigned int nArg, int nMode, int nStringId1, int nStringId2); // 0x004307A0
 int __stdcall sub_00431600_ShowLevelScreen(int nArg); // 0x00431600
 extern "C" const char gszPercentS_006FFC58[]; // 0x006FFC58
 extern "C" const char gszKernel32_006CD6E4[]; // 0x006CD6E4
@@ -122,7 +122,7 @@ extern D2WinControlStrc* gpList_00779960; // 0x00779960
 extern int gdwGlobal_00779990; // 0x00779990
 extern D2WinControlStrc* gpList_00779964; // 0x00779964
 void __cdecl sub_0042F480_Reset(); // 0x0042F480
-void __fastcall sub_0042F2E0_ReadPaletteFiles(const char* szFile1, const char* szFile2); // 0x0042F2E0
+int __fastcall sub_0042F2E0_ReadPaletteFiles(const char* szFile1, const char* szFile2); // 0x0042F2E0
 D2WinControlStrc* __fastcall sub_0042F430_CreateControl(int nId); // 0x0042F430
 int __fastcall sub_00431050_ShowCredits(int nUnused); // 0x00431050
 int __fastcall D2Win_10053(D2WinControlStrc* pTextBox, int nLine); // 0x004FBA30
@@ -263,7 +263,7 @@ extern int gdwGlobal_00779974; // 0x00779974
 void __fastcall sub_00433380_ShowMessage(const Unicode* pText, D2LaunchDoneFn pfnDone, int nArg); // 0x00433380
 extern "C" void _ReadWriteBarrier(void);
 void* __cdecl sub_00449AC0_GetHandle(); // 0x00449AC0
-void __cdecl sub_00449C00_CloseHandle(); // 0x00449C00
+int __cdecl sub_00449C00(); // 0x00449C00
 int __cdecl sub_00432350_GetStatus(); // 0x00432350
 extern "C" int __cdecl strcmp(const char* szA, const char* szB);
 
@@ -323,10 +323,10 @@ void __fastcall sub_00406870_InitStorm(int nDirectFlags, int nValue)
     sub_00415F90_SetValue(nValue);
     gnStormDirectFlags_0074C82C = nDirectFlags;
     int nChunkSize = 0x8000;
-    sub_0041BFC0_SetOption(2, &nChunkSize, 4);
+    sub_0041BFC0(2, &nChunkSize, 4);
     int bEnable = 1;
-    sub_0041BFC0_SetOption(1, &bEnable, 4);
-    sub_0041BFC0_SetOption(3, &bEnable, 4);
+    sub_0041BFC0(1, &bEnable, 4);
+    sub_0041BFC0(3, &bEnable, 4);
 }
 
 // 0x00409020
@@ -988,7 +988,7 @@ int __cdecl sub_00432400_PollStatus()
         _ReadWriteBarrier();
         return 3;
     case 0:
-        sub_00449C00_CloseHandle();
+        sub_00449C00();
         return sub_00432350_GetStatus() ? 2 : 0;
     }
 }

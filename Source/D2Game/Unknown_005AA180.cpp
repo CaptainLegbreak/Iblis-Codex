@@ -5,6 +5,8 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+struct D2GameStrc;
+struct D2UnitStrc;
 
 struct D2StaticPathStrc;
 struct D2MissilesTxt;
@@ -123,7 +125,7 @@ struct D2MissileStrc
 };
 
 D2SkillsTxt* __fastcall SKILLS_GetSkillsTxtRecord(int nSkillId); // 0x0045C4B0
-D2UnitStrc* __fastcall SKILLS_FindNextAuraTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nRange, unsigned int nAuraFilter, int nUnitId, int a8); // 0x0056BD10
+D2UnitStrc* __fastcall sub_6FD107F0(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nAuraRange, unsigned int nAuraFilter, int a7, int* a8); // 0x0056BD10
 D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc* pGame, D2MissileStrc* pMissileParams); // 0x0059FA30
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc*, int, unsigned short); // 0x00625480
 int __fastcall sub_004EFC20_GetSkillParam2(int); // 0x004EFC20
@@ -420,7 +422,7 @@ int __fastcall MISSMODE_SrvHit12_ChainLightning_LightningStrike(D2GameStrc* pGam
     }
 
     pPrevious = pUnit;
-    pUnit = SKILLS_FindNextAuraTarget(pGame, pOwner, nX, nY, nRange, 0x88583, !pUnit ? -1 : pUnit->dwUnitId, 0);
+    pUnit = sub_6FD107F0(pGame, pOwner, nX, nY, nRange, 0x88583, !pUnit ? -1 : pUnit->dwUnitId, 0);
     if (!pUnit)
     {
         return 3;

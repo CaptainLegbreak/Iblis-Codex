@@ -73,7 +73,7 @@ int __cdecl sub_00468740();                                                     
 void __fastcall sub_00478AB0_RemoveType7(int nUnused, int nKey);                                            // 0x00478AB0
 void __fastcall sub_004A7080(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor);  // 0x004A7080
 int __stdcall sub_004B92E0_GetTableByte(int nUnused, int nIndex);                                           // 0x004B92E0
-int __cdecl D2GFX_GetResolutionMode();                                                                      // 0x004F5160
+int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 int __fastcall sub_00502EF0(int nArg);                                                                      // 0x00502EF0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30

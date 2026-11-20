@@ -2,6 +2,8 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+struct D2MagicAffixTxt;
+struct D2UnitStrc;
 
 union D2SeedStrc;
 
@@ -49,8 +51,8 @@ void __stdcall ITEMS_AssignPrefix(D2UnitStrc* pItem, unsigned short nPrefix, int
 void __stdcall ITEMS_AssignRarePrefix(D2UnitStrc* pItem, unsigned short nPrefix);                           // 0x00628010
 void __stdcall ITEMS_AssignRareSuffix(D2UnitStrc* pItem, unsigned short nSuffix);                           // 0x00628070
 void __stdcall ITEMS_SetItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int bSet);                         // 0x006280D0
-int __stdcall ITEMS_GetBaseCode(D2UnitStrc* pItem);                                                         // 0x00628590
-int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem);                                                    // 0x006289F0
+unsigned int __stdcall ITEMS_GetBaseCode(D2UnitStrc* hItem); // 0x00628590
+unsigned int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
 int __stdcall ITEMS_CheckIfSocketable(D2UnitStrc* pItem);                                                   // 0x00629900
 int __stdcall ITEMS_HasDurability(D2UnitStrc* pItem);                                                       // 0x00629930
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType);                                      // 0x00629BB0
@@ -59,11 +61,11 @@ unsigned short __stdcall ITEMS_GetItemFormat(D2UnitStrc* pItem);                
 int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem);                                                         // 0x0062B400
 unsigned char __stdcall sub_0062BC20(D2UnitStrc* pItem);                                             // 0x0062BC20
 void __stdcall ITEMS_AddSockets(D2UnitStrc* pItem, int nSockets);                                           // 0x0062BCB0
-void* __stdcall DATATBLS_GetMagicAffixTxtRecord(int nIndex);                                                // 0x00633EE0
+D2MagicAffixTxt* __stdcall DATATBLS_GetMagicAffixTxtRecord(int nIndex); // 0x00633EE0
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId);                                              // 0x006335F0
 unsigned int __fastcall SEED_GetLowSeed(D2SeedStrc* pSeed);                                                 // 0x00650E50
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed);                                 // 0x00650E40
-void __stdcall sub_0065FEC0_ItemApplyProps(int nPass, int nArg1, D2UnitStrc* pItem, void* pProperty, int nArg2, int nArg5); // 0x0065FEC0
+void __stdcall ITEMMODS_AssignProperty(int nType, D2UnitStrc* a2, D2UnitStrc* pItem, const void* pMods, int nPropSet, int nApplyType); // 0x0065FEC0
 
 // build: symbol ?ITEMS_AssignDropMagicAffixes@@YGHPAUD2ItemDropStrc@@PAPAUD2UnitStrc@@@Z 0x005565E0
 static int __stdcall ITEMS_AssignDropMagicAffixes(D2ItemDropStrc* pItemDrop, D2UnitStrc** ppItem)
@@ -689,7 +691,7 @@ int __fastcall ITEMMODE_AssignItemQualityAndProperties(D2GameStrc* pGame, D2Unit
                 {
                     ITEMS_SetAutoAffix(*ppItem, nAutoAffix);
                     void* pAffixTxtRecord = DATATBLS_GetMagicAffixTxtRecord(nAutoAffix);
-                    sub_0065FEC0_ItemApplyProps(0, 0, *ppItem, pAffixTxtRecord, 0, 0);
+                    ITEMMODS_AssignProperty(0, 0, *ppItem, pAffixTxtRecord, 0, 0);
                 }
             }
         }

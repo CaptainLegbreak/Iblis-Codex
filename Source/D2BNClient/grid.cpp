@@ -32,7 +32,7 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 int __stdcall SFileUnloadFile(void* pBuffer); // 0x00416710
 int __cdecl sub_0051BEC0_IsExpansion(); // 0x0051BEC0
-unsigned int __fastcall sub_00522E10(char* szOut, unsigned int nSize, char* pKey); // 0x00522E10
+unsigned int __fastcall sub_00522E10_Decrypt(unsigned char* data,unsigned int size,unsigned int key); // 0x00522E10
 extern int gdwGlobal_00730190; // 0x00730190
 static void* sub_00523480_LoadKeyFile(const char* szFileName, unsigned int* pSize);
 

@@ -1,4 +1,6 @@
 #include "Fog.h"
+struct D2HashNode006BE540Strc;
+struct D2HashTable006BE540Strc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2CriticalSectionStrc;
@@ -95,9 +97,9 @@ extern "C" __declspec(dllimport) int __stdcall ReadFile(void* hFile, void* pBuff
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-void __cdecl sub_006BE2F0_Nop(const char* szText, const char* szFormat, ...); // 0x006BE2F0
-void __cdecl sub_006BE300_Log(const char* szTag, const char* szFormat, ...); // 0x006BE300
-D2QClientStrc* __fastcall sub_006BE540_Find(T006BE350* pServer, unsigned int nKey); // 0x006BE540
+void __cdecl sub_006BE2F0_Nop(const char* unused1, const char* unused2, int unused3); // 0x006BE2F0
+void __cdecl sub_006BE300_Nop(const char* unused1, const char* unused2, int unused3); // 0x006BE300
+D2HashNode006BE540Strc* __fastcall sub_006BE540_Find(D2HashTable006BE540Strc* pTable, unsigned int nKey); // 0x006BE540
 long __fastcall sub_006BE640_AddReference(T006BE350* pServer, D2QClientStrc* pClient); // 0x006BE640
 extern "C" __declspec(dllimport) int __stdcall QueryPerformanceCounter(__int64* pCounter);
 extern "C" __declspec(dllimport) void* __stdcall CreateIoCompletionPort(unsigned int hFile, void* hPort, unsigned int nKey, unsigned int nThreads);

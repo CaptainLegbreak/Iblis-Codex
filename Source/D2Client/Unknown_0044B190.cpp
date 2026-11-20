@@ -35,7 +35,7 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" size_t __cdecl strlen(const char* szString);
-int __cdecl D2GFX_GetResolutionMode(); // 0x004F5160
+int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 int __cdecl sub_0045AE90(); // 0x0045AE90
 void __fastcall sub_0045AEA0_SetPanelSlide(int nMode); // 0x0045AEA0
 void __fastcall sub_00457640(int nValue); // 0x00457640

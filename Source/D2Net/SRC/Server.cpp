@@ -13,7 +13,7 @@ int __stdcall FOG_10165(QServer* pServer, int nClientId, const char* szFile, int
 int __stdcall FOG_10170(QServer* pServer, int a2);                                                          // 0x006BF040
 int __stdcall FOG_10171(QServer* pServer, D2NET_Unk_Callback pfCallback);                                   // 0x006BF080
 int __stdcall FOG_10172(QServer* pServer, int nClientId, int dwGameGuid);                                   // 0x006BF0A0
-int __stdcall FOG_10173(QServer* pServer, int nClientId);                                                   // 0x006BF0C0
+int __stdcall sub_006BF0C0_GetValue(void* pContainer, int nKey); // 0x006BF0C0
 int __stdcall FOG_10177(QServer* pServer, int dwMilliseconds);                                              // 0x006BEBC0
 void __stdcall FOG_10183_Return(QServer* pServer, int nUnused);                                             // 0x006BF600
 int __fastcall sub_0052B0E0(QServer* nUnused, D2PacketBufferStrc* pPacketBuffer, int nBufferSize); // 0x0052B0E0
@@ -61,7 +61,7 @@ int __stdcall SERVER_GetClientGameGUID(int nClientId)
 {
     if (nClientId)
     {
-        return FOG_10173(gpServer, nClientId);
+        return sub_006BF0C0_GetValue(gpServer, nClientId);
     }
 
     return gnLocalClientGameGuid_6FC0B26C;

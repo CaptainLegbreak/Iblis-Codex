@@ -1,5 +1,7 @@
 #include "D2Client.h"
 #include "D2Txt.h"
+struct D2BitBufferStrc;
+struct D2GameStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct Unicode;
@@ -66,20 +68,20 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 extern "C" __declspec(dllimport) int __stdcall SetRect(tagRECT* lprc, int xLeft, int yTop, int xRight, int yBottom); // 0x006CC498
-D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType); // 0x00463990
+D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 void __stdcall UNITS_GetClientCoords(D2UnitStrc* pUnit, D2CoordStrc* pClientCoords); // 0x00620900
 void __fastcall sub_00476070_GetViewRect(D2ViewStrc* pView, int* pLeft, int* pTop, int* pRight, int* pBottom); // 0x00476070
 void __fastcall sub_004760C0_GetViewOffset(D2ViewStrc* pView, int* pX, int* pY); // 0x004760C0
 void __fastcall sub_00478680_SendPacket5(char nHeader, int nArg); // 0x00478680
-void __fastcall sub_004786A0_SendIntInt(char nHeader, int nArg1, int nArg2); // 0x004786A0
+void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
-D2TextHeaderStrc* __cdecl sub_0049F900(); // 0x0049F900
+int __cdecl sub_0049F900(); // 0x0049F900
 const Unicode* __fastcall sub_0049F910_GetTextString(unsigned short nStringId); // 0x0049F910
 D2UnitStrc* __stdcall INVENTORY_GetFirstItem(D2InventoryStrc* pInventory); // 0x0063B2C0
 D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
 D2UnitStrc* __stdcall INVENTORY_GetNextItem(D2UnitStrc* pItem); // 0x0063DFA0
-int __stdcall ITEMS_GetBaseCode(D2UnitStrc* pItem); // 0x00628590
+unsigned int __stdcall ITEMS_GetBaseCode(D2UnitStrc* hItem); // 0x00628590
 void __fastcall sub_004B8020(void* pRes); // 0x004B8020
 D2ClientDialogStrc* __fastcall sub_004B7EB0_CreateDialog(int nArg1, int nArg2, int (__cdecl* pfnArg8)(),
     int (__cdecl* pfnArgC)(), int nArg10, int nArg14, int nArg18, int nArg1C, int nArg20, int nArg24, int nArg28); // 0x004B7EB0
@@ -97,7 +99,7 @@ extern D2ClientDialogStrc* gpDialog_007C0D67; // 0x007C0D67
 extern D2NpcEntryStrc gaNpcEntries_00726850[]; // 0x00726850
 void __cdecl sub_00487C20(); // 0x00487C20
 void __cdecl sub_00487C60(); // 0x00487C60
-void __cdecl sub_00487CA0(); // 0x00487CA0
+int __cdecl sub_00487CA0_SetNpcState6(); // 0x00487CA0
 int __cdecl sub_00489870(); // 0x00489870
 void __cdecl sub_0048A630(); // 0x0048A630
 int __fastcall sub_004B9A00(int nSoundId, D2UnitStrc* pUnit, int nArg2, int nArg3, int nArg4); // 0x004B9A00
@@ -116,19 +118,19 @@ extern unsigned long gdwGlobal_007C0E48; // 0x007C0E48
 static int sub_004B1C80_GetNpcDialogPos(D2CoordStrc* pCoords); // 0x004B1C80
 extern "C" const char gszFormatD_006D57BC[]; // 0x006D57BC
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...); // 0x006CC468
-int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
+unsigned int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
 D2UnitStrc* __cdecl sub_004B1620_GetInteractNpc(); // 0x004B1620
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestFlags, int nQuestId, int nState); // 0x0065C310
 Unicode* __fastcall sub_004521C0_PrefixLevelText(Unicode* pText, int nDigit); // 0x004521C0
 unsigned char __cdecl sub_0044DCD0_GetDifficulty(); // 0x0044DCD0
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
-int __stdcall ITEMS_GetAllRepairCosts(void* pGame, D2UnitStrc* pUnit, int nNpcId, int nDifficulty, D2BitBufferStrc* pQuestFlags, void* pfCallback); // 0x0062FE60
+int __stdcall ITEMS_GetAllRepairCosts(D2GameStrc* pGame, D2UnitStrc* pUnit, int nNpcId, int nDifficulty, D2BitBufferStrc* pQuestFlags, void (__fastcall* pfCallback)(D2GameStrc*, D2UnitStrc*, D2UnitStrc*)); // 0x0062FE60
 int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 Unicode* __fastcall sub_00526700(Unicode* pDest, const Unicode* pSource); // 0x00526700
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
-void __fastcall sub_00467A70(int nArg); // 0x00467A70
+void __fastcall sub_00467A70_RefreshHoverUnit(D2UnitStrc* pUnit); // 0x00467A70
 
 #pragma pack(push, 1)
 struct D2StoredMsgPacketStrc
@@ -254,7 +256,7 @@ void __stdcall sub_004B2650_OpenNpcMenu(int bAlternate, int nFlags)
 
     if (bAlternate)
     {
-        sub_00487CA0();
+        sub_00487CA0_SetNpcState6();
     }
     else
     {
@@ -469,7 +471,7 @@ int __fastcall sub_004B3870_HandleTradeClick(D2UnitStrc* pPlayer, D2UnitStrc* pI
         gnGlobal_007C0D31 = 3;
         gbGlobal_007C0DE0 = 1;
         gnGlobal_007C0DE5 = 0;
-        sub_00467A70(0);
+        sub_00467A70_RefreshHoverUnit(0);
         gnGlobal_007C0D4B = nX;
         gnGlobal_007C0D4F = nY;
         sub_004B2650(1, nArg);
@@ -546,7 +548,7 @@ int __fastcall sub_004B3870_HandleTradeClick(D2UnitStrc* pPlayer, D2UnitStrc* pI
     gbGlobal_007C0DE0 = 1;
     gnGlobal_007C0DE5 = GetUnitIdOrNone(pItem);
     gnGlobal_007C0DE1 = GetClassIdOrNone(pItem);
-    sub_00467A70(0);
+    sub_00467A70_RefreshHoverUnit(0);
     if ((gnGlobal_007C0D31 == 2 && bCheckTick) || (gnGlobal_007C0D31 == 1 && bCheckTick))
     {
         sub_004B2650(1, nArg);

@@ -422,7 +422,7 @@ struct D2CmpLoadDescStrc
 
 struct D2SpriteLoadRequestStrc;
 AsyncData* __fastcall sub_0040A620(void* hArchive, const char* szFileName, int nArg3, int nArg4, int nArg5, int nArg6, int nArg7, int nArg8, const char* szFile, int nLine); // 0x0040A620
-int __fastcall sub_0040AA40(AsyncData* pAsync);                                                       // 0x0040AA40
+unsigned int __fastcall FOG_AsyncDataGetBufferSize(AsyncData* pAsyncData); // 0x0040AA40
 int __stdcall sub_005FF6E0_SpriteLoadCallback(void* hArg, int nArg, D2SpriteLoadRequestStrc* pRequest);    // 0x005FF6E0
 
 extern D2CmpBlockTableBStrc gCmpBlockTableB;                                                                // 0x0088DB58
@@ -507,12 +507,12 @@ static int __fastcall sub_005FF760_LoadDCCFrames(const char* szName, D2CmpSprite
     pEntry->pHolder = sub_005FFC40_SpriteCacheAlloc((D2SpriteCacheStrc*)szName, (unsigned int)pFile, 0, 0);
     for (const int* pOffset = pEntry->aOffsets; *pOffset; ++pOffset)
     {
-        pEntry->nFlags += (unsigned char)sub_0040AA40((AsyncData*)pOffset);
+        pEntry->nFlags += (unsigned char)FOG_AsyncDataGetBufferSize((AsyncData*)pOffset);
     }
 
-    sub_0040AA40((AsyncData*)&pContext);
-    sub_0040AA40((AsyncData*)&nDirection);
-    sub_0040AA40((AsyncData*)&nFrames);
+    FOG_AsyncDataGetBufferSize((AsyncData*)&pContext);
+    FOG_AsyncDataGetBufferSize((AsyncData*)&nDirection);
+    FOG_AsyncDataGetBufferSize((AsyncData*)&nFrames);
     return pEntry->nFlags;
 }
 
@@ -558,9 +558,9 @@ static int __stdcall sub_005FFE90_LoadDC6Entry(D2CmpSpriteFileStrc* pFile, int n
     return pContext->pFrame != 0;
 }
 
-int __fastcall sub_005FF4A0_SpriteCachePurge(D2SpriteCacheStrc* pCache, D2SpriteCacheNodeStrc* pNode, int bForce); // 0x005FF4A0
+D2SpriteCacheNodeStrc* __fastcall sub_005FF4A0_SpriteCachePurge(D2SpriteCacheStrc* pCache, D2SpriteCacheNodeStrc* pNode, int bLocked); // 0x005FF4A0
 void __fastcall sub_005FF630_ResizeCacheEntry(D2SpriteCacheStrc* pCache, D2SpriteCacheNodeStrc* pNode, int nDelta, int nArg); // 0x005FF630
-unsigned int __stdcall sub_00600D30_CanConvertDirections(unsigned int nFrom, unsigned int nTo);             // 0x00600D30
+int __stdcall sub_00600D30_CanConvertDirections(int nDirections, int nNewDirections); // 0x00600D30
 void* __fastcall sub_0060ACE0_GfxHashFind(D2CmpBlockTableBStrc* pHash, D2CmpSpriteContextStrc* pContext, int* pDirection, unsigned int* pFrames, D2CmpSpriteFileStrc* pFile); // 0x0060ACE0
 extern int gbCmpDisableConvert_0089DB58;                                                                    // 0x0089DB58
 

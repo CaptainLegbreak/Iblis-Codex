@@ -8,7 +8,7 @@ struct D2ItemLabelStrc { int nLeft,nTop,nRight,nBottom; D2UnitStrc* pItem; Unico
 extern int gnItemLabelCount_007C54A0; // 0x007C54A0
 extern D2ItemLabelStrc gaItemLabels_007C54A8[32]; // 0x007C54A8
 extern "C" const char gszShowItems_006DAB64[]; // 0x006DAB64
-int __cdecl D2GFX_CheckPerspective(); // 0x004F51D0
+int __stdcall D2GFX_CheckPerspective(); // 0x004F51D0
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc*); // 0x00620BB0
 D2UnitStrc* __cdecl sub_00467A10(); // 0x00467A10
@@ -20,8 +20,8 @@ void __stdcall SCALE_AdjustPerspectivePosition(int,int,int,int*,int*); // 0x004F
 int __cdecl sub_0045AE90(); // 0x0045AE90
 int __stdcall UNITS_GetClientCoordX(D2UnitStrc*); // 0x00620650
 int __stdcall UNITS_GetClientCoordY(D2UnitStrc*); // 0x006206B0
-int __cdecl sub_0045AFC0_GetViewX(); // 0x0045AFC0
-int __cdecl sub_0045AFD0_GetViewY(); // 0x0045AFD0
+extern "C" int __cdecl sub_0045AFC0(); // 0x0045AFC0
+extern "C" int __cdecl sub_0045AFD0_GetMouseYOffset(); // 0x0045AFD0
 void __fastcall sub_004527D0_BuildItemHoverName(D2UnitStrc*,Unicode*,int); // 0x004527D0
 void __fastcall D2Win_10131_GetTextDimensions(const Unicode*,int*,int*); // 0x00502520
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
@@ -36,7 +36,7 @@ int __stdcall ITEMS_CheckItemFlag(D2UnitStrc*,unsigned int,int,const char*); // 
 int __stdcall ITEMS_CheckIfSocketable(D2UnitStrc*); // 0x00629900
 unsigned char __stdcall sub_0062BC20(D2UnitStrc*); // 0x0062BC20
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int); // 0x006335F0
-void __fastcall sub_005023B0_DrawTextBox(const Unicode*,int,int,int,int,int); // 0x005023B0
+void __fastcall D2Win_10132(const Unicode* wszText, int nX, int nY, unsigned int dwColor, int eDrawMode, int nColor); // 0x005023B0
 static __forceinline int GetUnitType(D2UnitStrc* pUnit)
 {
     if(pUnit)return pUnit->dwUnitType;
@@ -164,8 +164,8 @@ void __cdecl sub_004C0810_DrawUnitNames()
             }
             else
             {
-                nX=UNITS_GetClientCoordX(pItem)-sub_0045AFC0_GetViewX();
-                nY=UNITS_GetClientCoordY(pItem)+(-16-sub_0045AFD0_GetViewY());
+                nX=UNITS_GetClientCoordX(pItem)-sub_0045AFC0();
+                nY=UNITS_GetClientCoordY(pItem)+(-16-sub_0045AFD0_GetMouseYOffset());
                 nBottom=nY;
             }
             int nMinX=0;
@@ -237,7 +237,7 @@ Placed:
     for(int i=0;i<gnItemLabelCount_007C54A0;++i)
     {
         D2ItemLabelStrc* pLabel=&gaItemLabels_007C54A8[i];
-        sub_005023B0_DrawTextBox(pLabel->wszText,pLabel->nLeft,pLabel->nBottom,pLabel->nFillColor,pLabel->nDrawMode,pLabel->nTextColor);
+        D2Win_10132(pLabel->wszText,pLabel->nLeft,pLabel->nBottom,pLabel->nFillColor,pLabel->nDrawMode,pLabel->nTextColor);
     }
     if(!bSelected)
     {

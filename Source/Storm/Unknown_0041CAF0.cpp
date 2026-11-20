@@ -33,7 +33,7 @@ static int __stdcall sub_0041C1F0_FormatTypeName(const char* szName, char* szOut
 }
 
 extern "C" __declspec(dllimport) int __stdcall LoadStringA(void* hInstance, unsigned int uId, char* buffer, int length); // 0x006CC46C
-void* __fastcall sub_0041BEF0_GetExeModule(); // 0x0041BEF0
+void* __cdecl sub_0041BEF0_GetExeModule(); // 0x0041BEF0
 extern char gszMessageBuffer_00779100[256]; // 0x00779100
 extern const char* gpszMessageFallback_006CF2F4[]; // 0x006CF2F4
 
@@ -63,10 +63,10 @@ void __cdecl sub_0041C1A0_LockErrorState(); // 0x0041C1A0
 void __cdecl sub_0041C1E0_UnlockErrorState(); // 0x0041C1E0
 void __cdecl sub_0041C160_DebugBreak(); // 0x0041C160
 void __stdcall sub_0041C360_SetSuppress(int); // 0x0041C360
-int __stdcall sub_0041C430_FormatError(unsigned int,char*,unsigned int); // 0x0041C430
+int __stdcall sub_0041C430_FormatError(unsigned long error, char* buffer, unsigned long size); // 0x0041C430
 void __stdcall SMemZero(void*,unsigned int); // 0x0041D300
 char* __stdcall SStrChrR(const char*,char); // 0x004134D0
-int __cdecl SStrPrintf(char*,unsigned int,const char*,...); // 0x00413A40
+extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, ...); // 0x00413A40
 void* __cdecl sub_00420310_GetWindow(); // 0x00420310
 extern const char gszEmptyAssertText; // 0x006CC837
 extern const char gszDiagnosticFormat_006CF330[]; // 0x006CF330

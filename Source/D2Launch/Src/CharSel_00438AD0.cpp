@@ -96,7 +96,7 @@ void __fastcall sub_0043C750_JoinEntry(D2LaunchCharEntryStrc* pEntry, const char
 int __fastcall D2Win_10143(D2CompositeUnitStrc* pCompositeUnit, int nMode);                                // 0x005042F0
 void __stdcall D2Win_10149(D2CompositeUnitStrc* pCompositeUnit, unsigned char nValue);                     // 0x005051A0
 void __stdcall D2Win_10151(D2CompositeUnitStrc* pCompositeUnit, int nFrame);                               // 0x00505260
-D2CompositeUnitStrc* __stdcall sub_005066C0_CreateComposite(int nSel, int nMode, unsigned char* pFlags, unsigned char* pColors); // 0x005066C0
+D2CompositeUnitStrc* __stdcall sub_005066C0_CreateCompositeUnit(unsigned int nUnitIndex, unsigned int nMode, unsigned char* pComponents, const unsigned char* pComponentColors); // 0x005066C0
 unsigned short __stdcall sub_006BBF20_ReadPackedWord(const unsigned char* pData);                           // 0x006BBF20
 
 static __forceinline int sub_F4B0_IsMaleClass(int nClass)
@@ -201,7 +201,7 @@ static int __stdcall sub_00438AD0_AddCharEntry(const char* szName, const char* s
         }
     }
 
-    pEntry->pCompositeUnit = sub_005066C0_CreateComposite(nSel, nMode, pEntry->aFlags, pEntry->aColors);
+    pEntry->pCompositeUnit = sub_005066C0_CreateCompositeUnit(nSel, nMode, pEntry->aFlags, pEntry->aColors);
     if (!pEntry->pCompositeUnit)
     {
         for (int j = 0; j < 16; ++j)
@@ -211,7 +211,7 @@ static int __stdcall sub_00438AD0_AddCharEntry(const char* szName, const char* s
         }
 
         pEntry->aFlags[1] = 1;
-        pEntry->pCompositeUnit = sub_005066C0_CreateComposite(7, 5, pEntry->aFlags, pEntry->aColors);
+        pEntry->pCompositeUnit = sub_005066C0_CreateCompositeUnit(7, 5, pEntry->aFlags, pEntry->aColors);
     }
 
     D2_ASSERT(pEntry->pCompositeUnit, 0x4BE);
@@ -279,10 +279,10 @@ extern int gnGlobal_0070CC04;                                                   
 extern int gnGlobal_0070CC08;                                                                               // 0x0070CC08
 extern int gnGlobal_00779DD8;                                                                               // 0x00779DD8
 
-void __fastcall sub_00437AB0_CharSelCacheStore(const char* szName, unsigned char* pPacket, int nSize);      // 0x00437AB0
+void __fastcall sub_00437AB0_CharSelCacheStore(const char* szKey, const void* pData, unsigned int nSize); // 0x00437AB0
 void __cdecl sub_00437B90_FreeCache();                                                                      // 0x00437B90
-void __cdecl sub_00439210();                                                                                // 0x00439210
-void __stdcall sub_0043A460_CreateNotice(const Unicode* wszTitle, const Unicode* wszText, int nArg3, int nArg4); // 0x0043A460
+int __cdecl sub_00439210_Redraw(); // 0x00439210
+extern "C" int __stdcall sub_0043A460_CreateNotice(const Unicode* pTitle, const Unicode* pText, int nState, unsigned char nSel); // 0x0043A460
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
 
 // 0x0043AAB0
@@ -348,5 +348,5 @@ void __stdcall sub_0043AAB0(const char* szName, unsigned char* pPacket, int bFla
         sub_0043A460_CreateNotice(wszTitle, &wszEmpty, 2, 0x12);
     }
 
-    sub_00439210();
+    sub_00439210_Redraw();
 }

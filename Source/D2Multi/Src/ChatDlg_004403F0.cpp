@@ -22,7 +22,7 @@ void __fastcall sub_0043FB50_ShowWait(const Unicode* pText, D2LaunchCallback pfn
 void __fastcall sub_00443F50_CopyName(char* szName);                                                   // 0x00443F50
 void __fastcall sub_004FB870_InsertRow(D2WinControlStrc* pControl, int nRow);                                // 0x004FB870
 int __fastcall D2Win_10188(D2WinControlStrc* pTextBox, int nLineNum, int a3);                               // 0x004FBDE0
-void __fastcall sub_004FCD90_SetCellW(D2WinControlStrc* pControl, const Unicode* wszText, int nRow, int nColumn); // 0x004FCD90
+int __fastcall sub_004FCD90_D2Win_10058(D2WinControlStrc* pControl, const Unicode* pText, int a3, int nColumn); // 0x004FCD90
 const char* __stdcall D2Win_10161(int nA, int nB, int nC, int nD);                                         // 0x005068A0
 void __stdcall sub_005255C0_FormatDate(Unicode* wszOut, int nA, int nB, int nMaxLength);                   // 0x005255C0
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...);               // 0x005269D0
@@ -110,10 +110,11 @@ void __fastcall sub_004403F0_OnListEvent(int nStart, int nCount, int nNameLength
 
         Unicode wszDate[256];
         sub_005255C0_FormatDate(wszDate, pEntry->nA, pEntry->nB, 0xFF);
-        sub_004FCD90_SetCellW(gpList_0077BD00, wszDate, i, 4);
+        sub_004FCD90_D2Win_10058(gpList_0077BD00, wszDate, i, 4);
 
         pEntry = (D2LadderEntryStrc*)((char*)pEntry + nNameLength + 0xC);
     }
 }
 
 #include "gen/data/Source/D2Multi/Src/ChatDlg_004403F0.inc"
+struct D2WinControlStrc;

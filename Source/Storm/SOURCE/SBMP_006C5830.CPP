@@ -58,10 +58,10 @@ typedef void* (__stdcall* SBMPALLOCPROC)(unsigned int nSize);
 void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int dwFlags); // 0x00412650
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
-unsigned int __stdcall sub_00416370_StormGetFileSize(void* hFile, unsigned int* pnSizeHigh); // 0x00416370
+int __stdcall sub_00416370_StormGetFileSize(void* hFile, unsigned int* pdwFileSizeHigh); // 0x00416370
 int __stdcall sub_004198D0(void* pArg); // 0x004198D0
 int __stdcall sub_00419980(const char* szFileName, void** phFile); // 0x00419980
-int __stdcall SFileReadFile(void* hFile, void* pBuffer, unsigned int nToRead, unsigned int* pnRead, void* pOverlapped); // 0x0041B050
+int __stdcall SFileReadFile(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped); // 0x0041B050
 int __stdcall sub_006C6A80_DecodeImage(int nType, const unsigned char* pData, unsigned int nDataSize, D2PaletteColorStrc* pPalette, unsigned char* pPixels, unsigned int nPixelsSize, int* pWidth, int* pHeight, int* pBitDepth); // 0x006C6A80
 
 // 0x006C5EE0

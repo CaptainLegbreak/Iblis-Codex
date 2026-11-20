@@ -66,9 +66,9 @@ extern unsigned int gdwBitMasks[];                                              
 extern tagPOINT gMousePosition_6F8FE234;                                                                    // 0x007D55A4
 int __fastcall sub_00502EF0(int nArg);                                                                      // 0x00502EF0
 int __stdcall D2Win_10125();                                                                                // 0x00501A40
-int __fastcall sub_00501820(const Unicode* wszText);                                             // 0x00501820
-const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
-void __fastcall sub_00502360(const Unicode* wszText, int nX, int nY, int nColor, int nArg5, int nDrawMode); // 0x00502360
+int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
+const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
+void __fastcall D2Win_10118_DrawBlendedText(const Unicode* wszText, int nX, int nY, int nColor, int bCentered, int eDrawMode); // 0x00502360
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 
 static __declspec(noinline) int sub_00500C20_IsPointInButton(D2WinButtonStrc* pButton, int nX, int nY)
@@ -123,10 +123,10 @@ static void __stdcall sub_00500C50_DrawButtonText(int nOffsetY, D2WinButtonStrc*
             nTextY += 2;
         }
 
-        sub_00502360(D2LANG_GetStringFromTblIndex(pButton->nStringId), nTextX, nTextY, pButton->nTextColor, 0, DRAWMODE_BURN);
+        D2Win_10118_DrawBlendedText(D2LANG_GetStringFromTblIndex(pButton->nStringId), nTextX, nTextY, pButton->nTextColor, 0, DRAWMODE_BURN);
     }
 
-    sub_00502360(pButton->wszText, nX, nY, pButton->nTextColor, 0, DRAWMODE_BURN);
+    D2Win_10118_DrawBlendedText(pButton->wszText, nX, nY, pButton->nTextColor, 0, DRAWMODE_BURN);
 }
 
 // 0x00500DB0

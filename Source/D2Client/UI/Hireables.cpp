@@ -10,9 +10,9 @@ struct D2PetTypeTxt;
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 int __stdcall SRegLoadValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long* pValue); // 0x00414F10
 void* __fastcall sub_004520C0_LoadUiCelFile(const char* szPath); // 0x004520C0
-int __fastcall sub_004538D0(int nUIVar); // 0x004538D0
-void __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
-D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType); // 0x00463990
+int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __fastcall sub_00464820_IsDeadOrDying(D2UnitStrc* pUnit); // 0x00464820
 void __fastcall sub_00478A00(void* pCel); // 0x00478A00
@@ -20,7 +20,7 @@ int __fastcall sub_00478F20_FindPetIdByOwner(D2UnitStrc* pUnit, int nType, int b
 int __fastcall sub_00478F70_HasPets(D2UnitStrc* pUnit); // 0x00478F70
 int __fastcall sub_0047A2C0_HasPartyMate(D2UnitStrc* pUnit); // 0x0047A2C0
 void __fastcall sub_00496BE0_DrawSkillInfo(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int nX, int nY, int nArg); // 0x00496BE0
-int __cdecl D2GFX_GetResolutionMode(); // 0x004F5160
+int __stdcall D2GFX_GetResolutionMode(); // 0x004F5160
 D2SkillStrc* __stdcall UNITS_GetLeftSkill(D2UnitStrc* pUnit); // 0x00620190
 D2SkillStrc* __stdcall UNITS_GetRightSkill(D2UnitStrc* pUnit); // 0x006201D0
 void __stdcall SKILLS_SetLeftActiveSkill(D2UnitStrc* pUnit, int nSkillId, int nOwnerGUID); // 0x00643BC0
@@ -87,7 +87,7 @@ struct SMSGHANDLER_PARAMS
     int lResult;
 };
 
-void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
+int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 void __fastcall sub_00467410_SetEntryValue(D2UnitStrc* pOwner, D2UnitStrc* pRecord, int nValue); // 0x00467410
 int __cdecl sub_0044DCC0(); // 0x0044DCC0
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc*,unsigned int,int,const char*); // 0x006280A0
@@ -364,6 +364,7 @@ int __cdecl sub_004979F0()
 }
 
 #include "gen/data/Source/D2Client/UI/Hireables.inc"
+struct D2UnitStrc;
 
 // 0x00493220
 static __forceinline void sub_00493220_ToggleAmount(int* pTotal, int* pAmount)
@@ -455,7 +456,7 @@ void __stdcall sub_00493430_PetIconClickMsg(SMSGHANDLER_PARAMS* pMsg)
     {
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_HandleMsg(pMsg);
+        sub_00420290_BreakHandlerChain(pMsg);
     }
 
     D2UnitStrc* pPlayer = sub_00463DD0_GetPlayerUnit();
@@ -476,7 +477,7 @@ void __stdcall sub_00493430_PetIconClickMsg(SMSGHANDLER_PARAMS* pMsg)
     sub_00467410_SetEntryValue(pPlayer, pPet, 1);
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_HandleMsg(pMsg);
+    sub_00420290_BreakHandlerChain(pMsg);
 }
 
 // 0x004934D0

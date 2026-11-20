@@ -87,7 +87,7 @@ int __cdecl sub_0042FA30(); // 0x0042FA30
 int __stdcall sub_004374F0_UpdateStatusWait(int nArg); // 0x004374F0
 void __cdecl sub_00437550_CreateStatusScreen(); // 0x00437550
 int __stdcall sub_0043B850_LogonCallback(int nArg); // 0x0043B850
-void __cdecl D2Win_CloseSpriteCache(); // 0x004F9030
+int __stdcall D2Win_CloseSpriteCache(); // 0x004F9030
 void __stdcall sub_00517ED0(int nValue); // 0x00517ED0
 extern int gnLaunchMode_007795EC; // 0x007795EC
 extern int gdwGlobal_007795F4; // 0x007795F4

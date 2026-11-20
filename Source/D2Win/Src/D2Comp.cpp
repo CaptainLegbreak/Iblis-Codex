@@ -1,3 +1,4 @@
+struct D2WinEditBoxStrc;
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2CelFileStrc;
@@ -276,7 +277,7 @@ int __stdcall SMsgUnregisterKeyUp(void* hWnd, int nId, D2WinMsgHandler pfnHandle
 int __stdcall SMsgUnregisterMessage(void* hWnd, int nId, D2WinMsgHandler pfnHandler); // 0x00420CD0
 void __stdcall WINDOW_DecodeSmacker(const char* szSmacker, unsigned char* pBuffer, int nVersion); // 0x004F5E00
 void __stdcall WINDOW_CloseSmacker(void* pContext); // 0x004F5E80
-int __stdcall sub_004F91C0(void* pEditBox); // 0x004F91C0
+int __stdcall sub_004F91C0(D2WinEditBoxStrc* pEditBox); // 0x004F91C0
 int __stdcall CONTROL_AppendToList(D2WinControlStrc* pControl); // 0x004F9210
 const char* __stdcall D2Win_10160_GetPlayerTitle(int nClass, int nRank, int bSoftCore); // 0x00505640
 int __stdcall ACCOUNTLIST_HandleMouseDown(SMSGHANDLER_PARAMS* pMsg); // 0x00507A10

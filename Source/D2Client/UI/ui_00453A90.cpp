@@ -26,7 +26,7 @@ struct D2LevelsTxt
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 void __fastcall sub_0044DB40(int nDelay); // 0x0044DB40
 int __cdecl sub_0044DCC0(); // 0x0044DCC0
-void __fastcall sub_00451E10_RegisterHandlerTable(void* hWnd, D2MsgHandlerEntryStrc* pTable, int nCount); // 0x00451E10
+void __fastcall sub_00451E10_UnregisterHandlerTable(void* hWnd, D2MsgHandlerEntryStrc* pTable, unsigned int nCount); // 0x00451E10
 void __cdecl sub_00453EE0_ClosePanel(); // 0x00453EE0
 void __fastcall sub_00457640(int bForce); // 0x00457640
 void __cdecl sub_0045A5C0_FreeAutomap(); // 0x0045A5C0
@@ -38,7 +38,7 @@ int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
 void __cdecl sub_0046ACB0_DisableHotkeyHandlers(); // 0x0046ACB0
 void __fastcall sub_00472890(D2DrlgActStrc* pAct); // 0x00472890
-void __fastcall sub_004786A0_SendIntInt(char nHeader, int nArg1, int nArg2); // 0x004786A0
+void __fastcall sub_004786A0_SendDwords2(unsigned char nHeader, unsigned int d1, unsigned int d5); // 0x004786A0
 void __fastcall sub_00478A00(void* pCel); // 0x00478A00
 void __cdecl sub_0047DFD0_FreeOptionMenus(); // 0x0047DFD0
 void __cdecl sub_0047E720_LoadAlwaysRun(); // 0x0047E720
@@ -81,7 +81,7 @@ void __cdecl sub_004B91F0(); // 0x004B91F0
 void __cdecl sub_004BE060(); // 0x004BE060
 void __cdecl sub_004C0100(); // 0x004C0100
 void* __cdecl sub_004F59A0(); // 0x004F59A0
-void __cdecl sub_005015F0(); // 0x005015F0
+void __stdcall D2Win_10116(); // 0x005015F0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 extern int gnGlobal_0071146C; // 0x0071146C
 extern D2MsgHandlerEntryStrc gtPanelHandlers_006D5F28[]; // 0x006D5F28
@@ -247,7 +247,7 @@ void __cdecl sub_00453EC0()
     D2UnitStrc* pUnit = sub_004680A0();
     if (pUnit)
     {
-        sub_004786A0_SendIntInt(0x27, pUnit->dwUnitId, pUnit->dwUnitId);
+        sub_004786A0_SendDwords2(0x27, pUnit->dwUnitId, pUnit->dwUnitId);
     }
 }
 
@@ -333,7 +333,7 @@ void __cdecl sub_00456D80_ShutdownUI()
     gaUIVarStates_007A27C0[0] = 0;
     if (nPrevState)
     {
-        sub_00451E10_RegisterHandlerTable(sub_004F59A0(), gtPanelHandlers_006D5F28, 4);
+        sub_00451E10_UnregisterHandlerTable(sub_004F59A0(), gtPanelHandlers_006D5F28, 4);
     }
     sub_00468730();
     sub_00468740();
@@ -343,7 +343,7 @@ void __cdecl sub_00456D80_ShutdownUI()
         sub_004A8C00_FreeSkillIcons();
         sub_004AA980();
     }
-    sub_005015F0();
+    D2Win_10116();
     sub_004A0680_FreeTextResources();
     sub_0047F130_SaveMiniPanel();
     sub_00494EE0_FreeHelpCels();

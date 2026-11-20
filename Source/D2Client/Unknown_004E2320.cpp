@@ -95,7 +95,7 @@ void __fastcall sub_004B9A00(int nId, D2UnitStrc* pUnit, int nArg3, int nArg4, i
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
-unsigned char __stdcall sub_0063E7A0_GetByteTableEntry(int nIndex); // 0x0063E7A0
+unsigned char __stdcall sub_0063E7A0_GetByteTableEntry(unsigned char nIndex); // 0x0063E7A0
 D2SkillStrc* __fastcall SKILLS_GetHighestLevelSkillFromUnitAndId(D2UnitStrc* pUnit, int nSkillId); // 0x006439F0
 int __stdcall SKILLS_GetSkillLevel(D2UnitStrc* pUnit, D2SkillStrc* pSkill, int bBonus); // 0x006442A0
 int __stdcall PATH_GetDirection(D2DynamicPathStrc* pPath); // 0x00648810
@@ -168,12 +168,12 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 D2SkillsTxt* __fastcall sub_0045C4B0_GetSkillsTxtRecord(int nSkillId); // 0x0045C4B0
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
-D2CharStatsTxt* __fastcall sub_004833E0_GetCharStatsTxtRecord(int nClassId); // 0x004833E0
+extern "C" D2CharStatsTxt* __fastcall sub_004833E0_GetCharStatsTxtRecord(int nClass); // 0x004833E0
 D2MonTypeTxt* __fastcall sub_004E4640_GetMonTypeTxtRecord(int nMonType); // 0x004E4640
 void __fastcall sub_004E48B0_BuildText(D2UnitStrc* pUnused, Unicode* wszOut, int nUnused); // 0x004E48B0
 unsigned short __fastcall sub_004E6CE0_GetStringId(int nId, int nIndex); // 0x004E6CE0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
-void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
+Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 Unicode* __fastcall sub_00526700(Unicode* pDst, const Unicode* pSrc); // 0x00526700
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pDst, const Unicode* pFormat, ...); // 0x005269D0
@@ -192,16 +192,16 @@ D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
 extern D2CombinedStatIdStrc gaCombinedStatIds_0072CDD0[]; // 0x0072CDD0
 extern D2FileIndexTextStrc gaFileIndexText_0072D6C0[]; // 0x0072D6C0
 extern D2DrlgActStrc* gpGlobal_007A0634; // 0x007A0634
-void __fastcall sub_004E60A0_BuildItemPropertyText(D2UnitStrc* pItem, Unicode* wszBuffer, int nSize, int a4, int a5, int a6, int a7, int a8); // 0x004E60A0
+void __fastcall sub_004E60A0_AddSetPropText(D2UnitStrc* pUnit, Unicode* pOut, int nUnused, int bQuantity, int nState, int nState2, int nFlag, int bNewline); // 0x004E60A0
 int __fastcall sub_00526800(const Unicode* wszText); // 0x00526800
-const Unicode* __fastcall sub_00524A30(int nId); // 0x00524A30
+const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 void __fastcall sub_004E6720_BuildItemPropTextB(D2UnitStrc* pItem, int nArg, int nArg2, Unicode* wszText, int nArg3, int nArg4); // 0x004E6720
 void __fastcall sub_004E67D0_BuildItemPropText(D2UnitStrc* pItem, int nArg, int nArg2, Unicode* wszText, int nArg3, int nArg4); // 0x004E67D0
 void __stdcall D2GFX_SetPalette(T004F51E0* pPalette); // 0x004F63D0
 int __stdcall sub_004FB1E0_LoadPaletteFiles(const char* szDatFileName, const char* szPL2FileName); // 0x004FB1E0
 void __fastcall sub_004FC9B0_SetText(D2WinControlStrc* pControl, const Unicode* pText, int nA, int nB, int nC); // 0x004FC9B0
-void __fastcall sub_00526E40_Utf8ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526E40
+Unicode* __fastcall sub_00526E40_Utf8ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526E40
 D2GemsTxt* __stdcall DATATBLS_GetGemsTxtRecord(int nGemId); // 0x006372C0
 extern T004F51E0 gRGBAPalette_0081E668[]; // 0x0081E668
 
@@ -1262,6 +1262,7 @@ static void __stdcall sub_004E5E90_BuildFileIndexStatText(D2UnitStrc* pUnit, Uni
 }
 
 #include "gen/data/Source/D2Client/Unknown_004E2320.inc"
+struct D2UnitStrc;
 
 // 0x004E60A0
 void __fastcall sub_004E60A0_AddSetPropText(D2UnitStrc* pUnit, Unicode* pOut, int nUnused, int bQuantity, int nState, int nState2, int nFlag, int bNewline)
@@ -1392,7 +1393,7 @@ void __fastcall sub_004E6410_BuildPropText(D2UnitStrc* pItem, Unicode* wszText, 
 {
     Unicode wszBuffer[1024];
     wszBuffer[0] = 0;
-    sub_004E60A0_BuildItemPropertyText(pItem, wszBuffer, 1024, 1, 0, 0xAB, 0x40, bFlag);
+    sub_004E60A0_AddSetPropText(pItem, wszBuffer, 1024, 1, 0, 0xAB, 0x40, bFlag);
     if (!wszExtra)
     {
         sub_00526700(wszText, wszBuffer);
@@ -1421,8 +1422,8 @@ void __fastcall sub_004E6410_BuildPropText(D2UnitStrc* pItem, Unicode* wszText, 
         return;
     }
 
-    const Unicode* wszNewLine = sub_00524A30(0xF9E);
-    const Unicode* wszSuffix = sub_00524A30(0xF0C);
+    const Unicode* wszNewLine = D2LANG_GetStringFromTblIndex(0xF9E);
+    const Unicode* wszSuffix = D2LANG_GetStringFromTblIndex(0xF0C);
     wszBuffer[i] = 0;
     sub_00526700(wszText, wszBuffer);
     sub_00526700(wszText, wszNewLine);

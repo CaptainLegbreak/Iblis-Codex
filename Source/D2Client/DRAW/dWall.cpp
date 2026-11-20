@@ -67,7 +67,7 @@ struct D2LightPairStrc
 };
 
 int __cdecl sub_0045AE90();                                                                         // 0x0045AE90
-int __cdecl D2GFX_CheckPerspective();                                                                       // 0x004F51D0
+int __stdcall D2GFX_CheckPerspective(); // 0x004F51D0
 int __cdecl sub_00477730();                                                                                 // 0x00477730
 void __fastcall sub_00475AA0_ReadGridCell(D2LightPointStrc* pA, D2LightPointStrc* pB, unsigned char* pC0, unsigned char* pC1, unsigned char* pC2, unsigned char* pC3); // 0x00475AA0
 int __stdcall TILE_TileDrawLit(D2TileGfxStrc* pTile, int nX, int nY, unsigned int* pLight, int nGamma);   // 0x004F6920

@@ -98,7 +98,7 @@ int __stdcall TileGetStyle(D2TileLibraryEntryStrc* pTile); // 0x00604B90
 int __stdcall TileGetSequence(D2TileLibraryEntryStrc* pTile); // 0x00604C50
 int __fastcall DATATBLS_GetAutomapCellId(void* pAutomapLevelType, int nAutomapTileType, int nStyle, int nSequence); // 0x0061FFF0
 D2AutomapCellStrc* __cdecl sub_00457C30(); // 0x00457C30
-void __fastcall sub_00457B00(D2AutomapCellStrc* pCell, D2AutomapCellStrc** ppRoot); // 0x00457B00
+int __fastcall sub_00457B00(D2AutomapCellStrc* pCell, D2AutomapCellStrc** ppRoot); // 0x00457B00
 
 struct D2ActiveRoomStrc
 {
@@ -136,7 +136,7 @@ extern D2AutomapRecordStrc* gpAutomapRecord_007A0638; // 0x007A0638
 extern void* gpAutomapSaveBuffer_007A5154; // 0x007A5154
 extern int gnAutomapCelFrames_007A5178[4]; // 0x007A5178
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
-D2ActiveRoomStrc* __fastcall sub_004646A0_GetPlayerRoom(); // 0x004646A0
+D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
 void __stdcall DUNGEON_GetAdjacentRoomsListFromRoom(D2ActiveRoomStrc* pRoom, D2ActiveRoomStrc*** pppRoomList, unsigned int* pnNumRooms); // 0x00619790
 void __stdcall sub_00458F40_RevealRoomTiles(D2ActiveRoomStrc* pActiveRoom, int bRevealAll, D2AutomapLayerStrc* pLayer); // 0x00458F40
 
