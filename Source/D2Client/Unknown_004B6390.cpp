@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientMenus.h"
 
 #pragma pack(push, 1)
 struct D2GSPacketSrv2A
@@ -13,16 +14,6 @@ struct D2GSPacketSrv2A
 #pragma pack(pop)
 
 #pragma pack(push, 2)
-struct D2NpcEntryStrc
-{
-    int nId;
-    char unk0x04[0x0D];
-    char bSelected;
-    char bFlag;
-    char unk0x13;
-    char bFlag14;
-    char bRefreshed;
-};
 #pragma pack(pop)
 
 D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990

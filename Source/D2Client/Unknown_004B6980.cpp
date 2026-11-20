@@ -1,8 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2UnitData.h"
-
-
+#include "D2ClientMenus.h"
 
 struct D2ClientStringListStrc
 {
@@ -20,14 +19,6 @@ struct D2NpcIndexStrc
     char bEnabled;
 };
 
-struct D2NpcEntryStrc
-{
-    int nId;
-    char unk0x04[0x0E];
-    char bFlag;
-    char unk0x13[0x02];
-    char bRefreshed;
-};
 #pragma pack(pop)
 
 typedef char check_size_npcindex[(sizeof(D2NpcIndexStrc) == 0x27) ? 1 : -1];

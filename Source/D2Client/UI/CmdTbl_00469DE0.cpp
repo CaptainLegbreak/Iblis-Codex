@@ -1,3 +1,4 @@
+#include "D2ClientMenus.h"
 struct Unicode;
 struct D2HotkeyStrc;
 
@@ -7,19 +8,12 @@ struct Unicode
 };
 
 #pragma pack(push, 2)
-struct D2HotkeyStrc
-{
-    int nCommand;
-    unsigned short nKey;
-    int nMode;
-};
 
 #pragma pack(pop)
 enum
 {
     NUM_HOTKEYS = 114,
 };
-
 
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 extern D2HotkeyStrc gtHotkeys_007A6F90[NUM_HOTKEYS]; // 0x007A6F90

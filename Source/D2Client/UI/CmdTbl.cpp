@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2ClientTypes.h"
+#include "D2ClientMenus.h"
 
 #pragma intrinsic(memcpy)
 
@@ -21,16 +22,9 @@ struct D2HotkeyCommandStrc
 };
 
 #pragma pack(push, 2)
-struct D2HotkeyStrc
-{
-    int nCommand;
-    unsigned short nKey;
-    int nMode;
-};
 
 #pragma pack(pop)
 typedef void (__stdcall* SMSGHANDLER)(SMSGHANDLER_PARAMS* pMsg);
-
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090

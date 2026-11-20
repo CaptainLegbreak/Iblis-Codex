@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Path.h"
 #include "D2Structs.h"
+#include "D2ClientMenus.h"
 struct D2UnitStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -9,19 +10,8 @@ struct Unicode;
 struct D2NpcMenuSlotStrc;
 
 #pragma pack(push, 1)
-struct D2NpcEntryStrc
-{
-    int nId;
-    char unk0x04[0x0D];
-    char bSelected;
-    char bFlag;
-    char unk0x13;
-    char bFlag14;
-    char bRefreshed;
-};
 
 #pragma pack(pop)
-
 
 D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 void __fastcall sub_0049E7E0_SetTextCallback(D2TextCallback pfnCallback, void* pContext); // 0x0049E7E0
@@ -42,7 +32,6 @@ struct Unicode
 {
     unsigned short wChar;
 };
-
 
 struct tagRECT
 {

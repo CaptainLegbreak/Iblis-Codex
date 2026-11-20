@@ -1,3 +1,4 @@
+#include "D2ClientMenus.h"
 struct D2HotkeyCommandStrc
 {
     void (__cdecl* pfnCommand)();
@@ -6,12 +7,6 @@ struct D2HotkeyCommandStrc
 };
 
 #pragma pack(push, 2)
-struct D2HotkeyStrc
-{
-    int nCommand;
-    unsigned short nKey;
-    int nMode;
-};
 #pragma pack(pop)
 
 #define NUM_HOTKEYS 114
