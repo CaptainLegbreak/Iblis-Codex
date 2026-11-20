@@ -4,6 +4,7 @@
 #include "D2Txt.h"
 #include "D2GameTypes.h"
 #include "D2DrlgMaps.h"
+#include "D2ClientUi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define SKILLS_GetSkillsTxtRecord_E1120(nSkillId) \
@@ -36,8 +37,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-
-
 
 struct D2TileLightNodeStrc
 {
@@ -132,17 +131,6 @@ struct D2SoundRecordStrc
 };
 
 #pragma pack(pop)
-struct D2SlotStrc
-{
-    D2SoundStrc* f_0;
-    int nType;
-    D2SlotObjectStrc* pObject;
-    int nField0x0C;
-    int nField0x10;
-    int nField0x14;
-    int nField0x18;
-    float fField0x1C;
-};
 
 extern D2SlotStrc gaSlots_007C8A78[16]; // 0x007C8A78
 int __fastcall sub_004B9DA0_CompareItems(D2SlotObjectStrc* pA, D2SlotObjectStrc* pB, int bCompareFloat, int bCompareValue); // 0x004B9DA0
@@ -160,7 +148,6 @@ void __fastcall sub_00515B40(D2SoundStrc* pSound, float fValue); // 0x00515B40
 int __fastcall sub_00515D70_StartStream(D2SoundStrc* pSound, const char* szFileName, int nPosition, int bLoop); // 0x00515D70
 void __fastcall sub_00516140_ResetSound(D2SoundStrc* pSound); // 0x00516140
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
-
 
 extern D2NpcSoundStrc gaNpcSounds_0072AE28[]; // 0x0072AE28
 extern D2DrlgActStrc* gpAct_007A0634; // 0x007A0634
@@ -229,10 +216,7 @@ struct D2RC4Strc
     void sub_0047F8C0_Crypt(unsigned char* pData, unsigned int nSize);       // 0x0047F8C0
 };
 
-
-
 typedef void(__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nUnused);
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const unsigned char gaDirection64To4_006DBA60[64]; // 0x006DBA60
@@ -242,7 +226,6 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit); // 0x0045AE20
 D2UnitStrc* __fastcall sub_004648F0_GetPathTargetUnit(D2UnitStrc* pUnit); // 0x004648F0
 D2UnitStrc* __fastcall sub_004CD540_CreateMissile(D2MissileStrc* pMissileParams); // 0x004CD540
 void __stdcall sub_006488A0_SetDirection(D2DynamicPathStrc* pPath, int nDirection); // 0x006488A0
-
 
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 void __stdcall PATH_SetNewDistance(D2DynamicPathStrc* pDynamicPath, unsigned char nNewDistance); // 0x00648E70
@@ -377,7 +360,7 @@ static D2SlotStrc* __stdcall sub_004DFB50_GetFreeSlot(D2SlotObjectStrc* pObject,
     for (int i = 0; i < 16; ++i)
     {
         D2SlotStrc* pSlot = &gaSlots_007C8A78[i];
-        if (!pSlot->pObject && pSlot->nType == nType && !sub_00515710(pSlot->f_0))
+        if (!pSlot->pObject && pSlot->nType == nType && !sub_00515710(pSlot->pSound))
             return pSlot;
     }
     D2SlotStrc* pBest = 0;
@@ -391,11 +374,11 @@ static D2SlotStrc* __stdcall sub_004DFB50_GetFreeSlot(D2SlotObjectStrc* pObject,
     }
     if (!pBest || !sub_004B9DA0_CompareItems(pObject, pBest->pObject, 0, 0))
         return 0;
-    if (pBest->f_0)
+    if (pBest->pSound)
     {
         if (pBest->pObject)
-            pBest->pObject->f_41 = sub_005159B0_GetSoundSampleCount(pBest->f_0);
-        sub_00515EE0_StopSound(pBest->f_0);
+            pBest->pObject->f_41 = sub_005159B0_GetSoundSampleCount(pBest->pSound);
+        sub_00515EE0_StopSound(pBest->pSound);
     }
     if (pBest->pObject)
     {
@@ -439,35 +422,35 @@ D2SlotStrc* __fastcall sub_004E01B0_PlaySlotSound(D2SlotObjectStrc* pObject)
     D2SlotStrc* pSlot = sub_004DFB50_GetFreeSlot(pObject, nType);
     if (!pSlot)
         return 0;
-    sub_00516140_ResetSound(pSlot->f_0);
+    sub_00516140_ResetSound(pSlot->pSound);
     if (!pRecord->bStream)
     {
-        sub_00515A30(pSlot->f_0, pRecord->nField0x3E);
+        sub_00515A30(pSlot->pSound, pRecord->nField0x3E);
         if (pRecord->nField0x80 == 1)
-            sub_00515A60(pSlot->f_0, pRecord->nField0x54 * 2);
-        if (!sub_005155D0(pSlot->f_0, pRecord->nField0x6C, pRecord->nField0x70))
+            sub_00515A60(pSlot->pSound, pRecord->nField0x54 * 2);
+        if (!sub_005155D0(pSlot->pSound, pRecord->nField0x6C, pRecord->nField0x70))
             return 0;
     }
     pSlot->pObject = pObject;
     if (nType & 4)
     {
         float fValue = pRecord->nField0x4B ? 1.0f : 0.0f;
-        sub_00515B40(pSlot->f_0, fValue);
+        sub_00515B40(pSlot->pSound, fValue);
     }
     pSlot->fField0x1C = 0.0f;
-    pSlot->nField0x18 = -1;
+    pSlot->nVolume = -1;
     memset(&pSlot->nField0x0C, 0, 3 * sizeof(int));
     sub_004DFC20_UpdateSoundSlot(pSlot);
     int bOk;
     if (!pRecord->bStream)
     {
-        bOk = sub_005156A0(pSlot->f_0);
+        bOk = sub_005156A0(pSlot->pSound);
     }
     else
     {
         char szPath[0x50];
         sub_00482710(pObject->f_4, szPath);
-        bOk = sub_00515D70_StartStream(pSlot->f_0, szPath, pObject->nField0x24, pRecord->nField0x3E);
+        bOk = sub_00515D70_StartStream(pSlot->pSound, szPath, pObject->nField0x24, pRecord->nField0x3E);
     }
     if (!bOk)
     {

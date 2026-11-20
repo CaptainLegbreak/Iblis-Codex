@@ -1,16 +1,6 @@
 #include "D2Client.h"
+#include "D2ClientUi.h"
 struct D2ActiveRoomStrc;
-
-struct D2AutomapCellStrc
-{
-    unsigned int fSaved;
-    unsigned short nCellNo;
-    unsigned short xPixel;
-    unsigned short yPixel;
-    unsigned short wWeight;
-    D2AutomapCellStrc* pPrev;
-    D2AutomapCellStrc* pNext;
-};
 
 struct D2AutomapLayerStrc
 {

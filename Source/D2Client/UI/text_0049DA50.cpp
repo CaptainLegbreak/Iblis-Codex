@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2ClientUi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2ClientTextBoxStrc;
@@ -17,7 +18,6 @@ struct Unicode
     unsigned short wChar;
 };
 
-
 #pragma pack(push, 2)
 struct D2TextNodeStrc
 {
@@ -26,12 +26,6 @@ struct D2TextNodeStrc
     int nColor;
     unsigned int dwEndTick;
     D2TextNodeStrc* pNext;
-};
-
-struct D2TextListStrc
-{
-    D2TextNodeStrc* pFirst;
-    unsigned short wCount;
 };
 
 #pragma pack(pop)

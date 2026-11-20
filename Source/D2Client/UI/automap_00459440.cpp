@@ -1,18 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2ClientTypes.h"
-
-
-struct D2AutomapCellStrc
-{
-    int fSaved;
-    short nCellNo;
-    short xPixel;
-    short yPixel;
-    short nWeight;
-    D2AutomapCellStrc* pPrev;
-    D2AutomapCellStrc* pNext;
-};
+#include "D2ClientUi.h"
 
 struct D2AutomapDrawStrc
 {
@@ -24,7 +13,6 @@ struct D2AutomapDrawStrc
     int nXOffset;
     int nYOffset;
 };
-
 
 struct D2CropRectStrc
 {

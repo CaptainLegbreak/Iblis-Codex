@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2CelContext.h"
 #include "D2ClientTypes.h"
+#include "D2ClientUi.h"
 
 struct D2CellFileStrc;
 
@@ -16,8 +17,6 @@ struct UnicodeChar : Unicode
 {
     void sub_0042F530_ClearUnicode();                                                                      // 0x0042F530
 };
-
-
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
@@ -106,14 +105,6 @@ static void* gpCellFile_007BCC2C;                                               
 static void* gpCellFile_007BCC30;                                                                           // 0x007BCC30
 static void* gpCellFile_007BCC3C;                                                                           // 0x007BCC3C
 static int gnGlobal_007BCC4C;                                                                               // 0x007BCC4C
-
-struct D2InvCompGridStrc
-{
-    D2InvRectStrc rect;
-    unsigned char nWidth;
-    unsigned char nHeight;
-    unsigned short pad0x12;
-};
 
 D2InvCompGridStrc gaCompGrids_007BCC58[11];                                                                 // 0x007BCC58
 #define gnGlobal_007BCC6C (gaCompGrids_007BCC58[1].rect.nLeft)

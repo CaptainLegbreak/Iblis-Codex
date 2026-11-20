@@ -4,6 +4,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2Drlg.h"
+#include "D2ClientUi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2AutomapRecordStrc;
@@ -38,17 +39,6 @@ int __fastcall sub_00407050_GetSavePath(char* szPath, int nSize);
 extern char gszCharName_007A05C4[]; // 0x007A05C4
 extern D2AutomapRecordStrc* gpAutomapRecord_007A0638; // 0x007A0638
 
-struct D2AutomapCellStrc
-{
-    unsigned int fSaved;
-    unsigned short nCellNo;
-    unsigned short xPixel;
-    unsigned short yPixel;
-    unsigned short wWeight;
-    D2AutomapCellStrc* pPrev;
-    D2AutomapCellStrc* pNext;
-};
-
 struct D2AutomapLayerStrc
 {
     unsigned int nLayerNo;
@@ -65,12 +55,6 @@ void __fastcall sub_00458470_StoreCells(D2AutomapCellStrc* pCells); // 0x0045847
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 extern "C" const char szAutomapFile_006D66F0[]; // 0x006D66F0
-
-
-
-
-
-
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090

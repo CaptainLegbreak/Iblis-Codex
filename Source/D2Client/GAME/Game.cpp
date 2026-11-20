@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2LevelTxt.h"
+#include "D2ClientUi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -232,14 +233,6 @@ struct D2ClientCharRecordStrc
     char szText25D[0x10];
 };
 
-struct D2ClientNotifyStrc
-{
-    char unk0x00[0x34];
-    void (__fastcall* pfnCharUpdate)(char* szName, char* szText245, char* szText25D, int nFlags);
-    char unk0x38[0x58];
-    void (__cdecl* pfnNotify)();
-};
-
 D2ClientNotifyStrc* __cdecl sub_0044B7B0_GetNotify(); // 0x0044B7B0
 int __stdcall GAME_GetPlayerUnitsCount(unsigned short nGameId); // 0x0052EFF0
 void* __stdcall sub_0052FC20(int nArg); // 0x0052FC20
@@ -274,7 +267,6 @@ struct SMSGHANDLER_PARAMS
     int bReturn;
     int lResult;
 };
-
 
 struct Unicode
 {
@@ -326,7 +318,6 @@ void* __cdecl sub_004F59A0(); // 0x004F59A0
 extern D2ClientCallbackFn gpfnClientCallback_007A0484; // 0x007A0484
 extern D2ClientCallbackFn gpfnClientCallbacks_0070EF0C[3]; // 0x0070EF0C
 extern int gdwGlobal_007A277C; // 0x007A277C
-
 
 extern int gnGlobal_0071146C; // 0x0071146C
 extern int gnGlobal_00711470; // 0x00711470

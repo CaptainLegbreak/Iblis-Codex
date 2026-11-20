@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientUi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -33,13 +34,6 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 int __cdecl sub_004B8BA0_OnClose2(); // 0x004B8BA0
 
-struct D2HintCursorStrc
-{
-    char unk0x00[0x3F];
-    unsigned char nRefreshCountAll;
-    unsigned char nRefreshCount;
-};
-
 struct D2HintKeyListStrc
 {
     int unk0x00;
@@ -65,12 +59,6 @@ struct D2TimedHintEntryStrc
     char nGroup[4];
     char nStart[4];
     char nEnd[4];
-};
-
-struct D2TimedHintNodeStrc
-{
-    D2TimedHintEntryStrc* f_0;
-    D2TimedHintNodeStrc* pNext;
 };
 
 int __cdecl sub_00481820(); // 0x00481820
@@ -214,7 +202,7 @@ void __fastcall sub_004B9EF0_ArmHint(int nKey, int nGroup, int nOffset, unsigned
     D2TimedHintEntryStrc* pEntry;
     for (; pNode; pNode = pNode->pNext)
     {
-        pEntry = pNode->f_0;
+        pEntry = pNode->pEntry;
         if (pEntry->nKey == nKey)
         {
             break;
@@ -227,7 +215,7 @@ void __fastcall sub_004B9EF0_ArmHint(int nKey, int nGroup, int nOffset, unsigned
 
     for (pNode = pHead; pNode; pNode = pNode->pNext)
     {
-        D2TimedHintEntryStrc* pOther = pNode->f_0;
+        D2TimedHintEntryStrc* pOther = pNode->pEntry;
         if (pOther->nKey == nKey)
         {
             D2HintKeyListStrc* pKeyList = pOther->pKeyList;

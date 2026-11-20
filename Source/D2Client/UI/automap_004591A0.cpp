@@ -1,4 +1,5 @@
 #include "D2DrlgTiles.h"
+#include "D2ClientUi.h"
 #define AUTOMAP_SIZE_MINI 1
 #define TOWNCEL_LUTGHOLEIN_MINI 0
 #define TOWNCEL_LUTGHOLEIN_ALT_MINI 0x14
@@ -12,17 +13,6 @@
 struct D2ActiveRoomStrc;
 struct D2UnitStrc;
 
-struct D2AutomapCellStrc
-{
-    unsigned int fSaved;
-    unsigned short nCellNo;
-    unsigned short xPixel;
-    unsigned short yPixel;
-    unsigned short wWeight;
-    D2AutomapCellStrc* pPrev;
-    D2AutomapCellStrc* pNext;
-};
-
 struct D2AutomapLayerStrc
 {
     int nLayerNo;
@@ -33,7 +23,6 @@ struct D2AutomapLayerStrc
     D2AutomapCellStrc* pExtras;
     D2AutomapLayerStrc* pNext;
 };
-
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090

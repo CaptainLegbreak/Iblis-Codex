@@ -1,16 +1,9 @@
 #include "D2Client.h"
+#include "D2ClientUi.h"
 
 struct D2AutomapCellStrc;
 struct Pad40_00457460;
 struct Obj00457460;
-
-struct D2AutomapCellStrc
-{
-    int unk0x00;
-    short nCellNo;
-    short nY;
-    short nX;
-};
 
 int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
 extern int gdwGlobal_007A51E4; // 0x007A51E4
@@ -124,10 +117,10 @@ void __fastcall sub_M117_Emit_00457810(int* pX, int* pY, int nScale)
 // 0x00457AC0
 int __fastcall sub_00457AC0_CompareAutomapCells(const D2AutomapCellStrc* pA, const D2AutomapCellStrc* pB)
 {
-    int nResult = pA->nX - pB->nX;
+    int nResult = pA->yPixel - pB->yPixel;
     if (!nResult)
     {
-        nResult = pA->nY - pB->nY;
+        nResult = pA->xPixel - pB->xPixel;
         if (!nResult)
         {
             const int nCellA = pA->nCellNo;

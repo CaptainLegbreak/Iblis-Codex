@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2ClientUi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2HintCursorStrc;
@@ -9,13 +10,6 @@ class UIWidget;
 class ButtonImplementation;
 
 #pragma pack(push, 1)
-struct D2HintCursorStrc
-{
-    char unk0x00[0x3E];
-    unsigned char bFlag3E;
-    char unk0x3F;
-    unsigned char nRefreshCount;
-};
 
 struct D2HintTimerStrc
 {
@@ -40,11 +34,6 @@ struct D2TimedHintEntryStrc
 };
 
 #pragma pack(pop)
-struct D2TimedHintNodeStrc
-{
-    D2TimedHintEntryStrc* f_0;
-    D2TimedHintNodeStrc* pNext;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -123,7 +112,7 @@ void __fastcall sub_004BA790_UpdateUnitHint(D2UnitStrc* pUnit, D2UnitStrc* pOthe
     D2TimedHintEntryStrc* pEntry;
     for (pNode = gpTimedHintList_007C5458; pNode; pNode = pNode->pNext)
     {
-        pEntry = pNode->f_0;
+        pEntry = pNode->pEntry;
         if (pEntry->nKey == (int)pUnit)
             break;
     }

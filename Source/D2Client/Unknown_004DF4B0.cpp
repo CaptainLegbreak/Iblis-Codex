@@ -5,6 +5,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameTypes.h"
+#include "D2ClientUi.h"
 
 struct D2CellNodeStrc;
 struct D2CellGridViewStrc;
@@ -38,14 +39,6 @@ struct D2SlotObjectStrc
     int nField0x30;
 };
 
-struct D2SlotStrc
-{
-    D2SoundStrc* f_0;
-    int nType;
-    D2SlotObjectStrc* pObject;
-    char unk0x0C[0x14];
-};
-
 struct S { int pad; int type; };
 
 extern int gdwGlobal_007C8C78; // 0x007C8C78
@@ -54,8 +47,6 @@ extern "C" __declspec(dllimport) long __stdcall InterlockedIncrement(long volati
 extern "C" __declspec(dllimport) long __stdcall InterlockedDecrement(long volatile* pAddend); // 0x006CC204
 int __fastcall sub_004E0000_SetSoundMode(int nMode); // 0x004E0000
 void __fastcall sub_00515F50_FadeOutMaster(int nTime); // 0x00515F50
-
-
 
 struct D2MissilesTxt
 {
@@ -67,7 +58,6 @@ struct D2MissilesTxt
     unsigned char nAnimLen;
     char unk0x179[0x2B];
 };
-
 
 struct D2StringSoundStrc
 {
@@ -95,7 +85,6 @@ struct D2ClientModuleListStrc
     int nModuleCount;
 };
 extern "C" __declspec(dllimport) int __stdcall VirtualFree(void* pAddress, unsigned int nSize, unsigned int nFreeType); // 0x006CC220
-
 
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
@@ -127,7 +116,6 @@ struct D2SkillsTxt
 };
 
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc*, int);
-
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
@@ -196,7 +184,7 @@ void __fastcall sub_004DF790_ReleaseSlotObject(D2SlotStrc* pSlot)
 // 0x004DF900
 unsigned int __fastcall sub_004DF900_GetSlotSampleCount(D2SlotStrc* pSlot)
 {
-    return sub_005159B0_GetSoundSampleCount(pSlot->f_0);
+    return sub_005159B0_GetSoundSampleCount(pSlot->pSound);
 }
 
 // 0x004DF910

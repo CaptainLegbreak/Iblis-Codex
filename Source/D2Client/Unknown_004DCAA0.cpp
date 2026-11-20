@@ -1,16 +1,11 @@
 #include "D2Client.h"
+#include "D2ClientUi.h"
 
 struct T00481920
 {
     int f_0;
     char unk0x04[0x20];
     int nEAXEnviron;
-};
-
-struct D2HintCursorStrc
-{
-    char unk0x00[0x50];
-    int aValues[4];
 };
 
 struct D2TimedHintStrc

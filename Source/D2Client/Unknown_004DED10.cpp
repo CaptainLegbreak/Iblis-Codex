@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2DrlgMaps.h"
+#include "D2ClientUi.h"
 
 struct D2SlotObjectStrc;
 struct D2SlotStrc;
@@ -27,19 +28,6 @@ struct D2SlotObjectStrc
 };
 
 #pragma pack(pop)
-struct D2SlotStrc
-{
-    D2SoundStrc* f_0;
-    int nType;
-    D2SlotObjectStrc* pObject;
-    char unk0x0C[0x14];
-};
-
-struct D2HintCursorStrc
-{
-    char unk0x00[0x3E];
-    char bField0x3E;
-};
 
 struct D2Obj007C8A28Strc
 {
@@ -52,8 +40,6 @@ int __fastcall sub_00515710(D2SoundStrc* pSound); // 0x00515710
 int __fastcall sub_00515740_IsSoundPlaying(D2SoundStrc* pSound); // 0x00515740
 int __fastcall sub_00515C30(D2SoundStrc* pSound); // 0x00515C30
 void __fastcall sub_005160D0_DestroySound(D2SoundStrc* pSound); // 0x005160D0
-
-
 
 struct D2TileLightNodeStrc
 {
@@ -104,14 +90,14 @@ void __fastcall sub_004DED10(void* pArg)
 // 0x004DF7B0
 void __fastcall sub_004DF7B0_StopSlot(D2SlotStrc* pSlot)
 {
-    if (pSlot->f_0)
+    if (pSlot->pSound)
     {
         if (pSlot->pObject)
         {
-            pSlot->pObject->f_41 = sub_005159B0_GetSoundSampleCount(pSlot->f_0);
+            pSlot->pObject->f_41 = sub_005159B0_GetSoundSampleCount(pSlot->pSound);
         }
 
-        sub_00515EE0_StopSound(pSlot->f_0);
+        sub_00515EE0_StopSound(pSlot->pSound);
     }
 
     if (pSlot->pObject)
@@ -145,9 +131,9 @@ void __cdecl sub_004DF890()
     for (int i = 0; i < 16; ++i)
     {
         D2SlotStrc* pSlot = &gaSlots_007C8A78[i];
-        if (pSlot->pObject && !sub_00481860(pSlot->pObject->f_4)->bField0x3E && !sub_00515710(pSlot->f_0))
+        if (pSlot->pObject && !sub_00481860(pSlot->pObject->f_4)->bFlag3E && !sub_00515710(pSlot->pSound))
         {
-            if (sub_00515C30(pSlot->f_0))
+            if (sub_00515C30(pSlot->pSound))
             {
                 sub_004DF7B0_StopSlot(pSlot);
             }
@@ -165,9 +151,9 @@ void __cdecl sub_004DF890()
 // 0x004DFA40
 int __fastcall sub_004DFA40_IsSlotPlaying(D2SlotStrc* pSlot)
 {
-    if (pSlot && pSlot->f_0)
+    if (pSlot && pSlot->pSound)
     {
-        return sub_00515740_IsSoundPlaying(pSlot->f_0);
+        return sub_00515740_IsSoundPlaying(pSlot->pSound);
     }
 
     return 0;
@@ -181,8 +167,8 @@ void __cdecl sub_004DFA60()
         sub_004DF800();
         for (int i = 0; i < 16; ++i)
         {
-            sub_005160D0_DestroySound(gaSlots_007C8A78[i].f_0);
-            gaSlots_007C8A78[i].f_0 = 0;
+            sub_005160D0_DestroySound(gaSlots_007C8A78[i].pSound);
+            gaSlots_007C8A78[i].pSound = 0;
         }
 
         gdwGlobal_007C8C78 = 0;

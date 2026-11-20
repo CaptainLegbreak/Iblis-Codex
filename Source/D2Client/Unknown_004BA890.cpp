@@ -1,16 +1,10 @@
+#include "D2ClientUi.h"
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2HintCursorStrc;
 struct D2TimedHintEntryStrc;
 struct D2TimedHintNodeStrc;
 struct D2HintKeyListStrc;
-
-struct D2HintCursorStrc
-{
-    char unk0x00[0x3F];
-    unsigned char nRefreshCountAll;
-    unsigned char nRefreshCount;
-};
 
 struct D2TimedHintEntryStrc
 {
@@ -34,13 +28,6 @@ struct D2TimedHintEntryStrc
     unsigned char unk_59[0x3];
 };
 
-struct D2TimedHintNodeStrc
-{
-    D2TimedHintEntryStrc* f_0;
-    D2TimedHintNodeStrc* pNext;
-};
-
-
 D2HintCursorStrc* __fastcall sub_00481860(int nId); // 0x00481860
 int __fastcall sub_00481890_GetCacheFirst(int nId); // 0x00481890
 void __fastcall sub_004B9EF0_ArmHint(int nKey, int nGroup, int nOffset, unsigned int nCount); // 0x004B9EF0
@@ -56,7 +43,6 @@ struct D2HintKeyListStrc
     int nCount;
 };
 
-
 int __cdecl sub_00481820(); // 0x00481820
 void __fastcall sub_004B9B50_SetValue(int nKey, int nValue); // 0x004B9B50
 
@@ -65,7 +51,7 @@ void __fastcall sub_004BA890_RefreshHintsById(int nHintId)
 {
     for (D2TimedHintNodeStrc* pNode = gpTimedHintList_007C5458; pNode; pNode = pNode->pNext)
     {
-        D2TimedHintEntryStrc* pEntry = pNode->f_0;
+        D2TimedHintEntryStrc* pEntry = pNode->pEntry;
         if (pEntry->nHintId == nHintId)
         {
             D2HintCursorStrc* pCursor = sub_00481860(pEntry->nHintId);
@@ -90,7 +76,7 @@ void __fastcall sub_004BA950_RefreshHintsInRangeA(int nGroupA, int nGroupB)
 
     for (; pNode; pNode = pNode->pNext)
     {
-        D2TimedHintEntryStrc* pEntry = pNode->f_0;
+        D2TimedHintEntryStrc* pEntry = pNode->pEntry;
         if (sub_00481890_GetCacheFirst(pEntry->nHintId) != nGroupA && sub_00481890_GetCacheFirst(pEntry->nHintId) != nGroupB
             && pEntry->nHintId >= 0x34 && pEntry->nHintId <= 0x47)
         {
@@ -116,7 +102,7 @@ void __fastcall sub_004BA9D0_RefreshHintsInRangeB(int nGroupA, int nGroupB)
 
     for (; pNode; pNode = pNode->pNext)
     {
-        D2TimedHintEntryStrc* pEntry = pNode->f_0;
+        D2TimedHintEntryStrc* pEntry = pNode->pEntry;
         if (sub_00481890_GetCacheFirst(pEntry->nHintId) != nGroupA && sub_00481890_GetCacheFirst(pEntry->nHintId) != nGroupB
             && pEntry->nHintId >= 0x48 && pEntry->nHintId <= 0xC9)
         {
@@ -148,7 +134,7 @@ static void __fastcall CLIENT_ArmHintInline(int nKey, int nGroup, int nOffset, u
     D2TimedHintEntryStrc* pEntry;
     for (; pNode; pNode = pNode->pNext)
     {
-        pEntry = pNode->f_0;
+        pEntry = pNode->pEntry;
         if (pEntry->nKey == nKey)
         {
             break;
@@ -161,7 +147,7 @@ static void __fastcall CLIENT_ArmHintInline(int nKey, int nGroup, int nOffset, u
 
     for (pNode = pHead; pNode; pNode = pNode->pNext)
     {
-        D2TimedHintEntryStrc* pOther = pNode->f_0;
+        D2TimedHintEntryStrc* pOther = pNode->pEntry;
         if (pOther->nKey == nKey)
         {
             D2HintKeyListStrc* pKeyList = pOther->pKeyList;
@@ -227,7 +213,7 @@ void __cdecl sub_004BAAB0_RefreshGroupTimers()
 {
     for (D2TimedHintNodeStrc* pNode = gpTimedHintList_007C5458; pNode; pNode = pNode->pNext)
     {
-        D2TimedHintEntryStrc* pEntry = pNode->f_0;
+        D2TimedHintEntryStrc* pEntry = pNode->pEntry;
         D2HintCursorStrc* pCursor = sub_00481860(pEntry->nHintId);
         *(int*)pEntry->f_3D = 1;
         unsigned char nCount = pCursor->nRefreshCount;

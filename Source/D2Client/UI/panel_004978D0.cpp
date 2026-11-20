@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2Txt.h"
 #include "D2CelContext.h"
+#include "D2ClientUi.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct Unicode;
@@ -16,26 +17,6 @@ struct Unicode
 {
     unsigned short wChar;
 };
-
-
-
-struct D2UiRectStrc
-{
-    int nLeft;
-    int nRight;
-    int nTop;
-    int nBottom;
-};
-
-struct D2UiRecordStrc
-{
-    char unk0x00[4];
-    unsigned char nBoxes;
-    unsigned char unk0x05;
-    unsigned short unk0x06;
-    D2UiRectStrc aRects[16];
-};
-
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -74,7 +55,6 @@ extern int gbUiRecordMode_007BEF98; // 0x007BEF98
 extern int gnBeltRecordMode2_007BEF9C; // 0x007BEF9C
 extern int gbGlobal_007BEFA0; // 0x007BEFA0
 extern D2UnitStrc* gpBeltItemA_007BEFA8; // 0x007BEFA8
-
 
 struct SMSGHANDLER_PARAMS
 {
