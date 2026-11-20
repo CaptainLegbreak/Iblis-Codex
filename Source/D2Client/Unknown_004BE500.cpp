@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Unicode.h"
 
 struct SMSGHANDLER_PARAMS
 {
@@ -26,13 +27,6 @@ struct SMSGHANDLER_PARAMS
     unsigned int dwArg;
     int bReturn;
     int lResult;
-};
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    static Unicode* __fastcall strncpy(Unicode* dest, const Unicode* src, int count);                       // 0x00526790
 };
 
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, int nFlags);                   // 0x00413020

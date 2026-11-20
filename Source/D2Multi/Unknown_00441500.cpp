@@ -1,9 +1,5 @@
 #include "D2Multi.h"
-
-struct Unicode
-{
-    unsigned short wChar;
-};
+#include "D2Unicode.h"
 
 struct tagRECT
 {

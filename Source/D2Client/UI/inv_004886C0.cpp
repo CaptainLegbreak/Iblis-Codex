@@ -1,14 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2ClientTypes.h"
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode();                                                                                              // 0x0042F530
-};
-
+#include "D2Unicode.h"
 
 struct D2PanelButtonStrc
 {

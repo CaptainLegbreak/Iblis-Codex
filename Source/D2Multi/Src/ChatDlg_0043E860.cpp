@@ -1,4 +1,5 @@
 #include "D2MultiTypes.h"
+#include "D2Unicode.h"
 #pragma pack(push, 1)
 #pragma pack(pop)
 
@@ -6,11 +7,6 @@ struct T0043E860
 {
     int nUnk0x00;
     char szName[0x32];
-};
-
-struct Unicode
-{
-    unsigned short wChar;
 };
 
 unsigned int __stdcall SStrLen(const char* szString);                                                       // 0x00413750

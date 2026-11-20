@@ -1,8 +1,4 @@
-struct Unicode
-{
-    unsigned short wChar;
-};
-
+#include "D2Unicode.h"
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0);                                // 0x0040B3C0
 void __fastcall sub_00478A00(void* pCel);                                                                   // 0x00478A00
 

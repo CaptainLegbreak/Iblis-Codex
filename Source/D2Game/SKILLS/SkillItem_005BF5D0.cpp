@@ -7,6 +7,7 @@
 #include "D2GameTypes.h"
 #include "D2ItemsWorld.h"
 #include "D2LevelTxt.h"
+#include "D2AnimData.h"
 struct D2GameStrc;
 struct D2UnitStrc;
 struct D2AiControlStrc;
@@ -48,18 +49,6 @@ enum D2C_G4Constants
     COLLIDE_MASK_PLAYER_FLYING = 0x804,
 };
 
-
-
-struct D2AnimDataRecordStrc
-{
-    char szAnimDataName[8];
-    unsigned int dwFrames;
-    int dwAnimSpeed;
-    unsigned char pFrameFlags[144];
-};
-
-
-
 typedef int (__fastcall* D2UnitEventCallbackFunction)(D2GameStrc* pGame, int nUnitEvent, D2UnitStrc* pUnit, D2UnitStrc* pEventSourceUnit, D2DamageStrc* pDamage, int nGUID1, int nGUID2);
 
 struct D2UnitEventStrc
@@ -75,10 +64,6 @@ struct D2UnitEventStrc
     D2UnitEventStrc* pPrevious;
     D2UnitEventStrc* pNext;
 };
-
-
-
-
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268

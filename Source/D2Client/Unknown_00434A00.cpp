@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Unicode.h"
 
 struct Unicode;
 struct D2FuncTable_0077ABF0Strc;
@@ -32,12 +33,6 @@ struct D2LaunchRecordStrc
 };
 
 #pragma pack(pop)
-struct Unicode
-{
-    unsigned short wChar;
-    Unicode();                                                                                              // 0x0042F530
-};
-
 struct D2FuncTable_0077ABF0Strc
 {
     char unk0x00[0x68];

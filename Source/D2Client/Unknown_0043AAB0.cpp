@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Unicode.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -7,14 +8,6 @@ struct D2FileTimeStrc;
 struct UnicodeChar;
 struct D2StatusStrc;
 struct D2FuncTable_0077ABF0Strc;
-
-struct Unicode
-{
-    unsigned short wChar;
-    Unicode(unsigned short ch = 0) : wChar(ch) {}
-    static Unicode* __fastcall strncpy(Unicode* dest, const Unicode* src, int count);                     // 0x00526790
-    static Unicode* __fastcall win2Unicode(Unicode* dest, const char* src, int count);                    // 0x00526F20
-};
 
 struct D2FileTimeStrc { unsigned int dwLowDateTime; unsigned int dwHighDateTime; };
 

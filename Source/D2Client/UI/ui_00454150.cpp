@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2Unicode.h"
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 #pragma function(memset)
 
@@ -6,13 +7,6 @@ enum D2C_StatIds
 {
     STAT_GOLD = 14,
     STAT_GOLDBANK = 15,
-};
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode(unsigned short wValue = 0);
 };
 
 struct D2InventoryStrc;

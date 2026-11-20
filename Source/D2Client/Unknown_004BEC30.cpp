@@ -1,11 +1,7 @@
 #include "D2Client.h"
+#include "D2Unicode.h"
 
 #pragma pack(push, 2)
-struct Unicode
-{
-    unsigned short wChar;
-};
-
 struct D2ListBoxLineStrc
 {
     Unicode wszText0[0x400];
@@ -74,10 +70,4 @@ int ListBoxImplementation::sub_004BEC30_GetSelectedIndex()
 // 0x004BEE30
 D2ListBoxLineStrc::D2ListBoxLineStrc()
 {
-    for (int i = 0; i < 0x400; ++i) wszText0[i].wChar = 0;
-    for (int i = 0; i < 0x400; ++i) f_800[i].wChar = 0;
-    for (int i = 0; i < 0x400; ++i) f_1000[i].wChar = 0;
-    for (int i = 0; i < 0x400; ++i) f_1800[i].wChar = 0;
-    for (int i = 0; i < 0x400; ++i) f_2000[i].wChar = 0;
-    for (int i = 0; i < 0x400; ++i) wszText5[i].wChar = 0;
 }

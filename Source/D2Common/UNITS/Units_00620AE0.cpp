@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2AnimData.h"
 #define STAT_TOHIT 19
 #define STAT_DEXTERITY 2
 struct D2AnimSeqTxt;
@@ -17,20 +18,10 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 
-
-
-
 void __stdcall sub_00643260(int* pX, int* pY); // 0x00643260
 
-struct D2AnimDataRecordStrc
-{
-    char unk_00[0x10];
-    unsigned char nFrameFlags[144];
-};
 D2AnimSeqTxt* __stdcall DATATBLS_GetMonSeqTxtRecordFromUnit(D2UnitStrc*); // 0x006633B0
 void __stdcall DATATBLS_ComputeSequenceAnimation(D2AnimSeqTxt*, int, int, int*, int*, int*, int*); // 0x00663410
-
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625480
@@ -107,7 +98,7 @@ int __stdcall sub_00621920_GetEventFrameInfo(D2UnitStrc* ptUnit, int nFrame)
         if (bSequence)
             break;
     default:
-        return ptUnit->pAnimData->nFrameFlags[nFrame];
+        return ptUnit->pAnimData->pFrameFlags[nFrame];
     }
     int nMode;
     int nSequenceFrame;
@@ -533,19 +524,19 @@ void __stdcall UNITS_SetAnimActionFrame(D2UnitStrc* pUnit, int nFrame)
 {
     if (pUnit && pUnit->pAnimData && nFrame < 144)
     {
-        if (pUnit->pAnimData->nFrameFlags[nFrame] == 1)
+        if (pUnit->pAnimData->pFrameFlags[nFrame] == 1)
         {
             pUnit->nActionFrame = 1;
         }
-        if (pUnit->pAnimData->nFrameFlags[nFrame] == 2)
+        if (pUnit->pAnimData->pFrameFlags[nFrame] == 2)
         {
             pUnit->nActionFrame = 2;
         }
-        if (pUnit->pAnimData->nFrameFlags[nFrame] == 3)
+        if (pUnit->pAnimData->pFrameFlags[nFrame] == 3)
         {
             pUnit->nActionFrame = 3;
         }
-        if (pUnit->pAnimData->nFrameFlags[nFrame] == 4)
+        if (pUnit->pAnimData->pFrameFlags[nFrame] == 4)
         {
             pUnit->nActionFrame = 4;
         }
@@ -558,19 +549,19 @@ static __forceinline void StopSequence_SetActionFrame(D2UnitStrc* pUnit, int nFr
     D2AnimDataRecordStrc* pAnimData = pUnit->pAnimData;
     if (pAnimData && nFrame < 144)
     {
-        if (pAnimData->nFrameFlags[nFrame] == 1)
+        if (pAnimData->pFrameFlags[nFrame] == 1)
         {
             pUnit->nActionFrame = 1;
         }
-        if (pAnimData->nFrameFlags[nFrame] == 2)
+        if (pAnimData->pFrameFlags[nFrame] == 2)
         {
             pUnit->nActionFrame = 2;
         }
-        if (pAnimData->nFrameFlags[nFrame] == 3)
+        if (pAnimData->pFrameFlags[nFrame] == 3)
         {
             pUnit->nActionFrame = 3;
         }
-        if (pAnimData->nFrameFlags[nFrame] == 4)
+        if (pAnimData->pFrameFlags[nFrame] == 4)
         {
             pUnit->nActionFrame = 4;
         }

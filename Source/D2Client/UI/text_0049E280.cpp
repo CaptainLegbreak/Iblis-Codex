@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2ClientUi.h"
+#include "D2Unicode.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct Unicode;
@@ -11,12 +12,6 @@ struct T00479230;
 struct D2TextNodeStrc;
 struct D2TextListStrc;
 class ListBoxWrapper;
-
-struct Unicode
-{
-    unsigned short wChar;
-    Unicode();                                                                                              // 0x0042F530
-};
 
 struct T0044CB60
 {

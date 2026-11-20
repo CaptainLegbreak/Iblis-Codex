@@ -1,16 +1,9 @@
+#include "D2Unicode.h"
 struct Unicode;
 
 extern int gnGlobal_007BEEE8; // 0x007BEEE8
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 int __cdecl sub_0044DB30(); // 0x0044DB30
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode(unsigned short ch = 0) : wChar(ch) {}
-};
-
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 unsigned short __fastcall sub_00469AA0(int nA, int nB); // 0x00469AA0

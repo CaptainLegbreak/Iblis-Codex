@@ -1,6 +1,7 @@
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 #include "D2Client.h"
 #include "D2DataTbls.h"
+#include "D2Unicode.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define CHECK(c,line) if(!(c)) { sub_00408A60(&empty,sub_00408090(),line); exit(-1); }
@@ -208,12 +209,6 @@ struct D2NpcIndexStrc
 
 extern D2NpcQuestHandlerStrc gaNpcHandlers_007253E0[]; // 0x007253E0
 extern D2NpcIndexStrc gaNpcIndex_00726C48[]; // 0x00726C48
-
-struct Unicode
-{
-    unsigned short wChar;
-    Unicode(unsigned short ch = 0) : wChar(ch) {}
-};
 
 struct D2CoordStrc
 {

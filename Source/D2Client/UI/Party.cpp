@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2CelContext.h"
+#include "D2Unicode.h"
 struct D2StoredUnitRecordStrc;
 
 struct Unicode;
@@ -12,14 +13,6 @@ struct D2CelContextStrc;
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 D2StoredUnitRecordStrc* __fastcall sub_004795A0_GetNextEntry(D2StoredUnitRecordStrc* pEntry); // 0x004795A0
 unsigned short __fastcall sub_00479BC0_GetEntryIndex(D2StoredUnitRecordStrc* pEntry); // 0x00479BC0
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode(unsigned short wValue = 0) : wChar(wValue) {}
-    static Unicode* __fastcall strncpy(Unicode* dest, const Unicode* src, int count);                       // 0x00526790
-};
 
 void __fastcall sub_004A7080(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480

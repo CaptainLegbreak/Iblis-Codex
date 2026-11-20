@@ -1,10 +1,4 @@
-struct Unicode
-{
-    unsigned short wChar;
-
-    static Unicode* __fastcall win2Unicode(Unicode* dest, const char* src, int count);                      // 0x00526F20
-};
-
+#include "D2Unicode.h"
 int __fastcall sub_0043E630_ShowChannelText(Unicode* pText);                                                // 0x0043E630
 
 // 0x00446B30

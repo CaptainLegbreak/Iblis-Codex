@@ -1,4 +1,5 @@
 #include "D2Multi.h"
+#include "D2Unicode.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2WinTextBoxStrc;
@@ -6,11 +7,6 @@ struct Unicode;
 struct D2LaunchCharInfoStrc;
 struct D2GameListRecordStrc;
 struct D2LaunchFuncsStrc;
-
-struct Unicode
-{
-    unsigned short wChar;
-};
 
 struct D2WinControlInitStrc
 {

@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2CelContext.h"
 #include "D2ClientUi.h"
+#include "D2Unicode.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -35,13 +36,6 @@ extern T0047BAD0 gtChatCommands_00712F7C[3]; // 0x00712F7C
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize); // 0x006829C0
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 extern "C" int __cdecl strcmp(const char* a, const char* b);
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode();                                                                                              // 0x0042F530
-};
 
 class D2SquelchListStrc
 {

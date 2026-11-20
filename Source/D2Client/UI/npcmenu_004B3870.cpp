@@ -1,16 +1,11 @@
 #include "D2Client.h"
 #include "D2Structs.h"
+#include "D2Unicode.h"
 struct D2BitBufferStrc;
 struct D2GameStrc;
 struct D2UnitStrc;
 
 
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode();                                                                                              // 0x0042F530
-};
 extern int gdwGlobal_007C0DB0;                                                                              // 0x007C0DB0
 extern "C" const char gszNpcMenuFile_006DA630[];                                                            // 0x006DA630
 extern "C" const char gszFormatD_006D57BC[];                                                                // 0x006D57BC

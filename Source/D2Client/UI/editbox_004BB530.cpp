@@ -1,16 +1,11 @@
 #include "D2Client.h"
 #include "D2CelContext.h"
+#include "D2Unicode.h"
 
 struct Unicode;
 class UIWidget;
 class EditBoxImplementation;
 class SpinnerImplementation;
-
-struct Unicode
-{
-    unsigned short wChar;
-};
-
 
 class UIWidget
 {

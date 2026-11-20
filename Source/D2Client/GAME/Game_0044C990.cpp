@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2LevelTxt.h"
 #include "D2ClientTypes.h"
+#include "D2Unicode.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2ActInfoStrc;
@@ -81,11 +82,6 @@ extern int gnGlobal_00711470; // 0x00711470
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
-
-struct Unicode
-{
-    unsigned short wChar;
-};
 
 struct T0044CB60
 {

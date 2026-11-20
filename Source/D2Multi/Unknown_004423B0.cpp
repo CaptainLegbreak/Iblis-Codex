@@ -1,15 +1,7 @@
 #include "D2Multi.h"
+#include "D2Unicode.h"
 // build: symbol ??_H@YGXPAXIHP6EPAX0@Z@Z 0x00403040
 // build: symbol ??_FUnicode@@QAEXXZ 0x0042F530
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode(unsigned short ch = 0) : wChar(ch)
-    {
-    }
-};
 
 struct D2LaunchFuncsStrc
 {

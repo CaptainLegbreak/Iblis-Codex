@@ -1,4 +1,5 @@
 #include "D2Client.h"
+#include "D2Unicode.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 struct D2ChatTextStrc;
@@ -31,18 +32,6 @@ struct D2ClientNotifyStrc
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...); // 0x006823FD
 extern "C" size_t __cdecl strlen(const char* sz);
 D2ClientNotifyStrc* __cdecl sub_0044B7B0_GetNotify(); // 0x0044B7B0
-
-struct Unicode
-{
-    unsigned short wChar;
-    Unicode();                                                                                              // 0x0042F530
-    int isWhitespace() const
-    {
-        if (wChar < 0x100)
-            return isspace(wChar);
-        return 0;
-    }
-};
 
 struct SMSGHANDLER_PARAMS
 {

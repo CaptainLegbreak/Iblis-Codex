@@ -2,20 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
-
-struct Unicode
-{
-    unsigned short ch;
-    Unicode() : ch(0)
-    {
-    }
-
-    static Unicode* __fastcall strcat(Unicode* dest, const Unicode* src);   // 0x00526700
-    static Unicode* __fastcall win2Unicode(Unicode* dest, const char* src, int count);   // 0x00526F20
-};
-
-
-
+#include "D2Unicode.h"
 
 extern D2DataTablesStrc* sgptDataTables;   // 0x00744304
 extern D2UnitStrc* gdwGlobal_007BCBF4;   // 0x007BCBF4

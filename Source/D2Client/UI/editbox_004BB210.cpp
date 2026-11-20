@@ -1,13 +1,5 @@
 #include "D2Client.h"
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode(unsigned short ch = 0) : wChar(ch) {}
-
-    static Unicode* __fastcall win2Unicode(Unicode* dest, const char* src, int count);                      // 0x00526F20
-};
+#include "D2Unicode.h"
 
 struct T0044CB60
 {

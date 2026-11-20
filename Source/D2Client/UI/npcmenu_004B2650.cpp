@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2Txt.h"
+#include "D2Unicode.h"
 struct D2BitBufferStrc;
 struct D2GameStrc;
 
@@ -8,12 +9,6 @@ struct Unicode;
 struct D2NpcMenuSlotStrc;
 struct D2StoredMsgPacketStrc;
 struct D2StoredMsgStrc;
-
-struct Unicode
-{
-    unsigned short wChar;
-    Unicode();                                                                                              // 0x0042F530
-};
 
 struct D2UnitStrc
 {

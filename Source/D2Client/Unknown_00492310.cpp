@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2CelContext.h"
 #include "D2LevelTxt.h"
+#include "D2Unicode.h"
 struct D2UnitStrc;
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
@@ -61,11 +62,6 @@ extern int gnGlobal_007BCE24; // 0x007BCE24
 extern int gnGlobal_007BCE30; // 0x007BCE30
 extern int gnGlobal_007BCE90; // 0x007BCE90
 extern int gnGlobal_007BCE9C; // 0x007BCE9C
-
-struct Unicode
-{
-    unsigned short wChar;
-};
 
 int __cdecl sub_0044DCC0(); // 0x0044DCC0
 unsigned char __cdecl sub_0044DCD0_GetDifficulty(); // 0x0044DCD0

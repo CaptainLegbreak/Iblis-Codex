@@ -7,6 +7,7 @@
 #include "D2Records.h"
 #include "D2ClientTypes.h"
 #include "D2ClientUi.h"
+#include "D2Unicode.h"
 struct D2ClientTextDataStrc;
 struct D2InventoryStrc;
 struct D2UnitStrc;
@@ -22,11 +23,6 @@ struct SMSGHANDLER_PARAMS
     unsigned int dwArg;
     int bReturn;
     int lResult;
-};
-
-struct Unicode
-{
-    unsigned short wChar;
 };
 
 #pragma pack(push, 2)

@@ -1,16 +1,8 @@
 #include "D2Common.h"
 #include "D2DrlgPresets.h"
+#include "D2Primitives.h"
 struct D2RoomCollisionGridStrc;
 struct D2BoundingBoxStrc;
-
-
-struct D2BoundingBoxStrc
-{
-    int nLeft;
-    int nBottom;
-    int nRight;
-    int nTop;
-};
 
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
 D2RoomCollisionGridStrc* __fastcall DUNGEON_GetCollisionGridFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A010

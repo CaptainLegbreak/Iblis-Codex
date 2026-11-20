@@ -1,13 +1,7 @@
 #include "D2Structs.h"
+#include "D2AnimData.h"
 struct D2InventoryStrc;
 struct D2UnitStrc;
-struct D2AnimDataRecordStrc
-{
-    char szAnimDataName[8];
-    unsigned int dwFrames;
-    unsigned int dwAnimSpeed;
-    unsigned char pFrameFlags[144];
-};
 
 struct D2AnimDataBucketStrc
 {
@@ -21,7 +15,6 @@ struct D2AnimDataTableStrc
     D2AnimDataBucketStrc* pHashTableBucket[256];
     D2AnimDataRecordStrc tDefaultRecord;
 };
-
 
 extern "C" const char gszDataGlobalPath[];                                                                      // 0x006D4118
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szBuffer, const char* szFormat, ...);           // 0x006CC468

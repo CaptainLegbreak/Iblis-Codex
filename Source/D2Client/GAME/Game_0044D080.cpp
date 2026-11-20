@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2ClientTypes.h"
+#include "D2Unicode.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct _RTL_CRITICAL_SECTION;
@@ -75,13 +76,6 @@ void __cdecl sub_00451F20_RegisterWindowHandlers(); // 0x00451F20
 void __fastcall sub_00530F30_SetGlobal(int nValue); // 0x00530F30
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax); // 0x004135D0
 void __stdcall GAME_SetGlobalAct(int nAct); // 0x0052DFA0
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode(unsigned short ch = 0) : wChar(ch) {}
-};
 
 int __fastcall sub_00501820(const Unicode* wszText); // 0x00501820
 void __fastcall sub_00502320(const Unicode* wszText, int nX, int nY, int nColor, int bCentered); // 0x00502320

@@ -3,17 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2Records.h"
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode(unsigned short wValue = 0) : wChar(wValue) {}
-};
-
-
-
-
+#include "D2Unicode.h"
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szBuffer, const char* szFormat, ...);
 

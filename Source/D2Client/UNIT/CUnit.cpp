@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Constants.h"
 #include "D2DataTbls.h"
+#include "D2Unicode.h"
 struct D2DynamicPathStrc;
 struct D2UnitTargetStrc;
 
@@ -94,11 +95,6 @@ struct D2MonStats2Txt
     char unk0x08[0x134 - 0x08];
 };
 
-
-struct Unicode
-{
-    unsigned short wChar;
-};
 
 struct D2ObjectsTxt
 {

@@ -1,11 +1,5 @@
 #include "D2Multi.h"
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode();                                                                                              // 0x0042F530
-};
+#include "D2Unicode.h"
 
 struct T0043E860
 {

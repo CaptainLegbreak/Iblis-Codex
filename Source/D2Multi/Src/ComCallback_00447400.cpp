@@ -1,4 +1,5 @@
 #include "D2Multi.h"
+#include "D2Unicode.h"
 
 struct D2CompositeUnitStrc;
 struct D2NamedValueStrc;
@@ -16,11 +17,6 @@ struct D2NamedValueStrc
 };
 
 const char* __stdcall SStrChr(const char* szString, char nChar); // 0x00413490
-
-struct Unicode
-{
-    unsigned short wChar;
-};
 
 struct T0043E860
 {

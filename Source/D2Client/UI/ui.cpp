@@ -4,6 +4,7 @@
 #include "D2Txt.h"
 #include "D2CelContext.h"
 #include "D2ClientTypes.h"
+#include "D2Unicode.h"
 
 struct D2CellFileStrc;
 struct Unicode;
@@ -156,13 +157,6 @@ struct D2RosterPetStrc
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 void __cdecl sub_00454740_LoadLoadingPalette(); // 0x00454740
 void __fastcall sub_00478A00(void* pCel); // 0x00478A00
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode();                                                                                              // 0x0042F530
-};
 
 void __fastcall sub_004A7080(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0

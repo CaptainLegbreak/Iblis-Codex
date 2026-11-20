@@ -1,14 +1,9 @@
 #include "D2Multi.h"
 #include "D2MultiTypes.h"
+#include "D2Unicode.h"
 struct D2WinControl004FBB30Strc;
 struct D2WinEditBoxStrc;
 struct D2WinTextBoxStrc;
-
-struct Unicode
-{
-    unsigned short wChar;
-    Unicode();
-};
 
 struct SMSGHANDLER_PARAMS
 {

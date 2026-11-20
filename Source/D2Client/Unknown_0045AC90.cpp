@@ -2,17 +2,10 @@
 #include "D2Structs.h"
 #include "D2UnitData.h"
 #include "D2Drlg.h"
+#include "D2Unicode.h"
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 extern "C" size_t __cdecl strlen(const char* szString);
-
-struct Unicode
-{
-    unsigned short wChar;
-};
-
-
-
 
 extern const D2AutomapPointStrc gaAutomapCross_006D6638[13];
 extern "C" const char szAutomapFile_006D66F0[];

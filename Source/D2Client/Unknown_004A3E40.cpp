@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Unicode.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
@@ -82,12 +83,6 @@ extern char gbGlobal_007C025D; // 0x007C025D
 extern char gbGlobal_007C025E; // 0x007C025E
 extern char gbGlobal_007C025F; // 0x007C025F
 extern char gbGlobal_007C0260; // 0x007C0260
-
-struct Unicode
-{
-    unsigned short wChar;
-    Unicode();                                                                                              // 0x0042F530
-};
 
 #pragma pack(push, 1)
 struct D2QuestTextMsgStrc

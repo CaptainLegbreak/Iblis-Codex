@@ -1,13 +1,7 @@
 #include "D2Client.h"
+#include "D2Unicode.h"
 
 struct D2CellFileStrc;
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode(unsigned short ch = 0) : wChar(ch) {}
-};
 
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
 int __cdecl sub_0044B850_IsHardcore();                                                                      // 0x0044B850

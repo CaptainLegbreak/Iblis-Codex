@@ -1,12 +1,6 @@
 #include "D2MultiTypes.h"
+#include "D2Unicode.h"
 struct D2WinControlStrc;
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode(unsigned short w = 0) : wChar(w) {}
-};
 
 #pragma pack(push, 1)
 #pragma pack(pop)

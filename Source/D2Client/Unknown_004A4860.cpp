@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2CelContext.h"
+#include "D2Unicode.h"
 
 #define STAT_STATPTS 4
 #define STAT_NEWSKILLS 5
@@ -57,11 +58,6 @@ int __fastcall sub_004B9A00(int, void*, int, int, int); // 0x004B9A00
 int __stdcall sub_00420290(Message*); // 0x00420290
 
 enum { REPEAT_MASK = 0x40000000, UI_VARIABLE = 11 };
-
-struct Unicode
-{
-    unsigned short wChar;
-};
 
 void* __fastcall sub_004520C0_LoadUiCelFile(const char* szPath); // 0x004520C0
 int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0

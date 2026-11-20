@@ -1,6 +1,7 @@
 #include "D2Client.h"
 #include "D2Structs.h"
 #include "D2ClientTypes.h"
+#include "D2Unicode.h"
 
 #define OFFSET(T,F) ((unsigned int)&(((T*)0)->F))
 
@@ -36,15 +37,6 @@ struct UnitView;
 class ListBoxImplementation;
 class UIWidget;
 class ListBoxWrapper;
-
-struct Unicode
-{
-    unsigned short wChar;
-    Unicode(unsigned short ch = 0) : wChar(ch) {}
-    static Unicode* __fastcall strcat(Unicode* dest, const Unicode* src);                                 // 0x00526700
-    static Unicode* __fastcall win2Unicode(Unicode* dest, const char* src, int count);                    // 0x00526F20
-};
-
 
 struct D2TextListNodeStrc
 {

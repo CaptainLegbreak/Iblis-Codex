@@ -1,4 +1,5 @@
 #include "D2Multi.h"
+#include "D2Unicode.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct Unicode;
@@ -8,12 +9,6 @@ struct D2LaunchCharInfoStrc;
 struct D2LaunchThreadRecordStrc;
 struct D2ChatMessageStrc;
 struct D2LaunchNameNodeStrc;
-
-struct Unicode
-{
-    unsigned short wChar;
-    Unicode(unsigned short c) { wChar = c; }
-};
 
 struct D2LaunchRecord3Strc
 {

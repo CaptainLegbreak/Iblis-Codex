@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2CelContext.h"
+#include "D2Unicode.h"
 
 #define D2_MAX(a, b) (((a) > (b)) ? (a) : (b))
 struct Unicode;
@@ -31,12 +32,6 @@ struct SMSGHANDLER_PARAMS
     int bReturn;
     int lResult;
 };
-
-struct Unicode
-{
-    unsigned short wChar;
-};
-
 
 #pragma pack(push, 2)
 struct D2ListScrollStrc

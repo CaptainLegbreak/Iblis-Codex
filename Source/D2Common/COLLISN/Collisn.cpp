@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Drlg.h"
 #include "D2DrlgMaps.h"
+#include "D2Primitives.h"
 struct D2ActiveRoomStrc;
 #define COLLISION_ABS(a) ((a) < 0 ? -(a) : (a))
 struct D2CoordStrc;
@@ -11,7 +12,6 @@ struct D2DrlgCoordsStrc;
 struct D2RoomCollisionGridStrc;
 struct D2DrlgTileDataStrc;
 struct D2BoundingBoxStrc;
-
 
 struct D2RoomCollisionGridStrc
 {
@@ -31,7 +31,6 @@ struct D2RoomCollisionGridStrc
     };
     unsigned short* pCollisionMask;
 };
-
 
 enum
 {
@@ -61,16 +60,7 @@ int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, in
 void __stdcall COLLISION_SetMaskWithSize(D2ActiveRoomStrc* pRoom, int nX, int nY, int nUnitSize, unsigned short nMask); // 0x0064EA00
 void __stdcall COLLISION_SetMaskWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, unsigned short nMask); // 0x0064EA90
 
-
 D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinatesImpl(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, D2CoordStrc* pFieldCoord, int nUnitSize, unsigned int nMask, unsigned int nFieldMask, int bAllowNeighborRooms, int nMaxDistance, int nPosIncrementValue); // 0x0064DEA0
-
-struct D2BoundingBoxStrc
-{
-    int nLeft;
-    int nBottom;
-    int nRight;
-    int nTop;
-};
 
 static unsigned short __stdcall COLLISION_CheckCollisionMaskForBoundingBox(D2RoomCollisionGridStrc* pCollisionGrid, D2BoundingBoxStrc* pBoundingBox, unsigned short nMask); // 0x0064CC30
 static void __stdcall COLLISION_ResetCollisionMaskForBoundingBox(D2RoomCollisionGridStrc* pCollisionGrid, D2BoundingBoxStrc* pBoundingBox, unsigned short nMask); // 0x0064CCE0

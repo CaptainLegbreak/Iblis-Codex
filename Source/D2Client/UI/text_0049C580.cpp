@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2CelContext.h"
 #include "D2ClientTypes.h"
+#include "D2Unicode.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2MsgHandlerEntryStrc;
@@ -92,13 +93,6 @@ extern int gnGlobal_007C0DC0; // 0x007C0DC0
 extern void* gpCelFile_007C0DC8; // 0x007C0DC8
 extern void* gpCelFile_007C0DCC; // 0x007C0DCC
 extern void* gpCelFile_007C546C; // 0x007C546C
-
-struct Unicode
-{
-    unsigned short wChar;
-    Unicode();
-};
-
 
 struct T0044CB60
 {

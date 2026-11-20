@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Records.h"
+#include "D2Unicode.h"
 
 
 struct D2SkillsTxt
@@ -21,13 +22,6 @@ struct D2SkillsTxt
 };
 
 
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode(unsigned short ch = 0) : wChar(ch) {}
-};
 
 struct UnicodeChar : Unicode
 {

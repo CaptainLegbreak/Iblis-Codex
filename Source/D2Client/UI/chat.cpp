@@ -1,15 +1,11 @@
 #include "D2Client.h"
+#include "D2Unicode.h"
 
 struct T0047A980;
 struct D2MsgHandlerEntryStrc;
 struct Unicode;
 struct D2ClientFlagsLowStrc;
 struct D2ClientFlagsStrc;
-
-struct Unicode
-{
-    unsigned short wChar;
-};
 
 struct D2ClientFlagsLowStrc
 {

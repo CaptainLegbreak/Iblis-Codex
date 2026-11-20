@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2LevelTxt.h"
 #include "D2ClientUi.h"
+#include "D2Unicode.h"
 struct D2ActiveRoomStrc;
 struct D2StoredUnitRecordStrc;
 struct D2UnitStrc;
@@ -23,18 +24,6 @@ struct D2GSPacketSrv26;
 struct D2CommonChatIgnoreListStrc;
 struct D2RectStrc;
 struct T00479230;
-
-struct Unicode
-{
-    unsigned short wChar;
-    Unicode(unsigned short ch = 0) : wChar(ch) {}
-    int isNewline() const
-    {
-        return wChar == '\n';
-    }
-    static Unicode* __fastcall strcat(Unicode* dest, const Unicode* src);                                 // 0x00526700
-    static Unicode* __fastcall win2Unicode(Unicode* dest, const char* src, int count);                    // 0x00526F20
-};
 
 struct T0044CB60
 {

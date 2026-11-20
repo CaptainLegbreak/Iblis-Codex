@@ -1,10 +1,5 @@
 #include "D2CelContext.h"
-struct Unicode
-{
-    unsigned short wChar;
-};
-
-
+#include "D2Unicode.h"
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 extern void* gpCelFile_007C546C;                                                                            // 0x007C546C

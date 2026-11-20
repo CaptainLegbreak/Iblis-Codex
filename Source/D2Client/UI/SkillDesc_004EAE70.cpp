@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2Unicode.h"
 
 #define LEVELV (*(volatile int*)&nSkillLevel)
 struct D2SkillsTxt;
@@ -20,13 +21,6 @@ struct D2SkillDescTxt
     char unk0x20[0x100];
 };
 
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode(unsigned short ch = 0) : wChar(ch) {}
-};
 
 struct UnicodeChar : Unicode
 {

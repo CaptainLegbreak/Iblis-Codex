@@ -1,5 +1,6 @@
 #include "D2Multi.h"
 #include "D2MultiTypes.h"
+#include "D2Unicode.h"
 
 struct D2LaunchCharInfoStrc;
 struct D2ChatMessageStrc;
@@ -48,11 +49,6 @@ int __fastcall D2Win_10016(); // 0x004FA550
 extern int gbDone_0077BDA0; // 0x0077BDA0
 void __cdecl sub_00440980_OpenClassSelectB(); // 0x00440980
 int __cdecl sub_00442810_SendChatBuffer(); // 0x00442810
-
-struct Unicode
-{
-    unsigned short wChar;
-};
 
 void __fastcall D2Win_10044(D2WinControlStrc* pControl, const Unicode* pText); // 0x004FD060
 extern D2WinControlInitStrc gtWaitInit_0070D3C0; // 0x0070D3C0

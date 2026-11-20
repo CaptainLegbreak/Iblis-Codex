@@ -1,15 +1,11 @@
 #include "D2Multi.h"
+#include "D2Unicode.h"
 struct D2WinEditBoxStrc;
 
 struct Unicode;
 struct SMSGHANDLER_PARAMS;
 struct D2LaunchGameRecStrc;
 struct D2GameDetailsStrc;
-
-struct Unicode
-{
-    unsigned short wChar;
-};
 
 struct SMSGHANDLER_PARAMS
 {

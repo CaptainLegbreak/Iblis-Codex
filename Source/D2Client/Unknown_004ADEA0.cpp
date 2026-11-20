@@ -1,10 +1,4 @@
-struct Unicode
-{
-    unsigned short ch;
-
-    static Unicode* __fastcall strcat(Unicode* dest, const Unicode* src); // 0x00526700
-};
-
+#include "D2Unicode.h"
 struct D2MonsterDataStrc
 {
     char unk0[0x1C];
@@ -31,7 +25,7 @@ extern "C" int __fastcall sub_00526800(const unsigned short* pText);            
 // 0x004ADEA0
 void __fastcall sub_004ADEA0_GetMonsterName(D2UnitStrc* pUnit, Unicode* wszName, int nLength, unsigned short nNameId)
 {
-    wszName->ch = 0;
+    wszName->wChar = 0;
 
     const int nType = pUnit ? pUnit->dwUnitType : 6;
     if (nType != 1)

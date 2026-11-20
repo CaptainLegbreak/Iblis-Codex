@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2MultiTypes.h"
+#include "D2Unicode.h"
 
 struct D2FuncTable_0077ABF0Strc;
 struct Unicode;
@@ -8,12 +9,6 @@ extern D2FuncTable_0077ABF0Strc* gpFuncTable_0077ABF0; // 0x0077ABF0
 extern "C" __declspec(dllimport) unsigned long __stdcall WaitForSingleObject(void* hHandle, unsigned long dwMilliseconds); // 0x006CC230
 int __fastcall sub_004F9190(); // 0x004F9190
 int __cdecl sub_0043B830(); // 0x0043B830
-
-struct Unicode
-{
-    unsigned short wChar;
-    Unicode();
-};
 
 void __fastcall sub_0042F540_ShowMessageBox(const Unicode* pTitle, const Unicode* pMessage, int nButton1StringId, int nButton2StringId, D2LaunchCallback pfnButton1, D2LaunchCallback pfnButton2, int bFlag1, int bFlag2); // 0x0042F540
 void __fastcall sub_00433450_ShowText(const Unicode* pText, D2LaunchDoneFn pfnDone); // 0x00433450

@@ -1,11 +1,6 @@
 #include "D2Client.h"
 #include "D2CelContext.h"
-
-struct Unicode
-{
-    unsigned short wChar;
-};
-
+#include "D2Unicode.h"
 
 void* __stdcall SMemAlloc(size_t nSize, const char* szFile, int nLine, int nFlags);                         // 0x00413020
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0

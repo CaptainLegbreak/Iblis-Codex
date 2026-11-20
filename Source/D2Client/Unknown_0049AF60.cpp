@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2ClientUi.h"
+#include "D2Unicode.h"
 struct D2StoredUnitRecordStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -9,13 +10,6 @@ struct D2RosterUnitStrc;
 struct D2HintString2AndUnusedStrc;
 struct D2RosterSlotStrc;
 struct D2ClientNotifyStrc;
-
-struct Unicode
-{
-    unsigned short wChar;
-
-    Unicode(unsigned short wValue = 0) : wChar(wValue) {}
-};
 
 struct D2RosterSlotStrc
 {

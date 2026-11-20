@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Drlg.h"
 #include "D2DrlgPresets.h"
+#include "D2Primitives.h"
 
 #define RAYTRACE_LOAD_ROOM() \
     nRoomX = pRoom->tCoords.nSubtileX; \
@@ -26,20 +27,8 @@ struct D2RoomCollisionGridStrc;
 struct D2DrlgCoordsStrc;
 struct D2BoundingBoxStrc;
 
-
-
-
 D2ActiveRoomStrc* __fastcall sub_00463740_FindRoomAtPoint(D2ActiveRoomStrc* pRoom, int nX, int nY); // 0x00463740
 D2RoomCollisionGridStrc* __fastcall DUNGEON_GetCollisionGridFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A010
-
-
-struct D2BoundingBoxStrc
-{
-    int nLeft;
-    int nBottom;
-    int nRight;
-    int nTop;
-};
 
 void __stdcall DUNGEON_GetRoomCoordinates(D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pCoords); // 0x00619730
 unsigned short __fastcall COLLISION_CheckCollisionMaskForBoundingBoxRecursively(D2ActiveRoomStrc* pRoom, D2BoundingBoxStrc* pBoundingBox, unsigned short nMask); // 0x0064CEB0
