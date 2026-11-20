@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Constants.h"
 #include "D2Txt.h"
+#include "D2DataTbls.h"
 
 #define STAT_UNIT_DOOVERLAY 178
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -92,16 +93,6 @@ struct D2UnitStrc
     unsigned char unk_C8[0x24];
     D2UnitPacketListStrc* pMsgFirst;
     D2UnitPacketListStrc* pMsgLast;
-};
-
-struct D2DataTablesStrc
-{
-    char unk_00[0xBA0];
-    int nSkillsTxtRecordCount;
-    unsigned char unk_BA4[0x1C];
-    int nOverlayTxtRecordCount;
-    unsigned char unk_BC4[0x2C];
-    int nPetTypeTxtRecordCount;
 };
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
@@ -233,9 +224,7 @@ struct D2UnitPacketSkillEventStrc
 
 struct D2CoordStrc { int nX; int nY; };
 
-
 struct D2ObjectDataStrc { D2ObjectsTxt* pObjectsTxt; unsigned char nInteractType; };
-
 
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268
 int __fastcall sub_00451F30_TestUnitFlag(D2UnitStrc*, int); // 0x00451F30

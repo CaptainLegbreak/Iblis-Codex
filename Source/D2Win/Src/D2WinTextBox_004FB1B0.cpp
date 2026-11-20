@@ -3,7 +3,7 @@
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define gnMouseY_007D55A8 (gMousePosition_6F8FE234.y)
 
-struct D2CellFileStrc;
+struct D2CelFileStrc;
 struct T004F51E0;
 struct D2WinControlStrc;
 struct D2WinTextBoxStrc;
@@ -40,7 +40,7 @@ struct SMSGHANDLER_PARAMS
 struct D2WinTextBoxStrc
 {
     int eType;
-    D2CellFileStrc* pCellFile;
+    D2CelFileStrc* pCellFile;
     unsigned int dwFlags;
     int nImageX;
     int nImageY;
@@ -83,7 +83,7 @@ extern tagPOINT gMousePosition_6F8FE234; // 0x007D55A4
 int __fastcall sub_00502EF0(int nArg); // 0x00502EF0
 int __stdcall D2Win_10125(); // 0x00501A40
 int __stdcall CONTROL_AppendToList(D2WinTextBoxStrc* pControl); // 0x004F9210
-D2WinScrollBarStrc* __fastcall SCROLLBAR_Create(int nX, int nY, int nWidth, int nHeight, D2CellFileStrc* pCellFile, int a6); // 0x005084F0
+D2WinScrollBarStrc* __fastcall SCROLLBAR_Create(int nX, int nY, int nWidth, int nHeight, D2CelFileStrc* pCellFile, int a6); // 0x005084F0
 int __fastcall SCROLLBAR_SetTextBox(D2WinScrollBarStrc* pScrollBar, D2WinTextBoxStrc* pTextBox); // 0x00507FD0
 extern "C" void __fastcall sub_005080C0_SetScrollBarField50(D2WinScrollBarStrc* pScrollBar, int nValue); // 0x005080C0
 int __fastcall TEXTBOX_Draw(D2WinTextBoxStrc* pTextBox); // 0x004FBF30
@@ -255,7 +255,7 @@ void* __fastcall sub_004FBB30_GetSelectedData(D2WinControl004FBB30Strc* pControl
 }
 
 // 0x004FC7A0
-D2WinTextBoxStrc* __fastcall D2Win_10042_TEXTBOX_Create(int nX, int nY, int nWidth, int nHeight, int nInsetX, int nInsetY, D2CellFileStrc* pCellFile, int (__stdcall* pfCallback)(SMSGHANDLER_PARAMS*), unsigned int dwTextBoxFlags, int* pFontInfo, int* pScrollBarRect)
+D2WinTextBoxStrc* __fastcall D2Win_10042_TEXTBOX_Create(int nX, int nY, int nWidth, int nHeight, int nInsetX, int nInsetY, D2CelFileStrc* pCellFile, int (__stdcall* pfCallback)(SMSGHANDLER_PARAMS*), unsigned int dwTextBoxFlags, int* pFontInfo, int* pScrollBarRect)
 {
     D2WinTextBoxStrc* pTextBox = (D2WinTextBoxStrc*)FOG_Alloc(0xAC, ".\\Src\\D2WinTextBox.cpp", 0x63, 0);
     memset(pTextBox, 0, 0xAC);

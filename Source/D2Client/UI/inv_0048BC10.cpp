@@ -1,6 +1,6 @@
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
 int __cdecl sub_0044DCC0();                                                                                 // 0x0044DCC0
-struct D2CellFileStrc* __fastcall sub_004520C0_LoadUiCelFile(const char* szPath);                          // 0x004520C0
+struct D2CelFileStrc* __fastcall sub_004520C0_LoadUiCelFile(const char* szPath);                          // 0x004520C0
 int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
 int __fastcall sub_00502EF0(int nSize);                                                                     // 0x00502EF0
 
@@ -73,7 +73,7 @@ struct D2CelContextStrc
     int unk0x28;
     int unk0x2C;
     int unk0x30;
-    struct D2CellFileStrc* pCellFile;
+    struct D2CelFileStrc* pCellFile;
     int unk0x38[2];
     int unk0x40;
     int unk0x44;
@@ -85,7 +85,7 @@ void __fastcall sub_00502320(const unsigned short* wszText, int nX, int nY, int 
 extern int gnGlobal_00711470;                                                                               // 0x00711470
 extern int gnGlobal_007A2858;                                                                               // 0x007A2858
 extern int gnGlobal_007A285C;                                                                               // 0x007A285C
-extern struct D2CellFileStrc* gpRecipeScrollCel_007BCE8C;                                                  // 0x007BCE8C
+extern struct D2CelFileStrc* gpRecipeScrollCel_007BCE8C;                                                  // 0x007BCE8C
 extern int gnRecipeScrollColor_007BCEA4;                                                                    // 0x007BCEA4
 extern unsigned short gwszRecipeScrollText_007BCEA8[];                                                      // 0x007BCEA8
 

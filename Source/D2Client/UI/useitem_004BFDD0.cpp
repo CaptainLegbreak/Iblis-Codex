@@ -1,6 +1,6 @@
 #include "D2Client.h"
 #include "D2Path.h"
-struct D2CellFileStrc;
+struct D2CelFileStrc;
 struct D2SelectionRectStrc;
 
 struct SMSGHANDLER_PARAMS
@@ -174,7 +174,7 @@ extern "C" void* __cdecl memset(void*,int,unsigned int);
 
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
-D2CellFileStrc* __cdecl sub_00454600_GetBuySellButtonCells(); // 0x00454600
+D2CelFileStrc* __cdecl sub_00454600_GetBuySellButtonCells(); // 0x00454600
 
 void __fastcall sub_0046EFD0_DrawFramedBox(int,int,int,int,int,int); // 0x0046EFD0
 

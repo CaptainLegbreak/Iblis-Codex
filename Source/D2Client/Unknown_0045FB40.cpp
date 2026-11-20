@@ -1,11 +1,11 @@
 #include "D2Client.h"
 
-struct D2CellFileStrc;
+struct D2CelFileStrc;
 
-D2CellFileStrc* __fastcall sub_004788B0(const char* szFile, int nType); // 0x004788B0
-extern D2CellFileStrc* gpGlobal_007A523C; // 0x007A523C
-extern D2CellFileStrc* gpGlobal_007A5240; // 0x007A5240
-extern D2CellFileStrc* gpGlobal_007A5244; // 0x007A5244
+D2CelFileStrc* __fastcall sub_004788B0(const char* szFile, int nType); // 0x004788B0
+extern D2CelFileStrc* gpGlobal_007A523C; // 0x007A523C
+extern D2CelFileStrc* gpGlobal_007A5240; // 0x007A5240
+extern D2CelFileStrc* gpGlobal_007A5244; // 0x007A5244
 void __stdcall sub_0045FBC0_DrawCelPair(int bFirst); // 0x0045FBC0
 void __cdecl sub_0045FC60_DrawLoadingTexts(); // 0x0045FC60
 void __stdcall sub_0045FD20_DrawPanelCel(int nFrame); // 0x0045FD20

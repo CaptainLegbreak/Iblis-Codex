@@ -6,7 +6,7 @@
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-struct D2CellFileStrc;
+struct D2CelFileStrc;
 struct D2MenuItemStrc;
 struct Unicode;
 struct D2OptionEntryStrc;
@@ -74,8 +74,8 @@ struct D2MenuItemStrc
     unsigned int dwMoveCount;
     unsigned int dwSliderType;
     char szChoices[4][260];
-    D2CellFileStrc* pImage;
-    D2CellFileStrc* pChoices[4];
+    D2CelFileStrc* pImage;
+    D2CelFileStrc* pChoices[4];
 };
 
 extern "C" const char szLightQuality_006D73A8[];

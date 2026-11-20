@@ -2,7 +2,7 @@
 
 #include "D2SysTypes.h"
 
-struct D2CellFileStrc;
+struct D2CelFileStrc;
 struct D2CriticalSectionStrc;
 struct D2FindDataStrc;
 struct D2FuncRecordStrc;
@@ -12,7 +12,7 @@ struct D2LaunchFuncsStrc;
 struct D2WinControlStrc;
 struct Unicode;
 
-D2CellFileStrc* __fastcall sub_004FA9B0_LoadCellFile(const char* szFile, int nType); // 0x004FA9B0
+D2CelFileStrc* __fastcall sub_004FA9B0_LoadCellFile(const char* szFile, int nType); // 0x004FA9B0
 Unicode* __fastcall sub_005267E0(Unicode* pDst, const Unicode* pSrc); // 0x005267E0
 char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70
 const Unicode* __fastcall sub_004FBB30_GetText(D2WinControlStrc* pControl); // 0x004FBB30

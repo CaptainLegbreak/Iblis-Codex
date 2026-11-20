@@ -6,7 +6,7 @@
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 struct D2FontStrc;
-struct D2CellFileStrc;
+struct D2CelFileStrc;
 struct D2CmpCelContextStrc;
 struct D2CharStrc;
 struct D2FontCacheStrc;
@@ -92,7 +92,7 @@ extern "C" void __stdcall sub_K08_EmitDrawRect(int nX, int nY, int nWidth, int n
 }
 
 // 0x00502680
-void __fastcall sub_00502680_DrawCellFile(D2CellFileStrc* pCell, int nX, int nY, int nAlign, int eDrawMode, int nShift)
+void __fastcall sub_00502680_DrawCellFile(D2CelFileStrc* pCell, int nX, int nY, int nAlign, int eDrawMode, int nShift)
 {
     const unsigned int nFrames = CelFileGetCelsPerDirection((D2CelFileStrc*)pCell);
     unsigned int nWidth;

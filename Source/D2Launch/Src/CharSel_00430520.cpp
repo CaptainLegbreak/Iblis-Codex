@@ -16,7 +16,7 @@ struct D2LaunchCharEntryStrc
     int nFlags;
     char unk0x328[0x0C];
     int bShared;
-    D2CellFileStrc* pCellFile;
+    D2CelFileStrc* pCellFile;
     char unk0x33C[0x10];
     D2LaunchCharEntryStrc* pNext;
 };
@@ -79,7 +79,7 @@ void __fastcall sub_0044A7A0_SendPacket0A(const char* szName, unsigned short nAr
 void __fastcall sub_0044A810_SendPacket18(const char* szName);                                                           // 0x0044A810
 void __cdecl sub_0044AA80_SendPacket13();                                                                                // 0x0044AA80
 int __stdcall sub_004F91C0(void* pEditBox);                                                                  // 0x004F91C0
-int __stdcall CONTROL_SetCellFile(D2WinControlStrc* pControl, D2CellFileStrc* pCellFile);                          // 0x004F91A0
+int __stdcall CONTROL_SetCellFile(D2WinControlStrc* pControl, D2CelFileStrc* pCellFile);                          // 0x004F91A0
 void __stdcall sub_004FA590_RunLoop(D2LaunchCallback pfnCallback);                                          // 0x004FA590
 void __fastcall sub_004FB740(D2WinControlStrc* pList, int nA, int nB);                                      // 0x004FB740
 int __fastcall sub_004FB990_GetSelection(D2WinControlStrc* pControl);                                       // 0x004FB990
@@ -88,7 +88,7 @@ int __stdcall sub_004FD0B0_SetColor(D2WinControlStrc* pControl, int nColor, int 
 int __stdcall sub_00500810(D2WinControlStrc* pControl, int nArg);                                           // 0x00500810
 int __stdcall D2Win_10125();                                                                                // 0x00501A40
 int __fastcall sub_00502EF0(int nArg);                                                                      // 0x00502EF0
-int __stdcall sub_005041B0_Destroy(D2CellFileStrc* pCellFile, int nFlag);                                   // 0x005041B0
+int __stdcall sub_005041B0_Destroy(D2CelFileStrc* pCellFile, int nFlag);                                   // 0x005041B0
 int __stdcall sub_00518150(D2FuncRecordStrc* pRecord, int nIndex);                                          // 0x00518150
 D2FuncTable_0077ABF0Strc* __cdecl sub_00518C00();                                                           // 0x00518C00
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
@@ -139,7 +139,7 @@ extern char gaszHistory_0077B1D8[10][0x100];                                    
 extern int gnControlCount_0077BBE8;                                                                         // 0x0077BBE8
 extern unsigned long gdwConnectTime_0077BBF0;                                                               // 0x0077BBF0
 extern D2WinControlStrc* gpControl_0077BC40;                                                                // 0x0077BC40
-extern D2CellFileStrc* gpCellFile_0077BC6C;                                                                 // 0x0077BC6C
+extern D2CelFileStrc* gpCellFile_0077BC6C;                                                                 // 0x0077BC6C
 extern D2WinControlStrc* gpControl_0077BCDC;                                                                // 0x0077BCDC
 extern D2WinControlStrc* gpControl_0077BCE0;                                                                // 0x0077BCE0
 extern D2WinControlStrc* gpControl_0077BCE4;                                                                // 0x0077BCE4

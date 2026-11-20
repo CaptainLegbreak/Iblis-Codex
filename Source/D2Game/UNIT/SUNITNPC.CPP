@@ -4,6 +4,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2UnitData.h"
+#include "D2GameServer.h"
 struct D2ClientStrc;
 struct D2ItemsTxt;
 struct D2UnitStrc;
@@ -39,8 +40,6 @@ struct D2MercDataStrc;
 struct D2GSPacketSrv50;
 struct D2NpcVendorChainStrc;
 
-
-
 struct D2MonsterItemCodeStrc
 {
     unsigned int nItemCode;
@@ -75,8 +74,6 @@ D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int nUnitGUID); // 0x00552F60
 int __stdcall ITEMS_CheckItemFlag(D2UnitStrc* pItem, unsigned int dwFlag, int nLine, const char* szFile); // 0x006280A0
 void __fastcall D2GAME_ITEMS_Identify_6FC49670(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pItem); // 0x00562590
-
-
 
 struct D2UniqueItemsTxt
 {
@@ -115,13 +112,6 @@ struct D2HirelingTxt
     unsigned short wNameLast;
 };
 
-struct D2NpcGambleStrc
-{
-    D2InventoryStrc* pInventory;
-    int dwGUID;
-    D2NpcGambleStrc* pNext;
-};
-
 struct D2NpcTradeStrc
 {
     unsigned char bVendorInit;
@@ -142,7 +132,6 @@ struct D2NpcRecordStrc
     char unk0x28[0x18];
     int dwNPCGUID;
 };
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -205,7 +194,6 @@ void __stdcall sub_00621000(Unit*,int); // 0x00621000
 void __stdcall sub_0063CC70(Inventory*,Unit*); // 0x0063CC70
 void __stdcall sub_00628170(Unit*,int,int); // 0x00628170
 void __fastcall sub_00557FD0(Game*,Unit*); // 0x00557FD0
-
 
 enum
 {

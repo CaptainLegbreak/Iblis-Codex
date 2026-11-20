@@ -8,26 +8,10 @@
 #include "D2UnitData.h"
 #include "D2TxtTables.h"
 #include "D2ItemsWorld.h"
+#include "D2LevelTxt.h"
 struct D2ActiveRoomStrc;
 struct D2GameStrc;
 struct D2UnitStrc;
-
-struct D2SuperUniquesTxt
-{
-    unsigned short wSuperUnique;
-    unsigned short wNameStr;
-    int dwClass;
-    int dwHcIdx;
-    int dwMod[3];
-    int dwMonSound;
-    int dwMinGrp;
-    int dwMaxGrp;
-    unsigned char nAutopos;
-    unsigned char nEclass;
-    unsigned char nStacks;
-    unsigned char nReplaceable;
-    char _pad28[0x0C];
-};
 
 typedef void (__fastcall* UModInitFunc)(D2UnitStrc* pUnit, int nUMod, int bUnique);
 typedef void (__fastcall* MinionCallbackFunc)(D2UnitStrc* pUnit, void* pArg1, void* pArg2);

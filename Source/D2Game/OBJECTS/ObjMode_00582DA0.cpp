@@ -5,15 +5,11 @@
 #include "D2GameStrc.h"
 #include "D2GameTypes.h"
 #include "D2ItemsWorld.h"
+#include "D2GameRecords.h"
 struct D2UnitStrc;
 
 struct D2SfxStrc { D2GameStrc* pGame; D2UnitStrc* pObject; D2UnitStrc* pOwner; };
 struct D2SfxArgStrc { int unk, nDamagePct, nRadius; };
-struct D2UnitFindArgStrc
-{
-    int nFlags; int unk0x04; D2UnitStrc* pUnit; int nX; int nY; int nSize; int nMaxArrayEntries; int nIndex;
-    void* pField; void* pfnUnitTest; int unk0x28; int unk0x2C; int unk0x30; int unk0x34;
-};
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0

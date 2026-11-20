@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
+#include "D2GameServer.h"
 
 struct D2ObjectControlStrc;
 struct Entry00547390;
@@ -11,32 +12,17 @@ struct D2MonRegDataStrc;
 struct D2MonsterRegionStrc;
 struct D2ObjOperateFnStrc;
 
-struct D2ObjectRegionStrc
-{
-    unsigned char nAct;
-    unsigned char pad0x01[3];
-    int field_4;
-    int nPopulatedRooms;
-    int unk0x0C;
-    int nHealingShrines;
-    int nShrines;
-    int nWells;
-    int nTrapMonsterId;
-};
-
 struct D2ObjectControlStrc
 {
     char unk0x00[0x48];
     D2ObjectRegionStrc* pObjectRegion[1024];
 };
 
-
 struct Entry00547390 { unsigned int dwUnknown00[4]; int nCount10; };
 
 struct Sub00547390 { unsigned char bUnknown00[0x48]; Entry00547390* pEntries48[1]; };
 
 struct Obj00547390 { unsigned char bUnknown00[0x10F0]; Sub00547390* pSub10F0; };
-
 
 struct D2MonRegDataStrc
 {
@@ -57,7 +43,6 @@ struct D2ObjOperateFnStrc
     D2GameStrc* pGame;
     D2UnitStrc* hObject;
 };
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2MonsterRegionStrc* __fastcall MONSTERREGION_GetMonsterRegionFromLevelId(D2MonsterRegionStrc** ppMonsterRegion, int nLevelId); // 0x00547BB0
@@ -94,7 +79,7 @@ bool __fastcall OBJRGN_CanNotSpawnMoreWells(D2GameStrc* pGame, int nLevelId)
 bool __fastcall OBJRGN_ShouldSpawnHealingShrineOrWell(D2GameStrc* pGame, int nLevelId)
 {
     D2ObjectRegionStrc* pObjectRegion = pGame->pObjectControl->pObjectRegion[nLevelId];
-    if (pObjectRegion->nPopulatedRooms > 0 && (pObjectRegion->field_4 << 7) / pObjectRegion->nPopulatedRooms > 96 && !pObjectRegion->nHealingShrines)
+    if (pObjectRegion->nPopulatedRooms > 0 && (pObjectRegion->unk0x04 << 7) / pObjectRegion->nPopulatedRooms > 96 && !pObjectRegion->nHealingShrines)
     {
         return true;
     }

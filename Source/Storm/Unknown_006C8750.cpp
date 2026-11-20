@@ -8,21 +8,21 @@ struct D2ClipRect006C8750Strc
     int nY2;
 };
 
-struct D2CellFileStrc;
+struct D2CelFileStrc;
 
 struct D2CelContext006C8750Strc
 {
     unsigned char unk_00[0x3C];
-    D2CellFileStrc* pCelFile;
+    D2CelFileStrc* pCelFile;
 };
 
 int __stdcall sub_006001F0_Prepare(D2CelContext006C8750Strc* pContext, int a2, int a3); // 0x006001F0
 int __fastcall sub_006C8250_GetSetting(int nArg, D2ClipRect006C8750Strc** ppClip, int nY1, int nY2, int nFlags); // 0x006C8250
 void __stdcall D2CMP_CelDrawEx(D2CelContext006C8750Strc* pContext, int nX, int nY, int nX1, int nX2, int a6, int a7, int a8, int a9, int a10); // 0x00601650
-int __stdcall sub_006018C0_CelGetWidth(D2CellFileStrc* pCelFile); // 0x006018C0
-int __stdcall sub_006018F0_CelGetHeight(D2CellFileStrc* pCelFile); // 0x006018F0
-int __stdcall sub_00601920_CelGetOffsetX(D2CellFileStrc* pCelFile); // 0x00601920
-int __stdcall sub_00601950_CelGetOffsetY(D2CellFileStrc* pCelFile); // 0x00601950
+int __stdcall sub_006018C0_CelGetWidth(D2CelFileStrc* pCelFile); // 0x006018C0
+int __stdcall sub_006018F0_CelGetHeight(D2CelFileStrc* pCelFile); // 0x006018F0
+int __stdcall sub_00601920_CelGetOffsetX(D2CelFileStrc* pCelFile); // 0x00601920
+int __stdcall sub_00601950_CelGetOffsetY(D2CelFileStrc* pCelFile); // 0x00601950
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
@@ -32,10 +32,10 @@ extern int gnValue_007C9138; // 0x007C9138
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 
-static __declspec(noinline) int __stdcall sub_006C8380_Clip(D2CellFileStrc* pCelFile, int nY, D2ClipRect006C8750Strc* pClip, int nX, D2ClipRect006C8750Strc* pOut);
+static __declspec(noinline) int __stdcall sub_006C8380_Clip(D2CelFileStrc* pCelFile, int nY, D2ClipRect006C8750Strc* pClip, int nX, D2ClipRect006C8750Strc* pOut);
 
 // 0x006C8380
-static int __stdcall sub_006C8380_Clip(D2CellFileStrc* pCelFile, int nY, D2ClipRect006C8750Strc* pClip, int nX, D2ClipRect006C8750Strc* pOut)
+static int __stdcall sub_006C8380_Clip(D2CelFileStrc* pCelFile, int nY, D2ClipRect006C8750Strc* pClip, int nX, D2ClipRect006C8750Strc* pOut)
 {
     const int nWidth = sub_006018C0_CelGetWidth(pCelFile);
     const int nHeight = sub_006018F0_CelGetHeight(pCelFile);

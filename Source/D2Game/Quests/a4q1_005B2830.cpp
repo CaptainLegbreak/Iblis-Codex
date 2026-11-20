@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2GameServer.h"
 struct D2GameStrc;
 struct D2UnitStrc;
 
@@ -11,22 +12,6 @@ union D2SeedStrc;
 struct D2UnkMonCreateStrc;
 struct D2MonStatsTxt;
 struct D2UnkMonCreateStrc3;
-
-
-
-struct D2UnkMonCreateStrc
-{
-    D2GameStrc* pGame;
-    D2ActiveRoomStrc* pRoom;
-    D2RoomCoordListStrc* pRoomCoordList;
-    int nMonsterId;
-    int nAnimMode;
-    int nUnitGUID;
-    int nX;
-    int nY;
-    int field_20;
-    short nFlags;
-};
 
 struct D2MonStatsTxt
 {
@@ -41,7 +26,6 @@ struct D2MonStatsTxt
     unsigned char nPartyMax;
     char pad0x2E[0x1A8 - 0x2E];
 };
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern unsigned int gdwBitMasks[]; // 0x006CE268
@@ -194,7 +178,7 @@ int __fastcall MONSTERSPAWN_SpawnFormation(D2GameStrc* pGame, D2ActiveRoomStrc* 
             monCreate.nUnitGUID = 0;
             monCreate.nMonsterId = nClassId;
             monCreate.nAnimMode = nAnimMode;
-            monCreate.field_20 = -1;
+            monCreate.unk0x20 = -1;
             monCreate.pGame = pGame;
             monCreate.pRoomCoordList = 0;
             monCreate.pRoom = pRoom;
@@ -211,7 +195,7 @@ int __fastcall MONSTERSPAWN_SpawnFormation(D2GameStrc* pGame, D2ActiveRoomStrc* 
             monCreate.nUnitGUID = 0;
             monCreate.nMonsterId = nClassId;
             monCreate.nAnimMode = nAnimMode;
-            monCreate.field_20 = -1;
+            monCreate.unk0x20 = -1;
             monCreate.pGame = pGame;
             monCreate.pRoomCoordList = 0;
             monCreate.pRoom = pRoom;

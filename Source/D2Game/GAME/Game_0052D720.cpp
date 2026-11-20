@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2GameServer.h"
 struct D2ActiveRoomStrc;
 struct D2ClientStrc;
 struct D2PoolSystemStrc;
@@ -35,14 +36,6 @@ struct D2GameStrc
     D2DrlgActStrc* pAct[5];
     char unk0x00D0[0x1CF8];
     int nDebugBreakTrigger;
-};
-
-typedef void (__fastcall* D2EnterGameFn)(int nGameId, char* szName, int nClass, int nLevel, int nSaveFlags);
-
-struct D2ServerCallbackFunctions
-{
-    char unk0x0000[0x14];
-    D2EnterGameFn pfEnterGame;
 };
 
 #pragma pack(push, 1)

@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2LevelTxt.h"
 #define STAT_DEXTERITY 2
 #define STAT_HITPOINTS 6
 #define STAT_MAXHP 7
@@ -46,14 +47,12 @@ struct D2UnitStrc;
 struct D2DataTablesStrc;
 struct D2HirelingTxt;
 
-
 struct D2MonsterInteractStrc
 {
     D2InteractInfoStrc* pInteractInfo;
 };
 
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
-
 
 void __fastcall D2GAME_MERCS_SendStat_6FCC61D0(D2UnitStrc* pUnit, unsigned short nStatId, int nValue); // 0x005718C0
 D2UnitStrc* __fastcall sub_6FC7E8B0(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetType, int a4); // 0x00574EC0
@@ -65,37 +64,6 @@ struct D2PetInfoStrc
     unsigned int nSeed;
     int wName;
     int nHirelingId;
-};
-
-
-
-struct D2HirelingTxt
-{
-    char unk0x00[0x1C];
-    int nHirelingLevel;
-    int dwExpPerLvl;
-    int dwHitpoints;
-    int dwHitpointsPerLvl;
-    int dwDefense;
-    int dwDefensePerLvl;
-    int nStr;
-    int nStrPerLvl;
-    int nDex;
-    int nDexPerLvl;
-    int dwAttackRate;
-    int dwAttackRatePerLvl;
-    int dwShare;
-    int nDmgMin;
-    int nDmgMax;
-    int nDmgPerLvl;
-    int dwResist;
-    int dwResistPerLvl;
-    char unk0x64[0x14];
-    int dwSkill[6];
-    char unk0x90[0x30];
-    signed char nMode[6];
-    signed char nLevel[6];
-    signed char nSLvlPerLvl[6];
 };
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -188,7 +156,6 @@ D2UnitStrc* __fastcall SUNIT_GetInteractUnit(D2GameStrc* pGame, D2UnitStrc* pUni
 void __fastcall D2GAME_NPC_BuildHirelingList_6FCC6FF0(D2GameStrc* pGame, D2ClientStrc* pClient, D2UnitStrc* pNpc, int bNoInteractInfo); // 0x00576770
 int __fastcall ACT1Q4_IsCainInTristramDeactivated(D2GameStrc* pGame); // 0x00594610
 void __stdcall TEXT_CreateMessageListFromTextHeader(D2TextHeaderStrc* pTextHeader, D2MessageListStrc* pMsgList); // 0x00661480
-
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 extern "C" const char gszMonsterAISourceFile[]; // 0x006E1560

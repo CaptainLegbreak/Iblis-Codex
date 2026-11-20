@@ -6,6 +6,7 @@
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
 #include "D2Drlg.h"
+#include "D2GameServer.h"
 
 #pragma intrinsic(strcpy)
 
@@ -86,8 +87,6 @@ extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
-
-
 
 #pragma pack(push, 1)
 struct D2ClientUnitUpdateStrc
@@ -189,12 +188,6 @@ struct D2GameStrc
     void sub_00546FF0_SendQuestText(const char* szText);                                                    // 0x00546FF0
 };
 
-struct D2ServerCallbackFunctions
-{
-    char unk0x00[0x34];
-    int (__stdcall* pfGetValue)();
-};
-
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC214
 extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(D2CriticalSectionStrc* pLock); // 0x006CC218
 unsigned short __stdcall FOG_ComputeStringCRC16(const char* szString); // 0x004112C0
@@ -212,8 +205,6 @@ typedef int (__stdcall* FARPROC)();
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x006CC34C
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szBuffer, const char* szFormat, ...); // 0x006CC468
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-
-
 
 struct D2BitBufferStrc
 {
@@ -233,7 +224,6 @@ struct D2ObjectControlStrc
     unsigned short wRoomsTried;
     unsigned short wRoomsNoGroup;
 };
-
 
 struct D2W11RoomTileRecordStrc
 {
@@ -255,7 +245,6 @@ struct D2MapAIStrc
     int nPathNodes;
     void* pPosition;
 };
-
 
 struct D2W11QuestEx5B7230Strc
 {
@@ -296,7 +285,6 @@ void __stdcall DUNGEON_ChangeClientRoom(D2ActiveRoomStrc* pOldRoom, D2ActiveRoom
 void __stdcall D2Common_10077(D2ActiveRoomStrc* pOldRoom, D2ActiveRoomStrc* pNewRoom); // 0x0061A9F0
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 void __stdcall UNITS_SetPlayerPortalFlags(D2UnitStrc* pUnit, int nFlags); // 0x006221E0
-
 
 struct D2ClientUnitUpdateSortStrc
 {
@@ -524,7 +512,6 @@ struct Obj005392E0 {
 struct Obj00539300 { unsigned char bUnknown00[0x60]; unsigned int dwValue60; };
 
 struct Obj00539310 { unsigned char bUnknown00[0x68]; unsigned int dwValue68; };
-
 
 unsigned char __fastcall CLIENTS_GetActNo(D2ClientStrc* pClient); // 0x005382B0
 void __fastcall CLIENTS_SetRoomInClient(D2ClientStrc* pClient, D2ActiveRoomStrc* pRoom); // 0x005381F0

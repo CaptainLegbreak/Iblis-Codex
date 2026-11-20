@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2Primitives.h"
+#include "D2GameServer.h"
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
@@ -13,8 +14,6 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize);          
 extern "C" size_t __cdecl strlen(const char* szString);
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void);                              // 0x006CC260
 extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(D2CriticalSectionStrc* pLock);         // 0x006CC214
-
-
 
 struct D2ClientStrc
 {
@@ -29,15 +28,6 @@ struct D2ClientStrc
     char unk0x4AC[0x54];
     unsigned int dwPingsCount;
     int unk0x504;
-};
-
-
-typedef void (__fastcall* FnUpdateCharacterLadder)(const char* szCharName, int nClassId, int nLevel, unsigned __int64 nExperience, unsigned int nFlags, D2FileTimeStrc* pSaveCreationTimestamp);
-
-struct D2ServerCallbackFunctions
-{
-    void* pfCallbacks[10];
-    FnUpdateCharacterLadder pfUpdateCharacterLadder;
 };
 
 struct D2GSPacketClt66

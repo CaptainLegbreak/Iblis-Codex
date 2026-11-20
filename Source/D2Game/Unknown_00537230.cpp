@@ -1,15 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
-
-
-
-struct D2NpcGambleStrc
-{
-    D2InventoryStrc* pInventory;
-    int dwGUID;
-    D2NpcGambleStrc* pNext;
-};
+#include "D2GameServer.h"
 
 struct D2NpcVendorChainStrc
 {

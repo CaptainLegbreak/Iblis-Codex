@@ -3,6 +3,7 @@
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
 #include "D2GameAux.h"
+#include "D2LevelTxt.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_MONSTER 1
@@ -28,13 +29,6 @@ D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int
 void __fastcall PLAYERPETS_FreePetsFromPlayerData(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x005746D0
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
 void __fastcall sub_00575A80_InitPetTypeMax(D2GameStrc* pGame, D2UnitStrc* pPlayer); // 0x00575A80
-
-struct D2PetTypeTxt
-{
-    unsigned int dwHcIdx;
-    unsigned char nPetFlags[4];
-    char unk0x08[0xD8];
-};
 
 extern unsigned int gdwBitMasks[]; // 0x006CE268
 int __fastcall SUNIT_IsDead(D2UnitStrc* pUnit); // 0x005541B0

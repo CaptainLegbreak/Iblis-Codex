@@ -8,6 +8,7 @@
 #include "D2Txt.h"
 #include "D2GameTypes.h"
 #include "D2ItemsWorld.h"
+#include "D2GameRecords.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define MAX(a, b) ((a) < (b) ? (b) : (a))
@@ -35,12 +36,6 @@ enum D2C_M96QuestsFxConstants
     MISSILE_RADAMENTDEATH = 347,
     EVENTTYPE_MONUMOD = 7,
     MONUMOD_TEMPSUMMON = 21,
-};
-
-struct D2UnitFindArgStrc
-{
-    int nFlags; int unk0x04; D2UnitStrc* pUnit; int nX; int nY; int nSize; int nMaxArrayEntries; int nIndex;
-    void* pField; void* pfnUnitTest; int unk0x28; int unk0x2C; int unk0x30; int unk0x34;
 };
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

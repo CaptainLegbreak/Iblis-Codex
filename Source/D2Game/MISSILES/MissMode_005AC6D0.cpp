@@ -9,6 +9,7 @@
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
 #include "D2QuestData.h"
+#include "D2GameServer.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2AiParamStrc;
@@ -25,16 +26,10 @@ struct D2Act4Quest1Strc;
 struct D2Act4Quest3Strc;
 struct D2GSPacketSrv5D;
 
-
-
-
-
 typedef void(__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nUnused);
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
-
 
 D2UnitStrc* __fastcall SUNIT_GetOwner(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00552FD0
 D2UnitStrc* __fastcall MISSILES_CreateMissileFromParams(D2GameStrc* pGame, D2MissileStrc* pMissileParams); // 0x0059FA30
@@ -45,7 +40,6 @@ int __stdcall D2COMMON_10176_PathGetFirstPointY(D2DynamicPathStrc* pDynamicPath)
 int __stdcall MISSILE_GetLevel(D2UnitStrc* pMissile); // 0x0064A210
 int __stdcall MISSILE_GetSkill(D2UnitStrc* pMissile); // 0x0064A280
 
-
 void __fastcall MISSMODE_FillDamageParams(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pMissile, D2UnitStrc* pUnit, D2DamageStrc* pDamage); // 0x005A89A0
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 int __fastcall sub_6FD10200(D2GameStrc* pGame, D2UnitStrc* pUnit, int nX, int nY, int nAuraRange, D2DamageStrc* pDamage, unsigned int nAuraFilter); // 0x0056BAD0
@@ -55,34 +49,11 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 
-
-
-
-
 struct D2DoorObjectAiCallbackArgStrc
 {
     D2UnitStrc* pDoor;
     int nDistance;
 };
-
-struct D2UnkMonCreateStrc
-{
-    D2GameStrc* pGame;
-    D2ActiveRoomStrc* pRoom;
-    D2RoomCoordListStrc* pRoomCoordList;
-    int nMonsterId;
-    int nAnimMode;
-    int nUnitGUID;
-    int nX;
-    int nY;
-    int field_20;
-    short nFlags;
-};
-
-
-
-
-
 
 struct D2GSPacketSrv5D
 {
@@ -364,7 +335,7 @@ D2UnitStrc* __fastcall sub_6FC68D70(D2GameStrc* pGame, D2UnitStrc* pUnit, int nM
     monCreate.nMonsterId = nMonsterId;
     monCreate.nAnimMode = nAnimMode;
     monCreate.pRoom = UNITS_GetRoom(pUnit);
-    monCreate.field_20 = a5;
+    monCreate.unk0x20 = a5;
     monCreate.nFlags = nFlags;
     monCreate.pGame = pGame;
     monCreate.pRoomCoordList = 0;
@@ -381,7 +352,7 @@ D2UnitStrc* __fastcall sub_6FC69F70(D2GameStrc* pGame, D2RoomCoordListStrc* pRoo
     monCreate.nMonsterId = nMonsterId;
     monCreate.nAnimMode = nAnimMode;
     monCreate.pRoom = UNITS_GetRoom(pUnit);
-    monCreate.field_20 = a6;
+    monCreate.unk0x20 = a6;
     monCreate.nFlags = nFlags;
     monCreate.pGame = pGame;
     monCreate.pRoomCoordList = pRoomCoordList;

@@ -6,6 +6,7 @@
 #include "D2GameStrc.h"
 #include "D2Drlg.h"
 #include "D2TxtItems.h"
+#include "D2GameObjs.h"
 struct D2UnitStrc;
 
 #define UNIT_OBJECT 2
@@ -32,16 +33,6 @@ struct D2CharStatsTxt;
 struct D2ShrineTableStrc;
 struct D2GSPacketSrv58;
 struct D2ObeliskPowerUpStrc;
-
-struct D2ObjectDataStrc
-{
-    int unk00;
-    unsigned char InteractType;
-    unsigned char nPortalFlags;
-    unsigned short unk0x06;
-    D2ShrinesTxt* pShrineTxt;
-    int dwOperateGUID;
-};
 
 struct D2ObjectsTxt
 {
@@ -74,15 +65,6 @@ void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventT
 void __fastcall D2GAME_PACKETS_SendPacket0x0E_6FC3C8E0(D2ClientStrc* pClient, unsigned char nHeader, unsigned char nUnitType, int nUnitGUID, unsigned char a5, unsigned char a6, int nAnimMode); // 0x0053B470
 void __fastcall sub_6FC3F060(D2ClientStrc* pClient, unsigned char a2, int a3, unsigned short a4, unsigned short a5, int a6, unsigned short a7, unsigned char a8, int a9); // 0x0053D4D0
 void __fastcall sub_6FC3F550(D2ClientStrc* pClient, D2UnitStrc* pUnit); // 0x0053D900
-
-struct D2ObjOperateFnStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* hObject;
-    D2UnitStrc* hPlayer;
-    D2ObjectControlStrc* pObjectregion;
-    int nObjectIdx;
-};
 
 extern "C" const char gszObjModeSourceFile_006E1970[]; // 0x006E1970
 D2ActiveRoomStrc* __stdcall COLLISION_GetFreeCoordinates(D2ActiveRoomStrc* pRoom, D2CoordStrc* pSpawnPoint, int nUnitSize, unsigned int nMask, int bAllowNeighboringRooms); // 0x0064E7B0

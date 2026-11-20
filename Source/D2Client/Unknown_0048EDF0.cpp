@@ -5,7 +5,7 @@
 #include "D2ClientUi.h"
 #include "D2Unicode.h"
 
-struct D2CellFileStrc;
+struct D2CelFileStrc;
 
 struct UnicodeChar : Unicode
 {
@@ -18,7 +18,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();        
 void __stdcall sub_00403040_ConstructArray(void* pArray, unsigned int nSize, int nCount, void (UnicodeChar::*pfnConstruct)()); // 0x00403040
 int __cdecl sub_0044DA30();                                                                                 // 0x0044DA30
 int __cdecl sub_0044DCC0();                                                                                 // 0x0044DCC0
-D2CellFileStrc* __cdecl sub_00454600_GetBuySellButtonCells(); // 0x00454600
+D2CelFileStrc* __cdecl sub_00454600_GetBuySellButtonCells(); // 0x00454600
 int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                           // 0x00463DD0

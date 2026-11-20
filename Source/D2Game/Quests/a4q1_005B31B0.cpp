@@ -1,28 +1,13 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2GameServer.h"
 
 struct D2UnkMonCreateStrc;
 struct D2PlayerDataStrc;
 struct D2Act4Quest1Strc;
 
-
-struct D2UnkMonCreateStrc
-{
-    D2GameStrc* pGame;
-    D2ActiveRoomStrc* pRoom;
-    D2RoomCoordListStrc* pRoomCoordList;
-    int nMonsterId;
-    int nAnimMode;
-    int nUnitGUID;
-    int nX;
-    int nY;
-    int field_20;
-    short nFlags;
-};
-
 D2UnitStrc* __fastcall D2GAME_SpawnNormalMonster_6FC68E30(D2UnkMonCreateStrc* pMonCreate); // 0x005B2A00
-
 
 void __fastcall AIGENERAL_SetOwnerData(D2GameStrc* pGame, D2UnitStrc* pUnit, int nOwnerGUID, int nOwnerType, int bSetFlag1, int bSetFlag2); // 0x0058F030
 void __fastcall AIGENERAL_AllocMinionList(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pMinion); // 0x0058F100
@@ -157,7 +142,7 @@ int __fastcall sub_6FC6A230(D2GameStrc* pGame, D2UnitStrc* pOwner, int nX, int n
         monCreate.pGame = pGame;
         monCreate.pRoomCoordList = 0;
         monCreate.pRoom = pRoom;
-        monCreate.field_20 = a5;
+        monCreate.unk0x20 = a5;
         monCreate.nFlags = nFlags;
         monCreate.nX = nX;
         monCreate.nY = nY;

@@ -4,6 +4,7 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
+#include "D2LevelTxt.h"
 
 #define AI_PARAM(pGame, pMonStatsTxt, nParamId) ((pMonStatsTxt)->wAiParam[nParamId][(pGame)->nDifficulty])
 #define SKILL_INFERNO 41
@@ -18,11 +19,6 @@ union D2SeedStrc;
 struct D2MonStatsTxt;
 struct D2PantherAiCallbackArgStrc;
 struct D2SkillsTxt;
-
-
-
-
-
 
 struct D2PantherAiCallbackArgStrc
 {
@@ -51,21 +47,6 @@ void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit
 int __fastcall AITACTICS_WalkToTargetUnitWithFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit, unsigned char nFlag); // 0x005DEC80
 int __fastcall sub_005DEFE0_Escape(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance, int bDeleteAiEventCallback); // 0x005DEFE0
 int __fastcall D2GAME_AICORE_WalkToOwner_6FCD0B60(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pOwner, unsigned char nMaxDistance); // 0x005DF530
-
-struct D2HirelingTxt
-{
-    char unk0x00[0x1C];
-    int nHirelingLevel;
-    char unk0x20[0x44];
-    int dwDefaultChance;
-    char unk0x68[0x10];
-    int dwSkill[6];
-    int dwChance[6];
-    int dwChancePerLvl[6];
-    unsigned char nMode[6];
-};
-
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const unsigned int gdwBitMasks[32]; // 0x006CE268

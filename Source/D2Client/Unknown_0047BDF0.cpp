@@ -3,7 +3,7 @@
 #include "D2Unicode.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-struct D2CellFileStrc;
+struct D2CelFileStrc;
 struct Unicode;
 struct D2BnetChatPacketStrc;
 struct D2ClientNotifyStrc;
@@ -93,8 +93,8 @@ struct D2OptionEntryStrc
     unsigned int nValue;
     char unk0x128[4];
     char szValueCels[4][0x104];
-    D2CellFileStrc* pCel;
-    D2CellFileStrc* pValueCels[4];
+    D2CelFileStrc* pCel;
+    D2CelFileStrc* pValueCels[4];
 };
 
 
@@ -110,7 +110,7 @@ int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740
 D2CelFileStrc* __cdecl sub_00453AA0(); // 0x00453AA0
 int __cdecl sub_00454850_TickElapsed(); // 0x00454850
-void __fastcall sub_00502680_DrawCellFile(D2CellFileStrc* pCell, int nX, int nY, int nA, int nB, int nC); // 0x00502680
+void __fastcall sub_00502680_DrawCellFile(D2CelFileStrc* pCell, int nX, int nY, int nA, int nB, int nC); // 0x00502680
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 void __stdcall sub_0047E260_DrawOptionSlider(D2OptionEntryStrc* pEntry, int nY, int nColor, int bNoCel); // 0x0047E260
 extern int gnGlobal_0071146C; // 0x0071146C

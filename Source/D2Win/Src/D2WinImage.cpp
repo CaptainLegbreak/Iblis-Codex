@@ -6,7 +6,7 @@
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-struct D2CellFileStrc;
+struct D2CelFileStrc;
 struct D2WinControlStrc;
 struct D2WinImageClickRectStrc;
 struct D2UnitStrc;
@@ -32,12 +32,12 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 struct D2WinControl004FD110Strc
 {
     int eType;
-    D2CellFileStrc* pCellFile;
+    D2CelFileStrc* pCellFile;
     unsigned char f_8[0x38];
     int nFrame;
 };
 
-int __stdcall CelFileGetCelsPerDirection(D2CellFileStrc* pCellFile); // 0x006019F0
+int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pCellFile); // 0x006019F0
 
 enum D2ControlTypes
 {

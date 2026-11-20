@@ -3,6 +3,7 @@
 #include "D2GameTypes.h"
 #include "D2Drlg.h"
 #include "D2DrlgRooms.h"
+#include "D2GameServer.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
@@ -71,14 +72,6 @@ struct D2ClientStrc
     D2ActiveRoomStrc* hRoom;
     char unk0x01B8[0x2F0];
     D2ClientStrc* pNext;
-};
-
-typedef void (__fastcall* D2EnterGameFn)(int nGameId, char* szName, int nClass, int nLevel, int nSaveFlags);
-
-struct D2ServerCallbackFunctions
-{
-    char unk0x0000[0x14];
-    D2EnterGameFn pfEnterGame;
 };
 
 #pragma pack(push, 1)

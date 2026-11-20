@@ -18,7 +18,7 @@ struct D2DataTablesStrc;
 struct D2LaunchRequestStrc;
 struct D2UnitDropItemsPacketStrc;
 struct D2GridCellStrc;
-struct D2CellFileStrc;
+struct D2CelFileStrc;
 struct Unicode;
 struct D2FuncTable_0077ABF0Strc;
 struct D2LaunchCharInfoStrc;
@@ -179,11 +179,11 @@ struct D2LaunchCharEntryStrc
     int nFlags;
     char unk0x328[0x0C];
     int bShared;
-    D2CellFileStrc* pCellFile;
+    D2CelFileStrc* pCellFile;
     char unk0x33C[0x10];
     D2LaunchCharEntryStrc* pNext;
 };
-int __stdcall sub_005041B0_Destroy(D2CellFileStrc* pCellFile, int nFlag); // 0x005041B0
+int __stdcall sub_005041B0_Destroy(D2CelFileStrc* pCellFile, int nFlag); // 0x005041B0
 extern D2LaunchCharEntryStrc* gpCharEntry_00779DC0; // 0x00779DC0
 
 // 0x0042E5B0

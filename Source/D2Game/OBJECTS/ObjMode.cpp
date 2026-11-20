@@ -8,6 +8,7 @@
 #include "D2UnitData.h"
 #include "D2Drlg.h"
 #include "D2TxtItems.h"
+#include "D2GameObjs.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define OBJMODE_OPENED 2
@@ -70,25 +71,6 @@ struct D2ItemDropStrc;
 struct D2DataTablesStrc;
 struct D2ShrinesTxt;
 struct D2TimerArgStrc;
-
-struct D2ObjectDataStrc
-{
-    void* pObjectTxt;
-    unsigned char InteractType;
-    unsigned char nPortalFlags;
-    unsigned short unk0x06;
-    void* pShrineTxt;
-    int dwOperateGUID;
-};
-
-struct D2ObjOperateFnStrc
-{
-    D2GameStrc* pGame;
-    D2UnitStrc* hObject;
-    D2UnitStrc* hPlayer;
-    D2ObjectControlStrc* pObjectregion;
-    int nObjectIdx;
-};
 
 typedef int(__stdcall* FARPROC)();
 

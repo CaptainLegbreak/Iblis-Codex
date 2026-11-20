@@ -1,33 +1,10 @@
 #include "D2GameStrc.h"
+#include "D2GameServer.h"
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-
-struct D2ArenaStrc
-{
-    int nAlternateStartTown;
-    int nType;
-    union
-    {
-        unsigned int fFlags;
-        struct
-        {
-            unsigned char bFlag0 : 1;
-            unsigned char bArenaMode : 1;
-            unsigned char bUpdateClients : 1;
-            unsigned char bFlag3 : 1;
-            unsigned char bFlag4 : 1;
-            unsigned char bTemplate : 1;
-            unsigned char bFlag40 : 1;
-            unsigned char bFlag80 : 1;
-        };
-    };
-    unsigned char nTemplate;
-    unsigned char pad0x0D[3];
-};
-
 
 // 0x0053F600
 static int sub_0053F600_GetArenaType(D2GameStrc* pGame)

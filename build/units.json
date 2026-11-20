@@ -16345,7 +16345,7 @@
     {
      "va": "0x00454600",
      "length": 66,
-     "name": "?sub_00454600_GetBuySellButtonCells@@YAPAUD2CellFileStrc@@XZ"
+     "name": "?sub_00454600_GetBuySellButtonCells@@YAPAUD2CelFileStrc@@XZ"
     },
     {
      "va": "0x00454650",
@@ -42061,7 +42061,7 @@
     {
      "va": "0x004FC7A0",
      "length": 434,
-     "name": "?D2Win_10042_TEXTBOX_Create@@YIPAUD2WinTextBoxStrc@@HHHHHHPAUD2CellFileStrc@@P6GHPAUSMSGHANDLER_PARAMS@@@ZIPAH3@Z"
+     "name": "?D2Win_10042_TEXTBOX_Create@@YIPAUD2WinTextBoxStrc@@HHHHHHPAUD2CelFileStrc@@P6GHPAUSMSGHANDLER_PARAMS@@@ZIPAH3@Z"
     }
    ]
   },
@@ -43161,7 +43161,7 @@
     {
      "va": "0x00502680",
      "length": 200,
-     "name": "?sub_00502680_DrawCellFile@@YIXPAUD2CellFileStrc@@HHHHH@Z"
+     "name": "?sub_00502680_DrawCellFile@@YIXPAUD2CelFileStrc@@HHHHH@Z"
     },
     {
      "va": "0x005028A0",

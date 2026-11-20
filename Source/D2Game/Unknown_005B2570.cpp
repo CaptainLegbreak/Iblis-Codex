@@ -2,25 +2,8 @@
 #include "D2Constants.h"
 #include "D2Structs.h"
 #include "D2Path.h"
+#include "D2GameServer.h"
 #include "D2Structs.h"
-
-
-
-
-struct D2UnkMonCreateStrc
-{
-    D2GameStrc* pGame;
-    D2ActiveRoomStrc* pRoom;
-    D2RoomCoordListStrc* pRoomCoordList;
-    int nMonsterId;
-    int nAnimMode;
-    int nUnitGUID;
-    int nX;
-    int nY;
-    int field_20;
-    short nFlags;
-};
-
 
 enum
 {
@@ -78,7 +61,7 @@ static __forceinline D2UnitStrc* sub_005B3090_SpawnAtPosition(D2GameStrc* pGame,
     monCreate.pRoom = pRoom;
     monCreate.pGame = pGame;
     monCreate.pRoomCoordList = 0;
-    monCreate.field_20 = -1;
+    monCreate.unk0x20 = -1;
     monCreate.nFlags = nFlags;
     monCreate.nX = nX;
     monCreate.nY = nY;

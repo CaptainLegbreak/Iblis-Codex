@@ -5,6 +5,7 @@
 #include "D2Txt.h"
 #include "D2UnitData.h"
 #include "D2EventTimer.h"
+#include "D2GameServer.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2NpcRecordStrc;
@@ -41,13 +42,6 @@ struct M08EmitRecStrc
     char bFlagB;
     char unk0x06[2];
     D2UnitProxyStrc tProxy;
-};
-
-struct D2NpcGambleStrc
-{
-    D2InventoryStrc* pInventory;
-    int dwGUID;
-    D2NpcGambleStrc* pNext;
 };
 
 struct D2NpcVendorChainStrc

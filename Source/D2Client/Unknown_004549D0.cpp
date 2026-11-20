@@ -5,7 +5,7 @@
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-struct D2CellFileStrc;
+struct D2CelFileStrc;
 struct D2MsgHandlerEntryStrc;
 struct D2Block0xA0Strc;
 
@@ -82,7 +82,7 @@ void __cdecl sub_00456550_LoadLoadingScreen(); // 0x00456550
 void __stdcall D2GFX_DrawBox(int nXStart, int nYStart, int nXEnd, int nYEnd, unsigned int dwColor, int eDrawMode); // 0x004F6300
 int __cdecl sub_00478150(); // 0x00478150
 void __fastcall sub_0046EFD0_DrawFramedBox(int nX, int nY, int nWidth, int nHeight, int nArg5, int nArg6); // 0x0046EFD0
-int __stdcall CelFileGetCelsPerDirection(D2CellFileStrc* pCelFile); // 0x006019F0
+int __stdcall CelFileGetCelsPerDirection(D2CelFileStrc* pCelFile); // 0x006019F0
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 void __cdecl sub_0044DA40(); // 0x0044DA40
 void __cdecl sub_0044DA70(); // 0x0044DA70
@@ -323,7 +323,7 @@ void __fastcall sub_00455AE0_ClearPanelHandlers(int nPanel)
     }
 }
 
-D2CellFileStrc* gpLoadingScreen_007A2888; // 0x007A2888
+D2CelFileStrc* gpLoadingScreen_007A2888; // 0x007A2888
 
 int gnLoadingFrame_007A2A6C; // 0x007A2A6C
 

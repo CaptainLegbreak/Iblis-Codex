@@ -76,7 +76,7 @@ struct D2WinControlInitStrc
     int nHeight;
     int field_14;
     int nStringId;
-    D2CellFileStrc** ppCellFile;
+    D2CelFileStrc** ppCellFile;
     int field_20;
     int field_24;
     int field_28;
@@ -144,7 +144,7 @@ int __stdcall sub_00441500(int nUnused); // 0x00441500
 extern int gnLaunchMode_0077BBE4; // 0x0077BBE4
 extern D2LaunchCharInfoStrc* gpCharInfo_0077BBD8; // 0x0077BBD8
 extern D2WinControlStrc* gpChatTextBox_0077BD8C; // 0x0077BD8C
-extern D2CellFileStrc* gpCellFile_0077BC08; // 0x0077BC08
+extern D2CelFileStrc* gpCellFile_0077BC08; // 0x0077BC08
 extern D2WinControlStrc* gpChatControl_0077B058[17]; // 0x0077B058
 extern D2WinControlInitStrc gatChatControlInits_0070CE50[17]; // 0x0070CE50
 extern D2WinControlInitStrc gtControlInit_0070D2A0; // 0x0070D2A0
@@ -266,7 +266,7 @@ D2WinControlStrc* gapControls_0077B050[2]; // 0x0077B050
 
 D2WinControlStrc* gpControl_0077BC40; // 0x0077BC40
 
-D2CellFileStrc* gpChatCellFile_0077BBFC; // 0x0077BBFC
+D2CelFileStrc* gpChatCellFile_0077BBFC; // 0x0077BBFC
 
 // 0x0043DC50
 static void __cdecl sub_0043DC50_CreateChatCellFile(D2LaunchCharInfoStrc* pInfo)
@@ -275,7 +275,7 @@ static void __cdecl sub_0043DC50_CreateChatCellFile(D2LaunchCharInfoStrc* pInfo)
     const unsigned short wFlags = *(unsigned short*)pInfo->wFlags0x3CB;
     if ((wFlags & 4) && !(wFlags & 8) && (sub_00408F20_HasExpansionMpq() || pInfo->nValue0x1EE < 5))
         nMode = 1;
-    gpChatCellFile_0077BBFC = (D2CellFileStrc*)sub_005066C0(pInfo->nValue0x1EE, nMode, pInfo->szText0x3A1, pInfo->szText0x3B1);
+    gpChatCellFile_0077BBFC = (D2CelFileStrc*)sub_005066C0(pInfo->nValue0x1EE, nMode, pInfo->szText0x3A1, pInfo->szText0x3B1);
     if (gpChatCellFile_0077BBFC)
     {
         sub_005052B0(gpChatCellFile_0077BBFC, 0x42);

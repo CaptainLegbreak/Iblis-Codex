@@ -8,6 +8,7 @@
 #include "D2Drlg.h"
 #include "D2Primitives.h"
 #include "D2DrlgRooms.h"
+#include "D2GameServer.h"
 
 #pragma function(memset)
 
@@ -327,20 +328,6 @@ struct D2StatesTxt
     char unk0x00[0x1E];
     short wGroup;
     char unk0x20[0x1C];
-};
-
-typedef void (__fastcall* RealmSaveCallback)(unsigned int*, const char*, char*, void*, int, unsigned int);
-
-typedef void (__fastcall* RealmUpdateCallback)(unsigned int*, const char*, char*);
-
-struct D2ServerCallbackFunctions
-{
-    char pad00[0x0C];
-    RealmSaveCallback pfSave;
-    char pad10[0x28];
-    RealmUpdateCallback pfUpdate;
-    unsigned char unk_3C[0x18];
-    void (__fastcall* pfGetTime)(D2FileTimeStrc* pTime);
 };
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
@@ -1133,10 +1120,10 @@ static int __stdcall sub_00531EB0_WriteFileOnRealm(D2GameStrc* pGame, D2UnitStrc
     }
     sub_00539320(pClient, nClientInfo);
     D2GAME_SetSaveFileChecksum_6FC33970(pClient, nChecksum);
-    if (gpD2EventCallbackTable_6FD45830 && gpD2EventCallbackTable_6FD45830->pfSave)
+    if (gpD2EventCallbackTable_6FD45830 && gpD2EventCallbackTable_6FD45830->pfSaveDatabaseCharacter)
     {
-        D2_ASSERT(!IsBadCodePtr((FARPROC)gpD2EventCallbackTable_6FD45830->pfSave), 0xADC);
-        gpD2EventCallbackTable_6FD45830->pfSave(&nClientInfo, szName, szAccountName, pData, nTotalSize, nToken);
+        D2_ASSERT(!IsBadCodePtr((FARPROC)gpD2EventCallbackTable_6FD45830->pfSaveDatabaseCharacter), 0xADC);
+        gpD2EventCallbackTable_6FD45830->pfSaveDatabaseCharacter(&nClientInfo, szName, szAccountName, pData, nTotalSize, nToken);
         CLIENTS_CopySaveDataToClient(pClient, pData + 2, nTotalSize - 2);
     }
     return 1;

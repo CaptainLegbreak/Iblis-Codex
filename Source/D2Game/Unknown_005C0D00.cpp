@@ -3,6 +3,8 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2Path.h"
+#include "D2GameRecords.h"
+#include "D2ItemsWorld.h"
 struct D2UnitStrc;
 
 union D2SeedStrc;
@@ -12,13 +14,6 @@ struct D2SkillPairStrc;
 struct D2RareAffixIndexAndPtrStrc;
 struct D2ItemsTxt;
 struct D2SetItemsTxt;
-
-struct D2MagicAffixTxt
-{
-    char unk0x00[0x5C];
-    int dwGroup;
-    char unk0x60[0x30];
-};
 
 struct D2MagicAffixIndexAndPtrStrc
 {
@@ -45,18 +40,6 @@ void __stdcall STATLIST_SetStatIfListIsValid(D2StatListStrc*, int, int, int); //
 
 int __fastcall sub_00472280(D2SeedStrc* pSeed, int nOffset, int nRange); // 0x00472280
 unsigned short __stdcall ITEMS_GetItemFormat(D2UnitStrc* pItem); // 0x0062A670
-
-struct D2ItemDropStrc
-{
-    char unk0x00[0x0C];
-    int nItemLvl;
-    unsigned char unk_10[0x30];
-    int nItemIndex;
-    unsigned char unk_44[0x24];
-    int nPrefix[3];
-    int nSuffix[3];
-    unsigned int dwFlags2;
-};
 
 short __stdcall ITEMS_RollMagicAffixesOld(D2UnitStrc* pItem, int bRequireSpawnableAffix, int bForceAffixRoll, int bAssignProperties, int bPrefix, int nPreferredAffixIndex); // 0x005C12F0
 extern "C" void __stdcall sub_00627EF0(D2UnitStrc* pItem, unsigned short nPrefix, int nPrefixNo); // 0x00627EF0

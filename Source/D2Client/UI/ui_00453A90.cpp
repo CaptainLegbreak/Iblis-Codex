@@ -3,7 +3,7 @@
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-struct D2CellFileStrc;
+struct D2CelFileStrc;
 struct D2MsgHandlerEntryStrc;
 struct D2RectStrc;
 struct D2UiControlAStrc;
@@ -87,13 +87,13 @@ extern int gnGlobal_0071146C; // 0x0071146C
 extern D2MsgHandlerEntryStrc gtPanelHandlers_006D5F28[]; // 0x006D5F28
 extern D2DrlgActStrc* gpGlobal_007A063C; // 0x007A063C
 extern unsigned long gdwUIVarTick_007A2790; // 0x007A2790
-extern D2CellFileStrc* gpLoadingCell_007A2794; // 0x007A2794
+extern D2CelFileStrc* gpLoadingCell_007A2794; // 0x007A2794
 extern int gaUIVarStates_007A27C0[]; // 0x007A27C0
 extern int gdwGlobal_007A2868; // 0x007A2868
-extern D2CellFileStrc* gpBuySellButton_007A287C; // 0x007A287C
-extern D2CellFileStrc* gpLoadingScreen_007A2888; // 0x007A2888
-extern D2CellFileStrc* gpYouDiedHardcoreCel_007A2894; // 0x007A2894
-extern D2CellFileStrc* gpYouDiedInstCel_007A2898; // 0x007A2898
+extern D2CelFileStrc* gpBuySellButton_007A287C; // 0x007A287C
+extern D2CelFileStrc* gpLoadingScreen_007A2888; // 0x007A2888
+extern D2CelFileStrc* gpYouDiedHardcoreCel_007A2894; // 0x007A2894
+extern D2CelFileStrc* gpYouDiedInstCel_007A2898; // 0x007A2898
 
 enum D2C_StatIds
 {
@@ -141,11 +141,11 @@ int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLay
 extern D2UiControlAStrc* gpGoldControlA_007A27A4; // 0x007A27A4
 extern D2UiControlBStrc* gpGoldControlB_007A27A8; // 0x007A27A8
 
-D2CellFileStrc* gpBoxPiecesCel_007A2798; // 0x007A2798
+D2CelFileStrc* gpBoxPiecesCel_007A2798; // 0x007A2798
 
-D2CellFileStrc* gpPentspinCel_007A2878; // 0x007A2878
+D2CelFileStrc* gpPentspinCel_007A2878; // 0x007A2878
 
-D2CellFileStrc* gpFocus16Cel_007A2880; // 0x007A2880
+D2CelFileStrc* gpFocus16Cel_007A2880; // 0x007A2880
 
 int gdwGlobal_007A2884; // 0x007A2884
 

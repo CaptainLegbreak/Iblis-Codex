@@ -6,7 +6,7 @@
 #include "D2ClientTypes.h"
 #include "D2Unicode.h"
 
-struct D2CellFileStrc;
+struct D2CelFileStrc;
 struct Unicode;
 struct D2UiControlAStrc;
 struct D2UiControlBStrc;
@@ -53,7 +53,7 @@ extern int gdwGlobal_007A6AF0; // 0x007A6AF0
 extern int gdwGlobal_007A8918; // 0x007A8918
 
 
-extern D2CellFileStrc* gpBoxPiecesCel_007A2798; // 0x007A2798
+extern D2CelFileStrc* gpBoxPiecesCel_007A2798; // 0x007A2798
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 int __stdcall sub_004F6480(D2CelContextStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, int nPalette); // 0x004F6480
 

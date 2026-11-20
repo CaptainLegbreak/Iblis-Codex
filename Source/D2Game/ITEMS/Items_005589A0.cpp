@@ -7,6 +7,7 @@
 #include "D2Txt.h"
 #include "D2TxtTables.h"
 #include "D2ItemsWorld.h"
+#include "D2GameRecords.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -120,17 +121,6 @@ enum
 int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem); // 0x00627E70
 int __stdcall ITEMS_IsSocketFiller(D2UnitStrc* pItem); // 0x0062BEB0
 
-struct D2ItemSaveStrc
-{
-    int nClassId;
-    unsigned short nX, nY;
-    unsigned char bMode, nPad09;
-    unsigned short nPad0A;
-    unsigned int dwFlags;
-    unsigned char nStorePage, nBodyloc;
-    unsigned short nPad12;
-    int nItemFileIndex;
-};
 int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc*); // 0x00451F50
 int __fastcall EVENT_GetEventFrame(D2GameStrc*, D2UnitStrc*, int); // 0x005415A0
 void __fastcall EVENT_SetEvent(D2GameStrc*, D2UnitStrc*, int, int, int, int); // 0x005417D0

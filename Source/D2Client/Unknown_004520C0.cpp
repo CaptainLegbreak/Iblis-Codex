@@ -1,6 +1,6 @@
 #include "D2Client.h"
 
-struct D2CellFileStrc;
+struct D2CelFileStrc;
 
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szOut, const char* szFormat, ...);           // 0x006CC468
 unsigned int __stdcall SStrLen(const char* szString); // 0x00413750

@@ -4,25 +4,12 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2Drlg.h"
-
-
-
+#include "D2GameServer.h"
 
 struct D2ObjectControlStrc
 {
     D2SeedStrc pSeed;
 };
-
-struct D2ObjectRegionStrc
-{
-    unsigned char nAct;
-    char pad0x01[3];
-    int field_4;
-    int nPopulatedRooms;
-    int unk0x0C;
-    int nHealingShrines;
-};
-
 
 struct D2LevelsTxt
 {
@@ -39,8 +26,6 @@ struct D2ObjGroupTxt
     unsigned char nDensity[8];
     unsigned char nProbability[8];
 };
-
-
 
 typedef int (__fastcall* OBJTHEMEFN)(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, D2DrlgCoordsStrc* pDrlgCoords);
 typedef D2UnitStrc* (__fastcall* OBJECTPOPULATEFN)(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom, unsigned char nDensity, unsigned int nObjectId, unsigned short nProbability);
@@ -104,12 +89,12 @@ static int __stdcall sub_00552400_PopulateTheme(D2GameStrc* pGame, D2ActiveRoomS
     const int nRoll = OBJPOP_RollSeed_Inline(&pObjectControl->pSeed) % 100;
 
     int nProbability = 0;
-    if (pObjectRegion->field_4 > pObjectRegion->nPopulatedRooms / 2)
+    if (pObjectRegion->unk0x04 > pObjectRegion->nPopulatedRooms / 2)
     {
         nProbability = 5;
     }
 
-    if (pObjectRegion->field_4 > pObjectRegion->nPopulatedRooms - pObjectRegion->nPopulatedRooms / 4)
+    if (pObjectRegion->unk0x04 > pObjectRegion->nPopulatedRooms - pObjectRegion->nPopulatedRooms / 4)
     {
         nProbability += 5;
     }
@@ -177,7 +162,7 @@ static int __stdcall sub_00552560_CanPopulateRoom(D2GameStrc* pGame, D2LevelsTxt
         pObjectRegion->nPopulatedRooms = DUNGEON_GetNumberOfPopulatedRoomsInLevel(pGame->pAct[pObjectRegion->nAct], nLevelId);
     }
 
-    pObjectRegion->field_4 += 1;
+    pObjectRegion->unk0x04 += 1;
 
     if (pLevelsTxtRecord->dwThemes)
     {
@@ -207,7 +192,7 @@ void __fastcall OBJECTS_PopulationHandler(D2GameStrc* pGame, D2ActiveRoomStrc* p
         int nProbability = OBJPOP_RollSeed_Inline(pSeed) % 100;
 
         D2ObjectRegionStrc* pObjectRegion = OBJRGN_GetObjectRegionForLevel(pGame, DUNGEON_GetLevelIdFromPopulatedRoom(pRoom));
-        if (pObjectRegion->nPopulatedRooms > 0 && (pObjectRegion->field_4 << 7) / pObjectRegion->nPopulatedRooms > 96 && !pObjectRegion->nHealingShrines
+        if (pObjectRegion->nPopulatedRooms > 0 && (pObjectRegion->unk0x04 << 7) / pObjectRegion->nPopulatedRooms > 96 && !pObjectRegion->nHealingShrines
             && DATATBLS_GetObjectsTxtRecord(nObjGroup)->nSubClass)
         {
             nProbability = 100;
