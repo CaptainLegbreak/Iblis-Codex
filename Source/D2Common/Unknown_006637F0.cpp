@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2Path.h"
 #include "D2Records.h"
+#include "D2LevelTxt.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 union D2SeedStrc;
@@ -9,37 +10,6 @@ struct D2HirelingInitStrc;
 struct D2SetItemsTxt;
 
 
-struct D2HirelingTxt
-{
-    unsigned short wVersion;
-    unsigned short pad0x02;
-    int nId;
-    int dwClass;
-    int dwAct;
-    int dwDifficulty;
-    int dwSeller;
-    int nGold;
-    int nHirelingLevel;
-    int dwExpPerLvl;
-    int dwHitpoints;
-    int dwHitpointsPerLvl;
-    int dwDefense;
-    int dwDefensePerLvl;
-    int nStr;
-    int nStrPerLvl;
-    int nDex;
-    int nDexPerLvl;
-    int dwAttackRate;
-    int dwAttackRatePerLvl;
-    int dwShare;
-    int nDmgMin;
-    int nDmgMax;
-    int nDmgPerLvl;
-    int dwResist;
-    int dwResistPerLvl;
-    char unk0x64[0x6E];
-    unsigned char nHireDesc;
-};
 
 struct D2HirelingInitStrc
 {

@@ -8,6 +8,7 @@
 #include "D2GameTypes.h"
 #include "D2Drlg.h"
 #include "D2Records.h"
+#include "D2LevelTxt.h"
 
 struct D2GfxLightStrc;
 struct D2BinFieldStrc;
@@ -26,14 +27,6 @@ extern void* gpShrinesTxt; // 0x0096D468
 
 
 
-struct D2StatesTxt
-{
-    char unk0x00[0x20];
-    unsigned char nColorPri;
-    unsigned char nColorShift;
-    unsigned char nLightRGB[3];
-    char unk0x25[0x17];
-};
 
 
 typedef void (__fastcall* MissileInitFunc)(D2UnitStrc* pMissile, int nArg);

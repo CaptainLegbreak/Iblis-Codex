@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2Records.h"
 #include "D2ItemsWorld.h"
+#include "D2LevelTxt.h"
 #define STAT_ITEM_INDESCTRUCTIBLE 152
 #define IFLAG_IDENTIFIED 0x00000010
 #define NODEPAGE_STORAGE 1
@@ -299,13 +300,6 @@ struct Unit00629EA0 { int nType; unsigned int dwUnknown04; unsigned int dwUnknow
 
 int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem); // 0x00627E70
 
-struct D2StatesTxt
-{
-    char unk0x00[0x2A];
-    short wItemType;
-    unsigned char nItemTrans;
-    char unk0x2D[0x0F];
-};
 
 struct D2MagicAffixTxt
 {
@@ -313,12 +307,6 @@ struct D2MagicAffixTxt
     unsigned char nTransformColor;
 };
 
-struct D2UniqueItemsTxt
-{
-    char unk0x00[0x38];
-    char nChrTransform;
-    char nInvTransform;
-};
 
 
 struct D2GemsTxt

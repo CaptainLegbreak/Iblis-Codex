@@ -1,6 +1,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2ItemsWorld.h"
+#include "D2LevelTxt.h"
 struct D2DrlgCoordStrc
 {
     int nPosX;
@@ -44,17 +45,6 @@ struct D2DrlgFileStrc
     void* pShadowLayer;
 };
 
-struct D2LvlPrestTxt
-{
-    int dwDef;
-    int unk0x04;
-    int dwPopulate;
-    char unk0x0C[0x1C];
-    int nSizeX;
-    int nSizeY;
-    char unk0x30[0x14];
-    char szFile[6][60];
-};
 
 union D2C_PackedTileInformation
 {

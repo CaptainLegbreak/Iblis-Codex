@@ -1,4 +1,5 @@
 #include "D2Records.h"
+#include "D2LevelTxt.h"
 #ifdef MOVED_TEST
 #define FIELD_TEXT(x) ((x)+1)
 #define FIXTURE_LINE(x) ((x)+2)
@@ -7,25 +8,6 @@
 #define FIXTURE_LINE(x) (x)
 #endif
 
-struct D2HirelingTxt
-{
-    unsigned short wVersion;
-    unsigned short pad0x02;
-    int nId;
-    int dwClass;
-    int dwAct;
-    int dwDifficulty;
-    int dwSeller;
-    char unk0x018[0xD3 - 0x018];
-    char szNameFirst[32];
-    char szNameLast[32];
-    char pad113;
-#ifdef MOVED_TEST
-    char moved_padding[4];
-#endif
-    unsigned short wNameFirst;
-    unsigned short wNameLast;
-};
 
 struct D2TxtLinkStrc;
 void* __stdcall DATATBLS_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pTbl, int* pRecordCount, int nRecordSize); // 0x006122F0

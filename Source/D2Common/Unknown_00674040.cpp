@@ -63,12 +63,6 @@ struct D2DrlgOutdoorInfoStrc
     D2DrlgGridStrc pGrid[4];
 };
 
-struct D2LvlPrestTxt
-{
-    char pad_00[0x28];
-    int dwSizeX;
-    int dwSizeY;
-};
 
 D2LvlPrestTxt* __stdcall DATATBLS_GetLvlPrestTxtRecord(int nLvlPrestId); // 0x0061F0B0
 int __fastcall DRLGGRID_IsPointInsideGridArea(D2DrlgGridStrc* pGrid, int nX, int nY); // 0x0067C4A0
@@ -110,6 +104,7 @@ int __fastcall DRLGOUTDOORS_GetOutLinkVisFlag(D2DrlgLevelStrc* pLevel, D2DrlgVer
 }
 
 #include "gen/data/Source/D2Common/Unknown_00674040.inc"
+#include "D2LevelTxt.h"
 
 static __forceinline int DRLGOUTDOORS_GetPackedGrid2Info(D2DrlgOutdoorInfoStrc* pOutdoors, int nX, int nY)
 {
@@ -135,8 +130,8 @@ int __fastcall DRLGOUTDOORS_TestOutdoorLevelPreset(D2DrlgLevelStrc* pLevel, int 
     else
     {
         D2LvlPrestTxt* pLvlPrestTxtRecord = DATATBLS_GetLvlPrestTxtRecord(nLevelPrestId);
-        nSizeX = pLvlPrestTxtRecord->dwSizeX / 8;
-        nSizeY = pLvlPrestTxtRecord->dwSizeY / 8;
+        nSizeX = pLvlPrestTxtRecord->nSizeX / 8;
+        nSizeY = pLvlPrestTxtRecord->nSizeY / 8;
     }
 
     if (nOffset)

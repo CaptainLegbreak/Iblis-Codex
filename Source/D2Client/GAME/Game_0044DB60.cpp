@@ -1,5 +1,6 @@
 #include "D2Client.h"
 #include "D2CelContext.h"
+#include "D2LevelTxt.h"
 
 struct D2TileLibraryHeaderStrc;
 struct D2CellFileStrc;
@@ -19,11 +20,6 @@ struct Unicode
 };
 
 
-struct D2LevelsTxt
-{
-    char unk0x00[0x145];
-    char szEntryFile[40];
-};
 
 struct D2QuestScreenStrc
 {

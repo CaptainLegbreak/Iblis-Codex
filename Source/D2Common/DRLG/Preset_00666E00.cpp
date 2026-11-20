@@ -2,6 +2,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2ItemsWorld.h"
+#include "D2LevelTxt.h"
 struct D2ActiveRoomStrc;
 struct D2DrlgCoordStrc
 {
@@ -49,23 +50,6 @@ struct D2DrlgFileStrc
     D2PresetUnitStrc* pPresetUnit;
 };
 
-struct D2LvlPrestTxt
-{
-    int dwDef;
-    int unk0x04;
-    int dwPopulate;
-    char unk0x0C[0x4];
-    int dwOutdoors;
-    char unk0x14[0x14];
-    int nSizeX;
-    int nSizeY;
-    int dwAutoMap;
-    int dwScan;
-    int dwPops;
-    char unk0x3C[0x8];
-    char szFile[6][60];
-    unsigned int dwDt1Mask;
-};
 
 
 union D2C_PackedTileInformation

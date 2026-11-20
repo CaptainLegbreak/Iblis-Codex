@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Records.h"
+#include "D2LevelTxt.h"
 
 #define PLRMODE_THROW 11
 #define LVLSUB_UNUSED_INVALID -1
@@ -497,13 +498,6 @@ int __stdcall SKILLS_GetPassiveState(int nSkillId); // 0x00643690
 void __stdcall STATES_ToggleState(D2UnitStrc* pUnit, int nState, int bSet); // 0x00639DB0
 extern const int gnShapeshiftMonModes_006EB308[]; // 0x006EB308
 
-struct D2StatesTxt
-{
-    char unk0x00[0x2D];
-    unsigned char nGfxType;
-    short wGfxClass;
-    char unk0x30[0x0C];
-};
 
 int __stdcall D2Common_11014_ConvertShapeShiftedMode(int nArrayIndex, int nMonsterId); // 0x00645190
 D2UnitStrc* __stdcall D2Common_10434(D2UnitStrc* pUnit, int a2); // 0x00623990

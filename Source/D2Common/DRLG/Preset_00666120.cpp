@@ -1,4 +1,5 @@
 #include "D2ItemsWorld.h"
+#include "D2LevelTxt.h"
 struct D2DrlgCoordStrc
 {
     int nPosX;
@@ -37,17 +38,6 @@ struct D2DrlgFileStrc
     int nFloorLayers;
 };
 
-struct D2LvlPrestTxt
-{
-    int dwDef;
-    int unk0x04;
-    int dwPopulate;
-    char unk0x0C[0x1C];
-    int nSizeX;
-    int nSizeY;
-    char unk0x30[0x14];
-    char szFile[6][60];
-};
 
 struct D2DrlgMapStrc
 {

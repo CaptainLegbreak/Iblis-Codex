@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Records.h"
+#include "D2LevelTxt.h"
 struct D2PropertyStrc;
 struct D2PropertiesTxt;
 struct D2MagicAffixTxt;
@@ -113,11 +114,6 @@ struct D2GemsTxt
     D2PropertyStrc pProperties[3][3];
 };
 
-struct D2UniqueItemsTxt
-{
-    char pad0x00[0x8C];
-    D2PropertyStrc pProperties[12];
-};
 
 
 struct D2SetsTxt

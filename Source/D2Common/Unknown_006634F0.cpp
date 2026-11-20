@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2LevelTxt.h"
 
 struct D2InventoryStrc;
 union D2SeedStrc;
@@ -62,11 +63,6 @@ extern const D2Roll28Strc gtRollLevel_007487B8[]; // 0x007487B8
 
 typedef unsigned short Unicode;
 
-struct D2HirelingTxt
-{
-    char unk0x00[0xC];
-    int dwAct;
-};
 
 extern "C" const unsigned short gnHirelingDescStringIds[9]; // 0x006EE410
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30

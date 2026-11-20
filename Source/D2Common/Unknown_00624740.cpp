@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2LevelTxt.h"
 struct D2StatStrc;
 struct D2StatsArrayStrc;
 struct D2ItemStatCostTxt;
@@ -27,11 +28,6 @@ extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const ch
 
 
 
-struct D2StatesTxt
-{
-    char unk0x00[0x10];
-    unsigned char nStateFlags[8];
-};
 
 
 extern D2DataTablesStrc* sgptDataTables;

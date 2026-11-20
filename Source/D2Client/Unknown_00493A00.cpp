@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2CelContext.h"
+#include "D2LevelTxt.h"
 
 struct Unicode
 {
@@ -12,15 +13,6 @@ struct Unicode
 
 
 
-struct D2PetTypeTxt
-{
-    unsigned int dwHcIdx;
-    unsigned int dwPetFlags;
-    char unk0x08[4];
-    unsigned short wStringId;
-    unsigned char nIconType;
-    char szBaseicon[0xD1];
-};
 
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize);

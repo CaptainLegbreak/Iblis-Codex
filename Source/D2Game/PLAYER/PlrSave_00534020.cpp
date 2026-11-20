@@ -2,6 +2,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2ItemsWorld.h"
+#include "D2LevelTxt.h"
 struct D2InventoryStrc;
 struct D2SkillStrc;
 struct D2UnitStrc;
@@ -142,16 +143,6 @@ static int __stdcall PLRSAVE_CreateNewPlayer(D2GameStrc* pGame, D2ClientStrc* pC
     return 0;
 }
 
-struct D2HirelingTxt
-{
-    char pad00[8];
-    int dwClass;
-    char pad0C[0x14];
-    int dwExpPerLvl;
-    char pad24[0xF0];
-    unsigned short wNameFirst;
-    unsigned short wNameLast;
-};
 #pragma pack(push, 1)
 struct D2LegacyMercSaveStrc
 {

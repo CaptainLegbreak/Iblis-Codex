@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2Records.h"
+#include "D2LevelTxt.h"
 #define STAT_POISONMAXDAM 58
 #define STAT_POISON_COUNT 326
 union D2SeedStrc;
@@ -71,11 +72,6 @@ struct D2GemsTxt
     D2PropertyStrc pProperties[3][3];
 };
 
-struct D2UniqueItemsTxt
-{
-    char pad0x00[0x8C];
-    D2PropertyStrc pProperties[12];
-};
 
 
 struct D2SetsTxt

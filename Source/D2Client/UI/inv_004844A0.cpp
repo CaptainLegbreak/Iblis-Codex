@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2Records.h"
+#include "D2LevelTxt.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -130,10 +131,6 @@ extern D2ItemTypeNameStrc gaItemTypeNames_00721EB0[15]; // 0x00721EB0
 extern int gaSpeedTable_00721F10[][5]; // 0x00721F10
 extern int gaClassSpeedOffsets_00722078[][2]; // 0x00722078
 
-struct D2DifficultyLevelsTxt
-{
-    int dwResistPenalty;
-};
 
 unsigned char __cdecl sub_0044DCD0_GetDifficulty(); // 0x0044DCD0
 int __fastcall sub_00451F50_GetUnitGUID(D2UnitStrc* pUnit); // 0x00451F50

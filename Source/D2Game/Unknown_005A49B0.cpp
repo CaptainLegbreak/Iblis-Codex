@@ -6,6 +6,7 @@
 #include "D2Txt.h"
 #include "D2UnitData.h"
 #include "D2ItemsWorld.h"
+#include "D2LevelTxt.h"
 // build: ob1
 
 struct D2UnitStrc;
@@ -36,22 +37,6 @@ struct D2MonUModTxt
     unsigned int dwConstants;
 };
 
-struct D2SuperUniquesTxt
-{
-    unsigned short wSuperUnique;
-    unsigned short wNameStr;
-    int dwClass;
-    int dwHcIdx;
-    int dwMod[3];
-    int dwMonSound;
-    int dwMinGrp;
-    int dwMaxGrp;
-    unsigned char nAutopos;
-    unsigned char nEclass;
-    unsigned char nStacks;
-    unsigned char nReplaceable;
-    char _pad28[0x0C];
-};
 
 
 typedef void (__fastcall* UModInitFunc)(D2UnitStrc* pUnit, int nUMod, int bUnique);

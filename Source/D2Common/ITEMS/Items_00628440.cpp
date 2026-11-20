@@ -1,11 +1,8 @@
 #include "D2Txt.h"
+#include "D2LevelTxt.h"
 typedef char check_int_width[(sizeof(int) == 4) ? 1 : -1];
 typedef char check_ptr_width[(sizeof(void*) == 4) ? 1 : -1];
 
-struct D2StatesTxt
-{
-    char unk0x00[0x3C];
-};
 
 struct D2MonLvlTxt
 {
@@ -14,10 +11,6 @@ struct D2MonLvlTxt
 
 
 
-struct D2PetTypeTxt
-{
-    char unk0x00[0xE0];
-};
 
 struct D2ItemTypesTxt
 {

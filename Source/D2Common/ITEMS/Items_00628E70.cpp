@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2Records.h"
 #include "D2ItemsWorld.h"
+#include "D2LevelTxt.h"
 struct D2UnitStrc;
 
 #define ITEMS_ADD_BONUS_COSTS(nMult, nAdd, nValue, nBuyDiv)                                        \
@@ -151,13 +152,6 @@ D2UnitStrc* __stdcall INVENTORY_UnitIsItem(D2UnitStrc* pItem); // 0x0063DFD0
 unsigned char __stdcall ITEMS_GetSockets(D2UnitStrc* pItem); // 0x006299B0
 D2RuneDataTbl* __fastcall DATATBLS_GetRuneDataTables(); // 0x00639CB0
 
-struct D2StatesTxt
-{
-    char unk0x00[0x2A];
-    short wItemType;
-    unsigned char nItemTrans;
-    char unk0x2D[0x0F];
-};
 
 struct D2MagicAffixTxt
 {
@@ -165,12 +159,6 @@ struct D2MagicAffixTxt
     unsigned char nTransformColor;
 };
 
-struct D2UniqueItemsTxt
-{
-    char unk0x00[0x38];
-    char nChrTransform;
-    char nInvTransform;
-};
 
 
 struct D2GemsTxt

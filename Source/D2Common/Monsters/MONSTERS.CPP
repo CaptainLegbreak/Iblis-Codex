@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2Txt.h"
+#include "D2LevelTxt.h"
 
 #define CHECK(p,line) if (!(p)) { sub_00408A60(text_006CC837,sub_00408090(),line); sub_00681E09(-1); }
 struct Unicode;
@@ -29,15 +30,6 @@ int __fastcall sub_00526800(const Unicode* pString); // 0x00526800
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 extern const unsigned int gdwBitMasks[]; // 0x006CE268
 
-struct D2LevelsTxt
-{
-    char unk0x00[0x16];
-    short wMonLvl;
-    char unk0x18[0x1B];
-    unsigned char nNumNormalMonsters;
-    char unk0x34[0x02];
-    short wNormalMonsters[25];
-};
 
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 D2LevelsTxt* __stdcall DATATBLS_GetLevelsTxtRecord(int nLevelId); // 0x0061DB70
@@ -161,7 +153,7 @@ int __stdcall D2Common_11063(D2ActiveRoomStrc* pRoom, int nMonsterId)
         {
             break;
         }
-        if (pMonStatsTxtRecord->nLevel[0] > pLevelsTxtRecord->wMonLvl + 1)
+        if (pMonStatsTxtRecord->nLevel[0] > pLevelsTxtRecord->wMonLvlEx[0] + 1)
         {
             return nMonsterId;
         }

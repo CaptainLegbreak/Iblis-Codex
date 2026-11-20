@@ -1,4 +1,5 @@
 #include "D2Structs.h"
+#include "D2LevelTxt.h"
 struct D2DrlgRoomStrc;
 struct D2DrlgLevelStrc;
 struct D2DrlgOrthStrc;
@@ -40,12 +41,6 @@ struct D2LvlMazeTxt
     int dwMerge;
 };
 
-struct D2LvlPrestTxt
-{
-    int dwDef;
-    char unk0x04[0x3C];
-    int dwFiles;
-};
 
 struct D2DrlgMapStrc
 {
