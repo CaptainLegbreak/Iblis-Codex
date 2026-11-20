@@ -1,5 +1,6 @@
 #include "D2Structs.h"
 #include "D2Drlg.h"
+#include "D2DrlgTiles.h"
 
 
 struct D2DrlgLinkStrc
@@ -20,12 +21,6 @@ struct D2DrlgLevelLinkDataStrc
     int nCurrentLevel;
 };
 
-struct D2LevelDefBin
-{
-    char unk0x00[0x24];
-    unsigned int dwOffsetX;
-    unsigned int dwOffsetY;
-};
 
 D2LevelDefBin* __fastcall DATATBLS_GetLevelDefRecord(int nLevelId);                                         // 0x0061E470
 

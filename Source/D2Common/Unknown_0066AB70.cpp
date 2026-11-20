@@ -1,6 +1,7 @@
 #include "D2Common.h"
 #include "D2Drlg.h"
 #include "D2DrlgMaps.h"
+#include "D2DrlgTiles.h"
 
 struct D2LvlWarpTxt
 {
@@ -8,15 +9,6 @@ struct D2LvlWarpTxt
 };
 
 
-struct D2RoomTileStrc
-{
-    D2DrlgRoomStrc* pDrlgRoom;
-    D2RoomTileStrc* pNext;
-    int bEnabled;
-    D2DrlgTileDataStrc* unk0x0C;
-    D2LvlWarpTxt* pLvlWarpTxtRecord;
-    D2DrlgTileDataStrc* unk0x14;
-};
 
 
 // 0x0066AB70
@@ -35,14 +27,14 @@ void __fastcall DRLGWARP_UpdateWarpRoomSelect(D2DrlgRoomStrc* pDrlgRoom, int nLe
     {
         if (pRoomTile->pLvlWarpTxtRecord->dwLevelId == nLevelId)
         {
-            if (pRoomTile->unk0x14)
+            if (pRoomTile->pSelectedTiles)
             {
-                for (D2DrlgTileDataStrc* i = pRoomTile->unk0x14; i; i = i->pNext)
+                for (D2DrlgTileDataStrc* i = pRoomTile->pSelectedTiles; i; i = i->pNext)
                 {
                     i->dwFlags &= 0xFFFFFFF7;
                 }
 
-                for (D2DrlgTileDataStrc* i = pRoomTile->unk0x0C; i; i = i->pNext)
+                for (D2DrlgTileDataStrc* i = pRoomTile->pUnselectedTiles; i; i = i->pNext)
                 {
                     i->dwFlags |= 8;
                 }
@@ -59,14 +51,14 @@ void __fastcall DRLGWARP_UpdateWarpRoomDeselect(D2DrlgRoomStrc* pDrlgRoom, int n
     {
         if (pRoomTile->pLvlWarpTxtRecord->dwLevelId == nLevelId)
         {
-            if (pRoomTile->unk0x0C)
+            if (pRoomTile->pUnselectedTiles)
             {
-                for (D2DrlgTileDataStrc* i = pRoomTile->unk0x0C; i; i = i->pNext)
+                for (D2DrlgTileDataStrc* i = pRoomTile->pUnselectedTiles; i; i = i->pNext)
                 {
                     i->dwFlags &= 0xFFFFFFF7;
                 }
 
-                for (D2DrlgTileDataStrc* i = pRoomTile->unk0x14; i; i = i->pNext)
+                for (D2DrlgTileDataStrc* i = pRoomTile->pSelectedTiles; i; i = i->pNext)
                 {
                     i->dwFlags |= 8;
                 }

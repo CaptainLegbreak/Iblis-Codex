@@ -1,5 +1,6 @@
 #include "D2Path.h"
 #include "D2Drlg.h"
+#include "D2DrlgTiles.h"
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
@@ -46,14 +47,6 @@ struct D2DrlgOrthStrc;
 struct D2DrlgPresetInfoStrc { int unk0x00; int nDirection; };
 
 
-struct D2LevelDefBin
-{
-    char unk0x00[0x0C];
-    int dwSizeX[3];
-    int dwSizeY[3];
-    int dwOffsetX;
-    int dwOffsetY;
-};
 
 D2LevelDefBin* __fastcall DATATBLS_GetLevelDefRecord(int nLevelId);                                         // 0x0061E470
 D2DrlgLevelStrc* __stdcall DRLG_GetLevel(D2DrlgStrc* pDrlg, int nLevelId);                                  // 0x00642BB0

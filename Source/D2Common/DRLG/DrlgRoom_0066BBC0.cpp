@@ -1,5 +1,6 @@
 #include "D2Drlg.h"
 #include "D2ItemsWorld.h"
+#include "D2DrlgTiles.h"
 // build: context DRLG_ComputeManhattanDistanceCheck
 
 
@@ -8,26 +9,9 @@ struct D2DrlgRoomStrc;
 struct D2LvlWarpTxt;
 
 
-struct D2RoomTileStrc
-{
-    D2DrlgRoomStrc* pDrlgRoom;
-    D2RoomTileStrc* pNext;
-    int bEnabled;
-    int unk0x0C;
-    D2LvlWarpTxt* pLvlWarpTxtRecord;
-    int unk0x14;
-};
 
 
 
-struct D2LevelDefBin
-{
-    char unk0x00[0x88];
-    unsigned char nIntensity;
-    unsigned char nRed;
-    unsigned char nGreen;
-    unsigned char nBlue;
-};
 
 extern "C" const char gszEmptyAssertText;                                                     // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                        // 0x00408090
@@ -186,7 +170,7 @@ static void __stdcall sub_0066BE10(D2DrlgRoomStrc* pDrlgRoom1, D2DrlgRoomStrc* p
 {
     D2RoomTileStrc* pRoomTile = (D2RoomTileStrc*)sub_0040B430(pDrlgRoom1->ptDrlgLevel->pDrlg->pMempool, sizeof(D2RoomTileStrc), ".\\DRLG\\DrlgRoom.cpp", 802, 0);
     memset(pRoomTile, 0, sizeof(D2RoomTileStrc));
-    pRoomTile->pDrlgRoom = pDrlgRoom2;
+    pRoomTile->pUnused = pDrlgRoom2;
     pRoomTile->pLvlWarpTxtRecord = DRLGWARP_GetLvlWarpTxtRecordFromWarpIdAndDirection(pDrlgRoom1->ptDrlgLevel, nWarpId, 'b');
     pRoomTile->bEnabled = 1;
     pRoomTile->pNext = pDrlgRoom1->pRoomTiles;

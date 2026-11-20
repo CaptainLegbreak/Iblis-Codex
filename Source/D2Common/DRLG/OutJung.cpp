@@ -1,5 +1,6 @@
 #include "D2Common.h"
 #include "D2Structs.h"
+#include "D2DrlgTiles.h"
 
 #define LEVEL_SPIDERFOREST 76
 #define LEVEL_GREATMARSH 77
@@ -23,12 +24,6 @@ struct D2DrlgStrc
     void* pMempool;
 };
 
-struct D2LevelDefBin
-{
-    char unk0x00[0x0C];
-    int dwSizeX[3];
-    int dwSizeY[3];
-};
 
 struct D2DrlgLevelStrc
 {

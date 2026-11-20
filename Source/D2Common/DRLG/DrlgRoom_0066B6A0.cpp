@@ -1,3 +1,4 @@
+#include "D2DrlgTiles.h"
 struct D2DrlgCoordStrc
 {
     int nPosX;
@@ -34,11 +35,6 @@ struct D2DrlgOrthStrc
     D2DrlgOrthStrc* pNext;
 };
 
-struct D2RoomTileStrc
-{
-    void* pUnused;
-    D2RoomTileStrc* pNext;
-};
 
 struct D2DrlgRoomStrc
 {

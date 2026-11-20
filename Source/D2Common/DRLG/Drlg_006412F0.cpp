@@ -3,6 +3,7 @@
 #include "D2Path.h"
 #include "D2Structs.h"
 #include "D2Drlg.h"
+#include "D2DrlgTiles.h"
 
 
 
@@ -17,14 +18,6 @@ struct D2ShrinesTxt
     char unk0x00[0xB8];
 };
 
-struct D2LevelDefBin
-{
-    char unk0x00[0x34];
-    int dwLevelType;
-    char unk0x38[0x94 - 0x38];
-    int dwSaveMonsters;
-    int dwLOSDraw;
-};
 
 struct D2LvlTypesTxt
 {
