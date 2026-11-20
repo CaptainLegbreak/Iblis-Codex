@@ -3763,15 +3763,6 @@
    "state": "included",
    "static_definitions": 2
   },
-  "Source/D2Glide/Src/glDebugFont.cpp": {
-   "bytes": 184,
-   "definitions": 4,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Glide/Src/glDebugFont.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
   "Source/D2Win/Unknown_004F6F60.cpp": {
    "bytes": 64,
    "definitions": 2,
@@ -3973,15 +3964,6 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Glide/Src/glSprite_0050B7B0.inc",
-   "lang": "cpp",
-   "state": "included"
-  },
-  "Source/D2Glide/Src/glDebugFont_0050B860.cpp": {
-   "bytes": 20,
-   "definitions": 1,
-   "externs": [],
-   "fn_types": {},
-   "include": "gen/data/Source/D2Glide/Src/glDebugFont_0050B860.inc",
    "lang": "cpp",
    "state": "included"
   },
@@ -8129,6 +8111,15 @@
    "externs": [],
    "fn_types": {},
    "include": "gen/data/Source/D2Game/UNIT/SUnitInactive.inc",
+   "lang": "cpp",
+   "state": "included"
+  },
+  "Source/D2Glide/Src/glDebugFont.cpp": {
+   "bytes": 204,
+   "definitions": 5,
+   "externs": [],
+   "fn_types": {},
+   "include": "gen/data/Source/D2Glide/Src/glDebugFont.inc",
    "lang": "cpp",
    "state": "included"
   }
@@ -87087,7 +87078,7 @@
    "cname": null,
    "declared": true,
    "decorated": null,
-   "file": "Source/D2Glide/Src/glDebugFont_0050B860.cpp",
+   "file": "Source/D2Glide/Src/glDebugFont.cpp",
    "form": "declared",
    "fwd": null,
    "head": "extern D2GrTexInfoStrc gGlideDebugFontTexInfo_0072F2B4 = ",
