@@ -54815,7 +54815,7 @@
    ]
   },
   {
-   "file": "Source/D2Game/GAME/Arena_0053F500.cpp",
+   "file": "Source/D2Game/GAME/Arena.cpp",
    "rank": 0,
    "functions": [
     {
@@ -54834,45 +54834,14 @@
      "name": "?ARENA_FreeArenaUnit@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
     },
     {
-     "va": "0x0053FA90",
-     "length": 68,
-     "name": "?sub_0053FA90_ClearArenaUnitUpdate@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
-    },
-    {
-     "va": "0x0053FAE0",
-     "length": 18,
-     "name": "?sub_0053FAE0@@YIXPAUD2GameStrc@@@Z"
-    },
-    {
-     "va": "0x0053FCA0",
-     "length": 49,
-     "name": "?ARENA_NeedsClientUpdate@@YIIPAUD2GameStrc@@@Z"
-    },
-    {
-     "va": "0x0053FCE0",
-     "length": 48,
-     "name": "?ARENA_IsInArenaMode@@YIIPAUD2GameStrc@@@Z"
-    },
-    {
-     "va": "0x0053FE70",
-     "length": 48,
-     "name": "?ARENA_ShouldTreatClassIdAsTemplateId@@YIIPAUD2GameStrc@@@Z"
-    },
-    {
-     "va": "0x0053FEA0",
-     "length": 46,
-     "name": "?ARENA_GetTemplateType@@YIHPAUD2GameStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/GAME/Arena.cpp",
-   "rank": 0,
-   "functions": [
-    {
      "va": "0x0053F5D0",
      "length": 41,
      "name": "ARENA_GetAlternateStartTown"
+    },
+    {
+     "va": "0x0053F600",
+     "length": 42,
+     "name": "?sub_0053F600_GetArenaType@@YAHPAUD2GameStrc@@@Z"
     },
     {
      "va": "0x0053F630",
@@ -54882,6 +54851,16 @@
     {
      "va": "0x0053F720",
      "length": 867
+    },
+    {
+     "va": "0x0053FA90",
+     "length": 68,
+     "name": "?sub_0053FA90_ClearArenaUnitUpdate@@YIXPAUD2GameStrc@@PAUD2UnitStrc@@@Z"
+    },
+    {
+     "va": "0x0053FAE0",
+     "length": 18,
+     "name": "?sub_0053FAE0@@YIXPAUD2GameStrc@@@Z"
     },
     {
      "va": "0x0053FB00",
@@ -54909,6 +54888,21 @@
      "name": "?ARENA_SendScoresToClient@@YIXPAUD2GameStrc@@PAUD2ClientStrc@@@Z"
     },
     {
+     "va": "0x0053FCA0",
+     "length": 49,
+     "name": "?ARENA_NeedsClientUpdate@@YIIPAUD2GameStrc@@@Z"
+    },
+    {
+     "va": "0x0053FCE0",
+     "length": 48,
+     "name": "?ARENA_IsInArenaMode@@YIIPAUD2GameStrc@@@Z"
+    },
+    {
+     "va": "0x0053FD10",
+     "length": 48,
+     "name": "?ARENA_IsActive@@YIHPAUD2GameStrc@@@Z"
+    },
+    {
      "va": "0x0053FD40",
      "length": 45,
      "name": "ARENA_GetFlags"
@@ -54922,17 +54916,6 @@
      "va": "0x0053FDA0",
      "length": 66,
      "name": "sub_0053FDA0"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/GAME/Arena_0053F600.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0053F600",
-     "length": 42,
-     "name": "?sub_0053F600_GetArenaType@@YAHPAUD2GameStrc@@@Z"
     },
     {
      "va": "0x0053FE00",
@@ -54945,20 +54928,19 @@
      "name": "?sub_0053FE40_TestArenaFlag80@@YIIPAUD2GameStrc@@@Z"
     },
     {
+     "va": "0x0053FE70",
+     "length": 48,
+     "name": "?ARENA_ShouldTreatClassIdAsTemplateId@@YIIPAUD2GameStrc@@@Z"
+    },
+    {
+     "va": "0x0053FEA0",
+     "length": 46,
+     "name": "?ARENA_GetTemplateType@@YIHPAUD2GameStrc@@@Z"
+    },
+    {
      "va": "0x0053FED0",
      "length": 48,
      "name": "?sub_0053FED0_TestArenaFlag200@@YIIPAUD2GameStrc@@@Z"
-    }
-   ]
-  },
-  {
-   "file": "Source/D2Game/GAME/Arena_0053FD10.cpp",
-   "rank": 0,
-   "functions": [
-    {
-     "va": "0x0053FD10",
-     "length": 48,
-     "name": "?ARENA_IsActive@@YIHPAUD2GameStrc@@@Z"
     }
    ]
   },
