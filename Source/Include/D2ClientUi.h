@@ -4,13 +4,14 @@
 #include "D2Check.h"
 #include "D2Structs.h"
 #include "D2ClientTypes.h"
+#include "D2Unicode.h"
 
 struct D2BnetChatPacketStrc;
 struct D2DialogWidgetNodeStrc;
 struct D2SlotObjectStrc;
 struct D2SoundStrc;
 struct D2TextNodeStrc;
-struct Unicode;
+struct D2DialogLineStrc;
 struct D2TimedHintEntryStrc;
 struct SMSGHANDLER_PARAMS;
 struct D2ClientNotifyStrc;
@@ -108,6 +109,19 @@ struct D2OptionEntryStrc
     void* pValueCels[4]; // 0x540
 };
 
+struct D2DialogLineStrc
+{
+    Unicode wszText[0x78]; // 0x00
+    int nHeight; // 0xF0
+    int nX; // 0xF4
+    int nWidth; // 0xF8
+    int nArg4; // 0xFC
+    int nFont; // 0x100
+    int nType; // 0x104
+    int (__cdecl* pfnCallback)(); // 0x108
+    int bEnabled; // 0x10C
+};
+
 struct D2ClientDialogStrc
 {
     unsigned long dwTick; // 0x00
@@ -135,7 +149,7 @@ struct D2ClientDialogStrc
     int nMode; // 0x5C
     void (__cdecl* pfnDefault)(void); // 0x60
     int (__cdecl* pfnOutside)(void); // 0x64
-    int unk0x68[680]; // 0x68
+    D2DialogLineStrc pLines[10]; // 0x68
     D2DialogWidgetNodeStrc* pWidgets; // 0xB08
     D2ClientDialogStrc* pNext; // 0xB0C
 };
@@ -182,6 +196,7 @@ D2_CHECK_SIZE(D2HintCursorStrc, 0x64);
 D2_CHECK_SIZE(D2TextListStrc, 0x14);
 D2_CHECK_SIZE(D2OptionHeaderStrc, 0x14);
 D2_CHECK_SIZE(D2OptionEntryStrc, 0x550);
+D2_CHECK_SIZE(D2DialogLineStrc, 0x110);
 D2_CHECK_SIZE(D2ClientDialogStrc, 0xB10);
 D2_CHECK_SIZE(D2UiRectStrc, 0x10);
 D2_CHECK_SIZE(D2UiRecordStrc, 0x108);
