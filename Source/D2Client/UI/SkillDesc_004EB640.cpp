@@ -55,7 +55,7 @@ extern int gnGlobal_007A2858;                                                   
 extern int gnGlobal_007A285C;                                                                               // 0x007A285C
 extern unsigned int gdwBitMasks_006CE268[];                                                                 // 0x006CE268
 
-void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength);                  // 0x00526320
+Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 void __fastcall D2Win_10131_GetTextDimensions(const Unicode* pText, int* pWidth, int* pHeight);             // 0x00502520
 int __fastcall sub_00502EF0(int nArg);                                                                      // 0x00502EF0
 void __fastcall sub_004A7080(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080

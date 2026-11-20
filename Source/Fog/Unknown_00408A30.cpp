@@ -140,7 +140,7 @@ void __cdecl sub_0040F960_CloseLogFiles();                                      
 void __cdecl sub_0040F8A0_CloseLogFilesNow();                                                               // 0x0040F8A0
 void __fastcall sub_0040F000_GetLogDirectory(char* szDirectory, int nSize);                                 // 0x0040F000
 void __fastcall sub_0040F3D0_SweepLogFile(const D2FileTimeStrc* pNow, const char* szFile);                  // 0x0040F3D0
-int __cdecl SStrPrintf(char* szDest, size_t nSize, const char* szFormat, ...);                              // 0x00413A40
+extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, ...); // 0x00413A40
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x004135D0
 T00408A30_1 gtPoolManager_0074F0E8;                                                                   // 0x0074F0E8
 extern char gszResolvedHostIP_0075D040[];                                                                   // 0x0075D040

@@ -42,10 +42,10 @@ void __fastcall sub_00576070_InitGamble(D2GameStrc* pGame, int nVendorId, D2NpcR
 void __fastcall D2GAME_NPC_FillStoreInventory_6FCC7100(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* pNpc, D2NpcTradeStrc* pTrade); // 0x00576980
 void __fastcall sub_00578AE0_FillGambleIfMissing(D2GameStrc* pGame, D2UnitStrc* pNpc, D2UnitStrc* pPlayer, D2NpcRecordStrc* pNpcRecord); // 0x00578AE0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer); // 0x00625480
-int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
+unsigned int __stdcall ITEMS_CheckIfStackable(D2UnitStrc* pItem); // 0x006289F0
 int __stdcall ITEMS_GetTotalMaxStack(D2UnitStrc* pItem); // 0x006295B0
 int __stdcall ITEMS_AreStackablesEqual(D2UnitStrc* pItem1, D2UnitStrc* pItem2); // 0x0062C850
-int __stdcall ITEMS_GetAutoStack(D2UnitStrc* pItem); // 0x0062E790
+unsigned int __stdcall ITEMS_GetAutoStack(D2UnitStrc* pItem); // 0x0062E790
 D2UnitStrc* __stdcall INVENTORY_FindBackPackItemForStack(D2InventoryStrc* pInventory, D2UnitStrc* pStackable, D2UnitStrc* pCheckItem); // 0x0063C200
 D2UnitStrc* __stdcall INVENTORY_FindEquippedItemForStack(D2InventoryStrc* pInventory, D2UnitStrc* pStackable, D2UnitStrc* pCheckItem); // 0x0063C2F0
 extern "C" const char gszNpcSourceFile[]; // 0x006E15F0
@@ -61,7 +61,7 @@ D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nUnitType, int
 D2UnitStrc* __fastcall SUNIT_GetInteractUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00554D00
 unsigned int __stdcall UNITS_GetHealingCost(D2UnitStrc* pUnit); // 0x00622DE0
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pPlayer, const char* szFile, int nLine); // 0x005531C0
-void __fastcall D2GAME_SendPacket0x2A_6FC3F3B0(D2ClientStrc* pClient, unsigned char nHeader, int nCode, int nGold, int nUnitGUID, int a6); // 0x0053D740
+void __fastcall sub_0053D740_SendPacket0x2A(D2ClientStrc* pClient, char nHeader, char nResult, int nGold, int nUnitGUID, char nTransactionType); // 0x0053D740
 int __fastcall sub_00576D90_SpendGold(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nCost); // 0x00576D90
 void __fastcall D2GAME_NPC_HealPlayer_6FCCB080(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pNpc); // 0x00578D30
 
@@ -241,7 +241,7 @@ void __fastcall D2GAME_NPC_PurchaseHeal_6FCCB280(D2GameStrc* pGame, D2UnitStrc* 
     const int nMaxStamina = STATLIST_GetMaxStaminaFromUnit(pUnit);
     if (STATLIST_UnitGetStatValue(pUnit, 10, 0) == nMaxStamina && !nStatRestored)
     {
-        D2GAME_SendPacket0x2A_6FC3F3B0(UnitGetClient(pUnit, gszNpcSourceFile, 3848), 0x2A, 14, STATLIST_UnitGetStatValue(pUnit, 14, 0), -1, 0);
+        sub_0053D740_SendPacket0x2A(UnitGetClient(pUnit, gszNpcSourceFile, 3848), 0x2A, 14, STATLIST_UnitGetStatValue(pUnit, 14, 0), -1, 0);
         return;
     }
 
@@ -249,15 +249,15 @@ void __fastcall D2GAME_NPC_PurchaseHeal_6FCCB280(D2GameStrc* pGame, D2UnitStrc* 
     {
         if (!sub_00576D90_SpendGold(pGame, pUnit, nHealingCost))
         {
-            D2GAME_SendPacket0x2A_6FC3F3B0(UnitGetClient(pUnit, gszNpcSourceFile, 3861), 0x2A, 9, STATLIST_UnitGetStatValue(pUnit, 14, 0), -1, 0);
+            sub_0053D740_SendPacket0x2A(UnitGetClient(pUnit, gszNpcSourceFile, 3861), 0x2A, 9, STATLIST_UnitGetStatValue(pUnit, 14, 0), -1, 0);
             return;
         }
 
         D2GAME_NPC_HealPlayer_6FCCB080(pGame, pUnit, pNpc);
-        D2GAME_SendPacket0x2A_6FC3F3B0(UnitGetClient(pUnit, gszNpcSourceFile, 3874), 0x2A, 6, STATLIST_UnitGetStatValue(pUnit, 14, 0), -1, 0);
+        sub_0053D740_SendPacket0x2A(UnitGetClient(pUnit, gszNpcSourceFile, 3874), 0x2A, 6, STATLIST_UnitGetStatValue(pUnit, 14, 0), -1, 0);
     }
     else
     {
-        D2GAME_SendPacket0x2A_6FC3F3B0(UnitGetClient(pUnit, gszNpcSourceFile, 3868), 0x2A, 12, STATLIST_UnitGetStatValue(pUnit, 14, 0), -1, 0);
+        sub_0053D740_SendPacket0x2A(UnitGetClient(pUnit, gszNpcSourceFile, 3868), 0x2A, 12, STATLIST_UnitGetStatValue(pUnit, 14, 0), -1, 0);
     }
 }

@@ -26,7 +26,7 @@ struct D2GSPacketSrv26
 extern "C" void* __cdecl memset(void*, int, unsigned int); // 0x00681EF0
 D2GameStrc* __fastcall CLIENTS_GetGame(D2ClientStrc*); // 0x005387C0
 D2UnitStrc* __stdcall CLIENTS_GetPlayerFromClient(D2ClientStrc*, int); // 0x00537860
-int __fastcall PLAYERLIST_CheckFlag(D2UnitStrc*, D2UnitStrc*, int); // 0x0055B300
+int __fastcall PLAYERLIST_CheckFlag(D2UnitStrc* pPlayer1, D2UnitStrc* pPlayer2, unsigned int nFlags); // 0x0055B300
 unsigned char __stdcall CHAT_GetLangIdFromHoverMsg(D2HoverTextStrc*); // 0x00661220
 void __stdcall CHAT_CopyHoverMsgToBuffer(D2HoverTextStrc*, char*); // 0x006611E0
 void __fastcall D2GAME_PACKETS_SendPacket0x26_ServerMessage_6FC3DDF0(D2ClientStrc*, D2GSPacketSrv26*); // 0x0053C750

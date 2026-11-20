@@ -17,7 +17,7 @@ struct D2TextListStrc
     unsigned short wCount;
 };
 
-void __fastcall sub_00455F20(int nUIVar, int nState, int nArg);                                        // 0x00455F20
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 extern T00479230* gpTextBox_007BF0A4;                                                                   // 0x007BF0A4
 extern D2ClientDialogStrc* gpListDialog_007BF1B0;                                                           // 0x007BF1B0
 extern D2TextListStrc gtTextList_007BF1E4;                                                                  // 0x007BF1E4

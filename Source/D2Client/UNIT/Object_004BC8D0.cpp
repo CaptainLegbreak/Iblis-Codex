@@ -24,9 +24,9 @@ void __fastcall sub_0046EC10_FreeGfxData(D2UnitStrc* pUnit);                    
 void __stdcall UNITS_FreeCollisionPath(D2UnitStrc* pUnit);                                                  // 0x00623830
 void __stdcall UNITROOM_RemoveUnitFromRoom(D2UnitStrc* pUnit);                                              // 0x0064C370
 void __fastcall sub_00464930_FreeLight(D2UnitStrc* pUnit);                                                  // 0x00464930
-void __fastcall sub_0040B3C0(void* pMemory, const char* szFile, int nLine, int n0);                       // 0x0040B3C0
+int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int nObjectId);                                        // 0x00640E90
-void __stdcall SStrCopy(char* szDest, const char* szSource, int nMax);                                      // 0x004135D0
+unsigned int __stdcall SStrCopy(char* dest,const char* source,unsigned int limit); // 0x004135D0
 int __stdcall ITEMS_CheckIfSocketable(D2UnitStrc* pItem);                                                   // 0x00629900
 void __fastcall sub_00466CB0_RemoveInventoryUnits(D2UnitStrc* pUnit, int nArg);                             // 0x00466CB0
 void __stdcall INVENTORY_FreeInventory(D2InventoryStrc* pInventory);                                        // 0x0063AC40
@@ -84,7 +84,7 @@ void __fastcall sub_004BCA50_ReleaseUnit(D2UnitStrc* pUnit)
         sub_00464930_FreeLight(pUnit);
     }
 
-    sub_0040B3C0(pUnit->pPlayerData, ".\\UNIT\\Object.cpp", 0xFE, 0);
+    FOG_Free(pUnit->pPlayerData, ".\\UNIT\\Object.cpp", 0xFE, 0);
 }
 
 // 0x004BDEE0

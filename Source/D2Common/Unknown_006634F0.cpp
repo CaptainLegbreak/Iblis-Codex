@@ -71,7 +71,7 @@ struct D2HirelingTxt
 extern "C" const unsigned short gnHirelingDescStringIds[9]; // 0x006EE410
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 D2HirelingTxt* __stdcall DATATBLS_GetNextHirelingTxtRecordFromClassId(int bExpansion, int nClassId, D2HirelingTxt* pOldRecord); // 0x00656440
-D2HirelingTxt* __stdcall DATATBLS_GetNextHirelingTxtRecordFromNameId(int bExpansion, int nNameId, D2HirelingTxt* pOldRecord); // 0x00656390
+D2HirelingTxt* __stdcall DATATBLS_GetNextHirelingTxtRecordFromNameId(int bExpansion, unsigned short nNameId, D2HirelingTxt* pOldRecord); // 0x00656390
 
 
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc* pUnit, int nStatId, unsigned short nLayer); // 0x00625480

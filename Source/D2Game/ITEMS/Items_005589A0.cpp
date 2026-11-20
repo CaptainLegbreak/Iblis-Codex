@@ -175,7 +175,7 @@ void __fastcall D2GAME_ResetSomeItemFlags_6FC415F0(D2GameStrc*, D2UnitStrc*); //
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc*, int); // 0x00624690
 void __stdcall ITEMS_SetItemFlag(D2UnitStrc*, unsigned int, int); // 0x006280D0
 void __stdcall ITEMS_SetItemCMDFlag(D2UnitStrc*, int, int); // 0x00628170
-int __stdcall sub_0062E410(unsigned char*, unsigned int, int, D2ItemSaveStrc*); // 0x0062E410
+int __stdcall sub_0062E410(unsigned char* pBitstream, unsigned int nSize, int bCheckForHeader, void* pItemSave); // 0x0062E410
 int __stdcall ITEMS_SerializeItemToBitstream(D2UnitStrc*, unsigned char*, int, int, int, int); // 0x006313E0
 
 static __forceinline D2ItemTypesTxt* sub_C03_GetItemTypesTxtRecord(int nItemType)

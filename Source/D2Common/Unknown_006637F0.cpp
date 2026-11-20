@@ -77,7 +77,7 @@ struct D2SetItemsTxt
 extern const int gnItemSetStates[]; // 0x006EE424
 extern const int gnSetMaskToBonusMappingTable[]; // 0x006EE440
 int __stdcall ITEMS_GetItemQuality(D2UnitStrc* pItem); // 0x00627E70
-const D2SetItemsTxt* __stdcall ITEMS_GetSetItemsTxtRecordFromItem(D2UnitStrc* pItem); // 0x0062A490
+D2SetItemsTxt* __stdcall ITEMS_GetSetItemsTxtRecordFromItem(D2UnitStrc* pItem); // 0x0062A490
 int __stdcall ITEMS_GetNoOfSetItemsFromItem(D2UnitStrc* pItem); // 0x0062B3A0
 int __stdcall D2Common_10574(D2UnitStrc* pUnit, int nStateId, int bSet); // 0x006279A0
 

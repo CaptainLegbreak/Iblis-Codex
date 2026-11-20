@@ -20,7 +20,7 @@ struct D2SystemTimeStrc
     unsigned short wSecond;
     unsigned short wMilliseconds;
 };
-int __cdecl SStrPrintf(char* szDest, size_t nSize, const char* szFormat, ...); // 0x00413A40
+extern "C" int __cdecl SStrPrintf(char* szDest, unsigned int nMaxCount, const char* szFormat, ...); // 0x00413A40
 
 
 

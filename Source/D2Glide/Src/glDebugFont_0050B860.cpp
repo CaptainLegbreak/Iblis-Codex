@@ -32,7 +32,7 @@ D2GlideFontVertexStrc gaGlideDebugFontVertices_00880258[4];                     
 extern unsigned char* gpGlideDebugFontGlyphs_0088044C;                              // 0x0088044C
 static int gnGlideDebugFontTmu_00880450;                                            // 0x00880450
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0);       // 0x0040B380
-void __fastcall FOG_Free(void* pMemory, const char* szFile, int nLine, int n0);     // 0x0040B3C0
+int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, unsigned int nSize);
 #pragma intrinsic(memcpy)

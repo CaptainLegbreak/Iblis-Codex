@@ -47,7 +47,7 @@ int __cdecl sub_0045AE90();                                                     
 static int __cdecl sub_004576C0();                                                                          // 0x004576C0
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit();                                                               // 0x00463DD0
 int __cdecl sub_00492C10();                                                                                 // 0x00492C10
-void __stdcall TEXTURE_CelDrawClipped(D2GfxDataStrc* pData, int nXPos, int nYPos, D2CropRectStrc* pCropRect, int eDrawMode); // 0x004F6510
+void __stdcall TEXTURE_CelDrawClipped(D2GfxDataStrc* pData, int nXPos, int nYPos, void* pCropRect, int eDrawMode); // 0x004F6510
 
 extern int gnGlobal_0071146C;                                                                               // 0x0071146C
 extern int gnGlobal_00711470;                                                                               // 0x00711470

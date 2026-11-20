@@ -43,7 +43,7 @@ extern int gnGlobal_007A285C;                                                   
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 extern unsigned int gdwBitMasks_006CE268[];                                                                 // 0x006CE268
 
-void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength);                  // 0x00526320
+Unicode* __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int nLength); // 0x00526320
 void __fastcall D2Win_10131_GetTextDimensions(const Unicode* pText, int* pWidth, int* pHeight);             // 0x00502520
 int __fastcall sub_00502EF0(int nArg);                                                                      // 0x00502EF0
 void __fastcall sub_004A7080(int nLeft, int nY, int nRight, const Unicode* wszText, int nColor); // 0x004A7080
@@ -69,7 +69,7 @@ short __stdcall ITEMS_GetDexBonus(D2UnitStrc* pItem);                           
 int __stdcall STATLIST_UnitGetItemStatOrSkillStatValue(D2UnitStrc* pUnit, int nStatId, int nLayer);         // 0x00625500
 int __stdcall sub_0063A380(D2UnitStrc* pUnit);                                        // 0x0063A380
 int __stdcall sub_0063A3A0(D2UnitStrc* pUnit);                                         // 0x0063A3A0
-int __fastcall sub_004EA4A0_WeaponDamageCallback2(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pColor, int nBonus, int nAdd, D2SkillStrc* pSkill, int nSrcDam, D2UnitStrc* pItem); // 0x004EA4A0
+void __fastcall sub_004EA4A0_WeaponDamageCallback2(D2UnitStrc* pUnit, int* pMin, int* pMax, int* pColor, int nBonus, int nAdd, D2SkillStrc* pSkill, int nSrcDam, D2UnitStrc* pItem); // 0x004EA4A0
 int __stdcall sub_004E89A0_GetElementalDamage(D2UnitStrc* pUnit, int* pMinDamage, int* pMaxDamage, int* pColor, D2SkillStrc* pSkill); // 0x004E89A0
 
 static void __stdcall sub_004E72D0_GetElemDamage(D2UnitStrc*, int*, int*, int*, D2SkillsTxt*, int); // 0x004E72D0

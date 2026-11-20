@@ -53,7 +53,7 @@ int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath);               
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pDynamicPath);                                           // 0x00648900
 int __stdcall MISSILE_GetLevel(D2UnitStrc* pMissile);                                                       // 0x0064A210
 int __stdcall MISSILE_GetSkill(D2UnitStrc* pMissile);                                                       // 0x0064A280
-int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nArg4, int nArg5);                  // 0x0064D910
+int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, unsigned short nMask); // 0x0064D910
 
 // build: context SEED_RollRandomNumber
 static __forceinline unsigned int SEED_RollRandomNumber(D2SeedStrc* pSeed)

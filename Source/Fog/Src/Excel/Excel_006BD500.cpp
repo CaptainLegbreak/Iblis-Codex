@@ -7,7 +7,7 @@ extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 extern "C" void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int nFlags); // 0x0040B430
-int __stdcall sub_004135D0_CopyString(char* szDest, const char* szSource, unsigned int nMaxLength); // 0x004135D0
+unsigned int __stdcall SStrCopy(char* dest,const char* source,unsigned int limit); // 0x004135D0
 void __fastcall sub_004113C0(char* szString, int nLength); // 0x004113C0
 
 struct D2LinkNode006BD500Strc
@@ -77,7 +77,7 @@ int __stdcall sub_006BD500_AddCode(D2BinLinker006BD500Strc* pLinker, const char*
 
     D2LinkNode006BD500Strc* pNode = (D2LinkNode006BD500Strc*)FOG_AllocPool(0, sizeof(D2LinkNode006BD500Strc), ".\\Src\\Excel\\Excel.cpp", 0x4B9, 0);
     memset(pNode, 0, sizeof(D2LinkNode006BD500Strc));
-    sub_004135D0_CopyString(pNode->szCode, szCode, 0x20);
+    SStrCopy(pNode->szCode, szCode, 0x20);
     sub_004113C0(pNode->szCode, 0x20);
     pNode->nIndex = pLinker->nCount;
     sub_006BD490_InsertNode((D2TxtLinkNodeStrc**)&pLinker->tTree, (D2TxtLinkNodeStrc*)pNode);

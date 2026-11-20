@@ -92,7 +92,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
-int __stdcall sub_004F6480(D2GfxDataStrc* pContext, int nX, int nY, int nGamma, int nDrawMode, unsigned char* pPalette); // 0x004F6480
+void __stdcall TEXTURE_CelDraw(D2GfxDataStrc* pData, int nXPos, int nYPos, unsigned int dwGamma, int eDrawMode, unsigned char* pPalette); // 0x004F6480
 int __fastcall D2Win_10143(D2CompositeUnitStrc* pCompositeUnit, int nMode);                                 // 0x005042F0
 void __stdcall sub_00506000_InitCompItems();                                                                // 0x00506000
 
@@ -460,7 +460,7 @@ int __fastcall sub_00503BA0_DrawCompositeUnit(D2CompositeUnitStrc* pCompositeUni
         tGfxData.nFrame = gnSelectedCelFileFrame_0087E858;
         tGfxData.pCelFile = pCelFile;
         tGfxData.nDirection = 0;
-        sub_004F6480(&tGfxData, pCompositeUnit->nX + 5, pCompositeUnit->nY - 5, -1, 3, 0);
+        TEXTURE_CelDraw(&tGfxData, pCompositeUnit->nX + 5, pCompositeUnit->nY - 5, -1, 3, 0);
     }
 
     D2CelFileStrc* pEmblemCellFile = pCompositeUnit->pEmblemCellFile;
@@ -474,7 +474,7 @@ int __fastcall sub_00503BA0_DrawCompositeUnit(D2CompositeUnitStrc* pCompositeUni
         tGfxData.nDirection = 0;
         tGfxData.nFrame = 0;
         tGfxData.nDrawFlag = 1;
-        sub_004F6480(&tGfxData, pCompositeUnit->nX - 0x14, pCompositeUnit->nY - 0x3C, -1, 5, aPalette);
+        TEXTURE_CelDraw(&tGfxData, pCompositeUnit->nX - 0x14, pCompositeUnit->nY - 0x3C, -1, 5, aPalette);
     }
 
     D2_ASSERT(pCompositeUnit->pGfxInfo, 0x622);
@@ -515,7 +515,7 @@ int __fastcall sub_00503BA0_DrawCompositeUnit(D2CompositeUnitStrc* pCompositeUni
         {
             pPalette = sub_005038D0_GetComponentPalette(nColor);
         }
-        sub_004F6480(&tGfxData, pCompositeUnit->nX, pCompositeUnit->nY, nGamma, nDrawMode, pPalette);
+        TEXTURE_CelDraw(&tGfxData, pCompositeUnit->nX, pCompositeUnit->nY, nGamma, nDrawMode, pPalette);
     }
 
     pCompositeUnit->nFrame += pCompositeUnit->nAnimSpeed;
@@ -548,7 +548,7 @@ int __fastcall sub_00503BA0_DrawCompositeUnit(D2CompositeUnitStrc* pCompositeUni
         tGfxData.nFrame = gnSquelchCelFileFrame_0087E84C;
         tGfxData.pCelFile = pCelFile;
         tGfxData.nDirection = 0;
-        sub_004F6480(&tGfxData, pCompositeUnit->nX, pCompositeUnit->nY + 10, -1, 3, 0);
+        TEXTURE_CelDraw(&tGfxData, pCompositeUnit->nX, pCompositeUnit->nY + 10, -1, 3, 0);
     }
 
     return 1;

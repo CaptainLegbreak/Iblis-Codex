@@ -9,10 +9,10 @@ extern "C" int __cdecl abs(int nValue);
 extern "C" long __cdecl strtol(const char* szString, char** ppEnd, int nRadix); // 0x0068676E
 extern "C" unsigned long __cdecl strtoul(const char* szString, char** ppEnd, int nRadix); // 0x006867B2
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags); // 0x00412650
-int __stdcall SStrCmpI(const char* szString1, const char* szString2, int nMaxChars); // 0x00413590
-int __stdcall SStrLen(const char* szString); // 0x00413750
+int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
+unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 int __stdcall sub_00414D90_RegDeleteValue(const char* szKeyName, const char* szValueName, unsigned int nFlags); // 0x00414D90
-int __stdcall SRegSaveData(const char* szKeyName, const char* szValueName, unsigned int nFlags, void* pData, unsigned int nSize); // 0x00415000
+int __stdcall SRegSaveData(const char* szKeyName, const char* szValueName, unsigned int nFlags, const void* pData, unsigned long nSize); // 0x00415000
 char* __stdcall sub_00518300_LoadGatewayFile(unsigned int* pSize); // 0x00518300
 void __cdecl sub_00518D40_Log(const char* szFormat, ...); // 0x00518D40
 extern "C" const char szGatewayIsClosest_006DED44[]; // 0x006DED44

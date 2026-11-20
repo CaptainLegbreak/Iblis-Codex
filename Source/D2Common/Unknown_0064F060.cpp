@@ -29,8 +29,8 @@ extern unsigned int gdwBitMasks[];                                              
 extern const D2CompositStrc gaWeaponClassCodeTable[13];                                                     // 0x006EB748
 
 D2MonStats2Txt* __fastcall UNITS_GetMonStats2TxtRecordFromMonsterId(int nMonsterId);                       // 0x00451FE0
-int __stdcall ITEMS_GetWeaponClassCode(D2UnitStrc* pItem);                                                  // 0x00628500
-int __stdcall ITEMS_Get2HandWeaponClassCode(D2UnitStrc* pItem);                                             // 0x00628530
+unsigned int __stdcall ITEMS_GetWeaponClassCode(D2UnitStrc* pItem); // 0x00628500
+unsigned int __stdcall ITEMS_Get2HandWeaponClassCode(D2UnitStrc* hItem); // 0x00628530
 unsigned char __stdcall ITEMS_GetComponent(D2UnitStrc* pUnit);                                              // 0x00628660
 int __stdcall ITEMSIsA(D2UnitStrc* pItem, int nItemType);                                      // 0x00629BB0
 unsigned short __stdcall ITEMS_GetWeaponClassId(D2UnitStrc* pUnit);                                         // 0x00629FE0

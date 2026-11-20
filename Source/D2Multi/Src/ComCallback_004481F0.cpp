@@ -36,7 +36,7 @@ public:
 extern "C" char* __cdecl strcpy(char* szDst, const char* szSrc);
 extern "C" int __cdecl strcmp(const char* szLeft, const char* szRight);
 extern "C" size_t __cdecl strlen(const char* szString);
-char* __stdcall SStrChr(const char* szString, char nChar);                                                  // 0x00413490
+const char* __stdcall SStrChr(const char* szString, char nChar); // 0x00413490
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax);                     // 0x004135D0
 void __stdcall sub_00446A90_RemoveTableString(Unicode* pText);                                              // 0x00446A90
 void __fastcall sub_00447940_PrependNumberText(Unicode* pText, int nValue);                                 // 0x00447940

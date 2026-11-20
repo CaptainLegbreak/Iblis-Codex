@@ -41,14 +41,14 @@ int __fastcall sub_004069D0_WriteFile(void* hFile, const void* pBuffer, unsigned
 unsigned long __fastcall sub_004069F0_SetFilePointer(void* hFile, long nDistance, long* pnDistanceHigh, unsigned long dwMoveMethod); // 0x004069F0
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);          // 0x00413020
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);                  // 0x00412650
-void __fastcall sub_00519DB0_HandOnDownload(const char* szFile, const void* pData, unsigned int nSize, const D2FileTimeStrc* pFileTime, int nArg5, int nArg6); // 0x00519DB0
+int __fastcall sub_00519DB0_WriteCacheFile(const char* szName, const void* pData, unsigned int nSize, const D2FileTimeStrc* pFileTime, unsigned int nSeconds1, unsigned int nSeconds2); // 0x00519DB0
 void __cdecl sub_0051A480_DebugLog(const char* szFormat, ...);                                              // 0x0051A480
 int __fastcall FOG_SOCKET_WSAStartup();                                                                     // 0x0040D890
 void __stdcall SMemCopy(void* pDest, const void* pSource, unsigned int nSize);                              // 0x0041D2A0
-int __stdcall SRegSaveData(const char* szKeyName, const char* szValueName, unsigned int nFlags, const void* pData, unsigned int nSize); // 0x00415000
+int __stdcall SRegSaveData(const char* szKeyName, const char* szValueName, unsigned int nFlags, const void* pData, unsigned long nSize); // 0x00415000
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x004135D0
 int __fastcall sub_00519920_LoadCachedFile(const char* szFile, D2FileTimeStrc* pFileTime, void** ppData, unsigned int* pnSize); // 0x00519920
-void __fastcall sub_005193C0_FreeCachedFile(void* pData, unsigned int nSize);                               // 0x005193C0
+int __fastcall sub_005193C0_FreeCachedFile(void* pData, unsigned int nSize); // 0x005193C0
 void __fastcall sub_0051FAB0_HandleDownloadEvent(int nType, int nSubType, unsigned int nArg1, unsigned int nArg2, const D2FileTimeStrc* pFileTime, const char* szText1, const char* szText2, const void* pData, unsigned int nDataSize, int bFlag); // 0x0051FAB0
 unsigned int __stdcall sub_0051F310_DownloadThread(void* pArg);                                             // 0x0051F310
 
@@ -113,7 +113,7 @@ static __declspec(noinline) int __stdcall sub_0051EAB0_RecvToBuffer(unsigned int
     }
 
     if (nFlags & 1)
-        sub_00519DB0_HandOnDownload(szFile, *ppBuffer, nSize, pFileTime, 0x13C680, 0x278D00);
+        sub_00519DB0_WriteCacheFile(szFile, *ppBuffer, nSize, pFileTime, 0x13C680, 0x278D00);
 
     if (nFlags & 2)
         sub_0051E440_WriteFileWithTime(*ppBuffer, nSize, szFile, pFileTime);

@@ -33,7 +33,7 @@ struct D2PetUpdateStrc
 
 
 D2ClientStrc* __fastcall UnitGetClient(D2UnitStrc* pUnit, const char* szFile, int nLine); // 0x005531C0
-void __fastcall sub_0053CB30_SendPetUpdate(D2ClientStrc* pClient, unsigned char nFlag, int nParam, int nUnitId, int nClassId, unsigned short nPetType); // 0x0053CB30
+void __fastcall D2GAME_PACKETS_SendPacket0x7A_6FC3E100(D2ClientStrc* pClient, char a2, int nPetType, int nPetGUID, int nUnitGUID, unsigned short nPetClass); // 0x0053CB30
 extern const char gszPlayerPets_006E15D8[]; // 0x006E15D8
 
 struct D2PetInfoStrc
@@ -73,7 +73,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit); // 0x006221A0
 
 
-void __fastcall sub_6FC7D260(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetGUID, int a4); // 0x005750E0
+void __fastcall PLAYERPETS_RemovePet(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetGUID, int bKillPet); // 0x005750E0
 static __declspec(noinline) int sub_6FC7D9D0(D2UnitStrc* pPlayer, int nPetType);
 
 struct D2PetArgStrc
@@ -154,7 +154,7 @@ D2UnitStrc* __fastcall sub_6FC7E8B0(D2GameStrc* pGame, D2UnitStrc* pPlayer, int 
 // 0x00574410
 void __fastcall sub_00574410_SendPetUpdate(D2GameStrc* pGame, D2UnitStrc* pUnit, D2PetUpdateStrc* pData)
 {
-    sub_0053CB30_SendPetUpdate(UnitGetClient(pUnit, gszPlayerPets_006E15D8, 0x43), 0, pData->nParam, pData->nUnitId, pData->nClassId, pData->nPetType);
+    D2GAME_PACKETS_SendPacket0x7A_6FC3E100(UnitGetClient(pUnit, gszPlayerPets_006E15D8, 0x43), 0, pData->nParam, pData->nUnitId, pData->nClassId, pData->nPetType);
 }
 
 inline D2PetListStrc* PLAYERPETS_GetPetListFromPetType(D2PlayerPetStrc* pPlayerPets, int nPetType)
@@ -213,7 +213,7 @@ void __fastcall sub_6FC7D150(D2GameStrc* pGame, D2UnitStrc* pPlayer, int nPetTyp
 
     while (pPetList->nCurrent > nBaseMax && pPetList->nCurrent > 0 && nPetType != PETTYPE_HIREABLE)
     {
-        sub_6FC7D260(pGame, pPlayer, sub_6FC7D9D0(pPlayer, nPetType), 1);
+        PLAYERPETS_RemovePet(pGame, pPlayer, sub_6FC7D9D0(pPlayer, nPetType), 1);
     }
 }
 
@@ -930,7 +930,7 @@ int __fastcall sub_6FC7D5F0(D2GameStrc* pGame, D2UnitStrc* pPlayer, D2UnitStrc* 
     const int nPetType = PLAYERPETS_GetPetTypeFromPetGUID(pPlayer, nPetGUID);
     if (nPetType != PETTYPE_HIREABLE)
     {
-        sub_6FC7D260(pGame, pPlayer, nPetGUID, 0);
+        PLAYERPETS_RemovePet(pGame, pPlayer, nPetGUID, 0);
     }
 
     D2PetListStrc* pPetList = sub_005752B0_GetPetList(pPlayerPets, nPetType);

@@ -8,7 +8,7 @@ struct D2PacketBufferStrc
 
 
 extern int gnServerPacketSizeTable_00730AE8[]; // 0x00730AE8
-int __stdcall SStrLen(const char* szString); // 0x00413750
+unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 extern int gnClientPacketSizes_00730DC0[]; // 0x00730DC0
 
 // 0x0052B920

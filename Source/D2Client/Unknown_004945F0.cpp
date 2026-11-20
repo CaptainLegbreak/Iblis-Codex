@@ -35,7 +35,7 @@ struct SMSGHANDLER_PARAMS
     int lResult;
 };
 
-int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned char nFlags, unsigned int dwValue); // 0x004150E0
+int __stdcall SRegSaveValue(const char* szKeyName, const char* szValueName, unsigned int nFlags, unsigned long dwValue); // 0x004150E0
 int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 int __cdecl sub_00468730(); // 0x00468730
 int __cdecl sub_00468740(); // 0x00468740

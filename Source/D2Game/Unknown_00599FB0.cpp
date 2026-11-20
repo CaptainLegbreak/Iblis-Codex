@@ -4,7 +4,7 @@ struct D2Act2Quest3Strc { unsigned char padding[0x14]; D2QuestGUIDStrc playerGui
 struct D2QuestDataStrc { unsigned char padding[0x18]; D2Act2Quest3Strc* data; };
 struct D2QuestArgStrc { unsigned char padding[12]; D2UnitStrc* player; };
 void __fastcall QUESTS_RemovePlayerGUID(D2QuestDataStrc* quest, D2QuestArgStrc* argument); // 0x00545530
-void __fastcall QUESTS_FastRemovePlayerGUID(D2QuestGUIDStrc* guids, int unitId); // 0x00545240
+int __fastcall QUESTS_FastRemovePlayerGUID(D2QuestGUIDStrc* pGUIDs, int dwGUID); // 0x00545240
 
 static __forceinline int GetUnitId(D2UnitStrc* unit) { return !unit ? -1 : unit->dwUnitId; }
 

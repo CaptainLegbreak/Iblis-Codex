@@ -39,7 +39,7 @@ int __fastcall sub_6FCF2E70(D2UnitStrc* pUnit);                                 
 D2UnitStrc* __fastcall AIUTIL_SelectAiTargetWithCollisionCheck(D2GameStrc* pGame, D2UnitStrc* pUnit, int* pDistance, int* pInMeleeRange); // 0x005DDC30
 int __fastcall AITACTICS_ChangeModeAndTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, D2UnitStrc* pTargetUnit); // 0x005DDF90
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames);            // 0x005DE080
-void __fastcall AITACTICS_SetVelocity(D2UnitStrc* pUnit, int a2, int nVel, unsigned char a4);             // 0x005DE190
+void __fastcall sub_005DE190_SetAiParam(D2UnitStrc* pUnit, int nParam, int nValue, int nArg); // 0x005DE190
 int __fastcall AITACTICS_UseSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nMode, int nSkillId, D2UnitStrc* pTarget, int nX, int nY); // 0x005DEAD0
 int __fastcall AITACTICS_WalkToTargetUnitWithSteps(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char bStep); // 0x005DEF80
 int __fastcall AITACTICS_RunToTargetUnitWithSteps(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char bStep); // 0x005DEFB0
@@ -90,7 +90,7 @@ void __fastcall AITHINK_Fn035_CorruptArcher(D2GameStrc* pGame, D2UnitStrc* pUnit
 
     if (nDistance < 6 && (int)(AI_RollSeed(pSeed) % 100) < AI_PARAM(pGame, pMonStatsTxt, CORRUPTARCHER_AI_PARAM_RUN_CHANCE_PCT))
     {
-        AITACTICS_SetVelocity(pUnit, 0, 100, 0);
+        sub_005DE190_SetAiParam(pUnit, 0, 100, 0);
         if (sub_005DF140_Escape(pGame, pUnit, pTarget, 12, 1))
         {
             return;
@@ -100,14 +100,14 @@ void __fastcall AITHINK_Fn035_CorruptArcher(D2GameStrc* pGame, D2UnitStrc* pUnit
     if (AI_GetParam(pGame, pMonStatsTxt, CORRUPTARCHER_AI_PARAM_WALK_TOW_DISTANCE) > 0 && nDistance > AI_GetParam(pGame, pMonStatsTxt, CORRUPTARCHER_AI_PARAM_WALK_TOW_DISTANCE)
         && (int)SEED_RollLimitedRandomNumber(pSeed, 100) < AI_PARAM(pGame, pMonStatsTxt, CORRUPTARCHER_AI_PARAM_APPROACH_CHANCE_PCT))
     {
-        AITACTICS_SetVelocity(pUnit, 0, 10, 0);
+        sub_005DE190_SetAiParam(pUnit, 0, 10, 0);
         AITACTICS_WalkToTargetUnitWithSteps(pGame, pUnit, pTarget, (unsigned char)AI_PARAM(pGame, pMonStatsTxt, CORRUPTARCHER_AI_PARAM_WALK_TOW_DISTANCE));
         return;
     }
 
     if (nDistance > AI_PARAM(pGame, pMonStatsTxt, CORRUPTARCHER_AI_PARAM_ALWAYS_RUN_DISTANCE))
     {
-        AITACTICS_SetVelocity(pUnit, 0, 100, 0);
+        sub_005DE190_SetAiParam(pUnit, 0, 100, 0);
         AITACTICS_RunToTargetUnitWithSteps(pGame, pUnit, pTarget, (unsigned char)AI_PARAM(pGame, pMonStatsTxt, CORRUPTARCHER_AI_PARAM_ALWAYS_RUN_DISTANCE));
         return;
     }

@@ -16,7 +16,7 @@ struct sub_006BC310_Strc
     sub_006BC310_Conn* pConn;
 };
 
-void __fastcall sub_0040D880(int hSocket); // 0x0040D880
+int __fastcall sub_0040D880(unsigned int s); // 0x0040D880
 
 static __declspec(noinline) void sub_006BC310_CloseSocket(sub_006BC310_Strc* pThis);
 // 0x006BC310

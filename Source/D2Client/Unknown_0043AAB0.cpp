@@ -25,10 +25,10 @@ extern int gnGlobal_0070CC04; // 0x0070CC04
 extern int gnGlobal_0070CC08; // 0x0070CC08
 extern int gnGlobal_00779DC4; // 0x00779DC4
 extern int gnGlobal_00779DD8; // 0x00779DD8
-void __fastcall sub_00437AB0_CharSelCacheStore(const char* szName, unsigned char* pPacket, int nSize); // 0x00437AB0
+void __fastcall sub_00437AB0_CharSelCacheStore(const char* szKey, const void* pData, unsigned int nSize); // 0x00437AB0
 void __cdecl sub_00437B90_FreeCache(); // 0x00437B90
-void __cdecl sub_00439210(); // 0x00439210
-void __stdcall sub_0043A460_CreateNotice(const Unicode* wszTitle, const Unicode* wszText, int nArg3, int nArg4); // 0x0043A460
+int __cdecl sub_00439210_Redraw(); // 0x00439210
+extern "C" int __stdcall sub_0043A460_CreateNotice(const Unicode* pTitle, const Unicode* pText, int nState, unsigned char nSel); // 0x0043A460
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 __declspec(noinline) static int __stdcall sub_00438AD0_AddCharEntry(const char* szCharName, const char* szStats, int nExpire, unsigned int nTimeLow, unsigned int nTimeHigh, const char* szRealm);
 
@@ -151,7 +151,7 @@ void __stdcall sub_0043AAB0(const char* szName, unsigned char* pPacket, int bFla
         sub_0043A460_CreateNotice(wszTitle, &wszEmpty, 2, 0x12);
     }
 
-    sub_00439210();
+    sub_00439210_Redraw();
 }
 
 char gszLastAccount_0077ABF4[16]; // 0x0077ABF4

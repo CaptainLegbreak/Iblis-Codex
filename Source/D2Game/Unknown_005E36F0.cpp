@@ -18,9 +18,9 @@ struct D2AiTickParamStrc
     D2MonStatsTxt* pMonstatsTxt;
 };
 
-void __fastcall AITACTICS_UseSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, int nSkillId, D2UnitStrc* pTarget, int nX, int nY); // 0x005DEAD0
-void __fastcall AITACTICS_ChangeModeAndTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, D2UnitStrc* pTarget); // 0x005DDF90
-void __fastcall AITACTICS_WalkToTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x005DECA0
+int __fastcall AITACTICS_UseSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nMode, int nSkillId, D2UnitStrc* pTarget, int nX, int nY); // 0x005DEAD0
+int __fastcall AITACTICS_ChangeModeAndTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, D2UnitStrc* pTargetUnit); // 0x005DDF90
+int __fastcall AITACTICS_WalkToTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x005DECA0
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames); // 0x005DE080
 
 static __forceinline unsigned int SEED_RollPercentage(D2SeedStrc* pSeed, unsigned int& nLowSeed, unsigned int& nHighSeed)

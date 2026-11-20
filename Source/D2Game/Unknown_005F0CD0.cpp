@@ -38,7 +38,7 @@ unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax
 int __fastcall sub_6FCF2E70(D2UnitStrc* pUnit);                                                             // 0x005DD2B0
 int __fastcall AITACTICS_ChangeModeAndTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, D2UnitStrc* pTargetUnit); // 0x005DDF90
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames);            // 0x005DE080
-void __fastcall AITACTICS_SetVelocity(D2UnitStrc* pUnit, int a2, int nVel, unsigned char a4);             // 0x005DE190
+void __fastcall sub_005DE190_SetAiParam(D2UnitStrc* pUnit, int nParam, int nValue, int nArg); // 0x005DE190
 int __fastcall AITACTICS_WalkCloseToUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nMaxDistance); // 0x005DE200
 int __fastcall sub_6FCD0410(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nFlags); // 0x005DED40
 int __fastcall sub_005DEFE0_Escape(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance, int bDeleteAiEventCallback); // 0x005DEFE0
@@ -104,7 +104,7 @@ zero_vel:
             if (nLifePercentage > 75)
             {
                 pAiControl->dwAiParam[0] = 0;
-                AITACTICS_SetVelocity(pUnit, 13, nVel, 0);
+                sub_005DE190_SetAiParam(pUnit, 13, nVel, 0);
                 sub_6FCD0410(pGame, pUnit, pTarget, 7);
                 return;
             }
@@ -132,7 +132,7 @@ zero_vel:
             return;
         }
 
-        AITACTICS_SetVelocity(pUnit, 2, nVel, 0);
+        sub_005DE190_SetAiParam(pUnit, 2, nVel, 0);
 
         if (!sub_005DEFE0_Escape(pGame, pUnit, pTarget, 15, 1))
         {
@@ -176,7 +176,7 @@ zero_vel:
                 pAiControl->dwAiParam[2] = 0;
             }
 
-            AITACTICS_SetVelocity(pUnit, 2, nVel, 0);
+            sub_005DE190_SetAiParam(pUnit, 2, nVel, 0);
             sub_005DEFE0_Escape(pGame, pUnit, pTarget, 15, 0);
             return;
         }

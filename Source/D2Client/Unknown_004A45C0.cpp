@@ -81,7 +81,7 @@ int __cdecl sub_0044DCC0(); // 0x0044DCC0
 D2MonStatsTxt* __fastcall DATATBLS_GetMonStatsTxtRecord(int nMonsterId); // 0x00451F80
 D2UnitStrc* __cdecl sub_00463DE0_GetPlayerUnit(); // 0x00463DE0
 int __cdecl sub_00466DD0(); // 0x00466DD0
-void __fastcall sub_005023B0_DrawTextBox(const Unicode* wszText, int nX, int nY, int nColor, int nArg5, int nArg6); // 0x005023B0
+void __fastcall D2Win_10132(const Unicode* wszText, int nX, int nY, unsigned int dwColor, int eDrawMode, int nColor); // 0x005023B0
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex); // 0x00524A30
 void __cdecl sub_005269D0(int nBufferSize, Unicode* pBuffer, const Unicode* pFormat, ...); // 0x005269D0
 int __stdcall UNITS_GetBlockRate(D2UnitStrc* pUnit, int nArg); // 0x00622720
@@ -650,7 +650,7 @@ static void sub_004A7180_DrawHoverLevelText(int nX, int nY, int nValue)
         sub_005269D0(0x80, wszText, D2LANG_GetStringFromTblIndex(0x2778), D2LANG_GetStringFromTblIndex(pMonStatsTxtRecord->wNameStr), nValue);
     }
 
-    sub_005023B0_DrawTextBox(wszText, gnGlobal_007A2858 + 0x8B, gnGlobal_00711470 + gnGlobal_007A285C - 0x13B, gnTextColor_007C02F8, 2, 0);
+    D2Win_10132(wszText, gnGlobal_007A2858 + 0x8B, gnGlobal_00711470 + gnGlobal_007A285C - 0x13B, gnTextColor_007C02F8, 2, 0);
 }
 
 void __stdcall sub_I10_Emit_004A7180(int nX, int nY, int nValue)

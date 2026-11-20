@@ -33,7 +33,7 @@ struct D2ItemDataStrc { char unknown[0x5c]; D2ItemExtraDataStrc extra; };
 
 int __stdcall ITEMS_GetItemQuality(D2UnitStrc*); // 0x00627E70
 int __stdcall ITEMS_GetFileIndex(D2UnitStrc*); // 0x00629DA0
-unsigned int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pDynamicPath); // 0x006488C0
+int __stdcall PATH_GetXPosition(D2DynamicPathStrc* hPath); // 0x006488C0
 
 typedef int BOOL;
 

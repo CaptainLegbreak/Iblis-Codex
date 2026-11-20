@@ -17,7 +17,7 @@ struct D2GameStrc
 };
 
 extern "C" __declspec(dllimport) int __stdcall QueryPerformanceCounter(D2LargeIntegerPartsStrc* pCount);     // 0x006CC25C
-void __fastcall SEED_InitSeed(D2SeedStrc* pSeed);                                                           // 0x00650E30
+void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
 void __fastcall SEED_InitLowSeed(D2SeedStrc* pSeed, unsigned int nLowSeed);                                 // 0x00650E40
 
 #include "gen/data/Source/D2Game/Unknown_0052C280/gnInitSeed_00731004.inc"

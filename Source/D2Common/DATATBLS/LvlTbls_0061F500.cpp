@@ -21,8 +21,8 @@ void* __fastcall FOG_AllocPool(void*,int,const char*,int,int); // 0x0040B430
 void* __fastcall FOG_Alloc(int,const char*,int,int); // 0x0040B380
 int __cdecl sub_00408F20_HasExpansionMpq(); // 0x00408F20
 void __fastcall DRLGPRESET_LoadDrlgFile(D2DrlgFileStrc**,void*,const char*); // 0x00665F40
-void* __stdcall sub_00408090(); // 0x00408090
-void __cdecl sub_00408A60(const char*,void*,int); // 0x00408A60
+extern "C" const char* __cdecl sub_00408090(); // 0x00408090
+extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 __declspec(noreturn) void __cdecl sub_00681E09_Exit(int);
 void __cdecl sub_00681E09_Exit(int); // 0x00681E09
 static void sub_0061E4A0_FixPath(const char*,char*); // 0x0061E4A0

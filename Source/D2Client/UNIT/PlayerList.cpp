@@ -33,7 +33,7 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);
 extern unsigned int gdwFadeTick_007C89CC; // 0x007C89CC
 void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
-void __fastcall sub_0040B3C0(void* pMemory, const char* szFile, int nLine, int n0); // 0x0040B3C0
+int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 D2GfxDataStrc* __cdecl sub_0046EBB0_AllocGfxData(); // 0x0046EBB0
 void __fastcall sub_00470610_Refresh(D2UnitStrc* pUnit, int nArg); // 0x00470610
 D2RosterInfoStrc** __fastcall sub_0047A310_GetRosterInfoList(int nUnitId); // 0x0047A310
@@ -133,7 +133,7 @@ void __fastcall sub_004DCF30(D2ViewStrc* pView)
 {
     if (pView->pCells)
     {
-        sub_0040B3C0(pView->pCells, ".\\GAME\\Wall2.cpp", 0x55, 0);
+        FOG_Free(pView->pCells, ".\\GAME\\Wall2.cpp", 0x55, 0);
     }
 
     pView->pCells = 0;

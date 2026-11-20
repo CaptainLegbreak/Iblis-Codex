@@ -64,8 +64,8 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();                                    // 0x006CC260
-void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS* pMsg);                                            // 0x00420290
-int __fastcall sub_004538D0(int nUIVar);                                                             // 0x004538D0
+int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
+int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
 int __cdecl sub_0045AE90();                                                                         // 0x0045AE90
 int __fastcall sub_0047F190_IsInMiniPanelRect(int nX, int nY);                                              // 0x0047F190
 int __fastcall sub_004A6580_IsInPanelButton(int nMode, int nX, int nY);                                     // 0x004A6580
@@ -122,7 +122,7 @@ void __stdcall sub_004B72E0_OnLButtonUp(SMSGHANDLER_PARAMS* pMsg)
 
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_HandleMsg(pMsg);
+    sub_00420290_BreakHandlerChain(pMsg);
     D2_ASSERT(pDialog, 0x123);
     if (pDialog->bActive != 1)
     {
@@ -154,7 +154,7 @@ void __stdcall sub_004B73E0_OnLButtonDown(SMSGHANDLER_PARAMS* pMsg)
     {
         pMsg->bReturn = 1;
         pMsg->lResult = 0;
-        sub_00420290_HandleMsg(pMsg);
+        sub_00420290_BreakHandlerChain(pMsg);
         return;
     }
 
@@ -183,7 +183,7 @@ void __stdcall sub_004B73E0_OnLButtonDown(SMSGHANDLER_PARAMS* pMsg)
             {
                 pMsg->bReturn = 1;
                 pMsg->lResult = 0;
-                sub_00420290_HandleMsg(pMsg);
+                sub_00420290_BreakHandlerChain(pMsg);
             }
             if (sub_004538D0(7) && sub_004A6630_IsInPanelButton2(sub_0045AE90(), nX, nY))
                 goto handled;
@@ -199,5 +199,5 @@ void __stdcall sub_004B73E0_OnLButtonDown(SMSGHANDLER_PARAMS* pMsg)
 handled:
     pMsg->bReturn = 1;
     pMsg->lResult = 0;
-    sub_00420290_HandleMsg(pMsg);
+    sub_00420290_BreakHandlerChain(pMsg);
 }

@@ -45,7 +45,7 @@ static unsigned int gnSEvtTypeCount_00779308;                                   
 extern D2CriticalSectionStrc gtSEvtLock;                                                                    // 0x0077930C
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int nFlags);                  // 0x00412650
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags);          // 0x00413020
-void __stdcall sub_0041C340_SetLastError(unsigned int nError);                                              // 0x0041C340
+void __stdcall sub_0041C340_SetLastError(unsigned long dwErrCode); // 0x0041C340
 static D2StormEventTypeStrc* sub_00426270(unsigned int nType, unsigned int nSubType);                       // 0x00426270
 
 static __declspec(noinline) D2StormEventTypeStrc* sub_00426270(unsigned int nType, unsigned int nSubType)

@@ -91,7 +91,7 @@ struct D2SpritePixelsStrc { int unknown00,width,height; char unknown0C[0x14]; un
 
 struct D2SpriteCelStrc { int unknown00[7]; unsigned int dataSize; };
 
-void __cdecl sub_00410610_ReportError(const char* message); // 0x00410610
+void __cdecl sub_00410610_WriteLogLine(const char* szFormat, ...); // 0x00410610
 void* __cdecl sub_006829C0_Copy(void* dest,const void* source,unsigned int size); // 0x006829C0
 
 #pragma pack(push, 1)
@@ -120,7 +120,7 @@ struct D2CmpTileHeaderTargetStrc
 };
 
 int __fastcall sub_004068E0(const char* szFileName, void** phFile); // 0x004068E0
-void __fastcall sub_004068F0(void* hFile); // 0x004068F0
+int __fastcall sub_004068F0(void* pArg); // 0x004068F0
 int __fastcall sub_00406900(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped, int nArg7, int nArg6); // 0x00406900
 int __fastcall sub_00406930(void* hFile, unsigned int* pnSizeHigh); // 0x00406930
 
@@ -380,7 +380,7 @@ int __fastcall sub_0060BDB0_EncodeSprite(D2SpritePixelsStrc* sprite,D2SpriteCelS
   row+=step;
  }
  if(dest!=(unsigned char*)cel+32+cel->dataSize) {
-  sub_00410610_ReportError("Sprite Decompression Error");
+  sub_00410610_WriteLogLine("Sprite Decompression Error");
   return 0;
  }
  return 1;

@@ -64,7 +64,7 @@ struct T00408A30_1
 };
 
 extern T00408A30_1 gtPoolManager_0074F0E8;                                                                  // 0x0074F0E8
-void* __fastcall sub_0040A080_PoolAlloc(void* pPool, int nSize, const char* szFile, int nLine);             // 0x0040A080
+void* __fastcall sub_0040A080_PoolAlloc(D2PoolSystemStrc* pSystem, int nSize, const char* szFile, int nLine); // 0x0040A080
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60

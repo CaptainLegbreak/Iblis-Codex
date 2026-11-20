@@ -16,7 +16,7 @@ extern int gdwGlobal_007A6A94; // 0x007A6A94
 extern int gdwGlobal_007A6A98; // 0x007A6A98
 
 
-D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType); // 0x00463990
+D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 int __stdcall ITEMS_IsMetalItem(int nItemId); // 0x00629CC0
 
 int gnSelectionLeft_007A6A7C; // 0x007A6A7C

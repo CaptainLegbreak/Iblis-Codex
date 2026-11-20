@@ -22,7 +22,7 @@ typedef unsigned int D2IdeaUInt16;
 typedef unsigned short D2IdeaWord16;
 
 
-D2IdeaWord16 __fastcall sub_005242F0_MulInv(D2IdeaUInt16 x); // 0x005242F0
+unsigned int __fastcall sub_005242F0_MulInv(unsigned int x); // 0x005242F0
 
 static inline D2IdeaUInt16 IdeaMul(D2IdeaUInt16 a, D2IdeaUInt16 b);
 

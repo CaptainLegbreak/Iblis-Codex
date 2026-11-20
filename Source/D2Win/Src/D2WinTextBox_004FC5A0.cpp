@@ -40,7 +40,7 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-int __fastcall SCROLLBAR_GetMaxSteps(D2WinScrollBarStrc* pScrollBar);  // 0x00507EF0
+extern "C" int __fastcall sub_00507EF0_GetScrollBarField48(D2WinScrollBarStrc* ptScrollbarData); // 0x00507EF0
 
 #ifdef MOVED_TEST
 #define ASSERT_LINE(x) ((x)+2)
@@ -54,5 +54,5 @@ extern "C" int __fastcall sub_004FC5A0_GetMaxSteps(D2WinTextBoxStrc* ptTextData)
 {
     D2_ASSERT(ptTextData, ASSERT_LINE(0x578));
     D2_ASSERT(ptTextData->eType == TEXTBOX_TYPE, ASSERT_LINE(0x579));
-    return SCROLLBAR_GetMaxSteps(ptTextData->pScrollBar);
+    return sub_00507EF0_GetScrollBarField48(ptTextData->pScrollBar);
 }

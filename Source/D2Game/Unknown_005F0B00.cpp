@@ -56,7 +56,7 @@ D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 void __fastcall MONSTER_GetPlayerCountBonus(D2GameStrc* pGame, D2PlayerCountBonusStrc* pPlayerCountBonus, D2ActiveRoomStrc* pRoom, D2UnitStrc* pMonster); // 0x00573930
 int __fastcall AITACTICS_ChangeModeAndTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, D2UnitStrc* pTargetUnit); // 0x005DDF90
 void __fastcall AITACTICS_IdleInNeutralMode(D2GameStrc* pGame, D2UnitStrc* pUnit, int nFrames); // 0x005DE080
-void __fastcall AITACTICS_SetVelocity(D2UnitStrc* pUnit, int a2, int nVel, unsigned char a4); // 0x005DE190
+void __fastcall sub_005DE190_SetAiParam(D2UnitStrc* pUnit, int nParam, int nValue, int nArg); // 0x005DE190
 int __fastcall AITACTICS_WalkToTargetUnitWithFlags(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit, unsigned char nFlag); // 0x005DEC80
 int __fastcall AITACTICS_RunToTargetUnitWithSteps(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char bStep); // 0x005DEFB0
 
@@ -101,7 +101,7 @@ D2UnitStrc* __fastcall AIUTIL_FindTargetWithCallback(D2GameStrc* pGame, D2UnitSt
 D2UnitStrc* __fastcall AIUTIL_SelectAiTargetWithCollisionCheck(D2GameStrc* pGame, D2UnitStrc* pUnit, int* pDistance, int* pInMeleeRange); // 0x005DDC30
 int __fastcall AITACTICS_UseSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nMode, int nSkillId, D2UnitStrc* pTarget, int nX, int nY); // 0x005DEAD0
 int __fastcall sub_005DEFE0_Escape(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance, int bDeleteAiEventCallback); // 0x005DEFE0
-int __fastcall D2GAME_AICORE_WalkToOwner_6FCD0B60(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pOwner, int nMaxDistance); // 0x005DF530
+int __fastcall D2GAME_AICORE_WalkToOwner_6FCD0B60(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pOwner, unsigned char nMaxDistance); // 0x005DF530
 int __fastcall sub_005DF7D0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int a4, int bDeleteAiEventCallback);
 D2UnitStrc* __fastcall AITHINK_TargetCallback_OblivionKnight(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, void* pCallbackArg); // 0x005FAE40
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
@@ -131,7 +131,7 @@ void __fastcall AITHINK_Fn010_CorruptRogue(D2GameStrc* pGame, D2UnitStrc* pUnit,
 
     if (nTargetDistance > 20 - 3 * playerCountBonus.nDifficulty)
     {
-        AITACTICS_SetVelocity(pUnit, 13, AI_GetParam(pGame, pMonStatsTxt, CORRUPTROGUE_AI_PARAM_RUN_VELOCITY), 0);
+        sub_005DE190_SetAiParam(pUnit, 13, AI_GetParam(pGame, pMonStatsTxt, CORRUPTROGUE_AI_PARAM_RUN_VELOCITY), 0);
         AITACTICS_RunToTargetUnitWithSteps(pGame, pUnit, pTarget, 3);
         return;
     }
@@ -153,7 +153,7 @@ void __fastcall AITHINK_Fn010_CorruptRogue(D2GameStrc* pGame, D2UnitStrc* pUnit,
     {
         if (AI_RollPercentageInline(pUnit) < AI_GetParam(pGame, pMonStatsTxt, CORRUPTROGUE_AI_PARAM_RUN_CHANCE_PCT))
         {
-            AITACTICS_SetVelocity(pUnit, 13, AI_GetParam(pGame, pMonStatsTxt, CORRUPTROGUE_AI_PARAM_RUN_VELOCITY), 0);
+            sub_005DE190_SetAiParam(pUnit, 13, AI_GetParam(pGame, pMonStatsTxt, CORRUPTROGUE_AI_PARAM_RUN_VELOCITY), 0);
             AITACTICS_RunToTargetUnitWithSteps(pGame, pUnit, pTarget, 3);
             return;
         }
@@ -221,7 +221,7 @@ void __fastcall AITHINK_Fn074_OblivionKnight(D2GameStrc* pGame, D2UnitStrc* pUni
             }
         }
 
-        AITACTICS_SetVelocity(pUnit, 2, 50, 0);
+        sub_005DE190_SetAiParam(pUnit, 2, 50, 0);
 
         if (sub_005DEFE0_Escape(pGame, pUnit, pTickTarget, 10, 1))
         {

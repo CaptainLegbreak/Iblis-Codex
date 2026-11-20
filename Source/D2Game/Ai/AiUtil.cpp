@@ -90,7 +90,7 @@ struct D2AiCallback11ArgStrc
     D2UnitStrc* unk0x08;
 };
 
-int __fastcall sub_6FCF14D0(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2); // 0x005DC640
+int __fastcall sub_005DC640_HasFreeSpotNearTarget(D2UnitStrc* pUnit, D2UnitStrc* pTarget); // 0x005DC640
 
 struct D2UbersAiCallbackArgStrc
 {
@@ -422,7 +422,7 @@ D2UnitStrc* __fastcall sub_6FCF1BD0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2Unit
         return 0;
     }
 
-    if (sub_005DC920_GetThreat(pTarget) > 1 && nDistance < pArg->nDistance && sub_6FCF14D0(pUnit, pTarget))
+    if (sub_005DC920_GetThreat(pTarget) > 1 && nDistance < pArg->nDistance && sub_005DC640_HasFreeSpotNearTarget(pUnit, pTarget))
     {
         pArg->pTarget = pTarget;
         pArg->nDistance = nDistance;

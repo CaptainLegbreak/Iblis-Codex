@@ -16,7 +16,7 @@ struct D2DrlgLevelStrc
 };
 
 void __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPresetEx(D2DrlgLevelStrc* pLevel, int nX, int nY, int nPresetId, int nDirection, int a6);  // 0x006743C0
-int __fastcall sub_00674730(D2DrlgLevelStrc* pLevel, int nPresetId, int nArg, int a4, int a5);          // 0x00674730
+int __fastcall DRLGOUTDOORS_SpawnOutdoorLevelPreset(D2DrlgLevelStrc* pLevel, int nLevelPrestId, int nRand, int nOffset, char nFlags); // 0x00674730
 void __fastcall DRLGOUTDOORS_AddAct124SecondaryBorder(D2DrlgLevelStrc* pLevel, int nIndex, int nPresetId);                     // 0x006752A0
 void __fastcall DRLGOUTPLACE_SetOutGridLinkFlags(D2DrlgLevelStrc* pLevel);                                                  // 0x00675770
 void __fastcall DRLGOUTPLACE_PlaceAct1245OutdoorBorders(D2DrlgLevelStrc* pLevel);                                                  // 0x00675850
@@ -53,39 +53,39 @@ static void sub_0067E6A0(D2DrlgLevelStrc* pLevel)
 {
     if (pLevel->eLevelId == 106)
     {
-        sub_00674730(pLevel, 0x32B, -1, 0, 15);
+        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x32B, -1, 0, 15);
     }
 
     int nFirst = gAct4FirstPresetBase[pLevel->eLevelId - 104];
     int nSecond = gAct4SecondPresetBase[pLevel->eLevelId - 104];
 
-    sub_00674730(pLevel, nFirst, -1, 0, 15);
-    sub_00674730(pLevel, nFirst + 1, -1, 0, 15);
-    sub_00674730(pLevel, nFirst + 1, -1, 0, 15);
-    sub_00674730(pLevel, nFirst + 2, -1, 0, 15);
-    sub_00674730(pLevel, nFirst + 2, -1, 0, 15);
-    sub_00674730(pLevel, nFirst + 3, -1, 0, 15);
-    sub_00674730(pLevel, nFirst + 3, -1, 0, 15);
+    DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, nFirst, -1, 0, 15);
+    DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, nFirst + 1, -1, 0, 15);
+    DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, nFirst + 1, -1, 0, 15);
+    DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, nFirst + 2, -1, 0, 15);
+    DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, nFirst + 2, -1, 0, 15);
+    DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, nFirst + 3, -1, 0, 15);
+    DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, nFirst + 3, -1, 0, 15);
 
     if (pLevel->eLevelId == 105)
     {
-        sub_00674730(pLevel, 0x336, -1, 0, 15);
+        DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, 0x336, -1, 0, 15);
     }
 
-    sub_00674730(pLevel, nFirst + 4, -1, 0, 15);
-    sub_00674730(pLevel, nFirst + 4, -1, 0, 15);
-    sub_00674730(pLevel, nFirst + 4, -1, 0, 15);
-    sub_00674730(pLevel, nFirst + 4, -1, 0, 15);
+    DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, nFirst + 4, -1, 0, 15);
+    DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, nFirst + 4, -1, 0, 15);
+    DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, nFirst + 4, -1, 0, 15);
+    DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, nFirst + 4, -1, 0, 15);
 
-    sub_00674730(pLevel, nSecond, -1, 0, 15);
-    sub_00674730(pLevel, nSecond + 1, -1, 0, 15);
-    sub_00674730(pLevel, nSecond + 1, -1, 0, 15);
-    sub_00674730(pLevel, nSecond + 2, -1, 0, 15);
-    sub_00674730(pLevel, nSecond + 2, -1, 0, 15);
-    sub_00674730(pLevel, nSecond + 3, -1, 0, 15);
-    sub_00674730(pLevel, nSecond + 3, -1, 0, 15);
-    sub_00674730(pLevel, nSecond + 3, -1, 0, 15);
-    sub_00674730(pLevel, nSecond + 3, -1, 0, 15);
+    DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, nSecond, -1, 0, 15);
+    DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, nSecond + 1, -1, 0, 15);
+    DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, nSecond + 1, -1, 0, 15);
+    DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, nSecond + 2, -1, 0, 15);
+    DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, nSecond + 2, -1, 0, 15);
+    DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, nSecond + 3, -1, 0, 15);
+    DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, nSecond + 3, -1, 0, 15);
+    DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, nSecond + 3, -1, 0, 15);
+    DRLGOUTDOORS_SpawnOutdoorLevelPreset(pLevel, nSecond + 3, -1, 0, 15);
 }
 
 // 0x0067E840

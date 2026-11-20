@@ -14,11 +14,11 @@ extern "C" __declspec(noreturn) void __cdecl exit(int); // 0x00681E09
 void __cdecl sub_0044DA40(); // 0x0044DA40
 void __cdecl sub_00487990_ResetHover(); // 0x00487990
 void __fastcall sub_004B3C20(int); // 0x004B3C20
-int __fastcall sub_00455F20(int,int,int); // 0x00455F20
-D2UnitStrc* __fastcall sub_00463990_GetClientUnit(int,int); // 0x00463990
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
+D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 D2UnitStrc* __cdecl sub_00463DD0_GetPlayerUnit(); // 0x00463DD0
 int __stdcall STATLIST_UnitGetStatValue(D2UnitStrc*,int,int); // 0x00625480
-void __fastcall sub_00456300(int,int); // 0x00456300
+int __fastcall sub_00456300_CloseUIVars(int bArg1, int nArg2); // 0x00456300
 void __cdecl sub_004B3DE0_CloseNpc(); // 0x004B3DE0
 void __cdecl sub_004B4DB0_OpenGreetingDialog(); // 0x004B4DB0
 int __cdecl sub_004B1D70_FindNpcEntry(); // 0x004B1D70
@@ -33,7 +33,7 @@ static __declspec(noinline) void sub_004B1640_SetNpcInteract(D2UnitStrc* unit)
  if(unit) { gnNpcActive=1;gnNpcId=unit->id;gnNpcClass=unit->classId; }
  else gnNpcActive=0;
 }
-inline D2UnitStrc* FindCurrentNpc() { return gnNpcActive?sub_00463990_GetClientUnit(gnNpcId,1):0; }
+inline D2UnitStrc* FindCurrentNpc() { return gnNpcActive?sub_00463990(gnNpcId,1):0; }
 // 0x004B4FD0
 void __stdcall sub_004B4FD0_OpenNpcWindow(D2UnitStrc* unit)
 {
@@ -55,7 +55,7 @@ void __stdcall sub_004B4FD0_OpenNpcWindow(D2UnitStrc* unit)
  gnNpcOpen=1;
  gnNpcMenu=0;
  gnNpcPlayerStat=STATLIST_UnitGetStatValue(sub_00463DD0_GetPlayerUnit(),14,0);
- sub_00456300(0,0);
+ sub_00456300_CloseUIVars(0,0);
  sub_0044DA40();
  if(FindCurrentNpc()) { sub_00408A60(gszEmptyAssert,sub_00408090(),3529);exit(-1); }
  sub_004B1640_SetNpcInteract(unit);

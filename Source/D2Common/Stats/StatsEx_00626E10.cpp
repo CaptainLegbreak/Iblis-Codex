@@ -11,8 +11,8 @@
 
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 D2ItemStatCostTxt* __fastcall sub_0045C4F0_GetItemStatCostTxtRecord(int nStatId);                           // 0x0045C4F0
-int __fastcall sub_006266C0_UpdateStatOps(D2StatListExStrc* pStatListEx, int nLayer_StatId, D2ItemStatCostTxt* pItemStatCostTxtRecord, D2UnitStrc* pUnit); // 0x006266C0
-void __fastcall sub_00626920_UpdateStatValue(D2StatListExStrc* pStatListEx, int nLayer_StatId, int nValue, D2UnitStrc* pUnit); // 0x00626920
+int __fastcall sub_006266C0_UpdateStatOps(D2StatListStrc* pStatList, int nLayer_StatId, D2ItemStatCostTxt* pItemStatCostTxtRecord, D2UnitStrc* pUnit); // 0x006266C0
+void __fastcall sub_00626920_UpdateStatValue(D2StatListStrc* pStatList, int nLayer_StatId, int nValue, D2UnitStrc* pUnit); // 0x00626920
 void __stdcall D2Common_ExpireStatList_6FDB6E30(D2StatListExStrc* pStatList);                               // 0x006269F0
 static D2StatsArrayStrc* sub_00624F40_GetStatsArray(D2StatListExStrc* pStatList);                           // 0x00624F40
 

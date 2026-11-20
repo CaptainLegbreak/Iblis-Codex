@@ -47,10 +47,10 @@ struct D2QuestData0058EA50Strc
 };
 
 extern unsigned char gtRecord_00732FF8[]; // 0x00732FF8
-void __fastcall sub_00586B50_Callback(); // 0x00586B50
-void __fastcall sub_0058E990_Callback(); // 0x0058E990
-void __fastcall sub_00586C40_StatusFilterCallback(); // 0x00586C40
-void __fastcall sub_00586C50_ActiveFilterCallback(); // 0x00586C50
+void __fastcall ACT5Intro_Callback00_NpcActivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x00586B50
+void __fastcall ACT5Intro_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg); // 0x0058E990
+bool __fastcall sub_00586C40_StatusFilterCallback(D2QuestDataStrc* quest, D2UnitStrc* player, D2BitBufferStrc* globalFlags, D2BitBufferStrc* flags, unsigned char* status); // 0x00586C40
+bool __fastcall ACT5Intro_ActiveFilterCallback(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC); // 0x00586C50
 
 // 0x0058E990
 void __fastcall ACT5Intro_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
@@ -121,8 +121,8 @@ void __fastcall ACT5Intro_Callback11_ScrollMessage(D2QuestDataStrc* pQuestData, 
 void __fastcall sub_0058EA50_InitQuestCallbacks(D2QuestData0058EA50Strc* pQuestData)
 {
     memset(&pQuestData->tCallbacks, 0, sizeof(pQuestData->tCallbacks));
-    pQuestData->tCallbacks.pfCallbackA0 = (void*)sub_00586B50_Callback;
-    pQuestData->tCallbacks.pfCallbackCC = (void*)sub_0058E990_Callback;
+    pQuestData->tCallbacks.pfCallbackA0 = (void*)ACT5Intro_Callback00_NpcActivate;
+    pQuestData->tCallbacks.pfCallbackCC = (void*)ACT5Intro_Callback11_ScrollMessage;
     pQuestData->pRecordDC = gtRecord_00732FF8;
     pQuestData->nA = 1;
     pQuestData->nC = 0;
@@ -130,7 +130,7 @@ void __fastcall sub_0058EA50_InitQuestCallbacks(D2QuestData0058EA50Strc* pQuestD
     pQuestData->n18 = 0;
     pQuestData->nE0 = 0x2A;
     pQuestData->pfStatusFilterE8 = (void*)sub_00586C40_StatusFilterCallback;
-    pQuestData->pfActiveFilterEC = (void*)sub_00586C50_ActiveFilterCallback;
+    pQuestData->pfActiveFilterEC = (void*)ACT5Intro_ActiveFilterCallback;
 }
 
 #include "gen/data/Source/D2Game/Unknown_0058E990.inc"

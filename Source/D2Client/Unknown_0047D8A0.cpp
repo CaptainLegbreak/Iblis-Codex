@@ -32,7 +32,7 @@ struct D2OptionEntryStrc
     char unk0x128[0x428];
 };
 
-void __stdcall sub_00420290_HandleMsg(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
+int __stdcall sub_00420290_BreakHandlerChain(SMSGHANDLER_PARAMS* pMsg); // 0x00420290
 int __fastcall sub_004B9A00(int nSoundId, int nArg1, int nArg2, int nArg3, int nArg4); // 0x004B9A00
 extern D2OptionHeaderStrc* gpOptionHeader_007BC93C; // 0x007BC93C
 extern D2OptionEntryStrc* gpOptionEntries_007BC940; // 0x007BC940
@@ -42,7 +42,7 @@ void __fastcall sub_00478A00(void* pCel); // 0x00478A00
 int __cdecl sub_0044BE90(); // 0x0044BE90
 int __cdecl sub_0044DB30(); // 0x0044DB30
 void* __fastcall sub_004520C0_LoadUiCelFile(const char* szPath); // 0x004520C0
-int __fastcall sub_004538D0(int nUIVar); // 0x004538D0
+int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
 int __cdecl sub_004979E0(); // 0x004979E0
 int __cdecl sub_004979F0(); // 0x004979F0
 int __cdecl sub_00468730(); // 0x00468730
@@ -84,7 +84,7 @@ void __stdcall sub_0047D8A0_SelectNextOption(SMSGHANDLER_PARAMS* pMsg)
     sub_004B9A00(1, 0, 0, 0, 0);
     pMsg->bUseResult = 1;
     pMsg->lResult = 0;
-    sub_00420290_HandleMsg(pMsg);
+    sub_00420290_BreakHandlerChain(pMsg);
 }
 
 // 0x0047D920
@@ -103,7 +103,7 @@ void __stdcall sub_0047D920_SelectPreviousOption(SMSGHANDLER_PARAMS* pMsg)
     sub_004B9A00(1, 0, 0, 0, 0);
     pMsg->bUseResult = 1;
     pMsg->lResult = 0;
-    sub_00420290_HandleMsg(pMsg);
+    sub_00420290_BreakHandlerChain(pMsg);
 }
 
 void* gpOptionCel_007BC950; // 0x007BC950

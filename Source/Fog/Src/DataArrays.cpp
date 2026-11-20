@@ -16,7 +16,7 @@ struct D2RecordArrayStrc
     unsigned char* data;
 };
 
-void* __fastcall FOG_Alloc(unsigned int, const char*, int, int); // 0x0040B380
+void* __fastcall FOG_Alloc(int nSize, const char* szFile, int nLine, int n0); // 0x0040B380
 extern "C" void* __cdecl memset(void*, int, unsigned int); // 0x00681EF0
 extern "C" char* __cdecl strncpy(char*, const char*, unsigned int); // 0x00687330
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0

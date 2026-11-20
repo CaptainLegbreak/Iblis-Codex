@@ -10,7 +10,7 @@ extern "C" unsigned int __security_cookie; // 0x00749DE0
 extern "C" void __fastcall __security_check_cookie(unsigned int nCookie); // 0x00681A48
 int __stdcall SMemFree(void* pMemory, const char* szFile, int nLine, unsigned int dwFlags); // 0x00412650
 void* __stdcall SMemAlloc(unsigned int nSize, const char* szFile, int nLine, unsigned int nFlags); // 0x00413020
-unsigned int __stdcall sub_00416370_StormGetFileSize(void* hFile, unsigned int* pnSizeHigh); // 0x00416370
+int __stdcall sub_00416370_StormGetFileSize(void* hFile, unsigned int* pdwFileSizeHigh); // 0x00416370
 unsigned long __stdcall SFileSetFilePointer(void* hFile, long nDistance, long* pnDistanceHigh, unsigned long dwMoveMethod); // 0x004165A0
 int __stdcall SFileReadFile(void* hFile, void* pBuffer, int nToRead, int* pnRead, void* pOverlapped); // 0x0041B050
 void __stdcall SMemZero(void* destination, unsigned int size); // 0x0041D300

@@ -114,7 +114,7 @@ extern "C" __declspec(dllimport) void* __stdcall CreateWindowExA(unsigned long d
 extern "C" __declspec(dllimport) void* __stdcall FindWindowA(const char* szClass, const char* szWindow); // 0x006CC500
 extern int gnCaptionHeight_007C9270; // 0x007C9270
 extern int gbNoWindowCreated_007C9338; // 0x007C9338
-void __cdecl sub_0051793E_FormatAndRaise(unsigned long dwError); // 0x0051793E
+void __cdecl sub_0051793E_FormatAndRaise(unsigned long dwError, ...); // 0x0051793E
 
 #include "gen/data/Source/D2Gfx/SRC/Window.inc"
 

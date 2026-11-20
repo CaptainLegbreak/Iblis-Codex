@@ -59,7 +59,7 @@ struct D2ChatChannelMemberStrc
 };
 
 void __stdcall D2Win_10152(D2CompositeUnitStrc* pCompositeUnit, int nY);                                    // 0x005052B0
-void __stdcall D2Win_10156(D2CompositeUnitStrc* pCompositeUnit, unsigned int nFlags);                       // 0x00505360
+void __stdcall D2Win_10156(D2CompositeUnitStrc* hCompositeUnit, int nFlags); // 0x00505360
 
 extern unsigned int gdwBitMasks[];                                                                          // 0x006CE268
 extern unsigned int gdwInvBitMasks[];                                                                       // 0x006CE2E8

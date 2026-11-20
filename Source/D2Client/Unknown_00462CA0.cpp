@@ -102,7 +102,7 @@ int __fastcall CLIENTS_GetUnitY(D2UnitStrc* pUnit);
 void __fastcall sub_00460780_SetPlayerMode(int nMode, D2UnitStrc* pUnit, int nArg1, int nArg2);
 int __fastcall sub_00461AC0_IsInAuraRange(D2SkillStrc* pSkill, D2UnitStrc* pTarget, int* pRange, int* pDistance);
 int __fastcall sub_00462930_FilterMessage(D2PlayerCmdStrc* pCmd);
-D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType); // 0x00463990
+D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 void __fastcall sub_00463D90(int nArg);
 D2UnitStrc* __cdecl sub_00463DD0();
 D2UnitStrc* __cdecl sub_00463DE0_GetStoredUnit();

@@ -10,10 +10,10 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 bool __stdcall sub_004067D0_GetKnownFolderPathA(char* szPath, int nSize);                                   // 0x004067D0
 int __fastcall sub_00406B20_AppendBackslash(char* szPath, size_t nSize);                                // 0x00406B20
 int __fastcall sub_00406DE0_MoveDirectoryTree(const char* szPathA, const char* szPathB);                         // 0x00406DE0
-int __stdcall SStrNCat(char* szBase, const char* szAppend, int nMaxLength);                                 // 0x00413800
+unsigned int __stdcall sub_00413800(char* dest, const char* source, unsigned int limit); // 0x00413800
 size_t __stdcall SStrLen(const char* szString);                                                             // 0x00413750
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nDestSize);                // 0x004135D0
-int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned int nBufferSize); // 0x00414E50
+int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned long nBufferSize); // 0x00414E50
 int __stdcall SRegSaveString(const char* szKeyName, const char* szValueName, unsigned int nFlags, const char* szString); // 0x00415070
 
 extern "C" __declspec(dllimport) long __stdcall SHGetFolderPathA(void* hwnd, int csidl, void* hToken, unsigned long dwFlags, char* pszPath); // 0x006CC43C
@@ -50,7 +50,7 @@ static bool sub_00406D30(char* szOutPath, unsigned int nMaxLen)
     if (sub_004067D0_GetKnownFolderPathA(szOutPath, nMaxLen))
     {
         sub_00406B20_AppendBackslash(szOutPath, nMaxLen);
-        SStrNCat(szOutPath, "Diablo II", nMaxLen);
+        sub_00413800(szOutPath, "Diablo II", nMaxLen);
     }
     else
     {
@@ -59,7 +59,7 @@ static bool sub_00406D30(char* szOutPath, unsigned int nMaxLen)
             return false;
         }
         sub_00406B20_AppendBackslash(szOutPath, nMaxLen);
-        SStrNCat(szOutPath, "Diablo II\\Save", nMaxLen);
+        sub_00413800(szOutPath, "Diablo II\\Save", nMaxLen);
     }
     return true;
 }

@@ -10,7 +10,7 @@ struct UnitPrefix;
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(); // 0x006CC260
 void __cdecl sub_0044C750_InitRooms(); // 0x0044C750
 void __cdecl sub_00465AA0_ResetUnitTables(); // 0x00465AA0
-D2ActiveRoomStrc* __fastcall sub_004646A0_GetPlayerRoom(); // 0x004646A0
+D2ActiveRoomStrc* __cdecl sub_004646A0_GetPlayerRoom(); // 0x004646A0
 void __stdcall DUNGEON_AnimateTiles(D2ActiveRoomStrc* pRoom); // 0x0061AEF0
 void __cdecl sub_0046BEB0_UpdateTimers(); // 0x0046BEB0
 void __fastcall sub_00470350_PreloadTick(int nValue); // 0x00470350

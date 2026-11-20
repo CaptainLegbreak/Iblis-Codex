@@ -42,8 +42,8 @@ struct D2AiTickParamStrc
 
 int __fastcall sub_6FCF2E70(D2UnitStrc* pUnit); // 0x005DD2B0
 int __fastcall AITACTICS_ChangeModeAndTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMode, D2UnitStrc* pTargetUnit); // 0x005DDF90
-void __fastcall AITACTICS_SetVelocity(D2UnitStrc* pUnit, int a2, int nVel, unsigned char a4); // 0x005DE190
-int __fastcall AITACTICS_WalkCloseToUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, int nMaxDistance); // 0x005DE200
+void __fastcall sub_005DE190_SetAiParam(D2UnitStrc* pUnit, int nParam, int nValue, int nArg); // 0x005DE190
+int __fastcall AITACTICS_WalkCloseToUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nMaxDistance); // 0x005DE200
 int __fastcall AITACTICS_RunToTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTargetUnit); // 0x005DED20
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
@@ -122,7 +122,7 @@ void __fastcall sub_005EFE20_AiThink(D2GameStrc* pGame, D2UnitStrc* pUnit, D2AiT
     if (DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pUnit)) == LEVEL_BURIALGROUNDS)
     {
 lApproach:
-        AITACTICS_SetVelocity(pUnit, 0, 100, 0);
+        sub_005DE190_SetAiParam(pUnit, 0, 100, 0);
         AITACTICS_RunToTargetUnit(pGame, pUnit, pTarget);
         return;
     }
@@ -282,7 +282,7 @@ void __fastcall sub_005F2B10_GreaterMummyThink(D2GameStrc* pGame,D2UnitStrc* pUn
  }
  if(args.nCounter<=0)
  {
-  AITACTICS_SetVelocity(pUnit,0,50,0);
+  sub_005DE190_SetAiParam(pUnit,0,50,0);
   AITACTICS_WalkToTargetUnitWithSteps(pGame,pUnit,pTarget,3); return;
  }
  if((int)((unsigned int)RollSeed(pUnit)%100)<50)

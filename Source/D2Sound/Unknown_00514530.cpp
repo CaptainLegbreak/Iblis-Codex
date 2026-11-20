@@ -4,7 +4,7 @@ extern "C" __declspec(dllimport) unsigned int __stdcall GetWindowsDirectoryA(cha
 extern "C" char* __cdecl strcat(char* szDest, const char* szSource);
 extern "C" int __stdcall DirectSoundEnumerateA(void* pfCallback, void* pContext);                           // 0x006B134A
 int __stdcall sub_00513A20_EnumCallback(void* pGuid, const char* szDescription, const char* szModule, void* pContext); // 0x00513A20
-void __fastcall sub_005140D0_TrySetup();                                                                    // 0x005140D0
+void __cdecl sub_005140D0_InitDirectSound(); // 0x005140D0
 int __fastcall sub_00516CA0_GetFileVersion(const char* szPath, unsigned int* pMajor, unsigned int* pMinor, unsigned int* pBuild); // 0x00516CA0
 
 extern int gnSoundArg_008816DC;                                                                             // 0x008816DC
@@ -67,17 +67,17 @@ void __fastcall sub_00514530_InitSound(int nArg1, int nArg2)
     {
         gdwGlobal_0088176C = 1;
         gbEaxEnabled_00881770 = 1;
-        sub_005140D0_TrySetup();
+        sub_005140D0_InitDirectSound();
         if (!gbSoundReady_00881764)
         {
             gdwGlobal_0088176C = 1;
             gbEaxEnabled_00881770 = 0;
-            sub_005140D0_TrySetup();
+            sub_005140D0_InitDirectSound();
             if (!gbSoundReady_00881764)
             {
                 gdwGlobal_0088176C = 0;
                 gbEaxEnabled_00881770 = 0;
-                sub_005140D0_TrySetup();
+                sub_005140D0_InitDirectSound();
                 if (!gbSoundReady_00881764)
                 {
                     sub_00410610_WriteLogLine("\tCouldn't initialize DirectSound");

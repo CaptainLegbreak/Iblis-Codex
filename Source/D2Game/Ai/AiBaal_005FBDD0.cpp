@@ -109,13 +109,13 @@ __declspec(noinline) static int __stdcall sub_005FC300_RollUberAiParam(D2GameStr
 
 struct D2AiCmdStrc { int pad[3]; int nX; int nY; };
 
-int __stdcall PATH_GetX(void* pPath); // 0x006488C0
+int __stdcall PATH_GetXPosition(D2DynamicPathStrc* hPath); // 0x006488C0
 int __stdcall PATH_GetY(void* pPath); // 0x00648900
-int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nPattern, int nMask); // 0x0064D910
+int __stdcall COLLISION_CheckAnyCollisionWithPattern(D2ActiveRoomStrc* pRoom, int nX, int nY, int nCollisionPattern, unsigned short nMask); // 0x0064D910
 int __fastcall PLAYER_GetUniqueIdFromPlayerData(D2UnitStrc* pUnit); // 0x005353F0
 D2UnitStrc* __fastcall SUNIT_GetServerUnit(D2GameStrc* pGame, int nType, int nId); // 0x00552F60
 int __stdcall DUNGEON_GetLevelIdFromRoom(D2ActiveRoomStrc* pRoom); // 0x0061A1B0
-unsigned int __stdcall UNITS_GetDistanceToCoordinates(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
+int __stdcall sub_006417F0_GetDistanceToXY(D2UnitStrc* pUnit, int nX, int nY); // 0x006417F0
 __declspec(noinline) static int __stdcall AIBAAL_RollRandomAiParam(D2GameStrc*, D2UnitStrc*, D2AiControlStrc*, D2UnitStrc*, int, int, D2AiCmdStrc*);
 
 inline D2SkillsTxt* SKILLS_GetSkillsTxtRecord(int nSkillId)
@@ -700,7 +700,7 @@ static __forceinline int AIBAAL_GetUnitX_Inline(D2UnitStrc* pUnit)
 {
     switch (pUnit->dwUnitType) {
     case 2: case 4: case 5: return ((int*)pUnit->pDynamicPath)[3];
-    default: return pUnit->pDynamicPath ? PATH_GetX(pUnit->pDynamicPath) : 0;
+    default: return pUnit->pDynamicPath ? PATH_GetXPosition(pUnit->pDynamicPath) : 0;
     }
 }
 
@@ -729,7 +729,7 @@ static int __stdcall AIBAAL_RollRandomAiParam(D2GameStrc* pGame, D2UnitStrc* pUn
         D2UnitStrc* pObject = SUNIT_GetServerUnit(pGame, 2, PLAYER_GetUniqueIdFromPlayerData(pTarget));
         if (pObject && DUNGEON_GetLevelIdFromRoom(UNITS_GetRoom(pObject)) == 132)
         {
-            if (!pAiCmd || UNITS_GetDistanceToCoordinates(pObject, pAiCmd->nX, pAiCmd->nY) < 75)
+            if (!pAiCmd || sub_006417F0_GetDistanceToXY(pObject, pAiCmd->nX, pAiCmd->nY) < 75)
                 bInCloseRange = 1;
         }
     }

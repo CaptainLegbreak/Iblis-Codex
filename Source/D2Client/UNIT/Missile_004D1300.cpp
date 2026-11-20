@@ -52,7 +52,7 @@ int __stdcall MISSILE_GetLevel(D2UnitStrc* pMissile); // 0x0064A210
 int __stdcall MISSILE_GetSkill(D2UnitStrc* pMissile); // 0x0064A280
 int __stdcall PATH_GetXPosition(D2DynamicPathStrc* pPath); // 0x006488C0
 int __stdcall PATH_GetYPosition(D2DynamicPathStrc* pPath); // 0x00648900
-D2UnitStrc* __fastcall sub_00463990(int nUnitId, int nUnitType); // 0x00463990
+D2UnitStrc* __fastcall sub_00463990(unsigned int nUnitId, int nUnitType); // 0x00463990
 void __stdcall MISSILE_SetTargetX(D2UnitStrc* pMissile, int nTargetX); // 0x0064A710
 void __stdcall MISSILE_SetTargetY(D2UnitStrc* pMissile, int nTargetY); // 0x0064A760
 

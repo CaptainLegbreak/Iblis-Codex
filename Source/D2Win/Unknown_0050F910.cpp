@@ -83,7 +83,7 @@ extern "C" __declspec(dllimport) void __stdcall BinkClose(D2BinkStrc* pBink); //
 extern "C" __declspec(dllimport) unsigned int __stdcall BinkDDSurfaceType(D2DDrawSurfaceStrc* pSurface); // 0x006CC5D0
 extern "C" __declspec(dllimport) int __stdcall BinkSetSoundSystem(void* pfOpen, unsigned long nParam); // 0x006CC5D4
 extern "C" __declspec(dllimport) void* __stdcall BinkOpenDirectSound(unsigned long nParam); // 0x006CC5D8
-int __stdcall SFileOpenFileEx(void* hMpq, const char* szFileName, int nSearchScope, void** phFile); // 0x004192F0
+int __stdcall SFileOpenFileEx(unsigned int hMpq, const char* szFileName, unsigned int dwFlags, void** phFile); // 0x004192F0
 void __cdecl sub_0050FD10_GlideDrawVideoFrame(); // 0x0050FD10
 void __cdecl sub_005136F0_BlitBinkFrame(); // 0x005136F0
 void __fastcall sub_00515CE0_SetMasterVolume(int nVolume); // 0x00515CE0

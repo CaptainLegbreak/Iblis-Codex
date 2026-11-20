@@ -11,7 +11,7 @@ struct SMSGHANDLER_PARAMS
     int bUseResult;
     int lResult;
 };
-void __fastcall sub_00455F20(int nUIVar, int nState, int nArg); // 0x00455F20
+int __fastcall sub_00455F20(unsigned int nUIVar, unsigned int nState, int nArg); // 0x00455F20
 void __cdecl sub_00466FE0(); // 0x00466FE0
 int __fastcall sub_00469D90(int nA, int nB); // 0x00469D90
 unsigned short __fastcall sub_00469AA0(int nA, int nB); // 0x00469AA0

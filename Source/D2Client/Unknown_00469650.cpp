@@ -32,7 +32,7 @@ struct D2KeyConfigHeaderStrc
 extern "C" void* __cdecl memset(void* pDst, int nValue, size_t nSize);
 extern "C" void* __cdecl memcpy(void* pDst, const void* pSrc, size_t nSize);
 extern "C" char* __cdecl strcat(char* szDst, const char* szSrc);
-void __fastcall sub_00407050_GetSavePath(char* szPath, int nSize);                                          // 0x00407050
+int __fastcall sub_00407050_GetSavePath(char* szPath, int nSize); // 0x00407050
 int __fastcall sub_00406A10_CreateDirectoryTree(const char* szPath);                                        // 0x00406A10
 void* __fastcall sub_00406960_CreateFile(const char* szFileName, unsigned long dwDesiredAccess, unsigned long dwShareMode, void* pSecurityAttributes, unsigned long dwCreationDisposition, unsigned long dwFlagsAndAttributes, void* hTemplateFile); // 0x00406960
 int __fastcall sub_004069D0_WriteFile(void* hFile, const void* pBuffer, unsigned long nSize, unsigned long* pWritten, void* pOverlapped); // 0x004069D0

@@ -14,7 +14,7 @@ D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc*, int); // 0x00543640
 void __stdcall UNITS_ChangeAnimMode(D2UnitStrc*, int); // 0x00624690
 D2ObjectsTxt* __stdcall DATATBLS_GetObjectsTxtRecord(int); // 0x00640E90
 void __fastcall EVENT_SetEvent(D2GameStrc*, D2UnitStrc*, int, int, int, int); // 0x005417D0
-void __fastcall QUESTS_CreateTimer(D2QuestDataStrc*, QUESTUPDATE, int); // 0x00543F10
+void __fastcall QUESTS_CreateTimer(D2QuestDataStrc* pQuest, QUESTUPDATE pfnCallback, int nTicks); // 0x00543F10
 bool __fastcall sub_005B9A30_QuestSeqCallback(D2GameStrc*, D2QuestDataStrc*); // 0x005B9A30
 void __fastcall SUNIT_AttachSound(D2UnitStrc*, int, D2UnitStrc*); // 0x00553380
 inline D2BitBufferStrc* GetPlayerQuestFlags(D2GameStrc* pGame, D2UnitStrc* pPlayer)

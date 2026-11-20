@@ -1,5 +1,5 @@
 void __stdcall sub_0041C340_SetLastError(unsigned long dwError); // 0x0041C340
-int __stdcall sub_004135D0_CopyString(char* szDest, const char* szSource, unsigned int nMaxLength); // 0x004135D0
+unsigned int __stdcall SStrCopy(char* dest,const char* source,unsigned int limit); // 0x004135D0
 
 struct D2ScmdNode006C4DC0Strc;
 
@@ -51,7 +51,7 @@ int __stdcall sub_006C4DC0_GetText(int nId, char* szBuffer, unsigned int nBuffer
             {
                 if (pNode->szText)
                 {
-                    sub_004135D0_CopyString(szBuffer, pNode->szText, nBufferSize);
+                    SStrCopy(szBuffer, pNode->szText, nBufferSize);
                 }
                 return 1;
             }

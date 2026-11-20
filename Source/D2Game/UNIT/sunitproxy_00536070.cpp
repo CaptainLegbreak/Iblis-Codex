@@ -87,8 +87,8 @@ extern int gnItemCode_00883EA0; // 0x00883EA0
 extern "C" void* __cdecl memset(void*,int,unsigned int); // 0x00681EF0
 void __fastcall SEED_InitSeed(D2SeedStrc*); // 0x00650E30
 void __fastcall SEED_InitLowSeed(D2SeedStrc*,unsigned int); // 0x00650E40
-void* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int,int*); // 0x00633640
-void* __stdcall INVENTORY_AllocInventory(void*,void*); // 0x0063ABD0
+D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId); // 0x00633640
+D2InventoryStrc* __stdcall INVENTORY_AllocInventory(void* pMemPool, D2UnitStrc* pOwner); // 0x0063ABD0
 
 // build: context SUNITPROXY_GetMonStatsTxtRecordInline
 static D2MonStatsTxt* SUNITPROXY_GetMonStatsTxtRecordInline(int nMonsterId)

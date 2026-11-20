@@ -34,7 +34,7 @@ int __stdcall UNITS_TestCollisionWithUnit(D2UnitStrc* pUnit1, D2UnitStrc* pUnit2
 int __fastcall sub_005E45D0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, D2UnitStrc* pOwner, int a5, D2AiTickParamStrc* pAiTickParam, int a7, int a8); // 0x005E45D0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0
 int __stdcall DUNGEON_IsRoomInTown(D2ActiveRoomStrc* pRoom); // 0x0061AB00
-int __fastcall sub_005DF400_FollowOwner(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pOwner, int nDistance); // 0x005DF400
+int __fastcall AITACTICS_WanderToTarget(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, unsigned char nMaxDistance); // 0x005DF400
 unsigned int __fastcall SEED_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C390
 int __fastcall AITACTICS_UseSkill(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char nMode, int nSkillId, D2UnitStrc* pTarget, int nX, int nY); // 0x005DEAD0
 int __fastcall sub_005DF7D0(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pTarget, int a4, int bDeleteAiEventCallback); // 0x005DF7D0
@@ -101,12 +101,12 @@ void __fastcall sub_005E4AC0_NecroPetFollowOwner(D2GameStrc* pGame, D2UnitStrc* 
         return;
     if (pTarget && DUNGEON_IsRoomInTown(UNITS_GetRoom(pUnit)))
     {
-        sub_005DF400_FollowOwner(pGame, pUnit, pOwner, 4);
+        AITACTICS_WanderToTarget(pGame, pUnit, pOwner, 4);
         return;
     }
     if (!pTarget)
     {
-        sub_005DF400_FollowOwner(pGame, pUnit, pOwner, 4);
+        AITACTICS_WanderToTarget(pGame, pUnit, pOwner, 4);
         return;
     }
     if (!DUNGEON_IsRoomInTown(UNITS_GetRoom(pUnit)))

@@ -90,10 +90,10 @@ extern "C" __declspec(dllimport) unsigned short __stdcall GetSystemDefaultLangID
 unsigned int __stdcall SStrCopy(char* szDest, const char* szSource, unsigned int nMax);                     // 0x004135D0
 unsigned int __stdcall SStrLen(const char* szString);                                                       // 0x00413750
 char* __stdcall sub_004141E0_StrUpper(char* szString);                                                      // 0x004141E0
-int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned int nBufferSize); // 0x00414E50
+int __stdcall SRegLoadString(const char* szKeyName, const char* szValueName, unsigned int nFlags, char* szBuffer, unsigned long nBufferSize); // 0x00414E50
 int __cdecl sub_0051BEC0_IsExpansion();                                                                     // 0x0051BEC0
 int __fastcall sub_0051C5C0_SendPacket(unsigned char nId, const void* pData, unsigned int nSize);           // 0x0051C5C0
-int __fastcall sub_0051C9E0_GetLocalAddress(D2SockAddrInStrc* pAddress, int* pnLength);                     // 0x0051C9E0
+int __fastcall sub_0051C9E0_GetSockName(void* pAddress, int* pnLength); // 0x0051C9E0
 int __fastcall sub_0051DDD0_DecodeCDKey16(int* pProduct, int* pValue1, const char* szKey, int* pValue2);   // 0x0051DDD0
 void __cdecl sub_005234D0_LockCDKeys();                                                                     // 0x005234D0
 void __cdecl sub_005239C0_UnlockCDKeys();                                                                   // 0x005239C0
@@ -210,7 +210,7 @@ int __stdcall sub_00521BF0()
 
     D2SockAddrInStrc tAddress;
     int nLength = 0x10;
-    tPacket.f_14 = sub_0051C9E0_GetLocalAddress(&tAddress, &nLength) ? tAddress.sin_addr : 0;
+    tPacket.f_14 = sub_0051C9E0_GetSockName(&tAddress, &nLength) ? tAddress.sin_addr : 0;
 
     D2FileTimeStrc tLocalFileTime;
     D2FileTimeStrc tSystemFileTime;

@@ -6,11 +6,11 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 
 extern "C" int __cdecl abs(int nValue);
 extern "C" long __cdecl strtoul(const char* szString, char** ppEnd, int nRadix);                             // 0x006867B2
-int __stdcall SStrLen(const char* szString);                                                                // 0x00413750
+unsigned int __stdcall SStrLen(const char* szString); // 0x00413750
 int __cdecl sub_00518C70_StartLogging(int nChannel, int nIndent);                                           // 0x00518C70
 void __cdecl sub_00518D40_Log(const char* szFormat, ...);                                                   // 0x00518D40
 
-void __stdcall sub_00414D90_RegDeleteValue(const char* szKeyName, const char* szValueName, unsigned int dwFlags); // 0x00414D90
+int __stdcall sub_00414D90_RegDeleteValue(const char* szKeyName, const char* szValueName, unsigned int nFlags); // 0x00414D90
 char* __stdcall sub_00518300_LoadGatewayFile(unsigned int* pSize);                                          // 0x00518300
 
 class BNGatewayAccess

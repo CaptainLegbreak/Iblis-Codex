@@ -27,7 +27,7 @@ extern int gnGlobal_007A6B08; // 0x007A6B08
 int __cdecl sub_0044DA30(); // 0x0044DA30
 int __cdecl sub_00463DF0(); // 0x00463DF0
 int __cdecl sub_0044DCC0(); // 0x0044DCC0
-int __fastcall sub_004538D0(int nUIVar); // 0x004538D0
+int __fastcall sub_004538D0(unsigned int nUIVar); // 0x004538D0
 void __fastcall sub_004A9E60_AssignHotkey(int nHotkey); // 0x004A9E60
 void __fastcall sub_004AA030_SelectHotkey(int nSlot); // 0x004AA030
 void __cdecl sub_00498C50_BeltHotkey0(); // 0x00498C50

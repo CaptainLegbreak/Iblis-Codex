@@ -25,7 +25,7 @@ void __stdcall SMemZero(void* pDest, unsigned int nSize);                       
 extern "C" int __cdecl sprintf(char* szDest, const char* szFormat, ...);                                    // 0x006823FD
 extern "C" char* __cdecl strcpy(char* szDest, const char* szSource);
 const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex);                              // 0x00524A30
-char* __fastcall sub_00446820_SkipNamePrefix(const char* szName);                                           // 0x00446820
+const char* __fastcall sub_00446820_SkipNamePrefix(const char* szName); // 0x00446820
 void __fastcall sub_0043EA70_ShowMessage(const Unicode* pTitle, const Unicode* pText);                      // 0x0043EA70
 int __stdcall sub_0043E900_FindCdKeyInText(const char* szText);                                             // 0x0043E900
 int __cdecl sub_00442810_SendChatBuffer();                                                                  // 0x00442810
