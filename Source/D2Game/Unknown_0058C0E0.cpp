@@ -5,38 +5,13 @@
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2QuestData.h"
 
 
 
 
 
 
-struct D2Act5Quest5Strc
-{
-    unsigned char bAncientsDefeated;
-    unsigned char bQualKehkActivated;
-    unsigned char unused0x02[0x0A];
-    int nActivePortalCount;
-    unsigned char unk0x10;
-    unsigned char bActivatable;
-    unsigned char pad0x12[2];
-    int nAncientStatueGUID[3];
-    int nAncientMonsterGUID[3];
-    unsigned char bAncientMonsterSpawned[3];
-    unsigned char pad0x2F;
-    int nAncientStatueObjectMode[3];
-    unsigned char bAncienStatueRespawned[3];
-    unsigned char pad0x3F;
-    int nAncientsSpawned;
-    int nAncientsAlive;
-    unsigned char bAncientsActivated;
-    unsigned char unused0x49;
-    unsigned char bQuestCompletedBefore;
-    unsigned char pad0x4B;
-    int nAltarObjectMode;
-    int nAltarGUID;
-    int nLivingPlayersOnSummit;
-};
 
 struct D2DataTablesStrc
 {
@@ -216,7 +191,7 @@ void __fastcall ACT5Q5_OnPortalOpened(D2GameStrc* pGame, D2UnitStrc* pUnit)
 
     ++((D2Act5Quest5Strc*)pQuestData->pQuestDataEx)->nActivePortalCount;
     ((D2Act5Quest5Strc*)pQuestData->pQuestDataEx)->bActivatable = 0;
-    ((D2Act5Quest5Strc*)pQuestData->pQuestDataEx)->unk0x10 = 0;
+    ((D2Act5Quest5Strc*)pQuestData->pQuestDataEx)->active = 0;
     ACT5Q5_DeactivateAncientMonsters(pGame, pQuestData, (D2Act5Quest5Strc*)pQuestData->pQuestDataEx);
 }
 
@@ -246,7 +221,7 @@ void __fastcall ACT5Q5_OnPlayerDied(D2GameStrc* pGame, D2UnitStrc* pUnit)
     if (!pQuestDataEx->nLivingPlayersOnSummit)
     {
         ((D2Act5Quest5Strc*)pQuestData->pQuestDataEx)->bActivatable = 0;
-        ((D2Act5Quest5Strc*)pQuestData->pQuestDataEx)->unk0x10 = 0;
+        ((D2Act5Quest5Strc*)pQuestData->pQuestDataEx)->active = 0;
         ACT5Q5_DeactivateAncientMonsters(pGame, pQuestData, (D2Act5Quest5Strc*)pQuestData->pQuestDataEx);
     }
 }

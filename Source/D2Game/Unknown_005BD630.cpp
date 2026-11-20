@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
+#include "D2QuestData.h"
 
 
 
@@ -17,13 +18,6 @@ struct D2QuestArgStrc
 };
 
 
-struct D2Act3Quest5Strc
-{
-    int nLastKilledMonsterGUID;
-    unsigned char bOrmusActivated;
-    char pad0x05[0x07];
-    unsigned char bOrbSmashed;
-};
 
 D2PlayerDataStrc* __stdcall UNITS_GetPlayerData(D2UnitStrc* pUnit);                                         // 0x006221A0
 int __stdcall QUESTRECORD_GetQuestState(D2BitBufferStrc* pQuestRecord, int nQuest, int nState);            // 0x0065C310

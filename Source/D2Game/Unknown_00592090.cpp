@@ -2,20 +2,11 @@
 #include "D2Structs.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2QuestData.h"
 
 
 
 
-struct D2Act1Quest3Strc
-{
-    unsigned char unk0x00;
-    unsigned char bMalusInitialized;
-    unsigned char bCharsiIntroActivated;
-    unsigned char bCharsiEndActivated;
-    int nMalusGUID;
-    char unk0x08[0x90];
-    int nMalusObjectMode;
-};
 
 int __stdcall UNITS_ChangeAnimMode(D2UnitStrc* pUnit, int nMode);                                           // 0x00624690
 

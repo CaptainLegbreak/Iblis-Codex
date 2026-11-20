@@ -4,6 +4,7 @@
 #include "D2Txt.h"
 #include "D2UnitData.h"
 #include "D2Drlg.h"
+#include "D2QuestData.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define MONSTER_HRATLI 253
@@ -55,29 +56,6 @@ struct D2QuestArgStrc
     };
 };
 
-struct D2Act3Quest3Strc
-{
-    unsigned char bGidbinnDropped;
-    unsigned char bHratliActivated;
-    unsigned char bBossHasSpawned;
-    unsigned char bGidbinnObjectActivated;
-    unsigned char bBossIsSpawning;
-    unsigned char bSpawnTimerStarted;
-    unsigned char unk0x06;
-    unsigned char bGidbinnBroughtToOrmus;
-    int nGidbinnX;
-    int nGidbinnY;
-    int nAltarX;
-    int nAltarY;
-    unsigned char bGidbinnObjectInitialized;
-    char unk0x19[0x03];
-    int nGidbinnsInGame;
-    unsigned char bPlayerWithGidbinnDropped;
-    char unk0x21[0x03];
-    int nFetishBossGUID;
-    int nAltarGUID;
-    int nAltarObjectMode;
-};
 
 struct D2ObjInitFnStrc
 {

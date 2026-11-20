@@ -3,6 +3,7 @@
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2QuestData.h"
 struct D2GameStrc;
 struct D2UnitStrc;
 
@@ -14,11 +15,6 @@ typedef void (__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuestData, D2QuestArg
 typedef int (__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 
 
-struct D2Act2Quest4Strc
-{
-    unsigned char unused0x00[4];
-    unsigned char bDrognanActivated;
-};
 
 enum
 {

@@ -3,17 +3,11 @@
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2QuestData.h"
 
 
 
 
-struct D2Act5Quest3Strc
-{
-    char unk0x00[0xAC];
-    unsigned char bMalahIntroActivated;
-    char unk0xAD[0x101 - 0xAD];
-    unsigned char bMalahActivated;
-};
 
 
 

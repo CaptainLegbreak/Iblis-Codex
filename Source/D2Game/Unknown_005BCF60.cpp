@@ -1,15 +1,11 @@
 #include "D2Game.h"
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
+#include "D2QuestData.h"
 struct D2Act3Quest6Strc;
 
 
 
-struct D2Act3Quest6Strc
-{
-    char unk0x00[0x28];
-    int nSavedStatus;
-};
 
 typedef int(__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 

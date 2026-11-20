@@ -8,6 +8,7 @@
 #include "D2Txt.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2QuestData.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2AiParamStrc;
@@ -80,24 +81,8 @@ struct D2UnkMonCreateStrc
 
 
 
-struct D2Act3Quest5Strc
-{
-    char unk0x00[0x0C];
-    unsigned char bOrbSmashed;
-};
 
-struct D2Act4Quest1Strc
-{
-    char unk0x00[0x14];
-    D2UnitStrc* pTargetUnit;
-    unsigned char bCloseToIzualGhost;
-};
 
-struct D2Act4Quest3Strc
-{
-    char unk0x00[0x1C];
-    unsigned char bSoulstoneAcquired;
-};
 
 struct D2GSPacketSrv5D
 {

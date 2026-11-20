@@ -4,6 +4,7 @@
 #include "D2Txt.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2QuestData.h"
 #define UNIT_OBJECT 2
 #define OBJMODE_OPENED 2
 #define EVENTTYPE_ENDANIM 1
@@ -20,24 +21,6 @@ typedef void (__fastcall* QUESTCALLBACK)(D2QuestDataStrc* pQuestData, D2QuestArg
 
 
 
-struct D2Act3Quest2Strc
-{
-    unsigned char bSewerStairsInitialized;
-    unsigned char bInitiallyTalkedToCain;
-    unsigned char pad0x02[2];
-    int nSewerStairsObjectGUID;
-    int nSewerStairsObjectMode;
-    int nItemDropCount;
-    int nEyesDropped;
-    int nBrainsDropped;
-    int nHeartsDropped;
-    int nFlailsDropped;
-    int nCubedFlails;
-    unsigned char bEyeDropped;
-    unsigned char bBrainDropped;
-    unsigned char bHeartDropped;
-    unsigned char bFlailDropped;
-};
 
 
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId); // 0x00543640

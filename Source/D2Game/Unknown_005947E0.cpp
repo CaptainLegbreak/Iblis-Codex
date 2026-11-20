@@ -2,19 +2,12 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
+#include "D2QuestData.h"
 
 struct D2Act1Quest5Strc;
 struct D2PlayerDataStrc;
 
 
-struct D2Act1Quest5Strc
-{
-    int nUnitGUIDs1[12];
-    unsigned short nUnitCount1;
-    unsigned char pad0x32[2];
-    int nUnitGUIDs2[12];
-    unsigned short nUnitCount2;
-};
 
 
 

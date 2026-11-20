@@ -3,6 +3,7 @@
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
 #include "D2GameTypes.h"
+#include "D2QuestData.h"
 #define QFLAG_PRIMARYGOALDONE 13
 
 struct D2UnitStrc;
@@ -22,24 +23,6 @@ typedef bool (__fastcall* QUESTSTATUSFILTER)(D2QuestDataStrc* pQuest, D2UnitStrc
 typedef bool (__fastcall* QUESTACTIVEFILTER)(D2QuestDataStrc* pQuest, int nNpcId, D2UnitStrc* pPlayer, D2BitBufferStrc* pQuestFlags, D2UnitStrc* pNPC);
 
 
-struct D2Act3Quest5Strc
-{
-    int nLastKilledMonsterGUID;
-    unsigned char bOrmusActivated;
-    unsigned char bMonstersSpawned;
-    unsigned char pad0x06[2];
-    int bQuest1RewardGranted;
-    unsigned char bOrbSmashed;
-    unsigned char bFlailDropped;
-    unsigned char bCubeDropped;
-    unsigned char pad0x0F;
-    int nMonsterGUIDs[6];
-    unsigned char bCompellingOrbSpawned;
-    unsigned char pad0x29[3];
-    int nCompellingOrbGUID;
-    int nSpawnCount;
-    int nMonstersLeftToKill;
-};
 
 typedef int (__fastcall* QUESTITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 
@@ -64,25 +47,7 @@ typedef void (__fastcall* PartyCallbackFunction)(D2GameStrc* pGame, D2UnitStrc* 
 
 typedef bool (__fastcall* QUESTUPDATE)(D2GameStrc* pGame, D2QuestDataStrc* pQuestData);
 
-struct D2Act2Quest5Strc
-{
-    unsigned char bSummonerKilled;
-    unsigned char unk0x01;
-    unsigned short pad0x02;
-    D2ActiveRoomStrc* pRoom;
-    unsigned char bStatusTimerStarted;
-    unsigned char unk0x09;
-    unsigned short pad0x0A;
-};
 
-struct D2Act2Quest6Strc
-{
-    unsigned char unk0x00;
-    char unk0x01[0x07];
-    unsigned char bInitJerhynActivated;
-    unsigned char bTyraelActivated;
-    unsigned char bEndJerhynActivated;
-};
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern char gpAct2Q5NpcMessages[]; // 0x0073AF68

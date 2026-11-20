@@ -4,34 +4,8 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
+#include "D2QuestData.h"
 
-struct D2Act2Quest4Strc
-{
-    unsigned char unused0x00[4];
-    unsigned char bDrognanActivated;
-    unsigned char pad0x05[3];
-    D2ActiveRoomStrc* pRoom;
-    unsigned char bJerhynStartInitialized;
-    unsigned char bJerhynPalaceInitialized;
-    unsigned char bPalaceOpen;
-    unsigned char unk0x0F;
-    unsigned char unk0x10;
-    unsigned char bHaremBlockerInitialized;
-    unsigned char unk0x12[8];
-    unsigned char bPlayerCloseToHaremBlocker;
-    unsigned char pad0x1B;
-    unsigned int nPlayerCloseToHaremBlockerGUID;
-    D2CoordStrc pHaremBlockerCoords;
-    D2CoordStrc pJerhynCoords;
-    D2CoordStrc pGuardCoords;
-    int nHaremBlockerGUID;
-    int nJerhynGUID;
-    unsigned short nHaremBlockerObjectMode;
-    unsigned short nPortalModeInSanctuary;
-    unsigned short nPortalModeInCellar;
-    unsigned char bIsHaremBlockerNeutral;
-    unsigned char pad0x47;
-};
 
 D2QuestDataStrc* __fastcall QUESTS_GetQuestData(D2GameStrc* pGame, int nId);                                // 0x00543640
 int __fastcall AIUTIL_GetDistanceToCoordinates(D2UnitStrc* pUnit, int nX, int nY);                          // 0x005DC5C0

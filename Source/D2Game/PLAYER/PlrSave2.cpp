@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2UnitData.h"
+#include "D2QuestData.h"
 struct D2ClientStrc;
 struct D2InventoryStrc;
 
@@ -224,14 +225,6 @@ void __fastcall sub_0056DEB0(Unit*,int,int,int); // 0x0056DEB0
 enum { REMOVE_SKILL = 1 };
 
 
-struct D2Act5Quest3Strc
-{
-    char unk0x00[0xAD];
-    unsigned char bChangeToSpecialObjectModeOutsideTown;
-    unsigned char bChangeToSpecialObjectModeInTown;
-    char unk0xAF[0x2D];
-    int nObjectUpdateInvocations;
-};
 
 int __fastcall sub_005337F0_ReadItems(D2GameStrc* pGame, D2UnitStrc* pUnit, unsigned char* pSection, int nVersion, int nSize, int nUnused, int* pReadSize); // 0x005337F0
 D2ActiveRoomStrc* __stdcall UNITS_GetRoom(D2UnitStrc* pUnit); // 0x00620BB0

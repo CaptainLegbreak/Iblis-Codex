@@ -1,28 +1,11 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2UnitData.h"
+#include "D2QuestData.h"
 #define QFLAG_PRIMARYGOALDONE 13
 
 
 
-struct D2Act3Quest5Strc
-{
-    int nLastKilledMonsterGUID;
-    unsigned char bOrmusActivated;
-    unsigned char bMonstersSpawned;
-    unsigned char pad0x06[2];
-    int bQuest1RewardGranted;
-    unsigned char bOrbSmashed;
-    unsigned char bFlailDropped;
-    unsigned char bCubeDropped;
-    unsigned char pad0x0F;
-    int nMonsterGUIDs[6];
-    unsigned char bCompellingOrbSpawned;
-    unsigned char pad0x29[3];
-    int nCompellingOrbGUID;
-    int nSpawnCount;
-    int nMonstersLeftToKill;
-};
 
 typedef int (__fastcall* QUESTITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 

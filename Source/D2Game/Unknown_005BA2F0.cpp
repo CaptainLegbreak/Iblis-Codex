@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
+#include "D2QuestData.h"
 struct D2GameStrc;
 struct D2UnitStrc;
 
@@ -27,24 +28,6 @@ struct D2QuestArgStrc
     unsigned short nMessageIndex;
 };
 
-struct D2Act3Quest4Strc
-{
-    unsigned char bGoldenBirdBroughtToAlkor;
-    unsigned char unk0x01;
-    unsigned char unk0x02;
-    char unk0x03[0x05];
-    unsigned char bTalkedToAlkor;
-    unsigned char bTalkedToCainOnce;
-    unsigned char bTalkedToCainTwice;
-    unsigned char bTalkedToMeshif;
-    unsigned char unk0x0C;
-    char unk0x0D[0x03];
-    int nGoldenBirdsInGame;
-    unsigned char bJadeFigurineDropped;
-    unsigned char bPlayerDroppedWithItem;
-    char unk0x16[0x02];
-    int nCurrentQuestFlag;
-};
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090

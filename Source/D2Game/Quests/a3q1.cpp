@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
+#include "D2QuestData.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -80,37 +81,7 @@ struct D2ObjInitFnStrc
     int nY;
 };
 
-struct D2Act3Quest0Strc
-{
-    unsigned char bHratliStartCreated;
-    unsigned char bHratliEndCreated;
-    unsigned char bHratliEndObjectInitialized;
-    unsigned char bHratliStartIsPresent;
-    int nHratliX;
-    int nHratliY;
-    int nHratliGUID;
-    unsigned char bHratliMapAIChanged;
-    unsigned char pad0x11[7];
-    D2MapAIStrc* pHratliMapAI;
-};
 
-struct D2Act3Quest1Strc
-{
-    unsigned char bCanGetReward;
-    unsigned char bTomeDropped;
-    unsigned char bTomeActive;
-    unsigned char unused0x03;
-    unsigned char bTomeAcquired;
-    unsigned char bPlayerWithTomeDropped;
-    unsigned char pad0x06[2];
-    int nTomesInGame;
-    unsigned char bTomeBroughtToAlkor;
-    unsigned char pad0x0D[3];
-    int nPlayerWithTomeGUID;
-    int nTomeGUID;
-    int nTomeObjectMode;
-    D2QuestGUIDStrc tPlayerGUIDs;
-};
 
 extern char gpAct3Q0NpcMessages[]; // 0x0073EAA0
 extern char gpAct3Q1NpcMessages[]; // 0x0073ECF0

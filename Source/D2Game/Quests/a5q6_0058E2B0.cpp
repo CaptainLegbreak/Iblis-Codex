@@ -1,19 +1,9 @@
 #include "D2Game.h"
 #include "D2UnitData.h"
+#include "D2QuestData.h"
 
 
-struct D2Act5Quest5Strc
-{
-    char unk0x00[0x44];
-    int nAncientsAlive;
-    unsigned char bAncientsActivated;
-};
 
-struct D2Act5Quest6Strc
-{
-    char unk0x00[0x90];
-    unsigned char bQuestStarted;
-};
 
 #define QUEST_A5Q5_ANCIENTS 35
 #define QUESTSTATEFLAG_A5Q6 40
