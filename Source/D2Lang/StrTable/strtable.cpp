@@ -87,12 +87,12 @@ struct D2StringTableStrc
 #pragma pack(pop)
 
 extern D2LanguageInfoStrc gaLanguageInfo_007303D8[13]; // 0x007303D8
-extern D2StringTableStrc* gpStringTable_008829B4; // 0x008829B4
+extern D2StringTableStrc* sghStringTable; // 0x008829B4
 extern void* gpStringIndex_008829B8; // 0x008829B8
 extern void* gpPatchStringIndex_008829BC; // 0x008829BC
 extern void* gpExpansionStringIndex_008829C0; // 0x008829C0
-extern D2StringTableStrc* gpPatchStringTable_008829D0; // 0x008829D0
-extern D2StringTableStrc* gpExpansionStringTable_008829D4; // 0x008829D4
+extern D2StringTableStrc* sghPatchStringTable; // 0x008829D0
+extern D2StringTableStrc* sghExpansionStringTable; // 0x008829D4
 extern void* ghArchive_008829DC; // 0x008829DC
 
 #pragma pack(push, 1)
@@ -281,25 +281,25 @@ const Unicode* __fastcall D2LANG_GetStringFromTblIndex(unsigned short nIndex)
 {
     if (nIndex >= 0x4E20)
     {
-        if (!gpExpansionStringTable_008829D4)
+        if (!sghExpansionStringTable)
         {
             nIndex = 0x2B46;
         }
         else
         {
-            const Unicode* pText = sub_00524930(gpExpansionStringTable_008829D4, gpExpansionStringIndex_008829C0, nIndex - 0x4E20);
+            const Unicode* pText = sub_00524930(sghExpansionStringTable, gpExpansionStringIndex_008829C0, nIndex - 0x4E20);
             if (pText)
                 return pText;
         }
     }
-    if (gpPatchStringTable_008829D0 && nIndex >= 0x2710)
+    if (sghPatchStringTable && nIndex >= 0x2710)
     {
-        const Unicode* pText = sub_00524930(gpPatchStringTable_008829D0, gpPatchStringIndex_008829BC, nIndex - 0x2710);
+        const Unicode* pText = sub_00524930(sghPatchStringTable, gpPatchStringIndex_008829BC, nIndex - 0x2710);
         if (pText)
             return pText;
     }
-    D2_ASSERT(gpStringTable_008829B4, 0x246);
-    return sub_00524930(gpStringTable_008829B4, gpStringIndex_008829B8, nIndex);
+    D2_ASSERT(sghStringTable, 0x246);
+    return sub_00524930(sghStringTable, gpStringIndex_008829B8, nIndex);
 }
 
 // 0x00524AC0
@@ -373,24 +373,24 @@ static unsigned short __stdcall sub_00524C60_FindInTable(D2StringTableStrc* pTab
 // 0x00524D30
 unsigned short __stdcall sub_00524D30_FindString(const char* szKey, const wchar_t** ppText)
 {
-    D2_ASSERT(gpStringTable_008829B4, 0x2BA);
-    D2_ASSERT(gpPatchStringTable_008829D0, 0x2BB);
+    D2_ASSERT(sghStringTable, 0x2BA);
+    D2_ASSERT(sghPatchStringTable, 0x2BB);
     D2_ASSERT(szKey, 0x2C0);
     if (!*szKey)
     {
         *ppText = gwszEmptyString_008829E8;
         return 0;
     }
-    unsigned short nIndex = sub_00524C60_FindInTable(gpPatchStringTable_008829D0, (const wchar_t**)gpPatchStringIndex_008829BC, szKey, ppText);
+    unsigned short nIndex = sub_00524C60_FindInTable(sghPatchStringTable, (const wchar_t**)gpPatchStringIndex_008829BC, szKey, ppText);
     if (nIndex != 0xFFFF)
         return nIndex + 10000;
-    if (gpExpansionStringTable_008829D4)
+    if (sghExpansionStringTable)
     {
-        nIndex = sub_00524C60_FindInTable(gpExpansionStringTable_008829D4, (const wchar_t**)gpExpansionStringIndex_008829C0, szKey, ppText);
+        nIndex = sub_00524C60_FindInTable(sghExpansionStringTable, (const wchar_t**)gpExpansionStringIndex_008829C0, szKey, ppText);
         if (nIndex != 0xFFFF)
             return nIndex + 20000;
     }
-    nIndex = sub_00524C60_FindInTable(gpStringTable_008829B4, (const wchar_t**)gpStringIndex_008829B8, szKey, ppText);
+    nIndex = sub_00524C60_FindInTable(sghStringTable, (const wchar_t**)gpStringIndex_008829B8, szKey, ppText);
     if (nIndex == 0xFFFF)
     {
         *ppText = sub_00524AC0_GetUntranslatedString(szKey);
@@ -419,16 +419,16 @@ void* gpPatchStringData_008829C8; // 0x008829C8
 
 void* gpExpansionStringData_008829CC; // 0x008829CC
 
-D2StringTableStrc* gpPatchStringTable_008829D0; // 0x008829D0
+D2StringTableStrc* sghPatchStringTable; // 0x008829D0
 
-D2StringTableStrc* gpExpansionStringTable_008829D4; // 0x008829D4
+D2StringTableStrc* sghExpansionStringTable; // 0x008829D4
 
 int gnStringTableRefs_008829D8; // 0x008829D8
 
 // 0x00524E40
 void __cdecl sub_00524E40_UnloadStringTables()
 {
-    if (gpStringTable_008829B4 && --gnStringTableRefs_008829D8 == 0)
+    if (sghStringTable && --gnStringTableRefs_008829D8 == 0)
     {
         if (gpStringIndex_008829B8)
         {
@@ -437,8 +437,8 @@ void __cdecl sub_00524E40_UnloadStringTables()
             FOG_Free(gpStringIndex_008829B8, ".\\StrTable\\strtable.cpp", 0x32E, 0);
             gpStringIndex_008829B8 = 0;
         }
-        FOG_Free(gpStringTable_008829B4, ".\\StrTable\\strtable.cpp", 0x121, 0);
-        gpStringTable_008829B4 = 0;
+        FOG_Free(sghStringTable, ".\\StrTable\\strtable.cpp", 0x121, 0);
+        sghStringTable = 0;
 
         if (gpPatchStringIndex_008829BC)
         {
@@ -450,8 +450,8 @@ void __cdecl sub_00524E40_UnloadStringTables()
             FOG_Free(gpPatchStringData_008829C8, ".\\StrTable\\strtable.cpp", 0x341, 0);
             gpPatchStringData_008829C8 = 0;
         }
-        FOG_Free(gpPatchStringTable_008829D0, ".\\StrTable\\strtable.cpp", 0x121, 0);
-        gpPatchStringTable_008829D0 = 0;
+        FOG_Free(sghPatchStringTable, ".\\StrTable\\strtable.cpp", 0x121, 0);
+        sghPatchStringTable = 0;
 
         if (gpExpansionStringIndex_008829C0)
         {
@@ -463,10 +463,10 @@ void __cdecl sub_00524E40_UnloadStringTables()
             FOG_Free(gpExpansionStringData_008829CC, ".\\StrTable\\strtable.cpp", 0x34F, 0);
             gpExpansionStringData_008829CC = 0;
         }
-        if (gpExpansionStringTable_008829D4)
+        if (sghExpansionStringTable)
         {
-            FOG_Free(gpExpansionStringTable_008829D4, ".\\StrTable\\strtable.cpp", 0x121, 0);
-            gpExpansionStringTable_008829D4 = 0;
+            FOG_Free(sghExpansionStringTable, ".\\StrTable\\strtable.cpp", 0x121, 0);
+            sghExpansionStringTable = 0;
         }
 
         D2StrCacheNodeStrc* pNode = gpStringCache_008829B0;
@@ -571,7 +571,7 @@ int sub_M15_Emit_00525920(const char* szDir, const char* szLang)
     return gpM15EmitTbl != 0;
 }
 
-D2StringTableStrc* gpStringTable_008829B4; // 0x008829B4
+D2StringTableStrc* sghStringTable; // 0x008829B4
 
 void* gpStringIndex_008829B8; // 0x008829B8
 
@@ -579,29 +579,29 @@ static inline const Unicode* D2LANG_GetStringFromTblIndex_Inline(unsigned short 
 {
     if (nIndex >= 0x4E20)
     {
-        if (!gpExpansionStringTable_008829D4)
+        if (!sghExpansionStringTable)
         {
             nIndex = 0x2B46;
         }
         else
         {
-            const Unicode* pText = sub_00524930(gpExpansionStringTable_008829D4, gpExpansionStringIndex_008829C0, nIndex - 0x4E20);
+            const Unicode* pText = sub_00524930(sghExpansionStringTable, gpExpansionStringIndex_008829C0, nIndex - 0x4E20);
             if (pText)
             {
                 return pText;
             }
         }
     }
-    if (gpPatchStringTable_008829D0 && nIndex >= 0x2710)
+    if (sghPatchStringTable && nIndex >= 0x2710)
     {
-        const Unicode* pText = sub_00524930(gpPatchStringTable_008829D0, gpPatchStringIndex_008829BC, nIndex - 0x2710);
+        const Unicode* pText = sub_00524930(sghPatchStringTable, gpPatchStringIndex_008829BC, nIndex - 0x2710);
         if (pText)
         {
             return pText;
         }
     }
-    D2_ASSERT(gpStringTable_008829B4, 0x246);
-    return sub_00524930(gpStringTable_008829B4, gpStringIndex_008829B8, nIndex);
+    D2_ASSERT(sghStringTable, 0x246);
+    return sub_00524930(sghStringTable, gpStringIndex_008829B8, nIndex);
 }
 
 // 0x00525260

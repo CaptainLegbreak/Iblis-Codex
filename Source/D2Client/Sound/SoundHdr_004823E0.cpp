@@ -29,15 +29,15 @@ int __fastcall sub_004DF9D0_CheckCacheEntry(int nId); // 0x004DF9D0
 void __fastcall sub_00516980_RemoveNode(D2ClientCacheNodeStrc** ppList, int nId); // 0x00516980
 int __fastcall FOG_Free(void* pFree, const char* szFile, int nLine, int n0); // 0x0040B3C0
 
-extern D2ClientCacheEntryStrc* gpCacheEntries_007BC9A0; // 0x007BC9A0
+extern D2ClientCacheEntryStrc* sgptSoundHeaderTable; // 0x007BC9A0
 extern int gnCacheEntries_007BC9A4; // 0x007BC9A4
 extern D2ClientCacheNodeStrc* gpCacheList_007BC9B8; // 0x007BC9B8
 extern unsigned int gdwCacheUsed_007BC9D0; // 0x007BC9D0
 
 static D2ClientCacheEntryStrc* __fastcall sub_00481860_GetCacheEntry(int nIndex)
 {
-    if (gpCacheEntries_007BC9A0 && nIndex >= 0 && nIndex < gnCacheEntries_007BC9A4)
-        return &gpCacheEntries_007BC9A0[nIndex];
+    if (sgptSoundHeaderTable && nIndex >= 0 && nIndex < gnCacheEntries_007BC9A4)
+        return &sgptSoundHeaderTable[nIndex];
     return 0;
 }
 

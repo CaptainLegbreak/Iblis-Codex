@@ -249,7 +249,7 @@ struct D2RunesTxt
 };
 
 
-extern D2RuneDataTbl gRuneDataTables; // 0x0096CA98
+extern D2RuneDataTbl sgtRuneWordsTblDesc; // 0x0096CA98
 void __fastcall SEED_InitSeed(D2SeedStrc* pSeed); // 0x00650E30
 void __fastcall ITEMS_SerializeItem(D2UnitStrc* pItem, D2BitBufferStrc* pBuffer, int bServer, int bSaveItemInv, int bGamble); // 0x006312B0
 int __stdcall sub_00625B70_CheckStatFlag(D2UnitStrc* pUnit, int nState); // 0x00625B70
@@ -2963,8 +2963,8 @@ int __fastcall sub_6FD55150(char* szText, int* a2, int a3, int nKeywordNumber)
 // 0x00639D60
 D2RunesTxt* __stdcall DATATBLS_GetRunesTxtRecord(int nRunewordId)
 {
-    D2_ASSERT(nRunewordId > 0 && nRunewordId < gRuneDataTables.nRunesTxtRecordCount, 2418);
-    return &gRuneDataTables.pRunesTxt[nRunewordId];
+    D2_ASSERT(nRunewordId > 0 && nRunewordId < sgtRuneWordsTblDesc.nRunesTxtRecordCount, 2418);
+    return &sgtRuneWordsTblDesc.pRunesTxt[nRunewordId];
 }
 
 // 0x00639DF0

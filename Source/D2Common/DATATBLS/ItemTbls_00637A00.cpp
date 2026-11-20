@@ -59,7 +59,7 @@ struct D2DataTablesStrc
     char unk0xE30[0x50];
     D2GambleDataTbl pGambleDataTables;
 };
-extern D2DataTablesStrc gD2DataTables; // 0x0096BC30
+extern D2DataTablesStrc sgtDataTables; // 0x0096BC30
 void __stdcall DATATBLS_UnloadBin(void* pBinFile); // 0x006125C0
 int __stdcall FOG_GetLinkIndex(D2TxtLinkStrc* pLinker, unsigned int dwCode, int bLogError); // 0x006BD130
 int __cdecl DATATBLS_CompareGambleTxtRecords(const void* pRecord1, const void* pRecord2); // 0x00638AC0
@@ -274,43 +274,43 @@ void __fastcall DATATBLS_LoadGambleTxt(void* hArchive)
         { gszTxtField_end, 0, 0, 0, 0 },
     };
 
-    D2GambleTxt* pGambleTxt = (D2GambleTxt*)DATATBLS_CompileTxt(hArchive, "gamble", pTbl, &gD2DataTables.pGambleDataTables.nGambleTxtRecordCount, sizeof(D2GambleTxt));
+    D2GambleTxt* pGambleTxt = (D2GambleTxt*)DATATBLS_CompileTxt(hArchive, "gamble", pTbl, &sgtDataTables.pGambleDataTables.nGambleTxtRecordCount, sizeof(D2GambleTxt));
 
-    if (gD2DataTables.pGambleDataTables.nGambleTxtRecordCount)
+    if (sgtDataTables.pGambleDataTables.nGambleTxtRecordCount)
     {
-        gD2DataTables.pGambleDataTables.pGambleSelection = (unsigned int*)FOG_AllocPool(0, sizeof(unsigned int) * gD2DataTables.pGambleDataTables.nGambleTxtRecordCount, ".\\DATATBLS\\ItemTbls.cpp", 0x7DB, 0);
-        for (int i = 0; i < gD2DataTables.pGambleDataTables.nGambleTxtRecordCount; ++i)
+        sgtDataTables.pGambleDataTables.pGambleSelection = (unsigned int*)FOG_AllocPool(0, sizeof(unsigned int) * sgtDataTables.pGambleDataTables.nGambleTxtRecordCount, ".\\DATATBLS\\ItemTbls.cpp", 0x7DB, 0);
+        for (int i = 0; i < sgtDataTables.pGambleDataTables.nGambleTxtRecordCount; ++i)
         {
             const unsigned int dwItemCode = pGambleTxt[i].dwItemCode;
-            const int nItemId = FOG_GetLinkIndex(gD2DataTables.pItemsLinker, dwItemCode, 0);
+            const int nItemId = FOG_GetLinkIndex(sgtDataTables.pItemsLinker, dwItemCode, 0);
             D2ItemsTxt* pItemsTxtRecord;
-            D2_ASSERT(nItemId >= 0 && (pItemsTxtRecord = &gD2DataTables.pItemsTxt[nItemId]) != 0, 0x7E0);
+            D2_ASSERT(nItemId >= 0 && (pItemsTxtRecord = &sgtDataTables.pItemsTxt[nItemId]) != 0, 0x7E0);
             pGambleTxt[i].nLevel = pItemsTxtRecord->nLevel;
             pGambleTxt[i].nItemId = nItemId;
         }
-        qsort(pGambleTxt, gD2DataTables.pGambleDataTables.nGambleTxtRecordCount, sizeof(D2GambleTxt), DATATBLS_CompareGambleTxtRecords);
+        qsort(pGambleTxt, sgtDataTables.pGambleDataTables.nGambleTxtRecordCount, sizeof(D2GambleTxt), DATATBLS_CompareGambleTxtRecords);
     }
     else
     {
-        gD2DataTables.pGambleDataTables.pGambleSelection = 0;
+        sgtDataTables.pGambleDataTables.pGambleSelection = 0;
     }
 
-    for (int i = 0; i < gD2DataTables.pGambleDataTables.nGambleTxtRecordCount; ++i)
+    for (int i = 0; i < sgtDataTables.pGambleDataTables.nGambleTxtRecordCount; ++i)
     {
-        gD2DataTables.pGambleDataTables.pGambleSelection[i] = pGambleTxt[i].nItemId;
+        sgtDataTables.pGambleDataTables.pGambleSelection[i] = pGambleTxt[i].nItemId;
     }
 
-    gD2DataTables.pGambleDataTables.pGambleChooseLimit[0] = 2;
+    sgtDataTables.pGambleDataTables.pGambleChooseLimit[0] = 2;
 
     for (int i = 1; i < 100; ++i)
     {
-        gD2DataTables.pGambleDataTables.pGambleChooseLimit[i] = gD2DataTables.pGambleDataTables.nGambleTxtRecordCount;
+        sgtDataTables.pGambleDataTables.pGambleChooseLimit[i] = sgtDataTables.pGambleDataTables.nGambleTxtRecordCount;
 
-        for (int nCounter = 0; nCounter < gD2DataTables.pGambleDataTables.nGambleTxtRecordCount; ++nCounter)
+        for (int nCounter = 0; nCounter < sgtDataTables.pGambleDataTables.nGambleTxtRecordCount; ++nCounter)
         {
             if (i < pGambleTxt[nCounter].nLevel)
             {
-                gD2DataTables.pGambleDataTables.pGambleChooseLimit[i] = nCounter;
+                sgtDataTables.pGambleDataTables.pGambleChooseLimit[i] = nCounter;
                 break;
             }
         }

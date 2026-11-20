@@ -6,7 +6,7 @@ struct D2CubeMainTxt
 };
 
 
-extern D2DataTablesStrc gtDataTables_0096BC30;                                                                       // 0x0096BC30
+extern D2DataTablesStrc sgtDataTables;                                                                       // 0x0096BC30
 void __stdcall DATATBLS_UnloadBin(void* pBinFile);                                                               // 0x006125C0
 extern "C" const char gszEmptyAssertText;                                                                         // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                              // 0x00408090
@@ -18,22 +18,22 @@ extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                   
 // 0x0066A1A0
 void __fastcall DATATBLS_UnloadCubeMainTxt()
 {
-    DATATBLS_UnloadBin(gtDataTables_0096BC30.pCubeMainTxt);
+    DATATBLS_UnloadBin(sgtDataTables.pCubeMainTxt);
 }
 
 // 0x0066A1B0
 D2CubeMainTxt* __stdcall DATATBLS_GetCubemainTxtRecord(int nIndex)
 {
-    CUBE_ASSERT(gtDataTables_0096BC30.pCubeMainTxt, 846);
-    CUBE_ASSERT(nIndex < gtDataTables_0096BC30.nCubeMainTxtRecordCount, 847);
+    CUBE_ASSERT(sgtDataTables.pCubeMainTxt, 846);
+    CUBE_ASSERT(nIndex < sgtDataTables.nCubeMainTxtRecordCount, 847);
 
-    return &gtDataTables_0096BC30.pCubeMainTxt[nIndex];
+    return &sgtDataTables.pCubeMainTxt[nIndex];
 }
 
 // 0x0066A200
 int __fastcall DATATBLS_GetCubemainTxtRecordCount()
 {
-    return gtDataTables_0096BC30.nCubeMainTxtRecordCount;
+    return sgtDataTables.nCubeMainTxtRecordCount;
 }
 
 void __stdcall DATATBLS_EmptyStub_0066A220(int a1, int a2)

@@ -114,7 +114,7 @@ extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount(void);    
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn);                                 // 0x006CC34C
 extern "C" __declspec(dllimport) int __cdecl wsprintfA(char* szBuffer, const char* szFormat, ...);         // 0x006CC468
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize);                                // 0x00681EF0
-extern const D2ShrineTableStrc gpShrineTable_006E1850[];                                                    // 0x006E1850
+extern const D2ShrineTableStrc sgcptShrineChart[];                                                    // 0x006E1850
 extern ObjOperateFunction gpObjOperateFnTable_00732D18[];                                                   // 0x00732D18
 
 int __fastcall UNITS_GetXPosition(D2UnitStrc* pUnit);                                                       // 0x0045ADF0
@@ -373,10 +373,10 @@ int __fastcall OBJECTS_OperateFunction02_Shrine(D2ObjOperateFnStrc* pOp, int nOp
     D2ShrinesTxt* pShrinesTxtRecord = UNITS_GetShrineTxtRecordFromObject(pObject);
 
     const int nId = pShrinesTxtRecord->nCode;
-    if (nId >= 0 && nId < gnShrineTableCount_00732EAC && gpShrineTable_006E1850[nId].pfShrineCallback)
+    if (nId >= 0 && nId < gnShrineTableCount_00732EAC && sgcptShrineChart[nId].pfShrineCallback)
     {
-        D2_ASSERT(!IsBadCodePtr((FARPROC)gpShrineTable_006E1850[nId].pfShrineCallback), 2653);
-        gpShrineTable_006E1850[nId].pfShrineCallback(pOp, pShrinesTxtRecord);
+        D2_ASSERT(!IsBadCodePtr((FARPROC)sgcptShrineChart[nId].pfShrineCallback), 2653);
+        sgcptShrineChart[nId].pfShrineCallback(pOp, pShrinesTxtRecord);
     }
     else
     {

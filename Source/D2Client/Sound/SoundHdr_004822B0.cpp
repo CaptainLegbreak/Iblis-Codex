@@ -16,19 +16,19 @@ extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
-static D2ClientCacheEntryStrc* gpCacheEntries_007BC9A0;                                                     // 0x007BC9A0
+static D2ClientCacheEntryStrc* sgptSoundHeaderTable;                                                     // 0x007BC9A0
 static int gnCacheEntries_007BC9A4;                                                                         // 0x007BC9A4
 
 void __cdecl sub_N10_EmitSetCacheTable(D2ClientCacheEntryStrc* pEntries, int nCount)
 {
-    gpCacheEntries_007BC9A0 = pEntries;
+    sgptSoundHeaderTable = pEntries;
     gnCacheEntries_007BC9A4 = nCount;
 }
 
 D2ClientCacheEntryStrc* __fastcall sub_N10_EmitGetCacheEntry(int nIndex)
 {
-    if (gpCacheEntries_007BC9A0 && nIndex >= 0 && nIndex < gnCacheEntries_007BC9A4)
-        return &gpCacheEntries_007BC9A0[nIndex];
+    if (sgptSoundHeaderTable && nIndex >= 0 && nIndex < gnCacheEntries_007BC9A4)
+        return &sgptSoundHeaderTable[nIndex];
     return 0;
 }
 

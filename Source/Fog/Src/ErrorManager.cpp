@@ -235,7 +235,7 @@ void __fastcall sub_004013C0_TerminateCurrentProcess(unsigned int nExitCode)
     TerminateProcess(GetCurrentProcess(), nExitCode);
 }
 
-int gbAsyncDataEnabled_0075AF94; // 0x0075AF94
+int sgfAsyncDataEnabled; // 0x0075AF94
 
 // 0x004013D0
 int __cdecl sub_004013D0_GetCurrentProcessThreadCount()
@@ -819,7 +819,7 @@ AsyncData* __fastcall FOG_AsyncDataLoadFileEx(void* pMemPool, const char* szFile
     {
         pAsyncOpDesc = (AsyncDataLoadFileCallback*)memcpy(&pAsync->pAsyncOpDesc, pAsyncOpDesc, sizeof(*pAsyncOpDesc));
     }
-    if (bAllowAsync && gbAsyncDataEnabled_0075AF94)
+    if (bAllowAsync && sgfAsyncDataEnabled)
     {
         pAsync->pEventSlot = sub_0040A550_AsyncDataGetEventSlot();
         if (!pAsync->pEventSlot)

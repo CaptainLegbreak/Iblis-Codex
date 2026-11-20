@@ -213,7 +213,7 @@ extern "C" const char gszMissileTblsSourceFile[];                               
 void* __stdcall DATATBLS_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pTbl, int* pRecordCount, int nRecordSize);// 0x006122F0
 D2TxtLinkStrc* __stdcall FOG_AllocLinker(const char* szFile, int nLine);                                    // 0x006BD040
 void __fastcall DATATBLS_GetBinFileHandle(void* hArchive, const char* szFile, void** ppFileHandle, int* pSize, int* pSizeEx);// 0x00613E90
-extern D2DataTablesStrc gtDataTables_0096BC30;                                                                        // 0x0096BC30
+extern D2DataTablesStrc sgtDataTables;                                                                        // 0x0096BC30
 extern D2DataTablesStrc* sgptDataTables;                                                                    // 0x00744304
 
 static D2MissilesTxt* DATATBLS_GetMissilesTxtRecord(int nMissileId)
@@ -231,7 +231,7 @@ void __fastcall DATATBLS_LoadMissilesTxt(void* hArchive)
 {
     D2BinFieldStrc pTbl[] =
     {
-        { gszTxtField_Missile, 17, 0, 0, &gtDataTables_0096BC30.pMissilesLinker },
+        { gszTxtField_Missile, 17, 0, 0, &sgtDataTables.pMissilesLinker },
         { gszTxtField_LastCollide, 26, 0, 4, 0 },
         { gszTxtField_Explosion, 26, 1, 4, 0 },
         { gszTxtField_Pierce, 26, 2, 4, 0 },
@@ -274,25 +274,25 @@ void __fastcall DATATBLS_LoadMissilesTxt(void* hArchive)
         { gszTxtField_dParam1, 2, 0, 120, 0 },
         { gszTxtField_dParam2, 2, 0, 124, 0 },
         { gszTxtField_DmgCalc1, 25, 0, 144, (void*)DATATBLS_MissileCalcLinker },
-        { gszTxtField_TravelSound, 20, 0, 18, &gtDataTables_0096BC30.pSoundsLinker },
-        { gszTxtField_HitSound, 20, 0, 20, &gtDataTables_0096BC30.pSoundsLinker },
-        { gszTxtField_ProgSound, 20, 0, 52, &gtDataTables_0096BC30.pSoundsLinker },
-        { gszTxtField_ProgOverlay, 20, 0, 54, &gtDataTables_0096BC30.pOverlayLinker },
-        { gszTxtField_ExplosionMissile, 20, 0, 22, &gtDataTables_0096BC30.pMissilesLinker },
-        { gszTxtField_SubMissile1, 20, 0, 24, &gtDataTables_0096BC30.pMissilesLinker },
-        { gszTxtField_SubMissile2, 20, 0, 26, &gtDataTables_0096BC30.pMissilesLinker },
-        { gszTxtField_SubMissile3, 20, 0, 28, &gtDataTables_0096BC30.pMissilesLinker },
-        { gszTxtField_HitSubMissile1, 20, 0, 36, &gtDataTables_0096BC30.pMissilesLinker },
-        { gszTxtField_HitSubMissile2, 20, 0, 38, &gtDataTables_0096BC30.pMissilesLinker },
-        { gszTxtField_HitSubMissile3, 20, 0, 40, &gtDataTables_0096BC30.pMissilesLinker },
-        { gszTxtField_HitSubMissile4, 20, 0, 42, &gtDataTables_0096BC30.pMissilesLinker },
-        { gszTxtField_CltSubMissile1, 20, 0, 30, &gtDataTables_0096BC30.pMissilesLinker },
-        { gszTxtField_CltSubMissile2, 20, 0, 32, &gtDataTables_0096BC30.pMissilesLinker },
-        { gszTxtField_CltSubMissile3, 20, 0, 34, &gtDataTables_0096BC30.pMissilesLinker },
-        { gszTxtField_CltHitSubMissile1, 20, 0, 44, &gtDataTables_0096BC30.pMissilesLinker },
-        { gszTxtField_CltHitSubMissile2, 20, 0, 46, &gtDataTables_0096BC30.pMissilesLinker },
-        { gszTxtField_CltHitSubMissile3, 20, 0, 48, &gtDataTables_0096BC30.pMissilesLinker },
-        { gszTxtField_CltHitSubMissile4, 20, 0, 50, &gtDataTables_0096BC30.pMissilesLinker },
+        { gszTxtField_TravelSound, 20, 0, 18, &sgtDataTables.pSoundsLinker },
+        { gszTxtField_HitSound, 20, 0, 20, &sgtDataTables.pSoundsLinker },
+        { gszTxtField_ProgSound, 20, 0, 52, &sgtDataTables.pSoundsLinker },
+        { gszTxtField_ProgOverlay, 20, 0, 54, &sgtDataTables.pOverlayLinker },
+        { gszTxtField_ExplosionMissile, 20, 0, 22, &sgtDataTables.pMissilesLinker },
+        { gszTxtField_SubMissile1, 20, 0, 24, &sgtDataTables.pMissilesLinker },
+        { gszTxtField_SubMissile2, 20, 0, 26, &sgtDataTables.pMissilesLinker },
+        { gszTxtField_SubMissile3, 20, 0, 28, &sgtDataTables.pMissilesLinker },
+        { gszTxtField_HitSubMissile1, 20, 0, 36, &sgtDataTables.pMissilesLinker },
+        { gszTxtField_HitSubMissile2, 20, 0, 38, &sgtDataTables.pMissilesLinker },
+        { gszTxtField_HitSubMissile3, 20, 0, 40, &sgtDataTables.pMissilesLinker },
+        { gszTxtField_HitSubMissile4, 20, 0, 42, &sgtDataTables.pMissilesLinker },
+        { gszTxtField_CltSubMissile1, 20, 0, 30, &sgtDataTables.pMissilesLinker },
+        { gszTxtField_CltSubMissile2, 20, 0, 32, &sgtDataTables.pMissilesLinker },
+        { gszTxtField_CltSubMissile3, 20, 0, 34, &sgtDataTables.pMissilesLinker },
+        { gszTxtField_CltHitSubMissile1, 20, 0, 44, &sgtDataTables.pMissilesLinker },
+        { gszTxtField_CltHitSubMissile2, 20, 0, 46, &sgtDataTables.pMissilesLinker },
+        { gszTxtField_CltHitSubMissile3, 20, 0, 48, &sgtDataTables.pMissilesLinker },
+        { gszTxtField_CltHitSubMissile4, 20, 0, 50, &sgtDataTables.pMissilesLinker },
         { gszTxtField_ResultFlags, 3, 0, 172, 0 },
         { gszTxtField_HitFlags, 8, 0, 168, 0 },
         { gszTxtField_HitClass, 4, 0, 148, 0 },
@@ -304,7 +304,7 @@ void __fastcall DATATBLS_LoadMissilesTxt(void* hArchive)
         { gszTxtField_yoffset, 3, 0, 164, 0 },
         { gszTxtField_zoffset, 3, 0, 166, 0 },
         { gszTxtField_MissileSkill, 26, 15, 4, 0 },
-        { gszTxtField_Skill, 20, 0, 404, &gtDataTables_0096BC30.pSkillsLinker },
+        { gszTxtField_Skill, 20, 0, 404, &sgtDataTables.pSkillsLinker },
         { gszTxtField_MinDamage, 2, 0, 176, 0 },
         { gszTxtField_MinLevDam1, 2, 0, 184, 0 },
         { gszTxtField_MinLevDam2, 2, 0, 188, 0 },
@@ -318,7 +318,7 @@ void __fastcall DATATBLS_LoadMissilesTxt(void* hArchive)
         { gszTxtField_MaxLevDam4, 2, 0, 216, 0 },
         { gszTxtField_MaxLevDam5, 2, 0, 220, 0 },
         { gszTxtField_DmgSymPerCalc, 25, 0, 224, (void*)DATATBLS_MissileCalcLinker },
-        { gszTxtField_EType, 13, 0, 228, &gtDataTables_0096BC30.pElemTypesLinker },
+        { gszTxtField_EType, 13, 0, 228, &sgtDataTables.pElemTypesLinker },
         { gszTxtField_EMin, 2, 0, 232, 0 },
         { gszTxtField_MinELev1, 2, 0, 240, 0 },
         { gszTxtField_MinELev2, 2, 0, 244, 0 },
@@ -380,10 +380,10 @@ void __fastcall DATATBLS_LoadMissilesTxt(void* hArchive)
         { gszTxtField_end, 0, 0, 0, 0 },
     };
 
-    gtDataTables_0096BC30.pMissilesLinker = FOG_AllocLinker(gszMissileTblsSourceFile, 393);
-    gtDataTables_0096BC30.pMissilesTxt = (D2MissilesTxt*)DATATBLS_CompileTxt(hArchive, gszMissilesTxtName, pTbl, &gtDataTables_0096BC30.nMissilesTxtRecordCount, sizeof(D2MissilesTxt));
+    sgtDataTables.pMissilesLinker = FOG_AllocLinker(gszMissileTblsSourceFile, 393);
+    sgtDataTables.pMissilesTxt = (D2MissilesTxt*)DATATBLS_CompileTxt(hArchive, gszMissilesTxtName, pTbl, &sgtDataTables.nMissilesTxtRecordCount, sizeof(D2MissilesTxt));
 
-    for (int i = 0; i < gtDataTables_0096BC30.nMissilesTxtRecordCount; ++i)
+    for (int i = 0; i < sgtDataTables.nMissilesTxtRecordCount; ++i)
     {
         D2MissilesTxt* pMissilesTxtRecord = DATATBLS_GetMissilesTxtRecord(i);
         int nValue = pMissilesTxtRecord->nCollideType;
@@ -414,7 +414,7 @@ void __fastcall DATATBLS_LoadMissilesTxt(void* hArchive)
         }
     }
 
-    DATATBLS_GetBinFileHandle(hArchive, gszMissCodeName, &gtDataTables_0096BC30.pMissCode, &gtDataTables_0096BC30.nMissCodeSize, &gtDataTables_0096BC30.nMissCodeSizeEx);
+    DATATBLS_GetBinFileHandle(hArchive, gszMissCodeName, &sgtDataTables.pMissCode, &sgtDataTables.nMissCodeSize, &sgtDataTables.nMissCodeSizeEx);
 }
 
 #include "gen/data/Source/D2Common/DATATBLS/MissileTbls.inc"

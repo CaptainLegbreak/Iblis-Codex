@@ -229,7 +229,7 @@ int __fastcall ACCOUNTLIST_GetTextFromSelectedEntry(D2WinAccountListStrc* ptList
     return 0;
 }
 
-D2CelFileStrc* ghPentagramCellFile; // 0x0087E96C
+D2CelFileStrc* sghPentagram; // 0x0087E96C
 
 // 0x004760C0
 void __fastcall sub_004760C0_GetViewOffset(D2ViewStrc* pView, int* pX, int* pY)
@@ -241,8 +241,8 @@ void __fastcall sub_004760C0_GetViewOffset(D2ViewStrc* pView, int* pX, int* pY)
 // 0x00507140
 void __stdcall LIST_UnloadPentspinCellfile()
 {
-    sub_004FAAE0_FreeCellFile(ghPentagramCellFile);
-    ghPentagramCellFile = 0;
+    sub_004FAAE0_FreeCellFile(sghPentagram);
+    sghPentagram = 0;
 }
 
 // 0x00498D50

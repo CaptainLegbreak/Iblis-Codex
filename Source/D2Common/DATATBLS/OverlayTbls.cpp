@@ -18,7 +18,7 @@ struct D2DataTablesStrc
 };
 
 extern "C" const char gszTxtField_Filename[];                                                               // 0x006D90F4
-extern D2DataTablesStrc gtDataTables_0096BC30;                                                                        // 0x0096BC30
+extern D2DataTablesStrc sgtDataTables;                                                                        // 0x0096BC30
 void* __stdcall DATATBLS_CompileTxt(void* hArchive, const char* szName, D2BinFieldStrc* pTbl, int* pRecordCount, int nRecordSize);// 0x006122F0
 
 // 0x00664150
@@ -26,7 +26,7 @@ void __fastcall DATATBLS_LoadOverlayTxt(void* hArchive)
 {
     D2BinFieldStrc pTbl[] =
     {
-        { "overlay", 17, 0, 0, &gtDataTables_0096BC30.pOverlayLinker },
+        { "overlay", 17, 0, 0, &sgtDataTables.pOverlayLinker },
         { gszTxtField_Filename, 1, 64, 2, 0 },
         { gszTxtField_version, 3, 0, 66, 0 },
         { "Frames", 2, 0, 68, 0 },
@@ -54,6 +54,6 @@ void __fastcall DATATBLS_LoadOverlayTxt(void* hArchive)
         { gszTxtField_end, 0, 0, 0, 0 },
     };
 
-    gtDataTables_0096BC30.pOverlayLinker = FOG_AllocLinker(".\\DATATBLS\\OverlayTbls.cpp", 56);
-    gtDataTables_0096BC30.pOverlayTxt = DATATBLS_CompileTxt(hArchive, "overlay", pTbl, &gtDataTables_0096BC30.nOverlayTxtRecordCount, 0x84);
+    sgtDataTables.pOverlayLinker = FOG_AllocLinker(".\\DATATBLS\\OverlayTbls.cpp", 56);
+    sgtDataTables.pOverlayTxt = DATATBLS_CompileTxt(hArchive, "overlay", pTbl, &sgtDataTables.nOverlayTxtRecordCount, 0x84);
 }

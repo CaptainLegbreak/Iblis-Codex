@@ -158,62 +158,62 @@ void __cdecl sub_0040ADA0_Nop()
 {
 }
 
-static int s_bAsyncDataEnabled_0075AF94; // 0x0075AF94
+static int sgfAsyncDataEnabled; // 0x0075AF94
 
 static unsigned int s_nAsyncEventSlots_0075AF98; // 0x0075AF98
 
-static AsyncDataEventSlot* s_pAsyncEventSlots_0075AF9C; // 0x0075AF9C
+static AsyncDataEventSlot* sgptAsyncEventArray; // 0x0075AF9C
 
 // 0x0040A390
 void __fastcall FOG_AsyncDataInitialize(int bEnable, int nUnused)
 {
-    D2_ASSERT(!s_bAsyncDataEnabled_0075AF94, 123);
+    D2_ASSERT(!sgfAsyncDataEnabled, 123);
     sub_004164A0_SetValue(0x40000);
     sub_00416570_SetPowerOfTwoValue(0x4000);
     if (bEnable)
     {
-        s_pAsyncEventSlots_0075AF9C = (AsyncDataEventSlot*)FOG_Alloc(0x3000, ".\\Src\\AsyncData.cpp", 136, 0);
-        D2_ASSERT(s_pAsyncEventSlots_0075AF9C, 137);
+        sgptAsyncEventArray = (AsyncDataEventSlot*)FOG_Alloc(0x3000, ".\\Src\\AsyncData.cpp", 136, 0);
+        D2_ASSERT(sgptAsyncEventArray, 137);
         for (int i = 0; i < 0x100; i++)
         {
-            AsyncDataEventSlot* pSlot = &s_pAsyncEventSlots_0075AF9C[i];
+            AsyncDataEventSlot* pSlot = &sgptAsyncEventArray[i];
             pSlot->hEvent = CreateEventA(0, 1, 0, 0);
             pSlot->bSlotAvailable = 1;
         }
         s_nAsyncEventSlots_0075AF98 = 0x100;
-        s_bAsyncDataEnabled_0075AF94 = 1;
+        sgfAsyncDataEnabled = 1;
     }
 }
 
 // 0x0040A440
 void __cdecl FOG_AsyncDataDestroy()
 {
-    if (s_pAsyncEventSlots_0075AF9C)
+    if (sgptAsyncEventArray)
     {
         for (unsigned int i = 0; i < s_nAsyncEventSlots_0075AF98; i++)
         {
-            AsyncDataEventSlot* pSlot = &s_pAsyncEventSlots_0075AF9C[i];
+            AsyncDataEventSlot* pSlot = &sgptAsyncEventArray[i];
             if (pSlot && pSlot->hEvent)
             {
                 CloseHandle(pSlot->hEvent);
                 pSlot->hEvent = 0;
             }
         }
-        FOG_Free(s_pAsyncEventSlots_0075AF9C, ".\\Src\\AsyncData.cpp", 174, 0);
-        s_pAsyncEventSlots_0075AF9C = 0;
+        FOG_Free(sgptAsyncEventArray, ".\\Src\\AsyncData.cpp", 174, 0);
+        sgptAsyncEventArray = 0;
         s_nAsyncEventSlots_0075AF98 = 0;
     }
-    s_bAsyncDataEnabled_0075AF94 = 0;
+    sgfAsyncDataEnabled = 0;
 }
 
 // 0x0040A550
 AsyncDataEventSlot* __cdecl sub_0040A550_AsyncDataGetEventSlot()
 {
-    if (s_bAsyncDataEnabled_0075AF94)
+    if (sgfAsyncDataEnabled)
     {
         for (unsigned int i = 0; i < s_nAsyncEventSlots_0075AF98; i++)
         {
-            AsyncDataEventSlot* pSlot = &s_pAsyncEventSlots_0075AF9C[i];
+            AsyncDataEventSlot* pSlot = &sgptAsyncEventArray[i];
             if (pSlot->bSlotAvailable)
             {
                 pSlot->bSlotAvailable = 0;
@@ -222,7 +222,7 @@ AsyncDataEventSlot* __cdecl sub_0040A550_AsyncDataGetEventSlot()
         }
         for (unsigned int i = 0; i < s_nAsyncEventSlots_0075AF98; i++)
         {
-            AsyncDataEventSlot* pSlot = &s_pAsyncEventSlots_0075AF9C[i];
+            AsyncDataEventSlot* pSlot = &sgptAsyncEventArray[i];
             if (!WaitForSingleObject(pSlot->hEvent, 0))
             {
                 sub_0040A4C0_AsyncDataFinish(pSlot->pAsyncOp);
@@ -232,7 +232,7 @@ AsyncDataEventSlot* __cdecl sub_0040A550_AsyncDataGetEventSlot()
         }
         if (s_nAsyncEventSlots_0075AF98 < 0x400)
         {
-            AsyncDataEventSlot* pSlot = &s_pAsyncEventSlots_0075AF9C[s_nAsyncEventSlots_0075AF98++];
+            AsyncDataEventSlot* pSlot = &sgptAsyncEventArray[s_nAsyncEventSlots_0075AF98++];
             pSlot->hEvent = CreateEventA(0, 1, 0, 0);
             pSlot->bSlotAvailable = 0;
             return pSlot;

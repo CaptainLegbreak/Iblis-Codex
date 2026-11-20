@@ -157,7 +157,7 @@ int __fastcall D2Win_10122(const Unicode* wszText, int nTextLength); // 0x005017
 void __fastcall sub_00526F20_ToUnicode(Unicode* pDst, const char* szSrc, int nMaxLength); // 0x00526F20
 char* __fastcall sub_00526F70(char* szDest, const Unicode* pSource, int nCount); // 0x00526F70
 extern "C" const char gszExcelDirectory_006D8ED4[]; // 0x006D8ED4
-extern void* ghPentagramCellFile; // 0x0087E96C
+extern void* sghPentagram; // 0x0087E96C
 D2CelFileStrc* __fastcall ARCHIVE_LoadCellFile(const char* szFile, int nType); // 0x004FA9B0
 extern "C" int __cdecl _stricmp(const char* szString1, const char* szString2); // 0x006841E9
 void* __fastcall FOG_AllocPool(void* pMemPool, int nSize, const char* szFile, int nLine, int n0); // 0x0040B430
@@ -1123,11 +1123,11 @@ void __stdcall D2Win_10158(D2CompositeUnitStrc* hCompositeUnit, unsigned char a2
 // 0x005070D0
 void __stdcall LIST_LoadPentspinCellfile()
 {
-    D2_ASSERT(ghPentagramCellFile == 0, 0x103);
+    D2_ASSERT(sghPentagram == 0, 0x103);
 
     char szFile[260];
     wsprintfA(szFile, "%s\\UI\\CURSOR\\Pentspin", szDataGlobal_006D4118);
-    ghPentagramCellFile = ARCHIVE_LoadCellFile(szFile, 0);
+    sghPentagram = ARCHIVE_LoadCellFile(szFile, 0);
 }
 
 // 0x00504430

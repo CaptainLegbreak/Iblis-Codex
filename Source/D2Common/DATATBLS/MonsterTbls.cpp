@@ -297,7 +297,7 @@ D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, in
 static __declspec(noinline) int __stdcall DATATBLS_ParseTreasureClassItem(D2TCExShortStrc* pTCExTxtRecord, int nProb, char* szText); // 0x00654440
 extern D2TxtLinkStrc* gTxtLink_0096C87C; // 0x0096C87C
 extern void* gpMonumodTxt; // 0x0096C880
-extern D2DataTablesStrc gtDataTables_0096BC30; // 0x0096BC30
+extern D2DataTablesStrc sgtDataTables; // 0x0096BC30
 
 struct D2HirelingTxt
 {
@@ -1565,11 +1565,11 @@ void __fastcall DATATBLS_LoadSuperUniquesTxt(void* hArchive)
 {
     D2BinFieldStrc pTbl[] =
     {
-        { "Superunique", 17, 0, 0, &gtDataTables_0096BC30.pSuperUniquesLinker },
+        { "Superunique", 17, 0, 0, &sgtDataTables.pSuperUniquesLinker },
         { "Name", 22, 0, 2, (void*)sub_006117B0 },
-        { "Class", 19, 0, 4, &gtDataTables_0096BC30.pMonStatsLinker },
+        { "Class", 19, 0, 4, &sgtDataTables.pMonStatsLinker },
         { "hcIdx", 2, 0, 8, 0 },
-        { "MonSound", 19, 0, 24, &gtDataTables_0096BC30.pMonSoundsLinker },
+        { "MonSound", 19, 0, 24, &sgtDataTables.pMonSoundsLinker },
         { "Mod1", 2, 0, 12, 0 },
         { "Mod2", 2, 0, 16, 0 },
         { "Mod3", 2, 0, 20, 0 },
@@ -1582,36 +1582,36 @@ void __fastcall DATATBLS_LoadSuperUniquesTxt(void* hArchive)
         { "Utrans", 4, 0, 40, 0 },
         { "Utrans(N)", 4, 0, 41, 0 },
         { "Utrans(H)", 4, 0, 42, 0 },
-        { "TC", 20, 0, 44, &gtDataTables_0096BC30.pTreasureClassExLinker },
-        { "TC(N)", 20, 0, 46, &gtDataTables_0096BC30.pTreasureClassExLinker },
-        { "TC(H)", 20, 0, 48, &gtDataTables_0096BC30.pTreasureClassExLinker },
+        { "TC", 20, 0, 44, &sgtDataTables.pTreasureClassExLinker },
+        { "TC(N)", 20, 0, 46, &sgtDataTables.pTreasureClassExLinker },
+        { "TC(H)", 20, 0, 48, &sgtDataTables.pTreasureClassExLinker },
         { gszTxtField_end, 0, 0, 0, 0 },
     };
 
-    gtDataTables_0096BC30.pSuperUniquesLinker = FOG_AllocLinker(".\\DATATBLS\\MonsterTbls.cpp", 0x744);
-    gtDataTables_0096BC30.pSuperUniquesTxt = (D2SuperUniquesTxt*)DATATBLS_CompileTxt(hArchive, "superuniques", pTbl, &gtDataTables_0096BC30.nSuperUniquesTxtRecordCount, sizeof(D2SuperUniquesTxt));
-    if (gtDataTables_0096BC30.nSuperUniquesTxtRecordCount >= 512)
+    sgtDataTables.pSuperUniquesLinker = FOG_AllocLinker(".\\DATATBLS\\MonsterTbls.cpp", 0x744);
+    sgtDataTables.pSuperUniquesTxt = (D2SuperUniquesTxt*)DATATBLS_CompileTxt(hArchive, "superuniques", pTbl, &sgtDataTables.nSuperUniquesTxtRecordCount, sizeof(D2SuperUniquesTxt));
+    if (sgtDataTables.nSuperUniquesTxtRecordCount >= 512)
     {
-        gtDataTables_0096BC30.nSuperUniquesTxtRecordCount = 512;
+        sgtDataTables.nSuperUniquesTxtRecordCount = 512;
     }
 
     for (int i = 0; i < 66; ++i)
     {
-        gtDataTables_0096BC30.nSuperUniqueIds[i] = 0xFFFF;
+        sgtDataTables.nSuperUniqueIds[i] = 0xFFFF;
     }
 
-    for (int i = 0; i < gtDataTables_0096BC30.nSuperUniquesTxtRecordCount; ++i)
+    for (int i = 0; i < sgtDataTables.nSuperUniquesTxtRecordCount; ++i)
     {
-        const int nId = gtDataTables_0096BC30.pSuperUniquesTxt[i].dwHcIdx;
-        if (nId >= 0 && nId < 66 && gtDataTables_0096BC30.nSuperUniqueIds[nId] == 0xFFFF)
+        const int nId = sgtDataTables.pSuperUniquesTxt[i].dwHcIdx;
+        if (nId >= 0 && nId < 66 && sgtDataTables.nSuperUniqueIds[nId] == 0xFFFF)
         {
-            gtDataTables_0096BC30.nSuperUniqueIds[nId] = (unsigned short)i;
+            sgtDataTables.nSuperUniqueIds[nId] = (unsigned short)i;
         }
     }
 
     for (int i = 0; i < 66; ++i)
     {
-        D2_ASSERT(gtDataTables_0096BC30.nSuperUniqueIds[i] != 0xFFFF, 0x782);
+        D2_ASSERT(sgtDataTables.nSuperUniqueIds[i] != 0xFFFF, 0x782);
     }
 }
 
@@ -1759,7 +1759,7 @@ D2MonStats2Txt* __fastcall DATATBLS_LoadMonStats2Txt(void* hArchive)
 {
     D2BinFieldStrc pTbl[] =
     {
-        { gszTxtField_Id, TXTFIELD_NAMETOINDEX, 0, 0, &gtDataTables_0096BC30.pMonStats2Linker },
+        { gszTxtField_Id, TXTFIELD_NAMETOINDEX, 0, 0, &sgtDataTables.pMonStats2Linker },
         { gszTxtField_Height, TXTFIELD_BYTE, 0, 11, 0 },
         { gszTxtField_overlayHeight, TXTFIELD_BYTE, 0, 12, 0 },
         { gszTxtField_pixHeight, TXTFIELD_BYTE, 0, 13, 0 },
@@ -1882,13 +1882,13 @@ D2MonStats2Txt* __fastcall DATATBLS_LoadMonStats2Txt(void* hArchive)
         { gszTxtField_InfernoLen, TXTFIELD_BYTE, 0, 264, 0 },
         { gszTxtField_InfernoAnim, TXTFIELD_BYTE, 0, 265, 0 },
         { gszTxtField_InfernoRollback, TXTFIELD_BYTE, 0, 266, 0 },
-        { gszTxtField_ResurrectMode, TXTFIELD_CODETOBYTE, 0, 267, &gtDataTables_0096BC30.pMonModeLinker },
-        { gszTxtField_ResurrectSkill, TXTFIELD_NAMETOWORD, 0, 268, &gtDataTables_0096BC30.pSkillsLinker },
+        { gszTxtField_ResurrectMode, TXTFIELD_CODETOBYTE, 0, 267, &sgtDataTables.pMonModeLinker },
+        { gszTxtField_ResurrectSkill, TXTFIELD_NAMETOWORD, 0, 268, &sgtDataTables.pSkillsLinker },
         { gszTxtField_end, TXTFIELD_NONE, 0, 0, 0 },
     };
 
-    gtDataTables_0096BC30.pMonStats2Linker = FOG_AllocLinker(gszMonsterTblsSourceFile, 2705);
-    return gtDataTables_0096BC30.pMonStats2Txt = (D2MonStats2Txt*)DATATBLS_CompileTxt(hArchive, gszMonStats2TxtName, pTbl, &gtDataTables_0096BC30.nMonStats2TxtRecordCount, 308);
+    sgtDataTables.pMonStats2Linker = FOG_AllocLinker(gszMonsterTblsSourceFile, 2705);
+    return sgtDataTables.pMonStats2Txt = (D2MonStats2Txt*)DATATBLS_CompileTxt(hArchive, gszMonStats2TxtName, pTbl, &sgtDataTables.nMonStats2TxtRecordCount, 308);
 }
 
 D2TxtLinkStrc* gTxtLink_0096C85C; // 0x0096C85C

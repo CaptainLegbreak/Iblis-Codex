@@ -97236,7 +97236,7 @@
    "fill": 4,
    "form": "declared",
    "fwd": null,
-   "head": "extern D2QuestIntroTableStrc gpQuestIntroTable_0073188C[4] = ",
+   "head": "extern D2QuestIntroTableStrc sgQuestIntro[4] = ",
    "model": {
     "elem": {
      "k": "struct",
@@ -97284,7 +97284,7 @@
     "n": 4,
     "size": 32
    },
-   "name": "gpQuestIntroTable_0073188C",
+   "name": "sgQuestIntro",
    "pointers": [
     [
      0,
@@ -97361,7 +97361,7 @@
    "fill": 37,
    "form": "declared",
    "fwd": null,
-   "head": "extern D2QuestInitTableStrc gpQuestInitTable_00731510[37] = ",
+   "head": "extern D2QuestInitTableStrc sgQuestInit[37] = ",
    "model": {
     "elem": {
      "k": "struct",
@@ -97463,7 +97463,7 @@
     "n": 37,
     "size": 888
    },
-   "name": "gpQuestInitTable_00731510",
+   "name": "sgQuestInit",
    "pointers": [
     [
      0,
@@ -97851,7 +97851,7 @@
    "alias": true,
    "cname": "gData_006E0D18",
    "declared": true,
-   "decorated": "?gPacketTable_006E0D18@@3PAUD2PacketTableStrc@@A",
+   "decorated": "?sgcptIncomingMessageChart@@3PAUD2PacketTableStrc@@A",
    "file": "Source/D2Game/PLAYER/PlrMsg_00549BA0.cpp",
    "fill": 103,
    "form": "declared",
@@ -97889,7 +97889,7 @@
     "n": 103,
     "size": 824
    },
-   "name": "gPacketTable_006E0D18",
+   "name": "sgcptIncomingMessageChart",
    "pointers": [
     [
      8,
@@ -98624,7 +98624,7 @@
    "size": 824,
    "stars": 0,
    "struct": null,
-   "tail": "; // 0x006E0D18\n#pragma comment(linker, \"/alternatename:?gPacketTable_006E0D18@@3PAUD2PacketTableStrc@@A=_gData_006E0D18\")",
+   "tail": "; // 0x006E0D18\n#pragma comment(linker, \"/alternatename:?sgcptIncomingMessageChart@@3PAUD2PacketTableStrc@@A=_gData_006E0D18\")",
    "type": "D2PacketTableStrc",
    "va": "0x006E0D18"
   },
@@ -99022,7 +99022,7 @@
    "file": "Source/D2Game/OBJECTS/Objects_0054F5D0.cpp",
    "form": "declared",
    "fwd": null,
-   "head": "extern D2ObjInitFn gpObjInitFnTable_00731BC0[80] = ",
+   "head": "extern D2ObjInitFn sgInitTable[80] = ",
    "model": {
     "elem": {
      "fn": true,
@@ -99034,7 +99034,7 @@
     "n": 80,
     "size": 320
    },
-   "name": "gpObjInitFnTable_00731BC0",
+   "name": "sgInitTable",
    "pointers": [
     [
      4,
@@ -100176,7 +100176,7 @@
    "file": "Source/D2Game/OBJECTS/Objects_00552610.cpp",
    "form": "declared",
    "fwd": null,
-   "head": "extern OBJECTPOPULATEFN gpfObjectPopulateTable_00731D00[10] = ",
+   "head": "extern OBJECTPOPULATEFN sgPopulateTable[10] = ",
    "model": {
     "elem": {
      "fn": true,
@@ -100188,7 +100188,7 @@
     "n": 10,
     "size": 40
    },
-   "name": "gpfObjectPopulateTable_00731D00",
+   "name": "sgPopulateTable",
    "pointers": [
     [
      4,
@@ -105095,7 +105095,7 @@
    "file": "Source/D2Game/OBJECTS/ObjMode.cpp",
    "form": "declared",
    "fwd": null,
-   "head": "extern ObjTrapHandlerFunction gpObjectTrapHandlerTable_00732CEC[10] = ",
+   "head": "extern ObjTrapHandlerFunction sgObjectTrapHandlers[10] = ",
    "model": {
     "elem": {
      "fn": true,
@@ -105107,7 +105107,7 @@
     "n": 10,
     "size": 40
    },
-   "name": "gpObjectTrapHandlerTable_00732CEC",
+   "name": "sgObjectTrapHandlers",
    "pointers": [
     [
      4,
@@ -105219,17 +105219,17 @@
    "alias": false,
    "cname": "gData_006E1850",
    "declared": true,
-   "decorated": "?gpShrineTable_006E1850@@3QBUD2ShrineTableStrc@@B",
+   "decorated": "?sgcptShrineChart@@3QBUD2ShrineTableStrc@@B",
    "file": "Source/D2Game/OBJECTS/ObjMode.cpp",
    "form": "bytes",
    "fwd": "extern \"C\" const struct d2data_006E1850_t gData_006E1850; // 0x006E1850",
    "head": "extern \"C\" const struct d2data_006E1850_t gData_006E1850 = ",
-   "name": "gpShrineTable_006E1850",
+   "name": "sgcptShrineChart",
    "pointers": [],
    "region": "rdata",
    "size": 8,
    "struct": "#pragma pack(push, 1)\nstruct d2data_006E1850_t\n{\n    unsigned char b0[8];\n};\n#pragma pack(pop)",
-   "tail": "; // 0x006E1850\n#pragma comment(linker, \"/alternatename:?gpShrineTable_006E1850@@3QBUD2ShrineTableStrc@@B=_gData_006E1850\")",
+   "tail": "; // 0x006E1850\n#pragma comment(linker, \"/alternatename:?sgcptShrineChart@@3QBUD2ShrineTableStrc@@B=_gData_006E1850\")",
    "va": "0x006E1850"
   },
   {

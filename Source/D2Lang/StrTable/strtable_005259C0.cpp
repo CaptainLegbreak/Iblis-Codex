@@ -50,15 +50,15 @@ void __fastcall sub_00526320_ToUnicode(Unicode* pDest, const char* szSource, int
 int __fastcall sub_00527790_LoadCodePageMap(void* hArchive, const char* szPath);                            // 0x00527790
 int __fastcall sub_00527D50_GetCodePageCharCount(const char* szText, int nLength);                          // 0x00527D50
 
-static D2TblHeaderStrc* gpStringTable_008829B4;                                                             // 0x008829B4
+static D2TblHeaderStrc* sghStringTable;                                                             // 0x008829B4
 static Unicode** gpStringIndex_008829B8;                                                                    // 0x008829B8
 static Unicode** gpPatchStringIndex_008829BC;                                                               // 0x008829BC
 static Unicode** gpExpansionStringIndex_008829C0;                                                           // 0x008829C0
 static Unicode* gpStringData_008829C4;                                                                      // 0x008829C4
 static Unicode* gpPatchStringData_008829C8;                                                                 // 0x008829C8
 static Unicode* gpExpansionStringData_008829CC;                                                             // 0x008829CC
-static D2TblHeaderStrc* gpPatchStringTable_008829D0;                                                        // 0x008829D0
-static D2TblHeaderStrc* gpExpansionStringTable_008829D4;                                                    // 0x008829D4
+static D2TblHeaderStrc* sghPatchStringTable;                                                        // 0x008829D0
+static D2TblHeaderStrc* sghExpansionStringTable;                                                    // 0x008829D4
 static int gnStringTableRefs_008829D8;                                                                      // 0x008829D8
 extern void* ghArchive_008829DC;                                                                            // 0x008829DC
 
@@ -95,7 +95,7 @@ int __fastcall sub_005259C0_LoadStringTables(void* pMemPool, const char* szLangu
     int nTotal;
     int i;
 
-    if (gpStringTable_008829B4)
+    if (sghStringTable)
     {
         ++gnStringTableRefs_008829D8;
         return 1;
@@ -122,23 +122,23 @@ int __fastcall sub_005259C0_LoadStringTables(void* pMemPool, const char* szLangu
 
     strncpy(szFormat, "data\\local\\lng\\%s\\string.tbl", 0x103);
     sprintf(szPath, szFormat, szLang);
-    gpStringTable_008829B4 = sub_00525920_LoadTblFile(szPath);
-    if (!gpStringTable_008829B4)
+    sghStringTable = sub_00525920_LoadTblFile(szPath);
+    if (!sghStringTable)
         return 0;
 
-    D2TblHeaderStrc* pTbl = gpStringTable_008829B4;
-    D2TblHeaderStrc* pLoaded = gpStringTable_008829B4;
+    D2TblHeaderStrc* pTbl = sghStringTable;
+    D2TblHeaderStrc* pLoaded = sghStringTable;
 
     pIndex = (Unicode**)FOG_Alloc(pTbl->nHashTableSize * sizeof(Unicode*), ".\\StrTable\\strtable.cpp", 0x18F, 0);
     gpStringIndex_008829B8 = pIndex;
     memset(pIndex, 0, pTbl->nHashTableSize * sizeof(Unicode*));
     ++gnStringTableRefs_008829D8;
 
-    pNodes = (D2TblNodeStrc*)((char*)gpStringTable_008829B4 + sizeof(D2TblHeaderStrc) + pLoaded->nNumElements * sizeof(unsigned short));
+    pNodes = (D2TblNodeStrc*)((char*)sghStringTable + sizeof(D2TblHeaderStrc) + pLoaded->nNumElements * sizeof(unsigned short));
     nTotal = 0;
     for (i = 0; i < pTbl->nHashTableSize; i++)
     {
-        const char* szText = (char*)gpStringTable_008829B4 + pNodes[i].dwKeyOffset;
+        const char* szText = (char*)sghStringTable + pNodes[i].dwKeyOffset;
         nTotal += sub_00527D50_GetCodePageCharCount(szText, pNodes[i].nNameLen) + 1;
     }
 
@@ -147,7 +147,7 @@ int __fastcall sub_005259C0_LoadStringTables(void* pMemPool, const char* szLangu
     for (i = 0; i < pTbl->nHashTableSize; i++)
     {
         gpStringIndex_008829B8[i] = pText;
-        const char* szText = (char*)gpStringTable_008829B4 + pNodes[i].dwKeyOffset;
+        const char* szText = (char*)sghStringTable + pNodes[i].dwKeyOffset;
         const int nCount = sub_00527D50_GetCodePageCharCount(szText, pNodes[i].nNameLen) + 1;
         sub_00526320_ToUnicode(gpStringIndex_008829B8[i], szText, nCount);
         pText += nCount;
@@ -155,21 +155,21 @@ int __fastcall sub_005259C0_LoadStringTables(void* pMemPool, const char* szLangu
 
     strncpy(szFormat, "data\\local\\lng\\%s\\patchstring.tbl", 0x103);
     sprintf(szPath, szFormat, szLang);
-    gpPatchStringTable_008829D0 = sub_00525920_LoadTblFile(szPath);
-    D2_ASSERT(gpPatchStringTable_008829D0, 0x1C3);
+    sghPatchStringTable = sub_00525920_LoadTblFile(szPath);
+    D2_ASSERT(sghPatchStringTable, 0x1C3);
 
-    pTbl = gpPatchStringTable_008829D0;
+    pTbl = sghPatchStringTable;
 
     pIndex = (Unicode**)FOG_Alloc(pTbl->nHashTableSize * sizeof(Unicode*), ".\\StrTable\\strtable.cpp", 0x1C5, 0);
     gpPatchStringIndex_008829BC = pIndex;
     memset(pIndex, 0, pTbl->nHashTableSize * sizeof(Unicode*));
 
-    pTbl = gpPatchStringTable_008829D0;
+    pTbl = sghPatchStringTable;
     pNodes = (D2TblNodeStrc*)((char*)pTbl + sizeof(D2TblHeaderStrc) + pTbl->nNumElements * sizeof(unsigned short));
     nTotal = 0;
     for (i = 0; i < pTbl->nHashTableSize; i++)
     {
-        const char* szText = (char*)gpPatchStringTable_008829D0 + pNodes[i].dwKeyOffset;
+        const char* szText = (char*)sghPatchStringTable + pNodes[i].dwKeyOffset;
         nTotal += sub_00527D50_GetCodePageCharCount(szText, pNodes[i].nNameLen) + 1;
     }
 
@@ -178,7 +178,7 @@ int __fastcall sub_005259C0_LoadStringTables(void* pMemPool, const char* szLangu
     for (i = 0; i < pTbl->nHashTableSize; i++)
     {
         gpPatchStringIndex_008829BC[i] = pText;
-        const char* szText = (char*)gpPatchStringTable_008829D0 + pNodes[i].dwKeyOffset;
+        const char* szText = (char*)sghPatchStringTable + pNodes[i].dwKeyOffset;
         const int nCount = sub_00527D50_GetCodePageCharCount(szText, pNodes[i].nNameLen) + 1;
         sub_00526320_ToUnicode(gpPatchStringIndex_008829BC[i], szText, nCount);
         pText += nCount;
@@ -188,21 +188,21 @@ int __fastcall sub_005259C0_LoadStringTables(void* pMemPool, const char* szLangu
     {
         strncpy(szFormat, "data\\local\\lng\\%s\\expansionstring.tbl", 0x103);
         sprintf(szPath, szFormat, szLang);
-        gpExpansionStringTable_008829D4 = sub_00525920_LoadTblFile(szPath);
-        D2_ASSERT(gpExpansionStringTable_008829D4, 0x1F6);
+        sghExpansionStringTable = sub_00525920_LoadTblFile(szPath);
+        D2_ASSERT(sghExpansionStringTable, 0x1F6);
 
-        pTbl = gpExpansionStringTable_008829D4;
+        pTbl = sghExpansionStringTable;
 
         pIndex = (Unicode**)FOG_Alloc(pTbl->nHashTableSize * sizeof(Unicode*), ".\\StrTable\\strtable.cpp", 0x1F8, 0);
         gpExpansionStringIndex_008829C0 = pIndex;
         memset(pIndex, 0, pTbl->nHashTableSize * sizeof(Unicode*));
 
-        pTbl = gpExpansionStringTable_008829D4;
+        pTbl = sghExpansionStringTable;
         pNodes = (D2TblNodeStrc*)((char*)pTbl + sizeof(D2TblHeaderStrc) + pTbl->nNumElements * sizeof(unsigned short));
         nTotal = 0;
         for (i = 0; i < pTbl->nHashTableSize; i++)
         {
-            const char* szText = (char*)gpExpansionStringTable_008829D4 + pNodes[i].dwKeyOffset;
+            const char* szText = (char*)sghExpansionStringTable + pNodes[i].dwKeyOffset;
             nTotal += sub_00527D50_GetCodePageCharCount(szText, pNodes[i].nNameLen) + 1;
         }
 
@@ -211,7 +211,7 @@ int __fastcall sub_005259C0_LoadStringTables(void* pMemPool, const char* szLangu
         for (i = 0; i < pTbl->nHashTableSize; i++)
         {
             gpExpansionStringIndex_008829C0[i] = pText;
-            const char* szText = (char*)gpExpansionStringTable_008829D4 + pNodes[i].dwKeyOffset;
+            const char* szText = (char*)sghExpansionStringTable + pNodes[i].dwKeyOffset;
             const int nCount = sub_00527D50_GetCodePageCharCount(szText, pNodes[i].nNameLen) + 1;
             sub_00526320_ToUnicode(gpExpansionStringIndex_008829C0[i], szText, nCount);
             pText += nCount;

@@ -100,7 +100,7 @@ extern "C" const char* __cdecl sub_00408090(); // 0x00408090
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine); // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode); // 0x00681E09
 extern "C" __declspec(dllimport) int __stdcall IsBadCodePtr(FARPROC lpfn); // 0x006CC34C
-extern ObjTrapHandlerFunction gpObjectTrapHandlerTable_00732CEC[10]; // 0x00732CEC
+extern ObjTrapHandlerFunction sgObjectTrapHandlers[10]; // 0x00732CEC
 extern int gnObjectTrapHandlers_00732D14; // 0x00732D14
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
 void __fastcall OBJEVAL_ApplyTrapObjectDamage(D2GameStrc* pGame, D2UnitStrc* pSrcUnit, D2UnitStrc* pTargetUnit, int nDamageType); // 0x005DFA00
@@ -274,7 +274,7 @@ struct D2ShrineTableStrc
     int unk0x08;
 };
 
-extern const D2ShrineTableStrc gpShrineTable_006E1850[]; // 0x006E1850
+extern const D2ShrineTableStrc sgcptShrineChart[]; // 0x006E1850
 D2UnitStrc* __stdcall INVENTORY_GetLeftHandWeapon(D2InventoryStrc* pInventory); // 0x0063BEF0
 int __stdcall ITEMS_GetItemType(D2UnitStrc* pItem); // 0x0062B400
 int __stdcall SKILLS_GetWeaponMasteryBonus(D2UnitStrc* pUnit, D2UnitStrc* pItem, D2SkillStrc* pSkill, int nType); // 0x00645830
@@ -540,8 +540,8 @@ void __fastcall sub_6FC74DF0(D2GameStrc* pGame, D2UnitStrc* pObject)
     {
         if (nLevelId >= 75)
         {
-            D2_ASSERT(!IsBadCodePtr((FARPROC)gpObjectTrapHandlerTable_00732CEC[2]), 0x161);
-            gpObjectTrapHandlerTable_00732CEC[2](pGame, pObject);
+            D2_ASSERT(!IsBadCodePtr((FARPROC)sgObjectTrapHandlers[2]), 0x161);
+            sgObjectTrapHandlers[2](pGame, pObject);
             return;
         }
     }
@@ -549,20 +549,20 @@ void __fastcall sub_6FC74DF0(D2GameStrc* pGame, D2UnitStrc* pObject)
     {
         if (nLevelId < 40 && nLevelId != 25)
         {
-            D2_ASSERT(!IsBadCodePtr((FARPROC)gpObjectTrapHandlerTable_00732CEC[2]), 0x16C);
-            gpObjectTrapHandlerTable_00732CEC[2](pGame, pObject);
+            D2_ASSERT(!IsBadCodePtr((FARPROC)sgObjectTrapHandlers[2]), 0x16C);
+            sgObjectTrapHandlers[2](pGame, pObject);
             return;
         }
     }
     else if ((nTrapType == 1 || nTrapType == 4) && nLevelId < 40)
     {
-        D2_ASSERT(!IsBadCodePtr((FARPROC)gpObjectTrapHandlerTable_00732CEC[2]), 0x176);
-        gpObjectTrapHandlerTable_00732CEC[2](pGame, pObject);
+        D2_ASSERT(!IsBadCodePtr((FARPROC)sgObjectTrapHandlers[2]), 0x176);
+        sgObjectTrapHandlers[2](pGame, pObject);
         return;
     }
 
-    D2_ASSERT(!IsBadCodePtr((FARPROC)gpObjectTrapHandlerTable_00732CEC[nTrapType]), 0x17B);
-    gpObjectTrapHandlerTable_00732CEC[nTrapType](pGame, pObject);
+    D2_ASSERT(!IsBadCodePtr((FARPROC)sgObjectTrapHandlers[nTrapType]), 0x17B);
+    sgObjectTrapHandlers[nTrapType](pGame, pObject);
 }
 
 // 0x00581A10
@@ -1186,7 +1186,7 @@ void __fastcall D2GAME_SHRINES_CombatBoost_6FC77690(D2ObjOperateFnStrc* pOp, D2S
 {
     D2_ASSERT(ptShrineData->nCode < gnShrineTableCount_00732EAC, 0x9C1);
 
-    const D2ShrineTableStrc* pShrineRecord = &gpShrineTable_006E1850[ptShrineData->nCode];
+    const D2ShrineTableStrc* pShrineRecord = &sgcptShrineChart[ptShrineData->nCode];
     const int nValue = OBJMODE_CalculateShrineStatBonus(0x13, ptShrineData->dwArg0, pOp->pPlayer);
     D2StatListStrc* pStatList = sub_00582800_ApplyShrineCurse(pOp->pObject, pOp->pPlayer, ptShrineData->dwDurationInFrames, ptShrineData->dwArg1, 0x19, pShrineRecord->unk0x08, 0);
     sub_006270B0(pStatList, 0x13, nValue, 0);
@@ -1197,7 +1197,7 @@ void __fastcall D2GAME_SHRINES_Stamina_6FC779C0(D2ObjOperateFnStrc* pOp, D2Shrin
 {
     D2_ASSERT(ptShrineData->nCode < gnShrineTableCount_00732EAC, 0x9E7);
 
-    const D2ShrineTableStrc* pShrineRecord = &gpShrineTable_006E1850[ptShrineData->nCode];
+    const D2ShrineTableStrc* pShrineRecord = &sgcptShrineChart[ptShrineData->nCode];
     const int nMaxStamina = STATLIST_GetMaxStaminaFromUnit(pOp->pPlayer);
     STATLIST_SetUnitStat(pOp->pPlayer, 0x0A, nMaxStamina, 0);
     const int nStatValue = OBJMODE_CalculateShrineStatBonus(pShrineRecord->unk0x04, ptShrineData->dwArg0, pOp->pPlayer);
@@ -1211,7 +1211,7 @@ void __fastcall D2GAME_SHRINES_DefensiveBoost_6FC77AE0(D2ObjOperateFnStrc* pOp, 
 {
     D2_ASSERT(ptShrineData->nCode < gnShrineTableCount_00732EAC, 0x9F9);
 
-    const D2ShrineTableStrc* pShrineRecord = &gpShrineTable_006E1850[ptShrineData->nCode];
+    const D2ShrineTableStrc* pShrineRecord = &sgcptShrineChart[ptShrineData->nCode];
     const int nStatValue = pShrineRecord->unk0x04 != -1 ? OBJMODE_CalculateShrineStatBonus(pShrineRecord->unk0x04, ptShrineData->dwArg0, pOp->pPlayer) : 0;
 
     sub_00582800_ApplyShrineCurse(pOp->pObject, pOp->pPlayer, ptShrineData->dwDurationInFrames, nStatValue, pShrineRecord->unk0x04, pShrineRecord->unk0x08, 0);

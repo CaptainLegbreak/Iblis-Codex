@@ -105,7 +105,7 @@ extern int gnGlobal_00721E44;                                                   
 extern int gnGlobal_00721E48;                                                                               // 0x00721E48
 extern int gnGlobal_00721E4C;                                                                               // 0x00721E4C
 extern int gnGlobal_00721E50;                                                                               // 0x00721E50
-extern D2ClientCacheEntryStrc* gpCacheEntries_007BC9A0;                                                     // 0x007BC9A0
+extern D2ClientCacheEntryStrc* sgptSoundHeaderTable;                                                     // 0x007BC9A0
 extern int gnCacheEntries_007BC9A4;                                                                         // 0x007BC9A4
 extern D2ClientCacheNodeStrc* gpCacheList_007BC9B8;                                                         // 0x007BC9B8
 extern unsigned int gdwGlobal_007BC9BC;                                                                     // 0x007BC9BC
@@ -176,7 +176,7 @@ int __stdcall sub_004824A0_FreeCacheEntries(unsigned int nFree, int bTwoPasses, 
             for (D2ClientCacheNodeStrc* pNode = gpCacheList_007BC9B8; pNode; pNode = pNode->pNext)
             {
                 const int nId = pNode->nId;
-                D2ClientCacheEntryStrc* pEntry = (gpCacheEntries_007BC9A0 && nId >= 0 && nId < gnCacheEntries_007BC9A4) ? &gpCacheEntries_007BC9A0[nId] : 0;
+                D2ClientCacheEntryStrc* pEntry = (sgptSoundHeaderTable && nId >= 0 && nId < gnCacheEntries_007BC9A4) ? &sgptSoundHeaderTable[nId] : 0;
                 if (nPass == 0 && (*(int*)pEntry->nRefCount || pEntry->bLocked))
                 {
                     continue;
