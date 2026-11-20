@@ -2,7 +2,6 @@
 #include "D2Constants.h"
 #include "D2Structs.h"
 #include "D2Path.h"
-#include "D2Structs.h"
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
@@ -12,6 +11,7 @@
 #include "D2InactiveUnits.h"
 #include "D2DrlgRooms.h"
 #include "D2GameServer.h"
+#include "D2GameClient.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define PLRMODE_DEATH 0
@@ -73,22 +73,6 @@ enum D2C_MonsterIds
 enum D2C_MonStatsTxtFlagIndices
 {
     MONSTATSFLAGINDEX_INTERACT = 9,
-};
-
-struct D2ClientStrc
-{
-    unsigned int dwClientId;
-    int dwClientState;
-    unsigned char unk_08[0x174];
-    D2SaveHeaderStrc* pSaveHeader;
-    unsigned int nSaveHeaderSize;
-    char unk0x184[0x24];
-    D2GameStrc* pGame;
-    unsigned char bAct;
-    unsigned char unk_1AD[0x7];
-    D2ActiveRoomStrc* hRoom;
-    unsigned char unk_1B8[0x2F0];
-    D2ClientStrc* pNext;
 };
 
 struct D2PartyStrc

@@ -6,6 +6,7 @@
 #include "D2UnitData.h"
 #include "D2EventTimer.h"
 #include "D2GameServer.h"
+#include "D2GameClient.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2NpcRecordStrc;
@@ -199,12 +200,6 @@ struct D2ItemDataTbl
 
 extern "C" void* __cdecl memset(void* pDst, int nValue, unsigned int nSize); // 0x00681EF0
 extern unsigned char gbUnitProxyItemCacheInitialized_00883E88[17]; // 0x00883E88
-
-struct D2ClientStrc
-{
-    char unk0x000[0x4A8];
-    D2ClientStrc* pNext;
-};
 
 struct D2RegurgitatorAiCallbackArgStrc
 {

@@ -4,6 +4,7 @@
 #include "D2Drlg.h"
 #include "D2DrlgRooms.h"
 #include "D2GameServer.h"
+#include "D2GameClient.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
@@ -59,20 +60,6 @@ void __fastcall SUNIT_SpawnPresetUnitsInRoom(D2GameStrc* pGame, D2ActiveRoomStrc
 int __cdecl sub_005377B0_CountFlaggedClients(); // 0x005377B0
 
 void __stdcall DUNGEON_UpdateAndFreeInactiveRooms(D2DrlgActStrc* pAct); // 0x0061AA20
-
-struct D2ClientStrc
-{
-    unsigned int dwClientId;
-    int dwClientState;
-    char unk0x0008[0x2];
-    unsigned short nSaveFlags;
-    char unk0x000C[0x1];
-    char szName[16];
-    char unk0x001D[0x197];
-    D2ActiveRoomStrc* hRoom;
-    char unk0x01B8[0x2F0];
-    D2ClientStrc* pNext;
-};
 
 #pragma pack(push, 1)
 struct D2GSPacketSrv5A

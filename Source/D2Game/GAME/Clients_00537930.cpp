@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2UnitData.h"
+#include "D2GameClient.h"
 struct D2GameStrc;
 struct D2InventoryStrc;
 struct D2UnitStrc;
@@ -12,25 +13,6 @@ extern "C" const char* __cdecl sub_00408090();                                  
 extern "C" void __cdecl sub_00408A60(const char* szText, const char* szFile, int nLine);                   // 0x00408A60
 extern "C" __declspec(noreturn) void __cdecl exit(int nCode);                                               // 0x00681E09
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
-
-
-struct D2ClientStrc
-{
-    char unk0x00[8];
-    unsigned char nClassId;
-    char unk0x09;
-    unsigned short nSaveFlags;
-    char unk0x0C;
-    char szName[0x167];
-    D2UnitStrc* pPlayer;
-    char unk0x178[0x25C];
-    unsigned int dwFlags;
-    int unk0x3D8;
-    D2HotkeySkillStrc HotkeySkills[16];
-};
-
-
-
 
 #define UNIT_INVALID 6
 

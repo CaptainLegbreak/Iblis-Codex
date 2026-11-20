@@ -868,13 +868,7 @@ struct D2HashKeyNoneStrc
     char unk0x00;
 };
 
-struct D2HotkeySkillStrc
-{
-    short nSkill;
-    unsigned char nHand;
-    unsigned char unk0x03;
-    int nItemGUID;
-};
+#include "D2HotkeySkill.h"
 
 struct D2ItemCacheStrc
 {

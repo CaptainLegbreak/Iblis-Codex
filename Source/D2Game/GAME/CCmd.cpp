@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2GameStrc.h"
+#include "D2GameClient.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 
@@ -63,14 +64,6 @@ struct D2GSPacketClt6D
 
 #pragma pack(pop)
 
-struct D2ClientStrc
-{
-    char unk0x000[0x3D8];
-    unsigned long dwLastPacketTick;
-    unsigned char unk_3DC[0x128];
-    int dw504;
-};
-
 extern D2ServerCallbackFunctions* gpD2EventCallbackTable_6FD45830; // 0x00883D50
 int __stdcall SStrCmpI(const char* szString1, const char* szString2, unsigned int nMaxChars); // 0x00413590
 int __fastcall GAME_GetGameGUIDFromGameId(unsigned short nGameId); // 0x0052C060
@@ -98,7 +91,6 @@ int __fastcall GAME_VerifyDisconnect(int nClientId); // 0x0052CBE0
 void __fastcall SrvDisconnectClientById(int nClientId, int nEventType); // 0x00530270
 D2ClientStrc* __fastcall sub_00537760_GetClientFromId(int nClientId); // 0x00537760
 void __fastcall sub_005377A0_UnlockClientList(int nClientId); // 0x005377A0
-
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetTickCount();
 D2ClientStrc* __fastcall CLIENTS_GetClientFromClientId(D2GameStrc* pGame, int nClientId); // 0x00537810

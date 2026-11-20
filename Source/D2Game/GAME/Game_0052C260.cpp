@@ -2,19 +2,12 @@
 #include "D2GameStrc.h"
 #include "D2GameTypes.h"
 #include "D2GameServer.h"
+#include "D2GameClient.h"
 
 typedef int (__stdcall* FARPROC)();
 
 struct D2ClientInfoStrc;
 struct D2GameDataTableStrc;
-
-struct D2ClientStrc
-{
-    char unk0x000[0x68];
-    D2ClientInfoStrc* pClientInfo;
-    char unk0x06C[0x140];
-    unsigned char bAct;
-};
 
 extern "C" const char gszEmptyAssertText;                                                                   // 0x006CC837
 extern "C" const char* __cdecl sub_00408090();                                                      // 0x00408090
