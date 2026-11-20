@@ -2,6 +2,7 @@
 #include "D2Drlg.h"
 #include "D2ItemsWorld.h"
 #include "D2DrlgMaps.h"
+#include "D2TxtTables.h"
 
 struct D2PresetUnitStrc;
 
@@ -16,24 +17,6 @@ struct D2DrlgSubstGroupStrc
 
 
 
-struct D2LvlSubTxt
-{
-    int dwType;
-    char szFile[60];
-    int dwCheckAll;
-    int dwBordType;
-    int dwDt1Mask;
-    int dwGridSize;
-    D2DrlgFileStrc* pDrlgFile;
-    D2DrlgGridStrc pTileTypeGrid[4];
-    D2DrlgGridStrc pWallGrid[4];
-    D2DrlgGridStrc pFloorGrid;
-    D2DrlgGridStrc pShadowGrid;
-    int nProb[5];
-    int nTrials[5];
-    int nMax[5];
-    int unk0x158;
-};
 
 struct D2DrlgDrlgStrc
 {

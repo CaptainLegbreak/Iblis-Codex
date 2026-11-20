@@ -7,6 +7,7 @@
 #include "D2UnitData.h"
 #include "D2ItemsWorld.h"
 #include "D2LevelTxt.h"
+#include "D2TxtTables.h"
 // build: ob1
 
 struct D2UnitStrc;
@@ -22,20 +23,6 @@ struct D2AiControlStrc;
 
 
 
-struct D2MonUModTxt
-{
-    unsigned int dwUniqueMod;
-    unsigned short wVersion;
-    unsigned char nEnabled;
-    unsigned char nXfer;
-    unsigned char nChampion;
-    unsigned char nFPick;
-    short wExclude[2];
-    unsigned short wCPick[3];
-    unsigned short wUPick[3];
-    unsigned short pad1A;
-    unsigned int dwConstants;
-};
 
 
 

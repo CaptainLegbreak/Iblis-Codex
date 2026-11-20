@@ -5,6 +5,7 @@
 #include "D2DataTbls.h"
 #include "D2GameStrc.h"
 #include "D2Txt.h"
+#include "D2TxtTables.h"
 #include "D2UnitData.h"
 #include "D2Drlg.h"
 

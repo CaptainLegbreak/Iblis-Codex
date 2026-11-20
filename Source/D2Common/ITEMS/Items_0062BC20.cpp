@@ -2,6 +2,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2ItemsWorld.h"
+#include "D2TxtTables.h"
 #ifdef MOVED_TEST
 #define LEVEL_LOW 27
 #define LEVEL_HIGH 42
@@ -13,30 +14,6 @@
 
 
 
-struct D2ItemTypesTxt
-{
-#ifdef MOVED_TEST
-    char movedPrefix[4];
-#endif
-    char szCode[4];
-    short nEquiv1;
-    short nEquiv2;
-    unsigned char nRepair;
-    unsigned char nBody;
-    unsigned char nBodyLoc1;
-    unsigned char nBodyLoc2;
-    short wShoots;
-    short wQuiver;
-    unsigned char nThrowable;
-    unsigned char nReload;
-    unsigned char nReEquip;
-    unsigned char nAutoStack;
-    char unk0x14[6];
-    unsigned char nMaxSock1;
-    unsigned char nMaxSock25;
-    unsigned char nMaxSock40;
-    char unk0x1D[0xC7];
-};
 
 extern D2DataTablesStrc* sgptDataTables;  // 0x00744304
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId);  // 0x006335F0

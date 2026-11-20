@@ -1,6 +1,7 @@
 #include "D2Game.h"
 #include "D2Structs.h"
 #include "D2DataTbls.h"
+#include "D2TxtTables.h"
 struct D2UnitStrc;
 
 union D2SeedStrc;
@@ -34,19 +35,6 @@ struct D2ItemsTxt
     int dwCode;
 };
 
-struct D2BooksTxt
-{
-    unsigned short wStr;
-    unsigned char nSpellIcon;
-    unsigned char pad0x03;
-    unsigned int dwPSpell;
-    int dwScrollSkillId;
-    int dwBookSkillId;
-    unsigned int dwBaseCost;
-    unsigned int dwCostPerCharge;
-    int dwScrollSpellCode;
-    int dwBookSpellCode;
-};
 
 struct D2BookDataTbl
 {

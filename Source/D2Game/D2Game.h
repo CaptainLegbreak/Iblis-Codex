@@ -1,4 +1,5 @@
 #pragma once
+struct D2ItemTypesTxt;
 struct D2MapAIPathPositionStrc;
 struct D2PresetUnitStrc;
 
@@ -926,14 +927,6 @@ struct D2ItemTradeStrc
     D2ItemTradeStrc* pNext;
 };
 
-struct D2ItemTypesTxt
-{
-    char unk0x00[0x14];
-    unsigned char nMagic;
-    unsigned char nRare;
-    unsigned char nNormal;
-    char unk0x17[0xCD];
-};
 
 struct D2ItemsTxtSpeed
 {

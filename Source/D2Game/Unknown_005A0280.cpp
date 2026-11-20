@@ -6,6 +6,7 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2UnitData.h"
+#include "D2TxtTables.h"
 
 #define UNIT_MONSTER 1
 #define MONTYPEFLAG_CHAMPION 4
@@ -20,20 +21,6 @@ struct D2SuperUniquesTxt;
 
 
 
-struct D2MonUModTxt
-{
-    unsigned int dwUniqueMod;
-    unsigned short wVersion;
-    unsigned char nEnabled;
-    unsigned char nXfer;
-    unsigned char nChampion;
-    unsigned char nFPick;
-    short wExclude[2];
-    unsigned short wCPick[3];
-    unsigned short wUPick[3];
-    unsigned short pad1A;
-    unsigned int dwConstants;
-};
 
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304

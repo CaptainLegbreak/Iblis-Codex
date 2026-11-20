@@ -6,6 +6,7 @@
 #include "D2GameStrc.h"
 #include "D2GameTypes.h"
 #include "D2Txt.h"
+#include "D2TxtTables.h"
 
 #define D2_MAX(a, b) ((a) > (b) ? (a) : (b))
 #define D2_MIN(a, b) ((a) < (b) ? (a) : (b))
@@ -29,11 +30,6 @@ struct D2ModeChangeStrc;
 
 
 
-struct D2MonUModTxt
-{
-    char unk0x00[0x1C];
-    int dwConstant;
-};
 
 struct D2DifficultyLevelsTxt
 {
@@ -121,7 +117,7 @@ static __forceinline int sub_A17E0_GetUModConstant(int nUMod)
     {
         return 0;
     }
-    return pMonUModTxtRecord->dwConstant;
+    return pMonUModTxtRecord->dwConstants;
 }
 
 // 0x005A17E0

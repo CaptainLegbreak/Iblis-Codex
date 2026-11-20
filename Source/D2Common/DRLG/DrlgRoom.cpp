@@ -4,6 +4,7 @@
 #include "D2ItemsWorld.h"
 #include "D2DrlgMaps.h"
 #include "D2DrlgTiles.h"
+#include "D2TxtTables.h"
 
 #define DRLGROOMFLAG_NO_LOS_DRAW 0x80000
 #define DRLGROOMFLAG_PRESET_UNITS_SPAWNED 0x4000000
@@ -20,15 +21,6 @@ struct D2DrlgOrthStrc;
 
 
 
-struct D2LvlSubTxt
-{
-    int dwType;
-    char unk0x004[0x44];
-    unsigned int dwDt1Mask;
-    char unk0x04C[0xD0];
-    int nProb[5];
-    char unk0x130[0x2C];
-};
 
 enum D2C_J11DrlgConstants
 {

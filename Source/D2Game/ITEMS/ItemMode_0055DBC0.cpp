@@ -4,6 +4,7 @@
 #include "D2GameStrc.h"
 #include "D2Txt.h"
 #include "D2ItemsWorld.h"
+#include "D2TxtTables.h"
 struct D2GameStrc;
 struct D2UnitStrc;
 // build: ob1
@@ -18,12 +19,6 @@ struct D2DynamicPathStrc;
 
 
 
-struct D2BooksTxt
-{
-    char unk0x00[0x08];
-    int dwScrollSkillId;
-    int dwBookSkillId;
-};
 
 
 struct D2EquipmentRefreshStateStrc

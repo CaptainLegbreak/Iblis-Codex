@@ -7,6 +7,7 @@
 #include "D2Txt.h"
 #include "D2GameTypes.h"
 #include "D2Drlg.h"
+#include "D2TxtTables.h"
 
 #define OFFSET(T, M) ((unsigned int)&(((T*)0)->M))
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -248,12 +249,6 @@ struct D2GfxDataStrc
     D2UnitOverlayStrc* pOverlays;
 };
 
-struct D2OverlayTxt
-{
-    char unk0x00[0x7C];
-    unsigned char nTrans;
-    char unk0x7D[7];
-};
 
 
 struct D2AutomapPairStrc

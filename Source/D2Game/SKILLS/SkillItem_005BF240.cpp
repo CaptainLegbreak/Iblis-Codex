@@ -2,6 +2,7 @@
 #include "D2Structs.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
+#include "D2TxtTables.h"
 
 #define UNIT_PLAYER 0
 #define UNIT_MONSTER 1
@@ -18,13 +19,6 @@ struct D2MonStats2Txt;
 
 
 
-struct D2BooksTxt
-{
-    char unk0x00[0x04];
-    int dwPSpell;
-    int dwScrollSkillId;
-    int dwBookSkillId;
-};
 
 
 typedef int (__fastcall* PSPELLFN)(D2GameStrc* pGame, D2UnitStrc* pUnit, D2UnitStrc* pItem, D2UnitStrc* pTarget, int nX, int nY, int nSkillId);

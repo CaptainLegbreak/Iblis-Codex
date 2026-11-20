@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2Records.h"
 #include "D2LevelTxt.h"
+#include "D2TxtTables.h"
 struct D2GfxDataStrc;
 struct D2GfxListNodeStrc;
 struct D2UnitStrc;
@@ -83,11 +84,6 @@ struct D2MissilesTxt
     char szCelFile[0x6C];
 };
 
-struct D2OverlayTxt
-{
-    char unk0x00[2];
-    char szFilename[0x82];
-};
 
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837

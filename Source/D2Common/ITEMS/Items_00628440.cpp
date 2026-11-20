@@ -1,5 +1,6 @@
 #include "D2Txt.h"
 #include "D2LevelTxt.h"
+#include "D2TxtTables.h"
 typedef char check_int_width[(sizeof(int) == 4) ? 1 : -1];
 typedef char check_ptr_width[(sizeof(void*) == 4) ? 1 : -1];
 
@@ -12,23 +13,6 @@ struct D2MonLvlTxt
 
 
 
-struct D2ItemTypesTxt
-{
-    char szCode[4];
-    short nEquiv1;
-    short nEquiv2;
-    unsigned char nRepair;
-    unsigned char nBody;
-    unsigned char nBodyLoc1;
-    unsigned char nBodyLoc2;
-    short wShoots;
-    short wQuiver;
-    unsigned char nThrowable;
-    unsigned char nReload;
-    unsigned char nReEquip;
-    unsigned char nAutoStack;
-    char unk0x14[0xD0];
-};
 
 struct D2DataTablesStrc
 {
