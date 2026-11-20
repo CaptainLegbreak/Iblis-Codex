@@ -1,21 +1,8 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2SkillsTxt;
-
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[0x18];
-    D2SeedStrc pSeed;
-};
 
 struct D2GameStrc
 {
@@ -39,7 +26,6 @@ struct D2SkillsTxt
 };
 
 typedef char chk_D2SkillsTxt_size[sizeof(D2SkillsTxt) == 0x23C ? 1 : -1];
-
 
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 D2UnitStrc* __stdcall SUNIT_GetTargetUnit(D2GameStrc* pGame, D2UnitStrc* pUnit); // 0x00553540

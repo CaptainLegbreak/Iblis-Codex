@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2Txt.h"
+#include "D2GameStrc.h"
+#include "D2Structs.h"
 struct D2ClientStrc;
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
@@ -17,44 +19,12 @@ struct D2StaticPathStrc
     int nY;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    char unk0x14[0x20 - 0x14];
-    int pSeed[2];
-    unsigned int dwInitSeed;
-    union
-    {
-        D2StaticPathStrc* pStaticPath;
-        D2DynamicPathStrc* pDynamicPath;
-    };
-    char unk0x30[0x60 - 0x2C - 4];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0xC4 - 0x60 - 4];
-    unsigned int dwFlags;
-};
-
-struct D2GameStrc
-{
-    char unk0x00[0x70];
-    int bExpansion;
-    char f_74[0x78 - 0x70 - 4];
-    unsigned short wItemFormat;
-    char unk0x7A[0xA8 - 0x78 - 2];
-    unsigned int dwGameFrame;
-};
-
 struct D2BooksTxt
 {
     char unk0x00[0x08];
     int dwScrollSkillId;
     int dwBookSkillId;
 };
-
 
 struct D2ItemDropStrc
 {
@@ -174,7 +144,6 @@ int __fastcall sub_6FC42F20(D2UnitStrc* pPlayer, D2UnitStrc* pItem, int* pBodyLo
 int __fastcall sub_0055F590_CheckItem(D2UnitStrc* pItem, const char* szFile, int nLine); // 0x0055F590
 unsigned int __fastcall ITEMS_RollLimitedRandomNumber(D2SeedStrc* pSeed, int nMax); // 0x0045C3E0
 int __fastcall D2GAME_PlaceItem_6FC44410(const char* szFile, int nLine, D2GameStrc* pGame, D2UnitStrc* pPlayer, int nUnitId, int nX, int nY, int a8, int a9, D2InventoryStrc* pInventory); // 0x00560200
-
 
 D2ItemsTxt* __stdcall DATATBLS_GetItemsTxtRecord(int nItemId); // 0x006335F0
 D2ItemsTxt* __stdcall DATATBLS_GetItemRecordFromItemCode(unsigned int dwCode, int* pItemId); // 0x00633640
@@ -884,7 +853,7 @@ static void __stdcall sub_0055E8E0_InitItemDrop(int nId, D2GameStrc* pGame, D2Un
     pItemDrop->nSpawnType = 4;
     pItemDrop->nX = sub_E03_ItemGetUnitX(pItem);
     pItemDrop->nY = sub_E03_ItemGetUnitY(pItem);
-    pItemDrop->pSeed = pItem->pSeed;
+    pItemDrop->pSeed = (int*)&pItem->pSeed;
     pItemDrop->wUnitInitFlags = 1;
     pItemDrop->nQuality = 2;
     pItemDrop->dwSeed = pItem->dwInitSeed;
@@ -1507,7 +1476,7 @@ int __fastcall D2GAME_Transmogrify_6FC4A660(D2GameStrc* ptGame, D2UnitStrc* pUni
 
             if (pItemsTxtRecord->nTmogMin > 0 && pItemsTxtRecord->nTmogMax > 0)
             {
-                const int nQuantity = ITEMS_RollLimitedRandomNumber((D2SeedStrc*)pUnit->pSeed, pItemsTxtRecord->nTmogMax - pItemsTxtRecord->nTmogMin) + pItemsTxtRecord->nTmogMin;
+                const int nQuantity = ITEMS_RollLimitedRandomNumber(&pUnit->pSeed, pItemsTxtRecord->nTmogMax - pItemsTxtRecord->nTmogMin) + pItemsTxtRecord->nTmogMin;
                 STATLIST_SetUnitStat(pNewItem, 0x46, nQuantity, 0);
             }
             else

@@ -167,7 +167,7 @@ struct D2UnitStrc
             unsigned short nUpdateType; // 0x6E
             D2UnitStrc* pUpdateUnit; // 0x70
             D2QuestChainStrc* pQuestEventList; // 0x74
-            int bSparkChest; // 0x78
+            unsigned char bSparkChest; // 0x78
             D2TimerArgStrc* pTimerArg; // 0x7C
             D2GameStrc* pGame; // 0x80
             unsigned char unk0x84[0xC];
@@ -178,7 +178,7 @@ struct D2UnitStrc
             D2GfxLightStrc* pLight; // 0x64
             int dwStartLight; // 0x68
             int nPaletteIndex; // 0x6C
-            int bUnitSfx; // 0x70
+            unsigned char bUnitSfx; // 0x70
             int dwSfxMode; // 0x74
             void* pUnitSfxData; // 0x78
             unsigned int dwSfxTicks; // 0x7C

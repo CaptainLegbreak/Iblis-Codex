@@ -1,5 +1,7 @@
 #include "D2Game.h"
 #include "D2GameTypes.h"
+#include "D2GameStrc.h"
+#include "D2Structs.h"
 
 #define QFLAG_REWARDGRANTED 0
 #define QFLAG_REWARDPENDING 1
@@ -25,27 +27,10 @@ struct Obj00590810 {
     unsigned char bValue0C;
 };
 
-struct D2GameStrc
-{
-    char unk0x00[0x6D];
-    unsigned char nDifficulty;
-    char unk0x6E[0x3A];
-    int dwGameFrame;
-};
-
 struct D2PlayerDataStrc
 {
     char unk0x00[0x10];
     D2BitBufferStrc* pQuestData[3];
-};
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    unsigned short dwClassId;
-    unsigned short unk0x06;
-    int unk0x08;
-    int dwUnitId;
 };
 
 struct D2QuestGUIDStrc
@@ -74,7 +59,6 @@ struct D2QuestDataStrc
     void* pCallback[16];
     int eFilter;
 };
-
 
 typedef int(__fastcall* QUESTUNITITERATE)(D2GameStrc* pGame, D2UnitStrc* pUnit, void* pData);
 
@@ -129,7 +113,7 @@ int __fastcall ACT1Q2_UnitIterate_StatusCyclerEx(D2GameStrc* pGame, D2UnitStrc* 
 // 0x00590920
 void __fastcall ACT1Q2_Callback02_NpcDeactivate(D2QuestDataStrc* pQuestData, D2QuestArgStrc* pQuestArg)
 {
-    if (!pQuestArg->pTarget || pQuestArg->pTarget->dwClassId != MONSTER_KASHYA)
+    if (!pQuestArg->pTarget || (unsigned short)pQuestArg->pTarget->dwClassId != MONSTER_KASHYA)
     {
         return;
     }

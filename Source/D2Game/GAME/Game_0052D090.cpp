@@ -5,6 +5,7 @@
 #include "D2DrlgRooms.h"
 #include "D2GameServer.h"
 #include "D2GameClient.h"
+#include "D2GameStrc.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 #define UNIT_PLAYER 0
@@ -22,33 +23,6 @@ struct HASHKEY_NONE;
 struct D2GameHashLinkStrc;
 struct D2GameHashListStrc;
 struct D2GameDataTableStrc;
-
-struct D2GameStrc
-{
-    unsigned int f_0;
-    unsigned char unk_04[0x14];
-    D2CriticalSectionStrc* lpCriticalSection;
-    D2PoolSystemStrc* pMemoryPool;
-    char unk0x0020[0x8];
-    unsigned short nGameId;
-    unsigned char unk_2A[0x46];
-    int bExpansion;
-    char f_74[0x8];
-    unsigned int dwInitSeed;
-    unsigned char unk_80[0x8];
-    D2ClientStrc* pClientList;
-    char unk0x008C[0x1C];
-    int dwGameFrame;
-    unsigned int nFrameRate;
-    unsigned int nFramesSinceLastFrameRateUpdate;
-    unsigned int nPreviousUpdateTickCount;
-    char unk0x00B8[0x4];
-    D2DrlgActStrc* pAct[5];
-    unsigned char unk_D0[0x1050];
-    D2UnitStrc* pUnitList[5][128];
-    unsigned char unk_1B20[0x2A8];
-    int nDebugBreakTrigger;
-};
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
 extern "C" const char* __cdecl sub_00408090(); // 0x00408090
@@ -554,7 +528,7 @@ static __declspec(noinline) void sub_0052D720_UpdateFrameRate(D2GameStrc* pGame)
         pGame->nFrameRate = 1000 * nFrames / nTickDiff;
         gnFrameRate_00731010 = pGame->nFrameRate;
 
-        const unsigned int nMemoryUsage = sub_0040A040_GetPoolSystemCount(pGame->pMemoryPool);
+        const unsigned int nMemoryUsage = sub_0040A040_GetPoolSystemCount((D2PoolSystemStrc*)pGame->pMemoryPool);
         if (nTickCount - gnPreviousMemUsageTick_00883D68 > 10000)
         {
             gnPreviousMemUsageTick_00883D68 = nTickCount;
@@ -909,6 +883,6 @@ D2GameStrc* D2GameDataTableStrc::sub_00530820_New(unsigned int nHashVal, HASHKEY
     pPrev->m_next = pNode;
     m_terminator.m_prevlink = pLink;
 
-    pNode->f_0 = nHashVal;
+    pNode->dwHashValue = nHashVal;
     return pNode;
 }

@@ -1,22 +1,9 @@
 #include "D2Game.h"
+#include "D2Structs.h"
+#include "D2Constants.h"
+#include "D2Txt.h"
+#include "D2UnitData.h"
 
-struct D2MonStatsTxt
-{
-    char unk0x00[30];
-    short wAI;
-};
-struct D2MonsterDataStrc
-{
-    D2MonStatsTxt* pMonstatsTxt;
-};
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    char unk0x08[12];
-    D2MonsterDataStrc* pMonsterData;
-    unsigned char nAct;
-};
 struct D2AiTableStrc
 {
     int unk0x00;
@@ -57,4 +44,3 @@ int __fastcall AITHINK_CullPotentialTargetsForDiablo(D2UnitStrc* pUnit, D2UnitSt
 }
 
 #include "gen/data/Source/D2Game/Unknown_005E8EB0.inc"
-#include "D2Constants.h"

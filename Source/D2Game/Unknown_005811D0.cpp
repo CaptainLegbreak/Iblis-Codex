@@ -1,17 +1,9 @@
 #include "D2Game.h"
+#include "D2Structs.h"
 
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2ObjectControlStrc;
 struct D2PortalFlags00581410Strc;
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-};
 
 typedef int (__fastcall* D2ModeCheckFn)(D2GameStrc*, D2UnitStrc*, int, int);
 
@@ -27,17 +19,10 @@ struct D2GameStrc
 
 void __fastcall sub_6FC81250(D2GameStrc*, D2UnitStrc*, int, int); // 0x00581020
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
-
 struct D2ObjectControlStrc
 {
     D2SeedStrc pSeed;
 };
-
 
 void __fastcall EVENT_SetEvent(D2GameStrc* pGame, D2UnitStrc* pUnit, int nEventType, int nExpireFrame, int dwEventCustomId, int dwEventCustomParam); // 0x005417D0
 D2ObjectControlStrc* __fastcall OBJRGN_GetObjectControlFromGame(D2GameStrc* pGame, D2ActiveRoomStrc* pRoom); // 0x00546FA0

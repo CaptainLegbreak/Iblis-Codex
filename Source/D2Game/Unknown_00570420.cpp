@@ -3,6 +3,7 @@
 #include "D2DataTbls.h"
 #include "D2Txt.h"
 #include "D2GameTypes.h"
+#include "D2Structs.h"
 
 #define MONTYPEFLAG_UNIQUE 8
 #define STATE_STUNNED 0x15
@@ -29,17 +30,6 @@ struct D2GameStrc
     int dwGameFrame;
 };
 
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int classId;
-    char unk0x08[0x04];
-    int dwUnitId;
-    char unk0x10[0xB4];
-    unsigned int dwFlags;
-};
-
-
 typedef void (__fastcall* StatListRemoveCallback)(D2UnitStrc* pUnit, int nState, D2StatListStrc* pStatList);
 
 int __stdcall STATES_CheckState(D2UnitStrc* pUnit, int nState); // 0x00639DF0
@@ -57,8 +47,6 @@ void __fastcall sub_6FD10E50(D2UnitStrc* pUnit, int nState, D2StatListStrc* pSta
 void __stdcall MONSTERMODE_GetModeChangeInfo(D2UnitStrc* pUnit, int nMode, D2ModeChangeStrc* pModeChange); // 0x005A7E60
 int __stdcall D2GAME_ModeChange_6FC65220(D2GameStrc* pGame, D2ModeChangeStrc* pModeChange, int a3); // 0x005A7C20
 
-
-
 extern D2DataTablesStrc* sgptDataTables; // 0x00744304
 int __stdcall SKILLS_EvaluateSkillFormula(D2UnitStrc* pUnit, unsigned int nCalc, int nSkillId, int nSkillLevel); // 0x00646CA0
 void __fastcall sub_6FCFE0E0(D2UnitStrc* pUnit, D2StatListStrc* pStatList, D2SkillsTxt* pSkillsTxtRecord, int nSkillId, int nSkillLevel); // 0x005C6CC0
@@ -67,7 +55,6 @@ typedef void (__fastcall* SUNIT_IterateFn)(D2GameStrc* pGame, D2UnitStrc* pUnit,
 
 void __fastcall SUNIT_IterateLivingPlayers(D2GameStrc* pGame, SUNIT_IterateFn pfIterate, void* pArg); // 0x005538D0
 void __fastcall sub_00570850_Forward(void* pUnused, D2UnitStrc* pUnit, int nArg); // 0x00570850
-
 
 typedef void (__fastcall* LevelCallback)(unsigned int, int);
 
@@ -94,10 +81,7 @@ static __declspec(noinline) void sub_00570B30_SpendStatPointsOnDexterity(D2UnitS
 
 struct D2BitBufferStrc { unsigned char* pBuffer; int nBits; int nPos; int nPosBits; int bFull; };
 
-struct D2StatStrc { union { struct { unsigned short nLayer; unsigned short nStat; }; int nPackedValue; }; int nValue; };
-
 struct D2StatesTxt { char unk_00[0x10]; unsigned char nStateFlags[8]; char unk_18[0x24]; };
-
 
 #pragma pack(push, 1)
 struct D2GSPacketSrvAA { unsigned char nHeader; unsigned char nUnitType; int nUnitId; unsigned char nSize; unsigned char pStream[244]; };
@@ -114,7 +98,6 @@ int __stdcall sub_004111A0_GetLowestSetBit(unsigned int); // 0x004111A0
 unsigned int* __stdcall D2COMMON_10494_STATES_GetStatFlags(D2UnitStrc*); // 0x0063A100
 int __stdcall STATLIST_GetBaseStatsData(D2StatListStrc*, D2StatStrc*, int); // 0x00625C90
 void __fastcall sub_0053E8D0_SendPacket(D2ClientStrc*, const void*, int); // 0x0053E8D0
-
 
 // 0x00570420
 void __fastcall sub_6FD14F70(D2GameStrc* pGame, D2UnitStrc* pUnused, D2UnitStrc* pUnit, int nDelay)
@@ -236,7 +219,7 @@ int __cdecl sub_00570E10_GetStateMaskCount()
 void __fastcall PLAYERSTATS_LevelUp(D2GameStrc* game,D2UnitStrc* unit)
 {
  int classId;
- if(!unit) classId=-1; else classId=unit->classId;
+ if(!unit) classId=-1; else classId=unit->dwClassId;
  int previousLevel=STATLIST_GetUnitBaseStat(unit,12,0);
  int level=DATATBLS_GetCurrentLevelFromExp(classId,STATLIST_UnitGetStatValue(unit,13,0));
  STATLIST_SetUnitStat(unit,12,level,0);
@@ -299,7 +282,7 @@ static void sub_00570A80_AddEnergyPoints(D2UnitStrc* pUnit, int nPoints)
 {
     if (nPoints && pUnit)
     {
-        D2CharStatsTxt* pCharStatsTxtRecord = PLRSAVE2_GetCharStatsTxtRecord(pUnit->classId);
+        D2CharStatsTxt* pCharStatsTxtRecord = PLRSAVE2_GetCharStatsTxtRecord(pUnit->dwClassId);
         if (pCharStatsTxtRecord)
         {
             STATLIST_AddUnitStat(pUnit, 4, -nPoints, 0);
@@ -323,7 +306,7 @@ static void sub_00570B60_AddVitalityPoints(D2UnitStrc* pUnit, int nPoints)
 {
     if (nPoints && pUnit)
     {
-        D2CharStatsTxt* pCharStatsTxtRecord = PLRSAVE2_GetCharStatsTxtRecord(pUnit->classId);
+        D2CharStatsTxt* pCharStatsTxtRecord = PLRSAVE2_GetCharStatsTxtRecord(pUnit->dwClassId);
         if (pCharStatsTxtRecord)
         {
             STATLIST_AddUnitStat(pUnit, 4, -nPoints, 0);
@@ -359,7 +342,7 @@ void __fastcall sub_00570C80_PLAYERSTATS_ResetToBaseStats(D2GameStrc* pGame, D2U
     {
         return;
     }
-    D2CharStatsTxt* pCharStatsTxtRecord = PLRSAVE2_GetCharStatsTxtRecord(pUnit->classId);
+    D2CharStatsTxt* pCharStatsTxtRecord = PLRSAVE2_GetCharStatsTxtRecord(pUnit->dwClassId);
     if (!pCharStatsTxtRecord)
     {
         return;

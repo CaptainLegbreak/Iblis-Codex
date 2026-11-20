@@ -1,10 +1,16 @@
 #include "D2Game.h"
 #include "D2DataTbls.h"
+#include "D2Structs.h"
+#include "D2GameStrc.h"
+#include "D2Drlg.h"
+#include "D2InactiveUnits.h"
+#include "D2GameObjs.h"
+#include "D2Path.h"
 
 #define D2_ASSERT(expr, line) if (!(expr)) { sub_00408A60(&gszEmptyAssertText, sub_00408090(), line); exit(-1); }
 struct D2InactiveUnitNodeStrc;
 struct D2MinionListStrc;
-struct D2SeedStrc;
+union D2SeedStrc;
 struct D2InactiveItemNodeStrc;
 struct D2InactiveItemBufferStrc;
 struct D2ObjectDataStrc;
@@ -18,27 +24,6 @@ struct D2MonStats2Txt;
 struct D2DrlgCoordsStrc;
 struct D2PlayerDataStrc;
 
-struct D2SeedStrc
-{
-    unsigned int nLowSeed;
-    unsigned int nHighSeed;
-};
-
-struct D2ActiveRoomStrc
-{
-    char unk0x00[0x6C];
-    D2SeedStrc pSeed;
-};
-
-struct D2InactiveItemNodeStrc
-{
-    D2InactiveItemNodeStrc* pNext;
-    int nFrame;
-    int nOwnerId;
-    unsigned short nBitstreamSize;
-    unsigned char pBitstream[1];
-};
-
 struct D2InactiveItemBufferStrc
 {
     D2InactiveItemNodeStrc* pNext;
@@ -48,99 +33,12 @@ struct D2InactiveItemBufferStrc
     unsigned char pBitstream[0x400];
 };
 
-struct D2ObjectDataStrc
-{
-    char unk0x00[4];
-    unsigned char InteractType;
-};
-
-struct D2MapAIStrc
-{
-    int nPathNodes;
-};
-
-struct D2StaticPathStrc
-{
-    char unk0x00[0x0C];
-    int nXPos;
-    int nYPos;
-};
-
 struct D2MonsterDataStrc
 {
     char unk0x00[0x0E];
     unsigned char nComponent10;
     char unk0x0F[0x19];
     D2AiControlStrc* pAiControl;
-};
-
-struct D2UnitStrc
-{
-    int dwUnitType;
-    int dwClassId;
-    void* pMemoryPool;
-    int dwUnitId;
-    int dwAnimMode;
-    union
-    {
-        D2MonsterDataStrc* pMonsterData;
-        D2ObjectDataStrc* pObjectData;
-    };
-    char unk0x18[0x14];
-    union
-    {
-        D2DynamicPathStrc* pDynamicPath;
-        D2StaticPathStrc* pStaticPath;
-    };
-    char unk0x30[0x30];
-    D2InventoryStrc* pInventory;
-    char unk0x64[0x14];
-    unsigned char bSparkChest;
-    char unk0x79[0x3F];
-    int dwDropItemCode;
-    char unk0xBC[8];
-    unsigned int dwFlags;
-    unsigned int dwFlagEx;
-    int unk0xCC;
-    int dwNodeIndex;
-};
-
-struct D2InactiveMonsterNodeStrc
-{
-    int nX;
-    int nY;
-    int nClassId;
-    int nUnitId;
-    unsigned int nUnitFlags;
-    unsigned int nUnitFlagsEx;
-    int nTypeFlags;
-    int nOwnerId;
-    D2MinionListStrc* pMinionList;
-    D2MapAIStrc* pMapAI;
-    int nAiSpecialState;
-    int nLevelId;
-    unsigned short nNameSeed;
-    unsigned char nMonUMods[9];
-    unsigned char unk0x3B;
-    unsigned short nBossHcIdx;
-    unsigned short unk0x3E;
-    int nExperience;
-    int nMaxHitpoints;
-    int nHitpoints;
-    int nCmdParam1;
-    int nCmdParam2;
-    int nGameFrame;
-    D2InactiveMonsterNodeStrc* pNext;
-};
-
-struct D2InactiveUnitListStrc
-{
-    int nX;
-    int nY;
-    D2InactiveItemNodeStrc* pInactiveItems;
-    D2InactiveMonsterNodeStrc* pInactiveMonsters;
-    D2InactiveUnitNodeStrc* pInactiveUnits;
-    D2InactiveUnitListStrc* pNext;
 };
 
 struct D2AiCmdStrc
@@ -166,31 +64,6 @@ struct D2MonStats2Txt
     char unk0x000[0x130];
     unsigned char nRestore;
     char unk0x131[3];
-};
-
-
-struct D2GameStrc
-{
-    char unk0x00[0x1C];
-    void* pMemoryPool;
-    unsigned char unk_20[0x4D];
-    unsigned char nDifficulty;
-    unsigned char unk_6E[0x3A];
-    int dwGameFrame;
-    char unk0xAC[0x2C];
-    D2InactiveUnitListStrc* pInactiveUnitList[5];
-};
-
-struct D2DrlgCoordsStrc
-{
-    int nSubtileX;
-    int nSubtileY;
-    int nSubtileWidth;
-    int nSubtileHeight;
-    int nTileXPos;
-    int nTileYPos;
-    int nTileWidth;
-    int nTileHeight;
 };
 
 extern "C" const char gszEmptyAssertText; // 0x006CC837
@@ -253,24 +126,6 @@ unsigned char __fastcall D2GAME_CheckIfSparklyChest_6FCBD7F0(D2UnitStrc* pUnit);
 void __fastcall sub_005543B0_AssignAlignment(D2UnitStrc* pUnit, unsigned char nAlignNew, int a3); // 0x005543B0
 D2UnitStrc* __fastcall AIGENERAL_GetMinionOwner(D2UnitStrc* pUnit); // 0x0058F0D0
 int __fastcall sub_6FC7D5F0(D2GameStrc* pGame, D2UnitStrc* pOwner, D2UnitStrc* pUnit); // 0x005752B0
-
-struct D2InactiveUnitNodeStrc
-{
-    int nX;
-    int nY;
-    int nUnitType;
-    int nClassId;
-    int nMode;
-    int nGameFrame;
-    unsigned int nUnitFlags;
-    unsigned int nUnitFlagsEx;
-    int nUnitId;
-    int nFrame;
-    unsigned char nInteractType;
-    char unk0x29[3];
-    int nDropItemCode;
-    D2InactiveUnitNodeStrc* pNext;
-};
 
 struct D2PlayerDataStrc
 {
